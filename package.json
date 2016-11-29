@@ -1,0 +1,9 @@
+{
+  "title": "jscodefmt",
+  "bin": { "jscodefmt": "./bin/jscodefmt" },
+  "dependencies": {
+    "babylon": "^6.14.1",
+    "minimist": "^1.2.0",
+    "recast": "git+https://github.com/jlongster/recast.git#print-all!"
+  }
+}

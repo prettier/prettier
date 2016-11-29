@@ -1,0 +1,42 @@
+#!/usr/bin/env node
+
+const fs = require("fs");
+const argv = require("minimist")(process.argv.slice(2));
+const recast = require("recast");
+const babylon = require("babylon");
+
+const filename = argv["_"][0];
+const printWidth = argv['print-width'] || 80;
+const tabWidth = argv['tab-width'] || 2;
+
+var babylonOptions = {
+  sourceType: 'module',
+  allowImportExportEverywhere: false,
+  allowReturnOutsideFunction: false,
+  plugins: [
+    'asyncFunctions',
+    'asyncGenerators',
+    'classConstructorCall',
+    'classProperties',
+    'decorators',
+    'doExpressions',
+    'exponentiationOperator',
+    'exportExtensions',
+    'flow',
+    'functionSent',
+    'functionBind',
+    'jsx',
+    'objectRestSpread',
+    'trailingFunctionCommas'
+  ]
+};
+
+const ast = recast.parse(fs.readFileSync(filename, "utf8"), {
+  parser: {
+    parse: function(source) {
+      return babylon.parse(source, babylonOptions);
+    }
+  }
+});
+
+console.log(recast.prettyPrint(ast, { tabWidth, wrapColumn: printWidth }).code);
