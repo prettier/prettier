@@ -1,0 +1,21 @@
+{
+  "name": "jscodefmt-atom",
+  "main": "./lib/jscodefmt.js",
+  "version": "0.0.1",
+  "description": "Format file contents using jscodefmt",
+  "keywords": [
+    "javascript",
+    "formatter"
+  ],
+  "activationCommands": [],
+  "repository": "https://github.com/stephenkubovic/atom-standard-formatter",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=0.174.0 <2.0.0"
+  },
+  "dependencies": {
+    "find-root": "^0.1.1",
+    "jscodefmt": "^0.0.1"
+  },
+  "devDependencies": {}
+}

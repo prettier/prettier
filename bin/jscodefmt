@@ -8,7 +8,7 @@ const filename = argv["_"][0];
 const printWidth = argv['print-width'] || 80;
 const tabWidth = argv['tab-width'] || 2;
 
-jscodefmt.format(fs.readFileSync(filename, "utf8"), {
+console.log(jscodefmt.format(fs.readFileSync(filename, "utf8"), {
   printWidth,
   tabWidth
-});
+}));

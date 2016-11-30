@@ -7,10 +7,10 @@ $ jscodefmt file.js
 ```
 
 It's most useful when integrated with your editor, so see `editors` to
-for editor support. Currently only Emacs integration exists.
+for editor support. Atom and Emacs is currently supported.
 
-To integrate in Emacs, add the following code. This will format the
-file when saved.
+More docs on editor integration will come soon. To integrate in Emacs,
+add the following code. This will format the file when saved.
 
 ```elisp
 (require 'jscodefmt)

@@ -25,7 +25,7 @@ var babylonOptions = {
 
 module.exports = {
   format: function(text, opts={}) {
-    const { tabWidth, printWidth } = opts;
+    let { tabWidth = 2, printWidth = 80 } = opts;
 
     const ast = recast.parse(text, {
       parser: {
@@ -36,6 +36,6 @@ module.exports = {
     });
 
     const result = recast.prettyPrint(ast, { tabWidth, wrapColumn: printWidth });
-    console.log(result.code);
+    return result.code;
   }
 };

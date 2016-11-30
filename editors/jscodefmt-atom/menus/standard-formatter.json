@@ -1,0 +1,26 @@
+{
+  "context-menu": {
+    "atom-text-editor[data-grammar='source js']": [
+      {
+        "label": "Format With jscodefmt",
+        "command": "jscodefmt:format"
+      }
+    ]
+  },
+  "menu": [
+    {
+      "label": "Packages",
+      "submenu": [
+        {
+          "label": "jscodefmt",
+          "submenu": [
+            {
+              "label": "Format",
+              "command": "jscodefmt:format"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
