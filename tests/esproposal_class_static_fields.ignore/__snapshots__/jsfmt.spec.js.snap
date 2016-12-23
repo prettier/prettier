@@ -1,0 +1,18 @@
+exports[`test test.js 1`] = `
+"/* @flow */
+
+class Foo {
+  static annotationOnly: string;
+  static initOnly = 'asdf';
+  static initWithAnnotation: string = 'asdf';
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @flow */
+class Foo {
+  static annotationOnly: string;
+  static initOnly = "asdf";
+  static initWithAnnotation: string = "asdf";
+}
+
+"
+`;

@@ -1,0 +1,253 @@
+exports[`test boolean.js 1`] = `
+"// @flow
+
+// Boolean (the class) tests. booleans (the literals) are not part of core.js
+
+let tests = [
+  // constructor
+  function() {
+    new Boolean();
+    new Boolean(0);
+    new Boolean(-0);
+    new Boolean(null);
+    new Boolean(false);
+    new Boolean(NaN);
+    new Boolean(undefined);
+    new Boolean(\"\");
+  },
+
+  // toString
+  function() {
+    (true).toString();
+    let x: boolean = false;
+    x.toString();
+    (new Boolean(true)).toString();
+  },
+
+  // valueOf
+  function() {
+    ((new Boolean(0)).valueOf(): boolean);
+  },
+
+  // casting
+  function() {
+    Boolean();
+    Boolean(0);
+    Boolean(-0);
+    Boolean(null);
+    Boolean(false);
+    Boolean(NaN);
+    Boolean(undefined);
+    Boolean(\"\");
+  },
+];
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+// Boolean (the class) tests. booleans (the literals) are not part of core.js
+let tests = [
+  // constructor
+  function() {
+    new Boolean();
+    new Boolean(0);
+    new Boolean(-0);
+    new Boolean(null);
+    new Boolean(false);
+    new Boolean(NaN);
+    new Boolean(undefined);
+    new Boolean(\"\");
+  },
+  // toString
+  function() {
+    true.toString();
+    let x: boolean = false;
+    x.toString();
+    new Boolean(true).toString();
+  },
+  // valueOf
+  function() {
+    (new Boolean(0).valueOf(): boolean);
+  },
+  // casting
+  function() {
+    Boolean();
+    Boolean(0);
+    Boolean(-0);
+    Boolean(null);
+    Boolean(false);
+    Boolean(NaN);
+    Boolean(undefined);
+    Boolean(\"\");
+  }
+];
+
+"
+`;
+
+exports[`test map.js 1`] = `
+"// @flow
+
+function* generator(): Iterable<[string, number]> {
+  while (true) {
+    yield [\'foo\', 123];
+  }
+}
+
+let tests = [
+  // good constructors
+  function() {
+    let w = new Map();
+    let x = new Map(null);
+    let y = new Map([[\'foo\', 123]]);
+    let z = new Map(generator());
+    let a: Map<string, number> = new Map();
+    let b: Map<string, number> = new Map([[\'foo\', 123]]);
+    let c: Map<string, number> = new Map(generator());
+  },
+
+  // bad constructors
+  function() {
+    let x = new Map([\'foo\', 123]); // error
+    let y: Map<number, string> = new Map([[\'foo\', 123]]); // error
+  },
+
+  // get()
+  function(x: Map<string, number>) {
+    (x.get(\'foo\'): boolean); // error, string | void
+    x.get(123); // error, wrong key type
+  },
+];
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/src/printer.js:1237
+      throw new Error(\"unprintable type: \" + JSON.stringify(n.type));
+      ^
+
+Error: unprintable type: \"TupleTypeAnnotation\"
+    at genericPrintNoParens (/src/printer.js:1237:13)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.map (/src/fast-path.js:167:19)
+    at genericPrintNoParens (/src/printer.js:1497:36)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+"
+`;
+
+exports[`test regexp.js 1`] = `
+"// @flow
+
+let tests = [
+  // constructor
+  function() {
+    new RegExp(\'foo\');
+    new RegExp(/foo/);
+    new RegExp(\'foo\', \'i\');
+    new RegExp(\'foo\', \'ig\');
+    new RegExp(/foo/, \'i\'); // invalid in ES5, valid in ES6
+    new RegExp(/foo/g, \'i\'); // invalid in ES5, valid in ES6
+  },
+
+  // called as a function (equivalent to the constructor per ES6 21.2.3)
+  function() {
+    RegExp(\'foo\');
+    RegExp(/foo/);
+    RegExp(\'foo\', \'i\');
+    RegExp(\'foo\', \'ig\');
+    RegExp(/foo/, \'i\'); // invalid in ES5, valid in ES6
+    RegExp(/foo/g, \'i\'); // invalid in ES5, valid in ES6
+  },
+
+  // invalid flags
+  function() {
+    RegExp(\'foo\', \'z\'); // error
+    new RegExp(\'foo\', \'z\'); // error
+  }
+];
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+let tests = [
+  // constructor
+  function() {
+    new RegExp(\"foo\");
+    new RegExp(/foo/);
+    new RegExp(\"foo\", \"i\");
+    new RegExp(\"foo\", \"ig\");
+    new RegExp(/foo/, \"i\");// invalid in ES5, valid in ES6
+    new RegExp(/foo/g, \"i\");// invalid in ES5, valid in ES6
+  },
+  // called as a function (equivalent to the constructor per ES6 21.2.3)
+  function() {
+    RegExp(\"foo\");
+    RegExp(/foo/);
+    RegExp(\"foo\", \"i\");
+    RegExp(\"foo\", \"ig\");
+    RegExp(/foo/, \"i\");// invalid in ES5, valid in ES6
+    RegExp(/foo/g, \"i\");// invalid in ES5, valid in ES6
+  },
+  // invalid flags
+  function() {
+    RegExp(\"foo\", \"z\");// error
+    new RegExp(\"foo\", \"z\");// error
+  }
+];
+
+"
+`;
+
+exports[`test weakset.js 1`] = `
+"// @flow
+
+let ws = new WeakSet();
+let obj: Object = {};
+let dict: {foo: string} = {foo: \'bar\'};
+
+ws.add(window);
+ws.add(obj);
+ws.add(dict);
+ws.has(window);
+ws.has(obj);
+ws.has(dict);
+ws.delete(window);
+ws.delete(obj);
+ws.delete(dict);
+
+let ws2 = new WeakSet([obj, dict]);
+
+let ws3 = new WeakSet([1, 2, 3]); // error, must be objects
+
+function* generator(): Iterable<{foo: string}> {
+  while (true) {
+    yield {foo: \'bar\'};
+  }
+}
+
+let ws4 = new WeakSet(generator());
+
+function* numbers(): Iterable<number> {
+  let i = 0;
+  while (true) {
+    yield i++;
+  }
+}
+
+let ws5 = new WeakSet(numbers()); // error, must be objects
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
+
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1374:14)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+"
+`;

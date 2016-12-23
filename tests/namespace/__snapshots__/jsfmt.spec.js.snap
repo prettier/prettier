@@ -1,0 +1,47 @@
+exports[`test client.js 1`] = `
+"var ns = require(\'./namespace\')
+
+var bar: string = ns.foo
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var ns = require(\"./namespace\");
+var bar: string = ns.foo;
+
+"
+`;
+
+exports[`test namespace.js 1`] = `
+"/*@flow*/// import type { T } from \'...\'
+type T = (x:number) => void;
+var f: T = function(x:string): void { }
+
+type Map<X,Y> = (x:X) => Y;
+
+function bar<U,V>(x:U, f:Map<U,V>): V {
+    return f(x);
+}
+
+var y:number = bar(0, x => \"\");
+
+type Seq = number | Array<Seq>;
+var s1:Seq = [0,[0]];
+var s2:Seq = [[\"\"]];
+
+module.exports = { foo: (\"\": number) };
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/src/printer.js:1348
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
+
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1348:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1481:14)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+"
+`;

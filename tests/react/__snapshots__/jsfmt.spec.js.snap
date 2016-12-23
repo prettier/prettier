@@ -1,0 +1,395 @@
+exports[`test ArityError.react.js 1`] = `
+"/**
+ * @providesModule ArityError.react
+ */
+var React = require(\'react\');
+var AudienceInsightsContainer = React.createClass({
+  renderComponent(AudienceInsights: ReactClass<*>) {
+    return <AudienceInsights />;
+  },
+});
+
+module.exports = AudienceInsightsContainer;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
+
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1374:14)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+"
+`;
+
+exports[`test createElement_string.js 1`] = `
+"// @flow
+import React from \'react\';
+
+class Bar extends React.Component {}
+
+class Foo extends React.Component {
+  render() {
+    const Cmp = Math.random() < 0.5 ? \'div\' : Bar;
+    return (<Cmp/>);
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+import React from \"react\";
+class Bar extends React.Component {}
+class Foo extends React.Component {
+  render() {
+    const Cmp = (Math.random() < 0.5 ? \"div\" : Bar);
+    return <Cmp/>;
+  }
+}
+
+"
+`;
+
+exports[`test createElementRequiredProp_string.js 1`] = `
+"// @flow
+import React from \'react\';
+
+class Bar extends React.Component {
+  props: {
+    test: number,
+  };
+  render() {
+    return (
+      <div>
+        {this.props.test}
+      </div>
+    )
+  }
+}
+
+class Foo extends React.Component {
+  render() {
+    const Cmp = Math.random() < 0.5 ? \'div\' : Bar;
+    return (<Cmp/>);
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+import React from \"react\";
+class Bar extends React.Component {
+  props: { test: number };
+  render() {
+    return (
+      <div>
+        {this.props.test}
+      </div>
+    );
+  }
+}
+class Foo extends React.Component {
+  render() {
+    const Cmp = (Math.random() < 0.5 ? \"div\" : Bar);
+    return <Cmp/>;
+  }
+}
+
+"
+`;
+
+exports[`test import_react.js 1`] = `
+"/* @flow */
+
+import react from \"react\";
+import {Component} from \"react\";
+
+var a: Component<*,*,*> = new react.Component();
+var b: number = new react.Component(); // Error: ReactComponent ~> number
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
+
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1374:14)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+"
+`;
+
+exports[`test jsx_spread.js 1`] = `
+"/* @flow */
+
+var React = require(\'react\');
+var Foo = React.createClass({
+  propTypes: {
+    bar: React.PropTypes.string.isRequired,
+  },
+});
+
+var props = {bar: 42};
+var blah = <Foo {...props} />; // error bar, number given string expected
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @flow */
+var React = require(\"react\");
+var Foo = React.createClass({
+  propTypes: { bar: React.PropTypes.string.isRequired }
+});
+var props = { bar: 42 };
+var blah = <Foo {...props}/>;// error bar, number given string expected
+
+"
+`;
+
+exports[`test proptype_arrayOf.js 1`] = `
+"/* @flow */
+
+var React = require(\'react\');
+var Example = React.createClass({
+  propTypes: {
+    arr: React.PropTypes.arrayOf(React.PropTypes.number).isRequired
+  },
+});
+
+var ok_empty = <Example arr={[]} />
+var ok_numbers = <Example arr={[1, 2]} />
+
+var fail_not_array = <Example arr={2} />
+var fail_mistyped_elems = <Example arr={[1, \"foo\"]} />
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @flow */
+var React = require(\"react\");
+var Example = React.createClass({
+  propTypes: { arr: React.PropTypes.arrayOf(React.PropTypes.number).isRequired }
+});
+var ok_empty = <Example arr={[  ]}/>;
+var ok_numbers = <Example arr={[ 1, 2 ]}/>;
+var fail_not_array = <Example arr={2}/>;
+var fail_mistyped_elems = <Example arr={[ 1, \"foo\" ]}/>;
+
+"
+`;
+
+exports[`test proptype_func.js 1`] = `
+"/* @flow */
+
+var React = require(\'react\');
+var Example = React.createClass({
+  propTypes: {
+    func: React.PropTypes.func.isRequired
+  },
+});
+
+var ok_void = <Example func={() => {}} />;
+var ok_args = <Example func={(x) => {}} />;
+var ok_retval = <Example func={() => 1} />
+
+var fail_mistyped = <Example func={2} />
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @flow */
+var React = require(\"react\");
+var Example = React.createClass({
+  propTypes: { func: React.PropTypes.func.isRequired }
+});
+var ok_void = <Example func={() => {
+  
+}}/>;
+var ok_args = <Example func={x => {
+  
+}}/>;
+var ok_retval = <Example func={() => 1}/>;
+var fail_mistyped = <Example func={2}/>;
+
+"
+`;
+
+exports[`test proptype_missing.js 1`] = `
+"/* @flow */
+
+/* If you create a react component with createClass() but don\'t specify the
+ * propTypes, what should the type of props be?
+ *
+ * It used to be an empty object, but we didn\'t enforce that correctly, so
+ * people could do whatever they wanted with this.props.
+ *
+ * As of 0.21.0 it started to be an error when people used this.props in a
+ * strict equality situation. It was weird that this was only sometimes
+ * enforced, so glevi changed this.props to be Object by default.
+ *
+ * We may change this back to the empty object at some point and fix the
+ * situations where it didn\'t used to error
+ */
+var React = React.createClass({
+  getID(): string {
+    // So this would have been an error in 0.21.0 if we didn\'t make this.props
+    // Object
+    switch (this.props.name) {
+      case \'a\': return \'Bob\';
+      default: return \'Alice\';
+    }
+  },
+
+  render() {
+    // But this never errored
+    return <div id={this.props.name} />;
+  }
+});
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/src/printer.js:1020
+        }, \"consequent\").indent(options.tabWidth));
+                         ^
+
+TypeError: path.call(...).indent is not a function
+    at genericPrintNoParens (/src/printer.js:1020:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.map (/src/fast-path.js:167:19)
+    at genericPrintNoParens (/src/printer.js:1005:36)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+"
+`;
+
+exports[`test proptype_object.js 1`] = `
+"/* @flow */
+
+var React = require(\'react\');
+var Example = React.createClass({
+  propTypes: {
+    object: React.PropTypes.object.isRequired
+  },
+});
+
+var ok_empty = <Example object={{}} />;
+var ok_props = <Example object={{foo: \"bar\"}} />;
+
+var fail_mistyped = <Example object={2} />
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @flow */
+var React = require(\"react\");
+var Example = React.createClass({
+  propTypes: { object: React.PropTypes.object.isRequired }
+});
+var ok_empty = <Example object={{}}/>;
+var ok_props = <Example object={{ foo: \"bar\" }}/>;
+var fail_mistyped = <Example object={2}/>;
+
+"
+`;
+
+exports[`test proptype_objectOf.js 1`] = `
+"/* @flow */
+
+var React = require(\'react\');
+var Example = React.createClass({
+  propTypes: {
+    obj: React.PropTypes.objectOf(React.PropTypes.number).isRequired
+  },
+});
+
+var ok_empty = <Example obj={{}} />
+var ok_numbers = <Example obj={{foo: 1, bar: 2}} />
+
+var fail_not_object = <Example obj={2} />
+var fail_mistyped_props = <Example obj={{foo: \"foo\"}} />
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @flow */
+var React = require(\"react\");
+var Example = React.createClass({
+  propTypes: {
+    obj: React.PropTypes.objectOf(React.PropTypes.number).isRequired
+  }
+});
+var ok_empty = <Example obj={{}}/>;
+var ok_numbers = <Example obj={{ foo: 1, bar: 2 }}/>;
+var fail_not_object = <Example obj={2}/>;
+var fail_mistyped_props = <Example obj={{ foo: \"foo\" }}/>;
+
+"
+`;
+
+exports[`test proptype_oneOf.js 1`] = `
+"/* @flow */
+
+var React = require(\'react\');
+var Example = React.createClass({
+  propTypes: {
+    literal: React.PropTypes.oneOf([\"foo\"]).isRequired
+  },
+});
+
+var ex1 = <Example literal=\"foo\" />;
+var ex2 = <Example literal=\"bar\" />;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @flow */
+var React = require(\"react\");
+var Example = React.createClass({
+  propTypes: { literal: React.PropTypes.oneOf([ \"foo\" ]).isRequired }
+});
+var ex1 = <Example literal=\"foo\"/>;
+var ex2 = <Example literal=\"bar\"/>;
+
+"
+`;
+
+exports[`test proptype_oneOfType.js 1`] = `
+"/* @flow */
+
+var React = require(\'react\');
+var Example = React.createClass({
+  propTypes: {
+    prop: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number
+    ]).isRequired
+  },
+  render() {
+    if (typeof this.props.prop === \"string\") {
+      return <div>{this.props.prop}</div>
+    } else {
+      return <div>{this.props.prop.toFixed(2)}</div>
+    }
+  }
+});
+
+var ok_number = <Example prop={42} />;
+var ok_string = <Example prop=\"bar\" />;
+
+var fail_bool = <Example prop={true} />
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @flow */
+var React = require(\"react\");
+var Example = React.createClass({
+  propTypes: {
+    prop: React.PropTypes.oneOfType(
+      [ React.PropTypes.string, React.PropTypes.number ]
+    ).isRequired
+  },
+  render() {
+    if (typeof this.props.prop === \"string\") {
+      return <div>{this.props.prop}</div>;
+    } else {
+      return <div>{this.props.prop.toFixed(2)}</div>;
+    }
+  }
+});
+var ok_number = <Example prop={42}/>;
+var ok_string = <Example prop=\"bar\"/>;
+var fail_bool = <Example prop={true}/>;
+
+"
+`;

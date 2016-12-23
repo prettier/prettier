@@ -1,0 +1,12 @@
+var a: number = Number.MAX_SAFE_INTEGER;
+var b: string = Number.MAX_SAFE_INTEGER;
+var c: number = Number.MIN_SAFE_INTEGER;
+var d: string = Number.MIN_SAFE_INTEGER;
+var e: number = Number.MAX_VALUE;
+var f: string = Number.MAX_VALUE;
+var g: number = Number.MIN_VALUE;
+var h: string = Number.MIN_VALUE;
+var i: number = Number.NaN;
+var j: string = Number.NaN;
+var k: number = Number.EPSILON;
+var l: string = Number.EPSILON;

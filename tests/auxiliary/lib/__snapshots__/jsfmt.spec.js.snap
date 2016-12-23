@@ -1,0 +1,7 @@
+exports[`test lib.js 1`] = `
+"declare var x: string;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+declare var x: string;
+
+"
+`;

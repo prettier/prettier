@@ -1,0 +1,77 @@
+exports[`test locals.js 1`] = `
+"// @flow
+
+// Variable defs and uses
+var foo = function() { };
+foo();
+foo = null;
+foo();
+
+// Nested functions
+function bar() {
+  function bar() {
+  }
+  bar();
+}
+bar();
+
+// Classes
+class C { }
+new C;
+class D extends C { }
+
+// Type aliases
+type T = number;
+type S = T;
+((_: T) => {});
+
+// Refinements
+let nullable: ?string = \"\";
+if (nullable != null) {
+  console.log(nullable.length);
+  nullable = null;
+}
+(nullable: null);
+
+// Destructuring
+let { x, y } = { x: 0, y: 0 };
+let { x: _x, y: _y } = { x, y };
+({ x: _x, y: _y });
+
+// Not in scope
+wut1;
+wut1 = wut2;
+wut2;
+
+// JSX
+var React = require(\'react\');
+class Fancy extends React.Component {
+  props: { x: number };
+}
+<Fancy x=0/>;
+
+// Imports
+import { wut3 } from \'wutland\';
+import type { wut4 } from \'wutland\';
+(wut3: wut4);
+
+// Qualified types
+(null: React.Component);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/node_modules/babylon/lib/index.js:5687
+          throw jsxError || err;
+          ^
+
+SyntaxError: JSX value should be either an expression or a quoted JSX text (50:9)
+    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
+    at Parser.pp$8.jsxParseAttributeValue (/node_modules/babylon/lib/index.js:6255:12)
+    at Parser.pp$8.jsxParseAttribute (/node_modules/babylon/lib/index.js:6306:42)
+    at Parser.pp$8.jsxParseOpeningElementAt (/node_modules/babylon/lib/index.js:6317:31)
+    at Parser.pp$8.jsxParseElementAt (/node_modules/babylon/lib/index.js:6339:29)
+    at Parser.pp$8.jsxParseElement (/node_modules/babylon/lib/index.js:6394:15)
+    at Parser.parseExprAtom (/node_modules/babylon/lib/index.js:6406:21)
+    at Parser.pp$3.parseExprSubscripts (/node_modules/babylon/lib/index.js:3337:19)
+    at Parser.pp$3.parseMaybeUnary (/node_modules/babylon/lib/index.js:3317:19)
+    at Parser.pp$3.parseExprOps (/node_modules/babylon/lib/index.js:3247:19)
+"
+`;

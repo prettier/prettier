@@ -1,0 +1,54 @@
+exports[`test test.js 1`] = `
+"declare class Foo extends Qux<string> mixins Bar<number> {
+  // KeyedCollection <: Collection
+  // ...KeyedIterable
+}
+declare class Bar<T> extends Baz<T> {
+  // KeyedIterable <: Iterable
+  y: T
+}
+declare class Qux<T> extends Baz<T> {
+  // Collection <: Iterable
+  y: T, z: T
+}
+declare class Baz<T> {
+  // Iterable
+  x: T
+}
+
+((new Foo).x: number); // error: Qux wins
+((new Foo).y: string); // error: Bar wins
+((new Foo).z: number); // error: Qux wins
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+declare class Foo {}
+declare class Bar { // KeyedIterable <: Iterable y: T }
+declare class Qux { // Collection <: Iterable y: T, z: T }
+declare class Baz { // Iterable x: T }
+(new Foo().x: number);// error: Qux wins
+(new Foo().y: string);// error: Bar wins
+(new Foo().z: number);// error: Qux wins
+
+"
+`;
+
+exports[`test test2.js 1`] = `
+"declare interface I { }
+declare class C mixins I { }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/src/printer.js:1391
+          fromString(\", \").join(path.map(print, \"extends\"))
+                           ^
+
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1391:28)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at /src/printer.js:1601:18
+    at FastPath.map (/src/fast-path.js:167:19)
+    at printStatementSequence (/src/printer.js:1586:8)
+    at /src/printer.js:238:16
+    at FastPath.call (/src/fast-path.js:113:16)
+"
+`;

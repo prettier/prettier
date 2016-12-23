@@ -1,0 +1,119 @@
+exports[`test issue-518.js 1`] = `
+"function doSomethingAsync(): Promise<void> {
+  return new Promise((resolve, reject) => {
+    resolve(); // OK to leave out arg, same as resolve(undefined)
+
+    var anotherVoidPromise: Promise<void> = Promise.resolve();
+    resolve(anotherVoidPromise);
+  });
+}
+
+// simpler repro to show that too few args are fine when expecting void
+function foo(x: void) { }
+foo();
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
+
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1374:14)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+"
+`;
+
+exports[`test undefined.js 1`] = `
+"function foo() {
+    var x;
+    x.foo();
+}
+
+function bar() {
+    var x:?{ bar():void; };
+    if (x) x.bar();
+}
+
+function qux(x?: number, y:string = \"\", z) { }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/src/printer.js:1348
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
+
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1348:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1452:14)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+"
+`;
+
+exports[`test undefined2.js 1`] = `
+"// @flow
+
+let tests = [
+  function(x: number) {
+    var id;
+    var name = id ? \'John\' : undefined;
+    (name: boolean); // error, string or void
+
+    const bar = [
+      undefined,
+      \'bar\',
+    ];
+    (bar[x]: boolean); // error, string or void
+  },
+
+  function(x: number) {
+    var undefined = \'foo\';
+    (undefined: string); // ok
+
+    var x;
+    if (x !== undefined) {
+      x[0]; // should error, could be void
+    }
+
+    const bar = [
+      undefined,
+      \'bar\',
+    ];
+    (bar[x]: boolean); // error, string only
+  },
+];
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+let tests = [
+  function(x: number) {
+    var id;
+    var name = (id ? \"John\" : undefined);
+    (name: boolean);// error, string or void
+    const bar = [ undefined, \"bar\" ];
+    (bar[x]: boolean);// error, string or void
+  },
+  function(x: number) {
+    var undefined = \"foo\";
+    (undefined: string);// ok
+    var x;
+    if (x !== undefined) {
+      x[0];// should error, could be void
+    }
+    const bar = [ undefined, \"bar\" ];
+    (bar[x]: boolean);// error, string only
+  }
+];
+
+"
+`;

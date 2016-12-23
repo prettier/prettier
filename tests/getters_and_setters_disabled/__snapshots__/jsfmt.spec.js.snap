@@ -1,0 +1,26 @@
+exports[`test getters_and_setters.js 1`] = `
+"/**
+ * @flow
+ */
+
+var f = {
+  get a() { return 4; },
+  set b(x: number) { this.c = b; },
+  c: 10,
+};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * @flow
+ */
+var f = {
+  get a() {
+    return 4;
+  },
+  set b(x: number) {
+    this.c = b;
+  },
+  c: 10
+};
+
+"
+`;

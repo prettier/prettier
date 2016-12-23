@@ -1,0 +1,3 @@
+/* @flow */
+
+export class Foobar { }

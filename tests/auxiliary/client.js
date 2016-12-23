@@ -1,0 +1,1 @@
+var y:number = x;

@@ -1,0 +1,108 @@
+exports[`test license_with_flow.js 1`] = `
+"/* Copyright example */
+/* @flow */
+
+("": void); // error
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* Copyright example */
+/* @flow */
+("": void);// error
+
+"
+`;
+
+exports[`test max_header_tokens.js 1`] = `
+"/* @flow */
+/* second token */
+/* third token */
+/**
+ * After max_header_tokens (in .flowconfig), we no longer care:
+ *
+ * @flow
+ */
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+"
+`;
+
+exports[`test multiple_flows_1.js 1`] = `
+"/* @flow */
+/* @flow */
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+"
+`;
+
+exports[`test multiple_flows_2.js 1`] = `
+"/**
+ * @flow
+ * @noflow
+ */
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+"
+`;
+
+exports[`test multiple_providesModule_1.js 1`] = `
+"/**
+ * @providesModule Foo
+ * @providesModule Bar
+ * @flow
+ */
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+"
+`;
+
+exports[`test multiple_providesModule_2.js 1`] = `
+"/**
+ * @providesModule Foo
+ * @flow
+ */
+/**
+ * @providesModule Bar
+ */
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+"
+`;
+
+exports[`test use_strict_with_flow.js 1`] = `
+""use strict";
+/* @flow */
+
+("": void); // error
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"use strict";
+/* @flow */
+("": void);// error
+
+"
+`;
+
+exports[`test with_flow.js 1`] = `
+"/* @flow */
+
+("": void); // error
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @flow */
+("": void);// error
+
+"
+`;
+
+exports[`test without_flow.js 1`] = `
+"/* some other comment */
+
+("": void); // no error
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* some other comment */
+("": void);// no error
+
+"
+`;

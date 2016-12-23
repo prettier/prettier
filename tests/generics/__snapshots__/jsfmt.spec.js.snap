@@ -1,0 +1,62 @@
+exports[`test generics.js 1`] = `
+"class C<X> {
+  x:X;
+  constructor(x:X) { this.x = x; }
+  get():X { return this.x; }
+}
+
+class D<T> {
+  x:T;
+  m<S>(z:S,u:T,v):S {
+    this.x = u;
+    v.u = u;
+    return z;
+  }
+}
+
+var d = new D();
+var o = {};
+var b = d.m(true,0,o);
+var s:string = d.x;
+var n:number = o.u;
+
+class E<X> extends C<X> {
+    //x:X;
+    set(x:X):X { /*return x;*/ this.x = x; return /*this.x; */this.get(); }
+}
+
+var e = new E(); // error: too few arguments to inherited constructor
+var x:string = e.set(0);
+
+class F<X> { }
+class G<Y> extends F<Array<Y>> {}
+class H<Z> extends G<Array<Z>> {
+    x:Z;
+    foo(x:Z) { this.x = x; }
+}
+
+var h1 = new H();
+h1.foo([\"...\"]);
+var h2:F<Array<Array<Array<number>>>> = h1;
+
+var obj : Object<string, string> = {} // error, arity 0
+var fn : Function<string> = function() { return \'foo\'; } // error, arity 0
+var fn : function<string> = function() { return \'foo\'; } // error, arity 0
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/node_modules/babylon/lib/index.js:4255
+  throw err;
+  ^
+
+SyntaxError: Unexpected token (43:9)
+    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
+    at Parser.pp.unexpected (/node_modules/babylon/lib/index.js:1633:8)
+    at Parser.pp$7.flowParsePrimaryType (/node_modules/babylon/lib/index.js:5099:8)
+    at Parser.pp$7.flowParsePostfixType (/node_modules/babylon/lib/index.js:5105:19)
+    at Parser.pp$7.flowParsePrefixType (/node_modules/babylon/lib/index.js:5122:17)
+    at Parser.pp$7.flowParseAnonFunctionWithoutParens (/node_modules/babylon/lib/index.js:5127:20)
+    at Parser.pp$7.flowParseIntersectionType (/node_modules/babylon/lib/index.js:5141:19)
+    at Parser.pp$7.flowParseUnionType (/node_modules/babylon/lib/index.js:5151:19)
+    at Parser.pp$7.flowParseType (/node_modules/babylon/lib/index.js:5162:19)
+    at Parser.pp$7.flowParseTypeInitialiser (/node_modules/babylon/lib/index.js:4430:19)
+"
+`;
