@@ -85,7 +85,7 @@ module.exports = {
     if(editor.editorElement) {
       window.addEventListener("resize", e => {
         const { width } = window.document.body.getBoundingClientRect();
-        const columns = (width / editor.editorElement.getDefaultCharacterWidth() | 0) - 10;
+        const columns = (width / editor.editorElement.getDefaultCharacterWidth() | 0);
         console.log(width, columns);
         this.format({selection: false, printWidth: columns});
       });

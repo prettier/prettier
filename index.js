@@ -1,5 +1,6 @@
 const recast = require("recast");
 const babylon = require("babylon");
+const Printer = require("./src/printer").Printer;
 
 var babylonOptions = {
   sourceType: 'module',
@@ -35,7 +36,7 @@ module.exports = {
       }
     });
 
-    const result = recast.prettyPrint(ast, { tabWidth, wrapColumn: printWidth });
-    return result.code;
+    const printer = new Printer({ tabWidth, wrapColumn: printWidth });
+    return printer.printGenerically(ast).code;
   }
 };

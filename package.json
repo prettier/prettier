@@ -1,11 +1,16 @@
 {
   "name": "jscodefmt",
   "version": "0.0.1",
-  "bin": { "jscodefmt": "./bin/jscodefmt" },
+  "bin": {
+    "jscodefmt": "./bin/jscodefmt"
+  },
   "main": "./index.js",
   "dependencies": {
-    "babylon": "^6.14.1",
+    "babylon": "git+https://github.com/jlongster/babylon.git#published",
     "minimist": "^1.2.0",
-    "recast": "git+https://github.com/jlongster/recast.git#print-all!"
+    "recast": "^0.11.18"
+  },
+  "devDependencies": {
+    "glob": "^7.1.1"
   }
 }
