@@ -66,6 +66,7 @@ array will *always* break as well:
   },
   3
 ]
+```
 
 Functions always break after the opening curly brace no matter what,
 so the array breaks as well for consistent formatting. See the
@@ -126,9 +127,15 @@ broken up if any of the sub-expressions are broken.
 
 There is a lot to do:
 
-1. Remove any cruft leftover from recast that we don't need
-2. Polish the API (it was currently designed to be "usable" and compatible with what recast did before)
-3. Many node types have not been converted from recast's old ways of doing things, so need to finish converting them.
+
+1. Most importantly, finish the migration of recast's printing. Many
+node types have not been converted from recast's old ways of doing
+things, so need to finish converting them. The easiest way to do this
+is search for `\n` in the printer; there should be no uses of it
+because we use `line` instead. For example see
+[`DoWhileStatement`](https://github.com/jlongster/jscodefmt/blob/master/src/printer.js#L928).
+2. Remove any cruft leftover from recast that we don't need
+3. Polish the API (it was currently designed to be "usable" and compatible with what recast did before)
 4. Better editor integration
 5. Better CLI
 
