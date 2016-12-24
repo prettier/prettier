@@ -1,14 +1,13 @@
 const fs = require('fs');
 const child_process = require('child_process');
+const jscodefmt = require("../");
 
 function run_spec(dirname) {
   fs.readdirSync(dirname).forEach(filename => {
     if (filename.endsWith('.js') && filename !== 'jsfmt.spec.js') {
       const path = dirname + '/' + filename;
 
-      const RUN_AST_TESTS =
-        // true || // UNCOMMENT!
-        false;
+      const RUN_AST_TESTS = /* true */ false;
 
       if (!RUN_AST_TESTS) {
         const source = read(path);
@@ -56,15 +55,8 @@ function parse(string) {
 }
 
 function prettyprint(path) {
-  const result = child_process.spawnSync(
-    './bin/jscodefmt',
-    [path],
-  );
-  return (
-    result.stdout.toString() ||
-    result.stderr.toString()
-      .replace(new RegExp(process.cwd(), 'g'), '')
-  );
+  const src = fs.readFileSync(path);
+  return jscodefmt.format(src);
 }
 
 function pp(string) {
