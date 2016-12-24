@@ -1,0 +1,18 @@
+exports[`test keyvalue.js 1`] = `
+"// @flow
+
+let tests = [
+  function(x: { [key: number]: string }) {
+    (x[""]: number);
+  }
+];
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+let tests = [
+  function(x: { [key: number]: string }) {
+    (x[""]: number);
+  }
+];
+
+"
+`;

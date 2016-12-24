@@ -1,0 +1,28 @@
+exports[`test loners.js 1`] = `
+"var o = { x: 5, y: \"jello\" };
+var z = o.z;
+var export_o: { x: number; } = o;
+
+function f(u,v?):number { return u; }
+var export_f: (u: number) => number = f;
+
+//exports = export_o;
+module.exports = export_f;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/src/printer.js:1348
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
+
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1348:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1254:25)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+"
+`;

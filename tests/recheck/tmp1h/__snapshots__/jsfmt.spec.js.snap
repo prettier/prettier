@@ -1,0 +1,10 @@
+exports[`test h1.js 1`] = `
+"// @flow
+
+export type Bar = number;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+export type Bar = number;
+
+"
+`;

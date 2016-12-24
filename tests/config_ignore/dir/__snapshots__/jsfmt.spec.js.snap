@@ -1,0 +1,10 @@
+exports[`test foo.js 1`] = `
+"/* @flow */
+
+var x: number = "string"; // Error string ~> number
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @flow */
+var x: number = "string";// Error string ~> number
+
+"
+`;

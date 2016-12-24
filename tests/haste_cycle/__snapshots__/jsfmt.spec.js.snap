@@ -1,0 +1,10 @@
+exports[`test API.js 1`] = `
+"// @flow
+
+var OpenGraphObject = require('./models/OpenGraphObject.js');
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+var OpenGraphObject = require("./models/OpenGraphObject.js");
+
+"
+`;

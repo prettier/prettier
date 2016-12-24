@@ -1,0 +1,33 @@
+exports[`test imp.js 1`] = `
+"/* @flow */
+
+var imp = require('./obj_annot');
+imp({ name: "imp" });
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @flow */
+var imp = require("./obj_annot");
+imp({ name: "imp" });
+
+"
+`;
+
+exports[`test obj_annot.js 1`] = `
+"/* @flow */
+
+function foo(param: { name: string; }): number {
+    return param.id;
+}
+
+foo({ name: "test" });
+
+module.exports = foo;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @flow */
+function foo(param: { name: string }): number {
+  return param.id;
+}
+foo({ name: "test" });
+module.exports = foo;
+
+"
+`;

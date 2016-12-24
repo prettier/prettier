@@ -1,0 +1,3 @@
+/* @flow */
+
+module.exports = { a() {} };

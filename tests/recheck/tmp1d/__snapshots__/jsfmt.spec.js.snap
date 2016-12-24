@@ -1,0 +1,14 @@
+exports[`test d1.js 1`] = `
+"// @flow
+
+export class A {}
+export class B {}
+export var x = new B;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+export class A {}
+export class B {}
+export var x = new B();
+
+"
+`;

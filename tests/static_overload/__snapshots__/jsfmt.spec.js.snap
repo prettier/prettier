@@ -1,0 +1,7 @@
+exports[`test test.js 1`] = `
+"var x: number = StaticOverload.foo(0);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var x: number = StaticOverload.foo(0);
+
+"
+`;

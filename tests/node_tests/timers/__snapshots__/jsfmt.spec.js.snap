@@ -1,0 +1,17 @@
+exports[`test timers.js 1`] = `
+"// @flow
+
+function setImmediateCallback(): number {
+  return 0;
+}
+
+setImmediate(setImmediateCallback);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+function setImmediateCallback(): number {
+  return 0;
+}
+setImmediate(setImmediateCallback);
+
+"
+`;

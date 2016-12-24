@@ -1,0 +1,15 @@
+exports[`test a.js 1`] = `
+"/**
+ * @flow
+ */
+// one error here, to verify lib errors sort to top.
+var x: string = 0;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * @flow
+ */
+// one error here, to verify lib errors sort to top.
+var x: string = 0;
+
+"
+`;

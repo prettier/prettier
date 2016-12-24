@@ -1,0 +1,24 @@
+exports[`test window1.js 1`] = `
+"/*
+@providesModule Window1
+*/
+module.exports = window.history;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
+@providesModule Window1
+*/
+module.exports = window.history;
+
+"
+`;
+
+exports[`test window2.js 1`] = `
+"/* @providesModule Window2 */
+
+module.exports = window.parent;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @providesModule Window2 */
+module.exports = window.parent;
+
+"
+`;

@@ -1,0 +1,47 @@
+exports[`test class_statics.js 1`] = `
+"class C {
+  static f(x:number) { }
+  static x:string;
+}
+
+C.g = function(x:string) { C.f(x); };
+C.g(0);
+
+var x:number = C.x;
+C.x = 0;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class C {
+  f(x: number) {
+    
+  }
+  static x: string;
+}
+C.g = function(x: string) {
+  C.f(x);
+};
+C.g(0);
+var x: number = C.x;
+C.x = 0;
+
+"
+`;
+
+exports[`test funstatics.js 1`] = `
+"function C() { }
+C.prototype.f = function() { return C.g(0); }
+C.g = function(x) { return x; };
+
+var x:string = new C().f();
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function C() {
+  
+}
+C.prototype.f = function() {
+  return C.g(0);
+};
+C.g = function(x) {
+  return x;
+};
+var x: string = new C().f();
+
+"
+`;

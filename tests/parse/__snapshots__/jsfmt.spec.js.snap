@@ -1,0 +1,90 @@
+exports[`test fail.js 1`] = `
+".
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/node_modules/babylon/lib/index.js:4255
+  throw err;
+  ^
+
+SyntaxError: Unexpected token (1:0)
+    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
+    at Parser.pp.unexpected (/node_modules/babylon/lib/index.js:1633:8)
+    at Parser.pp$3.parseExprAtom (/node_modules/babylon/lib/index.js:3592:12)
+    at Parser.parseExprAtom (/node_modules/babylon/lib/index.js:6408:22)
+    at Parser.pp$3.parseExprSubscripts (/node_modules/babylon/lib/index.js:3337:19)
+    at Parser.pp$3.parseMaybeUnary (/node_modules/babylon/lib/index.js:3317:19)
+    at Parser.pp$3.parseExprOps (/node_modules/babylon/lib/index.js:3247:19)
+    at Parser.pp$3.parseMaybeConditional (/node_modules/babylon/lib/index.js:3224:19)
+    at Parser.pp$3.parseMaybeAssign (/node_modules/babylon/lib/index.js:3187:19)
+    at Parser.parseMaybeAssign (/node_modules/babylon/lib/index.js:5700:20)
+"
+`;
+
+exports[`test fail-flow.js 1`] = `
+"/* @flow */
+
+.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/node_modules/babylon/lib/index.js:4255
+  throw err;
+  ^
+
+SyntaxError: Unexpected token (3:0)
+    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
+    at Parser.pp.unexpected (/node_modules/babylon/lib/index.js:1633:8)
+    at Parser.pp$3.parseExprAtom (/node_modules/babylon/lib/index.js:3592:12)
+    at Parser.parseExprAtom (/node_modules/babylon/lib/index.js:6408:22)
+    at Parser.pp$3.parseExprSubscripts (/node_modules/babylon/lib/index.js:3337:19)
+    at Parser.pp$3.parseMaybeUnary (/node_modules/babylon/lib/index.js:3317:19)
+    at Parser.pp$3.parseExprOps (/node_modules/babylon/lib/index.js:3247:19)
+    at Parser.pp$3.parseMaybeConditional (/node_modules/babylon/lib/index.js:3224:19)
+    at Parser.pp$3.parseMaybeAssign (/node_modules/babylon/lib/index.js:3187:19)
+    at Parser.parseMaybeAssign (/node_modules/babylon/lib/index.js:5700:20)
+"
+`;
+
+exports[`test fail-flow-2.js 1`] = `
+"/**
+ * @flow */
+
+.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/node_modules/babylon/lib/index.js:4255
+  throw err;
+  ^
+
+SyntaxError: Unexpected token (4:0)
+    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
+    at Parser.pp.unexpected (/node_modules/babylon/lib/index.js:1633:8)
+    at Parser.pp$3.parseExprAtom (/node_modules/babylon/lib/index.js:3592:12)
+    at Parser.parseExprAtom (/node_modules/babylon/lib/index.js:6408:22)
+    at Parser.pp$3.parseExprSubscripts (/node_modules/babylon/lib/index.js:3337:19)
+    at Parser.pp$3.parseMaybeUnary (/node_modules/babylon/lib/index.js:3317:19)
+    at Parser.pp$3.parseExprOps (/node_modules/babylon/lib/index.js:3247:19)
+    at Parser.pp$3.parseMaybeConditional (/node_modules/babylon/lib/index.js:3224:19)
+    at Parser.pp$3.parseMaybeAssign (/node_modules/babylon/lib/index.js:3187:19)
+    at Parser.parseMaybeAssign (/node_modules/babylon/lib/index.js:5700:20)
+"
+`;
+
+exports[`test no_parse_error.js 1`] = `
+"/*
+@flow
+*/
+
+var x = \'Test\';
+var y = 5 / x;
+
+var z: {
+    type: number,
+    y: string
+} = {type: 1, y: \'hey\'};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
+@flow
+*/
+var x = \"Test\";
+var y = 5 / x;
+var z: { type: number, y: string } = { type: 1, y: \"hey\" };
+
+"
+`;

@@ -1,0 +1,25 @@
+exports[`test constructor.js 1`] = `
+"class C {
+    constructor() { }
+}
+
+class D {
+    constructor():number { }
+}
+
+module.exports = C;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class C {
+  constructor() {
+    
+  }
+}
+class D {
+  constructor(): number {
+    
+  }
+}
+module.exports = C;
+
+"
+`;

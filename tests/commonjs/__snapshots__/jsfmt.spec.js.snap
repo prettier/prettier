@@ -1,0 +1,25 @@
+exports[`test Abs.js 1`] = `
+"
+function f(x:string) { }
+
+module.exports = f;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function f(x: string) {
+  
+}
+module.exports = f;
+
+"
+`;
+
+exports[`test Rel.js 1`] = `
+"
+var f = require('./Abs');
+
+f(0);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var f = require("./Abs");
+f(0);
+
+"
+`;
