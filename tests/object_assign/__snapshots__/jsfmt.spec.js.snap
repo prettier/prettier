@@ -29,8 +29,11 @@ module.exports = {
 /**
  * @flow
  */
-var EventEmitter = require("events").EventEmitter;
 // This pattern seems to cause the trouble.
+// Calling Bad.foo() in the same file doesn't error
+// Doesn't repro if I extend the class myself
+// Calling Good.foo() in the same file doesn't error
+var EventEmitter = require("events").EventEmitter;
 var Bad = Object.assign(
   {},
   EventEmitter.prototype,
@@ -40,9 +43,7 @@ var Bad = Object.assign(
     }
   }
 );
-// Calling Bad.foo() in the same file doesn't error
 var bad: number = Bad.foo();
-// Doesn't repro if I extend the class myself
 class MyEventEmitter extends events$EventEmitter {}
 var Good = Object.assign(
   {},
@@ -53,10 +54,8 @@ var Good = Object.assign(
     }
   }
 );
-// Calling Good.foo() in the same file doesn't error
 var good: number = Good.foo();
 module.exports = { Bad: Bad, Good: Good };
-
 "
 `;
 
@@ -82,16 +81,19 @@ A.js|8 col 23 error|  object literal
 /**
  * @flow
  */
-var A = require("./A.js");
-var good: number = A.Good.foo();
-var f = A.Bad.foo;// Property access is fine
-var bad_: number = f();// Calling the function is fine
-var bad: number = A.Bad.foo();// Method call is not fine/*
+// Property access is fine
+// Calling the function is fine
+// Method call is not fine
+/*
 B.js|12 col 1 error|  call of method foo
 || Property not found in
 A.js|8 col 23 error|  object literal
 */
-
+var A = require("./A.js");
+var good: number = A.Good.foo();
+var f = A.Bad.foo;
+var bad_: number = f();
+var bad: number = A.Bad.foo();
 "
 `;
 
@@ -102,12 +104,14 @@ exports[`test apply.js 1`] = `
 (Object.assign({}, ...[{a: 1}, {b: 'foo'}]): {a: number, b: string});
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-(Object.assign.apply(null, [ {}, { a: 1 }, { b: "foo" } ]): {
+(Object.assign.apply(
+  [object Null],
+  [ {}, { a: [object Number] }, { b: "foo" } ]
+): { a: number, b: string });
+(Object.assign({}, ...[ { a: [object Number] }, { b: "foo" } ]): {
   a: number,
   b: string
 });
-(Object.assign({}, ...[ { a: 1 }, { b: "foo" } ]): { a: number, b: string });
-
 "
 `;
 
@@ -120,9 +124,8 @@ Object.assign({a: "foo"}, 123);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 Object.assign("123", { a: "foo" });
-Object.assign(123, { a: "foo" });
-Object.assign({ a: "foo" }, 123);
-
+Object.assign([object Number], { a: "foo" });
+Object.assign({ a: "foo" }, [object Number]);
 "
 `;
 
@@ -149,6 +152,8 @@ class MyReactThing extends React.Component {
 <MyReactThing foo={undefined} />; // also works
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
+/* works*/
+// also works
 var React = require("react");
 type DefaultProps = { foo: number };
 type Props = { foo: number };
@@ -159,8 +164,7 @@ class MyReactThing extends React.Component {
     return this.props.foo;
   }
 }
-<MyReactThing/>;// works
-<MyReactThing foo={undefined}/>;// also works
-
+<MyReactThing/>;
+<MyReactThing foo={undefined}/>;
 "
 `;

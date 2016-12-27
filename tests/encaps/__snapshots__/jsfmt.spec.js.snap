@@ -16,19 +16,22 @@ function tag2(strings,...values) {
 var s3 = tag2 \`la la la\`;
 (s3.foo: number); // error: string ~> number
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// error: no prop x in A
+// error: string ~> number
+// ok: tagged templates can return whatever
+// error: string ~> number
 class A {}
 var a = new A();
-var s1 = \`l\${a.x}r\`;// error: no prop x in A
+var s1 = \`l\${a.x}r\`;
 function tag(strings, ...values) {
-  var x: number = strings[0];// error: string ~> number
+  var x: number = strings[[object Number]];
   return x;
 }
-var s2 = tag\`l\${42}r\`;
+var s2 = tag\`l\${[object Number]}r\`;
 function tag2(strings, ...values) {
-  return { foo: "" };// ok: tagged templates can return whatever
+  return { foo: "" };
 }
 var s3 = tag2\`la la la\`;
-(s3.foo: number);// error: string ~> number
-
+(s3.foo: number);
 "
 `;

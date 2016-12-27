@@ -32,33 +32,49 @@ let tests = [
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-(\`foo\`: string);// ok
-(\`bar\`: "bar");// ok
-(\`baz\`: number);// error
-\`foo \${123} bar\`;// ok, number can be appended to string
-\`foo \${{ bar: 123 }} baz\`;// error, object can't be appended
+// ok
+// ok
+// error
+// ok, number can be appended to string
+// error, object can't be appended
+// ok
+// ok
+// ok
+// ok
+// ok
+// ok
+// error
+// error
+// error
+// error
+// error
+// error
+(\`foo\`: string);
+(\`bar\`: "bar");
+(\`baz\`: number);
+\`foo \${[object Number]} bar\`;
+\`foo \${{ bar: [object Number] }} baz\`;
 let tests = [
   function(x: string) {
-    \`foo \${x}\`;// ok
-    \`\${x} bar\`;// ok
-    \`foo \${"bar"} \${x}\`;// ok
+    \`foo \${x}\`;
+    \`\${x} bar\`;
+    \`foo \${"bar"} \${x}\`;
   },
   function(x: number) {
-    \`foo \${x}\`;// ok
-    \`\${x} bar\`;// ok
-    \`foo \${"bar"} \${x}\`;// ok
+    \`foo \${x}\`;
+    \`\${x} bar\`;
+    \`foo \${"bar"} \${x}\`;
   },
   function(x: boolean) {
-    \`foo \${x}\`;// error
-    \`\${x} bar\`;// error
-    \`foo \${"bar"} \${x}\`;// error
+    \`foo \${x}\`;
+    \`\${x} bar\`;
+    \`foo \${"bar"} \${x}\`;
   },
   function(x: mixed) {
-    \`foo \${x}\`;// error
-    \`\${x} bar\`;// error
-    \`foo \${"bar"} \${x}\`;// error
+    \`foo \${x}\`;
+    \`\${x} bar\`;
+    \`foo \${"bar"} \${x}\`;
   }
 ];
-
 "
 `;

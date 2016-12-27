@@ -7,7 +7,6 @@ module.exports = {ParentFoo};
 // @flow
 var ParentFoo = { foo: "bar" };
 module.exports = { ParentFoo };
-
 "
 `;
 
@@ -37,23 +36,25 @@ foo;
 import type {Foo} from './types';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-var Parent = require("./Parent");
 // Hops through destructuring
+// Points to lval in line above this
+// Follows assignment on simple/"non-destructuring" patterns
+// Points to LHS of line above this
+// Follows assignment with declaration
+// Points to LHS of line above this
+// Follows non-destructured property access of \`require('Parent')\`
+var Parent = require("./Parent");
 let ParentFoo;
 { ParentFoo } = Parent;
-ParentFoo;// Points to lval in line above this
-// Follows assignment on simple/"non-destructuring" patterns
+ParentFoo;
 let ParentFoo2;
 ParentFoo2 = Parent;
-ParentFoo2;// Points to LHS of line above this
-// Follows assignment with declaration
+ParentFoo2;
 let ParentFoo3 = Parent;
-ParentFoo3;// Points to LHS of line above this
-// Follows non-destructured property access of \`require('Parent')\`
+ParentFoo3;
 let foo = require("./Parent").ParentFoo.foo;
 foo;
 import type { Foo } from "./types";
-
 "
 `;
 
@@ -87,7 +88,6 @@ class D extends C {
     
   }
 }
-
 "
 `;
 
@@ -111,7 +111,6 @@ class C extends React.Component {
 let msg = "hello";
 <C x={msg}/>;
 <div id={msg}/>;
-
 "
 `;
 
@@ -122,6 +121,5 @@ export type Foo = {};
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 export type Foo = {};
-
 "
 `;

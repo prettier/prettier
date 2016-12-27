@@ -9,28 +9,21 @@ declare module ModuleAliasFoo {
     declare function foo(bar : baz) : toz;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1348
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1348:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1254:25)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+/**
+ * @flow
+ */
+declare module ModuleAliasFoo {
+  type baz = number;
+  type toz = string;
+  declare function foo(bar: baz): toz;
+}
 "
 `;
 
 exports[`test declare_type_exports.js 1`] = `
 "/* @flow */
 
-declare module \'foo\' {
+declare module 'foo' {
     declare class A {
         toz : number
     }
@@ -46,20 +39,14 @@ declare module \'foo\' {
     };
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1479:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+/* @flow */
+declare module "foo" {
+  declare class A { toz: number }
+  declare var n: string;
+  type Foo = typeof n;
+  type Bar = A;
+  type Id<T> = T;
+  declare var exports: { (a: number, b: number): number };
+}
 "
 `;

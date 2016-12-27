@@ -32,13 +32,13 @@ module.exports = {fn: fix};
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule Fun */
 function eq(x: number, y: number) {
-  return true;
+  return [object Boolean];
 }
 function sub(x: number, y: number) {
-  return 0;
+  return [object Number];
 }
 function mul(x: number, y: number) {
-  return 0;
+  return [object Number];
 }
 function fix(fold) {
   var delta = function(delta) {
@@ -55,10 +55,10 @@ function mk_factorial() {
   return fix(
     function(factorial) {
       return function(n) {
-        if (eq(n, 1)) {
-          return 1;
+        if (eq(n, [object Number])) {
+          return [object Number];
         }
-        return mul(factorial(sub(n, 1)), n);
+        return mul(factorial(sub(n, [object Number])), n);
       };
     }
   );
@@ -66,7 +66,6 @@ function mk_factorial() {
 var factorial = mk_factorial();
 factorial("...");
 module.exports = { fn: fix };
-
 "
 `;
 
@@ -115,6 +114,5 @@ function func2(f) {
 Y(func1);
 Y(func2);
 module.exports = Y;
-
 "
 `;

@@ -6,8 +6,8 @@ exports[`test license_with_flow.js 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* Copyright example */
 /* @flow */
-("": void);// error
-
+// error
+("": void);
 "
 `;
 
@@ -21,7 +21,14 @@ exports[`test max_header_tokens.js 1`] = `
  * @flow
  */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+/* @flow */
+/* second token */
+/* third token */
+/**
+ * After max_header_tokens (in .flowconfig), we no longer care:
+ *
+ * @flow
+ */
 
 "
 `;
@@ -30,7 +37,8 @@ exports[`test multiple_flows_1.js 1`] = `
 "/* @flow */
 /* @flow */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+/* @flow */
+/* @flow */
 
 "
 `;
@@ -41,7 +49,10 @@ exports[`test multiple_flows_2.js 1`] = `
  * @noflow
  */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+/**
+ * @flow
+ * @noflow
+ */
 
 "
 `;
@@ -53,7 +64,11 @@ exports[`test multiple_providesModule_1.js 1`] = `
  * @flow
  */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+/**
+ * @providesModule Foo
+ * @providesModule Bar
+ * @flow
+ */
 
 "
 `;
@@ -67,7 +82,13 @@ exports[`test multiple_providesModule_2.js 1`] = `
  * @providesModule Bar
  */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+/**
+ * @providesModule Foo
+ * @flow
+ */
+/**
+ * @providesModule Bar
+ */
 
 "
 `;
@@ -78,10 +99,10 @@ exports[`test use_strict_with_flow.js 1`] = `
 
 ("": void); // error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-"use strict";
 /* @flow */
-("": void);// error
-
+// error
+"use strict";
+("": void);
 "
 `;
 
@@ -91,8 +112,8 @@ exports[`test with_flow.js 1`] = `
 ("": void); // error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-("": void);// error
-
+// error
+("": void);
 "
 `;
 
@@ -102,7 +123,7 @@ exports[`test without_flow.js 1`] = `
 ("": void); // no error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* some other comment */
-("": void);// no error
-
+// no error
+("": void);
 "
 `;

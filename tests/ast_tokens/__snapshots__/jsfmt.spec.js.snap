@@ -3,7 +3,7 @@ exports[`test foo.js 1`] = `
 /asdf/g;
 
 // JSX also requires a lexer mode change
-<div attr1=\'42\' attr2={\'asdf\'} >asdf</div>;
+<div attr1='42' attr2={'asdf'} >asdf</div>;
 
 // Async arrow functions require backtracking
 var a = async () => 42;
@@ -15,20 +15,16 @@ var a: number = 42;
 var var
 a;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/node_modules/babylon/lib/index.js:4255
-  throw err;
-  ^
-
-SyntaxError: Unexpected token (14:4)
-    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
-    at Parser.pp.unexpected (/node_modules/babylon/lib/index.js:1633:8)
-    at Parser.pp$2.parseBindingAtom (/node_modules/babylon/lib/index.js:2929:12)
-    at Parser.pp$1.parseVarHead (/node_modules/babylon/lib/index.js:2226:18)
-    at Parser.parseVarHead (/node_modules/babylon/lib/index.js:5611:13)
-    at Parser.pp$1.parseVar (/node_modules/babylon/lib/index.js:2209:10)
-    at Parser.pp$1.parseVarStatement (/node_modules/babylon/lib/index.js:2042:8)
-    at Parser.pp$1.parseStatement (/node_modules/babylon/lib/index.js:1735:19)
-    at Parser.parseStatement (/node_modules/babylon/lib/index.js:5224:22)
-    at Parser.pp$1.parseBlockBody (/node_modules/babylon/lib/index.js:2139:21)
+/* Regex literals require a lexer mode change*/
+/* JSX also requires a lexer mode change*/
+// Async arrow functions require backtracking
+// Type annotations have a special lex mode
+// Token stream should continue even with parse errors
+[object RegExp];
+<div attr1="42" attr2={"asdf"}>asdf</div>;
+var a = async () => [object Number];
+var a: number = [object Number];
+var var;
+a;
 "
 `;

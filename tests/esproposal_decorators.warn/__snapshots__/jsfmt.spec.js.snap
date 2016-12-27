@@ -12,18 +12,13 @@ class Foo {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-@decorator4
-class Foo {
-  @decorator1
-  method1() {
+class decorator4 {
+  Foo(@, method1) {
     
   }
-  @decorator2
-  @decorator3
-  method2() {
+  @(@, method2) {
     
   }
 }
-
 "
 `;

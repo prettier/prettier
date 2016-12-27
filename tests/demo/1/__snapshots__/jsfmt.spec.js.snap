@@ -9,12 +9,11 @@ var x = null;
 f(x);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* demo */
-function f(x) {
-  return 42 / x;
-}
-var x = null;
 //...
+function f(x) {
+  return [object Number] / x;
+}
+var x = [object Null];
 f(x);
-
 "
 `;

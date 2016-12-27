@@ -4,9 +4,8 @@ var a: string = 0;
 module.exports = a;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-var a: string = 0;
+var a: string = [object Number];
 module.exports = a;
-
 "
 `;
 
@@ -20,7 +19,6 @@ module.exports = b;
 var a = require("./a");
 var b: number = a;
 module.exports = b;
-
 "
 `;
 
@@ -34,7 +32,6 @@ module.exports = c;
 var b = require("./b");
 var c: string = b;
 module.exports = c;
-
 "
 `;
 
@@ -52,7 +49,6 @@ module.exports = "dupe1";
  * @flow
  */
 module.exports = "dupe1";
-
 "
 `;
 
@@ -70,7 +66,6 @@ module.exports = "dupe2";
  * @flow
  */
 module.exports = "dupe2";
-
 "
 `;
 
@@ -86,7 +81,6 @@ var dupe = require('Dupe');
  * @flow
  */
 var dupe = require("Dupe");
-
 "
 `;
 
@@ -102,7 +96,6 @@ var unchecked = require('Unchecked');
  * @flow
  */
 var unchecked = require("Unchecked");
-
 "
 `;
 
@@ -118,6 +111,5 @@ module.exports = "unchecked";
  * @providesModule Unchecked
  */
 module.exports = "unchecked";
-
 "
 `;

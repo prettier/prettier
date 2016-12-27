@@ -1,7 +1,7 @@
 exports[`test main.js 1`] = `
 "// @flow
 
-var React = require(\'react\');
+var React = require('react');
 
 class CustomComponent extends React.Component {
   props: {
@@ -9,68 +9,76 @@ class CustomComponent extends React.Component {
   };
 }
 
-var a: React.Element<{prop: string}> = <CustomComponent prop=\"asdf\" />;
-var b: React.Element<{prop1: string}> = <CustomComponent prop=\"asdf\" />; // Error: Props<{prop}> ~> Props<{prop1}>
+var a: React.Element<{prop: string}> = <CustomComponent prop="asdf" />;
+var b: React.Element<{prop1: string}> = <CustomComponent prop="asdf" />; // Error: Props<{prop}> ~> Props<{prop1}>
 
 // Since intrinsics are typed as \`any\` out of the box, we can pass any
 // attributes to intrinsics!
-var c: React.Element<any> = <div not_a_real_attr=\"asdf\" />;
-// However, we don\'t allow such elements to be viewed as React elements with
+var c: React.Element<any> = <div not_a_real_attr="asdf" />;
+// However, we don't allow such elements to be viewed as React elements with
 // different attributes.
-var d: React.Element<{doesntmatch: string}> = <div not_a_real_attr=\"asdf\" />;
+var d: React.Element<{doesntmatch: string}> = <div not_a_real_attr="asdf" />;
 // No error as long as expectations are consistent, though.
-var e: React.Element<{not_a_real_attr: string}> = <div not_a_real_attr=\"asdf\" />;
+var e: React.Element<{not_a_real_attr: string}> = <div not_a_real_attr="asdf" />;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// @flow
+// Error: Props<{prop}> ~> Props<{prop1}>
+// Since intrinsics are typed as \`any\` out of the box, we can pass any
+// attributes to intrinsics!
+// However, we don't allow such elements to be viewed as React elements with
+// different attributes.
+// No error as long as expectations are consistent, though.
+var React = require("react");
+class CustomComponent extends React.Component {
+  props: { prop: string };
+}
+var a: React.Element<{ prop: string }> = <CustomComponent prop="asdf"/>;
+var b: React.Element<{ prop1: string }> = <CustomComponent prop="asdf"/>;
+var c: React.Element<any> = <div not_a_real_attr="asdf"/>;
+var d: React.Element<{ doesntmatch: string }> = <div not_a_real_attr="asdf"/>;
+var e: React.Element<{
+  not_a_real_attr: string
+}> = <div not_a_real_attr="asdf"/>;
 "
 `;
 
 exports[`test strings.js 1`] = `
 "/* @flow */
 
-var React = require(\'react\');
+var React = require('react');
 
 // The builtin $JSXIntrinsics should allow any string
 
-var Div = \'div\';
-var Bad = \'bad\';
-var Str: string = \'str\';
+var Div = 'div';
+var Bad = 'bad';
+var Str: string = 'str';
 
 <Div />; // This is fine
 <Bad />; // This is fine
 <Str />; // This is fine
 
-React.createElement(\'div\', {}); // This is fine
-React.createElement(\'bad\', {}); // This is fine
+React.createElement('div', {}); // This is fine
+React.createElement('bad', {}); // This is fine
 
 <Div id={42} />; // This is fine
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-var React = require(\"react\");
 // The builtin $JSXIntrinsics should allow any string
-var Div = \"div\";
-var Bad = \"bad\";
-var Str: string = \"str\";
-<Div/>;// This is fine
-<Bad/>;// This is fine
-<Str/>;// This is fine
-React.createElement(\"div\", {});// This is fine
-React.createElement(\"bad\", {});// This is fine
-<Div id={42}/>;// This is fine
-
+/* This is fine*/
+/* This is fine*/
+// This is fine
+// This is fine
+/* This is fine*/
+// This is fine
+var React = require("react");
+var Div = "div";
+var Bad = "bad";
+var Str: string = "str";
+<Div/>;
+<Bad/>;
+<Str/>;
+React.createElement("div", {});
+React.createElement("bad", {});
+<Div id={[object Number]}/>;
 "
 `;

@@ -13,6 +13,5 @@ let tests = [
     (x[""]: number);
   }
 ];
-
 "
 `;

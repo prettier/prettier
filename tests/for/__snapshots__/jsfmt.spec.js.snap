@@ -49,8 +49,8 @@ function corge(x: boolean) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 function foo(x: boolean) {
-  var max = 10;
-  for (var ii = 0; ii < max; ii++) {
+  var max = [object Number];
+  for (var ii = [object Number]; ii < max; ii++) {
     if (x) {
       continue;
     }
@@ -59,25 +59,25 @@ function foo(x: boolean) {
   console.log("this is still reachable");
 }
 function bar(x: boolean) {
-  var max = 0;
-  for (var ii = 0; ii < max; ii++) {
+  var max = [object Number];
+  for (var ii = [object Number]; ii < max; ii++) {
     return;
   }
   console.log("this is still reachable");
 }
 function baz(x: boolean) {
-  var max = 0;
-  for (var ii = 0; ii < max; ii++) {
+  var max = [object Number];
+  for (var ii = [object Number]; ii < max; ii++) {
     continue;
   }
   console.log("this is still reachable");
 }
 function bliffl(x: boolean) {
-  var max = 10;
+  var max = [object Number];
   loop1:
-for (var ii = 0; ii < max; ii++) {
+for (var ii = [object Number]; ii < max; ii++) {
     loop2:
-for (var jj = 0; jj < max; jj++) {
+for (var jj = [object Number]; jj < max; jj++) {
       break loop1;
     }
     console.log("this is still reachable");
@@ -85,13 +85,12 @@ for (var jj = 0; jj < max; jj++) {
   console.log("this is still reachable");
 }
 function corge(x: boolean) {
-  var max = 0;
-  for (var ii = 0; ii < max; ii++) {
+  var max = [object Number];
+  for (var ii = [object Number]; ii < max; ii++) {
     break;
   }
   console.log("this is still reachable");
 }
-
 "
 `;
 
@@ -140,7 +139,7 @@ function corge(x: boolean) {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function foo(x: boolean) {
-  var obj = { a: 1, b: 2 };
+  var obj = { a: [object Number], b: [object Number] };
   for (var prop in obj) {
     if (x) {
       continue;
@@ -162,7 +161,7 @@ function baz(x: boolean) {
   console.log("this is still reachable");
 }
 function bliffl(x: boolean) {
-  var obj = { a: 1, b: 2 };
+  var obj = { a: [object Number], b: [object Number] };
   loop1:
 for (var prop1 in obj) {
     loop2:
@@ -179,7 +178,6 @@ function corge(x: boolean) {
   }
   console.log("this is still reachable");
 }
-
 "
 `;
 
@@ -228,7 +226,7 @@ function corge(x: boolean) {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function foo(x: boolean) {
-  var arr = [ 1, 2, 3 ];
+  var arr = [ [object Number], [object Number], [object Number] ];
   for (var elem of arr) {
     if (x) {
       continue;
@@ -250,7 +248,7 @@ function baz(x: boolean) {
   console.log("this is still reachable");
 }
 function bliffl(x: boolean) {
-  var arr = [ 1, 2, 3 ];
+  var arr = [ [object Number], [object Number], [object Number] ];
   loop1:
 for (var elem of arr) {
     loop2:
@@ -267,6 +265,5 @@ function corge(x: boolean) {
   }
   console.log("this is still reachable");
 }
-
 "
 `;

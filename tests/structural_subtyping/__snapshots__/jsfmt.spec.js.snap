@@ -8,25 +8,20 @@ interface IHasLength {
 }
 
 var lengthTest1: IHasLength = [];
-var lengthTest2: IHasLength = \'hello\';
-var lengthTest3: IHasLength = 123; // number doesn\'t have length
-var lengthTest4: IHasLength = true; // bool doesn\'t have length
+var lengthTest2: IHasLength = 'hello';
+var lengthTest3: IHasLength = 123; // number doesn't have length
+var lengthTest4: IHasLength = true; // bool doesn't have length
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1391
-          fromString(\", \").join(path.map(print, \"extends\"))
-                           ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1391:28)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at /src/printer.js:1601:18
-    at FastPath.map (/src/fast-path.js:167:19)
-    at printStatementSequence (/src/printer.js:1586:8)
-    at /src/printer.js:238:16
-    at FastPath.call (/src/fast-path.js:113:16)
+/**
+ * @flow
+ */
+// number doesn't have length
+// bool doesn't have length
+interface IHasLength extends  { length: number }
+var lengthTest1: IHasLength = [  ];
+var lengthTest2: IHasLength = "hello";
+var lengthTest3: IHasLength = [object Number];
+var lengthTest4: IHasLength = [object Boolean];
 "
 `;
 
@@ -55,21 +50,20 @@ var testInstance1: IHasXString = new ClassWithXString();
 var testInstance2: IHasXNumber = new ClassWithXString(); // Error wrong type
 var testInstance3: IHasYString = new ClassWithXString(); // Error missing prop
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1391
-          fromString(\", \").join(path.map(print, \"extends\"))
-                           ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1391:28)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at /src/printer.js:1601:18
-    at FastPath.map (/src/fast-path.js:167:19)
-    at printStatementSequence (/src/printer.js:1586:8)
-    at /src/printer.js:238:16
-    at FastPath.call (/src/fast-path.js:113:16)
+/**
+ * @flow
+ */
+// Error wrong type
+// Error missing prop
+class ClassWithXString {
+  x: string;
+}
+interface IHasXString extends  { x: string }
+interface IHasXNumber extends  { x: number }
+interface IHasYString extends  { y: string }
+var testInstance1: IHasXString = new ClassWithXString();
+var testInstance2: IHasXNumber = new ClassWithXString();
+var testInstance3: IHasYString = new ClassWithXString();
 "
 `;
 
@@ -82,7 +76,7 @@ interface IHasXString {
   x: string;
 }
 
-var propTest1: IHasXString = { x: \'hello\' };
+var propTest1: IHasXString = { x: 'hello' };
 var propTest2: IHasXString = { x: 123 }; // Error string != number
 var propTest3: IHasXString = {}; // Property not found
 var propTest4: IHasXString = ({}: Object);
@@ -95,21 +89,24 @@ function propTest6(y: {[key: string]: number}) {
   (y: IHasXString); // error: string != number
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1391
-          fromString(\", \").join(path.map(print, \"extends\"))
-                           ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1391:28)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at /src/printer.js:1601:18
-    at FastPath.map (/src/fast-path.js:167:19)
-    at printStatementSequence (/src/printer.js:1586:8)
-    at /src/printer.js:238:16
-    at FastPath.call (/src/fast-path.js:113:16)
+/**
+ * @flow
+ */
+// Error string != number
+// Property not found
+// OK
+// error: string != number
+interface IHasXString extends  { x: string }
+var propTest1: IHasXString = { x: "hello" };
+var propTest2: IHasXString = { x: [object Number] };
+var propTest3: IHasXString = {};
+var propTest4: IHasXString = ({}: Object);
+function propTest5(y: { [key: string]: string }) {
+  (y: IHasXString);
+}
+function propTest6(y: { [key: string]: number }) {
+  (y: IHasXString);
+}
 "
 `;
 
@@ -121,26 +118,18 @@ interface HasOptional {
   b?: number,
 };
 
-var test1: HasOptional = { a: \"hello\" }
+var test1: HasOptional = { a: "hello" }
 
 var test2: HasOptional = {}; // Error: missing property a
 
-var test3: HasOptional = { a: \"hello\", b: true }; // Error: boolean ~> number
+var test3: HasOptional = { a: "hello", b: true }; // Error: boolean ~> number
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1391
-          fromString(\", \").join(path.map(print, \"extends\"))
-                           ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1391:28)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at /src/printer.js:1601:18
-    at FastPath.map (/src/fast-path.js:167:19)
-    at printStatementSequence (/src/printer.js:1586:8)
-    at /src/printer.js:238:16
-    at FastPath.call (/src/fast-path.js:113:16)
+/* @flow */
+// Error: missing property a
+// Error: boolean ~> number
+interface HasOptional extends  { a: string, b?: number }
+var test1: HasOptional = { a: "hello" };
+var test2: HasOptional = {};
+var test3: HasOptional = { a: "hello", b: [object Boolean] };
 "
 `;

@@ -58,28 +58,31 @@ function goofy2() {
 module.exports = true;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule Condition */
+//f(y);
+// if (typeof x == 'number') {
+//f(x);
+//f(y);
 function f(x: number) {
   
 }
 function g() {
-  return 42 || "hello";
+  return [object Number] || "hello";
 }
 var x = g();
 if (typeof x === "string") {
-  x = 0;
+  x = [object Number];
 }
 f(x);
 class A {}
 function h() {
-  return 42 || new A();
+  return [object Number] || new A();
 }
 var y = h();
 if (y instanceof A) {
-  y = 0;
+  y = [object Number];
 }
-//f(y);
 function bar() {
-  return true;
+  return [object Boolean];
 }
 class C {
   qux() {
@@ -102,7 +105,7 @@ function goofy() {
   }
 }
 function goofy2() {
-  var o = { x: 0 };
+  var o = { x: [object Number] };
   if (typeof o.x == "function") {
     o.x();
   }
@@ -113,8 +116,7 @@ function goofy2() {
     
   }
 }
-module.exports = true;
-
+module.exports = [object Boolean];
 "
 `;
 
@@ -137,12 +139,11 @@ function check(x: string) {
   
 }
 function FlowSA() {
-  var x = 0;
+  var x = [object Number];
   x = "...";
   check(x);
 }
 module.exports = FlowSA;
-
 "
 `;
 
@@ -189,6 +190,11 @@ function baz(x:D) {
 module.exports = "sigma";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule Sigma */
+// error
+// TODO no error? since unreachable (x: B implies x: A)
+// error
+// error
+// unreachable, TODO: this shouldn't throw
 class A {
   a() {
     
@@ -207,9 +213,9 @@ class C extends B {
 function bar(x: B) {
   if (x instanceof A) {
     x.a();
-    x.c();// error
+    x.c();
   } else {
-    x++;// TODO no error? since unreachable (x: B implies x: A)
+    x++;
   }
 }
 function foo(x: A) {
@@ -217,10 +223,10 @@ function foo(x: A) {
     x.a();
     x.b();
     x.c();
-    x.d();// error
+    x.d();
   } else {
     x.a();
-    x.c();// error
+    x.c();
   }
 }
 class D {
@@ -234,7 +240,6 @@ function baz(x: D) {
   }
 }
 module.exports = "sigma";
-
 "
 `;
 
@@ -254,6 +259,7 @@ function test(obj: BaseClass): string {
   return obj.baseProp;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// error (obj: ChildClass)
 class BaseClass {
   baseProp: string;
 }
@@ -262,10 +268,9 @@ class ChildClass extends BaseClass {
 }
 function test(obj: BaseClass): string {
   if (obj instanceof ChildClass) {
-    return obj.childProp_TYPO;// error (obj: ChildClass)
+    return obj.childProp_TYPO;
   }
   return obj.baseProp;
 }
-
 "
 `;

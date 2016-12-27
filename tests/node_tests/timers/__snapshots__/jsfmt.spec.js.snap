@@ -9,9 +9,8 @@ setImmediate(setImmediateCallback);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 function setImmediateCallback(): number {
-  return 0;
+  return [object Number];
 }
 setImmediate(setImmediateCallback);
-
 "
 `;

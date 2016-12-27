@@ -2,7 +2,6 @@ exports[`test bar.js 1`] = `
 "module.exports = "bar";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 module.exports = "bar";
-
 "
 `;
 
@@ -10,8 +9,8 @@ exports[`test foo.js 1`] = `
 "var x = require('./bar'); // bar.js does not work
 console.log(x);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var x = require("./bar");// bar.js does not work
+// bar.js does not work
+var x = require("./bar");
 console.log(x);
-
 "
 `;

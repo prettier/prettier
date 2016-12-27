@@ -1,5 +1,5 @@
 exports[`test array_rest.js 1`] = `
-"let xs = [0, \"\", true];
+"let xs = [0, "", true];
 let [a, ...ys] = xs;
 let [b, ...zs] = ys;
 let c = zs[0]; // retain tuple info
@@ -12,46 +12,53 @@ let d = zs[1]; // run off the end
 
 let [...e] = 0;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-let xs = [ 0, \"\", true ];
+// retain tuple info
+// run off the end
+// error: number ~> void
+// error: string ~> void
+// error: boolean ~> void
+// error: number|string|boolean ~> void
+let xs = [ [object Number], "", [object Boolean] ];
 let [ a, ...ys ] = xs;
 let [ b, ...zs ] = ys;
-let c = zs[0];// retain tuple info
-let d = zs[1];// run off the end
-(a: void);// error: number ~> void
-(b: void);// error: string ~> void
-(c: void);// error: boolean ~> void
-(d: void);// error: number|string|boolean ~> void
-let [ ...e ] = 0;
-
+let c = zs[[object Number]];
+let d = zs[[object Number]];
+(a: void);
+(b: void);
+(c: void);
+(d: void);
+let [ ...e ] = [object Number];
 "
 `;
 
 exports[`test computed.js 1`] = `
-"var { [\"key\"]: val1 } = { key: \"val\" };
+"var { ["key"]: val1 } = { key: "val" };
 (val1: void); // error: string ~> void
 
-var key: string = \"key\";
-var { [key]: val2 } = { key: \"val\" };
+var key: string = "key";
+var { [key]: val2 } = { key: "val" };
 (val2: void); // ok (gasp!) by existing StrT -> ElemT rule
 
-var { [\"key\"]: val3, ...spread } = { key: \"val\" };
-(spread.key: void); // error (gasp!) in general we don\'t know if a computed prop should be excluded from spread
+var { ["key"]: val3, ...spread } = { key: "val" };
+(spread.key: void); // error (gasp!) in general we don't know if a computed prop should be excluded from spread
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var { [\"key\"]: val1 } = { key: \"val\" };
-(val1: void);// error: string ~> void
-var key: string = \"key\";
-var { [key]: val2 } = { key: \"val\" };
-(val2: void);// ok (gasp!) by existing StrT -> ElemT rule
-var { [\"key\"]: val3, ...spread } = { key: \"val\" };
-(spread.key: void);// error (gasp!) in general we don\'t know if a computed prop should be excluded from spread
-
+// error: string ~> void
+// ok (gasp!) by existing StrT -> ElemT rule
+// error (gasp!) in general we don't know if a computed prop should be excluded from spread
+var { ["key"]: val1 } = { key: "val" };
+(val1: void);
+var key: string = "key";
+var { [key]: val2 } = { key: "val" };
+(val2: void);
+var { ["key"]: val3, ...spread } = { key: "val" };
+(spread.key: void);
 "
 `;
 
 exports[`test defaults.js 1`] = `
 "/* @flow */
 
-function obj_prop_fun({p:{q=0}={q:true}}={p:{q:\"\"}}) {
+function obj_prop_fun({p:{q=0}={q:true}}={p:{q:""}}) {
   // errors:
   // * number  ~> void, from default on _.p.q
   // * boolean ~> void, from default on _.p
@@ -62,9 +69,9 @@ function obj_prop_fun({p:{q=0}={q:true}}={p:{q:\"\"}}) {
 obj_prop_fun(); // ok
 obj_prop_fun({}); // ok
 obj_prop_fun({p:{}}); // ok
-obj_prop_fun({p:{q:null}}); // ok, provides add\'l lower bound
+obj_prop_fun({p:{q:null}}); // ok, provides add'l lower bound
 
-function obj_prop_var(o={p:{q:\"\"}}) {
+function obj_prop_var(o={p:{q:""}}) {
   var {p:{q=0}={q:true}} = o;
   // errors:
   // * number  ~> void, from default on o.p.q
@@ -76,9 +83,9 @@ function obj_prop_var(o={p:{q:\"\"}}) {
 obj_prop_var(); // ok
 obj_prop_var({}); // ok
 obj_prop_var({p:{}}); // ok
-obj_prop_var({p:{q:null}}); // ok, provides add\'l lower bound
+obj_prop_var({p:{q:null}}); // ok, provides add'l lower bound
 
-function obj_rest({p:{q,...o}={q:0,r:0}}={p:{q:0,r:\"\"}}) {
+function obj_rest({p:{q,...o}={q:0,r:0}}={p:{q:0,r:""}}) {
   // errors:
   // * number  ~> void, from default on _.p
   // * string  ~> void, from default on _
@@ -132,21 +139,112 @@ function obj_prop_union2({p}:{p:number}|{p:string}={p:true}) {}
 
 function default_expr_scope({a, b = a}) {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:340:16)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+/* @flow */
+// errors:
+// * number  ~> void, from default on _.p.q
+// * boolean ~> void, from default on _.p
+// * string  ~> void, from default on _
+// * null    ~> void, from call below
+// ok
+// ok
+// ok
+// ok, provides add'l lower bound
+// errors:
+// * number  ~> void, from default on o.p.q
+// * boolean ~> void, from default on o.p
+// * string  ~> void, from default on o
+// * null    ~> void, from call below
+// ok
+// ok
+// ok
+// ok, provides add'l lower bound
+// errors:
+// * number  ~> void, from default on _.p
+// * string  ~> void, from default on _
+// * null    ~> void, from call below
+// ok
+// ok
+// ok
+// error: boolean ~> string
+// error: number ~> string
+// error: string ~> void
+// error: boolean ~> string
+// error: number ~> string
+// error: string ~> void
+// error: property \`x\` cannot be accessed on null
+// error: expected object instead of number
+// error: element 0 cannot be accessed on null
+// error: expected array instead of null
+// Default values in destructuring unwrap optional types
+// ok
+// ok
+// union-like upper bounds preserved through destructuring
+// TODO: union-of-objects upper bounds preserved through destructuring
+function obj_prop_fun(
+  { p: { q } = { q: [object Boolean] } } = { p: { q: "" } }
+) {
+  (q: void);
+}
+obj_prop_fun();
+obj_prop_fun({});
+obj_prop_fun({ p: {} });
+obj_prop_fun({ p: { q: [object Null] } });
+function obj_prop_var(o = { p: { q: "" } }) {
+  var { p: { q } = { q: [object Boolean] } } = o;
+  (q: void);
+}
+obj_prop_var();
+obj_prop_var({});
+obj_prop_var({ p: {} });
+obj_prop_var({ p: { q: [object Null] } });
+function obj_rest(
+  { p: { q, ...o } = { q: [object Number], r: [object Number] } } = {
+    p: { q: [object Number], r: "" }
+  }
+) {
+  (o.r: void);
+}
+obj_rest();
+obj_rest({});
+obj_rest({ p: {} });
+obj_rest({ p: { q: [object Number], r: [object Null] } });
+function obj_prop_annot({ p } = { p: [object Number] }) {
+  (p: void);
+}
+var { p } = { p: [object Number] };
+(p: void);
+function obj_prop_err({ x: { y } } = [object Null]) {
+  
+}
+function obj_rest_err({ ...o } = [object Number]) {
+  
+}
+function arr_elem_err([ x ] = [object Null]) {
+  
+}
+function arr_rest_err([ ...a ] = [object Null]) {
+  
+}
+function gen<T>(x: T, { p }): T {
+  return p;
+}
+obj_prop_fun(({}: { p?: { q?: null } }));
+obj_prop_var(({}: { p?: { q?: null } }));
+function obj_prop_opt({ p } = { p: [object Number] }) {
+  
+}
+function obj_prop_maybe({ p } = { p: [object Number] }) {
+  
+}
+function obj_prop_union({ p } = { p: [object Boolean] }) {
+  
+}
+function obj_prop_union2({ p } = { p: [object Boolean] }) {
+  
+}
+function default_expr_scope({ a, b }) {
+  
+}
 "
 `;
 
@@ -161,7 +259,7 @@ var {m} = {m:0};
 
 var obj;
 ({n: obj.x} = {n:3});
-[obj.x] = [\'foo\'];
+[obj.x] = ['foo'];
 
 function foo({p, z:[r]}) {
     a = p;
@@ -175,17 +273,17 @@ foo({p:0, z:[1,2]});
 function bar({x, ...z}) {
     var o:{x: string; y: number;} = z;
 }
-bar({x:\"\",y:0});
+bar({x:"",y:0});
 
-var spread = {y:\"\"};
+var spread = {y:""};
 var extend: {x:number; y:string; z: boolean} = {x:0, ...spread};
 
 function qux(_: {a:number}) { }
-qux({a:\"\"});
+qux({a:""});
 function corge({b}: {b:string}) { }
 corge({b:0});
 
-var {n}:{n: number} = {n: \"\"}
+var {n}:{n: number} = {n: ""}
 
 function test() {
   var {foo} = {bar: 123}; // error on foo
@@ -193,9 +291,9 @@ function test() {
 }
 
 function test() {
-  var x = {foo: \'abc\', bar: 123};
+  var x = {foo: 'abc', bar: 123};
   var {foo, ...rest} = x;
-  (x.baz: string); // error, baz doesn\'t exist
+  (x.baz: string); // error, baz doesn't exist
   (rest.baz: string); // no error, rest is unsealed
 }
 
@@ -223,46 +321,65 @@ var cp1_err: string = childprop1; // Error: number ~> string
 var cp2: number = others.childprop1;
 var cp2_err: string = others.childprop2; // Error: number ~> string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// error on foo
+// error on baz
+// error, baz doesn't exist
+// no error, rest is unsealed
+// Error: number ~> string
+// Error: number ~> string
+// Error: number ~> string
+// Error: number ~> string
 declare var a: string;
 declare var b: string;
 declare var c: string;
-[ { a1: a, b }, c ] = [ { a1: 0, b: 1 }, 2 ];
-var { m } = { m: 0 };
+[ { a1: a, b }, c ] = [
+  { a1: [object Number], b: [object Number] },
+  [object Number]
+];
+var { m } = { m: [object Number] };
 { m } = { m: m };
 var obj;
-{ n: obj.x } = { n: 3 };
-[ obj.x ] = [ \"foo\" ];
+{ n: obj.x } = { n: [object Number] };
+[ obj.x ] = [ "foo" ];
 function foo({ p, z: [ r ] }) {
   a = p;
   b = z;
   c = r;
 }
-foo({ p: 0, z: [ 1, 2 ] });
-[ a, , b, ...c ] = [ 0, 1, true, 3 ];
+foo({ p: [object Number], z: [ [object Number], [object Number] ] });
+[ a, , b, ...c ] = [
+  [object Number],
+  [object Number],
+  [object Boolean],
+  [object Number]
+];
 function bar({ x, ...z }) {
   var o: { x: string, y: number } = z;
 }
-bar({ x: \"\", y: 0 });
-var spread = { y: \"\" };
-var extend: { x: number, y: string, z: boolean } = { x: 0, ...spread };
+bar({ x: "", y: [object Number] });
+var spread = { y: "" };
+var extend: { x: number, y: string, z: boolean } = {
+  x: [object Number],
+  ...spread
+};
 function qux(_: { a: number }) {
   
 }
-qux({ a: \"\" });
+qux({ a: "" });
 function corge({ b }) {
   
 }
-corge({ b: 0 });
-var { n } = { n: \"\" };
+corge({ b: [object Number] });
+var { n } = { n: "" };
 function test() {
-  var { foo } = { bar: 123 };// error on foo
-  var { bar, baz } = { bar: 123 };// error on baz
+  var { foo } = { bar: [object Number] };
+  var { bar, baz } = { bar: [object Number] };
 }
 function test() {
-  var x = { foo: \"abc\", bar: 123 };
+  var x = { foo: "abc", bar: [object Number] };
   var { foo, ...rest } = x;
-  (x.baz: string);// error, baz doesn\'t exist
-  (rest.baz: string);// no error, rest is unsealed
+  (x.baz: string);
+  (rest.baz: string);
 }
 module.exports = corge;
 class Base {
@@ -275,14 +392,13 @@ class Child extends Base {
 }
 var { baseprop1, childprop1, ...others } = new Child();
 var bp1: number = baseprop1;
-var bp1_err: string = baseprop1;// Error: number ~> string
+var bp1_err: string = baseprop1;
 var bp2: number = others.baseprop2;
-var bp2_err: string = others.baseprop2;// Error: number ~> string
+var bp2_err: string = others.baseprop2;
 var cp1: number = childprop1;
-var cp1_err: string = childprop1;// Error: number ~> string
+var cp1_err: string = childprop1;
 var cp2: number = others.childprop1;
-var cp2_err: string = others.childprop2;// Error: number ~> string
-
+var cp2_err: string = others.childprop2;
 "
 `;
 
@@ -293,21 +409,11 @@ var [];
 var {};
 var [], {toz};
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/node_modules/babylon/lib/index.js:4255
-  throw err;
-  ^
-
-SyntaxError: Complex binding patterns require an initialization value (1:9)
-    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
-    at Parser.pp$1.parseVar (/node_modules/babylon/lib/index.js:2215:12)
-    at Parser.pp$1.parseVarStatement (/node_modules/babylon/lib/index.js:2042:8)
-    at Parser.pp$1.parseStatement (/node_modules/babylon/lib/index.js:1735:19)
-    at Parser.parseStatement (/node_modules/babylon/lib/index.js:5224:22)
-    at Parser.pp$1.parseBlockBody (/node_modules/babylon/lib/index.js:2139:21)
-    at Parser.pp$1.parseTopLevel (/node_modules/babylon/lib/index.js:1651:8)
-    at Parser.parse (/node_modules/babylon/lib/index.js:1543:17)
-    at Object.parse$1 [as parse] (/node_modules/babylon/lib/index.js:6472:37)
-    at Object.parse (/index.js:34:26)
+var { foo };
+var [ bar ];
+var [  ];
+var {};
+var [  ]{ toz };
 "
 `;
 
@@ -324,21 +430,15 @@ function h({ a, { b } }, { c }, { { d } }) {
   return a + b + c + d;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/node_modules/babylon/lib/index.js:4255
-  throw err;
-  ^
-
-SyntaxError: Argument name clash in strict mode (5:16)
-    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
-    at Parser.pp$2.checkLVal (/node_modules/babylon/lib/index.js:3007:16)
-    at Parser.checkLVal (/node_modules/babylon/lib/index.js:5446:22)
-    at Parser.pp$2.checkLVal (/node_modules/babylon/lib/index.js:3034:14)
-    at Parser.checkLVal (/node_modules/babylon/lib/index.js:5446:22)
-    at Parser.pp$3.parseFunctionBody (/node_modules/babylon/lib/index.js:4072:12)
-    at Parser.parseFunctionBody (/node_modules/babylon/lib/index.js:5211:20)
-    at Parser.pp$1.parseFunction (/node_modules/babylon/lib/index.js:2257:8)
-    at Parser.pp$1.parseFunctionStatement (/node_modules/babylon/lib/index.js:1926:15)
-    at Parser.pp$1.parseStatement (/node_modules/babylon/lib/index.js:1712:19)
+function f(a, { b }) {
+  return a + b;
+}
+function g(a, { a }) {
+  return a;
+}
+function h({ a, { }, ,, c, ,, { d }) {
+  return a + b + c + d;
+}
 "
 `;
 
@@ -346,9 +446,9 @@ exports[`test eager.js 1`] = `
 "var x;
 ({x} = null); // error, property \`x\` can not be accessed on \`null\`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// error, property \`x\` can not be accessed on \`null\`
 var x;
-{ x } = null;// error, property \`x\` can not be accessed on \`null\`
-
+{ x } = [object Null];
 "
 `;
 
@@ -386,28 +486,67 @@ function arr_rest_pattern<X>([ _, ...a ] : ArrRest<X>) { // a: [X]
   a[0];
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:340:16)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// @flow
+// prop: X
+// prop: X
+// elem: X
+// elem: X
+// proj: X
+// proj: X
+// nonsense
+// r: X[]
+// o: { x: X }
+// o: { x: X }
+// a: [X]
+// a: [X]
+function obj_pattern<X>({ prop }) {
+  
+}
+type Prop<X> = { prop: X };
+function obj_pattern2<X>({ prop }) {
+  
+}
+function arr_pattern<X>([ elem ]) {
+  
+}
+type Elem<X> = X[];
+function arr_pattern2<X>([ elem ]) {
+  
+}
+function tup_pattern<X>([ proj ]) {
+  
+}
+type Proj<X> = [];
+function tup_pattern2<X>([ proj ]) {
+  
+}
+function rest_antipattern<T>(...t: T) {
+  
+}
+function rest_pattern<X>(...r: X[]) {
+  
+}
+function obj_rest_pattern<X>({ _, ...o }) {
+  o.x;
+}
+type ObjRest<X> = { _: any, x: X };
+function obj_rest_pattern<X>({ _, ...o }) {
+  o.x;
+}
+function arr_rest_pattern<X>([ _, ...a ]) {
+  a[[object Number]];
+}
+type ArrRest<X> = [];
+function arr_rest_pattern<X>([ _, ...a ]) {
+  a[[object Number]];
+}
 "
 `;
 
 exports[`test rec.js 1`] = `
 "// @flow
 
-// Make sure that destructuring doesn\'t cause infinite loops when combined with
+// Make sure that destructuring doesn't cause infinite loops when combined with
 // funny doses of repositioning
 
 let foo = (i: number) => [i];
@@ -421,14 +560,15 @@ foo = (i: number) => {
   return bar(i);
 };
 
-// Also make sure that the following doesn\'t loop
+// Also make sure that the following doesn't loop
 
 declare var o;
 var { x: o } = o;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-// Make sure that destructuring doesn\'t cause infinite loops when combined with
+// Make sure that destructuring doesn't cause infinite loops when combined with
 // funny doses of repositioning
+// Also make sure that the following doesn't loop
 let foo = (i: number) => [ i ];
 const bar = (i: number) => {
   [ i ] = foo(i);
@@ -437,25 +577,24 @@ const bar = (i: number) => {
 foo = (i: number) => {
   return bar(i);
 };
-// Also make sure that the following doesn\'t loop
 declare var o;
 var { x: o } = o;
-
 "
 `;
 
 exports[`test string_lit.js 1`] = `
-"var { \"key\": val } = { key: \"val\" };
+"var { "key": val } = { key: "val" };
 (val: void); // error: string ~> void
 
-var { \"with-dash\": with_dash } = { \"with-dash\": \"motivating example\" };
-(with_dash: \"motivating example\"); // ok
+var { "with-dash": with_dash } = { "with-dash": "motivating example" };
+(with_dash: "motivating example"); // ok
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var { \"key\": val } = { key: \"val\" };
-(val: void);// error: string ~> void
-var { \"with-dash\": with_dash } = { \"with-dash\": \"motivating example\" };
-(with_dash: \"motivating example\");// ok
-
+// error: string ~> void
+// ok
+var { "key": val } = { key: "val" };
+(val: void);
+var { "with-dash": with_dash } = { "with-dash": "motivating example" };
+(with_dash: "motivating example");
 "
 `;
 
@@ -463,7 +602,7 @@ exports[`test unannotated.js 1`] = `
 "// @flow
 
 var { x } = {
-  x: { foo: \"foo\" }
+  x: { foo: "foo" }
 };
 
 function bar() {
@@ -471,10 +610,9 @@ function bar() {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-var { x } = { x: { foo: \"foo\" } };
+var { x } = { x: { foo: "foo" } };
 function bar() {
   x.bar;
 }
-
 "
 `;

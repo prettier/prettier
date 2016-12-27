@@ -1,7 +1,7 @@
 exports[`test a.js 1`] = `
 "/* @providesModule IncrModuleA */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+/* @providesModule IncrModuleA */
 
 "
 `;
@@ -17,7 +17,6 @@ var A = require('IncrModuleA');
    @flow
 */
 var A = require("IncrModuleA");
-
 "
 `;
 
@@ -27,7 +26,6 @@ exports[`test dup_a.js 1`] = `
 var x:string = 0;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule IncrModuleA */
-var x: string = 0;
-
+var x: string = [object Number];
 "
 `;

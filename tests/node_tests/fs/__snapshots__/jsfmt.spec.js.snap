@@ -33,8 +33,13 @@ fs.readFile("file.exp", {}, (_, data) => {
 (fs.readFileSync("file.exp", {}) : Buffer);
 (fs.readFileSync("file.exp", {}) : string); // error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var fs = require("fs");
 /* readFile */
+/* readFileSync */
+// error
+// error
+// error
+// error
+var fs = require("fs");
 fs.readFile(
   "file.exp",
   (_, data) => {
@@ -62,15 +67,13 @@ fs.readFile(
     (data: Buffer);
   }
 );
-/* readFileSync */
 (fs.readFileSync("file.exp"): Buffer);
-(fs.readFileSync("file.exp"): string);// error
+(fs.readFileSync("file.exp"): string);
 (fs.readFileSync("file.exp", "blah"): string);
-(fs.readFileSync("file.exp", "blah"): Buffer);// error
+(fs.readFileSync("file.exp", "blah"): Buffer);
 (fs.readFileSync("file.exp", { encoding: "blah" }): string);
-(fs.readFileSync("file.exp", { encoding: "blah" }): Buffer);// error
+(fs.readFileSync("file.exp", { encoding: "blah" }): Buffer);
 (fs.readFileSync("file.exp", {}): Buffer);
-(fs.readFileSync("file.exp", {}): string);// error
-
+(fs.readFileSync("file.exp", {}): string);
 "
 `;

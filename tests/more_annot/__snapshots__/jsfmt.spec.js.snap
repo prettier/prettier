@@ -1,16 +1,15 @@
 exports[`test client_object.js 1`] = `
-"var o = require(\'./object\');
+"var o = require('./object');
 
 var a:number = o.w.z.y;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var o = require(\"./object\");
+var o = require("./object");
 var a: number = o.w.z.y;
-
 "
 `;
 
 exports[`test object.js 1`] = `
-"var o1 = { x: 0, y: \"\" };
+"var o1 = { x: 0, y: "" };
 var o2 = { z: o1 }
 
 var o3 = {};
@@ -20,13 +19,12 @@ o3.w = o2;
 
 module.exports = o3;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var o1 = { x: 0, y: \"\" };
+//declare var exports: { w: any };
+var o1 = { x: [object Number], y: "" };
 var o2 = { z: o1 };
 var o3 = {};
 o3.w = o2;
-//declare var exports: { w: any };
 module.exports = o3;
-
 "
 `;
 
@@ -38,21 +36,14 @@ var o1: { x: number; m(): void } = new Foo();
 
 var o2: Foo = new Foo();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1348
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1348:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1452:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+function Foo() {
+  this.x = [object Number];
+}
+Foo.prototype.m = function() {
+  
+};
+var o1: { x: number, m: : () => void } = new Foo();
+var o2: Foo = new Foo();
 "
 `;
 
@@ -62,20 +53,12 @@ class D extends C { }
 
 var d: { +m: () => void } = new D();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1348
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1348:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1452:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+class C {
+  m() {
+    
+  }
+}
+class D extends C {}
+var d: { +m: : () => void } = new D();
 "
 `;

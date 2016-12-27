@@ -4,6 +4,5 @@ exports[`test errors.js 1`] = `
 if (typeof define === "function" && define.amd) {
   
 }
-
 "
 `;

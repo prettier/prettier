@@ -9,7 +9,7 @@ function takes_string(_:string) { }
 // global write from function
 //
 
-var global_x = \"hello\";
+var global_x = "hello";
 
 function global_f() { }
 function global_g() { global_x = 42; }
@@ -20,14 +20,14 @@ takes_string(global_x); // ok
 global_g();
 takes_string(global_x); // error
 
-global_x = 42;  // shouldn\'t pollute linear refinement
+global_x = 42;  // shouldn't pollute linear refinement
 
 // local write from function
 //
 
 function local_func() {
 
-  var local_x = \"hello\";
+  var local_x = "hello";
 
   function local_f() { }
   function local_g() { local_x = 42; }
@@ -38,13 +38,13 @@ function local_func() {
   local_g();
   takes_string(local_x); // error
 
-  local_x = 42;  // shouldn\'t pollute linear refinement
+  local_x = 42;  // shouldn't pollute linear refinement
 }
 
 // global write from method
 //
 
-var global_y = \"hello\";
+var global_y = "hello";
 
 var global_o = {
   f: function() { },
@@ -57,14 +57,14 @@ takes_string(global_y); // ok
 global_o.g();
 takes_string(global_y); // error
 
-global_y = 42;  // shouldn\'t pollute linear refinement
+global_y = 42;  // shouldn't pollute linear refinement
 
 // local write from method
 //
 
 function local_meth() {
 
-  var local_y = \"hello\";
+  var local_y = "hello";
 
   var local_o = {
     f: function() { },
@@ -77,81 +77,92 @@ function local_meth() {
   local_o.g();
   takes_string(local_y); // error
 
-  local_y = 42;  // shouldn\'t pollute linear refinement
+  local_y = 42;  // shouldn't pollute linear refinement
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /***
  * Test tracking of variable types across closure calls.
  * @flow
  */
+// global write from function
+//
+// ok
+// error
+// shouldn't pollute linear refinement
+// local write from function
+//
+// ok
+// error
+// shouldn't pollute linear refinement
+// global write from method
+//
+// ok
+// error
+// shouldn't pollute linear refinement
+// local write from method
+//
+// ok
+// error
+// shouldn't pollute linear refinement
 function takes_string(_: string) {
   
 }
-// global write from function
-//
-var global_x = \"hello\";
+var global_x = "hello";
 function global_f() {
   
 }
 function global_g() {
-  global_x = 42;
+  global_x = [object Number];
 }
 global_f();
-takes_string(global_x);// ok
+takes_string(global_x);
 global_g();
-takes_string(global_x);// error
-global_x = 42;// shouldn\'t pollute linear refinement
-// local write from function
-//
+takes_string(global_x);
+global_x = [object Number];
 function local_func() {
-  var local_x = \"hello\";
+  var local_x = "hello";
   function local_f() {
     
   }
   function local_g() {
-    local_x = 42;
+    local_x = [object Number];
   }
   local_f();
-  takes_string(local_x);// ok
+  takes_string(local_x);
   local_g();
-  takes_string(local_x);// error
-  local_x = 42;// shouldn\'t pollute linear refinement
+  takes_string(local_x);
+  local_x = [object Number];
 }
-// global write from method
-//
-var global_y = \"hello\";
+var global_y = "hello";
 var global_o = {
   f: function() {
     
   },
   g: function() {
-    global_y = 42;
+    global_y = [object Number];
   }
 };
 global_o.f();
-takes_string(global_y);// ok
+takes_string(global_y);
 global_o.g();
-takes_string(global_y);// error
-global_y = 42;// shouldn\'t pollute linear refinement
-// local write from method
-//
+takes_string(global_y);
+global_y = [object Number];
 function local_meth() {
-  var local_y = \"hello\";
+  var local_y = "hello";
   var local_o = {
     f: function() {
       
     },
     g: function() {
-      local_y = 42;
+      local_y = [object Number];
     }
   };
   local_o.f();
-  takes_string(local_y);// ok
+  takes_string(local_y);
   local_o.g();
-  takes_string(local_y);// error
-  local_y = 42;// shouldn\'t pollute linear refinement
+  takes_string(local_y);
+  local_y = [object Number];
 }
-
 "
 `;
 
@@ -163,7 +174,7 @@ exports[`test cond_havoc.js 1`] = `
 //
 function example(b: bool): number {
   var x = 0;
-  function f() { x = \"\" }
+  function f() { x = "" }
   if (b) {
     f();
   }
@@ -174,17 +185,17 @@ function example(b: bool): number {
 // from sam, https://github.com/facebook/flow/issues/780
 // call to f() within if should properly havoc x.
 //
+// error, string ~/~> number (return type anno) TODO
 function example(b: boolean): number {
-  var x = 0;
+  var x = [object Number];
   function f() {
-    x = \"\";
+    x = "";
   }
   if (b) {
     f();
   }
-  return x;// error, string ~/~> number (return type anno) TODO
+  return x;
 }
-
 "
 `;
 
@@ -201,7 +212,7 @@ function g(x: ?number) {
 
   const const_x = x;
   if (const_x) {
-    // ok: if const_x is truthy here, it\'s truthy everywhere
+    // ok: if const_x is truthy here, it's truthy everywhere
     call_me = () => { var y:number = const_x; };
   }
 
@@ -216,20 +227,20 @@ function g(x: ?number) {
 function h(x: number | string | boolean) {
 
   const const_x = x;
-  if (typeof(const_x) == \"number\") {
+  if (typeof(const_x) == "number") {
     call_me = () => { var y:number = const_x; };  // ok
-  } else if (typeof(const_x) == \"string\") {
+  } else if (typeof(const_x) == "string") {
     call_me = () => { var y:string = const_x; };  // ok
-  } else if (typeof(const_x) == \"boolean\") {
+  } else if (typeof(const_x) == "boolean") {
     call_me = () => { var y:boolean = const_x; };  // ok
   }
 
   var var_x = x;
-  if (typeof(var_x) == \"number\") {
+  if (typeof(var_x) == "number") {
     call_me = () => { var y:number = var_x; };  // error
-  } else if (typeof(var_x) == \"string\") {
+  } else if (typeof(var_x) == "string") {
     call_me = () => { var y:string = var_x; };  // error
-  } else if (typeof(var_x) == \"boolean\") {
+  } else if (typeof(var_x) == "boolean") {
     call_me = () => { var y:boolean = var_x; };  // error
   }
 }
@@ -237,20 +248,73 @@ function h(x: number | string | boolean) {
 // in a galaxy far far away
 call_me();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1348
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1348:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1254:25)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+/***
+ * consts retain refinements
+ * @flow
+ */
+// global, anybody can call it at any time
+// ok: if const_x is truthy here, it's truthy everywhere
+// error: var_x might no longer be truthy when call_me is called
+// error
+// ok
+// ok
+// ok
+// error
+// error
+// error
+// in a galaxy far far away
+var call_me: () => void = () => {
+  
+};
+function g(x: ?number) {
+  const const_x = x;
+  if (const_x) {
+    call_me = () => {
+      var y: number = const_x;
+    };
+  }
+  var var_x = x;
+  if (var_x) {
+    call_me = () => {
+      var y: number = var_x;
+    };
+  }
+  var_x = [object Null];
+}
+function h(x: number | string | boolean) {
+  const const_x = x;
+  if (typeof const_x == "number") {
+    call_me = () => {
+      var y: number = const_x;
+    };
+  } else
+    if (typeof const_x == "string") {
+      call_me = () => {
+        var y: string = const_x;
+      };
+    } else
+      if (typeof const_x == "boolean") {
+        call_me = () => {
+          var y: boolean = const_x;
+        };
+      }
+  var var_x = x;
+  if (typeof var_x == "number") {
+    call_me = () => {
+      var y: number = var_x;
+    };
+  } else
+    if (typeof var_x == "string") {
+      call_me = () => {
+        var y: string = var_x;
+      };
+    } else
+      if (typeof var_x == "boolean") {
+        call_me = () => {
+          var y: boolean = var_x;
+        };
+      }
+}
+call_me();
 "
 `;

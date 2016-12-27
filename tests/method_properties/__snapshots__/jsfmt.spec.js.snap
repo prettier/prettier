@@ -7,21 +7,9 @@ declare class Foo {
 
 export {Foo};
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1348
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1348:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1452:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// @flow
+declare class Foo { bar?: : () => string }
+export { Foo }
 "
 `;
 
@@ -36,7 +24,7 @@ C.x;
 (new C).foo.x;
 C.bar.x;
 
-import {Foo} from \'./exports_optional_prop\';
+import {Foo} from './exports_optional_prop';
 const foo = new Foo();
 (foo.bar(): string); // error, could be undefined
 
@@ -45,6 +33,8 @@ function f(x) {
 }
 f(foo);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// error, could be undefined
+// error. caused by \`f(foo)\`; annotate x to track it down.
 class C {
   C() {
     
@@ -52,7 +42,7 @@ class C {
   foo() {
     
   }
-  bar() {
+  static bar() {
     
   }
   qux() {
@@ -62,13 +52,12 @@ class C {
 C.x;
 new C().foo.x;
 C.bar.x;
-import { Foo } from \"./exports_optional_prop\";
+import { Foo } from "./exports_optional_prop";
 const foo = new Foo();
-(foo.bar(): string);// error, could be undefined
+(foo.bar(): string);
 function f(x) {
-  (x.bar(): string);// error. caused by \`f(foo)\`; annotate x to track it down.
+  (x.bar(): string);
 }
 f(foo);
-
 "
 `;

@@ -14,13 +14,13 @@ declare module bar {
 // This file triggers a violation of the "disjoint-or-nested ranges invariant"
 // that we implicitly assume in type-at-pos and coverage implementations. In
 // particular, when unchecked it causes a crash with coverage --color.
+// TODO
 declare module foo {
   
 }
 declare module bar {
   
-}// TODO
-
+}
 "
 `;
 
@@ -34,7 +34,6 @@ declare module foo {
 declare module foo {
   
 }
-
 "
 `;
 
@@ -42,9 +41,8 @@ exports[`test no_pragma.js 1`] = `
 "let x = 0;
 (x: string);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-let x = 0;
+let x = [object Number];
 (x: string);
-
 "
 `;
 
@@ -67,14 +65,13 @@ declare class qux {
 // This file triggers a violation of the "disjoint-or-nested ranges invariant"
 // that we implicitly assume in type-at-pos and coverage implementations. In
 // particular, when unchecked it causes non-termination with coverage --color.
+// TODO
 declare module foo {
   
 }
 declare module bar {
   
 }
-// TODO
 declare class qux {}
-
 "
 `;

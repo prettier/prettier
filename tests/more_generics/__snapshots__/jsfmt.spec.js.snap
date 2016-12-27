@@ -29,20 +29,41 @@ function foo8<U>(x:U,y):U {
  foo8(0,void 0);
 */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:340:16)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+/*
+ var a = foo5();
+ a[0] = 0;
+ var b = foo5();
+ var y: string = b[0];
+*/
+/*
+ foo8(0,void 0);
+*/
+var foo1 = function(x: T): T {
+  return x;
+};
+function foo2<T, S>(x: T): S {
+  return x;
+}
+var foo3 = function(x: T): T {
+  return foo3(x);
+};
+function foo4<T, S>(x: T): S {
+  return foo4(x);
+}
+var x = [  ];
+function foo5<T>(): Array<T> {
+  return x;
+}
+var foo6 = function(x: R): R {
+  return foo1(x);
+};
+function foo7<R>(x: R): R {
+  return foo5();
+}
+function foo8<U>(x: U, y): U {
+  var z = foo8(x, x);
+  y();
+  return x;
+}
 "
 `;

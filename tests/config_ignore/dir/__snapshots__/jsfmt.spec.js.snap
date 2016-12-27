@@ -4,7 +4,7 @@ exports[`test foo.js 1`] = `
 var x: number = "string"; // Error string ~> number
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-var x: number = "string";// Error string ~> number
-
+// Error string ~> number
+var x: number = "string";
 "
 `;

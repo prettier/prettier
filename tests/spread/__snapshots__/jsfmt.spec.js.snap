@@ -23,28 +23,36 @@ function parseGroup(lines: Array<string>): {
 }
 
 function parseTimeframe(line: string): { begin: number; end: number } {
-    var timestamps = line.split(\'-->\');
+    var timestamps = line.split('-->');
     return {
         begin: parseTimestamp(timestamps[0].trim()),
         end: parseTimestamp(timestamps[1].trim())
     };
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+function parseTimestamp(timestamp: string): number {
+  return [object Number];
+}
+function parseCounter(line: string): number {
+  return [object Number];
+}
+function parseGroup(lines: Array<string>): {
+  counter: number,
+  begin: number,
+  end: number,
+  text: string
+} {
+  var counter = parseCounter(lines[[object Number]]);
+  var timeframe = parseTimeframe(lines[[object Number]]);
+  return { counter, ...timeframe, text: lines[[object Number]] };
+}
+function parseTimeframe(line: string): { begin: number, end: number } {
+  var timestamps = line.split("-->");
+  return {
+    begin: parseTimestamp(timestamps[[object Number]].trim()),
+    end: parseTimestamp(timestamps[[object Number]].trim())
+  };
+}
 "
 `;
 
@@ -68,14 +76,13 @@ function foo(o) {
 function bar(_: { foo: number }) {
   
 }
-foo({ foo: 42 });
-
+foo({ foo: [object Number] });
 "
 `;
 
 exports[`test test3.js 1`] = `
-"var p = { y: \"\" };
-var q = { z: \"\" };
+"var p = { y: "" };
+var q = { z: "" };
 var o = {
   x: 5,
   ...p,
@@ -92,16 +99,16 @@ var s = {
 };
 var t: boolean = s.y; // error, string or number
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var p = { y: \"\" };
-var q = { z: \"\" };
-var o = { x: 5, ...p, ...q };
+// test conflicting keys (they get unioned)
+// error, string or number
+var p = { y: "" };
+var q = { z: "" };
+var o = { x: [object Number], ...p, ...q };
 var y: number = o.y;
 var z: number = o.z;
-// test conflicting keys (they get unioned)
-var r = { y: 123 };
+var r = { y: [object Number] };
 var s = { ...p, ...r };
-var t: boolean = s.y;// error, string or number
-
+var t: boolean = s.y;
 "
 `;
 
@@ -112,11 +119,10 @@ function test(...nums: Array<number>) {}
 test(0, ...[1, 2, 3]);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-function test(...nums) {
+function test(...nums: Array<number>) {
   
 }
-test(0, ...[ 1, 2, 3 ]);
-
+test([object Number], ...[ [object Number], [object Number], [object Number] ]);
 "
 `;
 
@@ -147,59 +153,66 @@ function test(
   });
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1348
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1348:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1368:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+/* @flow */
+/**
+ * Tests overriding a property via a spread, where the value is a tvar. the
+ * type of the prop from the object that is being overridden (\`x.kind\` in the
+ * case below) should //not// feed back into the tvar (\`value\`), since the
+ * result is a new object.
+ */
+// OK
+declare function map(obj: {
+  [key: string]: Tv
+}, iterator: (obj: Tv) => TNext): Array<TNext>;
+function test(x: { kind: ?string }, kinds: { [key: string]: string }): Array<{
+  kind: ?string
+}> {
+  return map(
+    kinds,
+    value => {
+      (value: string);
+      return { ...x, kind: value };
+    }
+  );
+}
 "
 `;
 
 exports[`test test6.js 1`] = `
 "var o = {
-  foo: \'bar\'
+  foo: 'bar'
 };
 o = {...o};
 (o: {foo: string});
 
 var p = {
-  foo: \'bar\'
+  foo: 'bar'
 };
-(p: {foo: string; abc: string}); // error, p doesn\'t have \`abc\` yet
-p = {...p, abc: \'def\'};
+(p: {foo: string; abc: string}); // error, p doesn't have \`abc\` yet
+p = {...p, abc: 'def'};
 (p: {foo: string; abc: string});
 
 var q = {
-  foo: \'bar\'
+  foo: 'bar'
 };
 for (var i = 0; i < 10; i++) {
   q = {...q};
 }
 (q: {foo: string});
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var o = { foo: \"bar\" };
+// error, p doesn't have \`abc\` yet
+var o = { foo: "bar" };
 o = { ...o };
 (o: { foo: string });
-var p = { foo: \"bar\" };
-(p: { foo: string, abc: string });// error, p doesn\'t have \`abc\` yet
-p = { ...p, abc: \"def\" };
+var p = { foo: "bar" };
 (p: { foo: string, abc: string });
-var q = { foo: \"bar\" };
-for (var i = 0; i < 10; i++) {
+p = { ...p, abc: "def" };
+(p: { foo: string, abc: string });
+var q = { foo: "bar" };
+for (var i = [object Number]; i < [object Number]; i++) {
   q = { ...q };
 }
 (q: { foo: string });
-
 "
 `;
 
@@ -214,12 +227,12 @@ let tests = [
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+// error, Object
 let tests = [
   function(x: Object) {
     ({ ...x }: Object);
-    ({ ...x }: void);// error, Object
+    ({ ...x }: void);
   }
 ];
-
 "
 `;

@@ -37,11 +37,11 @@ class D {
 }
 
 declare var m: Function;
-const x = \"\";
+const x = "";
 if (m.bind(this)(x)) { }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /node_modules/ast-types/lib/types.js:60
-            throw new Error(str + \" does not match type \" + this);
+            throw new Error(str + " does not match type " + this);
             ^
 
 Error: {type: NumericLiteralTypeAnnotation, start: 288, end: 289, loc: [object Object], value: 1, extra: [object Object]} does not match type Printable
@@ -61,7 +61,7 @@ Error: {type: NumericLiteralTypeAnnotation, start: 288, end: 289, loc: [object O
 exports[`test function-union.js 1`] = `
 "// @flow
 
-declare function f1(x: mixed): boolean %checks(typeof x === \"string\");
+declare function f1(x: mixed): boolean %checks(typeof x === "string");
 declare function f2(x: mixed): boolean %checks(Array.isArray(x));
 
 declare var cond: boolean;
@@ -99,8 +99,8 @@ SyntaxError: Unexpected token, expected ; (3:39)
 exports[`test is-string-decl.js 1`] = `
 "// @flow
 
-declare function is_string(x: mixed): boolean %checks(typeof x === \"string\");
-declare function is_number(x: mixed): boolean %checks(typeof x === \"number\");
+declare function is_string(x: mixed): boolean %checks(typeof x === "string");
+declare function is_number(x: mixed): boolean %checks(typeof x === "number");
 
 // Feature check:
 function foo(x: string | Array<string>): string {
@@ -142,11 +142,11 @@ exports[`test logical-or.js 1`] = `
 //   expressions (e.g. \`||\`)
 
 declare function r(x: string): number;
-var s = \'a\';
+var s = 'a';
 var n = r(s) || 1;
 (n: number);
 
-var x = \"\";
+var x = "";
 if (x = r(s) || 1) {
   (x: number);
 }
@@ -159,7 +159,7 @@ function foo(x: mixed) { return 1; }
 (Number(dollars) || 0);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /src/printer.js:1348
-        fromString(\", \").join(path.map(print, \"params\")),
+        fromString(", ").join(path.map(print, "params")),
                          ^
 
 TypeError: fromString(...).join is not a function
@@ -193,17 +193,17 @@ type Invitee = {
 
 function f(_this: { m: ?Meeting }): string {
   if (!_this.m) {
-    return \"0\";
+    return "0";
   }
 
   if (_this.m.es.some((a) => a.fbid === 0)) {
 
   }
-  return \"3\";
+  return "3";
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
+        fromString(", ").join(path.map(print, "params")),
                          ^
 
 TypeError: fromString(...).join is not a function
@@ -226,16 +226,16 @@ exports[`test orig-string-tag-check.js 1`] = `
 // The original first-order case
 
 function foo(x: string | Array<string>): string {
-  if (typeof x === \"string\") {
-    return x; // [ERROR] x: Array<string> doesn\'t match return type
+  if (typeof x === "string") {
+    return x; // [ERROR] x: Array<string> doesn't match return type
   }
   else {
-    return x.join(); // [ERROR] x: string doesn\'t have .join method
+    return x.join(); // [ERROR] x: string doesn't have .join method
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
+        fromString(", ").join(path.map(print, "params")),
                          ^
 
 TypeError: fromString(...).join is not a function
@@ -257,7 +257,7 @@ exports[`test sanity-conditional.js 1`] = `
 
 // ERROR: only allow conditional expressions in \`%checks\`
 
-declare function foo(x: string): mixed %checks(x = \"1\");
+declare function foo(x: string): mixed %checks(x = "1");
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /node_modules/babylon/lib/index.js:4255
   throw err;
@@ -287,13 +287,13 @@ declare function pred<T>(x: T): boolean;
 
 function foo(s: Array<string>): string {
   if (pred(s)) {
-    return \"1\";
+    return "1";
   }
   return 1;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /src/printer.js:1348
-        fromString(\", \").join(path.map(print, \"params\")),
+        fromString(", ").join(path.map(print, "params")),
                          ^
 
 TypeError: fromString(...).join is not a function
@@ -321,18 +321,18 @@ declare function pred<T>(x: T): boolean;
 function foo(s: Array<string>): string {
 
   if ((1)(s)) {
-    return \"1\";
+    return "1";
   }
 
-  if ((pred + 1)(\"s\")) {
-    return \"1\";
+  if ((pred + 1)("s")) {
+    return "1";
   }
 
-  return \"1\"
+  return "1"
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /src/printer.js:1348
-        fromString(\", \").join(path.map(print, \"params\")),
+        fromString(", ").join(path.map(print, "params")),
                          ^
 
 TypeError: fromString(...).join is not a function
@@ -352,8 +352,8 @@ TypeError: fromString(...).join is not a function
 exports[`test sanity-is-string-bug.js 1`] = `
 "// @flow
 
-declare function is_string(x: mixed): boolean %checks(typeof x === \"string\");
-declare function is_number(x: mixed): boolean %checks(typeof x === \"number\");
+declare function is_string(x: mixed): boolean %checks(typeof x === "string");
+declare function is_number(x: mixed): boolean %checks(typeof x === "number");
 
 // Sanity check:
 // - Erroneous logic
@@ -392,7 +392,7 @@ exports[`test sanity-parameter-mismatch.js 1`] = `
 declare function foo(
   input: mixed,
   types: string | Array<string>
-): boolean %checks(typeof input === \"string\" || Array.isArray(input));
+): boolean %checks(typeof input === "string" || Array.isArray(input));
 
 foo(3, 3);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -420,15 +420,15 @@ exports[`test sanity-pred-with-body.js 1`] = `
 // Sanity check:
 // - predicate functions cannot have bodies (can only be declarations)
 
-function pred(x: mixed): boolean %checks(typeof x === \"string\") { // error: cannot use pred type here
-  return typeof x === \"string\";
+function pred(x: mixed): boolean %checks(typeof x === "string") { // error: cannot use pred type here
+  return typeof x === "string";
 }
 
 function foo(x: string | Array<string>): string {
   if (pred(x)) {
     return x;
   }
-  return \"1\"
+  return "1"
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /node_modules/babylon/lib/index.js:4255

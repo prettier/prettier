@@ -5,7 +5,6 @@ var OpenGraphValueContainer = require('./OpenGraphValueContainer.js');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 var OpenGraphValueContainer = require("./OpenGraphValueContainer.js");
-
 "
 `;
 
@@ -16,7 +15,6 @@ var OpenGraphValueContainer = require('./OpenGraphValueContainer.js');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 var OpenGraphValueContainer = require("./OpenGraphValueContainer.js");
-
 "
 `;
 
@@ -27,6 +25,5 @@ var OpenGraphObject = require('./OpenGraphObject.js');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 var OpenGraphObject = require("./OpenGraphObject.js");
-
 "
 `;

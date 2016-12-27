@@ -4,6 +4,5 @@ const dino : Dinosaur = "Stegosaurus"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 const dino: Dinosaur = "Stegosaurus";
-
 "
 `;

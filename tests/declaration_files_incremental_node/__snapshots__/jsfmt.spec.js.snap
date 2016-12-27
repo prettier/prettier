@@ -6,7 +6,6 @@ class Implementation {}
 export function foo(): Implementation {
   return new Implementation();
 }
-
 "
 `;
 
@@ -55,34 +54,45 @@ var F = require('package_with_dir_main');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 // This will require ./node_modules/B.js.flow
+// Error either Implementation ~> boolean or Declaration ~> boolean
+// This will require ./node_modules/B.js.flow
+// Error either Implementation ~> boolean or Declaration ~> boolean
+// Error either Implementation ~> boolean or Declaration ~> boolean
+// Error either Implementation ~> boolean or Declaration ~> boolean
+// Error either Implementation ~> boolean or Declaration ~> boolean
+// Error either Implementation ~> boolean or Declaration ~> boolean
+// This will require ./node_modules/B.js.flow
+// Error either Implementation ~> boolean or Declaration ~> boolean
+// This will require ./node_modules/B.js.flow
+// Error either Implementation ~> boolean or Declaration ~> boolean
+// Error either Implementation ~> boolean or Declaration ~> boolean
+// Error either Implementation ~> boolean or Declaration ~> boolean
+// Error either Implementation ~> boolean or Declaration ~> boolean
+// Error either Implementation ~> boolean or Declaration ~> boolean
 var B1 = require("B");
-(B1.fun(): boolean);// Error either Implementation ~> boolean or Declaration ~> boolean
-// This will require ./node_modules/B.js.flow
+(B1.fun(): boolean);
 var B2 = require("B.js");
-(B2.fun(): boolean);// Error either Implementation ~> boolean or Declaration ~> boolean
+(B2.fun(): boolean);
 var C = require("package_with_full_main");
-(C.fun(): boolean);// Error either Implementation ~> boolean or Declaration ~> boolean
+(C.fun(): boolean);
 var D = require("package_with_partial_main");
-(D.fun(): boolean);// Error either Implementation ~> boolean or Declaration ~> boolean
+(D.fun(): boolean);
 var E = require("package_with_no_package_json");
-(E.fun(): boolean);// Error either Implementation ~> boolean or Declaration ~> boolean
+(E.fun(): boolean);
 var F = require("package_with_dir_main");
-(F.fun(): boolean);// Error either Implementation ~> boolean or Declaration ~> boolean
-// This will require ./node_modules/B.js.flow
+(F.fun(): boolean);
 var B1 = require("B");
-(B1.fun(): boolean);// Error either Implementation ~> boolean or Declaration ~> boolean
-// This will require ./node_modules/B.js.flow
+(B1.fun(): boolean);
 var B2 = require("B.js");
-(B2.fun(): boolean);// Error either Implementation ~> boolean or Declaration ~> boolean
+(B2.fun(): boolean);
 var C = require("package_with_full_main");
-(C.fun(): boolean);// Error either Implementation ~> boolean or Declaration ~> boolean
+(C.fun(): boolean);
 var D = require("package_with_partial_main");
-(D.fun(): boolean);// Error either Implementation ~> boolean or Declaration ~> boolean
+(D.fun(): boolean);
 var E = require("package_with_no_package_json");
-(E.fun(): boolean);// Error either Implementation ~> boolean or Declaration ~> boolean
+(E.fun(): boolean);
 var F = require("package_with_dir_main");
-(F.fun(): boolean);// Error either Implementation ~> boolean or Declaration ~> boolean
-
+(F.fun(): boolean);
 "
 `;
 
@@ -91,8 +101,8 @@ exports[`test test_relative.js 1`] = `
 
 (foo(): boolean); // Error: either Implementation ~> boolean or Definition ~> boolean
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Error: either Implementation ~> boolean or Definition ~> boolean
 import { foo } from "./A";
-(foo(): boolean);// Error: either Implementation ~> boolean or Definition ~> boolean
-
+(foo(): boolean);
 "
 `;

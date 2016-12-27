@@ -5,6 +5,5 @@ export var name: "subdir/custom_resolve_dir/testproj2" = "subdir/custom_resolve_
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 export var name: "subdir/custom_resolve_dir/testproj2" = "subdir/custom_resolve_dir/testproj2";
-
 "
 `;

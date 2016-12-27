@@ -22,13 +22,13 @@ var a: string = foo('hi'); // error number ~> string
  * when --traces is turned on.
  */
 // $FlowFixMe - Error unused suppression
+// error number ~> string
 function bar(): number {
-  return 5;
+  return [object Number];
 }
 function foo(x: string) {
   return bar();
 }
-var a: string = foo("hi");// error number ~> string
-
+var a: string = foo("hi");
 "
 `;

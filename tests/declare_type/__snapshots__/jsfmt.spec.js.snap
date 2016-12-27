@@ -6,21 +6,21 @@ exports[`test import_declare_type.js 1`] = `
 ////////////////////////////////////////////////////////////
 // == Import Declared Type Alias From Declared Module == //
 //////////////////////////////////////////////////////////
-import type {baz} from \"ModuleAliasFoo\";
-import {foo} from \"ModuleAliasFoo\";
+import type {baz} from "ModuleAliasFoo";
+import {foo} from "ModuleAliasFoo";
 var k1: baz = 42;
-var k2: baz = \"shab\"; // Error: string to int
+var k2: baz = "shab"; // Error: string to int
 var k3: toz = foo(k1); // works
 
-import type {toz} from \"ModuleAliasFoo\";
+import type {toz} from "ModuleAliasFoo";
 var k4: toz = foo(k1); // works
 
 //////////////////////////////////////////////////////////
 // == Declared Module with exports prop (issue 880) == //
 ////////////////////////////////////////////////////////
 
-import blah from \'foo\';
-import type { Foo, Bar, Id } from \'foo\';
+import blah from 'foo';
+import type { Foo, Bar, Id } from 'foo';
 
 blah(0, 0);
 
@@ -28,22 +28,35 @@ blah(0, 0);
 
 (3 : Bar); // error : number ~> A
 
-(\"lol\" : Id<number>); // error : string ~> number
+("lol" : Id<number>); // error : string ~> number
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+/**
+ * @flow
+ */
+////////////////////////////////////////////////////////////
+// == Import Declared Type Alias From Declared Module == //
+//////////////////////////////////////////////////////////
+// Error: string to int
+// works
+// works
+//////////////////////////////////////////////////////////
+// == Declared Module with exports prop (issue 880) == //
+////////////////////////////////////////////////////////
+// error : {toz : number} ~> string
+// error : number ~> A
+// error : string ~> number
+import type { baz } from "ModuleAliasFoo";
+import { foo } from "ModuleAliasFoo";
+var k1: baz = [object Number];
+var k2: baz = "shab";
+var k3: toz = foo(k1);
+import type { toz } from "ModuleAliasFoo";
+var k4: toz = foo(k1);
+import blah from "foo";
+import type { Foo, Bar, Id } from "foo";
+blah([object Number], [object Number]);
+({ toz: [object Number] }: Foo);
+([object Number]: Bar);
+("lol": Id<number>);
 "
 `;

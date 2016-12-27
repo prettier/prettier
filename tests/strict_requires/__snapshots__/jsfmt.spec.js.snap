@@ -3,8 +3,7 @@ exports[`test A.js 1`] = `
 module.exports = 0;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-module.exports = 0;
-
+module.exports = [object Number];
 "
 `;
 
@@ -14,7 +13,6 @@ module.exports = { foo: "" }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 module.exports = { foo: "" };
-
 "
 `;
 
@@ -29,7 +27,6 @@ module.exports = o;
 /* @flow */
 var o = { A: require("./A"), ...require("./B") };
 module.exports = o;
-
 "
 `;
 
@@ -44,7 +41,6 @@ C.A = false;
 var C = require("./C");
 var x: number = C.foo;
 var y: string = C.A;
-C.A = false;
-
+C.A = [object Boolean];
 "
 `;

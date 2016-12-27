@@ -6,9 +6,8 @@ var A = require ('./A');
 export type B = string;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-var A = require("./A");
 //import type C from './C';
+var A = require("./A");
 export type B = string;
-
 "
 `;

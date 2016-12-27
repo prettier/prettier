@@ -4,9 +4,8 @@ exports.x = 1;
 exports.y = "";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-exports.x = 1;
+exports.x = [object Number];
 exports.y = "";
-
 "
 `;
 
@@ -20,6 +19,5 @@ var y: number = e.y;
 var e = require("./export");
 var x: string = e.x;
 var y: number = e.y;
-
 "
 `;

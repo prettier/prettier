@@ -7,25 +7,23 @@ function foo(b): A<any> { // ok but unsafe, caller may assume any type arg
   return b ? (new A: A<number>): (new A: A<string>);
 }
 
-function bar(): A<*> { // error, * can\'t be {} and {x: string} at the same time
+function bar(): A<*> { // error, * can't be {} and {x: string} at the same time
   return (new A: A<{}>) || (new A: A<{x: string}>);
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1172:16)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// OK, implicitly inferred type args
+// OK, same as above
+// ok but unsafe, caller may assume any type arg
+// error, * can't be {} and {x: string} at the same time
+class A<X> {}
+new A();
+class B extends A {}
+function foo(b): A<any> {
+  return (b ? (new A(): A<number>) : (new A(): A<string>));
+}
+function bar(): A<*> {
+  return (new A(): A<{}>) || (new A(): A<{ x: string }>);
+}
 "
 `;
 
@@ -51,21 +49,24 @@ a.meth(new Child());
 a.meth(42); // Error: number ~> Middle
 a.meth(new Base()); // Error: Base ~> Middle
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1172:16)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// @flow
+// T is implicitly (bounded by) Middle in constructor call if not provided.
+// Explicit type arg is required in annotation - here a wildcard captures it.
+// Error: number ~> Middle
+// Error: Base ~> Middle
+class Base {}
+class Middle extends Base {}
+class Child extends Middle {}
+class C<T: Middle> {
+  meth(a: T): T {
+    return a;
+  }
+}
+var a: C<*> = new C();
+a.meth(new Middle());
+a.meth(new Child());
+a.meth([object Number]);
+a.meth(new Base());
 "
 `;
 
@@ -89,21 +90,19 @@ declare function unbox<A>(box: Box<A>): A
 
 unbox(bool);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1479:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// @flow
+// naive unification causes combinatorial explosion here,
+// effectively hangs
+type Box<T> = {
+  map1: : (f: (x: T) => U) => Box<U>,
+  map2: : (f: (x: T) => U) => Box<U>,
+  map3: : (f: (x: T) => U) => Box<U>,
+  map4: : (f: (x: T) => U) => Box<U>,
+  map5: : (f: (x: T) => U) => Box<U>
+};
+declare var bool: Box<boolean>;
+declare function unbox(box: Box<A>): A;
+unbox(bool);
 "
 `;
 
@@ -125,23 +124,22 @@ declare var Q: {
 
 var foo = new Foo(0);
 var x:string = foo.x;
-var z:Foo<number> = Q.bar(foo,\"\");
+var z:Foo<number> = Q.bar(foo,"");
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1172:16)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+class Foo<T> {
+  x: T;
+  constructor(x: T) {
+    this.x = x;
+  }
+}
+function bar<S>(foo: Foo<S>, y: S): Foo<S> {
+  return new Foo(y);
+}
+var P = { bar: bar };
+declare var Q: { bar: : (foo: Foo<S>, y: S) => Foo<S> };
+var foo = new Foo([object Number]);
+var x: string = foo.x;
+var z: Foo<number> = Q.bar(foo, "");
 "
 `;
 
@@ -159,14 +157,18 @@ class D extends C {
   qux<X>(x: X): X { return x; } // OK (generalization)
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// error (specialization, see below)
+// OK, but only because the overridden foo accepts no more than number and returns exactly number
+// OK
+// OK (generalization)
 class C {
-  foo(x: X): X {
+  foo<X>(x: X): X {
     return x;
   }
-  foo_(x: X): number {
+  foo_<X: number>(x: X): number {
     return x;
   }
-  bar(x: X): X {
+  bar<X>(x: X): X {
     return x;
   }
   qux(x: number): number {
@@ -176,17 +178,16 @@ class C {
 class D extends C {
   foo(x: number): number {
     return x;
-  }// error (specialization, see below)
+  }
   foo_(x: number): number {
     return x;
-  }// OK, but only because the overridden foo accepts no more than number and returns exactly number
-  bar(x: X): X {
+  }
+  bar<X>(x: X): X {
     return x;
-  }// OK
-  qux(x: X): X {
+  }
+  qux<X>(x: X): X {
     return x;
-  }// OK (generalization)
+  }
 }
-
 "
 `;

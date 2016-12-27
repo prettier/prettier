@@ -7,21 +7,17 @@ function bar() {
     L: do { continue L; } while(false)
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:925
-      if (endsWithBrace(doBody))
-          ^
-
-ReferenceError: endsWithBrace is not defined
-    at genericPrintNoParens (/src/printer.js:925:11)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:963:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+function foo() {
+  while ([object Boolean]) {
+    break;
+  }
+}
+function bar() {
+  L:
+do {
+    continue L;
+  } while ([object Boolean]);
+}
 "
 `;
 
@@ -37,91 +33,10 @@ function bar(x: number) {
   
 }
 function foo() {
-  var x = null;
-  if (x == null)
+  var x = [object Null];
+  if (x == [object Null])
     return;
   bar(x);
 }
-
-"
-`;
-
-exports[`test toplevel_break.js 1`] = `
-"// @flow
-
-break; // error, illegal
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/node_modules/babylon/lib/index.js:4255
-  throw err;
-  ^
-
-SyntaxError: Unsyntactic break (3:0)
-    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
-    at Parser.pp$1.parseBreakContinueStatement (/node_modules/babylon/lib/index.js:1843:44)
-    at Parser.pp$1.parseStatement (/node_modules/babylon/lib/index.js:1703:19)
-    at Parser.parseStatement (/node_modules/babylon/lib/index.js:5224:22)
-    at Parser.pp$1.parseBlockBody (/node_modules/babylon/lib/index.js:2139:21)
-    at Parser.pp$1.parseTopLevel (/node_modules/babylon/lib/index.js:1651:8)
-    at Parser.parse (/node_modules/babylon/lib/index.js:1543:17)
-    at Object.parse$1 [as parse] (/node_modules/babylon/lib/index.js:6472:37)
-    at Object.parse (/index.js:34:26)
-    at Object.parse (/node_modules/recast/lib/parser.js:26:34)
-"
-`;
-
-exports[`test toplevel_continue.js 1`] = `
-"// @flow
-
-continue; // error, illegal
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/node_modules/babylon/lib/index.js:4255
-  throw err;
-  ^
-
-SyntaxError: Unsyntactic continue (3:0)
-    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
-    at Parser.pp$1.parseBreakContinueStatement (/node_modules/babylon/lib/index.js:1843:44)
-    at Parser.pp$1.parseStatement (/node_modules/babylon/lib/index.js:1703:19)
-    at Parser.parseStatement (/node_modules/babylon/lib/index.js:5224:22)
-    at Parser.pp$1.parseBlockBody (/node_modules/babylon/lib/index.js:2139:21)
-    at Parser.pp$1.parseTopLevel (/node_modules/babylon/lib/index.js:1651:8)
-    at Parser.parse (/node_modules/babylon/lib/index.js:1543:17)
-    at Object.parse$1 [as parse] (/node_modules/babylon/lib/index.js:6472:37)
-    at Object.parse (/index.js:34:26)
-    at Object.parse (/node_modules/recast/lib/parser.js:26:34)
-"
-`;
-
-exports[`test toplevel_return.js 1`] = `
-"// @flow
-
-return; // error, illegal
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/node_modules/babylon/lib/index.js:4255
-  throw err;
-  ^
-
-SyntaxError: \'return\' outside of function (3:0)
-    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
-    at Parser.pp$1.parseReturnStatement (/node_modules/babylon/lib/index.js:1939:10)
-    at Parser.pp$1.parseStatement (/node_modules/babylon/lib/index.js:1722:19)
-    at Parser.parseStatement (/node_modules/babylon/lib/index.js:5224:22)
-    at Parser.pp$1.parseBlockBody (/node_modules/babylon/lib/index.js:2139:21)
-    at Parser.pp$1.parseTopLevel (/node_modules/babylon/lib/index.js:1651:8)
-    at Parser.parse (/node_modules/babylon/lib/index.js:1543:17)
-    at Object.parse$1 [as parse] (/node_modules/babylon/lib/index.js:6472:37)
-    at Object.parse (/index.js:34:26)
-    at Object.parse (/node_modules/recast/lib/parser.js:26:34)
-"
-`;
-
-exports[`test toplevel_throw.js 1`] = `
-"// @flow
-
-throw new Error(\'foo\'); // no error
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// @flow
-throw new Error(\"foo\");// no error
-
 "
 `;

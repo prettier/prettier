@@ -1,11 +1,11 @@
 exports[`test lex.js 1`] = `
 "function switch_scope(x: mixed) {
-  let a = \"\";
-  let b = \"\";
+  let a = "";
+  let b = "";
   switch (x) {
-    case \"foo\":
+    case "foo":
       let a;
-      a = 0; // doesn\'t add lower bound to outer a
+      a = 0; // doesn't add lower bound to outer a
       b = 0;
   }
   (a : string); // OK
@@ -16,11 +16,11 @@ function try_scope_finally() {
   let a;
   let b;
   try {
-    a = \"\";
-    b = \"\";
+    a = "";
+    b = "";
   } finally {
     let a;
-    a = 0; // doesn\'t add lower bound to outer a
+    a = 0; // doesn't add lower bound to outer a
     b = 0;
   }
   (a : string); // ok
@@ -28,10 +28,10 @@ function try_scope_finally() {
 }
 
 function for_scope() {
-  let a = \"\";
-  let b = \"\";
+  let a = "";
+  let b = "";
   for (let a;;) {
-    a = 0; // doesn\'t add lower bound to outer a
+    a = 0; // doesn't add lower bound to outer a
     b = 0;
   }
   (a : string);
@@ -42,39 +42,92 @@ function for_in_scope(o: Object) {
   let a = 0;
   let b = 0;
   for (let a in o) {
-    a = \"\"; // doesn\'t add lower bound to outer a
-    b = \"\";
+    a = ""; // doesn't add lower bound to outer a
+    b = "";
   }
   (a : number);
   (b : number); // error: string ~> number
 }
 
 function for_of_scope(xs: number[]) {
-  let a = \"\";
-  let b = \"\";
+  let a = "";
+  let b = "";
   for (let a of xs) {
-    a = 0; // doesn\'t add lower bound to outer a
+    a = 0; // doesn't add lower bound to outer a
     b = 0;
   }
   (a : string);
   (b : string); // error: number ~> string
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1020
-        }, \"consequent\").indent(options.tabWidth));
-                         ^
-
-TypeError: path.call(...).indent is not a function
-    at genericPrintNoParens (/src/printer.js:1020:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.map (/src/fast-path.js:167:19)
-    at genericPrintNoParens (/src/printer.js:1005:36)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// doesn't add lower bound to outer a
+// OK
+// error: number ~> string
+// doesn't add lower bound to outer a
+// ok
+// error: number ~> string
+// doesn't add lower bound to outer a
+// error: number ~> string
+// doesn't add lower bound to outer a
+// error: string ~> number
+// doesn't add lower bound to outer a
+// error: number ~> string
+function switch_scope(x: mixed) {
+  let a = "";
+  let b = "";
+  switch (x) {
+  case "foo":
+    let a;
+    a = [object Number];
+    b = [object Number];
+  }
+  (a: string);
+  (b: string);
+}
+function try_scope_finally() {
+  let a;
+  let b;
+  try {
+    a = "";
+    b = "";
+  } finally {
+    let a;
+    a = [object Number];
+    b = [object Number];
+  }
+  (a: string);
+  (b: string);
+}
+function for_scope() {
+  let a = "";
+  let b = "";
+  for (let a; ; ) {
+    a = [object Number];
+    b = [object Number];
+  }
+  (a: string);
+  (b: string);
+}
+function for_in_scope(o: Object) {
+  let a = [object Number];
+  let b = [object Number];
+  for (let a in o) {
+    a = "";
+    b = "";
+  }
+  (a: number);
+  (b: number);
+}
+function for_of_scope(xs: number[]) {
+  let a = "";
+  let b = "";
+  for (let a of xs) {
+    a = [object Number];
+    b = [object Number];
+  }
+  (a: string);
+  (b: string);
+}
 "
 `;
 
@@ -98,25 +151,32 @@ function sorry(really: bool) {
 function foo0(b: bool): number {
   var x = 0;
   if (b) {
-    var x = \"\"; // error: string ~> number
+    var x = ""; // error: string ~> number
   }
   return x;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1530
-      return fromString(\" | \").join(path.map(print, \"types\"));
-                               ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1530:32)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1254:25)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+//declare var T: $Type<number | Array<T>>;
+// error: string ~> number
+var x: string = [object Number];
+var x: number = [object Number];
+function foo(p: boolean) {
+  
+}
+function sorry(really: boolean) {
+  if (really) {
+    var x: number | string = [object Number];
+  } else {
+    var x: boolean = [object Boolean];
+  }
+  foo(x);
+}
+function foo0(b: boolean): number {
+  var x = [object Number];
+  if (b) {
+    var x = "";
+  }
+  return x;
+}
 "
 `;

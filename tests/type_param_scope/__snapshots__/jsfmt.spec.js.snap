@@ -8,21 +8,17 @@ exports[`test class.js 1`] = `
   b(x:T) {}
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1172:16)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// ok
+// error: A ~> incompatible instance of T
+class C<T> {
+  a<A>(x: T, a: A) {
+    this.b(x);
+    this.b(a);
+  }
+  b(x: T) {
+    
+  }
+}
 "
 `;
 
@@ -40,21 +36,27 @@ exports[`test default_params.js 1`] = `
 }
 f(0); // ok
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:340:16)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// ok
+// ok
+// err, T ~> U
+// ok
+// ok
+// error: number ~> T
+// ok
+function f<T>(a: T) {
+  function g<U>(b: U, c: T = a) {
+    function h(d: U = b) {
+      
+    }
+    h();
+    h(b);
+    h(c);
+  }
+  g([object Number]);
+  g([object Number], a);
+  g([object Number], [object Number]);
+}
+f([object Number]);
 "
 `;
 
@@ -95,13 +97,13 @@ declare class F<T> extends E<T> {
 class G<T> {
   x:T;
   constructor(x:T) { this.x = x }
-  m<T:T>(x:T):G<T> { return new G(x) } // T-as-bound is G\'s T
+  m<T:T>(x:T):G<T> { return new G(x) } // T-as-bound is G's T
 }
 
 declare var g: G<number|string>;
 g.m(0); // ok
 g.m(true); // err, bool ~> number|string
-(g.m(\"\"): G<number>); // err, string ~> number
+(g.m(""): G<number>); // err, string ~> number
 
 
 // Shadow bounds incompatible with parent
@@ -109,24 +111,56 @@ g.m(true); // err, bool ~> number|string
 class H<T> {
     x:T;
     m<T>(x:T) {
-        this.x = x; // err, m\'s T != H\'s T
+        this.x = x; // err, m's T != H's T
     }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1172:16)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// Ensure method type params properly shadow outer type params. Subclass ensures
+// the generated insttype has the correct tvars. Should behave the same for
+// classes, interfaces, and declared classes.
+// Bounds can refer to parent type params (until they are shadowed).
+// T-as-bound is G's T
+// ok
+// err, bool ~> number|string
+// err, string ~> number
+// Shadow bounds incompatible with parent
+// err, m's T != H's T
+class A<T> {
+  x: T;
+  constructor(x: T) {
+    this.x = x;
+  }
+  m<T>(x: T): A<T> {
+    return new A(x);
+  }
+}
+class B<T> extends A<T> {
+  m<T>(x: T): B<T> {
+    return new B(x);
+  }
+}
+interface C<T> extends  { m: : (x: T) => C<T> }
+interface D<T> extends C<T> { m: : (x: T) => D<T> }
+declare class E { m: : (x: T) => E<T> }
+declare class F { m: : (x: T) => F<T> }
+class G<T> {
+  x: T;
+  constructor(x: T) {
+    this.x = x;
+  }
+  m<T: T>(x: T): G<T> {
+    return new G(x);
+  }
+}
+declare var g: G<number | string>;
+g.m([object Number]);
+g.m([object Boolean]);
+(g.m(""): G<number>);
+class H<T> {
+  x: T;
+  m<T>(x: T) {
+    this.x = x;
+  }
+}
 "
 `;

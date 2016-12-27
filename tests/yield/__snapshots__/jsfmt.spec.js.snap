@@ -3,21 +3,12 @@ exports[`test yield_arrow_error.js 1`] = `
   var e = () => { yield 1; };
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/node_modules/babylon/lib/index.js:4255
-  throw err;
-  ^
-
-SyntaxError: Unexpected token (2:18)
-    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
-    at Parser.pp.unexpected (/node_modules/babylon/lib/index.js:1633:8)
-    at Parser.pp$3.parseIdentifier (/node_modules/babylon/lib/index.js:4128:10)
-    at Parser.pp$3.parseExprAtom (/node_modules/babylon/lib/index.js:3490:21)
-    at Parser.parseExprAtom (/node_modules/babylon/lib/index.js:6408:22)
-    at Parser.pp$3.parseExprSubscripts (/node_modules/babylon/lib/index.js:3337:19)
-    at Parser.pp$3.parseMaybeUnary (/node_modules/babylon/lib/index.js:3317:19)
-    at Parser.pp$3.parseExprOps (/node_modules/babylon/lib/index.js:3247:19)
-    at Parser.pp$3.parseMaybeConditional (/node_modules/babylon/lib/index.js:3224:19)
-    at Parser.pp$3.parseMaybeAssign (/node_modules/babylon/lib/index.js:3187:19)
+function* f() {
+  var e = () => {
+    yield;
+    [object Number];
+  };
+}
 "
 `;
 
@@ -27,8 +18,8 @@ exports[`test yield_arrow_error2.js 1`] = `
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function* f() {
-  var e = () => yield 1;
+  var e = () => yield;
+  [object Number];
 }
-
 "
 `;

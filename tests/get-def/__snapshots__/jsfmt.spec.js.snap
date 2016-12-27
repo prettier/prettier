@@ -16,16 +16,15 @@ add(lib.iTakeAString(42), 7);
 lib.bar();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
+// t123456
+// D123456
 var lib = require("./library");
 function add(a: number, b: number): number {
   return a + b;
 }
-var re = /^keynote (talk){2} (lightning){3,5} (talk){2} closing partytime!!!/;
-// t123456
-add(lib.iTakeAString(42), 7);
-// D123456
+var re = [object RegExp];
+add(lib.iTakeAString([object Number]), [object Number]);
 lib.bar();
-
 "
 `;
 
@@ -50,7 +49,6 @@ foo;
 baz;
 import * as things from "./helpers/exports_named.js";
 things;
-
 "
 `;
 
@@ -72,12 +70,11 @@ module.exports = {
 /* @flow */
 module.exports = {
   iTakeAString: function(name: string): number {
-    return 42;
+    return [object Number];
   },
   bar: function(): number {
-    return 42;
+    return [object Number];
   }
 };
-
 "
 `;

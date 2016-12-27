@@ -17,12 +17,11 @@ class B extends A {
   bar(x) {
     
   }
-  qux(x: X, y: Y): X {
+  qux<X, Y>(x: X, y: Y): X {
     return x;
   }
 }
 module.exports = B;
-
 "
 `;
 
@@ -46,13 +45,12 @@ module.exports = f;
  */
 // progressively annotate:
 //function f(x) { return x; }
+//function f(x:number):string { return x; }
 function f(x: number) {
   return x;
 }
-//function f(x:number):string { return x; }
-var x: string = f(0);
+var x: string = f([object Number]);
 module.exports = f;
-
 "
 `;
 
@@ -74,10 +72,9 @@ module.exports = o;
  * @flow
  */
 // progressively annotate:
-var o = { x: 0 };
 //var o: {x: number;} = { x: 0 }
+var o = { x: [object Number] };
 var x: string = o.x;
 module.exports = o;
-
 "
 `;

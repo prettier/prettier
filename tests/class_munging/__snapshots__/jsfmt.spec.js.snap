@@ -18,6 +18,7 @@ class Bar extends Foo {
 /**
  * @flow
  */
+// error
 class Foo {
   _method(): string {
     return "this is private";
@@ -25,10 +26,9 @@ class Foo {
 }
 class Bar extends Foo {
   test() {
-    (this._method(): string);// error
+    (this._method(): string);
   }
 }
-
 "
 `;
 
@@ -54,6 +54,7 @@ class Bar extends Foo {
  * @flow
  * @preventMunge
  */
+// ok
 class Foo {
   _method(): string {
     return "this is not private";
@@ -61,9 +62,8 @@ class Foo {
 }
 class Bar extends Foo {
   test() {
-    (this._method(): string);// ok
+    (this._method(): string);
   }
 }
-
 "
 `;

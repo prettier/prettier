@@ -2,14 +2,14 @@ exports[`test any.js 1`] = `
 "/* @flow */
 
 const dict: {[key: string]: number} = {}
-const k: any = \'foo\'
+const k: any = 'foo'
 const val: string = dict[k] // error: number incompatible with string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
+// error: number incompatible with string
 const dict: { [key: string]: number } = {};
-const k: any = \"foo\";
-const val: string = dict[k];// error: number incompatible with string
-
+const k: any = "foo";
+const val: string = dict[k];
 "
 `;
 
@@ -19,32 +19,33 @@ exports[`test compatible.js 1`] = `
 function foo0(x: Array<{[key: string]: mixed}>): Array<{[key: string]: mixed}> {
   // this adds a fooBar property to the param type, which should NOT cause
   // an error in the return type because it is a dictionary.
-  x[0].fooBar = \'foobar\';
+  x[0].fooBar = 'foobar';
   return x;
 }
 
 function foo2(
   x: {[key: string]: number}
 ): {[key: string]: number, +toString: () => string} {
-  // x\'s prototype has a toString method
+  // x's prototype has a toString method
   return x;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+/* @flow */
+// this adds a fooBar property to the param type, which should NOT cause
+// an error in the return type because it is a dictionary.
+// x's prototype has a toString method
+function foo0(x: Array<{ [key: string]: mixed }>): Array<{
+  [key: string]: mixed
+}> {
+  x[[object Number]].fooBar = "foobar";
+  return x;
+}
+function foo2(x: { [key: string]: number }): {
+  [key: string]: number,
+  +toString: : () => string
+} {
+  return x;
+}
 "
 `;
 
@@ -58,7 +59,7 @@ exports[`test dictionary.js 1`] = `
  * maps. They can also be used to represent array-like objects, e.g., NodeList
  * from the DOM API.
  *
- * A dictionary is assumed to have every property described by it\'s key type.
+ * A dictionary is assumed to have every property described by it's key type.
  * This behavior is similar to the behavior of arrays, which are assumed to have
  * a value at every index.
  *
@@ -78,17 +79,17 @@ class Y {}
 function set_prop_to_string_key(
   o: {[k:string]:any},
 ) {
-  o.prop = \"ok\";
+  o.prop = "ok";
 }
 
 // **UNSOUND**
-// This is allowed by design. We don\'t track get/set and we don\'t wrap the
+// This is allowed by design. We don't track get/set and we don't wrap the
 // return type in a maybe.
 function unsound_dict_has_every_key(
   o: {[k:string]:X},
 ) {
   (o.p: X); // ok
-  (o[\"p\"]: X); // ok
+  (o["p"]: X); // ok
 }
 
 // As with any object type, we can assign subtypes to properties.
@@ -100,7 +101,7 @@ function set_prop_covariant(
   o.p = new C; // ok
 }
 
-// This isn\'t specific behavior to dictionaries, but for completeness...
+// This isn't specific behavior to dictionaries, but for completeness...
 function get_prop_contravariant(
   o: {[k:string]:B},
 ) {
@@ -114,7 +115,7 @@ function get_prop_contravariant(
 function add_prop_to_nonstring_key_dot(
   o: {[k:number]:any},
 ) {
-  o.prop = \"err\"; // error: string ~> number
+  o.prop = "err"; // error: string ~> number
 }
 
 // Bracket notation can be used to add properties to dictionaries with
@@ -123,7 +124,7 @@ function add_prop_to_nonstring_key_dot(
 function add_prop_to_nonstring_key_bracket(
   o: {[k:number]:any},
 ) {
-  o[0] = \"ok\";
+  o[0] = "ok";
 }
 
 // Objects can be part dict, part not by mixing an indexer with declared props.
@@ -147,12 +148,12 @@ function object_prototype(
 }
 
 // **UNSOUND**
-// Because we support non-string props w/ bracket notation, it\'s possible to
+// Because we support non-string props w/ bracket notation, it's possible to
 // write into a declared prop unsoundly.
 function unsound_string_conversion_alias_declared_prop(
-  o: {[k:number]:any, \"0\":X},
+  o: {[k:number]:any, "0":X},
 ) {
-  o[0] = \"not-x\"; // a[\"0\"] no longer X
+  o[0] = "not-x"; // a["0"] no longer X
 }
 
 function unification_dict_values_invariant(
@@ -200,7 +201,7 @@ function subtype_dict_values_fresh_exception() {
 }
 
 // Actually, unsound_string_conversion_alias_declared_prop behavior makes an
-// argument that we shouldn\'t really care about this, since we ignore the fact
+// argument that we shouldn't really care about this, since we ignore the fact
 // that coercing values to string keys can cause unintended aliasing in general.
 // Barring some compelling use case for that in this context, though, we choose
 // to be strict.
@@ -370,21 +371,303 @@ function subtype_optional_c_to_dict(
   return x;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1348
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1348:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1452:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+/* Dictionary types are object types that include an indexer, which specifies a
+ * key type and a value type. The presence of an indexer makes the object type
+ * unsealed, but all added properties must be consistent with the indexer
+ * signature.
+ *
+ * Dictionaries can be used to represent the common idiom of objects used as
+ * maps. They can also be used to represent array-like objects, e.g., NodeList
+ * from the DOM API.
+ *
+ * A dictionary is assumed to have every property described by it's key type.
+ * This behavior is similar to the behavior of arrays, which are assumed to have
+ * a value at every index.
+ *
+ * @flow
+ */
+// Some logic is variance-sensitive.
+// Just a couple of short type names. Compare to string/number.
+// Any property can be set on a dict with string keys.
+// **UNSOUND**
+// This is allowed by design. We don't track get/set and we don't wrap the
+// return type in a maybe.
+// ok
+// ok
+// As with any object type, we can assign subtypes to properties.
+// error, A ~> B
+// ok
+// ok
+// This isn't specific behavior to dictionaries, but for completeness...
+// ok
+// ok
+// error, C ~> B
+// Dot-notation can not be used to add properties to dictionaries with
+// non-string keys, because keys are strings.
+// error: string ~> number
+// Bracket notation can be used to add properties to dictionaries with
+// non-string keys, even though all keys are strings. This is a convenient
+// affordance.
+// Objects can be part dict, part not by mixing an indexer with declared props.
+// ok
+// ok
+// ok
+// ok
+// Indeed, dict types are still Objects and have Object.prototype stuff
+// error: string ~> boolean
+// ok
+// **UNSOUND**
+// Because we support non-string props w/ bracket notation, it's possible to
+// write into a declared prop unsoundly.
+// a["0"] no longer X
+// error
+// in[0].p no longer B
+// ok
+// error
+// not true
+// error
+// x[0].p no longer B
+// ok
+// error
+// not true
+// ok, A == A
+// ok, B <: A
+// ok, C <: A
+// error, A not <: B
+// ok, B == B
+// ok, C <: A
+// error, A not <: C
+// error, A not <: C
+// ok, C == C
+// Actually, unsound_string_conversion_alias_declared_prop behavior makes an
+// argument that we shouldn't really care about this, since we ignore the fact
+// that coercing values to string keys can cause unintended aliasing in general.
+// Barring some compelling use case for that in this context, though, we choose
+// to be strict.
+// error
+// ok
+// error
+// error
+// ok
+// error
+// error: A ~> B
+// x[0].p no longer B
+// ok
+// error
+// not true
+// error
+// xa[0].p no longer B
+// ok
+// error
+// not true
+// error: A ~> B
+// x.p no longer B
+// ok
+// error
+// not true
+// error
+// xa.p no longer B
+// ok
+// error
+// not true
+// error: if allowed, could write {p:X,q:Y} into \`x\`
+// error: if allowed, could write {p:X,q:Y} into returned array
+// error
+// x.p no longer B
+// ok
+// error
+// not true
+// error
+// x.p no longer B
+// error
+// not true
+// Only props in l which are not in u must match indexer, but must do so
+// exactly.
+// error (as above), but exclusive of x
+// ok,
+// error (as above), but exclusive of x
+// error
+// ok
+// error
+// error
+// ok
+// error
+// error
+// ok
+// error
+// error: A ~> B
+// ok
+// error: C ~> B
+class A {}
+class B extends A {}
+class C extends B {}
+class X {}
+class Y {}
+function set_prop_to_string_key(o: { [k: string]: any }) {
+  o.prop = "ok";
+}
+function unsound_dict_has_every_key(o: { [k: string]: X }) {
+  (o.p: X);
+  (o["p"]: X);
+}
+function set_prop_covariant(o: { [k: string]: B }) {
+  o.p = new A();
+  o.p = new B();
+  o.p = new C();
+}
+function get_prop_contravariant(o: { [k: string]: B }) {
+  (o.p: A);
+  (o.p: B);
+  (o.p: C);
+}
+function add_prop_to_nonstring_key_dot(o: { [k: number]: any }) {
+  o.prop = "err";
+}
+function add_prop_to_nonstring_key_bracket(o: { [k: number]: any }) {
+  o[[object Number]] = "ok";
+}
+function mix_with_declared_props(o: { [k: number]: X, p: Y }, x: X, y: Y) {
+  (o[[object Number]]: X);
+  (o.p: Y);
+  o[[object Number]] = x;
+  o.p = y;
+}
+function object_prototype(o: { [k: string]: number }): {
+  [k: string]: number,
+  +toString: : () => string
+} {
+  (o.toString(): boolean);
+  return o;
+}
+function unsound_string_conversion_alias_declared_prop(
+  o: { [k: number]: any, "0": X }
+) {
+  o[[object Number]] = "not-x";
+}
+function unification_dict_values_invariant(x: Array<{ [k: string]: B }>) {
+  let a: Array<{ [k: string]: A }> = x;
+  a[[object Number]].p = new A();
+  let b: Array<{ [k: string]: B }> = x;
+  let c: Array<{ [k: string]: C }> = x;
+  (x[[object Number]].p: C);
+}
+function subtype_dict_values_invariant(x: { [k: string]: B }) {
+  let a: { [k: string]: A } = x;
+  a.p = new A();
+  let b: { [k: string]: B } = x;
+  let c: { [k: string]: C } = x;
+  (x.p: C);
+}
+function subtype_dict_values_fresh_exception() {
+  let a: { [k: string]: A } = { a: new A(), b: new B(), c: new C() };
+  let b: { [k: string]: B } = { a: new A(), b: new B(), c: new C() };
+  let c: { [k: string]: C } = { a: new A(), b: new B(), c: new C() };
+}
+function unification_dict_keys_invariant(x: Array<{ [k: B]: any }>) {
+  let a: Array<{ [k: A]: any }> = x;
+  let b: Array<{ [k: B]: any }> = x;
+  let c: Array<{ [k: C]: any }> = x;
+}
+function subtype_dict_keys_invariant(x: { [k: B]: any }) {
+  let a: { [k: A]: any } = x;
+  let b: { [k: B]: any } = x;
+  let c: { [k: C]: any } = x;
+}
+function unification_mix_with_declared_props_invariant_l(
+  x: Array<{ [k: string]: B }>
+) {
+  let a: Array<{ [k: string]: B, p: A }> = x;
+  a[[object Number]].p = new A();
+  let b: Array<{ [k: string]: B, p: B }> = x;
+  let c: Array<{ [k: string]: B, p: C }> = x;
+  (x[[object Number]].p: C);
+}
+function unification_mix_with_declared_props_invariant_r(
+  xa: Array<{ [k: string]: A, p: B }>,
+  xb: Array<{ [k: string]: B, p: B }>,
+  xc: Array<{ [k: string]: C, p: B }>
+) {
+  let a: Array<{ [k: string]: A }> = xa;
+  a[[object Number]].p = new A();
+  let b: Array<{ [k: string]: B }> = xb;
+  let c: Array<{ [k: string]: C }> = xc;
+  (xc[[object Number]].p: C);
+}
+function subtype_mix_with_declared_props_invariant_l(x: { [k: string]: B }) {
+  let a: { [k: string]: B, p: A } = x;
+  a.p = new A();
+  let b: { [k: string]: B, p: B } = x;
+  let c: { [k: string]: B, p: C } = x;
+  (x.p: C);
+}
+function subtype_mix_with_declared_props_invariant_r(
+  xa: { [k: string]: A, p: B },
+  xb: { [k: string]: B, p: B },
+  xc: { [k: string]: C, p: B }
+) {
+  let a: { [k: string]: A } = xa;
+  a.p = new A();
+  let b: { [k: string]: B } = xb;
+  let c: { [k: string]: C } = xc;
+  (xc.p: C);
+}
+function unification_dict_to_obj(x: Array<{ [k: string]: X }>): Array<{
+  p: X
+}> {
+  return x;
+}
+function unification_obj_to_dict(x: Array<{ p: X }>): Array<{
+  [k: string]: X
+}> {
+  return x;
+}
+function subtype_dict_to_obj(x: { [k: string]: B }) {
+  let a: { p: A } = x;
+  a.p = new A();
+  let b: { p: B } = x;
+  let c: { p: C } = x;
+  (x.p: C);
+}
+function subtype_obj_to_dict(x: { p: B }) {
+  let a: { [k: string]: A } = x;
+  a.p = new A();
+  let b: { [k: string]: B } = x;
+  let c: { [k: string]: C } = x;
+  (x.p: C);
+}
+function subtype_obj_to_mixed(x: { p: B, x: X }) {
+  let a: { [k: string]: A, x: X } = x;
+  let b: { [k: string]: B, x: X } = x;
+  let c: { [k: string]: C, x: X } = x;
+}
+function unification_dict_to_mixed(x: Array<{ [k: string]: B }>) {
+  let a: Array<{ [k: string]: B, p: A }> = x;
+  let b: Array<{ [k: string]: B, p: B }> = x;
+  let c: Array<{ [k: string]: B, p: C }> = x;
+}
+function subtype_dict_to_mixed(x: { [k: string]: B }) {
+  let a: { [k: string]: B, p: A } = x;
+  let b: { [k: string]: B, p: B } = x;
+  let c: { [k: string]: B, p: C } = x;
+}
+function subtype_dict_to_optional_a(x: { [k: string]: B }) {
+  let a: { p?: A } = x;
+}
+function subtype_dict_to_optional_b(x: { [k: string]: B }) {
+  let b: { p?: B } = x;
+}
+function subtype_dict_to_optional_c(x: { [k: string]: B }) {
+  let c: { p?: C } = x;
+}
+function subtype_optional_a_to_dict(x: { p?: A }): { [k: string]: B } {
+  return x;
+}
+function subtype_optional_b_to_dict(x: { p?: B }): { [k: string]: B } {
+  return x;
+}
+function subtype_optional_c_to_dict(x: { p?: C }): { [k: string]: B } {
+  return x;
+}
 "
 `;
 
@@ -397,14 +680,14 @@ var z : {[key: number]: string} = x; // 2 errors, string !~> number & vice versa
 
 var a : {[key: string]: ?string} = {};
 var b : {[key: string]: string} = a; // 2 errors (null & undefined)
-var c : {[key: string]: ?string} = b; // 2 errors, since c[\'x\'] = null updates b
+var c : {[key: string]: ?string} = b; // 2 errors, since c['x'] = null updates b
 
 // 2 errors (number !~> string, string !~> number)
 function foo0(x: Array<{[key: string]: number}>): Array<{[key: string]: string}> {
   return x;
 }
 
-// error, fooBar:string !~> number (x\'s dictionary)
+// error, fooBar:string !~> number (x's dictionary)
 function foo1(
   x: Array<{[key: string]: number}>
 ): Array<{[key: string]: number, fooBar: string}> {
@@ -414,7 +697,7 @@ function foo1(
 function foo2(
   x: Array<{[key: string]: mixed}>
 ): Array<{[key: string]: mixed, fooBar: string}> {
-  x[0].fooBar = 123; // OK, since number ~> mixed (x elem\'s dictionary)
+  x[0].fooBar = 123; // OK, since number ~> mixed (x elem's dictionary)
   return x; // error: mixed ~> string
 }
 
@@ -423,7 +706,7 @@ function foo3(x: {[key: string]: number}): {foo: number} {
   return x;
 }
 
-// error: foo can\'t exist in x
+// error: foo can't exist in x
 function foo4(x: {[key: string]: number}): {[key: string]: number, foo: string} {
   return x;
 }
@@ -447,21 +730,66 @@ function foo8(x: {[key: string]: number}) {
   (x.foo: number);
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+/* @flow */
+// 2 errors, number !~> string & vice versa
+// 2 errors, string !~> number & vice versa
+// 2 errors (null & undefined)
+// 2 errors, since c['x'] = null updates b
+// 2 errors (number !~> string, string !~> number)
+// error, fooBar:string !~> number (x's dictionary)
+// OK, since number ~> mixed (x elem's dictionary)
+// error: mixed ~> string
+// OK, since we assume dictionaries have every key
+// error: foo can't exist in x
+// error, some prop in x could be incompatible (covariance)
+// error, some prop in return could be incompatible
+// error
+var x: { [key: string]: string } = {};
+var y: { [key: string]: number } = x;
+var z: { [key: number]: string } = x;
+var a: { [key: string]: ?string } = {};
+var b: { [key: string]: string } = a;
+var c: { [key: string]: ?string } = b;
+function foo0(x: Array<{ [key: string]: number }>): Array<{
+  [key: string]: string
+}> {
+  return x;
+}
+function foo1(x: Array<{ [key: string]: number }>): Array<{
+  [key: string]: number,
+  fooBar: string
+}> {
+  return x;
+}
+function foo2(x: Array<{ [key: string]: mixed }>): Array<{
+  [key: string]: mixed,
+  fooBar: string
+}> {
+  x[[object Number]].fooBar = [object Number];
+  return x;
+}
+function foo3(x: { [key: string]: number }): { foo: number } {
+  return x;
+}
+function foo4(x: { [key: string]: number }): {
+  [key: string]: number,
+  foo: string
+} {
+  return x;
+}
+function foo5(x: Array<{ [key: string]: number }>): Array<{ foo: number }> {
+  return x;
+}
+function foo6(x: Array<{ foo: number }>): Array<{ [key: string]: number }> {
+  return x;
+}
+function foo7(x: { [key: string]: number, bar: string }) {
+  (x.bar: string);
+}
+function foo8(x: { [key: string]: number }) {
+  (x.foo: string);
+  (x.foo: number);
+}
 "
 `;
 
@@ -493,25 +821,28 @@ class B {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
+// no error
+// no error
+// no error
+// no error
 class A {
   x: { [k: string]: number };
   m1() {
-    this.x = { bar: 0 };// no error
+    this.x = { bar: [object Number] };
   }
   m2() {
-    this.x.foo = 0;// no error
+    this.x.foo = [object Number];
   }
 }
 class B {
   x: { [k: string]: number };
   m2() {
-    this.x.foo = 0;// no error
+    this.x.foo = [object Number];
   }
   m1() {
-    this.x = { bar: 0 };// no error
+    this.x = { bar: [object Number] };
   }
 }
-
 "
 `;
 
@@ -527,35 +858,29 @@ var o: { foo: QueryFunction } = {
 
 module.exports = o;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1348
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1348:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1481:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// error, number ~/~ string
+type Params = { [name: string]: string, count: number };
+type QueryFunction = : (params: Params) => string;
+var o: { foo: QueryFunction } = {
+  foo(params) {
+    return params.count;
+  }
+};
+module.exports = o;
 "
 `;
 
 exports[`test test_client.js 1`] = `
-"var o = require(\'./test\');
+"var o = require('./test');
 
 o.foo = function (params) {
   return params.count; // error, number ~/~ string
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var o = require(\"./test\");
+// error, number ~/~ string
+var o = require("./test");
 o.foo = function(params) {
-  return params.count;// error, number ~/~ string
+  return params.count;
 };
-
 "
 `;

@@ -7,7 +7,6 @@ imp({ name: "imp" });
 /* @flow */
 var imp = require("./obj_annot");
 imp({ name: "imp" });
-
 "
 `;
 
@@ -28,6 +27,5 @@ function foo(param: { name: string }): number {
 }
 foo({ name: "test" });
 module.exports = foo;
-
 "
 `;

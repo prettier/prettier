@@ -6,12 +6,12 @@ var bar: (str:number, i:number)=> string = foo;
 
 var qux = function(str:string, i:number):number { return foo(str,i); }
 
-var obj: {str:string; i:number; j:boolean} = {str: \"...\", i: \"...\", k: false};
+var obj: {str:string; i:number; j:boolean} = {str: "...", i: "...", k: false};
 
-var arr: Array<number> = [1,2,\"...\"];
+var arr: Array<number> = [1,2,"..."];
 
 // array sugar
-var array: number[] = [1,2,\"...\"];
+var array: number[] = [1,2,"..."];
 
 var matrix: number[][] = [[1,2],[3,4]];
 var matrix_parens: (number[])[] = matrix;
@@ -21,15 +21,15 @@ var nullable_array_parens: ?(number[]) = nullable_array;
 
 var array_of_nullable: (?number)[] = [null, 3];
 
-var array_of_tuple: [number, string][] = [[0, \"foo\"], [1, \"bar\"]];
+var array_of_tuple: [number, string][] = [[0, "foo"], [1, "bar"]];
 var array_of_tuple_parens: ([number, string])[] = array_of_tuple;
 
-type ObjType = { \'bar-foo\': string; \'foo-bar\': number; };
-var test_obj: ObjType = { \'bar-foo\': \'23\' };
+type ObjType = { 'bar-foo': string; 'foo-bar': number; };
+var test_obj: ObjType = { 'bar-foo': '23' };
 
 // param type annos are strict UBs like var type annos
 function param_anno(n:number):void {
-  n = \"hey\"; // error
+  n = "hey"; // error
 }
 
 // another error on param UB, more typical of www (mis)use-cases
@@ -38,7 +38,7 @@ function param_anno2(
     batchRequests: Array<{method: string; path: string; params: ?Object}>,
   ): void {
 
-    // error below, since we\'re assigning elements to batchRequests
+    // error below, since we're assigning elements to batchRequests
     // which lack a path property.
     // just assign result to new var instead of reassigning to param.
 
@@ -60,21 +60,69 @@ var zer : null = null;
 function foobar(n : ?number) : number | null | void { return n; }
 function barfoo(n : number | null | void) : ?number { return n; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1348
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1348:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1254:25)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// array sugar
+// param type annos are strict UBs like var type annos
+// error
+// another error on param UB, more typical of www (mis)use-cases
+// this one cribbed from API.atlas.js
+// error below, since we're assigning elements to batchRequests
+// which lack a path property.
+// just assign result to new var instead of reassigning to param.
+// Transform the requests to the format the Graph API expects.
+// ...
+function foo(str: string, i: number): string {
+  return str;
+}
+var bar: (str: number, i: number) => string = foo;
+var qux = function(str: string, i: number): number {
+  return foo(str, i);
+};
+var obj: { str: string, i: number, j: boolean } = {
+  str: "...",
+  i: "...",
+  k: [object Boolean]
+};
+var arr: Array<number> = [ [object Number], [object Number], "..." ];
+var array: number[] = [ [object Number], [object Number], "..." ];
+var matrix: number[][] = [
+  [ [object Number], [object Number] ],
+  [ [object Number], [object Number] ]
+];
+var matrix_parens: number[][] = matrix;
+var nullable_array: ?number[] = [object Null];
+var nullable_array_parens: ?number[] = nullable_array;
+var array_of_nullable: ?number[] = [ [object Null], [object Number] ];
+var array_of_tuple: [][] = [
+  [ [object Number], "foo" ],
+  [ [object Number], "bar" ]
+];
+var array_of_tuple_parens: [][] = array_of_tuple;
+type ObjType = { "bar-foo": string, "foo-bar": number };
+var test_obj: ObjType = { "bar-foo": "23" };
+function param_anno(n: number): void {
+  n = "hey";
+}
+function param_anno2(
+  batchRequests: Array<{ method: string, path: string, params: ?Object }>
+): void {
+  batchRequests = batchRequests.map(
+    request => {
+      return {
+        method: request.method,
+        params: request.params,
+        relative_url: request.path
+      };
+    }
+  );
+}
+var toz: null = [object Number];
+var zer: null = [object Null];
+function foobar(n: ?number): number | null | void {
+  return n;
+}
+function barfoo(n: number | null | void): ?number {
+  return n;
+}
 "
 `;
 
@@ -94,19 +142,23 @@ function foo() {
   class MyClass { } // looked up above
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-let myClassInstance: MyClass = null;// forward ref ok, null ~> class error
+// forward ref ok, null ~> class error
+// forward ref ok, null ~> class error
+// looked up above
+// ok (no confusion across scopes)
+// looked up above
+let myClassInstance: MyClass = [object Null];
 function bar(): MyClass {
-  return null;// forward ref ok, null ~> class error
+  return [object Null];
 }
-class MyClass {}// looked up above
+class MyClass {}
 function foo() {
-  let myClassInstance: MyClass = mk();// ok (no confusion across scopes)
+  let myClassInstance: MyClass = mk();
   function mk() {
     return new MyClass();
   }
-  class MyClass {}// looked up above
+  class MyClass {}
 }
-
 "
 `;
 
@@ -115,11 +167,10 @@ exports[`test issue-530.js 1`] = `
 
 module.exports = foo;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function foo(...args) {
+function foo(...args: any) {
   
 }
 module.exports = foo;
-
 "
 `;
 
@@ -132,7 +183,7 @@ exports[`test leak.js 1`] = `
  * annotation for y and stop. We should type the body of bar() with the type
  * annotation of y.
  *
- * However, the leaky type annotation meant that we were flowing x\'s type to y
+ * However, the leaky type annotation meant that we were flowing x's type to y
  * and type checking the body of bar() using the stricter dictionary type,
  * leading to an error.
  */
@@ -154,7 +205,7 @@ function bar(y: MyObj): string {
  * annotation for y and stop. We should type the body of bar() with the type
  * annotation of y.
  *
- * However, the leaky type annotation meant that we were flowing x\'s type to y
+ * However, the leaky type annotation meant that we were flowing x's type to y
  * and type checking the body of bar() using the stricter dictionary type,
  * leading to an error.
  */
@@ -165,7 +216,6 @@ function foo(x: { [key: string]: mixed }) {
 function bar(y: MyObj): string {
   return y.foo;
 }
-
 "
 `;
 
@@ -175,7 +225,6 @@ module.exports = (C: any);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class C {}
 module.exports = (C: any);
-
 "
 `;
 
@@ -205,30 +254,34 @@ class Foo<A> {
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1479:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// hypothetical immutable map
+type Merge<T> = : (a: T, b: T) => T;
+declare class Map {
+  (): Map<K, V>,
+  insertWith: : (fn: Merge<V>, k: K, v: V) => Map<K, V>
+}
+declare function foldr(fn: (a: A, b: B) => B, b: B, as: A[]): B;
+function insertMany<K, V>(merge: Merge<V>, vs: [][], m: Map<K, V>): Map<K, V> {
+  function f([ k, v ], m: Map<K, V>): Map<K, V> {
+    return m.insertWith(merge, k, v);
+  }
+  return foldr(f, m, vs);
+}
+class Foo<A> {
+  bar<B>() {
+    return function(a: A, b: B, c: C): void {
+      ([ a, b, c ]: []);
+    };
+  }
+}
 "
 `;
 
 exports[`test test.js 1`] = `
-"var C = require(\'./other\');
+"var C = require('./other');
 ((0: C): string);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var C = require(\"./other\");
-((0: C): string);
-
+var C = require("./other");
+(([object Number]: C): string);
 "
 `;

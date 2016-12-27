@@ -10,7 +10,7 @@ const barr = my_filter(arr, is_string);
 (barr: Array<string>);
 
 function is_string(x): %checks {
-  return typeof x === \"string\";
+  return typeof x === "string";
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /node_modules/babylon/lib/index.js:4255
@@ -39,16 +39,16 @@ exports[`test filter-union.js 1`] = `
 
 declare function my_filter<T, P: $Pred<1>>(v: Array<T>, cb: P): Array<$Refine<T,P,1>>;
 
-type A = { kind: \'A\', u: number }
-type B = { kind: \'B\', v: string }
-type C = { kind: \'C\', y: boolean }
-type D = { kind: \'D\', x: boolean }
-type E = { kind: \'E\', y: boolean }
+type A = { kind: 'A', u: number }
+type B = { kind: 'B', v: string }
+type C = { kind: 'C', y: boolean }
+type D = { kind: 'D', x: boolean }
+type E = { kind: 'E', y: boolean }
 
 declare var ab: Array<A|B|C>;
 
-(my_filter(ab, (x): %checks => x.kind === \'A\'): Array<A>);    // OK
-(my_filter(ab, (x): %checks => x.kind !== \'A\'): Array<B|C>);  // OK
+(my_filter(ab, (x): %checks => x.kind === 'A'): Array<A>);    // OK
+(my_filter(ab, (x): %checks => x.kind !== 'A'): Array<B|C>);  // OK
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /node_modules/babylon/lib/index.js:4255
   throw err;
@@ -72,7 +72,7 @@ exports[`test refine.js 1`] = `
 "// @flow
 
 /*
-  $Pred<N> is an \"abstract predicate type\", i.e. denotes a (function) type that
+  $Pred<N> is an "abstract predicate type", i.e. denotes a (function) type that
   refines N variables. So if \`cb\` is a function, then it should be refining
   exactly N argument. It is abstract in that we do not need to specify:
   (a) which variables are going to be refined (just the number), or (b) what
@@ -109,11 +109,11 @@ declare function refine2<T, P: $Pred<2>>(v: T, w: T, cb: P): $Refine<T,P,1>;
 // { if (cb(v, w)) { return w; } else { throw new Error(); } }
 
 function is_string(x): boolean %checks {
-  return typeof x === \"string\";
+  return typeof x === "string";
 }
 
 function is_string_and_number(x, y): %checks {
-  return typeof x === \"string\" && typeof y === \"number\";
+  return typeof x === "string" && typeof y === "number";
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /node_modules/babylon/lib/index.js:4255
@@ -151,11 +151,11 @@ const d = my_filter(c, is_string_regular);
 (d: Array<string>);
 
 function is_string(x): boolean %checks {
-  return typeof x === \"string\";
+  return typeof x === "string";
 }
 
 function is_string_regular(x): boolean {
-  return typeof x === \"string\";
+  return typeof x === "string";
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /node_modules/babylon/lib/index.js:4255
@@ -184,16 +184,16 @@ exports[`test sanity-filter-union.js 1`] = `
 
 declare function my_filter<T, P: $Pred<1>>(v: Array<T>, cb: P): Array<$Refine<T,P,1>>;
 
-type A = { kind: \'A\', u: number }
-type B = { kind: \'B\', v: string }
-type C = { kind: \'C\', y: boolean }
-type D = { kind: \'D\', x: boolean }
-type E = { kind: \'E\', y: boolean }
+type A = { kind: 'A', u: number }
+type B = { kind: 'B', v: string }
+type C = { kind: 'C', y: boolean }
+type D = { kind: 'D', x: boolean }
+type E = { kind: 'E', y: boolean }
 
 declare var ab: Array<A|B|C>;
 
-(my_filter(ab, (x): %checks => x.kind === \'A\'): Array<B>);    // ERROR
-(my_filter(ab, (x): %checks => x.kind !== \'A\'): Array<A|C>);  // ERROR
+(my_filter(ab, (x): %checks => x.kind === 'A'): Array<B>);    // ERROR
+(my_filter(ab, (x): %checks => x.kind !== 'A'): Array<A|C>);  // ERROR
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /node_modules/babylon/lib/index.js:4255
   throw err;
@@ -236,7 +236,7 @@ var e = refine3(c, d, e, is_string_and_number);
 (e: string);
 
 function is_string_and_number(x, y): %checks {
-  return typeof x === \"string\" && typeof y === \"number\";
+  return typeof x === "string" && typeof y === "number";
 }
 
 
@@ -248,15 +248,15 @@ var e = refine(a, is_string_regular);   // ERROR: is_string_regular is not a
 ////////////////////////////////////////////////////////////////////////////////
 
 function is_string(x): %checks {
-  return typeof x === \"string\";
+  return typeof x === "string";
 }
 
 function is_string_regular(x)  {
-  return typeof x === \"string\";
+  return typeof x === "string";
 }
 
 function is_string_and_number(x, y): %checks {
-  return typeof x === \"string\" && typeof y === \"number\";
+  return typeof x === "string" && typeof y === "number";
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /node_modules/babylon/lib/index.js:4255

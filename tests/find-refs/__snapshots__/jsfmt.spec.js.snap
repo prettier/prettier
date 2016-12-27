@@ -26,7 +26,7 @@ type S = T;
 ((_: T) => {});
 
 // Refinements
-let nullable: ?string = \"\";
+let nullable: ?string = "";
 if (nullable != null) {
   console.log(nullable.length);
   nullable = null;
@@ -44,34 +44,72 @@ wut1 = wut2;
 wut2;
 
 // JSX
-var React = require(\'react\');
+var React = require('react');
 class Fancy extends React.Component {
   props: { x: number };
 }
 <Fancy x=0/>;
 
 // Imports
-import { wut3 } from \'wutland\';
-import type { wut4 } from \'wutland\';
+import { wut3 } from 'wutland';
+import type { wut4 } from 'wutland';
 (wut3: wut4);
 
 // Qualified types
 (null: React.Component);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/node_modules/babylon/lib/index.js:5687
-          throw jsxError || err;
-          ^
-
-SyntaxError: JSX value should be either an expression or a quoted JSX text (50:9)
-    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
-    at Parser.pp$8.jsxParseAttributeValue (/node_modules/babylon/lib/index.js:6255:12)
-    at Parser.pp$8.jsxParseAttribute (/node_modules/babylon/lib/index.js:6306:42)
-    at Parser.pp$8.jsxParseOpeningElementAt (/node_modules/babylon/lib/index.js:6317:31)
-    at Parser.pp$8.jsxParseElementAt (/node_modules/babylon/lib/index.js:6339:29)
-    at Parser.pp$8.jsxParseElement (/node_modules/babylon/lib/index.js:6394:15)
-    at Parser.parseExprAtom (/node_modules/babylon/lib/index.js:6406:21)
-    at Parser.pp$3.parseExprSubscripts (/node_modules/babylon/lib/index.js:3337:19)
-    at Parser.pp$3.parseMaybeUnary (/node_modules/babylon/lib/index.js:3317:19)
-    at Parser.pp$3.parseExprOps (/node_modules/babylon/lib/index.js:3247:19)
+// @flow
+// Variable defs and uses
+// Nested functions
+// Classes
+// Type aliases
+// Refinements
+// Destructuring
+// Not in scope
+// JSX
+// Imports
+// Qualified types
+var foo = function() {
+  
+};
+foo();
+foo = [object Null];
+foo();
+function bar() {
+  function bar() {
+    
+  }
+  bar();
+}
+bar();
+class C {}
+new C();
+class D extends C {}
+type T = number;
+type S = T;
+(_: T) => {
+  
+};
+let nullable: ?string = "";
+if (nullable != [object Null]) {
+  console.log(nullable.length);
+  nullable = [object Null];
+}
+(nullable: null);
+let { x, y } = { x: [object Number], y: [object Number] };
+let { x: _x, y: _y } = { x, y };
+({ x: _x, y: _y });
+wut1;
+wut1 = wut2;
+wut2;
+var React = require("react");
+class Fancy extends React.Component {
+  props: { x: number };
+}
+<Fancy x="" 0/>;
+import { wut3 } from "wutland";
+import type { wut4 } from "wutland";
+(wut3: wut4);
+([object Null]: React.Component);
 "
 `;

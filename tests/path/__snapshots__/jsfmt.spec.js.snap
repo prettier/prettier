@@ -6,13 +6,12 @@ while(typeof x == "number" || typeof x == "string") {
 }
 var z:number = x;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var x = 1;
+var x = [object Number];
 while (typeof x == "number" || typeof x == "string") {
-  x = x + 1;
-  if (true)
+  x = x + [object Number];
+  if ([object Boolean])
     x = "";
 }
 var z: number = x;
-
 "
 `;

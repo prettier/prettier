@@ -7,10 +7,9 @@ var table: { [_: string]: number } = {};
 table["x"] = "hello";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var o = {};
-o["x"] = 4;
+o["x"] = [object Number];
 var y: string = o["x"];
 var table: { [_: string]: number } = {};
 table["x"] = "hello";
-
 "
 `;

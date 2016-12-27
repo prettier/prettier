@@ -37,17 +37,23 @@ for (var y in this) {
     // allowed, even though we can't actually enumerate all the keys on \`this\`.
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var a = [ true, false ];
+// k is a string, which shouldn't be used for array access
+// d is a string, which shouldn't be used for array access
+// unreachable
+// unreachable
+// regression test to make sure \`in this\` doesn't fatal. it's currently
+// allowed, even though we can't actually enumerate all the keys on \`this\`.
+var a = [ [object Boolean], [object Boolean] ];
 function foo(x) {
   
 }
-for (var i = 0; i < 3; i++) {
+for (var i = [object Number]; i < [object Number]; i++) {
   foo(a[i]);
 }
 for (var k in a) {
-  foo(a[k]);// k is a string, which shouldn't be used for array access
+  foo(a[k]);
 }
-var b = (null: ?{ [key: string]: string });
+var b = ([object Null]: ?{ [key: string]: string });
 for (var j in b) {
   foo(b[j]);
 }
@@ -57,17 +63,16 @@ for (var m in c = b) {
 }
 var d;
 for (var n in d = a) {
-  foo(d[n]);// d is a string, which shouldn't be used for array access
+  foo(d[n]);
 }
 for (var x in undefined) {
-  foo(x);// unreachable
+  foo(x);
 }
-for (var x in null) {
-  foo(x);// unreachable
+for (var x in [object Null]) {
+  foo(x);
 }
 for (var y in this) {
   
 }
-
 "
 `;

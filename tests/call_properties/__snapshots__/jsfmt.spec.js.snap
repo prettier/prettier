@@ -11,7 +11,7 @@ function b(f: { (): string }): number {
 
 // ...or if the param type is wrong
 function c(f: { (x: number): number }): number {
-  return f(\"hello\");
+  return f("hello");
 }
 
 // ...or if the arity is wrong
@@ -30,61 +30,92 @@ function f(): number {
   return x();
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1348
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1348:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1425:19)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// You should be able to call objects with call properties
+// ...and get an error if the return type is wrong
+// ...or if the param type is wrong
+// ...or if the arity is wrong
+// ...or if there is no call property
+// Make sure we complain even if the object literal is unsealed.
+function a(f: { (): string }, g: { (x: number): string }): string {
+  return f() + g([object Number]);
+}
+function b(f: { (): string }): number {
+  return f();
+}
+function c(f: { (x: number): number }): number {
+  return f("hello");
+}
+function d(f: { (x: number): number }): number {
+  return f();
+}
+function e(f: {}): number {
+  return f();
+}
+function f(): number {
+  var x = {};
+  return x();
+}
 "
 `;
 
 exports[`test B.js 1`] = `
 "// You should be able to use a function as an object with a call property
-var a: { (x: number): string } = function (x: number): string { return \"hi\"; };
+var a: { (x: number): string } = function (x: number): string { return "hi"; };
 
 // ...and it should notice when the return type is wrong
-var b: { (x: number): number } = function (x: number): string { return \"hi\"; };
+var b: { (x: number): number } = function (x: number): string { return "hi"; };
 
 // ...or if the param type is wrong
-var c: { (x: string): string } = function (x: number): string { return \"hi\"; };
+var c: { (x: string): string } = function (x: number): string { return "hi"; };
 
 // ...or if the arity is wrong
-var d: { (): string } = function (x: number): string { return \"hi\"; };
+var d: { (): string } = function (x: number): string { return "hi"; };
 
 // ...but subtyping rules still apply
 var e: { (x: any): void } = function() { } // arity
-var f: { (): mixed } = function(): string { return \"hi\" } // return type
+var f: { (): mixed } = function(): string { return "hi" } // return type
 var g: { (x: string): void } = function(x: mixed) { } // param type
 
 // A function can be an object
-var y : {} = function (x: number): string { return \"hi\"; };
-var z : Object = function (x: number): string { return \"hi\"; };
+var y : {} = function (x: number): string { return "hi"; };
+var z : Object = function (x: number): string { return "hi"; };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1348
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1348:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1425:19)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// You should be able to use a function as an object with a call property
+// ...and it should notice when the return type is wrong
+// ...or if the param type is wrong
+// ...or if the arity is wrong
+// ...but subtyping rules still apply
+// arity
+// return type
+// param type
+// A function can be an object
+var a: { (x: number): string } = function(x: number): string {
+  return "hi";
+};
+var b: { (x: number): number } = function(x: number): string {
+  return "hi";
+};
+var c: { (x: string): string } = function(x: number): string {
+  return "hi";
+};
+var d: { (): string } = function(x: number): string {
+  return "hi";
+};
+var e: { (x: any): void } = function() {
+  
+};
+var f: { (): mixed } = function(): string {
+  return "hi";
+};
+var g: { (x: string): void } = function(x: mixed) {
+  
+};
+var y: {} = function(x: number): string {
+  return "hi";
+};
+var z: Object = function(x: number): string {
+  return "hi";
+};
 "
 `;
 
@@ -109,7 +140,7 @@ function d(x: { (z: number): string }): () => string {
   return x;
 }
 
-// ...or if it doesn\'t have a call property
+// ...or if it doesn't have a call property
 function e(x: {}): () => string {
   return x;
 }
@@ -124,21 +155,35 @@ function g(x: {}): Function {
   return x; // error
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1348
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1348:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1425:19)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// You should be able to use an object as a function
+// ...and it should notice when the return type is wrong
+// ...or if the param type is wrong
+// ...or if the arity is wrong
+// ...or if it doesn't have a call property
+// AnyFunT should also be allowed
+// ... but only if the object is callable
+// error
+function a(x: { (z: number): string }): (z: number) => string {
+  return x;
+}
+function b(x: { (z: number): string }): (z: number) => number {
+  return x;
+}
+function c(x: { (z: number): string }): (z: string) => string {
+  return x;
+}
+function d(x: { (z: number): string }): () => string {
+  return x;
+}
+function e(x: {}): () => string {
+  return x;
+}
+function f(x: { (z: number): string }): Function {
+  return x;
+}
+function g(x: {}): Function {
+  return x;
+}
 "
 `;
 
@@ -150,11 +195,11 @@ function a(f: { (): string; (x: number): string }): string {
 
 // It should be fine when a function satisfies them all
 var b: { (): string; (x: number): string } =
-  function (x?: number): string { return \"hi\"; };
+  function (x?: number): string { return "hi"; };
 
-// ...but should notice when a function doesn\'t satisfy them all
+// ...but should notice when a function doesn't satisfy them all
 var c: { (): string; (x: number): string } =
-  function (x: number): string { return \"hi\"; };
+  function (x: number): string { return "hi"; };
 
 // Only one call property needs to match the function
 function d(x: { (): string; (x: number): string }): () => string {
@@ -166,26 +211,31 @@ function e(x: { (): string; (x: number): string }): () => number {
   return x;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1348
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1348:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1425:19)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// Multiple call properties should also be supported
+// It should be fine when a function satisfies them all
+// ...but should notice when a function doesn't satisfy them all
+// Only one call property needs to match the function
+// ...but you need at least one
+function a(f: { (): string, (x: number): string }): string {
+  return f() + f([object Number]);
+}
+var b: { (): string, (x: number): string } = function(x: number): string {
+  return "hi";
+};
+var c: { (): string, (x: number): string } = function(x: number): string {
+  return "hi";
+};
+function d(x: { (): string, (x: number): string }): () => string {
+  return x;
+}
+function e(x: { (): string, (x: number): string }): () => number {
+  return x;
+}
 "
 `;
 
 exports[`test E.js 1`] = `
-"// Expecting properties that don\'t exist should be an error
+"// Expecting properties that don't exist should be an error
 var a : { someProp: number } = function () {};
 
 // Expecting properties that do exist should be fine
@@ -196,21 +246,20 @@ var f = function () {};
 f.myProp = 123;
 var c : { myProp: number } = f;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Expecting properties that don\'t exist should be an error
+// Expecting properties that don't exist should be an error
+// Expecting properties that do exist should be fine
+// Expecting properties in the functions statics should be fine
 var a: { someProp: number } = function() {
   
 };
-// Expecting properties that do exist should be fine
 var b: { apply: Function } = function() {
   
 };
-// Expecting properties in the functions statics should be fine
 var f = function() {
   
 };
-f.myProp = 123;
+f.myProp = [object Number];
 var c: { myProp: number } = f;
-
 "
 `;
 
@@ -220,37 +269,44 @@ exports[`test F.js 1`] = `
 var a: { (x: number): string } = (x) => x.toString()
 
 // ...and it should notice when the return type is wrong
-var b: { (x: number): number } = (x) => \"hi\"
+var b: { (x: number): number } = (x) => "hi"
 
 // ...or if the param type is wrong
 var c: { (x: string): string } = (x) => x.toFixed()
 
 // ...or if the arity is wrong
-var d: { (): string } = (x) => \"hi\"
+var d: { (): string } = (x) => "hi"
 
 // ...but subtyping rules still apply
 var e: { (x: any): void } = () => { } // arity
-var f: { (): mixed } = () => \"hi\" // return type
+var f: { (): mixed } = () => "hi" // return type
 var g: { (x: Date): void } = (x) => { x * 2 } // param type (date < number)
 
 // A function can be an object
-var y : {} = (x) => \"hi\"
-var z : Object = (x) => \"hi\"
+var y : {} = (x) => "hi"
+var z : Object = (x) => "hi"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1348
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1348:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1425:19)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// You should be able to use an arrow function as an object with a call property
+// ...and it should notice when the return type is wrong
+// ...or if the param type is wrong
+// ...or if the arity is wrong
+// ...but subtyping rules still apply
+// arity
+// return type
+// param type (date < number)
+// A function can be an object
+var a: { (x: number): string } = x => x.toString();
+var b: { (x: number): number } = x => "hi";
+var c: { (x: string): string } = x => x.toFixed();
+var d: { (): string } = x => "hi";
+var e: { (x: any): void } = () => {
+  
+};
+var f: { (): mixed } = () => "hi";
+var g: { (x: Date): void } = x => {
+  x * [object Number];
+};
+var y: {} = x => "hi";
+var z: Object = x => "hi";
 "
 `;

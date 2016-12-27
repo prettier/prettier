@@ -2,9 +2,8 @@ exports[`test Bar.js 1`] = `
 "var Bar = { x: 0 };
 module.exports = Bar;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var Bar = { x: 0 };
+var Bar = { x: [object Number] };
 module.exports = Bar;
-
 "
 `;
 
@@ -50,34 +49,36 @@ let tests = [
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+// global
+// error, unknown global
+// annotation
+// module from lib
+// too few args
+// err, num !~> string
+// passed as a function
 let tests = [
-  // global
   function() {
-    copyProperties();// error, unknown global
+    copyProperties();
   },
-  // annotation
   function(copyProperties: Object$Assign) {
     let result = {};
-    result.baz = false;
-    (copyProperties(result, { foo: "a" }, { bar: 123 }): {
+    result.baz = [object Boolean];
+    (copyProperties(result, { foo: "a" }, { bar: [object Number] }): {
       foo: string,
       bar: number,
       baz: boolean
     });
   },
-  // module from lib
   function() {
     const copyProperties = require("copyProperties");
     let x = { foo: "a" };
-    let y = { bar: 123 };
+    let y = { bar: [object Number] };
     (copyProperties({}, x, y): { foo: string, bar: number });
   },
-  // too few args
   function(copyProperties: Object$Assign) {
     copyProperties();
-    (copyProperties({ foo: "a" }): { foo: number });// err, num !~> string
+    (copyProperties({ foo: "a" }): { foo: number });
   },
-  // passed as a function
   function(copyProperties: Object$Assign) {
     function x(cb: Function) {
       
@@ -85,7 +86,6 @@ let tests = [
     x(copyProperties);
   }
 ];
-
 "
 `;
 
@@ -106,18 +106,18 @@ let tests = [
 ]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
+// error, forgot to require invariant
 let tests = [
   function() {
-    let x: ?string = null;
-    invariant(x, "truthy only");// error, forgot to require invariant
+    let x: ?string = [object Null];
+    invariant(x, "truthy only");
   },
   function(invariant: Function) {
-    let x: ?string = null;
+    let x: ?string = [object Null];
     invariant(x);
     (x: string);
   }
 ];
-
 "
 `;
 
@@ -143,7 +143,6 @@ declare module "mergeInto" {
 declare module "mixin" {
   declare var exports: $Facebookism$Mixin;
 }
-
 "
 `;
 
@@ -184,29 +183,32 @@ let tests = [
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+// global
+// error, unknown global
+// annotation
+// module from lib
+// too few args
+// passed as a function
 let tests = [
-  // global
   function() {
-    mergeInto();// error, unknown global
+    mergeInto();
   },
-  // annotation
   function(mergeInto: $Facebookism$MergeInto) {
     let result = {};
-    result.baz = false;
-    (mergeInto(result, { foo: "a" }, { bar: 123 }): void);
+    result.baz = [object Boolean];
+    (mergeInto(result, { foo: "a" }, { bar: [object Number] }): void);
     (result: { foo: string, bar: number, baz: boolean });
   },
-  // module from lib
   function() {
     const mergeInto = require("mergeInto");
-    let result: { foo?: string, bar?: number, baz: boolean } = { baz: false };
-    (mergeInto(result, { foo: "a" }, { bar: 123 }): void);
+    let result: { foo?: string, bar?: number, baz: boolean } = {
+      baz: [object Boolean]
+    };
+    (mergeInto(result, { foo: "a" }, { bar: [object Number] }): void);
   },
-  // too few args
   function(mergeInto: $Facebookism$MergeInto) {
     mergeInto();
   },
-  // passed as a function
   function(mergeInto: $Facebookism$MergeInto) {
     function x(cb: Function) {
       
@@ -214,7 +216,6 @@ let tests = [
     x(mergeInto);
   }
 ];
-
 "
 `;
 
@@ -237,6 +238,5 @@ class Foo extends mixin(Bar) {
     this.y = "";
   }
 }
-
 "
 `;

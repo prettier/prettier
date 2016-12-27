@@ -6,9 +6,10 @@ assert(true) // ok
 assert.ok(true) // ok
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
+// ok
+// ok
 var assert = require("assert");
-assert(true);// ok
-assert.ok(true);// ok
-
+assert([object Boolean]);
+assert.ok([object Boolean]);
 "
 `;

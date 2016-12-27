@@ -1,8 +1,8 @@
 exports[`test test.js 1`] = `
-"type Key1 = \'foo\' | \'bar\'; // make an enum type with known key set
+"type Key1 = 'foo' | 'bar'; // make an enum type with known key set
 var o1: {[key: Key1]: number} = {
   foo: 0,
-  bar: \"\", // error: string ~/~ number
+  bar: "", // error: string ~/~ number
 };
 o1.foo; // OK
 o1.qux; // error: qux not found
@@ -15,7 +15,7 @@ o2.bar; // OK to access bar
 o2.qux; // error: qux not found
 
 class C<X> {
-  x: $Subtype<{[key: $Keys<X>]: any}>; // object with larger key set than X\'s
+  x: $Subtype<{[key: $Keys<X>]: any}>; // object with larger key set than X's
 }
 class D extends C<{foo: number, bar: string}> {
   x: { foo: number, qux: boolean }; // error: qux not found
@@ -24,20 +24,34 @@ class D extends C<{foo: number, bar: string}> {
 type AnyKey = $Keys<Object>;
 var o3: {[key: AnyKey]: number} = { foo: 0 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1530
-      return fromString(\" | \").join(path.map(print, \"types\"));
-                               ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1530:32)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1481:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// make an enum type with known key set
+// error: string ~/~ number
+// OK
+// error: qux not found
+// ok
+// another way to make an enum type, with unknown key set
+// OK to leave out bar
+// OK to access bar
+// error: qux not found
+// object with larger key set than X's
+// error: qux not found
+type Key1 = "foo" | "bar";
+var o1: { [key: Key1]: number } = { foo: [object Number], bar: "" };
+o1.foo;
+o1.qux;
+o1.toString();
+type R = { foo: any, bar: any };
+type Key2 = $Keys<R>;
+var o2: { [key: Key2]: number } = { foo: [object Number] };
+o2.bar;
+o2.qux;
+class C<X> {
+  x: $Subtype<{ [key: $Keys<X>]: any }>;
+}
+class D extends C<{ foo: number, bar: string }> {
+  x: { foo: number, qux: boolean };
+}
+type AnyKey = $Keys<Object>;
+var o3: { [key: AnyKey]: number } = { foo: [object Number] };
 "
 `;

@@ -1,8 +1,8 @@
 exports[`test async.js 1`] = `
 "// @flow
 
-// \"For async functions, a Promise<T> is returned,
-// and the type of return expressions must be T.\"
+// "For async functions, a Promise<T> is returned,
+// and the type of return expressions must be T."
 //
 
 async function f0(): Promise<number> {
@@ -27,7 +27,7 @@ async function f3(p: Promise<number>): Promise<number> {
 }
 
 // TODO: this is one of those bad generic errors, currently:
-// \"inconsistent use of library definitions\" with two core.js locs
+// "inconsistent use of library definitions" with two core.js locs
 async function f4(p: Promise<number>): Promise<bool> {
   return await p; // error, number != bool
 }
@@ -52,28 +52,63 @@ class C {
 var obj = { f: async () => await 1 };
 var objf : () => Promise<number> = obj.f;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// @flow
+// "For async functions, a Promise<T> is returned,
+// and the type of return expressions must be T."
+//
+// error, number != bool
+// await: (p: Promise<T> | T) => T
+//
+// TODO: this is one of those bad generic errors, currently:
+// "inconsistent use of library definitions" with two core.js locs
+// error, number != bool
+// async arrow functions
+//
+// async methods
+//
+// error, void != Promise<void>
+// async function props
+async function f0(): Promise<number> {
+  return [object Number];
+}
+async function f1(): Promise<boolean> {
+  return [object Number];
+}
+async function f2(p: Promise<number>): Promise<number> {
+  var x: number = await p;
+  var y: number = await [object Number];
+  return x + y;
+}
+async function f3(p: Promise<number>): Promise<number> {
+  return await p;
+}
+async function f4(p: Promise<number>): Promise<boolean> {
+  return await p;
+}
+var f5: () => Promise<number> = async () => await [object Number];
+class C {
+  async m() {
+    return [object Number];
+  }
+  async mt<T>(a: T): Promise<T> {
+    return a;
+  }
+  static async m(a): void {
+    await a;
+  }
+  static async mt<T>(a: T): Promise<T> {
+    return a;
+  }
+}
+var obj = { f: async () => await [object Number] };
+var objf: () => Promise<number> = obj.f;
 "
 `;
 
 exports[`test async_base_class.js 1`] = `
 "// This is kind of weird, but it should parse. This works in babel without the
 // parens around (await promise). From the es6 and async/await specs I (nmote)
-// am not clear on whether it should. In any case it\'s a strange corner case
+// am not clear on whether it should. In any case it's a strange corner case
 // that is probably not important to support.
 class C {};
 
@@ -86,21 +121,20 @@ async function foo() {
   return Bar;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// This is kind of weird, but it should parse. This works in babel without the
+// parens around (await promise). From the es6 and async/await specs I (nmote)
+// am not clear on whether it should. In any case it's a strange corner case
+// that is probably not important to support.
+class C {}
+var P: Promise<Class<C>> = new Promise(
+  function(resolve, reject) {
+    resolve(C);
+  }
+);
+async function foo() {
+  class Bar extends await P {}
+  return Bar;
+}
 "
 `;
 
@@ -130,21 +164,54 @@ console.log(x.async);
 var async = 3;
 var y = { async };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:340:16)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+async function f() {
+  
+}
+async function ft<T>(a: T) {
+  
+}
+class C {
+  async m() {
+    
+  }
+  async mt<T>(a: T) {
+    
+  }
+  static async m(a) {
+    
+  }
+  static async mt<T>(a: T) {
+    
+  }
+}
+var e = async function() {
+  
+};
+var et = async function(a: T) {
+  
+};
+var n = new async function() {
+  
+}();
+var o = {
+  async m() {
+    
+  }
+};
+var ot = {
+  async m<T>(a: T) {
+    
+  }
+};
+var oz = {
+  async async() {
+    
+  }
+};
+var x = { async: [object Number] };
+console.log(x.async);
+var async = [object Number];
+var y = { async };
 "
 `;
 
@@ -153,21 +220,9 @@ exports[`test async_promise.js 1`] = `
   return Promise.resolve(1);
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+async function f(): Promise<number> {
+  return Promise.resolve([object Number]);
+}
 "
 `;
 
@@ -187,21 +242,19 @@ async function foo3(): Promise<string> {
   return bar();
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// @flow
+async function foo1(): Promise<string> {
+  return;
+}
+async function foo2(): Promise<string> {
+  return undefined;
+}
+async function foo3(): Promise<string> {
+  function bar() {
+    
+  }
+  return bar();
+}
 "
 `;
 
@@ -232,7 +285,7 @@ function test1() {
 
 function test2() {
   async function voidoid1() {
-    console.log(\"HEY\");
+    console.log("HEY");
   }
 
   var voidoid2: () => Promise<void> = voidoid1; // ok
@@ -245,7 +298,7 @@ function test2() {
 
 function test3() {
   async function voidoid4(): Promise<void> { // ok
-    console.log(\"HEY\");
+    console.log("HEY");
   }
 }
 
@@ -256,32 +309,70 @@ function test3() {
 
 function test4() {
   async function voidoid5(): void { // error, void != Promise<void>
-    console.log(\"HEY\");
+    console.log("HEY");
   }
 }
 
 function test5() {
   async function voidoid6()
   : Promise<number> { // error, number != void
-    console.log(\"HEY\");
+    console.log("HEY");
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1348
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1348:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1254:25)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// @flow
+// misc basic
+// valid
+// Error: number ~> string
+//
+// void returns:
+//
+// inference should produce return type Promise<void>
+// in the absence of an explicit return
+//
+// ok
+// error, void != Promise<void>
+// annotated return type of Promise<void> should work
+//
+// ok
+// other annotated return types should fail
+// (note: misannotated return types with explicit
+// return statements are covered in async.js)
+//
+// error, void != Promise<void>
+// error, number != void
+function test1() {
+  async function foo() {
+    return [object Number];
+  }
+  async function bar() {
+    var a = await foo();
+    var b: number = a;
+    var c: string = a;
+  }
+}
+function test2() {
+  async function voidoid1() {
+    console.log("HEY");
+  }
+  var voidoid2: () => Promise<void> = voidoid1;
+  var voidoid3: () => void = voidoid1;
+}
+function test3() {
+  async function voidoid4(): Promise<void> {
+    console.log("HEY");
+  }
+}
+function test4() {
+  async function voidoid5(): void {
+    console.log("HEY");
+  }
+}
+function test5() {
+  async function voidoid6(): Promise<number> {
+    console.log("HEY");
+  }
+}
 "
 `;
 
@@ -290,9 +381,9 @@ exports[`test async3.js 1`] = `
 
 /**
  * test nested-promise unwrapping.
- * Note: currently we don\'t do this properly in the underlying
+ * Note: currently we don't do this properly in the underlying
  * type of the Promise class, which causes spurious errors to
- * be raised here. Once that\'s fixed, the errors here will go
+ * be raised here. Once that's fixed, the errors here will go
  * away.
  */
 
@@ -322,29 +413,28 @@ async function baz() {
 // @flow
 /**
  * test nested-promise unwrapping.
- * Note: currently we don\'t do this properly in the underlying
+ * Note: currently we don't do this properly in the underlying
  * type of the Promise class, which causes spurious errors to
- * be raised here. Once that\'s fixed, the errors here will go
+ * be raised here. Once that's fixed, the errors here will go
  * away.
  */
+// a should now be typed as number, but is in fact
+// Promise<number> until nested-promise unwrap is fixed
+// TODO this is valid code, but currently gives Promise ~> number error
+// due to lack of transitive Promise unwrap.
+// should be number ~> string error, but currently gives
+// Promise ~> string error for the same reason
 async function foo() {
-  return 42;
+  return [object Number];
 }
 async function bar() {
   return foo();
 }
 async function baz() {
-  // a should now be typed as number, but is in fact
-  // Promise<number> until nested-promise unwrap is fixed
   var a = await bar();
-  // TODO this is valid code, but currently gives Promise ~> number error
-  // due to lack of transitive Promise unwrap.
   var b: number = a;
-  // should be number ~> string error, but currently gives
-  // Promise ~> string error for the same reason
   var c: string = a;
 }
-
 "
 `;
 
@@ -356,21 +446,12 @@ function f() {
   await 1;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/node_modules/babylon/lib/index.js:4255
-  throw err;
-  ^
-
-SyntaxError: await is a reserved word (5:2)
-    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
-    at Parser.pp$3.checkReservedWord (/node_modules/babylon/lib/index.js:4143:10)
-    at Parser.pp$3.parseIdentifier (/node_modules/babylon/lib/index.js:4121:12)
-    at Parser.pp$3.parseExprAtom (/node_modules/babylon/lib/index.js:3490:21)
-    at Parser.parseExprAtom (/node_modules/babylon/lib/index.js:6408:22)
-    at Parser.pp$3.parseExprSubscripts (/node_modules/babylon/lib/index.js:3337:19)
-    at Parser.pp$3.parseMaybeUnary (/node_modules/babylon/lib/index.js:3317:19)
-    at Parser.pp$3.parseExprOps (/node_modules/babylon/lib/index.js:3247:19)
-    at Parser.pp$3.parseMaybeConditional (/node_modules/babylon/lib/index.js:3224:19)
-    at Parser.pp$3.parseMaybeAssign (/node_modules/babylon/lib/index.js:3187:19)
+// note: currently, await-within-async enforcement is a
+// done by the parser, which bails after a single error.
+function f() {
+  await;
+  [object Number];
+}
 "
 `;
 
@@ -382,21 +463,12 @@ function f(x) { return x; }
 
 f(await 1);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/node_modules/babylon/lib/index.js:4255
-  throw err;
-  ^
-
-SyntaxError: await is a reserved word (6:2)
-    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
-    at Parser.pp$3.checkReservedWord (/node_modules/babylon/lib/index.js:4143:10)
-    at Parser.pp$3.parseIdentifier (/node_modules/babylon/lib/index.js:4121:12)
-    at Parser.pp$3.parseExprAtom (/node_modules/babylon/lib/index.js:3490:21)
-    at Parser.parseExprAtom (/node_modules/babylon/lib/index.js:6408:22)
-    at Parser.pp$3.parseExprSubscripts (/node_modules/babylon/lib/index.js:3337:19)
-    at Parser.pp$3.parseMaybeUnary (/node_modules/babylon/lib/index.js:3317:19)
-    at Parser.pp$3.parseExprOps (/node_modules/babylon/lib/index.js:3247:19)
-    at Parser.pp$3.parseMaybeConditional (/node_modules/babylon/lib/index.js:3224:19)
-    at Parser.pp$3.parseMaybeAssign (/node_modules/babylon/lib/index.js:3187:19)
+// note: currently, await-within-async enforcement is a
+// done by the parser, which bails after a single error.
+function f(x) {
+  return x;
+}
+f(await);
 "
 `;
 
@@ -408,21 +480,12 @@ async function f(x) { return x; }
 
 f(await 1);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/node_modules/babylon/lib/index.js:4255
-  throw err;
-  ^
-
-SyntaxError: await is a reserved word (6:2)
-    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
-    at Parser.pp$3.checkReservedWord (/node_modules/babylon/lib/index.js:4143:10)
-    at Parser.pp$3.parseIdentifier (/node_modules/babylon/lib/index.js:4121:12)
-    at Parser.pp$3.parseExprAtom (/node_modules/babylon/lib/index.js:3490:21)
-    at Parser.parseExprAtom (/node_modules/babylon/lib/index.js:6408:22)
-    at Parser.pp$3.parseExprSubscripts (/node_modules/babylon/lib/index.js:3337:19)
-    at Parser.pp$3.parseMaybeUnary (/node_modules/babylon/lib/index.js:3317:19)
-    at Parser.pp$3.parseExprOps (/node_modules/babylon/lib/index.js:3247:19)
-    at Parser.pp$3.parseMaybeConditional (/node_modules/babylon/lib/index.js:3224:19)
-    at Parser.pp$3.parseMaybeAssign (/node_modules/babylon/lib/index.js:3187:19)
+// note: currently, await-within-async enforcement is a
+// done by the parser, which bails after a single error.
+async function f(x) {
+  return x;
+}
+f(await);
 "
 `;
 
@@ -452,20 +515,53 @@ console.log(x.await);
 var await = 3;
 var y = { await };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/node_modules/babylon/lib/index.js:4255
-  throw err;
-  ^
-
-SyntaxError: await is a reserved word (23:4)
-    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
-    at Parser.pp$3.checkReservedWord (/node_modules/babylon/lib/index.js:4143:10)
-    at Parser.pp$2.checkLVal (/node_modules/babylon/lib/index.js:2990:12)
-    at Parser.checkLVal (/node_modules/babylon/lib/index.js:5446:22)
-    at Parser.pp$1.parseVarHead (/node_modules/babylon/lib/index.js:2227:8)
-    at Parser.parseVarHead (/node_modules/babylon/lib/index.js:5611:13)
-    at Parser.pp$1.parseVar (/node_modules/babylon/lib/index.js:2209:10)
-    at Parser.pp$1.parseVarStatement (/node_modules/babylon/lib/index.js:2042:8)
-    at Parser.pp$1.parseStatement (/node_modules/babylon/lib/index.js:1735:19)
-    at Parser.parseStatement (/node_modules/babylon/lib/index.js:5224:22)
+async function f() {
+  await [object Number];
+}
+async function ft<T>(a: T) {
+  await [object Number];
+}
+class C {
+  async m() {
+    await [object Number];
+  }
+  async mt<T>(a: T) {
+    await [object Number];
+  }
+  static async m(a) {
+    await [object Number];
+  }
+  static async mt<T>(a: T) {
+    await [object Number];
+  }
+}
+var e = async function() {
+  await [object Number];
+};
+var et = async function(a: T) {
+  await [object Number];
+};
+var n = new async function() {
+  await [object Number];
+}();
+var o = {
+  async m() {
+    await [object Number];
+  }
+};
+var ot = {
+  async m<T>(a: T) {
+    await [object Number];
+  }
+};
+var oz = {
+  async async(async) {
+    await async;
+  }
+};
+var x = { await: [object Number] };
+console.log(x.await);
+var await = [object Number];
+var y = { await };
 "
 `;

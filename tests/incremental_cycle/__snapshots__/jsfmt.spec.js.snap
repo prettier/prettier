@@ -14,7 +14,6 @@ class A {
   c: string;
 }
 module.exports = A;
-
 "
 `;
 
@@ -36,7 +35,6 @@ class B extends A {
   c: C;
 }
 module.exports = B;
-
 "
 `;
 
@@ -58,6 +56,5 @@ class C extends A {
   b: B;
 }
 module.exports = C;
-
 "
 `;

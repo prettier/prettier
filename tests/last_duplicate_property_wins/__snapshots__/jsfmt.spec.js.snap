@@ -43,53 +43,68 @@ const o = {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 // Classes
+// last wins
+// last wins
+// field wins over method
+// method loses to field!
+// check
+// last wins
+// last wins
+// last wins
+// weird outlier where last doesn't win in classes
+// Objects
+// last wins
+// last wins
+// last wins
+// last wins
+// check
+// last wins
+// last wins
+// last wins
+// last wins
 class C {
   foo(): number {
-    return 0;
+    return [object Number];
   }
   foo(): string {
     return "hello";
-  }// last wins
-  x: number;
-  x: string;// last wins
-  bar(): number {
-    return 0;
   }
-  bar: string;// field wins over method
+  x: number;
+  x: string;
+  bar(): number {
+    return [object Number];
+  }
+  bar: string;
   qux: number;
   qux(): string {
     return "hello";
-  }// method loses to field!
+  }
 }
-// check
-(new C().foo(): boolean);// last wins
-(new C().x: boolean);// last wins
-(new C().bar: boolean);// last wins
-(new C().qux: boolean);// weird outlier where last doesn't win in classes
-// Objects
+(new C().foo(): boolean);
+(new C().x: boolean);
+(new C().bar: boolean);
+(new C().qux: boolean);
 const o = {
   foo(): number {
-    return 0;
+    return [object Number];
   },
-  // last wins foo(): string {
+  foo(): string {
     return "hello";
   },
-  x: 42,
-  // last wins x: "hello",
+  x: [object Number],
+  x: "hello",
   bar(): number {
-    return 0;
+    return [object Number];
   },
-  // last wins bar: "hello",
-  qux: 42,
-  // last wins qux(): string {
+  bar: "hello",
+  qux: [object Number],
+  qux(): string {
     return "hello";
   }
 };
-// check
-(o.foo(): boolean);// last wins
-(o.x: boolean);// last wins
-(o.bar: boolean);// last wins
-(o.qux(): boolean);// last wins
-
+(o.foo(): boolean);
+(o.x: boolean);
+(o.bar: boolean);
+(o.qux(): boolean);
 "
 `;

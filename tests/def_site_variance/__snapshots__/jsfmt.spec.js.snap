@@ -31,20 +31,47 @@ class PropVariance<+Out,-In> {
   con_dict2: {-[k:string]: In}; // ok
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1172:16)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// error on both targs (A ~/~> B)
+// OK for both targs (B ~> A)
+// error
+// error
+// error
+// ok
+// ok
+// error
+// error
+// error
+// ok
+// error
+// error
+// ok
+class Variance<+Out, -In> {
+  foo(x: Out): Out {
+    return x;
+  }
+  bar(y: In): In {
+    return y;
+  }
+}
+class A {}
+class B extends A {}
+function subtyping(v1: Variance<A, B>, v2: Variance<B, A>) {
+  (v1: Variance<B, A>);
+  (v2: Variance<A, B>);
+}
+class PropVariance<+Out, -In> {
+  inv1: Out;
+  inv2: In;
+  -co1: Out;
+  -co2: In;
+  +con1: Out;
+  +con2: In;
+  inv_dict1: { [k: string]: Out };
+  inv_dict2: { [k: string]: In };
+  co_dict1: { +[k: string]: Out };
+  co_dict2: { +[k: string]: In };
+  con_dict1: { -[k: string]: Out };
+  con_dict2: { -[k: string]: In };
+}
 "
 `;

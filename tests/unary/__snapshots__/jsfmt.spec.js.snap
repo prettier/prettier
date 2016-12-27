@@ -20,20 +20,24 @@ function x4(y: string): boolean {
 (-1: void); // error, number ~> void
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
+// ok, + exists solely for coercion
+// error, we don't allow coercion here
+// error, we don't allow coercion here
+// ok, coercion is allowed
+// error, number ~> void
 function x0(y: string): number {
-  return +y;// ok, + exists solely for coercion
+  return +y;
 }
 function x1(y: string): number {
-  return -y;// error, we don't allow coercion here
+  return -y;
 }
 function x3(y: string) {
-  return ~y;// error, we don't allow coercion here
+  return ~y;
 }
 function x4(y: string): boolean {
-  return !y;// ok, coercion is allowed
+  return !y;
 }
-(-1: void);// error, number ~> void
-
+(-[object Number]: void);
 "
 `;
 
@@ -78,6 +82,15 @@ let tests = [
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+// error, we don't allow coercion here
+// ok, y is a number now
+// error, but you still can't write a number to a string
+// error, we don't allow coercion here
+// error, we don't allow coercion here
+// error, we don't allow coercion here
+// error, can't update const
+// error, can't update const
+// ok
 let tests = [
   function(y: number) {
     y++;
@@ -86,28 +99,27 @@ let tests = [
     --y;
   },
   function(y: string) {
-    y++;// error, we don't allow coercion here
-    (y: number);// ok, y is a number now
-    y++;// error, but you still can't write a number to a string
+    y++;
+    (y: number);
+    y++;
   },
   function(y: string) {
-    y--;// error, we don't allow coercion here
+    y--;
   },
   function(y: string) {
-    ++y;// error, we don't allow coercion here
+    ++y;
   },
   function(y: string) {
-    --y;// error, we don't allow coercion here
+    --y;
   },
   function() {
-    const y = 123;
-    y++;// error, can't update const
-    y--;// error, can't update const
+    const y = [object Number];
+    y++;
+    y--;
   },
   function(y: any) {
-    y++;// ok
+    y++;
   }
 ];
-
 "
 `;

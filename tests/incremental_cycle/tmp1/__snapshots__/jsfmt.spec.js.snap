@@ -9,7 +9,6 @@ export type B = string;
 var A = require("./A");
 import type C from "./C";
 export type B = string;
-
 "
 `;
 
@@ -31,6 +30,5 @@ class C extends A {
   b: B;
 }
 module.exports = C;
-
 "
 `;

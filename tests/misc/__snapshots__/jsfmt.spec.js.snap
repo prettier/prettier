@@ -10,22 +10,22 @@ module.exports.cls = A;
 function f(x:boolean) { }
 module.exports.fn = f;
 
-A.y = \"?\";
+A.y = "?";
 A.x = A.y;
 f(A.x); // A.x is now a string, by def assign
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule A */
+// A.x is now a string, by def assign
 module.exports = {};
-var A = { x: true, ...{} };
+var A = { x: [object Boolean], ...{} };
 module.exports.cls = A;
 function f(x: boolean) {
   
 }
 module.exports.fn = f;
-A.y = \"?\";
+A.y = "?";
 A.x = A.y;
-f(A.x);// A.x is now a string, by def assign
-
+f(A.x);
 "
 `;
 
@@ -33,10 +33,10 @@ exports[`test B.js 1`] = `
 "
 /* @providesModule B */
 
-var A = require(\'A\').cls;
+var A = require('A').cls;
 
 function B() {
-  this.b = \"...\";
+  this.b = "...";
 }
 
 function f():number { return this.b; }
@@ -47,17 +47,16 @@ B.prototype.fn = f;
 module.exports = B;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule B */
-var A = require(\"A\").cls;
+var A = require("A").cls;
 function B() {
-  this.b = \"...\";
+  this.b = "...";
 }
 function f(): number {
   return this.b;
 }
-B.prototype.s = 0;
+B.prototype.s = [object Number];
 B.prototype.fn = f;
 module.exports = B;
-
 "
 `;
 
@@ -65,8 +64,8 @@ exports[`test C.js 1`] = `
 "
 /* @providesModule C */
 
-var B = require(\'B\');
-var f = require(\'A\').fn;
+var B = require('B');
+var f = require('A').fn;
 
 function C() {
   var o = new B();
@@ -78,8 +77,8 @@ function C() {
 module.exports = C;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule C */
-var B = require(\"B\");
-var f = require(\"A\").fn;
+var B = require("B");
+var f = require("A").fn;
 function C() {
   var o = new B();
   f(o.b);
@@ -87,7 +86,6 @@ function C() {
   o.fn();
 }
 module.exports = C;
-
 "
 `;
 
@@ -95,7 +93,7 @@ exports[`test D.js 1`] = `
 "
 /* @providesModule D */
 
-var f = require(\'A\').fn;
+var f = require('A').fn;
 
 function g():string { return this.i; }
 
@@ -105,19 +103,18 @@ o.i = true;
 var i = o.fn();
 f(i);
 
-module.exports = \"D for dummy\";
+module.exports = "D for dummy";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule D */
-var f = require(\"A\").fn;
+var f = require("A").fn;
 function g(): string {
   return this.i;
 }
 var o = { fn: g, ...{} };
-o.i = true;
+o.i = [object Boolean];
 var i = o.fn();
 f(i);
-module.exports = \"D for dummy\";
-
+module.exports = "D for dummy";
 "
 `;
 
@@ -139,53 +136,43 @@ function h(x: number) {
 }
 var proto = { fn: h };
 var o = Object.create(proto);
-o.fn(false);
+o.fn([object Boolean]);
 module.exports = { obj: o };
-
 "
 `;
 
 exports[`test F.js 1`] = `
 "function fn2(x) { return x.length * 4; }
-fn2({length: \'hi\'});
+fn2({length: 'hi'});
 
 function foo(x: Array<number>): string {
   return x.length;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+function fn2(x) {
+  return x.length * [object Number];
+}
+fn2({ length: "hi" });
+function foo(x: Array<number>): string {
+  return x.length;
+}
 "
 `;
 
 exports[`test G.js 1`] = `
-"var a = { length: \"duck\" };
+"var a = { length: "duck" };
 a.length = 123;
 a.length();
 
 var b = [ 123 ];
-b.length = \"duck\";
+b.length = "duck";
 b.length();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var a = { length: \"duck\" };
-a.length = 123;
+var a = { length: "duck" };
+a.length = [object Number];
 a.length();
-var b = [ 123 ];
-b.length = \"duck\";
+var b = [ [object Number] ];
+b.length = "duck";
 b.length();
-
 "
 `;

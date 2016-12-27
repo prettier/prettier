@@ -11,7 +11,6 @@ module.exports.fun = (): string => "hello there";
  * @flow
  */
 module.exports.fun = (): string => "hello there";
-
 "
 `;
 
@@ -28,7 +27,6 @@ module.exports.fun = (): string => "hello there";
  * @flow
  */
 module.exports.fun = (): string => "hello there";
-
 "
 `;
 
@@ -45,14 +43,13 @@ module.exports.fun = (): string => "hello there";
  * @flow
  */
 module.exports.fun = (): string => "hello there";
-
 "
 `;
 
 exports[`test md5.js 1`] = `
 "/* @providesModule md5 */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+/* @providesModule md5 */
 
 "
 `;
@@ -76,6 +73,5 @@ var ExplicitSameName = require("ExplicitProvidesModuleSameName");
 (ExplicitSameName.fun(): string);
 var ExplicitDifferentName = require("ExplicitProvidesModuleDifferentName");
 (ExplicitDifferentName.fun(): string);
-
 "
 `;

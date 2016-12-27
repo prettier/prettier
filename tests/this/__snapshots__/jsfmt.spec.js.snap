@@ -61,60 +61,74 @@ var f2_4 = f2();                         // error, (global object).x
 module.exports = true;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule This */
-function F() {
-  this.x = 0;
-}
-F.prototype.m = function() {
-  this.y = 0;
-};
-function foo(p: string) {
-  
-}
-var o1 = new F();// sets o1.x to 0
-o1.x = "";
-foo(o1.x);// ok by definite assignment
-var o2 = new F();
-o1.y = 0;
-o2.y = "";
-foo(o2.y);// setting o1.y to 0 has no effect on o2.y
-var o3 = new F();
-o3.m();// sets o3.y to 0
-o3.y = "";
-foo(o3.y);// ok by definite assignment
-foo(o2.y);// setting o3.y to 0 has no effect on o2.y
+// sets o1.x to 0
+// ok by definite assignment
+// setting o1.y to 0 has no effect on o2.y
+// sets o3.y to 0
+// ok by definite assignment
+// setting o3.y to 0 has no effect on o2.y
 /*
  * this bindings:
  */
 /* standard functions may rebind this */
+// ok
+// error, number -> string
+// error, string -> number
+// TODO make this error blame the call site, rather than the function body
+// error, (global object).x
+/* arrow functions bind this at point of definition */
+/* top level arrow functions bind this to global object */
+// error, (this:mixed).x
+/* nested arrows bind enclosing this (which may itself rebind) */
+// ok
+// error, number -> string
+// error, string -> number
+// TODO make this error blame the call site, rather than the function body
+// error, (global object).x
+function F() {
+  this.x = [object Number];
+}
+F.prototype.m = function() {
+  this.y = [object Number];
+};
+function foo(p: string) {
+  
+}
+var o1 = new F();
+o1.x = "";
+foo(o1.x);
+var o2 = new F();
+o1.y = [object Number];
+o2.y = "";
+foo(o2.y);
+var o3 = new F();
+o3.m();
+o3.y = "";
+foo(o3.y);
+foo(o2.y);
 function f1(): number {
   return this.x;
 }
-var f1_1 = f1.bind({ x: 0 })();// ok
-var f1_2: string = f1.bind({ x: 0 })();// error, number -> string
-var f1_3 = f1.bind({ x: "" })();// error, string -> number
-// TODO make this error blame the call site, rather than the function body
-var f1_4 = f1();// error, (global object).x
-/* arrow functions bind this at point of definition */
-/* top level arrow functions bind this to global object */
+var f1_1 = f1.bind({ x: [object Number] })();
+var f1_2: string = f1.bind({ x: [object Number] })();
+var f1_3 = f1.bind({ x: "" })();
+var f1_4 = f1();
 var a1 = () => {
   return this.x;
 };
-var ax = a1();// error, (this:mixed).x
-/* nested arrows bind enclosing this (which may itself rebind) */
+var ax = a1();
 function f2(): number {
   var a2 = () => {
     return this.x;
   };
   return a2();
 }
-var f2_1 = f2.bind({ x: 0 })();// ok
-var f2_2: string = f2.bind({ x: 0 })();// error, number -> string
-var f2_3 = f2.bind({ x: "" })();// error, string -> number
-// TODO make this error blame the call site, rather than the function body
-var f2_4 = f2();// error, (global object).x
+var f2_1 = f2.bind({ x: [object Number] })();
+var f2_2: string = f2.bind({ x: [object Number] })();
+var f2_3 = f2.bind({ x: "" })();
+var f2_4 = f2();
 (this: void);
-module.exports = true;
-
+module.exports = [object Boolean];
 "
 `;
 
@@ -147,25 +161,33 @@ class F extends E {
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// OK, since this: C
+// return type is C
+// OK
+// OK
+// OK
+// error, since return type of bar is C, not the type of \`this\`
+// OK to override with generalization
+// find super method, error due to incorrect arg
 class C {
   foo() {
     return () => {
       return this.bar();
-    };// OK, since this: C
+    };
   }
   bar() {
     return this;
-  }// return type is C
+  }
 }
 var c = new C();
 var f = c.foo();
-var i = f();// OK
-(i: C);// OK
+var i = f();
+(i: C);
 class D extends C {}
 var d = new D();
 var g = d.foo();
-var j = g();// OK
-(j: D);// error, since return type of bar is C, not the type of \`this\`
+var j = g();
+(j: D);
 class E {
   foo(x: number) {
     
@@ -173,12 +195,10 @@ class E {
 }
 class F extends E {
   foo() {
-    // OK to override with generalization
     (() => {
-      super.foo("");// find super method, error due to incorrect arg
+      super.foo("");
     })();
   }
 }
-
 "
 `;

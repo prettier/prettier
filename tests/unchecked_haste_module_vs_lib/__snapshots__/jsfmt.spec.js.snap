@@ -22,8 +22,7 @@ export var INSPECT_MAX_BYTES = 0;
  * the same name as an unchecked module, it will be used
  * to satisfy imports/requires instead.
  */
-export var INSPECT_MAX_BYTES = 0;
-
+export var INSPECT_MAX_BYTES = [object Number];
 "
 `;
 
@@ -52,8 +51,8 @@ var x: string = buffer.INSPECT_MAX_BYTES; // error, number ~/> string
  * that follows will cause no errors, but if we resolve to the library
  * instead, we'll get the desired error.
  */
+// error, number ~/> string
 var buffer = require("buffer");
-var x: string = buffer.INSPECT_MAX_BYTES;// error, number ~/> string
-
+var x: string = buffer.INSPECT_MAX_BYTES;
 "
 `;

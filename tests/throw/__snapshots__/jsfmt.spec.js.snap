@@ -25,14 +25,16 @@ function h(x: number): string {
 /**
  * @flow
  */
+// OK to not return
+// a is not null
 function f(): number {
-  throw new Error();// OK to not return
+  throw new Error();
 }
 function g(a: ?string) {
-  if (a == null) {
+  if (a == [object Null]) {
     throw new Error();
   }
-  return a * 1;// a is not null
+  return a * [object Number];
 }
 function h(x: number): string {
   if (x) {
@@ -41,6 +43,5 @@ function h(x: number): string {
     throw new Error();
   }
 }
-
 "
 `;

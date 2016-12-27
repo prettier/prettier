@@ -39,21 +39,44 @@ function tes2(val: Map<string, Promise<number>>) {
   const r: Promise<Array<number>> = Promise.all(val.values());
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// @flow
+// non-Promise values passed through
+// tuple information is preserved
+// Error: string ~> number
+// Error: number ~> boolean
+// Error: boolean ~> string
+// array element type is (string | number | boolean)
+// Errors: string ~> void, number ~> void, boolean ~> void
+// First argument is required
+// Error: expected array instead of undefined (too few arguments)
+// Mis-typed arg
+// Error: expected array instead of number
+// Promise.all is a function
+// Promise.all supports iterables
+declare var pstr: Promise<string>;
+declare var pnum: Promise<number>;
+Promise.all([ pstr, pnum, [object Boolean] ]).then(
+  xs => {
+    let [ a, b, c ] = xs;
+    (a: number);
+    (b: boolean);
+    (c: string);
+    xs.forEach(
+      x => {
+        (x: void);
+      }
+    );
+  }
+);
+Promise.all();
+Promise.all([object Number]);
+(Promise.all: Function);
+function test(val: Iterable<Promise<number>>) {
+  const r: Promise<Array<number>> = Promise.all(val);
+}
+function tes2(val: Map<string, Promise<number>>) {
+  const r: Promise<Array<number>> = Promise.all(val.values());
+}
 "
 `;
 
@@ -62,7 +85,7 @@ exports[`test covariance.js 1`] = `
 
 async function testAll() {
   /* This is a test case from https://github.com/facebook/flow/issues/1143
-   * which was previously an error due to Array\'s invariance and an improper
+   * which was previously an error due to Array's invariance and an improper
    * definition of Promise.all */
     const x: Array<Promise<?string>> = [];
     const y: Promise<Array<?string>> = Promise.all(x);
@@ -75,21 +98,20 @@ async function testRace() {
     const z: ?string = await y;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+/* @flow */
+/* This is a test case from https://github.com/facebook/flow/issues/1143
+   * which was previously an error due to Array's invariance and an improper
+   * definition of Promise.all */
+async function testAll() {
+  const x: Array<Promise<?string>> = [  ];
+  const y: Promise<Array<?string>> = Promise.all(x);
+  const z: Array<?string> = await y;
+}
+async function testRace() {
+  const x: Array<Promise<?string>> = [  ];
+  const y: Promise<?string> = Promise.race(x);
+  const z: ?string = await y;
+}
 "
 `;
 
@@ -148,10 +170,10 @@ new Promise(function(resolve, reject) {
   if (Math.random()) {
     resolve(42);
   } else {
-    resolve(\'str\');
+    resolve('str');
   }
 }).then(function(numOrStr) {
-  if (typeof numOrStr === \'string\') {
+  if (typeof numOrStr === 'string') {
     var a: string = numOrStr;
   } else {
     var b: number = numOrStr;
@@ -190,10 +212,10 @@ new Promise(function(resolve, reject) {
   if (Math.random()) {
     reject(42);
   } else {
-    reject(\'str\');
+    reject('str');
   }
 }).catch(function(numOrStr) {
-  if (typeof numOrStr === \'string\') {
+  if (typeof numOrStr === 'string') {
     var a: string = numOrStr;
   } else {
     var b: number = numOrStr;
@@ -251,7 +273,7 @@ Promise.reject(Promise.resolve(0)).then(function(num) {
 
 // resolvedPromise.then():T -> then(T)
 Promise.resolve(0)
-  .then(function(num) { return \'asdf\'; })
+  .then(function(num) { return 'asdf'; })
   .then(function(str) {
     var a: string = str;
     var b: number = str; // Error: string ~> number
@@ -259,7 +281,7 @@ Promise.resolve(0)
 
 // resolvedPromise.then():Promise<T> -> then(T)
 Promise.resolve(0)
-  .then(function(num) { return Promise.resolve(\'asdf\'); })
+  .then(function(num) { return Promise.resolve('asdf'); })
   .then(function(str) {
     var a: string = str;
     var b: number = str; // Error: string ~> number
@@ -267,7 +289,7 @@ Promise.resolve(0)
 
 // resolvedPromise.then():Promise<Promise<T>> -> then(T)
 Promise.resolve(0)
-  .then(function(num) { return Promise.resolve(Promise.resolve(\'asdf\')); })
+  .then(function(num) { return Promise.resolve(Promise.resolve('asdf')); })
   .then(function(str) {
     var a: string = str;
     var b: number = str; // Error: string ~> number
@@ -276,7 +298,7 @@ Promise.resolve(0)
 // TODO: resolvedPromise.then(<throw(T)>) -> catch(T)
 Promise.resolve(0)
   .then(function(num) {
-    throw \'str\';
+    throw 'str';
   })
   .catch(function(str) {
     var a: string = str;
@@ -291,7 +313,7 @@ Promise.resolve(0)
 
 // rejectedPromise.catch():U -> then(U)
 Promise.reject(0)
-  .catch(function(num) { return \'asdf\'; })
+  .catch(function(num) { return 'asdf'; })
   .then(function(str) {
     var a: string = str;
     var b: number = str; // Error: string ~> number
@@ -299,7 +321,7 @@ Promise.reject(0)
 
 // rejectedPromise.catch():Promise<U> -> then(U)
 Promise.reject(0)
-  .catch(function(num) { return Promise.resolve(\'asdf\'); })
+  .catch(function(num) { return Promise.resolve('asdf'); })
   .then(function(str) {
     var a: string = str;
     var b: number = str; // Error: string ~> number
@@ -307,7 +329,7 @@ Promise.reject(0)
 
 // rejectedPromise.catch():Promise<Promise<U>> -> then(U)
 Promise.reject(0)
-  .catch(function(num) { return Promise.resolve(Promise.resolve(\'asdf\')); })
+  .catch(function(num) { return Promise.resolve(Promise.resolve('asdf')); })
   .then(function(str) {
     var a: string = str;
     var b: number = str; // Error: string ~> number
@@ -323,21 +345,304 @@ Promise.resolve(0)
     var b: string = num; // Error: string ~> number
   });
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+/**
+ * @flow
+ */
+//////////////////////////////////////////////////
+// == Promise constructor resolve() function == //
+//////////////////////////////////////////////////
+// Promise constructor resolve(T) -> then(T)
+// TODO: The error message that results from this is almost useless
+// Error: number ~> string
+// Promise constructor with arrow function resolve(T) -> then(T)
+// TODO: The error message that results from this is almost useless
+// Error: number ~> string
+// Promise constructor resolve(Promise<T>) -> then(T)
+// Error: number ~> string
+// Promise constructor resolve(Promise<Promise<T>>) -> then(T)
+// Error: number ~> string
+// Promise constructor resolve(T); resolve(U); -> then(T|U)
+// Error: number|string -> string
+/////////////////////////////////////////////////
+// == Promise constructor reject() function == //
+/////////////////////////////////////////////////
+// TODO: Promise constructor reject(T) -> catch(T)
+// TODO
+// Error: number ~> string
+// TODO: Promise constructor reject(Promise<T>) ~> catch(Promise<T>)
+// TODO
+// Error: Promise<Number> ~> number
+// TODO: Promise constructor reject(T); reject(U); -> then(T|U)
+// TODO
+// Error: number|string -> string
+/////////////////////////////
+// == Promise.resolve() == //
+/////////////////////////////
+// Promise.resolve(T) -> then(T)
+// Error: number ~> string
+// Promise.resolve(Promise<T>) -> then(T)
+// Error: number ~> string
+// Promise.resolve(Promise<Promise<T>>) -> then(T)
+// Error: number ~> string
+////////////////////////////
+// == Promise.reject() == //
+////////////////////////////
+// TODO: Promise.reject(T) -> catch(T)
+// TODO
+// Error: number ~> string
+// TODO: Promise.reject(Promise<T>) -> catch(Promise<T>)
+// TODO
+// Error: Promise<number> ~> number
+//////////////////////////////////
+// == Promise.prototype.then == //
+//////////////////////////////////
+// resolvedPromise.then():T -> then(T)
+// Error: string ~> number
+// resolvedPromise.then():Promise<T> -> then(T)
+// Error: string ~> number
+// resolvedPromise.then():Promise<Promise<T>> -> then(T)
+// Error: string ~> number
+// TODO: resolvedPromise.then(<throw(T)>) -> catch(T)
+// TODO
+// Error: string ~> number
+///////////////////////////////////
+// == Promise.prototype.catch == //
+///////////////////////////////////
+// rejectedPromise.catch():U -> then(U)
+// Error: string ~> number
+// rejectedPromise.catch():Promise<U> -> then(U)
+// Error: string ~> number
+// rejectedPromise.catch():Promise<Promise<U>> -> then(U)
+// Error: string ~> number
+// TODO: resolvedPromise<T> -> catch() -> then():T
+// TODO
+// Error: string ~> number
+new Promise(
+  function(resolve, reject) {
+    resolve([object Number]);
+  }
+).then(
+  function(num) {
+    var a: number = num;
+    var b: string = num;
+  }
+);
+new Promise((resolve, reject) => resolve([object Number])).then(
+  function(num) {
+    var a: number = num;
+    var b: string = num;
+  }
+);
+new Promise(
+  function(resolve, reject) {
+    resolve(
+      new Promise(
+        function(resolve, reject) {
+          resolve([object Number]);
+        }
+      )
+    );
+  }
+).then(
+  function(num) {
+    var a: number = num;
+    var b: string = num;
+  }
+);
+new Promise(
+  function(resolve, reject) {
+    resolve(
+      new Promise(
+        function(resolve, reject) {
+          resolve(
+            new Promise(
+              function(resolve, reject) {
+                resolve([object Number]);
+              }
+            )
+          );
+        }
+      )
+    );
+  }
+).then(
+  function(num) {
+    var a: number = num;
+    var b: string = num;
+  }
+);
+new Promise(
+  function(resolve, reject) {
+    if (Math.random()) {
+      resolve([object Number]);
+    } else {
+      resolve("str");
+    }
+  }
+).then(
+  function(numOrStr) {
+    if (typeof numOrStr === "string") {
+      var a: string = numOrStr;
+    } else {
+      var b: number = numOrStr;
+    }
+    var c: string = numOrStr;
+  }
+);
+new Promise(
+  function(resolve, reject) {
+    reject([object Number]);
+  }
+).catch(
+  function(num) {
+    var a: number = num;
+    var b: string = num;
+  }
+);
+new Promise(
+  function(resolve, reject) {
+    reject(
+      new Promise(
+        function(resolve, reject) {
+          reject([object Number]);
+        }
+      )
+    );
+  }
+).catch(
+  function(num) {
+    var a: Promise<number> = num;
+    var b: number = num;
+  }
+);
+new Promise(
+  function(resolve, reject) {
+    if (Math.random()) {
+      reject([object Number]);
+    } else {
+      reject("str");
+    }
+  }
+).catch(
+  function(numOrStr) {
+    if (typeof numOrStr === "string") {
+      var a: string = numOrStr;
+    } else {
+      var b: number = numOrStr;
+    }
+    var c: string = numOrStr;
+  }
+);
+Promise.resolve([object Number]).then(
+  function(num) {
+    var a: number = num;
+    var b: string = num;
+  }
+);
+Promise.resolve(Promise.resolve([object Number])).then(
+  function(num) {
+    var a: number = num;
+    var b: string = num;
+  }
+);
+Promise.resolve(Promise.resolve(Promise.resolve([object Number]))).then(
+  function(num) {
+    var a: number = num;
+    var b: string = num;
+  }
+);
+Promise.reject([object Number]).catch(
+  function(num) {
+    var a: number = num;
+    var b: string = num;
+  }
+);
+Promise.reject(Promise.resolve([object Number])).then(
+  function(num) {
+    var a: Promise<number> = num;
+    var b: number = num;
+  }
+);
+Promise.resolve([object Number]).then(
+  function(num) {
+    return "asdf";
+  }
+).then(
+  function(str) {
+    var a: string = str;
+    var b: number = str;
+  }
+);
+Promise.resolve([object Number]).then(
+  function(num) {
+    return Promise.resolve("asdf");
+  }
+).then(
+  function(str) {
+    var a: string = str;
+    var b: number = str;
+  }
+);
+Promise.resolve([object Number]).then(
+  function(num) {
+    return Promise.resolve(Promise.resolve("asdf"));
+  }
+).then(
+  function(str) {
+    var a: string = str;
+    var b: number = str;
+  }
+);
+Promise.resolve([object Number]).then(
+  function(num) {
+    throw "str";
+  }
+).catch(
+  function(str) {
+    var a: string = str;
+    var b: number = str;
+  }
+);
+Promise.reject([object Number]).catch(
+  function(num) {
+    return "asdf";
+  }
+).then(
+  function(str) {
+    var a: string = str;
+    var b: number = str;
+  }
+);
+Promise.reject([object Number]).catch(
+  function(num) {
+    return Promise.resolve("asdf");
+  }
+).then(
+  function(str) {
+    var a: string = str;
+    var b: number = str;
+  }
+);
+Promise.reject([object Number]).catch(
+  function(num) {
+    return Promise.resolve(Promise.resolve("asdf"));
+  }
+).then(
+  function(str) {
+    var a: string = str;
+    var b: number = str;
+  }
+);
+Promise.resolve([object Number]).catch(
+  function(err) {
+    
+  }
+).then(
+  function(num) {
+    var a: number = num;
+    var b: string = num;
+  }
+);
 "
 `;
 
@@ -357,7 +662,7 @@ class Promise {}
  */
 async function foo(x: boolean) {
   if (x) {
-    return {bar: \'baz\'};
+    return {bar: 'baz'};
   } else {
     return null;
   }
@@ -384,21 +689,41 @@ async function baz(): Promise<number> {
   return 0;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+/**
+ * test Promise name resolution
+ * @flow
+ */
+/**
+ * 1. introduce shadowing bindings for important names
+ */
+/**
+ * 2. implicit refs to Promise during desugaring should be unaffected
+ */
+/**
+ * 3. but explicit name refs from code and annos resolve
+ * using the usual rules
+ */
+// error: \`Promise\` in return expr is the local binding
+// error: return type anno is a ref to the local binding
+class Promise {}
+async function foo(x: boolean) {
+  if (x) {
+    return { bar: "baz" };
+  } else {
+    return [object Null];
+  }
+}
+async function run() {
+  console.log(await foo([object Boolean]));
+  console.log(await foo([object Boolean]));
+}
+run();
+async function bar() {
+  return Promise.resolve([object Number]);
+}
+async function baz(): Promise<number> {
+  return [object Number];
+}
 "
 `;
 
@@ -409,20 +734,10 @@ exports[`test resolve_void.js 1`] = `
 
 (Promise.resolve(undefined): Promise<number>); // error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// @flow
+// error
+// error
+(Promise.resolve(): Promise<number>);
+(Promise.resolve(undefined): Promise<number>);
 "
 `;

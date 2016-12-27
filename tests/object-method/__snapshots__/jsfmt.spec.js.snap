@@ -3,21 +3,8 @@ exports[`test id.js 1`] = `
 
 module.exports = id;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1348
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1348:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1254:25)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+declare function id(_: X): X;
+module.exports = id;
 "
 `;
 
@@ -25,30 +12,20 @@ exports[`test subtype.js 1`] = `
 "interface Interface {
   m(): void;
 }
-import type { ObjectType } from \'./test\';
+import type { ObjectType } from './test';
 
 function subtypeCheck(x: Interface): ObjectType { return x; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1391
-          fromString(\", \").join(path.map(print, \"extends\"))
-                           ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1391:28)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at /src/printer.js:1601:18
-    at FastPath.map (/src/fast-path.js:167:19)
-    at printStatementSequence (/src/printer.js:1586:8)
-    at /src/printer.js:238:16
-    at FastPath.call (/src/fast-path.js:113:16)
+interface Interface extends  { m: : () => void }
+import type { ObjectType } from "./test";
+function subtypeCheck(x: Interface): ObjectType {
+  return x;
+}
 "
 `;
 
 exports[`test test.js 1`] = `
-"const id = require(\'./id\');
+"const id = require('./id');
 
 export type ObjectType = {
   +m: () => void,
@@ -62,21 +39,12 @@ module.exports = id(
   methodCaller
 );
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1348
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1348:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1452:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+const id = require("./id");
+export type ObjectType = { +m: : () => void };
+function methodCaller(x: ObjectType) {
+  x.m();
+}
+module.exports = id(methodCaller);
 "
 `;
 
@@ -100,14 +68,15 @@ a.f(); // okey-dokie
 b.f(); // error, property \`p\` not found
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
+// okey-dokie
+// error, property \`p\` not found
 function f() {
   return this.p;
 }
-var a = { p: 0, f };
+var a = { p: [object Number], f };
 var b = { f };
-a.f();// okey-dokie
-b.f();// error, property \`p\` not found
-
+a.f();
+b.f();
 "
 `;
 
@@ -131,20 +100,23 @@ function qux(o: { f: () => void }) {
 
 qux({ f: foo });  // error, since \`this\` is used non-trivially in \`foo\`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1348
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1348:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1254:25)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+/* @flow */
+// passing global object as \`this\`
+// passing container object as \`this\`
+// error, since \`this\` is used non-trivially in \`foo\`
+// passing o as \`this\`
+// error, since \`this\` is used non-trivially in \`foo\`
+function foo() {
+  this.m();
+}
+function bar(f: () => void) {
+  f();
+  ({ f }).f();
+}
+bar(foo);
+function qux(o: { f: : () => void }) {
+  o.f();
+}
+qux({ f: foo });
 "
 `;

@@ -20,6 +20,5 @@ class D {
   }
 }
 module.exports = C;
-
 "
 `;

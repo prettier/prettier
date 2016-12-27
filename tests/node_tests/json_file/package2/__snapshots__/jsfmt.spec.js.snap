@@ -6,7 +6,6 @@ module.exports = {
 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-module.exports = { foo: 123 };
-
+module.exports = { foo: [object Number] };
 "
 `;

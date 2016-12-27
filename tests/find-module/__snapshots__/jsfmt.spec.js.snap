@@ -1,8 +1,7 @@
 exports[`test req.js 1`] = `
 "module.exports = 0;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-module.exports = 0;
-
+module.exports = [object Number];
 "
 `;
 
@@ -15,6 +14,5 @@ import x from './req';
 var x = require("./req");
 (x: string);
 import x from "./req";
-
 "
 `;

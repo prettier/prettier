@@ -21,22 +21,23 @@ function bar(x: boolean) {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
+//console.log('this is still reachable');
+//console.log('this is still reachable');
 function foo(x: boolean) {
-  var ii = 10;
-  while (ii-- >= 0) {
+  var ii = [object Number];
+  while (ii-- >= [object Number]) {
     if (x) {
       continue;
     }
     return;
-  }//console.log('this is still reachable');
+  }
 }
 function bar(x: boolean) {
-  var ii = 0;
-  while (ii > 0) {
+  var ii = [object Number];
+  while (ii > [object Number]) {
     return;
-  }//console.log('this is still reachable');
+  }
 }
-
 "
 `;
 
@@ -68,6 +69,5 @@ while (node) {
   blah();
   node = parent.m();
 }
-
 "
 `;

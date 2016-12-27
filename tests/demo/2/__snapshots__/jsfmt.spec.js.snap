@@ -20,8 +20,9 @@ a.onLoad(callback);
 module.exports = A;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule Demo */
+// instance field declaration
 class A {
-  x: number;// instance field declaration
+  x: number;
   constructor(x) {
     this.x = x;
   }
@@ -35,10 +36,9 @@ class A {
 function callback(x: string) {
   return x.length;
 }
-var a = new A(42);
+var a = new A([object Number]);
 a.onLoad(callback);
 module.exports = A;
-
 "
 `;
 
@@ -49,6 +49,5 @@ var z = new A("42").getX();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var A = require("Demo");
 var z = new A("42").getX();
-
 "
 `;

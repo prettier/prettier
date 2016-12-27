@@ -19,9 +19,9 @@ class A {
   _x: string;
   __x: number;
   constructor() {
-    this.x = 0;
+    this.x = [object Number];
     this._x = "";
-    this.__x = 0;
+    this.__x = [object Number];
   }
 }
 class B extends A {
@@ -31,6 +31,5 @@ class B extends A {
     var __x: number = this.__x;
   }
 }
-
 "
 `;

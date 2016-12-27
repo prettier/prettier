@@ -10,7 +10,7 @@ C.g(0);
 var x:number = C.x;
 C.x = 0;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class C {
-  f(x: number) {
+  static f(x: number) {
     
   }
   static x: string;
@@ -18,10 +18,9 @@ class C {
 C.g = function(x: string) {
   C.f(x);
 };
-C.g(0);
+C.g([object Number]);
 var x: number = C.x;
-C.x = 0;
-
+C.x = [object Number];
 "
 `;
 
@@ -36,12 +35,11 @@ function C() {
   
 }
 C.prototype.f = function() {
-  return C.g(0);
+  return C.g([object Number]);
 };
 C.g = function(x) {
   return x;
 };
 var x: string = new C().f();
-
 "
 `;

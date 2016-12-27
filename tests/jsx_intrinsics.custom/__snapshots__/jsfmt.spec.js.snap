@@ -1,7 +1,7 @@
 exports[`test main.js 1`] = `
 "// @flow
 
-var React = require(\'react\');
+var React = require('react');
 
 class CustomComponent extends React.Component {
   props: {
@@ -9,65 +9,70 @@ class CustomComponent extends React.Component {
   };
 }
 
-var a: React.Element<{prop: string}> = <CustomComponent prop=\"asdf\" />;
-var b: React.Element<{prop1: string}> = <CustomComponent prop=\"asdf\" />; // Error: Props<{prop}> ~> Props<{prop1}>
+var a: React.Element<{prop: string}> = <CustomComponent prop="asdf" />;
+var b: React.Element<{prop1: string}> = <CustomComponent prop="asdf" />; // Error: Props<{prop}> ~> Props<{prop1}>
 
-<div id=\"asdf\" />;
+<div id="asdf" />;
 <div id={42} />; // Error: (\`id\` prop) number ~> string
-var c: React.Element<{id: string}> = <div id=\"asdf\" />;
-var d: React.Element<{id: number}> = <div id=\"asdf\" />; // Error: Props<{id:string}> ~> Props<{id:number}>
+var c: React.Element<{id: string}> = <div id="asdf" />;
+var d: React.Element<{id: number}> = <div id="asdf" />; // Error: Props<{id:string}> ~> Props<{id:number}>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// @flow
+/* Error: Props<{prop}> ~> Props<{prop1}>*/
+// Error: (\`id\` prop) number ~> string
+// Error: Props<{id:string}> ~> Props<{id:number}>
+var React = require("react");
+class CustomComponent extends React.Component {
+  props: { prop: string };
+}
+var a: React.Element<{ prop: string }> = <CustomComponent prop="asdf"/>;
+var b: React.Element<{ prop1: string }> = <CustomComponent prop="asdf"/>;
+<div id="asdf"/>;
+<div id={[object Number]}/>;
+var c: React.Element<{ id: string }> = <div id="asdf"/>;
+var d: React.Element<{ id: number }> = <div id="asdf"/>;
 "
 `;
 
 exports[`test strings.js 1`] = `
 "/* @flow */
 
-var React = require(\'react\');
+var React = require('react');
 
-var Div = \'div\';
-var Bad = \'bad\';
-var Str: string = \'str\';
+var Div = 'div';
+var Bad = 'bad';
+var Str: string = 'str';
 
 <Div />; // This is fine
-<Bad />; // Error: \'bad\' not in JSXIntrinsics
+<Bad />; // Error: 'bad' not in JSXIntrinsics
 <Str />; // Error: string ~> keys of JSXIntrinsics
 
-React.createElement(\'div\', {}); // This is fine
-React.createElement(\'bad\', {}); // Error: \'bad\' not in JSXIntrinsics
+React.createElement('div', {}); // This is fine
+React.createElement('bad', {}); // Error: 'bad' not in JSXIntrinsics
 React.createElement(Str, {}); // Error: string ~> keys of JSXIntrinsics
 
 // TODO: Make this an error
 <Div id={42} />; // Not an error but should be eventually
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-var React = require(\"react\");
-var Div = \"div\";
-var Bad = \"bad\";
-var Str: string = \"str\";
-<Div/>;// This is fine
-<Bad/>;// Error: \'bad\' not in JSXIntrinsics
-<Str/>;// Error: string ~> keys of JSXIntrinsics
-React.createElement(\"div\", {});// This is fine
-React.createElement(\"bad\", {});// Error: \'bad\' not in JSXIntrinsics
-React.createElement(Str, {});// Error: string ~> keys of JSXIntrinsics
-// TODO: Make this an error
-<Div id={42}/>;// Not an error but should be eventually
-
+/* This is fine*/
+/* Error: 'bad' not in JSXIntrinsics*/
+// Error: string ~> keys of JSXIntrinsics
+// This is fine
+// Error: 'bad' not in JSXIntrinsics
+/* Error: string ~> keys of JSXIntrinsics*/
+/* TODO: Make this an error*/
+// Not an error but should be eventually
+var React = require("react");
+var Div = "div";
+var Bad = "bad";
+var Str: string = "str";
+<Div/>;
+<Bad/>;
+<Str/>;
+React.createElement("div", {});
+React.createElement("bad", {});
+React.createElement(Str, {});
+<Div id={[object Number]}/>;
 "
 `;

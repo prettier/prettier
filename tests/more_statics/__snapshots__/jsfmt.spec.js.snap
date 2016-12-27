@@ -11,17 +11,16 @@ var x: number = C.bar();
 var y: number = C.foo();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class B {
-  foo(): string {
+  static foo(): string {
     return "";
   }
 }
 class C extends B {
-  bar(): string {
+  static bar(): string {
     return "";
   }
 }
 var x: number = C.bar();
 var y: number = C.foo();
-
 "
 `;

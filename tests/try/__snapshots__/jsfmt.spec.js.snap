@@ -25,12 +25,11 @@ function foo() {
   try {
     
   } catch (error) {
-    if (error.foo === 4) {
+    if (error.foo === [object Number]) {
       throw error;
     }
   }
 }
-
 "
 `;
 
@@ -196,153 +195,164 @@ function f(b) {
  */
 // for illustrative purposes only - Flow considers a throw possible
 // anywhere within a block
+// local use of annotated var within try is ok
+// and within catch
+// but not across try/catch
+// error
+// or try/finally
+// error
+// or catch/finally
+// error
+// or try/catch/finally if init doesn't dominate
+// error
+// post-use ok because init dominates here
+// ...but if so, suffix is not reached
+// and here
+// ...but if so, suffix is not reached
+// and here
+// ...but if so, suffix is not reached
+// and here, thank you JS for the wonder that is hoisting
+// ...but if so, suffix is not reached
+// error if used prior to init
+// error
+// another non-dominated post
+// error
+// ditto
+// error
+// ditto
+// error
 function might_throw() {
   
 }
-// local use of annotated var within try is ok
 function f() {
   try {
-    var x: number = 0;
+    var x: number = [object Number];
     var y: number = x;
   } catch (e) {
     
   }
 }
-// and within catch
 function f() {
   try {
     
   } catch (e) {
-    var x: number = 0;
+    var x: number = [object Number];
     var y: number = x;
   }
 }
-// but not across try/catch
 function f() {
   try {
     might_throw();
-    var x: number = 0;
+    var x: number = [object Number];
   } catch (e) {
-    var y: number = x;// error
+    var y: number = x;
   }
 }
-// or try/finally
 function f() {
   try {
     might_throw();
-    var x: number = 0;
+    var x: number = [object Number];
   } finally {
-    var y: number = x;// error
+    var y: number = x;
   }
 }
-// or catch/finally
 function f() {
   try {
     
   } catch (e) {
-    var x: number = 0;
+    var x: number = [object Number];
   } finally {
-    var y: number = x;// error
+    var y: number = x;
   }
 }
-// or try/catch/finally if init doesn't dominate
 function f() {
   try {
-    var x: number = 0;
+    var x: number = [object Number];
   } catch (e) {
     might_throw();
-    var x: number = 0;
+    var x: number = [object Number];
   } finally {
-    var y: number = x;// error
+    var y: number = x;
   }
 }
-// post-use ok because init dominates here
 function f() {
   try {
-    var x: number = 0;
+    var x: number = [object Number];
   } catch (e) {
-    might_throw();// ...but if so, suffix is not reached
-    var x: number = 0;
+    might_throw();
+    var x: number = [object Number];
   }
   var y: number = x;
 }
-// and here
 function f() {
   try {
     
   } catch (e) {
     
   } finally {
-    might_throw();// ...but if so, suffix is not reached
-    var x: number = 0;
+    might_throw();
+    var x: number = [object Number];
   }
   var y: number = x;
 }
-// and here
 function f() {
   try {
     var x: number;
   } catch (e) {
     
   } finally {
-    might_throw();// ...but if so, suffix is not reached
-    x = 0;
+    might_throw();
+    x = [object Number];
   }
   var y: number = x;
 }
-// and here, thank you JS for the wonder that is hoisting
 function f() {
   try {
     
   } catch (e) {
     var x: number;
   } finally {
-    might_throw();// ...but if so, suffix is not reached
-    x = 0;
+    might_throw();
+    x = [object Number];
   }
   var y: number = x;
 }
-// error if used prior to init
 function f() {
-  var y: number = x;// error
+  var y: number = x;
   try {
-    var x: number = 0;
+    var x: number = [object Number];
   } catch (e) {
     
   }
 }
-// another non-dominated post
 function f() {
   try {
-    var x: number = 0;
+    var x: number = [object Number];
   } catch (e) {
     
   }
-  var y: number = x;// error
+  var y: number = x;
 }
-// ditto
 function f() {
   try {
     
   } catch (e) {
-    var x: number = 0;
+    var x: number = [object Number];
   }
-  var y: number = x;// error
+  var y: number = x;
 }
-// ditto
 function f(b) {
   try {
     var x: number;
     if (b) {
       throw new Error();
     }
-    x = 0;
+    x = [object Number];
   } catch (e) {
     
   }
-  var y: number = x;// error
+  var y: number = x;
 }
-
 "
 `;
 
@@ -416,6 +426,8 @@ function corge(): string {
 /**
  * @flow
  */
+// unreachable
+// unreachable
 function foo(x: ?number): string {
   try {
     
@@ -438,7 +450,7 @@ function baz(): string {
   } catch (e) {
     return "foo";
   }
-  return "bar";// unreachable
+  return "bar";
 }
 function qux(): string {
   try {
@@ -472,9 +484,8 @@ function corge(): string {
   } catch (e) {
     throw new Error("bar");
   }
-  bar();// unreachable
+  bar();
 }
-
 "
 `;
 
@@ -526,20 +537,26 @@ function qux() {
  * test env state tracking thru try/catch/finally
  * @flow
  */
+// here via [try; finally] only.
+// string ~/> function call (no num or bool error)
+// object ~/> function call (no uninitialized error)
+// here via [try] only.
+// ok
+// ...
+// unreachable
 function foo() {
-  var x = 0;
+  var x = [object Number];
   var y;
   try {
     x = "";
   } catch (e) {
-    x = false;
-    throw -1;
+    x = [object Boolean];
+    throw -[object Number];
   } finally {
     y = {};
   }
-  // here via [try; finally] only.
-  x();// string ~/> function call (no num or bool error)
-  y();// object ~/> function call (no uninitialized error)
+  x();
+  y();
 }
 function bar(response) {
   var payload;
@@ -548,20 +565,18 @@ function bar(response) {
   } catch (e) {
     throw new Error("...");
   }
-  // here via [try] only.
   if (payload.error) {
     
   }
 }
 function qux() {
-  var x = 5;
+  var x = [object Number];
   try {
-    throw -1;
+    throw -[object Number];
   } finally {
     
   }
-  x();// unreachable
+  x();
 }
-
 "
 `;

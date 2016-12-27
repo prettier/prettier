@@ -12,7 +12,6 @@ module.exports = "dupe1";
  * @flow
  */
 module.exports = "dupe1";
-
 "
 `;
 
@@ -30,7 +29,6 @@ module.exports = "dupe2";
  * @flow
  */
 module.exports = "dupe2";
-
 "
 `;
 
@@ -46,6 +44,5 @@ var dupe = require('Dupe');
  * @flow
  */
 var dupe = require("Dupe");
-
 "
 `;

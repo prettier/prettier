@@ -36,6 +36,8 @@ module.exports = C;
 //function fn(x:number) { return x; }
 //module.exports = fn;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//function fn(x:number) { return x; }
+//module.exports = fn;
 class C {
   foo() {
     
@@ -48,29 +50,28 @@ class C {
   }
 }
 function f(x): number {
-  if (x > 1) {
-    return 42;
+  if (x > [object Number]) {
+    return [object Number];
   }
 }
 function g(x): ?number {
-  if (x > 1) {
-    return 42;
+  if (x > [object Number]) {
+    return [object Number];
   }
 }
 function h(x): number {
-  if (x > 1) {
-    return 42;
+  if (x > [object Number]) {
+    return [object Number];
   }
   return;
 }
 function i(x): ?number {
-  if (x > 1) {
-    return 42;
+  if (x > [object Number]) {
+    return [object Number];
   }
   return;
 }
-module.exports = C;//function fn(x:number) { return x; }//module.exports = fn;
-
+module.exports = C;
 "
 `;
 
@@ -91,6 +92,7 @@ function f(b) {
 /* This is a regression test. At one point we incorrectly inferred the return
    type of functions that have an explicit \`undefined\` to be only \`undefined\` --
    ignoring other possible exits. */
+// error: string ~> void
 function f(b) {
   if (b) {
     return undefined;
@@ -98,7 +100,6 @@ function f(b) {
     return "nope";
   }
 }
-(f(true): void);// error: string ~> void
-
+(f([object Boolean]): void);
 "
 `;

@@ -3,23 +3,23 @@ exports[`test array_lib.js 1`] = `
 function foo(x:string) { }
 
 var a = [0];
-var b = a.map(function (x) { foo(x); return \"\" + x; });
+var b = a.map(function (x) { foo(x); return "" + x; });
 
 var c: number = a[0];
 var d: number = b[0];
 
 var e:Array<string> = a.reverse();
 
-var f = [\"\"];
+var f = [""];
 var g:number = f.map(function () { return 0; })[0];
 
 var h: Array<number> = [1,2,3];
-var i: Array<string> = [\'a\', \'b\', \'c\'];
+var i: Array<string> = ['a', 'b', 'c'];
 var j: Array<number | string> = h.concat(i);
 var k: Array<number> = h.concat(h);
 var l: Array<number> = h.concat(1,2,3);
-var m: Array<number | string> = h.concat(\'a\', \'b\', \'c\');
-var n: Array<number> = h.concat(\'a\', \'b\', \'c\'); // Error
+var m: Array<number | string> = h.concat('a', 'b', 'c');
+var n: Array<number> = h.concat('a', 'b', 'c'); // Error
 
 function reduce_test() {
   /* Adapted from the following source:
@@ -44,33 +44,117 @@ function reduce_test() {
   /* Added later, because the above is insufficient */
 
   // acc is element type of array when no init is provided
-  [\"\"].reduce((acc, str) => acc * str.length); // error, string ~> number
-  [\"\"].reduceRight((acc, str) => acc * str.length); // error, string ~> number
+  [""].reduce((acc, str) => acc * str.length); // error, string ~> number
+  [""].reduceRight((acc, str) => acc * str.length); // error, string ~> number
 }
 
 function from_test() {
   var a: Array<string> = Array.from([1, 2, 3], function(val, index) {
-    return index % 2 ? \"foo\" : String(val);
+    return index % 2 ? "foo" : String(val);
   });
   var b: Array<string> = Array.from([1, 2, 3], function(val) {
     return String(val);
   });
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+/* @flow */
+// Error
+/* Adapted from the following source:
+   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
+   */
+/* Added later, because the above is insufficient */
+// acc is element type of array when no init is provided
+// error, string ~> number
+// error, string ~> number
+function foo(x: string) {
+  
+}
+var a = [ [object Number] ];
+var b = a.map(
+  function(x) {
+    foo(x);
+    return "" + x;
+  }
+);
+var c: number = a[[object Number]];
+var d: number = b[[object Number]];
+var e: Array<string> = a.reverse();
+var f = [ "" ];
+var g: number = f.map(
+  function() {
+    return [object Number];
+  }
+)[[object Number]];
+var h: Array<number> = [ [object Number], [object Number], [object Number] ];
+var i: Array<string> = [ "a", "b", "c" ];
+var j: Array<number | string> = h.concat(i);
+var k: Array<number> = h.concat(h);
+var l: Array<number> = h.concat(
+  [object Number],
+  [object Number],
+  [object Number]
+);
+var m: Array<number | string> = h.concat("a", "b", "c");
+var n: Array<number> = h.concat("a", "b", "c");
+function reduce_test() {
+  [
+    [object Number],
+    [object Number],
+    [object Number],
+    [object Number],
+    [object Number]
+  ].reduce(
+    function(previousValue, currentValue, index, array) {
+      return previousValue + currentValue + array[index];
+    }
+  );
+  [
+    [object Number],
+    [object Number],
+    [object Number],
+    [object Number],
+    [object Number]
+  ].reduce(
+    function(previousValue, currentValue, index, array) {
+      return previousValue + currentValue + array[index];
+    },
+    [object Number]
+  );
+  var total = [
+    [object Number],
+    [object Number],
+    [object Number],
+    [object Number]
+  ].reduce(
+    function(a, b) {
+      return a + b;
+    }
+  );
+  var flattened = [
+    [ [object Number], [object Number] ],
+    [ [object Number], [object Number] ],
+    [ [object Number], [object Number] ]
+  ].reduce(
+    function(a, b) {
+      return a.concat(b);
+    }
+  );
+  [ "" ].reduce((acc, str) => acc * str.length);
+  [ "" ].reduceRight((acc, str) => acc * str.length);
+}
+function from_test() {
+  var a: Array<string> = Array.from(
+    [ [object Number], [object Number], [object Number] ],
+    function(val, index) {
+      return (index % [object Number] ? "foo" : String(val));
+    }
+  );
+  var b: Array<string> = Array.from(
+    [ [object Number], [object Number], [object Number] ],
+    function(val) {
+      return String(val);
+    }
+  );
+}
 "
 `;

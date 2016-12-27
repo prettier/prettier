@@ -8,7 +8,6 @@ module.exports = window.history;
 @providesModule Window1
 */
 module.exports = window.history;
-
 "
 `;
 
@@ -19,6 +18,5 @@ module.exports = window.parent;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule Window2 */
 module.exports = window.parent;
-
 "
 `;

@@ -35,7 +35,6 @@ class Bar {
   }
 }
 module.exports = Bar;
-
 "
 `;
 
@@ -87,7 +86,6 @@ class Foo extends Qux {
   }
 }
 module.exports = Foo;
-
 "
 `;
 
@@ -116,6 +114,5 @@ class Qux {
   }
 }
 module.exports = Qux;
-
 "
 `;

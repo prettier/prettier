@@ -10,9 +10,10 @@ class Foo {
 /* @flow */
 class Foo {
   annotationOnly: string;
-  initOnly = "asdf";
-  initWithAnnotation: string = "asdf";
+  initOnly;
+  =(;, :, =, ;) {
+    
+  }
 }
-
 "
 `;

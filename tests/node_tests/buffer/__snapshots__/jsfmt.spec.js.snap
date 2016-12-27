@@ -24,10 +24,10 @@ bool = buffer.every((element: number) => false, buffer);
 
 buffer = buffer.fill(1);
 buffer = buffer.fill(1, 0, 0);
-buffer = buffer.fill(\"a\");
-buffer = buffer.fill(\"a\", 0, 0);
-buffer = buffer.fill(\"a\", 0, 0, \"utf8\");
-buffer = buffer.fill(\"a\", \"utf8\");
+buffer = buffer.fill("a");
+buffer = buffer.fill("a", 0, 0);
+buffer = buffer.fill("a", 0, 0, "utf8");
+buffer = buffer.fill("a", "utf8");
 
 maybeNum = buffer.find((element: number, index: number, array:Uint8Array) => false);
 maybeNum = buffer.find((element: number, index: number, array:Uint8Array) => false, buffer);
@@ -49,28 +49,95 @@ buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]);
 const typedArray = new Uint8Array([0x34]);
 buffer = Buffer.from(typedArray.buffer, typedArray.byteOffset, typedArray.byteLength);
 buffer = Buffer.from(new Buffer(0));
-buffer = Buffer.from(\"foo\", \"utf8\");
+buffer = Buffer.from("foo", "utf8");
 
 // This call to from() does type check ok, but should not. Unfortunately, Buffer
 // extends Uint8Array but gets rid of this signature to .from(). Understandably,
-// flow doesn\'t support a subclass hiding a superclass member, so this checks out as
+// flow doesn't support a subclass hiding a superclass member, so this checks out as
 // ok, even though it is not correct.
-buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72], (a:number) => a + 1, {}); // should error but doesn\'t
+buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72], (a:number) => a + 1, {}); // should error but doesn't
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1237
-      throw new Error(\"unprintable type: \" + JSON.stringify(n.type));
-      ^
-
-Error: unprintable type: \"TupleTypeAnnotation\"
-    at genericPrintNoParens (/src/printer.js:1237:13)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.map (/src/fast-path.js:167:19)
-    at genericPrintNoParens (/src/printer.js:1497:36)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+/* @flow */
+// Uint8Array properties. All of these should type check ok.
+// A few Uint8Array instance methods. All of these should type check ok.
+// static methods
+// This call to from() does type check ok, but should not. Unfortunately, Buffer
+// extends Uint8Array but gets rid of this signature to .from(). Understandably,
+// flow doesn't support a subclass hiding a superclass member, so this checks out as
+// ok, even though it is not correct.
+// should error but doesn't
+let bool: boolean = [object Boolean];
+let buffer: Buffer = new Buffer([object Number]);
+let num: number = [object Number];
+let maybeNum: ?number;
+buffer.length;
+buffer.buffer;
+buffer.byteOffset;
+buffer.byteLength;
+buffer[[object Number]];
+buffer.copyWithin([object Number], [object Number]);
+buffer.copyWithin([object Number], [object Number], [object Number]);
+const it1: Iterator<[]> = buffer.entries();
+bool = buffer.every((element: number) => [object Boolean]);
+bool = buffer.every((element: number) => [object Boolean], buffer);
+buffer = buffer.fill([object Number]);
+buffer = buffer.fill([object Number], [object Number], [object Number]);
+buffer = buffer.fill("a");
+buffer = buffer.fill("a", [object Number], [object Number]);
+buffer = buffer.fill("a", [object Number], [object Number], "utf8");
+buffer = buffer.fill("a", "utf8");
+maybeNum = buffer.find(
+  (element: number, index: number, array: Uint8Array) => [object Boolean]
+);
+maybeNum = buffer.find(
+  (element: number, index: number, array: Uint8Array) => [object Boolean],
+  buffer
+);
+num = buffer.findIndex(
+  (element: number, index: number, array: Uint8Array) => [object Boolean]
+);
+num = buffer.findIndex(
+  (element: number, index: number, array: Uint8Array) => [object Boolean],
+  buffer
+);
+buffer.forEach((value: number) => console.log(value), buffer);
+buffer.forEach(
+  (value: number, index: number, array: Uint8Array) => console.log(value),
+  buffer
+);
+bool = buffer.includes([object Number]);
+bool = buffer.includes([object Number], [object Number]);
+num = buffer.indexOf([object Number]);
+num = buffer.indexOf([object Number], [object Number]);
+buffer = Buffer.from(
+  [
+    [object Number],
+    [object Number],
+    [object Number],
+    [object Number],
+    [object Number],
+    [object Number]
+  ]
+);
+const typedArray = new Uint8Array([ [object Number] ]);
+buffer = Buffer.from(
+  typedArray.buffer,
+  typedArray.byteOffset,
+  typedArray.byteLength
+);
+buffer = Buffer.from(new Buffer([object Number]));
+buffer = Buffer.from("foo", "utf8");
+buffer = Buffer.from(
+  [
+    [object Number],
+    [object Number],
+    [object Number],
+    [object Number],
+    [object Number],
+    [object Number]
+  ],
+  (a: number) => a + [object Number],
+  {}
+);
 "
 `;

@@ -25,26 +25,25 @@ function d(): string { // expected \`: number | boolean\`
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
+// equivalent to \`return (x && 1) || 0\`
+// expected \`: number | boolean\`
+// equivalent to \`return x != null && x\`
 function a(): number {
-  var x: ?string = null;
-  return (x ? 1 : 0);
+  var x: ?string = [object Null];
+  return (x ? [object Number] : [object Number]);
 }
 function b(): number {
-  var x: ?number = null;
-  return (x != null ? x : 0);
+  var x: ?number = [object Null];
+  return (x != [object Null] ? x : [object Number]);
 }
 function c(): number {
-  // equivalent to \`return (x && 1) || 0\`
-  var x = false;
-  var temp = (x ? 1 : x);
-  return (temp ? temp : 0);
+  var x = [object Boolean];
+  var temp = (x ? [object Number] : x);
+  return (temp ? temp : [object Number]);
 }
 function d(): string {
-  // expected \`: number | boolean\`
-  // equivalent to \`return x != null && x\`
-  var x: ?number = null;
-  return (x != null ? x : x != null);
+  var x: ?number = [object Null];
+  return (x != [object Null] ? x : x != [object Null]);
 }
-
 "
 `;

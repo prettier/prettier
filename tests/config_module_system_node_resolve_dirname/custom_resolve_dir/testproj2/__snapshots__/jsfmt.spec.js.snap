@@ -5,6 +5,5 @@ export var name: "otherdir/testproj2" = "otherdir/testproj2";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 export var name: "otherdir/testproj2" = "otherdir/testproj2";
-
 "
 `;

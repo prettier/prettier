@@ -1,15 +1,14 @@
 exports[`test arrays.js 1`] = `
-"function foo(x) { return [x, x > 0, \"number \" + x]; }
+"function foo(x) { return [x, x > 0, "number " + x]; }
 
 var [n, b, s] = foo(42);
 n * s.length;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function foo(x) {
-  return [ x, x > 0, \"number \" + x ];
+  return [ x, x > [object Number], "number " + x ];
 }
-var [ n, b, s ] = foo(42);
+var [ n, b, s ] = foo([object Number]);
 n * s.length;
-
 "
 `;
 
@@ -28,7 +27,6 @@ class C {
   }
 }
 module.exports = C;
-
 "
 `;
 
@@ -38,32 +36,22 @@ exports[`test generics.js 1`] = `
 var r: number = 0;
 function foo<X>(x: X): X { r = x; return x; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:340:16)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+/* @flow */
+var r: number = [object Number];
+function foo<X>(x: X): X {
+  r = x;
+  return x;
+}
 "
 `;
 
 exports[`test import_class.js 1`] = `
-"var C = require(\'./export_class\');
+"var C = require('./export_class');
 
-var c = new C(\"\");
+var c = new C("");
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var C = require(\"./export_class\");
-var c = new C(\"\");
-
+var C = require("./export_class");
+var c = new C("");
 "
 `;
 
@@ -76,21 +64,20 @@ function foo() {
 }
 
 function bar(x: ?string): number {
-    if (x == null) x = \"\";
+    if (x == null) x = "";
     return x.length;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 function foo() {
-  var x = 0;
+  var x = [object Number];
   var y = x;
 }
 function bar(x: ?string): number {
-  if (x == null)
-    x = \"\";
+  if (x == [object Null])
+    x = "";
   return x.length;
 }
-
 "
 `;
 
@@ -103,14 +90,14 @@ var x: string = c.foo();
 
 function foo() { return this.y; }
 function bar() { return this.foo(); }
-var o = { y: \"\", foo: foo, bar: bar };
+var o = { y: "", foo: foo, bar: bar };
 var o2 = { y: 0, foo: foo, bar: bar };
 
 o.bar();
 var y: number = o2.bar();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function C() {
-  this.x = 0;
+  this.x = [object Number];
 }
 C.prototype.foo = function() {
   return this.x;
@@ -123,10 +110,9 @@ function foo() {
 function bar() {
   return this.foo();
 }
-var o = { y: \"\", foo: foo, bar: bar };
-var o2 = { y: 0, foo: foo, bar: bar };
+var o = { y: "", foo: foo, bar: bar };
+var o2 = { y: [object Number], foo: foo, bar: bar };
 o.bar();
 var y: number = o2.bar();
-
 "
 `;

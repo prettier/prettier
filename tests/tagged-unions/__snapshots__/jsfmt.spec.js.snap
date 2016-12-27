@@ -2,24 +2,24 @@ exports[`test classes.js 1`] = `
 "// @flow
 
 class Foo {
-  type: \'foo\';
+  type: 'foo';
   foo: string;
 }
 
 class Bar {
-  type: \'bar\';
+  type: 'bar';
   bar: string;
 }
 
 type Foobar = Foo | Bar;
 
 function foobar(x: Foobar): string {
-  if (x.type === \'foo\') {
+  if (x.type === 'foo') {
     return foo(x);
-  } else if (x.type === \'bar\') {
+  } else if (x.type === 'bar') {
     return bar(x);
   } else {
-    return \'unknown\';
+    return 'unknown';
   }
 }
 
@@ -31,21 +31,32 @@ function bar(x: Bar): string {
   return x.bar;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1530
-      return fromString(\" | \").join(path.map(print, \"types\"));
-                               ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1530:32)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1481:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// @flow
+class Foo {
+  type: "foo";
+  foo: string;
+}
+class Bar {
+  type: "bar";
+  bar: string;
+}
+type Foobar = Foo | Bar;
+function foobar(x: Foobar): string {
+  if (x.type === "foo") {
+    return foo(x);
+  } else
+    if (x.type === "bar") {
+      return bar(x);
+    } else {
+      return "unknown";
+    }
+}
+function foo(x: Foo): string {
+  return x.foo;
+}
+function bar(x: Bar): string {
+  return x.bar;
+}
 "
 `;
 
@@ -58,40 +69,34 @@ declare interface IDataBase {
 }
 
 declare interface IUserData extends IDataBase {
-  kind: \"user\",
+  kind: "user",
 }
 
 declare interface ISystemData extends IDataBase {
-  kind: \"system\",
+  kind: "system",
 }
 
 declare type IData = IUserData | ISystemData;
 
 const data: IData = {
-  id: \"\",
-  name: \"\",
-  kind: \"system\",
+  id: "",
+  name: "",
+  kind: "system",
 }
 
-if (data.kind === \"user\") {
+if (data.kind === "user") {
   (data: ISystemData);
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1391
-          fromString(\", \").join(path.map(print, \"extends\"))
-                           ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1391:28)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at /src/printer.js:1601:18
-    at FastPath.map (/src/fast-path.js:167:19)
-    at printStatementSequence (/src/printer.js:1586:8)
-    at /src/printer.js:238:16
-    at FastPath.call (/src/fast-path.js:113:16)
+/* @flow */
+interface IDataBase extends  { id: string, name: string }
+interface IUserData extends IDataBase { kind: "user" }
+interface ISystemData extends IDataBase { kind: "system" }
+type IData = IUserData | ISystemData;
+const data: IData = { id: "", name: "", kind: "system" };
+if (data.kind === "user") {
+  (data: ISystemData);
+}
 "
 `;
 
@@ -104,40 +109,34 @@ declare interface IDataBase {
 }
 
 declare interface IUserData extends IDataBase {
-  kind: \"user\",
+  kind: "user",
 }
 
 declare interface ISystemData extends IDataBase {
-  kind: \"system\",
+  kind: "system",
 }
 
 declare type IData = IUserData | ISystemData;
 
 const data: IData = {
-  id: \"\",
-  name: \"\",
-  kind: \"system\",
+  id: "",
+  name: "",
+  kind: "system",
 }
 
-if (data.kind === \"system\") {
+if (data.kind === "system") {
   (data: ISystemData);
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1391
-          fromString(\", \").join(path.map(print, \"extends\"))
-                           ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1391:28)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at /src/printer.js:1601:18
-    at FastPath.map (/src/fast-path.js:167:19)
-    at printStatementSequence (/src/printer.js:1586:8)
-    at /src/printer.js:238:16
-    at FastPath.call (/src/fast-path.js:113:16)
+/* @flow */
+interface IDataBase extends  { id: string, name: string }
+interface IUserData extends IDataBase { kind: "user" }
+interface ISystemData extends IDataBase { kind: "system" }
+type IData = IUserData | ISystemData;
+const data: IData = { id: "", name: "", kind: "system" };
+if (data.kind === "system") {
+  (data: ISystemData);
+}
 "
 `;
 
@@ -152,42 +151,36 @@ type DataBase = {
 type UserData = {
   id: string,
   name: string,
-  kind: \"user\",
+  kind: "user",
 }
 
 type SystemData = {
   id: string,
   name: string,
-  kind: \"system\",
+  kind: "system",
 }
 
 declare type Data = UserData | SystemData;
 
 const data: Data = {
-  id: \"\",
-  name: \"\",
-  kind: \"system\",
+  id: "",
+  name: "",
+  kind: "system",
 }
 
-if (data.kind === \"user\") {
+if (data.kind === "user") {
   (data: SystemData);
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1530
-      return fromString(\" | \").join(path.map(print, \"types\"));
-                               ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1530:32)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1481:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+/* @flow */
+type DataBase = { id: string, name: string };
+type UserData = { id: string, name: string, kind: "user" };
+type SystemData = { id: string, name: string, kind: "system" };
+type Data = UserData | SystemData;
+const data: Data = { id: "", name: "", kind: "system" };
+if (data.kind === "user") {
+  (data: SystemData);
+}
 "
 `;
 
@@ -202,41 +195,35 @@ type DataBase = {
 type UserData = {
   id: string,
   name: string,
-  kind: \"user\",
+  kind: "user",
 }
 
 type SystemData = {
   id: string,
   name: string,
-  kind: \"system\",
+  kind: "system",
 }
 
 declare type Data = UserData | SystemData;
 
 const data: Data = {
-  id: \"\",
-  name: \"\",
-  kind: \"system\",
+  id: "",
+  name: "",
+  kind: "system",
 }
 
-if (data.kind === \"system\") {
+if (data.kind === "system") {
   (data: SystemData);
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1530
-      return fromString(\" | \").join(path.map(print, \"types\"));
-                               ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1530:32)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1481:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+/* @flow */
+type DataBase = { id: string, name: string };
+type UserData = { id: string, name: string, kind: "user" };
+type SystemData = { id: string, name: string, kind: "system" };
+type Data = UserData | SystemData;
+const data: Data = { id: "", name: "", kind: "system" };
+if (data.kind === "system") {
+  (data: SystemData);
+}
 "
 `;

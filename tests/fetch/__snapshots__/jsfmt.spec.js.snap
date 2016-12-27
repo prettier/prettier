@@ -4,7 +4,7 @@ exports[`test fetch.js 1`] = `
 // most of the details are tested in the separate file
 // here I test the basic usage
 
-const myRequest = new Request(\'http://google.com\');
+const myRequest = new Request('http://google.com');
 
 const a: Promise<string> =
   fetch(myRequest)
@@ -12,56 +12,58 @@ const a: Promise<string> =
 
 const b: Promise<string> = fetch(myRequest); // incorrect
 
-var myInit = { method: \'GET\',
+var myInit = { method: 'GET',
                headers: {
-                   \'Content-Type\': \'image/jpeg\'
+                   'Content-Type': 'image/jpeg'
                },
-               mode: \'cors\',
-               cache: \'default\' };
+               mode: 'cors',
+               cache: 'default' };
 
 const c: Promise<Blob> =
-  fetch(\'image.png\')
+  fetch('image.png')
   .then(response => response.blob()); // correct
 
-const d: Promise<Blob> = fetch(\'image.png\'); // incorrect
+const d: Promise<Blob> = fetch('image.png'); // incorrect
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+/* @flow */
+// most of the details are tested in the separate file
+// here I test the basic usage
+// incorrect
+// correct
+// incorrect
+const myRequest = new Request("http://google.com");
+const a: Promise<string> = fetch(myRequest).then(response => response.text());
+const b: Promise<string> = fetch(myRequest);
+var myInit = {
+  method: "GET",
+  headers: { "Content-Type": "image/jpeg" },
+  mode: "cors",
+  cache: "default"
+};
+const c: Promise<Blob> = fetch("image.png").then(response => response.blob());
+const d: Promise<Blob> = fetch("image.png");
 "
 `;
 
 exports[`test headers.js 1`] = `
 "/* @flow */
 
-const a = new Headers(\"\'Content-Type\': \'image/jpeg\'\"); // not correct
-const b = new Headers([\'Content-Type\', \'image/jpeg\']); // not correct
-const c = new Headers({\'Content-Type\', \'image/jpeg\'}); // correct
+const a = new Headers("'Content-Type': 'image/jpeg'"); // not correct
+const b = new Headers(['Content-Type', 'image/jpeg']); // not correct
+const c = new Headers({'Content-Type', 'image/jpeg'}); // correct
 const d = new Headers(c); // correct
 const e: Headers = new Headers(); // correct
-e.append(\'Content-Type\', \'image/jpeg\'); // correct
-e.append(\'Content-Type\'); // not correct
-e.append({\'Content-Type\', \'image/jpeg\'}); // not correct
-e.set(\'Content-Type\', \'image/jpeg\'); // correct
-e.set(\'Content-Type\'); // not correct
-e.set({\'Content-Type\', \'image/jpeg\'}); // not correct
+e.append('Content-Type', 'image/jpeg'); // correct
+e.append('Content-Type'); // not correct
+e.append({'Content-Type', 'image/jpeg'}); // not correct
+e.set('Content-Type', 'image/jpeg'); // correct
+e.set('Content-Type'); // not correct
+e.set({'Content-Type', 'image/jpeg'}); // not correct
 
-const f: Headers = e.append(\'Content-Type\', \'image/jpeg\'); // not correct
+const f: Headers = e.append('Content-Type', 'image/jpeg'); // not correct
 
-const g: string = e.get(\'Content-Type\'); // correct
-const h: number = e.get(\'Content-Type\'); // not correct
+const g: string = e.get('Content-Type'); // correct
+const h: number = e.get('Content-Type'); // not correct
 
 for (let v of e) {
   const [i, j]: [string, string] = v; // correct
@@ -71,70 +73,98 @@ for (let v of e.entries()) {
   const [i, j]: [string, string] = v; // correct
 }
 
-e.getAll(\'content-type\').forEach((v: string) => {}); // correct
+e.getAll('content-type').forEach((v: string) => {}); // correct
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/node_modules/babylon/lib/index.js:4255
-  throw err;
-  ^
-
-SyntaxError: Unexpected token (5:37)
-    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
-    at Parser.pp.unexpected (/node_modules/babylon/lib/index.js:1633:8)
-    at Parser.pp$3.parseObjPropValue (/node_modules/babylon/lib/index.js:3940:8)
-    at Parser.parseObjPropValue (/node_modules/babylon/lib/index.js:5537:13)
-    at Parser.pp$3.parseObj (/node_modules/babylon/lib/index.js:3871:10)
-    at Parser.pp$3.parseExprAtom (/node_modules/babylon/lib/index.js:3561:19)
-    at Parser.parseExprAtom (/node_modules/babylon/lib/index.js:6408:22)
-    at Parser.pp$3.parseExprSubscripts (/node_modules/babylon/lib/index.js:3337:19)
-    at Parser.pp$3.parseMaybeUnary (/node_modules/babylon/lib/index.js:3317:19)
-    at Parser.pp$3.parseExprOps (/node_modules/babylon/lib/index.js:3247:19)
+/* @flow */
+// not correct
+// not correct
+// correct
+// correct
+// correct
+// correct
+// not correct
+// not correct
+// correct
+// not correct
+// not correct
+// not correct
+// correct
+// not correct
+// correct
+// correct
+// correct
+const a = new Headers("'Content-Type': 'image/jpeg'");
+const b = new Headers([ "Content-Type", "image/jpeg" ]);
+const c = new Headers({ "Content-Type", "image/jpeg" });
+const d = new Headers(c);
+const e: Headers = new Headers();
+e.append("Content-Type", "image/jpeg");
+e.append("Content-Type");
+e.append({ "Content-Type", "image/jpeg" });
+e.set("Content-Type", "image/jpeg");
+e.set("Content-Type");
+e.set({ "Content-Type", "image/jpeg" });
+const f: Headers = e.append("Content-Type", "image/jpeg");
+const g: string = e.get("Content-Type");
+const h: number = e.get("Content-Type");
+for (let v of e) {
+  const [ i, j ] = v;
+}
+for (let v of e.entries()) {
+  const [ i, j ] = v;
+}
+e.getAll("content-type").forEach(
+  (v: string) => {
+    
+  }
+);
 "
 `;
 
 exports[`test request.js 1`] = `
 "/* @flow */
 const a: Request = new Request(); // incorrect
-const b: Request = new Request(\'http://example.org\'); // correct
+const b: Request = new Request('http://example.org'); // correct
 const c: Request = new Request(b); // correct
-const d: Request = new Request(c.clone()); // correct (doesn\'t make much sense though)
+const d: Request = new Request(c.clone()); // correct (doesn't make much sense though)
 const e: Request = new Request(b, c); // incorrect
 
 const f: Request = new Request({}) // incorrect
-const g: Request = new Request(\'http://example.org\', {}) // correct
+const g: Request = new Request('http://example.org', {}) // correct
 
-const h: Request = new Request(\'http://example.org\', {
-  method: \'GET\',
+const h: Request = new Request('http://example.org', {
+  method: 'GET',
   headers: {
-    \'Content-Type\': \'image/jpeg\'
+    'Content-Type': 'image/jpeg'
   },
-  mode: \'cors\',
-  cache: \'default\'
+  mode: 'cors',
+  cache: 'default'
 }) // correct
 
-const i: Request = new Request(\'http://example.org\', {
-  method: \'POST\',
+const i: Request = new Request('http://example.org', {
+  method: 'POST',
   headers: {
-    \'Content-Type\': \'image/jpeg\'
+    'Content-Type': 'image/jpeg'
   },
-  body: new URLSearchParams(\"key=value\"),
-  mode: \'cors\',
-  cache: \'default\'
+  body: new URLSearchParams("key=value"),
+  mode: 'cors',
+  cache: 'default'
 }) // correct
 
-const j: Request = new Request(\'http://example.org\', {
-  method: \'GET\',
-  headers: \'Content-Type: image/jpeg\',
-  mode: \'cors\',
-  cache: \'default\'
+const j: Request = new Request('http://example.org', {
+  method: 'GET',
+  headers: 'Content-Type: image/jpeg',
+  mode: 'cors',
+  cache: 'default'
 }) // incorrect - headers is string
 
-const k: Request = new Request(\'http://example.org\', {
-  method: \'CONNECT\',
+const k: Request = new Request('http://example.org', {
+  method: 'CONNECT',
   headers: {
-    \'Content-Type\': \'image/jpeg\'
+    'Content-Type': 'image/jpeg'
   },
-  mode: \'cors\',
-  cache: \'default\'
+  mode: 'cors',
+  cache: 'default'
 }) // incorrect - CONNECT is forbidden
 
 var l: boolean = h.bodyUsed;
@@ -145,58 +175,70 @@ h.arrayBuffer().then((ab: ArrayBuffer) => ab); // correct
 h.arrayBuffer().then((ab: Buffer) => ab); // incorrect
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-const a: Request = new Request();// incorrect
-const b: Request = new Request(\"http://example.org\");// correct
-const c: Request = new Request(b);// correct
-const d: Request = new Request(
-  c.clone()
-);// correct (doesn\'t make much sense though)
-const e: Request = new Request(b, c);// incorrect
-const f: Request = new Request({});// incorrect
-const g: Request = new Request(\"http://example.org\", {});// correct
+// incorrect
+// correct
+// correct
+// correct (doesn't make much sense though)
+// incorrect
+// incorrect
+// correct
+// correct
+// correct
+// incorrect - headers is string
+// incorrect - CONNECT is forbidden
+// correct
+// incorrect
+// correct
+// incorrect
+const a: Request = new Request();
+const b: Request = new Request("http://example.org");
+const c: Request = new Request(b);
+const d: Request = new Request(c.clone());
+const e: Request = new Request(b, c);
+const f: Request = new Request({});
+const g: Request = new Request("http://example.org", {});
 const h: Request = new Request(
-  \"http://example.org\",
+  "http://example.org",
   {
-    method: \"GET\",
-    headers: { \"Content-Type\": \"image/jpeg\" },
-    mode: \"cors\",
-    cache: \"default\"
+    method: "GET",
+    headers: { "Content-Type": "image/jpeg" },
+    mode: "cors",
+    cache: "default"
   }
-);// correct
+);
 const i: Request = new Request(
-  \"http://example.org\",
+  "http://example.org",
   {
-    method: \"POST\",
-    headers: { \"Content-Type\": \"image/jpeg\" },
-    body: new URLSearchParams(\"key=value\"),
-    mode: \"cors\",
-    cache: \"default\"
+    method: "POST",
+    headers: { "Content-Type": "image/jpeg" },
+    body: new URLSearchParams("key=value"),
+    mode: "cors",
+    cache: "default"
   }
-);// correct
+);
 const j: Request = new Request(
-  \"http://example.org\",
+  "http://example.org",
   {
-    method: \"GET\",
-    headers: \"Content-Type: image/jpeg\",
-    mode: \"cors\",
-    cache: \"default\"
+    method: "GET",
+    headers: "Content-Type: image/jpeg",
+    mode: "cors",
+    cache: "default"
   }
-);// incorrect - headers is string
+);
 const k: Request = new Request(
-  \"http://example.org\",
+  "http://example.org",
   {
-    method: \"CONNECT\",
-    headers: { \"Content-Type\": \"image/jpeg\" },
-    mode: \"cors\",
-    cache: \"default\"
+    method: "CONNECT",
+    headers: { "Content-Type": "image/jpeg" },
+    mode: "cors",
+    cache: "default"
   }
-);// incorrect - CONNECT is forbidden
+);
 var l: boolean = h.bodyUsed;
-h.text().then((t: string) => t);// correct
-h.text().then((t: Buffer) => t);// incorrect
-h.arrayBuffer().then((ab: ArrayBuffer) => ab);// correct
-h.arrayBuffer().then((ab: Buffer) => ab);// incorrect
-
+h.text().then((t: string) => t);
+h.text().then((t: Buffer) => t);
+h.arrayBuffer().then((ab: ArrayBuffer) => ab);
+h.arrayBuffer().then((ab: Buffer) => ab);
 "
 `;
 
@@ -210,33 +252,33 @@ const d: Response = new Response(new FormData(), {
     status: 404
 }); // correct
 
-const e: Response = new Response(\"responsebody\", {
-    status: \"404\"
+const e: Response = new Response("responsebody", {
+    status: "404"
 }); // incorrect
 
-const f: Response = new Response(\"responsebody\", {
+const f: Response = new Response("responsebody", {
     status: 404,
-    headers: \"\'Content-Type\': \'image/jpeg\'\"
+    headers: "'Content-Type': 'image/jpeg'"
 }); // incorrect
 
-const g: Response = new Response(\"responsebody\", {
+const g: Response = new Response("responsebody", {
     status: 404,
     headers: {
-        \'Content-Type\': \'image/jpeg\'
+        'Content-Type': 'image/jpeg'
     }
 }); // correct
 
-const h: Response = new Response(\"responsebody\", {
+const h: Response = new Response("responsebody", {
     status: 404,
     headers: new Headers({
-        \'Content-Type\': \'image/jpeg\'
+        'Content-Type': 'image/jpeg'
     })
 }); // correct, if verbose
 
 const i: Response = new Response({
     status: 404,
     headers: new Headers({
-        \'Content-Type\': \'image/jpeg\'
+        'Content-Type': 'image/jpeg'
     })
 }); // incorrect
 
@@ -249,56 +291,71 @@ h.arrayBuffer().then((ab: ArrayBuffer) => ab); // correct
 h.arrayBuffer().then((ab: Buffer) => ab); // incorrect
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-const a: Response = new Response();// correct
-const b: Response = new Response(new Blob());// correct
-const c: Response = new Response(new FormData());// correct
-const d: Response = new Response(new FormData(), { status: 404 });// correct
-const e: Response = new Response(\"responsebody\", { status: \"404\" });// incorrect
+// correct
+// correct
+// correct
+// correct
+// incorrect
+// incorrect
+// correct
+// correct, if verbose
+// incorrect
+// correct
+// incorrect
+// correct
+// incorrect
+const a: Response = new Response();
+const b: Response = new Response(new Blob());
+const c: Response = new Response(new FormData());
+const d: Response = new Response(new FormData(), { status: [object Number] });
+const e: Response = new Response("responsebody", { status: "404" });
 const f: Response = new Response(
-  \"responsebody\",
-  { status: 404, headers: \"\'Content-Type\': \'image/jpeg\'\" }
-);// incorrect
+  "responsebody",
+  { status: [object Number], headers: "'Content-Type': 'image/jpeg'" }
+);
 const g: Response = new Response(
-  \"responsebody\",
-  { status: 404, headers: { \"Content-Type\": \"image/jpeg\" } }
-);// correct
+  "responsebody",
+  { status: [object Number], headers: { "Content-Type": "image/jpeg" } }
+);
 const h: Response = new Response(
-  \"responsebody\",
-  { status: 404, headers: new Headers({ \"Content-Type\": \"image/jpeg\" }) }
-);// correct, if verbose
+  "responsebody",
+  {
+    status: [object Number],
+    headers: new Headers({ "Content-Type": "image/jpeg" })
+  }
+);
 const i: Response = new Response({
-  status: 404,
-  headers: new Headers({ \"Content-Type\": \"image/jpeg\" })
-});// incorrect
+  status: [object Number],
+  headers: new Headers({ "Content-Type": "image/jpeg" })
+});
 const ok: boolean = h.ok;
 const status: number = h.status;
-h.text().then((t: string) => t);// correct
-h.text().then((t: Buffer) => t);// incorrect
-h.arrayBuffer().then((ab: ArrayBuffer) => ab);// correct
-h.arrayBuffer().then((ab: Buffer) => ab);// incorrect
-
+h.text().then((t: string) => t);
+h.text().then((t: Buffer) => t);
+h.arrayBuffer().then((ab: ArrayBuffer) => ab);
+h.arrayBuffer().then((ab: Buffer) => ab);
 "
 `;
 
 exports[`test urlsearchparams.js 1`] = `
 "/* @flow */
 
-const a = new URLSearchParams(\"key1=value1\"); // correct
-const b = new URLSearchParams([\'key1\', \'value1\']); // not correct
-const c = new URLSearchParams({\'key1\', \'value1\'}); // not correct
+const a = new URLSearchParams("key1=value1"); // correct
+const b = new URLSearchParams(['key1', 'value1']); // not correct
+const c = new URLSearchParams({'key1', 'value1'}); // not correct
 const d = new URLSearchParams(c); // correct
 const e: URLSearchParams = new URLSearchParams(); // correct
-e.append(\'key1\', \'value1\'); // correct
-e.append(\'key1\'); // not correct
-e.append({\'key1\', \'value1\'}); // not correct
-e.set(\'key1\', \'value1\'); // correct
-e.set(\'key1\'); // not correct
-e.set({\'key1\', \'value1\'}); // not correct
+e.append('key1', 'value1'); // correct
+e.append('key1'); // not correct
+e.append({'key1', 'value1'}); // not correct
+e.set('key1', 'value1'); // correct
+e.set('key1'); // not correct
+e.set({'key1', 'value1'}); // not correct
 
-const f: URLSearchParams = e.append(\'key1\', \'value1\'); // not correct
+const f: URLSearchParams = e.append('key1', 'value1'); // not correct
 
-const g: string = e.get(\'key1\'); // correct
-const h: number = e.get(\'key1\'); // not correct
+const g: string = e.get('key1'); // correct
+const h: number = e.get('key1'); // not correct
 
 for (let v of e) {
   const [i, j]: [string, string] = v; // correct
@@ -308,22 +365,50 @@ for (let v of e.entries()) {
   const [i, j]: [string, string] = v; // correct
 }
 
-e.getAll(\'key1\').forEach((v: string) => {}); // correct
+e.getAll('key1').forEach((v: string) => {}); // correct
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/node_modules/babylon/lib/index.js:4255
-  throw err;
-  ^
-
-SyntaxError: Unexpected token (5:37)
-    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
-    at Parser.pp.unexpected (/node_modules/babylon/lib/index.js:1633:8)
-    at Parser.pp$3.parseObjPropValue (/node_modules/babylon/lib/index.js:3940:8)
-    at Parser.parseObjPropValue (/node_modules/babylon/lib/index.js:5537:13)
-    at Parser.pp$3.parseObj (/node_modules/babylon/lib/index.js:3871:10)
-    at Parser.pp$3.parseExprAtom (/node_modules/babylon/lib/index.js:3561:19)
-    at Parser.parseExprAtom (/node_modules/babylon/lib/index.js:6408:22)
-    at Parser.pp$3.parseExprSubscripts (/node_modules/babylon/lib/index.js:3337:19)
-    at Parser.pp$3.parseMaybeUnary (/node_modules/babylon/lib/index.js:3317:19)
-    at Parser.pp$3.parseExprOps (/node_modules/babylon/lib/index.js:3247:19)
+/* @flow */
+// correct
+// not correct
+// not correct
+// correct
+// correct
+// correct
+// not correct
+// not correct
+// correct
+// not correct
+// not correct
+// not correct
+// correct
+// not correct
+// correct
+// correct
+// correct
+const a = new URLSearchParams("key1=value1");
+const b = new URLSearchParams([ "key1", "value1" ]);
+const c = new URLSearchParams({ "key1", "value1" });
+const d = new URLSearchParams(c);
+const e: URLSearchParams = new URLSearchParams();
+e.append("key1", "value1");
+e.append("key1");
+e.append({ "key1", "value1" });
+e.set("key1", "value1");
+e.set("key1");
+e.set({ "key1", "value1" });
+const f: URLSearchParams = e.append("key1", "value1");
+const g: string = e.get("key1");
+const h: number = e.get("key1");
+for (let v of e) {
+  const [ i, j ] = v;
+}
+for (let v of e.entries()) {
+  const [ i, j ] = v;
+}
+e.getAll("key1").forEach(
+  (v: string) => {
+    
+  }
+);
 "
 `;

@@ -10,7 +10,6 @@ function bar(w: number): number {
   return w;
 }
 module.exports = bar;
-
 "
 `;
 
@@ -34,6 +33,5 @@ function foo(z: number) {
 var array = [ "foo", "bar" ];
 array;
 module.exports = { foo: foo };
-
 "
 `;

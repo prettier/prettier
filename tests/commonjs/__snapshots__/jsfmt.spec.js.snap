@@ -8,7 +8,6 @@ function f(x: string) {
   
 }
 module.exports = f;
-
 "
 `;
 
@@ -19,7 +18,6 @@ var f = require('./Abs');
 f(0);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var f = require("./Abs");
-f(0);
-
+f([object Number]);
 "
 `;

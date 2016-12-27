@@ -42,39 +42,52 @@ import type {T as T2} from "ES";
 import {exports as nope} from "ES"; // Error: Not an export
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+// Error: number ~> string
+// Error: string ~> number
+// Error: Module ~> number
+// Error: No such export!
+// Error: number ~> string
+// Error: string ~> number
+// Error: No such export!
+// Error: string ~> number
+// Error: number ~> string
+// Error: number ~> C
+// Error: number ~> CType
+// Error: T is a type import, not a value
+// Error: string ~> number
+// Error: Not an export
 import { num1, str1 } from "CJS_Named";
 import CJS_Named from "CJS_Named";
 (num1: number);
-(num1: string);// Error: number ~> string
+(num1: string);
 (str1: string);
-(str1: number);// Error: string ~> number
+(str1: number);
 (CJS_Named: { num1: number, str1: string });
-(CJS_Named: number);// Error: Module ~> number
-import { num2 } from "CJS_Clobbered";// Error: No such export!
+(CJS_Named: number);
+import { num2 } from "CJS_Clobbered";
 import { numExport } from "CJS_Clobbered";
 (numExport: number);
-(numExport: string);// Error: number ~> string
+(numExport: string);
 import type { numType } from "CJS_Clobbered";
-(42: numType);
-("asdf": numType);// Error: string ~> number
-import { strHidden } from "ES";// Error: No such export!
+([object Number]: numType);
+("asdf": numType);
+import { strHidden } from "ES";
 import { str3 } from "ES";
 (str3: string);
-(str3: number);// Error: string ~> number
+(str3: number);
 import { num3 } from "ES";
 (num3: number);
-(num3: string);// Error: number ~> string
+(num3: string);
 import { C } from "ES";
 import type { C as CType } from "ES";
 (new C(): C);
-(42: C);// Error: number ~> C
+([object Number]: C);
 (new C(): CType);
-(42: CType);// Error: number ~> CType
-import { T } from "ES";// Error: T is a type import, not a value
+([object Number]: CType);
+import { T } from "ES";
 import type { T as T2 } from "ES";
-(42: T2);
-("asdf": T2);// Error: string ~> number
-import { exports as nope } from "ES";// Error: Not an export
-
+([object Number]: T2);
+("asdf": T2);
+import { exports as nope } from "ES";
 "
 `;

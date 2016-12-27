@@ -1,3 +1,0 @@
-// @flow
-
-return; // error, illegal
