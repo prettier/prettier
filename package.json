@@ -24,6 +24,9 @@
     ],
     "testRegex": [
       "jsfmt\\.spec\\.js$"
+    ],
+    "testPathIgnorePatterns": [
+      "tests/predicates-"
     ]
   }
 }

@@ -1,7 +1,7 @@
 
 function fromString(text) {
   if(typeof text !== "string") {
-    return text.toString();
+    return Object.prototype.toString.call(text);
   }
   return text;
 }

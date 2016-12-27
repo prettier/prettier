@@ -218,7 +218,10 @@ function genericPrintNoParens(path, options, print) {
     return fromString(n, options);
   }
 
-  namedTypes.Printable.assert(n);
+  // TODO: For some reason NumericLiteralTypeAnnotation is not
+  // printable so this throws, but I think that's a bug in ast-types.
+  // This assert isn't very useful though.
+  // namedTypes.Printable.assert(n);
 
   var parts = [];
 
@@ -917,15 +920,18 @@ function genericPrintNoParens(path, options, print) {
       ]);
 
     case "DoWhileStatement":
+      var clause = adjustClause(path.call(print, "body"), options);
       var doBody = concat([
-        "do",
-        adjustClause(path.call(print, "body"), options)
-      ]), parts = [doBody];
+        "do", clause
+      ]);
+      var parts = [doBody];
 
-      if (endsWithBrace(doBody))
+      const hasBraces = getFirstString(clause) === "{";
+
+      if (hasBraces)
         parts.push(" while");
       else
-        parts.push("\nwhile");
+        parts.push(concat([line, "while"]));
 
       parts.push(" (", path.call(print, "test"), ");");
 
@@ -1001,9 +1007,11 @@ function genericPrintNoParens(path, options, print) {
       return concat([
         "switch (",
         path.call(print, "discriminant"),
-        ") {\n",
-        fromString("\n").join(path.map(print, "cases")),
-        "\n}"
+        ") {",
+        hardline,
+        join(hardline, path.map(print, "cases")),
+        hardline,
+        "}"
       ]);
 
       // Note: ignoring n.lexical because it has no printing consequences.
@@ -1015,9 +1023,13 @@ function genericPrintNoParens(path, options, print) {
         parts.push("default:");
 
       if (n.consequent.length > 0) {
-        parts.push("\n", path.call(function(consequentPath) {
-          return printStatementSequence(consequentPath, options, print);
-        }, "consequent").indent(options.tabWidth));
+        parts.push(indent(
+          options.tabWidth,
+          concat([hardline,
+                  path.call(function(consequentPath) {
+                    return printStatementSequence(consequentPath, options, print);
+                  }, "consequent")])
+        ));
       }
 
       return concat(parts);
@@ -1232,7 +1244,6 @@ function genericPrintNoParens(path, options, print) {
     case "NamedSpecifier":
     case "Comment": // Supertype of Block and Line.
     case "MemberTypeAnnotation": // Flow
-    case "TupleTypeAnnotation": // Flow
     case "Type": // Flow
       throw new Error("unprintable type: " + JSON.stringify(n.type));
 
@@ -1257,6 +1268,13 @@ function genericPrintNoParens(path, options, print) {
 
       return fromString("");
 
+    case "TupleTypeAnnotation":
+      return concat([
+        "[",
+        path.map(print, "types"),
+        "]"
+      ]);
+
     case "ExistentialTypeParam":
     case "ExistsTypeAnnotation":
       return fromString("*", options);
@@ -1279,9 +1297,9 @@ function genericPrintNoParens(path, options, print) {
     case "BooleanTypeAnnotation":
       return fromString("boolean", options);
 
+    case "NumericLiteralTypeAnnotation":
     case "BooleanLiteralTypeAnnotation":
-      assert.strictEqual(typeof n.value, "boolean");
-      return fromString("" + n.value, options);
+      return "" + n.value;
 
     case "DeclareClass":
       return printFlowDeclaration(path, [
@@ -1319,6 +1337,12 @@ function genericPrintNoParens(path, options, print) {
         ";"
       ]);
 
+    case "DeclareExportAllDeclaration":
+      return concat([
+        "declare export * from ",
+        path.call(print, "source")
+      ]);
+
     case "DeclareExportDeclaration":
       return concat([
         "declare ",
@@ -1345,7 +1369,7 @@ function genericPrintNoParens(path, options, print) {
 
       parts.push(
         "(",
-        fromString(", ").join(path.map(print, "params")),
+        join(", ", path.map(print, "params")),
         ")"
       );
 
@@ -1388,7 +1412,7 @@ function genericPrintNoParens(path, options, print) {
       if (n["extends"]) {
         parts.push(
           "extends ",
-          fromString(", ").join(path.map(print, "extends"))
+          join(", ", path.map(print, "extends"))
         );
       }
 
@@ -1494,7 +1518,7 @@ function genericPrintNoParens(path, options, print) {
     case "TypeParameterInstantiation":
       return concat([
         "<",
-        fromString(", ").join(path.map(print, "params")),
+        join(", ", path.map(print, "params")),
         ">"
       ]);
     case "TypeParameter":
@@ -1527,7 +1551,7 @@ function genericPrintNoParens(path, options, print) {
       ]);
 
     case "UnionTypeAnnotation":
-      return fromString(" | ").join(path.map(print, "types"));
+      return join(" | ", path.map(print, "types"));
 
     case "VoidTypeAnnotation":
       return fromString("void", options);
@@ -1782,7 +1806,7 @@ function printExportDeclaration(path, options, print) {
     } else {
       parts.push(
         shouldPrintSpaces ? "{ " : "{",
-        fromString(", ").join(path.map(print, "specifiers")),
+        join(", ", path.map(print, "specifiers")),
         shouldPrintSpaces ? " }" : "}"
       );
     }
