@@ -77,7 +77,7 @@ let tests = [
 
   // getting a property
   function() {
-    let obj: Object = { foo: 'foo' };
+    let obj: Object = { foo: \'foo\' };
     (obj.foo: $Tainted<string>); // ok
   },
 
@@ -107,7 +107,7 @@ let tests = [
     obj[y] = x;
   },
   function() {
-    let obj: Object = { foo: "foo" };
+    let obj: Object = { foo: \"foo\" };
     (obj.foo: $Tainted<string>);
   },
   function(x: $Tainted<string>) {
@@ -306,7 +306,7 @@ exports[`test taint1.js 1`] = `
  */
 class A {
   f(tainted : $Tainted<string>) {
-    // This shouldn't give a warning (both are tainted)
+    // This shouldn\'t give a warning (both are tainted)
     var also_tainted : $Tainted<string> = tainted;
   }
 }
@@ -315,7 +315,7 @@ class A {
  *
  * @flow
  */
-// This shouldn't give a warning (both are tainted)
+// This shouldn\'t give a warning (both are tainted)
 class A {
   f(tainted: $Tainted<string>) {
     var also_tainted: $Tainted<string> = tainted;
@@ -384,7 +384,7 @@ exports[`test taint4.js 1`] = `
  * @flow
  */
 
-var safe : string = "safe";
+var safe : string = \"safe\";
 // This should be allowed.
 var tainted : $Tainted<string> = safe
 
@@ -399,7 +399,7 @@ function f(x : $Tainted<any>) {
  */
 // This should be allowed.
 // Should cause error.
-var safe: string = "safe";
+var safe: string = \"safe\";
 var tainted: $Tainted<string> = safe;
 function f(x: $Tainted<any>) {
   var y: any = x;
@@ -450,7 +450,7 @@ function foo6 (a : $Tainted<Array<string>>) {
 // Should cause an error.
 // Type error.
 function foo(x: $Tainted<number>) {
-  var should_fail: number = x * [object Number];
+  var should_fail: number = x * 42;
 }
 function foo1(x: $Tainted<{ f: number }>) {
   var ok: number = x.f;
@@ -462,13 +462,13 @@ function foo3(x: $Tainted<{ f: number }>) {
   var also_tainted: $Tainted<number> = x.f;
 }
 function foo4(a: $Tainted<Array<string>>) {
-  var trusted: string = a[[object Number]];
+  var trusted: string = a[0];
 }
 function foo5(a: $Tainted<Array<string>>) {
-  var trusted_number: number = a[[object Number]];
+  var trusted_number: number = a[0];
 }
 function foo6(a: $Tainted<Array<string>>) {
-  var trusted: $Tainted<string> = a[[object Number]];
+  var trusted: $Tainted<string> = a[0];
 }
 "
 `;

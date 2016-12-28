@@ -52,11 +52,11 @@ function f<T>(a: T) {
     h(b);
     h(c);
   }
-  g([object Number]);
-  g([object Number], a);
-  g([object Number], [object Number]);
+  g(0);
+  g(0, a);
+  g(0, 0);
 }
-f([object Number]);
+f(0);
 "
 `;
 
@@ -97,13 +97,13 @@ declare class F<T> extends E<T> {
 class G<T> {
   x:T;
   constructor(x:T) { this.x = x }
-  m<T:T>(x:T):G<T> { return new G(x) } // T-as-bound is G's T
+  m<T:T>(x:T):G<T> { return new G(x) } // T-as-bound is G\'s T
 }
 
 declare var g: G<number|string>;
 g.m(0); // ok
 g.m(true); // err, bool ~> number|string
-(g.m(""): G<number>); // err, string ~> number
+(g.m(\"\"): G<number>); // err, string ~> number
 
 
 // Shadow bounds incompatible with parent
@@ -111,7 +111,7 @@ g.m(true); // err, bool ~> number|string
 class H<T> {
     x:T;
     m<T>(x:T) {
-        this.x = x; // err, m's T != H's T
+        this.x = x; // err, m\'s T != H\'s T
     }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -119,12 +119,12 @@ class H<T> {
 // the generated insttype has the correct tvars. Should behave the same for
 // classes, interfaces, and declared classes.
 // Bounds can refer to parent type params (until they are shadowed).
-// T-as-bound is G's T
+// T-as-bound is G\'s T
 // ok
 // err, bool ~> number|string
 // err, string ~> number
 // Shadow bounds incompatible with parent
-// err, m's T != H's T
+// err, m\'s T != H\'s T
 class A<T> {
   x: T;
   constructor(x: T) {
@@ -153,9 +153,9 @@ class G<T> {
   }
 }
 declare var g: G<number | string>;
-g.m([object Number]);
-g.m([object Boolean]);
-(g.m(""): G<number>);
+g.m(0);
+g.m(true);
+(g.m(\"\"): G<number>);
 class H<T> {
   x: T;
   m<T>(x: T) {

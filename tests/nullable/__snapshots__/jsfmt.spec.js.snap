@@ -2,15 +2,15 @@ exports[`test maybe.js 1`] = `
 "// @flow
 
 // unwrapping nested maybes should work
-(('foo': ?(?string)): ?string); // ok
+((\'foo\': ?(?string)): ?string); // ok
 ((123: ?(?number)): ?string); // error (only num ~> string)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 // unwrapping nested maybes should work
 // ok
 // error (only num ~> string)
-(("foo": ??string): ?string);
-(([object Number]: ??number): ?string);
+((\"foo\": ??string): ?string);
+((123: ??number): ?string);
 "
 `;
 
@@ -38,10 +38,10 @@ var array_of_nullable: Array<?number> = [null, 3];
 // x: ?string | null
 // x: ?string | null
 function foo(): string {
-  return [object Null];
+  return null;
 }
 function bar(): ?string {
-  return [object Null];
+  return null;
 }
 function qux(x: string) {
   
@@ -50,29 +50,29 @@ function corge(x: number) {
   
 }
 var x = bar();
-if (x != [object Null])
+if (x != null)
   qux(x);
-if (x != [object Null])
+if (x != null)
   corge(x);
 function grault() {
-  x = [object Null];
+  x = null;
 }
-if (x != [object Null]) {
+if (x != null) {
   grault();
   qux(x);
 }
-var array_of_nullable: Array<?number> = [ [object Null], [object Number] ];
+var array_of_nullable: Array<?number> = [ null, 3 ];
 "
 `;
 
 exports[`test simple_nullable.js 1`] = `
 "function foo(x:?string) {}
 function bar(x:?number) {}
-foo('hmm');
-bar('hmm');
+foo(\'hmm\');
+bar(\'hmm\');
 
 function fn(data: ?{}) {}
-fn({some: 'literal'});
+fn({some: \'literal\'});
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function foo(x: ?string) {
   
@@ -80,11 +80,11 @@ function foo(x: ?string) {
 function bar(x: ?number) {
   
 }
-foo("hmm");
-bar("hmm");
+foo(\"hmm\");
+bar(\"hmm\");
 function fn(data: ?{}) {
   
 }
-fn({ some: "literal" });
+fn({ some: \"literal\" });
 "
 `;

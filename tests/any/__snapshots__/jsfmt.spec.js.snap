@@ -19,9 +19,9 @@ function bar(x: any): mixed {
 function qux(x: mixed): any {
   return x;
 }
-var x: string = foo([object Number]);
-var y: string = bar([object Number]);
-var z: string = qux([object Number]);
+var x: string = foo(0);
+var y: string = bar(0);
+var z: string = qux(0);
 "
 `;
 
@@ -77,10 +77,10 @@ function qux(x: $FlowFixMe<number>): $FlowFixMe<number> {
 function baz(x: $FlowFixMe<nnumber>): $FlowFixMe<number> {
   return x;
 }
-var x: string = foo([object Number]);
-var y: string = bar([object Number]);
-var z: string = qux([object Number]);
-var w: string = baz([object Number]);
+var x: string = foo(0);
+var y: string = bar(0);
+var z: string = qux(0);
+var w: string = baz(0);
 "
 `;
 
@@ -126,10 +126,10 @@ function qux(x: $FlowIssue<number>): $FlowIssue<number> {
 function baz(x: $FlowIssue<nnumber>): $FlowIssue<number> {
   return x;
 }
-var x: string = foo([object Number]);
-var y: string = bar([object Number]);
-var z: string = qux([object Number]);
-var w: string = baz([object Number]);
+var x: string = foo(0);
+var y: string = bar(0);
+var z: string = qux(0);
+var w: string = baz(0);
 "
 `;
 
@@ -156,14 +156,14 @@ function foo(c: C, x: any): string {
   return c.bar(0, y); // should be able to select first case and error
 }
 
-var any_fun1 = require('./nonflowfile');
+var any_fun1 = require(\'./nonflowfile\');
 function bar1(x: mixed) {
   if (any_fun1(x)) {
     (x: boolean);
   }
 }
 
-var any_fun2 = require('./anyexportflowfile');
+var any_fun2 = require(\'./anyexportflowfile\');
 function bar2(x: mixed) {
   if (any_fun2(x)) {
     (x: boolean);
@@ -178,15 +178,15 @@ declare class C {
 }
 function foo(c: C, x: any): string {
   let y = x.y;
-  return c.bar([object Number], y);
+  return c.bar(0, y);
 }
-var any_fun1 = require("./nonflowfile");
+var any_fun1 = require(\"./nonflowfile\");
 function bar1(x: mixed) {
   if (any_fun1(x)) {
     (x: boolean);
   }
 }
-var any_fun2 = require("./anyexportflowfile");
+var any_fun2 = require(\"./anyexportflowfile\");
 function bar2(x: mixed) {
   if (any_fun2(x)) {
     (x: boolean);

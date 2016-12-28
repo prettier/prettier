@@ -7,7 +7,7 @@ function run_spec(dirname) {
     if (filename.endsWith('.js') && filename !== 'jsfmt.spec.js') {
       const path = dirname + '/' + filename;
 
-      const RUN_AST_TESTS = true;
+      const RUN_AST_TESTS = false;
 
       if (!RUN_AST_TESTS) {
         const source = read(path);

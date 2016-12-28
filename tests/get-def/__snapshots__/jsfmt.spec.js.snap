@@ -1,7 +1,7 @@
 exports[`test example.js 1`] = `
 "/* @flow */
 
-var lib = require('./library');
+var lib = require(\'./library\');
 
 function add(a: number, b: number): number {
   return a + b;
@@ -18,12 +18,12 @@ lib.bar();
 /* @flow */
 // t123456
 // D123456
-var lib = require("./library");
+var lib = require(\"./library\");
 function add(a: number, b: number): number {
   return a + b;
 }
-var re = [object RegExp];
-add(lib.iTakeAString([object Number]), [object Number]);
+var re = /^keynote (talk){2} (lightning){3,5} (talk){2} closing partytime!!!/;
+add(lib.iTakeAString(42), 7);
 lib.bar();
 "
 `;
@@ -31,23 +31,23 @@ lib.bar();
 exports[`test imports.js 1`] = `
 "// @flow
 
-import thing from "./helpers/exports_default.js";
+import thing from \"./helpers/exports_default.js\";
 thing;
 
-import {foo, bar as baz} from "./helpers/exports_named.js";
+import {foo, bar as baz} from \"./helpers/exports_named.js\";
 foo;
 baz;
 
-import * as things from "./helpers/exports_named.js";
+import * as things from \"./helpers/exports_named.js\";
 things;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-import thing from "./helpers/exports_default.js";
+import thing from \"./helpers/exports_default.js\";
 thing;
-import { foo, bar as baz } from "./helpers/exports_named.js";
+import { foo, bar as baz } from \"./helpers/exports_named.js\";
 foo;
 baz;
-import * as things from "./helpers/exports_named.js";
+import * as things from \"./helpers/exports_named.js\";
 things;
 "
 `;
@@ -70,10 +70,10 @@ module.exports = {
 /* @flow */
 module.exports = {
   iTakeAString: function(name: string): number {
-    return [object Number];
+    return 42;
   },
   bar: function(): number {
-    return [object Number];
+    return 42;
   }
 };
 "

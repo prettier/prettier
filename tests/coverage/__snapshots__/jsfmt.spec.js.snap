@@ -1,5 +1,5 @@
 exports[`test crash.js 1`] = `
-"// This file triggers a violation of the "disjoint-or-nested ranges invariant"
+"// This file triggers a violation of the \"disjoint-or-nested ranges invariant\"
 // that we implicitly assume in type-at-pos and coverage implementations. In
 // particular, when unchecked it causes a crash with coverage --color.
 
@@ -11,7 +11,7 @@ declare module bar {
 
 // TODO
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// This file triggers a violation of the "disjoint-or-nested ranges invariant"
+// This file triggers a violation of the \"disjoint-or-nested ranges invariant\"
 // that we implicitly assume in type-at-pos and coverage implementations. In
 // particular, when unchecked it causes a crash with coverage --color.
 // TODO
@@ -41,13 +41,13 @@ exports[`test no_pragma.js 1`] = `
 "let x = 0;
 (x: string);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-let x = [object Number];
+let x = 0;
 (x: string);
 "
 `;
 
 exports[`test non-termination.js 1`] = `
-"// This file triggers a violation of the "disjoint-or-nested ranges invariant"
+"// This file triggers a violation of the \"disjoint-or-nested ranges invariant\"
 // that we implicitly assume in type-at-pos and coverage implementations. In
 // particular, when unchecked it causes non-termination with coverage --color.
 
@@ -62,7 +62,7 @@ declare module bar {
 declare class qux {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// This file triggers a violation of the "disjoint-or-nested ranges invariant"
+// This file triggers a violation of the \"disjoint-or-nested ranges invariant\"
 // that we implicitly assume in type-at-pos and coverage implementations. In
 // particular, when unchecked it causes non-termination with coverage --color.
 // TODO

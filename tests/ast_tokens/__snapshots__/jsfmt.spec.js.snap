@@ -3,7 +3,7 @@ exports[`test foo.js 1`] = `
 /asdf/g;
 
 // JSX also requires a lexer mode change
-<div attr1='42' attr2={'asdf'} >asdf</div>;
+<div attr1=\'42\' attr2={\'asdf\'} >asdf</div>;
 
 // Async arrow functions require backtracking
 var a = async () => 42;
@@ -20,10 +20,10 @@ a;
 // Async arrow functions require backtracking
 // Type annotations have a special lex mode
 // Token stream should continue even with parse errors
-[object RegExp];
-<div attr1="42" attr2={"asdf"}>asdf</div>;
-var a = async () => [object Number];
-var a: number = [object Number];
+/asdf/g;
+<div attr1=\"42\" attr2={\"asdf\"}>asdf</div>;
+var a = async () => 42;
+var a: number = 42;
 var var;
 a;
 "

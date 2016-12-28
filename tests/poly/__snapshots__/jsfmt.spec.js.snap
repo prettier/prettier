@@ -7,14 +7,14 @@ function foo(b): A<any> { // ok but unsafe, caller may assume any type arg
   return b ? (new A: A<number>): (new A: A<string>);
 }
 
-function bar(): A<*> { // error, * can't be {} and {x: string} at the same time
+function bar(): A<*> { // error, * can\'t be {} and {x: string} at the same time
   return (new A: A<{}>) || (new A: A<{x: string}>);
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // OK, implicitly inferred type args
 // OK, same as above
 // ok but unsafe, caller may assume any type arg
-// error, * can't be {} and {x: string} at the same time
+// error, * can\'t be {} and {x: string} at the same time
 class A<X> {}
 new A();
 class B extends A {}
@@ -65,7 +65,7 @@ class C<T: Middle> {
 var a: C<*> = new C();
 a.meth(new Middle());
 a.meth(new Child());
-a.meth([object Number]);
+a.meth(42);
 a.meth(new Base());
 "
 `;
@@ -124,7 +124,7 @@ declare var Q: {
 
 var foo = new Foo(0);
 var x:string = foo.x;
-var z:Foo<number> = Q.bar(foo,"");
+var z:Foo<number> = Q.bar(foo,\"\");
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class Foo<T> {
   x: T;
@@ -137,9 +137,9 @@ function bar<S>(foo: Foo<S>, y: S): Foo<S> {
 }
 var P = { bar: bar };
 declare var Q: { bar: : (foo: Foo<S>, y: S) => Foo<S> };
-var foo = new Foo([object Number]);
+var foo = new Foo(0);
 var x: string = foo.x;
-var z: Foo<number> = Q.bar(foo, "");
+var z: Foo<number> = Q.bar(foo, \"\");
 "
 `;
 

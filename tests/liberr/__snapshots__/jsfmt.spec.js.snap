@@ -9,6 +9,6 @@ var x: string = 0;
  * @flow
  */
 // one error here, to verify lib errors sort to top.
-var x: string = [object Number];
+var x: string = 0;
 "
 `;

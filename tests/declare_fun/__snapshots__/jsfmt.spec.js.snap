@@ -4,7 +4,7 @@ declare function foo(x: string): number;
 declare function foo<X>(x: X): X;
 
 (foo(0): string); // OK
-(foo("hello"): number); // OK
+(foo(\"hello\"): number); // OK
 (foo(false): void); // error, boolean ~/~ undefined
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // OK
@@ -13,8 +13,8 @@ declare function foo<X>(x: X): X;
 declare function foo(x: number): string;
 declare function foo(x: string): number;
 declare function foo(x: X): X;
-(foo([object Number]): string);
-(foo("hello"): number);
-(foo([object Boolean]): void);
+(foo(0): string);
+(foo(\"hello\"): number);
+(foo(false): void);
 "
 `;

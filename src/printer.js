@@ -314,7 +314,7 @@ function genericPrintNoParens(path, options, print) {
 
     case "Identifier":
       return concat([
-        fromString(n.name, options),
+        n.name,
         path.call(print, "typeAnnotation")
       ]);
 
@@ -706,7 +706,7 @@ function genericPrintNoParens(path, options, print) {
       ]));
 
     case "SequenceExpression":
-      return fromString(", ").join(path.map(print, "expressions"));
+      return join(", ", path.map(print, "expressions"));
 
     case "ThisExpression":
       return fromString("this");
@@ -727,7 +727,7 @@ function genericPrintNoParens(path, options, print) {
       if (typeof n.value !== "string")
         return fromString(n.value, options);
 
-      return fromString(nodeStr(n.value, options), options);
+      return nodeStr(n.value, options);
 
     case "Directive": // Babel 6
       return path.call(print, "value");
@@ -790,7 +790,7 @@ function genericPrintNoParens(path, options, print) {
         " ",
         printed[0],
         indent(options.tabWidth,
-               join(concat(",", line),
+               join(concat([",", line]),
                     printed.slice(1)))
       ];
 
@@ -1096,7 +1096,7 @@ function genericPrintNoParens(path, options, print) {
       return concat([
         openingLines,
         indent(options.tabWidth, concat(mostChildren)),
-        lastChild,
+        lastChild || "",
         closingLines
       ]);
 
@@ -1266,12 +1266,12 @@ function genericPrintNoParens(path, options, print) {
         return concat(parts);
       }
 
-      return fromString("");
+      return "";
 
     case "TupleTypeAnnotation":
       return concat([
         "[",
-        path.map(print, "types"),
+        concat(path.map(print, "types")),
         "]"
       ]);
 
@@ -1428,7 +1428,7 @@ function genericPrintNoParens(path, options, print) {
       ]);
 
     case "IntersectionTypeAnnotation":
-      return fromString(" & ").join(path.map(print, "types"));
+      return join(" & ", path.map(print, "types"));
 
     case "NullableTypeAnnotation":
       return concat([

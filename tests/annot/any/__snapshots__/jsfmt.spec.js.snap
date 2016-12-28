@@ -13,21 +13,21 @@ type T = any;
 export default class {
   p: T;
   constructor() {
-    this.p = [object Number];
+    this.p = 0;
   }
 }
 "
 `;
 
 exports[`test B.js 1`] = `
-"import A from "./A"
+"import A from \"./A\"
 
 class B extends A {
   p: string; // OK, string ~> any
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // OK, string ~> any
-import A from "./A";
+import A from \"./A\";
 class B extends A {
   p: string;
 }

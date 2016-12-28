@@ -13,7 +13,7 @@ let tests = [
     new Boolean(false);
     new Boolean(NaN);
     new Boolean(undefined);
-    new Boolean("");
+    new Boolean(\"\");
   },
 
   // toString
@@ -38,7 +38,7 @@ let tests = [
     Boolean(false);
     Boolean(NaN);
     Boolean(undefined);
-    Boolean("");
+    Boolean(\"\");
   },
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -51,32 +51,32 @@ let tests = [
 let tests = [
   function() {
     new Boolean();
-    new Boolean([object Number]);
-    new Boolean(-[object Number]);
-    new Boolean([object Null]);
-    new Boolean([object Boolean]);
+    new Boolean(0);
+    new Boolean(-0);
+    new Boolean(null);
+    new Boolean(false);
     new Boolean(NaN);
     new Boolean(undefined);
-    new Boolean("");
+    new Boolean(\"\");
   },
   function() {
-    [object Boolean].toString();
-    let x: boolean = [object Boolean];
+    true.toString();
+    let x: boolean = false;
     x.toString();
-    new Boolean([object Boolean]).toString();
+    new Boolean(true).toString();
   },
   function() {
-    (new Boolean([object Number]).valueOf(): boolean);
+    (new Boolean(0).valueOf(): boolean);
   },
   function() {
     Boolean();
-    Boolean([object Number]);
-    Boolean(-[object Number]);
-    Boolean([object Null]);
-    Boolean([object Boolean]);
+    Boolean(0);
+    Boolean(-0);
+    Boolean(null);
+    Boolean(false);
     Boolean(NaN);
     Boolean(undefined);
-    Boolean("");
+    Boolean(\"\");
   }
 ];
 "
@@ -87,7 +87,7 @@ exports[`test map.js 1`] = `
 
 function* generator(): Iterable<[string, number]> {
   while (true) {
-    yield ['foo', 123];
+    yield [\'foo\', 123];
   }
 }
 
@@ -96,22 +96,22 @@ let tests = [
   function() {
     let w = new Map();
     let x = new Map(null);
-    let y = new Map([['foo', 123]]);
+    let y = new Map([[\'foo\', 123]]);
     let z = new Map(generator());
     let a: Map<string, number> = new Map();
-    let b: Map<string, number> = new Map([['foo', 123]]);
+    let b: Map<string, number> = new Map([[\'foo\', 123]]);
     let c: Map<string, number> = new Map(generator());
   },
 
   // bad constructors
   function() {
-    let x = new Map(['foo', 123]); // error
-    let y: Map<number, string> = new Map([['foo', 123]]); // error
+    let x = new Map([\'foo\', 123]); // error
+    let y: Map<number, string> = new Map([[\'foo\', 123]]); // error
   },
 
   // get()
   function(x: Map<string, number>) {
-    (x.get('foo'): boolean); // error, string | void
+    (x.get(\'foo\'): boolean); // error, string | void
     x.get(123); // error, wrong key type
   },
 ];
@@ -124,28 +124,28 @@ let tests = [
 // get()
 // error, string | void
 // error, wrong key type
-function* generator(): Iterable<[]> {
-  while ([object Boolean]) {
-    yield [ "foo", [object Number] ];
+function* generator(): Iterable<[stringnumber]> {
+  while (true) {
+    yield [ \"foo\", 123 ];
   }
 }
 let tests = [
   function() {
     let w = new Map();
-    let x = new Map([object Null]);
-    let y = new Map([ [ "foo", [object Number] ] ]);
+    let x = new Map(null);
+    let y = new Map([ [ \"foo\", 123 ] ]);
     let z = new Map(generator());
     let a: Map<string, number> = new Map();
-    let b: Map<string, number> = new Map([ [ "foo", [object Number] ] ]);
+    let b: Map<string, number> = new Map([ [ \"foo\", 123 ] ]);
     let c: Map<string, number> = new Map(generator());
   },
   function() {
-    let x = new Map([ "foo", [object Number] ]);
-    let y: Map<number, string> = new Map([ [ "foo", [object Number] ] ]);
+    let x = new Map([ \"foo\", 123 ]);
+    let y: Map<number, string> = new Map([ [ \"foo\", 123 ] ]);
   },
   function(x: Map<string, number>) {
-    (x.get("foo"): boolean);
-    x.get([object Number]);
+    (x.get(\"foo\"): boolean);
+    x.get(123);
   }
 ];
 "
@@ -157,28 +157,28 @@ exports[`test regexp.js 1`] = `
 let tests = [
   // constructor
   function() {
-    new RegExp('foo');
+    new RegExp(\'foo\');
     new RegExp(/foo/);
-    new RegExp('foo', 'i');
-    new RegExp('foo', 'ig');
-    new RegExp(/foo/, 'i'); // invalid in ES5, valid in ES6
-    new RegExp(/foo/g, 'i'); // invalid in ES5, valid in ES6
+    new RegExp(\'foo\', \'i\');
+    new RegExp(\'foo\', \'ig\');
+    new RegExp(/foo/, \'i\'); // invalid in ES5, valid in ES6
+    new RegExp(/foo/g, \'i\'); // invalid in ES5, valid in ES6
   },
 
   // called as a function (equivalent to the constructor per ES6 21.2.3)
   function() {
-    RegExp('foo');
+    RegExp(\'foo\');
     RegExp(/foo/);
-    RegExp('foo', 'i');
-    RegExp('foo', 'ig');
-    RegExp(/foo/, 'i'); // invalid in ES5, valid in ES6
-    RegExp(/foo/g, 'i'); // invalid in ES5, valid in ES6
+    RegExp(\'foo\', \'i\');
+    RegExp(\'foo\', \'ig\');
+    RegExp(/foo/, \'i\'); // invalid in ES5, valid in ES6
+    RegExp(/foo/g, \'i\'); // invalid in ES5, valid in ES6
   },
 
   // invalid flags
   function() {
-    RegExp('foo', 'z'); // error
-    new RegExp('foo', 'z'); // error
+    RegExp(\'foo\', \'z\'); // error
+    new RegExp(\'foo\', \'z\'); // error
   }
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -194,24 +194,24 @@ let tests = [
 // error
 let tests = [
   function() {
-    new RegExp("foo");
-    new RegExp([object RegExp]);
-    new RegExp("foo", "i");
-    new RegExp("foo", "ig");
-    new RegExp([object RegExp], "i");
-    new RegExp([object RegExp], "i");
+    new RegExp(\"foo\");
+    new RegExp(/foo/);
+    new RegExp(\"foo\", \"i\");
+    new RegExp(\"foo\", \"ig\");
+    new RegExp(/foo/, \"i\");
+    new RegExp(/foo/g, \"i\");
   },
   function() {
-    RegExp("foo");
-    RegExp([object RegExp]);
-    RegExp("foo", "i");
-    RegExp("foo", "ig");
-    RegExp([object RegExp], "i");
-    RegExp([object RegExp], "i");
+    RegExp(\"foo\");
+    RegExp(/foo/);
+    RegExp(\"foo\", \"i\");
+    RegExp(\"foo\", \"ig\");
+    RegExp(/foo/, \"i\");
+    RegExp(/foo/g, \"i\");
   },
   function() {
-    RegExp("foo", "z");
-    new RegExp("foo", "z");
+    RegExp(\"foo\", \"z\");
+    new RegExp(\"foo\", \"z\");
   }
 ];
 "
@@ -222,7 +222,7 @@ exports[`test weakset.js 1`] = `
 
 let ws = new WeakSet();
 let obj: Object = {};
-let dict: {foo: string} = {foo: 'bar'};
+let dict: {foo: string} = {foo: \'bar\'};
 
 ws.add(window);
 ws.add(obj);
@@ -240,7 +240,7 @@ let ws3 = new WeakSet([1, 2, 3]); // error, must be objects
 
 function* generator(): Iterable<{foo: string}> {
   while (true) {
-    yield {foo: 'bar'};
+    yield {foo: \'bar\'};
   }
 }
 
@@ -260,7 +260,7 @@ let ws5 = new WeakSet(numbers()); // error, must be objects
 // error, must be objects
 let ws = new WeakSet();
 let obj: Object = {};
-let dict: { foo: string } = { foo: "bar" };
+let dict: { foo: string } = { foo: \"bar\" };
 ws.add(window);
 ws.add(obj);
 ws.add(dict);
@@ -271,16 +271,16 @@ ws.delete(window);
 ws.delete(obj);
 ws.delete(dict);
 let ws2 = new WeakSet([ obj, dict ]);
-let ws3 = new WeakSet([ [object Number], [object Number], [object Number] ]);
+let ws3 = new WeakSet([ 1, 2, 3 ]);
 function* generator(): Iterable<{ foo: string }> {
-  while ([object Boolean]) {
-    yield { foo: "bar" };
+  while (true) {
+    yield { foo: \"bar\" };
   }
 }
 let ws4 = new WeakSet(generator());
 function* numbers(): Iterable<number> {
-  let i = [object Number];
-  while ([object Boolean]) {
+  let i = 0;
+  while (true) {
     yield i++;
   }
 }

@@ -3,15 +3,15 @@ exports[`test a1.js 1`] = `
 
 function foo(x: number): number { return 5; }
 
-foo("");
+foo(\"\");
 
 module.exports = foo;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 function foo(x: number): number {
-  return [object Number];
+  return 5;
 }
-foo("");
+foo(\"\");
 module.exports = foo;
 "
 `;

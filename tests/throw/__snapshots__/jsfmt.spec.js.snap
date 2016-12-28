@@ -16,7 +16,7 @@ function g(a: ?string) {
 
 function h(x: number): string {
   if (x) {
-    return 'foo';
+    return \'foo\';
   } else {
     throw new Error();
   }
@@ -31,14 +31,14 @@ function f(): number {
   throw new Error();
 }
 function g(a: ?string) {
-  if (a == [object Null]) {
+  if (a == null) {
     throw new Error();
   }
-  return a * [object Number];
+  return a * 1;
 }
 function h(x: number): string {
   if (x) {
-    return "foo";
+    return \"foo\";
   } else {
     throw new Error();
   }

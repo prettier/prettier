@@ -12,12 +12,12 @@ exports[`test subtype.js 1`] = `
 "interface Interface {
   m(): void;
 }
-import type { ObjectType } from './test';
+import type { ObjectType } from \'./test\';
 
 function subtypeCheck(x: Interface): ObjectType { return x; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 interface Interface extends  { m: : () => void }
-import type { ObjectType } from "./test";
+import type { ObjectType } from \"./test\";
 function subtypeCheck(x: Interface): ObjectType {
   return x;
 }
@@ -25,7 +25,7 @@ function subtypeCheck(x: Interface): ObjectType {
 `;
 
 exports[`test test.js 1`] = `
-"const id = require('./id');
+"const id = require(\'./id\');
 
 export type ObjectType = {
   +m: () => void,
@@ -39,7 +39,7 @@ module.exports = id(
   methodCaller
 );
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const id = require("./id");
+const id = require(\"./id\");
 export type ObjectType = { +m: : () => void };
 function methodCaller(x: ObjectType) {
   x.m();
@@ -73,7 +73,7 @@ b.f(); // error, property \`p\` not found
 function f() {
   return this.p;
 }
-var a = { p: [object Number], f };
+var a = { p: 0, f };
 var b = { f };
 a.f();
 b.f();

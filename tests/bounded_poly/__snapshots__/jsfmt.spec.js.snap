@@ -1,15 +1,15 @@
 exports[`test scope.js 1`] = `
 "function foo<X, Y:X>(x:X, y:Y):void { }
-foo(0, "");
+foo(0, \"\");
 
 function bar<X:number, Y:X>(x:X, y:Y): number { return y*0; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function foo<X, Y: X>(x: X, y: Y): void {
   
 }
-foo([object Number], "");
+foo(0, \"\");
 function bar<X: number, Y: X>(x: X, y: Y): number {
-  return y * [object Number];
+  return y * 0;
 }
 "
 `;
@@ -33,7 +33,7 @@ class C<T: number> {
 }
 
 function example<T: {x: number}>(o: T): T { o.x = 0; return o; }
-var obj1: {x: number; y: string} = example({x: 0, y: ""});
+var obj1: {x: number; y: string} = example({x: 0, y: \"\"});
 var obj2: {x: number} = example({x: 0});
 
 var c: C<string> = new C; // error, since T = string is incompatible with number
@@ -52,7 +52,7 @@ var q: number = c.qux(0);
 /* 2 more errors, since argument U = number is incompatible with T = string, and
  * result T = string is incompatible with number */
 function foo<T: number>(x: T): T {
-  var _ = x * [object Number];
+  var _ = x * 1;
   var y: string = x;
   return x;
 }
@@ -61,18 +61,18 @@ class C<T: number> {
     return x;
   }
   qux<U: T>(x: U): T {
-    var _ = x * [object Number];
+    var _ = x * 1;
     var y: string = x;
     return x;
   }
 }
 function example<T: { x: number }>(o: T): T {
-  o.x = [object Number];
+  o.x = 0;
   return o;
 }
-var obj1: { x: number, y: string } = example({ x: [object Number], y: "" });
-var obj2: { x: number } = example({ x: [object Number] });
+var obj1: { x: number, y: string } = example({ x: 0, y: \"\" });
+var obj2: { x: number } = example({ x: 0 });
 var c: C<string> = new C();
-var q: number = c.qux([object Number]);
+var q: number = c.qux(0);
 "
 `;

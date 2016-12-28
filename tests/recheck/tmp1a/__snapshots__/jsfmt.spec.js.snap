@@ -9,9 +9,9 @@ module.exports = foo;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 function foo(x: number): number {
-  return [object Number];
+  return 5;
 }
-foo([object Number]);
+foo(0);
 module.exports = foo;
 "
 `;

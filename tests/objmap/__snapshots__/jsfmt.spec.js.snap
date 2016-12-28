@@ -7,30 +7,30 @@ var o = keyMirror({
   BAR: null,
 });
 
-(o.FOO : 'FOO'); // ok
-(o.FOO : 'BAR'); // error, 'FOO' incompatible with 'BAR'
+(o.FOO : \'FOO\'); // ok
+(o.FOO : \'BAR\'); // error, \'FOO\' incompatible with \'BAR\'
 
 promiseAllByKey({
   foo: Promise.resolve(0),
-  bar: 'bar',
+  bar: \'bar\',
 }).then(o => {
   (o.foo: string); // error, number ~> string
-  (o.bar: 'bar'); // ok
+  (o.bar: \'bar\'); // ok
 });
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ok
-// error, 'FOO' incompatible with 'BAR'
+// error, \'FOO\' incompatible with \'BAR\'
 // error, number ~> string
 // ok
 declare function promiseAllByKey(o: O): Promise<$ObjMap<O, typeof $await>>;
 declare function keyMirror(o: O): $ObjMapi<O, : (k: K) => K>;
-var o = keyMirror({ FOO: [object Null], BAR: [object Null] });
-(o.FOO: "FOO");
-(o.FOO: "BAR");
-promiseAllByKey({ foo: Promise.resolve([object Number]), bar: "bar" }).then(
+var o = keyMirror({ FOO: null, BAR: null });
+(o.FOO: \"FOO\");
+(o.FOO: \"BAR\");
+promiseAllByKey({ foo: Promise.resolve(0), bar: \"bar\" }).then(
   o => {
     (o.foo: string);
-    (o.bar: "bar");
+    (o.bar: \"bar\");
   }
 );
 "

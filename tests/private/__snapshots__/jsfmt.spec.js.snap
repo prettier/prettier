@@ -3,7 +3,7 @@ exports[`test private.js 1`] = `
   x: number;
   _x: string;
   __x: number;
-  constructor() { this.x = 0; this._x = ""; this.__x = 0; }
+  constructor() { this.x = 0; this._x = \"\"; this.__x = 0; }
 }
 
 class B extends A {
@@ -19,9 +19,9 @@ class A {
   _x: string;
   __x: number;
   constructor() {
-    this.x = [object Number];
-    this._x = "";
-    this.__x = [object Number];
+    this.x = 0;
+    this._x = \"\";
+    this.__x = 0;
   }
 }
 class B extends A {

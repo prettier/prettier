@@ -97,7 +97,7 @@ class P<X> {
 type Pstar<X> = X | Pstar<P<X>>;
 var p: P<number> = new P();
 (p.x: string);
-var pstar: Pstar<number> = [object Number];
+var pstar: Pstar<number> = 0;
 (pstar: number);
 pstar = p;
 (pstar.x: string);
@@ -233,7 +233,7 @@ function flatten<T>(arrArg: NestedArray<T>) {
 type NestedArray<T> = Array<T | NestedArray<T>>;
 function flatten<T>(arrArg: NestedArray<T>) {
   let arr = arrArg;
-  while ([object Boolean]) {
+  while (true) {
     arr = Array.prototype.concat.apply([  ], arr);
   }
 }

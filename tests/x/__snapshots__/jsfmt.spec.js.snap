@@ -23,7 +23,7 @@ class XControllerURIBuilder {
   // ...
   getURI() {
     // ...
-    var tokenRegex = new RegExp(/^\{(\?)?(.+?)\}$/);
+    var tokenRegex = new RegExp(/^\\{(\\?)?(.+?)\\}$/);
     // ...
   }
 }
@@ -53,7 +53,7 @@ module.exports = XControllerURIBuilder;
 // ...
 class XControllerURIBuilder {
   getURI() {
-    var tokenRegex = new RegExp([object RegExp]);
+    var tokenRegex = new RegExp(/^\\{(\\?)?(.+?)\\}$/);
   }
 }
 module.exports = XControllerURIBuilder;

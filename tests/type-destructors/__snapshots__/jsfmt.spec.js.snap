@@ -19,14 +19,14 @@ function foo(x: ?string): $NonMaybeType<?string> {
 // ok
 // ok
 function foo(x: ?string): $NonMaybeType<?string> {
-  if (x != [object Null]) {
+  if (x != null) {
     return x;
   } else
-    return [object Number];
+    return 0;
 }
-([object Number]: $NonMaybeType<null>);
-([object Number]: $NonMaybeType<?number>);
-([object Number]: $NonMaybeType<number | null>);
+(0: $NonMaybeType<null>);
+(0: $NonMaybeType<?number>);
+(0: $NonMaybeType<number | null>);
 "
 `;
 
@@ -34,24 +34,24 @@ exports[`test property_type.js 1`] = `
 "type Malformed = $PropertyType<any, number>;
 
 type Obj = { x: string };
-type Obj_Prop_x = $PropertyType<Obj, 'x'>;
+type Obj_Prop_x = $PropertyType<Obj, \'x\'>;
 
 (42: Obj_Prop_x);
 
-function foo(o: Obj): $PropertyType<Obj, 'x'> {
+function foo(o: Obj): $PropertyType<Obj, \'x\'> {
   if (false) return o.x;
   else return 0;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 type Malformed = $PropertyType<any, number>;
 type Obj = { x: string };
-type Obj_Prop_x = $PropertyType<Obj, "x">;
-([object Number]: Obj_Prop_x);
-function foo(o: Obj): $PropertyType<Obj, "x"> {
-  if ([object Boolean])
+type Obj_Prop_x = $PropertyType<Obj, \"x\">;
+(42: Obj_Prop_x);
+function foo(o: Obj): $PropertyType<Obj, \"x\"> {
+  if (false)
     return o.x;
 else
-    return [object Number];
+    return 0;
 }
 "
 `;
@@ -59,16 +59,16 @@ else
 exports[`test union.js 1`] = `
 "var x0: $NonMaybeType<number|string> = 0; // ok, number ~> number|string
 var x1: $NonMaybeType<number|string> = true; // err, boolean ~> number|string
-var x2: $PropertyType<{p:number}|{p:string},'p'> = 0; // ok, number ~> number|string
-var x3: $PropertyType<{p:number}|{p:string},'p'> = true; // err, boolean ~> number|string
+var x2: $PropertyType<{p:number}|{p:string},\'p\'> = 0; // ok, number ~> number|string
+var x3: $PropertyType<{p:number}|{p:string},\'p\'> = true; // err, boolean ~> number|string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ok, number ~> number|string
 // err, boolean ~> number|string
 // ok, number ~> number|string
 // err, boolean ~> number|string
-var x0: $NonMaybeType<number | string> = [object Number];
-var x1: $NonMaybeType<number | string> = [object Boolean];
-var x2: $PropertyType<{ p: number } | { p: string }, "p"> = [object Number];
-var x3: $PropertyType<{ p: number } | { p: string }, "p"> = [object Boolean];
+var x0: $NonMaybeType<number | string> = 0;
+var x1: $NonMaybeType<number | string> = true;
+var x2: $PropertyType<{ p: number } | { p: string }, \"p\"> = 0;
+var x3: $PropertyType<{ p: number } | { p: string }, \"p\"> = true;
 "
 `;

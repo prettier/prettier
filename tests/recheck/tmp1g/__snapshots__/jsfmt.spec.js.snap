@@ -6,6 +6,6 @@ export var extra = null;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 export class C {}
-export var extra = [object Null];
+export var extra = null;
 "
 `;

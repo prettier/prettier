@@ -1,15 +1,15 @@
 exports[`test client_object.js 1`] = `
-"var o = require('./object');
+"var o = require(\'./object\');
 
 var a:number = o.w.z.y;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var o = require("./object");
+var o = require(\"./object\");
 var a: number = o.w.z.y;
 "
 `;
 
 exports[`test object.js 1`] = `
-"var o1 = { x: 0, y: "" };
+"var o1 = { x: 0, y: \"\" };
 var o2 = { z: o1 }
 
 var o3 = {};
@@ -20,7 +20,7 @@ o3.w = o2;
 module.exports = o3;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //declare var exports: { w: any };
-var o1 = { x: [object Number], y: "" };
+var o1 = { x: 0, y: \"\" };
 var o2 = { z: o1 };
 var o3 = {};
 o3.w = o2;
@@ -37,7 +37,7 @@ var o1: { x: number; m(): void } = new Foo();
 var o2: Foo = new Foo();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function Foo() {
-  this.x = [object Number];
+  this.x = 0;
 }
 Foo.prototype.m = function() {
   

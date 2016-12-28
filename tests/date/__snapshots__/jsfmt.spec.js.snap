@@ -7,7 +7,7 @@ var y:number = d;
 // valid constructors
 new Date();
 new Date(1234567890);
-new Date('2015/06/18');
+new Date(\'2015/06/18\');
 new Date(2015, 6);
 new Date(2015, 6, 18);
 new Date(2015, 6, 18, 11);
@@ -17,91 +17,40 @@ new Date(2015, 6, 18, 11, 55, 42, 999);
 
 // invalid constructors
 new Date({});
-new Date(2015, '6');
-new Date(2015, 6, '18');
-new Date(2015, 6, 18, '11');
-new Date(2015, 6, 18, 11, '55');
-new Date(2015, 6, 18, 11, 55, '42');
-new Date(2015, 6, 18, 11, 55, 42, '999');
+new Date(2015, \'6\');
+new Date(2015, 6, \'18\');
+new Date(2015, 6, 18, \'11\');
+new Date(2015, 6, 18, 11, \'55\');
+new Date(2015, 6, 18, 11, 55, \'42\');
+new Date(2015, 6, 18, 11, 55, 42, \'999\');
 
 // invalid constructors that we incorrectly consider valid
-new Date('2015', 6);
-new Date(2015, 6, 18, 11, 55, 42, 999, 'hahaha');
+new Date(\'2015\', 6);
+new Date(2015, 6, 18, 11, 55, 42, 999, \'hahaha\');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // valid constructors
 // invalid constructors
 // invalid constructors that we incorrectly consider valid
-var d = new Date([object Number]);
+var d = new Date(0);
 var x: string = d.getTime();
 var y: number = d;
 new Date();
-new Date([object Number]);
-new Date("2015/06/18");
-new Date([object Number], [object Number]);
-new Date([object Number], [object Number], [object Number]);
-new Date([object Number], [object Number], [object Number], [object Number]);
-new Date(
-  [object Number],
-  [object Number],
-  [object Number],
-  [object Number],
-  [object Number]
-);
-new Date(
-  [object Number],
-  [object Number],
-  [object Number],
-  [object Number],
-  [object Number],
-  [object Number]
-);
-new Date(
-  [object Number],
-  [object Number],
-  [object Number],
-  [object Number],
-  [object Number],
-  [object Number],
-  [object Number]
-);
+new Date(1234567890);
+new Date(\"2015/06/18\");
+new Date(2015, 6);
+new Date(2015, 6, 18);
+new Date(2015, 6, 18, 11);
+new Date(2015, 6, 18, 11, 55);
+new Date(2015, 6, 18, 11, 55, 42);
+new Date(2015, 6, 18, 11, 55, 42, 999);
 new Date({});
-new Date([object Number], "6");
-new Date([object Number], [object Number], "18");
-new Date([object Number], [object Number], [object Number], "11");
-new Date(
-  [object Number],
-  [object Number],
-  [object Number],
-  [object Number],
-  "55"
-);
-new Date(
-  [object Number],
-  [object Number],
-  [object Number],
-  [object Number],
-  [object Number],
-  "42"
-);
-new Date(
-  [object Number],
-  [object Number],
-  [object Number],
-  [object Number],
-  [object Number],
-  [object Number],
-  "999"
-);
-new Date("2015", [object Number]);
-new Date(
-  [object Number],
-  [object Number],
-  [object Number],
-  [object Number],
-  [object Number],
-  [object Number],
-  [object Number],
-  "hahaha"
-);
+new Date(2015, \"6\");
+new Date(2015, 6, \"18\");
+new Date(2015, 6, 18, \"11\");
+new Date(2015, 6, 18, 11, \"55\");
+new Date(2015, 6, 18, 11, 55, \"42\");
+new Date(2015, 6, 18, 11, 55, 42, \"999\");
+new Date(\"2015\", 6);
+new Date(2015, 6, 18, 11, 55, 42, 999, \"hahaha\");
 "
 `;

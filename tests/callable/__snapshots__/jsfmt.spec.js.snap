@@ -46,7 +46,7 @@ callable.call(null, 0); // error, number ~> string
 // error, number ~> string
 // error, number ~> string
 // error, number ~> string
-var x = Boolean([object Number]);
+var x = Boolean(4);
 function foo(fn: (value: any) => boolean) {
   
 }
@@ -55,11 +55,11 @@ var dict: { [k: string]: any } = {};
 dict();
 interface ICall extends  { (x: string): void }
 declare var icall: ICall;
-icall([object Number]);
-icall.call([object Null], [object Number]);
+icall(0);
+icall.call(null, 0);
 type Callable = { (x: string): void };
 declare var callable: Callable;
-callable([object Number]);
-callable.call([object Null], [object Number]);
+callable(0);
+callable.call(null, 0);
 "
 `;

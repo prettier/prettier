@@ -2,7 +2,7 @@ exports[`test libtest.js 1`] = `
 "foo(123);
 bar(123);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-foo([object Number]);
-bar([object Number]);
+foo(123);
+bar(123);
 "
 `;

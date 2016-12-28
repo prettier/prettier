@@ -1,8 +1,8 @@
 exports[`test foo.js 1`] = `
-"var imp = require('./bar');
+"var imp = require(\'./bar\');
 imp(1337);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var imp = require("./bar");
-imp([object Number]);
+var imp = require(\"./bar\");
+imp(1337);
 "
 `;

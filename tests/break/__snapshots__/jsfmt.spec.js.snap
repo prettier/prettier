@@ -3,7 +3,7 @@ exports[`test break.js 1`] = `
     var x = b ? null: false;
     var z;
     while(b) {
-        if (x == null) { z = ""; break; }
+        if (x == null) { z = \"\"; break; }
         var y:number = x; // error: boolean !~> number
     }
     var w:number = z; // 2 errors: ?string !~> number
@@ -12,10 +12,10 @@ exports[`test break.js 1`] = `
 function bar(b) {
     var x = b ? null: false;
     if (x == null) return;
-    switch ("") {
+    switch (\"\") {
     case 0:
         var y:number = x; // error: boolean !~> number
-        x = "";
+        x = \"\";
     case 1:
         var z:number = x; // 2 errors: (boolean | string) !~> number
         break;
@@ -27,10 +27,10 @@ function bar(b) {
 function bar2(b) {
     var x = b ? null: false;
     if (x == null) return;
-    switch ("") {
+    switch (\"\") {
     case 0: {
       let y:number = x; // error: boolean !~> number
-      x = "";
+      x = \"\";
     }
     case 1: {
       let z:number = x; // 2 errors: (boolean | string) !~> number
@@ -45,7 +45,7 @@ function qux(b) {
     var z = 0;
     while(b) {
         var y:number = z;
-        if (b) { z = ""; continue; } // error: string !~> number
+        if (b) { z = \"\"; continue; } // error: string !~> number
         z = 0;
     }
     var w:number = z; // error: string !~> number
@@ -54,10 +54,10 @@ function qux(b) {
 // same basic test as foo(), but with const. probes the
 // logic that still uses havoc to do env resets.
 function test_const() {
-  let st: string = 'abc';
+  let st: string = \'abc\';
 
   for (let i = 1; i < 100; i++) {
-    const fooRes: ?string = "HEY";
+    const fooRes: ?string = \"HEY\";
     if (!fooRes) {
       break;
     }
@@ -82,11 +82,11 @@ function test_const() {
 // logic that still uses havoc to do env resets.
 // no error
 function foo(b) {
-  var x = (b ? [object Null] : [object Boolean]);
+  var x = (b ? null : false);
   var z;
   while (b) {
-    if (x == [object Null]) {
-      z = "";
+    if (x == null) {
+      z = \"\";
       break;
     }
     var y: number = x;
@@ -94,55 +94,55 @@ function foo(b) {
   var w: number = z;
 }
 function bar(b) {
-  var x = (b ? [object Null] : [object Boolean]);
-  if (x == [object Null])
+  var x = (b ? null : false);
+  if (x == null)
     return;
-  switch ("") {
-  case [object Number]:
+  switch (\"\") {
+  case 0:
     var y: number = x;
-    x = "";
-  case [object Number]:
+    x = \"\";
+  case 1:
     var z: number = x;
     break;
-  case [object Number]:
+  case 2:
   }
   var w: number = x;
 }
 function bar2(b) {
-  var x = (b ? [object Null] : [object Boolean]);
-  if (x == [object Null])
+  var x = (b ? null : false);
+  if (x == null)
     return;
-  switch ("") {
-  case [object Number]:
+  switch (\"\") {
+  case 0:
     {
       let y: number = x;
-      x = "";
+      x = \"\";
     }
-  case [object Number]:
+  case 1:
     {
       let z: number = x;
       break;
     }
-  case [object Number]:
+  case 2:
   }
   var w: number = x;
 }
 function qux(b) {
-  var z = [object Number];
+  var z = 0;
   while (b) {
     var y: number = z;
     if (b) {
-      z = "";
+      z = \"\";
       continue;
     }
-    z = [object Number];
+    z = 0;
   }
   var w: number = z;
 }
 function test_const() {
-  let st: string = "abc";
-  for (let i = [object Number]; i < [object Number]; i++) {
-    const fooRes: ?string = "HEY";
+  let st: string = \"abc\";
+  for (let i = 1; i < 100; i++) {
+    const fooRes: ?string = \"HEY\";
     if (!fooRes) {
       break;
     }

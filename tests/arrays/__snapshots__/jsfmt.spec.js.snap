@@ -6,7 +6,7 @@ function foo(x:string) { }
 
 var a = [];
 a[0] = 1;
-a[1] = "...";
+a[1] = \"...\";
 
 foo(a[1]);
 var y;
@@ -32,12 +32,12 @@ var abig2: Array<{x:number; y:number}> = [
   {x:0, y:0},
   {x:0, y:0},
   {x:0, y:0, a:true},
-  {x:0, y:0, b:"hey"},
+  {x:0, y:0, b:\"hey\"},
   {x:0, y:0, c:1},
-  {x:0, y:0, c:"hey"}
+  {x:0, y:0, c:\"hey\"}
 ];
 
-module.exports = "arrays";
+module.exports = \"arrays\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule Arrays */
 // for literals, composite element type is union of individuals
@@ -46,49 +46,33 @@ function foo(x: string) {
   
 }
 var a = [  ];
-a[[object Number]] = [object Number];
-a[[object Number]] = "...";
-foo(a[[object Number]]);
+a[0] = 1;
+a[1] = \"...\";
+foo(a[1]);
 var y;
 a.forEach(x => y = x);
-var alittle: Array<?number> = [
-  [object Number],
-  [object Number],
-  [object Number],
-  [object Number],
-  [object Null]
-];
-var abig: Array<?number> = [
-  [object Number],
-  [object Number],
-  [object Number],
-  [object Number],
-  [object Number],
-  [object Number],
-  [object Number],
-  [object Number],
-  [object Null]
-];
+var alittle: Array<?number> = [ 0, 1, 2, 3, null ];
+var abig: Array<?number> = [ 0, 1, 2, 3, 4, 5, 6, 8, null ];
 var abig2: Array<{ x: number, y: number }> = [
-  { x: [object Number], y: [object Number] },
-  { x: [object Number], y: [object Number] },
-  { x: [object Number], y: [object Number] },
-  { x: [object Number], y: [object Number] },
-  { x: [object Number], y: [object Number] },
-  { x: [object Number], y: [object Number] },
-  { x: [object Number], y: [object Number] },
-  { x: [object Number], y: [object Number] },
-  { x: [object Number], y: [object Number] },
-  { x: [object Number], y: [object Number] },
-  { x: [object Number], y: [object Number] },
-  { x: [object Number], y: [object Number] },
-  { x: [object Number], y: [object Number] },
-  { x: [object Number], y: [object Number], a: [object Boolean] },
-  { x: [object Number], y: [object Number], b: "hey" },
-  { x: [object Number], y: [object Number], c: [object Number] },
-  { x: [object Number], y: [object Number], c: "hey" }
+  { x: 0, y: 0 },
+  { x: 0, y: 0 },
+  { x: 0, y: 0 },
+  { x: 0, y: 0 },
+  { x: 0, y: 0 },
+  { x: 0, y: 0 },
+  { x: 0, y: 0 },
+  { x: 0, y: 0 },
+  { x: 0, y: 0 },
+  { x: 0, y: 0 },
+  { x: 0, y: 0 },
+  { x: 0, y: 0 },
+  { x: 0, y: 0 },
+  { x: 0, y: 0, a: true },
+  { x: 0, y: 0, b: \"hey\" },
+  { x: 0, y: 0, c: 1 },
+  { x: 0, y: 0, c: \"hey\" }
 ];
-module.exports = "arrays";
+module.exports = \"arrays\";
 "
 `;
 
@@ -106,7 +90,7 @@ arr[day] = 0;
 // error: number ~> string
 var arr = [  ];
 var day = new Date();
-arr[day] = [object Number];
+arr[day] = 0;
 (arr[day]: string);
 "
 `;

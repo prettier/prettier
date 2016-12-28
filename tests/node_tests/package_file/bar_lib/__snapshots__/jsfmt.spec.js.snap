@@ -1,6 +1,6 @@
 exports[`test bar.js 1`] = `
 "module.exports = 0;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-module.exports = [object Number];
+module.exports = 0;
 "
 `;

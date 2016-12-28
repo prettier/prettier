@@ -1,18 +1,18 @@
 exports[`test req.js 1`] = `
 "module.exports = 0;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-module.exports = [object Number];
+module.exports = 0;
 "
 `;
 
 exports[`test test.js 1`] = `
-"var x = require('./req');
+"var x = require(\'./req\');
 (x: string);
 
-import x from './req';
+import x from \'./req\';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var x = require("./req");
+var x = require(\"./req\");
 (x: string);
-import x from "./req";
+import x from \"./req\";
 "
 `;

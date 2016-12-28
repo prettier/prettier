@@ -25,7 +25,7 @@ function foo() {
   try {
     
   } catch (error) {
-    if (error.foo === [object Number]) {
+    if (error.foo === 4) {
       throw error;
     }
   }
@@ -91,7 +91,7 @@ function f() {
   }
 }
 
-// or try/catch/finally if init doesn't dominate
+// or try/catch/finally if init doesn\'t dominate
 function f() {
   try {
     var x:number = 0;
@@ -203,7 +203,7 @@ function f(b) {
 // error
 // or catch/finally
 // error
-// or try/catch/finally if init doesn't dominate
+// or try/catch/finally if init doesn\'t dominate
 // error
 // post-use ok because init dominates here
 // ...but if so, suffix is not reached
@@ -226,7 +226,7 @@ function might_throw() {
 }
 function f() {
   try {
-    var x: number = [object Number];
+    var x: number = 0;
     var y: number = x;
   } catch (e) {
     
@@ -236,14 +236,14 @@ function f() {
   try {
     
   } catch (e) {
-    var x: number = [object Number];
+    var x: number = 0;
     var y: number = x;
   }
 }
 function f() {
   try {
     might_throw();
-    var x: number = [object Number];
+    var x: number = 0;
   } catch (e) {
     var y: number = x;
   }
@@ -251,7 +251,7 @@ function f() {
 function f() {
   try {
     might_throw();
-    var x: number = [object Number];
+    var x: number = 0;
   } finally {
     var y: number = x;
   }
@@ -260,27 +260,27 @@ function f() {
   try {
     
   } catch (e) {
-    var x: number = [object Number];
+    var x: number = 0;
   } finally {
     var y: number = x;
   }
 }
 function f() {
   try {
-    var x: number = [object Number];
+    var x: number = 0;
   } catch (e) {
     might_throw();
-    var x: number = [object Number];
+    var x: number = 0;
   } finally {
     var y: number = x;
   }
 }
 function f() {
   try {
-    var x: number = [object Number];
+    var x: number = 0;
   } catch (e) {
     might_throw();
-    var x: number = [object Number];
+    var x: number = 0;
   }
   var y: number = x;
 }
@@ -291,7 +291,7 @@ function f() {
     
   } finally {
     might_throw();
-    var x: number = [object Number];
+    var x: number = 0;
   }
   var y: number = x;
 }
@@ -302,7 +302,7 @@ function f() {
     
   } finally {
     might_throw();
-    x = [object Number];
+    x = 0;
   }
   var y: number = x;
 }
@@ -313,21 +313,21 @@ function f() {
     var x: number;
   } finally {
     might_throw();
-    x = [object Number];
+    x = 0;
   }
   var y: number = x;
 }
 function f() {
   var y: number = x;
   try {
-    var x: number = [object Number];
+    var x: number = 0;
   } catch (e) {
     
   }
 }
 function f() {
   try {
-    var x: number = [object Number];
+    var x: number = 0;
   } catch (e) {
     
   }
@@ -337,7 +337,7 @@ function f() {
   try {
     
   } catch (e) {
-    var x: number = [object Number];
+    var x: number = 0;
   }
   var y: number = x;
 }
@@ -347,7 +347,7 @@ function f(b) {
     if (b) {
       throw new Error();
     }
-    x = [object Number];
+    x = 0;
   } catch (e) {
     
   }
@@ -364,36 +364,36 @@ exports[`test return.js 1`] = `
 function foo(x: ?number): string {
     try {
     } catch (e) {
-        return 'bar';
+        return \'bar\';
     }
     console.log();
-    return 'foo';
+    return \'foo\';
 }
 
 function bar(): string {
   try {
-    return 'foo';
+    return \'foo\';
   } catch (e) {
-    return 'bar';
+    return \'bar\';
   }
 }
 
 function baz(): string {
   try {
-    throw new Error("foo");
+    throw new Error(\"foo\");
   } catch (e) {
-    return "foo";
+    return \"foo\";
   }
-  return "bar"; // unreachable
+  return \"bar\"; // unreachable
 }
 
 function qux(): string {
   try {
-    throw new Error("foo");
+    throw new Error(\"foo\");
   } catch (e) {
   }
   console.log();
-  return 'bar';
+  return \'bar\';
 }
 
 function quux(): string {
@@ -401,24 +401,24 @@ function quux(): string {
     return qux();
   } catch (e) {
   }
-  return 'bar';
+  return \'bar\';
 }
 
 function bliffl(): string {
   try {
-    throw new Error("foo");
+    throw new Error(\"foo\");
   } catch (e) {
-    return "foo";
+    return \"foo\";
   } finally {
-    return "bar";
+    return \"bar\";
   }
 }
 
 function corge(): string {
   try {
-    return 'foo';
+    return \'foo\';
   } catch (e) {
-    throw new Error('bar');
+    throw new Error(\'bar\');
   }
   bar(); // unreachable
 }
@@ -432,34 +432,34 @@ function foo(x: ?number): string {
   try {
     
   } catch (e) {
-    return "bar";
+    return \"bar\";
   }
   console.log();
-  return "foo";
+  return \"foo\";
 }
 function bar(): string {
   try {
-    return "foo";
+    return \"foo\";
   } catch (e) {
-    return "bar";
+    return \"bar\";
   }
 }
 function baz(): string {
   try {
-    throw new Error("foo");
+    throw new Error(\"foo\");
   } catch (e) {
-    return "foo";
+    return \"foo\";
   }
-  return "bar";
+  return \"bar\";
 }
 function qux(): string {
   try {
-    throw new Error("foo");
+    throw new Error(\"foo\");
   } catch (e) {
     
   }
   console.log();
-  return "bar";
+  return \"bar\";
 }
 function quux(): string {
   try {
@@ -467,22 +467,22 @@ function quux(): string {
   } catch (e) {
     
   }
-  return "bar";
+  return \"bar\";
 }
 function bliffl(): string {
   try {
-    throw new Error("foo");
+    throw new Error(\"foo\");
   } catch (e) {
-    return "foo";
+    return \"foo\";
   } finally {
-    return "bar";
+    return \"bar\";
   }
 }
 function corge(): string {
   try {
-    return "foo";
+    return \"foo\";
   } catch (e) {
-    throw new Error("bar");
+    throw new Error(\"bar\");
   }
   bar();
 }
@@ -499,7 +499,7 @@ function foo() {
     var x = 0;
     var y;
     try {
-        x = "";
+        x = \"\";
     } catch(e) {
         x = false;
         throw -1;
@@ -516,7 +516,7 @@ function bar(response) {
     try {
         payload = JSON.parse(response);
     } catch (e) {
-        throw new Error('...');
+        throw new Error(\'...\');
     }
     // here via [try] only.
     if (payload.error) {    // ok
@@ -545,13 +545,13 @@ function qux() {
 // ...
 // unreachable
 function foo() {
-  var x = [object Number];
+  var x = 0;
   var y;
   try {
-    x = "";
+    x = \"\";
   } catch (e) {
-    x = [object Boolean];
-    throw -[object Number];
+    x = false;
+    throw -1;
   } finally {
     y = {};
   }
@@ -563,16 +563,16 @@ function bar(response) {
   try {
     payload = JSON.parse(response);
   } catch (e) {
-    throw new Error("...");
+    throw new Error(\"...\");
   }
   if (payload.error) {
     
   }
 }
 function qux() {
-  var x = [object Number];
+  var x = 5;
   try {
-    throw -[object Number];
+    throw -1;
   } finally {
     
   }

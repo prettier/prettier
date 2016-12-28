@@ -6,7 +6,7 @@ exports[`test yield_arrow_error.js 1`] = `
 function* f() {
   var e = () => {
     yield;
-    [object Number];
+    1;
   };
 }
 "
@@ -19,7 +19,7 @@ exports[`test yield_arrow_error2.js 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function* f() {
   var e = () => yield;
-  [object Number];
+  1;
 }
 "
 `;

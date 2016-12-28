@@ -3,53 +3,53 @@ exports[`test FormData.js 1`] = `
 
 // constructor
 const a: FormData = new FormData(); // correct
-new FormData(''); // incorrect
-new FormData(document.createElement('input')); // incorrect
-new FormData(document.createElement('form')); // correct
+new FormData(\'\'); // incorrect
+new FormData(document.createElement(\'input\')); // incorrect
+new FormData(document.createElement(\'form\')); // correct
 
 // has
-const b: boolean = a.has('foo'); // correct
+const b: boolean = a.has(\'foo\'); // correct
 
 // get
-const c: ?(string | File) = a.get('foo'); // correct
-const d: string = a.get('foo'); // incorrect
-const e: Blob = a.get('foo'); // incorrect
-const f: ?(string | File | Blob) = a.get('foo'); // incorrect
+const c: ?(string | File) = a.get(\'foo\'); // correct
+const d: string = a.get(\'foo\'); // incorrect
+const e: Blob = a.get(\'foo\'); // incorrect
+const f: ?(string | File | Blob) = a.get(\'foo\'); // incorrect
 a.get(2); // incorrect
 
 // getAll
-const a1: Array<string | File> = a.getAll('foo'); // correct
-const a2: Array<string | File | number> = a.getAll('foo'); // incorrect
-const a3: Array<string | Blob | File> = a.getAll('foo'); // incorrect
+const a1: Array<string | File> = a.getAll(\'foo\'); // correct
+const a2: Array<string | File | number> = a.getAll(\'foo\'); // incorrect
+const a3: Array<string | Blob | File> = a.getAll(\'foo\'); // incorrect
 a.getAll(23); // incorrect
 
 // set
-a.set('foo', 'bar'); // correct
-a.set('foo', {}); // incorrect
-a.set(2, 'bar'); // incorrect
-a.set('foo', 'bar', 'baz'); // incorrect
-a.set('bar', new File([], 'q')) // correct
-a.set('bar', new File([], 'q'), 'x') // correct
-a.set('bar', new File([], 'q'), 2) // incorrect
-a.set('bar', new Blob) // correct
-a.set('bar', new Blob, 'x') // correct
-a.set('bar', new Blob, 2) // incorrect
+a.set(\'foo\', \'bar\'); // correct
+a.set(\'foo\', {}); // incorrect
+a.set(2, \'bar\'); // incorrect
+a.set(\'foo\', \'bar\', \'baz\'); // incorrect
+a.set(\'bar\', new File([], \'q\')) // correct
+a.set(\'bar\', new File([], \'q\'), \'x\') // correct
+a.set(\'bar\', new File([], \'q\'), 2) // incorrect
+a.set(\'bar\', new Blob) // correct
+a.set(\'bar\', new Blob, \'x\') // correct
+a.set(\'bar\', new Blob, 2) // incorrect
 
 // append
-a.append('foo', 'bar'); // correct
-a.append('foo', {}); // incorrect
-a.append(2, 'bar'); // incorrect
-a.append('foo', 'bar', 'baz'); // incorrect
-a.append('foo', 'bar'); // incorrect
-a.append('bar', new File([], 'q')) // correct
-a.append('bar', new File([], 'q'), 'x') // correct
-a.append('bar', new File([], 'q'), 2) // incorrect
-a.append('bar', new Blob) // correct
-a.append('bar', new Blob, 'x') // correct
-a.append('bar', new Blob, 2) // incorrect
+a.append(\'foo\', \'bar\'); // correct
+a.append(\'foo\', {}); // incorrect
+a.append(2, \'bar\'); // incorrect
+a.append(\'foo\', \'bar\', \'baz\'); // incorrect
+a.append(\'foo\', \'bar\'); // incorrect
+a.append(\'bar\', new File([], \'q\')) // correct
+a.append(\'bar\', new File([], \'q\'), \'x\') // correct
+a.append(\'bar\', new File([], \'q\'), 2) // incorrect
+a.append(\'bar\', new Blob) // correct
+a.append(\'bar\', new Blob, \'x\') // correct
+a.append(\'bar\', new Blob, 2) // incorrect
 
 // delete
-a.delete('xx'); // correct
+a.delete(\'xx\'); // correct
 a.delete(3); // incorrect
 
 // keys
@@ -125,42 +125,42 @@ for (let [x, y]: [number, number] of a.entries()) {} // incorrect
 // incorrect
 // incorrect
 const a: FormData = new FormData();
-new FormData("");
-new FormData(document.createElement("input"));
-new FormData(document.createElement("form"));
-const b: boolean = a.has("foo");
-const c: ?(string | File) = a.get("foo");
-const d: string = a.get("foo");
-const e: Blob = a.get("foo");
-const f: ?(string | File | Blob) = a.get("foo");
-a.get([object Number]);
-const a1: Array<string | File> = a.getAll("foo");
-const a2: Array<string | File | number> = a.getAll("foo");
-const a3: Array<string | Blob | File> = a.getAll("foo");
-a.getAll([object Number]);
-a.set("foo", "bar");
-a.set("foo", {});
-a.set([object Number], "bar");
-a.set("foo", "bar", "baz");
-a.set("bar", new File([  ], "q"));
-a.set("bar", new File([  ], "q"), "x");
-a.set("bar", new File([  ], "q"), [object Number]);
-a.set("bar", new Blob());
-a.set("bar", new Blob(), "x");
-a.set("bar", new Blob(), [object Number]);
-a.append("foo", "bar");
-a.append("foo", {});
-a.append([object Number], "bar");
-a.append("foo", "bar", "baz");
-a.append("foo", "bar");
-a.append("bar", new File([  ], "q"));
-a.append("bar", new File([  ], "q"), "x");
-a.append("bar", new File([  ], "q"), [object Number]);
-a.append("bar", new Blob());
-a.append("bar", new Blob(), "x");
-a.append("bar", new Blob(), [object Number]);
-a.delete("xx");
-a.delete([object Number]);
+new FormData(\"\");
+new FormData(document.createElement(\"input\"));
+new FormData(document.createElement(\"form\"));
+const b: boolean = a.has(\"foo\");
+const c: ?(string | File) = a.get(\"foo\");
+const d: string = a.get(\"foo\");
+const e: Blob = a.get(\"foo\");
+const f: ?(string | File | Blob) = a.get(\"foo\");
+a.get(2);
+const a1: Array<string | File> = a.getAll(\"foo\");
+const a2: Array<string | File | number> = a.getAll(\"foo\");
+const a3: Array<string | Blob | File> = a.getAll(\"foo\");
+a.getAll(23);
+a.set(\"foo\", \"bar\");
+a.set(\"foo\", {});
+a.set(2, \"bar\");
+a.set(\"foo\", \"bar\", \"baz\");
+a.set(\"bar\", new File([  ], \"q\"));
+a.set(\"bar\", new File([  ], \"q\"), \"x\");
+a.set(\"bar\", new File([  ], \"q\"), 2);
+a.set(\"bar\", new Blob());
+a.set(\"bar\", new Blob(), \"x\");
+a.set(\"bar\", new Blob(), 2);
+a.append(\"foo\", \"bar\");
+a.append(\"foo\", {});
+a.append(2, \"bar\");
+a.append(\"foo\", \"bar\", \"baz\");
+a.append(\"foo\", \"bar\");
+a.append(\"bar\", new File([  ], \"q\"));
+a.append(\"bar\", new File([  ], \"q\"), \"x\");
+a.append(\"bar\", new File([  ], \"q\"), 2);
+a.append(\"bar\", new Blob());
+a.append(\"bar\", new Blob(), \"x\");
+a.append(\"bar\", new Blob(), 2);
+a.delete(\"xx\");
+a.delete(3);
 for (let x: string of a.keys()) {
   
 }
@@ -206,11 +206,11 @@ new MutationObserver(42); // incorrect
 new MutationObserver((n: number) => {}); // incorrect
 
 // observe
-const div = document.createElement('div');
-o.observe(div, { attributes: true, attributeFilter: ['style'] }); // correct
+const div = document.createElement(\'div\');
+o.observe(div, { attributes: true, attributeFilter: [\'style\'] }); // correct
 o.observe(div, { characterData: true, invalid: true }); // correct
 o.observe(); // incorrect
-o.observe('invalid'); // incorrect
+o.observe(\'invalid\'); // incorrect
 o.observe(div); // incorrect
 o.observe(div, {}); // incorrect
 o.observe(div, { subtree: true }); // incorrect
@@ -249,31 +249,28 @@ function callback(
   return;
 }
 const o: MutationObserver = new MutationObserver(callback);
-new MutationObserver((arr: Array<MutationRecord>) => [object Boolean]);
+new MutationObserver((arr: Array<MutationRecord>) => true);
 new MutationObserver(
   () => {
     
   }
 );
 new MutationObserver();
-new MutationObserver([object Number]);
+new MutationObserver(42);
 new MutationObserver(
   (n: number) => {
     
   }
 );
-const div = document.createElement("div");
-o.observe(div, { attributes: [object Boolean], attributeFilter: [ "style" ] });
-o.observe(div, { characterData: [object Boolean], invalid: [object Boolean] });
+const div = document.createElement(\"div\");
+o.observe(div, { attributes: true, attributeFilter: [ \"style\" ] });
+o.observe(div, { characterData: true, invalid: true });
 o.observe();
-o.observe("invalid");
+o.observe(\"invalid\");
 o.observe(div);
 o.observe(div, {});
-o.observe(div, { subtree: [object Boolean] });
-o.observe(
-  div,
-  { attributes: [object Boolean], attributeFilter: [object Boolean] }
-);
+o.observe(div, { subtree: true });
+o.observe(div, { attributes: true, attributeFilter: true });
 o.takeRecords();
 o.disconnect();
 "

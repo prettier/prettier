@@ -50,24 +50,24 @@ class C {
   }
 }
 function f(x): number {
-  if (x > [object Number]) {
-    return [object Number];
+  if (x > 1) {
+    return 42;
   }
 }
 function g(x): ?number {
-  if (x > [object Number]) {
-    return [object Number];
+  if (x > 1) {
+    return 42;
   }
 }
 function h(x): number {
-  if (x > [object Number]) {
-    return [object Number];
+  if (x > 1) {
+    return 42;
   }
   return;
 }
 function i(x): ?number {
-  if (x > [object Number]) {
-    return [object Number];
+  if (x > 1) {
+    return 42;
   }
   return;
 }
@@ -83,7 +83,7 @@ function f(b) {
   if (b) {
     return undefined;
   } else {
-    return "nope";
+    return \"nope\";
   }
 }
 
@@ -97,9 +97,9 @@ function f(b) {
   if (b) {
     return undefined;
   } else {
-    return "nope";
+    return \"nope\";
   }
 }
-(f([object Boolean]): void);
+(f(true): void);
 "
 `;

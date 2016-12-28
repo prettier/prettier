@@ -24,10 +24,10 @@ class Foo {
   get propWithSubtypingGetterAndSetterReordered(): ?number { return 4; }
 
   get propWithMismatchingGetterAndSetter(): number { return 4; }
-  set propWithMismatchingGetterAndSetter(x: string) { } // doesn't match getter (OK)
+  set propWithMismatchingGetterAndSetter(x: string) { } // doesn\'t match getter (OK)
 
   propOverriddenWithGetter: number;
-  get propOverriddenWithGetter() { return "hello"; }
+  get propOverriddenWithGetter() { return \"hello\"; }
 
   propOverriddenWithSetter: number;
   set propOverriddenWithSetter(x: string) { }
@@ -47,8 +47,8 @@ foo.goodSetterNoAnnotation = 123;
 foo.goodSetterWithAnnotation = 123;
 
 // TODO: Why does no annotation mean no error?
-foo.goodSetterNoAnnotation = "hello"; // Error string ~> number
-foo.goodSetterWithAnnotation = "hello"; // Error string ~> number
+foo.goodSetterNoAnnotation = \"hello\"; // Error string ~> number
+foo.goodSetterWithAnnotation = \"hello\"; // Error string ~> number
 
 var testSubtypingGetterAndSetter: number = foo.propWithSubtypingGetterAndSetter; // Error ?number ~> number
 
@@ -60,7 +60,7 @@ foo.propOverriddenWithSetter = 123; // Error number ~> string
  */
 // The getter and setter need not have the same type - no error
 // The getter and setter need not have the same type - no error
-// doesn't match getter (OK)
+// doesn\'t match getter (OK)
 // Test getting properties with getters
 // Error number ~> string
 // Error number ~> string
@@ -71,13 +71,13 @@ foo.propOverriddenWithSetter = 123; // Error number ~> string
 // Error ?number ~> number
 // Error string ~> number
 // Error number ~> string
-var z: number = [object Number];
+var z: number = 123;
 class Foo {
   get goodGetterNoAnnotation() {
-    return [object Number];
+    return 4;
   }
   get goodGetterWithAnnotation(): number {
-    return [object Number];
+    return 4;
   }
   set goodSetterNoAnnotation(x) {
     z = x;
@@ -86,13 +86,13 @@ class Foo {
     z = x;
   }
   get propWithMatchingGetterAndSetter(): number {
-    return [object Number];
+    return 4;
   }
   set propWithMatchingGetterAndSetter(x: number) {
     
   }
   get propWithSubtypingGetterAndSetter(): ?number {
-    return [object Number];
+    return 4;
   }
   set propWithSubtypingGetterAndSetter(x: number) {
     
@@ -101,17 +101,17 @@ class Foo {
     
   }
   get propWithSubtypingGetterAndSetterReordered(): ?number {
-    return [object Number];
+    return 4;
   }
   get propWithMismatchingGetterAndSetter(): number {
-    return [object Number];
+    return 4;
   }
   set propWithMismatchingGetterAndSetter(x: string) {
     
   }
   propOverriddenWithGetter: number;
   get propOverriddenWithGetter() {
-    return "hello";
+    return \"hello\";
   }
   propOverriddenWithSetter: number;
   set propOverriddenWithSetter(x: string) {
@@ -123,13 +123,13 @@ var testGetterNoError1: number = foo.goodGetterNoAnnotation;
 var testGetterNoError2: number = foo.goodGetterWithAnnotation;
 var testGetterWithError1: string = foo.goodGetterNoAnnotation;
 var testGetterWithError2: string = foo.goodGetterWithAnnotation;
-foo.goodSetterNoAnnotation = [object Number];
-foo.goodSetterWithAnnotation = [object Number];
-foo.goodSetterNoAnnotation = "hello";
-foo.goodSetterWithAnnotation = "hello";
+foo.goodSetterNoAnnotation = 123;
+foo.goodSetterWithAnnotation = 123;
+foo.goodSetterNoAnnotation = \"hello\";
+foo.goodSetterWithAnnotation = \"hello\";
 var testSubtypingGetterAndSetter: number = foo.propWithSubtypingGetterAndSetter;
 var testPropOverridenWithGetter: number = foo.propOverriddenWithGetter;
-foo.propOverriddenWithSetter = [object Number];
+foo.propOverriddenWithSetter = 123;
 "
 `;
 
@@ -181,17 +181,17 @@ var testGetterWithError2: string = obj.goodGetterWithAnnotation; // Error number
 obj.goodSetterNoAnnotation = 123;
 obj.goodSetterWithAnnotation = 123;
 
-obj.goodSetterNoAnnotation = "hello"; // Error string ~> number
-obj.goodSetterWithAnnotation = "hello"; // Error string ~> number
+obj.goodSetterNoAnnotation = \"hello\"; // Error string ~> number
+obj.goodSetterWithAnnotation = \"hello\"; // Error string ~> number
 
 var testSubtypingGetterAndSetter: number = obj.propWithSubtypingGetterAndSetter; // Error ?number ~> number
 
 // When building this feature, it was tempting to flow the setter into the
 // getter and then use either the getter or setter as the type of the property.
-// This example shows the danger of using the getter's type
+// This example shows the danger of using the getter\'s type
 obj.exampleOfOrderOfGetterAndSetter = new C(); // Error C ~> B
 
-// And this example shows the danger of using the setter's type.
+// And this example shows the danger of using the setter\'s type.
 var testExampleOrOrderOfGetterAndSetterReordered: number =
   obj.exampleOfOrderOfGetterAndSetterReordered; // Error A ~> B
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -210,20 +210,20 @@ var testExampleOrOrderOfGetterAndSetterReordered: number =
 // Error ?number ~> number
 // When building this feature, it was tempting to flow the setter into the
 // getter and then use either the getter or setter as the type of the property.
-// This example shows the danger of using the getter's type
+// This example shows the danger of using the getter\'s type
 // Error C ~> B
-// And this example shows the danger of using the setter's type.
+// And this example shows the danger of using the setter\'s type.
 // Error A ~> B
-var z: number = [object Number];
+var z: number = 123;
 class A {}
 class B extends A {}
 class C extends A {}
 var obj = {
   get goodGetterNoAnnotation() {
-    return [object Number];
+    return 4;
   },
   get goodGetterWithAnnotation(): number {
-    return [object Number];
+    return 4;
   },
   set goodSetterNoAnnotation(x) {
     z = x;
@@ -232,13 +232,13 @@ var obj = {
     z = x;
   },
   get propWithMatchingGetterAndSetter(): number {
-    return [object Number];
+    return 4;
   },
   set propWithMatchingGetterAndSetter(x: number) {
     
   },
   get propWithSubtypingGetterAndSetter(): ?number {
-    return [object Number];
+    return 4;
   },
   set propWithSubtypingGetterAndSetter(x: number) {
     
@@ -247,7 +247,7 @@ var obj = {
     
   },
   get propWithSubtypingGetterAndSetterReordered(): ?number {
-    return [object Number];
+    return 4;
   },
   get exampleOfOrderOfGetterAndSetter(): A {
     return new A();
@@ -266,10 +266,10 @@ var testGetterNoError1: number = obj.goodGetterNoAnnotation;
 var testGetterNoError2: number = obj.goodGetterWithAnnotation;
 var testGetterWithError1: string = obj.goodGetterNoAnnotation;
 var testGetterWithError2: string = obj.goodGetterWithAnnotation;
-obj.goodSetterNoAnnotation = [object Number];
-obj.goodSetterWithAnnotation = [object Number];
-obj.goodSetterNoAnnotation = "hello";
-obj.goodSetterWithAnnotation = "hello";
+obj.goodSetterNoAnnotation = 123;
+obj.goodSetterWithAnnotation = 123;
+obj.goodSetterNoAnnotation = \"hello\";
+obj.goodSetterWithAnnotation = \"hello\";
 var testSubtypingGetterAndSetter: number = obj.propWithSubtypingGetterAndSetter;
 obj.exampleOfOrderOfGetterAndSetter = new C();
 var testExampleOrOrderOfGetterAndSetterReordered: number = obj.exampleOfOrderOfGetterAndSetterReordered;
@@ -295,12 +295,12 @@ React.createClass({
 React.createClass({
   propTypes: {
     get a() {
-      return [object Number];
+      return 4;
     },
     set b(x: number) {
       this.c = x;
     },
-    c: [object Number]
+    c: 10
   }
 });
 "

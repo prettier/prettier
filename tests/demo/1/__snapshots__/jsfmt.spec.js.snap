@@ -11,9 +11,9 @@ f(x);
 /* demo */
 //...
 function f(x) {
-  return [object Number] / x;
+  return 42 / x;
 }
-var x = [object Null];
+var x = null;
 f(x);
 "
 `;

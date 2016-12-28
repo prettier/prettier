@@ -8,20 +8,20 @@ interface IHasLength {
 }
 
 var lengthTest1: IHasLength = [];
-var lengthTest2: IHasLength = 'hello';
-var lengthTest3: IHasLength = 123; // number doesn't have length
-var lengthTest4: IHasLength = true; // bool doesn't have length
+var lengthTest2: IHasLength = \'hello\';
+var lengthTest3: IHasLength = 123; // number doesn\'t have length
+var lengthTest4: IHasLength = true; // bool doesn\'t have length
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /**
  * @flow
  */
-// number doesn't have length
-// bool doesn't have length
+// number doesn\'t have length
+// bool doesn\'t have length
 interface IHasLength extends  { length: number }
 var lengthTest1: IHasLength = [  ];
-var lengthTest2: IHasLength = "hello";
-var lengthTest3: IHasLength = [object Number];
-var lengthTest4: IHasLength = [object Boolean];
+var lengthTest2: IHasLength = \"hello\";
+var lengthTest3: IHasLength = 123;
+var lengthTest4: IHasLength = true;
 "
 `;
 
@@ -76,7 +76,7 @@ interface IHasXString {
   x: string;
 }
 
-var propTest1: IHasXString = { x: 'hello' };
+var propTest1: IHasXString = { x: \'hello\' };
 var propTest2: IHasXString = { x: 123 }; // Error string != number
 var propTest3: IHasXString = {}; // Property not found
 var propTest4: IHasXString = ({}: Object);
@@ -97,8 +97,8 @@ function propTest6(y: {[key: string]: number}) {
 // OK
 // error: string != number
 interface IHasXString extends  { x: string }
-var propTest1: IHasXString = { x: "hello" };
-var propTest2: IHasXString = { x: [object Number] };
+var propTest1: IHasXString = { x: \"hello\" };
+var propTest2: IHasXString = { x: 123 };
 var propTest3: IHasXString = {};
 var propTest4: IHasXString = ({}: Object);
 function propTest5(y: { [key: string]: string }) {
@@ -118,18 +118,18 @@ interface HasOptional {
   b?: number,
 };
 
-var test1: HasOptional = { a: "hello" }
+var test1: HasOptional = { a: \"hello\" }
 
 var test2: HasOptional = {}; // Error: missing property a
 
-var test3: HasOptional = { a: "hello", b: true }; // Error: boolean ~> number
+var test3: HasOptional = { a: \"hello\", b: true }; // Error: boolean ~> number
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 // Error: missing property a
 // Error: boolean ~> number
 interface HasOptional extends  { a: string, b?: number }
-var test1: HasOptional = { a: "hello" };
+var test1: HasOptional = { a: \"hello\" };
 var test2: HasOptional = {};
-var test3: HasOptional = { a: "hello", b: [object Boolean] };
+var test3: HasOptional = { a: \"hello\", b: true };
 "
 `;

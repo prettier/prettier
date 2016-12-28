@@ -1,18 +1,18 @@
 exports[`test exec.js 1`] = `
 "/* @flow */
 
-var exec = require('child_process').exec;
+var exec = require(\'child_process\').exec;
 
 // callback only.
-exec('ls', function(error, stdout, stderr) {
+exec(\'ls\', function(error, stdout, stderr) {
   console.info(stdout);
 });
 
 // options only.
-exec('ls', {timeout: 250});
+exec(\'ls\', {timeout: 250});
 
 // options + callback.
-exec('ls', {maxBuffer: 100}, function(error, stdout, stderr) {
+exec(\'ls\', {maxBuffer: 100}, function(error, stdout, stderr) {
   console.info(stdout);
 });
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -20,17 +20,17 @@ exec('ls', {maxBuffer: 100}, function(error, stdout, stderr) {
 // callback only.
 // options only.
 // options + callback.
-var exec = require("child_process").exec;
+var exec = require(\"child_process\").exec;
 exec(
-  "ls",
+  \"ls\",
   function(error, stdout, stderr) {
     console.info(stdout);
   }
 );
-exec("ls", { timeout: [object Number] });
+exec(\"ls\", { timeout: 250 });
 exec(
-  "ls",
-  { maxBuffer: [object Number] },
+  \"ls\",
+  { maxBuffer: 100 },
   function(error, stdout, stderr) {
     console.info(stdout);
   }
@@ -41,29 +41,29 @@ exec(
 exports[`test execFile.js 1`] = `
 "/* @flow */
 
-var execFile = require('child_process').execFile;
+var execFile = require(\'child_process\').execFile;
 
 // args only.
-execFile('ls', ['-lh']);
+execFile(\'ls\', [\'-lh\']);
 
 // callback only.
-execFile('ls', function(error, stdout, stderr) {
+execFile(\'ls\', function(error, stdout, stderr) {
   console.info(stdout);
 });
 
 // options only.
-execFile('wc', {timeout: 250});
+execFile(\'wc\', {timeout: 250});
 
 // args + callback.
-execFile('ls', ['-l'], function(error, stdout, stderr) {
+execFile(\'ls\', [\'-l\'], function(error, stdout, stderr) {
   console.info(stdout);
 });
 
 // args + options.
-execFile('ls', ['-l'], {timeout: 250});
+execFile(\'ls\', [\'-l\'], {timeout: 250});
 
 // Put it all together.
-execFile('ls', ['-l'], {timeout: 250}, function(error, stdout, stderr) {
+execFile(\'ls\', [\'-l\'], {timeout: 250}, function(error, stdout, stderr) {
   console.info(stdout);
 });
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -74,27 +74,27 @@ execFile('ls', ['-l'], {timeout: 250}, function(error, stdout, stderr) {
 // args + callback.
 // args + options.
 // Put it all together.
-var execFile = require("child_process").execFile;
-execFile("ls", [ "-lh" ]);
+var execFile = require(\"child_process\").execFile;
+execFile(\"ls\", [ \"-lh\" ]);
 execFile(
-  "ls",
+  \"ls\",
   function(error, stdout, stderr) {
     console.info(stdout);
   }
 );
-execFile("wc", { timeout: [object Number] });
+execFile(\"wc\", { timeout: 250 });
 execFile(
-  "ls",
-  [ "-l" ],
+  \"ls\",
+  [ \"-l\" ],
   function(error, stdout, stderr) {
     console.info(stdout);
   }
 );
-execFile("ls", [ "-l" ], { timeout: [object Number] });
+execFile(\"ls\", [ \"-l\" ], { timeout: 250 });
 execFile(
-  "ls",
-  [ "-l" ],
-  { timeout: [object Number] },
+  \"ls\",
+  [ \"-l\" ],
+  { timeout: 250 },
   function(error, stdout, stderr) {
     console.info(stdout);
   }
@@ -105,14 +105,14 @@ execFile(
 exports[`test execSync.js 1`] = `
 "/* @flow */
 
-var execSync = require('child_process').execSync;
+var execSync = require(\'child_process\').execSync;
 
-(execSync('ls'): Buffer); // returns Buffer
-(execSync('ls', {encoding: 'buffer'}): Buffer); // returns Buffer
-(execSync('ls', {encoding: 'utf8'}): string); // returns string
-(execSync('ls', {timeout: '250'})); // error, no signatures match
-(execSync('ls', {stdio: 'inherit'})); // error, no signatures match
-(execSync('ls', {stdio: ['inherit']})); // error, no signatures match
+(execSync(\'ls\'): Buffer); // returns Buffer
+(execSync(\'ls\', {encoding: \'buffer\'}): Buffer); // returns Buffer
+(execSync(\'ls\', {encoding: \'utf8\'}): string); // returns string
+(execSync(\'ls\', {timeout: \'250\'})); // error, no signatures match
+(execSync(\'ls\', {stdio: \'inherit\'})); // error, no signatures match
+(execSync(\'ls\', {stdio: [\'inherit\']})); // error, no signatures match
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 // returns Buffer
@@ -121,41 +121,41 @@ var execSync = require('child_process').execSync;
 // error, no signatures match
 // error, no signatures match
 // error, no signatures match
-var execSync = require("child_process").execSync;
-(execSync("ls"): Buffer);
-(execSync("ls", { encoding: "buffer" }): Buffer);
-(execSync("ls", { encoding: "utf8" }): string);
-execSync("ls", { timeout: "250" });
-execSync("ls", { stdio: "inherit" });
-execSync("ls", { stdio: [ "inherit" ] });
+var execSync = require(\"child_process\").execSync;
+(execSync(\"ls\"): Buffer);
+(execSync(\"ls\", { encoding: \"buffer\" }): Buffer);
+(execSync(\"ls\", { encoding: \"utf8\" }): string);
+execSync(\"ls\", { timeout: \"250\" });
+execSync(\"ls\", { stdio: \"inherit\" });
+execSync(\"ls\", { stdio: [ \"inherit\" ] });
 "
 `;
 
 exports[`test spawn.js 1`] = `
 "/* @flow */
 
-var child_process = require('child_process');
+var child_process = require(\'child_process\');
 
-var ls = child_process.spawn('ls');
-var wc = child_process.spawn('wc', ['-l']);
+var ls = child_process.spawn(\'ls\');
+var wc = child_process.spawn(\'wc\', [\'-l\']);
 
 // args + options.
-child_process.spawn('echo', ['-n', '"Testing..."'], {env: {TEST: 'foo'}});
+child_process.spawn(\'echo\', [\'-n\', \'\"Testing...\"\'], {env: {TEST: \'foo\'}});
 
 // options only.
-child_process.spawn('echo', {env: {FOO: 2}});
+child_process.spawn(\'echo\', {env: {FOO: 2}});
 
-ls.stdout.on('data', function(data) {
+ls.stdout.on(\'data\', function(data) {
   wc.stdin.write(data);
 });
 
-ls.stderr.on('data', function(data) {
+ls.stderr.on(\'data\', function(data) {
   console.warn(data);
 });
 
-ls.on('close', function(code) {
+ls.on(\'close\', function(code) {
   if (code !== 0) {
-    console.warn('\`ls\` exited with code %s', code);
+    console.warn(\'\`ls\` exited with code %s\', code);
   }
   wc.stdin.end();
 });
@@ -166,32 +166,32 @@ wc.stderr.pipe(process.stderr);
 /* @flow */
 // args + options.
 // options only.
-var child_process = require("child_process");
-var ls = child_process.spawn("ls");
-var wc = child_process.spawn("wc", [ "-l" ]);
+var child_process = require(\"child_process\");
+var ls = child_process.spawn(\"ls\");
+var wc = child_process.spawn(\"wc\", [ \"-l\" ]);
 child_process.spawn(
-  "echo",
-  [ "-n", "\"Testing...\"" ],
-  { env: { TEST: "foo" } }
+  \"echo\",
+  [ \"-n\", \"\\\"Testing...\\\"\" ],
+  { env: { TEST: \"foo\" } }
 );
-child_process.spawn("echo", { env: { FOO: [object Number] } });
+child_process.spawn(\"echo\", { env: { FOO: 2 } });
 ls.stdout.on(
-  "data",
+  \"data\",
   function(data) {
     wc.stdin.write(data);
   }
 );
 ls.stderr.on(
-  "data",
+  \"data\",
   function(data) {
     console.warn(data);
   }
 );
 ls.on(
-  "close",
+  \"close\",
   function(code) {
-    if (code !== [object Number]) {
-      console.warn("\`ls\` exited with code %s", code);
+    if (code !== 0) {
+      console.warn(\"\`ls\` exited with code %s\", code);
     }
     wc.stdin.end();
   }

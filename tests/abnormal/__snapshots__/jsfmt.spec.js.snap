@@ -8,7 +8,7 @@ function bar() {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function foo() {
-  while ([object Boolean]) {
+  while (true) {
     break;
   }
 }
@@ -16,7 +16,7 @@ function bar() {
   L:
 do {
     continue L;
-  } while ([object Boolean]);
+  } while (false);
 }
 "
 `;
@@ -33,8 +33,8 @@ function bar(x: number) {
   
 }
 function foo() {
-  var x = [object Null];
-  if (x == [object Null])
+  var x = null;
+  if (x == null)
     return;
   bar(x);
 }

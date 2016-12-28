@@ -6,9 +6,9 @@ exports[`test Client.js 1`] = `
  */
 
 // non-flow files should not give parse errors
-var A = require("./Imported");          // non-Flow file @providesModule Foo
+var A = require(\"./Imported\");          // non-Flow file @providesModule Foo
 
-var B = require("./ParseError");        // Flow file
+var B = require(\"./ParseError\");        // Flow file
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /**
  * Client imports some but not all modules,
@@ -18,8 +18,8 @@ var B = require("./ParseError");        // Flow file
 // non-flow files should not give parse errors
 // non-Flow file @providesModule Foo
 // Flow file
-var A = require("./Imported");
-var B = require("./ParseError");
+var A = require(\"./Imported\");
+var B = require(\"./ParseError\");
 "
 `;
 
@@ -40,9 +40,9 @@ module.exports = { f: f }
  */
 // illegal token
 function f(s) {
-  [object Null];
-  [object Null];
-  [object Null];
+  null;
+  null;
+  null;
   return s;
 }
 module.exports = { f: f };
@@ -60,9 +60,9 @@ module.exports = foo;
 // @flow
 // invalid token
 function foo() {
-  [object Null];
-  [object Null];
-  [object Null];
+  null;
+  null;
+  null;
 }
 module.exports = foo;
 "
@@ -87,9 +87,9 @@ module.exports = { f: f }
  */
 // illegal token
 function f(s: string): string {
-  [object Null];
-  [object Null];
-  [object Null];
+  null;
+  null;
+  null;
   return s;
 }
 module.exports = { f: f };

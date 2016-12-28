@@ -1,7 +1,7 @@
 exports[`test dest.js 1`] = `
 "// @flow
 
-import {source} from "./test";
+import {source} from \"./test\";
 
 var a: number = source.num;
 var b: string = source.num; // Error: num ~> string
@@ -12,7 +12,7 @@ var d: number = source.str; // Ignored error: num ~> string
 // @flow
 // Error: num ~> string
 // Ignored error: num ~> string
-import { source } from "./test";
+import { source } from \"./test\";
 var a: number = source.num;
 var b: string = source.num;
 var c: string = source.str;
@@ -23,23 +23,23 @@ var d: number = source.str;
 exports[`test source.js 1`] = `
 "// @flow
 
-export var str = 'asdf';
+export var str = \'asdf\';
 export var num = 42;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-export var str = "asdf";
-export var num = [object Number];
+export var str = \"asdf\";
+export var num = 42;
 "
 `;
 
 exports[`test test.js 1`] = `
 "// @flow
 
-export * as source from "./source";
+export * as source from \"./source\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-export * from "from"
+export * from \"from\"
 from;
-"./source";
+\"./source\";
 "
 `;

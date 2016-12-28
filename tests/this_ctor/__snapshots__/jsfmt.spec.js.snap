@@ -29,8 +29,8 @@ class A {
     return new this.constructor(this.n);
   }
 }
-var a1 = new A([object Number]);
-var a2: A = new a1.constructor([object Number]);
+var a1 = new A(1);
+var a2: A = new a1.constructor(2);
 var a3: A = a2.clone();
 "
 `;

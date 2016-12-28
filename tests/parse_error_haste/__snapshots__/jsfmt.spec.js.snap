@@ -6,10 +6,10 @@ exports[`test Client.js 1`] = `
  */
 
 // non-flow files should not show parse errors
-var A = require("Foo");          // non-Flow file @providesModule Foo
-var B = require("./NoProvides"); // non-Flow file
+var A = require(\"Foo\");          // non-Flow file @providesModule Foo
+var B = require(\"./NoProvides\"); // non-Flow file
 
-var C = require("./ParseError"); // Flow file
+var C = require(\"./ParseError\"); // Flow file
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /**
  * Client imports some but not all modules,
@@ -20,9 +20,9 @@ var C = require("./ParseError"); // Flow file
 // non-Flow file @providesModule Foo
 // non-Flow file
 // Flow file
-var A = require("Foo");
-var B = require("./NoProvides");
-var C = require("./ParseError");
+var A = require(\"Foo\");
+var B = require(\"./NoProvides\");
+var C = require(\"./ParseError\");
 "
 `;
 
@@ -43,9 +43,9 @@ module.exports = { f: f }
  */
 // illegal token
 function f(s) {
-  [object Null];
-  [object Null];
-  [object Null];
+  null;
+  null;
+  null;
   return s;
 }
 module.exports = { f: f };
@@ -63,9 +63,9 @@ module.exports = foo;
 // @flow
 // invalid token
 function foo() {
-  [object Null];
-  [object Null];
-  [object Null];
+  null;
+  null;
+  null;
 }
 module.exports = foo;
 "
@@ -94,9 +94,9 @@ module.exports = { f: f }
  */
 // illegal token
 function f(s: string): string {
-  [object Null];
-  [object Null];
-  [object Null];
+  null;
+  null;
+  null;
   return s;
 }
 module.exports = { f: f };
@@ -122,9 +122,9 @@ module.exports = { f: f }
  */
 // illegal token
 function f(s: string): string {
-  [object Null];
-  [object Null];
-  [object Null];
+  null;
+  null;
+  null;
   return s;
 }
 module.exports = { f: f };

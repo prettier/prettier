@@ -1,8 +1,8 @@
 exports[`test async.js 1`] = `
 "// @flow
 
-// "For async functions, a Promise<T> is returned,
-// and the type of return expressions must be T."
+// \"For async functions, a Promise<T> is returned,
+// and the type of return expressions must be T.\"
 //
 
 async function f0(): Promise<number> {
@@ -27,7 +27,7 @@ async function f3(p: Promise<number>): Promise<number> {
 }
 
 // TODO: this is one of those bad generic errors, currently:
-// "inconsistent use of library definitions" with two core.js locs
+// \"inconsistent use of library definitions\" with two core.js locs
 async function f4(p: Promise<number>): Promise<bool> {
   return await p; // error, number != bool
 }
@@ -53,14 +53,14 @@ var obj = { f: async () => await 1 };
 var objf : () => Promise<number> = obj.f;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-// "For async functions, a Promise<T> is returned,
-// and the type of return expressions must be T."
+// \"For async functions, a Promise<T> is returned,
+// and the type of return expressions must be T.\"
 //
 // error, number != bool
 // await: (p: Promise<T> | T) => T
 //
 // TODO: this is one of those bad generic errors, currently:
-// "inconsistent use of library definitions" with two core.js locs
+// \"inconsistent use of library definitions\" with two core.js locs
 // error, number != bool
 // async arrow functions
 //
@@ -69,14 +69,14 @@ var objf : () => Promise<number> = obj.f;
 // error, void != Promise<void>
 // async function props
 async function f0(): Promise<number> {
-  return [object Number];
+  return 1;
 }
 async function f1(): Promise<boolean> {
-  return [object Number];
+  return 1;
 }
 async function f2(p: Promise<number>): Promise<number> {
   var x: number = await p;
-  var y: number = await [object Number];
+  var y: number = await 1;
   return x + y;
 }
 async function f3(p: Promise<number>): Promise<number> {
@@ -85,10 +85,10 @@ async function f3(p: Promise<number>): Promise<number> {
 async function f4(p: Promise<number>): Promise<boolean> {
   return await p;
 }
-var f5: () => Promise<number> = async () => await [object Number];
+var f5: () => Promise<number> = async () => await 1;
 class C {
   async m() {
-    return [object Number];
+    return 1;
   }
   async mt<T>(a: T): Promise<T> {
     return a;
@@ -100,7 +100,7 @@ class C {
     return a;
   }
 }
-var obj = { f: async () => await [object Number] };
+var obj = { f: async () => await 1 };
 var objf: () => Promise<number> = obj.f;
 "
 `;
@@ -108,7 +108,7 @@ var objf: () => Promise<number> = obj.f;
 exports[`test async_base_class.js 1`] = `
 "// This is kind of weird, but it should parse. This works in babel without the
 // parens around (await promise). From the es6 and async/await specs I (nmote)
-// am not clear on whether it should. In any case it's a strange corner case
+// am not clear on whether it should. In any case it\'s a strange corner case
 // that is probably not important to support.
 class C {};
 
@@ -123,7 +123,7 @@ async function foo() {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // This is kind of weird, but it should parse. This works in babel without the
 // parens around (await promise). From the es6 and async/await specs I (nmote)
-// am not clear on whether it should. In any case it's a strange corner case
+// am not clear on whether it should. In any case it\'s a strange corner case
 // that is probably not important to support.
 class C {}
 var P: Promise<Class<C>> = new Promise(
@@ -208,9 +208,9 @@ var oz = {
     
   }
 };
-var x = { async: [object Number] };
+var x = { async: 5 };
 console.log(x.async);
-var async = [object Number];
+var async = 3;
 var y = { async };
 "
 `;
@@ -221,7 +221,7 @@ exports[`test async_promise.js 1`] = `
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 async function f(): Promise<number> {
-  return Promise.resolve([object Number]);
+  return Promise.resolve(1);
 }
 "
 `;
@@ -285,7 +285,7 @@ function test1() {
 
 function test2() {
   async function voidoid1() {
-    console.log("HEY");
+    console.log(\"HEY\");
   }
 
   var voidoid2: () => Promise<void> = voidoid1; // ok
@@ -298,7 +298,7 @@ function test2() {
 
 function test3() {
   async function voidoid4(): Promise<void> { // ok
-    console.log("HEY");
+    console.log(\"HEY\");
   }
 }
 
@@ -309,14 +309,14 @@ function test3() {
 
 function test4() {
   async function voidoid5(): void { // error, void != Promise<void>
-    console.log("HEY");
+    console.log(\"HEY\");
   }
 }
 
 function test5() {
   async function voidoid6()
   : Promise<number> { // error, number != void
-    console.log("HEY");
+    console.log(\"HEY\");
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -343,7 +343,7 @@ function test5() {
 // error, number != void
 function test1() {
   async function foo() {
-    return [object Number];
+    return 42;
   }
   async function bar() {
     var a = await foo();
@@ -353,24 +353,24 @@ function test1() {
 }
 function test2() {
   async function voidoid1() {
-    console.log("HEY");
+    console.log(\"HEY\");
   }
   var voidoid2: () => Promise<void> = voidoid1;
   var voidoid3: () => void = voidoid1;
 }
 function test3() {
   async function voidoid4(): Promise<void> {
-    console.log("HEY");
+    console.log(\"HEY\");
   }
 }
 function test4() {
   async function voidoid5(): void {
-    console.log("HEY");
+    console.log(\"HEY\");
   }
 }
 function test5() {
   async function voidoid6(): Promise<number> {
-    console.log("HEY");
+    console.log(\"HEY\");
   }
 }
 "
@@ -381,9 +381,9 @@ exports[`test async3.js 1`] = `
 
 /**
  * test nested-promise unwrapping.
- * Note: currently we don't do this properly in the underlying
+ * Note: currently we don\'t do this properly in the underlying
  * type of the Promise class, which causes spurious errors to
- * be raised here. Once that's fixed, the errors here will go
+ * be raised here. Once that\'s fixed, the errors here will go
  * away.
  */
 
@@ -413,9 +413,9 @@ async function baz() {
 // @flow
 /**
  * test nested-promise unwrapping.
- * Note: currently we don't do this properly in the underlying
+ * Note: currently we don\'t do this properly in the underlying
  * type of the Promise class, which causes spurious errors to
- * be raised here. Once that's fixed, the errors here will go
+ * be raised here. Once that\'s fixed, the errors here will go
  * away.
  */
 // a should now be typed as number, but is in fact
@@ -425,7 +425,7 @@ async function baz() {
 // should be number ~> string error, but currently gives
 // Promise ~> string error for the same reason
 async function foo() {
-  return [object Number];
+  return 42;
 }
 async function bar() {
   return foo();
@@ -450,7 +450,7 @@ function f() {
 // done by the parser, which bails after a single error.
 function f() {
   await;
-  [object Number];
+  1;
 }
 "
 `;
@@ -516,42 +516,42 @@ var await = 3;
 var y = { await };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 async function f() {
-  await [object Number];
+  await 1;
 }
 async function ft<T>(a: T) {
-  await [object Number];
+  await 1;
 }
 class C {
   async m() {
-    await [object Number];
+    await 1;
   }
   async mt<T>(a: T) {
-    await [object Number];
+    await 1;
   }
   static async m(a) {
-    await [object Number];
+    await 1;
   }
   static async mt<T>(a: T) {
-    await [object Number];
+    await 1;
   }
 }
 var e = async function() {
-  await [object Number];
+  await 1;
 };
 var et = async function(a: T) {
-  await [object Number];
+  await 1;
 };
 var n = new async function() {
-  await [object Number];
+  await 1;
 }();
 var o = {
   async m() {
-    await [object Number];
+    await 1;
   }
 };
 var ot = {
   async m<T>(a: T) {
-    await [object Number];
+    await 1;
   }
 };
 var oz = {
@@ -559,9 +559,9 @@ var oz = {
     await async;
   }
 };
-var x = { await: [object Number] };
+var x = { await: 5 };
 console.log(x.await);
-var await = [object Number];
+var await = 3;
 var y = { await };
 "
 `;

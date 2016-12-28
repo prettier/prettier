@@ -1,5 +1,5 @@
 exports[`test annot.js 1`] = `
-"var A = require('./unknown_class');
+"var A = require(\'./unknown_class\');
 
 class B extends A {
   foo(x:A):A { return x; }
@@ -9,7 +9,7 @@ class B extends A {
 
 module.exports = B;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var A = require("./unknown_class");
+var A = require(\"./unknown_class\");
 class B extends A {
   foo(x: A): A {
     return x;
@@ -49,7 +49,7 @@ module.exports = f;
 function f(x: number) {
   return x;
 }
-var x: string = f([object Number]);
+var x: string = f(0);
 module.exports = f;
 "
 `;
@@ -73,7 +73,7 @@ module.exports = o;
  */
 // progressively annotate:
 //var o: {x: number;} = { x: 0 }
-var o = { x: [object Number] };
+var o = { x: 0 };
 var x: string = o.x;
 module.exports = o;
 "

@@ -13,7 +13,7 @@ const Thing = class Thing {
 // error: property not found (must be declared)
 const Thing = class Thing {
   zark() {
-    this.x = [object Number];
+    this.x = 123;
   }
 };
 "
@@ -34,7 +34,7 @@ var d = new D();
 (d.next: D); // sneaky
 
 class A {
-  foo<X: this>(that: X) { } // error: can't hide contravariance using a bound
+  foo<X: this>(that: X) { } // error: can\'t hide contravariance using a bound
 }
 
 class B extends A {
@@ -79,7 +79,7 @@ class Misc {
 // error (see below for exploit): \`this\` should only appear in
 // covariant positions
 // sneaky
-// error: can't hide contravariance using a bound
+// error: can\'t hide contravariance using a bound
 // error (see above, catches hidden override)
 // covariance checks on this type in invariant positions
 // covariance checks on this type as type args
@@ -213,9 +213,9 @@ class ImplicitNumber extends Implicit {
 exports[`test import.js 1`] = `
 "// Check that imports are handled properly with this types
 
-import { A1 } from './export';
-import type { A2 } from './export';
-import { A3 } from './export';
+import { A1 } from \'./export\';
+import type { A2 } from \'./export\';
+import { A3 } from \'./export\';
 
 class B1 extends A1 {
   foo(): B1 { return new B1(); } // error
@@ -243,9 +243,9 @@ class B3<X> extends A3<X> {
 // OK
 // error
 // error
-import { A1 } from "./export";
-import type { A2 } from "./export";
-import { A3 } from "./export";
+import { A1 } from \"./export\";
+import type { A2 } from \"./export\";
+import { A3 } from \"./export\";
 class B1 extends A1 {
   foo(): B1 {
     return new B1();
@@ -258,10 +258,10 @@ class B3<X> extends A3<X> {
   }
 }
 (new B3().bar(): B3<*>);
-(new B3().qux([object Number]): string);
+(new B3().qux(0): string);
 (new B3().bar(): A2<*>);
 ((new B3().bar(): B3<string>): A2<number>);
-((new B3(): A2<number>).qux([object Number]): string);
+((new B3(): A2<number>).qux(0): string);
 "
 `;
 
@@ -296,21 +296,21 @@ exports[`test lib_client.js 1`] = `
 "(new DoublyLinkedList().prev(): DoublyLinkedList);
 (new DoublyLinkedList().next(): DoublyLinkedList)
 
-var MiniImmutable = require("mini-immutable");
+var MiniImmutable = require(\"mini-immutable\");
 class C {
   map: MiniImmutable.OrderedMap<number,string>;
   update() {
-    this.map = this.map.set(0,"");
+    this.map = this.map.set(0,\"\");
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 (new DoublyLinkedList().prev(): DoublyLinkedList);
 (new DoublyLinkedList().next(): DoublyLinkedList);
-var MiniImmutable = require("mini-immutable");
+var MiniImmutable = require(\"mini-immutable\");
 class C {
   map: MiniImmutable.OrderedMap<number, string>;
   update() {
-    this.map = this.map.set([object Number], "");
+    this.map = this.map.set(0, \"\");
   }
 }
 "
@@ -321,13 +321,13 @@ exports[`test self.js 1`] = `
   foo() { return this; } // return of foo is not annotated to get around
                          // substituting this below
   bar(): this { return new A().foo(); } // same as returning : A, so error
-  qux(): this { return this.bar(); } // OK (don't cascade errors)
+  qux(): this { return this.bar(); } // OK (don\'t cascade errors)
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // return of foo is not annotated to get around
 // substituting this below
 // same as returning : A, so error
-// OK (don't cascade errors)
+// OK (don\'t cascade errors)
 class A {
   foo() {
     return this;

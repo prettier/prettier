@@ -105,7 +105,7 @@ class K extends K_ {
   }
 }
 
-// even though super() calls the parent's constructor(), it does not do the same
+// even though super() calls the parent\'s constructor(), it does not do the same
 // conversion on non-objects. so \`new L_()\` returns an instance of \`L_\` because
 // the constructor returns false (a non-object), but \`super()\` returns false,
 // which then similarly causes \`new L()\` to return an instance of \`L\`.
@@ -123,11 +123,11 @@ class L extends L_ {
 (new L_(): L_);
 (new L(): L);
 
-// similarly, the converse is true: if the parent's constructor returns an
+// similarly, the converse is true: if the parent\'s constructor returns an
 // object, then the child does too.
 class M_ {
   constructor() {
-    return {foo: 'foo'};
+    return {foo: \'foo\'};
   }
 }
 class M extends M_ {
@@ -173,11 +173,11 @@ class N extends N_ {
 // constructor is to save the closure so that it can be called later, after
 // initialization is done (as shown below).
 // OK
-// even though super() calls the parent's constructor(), it does not do the same
+// even though super() calls the parent\'s constructor(), it does not do the same
 // conversion on non-objects. so \`new L_()\` returns an instance of \`L_\` because
 // the constructor returns false (a non-object), but \`super()\` returns false,
 // which then similarly causes \`new L()\` to return an instance of \`L\`.
-// similarly, the converse is true: if the parent's constructor returns an
+// similarly, the converse is true: if the parent\'s constructor returns an
 // object, then the child does too.
 // however! super() calls the parent constructor with the subclass as its \`this\`
 // value (essentially \`super.constructor.call(this)\`).
@@ -227,7 +227,7 @@ class G extends A {
 class H extends A {
   y: number;
   constructor() {
-    if (Math.random() < [object Number])
+    if (Math.random() < 0.5)
       super();
 else
       super();
@@ -286,7 +286,7 @@ class K extends K_ {
 }
 class L_ {
   constructor() {
-    return [object Boolean];
+    return false;
   }
 }
 class L extends L_ {
@@ -299,7 +299,7 @@ class L extends L_ {
 (new L(): L);
 class M_ {
   constructor() {
-    return { foo: "foo" };
+    return { foo: \"foo\" };
   }
 }
 class M extends M_ {
@@ -333,7 +333,7 @@ module.exports = D;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class D {
   foo(): number {
-    return [object Number];
+    return 0;
   }
 }
 module.exports = D;
@@ -354,8 +354,8 @@ class B extends A {
   }
 
   static anotherStatic() {
-    (super.staticMethod('foo'): number); // error, string !~> number
-    (super.doesntExist()); // error, A doesn't have a doesntExist method
+    (super.staticMethod(\'foo\'): number); // error, string !~> number
+    (super.doesntExist()); // error, A doesn\'t have a doesntExist method
   }
 
   g() {
@@ -365,7 +365,7 @@ class B extends A {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // error, string !~> number
-// error, A doesn't have a doesntExist method
+// error, A doesn\'t have a doesntExist method
 class A {
   constructor(x: number) {
     
@@ -382,11 +382,11 @@ class B extends A {
     super(x);
   }
   static anotherStatic() {
-    (super.staticMethod("foo"): number);
+    (super.staticMethod(\"foo\"): number);
     super.doesntExist();
   }
   g() {
-    super.f([object Number]);
+    super.f(0);
     return super.g;
   }
 }
@@ -394,14 +394,14 @@ class B extends A {
 `;
 
 exports[`test test.js 1`] = `
-"var D = require('./import');
+"var D = require(\'./import\');
 class C extends D {
   constructor() { return super(); }
   foo() { return super.foo(); }
 }
 module.exports = C;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var D = require("./import");
+var D = require(\"./import\");
 class C extends D {
   constructor() {
     return super();

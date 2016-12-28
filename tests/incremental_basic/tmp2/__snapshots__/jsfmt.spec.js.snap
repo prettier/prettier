@@ -4,7 +4,7 @@ var a = 0;
 module.exports = a;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-var a = [object Number];
+var a = 0;
 module.exports = a;
 "
 `;

@@ -7,7 +7,7 @@ f0(0);
 // ...on arg n
 function g1(a:string, b:string) { }
 function f1(x, y) { g1(x, y) }
-f1("hey", 0);
+f1(\"hey\", 0);
 
 // h/o call with function expr
 function g2(ylam: (s:string) => number) { }
@@ -30,14 +30,14 @@ function g0(y: string) {
 function f0(x) {
   g0(x);
 }
-f0([object Number]);
+f0(0);
 function g1(a: string, b: string) {
   
 }
 function f1(x, y) {
   g1(x, y);
 }
-f1("hey", [object Number]);
+f1(\"hey\", 0);
 function g2(ylam: (s: string) => number) {
   
 }
@@ -56,7 +56,7 @@ function f3(xlam) {
   g3(xlam);
 }
 function double(n) {
-  return n * [object Number];
+  return n * 2;
 }
 f3(double);
 "
@@ -65,7 +65,7 @@ f3(double);
 exports[`test Traces2.js 1`] = `
 "// @flow
 
-var React = require('react');
+var React = require(\'react\');
 
 var A = React.createClass({
   propTypes: { foo: React.PropTypes.string.isRequired }
@@ -77,14 +77,14 @@ var B = React.createClass({
 
 function f(b): React.Element<*> {
   if (b) {
-    return <A foo="hey"/>;
+    return <A foo=\"hey\"/>;
   } else {
-    return <B bar="hey"/>;
+    return <B bar=\"hey\"/>;
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-var React = require("react");
+var React = require(\"react\");
 var A = React.createClass({
   propTypes: { foo: React.PropTypes.string.isRequired }
 });
@@ -93,9 +93,9 @@ var B = React.createClass({
 });
 function f(b): React.Element<*> {
   if (b) {
-    return <A foo="hey"/>;
+    return <A foo=\"hey\"/>;
   } else {
-    return <B bar="hey"/>;
+    return <B bar=\"hey\"/>;
   }
 }
 "

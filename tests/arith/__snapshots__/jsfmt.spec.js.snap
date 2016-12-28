@@ -8,7 +8,7 @@ function str(x:string) { }
 
 function foo() {
   var x = 0;
-  var y = "...";
+  var y = \"...\";
   var z = {};
   num(x+x);
   num(x+y); // error
@@ -54,20 +54,20 @@ num(true + null); // === 1
 num(undefined + true); // === NaN
 num(true + undefined); // === NaN
 
-str("foo" + true); // error
-str(true + "foo"); // error
-str("foo" + null); // error
-str(null + "foo"); // error
-str("foo" + undefined); // error
-str(undefined + "foo"); // error
+str(\"foo\" + true); // error
+str(true + \"foo\"); // error
+str(\"foo\" + null); // error
+str(null + \"foo\"); // error
+str(\"foo\" + undefined); // error
+str(undefined + \"foo\"); // error
 
 let tests = [
   function(x: mixed, y: mixed) {
     (x + y); // error
     (x + 0); // error
     (0 + x); // error
-    (x + ""); // error
-    ("" + x); // error
+    (x + \"\"); // error
+    (\"\" + x); // error
     (x + {}); // error
     ({} + x); // error
   },
@@ -78,8 +78,8 @@ let tests = [
   function() {
     ((1 + {}): number); // error: object !~> number
     (({} + 1): number); // error: object !~> number
-    (("1" + {}): string); // error: object !~> string
-    (({} + "1"): string); // error: object !~> string
+    ((\"1\" + {}): string); // error: object !~> string
+    (({} + \"1\"): string); // error: object !~> string
   },
 
   function(x: any, y: number, z: string) {
@@ -139,8 +139,8 @@ function str(x: string) {
   
 }
 function foo() {
-  var x = [object Number];
-  var y = "...";
+  var x = 0;
+  var y = \"...\";
   var z = {};
   num(x + x);
   num(x + y);
@@ -166,37 +166,37 @@ function bar4(x: ?number, y: number) {
 function bar5(x: number, y: ?number) {
   num(x + y);
 }
-num([object Null] + [object Null]);
+num(null + null);
 num(undefined + undefined);
-num([object Null] + [object Number]);
-num([object Number] + [object Null]);
-num(undefined + [object Number]);
-num([object Number] + undefined);
-num([object Null] + [object Boolean]);
-num([object Boolean] + [object Null]);
-num(undefined + [object Boolean]);
-num([object Boolean] + undefined);
-str("foo" + [object Boolean]);
-str([object Boolean] + "foo");
-str("foo" + [object Null]);
-str([object Null] + "foo");
-str("foo" + undefined);
-str(undefined + "foo");
+num(null + 1);
+num(1 + null);
+num(undefined + 1);
+num(1 + undefined);
+num(null + true);
+num(true + null);
+num(undefined + true);
+num(true + undefined);
+str(\"foo\" + true);
+str(true + \"foo\");
+str(\"foo\" + null);
+str(null + \"foo\");
+str(\"foo\" + undefined);
+str(undefined + \"foo\");
 let tests = [
   function(x: mixed, y: mixed) {
     x + y;
-    x + [object Number];
-    [object Number] + x;
-    x + "";
-    "" + x;
+    x + 0;
+    0 + x;
+    x + \"\";
+    \"\" + x;
     x + {};
     ({}) + x;
   },
   function() {
-    ([object Number] + {}: number);
-    ({} + [object Number]: number);
-    ("1" + {}: string);
-    ({} + "1": string);
+    (1 + {}: number);
+    ({} + 1: number);
+    (\"1\" + {}: string);
+    ({} + \"1\": string);
   },
   function(x: any, y: number, z: string) {
     (x + y: string);
@@ -214,7 +214,7 @@ exports[`test exponent.js 1`] = `
 let x: number = 2 ** 3;
 x **= 4;
 
-let y: string = "123";
+let y: string = \"123\";
 y **= 2; // error
 
 1 + 2 ** 3 + 4;
@@ -223,13 +223,13 @@ y **= 2; // error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 // error
-let x: number = [object Number] ** [object Number];
-x **= [object Number];
-let y: string = "123";
-y **= [object Number];
-[object Number] + [object Number] ** [object Number] + [object Number];
-[object Number] ** [object Number];
--[object Number] ** [object Number];
+let x: number = 2 ** 3;
+x **= 4;
+let y: string = \"123\";
+y **= 2;
+1 + 2 ** 3 + 4;
+2 ** 2;
+-2 ** 2;
 "
 `;
 
@@ -277,7 +277,7 @@ num(1 * null);
 let x: number = 2 * 3;
 x *= 4;
 
-let y: string = "123";
+let y: string = \"123\";
 y *= 2; // error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
@@ -285,12 +285,12 @@ y *= 2; // error
 function num(x: number) {
   
 }
-num([object Null] * [object Number]);
-num([object Number] * [object Null]);
-let x: number = [object Number] * [object Number];
-x *= [object Number];
-let y: string = "123";
-y *= [object Number];
+num(null * 1);
+num(1 * null);
+let x: number = 2 * 3;
+x *= 4;
+let y: string = \"123\";
+y *= 2;
 "
 `;
 
@@ -298,14 +298,14 @@ exports[`test relational.js 1`] = `
 "/* @flow */
 
 (1 < 2);
-(1 < "foo"); // error
-("foo" < 1); // error
-("foo" < "bar");
+(1 < \"foo\"); // error
+(\"foo\" < 1); // error
+(\"foo\" < \"bar\");
 (1 < {foo: 1}); // error
 ({foo: 1} < 1); // error
 ({foo: 1} < {foo: 1}); // error
-("foo" < {foo: 1}); // error
-({foo: 1} < "foo"); // error
+(\"foo\" < {foo: 1}); // error
+({foo: 1} < \"foo\"); // error
 
 var x = (null : ?number);
 (1 < x); // 2 errors: null !~> number; undefined !~> number
@@ -340,24 +340,24 @@ let tests = [
 // error
 // error
 // error
-[object Number] < [object Number];
-[object Number] < "foo";
-"foo" < [object Number];
-"foo" < "bar";
-[object Number] < { foo: [object Number] };
-({ foo: [object Number] }) < [object Number];
-({ foo: [object Number] }) < { foo: [object Number] };
-"foo" < { foo: [object Number] };
-({ foo: [object Number] }) < "foo";
-var x = ([object Null]: ?number);
-[object Number] < x;
-x < [object Number];
-[object Null] < [object Null];
-undefined < [object Null];
-[object Null] < undefined;
+1 < 2;
+1 < \"foo\";
+\"foo\" < 1;
+\"foo\" < \"bar\";
+1 < { foo: 1 };
+({ foo: 1 }) < 1;
+({ foo: 1 }) < { foo: 1 };
+\"foo\" < { foo: 1 };
+({ foo: 1 }) < \"foo\";
+var x = (null: ?number);
+1 < x;
+x < 1;
+null < null;
+undefined < null;
+null < undefined;
 undefined < undefined;
-NaN < [object Number];
-[object Number] < NaN;
+NaN < 1;
+1 < NaN;
 NaN < NaN;
 let tests = [
   function(x: any, y: number, z: string) {

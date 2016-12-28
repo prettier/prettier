@@ -18,9 +18,9 @@ class C {
 C.g = function(x: string) {
   C.f(x);
 };
-C.g([object Number]);
+C.g(0);
 var x: number = C.x;
-C.x = [object Number];
+C.x = 0;
 "
 `;
 
@@ -35,7 +35,7 @@ function C() {
   
 }
 C.prototype.f = function() {
-  return C.g([object Number]);
+  return C.g(0);
 };
 C.g = function(x) {
   return x;

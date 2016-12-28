@@ -1,24 +1,35 @@
+const assert = require("assert");
+
+function assertDoc(val) {
+  assert(
+    typeof val === "string" ||
+    (val != null &&
+     typeof val.type === "string"),
+    "Value is a valid document"
+  );
+}
 
 function fromString(text) {
-  if(typeof text !== "string") {
-    return Object.prototype.toString.call(text);
-  }
-  return text;
+  return "" + text;
 }
 
 function concat(parts) {
+  parts.forEach(assertDoc);
   return { type: 'concat', parts };
 }
 
 function indent(n, contents) {
+  assertDoc(contents);
   return { type: 'indent', contents, n };
 }
 
 function group(contents) {
+  assertDoc(contents);
   return { type: 'group', contents };
 }
 
 function multilineGroup(doc) {
+  assertDoc(doc);
   const shouldBreak = hasHardLine(doc);
   return { type: 'group', contents: doc, break: shouldBreak };
 }
@@ -48,6 +59,9 @@ function iterDoc(topDoc, func) {
         }
       }
       else if(doc.type !== "line") {
+        if(doc.contents == null) {
+          console.log("JWL", doc);
+        }
         docs.push(doc.contents);
       }
     }

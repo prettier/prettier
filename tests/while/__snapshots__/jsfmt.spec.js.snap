@@ -9,7 +9,7 @@ function foo(x: boolean) {
     }
     return;
   }
-  //console.log('this is still reachable');
+  //console.log(\'this is still reachable\');
 }
 
 function bar(x: boolean) {
@@ -17,15 +17,15 @@ function bar(x: boolean) {
   while (ii > 0) {
     return;
   }
-  //console.log('this is still reachable');
+  //console.log(\'this is still reachable\');
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-//console.log('this is still reachable');
-//console.log('this is still reachable');
+//console.log(\'this is still reachable\');
+//console.log(\'this is still reachable\');
 function foo(x: boolean) {
-  var ii = [object Number];
-  while (ii-- >= [object Number]) {
+  var ii = 10;
+  while (ii-- >= 0) {
     if (x) {
       continue;
     }
@@ -33,8 +33,8 @@ function foo(x: boolean) {
   }
 }
 function bar(x: boolean) {
-  var ii = [object Number];
-  while (ii > [object Number]) {
+  var ii = 0;
+  while (ii > 0) {
     return;
   }
 }

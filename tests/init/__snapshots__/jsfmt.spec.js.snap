@@ -81,7 +81,7 @@ function _do_while(b: () => boolean) {
   f();
 }
 function _for(n: number) {
-  for (var i = [object Number]; i < n; i++) {
+  for (var i = 0; i < n; i++) {
     var f = function() {
       
     };
@@ -433,7 +433,7 @@ function for_in_post_init() {
 // error
 function linear_deferred_init() {
   var x: number;
-  x = [object Number];
+  x = 0;
   var y: number = x;
 }
 function linear_pre_init() {
@@ -442,13 +442,13 @@ function linear_pre_init() {
 }
 function if_scoped_init(b) {
   if (b) {
-    var x: number = [object Number];
+    var x: number = 0;
     var y: number = x;
   }
 }
 function if_else_partial_init(b) {
   if (b) {
-    var x: number = [object Number];
+    var x: number = 0;
   } else {
     var y: number = x;
   }
@@ -456,47 +456,47 @@ function if_else_partial_init(b) {
 function if_pre_init(b) {
   var y: number = x;
   if (b) {
-    var x: number = [object Number];
+    var x: number = 0;
   }
 }
 function if_partial_post_init(b) {
   if (b) {
-    var x: number = [object Number];
+    var x: number = 0;
   }
   var y: number = x;
 }
 function if_post_init(b) {
   if (b) {
-    var x: number = [object Number];
+    var x: number = 0;
   } else {
-    var x: number = [object Number];
+    var x: number = 1;
   }
   var y: number = x;
 }
 function if_partial_post_init(b) {
   var x: number;
   if (b) {
-    x = [object Number];
+    x = 0;
   }
   var y: number = x;
 }
 function if_post_init(b) {
   var x: number;
   if (b) {
-    x = [object Number];
+    x = 0;
   } else {
-    x = [object Number];
+    x = 1;
   }
   var y: number = x;
 }
 function switch_partial_post_init(i) {
   var x: number;
   switch (i) {
-  case [object Number]:
-    x = [object Number];
+  case 0:
+    x = 0;
     break;
-  case [object Number]:
-    x = [object Number];
+  case 1:
+    x = 1;
     break;
   }
   var y: number = x;
@@ -504,133 +504,133 @@ function switch_partial_post_init(i) {
 function switch_post_init(i) {
   var x: number;
   switch (i) {
-  case [object Number]:
-    x = [object Number];
+  case 0:
+    x = 0;
     break;
-  case [object Number]:
-    x = [object Number];
+  case 1:
+    x = 1;
     break;
   default:
-    x = [object Number];
+    x = 2;
   }
   var y: number = x;
 }
 function switch_scoped_init_1(i) {
   switch (i) {
-  case [object Number]:
-    var x: number = [object Number];
+  case 0:
+    var x: number = 0;
     var y: number = x;
   }
 }
 function switch_scoped_init_2(i) {
   var y: number = x;
   switch (i) {
-  case [object Number]:
-    var x: number = [object Number];
+  case 0:
+    var x: number = 0;
   }
 }
 function switch_scoped_init_3(i) {
   switch (i) {
-  case [object Number]:
-    var x: number = [object Number];
+  case 0:
+    var x: number = 0;
   }
   var y: number = x;
 }
 function switch_scoped_init_4(i) {
   switch (i) {
-  case [object Number]:
-    var x: number = [object Number];
-  case [object Number]:
+  case 0:
+    var x: number = 0;
+  case 1:
     var y: number = x;
   }
 }
 function while_scoped_init(b) {
   while (b) {
-    var x: number = [object Number];
+    var x: number = 0;
     var y: number = x;
   }
 }
 function while_pre_init(b) {
   var y: number = x;
   while (b) {
-    var x: number = [object Number];
+    var x: number = 0;
   }
 }
 function while_post_init(b) {
   while (b) {
-    var x: number = [object Number];
+    var x: number = 0;
   }
   var y: number = x;
 }
 function do_while_scoped_init(b) {
   do {
-    var x: number = [object Number];
+    var x: number = 0;
     var y: number = x;
   } while (b);
 }
 function do_while_pre_init(b) {
   var y: number = x;
   do {
-    var x: number = [object Number];
+    var x: number = 0;
   } while (b);
 }
 function do_while_post_init(b) {
   do {
-    var x: number = [object Number];
+    var x: number = 0;
   } while (b);
   var y: number = x;
 }
 function for_scoped_init(b) {
   for (; b; ) {
-    var x: number = [object Number];
+    var x: number = 0;
     var y: number = x;
   }
 }
 function for_pre_init(b) {
   var y: number = x;
   for (; b; ) {
-    var x: number = [object Number];
+    var x: number = 0;
   }
 }
 function for_post_init(b) {
   for (; b; ) {
-    var x: number = [object Number];
+    var x: number = 0;
   }
   var y: number = x;
 }
 function for_in_scoped_init() {
-  for (var p in { a: [object Number], b: [object Number] }) {
-    var x: number = [object Number];
+  for (var p in { a: 1, b: 2 }) {
+    var x: number = 0;
     var y: number = x;
   }
 }
 function for_in_pre_init() {
   var y: number = x;
-  for (var p in { a: [object Number], b: [object Number] }) {
-    var x: number = [object Number];
+  for (var p in { a: 1, b: 2 }) {
+    var x: number = 0;
   }
 }
 function for_in_post_init() {
-  for (var p in { a: [object Number], b: [object Number] }) {
-    var x: number = [object Number];
+  for (var p in { a: 1, b: 2 }) {
+    var x: number = 0;
   }
   var y: number = x;
 }
 function for_of_scoped_init() {
-  for (var x of [ [object Number], [object Number], [object Number] ]) {
-    var x: number = [object Number];
+  for (var x of [ 1, 2, 3 ]) {
+    var x: number = 0;
     var y: number = x;
   }
 }
 function for_in_pre_init() {
   var y: number = x;
-  for (var x of [ [object Number], [object Number], [object Number] ]) {
-    var x: number = [object Number];
+  for (var x of [ 1, 2, 3 ]) {
+    var x: number = 0;
   }
 }
 function for_in_post_init() {
-  for (var x of [ [object Number], [object Number], [object Number] ]) {
-    var x: number = [object Number];
+  for (var x of [ 1, 2, 3 ]) {
+    var x: number = 0;
   }
   var y: number = x;
 }
@@ -661,7 +661,7 @@ function linear_pre_init() {
 
 // self-references in let bindings are not ok
 function self_init() {
-  let x = x;  // 'x' not initialized!
+  let x = x;  // \'x\' not initialized!
 }
 
 // use of let after partial init (non-exhaustive if) gives undefined
@@ -768,7 +768,7 @@ function switch_post_init2(i): number {
       bar = 3;
       break;
     default:
-      throw new Error('Invalid state');
+      throw new Error(\'Invalid state\');
   }
   return bar; // ok, definitely initialized
 }
@@ -781,7 +781,7 @@ function switch_post_init2(i): number {
       bar = 3;
       break;
     default:
-      throw new Error('Invalid state');
+      throw new Error(\'Invalid state\');
   }
   return bar; // ok, definitely initialized
 }
@@ -806,7 +806,7 @@ function sub_closure_init_reference() {
 // error
 // ok
 // self-references in let bindings are not ok
-// 'x' not initialized!
+// \'x\' not initialized!
 // use of let after partial init (non-exhaustive if) gives undefined
 // error, possibly uninitialized
 // use of let after guaranteed init (exhaustive if) is ok
@@ -833,14 +833,14 @@ function sub_closure_init_reference() {
 // TDZ (...even though this is weird...)
 function linear_deferred_init() {
   let x: number;
-  x = [object Number];
+  x = 0;
   let y: number = x;
 }
 function linear_pre_init() {
   let x: number;
   let y: ?number = x;
   let z: number = x;
-  x = [object Number];
+  x = 0;
   let w: number = x;
 }
 function self_init() {
@@ -849,27 +849,27 @@ function self_init() {
 function if_partial_post_init(b) {
   let x: number;
   if (b) {
-    x = [object Number];
+    x = 0;
   }
   var y: number = x;
 }
 function if_post_init(b) {
   let x: number;
   if (b) {
-    x = [object Number];
+    x = 0;
   } else {
-    x = [object Number];
+    x = 1;
   }
   var y: number = x;
 }
 function switch_partial_post_init(i) {
   let x: number;
   switch (i) {
-  case [object Number]:
-    x = [object Number];
+  case 0:
+    x = 0;
     break;
-  case [object Number]:
-    x = [object Number];
+  case 1:
+    x = 1;
     break;
   }
   var y: number = x;
@@ -877,72 +877,72 @@ function switch_partial_post_init(i) {
 function switch_post_init(i) {
   let x: number;
   switch (i) {
-  case [object Number]:
-    x = [object Number];
+  case 0:
+    x = 0;
     break;
-  case [object Number]:
-    x = [object Number];
+  case 1:
+    x = 1;
     break;
   default:
-    x = [object Number];
+    x = 2;
   }
   var y: number = x;
 }
 function switch_scoped_init_2(i) {
   switch (i) {
-  case [object Number]:
+  case 0:
     let x: number;
-  case [object Number]:
+  case 1:
     let y: number = x;
   }
 }
 function while_post_init(b) {
   let x: number;
   while (b) {
-    x = [object Number];
+    x = 0;
   }
   var y: number = x;
 }
 function do_while_post_init(b) {
   let x: number;
   do {
-    x = [object Number];
+    x = 0;
   } while (b);
   var y: number = x;
 }
 function for_in_post_init() {
   var x: number;
   for (var p in {}) {
-    x = [object Number];
+    x = 0;
   }
   var y: number = x;
 }
 function for_of_post_init() {
   var x: number;
   for (var x of [  ]) {
-    x = [object Number];
+    x = 0;
   }
   var y: number = x;
 }
 function switch_post_init2(i): number {
   let bar;
   switch (i) {
-  case [object Number]:
-    bar = [object Number];
+  case 1:
+    bar = 3;
     break;
   default:
-    throw new Error("Invalid state");
+    throw new Error(\"Invalid state\");
   }
   return bar;
 }
 function switch_post_init2(i): number {
   let bar;
   switch (i) {
-  case [object Number]:
-    bar = [object Number];
+  case 1:
+    bar = 3;
     break;
   default:
-    throw new Error("Invalid state");
+    throw new Error(\"Invalid state\");
   }
   return bar;
 }
@@ -962,7 +962,7 @@ exports[`test nullable-init.js 1`] = `
 "var o: {x: ?number} = { x: null };
 var a: Array<?number> = [null,null];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var o: { x: ?number } = { x: [object Null] };
-var a: Array<?number> = [ [object Null], [object Null] ];
+var o: { x: ?number } = { x: null };
+var a: Array<?number> = [ null, null ];
 "
 `;

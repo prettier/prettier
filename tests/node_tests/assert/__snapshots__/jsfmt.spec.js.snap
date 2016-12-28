@@ -1,15 +1,15 @@
 exports[`test assert.js 1`] = `
 "/* @flow */
 
-var assert = require("assert")
+var assert = require(\"assert\")
 assert(true) // ok
 assert.ok(true) // ok
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 // ok
 // ok
-var assert = require("assert");
-assert([object Boolean]);
-assert.ok([object Boolean]);
+var assert = require(\"assert\");
+assert(true);
+assert.ok(true);
 "
 `;

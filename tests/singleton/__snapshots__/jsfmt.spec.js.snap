@@ -45,13 +45,13 @@ function alwaysFalsy(x: boolean): false {
 function veryOptimistic(isThisAwesome: true): boolean {
   return isThisAwesome;
 }
-var x: boolean = veryOptimistic([object Boolean]);
-var y: boolean = veryOptimistic([object Boolean]);
+var x: boolean = veryOptimistic(true);
+var y: boolean = veryOptimistic(false);
 function veryPessimistic(isThisAwesome: true): boolean {
   return !isThisAwesome;
 }
-var x: boolean = veryPessimistic([object Boolean]);
-var y: boolean = veryPessimistic([object Boolean]);
+var x: boolean = veryPessimistic(true);
+var y: boolean = veryPessimistic(false);
 type MyOwnBooleanLOL = true | false;
 function bar(x: MyOwnBooleanLOL): false {
   if (x) {
@@ -60,9 +60,9 @@ function bar(x: MyOwnBooleanLOL): false {
     return !x;
   }
 }
-bar([object Boolean]);
-bar([object Boolean]);
-bar([object Number]);
+bar(true);
+bar(false);
+bar(1);
 function alwaysFalsy(x: boolean): false {
   if (x) {
     return !x;
@@ -105,36 +105,36 @@ sort((x, y) => -1);
 function highlander(howMany: 1): number {
   return howMany;
 }
-highlander([object Number]);
-highlander([object Number]);
+highlander(1);
+highlander(2);
 type Foo = 1 | 2;
 function bar(num: Foo): number {
-  return num + [object Number];
+  return num + 1;
 }
-bar([object Number]);
-bar([object Number]);
-bar([object Number]);
+bar(1);
+bar(2);
+bar(3);
 type ComparatorResult = -1 | 0 | 1;
 function sort(fn: (x: any, y: any) => ComparatorResult) {
   
 }
-sort((x, y) => -[object Number]);
+sort((x, y) => -1);
 "
 `;
 
 exports[`test string.js 1`] = `
 "/* @flow */
 
-type NoSpaces = "foobar"
-("foobar": NoSpaces);
+type NoSpaces = \"foobar\"
+(\"foobar\": NoSpaces);
 
-type HasSpaces = "foo bar"
-("foo bar": HasSpaces);
+type HasSpaces = \"foo bar\"
+(\"foo bar\": HasSpaces);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-type NoSpaces = "foobar";
-("foobar": NoSpaces);
-type HasSpaces = "foo bar";
-("foo bar": HasSpaces);
+type NoSpaces = \"foobar\";
+(\"foobar\": NoSpaces);
+type HasSpaces = \"foo bar\";
+(\"foo bar\": HasSpaces);
 "
 `;

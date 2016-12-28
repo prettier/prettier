@@ -35,10 +35,10 @@ async function* delegate_next() {
   }
   yield* inner();
 }
-delegate_next().next([object Number]);
+delegate_next().next(0);
 async function* delegate_yield() {
   async function* inner() {
-    yield [object Number];
+    yield 0;
   }
   yield* inner();
 }
@@ -49,7 +49,7 @@ async () => {
 };
 async function* delegate_return() {
   async function* inner() {
-    return [object Number];
+    return 0;
   }
   var x: void = yield* inner();
 }
@@ -78,7 +78,7 @@ async function* readLines(path) {
 }
 
 async function f() {
-  for await (const line of readLines("/path/to/file")) {
+  for await (const line of readLines(\"/path/to/file\")) {
     (line: void); // error: string ~> void
   }
 }
@@ -101,7 +101,7 @@ async function* readLines(path) {
   }
 }
 async function f() {
-  for await (const line of readLines("/path/to/file")) {
+  for await (const line of readLines(\"/path/to/file\")) {
     (line: void);
   }
 }
@@ -111,13 +111,13 @@ async function f() {
 exports[`test return.js 1`] = `
 "declare var gen: AsyncGenerator<void,string,void>;
 
-// You can pass whatever you like to return, it doesn't need to be related to
-// the AsyncGenerator's return type
+// You can pass whatever you like to return, it doesn\'t need to be related to
+// the AsyncGenerator\'s return type
 gen.return(0).then(result => {
   (result.value: void); // error: string | number ~> void
 });
 
-// However, a generator can "refuse" the return by catching an exception and
+// However, a generator can \"refuse\" the return by catching an exception and
 // yielding or returning internally.
 async function *refuse_return() {
   try {
@@ -126,32 +126,32 @@ async function *refuse_return() {
     return 0;
   }
 }
-refuse_return().return("string").then(result => {
+refuse_return().return(\"string\").then(result => {
   if (result.done) {
     (result.value: string); // error: number | void ~> string
   }
 });
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// You can pass whatever you like to return, it doesn't need to be related to
-// the AsyncGenerator's return type
+// You can pass whatever you like to return, it doesn\'t need to be related to
+// the AsyncGenerator\'s return type
 // error: string | number ~> void
-// However, a generator can "refuse" the return by catching an exception and
+// However, a generator can \"refuse\" the return by catching an exception and
 // yielding or returning internally.
 // error: number | void ~> string
 declare var gen: AsyncGenerator<void, string, void>;
-gen.return([object Number]).then(
+gen.return(0).then(
   result => {
     (result.value: void);
   }
 );
 async function* refuse_return() {
   try {
-    yield [object Number];
+    yield 1;
   } finally {
-    return [object Number];
+    return 0;
   }
 }
-refuse_return().return("string").then(
+refuse_return().return(\"string\").then(
   result => {
     if (result.done) {
       (result.value: string);
@@ -171,7 +171,7 @@ exports[`test throw.js 1`] = `
 }
 
 (async () => {
-  catch_return().throw("").then(({value}) => {
+  catch_return().throw(\"\").then(({value}) => {
     if (value !== undefined) {
       (value: void); // error: number ~> void
     }
@@ -188,7 +188,7 @@ async function *yield_return() {
 }
 
 (async () => {
-  yield_return().throw("").then(({value}) => {
+  yield_return().throw(\"\").then(({value}) => {
     if (value !== undefined) {
       (value: void); // error: number ~> void
     }
@@ -199,13 +199,13 @@ async function *yield_return() {
 // error: number ~> void
 async function* catch_return() {
   try {
-    yield [object Number];
+    yield 0;
   } catch (e) {
     return e;
   }
 }
 async () => {
-  catch_return().throw("").then(
+  catch_return().throw(\"\").then(
     ({ value }) => {
       if (value !== undefined) {
         (value: void);
@@ -215,14 +215,14 @@ async () => {
 };
 async function* yield_return() {
   try {
-    yield [object Number];
+    yield 0;
     return;
   } catch (e) {
     yield e;
   }
 }
 async () => {
-  yield_return().throw("").then(
+  yield_return().throw(\"\").then(
     ({ value }) => {
       if (value !== undefined) {
         (value: void);

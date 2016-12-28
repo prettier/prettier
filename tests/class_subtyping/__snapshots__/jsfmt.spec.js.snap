@@ -14,7 +14,7 @@ module.exports = { A, B };
 
 exports[`test test2.js 1`] = `
 "/* @flow */
-var I = require("./test.js");
+var I = require(\"./test.js\");
 
 class C extends I.A {}
 
@@ -22,7 +22,7 @@ var x: I.A = new C();
 var y: I.B = new C();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-var I = require("./test.js");
+var I = require(\"./test.js\");
 class C extends I.A {}
 var x: I.A = new C();
 var y: I.B = new C();
@@ -69,12 +69,12 @@ function foo<X>(c: C<X>, x: X) {
   
 }
 type O = { f: number };
-foo((new C(): C<O>), { f_: [object Number] });
+foo((new C(): C<O>), { f_: 0 });
 class D extends C<O> {
   bar() {
     this.x;
   }
 }
-foo(new D(), { f_: [object Number] });
+foo(new D(), { f_: 0 });
 "
 `;

@@ -14,12 +14,12 @@ var f = {
  */
 var f = {
   get a() {
-    return [object Number];
+    return 4;
   },
   set b(x: number) {
     this.c = b;
   },
-  c: [object Number]
+  c: 10
 };
 "
 `;

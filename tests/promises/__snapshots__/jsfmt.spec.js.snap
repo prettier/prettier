@@ -55,7 +55,7 @@ function tes2(val: Map<string, Promise<number>>) {
 // Promise.all supports iterables
 declare var pstr: Promise<string>;
 declare var pnum: Promise<number>;
-Promise.all([ pstr, pnum, [object Boolean] ]).then(
+Promise.all([ pstr, pnum, true ]).then(
   xs => {
     let [ a, b, c ] = xs;
     (a: number);
@@ -69,7 +69,7 @@ Promise.all([ pstr, pnum, [object Boolean] ]).then(
   }
 );
 Promise.all();
-Promise.all([object Number]);
+Promise.all(0);
 (Promise.all: Function);
 function test(val: Iterable<Promise<number>>) {
   const r: Promise<Array<number>> = Promise.all(val);
@@ -85,7 +85,7 @@ exports[`test covariance.js 1`] = `
 
 async function testAll() {
   /* This is a test case from https://github.com/facebook/flow/issues/1143
-   * which was previously an error due to Array's invariance and an improper
+   * which was previously an error due to Array\'s invariance and an improper
    * definition of Promise.all */
     const x: Array<Promise<?string>> = [];
     const y: Promise<Array<?string>> = Promise.all(x);
@@ -100,7 +100,7 @@ async function testRace() {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 /* This is a test case from https://github.com/facebook/flow/issues/1143
-   * which was previously an error due to Array's invariance and an improper
+   * which was previously an error due to Array\'s invariance and an improper
    * definition of Promise.all */
 async function testAll() {
   const x: Array<Promise<?string>> = [  ];
@@ -170,10 +170,10 @@ new Promise(function(resolve, reject) {
   if (Math.random()) {
     resolve(42);
   } else {
-    resolve('str');
+    resolve(\'str\');
   }
 }).then(function(numOrStr) {
-  if (typeof numOrStr === 'string') {
+  if (typeof numOrStr === \'string\') {
     var a: string = numOrStr;
   } else {
     var b: number = numOrStr;
@@ -212,10 +212,10 @@ new Promise(function(resolve, reject) {
   if (Math.random()) {
     reject(42);
   } else {
-    reject('str');
+    reject(\'str\');
   }
 }).catch(function(numOrStr) {
-  if (typeof numOrStr === 'string') {
+  if (typeof numOrStr === \'string\') {
     var a: string = numOrStr;
   } else {
     var b: number = numOrStr;
@@ -273,7 +273,7 @@ Promise.reject(Promise.resolve(0)).then(function(num) {
 
 // resolvedPromise.then():T -> then(T)
 Promise.resolve(0)
-  .then(function(num) { return 'asdf'; })
+  .then(function(num) { return \'asdf\'; })
   .then(function(str) {
     var a: string = str;
     var b: number = str; // Error: string ~> number
@@ -281,7 +281,7 @@ Promise.resolve(0)
 
 // resolvedPromise.then():Promise<T> -> then(T)
 Promise.resolve(0)
-  .then(function(num) { return Promise.resolve('asdf'); })
+  .then(function(num) { return Promise.resolve(\'asdf\'); })
   .then(function(str) {
     var a: string = str;
     var b: number = str; // Error: string ~> number
@@ -289,7 +289,7 @@ Promise.resolve(0)
 
 // resolvedPromise.then():Promise<Promise<T>> -> then(T)
 Promise.resolve(0)
-  .then(function(num) { return Promise.resolve(Promise.resolve('asdf')); })
+  .then(function(num) { return Promise.resolve(Promise.resolve(\'asdf\')); })
   .then(function(str) {
     var a: string = str;
     var b: number = str; // Error: string ~> number
@@ -298,7 +298,7 @@ Promise.resolve(0)
 // TODO: resolvedPromise.then(<throw(T)>) -> catch(T)
 Promise.resolve(0)
   .then(function(num) {
-    throw 'str';
+    throw \'str\';
   })
   .catch(function(str) {
     var a: string = str;
@@ -313,7 +313,7 @@ Promise.resolve(0)
 
 // rejectedPromise.catch():U -> then(U)
 Promise.reject(0)
-  .catch(function(num) { return 'asdf'; })
+  .catch(function(num) { return \'asdf\'; })
   .then(function(str) {
     var a: string = str;
     var b: number = str; // Error: string ~> number
@@ -321,7 +321,7 @@ Promise.reject(0)
 
 // rejectedPromise.catch():Promise<U> -> then(U)
 Promise.reject(0)
-  .catch(function(num) { return Promise.resolve('asdf'); })
+  .catch(function(num) { return Promise.resolve(\'asdf\'); })
   .then(function(str) {
     var a: string = str;
     var b: number = str; // Error: string ~> number
@@ -329,7 +329,7 @@ Promise.reject(0)
 
 // rejectedPromise.catch():Promise<Promise<U>> -> then(U)
 Promise.reject(0)
-  .catch(function(num) { return Promise.resolve(Promise.resolve('asdf')); })
+  .catch(function(num) { return Promise.resolve(Promise.resolve(\'asdf\')); })
   .then(function(str) {
     var a: string = str;
     var b: number = str; // Error: string ~> number
@@ -419,7 +419,7 @@ Promise.resolve(0)
 // Error: string ~> number
 new Promise(
   function(resolve, reject) {
-    resolve([object Number]);
+    resolve(0);
   }
 ).then(
   function(num) {
@@ -427,7 +427,7 @@ new Promise(
     var b: string = num;
   }
 );
-new Promise((resolve, reject) => resolve([object Number])).then(
+new Promise((resolve, reject) => resolve(0)).then(
   function(num) {
     var a: number = num;
     var b: string = num;
@@ -438,7 +438,7 @@ new Promise(
     resolve(
       new Promise(
         function(resolve, reject) {
-          resolve([object Number]);
+          resolve(0);
         }
       )
     );
@@ -457,7 +457,7 @@ new Promise(
           resolve(
             new Promise(
               function(resolve, reject) {
-                resolve([object Number]);
+                resolve(0);
               }
             )
           );
@@ -474,14 +474,14 @@ new Promise(
 new Promise(
   function(resolve, reject) {
     if (Math.random()) {
-      resolve([object Number]);
+      resolve(42);
     } else {
-      resolve("str");
+      resolve(\"str\");
     }
   }
 ).then(
   function(numOrStr) {
-    if (typeof numOrStr === "string") {
+    if (typeof numOrStr === \"string\") {
       var a: string = numOrStr;
     } else {
       var b: number = numOrStr;
@@ -491,7 +491,7 @@ new Promise(
 );
 new Promise(
   function(resolve, reject) {
-    reject([object Number]);
+    reject(0);
   }
 ).catch(
   function(num) {
@@ -504,7 +504,7 @@ new Promise(
     reject(
       new Promise(
         function(resolve, reject) {
-          reject([object Number]);
+          reject(0);
         }
       )
     );
@@ -518,14 +518,14 @@ new Promise(
 new Promise(
   function(resolve, reject) {
     if (Math.random()) {
-      reject([object Number]);
+      reject(42);
     } else {
-      reject("str");
+      reject(\"str\");
     }
   }
 ).catch(
   function(numOrStr) {
-    if (typeof numOrStr === "string") {
+    if (typeof numOrStr === \"string\") {
       var a: string = numOrStr;
     } else {
       var b: number = numOrStr;
@@ -533,39 +533,39 @@ new Promise(
     var c: string = numOrStr;
   }
 );
-Promise.resolve([object Number]).then(
+Promise.resolve(0).then(
   function(num) {
     var a: number = num;
     var b: string = num;
   }
 );
-Promise.resolve(Promise.resolve([object Number])).then(
+Promise.resolve(Promise.resolve(0)).then(
   function(num) {
     var a: number = num;
     var b: string = num;
   }
 );
-Promise.resolve(Promise.resolve(Promise.resolve([object Number]))).then(
+Promise.resolve(Promise.resolve(Promise.resolve(0))).then(
   function(num) {
     var a: number = num;
     var b: string = num;
   }
 );
-Promise.reject([object Number]).catch(
+Promise.reject(0).catch(
   function(num) {
     var a: number = num;
     var b: string = num;
   }
 );
-Promise.reject(Promise.resolve([object Number])).then(
+Promise.reject(Promise.resolve(0)).then(
   function(num) {
     var a: Promise<number> = num;
     var b: number = num;
   }
 );
-Promise.resolve([object Number]).then(
+Promise.resolve(0).then(
   function(num) {
-    return "asdf";
+    return \"asdf\";
   }
 ).then(
   function(str) {
@@ -573,9 +573,9 @@ Promise.resolve([object Number]).then(
     var b: number = str;
   }
 );
-Promise.resolve([object Number]).then(
+Promise.resolve(0).then(
   function(num) {
-    return Promise.resolve("asdf");
+    return Promise.resolve(\"asdf\");
   }
 ).then(
   function(str) {
@@ -583,9 +583,9 @@ Promise.resolve([object Number]).then(
     var b: number = str;
   }
 );
-Promise.resolve([object Number]).then(
+Promise.resolve(0).then(
   function(num) {
-    return Promise.resolve(Promise.resolve("asdf"));
+    return Promise.resolve(Promise.resolve(\"asdf\"));
   }
 ).then(
   function(str) {
@@ -593,9 +593,9 @@ Promise.resolve([object Number]).then(
     var b: number = str;
   }
 );
-Promise.resolve([object Number]).then(
+Promise.resolve(0).then(
   function(num) {
-    throw "str";
+    throw \"str\";
   }
 ).catch(
   function(str) {
@@ -603,9 +603,9 @@ Promise.resolve([object Number]).then(
     var b: number = str;
   }
 );
-Promise.reject([object Number]).catch(
+Promise.reject(0).catch(
   function(num) {
-    return "asdf";
+    return \"asdf\";
   }
 ).then(
   function(str) {
@@ -613,9 +613,9 @@ Promise.reject([object Number]).catch(
     var b: number = str;
   }
 );
-Promise.reject([object Number]).catch(
+Promise.reject(0).catch(
   function(num) {
-    return Promise.resolve("asdf");
+    return Promise.resolve(\"asdf\");
   }
 ).then(
   function(str) {
@@ -623,9 +623,9 @@ Promise.reject([object Number]).catch(
     var b: number = str;
   }
 );
-Promise.reject([object Number]).catch(
+Promise.reject(0).catch(
   function(num) {
-    return Promise.resolve(Promise.resolve("asdf"));
+    return Promise.resolve(Promise.resolve(\"asdf\"));
   }
 ).then(
   function(str) {
@@ -633,7 +633,7 @@ Promise.reject([object Number]).catch(
     var b: number = str;
   }
 );
-Promise.resolve([object Number]).catch(
+Promise.resolve(0).catch(
   function(err) {
     
   }
@@ -662,7 +662,7 @@ class Promise {}
  */
 async function foo(x: boolean) {
   if (x) {
-    return {bar: 'baz'};
+    return {bar: \'baz\'};
   } else {
     return null;
   }
@@ -708,21 +708,21 @@ async function baz(): Promise<number> {
 class Promise {}
 async function foo(x: boolean) {
   if (x) {
-    return { bar: "baz" };
+    return { bar: \"baz\" };
   } else {
-    return [object Null];
+    return null;
   }
 }
 async function run() {
-  console.log(await foo([object Boolean]));
-  console.log(await foo([object Boolean]));
+  console.log(await foo(true));
+  console.log(await foo(false));
 }
 run();
 async function bar() {
-  return Promise.resolve([object Number]);
+  return Promise.resolve(0);
 }
 async function baz(): Promise<number> {
-  return [object Number];
+  return 0;
 }
 "
 `;
