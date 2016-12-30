@@ -165,7 +165,7 @@ function genericPrint(path, options, printPath) {
   var linesWithoutParens =
       genericPrintNoParens(path, options, printPath);
 
-  if (! node || isEmpty(linesWithoutParens)) {
+  if (!node || isEmpty(linesWithoutParens)) {
     return linesWithoutParens;
   }
 
@@ -668,15 +668,18 @@ function genericPrintNoParens(path, options, print) {
         return printMethod(path, options, print);
       }
 
-      var key = path.call(print, "key");
       if (n.computed) {
-        parts.push("[", key, "]");
-      } else {
-        parts.push(key);
+        parts.push("[", path.call(print, "key"), "]")
+      }
+      else {
+        parts.push(path.call(print, n.shorthand ? "value" : "key"));
       }
 
-      if (! n.shorthand) {
-        parts.push(": ", path.call(print, "value"));
+      if(!n.shorthand) {
+        parts.push(
+          ": ",
+          path.call(print, "value")
+        );
       }
 
       return concat(parts);
@@ -1082,19 +1085,27 @@ function genericPrintNoParens(path, options, print) {
         return openingLines;
       }
 
-      var children = path.map(function(childPath) {
+      var children = [];
+      path.map(function(childPath) {
         var child = childPath.getValue();
 
         if (namedTypes.Literal.check(child) &&
             typeof child.value === "string") {
           if (/\S/.test(child.value)) {
-            return child.value.replace(/^\s+|\s+$/g, "").replace(/\n/, hardline);
+            const beginBreak = child.value.match(/^\s*\n/);
+            const endBreak = child.value.match(/\n\s*$/);
+            children.push(
+              beginBreak ? hardline : "",
+              child.value.replace(/^\s+|\s+$/g, ""),
+              endBreak ? hardline : ""
+            );
           } else if (/\n/.test(child.value)) {
-            return hardline;
+            children.push(hardline);
           }
         }
-
-        return print(childPath);
+        else {
+          children.push(print(childPath));
+        }
       }, "children");
 
       var mostChildren = children.slice(0, -1);
@@ -1120,10 +1131,10 @@ function genericPrintNoParens(path, options, print) {
       return concat(["</", path.call(print, "name"), ">"]);
 
     case "JSXText":
-      return fromString(n.value, options);
+      throw new Error("JSXTest should be handled by JSXElement");
 
     case "JSXEmptyExpression":
-      return fromString("");
+      return "";
 
     case "TypeAnnotatedIdentifier":
       return concat([
@@ -1425,7 +1436,11 @@ function genericPrintNoParens(path, options, print) {
       return fromString("number", options);
 
     case "ObjectTypeCallProperty":
-      return path.call(print, "value");
+      if(n.static) {
+        parts.push("static ");
+      }
+      parts.push(path.call(print, "value"));
+      return concat(parts);
 
     case "ObjectTypeIndexer":
       var variance =
@@ -1808,12 +1823,12 @@ function printExportDeclaration(path, options, print) {
 
   } else if (decl.specifiers &&
              decl.specifiers.length > 0) {
-
     if (decl.specifiers.length === 1 &&
         decl.specifiers[0].type === "ExportBatchSpecifier") {
       parts.push("*");
     } else {
       parts.push(
+        decl.exportKind === "type" ? "type " : "",
         shouldPrintSpaces ? "{ " : "{",
         join(", ", path.map(print, "specifiers")),
         shouldPrintSpaces ? " }" : "}"

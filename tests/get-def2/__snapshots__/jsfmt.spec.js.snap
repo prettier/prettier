@@ -45,7 +45,7 @@ import type {Foo} from \'./types\';
 // Follows non-destructured property access of \`require(\'Parent\')\`
 var Parent = require(\"./Parent\");
 let ParentFoo;
-{ ParentFoo } = Parent;
+({ ParentFoo } = Parent);
 ParentFoo;
 let ParentFoo2;
 ParentFoo2 = Parent;

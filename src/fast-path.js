@@ -320,7 +320,8 @@ FPp.needsParens = function(assumeExpressionContext) {
       return parent.type === "ArrayTypeAnnotation";
 
     case "FunctionTypeAnnotation":
-      return parent.type === "UnionTypeAnnotation";
+      return parent.type === "UnionTypeAnnotation" ||
+        parent.type === "IntersectionTypeAnnotation";
 
     case "Literal":
       return parent.type === "MemberExpression"
@@ -351,7 +352,8 @@ FPp.needsParens = function(assumeExpressionContext) {
             && parent.object === node;
 
         default:
-          return false;
+          return n.ObjectPattern.check(node.left) &&
+            this.firstInStatement();
       }
 
     case "ArrowFunctionExpression":
@@ -439,7 +441,9 @@ FPp.canBeFirstInStatement = function() {
   var node = this.getNode();
   return !n.FunctionExpression.check(node)
     && !n.ObjectExpression.check(node)
-    && !n.ClassExpression.check(node);
+    && !n.ClassExpression.check(node)
+    && !(n.AssignmentExpression.check(node) &&
+         n.ObjectPattern.check(node.left));
 };
 
 FPp.firstInStatement = function() {

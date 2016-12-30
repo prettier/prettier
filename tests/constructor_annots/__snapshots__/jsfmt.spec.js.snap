@@ -40,7 +40,11 @@ Foo.prototype = {
 };
 exports.Foo = Foo;
 interface IFooPrototype  { m(): number }
-interface IFoo extends IFooPrototype { (): void; x: boolean; static y: boolean }
+interface IFoo extends IFooPrototype {
+  static (): void;
+  x: boolean;
+  static y: boolean
+}
 exports.Foo2 = (Foo: Class<IFoo>);
 "
 `;

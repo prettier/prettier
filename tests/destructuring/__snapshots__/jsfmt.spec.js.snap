@@ -180,7 +180,7 @@ function default_expr_scope({a, b = a}) {}
 // ok
 // union-like upper bounds preserved through destructuring
 // TODO: union-of-objects upper bounds preserved through destructuring
-function obj_prop_fun({ p: { q } = { q: true } } = { p: { q: \"\" } }) {
+function obj_prop_fun({ p: { q = 0 } = { q: true } } = { p: { q: \"\" } }) {
   (q: void);
 }
 obj_prop_fun();
@@ -188,7 +188,7 @@ obj_prop_fun({});
 obj_prop_fun({ p: {} });
 obj_prop_fun({ p: { q: null } });
 function obj_prop_var(o = { p: { q: \"\" } }) {
-  var { p: { q } = { q: true } } = o;
+  var { p: { q = 0 } = { q: true } } = o;
   (q: void);
 }
 obj_prop_var();
@@ -204,10 +204,10 @@ obj_rest();
 obj_rest({});
 obj_rest({ p: {} });
 obj_rest({ p: { q: 0, r: null } });
-function obj_prop_annot({ p }: { p: string } = { p: 0 }) {
+function obj_prop_annot({ p = true }: { p: string } = { p: 0 }) {
   (p: void);
 }
-var { p }: { p: string } = { p: 0 };
+var { p = true }: { p: string } = { p: 0 };
 (p: void);
 function obj_prop_err({ x: { y } } = null) {
   
@@ -221,7 +221,7 @@ function arr_elem_err([ x ] = null) {
 function arr_rest_err([ ...a ] = null) {
   
 }
-function gen<T>(x: T, { p }: { p: T }): T {
+function gen<T>(x: T, { p = x }: { p: T }): T {
   return p;
 }
 obj_prop_fun(({}: { p?: { q?: null } }));
@@ -238,7 +238,7 @@ function obj_prop_union({ p }: { p: number | string } = { p: true }) {
 function obj_prop_union2({ p }: { p: number } | { p: string } = { p: true }) {
   
 }
-function default_expr_scope({ a, b }) {
+function default_expr_scope({ a, b = a }) {
   
 }
 "
@@ -330,9 +330,9 @@ declare var b: string;
 declare var c: string;
 [ { a1: a, b }, c ] = [ { a1: 0, b: 1 }, 2 ];
 var { m } = { m: 0 };
-{ m } = { m: m };
+({ m } = { m: m });
 var obj;
-{ n: obj.x } = { n: 3 };
+({ n: obj.x } = { n: 3 });
 [ obj.x ] = [ \"foo\" ];
 function foo({ p, z: [ r ] }) {
   a = p;
@@ -420,7 +420,7 @@ exports[`test eager.js 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // error, property \`x\` can not be accessed on \`null\`
 var x;
-{ x } = null;
+({ x } = null);
 "
 `;
 

@@ -27,7 +27,8 @@
       "jsfmt\\.spec\\.js$"
     ],
     "testPathIgnorePatterns": [
-      "tests/new_react"
+      "tests/new_react",
+      "tests/more_react"
     ]
   }
 }
