@@ -490,7 +490,7 @@ function bar(x:Object) {
 // treated as \`any\`, so allowed
 // still treated as \`any\`, so allowed
 // also treated as \`any\`, so allowed
-function foo(x: { y?(): void }) {
+function foo(x: { y?: () => void }) {
   x.y();
   if (x.hasOwnProperty(\"y\")) {
     x.y();
@@ -708,7 +708,7 @@ exports[`test lib.js 1`] = `
 declare var BAZ: {stuff?: (x: number) => void} | void;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-declare var BAZ: { stuff?(x: number): void } | void;
+declare var BAZ: { stuff?: (x: number) => void } | void;
 "
 `;
 

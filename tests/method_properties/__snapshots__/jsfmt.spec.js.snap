@@ -8,7 +8,7 @@ declare class Foo {
 export {Foo};
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-declare class Foo { bar?(): string }
+declare class Foo { bar?: () => string }
 export { Foo }
 "
 `;
@@ -24,7 +24,7 @@ C.x;
 (new C).foo.x;
 C.bar.x;
 
-import {Foo} from './exports_optional_prop';
+import {Foo} from \'./exports_optional_prop\';
 const foo = new Foo();
 (foo.bar(): string); // error, could be undefined
 
@@ -52,7 +52,7 @@ class C {
 C.x;
 new C().foo.x;
 C.bar.x;
-import { Foo } from "./exports_optional_prop";
+import { Foo } from \"./exports_optional_prop\";
 const foo = new Foo();
 (foo.bar(): string);
 function f(x) {

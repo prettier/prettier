@@ -1332,7 +1332,7 @@ function genericPrintNoParens(path, options, print) {
       // var A: (a: B) => void;
       var parent = path.getParentNode(0);
       var isArrowFunctionTypeAnnotation = !(
-        (!parent.variance && namedTypes.ObjectTypeProperty.check(parent)) ||
+        (!parent.variance && !parent.optional && namedTypes.ObjectTypeProperty.check(parent)) ||
         namedTypes.ObjectTypeCallProperty.check(parent) ||
         namedTypes.DeclareFunction.check(path.getParentNode(2))
       );
@@ -1444,7 +1444,9 @@ function genericPrintNoParens(path, options, print) {
       var variance =
         n.variance === "plus" ? "+" :
         n.variance === "minus" ? "-" : "";
-      var isFunction = !n.variance && n.value.type === "FunctionTypeAnnotation";
+      // TODO: This is a bad hack and we need a better way to know
+      // when to emit an arrow function or not.
+      var isFunction = !n.variance && !n.optional && n.value.type === "FunctionTypeAnnotation";
 
       return concat([
         n.static ? "static " : "",
