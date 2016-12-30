@@ -362,6 +362,9 @@ FPp.needsParens = function(assumeExpressionContext) {
 
       return isBinary(parent);
 
+    case "ClassExpression":
+      return parent.type === "ExpressionStatement";
+
     case "ObjectExpression":
       if (parent.type === "ArrowFunctionExpression" &&
           name === "body") {
@@ -435,7 +438,8 @@ function containsCallExpression(node) {
 FPp.canBeFirstInStatement = function() {
   var node = this.getNode();
   return !n.FunctionExpression.check(node)
-    && !n.ObjectExpression.check(node);
+    && !n.ObjectExpression.check(node)
+    && !n.ClassExpression.check(node);
 };
 
 FPp.firstInStatement = function() {

@@ -412,52 +412,52 @@ class Base {
     this.x = value;
   }
 }
-class extends Base {
+(class extends Base {
   get x(): B {
     return b;
   }
-};
-class extends Base {
+});
+(class extends Base {
   set x(value: B): void {
     
   }
-};
-class extends Base {
+});
+(class extends Base {
   get x(): C {
     return c;
   }
   set x(value: A): void {
     
   }
-};
-class extends Base {
+});
+(class extends Base {
   set pos(value: B): void {
     
   }
-};
-class extends Base {
+});
+(class extends Base {
   get pos(): C {
     return c;
   }
-};
-class extends Base {
+});
+(class extends Base {
   get neg(): B {
     return b;
   }
-};
-class extends Base {
+});
+(class extends Base {
   set neg(value: A): void {
     
   }
-};
-class extends Base {
+});
+(class extends Base {
   get: C;
-};
-class extends Base {
+});
+(class extends Base {
   set: A;
-};
-class extends Base {
+});
+(class extends Base {
   getset: B;
-};
+});
 "
 `;
