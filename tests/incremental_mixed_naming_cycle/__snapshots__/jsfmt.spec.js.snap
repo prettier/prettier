@@ -4,18 +4,18 @@ exports[`test a.js 1`] = `
  * @flow
  */
 
-(require('./b'): void);
-(require('C'): void);
+(require(\'./b\'): void);
+(require(\'C\'): void);
 
-module.exports = 'A';
+module.exports = \'A\';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /**
  * @providesModule A
  * @flow
  */
-(require("./b"): void);
-(require("C"): void);
-module.exports = "A";
+(require(\"./b\"): void);
+(require(\"C\"): void);
+module.exports = \"A\";
 "
 `;
 
@@ -25,18 +25,18 @@ exports[`test b.js 1`] = `
  * @flow
  */
 
-(require('A'): void);
-(require('D'): void);
+(require(\'A\'): void);
+(require(\'D\'): void);
 
-module.exports = 'B';
+module.exports = \'B\';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /**
  * @providesModule B
  * @flow
  */
-(require("A"): void);
-(require("D"): void);
-module.exports = "B";
+(require(\"A\"): void);
+(require(\"D\"): void);
+module.exports = \"B\";
 "
 `;
 
@@ -46,18 +46,18 @@ exports[`test c.js 1`] = `
  * @flow
  */
 
-require('Root');
-(require('./b'): void);
+require(\'Root\');
+(require(\'./b\'): void);
 
-module.exports = 'C';
+module.exports = \'C\';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /**
  * @providesModule C
  * @flow
  */
-require("Root");
-(require("./b"): void);
-module.exports = "C";
+require(\"Root\");
+(require(\"./b\"): void);
+module.exports = \"C\";
 "
 `;
 
@@ -67,16 +67,16 @@ exports[`test d.js 1`] = `
  * @flow
  */
 
-(require('./b'): void);
+(require(\'./b\'): void);
 
-module.exports = 'D';
+module.exports = \'D\';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /**
  * @providesModule D
  * @flow
  */
-(require("./b"): void);
-module.exports = "D";
+(require(\"./b\"): void);
+module.exports = \"D\";
 "
 `;
 
@@ -86,12 +86,12 @@ exports[`test root.js 1`] = `
  * @flow
  */
 
-module.exports = 'Root';
+module.exports = \'Root\';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /**
  * @providesModule Root
  * @flow
  */
-module.exports = "Root";
+module.exports = \"Root\";
 "
 `;

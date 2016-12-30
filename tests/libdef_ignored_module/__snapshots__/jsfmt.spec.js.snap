@@ -1,13 +1,13 @@
 exports[`test test.js 1`] = `
 "/* @flow */
 
-import foo from "foo";
+import foo from \"foo\";
 
 (foo.bar : string); // error number ~> string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 // error number ~> string
-import foo from "foo";
+import foo from \"foo\";
 (foo.bar: string);
 "
 `;

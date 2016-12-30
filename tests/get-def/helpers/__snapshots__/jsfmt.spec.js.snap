@@ -1,12 +1,12 @@
 exports[`test exports_default.js 1`] = `
 "// @flow
 
-const x = "foo";
+const x = \"foo\";
 
 export default x;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-const x = "foo";
+const x = \"foo\";
 export default x
 "
 `;
@@ -14,11 +14,11 @@ export default x
 exports[`test exports_named.js 1`] = `
 "// @flow
 
-export const foo = "foo";
-export const bar = "bar";
+export const foo = \"foo\";
+export const bar = \"bar\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-export const foo = "foo";
-export const bar = "bar";
+export const foo = \"foo\";
+export const bar = \"bar\";
 "
 `;

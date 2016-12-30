@@ -4,31 +4,31 @@ exports[`test in.js 1`] = `
 let tests = [
   // objects on RHS
   function() {
-    ('foo' in {});
-    ('foo' in { foo: null });
+    (\'foo\' in {});
+    (\'foo\' in { foo: null });
     (0 in {});
-    (0 in { "0": null });
+    (0 in { \"0\": null });
   },
 
   // arrays on RHS
   function() {
-    ('foo' in []);
+    (\'foo\' in []);
     (0 in []);
-    ('length' in []);
+    (\'length\' in []);
   },
 
   // primitive classes on RHS
   function() {
-    ('foo' in new String('bar'));
-    ('foo' in new Number(123));
+    (\'foo\' in new String(\'bar\'));
+    (\'foo\' in new Number(123));
   },
 
   // primitives on RHS
   function() {
-    ('foo' in 123); // error
-    ('foo' in 'bar'); // error
-    ('foo' in void 0); // error
-    ('foo' in null); // error
+    (\'foo\' in 123); // error
+    (\'foo\' in \'bar\'); // error
+    (\'foo\' in void 0); // error
+    (\'foo\' in null); // error
   },
 
   // bogus stuff on LHS
@@ -42,15 +42,15 @@ let tests = [
 
   // in predicates
   function() {
-    if ('foo' in 123) {} // error
-    if (!'foo' in {}) {} // error, !'foo' is a boolean
-    if (!('foo' in {})) {}
+    if (\'foo\' in 123) {} // error
+    if (!\'foo\' in {}) {} // error, !\'foo\' is a boolean
+    if (!(\'foo\' in {})) {}
   },
 
   // annotations on RHS
   function(x: Object, y: mixed) {
-    ('foo' in x); // ok
-    ('foo' in y); // error
+    (\'foo\' in x); // ok
+    (\'foo\' in y); // error
   },
 ]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -71,31 +71,31 @@ let tests = [
 // error
 // in predicates
 // error
-// error, !'foo' is a boolean
+// error, !\'foo\' is a boolean
 // annotations on RHS
 // ok
 // error
 let tests = [
   function() {
-    "foo" in {};
-    "foo" in { foo: null };
+    \"foo\" in {};
+    \"foo\" in { foo: null };
     0 in {};
-    0 in { "0": null };
+    0 in { \"0\": null };
   },
   function() {
-    "foo" in [  ];
+    \"foo\" in [  ];
     0 in [  ];
-    "length" in [  ];
+    \"length\" in [  ];
   },
   function() {
-    "foo" in new String("bar");
-    "foo" in new Number(123);
+    \"foo\" in new String(\"bar\");
+    \"foo\" in new Number(123);
   },
   function() {
-    "foo" in 123;
-    "foo" in "bar";
-    "foo" in void 0;
-    "foo" in null;
+    \"foo\" in 123;
+    \"foo\" in \"bar\";
+    \"foo\" in void 0;
+    \"foo\" in null;
   },
   function() {
     null in {};
@@ -105,19 +105,19 @@ let tests = [
     false in [  ];
   },
   function() {
-    if ("foo" in 123) {
+    if (\"foo\" in 123) {
       
     }
-    if (!"foo" in {}) {
+    if (!\"foo\" in {}) {
       
     }
-    if (!("foo" in {})) {
+    if (!(\"foo\" in {})) {
       
     }
   },
   function(x: Object, y: mixed) {
-    "foo" in x;
-    "foo" in y;
+    \"foo\" in x;
+    \"foo\" in y;
   }
 ];
 "

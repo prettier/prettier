@@ -1,7 +1,7 @@
 exports[`test client.js 1`] = `
-"var md5 = require('./md5');
+"var md5 = require(\'./md5\');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var md5 = require("./md5");
+var md5 = require(\"./md5\");
 "
 `;
 

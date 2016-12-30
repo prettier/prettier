@@ -5,10 +5,10 @@ exports[`test overload.js 1`] = `
  * @flow
  */
 
-var x1: number = "".match(0)[0];
-var x2: number = "".match(/pattern/)[0];
-var x3: string = "".replace(/pattern/,"...");
-var x4: number = "".split(/pattern/)[0];
+var x1: number = \"\".match(0)[0];
+var x2: number = \"\".match(/pattern/)[0];
+var x3: string = \"\".replace(/pattern/,\"...\");
+var x4: number = \"\".split(/pattern/)[0];
 
 declare class C {
     foo(x:number): number;
@@ -21,11 +21,11 @@ declare class C {
 var a = new C();
 
 a.foo(0); // ok
-a.foo("hey"); // ok
+a.foo(\"hey\"); // ok
 a.foo(true); // error, function cannot be called on intersection type
 
 a.bar({ a: 0 }); // ok
-a.bar({ a: "hey" }); // ok
+a.bar({ a: \"hey\" }); // ok
 a.bar({ a: true }); // error, function cannot be called on intersection type
 
 declare var x: { a: boolean; } & { b: string };
@@ -47,7 +47,7 @@ var y:number = new Dummy().dumb(foo);
 function bar1(x:number):Array<string> { return []; }
 var z1:number = new Dummy().dumber(bar1);
 
-function bar2(x:number):string { return "..."; }
+function bar2(x:number):string { return \"...\"; }
 var z2:Array<string> = new Dummy().dumber(bar2);
 */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -78,13 +78,13 @@ var y:number = new Dummy().dumb(foo);
 function bar1(x:number):Array<string> { return []; }
 var z1:number = new Dummy().dumber(bar1);
 
-function bar2(x:number):string { return "..."; }
+function bar2(x:number):string { return \"...\"; }
 var z2:Array<string> = new Dummy().dumber(bar2);
 */
-var x1: number = "".match(0)[0];
-var x2: number = "".match(/pattern/)[0];
-var x3: string = "".replace(/pattern/, "...");
-var x4: number = "".split(/pattern/)[0];
+var x1: number = \"\".match(0)[0];
+var x2: number = \"\".match(/pattern/)[0];
+var x3: string = \"\".replace(/pattern/, \"...\");
+var x4: number = \"\".split(/pattern/)[0];
 declare class C {
   foo(x: number): number;
   foo(x: string): string;
@@ -93,10 +93,10 @@ declare class C {
 }
 var a = new C();
 a.foo(0);
-a.foo("hey");
+a.foo(\"hey\");
 a.foo(true);
 a.bar({ a: 0 });
-a.bar({ a: "hey" });
+a.bar({ a: \"hey\" });
 a.bar({ a: true });
 declare var x: { a: boolean } & { b: string };
 a.bar(x);
@@ -119,19 +119,19 @@ function foo() {
 
 exports[`test test2.js 1`] = `
 "declare class Foo {
-  bar(x: 'hmm'): number;
+  bar(x: \'hmm\'): number;
   bar(x: string): string;
 }
 var foo = new Foo;
-(foo.bar('hmm'): number); // OK
-(foo.bar('hmmm'): number); // error
+(foo.bar(\'hmm\'): number); // OK
+(foo.bar(\'hmmm\'): number); // error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // OK
 // error
-declare class Foo { bar(x: "hmm"): number; bar(x: string): string }
+declare class Foo { bar(x: \"hmm\"): number; bar(x: string): string }
 var foo = new Foo();
-(foo.bar("hmm"): number);
-(foo.bar("hmmm"): number);
+(foo.bar(\"hmm\"): number);
+(foo.bar(\"hmmm\"): number);
 "
 `;
 
@@ -186,12 +186,12 @@ exports[`test union.js 1`] = `
 "function foo<U> (x: $Either<Array<U>,U>): Array<U> { return []; }
 
 var x1:number = foo(0)[0];
-var x2:string = foo([""])[0];
+var x2:string = foo([\"\"])[0];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function foo<U>(x: $Either<Array<U>, U>): Array<U> {
   return [  ];
 }
 var x1: number = foo(0)[0];
-var x2: string = foo([ "" ])[0];
+var x2: string = foo([ \"\" ])[0];
 "
 `;

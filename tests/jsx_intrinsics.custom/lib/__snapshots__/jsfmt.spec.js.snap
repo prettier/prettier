@@ -1,5 +1,5 @@
 exports[`test jsx.js 1`] = `
-"declare var $React: $Exports<'react'>; // fake import
+"declare var $React: $Exports<\'react\'>; // fake import
 type $JSXIntrinsic<T> = Class<$React.Component<void,T,mixed>>;
 
 type $JSXIntrinsics = {
@@ -8,7 +8,7 @@ type $JSXIntrinsics = {
 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // fake import
-declare var $React: $Exports<"react">;
+declare var $React: $Exports<\"react\">;
 type $JSXIntrinsic<T> = Class<$React.Component<void, T, mixed>>;
 type $JSXIntrinsics = {
   div: $JSXIntrinsic<{ id: string }>;

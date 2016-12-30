@@ -2,24 +2,24 @@ exports[`test classes.js 1`] = `
 "// @flow
 
 class Foo {
-  type: 'foo';
+  type: \'foo\';
   foo: string;
 }
 
 class Bar {
-  type: 'bar';
+  type: \'bar\';
   bar: string;
 }
 
 type Foobar = Foo | Bar;
 
 function foobar(x: Foobar): string {
-  if (x.type === 'foo') {
+  if (x.type === \'foo\') {
     return foo(x);
-  } else if (x.type === 'bar') {
+  } else if (x.type === \'bar\') {
     return bar(x);
   } else {
-    return 'unknown';
+    return \'unknown\';
   }
 }
 
@@ -33,22 +33,22 @@ function bar(x: Bar): string {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 class Foo {
-  type: "foo";
+  type: \"foo\";
   foo: string;
 }
 class Bar {
-  type: "bar";
+  type: \"bar\";
   bar: string;
 }
 type Foobar = Foo | Bar;
 function foobar(x: Foobar): string {
-  if (x.type === "foo") {
+  if (x.type === \"foo\") {
     return foo(x);
   } else
-    if (x.type === "bar") {
+    if (x.type === \"bar\") {
       return bar(x);
     } else {
-      return "unknown";
+      return \"unknown\";
     }
 }
 function foo(x: Foo): string {
@@ -69,32 +69,32 @@ declare interface IDataBase {
 }
 
 declare interface IUserData extends IDataBase {
-  kind: "user",
+  kind: \"user\",
 }
 
 declare interface ISystemData extends IDataBase {
-  kind: "system",
+  kind: \"system\",
 }
 
 declare type IData = IUserData | ISystemData;
 
 const data: IData = {
-  id: "",
-  name: "",
-  kind: "system",
+  id: \"\",
+  name: \"\",
+  kind: \"system\",
 }
 
-if (data.kind === "user") {
+if (data.kind === \"user\") {
   (data: ISystemData);
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 interface IDataBase  { id: string; name: string }
-interface IUserData extends IDataBase { kind: "user" }
-interface ISystemData extends IDataBase { kind: "system" }
+interface IUserData extends IDataBase { kind: \"user\" }
+interface ISystemData extends IDataBase { kind: \"system\" }
 type IData = IUserData | ISystemData;
-const data: IData = { id: "", name: "", kind: "system" };
-if (data.kind === "user") {
+const data: IData = { id: \"\", name: \"\", kind: \"system\" };
+if (data.kind === \"user\") {
   (data: ISystemData);
 }
 "
@@ -109,32 +109,32 @@ declare interface IDataBase {
 }
 
 declare interface IUserData extends IDataBase {
-  kind: "user",
+  kind: \"user\",
 }
 
 declare interface ISystemData extends IDataBase {
-  kind: "system",
+  kind: \"system\",
 }
 
 declare type IData = IUserData | ISystemData;
 
 const data: IData = {
-  id: "",
-  name: "",
-  kind: "system",
+  id: \"\",
+  name: \"\",
+  kind: \"system\",
 }
 
-if (data.kind === "system") {
+if (data.kind === \"system\") {
   (data: ISystemData);
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 interface IDataBase  { id: string; name: string }
-interface IUserData extends IDataBase { kind: "user" }
-interface ISystemData extends IDataBase { kind: "system" }
+interface IUserData extends IDataBase { kind: \"user\" }
+interface ISystemData extends IDataBase { kind: \"system\" }
 type IData = IUserData | ISystemData;
-const data: IData = { id: "", name: "", kind: "system" };
-if (data.kind === "system") {
+const data: IData = { id: \"\", name: \"\", kind: \"system\" };
+if (data.kind === \"system\") {
   (data: ISystemData);
 }
 "
@@ -151,34 +151,34 @@ type DataBase = {
 type UserData = {
   id: string,
   name: string,
-  kind: "user",
+  kind: \"user\",
 }
 
 type SystemData = {
   id: string,
   name: string,
-  kind: "system",
+  kind: \"system\",
 }
 
 declare type Data = UserData | SystemData;
 
 const data: Data = {
-  id: "",
-  name: "",
-  kind: "system",
+  id: \"\",
+  name: \"\",
+  kind: \"system\",
 }
 
-if (data.kind === "user") {
+if (data.kind === \"user\") {
   (data: SystemData);
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 type DataBase = { id: string; name: string };
-type UserData = { id: string; name: string; kind: "user" };
-type SystemData = { id: string; name: string; kind: "system" };
+type UserData = { id: string; name: string; kind: \"user\" };
+type SystemData = { id: string; name: string; kind: \"system\" };
 type Data = UserData | SystemData;
-const data: Data = { id: "", name: "", kind: "system" };
-if (data.kind === "user") {
+const data: Data = { id: \"\", name: \"\", kind: \"system\" };
+if (data.kind === \"user\") {
   (data: SystemData);
 }
 "
@@ -195,34 +195,34 @@ type DataBase = {
 type UserData = {
   id: string,
   name: string,
-  kind: "user",
+  kind: \"user\",
 }
 
 type SystemData = {
   id: string,
   name: string,
-  kind: "system",
+  kind: \"system\",
 }
 
 declare type Data = UserData | SystemData;
 
 const data: Data = {
-  id: "",
-  name: "",
-  kind: "system",
+  id: \"\",
+  name: \"\",
+  kind: \"system\",
 }
 
-if (data.kind === "system") {
+if (data.kind === \"system\") {
   (data: SystemData);
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 type DataBase = { id: string; name: string };
-type UserData = { id: string; name: string; kind: "user" };
-type SystemData = { id: string; name: string; kind: "system" };
+type UserData = { id: string; name: string; kind: \"user\" };
+type SystemData = { id: string; name: string; kind: \"system\" };
 type Data = UserData | SystemData;
-const data: Data = { id: "", name: "", kind: "system" };
-if (data.kind === "system") {
+const data: Data = { id: \"\", name: \"\", kind: \"system\" };
+if (data.kind === \"system\") {
   (data: SystemData);
 }
 "

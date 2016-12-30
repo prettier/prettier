@@ -1,10 +1,10 @@
 exports[`test class_static.js 1`] = `
 "class B {
-    static foo(): string { return ""; }
+    static foo(): string { return \"\"; }
 }
 
 class C extends B {
-    static bar(): string { return ""; }
+    static bar(): string { return \"\"; }
 }
 
 var x: number = C.bar();
@@ -12,12 +12,12 @@ var y: number = C.foo();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class B {
   static foo(): string {
-    return "";
+    return \"\";
   }
 }
 class C extends B {
   static bar(): string {
-    return "";
+    return \"\";
   }
 }
 var x: number = C.bar();

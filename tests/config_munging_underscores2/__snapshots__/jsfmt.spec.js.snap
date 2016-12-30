@@ -12,7 +12,7 @@ class A {
     return 1;
   }
   static _sMethod(): string {
-    return "some string";
+    return \"some string\";
   }
 }
 A._sProperty = 48;
@@ -23,16 +23,16 @@ class B extends A {
 
   constructor() {
     super();
-    this._property1 = "another string";
+    this._property1 = \"another string\";
   }
   _method1(): string {
-    return "yet another string";
+    return \"yet another string\";
   }
   static _sMethod(): number {
     return 23;
   }
 }
-B._sProperty = "B._sProperty string";
+B._sProperty = \"B._sProperty string\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 class A {
@@ -45,7 +45,7 @@ class A {
     return 1;
   }
   static _sMethod(): string {
-    return "some string";
+    return \"some string\";
   }
 }
 A._sProperty = 48;
@@ -54,15 +54,15 @@ class B extends A {
   static _sProperty: string;
   constructor() {
     super();
-    this._property1 = "another string";
+    this._property1 = \"another string\";
   }
   _method1(): string {
-    return "yet another string";
+    return \"yet another string\";
   }
   static _sMethod(): number {
     return 23;
   }
 }
-B._sProperty = "B._sProperty string";
+B._sProperty = \"B._sProperty string\";
 "
 `;

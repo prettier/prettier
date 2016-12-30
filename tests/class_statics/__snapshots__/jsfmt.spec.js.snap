@@ -12,9 +12,9 @@ class B extends A {
   static foo(x: string) { } // error?
   static main() {
     B.x = 0; // error
-    B.x = "";
+    B.x = \"\";
     B.foo(0); // error
-    B.foo("");
+    B.foo(\"\");
     B.y = 0; // error
     B.bar(0); // error
     B.qux(0); // error
@@ -94,9 +94,9 @@ class B extends A {
   }
   static main() {
     B.x = 0;
-    B.x = "";
+    B.x = \"\";
     B.foo(0);
-    B.foo("");
+    B.foo(\"\");
     B.y = 0;
     B.bar(0);
     B.qux(0);

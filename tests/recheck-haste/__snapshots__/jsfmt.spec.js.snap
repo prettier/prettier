@@ -15,9 +15,9 @@ exports[`test A1.js 1`] = `
 exports[`test A3.js 1`] = `
 "// @flow
 
-require('A');
+require(\'A\');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-require("A");
+require(\"A\");
 "
 `;

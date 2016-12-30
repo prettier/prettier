@@ -11,12 +11,12 @@ exports[`test b.js 1`] = `
    @flow
 */
 
-var A = require('IncrModuleA');
+var A = require(\'IncrModuleA\');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule IncrModuleB
    @flow
 */
-var A = require("IncrModuleA");
+var A = require(\"IncrModuleA\");
 "
 `;
 

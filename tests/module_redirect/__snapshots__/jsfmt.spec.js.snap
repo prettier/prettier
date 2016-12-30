@@ -15,13 +15,13 @@ exports[`test B.js 1`] = `
  * @flow
  */
 
-module.exports = require('A');
+module.exports = require(\'A\');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /**
  * @providesModule B
  * @flow
  */
-module.exports = require("A");
+module.exports = require(\"A\");
 "
 `;
 
@@ -31,13 +31,13 @@ exports[`test C.js 1`] = `
  * @flow
  */
 
-module.exports = require('B');
+module.exports = require(\'B\');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /**
  * @providesModule C
  * @flow
  */
-module.exports = require("B");
+module.exports = require(\"B\");
 "
 `;
 
@@ -47,16 +47,16 @@ exports[`test D.js 1`] = `
  * @flow
  */
 
-var bar1: string = require('A');
-var bar2: string = require('B');
-var bar3: string = require('C');
+var bar1: string = require(\'A\');
+var bar2: string = require(\'B\');
+var bar3: string = require(\'C\');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /**
  * @providesModule D
  * @flow
  */
-var bar1: string = require("A");
-var bar2: string = require("B");
-var bar3: string = require("C");
+var bar1: string = require(\"A\");
+var bar2: string = require(\"B\");
+var bar3: string = require(\"C\");
 "
 `;

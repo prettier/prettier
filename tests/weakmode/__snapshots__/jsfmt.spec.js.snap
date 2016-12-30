@@ -3,7 +3,7 @@ exports[`test should_fail_without_weak.js 1`] = `
 // This should fail without weak mode, because of the glaring type error.
 
 function returns_a_string() {
-  return "Hello";
+  return \"Hello\";
 }
 
 function expects_an_int() {
@@ -13,7 +13,7 @@ function expects_an_int() {
 /* @flow */
 // This should fail without weak mode, because of the glaring type error.
 function returns_a_string() {
-  return "Hello";
+  return \"Hello\";
 }
 function expects_an_int() {
   return returns_a_string() * 10;
@@ -26,7 +26,7 @@ exports[`test should_pass_with_weak.js 1`] = `
 // This should fail without weak mode, because of the glaring type error.
 
 function returns_a_string() {
-  return "Hello";
+  return \"Hello\";
 }
 
 function expects_an_int() {
@@ -36,7 +36,7 @@ function expects_an_int() {
 /* @flow weak */
 // This should fail without weak mode, because of the glaring type error.
 function returns_a_string() {
-  return "Hello";
+  return \"Hello\";
 }
 function expects_an_int() {
   return returns_a_string() * 10;

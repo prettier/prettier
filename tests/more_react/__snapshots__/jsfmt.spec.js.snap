@@ -1,17 +1,17 @@
 exports[`test API.react.js 1`] = `
 "
-var app = require('JSX');
+var app = require(\'JSX\');
 
 app.setProps({y:42}); // error, y:number but foo expects string in App.react
 app.setState({z:42}); // error, z:number but foo expects string in App.react
 
 function bar(x:number) { }
-bar(app.props.children); // No error, App doesn't specify propTypes so anything goes
+bar(app.props.children); // No error, App doesn\'t specify propTypes so anything goes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // error, y:number but foo expects string in App.react
 // error, z:number but foo expects string in App.react
-// No error, App doesn't specify propTypes so anything goes
-var app = require("JSX");
+// No error, App doesn\'t specify propTypes so anything goes
+var app = require(\"JSX\");
 app.setProps({ y: 42 });
 app.setState({ z: 42 });
 function bar(x: number) {
@@ -28,7 +28,7 @@ exports[`test App.react.js 1`] = `
  * @jsx React.DOM
  */
 
-var React = require('react');
+var React = require(\'react\');
 
 // expect args to be strings
 function foo(p:string,q:string):string { return p+q; }
@@ -36,7 +36,7 @@ function foo(p:string,q:string):string { return p+q; }
 var App = React.createClass({
 
   getDefaultProps: function(): { y: string } {
-    return {y:""}; // infer props.y: string
+    return {y:\"\"}; // infer props.y: string
   },
 
   getInitialState: function() {
@@ -75,13 +75,13 @@ module.exports = App;
 // infer state.z: number
 // ok
 //this.state;
-var React = require("react");
+var React = require(\"react\");
 function foo(p: string, q: string): string {
   return p + q;
 }
 var App = React.createClass({
   getDefaultProps: function(): { y: string } {
-    return { y: "" };
+    return { y: \"\" };
   },
   getInitialState: function() {
     return { z: 0 };
@@ -108,8 +108,8 @@ exports[`test JSX.js 1`] = `
 "
 /* @providesModule JSX */
 
-var React = require('react');
-var App = require('App.react');
+var React = require(\'react\');
+var App = require(\'App.react\');
 
 var app =
   <App y={42}> // error, y: number but foo expects string in App.react
@@ -119,15 +119,15 @@ var app =
 module.exports = app;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule JSX */
-var React = require("react");
-var App = require("App.react");
+var React = require(\"react\");
+var App = require(\"App.react\");
 var app = <App y={42}>// error, y: number but foo expects string in App.react[object Object]    Some text.</App>;
 module.exports = app;
 "
 `;
 
 exports[`test propTypes.js 1`] = `
-"var React = require('React');
+"var React = require(\'React\');
 
 var C = React.createClass({
   propTypes: {
@@ -142,19 +142,19 @@ var D = React.createClass({
 });
 
 <D
-  namee='foo' // error (as usual)
-  titlee='bar' // OK (error ignored when spread is used)
+  namee=\'foo\' // error (as usual)
+  titlee=\'bar\' // OK (error ignored when spread is used)
 />;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* error (as usual)*/
 /* OK (error ignored when spread is used)*/
-var React = require("React");
+var React = require(\"React\");
 var C = React.createClass({
   propTypes: { title: React.PropTypes.string.isRequired }
 });
 var D = React.createClass({
   propTypes: { name: React.PropTypes.string.isRequired, ...C.propTypes }
 });
-<D namee="foo" titlee="bar"/>;
+<D namee=\"foo\" titlee=\"bar\"/>;
 "
 `;

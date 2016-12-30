@@ -1,18 +1,18 @@
 exports[`test type.js 1`] = `
 "declare var a: number;
-var b: typeof a = "...";
-var c: typeof a = "...";
+var b: typeof a = \"...\";
+var c: typeof a = \"...\";
 
 type T = number;
-var x:T = "...";
+var x:T = \"...\";
 
 // what about recursive unions?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // what about recursive unions?
 declare var a: number;
-var b: typeof a = "...";
-var c: typeof a = "...";
+var b: typeof a = \"...\";
+var c: typeof a = \"...\";
 type T = number;
-var x: T = "...";
+var x: T = \"...\";
 "
 `;

@@ -1,15 +1,15 @@
 exports[`test toplevel.js 1`] = `
 "// @flow
 
-import {name} from "testproj";
+import {name} from \"testproj\";
 
-(name: "node_modules/testproj");
-(name: "custom_resolve_dir/testproj"); // Error: Resolve from node_modules first!
+(name: \"node_modules/testproj\");
+(name: \"custom_resolve_dir/testproj\"); // Error: Resolve from node_modules first!
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 // Error: Resolve from node_modules first!
-import { name } from "testproj";
-(name: "node_modules/testproj");
-(name: "custom_resolve_dir/testproj");
+import { name } from \"testproj\";
+(name: \"node_modules/testproj\");
+(name: \"custom_resolve_dir/testproj\");
 "
 `;

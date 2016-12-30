@@ -15,7 +15,7 @@ module.exports = A;
 `;
 
 exports[`test B.js 1`] = `
-"var A = require('./A');
+"var A = require(\'./A\');
 
 class B extends A { }
 
@@ -25,7 +25,7 @@ let b = new B();
 module.exports = B;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // error, number !~> function
-var A = require("./A");
+var A = require(\"./A\");
 class B extends A {}
 let b = new B();
 (b.foo: number);
@@ -34,7 +34,7 @@ module.exports = B;
 `;
 
 exports[`test C.js 1`] = `
-"var B = require('./B');
+"var B = require(\'./B\');
 
 class C extends B {
   foo(x:string):void { }
@@ -46,7 +46,7 @@ let c = new C();
 module.exports = C;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // error, number !~> function
-var B = require("./B");
+var B = require(\"./B\");
 class C extends B {
   foo(x: string): void {
     
@@ -74,9 +74,9 @@ exports[`test class_shapes.js 1`] = `
 
 type Foo = {
   a: string;    // exists in TestClass
-  b: string;    // doesn't exist
+  b: string;    // doesn\'t exist
   c?: ?string;  // exists in TestClass, optional
-  d?: number;   // doesn't exist
+  d?: number;   // doesn\'t exist
 }
 
 class TestClass {
@@ -92,8 +92,8 @@ x.c; // ok
 x.d; // error, TestClass has no d
 
 var y : Foo = x;
-y.b; // error, doesn't exist in TestClass
-y.d; // ok, it's optional
+y.b; // error, doesn\'t exist in TestClass
+y.d; // ok, it\'s optional
 
 class Test2Superclass {
   a: number;  // conflicts with cast to Foo
@@ -108,15 +108,15 @@ var w : Foo = z;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 // exists in TestClass
-// doesn't exist
+// doesn\'t exist
 // exists in TestClass, optional
-/* doesn't exist*/
+/* doesn\'t exist*/
 // ok
 // error, TestClass has no b
 // ok
 // error, TestClass has no d
-// error, doesn't exist in TestClass
-// ok, it's optional
+// error, doesn\'t exist in TestClass
+// ok, it\'s optional
 // conflicts with cast to Foo
 // conflicts with cast to Foo
 // conflicts with cast to Foo
@@ -155,7 +155,7 @@ exports[`test expr.js 1`] = `
 var bar1: Bar = new Bar() // OK
 var bar2: Bar = Bar.factory() // OK
 
-// NB: Don't write expected errors using Foo to avoid error collapse hiding an
+// NB: Don\'t write expected errors using Foo to avoid error collapse hiding an
 // unexpected failure in the above code.
 
 var B = class Baz { }
@@ -181,7 +181,7 @@ var alias2: Alias = _Alias.factory(); // error: bad pun
 // OK: Foo is a runtime binding in this scope
 // OK
 // OK
-// NB: Don't write expected errors using Foo to avoid error collapse hiding an
+// NB: Don\'t write expected errors using Foo to avoid error collapse hiding an
 // unexpected failure in the above code.
 // error: Baz is not a runtime binding in this scope
 // error: Qux is not a type in this scope
@@ -232,7 +232,7 @@ exports[`test statics.js 1`] = `
 class C {
   static p: string;
 }
-C.p = "hi";
+C.p = \"hi\";
 
 // Class static fields are compatible with object types
 (C: {p:string}); // ok
@@ -249,7 +249,7 @@ declare var o: {p:number};
 class C {
   static p: string;
 }
-C.p = "hi";
+C.p = \"hi\";
 (C: { p: string });
 (C: { p: number });
 declare var o: { p: number };

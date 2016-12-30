@@ -23,7 +23,7 @@ var a: MyClass1 = new MyClass1();
 // of the class value itself with the type of its
 // instances.
 
-// Aside: it's worth staring at the following (correct)
+// Aside: it\'s worth staring at the following (correct)
 // type annotations until they make sense:
 //
 //    MyClass1 : Class<MyClass1>
@@ -59,7 +59,7 @@ var c: typeof MyClass2 = new MyClass2();
 
 var numValue:number = 42;
 var d: typeof numValue = 100;
-var e: typeof numValue = 'asdf'; // Error: string ~> number
+var e: typeof numValue = \'asdf\'; // Error: string ~> number
 
 /////////////////////////////////
 // == typeof <<type-alias>> == //
@@ -69,18 +69,18 @@ type numberAlias = number;
 
 // This is an error because typeof takes a value, not
 // a type, as an argument. However, the current error
-// is suboptimal - just 'cannot resolve name'. TODO.
+// is suboptimal - just \'cannot resolve name\'. TODO.
 //
-var f: typeof numberAlias = 42; // Error: 'typeof <<type-alias>>' makes no sense...
+var f: typeof numberAlias = 42; // Error: \'typeof <<type-alias>>\' makes no sense...
 
 /**
  * Use of a non-class/non-function value in type annotation.
  * These provoke a specific error, not just the generic
- * "type is incompatible"
+ * \"type is incompatible\"
  */
 
- var Map = { "A": "this is A", "B": "this is B", "C": "this is C" };
- var keys: $Keys<Map> = "A";  // Error: ineligible value used in type anno
+ var Map = { \"A\": \"this is A\", \"B\": \"this is B\", \"C\": \"this is C\" };
+ var keys: $Keys<Map> = \"A\";  // Error: ineligible value used in type anno
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /**
  * @flow
@@ -97,7 +97,7 @@ var f: typeof numberAlias = 42; // Error: 'typeof <<type-alias>>' makes no sense
 // Following tests are errors which conflate the type
 // of the class value itself with the type of its
 // instances.
-// Aside: it's worth staring at the following (correct)
+// Aside: it\'s worth staring at the following (correct)
 // type annotations until they make sense:
 //
 //    MyClass1 : Class<MyClass1>
@@ -127,13 +127,13 @@ var f: typeof numberAlias = 42; // Error: 'typeof <<type-alias>>' makes no sense
 /////////////////////////////////
 // This is an error because typeof takes a value, not
 // a type, as an argument. However, the current error
-// is suboptimal - just 'cannot resolve name'. TODO.
+// is suboptimal - just \'cannot resolve name\'. TODO.
 //
-// Error: 'typeof <<type-alias>>' makes no sense...
+// Error: \'typeof <<type-alias>>\' makes no sense...
 /**
  * Use of a non-class/non-function value in type annotation.
  * These provoke a specific error, not just the generic
- * "type is incompatible"
+ * \"type is incompatible\"
  */
 // Error: ineligible value used in type anno
 class MyClass1 {
@@ -151,10 +151,10 @@ class MyClass2 {
 var c: typeof MyClass2 = new MyClass2();
 var numValue: number = 42;
 var d: typeof numValue = 100;
-var e: typeof numValue = "asdf";
+var e: typeof numValue = \"asdf\";
 type numberAlias = number;
 var f: typeof numberAlias = 42;
-var Map = { "A": "this is A", "B": "this is B", "C": "this is C" };
-var keys: $Keys<Map> = "A";
+var Map = { \"A\": \"this is A\", \"B\": \"this is B\", \"C\": \"this is C\" };
+var keys: $Keys<Map> = \"A\";
 "
 `;

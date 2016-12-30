@@ -1,12 +1,12 @@
 exports[`test cli.js 1`] = `
 "/* @flow */
 
-var f = require('./lib');
+var f = require(\'./lib\');
 
 var y:number = f(0);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-var f = require("./lib");
+var f = require(\"./lib\");
 var y: number = f(0);
 "
 `;
@@ -14,13 +14,13 @@ var y: number = f(0);
 exports[`test cli2.js 1`] = `
 "/* @flow */
 
-var f = require('./lib');
+var f = require(\'./lib\');
 
-f("...");
+f(\"...\");
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-var f = require("./lib");
-f("...");
+var f = require(\"./lib\");
+f(\"...\");
 "
 `;
 

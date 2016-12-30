@@ -2,12 +2,12 @@ exports[`test license_with_flow.js 1`] = `
 "/* Copyright example */
 /* @flow */
 
-("": void); // error
+(\"\": void); // error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* Copyright example */
 /* @flow */
 // error
-("": void);
+(\"\": void);
 "
 `;
 
@@ -94,36 +94,36 @@ exports[`test multiple_providesModule_2.js 1`] = `
 `;
 
 exports[`test use_strict_with_flow.js 1`] = `
-""use strict";
+"\"use strict\";
 /* @flow */
 
-("": void); // error
+(\"\": void); // error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 // error
-"use strict";
-("": void);
+\"use strict\";
+(\"\": void);
 "
 `;
 
 exports[`test with_flow.js 1`] = `
 "/* @flow */
 
-("": void); // error
+(\"\": void); // error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 // error
-("": void);
+(\"\": void);
 "
 `;
 
 exports[`test without_flow.js 1`] = `
 "/* some other comment */
 
-("": void); // no error
+(\"\": void); // no error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* some other comment */
 // no error
-("": void);
+(\"\": void);
 "
 `;

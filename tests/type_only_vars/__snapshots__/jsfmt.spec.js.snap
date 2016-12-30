@@ -28,33 +28,33 @@ exports[`test bad_shadowing.js 1`] = `
  * @flow
  */
 
-import typeof A from "./A.js";
-import type {Foo, Bar as Baz} from "./A.js";
+import typeof A from \"./A.js\";
+import type {Foo, Bar as Baz} from \"./A.js\";
 
 type duck = {
   quack: () => string;
 }
 
 // These string types should confict with the imported types
-var A: string = "Hello";
-var Foo: string = "Goodbye";
-var Baz: string = "Go away please";
+var A: string = \"Hello\";
+var Foo: string = \"Goodbye\";
+var Baz: string = \"Go away please\";
 
 // This string type should conflict with the typedef
-var duck: string = "quack";
+var duck: string = \"quack\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /**
  * @flow
  */
 // These string types should confict with the imported types
 // This string type should conflict with the typedef
-import typeof A from "./A.js";
-import type { Foo, Bar as Baz } from "./A.js";
+import typeof A from \"./A.js\";
+import type { Foo, Bar as Baz } from \"./A.js\";
 type duck = { quack(): string };
-var A: string = "Hello";
-var Foo: string = "Goodbye";
-var Baz: string = "Go away please";
-var duck: string = "quack";
+var A: string = \"Hello\";
+var Foo: string = \"Goodbye\";
+var Baz: string = \"Go away please\";
+var duck: string = \"quack\";
 "
 `;
 
@@ -63,10 +63,10 @@ exports[`test good_shadowing.js 1`] = `
  * @flow
  */
 
-import typeof A from "./A.js";
-import type {Foo, Bar as Baz} from "./A.js";
+import typeof A from \"./A.js\";
+import type {Foo, Bar as Baz} from \"./A.js\";
 
-var A = require('./A.js');
+var A = require(\'./A.js\');
 var Foo = A.Foo;
 var Baz = A.Bar;
 
@@ -85,9 +85,9 @@ var b: Foo = new A.Foo();
  */
 // errors in prev block leave type bindings in place, so these are errors
 // errors from value positions only
-import typeof A from "./A.js";
-import type { Foo, Bar as Baz } from "./A.js";
-var A = require("./A.js");
+import typeof A from \"./A.js\";
+import type { Foo, Bar as Baz } from \"./A.js\";
+var A = require(\"./A.js\");
 var Foo = A.Foo;
 var Baz = A.Bar;
 var m = A;
@@ -104,12 +104,12 @@ exports[`test import_type.js 1`] = `
  * @flow
  */
 
-import typeof A from "./A.js";
-import type {Foo, Bar as Baz} from "./A.js";
+import typeof A from \"./A.js\";
+import type {Foo, Bar as Baz} from \"./A.js\";
 
-var actualA = require('./A.js');
+var actualA = require(\'./A.js\');
 
-// You can't use it as an identifier
+// You can\'t use it as an identifier
 var m = A;
 var n = Foo;
 var o = Baz;
@@ -121,11 +121,11 @@ var a: Foo = new actualA.Foo();
 /**
  * @flow
  */
-// You can't use it as an identifier
+// You can\'t use it as an identifier
 // But using it in a type should still work
-import typeof A from "./A.js";
-import type { Foo, Bar as Baz } from "./A.js";
-var actualA = require("./A.js");
+import typeof A from \"./A.js\";
+import type { Foo, Bar as Baz } from \"./A.js\";
+var actualA = require(\"./A.js\");
 var m = A;
 var n = Foo;
 var o = Baz;
@@ -141,7 +141,7 @@ exports[`test type_alias.js 1`] = `
 
 type Foo = number;
 
-// You can't use it as an identifier
+// You can\'t use it as an identifier
 var x = Foo;
 
 // But using it in a type should still work
@@ -152,7 +152,7 @@ type c = Foo;
 /**
  * @flow
  */
-// You can't use it as an identifier
+// You can\'t use it as an identifier
 // But using it in a type should still work
 type Foo = number;
 var x = Foo;

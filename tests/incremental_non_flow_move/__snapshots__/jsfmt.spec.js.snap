@@ -15,11 +15,11 @@ exports[`test test.js 1`] = `
  * @flow
  */
 
-require('Foo');
+require(\'Foo\');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /**
  * @flow
  */
-require("Foo");
+require(\"Foo\");
 "
 `;

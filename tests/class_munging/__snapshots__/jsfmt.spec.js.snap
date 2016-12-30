@@ -5,7 +5,7 @@ exports[`test with_munging.js 1`] = `
 
 class Foo {
   _method(): string {
-    return 'this is private';
+    return \'this is private\';
   }
 }
 
@@ -21,7 +21,7 @@ class Bar extends Foo {
 // error
 class Foo {
   _method(): string {
-    return "this is private";
+    return \"this is private\";
   }
 }
 class Bar extends Foo {
@@ -40,7 +40,7 @@ exports[`test without_munging.js 1`] = `
 
 class Foo {
   _method(): string {
-    return 'this is not private';
+    return \'this is not private\';
   }
 }
 
@@ -57,7 +57,7 @@ class Bar extends Foo {
 // ok
 class Foo {
   _method(): string {
-    return "this is not private";
+    return \"this is not private\";
   }
 }
 class Bar extends Foo {

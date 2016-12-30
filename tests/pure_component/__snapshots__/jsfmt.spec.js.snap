@@ -1,5 +1,5 @@
 exports[`test test.js 1`] = `
-"var React = require('react');
+"var React = require(\'react\');
 
 class C extends React.PureComponent {
   props: { x: number };
@@ -7,7 +7,7 @@ class C extends React.PureComponent {
 (<C />); // error (\`x\` is a required prop)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // error (\`x\` is a required prop)
-var React = require("react");
+var React = require(\"react\");
 class C extends React.PureComponent {
   props: { x: number };
 }

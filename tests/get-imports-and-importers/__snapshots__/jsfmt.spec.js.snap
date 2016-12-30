@@ -11,23 +11,23 @@ exports[`test b.js 1`] = `
  * @flow
  * @providesModule b
  */
-require('./a');
+require(\'./a\');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /**
  * @flow
  * @providesModule b
  */
-require("./a");
+require(\"./a\");
 "
 `;
 
 exports[`test c.js 1`] = `
 "// @flow
-require('./a.js');
-require('b');
+require(\'./a.js\');
+require(\'b\');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-require("./a.js");
-require("b");
+require(\"./a.js\");
+require(\"b\");
 "
 `;

@@ -16,7 +16,7 @@ function g(a: ?string) {
 
 function h(x: number): string {
   if (x) {
-    return 'foo';
+    return \'foo\';
   } else {
     throw new Error();
   }
@@ -38,7 +38,7 @@ function g(a: ?string) {
 }
 function h(x: number): string {
   if (x) {
-    return "foo";
+    return \"foo\";
   } else {
     throw new Error();
   }

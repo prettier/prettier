@@ -798,8 +798,7 @@ function genericPrintNoParens(path, options, print) {
         " ",
         printed[0],
         indent(options.tabWidth,
-               join(concat([",", line]),
-                    printed.slice(1)))
+               join(concat([",", line]), printed.slice(1)))
       ];
 
       // We generally want to terminate all variable declarations with a
@@ -814,7 +813,7 @@ function genericPrintNoParens(path, options, print) {
         parts.push(";");
       }
 
-      return concat(parts);
+      return multilineGroup(concat(parts));
 
     case "VariableDeclarator":
       return n.init ? concat([

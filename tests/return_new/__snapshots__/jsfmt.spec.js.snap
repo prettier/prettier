@@ -43,7 +43,7 @@ exports[`test test2.js 1`] = `
 }
 
 var d = new D();
-d.x = ""; // error, string ~/~ number (but property x is found)
+d.x = \"\"; // error, string ~/~ number (but property x is found)
 
 (new D: D); // error, new D is an object, D not in proto chain
 
@@ -54,7 +54,7 @@ module.exports = D;
 // error, new D is an object, D not in proto chain
 declare class D { constructor(): { x: number }; y: any }
 var d = new D();
-d.x = "";
+d.x = \"\";
 (new D(): D);
 module.exports = D;
 "

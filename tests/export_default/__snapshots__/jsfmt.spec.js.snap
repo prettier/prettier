@@ -1,27 +1,27 @@
 exports[`test P.js 1`] = `
-"module.exports = require('M');
+"module.exports = require(\'M\');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-module.exports = require("M");
+module.exports = require(\"M\");
 "
 `;
 
 exports[`test test.js 1`] = `
-"var M = require('M');
-var N = require('N');
+"var M = require(\'M\');
+var N = require(\'N\');
 N.x = M(N.x);
-var P = require('./P'); // implementation of P redirects to module M
+var P = require(\'./P\'); // implementation of P redirects to module M
 N.y = P(N.y);
-var Q = require('Q'); // declaration of Q redirects to module M
+var Q = require(\'Q\'); // declaration of Q redirects to module M
 N.z = Q(N.z);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // implementation of P redirects to module M
 // declaration of Q redirects to module M
-var M = require("M");
-var N = require("N");
+var M = require(\"M\");
+var N = require(\"N\");
 N.x = M(N.x);
-var P = require("./P");
+var P = require(\"./P\");
 N.y = P(N.y);
-var Q = require("Q");
+var Q = require(\"Q\");
 N.z = Q(N.z);
 "
 `;

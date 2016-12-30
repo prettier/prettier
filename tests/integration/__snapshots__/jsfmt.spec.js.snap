@@ -8,9 +8,9 @@ exports[`test bar.js 1`] = `
 
 exports[`test foo.js 1`] = `
 "// @flow
-require('./bar');
+require(\'./bar\');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-require("./bar");
+require(\"./bar\");
 "
 `;

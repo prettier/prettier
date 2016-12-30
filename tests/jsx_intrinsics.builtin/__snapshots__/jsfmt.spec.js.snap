@@ -1,7 +1,7 @@
 exports[`test main.js 1`] = `
 "// @flow
 
-var React = require('react');
+var React = require(\'react\');
 
 class CustomComponent extends React.Component {
   props: {
@@ -9,56 +9,56 @@ class CustomComponent extends React.Component {
   };
 }
 
-var a: React.Element<{prop: string}> = <CustomComponent prop="asdf" />;
-var b: React.Element<{prop1: string}> = <CustomComponent prop="asdf" />; // Error: Props<{prop}> ~> Props<{prop1}>
+var a: React.Element<{prop: string}> = <CustomComponent prop=\"asdf\" />;
+var b: React.Element<{prop1: string}> = <CustomComponent prop=\"asdf\" />; // Error: Props<{prop}> ~> Props<{prop1}>
 
 // Since intrinsics are typed as \`any\` out of the box, we can pass any
 // attributes to intrinsics!
-var c: React.Element<any> = <div not_a_real_attr="asdf" />;
-// However, we don't allow such elements to be viewed as React elements with
+var c: React.Element<any> = <div not_a_real_attr=\"asdf\" />;
+// However, we don\'t allow such elements to be viewed as React elements with
 // different attributes.
-var d: React.Element<{doesntmatch: string}> = <div not_a_real_attr="asdf" />;
+var d: React.Element<{doesntmatch: string}> = <div not_a_real_attr=\"asdf\" />;
 // No error as long as expectations are consistent, though.
-var e: React.Element<{not_a_real_attr: string}> = <div not_a_real_attr="asdf" />;
+var e: React.Element<{not_a_real_attr: string}> = <div not_a_real_attr=\"asdf\" />;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 // Error: Props<{prop}> ~> Props<{prop1}>
 // Since intrinsics are typed as \`any\` out of the box, we can pass any
 // attributes to intrinsics!
-// However, we don't allow such elements to be viewed as React elements with
+// However, we don\'t allow such elements to be viewed as React elements with
 // different attributes.
 // No error as long as expectations are consistent, though.
-var React = require("react");
+var React = require(\"react\");
 class CustomComponent extends React.Component {
   props: { prop: string };
 }
-var a: React.Element<{ prop: string }> = <CustomComponent prop="asdf"/>;
-var b: React.Element<{ prop1: string }> = <CustomComponent prop="asdf"/>;
-var c: React.Element<any> = <div not_a_real_attr="asdf"/>;
-var d: React.Element<{ doesntmatch: string }> = <div not_a_real_attr="asdf"/>;
+var a: React.Element<{ prop: string }> = <CustomComponent prop=\"asdf\"/>;
+var b: React.Element<{ prop1: string }> = <CustomComponent prop=\"asdf\"/>;
+var c: React.Element<any> = <div not_a_real_attr=\"asdf\"/>;
+var d: React.Element<{ doesntmatch: string }> = <div not_a_real_attr=\"asdf\"/>;
 var e: React.Element<{
   not_a_real_attr: string
-}> = <div not_a_real_attr="asdf"/>;
+}> = <div not_a_real_attr=\"asdf\"/>;
 "
 `;
 
 exports[`test strings.js 1`] = `
 "/* @flow */
 
-var React = require('react');
+var React = require(\'react\');
 
 // The builtin $JSXIntrinsics should allow any string
 
-var Div = 'div';
-var Bad = 'bad';
-var Str: string = 'str';
+var Div = \'div\';
+var Bad = \'bad\';
+var Str: string = \'str\';
 
 <Div />; // This is fine
 <Bad />; // This is fine
 <Str />; // This is fine
 
-React.createElement('div', {}); // This is fine
-React.createElement('bad', {}); // This is fine
+React.createElement(\'div\', {}); // This is fine
+React.createElement(\'bad\', {}); // This is fine
 
 <Div id={42} />; // This is fine
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -70,15 +70,15 @@ React.createElement('bad', {}); // This is fine
 // This is fine
 /* This is fine*/
 // This is fine
-var React = require("react");
-var Div = "div";
-var Bad = "bad";
-var Str: string = "str";
+var React = require(\"react\");
+var Div = \"div\";
+var Bad = \"bad\";
+var Str: string = \"str\";
 <Div/>;
 <Bad/>;
 <Str/>;
-React.createElement("div", {});
-React.createElement("bad", {});
+React.createElement(\"div\", {});
+React.createElement(\"bad\", {});
 <Div id={42}/>;
 "
 `;
