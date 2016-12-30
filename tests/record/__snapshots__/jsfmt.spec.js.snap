@@ -1,8 +1,8 @@
 exports[`test test.js 1`] = `
-"type Key1 = \'foo\' | \'bar\'; // make an enum type with known key set
+"type Key1 = 'foo' | 'bar'; // make an enum type with known key set
 var o1: {[key: Key1]: number} = {
   foo: 0,
-  bar: \"\", // error: string ~/~ number
+  bar: "", // error: string ~/~ number
 };
 o1.foo; // OK
 o1.qux; // error: qux not found
@@ -15,7 +15,7 @@ o2.bar; // OK to access bar
 o2.qux; // error: qux not found
 
 class C<X> {
-  x: $Subtype<{[key: $Keys<X>]: any}>; // object with larger key set than X\'s
+  x: $Subtype<{[key: $Keys<X>]: any}>; // object with larger key set than X's
 }
 class D extends C<{foo: number, bar: string}> {
   x: { foo: number, qux: boolean }; // error: qux not found
@@ -33,14 +33,14 @@ var o3: {[key: AnyKey]: number} = { foo: 0 };
 // OK to leave out bar
 // OK to access bar
 // error: qux not found
-// object with larger key set than X\'s
+// object with larger key set than X's
 // error: qux not found
-type Key1 = \"foo\" | \"bar\";
-var o1: { [key: Key1]: number } = { foo: 0, bar: \"\" };
+type Key1 = "foo" | "bar";
+var o1: { [key: Key1]: number } = { foo: 0, bar: "" };
 o1.foo;
 o1.qux;
 o1.toString();
-type R = { foo: any, bar: any };
+type R = { foo: any; bar: any };
 type Key2 = $Keys<R>;
 var o2: { [key: Key2]: number } = { foo: 0 };
 o2.bar;
@@ -48,8 +48,8 @@ o2.qux;
 class C<X> {
   x: $Subtype<{ [key: $Keys<X>]: any }>;
 }
-class D extends C<{ foo: number, bar: string }> {
-  x: { foo: number, qux: boolean };
+class D extends C<{ foo: number; bar: string }> {
+  x: { foo: number; qux: boolean };
 }
 type AnyKey = $Keys<Object>;
 var o3: { [key: AnyKey]: number } = { foo: 0 };

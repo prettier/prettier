@@ -77,7 +77,7 @@ buffer.byteLength;
 buffer[1];
 buffer.copyWithin(0, 0);
 buffer.copyWithin(0, 0, 0);
-const it1: Iterator<[numbernumber]> = buffer.entries();
+const it1: Iterator<[number, number]> = buffer.entries();
 bool = buffer.every((element: number) => false);
 bool = buffer.every((element: number) => false, buffer);
 buffer = buffer.fill(1);

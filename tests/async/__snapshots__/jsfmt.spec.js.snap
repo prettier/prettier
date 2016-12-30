@@ -438,57 +438,6 @@ async function baz() {
 "
 `;
 
-exports[`test await_not_in_async.js 1`] = `
-"// note: currently, await-within-async enforcement is a
-// done by the parser, which bails after a single error.
-
-function f() {
-  await 1;
-}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// note: currently, await-within-async enforcement is a
-// done by the parser, which bails after a single error.
-function f() {
-  await;
-  1;
-}
-"
-`;
-
-exports[`test await_not_in_async2.js 1`] = `
-"// note: currently, await-within-async enforcement is a
-// done by the parser, which bails after a single error.
-
-function f(x) { return x; }
-
-f(await 1);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// note: currently, await-within-async enforcement is a
-// done by the parser, which bails after a single error.
-function f(x) {
-  return x;
-}
-f(await);
-"
-`;
-
-exports[`test await_not_in_async3.js 1`] = `
-"// note: currently, await-within-async enforcement is a
-// done by the parser, which bails after a single error.
-
-async function f(x) { return x; }
-
-f(await 1);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// note: currently, await-within-async enforcement is a
-// done by the parser, which bails after a single error.
-async function f(x) {
-  return x;
-}
-f(await);
-"
-`;
-
 exports[`test await_parse.js 1`] = `
 "async function f() { await 1; }
 async function ft<T>(a: T) { await 1; }

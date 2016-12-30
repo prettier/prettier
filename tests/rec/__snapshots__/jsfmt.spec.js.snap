@@ -20,7 +20,7 @@ function identity<A>(val: A): Functor<A> {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-type F<A> = { foo: : (x: A) => F<B> };
+type F<A> = { foo<B>(x: A): F<B> };
 declare function foo(x: any): F<any>;
 ({ foo }: F<any>);
 function bar(y: F<number>): F<string> {
@@ -32,7 +32,7 @@ function bar1<X>(y: F<X>): F<any> {
 function bar2<X>(y: F<any>): F<X> {
   return y;
 }
-type Functor<A> = { map: : (f: (val: A) => B) => Functor<B> };
+type Functor<A> = { map<B>(f: (val: A) => B): Functor<B> };
 function identity<A>(val: A): Functor<A> {
   return {
     map<B>(f: (_: typeof val) => B): Functor<B> {
@@ -55,7 +55,7 @@ function id(x: Task<any,any>): Task<any,any> { return x; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 type Task<error, value> = {
-  chain: : (next: (input: value) => Task<error, tagged>) => Task<error, tagged>
+  chain<tagged>(next: (input: value) => Task<error, tagged>): Task<error, tagged>
 };
 function id(x: Task<any, any>): Task<any, any> {
   return x;
@@ -196,13 +196,13 @@ function bar(x: P<number>): () => P<number> {
 // terminate despite expanding types, error
 // P<number> = () => { x: P<number> }
 // () => P<number> = () => () => { x: P<number> }
-type I<X> = : () => I<I<X>>;
-type J<X> = : () => J<J<X>>;
+type I<X> = () => I<I<X>>;
+type J<X> = () => J<J<X>>;
 function foo(x: I<number>): J<number> {
   return x;
 }
 type Q<X> = { x: X };
-type P<X> = : () => Q<P<X>>;
+type P<X> = () => Q<P<X>>;
 function bar(x: P<number>): () => P<number> {
   return x;
 }

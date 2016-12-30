@@ -342,11 +342,11 @@ function foo({ p, z: [ r ] }) {
 foo({ p: 0, z: [ 1, 2 ] });
 [ a, , b, ...c ] = [ 0, 1, true, 3 ];
 function bar({ x, ...z }) {
-  var o: { x: string, y: number } = z;
+  var o: { x: string; y: number } = z;
 }
 bar({ x: \"\", y: 0 });
 var spread = { y: \"\" };
-var extend: { x: number, y: string, z: boolean } = { x: 0, ...spread };
+var extend: { x: number; y: string; z: boolean } = { x: 0, ...spread };
 function qux(_: { a: number }) {
   
 }
@@ -384,21 +384,6 @@ var cp1: number = childprop1;
 var cp1_err: string = childprop1;
 var cp2: number = others.childprop1;
 var cp2_err: string = others.childprop2;
-"
-`;
-
-exports[`test destructuring_init.js 1`] = `
-"var {foo};
-var [bar];
-var [];
-var {};
-var [], {toz};
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var { foo };
-var [ bar ];
-var [  ];
-var {};
-var [  ]{ toz };
 "
 `;
 
@@ -491,18 +476,18 @@ type Prop<X> = { prop: X };
 function obj_pattern2<X>({ prop }) {
   
 }
-function arr_pattern<X>([ elem ]) {
+function arr_pattern<X>([ elem ]: X[]) {
   
 }
 type Elem<X> = X[];
-function arr_pattern2<X>([ elem ]) {
+function arr_pattern2<X>([ elem ]: Elem<X>) {
   
 }
-function tup_pattern<X>([ proj ]) {
+function tup_pattern<X>([ proj ]: [X]) {
   
 }
 type Proj<X> = [X];
-function tup_pattern2<X>([ proj ]) {
+function tup_pattern2<X>([ proj ]: Proj<X>) {
   
 }
 function rest_antipattern<T>(...t: T) {
@@ -514,15 +499,15 @@ function rest_pattern<X>(...r: X[]) {
 function obj_rest_pattern<X>({ _, ...o }) {
   o.x;
 }
-type ObjRest<X> = { _: any, x: X };
+type ObjRest<X> = { _: any; x: X };
 function obj_rest_pattern<X>({ _, ...o }) {
   o.x;
 }
-function arr_rest_pattern<X>([ _, ...a ]) {
+function arr_rest_pattern<X>([ _, ...a ]: [any, X]) {
   a[0];
 }
-type ArrRest<X> = [anyX];
-function arr_rest_pattern<X>([ _, ...a ]) {
+type ArrRest<X> = [any, X];
+function arr_rest_pattern<X>([ _, ...a ]: ArrRest<X>) {
   a[0];
 }
 "

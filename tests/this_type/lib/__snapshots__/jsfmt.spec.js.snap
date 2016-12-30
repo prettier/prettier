@@ -10,7 +10,7 @@ declare class DoublyLinkedList extends LinkedList {
   prev(): this;
 }
 
-declare module "mini-immutable" {
+declare module \"mini-immutable\" {
   declare class Map<K,V> {
     set(key: K, value: V): this; // more precise than Map<K,V> (see below)
   }
@@ -24,11 +24,11 @@ declare module "mini-immutable" {
 // is disabled for perf reasons, these will produce warnings.
 /* more precise than Map<K,V> (see below)*/
 /* inherits set method returning OrderedMap<K,V> instead of Map<K,V>*/
-declare class LinkedList { next: : () => this }
-declare class DoublyLinkedList { prev: : () => this }
-declare module "mini-immutable" {
-  declare class Map { set: : (key: K, value: V) => this }
-  declare class OrderedMap {}
+declare class LinkedList { next(): this }
+declare class DoublyLinkedList extends LinkedList { prev(): this }
+declare module \"mini-immutable\" {
+  declare class Map<K, V> { set(key: K, value: V): this }
+  declare class OrderedMap<K, V> extends Map<K, V> {}
 }
 "
 `;

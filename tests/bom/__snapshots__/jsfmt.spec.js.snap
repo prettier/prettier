@@ -173,19 +173,19 @@ for (let x: string | File of a.values()) {
 for (let x: string | File | Blob of a.values()) {
   
 }
-for (let [ x, y ] of a.entries()) {
+for (let [ x, y ]: [string, string | File] of a.entries()) {
   
 }
-for (let [ x, y ] of a.entries()) {
+for (let [ x, y ]: [string, string | File | Blob] of a.entries()) {
   
 }
-for (let [ x, y ] of a.entries()) {
+for (let [ x, y ]: [number, string] of a.entries()) {
   
 }
-for (let [ x, y ] of a.entries()) {
+for (let [ x, y ]: [string, number] of a.entries()) {
   
 }
-for (let [ x, y ] of a.entries()) {
+for (let [ x, y ]: [number, number] of a.entries()) {
   
 }
 "

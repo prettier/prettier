@@ -13,7 +13,7 @@ exports[`test default.js 1`] = `
   return [foo, bar];
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function f<T>(foo, bar = foo): [TT] {
+function f<T>(foo, bar = foo): [T, T] {
   return [ foo, bar ];
 }
 "
@@ -42,7 +42,7 @@ exports[`test maybe.js 1`] = `
     return x;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function foo(x: string): ?string {
+function foo(x?: string): ?string {
   return x;
 }
 "
@@ -161,7 +161,7 @@ qux(0,...[\"\",42]);
 
 module.exports = qux;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function bar(x, y) {
+function bar(x?, y?) {
   x * 0;
 }
 bar(0);
@@ -215,7 +215,7 @@ function testOptionalNullableFlowingToNullable(x?: ?string): ?string {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-function foo(x: string): string {
+function foo(x?: string): string {
   if (x == null) {
     return \"foo\";
   }
@@ -227,19 +227,19 @@ function bar(obj: { x?: string }): string {
   }
   return obj.x;
 }
-function baz(bar) {
+function baz(bar?) {
   if (!bar) {
     return 1;
   }
   return bar.duck;
 }
-function testOptionalNullable(x: ?string): string {
+function testOptionalNullable(x?: ?string): string {
   if (x == null) {
     return \"foo\";
   }
   return x;
 }
-function testOptionalNullableDefault(x: ?string = \"hi\"): string {
+function testOptionalNullableDefault(x?: ?string = \"hi\"): string {
   if (x == null) {
     return \"foo\";
   }
@@ -251,7 +251,7 @@ function testOptionalNullableProperty(obj: { x?: ?string }): string {
   }
   return obj.x;
 }
-function testOptionalNullableFlowingToNullable(x: ?string): ?string {
+function testOptionalNullableFlowingToNullable(x?: ?string): ?string {
   var f = function(y: ?string) {
     
   };
@@ -269,7 +269,7 @@ exports[`test optional_param2.js 1`] = `
 var i:I<number> = new I();
 var j:I<number> = i.map(id => id);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-declare class I { map: : (mapper: (value?: V) => M) => I<M> }
+declare class I<V> { map<M>(mapper: (value?: V) => M): I<M> }
 var i: I<number> = new I();
 var j: I<number> = i.map(id => id);
 "
@@ -286,7 +286,7 @@ bar(undefined); // ok
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ok
 // ok
-function foo(x: number) {
+function foo(x?: number) {
   
 }
 foo(undefined);
@@ -318,7 +318,7 @@ foo(123, true); // ERROR boolean ~> string
 // OK
 // ERROR boolean ~> number
 // ERROR boolean ~> string
-function foo(x: number, ...y: Array<string>): [?numberArray<string>] {
+function foo(x?: number, ...y: Array<string>): [?number, Array<string>] {
   return [ x, y ];
 }
 foo();
@@ -340,7 +340,7 @@ function bar() {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var x;
-function foo(bar = undefined) {
+function foo(bar? = undefined) {
   x = bar;
 }
 function bar() {
@@ -361,7 +361,7 @@ function bar() {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var x;
-function foo(bar) {
+function foo(bar?) {
   x = bar;
 }
 function bar() {

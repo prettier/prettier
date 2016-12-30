@@ -1,14 +1,14 @@
 exports[`test libs.js 1`] = `
-"declare module "declare_module_exports" {
+"declare module \"declare_module_exports\" {
   declare module.exports: number;
 }
 
-declare module "declare_m_e_with_other_value_declares" {
+declare module \"declare_m_e_with_other_value_declares\" {
   declare module.exports: number;
   declare var str: string;
 }
 
-declare module "declare_m_e_with_other_type_declares" {
+declare module \"declare_m_e_with_other_type_declares\" {
   declare module.exports: number;
   declare type str2 = string;
 }
@@ -18,14 +18,14 @@ declare module "declare_m_e_with_other_type_declares" {
  * syntaxes will work.
  */
 
-declare module "DEPRECATED__declare_var_exports" {
+declare module \"DEPRECATED__declare_var_exports\" {
   declare var exports: number;
 }
 
 /**
  * Ensure that, if both are present, \`declare module.exports\` wins
  */
-declare module "declare_m_e_with_declare_var_e" {
+declare module \"declare_m_e_with_declare_var_e\" {
   declare module.exports: number;
   declare var exports: string;
 }
@@ -37,22 +37,22 @@ declare module "declare_m_e_with_declare_var_e" {
 /**
  * Ensure that, if both are present, \`declare module.exports\` wins
  */
-declare module "declare_module_exports" {
-  declare module.exports: number
+declare module \"declare_module_exports\" {
+  declare module.exports: number;
 }
-declare module "declare_m_e_with_other_value_declares" {
-  declare module.exports: number
+declare module \"declare_m_e_with_other_value_declares\" {
+  declare module.exports: number;
   declare var str: string;
 }
-declare module "declare_m_e_with_other_type_declares" {
-  declare module.exports: number
-  type str2 = string;
+declare module \"declare_m_e_with_other_type_declares\" {
+  declare module.exports: number;
+  declare type str2 = string;
 }
-declare module "DEPRECATED__declare_var_exports" {
+declare module \"DEPRECATED__declare_var_exports\" {
   declare var exports: number;
 }
-declare module "declare_m_e_with_declare_var_e" {
-  declare module.exports: number
+declare module \"declare_m_e_with_declare_var_e\" {
+  declare module.exports: number;
   declare var exports: string;
 }
 "

@@ -22,8 +22,8 @@ promiseAllByKey({
 // error, \'FOO\' incompatible with \'BAR\'
 // error, number ~> string
 // ok
-declare function promiseAllByKey(o: O): Promise<$ObjMap<O, typeof $await>>;
-declare function keyMirror(o: O): $ObjMapi<O, : (k: K) => K>;
+declare function promiseAllByKey<O>(o: O): Promise<$ObjMap<O, typeof $await>>;
+declare function keyMirror<O>(o: O): $ObjMapi<O, <K>(k: K) => K>;
 var o = keyMirror({ FOO: null, BAR: null });
 (o.FOO: \"FOO\");
 (o.FOO: \"BAR\");

@@ -61,7 +61,7 @@ export default class A {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import { B, C } from \"./issue-824-helper\";
 type K = B | C;
-type I = { which: : () => number };
+type I = { which(): number };
 export default class A {
   static foo(p: K): boolean {
     return false;
@@ -110,7 +110,7 @@ var bar: Array<{b: ?boolean, c: number} | {b: boolean}> = [
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-var bar: Array<{ b: ?boolean, c: number } | { b: boolean }> = [
+var bar: Array<{ b: ?boolean; c: number } | { b: boolean }> = [
   { b: true, c: 123 },
   { b: true }
 ];
@@ -126,8 +126,8 @@ exports[`test issue-1371.js 1`] = `
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function create(a: any): { type: \"B\", data: number } | {
-  type: \"A\",
+function create(a: any): { type: \"B\"; data: number } | {
+  type: \"A\";
   data: string
 } {
   return { type: \"A\", data: a };
@@ -193,8 +193,8 @@ function printAll(val: MyType) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // <--- foo could be an array
 type Common = {};
-type A = Common & { type: \"A\", foo: number };
-type B = Common & { type: \"B\", foo: Array<number> };
+type A = Common & { type: \"A\"; foo: number };
+type B = Common & { type: \"B\"; foo: Array<number> };
 type MyType = A | B;
 function print(x: number) {
   console.log(x);
@@ -235,8 +235,8 @@ function printAll(val: MyType) {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 type Common = {};
-type A = { type: \"A\", foo: number } & Common;
-type B = { type: \"B\", foo: Array<number> } & Common;
+type A = { type: \"A\"; foo: number } & Common;
+type B = { type: \"B\"; foo: Array<number> } & Common;
 type MyType = A | B;
 function print(x: number) {
   console.log(x);
@@ -280,7 +280,7 @@ if (data.kind === \"system\") {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-type DataBase = { id: string, name: string };
+type DataBase = { id: string; name: string };
 type UserData = DataBase & { kind: \"user\" };
 type SystemData = DataBase & { kind: \"system\" };
 type Data = UserData | SystemData;
@@ -303,7 +303,7 @@ function hello(x:X): string {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 //type X = {a:true, b:string} | {a:false, c:string}; // this works.
-type X = { a: true } & { b: string } | { a: false } & { c: string };
+type X = ({ a: true } & { b: string }) | ({ a: false } & { c: string });
 function hello(x: X): string {
   if (x.a === true)
     return x.b;
@@ -340,10 +340,10 @@ function test(f: Foo| EmptyFoo) {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-type Entity<T> = { id: T, name: string };
+type Entity<T> = { id: T; name: string };
 type StringEntity = Entity<string>;
-type Foo = StringEntity & { bars: Object, kind: 1 };
-type EmptyFoo = StringEntity & { bars: null, kind: 2 };
+type Foo = StringEntity & { bars: Object; kind: 1 };
+type EmptyFoo = StringEntity & { bars: null; kind: 2 };
 function test(f: Foo | EmptyFoo) {
   if (f.kind === 1) {
     (f: Foo);
@@ -446,8 +446,8 @@ function fun(a: A3 | A4) {
   return a();
 }
 const fun_result = fun(() => \"\");
-type A3 = : () => B3;
-type A4 = : () => B4;
+type A3 = () => B3;
+type A4 = () => B4;
 type B3 = number;
 type B4 = string;
 (fun_result: B3 | B4);
@@ -565,11 +565,11 @@ function obj(a: { x: number } | { x: string }) {
 obj(({ x: \"\" }: A1));
 type A1 = { x: B1 };
 type B1 = string;
-function fun(a: : () => number | : () => string) {
+function fun(a: (() => number) | (() => string)) {
   
 }
 fun((() => \"\": A2));
-type A2 = : () => B2;
+type A2 = () => B2;
 type B2 = string;
 class C<X> {}
 function inst(a: C<number> | C<string>) {
@@ -587,7 +587,7 @@ alias({
   }
 });
 type T<X> = { x: U<X> };
-type U<X> = : (x: V<X>) => void;
+type U<X> = (x: V<X>) => void;
 type V<X> = X;
 type B4 = string;
 function stat(a: { x: number } | { x: string }) {
@@ -598,11 +598,11 @@ class D {
 }
 stat(D);
 type B5 = string;
-function tup(a: [numberboolean] | [stringboolean]) {
+function tup(a: [number, boolean] | [string, boolean]) {
   
 }
 tup(([ \"\", false ]: A6));
-type A6 = [B6boolean];
+type A6 = [B6, boolean];
 type B6 = string;
 "
 `;
@@ -648,7 +648,7 @@ type B2 = string;
 ////////////////////////////
 // example with array types
 ////////////////////////////
-function fun(a: : (x: number) => void | : (x: string) => void) {
+function fun(a: ((x: number) => void) | ((x: string) => void)) {
   
 }
 fun(
@@ -656,7 +656,7 @@ fun(
     
   }: A1)
 );
-type A1 = : (x: B1) => void;
+type A1 = (x: B1) => void;
 type B1 = string;
 function arr(a: number[] | string[]) {
   
@@ -715,7 +715,7 @@ type B2 = string;
 ////////////////////////////
 // example with array types
 ////////////////////////////
-function fun(a: : (x: number) => void | : (x: string) => void) {
+function fun(a: ((x: number) => void) | ((x: string) => void)) {
   
 }
 const a1 = (x => {
@@ -725,7 +725,7 @@ fun(a1);
 function fun_call(x: string) {
   a1(x);
 }
-type A1 = : (x: B1) => void;
+type A1 = (x: B1) => void;
 type B1 = string;
 function arr(a: number[] | string[]) {
   
@@ -782,7 +782,7 @@ function arr_set(x: string, i: number) { a2[i] = x; }
 /////////////////////////////
 // example with array types
 /////////////////////////////
-function fun(a: : (x: number) => number | : (x: string) => string) {
+function fun(a: ((x: number) => number) | ((x: string) => string)) {
   
 }
 function a1(x) {
@@ -899,8 +899,8 @@ function rec(x: F1 | F2) {
 rec({ x: 0 });
 type F1 = G1;
 type F2 = G2;
-type G1 = { x: H1, y?: G1 };
-type G2 = { x: H2, y?: G2 };
+type G1 = { x: H1; y?: G1 };
+type G2 = { x: H2; y?: G2 };
 type H1 = string;
 type H2 = number;
 function polyrec(x: PF<number> | PF<string>) {
@@ -908,7 +908,7 @@ function polyrec(x: PF<number> | PF<string>) {
 }
 rec({ x: 0 });
 type PF<X> = PG<X>;
-type PG<X> = { x: X, y?: PG<X> };
+type PG<X> = { x: X; y?: PG<X> };
 "
 `;
 
@@ -986,10 +986,10 @@ foo((x): number => square(x))
 ////////////////
 // interference
 ////////////////
-function square(x = 0) {
+function square(x? = 0) {
   return x * x;
 }
-function foo(f: : (_: ?number) => ?number | : () => void) {
+function foo(f: ((_: ?number) => ?number) | (() => void)) {
   
 }
 foo((x): number => square(x));
@@ -1114,7 +1114,7 @@ function check_inst(_: C | D) {
 }
 check_inst(new D());
 check_inst(id(new C()));
-function check_fun(_: : (_: number) => number | : (_: string) => string) {
+function check_fun(_: ((_: number) => number) | ((_: string) => string)) {
   
 }
 check_fun(x => x);
@@ -1172,7 +1172,7 @@ length({ kind: \"cons\", next: { kind: \"nil\" } });
 length({ kind: \"empty\" });
 type List = Nil | Cons;
 type Nil = { kind: \"nil\" };
-type Cons = { kind: \"cons\", next: List };
+type Cons = { kind: \"cons\"; next: List };
 "
 `;
 
@@ -1189,7 +1189,7 @@ function rec(x: F<string>): G | H { return x; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
 // polymorphic recursive types
-type F<X> = { f: F<X>, x: X };
+type F<X> = { f: F<X>; x: X };
 type G = { x: number };
 type H = { x: string };
 function rec(x: F<string>): G | H {
@@ -1213,8 +1213,8 @@ exports[`test test13.js 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
 /* ensure there are no unintended side effects when trying branches */
-({ type: \"B\", id: \"hi\" }: { type: \"A\", id: ?string } | {
-  type: \"B\",
+({ type: \"B\", id: \"hi\" }: { type: \"A\"; id: ?string } | {
+  type: \"B\";
   id: string
 });
 "
@@ -1237,7 +1237,7 @@ function foo(c: C<number>) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
 // annotations
-declare class C { get: : () => X }
+declare class C<X> { get(): X }
 function union(o: { x: string } | { x: number }) {
   
 }
@@ -1285,14 +1285,14 @@ function foo<X>(target: EventTarget) {
   );
 }
 declare class EventTarget {
-  addEventListener: : (type: \"foo\", listener: KeyboardEventHandler) => void,
-  addEventListener: : (type: string, listener: EventHandler) => void
+  addEventListener(type: \"foo\", listener: KeyboardEventHandler): void;
+  addEventListener(type: string, listener: EventHandler): void
 }
 declare class Event {}
 declare class KeyboardEvent {}
-type EventHandler = : (event: Event) => mixed;
-type KeyboardEventHandler = : (event: KeyboardEvent) => mixed;
-function bar(x: : () => void | { x: number }) {
+type EventHandler = (event: Event) => mixed;
+type KeyboardEventHandler = (event: KeyboardEvent) => mixed;
+function bar(x: (() => void) | { x: number }) {
   
 }
 bar(
@@ -1325,9 +1325,9 @@ x = \"\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
 // annotations
-type T = number | : () => string;
-type Foo = T | : () => boolean;
-type Bar = number | : () => string | : () => boolean;
+type T = number | (() => string);
+type Foo = T | (() => boolean);
+type Bar = number | (() => string) | (() => boolean);
 function foo(x: Foo) {
   
 }
@@ -1376,7 +1376,7 @@ new C().m(f());
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
 // method overloads
-declare class C { m: : (x: number) => void, m: : (x: string) => void }
+declare class C { m(x: number): void; m(x: string): void }
 function f() {
   return 0;
 }
@@ -1403,10 +1403,7 @@ declare class D {
 function m<X>() {
   return new D();
 }
-declare class D {
-  constructor: : (_: void) => void,
-  constructor: : (_: null) => void
-}
+declare class D { constructor(_: void): void; constructor(_: null): void }
 "
 `;
 
@@ -1464,7 +1461,7 @@ function str() {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
 // annotations for disjoint unions
-type T = { type: \"FOO\", x: number } | { type: \"BAR\", x: string };
+type T = { type: \"FOO\"; x: number } | { type: \"BAR\"; x: string };
 ({ type: (bar(): \"BAR\"), x: str() }: T);
 ({ type: bar(), x: str() }: T);
 ({ type: bar(), x: (str(): string) }: T);
@@ -1503,7 +1500,7 @@ function foo(x: T) {
 // @noflow
 // refinement of disjoint unions
 type Empty = {};
-type Success = { type: \"SUCCESS\", result: string };
+type Success = { type: \"SUCCESS\"; result: string };
 type Error = { type: \"ERROR\" } & Empty;
 export type T = Success | Error;
 function foo(x: T) {
@@ -1577,27 +1574,30 @@ declare class D extends C {
 // @noflow
 // scaling test for full type resolution
 declare class C {
-  addListener: : (event: string, listener: Function) => C,
-  emit: : (event: string) => boolean,
-  listeners: : (event: string) => Array<Function>,
-  listenerCount: : (event: string) => number,
-  on: : (event: string, listener: Function) => C,
-  once: : (event: string, listener: Function) => C,
-  removeAllListeners: : (event?: string) => C,
-  removeListener: : (event: string, listener: Function) => C,
-  setMaxListeners: : (n: number) => void
+  addListener(event: string, listener: Function): C;
+  emit(event: string, ...args: Array<any>): boolean;
+  listeners(event: string): Array<Function>;
+  listenerCount(event: string): number;
+  on(event: string, listener: Function): C;
+  once(event: string, listener: Function): C;
+  removeAllListeners(event?: string): C;
+  removeListener(event: string, listener: Function): C;
+  setMaxListeners(n: number): void
 }
-declare class D {
-  listen: : (port: number, hostname?: string, backlog?: number, callback?: Function) => D,
-  listen: : (path: string, callback?: Function) => D,
-  listen: : (handle: Object, callback?: Function) => D,
-  close: : (callback?: Function) => D,
-  address: : () => number,
-  connections: number,
-  maxConnections: number,
-  getConnections: : (callback: Function) => void,
-  ref: : () => D,
-  unref: : () => D
+declare class D extends C {
+  listen(port: number,
+  hostname?: string,
+  backlog?: number,
+  callback?: Function): D;
+  listen(path: string, callback?: Function): D;
+  listen(handle: Object, callback?: Function): D;
+  close(callback?: Function): D;
+  address(): number;
+  connections: number;
+  maxConnections: number;
+  getConnections(callback: Function): void;
+  ref(): D;
+  unref(): D
 }
 (0: D | number);
 "
@@ -1660,8 +1660,8 @@ type T = number | string;
 declare var y: T;
 (foo(y): T);
 declare class Record {
-  set: : (x: \"foo\", y: number) => void,
-  set: : (x: \"bar\", y: string) => void
+  set(x: \"foo\", y: number): void;
+  set(x: \"bar\", y: string): void
 }
 new Record().set(\"foo\", \"42\");
 "
@@ -1691,7 +1691,7 @@ function hello4(x:X): string {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
 //type X = {a:true, b:string} | {a:false, c:string}; // this works.
-type X = { a: true } & { b: string } | { a: false } & { c: string };
+type X = ({ a: true } & { b: string }) | ({ a: false } & { c: string });
 function hello1(x: X): string {
   if (x.a === true)
     return x.b;
@@ -1760,9 +1760,11 @@ class C {
 // polymorphic definitions, where the same code may be checked multiple times
 // with different instantiations.
 type Row = { x: string };
-declare class D {
-  reduce: : (callbackfn: (previousValue: T, currentValue: T) => T, initialValue: void) => T,
-  reduce: : (callbackfn: (previousValue: U, currentValue: T) => U, initialValue: U) => U
+declare class D<T> {
+  reduce(callbackfn: (previousValue: T, currentValue: T) => T,
+  initialValue: void): T;
+  reduce<U>(callbackfn: (previousValue: U, currentValue: T) => U,
+  initialValue: U): U
 }
 class C {
   foo(rows: D<Row>, minWidth: number): number {
@@ -1785,7 +1787,7 @@ type ActionType =
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
 const Constants = require(\"./test30-helper\");
-type ActionType = { type: \"foo\", x: number } | { type: \"bar\", x: number };
+type ActionType = { type: \"foo\"; x: number } | { type: \"bar\"; x: number };
 ({ type: Constants.BAR, x: 0 }: ActionType);
 "
 `;
@@ -1833,14 +1835,14 @@ function foo(): ImmutableMap<string, boolean> {
 // @noflow
 // make sure tuples are type arguments (as used e.g. when viewing maps as
 // key/value iterables) work
-interface SomeIterator<T> extends  {}
-interface SomeIterable<T> extends  { it: : () => SomeIterator<T> }
-declare class SomeMap {
-  it: : () => SomeIterator<[KV]>,
-  set: : (k: K, v: V) => void
+interface SomeIterator<T>  {}
+interface SomeIterable<T>  { it(): SomeIterator<T> }
+declare class SomeMap<K, V> {
+  it(): SomeIterator<[K, V]>;
+  set(k: K, v: V): void
 }
-declare class ImmutableMap {}
-declare function convert(iter: SomeIterable<[KV]>): ImmutableMap<K, V>;
+declare class ImmutableMap<K, V> {}
+declare function convert<K, V>(iter: SomeIterable<[K, V]>): ImmutableMap<K, V>;
 function foo(): ImmutableMap<string, boolean> {
   const countersGlobalMap = new SomeMap();
   countersGlobalMap.set(\"\", false);

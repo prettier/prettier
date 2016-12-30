@@ -124,7 +124,7 @@ let tests = [
 // get()
 // error, string | void
 // error, wrong key type
-function* generator(): Iterable<[stringnumber]> {
+function* generator(): Iterable<[string, number]> {
   while (true) {
     yield [ \"foo\", 123 ];
   }

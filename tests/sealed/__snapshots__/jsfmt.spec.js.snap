@@ -31,7 +31,7 @@ var x:number = o.x;
 Foo.prototype.m = function() { return this.x; }
 
 var y:number = o.m();
-o.x = \"...\";
+o.x = "...";
 
 Foo.prototype = { m: function() { return false; } }
 
@@ -49,7 +49,7 @@ Foo.prototype.m = function() {
   return this.x;
 };
 var y: number = o.m();
-o.x = \"...\";
+o.x = "...";
 Foo.prototype = {
   m: function() {
     return false;
@@ -61,26 +61,26 @@ module.exports = export_o;
 `;
 
 exports[`test sealed.js 1`] = `
-"var o = require(\'./proto\');
+"var o = require('./proto');
 
 o.z = 0;
 var x:string = o.x;
 
-var Bar = require(\'./function\');
+var Bar = require('./function');
 var a = new Bar(234);
 a.x = 123;
-a.y = \'abc\'; // error, needs to be declared in Bar\'s constructor
+a.y = 'abc'; // error, needs to be declared in Bar's constructor
 (a.getX(): number);
 (a.getY(): string);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// error, needs to be declared in Bar\'s constructor
-var o = require(\"./proto\");
+// error, needs to be declared in Bar's constructor
+var o = require("./proto");
 o.z = 0;
 var x: string = o.x;
-var Bar = require(\"./function\");
+var Bar = require("./function");
 var a = new Bar(234);
 a.x = 123;
-a.y = \"abc\";
+a.y = "abc";
 (a.getX(): number);
 (a.getY(): string);
 "

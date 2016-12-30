@@ -2,32 +2,32 @@ exports[`test template.js 1`] = `
 "/* @flow */
 
 (\`foo\`: string); // ok
-(\`bar\`: \'bar\'); // ok
+(\`bar\`: 'bar'); // ok
 (\`baz\`: number); // error
 
 \`foo \${123} bar\`; // ok, number can be appended to string
-\`foo \${{bar: 123}} baz\`; // error, object can\'t be appended
+\`foo \${{bar: 123}} baz\`; // error, object can't be appended
 
 let tests = [
   function(x: string) {
     \`foo \${x}\`; // ok
     \`\${x} bar\`; // ok
-    \`foo \${\'bar\'} \${x}\`; // ok
+    \`foo \${'bar'} \${x}\`; // ok
   },
   function(x: number) {
     \`foo \${x}\`; // ok
     \`\${x} bar\`; // ok
-    \`foo \${\'bar\'} \${x}\`; // ok
+    \`foo \${'bar'} \${x}\`; // ok
   },
   function(x: boolean) {
     \`foo \${x}\`; // error
     \`\${x} bar\`; // error
-    \`foo \${\'bar\'} \${x}\`; // error
+    \`foo \${'bar'} \${x}\`; // error
   },
   function(x: mixed) {
     \`foo \${x}\`; // error
     \`\${x} bar\`; // error
-    \`foo \${\'bar\'} \${x}\`; // error
+    \`foo \${'bar'} \${x}\`; // error
   },
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -36,7 +36,7 @@ let tests = [
 // ok
 // error
 // ok, number can be appended to string
-// error, object can\'t be appended
+// error, object can't be appended
 // ok
 // ok
 // ok
@@ -50,7 +50,7 @@ let tests = [
 // error
 // error
 (\`foo\`: string);
-(\`bar\`: \"bar\");
+(\`bar\`: "bar");
 (\`baz\`: number);
 \`foo \${123} bar\`;
 \`foo \${{ bar: 123 }} baz\`;
@@ -58,22 +58,22 @@ let tests = [
   function(x: string) {
     \`foo \${x}\`;
     \`\${x} bar\`;
-    \`foo \${\"bar\"} \${x}\`;
+    \`foo \${"bar"} \${x}\`;
   },
   function(x: number) {
     \`foo \${x}\`;
     \`\${x} bar\`;
-    \`foo \${\"bar\"} \${x}\`;
+    \`foo \${"bar"} \${x}\`;
   },
   function(x: boolean) {
     \`foo \${x}\`;
     \`\${x} bar\`;
-    \`foo \${\"bar\"} \${x}\`;
+    \`foo \${"bar"} \${x}\`;
   },
   function(x: mixed) {
     \`foo \${x}\`;
     \`\${x} bar\`;
-    \`foo \${\"bar\"} \${x}\`;
+    \`foo \${"bar"} \${x}\`;
   }
 ];
 "

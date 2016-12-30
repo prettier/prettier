@@ -46,19 +46,19 @@ type D = { [key: string]: number };
 //
 type ObjAssignT = { foo: string } & { bar: string };
 type ReadableStreamOptions = {
-  highWaterMark?: number,
-  encoding?: ?string,
+  highWaterMark?: number;
+  encoding?: ?string;
   objectMode?: boolean
 };
 type WritableStreamOptions = {
-  highWaterMark?: number,
-  decodeString?: boolean,
+  highWaterMark?: number;
+  decodeString?: boolean;
   objectMode?: boolean
 };
-type ObjA = { foo: number, bar: string };
+type ObjA = { foo: number; bar: string };
 type ObjB = { baz: boolean };
 type A = { a: string } & { b: string };
-type B = { a: string, b: string };
+type B = { a: string; b: string };
 type C = { [key: string]: number } & { [key: string]: number };
 type D = { [key: string]: number };
 "

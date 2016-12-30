@@ -5,8 +5,8 @@ exports[`test lib.js 1`] = `
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare class StaticOverload {
-  foo: : (x: number) => number,
-  foo: : (x: string) => string
+  static foo(x: number): number;
+  static foo(x: string): string
 }
 "
 `;

@@ -11,7 +11,7 @@ exports[`test promise.js 1`] = `
 
 async function foo(x: boolean): Promise<?{bar: string}> {
   if (x) {
-    return {bar: \'baz\'};  // OK, because of covariant type param
+    return {bar: 'baz'};  // OK, because of covariant type param
   } else {
     return null;
   }
@@ -36,7 +36,7 @@ run()
 // OK, because of covariant type param
 async function foo(x: boolean): Promise<?{ bar: string }> {
   if (x) {
-    return { bar: \"baz\" };
+    return { bar: "baz" };
   } else {
     return null;
   }

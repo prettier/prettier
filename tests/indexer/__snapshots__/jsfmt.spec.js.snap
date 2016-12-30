@@ -62,13 +62,13 @@ function foo3(): { [key: string]: number } {
 function foo4(): { [key: number]: number } {
   return { foo: "bar" };
 }
-function foo5(): { [key: string]: number, foo: string } {
+function foo5(): { [key: string]: number; foo: string } {
   return { foo: "bar" };
 }
-function foo6(): { [key: number]: number, foo: string } {
+function foo6(): { [key: number]: number; foo: string } {
   return { foo: "bar" };
 }
-function foo7(): { [key: string]: number, foo: number } {
+function foo7(): { [key: string]: number; foo: number } {
   return { foo: "bar" };
 }
 "
@@ -90,7 +90,7 @@ let tests = [
 /* error: not supported (yet)*/
 let tests = [
   function() {
-    ({}: { [k1: string]: string, [k2: number]: number });
+    ({}: { [k1: string]: string; [k2: number]: number });
   }
 ];
 "

@@ -56,7 +56,7 @@ var l: Array<T> = [
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-type T = { type: \"a\", a: number } | { type: \"b\", b: string };
+type T = { type: \"a\"; a: number } | { type: \"b\"; b: string };
 var l: Array<T> = [
   { type: \"a\", a: 1 },
   { type: \"a\", a: 2 },
@@ -108,7 +108,7 @@ declare var myclass: Myclass;
 myclass.myfun([\"1\", \"2\", \"3\", \"4\", \"5\", \"6\", function (ar) {}])
 myclass.myfun([\"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", function (ar) {}])
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-declare class Myclass { myfun: : (myarray: Array<Function | string>) => any }
+declare class Myclass { myfun(myarray: Array<Function | string>): any }
 declare var myclass: Myclass;
 myclass.myfun(
   [
@@ -248,7 +248,7 @@ var nested2: FooBarBaz = \'baz\';
  */
 // inline
 // through tvars
-var nested1: \"foo\" | \"bar\" | \"baz\" = \"baz\";
+var nested1: (\"foo\" | \"bar\") | \"baz\" = \"baz\";
 type FooBar = \"foo\" | \"bar\";
 type Baz = \"baz\";
 type FooBarBaz = FooBar | Baz;
@@ -343,7 +343,7 @@ function foo<X>(x: Foo<X>) {
 }
 foo(x);
 foo(y);
-type Bar = : () => C | string;
+type Bar = () => C | string;
 function f() {
   return \"\";
 }
@@ -439,7 +439,7 @@ function CD(b) {
   }
   qux2(new C());
 }
-declare class F { foo: : (x: number) => void, foo: : (x: string) => void }
+declare class F { foo(x: number): void; foo(x: string): void }
 function corge(b) {
   var x = (b ? \"\" : 0);
   new F().foo(x);

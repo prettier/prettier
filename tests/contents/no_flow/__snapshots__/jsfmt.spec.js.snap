@@ -5,11 +5,11 @@ exports[`test dummy.js 1`] = `
 `;
 
 exports[`test test.js 1`] = `
-"require(\'./dummy\');
+"require('./dummy');
 var xxx = 0;
 xxx
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-require(\"./dummy\");
+require("./dummy");
 var xxx = 0;
 xxx;
 "

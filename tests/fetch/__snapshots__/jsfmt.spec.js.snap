@@ -108,10 +108,10 @@ const f: Headers = e.append(\"Content-Type\", \"image/jpeg\");
 const g: string = e.get(\"Content-Type\");
 const h: number = e.get(\"Content-Type\");
 for (let v of e) {
-  const [ i, j ] = v;
+  const [ i, j ]: [string, string] = v;
 }
 for (let v of e.entries()) {
-  const [ i, j ] = v;
+  const [ i, j ]: [string, string] = v;
 }
 e.getAll(\"content-type\").forEach(
   (v: string) => {
@@ -397,10 +397,10 @@ const f: URLSearchParams = e.append(\"key1\", \"value1\");
 const g: string = e.get(\"key1\");
 const h: number = e.get(\"key1\");
 for (let v of e) {
-  const [ i, j ] = v;
+  const [ i, j ]: [string, string] = v;
 }
 for (let v of e.entries()) {
-  const [ i, j ] = v;
+  const [ i, j ]: [string, string] = v;
 }
 e.getAll(\"key1\").forEach(
   (v: string) => {

@@ -2,12 +2,12 @@ const fs = require('fs');
 const child_process = require('child_process');
 const jscodefmt = require("../");
 
+const RUN_AST_TESTS = process.env["AST_COMPARE"];
+
 function run_spec(dirname) {
   fs.readdirSync(dirname).forEach(filename => {
     if (filename.endsWith('.js') && filename !== 'jsfmt.spec.js') {
       const path = dirname + '/' + filename;
-
-      const RUN_AST_TESTS = false;
 
       if (!RUN_AST_TESTS) {
         const source = read(path);
@@ -33,7 +33,11 @@ function run_spec(dirname) {
         test(path + ' parse', () => {
           expect(pperr).toBe(null);
           expect(ppast).toBeDefined();
-          // expect(ast).toEqual(ppast);
+          if(RUN_AST_TESTS === "1") {
+            if(ast.errors.length === 0) {
+              expect(ast).toEqual(ppast);
+            }
+          }
         });
       }
 

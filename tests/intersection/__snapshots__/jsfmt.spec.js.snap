@@ -76,8 +76,8 @@ function hasObjectMode_ok(options: DuplexStreamOptions): boolean {
  */
 // error, undefined ~> boolean
 type DuplexStreamOptions = ReadableStreamOptions & WritableStreamOptions & {
-  allowHalfOpen?: boolean,
-  readableObjectMode?: boolean,
+  allowHalfOpen?: boolean;
+  readableObjectMode?: boolean;
   writableObjectMode?: boolean
 };
 function hasObjectMode_bad(options: DuplexStreamOptions): boolean {
@@ -141,13 +141,13 @@ var g: (_: number | string) => void = f;
  */
 // intersection of function types satisfies union of param types
 // simpler variation
-type F = : (_: ObjA) => void;
-type G = : (_: ObjB) => void;
-type FG = : (_: ObjA | ObjB) => void;
+type F = (_: ObjA) => void;
+type G = (_: ObjB) => void;
+type FG = (_: ObjA | ObjB) => void;
 declare var fun1: F & G;
 (fun1: FG);
 var fun2: FG = fun1;
-declare var f: : (_: number) => void & : (_: string) => void;
+declare var f: (_: number) => void & (_: string) => void;
 var g: (_: number | string) => void = f;
 "
 `;

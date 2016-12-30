@@ -291,7 +291,12 @@ FPp.needsParens = function(assumeExpressionContext) {
 
     case "IntersectionTypeAnnotation":
     case "UnionTypeAnnotation":
-      return parent.type === "NullableTypeAnnotation";
+      return parent.type === "NullableTypeAnnotation" ||
+        parent.type === "IntersectionTypeAnnotation" ||
+        parent.type === "UnionTypeAnnotation";
+
+    case "FunctionTypeAnnotation":
+      return parent.type === "UnionTypeAnnotation";
 
     case "Literal":
       return parent.type === "MemberExpression"

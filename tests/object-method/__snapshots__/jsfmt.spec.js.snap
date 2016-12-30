@@ -3,7 +3,7 @@ exports[`test id.js 1`] = `
 
 module.exports = id;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-declare function id(_: X): X;
+declare function id<X>(_: X): X;
 module.exports = id;
 "
 `;
@@ -16,7 +16,7 @@ import type { ObjectType } from \'./test\';
 
 function subtypeCheck(x: Interface): ObjectType { return x; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-interface Interface extends  { m: : () => void }
+interface Interface  { m(): void }
 import type { ObjectType } from \"./test\";
 function subtypeCheck(x: Interface): ObjectType {
   return x;
@@ -40,7 +40,7 @@ module.exports = id(
 );
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const id = require(\"./id\");
-export type ObjectType = { +m: : () => void };
+export type ObjectType = { +m: () => void };
 function methodCaller(x: ObjectType) {
   x.m();
 }
@@ -114,7 +114,7 @@ function bar(f: () => void) {
   ({ f }).f();
 }
 bar(foo);
-function qux(o: { f: : () => void }) {
+function qux(o: { f(): void }) {
   o.f();
 }
 qux({ f: foo });

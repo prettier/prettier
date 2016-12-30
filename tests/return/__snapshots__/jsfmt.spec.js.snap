@@ -83,7 +83,7 @@ function f(b) {
   if (b) {
     return undefined;
   } else {
-    return \"nope\";
+    return "nope";
   }
 }
 
@@ -97,7 +97,7 @@ function f(b) {
   if (b) {
     return undefined;
   } else {
-    return \"nope\";
+    return "nope";
   }
 }
 (f(true): void);

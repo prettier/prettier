@@ -49,7 +49,7 @@ exports[`test unreachable.js 1`] = `
 "/* @flow */
 
 function foo(x, y) {
-  \"use strict\";
+  "use strict";
   return bar(x) + baz(y);
 
   // function declaration is hoisted, should not generate warning
@@ -80,7 +80,7 @@ foo(1, 2);
 // variable declaration is hoisted, should not generate warning
 // assignments are not hoisted, should generate 2 warnings
 function foo(x, y) {
-  \"use strict\";
+  "use strict";
   return bar(x) + baz(y);
   function bar(ecks) {
     return x + ecks;

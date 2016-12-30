@@ -17,7 +17,7 @@ module.exports = num;
 
 exports[`test test.js 1`] = `
 "// @flow
-var num = require(\'./import\');
+var num = require('./import');
 function foo(x) { }
 foo(0);
 var a:string = num;
@@ -40,7 +40,7 @@ const idxResult = idx(obj, obj => obj.a.b.c.d);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 // test deduping of inferred types
-var num = require(\"./import\");
+var num = require("./import");
 function foo(x) {
   
 }

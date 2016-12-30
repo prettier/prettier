@@ -13,8 +13,8 @@ declare module ModuleAliasFoo {
  * @flow
  */
 declare module ModuleAliasFoo {
-  type baz = number;
-  type toz = string;
+  declare type baz = number;
+  declare type toz = string;
   declare function foo(bar: baz): toz;
 }
 "
@@ -23,7 +23,7 @@ declare module ModuleAliasFoo {
 exports[`test declare_type_exports.js 1`] = `
 "/* @flow */
 
-declare module 'foo' {
+declare module \'foo\' {
     declare class A {
         toz : number
     }
@@ -40,12 +40,12 @@ declare module 'foo' {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-declare module "foo" {
+declare module \"foo\" {
   declare class A { toz: number }
   declare var n: string;
-  type Foo = typeof n;
-  type Bar = A;
-  type Id<T> = T;
+  declare type Foo = typeof n;
+  declare type Bar = A;
+  declare type Id<T> = T;
   declare var exports: { (a: number, b: number): number };
 }
 "

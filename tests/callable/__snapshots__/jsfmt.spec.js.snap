@@ -10,7 +10,7 @@ function f(x) {
 
 (f: F);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-type F = { (x: string): number, p?: string };
+type F = { (x: string): number; p?: string };
 function f(x) {
   return x.length;
 }
@@ -53,7 +53,7 @@ function foo(fn: (value: any) => boolean) {
 foo(Boolean);
 var dict: { [k: string]: any } = {};
 dict();
-interface ICall extends  { (x: string): void }
+interface ICall  { (x: string): void }
 declare var icall: ICall;
 icall(0);
 icall.call(null, 0);

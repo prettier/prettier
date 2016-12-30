@@ -9,8 +9,8 @@ declare class D extends _module.C {
   foo(): string;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-declare class _C { foo: : () => number }
+declare class _C { foo(): number }
 declare var _module: { C: Class<_C> };
-declare class D { foo: : () => string }
+declare class D extends _module.C { foo(): string }
 "
 `;

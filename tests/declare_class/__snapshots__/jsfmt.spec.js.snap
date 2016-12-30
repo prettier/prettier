@@ -4,16 +4,16 @@ exports[`test declare_class.js 1`] = `
     static foo(x: number): void;
 }
 
-C.x = "";
-C.foo("");
+C.x = \"\";
+C.foo(\"\");
 
 (C.name: string);
-(C.name: number); // error, it's a string
+(C.name: number); // error, it\'s a string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// error, it's a string
-declare class C { x: number, foo: : (x: number) => void }
-C.x = "";
-C.foo("");
+// error, it\'s a string
+declare class C { static x: number; static foo(x: number): void }
+C.x = \"\";
+C.foo(\"\");
 (C.name: string);
 (C.name: number);
 "

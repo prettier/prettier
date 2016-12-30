@@ -139,10 +139,10 @@ class B<T> extends A<T> {
     return new B(x);
   }
 }
-interface C<T> extends  { m: : (x: T) => C<T> }
-interface D<T> extends C<T> { m: : (x: T) => D<T> }
-declare class E { m: : (x: T) => E<T> }
-declare class F { m: : (x: T) => F<T> }
+interface C<T>  { m<T>(x: T): C<T> }
+interface D<T> extends C<T> { m<T>(x: T): D<T> }
+declare class E<T> { m<T>(x: T): E<T> }
+declare class F<T> extends E<T> { m<T>(x: T): F<T> }
 class G<T> {
   x: T;
   constructor(x: T) {

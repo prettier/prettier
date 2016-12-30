@@ -86,13 +86,13 @@ function testString(str: string): void {
 }
 function testMap1(map: Map<string, number>): void {
   for (var elem of map) {
-    (elem: [stringnumber]);
+    (elem: [string, number]);
     (elem: number);
   }
 }
 function testMap2(map: Map<*, *>): void {
   for (var elem of map) {
-    (elem: [numberstring]);
+    (elem: [number, string]);
     (elem: number);
   }
 }

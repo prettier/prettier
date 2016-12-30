@@ -3,7 +3,7 @@ exports[`test import.js 1`] = `
 export type J = I; // workaround for export interface
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // workaround for export interface
-interface I extends  { x: number }
+interface I  { x: number }
 export type J = I;
 "
 `;
@@ -22,8 +22,8 @@ interface Bad {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 /* error: not supported (yet)*/
-interface Ok extends  { [key: string]: string }
-interface Bad extends  { [k1: string]: string, [k2: number]: number }
+interface Ok  { [key: string]: string }
+interface Bad  { [k1: string]: string; [k2: number]: number }
 "
 `;
 
@@ -46,7 +46,7 @@ function testInterfaceName(o: I) {
 // ok
 declare class C { x: number }
 var x: string = new C().x;
-interface I extends  { x: number }
+interface I  { x: number }
 var i = new I();
 function testInterfaceName(o: I) {
   (o.name: string);
@@ -86,17 +86,17 @@ var e: E<number> = { x: \"\", y: \"\", z: \"\" }; // error: x and z should be nu
 // error: x and z should be numbers
 // error: x is number
 // error: z is number
-interface I extends  { y: string }
-interface I_ extends  { x: number }
+interface I  { y: string }
+interface I_  { x: number }
 interface J extends I, I_ {}
 interface K extends J {}
 var k: K = { x: \"\", y: \"\" };
 (k.x: string);
 (k.y: string);
 declare class C { x: number }
-declare class D {}
-interface A<Y> extends  { y: Y }
-interface A_<X> extends  { x: X }
+declare class D extends C, Other {}
+interface A<Y>  { y: Y }
+interface A_<X>  { x: X }
 interface B<Z> extends A<string>, A_<Z> { z: Z }
 interface E<Z> extends B<Z> {}
 var e: E<number> = { x: \"\", y: \"\", z: \"\" };
@@ -122,7 +122,7 @@ function bar(m: M) { m.x; m.y; m.z; } // OK
 // interface + multiple inheritance is similar to object type + intersection
 // OK
 import type { J } from \"./import\";
-interface K extends  {}
+interface K  {}
 interface L extends J, K { y: string }
 function foo(l: L) {
   l.x;
@@ -150,8 +150,8 @@ function foo(k: K) {
 // error: x is number in I
 // error: x is string in K
 // error: y is string in I
-interface I extends  { x: number, y: string }
-interface J extends  { y: number }
+interface I  { x: number; y: string }
+interface J  { y: number }
 interface K extends I, J { x: string }
 function foo(k: K) {
   (k.x: number);
@@ -173,14 +173,11 @@ new C().bar((x: string) => { }); // error, number ~/~> string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // error, property \`foo\` not found function
 // error, number ~/~> string
-interface I extends  { foo: : (x: number) => void }
+interface I  { foo(x: number): void }
 (function foo(x: number) {
   
 }: I);
-declare class C {
-  bar: : (i: I) => void,
-  bar: : (f: (x: number) => void) => void
-}
+declare class C { bar(i: I): void; bar(f: (x: number) => void): void }
 new C().bar(
   (x: string) => {
     

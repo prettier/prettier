@@ -154,16 +154,16 @@ function bar0(x: ?number, y: number) {
 function bar1(x: number, y: ?number) {
   num(x + y);
 }
-function bar2(x: number, y: number) {
+function bar2(x?: number, y: number) {
   num(x + y);
 }
-function bar3(x: number, y: number) {
+function bar3(x: number, y?: number) {
   num(x + y);
 }
-function bar4(x: ?number, y: number) {
+function bar4(x?: ?number, y: number) {
   num(x + y);
 }
-function bar5(x: number, y: ?number) {
+function bar5(x: number, y?: ?number) {
   num(x + y);
 }
 num(null + null);

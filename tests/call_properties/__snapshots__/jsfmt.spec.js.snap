@@ -216,19 +216,19 @@ function e(x: { (): string; (x: number): string }): () => number {
 // ...but should notice when a function doesn\'t satisfy them all
 // Only one call property needs to match the function
 // ...but you need at least one
-function a(f: { (): string, (x: number): string }): string {
+function a(f: { (): string; (x: number): string }): string {
   return f() + f(123);
 }
-var b: { (): string, (x: number): string } = function(x: number): string {
+var b: { (): string; (x: number): string } = function(x?: number): string {
   return \"hi\";
 };
-var c: { (): string, (x: number): string } = function(x: number): string {
+var c: { (): string; (x: number): string } = function(x: number): string {
   return \"hi\";
 };
-function d(x: { (): string, (x: number): string }): () => string {
+function d(x: { (): string; (x: number): string }): () => string {
   return x;
 }
-function e(x: { (): string, (x: number): string }): () => number {
+function e(x: { (): string; (x: number): string }): () => number {
   return x;
 }
 "

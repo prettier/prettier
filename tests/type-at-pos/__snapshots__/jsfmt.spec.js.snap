@@ -28,7 +28,7 @@ export const X = {
  */
 let [ x, y ] = [ 1, 2 ];
 export const X = {
-  returnsATuple: function(): [numbernumber] {
+  returnsATuple: function(): [number, number] {
     return [ 1, 2 ];
   },
   test: function() {
@@ -172,14 +172,14 @@ function qux(x?) {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-function foo(x: string) {
+function foo(x?: string) {
   return x;
 }
 foo();
 function bar(obj: { x?: string }) {
   return obj.x;
 }
-function qux(x) {
+function qux(x?) {
   return x;
 }
 "
@@ -248,7 +248,7 @@ function foo() {
 }
 foo();
 str;
-type Point = [numberstring];
+type Point = [number, string];
 const x: Point = [ 1, \"foo\" ];
 type MyStr = \"cool\";
 const y: MyStr = \"cool\";

@@ -1,14 +1,14 @@
 exports[`test object_freeze.js 1`] = `
 "/* @flow */
 
-var foo = Object.freeze({bar: \'12345\'});
-foo.bar = \'23456\'; // error
+var foo = Object.freeze({bar: '12345'});
+foo.bar = '23456'; // error
 
-Object.assign(foo, {bar: \'12345\'}); // error
+Object.assign(foo, {bar: '12345'}); // error
 
 var baz = {baz: 12345};
-var bliffl = Object.freeze({bar: \'12345\', ...baz});
-bliffl.bar = \'23456\'; // error
+var bliffl = Object.freeze({bar: '12345', ...baz});
+bliffl.bar = '23456'; // error
 bliffl.baz = 3456; // error
 bliffl.corge; // error
 bliffl.constructor = baz; // error
@@ -18,7 +18,7 @@ baz.baz = 0;
 
 var x : number = Object.freeze(123);
 
-var xx : { x: number } = Object.freeze({ x: \"error\" })
+var xx : { x: number } = Object.freeze({ x: "error" })
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 // error
@@ -28,12 +28,12 @@ var xx : { x: number } = Object.freeze({ x: \"error\" })
 // error
 // error
 // error
-var foo = Object.freeze({ bar: \"12345\" });
-foo.bar = \"23456\";
-Object.assign(foo, { bar: \"12345\" });
+var foo = Object.freeze({ bar: "12345" });
+foo.bar = "23456";
+Object.assign(foo, { bar: "12345" });
 var baz = { baz: 12345 };
-var bliffl = Object.freeze({ bar: \"12345\", ...baz });
-bliffl.bar = \"23456\";
+var bliffl = Object.freeze({ bar: "12345", ...baz });
+bliffl.bar = "23456";
 bliffl.baz = 3456;
 bliffl.corge;
 bliffl.constructor = baz;
@@ -42,6 +42,6 @@ bliffl.toString = function() {
 };
 baz.baz = 0;
 var x: number = Object.freeze(123);
-var xx: { x: number } = Object.freeze({ x: \"error\" });
+var xx: { x: number } = Object.freeze({ x: "error" });
 "
 `;
