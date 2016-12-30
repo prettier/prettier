@@ -11,7 +11,7 @@ function run_spec(dirname) {
 
       if (!RUN_AST_TESTS) {
         const source = read(path);
-        const output = prettyprint(source);
+        const output = prettyprint(source, path);
         test(filename, () => {
           expect(source + '~'.repeat(80) + '\n' + output).toMatchSnapshot();
         });
@@ -24,7 +24,7 @@ function run_spec(dirname) {
         let ppast;
         let pperr = null;
         try {
-          ppast = parse(prettyprint(source));
+          ppast = parse(prettyprint(source, path));
         }
         catch(e) {
           pperr = e.stack;
@@ -68,8 +68,8 @@ function parse(string) {
   return stripLocation(flowParser.parse(string));
 }
 
-function prettyprint(src) {
-  return jscodefmt.format(src);
+function prettyprint(src, filename) {
+  return jscodefmt.format(src, { filename });
 }
 
 function read(filename) {

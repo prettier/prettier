@@ -187,7 +187,7 @@ class C {
 var e = async function() {
   
 };
-var et = async function(a: T) {
+var et = async function<T>(a: T) {
   
 };
 var n = new async function() {
@@ -487,7 +487,7 @@ class C {
 var e = async function() {
   await 1;
 };
-var et = async function(a: T) {
+var et = async function<T>(a: T) {
   await 1;
 };
 var n = new async function() {

@@ -265,7 +265,7 @@ function insertMany<K, V>(
 }
 class Foo<A> {
   bar<B>() {
-    return function(a: A, b: B, c: C): void {
+    return function<C>(a: A, b: B, c: C): void {
       ([ a, b, c ]: [A, B, C]);
     };
   }

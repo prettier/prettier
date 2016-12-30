@@ -340,12 +340,12 @@ function genericPrintNoParens(path, options, print) {
       if (n.id) {
         parts.push(
           " ",
-          path.call(print, "id"),
-          path.call(print, "typeParameters")
+          path.call(print, "id")
         );
       }
 
       parts.push(
+        path.call(print, "typeParameters"),
         group(concat([
           "(",
           indent(options.tabWidth,
