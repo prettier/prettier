@@ -88,8 +88,8 @@ function foo(x, y) {
   var baz = function(why) {
     return y + why;
   };
-  var xy, z;
-  var tu = 5, v, w = 7;
+  var x, y, z;
+  var t, u = 5, v, w = 7;
 }
 foo(1, 2);
 "

@@ -57,8 +57,8 @@ type C = { kind: \"C\"; y: boolean };
 type D = { kind: \"D\"; x: boolean };
 type E = { kind: \"E\"; y: boolean };
 declare var ab: Array<A | B | C>;
-(my_filter(ab, x => x.kind === \"A\"): Array<A>);
-(my_filter(ab, x => x.kind !== \"A\"): Array<B | C>);
+(my_filter(ab, (x): %checks => x.kind === \"A\"): Array<A>);
+(my_filter(ab, (x): %checks => x.kind !== \"A\"): Array<B | C>);
 "
 `;
 
@@ -142,7 +142,7 @@ declare var d: mixed;
 var e = refine2(c, d, is_string_and_number);
 (e: string);
 declare function refine2<T, P: $Pred<2>>(v: T, w: T, cb: P): $Refine<T, P, 1>;
-function is_string(x): boolean: %checks {
+function is_string(x): boolean %checks {
   return typeof x === \"string\";
 }
 function is_string_and_number(x, y): %checks {
@@ -186,7 +186,7 @@ const b = my_filter(a, is_string);
 declare var c: Array<mixed>;
 const d = my_filter(c, is_string_regular);
 (d: Array<string>);
-function is_string(x): boolean: %checks {
+function is_string(x): boolean %checks {
   return typeof x === \"string\";
 }
 function is_string_regular(x): boolean {
@@ -226,8 +226,8 @@ type C = { kind: \"C\"; y: boolean };
 type D = { kind: \"D\"; x: boolean };
 type E = { kind: \"E\"; y: boolean };
 declare var ab: Array<A | B | C>;
-(my_filter(ab, x => x.kind === \"A\"): Array<B>);
-(my_filter(ab, x => x.kind !== \"A\"): Array<A | C>);
+(my_filter(ab, (x): %checks => x.kind === \"A\"): Array<B>);
+(my_filter(ab, (x): %checks => x.kind !== \"A\"): Array<A | C>);
 "
 `;
 

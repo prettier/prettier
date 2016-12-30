@@ -204,10 +204,10 @@ obj_rest();
 obj_rest({});
 obj_rest({ p: {} });
 obj_rest({ p: { q: 0, r: null } });
-function obj_prop_annot({ p } = { p: 0 }) {
+function obj_prop_annot({ p }: { p: string } = { p: 0 }) {
   (p: void);
 }
-var { p } = { p: 0 };
+var { p }: { p: string } = { p: 0 };
 (p: void);
 function obj_prop_err({ x: { y } } = null) {
   
@@ -221,21 +221,21 @@ function arr_elem_err([ x ] = null) {
 function arr_rest_err([ ...a ] = null) {
   
 }
-function gen<T>(x: T, { p }): T {
+function gen<T>(x: T, { p }: { p: T }): T {
   return p;
 }
 obj_prop_fun(({}: { p?: { q?: null } }));
 obj_prop_var(({}: { p?: { q?: null } }));
-function obj_prop_opt({ p } = { p: 0 }) {
+function obj_prop_opt({ p }: { p?: string } = { p: 0 }) {
   
 }
-function obj_prop_maybe({ p } = { p: 0 }) {
+function obj_prop_maybe({ p }: { p: ?string } = { p: 0 }) {
   
 }
-function obj_prop_union({ p } = { p: true }) {
+function obj_prop_union({ p }: { p: number | string } = { p: true }) {
   
 }
-function obj_prop_union2({ p } = { p: true }) {
+function obj_prop_union2({ p }: { p: number } | { p: string } = { p: true }) {
   
 }
 function default_expr_scope({ a, b }) {
@@ -351,11 +351,11 @@ function qux(_: { a: number }) {
   
 }
 qux({ a: \"\" });
-function corge({ b }) {
+function corge({ b }: { b: string }) {
   
 }
 corge({ b: 0 });
-var { n } = { n: \"\" };
+var { n }: { n: number } = { n: \"\" };
 function test() {
   var { foo } = { bar: 123 };
   var { bar, baz } = { bar: 123 };
@@ -392,22 +392,24 @@ exports[`test destructuring_param.js 1`] = `
   return a + b;
 }
 
-function g(a, { a }) {
-  return a;
-}
+// TODO: These throw errors when parsing.
+// function g(a, { a }) {
+//   return a;
+// }
 
-function h({ a, { b } }, { c }, { { d } }) {
-  return a + b + c + d;
-}
+// function h({ a, { b } }, { c }, { { d } }) {
+//   return a + b + c + d;
+// }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// TODO: These throw errors when parsing.
+// function g(a, { a }) {
+//   return a;
+// }
+// function h({ a, { b } }, { c }, { { d } }) {
+//   return a + b + c + d;
+// }
 function f(a, { b }) {
   return a + b;
-}
-function g(a, { a }) {
-  return a;
-}
-function h({ a, { }, ,, c, ,, { d }) {
-  return a + b + c + d;
 }
 "
 `;
@@ -469,11 +471,11 @@ function arr_rest_pattern<X>([ _, ...a ] : ArrRest<X>) { // a: [X]
 // o: { x: X }
 // a: [X]
 // a: [X]
-function obj_pattern<X>({ prop }) {
+function obj_pattern<X>({ prop }: { prop: X }) {
   
 }
 type Prop<X> = { prop: X };
-function obj_pattern2<X>({ prop }) {
+function obj_pattern2<X>({ prop }: Prop<X>) {
   
 }
 function arr_pattern<X>([ elem ]: X[]) {
@@ -496,11 +498,11 @@ function rest_antipattern<T>(...t: T) {
 function rest_pattern<X>(...r: X[]) {
   
 }
-function obj_rest_pattern<X>({ _, ...o }) {
+function obj_rest_pattern<X>({ _, ...o }: { _: any; x: X }) {
   o.x;
 }
 type ObjRest<X> = { _: any; x: X };
-function obj_rest_pattern<X>({ _, ...o }) {
+function obj_rest_pattern<X>({ _, ...o }: ObjRest<X>) {
   o.x;
 }
 function arr_rest_pattern<X>([ _, ...a ]: [any, X]) {

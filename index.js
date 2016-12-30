@@ -37,6 +37,13 @@ module.exports = {
     //   }
     // });
     const ast = flowParser.parse(text);
+    if(ast.errors.length > 0) {
+      let msg = ast.errors[0].message + " on line " + ast.errors[0].loc.start.line
+      if(opts.filename) {
+        msg += " in file " + opts.filename;
+      }
+      throw new Error(msg);
+    }
 
     const printer = new Printer({ tabWidth, wrapColumn: printWidth });
     return printer.printGenerically(ast).code;

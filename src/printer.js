@@ -356,8 +356,7 @@ function genericPrintNoParens(path, options, print) {
           softline,
           ")"
         ])),
-        path.call(print, "returnType"),
-        path.call(print, "predicate"),
+        printReturnType(path, print),
         " ",
         path.call(print, "body")
       );
@@ -378,6 +377,7 @@ function genericPrintNoParens(path, options, print) {
           !n.rest &&
           n.params[0].type === 'Identifier' &&
           !n.params[0].typeAnnotation &&
+          !n.predicate &&
           !n.returnType
       ) {
         parts.push(path.call(print, "params", 0));
@@ -386,7 +386,7 @@ function genericPrintNoParens(path, options, print) {
           "(",
           printFunctionParams(path, print),
           ")",
-          path.call(print, "returnType")
+          printReturnType(path, print)
         );
       }
 
@@ -650,7 +650,8 @@ function genericPrintNoParens(path, options, print) {
                    join(concat([separator, line]), props)
                  ])),
           line,
-          rightBrace
+          rightBrace,
+          path.call(print, "typeAnnotation")
         ]));
       }
 
@@ -798,7 +799,7 @@ function genericPrintNoParens(path, options, print) {
         " ",
         printed[0],
         indent(options.tabWidth,
-               join(concat([",", line]), printed.slice(1)))
+               concat(printed.slice(1).map(p => concat([",", line, p]))))
       ];
 
       // We generally want to terminate all variable declarations with a
@@ -1235,8 +1236,8 @@ function genericPrintNoParens(path, options, print) {
     case "Line": // Esprima line comment.
       return concat(["//", fromString(n.value, options)]);
 
-      // Type Annotations for Facebook Flow, typically stripped out or
-      // transformed away before printing.
+    // Type Annotations for Facebook Flow, typically stripped out or
+    // transformed away before printing.
     case "TypeAnnotation":
       if (n.typeAnnotation) {
         if (n.typeAnnotation.type !== "FunctionTypeAnnotation") {
@@ -1546,10 +1547,10 @@ function genericPrintNoParens(path, options, print) {
       return "null";
 
     case "InferredPredicate":
-      return ": %checks";
+      return "%checks";
 
     case "DeclaredPredicate":
-      return concat([": %checks(", path.call(print, "value"), ")"]);
+      return concat(["%checks(", path.call(print, "value"), ")"]);
 
       // Unhandled types below. If encountered, nodes of these types should
       // be either left alone or desugared into AST types that are fully
@@ -1680,7 +1681,7 @@ function printMethod(path, options, print) {
       return printFunctionParams(valuePath, print);
     }, "value"),
     ")",
-    path.call(print, "value", "returnType"),
+    path.call(p => printReturnType(p, print), "value"),
     " ",
     path.call(print, "value", "body")
   );
@@ -1766,11 +1767,25 @@ function printObjectMethod(path, options, print) {
     "(",
     printFunctionParams(path, print),
     ")",
-    path.call(print, "returnType"),
+    printReturnType(path, print),
     " ",
     path.call(print, "body")
   );
 
+  return concat(parts);
+}
+
+function printReturnType(path, print) {
+  const n = path.getValue();
+  const parts = [path.call(print, "returnType")];
+  if(n.predicate) {
+    parts.push(
+      // The return type will already add the colon, but otherwise we
+      // need to do it ourselves
+      n.returnType ? " " : ": ",
+      path.call(print, "predicate")
+    );
+  }
   return concat(parts);
 }
 
