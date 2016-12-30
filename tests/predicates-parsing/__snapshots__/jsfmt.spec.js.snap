@@ -7,7 +7,7 @@ declare function f2(x: mixed): boolean %checks;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 // Error: \'declare\', \'checks\' but missing predicate
-declare function f2(x: mixed): boolean;
+declare function f2(x: mixed): boolean %checks;
 "
 `;
 
@@ -91,8 +91,8 @@ declare function f(x: mixed): checks
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 declare function f1(x: mixed): boolean;
-declare function f3(x: mixed): boolean;
-declare function f4(x: mixed): boolean;
+declare function f3(x: mixed): boolean %checks(x !== null);
+declare function f4(x: mixed): boolean %checks(x !== null);
 function f7(x: mixed): %checks {
   return x !== null;
 }

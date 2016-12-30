@@ -206,6 +206,24 @@ FPp.needsParens = function(assumeExpressionContext) {
     return false;
   }
 
+  // Add parens around a `class` that extends an expression (it should
+  // parse correctly, even if it's invalid)
+  if(parent.type === "ClassDeclaration" &&
+     parent.superClass === node &&
+     node.type === "AwaitExpression") {
+    return true;
+  }
+
+  // The left-hand side of the ** exponentiation operator must always
+  // be parenthesized unless it's an ident or literal
+  if(parent.type === "BinaryExpression" &&
+     parent.operator === "**" &&
+     parent.left === node &&
+     node.type !== "Identifier" &&
+     node.type !== "Literal") {
+    return true
+  }
+
   switch (node.type) {
     case "UnaryExpression":
     case "SpreadElement":
@@ -289,11 +307,17 @@ FPp.needsParens = function(assumeExpressionContext) {
           return false;
       }
 
+    case "ArrayTypeAnnotation":
+      return parent.type === "NullableTypeAnnotation";
+
     case "IntersectionTypeAnnotation":
     case "UnionTypeAnnotation":
       return parent.type === "NullableTypeAnnotation" ||
         parent.type === "IntersectionTypeAnnotation" ||
         parent.type === "UnionTypeAnnotation";
+
+    case "NullableTypeAnnotation":
+      return parent.type === "ArrayTypeAnnotation";
 
     case "FunctionTypeAnnotation":
       return parent.type === "UnionTypeAnnotation";
@@ -331,7 +355,7 @@ FPp.needsParens = function(assumeExpressionContext) {
       }
 
     case "ArrowFunctionExpression":
-      if(parent.type === 'CallExpression' && 
+      if(parent.type === 'CallExpression' &&
          name === 'callee') {
         return true;
       };

@@ -1289,6 +1289,8 @@ function genericPrintNoParens(path, options, print) {
       return printFlowDeclaration(path, [
         "function ",
         path.call(print, "id"),
+        n.predicate ? " " : "",
+        path.call(print, "predicate"),
         ";"
       ]);
 

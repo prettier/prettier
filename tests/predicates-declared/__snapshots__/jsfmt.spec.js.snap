@@ -100,8 +100,8 @@ function foo(x: number | string | Array<string>): number {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 // Feature check:
-declare function f1(x: mixed): boolean;
-declare function f2(x: mixed): boolean;
+declare function f1(x: mixed): boolean %checks(typeof x === \"string\");
+declare function f2(x: mixed): boolean %checks(Array.isArray(x));
 declare var cond: boolean;
 function foo(x: number | string | Array<string>): number {
   var f = (cond ? f1 : f2);
@@ -141,8 +141,8 @@ function foo(x: string | Array<string>): string {
 // to string.
 // Accordingly the negation of the above check
 // guarantees that \`x\` here is an Array<string>
-declare function is_string(x: mixed): boolean;
-declare function is_number(x: mixed): boolean;
+declare function is_string(x: mixed): boolean %checks(typeof x === \"string\");
+declare function is_number(x: mixed): boolean %checks(typeof x === \"number\");
 function foo(x: string | Array<string>): string {
   if (is_string(x)) {
     return x;
@@ -355,8 +355,8 @@ function bar(x: string | Array<string>): string {
 // Sanity check:
 // - Erroneous logic
 // error: both string and Array<string> can flow to x
-declare function is_string(x: mixed): boolean;
-declare function is_number(x: mixed): boolean;
+declare function is_string(x: mixed): boolean %checks(typeof x === \"string\");
+declare function is_number(x: mixed): boolean %checks(typeof x === \"number\");
 function bar(x: string | Array<string>): string {
   if (is_number(x)) {
     return x;
@@ -381,7 +381,9 @@ foo(3, 3);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 // Sanity check: make sure the parameters are checked as usual
-declare function foo(input: mixed, types: string | Array<string>): boolean;
+declare function foo(input: mixed,
+types: string | Array<string>): boolean %checks(typeof input === \"string\" ||
+  Array.isArray(input));
 foo(3, 3);
 "
 `;
@@ -425,6 +427,6 @@ exports[`test sanity-return-type.js 1`] = `
 declare function f2(x: mixed): string %checks(Array.isArray(x));
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-declare function f2(x: mixed): string;
+declare function f2(x: mixed): string %checks(Array.isArray(x));
 "
 `;
