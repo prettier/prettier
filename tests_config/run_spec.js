@@ -33,12 +33,12 @@ function run_spec(dirname) {
 
       if (RUN_AST_TESTS) {
         const source = read(dirname + '/' + filename);
-        const ast = parse(source);
+        const ast = removeEmptyStatements(parse(source));
         let prettyprinted = false;
         let ppast;
         let pperr = null;
         try {
-          ppast = parse(prettyprint(source, path));
+          ppast = removeEmptyStatements(parse(prettyprint(source, path)));
         }
         catch(e) {
           pperr = e.stack;
@@ -47,10 +47,8 @@ function run_spec(dirname) {
         test(path + ' parse', () => {
           expect(pperr).toBe(null);
           expect(ppast).toBeDefined();
-          if(RUN_AST_TESTS === "1") {
-            if(ast.errors.length === 0) {
-              expect(removeEmptyStatements(ast)).toEqual(removeEmptyStatements(ppast));
-            }
+          if(ast.errors.length === 0) {
+            expect(ast).toEqual(ppast);
           }
         });
       }

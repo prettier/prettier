@@ -6,6 +6,7 @@
   },
   "main": "./index.js",
   "dependencies": {
+    "ast-types": "git+https://github.com/jlongster/ast-types.git",
     "babylon": "git+https://github.com/jlongster/babylon.git#published",
     "minimist": "^1.2.0",
     "recast": "^0.11.18"
