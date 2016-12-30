@@ -1,8 +1,22 @@
 const fs = require('fs');
 const child_process = require('child_process');
 const jscodefmt = require("../");
+const recast = require("recast");
+const types = require("ast-types");
 
 const RUN_AST_TESTS = process.env["AST_COMPARE"];
+
+// Ignoring empty statements that are added into the output removes a
+// lot of noise from test failures and let's us focus on the real
+// failures when comparing asts
+function removeEmptyStatements(ast) {
+  return types.visit(ast, {
+    visitEmptyStatement: function(path) {
+      path.prune();
+      return false;
+    }
+  });
+}
 
 function run_spec(dirname) {
   fs.readdirSync(dirname).forEach(filename => {
@@ -35,7 +49,7 @@ function run_spec(dirname) {
           expect(ppast).toBeDefined();
           if(RUN_AST_TESTS === "1") {
             if(ast.errors.length === 0) {
-              expect(ast).toEqual(ppast);
+              expect(removeEmptyStatements(ast)).toEqual(removeEmptyStatements(ppast));
             }
           }
         });
