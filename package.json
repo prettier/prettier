@@ -9,12 +9,12 @@
     "ast-types": "git+https://github.com/jlongster/ast-types.git",
     "babylon": "git+https://github.com/jlongster/babylon.git#published",
     "minimist": "^1.2.0",
-    "recast": "^0.11.18"
+    "recast": "^0.11.18",
+    "flow-parser": "^0.37.0"
   },
   "devDependencies": {
     "glob": "^7.1.1",
-    "jest": "^18.0.0",
-    "flow-parser": "^0.37.0"
+    "jest": "^18.0.0"
   },
   "scripts": {
     "test": "jest"

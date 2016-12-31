@@ -28,21 +28,26 @@ var babylonOptions = {
 module.exports = {
   format: function(text, opts={}) {
     let { tabWidth = 2, printWidth = 80 } = opts;
+    let ast;
 
-    // const ast = recast.parse(text, {
-    //   parser: {
-    //     parse: function(source) {
-    //       return babylon.parse(source, babylonOptions);
-    //     }
-    //   }
-    // });
-    const ast = flowParser.parse(text);
-    if(ast.errors.length > 0) {
-      let msg = ast.errors[0].message + " on line " + ast.errors[0].loc.start.line
-      if(opts.filename) {
-        msg += " in file " + opts.filename;
+    if(opts.useFlowParser) {
+      ast = flowParser.parse(text);
+      if(ast.errors.length > 0) {
+        let msg = ast.errors[0].message + " on line " + ast.errors[0].loc.start.line
+        if(opts.filename) {
+          msg += " in file " + opts.filename;
+        }
+        throw new Error(msg);
       }
-      throw new Error(msg);
+    }
+    else {
+      ast = recast.parse(text, {
+        parser: {
+          parse: function(source) {
+            return babylon.parse(source, babylonOptions);
+          }
+        }
+      });
     }
 
     const printer = new Printer({ tabWidth, wrapColumn: printWidth });

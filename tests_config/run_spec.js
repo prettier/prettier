@@ -1,5 +1,4 @@
 const fs = require('fs');
-const child_process = require('child_process');
 const jscodefmt = require("../");
 const recast = require("recast");
 const types = require("ast-types");
@@ -81,7 +80,7 @@ function parse(string) {
 }
 
 function prettyprint(src, filename) {
-  return jscodefmt.format(src, { filename });
+  return jscodefmt.format(src, { filename, useFlowParser: true });
 }
 
 function read(filename) {
