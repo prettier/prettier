@@ -47,12 +47,14 @@ function veryOptimistic(isThisAwesome: true): boolean {
 }
 var x: boolean = veryOptimistic(true);
 var y: boolean = veryOptimistic(false);
+
 function veryPessimistic(isThisAwesome: true): boolean {
   return !isThisAwesome;
 }
 var x: boolean = veryPessimistic(true);
 var y: boolean = veryPessimistic(false);
 type MyOwnBooleanLOL = true | false;
+
 function bar(x: MyOwnBooleanLOL): false {
   if (x) {
     return x;
@@ -60,9 +62,13 @@ function bar(x: MyOwnBooleanLOL): false {
     return !x;
   }
 }
+
 bar(true);
+
 bar(false);
+
 bar(1);
+
 function alwaysFalsy(x: boolean): false {
   if (x) {
     return !x;
@@ -105,19 +111,25 @@ sort((x, y) => -1);
 function highlander(howMany: 1): number {
   return howMany;
 }
+
 highlander(1);
+
 highlander(2);
 type Foo = 1 | 2;
+
 function bar(num: Foo): number {
   return num + 1;
 }
+
 bar(1);
+
 bar(2);
+
 bar(3);
 type ComparatorResult = -1 | 0 | 1;
-function sort(fn: (x: any, y: any) => ComparatorResult) {
-  
-}
+
+function sort(fn: (x: any, y: any) => ComparatorResult) {}
+
 sort((x, y) => -1);
 "
 `;
@@ -133,8 +145,10 @@ type HasSpaces = \"foo bar\"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 type NoSpaces = \"foobar\";
+
 (\"foobar\": NoSpaces);
 type HasSpaces = \"foo bar\";
+
 (\"foo bar\": HasSpaces);
 "
 `;

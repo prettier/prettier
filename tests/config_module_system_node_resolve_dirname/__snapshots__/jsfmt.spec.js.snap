@@ -9,7 +9,9 @@ import {name} from \"testproj\";
 // @flow
 // Error: Resolve from node_modules first!
 import { name } from \"testproj\";
+
 (name: \"node_modules/testproj\");
+
 (name: \"custom_resolve_dir/testproj\");
 "
 `;

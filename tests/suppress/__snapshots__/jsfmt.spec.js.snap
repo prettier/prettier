@@ -39,6 +39,7 @@ var test6: string = 123;
  */
 var test1: string = 123;
 var test2: string = 123;
+
 function getNum() {
   return 123;
 }
@@ -69,9 +70,8 @@ function runTest(y: number): void {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* $FlowFixMe - suppressing the error op location should also work */
-function takesAString(x: string): void {
-  
-}
+function takesAString(x: string): void {}
+
 function runTest(y: number): void {
   takesAString(y);
 }

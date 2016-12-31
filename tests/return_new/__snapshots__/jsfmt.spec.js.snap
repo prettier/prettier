@@ -20,15 +20,16 @@ function Foo() {
   return {};
 }
 var foo: number = new Foo();
+
 function Bar() {
   return 0;
 }
 var bar: number = new Bar();
-function Qux() {
-  
-}
+
+function Qux() {}
 var qux: number = new Qux();
 class A {}
+
 function B() {
   return new A();
 }
@@ -54,8 +55,11 @@ module.exports = D;
 // error, new D is an object, D not in proto chain
 declare class D { constructor(): { x: number }; y: any }
 var d = new D();
+
 d.x = \"\";
+
 (new D(): D);
+
 module.exports = D;
 "
 `;

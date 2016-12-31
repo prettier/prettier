@@ -195,6 +195,7 @@ class D extends A {
   y: number;
   constructor() {
     this.y;
+    
     this.x;
   }
 }
@@ -202,20 +203,27 @@ class E extends A {
   y: number;
   constructor() {
     super();
+    
     this.y;
+    
     this.x;
   }
 }
+
 function leak(f) {
   f.y;
+  
   f.x;
 }
 class F extends A {
   y: number;
   constructor() {
     leak(this);
+    
     super();
+    
     this.y;
+    
     this.x;
   }
 }
@@ -231,7 +239,9 @@ class H extends A {
       super();
 else
       super();
+    
     this.y;
+    
     this.x;
   }
 }
@@ -239,9 +249,7 @@ class I_ {
   constructor(leaked_this) {
     leaked_this.foo();
   }
-  foo() {
-    
-  }
+  foo() {}
 }
 class I extends I_ {
   constructor() {
@@ -252,11 +260,10 @@ class J__ {}
 class J_ extends J__ {
   constructor(closure_leaking_this) {
     closure_leaking_this();
+    
     super();
   }
-  foo() {
-    
-  }
+  foo() {}
 }
 class J extends J_ {
   constructor() {
@@ -268,9 +275,7 @@ class K_ {
   constructor(closure_leaking_this) {
     this.closure_leaking_this = closure_leaking_this;
   }
-  foo() {
-    
-  }
+  foo() {}
 }
 class K extends K_ {
   constructor() {
@@ -281,6 +286,7 @@ class K extends K_ {
       }
     );
     var _this = this;
+    
     this.closure_leaking_this();
   }
 }
@@ -295,7 +301,9 @@ class L extends L_ {
     return x;
   }
 }
+
 (new L_(): L_);
+
 (new L(): L);
 class M_ {
   constructor() {
@@ -307,7 +315,9 @@ class M extends M_ {
     return super();
   }
 }
+
 (new M_(): { foo: string });
+
 (new M(): { foo: string });
 class N_ {
   constructor(): this {
@@ -320,7 +330,9 @@ class N extends N_ {
     return super();
   }
 }
+
 (new N_(): N_);
+
 (new N(): N);
 "
 `;
@@ -336,6 +348,7 @@ class D {
     return 0;
   }
 }
+
 module.exports = D;
 "
 `;
@@ -367,15 +380,11 @@ class B extends A {
 // error, string !~> number
 // error, A doesn\'t have a doesntExist method
 class A {
-  constructor(x: number) {
-    
-  }
+  constructor(x: number) {}
   static staticMethod(x: string): string {
     return x;
   }
-  f(x: string) {
-    
-  }
+  f(x: string) {}
 }
 class B extends A {
   constructor(x: string, y: number) {
@@ -383,6 +392,7 @@ class B extends A {
   }
   static anotherStatic() {
     (super.staticMethod(\"foo\"): number);
+    
     super.doesntExist();
   }
   g() {
@@ -410,6 +420,7 @@ class C extends D {
     return super.foo();
   }
 }
+
 module.exports = C;
 "
 `;

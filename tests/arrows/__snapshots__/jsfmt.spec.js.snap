@@ -19,7 +19,9 @@ var ident = <T>(x: T): T => x;
 var add = (x: number, y: number): number => x + y;
 var bad = (x: number): string => x;
 var ident = <T>(x: T): T => x;
+
 (ident(1): number);
+
 (ident(\"hi\"): number);
 "
 `;
@@ -41,6 +43,7 @@ function selectBestEffortImageForWidth(
   maxWidth: number, images: Array<Image>
 ): Image {
   var maxPixelWidth = maxWidth;
+  
   images = images.sort((a, b) => a.width - b.width + \"\");
   return images.find(image => image.width >= maxPixelWidth) ||
     images[images.length - 1];

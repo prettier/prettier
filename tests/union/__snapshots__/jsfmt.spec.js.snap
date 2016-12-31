@@ -110,33 +110,10 @@ myclass.myfun([\"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", function (ar) {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare class Myclass { myfun(myarray: Array<Function | string>): any }
 declare var myclass: Myclass;
-myclass.myfun(
-  [
-    \"1\",
-    \"2\",
-    \"3\",
-    \"4\",
-    \"5\",
-    \"6\",
-    function(ar) {
-      
-    }
-  ]
-);
-myclass.myfun(
-  [
-    \"1\",
-    \"2\",
-    \"3\",
-    \"4\",
-    \"5\",
-    \"6\",
-    \"7\",
-    function(ar) {
-      
-    }
-  ]
-);
+
+myclass.myfun([ \"1\", \"2\", \"3\", \"4\", \"5\", \"6\", function(ar) {} ]);
+
+myclass.myfun([ \"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", function(ar) {} ]);
 "
 `;
 
@@ -158,6 +135,7 @@ module.exports = Foo;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 class Foo {}
+
 module.exports = Foo;
 "
 `;
@@ -177,6 +155,7 @@ class Foo {}
 class Bar {}
 var foostr: Foo | string = new Foo();
 var barstr: Bar | string = new Bar();
+
 foostr = barstr;
 "
 `;
@@ -199,7 +178,7 @@ class Tag_ {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class Tag {
   constructor() {
-    var a1: Array<Tag | string> = [  ];
+    var a1: Array<Tag | string> = [];
     var a2: Array<Tag | string> = a1;
   }
 }
@@ -336,20 +315,22 @@ bar(f);
 // workaround
 var C = require(\"test-lib\");
 type Foo<X: ?C> = Array<X>;
-var x: Array<C> = [  ];
-var y: Array<?C> = [  ];
-function foo<X>(x: Foo<X>) {
-  
-}
+var x: Array<C> = [];
+var y: Array<?C> = [];
+
+function foo<X>(x: Foo<X>) {}
+
 foo(x);
+
 foo(y);
 type Bar = () => C | string;
+
 function f() {
   return \"\";
 }
-function bar(x: Bar) {
-  
-}
+
+function bar(x: Bar) {}
+
 bar(f);
 "
 `;
@@ -362,6 +343,7 @@ module.exports = C;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule test-lib */
 class C {}
+
 module.exports = C;
 "
 `;
@@ -422,26 +404,27 @@ function corge(b) {
 // error, since E could be D, and D is not a subtype of C
 // this annotation is an error: is it C, or is it D?
 // OK
-function bar(x: Document | string): void {
-  
-}
+function bar(x: Document | string): void {}
+
 bar(0);
 class C {}
 class D {}
+
 function CD(b) {
   var E = (b ? C : D);
   var c: C = new E();
-  function qux(e: E) {
-    
-  }
-  function qux2(e: C | D) {
-    
-  }
+  
+  function qux(e: E) {}
+  
+  function qux2(e: C | D) {}
+  
   qux2(new C());
 }
 declare class F { foo(x: number): void; foo(x: string): void }
+
 function corge(b) {
   var x = (b ? \"\" : 0);
+  
   new F().foo(x);
 }
 "

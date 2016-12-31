@@ -41,6 +41,7 @@ class Bar {
   bar: string;
 }
 type Foobar = Foo | Bar;
+
 function foobar(x: Foobar): string {
   if (x.type === \"foo\") {
     return foo(x);
@@ -51,9 +52,11 @@ function foobar(x: Foobar): string {
       return \"unknown\";
     }
 }
+
 function foo(x: Foo): string {
   return x.foo;
 }
+
 function bar(x: Bar): string {
   return x.bar;
 }
@@ -94,6 +97,7 @@ interface IUserData extends IDataBase { kind: \"user\" }
 interface ISystemData extends IDataBase { kind: \"system\" }
 type IData = IUserData | ISystemData;
 const data: IData = { id: \"\", name: \"\", kind: \"system\" };
+
 if (data.kind === \"user\") {
   (data: ISystemData);
 }
@@ -134,6 +138,7 @@ interface IUserData extends IDataBase { kind: \"user\" }
 interface ISystemData extends IDataBase { kind: \"system\" }
 type IData = IUserData | ISystemData;
 const data: IData = { id: \"\", name: \"\", kind: \"system\" };
+
 if (data.kind === \"system\") {
   (data: ISystemData);
 }
@@ -178,6 +183,7 @@ type UserData = { id: string; name: string; kind: \"user\" };
 type SystemData = { id: string; name: string; kind: \"system\" };
 type Data = UserData | SystemData;
 const data: Data = { id: \"\", name: \"\", kind: \"system\" };
+
 if (data.kind === \"user\") {
   (data: SystemData);
 }
@@ -222,6 +228,7 @@ type UserData = { id: string; name: string; kind: \"user\" };
 type SystemData = { id: string; name: string; kind: \"system\" };
 type Data = UserData | SystemData;
 const data: Data = { id: \"\", name: \"\", kind: \"system\" };
+
 if (data.kind === \"system\") {
   (data: SystemData);
 }

@@ -19,6 +19,7 @@ function foo(x) {
   var a: number = \"asdf\";
   return x * 10;
 }
+
 foo(\"Hello, world!\");
 "
 `;

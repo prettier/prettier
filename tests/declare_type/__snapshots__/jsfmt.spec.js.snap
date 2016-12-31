@@ -54,9 +54,13 @@ import type { toz } from \"ModuleAliasFoo\";
 var k4: toz = foo(k1);
 import blah from \"foo\";
 import type { Foo, Bar, Id } from \"foo\";
+
 blah(0, 0);
+
 ({ toz: 3 }: Foo);
+
 (3: Bar);
+
 (\"lol\": Id<number>);
 "
 `;

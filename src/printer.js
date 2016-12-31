@@ -233,7 +233,7 @@ function genericPrintNoParens(path, options, print) {
       // Babel 6
       if (n.directives) {
         path.each(function(childPath) {
-          parts.push(print(childPath), ";", line);
+          parts.push(print(childPath), ";", hardline);
         }, "directives");
       }
 
@@ -566,6 +566,11 @@ function genericPrintNoParens(path, options, print) {
         return printStatementSequence(bodyPath, options, print);
       }, "body");
 
+      // If there are no contents, return a simple block
+      if(!getFirstString(naked)) {
+        return "{}";
+      }
+
       parts.push("{");
       // Babel 6
       if (n.directives) {
@@ -700,17 +705,22 @@ function genericPrintNoParens(path, options, print) {
 
     case "ArrayExpression":
     case "ArrayPattern":
-      parts.push(multilineGroup(concat([
-        "[",
-        indent(options.tabWidth,
-               concat([
-                 line,
-                 join(concat([",", line]),
-                      path.map(print, "elements"))
-               ])),
-        line,
-        "]"
-      ])));
+      if(n.elements.length === 0) {
+        parts.push("[]");
+      }
+      else {
+        parts.push(multilineGroup(concat([
+          "[",
+          indent(options.tabWidth,
+                 concat([
+                   line,
+                   join(concat([",", line]),
+                        path.map(print, "elements"))
+                 ])),
+          line,
+          "]"
+        ])));
+      }
 
       if (n.typeAnnotation)
         parts.push(path.call(print, "typeAnnotation"));
@@ -835,8 +845,9 @@ function genericPrintNoParens(path, options, print) {
       ]);
 
     case "IfStatement":
-      var con = adjustClause(path.call(print, "consequent"), options);
-      var parts = [
+      const con = adjustClause(path.call(print, "consequent"), options);
+
+      parts = [
         "if (",
         group(concat([
           indent(options.tabWidth, concat([
@@ -976,7 +987,8 @@ function genericPrintNoParens(path, options, print) {
     case "LabeledStatement":
       return concat([
         path.call(print, "label"),
-        ":\n",
+        ":",
+        hardline,
         path.call(print, "body")
       ]);
 
@@ -1617,7 +1629,7 @@ function printStatementSequence(path, options, print) {
 
   var printed = [];
 
-  path.map(function(stmtPath) {
+  path.map(function(stmtPath, i) {
     var stmt = stmtPath.getValue();
 
     // Just in case the AST has been modified to contain falsy
@@ -1632,33 +1644,24 @@ function printStatementSequence(path, options, print) {
       return;
     }
 
-    printed.push(print(stmtPath));
+    const addSpacing = shouldAddSpacing(stmt)
+    const stmtPrinted = print(stmtPath);
+    const parts = [];
+
+    if (addSpacing && !isFirstStatement(stmtPath)) {
+      parts.push(hardline);
+    }
+
+    parts.push(stmtPrinted);
+
+    if (addSpacing && !isLastStatement) {
+      parts.push(literalline);
+    }
+
+    printed.push(concat(parts));
   });
 
   return join(hardline, printed);
-}
-
-function maxSpace(s1, s2) {
-  if (!s1 && !s2) {
-    return fromString("");
-  }
-
-  if (!s1) {
-    return fromString(s2);
-  }
-
-  if (!s2) {
-    return fromString(s1);
-  }
-
-  var spaceLines1 = fromString(s1);
-  var spaceLines2 = fromString(s2);
-
-  if (spaceLines2.length > spaceLines1.length) {
-    return spaceLines2;
-  }
-
-  return spaceLines1;
 }
 
 function printMethod(path, options, print) {
@@ -1934,4 +1937,27 @@ function nodeStr(str, options) {
     default:
       return JSON.stringify(str);
   }
+}
+
+function shouldAddSpacing(node) {
+  return node.type === "IfStatement" ||
+    node.type === "ForStatement" ||
+    node.type === "ForInStatement" ||
+    node.type === "ForOfStatement" ||
+    node.type === "ExpressionStatement" ||
+    node.type === "FunctionDeclaration";
+}
+
+function isFirstStatement(path) {
+  const parent = path.getParentNode();
+  const node = path.getValue();
+  const body = parent.body;
+  return body && body[0] === node;
+}
+
+function isLastStatement(path) {
+  const parent = path.getParentNode();
+  const node = path.getValue();
+  const body = parent.body;
+  return body && body[body.length - 1] === node;
 }

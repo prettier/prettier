@@ -20,7 +20,9 @@ class A {
   __x: number;
   constructor() {
     this.x = 0;
+    
     this._x = \"\";
+    
     this.__x = 0;
   }
 }

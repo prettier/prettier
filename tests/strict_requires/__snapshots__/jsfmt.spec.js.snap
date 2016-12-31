@@ -26,6 +26,7 @@ module.exports = o;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 var o = { A: require(\"./A\"), ...require(\"./B\") };
+
 module.exports = o;
 "
 `;
@@ -41,6 +42,7 @@ C.A = false;
 var C = require(\"./C\");
 var x: number = C.foo;
 var y: string = C.A;
+
 C.A = false;
 "
 `;

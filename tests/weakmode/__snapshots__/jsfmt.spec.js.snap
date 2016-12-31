@@ -15,6 +15,7 @@ function expects_an_int() {
 function returns_a_string() {
   return \"Hello\";
 }
+
 function expects_an_int() {
   return returns_a_string() * 10;
 }
@@ -38,6 +39,7 @@ function expects_an_int() {
 function returns_a_string() {
   return \"Hello\";
 }
+
 function expects_an_int() {
   return returns_a_string() * 10;
 }

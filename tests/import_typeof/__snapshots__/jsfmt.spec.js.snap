@@ -23,6 +23,7 @@ class ClassFoo3 {
     return new ClassFoo3();
   }
 }
+
 module.exports = ClassFoo3;
 "
 `;
@@ -50,6 +51,7 @@ exports.ClassFoo4 = ClassFoo4;
  * @flow
  */
 class ClassFoo4 {}
+
 exports.ClassFoo4 = ClassFoo4;
 "
 `;
@@ -330,11 +332,13 @@ import typeof ClassFoo1T from \"./ExportDefault_Class\";
 import ClassFoo1 from \"./ExportDefault_Class\";
 var a1: ClassFoo1T = ClassFoo1;
 var a2: ClassFoo1T = new ClassFoo1();
+
 new ClassFoo1T();
 import typeof { ClassFoo2 as ClassFoo2T } from \"./ExportNamed_Class\";
 import { ClassFoo2 } from \"./ExportNamed_Class\";
 var b1: ClassFoo2T = ClassFoo2;
 var b2: ClassFoo2T = new ClassFoo2();
+
 new ClassFoo2T();
 import typeof ClassFoo3T from \"./ExportCJSDefault_Class\";
 import ClassFoo3 from \"./ExportCJSDefault_Class\";

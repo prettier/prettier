@@ -69,24 +69,39 @@ function test2(): number { return 0; }
 function test(a: string, b: number): number {
   return this.length;
 }
+
 test.apply(\"\", [ \"\", 0 ]);
+
 test.apply(0, [ \"\", 0 ]);
+
 test.apply(\"\", [ \"\" ]);
+
 test.apply(\"\", [ \"\", \"\" ]);
+
 test.apply(\"\", [ 0, 0 ]);
+
 function f(args) {
   test.apply(\"\", args);
 }
+
 f([ \"\", 0 ]);
+
 f([ \"\", \"\" ]);
+
 f([ 0, 0 ]);
+
 test.apply(\"\", \"not array\");
+
 (test.call.apply(test, [ 0, 123, \"foo\" ]): void);
+
 (test.bind.apply(test, [ 0, 123 ]): (b: number) => number);
+
 function test2(): number {
   return 0;
 }
+
 (test2.apply(): number);
+
 (test2.apply(\"\"): number);
 "
 `;
@@ -108,7 +123,9 @@ let tests = [
 let tests = [
   function(x: (a: string, b: string) => void) {
     let y = x.bind(x, \"foo\");
+    
     y(\"bar\");
+    
     y(123);
   }
 ];
@@ -174,22 +191,35 @@ function test2(): number { return 0; }
 function test(a: string, b: number): number {
   return this.length;
 }
+
 test.call(\"\", \"\", 0);
+
 test.call(0, \"\", 0);
+
 test.call(\"\", \"\");
+
 test.call(\"\", \"\", \"\");
+
 test.call(\"\", 0, 0);
+
 function f(args) {
   test.call(\"\", args[0], args[1]);
 }
+
 f([ \"\", 0 ]);
+
 f([ \"\", \"\" ]);
+
 f([ 0, 0 ]);
+
 (test.apply.call(test, 0, [ 0, \"foo\" ]): number);
+
 function test2(): number {
   return 0;
 }
+
 (test2.call(): number);
+
 (test2.call(\"\"): number);
 "
 `;
@@ -292,17 +322,25 @@ var b: Function = function(a: number, b: number): number {
 };
 class C {}
 var c: Function = C;
+
 function good(x: Function, MyThing: Function): number {
   var o: Object = x;
+  
   x.foo = 123;
+  
   x[\"foo\"] = 456;
+  
   x();
+  
   <MyThing/>;
   var { ...something } = x;
+  
   Object.assign(x, { hi: \"there\" });
+  
   Object.keys(x);
   return x.bar + x[\"bar\"] + x.lala();
 }
+
 function bad(x: Function, y: Object): void {
   var a: number = x;
   var b: string = x;
@@ -310,33 +348,45 @@ function bad(x: Function, y: Object): void {
 }
 let tests = [
   function(y: () => void, z: Function) {
-    function x() {
-      
-    }
+    function x() {}
+    
     (x.length: void);
+    
     (y.length: void);
+    
     (z.length: void);
+    
     (x.name: void);
+    
     (y.name: void);
+    
     (z.name: void);
   },
   function(y: () => void, z: Function) {
-    function x() {
-      
-    }
+    function x() {}
+    
     x.length = \"foo\";
+    
     y.length = \"foo\";
+    
     z.length = \"foo\";
+    
     x.name = 123;
+    
     y.name = 123;
+    
     z.name = 123;
+    
     (z.foo: number);
+    
     (z.foo: string);
   }
 ];
 var d: Function = () => 1;
 var e = (d.bind(1): Function)();
+
 (e: number);
+
 (e: string);
 "
 `;
@@ -368,12 +418,15 @@ function rest_t<U, T: Array<U>>(...xs: T): U {
 function rest_array<T>(...xs: Array<T>): T {
   return xs[0];
 }
+
 function rest_tuple<T>(...xs: [T]): T {
   return xs[0];
 }
+
 function rest_any(...xs: any): any {
   return xs[0];
 }
+
 function rest_t<U, T: Array<U>>(...xs: T): U {
   return xs[0];
 }

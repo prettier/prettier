@@ -77,28 +77,27 @@ module.exports = {
 class A {
   static x: number;
   static y: string;
-  static foo(x: number) {
-    
-  }
-  static bar(y: string) {
-    
-  }
+  static foo(x: number) {}
+  static bar(y: string) {}
 }
-A.qux = function(x: string) {
-  
-};
+
+A.qux = function(x: string) {};
 class B extends A {
   static x: string;
-  static foo(x: string) {
-    
-  }
+  static foo(x: string) {}
   static main() {
     B.x = 0;
+    
     B.x = \"\";
+    
     B.foo(0);
+    
     B.foo(\"\");
+    
     B.y = 0;
+    
     B.bar(0);
+    
     B.qux(0);
   }
   static create(): A {
@@ -110,9 +109,7 @@ class B extends A {
 }
 class C<X> {
   static x: X;
-  static bar(x: X) {
-    
-  }
+  static bar(x: X) {}
   static create(): C<*> {
     return new this();
   }
@@ -120,11 +117,14 @@ class C<X> {
 class D extends C<string> {
   static main() {
     D.foo(0);
+    
     D.bar(0);
   }
 }
 var d: C<*> = D.create();
+
 (new A(): typeof A);
+
 (B: typeof A);
 class E {
   static x: number;
@@ -133,6 +133,7 @@ class E {
     return this.x;
   }
 }
+
 module.exports = { A: A, B: B, C: C, D: D, E: E };
 "
 `;

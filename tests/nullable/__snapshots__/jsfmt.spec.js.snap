@@ -10,6 +10,7 @@ exports[`test maybe.js 1`] = `
 // ok
 // error (only num ~> string)
 ((\"foo\": ??string): ?string);
+
 ((123: ??number): ?string);
 "
 `;
@@ -40,25 +41,29 @@ var array_of_nullable: Array<?number> = [null, 3];
 function foo(): string {
   return null;
 }
+
 function bar(): ?string {
   return null;
 }
-function qux(x: string) {
-  
-}
-function corge(x: number) {
-  
-}
+
+function qux(x: string) {}
+
+function corge(x: number) {}
 var x = bar();
+
 if (x != null)
   qux(x);
+
 if (x != null)
   corge(x);
+
 function grault() {
   x = null;
 }
+
 if (x != null) {
   grault();
+  
   qux(x);
 }
 var array_of_nullable: Array<?number> = [ null, 3 ];
@@ -74,17 +79,16 @@ bar(\'hmm\');
 function fn(data: ?{}) {}
 fn({some: \'literal\'});
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function foo(x: ?string) {
-  
-}
-function bar(x: ?number) {
-  
-}
+function foo(x: ?string) {}
+
+function bar(x: ?number) {}
+
 foo(\"hmm\");
+
 bar(\"hmm\");
-function fn(data: ?{}) {
-  
-}
+
+function fn(data: ?{}) {}
+
 fn({ some: \"literal\" });
 "
 `;

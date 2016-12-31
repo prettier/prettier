@@ -93,13 +93,16 @@ function foo(b) {
   }
   var w: number = z;
 }
+
 function bar(b) {
   var x = (b ? null : false);
+  
   if (x == null)
     return;
   switch (\"\") {
   case 0:
     var y: number = x;
+    
     x = \"\";
   case 1:
     var z: number = x;
@@ -108,14 +111,17 @@ function bar(b) {
   }
   var w: number = x;
 }
+
 function bar2(b) {
   var x = (b ? null : false);
+  
   if (x == null)
     return;
   switch (\"\") {
   case 0:
     {
       let y: number = x;
+      
       x = \"\";
     }
   case 1:
@@ -127,25 +133,32 @@ function bar2(b) {
   }
   var w: number = x;
 }
+
 function qux(b) {
   var z = 0;
   while (b) {
     var y: number = z;
+    
     if (b) {
       z = \"\";
       continue;
     }
+    
     z = 0;
   }
   var w: number = z;
 }
+
 function test_const() {
   let st: string = \"abc\";
+  
   for (let i = 1; i < 100; i++) {
     const fooRes: ?string = \"HEY\";
+    
     if (!fooRes) {
       break;
     }
+    
     st = fooRes;
   }
   return st;

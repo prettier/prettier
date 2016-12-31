@@ -4,6 +4,7 @@ exports[`test id.js 1`] = `
 module.exports = id;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare function id<X>(_: X): X;
+
 module.exports = id;
 "
 `;
@@ -18,6 +19,7 @@ function subtypeCheck(x: Interface): ObjectType { return x; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 interface Interface  { m(): void }
 import type { ObjectType } from \"./test\";
+
 function subtypeCheck(x: Interface): ObjectType {
   return x;
 }
@@ -41,9 +43,11 @@ module.exports = id(
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const id = require(\"./id\");
 export type ObjectType = { +m: () => void };
+
 function methodCaller(x: ObjectType) {
   x.m();
 }
+
 module.exports = id(methodCaller);
 "
 `;
@@ -75,7 +79,9 @@ function f() {
 }
 var a = { p: 0, f };
 var b = { f };
+
 a.f();
+
 b.f();
 "
 `;
@@ -109,14 +115,19 @@ qux({ f: foo });  // error, since \`this\` is used non-trivially in \`foo\`
 function foo() {
   this.m();
 }
+
 function bar(f: () => void) {
   f();
+  
   ({ f }).f();
 }
+
 bar(foo);
+
 function qux(o: { f(): void }) {
   o.f();
 }
+
 qux({ f: foo });
 "
 `;

@@ -33,6 +33,7 @@ exports = {stringValue: \'\'};
 // value will affect the exports object but re-binding it makes it useless and
 // does not affect the exports value.
 module.exports = { numberValue: 42 };
+
 exports = { stringValue: \"\" };
 "
 `;
@@ -74,9 +75,8 @@ function require() {}
 require(\"not a module name\");
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-function require() {
-  
-}
+function require() {}
+
 require(\"not a module name\");
 "
 `;
@@ -143,27 +143,35 @@ require.call(null, \"DoesNotExist\");
 // template literals are ok...
 // error: but only if they have no expressions
 // require.call is allowed but circumverts Flow\'s static analysis
-function takesANumber(num: number): void {
-  
-}
-function takesAString(str: string): void {
-  
-}
+function takesANumber(num: number): void {}
+
+function takesAString(str: string): void {}
 var A = require(\"A\");
+
 takesANumber(A.numberValue);
+
 takesAString(A.numberValue);
 var B = require(\"./B\");
+
 takesANumber(B.numberValue);
+
 takesAString(B.numberValue);
+
 require(\"C\");
+
 require(\"./D\");
 var E = require(\"./E\");
 var e_1: number = E.numberValue;
+
 E.stringValue;
 var a = \"./E\";
+
 require(a);
+
 require(\`./E\`);
+
 require(\`\${\"./E\"}\`);
+
 require.call(null, \"DoesNotExist\");
 "
 `;

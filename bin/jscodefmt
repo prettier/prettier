@@ -1,16 +1,28 @@
 #!/usr/bin/env node
 
 const fs = require("fs");
-const argv = require("minimist")(process.argv.slice(2));
+const minimist = require("minimist");
 const jscodefmt = require("../index");
+
+const argv = minimist(process.argv.slice(2), {
+  boolean: ["write", "useFlowParser"]
+});
 
 const filename = argv["_"][0];
 const printWidth = argv['print-width'] || 80;
 const tabWidth = argv['tab-width'] || 2;
 const useFlowParser = argv['flow-parser'];
+const write = argv['write'];
 
-console.log(jscodefmt.format(fs.readFileSync(filename, "utf8"), {
+const output = jscodefmt.format(fs.readFileSync(filename, "utf8"), {
   printWidth,
   tabWidth,
   useFlowParser
-}));
+});
+
+if(write) {
+  fs.writeFileSync(filename, output, "utf8");
+}
+else {
+  console.log(output);
+}

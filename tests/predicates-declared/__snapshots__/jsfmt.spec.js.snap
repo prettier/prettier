@@ -59,22 +59,22 @@ class C {
 }
 declare var m: Function;
 const o = { a: 1 };
+
 if (m.bind(o)) {
   o.a;
 }
 class D {
   m: Function;
   n() {
-    if (this.m({})) {
-      
-    }
+    if (this.m({}))
+      {}
   }
 }
 declare var m: Function;
 const x = \"\";
-if (m.bind(this)(x)) {
-  
-}
+
+if (m.bind(this)(x))
+  {}
 "
 `;
 
@@ -103,8 +103,10 @@ function foo(x: number | string | Array<string>): number {
 declare function f1(x: mixed): boolean %checks(typeof x === \"string\");
 declare function f2(x: mixed): boolean %checks(Array.isArray(x));
 declare var cond: boolean;
+
 function foo(x: number | string | Array<string>): number {
   var f = (cond ? f1 : f2);
+  
   if (f(x)) {
     return x.length;
   } else {
@@ -143,6 +145,7 @@ function foo(x: string | Array<string>): string {
 // guarantees that \`x\` here is an Array<string>
 declare function is_string(x: mixed): boolean %checks(typeof x === \"string\");
 declare function is_number(x: mixed): boolean %checks(typeof x === \"number\");
+
 function foo(x: string | Array<string>): string {
   if (is_string(x)) {
     return x;
@@ -184,16 +187,21 @@ function foo(x: mixed) { return 1; }
 declare function r(x: string): number;
 var s = \"a\";
 var n = r(s) || 1;
+
 (n: number);
 var x = \"\";
+
 if (x = r(s) || 1) {
   (x: number);
 }
 declare var dollars: mixed;
+
 function foo(x: mixed) {
   return 1;
 }
+
 foo(dollars) || 0;
+
 Number(dollars) || 0;
 "
 `;
@@ -229,13 +237,14 @@ function f(_this: { m: ?Meeting }): string {
 // - preserving \`havoc\` semantics
 type Meeting = { organizer: ?Invitee; es: Array<Invitee> };
 type Invitee = { fbid: number };
+
 function f(_this: { m: ?Meeting }): string {
   if (!_this.m) {
     return \"0\";
   }
-  if (_this.m.es.some(a => a.fbid === 0)) {
-    
-  }
+  
+  if (_this.m.es.some(a => a.fbid === 0))
+    {}
   return \"3\";
 }
 "
@@ -288,6 +297,7 @@ function foo(s: Array<string>): string {
 // Sanity check:
 // - we should still be getting an error at the second return statement
 declare function pred<T>(x: T): boolean;
+
 function foo(s: Array<string>): string {
   if (pred(s)) {
     return \"1\";
@@ -322,10 +332,12 @@ function foo(s: Array<string>): string {
 // Sanity check:
 // - invalid calls at predicate positions
 declare function pred<T>(x: T): boolean;
+
 function foo(s: Array<string>): string {
   if (1(s)) {
     return \"1\";
   }
+  
   if ((pred + 1)(\"s\")) {
     return \"1\";
   }
@@ -357,6 +369,7 @@ function bar(x: string | Array<string>): string {
 // error: both string and Array<string> can flow to x
 declare function is_string(x: mixed): boolean %checks(typeof x === \"string\");
 declare function is_number(x: mixed): boolean %checks(typeof x === \"number\");
+
 function bar(x: string | Array<string>): string {
   if (is_number(x)) {
     return x;
@@ -384,6 +397,7 @@ foo(3, 3);
 declare function foo(input: mixed,
 types: string | Array<string>): boolean %checks(typeof input === \"string\" ||
   Array.isArray(input));
+
 foo(3, 3);
 "
 `;
@@ -412,6 +426,7 @@ function foo(x: string | Array<string>): string {
 function pred(x: mixed): boolean %checks(typeof x === \"string\") {
   return typeof x === \"string\";
 }
+
 function foo(x: string | Array<string>): string {
   if (pred(x)) {
     return x;

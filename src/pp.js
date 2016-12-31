@@ -59,9 +59,6 @@ function iterDoc(topDoc, func) {
         }
       }
       else if(doc.type !== "line") {
-        if(doc.contents == null) {
-          console.log("JWL", doc);
-        }
         docs.push(doc.contents);
       }
     }

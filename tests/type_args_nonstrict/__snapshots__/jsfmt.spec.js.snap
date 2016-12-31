@@ -109,6 +109,7 @@ class MyClass2<T, U=string> {
   y: U;
   constructor(x: T, y: U) {
     this.x = x;
+    
     this.y = y;
   }
 }
@@ -124,6 +125,7 @@ class MySubclass extends MyClass {
     super(y);
   }
 }
+
 function singleton<T>(x: T): Array<T> {
   return [ x ];
 }

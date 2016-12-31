@@ -5,6 +5,7 @@ module.exports = a;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 var a: string = 0;
+
 module.exports = a;
 "
 `;
@@ -18,6 +19,7 @@ module.exports = b;
 // @flow
 var a = require(\"./a\");
 var b: number = a;
+
 module.exports = b;
 "
 `;
@@ -31,6 +33,7 @@ module.exports = c;
 // @flow
 var b = require(\"./b\");
 var c: string = b;
+
 module.exports = c;
 "
 `;

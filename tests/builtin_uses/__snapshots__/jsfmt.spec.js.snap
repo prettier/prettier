@@ -4,7 +4,9 @@ exports[`test test.js 1`] = `
 module.exports = o;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var o = Object.freeze({ foo: 0 });
+
 (o.foo: string);
+
 module.exports = o;
 "
 `;
@@ -14,6 +16,7 @@ exports[`test test2.js 1`] = `
 (o.foo: string);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var o = require(\"./test\");
+
 (o.foo: string);
 "
 `;

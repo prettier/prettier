@@ -66,9 +66,7 @@ function from_test() {
 // acc is element type of array when no init is provided
 // error, string ~> number
 // error, string ~> number
-function foo(x: string) {
-  
-}
+function foo(x: string) {}
 var a = [ 0 ];
 var b = a.map(
   function(x) {
@@ -92,12 +90,14 @@ var k: Array<number> = h.concat(h);
 var l: Array<number> = h.concat(1, 2, 3);
 var m: Array<number | string> = h.concat(\"a\", \"b\", \"c\");
 var n: Array<number> = h.concat(\"a\", \"b\", \"c\");
+
 function reduce_test() {
   [ 0, 1, 2, 3, 4 ].reduce(
     function(previousValue, currentValue, index, array) {
       return previousValue + currentValue + array[index];
     }
   );
+  
   [ 0, 1, 2, 3, 4 ].reduce(
     function(previousValue, currentValue, index, array) {
       return previousValue + currentValue + array[index];
@@ -114,9 +114,12 @@ function reduce_test() {
       return a.concat(b);
     }
   );
+  
   [ \"\" ].reduce((acc, str) => acc * str.length);
+  
   [ \"\" ].reduceRight((acc, str) => acc * str.length);
 }
+
 function from_test() {
   var a: Array<string> = Array.from(
     [ 1, 2, 3 ],

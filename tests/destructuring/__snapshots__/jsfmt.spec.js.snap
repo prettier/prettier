@@ -23,9 +23,13 @@ let [ a, ...ys ] = xs;
 let [ b, ...zs ] = ys;
 let c = zs[0];
 let d = zs[1];
+
 (a: void);
+
 (b: void);
+
 (c: void);
+
 (d: void);
 let [ ...e ] = 0;
 "
@@ -46,11 +50,14 @@ var { [\"key\"]: val3, ...spread } = { key: \"val\" };
 // ok (gasp!) by existing StrT -> ElemT rule
 // error (gasp!) in general we don\'t know if a computed prop should be excluded from spread
 var { [\"key\"]: val1 } = { key: \"val\" };
+
 (val1: void);
 var key: string = \"key\";
 var { [key]: val2 } = { key: \"val\" };
+
 (val2: void);
 var { [\"key\"]: val3, ...spread } = { key: \"val\" };
+
 (spread.key: void);
 "
 `;
@@ -183,64 +190,75 @@ function default_expr_scope({a, b = a}) {}
 function obj_prop_fun({ p: { q = 0 } = { q: true } } = { p: { q: \"\" } }) {
   (q: void);
 }
+
 obj_prop_fun();
+
 obj_prop_fun({});
+
 obj_prop_fun({ p: {} });
+
 obj_prop_fun({ p: { q: null } });
+
 function obj_prop_var(o = { p: { q: \"\" } }) {
   var { p: { q = 0 } = { q: true } } = o;
+  
   (q: void);
 }
+
 obj_prop_var();
+
 obj_prop_var({});
+
 obj_prop_var({ p: {} });
+
 obj_prop_var({ p: { q: null } });
+
 function obj_rest(
   { p: { q, ...o } = { q: 0, r: 0 } } = { p: { q: 0, r: \"\" } }
 ) {
   (o.r: void);
 }
+
 obj_rest();
+
 obj_rest({});
+
 obj_rest({ p: {} });
+
 obj_rest({ p: { q: 0, r: null } });
+
 function obj_prop_annot({ p = true }: { p: string } = { p: 0 }) {
   (p: void);
 }
 var { p = true }: { p: string } = { p: 0 };
+
 (p: void);
-function obj_prop_err({ x: { y } } = null) {
-  
-}
-function obj_rest_err({ ...o } = 0) {
-  
-}
-function arr_elem_err([ x ] = null) {
-  
-}
-function arr_rest_err([ ...a ] = null) {
-  
-}
+
+function obj_prop_err({ x: { y } } = null) {}
+
+function obj_rest_err({ ...o } = 0) {}
+
+function arr_elem_err([ x ] = null) {}
+
+function arr_rest_err([ ...a ] = null) {}
+
 function gen<T>(x: T, { p = x }: { p: T }): T {
   return p;
 }
+
 obj_prop_fun(({}: { p?: { q?: null } }));
+
 obj_prop_var(({}: { p?: { q?: null } }));
-function obj_prop_opt({ p }: { p?: string } = { p: 0 }) {
-  
-}
-function obj_prop_maybe({ p }: { p: ?string } = { p: 0 }) {
-  
-}
-function obj_prop_union({ p }: { p: number | string } = { p: true }) {
-  
-}
-function obj_prop_union2({ p }: { p: number } | { p: string } = { p: true }) {
-  
-}
-function default_expr_scope({ a, b = a }) {
-  
-}
+
+function obj_prop_opt({ p }: { p?: string } = { p: 0 }) {}
+
+function obj_prop_maybe({ p }: { p: ?string } = { p: 0 }) {}
+
+function obj_prop_union({ p }: { p: number | string } = { p: true }) {}
+
+function obj_prop_union2({ p }: { p: number } | { p: string } = { p: true }) {}
+
+function default_expr_scope({ a, b = a }) {}
 "
 `;
 
@@ -328,44 +346,60 @@ var cp2_err: string = others.childprop2; // Error: number ~> string
 declare var a: string;
 declare var b: string;
 declare var c: string;
+
 [ { a1: a, b }, c ] = [ { a1: 0, b: 1 }, 2 ];
 var { m } = { m: 0 };
+
 ({ m } = { m: m });
 var obj;
+
 ({ n: obj.x } = { n: 3 });
+
 [ obj.x ] = [ \"foo\" ];
+
 function foo({ p, z: [ r ] }) {
   a = p;
+  
   b = z;
+  
   c = r;
 }
+
 foo({ p: 0, z: [ 1, 2 ] });
+
 [ a, , b, ...c ] = [ 0, 1, true, 3 ];
+
 function bar({ x, ...z }) {
   var o: { x: string; y: number } = z;
 }
+
 bar({ x: \"\", y: 0 });
 var spread = { y: \"\" };
 var extend: { x: number; y: string; z: boolean } = { x: 0, ...spread };
-function qux(_: { a: number }) {
-  
-}
+
+function qux(_: { a: number }) {}
+
 qux({ a: \"\" });
-function corge({ b }: { b: string }) {
-  
-}
+
+function corge({ b }: { b: string }) {}
+
 corge({ b: 0 });
 var { n }: { n: number } = { n: \"\" };
+
 function test() {
   var { foo } = { bar: 123 };
   var { bar, baz } = { bar: 123 };
 }
+
 function test() {
   var x = { foo: \"abc\", bar: 123 };
   var { foo, ...rest } = x;
+  
   (x.baz: string);
+  
   (rest.baz: string);
 }
+
 module.exports = corge;
 class Base {
   baseprop1: number;
@@ -420,6 +454,7 @@ exports[`test eager.js 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // error, property \`x\` can not be accessed on \`null\`
 var x;
+
 ({ x } = null);
 "
 `;
@@ -471,44 +506,39 @@ function arr_rest_pattern<X>([ _, ...a ] : ArrRest<X>) { // a: [X]
 // o: { x: X }
 // a: [X]
 // a: [X]
-function obj_pattern<X>({ prop }: { prop: X }) {
-  
-}
+function obj_pattern<X>({ prop }: { prop: X }) {}
 type Prop<X> = { prop: X };
-function obj_pattern2<X>({ prop }: Prop<X>) {
-  
-}
-function arr_pattern<X>([ elem ]: X[]) {
-  
-}
+
+function obj_pattern2<X>({ prop }: Prop<X>) {}
+
+function arr_pattern<X>([ elem ]: X[]) {}
 type Elem<X> = X[];
-function arr_pattern2<X>([ elem ]: Elem<X>) {
-  
-}
-function tup_pattern<X>([ proj ]: [X]) {
-  
-}
+
+function arr_pattern2<X>([ elem ]: Elem<X>) {}
+
+function tup_pattern<X>([ proj ]: [X]) {}
 type Proj<X> = [X];
-function tup_pattern2<X>([ proj ]: Proj<X>) {
-  
-}
-function rest_antipattern<T>(...t: T) {
-  
-}
-function rest_pattern<X>(...r: X[]) {
-  
-}
+
+function tup_pattern2<X>([ proj ]: Proj<X>) {}
+
+function rest_antipattern<T>(...t: T) {}
+
+function rest_pattern<X>(...r: X[]) {}
+
 function obj_rest_pattern<X>({ _, ...o }: { _: any; x: X }) {
   o.x;
 }
 type ObjRest<X> = { _: any; x: X };
+
 function obj_rest_pattern<X>({ _, ...o }: ObjRest<X>) {
   o.x;
 }
+
 function arr_rest_pattern<X>([ _, ...a ]: [any, X]) {
   a[0];
 }
 type ArrRest<X> = [any, X];
+
 function arr_rest_pattern<X>([ _, ...a ]: ArrRest<X>) {
   a[0];
 }
@@ -546,6 +576,7 @@ const bar = (i: number) => {
   [ i ] = foo(i);
   return [ i ];
 };
+
 foo = (i: number) => {
   return bar(i);
 };
@@ -564,8 +595,10 @@ var { \"with-dash\": with_dash } = { \"with-dash\": \"motivating example\" };
 // error: string ~> void
 // ok
 var { \"key\": val } = { key: \"val\" };
+
 (val: void);
 var { \"with-dash\": with_dash } = { \"with-dash\": \"motivating example\" };
+
 (with_dash: \"motivating example\");
 "
 `;
@@ -583,6 +616,7 @@ function bar() {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 var { x } = { x: { foo: \"foo\" } };
+
 function bar() {
   x.bar;
 }

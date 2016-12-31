@@ -27,7 +27,8 @@ var b = a.map(
   }
 );
 var c: string = b[0];
-var array = [  ];
+var array = [];
+
 function f() {
   array = array.map(
     function() {
@@ -38,6 +39,7 @@ function f() {
 }
 var Foo = require(\"./genericfoo\");
 var foo = new Foo();
+
 function g() {
   var foo1 = foo.map(
     function() {
@@ -45,6 +47,7 @@ function g() {
     }
   );
   var x: number = foo1.get();
+  
   foo = foo1;
 }
 "
@@ -69,13 +72,12 @@ class Foo<T> {
   map<U>(callbackfn: () => U): Foo<U> {
     return new Foo();
   }
-  set(x: T): void {
-    
-  }
+  set(x: T): void {}
   get(): T {
     return this.x;
   }
 }
+
 module.exports = Foo;
 "
 `;

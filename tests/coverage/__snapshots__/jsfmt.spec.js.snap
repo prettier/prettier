@@ -15,12 +15,8 @@ declare module bar {
 // that we implicitly assume in type-at-pos and coverage implementations. In
 // particular, when unchecked it causes a crash with coverage --color.
 // TODO
-declare module foo {
-  
-}
-declare module bar {
-  
-}
+declare module foo {}
+declare module bar {}
 "
 `;
 
@@ -31,9 +27,7 @@ declare module foo {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // check coverage of declare module
-declare module foo {
-  
-}
+declare module foo {}
 "
 `;
 
@@ -42,6 +36,7 @@ exports[`test no_pragma.js 1`] = `
 (x: string);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let x = 0;
+
 (x: string);
 "
 `;
@@ -66,12 +61,8 @@ declare class qux {
 // that we implicitly assume in type-at-pos and coverage implementations. In
 // particular, when unchecked it causes non-termination with coverage --color.
 // TODO
-declare module foo {
-  
-}
-declare module bar {
-  
-}
+declare module foo {}
+declare module bar {}
 declare class qux {}
 "
 `;

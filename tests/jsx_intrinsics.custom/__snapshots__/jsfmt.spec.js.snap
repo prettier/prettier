@@ -27,7 +27,9 @@ class CustomComponent extends React.Component {
 }
 var a: React.Element<{ prop: string }> = <CustomComponent prop=\"asdf\"/>;
 var b: React.Element<{ prop1: string }> = <CustomComponent prop=\"asdf\"/>;
+
 <div id=\"asdf\"/>;
+
 <div id={42}/>;
 var c: React.Element<{ id: string }> = <div id=\"asdf\"/>;
 var d: React.Element<{ id: number }> = <div id=\"asdf\"/>;
@@ -67,12 +69,19 @@ var React = require(\"react\");
 var Div = \"div\";
 var Bad = \"bad\";
 var Str: string = \"str\";
+
 <Div/>;
+
 <Bad/>;
+
 <Str/>;
+
 React.createElement(\"div\", {});
+
 React.createElement(\"bad\", {});
+
 React.createElement(Str, {});
+
 <Div id={42}/>;
 "
 `;

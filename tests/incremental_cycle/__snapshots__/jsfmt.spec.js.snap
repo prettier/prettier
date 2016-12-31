@@ -13,6 +13,7 @@ class A {
   b: number;
   c: string;
 }
+
 module.exports = A;
 "
 `;
@@ -34,6 +35,7 @@ import type C from \"./C\";
 class B extends A {
   c: C;
 }
+
 module.exports = B;
 "
 `;
@@ -55,6 +57,7 @@ import type B from \"./B\";
 class C extends A {
   b: B;
 }
+
 module.exports = C;
 "
 `;

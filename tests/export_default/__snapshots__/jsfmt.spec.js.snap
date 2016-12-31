@@ -18,10 +18,13 @@ N.z = Q(N.z);
 // declaration of Q redirects to module M
 var M = require(\"M\");
 var N = require(\"N\");
+
 N.x = M(N.x);
 var P = require(\"./P\");
+
 N.y = P(N.y);
 var Q = require(\"Q\");
+
 N.z = Q(N.z);
 "
 `;

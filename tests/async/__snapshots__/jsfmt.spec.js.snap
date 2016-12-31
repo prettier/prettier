@@ -71,17 +71,21 @@ var objf : () => Promise<number> = obj.f;
 async function f0(): Promise<number> {
   return 1;
 }
+
 async function f1(): Promise<boolean> {
   return 1;
 }
+
 async function f2(p: Promise<number>): Promise<number> {
   var x: number = await p;
   var y: number = await 1;
   return x + y;
 }
+
 async function f3(p: Promise<number>): Promise<number> {
   return await p;
 }
+
 async function f4(p: Promise<number>): Promise<boolean> {
   return await p;
 }
@@ -131,6 +135,7 @@ var P: Promise<Class<C>> = new Promise(
     resolve(C);
   }
 );
+
 async function foo() {
   class Bar extends (await P) {}
   return Bar;
@@ -164,51 +169,23 @@ console.log(x.async);
 var async = 3;
 var y = { async };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-async function f() {
-  
-}
-async function ft<T>(a: T) {
-  
-}
+async function f() {}
+
+async function ft<T>(a: T) {}
 class C {
-  async m() {
-    
-  }
-  async mt<T>(a: T) {
-    
-  }
-  static async m(a) {
-    
-  }
-  static async mt<T>(a: T) {
-    
-  }
+  async m() {}
+  async mt<T>(a: T) {}
+  static async m(a) {}
+  static async mt<T>(a: T) {}
 }
-var e = async function() {
-  
-};
-var et = async function<T>(a: T) {
-  
-};
-var n = new async function() {
-  
-}();
-var o = {
-  async m() {
-    
-  }
-};
-var ot = {
-  async m<T>(a: T) {
-    
-  }
-};
-var oz = {
-  async async() {
-    
-  }
-};
+var e = async function() {};
+var et = async function<T>(a: T) {};
+var n = new async function() {}();
+var o = { async m() {} };
+var ot = { async m<T>(a: T) {} };
+var oz = { async async() {} };
 var x = { async: 5 };
+
 console.log(x.async);
 var async = 3;
 var y = { async };
@@ -246,13 +223,13 @@ async function foo3(): Promise<string> {
 async function foo1(): Promise<string> {
   return;
 }
+
 async function foo2(): Promise<string> {
   return undefined;
 }
+
 async function foo3(): Promise<string> {
-  function bar() {
-    
-  }
+  function bar() {}
   return bar();
 }
 "
@@ -345,12 +322,14 @@ function test1() {
   async function foo() {
     return 42;
   }
+  
   async function bar() {
     var a = await foo();
     var b: number = a;
     var c: string = a;
   }
 }
+
 function test2() {
   async function voidoid1() {
     console.log(\"HEY\");
@@ -358,16 +337,19 @@ function test2() {
   var voidoid2: () => Promise<void> = voidoid1;
   var voidoid3: () => void = voidoid1;
 }
+
 function test3() {
   async function voidoid4(): Promise<void> {
     console.log(\"HEY\");
   }
 }
+
 function test4() {
   async function voidoid5(): void {
     console.log(\"HEY\");
   }
 }
+
 function test5() {
   async function voidoid6(): Promise<number> {
     console.log(\"HEY\");
@@ -427,9 +409,11 @@ async function baz() {
 async function foo() {
   return 42;
 }
+
 async function bar() {
   return foo();
 }
+
 async function baz() {
   var a = await bar();
   var b: number = a;
@@ -467,6 +451,7 @@ var y = { await };
 async function f() {
   await 1;
 }
+
 async function ft<T>(a: T) {
   await 1;
 }
@@ -509,6 +494,7 @@ var oz = {
   }
 };
 var x = { await: 5 };
+
 console.log(x.await);
 var await = 3;
 var y = { await };

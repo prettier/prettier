@@ -11,6 +11,7 @@ console.log(x);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // bar.js does not work
 var x = require(\"./bar\");
+
 console.log(x);
 "
 `;

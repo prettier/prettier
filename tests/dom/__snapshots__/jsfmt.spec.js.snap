@@ -44,6 +44,7 @@ let tests = [
 let tests = [
   function(document: Document) {
     const event = document.createEvent(\"CustomEvent\");
+    
     event.initCustomEvent(\"butts\", true, false, { nice: 42 });
   }
 ];
@@ -68,8 +69,11 @@ let tests = [
 let tests = [
   function(document: Document) {
     (document.createElement(\"canvas\"): HTMLCanvasElement);
+    
     (document.createElement(\"link\"): HTMLLinkElement);
+    
     (document.createElement(\"option\"): HTMLOptionElement);
+    
     (document.createElement(\"select\"): HTMLSelectElement);
   }
 ];
@@ -102,13 +106,21 @@ let tests = [
 let tests = [
   function(element: Element) {
     element.scrollIntoView();
+    
     element.scrollIntoView(false);
+    
     element.scrollIntoView({});
+    
     element.scrollIntoView({ behavior: \"smooth\", block: \"end\" });
+    
     element.scrollIntoView({ block: \"end\" });
+    
     element.scrollIntoView({ behavior: \"smooth\" });
+    
     element.scrollIntoView({ behavior: \"invalid\" });
+    
     element.scrollIntoView({ block: \"invalid\" });
+    
     element.scrollIntoView(1);
   }
 ];
@@ -161,13 +173,21 @@ let tests = [
 let tests = [
   function(element: HTMLElement) {
     element.scrollIntoView();
+    
     element.scrollIntoView(false);
+    
     element.scrollIntoView({});
+    
     element.scrollIntoView({ behavior: \"smooth\", block: \"end\" });
+    
     element.scrollIntoView({ block: \"end\" });
+    
     element.scrollIntoView({ behavior: \"smooth\" });
+    
     element.scrollIntoView({ behavior: \"invalid\" });
+    
     element.scrollIntoView({ block: \"invalid\" });
+    
     element.scrollIntoView(1);
   }
 ];
@@ -195,9 +215,13 @@ let tests = [
 let tests = [
   function(el: HTMLInputElement) {
     el.setRangeText(\"foo\");
+    
     el.setRangeText(\"foo\", 123);
+    
     el.setRangeText(\"foo\", 123, 234);
+    
     el.setRangeText(\"foo\", 123, 234, \"select\");
+    
     el.setRangeText(\"foo\", 123, 234, \"bogus\");
   }
 ];
@@ -298,18 +322,20 @@ let tests = [
 // detachEvent
 // invalid, may be undefined
 // valid
-let listener: EventListener = function(event: Event): void {
-  
-};
+let listener: EventListener = function(event: Event): void {};
 let tests = [
   function() {
     let target = new EventTarget();
+    
     (target.attachEvent(\"foo\", listener): void);
+    
     (target.attachEvent && target.attachEvent(\"foo\", listener): void);
   },
   function() {
     let target = new EventTarget();
+    
     (target.detachEvent(\"foo\", listener): void);
+    
     (target.detachEvent && target.detachEvent(\"foo\", listener): void);
   },
   function() {
@@ -342,8 +368,11 @@ let tests = [
 let tests = [
   function() {
     let path = new Path2D();
+    
     (path.arcTo(0, 0, 0, 0, 10): void);
+    
     (path.arcTo(0, 0, 0, 0, 10, 20, 5): void);
+    
     (path.arcTo(0, 0, 0, 0, 10, \"20\", 5): void);
   }
 ];
@@ -424,30 +453,16 @@ let tests = [
         prototype: Object.create(
           HTMLElement.prototype,
           {
-            createdCallback: {
-              value: function createdCallback() {
-                
-              }
-            },
-            attachedCallback: {
-              value: function attachedCallback() {
-                
-              }
-            },
-            detachedCallback: {
-              value: function detachedCallback() {
-                
-              }
-            },
+            createdCallback: { value: function createdCallback() {} },
+            attachedCallback: { value: function attachedCallback() {} },
+            detachedCallback: { value: function detachedCallback() {} },
             attributeChangedCallback: {
               value: function attributeChangedCallback(
                 attributeLocalName,
                 oldAttributeValue,
                 newAttributeValue,
                 attributeNamespace
-              ) {
-                
-              }
+              ) {}
             }
           }
         )
@@ -461,21 +476,13 @@ let tests = [
         prototype: Object.assign(
           Object.create(HTMLElement.prototype),
           {
-            createdCallback() {
-              
-            },
-            attachedCallback() {
-              
-            },
-            detachedCallback() {
-              
-            },
+            createdCallback() {},
+            attachedCallback() {},
+            detachedCallback() {},
             attributeChangedCallback(attributeLocalName,
             oldAttributeValue,
             newAttributeValue,
-            attributeNamespace) {
-              
-            }
+            attributeNamespace) {}
           }
         )
       }
@@ -489,9 +496,7 @@ let tests = [
           attributeChangedCallback(localName: string,
           oldVal: string,
           newVal: string,
-          namespace: string) {
-            
-          }
+          namespace: string) {}
         }
       }
     );
@@ -732,10 +737,12 @@ let tests = [
   },
   function() {
     document.createNodeIterator(document.body);
+    
     document.createNodeIterator({});
   },
   function() {
     document.createTreeWalker(document.body);
+    
     document.createTreeWalker({});
   },
   function() {
@@ -897,17 +904,21 @@ let tests = [
       -1,
       node => NodeFilter.FILTER_ACCEPT
     );
+    
     document.createNodeIterator(document.body, -1, node => \"accept\");
+    
     document.createNodeIterator(
       document.body,
       -1,
       { accept: node => NodeFilter.FILTER_ACCEPT }
     );
+    
     document.createNodeIterator(
       document.body,
       -1,
       { accept: node => \"accept\" }
     );
+    
     document.createNodeIterator(document.body, -1, {});
   },
   function() {
@@ -916,13 +927,17 @@ let tests = [
       -1,
       node => NodeFilter.FILTER_ACCEPT
     );
+    
     document.createTreeWalker(document.body, -1, node => \"accept\");
+    
     document.createTreeWalker(
       document.body,
       -1,
       { accept: node => NodeFilter.FILTER_ACCEPT }
     );
+    
     document.createTreeWalker(document.body, -1, { accept: node => \"accept\" });
+    
     document.createTreeWalker(document.body, -1, {});
   }
 ];

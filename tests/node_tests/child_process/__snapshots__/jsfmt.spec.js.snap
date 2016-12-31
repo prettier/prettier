@@ -21,13 +21,16 @@ exec(\'ls\', {maxBuffer: 100}, function(error, stdout, stderr) {
 // options only.
 // options + callback.
 var exec = require(\"child_process\").exec;
+
 exec(
   \"ls\",
   function(error, stdout, stderr) {
     console.info(stdout);
   }
 );
+
 exec(\"ls\", { timeout: 250 });
+
 exec(
   \"ls\",
   { maxBuffer: 100 },
@@ -75,14 +78,18 @@ execFile(\'ls\', [\'-l\'], {timeout: 250}, function(error, stdout, stderr) {
 // args + options.
 // Put it all together.
 var execFile = require(\"child_process\").execFile;
+
 execFile(\"ls\", [ \"-lh\" ]);
+
 execFile(
   \"ls\",
   function(error, stdout, stderr) {
     console.info(stdout);
   }
 );
+
 execFile(\"wc\", { timeout: 250 });
+
 execFile(
   \"ls\",
   [ \"-l\" ],
@@ -90,7 +97,9 @@ execFile(
     console.info(stdout);
   }
 );
+
 execFile(\"ls\", [ \"-l\" ], { timeout: 250 });
+
 execFile(
   \"ls\",
   [ \"-l\" ],
@@ -122,11 +131,17 @@ var execSync = require(\'child_process\').execSync;
 // error, no signatures match
 // error, no signatures match
 var execSync = require(\"child_process\").execSync;
+
 (execSync(\"ls\"): Buffer);
+
 (execSync(\"ls\", { encoding: \"buffer\" }): Buffer);
+
 (execSync(\"ls\", { encoding: \"utf8\" }): string);
+
 execSync(\"ls\", { timeout: \"250\" });
+
 execSync(\"ls\", { stdio: \"inherit\" });
+
 execSync(\"ls\", { stdio: [ \"inherit\" ] });
 "
 `;
@@ -169,34 +184,42 @@ wc.stderr.pipe(process.stderr);
 var child_process = require(\"child_process\");
 var ls = child_process.spawn(\"ls\");
 var wc = child_process.spawn(\"wc\", [ \"-l\" ]);
+
 child_process.spawn(
   \"echo\",
   [ \"-n\", \"\\\"Testing...\\\"\" ],
   { env: { TEST: \"foo\" } }
 );
+
 child_process.spawn(\"echo\", { env: { FOO: 2 } });
+
 ls.stdout.on(
   \"data\",
   function(data) {
     wc.stdin.write(data);
   }
 );
+
 ls.stderr.on(
   \"data\",
   function(data) {
     console.warn(data);
   }
 );
+
 ls.on(
   \"close\",
   function(code) {
     if (code !== 0) {
       console.warn(\"\`ls\` exited with code %s\", code);
     }
+    
     wc.stdin.end();
   }
 );
+
 wc.stdout.pipe(process.stdout);
+
 wc.stderr.pipe(process.stderr);
 "
 `;

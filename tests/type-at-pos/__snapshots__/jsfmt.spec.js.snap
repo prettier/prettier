@@ -55,11 +55,7 @@ const y = {
 // class X {
 //   foo(): void {}
 // }
-const y = {
-  bar(): void {
-    
-  }
-};
+const y = { bar(): void {} };
 "
 `;
 
@@ -95,24 +91,31 @@ mn;
 // error: application of non-poly type
 class C<X> {}
 var cn: C<number> = new C();
+
 cn;
+
 function foo() {
   return C;
 }
 var D = foo();
 var dn: D<number> = new C();
+
 dn;
 type E<X> = C<X>;
 var en: E<number> = new C();
+
 en;
 type F<X> = C<void>;
 var fn: F<number> = new C();
+
 fn;
 type O<X> = { x: X };
 var on: O<number> = { x: 0 };
+
 on;
 type Mono = C<void>;
 var mn: Mono<number> = new C();
+
 mn;
 "
 `;
@@ -126,10 +129,11 @@ module.exports = num;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 var num = 42;
-function bar() {
-  
-}
+
+function bar() {}
+
 bar();
+
 module.exports = num;
 "
 `;
@@ -148,6 +152,7 @@ let tests = [
 let tests = [
   function() {
     let x = {};
+    
     Object.defineProperty(x, \"foo\", { value: \"\" });
   }
 ];
@@ -175,10 +180,13 @@ function qux(x?) {
 function foo(x?: string) {
   return x;
 }
+
 foo();
+
 function bar(obj: { x?: string }) {
   return obj.x;
 }
+
 function qux(x?) {
   return x;
 }
@@ -195,15 +203,15 @@ if (Array.isArray(x)) {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 let x = 0;
-if (x == null) {
-  
-}
-if (x == undefined) {
-  
-}
-if (Array.isArray(x)) {
-  
-}
+
+if (x == null)
+  {}
+
+if (x == undefined)
+  {}
+
+if (Array.isArray(x))
+  {}
 "
 `;
 
@@ -212,6 +220,7 @@ exports[`test react.js 1`] = `
 React.createElement;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import React from \"react\";
+
 React.createElement;
 "
 `;
@@ -243,10 +252,11 @@ const w:MyNum = 42;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 var str = require(\"./import\");
-function foo() {
-  
-}
+
+function foo() {}
+
 foo();
+
 str;
 type Point = [number, string];
 const x: Point = [ 1, \"foo\" ];
@@ -269,8 +279,6 @@ try {
 // @flow
 try {
   throw \"foo\";
-} catch (e) {
-  
-}
+} catch (e) {}
 "
 `;

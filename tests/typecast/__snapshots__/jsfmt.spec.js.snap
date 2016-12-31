@@ -47,9 +47,7 @@ var tests = [
   () => {
     var s: string = ((0: number), (\"hey\": string));
   },
-  () => {
-    
-  }
+  () => {}
 ];
 "
 `;

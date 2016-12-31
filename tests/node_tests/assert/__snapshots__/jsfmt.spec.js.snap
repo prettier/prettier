@@ -9,7 +9,9 @@ assert.ok(true) // ok
 // ok
 // ok
 var assert = require(\"assert\");
+
 assert(true);
+
 assert.ok(true);
 "
 `;

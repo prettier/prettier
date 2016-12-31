@@ -38,6 +38,7 @@ var id = geolocation.watchPosition(
     }
   }
 );
+
 geolocation.clearWatch(id);
 "
 `;

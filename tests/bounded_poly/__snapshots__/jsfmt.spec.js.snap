@@ -4,10 +4,10 @@ foo(0, \"\");
 
 function bar<X:number, Y:X>(x:X, y:Y): number { return y*0; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function foo<X, Y: X>(x: X, y: Y): void {
-  
-}
+function foo<X, Y: X>(x: X, y: Y): void {}
+
 foo(0, \"\");
+
 function bar<X: number, Y: X>(x: X, y: Y): number {
   return y * 0;
 }
@@ -66,6 +66,7 @@ class C<T: number> {
     return x;
   }
 }
+
 function example<T: { x: number }>(o: T): T {
   o.x = 0;
   return o;

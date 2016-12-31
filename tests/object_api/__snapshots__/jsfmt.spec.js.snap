@@ -3,11 +3,7 @@ exports[`test a.js 1`] = `
 
 module.exports = { a() {} };~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-module.exports = {
-  a() {
-    
-  }
-};
+module.exports = { a() {} };
 "
 `;
 
@@ -22,16 +18,10 @@ module.exports = b;
 /* @flow */
 // works here
 var a = require(\"./a\");
-var b = Object.assign(
-  {
-    bar() {
-      
-    },
-    ...{}
-  },
-  a
-);
+var b = Object.assign({ bar() {}, ...{} }, a);
+
 b.a();
+
 module.exports = b;
 "
 `;
@@ -44,7 +34,9 @@ c.a();
 c.foo();~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 var c = require(\"./b\");
+
 c.a();
+
 c.foo();
 "
 `;
@@ -75,7 +67,9 @@ var export_ = Object.assign(
 );
 var decl_export_: { foo: any; bar: any } = Object.assign({}, export_);
 let anyObj: Object = {};
+
 Object.assign(anyObj, anyObj);
+
 module.exports = export_;
 "
 `;
@@ -107,11 +101,15 @@ declare var o: O;
 class C {
   foo: string;
 }
+
 (Object.create(C.prototype): C);
+
 (Object.create(new C()): C);
+
 ({ foo: \"foo\" }: C);
 type O = { foo: string };
 declare var o: O;
+
 (o: C);
 "
 `;
@@ -135,6 +133,7 @@ class Bar extends Foo {}
 let tests = [
   function() {
     const x = new Bar();
+    
     (Object.getPrototypeOf(x): Foo);
   }
 ];
@@ -185,35 +184,38 @@ class Bar extends Foo {
 // only own enumerable props
 // error: bar_prop ~> error
 var sealed = { one: \"one\", two: \"two\" };
+
 (Object.keys(sealed): Array<\"one\" | \"two\">);
+
 (Object.keys(sealed): void);
 var unsealed = {};
+
 Object.keys(unsealed).forEach(
   k => {
     (k: number);
   }
 );
 var dict: { [k: number]: string } = {};
+
 Object.keys(dict).forEach(
   k => {
     (k: number);
   }
 );
 var any: Object = {};
+
 (Object.keys(any): Array<number>);
 class Foo {
   prop: string;
-  foo() {
-    
-  }
+  foo() {}
 }
+
 (Object.keys(new Foo()): Array<\"error\">);
 class Bar extends Foo {
   bar_prop: string;
-  bar() {
-    
-  }
+  bar() {}
 }
+
 (Object.keys(new Bar()): Array<\"error\">);
 "
 `;
@@ -467,18 +469,13 @@ var k : Object = a.constructor;
 //
 // constructor
 //
-function takesABool(x: boolean) {
-  
-}
-function takesAString(x: string) {
-  
-}
-function takesANumber(x: number) {
-  
-}
-function takesAnObject(x: Object) {
-  
-}
+function takesABool(x: boolean) {}
+
+function takesAString(x: string) {}
+
+function takesANumber(x: number) {}
+
+function takesAnObject(x: Object) {}
 class Foo {}
 var a = { foo: \"bar\" };
 var b = { foo: \"bar\", ...{} };
@@ -491,82 +488,114 @@ var c = {
 var d: { [key: string]: string } = { foo: \"bar\" };
 var x = new Date();
 var y = new Foo();
+
 takesAString(a.toString());
+
 d.toString();
 var aToString: () => string = a.toString;
 var aToString2 = a.toString;
+
 takesAString(aToString2());
+
 b.toString = function(): string {
   return \"foo\";
 };
+
 c.toString = function(): number {
   return 123;
 };
 var cToString: () => number = c.toString;
 var xToString: number = x.toString;
 var xToString2: () => number = x.toString;
+
 takesAString(x.toString());
 var yToString: number = y.toString;
+
 takesAString(y.toString());
+
 (123).toString();
+
 (123).toString;
-(123).toString = function() {
-  
-};
+
+(123).toString = function() {};
+
 (123).toString(2);
+
 (123).toString(\"foo\");
+
 (123).toString(null);
+
 takesABool(a.hasOwnProperty(\"foo\"));
 var aHasOwnProperty: (prop: string) => boolean = a.hasOwnProperty;
 var aHasOwnProperty2 = a.hasOwnProperty;
+
 takesABool(aHasOwnProperty2(\"bar\"));
+
 b.hasOwnProperty = function() {
   return false;
 };
 var xHasOwnProperty: number = x.hasOwnProperty;
 var xHasOwnProperty2: (prop: string) => number = x.hasOwnProperty;
+
 takesABool(x.hasOwnProperty(\"foo\"));
 var yHasOwnProperty: number = y.hasOwnProperty;
+
 takesABool(y.hasOwnProperty(\"foo\"));
+
 takesABool(a.propertyIsEnumerable(\"foo\"));
 var aPropertyIsEnumerable: (prop: string) => boolean = a.propertyIsEnumerable;
 var aPropertyIsEnumerable2 = a.propertyIsEnumerable;
+
 takesABool(aPropertyIsEnumerable2(\"bar\"));
+
 b.propertyIsEnumerable = function() {
   return false;
 };
 var xPropertyIsEnumerable: number = x.propertyIsEnumerable;
 var xPropertyIsEnumerable2: (prop: string) => number = x.propertyIsEnumerable;
+
 takesABool(x.propertyIsEnumerable(\"foo\"));
 var yPropertyIsEnumerable: number = y.propertyIsEnumerable;
+
 takesABool(y.propertyIsEnumerable(\"foo\"));
+
 takesAnObject(a.valueOf());
 var aValueOf: () => Object = a.valueOf;
 var aValueOf2 = a.valueOf;
+
 takesAnObject(aValueOf2());
+
 b.valueOf = function() {
   return {};
 };
 var xValueOf: number = x.valueOf;
+
 takesANumber(x.valueOf());
 var yValueOf: number = y.valueOf;
+
 takesAnObject(y.valueOf());
 var strValueOf: string = \"foo\".valueOf();
 var numValueOf: number = (123).valueOf();
 var boolValueOf: boolean = true.valueOf();
+
 takesAString(a.toLocaleString());
 var aToLocaleString: () => string = a.toLocaleString;
 var aToLocaleString2 = a.toLocaleString;
+
 takesAString(aToLocaleString2());
+
 b.toLocaleString = function() {
   return \"derp\";
 };
 var xToLocaleString: number = x.toLocaleString;
 var xToLocaleString2: () => number = x.toLocaleString;
+
 takesAString(x.toLocaleString());
 var yToLocaleString: number = y.toLocaleString;
+
 takesAString(y.toLocaleString());
 var k: Object = a.constructor;
+
 (123).constructor;
 "
 `;

@@ -30,13 +30,16 @@ function test2() {
 // error, n is number (EmptyT would work)
 function test1(): string {
   return bar();
+  
   function bar() {
     return 0;
   }
 }
+
 function test2() {
   const n = 0;
   return;
+  
   function f() {
     var x: typeof n = 0;
     var y: string = n;
@@ -82,6 +85,7 @@ foo(1, 2);
 function foo(x, y) {
   \"use strict\";
   return bar(x) + baz(y);
+  
   function bar(ecks) {
     return x + ecks;
   }
@@ -91,6 +95,7 @@ function foo(x, y) {
   var x, y, z;
   var t, u = 5, v, w = 7;
 }
+
 foo(1, 2);
 "
 `;

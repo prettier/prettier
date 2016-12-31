@@ -23,18 +23,28 @@ var z = Object(123); // error (next line makes this not match any signatures)
 // error
 // error (next line makes this not match any signatures)
 (Object({ foo: \"bar\" }): { foo: string });
+
 (Object(\"123\"): String);
+
 (Object(123): Number);
+
 (Object(true): Boolean);
+
 (Object(null): {});
+
 (Object(undefined): {});
+
 (Object(void 0): {});
+
 (Object(undefined): Number);
 var x = Object(null);
+
 x.foo = \"bar\";
 var y = Object(\"123\");
+
 (y.charAt(0): string);
 var z = Object(123);
+
 (z.charAt(0): string);
 "
 `;
@@ -73,18 +83,30 @@ y[\'bar\'] = \'abc\'; // error, property not found
 // error, property not found
 // error, prototype method is not a string
 var x: { \"123\": string; bar: string } = { \"123\": \"val\", bar: \"bar\" };
+
 (x.foo: string);
+
 (x[\"foo\"]: string);
+
 (x[123]: boolean);
+
 (x.bar: boolean);
+
 (x[\"123\"]: boolean);
+
 x[\"123\"] = false;
+
 x[123] = false;
+
 x[\"foo\" + \"bar\"] = \"derp\";
+
 (x[\`foo\`]: string);
 var y: { foo: string } = { foo: \"bar\" };
+
 y[\"foo\"] = 123;
+
 y[\"bar\"] = \"abc\";
+
 (y[\"hasOwnProperty\"]: string);
 "
 `;
@@ -134,14 +156,20 @@ function assign_then_widen() {
 // error: subsequent assignment might make glob.x a number
 // ok, by lvalue\'s given type
 var glob: { x: string } = { x: \"hey\" };
+
 function assign_then_alias() {
   var obj: { x: string | number };
+  
   obj = { x: \"hey\" };
+  
   glob = obj;
 }
+
 function assign_then_widen() {
   var obj: { x: string | number };
+  
   obj = { x: \"hey\" };
+  
   obj.x = 10;
 }
 "

@@ -93,9 +93,11 @@ var array_of_tuple: [number, string][] = [ [ 0, \"foo\" ], [ 1, \"bar\" ] ];
 var array_of_tuple_parens: [number, string][] = array_of_tuple;
 type ObjType = { \"bar-foo\": string; \"foo-bar\": number };
 var test_obj: ObjType = { \"bar-foo\": \"23\" };
+
 function param_anno(n: number): void {
   n = \"hey\";
 }
+
 function param_anno2(
   batchRequests: Array<{ method: string; path: string; params: ?Object }>
 ): void {
@@ -111,9 +113,11 @@ function param_anno2(
 }
 var toz: null = 3;
 var zer: null = null;
+
 function foobar(n: ?number): number | null | void {
   return n;
 }
+
 function barfoo(n: number | null | void): ?number {
   return n;
 }
@@ -142,12 +146,15 @@ function foo() {
 // ok (no confusion across scopes)
 // looked up above
 let myClassInstance: MyClass = null;
+
 function bar(): MyClass {
   return null;
 }
 class MyClass {}
+
 function foo() {
   let myClassInstance: MyClass = mk();
+  
   function mk() {
     return new MyClass();
   }
@@ -161,9 +168,8 @@ exports[`test issue-530.js 1`] = `
 
 module.exports = foo;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function foo(...args: any) {
-  
-}
+function foo(...args: any) {}
+
 module.exports = foo;
 "
 `;
@@ -204,9 +210,11 @@ function bar(y: MyObj): string {
  * leading to an error.
  */
 type MyObj = Object;
+
 function foo(x: { [key: string]: mixed }) {
   bar(x);
 }
+
 function bar(y: MyObj): string {
   return y.foo;
 }
@@ -218,6 +226,7 @@ exports[`test other.js 1`] = `
 module.exports = (C: any);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class C {}
+
 module.exports = (C: any);
 "
 `;
@@ -255,6 +264,7 @@ declare class Map<K, V> {
   insertWith(fn: Merge<V>, k: K, v: V): Map<K, V>
 }
 declare function foldr<A, B>(fn: (a: A, b: B) => B, b: B, as: A[]): B;
+
 function insertMany<K, V>(
   merge: Merge<V>, vs: [K, V][], m: Map<K, V>
 ): Map<K, V> {
@@ -278,6 +288,7 @@ exports[`test test.js 1`] = `
 ((0: C): string);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var C = require(\"./other\");
+
 ((0: C): string);
 "
 `;

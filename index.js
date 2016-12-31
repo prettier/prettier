@@ -50,6 +50,8 @@ module.exports = {
       });
     }
 
+    ast.tokens = [];
+
     const printer = new Printer({ tabWidth, wrapColumn: printWidth });
     return printer.printGenerically(ast).code;
   }

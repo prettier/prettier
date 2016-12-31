@@ -52,6 +52,7 @@ function durable_refi(x: ?number) {
 function cannot_reassign(x: string) {
   x = \"hey\";
 }
+
 function durable_refi(x: ?number) {
   if (x) {
     return () => {

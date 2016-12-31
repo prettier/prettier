@@ -65,38 +65,54 @@ function testKeysOfOtherObj(str: string, lit: \'hi\') {
 // Error: number -> keys of ObjLit
 function testKeysOfObject(str: string, lit: \"hi\") {
   (str: $Keys<Object>);
+  
   if (str) {
     (str: $Keys<Object>);
   }
+  
   (\"hi\": $Keys<Object>);
+  
   (123: $Keys<Object>);
 }
 type StrDict = { [key: string]: mixed };
+
 function testKeysOfStrDict(str: string, lit: \"hi\") {
   (str: $Keys<StrDict>);
+  
   if (str) {
     (str: $Keys<StrDict>);
   }
+  
   (\"hi\": $Keys<StrDict>);
+  
   (123: $Keys<StrDict>);
 }
 type StrLitDict = { [key: \"hi\"]: mixed };
+
 function testKeysOfStrLitDict(str: string, lit: \"hi\") {
   (str: $Keys<StrLitDict>);
+  
   if (str) {
     (str: $Keys<StrLitDict>);
   }
+  
   (\"hi\": $Keys<StrLitDict>);
+  
   (\"bye\": $Keys<StrLitDict>);
+  
   (123: $Keys<StrLitDict>);
 }
 type ObjLit = { hi: mixed };
+
 function testKeysOfOtherObj(str: string, lit: \"hi\") {
   (str: $Keys<ObjLit>);
+  
   if (str) {
     (str: $Keys<ObjLit>);
   }
+  
   (\"hi\": $Keys<ObjLit>);
+  
   (123: $Keys<ObjLit>);
 }
 "

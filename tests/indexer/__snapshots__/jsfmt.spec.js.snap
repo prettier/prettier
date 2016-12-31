@@ -50,24 +50,31 @@ function foo7(): {[key: string]: number; foo: number} {
 function foo0(): {} {
   return { foo: \"bar\" };
 }
+
 function foo1(): { [key: string]: string } {
   return { foo: \"bar\" };
 }
+
 function foo2(): { [key: number]: string } {
   return { foo: \"bar\" };
 }
+
 function foo3(): { [key: string]: number } {
   return { foo: \"bar\" };
 }
+
 function foo4(): { [key: number]: number } {
   return { foo: \"bar\" };
 }
+
 function foo5(): { [key: string]: number; foo: string } {
   return { foo: \"bar\" };
 }
+
 function foo6(): { [key: number]: number; foo: string } {
   return { foo: \"bar\" };
 }
+
 function foo7(): { [key: string]: number; foo: number } {
   return { foo: \"bar\" };
 }

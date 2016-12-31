@@ -48,12 +48,14 @@ class A {
     return \"some string\";
   }
 }
+
 A._sProperty = 48;
 class B extends A {
   _property1: string;
   static _sProperty: string;
   constructor() {
     super();
+    
     this._property1 = \"another string\";
   }
   _method1(): string {
@@ -63,6 +65,7 @@ class B extends A {
     return 23;
   }
 }
+
 B._sProperty = \"B._sProperty string\";
 "
 `;
@@ -80,6 +83,7 @@ module.exports = new C;
 class C {
   _p: string;
 }
+
 module.exports = new C();
 "
 `;

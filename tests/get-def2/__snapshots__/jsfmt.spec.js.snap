@@ -6,6 +6,7 @@ module.exports = {ParentFoo};
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 var ParentFoo = { foo: \"bar\" };
+
 module.exports = { ParentFoo };
 "
 `;
@@ -45,14 +46,20 @@ import type {Foo} from \'./types\';
 // Follows non-destructured property access of \`require(\'Parent\')\`
 var Parent = require(\"./Parent\");
 let ParentFoo;
+
 ({ ParentFoo } = Parent);
+
 ParentFoo;
 let ParentFoo2;
+
 ParentFoo2 = Parent;
+
 ParentFoo2;
 let ParentFoo3 = Parent;
+
 ParentFoo3;
 let foo = require(\"./Parent\").ParentFoo.foo;
+
 foo;
 import type { Foo } from \"./types\";
 "
@@ -73,9 +80,7 @@ class D extends C {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 class C {
-  override() {
-    
-  }
+  override() {}
 }
 class D extends C {
   foo() {
@@ -84,9 +89,7 @@ class D extends C {
   bar() {
     this.override;
   }
-  override() {
-    
-  }
+  override() {}
 }
 "
 `;
@@ -109,7 +112,9 @@ class C extends React.Component {
   props: { x: string };
 }
 let msg = \"hello\";
+
 <C x={msg}/>;
+
 <div id={msg}/>;
 "
 `;

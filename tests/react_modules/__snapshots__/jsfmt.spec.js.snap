@@ -45,6 +45,7 @@ var Callsite = React.createClass({
     );
   }
 });
+
 module.exports = Callsite;
 "
 `;
@@ -73,6 +74,7 @@ var Hello = React.createClass({
     return <div>{this.props.name}</div>;
   }
 });
+
 module.exports = Hello;
 "
 `;
@@ -125,6 +127,7 @@ class Callsite extends React.Component<void, Props, void> {
     );
   }
 }
+
 module.exports = Callsite;
 "
 `;
@@ -156,6 +159,7 @@ class Hello extends React.Component<{}, Props, void> {
     return <div>{this.props.name}</div>;
   }
 }
+
 module.exports = Hello;
 "
 `;

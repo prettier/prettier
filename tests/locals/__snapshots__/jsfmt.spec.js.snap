@@ -78,54 +78,79 @@ function switch_scope(x: mixed) {
   switch (x) {
   case \"foo\":
     let a;
+    
     a = 0;
+    
     b = 0;
   }
+  
   (a: string);
+  
   (b: string);
 }
+
 function try_scope_finally() {
   let a;
   let b;
   try {
     a = \"\";
+    
     b = \"\";
   } finally {
     let a;
+    
     a = 0;
+    
     b = 0;
   }
+  
   (a: string);
+  
   (b: string);
 }
+
 function for_scope() {
   let a = \"\";
   let b = \"\";
+  
   for (let a; ; ) {
     a = 0;
+    
     b = 0;
   }
+  
   (a: string);
+  
   (b: string);
 }
+
 function for_in_scope(o: Object) {
   let a = 0;
   let b = 0;
+  
   for (let a in o) {
     a = \"\";
+    
     b = \"\";
   }
+  
   (a: number);
+  
   (b: number);
 }
+
 function for_of_scope(xs: number[]) {
   let a = \"\";
   let b = \"\";
+  
   for (let a of xs) {
     a = 0;
+    
     b = 0;
   }
+  
   (a: string);
+  
   (b: string);
 }
 "
@@ -160,19 +185,22 @@ function foo0(b: bool): number {
 // error: string ~> number
 var x: string = 0;
 var x: number = 1;
-function foo(p: boolean) {
-  
-}
+
+function foo(p: boolean) {}
+
 function sorry(really: boolean) {
   if (really) {
     var x: number | string = 1337;
   } else {
     var x: boolean = true;
   }
+  
   foo(x);
 }
+
 function foo0(b: boolean): number {
   var x = 0;
+  
   if (b) {
     var x = \"\";
   }

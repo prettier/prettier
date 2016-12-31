@@ -18,7 +18,7 @@ var lengthTest4: IHasLength = true; // bool doesn\'t have length
 // number doesn\'t have length
 // bool doesn\'t have length
 interface IHasLength  { length: number }
-var lengthTest1: IHasLength = [  ];
+var lengthTest1: IHasLength = [];
 var lengthTest2: IHasLength = \"hello\";
 var lengthTest3: IHasLength = 123;
 var lengthTest4: IHasLength = true;
@@ -101,9 +101,11 @@ var propTest1: IHasXString = { x: \"hello\" };
 var propTest2: IHasXString = { x: 123 };
 var propTest3: IHasXString = {};
 var propTest4: IHasXString = ({}: Object);
+
 function propTest5(y: { [key: string]: string }) {
   (y: IHasXString);
 }
+
 function propTest6(y: { [key: string]: number }) {
   (y: IHasXString);
 }

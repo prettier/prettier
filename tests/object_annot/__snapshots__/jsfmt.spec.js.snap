@@ -12,6 +12,7 @@ function bar(x: Object): Array<string> {
 function foo(x: Array<Object>): Array<Object> {
   return x.sort((a, b) => a.foo - b.foo);
 }
+
 function bar(x: Object): Array<string> {
   return Object.keys(x);
 }

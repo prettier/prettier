@@ -85,13 +85,11 @@ requireLazy(
 );
 var notA: Object = A;
 var notB: Object = B;
+
 requireLazy();
-requireLazy(
-  [ nope ],
-  function() {
-    
-  }
-);
+
+requireLazy([ nope ], function() {});
+
 requireLazy([ \"A\" ]);
 "
 `;

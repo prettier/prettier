@@ -87,8 +87,9 @@ n.x = [0];
 
 */
 type CovArrayVerbose<X, Y: X> = Array<Y>;
-var b: CovArrayVerbose<number, *> = [  ];
+var b: CovArrayVerbose<number, *> = [];
 var y: CovArrayVerbose<mixed, *> = b;
+
 y[0] = \"\";
 class NVerbose<E, I: E> {
   x: CovArrayVerbose<E, I>;
@@ -97,8 +98,11 @@ class NVerbose<E, I: E> {
   }
 }
 var nv: NVerbose<number, *> = new NVerbose();
+
 nv.x = [ 0 ];
+
 (nv.x[0]: string);
+
 (nv.foo()[0]: string);
 "
 `;

@@ -16,8 +16,11 @@ var corge = require(\'qux/corge\');
 var docblock = require(\"qux/docblock\");
 var min = require(\"d3/min.js\");
 var corge = require(\"qux/corge\");
+
 (docblock.fun(): boolean);
+
 (min.fun(): boolean);
+
 (corge.fun(): boolean);
 "
 `;

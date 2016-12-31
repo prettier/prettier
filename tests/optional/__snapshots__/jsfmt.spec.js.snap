@@ -4,6 +4,7 @@ exports[`test client_optional.js 1`] = `
 qux(0);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var qux = require(\"./optional\");
+
 qux(0);
 "
 `;
@@ -26,13 +27,9 @@ class C {
   x<T>(x: T = 0) {}
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function x<T>(x: T = 0) {
-  
-}
+function x<T>(x: T = 0) {}
 class C {
-  x<T>(x: T = 0) {
-    
-  }
+  x<T>(x: T = 0) {}
 }
 "
 `;
@@ -109,36 +106,43 @@ function optionalNullable1(x: { y?: ?number }) {
     x.y++;
   }
 }
+
 function optionalNullable2(x: { y?: ?number }) {
   if (x.y !== undefined && x.y !== null) {
     x.y++;
   }
 }
+
 function optionalNullable3(x: { y?: ?number }) {
   if (!(x.y !== null && x.y !== undefined)) {
     x.y++;
   }
 }
+
 function optionalNullable4(x: { y?: ?number }) {
   if (!(x.y !== undefined && x.y !== null)) {
     x.y++;
   }
 }
+
 function optionalNullable5(x: { y?: ?number }) {
   if (x.y === null || x.y === undefined) {
     x.y++;
   }
 }
+
 function optionalNullable6(x: { y?: ?number }) {
   if (x.y === undefined || x.y === null) {
     x.y++;
   }
 }
+
 function optionalNullable7(x: { y?: ?number }) {
   if (!(x.y === null || x.y === undefined)) {
     x.y++;
   }
 }
+
 function optionalNullable8(x: { y?: ?number }) {
   if (!(x.y === undefined || x.y === null)) {
     x.y++;
@@ -164,15 +168,21 @@ module.exports = qux;
 function bar(x?, y?) {
   x * 0;
 }
+
 bar(0);
 var foo: (x?: number) => void = bar;
+
 foo();
+
 function qux(x = \"hello\", ...y): string {
   foo(x);
   return y[0];
 }
+
 qux(0, 0);
+
 qux(0, ...[ \"\", 42 ]);
+
 module.exports = qux;
 "
 `;
@@ -221,40 +231,45 @@ function foo(x?: string): string {
   }
   return x;
 }
+
 function bar(obj: { x?: string }): string {
   if (obj.x == null) {
     return \"foo\";
   }
   return obj.x;
 }
+
 function baz(bar?) {
   if (!bar) {
     return 1;
   }
   return bar.duck;
 }
+
 function testOptionalNullable(x?: ?string): string {
   if (x == null) {
     return \"foo\";
   }
   return x;
 }
+
 function testOptionalNullableDefault(x?: ?string = \"hi\"): string {
   if (x == null) {
     return \"foo\";
   }
   return x;
 }
+
 function testOptionalNullableProperty(obj: { x?: ?string }): string {
   if (obj.x == null) {
     return \"foo\";
   }
   return obj.x;
 }
+
 function testOptionalNullableFlowingToNullable(x?: ?string): ?string {
-  var f = function(y: ?string) {
-    
-  };
+  var f = function(y: ?string) {};
+  
   f(x);
 }
 "
@@ -286,13 +301,14 @@ bar(undefined); // ok
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ok
 // ok
-function foo(x?: number) {
-  
-}
+function foo(x?: number) {}
+
 foo(undefined);
+
 function bar(x = \"bar\"): string {
   return x;
 }
+
 bar(undefined);
 "
 `;
@@ -321,9 +337,13 @@ foo(123, true); // ERROR boolean ~> string
 function foo(x?: number, ...y: Array<string>): [?number, Array<string>] {
   return [ x, y ];
 }
+
 foo();
+
 foo(123), foo(123, \"hello\");
+
 foo(true);
+
 foo(123, true);
 "
 `;
@@ -340,9 +360,11 @@ function bar() {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var x;
+
 function foo(bar? = undefined) {
   x = bar;
 }
+
 function bar() {
   return x.duck;
 }
@@ -361,9 +383,11 @@ function bar() {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var x;
+
 function foo(bar?) {
   x = bar;
 }
+
 function bar() {
   return x.duck;
 }

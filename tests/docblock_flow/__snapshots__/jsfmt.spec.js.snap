@@ -102,6 +102,7 @@ exports[`test use_strict_with_flow.js 1`] = `
 /* @flow */
 // error
 \"use strict\";
+
 (\"\": void);
 "
 `;

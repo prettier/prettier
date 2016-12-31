@@ -32,6 +32,7 @@ function foo(x: boolean) {
     return;
   }
 }
+
 function bar(x: boolean) {
   var ii = 0;
   while (ii > 0) {
@@ -59,14 +60,15 @@ class C {
     return new C();
   }
 }
-function blah() {
-  
-}
+
+function blah() {}
 var node: ?C = new C();
 while (node) {
   var parent = node.m();
   var cloneable: C = node;
+  
   blah();
+  
   node = parent.m();
 }
 "

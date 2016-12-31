@@ -30,9 +30,11 @@ module.exports = printBinaryExpression;
  */
 \"use babel\";
 import type { BinaryExpression } from \"./types\";
+
 function printBinaryExpression(node: BinaryExpression) {
   console.log(node);
 }
+
 module.exports = printBinaryExpression;
 "
 `;

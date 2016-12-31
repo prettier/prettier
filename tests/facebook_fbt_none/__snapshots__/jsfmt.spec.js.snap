@@ -7,7 +7,9 @@ var React = require(\'react\');
 // @flow
 // Error: ReactElement ~> number
 var React = require(\"react\");
+
 (<fbt/>: React.Element<*>);
+
 (<fbt/>: number);
 "
 `;

@@ -11,6 +11,7 @@ console.log(x);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // \'bar_lib\' does not work!
 var x: string = require(\"./bar_lib\");
+
 console.log(x);
 "
 `;

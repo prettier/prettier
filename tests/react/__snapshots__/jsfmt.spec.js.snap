@@ -20,6 +20,7 @@ var AudienceInsightsContainer = React.createClass({
     return <AudienceInsights/>;
   }
 });
+
 module.exports = AudienceInsightsContainer;
 "
 `;
@@ -157,7 +158,7 @@ var React = require(\"react\");
 var Example = React.createClass({
   propTypes: { arr: React.PropTypes.arrayOf(React.PropTypes.number).isRequired }
 });
-var ok_empty = <Example arr={[  ]}/>;
+var ok_empty = <Example arr={[]}/>;
 var ok_numbers = <Example arr={[ 1, 2 ]}/>;
 var fail_not_array = <Example arr={2}/>;
 var fail_mistyped_elems = <Example arr={[ 1, \"foo\" ]}/>;
@@ -185,12 +186,8 @@ var React = require(\"react\");
 var Example = React.createClass({
   propTypes: { func: React.PropTypes.func.isRequired }
 });
-var ok_void = <Example func={() => {
-  
-}}/>;
-var ok_args = <Example func={x => {
-  
-}}/>;
+var ok_void = <Example func={() => {}}/>;
+var ok_args = <Example func={x => {}}/>;
 var ok_retval = <Example func={() => 1}/>;
 var fail_mistyped = <Example func={2}/>;
 "

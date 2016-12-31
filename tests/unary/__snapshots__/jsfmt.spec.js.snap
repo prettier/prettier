@@ -28,15 +28,19 @@ function x4(y: string): boolean {
 function x0(y: string): number {
   return +y;
 }
+
 function x1(y: string): number {
   return -y;
 }
+
 function x3(y: string) {
   return ~y;
 }
+
 function x4(y: string): boolean {
   return !y;
 }
+
 (-1: void);
 "
 `;
@@ -94,13 +98,18 @@ let tests = [
 let tests = [
   function(y: number) {
     y++;
+    
     y--;
+    
     ++y;
+    
     --y;
   },
   function(y: string) {
     y++;
+    
     (y: number);
+    
     y++;
   },
   function(y: string) {
@@ -114,7 +123,9 @@ let tests = [
   },
   function() {
     const y = 123;
+    
     y++;
+    
     y--;
   },
   function(y: any) {

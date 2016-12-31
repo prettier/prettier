@@ -27,6 +27,7 @@ class Bar {
   self: Bar;
   constructor(y: number) {
     this.y = y;
+    
     this.self = this;
   }
   bar(z: string, u: string): string {
@@ -34,6 +35,7 @@ class Bar {
     return z;
   }
 }
+
 module.exports = Bar;
 "
 `;
@@ -78,6 +80,7 @@ class Foo extends Qux {
     this.x = y;
     var u = new Foo(\"...\").qux();
     var v = new Bar(y);
+    
     v.self = v;
     return v.bar(z, u);
   }
@@ -85,6 +88,7 @@ class Foo extends Qux {
     this.x;
   }
 }
+
 module.exports = Foo;
 "
 `;
@@ -109,10 +113,9 @@ class Qux {
   qux() {
     return this.w;
   }
-  fooqux(x: number) {
-    
-  }
+  fooqux(x: number) {}
 }
+
 module.exports = Qux;
 "
 `;
