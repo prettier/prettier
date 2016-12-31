@@ -239,6 +239,11 @@ function print(w, doc) {
               }
               // fallthrough
             case MODE_BREAK:
+              const lastString = out[out.length - 1];
+              if(lastString.match(/^\s*\n\s*$/)) {
+                out[out.length - 1] = "\n";
+              }
+
               if(doc.literal) {
                 out.push("\n");
                 pos = 0;

@@ -1680,7 +1680,7 @@ function printStatementSequence(path, options, print) {
       parts.push(stmtPrinted);
 
       if (addSpacing && !isLastStatement(stmtPath)) {
-        parts.push(literalline);
+        parts.push(hardline);
       }
 
       printed.push(concat(parts));
