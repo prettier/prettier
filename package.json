@@ -16,7 +16,8 @@
     "jest": "^18.0.0"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "format": "./bin/jscodefmt --write src/printer.js"
   },
   "jest": {
     "setupFiles": [
