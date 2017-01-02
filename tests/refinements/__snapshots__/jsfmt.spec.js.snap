@@ -1755,7 +1755,8 @@ function c2(x: { [key: string]: ?string }, y: { z: string }): string {
 }
 
 function c3(
-  x: { [key: string]: ?string }, y: { z: string; a: string }
+  x: { [key: string]: ?string },
+  y: { z: string; a: string }
 ): string {
   if (x[y.z]) {
     y.a = \"HEY\";
@@ -2975,7 +2976,8 @@ let tests = [
     }
   },
   function(
-    x: { foo: number; y: string } | { foo: string; z: string }, num: number
+    x: { foo: number; y: string } | { foo: string; z: string },
+    num: number
   ) {
     if (x.foo === num) {
       x.y;

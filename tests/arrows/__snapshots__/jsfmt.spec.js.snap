@@ -40,7 +40,8 @@ exports[`test arrows.js 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //images = images.sort(function (a, b) { return a.width - b.width });
 function selectBestEffortImageForWidth(
-  maxWidth: number, images: Array<Image>
+  maxWidth: number,
+  images: Array<Image>
 ): Image {
   var maxPixelWidth = maxWidth;
 

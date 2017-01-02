@@ -270,7 +270,9 @@ declare class Map<K, V> {
 declare function foldr<A, B>(fn: (a: A, b: B) => B, b: B, as: A[]): B;
 
 function insertMany<K, V>(
-  merge: Merge<V>, vs: [K, V][], m: Map<K, V>
+  merge: Merge<V>,
+  vs: [K, V][],
+  m: Map<K, V>
 ): Map<K, V> {
   function f([ k, v ]: [K, V], m: Map<K, V>): Map<K, V> {
     return m.insertWith(merge, k, v);

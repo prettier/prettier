@@ -357,18 +357,16 @@ function genericPrintNoParens(path, options, print) {
 
     parts.push(
       path.call(print, "typeParameters"),
-      group(
-        concat(
-          [
-            "(",
-            indent(
-              options.tabWidth,
-              concat([ softline, printFunctionParams(path, print) ])
-            ),
-            softline,
-            ")"
-          ]
-        )
+      concat(
+        [
+          "(",
+          indent(
+            options.tabWidth,
+            concat([ softline, printFunctionParams(path, print) ])
+          ),
+          softline,
+          ")"
+        ]
       ),
       printReturnType(path, print),
       " ",
@@ -404,7 +402,7 @@ function genericPrintNoParens(path, options, print) {
 
     parts.push(" => ", path.call(print, "body"));
 
-    return concat(parts);
+    return group(concat(parts));
   case "MethodDefinition":
 
     if (n.static) {
@@ -1422,7 +1420,7 @@ else
       );
     }
 
-    return concat(parts);
+    return group(concat(parts));
   case "FunctionTypeParam":
     return concat(
       [
@@ -1739,7 +1737,7 @@ function printMethod(path, options, print) {
     path.call(print, "value", "body")
   );
 
-  return concat(parts);
+  return group(concat(parts));
 }
 
 function printArgumentsList(path, options, print) {
@@ -1792,7 +1790,7 @@ function printFunctionParams(path, print) {
     printed.push(concat([ "...", path.call(print, "rest") ]));
   }
 
-  return group(join(concat([ ",", line ]), printed));
+  return join(concat([ ",", line ]), printed);
 }
 
 function printObjectMethod(path, options, print) {
@@ -1828,7 +1826,7 @@ function printObjectMethod(path, options, print) {
     path.call(print, "body")
   );
 
-  return concat(parts);
+  return group(concat(parts));
 }
 
 function printReturnType(path, print) {

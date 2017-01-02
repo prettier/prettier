@@ -238,10 +238,12 @@ function print(w, doc) {
                 });
               }
               // fallthrough
-            case MODE_BREAK:
-              const lastString = out[out.length - 1];
-              if(lastString.match(/^\s*\n\s*$/)) {
-                out[out.length - 1] = "\n";
+          case MODE_BREAK:
+              if(out.length > 0) {
+                const lastString = out[out.length - 1];
+                if(lastString.match(/^\s*\n\s*$/)) {
+                  out[out.length - 1] = "\n";
+                }
               }
 
               if(doc.literal) {

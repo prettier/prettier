@@ -274,7 +274,8 @@ o.disconnect(); // correct
 // disconnect
 // correct
 function callback(
-  arr: Array<MutationRecord>, observer: MutationObserver
+  arr: Array<MutationRecord>,
+  observer: MutationObserver
 ): void {
   return;
 }

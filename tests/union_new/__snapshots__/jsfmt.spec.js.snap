@@ -128,10 +128,9 @@ exports[`test issue-1371.js 1`] = `
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function create(a: any): { type: \"B\"; data: number } | {
-  type: \"A\";
-  data: string
-} {
+function create(
+  a: any
+): { type: \"B\"; data: number } | { type: \"A\"; data: string } {
   return { type: \"A\", data: a };
 }
 "
