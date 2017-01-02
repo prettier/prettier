@@ -31,6 +31,7 @@ let d = zs[1];
 (c: void);
 
 (d: void);
+
 let [ ...e ] = 0;
 "
 `;
@@ -52,10 +53,12 @@ var { [\"key\"]: val3, ...spread } = { key: \"val\" };
 var { [\"key\"]: val1 } = { key: \"val\" };
 
 (val1: void);
+
 var key: string = \"key\";
 var { [key]: val2 } = { key: \"val\" };
 
 (val2: void);
+
 var { [\"key\"]: val3, ...spread } = { key: \"val\" };
 
 (spread.key: void);
@@ -201,7 +204,7 @@ obj_prop_fun({ p: { q: null } });
 
 function obj_prop_var(o = { p: { q: \"\" } }) {
   var { p: { q = 0 } = { q: true } } = o;
-  
+
   (q: void);
 }
 
@@ -230,6 +233,7 @@ obj_rest({ p: { q: 0, r: null } });
 function obj_prop_annot({ p = true }: { p: string } = { p: 0 }) {
   (p: void);
 }
+
 var { p = true }: { p: string } = { p: 0 };
 
 (p: void);
@@ -348,9 +352,11 @@ declare var b: string;
 declare var c: string;
 
 [ { a1: a, b }, c ] = [ { a1: 0, b: 1 }, 2 ];
+
 var { m } = { m: 0 };
 
 ({ m } = { m: m });
+
 var obj;
 
 ({ n: obj.x } = { n: 3 });
@@ -359,9 +365,9 @@ var obj;
 
 function foo({ p, z: [ r ] }) {
   a = p;
-  
+
   b = z;
-  
+
   c = r;
 }
 
@@ -374,6 +380,7 @@ function bar({ x, ...z }) {
 }
 
 bar({ x: \"\", y: 0 });
+
 var spread = { y: \"\" };
 var extend: { x: number; y: string; z: boolean } = { x: 0, ...spread };
 
@@ -384,6 +391,7 @@ qux({ a: \"\" });
 function corge({ b }: { b: string }) {}
 
 corge({ b: 0 });
+
 var { n }: { n: number } = { n: \"\" };
 
 function test() {
@@ -394,13 +402,14 @@ function test() {
 function test() {
   var x = { foo: \"abc\", bar: 123 };
   var { foo, ...rest } = x;
-  
+
   (x.baz: string);
-  
+
   (rest.baz: string);
 }
 
 module.exports = corge;
+
 class Base {
   baseprop1: number;
   baseprop2: number;
@@ -507,16 +516,19 @@ function arr_rest_pattern<X>([ _, ...a ] : ArrRest<X>) { // a: [X]
 // a: [X]
 // a: [X]
 function obj_pattern<X>({ prop }: { prop: X }) {}
+
 type Prop<X> = { prop: X };
 
 function obj_pattern2<X>({ prop }: Prop<X>) {}
 
 function arr_pattern<X>([ elem ]: X[]) {}
+
 type Elem<X> = X[];
 
 function arr_pattern2<X>([ elem ]: Elem<X>) {}
 
 function tup_pattern<X>([ proj ]: [X]) {}
+
 type Proj<X> = [X];
 
 function tup_pattern2<X>([ proj ]: Proj<X>) {}
@@ -528,6 +540,7 @@ function rest_pattern<X>(...r: X[]) {}
 function obj_rest_pattern<X>({ _, ...o }: { _: any; x: X }) {
   o.x;
 }
+
 type ObjRest<X> = { _: any; x: X };
 
 function obj_rest_pattern<X>({ _, ...o }: ObjRest<X>) {
@@ -537,6 +550,7 @@ function obj_rest_pattern<X>({ _, ...o }: ObjRest<X>) {
 function arr_rest_pattern<X>([ _, ...a ]: [any, X]) {
   a[0];
 }
+
 type ArrRest<X> = [any, X];
 
 function arr_rest_pattern<X>([ _, ...a ]: ArrRest<X>) {
@@ -574,12 +588,14 @@ var { x: o } = o;
 let foo = (i: number) => [ i ];
 const bar = (i: number) => {
   [ i ] = foo(i);
+
   return [ i ];
 };
 
 foo = (i: number) => {
   return bar(i);
 };
+
 declare var o;
 var { x: o } = o;
 "
@@ -597,6 +613,7 @@ var { \"with-dash\": with_dash } = { \"with-dash\": \"motivating example\" };
 var { \"key\": val } = { key: \"val\" };
 
 (val: void);
+
 var { \"with-dash\": with_dash } = { \"with-dash\": \"motivating example\" };
 
 (with_dash: \"motivating example\");

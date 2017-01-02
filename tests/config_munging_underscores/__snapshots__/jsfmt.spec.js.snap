@@ -50,12 +50,13 @@ class A {
 }
 
 A._sProperty = 48;
+
 class B extends A {
   _property1: string;
   static _sProperty: string;
   constructor() {
     super();
-    
+
     this._property1 = \"another string\";
   }
   _method1(): string {

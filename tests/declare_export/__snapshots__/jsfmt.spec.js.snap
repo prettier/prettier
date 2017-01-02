@@ -992,11 +992,13 @@ var e1: number = CJS_Clobb_Lit.numberValue3;
 var e2: string = CJS_Clobb_Lit.numberValue3;
 
 CJS_Clobb_Lit.doesntExist;
+
 import * as CJS_Clobb_Lit_NS from \"CommonJS_Clobbering_Lit\";
 var f1: number = CJS_Clobb_Lit_NS.numberValue4;
 var f2: number = CJS_Clobb_Lit_NS.default.numberValue4;
 
 CJS_Clobb_Lit_NS.default.default;
+
 var f3: string = CJS_Clobb_Lit_NS.numberValue4;
 var f4: string = CJS_Clobb_Lit_NS.default.numberValue5;
 import { doesntExist2 } from \"CommonJS_Clobbering_Class\";
@@ -1006,6 +1008,7 @@ import CJS_Clobb_Class from \"CommonJS_Clobbering_Class\";
 new CJS_Clobb_Class();
 
 new CJS_Clobb_Class().doesntExist;
+
 var h1: number = CJS_Clobb_Class.staticNumber2();
 var h2: string = CJS_Clobb_Class.staticNumber2();
 var h3: number = new CJS_Clobb_Class().instNumber1();
@@ -1013,6 +1016,7 @@ var h4: string = new CJS_Clobb_Class().instNumber1();
 import * as CJS_Clobb_Class_NS from \"CommonJS_Clobbering_Class\";
 
 new CJS_Clobb_Class_NS();
+
 var i1: number = CJS_Clobb_Class_NS.staticNumber3();
 var i2: number = new CJS_Clobb_Class_NS.default().instNumber2();
 var i3: string = new CJS_Clobb_Class_NS.default().instNumber2();
@@ -1028,6 +1032,7 @@ var l1: number = CJS_Named.numberValue1;
 var l2: string = CJS_Named.numberValue1;
 
 CJS_Named.doesntExist;
+
 import * as CJS_Named_NS from \"CommonJS_Named\";
 var m1: number = CJS_Named_NS.numberValue4;
 var m2: string = CJS_Named_NS.default.numberValue4;
@@ -1079,6 +1084,7 @@ var ac1: number = numberValue5;
 var ac2: string = numberValue5;
 
 require(\"ES6_Default_AnonFunction2\").doesntExist;
+
 var ES6_Def_AnonFunc2 = require(\"ES6_Default_AnonFunction2\").default;
 var ad1: number = ES6_Def_AnonFunc2();
 var ad2: string = ES6_Def_AnonFunc2();

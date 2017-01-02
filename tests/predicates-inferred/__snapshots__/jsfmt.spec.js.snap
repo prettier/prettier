@@ -33,6 +33,7 @@ function bak(z: string | number): number {
 function check(y): %checks(typeof y === \"string\") {
   return typeof y === \"number\";
 }
+
 declare var y: number | boolean;
 
 if (check(y)) {
@@ -119,7 +120,7 @@ function dotAccess(head, create) {
   const stack = path.split(\".\");
   do {
     const key = stack.shift();
-    
+
     head = head[key] || create && (head[key] = {});
   } while (stack.length && head);
   return head;
@@ -310,6 +311,7 @@ function foo(a, b) {
 function two_strings(x, y): %checks {
   return is_string(x) && is_string(y);
 }
+
 declare function from_two_strings(x: string, y: string): void;
 "
 `;

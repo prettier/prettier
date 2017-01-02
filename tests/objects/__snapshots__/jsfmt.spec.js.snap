@@ -37,12 +37,15 @@ var z = Object(123); // error (next line makes this not match any signatures)
 (Object(void 0): {});
 
 (Object(undefined): Number);
+
 var x = Object(null);
 
 x.foo = \"bar\";
+
 var y = Object(\"123\");
 
 (y.charAt(0): string);
+
 var z = Object(123);
 
 (z.charAt(0): string);
@@ -101,6 +104,7 @@ x[123] = false;
 x[\"foo\" + \"bar\"] = \"derp\";
 
 (x[\`foo\`]: string);
+
 var y: { foo: string } = { foo: \"bar\" };
 
 y[\"foo\"] = 123;
@@ -159,17 +163,17 @@ var glob: { x: string } = { x: \"hey\" };
 
 function assign_then_alias() {
   var obj: { x: string | number };
-  
+
   obj = { x: \"hey\" };
-  
+
   glob = obj;
 }
 
 function assign_then_widen() {
   var obj: { x: string | number };
-  
+
   obj = { x: \"hey\" };
-  
+
   obj.x = 10;
 }
 "

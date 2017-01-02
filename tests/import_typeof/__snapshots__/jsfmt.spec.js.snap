@@ -334,12 +334,14 @@ var a1: ClassFoo1T = ClassFoo1;
 var a2: ClassFoo1T = new ClassFoo1();
 
 new ClassFoo1T();
+
 import typeof { ClassFoo2 as ClassFoo2T } from \"./ExportNamed_Class\";
 import { ClassFoo2 } from \"./ExportNamed_Class\";
 var b1: ClassFoo2T = ClassFoo2;
 var b2: ClassFoo2T = new ClassFoo2();
 
 new ClassFoo2T();
+
 import typeof ClassFoo3T from \"./ExportCJSDefault_Class\";
 import ClassFoo3 from \"./ExportCJSDefault_Class\";
 var c1: ClassFoo3T = ClassFoo3;

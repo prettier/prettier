@@ -62,11 +62,13 @@ function mk_factorial() {
         if (eq(n, 1)) {
           return 1;
         }
+
         return mul(factorial(sub(n, 1)), n);
       };
     }
   );
 }
+
 var factorial = mk_factorial();
 
 factorial(\"...\");
@@ -103,7 +105,7 @@ function Y(f) {
   function g(x) {
     return f(x(x));
   }
-  
+
   g(g);
 }
 
@@ -111,6 +113,7 @@ function func1(f) {
   function fix_f(x: number): number {
     return f(x);
   }
+
   return fix_f;
 }
 
@@ -118,6 +121,7 @@ function func2(f) {
   function fix_f(x: string): string {
     return f(x);
   }
+
   return fix_f;
 }
 

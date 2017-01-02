@@ -63,6 +63,7 @@ const o = { a: 1 };
 if (m.bind(o)) {
   o.a;
 }
+
 class D {
   m: Function;
   n() {
@@ -106,7 +107,7 @@ declare var cond: boolean;
 
 function foo(x: number | string | Array<string>): number {
   var f = (cond ? f1 : f2);
-  
+
   if (f(x)) {
     return x.length;
   } else {
@@ -189,11 +190,13 @@ var s = \"a\";
 var n = r(s) || 1;
 
 (n: number);
+
 var x = \"\";
 
 if (x = r(s) || 1) {
   (x: number);
 }
+
 declare var dollars: mixed;
 
 function foo(x: mixed) {
@@ -242,9 +245,10 @@ function f(_this: { m: ?Meeting }): string {
   if (!_this.m) {
     return \"0\";
   }
-  
+
   if (_this.m.es.some(a => a.fbid === 0))
     {}
+
   return \"3\";
 }
 "
@@ -302,6 +306,7 @@ function foo(s: Array<string>): string {
   if (pred(s)) {
     return \"1\";
   }
+
   return 1;
 }
 "
@@ -337,10 +342,11 @@ function foo(s: Array<string>): string {
   if (1(s)) {
     return \"1\";
   }
-  
+
   if ((pred + 1)(\"s\")) {
     return \"1\";
   }
+
   return \"1\";
 }
 "
@@ -431,6 +437,7 @@ function foo(x: string | Array<string>): string {
   if (pred(x)) {
     return x;
   }
+
   return \"1\";
 }
 "

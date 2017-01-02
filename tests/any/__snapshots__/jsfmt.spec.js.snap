@@ -21,6 +21,7 @@ function bar(x: any): mixed {
 function qux(x: mixed): any {
   return x;
 }
+
 var x: string = foo(0);
 var y: string = bar(0);
 var z: string = qux(0);
@@ -82,6 +83,7 @@ function qux(x: $FlowFixMe<number>): $FlowFixMe<number> {
 function baz(x: $FlowFixMe<nnumber>): $FlowFixMe<number> {
   return x;
 }
+
 var x: string = foo(0);
 var y: string = bar(0);
 var z: string = qux(0);
@@ -134,6 +136,7 @@ function qux(x: $FlowIssue<number>): $FlowIssue<number> {
 function baz(x: $FlowIssue<nnumber>): $FlowIssue<number> {
   return x;
 }
+
 var x: string = foo(0);
 var y: string = bar(0);
 var z: string = qux(0);
@@ -189,6 +192,7 @@ function foo(c: C, x: any): string {
   let y = x.y;
   return c.bar(0, y);
 }
+
 var any_fun1 = require(\"./nonflowfile\");
 
 function bar1(x: mixed) {
@@ -196,6 +200,7 @@ function bar1(x: mixed) {
     (x: boolean);
   }
 }
+
 var any_fun2 = require(\"./anyexportflowfile\");
 
 function bar2(x: mixed) {

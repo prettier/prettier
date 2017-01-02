@@ -49,6 +49,7 @@ function filterItems(items: Array<string | number>): Array<string | number> {
     }
   ).filter(Boolean);
 }
+
 const filteredItems = filterItems([ \"foo\", \"b\", 1, 2 ]);
 
 console.log(filteredItems);

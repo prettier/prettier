@@ -105,6 +105,7 @@ function local_meth() {
 // error
 // shouldn\'t pollute linear refinement
 function takes_string(_: string) {}
+
 var global_x = \"hello\";
 
 function global_f() {}
@@ -125,23 +126,24 @@ global_x = 42;
 
 function local_func() {
   var local_x = \"hello\";
-  
+
   function local_f() {}
-  
+
   function local_g() {
     local_x = 42;
   }
-  
+
   local_f();
-  
+
   takes_string(local_x);
-  
+
   local_g();
-  
+
   takes_string(local_x);
-  
+
   local_x = 42;
 }
+
 var global_y = \"hello\";
 var global_o = {
   f: function() {},
@@ -168,15 +170,15 @@ function local_meth() {
       local_y = 42;
     }
   };
-  
+
   local_o.f();
-  
+
   takes_string(local_y);
-  
+
   local_o.g();
-  
+
   takes_string(local_y);
-  
+
   local_y = 42;
 }
 "
@@ -204,14 +206,15 @@ function example(b: bool): number {
 // error, string ~/~> number (return type anno) TODO
 function example(b: boolean): number {
   var x = 0;
-  
+
   function f() {
     x = \"\";
   }
-  
+
   if (b) {
     f();
   }
+
   return x;
 }
 "
@@ -285,26 +288,27 @@ var call_me: () => void = () => {};
 
 function g(x: ?number) {
   const const_x = x;
-  
+
   if (const_x) {
     call_me = () => {
       var y: number = const_x;
     };
   }
+
   var var_x = x;
-  
+
   if (var_x) {
     call_me = () => {
       var y: number = var_x;
     };
   }
-  
+
   var_x = null;
 }
 
 function h(x: number | string | boolean) {
   const const_x = x;
-  
+
   if (typeof const_x == \"number\") {
     call_me = () => {
       var y: number = const_x;
@@ -320,8 +324,9 @@ function h(x: number | string | boolean) {
           var y: boolean = const_x;
         };
       }
+
   var var_x = x;
-  
+
   if (typeof var_x == \"number\") {
     call_me = () => {
       var y: number = var_x;

@@ -60,7 +60,7 @@ function _if(b: () => boolean) {
   if (b()) {
     var f = function() {};
   }
-  
+
   f();
 }
 
@@ -68,7 +68,7 @@ function _while(b: () => boolean) {
   while (b()) {
     var f = function() {};
   }
-  
+
   f();
 }
 
@@ -76,7 +76,7 @@ function _do_while(b: () => boolean) {
   do {
     var f = function() {};
   } while (b());
-  
+
   f();
 }
 
@@ -84,7 +84,7 @@ function _for(n: number) {
   for (var i = 0; i < n; i++) {
     var f = function() {};
   }
-  
+
   f();
 }
 
@@ -92,7 +92,7 @@ function _for_in(obj: Object) {
   for (var p in obj) {
     var f = function() {};
   }
-  
+
   f();
 }
 
@@ -100,7 +100,7 @@ function _for_of(arr: Array<number>) {
   for (var x of arr) {
     var f = function() {};
   }
-  
+
   f();
 }
 "
@@ -432,8 +432,9 @@ function for_in_post_init() {
 // error
 function linear_deferred_init() {
   var x: number;
-  
+
   x = 0;
+
   var y: number = x;
 }
 
@@ -459,7 +460,7 @@ function if_else_partial_init(b) {
 
 function if_pre_init(b) {
   var y: number = x;
-  
+
   if (b) {
     var x: number = 0;
   }
@@ -469,6 +470,7 @@ function if_partial_post_init(b) {
   if (b) {
     var x: number = 0;
   }
+
   var y: number = x;
 }
 
@@ -478,26 +480,29 @@ function if_post_init(b) {
   } else {
     var x: number = 1;
   }
+
   var y: number = x;
 }
 
 function if_partial_post_init(b) {
   var x: number;
-  
+
   if (b) {
     x = 0;
   }
+
   var y: number = x;
 }
 
 function if_post_init(b) {
   var x: number;
-  
+
   if (b) {
     x = 0;
   } else {
     x = 1;
   }
+
   var y: number = x;
 }
 
@@ -505,12 +510,14 @@ function switch_partial_post_init(i) {
   var x: number;
   switch (i) {
   case 0:
-    
+
     x = 0;
+
     break;
   case 1:
-    
+
     x = 1;
+
     break;
   }
   var y: number = x;
@@ -520,16 +527,19 @@ function switch_post_init(i) {
   var x: number;
   switch (i) {
   case 0:
-    
+
     x = 0;
+
     break;
   case 1:
-    
+
     x = 1;
+
     break;
   default:
-    
+
     x = 2;
+
   }
   var y: number = x;
 }
@@ -618,7 +628,7 @@ function for_scoped_init(b) {
 
 function for_pre_init(b) {
   var y: number = x;
-  
+
   for (; b; ) {
     var x: number = 0;
   }
@@ -628,6 +638,7 @@ function for_post_init(b) {
   for (; b; ) {
     var x: number = 0;
   }
+
   var y: number = x;
 }
 
@@ -640,7 +651,7 @@ function for_in_scoped_init() {
 
 function for_in_pre_init() {
   var y: number = x;
-  
+
   for (var p in { a: 1, b: 2 }) {
     var x: number = 0;
   }
@@ -650,6 +661,7 @@ function for_in_post_init() {
   for (var p in { a: 1, b: 2 }) {
     var x: number = 0;
   }
+
   var y: number = x;
 }
 
@@ -662,7 +674,7 @@ function for_of_scoped_init() {
 
 function for_in_pre_init() {
   var y: number = x;
-  
+
   for (var x of [ 1, 2, 3 ]) {
     var x: number = 0;
   }
@@ -672,6 +684,7 @@ function for_in_post_init() {
   for (var x of [ 1, 2, 3 ]) {
     var x: number = 0;
   }
+
   var y: number = x;
 }
 "
@@ -873,8 +886,9 @@ function sub_closure_init_reference() {
 // TDZ (...even though this is weird...)
 function linear_deferred_init() {
   let x: number;
-  
+
   x = 0;
+
   let y: number = x;
 }
 
@@ -882,8 +896,9 @@ function linear_pre_init() {
   let x: number;
   let y: ?number = x;
   let z: number = x;
-  
+
   x = 0;
+
   let w: number = x;
 }
 
@@ -893,21 +908,23 @@ function self_init() {
 
 function if_partial_post_init(b) {
   let x: number;
-  
+
   if (b) {
     x = 0;
   }
+
   var y: number = x;
 }
 
 function if_post_init(b) {
   let x: number;
-  
+
   if (b) {
     x = 0;
   } else {
     x = 1;
   }
+
   var y: number = x;
 }
 
@@ -915,12 +932,14 @@ function switch_partial_post_init(i) {
   let x: number;
   switch (i) {
   case 0:
-    
+
     x = 0;
+
     break;
   case 1:
-    
+
     x = 1;
+
     break;
   }
   var y: number = x;
@@ -930,16 +949,19 @@ function switch_post_init(i) {
   let x: number;
   switch (i) {
   case 0:
-    
+
     x = 0;
+
     break;
   case 1:
-    
+
     x = 1;
+
     break;
   default:
-    
+
     x = 2;
+
   }
   var y: number = x;
 }
@@ -971,19 +993,21 @@ function do_while_post_init(b) {
 
 function for_in_post_init() {
   var x: number;
-  
+
   for (var p in {}) {
     x = 0;
   }
+
   var y: number = x;
 }
 
 function for_of_post_init() {
   var x: number;
-  
+
   for (var x of []) {
     x = 0;
   }
+
   var y: number = x;
 }
 
@@ -991,8 +1015,9 @@ function switch_post_init2(i): number {
   let bar;
   switch (i) {
   case 1:
-    
+
     bar = 3;
+
     break;
   default:
     throw new Error(\"Invalid state\");
@@ -1004,8 +1029,9 @@ function switch_post_init2(i): number {
   let bar;
   switch (i) {
   case 1:
-    
+
     bar = 3;
+
     break;
   default:
     throw new Error(\"Invalid state\");

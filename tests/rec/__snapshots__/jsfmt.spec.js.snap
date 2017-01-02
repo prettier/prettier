@@ -36,6 +36,7 @@ function bar1<X>(y: F<X>): F<any> {
 function bar2<X>(y: F<any>): F<X> {
   return y;
 }
+
 type Functor<A> = { map<B>(f: (val: A) => B): Functor<B> };
 
 function identity<A>(val: A): Functor<A> {
@@ -104,6 +105,7 @@ type Pstar<X> = X | Pstar<P<X>>;
 var p: P<number> = new P();
 
 (p.x: string);
+
 var pstar: Pstar<number> = 0;
 
 (pstar: number);
@@ -167,6 +169,7 @@ var a = [];
 function bar() {
   a = a.concat([]);
 }
+
 class A<X> {
   x: A<A<X>>;
 }
@@ -175,12 +178,14 @@ var a_ = new A();
 function foo0() {
   a_ = a_.x;
 }
+
 type T<X> = { y: S<X> };
 type S<X> = T<S<X>>;
 
 function foo1(b: S<*>) {
   b = b.y;
 }
+
 class D<X> {}
 class B<X> extends D<X> {}
 class C<X> extends B<X> {}
@@ -218,6 +223,7 @@ type J<X> = () => J<J<X>>;
 function foo(x: I<number>): J<number> {
   return x;
 }
+
 type Q<X> = { x: X };
 type P<X> = () => Q<P<X>>;
 

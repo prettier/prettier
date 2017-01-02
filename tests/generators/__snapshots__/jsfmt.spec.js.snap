@@ -151,17 +151,18 @@ for (var x of examples.delegate_yield_iterable([])) {
 class GeneratorExamples {
   *stmt_yield(): Generator<number, void, void> {
     yield 0;
-    
+
     yield \"\";
   }
   *stmt_next(): Generator<void, void, number> {
     var a = yield;
-    
+
     if (a) {
       (a: number);
     }
+
     var b = yield;
-    
+
     if (b) {
       (b: string);
     }
@@ -178,7 +179,7 @@ class GeneratorExamples {
   }
   *widen_next() {
     var x = yield 0;
-    
+
     if (typeof x === \"number\")
       {}
 else
@@ -190,29 +191,30 @@ else {
   }
   *widen_yield() {
     yield 0;
-    
+
     yield \"\";
-    
+
     yield true;
   }
   *delegate_next_generator() {
     function* inner() {
       var x: number = yield;
     }
-    
+
     yield* inner();
   }
   *delegate_yield_generator() {
     function* inner() {
       yield \"\";
     }
-    
+
     yield* inner();
   }
   *delegate_return_generator() {
     function* inner() {
       return \"\";
     }
+
     var x: number = yield* inner();
   }
   *delegate_next_iterable(xs: Array<number>) {
@@ -239,6 +241,7 @@ var examples = new GeneratorExamples();
 for (var x of examples.infer_stmt()) {
   (x: string);
 }
+
 var infer_stmt_next = examples.infer_stmt().next(0).value;
 
 if (typeof infer_stmt_next === \"undefined\")
@@ -319,6 +322,7 @@ var examples = new GeneratorExamples();
 for (var x of examples.infer_stmt()) {
   (x: string);
 }
+
 var infer_stmt_next = examples.infer_stmt().next(0).value;
 
 if (typeof infer_stmt_next === \"undefined\")
@@ -484,18 +488,19 @@ if (multiple_return_result.done) {
 // error: number|string ~> void
 function* stmt_yield(): Generator<number, void, void> {
   yield 0;
-  
+
   yield \"\";
 }
 
 function* stmt_next(): Generator<void, void, number> {
   var a = yield;
-  
+
   if (a) {
     (a: number);
   }
+
   var b = yield;
-  
+
   if (b) {
     (b: string);
   }
@@ -517,6 +522,7 @@ function* infer_stmt() {
 for (var x of infer_stmt()) {
   (x: string);
 }
+
 var infer_stmt_next = infer_stmt().next(0).value;
 
 if (typeof infer_stmt_next === \"undefined\")
@@ -530,7 +536,7 @@ else {
 
 function* widen_next() {
   var x = yield 0;
-  
+
   if (typeof x === \"number\")
     {}
 else
@@ -549,9 +555,9 @@ widen_next().next(true);
 
 function* widen_yield() {
   yield 0;
-  
+
   yield \"\";
-  
+
   yield true;
 }
 
@@ -570,7 +576,7 @@ function* delegate_next_generator() {
   function* inner() {
     var x: number = yield;
   }
-  
+
   yield* inner();
 }
 
@@ -580,7 +586,7 @@ function* delegate_yield_generator() {
   function* inner() {
     yield \"\";
   }
-  
+
   yield* inner();
 }
 
@@ -592,6 +598,7 @@ function* delegate_return_generator() {
   function* inner() {
     return \"\";
   }
+
   var x: number = yield* inner();
 }
 
@@ -632,6 +639,7 @@ function* multiple_return(b) {
     return \"foo\";
   }
 }
+
 let multiple_return_result = multiple_return().next();
 
 if (multiple_return_result.done) {
@@ -671,7 +679,7 @@ if (refuse_return_result.done) {
 // error: number | void ~> string
 function test1(gen: Generator<void, string, void>) {
   var ret = gen.return(0);
-  
+
   (ret.value: void);
 }
 
@@ -682,6 +690,7 @@ function* refuse_return() {
     return 0;
   }
 }
+
 var refuse_return_gen = refuse_return();
 var refuse_return_result = refuse_return_gen.return(\"string\");
 
@@ -727,6 +736,7 @@ function* catch_return() {
     return e;
   }
 }
+
 var catch_return_value = catch_return().throw(\"\").value;
 
 if (catch_return_value !== undefined) {
@@ -736,11 +746,13 @@ if (catch_return_value !== undefined) {
 function* yield_return() {
   try {
     yield 0;
+
     return;
   } catch (e) {
     yield e;
   }
 }
+
 var yield_return_value = yield_return().throw(\"\").value;
 
 if (yield_return_value !== undefined) {

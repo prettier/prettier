@@ -146,11 +146,13 @@ require.call(null, \"DoesNotExist\");
 function takesANumber(num: number): void {}
 
 function takesAString(str: string): void {}
+
 var A = require(\"A\");
 
 takesANumber(A.numberValue);
 
 takesAString(A.numberValue);
+
 var B = require(\"./B\");
 
 takesANumber(B.numberValue);
@@ -160,10 +162,12 @@ takesAString(B.numberValue);
 require(\"C\");
 
 require(\"./D\");
+
 var E = require(\"./E\");
 var e_1: number = E.numberValue;
 
 E.stringValue;
+
 var a = \"./E\";
 
 require(a);

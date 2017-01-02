@@ -42,6 +42,7 @@ Foo.prototype = {
 };
 
 exports.Foo = Foo;
+
 interface IFooPrototype  { m(): number }
 interface IFoo extends IFooPrototype {
   static (): void;

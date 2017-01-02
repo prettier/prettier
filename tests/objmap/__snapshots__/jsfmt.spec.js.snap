@@ -33,7 +33,7 @@ var o = keyMirror({ FOO: null, BAR: null });
 promiseAllByKey({ foo: Promise.resolve(0), bar: \"bar\" }).then(
   o => {
     (o.foo: string);
-    
+
     (o.bar: \"bar\");
   }
 );

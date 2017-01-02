@@ -83,6 +83,7 @@ requireLazy(
     var str4: string = B.numberValueB;
   }
 );
+
 var notA: Object = A;
 var notB: Object = B;
 

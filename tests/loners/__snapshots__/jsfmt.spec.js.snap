@@ -17,6 +17,7 @@ var export_o: { x: number } = o;
 function f(u, v?): number {
   return u;
 }
+
 var export_f: (u: number) => number = f;
 
 module.exports = export_f;

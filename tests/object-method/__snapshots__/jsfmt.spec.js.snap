@@ -77,6 +77,7 @@ b.f(); // error, property \`p\` not found
 function f() {
   return this.p;
 }
+
 var a = { p: 0, f };
 var b = { f };
 
@@ -118,7 +119,7 @@ function foo() {
 
 function bar(f: () => void) {
   f();
-  
+
   ({ f }).f();
 }
 

@@ -28,6 +28,7 @@ class C {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function x<T>(x: T = 0) {}
+
 class C {
   x<T>(x: T = 0) {}
 }
@@ -170,12 +171,14 @@ function bar(x?, y?) {
 }
 
 bar(0);
+
 var foo: (x?: number) => void = bar;
 
 foo();
 
 function qux(x = \"hello\", ...y): string {
   foo(x);
+
   return y[0];
 }
 
@@ -229,6 +232,7 @@ function foo(x?: string): string {
   if (x == null) {
     return \"foo\";
   }
+
   return x;
 }
 
@@ -236,6 +240,7 @@ function bar(obj: { x?: string }): string {
   if (obj.x == null) {
     return \"foo\";
   }
+
   return obj.x;
 }
 
@@ -243,6 +248,7 @@ function baz(bar?) {
   if (!bar) {
     return 1;
   }
+
   return bar.duck;
 }
 
@@ -250,6 +256,7 @@ function testOptionalNullable(x?: ?string): string {
   if (x == null) {
     return \"foo\";
   }
+
   return x;
 }
 
@@ -257,6 +264,7 @@ function testOptionalNullableDefault(x?: ?string = \"hi\"): string {
   if (x == null) {
     return \"foo\";
   }
+
   return x;
 }
 
@@ -264,12 +272,13 @@ function testOptionalNullableProperty(obj: { x?: ?string }): string {
   if (obj.x == null) {
     return \"foo\";
   }
+
   return obj.x;
 }
 
 function testOptionalNullableFlowingToNullable(x?: ?string): ?string {
   var f = function(y: ?string) {};
-  
+
   f(x);
 }
 "

@@ -136,11 +136,13 @@ x.b;
 x.c;
 
 x.d;
+
 var y: Foo = x;
 
 y.b;
 
 y.d;
+
 class Test2Superclass {
   a: number;
   c: ?number;
@@ -263,6 +265,7 @@ C.p = \"hi\";
 (C: { p: string });
 
 (C: { p: number });
+
 declare var o: { p: number };
 
 (o: Class<C>);

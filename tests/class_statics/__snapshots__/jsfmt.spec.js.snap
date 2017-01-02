@@ -82,22 +82,23 @@ class A {
 }
 
 A.qux = function(x: string) {};
+
 class B extends A {
   static x: string;
   static foo(x: string) {}
   static main() {
     B.x = 0;
-    
+
     B.x = \"\";
-    
+
     B.foo(0);
-    
+
     B.foo(\"\");
-    
+
     B.y = 0;
-    
+
     B.bar(0);
-    
+
     B.qux(0);
   }
   static create(): A {
@@ -117,7 +118,7 @@ class C<X> {
 class D extends C<string> {
   static main() {
     D.foo(0);
-    
+
     D.bar(0);
   }
 }
@@ -126,10 +127,12 @@ var d: C<*> = D.create();
 (new A(): typeof A);
 
 (B: typeof A);
+
 class E {
   static x: number;
   static foo(): string {
     this.bar();
+
     return this.x;
   }
 }

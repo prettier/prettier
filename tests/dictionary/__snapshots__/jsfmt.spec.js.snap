@@ -38,6 +38,7 @@ function foo0(x: Array<{ [key: string]: mixed }>): Array<{
   [key: string]: mixed
 }> {
   x[0].fooBar = \"foobar\";
+
   return x;
 }
 
@@ -511,23 +512,23 @@ function set_prop_to_string_key(o: { [k: string]: any }) {
 
 function unsound_dict_has_every_key(o: { [k: string]: X }) {
   (o.p: X);
-  
+
   (o[\"p\"]: X);
 }
 
 function set_prop_covariant(o: { [k: string]: B }) {
   o.p = new A();
-  
+
   o.p = new B();
-  
+
   o.p = new C();
 }
 
 function get_prop_contravariant(o: { [k: string]: B }) {
   (o.p: A);
-  
+
   (o.p: B);
-  
+
   (o.p: C);
 }
 
@@ -541,11 +542,11 @@ function add_prop_to_nonstring_key_bracket(o: { [k: number]: any }) {
 
 function mix_with_declared_props(o: { [k: number]: X; p: Y }, x: X, y: Y) {
   (o[0]: X);
-  
+
   (o.p: Y);
-  
+
   o[0] = x;
-  
+
   o.p = y;
 }
 
@@ -554,6 +555,7 @@ function object_prototype(o: { [k: string]: number }): {
   +toString: () => string
 } {
   (o.toString(): boolean);
+
   return o;
 }
 
@@ -565,21 +567,23 @@ function unsound_string_conversion_alias_declared_prop(
 
 function unification_dict_values_invariant(x: Array<{ [k: string]: B }>) {
   let a: Array<{ [k: string]: A }> = x;
-  
+
   a[0].p = new A();
+
   let b: Array<{ [k: string]: B }> = x;
   let c: Array<{ [k: string]: C }> = x;
-  
+
   (x[0].p: C);
 }
 
 function subtype_dict_values_invariant(x: { [k: string]: B }) {
   let a: { [k: string]: A } = x;
-  
+
   a.p = new A();
+
   let b: { [k: string]: B } = x;
   let c: { [k: string]: C } = x;
-  
+
   (x.p: C);
 }
 
@@ -605,11 +609,12 @@ function unification_mix_with_declared_props_invariant_l(
   x: Array<{ [k: string]: B }>
 ) {
   let a: Array<{ [k: string]: B; p: A }> = x;
-  
+
   a[0].p = new A();
+
   let b: Array<{ [k: string]: B; p: B }> = x;
   let c: Array<{ [k: string]: B; p: C }> = x;
-  
+
   (x[0].p: C);
 }
 
@@ -619,21 +624,23 @@ function unification_mix_with_declared_props_invariant_r(
   xc: Array<{ [k: string]: C; p: B }>
 ) {
   let a: Array<{ [k: string]: A }> = xa;
-  
+
   a[0].p = new A();
+
   let b: Array<{ [k: string]: B }> = xb;
   let c: Array<{ [k: string]: C }> = xc;
-  
+
   (xc[0].p: C);
 }
 
 function subtype_mix_with_declared_props_invariant_l(x: { [k: string]: B }) {
   let a: { [k: string]: B; p: A } = x;
-  
+
   a.p = new A();
+
   let b: { [k: string]: B; p: B } = x;
   let c: { [k: string]: B; p: C } = x;
-  
+
   (x.p: C);
 }
 
@@ -643,11 +650,12 @@ function subtype_mix_with_declared_props_invariant_r(
   xc: { [k: string]: C; p: B }
 ) {
   let a: { [k: string]: A } = xa;
-  
+
   a.p = new A();
+
   let b: { [k: string]: B } = xb;
   let c: { [k: string]: C } = xc;
-  
+
   (xc.p: C);
 }
 
@@ -665,21 +673,23 @@ function unification_obj_to_dict(x: Array<{ p: X }>): Array<{
 
 function subtype_dict_to_obj(x: { [k: string]: B }) {
   let a: { p: A } = x;
-  
+
   a.p = new A();
+
   let b: { p: B } = x;
   let c: { p: C } = x;
-  
+
   (x.p: C);
 }
 
 function subtype_obj_to_dict(x: { p: B }) {
   let a: { [k: string]: A } = x;
-  
+
   a.p = new A();
+
   let b: { [k: string]: B } = x;
   let c: { [k: string]: C } = x;
-  
+
   (x.p: C);
 }
 
@@ -825,6 +835,7 @@ function foo2(x: Array<{ [key: string]: mixed }>): Array<{
   fooBar: string
 }> {
   x[0].fooBar = 123;
+
   return x;
 }
 
@@ -853,7 +864,7 @@ function foo7(x: { [key: string]: number; bar: string }) {
 
 function foo8(x: { [key: string]: number }) {
   (x.foo: string);
-  
+
   (x.foo: number);
 }
 "

@@ -56,11 +56,13 @@ function bar(x: $Keys<{ age: number }>) {}
 bar(APIKeys.AGE);
 
 bar(APIKeys.NAME);
+
 var object = {};
 
 object[APIKeys.AGE] = 123;
 
 object[APIKeys.NAME] = \"FOO\";
+
 var age: number = object[APIKeys.AGE];
 var name: number = object[APIKeys.NAME];
 var indices = { red: 0, green: 1, blue: 2 };
@@ -108,15 +110,17 @@ function test3(x: number, flip_times: number): number {
   for (var i = 0; i < flip_times; i++) {
     x = -x;
   }
+
   return x;
 }
 
 function test4(flip_times: number): number {
   var x = 1;
-  
+
   for (var i = 0; i < flip_times; i++) {
     x = -x;
   }
+
   return x;
 }
 "

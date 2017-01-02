@@ -59,13 +59,13 @@ declare var pnum: Promise<number>;
 Promise.all([ pstr, pnum, true ]).then(
   xs => {
     let [ a, b, c ] = xs;
-    
+
     (a: number);
-    
+
     (b: boolean);
-    
+
     (c: string);
-    
+
     xs.forEach(
       x => {
         (x: void);
@@ -501,6 +501,7 @@ new Promise(
     } else {
       var b: number = numOrStr;
     }
+
     var c: string = numOrStr;
   }
 );
@@ -548,6 +549,7 @@ new Promise(
     } else {
       var b: number = numOrStr;
     }
+
     var c: string = numOrStr;
   }
 );
@@ -744,7 +746,7 @@ async function foo(x: boolean) {
 
 async function run() {
   console.log(await foo(true));
-  
+
   console.log(await foo(false));
 }
 

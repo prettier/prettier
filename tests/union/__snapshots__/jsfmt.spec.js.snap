@@ -31,6 +31,7 @@ class D {
   content: string | C;
   copyContent(content: C): string | C {
     this.content = content;
+
     return this.content;
   }
 }
@@ -323,6 +324,7 @@ function foo<X>(x: Foo<X>) {}
 foo(x);
 
 foo(y);
+
 type Bar = () => C | string;
 
 function f() {
@@ -407,24 +409,26 @@ function corge(b) {
 function bar(x: Document | string): void {}
 
 bar(0);
+
 class C {}
 class D {}
 
 function CD(b) {
   var E = (b ? C : D);
   var c: C = new E();
-  
+
   function qux(e: E) {}
-  
+
   function qux2(e: C | D) {}
-  
+
   qux2(new C());
 }
+
 declare class F { foo(x: number): void; foo(x: string): void }
 
 function corge(b) {
   var x = (b ? \"\" : 0);
-  
+
   new F().foo(x);
 }
 "
@@ -5477,6 +5481,7 @@ type Data = {
 // but not sure it\'s worth doing that before the real solution.
 // also, error pos omits this line completely
 \"use strict\";
+
 class SecurityCheckupTypedLogger {
   _data: Data;
   setError(value: ErrorCode) {

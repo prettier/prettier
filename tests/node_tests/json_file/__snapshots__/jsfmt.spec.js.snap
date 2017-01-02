@@ -43,12 +43,15 @@ let data = require(\"./package/index.json\");
 (data.foo.bar: void);
 
 (data.abc: boolean);
+
 let data2 = require(\"./package\");
 
 (data2.baz: void);
+
 let data3 = require(\"./package2\");
 
 (data3.foo: void);
+
 let data4 = require(\"./json_array\");
 
 (data4: Array<number>);

@@ -64,6 +64,7 @@ function h(x): number {
   if (x > 1) {
     return 42;
   }
+
   return;
 }
 
@@ -71,6 +72,7 @@ function i(x): ?number {
   if (x > 1) {
     return 42;
   }
+
   return;
 }
 

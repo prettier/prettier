@@ -51,27 +51,28 @@ let tests = [
 let tests = [
   function() {
     new Boolean();
-    
+
     new Boolean(0);
-    
+
     new Boolean(-0);
-    
+
     new Boolean(null);
-    
+
     new Boolean(false);
-    
+
     new Boolean(NaN);
-    
+
     new Boolean(undefined);
-    
+
     new Boolean(\"\");
   },
   function() {
     true.toString();
+
     let x: boolean = false;
-    
+
     x.toString();
-    
+
     new Boolean(true).toString();
   },
   function() {
@@ -79,19 +80,19 @@ let tests = [
   },
   function() {
     Boolean();
-    
+
     Boolean(0);
-    
+
     Boolean(-0);
-    
+
     Boolean(null);
-    
+
     Boolean(false);
-    
+
     Boolean(NaN);
-    
+
     Boolean(undefined);
-    
+
     Boolean(\"\");
   }
 ];
@@ -145,6 +146,7 @@ function* generator(): Iterable<[string, number]> {
     yield [ \"foo\", 123 ];
   }
 }
+
 let tests = [
   function() {
     let w = new Map();
@@ -161,7 +163,7 @@ let tests = [
   },
   function(x: Map<string, number>) {
     (x.get(\"foo\"): boolean);
-    
+
     x.get(123);
   }
 ];
@@ -212,33 +214,33 @@ let tests = [
 let tests = [
   function() {
     new RegExp(\"foo\");
-    
+
     new RegExp(/foo/);
-    
+
     new RegExp(\"foo\", \"i\");
-    
+
     new RegExp(\"foo\", \"ig\");
-    
+
     new RegExp(/foo/, \"i\");
-    
+
     new RegExp(/foo/g, \"i\");
   },
   function() {
     RegExp(\"foo\");
-    
+
     RegExp(/foo/);
-    
+
     RegExp(\"foo\", \"i\");
-    
+
     RegExp(\"foo\", \"ig\");
-    
+
     RegExp(/foo/, \"i\");
-    
+
     RegExp(/foo/g, \"i\");
   },
   function() {
     RegExp(\"foo\", \"z\");
-    
+
     new RegExp(\"foo\", \"z\");
   }
 ];
@@ -307,6 +309,7 @@ ws.delete(window);
 ws.delete(obj);
 
 ws.delete(dict);
+
 let ws2 = new WeakSet([ obj, dict ]);
 let ws3 = new WeakSet([ 1, 2, 3 ]);
 
@@ -315,6 +318,7 @@ function* generator(): Iterable<{ foo: string }> {
     yield { foo: \"bar\" };
   }
 }
+
 let ws4 = new WeakSet(generator());
 
 function* numbers(): Iterable<number> {
@@ -323,6 +327,7 @@ function* numbers(): Iterable<number> {
     yield i++;
   }
 }
+
 let ws5 = new WeakSet(numbers());
 "
 `;

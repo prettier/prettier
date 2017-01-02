@@ -50,7 +50,7 @@ async function foo(x: boolean): Promise<?{ bar: string }> {
 
 async function run() {
   console.log(await foo(true));
-  
+
   console.log(await foo(false));
 }
 

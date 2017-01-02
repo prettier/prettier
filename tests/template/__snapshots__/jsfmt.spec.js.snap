@@ -58,33 +58,34 @@ let tests = [
 \`foo \${123} bar\`;
 
 \`foo \${{ bar: 123 }} baz\`;
+
 let tests = [
   function(x: string) {
     \`foo \${x}\`;
-    
+
     \`\${x} bar\`;
-    
+
     \`foo \${\"bar\"} \${x}\`;
   },
   function(x: number) {
     \`foo \${x}\`;
-    
+
     \`\${x} bar\`;
-    
+
     \`foo \${\"bar\"} \${x}\`;
   },
   function(x: boolean) {
     \`foo \${x}\`;
-    
+
     \`\${x} bar\`;
-    
+
     \`foo \${\"bar\"} \${x}\`;
   },
   function(x: mixed) {
     \`foo \${x}\`;
-    
+
     \`\${x} bar\`;
-    
+
     \`foo \${\"bar\"} \${x}\`;
   }
 ];

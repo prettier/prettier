@@ -121,6 +121,7 @@ foo.goodSetterWithAnnotation = 123;
 foo.goodSetterNoAnnotation = \"hello\";
 
 foo.goodSetterWithAnnotation = \"hello\";
+
 var testSubtypingGetterAndSetter: number = foo.propWithSubtypingGetterAndSetter;
 var testPropOverridenWithGetter: number = foo.propOverriddenWithGetter;
 
@@ -259,9 +260,11 @@ obj.goodSetterWithAnnotation = 123;
 obj.goodSetterNoAnnotation = \"hello\";
 
 obj.goodSetterWithAnnotation = \"hello\";
+
 var testSubtypingGetterAndSetter: number = obj.propWithSubtypingGetterAndSetter;
 
 obj.exampleOfOrderOfGetterAndSetter = new C();
+
 var testExampleOrOrderOfGetterAndSetterReordered: number = obj.exampleOfOrderOfGetterAndSetterReordered;
 "
 `;

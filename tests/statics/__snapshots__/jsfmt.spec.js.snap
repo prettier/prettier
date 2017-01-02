@@ -19,6 +19,7 @@ C.g = function(x: string) {
 };
 
 C.g(0);
+
 var x: number = C.x;
 
 C.x = 0;
@@ -41,6 +42,7 @@ C.prototype.f = function() {
 C.g = function(x) {
   return x;
 };
+
 var x: string = new C().f();
 "
 `;

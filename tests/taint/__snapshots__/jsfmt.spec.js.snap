@@ -110,22 +110,23 @@ let tests = [
 let tests = [
   function(x: $Tainted<string>, y: string) {
     let obj: Object = {};
-    
+
     obj.foo = x;
-    
+
     obj[y] = x;
   },
   function() {
     let obj: Object = { foo: \"foo\" };
-    
+
     (obj.foo: $Tainted<string>);
   },
   function(x: $Tainted<string>) {
     let obj: Object = {};
-    
+
     obj.foo(x);
+
     let foo = obj.foo;
-    
+
     foo(x);
   }
 ];
@@ -262,7 +263,7 @@ let tests = [
   },
   function(x: any, y: $Tainted<string>) {
     let z = x();
-    
+
     z(y);
   }
 ];
@@ -290,7 +291,7 @@ class A {
 class A {
   f(x: $Tainted<FakeLocation>) {
     fakeDocument.location = x;
-    
+
     doStuff(x);
   }
   f1(x: $Tainted<FakeLocation>) {

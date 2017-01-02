@@ -89,6 +89,7 @@ async function f3(p: Promise<number>): Promise<number> {
 async function f4(p: Promise<number>): Promise<boolean> {
   return await p;
 }
+
 var f5: () => Promise<number> = async () => await 1;
 class C {
   async m() {
@@ -172,6 +173,7 @@ var y = { async };
 async function f() {}
 
 async function ft<T>(a: T) {}
+
 class C {
   async m() {}
   async mt<T>(a: T) {}
@@ -187,6 +189,7 @@ var oz = { async async() {} };
 var x = { async: 5 };
 
 console.log(x.async);
+
 var async = 3;
 var y = { async };
 "
@@ -230,6 +233,7 @@ async function foo2(): Promise<string> {
 
 async function foo3(): Promise<string> {
   function bar() {}
+
   return bar();
 }
 "
@@ -322,7 +326,7 @@ function test1() {
   async function foo() {
     return 42;
   }
-  
+
   async function bar() {
     var a = await foo();
     var b: number = a;
@@ -334,6 +338,7 @@ function test2() {
   async function voidoid1() {
     console.log(\"HEY\");
   }
+
   var voidoid2: () => Promise<void> = voidoid1;
   var voidoid3: () => void = voidoid1;
 }
@@ -455,6 +460,7 @@ async function f() {
 async function ft<T>(a: T) {
   await 1;
 }
+
 class C {
   async m() {
     await 1;
@@ -496,6 +502,7 @@ var oz = {
 var x = { await: 5 };
 
 console.log(x.await);
+
 var await = 3;
 var y = { await };
 "

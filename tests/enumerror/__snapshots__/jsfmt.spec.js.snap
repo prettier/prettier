@@ -36,6 +36,7 @@ function isActive(
 }
 
 isActive({ state: \"PAUSE\" });
+
 var MyStates = { PAUSED: \"PAUSED\", ACTIVE: \"ACTIVE\", DELETED: \"DELETED\" };
 
 function isActive2(ad: { state: $Keys<typeof MyStates> }): boolean {
@@ -43,6 +44,7 @@ function isActive2(ad: { state: $Keys<typeof MyStates> }): boolean {
 }
 
 isActive2({ state: \"PAUSE\" });
+
 type Keys = $Keys<{ x: any; y: any }>;
 type Union = \"x\" | \"y\";
 

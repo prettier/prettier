@@ -107,6 +107,7 @@ class C {
 (Object.create(new C()): C);
 
 ({ foo: \"foo\" }: C);
+
 type O = { foo: string };
 declare var o: O;
 
@@ -133,7 +134,7 @@ class Bar extends Foo {}
 let tests = [
   function() {
     const x = new Bar();
-    
+
     (Object.getPrototypeOf(x): Foo);
   }
 ];
@@ -188,6 +189,7 @@ var sealed = { one: \"one\", two: \"two\" };
 (Object.keys(sealed): Array<\"one\" | \"two\">);
 
 (Object.keys(sealed): void);
+
 var unsealed = {};
 
 Object.keys(unsealed).forEach(
@@ -195,6 +197,7 @@ Object.keys(unsealed).forEach(
     (k: number);
   }
 );
+
 var dict: { [k: number]: string } = {};
 
 Object.keys(dict).forEach(
@@ -202,15 +205,18 @@ Object.keys(dict).forEach(
     (k: number);
   }
 );
+
 var any: Object = {};
 
 (Object.keys(any): Array<number>);
+
 class Foo {
   prop: string;
   foo() {}
 }
 
 (Object.keys(new Foo()): Array<\"error\">);
+
 class Bar extends Foo {
   bar_prop: string;
   bar() {}
@@ -476,6 +482,7 @@ function takesAString(x: string) {}
 function takesANumber(x: number) {}
 
 function takesAnObject(x: Object) {}
+
 class Foo {}
 var a = { foo: \"bar\" };
 var b = { foo: \"bar\", ...{} };
@@ -492,6 +499,7 @@ var y = new Foo();
 takesAString(a.toString());
 
 d.toString();
+
 var aToString: () => string = a.toString;
 var aToString2 = a.toString;
 
@@ -504,11 +512,13 @@ b.toString = function(): string {
 c.toString = function(): number {
   return 123;
 };
+
 var cToString: () => number = c.toString;
 var xToString: number = x.toString;
 var xToString2: () => number = x.toString;
 
 takesAString(x.toString());
+
 var yToString: number = y.toString;
 
 takesAString(y.toString());
@@ -526,6 +536,7 @@ takesAString(y.toString());
 (123).toString(null);
 
 takesABool(a.hasOwnProperty(\"foo\"));
+
 var aHasOwnProperty: (prop: string) => boolean = a.hasOwnProperty;
 var aHasOwnProperty2 = a.hasOwnProperty;
 
@@ -534,15 +545,18 @@ takesABool(aHasOwnProperty2(\"bar\"));
 b.hasOwnProperty = function() {
   return false;
 };
+
 var xHasOwnProperty: number = x.hasOwnProperty;
 var xHasOwnProperty2: (prop: string) => number = x.hasOwnProperty;
 
 takesABool(x.hasOwnProperty(\"foo\"));
+
 var yHasOwnProperty: number = y.hasOwnProperty;
 
 takesABool(y.hasOwnProperty(\"foo\"));
 
 takesABool(a.propertyIsEnumerable(\"foo\"));
+
 var aPropertyIsEnumerable: (prop: string) => boolean = a.propertyIsEnumerable;
 var aPropertyIsEnumerable2 = a.propertyIsEnumerable;
 
@@ -551,15 +565,18 @@ takesABool(aPropertyIsEnumerable2(\"bar\"));
 b.propertyIsEnumerable = function() {
   return false;
 };
+
 var xPropertyIsEnumerable: number = x.propertyIsEnumerable;
 var xPropertyIsEnumerable2: (prop: string) => number = x.propertyIsEnumerable;
 
 takesABool(x.propertyIsEnumerable(\"foo\"));
+
 var yPropertyIsEnumerable: number = y.propertyIsEnumerable;
 
 takesABool(y.propertyIsEnumerable(\"foo\"));
 
 takesAnObject(a.valueOf());
+
 var aValueOf: () => Object = a.valueOf;
 var aValueOf2 = a.valueOf;
 
@@ -568,17 +585,21 @@ takesAnObject(aValueOf2());
 b.valueOf = function() {
   return {};
 };
+
 var xValueOf: number = x.valueOf;
 
 takesANumber(x.valueOf());
+
 var yValueOf: number = y.valueOf;
 
 takesAnObject(y.valueOf());
+
 var strValueOf: string = \"foo\".valueOf();
 var numValueOf: number = (123).valueOf();
 var boolValueOf: boolean = true.valueOf();
 
 takesAString(a.toLocaleString());
+
 var aToLocaleString: () => string = a.toLocaleString;
 var aToLocaleString2 = a.toLocaleString;
 
@@ -587,13 +608,16 @@ takesAString(aToLocaleString2());
 b.toLocaleString = function() {
   return \"derp\";
 };
+
 var xToLocaleString: number = x.toLocaleString;
 var xToLocaleString2: () => number = x.toLocaleString;
 
 takesAString(x.toLocaleString());
+
 var yToLocaleString: number = y.toLocaleString;
 
 takesAString(y.toLocaleString());
+
 var k: Object = a.constructor;
 
 (123).constructor;

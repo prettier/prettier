@@ -45,12 +45,14 @@ function alwaysFalsy(x: boolean): false {
 function veryOptimistic(isThisAwesome: true): boolean {
   return isThisAwesome;
 }
+
 var x: boolean = veryOptimistic(true);
 var y: boolean = veryOptimistic(false);
 
 function veryPessimistic(isThisAwesome: true): boolean {
   return !isThisAwesome;
 }
+
 var x: boolean = veryPessimistic(true);
 var y: boolean = veryPessimistic(false);
 type MyOwnBooleanLOL = true | false;
@@ -115,6 +117,7 @@ function highlander(howMany: 1): number {
 highlander(1);
 
 highlander(2);
+
 type Foo = 1 | 2;
 
 function bar(num: Foo): number {
@@ -126,6 +129,7 @@ bar(1);
 bar(2);
 
 bar(3);
+
 type ComparatorResult = -1 | 0 | 1;
 
 function sort(fn: (x: any, y: any) => ComparatorResult) {}
@@ -147,6 +151,7 @@ type HasSpaces = \"foo bar\"
 type NoSpaces = \"foobar\";
 
 (\"foobar\": NoSpaces);
+
 type HasSpaces = \"foo bar\";
 
 (\"foo bar\": HasSpaces);

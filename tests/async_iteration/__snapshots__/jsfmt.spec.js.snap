@@ -33,7 +33,7 @@ async function* delegate_next() {
   async function* inner() {
     var x: void = yield;
   }
-  
+
   yield* inner();
 }
 
@@ -43,7 +43,7 @@ async function* delegate_yield() {
   async function* inner() {
     yield 0;
   }
-  
+
   yield* inner();
 }
 
@@ -57,6 +57,7 @@ async function* delegate_return() {
   async function* inner() {
     return 0;
   }
+
   var x: void = yield* inner();
 }
 "
@@ -225,6 +226,7 @@ async () => {
 async function* yield_return() {
   try {
     yield 0;
+
     return;
   } catch (e) {
     yield e;

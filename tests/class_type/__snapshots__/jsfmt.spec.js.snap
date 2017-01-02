@@ -18,6 +18,7 @@ class A {}
 function foo(x: Class<A>): A {
   return new x();
 }
+
 class B {
   constructor(_: any) {}
 }

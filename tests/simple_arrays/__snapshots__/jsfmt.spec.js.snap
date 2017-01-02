@@ -36,6 +36,7 @@ for (var i = 0; i < 10; ++i) {
   } else {
     a[i] = \"\";
   }
+
 }
 
 function foo(i): string {
@@ -73,6 +74,7 @@ for (var i = 0; i < 10; ++i) {
   } else {
     a[i] = \"\";
   }
+
 }
 
 function foo(i: number): string {

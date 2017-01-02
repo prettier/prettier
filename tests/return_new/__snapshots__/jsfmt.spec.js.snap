@@ -19,20 +19,24 @@ var a: A = new B(); // OK (returns new A)
 function Foo() {
   return {};
 }
+
 var foo: number = new Foo();
 
 function Bar() {
   return 0;
 }
+
 var bar: number = new Bar();
 
 function Qux() {}
+
 var qux: number = new Qux();
 class A {}
 
 function B() {
   return new A();
 }
+
 var a: A = new B();
 "
 `;

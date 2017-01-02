@@ -67,10 +67,12 @@ function from_test() {
 // error, string ~> number
 // error, string ~> number
 function foo(x: string) {}
+
 var a = [ 0 ];
 var b = a.map(
   function(x) {
     foo(x);
+
     return \"\" + x;
   }
 );
@@ -97,13 +99,14 @@ function reduce_test() {
       return previousValue + currentValue + array[index];
     }
   );
-  
+
   [ 0, 1, 2, 3, 4 ].reduce(
     function(previousValue, currentValue, index, array) {
       return previousValue + currentValue + array[index];
     },
     10
   );
+
   var total = [ 0, 1, 2, 3 ].reduce(
     function(a, b) {
       return a + b;
@@ -114,9 +117,9 @@ function reduce_test() {
       return a.concat(b);
     }
   );
-  
+
   [ \"\" ].reduce((acc, str) => acc * str.length);
-  
+
   [ \"\" ].reduceRight((acc, str) => acc * str.length);
 }
 

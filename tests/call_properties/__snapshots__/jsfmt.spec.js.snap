@@ -226,6 +226,7 @@ function e(x: { (): string; (x: number): string }): () => number {
 function a(f: { (): string; (x: number): string }): string {
   return f() + f(123);
 }
+
 var b: { (): string; (x: number): string } = function(x?: number): string {
   return \"hi\";
 };
@@ -263,6 +264,7 @@ var b: { apply: Function } = function() {};
 var f = function() {};
 
 f.myProp = 123;
+
 var c: { myProp: number } = f;
 "
 `;

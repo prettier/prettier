@@ -52,18 +52,23 @@ var F = require(\'package_with_dir_main\');
 var B1 = require(\"B\");
 
 (B1.fun(): string);
+
 var B2 = require(\"B.js\");
 
 (B2.fun(): string);
+
 var C = require(\"package_with_full_main\");
 
 (C.fun(): string);
+
 var D = require(\"package_with_partial_main\");
 
 (D.fun(): string);
+
 var E = require(\"package_with_no_package_json\");
 
 (E.fun(): string);
+
 var F = require(\"package_with_dir_main\");
 
 (F.fun(): string);
@@ -94,9 +99,11 @@ var CJS = require(\'./CJS.js\');
 var A1 = require(\"./A\");
 
 (A1.fun(): string);
+
 var A2 = require(\"./A.js\");
 
 (A2.fun(): string);
+
 var CJS = require(\"./CJS.js\");
 
 (CJS: string);

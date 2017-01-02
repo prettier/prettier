@@ -213,7 +213,7 @@ ls.on(
     if (code !== 0) {
       console.warn(\"\`ls\` exited with code %s\", code);
     }
-    
+
     wc.stdin.end();
   }
 );

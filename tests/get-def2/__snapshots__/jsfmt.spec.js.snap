@@ -50,17 +50,21 @@ let ParentFoo;
 ({ ParentFoo } = Parent);
 
 ParentFoo;
+
 let ParentFoo2;
 
 ParentFoo2 = Parent;
 
 ParentFoo2;
+
 let ParentFoo3 = Parent;
 
 ParentFoo3;
+
 let foo = require(\"./Parent\").ParentFoo.foo;
 
 foo;
+
 import type { Foo } from \"./types\";
 "
 `;

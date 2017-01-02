@@ -51,7 +51,7 @@ var i = new I();
 
 function testInterfaceName(o: I) {
   (o.name: string);
-  
+
   (o.constructor.name: string);
 }
 "
@@ -97,6 +97,7 @@ var k: K = { x: \"\", y: \"\" };
 (k.x: string);
 
 (k.y: string);
+
 declare class C { x: number }
 declare class D extends C, Other {}
 interface A<Y>  { y: Y }
@@ -134,18 +135,19 @@ interface L extends J, K { y: string }
 
 function foo(l: L) {
   l.x;
-  
+
   l.y;
-  
+
   l.z;
 }
+
 type M = { y: string } & J & { z: boolean };
 
 function bar(m: M) {
   m.x;
-  
+
   m.y;
-  
+
   m.z;
 }
 "
@@ -169,7 +171,7 @@ interface K extends I, J { x: string }
 
 function foo(k: K) {
   (k.x: number);
-  
+
   (k.y: number);
 }
 "
@@ -191,6 +193,7 @@ new C().bar((x: string) => { }); // error, number ~/~> string
 interface I  { foo(x: number): void }
 
 (function foo(x: number) {}: I);
+
 declare class C { bar(i: I): void; bar(f: (x: number) => void): void }
 
 new C().bar((x: string) => {});

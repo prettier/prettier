@@ -43,6 +43,7 @@ o1.foo;
 o1.qux;
 
 o1.toString();
+
 type R = { foo: any; bar: any };
 type Key2 = $Keys<R>;
 var o2: { [key: Key2]: number } = { foo: 0 };
@@ -50,6 +51,7 @@ var o2: { [key: Key2]: number } = { foo: 0 };
 o2.bar;
 
 o2.qux;
+
 class C<X> {
   x: $Subtype<{ [key: $Keys<X>]: any }>;
 }

@@ -43,6 +43,7 @@ var test2: string = 123;
 function getNum() {
   return 123;
 }
+
 var test3: string = getNum();
 var test4: string = 123;
 var test5: string = 123;

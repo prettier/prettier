@@ -49,6 +49,7 @@ function bar(): ?string {
 function qux(x: string) {}
 
 function corge(x: number) {}
+
 var x = bar();
 
 if (x != null)
@@ -63,9 +64,10 @@ function grault() {
 
 if (x != null) {
   grault();
-  
+
   qux(x);
 }
+
 var array_of_nullable: Array<?number> = [ null, 3 ];
 "
 `;

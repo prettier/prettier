@@ -53,15 +53,18 @@ var x = Boolean(4);
 function foo(fn: (value: any) => boolean) {}
 
 foo(Boolean);
+
 var dict: { [k: string]: any } = {};
 
 dict();
+
 interface ICall  { (x: string): void }
 declare var icall: ICall;
 
 icall(0);
 
 icall.call(null, 0);
+
 type Callable = { (x: string): void };
 declare var callable: Callable;
 

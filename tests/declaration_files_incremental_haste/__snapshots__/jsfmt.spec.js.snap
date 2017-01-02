@@ -95,9 +95,11 @@ var ExplicitDifferentName = require(\'ExplicitProvidesModuleDifferentName\');
 var Implicit = require(\"ImplicitProvidesModule\");
 
 (Implicit.fun(): boolean);
+
 var ExplicitSameName = require(\"ExplicitProvidesModuleSameName\");
 
 (ExplicitSameName.fun(): boolean);
+
 var ExplicitDifferentName = require(\"ExplicitProvidesModuleDifferentName\");
 
 (ExplicitDifferentName.fun(): boolean);

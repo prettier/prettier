@@ -95,6 +95,7 @@ var d = new D();
 (d: C).next = new C();
 
 (d.next: D);
+
 class A {
   foo<X: this>(that: X) {}
 }
@@ -126,6 +127,7 @@ class Misc {
   inout_promise: Promise<this>;
   *out_generator(): Generator<this, this, this> {
     yield this;
+
     return this;
   }
   in_generator(_: Generator<this, this, this>) {}
@@ -242,6 +244,7 @@ class B1 extends A1 {
 }
 
 (new B1().bar(): B1);
+
 class B3<X> extends A3<X> {
   foo(): B3<X> {
     return new B3();
@@ -304,6 +307,7 @@ class C {
 (new DoublyLinkedList().prev(): DoublyLinkedList);
 
 (new DoublyLinkedList().next(): DoublyLinkedList);
+
 var MiniImmutable = require(\"mini-immutable\");
 class C {
   map: MiniImmutable.OrderedMap<number, string>;
@@ -521,6 +525,7 @@ class InheritOverride extends Override {}
 ((new Override(): Base).foo(): Base);
 
 (new InheritOverride().bar_caller(): InheritOverride);
+
 class Base2 {
   foo(): this {
     return this;

@@ -89,6 +89,7 @@ function foo(strs: Iterable<string>): void {
     console.log(s);
   }
 }
+
 var m: Map<string, number> = new Map();
 
 foo(m.keys());
@@ -137,7 +138,7 @@ function makeIterator(coin_flip: () => boolean): Iterator<string> {
     },
     next(): IteratorResult<string, void> {
       var done = coin_flip();
-      
+
       if (!done) {
         return { done, value: \"still going...\" };
       } else {
@@ -154,7 +155,7 @@ function makeIterator(coin_flip: () => boolean): Iterator<string> {
     },
     next(): IteratorResult<string, void> {
       var done = coin_flip();
-      
+
       if (done) {
         return { done, value: \"still going...\" };
       } else {

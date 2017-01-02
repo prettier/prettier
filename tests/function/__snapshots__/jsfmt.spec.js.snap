@@ -123,9 +123,9 @@ let tests = [
 let tests = [
   function(x: (a: string, b: string) => void) {
     let y = x.bind(x, \"foo\");
-    
+
     y(\"bar\");
-    
+
     y(123);
   }
 ];
@@ -325,19 +325,21 @@ var c: Function = C;
 
 function good(x: Function, MyThing: Function): number {
   var o: Object = x;
-  
+
   x.foo = 123;
-  
+
   x[\"foo\"] = 456;
-  
+
   x();
-  
+
   <MyThing/>;
+
   var { ...something } = x;
-  
+
   Object.assign(x, { hi: \"there\" });
-  
+
   Object.keys(x);
+
   return x.bar + x[\"bar\"] + x.lala();
 }
 
@@ -346,39 +348,40 @@ function bad(x: Function, y: Object): void {
   var b: string = x;
   var c: Function = y;
 }
+
 let tests = [
   function(y: () => void, z: Function) {
     function x() {}
-    
+
     (x.length: void);
-    
+
     (y.length: void);
-    
+
     (z.length: void);
-    
+
     (x.name: void);
-    
+
     (y.name: void);
-    
+
     (z.name: void);
   },
   function(y: () => void, z: Function) {
     function x() {}
-    
+
     x.length = \"foo\";
-    
+
     y.length = \"foo\";
-    
+
     z.length = \"foo\";
-    
+
     x.name = 123;
-    
+
     y.name = 123;
-    
+
     z.name = 123;
-    
+
     (z.foo: number);
-    
+
     (z.foo: string);
   }
 ];

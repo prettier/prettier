@@ -29,6 +29,7 @@ function foo(x: boolean) {
     if (x) {
       continue;
     }
+
     return;
   }
 }
@@ -62,13 +63,14 @@ class C {
 }
 
 function blah() {}
+
 var node: ?C = new C();
 while (node) {
   var parent = node.m();
   var cloneable: C = node;
-  
+
   blah();
-  
+
   node = parent.m();
 }
 "

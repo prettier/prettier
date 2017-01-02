@@ -87,6 +87,7 @@ function foo() {
 function bar() {
   return E;
 }
+
 let X = foo();
 class F extends X {}
 class D extends F {}

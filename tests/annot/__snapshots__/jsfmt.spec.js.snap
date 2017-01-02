@@ -73,6 +73,7 @@ function barfoo(n : number | null | void) : ?number { return n; }
 function foo(str: string, i: number): string {
   return str;
 }
+
 var bar: (str: number, i: number) => string = foo;
 var qux = function(str: string, i: number): number {
   return foo(str, i);
@@ -111,6 +112,7 @@ function param_anno2(
     }
   );
 }
+
 var toz: null = 3;
 var zer: null = null;
 
@@ -150,14 +152,16 @@ let myClassInstance: MyClass = null;
 function bar(): MyClass {
   return null;
 }
+
 class MyClass {}
 
 function foo() {
   let myClassInstance: MyClass = mk();
-  
+
   function mk() {
     return new MyClass();
   }
+
   class MyClass {}
 }
 "
@@ -271,8 +275,10 @@ function insertMany<K, V>(
   function f([ k, v ]: [K, V], m: Map<K, V>): Map<K, V> {
     return m.insertWith(merge, k, v);
   }
+
   return foldr(f, m, vs);
 }
+
 class Foo<A> {
   bar<B>() {
     return function<C>(a: A, b: B, c: C): void {

@@ -140,15 +140,15 @@ function foo() {
   var x = 0;
   var y = \"...\";
   var z = {};
-  
+
   num(x + x);
-  
+
   num(x + y);
-  
+
   str(x + y);
-  
+
   str(x + x);
-  
+
   str(z + y);
 }
 
@@ -207,38 +207,39 @@ str(null + \"foo\");
 str(\"foo\" + undefined);
 
 str(undefined + \"foo\");
+
 let tests = [
   function(x: mixed, y: mixed) {
     x + y;
-    
+
     x + 0;
-    
+
     0 + x;
-    
+
     x + \"\";
-    
+
     \"\" + x;
-    
+
     x + {};
-    
+
     ({}) + x;
   },
   function() {
     (1 + {}: number);
-    
+
     ({} + 1: number);
-    
+
     (\"1\" + {}: string);
-    
+
     ({} + \"1\": string);
   },
   function(x: any, y: number, z: string) {
     (x + y: string);
-    
+
     (y + x: string);
-    
+
     (x + z: empty);
-    
+
     (z + x: empty);
   }
 ];
@@ -263,6 +264,7 @@ y **= 2; // error
 let x: number = 2 ** 3;
 
 x **= 4;
+
 let y: string = \"123\";
 
 y **= 2;
@@ -333,9 +335,11 @@ function num(x: number) {}
 num(null * 1);
 
 num(1 * null);
+
 let x: number = 2 * 3;
 
 x *= 4;
+
 let y: string = \"123\";
 
 y *= 2;
@@ -405,6 +409,7 @@ let tests = [
 \"foo\" < { foo: 1 };
 
 ({ foo: 1 }) < \"foo\";
+
 var x = (null: ?number);
 
 1 < x;
@@ -424,10 +429,11 @@ NaN < 1;
 1 < NaN;
 
 NaN < NaN;
+
 let tests = [
   function(x: any, y: number, z: string) {
     x > y;
-    
+
     x > z;
   }
 ];

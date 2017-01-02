@@ -106,6 +106,7 @@ var b_star: B<*> = new B(123);
 (b_default.p: boolean);
 
 (b_star.p: boolean);
+
 class C<T: ?string=string> extends A<T> {}
 var c_number: C<number> = new C(123);
 var c_void: C<void> = new C();
@@ -117,6 +118,7 @@ var c_star: C<*> = new C(\"hello\");
 (c_default.p: boolean);
 
 (c_star.p: boolean);
+
 class D<S, T=string> extends A<T> {}
 var d_number: D<mixed, number> = new D(123);
 var d_void: D<mixed, void> = new D();
@@ -132,12 +134,14 @@ var d_star: D<*> = new D(10);
 (d_default.p: boolean);
 
 (d_star.p: boolean);
+
 class E<S: string, T: number=S> {}
 class F<S: string, T: S=number> {}
 class G<S: string, T=S> extends A<T> {}
 var g_default: G<string> = new G(\"hello\");
 
 (g_default.p: boolean);
+
 class H<S=T, T=string> {}
 class I<T: ?string=*> extends A<T> {}
 var i_number: I<number> = new I(123);

@@ -150,6 +150,7 @@ type FG = (_: ObjA | ObjB) => void;
 declare var fun1: F & G;
 
 (fun1: FG);
+
 var fun2: FG = fun1;
 declare var f: ((_: number) => void) & ((_: string) => void);
 var g: (_: number | string) => void = f;

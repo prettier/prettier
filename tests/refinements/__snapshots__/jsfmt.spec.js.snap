@@ -37,11 +37,12 @@ function bar2(x : Bar) {
 // x.parent might be null
 function foo(x: ?number) {
   var y;
-  
+
   if (y = x) {
     var z = y * 1000;
   }
 }
+
 type Bar = { parent: ?Bar; doStuff(): void };
 
 function bar0(x: Bar) {
@@ -141,11 +142,11 @@ function foo(x: ?boolean) {
   if (x === false) {
     return;
   }
-  
+
   if (x === true) {
     return;
   }
-  
+
   x[0];
 }
 
@@ -161,22 +162,25 @@ function baz(x: ?boolean) {
   if (100 * false) {
     return;
   }
-  
+
   if (false * 100) {
     return;
   }
 }
+
 let tests = [
   function(x: { done: true; result: string } | { done: false }) {
     if (x.done === true) {
       return x.result;
     }
+
     return x.result;
   },
   function(x: { done: true; result: string } | { done: false }) {
     if (true === x.done) {
       return x.result;
     }
+
     return x.result;
   }
 ];
@@ -298,24 +302,28 @@ type BadType = {};
 function getTypeASTName(typeAST: Type): string {
   if (!typeAST.type)
     throw new Error(\"Must be wrapping type\");
+
   return getTypeASTName(typeAST.type);
 }
+
 let tests = [
   function(x: { done: true; result: string } | { done: false }) {
     if (x.done) {
       return x.result;
     }
+
     return x.result;
   },
   function(x: { done: true; result: string } | { foo: string }) {
     if (x.done) {
       return x.result;
     }
+
     return x.result;
   },
   function() {
     type T = { foo: Object; bar: string } | { baz: string; quux: string };
-    
+
     function testAlwaysTruthyProp(t: T) {
       if (t.foo) {
         (t.bar: string);
@@ -323,7 +331,7 @@ let tests = [
         (t.quux: string);
       }
     }
-    
+
     function testSometimesTruthyProp(t: T) {
       if (t.bar) {
         (t.foo: Object);
@@ -384,14 +392,14 @@ let tests = [
   function(x: string, y: number) {
     if (x == y)
       {}
-    
+
     if (x === y)
       {}
   },
   function(x: string) {
     if (x == undefined)
       {}
-    
+
     if (x == void 0)
       {}
   },
@@ -402,7 +410,7 @@ let tests = [
   function(x: { y: \"foo\" } | { y: \"bar\" }) {
     if (x.y == 123)
       {}
-    
+
     if (x.y === 123)
       {}
   }
@@ -504,11 +512,11 @@ function bar(x:Object) {
 // also treated as \`any\`, so allowed
 function foo(x: { y?: () => void }) {
   x.y();
-  
+
   if (x.hasOwnProperty(\"y\")) {
     x.y();
   }
-  
+
   if (x.hasOwnProperty(\"z\")) {
     x.z();
   }
@@ -516,11 +524,11 @@ function foo(x: { y?: () => void }) {
 
 function bar(x: Object) {
   x.y();
-  
+
   if (x.hasOwnProperty(\"y\")) {
     x.y();
   }
-  
+
   if (x.hasOwnProperty(\"z\")) {
     x.z();
   }
@@ -655,36 +663,42 @@ function f() {}
 
 function def_assign_function_havoc(obj: Obj) {
   obj.p = 10;
-  
+
   f();
+
   var x: number = obj.p;
 }
 
 function def_assign_setprop_havoc(obj: Obj, obj2: Obj) {
   obj.p = 10;
-  
+
   obj2.p = \"hey\";
+
   var x: number = obj.p;
 }
 
 function def_assign_index_havoc(obj: Obj, obj2: Obj) {
   obj.p = 10;
-  
+
   obj2[\"p\"] = \"hey\";
+
   var x: number = obj.p;
 }
 
 function def_assign_within_if(b: boolean, obj: Obj) {
   if (b) {
     obj.p = 10;
+
     var x: number = obj.p;
   }
+
   var y: number = obj.p;
 }
 
 function def_assign_within_while(b: boolean, obj: Obj) {
   while (b) {
     obj.p = 10;
+
     var x: number = obj.p;
   }
   var y: number = obj.p;
@@ -693,6 +707,7 @@ function def_assign_within_while(b: boolean, obj: Obj) {
 function def_assign_within_do(b: boolean, obj: Obj) {
   do {
     obj.p = 10;
+
     var x: number = obj.p;
   } while (b);
   var y: number = obj.p;
@@ -700,17 +715,18 @@ function def_assign_within_do(b: boolean, obj: Obj) {
 
 function def_assign_within_try(b: boolean, obj: Obj) {
   obj.p = 10;
+
   try {
     f();
-    
+
     obj.p = \"hey\";
   } catch (e) {
     f();
-    
+
     obj.p = \"hey\";
   } finally {
     var y: number = obj.p;
-    
+
     obj.p = 42;
   }
   var z: string = obj.p;
@@ -719,16 +735,20 @@ function def_assign_within_try(b: boolean, obj: Obj) {
 function def_assign_within_for(b: boolean, obj: Obj) {
   for (; b; ) {
     obj.p = 10;
+
     var x: number = obj.p;
   }
+
   var z: number = obj.p;
 }
+
 type Obj2 = { q: number | string };
 
 function def_assign_setprop_nohavoc(obj: Obj, obj2: Obj2) {
   obj.p = 10;
-  
+
   obj2.q = \"hey\";
+
   var x: number = obj.p;
 }
 "
@@ -836,13 +856,13 @@ function foo4(o: $Exact<{ x: number }>) {
 
 function foo5() {
   const o = {};
-  
+
   _foo5();
-  
+
   if (o.p) {
     o.p();
   }
-  
+
   function _foo5() {
     o.p = function() {};
   }
@@ -856,13 +876,13 @@ function foo6(o: mixed) {
 function foo7(o: mixed) {
   if (typeof o.bar === \"string\")
     {}
-  
+
   if (o && typeof o.bar === \"string\")
     {}
-  
+
   if (o != null && typeof o.bar === \"string\")
     {}
-  
+
   if (o !== null && o !== undefined && typeof o.bar === \"string\")
     {}
 }
@@ -870,7 +890,7 @@ function foo7(o: mixed) {
 function foo8(o: { p: mixed }) {
   if (o.p && o.p.q)
     {}
-  
+
   if (o.p && o.p.q && o.p.q.r)
     {}
 }
@@ -1030,14 +1050,14 @@ function takesString(x: string) {}
 function num(x: mixed) {
   if (typeof x === \"number\") {
     takesString(x);
-    
+
     (!x: false);
   }
-  
+
   if (typeof x === \"number\" && x) {
     (!x: false);
   }
-  
+
   if (x && typeof x === \"number\") {
     (!x: false);
   }
@@ -1046,14 +1066,14 @@ function num(x: mixed) {
 function str(x: mixed) {
   if (typeof x === \"string\") {
     takesNumber(x);
-    
+
     (!x: false);
   }
-  
+
   if (typeof x === \"string\" && x) {
     (!x: false);
   }
-  
+
   if (x && typeof x === \"string\") {
     (!x: false);
   }
@@ -1062,14 +1082,14 @@ function str(x: mixed) {
 function bool(x: mixed) {
   if (typeof x === \"boolean\") {
     takesString(x);
-    
+
     (x: true);
   }
-  
+
   if (typeof x === \"boolean\" && x) {
     (x: true);
   }
-  
+
   if (x && typeof x === \"boolean\") {
     (x: true);
   }
@@ -1126,7 +1146,7 @@ function false_(x: mixed) {
 function obj2(x: mixed) {
   if (typeof x === \"object\") {
     (x: { [key: string]: mixed } | null);
-    
+
     if (x !== null) {
       (x[\"foo\"]: string);
     }
@@ -1137,15 +1157,15 @@ function obj2(x: mixed) {
   if (typeof x === \"object\" && x) {
     (x: Object);
   }
-  
+
   if (x && typeof x === \"object\") {
     (x: Object);
   }
-  
+
   if (x != null && typeof x === \"object\") {
     (x: Object);
   }
-  
+
   if (x !== null && typeof x === \"object\") {
     (x: Object);
   }
@@ -1246,11 +1266,12 @@ function baz(x: ?number) {
   if (x === null || x === undefined) {
     return;
   }
-  
+
   if (!x) {
     x[0];
   }
 }
+
 class TestClass {}
 let tests = [
   function() {
@@ -1298,7 +1319,7 @@ function null_bogus_comparison() {
   if (100 * null) {
     return;
   }
-  
+
   if (null * 100) {
     return;
   }
@@ -1449,51 +1470,54 @@ let tests = [
     if (x === 0) {
       (x: void);
     }
-    
+
     (x: 0);
   },
   function(x: number) {
     if (x !== 0) {
       (x: 0);
     }
-    
+
     (x: void);
   },
   function(x: 1): 0 {
     if (x === 0) {
       return x;
     }
+
     return 0;
   },
   function(x: 0): number {
     if (x === 1) {
       return x;
     }
+
     return x;
   },
   function(x: 0) {
     if (x !== 1) {
       (x: 0);
     }
-    
+
     (x: 0);
   },
   function(x: 0): number {
     if (x === 0) {
       return x;
     }
+
     return x;
   },
   function(x: 0 | 1) {
     if (x === 0) {
       (x: 0);
-      
+
       (x: void);
     }
-    
+
     if (x === 1) {
       (x: 1);
-      
+
       (x: void);
     }
   },
@@ -1501,6 +1525,7 @@ let tests = [
     if (x.foo === 0) {
       return x.foo;
     }
+
     return x.foo;
   },
   function(x: { kind: 0; foo: number } | { kind: 1; bar: number }): number {
@@ -1522,6 +1547,7 @@ let tests = [
     if (n !== 0 && n !== 1 && n !== 2) {
       throw new Error(\"Wrong number passed\");
     }
+
     return n;
   },
   function(s: number): ?Mode {
@@ -1535,13 +1561,15 @@ let tests = [
   function(mode: Mode) {
     switch (mode) {
     case 0:
-      
+
       (mode: 0);
+
       break;
     case 1:
     case 2:
-      
+
       (mode: 1 | 2);
+
       break;
     }
   },
@@ -1648,6 +1676,7 @@ function a(x: { [key: string]: ?string }, y: string): string {
   if (x[y]) {
     return x[y];
   }
+
   return \"\";
 }
 
@@ -1655,6 +1684,7 @@ function b(x: { y: { [key: string]: ?string } }, z: string): string {
   if (x.y[z]) {
     return x.y[z];
   }
+
   return \"\";
 }
 
@@ -1662,6 +1692,7 @@ function c(x: { [key: string]: ?string }, y: { z: string }): string {
   if (x[y.z]) {
     return x[y.z];
   }
+
   return \"\";
 }
 
@@ -1669,6 +1700,7 @@ function d(x: { y: { [key: string]: ?string } }, a: { b: string }): string {
   if (x.y[a.b]) {
     return x.y[a.b];
   }
+
   return \"\";
 }
 
@@ -1676,6 +1708,7 @@ function a_array(x: Array<?string>, y: number): string {
   if (x[y]) {
     return x[y];
   }
+
   return \"\";
 }
 
@@ -1683,6 +1716,7 @@ function b_array(x: { y: Array<?string> }, z: number): string {
   if (x.y[z]) {
     return x.y[z];
   }
+
   return \"\";
 }
 
@@ -1690,6 +1724,7 @@ function c_array(x: Array<?string>, y: { z: number }): string {
   if (x[y.z]) {
     return x[y.z];
   }
+
   return \"\";
 }
 
@@ -1697,6 +1732,7 @@ function d_array(x: { y: Array<?string> }, a: { b: number }): string {
   if (x.y[a.b]) {
     return x.y[a.b];
   }
+
   return \"\";
 }
 
@@ -1704,14 +1740,17 @@ function e_array(x: Array<?string>): string {
   if (x[0]) {
     return x[0];
   }
+
   return \"\";
 }
 
 function c2(x: { [key: string]: ?string }, y: { z: string }): string {
   if (x[y.z]) {
     y.z = \"HEY\";
+
     return x[y.z];
   }
+
   return \"\";
 }
 
@@ -1720,8 +1759,10 @@ function c3(
 ): string {
   if (x[y.z]) {
     y.a = \"HEY\";
+
     return x[y.z];
   }
+
   return \"\";
 }
 "
@@ -1825,7 +1866,7 @@ function foo(b) {
   var x = (b ? 0 : null);
   while (typeof x == \"string\" || typeof x == \"number\") {
     var y: string = x;
-    
+
     x = false;
   }
   var z: string = x;
@@ -1835,7 +1876,7 @@ function bar(b) {
   var x = (b ? 0 : null);
   do {
     var y: string = x;
-    
+
     x = false;
   } while (x === null);
   var z: string = x;
@@ -1847,15 +1888,15 @@ function qux() {
   var x = 0;
   try {
     maybe_throw();
-    
+
     x = \"hello\";
   } catch (e) {
     maybe_throw();
-    
+
     x = \"hello\";
   } finally {
     var y: number = x;
-    
+
     x = 42;
   }
   var z: string = x;
@@ -1869,16 +1910,18 @@ function corge(b) {
   ) {
     var y: string = x;
   }
+
   var z: string = x;
 }
 
 function waldo() {
   var o = {};
   var x = false;
-  
+
   for (x in o) {
     x = 0;
   }
+
   var z: number = x;
 }
 
@@ -2054,51 +2097,54 @@ let tests = [
     if (x === \"foo\") {
       (x: void);
     }
-    
+
     (x: \"foo\");
   },
   function(x: string) {
     if (x !== \"foo\") {
       (x: \"foo\");
     }
-    
+
     (x: void);
   },
   function(x: \"bar\"): \"foo\" {
     if (x === \"foo\") {
       return x;
     }
+
     return \"foo\";
   },
   function(x: \"foo\"): string {
     if (x === \"bar\") {
       return x;
     }
+
     return x;
   },
   function(x: \"foo\") {
     if (x !== \"bar\") {
       (x: \"foo\");
     }
-    
+
     (x: \"foo\");
   },
   function(x: \"foo\"): string {
     if (x === \"foo\") {
       return x;
     }
+
     return x;
   },
   function(x: \"foo\" | \"bar\") {
     if (x === \"foo\") {
       (x: \"foo\");
-      
+
       (x: void);
     }
-    
+
     if (x === \"bar\") {
       (x: \"bar\");
-      
+
       (x: void);
     }
   },
@@ -2106,6 +2152,7 @@ let tests = [
     if (x.foo === \"foo\") {
       return x.foo;
     }
+
     return x.foo;
   },
   function(
@@ -2127,10 +2174,11 @@ let tests = [
   },
   function(str: string): Mode {
     var ch = str[0];
-    
+
     if (ch !== \"a\" && ch !== \"b\" && ch !== \"c\") {
       throw new Error(\"Wrong string passed\");
     }
+
     return ch;
   },
   function(s: string): ?Mode {
@@ -2144,13 +2192,15 @@ let tests = [
   function(mode: Mode) {
     switch (mode) {
     case \"a\":
-      
+
       (mode: \"a\");
+
       break;
     case \"b\":
     case \"c\":
-      
+
       (mode: \"b\" | \"c\");
+
       break;
     }
   },
@@ -2165,10 +2215,11 @@ let tests = [
     if (x === \`foo\`) {
       return x;
     }
-    
+
     if (\`foo\` === x) {
       return x;
     }
+
     return \"foo\";
   }
 ];
@@ -2218,6 +2269,7 @@ class B {
     if (super.prop) {
       return super.prop;
     }
+
     return \"B\";
   }
 }
@@ -2226,6 +2278,7 @@ class C extends A {
     if (super.prop) {
       return super.prop;
     }
+
     return \"C\";
   }
 }
@@ -2668,6 +2721,7 @@ function getTypeASTName(typeAST: Type): string {
     return typeAST.name;
   }
 }
+
 import type { ASTNode } from \"./ast_node\";
 var Node = require(\"./node1\");
 
@@ -2675,8 +2729,10 @@ function foo(x: ASTNode) {
   if (x.kind === Node) {
     return x.prop1.charAt(0);
   }
+
   return null;
 }
+
 type Apple = { kind: \"Fruit\"; taste: \"Bad\" };
 type Orange = { kind: \"Fruit\"; taste: \"Good\" };
 type Broccoli = { kind: \"Veg\"; taste: \"Bad\"; raw: \"No\" };
@@ -2699,6 +2755,7 @@ function qux(x: Breakfast) {
 function list(n) {
   if (n > 0)
     return { kind: \"cons\", next: list(n - 1) };
+
   return { kind: \"nil\" };
 }
 
@@ -2714,8 +2771,10 @@ function length(l) {
 function check(n) {
   if (n >= 0)
     return n === length(list(n));
+
   return true;
 }
+
 var EnumKind = { A: 1, B: 2, C: 3 };
 type A = { kind: 1; A: number };
 type B = { kind: 2; B: number };
@@ -2733,6 +2792,7 @@ function kind(x: A | B | C): number {
 }
 
 kind({ kind: EnumKind.A, A: 1 });
+
 type Citizen = { citizen: true };
 type NonCitizen = { citizen: false; nationality: string };
 
@@ -2742,6 +2802,7 @@ function nationality(x: Citizen | NonCitizen) {
 else
     return x.nationality;
 }
+
 let tests = [
   function test7(x: A) {
     if (x.kindTypo === 1) {
@@ -2751,14 +2812,14 @@ let tests = [
   function test8(x: { foo: { bar: 1 } }) {
     if (x.foo.bar === 1)
       {}
-    
+
     if (x.fooTypo.bar === 1)
       {}
   },
   function(x: A) {
     if (x.kind === null.toString())
       {}
-    
+
     if ({ kind: 1 }.kind === null.toString())
       {}
   },
@@ -2773,54 +2834,54 @@ let tests = [
   ) {
     if (x.length === 0)
       {}
-    
+
     if (x.legnth === 0) {
       (x.legnth: number);
-      
+
       (x.legnth: string);
     }
-    
+
     if (y.length === 0)
       {}
-    
+
     if (y.legnth === 0) {
       (y.legnth: number);
-      
+
       (y.legnth: string);
     }
-    
+
     if (z.toString === 0)
       {}
-    
+
     if (z.toStirng === 0) {
       (z.toStirng: number);
-      
+
       (z.toStirng: string);
     }
-    
+
     if (q.valueOf === 0)
       {}
-    
+
     if (q.valeuOf === 0) {
       (q.valeuOf: number);
-      
+
       (q.valeuOf: string);
     }
-    
+
     if (r.toStirng === 0) {
       (r.toStirng: empty);
     }
-    
+
     if (s.call === 0)
       {}
-    
+
     if (s.calll === 0) {
       (t.calll: empty);
     }
-    
+
     if (t.call === 0)
       {}
-    
+
     if (t.calll === 0) {
       (t.calll: empty);
     }
@@ -2829,23 +2890,23 @@ let tests = [
     if (x.str === \"str\") {
       (x.str: \"not str\");
     }
-    
+
     if (x.num === 123) {
       (x.num: 456);
     }
-    
+
     if (x.bool === true) {
       (x.bool: false);
     }
-    
+
     if (x.badStr === \"bad\") {
       (x.badStr: empty);
     }
-    
+
     if (x.badNum === 123) {
       (x.badNum: empty);
     }
-    
+
     if (x.badBool === true) {
       (x.badBool: empty);
     }
@@ -2853,63 +2914,63 @@ let tests = [
   function(x: { foo: 123; y: string } | { foo: \"foo\"; z: string }) {
     if (x.foo === 123) {
       (x.y: string);
-      
+
       x.z;
     } else {
       (x.z: string);
-      
+
       x.y;
     }
-    
+
     if (x.foo === \"foo\") {
       (x.z: string);
-      
+
       x.y;
     } else {
       (x.y: string);
-      
+
       x.z;
     }
   },
   function(x: { foo: number; y: string } | { foo: \"foo\"; z: string }) {
     if (x.foo === 123) {
       (x.y: string);
-      
+
       x.z;
     } else {
       x.y;
-      
+
       x.z;
     }
-    
+
     if (x.foo === \"foo\") {
       (x.z: string);
-      
+
       x.y;
     } else {
       (x.y: string);
-      
+
       x.z;
     }
   },
   function(x: { foo: number; y: string } | { foo: string; z: string }) {
     if (x.foo === 123) {
       (x.y: string);
-      
+
       x.z;
     } else {
       x.y;
-      
+
       x.z;
     }
-    
+
     if (x.foo === \"foo\") {
       (x.z: string);
-      
+
       x.y;
     } else {
       x.y;
-      
+
       x.z;
     }
   },
@@ -2918,7 +2979,7 @@ let tests = [
   ) {
     if (x.foo === num) {
       x.y;
-      
+
       x.z;
     }
   }
@@ -2959,12 +3020,14 @@ type Error = { type: typeof ERROR; error: string };
 function handleStatus(status: Success | Error) {
   switch (status.type) {
   case SUCCESS:
-    
+
     console.log(\`Successful: \${status.message}\`);
+
     break;
   default:
-    
+
     console.log(\`Errored: \${status.error}\`);
+
   }
 }
 "
@@ -3056,10 +3119,11 @@ function foo(x: boolean | number) {
 
 function bar(): number {
   var x = null;
-  
+
   if (typeof x === \"object\") {
     return x;
   }
+
   return 0;
 }
 
@@ -3067,16 +3131,16 @@ function fn0() {
   if (typeof BAZ !== \"undefined\" && typeof BAZ.stuff === \"function\") {
     BAZ.stuff(123);
   }
-  
+
   BAZ.stuff(123);
 }
 
 function fn1() {
   BAZ.stuff;
-  
+
   if (typeof BAZ !== \"undefined\" && typeof BAZ.stuff === \"function\") {
     BAZ.stuff(123);
-    
+
     BAZ.stuff(123);
   }
 }
@@ -3085,6 +3149,7 @@ function anyfun(x: number | Function): number {
   if (typeof x === \"function\") {
     return 0;
   }
+
   return x;
 }
 
@@ -3092,6 +3157,7 @@ function anyobj(x: number | Object): number {
   if (typeof x === \"object\") {
     return 0;
   }
+
   return x;
 }
 
@@ -3261,7 +3327,7 @@ function undef_unreachable(x: number) {
   if (x === undefined) {
     var y = x * 1000;
   }
-  
+
   if (x == undefined) {
     var z = x * 1000;
   }
@@ -3271,7 +3337,7 @@ function undef_var_nonstrict(x: ?number, y: ?number) {
   if (x != undefined) {
     var a = x * 1000;
   }
-  
+
   if (y == undefined) {
     var b = y * 1000;
   }
@@ -3281,7 +3347,7 @@ function undef_bogus_comparison() {
   if (100 * undefined) {
     return;
   }
-  
+
   if (undefined * 100) {
     return;
   }
@@ -3524,7 +3590,7 @@ function void_bogus_comparison() {
   if (100 * void 0) {
     return;
   }
-  
+
   if (void 0 * 100) {
     return;
   }
@@ -3532,7 +3598,7 @@ function void_bogus_comparison() {
 
 function void_redefined_undefined(x: ?number) {
   var undefined = \"foo\";
-  
+
   if (x !== null && x !== void 0) {
     var y = x * 1000;
   }

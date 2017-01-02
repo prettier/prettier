@@ -110,6 +110,7 @@ e.set(\"Content-Type\", \"image/jpeg\");
 e.set(\"Content-Type\");
 
 e.set({ \"Content-Type\", \"image/jpeg\" });
+
 const f: Headers = e.append(\"Content-Type\", \"image/jpeg\");
 const g: string = e.get(\"Content-Type\");
 const h: number = e.get(\"Content-Type\");
@@ -412,6 +413,7 @@ e.set(\"key1\", \"value1\");
 e.set(\"key1\");
 
 e.set({ \"key1\", \"value1\" });
+
 const f: URLSearchParams = e.append(\"key1\", \"value1\");
 const g: string = e.get(\"key1\");
 const h: number = e.get(\"key1\");

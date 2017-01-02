@@ -32,6 +32,7 @@ function F(props: { foo: string }) {}
 function G(props: { foo: string | numner }) {}
 
 <G foo=\"\"/>;
+
 var Z = 0;
 
 <Z/>;

@@ -35,8 +35,10 @@ function f() {
       return \"...\";
     }
   );
+
   var x: number = array[0];
 }
+
 var Foo = require(\"./genericfoo\");
 var foo = new Foo();
 
@@ -47,7 +49,7 @@ function g() {
     }
   );
   var x: number = foo1.get();
-  
+
   foo = foo1;
 }
 "

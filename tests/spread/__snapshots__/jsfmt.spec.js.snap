@@ -173,6 +173,7 @@ function test(x: { kind: ?string }, kinds: { [key: string]: string }): Array<{
     kinds,
     value => {
       (value: string);
+
       return { ...x, kind: value };
     }
   );
@@ -208,6 +209,7 @@ var o = { foo: \"bar\" };
 o = { ...o };
 
 (o: { foo: string });
+
 var p = { foo: \"bar\" };
 
 (p: { foo: string; abc: string });
@@ -215,6 +217,7 @@ var p = { foo: \"bar\" };
 p = { ...p, abc: \"def\" };
 
 (p: { foo: string; abc: string });
+
 var q = { foo: \"bar\" };
 
 for (var i = 0; i < 10; i++) {
@@ -240,7 +243,7 @@ let tests = [
 let tests = [
   function(x: Object) {
     ({ ...x }: Object);
-    
+
     ({ ...x }: void);
   }
 ];

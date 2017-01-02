@@ -84,6 +84,7 @@ buffer[1];
 buffer.copyWithin(0, 0);
 
 buffer.copyWithin(0, 0, 0);
+
 const it1: Iterator<[number, number]> = buffer.entries();
 
 bool = buffer.every((element: number) => false);
@@ -136,6 +137,7 @@ num = buffer.indexOf(3);
 num = buffer.indexOf(3, 4);
 
 buffer = Buffer.from([ 98, 117, 102, 102, 101, 114 ]);
+
 const typedArray = new Uint8Array([ 52 ]);
 
 buffer = Buffer.from(

@@ -238,6 +238,7 @@ function f() {
 function f() {
   try {
     might_throw();
+
     var x: number = 0;
   } catch (e) {
     var y: number = x;
@@ -247,6 +248,7 @@ function f() {
 function f() {
   try {
     might_throw();
+
     var x: number = 0;
   } finally {
     var y: number = x;
@@ -266,6 +268,7 @@ function f() {
     var x: number = 0;
   } catch (e) {
     might_throw();
+
     var x: number = 0;
   } finally {
     var y: number = x;
@@ -277,6 +280,7 @@ function f() {
     var x: number = 0;
   } catch (e) {
     might_throw();
+
     var x: number = 0;
   }
   var y: number = x;
@@ -285,6 +289,7 @@ function f() {
 function f() {
   try {} catch (e) {} finally {
     might_throw();
+
     var x: number = 0;
   }
   var y: number = x;
@@ -295,7 +300,7 @@ function f() {
     var x: number;
   } catch (e) {} finally {
     might_throw();
-    
+
     x = 0;
   }
   var y: number = x;
@@ -306,7 +311,7 @@ function f() {
     var x: number;
   } finally {
     might_throw();
-    
+
     x = 0;
   }
   var y: number = x;
@@ -336,11 +341,11 @@ function f() {
 function f(b) {
   try {
     var x: number;
-    
+
     if (b) {
       throw new Error();
     }
-    
+
     x = 0;
   } catch (e) {}
   var y: number = x;
@@ -424,8 +429,9 @@ function foo(x: ?number): string {
   try {} catch (e) {
     return \"bar\";
   }
-  
+
   console.log();
+
   return \"foo\";
 }
 
@@ -450,8 +456,9 @@ function qux(): string {
   try {
     throw new Error(\"foo\");
   } catch (e) {}
-  
+
   console.log();
+
   return \"bar\";
 }
 
@@ -478,7 +485,7 @@ function corge(): string {
   } catch (e) {
     throw new Error(\"bar\");
   }
-  
+
   bar();
 }
 "
@@ -546,13 +553,14 @@ function foo() {
     x = \"\";
   } catch (e) {
     x = false;
+
     throw -1;
   } finally {
     y = {};
   }
-  
+
   x();
-  
+
   y();
 }
 
@@ -563,7 +571,7 @@ function bar(response) {
   } catch (e) {
     throw new Error(\"...\");
   }
-  
+
   if (payload.error)
     {}
 }
@@ -573,7 +581,7 @@ function qux() {
   try {
     throw -1;
   } finally {}
-  
+
   x();
 }
 "
