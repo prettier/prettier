@@ -21,11 +21,11 @@ import {numVal as numVal2} from \'3DoesntExist\'; // Error
 // Error
 // Error
 var m1 = require(\"1DoesntExist\");
-import { numVal as numVal1 } from \"1DoesntExist\";
+import {numVal as numVal1} from \"1DoesntExist\";
 var a_1: number = m1.numVal;
 var a_2: number = numVal1;
 var m2 = require(\"2DoesntExist\");
-import { numVal as numVal2 } from \"3DoesntExist\";
+import {numVal as numVal2} from \"3DoesntExist\";
 "
 `;
 

@@ -16,7 +16,7 @@ exports[`test qux.js 1`] = `
 "import type { Foo } from \'./bar.js\';
 ({ x: \"\" }: Foo);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-import type { Foo } from \"./bar.js\";
+import type {Foo} from \"./bar.js\";
 
 ({ x: \"\" }: Foo);
 "

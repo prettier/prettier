@@ -30,7 +30,7 @@ module.exports = printBinaryExpression;
  */
 \"use babel\";
 
-import type { BinaryExpression } from \"./types\";
+import type {BinaryExpression} from \"./types\";
 
 function printBinaryExpression(node: BinaryExpression) {
   console.log(node);

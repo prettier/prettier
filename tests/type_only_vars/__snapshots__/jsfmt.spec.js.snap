@@ -50,7 +50,7 @@ var duck: string = \"quack\";
 // These string types should confict with the imported types
 // This string type should conflict with the typedef
 import typeof A from \"./A.js\";
-import type { Foo, Bar as Baz } from \"./A.js\";
+import type {Foo, Bar as Baz} from \"./A.js\";
 type duck = { quack(): string };
 var A: string = \"Hello\";
 var Foo: string = \"Goodbye\";
@@ -87,7 +87,7 @@ var b: Foo = new A.Foo();
 // errors in prev block leave type bindings in place, so these are errors
 // errors from value positions only
 import typeof A from \"./A.js\";
-import type { Foo, Bar as Baz } from \"./A.js\";
+import type {Foo, Bar as Baz} from \"./A.js\";
 var A = require(\"./A.js\");
 var Foo = A.Foo;
 var Baz = A.Bar;
@@ -126,7 +126,7 @@ var a: Foo = new actualA.Foo();
 // You can\'t use it as an identifier
 // But using it in a type should still work
 import typeof A from \"./A.js\";
-import type { Foo, Bar as Baz } from \"./A.js\";
+import type {Foo, Bar as Baz} from \"./A.js\";
 var actualA = require(\"./A.js\");
 var m = A;
 var n = Foo;

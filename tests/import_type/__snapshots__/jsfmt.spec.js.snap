@@ -153,7 +153,7 @@ class ClassFoo2 {
     return 42;
   }
 }
-export { ClassFoo2 }
+export {ClassFoo2}
 export var foo2Inst = new ClassFoo2();
 "
 `;
@@ -298,14 +298,14 @@ function foo() {
 ////////////////////////////////////////////////////////////////////////
 // Error: Not a value binding
 import type ClassFoo1 from \"./ExportDefault_Class\";
-import { foo1Inst } from \"./ExportDefault_Class\";
+import {foo1Inst} from \"./ExportDefault_Class\";
 var a1: ClassFoo1 = foo1Inst;
 var a2: number = foo1Inst;
 
 new ClassFoo1();
 
-import type { ClassFoo2 } from \"./ExportNamed_Class\";
-import { foo2Inst } from \"./ExportNamed_Class\";
+import type {ClassFoo2} from \"./ExportNamed_Class\";
+import {foo2Inst} from \"./ExportNamed_Class\";
 var b1: ClassFoo2 = foo2Inst;
 var b2: number = foo2Inst;
 
@@ -317,20 +317,20 @@ var c1: ClassFoo3T = new ClassFoo3();
 
 new ClassFoo3T();
 
-import type { ClassFoo4, ClassFoo5 } from \"./ExportCJSNamed_Class\";
-import { foo4Inst, foo5Inst } from \"./ExportCJSNamed_Class\";
+import type {ClassFoo4, ClassFoo5} from \"./ExportCJSNamed_Class\";
+import {foo4Inst, foo5Inst} from \"./ExportCJSNamed_Class\";
 var d1: ClassFoo4 = foo4Inst;
 var d2: number = foo4Inst;
 
 new ClassFoo4();
 
 var d3: typeof ClassFoo5 = foo5Inst;
-import type { AliasFoo3 } from \"./ExportNamed_Alias\";
-import { givesAFoo3Obj } from \"./ExportNamed_Alias\";
+import type {AliasFoo3} from \"./ExportNamed_Alias\";
+import {givesAFoo3Obj} from \"./ExportNamed_Alias\";
 var e1: AliasFoo3 = givesAFoo3Obj();
 var e2: number = givesAFoo3Obj();
 var e3: typeof AliasFoo3 = givesAFoo3Obj();
-import type { numValue } from \"./ExportsANumber\";
+import type {numValue} from \"./ExportsANumber\";
 import type ClassFoo6 from \"./issue-359\";
 
 function foo() {

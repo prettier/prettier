@@ -149,7 +149,7 @@ function Printer(originalOptions) {
     options.reuseWhitespace = false;
 
     var res = printGenerically(path);
-    var pr = new PrintResult(pp.print(options.wrapColumn, res));
+    var pr = new PrintResult(pp.print(options.printWidth, res));
 
     options.reuseWhitespace = oldReuseWhitespace;
 
@@ -666,9 +666,12 @@ function genericPrintNoParens(path, options, print) {
             leftBrace,
             indent(
               options.tabWidth,
-              concat([ line, join(concat([ separator, line ]), props) ])
+              concat([
+                options.bracketSpacing ? line : softline,
+                join(concat([ separator, line ]), props)
+              ])
             ),
-            line,
+            options.bracketSpacing ? line : softline,
             rightBrace,
             path.call(print, "typeAnnotation")
           ]

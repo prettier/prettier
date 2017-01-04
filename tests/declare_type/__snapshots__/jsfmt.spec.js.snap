@@ -45,15 +45,15 @@ blah(0, 0);
 // error : {toz : number} ~> string
 // error : number ~> A
 // error : string ~> number
-import type { baz } from \"ModuleAliasFoo\";
-import { foo } from \"ModuleAliasFoo\";
+import type {baz} from \"ModuleAliasFoo\";
+import {foo} from \"ModuleAliasFoo\";
 var k1: baz = 42;
 var k2: baz = \"shab\";
 var k3: toz = foo(k1);
-import type { toz } from \"ModuleAliasFoo\";
+import type {toz} from \"ModuleAliasFoo\";
 var k4: toz = foo(k1);
 import blah from \"foo\";
-import type { Foo, Bar, Id } from \"foo\";
+import type {Foo, Bar, Id} from \"foo\";
 
 blah(0, 0);
 

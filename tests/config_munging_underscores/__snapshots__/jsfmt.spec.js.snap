@@ -95,6 +95,6 @@ exports[`test commonjs_import.js 1`] = `
 import {_p} from \"./commonjs_export\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-import { _p } from \"./commonjs_export\";
+import {_p} from \"./commonjs_export\";
 "
 `;

@@ -12,7 +12,7 @@ var d: number = source.str; // Ignored error: num ~> string
 // @flow
 // Error: num ~> string
 // Ignored error: num ~> string
-import { source } from \"./test\";
+import {source} from \"./test\";
 var a: number = source.num;
 var b: string = source.num;
 var c: string = source.str;

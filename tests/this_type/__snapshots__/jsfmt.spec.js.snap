@@ -234,9 +234,9 @@ class B3<X> extends A3<X> {
 // OK
 // error
 // error
-import { A1 } from \"./export\";
-import type { A2 } from \"./export\";
-import { A3 } from \"./export\";
+import {A1} from \"./export\";
+import type {A2} from \"./export\";
+import {A3} from \"./export\";
 class B1 extends A1 {
   foo(): B1 {
     return new B1();

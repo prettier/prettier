@@ -27,7 +27,6 @@ var babylonOptions = {
 
 module.exports = {
   format: function(text, opts={}) {
-    let { tabWidth = 2, printWidth = 80 } = opts;
     let ast;
 
     if(opts.useFlowParser) {
@@ -52,7 +51,7 @@ module.exports = {
 
     ast.tokens = [];
 
-    const printer = new Printer({ tabWidth, wrapColumn: printWidth });
+    const printer = new Printer(opts);
     return printer.printGenerically(ast).code;
   }
 };

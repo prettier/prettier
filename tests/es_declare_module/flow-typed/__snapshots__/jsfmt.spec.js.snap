@@ -32,7 +32,7 @@ declare module \"CJS_Clobbered\" {
 }
 declare module \"ES\" {
   declare var strHidden: string;
-  declare export { strHidden as str3 }
+  declare export {strHidden as str3}
   declare export var num3: number;
   declare export class C {}
   declare export type T = number;

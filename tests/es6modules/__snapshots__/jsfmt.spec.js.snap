@@ -408,7 +408,7 @@ export {
  * @providesModule ES6_ExportFrom_Intermediary1
  * @flow
  */
-export { numberValue1, numberValue2 as numberValue2_renamed } from \"ES6_ExportFrom_Source1\"
+export {numberValue1, numberValue2 as numberValue2_renamed} from \"ES6_ExportFrom_Source1\"
 "
 `;
 
@@ -427,7 +427,7 @@ export {
  * @providesModule ES6_ExportFrom_Intermediary2
  * @flow
  */
-export { numberValue1, numberValue2 as numberValue2_renamed2 } from \"ES6_ExportFrom_Source2\"
+export {numberValue1, numberValue2 as numberValue2_renamed2} from \"ES6_ExportFrom_Source2\"
 "
 `;
 
@@ -496,10 +496,10 @@ var specifierNumber2 = 2;
 var specifierNumber3 = 3;
 var groupedSpecifierNumber1 = 1;
 var groupedSpecifierNumber2 = 2;
-export { specifierNumber1 }
-export { specifierNumber2 as specifierNumber2Renamed }
-export { specifierNumber3 }
-export { groupedSpecifierNumber1, groupedSpecifierNumber2 }
+export {specifierNumber1}
+export {specifierNumber2 as specifierNumber2Renamed}
+export {specifierNumber3}
+export {groupedSpecifierNumber1, groupedSpecifierNumber2}
 export function givesANumber(): number {
   return 42;
 }
@@ -544,9 +544,9 @@ var specifierNumber4 = 1;
 var specifierNumber5 = 2;
 var groupedSpecifierNumber3 = 1;
 var groupedSpecifierNumber4 = 2;
-export { specifierNumber4 }
-export { specifierNumber5 as specifierNumber5Renamed }
-export { groupedSpecifierNumber3, groupedSpecifierNumber4 }
+export {specifierNumber4}
+export {specifierNumber5 as specifierNumber5Renamed}
+export {groupedSpecifierNumber3, groupedSpecifierNumber4}
 export function givesANumber2(): number {
   return 42;
 }
@@ -1090,11 +1090,11 @@ var b1: number = DefaultB.numberValue;
 var b2: string = DefaultB.numberValue;
 import DefaultC from \"C\";
 import DefaultD from \"./D\";
-import { doesntExist1 } from \"CommonJS_Clobbering_Lit\";
-import { numberValue1 } from \"CommonJS_Clobbering_Lit\";
+import {doesntExist1} from \"CommonJS_Clobbering_Lit\";
+import {numberValue1} from \"CommonJS_Clobbering_Lit\";
 var c1: number = numberValue1;
 var c2: string = numberValue1;
-import { numberValue2 as numVal1 } from \"CommonJS_Clobbering_Lit\";
+import {numberValue2 as numVal1} from \"CommonJS_Clobbering_Lit\";
 var d1: number = numVal1;
 var d2: string = numVal1;
 import CJS_Clobb_Lit from \"CommonJS_Clobbering_Lit\";
@@ -1111,8 +1111,8 @@ CJS_Clobb_Lit_NS.default.default;
 
 var f3: string = CJS_Clobb_Lit_NS.numberValue4;
 var f4: string = CJS_Clobb_Lit_NS.default.numberValue5;
-import { doesntExist2 } from \"CommonJS_Clobbering_Class\";
-import { staticNumber1, baseProp, childProp } from \"CommonJS_Clobbering_Class\";
+import {doesntExist2} from \"CommonJS_Clobbering_Class\";
+import {staticNumber1, baseProp, childProp} from \"CommonJS_Clobbering_Class\";
 import CJS_Clobb_Class from \"CommonJS_Clobbering_Class\";
 
 new CJS_Clobb_Class();
@@ -1130,11 +1130,11 @@ new CJS_Clobb_Class_NS();
 var i1: number = CJS_Clobb_Class_NS.staticNumber3();
 var i2: number = new CJS_Clobb_Class_NS.default().instNumber2();
 var i3: string = new CJS_Clobb_Class_NS.default().instNumber2();
-import { doesntExist3 } from \"CommonJS_Named\";
-import { numberValue2 } from \"CommonJS_Named\";
+import {doesntExist3} from \"CommonJS_Named\";
+import {numberValue2} from \"CommonJS_Named\";
 var j1: number = numberValue2;
 var j2: string = numberValue2;
-import { numberValue3 as numVal3 } from \"CommonJS_Named\";
+import {numberValue3 as numVal3} from \"CommonJS_Named\";
 var k1: number = numVal3;
 var k2: string = numVal3;
 import * as CJS_Named from \"CommonJS_Named\";
@@ -1147,7 +1147,7 @@ import * as CJS_Named_NS from \"CommonJS_Named\";
 var m1: number = CJS_Named_NS.numberValue4;
 var m2: string = CJS_Named_NS.default.numberValue4;
 var m3: string = CJS_Named_NS.numberValue4;
-import { doesntExist4 } from \"ES6_Default_AnonFunction1\";
+import {doesntExist4} from \"ES6_Default_AnonFunction1\";
 import ES6_Def_AnonFunc1 from \"ES6_Default_AnonFunction1\";
 var n1: number = ES6_Def_AnonFunc1();
 var n2: string = ES6_Def_AnonFunc1();
@@ -1161,44 +1161,44 @@ import ES6_Def_NamedClass1 from \"ES6_Default_NamedClass1\";
 var q1: number = new ES6_Def_NamedClass1().givesANum();
 var q2: string = new ES6_Def_NamedClass1().givesANum();
 import doesntExist5 from \"ES6_Named1\";
-import { specifierNumber1 as specifierNumber1_1 } from \"ES6_Named1\";
+import {specifierNumber1 as specifierNumber1_1} from \"ES6_Named1\";
 var r1: number = specifierNumber1_1;
 var r2: string = specifierNumber1_1;
-import { specifierNumber2Renamed } from \"ES6_Named1\";
+import {specifierNumber2Renamed} from \"ES6_Named1\";
 var s1: number = specifierNumber2Renamed;
 var s2: string = specifierNumber2Renamed;
-import { specifierNumber3 as specifierNumber3Renamed } from \"ES6_Named1\";
+import {specifierNumber3 as specifierNumber3Renamed} from \"ES6_Named1\";
 var t1: number = specifierNumber3Renamed;
 var t2: string = specifierNumber3Renamed;
-import { groupedSpecifierNumber1, groupedSpecifierNumber2 } from \"ES6_Named1\";
+import {groupedSpecifierNumber1, groupedSpecifierNumber2} from \"ES6_Named1\";
 var u1: number = groupedSpecifierNumber1;
 var u2: number = groupedSpecifierNumber2;
 var u3: string = groupedSpecifierNumber1;
 var u4: string = groupedSpecifierNumber2;
-import { givesANumber } from \"ES6_Named1\";
+import {givesANumber} from \"ES6_Named1\";
 var v1: number = givesANumber();
 var v2: string = givesANumber();
-import { NumberGenerator } from \"ES6_Named1\";
+import {NumberGenerator} from \"ES6_Named1\";
 var w1: number = new NumberGenerator().givesANumber();
 var w2: string = new NumberGenerator().givesANumber();
-import { varDeclNumber1, varDeclNumber2 } from \"ES6_Named1\";
+import {varDeclNumber1, varDeclNumber2} from \"ES6_Named1\";
 var x1: number = varDeclNumber1;
 var x2: number = varDeclNumber2;
 var x3: string = varDeclNumber1;
 var x4: string = varDeclNumber2;
-import { destructuredObjNumber } from \"ES6_Named1\";
+import {destructuredObjNumber} from \"ES6_Named1\";
 var y1: number = destructuredObjNumber;
 var y2: string = destructuredObjNumber;
-import { destructuredArrNumber } from \"ES6_Named1\";
+import {destructuredArrNumber} from \"ES6_Named1\";
 var z1: number = destructuredArrNumber;
 var z2: string = destructuredArrNumber;
-import { numberValue1 as numberValue4 } from \"ES6_ExportFrom_Intermediary1\";
+import {numberValue1 as numberValue4} from \"ES6_ExportFrom_Intermediary1\";
 var aa1: number = numberValue4;
 var aa2: string = numberValue4;
-import { numberValue2_renamed } from \"ES6_ExportFrom_Intermediary1\";
+import {numberValue2_renamed} from \"ES6_ExportFrom_Intermediary1\";
 var ab1: number = numberValue2_renamed;
 var ab2: string = numberValue2_renamed;
-import { numberValue1 as numberValue5 } from \"ES6_ExportAllFrom_Intermediary1\";
+import {numberValue1 as numberValue5} from \"ES6_ExportAllFrom_Intermediary1\";
 var ac1: number = numberValue5;
 var ac2: string = numberValue5;
 
@@ -1257,20 +1257,20 @@ var aq2: string = numberValue2_renamed2;
 var numberValue7 = require(\"ES6_ExportAllFrom_Intermediary2\").numberValue2;
 var ar1: number = numberValue7;
 var ar2: string = numberValue7;
-import defaultNum, { str as namedStr } from \"./ES6_DefaultAndNamed\";
+import defaultNum, {str as namedStr} from \"./ES6_DefaultAndNamed\";
 var as1: number = defaultNum;
 var as2: string = defaultNum;
 var as3: string = namedStr;
 var as4: number = namedStr;
 import \"./SideEffects\";
 import specifierNumber1 from \"ES6_Named1\";
-import { specifierNumber } from \"ES6_Named1\";
-import { numberValue1 as numberValue8, numberValue2 as numberValue9 } from \"./ES6_ExportAllFromMulti\";
+import {specifierNumber} from \"ES6_Named1\";
+import {numberValue1 as numberValue8, numberValue2 as numberValue9} from \"./ES6_ExportAllFromMulti\";
 var at1: number = numberValue8;
 var at2: string = numberValue8;
 var at3: number = numberValue9;
 var at4: string = numberValue9;
-import { typeAlias } from \"./ExportType\";
+import {typeAlias} from \"./ExportType\";
 "
 `;
 

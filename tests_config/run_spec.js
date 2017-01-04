@@ -80,7 +80,7 @@ function parse(string) {
 }
 
 function prettyprint(src, filename) {
-  return jscodefmt.format(src, { filename, useFlowParser: true });
+  return jscodefmt.format(src, { filename, useFlowParser: true, printWidth: 80 });
 }
 
 function read(filename) {

@@ -56,7 +56,7 @@ var n: IFoo2 = {prop: 42}; // Error: {prop:number} ~> {prop:string}
 // Error: string ~> number
 // Error: {prop:string} ~> {prop:number}
 // Error: {prop:number} ~> {prop:string}
-import type { inlinedType1, standaloneType1, talias1, talias3 } from \"./types_only\";
+import type {inlinedType1, standaloneType1, talias1, talias3} from \"./types_only\";
 var a: inlinedType1 = 42;
 var b: inlinedType1 = \"asdf\";
 var c: standaloneType1 = 42;
@@ -65,10 +65,10 @@ var e: talias1 = 42;
 var f: talias1 = \"asdf\";
 var g: talias3 = 42;
 var h: talias3 = \"asdf\";
-import type { talias4 } from \"./cjs_with_types\";
+import type {talias4} from \"./cjs_with_types\";
 var i: talias4 = 42;
 var j: talias4 = \"asdf\";
-import { IFoo, IFoo2 } from \"./types_only\";
+import {IFoo, IFoo2} from \"./types_only\";
 var k: IFoo = { prop: 42 };
 var l: IFoo = { prop: \"asdf\" };
 var m: IFoo2 = { prop: \"asdf\" };
@@ -100,10 +100,10 @@ export type inlinedType1 = number;
 var a: inlinedType1 = 42;
 var b: inlinedType1 = \"asdf\";
 type standaloneType1 = number;
-export type { standaloneType1 }
+export type {standaloneType1}
 type standaloneType2 = number;
-export { standaloneType2 }
-export type { talias1, talias2 as talias3, IFoo2 } from \"./types_only2\"
+export {standaloneType2}
+export type {talias1, talias2 as talias3, IFoo2} from \"./types_only2\"
 export interface IFoo  { prop: number }
 "
 `;

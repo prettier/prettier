@@ -212,7 +212,7 @@ export function emitExpression(node: TypedNode) : t.Expression {
 // FALLTHROUGH
 import * as t from \"./jsAst\";
 const b = t.builders;
-import type { TypedNode } from \"./ast\";
+import type {TypedNode} from \"./ast\";
 
 function getBinaryOp(
   op: \"plus\" | \"minus\" | \"divide\" | \"multiply\"

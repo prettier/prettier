@@ -129,7 +129,7 @@ function bar(m: M) { m.x; m.y; m.z; } // OK
 // error: z not found in L
 // interface + multiple inheritance is similar to object type + intersection
 // OK
-import type { J } from \"./import\";
+import type {J} from \"./import\";
 interface K  {}
 interface L extends J, K { y: string }
 

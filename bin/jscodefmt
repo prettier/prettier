@@ -5,18 +5,20 @@ const minimist = require("minimist");
 const jscodefmt = require("../index");
 
 const argv = minimist(process.argv.slice(2), {
-  boolean: ["write", "useFlowParser"]
+  boolean: ["write", "useFlowParser", "bracket-spacing"]
 });
 
 const filename = argv["_"][0];
 const printWidth = argv['print-width'] || 80;
 const tabWidth = argv['tab-width'] || 2;
 const useFlowParser = argv['flow-parser'];
+const bracketSpacing = argv['bracket-spacing'];
 const write = argv['write'];
 
 const output = jscodefmt.format(fs.readFileSync(filename, "utf8"), {
   printWidth,
   tabWidth,
+  bracketSpacing,
   useFlowParser
 });
 
