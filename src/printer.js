@@ -1775,7 +1775,7 @@ function printArgumentsList(path, options, print) {
           { shouldBreak: true }
         ),
       ],
-      shouldBreak
+      { shouldBreak }
     );
   }
 
@@ -1789,7 +1789,7 @@ function printArgumentsList(path, options, print) {
       softline,
       ")"
     ]),
-    shouldBreak
+    { shouldBreak }
   );
 }
 
