@@ -160,8 +160,10 @@ function test(
  * result is a new object.
  */
 // OK
-declare function map<Tv, TNext>(obj: { [key: string]: Tv },
-iterator: (obj: Tv) => TNext): Array<TNext>;
+declare function map<Tv, TNext>(
+  obj: { [key: string]: Tv },
+  iterator: (obj: Tv) => TNext
+): Array<TNext>;
 
 function test(
   x: { kind: ?string },

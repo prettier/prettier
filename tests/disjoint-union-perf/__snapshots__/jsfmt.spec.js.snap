@@ -1250,68 +1250,102 @@ export const builders: {
   emptyStatement(): EmptyStatement;
   blockStatement(body: Statement[]): BlockStatement;
   expressionStatement(expression: Expression): ExpressionStatement;
-  ifStatement(test: Expression,
-  consequent: Statement,
-  alternate?: Statement): IfStatement;
+  ifStatement(
+    test: Expression,
+    consequent: Statement,
+    alternate?: Statement
+  ): IfStatement;
   breakStatement(label?: Identifier): BreakStatement;
   continueStatement(label?: Identifier): ContinueStatement;
   returnStatement(argument: ?Expression): ReturnStatement;
   throwStatement(argument: ?Expression): ThrowStatement;
   whileStatement(test: Expression, body: Statement): WhileStatement;
-  forStatement(init: ?(VariableDeclaration | Expression),
-  test: ?Expression,
-  update: ?Expression,
-  body: Statement): ForStatement;
-  forInStatement(left: VariableDeclaration | Expression,
-  right: Expression,
-  body: Statement): ForInStatement;
-  tryStatement(block: BlockStatement,
-  handler: ?CatchClause,
-  handlers: CatchClause[],
-  finalizer?: BlockStatement): TryStatement;
-  catchClause(param: Pattern,
-  guard: ?Expression,
-  body: BlockStatement): CatchClause;
+  forStatement(
+    init: ?(VariableDeclaration | Expression),
+    test: ?Expression,
+    update: ?Expression,
+    body: Statement
+  ): ForStatement;
+  forInStatement(
+    left: VariableDeclaration | Expression,
+    right: Expression,
+    body: Statement
+  ): ForInStatement;
+  tryStatement(
+    block: BlockStatement,
+    handler: ?CatchClause,
+    handlers: CatchClause[],
+    finalizer?: BlockStatement
+  ): TryStatement;
+  catchClause(
+    param: Pattern,
+    guard: ?Expression,
+    body: BlockStatement
+  ): CatchClause;
   identifier(name: string): Identifier;
-  literal(value: ?(string | boolean | number | RegExp),
-  regex?: { pattern: string; flags: string }): Literal;
+  literal(
+    value: ?(string | boolean | number | RegExp),
+    regex?: { pattern: string; flags: string }
+  ): Literal;
   thisExpression(): ThisExpression;
   arrayExpression(elements: Expression[]): ArrayExpression;
   objectExpreession(properties: Property[]): ObjectExpreession;
-  property(kind: \"init\" | \"get\" | \"set\",
-  key: Literal | Identifier,
-  value: Expression): Property;
-  functionExpression(id: ?Identifier,
-  params: Pattern[],
-  body: BlockStatement): FunctionExpression;
-  binaryExpression(operator: BinaryOperator,
-  left: Expression,
-  right: Expression): BinaryExpression;
-  unaryExpression(operator: UnaryOperator,
-  argument: Expression,
-  prefix: boolean): UnaryExpression;
-  assignmentExpression(operator: AssignmentOperator,
-  left: Pattern,
-  right: Expression): AssignmentExpression;
-  updateExpression(operator: UpdateOperator,
-  argument: Expression,
-  prefix: boolean): UpdateExpression;
-  logicalExpression(operator: LogicalOperator,
-  left: Expression,
-  right: Expression): LogicalExpression;
-  conditionalExpression(test: Expression,
-  consequent: Expression,
-  alternate: Expression): ConditionalExpression;
+  property(
+    kind: \"init\" | \"get\" | \"set\",
+    key: Literal | Identifier,
+    value: Expression
+  ): Property;
+  functionExpression(
+    id: ?Identifier,
+    params: Pattern[],
+    body: BlockStatement
+  ): FunctionExpression;
+  binaryExpression(
+    operator: BinaryOperator,
+    left: Expression,
+    right: Expression
+  ): BinaryExpression;
+  unaryExpression(
+    operator: UnaryOperator,
+    argument: Expression,
+    prefix: boolean
+  ): UnaryExpression;
+  assignmentExpression(
+    operator: AssignmentOperator,
+    left: Pattern,
+    right: Expression
+  ): AssignmentExpression;
+  updateExpression(
+    operator: UpdateOperator,
+    argument: Expression,
+    prefix: boolean
+  ): UpdateExpression;
+  logicalExpression(
+    operator: LogicalOperator,
+    left: Expression,
+    right: Expression
+  ): LogicalExpression;
+  conditionalExpression(
+    test: Expression,
+    consequent: Expression,
+    alternate: Expression
+  ): ConditionalExpression;
   newExpression(callee: Expression, arguments: Expression[]): NewExpression;
   callExpression(callee: Expression, arguments: Expression[]): CallExpression;
-  memberExpression(object: Expression,
-  property: Identifier | Expression,
-  computed: boolean): MemberExpression;
-  variableDeclaration(kind: \"var\" | \"let\" | \"const\",
-  declarations: VariableDeclarator[]): VariableDeclaration;
-  functionDeclaration(id: Identifier,
-  body: BlockStatement,
-  params: Pattern[]): FunctionDeclaration;
+  memberExpression(
+    object: Expression,
+    property: Identifier | Expression,
+    computed: boolean
+  ): MemberExpression;
+  variableDeclaration(
+    kind: \"var\" | \"let\" | \"const\",
+    declarations: VariableDeclarator[]
+  ): VariableDeclaration;
+  functionDeclaration(
+    id: Identifier,
+    body: BlockStatement,
+    params: Pattern[]
+  ): FunctionDeclaration;
   variableDeclarator(id: Pattern, init?: Expression): VariableDeclarator
 } = a;
 "

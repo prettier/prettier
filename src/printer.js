@@ -358,17 +358,7 @@ function genericPrintNoParens(path, options, print) {
 
     parts.push(
       path.call(print, "typeParameters"),
-      concat(
-        [
-          "(",
-          indent(
-            options.tabWidth,
-            concat([ softline, printFunctionParams(path, print) ])
-          ),
-          softline,
-          ")"
-        ]
-      ),
+      printFunctionParams(path, print, options),
       printReturnType(path, print),
       " ",
       path.call(print, "body")
@@ -394,9 +384,7 @@ function genericPrintNoParens(path, options, print) {
       parts.push(path.call(print, "params", 0));
     } else {
       parts.push(
-        "(",
-        printFunctionParams(path, print),
-        ")",
+        printFunctionParams(path, print, options),
         printReturnType(path, print)
       );
     }
@@ -1408,7 +1396,7 @@ else
 
     parts.push(path.call(print, "typeParameters"));
 
-    parts.push("(", printFunctionParams(path, print), ")");
+    parts.push(printFunctionParams(path, print, options));
 
     // The returnType is not wrapped in a TypeAnnotation, so the colon
     // needs to be added separately.
@@ -1724,14 +1712,12 @@ function printMethod(path, options, print) {
   parts.push(
     key,
     path.call(print, "value", "typeParameters"),
-    "(",
     path.call(
       function(valuePath) {
-        return printFunctionParams(valuePath, print);
+        return printFunctionParams(valuePath, print, options);
       },
       "value"
     ),
-    ")",
     path.call(p => printReturnType(p, print), "value"),
     " ",
     path.call(print, "value", "body")
@@ -1771,7 +1757,7 @@ function printArgumentsList(path, options, print) {
         concat([
           "(",
           join(concat([ ",", line ]), printed.slice(0, -1)),
-          ", ",
+          printed.length > 1 ? ", " : "",
           group(util.getLast(printed), { shouldBreak: true }),
           ")"
         ]),
@@ -1807,7 +1793,7 @@ function printArgumentsList(path, options, print) {
   );
 }
 
-function printFunctionParams(path, print) {
+function printFunctionParams(path, print, options) {
   var fun = path.getValue();
   // namedTypes.Function.assert(fun);
   var printed = path.map(print, "params");
@@ -1830,7 +1816,15 @@ function printFunctionParams(path, print) {
     printed.push(concat([ "...", path.call(print, "rest") ]));
   }
 
-  return join(concat([ ",", line ]), printed);
+  return concat([
+    "(",
+    indent(
+      options.tabWidth,
+      concat([ softline, join(concat([ ",", line ]), printed) ])
+    ),
+    softline,
+    ")"
+  ]);
 }
 
 function printObjectMethod(path, options, print) {
@@ -1858,9 +1852,7 @@ function printObjectMethod(path, options, print) {
   }
 
   parts.push(
-    "(",
     printFunctionParams(path, print),
-    ")",
     printReturnType(path, print),
     " ",
     path.call(print, "body")

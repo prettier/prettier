@@ -319,7 +319,7 @@ const h: Response = new Response(\"responsebody\", {
   status: 404,
   headers: new Headers({ \"Content-Type\": \"image/jpeg\" })
 });
-const i: Response = new Response(, {
+const i: Response = new Response({
   status: 404,
   headers: new Headers({ \"Content-Type\": \"image/jpeg\" })
 });

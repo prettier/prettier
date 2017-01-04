@@ -103,18 +103,22 @@ buffer = buffer.fill(\"a\", 0, 0, \"utf8\");
 
 buffer = buffer.fill(\"a\", \"utf8\");
 
-maybeNum = buffer.find(, (element: number,
-index: number,
-array: Uint8Array) => false);
+maybeNum = buffer.find((
+  element: number,
+  index: number,
+  array: Uint8Array
+) => false);
 
 maybeNum = buffer.find(
   (element: number, index: number, array: Uint8Array) => false,
   buffer
 );
 
-num = buffer.findIndex(, (element: number,
-index: number,
-array: Uint8Array) => false);
+num = buffer.findIndex((
+  element: number,
+  index: number,
+  array: Uint8Array
+) => false);
 
 num = buffer.findIndex(
   (element: number, index: number, array: Uint8Array) => false,

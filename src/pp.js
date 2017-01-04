@@ -228,7 +228,7 @@ function print(w, doc) {
               }
               else {
                 // Expanded states are a rare case where a document
-                // can manually provide mutliple representations of
+                // can manually provide multiple representations of
                 // itself. It provides an array of documents
                 // going from the least expanded (most flattened)
                 // representation first to the most expanded. If a

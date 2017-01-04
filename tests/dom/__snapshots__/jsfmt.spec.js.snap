@@ -469,20 +469,24 @@ let tests = [
         createdCallback() {},
         attachedCallback() {},
         detachedCallback() {},
-        attributeChangedCallback(attributeLocalName,
-        oldAttributeValue,
-        newAttributeValue,
-        attributeNamespace) {}
+        attributeChangedCallback(
+          attributeLocalName,
+          oldAttributeValue,
+          newAttributeValue,
+          attributeNamespace
+        ) {}
       })
     });
   },
   function() {
     document.registerElement(\"custom-element\", {
       prototype: {
-        attributeChangedCallback(localName: string,
-        oldVal: string,
-        newVal: string,
-        namespace: string) {}
+        attributeChangedCallback(
+          localName: string,
+          oldVal: string,
+          newVal: string,
+          namespace: string
+        ) {}
       }
     });
   }

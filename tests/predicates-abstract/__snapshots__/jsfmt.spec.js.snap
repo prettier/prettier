@@ -15,8 +15,10 @@ function is_string(x): %checks {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 // Filter the contents of an array
-declare function my_filter<T, P: $Pred<1>>(v: Array<T>,
-cb: P): Array<$Refine<T, P, 1>>;
+declare function my_filter<T, P: $Pred<1>>(
+  v: Array<T>,
+  cb: P
+): Array<$Refine<T, P, 1>>;
 declare var arr: Array<mixed>;
 const barr = my_filter(arr, is_string);
 
@@ -51,8 +53,10 @@ declare var ab: Array<A|B|C>;
 // Filter the contents of an array
 // OK
 // OK
-declare function my_filter<T, P: $Pred<1>>(v: Array<T>,
-cb: P): Array<$Refine<T, P, 1>>;
+declare function my_filter<T, P: $Pred<1>>(
+  v: Array<T>,
+  cb: P
+): Array<$Refine<T, P, 1>>;
 type A = { kind: \"A\"; u: number };
 type B = { kind: \"B\"; v: string };
 type C = { kind: \"C\"; y: boolean };
@@ -140,9 +144,11 @@ var b = refine(a, is_string);
 
 (b: string);
 
-declare function refine_fst<T, P: $Pred<2>>(v: T,
-w: T,
-cb: P): $Refine<T, P, 1>;
+declare function refine_fst<T, P: $Pred<2>>(
+  v: T,
+  w: T,
+  cb: P
+): $Refine<T, P, 1>;
 declare var c: mixed;
 declare var d: mixed;
 var e = refine2(c, d, is_string_and_number);
@@ -188,8 +194,10 @@ function is_string_regular(x): boolean {
 // @flow
 // Sanity check A: filtering the wrong type
 // Sanity check B: Passing non-predicate function to filter
-declare function my_filter<T, P: $Pred<1>>(v: Array<T>,
-cb: P): Array<$Refine<T, P, 1>>;
+declare function my_filter<T, P: $Pred<1>>(
+  v: Array<T>,
+  cb: P
+): Array<$Refine<T, P, 1>>;
 declare var a: Array<mixed>;
 const b = my_filter(a, is_string);
 
@@ -233,8 +241,10 @@ declare var ab: Array<A|B|C>;
 // Filter the contents of an array
 // ERROR
 // ERROR
-declare function my_filter<T, P: $Pred<1>>(v: Array<T>,
-cb: P): Array<$Refine<T, P, 1>>;
+declare function my_filter<T, P: $Pred<1>>(
+  v: Array<T>,
+  cb: P
+): Array<$Refine<T, P, 1>>;
 type A = { kind: \"A\"; u: number };
 type B = { kind: \"B\"; v: string };
 type C = { kind: \"C\"; y: boolean };
@@ -312,10 +322,12 @@ var b = refine(a, is_string);
 declare var c: mixed;
 declare var d: mixed;
 declare var e: mixed;
-declare function refine3<T, P: $Pred<3>>(u: T,
-v: T,
-w: T,
-cb: P): $Refine<T, P, 1>;
+declare function refine3<T, P: $Pred<3>>(
+  u: T,
+  v: T,
+  w: T,
+  cb: P
+): $Refine<T, P, 1>;
 var e = refine3(c, d, e, is_string_and_number);
 
 (e: string);
