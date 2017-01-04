@@ -23,7 +23,7 @@ interface Bad {
 // @flow
 /* error: not supported (yet)*/
 interface Ok  { [key: string]: string }
-interface Bad  { [k1: string]: string; [k2: number]: number }
+interface Bad  { [k1: string]: string, [k2: number]: number }
 "
 `;
 
@@ -165,7 +165,7 @@ function foo(k: K) {
 // error: x is number in I
 // error: x is string in K
 // error: y is string in I
-interface I  { x: number; y: string }
+interface I  { x: number, y: string }
 interface J  { y: number }
 interface K extends I, J { x: string }
 
@@ -194,7 +194,7 @@ interface I  { foo(x: number): void }
 
 (function foo(x: number) {}: I);
 
-declare class C { bar(i: I): void; bar(f: (x: number) => void): void }
+declare class C { bar(i: I): void, bar(f: (x: number) => void): void }
 
 new C().bar((x: string) => {});
 "

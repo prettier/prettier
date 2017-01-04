@@ -45,8 +45,8 @@ exports.Foo = Foo;
 
 interface IFooPrototype  { m(): number }
 interface IFoo extends IFooPrototype {
-  static (): void;
-  x: boolean;
+  static (): void,
+  x: boolean,
   static y: boolean
 }
 

@@ -632,7 +632,9 @@ function genericPrintNoParens(path, options, print) {
   case "ObjectTypeAnnotation":
     var allowBreak = false;
     var isTypeAnnotation = n.type === "ObjectTypeAnnotation";
-    var separator = (isTypeAnnotation ? ";" : ",");
+    // Leave this here because we *might* want to make this
+    // configurable later -- flow accepts ";" for type separators
+    var separator = (isTypeAnnotation ? "," : ",");
     var fields = [];
     var leftBrace = (n.exact ? "{|" : "{");
     var rightBrace = (n.exact ? "|}" : "}");

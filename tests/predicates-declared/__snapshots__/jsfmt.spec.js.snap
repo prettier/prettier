@@ -238,7 +238,7 @@ function f(_this: { m: ?Meeting }): string {
 // @flow
 // Sanity check:
 // - preserving \`havoc\` semantics
-type Meeting = { organizer: ?Invitee; es: Array<Invitee> };
+type Meeting = { organizer: ?Invitee, es: Array<Invitee> };
 type Invitee = { fbid: number };
 
 function f(_this: { m: ?Meeting }): string {

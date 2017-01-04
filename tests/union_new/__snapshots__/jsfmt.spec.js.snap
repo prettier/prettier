@@ -112,7 +112,7 @@ var bar: Array<{b: ?boolean, c: number} | {b: boolean}> = [
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-var bar: Array<{ b: ?boolean; c: number } | { b: boolean }> = [
+var bar: Array<{ b: ?boolean, c: number } | { b: boolean }> = [
   { b: true, c: 123 },
   { b: true }
 ];
@@ -130,7 +130,7 @@ exports[`test issue-1371.js 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function create(
   a: any
-): { type: \"B\"; data: number } | { type: \"A\"; data: string } {
+): { type: \"B\", data: number } | { type: \"A\", data: string } {
   return { type: \"A\", data: a };
 }
 "
@@ -194,8 +194,8 @@ function printAll(val: MyType) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // <--- foo could be an array
 type Common = {};
-type A = Common & { type: \"A\"; foo: number };
-type B = Common & { type: \"B\"; foo: Array<number> };
+type A = Common & { type: \"A\", foo: number };
+type B = Common & { type: \"B\", foo: Array<number> };
 type MyType = A | B;
 
 function print(x: number) {
@@ -238,8 +238,8 @@ function printAll(val: MyType) {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 type Common = {};
-type A = { type: \"A\"; foo: number } & Common;
-type B = { type: \"B\"; foo: Array<number> } & Common;
+type A = { type: \"A\", foo: number } & Common;
+type B = { type: \"B\", foo: Array<number> } & Common;
 type MyType = A | B;
 
 function print(x: number) {
@@ -285,7 +285,7 @@ if (data.kind === \"system\") {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-type DataBase = { id: string; name: string };
+type DataBase = { id: string, name: string };
 type UserData = DataBase & { kind: \"user\" };
 type SystemData = DataBase & { kind: \"system\" };
 type Data = UserData | SystemData;
@@ -347,10 +347,10 @@ function test(f: Foo| EmptyFoo) {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-type Entity<T> = { id: T; name: string };
+type Entity<T> = { id: T, name: string };
 type StringEntity = Entity<string>;
-type Foo = StringEntity & { bars: Object; kind: 1 };
-type EmptyFoo = StringEntity & { bars: null; kind: 2 };
+type Foo = StringEntity & { bars: Object, kind: 1 };
+type EmptyFoo = StringEntity & { bars: null, kind: 2 };
 
 function test(f: Foo | EmptyFoo) {
   if (f.kind === 1) {
@@ -921,8 +921,8 @@ rec({ x: 0 });
 
 type F1 = G1;
 type F2 = G2;
-type G1 = { x: H1; y?: G1 };
-type G2 = { x: H2; y?: G2 };
+type G1 = { x: H1, y?: G1 };
+type G2 = { x: H2, y?: G2 };
 type H1 = string;
 type H2 = number;
 
@@ -931,7 +931,7 @@ function polyrec(x: PF<number> | PF<string>) {}
 rec({ x: 0 });
 
 type PF<X> = PG<X>;
-type PG<X> = { x: X; y?: PG<X> };
+type PG<X> = { x: X, y?: PG<X> };
 "
 `;
 
@@ -1206,7 +1206,7 @@ length({ kind: \"empty\" });
 
 type List = Nil | Cons;
 type Nil = { kind: \"nil\" };
-type Cons = { kind: \"cons\"; next: List };
+type Cons = { kind: \"cons\", next: List };
 "
 `;
 
@@ -1223,7 +1223,7 @@ function rec(x: F<string>): G | H { return x; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
 // polymorphic recursive types
-type F<X> = { f: F<X>; x: X };
+type F<X> = { f: F<X>, x: X };
 type G = { x: number };
 type H = { x: string };
 
@@ -1248,8 +1248,8 @@ exports[`test test13.js 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
 /* ensure there are no unintended side effects when trying branches */
-({ type: \"B\", id: \"hi\" }: { type: \"A\"; id: ?string } | {
-  type: \"B\";
+({ type: \"B\", id: \"hi\" }: { type: \"A\", id: ?string } | {
+  type: \"B\",
   id: string
 });
 "
@@ -1316,7 +1316,7 @@ function foo<X>(target: EventTarget) {
 }
 
 declare class EventTarget {
-  addEventListener(type: \"foo\", listener: KeyboardEventHandler): void;
+  addEventListener(type: \"foo\", listener: KeyboardEventHandler): void,
   addEventListener(type: string, listener: EventHandler): void
 }
 declare class Event {}
@@ -1407,7 +1407,7 @@ new C().m(f());
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
 // method overloads
-declare class C { m(x: number): void; m(x: string): void }
+declare class C { m(x: number): void, m(x: string): void }
 
 function f() {
   return 0;
@@ -1437,7 +1437,7 @@ function m<X>() {
   return new D();
 }
 
-declare class D { constructor(_: void): void; constructor(_: null): void }
+declare class D { constructor(_: void): void, constructor(_: null): void }
 "
 `;
 
@@ -1497,7 +1497,7 @@ function str() {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
 // annotations for disjoint unions
-type T = { type: \"FOO\"; x: number } | { type: \"BAR\"; x: string };
+type T = { type: \"FOO\", x: number } | { type: \"BAR\", x: string };
 
 ({ type: (bar(): \"BAR\"), x: str() }: T);
 
@@ -1541,7 +1541,7 @@ function foo(x: T) {
 // @noflow
 // refinement of disjoint unions
 type Empty = {};
-type Success = { type: \"SUCCESS\"; result: string };
+type Success = { type: \"SUCCESS\", result: string };
 type Error = { type: \"ERROR\" } & Empty;
 export type T = Success | Error;
 
@@ -1618,14 +1618,14 @@ declare class D extends C {
 // @noflow
 // scaling test for full type resolution
 declare class C {
-  addListener(event: string, listener: Function): C;
-  emit(event: string, ...args: Array<any>): boolean;
-  listeners(event: string): Array<Function>;
-  listenerCount(event: string): number;
-  on(event: string, listener: Function): C;
-  once(event: string, listener: Function): C;
-  removeAllListeners(event?: string): C;
-  removeListener(event: string, listener: Function): C;
+  addListener(event: string, listener: Function): C,
+  emit(event: string, ...args: Array<any>): boolean,
+  listeners(event: string): Array<Function>,
+  listenerCount(event: string): number,
+  on(event: string, listener: Function): C,
+  once(event: string, listener: Function): C,
+  removeAllListeners(event?: string): C,
+  removeListener(event: string, listener: Function): C,
   setMaxListeners(n: number): void
 }
 declare class D extends C {
@@ -1634,15 +1634,15 @@ declare class D extends C {
     hostname?: string,
     backlog?: number,
     callback?: Function
-  ): D;
-  listen(path: string, callback?: Function): D;
-  listen(handle: Object, callback?: Function): D;
-  close(callback?: Function): D;
-  address(): number;
-  connections: number;
-  maxConnections: number;
-  getConnections(callback: Function): void;
-  ref(): D;
+  ): D,
+  listen(path: string, callback?: Function): D,
+  listen(handle: Object, callback?: Function): D,
+  close(callback?: Function): D,
+  address(): number,
+  connections: number,
+  maxConnections: number,
+  getConnections(callback: Function): void,
+  ref(): D,
   unref(): D
 }
 
@@ -1711,7 +1711,7 @@ declare var y: T;
 (foo(y): T);
 
 declare class Record {
-  set(x: \"foo\", y: number): void;
+  set(x: \"foo\", y: number): void,
   set(x: \"bar\", y: string): void
 }
 
@@ -1820,7 +1820,7 @@ declare class D<T> {
   reduce(
     callbackfn: (previousValue: T, currentValue: T) => T,
     initialValue: void
-  ): T;
+  ): T,
   reduce<U>(
     callbackfn: (previousValue: U, currentValue: T) => U,
     initialValue: U
@@ -1847,7 +1847,7 @@ type ActionType =
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
 const Constants = require(\"./test30-helper\");
-type ActionType = { type: \"foo\"; x: number } | { type: \"bar\"; x: number };
+type ActionType = { type: \"foo\", x: number } | { type: \"bar\", x: number };
 
 ({ type: Constants.BAR, x: 0 }: ActionType);
 "
@@ -1899,7 +1899,7 @@ function foo(): ImmutableMap<string, boolean> {
 interface SomeIterator<T>  {}
 interface SomeIterable<T>  { it(): SomeIterator<T> }
 declare class SomeMap<K, V> {
-  it(): SomeIterator<[K, V]>;
+  it(): SomeIterator<[K, V]>,
   set(k: K, v: V): void
 }
 declare class ImmutableMap<K, V> {}

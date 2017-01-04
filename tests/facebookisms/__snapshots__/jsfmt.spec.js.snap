@@ -68,14 +68,14 @@ let tests = [
 
     (copyProperties(result, { foo: \"a\" }, {
       bar: 123
-    }): { foo: string; bar: number; baz: boolean });
+    }): { foo: string, bar: number, baz: boolean });
   },
   function() {
     const copyProperties = require(\"copyProperties\");
     let x = { foo: \"a\" };
     let y = { bar: 123 };
 
-    (copyProperties({}, x, y): { foo: string; bar: number });
+    (copyProperties({}, x, y): { foo: string, bar: number });
   },
   function(copyProperties: Object$Assign) {
     copyProperties();
@@ -205,11 +205,11 @@ let tests = [
 
     (mergeInto(result, { foo: \"a\" }, { bar: 123 }): void);
 
-    (result: { foo: string; bar: number; baz: boolean });
+    (result: { foo: string, bar: number, baz: boolean });
   },
   function() {
     const mergeInto = require(\"mergeInto\");
-    let result: { foo?: string; bar?: number; baz: boolean } = { baz: false };
+    let result: { foo?: string, bar?: number, baz: boolean } = { baz: false };
 
     (mergeInto(result, { foo: \"a\" }, { bar: 123 }): void);
   },

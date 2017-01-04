@@ -122,7 +122,7 @@ var w : Foo = z;
 // conflicts with cast to Foo
 // conflicts with cast to Foo
 // conflicts with cast to Foo
-type Foo = { a: string; b: string; c?: ?string; d?: number };
+type Foo = { a: string, b: string, c?: ?string, d?: number };
 class TestClass {
   a: string;
   c: ?string;

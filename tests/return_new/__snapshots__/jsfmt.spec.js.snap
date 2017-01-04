@@ -57,7 +57,7 @@ module.exports = D;
 // OK
 // error, string ~/~ number (but property x is found)
 // error, new D is an object, D not in proto chain
-declare class D { constructor(): { x: number }; y: any }
+declare class D { constructor(): { x: number }, y: any }
 var d = new D();
 
 d.x = \"\";

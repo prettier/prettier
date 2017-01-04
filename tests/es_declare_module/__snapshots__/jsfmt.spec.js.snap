@@ -67,7 +67,7 @@ import CJS_Named from \"CJS_Named\";
 
 (str1: number);
 
-(CJS_Named: { num1: number; str1: string });
+(CJS_Named: { num1: number, str1: string });
 
 (CJS_Named: number);
 

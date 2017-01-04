@@ -78,7 +78,7 @@ var bar: (str: number, i: number) => string = foo;
 var qux = function(str: string, i: number): number {
   return foo(str, i);
 };
-var obj: { str: string; i: number; j: boolean } = {
+var obj: { str: string, i: number, j: boolean } = {
   str: \"...\",
   i: \"...\",
   k: false
@@ -92,7 +92,7 @@ var nullable_array_parens: ?(number[]) = nullable_array;
 var array_of_nullable: (?number)[] = [ null, 3 ];
 var array_of_tuple: [number, string][] = [ [ 0, \"foo\" ], [ 1, \"bar\" ] ];
 var array_of_tuple_parens: [number, string][] = array_of_tuple;
-type ObjType = { \"bar-foo\": string; \"foo-bar\": number };
+type ObjType = { \"bar-foo\": string, \"foo-bar\": number };
 var test_obj: ObjType = { \"bar-foo\": \"23\" };
 
 function param_anno(n: number): void {
@@ -100,7 +100,7 @@ function param_anno(n: number): void {
 }
 
 function param_anno2(
-  batchRequests: Array<{ method: string; path: string; params: ?Object }>
+  batchRequests: Array<{ method: string, path: string, params: ?Object }>
 ): void {
   batchRequests = batchRequests.map(request => {
     return {
@@ -262,7 +262,7 @@ class Foo<A> {
 // hypothetical immutable map
 type Merge<T> = (a: T, b: T) => T;
 declare class Map<K, V> {
-  (): Map<K, V>;
+  (): Map<K, V>,
   insertWith(fn: Merge<V>, k: K, v: V): Map<K, V>
 }
 declare function foldr<A, B>(fn: (a: A, b: B) => B, b: B, as: A[]): B;

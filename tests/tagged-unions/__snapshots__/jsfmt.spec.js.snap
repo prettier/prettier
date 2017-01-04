@@ -92,7 +92,7 @@ if (data.kind === \"user\") {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-interface IDataBase  { id: string; name: string }
+interface IDataBase  { id: string, name: string }
 interface IUserData extends IDataBase { kind: \"user\" }
 interface ISystemData extends IDataBase { kind: \"system\" }
 type IData = IUserData | ISystemData;
@@ -133,7 +133,7 @@ if (data.kind === \"system\") {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-interface IDataBase  { id: string; name: string }
+interface IDataBase  { id: string, name: string }
 interface IUserData extends IDataBase { kind: \"user\" }
 interface ISystemData extends IDataBase { kind: \"system\" }
 type IData = IUserData | ISystemData;
@@ -178,9 +178,9 @@ if (data.kind === \"user\") {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-type DataBase = { id: string; name: string };
-type UserData = { id: string; name: string; kind: \"user\" };
-type SystemData = { id: string; name: string; kind: \"system\" };
+type DataBase = { id: string, name: string };
+type UserData = { id: string, name: string, kind: \"user\" };
+type SystemData = { id: string, name: string, kind: \"system\" };
 type Data = UserData | SystemData;
 const data: Data = { id: \"\", name: \"\", kind: \"system\" };
 
@@ -223,9 +223,9 @@ if (data.kind === \"system\") {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-type DataBase = { id: string; name: string };
-type UserData = { id: string; name: string; kind: \"user\" };
-type SystemData = { id: string; name: string; kind: \"system\" };
+type DataBase = { id: string, name: string };
+type UserData = { id: string, name: string, kind: \"user\" };
+type SystemData = { id: string, name: string, kind: \"system\" };
 type Data = UserData | SystemData;
 const data: Data = { id: \"\", name: \"\", kind: \"system\" };
 

@@ -44,7 +44,7 @@ o1.qux;
 
 o1.toString();
 
-type R = { foo: any; bar: any };
+type R = { foo: any, bar: any };
 type Key2 = $Keys<R>;
 var o2: { [key: Key2]: number } = { foo: 0 };
 
@@ -55,8 +55,8 @@ o2.qux;
 class C<X> {
   x: $Subtype<{ [key: $Keys<X>]: any }>;
 }
-class D extends C<{ foo: number; bar: string }> {
-  x: { foo: number; qux: boolean };
+class D extends C<{ foo: number, bar: string }> {
+  x: { foo: number, qux: boolean };
 }
 type AnyKey = $Keys<Object>;
 var o3: { [key: AnyKey]: number } = { foo: 0 };

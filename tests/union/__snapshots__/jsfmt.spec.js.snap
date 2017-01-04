@@ -57,7 +57,7 @@ var l: Array<T> = [
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-type T = { type: \"a\"; a: number } | { type: \"b\"; b: string };
+type T = { type: \"a\", a: number } | { type: \"b\", b: string };
 var l: Array<T> = [
   { type: \"a\", a: 1 },
   { type: \"a\", a: 2 },
@@ -418,7 +418,7 @@ function CD(b) {
   qux2(new C());
 }
 
-declare class F { foo(x: number): void; foo(x: string): void }
+declare class F { foo(x: number): void, foo(x: string): void }
 
 function corge(b) {
   var x = (b ? \"\" : 0);

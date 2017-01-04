@@ -376,13 +376,13 @@ foo({ p: 0, z: [ 1, 2 ] });
 [ a, , b, ...c ] = [ 0, 1, true, 3 ];
 
 function bar({ x, ...z }) {
-  var o: { x: string; y: number } = z;
+  var o: { x: string, y: number } = z;
 }
 
 bar({ x: \"\", y: 0 });
 
 var spread = { y: \"\" };
-var extend: { x: number; y: string; z: boolean } = { x: 0, ...spread };
+var extend: { x: number, y: string, z: boolean } = { x: 0, ...spread };
 
 function qux(_: { a: number }) {}
 
@@ -537,11 +537,11 @@ function rest_antipattern<T>(...t: T) {}
 
 function rest_pattern<X>(...r: X[]) {}
 
-function obj_rest_pattern<X>({ _, ...o }: { _: any; x: X }) {
+function obj_rest_pattern<X>({ _, ...o }: { _: any, x: X }) {
   o.x;
 }
 
-type ObjRest<X> = { _: any; x: X };
+type ObjRest<X> = { _: any, x: X };
 
 function obj_rest_pattern<X>({ _, ...o }: ObjRest<X>) {
   o.x;

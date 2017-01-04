@@ -1039,11 +1039,11 @@ function logical18b(x: { a: number }, y: { b: number }): number {
   return x.a - 1 || y.b - 1;
 }
 
-function logical19a(x: { y: string; z: boolean }): boolean {
+function logical19a(x: { y: string, z: boolean }): boolean {
   return x.y && x.z;
 }
 
-function logical19b(x: { y: string; z: boolean }): boolean {
+function logical19b(x: { y: string, z: boolean }): boolean {
   return x.y || x.z;
 }
 "

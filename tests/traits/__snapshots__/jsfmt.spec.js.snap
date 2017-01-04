@@ -30,7 +30,7 @@ declare class Baz<T> {
 // error: Qux wins
 declare class Foo extends Qux<string> {}
 declare class Bar<T> extends Baz<T> { y: T }
-declare class Qux<T> extends Baz<T> { y: T; z: T }
+declare class Qux<T> extends Baz<T> { y: T, z: T }
 declare class Baz<T> { x: T }
 
 (new Foo().x: number);

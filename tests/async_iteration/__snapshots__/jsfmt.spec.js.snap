@@ -91,7 +91,7 @@ async function f() {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // error: string ~> void
-interface File  { readLine(): Promise<string>; close(): void; EOF: boolean }
+interface File  { readLine(): Promise<string>, close(): void, EOF: boolean }
 declare function fileOpen(path: string): Promise<File>;
 
 async function* readLines(path) {

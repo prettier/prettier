@@ -74,7 +74,7 @@ function example<T: { x: number }>(o: T): T {
   return o;
 }
 
-var obj1: { x: number; y: string } = example({ x: 0, y: \"\" });
+var obj1: { x: number, y: string } = example({ x: 0, y: \"\" });
 var obj2: { x: number } = example({ x: 0 });
 var c: C<string> = new C();
 var q: number = c.qux(0);

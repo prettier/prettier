@@ -85,7 +85,7 @@ y[\'bar\'] = \'abc\'; // error, property not found
 // error, number !~> string
 // error, property not found
 // error, prototype method is not a string
-var x: { \"123\": string; bar: string } = { \"123\": \"val\", bar: \"bar\" };
+var x: { \"123\": string, bar: string } = { \"123\": \"val\", bar: \"bar\" };
 
 (x.foo: string);
 

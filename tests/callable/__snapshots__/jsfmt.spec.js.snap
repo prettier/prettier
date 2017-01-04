@@ -10,7 +10,7 @@ function f(x) {
 
 (f: F);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-type F = { (x: string): number; p?: string };
+type F = { (x: string): number, p?: string };
 
 function f(x) {
   return x.length;

@@ -44,7 +44,7 @@ function foo0(
 
 function foo2(
   x: { [key: string]: number }
-): { [key: string]: number; +toString: () => string } {
+): { [key: string]: number, +toString: () => string } {
   return x;
 }
 "
@@ -539,7 +539,7 @@ function add_prop_to_nonstring_key_bracket(o: { [k: number]: any }) {
   o[0] = \"ok\";
 }
 
-function mix_with_declared_props(o: { [k: number]: X; p: Y }, x: X, y: Y) {
+function mix_with_declared_props(o: { [k: number]: X, p: Y }, x: X, y: Y) {
   (o[0]: X);
 
   (o.p: Y);
@@ -551,14 +551,14 @@ function mix_with_declared_props(o: { [k: number]: X; p: Y }, x: X, y: Y) {
 
 function object_prototype(
   o: { [k: string]: number }
-): { [k: string]: number; +toString: () => string } {
+): { [k: string]: number, +toString: () => string } {
   (o.toString(): boolean);
 
   return o;
 }
 
 function unsound_string_conversion_alias_declared_prop(
-  o: { [k: number]: any; \"0\": X }
+  o: { [k: number]: any, \"0\": X }
 ) {
   o[0] = \"not-x\";
 }
@@ -606,20 +606,20 @@ function subtype_dict_keys_invariant(x: { [k: B]: any }) {
 function unification_mix_with_declared_props_invariant_l(
   x: Array<{ [k: string]: B }>
 ) {
-  let a: Array<{ [k: string]: B; p: A }> = x;
+  let a: Array<{ [k: string]: B, p: A }> = x;
 
   a[0].p = new A();
 
-  let b: Array<{ [k: string]: B; p: B }> = x;
-  let c: Array<{ [k: string]: B; p: C }> = x;
+  let b: Array<{ [k: string]: B, p: B }> = x;
+  let c: Array<{ [k: string]: B, p: C }> = x;
 
   (x[0].p: C);
 }
 
 function unification_mix_with_declared_props_invariant_r(
-  xa: Array<{ [k: string]: A; p: B }>,
-  xb: Array<{ [k: string]: B; p: B }>,
-  xc: Array<{ [k: string]: C; p: B }>
+  xa: Array<{ [k: string]: A, p: B }>,
+  xb: Array<{ [k: string]: B, p: B }>,
+  xc: Array<{ [k: string]: C, p: B }>
 ) {
   let a: Array<{ [k: string]: A }> = xa;
 
@@ -632,20 +632,20 @@ function unification_mix_with_declared_props_invariant_r(
 }
 
 function subtype_mix_with_declared_props_invariant_l(x: { [k: string]: B }) {
-  let a: { [k: string]: B; p: A } = x;
+  let a: { [k: string]: B, p: A } = x;
 
   a.p = new A();
 
-  let b: { [k: string]: B; p: B } = x;
-  let c: { [k: string]: B; p: C } = x;
+  let b: { [k: string]: B, p: B } = x;
+  let c: { [k: string]: B, p: C } = x;
 
   (x.p: C);
 }
 
 function subtype_mix_with_declared_props_invariant_r(
-  xa: { [k: string]: A; p: B },
-  xb: { [k: string]: B; p: B },
-  xc: { [k: string]: C; p: B }
+  xa: { [k: string]: A, p: B },
+  xb: { [k: string]: B, p: B },
+  xc: { [k: string]: C, p: B }
 ) {
   let a: { [k: string]: A } = xa;
 
@@ -691,22 +691,22 @@ function subtype_obj_to_dict(x: { p: B }) {
   (x.p: C);
 }
 
-function subtype_obj_to_mixed(x: { p: B; x: X }) {
-  let a: { [k: string]: A; x: X } = x;
-  let b: { [k: string]: B; x: X } = x;
-  let c: { [k: string]: C; x: X } = x;
+function subtype_obj_to_mixed(x: { p: B, x: X }) {
+  let a: { [k: string]: A, x: X } = x;
+  let b: { [k: string]: B, x: X } = x;
+  let c: { [k: string]: C, x: X } = x;
 }
 
 function unification_dict_to_mixed(x: Array<{ [k: string]: B }>) {
-  let a: Array<{ [k: string]: B; p: A }> = x;
-  let b: Array<{ [k: string]: B; p: B }> = x;
-  let c: Array<{ [k: string]: B; p: C }> = x;
+  let a: Array<{ [k: string]: B, p: A }> = x;
+  let b: Array<{ [k: string]: B, p: B }> = x;
+  let c: Array<{ [k: string]: B, p: C }> = x;
 }
 
 function subtype_dict_to_mixed(x: { [k: string]: B }) {
-  let a: { [k: string]: B; p: A } = x;
-  let b: { [k: string]: B; p: B } = x;
-  let c: { [k: string]: B; p: C } = x;
+  let a: { [k: string]: B, p: A } = x;
+  let b: { [k: string]: B, p: B } = x;
+  let c: { [k: string]: B, p: C } = x;
 }
 
 function subtype_dict_to_optional_a(x: { [k: string]: B }) {
@@ -823,13 +823,13 @@ function foo0(
 
 function foo1(
   x: Array<{ [key: string]: number }>
-): Array<{ [key: string]: number; fooBar: string }> {
+): Array<{ [key: string]: number, fooBar: string }> {
   return x;
 }
 
 function foo2(
   x: Array<{ [key: string]: mixed }>
-): Array<{ [key: string]: mixed; fooBar: string }> {
+): Array<{ [key: string]: mixed, fooBar: string }> {
   x[0].fooBar = 123;
 
   return x;
@@ -841,7 +841,7 @@ function foo3(x: { [key: string]: number }): { foo: number } {
 
 function foo4(
   x: { [key: string]: number }
-): { [key: string]: number; foo: string } {
+): { [key: string]: number, foo: string } {
   return x;
 }
 
@@ -853,7 +853,7 @@ function foo6(x: Array<{ foo: number }>): Array<{ [key: string]: number }> {
   return x;
 }
 
-function foo7(x: { [key: string]: number; bar: string }) {
+function foo7(x: { [key: string]: number, bar: string }) {
   (x.bar: string);
 }
 
@@ -931,7 +931,7 @@ var o: { foo: QueryFunction } = {
 module.exports = o;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // error, number ~/~ string
-type Params = { [name: string]: string; count: number };
+type Params = { [name: string]: string, count: number };
 type QueryFunction = (params: Params) => string;
 var o: { foo: QueryFunction } = {
   foo(params) {

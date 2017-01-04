@@ -11,7 +11,7 @@ C.foo(\"\");
 (C.name: number); // error, it\'s a string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // error, it\'s a string
-declare class C { static x: number; static foo(x: number): void }
+declare class C { static x: number, static foo(x: number): void }
 
 C.x = \"\";
 

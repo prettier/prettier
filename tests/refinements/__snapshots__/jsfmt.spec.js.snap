@@ -43,7 +43,7 @@ function foo(x: ?number) {
   }
 }
 
-type Bar = { parent: ?Bar; doStuff(): void };
+type Bar = { parent: ?Bar, doStuff(): void };
 
 function bar0(x: Bar) {
   while (x = x.parent) {
@@ -79,8 +79,8 @@ type Node2 = {
 
 export type ASTNode = Node1 | Node2;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-type Node1 = { kind: \"Node1\"; prop1?: string };
-type Node2 = { kind: \"Node2\"; prop2?: string };
+type Node1 = { kind: \"Node1\", prop1?: string };
+type Node2 = { kind: \"Node2\", prop2?: string };
 export type ASTNode = Node1 | Node2;
 "
 `;
@@ -169,14 +169,14 @@ function baz(x: ?boolean) {
 }
 
 let tests = [
-  function(x: { done: true; result: string } | { done: false }) {
+  function(x: { done: true, result: string } | { done: false }) {
     if (x.done === true) {
       return x.result;
     }
 
     return x.result;
   },
-  function(x: { done: true; result: string } | { done: false }) {
+  function(x: { done: true, result: string } | { done: false }) {
     if (true === x.done) {
       return x.result;
     }
@@ -294,9 +294,9 @@ let tests = [
 // error, consider { baz: \"x\", quux: \"y\", bar: \"boom\" }
 // error, consider { foo: {}, bar: \"\" }
 type Type = Name | ListType | NonNullType;
-type Name = { kind: \"Name\"; value: string; type: void };
-type ListType = { kind: \"ListType\"; type: Type };
-type NonNullType = { kind: \"NonNullType\"; type: Name | ListType | BadType };
+type Name = { kind: \"Name\", value: string, type: void };
+type ListType = { kind: \"ListType\", type: Type };
+type NonNullType = { kind: \"NonNullType\", type: Name | ListType | BadType };
 type BadType = {};
 
 function getTypeASTName(typeAST: Type): string {
@@ -307,14 +307,14 @@ function getTypeASTName(typeAST: Type): string {
 }
 
 let tests = [
-  function(x: { done: true; result: string } | { done: false }) {
+  function(x: { done: true, result: string } | { done: false }) {
     if (x.done) {
       return x.result;
     }
 
     return x.result;
   },
-  function(x: { done: true; result: string } | { foo: string }) {
+  function(x: { done: true, result: string } | { foo: string }) {
     if (x.done) {
       return x.result;
     }
@@ -322,7 +322,7 @@ let tests = [
     return x.result;
   },
   function() {
-    type T = { foo: Object; bar: string } | { baz: string; quux: string };
+    type T = { foo: Object, bar: string } | { baz: string, quux: string };
 
     function testAlwaysTruthyProp(t: T) {
       if (t.foo) {
@@ -1528,7 +1528,7 @@ let tests = [
 
     return x.foo;
   },
-  function(x: { kind: 0; foo: number } | { kind: 1; bar: number }): number {
+  function(x: { kind: 0, foo: number } | { kind: 1, bar: number }): number {
     if (x.kind === 0) {
       return x.foo;
     } else {
@@ -1756,7 +1756,7 @@ function c2(x: { [key: string]: ?string }, y: { z: string }): string {
 
 function c3(
   x: { [key: string]: ?string },
-  y: { z: string; a: string }
+  y: { z: string, a: string }
 ): string {
   if (x[y.z]) {
     y.a = \"HEY\";
@@ -2157,7 +2157,7 @@ let tests = [
     return x.foo;
   },
   function(
-    x: { kind: \"foo\"; foo: string } | { kind: \"bar\"; bar: string }
+    x: { kind: \"foo\", foo: string } | { kind: \"bar\", bar: string }
   ): string {
     if (x.kind === \"foo\") {
       return x.foo;
@@ -2712,8 +2712,8 @@ let tests = [
 // error: flow isn\'t smart enough to figure this out yet
 // error
 type Type = Name | ListType;
-type Name = { kind: \"Name\"; value: string };
-type ListType = { kind: \"ListType\"; name: string };
+type Name = { kind: \"Name\", value: string };
+type ListType = { kind: \"ListType\", name: string };
 
 function getTypeASTName(typeAST: Type): string {
   if (typeAST.kind === \"Name\") {
@@ -2734,10 +2734,10 @@ function foo(x: ASTNode) {
   return null;
 }
 
-type Apple = { kind: \"Fruit\"; taste: \"Bad\" };
-type Orange = { kind: \"Fruit\"; taste: \"Good\" };
-type Broccoli = { kind: \"Veg\"; taste: \"Bad\"; raw: \"No\" };
-type Carrot = { kind: \"Veg\"; taste: \"Good\"; raw: \"Maybe\" };
+type Apple = { kind: \"Fruit\", taste: \"Bad\" };
+type Orange = { kind: \"Fruit\", taste: \"Good\" };
+type Broccoli = { kind: \"Veg\", taste: \"Bad\", raw: \"No\" };
+type Carrot = { kind: \"Veg\", taste: \"Good\", raw: \"Maybe\" };
 type Breakfast = Apple | Orange | Broccoli | Carrot;
 
 function bar(x: Breakfast) {
@@ -2777,9 +2777,9 @@ function check(n) {
 }
 
 var EnumKind = { A: 1, B: 2, C: 3 };
-type A = { kind: 1; A: number };
-type B = { kind: 2; B: number };
-type C = { kind: 3; C: number };
+type A = { kind: 1, A: number };
+type B = { kind: 2, B: number };
+type C = { kind: 3, C: number };
 
 function kind(x: A | B | C): number {
   switch (x.kind) {
@@ -2795,7 +2795,7 @@ function kind(x: A | B | C): number {
 kind({ kind: EnumKind.A, A: 1 });
 
 type Citizen = { citizen: true };
-type NonCitizen = { citizen: false; nationality: string };
+type NonCitizen = { citizen: false, nationality: string };
 
 function nationality(x: Citizen | NonCitizen) {
   if (x.citizen)
@@ -2887,7 +2887,7 @@ let tests = [
       (t.calll: empty);
     }
   },
-  function(x: { str: string; num: number; bool: boolean }) {
+  function(x: { str: string, num: number, bool: boolean }) {
     if (x.str === \"str\") {
       (x.str: \"not str\");
     }
@@ -2912,7 +2912,7 @@ let tests = [
       (x.badBool: empty);
     }
   },
-  function(x: { foo: 123; y: string } | { foo: \"foo\"; z: string }) {
+  function(x: { foo: 123, y: string } | { foo: \"foo\", z: string }) {
     if (x.foo === 123) {
       (x.y: string);
 
@@ -2933,7 +2933,7 @@ let tests = [
       x.z;
     }
   },
-  function(x: { foo: number; y: string } | { foo: \"foo\"; z: string }) {
+  function(x: { foo: number, y: string } | { foo: \"foo\", z: string }) {
     if (x.foo === 123) {
       (x.y: string);
 
@@ -2954,7 +2954,7 @@ let tests = [
       x.z;
     }
   },
-  function(x: { foo: number; y: string } | { foo: string; z: string }) {
+  function(x: { foo: number, y: string } | { foo: string, z: string }) {
     if (x.foo === 123) {
       (x.y: string);
 
@@ -2976,7 +2976,7 @@ let tests = [
     }
   },
   function(
-    x: { foo: number; y: string } | { foo: string; z: string },
+    x: { foo: number, y: string } | { foo: string, z: string },
     num: number
   ) {
     if (x.foo === num) {
@@ -3016,8 +3016,8 @@ function handleStatus(status: Success | Error) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 import {SUCCESS, ERROR} from \"./constants\";
-type Success = { type: typeof SUCCESS; message: string };
-type Error = { type: typeof ERROR; error: string };
+type Success = { type: typeof SUCCESS, message: string };
+type Error = { type: typeof ERROR, error: string };
 
 function handleStatus(status: Success | Error) {
   switch (status.type) {
