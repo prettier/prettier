@@ -167,14 +167,11 @@ function test(
   x: { kind: ?string },
   kinds: { [key: string]: string }
 ): Array<{ kind: ?string }> {
-  return map(
-    kinds,
-    value => {
-      (value: string);
+  return map(kinds, value => {
+    (value: string);
 
-      return { ...x, kind: value };
-    }
-  );
+    return { ...x, kind: value };
+  });
 }
 "
 `;

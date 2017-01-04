@@ -280,12 +280,10 @@ class K_ {
 }
 class K extends K_ {
   constructor() {
-    super(
-      () => {
-        if (_this)
-          _this.foo();
-      }
-    );
+    super(() => {
+      if (_this)
+        _this.foo();
+    });
 
     var _this = this;
 

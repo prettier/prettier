@@ -102,15 +102,13 @@ function param_anno(n: number): void {
 function param_anno2(
   batchRequests: Array<{ method: string; path: string; params: ?Object }>
 ): void {
-  batchRequests = batchRequests.map(
-    request => {
-      return {
-        method: request.method,
-        params: request.params,
-        relative_url: request.path
-      };
-    }
-  );
+  batchRequests = batchRequests.map(request => {
+    return {
+      method: request.method,
+      params: request.params,
+      relative_url: request.path
+    };
+  });
 }
 
 var toz: null = 3;

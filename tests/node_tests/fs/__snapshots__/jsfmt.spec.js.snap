@@ -41,36 +41,21 @@ fs.readFile(\"file.exp\", {}, (_, data) => {
 // error
 var fs = require(\"fs\");
 
-fs.readFile(
-  \"file.exp\",
-  (_, data) => {
-    (data: Buffer);
-  }
-);
+fs.readFile(\"file.exp\", (_, data) => {
+  (data: Buffer);
+});
 
-fs.readFile(
-  \"file.exp\",
-  \"blah\",
-  (_, data) => {
-    (data: string);
-  }
-);
+fs.readFile(\"file.exp\", \"blah\", (_, data) => {
+  (data: string);
+});
 
-fs.readFile(
-  \"file.exp\",
-  { encoding: \"blah\" },
-  (_, data) => {
-    (data: string);
-  }
-);
+fs.readFile(\"file.exp\", { encoding: \"blah\" }, (_, data) => {
+  (data: string);
+});
 
-fs.readFile(
-  \"file.exp\",
-  {},
-  (_, data) => {
-    (data: Buffer);
-  }
-);
+fs.readFile(\"file.exp\", {}, (_, data) => {
+  (data: Buffer);
+});
 
 (fs.readFileSync(\"file.exp\"): Buffer);
 

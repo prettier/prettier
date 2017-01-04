@@ -203,43 +203,31 @@ const d: Request = new Request(c.clone());
 const e: Request = new Request(b, c);
 const f: Request = new Request({});
 const g: Request = new Request(\"http://example.org\", {});
-const h: Request = new Request(
-  \"http://example.org\",
-  {
-    method: \"GET\",
-    headers: { \"Content-Type\": \"image/jpeg\" },
-    mode: \"cors\",
-    cache: \"default\"
-  }
-);
-const i: Request = new Request(
-  \"http://example.org\",
-  {
-    method: \"POST\",
-    headers: { \"Content-Type\": \"image/jpeg\" },
-    body: new URLSearchParams(\"key=value\"),
-    mode: \"cors\",
-    cache: \"default\"
-  }
-);
-const j: Request = new Request(
-  \"http://example.org\",
-  {
-    method: \"GET\",
-    headers: \"Content-Type: image/jpeg\",
-    mode: \"cors\",
-    cache: \"default\"
-  }
-);
-const k: Request = new Request(
-  \"http://example.org\",
-  {
-    method: \"CONNECT\",
-    headers: { \"Content-Type\": \"image/jpeg\" },
-    mode: \"cors\",
-    cache: \"default\"
-  }
-);
+const h: Request = new Request(\"http://example.org\", {
+  method: \"GET\",
+  headers: { \"Content-Type\": \"image/jpeg\" },
+  mode: \"cors\",
+  cache: \"default\"
+});
+const i: Request = new Request(\"http://example.org\", {
+  method: \"POST\",
+  headers: { \"Content-Type\": \"image/jpeg\" },
+  body: new URLSearchParams(\"key=value\"),
+  mode: \"cors\",
+  cache: \"default\"
+});
+const j: Request = new Request(\"http://example.org\", {
+  method: \"GET\",
+  headers: \"Content-Type: image/jpeg\",
+  mode: \"cors\",
+  cache: \"default\"
+});
+const k: Request = new Request(\"http://example.org\", {
+  method: \"CONNECT\",
+  headers: { \"Content-Type\": \"image/jpeg\" },
+  mode: \"cors\",
+  cache: \"default\"
+});
 var l: boolean = h.bodyUsed;
 
 h.text().then((t: string) => t);
@@ -319,19 +307,19 @@ const b: Response = new Response(new Blob());
 const c: Response = new Response(new FormData());
 const d: Response = new Response(new FormData(), { status: 404 });
 const e: Response = new Response(\"responsebody\", { status: \"404\" });
-const f: Response = new Response(
-  \"responsebody\",
-  { status: 404, headers: \"\'Content-Type\': \'image/jpeg\'\" }
-);
-const g: Response = new Response(
-  \"responsebody\",
-  { status: 404, headers: { \"Content-Type\": \"image/jpeg\" } }
-);
-const h: Response = new Response(
-  \"responsebody\",
-  { status: 404, headers: new Headers({ \"Content-Type\": \"image/jpeg\" }) }
-);
-const i: Response = new Response({
+const f: Response = new Response(\"responsebody\", {
+  status: 404,
+  headers: \"\'Content-Type\': \'image/jpeg\'\"
+});
+const g: Response = new Response(\"responsebody\", {
+  status: 404,
+  headers: { \"Content-Type\": \"image/jpeg\" }
+});
+const h: Response = new Response(\"responsebody\", {
+  status: 404,
+  headers: new Headers({ \"Content-Type\": \"image/jpeg\" })
+});
+const i: Response = new Response(, {
   status: 404,
   headers: new Headers({ \"Content-Type\": \"image/jpeg\" })
 });

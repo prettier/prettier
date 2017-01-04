@@ -15,6 +15,7 @@ var multilineGroup = pp.multilineGroup;
 var indent = pp.indent;
 var getFirstString = pp.getFirstString;
 var hasHardLine = pp.hasHardLine;
+var conditionalGroup = pp.conditionalGroup;
 var normalizeOptions = require("./options").normalize;
 var types = require("ast-types");
 var namedTypes = types.namedTypes;
@@ -1175,13 +1176,12 @@ else
     );
 
     var mostChildren = children.slice(0, -1);
-    var lastChild = children[children.length - 1];
     var closingLines = path.call(print, "closingElement");
     return concat(
       [
         openingLines,
         indent(options.tabWidth, concat(mostChildren)),
-        lastChild || "",
+        util.getLast(children) || "",
         closingLines
       ]
     );
@@ -1746,25 +1746,65 @@ function printArgumentsList(path, options, print) {
   var args;
 
   if (printed.length === 0) {
-    args = "";
-  } else
-    if (printed.length === 1 && getFirstString(printed[0]) === "{") {
-      // If the only argument is an object, don't force it to be on
-      // newline and keep the braces on the same line as the parens
-      args = printed[0];
-    } else {
-      args = concat(
-        [
-          indent(
-            options.tabWidth,
-            concat([ softline, join(concat([ ",", line ]), printed) ])
-          ),
-          softline
-        ]
-      );
-    }
+    return "()";
+  }
 
-  return multilineGroup(concat([ "(", args, ")" ]));
+  const shouldBreak = printed.slice(0, -1).some(hasHardLine);
+  const lastArg = util.getLast(path.getValue().arguments);
+  // This is just an optimization; I think we could return the
+  // conditional group for all function calls, but it's more expensive
+  // so only do it for specific forms.
+  const groupLastArg = lastArg.type === "ObjectExpression" ||
+        lastArg.type === "ArrayExpression" ||
+        lastArg.type === "FunctionExpression" ||
+        lastArg.type === "ArrowFunctionExpression";
+
+  if (groupLastArg) {
+    return conditionalGroup(
+      [
+        concat([
+          "(",
+          join(concat([ ", " ]), printed),
+          ")"
+        ]),
+
+        concat([
+          "(",
+          join(concat([ ",", line ]), printed.slice(0, -1)),
+          ", ",
+          group(util.getLast(printed), { shouldBreak: true }),
+          ")"
+        ]),
+
+        group(
+          concat([
+            "(",
+            indent(
+              options.tabWidth,
+              concat([ line, join(concat([ ",", line ]), printed) ])
+            ),
+            line,
+            ")"
+          ]),
+          { shouldBreak: true }
+        ),
+      ],
+      shouldBreak
+    );
+  }
+
+  return group(
+    concat([
+      "(",
+      indent(
+        options.tabWidth,
+        concat([ softline, join(concat([ ",", line ]), printed) ])
+      ),
+      softline,
+      ")"
+    ]),
+    shouldBreak
+  );
 }
 
 function printFunctionParams(path, print) {

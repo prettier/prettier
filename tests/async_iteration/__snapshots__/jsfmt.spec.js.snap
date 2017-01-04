@@ -145,11 +145,9 @@ refuse_return().return(\"string\").then(result => {
 // error: number | void ~> string
 declare var gen: AsyncGenerator<void, string, void>;
 
-gen.return(0).then(
-  result => {
-    (result.value: void);
-  }
-);
+gen.return(0).then(result => {
+  (result.value: void);
+});
 
 async function* refuse_return() {
   try {
@@ -159,13 +157,11 @@ async function* refuse_return() {
   }
 }
 
-refuse_return().return(\"string\").then(
-  result => {
-    if (result.done) {
-      (result.value: string);
-    }
+refuse_return().return(\"string\").then(result => {
+  if (result.done) {
+    (result.value: string);
   }
-);
+});
 "
 `;
 
@@ -214,13 +210,11 @@ async function* catch_return() {
 }
 
 async () => {
-  catch_return().throw(\"\").then(
-    ({ value }) => {
-      if (value !== undefined) {
-        (value: void);
-      }
+  catch_return().throw(\"\").then(({ value }) => {
+    if (value !== undefined) {
+      (value: void);
     }
-  );
+  });
 };
 
 async function* yield_return() {
@@ -234,13 +228,11 @@ async function* yield_return() {
 }
 
 async () => {
-  yield_return().throw(\"\").then(
-    ({ value }) => {
-      if (value !== undefined) {
-        (value: void);
-      }
+  yield_return().throw(\"\").then(({ value }) => {
+    if (value !== undefined) {
+      (value: void);
     }
-  );
+  });
 };
 "
 `;

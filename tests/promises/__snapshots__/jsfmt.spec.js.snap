@@ -56,23 +56,19 @@ function tes2(val: Map<string, Promise<number>>) {
 declare var pstr: Promise<string>;
 declare var pnum: Promise<number>;
 
-Promise.all([ pstr, pnum, true ]).then(
-  xs => {
-    let [ a, b, c ] = xs;
+Promise.all([ pstr, pnum, true ]).then(xs => {
+  let [ a, b, c ] = xs;
 
-    (a: number);
+  (a: number);
 
-    (b: boolean);
+  (b: boolean);
 
-    (c: string);
+  (c: string);
 
-    xs.forEach(
-      x => {
-        (x: void);
-      }
-    );
-  }
-);
+  xs.forEach(x => {
+    (x: void);
+  });
+});
 
 Promise.all();
 
@@ -428,250 +424,164 @@ Promise.resolve(0)
 // TODO: resolvedPromise<T> -> catch() -> then():T
 // TODO
 // Error: string ~> number
-new Promise(
-  function(resolve, reject) {
-    resolve(0);
-  }
-).then(
-  function(num) {
-    var a: number = num;
-    var b: string = num;
-  }
-);
+new Promise(function(resolve, reject) {
+  resolve(0);
+}).then(function(num) {
+  var a: number = num;
+  var b: string = num;
+});
 
-new Promise((resolve, reject) => resolve(0)).then(
-  function(num) {
-    var a: number = num;
-    var b: string = num;
-  }
-);
+new Promise((resolve, reject) => resolve(0)).then(function(num) {
+  var a: number = num;
+  var b: string = num;
+});
 
-new Promise(
-  function(resolve, reject) {
-    resolve(
-      new Promise(
-        function(resolve, reject) {
+new Promise(function(resolve, reject) {
+  resolve(new Promise(function(resolve, reject) {
+      resolve(0);
+    }));
+}).then(function(num) {
+  var a: number = num;
+  var b: string = num;
+});
+
+new Promise(function(resolve, reject) {
+  resolve(new Promise(function(resolve, reject) {
+      resolve(new Promise(function(resolve, reject) {
           resolve(0);
-        }
-      )
-    );
-  }
-).then(
-  function(num) {
-    var a: number = num;
-    var b: string = num;
-  }
-);
+        }));
+    }));
+}).then(function(num) {
+  var a: number = num;
+  var b: string = num;
+});
 
-new Promise(
-  function(resolve, reject) {
-    resolve(
-      new Promise(
-        function(resolve, reject) {
-          resolve(
-            new Promise(
-              function(resolve, reject) {
-                resolve(0);
-              }
-            )
-          );
-        }
-      )
-    );
+new Promise(function(resolve, reject) {
+  if (Math.random()) {
+    resolve(42);
+  } else {
+    resolve(\"str\");
   }
-).then(
-  function(num) {
-    var a: number = num;
-    var b: string = num;
+}).then(function(numOrStr) {
+  if (typeof numOrStr === \"string\") {
+    var a: string = numOrStr;
+  } else {
+    var b: number = numOrStr;
   }
-);
 
-new Promise(
-  function(resolve, reject) {
-    if (Math.random()) {
-      resolve(42);
-    } else {
-      resolve(\"str\");
-    }
-  }
-).then(
-  function(numOrStr) {
-    if (typeof numOrStr === \"string\") {
-      var a: string = numOrStr;
-    } else {
-      var b: number = numOrStr;
-    }
+  var c: string = numOrStr;
+});
 
-    var c: string = numOrStr;
-  }
-);
+new Promise(function(resolve, reject) {
+  reject(0);
+}).catch(function(num) {
+  var a: number = num;
+  var b: string = num;
+});
 
-new Promise(
-  function(resolve, reject) {
-    reject(0);
-  }
-).catch(
-  function(num) {
-    var a: number = num;
-    var b: string = num;
-  }
-);
+new Promise(function(resolve, reject) {
+  reject(new Promise(function(resolve, reject) {
+      reject(0);
+    }));
+}).catch(function(num) {
+  var a: Promise<number> = num;
+  var b: number = num;
+});
 
-new Promise(
-  function(resolve, reject) {
-    reject(
-      new Promise(
-        function(resolve, reject) {
-          reject(0);
-        }
-      )
-    );
+new Promise(function(resolve, reject) {
+  if (Math.random()) {
+    reject(42);
+  } else {
+    reject(\"str\");
   }
-).catch(
-  function(num) {
-    var a: Promise<number> = num;
-    var b: number = num;
+}).catch(function(numOrStr) {
+  if (typeof numOrStr === \"string\") {
+    var a: string = numOrStr;
+  } else {
+    var b: number = numOrStr;
   }
-);
 
-new Promise(
-  function(resolve, reject) {
-    if (Math.random()) {
-      reject(42);
-    } else {
-      reject(\"str\");
-    }
-  }
-).catch(
-  function(numOrStr) {
-    if (typeof numOrStr === \"string\") {
-      var a: string = numOrStr;
-    } else {
-      var b: number = numOrStr;
-    }
+  var c: string = numOrStr;
+});
 
-    var c: string = numOrStr;
-  }
-);
+Promise.resolve(0).then(function(num) {
+  var a: number = num;
+  var b: string = num;
+});
 
-Promise.resolve(0).then(
-  function(num) {
-    var a: number = num;
-    var b: string = num;
-  }
-);
+Promise.resolve(Promise.resolve(0)).then(function(num) {
+  var a: number = num;
+  var b: string = num;
+});
 
-Promise.resolve(Promise.resolve(0)).then(
-  function(num) {
-    var a: number = num;
-    var b: string = num;
-  }
-);
+Promise.resolve(Promise.resolve(Promise.resolve(0))).then(function(num) {
+  var a: number = num;
+  var b: string = num;
+});
 
-Promise.resolve(Promise.resolve(Promise.resolve(0))).then(
-  function(num) {
-    var a: number = num;
-    var b: string = num;
-  }
-);
+Promise.reject(0).catch(function(num) {
+  var a: number = num;
+  var b: string = num;
+});
 
-Promise.reject(0).catch(
-  function(num) {
-    var a: number = num;
-    var b: string = num;
-  }
-);
+Promise.reject(Promise.resolve(0)).then(function(num) {
+  var a: Promise<number> = num;
+  var b: number = num;
+});
 
-Promise.reject(Promise.resolve(0)).then(
-  function(num) {
-    var a: Promise<number> = num;
-    var b: number = num;
-  }
-);
+Promise.resolve(0).then(function(num) {
+  return \"asdf\";
+}).then(function(str) {
+  var a: string = str;
+  var b: number = str;
+});
 
-Promise.resolve(0).then(
-  function(num) {
-    return \"asdf\";
-  }
-).then(
-  function(str) {
-    var a: string = str;
-    var b: number = str;
-  }
-);
+Promise.resolve(0).then(function(num) {
+  return Promise.resolve(\"asdf\");
+}).then(function(str) {
+  var a: string = str;
+  var b: number = str;
+});
 
-Promise.resolve(0).then(
-  function(num) {
-    return Promise.resolve(\"asdf\");
-  }
-).then(
-  function(str) {
-    var a: string = str;
-    var b: number = str;
-  }
-);
+Promise.resolve(0).then(function(num) {
+  return Promise.resolve(Promise.resolve(\"asdf\"));
+}).then(function(str) {
+  var a: string = str;
+  var b: number = str;
+});
 
-Promise.resolve(0).then(
-  function(num) {
-    return Promise.resolve(Promise.resolve(\"asdf\"));
-  }
-).then(
-  function(str) {
-    var a: string = str;
-    var b: number = str;
-  }
-);
+Promise.resolve(0).then(function(num) {
+  throw \"str\";
+}).catch(function(str) {
+  var a: string = str;
+  var b: number = str;
+});
 
-Promise.resolve(0).then(
-  function(num) {
-    throw \"str\";
-  }
-).catch(
-  function(str) {
-    var a: string = str;
-    var b: number = str;
-  }
-);
+Promise.reject(0).catch(function(num) {
+  return \"asdf\";
+}).then(function(str) {
+  var a: string = str;
+  var b: number = str;
+});
 
-Promise.reject(0).catch(
-  function(num) {
-    return \"asdf\";
-  }
-).then(
-  function(str) {
-    var a: string = str;
-    var b: number = str;
-  }
-);
+Promise.reject(0).catch(function(num) {
+  return Promise.resolve(\"asdf\");
+}).then(function(str) {
+  var a: string = str;
+  var b: number = str;
+});
 
-Promise.reject(0).catch(
-  function(num) {
-    return Promise.resolve(\"asdf\");
-  }
-).then(
-  function(str) {
-    var a: string = str;
-    var b: number = str;
-  }
-);
+Promise.reject(0).catch(function(num) {
+  return Promise.resolve(Promise.resolve(\"asdf\"));
+}).then(function(str) {
+  var a: string = str;
+  var b: number = str;
+});
 
-Promise.reject(0).catch(
-  function(num) {
-    return Promise.resolve(Promise.resolve(\"asdf\"));
-  }
-).then(
-  function(str) {
-    var a: string = str;
-    var b: number = str;
-  }
-);
-
-Promise.resolve(0).catch(function(err) {}).then(
-  function(num) {
-    var a: number = num;
-    var b: string = num;
-  }
-);
+Promise.resolve(0).catch(function(err) {}).then(function(num) {
+  var a: number = num;
+  var b: string = num;
+});
 "
 `;
 

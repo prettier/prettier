@@ -129,7 +129,7 @@ var blah = <Foo {...props} />; // error bar, number given string expected
 /* @flow */
 // error bar, number given string expected
 var React = require(\"react\");
-var Foo = React.createClass({
+var Foo = React.createClass(, {
   propTypes: { bar: React.PropTypes.string.isRequired }
 });
 var props = { bar: 42 };
@@ -155,7 +155,7 @@ var fail_mistyped_elems = <Example arr={[1, \"foo\"]} />
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 var React = require(\"react\");
-var Example = React.createClass({
+var Example = React.createClass(, {
   propTypes: { arr: React.PropTypes.arrayOf(React.PropTypes.number).isRequired }
 });
 var ok_empty = <Example arr={[]}/>;
@@ -183,7 +183,7 @@ var fail_mistyped = <Example func={2} />
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 var React = require(\"react\");
-var Example = React.createClass({
+var Example = React.createClass(, {
   propTypes: { func: React.PropTypes.func.isRequired }
 });
 var ok_void = <Example func={() => {}}/>;
@@ -275,7 +275,7 @@ var fail_mistyped = <Example object={2} />
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 var React = require(\"react\");
-var Example = React.createClass({
+var Example = React.createClass(, {
   propTypes: { object: React.PropTypes.object.isRequired }
 });
 var ok_empty = <Example object={{}}/>;
@@ -302,7 +302,7 @@ var fail_mistyped_props = <Example obj={{foo: \"foo\"}} />
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 var React = require(\"react\");
-var Example = React.createClass({
+var Example = React.createClass(, {
   propTypes: {
     obj: React.PropTypes.objectOf(React.PropTypes.number).isRequired
   }
@@ -329,7 +329,7 @@ var ex2 = <Example literal=\"bar\" />;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 var React = require(\"react\");
-var Example = React.createClass({
+var Example = React.createClass(, {
   propTypes: { literal: React.PropTypes.oneOf([ \"foo\" ]).isRequired }
 });
 var ex1 = <Example literal=\"foo\"/>;
@@ -366,9 +366,10 @@ var fail_bool = <Example prop={true} />
 var React = require(\"react\");
 var Example = React.createClass({
   propTypes: {
-    prop: React.PropTypes.oneOfType(
-      [ React.PropTypes.string, React.PropTypes.number ]
-    ).isRequired
+    prop: React.PropTypes.oneOfType(, [
+      React.PropTypes.string,
+      React.PropTypes.number
+    ]).isRequired
   },
   render() {
     if (typeof this.props.prop === \"string\") {
