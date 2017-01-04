@@ -1993,10 +1993,6 @@ function nodeStr(str, options) {
   isString.assert(str);
 
   switch (options.quote) {
-  case "auto":
-    var double = JSON.stringify(str);
-    var single = swapQuotes(JSON.stringify(swapQuotes(str)));
-    return (double.length > single.length ? single : double);
   case "single":
     return swapQuotes(JSON.stringify(swapQuotes(str)));
   case "double":
