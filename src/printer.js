@@ -15,6 +15,7 @@ var multilineGroup = pp.multilineGroup;
 var indent = pp.indent;
 var getFirstString = pp.getFirstString;
 var hasHardLine = pp.hasHardLine;
+var conditionalGroup = pp.conditionalGroup;
 var normalizeOptions = require("./options").normalize;
 var types = require("ast-types");
 var namedTypes = types.namedTypes;
@@ -357,17 +358,7 @@ function genericPrintNoParens(path, options, print) {
 
     parts.push(
       path.call(print, "typeParameters"),
-      concat(
-        [
-          "(",
-          indent(
-            options.tabWidth,
-            concat([ softline, printFunctionParams(path, print) ])
-          ),
-          softline,
-          ")"
-        ]
-      ),
+      printFunctionParams(path, print, options),
       printReturnType(path, print),
       " ",
       path.call(print, "body")
@@ -393,9 +384,7 @@ function genericPrintNoParens(path, options, print) {
       parts.push(path.call(print, "params", 0));
     } else {
       parts.push(
-        "(",
-        printFunctionParams(path, print),
-        ")",
+        printFunctionParams(path, print, options),
         printReturnType(path, print)
       );
     }
@@ -1175,13 +1164,12 @@ else
     );
 
     var mostChildren = children.slice(0, -1);
-    var lastChild = children[children.length - 1];
     var closingLines = path.call(print, "closingElement");
     return concat(
       [
         openingLines,
         indent(options.tabWidth, concat(mostChildren)),
-        lastChild || "",
+        util.getLast(children) || "",
         closingLines
       ]
     );
@@ -1408,7 +1396,7 @@ else
 
     parts.push(path.call(print, "typeParameters"));
 
-    parts.push("(", printFunctionParams(path, print), ")");
+    parts.push(printFunctionParams(path, print, options));
 
     // The returnType is not wrapped in a TypeAnnotation, so the colon
     // needs to be added separately.
@@ -1724,14 +1712,12 @@ function printMethod(path, options, print) {
   parts.push(
     key,
     path.call(print, "value", "typeParameters"),
-    "(",
     path.call(
       function(valuePath) {
-        return printFunctionParams(valuePath, print);
+        return printFunctionParams(valuePath, print, options);
       },
       "value"
     ),
-    ")",
     path.call(p => printReturnType(p, print), "value"),
     " ",
     path.call(print, "value", "body")
@@ -1746,28 +1732,68 @@ function printArgumentsList(path, options, print) {
   var args;
 
   if (printed.length === 0) {
-    args = "";
-  } else
-    if (printed.length === 1 && getFirstString(printed[0]) === "{") {
-      // If the only argument is an object, don't force it to be on
-      // newline and keep the braces on the same line as the parens
-      args = printed[0];
-    } else {
-      args = concat(
-        [
-          indent(
-            options.tabWidth,
-            concat([ softline, join(concat([ ",", line ]), printed) ])
-          ),
-          softline
-        ]
-      );
-    }
+    return "()";
+  }
 
-  return multilineGroup(concat([ "(", args, ")" ]));
+  const shouldBreak = printed.slice(0, -1).some(hasHardLine);
+  const lastArg = util.getLast(path.getValue().arguments);
+  // This is just an optimization; I think we could return the
+  // conditional group for all function calls, but it's more expensive
+  // so only do it for specific forms.
+  const groupLastArg = lastArg.type === "ObjectExpression" ||
+        lastArg.type === "ArrayExpression" ||
+        lastArg.type === "FunctionExpression" ||
+        lastArg.type === "ArrowFunctionExpression";
+
+  if (groupLastArg) {
+    return conditionalGroup(
+      [
+        concat([
+          "(",
+          join(concat([ ", " ]), printed),
+          ")"
+        ]),
+
+        concat([
+          "(",
+          join(concat([ ",", line ]), printed.slice(0, -1)),
+          printed.length > 1 ? ", " : "",
+          group(util.getLast(printed), { shouldBreak: true }),
+          ")"
+        ]),
+
+        group(
+          concat([
+            "(",
+            indent(
+              options.tabWidth,
+              concat([ line, join(concat([ ",", line ]), printed) ])
+            ),
+            line,
+            ")"
+          ]),
+          { shouldBreak: true }
+        ),
+      ],
+      shouldBreak
+    );
+  }
+
+  return group(
+    concat([
+      "(",
+      indent(
+        options.tabWidth,
+        concat([ softline, join(concat([ ",", line ]), printed) ])
+      ),
+      softline,
+      ")"
+    ]),
+    shouldBreak
+  );
 }
 
-function printFunctionParams(path, print) {
+function printFunctionParams(path, print, options) {
   var fun = path.getValue();
   // namedTypes.Function.assert(fun);
   var printed = path.map(print, "params");
@@ -1790,7 +1816,15 @@ function printFunctionParams(path, print) {
     printed.push(concat([ "...", path.call(print, "rest") ]));
   }
 
-  return join(concat([ ",", line ]), printed);
+  return concat([
+    "(",
+    indent(
+      options.tabWidth,
+      concat([ softline, join(concat([ ",", line ]), printed) ])
+    ),
+    softline,
+    ")"
+  ]);
 }
 
 function printObjectMethod(path, options, print) {
@@ -1818,9 +1852,7 @@ function printObjectMethod(path, options, print) {
   }
 
   parts.push(
-    "(",
     printFunctionParams(path, print),
-    ")",
     printReturnType(path, print),
     " ",
     path.call(print, "body")

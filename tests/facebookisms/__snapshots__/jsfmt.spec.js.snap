@@ -66,11 +66,9 @@ let tests = [
 
     result.baz = false;
 
-    (copyProperties(result, { foo: \"a\" }, { bar: 123 }): {
-      foo: string;
-      bar: number;
-      baz: boolean
-    });
+    (copyProperties(result, { foo: \"a\" }, {
+      bar: 123
+    }): { foo: string; bar: number; baz: boolean });
   },
   function() {
     const copyProperties = require(\"copyProperties\");

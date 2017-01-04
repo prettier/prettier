@@ -23,15 +23,27 @@ function indent(n, contents) {
   return { type: 'indent', contents, n };
 }
 
-function group(contents) {
+function group(contents, opts) {
+  opts = opts || {};
   assertDoc(contents);
-  return { type: 'group', contents };
+  return {
+    type: 'group',
+    contents: contents,
+    break: !!opts.shouldBreak,
+    expandedStates: opts.expandedStates
+  };
 }
 
-function multilineGroup(doc) {
-  assertDoc(doc);
-  const shouldBreak = hasHardLine(doc);
-  return { type: 'group', contents: doc, break: shouldBreak };
+function multilineGroup(contents, opts) {
+  return group(contents, Object.assign(opts || {}, {
+    shouldBreak: hasHardLine(contents)
+  }));
+}
+
+function conditionalGroup(states, opts) {
+  return group(states[0], Object.assign(opts || {}, {
+    expandedStates: states
+  }));
 }
 
 function iterDoc(topDoc, func) {
@@ -69,10 +81,6 @@ const line = { type: 'line' };
 const softline = { type: 'line', soft: true };
 const hardline = { type: 'line', hard: true };
 const literalline = { type: 'line', hard: true, literal: true };
-
-function indentedLine(n) {
-  return { type: 'line', indent: n };
-}
 
 function isEmpty(n) {
   return typeof n === "string" && n.length === 0;
@@ -183,6 +191,7 @@ function print(w, doc) {
   // cmds to the array instead of recursively calling `print`.
   let cmds = [[0, MODE_BREAK, doc]];
   let out = [];
+  let shouldRemeasure = false;
 
   while(cmds.length !== 0) {
     const [ind, mode, doc] = cmds.pop();
@@ -204,16 +213,53 @@ function print(w, doc) {
         case "group":
           switch(mode) {
             case MODE_FLAT:
-              cmds.push([ind, doc.break ? MODE_BREAK : MODE_FLAT, doc.contents]);
-              break;
+              if(!shouldRemeasure) {
+                cmds.push([ind, doc.break ? MODE_BREAK : MODE_FLAT, doc.contents]);
+                break;
+              }
+              // fallthrough
             case MODE_BREAK:
+              shouldRemeasure = false;
               const next = [ind, MODE_FLAT, doc.contents];
               let rem = w - pos;
+
               if(!doc.break && fits(next, cmds, rem)) {
                 cmds.push(next);
               }
               else {
-                cmds.push([ind, MODE_BREAK, doc.contents]);
+                // Expanded states are a rare case where a document
+                // can manually provide multiple representations of
+                // itself. It provides an array of documents
+                // going from the least expanded (most flattened)
+                // representation first to the most expanded. If a
+                // group has these, we need to manually go through
+                // these states and find the first one that fits.
+                if(doc.expandedStates) {
+                  const mostExpanded = doc.expandedStates[doc.expandedStates.length - 1];
+                  if(doc.break) {
+                    cmds.push([ind, MODE_BREAK, mostExpanded]);
+                    break;
+                  }
+                  else {
+                    for(var i=1; i<doc.expandedStates.length + 1; i++) {
+                      if(i >= doc.expandedStates.length) {
+                        cmds.push([ind, MODE_BREAK, mostExpanded]);
+                        break;
+                      }
+                      else {
+                        const state = doc.expandedStates[i];
+                        const cmd = [ind, MODE_FLAT, state];
+                        if(fits(cmd, cmds, rem)) {
+                          cmds.push(cmd);
+                          break;
+                        }
+                      }
+                    }
+                  }
+                }
+                else {
+                  cmds.push([ind, MODE_BREAK, doc.contents]);
+                }
               }
               break;
           }
@@ -229,13 +275,13 @@ function print(w, doc) {
                 break;
               }
               else {
-                // We need to switch everything back into
-                // the breaking mode because this is
-                // forcing a newline and everything needs
-                // to be re-measured.
-                cmds.forEach(cmd => {
-                  cmd[1] = MODE_BREAK;
-                });
+                // This line was forced into the output even if we
+                // were in flattened mode, so we need to tell the next
+                // group that no matter what, it needs to remeasure
+                // because the previous measurement didn't accurately
+                // capture the entire expression (this is necessary
+                // for nested groups)
+                shouldRemeasure = true;
               }
               // fallthrough
           case MODE_BREAK:
@@ -268,5 +314,5 @@ function print(w, doc) {
 module.exports = {
   fromString, concat, isEmpty, join,
   line, softline, hardline, literalline, group, multilineGroup,
-  hasHardLine, indent, print, getFirstString
+  conditionalGroup, hasHardLine, indent, print, getFirstString
 };

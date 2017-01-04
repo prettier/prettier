@@ -46,11 +46,9 @@ function f2(xlam) {
   g2(xlam);
 }
 
-f2(
-  function(x) {
-    return x * x;
-  }
-);
+f2(function(x) {
+  return x * x;
+});
 
 function g3(ylam: (s: string) => number) {}
 

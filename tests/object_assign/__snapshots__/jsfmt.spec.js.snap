@@ -34,26 +34,18 @@ module.exports = {
 // Doesn\'t repro if I extend the class myself
 // Calling Good.foo() in the same file doesn\'t error
 var EventEmitter = require(\"events\").EventEmitter;
-var Bad = Object.assign(
-  {},
-  EventEmitter.prototype,
-  {
-    foo: function(): string {
-      return \"hi\";
-    }
+var Bad = Object.assign({}, EventEmitter.prototype, {
+  foo: function(): string {
+    return \"hi\";
   }
-);
+});
 var bad: number = Bad.foo();
 class MyEventEmitter extends events$EventEmitter {}
-var Good = Object.assign(
-  {},
-  MyEventEmitter.prototype,
-  {
-    foo: function(): string {
-      return \"hi\";
-    }
+var Good = Object.assign({}, MyEventEmitter.prototype, {
+  foo: function(): string {
+    return \"hi\";
   }
-);
+});
 var good: number = Good.foo();
 
 module.exports = { Bad: Bad, Good: Good };

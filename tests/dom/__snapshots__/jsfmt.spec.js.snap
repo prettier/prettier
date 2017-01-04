@@ -447,59 +447,48 @@ let tests = [
 // Error: This might be null
 let tests = [
   function() {
-    document.registerElement(
-      \"custom-element\",
-      {
-        prototype: Object.create(
-          HTMLElement.prototype,
-          {
-            createdCallback: { value: function createdCallback() {} },
-            attachedCallback: { value: function attachedCallback() {} },
-            detachedCallback: { value: function detachedCallback() {} },
-            attributeChangedCallback: {
-              value: function attributeChangedCallback(
-                attributeLocalName,
-                oldAttributeValue,
-                newAttributeValue,
-                attributeNamespace
-              ) {}
-            }
-          }
-        )
-      }
-    );
-  },
-  function() {
-    document.registerElement(
-      \"custom-element\",
-      {
-        prototype: Object.assign(
-          Object.create(HTMLElement.prototype),
-          {
-            createdCallback() {},
-            attachedCallback() {},
-            detachedCallback() {},
-            attributeChangedCallback(attributeLocalName,
+    document.registerElement(\"custom-element\", {
+      prototype: Object.create(HTMLElement.prototype, {
+        createdCallback: { value: function createdCallback() {} },
+        attachedCallback: { value: function attachedCallback() {} },
+        detachedCallback: { value: function detachedCallback() {} },
+        attributeChangedCallback: {
+          value: function attributeChangedCallback(
+            attributeLocalName,
             oldAttributeValue,
             newAttributeValue,
-            attributeNamespace) {}
-          }
-        )
-      }
-    );
+            attributeNamespace
+          ) {}
+        }
+      })
+    });
   },
   function() {
-    document.registerElement(
-      \"custom-element\",
-      {
-        prototype: {
-          attributeChangedCallback(localName: string,
+    document.registerElement(\"custom-element\", {
+      prototype: Object.assign(Object.create(HTMLElement.prototype), {
+        createdCallback() {},
+        attachedCallback() {},
+        detachedCallback() {},
+        attributeChangedCallback(
+          attributeLocalName,
+          oldAttributeValue,
+          newAttributeValue,
+          attributeNamespace
+        ) {}
+      })
+    });
+  },
+  function() {
+    document.registerElement(\"custom-element\", {
+      prototype: {
+        attributeChangedCallback(
+          localName: string,
           oldVal: string,
           newVal: string,
-          namespace: string) {}
-        }
+          namespace: string
+        ) {}
       }
-    );
+    });
   }
 ];
 "
@@ -907,17 +896,13 @@ let tests = [
 
     document.createNodeIterator(document.body, -1, node => \"accept\");
 
-    document.createNodeIterator(
-      document.body,
-      -1,
-      { accept: node => NodeFilter.FILTER_ACCEPT }
-    );
+    document.createNodeIterator(document.body, -1, {
+      accept: node => NodeFilter.FILTER_ACCEPT
+    });
 
-    document.createNodeIterator(
-      document.body,
-      -1,
-      { accept: node => \"accept\" }
-    );
+    document.createNodeIterator(document.body, -1, {
+      accept: node => \"accept\"
+    });
 
     document.createNodeIterator(document.body, -1, {});
   },
@@ -930,11 +915,9 @@ let tests = [
 
     document.createTreeWalker(document.body, -1, node => \"accept\");
 
-    document.createTreeWalker(
-      document.body,
-      -1,
-      { accept: node => NodeFilter.FILTER_ACCEPT }
-    );
+    document.createTreeWalker(document.body, -1, {
+      accept: node => NodeFilter.FILTER_ACCEPT
+    });
 
     document.createTreeWalker(document.body, -1, { accept: node => \"accept\" });
 

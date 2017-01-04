@@ -70,19 +70,16 @@ requireLazy([\'A\']); // Error: No calback expression
 // Error: No args
 // Error: Non-stringliteral args
 // Error: No calback expression
-requireLazy(
-  [ \"A\", \"B\" ],
-  function(A, B) {
-    var num1: number = A.numberValueA;
-    var str1: string = A.stringValueA;
-    var num2: number = A.stringValueA;
-    var str2: string = A.numberValueA;
-    var num3: number = B.numberValueB;
-    var str3: string = B.stringValueB;
-    var num4: number = B.stringValueB;
-    var str4: string = B.numberValueB;
-  }
-);
+requireLazy([ \"A\", \"B\" ], function(A, B) {
+  var num1: number = A.numberValueA;
+  var str1: string = A.stringValueA;
+  var num2: number = A.stringValueA;
+  var str2: string = A.numberValueA;
+  var num3: number = B.numberValueB;
+  var str3: string = B.stringValueB;
+  var num4: number = B.stringValueB;
+  var str4: string = B.numberValueB;
+});
 
 var notA: Object = A;
 var notB: Object = B;

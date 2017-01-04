@@ -15,15 +15,13 @@ foo();
 // OK to leave out arg, same as resolve(undefined)
 // simpler repro to show that too few args are fine when expecting void
 function doSomethingAsync(): Promise<void> {
-  return new Promise(
-    (resolve, reject) => {
-      resolve();
+  return new Promise((resolve, reject) => {
+    resolve();
 
-      var anotherVoidPromise: Promise<void> = Promise.resolve();
+    var anotherVoidPromise: Promise<void> = Promise.resolve();
 
-      resolve(anotherVoidPromise);
-    }
-  );
+    resolve(anotherVoidPromise);
+  });
 }
 
 function foo(x: void) {}

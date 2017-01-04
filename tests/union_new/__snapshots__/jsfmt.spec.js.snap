@@ -1461,12 +1461,9 @@ exports[`test test20.js 1`] = `
 // Array#reduce
 [ 0, 1 ].reduce((x, y, i) => y);
 
-[ \"a\", \"b\" ].reduce(
-  (regex, representation, index) => {
+[ \"a\", \"b\" ].reduce((regex, representation, index) => {
     return regex + ((index ? \"|\" : \"\")) + \"(\" + representation + \")\";
-  },
-  \"\"
-);
+  }, \"\");
 
 [ \"\" ].reduce((acc, str) => acc * str.length);
 "
@@ -1629,10 +1626,12 @@ declare class C {
   setMaxListeners(n: number): void
 }
 declare class D extends C {
-  listen(port: number,
-  hostname?: string,
-  backlog?: number,
-  callback?: Function): D;
+  listen(
+    port: number,
+    hostname?: string,
+    backlog?: number,
+    callback?: Function
+  ): D;
   listen(path: string, callback?: Function): D;
   listen(handle: Object, callback?: Function): D;
   close(callback?: Function): D;
@@ -1815,10 +1814,14 @@ class C {
 // with different instantiations.
 type Row = { x: string };
 declare class D<T> {
-  reduce(callbackfn: (previousValue: T, currentValue: T) => T,
-  initialValue: void): T;
-  reduce<U>(callbackfn: (previousValue: U, currentValue: T) => U,
-  initialValue: U): U
+  reduce(
+    callbackfn: (previousValue: T, currentValue: T) => T,
+    initialValue: void
+  ): T;
+  reduce<U>(
+    callbackfn: (previousValue: U, currentValue: T) => U,
+    initialValue: U
+  ): U
 }
 class C {
   foo(rows: D<Row>, minWidth: number): number {

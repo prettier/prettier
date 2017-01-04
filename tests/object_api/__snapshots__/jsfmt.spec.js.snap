@@ -57,14 +57,11 @@ module.exports = export_;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 // makes sure this terminates
-var export_ = Object.assign(
-  {},
-  {
-    foo: function(param) {
-      return param;
-    }
+var export_ = Object.assign({}, {
+  foo: function(param) {
+    return param;
   }
-);
+});
 var decl_export_: { foo: any; bar: any } = Object.assign({}, export_);
 let anyObj: Object = {};
 
@@ -192,19 +189,15 @@ var sealed = { one: \"one\", two: \"two\" };
 
 var unsealed = {};
 
-Object.keys(unsealed).forEach(
-  k => {
-    (k: number);
-  }
-);
+Object.keys(unsealed).forEach(k => {
+  (k: number);
+});
 
 var dict: { [k: number]: string } = {};
 
-Object.keys(dict).forEach(
-  k => {
-    (k: number);
-  }
-);
+Object.keys(dict).forEach(k => {
+  (k: number);
+});
 
 var any: Object = {};
 

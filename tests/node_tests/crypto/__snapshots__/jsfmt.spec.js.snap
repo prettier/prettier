@@ -53,14 +53,11 @@ let tests = [
   function() {
     const hmac = crypto.createHmac(\"sha256\", \"a secret\");
 
-    hmac.on(
-      \"readable\",
-      () => {
-        (hmac.read(): ?(string | Buffer));
+    hmac.on(\"readable\", () => {
+      (hmac.read(): ?(string | Buffer));
 
-        (hmac.read(): number);
-      }
-    );
+      (hmac.read(): number);
+    });
 
     hmac.write(\"some data to hash\");
 

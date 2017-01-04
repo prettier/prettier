@@ -30,12 +30,10 @@ var o = keyMirror({ FOO: null, BAR: null });
 
 (o.FOO: \"BAR\");
 
-promiseAllByKey({ foo: Promise.resolve(0), bar: \"bar\" }).then(
-  o => {
-    (o.foo: string);
+promiseAllByKey({ foo: Promise.resolve(0), bar: \"bar\" }).then(o => {
+  (o.foo: string);
 
-    (o.bar: \"bar\");
-  }
-);
+  (o.bar: \"bar\");
+});
 "
 `;
