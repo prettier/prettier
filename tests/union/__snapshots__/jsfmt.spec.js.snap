@@ -408,7 +408,7 @@ class C {}
 class D {}
 
 function CD(b) {
-  var E = (b ? C : D);
+  var E = b ? C : D;
   var c: C = new E();
 
   function qux(e: E) {}
@@ -421,7 +421,7 @@ function CD(b) {
 declare class F { foo(x: number): void, foo(x: string): void }
 
 function corge(b) {
-  var x = (b ? \"\" : 0);
+  var x = b ? \"\" : 0;
 
   new F().foo(x);
 }

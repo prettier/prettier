@@ -53,7 +53,7 @@ function unannotated(x) {
   return x;
 }
 
-const nullToUndefined = val => (val === null ? undefined : val);
+const nullToUndefined = val => val === null ? undefined : val;
 
 function f0(x: ?Object) {
   return nullToUndefined(x);

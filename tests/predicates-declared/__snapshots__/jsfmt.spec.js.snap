@@ -104,7 +104,7 @@ declare function f2(x: mixed): boolean %checks(Array.isArray(x));
 declare var cond: boolean;
 
 function foo(x: number | string | Array<string>): number {
-  var f = (cond ? f1 : f2);
+  var f = cond ? f1 : f2;
 
   if (f(x)) {
     return x.length;

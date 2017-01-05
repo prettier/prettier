@@ -792,15 +792,17 @@ function genericPrintNoParens(path, options, print) {
 
     return concat(parts);
   case "ConditionalExpression":
-    return concat([
-      "(",
+    return group(concat([
       path.call(print, "test"),
-      " ? ",
-      path.call(print, "consequent"),
-      " : ",
-      path.call(print, "alternate"),
-      ")"
-    ]);
+      indent(options.tabWidth, concat([
+        line,
+        "? ",
+        path.call(print, "consequent"),
+        line,
+        ": ",
+        path.call(print, "alternate")
+      ]))
+    ]));
   case "NewExpression":
 
     parts.push("new ", path.call(print, "callee"));

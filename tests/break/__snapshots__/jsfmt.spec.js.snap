@@ -82,7 +82,7 @@ function test_const() {
 // logic that still uses havoc to do env resets.
 // no error
 function foo(b) {
-  var x = (b ? null : false);
+  var x = b ? null : false;
   var z;
   while (b) {
     if (x == null) {
@@ -97,7 +97,7 @@ function foo(b) {
 }
 
 function bar(b) {
-  var x = (b ? null : false);
+  var x = b ? null : false;
 
   if (x == null)
     return;
@@ -117,7 +117,7 @@ function bar(b) {
 }
 
 function bar2(b) {
-  var x = (b ? null : false);
+  var x = b ? null : false;
 
   if (x == null)
     return;

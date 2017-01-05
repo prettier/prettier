@@ -1847,7 +1847,7 @@ function global_in_conditional2(x: number) {
 // merge_env
 // copy_env
 function foo(b) {
-  var x = (b ? 0 : null);
+  var x = b ? 0 : null;
   while (typeof x == \"string\" || typeof x == \"number\") {
     var y: string = x;
 
@@ -1857,7 +1857,7 @@ function foo(b) {
 }
 
 function bar(b) {
-  var x = (b ? 0 : null);
+  var x = b ? 0 : null;
   do {
     var y: string = x;
 
@@ -1888,7 +1888,7 @@ function qux() {
 
 function corge(b) {
   for (
-    var x = (b ? 0 : null);
+    var x = b ? 0 : null;
     typeof x == \"string\" || typeof x == \"number\";
     x = false
   ) {

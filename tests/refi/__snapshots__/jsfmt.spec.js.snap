@@ -124,7 +124,7 @@ var tests = [
     }
   },
   function() {
-    var y: string = (x != null ? x : \"\");
+    var y: string = x != null ? x : \"\";
   },
   function() {
     var y: string = x || \"\";
@@ -477,7 +477,7 @@ var tests = [
   },
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
-    var y: string = (x.p != null ? x.p : \"\");
+    var y: string = x.p != null ? x.p : \"\";
   },
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
@@ -914,7 +914,7 @@ var paths = [
   },
   function() {
     var x: ?string = \"xxx\";
-    var y: string = (x != null ? x : \"\");
+    var y: string = x != null ? x : \"\";
   },
   function() {
     var x: ?string = \"xxx\";

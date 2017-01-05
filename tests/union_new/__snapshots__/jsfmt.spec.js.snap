@@ -37,7 +37,7 @@ class Thunk {}
 class VirtualNode {
   children: Child | Children;
   constructor(type, children: Children) {
-    this.children = (children.length === 1 ? children[0] : children);
+    this.children = children.length === 1 ? children[0] : children;
   }
 }
 "
@@ -1463,7 +1463,7 @@ exports[`test test20.js 1`] = `
 
 [ \"a\", \"b\" ].reduce(
   (regex, representation, index) => {
-    return regex + ((index ? \"|\" : \"\")) + \"(\" + representation + \")\";
+    return regex + (index ? \"|\" : \"\") + \"(\" + representation + \")\";
   },
   \"\"
 );
@@ -1930,7 +1930,7 @@ function foo(value: Indirect<string> | number): Indirect<string> | number {
 // make sure that full resolution jobs don\'t cache improperly to signal success
 // when they have failed earlier
 function foo(value: Indirect<string> | number): Indirect<string> | number {
-  const castedValue: number = (typeof value === \"number\" ? value : 0);
+  const castedValue: number = typeof value === \"number\" ? value : 0;
   return castedValue;
 }
 "

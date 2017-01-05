@@ -102,7 +102,7 @@ let tests = [
 let tests = [
   function(x: number) {
     var id;
-    var name = (id ? \"John\" : undefined);
+    var name = id ? \"John\" : undefined;
 
     (name: boolean);
 

@@ -22,7 +22,7 @@ new A();
 class B extends A {}
 
 function foo(b): A<any> {
-  return (b ? (new A(): A<number>) : (new A(): A<string>));
+  return b ? (new A(): A<number>) : (new A(): A<string>);
 }
 
 function bar(): A<*> {

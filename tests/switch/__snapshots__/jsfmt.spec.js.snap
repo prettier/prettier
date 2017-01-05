@@ -115,7 +115,7 @@ function bar() {
 }
 
 function qux(b) {
-  var x = (b ? 0 : \"\");
+  var x = b ? 0 : \"\";
   switch (\"qux\") {
   case \"\":
 
