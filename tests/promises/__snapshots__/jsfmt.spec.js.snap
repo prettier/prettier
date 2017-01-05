@@ -438,8 +438,8 @@ new Promise((resolve, reject) => resolve(0)).then(function(num) {
 
 new Promise(function(resolve, reject) {
   resolve(new Promise(function(resolve, reject) {
-      resolve(0);
-    }));
+    resolve(0);
+  }));
 }).then(function(num) {
   var a: number = num;
   var b: string = num;
@@ -447,10 +447,10 @@ new Promise(function(resolve, reject) {
 
 new Promise(function(resolve, reject) {
   resolve(new Promise(function(resolve, reject) {
-      resolve(new Promise(function(resolve, reject) {
-          resolve(0);
-        }));
+    resolve(new Promise(function(resolve, reject) {
+      resolve(0);
     }));
+  }));
 }).then(function(num) {
   var a: number = num;
   var b: string = num;
@@ -481,8 +481,8 @@ new Promise(function(resolve, reject) {
 
 new Promise(function(resolve, reject) {
   reject(new Promise(function(resolve, reject) {
-      reject(0);
-    }));
+    reject(0);
+  }));
 }).catch(function(num) {
   var a: Promise<number> = num;
   var b: number = num;

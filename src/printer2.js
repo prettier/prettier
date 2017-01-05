@@ -251,14 +251,12 @@ function genericPrintNoParens(path, options, print) {
       );
     }
 
-    parts.push(
-      path.call(
+    parts.push(path.call(
         function(bodyPath) {
           return printStatementSequence(bodyPath, options, print);
         },
         "body"
-      )
-    );
+      ));
 
     // Make sure the file always ends with a newline
     parts.push(hardline);
@@ -275,32 +273,30 @@ function genericPrintNoParens(path, options, print) {
     return concat([ "(", path.call(print, "expression"), ")" ]);
   case "AssignmentExpression":
     return group(
-      concat(
-        [
-          path.call(print, "left"),
-          " ",
-          n.operator,
-          " ",
-          path.call(print, "right")
-        ]
-      )
+      concat([
+        path.call(print, "left"),
+        " ",
+        n.operator,
+        " ",
+        path.call(print, "right")
+      ])
     );
   case "BinaryExpression":
   case "LogicalExpression":
     return group(
-      concat(
-        [
-          path.call(print, "left"),
-          " ",
-          n.operator,
-          indent(options.tabWidth, concat([ line, path.call(print, "right") ]))
-        ]
-      )
+      concat([
+        path.call(print, "left"),
+        " ",
+        n.operator,
+        indent(options.tabWidth, concat([ line, path.call(print, "right") ]))
+      ])
     );
   case "AssignmentPattern":
-    return concat(
-      [ path.call(print, "left"), " = ", path.call(print, "right") ]
-    );
+    return concat([
+      path.call(print, "left"),
+      " = ",
+      path.call(print, "right")
+    ]);
   case "MemberExpression":
 
     parts.push(path.call(print, "object"));
@@ -315,9 +311,11 @@ function genericPrintNoParens(path, options, print) {
 
     return concat(parts);
   case "MetaProperty":
-    return concat(
-      [ path.call(print, "meta"), ".", path.call(print, "property") ]
-    );
+    return concat([
+      path.call(print, "meta"),
+      ".",
+      path.call(print, "property")
+    ]);
   case "BindExpression":
 
     if (n.object) {
@@ -330,9 +328,11 @@ function genericPrintNoParens(path, options, print) {
   case "Path":
     return fromString(".").join(n.body);
   case "Identifier":
-    return concat(
-      [ n.name, (n.optional ? "?" : ""), path.call(print, "typeAnnotation") ]
-    );
+    return concat([
+      n.name,
+      (n.optional ? "?" : ""),
+      path.call(print, "typeAnnotation")
+    ]);
   case "SpreadElement":
   case "SpreadElementPattern":
   // Babel 6 for ObjectPattern
@@ -624,9 +624,10 @@ function genericPrintNoParens(path, options, print) {
 
     return concat(parts);
   case "CallExpression":
-    return concat(
-      [ path.call(print, "callee"), printArgumentsList(path, options, print) ]
-    );
+    return concat([
+      path.call(print, "callee"),
+      printArgumentsList(path, options, print)
+    ]);
   case "ObjectExpression":
   case "ObjectPattern":
   case "ObjectTypeAnnotation":
@@ -648,43 +649,41 @@ function genericPrintNoParens(path, options, print) {
     var i = 0;
     var props = [];
 
-    fields.forEach(
-      function(field) {
-        path.each(
-          function(childPath) {
-            props.push(group(print(childPath)));
-          },
-          field
-        );
-      }
-    );
+    fields.forEach(function(field) {
+      path.each(
+        function(childPath) {
+          props.push(group(print(childPath)));
+        },
+        field
+      );
+    });
 
     if (props.length === 0) {
       return "{}";
     } else {
       return multilineGroup(
-        concat(
-          [
-            leftBrace,
-            indent(
-              options.tabWidth,
-              concat([
-                options.bracketSpacing ? line : softline,
-                join(concat([ separator, line ]), props)
-              ])
-            ),
-            options.bracketSpacing ? line : softline,
-            rightBrace,
-            path.call(print, "typeAnnotation")
-          ]
-        )
+        concat([
+          leftBrace,
+          indent(
+            options.tabWidth,
+            concat([
+              (options.bracketSpacing ? line : softline),
+              join(concat([ separator, line ]), props)
+            ])
+          ),
+          (options.bracketSpacing ? line : softline),
+          rightBrace,
+          path.call(print, "typeAnnotation")
+        ])
       );
     }
 
   case "PropertyPattern":
-    return concat(
-      [ path.call(print, "key"), ": ", path.call(print, "pattern") ]
-    );
+    return concat([
+      path.call(print, "key"),
+      ": ",
+      path.call(print, "pattern")
+    ]);
   // Babel 6
   case "ObjectProperty":
   case // Non-standard AST node type.
@@ -728,22 +727,18 @@ function genericPrintNoParens(path, options, print) {
     } else {
       parts.push(
         multilineGroup(
-          concat(
-            [
-              "[",
-              indent(
-                options.tabWidth,
-                concat(
-                  [
-                    line,
-                    join(concat([ ",", line ]), path.map(print, "elements"))
-                  ]
-                )
-              ),
-              line,
-              "]"
-            ]
-          )
+          concat([
+            "[",
+            indent(
+              options.tabWidth,
+              concat([
+                line,
+                join(concat([ ",", line ]), path.map(print, "elements"))
+              ])
+            ),
+            line,
+            "]"
+          ])
         )
       );
     }
@@ -810,17 +805,15 @@ function genericPrintNoParens(path, options, print) {
 
     return concat(parts);
   case "ConditionalExpression":
-    return concat(
-      [
-        "(",
-        path.call(print, "test"),
-        " ? ",
-        path.call(print, "consequent"),
-        " : ",
-        path.call(print, "alternate"),
-        ")"
-      ]
-    );
+    return concat([
+      "(",
+      path.call(print, "test"),
+      " ? ",
+      path.call(print, "consequent"),
+      " : ",
+      path.call(print, "alternate"),
+      ")"
+    ]);
   case "NewExpression":
 
     parts.push("new ", path.call(print, "callee"));
@@ -867,13 +860,18 @@ function genericPrintNoParens(path, options, print) {
 
     return multilineGroup(concat(parts));
   case "VariableDeclarator":
-    return (n.init ? concat(
-      [ path.call(print, "id"), " = ", path.call(print, "init") ]
-    ) : path.call(print, "id"));
+    return (n.init ? concat([
+      path.call(print, "id"),
+      " = ",
+      path.call(print, "init")
+    ]) : path.call(print, "id"));
   case "WithStatement":
-    return concat(
-      [ "with (", path.call(print, "object"), ") ", path.call(print, "body") ]
-    );
+    return concat([
+      "with (",
+      path.call(print, "object"),
+      ") ",
+      path.call(print, "body")
+    ]);
   // var con = adjustClause(path.call(print, "consequent"), options),
   //     parts = ["if (", path.call(print, "test"), ")", con];
   // if (n.alternate)
@@ -887,15 +885,13 @@ function genericPrintNoParens(path, options, print) {
     parts = [
       "if (",
       group(
-        concat(
-          [
-            indent(
-              options.tabWidth,
-              concat([ softline, path.call(print, "test") ])
-            ),
-            softline
-          ]
-        )
+        concat([
+          indent(
+            options.tabWidth,
+            concat([ softline, path.call(print, "test") ])
+          ),
+          softline
+        ])
       ),
       ")",
       con
@@ -913,78 +909,64 @@ function genericPrintNoParens(path, options, print) {
     return concat(parts);
   case "ForStatement":
     // TODO Get the for (;;) case right.
-    return concat(
-      [
-        "for (",
-        group(
-          concat(
-            [
-              indent(
-                options.tabWidth,
-                concat(
-                  [
-                    softline,
-                    path.call(print, "init"),
-                    ";",
-                    line,
-                    path.call(print, "test"),
-                    ";",
-                    line,
-                    path.call(print, "update")
-                  ]
-                )
-              ),
-              softline
-            ]
-          )
-        ),
-        ")",
-        adjustClause(path.call(print, "body"), options)
-      ]
-    );
+    return concat([
+      "for (",
+      group(
+        concat([
+          indent(
+            options.tabWidth,
+            concat([
+              softline,
+              path.call(print, "init"),
+              ";",
+              line,
+              path.call(print, "test"),
+              ";",
+              line,
+              path.call(print, "update")
+            ])
+          ),
+          softline
+        ])
+      ),
+      ")",
+      adjustClause(path.call(print, "body"), options)
+    ]);
   case "WhileStatement":
-    return concat(
-      [
-        "while (",
-        path.call(print, "test"),
-        ")",
-        adjustClause(path.call(print, "body"), options)
-      ]
-    );
+    return concat([
+      "while (",
+      path.call(print, "test"),
+      ")",
+      adjustClause(path.call(print, "body"), options)
+    ]);
   case "ForInStatement":
     // Note: esprima can't actually parse "for each (".
-    return concat(
-      [
-        (n.each ? "for each (" : "for ("),
-        path.call(print, "left"),
-        " in ",
-        path.call(print, "right"),
-        ")",
-        adjustClause(path.call(print, "body"), options)
-      ]
-    );
+    return concat([
+      (n.each ? "for each (" : "for ("),
+      path.call(print, "left"),
+      " in ",
+      path.call(print, "right"),
+      ")",
+      adjustClause(path.call(print, "body"), options)
+    ]);
   case "ForOfStatement":
-    return concat(
-      [
-        "for (",
-        path.call(print, "left"),
-        " of ",
-        path.call(print, "right"),
-        ")",
-        adjustClause(path.call(print, "body"), options)
-      ]
-    );
+    return concat([
+      "for (",
+      path.call(print, "left"),
+      " of ",
+      path.call(print, "right"),
+      ")",
+      adjustClause(path.call(print, "body"), options)
+    ]);
   case "ForAwaitStatement":
-    return concat(
-      [
-        "for await (",
-        path.call(print, "left"),
-        " of ",
-        path.call(print, "right"),
-        ")",
-        adjustClause(path.call(print, "body"), options)
-      ]
-    );
+    return concat([
+      "for await (",
+      path.call(print, "left"),
+      " of ",
+      path.call(print, "right"),
+      ")",
+      adjustClause(path.call(print, "body"), options)
+    ]);
   case "DoWhileStatement":
     var clause = adjustClause(path.call(print, "body"), options);
     var doBody = concat([ "do", clause ]);
@@ -1028,9 +1010,12 @@ else
 
     return concat(parts);
   case "LabeledStatement":
-    return concat(
-      [ path.call(print, "label"), ":", hardline, path.call(print, "body") ]
-    );
+    return concat([
+      path.call(print, "label"),
+      ":",
+      hardline,
+      path.call(print, "body")
+    ]);
   case "TryStatement":
 
     parts.push("try ", path.call(print, "block"));
@@ -1067,17 +1052,15 @@ else
     return concat([ "throw ", path.call(print, "argument"), ";" ]);
   // Note: ignoring n.lexical because it has no printing consequences.
   case "SwitchStatement":
-    return concat(
-      [
-        "switch (",
-        path.call(print, "discriminant"),
-        ") {",
-        hardline,
-        join(hardline, path.map(print, "cases")),
-        hardline,
-        "}"
-      ]
-    );
+    return concat([
+      "switch (",
+      path.call(print, "discriminant"),
+      ") {",
+      hardline,
+      join(hardline, path.map(print, "cases")),
+      hardline,
+      "}"
+    ]);
   case "SwitchCase":
 
     if (n.test)
@@ -1086,22 +1069,15 @@ else
       parts.push("default:");
 
     if (n.consequent.length > 0) {
-      parts.push(
-        indent(
-          options.tabWidth,
-          concat(
-            [
-              hardline,
-              path.call(
-                function(consequentPath) {
-                  return printStatementSequence(consequentPath, options, print);
-                },
-                "consequent"
-              )
-            ]
-          )
-        )
-      );
+      parts.push(indent(options.tabWidth, concat([
+            hardline,
+            path.call(
+              function(consequentPath) {
+                return printStatementSequence(consequentPath, options, print);
+              },
+              "consequent"
+            )
+          ])));
     }
 
     return concat(parts);
@@ -1119,13 +1095,13 @@ else
   case "JSXIdentifier":
     return fromString(n.name, options);
   case "JSXNamespacedName":
-    return fromString(":").join(
-      [ path.call(print, "namespace"), path.call(print, "name") ]
-    );
+    return fromString(
+      ":"
+    ).join([ path.call(print, "namespace"), path.call(print, "name") ]);
   case "JSXMemberExpression":
-    return fromString(".").join(
-      [ path.call(print, "object"), path.call(print, "property") ]
-    );
+    return fromString(
+      "."
+    ).join([ path.call(print, "object"), path.call(print, "property") ]);
   case "JSXSpreadAttribute":
     return concat([ "{...", path.call(print, "argument"), "}" ]);
   case "JSXExpressionContainer":
@@ -1170,24 +1146,20 @@ else
 
     var mostChildren = children.slice(0, -1);
     var closingLines = path.call(print, "closingElement");
-    return concat(
-      [
-        openingLines,
-        indent(options.tabWidth, concat(mostChildren)),
-        util.getLast(children) || "",
-        closingLines
-      ]
-    );
+    return concat([
+      openingLines,
+      indent(options.tabWidth, concat(mostChildren)),
+      util.getLast(children) || "",
+      closingLines
+    ]);
   case "JSXOpeningElement":
     return group(
-      concat(
-        [
-          "<",
-          path.call(print, "name"),
-          concat(path.map(attr => concat([ " ", print(attr) ]), "attributes")),
-          (n.selfClosing ? "/>" : ">")
-        ]
-      )
+      concat([
+        "<",
+        path.call(print, "name"),
+        concat(path.map(attr => concat([ " ", print(attr) ]), "attributes")),
+        (n.selfClosing ? "/>" : ">")
+      ])
     );
   case "JSXClosingElement":
     return concat([ "</", path.call(print, "name"), ">" ]);
@@ -1196,36 +1168,31 @@ else
   case "JSXEmptyExpression":
     return "";
   case "TypeAnnotatedIdentifier":
-    return concat(
-      [ path.call(print, "annotation"), " ", path.call(print, "identifier") ]
-    );
+    return concat([
+      path.call(print, "annotation"),
+      " ",
+      path.call(print, "identifier")
+    ]);
   case "ClassBody":
 
     if (n.body.length === 0) {
       return fromString("{}");
     }
 
-    return concat(
-      [
-        "{",
-        indent(
-          options.tabWidth,
-          concat(
-            [
-              hardline,
-              path.call(
-                function(bodyPath) {
-                  return printStatementSequence(bodyPath, options, print);
-                },
-                "body"
-              )
-            ]
+    return concat([
+      "{",
+      indent(options.tabWidth, concat([
+          hardline,
+          path.call(
+            function(bodyPath) {
+              return printStatementSequence(bodyPath, options, print);
+            },
+            "body"
           )
-        ),
-        hardline,
-        "}"
-      ]
-    );
+        ])),
+      hardline,
+      "}"
+    ]);
   case "ClassPropertyDefinition":
 
     parts.push("static ", path.call(print, "definition"));
@@ -1356,26 +1323,26 @@ else
   case "DeclareClass":
     return printFlowDeclaration(path, printClass(path, print));
   case "DeclareFunction":
-    return printFlowDeclaration(
-      path,
-      [
-        "function ",
-        path.call(print, "id"),
-        (n.predicate ? " " : ""),
-        path.call(print, "predicate"),
-        ";"
-      ]
-    );
+    return printFlowDeclaration(path, [
+      "function ",
+      path.call(print, "id"),
+      (n.predicate ? " " : ""),
+      path.call(print, "predicate"),
+      ";"
+    ]);
   case "DeclareModule":
-    return printFlowDeclaration(
-      path,
-      [ "module ", path.call(print, "id"), " ", path.call(print, "body") ]
-    );
+    return printFlowDeclaration(path, [
+      "module ",
+      path.call(print, "id"),
+      " ",
+      path.call(print, "body")
+    ]);
   case "DeclareModuleExports":
-    return printFlowDeclaration(
-      path,
-      [ "module.exports", path.call(print, "typeAnnotation"), ";" ]
-    );
+    return printFlowDeclaration(path, [
+      "module.exports",
+      path.call(print, "typeAnnotation"),
+      ";"
+    ]);
   case "DeclareVariable":
     return printFlowDeclaration(path, [ "var ", path.call(print, "id"), ";" ]);
   case "DeclareExportAllDeclaration":
@@ -1415,18 +1382,17 @@ else
 
     return group(concat(parts));
   case "FunctionTypeParam":
-    return concat(
-      [
-        path.call(print, "name"),
-        (n.optional ? "?" : ""),
-        ": ",
-        path.call(print, "typeAnnotation")
-      ]
-    );
+    return concat([
+      path.call(print, "name"),
+      (n.optional ? "?" : ""),
+      ": ",
+      path.call(print, "typeAnnotation")
+    ]);
   case "GenericTypeAnnotation":
-    return concat(
-      [ path.call(print, "id"), path.call(print, "typeParameters") ]
-    );
+    return concat([
+      path.call(print, "id"),
+      path.call(print, "typeParameters")
+    ]);
   case "DeclareInterface":
 
     parts.push("declare ");
@@ -1449,9 +1415,10 @@ else
     return concat(parts);
   case "ClassImplements":
   case "InterfaceExtends":
-    return concat(
-      [ path.call(print, "id"), path.call(print, "typeParameters") ]
-    );
+    return concat([
+      path.call(print, "id"),
+      path.call(print, "typeParameters")
+    ]);
   case "IntersectionTypeAnnotation":
     return join(" & ", path.map(print, "types"));
   case "NullableTypeAnnotation":
@@ -1474,17 +1441,15 @@ else
   case "ObjectTypeIndexer":
     var variance = (n.variance === "plus" ? "+" : (n.variance ===
       "minus" ? "-" : ""));
-    return concat(
-      [
-        variance,
-        "[",
-        path.call(print, "id"),
-        ": ",
-        path.call(print, "key"),
-        "]: ",
-        path.call(print, "value")
-      ]
-    );
+    return concat([
+      variance,
+      "[",
+      path.call(print, "id"),
+      ": ",
+      path.call(print, "key"),
+      "]: ",
+      path.call(print, "value")
+    ]);
   case "ObjectTypeProperty":
     var variance = (n.variance === "plus" ? "+" : (n.variance ===
       "minus" ? "-" : ""));
@@ -1492,20 +1457,20 @@ else
     // when to emit an arrow function or not.
     var isFunction = !n.variance && !n.optional &&
       n.value.type === "FunctionTypeAnnotation";
-    return concat(
-      [
-        (n.static ? "static " : ""),
-        variance,
-        path.call(print, "key"),
-        (n.optional ? "?" : ""),
-        (isFunction ? "" : ": "),
-        path.call(print, "value")
-      ]
-    );
+    return concat([
+      (n.static ? "static " : ""),
+      variance,
+      path.call(print, "key"),
+      (n.optional ? "?" : ""),
+      (isFunction ? "" : ": "),
+      path.call(print, "value")
+    ]);
   case "QualifiedTypeIdentifier":
-    return concat(
-      [ path.call(print, "qualification"), ".", path.call(print, "id") ]
-    );
+    return concat([
+      path.call(print, "qualification"),
+      ".",
+      path.call(print, "id")
+    ]);
   case "StringLiteralTypeAnnotation":
     return fromString(nodeStr(n.value, options), options);
   case "NumberLiteralTypeAnnotation":
@@ -1539,14 +1504,12 @@ else
       return concat(parts);
     }
   case "TypeCastExpression":
-    return concat(
-      [
-        "(",
-        path.call(print, "expression"),
-        path.call(print, "typeAnnotation"),
-        ")"
-      ]
-    );
+    return concat([
+      "(",
+      path.call(print, "expression"),
+      path.call(print, "typeAnnotation"),
+      ")"
+    ]);
   case "TypeParameterDeclaration":
   case "TypeParameterInstantiation":
     return concat([ "<", join(", ", path.map(print, "params")), ">" ]);
@@ -1577,9 +1540,10 @@ else
 
     return concat(parts);
   case "TypeofTypeAnnotation":
-    return concat(
-      [ fromString("typeof ", options), path.call(print, "argument") ]
-    );
+    return concat([
+      fromString("typeof ", options),
+      path.call(print, "argument")
+    ]);
   case "UnionTypeAnnotation":
     return join(" | ", path.map(print, "types"));
   case "VoidTypeAnnotation":
@@ -1644,41 +1608,39 @@ function printStatementSequence(path, options, print) {
   let printed = [];
   let prevAddSpacing = false;
 
-  path.map(
-    function(stmtPath, i) {
-      var stmt = stmtPath.getValue();
+  path.map(function(stmtPath, i) {
+    var stmt = stmtPath.getValue();
 
-      // Just in case the AST has been modified to contain falsy
-      // "statements," it's safer simply to skip them.
-      if (!stmt) {
-        return;
-      }
-
-      // Skip printing EmptyStatement nodes to avoid leaving stray
-      // semicolons lying around.
-      if (stmt.type === "EmptyStatement") {
-        return;
-      }
-
-      const addSpacing = shouldAddSpacing(stmt);
-      const stmtPrinted = print(stmtPath);
-      const parts = [];
-
-      if (!prevAddSpacing && addSpacing && !isFirstStatement(stmtPath)) {
-        parts.push(hardline);
-      }
-
-      parts.push(stmtPrinted);
-
-      if (addSpacing && !isLastStatement(stmtPath)) {
-        parts.push(hardline);
-      }
-
-      printed.push(concat(parts));
-
-      prevAddSpacing = addSpacing;
+    // Just in case the AST has been modified to contain falsy
+    // "statements," it's safer simply to skip them.
+    if (!stmt) {
+      return;
     }
-  );
+
+    // Skip printing EmptyStatement nodes to avoid leaving stray
+    // semicolons lying around.
+    if (stmt.type === "EmptyStatement") {
+      return;
+    }
+
+    const addSpacing = shouldAddSpacing(stmt);
+    const stmtPrinted = print(stmtPath);
+    const parts = [];
+
+    if (!prevAddSpacing && addSpacing && !isFirstStatement(stmtPath)) {
+      parts.push(hardline);
+    }
+
+    parts.push(stmtPrinted);
+
+    if (addSpacing && !isLastStatement(stmtPath)) {
+      parts.push(hardline);
+    }
+
+    printed.push(concat(parts));
+
+    prevAddSpacing = addSpacing;
+  });
 
   return join(hardline, printed);
 }
@@ -1745,30 +1707,24 @@ function printArgumentsList(path, options, print) {
   // conditional group for all function calls, but it's more expensive
   // so only do it for specific forms.
   const groupLastArg = lastArg.type === "ObjectExpression" ||
-        lastArg.type === "ArrayExpression" ||
-        lastArg.type === "FunctionExpression" ||
-        lastArg.type === "ArrowFunctionExpression" ||
-        lastArg.type === "CallExpression" ||
-        lastArg.type === "NewExpression";
+    lastArg.type === "ArrayExpression" ||
+    lastArg.type === "FunctionExpression" ||
+    lastArg.type === "ArrowFunctionExpression" ||
+    lastArg.type === "CallExpression" ||
+    lastArg.type === "NewExpression";
 
   if (groupLastArg) {
     const shouldBreak = printed.slice(0, -1).some(hasHardLine);
     return conditionalGroup(
       [
-        concat([
-          "(",
-          join(concat([ ", " ]), printed),
-          ")"
-        ]),
-
+        concat([ "(", join(concat([ ", " ]), printed), ")" ]),
         concat([
           "(",
           join(concat([ ",", line ]), printed.slice(0, -1)),
-          printed.length > 1 ? ", " : "",
-          group(util.getLast(printed), { shouldBreak: true }),
+          (printed.length > 1 ? ", " : ""),
+          group(util.getLast(printed), {shouldBreak: true}),
           ")"
         ]),
-
         group(
           concat([
             "(",
@@ -1779,10 +1735,10 @@ function printArgumentsList(path, options, print) {
             line,
             ")"
           ]),
-          { shouldBreak: true }
-        ),
+          {shouldBreak: true}
+        )
       ],
-      { shouldBreak }
+      {shouldBreak}
     );
   }
 
@@ -1797,7 +1753,7 @@ function printArgumentsList(path, options, print) {
       softline,
       ")"
     ]),
-    { shouldBreak }
+    {shouldBreak}
   );
 }
 
@@ -1984,12 +1940,9 @@ function lastNonSpaceCharacter(lines) {
 }
 
 function swapQuotes(str) {
-  return str.replace(
-    /['"]/g,
-    function(m) {
-      return (m === "\"" ? "'" : "\"");
-    }
-  );
+  return str.replace(/['"]/g, function(m) {
+    return (m === "\"" ? "'" : "\"");
+  });
 }
 
 function nodeStr(str, options) {

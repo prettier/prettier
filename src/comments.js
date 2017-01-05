@@ -6,7 +6,7 @@ var isObject = types.builtInTypes.object;
 var pp = require("./pp");
 var fromString = pp.fromString;
 var concat = pp.concat;
-var line = pp.line;
+var hardline = pp.hardline;
 var util = require("./util");
 var comparePos = util.comparePos;
 var childNodesCacheKey = require("private").makeUniqueKey();
@@ -266,7 +266,7 @@ function printLeadingComment(commentPath, print) {
   if (comment.trailing) {
     // When we print trailing comments as leading comments, we don't
     // want to bring any trailing spaces along.
-    parts.push(line);
+    parts.push(hardline);
 
   }
 
@@ -288,7 +288,7 @@ function printLeadingComment(commentPath, print) {
 
   // }
   else {
-    parts.push(line);
+    parts.push(hardline);
   }
 
   return concat(parts);
