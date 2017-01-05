@@ -49,8 +49,6 @@ module.exports = {
       });
     }
 
-    ast.tokens = [];
-
     const printer = new Printer(opts);
     return printer.printGenerically(ast).code;
   }

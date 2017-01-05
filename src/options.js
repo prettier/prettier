@@ -29,23 +29,15 @@ var defaults = {
   // Controls the printing of spaces inside array and objects
   // See: http://eslint.org/docs/rules/array-bracket-spacing
   bracketSpacing: true
-}, hasOwn = defaults.hasOwnProperty;
+};
 
 // Copy options and fill in default values.
 exports.normalize = function(options) {
-  options = options || defaults;
-
-  function get(key) {
-    return hasOwn.call(options, key)
-      ? options[key]
-      : defaults[key];
-  }
-
-  return {
-    tabWidth: +get("tabWidth"),
-    printWidth: Math.max(get("printWidth"), 0),
-    quote: get("quote"),
-    trailingComma: get("trailingComma"),
-    bracketSpacing: get("bracketSpacing")
-  };
+  const normalized = Object.assign({}, options);
+  Object.keys(defaults).forEach(k => {
+    if(normalized[k] == null) {
+      normalized[k] = defaults[k];
+    }
+  });
+  return normalized;
 };
