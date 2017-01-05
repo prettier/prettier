@@ -1403,20 +1403,16 @@ else
       path.call(print, "id"),
       path.call(print, "typeParameters")
     ]);
-  case "IntersectionTypeAnnotation": {
-    const types = path.map(print, "types")
-    return group(concat([
-      types[0],
-      indent(options.tabWidth,
-             concat(types.slice(1).map(t => concat([" &", line, t]))))
-    ]));
-  }
+  case "IntersectionTypeAnnotation":
   case "UnionTypeAnnotation": {
     const types = path.map(print, "types")
+    const op = n.type === "IntersectionTypeAnnotation" ? "&" : "|";
     return group(concat([
       types[0],
-      indent(options.tabWidth,
-             concat(types.slice(1).map(t => concat([" |", line, t]))))
+      indent(
+        options.tabWidth,
+        concat(types.slice(1).map(t => concat([" ", op, line, t])))
+      )
     ]));
   }
   case "NullableTypeAnnotation":
