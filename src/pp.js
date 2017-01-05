@@ -46,6 +46,10 @@ function conditionalGroup(states, opts) {
   }));
 }
 
+function ifBreak(contents) {
+  return { type: 'if-break', contents };
+}
+
 function iterDoc(topDoc, func) {
   const docs = [topDoc];
 
@@ -163,6 +167,11 @@ function fits(next, restCommands, width) {
         case "group":
           cmds.push([ind, doc.break ? MODE_BREAK : mode, doc.contents]);
           break;
+        case "if-break":
+          if(mode === MODE_BREAK) {
+            cmds.push([ind, mode, doc.contents]);
+          }
+          break;
         case "line":
           switch(mode) {
             case MODE_FLAT:
@@ -264,6 +273,11 @@ function print(w, doc) {
               break;
           }
           break;
+        case "if-break":
+          if(mode === MODE_BREAK) {
+            cmds.push([ind, MODE_BREAK, doc.contents]);
+          }
+          break;
         case "line":
           switch(mode) {
             case MODE_FLAT:
@@ -314,5 +328,5 @@ function print(w, doc) {
 module.exports = {
   fromString, concat, isEmpty, join,
   line, softline, hardline, literalline, group, multilineGroup,
-  conditionalGroup, hasHardLine, indent, print, getFirstString
+  conditionalGroup, ifBreak, hasHardLine, indent, print, getFirstString
 };

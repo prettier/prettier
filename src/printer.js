@@ -16,6 +16,7 @@ var indent = pp.indent;
 var getFirstString = pp.getFirstString;
 var hasHardLine = pp.hasHardLine;
 var conditionalGroup = pp.conditionalGroup;
+var ifBreak = pp.ifBreak;
 var normalizeOptions = require("./options").normalize;
 var types = require("ast-types");
 var namedTypes = types.namedTypes;
@@ -629,6 +630,7 @@ function genericPrintNoParens(path, options, print) {
   case "ObjectTypeAnnotation":
     var allowBreak = false;
     var isTypeAnnotation = n.type === "ObjectTypeAnnotation";
+    var isObjectExpression = n.type === "ObjectExpression";
     // Leave this here because we *might* want to make this
     // configurable later -- flow accepts ";" for type separators
     var separator = (isTypeAnnotation ? "," : ",");
@@ -663,6 +665,7 @@ function genericPrintNoParens(path, options, print) {
           (options.bracketSpacing ? line : softline),
           join(concat([ separator, line ]), props)
         ])),
+        ifBreak((isObjectExpression && options.trailingComma) ? "," : ""),
         (options.bracketSpacing ? line : softline),
         rightBrace,
         path.call(print, "typeAnnotation")
@@ -1671,7 +1674,6 @@ function printMethod(path, options, print) {
 
 function printArgumentsList(path, options, print) {
   var printed = path.map(print, "arguments");
-  var trailingComma = util.isTrailingCommaEnabled(options, "parameters");
   var args;
 
   if (printed.length === 0) {

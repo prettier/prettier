@@ -5,7 +5,7 @@ const minimist = require("minimist");
 const jscodefmt = require("../index");
 
 const argv = minimist(process.argv.slice(2), {
-  boolean: ["write", "useFlowParser", "bracket-spacing", "single-quote"]
+  boolean: ["write", "useFlowParser", "bracket-spacing", "single-quote", "trailing-comma"]
 });
 
 const filename = argv["_"][0];
@@ -16,7 +16,8 @@ const output = jscodefmt.format(fs.readFileSync(filename, "utf8"), {
   tabWidth: argv['tab-width'],
   bracketSpacing: argv['bracket-spacing'],
   useFlowParser: argv['flow-parser'],
-  singleQuote: argv["single-quote"]
+  singleQuote: argv["single-quote"],
+  trailingComma: argv["trailing-comma"]
 });
 
 if(write) {
