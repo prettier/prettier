@@ -86,11 +86,13 @@ exports[`test issue-198.js 1`] = `
 // This should fail because str is string, not number
 var p = new Promise(function(resolve, reject) {
   resolve(5);
-}).then(function(num) {
-  return num.toFixed();
-}).then(function(str) {
-  return str.toFixed();
-});
+})
+  .then(function(num) {
+    return num.toFixed();
+  })
+  .then(function(str) {
+    return str.toFixed();
+  });
 "
 `;
 
