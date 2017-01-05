@@ -390,29 +390,22 @@ let tests = [
 // ok
 let tests = [
   function(x: string, y: number) {
-    if (x == y)
-      {}
+    if (x == y) {}
 
-    if (x === y)
-      {}
+    if (x === y) {}
   },
   function(x: string) {
-    if (x == undefined)
-      {}
+    if (x == undefined) {}
 
-    if (x == void 0)
-      {}
+    if (x == void 0) {}
   },
   function(x: string) {
-    if (x == null)
-      {}
+    if (x == null) {}
   },
   function(x: { y: \"foo\" } | { y: \"bar\" }) {
-    if (x.y == 123)
-      {}
+    if (x.y == 123) {}
 
-    if (x.y === 123)
-      {}
+    if (x.y === 123) {}
   }
 ];
 "
@@ -869,30 +862,23 @@ function foo5() {
 }
 
 function foo6(o: mixed) {
-  if (o.bar)
-    {}
+  if (o.bar) {}
 }
 
 function foo7(o: mixed) {
-  if (typeof o.bar === \"string\")
-    {}
+  if (typeof o.bar === \"string\") {}
 
-  if (o && typeof o.bar === \"string\")
-    {}
+  if (o && typeof o.bar === \"string\") {}
 
-  if (o != null && typeof o.bar === \"string\")
-    {}
+  if (o != null && typeof o.bar === \"string\") {}
 
-  if (o !== null && o !== undefined && typeof o.bar === \"string\")
-    {}
+  if (o !== null && o !== undefined && typeof o.bar === \"string\") {}
 }
 
 function foo8(o: { p: mixed }) {
-  if (o.p && o.p.q)
-    {}
+  if (o.p && o.p.q) {}
 
-  if (o.p && o.p.q && o.p.q.r)
-    {}
+  if (o.p && o.p.q && o.p.q.r) {}
 }
 "
 `;
@@ -1536,12 +1522,10 @@ let tests = [
     }
   },
   function(num: number, obj: { foo: number }) {
-    if (num === obj.bar)
-      {}
+    if (num === obj.bar) {}
   },
   function(num: number, obj: { [key: string]: number }) {
-    if (num === obj.bar)
-      {}
+    if (num === obj.bar) {}
   },
   function(n: number): Mode {
     if (n !== 0 && n !== 1 && n !== 2) {
@@ -1553,10 +1537,9 @@ let tests = [
   function(s: number): ?Mode {
     if (s === 0) {
       return s;
-    } else
-      if (s === 3) {
-        return s;
-      }
+    } else if (s === 3) {
+      return s;
+    }
   },
   function(mode: Mode) {
     switch (mode) {
@@ -1928,15 +1911,13 @@ function waldo() {
 
 function global_in_conditional0(x: number) {
   if (x != 0) {
-    if (BAZ)
-      {}
+    if (BAZ) {}
   }
 }
 
 function global_in_conditional2(x: number) {
   for (var i = 0; i < 100; i++) {
-    if (BAZ)
-      {}
+    if (BAZ) {}
   }
 }
 "
@@ -2166,12 +2147,10 @@ let tests = [
     }
   },
   function(str: string, obj: { foo: string }) {
-    if (str === obj.bar)
-      {}
+    if (str === obj.bar) {}
   },
   function(str: string, obj: { [key: string]: string }) {
-    if (str === obj.bar)
-      {}
+    if (str === obj.bar) {}
   },
   function(str: string): Mode {
     var ch = str[0];
@@ -2185,10 +2164,9 @@ let tests = [
   function(s: string): ?Mode {
     if (s === \"a\") {
       return s;
-    } else
-      if (s === \"d\") {
-        return s;
-      }
+    } else if (s === \"d\") {
+      return s;
+    }
   },
   function(mode: Mode) {
     switch (mode) {
@@ -2800,7 +2778,7 @@ type NonCitizen = { citizen: false, nationality: string };
 function nationality(x: Citizen | NonCitizen) {
   if (x.citizen)
     return \"Shire\";
-else
+  else
     return x.nationality;
 }
 
@@ -2811,18 +2789,14 @@ let tests = [
     }
   },
   function test8(x: { foo: { bar: 1 } }) {
-    if (x.foo.bar === 1)
-      {}
+    if (x.foo.bar === 1) {}
 
-    if (x.fooTypo.bar === 1)
-      {}
+    if (x.fooTypo.bar === 1) {}
   },
   function(x: A) {
-    if (x.kind === null.toString())
-      {}
+    if (x.kind === null.toString()) {}
 
-    if ({ kind: 1 }.kind === null.toString())
-      {}
+    if ({ kind: 1 }.kind === null.toString()) {}
   },
   function(
     x: Array<string>,
@@ -2833,8 +2807,7 @@ let tests = [
     s: Function,
     t: () => void
   ) {
-    if (x.length === 0)
-      {}
+    if (x.length === 0) {}
 
     if (x.legnth === 0) {
       (x.legnth: number);
@@ -2842,8 +2815,7 @@ let tests = [
       (x.legnth: string);
     }
 
-    if (y.length === 0)
-      {}
+    if (y.length === 0) {}
 
     if (y.legnth === 0) {
       (y.legnth: number);
@@ -2851,8 +2823,7 @@ let tests = [
       (y.legnth: string);
     }
 
-    if (z.toString === 0)
-      {}
+    if (z.toString === 0) {}
 
     if (z.toStirng === 0) {
       (z.toStirng: number);
@@ -2860,8 +2831,7 @@ let tests = [
       (z.toStirng: string);
     }
 
-    if (q.valueOf === 0)
-      {}
+    if (q.valueOf === 0) {}
 
     if (q.valeuOf === 0) {
       (q.valeuOf: number);
@@ -2873,15 +2843,13 @@ let tests = [
       (r.toStirng: empty);
     }
 
-    if (s.call === 0)
-      {}
+    if (s.call === 0) {}
 
     if (s.calll === 0) {
       (t.calll: empty);
     }
 
-    if (t.call === 0)
-      {}
+    if (t.call === 0) {}
 
     if (t.calll === 0) {
       (t.calll: empty);
@@ -3276,9 +3244,8 @@ function undef_var(x: ?number) {
 }
 
 function undef_var_rev(x: ?number) {
-  if (x === null || x === undefined)
-    {}
-else {
+  if (x === null || x === undefined) {}
+  else {
     var y = x * 1000;
   }
 }
@@ -3290,9 +3257,8 @@ function undef_prop(x: { x: ?number }) {
 }
 
 function undef_prop_rev(x: { x: ?number }) {
-  if (x.x === null || x.x === undefined)
-    {}
-else {
+  if (x.x === null || x.x === undefined) {}
+  else {
     var y = x.x * 1000;
   }
 }
@@ -3304,9 +3270,8 @@ function undef_var_fail(x: ?number) {
 }
 
 function undef_var_fail_rev(x: ?number) {
-  if (x === undefined)
-    {}
-else {
+  if (x === undefined) {}
+  else {
     var y = x * 1000;
   }
 }
@@ -3318,9 +3283,8 @@ function undef_prop_fail(x: { x: ?number }) {
 }
 
 function undef_prop_fail_rev(x: { x: ?number }) {
-  if (x.x === undefined)
-    {}
-else {
+  if (x.x === undefined) {}
+  else {
     var y = x.x * 1000;
   }
 }
@@ -3511,9 +3475,8 @@ function void_var(x: ?number) {
 }
 
 function void_var_rev(x: ?number) {
-  if (x === null || x === void 0)
-    {}
-else {
+  if (x === null || x === void 0) {}
+  else {
     var y = x * 1000;
   }
 }
@@ -3525,9 +3488,8 @@ function void_pro(x: { x: ?number }) {
 }
 
 function void_pro_rev(x: { x: ?number }) {
-  if (x.x === null || x.x === void 0)
-    {}
-else {
+  if (x.x === null || x.x === void 0) {}
+  else {
     var y = x.x * 1000;
   }
 }
@@ -3539,9 +3501,8 @@ function void_var_fail(x: ?number) {
 }
 
 function void_var_fail_rev(x: ?number) {
-  if (x === void 0)
-    {}
-else {
+  if (x === void 0) {}
+  else {
     var y = x * 1000;
   }
 }
@@ -3553,9 +3514,8 @@ function void_pro_fail(x: { x: ?number }) {
 }
 
 function void_pro_fail_rev(x: { x: ?number }) {
-  if (x.x === void 0)
-    {}
-else {
+  if (x.x === void 0) {}
+  else {
     var y = x.x * 1000;
   }
 }
@@ -3567,9 +3527,8 @@ function void_var_side_effect(x: ?number) {
 }
 
 function void_var_side_effect_rev(x: ?number) {
-  if (x === null || x === void (x * 1000))
-    {}
-else {
+  if (x === null || x === void (x * 1000)) {}
+  else {
     var y = x * 1000;
   }
 }
@@ -3581,9 +3540,8 @@ function void_prop_side_effect(x: { x: ?number }) {
 }
 
 function void_prop_side_effect_rev(x: { x: ?number }) {
-  if (x.x === null || x.x === void (x.x * 1000))
-    {}
-else {
+  if (x.x === null || x.x === void (x.x * 1000)) {}
+  else {
     var y = x.x * 1000;
   }
 }

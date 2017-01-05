@@ -192,32 +192,23 @@ a.delete(\"xx\");
 
 a.delete(3);
 
-for (let x: string of a.keys())
-  {}
+for (let x: string of a.keys()) {}
 
-for (let x: number of a.keys())
-  {}
+for (let x: number of a.keys()) {}
 
-for (let x: string | File of a.values())
-  {}
+for (let x: string | File of a.values()) {}
 
-for (let x: string | File | Blob of a.values())
-  {}
+for (let x: string | File | Blob of a.values()) {}
 
-for (let [ x, y ]: [string, string | File] of a.entries())
-  {}
+for (let [ x, y ]: [string, string | File] of a.entries()) {}
 
-for (let [ x, y ]: [string, string | File | Blob] of a.entries())
-  {}
+for (let [ x, y ]: [string, string | File | Blob] of a.entries()) {}
 
-for (let [ x, y ]: [number, string] of a.entries())
-  {}
+for (let [ x, y ]: [number, string] of a.entries()) {}
 
-for (let [ x, y ]: [string, number] of a.entries())
-  {}
+for (let [ x, y ]: [string, number] of a.entries()) {}
 
-for (let [ x, y ]: [number, number] of a.entries())
-  {}
+for (let [ x, y ]: [number, number] of a.entries()) {}
 "
 `;
 

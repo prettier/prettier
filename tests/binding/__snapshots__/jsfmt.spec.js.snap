@@ -705,43 +705,37 @@ function try_scope() {
 function for_scope_let() {
   let a: number = 0;
 
-  for (let a = \"\"; ; )
-    {}
+  for (let a = \"\"; ; ) {}
 }
 
 function for_scope_var() {
   var a: number = 0;
 
-  for (var a = \"\"; ; )
-    {}
+  for (var a = \"\"; ; ) {}
 }
 
 function for_in_scope_let(o: Object) {
   let a: number = 0;
 
-  for (let a in o)
-    {}
+  for (let a in o) {}
 }
 
 function for_in_scope_var(o: Object) {
   var a: number = 0;
 
-  for (var a in o)
-    {}
+  for (var a in o) {}
 }
 
 function for_of_scope_let(xs: string[]) {
   let a: number = 0;
 
-  for (let a of xs)
-    {}
+  for (let a of xs) {}
 }
 
 function for_of_scope_var(xs: string[]) {
   var a: number = 0;
 
-  for (var a of xs)
-    {}
+  for (var a of xs) {}
 }
 
 function default_param_1() {

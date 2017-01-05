@@ -209,14 +209,11 @@ if (Array.isArray(x)) {}
 /* @flow */
 let x = 0;
 
-if (x == null)
-  {}
+if (x == null) {}
 
-if (x == undefined)
-  {}
+if (x == undefined) {}
 
-if (Array.isArray(x))
-  {}
+if (Array.isArray(x)) {}
 "
 `;
 

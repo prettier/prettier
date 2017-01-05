@@ -238,7 +238,7 @@ class H extends A {
   constructor() {
     if (Math.random() < 0.5)
       super();
-else
+    else
       super();
 
     this.y;

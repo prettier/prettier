@@ -111,8 +111,7 @@ function goofy() {
 
   if (typeof x == \"function\") {
     x();
-  } else
-    {}
+  } else {}
 }
 
 function goofy2() {
@@ -126,8 +125,7 @@ function goofy2() {
 
   if (typeof y == \"function\") {
     y();
-  } else
-    {}
+  } else {}
 }
 
 module.exports = true;
@@ -252,8 +250,7 @@ class D {
 }
 
 function baz(x: D) {
-  if (x instanceof A)
-    {}
+  if (x instanceof A) {}
 }
 
 module.exports = \"sigma\";

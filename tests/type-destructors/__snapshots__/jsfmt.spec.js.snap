@@ -55,7 +55,7 @@ type Obj_Prop_x = $PropertyType<Obj, \"x\">;
 function foo(o: Obj): $PropertyType<Obj, \"x\"> {
   if (false)
     return o.x;
-else
+  else
     return 0;
 }
 "

@@ -81,7 +81,6 @@ for (var x in null) {
   foo(x);
 }
 
-for (var y in this)
-  {}
+for (var y in this) {}
 "
 `;

@@ -180,14 +180,11 @@ class GeneratorExamples {
   *widen_next() {
     var x = yield 0;
 
-    if (typeof x === \"number\")
-      {}
-else
-      if (typeof x === \"boolean\")
-        {}
-else {
-        (x: string);
-      }
+    if (typeof x === \"number\") {}
+    else if (typeof x === \"boolean\") {}
+    else {
+      (x: string);
+    }
   }
   *widen_yield() {
     yield 0;
@@ -244,14 +241,11 @@ for (var x of examples.infer_stmt()) {
 
 var infer_stmt_next = examples.infer_stmt().next(0).value;
 
-if (typeof infer_stmt_next === \"undefined\")
-  {}
-else
-  if (typeof infer_stmt_next === \"number\")
-    {}
+if (typeof infer_stmt_next === \"undefined\") {}
+else if (typeof infer_stmt_next === \"number\") {}
 else {
-    (infer_stmt_next: boolean);
-  }
+  (infer_stmt_next: boolean);
+}
 
 examples.widen_next().next(0);
 
@@ -260,14 +254,11 @@ examples.widen_next().next(\"\");
 examples.widen_next().next(true);
 
 for (var x of examples.widen_yield()) {
-  if (typeof x === \"number\")
-    {}
-else
-    if (typeof x === \"boolean\")
-      {}
-else {
-      (x: string);
-    }
+  if (typeof x === \"number\") {}
+  else if (typeof x === \"boolean\") {}
+  else {
+    (x: string);
+  }
 }
 
 examples.delegate_next_generator().next(\"\");
@@ -325,14 +316,11 @@ for (var x of examples.infer_stmt()) {
 
 var infer_stmt_next = examples.infer_stmt().next(0).value;
 
-if (typeof infer_stmt_next === \"undefined\")
-  {}
-else
-  if (typeof infer_stmt_next === \"number\")
-    {}
+if (typeof infer_stmt_next === \"undefined\") {}
+else if (typeof infer_stmt_next === \"number\") {}
 else {
-    (infer_stmt_next: boolean);
-  }
+  (infer_stmt_next: boolean);
+}
 "
 `;
 
@@ -525,26 +513,20 @@ for (var x of infer_stmt()) {
 
 var infer_stmt_next = infer_stmt().next(0).value;
 
-if (typeof infer_stmt_next === \"undefined\")
-  {}
-else
-  if (typeof infer_stmt_next === \"number\")
-    {}
+if (typeof infer_stmt_next === \"undefined\") {}
+else if (typeof infer_stmt_next === \"number\") {}
 else {
-    (infer_stmt_next: boolean);
-  }
+  (infer_stmt_next: boolean);
+}
 
 function* widen_next() {
   var x = yield 0;
 
-  if (typeof x === \"number\")
-    {}
-else
-    if (typeof x === \"boolean\")
-      {}
-else {
-      (x: string);
-    }
+  if (typeof x === \"number\") {}
+  else if (typeof x === \"boolean\") {}
+  else {
+    (x: string);
+  }
 }
 
 widen_next().next(0);
@@ -562,14 +544,11 @@ function* widen_yield() {
 }
 
 for (var x of widen_yield()) {
-  if (typeof x === \"number\")
-    {}
-else
-    if (typeof x === \"boolean\")
-      {}
-else {
-      (x: string);
-    }
+  if (typeof x === \"number\") {}
+  else if (typeof x === \"boolean\") {}
+  else {
+    (x: string);
+  }
 }
 
 function* delegate_next_generator() {

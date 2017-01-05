@@ -113,7 +113,7 @@ function consumer1(b) {
 
   if (g instanceof X2)
     g.foo = \"1337\";
-else
+  else
     g.foo = 1337;
 }
 
@@ -140,7 +140,7 @@ function consumer3(b) {
 
   if (g.bar instanceof X2)
     g.bar.foo = \"1337\";
-else
+  else
     g.bar.foo = 1337;
 }
 
@@ -167,7 +167,7 @@ function consumer5(b) {
 
   if (g.baz.bar instanceof X2)
     g.baz.bar.foo = \"1337\";
-else
+  else
     g.baz.bar.foo = 1337;
 }
 
@@ -182,7 +182,7 @@ class C {
   m() {
     if (this instanceof D)
       alert(this.s);
-else
+    else
       alert(\"nope\");
   }
 }

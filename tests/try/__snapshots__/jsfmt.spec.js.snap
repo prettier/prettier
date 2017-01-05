@@ -572,8 +572,7 @@ function bar(response) {
     throw new Error(\"...\");
   }
 
-  if (payload.error)
-    {}
+  if (payload.error) {}
 }
 
 function qux() {

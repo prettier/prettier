@@ -118,14 +118,11 @@ let tests = [
     false in [];
   },
   function() {
-    if (\"foo\" in 123)
-      {}
+    if (\"foo\" in 123) {}
 
-    if (!\"foo\" in {})
-      {}
+    if (!\"foo\" in {}) {}
 
-    if (!(\"foo\" in {}))
-      {}
+    if (!(\"foo\" in {})) {}
   },
   function(x: Object, y: mixed) {
     \"foo\" in x;

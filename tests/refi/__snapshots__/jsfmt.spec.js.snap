@@ -95,9 +95,8 @@ var tests = [
     }
   },
   function() {
-    if (x == null)
-      {}
-else {
+    if (x == null) {}
+    else {
       var y: string = x;
     }
   },
@@ -108,22 +107,19 @@ else {
     var y: string = x;
   },
   function() {
-    if (!(x != null))
-      {}
-else {
+    if (!(x != null)) {}
+    else {
       var y: string = x;
     }
   },
   function() {
-    if (x != null)
-      {}
+    if (x != null) {}
 
     var y: string = x;
   },
   function() {
-    if (x != null)
-      {}
-else {
+    if (x != null) {}
+    else {
       var y: string = x;
     }
   },
@@ -425,9 +421,8 @@ var tests = [
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
 
-    if (x.p == null)
-      {}
-else {
+    if (x.p == null) {}
+    else {
       var y: string = x.p;
     }
   },
@@ -442,9 +437,8 @@ else {
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
 
-    if (!(x.p != null))
-      {}
-else {
+    if (!(x.p != null)) {}
+    else {
       var y: string = x.p;
     }
   },
@@ -469,17 +463,15 @@ else {
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
 
-    if (x.p != null)
-      {}
+    if (x.p != null) {}
 
     var y: string = x.p;
   },
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
 
-    if (x.p != null)
-      {}
-else {
+    if (x.p != null) {}
+    else {
       var y: string = x.p;
     }
   },
@@ -512,9 +504,8 @@ else {
   function() {
     var x: { y: ?string } = { y: null };
 
-    if (x.y)
-      {}
-else {
+    if (x.y) {}
+    else {
       x.y = \"foo\";
     }
 
@@ -554,10 +545,9 @@ else {
 
     if (typeof x.y == \"number\") {
       x.y = \"foo\";
-    } else
-      if (typeof x.y == \"boolean\") {
-        x.y = \"bar\";
-      }
+    } else if (typeof x.y == \"boolean\") {
+      x.y = \"bar\";
+    }
 
     (x.y: boolean);
   },
@@ -613,14 +603,12 @@ else {
     (x.y: string);
   },
   function(x: string) {
-    if (x === \"a\")
-      {}
+    if (x === \"a\") {}
 
     (x: \"b\");
   },
   function(x: mixed) {
-    if (typeof x.bar === \"string\")
-      {}
+    if (typeof x.bar === \"string\") {}
 
     (x: string & number);
   },
@@ -628,8 +616,7 @@ else {
     let x: { foo: ?string } = { foo: null };
 
     if (!x.foo) {
-      if (false)
-        {}
+      if (false) {}
 
       x.foo = \"foo\";
     }
@@ -640,8 +627,7 @@ else {
     let x: { foo: ?string } = { foo: null };
 
     if (!x.foo) {
-      while (false)
-        {}
+      while (false) {}
 
       x.foo = \"foo\";
     }
@@ -652,8 +638,7 @@ else {
     let x: { foo: ?string } = { foo: null };
 
     if (!x.foo) {
-      for (var i = 0; i < 0; i++)
-        {}
+      for (var i = 0; i < 0; i++) {}
 
       x.foo = \"foo\";
     }
@@ -882,9 +867,8 @@ var paths = [
   function() {
     var x: ?string = \"xxx\";
 
-    if (x == null)
-      {}
-else {
+    if (x == null) {}
+    else {
       var y: string = x;
     }
   },
@@ -899,9 +883,8 @@ else {
   function() {
     var x: ?string = \"xxx\";
 
-    if (!(x != null))
-      {}
-else {
+    if (!(x != null)) {}
+    else {
       var y: string = x;
     }
   },
@@ -917,17 +900,15 @@ else {
   function() {
     var x: ?string = \"xxx\";
 
-    if (x != null)
-      {}
+    if (x != null) {}
 
     var y: string = x;
   },
   function() {
     var x: ?string = \"xxx\";
 
-    if (x != null)
-      {}
-else {
+    if (x != null) {}
+    else {
       var y: string = x;
     }
   },
@@ -1169,27 +1150,24 @@ var null_tests = [
   function() {
     var x: ?string = \"xxx\";
 
-    if (x == null)
-      {}
-else {
+    if (x == null) {}
+    else {
       var y: string = x;
     }
   },
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
 
-    if (x.p == null)
-      {}
-else {
+    if (x.p == null) {}
+    else {
       var y: string = x.p;
     }
   },
   function() {
     var x: { p: { q: ?string } } = { p: { q: \"xxx\" } };
 
-    if (x.p.q == null)
-      {}
-else {
+    if (x.p.q == null) {}
+    else {
       var y: string = x.p.q;
     }
   },
@@ -1217,27 +1195,24 @@ else {
   function() {
     var x: ?string = \"xxx\";
 
-    if (x === null)
-      {}
-else {
+    if (x === null) {}
+    else {
       var y: string | void = x;
     }
   },
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
 
-    if (x.p === null)
-      {}
-else {
+    if (x.p === null) {}
+    else {
       var y: string | void = x.p;
     }
   },
   function() {
     var x: { p: { q: ?string } } = { p: { q: \"xxx\" } };
 
-    if (x.p.q === null)
-      {}
-else {
+    if (x.p.q === null) {}
+    else {
       var y: string | void = x.p.q;
     }
   }
@@ -1247,7 +1222,7 @@ class C {
   ensure0(): string {
     if (this.p != null)
       return this.p;
-else
+    else
       return \"\";
   }
   ensure1(): string {
@@ -1259,7 +1234,7 @@ else
   ensure2(): string | void {
     if (this.p !== null)
       return this.p;
-else
+    else
       return \"\";
   }
   ensure3(): string | void {
@@ -1273,13 +1248,13 @@ class D extends C {
   ensure100(): string {
     if (super.p != null)
       return super.p;
-else
+    else
       return \"\";
   }
   ensure101(): string {
     if (super.p == null)
       return \"\";
-else
+    else
       return super.p;
   }
   ensure103(): string {
@@ -1623,27 +1598,24 @@ var null_tests = [
   function() {
     var x: ?string = \"xxx\";
 
-    if (typeof x != \"string\")
-      {}
-else {
+    if (typeof x != \"string\") {}
+    else {
       var y: string = x;
     }
   },
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
 
-    if (typeof x.p != \"string\")
-      {}
-else {
+    if (typeof x.p != \"string\") {}
+    else {
       var y: string = x.p;
     }
   },
   function() {
     var x: { p: { q: ?string } } = { p: { q: \"xxx\" } };
 
-    if (typeof x.p.q != \"string\")
-      {}
-else {
+    if (typeof x.p.q != \"string\") {}
+    else {
       var y: string = x.p.q;
     }
   },
@@ -1671,27 +1643,24 @@ else {
   function() {
     var x: ?string = \"xxx\";
 
-    if (typeof x !== \"string\")
-      {}
-else {
+    if (typeof x !== \"string\") {}
+    else {
       var y: string = x;
     }
   },
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
 
-    if (typeof x.p !== \"string\")
-      {}
-else {
+    if (typeof x.p !== \"string\") {}
+    else {
       var y: string = x.p;
     }
   },
   function() {
     var x: { p: { q: ?string } } = { p: { q: \"xxx\" } };
 
-    if (typeof x.p.q !== \"string\")
-      {}
-else {
+    if (typeof x.p.q !== \"string\") {}
+    else {
       var y: string = x.p.q;
     }
   }
@@ -1701,25 +1670,25 @@ class A {
   ensure0(): string {
     if (typeof this.p == \"string\")
       return this.p;
-else
+    else
       return \"\";
   }
   ensure1(): string {
     if (typeof this.p != \"string\")
       return \"\";
-else
+    else
       return this.p;
   }
   ensure2(): string | void {
     if (typeof this.p === \"string\")
       return this.p;
-else
+    else
       return \"\";
   }
   ensure3(): string | void {
     if (typeof this.p !== \"string\")
       return \"\";
-else
+    else
       return this.p;
   }
 }
@@ -1845,27 +1814,24 @@ var undef_tests = [
   function() {
     var x: ?string = \"xxx\";
 
-    if (x === undefined || x === null)
-      {}
-else {
+    if (x === undefined || x === null) {}
+    else {
       var y: string = x;
     }
   },
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
 
-    if (x.p === undefined || x.p === null)
-      {}
-else {
+    if (x.p === undefined || x.p === null) {}
+    else {
       var y: string = x.p;
     }
   },
   function() {
     var x: { p: { q: ?string } } = { p: { q: \"xxx\" } };
 
-    if (x.p.q === undefined || x.p.q === null)
-      {}
-else {
+    if (x.p.q === undefined || x.p.q === null) {}
+    else {
       var y: string = x.p.q;
     }
   }
@@ -1875,13 +1841,13 @@ class A {
   ensure0(): string {
     if (this.p !== undefined && this.p !== null)
       return this.p;
-else
+    else
       return \"\";
   }
   ensure1(): string {
     if (this.p === undefined || this.p === null)
       return \"\";
-else
+    else
       return this.p;
   }
 }
@@ -2007,27 +1973,24 @@ var void_tests = [
   function() {
     var x: ?string = \"xxx\";
 
-    if (x === void 0 || x === null)
-      {}
-else {
+    if (x === void 0 || x === null) {}
+    else {
       var y: string = x;
     }
   },
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
 
-    if (x.p === void 0 || x.p === null)
-      {}
-else {
+    if (x.p === void 0 || x.p === null) {}
+    else {
       var y: string = x.p;
     }
   },
   function() {
     var x: { p: { q: ?string } } = { p: { q: \"xxx\" } };
 
-    if (x.p.q === void 0 || x.p.q === null)
-      {}
-else {
+    if (x.p.q === void 0 || x.p.q === null) {}
+    else {
       var y: string = x.p.q;
     }
   }
@@ -2037,13 +2000,13 @@ class A {
   ensure0(): string {
     if (this.p !== void 0 && this.p !== null)
       return this.p;
-else
+    else
       return \"\";
   }
   ensure1(): string {
     if (this.p === void 0 || this.p === null)
       return \"\";
-else
+    else
       return this.p;
   }
 }

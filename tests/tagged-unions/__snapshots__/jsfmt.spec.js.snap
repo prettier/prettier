@@ -45,12 +45,11 @@ type Foobar = Foo | Bar;
 function foobar(x: Foobar): string {
   if (x.type === \"foo\") {
     return foo(x);
-  } else
-    if (x.type === \"bar\") {
-      return bar(x);
-    } else {
-      return \"unknown\";
-    }
+  } else if (x.type === \"bar\") {
+    return bar(x);
+  } else {
+    return \"unknown\";
+  }
 }
 
 function foo(x: Foo): string {

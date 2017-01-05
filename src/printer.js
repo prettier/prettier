@@ -860,13 +860,6 @@ function genericPrintNoParens(path, options, print) {
       ") ",
       path.call(print, "body")
     ]);
-  // var con = adjustClause(path.call(print, "consequent"), options),
-  //     parts = ["if (", path.call(print, "test"), ")", con];
-  // if (n.alternate)
-  //     parts.push(
-  //         endsWithBrace(con) ? " else" : "\nelse",
-  //         adjustClause(path.call(print, "alternate"), options));
-  // return concat(parts);
   case "IfStatement":
     const con = adjustClause(path.call(print, "consequent"), options);
 
@@ -884,15 +877,25 @@ function genericPrintNoParens(path, options, print) {
     ];
 
     if (n.alternate) {
-      const hasBraces = getFirstString(con) === "{";
+      const hasBraces = isCurlyBracket(con);
+      const isEmpty = isEmptyBlock(con);
 
-      parts.push((hasBraces ? " else" : "\nelse"), adjustClause(
-        path.call(print, "alternate"),
-        options
-      ));
+      if (hasBraces && !isEmpty) {
+        parts.push(" else");
+      } else {
+        parts.push(concat([hardline, "else"]));
+      }
+
+      parts.push(
+        adjustClause(
+          path.call(print, "alternate"),
+          options,
+          n.alternate.type === "IfStatement"
+        )
+      );
     }
 
-    return concat(parts);
+    return group(concat(parts));
   case "ForStatement":
     // TODO Get the for (;;) case right.
     return concat([
@@ -952,7 +955,7 @@ function genericPrintNoParens(path, options, print) {
     var clause = adjustClause(path.call(print, "body"), options);
     var doBody = concat([ "do", clause ]);
     var parts = [ doBody ];
-    const hasBraces = getFirstString(clause) === "{";
+    const hasBraces = isCurlyBracket(clause);
 
     if (hasBraces)
       parts.push(" while");
@@ -1898,12 +1901,22 @@ function printClass(path, print) {
   return parts;
 }
 
-function adjustClause(clause, options) {
-  if (getFirstString(clause) === "{") {
+function adjustClause(clause, options, forceSpace) {
+  if (isCurlyBracket(clause) || forceSpace) {
     return concat([ " ", clause ]);
   }
 
   return indent(options.tabWidth, concat([ hardline, clause ]));
+}
+
+function isCurlyBracket(doc) {
+  const str = getFirstString(doc);
+  return str === "{" || str === "{}";
+}
+
+function isEmptyBlock(doc) {
+  const str = getFirstString(doc);
+  return str === "{}";
 }
 
 function lastNonSpaceCharacter(lines) {
