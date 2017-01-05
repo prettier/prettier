@@ -630,7 +630,6 @@ function genericPrintNoParens(path, options, print) {
   case "ObjectTypeAnnotation":
     var allowBreak = false;
     var isTypeAnnotation = n.type === "ObjectTypeAnnotation";
-    var isObjectExpression = n.type === "ObjectExpression";
     // Leave this here because we *might* want to make this
     // configurable later -- flow accepts ";" for type separators
     var separator = (isTypeAnnotation ? "," : ",");
@@ -665,7 +664,7 @@ function genericPrintNoParens(path, options, print) {
           (options.bracketSpacing ? line : softline),
           join(concat([ separator, line ]), props)
         ])),
-        ifBreak((isObjectExpression && options.trailingComma) ? "," : ""),
+        ifBreak(options.trailingComma ? "," : ""),
         (options.bracketSpacing ? line : softline),
         rightBrace,
         path.call(print, "typeAnnotation")
@@ -725,6 +724,7 @@ function genericPrintNoParens(path, options, print) {
           line,
           join(concat([ ",", line ]), path.map(print, "elements"))
         ])),
+        ifBreak(options.trailingComma ? "," : ""),
         line,
         "]"
       ])));
@@ -1713,6 +1713,7 @@ function printArgumentsList(path, options, print) {
               line,
               join(concat([ ",", line ]), printed)
             ])),
+            options.trailingComma ? "," : "",
             line,
             ")"
           ]),
@@ -1731,6 +1732,7 @@ function printArgumentsList(path, options, print) {
         softline,
         join(concat([ ",", line ]), printed)
       ])),
+      ifBreak(options.trailingComma ? "," : ""),
       softline,
       ")"
     ]),
@@ -1767,6 +1769,7 @@ function printFunctionParams(path, print, options) {
       softline,
       join(concat([ ",", line ]), printed)
     ])),
+    ifBreak(options.trailingComma ? "," : ""),
     softline,
     ")"
   ]);
