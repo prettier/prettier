@@ -1403,8 +1403,22 @@ else
       path.call(print, "id"),
       path.call(print, "typeParameters")
     ]);
-  case "IntersectionTypeAnnotation":
-    return join(" & ", path.map(print, "types"));
+  case "IntersectionTypeAnnotation": {
+    const types = path.map(print, "types")
+    return group(concat([
+      types[0],
+      indent(options.tabWidth,
+             concat(types.slice(1).map(t => concat([" &", line, t]))))
+    ]));
+  }
+  case "UnionTypeAnnotation": {
+    const types = path.map(print, "types")
+    return group(concat([
+      types[0],
+      indent(options.tabWidth,
+             concat(types.slice(1).map(t => concat([" |", line, t]))))
+    ]));
+  }
   case "NullableTypeAnnotation":
     return concat([ "?", path.call(print, "typeAnnotation") ]);
   case "NullLiteralTypeAnnotation":
@@ -1528,8 +1542,6 @@ else
       fromString("typeof ", options),
       path.call(print, "argument")
     ]);
-  case "UnionTypeAnnotation":
-    return join(" | ", path.map(print, "types"));
   case "VoidTypeAnnotation":
     return "void";
   case "NullTypeAnnotation":
