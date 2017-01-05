@@ -1923,11 +1923,9 @@ function swapQuotes(str) {
 function nodeStr(str, options) {
   isString.assert(str);
 
-  switch (options.quote) {
-  case "single":
+  if(options.singleQuote) {
     return swapQuotes(JSON.stringify(swapQuotes(str)));
-  case "double":
-  default:
+  } else {
     return JSON.stringify(str);
   }
 }

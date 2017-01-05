@@ -7,9 +7,8 @@ var defaults = {
   // Fit code within this line limit.
   printWidth: 80,
 
-  // If you want to override the quotes used in string literals, specify
-  // either "single" or "double".
-  quote: "double",
+  // If true, will use single instead of double quotes
+  singleQuote: false,
 
   // Controls the printing of trailing commas in object literals,
   // array expressions and function parameters.
