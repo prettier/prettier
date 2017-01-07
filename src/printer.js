@@ -1810,7 +1810,7 @@ function printObjectMethod(path, options, print) {
   }
 
   parts.push(
-    printFunctionParams(path, print),
+    printFunctionParams(path, print, options),
     printReturnType(path, print),
     " ",
     path.call(print, "body")
