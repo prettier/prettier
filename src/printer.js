@@ -612,62 +612,12 @@ function genericPrintNoParens(path, options, print) {
     return concat(parts);
   case "CallExpression": {
     const parent = path.getParentNode();
-    // We detect calls on member expressions specially to format a
-    // comman pattern better. The pattern we are looking for is this:
-    //
-    // arr
-    //   .map(x => x + 1)
-    //   .filter(x => x > 10)
-    //   .some(x => x % 2)
-    //
-    // where there is a "chain" of function calls on the result of
-    // previous expressions. We want to format them like above so they
-    // are consistently aligned.
-    //
-    // The way we do is by eagerly traversing the AST tree and
-    // re-shape it into a list of calls on member expressions. This
-    // lets us implement a heuristic easily for when we want to format
-    // it: if there are more than 1 calls on a member expression that
-    // pass in a function, we treat it like the above.
+    // We detect calls on member lookups and possibly print them in a
+    // special chain format. See `printMemberChain` for more info.
     if(n.callee.type === "MemberExpression") {
-      const nodes = [];
-      let curr = n;
-      // Traverse down and gather up all of the calls on member
-      // expressions. This flattens it out into a list that we can
-      // easily analyze.
-      while(curr.type === "CallExpression" && curr.callee.type === "MemberExpression") {
-        nodes.push({ property: curr.callee.property, call: curr });
-        curr = curr.callee.object;
-      }
-
-      // There are two kinds of formats we want to specialize: first,
-      // if there are multiple calls on lookups we want to group them
-      // together so they will all break at the same time. Second,
-      // it's a chain if there 2 or more calls pass in functions and
-      // we want to forcibly break all of the lookups onto new lines
-      // and indent them.
-      const hasMultipleLookups = nodes.length > 1;
-      const isChain = nodes.filter(n => {
-        return n.call.arguments.length > 0 &&
-          (n.call.arguments[0].type === "FunctionExpression" ||
-           n.call.arguments[0].type === "ArrowFunctionExpression" ||
-           n.call.arguments[0].type === "NewExpression");
-      }).length > 1;
-
-      if(hasMultipleLookups) {
-        return group(concat([
-          print(FastPath.from(curr)),
-          concat(nodes.reverse().map(node => {
-            const printed = concat([
-              isChain ? hardline : softline,
-                ".",
-                print(FastPath.from(node.property)),
-                printArgumentsList(FastPath.from(node.call), options, print)
-            ]);
-
-            return isChain ? indent(options.tabWidth, printed) : printed;
-          }))
-        ]));
+      const printed = printMemberChain(n, options, print);
+      if(printed) {
+        return printed;
       }
     }
 
@@ -1974,6 +1924,109 @@ function printMemberLookup(path, print) {
       ["[", property, "]"] :
       [".", property]
   );
+}
+
+// We detect calls on member expressions specially to format a
+// comman pattern better. The pattern we are looking for is this:
+//
+// arr
+//   .map(x => x + 1)
+//   .filter(x => x > 10)
+//   .some(x => x % 2)
+//
+// where there is a "chain" of function calls on the result of
+// previous expressions. We want to format them like above so they
+// are consistently aligned.
+//
+// The way we do is by eagerly traversing the AST tree and
+// re-shape it into a list of calls on member expressions. This
+// lets us implement a heuristic easily for when we want to format
+// it: if there are more than 1 calls on a member expression that
+// pass in a function, we treat it like the above.
+function printMemberChain(node, options, print) {
+  const nodes = [];
+  let curr = node;
+  // Traverse down and gather up all of the calls on member
+  // expressions. This flattens it out into a list that we can
+  // easily analyze.
+  while(curr.type === "CallExpression" && curr.callee.type === "MemberExpression") {
+    nodes.push({ property: curr.callee.property, call: curr });
+    curr = curr.callee.object;
+  }
+  nodes.reverse();
+
+  // There are two kinds of formats we want to specialize: first,
+  // if there are multiple calls on lookups we want to group them
+  // together so they will all break at the same time. Second,
+  // it's a chain if there 2 or more calls pass in functions and
+  // we want to forcibly break all of the lookups onto new lines
+  // and indent them.
+  function argIsFunction(call) {
+    if(call.arguments.length > 0) {
+      const type = call.arguments[0].type;
+      return type === "FunctionExpression" ||
+        type === "ArrowFunctionExpression" ||
+        type === "NewExpression";
+    }
+    return false;
+  }
+  const hasMultipleLookups = nodes.length > 1;
+  const isChain = (
+    hasMultipleLookups &&
+      nodes.filter(n => argIsFunction(n.call)).length > 1
+  );
+
+  if(hasMultipleLookups) {
+    const currPrinted = print(FastPath.from(curr));
+    const nodesPrinted = nodes.map(node => ({
+      property: print(FastPath.from(node.property)),
+      args: printArgumentsList(FastPath.from(node.call), options, print)
+    }));
+    const fullyExpanded = (
+      concat([
+        currPrinted,
+        concat(nodesPrinted.map(node => {
+          return indent(
+            options.tabWidth,
+            concat([
+              hardline,
+              ".",
+              node.property,
+              node.args
+            ])
+          );
+        }))
+      ])
+    );
+
+    // If it's a chain, force it to be fully expanded and print a
+    // newline before each lookup. If we're not sure if it's a
+    // chain (it *might* be printed on one line, but if gets too
+    // long it will be printed as a chain), we need to use
+    // `conditionalGroup` to describe both of these
+    // representations. We cannot describe both at the same time
+    // because the fully expanded form adds indentation, which
+    // messes up anything with hard lines.
+    if(isChain) {
+      return fullyExpanded;
+    }
+    else {
+      return conditionalGroup([
+        concat([
+          currPrinted,
+          concat(nodesPrinted.map(node => {
+            return concat([
+              ".",
+              node.property,
+              node.args
+            ]);
+          }))
+        ]),
+
+        fullyExpanded
+      ]);
+    }
+  }
 }
 
 function adjustClause(clause, options, forceSpace) {
