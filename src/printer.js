@@ -650,7 +650,8 @@ function genericPrintNoParens(path, options, print) {
       const isChain = nodes.filter(n => {
         return n.call.arguments.length > 0 &&
           (n.call.arguments[0].type === "FunctionExpression" ||
-           n.call.arguments[0].type === "ArrowFunctionExpression");
+           n.call.arguments[0].type === "ArrowFunctionExpression" ||
+           n.call.arguments[0].type === "NewExpression");
       }).length > 1;
 
       if(hasMultipleLookups) {
