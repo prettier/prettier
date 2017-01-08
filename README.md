@@ -1,8 +1,7 @@
-
 # jscodefmt
 
-This is a JavaScript pretty-printer that is opinionated. All is takes
-a width to format the code to and it does the rest. Zero config: it
+This is a JavaScript pretty-printer that is opinionated. All it takes
+is a width to format the code to and it does the rest. Zero config: it
 just works! Integrate this into your editor to get immediate feedback,
 or run it across an entire project to format all your files.
 
@@ -22,7 +21,7 @@ across lines if they get too big. This means you can sloppily write
 code as you need and just format it, and it will always produce
 consistent output.
 
-The core of the algorithm is implemented in pp.js. The printer should
+The core of the algorithm is implemented in `pp.js`. The printer should
 use the basic formatting abstractions provided to construct a format
 when printing a node. Parts of the API only exist to be compatible
 with recast's previous API to ease migration, but over time we can
@@ -49,7 +48,7 @@ This is the same as `group`, but with an additional behavior: if this
 group spans any other groups that have hard breaks (see below) this
 group *always* breaks. Otherwise it acts the same as `group`.
 
-For example, an array with try to fit on one line:
+For example, an array will try to fit on one line:
 
 ```js
 [1, "foo", { bar: 2 }]
@@ -127,7 +126,6 @@ broken up if any of the sub-expressions are broken.
 
 There is a lot to do:
 
-
 1. Most importantly, finish the migration of recast's printing. Many
 node types have not been converted from recast's old ways of doing
 things, so need to finish converting them. The easiest way to do this
@@ -151,12 +149,12 @@ $ ./bin/jscodefmt file.js
 ## Tests
 
 A few snapshot tests are currently implemented. See `tests`. To run
-the tests simply cd into the tests directory and run `node index.js`.
+the tests simply run `npm test` in the root directory.
 
 ## Editors
 
-It's most useful when integrated with your editor, so see `editors` to
-for editor support. Atom and Emacs is currently supported.
+It's most useful when integrated with your editor, so see `editors` for
+editor support. Atom and Emacs is currently supported.
 
 More docs on editor integration will come soon. To integrate in Emacs,
 add the following code. This will format the file when saved.
