@@ -529,59 +529,83 @@ Promise.reject(Promise.resolve(0)).then(function(num) {
   var b: number = num;
 });
 
-Promise.resolve(0).then(function(num) {
-  return \"asdf\";
-}).then(function(str) {
-  var a: string = str;
-  var b: number = str;
-});
+Promise
+  .resolve(0)
+  .then(function(num) {
+    return \"asdf\";
+  })
+  .then(function(str) {
+    var a: string = str;
+    var b: number = str;
+  });
 
-Promise.resolve(0).then(function(num) {
-  return Promise.resolve(\"asdf\");
-}).then(function(str) {
-  var a: string = str;
-  var b: number = str;
-});
+Promise
+  .resolve(0)
+  .then(function(num) {
+    return Promise.resolve(\"asdf\");
+  })
+  .then(function(str) {
+    var a: string = str;
+    var b: number = str;
+  });
 
-Promise.resolve(0).then(function(num) {
-  return Promise.resolve(Promise.resolve(\"asdf\"));
-}).then(function(str) {
-  var a: string = str;
-  var b: number = str;
-});
+Promise
+  .resolve(0)
+  .then(function(num) {
+    return Promise.resolve(Promise.resolve(\"asdf\"));
+  })
+  .then(function(str) {
+    var a: string = str;
+    var b: number = str;
+  });
 
-Promise.resolve(0).then(function(num) {
-  throw \"str\";
-}).catch(function(str) {
-  var a: string = str;
-  var b: number = str;
-});
+Promise
+  .resolve(0)
+  .then(function(num) {
+    throw \"str\";
+  })
+  .catch(function(str) {
+    var a: string = str;
+    var b: number = str;
+  });
 
-Promise.reject(0).catch(function(num) {
-  return \"asdf\";
-}).then(function(str) {
-  var a: string = str;
-  var b: number = str;
-});
+Promise
+  .reject(0)
+  .catch(function(num) {
+    return \"asdf\";
+  })
+  .then(function(str) {
+    var a: string = str;
+    var b: number = str;
+  });
 
-Promise.reject(0).catch(function(num) {
-  return Promise.resolve(\"asdf\");
-}).then(function(str) {
-  var a: string = str;
-  var b: number = str;
-});
+Promise
+  .reject(0)
+  .catch(function(num) {
+    return Promise.resolve(\"asdf\");
+  })
+  .then(function(str) {
+    var a: string = str;
+    var b: number = str;
+  });
 
-Promise.reject(0).catch(function(num) {
-  return Promise.resolve(Promise.resolve(\"asdf\"));
-}).then(function(str) {
-  var a: string = str;
-  var b: number = str;
-});
+Promise
+  .reject(0)
+  .catch(function(num) {
+    return Promise.resolve(Promise.resolve(\"asdf\"));
+  })
+  .then(function(str) {
+    var a: string = str;
+    var b: number = str;
+  });
 
-Promise.resolve(0).catch(function(err) {}).then(function(num) {
-  var a: number = num;
-  var b: string = num;
-});
+Promise
+  .resolve(0)
+  .catch(function(err) {})
+  .then(function(num) {
+    var a: number = num;
+    var b: string = num;
+  });
 "
 `;
 

@@ -317,7 +317,7 @@ function printTrailingComment(commentPath, print) {
   //     }
   // }
 
-  parts.push(print(commentPath));
+  parts.push(print(commentPath), hardline);
 
   return concat(parts);
 }
