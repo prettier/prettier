@@ -1049,7 +1049,13 @@ function genericPrintNoParens(path, options, print) {
   case "JSXSpreadAttribute":
     return concat([ "{...", path.call(print, "argument"), "}" ]);
   case "JSXExpressionContainer":
-    return concat([ "{", path.call(print, "expression"), "}" ]);
+    return group(concat([
+      "{",
+      indent(options.tabWidth,
+             concat([softline, path.call(print, "expression")])),
+      softline,
+      "}"
+    ]));
   case "JSXElement":
     var openingLines = path.call(print, "openingElement");
 
@@ -1100,7 +1106,7 @@ function genericPrintNoParens(path, options, print) {
       concat([
         "<",
         path.call(print, "name"),
-        concat(path.map(attr => concat([ " ", print(attr) ]), "attributes")),
+        concat(path.map(attr => concat([" ", print(attr)]), "attributes")),
         n.selfClosing ? " />" : ">"
       ])
     );
@@ -1757,10 +1763,10 @@ function printObjectMethod(path, options, print) {
   }
 
   parts.push(
-    multilineGroup([
+    multilineGroup(concat([
       printFunctionParams(path, print, options),
       printReturnType(path, print)
-    ]),
+    ])),
     " ",
     path.call(print, "body")
   );
