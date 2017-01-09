@@ -1647,7 +1647,8 @@ function printArgumentsList(path, options, print) {
   const groupLastArg = lastArg.type === "ObjectExpression" ||
     lastArg.type === "ArrayExpression" ||
     lastArg.type === "FunctionExpression" ||
-    lastArg.type === "ArrowFunctionExpression" ||
+    (lastArg.type === "ArrowFunctionExpression" &&
+     lastArg.body.type === "BlockStatement") ||
     lastArg.type === "NewExpression";
 
   if (groupLastArg) {
