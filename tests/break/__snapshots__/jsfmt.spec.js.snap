@@ -113,13 +113,11 @@ function bar2(b) {
   if (x == null)
     return;
   switch (\"\") {
-  case 0:
-    {
+  case 0: {
       let y: number = x;
       x = \"\";
     }
-  case 1:
-    {
+  case 1: {
       let z: number = x;
       break;
     }

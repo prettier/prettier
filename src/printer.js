@@ -1057,15 +1057,22 @@ else
       parts.push("default:");
 
     if (n.consequent.length > 0) {
-      parts.push(indent(options.tabWidth, concat([
-        hardline,
-        path.call(
-          function(consequentPath) {
-            return printStatementSequence(consequentPath, options, print);
-          },
-          "consequent"
+      const cons = path.call(
+        function(consequentPath) {
+          return printStatementSequence(consequentPath, options, print);
+        },
+        "consequent"
+      );
+
+      parts.push(
+        indent(
+          options.tabWidth,
+          concat([
+            isCurlyBracket(cons) ? " " : hardline,
+            cons
+          ])
         )
-      ])));
+      );
     }
 
     return concat(parts);
