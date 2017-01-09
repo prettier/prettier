@@ -1695,7 +1695,6 @@ function printArgumentsList(path, options, print) {
     lastArg.type === "ArrayExpression" ||
     lastArg.type === "FunctionExpression" ||
     lastArg.type === "ArrowFunctionExpression" ||
-    lastArg.type === "CallExpression" ||
     lastArg.type === "NewExpression";
 
   if (groupLastArg) {
