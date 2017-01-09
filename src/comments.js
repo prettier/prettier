@@ -13,26 +13,22 @@ var childNodesCacheKey = require("private").makeUniqueKey();
 
 // TODO Move a non-caching implementation of this function into ast-types,
 // and implement a caching wrapper function here.
-function getSortedChildNodes(node, lines, resultArray) {
+function getSortedChildNodes(node, text, resultArray) {
   if (!node) {
     return;
   }
 
-  // The .loc checks below are sensitive to some of the problems that
-  // are fixed by this utility function. Specifically, if it decides to
-  // set node.loc to null, indicating that the node's .loc information
-  // is unreliable, then we don't want to add node to the resultArray.
-  util.fixFaultyLocations(node, lines);
+  // The loc checks below are sensitive to some of the problems that
+  // are fixed by this utility function.
+  util.fixFaultyLocations(node, text);
 
   if (resultArray) {
-    if (n.Node.check(node) &&
-        n.SourceLocation.check(node.loc)) {
+    if (n.Node.check(node)) {
       // This reverse insertion sort almost always takes constant
       // time because we almost always (maybe always?) append the
       // nodes in order anyway.
       for (var i = resultArray.length - 1; i >= 0; --i) {
-        if (comparePos(resultArray[i].loc.end,
-                       node.loc.start) <= 0) {
+        if (resultArray[i].end - node.start <= 0) {
           break;
         }
       }
@@ -60,7 +56,7 @@ function getSortedChildNodes(node, lines, resultArray) {
   }
 
   for (var i = 0, nameCount = names.length; i < nameCount; ++i) {
-    getSortedChildNodes(node[names[i]], lines, resultArray);
+    getSortedChildNodes(node[names[i]], text, resultArray);
   }
 
   return resultArray;
@@ -69,8 +65,8 @@ function getSortedChildNodes(node, lines, resultArray) {
 // As efficiently as possible, decorate the comment object with
 // .precedingNode, .enclosingNode, and/or .followingNode properties, at
 // least one of which is guaranteed to be defined.
-function decorateComment(node, comment, lines) {
-  var childNodes = getSortedChildNodes(node, lines);
+function decorateComment(node, comment, text) {
+  var childNodes = getSortedChildNodes(node, text);
 
   // Time to dust off the old binary search robes and wizard hat.
   var left = 0, right = childNodes.length;
@@ -78,14 +74,13 @@ function decorateComment(node, comment, lines) {
     var middle = (left + right) >> 1;
     var child = childNodes[middle];
 
-    if (comparePos(child.loc.start, comment.loc.start) <= 0 &&
-        comparePos(comment.loc.end, child.loc.end) <= 0) {
+    if (child.start - comment.start <= 0 && comment.end - child.end <= 0) {
       // The comment is completely contained by this child node.
-      decorateComment(comment.enclosingNode = child, comment, lines);
+      decorateComment(comment.enclosingNode = child, comment, text);
       return; // Abandon the binary search at this level.
     }
 
-    if (comparePos(child.loc.end, comment.loc.start) <= 0) {
+    if (child.end - comment.start <= 0) {
       // This child node falls completely before the comment.
       // Because we will never consider this node or any nodes
       // before it again, this node must be the closest preceding
@@ -95,7 +90,7 @@ function decorateComment(node, comment, lines) {
       continue;
     }
 
-    if (comparePos(comment.loc.end, child.loc.start) <= 0) {
+    if (comment.end - child.start <= 0) {
       // This child node falls completely after the comment.
       // Because we will never consider this node or any nodes after
       // it again, this node must be the closest following node we
@@ -117,7 +112,7 @@ function decorateComment(node, comment, lines) {
   }
 }
 
-exports.attach = function(comments, ast, lines) {
+exports.attach = function(comments, ast, text) {
   if (!isArray.check(comments)) {
     return;
   }
@@ -125,8 +120,7 @@ exports.attach = function(comments, ast, lines) {
   var tiesToBreak = [];
 
   comments.forEach(function(comment) {
-    comment.loc.lines = lines;
-    decorateComment(ast, comment, lines);
+    decorateComment(ast, comment, text);
 
     var pn = comment.precedingNode;
     var en = comment.enclosingNode;
@@ -143,7 +137,7 @@ exports.attach = function(comments, ast, lines) {
         );
 
         if (lastTie.followingNode !== comment.followingNode) {
-          breakTies(tiesToBreak, lines);
+          breakTies(tiesToBreak, text);
         }
       }
 
@@ -151,18 +145,18 @@ exports.attach = function(comments, ast, lines) {
 
     } else if (pn) {
       // No contest: we have a trailing comment.
-      breakTies(tiesToBreak, lines);
+      breakTies(tiesToBreak, text);
       addTrailingComment(pn, comment);
 
     } else if (fn) {
       // No contest: we have a leading comment.
-      breakTies(tiesToBreak, lines);
+      breakTies(tiesToBreak, text);
       addLeadingComment(fn, comment);
 
     } else if (en) {
       // The enclosing node has no child nodes at all, so what we
       // have here is a dangling comment, e.g. [/* crickets */].
-      breakTies(tiesToBreak, lines);
+      breakTies(tiesToBreak, text);
       addDanglingComment(en, comment);
 
     } else {
@@ -170,7 +164,7 @@ exports.attach = function(comments, ast, lines) {
     }
   });
 
-  breakTies(tiesToBreak, lines);
+  breakTies(tiesToBreak, text);
 
   comments.forEach(function(comment) {
     // These node references were useful for breaking ties, but we
@@ -182,7 +176,7 @@ exports.attach = function(comments, ast, lines) {
   });
 };
 
-function breakTies(tiesToBreak, lines) {
+function breakTies(tiesToBreak, text) {
   var tieCount = tiesToBreak.length;
   if (tieCount === 0) {
     return;
@@ -190,7 +184,7 @@ function breakTies(tiesToBreak, lines) {
 
   var pn = tiesToBreak[0].precedingNode;
   var fn = tiesToBreak[0].followingNode;
-  var gapEndPos = fn.loc.start;
+  var gapEndPos = fn.start;
 
   // Iterate backwards through tiesToBreak, examining the gaps
   // between the tied comments. In order to qualify as leading, a
@@ -203,23 +197,23 @@ function breakTies(tiesToBreak, lines) {
     assert.strictEqual(comment.precedingNode, pn);
     assert.strictEqual(comment.followingNode, fn);
 
-    var gap = lines.sliceString(comment.loc.end, gapEndPos);
+    var gap = text.slice(comment.end, gapEndPos);
     if (/\S/.test(gap)) {
       // The gap string contained something other than whitespace.
       break;
     }
 
-    gapEndPos = comment.loc.start;
+    gapEndPos = comment.start;
   }
 
-  while (indexOfFirstLeadingComment <= tieCount &&
-         (comment = tiesToBreak[indexOfFirstLeadingComment]) &&
-         // If the comment is a //-style comment and indented more
-         // deeply than the node itself, reconsider it as trailing.
-         (comment.type === "Line" || comment.type === "CommentLine") &&
-         comment.loc.start.column > fn.loc.start.column) {
-    ++indexOfFirstLeadingComment;
-  }
+  // while (indexOfFirstLeadingComment <= tieCount &&
+  //        (comment = tiesToBreak[indexOfFirstLeadingComment]) &&
+  //        // If the comment is a //-style comment and indented more
+  //        // deeply than the node itself, reconsider it as trailing.
+  //        (comment.type === "Line" || comment.type === "CommentLine") &&
+  //        comment.loc.start.column > fn.loc.start.column) {
+  //   ++indexOfFirstLeadingComment;
+  // }
 
   tiesToBreak.forEach(function(comment, i) {
     if (i < indexOfFirstLeadingComment) {

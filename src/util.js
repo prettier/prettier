@@ -84,136 +84,55 @@ util.composeSourceMaps = function(formerMap, latterMap) {
   return smg.toJSON();
 };
 
-util.getTrueLoc = function(node, lines) {
-  // It's possible that node is newly-created (not parsed by Esprima),
-  // in which case it probably won't have a .loc property (or an
-  // .original property for that matter). That's fine; we'll just
-  // pretty-print it as usual.
-  if (!node.loc) {
-    return null;
+function expandLoc(parentNode, childNode) {
+  if (childNode.start - parentNode.start < 0) {
+    parentNode.start = childNode.start;
   }
 
-  var result = {
-    start: node.loc.start,
-    end: node.loc.end
-  };
-
-  function include(node) {
-    expandLoc(result, node.loc);
-  }
-
-  // If the node has any comments, their locations might contribute to
-  // the true start/end positions of the node.
-  if (node.comments) {
-    node.comments.forEach(include);
-  }
-
-  // If the node is an export declaration and its .declaration has any
-  // decorators, their locations might contribute to the true start/end
-  // positions of the export declaration node.
-  if (node.declaration && util.isExportDeclaration(node) &&
-      node.declaration.decorators) {
-    node.declaration.decorators.forEach(include);
-  }
-
-  if (comparePos(result.start, result.end) < 0) {
-    // Trim leading whitespace.
-    result.start = copyPos(result.start);
-    lines.skipSpaces(result.start, false, true);
-
-    if (comparePos(result.start, result.end) < 0) {
-      // Trim trailing whitespace, if the end location is not already the
-      // same as the start location.
-      result.end = copyPos(result.end);
-      lines.skipSpaces(result.end, true, true);
-    }
-  }
-
-  return result;
-};
-
-function expandLoc(parentLoc, childLoc) {
-  if (parentLoc && childLoc) {
-    if (comparePos(childLoc.start, parentLoc.start) < 0) {
-      parentLoc.start = childLoc.start;
-    }
-
-    if (comparePos(parentLoc.end, childLoc.end) < 0) {
-      parentLoc.end = childLoc.end;
-    }
+  if (parentNode.end - childNode.end < 0) {
+    parentNode.end = childNode.end;
   }
 }
 
-util.fixFaultyLocations = function(node, lines) {
-  var loc = node.loc;
-  if (loc) {
-    if (loc.start.line < 1) {
-      loc.start.line = 1;
-    }
-
-    if (loc.end.line < 1) {
-      loc.end.line = 1;
-    }
-  }
-
+util.fixFaultyLocations = function(node, text) {
   if (node.type === "TemplateLiteral") {
-    fixTemplateLiteral(node, lines);
+    fixTemplateLiteral(node, text);
 
-  } else if (loc && node.decorators) {
-    // Expand the .loc of the node responsible for printing the decorators
+  } else if (node.decorators) {
+    // Expand the loc of the node responsible for printing the decorators
     // (here, the decorated node) so that it includes node.decorators.
     node.decorators.forEach(function (decorator) {
-      expandLoc(loc, decorator.loc);
+      expandLoc(node, decorator);
     });
-
   } else if (node.declaration && util.isExportDeclaration(node)) {
-    // Nullify .loc information for the child declaration so that we never
-    // try to reprint it without also reprinting the export declaration.
-    node.declaration.loc = null;
-
-    // Expand the .loc of the node responsible for printing the decorators
+    // Expand the loc of the node responsible for printing the decorators
     // (here, the export declaration) so that it includes node.decorators.
     var decorators = node.declaration.decorators;
     if (decorators) {
       decorators.forEach(function (decorator) {
-        expandLoc(loc, decorator.loc);
+        expandLoc(node, decorator);
       });
     }
-
   } else if ((n.MethodDefinition && n.MethodDefinition.check(node)) ||
              (n.Property.check(node) && (node.method || node.shorthand))) {
-    // If the node is a MethodDefinition or a .method or .shorthand
-    // Property, then the location information stored in
-    // node.value.loc is very likely untrustworthy (just the {body}
-    // part of a method, or nothing in the case of shorthand
-    // properties), so we null out that information to prevent
-    // accidental reuse of bogus source code during reprinting.
-    node.value.loc = null;
-
     if (n.FunctionExpression.check(node.value)) {
       // FunctionExpression method values should be anonymous,
       // because their .id fields are ignored anyway.
       node.value.id = null;
     }
-
   } else if (node.type === "ObjectTypeProperty") {
-    var loc = node.loc;
-    var end = loc && loc.end;
-    if (end) {
-      end = copyPos(end);
-      if (lines.prevPos(end) &&
-          lines.charAt(end) === ",") {
-        // Some parsers accidentally include trailing commas in the
-        // .loc.end information for ObjectTypeProperty nodes.
-        if ((end = lines.skipSpaces(end, true, true))) {
-          loc.end = end;
-        }
+    var end = skipSpaces(text, node.end, true);
+    if (end !== false && text.charAt(end) === ",") {
+      // Some parsers accidentally include trailing commas in the
+      // .end information for ObjectTypeProperty nodes.
+      if ((end = skipSpaces(text, end - 1, true)) !== false) {
+        loc.end = end;
       }
     }
   }
 };
 
-function fixTemplateLiteral(node, lines) {
+function fixTemplateLiteral(node, text) {
   assert.strictEqual(node.type, "TemplateLiteral");
 
   if (node.quasis.length === 0) {
@@ -221,53 +140,53 @@ function fixTemplateLiteral(node, lines) {
     return;
   }
 
-  // First we need to exclude the opening ` from the .loc of the first
+  // First we need to exclude the opening ` from the loc of the first
   // quasi element, in case the parser accidentally decided to include it.
-  var afterLeftBackTickPos = copyPos(node.loc.start);
-  assert.strictEqual(lines.charAt(afterLeftBackTickPos), "`");
-  assert.ok(lines.nextPos(afterLeftBackTickPos));
+  var afterLeftBackTickPos = node.start;
+  assert.strictEqual(text.charAt(afterLeftBackTickPos), "`");
+  assert.ok(afterLeftBackTickPos < text.length);
   var firstQuasi = node.quasis[0];
-  if (comparePos(firstQuasi.loc.start, afterLeftBackTickPos) < 0) {
-    firstQuasi.loc.start = afterLeftBackTickPos;
+  if (firstQuasi.start - afterLeftBackTickPos < 0) {
+    firstQuasi.start = afterLeftBackTickPos;
   }
 
-  // Next we need to exclude the closing ` from the .loc of the last quasi
+  // Next we need to exclude the closing ` from the loc of the last quasi
   // element, in case the parser accidentally decided to include it.
-  var rightBackTickPos = copyPos(node.loc.end);
-  assert.ok(lines.prevPos(rightBackTickPos));
-  assert.strictEqual(lines.charAt(rightBackTickPos), "`");
+  var rightBackTickPos = node.end;
+  assert.ok(rightBackTickPos >= 0);
+  assert.strictEqual(text.charAt(rightBackTickPos), "`");
   var lastQuasi = node.quasis[node.quasis.length - 1];
-  if (comparePos(rightBackTickPos, lastQuasi.loc.end) < 0) {
-    lastQuasi.loc.end = rightBackTickPos;
+  if (rightBackTickPos - lastQuasi.end < 0) {
+    lastQuasi.end = rightBackTickPos;
   }
 
-  // Now we need to exclude ${ and } characters from the .loc's of all
+  // Now we need to exclude ${ and } characters from the loc's of all
   // quasi elements, since some parsers accidentally include them.
   node.expressions.forEach(function (expr, i) {
-    // Rewind from expr.loc.start over any whitespace and the ${ that
+    // Rewind from expr.start over any whitespace and the ${ that
     // precedes the expression. The position of the $ should be the same
-    // as the .loc.end of the preceding quasi element, but some parsers
-    // accidentally include the ${ in the .loc of the quasi element.
-    var dollarCurlyPos = lines.skipSpaces(expr.loc.start, true, false);
-    if (lines.prevPos(dollarCurlyPos) &&
-        lines.charAt(dollarCurlyPos) === "{" &&
-        lines.prevPos(dollarCurlyPos) &&
-        lines.charAt(dollarCurlyPos) === "$") {
+    // as the .end of the preceding quasi element, but some parsers
+    // accidentally include the ${ in the loc of the quasi element.
+    var dollarCurlyPos = skipSpaces(text, expr.start - 1, true);
+    if (dollarCurlyPos - 1 >= 0 &&
+        text.charAt(dollarCurlyPos - 1) === "{" &&
+        dollarCurlyPos - 2 >= 0 &&
+        text.charAt(dollarCurlyPos - 2) === "$") {
       var quasiBefore = node.quasis[i];
-      if (comparePos(dollarCurlyPos, quasiBefore.loc.end) < 0) {
-        quasiBefore.loc.end = dollarCurlyPos;
+      if (dollarCurlyPos - quasiBefore.end < 0) {
+        quasiBefore.end = dollarCurlyPos;
       }
     }
 
     // Likewise, some parsers accidentally include the } that follows
-    // the expression in the .loc of the following quasi element.
-    var rightCurlyPos = lines.skipSpaces(expr.loc.end, false, false);
-    if (lines.charAt(rightCurlyPos) === "}") {
-      assert.ok(lines.nextPos(rightCurlyPos));
+    // the expression in the loc of the following quasi element.
+    var rightCurlyPos = skipSpaces(text, expr.end);
+    if (text.charAt(rightCurlyPos) === "}") {
+      assert.ok(rightCurlyPos + 1 < text.length);
       // Now rightCurlyPos is technically the position just after the }.
       var quasiAfter = node.quasis[i + 1];
-      if (comparePos(quasiAfter.loc.start, rightCurlyPos) < 0) {
-        quasiAfter.loc.start = rightCurlyPos;
+      if (quasiAfter.start - rightCurlyPos < 0) {
+        quasiAfter.start = rightCurlyPos;
       }
     }
   });
@@ -337,3 +256,20 @@ util.newlineExistsBefore = function(text, index) {
 util.newlineExistsAfter = function(text, index) {
   return _findNewline(text, index);
 }
+
+function skipSpaces(text, index, backwards) {
+  const length = text.length;
+  let cursor = backwards ? (index - 1) : (index + 1);
+  // Look forward and see if there is a newline after/before this code
+  // by scanning up/back to the next non-indentation character.
+  while (cursor > 0 && cursor < length) {
+    const c = text.charAt(cursor);
+    // Skip any whitespace chars
+    if (!c.match(/\S/)) {
+      return cursor;
+    }
+    backwards ? cursor-- : cursor++;
+  }
+  return false;
+}
+util.skipSpaces = skipSpaces;

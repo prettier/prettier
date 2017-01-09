@@ -1,7 +1,7 @@
-const recast = require("recast");
 const babylon = require("babylon");
 const Printer = require("./src/printer").Printer;
 const flowParser = require("flow-parser");
+const comments = require("./src/comments");
 
 var babylonOptions = {
   sourceType: 'module',
@@ -40,17 +40,16 @@ module.exports = {
       }
     }
     else {
-      ast = recast.parse(text, {
-        parser: {
-          parse: function(source) {
-            return babylon.parse(source, babylonOptions);
-          }
-        }
-      });
+      ast = babylon.parse(text, babylonOptions);
     }
 
-    opts.originalText = text;
+    // Interleave comment nodes
+    if(ast.comments) {
+      comments.attach(ast.comments, ast, text);
+      ast.comments = [];
+    }
     ast.tokens = [];
+    opts.originalText = text;
 
     const printer = new Printer(opts);
     return printer.printGenerically(ast).code;
