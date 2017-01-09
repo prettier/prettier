@@ -258,82 +258,32 @@ function addTrailingComment(node, comment) {
 function printLeadingComment(commentPath, print) {
   var comment = commentPath.getValue();
   n.Comment.assert(comment);
-
-  var loc = comment.loc;
-  var lines = loc && loc.lines;
-  var parts = [print(commentPath)];
-
-  if (comment.trailing) {
-    // When we print trailing comments as leading comments, we don't
-    // want to bring any trailing spaces along.
-    parts.push(hardline);
-
-  }
-
-  // else if (lines instanceof Lines) {
-  //     var trailingSpace = lines.slice(
-  //         loc.end,
-  //         lines.skipSpaces(loc.end)
-  //     );
-
-  //     if (trailingSpace.length === 1) {
-  //         // If the trailing space contains no newlines, then we want to
-  //         // preserve it exactly as we found it.
-  //         parts.push(trailingSpace);
-  //     } else {
-  //         // If the trailing space contains newlines, then replace it
-  //         // with just that many newlines, with all other spaces removed.
-  //         parts.push(new Array(trailingSpace.length).join("\n"));
-  //     }
-
-  // }
-  else {
-    parts.push(hardline);
-  }
-
-  return concat(parts);
+  return concat([print(commentPath), hardline]);
 }
 
-function printTrailingComment(commentPath, print) {
-  var comment = commentPath.getValue(commentPath);
+function printTrailingComment(commentPath, print, options) {
+  const comment = commentPath.getValue(commentPath);
   n.Comment.assert(comment);
+  const text = options.originalText;
 
-  var loc = comment.loc;
-  var lines = loc && loc.lines;
-  var parts = [];
-
-  // if (lines instanceof Lines) {
-  //     var fromPos = lines.skipSpaces(loc.start, true) || lines.firstPos();
-  //     var leadingSpace = lines.slice(fromPos, loc.start);
-
-  //     if (leadingSpace.length === 1) {
-  //         // If the leading space contains no newlines, then we want to
-  //         // preserve it exactly as we found it.
-  //         parts.push(leadingSpace);
-  //     } else {
-  //         // If the leading space contains newlines, then replace it
-  //         // with just that many newlines, sans all other spaces.
-  //         parts.push(new Array(leadingSpace.length).join("\n"));
-  //     }
-  // }
-
-  parts.push(print(commentPath), hardline);
-
-  return concat(parts);
+  return concat([
+    util.newlineExistsBefore(text, comment.start) ? hardline : " ",
+    print(commentPath)
+  ]);
 }
 
-exports.printComments = function(path, print) {
+exports.printComments = function(path, print, options) {
   var value = path.getValue();
-  var innerLines = print(path);
+  var printed = print(path);
   var comments = n.Node.check(value) &&
       types.getFieldValue(value, "comments");
 
   if (!comments || comments.length === 0) {
-    return innerLines;
+    return printed;
   }
 
   var leadingParts = [];
-  var trailingParts = [innerLines];
+  var trailingParts = [printed];
 
   path.each(function(commentPath) {
     var comment = commentPath.getValue();
@@ -345,12 +295,10 @@ exports.printComments = function(path, print) {
                                   comment.type === "CommentBlock"))) {
       leadingParts.push(printLeadingComment(commentPath, print));
     } else if (trailing) {
-      trailingParts.push(printTrailingComment(commentPath, print));
+      trailingParts.push(printTrailingComment(commentPath, print, options));
     }
   }, "comments");
 
   leadingParts.push.apply(leadingParts, trailingParts);
-  // TODO: Optimize this; if there are no comments we shouldn't
-  // touch the structure
   return concat(leadingParts);
 };

@@ -71,54 +71,9 @@ function Printer(originalOptions) {
   // can be confused by) options.sourceFileName, so we null it out.
   options.sourceFileName = null;
 
-  function printWithComments(path) {
-    assert.ok(path instanceof FastPath);
-
-    return printComments(path, print);
-  }
-
-  function print(path, includeComments) {
-    if (includeComments)
-      return printWithComments(path);
-
-    assert.ok(path instanceof FastPath);
-
-    if (!explicitTabWidth) {
-      var oldTabWidth = options.tabWidth;
-      var loc = path.getNode().loc;
-
-      if (loc && loc.lines && loc.lines.guessTabWidth) {
-        options.tabWidth = loc.lines.guessTabWidth();
-
-        var lines = maybeReprint(path);
-
-        options.tabWidth = oldTabWidth;
-
-        return lines;
-      }
-    }
-
-    return maybeReprint(path);
-  }
-
-  function maybeReprint(path) {
-    // TODO: remove this function entirely as we don't ever keep the
-    // previous formatting
-    return printRootGenerically(path);
-  }
-
-  // Print the root node generically, but then resume reprinting its
-  // children non-generically.
-  function printRootGenerically(path, includeComments) {
-    return includeComments
-      ? printComments(path, printRootGenerically)
-      : genericPrint(path, options, printWithComments);
-  }
-
   // Print the entire AST generically.
   function printGenerically(path) {
-    // return genericPrint(path, options, printGenerically);
-    return printComments(path, p => genericPrint(p, options, printGenerically));
+    return printComments(path, p => genericPrint(p, options, printGenerically), options);
   }
 
   this.print = function(ast) {
@@ -349,13 +304,15 @@ function genericPrintNoParens(path, options, print) {
 
     parts.push(
       path.call(print, "typeParameters"),
-      printFunctionParams(path, print, options),
-      printReturnType(path, print),
+      multilineGroup(concat([
+        printFunctionParams(path, print, options),
+        printReturnType(path, print)
+      ])),
       " ",
       path.call(print, "body")
     );
 
-    return group(concat(parts));
+    return concat(parts);
   case "ArrowFunctionExpression":
     if (n.async)
       parts.push("async ");
@@ -373,15 +330,15 @@ function genericPrintNoParens(path, options, print) {
     ) {
       parts.push(path.call(print, "params", 0));
     } else {
-      parts.push(
+      parts.push(multilineGroup(concat([
         printFunctionParams(path, print, options),
         printReturnType(path, print)
-      );
+      ])));
     }
 
     parts.push(" => ", path.call(print, "body"));
 
-    return group(concat(parts));
+    return concat(parts);
   case "MethodDefinition":
     if (n.static) {
       parts.push("static ");
@@ -1265,12 +1222,12 @@ function genericPrintNoParens(path, options, print) {
   case "CommentBlock":
   case // Esprima block comment.
   "Block":
-    return concat([ "/*", fromString(n.value, options), "*/" ]);
+    return concat([ "/*", n.value, "*/" ]);
   // Babel line comment.
   case "CommentLine":
   case // Esprima line comment.
   "Line":
-    return concat([ "//", fromString(n.value, options) ]);
+    return concat([ "//", n.value ]);
   // Type Annotations for Facebook Flow, typically stripped out or
   // transformed away before printing.
   case "TypeAnnotation":
@@ -1351,7 +1308,7 @@ function genericPrintNoParens(path, options, print) {
 
     parts.push(path.call(print, "typeParameters"));
 
-    parts.push(printFunctionParams(path, print, options));
+    parts.push(multilineGroup(printFunctionParams(path, print, options)));
 
     // The returnType is not wrapped in a TypeAnnotation, so the colon
     // needs to be added separately.
@@ -1363,7 +1320,7 @@ function genericPrintNoParens(path, options, print) {
       );
     }
 
-    return group(concat(parts));
+    return concat(parts);
   case "FunctionTypeParam":
     return concat([
       path.call(print, "name"),
@@ -1659,18 +1616,20 @@ function printMethod(path, options, print) {
   parts.push(
     key,
     path.call(print, "value", "typeParameters"),
-    path.call(
-      function(valuePath) {
-        return printFunctionParams(valuePath, print, options);
-      },
-      "value"
-    ),
-    path.call(p => printReturnType(p, print), "value"),
+    multilineGroup(concat([
+      path.call(
+        function(valuePath) {
+          return printFunctionParams(valuePath, print, options);
+        },
+        "value"
+      ),
+      path.call(p => printReturnType(p, print), "value")
+    ])),
     " ",
     path.call(print, "value", "body")
   );
 
-  return group(concat(parts));
+  return concat(parts);
 }
 
 function printArgumentsList(path, options, print) {
@@ -1797,13 +1756,15 @@ function printObjectMethod(path, options, print) {
   }
 
   parts.push(
-    printFunctionParams(path, print, options),
-    printReturnType(path, print),
+    multilineGroup([
+      printFunctionParams(path, print, options),
+      printReturnType(path, print)
+    ]),
     " ",
     path.call(print, "body")
   );
 
-  return group(concat(parts));
+  return concat(parts);
 }
 
 function printReturnType(path, print) {
@@ -2045,26 +2006,7 @@ function nodeStr(str, options) {
 
 function shouldAddSpacing(node, options) {
   const text = options.originalText;
-  const length = text.length;
-  let cursor = node.end + 1;
-  // Look forward and see if there is a blank line after this code by
-  // scanning up to the next non-indentation character.
-  while (cursor < length) {
-    const c = text.charAt(cursor);
-    // Skip any indentation characters (this will detect lines with
-    // spaces or tabs as blank)
-    if (c !== " " && c !== "\t") {
-      // If the next character is a newline, this line is blank so we
-      // should add a blank line.
-      if (c === "\n" || c === "\r") {
-        return true;
-      }
-      return false;
-    }
-    cursor++;
-  }
-
-  return false;
+  return util.newlineExistsAfter(text, node.end);
 }
 
 function isFirstStatement(path) {

@@ -311,3 +311,29 @@ util.getLast = function(arr) {
   }
   return null;
 }
+
+function _findNewline(text, index, backwards) {
+  const length = text.length;
+  let cursor = backwards ? (index - 1) : (index + 1);
+  // Look forward and see if there is a newline after/before this code
+  // by scanning up/back to the next non-indentation character.
+  while (cursor > 0 && cursor < length) {
+    const c = text.charAt(cursor);
+    // Skip any indentation characters
+    if (c !== " " && c !== "\t") {
+      // Check if the next non-indentation character is a newline or
+      // not.
+      return c === "\n" || c === "\r";
+    }
+    backwards ? cursor-- : cursor++;
+  }
+  return false;
+}
+
+util.newlineExistsBefore = function(text, index) {
+  return _findNewline(text, index, true);
+}
+
+util.newlineExistsAfter = function(text, index) {
+  return _findNewline(text, index);
+}
