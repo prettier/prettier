@@ -133,113 +133,71 @@ let tests = [
 // error, string ~> empty
 // error, string ~> empty
 function num(x: number) {}
-
 function str(x: string) {}
-
 function foo() {
   var x = 0;
   var y = \"...\";
   var z = {};
-
   num(x + x);
-
   num(x + y);
-
   str(x + y);
-
   str(x + x);
-
   str(z + y);
 }
-
 function bar0(x: ?number, y: number) {
   num(x + y);
 }
-
 function bar1(x: number, y: ?number) {
   num(x + y);
 }
-
 function bar2(x?: number, y: number) {
   num(x + y);
 }
-
 function bar3(x: number, y?: number) {
   num(x + y);
 }
-
 function bar4(x?: ?number, y: number) {
   num(x + y);
 }
-
 function bar5(x: number, y?: ?number) {
   num(x + y);
 }
-
 num(null + null);
-
 num(undefined + undefined);
-
 num(null + 1);
-
 num(1 + null);
-
 num(undefined + 1);
-
 num(1 + undefined);
-
 num(null + true);
-
 num(true + null);
-
 num(undefined + true);
-
 num(true + undefined);
-
 str(\"foo\" + true);
-
 str(true + \"foo\");
-
 str(\"foo\" + null);
-
 str(null + \"foo\");
-
 str(\"foo\" + undefined);
-
 str(undefined + \"foo\");
-
 let tests = [
   function(x: mixed, y: mixed) {
     x + y;
-
     x + 0;
-
     0 + x;
-
     x + \"\";
-
     \"\" + x;
-
     x + {};
-
     ({}) + x;
   },
   function() {
     (1 + {}: number);
-
     ({} + 1: number);
-
     (\"1\" + {}: string);
-
     ({} + \"1\": string);
   },
   function(x: any, y: number, z: string) {
     (x + y: string);
-
     (y + x: string);
-
     (x + z: empty);
-
     (z + x: empty);
   }
 ];
@@ -262,17 +220,11 @@ y **= 2; // error
 /* @flow */
 // error
 let x: number = 2 ** 3;
-
 x **= 4;
-
 let y: string = \"123\";
-
 y **= 2;
-
 1 + 2 ** 3 + 4;
-
 2 ** 2;
-
 (-2) ** 2;
 "
 `;
@@ -295,19 +247,15 @@ function f<A,B>(a: A, b: B): B {return b + a; } // error
 function f<A>(a: A): A {
   return a + a;
 }
-
 function f<A, B>(a: A, b: B): A {
   return a + b;
 }
-
 function f<A, B>(a: A, b: B): A {
   return b + a;
 }
-
 function f<A, B>(a: A, b: B): B {
   return a + b;
 }
-
 function f<A, B>(a: A, b: B): B {
   return b + a;
 }
@@ -331,17 +279,11 @@ y *= 2; // error
 /* @flow */
 // error
 function num(x: number) {}
-
 num(null * 1);
-
 num(1 * null);
-
 let x: number = 2 * 3;
-
 x *= 4;
-
 let y: string = \"123\";
-
 y *= 2;
 "
 `;
@@ -393,47 +335,27 @@ let tests = [
 // error
 // error
 1 < 2;
-
 1 < \"foo\";
-
 \"foo\" < 1;
-
 \"foo\" < \"bar\";
-
 1 < { foo: 1 };
-
 ({ foo: 1 }) < 1;
-
 ({ foo: 1 }) < { foo: 1 };
-
 \"foo\" < { foo: 1 };
-
 ({ foo: 1 }) < \"foo\";
-
 var x = (null: ?number);
-
 1 < x;
-
 x < 1;
-
 null < null;
-
 undefined < null;
-
 null < undefined;
-
 undefined < undefined;
-
 NaN < 1;
-
 1 < NaN;
-
 NaN < NaN;
-
 let tests = [
   function(x: any, y: number, z: string) {
     x > y;
-
     x > z;
   }
 ];

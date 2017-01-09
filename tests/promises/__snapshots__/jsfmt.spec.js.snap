@@ -55,31 +55,21 @@ function tes2(val: Map<string, Promise<number>>) {
 // Promise.all supports iterables
 declare var pstr: Promise<string>;
 declare var pnum: Promise<number>;
-
 Promise.all([ pstr, pnum, true ]).then(xs => {
   let [ a, b, c ] = xs;
-
   (a: number);
-
   (b: boolean);
-
   (c: string);
-
   xs.forEach(x => {
     (x: void);
   });
 });
-
 Promise.all();
-
 Promise.all(0);
-
 (Promise.all: Function);
-
 function test(val: Iterable<Promise<number>>) {
   const r: Promise<Array<number>> = Promise.all(val);
 }
-
 function tes2(val: Map<string, Promise<number>>) {
   const r: Promise<Array<number>> = Promise.all(val.values());
 }
@@ -113,7 +103,6 @@ async function testAll() {
   const y: Promise<Array<?string>> = Promise.all(x);
   const z: Array<?string> = await y;
 }
-
 async function testRace() {
   const x: Array<Promise<?string>> = [];
   const y: Promise<?string> = Promise.race(x);
@@ -430,12 +419,10 @@ new Promise(function(resolve, reject) {
   var a: number = num;
   var b: string = num;
 });
-
 new Promise((resolve, reject) => resolve(0)).then(function(num) {
   var a: number = num;
   var b: string = num;
 });
-
 new Promise(function(resolve, reject) {
   resolve(new Promise(function(resolve, reject) {
     resolve(0);
@@ -444,7 +431,6 @@ new Promise(function(resolve, reject) {
   var a: number = num;
   var b: string = num;
 });
-
 new Promise(function(resolve, reject) {
   resolve(new Promise(function(resolve, reject) {
     resolve(new Promise(function(resolve, reject) {
@@ -455,7 +441,6 @@ new Promise(function(resolve, reject) {
   var a: number = num;
   var b: string = num;
 });
-
 new Promise(function(resolve, reject) {
   if (Math.random()) {
     resolve(42);
@@ -468,17 +453,14 @@ new Promise(function(resolve, reject) {
   } else {
     var b: number = numOrStr;
   }
-
   var c: string = numOrStr;
 });
-
 new Promise(function(resolve, reject) {
   reject(0);
 }).catch(function(num) {
   var a: number = num;
   var b: string = num;
 });
-
 new Promise(function(resolve, reject) {
   reject(new Promise(function(resolve, reject) {
     reject(0);
@@ -487,7 +469,6 @@ new Promise(function(resolve, reject) {
   var a: Promise<number> = num;
   var b: number = num;
 });
-
 new Promise(function(resolve, reject) {
   if (Math.random()) {
     reject(42);
@@ -500,35 +481,28 @@ new Promise(function(resolve, reject) {
   } else {
     var b: number = numOrStr;
   }
-
   var c: string = numOrStr;
 });
-
 Promise.resolve(0).then(function(num) {
   var a: number = num;
   var b: string = num;
 });
-
 Promise.resolve(Promise.resolve(0)).then(function(num) {
   var a: number = num;
   var b: string = num;
 });
-
 Promise.resolve(Promise.resolve(Promise.resolve(0))).then(function(num) {
   var a: number = num;
   var b: string = num;
 });
-
 Promise.reject(0).catch(function(num) {
   var a: number = num;
   var b: string = num;
 });
-
 Promise.reject(Promise.resolve(0)).then(function(num) {
   var a: Promise<number> = num;
   var b: number = num;
 });
-
 Promise
   .resolve(0)
   .then(function(num) {
@@ -538,7 +512,6 @@ Promise
     var a: string = str;
     var b: number = str;
   });
-
 Promise
   .resolve(0)
   .then(function(num) {
@@ -548,7 +521,6 @@ Promise
     var a: string = str;
     var b: number = str;
   });
-
 Promise
   .resolve(0)
   .then(function(num) {
@@ -558,7 +530,6 @@ Promise
     var a: string = str;
     var b: number = str;
   });
-
 Promise
   .resolve(0)
   .then(function(num) {
@@ -568,7 +539,6 @@ Promise
     var a: string = str;
     var b: number = str;
   });
-
 Promise
   .reject(0)
   .catch(function(num) {
@@ -578,7 +548,6 @@ Promise
     var a: string = str;
     var b: number = str;
   });
-
 Promise
   .reject(0)
   .catch(function(num) {
@@ -588,7 +557,6 @@ Promise
     var a: string = str;
     var b: number = str;
   });
-
 Promise
   .reject(0)
   .catch(function(num) {
@@ -598,7 +566,6 @@ Promise
     var a: string = str;
     var b: number = str;
   });
-
 Promise
   .resolve(0)
   .catch(function(err) {})
@@ -669,7 +636,6 @@ async function baz(): Promise<number> {
 // error: \`Promise\` in return expr is the local binding
 // error: return type anno is a ref to the local binding
 class Promise {}
-
 async function foo(x: boolean) {
   if (x) {
     return { bar: \"baz\" };
@@ -677,19 +643,14 @@ async function foo(x: boolean) {
     return null;
   }
 }
-
 async function run() {
   console.log(await foo(true));
-
   console.log(await foo(false));
 }
-
 run();
-
 async function bar() {
   return Promise.resolve(0);
 }
-
 async function baz(): Promise<number> {
   return 0;
 }
@@ -707,7 +668,6 @@ exports[`test resolve_void.js 1`] = `
 // error
 // error
 (Promise.resolve(): Promise<number>);
-
 (Promise.resolve(undefined): Promise<number>);
 "
 `;

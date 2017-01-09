@@ -41,13 +41,10 @@ async function foo(x: boolean): Promise<?{ bar: string }> {
     return null;
   }
 }
-
 async function run() {
   console.log(await foo(true));
-
   console.log(await foo(false));
 }
-
 run();
 "
 `;

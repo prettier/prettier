@@ -27,16 +27,13 @@ class Bar {
   self: Bar;
   constructor(y: number) {
     this.y = y;
-
     this.self = this;
   }
   bar(z: string, u: string): string {
     new Qux().w = \"?\";
-
     return z;
   }
 }
-
 module.exports = Bar;
 "
 `;
@@ -79,19 +76,15 @@ class Foo extends Qux {
   }
   foo(y: string, z): number {
     this.x = y;
-
     var u = new Foo(\"...\").qux();
     var v = new Bar(y);
-
     v.self = v;
-
     return v.bar(z, u);
   }
   fooqux(x: string) {
     this.x;
   }
 }
-
 module.exports = Foo;
 "
 `;
@@ -118,7 +111,6 @@ class Qux {
   }
   fooqux(x: number) {}
 }
-
 module.exports = Qux;
 "
 `;

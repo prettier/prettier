@@ -9,7 +9,6 @@ module.exports = bar;
 function bar(w: number): number {
   return w;
 }
-
 module.exports = bar;
 "
 `;
@@ -28,15 +27,11 @@ module.exports = {foo:foo};
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 var bar = require(\"./lib\");
-
 function foo(z: number) {
   return bar(z);
 }
-
 var array = [ \"foo\", \"bar\" ];
-
 array;
-
 module.exports = { foo: foo };
 "
 `;

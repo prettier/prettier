@@ -56,7 +56,6 @@ class XControllerURIBuilder {
     var tokenRegex = new RegExp(/^\\{(\\?)?(.+?)\\}$/);
   }
 }
-
 module.exports = XControllerURIBuilder;
 "
 `;

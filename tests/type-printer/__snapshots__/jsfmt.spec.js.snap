@@ -29,13 +29,10 @@ module.exports = printBinaryExpression;
  * the root directory of this source tree.
  */
 \"use babel\";
-
 import type {BinaryExpression} from \"./types\";
-
 function printBinaryExpression(node: BinaryExpression) {
   console.log(node);
 }
-
 module.exports = printBinaryExpression;
 "
 `;
@@ -5114,7 +5111,6 @@ export type JSXSpreadAttribute = {
 // TODO: Make this correct.
 // TODO: Make this correct.
 \"use strict\";
-
 export type Comment = {
   type: \"CommentLine\",
   _CommentLine: void,

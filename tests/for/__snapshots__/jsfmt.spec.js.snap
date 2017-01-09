@@ -50,38 +50,28 @@ function corge(x: boolean) {
 /* @flow */
 function foo(x: boolean) {
   var max = 10;
-
   for (var ii = 0; ii < max; ii++) {
     if (x) {
       continue;
     }
-
     return;
   }
-
   console.log(\"this is still reachable\");
 }
-
 function bar(x: boolean) {
   var max = 0;
-
   for (var ii = 0; ii < max; ii++) {
     return;
   }
-
   console.log(\"this is still reachable\");
 }
-
 function baz(x: boolean) {
   var max = 0;
-
   for (var ii = 0; ii < max; ii++) {
     continue;
   }
-
   console.log(\"this is still reachable\");
 }
-
 function bliffl(x: boolean) {
   var max = 10;
   loop1:
@@ -90,20 +80,15 @@ function bliffl(x: boolean) {
     for (var jj = 0; jj < max; jj++) {
       break loop1;
     }
-
     console.log(\"this is still reachable\");
   }
-
   console.log(\"this is still reachable\");
 }
-
 function corge(x: boolean) {
   var max = 0;
-
   for (var ii = 0; ii < max; ii++) {
     break;
   }
-
   console.log(\"this is still reachable\");
 }
 "
@@ -155,34 +140,26 @@ function corge(x: boolean) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function foo(x: boolean) {
   var obj = { a: 1, b: 2 };
-
   for (var prop in obj) {
     if (x) {
       continue;
     }
-
     return;
   }
-
   console.log(\"this is still reachable\");
 }
-
 function bar(x: boolean) {
   for (var prop in {}) {
     return;
   }
-
   console.log(\"this is still reachable\");
 }
-
 function baz(x: boolean) {
   for (var prop in {}) {
     continue;
   }
-
   console.log(\"this is still reachable\");
 }
-
 function bliffl(x: boolean) {
   var obj = { a: 1, b: 2 };
   loop1:
@@ -191,18 +168,14 @@ function bliffl(x: boolean) {
     for (var prop2 in obj) {
       break loop1;
     }
-
     console.log(\"this is still reachable\");
   }
-
   console.log(\"this is still reachable\");
 }
-
 function corge(x: boolean) {
   for (var prop in {}) {
     break;
   }
-
   console.log(\"this is still reachable\");
 }
 "
@@ -254,34 +227,26 @@ function corge(x: boolean) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function foo(x: boolean) {
   var arr = [ 1, 2, 3 ];
-
   for (var elem of arr) {
     if (x) {
       continue;
     }
-
     return;
   }
-
   console.log(\"this is still reachable\");
 }
-
 function bar(x: boolean) {
   for (var elem of []) {
     return;
   }
-
   console.log(\"this is still reachable\");
 }
-
 function baz(x: boolean) {
   for (var elem of []) {
     continue;
   }
-
   console.log(\"this is still reachable\");
 }
-
 function bliffl(x: boolean) {
   var arr = [ 1, 2, 3 ];
   loop1:
@@ -290,18 +255,14 @@ function bliffl(x: boolean) {
     for (var elem of arr) {
       break loop1;
     }
-
     console.log(\"this is still reachable\");
   }
-
   console.log(\"this is still reachable\");
 }
-
 function corge(x: boolean) {
   for (var elem of []) {
     break;
   }
-
   console.log(\"this is still reachable\");
 }
 "

@@ -22,23 +22,17 @@ function identity<A>(val: A): Functor<A> {
 /* @flow */
 type F<A> = { foo<B>(x: A): F<B> };
 declare function foo(x: any): F<any>;
-
 ({ foo }: F<any>);
-
 function bar(y: F<number>): F<string> {
   return y;
 }
-
 function bar1<X>(y: F<X>): F<any> {
   return y;
 }
-
 function bar2<X>(y: F<any>): F<X> {
   return y;
 }
-
 type Functor<A> = { map<B>(f: (val: A) => B): Functor<B> };
-
 function identity<A>(val: A): Functor<A> {
   return {
     map<B>(f: (_: typeof val) => B): Functor<B> {
@@ -65,7 +59,6 @@ type Task<error, value> = {
     next: (input: value) => Task<error, tagged>
   ): Task<error, tagged>
 };
-
 function id(x: Task<any, any>): Task<any, any> {
   return x;
 }
@@ -105,19 +98,12 @@ class P<X> {
 }
 type Pstar<X> = X | Pstar<P<X>>;
 var p: P<number> = new P();
-
 (p.x: string);
-
 var pstar: Pstar<number> = 0;
-
 (pstar: number);
-
 pstar = p;
-
 (pstar.x: string);
-
 pstar = (new P(): P<P<number>>);
-
 (pstar.x: string);
 "
 `;
@@ -167,31 +153,24 @@ class C<X> extends B<X> { }
 // Both S<S<*>> and S<*> expand to { y: { y: ... }}.
 // error: number ~/~ string
 var a = [];
-
 function bar() {
   a = a.concat([]);
 }
-
 class A<X> {
   x: A<A<X>>;
 }
 var a_ = new A();
-
 function foo0() {
   a_ = a_.x;
 }
-
 type T<X> = { y: S<X> };
 type S<X> = T<S<X>>;
-
 function foo1(b: S<*>) {
   b = b.y;
 }
-
 class D<X> {}
 class B<X> extends D<X> {}
 class C<X> extends B<X> {}
-
 ((new C(): C<number>): D<string>);
 "
 `;
@@ -221,14 +200,11 @@ function bar(x: P<number>): () => P<number> {
 // () => P<number> = () => () => { x: P<number> }
 type I<X> = () => I<I<X>>;
 type J<X> = () => J<J<X>>;
-
 function foo(x: I<number>): J<number> {
   return x;
 }
-
 type Q<X> = { x: X };
 type P<X> = () => Q<P<X>>;
-
 function bar(x: P<number>): () => P<number> {
   return x;
 }
@@ -257,7 +233,6 @@ function flatten<T>(arrArg: NestedArray<T>) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 type NestedArray<T> = Array<T | NestedArray<T>>;
-
 function flatten<T>(arrArg: NestedArray<T>) {
   let arr = arrArg;
   while (true) {

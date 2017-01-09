@@ -70,51 +70,28 @@ var F = require(\'package_with_dir_main\');
 // Error either Implementation ~> boolean or Declaration ~> boolean
 // Error either Implementation ~> boolean or Declaration ~> boolean
 var B1 = require(\"B\");
-
 (B1.fun(): boolean);
-
 var B2 = require(\"B.js\");
-
 (B2.fun(): boolean);
-
 var C = require(\"package_with_full_main\");
-
 (C.fun(): boolean);
-
 var D = require(\"package_with_partial_main\");
-
 (D.fun(): boolean);
-
 var E = require(\"package_with_no_package_json\");
-
 (E.fun(): boolean);
-
 var F = require(\"package_with_dir_main\");
-
 (F.fun(): boolean);
-
 var B1 = require(\"B\");
-
 (B1.fun(): boolean);
-
 var B2 = require(\"B.js\");
-
 (B2.fun(): boolean);
-
 var C = require(\"package_with_full_main\");
-
 (C.fun(): boolean);
-
 var D = require(\"package_with_partial_main\");
-
 (D.fun(): boolean);
-
 var E = require(\"package_with_no_package_json\");
-
 (E.fun(): boolean);
-
 var F = require(\"package_with_dir_main\");
-
 (F.fun(): boolean);
 "
 `;
@@ -126,7 +103,6 @@ exports[`test test_relative.js 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Error: either Implementation ~> boolean or Definition ~> boolean
 import {foo} from \"./A\";
-
 (foo(): boolean);
 "
 `;

@@ -13,7 +13,6 @@ exports[`test class.js 1`] = `
 class C<T> {
   a<A>(x: T, a: A) {
     this.b(x);
-
     this.b(a);
   }
   b(x: T) {}
@@ -45,21 +44,14 @@ f(0); // ok
 function f<T>(a: T) {
   function g<U>(b: U, c: T = a) {
     function h(d: U = b) {}
-
     h();
-
     h(b);
-
     h(c);
   }
-
   g(0);
-
   g(0, a);
-
   g(0, 0);
 }
-
 f(0);
 "
 `;
@@ -157,13 +149,9 @@ class G<T> {
   }
 }
 declare var g: G<number | string>;
-
 g.m(0);
-
 g.m(true);
-
 (g.m(\"\"): G<number>);
-
 class H<T> {
   x: T;
   m<T>(x: T) {

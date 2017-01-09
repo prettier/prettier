@@ -32,11 +32,8 @@ var ColorIdToNumber = {
   [ColorId.GREEN]: ColorNumber.GREEN,
   [ColorId.BLUE]: ColorNumber.BLUE
 };
-
 (ColorIdToNumber[ColorId.RED]: \"ffffff\");
-
 ColorIdToNumber.XXX;
-
 module.exports = { ColorId, ColorNumber };
 "
 `;
@@ -60,9 +57,7 @@ var ColorIdToNumber = {
   [ColorId.GREEN]: ColorNumber.GREEN,
   [ColorId.BLUE]: ColorNumber.BLUE
 };
-
 (ColorIdToNumber[ColorId.GREEN]: \"ffffff\");
-
 module.exports = ColorIdToNumber;
 "
 `;
@@ -76,7 +71,6 @@ var ColorIdToNumber = require(\'./test2\');
 // oops
 var { ColorId } = require(\"./test\");
 var ColorIdToNumber = require(\"./test2\");
-
 (ColorIdToNumber[ColorId.BLUE]: \"ffffff\");
 "
 `;
@@ -99,7 +93,6 @@ module.exports = {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var hello = require(\"./test4\");
 var dummy = require(\"./test\");
-
 module.exports = { ...dummy, [hello]: \"world\", ...dummy };
 "
 `;
@@ -110,7 +103,6 @@ exports[`test test6.js 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // oops
 var o = require(\"./test5\");
-
 (o.hello: \"nothing\");
 "
 `;

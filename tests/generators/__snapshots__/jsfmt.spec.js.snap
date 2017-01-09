@@ -151,18 +151,14 @@ for (var x of examples.delegate_yield_iterable([])) {
 class GeneratorExamples {
   *stmt_yield(): Generator<number, void, void> {
     yield 0;
-
     yield \"\";
   }
   *stmt_next(): Generator<void, void, number> {
     var a = yield;
-
     if (a) {
       (a: number);
     }
-
     var b = yield;
-
     if (b) {
       (b: string);
     }
@@ -179,7 +175,6 @@ class GeneratorExamples {
   }
   *widen_next() {
     var x = yield 0;
-
     if (typeof x === \"number\") {}
     else if (typeof x === \"boolean\") {}
     else {
@@ -188,30 +183,25 @@ class GeneratorExamples {
   }
   *widen_yield() {
     yield 0;
-
     yield \"\";
-
     yield true;
   }
   *delegate_next_generator() {
     function* inner() {
       var x: number = yield;
     }
-
     yield* inner();
   }
   *delegate_yield_generator() {
     function* inner() {
       yield \"\";
     }
-
     yield* inner();
   }
   *delegate_return_generator() {
     function* inner() {
       return \"\";
     }
-
     var x: number = yield* inner();
   }
   *delegate_next_iterable(xs: Array<number>) {
@@ -234,25 +224,18 @@ class GeneratorExamples {
   }
 }
 var examples = new GeneratorExamples();
-
 for (var x of examples.infer_stmt()) {
   (x: string);
 }
-
 var infer_stmt_next = examples.infer_stmt().next(0).value;
-
 if (typeof infer_stmt_next === \"undefined\") {}
 else if (typeof infer_stmt_next === \"number\") {}
 else {
   (infer_stmt_next: boolean);
 }
-
 examples.widen_next().next(0);
-
 examples.widen_next().next(\"\");
-
 examples.widen_next().next(true);
-
 for (var x of examples.widen_yield()) {
   if (typeof x === \"number\") {}
   else if (typeof x === \"boolean\") {}
@@ -260,15 +243,11 @@ for (var x of examples.widen_yield()) {
     (x: string);
   }
 }
-
 examples.delegate_next_generator().next(\"\");
-
 for (var x of examples.delegate_yield_generator()) {
   (x: number);
 }
-
 examples.delegate_next_iterable([]).next(\"\");
-
 for (var x of examples.delegate_yield_iterable([])) {
   (x: string);
 }
@@ -309,13 +288,10 @@ class GeneratorExamples<X> {
   }
 }
 var examples = new GeneratorExamples();
-
 for (var x of examples.infer_stmt()) {
   (x: string);
 }
-
 var infer_stmt_next = examples.infer_stmt().next(0).value;
-
 if (typeof infer_stmt_next === \"undefined\") {}
 else if (typeof infer_stmt_next === \"number\") {}
 else {
@@ -476,73 +452,53 @@ if (multiple_return_result.done) {
 // error: number|string ~> void
 function* stmt_yield(): Generator<number, void, void> {
   yield 0;
-
   yield \"\";
 }
-
 function* stmt_next(): Generator<void, void, number> {
   var a = yield;
-
   if (a) {
     (a: number);
   }
-
   var b = yield;
-
   if (b) {
     (b: string);
   }
 }
-
 function* stmt_return_ok(): Generator<void, number, void> {
   return 0;
 }
-
 function* stmt_return_err(): Generator<void, number, void> {
   return \"\";
 }
-
 function* infer_stmt() {
   var x: boolean = yield 0;
   return \"\";
 }
-
 for (var x of infer_stmt()) {
   (x: string);
 }
-
 var infer_stmt_next = infer_stmt().next(0).value;
-
 if (typeof infer_stmt_next === \"undefined\") {}
 else if (typeof infer_stmt_next === \"number\") {}
 else {
   (infer_stmt_next: boolean);
 }
-
 function* widen_next() {
   var x = yield 0;
-
   if (typeof x === \"number\") {}
   else if (typeof x === \"boolean\") {}
   else {
     (x: string);
   }
 }
-
 widen_next().next(0);
-
 widen_next().next(\"\");
-
 widen_next().next(true);
-
 function* widen_yield() {
   yield 0;
-
   yield \"\";
-
   yield true;
 }
-
 for (var x of widen_yield()) {
   if (typeof x === \"number\") {}
   else if (typeof x === \"boolean\") {}
@@ -550,67 +506,50 @@ for (var x of widen_yield()) {
     (x: string);
   }
 }
-
 function* delegate_next_generator() {
   function* inner() {
     var x: number = yield;
   }
-
   yield* inner();
 }
-
 delegate_next_generator().next(\"\");
-
 function* delegate_yield_generator() {
   function* inner() {
     yield \"\";
   }
-
   yield* inner();
 }
-
 for (var x of delegate_yield_generator()) {
   (x: number);
 }
-
 function* delegate_return_generator() {
   function* inner() {
     return \"\";
   }
-
   var x: number = yield* inner();
 }
-
 function* delegate_next_iterable(xs: Array<number>) {
   yield* xs;
 }
-
 delegate_next_iterable([]).next(\"\");
-
 function* delegate_yield_iterable(xs: Array<number>) {
   yield* xs;
 }
-
 for (var x of delegate_yield_iterable([])) {
   (x: string);
 }
-
 function* delegate_return_iterable(xs: Array<number>) {
   var x: void = yield* xs;
 }
-
 function* generic_yield<Y>(y: Y): Generator<Y, void, void> {
   yield y;
 }
-
 function* generic_return<R>(r: R): Generator<void, R, void> {
   return r;
 }
-
 function* generic_next<N>(): Generator<void, N, N> {
   return yield undefined;
 }
-
 function* multiple_return(b) {
   if (b) {
     return 0;
@@ -618,9 +557,7 @@ function* multiple_return(b) {
     return \"foo\";
   }
 }
-
 let multiple_return_result = multiple_return().next();
-
 if (multiple_return_result.done) {
   (multiple_return_result.value: void);
 }
@@ -658,10 +595,8 @@ if (refuse_return_result.done) {
 // error: number | void ~> string
 function test1(gen: Generator<void, string, void>) {
   var ret = gen.return(0);
-
   (ret.value: void);
 }
-
 function* refuse_return() {
   try {
     yield 1;
@@ -669,10 +604,8 @@ function* refuse_return() {
     return 0;
   }
 }
-
 var refuse_return_gen = refuse_return();
 var refuse_return_result = refuse_return_gen.return(\"string\");
-
 if (refuse_return_result.done) {
   (refuse_return_result.value: string);
 }
@@ -715,25 +648,19 @@ function* catch_return() {
     return e;
   }
 }
-
 var catch_return_value = catch_return().throw(\"\").value;
-
 if (catch_return_value !== undefined) {
   (catch_return_value: string);
 }
-
 function* yield_return() {
   try {
     yield 0;
-
     return;
   } catch (e) {
     yield e;
   }
 }
-
 var yield_return_value = yield_return().throw(\"\").value;
-
 if (yield_return_value !== undefined) {
   (yield_return_value: string);
 }

@@ -91,11 +91,8 @@ class C {
 }
 class D extends C {}
 var d = new D();
-
 (d: C).next = new C();
-
 (d.next: D);
-
 class A {
   foo<X: this>(that: X) {}
 }
@@ -127,7 +124,6 @@ class Misc {
   inout_promise: Promise<this>;
   *out_generator(): Generator<this, this, this> {
     yield this;
-
     return this;
   }
   in_generator(_: Generator<this, this, this>) {}
@@ -196,7 +192,6 @@ class Implicit<X> {
 class ImplicitNumber extends Implicit {
   arg: number;
 }
-
 (new ImplicitNumber().val: string);
 "
 `;
@@ -242,23 +237,16 @@ class B1 extends A1 {
     return new B1();
   }
 }
-
 (new B1().bar(): B1);
-
 class B3<X> extends A3<X> {
   foo(): B3<X> {
     return new B3();
   }
 }
-
 (new B3().bar(): B3<*>);
-
 (new B3().qux(0): string);
-
 (new B3().bar(): A2<*>);
-
 ((new B3().bar(): B3<string>): A2<number>);
-
 ((new B3(): A2<number>).qux(0): string);
 "
 `;
@@ -281,11 +269,9 @@ class C {
     return this;
   }
 }
-
 function foo(c: C): I {
   return c;
 }
-
 function bar(c: C): J {
   return c;
 }
@@ -305,9 +291,7 @@ class C {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 (new DoublyLinkedList().prev(): DoublyLinkedList);
-
 (new DoublyLinkedList().next(): DoublyLinkedList);
-
 var MiniImmutable = require(\"mini-immutable\");
 class C {
   map: MiniImmutable.OrderedMap<number, string>;
@@ -381,13 +365,9 @@ class A {
   }
 }
 class B extends A {}
-
 (A.make(): A);
-
 (B.make(): B);
-
 (B.make(): A);
-
 (A.make(): B);
 "
 `;
@@ -511,21 +491,13 @@ class Override extends Base {
   }
 }
 class InheritOverride extends Override {}
-
 (new Inherit().foo(): Base);
-
 (new Inherit().foo(): Inherit);
-
 ((new Inherit(): Base).foo(): Base);
-
 (new Override().foo(): Base);
-
 (new Override().foo(): Override);
-
 ((new Override(): Base).foo(): Base);
-
 (new InheritOverride().bar_caller(): InheritOverride);
-
 class Base2 {
   foo(): this {
     return this;
@@ -557,21 +529,13 @@ class Override2 extends Base2 {
   grault(that: this) {}
 }
 class InheritOverride2 extends Override2 {}
-
 (new Inherit2().foo(): Base2);
-
 (new Inherit2().foo(): Inherit2);
-
 ((new Inherit2(): Base2).foo(): Base2);
-
 (new Override2().foo(): Base2);
-
 (new Override2().foo(): Override2);
-
 ((new Override2(): Base2).foo(): Base2);
-
 (new InheritOverride2().bar_caller(): InheritOverride2);
-
 (new Override2(): Base2).corge(new Base2());
 "
 `;

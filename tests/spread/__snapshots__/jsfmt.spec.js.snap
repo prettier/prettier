@@ -33,11 +33,9 @@ function parseTimeframe(line: string): { begin: number; end: number } {
 function parseTimestamp(timestamp: string): number {
   return 0;
 }
-
 function parseCounter(line: string): number {
   return 0;
 }
-
 function parseGroup(
   lines: Array<string>
 ): { counter: number, begin: number, end: number, text: string } {
@@ -45,7 +43,6 @@ function parseGroup(
   var timeframe = parseTimeframe(lines[1]);
   return { counter, ...timeframe, text: lines[2] };
 }
-
 function parseTimeframe(line: string): { begin: number, end: number } {
   var timestamps = line.split(\"-->\");
   return {
@@ -73,9 +70,7 @@ foo({foo: 42});
 function foo(o) {
   bar({ ...o });
 }
-
 function bar(_: { foo: number }) {}
-
 foo({ foo: 42 });
 "
 `;
@@ -120,7 +115,6 @@ test(0, ...[1, 2, 3]);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 function test(...nums: Array<number>) {}
-
 test(0, ...[ 1, 2, 3 ]);
 "
 `;
@@ -164,14 +158,12 @@ declare function map<Tv, TNext>(
   obj: { [key: string]: Tv },
   iterator: (obj: Tv) => TNext
 ): Array<TNext>;
-
 function test(
   x: { kind: ?string },
   kinds: { [key: string]: string }
 ): Array<{ kind: ?string }> {
   return map(kinds, value => {
     (value: string);
-
     return { ...x, kind: value };
   });
 }
@@ -202,25 +194,16 @@ for (var i = 0; i < 10; i++) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // error, p doesn\'t have \`abc\` yet
 var o = { foo: \"bar\" };
-
 o = { ...o };
-
 (o: { foo: string });
-
 var p = { foo: \"bar\" };
-
 (p: { foo: string, abc: string });
-
 p = { ...p, abc: \"def\" };
-
 (p: { foo: string, abc: string });
-
 var q = { foo: \"bar\" };
-
 for (var i = 0; i < 10; i++) {
   q = { ...q };
 }
-
 (q: { foo: string });
 "
 `;
@@ -240,7 +223,6 @@ let tests = [
 let tests = [
   function(x: Object) {
     ({ ...x }: Object);
-
     ({ ...x }: void);
   }
 ];

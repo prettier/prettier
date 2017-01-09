@@ -16,15 +16,11 @@ function bar(): A<*> { // error, * can\'t be {} and {x: string} at the same time
 // ok but unsafe, caller may assume any type arg
 // error, * can\'t be {} and {x: string} at the same time
 class A<X> {}
-
 new A();
-
 class B extends A {}
-
 function foo(b): A<any> {
   return b ? (new A(): A<number>) : (new A(): A<string>);
 }
-
 function bar(): A<*> {
   return (new A(): A<{}>) || (new A(): A<{ x: string }>);
 }
@@ -67,13 +63,9 @@ class C<T: Middle> {
   }
 }
 var a: C<*> = new C();
-
 a.meth(new Middle());
-
 a.meth(new Child());
-
 a.meth(42);
-
 a.meth(new Base());
 "
 `;
@@ -110,7 +102,6 @@ type Box<T> = {
 };
 declare var bool: Box<boolean>;
 declare function unbox<A>(box: Box<A>): A;
-
 unbox(bool);
 "
 `;
@@ -141,11 +132,9 @@ class Foo<T> {
     this.x = x;
   }
 }
-
 function bar<S>(foo: Foo<S>, y: S): Foo<S> {
   return new Foo(y);
 }
-
 var P = { bar: bar };
 declare var Q: { bar<S>(foo: Foo<S>, y: S): Foo<S> };
 var foo = new Foo(0);

@@ -49,6 +49,7 @@ module.exports = {
       });
     }
 
+    opts.originalText = text;
     ast.tokens = [];
 
     const printer = new Printer(opts);

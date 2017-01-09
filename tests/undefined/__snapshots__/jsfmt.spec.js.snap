@@ -17,15 +17,11 @@ foo();
 function doSomethingAsync(): Promise<void> {
   return new Promise((resolve, reject) => {
     resolve();
-
     var anotherVoidPromise: Promise<void> = Promise.resolve();
-
     resolve(anotherVoidPromise);
   });
 }
-
 function foo(x: void) {}
-
 foo();
 "
 `;
@@ -45,17 +41,13 @@ function qux(x?: number, y:string = \"\", z) { }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function foo() {
   var x;
-
   x.foo();
 }
-
 function bar() {
   var x: ?{ bar(): void };
-
   if (x)
     x.bar();
 }
-
 function qux(x?: number, y: string = \"\", z) {}
 "
 `;
@@ -103,26 +95,18 @@ let tests = [
   function(x: number) {
     var id;
     var name = id ? \"John\" : undefined;
-
     (name: boolean);
-
     const bar = [ undefined, \"bar\" ];
-
     (bar[x]: boolean);
   },
   function(x: number) {
     var undefined = \"foo\";
-
     (undefined: string);
-
     var x;
-
     if (x !== undefined) {
       x[0];
     }
-
     const bar = [ undefined, \"bar\" ];
-
     (bar[x]: boolean);
   }
 ];

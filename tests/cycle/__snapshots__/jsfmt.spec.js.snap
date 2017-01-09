@@ -7,7 +7,6 @@ module.exports = A;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var B = require(\"./B\");
 class A extends B {}
-
 module.exports = A;
 "
 `;
@@ -21,7 +20,6 @@ module.exports = B;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //class B extends A { }
 var A = require(\"./A\");
-
 module.exports = B;
 "
 `;

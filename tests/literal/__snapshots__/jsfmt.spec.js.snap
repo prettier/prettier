@@ -7,7 +7,6 @@ exports[`test enum.js 1`] = `
 module.exports = APIKeys;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var APIKeys = { AGE: \"age\", NAME: \"name\" };
-
 module.exports = APIKeys;
 "
 `;
@@ -44,25 +43,15 @@ var red:string = tuple[indices.red]; // error: tuple[0] is a number
 // error: object.name is a string
 // error: tuple[0] is a number
 var APIKeys = require(\"./enum\");
-
 function foo(x: $Keys<typeof APIKeys>) {}
-
 foo(\"AGE\");
-
 foo(\"LOCATION\");
-
 function bar(x: $Keys<{ age: number }>) {}
-
 bar(APIKeys.AGE);
-
 bar(APIKeys.NAME);
-
 var object = {};
-
 object[APIKeys.AGE] = 123;
-
 object[APIKeys.NAME] = \"FOO\";
-
 var age: number = object[APIKeys.AGE];
 var name: number = object[APIKeys.NAME];
 var indices = { red: 0, green: 1, blue: 2 };
@@ -101,26 +90,20 @@ function test4(flip_times: number): number {
 function test1(x: number): number {
   return -x;
 }
-
 function test2(x: string): number {
   return -x;
 }
-
 function test3(x: number, flip_times: number): number {
   for (var i = 0; i < flip_times; i++) {
     x = -x;
   }
-
   return x;
 }
-
 function test4(flip_times: number): number {
   var x = 1;
-
   for (var i = 0; i < flip_times; i++) {
     x = -x;
   }
-
   return x;
 }
 "

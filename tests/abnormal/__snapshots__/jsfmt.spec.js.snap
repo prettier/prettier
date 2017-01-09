@@ -12,7 +12,6 @@ function foo() {
     break;
   }
 }
-
 function bar() {
   L:
   do {
@@ -31,13 +30,10 @@ function foo() {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function bar(x: number) {}
-
 function foo() {
   var x = null;
-
   if (x == null)
     return;
-
   bar(x);
 }
 "

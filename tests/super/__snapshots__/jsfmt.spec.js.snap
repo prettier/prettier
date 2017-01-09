@@ -195,7 +195,6 @@ class D extends A {
   y: number;
   constructor() {
     this.y;
-
     this.x;
   }
 }
@@ -203,28 +202,20 @@ class E extends A {
   y: number;
   constructor() {
     super();
-
     this.y;
-
     this.x;
   }
 }
-
 function leak(f) {
   f.y;
-
   f.x;
 }
-
 class F extends A {
   y: number;
   constructor() {
     leak(this);
-
     super();
-
     this.y;
-
     this.x;
   }
 }
@@ -240,9 +231,7 @@ class H extends A {
       super();
     else
       super();
-
     this.y;
-
     this.x;
   }
 }
@@ -261,7 +250,6 @@ class J__ {}
 class J_ extends J__ {
   constructor(closure_leaking_this) {
     closure_leaking_this();
-
     super();
   }
   foo() {}
@@ -284,9 +272,7 @@ class K extends K_ {
       if (_this)
         _this.foo();
     });
-
     var _this = this;
-
     this.closure_leaking_this();
   }
 }
@@ -301,11 +287,8 @@ class L extends L_ {
     return x;
   }
 }
-
 (new L_(): L_);
-
 (new L(): L);
-
 class M_ {
   constructor() {
     return { foo: \"foo\" };
@@ -316,11 +299,8 @@ class M extends M_ {
     return super();
   }
 }
-
 (new M_(): { foo: string });
-
 (new M(): { foo: string });
-
 class N_ {
   constructor(): this {
     let x = this;
@@ -332,9 +312,7 @@ class N extends N_ {
     return super();
   }
 }
-
 (new N_(): N_);
-
 (new N(): N);
 "
 `;
@@ -350,7 +328,6 @@ class D {
     return 0;
   }
 }
-
 module.exports = D;
 "
 `;
@@ -394,12 +371,10 @@ class B extends A {
   }
   static anotherStatic() {
     (super.staticMethod(\"foo\"): number);
-
     super.doesntExist();
   }
   g() {
     super.f(0);
-
     return super.g;
   }
 }
@@ -423,7 +398,6 @@ class C extends D {
     return super.foo();
   }
 }
-
 module.exports = C;
 "
 `;

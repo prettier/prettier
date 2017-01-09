@@ -74,17 +74,11 @@ var React = require(\"react\");
 var Div = \"div\";
 var Bad = \"bad\";
 var Str: string = \"str\";
-
 <Div/>;
-
 <Bad/>;
-
 <Str/>;
-
 React.createElement(\"div\", {});
-
 React.createElement(\"bad\", {});
-
 <Div id={42}/>;
 "
 `;

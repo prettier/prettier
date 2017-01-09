@@ -39,23 +39,18 @@ function f(): number {
 function a(f: { (): string }, g: { (x: number): string }): string {
   return f() + g(123);
 }
-
 function b(f: { (): string }): number {
   return f();
 }
-
 function c(f: { (x: number): number }): number {
   return f(\"hello\");
 }
-
 function d(f: { (x: number): number }): number {
   return f();
 }
-
 function e(f: {}): number {
   return f();
 }
-
 function f(): number {
   var x = {};
   return x();
@@ -167,27 +162,21 @@ function g(x: {}): Function {
 function a(x: { (z: number): string }): (z: number) => string {
   return x;
 }
-
 function b(x: { (z: number): string }): (z: number) => number {
   return x;
 }
-
 function c(x: { (z: number): string }): (z: string) => string {
   return x;
 }
-
 function d(x: { (z: number): string }): () => string {
   return x;
 }
-
 function e(x: {}): () => string {
   return x;
 }
-
 function f(x: { (z: number): string }): Function {
   return x;
 }
-
 function g(x: {}): Function {
   return x;
 }
@@ -226,18 +215,15 @@ function e(x: { (): string; (x: number): string }): () => number {
 function a(f: { (): string, (x: number): string }): string {
   return f() + f(123);
 }
-
 var b: { (): string, (x: number): string } = function(x?: number): string {
   return \"hi\";
 };
 var c: { (): string, (x: number): string } = function(x: number): string {
   return \"hi\";
 };
-
 function d(x: { (): string, (x: number): string }): () => string {
   return x;
 }
-
 function e(x: { (): string, (x: number): string }): () => number {
   return x;
 }
@@ -262,9 +248,7 @@ var c : { myProp: number } = f;
 var a: { someProp: number } = function() {};
 var b: { apply: Function } = function() {};
 var f = function() {};
-
 f.myProp = 123;
-
 var c: { myProp: number } = f;
 "
 `;

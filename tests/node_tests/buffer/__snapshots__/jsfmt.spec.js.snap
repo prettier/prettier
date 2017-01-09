@@ -70,90 +70,58 @@ let bool: boolean = false;
 let buffer: Buffer = new Buffer(0);
 let num: number = 0;
 let maybeNum: ?number;
-
 buffer.length;
-
 buffer.buffer;
-
 buffer.byteOffset;
-
 buffer.byteLength;
-
 buffer[1];
-
 buffer.copyWithin(0, 0);
-
 buffer.copyWithin(0, 0, 0);
-
 const it1: Iterator<[number, number]> = buffer.entries();
-
 bool = buffer.every((element: number) => false);
-
 bool = buffer.every((element: number) => false, buffer);
-
 buffer = buffer.fill(1);
-
 buffer = buffer.fill(1, 0, 0);
-
 buffer = buffer.fill(\"a\");
-
 buffer = buffer.fill(\"a\", 0, 0);
-
 buffer = buffer.fill(\"a\", 0, 0, \"utf8\");
-
 buffer = buffer.fill(\"a\", \"utf8\");
-
 maybeNum = buffer.find((
   element: number,
   index: number,
   array: Uint8Array
 ) => false);
-
 maybeNum = buffer.find(
   (element: number, index: number, array: Uint8Array) => false,
   buffer
 );
-
 num = buffer.findIndex((
   element: number,
   index: number,
   array: Uint8Array
 ) => false);
-
 num = buffer.findIndex(
   (element: number, index: number, array: Uint8Array) => false,
   buffer
 );
-
 buffer.forEach((value: number) => console.log(value), buffer);
-
 buffer.forEach(
   (value: number, index: number, array: Uint8Array) => console.log(value),
   buffer
 );
-
 bool = buffer.includes(3);
-
 bool = buffer.includes(3, 4);
-
 num = buffer.indexOf(3);
-
 num = buffer.indexOf(3, 4);
-
 buffer = Buffer.from([ 98, 117, 102, 102, 101, 114 ]);
-
 const typedArray = new Uint8Array([ 52 ]);
-
 buffer = Buffer.from(
   typedArray.buffer,
   typedArray.byteOffset,
   typedArray.byteLength
 );
-
 buffer = Buffer.from(new Buffer(0));
-
 buffer = Buffer.from(\"foo\", \"utf8\");
-
 buffer = Buffer.from([ 98, 117, 102, 102, 101, 114 ], (a: number) => a + 1, {});
 "
 `;

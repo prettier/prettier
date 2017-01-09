@@ -10,7 +10,6 @@ function bar(x: Error & {type:number}): number {
 function foo(x: $All<Error, { type: number }>): number {
   return x.type;
 }
-
 function bar(x: Error & { type: number }): number {
   return x.type;
 }
@@ -83,12 +82,10 @@ type DuplexStreamOptions = ReadableStreamOptions &
     readableObjectMode?: boolean,
     writableObjectMode?: boolean
   };
-
 function hasObjectMode_bad(options: DuplexStreamOptions): boolean {
   return options.objectMode || options.readableObjectMode ||
     options.writableObjectMode;
 }
-
 function hasObjectMode_ok(options: DuplexStreamOptions): boolean {
   return !!(options.objectMode || options.readableObjectMode ||
     options.writableObjectMode);
@@ -150,9 +147,7 @@ type F = (_: ObjA) => void;
 type G = (_: ObjB) => void;
 type FG = (_: ObjA | ObjB) => void;
 declare var fun1: F & G;
-
 (fun1: FG);
-
 var fun2: FG = fun1;
 declare var f: ((_: number) => void) & ((_: string) => void);
 var g: (_: number | string) => void = f;

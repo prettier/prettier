@@ -19,7 +19,6 @@ module.exports = {
  */
 class Foo {}
 class Bar {}
-
 module.exports = { Foo: Foo, Bar: Bar };
 "
 `;
@@ -96,7 +95,6 @@ var n = Foo;
 var o = Baz;
 var a: Foo = new Foo();
 var b: Foo = new A.Foo();
-
 (new A.Bar(): Baz);
 "
 `;
@@ -132,7 +130,6 @@ var m = A;
 var n = Foo;
 var o = Baz;
 var a: Foo = new actualA.Foo();
-
 (new actualA.Bar(): Baz);
 "
 `;

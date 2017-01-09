@@ -37,37 +37,21 @@ let data4 = require(\'./json_array\');
 // error, should be null
 // ok
 let data = require(\"./package/index.json\");
-
 (data.foo: void);
-
 (data.foo.bar: void);
-
 (data.abc: boolean);
-
 let data2 = require(\"./package\");
-
 (data2.baz: void);
-
 let data3 = require(\"./package2\");
-
 (data3.foo: void);
-
 let data4 = require(\"./json_array\");
-
 (data4: Array<number>);
-
 (data4: void);
-
 (require(\"./json_string\"): void);
-
 (require(\"./json_number\"): void);
-
 (require(\"./json_true\"): void);
-
 (require(\"./json_false\"): void);
-
 (require(\"./json_null\"): void);
-
 (require(\"./json_negative_number\"): -1);
 "
 `;

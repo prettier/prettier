@@ -32,24 +32,19 @@ exports.Foo2 = (Foo: Class<IFoo>);
 function Foo() {
   this.x = 0;
 }
-
 Foo.y = 0;
-
 Foo.prototype = {
   m() {
     return 0;
   }
 };
-
 exports.Foo = Foo;
-
 interface IFooPrototype  { m(): number }
 interface IFoo extends IFooPrototype {
   static (): void,
   x: boolean,
   static y: boolean
 }
-
 exports.Foo2 = (Foo: Class<IFoo>);
 "
 `;

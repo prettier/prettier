@@ -1600,7 +1600,6 @@ function printStatementSequence(path, options, print) {
   let inClassBody = namedTypes.ClassBody &&
     namedTypes.ClassBody.check(path.getParentNode());
   let printed = [];
-  let prevAddSpacing = false;
 
   path.map(function(stmtPath, i) {
     var stmt = stmtPath.getValue();
@@ -1617,23 +1616,16 @@ function printStatementSequence(path, options, print) {
       return;
     }
 
-    const addSpacing = shouldAddSpacing(stmt);
     const stmtPrinted = print(stmtPath);
     const parts = [];
 
-    if (!prevAddSpacing && addSpacing && !isFirstStatement(stmtPath)) {
-      parts.push(hardline);
-    }
-
     parts.push(stmtPrinted);
 
-    if (addSpacing && !isLastStatement(stmtPath)) {
+    if (shouldAddSpacing(stmt, options) && !isLastStatement(stmtPath)) {
       parts.push(hardline);
     }
 
     printed.push(concat(parts));
-
-    prevAddSpacing = addSpacing;
   });
 
   return join(hardline, printed);
@@ -2073,12 +2065,28 @@ function nodeStr(str, options) {
   }
 }
 
-function shouldAddSpacing(node) {
-  return node.type === "IfStatement" || node.type === "ForStatement" ||
-    node.type === "ForInStatement" ||
-    node.type === "ForOfStatement" ||
-    node.type === "ExpressionStatement" ||
-    node.type === "FunctionDeclaration";
+function shouldAddSpacing(node, options) {
+  const text = options.originalText;
+  const length = text.length;
+  let cursor = node.end + 1;
+  // Look forward and see if there is a blank line after this code by
+  // scanning up to the next non-indentation character.
+  while(cursor < length) {
+    const c = text.charAt(cursor);
+    // Skip any indentation characters (this will detect lines with
+    // spaces or tabs as blank)
+    if(c !== " " && c !== "\t") {
+      // If the next character is a newline, this line is blank so we
+      // should add a blank line.
+      if(c === "\n" || c === "\r") {
+        return true;
+      }
+      return false;
+    }
+    cursor++;
+  }
+
+  return false;
 }
 
 function isFirstStatement(path) {

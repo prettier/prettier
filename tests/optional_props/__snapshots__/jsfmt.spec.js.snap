@@ -19,15 +19,10 @@ var x: {} = { foo: 0 };
 var y: { foo?: string } = x;
 var z: string = y.foo || \"\";
 var o = {};
-
 y = o;
-
 o.foo = 0;
-
 function bar(config: { foo?: number }) {}
-
 bar({});
-
 bar({ foo: \"\" });
 "
 `;
@@ -56,17 +51,11 @@ var f: { foo?: ?string } = { foo: null }; // Also fine
 // This is fine
 // Also fine
 var a: { foo?: string } = {};
-
 a.foo = undefined;
-
 a.foo = null;
-
 var b: { foo?: ?string } = {};
-
 b.foo = undefined;
-
 b.foo = null;
-
 var c: { foo?: string } = { foo: undefined };
 var d: { foo?: string } = { foo: null };
 var e: { foo?: ?string } = { foo: undefined };
@@ -174,16 +163,12 @@ class A {
 // annotation will be processed before the flow involving the
 // access. Here we lose the race and get an error on the write.
 var x: { a: number, b?: number } = { a: 0 };
-
 x = { a: 0 };
-
 x.b = 1;
-
 class A {
   x: { a: number, b?: string };
   foo() {
     this.x = { a: 123 };
-
     this.x.b = \"hello\";
   }
 }
@@ -207,7 +192,6 @@ class A<O: { x: { a: number, b?: string } }> {
   o: O;
   foo() {
     this.o.x = { a: 123 };
-
     this.o.x.b = \"hello\";
   }
 }

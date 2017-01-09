@@ -11,7 +11,6 @@ module.exports = A;
 class A<T> {
   x: T;
 }
-
 module.exports = A;
 "
 `;
@@ -36,7 +35,6 @@ class B extends A<string> {
     super();
   }
 }
-
 module.exports = new B();
 "
 `;

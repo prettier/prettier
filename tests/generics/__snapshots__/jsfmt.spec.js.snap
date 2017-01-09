@@ -63,9 +63,7 @@ class D<T> {
   x: T;
   m<S>(z: S, u: T, v): S {
     this.x = u;
-
     v.u = u;
-
     return z;
   }
 }
@@ -77,7 +75,6 @@ var n: number = o.u;
 class E<X> extends C<X> {
   set(x: X): X {
     this.x = x;
-
     return this.get();
   }
 }
@@ -92,9 +89,7 @@ class H<Z> extends G<Array<Z>> {
   }
 }
 var h1 = new H();
-
 h1.foo([ \"...\" ]);
-
 var h2: F<Array<Array<Array<number>>>> = h1;
 var obj: Object<string, string> = {};
 var fn: Function<string> = function() {

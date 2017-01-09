@@ -47,7 +47,6 @@ var Good = Object.assign({}, MyEventEmitter.prototype, {
   }
 });
 var good: number = Good.foo();
-
 module.exports = { Bad: Bad, Good: Good };
 "
 `;
@@ -101,7 +100,6 @@ exports[`test apply.js 1`] = `
   a: number,
   b: string
 });
-
 (Object.assign({}, ...[ { a: 1 }, { b: \"foo\" } ]): { a: number, b: string });
 "
 `;
@@ -115,9 +113,7 @@ Object.assign({a: \"foo\"}, 123);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 Object.assign(\"123\", { a: \"foo\" });
-
 Object.assign(123, { a: \"foo\" });
-
 Object.assign({ a: \"foo\" }, 123);
 "
 `;
@@ -157,9 +153,7 @@ class MyReactThing extends React.Component {
     return this.props.foo;
   }
 }
-
 <MyReactThing/>;
-
 <MyReactThing foo={undefined}/>;
 "
 `;

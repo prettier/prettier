@@ -132,7 +132,6 @@ var Bar = {
   c: Foo.c(\"bar\"),
   d: Foo.d(\"bar\")
 };
-
 module.exports = Foo, Bar;
 "
 `;

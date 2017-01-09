@@ -63,71 +63,51 @@ module.exports = true;
 //f(x);
 //f(y);
 function f(x: number) {}
-
 function g() {
   return 42 || \"hello\";
 }
-
 var x = g();
-
 if (typeof x === \"string\") {
   x = 0;
 }
-
 f(x);
-
 class A {}
-
 function h() {
   return 42 || new A();
 }
-
 var y = h();
-
 if (y instanceof A) {
   y = 0;
 }
-
 function bar() {
   return true;
 }
-
 class C {
   qux() {}
 }
-
 function foo() {
   var c = \"...\";
-
   c = new C();
-
   if (bar()) {
     c.qux();
   }
 }
-
 function goofy() {
   var x = g();
-
   if (typeof x == \"function\") {
     x();
   } else {}
 }
-
 function goofy2() {
   var o = { x: 0 };
-
   if (typeof o.x == \"function\") {
     o.x();
   }
-
   var y = o.x;
-
   if (typeof y == \"function\") {
     y();
   } else {}
 }
-
 module.exports = true;
 "
 `;
@@ -148,15 +128,11 @@ module.exports = FlowSA;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule FlowSA */
 function check(x: string) {}
-
 function FlowSA() {
   var x = 0;
-
   x = \"...\";
-
   check(x);
 }
-
 module.exports = FlowSA;
 "
 `;
@@ -218,41 +194,31 @@ class B extends A {
 class C extends B {
   c() {}
 }
-
 function bar(x: B) {
   if (x instanceof A) {
     x.a();
-
     x.c();
   } else {
     x++;
   }
 }
-
 function foo(x: A) {
   if (x instanceof C) {
     x.a();
-
     x.b();
-
     x.c();
-
     x.d();
   } else {
     x.a();
-
     x.c();
   }
 }
-
 class D {
   d() {}
 }
-
 function baz(x: D) {
   if (x instanceof A) {}
 }
-
 module.exports = \"sigma\";
 "
 `;
@@ -280,12 +246,10 @@ class BaseClass {
 class ChildClass extends BaseClass {
   childProp: string;
 }
-
 function test(obj: BaseClass): string {
   if (obj instanceof ChildClass) {
     return obj.childProp_TYPO;
   }
-
   return obj.baseProp;
 }
 "

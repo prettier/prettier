@@ -62,7 +62,6 @@ function utf16Length(str, pos) {
 function inSurrogateRange(codeUnit) {
   return 55296 <= codeUnit && codeUnit <= 57343;
 }
-
 function utf16Length(str, pos) {
   return 1 + inSurrogateRange(str.charCodeAt(pos));
 }

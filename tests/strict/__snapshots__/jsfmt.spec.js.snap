@@ -19,7 +19,6 @@ class B extends A {
     return x;
   }
 }
-
 module.exports = B;
 "
 `;
@@ -48,9 +47,7 @@ module.exports = f;
 function f(x: number) {
   return x;
 }
-
 var x: string = f(0);
-
 module.exports = f;
 "
 `;
@@ -76,7 +73,6 @@ module.exports = o;
 //var o: {x: number;} = { x: 0 }
 var o = { x: 0 };
 var x: string = o.x;
-
 module.exports = o;
 "
 `;

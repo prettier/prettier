@@ -103,7 +103,6 @@ var tests = [
   function() {
     if (x == null)
       return;
-
     var y: string = x;
   },
   function() {
@@ -114,7 +113,6 @@ var tests = [
   },
   function() {
     if (x != null) {}
-
     var y: string = x;
   },
   function() {
@@ -413,14 +411,12 @@ var tests = [
   },
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
-
     if (x.p != null) {
       var y: string = x.p;
     }
   },
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
-
     if (x.p == null) {}
     else {
       var y: string = x.p;
@@ -428,15 +424,12 @@ var tests = [
   },
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
-
     if (x.p == null)
       return;
-
     var y: string = x.p;
   },
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
-
     if (!(x.p != null)) {}
     else {
       var y: string = x.p;
@@ -444,32 +437,25 @@ var tests = [
   },
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
-
     if (x.p != null) {
       alert(\"\");
-
       var y: string = x.p;
     }
   },
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
-
     if (x.p != null) {
       x.p = null;
-
       var y: string = x.p;
     }
   },
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
-
     if (x.p != null) {}
-
     var y: string = x.p;
   },
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
-
     if (x.p != null) {}
     else {
       var y: string = x.p;
@@ -485,7 +471,6 @@ var tests = [
   },
   function() {
     var x: { p: string | string[] } = { p: [ \"xxx\" ] };
-
     if (Array.isArray(x.p)) {
       var y: string[] = x.p;
     } else {
@@ -494,163 +479,127 @@ var tests = [
   },
   function() {
     var x: { y: ?string } = { y: null };
-
     if (!x.y) {
       x.y = \"foo\";
     }
-
     (x.y: string);
   },
   function() {
     var x: { y: ?string } = { y: null };
-
     if (x.y) {}
     else {
       x.y = \"foo\";
     }
-
     (x.y: string);
   },
   function() {
     var x: { y: ?string } = { y: null };
-
     if (!x.y) {
       x.y = 123;
     }
-
     (x.y: string);
   },
   function() {
     var x: { y: ?string } = { y: null };
-
     if (x.y) {
       x.y = \"foo\";
     } else {
       x.y = \"bar\";
     }
-
     (x.y: string);
   },
   function() {
     var x: { y: string | number | boolean } = { y: false };
-
     if (typeof x.y == \"number\") {
       x.y = \"foo\";
     }
-
     (x.y: string);
   },
   function() {
     var x: { y: string | number | boolean } = { y: false };
-
     if (typeof x.y == \"number\") {
       x.y = \"foo\";
     } else if (typeof x.y == \"boolean\") {
       x.y = \"bar\";
     }
-
     (x.y: boolean);
   },
   function() {
     var x: { y: ?string } = { y: null };
-
     if (!x.y) {
       x.y = \"foo\";
     }
-
     if (x.y) {
       x.y = null;
     }
-
     (x.y: string);
   },
   function() {
     var x: { y: string | number | boolean } = { y: false };
-
     if (typeof x.y == \"number\") {
       x.y = \"foo\";
     }
-
     if (typeof x.y == \"string\") {
       x.y = false;
     }
-
     (x.y: string);
   },
   function() {
     var x: { y: string | number | boolean } = { y: false };
-
     if (typeof x.y == \"number\") {
       x.y = \"foo\";
     }
-
     if (typeof x.y == \"string\") {
       x.y = 123;
     }
-
     (x.y: string);
   },
   function() {
     var x: { y: ?string } = { y: null };
     var z: string = \"foo\";
-
     if (x.y) {
       x.y = z;
     } else {
       x.y = z;
     }
-
     (x.y: string);
   },
   function(x: string) {
     if (x === \"a\") {}
-
     (x: \"b\");
   },
   function(x: mixed) {
     if (typeof x.bar === \"string\") {}
-
     (x: string & number);
   },
   function() {
     let x: { foo: ?string } = { foo: null };
-
     if (!x.foo) {
       if (false) {}
-
       x.foo = \"foo\";
     }
-
     (x.foo: string);
   },
   function() {
     let x: { foo: ?string } = { foo: null };
-
     if (!x.foo) {
       while (false) {}
-
       x.foo = \"foo\";
     }
-
     (x.foo: string);
   },
   function() {
     let x: { foo: ?string } = { foo: null };
-
     if (!x.foo) {
       for (var i = 0; i < 0; i++) {}
-
       x.foo = \"foo\";
     }
-
     (x.foo: string);
   },
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
-
     if (x.p != null) {
       var { p } = x;
-
       (p: string);
     }
   }
@@ -709,46 +658,34 @@ function try_scope_catch(x: string | number) {
 function block_scope(x: string | number) {
   {
     let x;
-
     x = \"\";
   }
-
   (x: string);
 }
-
 function switch_scope(x: string | number) {
   switch (x) {
   default:
     let x;
-
     x = \"\";
-
   }
-
   (x: string);
 }
-
 function try_scope(x: string | number) {
   try {
     let x;
-
     x = \"\";
   } catch (e) {
     x = \"\";
   }
-
   (x: string);
 }
-
 function try_scope_catch(x: string | number) {
   try {
     x = \"\";
   } catch (e) {
     let x;
-
     x = \"\";
   }
-
   (x: string);
 }
 "
@@ -859,14 +796,12 @@ var paths = [
   },
   function() {
     var x: ?string = \"xxx\";
-
     if (x != null) {
       var y: string = x;
     }
   },
   function() {
     var x: ?string = \"xxx\";
-
     if (x == null) {}
     else {
       var y: string = x;
@@ -874,15 +809,12 @@ var paths = [
   },
   function() {
     var x: ?string = \"xxx\";
-
     if (x == null)
       return;
-
     var y: string = x;
   },
   function() {
     var x: ?string = \"xxx\";
-
     if (!(x != null)) {}
     else {
       var y: string = x;
@@ -890,23 +822,18 @@ var paths = [
   },
   function() {
     var x: ?string = \"xxx\";
-
     if (x != null) {
       alert(\"\");
-
       var y: string = x;
     }
   },
   function() {
     var x: ?string = \"xxx\";
-
     if (x != null) {}
-
     var y: string = x;
   },
   function() {
     var x: ?string = \"xxx\";
-
     if (x != null) {}
     else {
       var y: string = x;
@@ -922,7 +849,6 @@ var paths = [
   },
   function() {
     var x: string | string[] = [ \"xxx\" ];
-
     if (Array.isArray(x)) {
       var y: string[] = x;
     } else {
@@ -931,11 +857,9 @@ var paths = [
   },
   function() {
     var x: ?string = null;
-
     if (!x) {
       x = \"xxx\";
     }
-
     var y: string = x;
   }
 ];
@@ -1121,35 +1045,30 @@ class D extends C {
 var null_tests = [
   function() {
     var x: ?string = \"xxx\";
-
     if (x != null) {
       var y: string = x;
     }
   },
   function() {
     var x: ?string = \"xxx\";
-
     if (null != x) {
       var y: string = x;
     }
   },
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
-
     if (x.p != null) {
       var y: string = x.p;
     }
   },
   function() {
     var x: { p: { q: ?string } } = { p: { q: \"xxx\" } };
-
     if (x.p.q != null) {
       var y: string = x.p.q;
     }
   },
   function() {
     var x: ?string = \"xxx\";
-
     if (x == null) {}
     else {
       var y: string = x;
@@ -1157,7 +1076,6 @@ var null_tests = [
   },
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
-
     if (x.p == null) {}
     else {
       var y: string = x.p;
@@ -1165,7 +1083,6 @@ var null_tests = [
   },
   function() {
     var x: { p: { q: ?string } } = { p: { q: \"xxx\" } };
-
     if (x.p.q == null) {}
     else {
       var y: string = x.p.q;
@@ -1173,28 +1090,24 @@ var null_tests = [
   },
   function() {
     var x: ?string = \"xxx\";
-
     if (x !== null) {
       var y: string | void = x;
     }
   },
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
-
     if (x.p !== null) {
       var y: string | void = x.p;
     }
   },
   function() {
     var x: { p: { q: ?string } } = { p: { q: \"xxx\" } };
-
     if (x.p.q !== null) {
       var y: string | void = x.p.q;
     }
   },
   function() {
     var x: ?string = \"xxx\";
-
     if (x === null) {}
     else {
       var y: string | void = x;
@@ -1202,7 +1115,6 @@ var null_tests = [
   },
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
-
     if (x.p === null) {}
     else {
       var y: string | void = x.p;
@@ -1210,7 +1122,6 @@ var null_tests = [
   },
   function() {
     var x: { p: { q: ?string } } = { p: { q: \"xxx\" } };
-
     if (x.p.q === null) {}
     else {
       var y: string | void = x.p.q;
@@ -1228,7 +1139,6 @@ class C {
   ensure1(): string {
     if (this.p == null)
       return \"\";
-
     return this.p;
   }
   ensure2(): string | void {
@@ -1240,7 +1150,6 @@ class C {
   ensure3(): string | void {
     if (this.p === null)
       return \"\";
-
     return this.p;
   }
 }
@@ -1260,10 +1169,8 @@ class D extends C {
   ensure103(): string {
     if (super.p != null) {
       alert(\"\");
-
       return super.p;
     }
-
     return \"\";
   }
 }
@@ -1363,50 +1270,39 @@ function foo(a, b, c) {
     return;
   }
 }
-
 function exhaustion1(x): number {
   var foo;
   switch (x) {
   case 0:
   case 1:
-
     foo = 3;
-
     break;
   default:
     throw new Error(\"Invalid state\");
   }
   return foo;
 }
-
 function exhaustion2(x, y): number {
   var foo;
   switch (x) {
   case 0:
-
     if (y) {
       break;
     }
-
   case 1:
-
     foo = 3;
-
     break;
   default:
     throw new Error(\"Invalid state\");
   }
   return foo;
 }
-
 function exhaustion3(x): number {
   let foo = null;
   switch (x) {
   case 0:
   case 1:
-
     foo = 3;
-
     break;
   default:
     throw new Error(\"Invalid state\");
@@ -1569,35 +1465,30 @@ class A {
 var null_tests = [
   function() {
     var x: ?string = \"xxx\";
-
     if (typeof x == \"string\") {
       var y: string = x;
     }
   },
   function() {
     var x: ?string = \"xxx\";
-
     if (\"string\" == typeof x) {
       var y: string = x;
     }
   },
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
-
     if (typeof x.p == \"string\") {
       var y: string = x.p;
     }
   },
   function() {
     var x: { p: { q: ?string } } = { p: { q: \"xxx\" } };
-
     if (typeof x.p.q == \"string\") {
       var y: string = x.p.q;
     }
   },
   function() {
     var x: ?string = \"xxx\";
-
     if (typeof x != \"string\") {}
     else {
       var y: string = x;
@@ -1605,7 +1496,6 @@ var null_tests = [
   },
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
-
     if (typeof x.p != \"string\") {}
     else {
       var y: string = x.p;
@@ -1613,7 +1503,6 @@ var null_tests = [
   },
   function() {
     var x: { p: { q: ?string } } = { p: { q: \"xxx\" } };
-
     if (typeof x.p.q != \"string\") {}
     else {
       var y: string = x.p.q;
@@ -1621,28 +1510,24 @@ var null_tests = [
   },
   function() {
     var x: ?string = \"xxx\";
-
     if (typeof x === \"string\") {
       var y: string = x;
     }
   },
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
-
     if (typeof x.p === \"string\") {
       var y: string = x.p;
     }
   },
   function() {
     var x: { p: { q: ?string } } = { p: { q: \"xxx\" } };
-
     if (typeof x.p.q === \"string\") {
       var y: string = x.p.q;
     }
   },
   function() {
     var x: ?string = \"xxx\";
-
     if (typeof x !== \"string\") {}
     else {
       var y: string = x;
@@ -1650,7 +1535,6 @@ var null_tests = [
   },
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
-
     if (typeof x.p !== \"string\") {}
     else {
       var y: string = x.p;
@@ -1658,7 +1542,6 @@ var null_tests = [
   },
   function() {
     var x: { p: { q: ?string } } = { p: { q: \"xxx\" } };
-
     if (typeof x.p.q !== \"string\") {}
     else {
       var y: string = x.p.q;
@@ -1785,35 +1668,30 @@ class A {
 var undef_tests = [
   function() {
     var x: ?string = \"xxx\";
-
     if (x !== undefined && x !== null) {
       var y: string = x;
     }
   },
   function() {
     var x: ?string = \"xxx\";
-
     if (undefined !== x && x !== null) {
       var y: string = x;
     }
   },
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
-
     if (x.p !== undefined && x.p !== null) {
       var y: string = x.p;
     }
   },
   function() {
     var x: { p: { q: ?string } } = { p: { q: \"xxx\" } };
-
     if (x.p.q !== undefined && x.p.q !== null) {
       var y: string = x.p.q;
     }
   },
   function() {
     var x: ?string = \"xxx\";
-
     if (x === undefined || x === null) {}
     else {
       var y: string = x;
@@ -1821,7 +1699,6 @@ var undef_tests = [
   },
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
-
     if (x.p === undefined || x.p === null) {}
     else {
       var y: string = x.p;
@@ -1829,7 +1706,6 @@ var undef_tests = [
   },
   function() {
     var x: { p: { q: ?string } } = { p: { q: \"xxx\" } };
-
     if (x.p.q === undefined || x.p.q === null) {}
     else {
       var y: string = x.p.q;
@@ -1944,35 +1820,30 @@ class A {
 var void_tests = [
   function() {
     var x: ?string = \"xxx\";
-
     if (x !== void 0 && x !== null) {
       var y: string = x;
     }
   },
   function() {
     var x: ?string = \"xxx\";
-
     if (void 0 !== x && x !== null) {
       var y: string = x;
     }
   },
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
-
     if (x.p !== void 0 && x.p !== null) {
       var y: string | void = x.p;
     }
   },
   function() {
     var x: { p: { q: ?string } } = { p: { q: \"xxx\" } };
-
     if (x.p.q !== void 0 && x.p.q !== null) {
       var y: string = x.p.q;
     }
   },
   function() {
     var x: ?string = \"xxx\";
-
     if (x === void 0 || x === null) {}
     else {
       var y: string = x;
@@ -1980,7 +1851,6 @@ var void_tests = [
   },
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
-
     if (x.p === void 0 || x.p === null) {}
     else {
       var y: string = x.p;
@@ -1988,7 +1858,6 @@ var void_tests = [
   },
   function() {
     var x: { p: { q: ?string } } = { p: { q: \"xxx\" } };
-
     if (x.p.q === void 0 || x.p.q === null) {}
     else {
       var y: string = x.p.q;

@@ -113,18 +113,12 @@ var testGetterNoError1: number = foo.goodGetterNoAnnotation;
 var testGetterNoError2: number = foo.goodGetterWithAnnotation;
 var testGetterWithError1: string = foo.goodGetterNoAnnotation;
 var testGetterWithError2: string = foo.goodGetterWithAnnotation;
-
 foo.goodSetterNoAnnotation = 123;
-
 foo.goodSetterWithAnnotation = 123;
-
 foo.goodSetterNoAnnotation = \"hello\";
-
 foo.goodSetterWithAnnotation = \"hello\";
-
 var testSubtypingGetterAndSetter: number = foo.propWithSubtypingGetterAndSetter;
 var testPropOverridenWithGetter: number = foo.propOverriddenWithGetter;
-
 foo.propOverriddenWithSetter = 123;
 "
 `;
@@ -252,19 +246,12 @@ var testGetterNoError1: number = obj.goodGetterNoAnnotation;
 var testGetterNoError2: number = obj.goodGetterWithAnnotation;
 var testGetterWithError1: string = obj.goodGetterNoAnnotation;
 var testGetterWithError2: string = obj.goodGetterWithAnnotation;
-
 obj.goodSetterNoAnnotation = 123;
-
 obj.goodSetterWithAnnotation = 123;
-
 obj.goodSetterNoAnnotation = \"hello\";
-
 obj.goodSetterWithAnnotation = \"hello\";
-
 var testSubtypingGetterAndSetter: number = obj.propWithSubtypingGetterAndSetter;
-
 obj.exampleOfOrderOfGetterAndSetter = new C();
-
 var testExampleOrOrderOfGetterAndSetterReordered: number = obj.exampleOfOrderOfGetterAndSetterReordered;
 "
 `;
@@ -405,52 +392,42 @@ class Base {
     this.x = value;
   }
 }
-
 (class extends Base {
   get x(): B {
     return b;
   }
 });
-
 (class extends Base {
   set x(value: B): void {}
 });
-
 (class extends Base {
   get x(): C {
     return c;
   }
   set x(value: A): void {}
 });
-
 (class extends Base {
   set pos(value: B): void {}
 });
-
 (class extends Base {
   get pos(): C {
     return c;
   }
 });
-
 (class extends Base {
   get neg(): B {
     return b;
   }
 });
-
 (class extends Base {
   set neg(value: A): void {}
 });
-
 (class extends Base {
   get: C;
 });
-
 (class extends Base {
   set: A;
 });
-
 (class extends Base {
   getset: B;
 });

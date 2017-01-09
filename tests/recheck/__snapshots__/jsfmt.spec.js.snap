@@ -11,9 +11,7 @@ module.exports = foo;
 function foo(x: number): string {
   return 5;
 }
-
 foo(0);
-
 module.exports = foo;
 "
 `;
@@ -27,7 +25,6 @@ module.exports = foo(\"\");
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 const foo = require(\"./a1\");
-
 module.exports = foo(\"\");
 "
 `;
@@ -41,7 +38,6 @@ const five = require(\'./a2\');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 const five = require(\"./a2\");
-
 (five + five: string);
 "
 `;
@@ -61,7 +57,6 @@ class C {
 class E {
   x: C;
 }
-
 module.exports = { C, E };
 "
 `;
@@ -79,19 +74,15 @@ module.exports = { C, D };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 import {C, E} from \"./b0\";
-
 function foo() {
   return C;
 }
-
 function bar() {
   return E;
 }
-
 let X = foo();
 class F extends X {}
 class D extends F {}
-
 module.exports = { C, D };
 "
 `;
@@ -115,7 +106,6 @@ import { C, D } from \"./b2\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 import {C, D} from \"./b2\";
-
 (new D(): C);
 "
 `;
@@ -156,7 +146,6 @@ bar({ x: 0 });
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 import {bar} from \"./c2\";
-
 bar({ x: 0 });
 "
 `;
@@ -222,7 +211,6 @@ const f = (): Action => {
   return { type: \"FOO\" };
 };
 import {LIFE} from \"./e1\";
-
 (LIFE: 42);
 "
 `;
@@ -245,7 +233,6 @@ type S = { x: string };
 declare var a: T;
 declare var b: S;
 declare var c: T;
-
 module.exports = { a, b, c };
 "
 `;
@@ -258,7 +245,6 @@ var { a, b, c } = require(\'./f1\');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 var { a, b, c } = require(\"./f1\");
-
 (c: { x: number });
 "
 `;
@@ -285,7 +271,6 @@ module.exports = { D };
 // @flow
 import {C} from \"./g1\";
 class D extends C {}
-
 module.exports = { D };
 "
 `;
@@ -301,7 +286,6 @@ import { D } from \'./g2\';
 // @flow
 import {C} from \"./g1\";
 import {D} from \"./g2\";
-
 (new D(): C);
 "
 `;

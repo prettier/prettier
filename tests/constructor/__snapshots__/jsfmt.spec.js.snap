@@ -15,7 +15,6 @@ class C {
 class D {
   constructor(): number {}
 }
-
 module.exports = C;
 "
 `;

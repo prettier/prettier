@@ -98,31 +98,21 @@ const b = new Headers([ \"Content-Type\", \"image/jpeg\" ]);
 const c = new Headers({ \"Content-Type\", \"image/jpeg\" });
 const d = new Headers(c);
 const e: Headers = new Headers();
-
 e.append(\"Content-Type\", \"image/jpeg\");
-
 e.append(\"Content-Type\");
-
 e.append({ \"Content-Type\", \"image/jpeg\" });
-
 e.set(\"Content-Type\", \"image/jpeg\");
-
 e.set(\"Content-Type\");
-
 e.set({ \"Content-Type\", \"image/jpeg\" });
-
 const f: Headers = e.append(\"Content-Type\", \"image/jpeg\");
 const g: string = e.get(\"Content-Type\");
 const h: number = e.get(\"Content-Type\");
-
 for (let v of e) {
   const [ i, j ]: [string, string] = v;
 }
-
 for (let v of e.entries()) {
   const [ i, j ]: [string, string] = v;
 }
-
 e.getAll(\"content-type\").forEach((v: string) => {});
 "
 `;
@@ -229,13 +219,9 @@ const k: Request = new Request(\"http://example.org\", {
   cache: \"default\"
 });
 var l: boolean = h.bodyUsed;
-
 h.text().then((t: string) => t);
-
 h.text().then((t: Buffer) => t);
-
 h.arrayBuffer().then((ab: ArrayBuffer) => ab);
-
 h.arrayBuffer().then((ab: Buffer) => ab);
 "
 `;
@@ -325,13 +311,9 @@ const i: Response = new Response({
 });
 const ok: boolean = h.ok;
 const status: number = h.status;
-
 h.text().then((t: string) => t);
-
 h.text().then((t: Buffer) => t);
-
 h.arrayBuffer().then((ab: ArrayBuffer) => ab);
-
 h.arrayBuffer().then((ab: Buffer) => ab);
 "
 `;
@@ -389,31 +371,21 @@ const b = new URLSearchParams([ \"key1\", \"value1\" ]);
 const c = new URLSearchParams({ \"key1\", \"value1\" });
 const d = new URLSearchParams(c);
 const e: URLSearchParams = new URLSearchParams();
-
 e.append(\"key1\", \"value1\");
-
 e.append(\"key1\");
-
 e.append({ \"key1\", \"value1\" });
-
 e.set(\"key1\", \"value1\");
-
 e.set(\"key1\");
-
 e.set({ \"key1\", \"value1\" });
-
 const f: URLSearchParams = e.append(\"key1\", \"value1\");
 const g: string = e.get(\"key1\");
 const h: number = e.get(\"key1\");
-
 for (let v of e) {
   const [ i, j ]: [string, string] = v;
 }
-
 for (let v of e.entries()) {
   const [ i, j ]: [string, string] = v;
 }
-
 e.getAll(\"key1\").forEach((v: string) => {});
 "
 `;

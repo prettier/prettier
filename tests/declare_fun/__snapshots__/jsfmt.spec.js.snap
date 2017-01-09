@@ -13,11 +13,8 @@ declare function foo<X>(x: X): X;
 declare function foo(x: number): string;
 declare function foo(x: string): number;
 declare function foo<X>(x: X): X;
-
 (foo(0): string);
-
 (foo(\"hello\"): number);
-
 (foo(false): void);
 "
 `;

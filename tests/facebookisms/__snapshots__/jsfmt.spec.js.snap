@@ -3,7 +3,6 @@ exports[`test Bar.js 1`] = `
 module.exports = Bar;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var Bar = { x: 0 };
-
 module.exports = Bar;
 "
 `;
@@ -63,9 +62,7 @@ let tests = [
   },
   function(copyProperties: Object$Assign) {
     let result = {};
-
     result.baz = false;
-
     (copyProperties(result, { foo: \"a\" }, {
       bar: 123
     }): { foo: string, bar: number, baz: boolean });
@@ -74,17 +71,14 @@ let tests = [
     const copyProperties = require(\"copyProperties\");
     let x = { foo: \"a\" };
     let y = { bar: 123 };
-
     (copyProperties({}, x, y): { foo: string, bar: number });
   },
   function(copyProperties: Object$Assign) {
     copyProperties();
-
     (copyProperties({ foo: \"a\" }): { foo: number });
   },
   function(copyProperties: Object$Assign) {
     function x(cb: Function) {}
-
     x(copyProperties);
   }
 ];
@@ -112,14 +106,11 @@ let tests = [
 let tests = [
   function() {
     let x: ?string = null;
-
     invariant(x, \"truthy only\");
   },
   function(invariant: Function) {
     let x: ?string = null;
-
     invariant(x);
-
     (x: string);
   }
 ];
@@ -200,17 +191,13 @@ let tests = [
   },
   function(mergeInto: $Facebookism$MergeInto) {
     let result = {};
-
     result.baz = false;
-
     (mergeInto(result, { foo: \"a\" }, { bar: 123 }): void);
-
     (result: { foo: string, bar: number, baz: boolean });
   },
   function() {
     const mergeInto = require(\"mergeInto\");
     let result: { foo?: string, bar?: number, baz: boolean } = { baz: false };
-
     (mergeInto(result, { foo: \"a\" }, { bar: 123 }): void);
   },
   function(mergeInto: $Facebookism$MergeInto) {
@@ -218,7 +205,6 @@ let tests = [
   },
   function(mergeInto: $Facebookism$MergeInto) {
     function x(cb: Function) {}
-
     x(mergeInto);
   }
 ];
@@ -241,7 +227,6 @@ var mixin = require(\"mixin\");
 class Foo extends mixin(Bar) {
   m() {
     var x: string = this.x;
-
     this.y = \"\";
   }
 }

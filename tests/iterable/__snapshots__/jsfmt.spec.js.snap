@@ -63,7 +63,6 @@ function miss_the_cache(x: Array<string | number>): Iterable<string> { return x;
 function fill_the_cache(x: Array<any | any>): Iterable<string> {
   return x;
 }
-
 function miss_the_cache(x: Array<string | number>): Iterable<string> {
   return x;
 }
@@ -89,9 +88,7 @@ function foo(strs: Iterable<string>): void {
     console.log(s);
   }
 }
-
 var m: Map<string, number> = new Map();
-
 foo(m.keys());
 "
 `;
@@ -138,7 +135,6 @@ function makeIterator(coin_flip: () => boolean): Iterator<string> {
     },
     next(): IteratorResult<string, void> {
       var done = coin_flip();
-
       if (!done) {
         return { done, value: \"still going...\" };
       } else {
@@ -147,7 +143,6 @@ function makeIterator(coin_flip: () => boolean): Iterator<string> {
     }
   };
 }
-
 function makeIterator(coin_flip: () => boolean): Iterator<string> {
   return {
     \"@@iterator\"() {
@@ -155,7 +150,6 @@ function makeIterator(coin_flip: () => boolean): Iterator<string> {
     },
     next(): IteratorResult<string, void> {
       var done = coin_flip();
-
       if (done) {
         return { done, value: \"still going...\" };
       } else {
@@ -189,15 +183,12 @@ function mapTest4(map: Map<number, string>): Iterable<string> {
 function mapTest1(map: Map<string, number>): Iterable<[string, number]> {
   return map;
 }
-
 function mapTest2<K, V>(map: Map<K, V>): Iterable<[K, V]> {
   return map;
 }
-
 function mapTest3(map: Map<string, number>): Iterable<*> {
   return map;
 }
-
 function mapTest4(map: Map<number, string>): Iterable<string> {
   return map;
 }
@@ -226,15 +217,12 @@ function setTest4(set: Set<string>): Iterable<number> {
 function setTest1(set: Set<string>): Iterable<string> {
   return set;
 }
-
 function setTest2<T>(set: Set<T>): Iterable<T> {
   return set;
 }
-
 function setTest3(set: Set<string>): Iterable<*> {
   return set;
 }
-
 function setTest4(set: Set<string>): Iterable<number> {
   return set;
 }
@@ -267,7 +255,6 @@ exports[`test variance.js 1`] = `
 // ok, Iterable<+T>
 // ok, Iterator<+T>
 (([]: Array<string>): Iterable<?string>);
-
 (([]: Array<string>).values(): Iterable<?string>);
 "
 `;

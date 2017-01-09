@@ -80,14 +80,10 @@ requireLazy([ \"A\", \"B\" ], function(A, B) {
   var num4: number = B.stringValueB;
   var str4: string = B.numberValueB;
 });
-
 var notA: Object = A;
 var notB: Object = B;
-
 requireLazy();
-
 requireLazy([ nope ], function() {});
-
 requireLazy([ \"A\" ]);
 "
 `;

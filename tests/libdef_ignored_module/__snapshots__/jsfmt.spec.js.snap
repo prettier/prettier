@@ -8,7 +8,6 @@ import foo from \"foo\";
 /* @flow */
 // error number ~> string
 import foo from \"foo\";
-
 (foo.bar: string);
 "
 `;

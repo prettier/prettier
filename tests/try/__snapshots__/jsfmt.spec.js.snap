@@ -220,41 +220,34 @@ function f(b) {
 // ditto
 // error
 function might_throw() {}
-
 function f() {
   try {
     var x: number = 0;
     var y: number = x;
   } catch (e) {}
 }
-
 function f() {
   try {} catch (e) {
     var x: number = 0;
     var y: number = x;
   }
 }
-
 function f() {
   try {
     might_throw();
-
     var x: number = 0;
   } catch (e) {
     var y: number = x;
   }
 }
-
 function f() {
   try {
     might_throw();
-
     var x: number = 0;
   } finally {
     var y: number = x;
   }
 }
-
 function f() {
   try {} catch (e) {
     var x: number = 0;
@@ -262,90 +255,74 @@ function f() {
     var y: number = x;
   }
 }
-
 function f() {
   try {
     var x: number = 0;
   } catch (e) {
     might_throw();
-
     var x: number = 0;
   } finally {
     var y: number = x;
   }
 }
-
 function f() {
   try {
     var x: number = 0;
   } catch (e) {
     might_throw();
-
     var x: number = 0;
   }
   var y: number = x;
 }
-
 function f() {
   try {} catch (e) {} finally {
     might_throw();
-
     var x: number = 0;
   }
   var y: number = x;
 }
-
 function f() {
   try {
     var x: number;
   } catch (e) {} finally {
     might_throw();
-
     x = 0;
   }
   var y: number = x;
 }
-
 function f() {
   try {} catch (e) {
     var x: number;
   } finally {
     might_throw();
-
     x = 0;
   }
   var y: number = x;
 }
-
 function f() {
   var y: number = x;
   try {
     var x: number = 0;
   } catch (e) {}
 }
-
 function f() {
   try {
     var x: number = 0;
   } catch (e) {}
   var y: number = x;
 }
-
 function f() {
   try {} catch (e) {
     var x: number = 0;
   }
   var y: number = x;
 }
-
 function f(b) {
   try {
     var x: number;
-
     if (b) {
       throw new Error();
     }
-
     x = 0;
   } catch (e) {}
   var y: number = x;
@@ -429,12 +406,9 @@ function foo(x: ?number): string {
   try {} catch (e) {
     return \"bar\";
   }
-
   console.log();
-
   return \"foo\";
 }
-
 function bar(): string {
   try {
     return \"foo\";
@@ -442,7 +416,6 @@ function bar(): string {
     return \"bar\";
   }
 }
-
 function baz(): string {
   try {
     throw new Error(\"foo\");
@@ -451,24 +424,19 @@ function baz(): string {
   }
   return \"bar\";
 }
-
 function qux(): string {
   try {
     throw new Error(\"foo\");
   } catch (e) {}
-
   console.log();
-
   return \"bar\";
 }
-
 function quux(): string {
   try {
     return qux();
   } catch (e) {}
   return \"bar\";
 }
-
 function bliffl(): string {
   try {
     throw new Error(\"foo\");
@@ -478,14 +446,12 @@ function bliffl(): string {
     return \"bar\";
   }
 }
-
 function corge(): string {
   try {
     return \"foo\";
   } catch (e) {
     throw new Error(\"bar\");
   }
-
   bar();
 }
 "
@@ -553,17 +519,13 @@ function foo() {
     x = \"\";
   } catch (e) {
     x = false;
-
     throw -1;
   } finally {
     y = {};
   }
-
   x();
-
   y();
 }
-
 function bar(response) {
   var payload;
   try {
@@ -571,16 +533,13 @@ function bar(response) {
   } catch (e) {
     throw new Error(\"...\");
   }
-
   if (payload.error) {}
 }
-
 function qux() {
   var x = 5;
   try {
     throw -1;
   } finally {}
-
   x();
 }
 "

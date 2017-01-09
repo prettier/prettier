@@ -224,7 +224,6 @@ export function emitExpression(node: TypedNode) : t.Expression {
 import * as t from \"./jsAst\";
 const b = t.builders;
 import type {TypedNode} from \"./ast\";
-
 function getBinaryOp(
   op: \"plus\" | \"minus\" | \"divide\" | \"multiply\"
 ): \"+\" | \"-\" | \"*\" | \"/\" {
@@ -241,7 +240,6 @@ function getBinaryOp(
     throw new Error(\"Invalid binary operator: \" + op);
   }
 }
-
 export function emitExpression(node: TypedNode): t.Expression {
   switch (node.exprNodeType) {
   case \"string_literal\":

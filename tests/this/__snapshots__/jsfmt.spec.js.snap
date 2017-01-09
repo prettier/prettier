@@ -88,41 +88,25 @@ module.exports = true;
 function F() {
   this.x = 0;
 }
-
 F.prototype.m = function() {
   this.y = 0;
 };
-
 function foo(p: string) {}
-
 var o1 = new F();
-
 o1.x = \"\";
-
 foo(o1.x);
-
 var o2 = new F();
-
 o1.y = 0;
-
 o2.y = \"\";
-
 foo(o2.y);
-
 var o3 = new F();
-
 o3.m();
-
 o3.y = \"\";
-
 foo(o3.y);
-
 foo(o2.y);
-
 function f1(): number {
   return this.x;
 }
-
 var f1_1 = f1.bind({ x: 0 })();
 var f1_2: string = f1.bind({ x: 0 })();
 var f1_3 = f1.bind({ x: \"\" })();
@@ -131,21 +115,17 @@ var a1 = () => {
   return this.x;
 };
 var ax = a1();
-
 function f2(): number {
   var a2 = () => {
     return this.x;
   };
   return a2();
 }
-
 var f2_1 = f2.bind({ x: 0 })();
 var f2_2: string = f2.bind({ x: 0 })();
 var f2_3 = f2.bind({ x: \"\" })();
 var f2_4 = f2();
-
 (this: void);
-
 module.exports = true;
 "
 `;
@@ -200,16 +180,12 @@ class C {
 var c = new C();
 var f = c.foo();
 var i = f();
-
 (i: C);
-
 class D extends C {}
 var d = new D();
 var g = d.foo();
 var j = g();
-
 (j: D);
-
 class E {
   foo(x: number) {}
 }

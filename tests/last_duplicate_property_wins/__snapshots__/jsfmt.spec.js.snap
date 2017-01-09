@@ -80,15 +80,10 @@ class C {
     return \"hello\";
   }
 }
-
 (new C().foo(): boolean);
-
 (new C().x: boolean);
-
 (new C().bar: boolean);
-
 (new C().qux: boolean);
-
 const o = {
   foo(): number {
     return 0;
@@ -107,13 +102,9 @@ const o = {
     return \"hello\";
   }
 };
-
 (o.foo(): boolean);
-
 (o.x: boolean);
-
 (o.bar: boolean);
-
 (o.qux(): boolean);
 "
 `;

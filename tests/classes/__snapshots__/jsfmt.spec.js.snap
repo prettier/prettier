@@ -8,7 +8,6 @@ module.exports = A;
 class A {
   foo(x: number): void {}
 }
-
 module.exports = A;
 "
 `;
@@ -27,9 +26,7 @@ module.exports = B;
 var A = require(\"./A\");
 class B extends A {}
 let b = new B();
-
 (b.foo: number);
-
 module.exports = B;
 "
 `;
@@ -52,9 +49,7 @@ class C extends B {
   foo(x: string): void {}
 }
 let c = new C();
-
 (c.foo: number);
-
 module.exports = C;
 "
 `;
@@ -66,7 +61,6 @@ new E().x
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class D {}
 class E {}
-
 new E().x;
 "
 `;
@@ -128,21 +122,13 @@ class TestClass {
   c: ?string;
 }
 var x = new TestClass();
-
 x.a;
-
 x.b;
-
 x.c;
-
 x.d;
-
 var y: Foo = x;
-
 y.b;
-
 y.d;
-
 class Test2Superclass {
   a: number;
   c: ?number;
@@ -259,15 +245,10 @@ declare var o: {p:number};
 class C {
   static p: string;
 }
-
 C.p = \"hi\";
-
 (C: { p: string });
-
 (C: { p: number });
-
 declare var o: { p: number };
-
 (o: Class<C>);
 "
 `;

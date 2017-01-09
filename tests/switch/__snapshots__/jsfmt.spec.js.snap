@@ -36,7 +36,6 @@ function foo(x): number {
     throw new Error(\"hi\");
   }
 }
-
 function bar(x) {
   switch (x) {
   case 0:
@@ -44,10 +43,8 @@ function bar(x) {
   default:
     return;
   }
-
   1;
 }
-
 function baz(x): number {
   switch (x) {
   case 0:
@@ -104,7 +101,6 @@ function foo(): number {
   }
   return 2;
 }
-
 function bar() {
   switch (\"bar\") {
   case \"bar\":
@@ -113,18 +109,13 @@ function bar() {
     break;
   }
 }
-
 function qux(b) {
   var x = b ? 0 : \"\";
   switch (\"qux\") {
   case \"\":
-
     x = 0;
-
   case \"qux\":
-
     x = x * x;
-
   }
 }
 "
@@ -200,51 +191,31 @@ function foo(x: mixed): string {
   var b = \"\";
   switch (x) {
   case \"foo\":
-
     a = 0;
-
   default:
-
     b = 0;
-
   }
-
   (a: string);
-
   (a: number);
-
   (b: number);
-
   return b;
 }
-
 function baz(x: mixed): number {
   var a = \"\";
   var b = \"\";
   switch (x) {
   case \"baz\":
-
     a = 0;
-
     break;
   case \"bar\":
-
     a = \"\";
-
   default:
-
     b = 0;
-
   }
-
   (a: string);
-
   (a: number);
-
   (b: string);
-
   (b: number);
-
   return a + b;
 }
 "
@@ -345,44 +316,32 @@ function f1(i) {
   var x;
   switch (i) {
   case 0:
-
     x = 0;
-
     break;
   case 1:
-
     x = 1;
-
     break;
   default:
-
     x = -1;
-
     break;
   case 2:
-
     x = \"2\";
-
     break;
   }
   var y: number = x;
 }
-
 function f2(i) {
   var x;
   switch (i) {
   case 0:
   case 1:
   default:
-
     x = 1;
-
     break;
   case 2:
   }
   var y: number = x;
 }
-
 function f3(i) {
   var x;
   switch (i) {
@@ -390,13 +349,10 @@ function f3(i) {
   case 1:
   default:
   case 2:
-
     x = 1;
-
   }
   var y: number = x;
 }
-
 function foo(x): number {
   switch (x) {
   case 0:
@@ -406,7 +362,6 @@ function foo(x): number {
     return 1;
   }
 }
-
 function bar(x) {
   switch (x) {
   default:
@@ -414,10 +369,8 @@ function bar(x) {
   case 0:
     break;
   }
-
   1;
 }
-
 function baz(x): number {
   switch (x) {
   case 0:

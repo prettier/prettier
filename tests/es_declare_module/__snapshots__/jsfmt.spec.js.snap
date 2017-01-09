@@ -58,63 +58,36 @@ import {exports as nope} from \"ES\"; // Error: Not an export
 // Error: Not an export
 import {num1, str1} from \"CJS_Named\";
 import CJS_Named from \"CJS_Named\";
-
 (num1: number);
-
 (num1: string);
-
 (str1: string);
-
 (str1: number);
-
 (CJS_Named: { num1: number, str1: string });
-
 (CJS_Named: number);
-
 import {num2} from \"CJS_Clobbered\";
 import {numExport} from \"CJS_Clobbered\";
-
 (numExport: number);
-
 (numExport: string);
-
 import type {numType} from \"CJS_Clobbered\";
-
 (42: numType);
-
 (\"asdf\": numType);
-
 import {strHidden} from \"ES\";
 import {str3} from \"ES\";
-
 (str3: string);
-
 (str3: number);
-
 import {num3} from \"ES\";
-
 (num3: number);
-
 (num3: string);
-
 import {C} from \"ES\";
 import type {C as CType} from \"ES\";
-
 (new C(): C);
-
 (42: C);
-
 (new C(): CType);
-
 (42: CType);
-
 import {T} from \"ES\";
 import type {T as T2} from \"ES\";
-
 (42: T2);
-
 (\"asdf\": T2);
-
 import {exports as nope} from \"ES\";
 "
 `;

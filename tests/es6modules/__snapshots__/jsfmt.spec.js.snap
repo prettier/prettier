@@ -64,7 +64,6 @@ class Test extends Base {
     return 2;
   }
 }
-
 module.exports = Test;
 "
 `;
@@ -132,13 +131,9 @@ exports.numberValue5 = 5;
  * @flow
  */
 exports.numberValue1 = 1;
-
 exports.numberValue2 = 2;
-
 exports.numberValue3 = 3;
-
 exports.numberValue4 = 4;
-
 exports.numberValue5 = 5;
 "
 `;
@@ -244,7 +239,6 @@ export default class Foo {
     return 42;
   }
 }
-
 new Foo();
 "
 `;
@@ -588,13 +582,9 @@ exports.stringValue = \"str\";
  * @flow
  */
 exports.numberValue1 = 42;
-
 exports.numberValue2 = 42;
-
 exports.numberValue3 = 42;
-
 exports.numberValue4 = 42;
-
 exports.stringValue = \"str\";
 "
 `;
@@ -1100,33 +1090,24 @@ var d2: string = numVal1;
 import CJS_Clobb_Lit from \"CommonJS_Clobbering_Lit\";
 var e1: number = CJS_Clobb_Lit.numberValue3;
 var e2: string = CJS_Clobb_Lit.numberValue3;
-
 CJS_Clobb_Lit.doesntExist;
-
 import * as CJS_Clobb_Lit_NS from \"CommonJS_Clobbering_Lit\";
 var f1: number = CJS_Clobb_Lit_NS.numberValue4;
 var f2: number = CJS_Clobb_Lit_NS.default.numberValue4;
-
 CJS_Clobb_Lit_NS.default.default;
-
 var f3: string = CJS_Clobb_Lit_NS.numberValue4;
 var f4: string = CJS_Clobb_Lit_NS.default.numberValue5;
 import {doesntExist2} from \"CommonJS_Clobbering_Class\";
 import {staticNumber1, baseProp, childProp} from \"CommonJS_Clobbering_Class\";
 import CJS_Clobb_Class from \"CommonJS_Clobbering_Class\";
-
 new CJS_Clobb_Class();
-
 new CJS_Clobb_Class().doesntExist;
-
 var h1: number = CJS_Clobb_Class.staticNumber2();
 var h2: string = CJS_Clobb_Class.staticNumber2();
 var h3: number = new CJS_Clobb_Class().instNumber1();
 var h4: string = new CJS_Clobb_Class().instNumber1();
 import * as CJS_Clobb_Class_NS from \"CommonJS_Clobbering_Class\";
-
 new CJS_Clobb_Class_NS();
-
 var i1: number = CJS_Clobb_Class_NS.staticNumber3();
 var i2: number = new CJS_Clobb_Class_NS.default().instNumber2();
 var i3: string = new CJS_Clobb_Class_NS.default().instNumber2();
@@ -1140,9 +1121,7 @@ var k2: string = numVal3;
 import * as CJS_Named from \"CommonJS_Named\";
 var l1: number = CJS_Named.numberValue1;
 var l2: string = CJS_Named.numberValue1;
-
 CJS_Named.doesntExist;
-
 import * as CJS_Named_NS from \"CommonJS_Named\";
 var m1: number = CJS_Named_NS.numberValue4;
 var m2: string = CJS_Named_NS.default.numberValue4;
@@ -1201,9 +1180,7 @@ var ab2: string = numberValue2_renamed;
 import {numberValue1 as numberValue5} from \"ES6_ExportAllFrom_Intermediary1\";
 var ac1: number = numberValue5;
 var ac2: string = numberValue5;
-
 require(\"ES6_Default_AnonFunction2\").doesntExist;
-
 var ES6_Def_AnonFunc2 = require(\"ES6_Default_AnonFunction2\").default;
 var ad1: number = ES6_Def_AnonFunc2();
 var ad2: string = ES6_Def_AnonFunc2();
@@ -1356,48 +1333,27 @@ function testRequires() {
 // CommonJS module that clobbers module.exports with a frozen object
 // Error: frozen
 import * as DefaultA from \"A\";
-
 DefaultA.numberValue1 = 123;
-
 import * as ES6_Named1 from \"ES6_Named1\";
-
 ES6_Named1.varDeclNumber1 = 123;
-
 import * as CommonJS_Star from \"CommonJS_Clobbering_Lit\";
-
 CommonJS_Star.numberValue1 = 123;
-
 CommonJS_Star.default.numberValue1 = 123;
-
 import CommonJS_Clobbering_Lit from \"CommonJS_Clobbering_Lit\";
-
 CommonJS_Clobbering_Lit.numberValue1 = 123;
-
 import * as CommonJS_Frozen_Star from \"CommonJS_Clobbering_Frozen\";
-
 CommonJS_Frozen_Star.numberValue1 = 123;
-
 CommonJS_Frozen_Star.default.numberValue1 = 123;
-
 import CommonJS_Clobbering_Frozen from \"CommonJS_Clobbering_Frozen\";
-
 CommonJS_Clobbering_Frozen.numberValue1 = 123;
-
 function testRequires() {
   var DefaultA = require(\"A\");
-
   DefaultA.numberValue1 = 123;
-
   var ES6_Named1 = require(\"ES6_Named1\");
-
   ES6_Named1.numberValue = 123;
-
   var CommonJS_Star = require(\"CommonJS_Clobbering_Lit\");
-
   CommonJS_Star.numberValue1 = 123;
-
   var CommonJS_Frozen_Star = require(\"CommonJS_Clobbering_Frozen\");
-
   CommonJS_Frozen_Star.numberValue1 = 123;
 }
 "

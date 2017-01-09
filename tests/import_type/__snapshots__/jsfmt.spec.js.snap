@@ -23,7 +23,6 @@ class ClassFoo3 {
     return new ClassFoo3();
   }
 }
-
 module.exports = ClassFoo3;
 "
 `;
@@ -61,21 +60,15 @@ class ClassFoo4 {
   }
 }
 class ClassFoo5 {}
-
 function givesAFoo4(): ClassFoo4 {
   return new ClassFoo4();
 }
-
 function givesAFoo5(): ClassFoo5 {
   return new ClassFoo5();
 }
-
 exports.ClassFoo4 = ClassFoo4;
-
 exports.ClassFoo5 = ClassFoo5;
-
 exports.foo4Inst = new ClassFoo4();
-
 exports.foo5Inst = new ClassFoo5();
 "
 `;
@@ -301,29 +294,21 @@ import type ClassFoo1 from \"./ExportDefault_Class\";
 import {foo1Inst} from \"./ExportDefault_Class\";
 var a1: ClassFoo1 = foo1Inst;
 var a2: number = foo1Inst;
-
 new ClassFoo1();
-
 import type {ClassFoo2} from \"./ExportNamed_Class\";
 import {foo2Inst} from \"./ExportNamed_Class\";
 var b1: ClassFoo2 = foo2Inst;
 var b2: number = foo2Inst;
-
 new ClassFoo2();
-
 import type ClassFoo3T from \"./ExportCJSDefault_Class\";
 import ClassFoo3 from \"./ExportCJSDefault_Class\";
 var c1: ClassFoo3T = new ClassFoo3();
-
 new ClassFoo3T();
-
 import type {ClassFoo4, ClassFoo5} from \"./ExportCJSNamed_Class\";
 import {foo4Inst, foo5Inst} from \"./ExportCJSNamed_Class\";
 var d1: ClassFoo4 = foo4Inst;
 var d2: number = foo4Inst;
-
 new ClassFoo4();
-
 var d3: typeof ClassFoo5 = foo5Inst;
 import type {AliasFoo3} from \"./ExportNamed_Alias\";
 import {givesAFoo3Obj} from \"./ExportNamed_Alias\";
@@ -332,7 +317,6 @@ var e2: number = givesAFoo3Obj();
 var e3: typeof AliasFoo3 = givesAFoo3Obj();
 import type {numValue} from \"./ExportsANumber\";
 import type ClassFoo6 from \"./issue-359\";
-
 function foo() {
   ClassFoo6;
 }

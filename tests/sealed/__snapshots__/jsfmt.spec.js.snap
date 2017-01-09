@@ -13,15 +13,12 @@ module.exports = Bar;
 function Bar(x: number) {
   this.x = x;
 }
-
 Bar.prototype.getX = function() {
   return this.x;
 };
-
 Bar.prototype.getY = function(): string {
   return this.y;
 };
-
 module.exports = Bar;
 "
 `;
@@ -44,26 +41,19 @@ module.exports = export_o;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // awkward type cast
 function Foo() {}
-
 var o = new Foo();
 var x: number = o.x;
-
 Foo.prototype.m = function() {
   return this.x;
 };
-
 var y: number = o.m();
-
 o.x = \"...\";
-
 Foo.prototype = {
   m: function() {
     return false;
   }
 };
-
 var export_o: { x: any } = o;
-
 module.exports = export_o;
 "
 `;
@@ -83,19 +73,13 @@ a.y = \'abc\'; // error, needs to be declared in Bar\'s constructor
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // error, needs to be declared in Bar\'s constructor
 var o = require(\"./proto\");
-
 o.z = 0;
-
 var x: string = o.x;
 var Bar = require(\"./function\");
 var a = new Bar(234);
-
 a.x = 123;
-
 a.y = \"abc\";
-
 (a.getX(): number);
-
 (a.getY(): string);
 "
 `;

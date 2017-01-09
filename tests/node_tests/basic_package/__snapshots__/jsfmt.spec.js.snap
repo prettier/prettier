@@ -4,7 +4,6 @@ console.log(x);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // \'bar_lib\' does not work!
 var x = require(\"./bar_lib\");
-
 console.log(x);
 "
 `;

@@ -25,7 +25,6 @@ module.exports.fun = (): Implementation => new Implementation;
  * @flow
  */
 class Implementation {}
-
 module.exports.fun = (): Implementation => new Implementation();
 "
 `;
@@ -44,7 +43,6 @@ module.exports.fun = (): Implementation => new Implementation;
  * @flow
  */
 class Implementation {}
-
 module.exports.fun = (): Implementation => new Implementation();
 "
 `;
@@ -63,7 +61,6 @@ module.exports.fun = (): Implementation => new Implementation;
  * @flow
  */
 class Implementation {}
-
 module.exports.fun = (): Implementation => new Implementation();
 "
 `;
@@ -93,15 +90,10 @@ var ExplicitDifferentName = require(\'ExplicitProvidesModuleDifferentName\');
 // Error: Either Implementation ~> boolean or Declaration ~> boolean
 // Error: Either Implementation ~> boolean or Declaration ~> boolean
 var Implicit = require(\"ImplicitProvidesModule\");
-
 (Implicit.fun(): boolean);
-
 var ExplicitSameName = require(\"ExplicitProvidesModuleSameName\");
-
 (ExplicitSameName.fun(): boolean);
-
 var ExplicitDifferentName = require(\"ExplicitProvidesModuleDifferentName\");
-
 (ExplicitDifferentName.fun(): boolean);
 "
 `;

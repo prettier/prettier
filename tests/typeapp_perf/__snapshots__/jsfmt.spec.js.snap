@@ -36,7 +36,6 @@ type B<T> = A &
     +i: () => B<T>
   };
 declare var b: B<any>;
-
 (b: B<any>);
 "
 `;
@@ -79,7 +78,6 @@ type B<T> = A &
     +i: (x: B<T>) => void
   };
 declare var b: B<any>;
-
 (b: B<any>);
 "
 `;
