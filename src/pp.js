@@ -37,9 +37,10 @@ function group(contents, opts) {
 }
 
 function multilineGroup(contents, opts) {
-  return group(contents, Object.assign(opts || {}, {
-    shouldBreak: hasHardLine(contents)
-  }));
+  return group(
+    contents,
+    Object.assign(opts || {}, {shouldBreak: hasHardLine(contents)})
+  );
 }
 
 function conditionalGroup(states, opts) {
@@ -117,7 +118,6 @@ function hasHardLine(doc) {
   return !!iterDoc(doc, (type, doc) => {
     switch (type) {
     case "line":
-
       if (doc.hard) {
         return true;
       }
@@ -163,24 +163,20 @@ function fits(next, restCommands, width) {
     } else {
       switch (doc.type) {
       case "concat":
-
         for (var i = doc.parts.length - 1; i >= 0; i--) {
           cmds.push([ ind, mode, doc.parts[i] ]);
         }
 
         break;
       case "indent":
-
         cmds.push([ ind + doc.n, mode, doc.contents ]);
 
         break;
       case "group":
-
-        cmds.push([ ind, (doc.break ? MODE_BREAK : mode), doc.contents ]);
+        cmds.push([ ind, doc.break ? MODE_BREAK : mode, doc.contents ]);
 
         break;
       case "if-break":
-
         if (mode === MODE_BREAK) {
           cmds.push([ ind, mode, doc.contents ]);
         }
@@ -190,7 +186,6 @@ function fits(next, restCommands, width) {
         switch (mode) {
         // fallthrough
         case MODE_FLAT:
-
           if (!doc.hard) {
             if (!doc.soft) {
               width -= 1;
@@ -227,14 +222,12 @@ function print(w, doc) {
     } else {
       switch (doc.type) {
       case "concat":
-
         for (var i = doc.parts.length - 1; i >= 0; i--) {
           cmds.push([ ind, mode, doc.parts[i] ]);
         }
 
         break;
       case "indent":
-
         cmds.push([ ind + doc.n, mode, doc.contents ]);
 
         break;
@@ -242,11 +235,10 @@ function print(w, doc) {
         switch (mode) {
         // fallthrough
         case MODE_FLAT:
-
           if (!shouldRemeasure) {
             cmds.push([
               ind,
-              (doc.break ? MODE_BREAK : MODE_FLAT),
+              doc.break ? MODE_BREAK : MODE_FLAT,
               doc.contents
             ]);
 
@@ -254,7 +246,6 @@ function print(w, doc) {
           }
 
         case MODE_BREAK:
-
           shouldRemeasure = false;
 
           const next = [ ind, MODE_FLAT, doc.contents ];
@@ -305,7 +296,6 @@ function print(w, doc) {
         }
         break;
       case "if-break":
-
         if (mode === MODE_BREAK) {
           cmds.push([ ind, MODE_BREAK, doc.contents ]);
         }
@@ -315,7 +305,6 @@ function print(w, doc) {
         switch (mode) {
         // fallthrough
         case MODE_FLAT:
-
           if (!doc.hard) {
             if (!doc.soft) {
               out.push(" ");
@@ -335,7 +324,6 @@ function print(w, doc) {
           }
 
         case MODE_BREAK:
-
           if (out.length > 0) {
             const lastString = out[out.length - 1];
 
