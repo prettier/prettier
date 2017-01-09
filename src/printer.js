@@ -1101,7 +1101,7 @@ function genericPrintNoParens(path, options, print) {
         "<",
         path.call(print, "name"),
         concat(path.map(attr => concat([ " ", print(attr) ]), "attributes")),
-        n.selfClosing ? "/>" : ">"
+        n.selfClosing ? " />" : ">"
       ])
     );
   case "JSXClosingElement":
