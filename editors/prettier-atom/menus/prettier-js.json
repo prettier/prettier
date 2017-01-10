@@ -2,8 +2,8 @@
   "context-menu": {
     "atom-text-editor[data-grammar='source js']": [
       {
-        "label": "Format With jscodefmt",
-        "command": "jscodefmt:format"
+        "label": "Format With prettier",
+        "command": "prettier:format"
       }
     ]
   },
@@ -12,11 +12,11 @@
       "label": "Packages",
       "submenu": [
         {
-          "label": "jscodefmt",
+          "label": "prettier",
           "submenu": [
             {
               "label": "Format",
-              "command": "jscodefmt:format"
+              "command": "prettier:format"
             }
           ]
         }
