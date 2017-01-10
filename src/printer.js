@@ -271,7 +271,7 @@ function genericPrintNoParens(path, options, print) {
 
     return concat(parts);
   case "Path":
-    return fromString(".").join(n.body);
+    return join(".", n.body);
   case "Identifier":
     return concat([
       n.name,
@@ -376,7 +376,7 @@ function genericPrintNoParens(path, options, print) {
       parts.push(path.call(print, "body"));
     }
 
-    return fromString(" ").join(parts);
+    return join(" ", parts);
   case "ImportSpecifier":
     if (n.imported) {
       parts.push(path.call(print, "imported"));
@@ -1037,13 +1037,9 @@ function genericPrintNoParens(path, options, print) {
   case "JSXIdentifier":
     return fromString(n.name, options);
   case "JSXNamespacedName":
-    return fromString(
-      ":"
-    ).join([ path.call(print, "namespace"), path.call(print, "name") ]);
+    return join(":", [ path.call(print, "namespace"), path.call(print, "name") ]);
   case "JSXMemberExpression":
-    return fromString(
-      "."
-    ).join([ path.call(print, "object"), path.call(print, "property") ]);
+    return join(".", [ path.call(print, "object"), path.call(print, "property") ]);
   case "JSXSpreadAttribute":
     return concat([ "{...", path.call(print, "argument"), "}" ]);
   case "JSXExpressionContainer":
@@ -1857,7 +1853,7 @@ function printClass(path, print) {
   if (n["implements"] && n["implements"].length > 0) {
     parts.push(
       " implements ",
-      fromString(", ").join(path.map(print, "implements"))
+      join(", ", path.map(print, "implements"))
     );
   }
 
