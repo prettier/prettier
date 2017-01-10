@@ -23,9 +23,7 @@
     "setupFiles": [
       "<rootDir>/tests_config/run_spec.js"
     ],
-    "testRegex": [
-      "jsfmt\\.spec\\.js$"
-    ],
+    "testRegex": "jsfmt\\.spec\\.js$",
     "testPathIgnorePatterns": [
       "tests/new_react",
       "tests/more_react"
