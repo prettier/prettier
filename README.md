@@ -4,7 +4,7 @@ Prettier is an opinionated JavaScript formatter. It removes all
 original styling and ensures that all outputted JavaScript conforms to
 a consistent style.
 
-*Warning*: This is a **beta**, but should solidify fairly quickly.
+*Warning*: This is a beta, but should solidify fairly quickly.
 
 This goes way beyond [eslint](http://eslint.org/) and other projects
 [built on it](https://github.com/feross/standard). Unlike eslint,
@@ -77,6 +77,55 @@ foo(
 Prettier bans all custom styling by parsing it away and re-printing
 the parsed AST with its own rules that take the maximum line width
 into account, wrapping code when necessary.
+
+## Usage
+
+Install:
+
+```
+npm install [-g] prettier
+```
+
+You can install it globally if you like.
+
+### CLI
+
+Run prettier through the CLI with this script. Run it without any
+arguments to see the options.
+
+```js
+prettier <opts> <filename>
+```
+
+### API
+
+The API is a single function exported as `format`. The options
+argument is optional, and all of the defaults are shown below:
+
+```js
+const prettier = require("prettier");
+
+prettier.format(source, {
+  // Fit code within this line limit
+  printWidth: 80,
+
+  // Number of spaces it should use per tab
+  tabWidth: 2
+
+  // Use the flow parser instead of babylon
+  useFlowParser: false,
+
+  // If true, will use single instead of double quotes
+  singleQuote: false,
+
+  // Controls the printing of trailing commas wherever possible
+  trailingComma: false,
+
+  // Controls the printing of spaces inside array and objects
+  bracketSpacing: true
+});
+```
+
 
 ## Technical Details
 
