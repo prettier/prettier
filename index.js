@@ -9,20 +9,17 @@ var babylonOptions = {
   allowImportExportEverywhere: false,
   allowReturnOutsideFunction: false,
   plugins: [
-    'asyncFunctions',
-    'asyncGenerators',
-    'classConstructorCall',
-    'classProperties',
-    'decorators',
-    'doExpressions',
-    'exponentiationOperator',
-    'exportExtensions',
-    'flow',
-    'functionSent',
-    'functionBind',
     'jsx',
+    'flow',
+    'doExpressions',
     'objectRestSpread',
-    'trailingFunctionCommas'
+    'decorators',
+    'classProperties',
+    'exportExtensions',
+    'asyncGenerators',
+    'functionBind',
+    'functionSent',
+    'dynamicImport'
   ]
 };
 
