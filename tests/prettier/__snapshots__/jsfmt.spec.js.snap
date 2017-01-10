@@ -1,0 +1,9 @@
+exports[`test optional-type-name.js 1`] = `
+"type Foo = (any) => string
+
+type Bar = { [string]: number }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type Foo = (any) => string;
+
+type Bar = { [string]: number };"
+`;
