@@ -1,4 +1,4 @@
-;;; jscodefmt.el --- utility functions to format reason code
+;;; prettier.el --- utility functions to format reason code
 
 ;; Copyright (c) 2014 The go-mode Authors. All rights reserved.
 ;; Portions Copyright (c) 2015-present, Facebook, Inc. All rights reserved.
@@ -34,12 +34,12 @@
 
 ;;; Code:
 
-(defcustom jscodefmt-command "jscodefmt"
-  "The 'jscodefmt' command."
+(defcustom prettier-command "prettier"
+  "The 'prettier' command."
   :type 'string
-  :group 'jscodefmt)
+  :group 'prettier)
 
-(defcustom jscodefmt-show-errors 'buffer
+(defcustom prettier-show-errors 'buffer
     "Where to display refmt error output.
 It can either be displayed in its own buffer, in the echo area, or not at all.
 Please note that Emacs outputs to the echo area when writing
@@ -49,28 +49,28 @@ a `before-save-hook'."
             (const :tag "Own buffer" buffer)
             (const :tag "Echo area" echo)
             (const :tag "None" nil))
-      :group 'jscodefmt)
+      :group 'prettier)
 
-(defcustom jscodefmt-width-mode nil
+(defcustom prettier-width-mode nil
   "Specify width when formatting buffer contents."
   :type '(choice
           (const :tag "Window width" window)
           (const :tag "Fill column" fill)
           (const :tag "None" nil))
-  :group 'jscodefmt)
+  :group 'prettier)
 
 ;;;###autoload
-(defun jscodefmt-before-save ()
+(defun prettier-before-save ()
   "Add this to .emacs to run refmt on the current buffer when saving:
  (add-hook 'before-save-hook 'refmt-before-save)."
   (interactive)
-  (when (eq major-mode 'js-mode) (jscodefmt)))
+  (when (eq major-mode 'js-mode) (prettier)))
 
-(defun jscodefmt--goto-line (line)
+(defun prettier--goto-line (line)
   (goto-char (point-min))
     (forward-line (1- line)))
 
-(defun jscodefmt--delete-whole-line (&optional arg)
+(defun prettier--delete-whole-line (&optional arg)
     "Delete the current line without putting it in the `kill-ring'.
 Derived from function `kill-whole-line'.  ARG is defined as for that
 function."
@@ -96,7 +96,7 @@ function."
            (delete-region (progn (forward-visible-line 0) (point))
                                                   (progn (forward-visible-line arg) (point))))))
 
-(defun jscodefmt--apply-rcs-patch (patch-buffer)
+(defun prettier--apply-rcs-patch (patch-buffer)
   "Apply an RCS-formatted diff from PATCH-BUFFER to the current buffer."
   (let ((target-buffer (current-buffer))
         ;; Relative offset between buffer line numbers and line numbers
@@ -115,7 +115,7 @@ function."
         (goto-char (point-min))
         (while (not (eobp))
           (unless (looking-at "^\\([ad]\\)\\([0-9]+\\) \\([0-9]+\\)")
-            (error "invalid rcs patch or internal error in jscodefmt--apply-rcs-patch"))
+            (error "invalid rcs patch or internal error in prettier--apply-rcs-patch"))
           (forward-line)
           (let ((action (match-string 1))
                 (from (string-to-number (match-string 2)))
@@ -132,28 +132,28 @@ function."
                     (insert text)))))
              ((equal action "d")
               (with-current-buffer target-buffer
-                (jscodefmt--goto-line (- from line-offset))
+                (prettier--goto-line (- from line-offset))
                 (incf line-offset len)
-                (jscodefmt--delete-whole-line len)))
+                (prettier--delete-whole-line len)))
              (t
-              (error "invalid rcs patch or internal error in jscodefmt--apply-rcs-patch")))))))))
+              (error "invalid rcs patch or internal error in prettier--apply-rcs-patch")))))))))
 
-(defun jscodefmt--process-errors (filename tmpfile errorfile errbuf)
+(defun prettier--process-errors (filename tmpfile errorfile errbuf)
   (with-current-buffer errbuf
-    (if (eq jscodefmt-show-errors 'echo)
+    (if (eq prettier-show-errors 'echo)
         (progn
           (message "%s" (buffer-string))
-          (jscodefmt--kill-error-buffer errbuf))
+          (prettier--kill-error-buffer errbuf))
       (insert-file-contents errorfile nil nil nil)
       ;; Convert the refmt stderr to something understood by the compilation mode.
       (goto-char (point-min))
-      (insert "jscodefmt errors:\n")
+      (insert "prettier errors:\n")
       (while (search-forward-regexp (regexp-quote tmpfile) nil t)
         (replace-match (file-name-nondirectory filename)))
       (compilation-mode)
       (display-buffer errbuf))))
 
-(defun jscodefmt--kill-error-buffer (errbuf)
+(defun prettier--kill-error-buffer (errbuf)
   (let ((win (get-buffer-window errbuf)))
     (if win
         (quit-window t win)
@@ -161,22 +161,22 @@ function."
         (erase-buffer))
       (kill-buffer errbuf))))
 
-(defun jscodefmt ()
-   "Format the current buffer according to the jscodefmt tool."
+(defun prettier ()
+   "Format the current buffer according to the prettier tool."
    (interactive)
    (let* ((ext (file-name-extension buffer-file-name t))
-          (bufferfile (make-temp-file "jscodefmt" nil ext))
-          (outputfile (make-temp-file "jscodefmt" nil ext))
-          (errorfile (make-temp-file "jscodefmt" nil ext))
-          (errbuf (if jscodefmt-show-errors (get-buffer-create "*jscodefmt errors*")))
-          (patchbuf (get-buffer-create "*jscodefmt patch*"))
+          (bufferfile (make-temp-file "prettier" nil ext))
+          (outputfile (make-temp-file "prettier" nil ext))
+          (errorfile (make-temp-file "prettier" nil ext))
+          (errbuf (if prettier-show-errors (get-buffer-create "*prettier errors*")))
+          (patchbuf (get-buffer-create "*prettier patch*"))
           (coding-system-for-read 'utf-8)
           (coding-system-for-write 'utf-8)
           (width-args
            (cond
-            ((equal jscodefmt-width-mode 'window)
+            ((equal prettier-width-mode 'window)
              (list "--width" (number-to-string (window-body-width))))
-            ((equal jscodefmt-width-mode 'fill)
+            ((equal prettier-width-mode 'fill)
              (list "--width" (number-to-string fill-column)))
             (t
              '()))))
@@ -191,24 +191,24 @@ function."
            (with-current-buffer patchbuf
              (erase-buffer))
            (if (zerop (apply 'call-process
-                             jscodefmt-command nil (list (list :file outputfile) errorfile)
+                             prettier-command nil (list (list :file outputfile) errorfile)
                              nil (append width-args (list bufferfile))))
                (progn
                  (call-process-region (point-min) (point-max) "diff" nil patchbuf nil "-n" "-"
                                       outputfile)
-                 (jscodefmt--apply-rcs-patch patchbuf)
-                 (message "Applied jscodefmt")
-                 (if errbuf (jscodefmt--kill-error-buffer errbuf)))
-             (message "Could not apply jscodefmt")
+                 (prettier--apply-rcs-patch patchbuf)
+                 (message "Applied prettier")
+                 (if errbuf (prettier--kill-error-buffer errbuf)))
+             (message "Could not apply prettier")
              (if errbuf
-                 (jscodefmt--process-errors (buffer-file-name) bufferfile errorfile errbuf))
+                 (prettier--process-errors (buffer-file-name) bufferfile errorfile errbuf))
              )))
      (kill-buffer patchbuf)
      (delete-file errorfile)
      (delete-file bufferfile)
      (delete-file outputfile)))
 
-(provide 'jscodefmt)
+(provide 'prettier)
 
-;;; jscodefmt.el ends here
+;;; prettier.el ends here
 

@@ -1,4 +1,4 @@
-# jscodefmt
+# prettier
 
 This is a JavaScript pretty-printer that is opinionated. All it takes
 is a width to format the code to and it does the rest. Zero config: it
