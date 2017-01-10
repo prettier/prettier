@@ -10,10 +10,10 @@ function bar(x: Error & {type:number}): number {
 function foo(x: $All<Error, { type: number }>): number {
   return x.type;
 }
+
 function bar(x: Error & { type: number }): number {
   return x.type;
-}
-"
+}"
 `;
 
 exports[`test objassign.js 1`] = `
@@ -36,10 +36,10 @@ let y: ObjAssignT = { ...x }; // should be fine
  *
  * @noflow
  */
-// should be fine
+
 declare var x: ObjAssignT;
-let y: ObjAssignT = { ...x };
-"
+
+let y: ObjAssignT = { ...x }; // should be fine"
 `;
 
 exports[`test pred.js 1`] = `
@@ -74,7 +74,7 @@ function hasObjectMode_ok(options: DuplexStreamOptions): boolean {
  *
  * @flow
  */
-// error, undefined ~> boolean
+
 type DuplexStreamOptions = ReadableStreamOptions &
   WritableStreamOptions &
   {
@@ -82,15 +82,16 @@ type DuplexStreamOptions = ReadableStreamOptions &
     readableObjectMode?: boolean,
     writableObjectMode?: boolean
   };
+
 function hasObjectMode_bad(options: DuplexStreamOptions): boolean {
   return options.objectMode || options.readableObjectMode ||
-    options.writableObjectMode;
+    options.writableObjectMode; // error, undefined ~> boolean
 }
+
 function hasObjectMode_ok(options: DuplexStreamOptions): boolean {
   return !!(options.objectMode || options.readableObjectMode ||
     options.writableObjectMode);
-}
-"
+}"
 `;
 
 exports[`test test_fun.js 1`] = `
@@ -141,17 +142,22 @@ var g: (_: number | string) => void = f;
  *
  * @noflow
  */
+
 // intersection of function types satisfies union of param types
-// simpler variation
+
 type F = (_: ObjA) => void;
 type G = (_: ObjB) => void;
 type FG = (_: ObjA | ObjB) => void;
+
 declare var fun1: F & G;
+
 (fun1: FG);
+
 var fun2: FG = fun1;
+
+// simpler variation
 declare var f: ((_: number) => void) & ((_: string) => void);
-var g: (_: number | string) => void = f;
-"
+var g: (_: number | string) => void = f;"
 `;
 
 exports[`test test_obj.js 1`] = `
@@ -190,6 +196,7 @@ var e: E = c; // error
  *
  * @noflow
  */
+
 // TODO we should give explicit errors for incompatibilities
 // which make an intersection uninhabitable:
 // - shared mutable properties with different types
@@ -201,16 +208,16 @@ var e: E = c; // error
 // suboptimal, since eg declared vars require no explicit
 // provision of values. This leaves the impossible types
 // free to flow downstream and satisfy impossible constraints.
+
 // intersection of object types satisfies union of properties
-// intersection of dictionary types:
-// ok
-// dict type mismatch
-// error
 declare var a: A;
 var b: B = a;
+
+// intersection of dictionary types:
 declare var c: C;
 var d: D = c;
+// ok
+// dict type mismatch
 type E = { [key: string]: string };
-var e: E = c;
-"
+var e: E = c; // error"
 `;

@@ -3,6 +3,5 @@ exports[`test type_error.js 1`] = `
 declare function foo(x: number): Array;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-declare function foo(x: number): Array;
-"
+declare function foo(x: number): Array;"
 `;

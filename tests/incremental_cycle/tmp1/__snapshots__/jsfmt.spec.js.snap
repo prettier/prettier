@@ -8,8 +8,8 @@ export type B = string;
 // @flow
 var A = require(\"./A\");
 import type C from \"./C\";
-export type B = string;
-"
+
+export type B = string;"
 `;
 
 exports[`test C.js 1`] = `
@@ -26,9 +26,10 @@ module.exports = C;
 // @flow
 var A = require(\"./A\");
 import type {B} from \"./B\";
+
 class C extends A {
   b: B;
 }
-module.exports = C;
-"
+
+module.exports = C;"
 `;

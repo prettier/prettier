@@ -5,6 +5,5 @@ exports[`test lib.js 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare module \"foo\" {
   declare function bar(str: string): number;
-}
-"
+}"
 `;

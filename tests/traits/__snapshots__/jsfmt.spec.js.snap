@@ -20,22 +20,26 @@ declare class Baz<T> {
 ((new Foo).y: string); // error: Bar wins
 ((new Foo).z: number); // error: Qux wins
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/* KeyedCollection <: Collection*/
-/* ...KeyedIterable*/
-// KeyedIterable <: Iterable
-// Collection <: Iterable
-// Iterable
-// error: Qux wins
-// error: Bar wins
-// error: Qux wins
 declare class Foo extends Qux<string> {}
-declare class Bar<T> extends Baz<T> { y: T }
-declare class Qux<T> extends Baz<T> { y: T, z: T }
-declare class Baz<T> { x: T }
+declare class Bar<T> extends Baz<T> {
+  // KeyedIterable <: Iterable
+  y: T
+}
+declare class Qux<T> extends Baz<T> {
+  // Collection <: Iterable
+  y: T,
+  z: T
+}
+declare class Baz<T> {
+  // Iterable
+  x: T
+}
+
 (new Foo().x: number);
+// error: Qux wins
 (new Foo().y: string);
-(new Foo().z: number);
-"
+// error: Bar wins
+(new Foo().z: number); // error: Qux wins"
 `;
 
 exports[`test test2.js 1`] = `
@@ -43,6 +47,5 @@ exports[`test test2.js 1`] = `
 declare class C mixins I { }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 interface I  {}
-declare class C {}
-"
+declare class C {}"
 `;

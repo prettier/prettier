@@ -31,6 +31,5 @@ interface B<X> extends A<X> {
   foo<Y>(s: Some<X>, e: Nada<Y>): B<Y>,
   foo<Y>(s: Other<X>, e: None<Y>): B<Y>,
   foo<Y>(s: Other<X>, e: Nada<Y>): B<Y>
-}
-"
+}"
 `;

@@ -154,76 +154,60 @@ class N extends N_ {
 (new N_(): N_);
 (new N(): N);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// OK
-// error (no super call)
-// error (no super call)
-// OK
-// OK
-// error
-// error
-// error (no super call yet)
-// error (no super call)
-// OK
-// OK
-// error (no super call yet)
-// error (no super call yet)
-// The reason for this error is that super constructor could call the
-// closure and therefore access this before calling its own super
-// constructor (as shown above). The only safe thing to do in the super
-// constructor is to save the closure so that it can be called later, after
-// initialization is done (as shown below).
-// OK
-// even though super() calls the parent\'s constructor(), it does not do the same
-// conversion on non-objects. so \`new L_()\` returns an instance of \`L_\` because
-// the constructor returns false (a non-object), but \`super()\` returns false,
-// which then similarly causes \`new L()\` to return an instance of \`L\`.
-// similarly, the converse is true: if the parent\'s constructor returns an
-// object, then the child does too.
-// however! super() calls the parent constructor with the subclass as its \`this\`
-// value (essentially \`super.constructor.call(this)\`).
 class A {
   x: number;
 }
+
 class B {
   x: number;
   constructor() {
-    this.x;
+    this.x; // OK
   }
 }
+
 class C extends A {}
+
 class D extends A {
   y: number;
   constructor() {
     this.y;
-    this.x;
+    // error (no super call)
+    this.x; // error (no super call)
   }
 }
+
 class E extends A {
   y: number;
   constructor() {
     super();
     this.y;
-    this.x;
+    // OK
+    this.x; // OK
   }
 }
+
 function leak(f) {
   f.y;
-  f.x;
+  // error
+  f.x; // error
 }
 class F extends A {
   y: number;
   constructor() {
     leak(this);
+    // error (no super call yet)
     super();
     this.y;
     this.x;
   }
 }
+
 class G extends A {
   constructor(b) {
-    super.x;
+    super.x; // error (no super call)
   }
 }
+
 class H extends A {
   y: number;
   constructor() {
@@ -232,9 +216,11 @@ class H extends A {
     else
       super();
     this.y;
-    this.x;
+    // OK
+    this.x; // OK
   }
 }
+
 class I_ {
   constructor(leaked_this) {
     leaked_this.foo();
@@ -243,9 +229,10 @@ class I_ {
 }
 class I extends I_ {
   constructor() {
-    super(this);
+    super(this); // error (no super call yet)
   }
 }
+
 class J__ {}
 class J_ extends J__ {
   constructor(closure_leaking_this) {
@@ -256,9 +243,15 @@ class J_ extends J__ {
 }
 class J extends J_ {
   constructor() {
-    super(() => this.foo());
+    super(() => this.foo()); // error (no super call yet)
+    // The reason for this error is that super constructor could call the
+    // closure and therefore access this before calling its own super
+    // constructor (as shown above). The only safe thing to do in the super
+    // constructor is to save the closure so that it can be called later, after
+    // initialization is done (as shown below).
   }
 }
+
 class K_ {
   closure_leaking_this: () => void;
   constructor(closure_leaking_this) {
@@ -272,10 +265,16 @@ class K extends K_ {
       if (_this)
         _this.foo();
     });
+    // OK
     var _this = this;
     this.closure_leaking_this();
   }
 }
+
+// even though super() calls the parent\'s constructor(), it does not do the same
+// conversion on non-objects. so \`new L_()\` returns an instance of \`L_\` because
+// the constructor returns false (a non-object), but \`super()\` returns false,
+// which then similarly causes \`new L()\` to return an instance of \`L\`.
 class L_ {
   constructor() {
     return false;
@@ -289,6 +288,9 @@ class L extends L_ {
 }
 (new L_(): L_);
 (new L(): L);
+
+// similarly, the converse is true: if the parent\'s constructor returns an
+// object, then the child does too.
 class M_ {
   constructor() {
     return { foo: \"foo\" };
@@ -301,6 +303,9 @@ class M extends M_ {
 }
 (new M_(): { foo: string });
 (new M(): { foo: string });
+
+// however! super() calls the parent constructor with the subclass as its \`this\`
+// value (essentially \`super.constructor.call(this)\`).
 class N_ {
   constructor(): this {
     let x = this;
@@ -313,8 +318,7 @@ class N extends N_ {
   }
 }
 (new N_(): N_);
-(new N(): N);
-"
+(new N(): N);"
 `;
 
 exports[`test import.js 1`] = `
@@ -328,8 +332,7 @@ class D {
     return 0;
   }
 }
-module.exports = D;
-"
+module.exports = D;"
 `;
 
 exports[`test super.js 1`] = `
@@ -356,8 +359,6 @@ class B extends A {
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// error, string !~> number
-// error, A doesn\'t have a doesntExist method
 class A {
   constructor(x: number) {}
   static staticMethod(x: string): string {
@@ -365,20 +366,23 @@ class A {
   }
   f(x: string) {}
 }
+
 class B extends A {
   constructor(x: string, y: number) {
     super(x);
   }
+
   static anotherStatic() {
     (super.staticMethod(\"foo\"): number);
-    super.doesntExist();
+    // error, string !~> number
+    super.doesntExist(); // error, A doesn\'t have a doesntExist method
   }
+
   g() {
     super.f(0);
     return super.g;
   }
-}
-"
+}"
 `;
 
 exports[`test test.js 1`] = `
@@ -398,6 +402,5 @@ class C extends D {
     return super.foo();
   }
 }
-module.exports = C;
-"
+module.exports = C;"
 `;

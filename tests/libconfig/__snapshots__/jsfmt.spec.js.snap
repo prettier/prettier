@@ -1,15 +1,13 @@
 exports[`test libA.js 1`] = `
 "declare function foo(x: number): void;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-declare function foo(x: number): void;
-"
+declare function foo(x: number): void;"
 `;
 
 exports[`test libB.js 1`] = `
 "declare function bar(x: string): void;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-declare function bar(x: string): void;
-"
+declare function bar(x: string): void;"
 `;
 
 exports[`test libtest.js 1`] = `
@@ -17,6 +15,5 @@ exports[`test libtest.js 1`] = `
 bar(123);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 foo(123);
-bar(123);
-"
+bar(123);"
 `;

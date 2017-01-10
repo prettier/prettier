@@ -4,7 +4,6 @@ exports[`test test.js 1`] = `
 (123: number); // no errors
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-// no errors
-(123: number);
-"
+
+(123: number); // no errors"
 `;

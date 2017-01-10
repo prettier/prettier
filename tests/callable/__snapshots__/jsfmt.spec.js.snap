@@ -11,11 +11,12 @@ function f(x) {
 (f: F);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 type F = { (x: string): number, p?: string };
+
 function f(x) {
   return x.length;
 }
-(f: F);
-"
+
+(f: F);"
 `;
 
 exports[`test primitives.js 1`] = `
@@ -41,23 +42,23 @@ declare var callable: Callable;
 callable(0); // error, number ~> string
 callable.call(null, 0); // error, number ~> string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// error, callable signature not found
-// error, number ~> string
-// error, number ~> string
-// error, number ~> string
-// error, number ~> string
 var x = Boolean(4);
 function foo(fn: (value: any) => boolean) {}
 foo(Boolean);
+
 var dict: { [k: string]: any } = {};
 dict();
+// error, callable signature not found
 interface ICall  { (x: string): void }
 declare var icall: ICall;
 icall(0);
+// error, number ~> string
 icall.call(null, 0);
+// error, number ~> string
 type Callable = { (x: string): void };
+
 declare var callable: Callable;
 callable(0);
-callable.call(null, 0);
-"
+// error, number ~> string
+callable.call(null, 0); // error, number ~> string"
 `;

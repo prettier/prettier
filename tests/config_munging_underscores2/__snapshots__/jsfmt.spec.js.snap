@@ -35,9 +35,11 @@ class B extends A {
 B._sProperty = \"B._sProperty string\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
+
 class A {
   _property1: number;
   static _sProperty: number;
+
   constructor() {
     this._property1 = 5;
   }
@@ -49,9 +51,11 @@ class A {
   }
 }
 A._sProperty = 48;
+
 class B extends A {
   _property1: string;
   static _sProperty: string;
+
   constructor() {
     super();
     this._property1 = \"another string\";
@@ -63,6 +67,5 @@ class B extends A {
     return 23;
   }
 }
-B._sProperty = \"B._sProperty string\";
-"
+B._sProperty = \"B._sProperty string\";"
 `;

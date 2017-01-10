@@ -32,11 +32,7 @@ function f7(x : $Tainted<string>, y : $Tainted<number>) {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-// This should cause an error.
-// This should cause an error.
-// This should cause an error.
-// This should cause an error.
-// This should cause an error.
+
 function f(x: $Tainted<number>, y: $Tainted<number>) {
   var z: $Tainted<number> = x + y;
 }
@@ -46,22 +42,26 @@ function f1(x: $Tainted<number>, y: number) {
 function f2(x: number, y: $Tainted<number>) {
   var z: $Tainted<number> = x + y;
 }
+// This should cause an error.
 function f3(x: $Tainted<number>, y: number) {
   var z: number = x + y;
 }
+// This should cause an error.
 function f4(x: number, y: $Tainted<number>) {
   var z: number = x + y;
 }
+// This should cause an error.
 function f5(x: number, y: $Tainted<number>) {
   var z: string = x + y;
 }
+// This should cause an error.
 function f6(x: string, y: $Tainted<number>) {
   var z: string = x + y;
 }
+// This should cause an error.
 function f7(x: $Tainted<string>, y: $Tainted<number>) {
   var z: string = x + y;
-}
-"
+}"
 `;
 
 exports[`test any_object.js 1`] = `
@@ -92,32 +92,29 @@ let tests = [
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-// setting a property
-// error, taint ~> any
-// error, taint ~> any
-// getting a property
-// ok
-// calling a method
-// error, taint ~> any
-// error, taint ~> any
+
 let tests = [
+  // setting a property
   function(x: $Tainted<string>, y: string) {
     let obj: Object = {};
     obj.foo = x;
-    obj[y] = x;
+    // error, taint ~> any
+    obj[y] = x; // error, taint ~> any
   },
+  // getting a property
   function() {
     let obj: Object = { foo: \"foo\" };
-    (obj.foo: $Tainted<string>);
+    (obj.foo: $Tainted<string>); // ok
   },
+  // calling a method
   function(x: $Tainted<string>) {
     let obj: Object = {};
     obj.foo(x);
+    // error, taint ~> any
     let foo = obj.foo;
-    foo(x);
+    foo(x); // error, taint ~> any
   }
-];
-"
+];"
 `;
 
 exports[`test call-object-property.js 1`] = `
@@ -148,9 +145,9 @@ function f_foo3(f1 : Function, o1 : Object, o2 : {t : $Tainted<string>}) {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-// Error
-// Error
+
 function foo(x: $Tainted<string>, o: Object) {
+  // Error
   o.f(x);
 }
 function foo1(x: $Tainted<string>, o: { f(y: $Tainted<string>): void }) {
@@ -163,6 +160,7 @@ function foo3<T>(x: $Tainted<T>, o: { f(y: $Tainted<T>): void }) {
   o.f(x);
 }
 function f_foo1(x: $Tainted<string>, f: Function) {
+  // Error
   f(x);
 }
 function f_foo2(f1: Function, o: { t: $Tainted<string> }) {
@@ -170,8 +168,7 @@ function f_foo2(f1: Function, o: { t: $Tainted<string> }) {
 }
 function f_foo3(f1: Function, o1: Object, o2: { t: $Tainted<string> }) {
   f1(o1)(o2.t);
-}
-"
+}"
 `;
 
 exports[`test comparator.js 1`] = `
@@ -196,23 +193,22 @@ function f3(x : $Tainted<string>, y : string) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 // Should cause an error.
-// Should cause an error.
-// Should cause an error.
-// Note: We allow removing Taint when two tainted
-// values are compared.
 function f(x: $Tainted<string>, y: $Tainted<number>) {
   var z: $Tainted<boolean> = x < y;
 }
+// Should cause an error.
 function f1(x: string, y: $Tainted<number>) {
   var z: $Tainted<boolean> = x < y;
 }
+// Should cause an error.
 function f2(x: $Tainted<string>, y: number) {
   var z: $Tainted<boolean> = x < y;
 }
+// Note: We allow removing Taint when two tainted
+// values are compared.
 function f3(x: $Tainted<string>, y: string) {
   var z: boolean = x < y;
-}
-"
+}"
 `;
 
 exports[`test function.js 1`] = `
@@ -232,19 +228,18 @@ let tests = [
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-// flows any to each param
-// error, taint ~> any
-// calling \`any\` returns \`any\`
+
 let tests = [
+  // flows any to each param
   function(x: any, y: $Tainted<string>) {
-    x(y);
+    x(y); // error, taint ~> any
   },
+  // calling \`any\` returns \`any\`
   function(x: any, y: $Tainted<string>) {
     let z = x();
     z(y);
   }
-];
-"
+];"
 `;
 
 exports[`test globals.js 1`] = `
@@ -262,19 +257,18 @@ class A {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-// error
-// ok
-// TODO(rcastano): should cause an error.
+
 class A {
   f(x: $Tainted<FakeLocation>) {
     fakeDocument.location = x;
-    doStuff(x);
+    // error
+    doStuff(x); // ok
   }
   f1(x: $Tainted<FakeLocation>) {
+    // TODO(rcastano): should cause an error.
     window.fakeLocation = x;
   }
-}
-"
+}"
 `;
 
 exports[`test lib.js 1`] = `
@@ -292,11 +286,13 @@ declare var fakeDocument: FakeDocument;
 declare var fakeLocation: FakeLocation;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare class FakeLocation { assign(url: string): void }
+
 declare class FakeDocument { location: FakeLocation }
+
 declare function doStuff(x: $Tainted<any>): void;
+
 declare var fakeDocument: FakeDocument;
-declare var fakeLocation: FakeLocation;
-"
+declare var fakeLocation: FakeLocation;"
 `;
 
 exports[`test taint1.js 1`] = `
@@ -315,13 +311,12 @@ class A {
  *
  * @flow
  */
-// This shouldn\'t give a warning (both are tainted)
 class A {
   f(tainted: $Tainted<string>) {
+    // This shouldn\'t give a warning (both are tainted)
     var also_tainted: $Tainted<string> = tainted;
   }
-}
-"
+}"
 `;
 
 exports[`test taint2.js 1`] = `
@@ -340,13 +335,12 @@ class A {
  *
  * @flow
  */
-// This *should* give a warning.
 class A {
   f(tainted: $Tainted<string>) {
+    // This *should* give a warning.
     fakeDocument.location.assign(tainted);
   }
-}
-"
+}"
 `;
 
 exports[`test taint3.js 1`] = `
@@ -367,15 +361,14 @@ class A {
  *
  * @flow
  */
-// The Tainted annotation should still flow.
-// This should give a warning.
 class A {
   f(tainted: $Tainted<string>) {
+    // The Tainted annotation should still flow.
     var safe = tainted;
+    // This should give a warning.
     var loc: string = safe;
   }
-}
-"
+}"
 `;
 
 exports[`test taint4.js 1`] = `
@@ -397,14 +390,15 @@ function f(x : $Tainted<any>) {
  *
  * @flow
  */
-// This should be allowed.
-// Should cause error.
+
 var safe: string = \"safe\";
+// This should be allowed.
 var tainted: $Tainted<string> = safe;
+
 function f(x: $Tainted<any>) {
+  // Should cause error.
   var y: any = x;
-}
-"
+}"
 `;
 
 exports[`test use-types.js 1`] = `
@@ -444,31 +438,33 @@ function foo6 (a : $Tainted<Array<string>>) {
 /*
  * @flow
  */
+
 // Should cause an error.
-// Should cause an error.
-// Should cause an error.
-// Should cause an error.
-// Type error.
 function foo(x: $Tainted<number>) {
   var should_fail: number = x * 42;
 }
+// Should cause an error.
 function foo1(x: $Tainted<{ f: number }>) {
   var ok: number = x.f;
 }
+// Should cause an error.
 function foo2(o: { f(y: number): number }, t: $Tainted<number>) {
   return o.f(t);
 }
+
 function foo3(x: $Tainted<{ f: number }>) {
   var also_tainted: $Tainted<number> = x.f;
 }
+// Should cause an error.
 function foo4(a: $Tainted<Array<string>>) {
   var trusted: string = a[0];
 }
+// Type error.
 function foo5(a: $Tainted<Array<string>>) {
   var trusted_number: number = a[0];
 }
+
 function foo6(a: $Tainted<Array<string>>) {
   var trusted: $Tainted<string> = a[0];
-}
-"
+}"
 `;

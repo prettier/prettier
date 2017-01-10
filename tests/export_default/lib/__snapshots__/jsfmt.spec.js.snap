@@ -21,6 +21,5 @@ declare module N {
 }
 declare module Q {
   declare var exports: $Exports<\"M\">;
-}
-"
+}"
 `;

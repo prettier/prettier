@@ -12,26 +12,24 @@ class A { }
 function B() { return new A(); }
 var a: A = new B(); // OK (returns new A)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// error (returns object literal above)
-// error (returns new object)
-// error (returns new object)
-// OK (returns new A)
 function Foo() {
   return {};
 }
 var foo: number = new Foo();
+// error (returns object literal above)
 function Bar() {
   return 0;
 }
 var bar: number = new Bar();
+// error (returns new object)
 function Qux() {}
 var qux: number = new Qux();
+// error (returns new object)
 class A {}
 function B() {
   return new A();
 }
-var a: A = new B();
-"
+var a: A = new B(); // OK (returns new A)"
 `;
 
 exports[`test test2.js 1`] = `
@@ -47,13 +45,16 @@ d.x = \"\"; // error, string ~/~ number (but property x is found)
 
 module.exports = D;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// OK
-// error, string ~/~ number (but property x is found)
-// error, new D is an object, D not in proto chain
-declare class D { constructor(): { x: number }, y: any }
+declare class D {
+  constructor(): { x: number },
+  // OK
+  y: any
+}
+
 var d = new D();
 d.x = \"\";
+// error, string ~/~ number (but property x is found)
 (new D(): D);
-module.exports = D;
-"
+// error, new D is an object, D not in proto chain
+module.exports = D;"
 `;

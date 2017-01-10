@@ -12,13 +12,13 @@ function foo() {
     break;
   }
 }
+
 function bar() {
   L:
   do {
     continue L;
   } while (false);
-}
-"
+}"
 `;
 
 exports[`test return.js 1`] = `
@@ -35,6 +35,5 @@ function foo() {
   if (x == null)
     return;
   bar(x);
-}
-"
+}"
 `;

@@ -6,9 +6,10 @@ const x = \"foo\";
 export default x;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+
 const x = \"foo\";
-export default x
-"
+
+export default x"
 `;
 
 exports[`test exports_named.js 1`] = `
@@ -18,7 +19,7 @@ export const foo = \"foo\";
 export const bar = \"bar\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+
 export const foo = \"foo\";
-export const bar = \"bar\";
-"
+export const bar = \"bar\";"
 `;

@@ -4,6 +4,6 @@ exports[`test API.js 1`] = `
 var OpenGraphObject = require(\'./models/OpenGraphObject.js\');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-var OpenGraphObject = require(\"./models/OpenGraphObject.js\");
-"
+
+var OpenGraphObject = require(\"./models/OpenGraphObject.js\");"
 `;

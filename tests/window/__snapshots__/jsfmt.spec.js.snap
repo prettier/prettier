@@ -7,8 +7,7 @@ module.exports = window.history;
 /*
 @providesModule Window1
 */
-module.exports = window.history;
-"
+module.exports = window.history;"
 `;
 
 exports[`test window2.js 1`] = `
@@ -17,6 +16,6 @@ exports[`test window2.js 1`] = `
 module.exports = window.parent;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule Window2 */
-module.exports = window.parent;
-"
+
+module.exports = window.parent;"
 `;

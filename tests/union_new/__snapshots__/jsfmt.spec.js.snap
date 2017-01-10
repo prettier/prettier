@@ -24,21 +24,24 @@ class VirtualNode {
 /* @flow */
 type T = A | B;
 class U {}
+
 declare var children: U;
 (children: T | U);
 class A {}
+
 class B {}
+
 type VirtualElement = Thunk | VirtualNode;
 type Child = VirtualElement;
 type Children = Array<Child>;
+
 class Thunk {}
 class VirtualNode {
   children: Child | Children;
   constructor(type, children: Children) {
     this.children = children.length === 1 ? children[0] : children;
   }
-}
-"
+}"
 `;
 
 exports[`test issue-824.js 1`] = `
@@ -60,8 +63,11 @@ export default class A {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import {B, C} from \"./issue-824-helper\";
+
 type K = B | C;
+
 type I = { which(): number };
+
 export default class A {
   static foo(p: K): boolean {
     return false;
@@ -69,8 +75,7 @@ export default class A {
   static bar(p: I & K): boolean {
     return this.foo(p);
   }
-}
-"
+}"
 `;
 
 exports[`test issue-824-helper.js 1`] = `
@@ -88,6 +93,7 @@ export class C extends A {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import A from \"./issue-824\";
+
 export class B extends A {
   which(): number {
     return 1;
@@ -97,8 +103,7 @@ export class C extends A {
   which(): number {
     return 2;
   }
-}
-"
+}"
 `;
 
 exports[`test issue-1349.js 1`] = `
@@ -110,11 +115,11 @@ var bar: Array<{b: ?boolean, c: number} | {b: boolean}> = [
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
+
 var bar: Array<{ b: ?boolean, c: number } | { b: boolean }> = [
   { b: true, c: 123 },
   { b: true }
-];
-"
+];"
 `;
 
 exports[`test issue-1371.js 1`] = `
@@ -130,8 +135,7 @@ function create(
   a: any
 ): { type: \"B\", data: number } | { type: \"A\", data: string } {
   return { type: \"A\", data: a };
-}
-"
+}"
 `;
 
 exports[`test issue-1455.js 1`] = `
@@ -147,11 +151,12 @@ function node(content: ?Foobar | String | Array<String>) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 import type {Foobar} from \"./issue-1455-helper\";
+
 function create(content: ?Foobar | String | Array<String>) {}
+
 function node(content: ?Foobar | String | Array<String>) {
   create(content);
-}
-"
+}"
 `;
 
 exports[`test issue-1455-helper.js 1`] = `
@@ -160,8 +165,8 @@ exports[`test issue-1455-helper.js 1`] = `
 export class Foobar { }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-export class Foobar {}
-"
+
+export class Foobar {}"
 `;
 
 exports[`test issue-1462-i.js 1`] = `
@@ -188,18 +193,21 @@ function printAll(val: MyType) {
   print(val.foo);  // <--- foo could be an array
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// <--- foo could be an array
 type Common = {};
+
 type A = Common & { type: \"A\", foo: number };
+
 type B = Common & { type: \"B\", foo: Array<number> };
+
 type MyType = A | B;
+
 function print(x: number) {
   console.log(x);
 }
+
 function printAll(val: MyType) {
-  print(val.foo);
-}
-"
+  print(val.foo); // <--- foo could be an array
+}"
 `;
 
 exports[`test issue-1462-ii.js 1`] = `
@@ -232,20 +240,24 @@ function printAll(val: MyType) {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 type Common = {};
+
 type A = { type: \"A\", foo: number } & Common;
+
 type B = { type: \"B\", foo: Array<number> } & Common;
+
 type MyType = A | B;
+
 function print(x: number) {
   console.log(x);
 }
+
 function printAll(val: MyType) {
   if (val.type === \"A\") {
     print(val.foo);
   } else {
     val.foo.forEach(print);
   }
-}
-"
+}"
 `;
 
 exports[`test issue-1664.js 1`] = `
@@ -277,15 +289,20 @@ if (data.kind === \"system\") {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
+
 type DataBase = { id: string, name: string };
+
 type UserData = DataBase & { kind: \"user\" };
+
 type SystemData = DataBase & { kind: \"system\" };
+
 type Data = UserData | SystemData;
+
 const data: Data = { id: \"\", name: \"\", kind: \"system\" };
+
 if (data.kind === \"system\") {
   (data: SystemData);
-}
-"
+}"
 `;
 
 exports[`test issue-1759.js 1`] = `
@@ -299,15 +316,15 @@ function hello(x:X): string {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-//type X = {a:true, b:string} | {a:false, c:string}; // this works.
+
 type X = ({ a: true } & { b: string }) | ({ a: false } & { c: string });
+//type X = {a:true, b:string} | {a:false, c:string}; // this works.
 function hello(x: X): string {
   if (x.a === true)
     return x.b;
   else
     return x.c;
-}
-"
+}"
 `;
 
 exports[`test issue-2232.js 1`] = `
@@ -337,16 +354,19 @@ function test(f: Foo| EmptyFoo) {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
+
 type Entity<T> = { id: T, name: string };
+
 type StringEntity = Entity<string>;
+
 type Foo = StringEntity & { bars: Object, kind: 1 };
 type EmptyFoo = StringEntity & { bars: null, kind: 2 };
+
 function test(f: Foo | EmptyFoo) {
   if (f.kind === 1) {
     (f: Foo);
   }
-}
-"
+}"
 `;
 
 exports[`test test1.js 1`] = `
@@ -412,49 +432,62 @@ type A5 = B5[];
 type A6 = B6[];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
+
 /**
  * Test that shows how the implementation of union types is broken
  */
+
 //////////////////////////////
 // example with object types
 //////////////////////////////
+
+function obj(a: A1 | A2) {
+  return a.x;
+}
+
+const obj_result = obj({ x: \"\" });
 // currently an error! (expect it to be OK)
 // Type definitions used above are defined below, but in an order that
 // deliberately makes their full resolution as lazy as possible. The call above
 // blocks until A1 is partially resolved. Since the argument partially matches
 // A1, that branch is selected. Later, that branch errors, but other branches
 // have been lost by then.
+type A1 = { x: B1 };
+type A2 = { x: B2 };
+
+type B1 = number;
+type B2 = string;
+
+(obj_result: B1 | B2);
+
 ///////////////////////////////////////
 // similar example with function types
 ///////////////////////////////////////
-/////////////////////////////////////////////
-// similar example with class instance types
-/////////////////////////////////////////////
-function obj(a: A1 | A2) {
-  return a.x;
-}
-const obj_result = obj({ x: \"\" });
-type A1 = { x: B1 };
-type A2 = { x: B2 };
-type B1 = number;
-type B2 = string;
-(obj_result: B1 | B2);
 function fun(a: A3 | A4) {
   return a();
 }
+
 const fun_result = fun(() => \"\");
+
 type A3 = () => B3;
 type A4 = () => B4;
+
 type B3 = number;
 type B4 = string;
+
 (fun_result: B3 | B4);
+
+/////////////////////////////////////////////
+// similar example with class instance types
+/////////////////////////////////////////////
 function inst(a: A5 | A6) {}
+
 class B5 {}
 class B6 {}
 inst([ new B6() ]);
+
 type A5 = B5[];
-type A6 = B6[];
-"
+type A6 = B6[];"
 `;
 
 exports[`test test2.js 1`] = `
@@ -537,53 +570,77 @@ type A6 = [B6,boolean];
 type B6 = string;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
+
 /**
  * Test that shows how the implementation of union types is broken
  */
+
 //////////////////////////////
 // example with object types
 //////////////////////////////
+
+function obj(a: { x: number } | { x: string }) {}
+
+obj(({ x: \"\" }: A1));
+
+type A1 = { x: B1 };
+
+type B1 = string;
+
 ///////////////////////////////////////
 // similar example with function types
 ///////////////////////////////////////
+function fun(a: (() => number) | (() => string)) {}
+
+fun((() => \"\": A2));
+
+type A2 = () => B2;
+
+type B2 = string;
+
 /////////////////////////////////////////////////////
 // similar example with generic class instance types
 /////////////////////////////////////////////////////
+class C<X> {}
+
+function inst(a: C<number> | C<string>) {}
+
+inst((new C(): A3));
+
+type A3 = C<B3>;
+
+type B3 = string;
+
 /////////////////////////////////////////////
 // similar example with generic type aliases
 /////////////////////////////////////////////
-// class statics
-// tuples
-function obj(a: { x: number } | { x: string }) {}
-obj(({ x: \"\" }: A1));
-type A1 = { x: B1 };
-type B1 = string;
-function fun(a: (() => number) | (() => string)) {}
-fun((() => \"\": A2));
-type A2 = () => B2;
-type B2 = string;
-class C<X> {}
-function inst(a: C<number> | C<string>) {}
-inst((new C(): A3));
-type A3 = C<B3>;
-type B3 = string;
 function alias(a: T<number> | T<string>) {}
 alias({ x: (x: V<B4>) => {} });
+
 type T<X> = { x: U<X> };
 type U<X> = (x: V<X>) => void;
 type V<X> = X;
+
 type B4 = string;
+
+// class statics
 function stat(a: { x: number } | { x: string }) {}
+
 class D {
   static x: B5;
 }
+
 stat(D);
+
 type B5 = string;
+
+// tuples
 function tup(a: [number, boolean] | [string, boolean]) {}
+
 tup(([ \"\", false ]: A6));
+
 type A6 = [B6, boolean];
-type B6 = string;
-"
+type B6 = string;"
 `;
 
 exports[`test test3.js 1`] = `
@@ -618,24 +675,33 @@ type A2 = B2[];
 type B2 = string;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
+
 /**
  * Test that shows how the implementation of union types is broken
  */
+
 ///////////////////////////////
 // example with function types
 ///////////////////////////////
+
+function fun(a: ((x: number) => void) | ((x: string) => void)) {}
+
+fun((x => {}: A1));
+
+type A1 = (x: B1) => void;
+
+type B1 = string;
+
 ////////////////////////////
 // example with array types
 ////////////////////////////
-function fun(a: ((x: number) => void) | ((x: string) => void)) {}
-fun((x => {}: A1));
-type A1 = (x: B1) => void;
-type B1 = string;
 function arr(a: number[] | string[]) {}
+
 arr(([]: A2));
+
 type A2 = B2[];
-type B2 = string;
-"
+
+type B2 = string;"
 `;
 
 exports[`test test4.js 1`] = `
@@ -677,35 +743,46 @@ type A2 = B2[];
 type B2 = string;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
+
 /**
  * Test that shows how the implementation of union types is broken
  */
+
 ///////////////////////////////
 // example with function types
 ///////////////////////////////
-////////////////////////////
-// example with array types
-////////////////////////////
+
 function fun(a: ((x: number) => void) | ((x: string) => void)) {}
+
 const a1 = (x => {}: A1);
 fun(a1);
+
 function fun_call(x: string) {
   a1(x);
 }
+
 type A1 = (x: B1) => void;
+
 type B1 = string;
+
+////////////////////////////
+// example with array types
+////////////////////////////
 function arr(a: number[] | string[]) {}
+
 const a2 = ([]: A2);
 arr(a2);
+
 function arr_set(x: string, i: number) {
   a2[i] = x;
 }
 function arr_get(i: number): string {
   return a2[i];
 }
+
 type A2 = B2[];
-type B2 = string;
-"
+
+type B2 = string;"
 `;
 
 exports[`test test5.js 1`] = `
@@ -738,30 +815,37 @@ arr(a2);
 function arr_set(x: string, i: number) { a2[i] = x; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
+
 /**
  * Test that shows how the implementation of union types is broken
  */
+
 ///////////////////////////////
 // example with function types
 ///////////////////////////////
-/////////////////////////////
-// example with array types
-/////////////////////////////
+
 function fun(a: ((x: number) => number) | ((x: string) => string)) {}
+
 function a1(x) {
   return x;
 }
 fun(a1);
+
 function fun_call(x: string): string {
   return a1(x);
 }
+
+/////////////////////////////
+// example with array types
+/////////////////////////////
 function arr(a: number[] | string[]) {}
+
 var a2 = [];
 arr(a2);
+
 function arr_set(x: string, i: number) {
   a2[i] = x;
-}
-"
+}"
 `;
 
 exports[`test test6.js 1`] = `
@@ -792,25 +876,32 @@ class D<X> extends _C<X> { }
 class C<X> { }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
+
 /**
  * Test that shows how the implementation of union types is broken
  */
+
 //////////////////////////////////////////
 // example with generic class inheritance
 //////////////////////////////////////////
+
 function inst(a: E<B4>): C<number> | C<string> {
   return a;
 }
+
 const mk_C = () => C;
 const mk_D = () => D;
 const mk_E = () => E;
+
 type B4 = string;
+
 const _D = mk_D();
 class E<X> extends _D<X> {}
+
 const _C = mk_C();
 class D<X> extends _C<X> {}
-class C<X> {}
-"
+
+class C<X> {}"
 `;
 
 exports[`test test7.js 1`] = `
@@ -845,28 +936,33 @@ type PF<X> = PG<X>;
 type PG<X> = { x: X, y?: PG<X> };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
+
 /**
  * Test that shows how the implementation of union types is broken
  */
+
 ////////////////////
 // recursive types
 ////////////////////
-///////////////////////////////
-// polymorphic recursive types
-///////////////////////////////
+
 function rec(x: F1 | F2) {}
 rec({ x: 0 });
+
 type F1 = G1;
 type F2 = G2;
 type G1 = { x: H1, y?: G1 };
 type G2 = { x: H2, y?: G2 };
 type H1 = string;
 type H2 = number;
+
+///////////////////////////////
+// polymorphic recursive types
+///////////////////////////////
 function polyrec(x: PF<number> | PF<string>) {}
 rec({ x: 0 });
+
 type PF<X> = PG<X>;
-type PG<X> = { x: X, y?: PG<X> };
-"
+type PG<X> = { x: X, y?: PG<X> };"
 `;
 
 exports[`test test8.js 1`] = `
@@ -895,14 +991,18 @@ type H2 = boolean;
 type H2_ = number;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
+
 /**
  * Test that shows how the implementation of union types is broken
  */
+
 //////////////////////
 // nested union types
 //////////////////////
+
 function rec(x: F1 | F2) {}
 rec({ x: 0 });
+
 type F1 = G1 | G1_;
 type F2 = G2 | G2_;
 type G1 = { x: H1 };
@@ -912,8 +1012,7 @@ type G2_ = { x: H2_ };
 type H1 = boolean;
 type H1_ = string;
 type H2 = boolean;
-type H2_ = number;
-"
+type H2_ = number;"
 `;
 
 exports[`test test9.js 1`] = `
@@ -935,18 +1034,21 @@ function foo(f: ((_: ?number) => ?number) | (() => void)) { }
 foo((x): number => square(x))
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
+
 /**
  * Test that shows how the implementation of union types is broken
  */
+
 ////////////////
 // interference
 ////////////////
+
 function square(x? = 0) {
   return x * x;
 }
+
 function foo(f: ((_: ?number) => ?number) | (() => void)) {}
-foo((x): number => square(x));
-"
+foo((x): number => square(x));"
 `;
 
 exports[`test test10.js 1`] = `
@@ -1024,57 +1126,73 @@ function check_poly_inst(_: P<number> | P<string>) { }
 check_poly_inst(new P);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
-/////////////////////////
-// primitive annotations
-/////////////////////////
-// ok
-// ...even when they \"flow\" in
-//////////////////////////////
-// class instance annotations
-//////////////////////////////
-// ok
-// ...even when they \"flow\" in
-////////////////////////
-// function annotations
-////////////////////////
-// help!
-//////////////////////
-// object annotations
-//////////////////////
-// ok
-// help!
-/////////////////////
-// array annotations
-/////////////////////
-// ok
-// help!
-//////////////////////////////////////
-// generic class instance annotations
-//////////////////////////////////////
-// help!
+
 function id<X>(x: X): X {
   return x;
 }
+
+/////////////////////////
+// primitive annotations
+/////////////////////////
 function check_prim(_: number | string) {}
+
+// ok
 check_prim(\"\");
+
+// ...even when they \"flow\" in
 check_prim(id(\"\"));
+
+//////////////////////////////
+// class instance annotations
+//////////////////////////////
 class C {}
 class D {}
 function check_inst(_: C | D) {}
+
+// ok
 check_inst(new D());
+
+// ...even when they \"flow\" in
 check_inst(id(new C()));
+
+////////////////////////
+// function annotations
+////////////////////////
 function check_fun(_: ((_: number) => number) | ((_: string) => string)) {}
+
+// help!
 check_fun(x => x);
+
+//////////////////////
+// object annotations
+//////////////////////
 function check_obj(_: { x: number } | { x: string }) {}
+
+// ok
 check_obj({ x: \"\" });
+
+// help!
 check_obj({ x: id(\"\") });
+
+/////////////////////
+// array annotations
+/////////////////////
 function check_arr(_: number[] | string[]) {}
+
+// ok
 check_arr([ \"\" ]);
+
+// help!
 check_arr([ id(\"\") ]);
+
+//////////////////////////////////////
+// generic class instance annotations
+//////////////////////////////////////
 class P<X> {}
 function check_poly_inst(_: P<number> | P<string>) {}
-check_poly_inst(new P());
-"
+
+// help!
+check_poly_inst(new P());"
 `;
 
 exports[`test test11.js 1`] = `
@@ -1098,23 +1216,25 @@ type Nil = { kind: \"nil\" };
 type Cons = { kind: \"cons\", next: List };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
+
 // disjoint unions
-// missing \`next\`
-// \`kind\` not found
+
 function length(list: List) {
   if (list.kind === \"cons\")
     return length(list.next) + 1;
   else
     return 0;
 }
+
 length({ kind: \"nil\" });
 length({ kind: \"cons\" });
+// missing \`next\`
 length({ kind: \"cons\", next: { kind: \"nil\" } });
 length({ kind: \"empty\" });
+// \`kind\` not found
 type List = Nil | Cons;
 type Nil = { kind: \"nil\" };
-type Cons = { kind: \"cons\", next: List };
-"
+type Cons = { kind: \"cons\", next: List };"
 `;
 
 exports[`test test12.js 1`] = `
@@ -1129,14 +1249,16 @@ type H = { x: string }
 function rec(x: F<string>): G | H { return x; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
+
 // polymorphic recursive types
+
 type F<X> = { f: F<X>, x: X };
 type G = { x: number };
 type H = { x: string };
+
 function rec(x: F<string>): G | H {
   return x;
-}
-"
+}"
 `;
 
 exports[`test test13.js 1`] = `
@@ -1153,10 +1275,11 @@ exports[`test test13.js 1`] = `
 });
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
+
 /* ensure there are no unintended side effects when trying branches */
+
 ({ type: \"B\", id: \"hi\" }: { type: \"A\", id: ?string } |
-  { type: \"B\", id: string });
-"
+  { type: \"B\", id: string });"
 `;
 
 exports[`test test14.js 1`] = `
@@ -1175,13 +1298,16 @@ function foo(c: C<number>) {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
+
 // annotations
+
 declare class C<X> { get(): X }
+
 function union(o: { x: string } | { x: number }) {}
+
 function foo(c: C<number>) {
   union({ x: c.get() });
-}
-"
+}"
 `;
 
 exports[`test test15.js 1`] = `
@@ -1211,22 +1337,28 @@ function bar(x: (() => void) | { x: number }) { }
 bar(() => { });
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
+
 // functions as objects
-// example where globals are not yet resolved
+
 function foo<X>(target: EventTarget) {
   target.addEventListener(\"click\", e => {});
 }
+
 declare class EventTarget {
   addEventListener(type: \"foo\", listener: KeyboardEventHandler): void,
   addEventListener(type: string, listener: EventHandler): void
 }
+
 declare class Event {}
 declare class KeyboardEvent {}
+
 type EventHandler = (event: Event) => mixed;
 type KeyboardEventHandler = (event: KeyboardEvent) => mixed;
+
+// example where globals are not yet resolved
 function bar(x: (() => void) | { x: number }) {}
-bar(() => {});
-"
+
+bar(() => {});"
 `;
 
 exports[`test test16.js 1`] = `
@@ -1250,20 +1382,25 @@ function qux() { return x; }
 x = \"\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
+
 // annotations
+
 type T = number | (() => string);
 type Foo = T | (() => boolean);
+
 type Bar = number | (() => string) | (() => boolean);
+
 function foo(x: Foo) {}
 foo(() => qux());
+
 function bar(x: Bar) {}
 bar(() => qux());
+
 var x = false;
 function qux() {
   return x;
 }
-x = \"\";
-"
+x = \"\";"
 `;
 
 exports[`test test17.js 1`] = `
@@ -1276,10 +1413,12 @@ exports[`test test17.js 1`] = `
 ([].concat([0,1])[1]: string)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
+
 // Array#concat
+
 [].concat([]);
-([].concat([ 0, 1 ])[1]: string);
-"
+
+([].concat([ 0, 1 ])[1]: string);"
 `;
 
 exports[`test test18.js 1`] = `
@@ -1297,13 +1436,16 @@ function f() { return 0; }
 new C().m(f());
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
+
 // method overloads
+
 declare class C { m(x: number): void, m(x: string): void }
+
 function f() {
   return 0;
 }
-new C().m(f());
-"
+
+new C().m(f());"
 `;
 
 exports[`test test19.js 1`] = `
@@ -1321,12 +1463,14 @@ declare class D {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
+
 // constructor overloads
+
 function m<X>() {
   return new D();
 }
-declare class D { constructor(_: void): void, constructor(_: null): void }
-"
+
+declare class D { constructor(_: void): void, constructor(_: null): void }"
 `;
 
 exports[`test test20.js 1`] = `
@@ -1346,16 +1490,19 @@ exports[`test test20.js 1`] = `
 [\"\"].reduce((acc,str) => acc * str.length);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
+
 // Array#reduce
+
 [ 0, 1 ].reduce((x, y, i) => y);
+
 [ \"a\", \"b\" ].reduce(
   (regex, representation, index) => {
     return regex + (index ? \"|\" : \"\") + \"(\" + representation + \")\";
   },
   \"\"
 );
-[ \"\" ].reduce((acc, str) => acc * str.length);
-"
+
+[ \"\" ].reduce((acc, str) => acc * str.length);"
 `;
 
 exports[`test test21.js 1`] = `
@@ -1382,18 +1529,24 @@ function str() {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
+
 // annotations for disjoint unions
+
 type T = { type: \"FOO\", x: number } | { type: \"BAR\", x: string };
+
 ({ type: (bar(): \"BAR\"), x: str() }: T);
+
 ({ type: bar(), x: str() }: T);
+
 ({ type: bar(), x: (str(): string) }: T);
+
 function bar() {
   return \"BAR\";
 }
+
 function str() {
   return \"hello\";
-}
-"
+}"
 `;
 
 exports[`test test22.js 1`] = `
@@ -1420,18 +1573,23 @@ function foo(x: T) {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
+
 // refinement of disjoint unions
+
 type Empty = {};
+
 type Success = { type: \"SUCCESS\", result: string };
+
 type Error = { type: \"ERROR\" } & Empty;
+
 export type T = Success | Error;
+
 function foo(x: T) {
   if (x.type === \"SUCCESS\")
     return x.result;
   else
     return x.result;
-}
-"
+}"
 `;
 
 exports[`test test23.js 1`] = `
@@ -1449,16 +1607,18 @@ function foo(obj: Obj) {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
+
 // nested intersections (see also lib/test23_lib.js)
-// should be OK
-// should also be OK (the check above shouldn\'t affect anything)
+
 type NestedObj = {} & { dummy: SomeLibClass };
+
 type Obj = NestedObj & { x: string };
+
 function foo(obj: Obj) {
   obj.x;
-  obj.x;
-}
-"
+  // should be OK
+  obj.x; // should also be OK (the check above shouldn\'t affect anything)
+}"
 `;
 
 exports[`test test24.js 1`] = `
@@ -1494,7 +1654,9 @@ declare class D extends C {
 (0: D | number);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
+
 // scaling test for full type resolution
+
 declare class C {
   addListener(event: string, listener: Function): C,
   emit(event: string, ...args: Array<any>): boolean,
@@ -1506,6 +1668,7 @@ declare class C {
   removeListener(event: string, listener: Function): C,
   setMaxListeners(n: number): void
 }
+
 declare class D extends C {
   listen(
     port: number,
@@ -1523,8 +1686,8 @@ declare class D extends C {
   ref(): D,
   unref(): D
 }
-(0: D | number);
-"
+
+(0: D | number);"
 `;
 
 exports[`test test25.js 1`] = `
@@ -1543,14 +1706,15 @@ function foo(rows: Rows, set: Set<number>) {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
+
 // termination test (see also lib/test25_lib.js)
+
 function foo(rows: Rows, set: Set<number>) {
   return rows.reduce_rows(
     (set, row) => row.reduce_row((set, i) => set.add(i), set),
     set
   );
-}
-"
+}"
 `;
 
 exports[`test test26.js 1`] = `
@@ -1576,19 +1740,25 @@ declare class Record {
 new Record().set(\'foo\', \"42\");
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
+
 declare function foo(x: number): number;
 declare function foo(x: string): string;
+
 declare var x: number | string;
+
 (foo(x): number | string);
+
 type T = number | string;
 declare var y: T;
+
 (foo(y): T);
+
 declare class Record {
   set(x: \"foo\", y: number): void,
   set(x: \"bar\", y: string): void
 }
-new Record().set(\"foo\", \"42\");
-"
+
+new Record().set(\"foo\", \"42\");"
 `;
 
 exports[`test test27.js 1`] = `
@@ -1614,20 +1784,23 @@ function hello4(x:X): string {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
-//type X = {a:true, b:string} | {a:false, c:string}; // this works.
+
 type X = ({ a: true } & { b: string }) | ({ a: false } & { c: string });
+//type X = {a:true, b:string} | {a:false, c:string}; // this works.
 function hello1(x: X): string {
   if (x.a === true)
     return x.b;
   else
     return x.c;
 }
+
 function hello2(x: X): string {
   if (x.a === false)
     return x.c;
   else
     return x.b;
 }
+
 function hello3(x: X): string {
   if (x.a) {
     return x.b;
@@ -1635,14 +1808,14 @@ function hello3(x: X): string {
     return x.c;
   }
 }
+
 function hello4(x: X): string {
   if (!x.a) {
     return x.c;
   } else {
     return x.b;
   }
-}
-"
+}"
 `;
 
 exports[`test test29.js 1`] = `
@@ -1679,11 +1852,14 @@ class C {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
+
 // Make sure caching doesn\'t cause a spurious successful match (e.g., when a
 // failed match is tried again). This may happen, e.g., when checking
 // polymorphic definitions, where the same code may be checked multiple times
 // with different instantiations.
+
 type Row = { x: string };
+
 declare class D<T> {
   reduce(
     callbackfn: (previousValue: T, currentValue: T) => T,
@@ -1694,12 +1870,12 @@ declare class D<T> {
     initialValue: U
   ): U
 }
+
 class C {
   foo(rows: D<Row>, minWidth: number): number {
     return rows.reduce((length, row) => 0, minWidth);
   }
-}
-"
+}"
 `;
 
 exports[`test test30.js 1`] = `
@@ -1714,10 +1890,12 @@ type ActionType =
 ({ type: Constants.BAR, x: 0 }: ActionType);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
+
 const Constants = require(\"./test30-helper\");
+
 type ActionType = { type: \"foo\", x: number } | { type: \"bar\", x: number };
-({ type: Constants.BAR, x: 0 }: ActionType);
-"
+
+({ type: Constants.BAR, x: 0 }: ActionType);"
 `;
 
 exports[`test test30-helper.js 1`] = `
@@ -1729,8 +1907,8 @@ module.exports = {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
-module.exports = { FOO: \"foo\", BAR: \"bar\" };
-"
+
+module.exports = { FOO: \"foo\", BAR: \"bar\" };"
 `;
 
 exports[`test test31.js 1`] = `
@@ -1761,22 +1939,28 @@ function foo(): ImmutableMap<string, boolean> {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
+
 // make sure tuples are type arguments (as used e.g. when viewing maps as
 // key/value iterables) work
+
 interface SomeIterator<T>  {}
+
 interface SomeIterable<T>  { it(): SomeIterator<T> }
+
 declare class SomeMap<K, V> {
   it(): SomeIterator<[K, V]>,
   set(k: K, v: V): void
 }
+
 declare class ImmutableMap<K, V> {}
+
 declare function convert<K, V>(iter: SomeIterable<[K, V]>): ImmutableMap<K, V>;
+
 function foo(): ImmutableMap<string, boolean> {
   const countersGlobalMap = new SomeMap();
   countersGlobalMap.set(\"\", false);
   return convert(countersGlobalMap);
-}
-"
+}"
 `;
 
 exports[`test test32.js 1`] = `
@@ -1791,11 +1975,12 @@ function foo(value: Indirect<string> | number): Indirect<string> | number {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+
 // make sure that full resolution jobs don\'t cache improperly to signal success
 // when they have failed earlier
+
 function foo(value: Indirect<string> | number): Indirect<string> | number {
   const castedValue: number = typeof value === \"number\" ? value : 0;
   return castedValue;
-}
-"
+}"
 `;

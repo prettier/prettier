@@ -12,18 +12,18 @@ exports[`test issue-518.js 1`] = `
 function foo(x: void) { }
 foo();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// OK to leave out arg, same as resolve(undefined)
-// simpler repro to show that too few args are fine when expecting void
 function doSomethingAsync(): Promise<void> {
   return new Promise((resolve, reject) => {
     resolve();
+    // OK to leave out arg, same as resolve(undefined)
     var anotherVoidPromise: Promise<void> = Promise.resolve();
     resolve(anotherVoidPromise);
   });
 }
+
+// simpler repro to show that too few args are fine when expecting void
 function foo(x: void) {}
-foo();
-"
+foo();"
 `;
 
 exports[`test undefined.js 1`] = `
@@ -43,13 +43,14 @@ function foo() {
   var x;
   x.foo();
 }
+
 function bar() {
   var x: ?{ bar(): void };
   if (x)
     x.bar();
 }
-function qux(x?: number, y: string = \"\", z) {}
-"
+
+function qux(x?: number, y: string = \"\", z) {}"
 `;
 
 exports[`test undefined2.js 1`] = `
@@ -86,29 +87,27 @@ let tests = [
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-// error, string or void
-// error, string or void
-// ok
-// should error, could be void
-// error, string only
+
 let tests = [
   function(x: number) {
     var id;
     var name = id ? \"John\" : undefined;
     (name: boolean);
+    // error, string or void
     const bar = [ undefined, \"bar\" ];
-    (bar[x]: boolean);
+    (bar[x]: boolean); // error, string or void
   },
   function(x: number) {
     var undefined = \"foo\";
     (undefined: string);
+    // ok
     var x;
     if (x !== undefined) {
-      x[0];
+      x[0]; // should error, could be void
     }
+
     const bar = [ undefined, \"bar\" ];
-    (bar[x]: boolean);
+    (bar[x]: boolean); // error, string only
   }
-];
-"
+];"
 `;

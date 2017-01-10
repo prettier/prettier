@@ -21,7 +21,9 @@ class Bar {
 module.exports = Bar;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule Bar */
+
 var Qux = require(\"Qux\");
+
 class Bar {
   y: number;
   self: Bar;
@@ -29,13 +31,14 @@ class Bar {
     this.y = y;
     this.self = this;
   }
+
   bar(z: string, u: string): string {
     new Qux().w = \"?\";
     return z;
   }
 }
-module.exports = Bar;
-"
+
+module.exports = Bar;"
 `;
 
 exports[`test Foo.js 1`] = `
@@ -67,13 +70,16 @@ class Foo extends Qux {
 module.exports = Foo;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule Foo */
+
 var Bar = require(\"Bar\");
 var Qux = require(\"Qux\");
+
 class Foo extends Qux {
   x: string;
   constructor(x: string) {
     this.x = x;
   }
+
   foo(y: string, z): number {
     this.x = y;
     var u = new Foo(\"...\").qux();
@@ -81,12 +87,13 @@ class Foo extends Qux {
     v.self = v;
     return v.bar(z, u);
   }
+
   fooqux(x: string) {
     this.x;
   }
 }
-module.exports = Foo;
-"
+
+module.exports = Foo;"
 `;
 
 exports[`test Qux.js 1`] = `
@@ -104,13 +111,16 @@ class Qux {
 module.exports = Qux;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule Qux */
+
 class Qux {
   w: number;
+
   qux() {
     return this.w;
   }
+
   fooqux(x: number) {}
 }
-module.exports = Qux;
-"
+
+module.exports = Qux;"
 `;

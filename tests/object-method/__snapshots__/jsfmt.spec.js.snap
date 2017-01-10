@@ -4,8 +4,8 @@ exports[`test id.js 1`] = `
 module.exports = id;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare function id<X>(_: X): X;
-module.exports = id;
-"
+
+module.exports = id;"
 `;
 
 exports[`test subtype.js 1`] = `
@@ -18,10 +18,10 @@ function subtypeCheck(x: Interface): ObjectType { return x; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 interface Interface  { m(): void }
 import type {ObjectType} from \"./test\";
+
 function subtypeCheck(x: Interface): ObjectType {
   return x;
-}
-"
+}"
 `;
 
 exports[`test test.js 1`] = `
@@ -40,12 +40,14 @@ module.exports = id(
 );
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const id = require(\"./id\");
+
 export type ObjectType = { +m: () => void };
+
 function methodCaller(x: ObjectType) {
   x.m();
 }
-module.exports = id(methodCaller);
-"
+
+module.exports = id(methodCaller);"
 `;
 
 exports[`test test2.js 1`] = `
@@ -68,16 +70,18 @@ a.f(); // okey-dokie
 b.f(); // error, property \`p\` not found
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-// okey-dokie
-// error, property \`p\` not found
+
 function f() {
   return this.p;
 }
+
 var a = { p: 0, f };
+
 var b = { f };
+
 a.f();
-b.f();
-"
+// okey-dokie
+b.f(); // error, property \`p\` not found"
 `;
 
 exports[`test test3.js 1`] = `
@@ -101,22 +105,22 @@ function qux(o: { f: () => void }) {
 qux({ f: foo });  // error, since \`this\` is used non-trivially in \`foo\`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-// passing global object as \`this\`
-// passing container object as \`this\`
-// error, since \`this\` is used non-trivially in \`foo\`
-// passing o as \`this\`
-// error, since \`this\` is used non-trivially in \`foo\`
+
 function foo() {
   this.m();
 }
+
 function bar(f: () => void) {
   f();
-  ({ f }).f();
+  // passing global object as \`this\`
+  ({ f }).f(); // passing container object as \`this\`
 }
+
 bar(foo);
+// error, since \`this\` is used non-trivially in \`foo\`
 function qux(o: { f(): void }) {
-  o.f();
+  o.f(); // passing o as \`this\`
 }
-qux({ f: foo });
-"
+
+qux({ f: foo }); // error, since \`this\` is used non-trivially in \`foo\`"
 `;

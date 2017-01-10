@@ -8,8 +8,8 @@ module.exports = A;
 class A {
   foo(x: number): void {}
 }
-module.exports = A;
-"
+
+module.exports = A;"
 `;
 
 exports[`test B.js 1`] = `
@@ -22,13 +22,14 @@ let b = new B();
 
 module.exports = B;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// error, number !~> function
 var A = require(\"./A\");
+
 class B extends A {}
+
 let b = new B();
 (b.foo: number);
-module.exports = B;
-"
+// error, number !~> function
+module.exports = B;"
 `;
 
 exports[`test C.js 1`] = `
@@ -43,15 +44,16 @@ let c = new C();
 
 module.exports = C;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// error, number !~> function
 var B = require(\"./B\");
+
 class C extends B {
   foo(x: string): void {}
 }
+
 let c = new C();
 (c.foo: number);
-module.exports = C;
-"
+// error, number !~> function
+module.exports = C;"
 `;
 
 exports[`test D.js 1`] = `
@@ -61,8 +63,7 @@ new E().x
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class D {}
 class E {}
-new E().x;
-"
+new E().x;"
 `;
 
 exports[`test class_shapes.js 1`] = `
@@ -103,42 +104,48 @@ var z = new Test2Class();
 var w : Foo = z;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-// exists in TestClass
-// doesn\'t exist
-// exists in TestClass, optional
-/* doesn\'t exist*/
-// ok
-// error, TestClass has no b
-// ok
-// error, TestClass has no d
-// error, doesn\'t exist in TestClass
-// ok, it\'s optional
-// conflicts with cast to Foo
-// conflicts with cast to Foo
-// conflicts with cast to Foo
-type Foo = { a: string, b: string, c?: ?string, d?: number };
+
+type Foo = {
+  a: string,
+  // exists in TestClass
+  b: string,
+  // doesn\'t exist
+  c?: ?string,
+  // exists in TestClass, optional
+  d?: number /* doesn\'t exist*/
+};
+
 class TestClass {
   a: string;
   c: ?string;
 }
+
 var x = new TestClass();
+
 x.a;
+// ok
 x.b;
+// error, TestClass has no b
 x.c;
+// ok
 x.d;
+// error, TestClass has no d
 var y: Foo = x;
 y.b;
+// error, doesn\'t exist in TestClass
 y.d;
+// ok, it\'s optional
 class Test2Superclass {
   a: number;
-  c: ?number;
+  // conflicts with cast to Foo
+  c: ?number; // conflicts with cast to Foo
 }
 class Test2Class extends Test2Superclass {
-  b: number;
+  b: number; // conflicts with cast to Foo
 }
+
 var z = new Test2Class();
-var w: Foo = z;
-"
+var w: Foo = z;"
 `;
 
 exports[`test expr.js 1`] = `
@@ -173,30 +180,29 @@ var _Alias = class Alias {
 var alias1: Alias = new _Alias(); // error: bad pun
 var alias2: Alias = _Alias.factory(); // error: bad pun
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// OK: Foo is a type in this scope
-// OK: Foo is a runtime binding in this scope
+var Bar = class Foo {
+  static factory(): Foo {
+    // OK: Foo is a type in this scope
+    return new Foo(); // OK: Foo is a runtime binding in this scope
+  }
+};
+
+var bar1: Bar = new Bar();
 // OK
+var bar2: Bar = Bar.factory();
 // OK
 // NB: Don\'t write expected errors using Foo to avoid error collapse hiding an
 // unexpected failure in the above code.
-// error: Baz is not a runtime binding in this scope
-// error: Qux is not a type in this scope
-// OK: anon classes create no binding, but can be bound manually
-// error: bad pun
-// error: bad pun
-var Bar = class Foo {
-  static factory(): Foo {
-    return new Foo();
-  }
-};
-var bar1: Bar = new Bar();
-var bar2: Bar = Bar.factory();
 var B = class Baz {};
 var b = new Baz();
+// error: Baz is not a runtime binding in this scope
 var C = class Qux {};
 var c: Qux = new C();
+// error: Qux is not a type in this scope
+// OK: anon classes create no binding, but can be bound manually
 var Anon = class {};
 var anon: Anon = new Anon();
+
 class Alias {}
 var _Alias = class Alias {
   static factory(): Alias {
@@ -204,8 +210,8 @@ var _Alias = class Alias {
   }
 };
 var alias1: Alias = new _Alias();
-var alias2: Alias = _Alias.factory();
-"
+// error: bad pun
+var alias2: Alias = _Alias.factory(); // error: bad pun"
 `;
 
 exports[`test loc.js 1`] = `
@@ -216,10 +222,10 @@ type Foo = number
 class Foo {} // error, shadows type Foo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-// error, shadows type Foo
+
 type Foo = number;
-class Foo {}
-"
+
+class Foo {} // error, shadows type Foo"
 `;
 
 exports[`test statics.js 1`] = `
@@ -238,17 +244,17 @@ declare var o: {p:number};
 (o: Class<C>); // error, object type incompatible with class type
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-// Class static fields are compatible with object types
-// ok
-// errors, string ~> number & vice versa (unify)
-// error, object type incompatible with class type
+
 class C {
   static p: string;
 }
 C.p = \"hi\";
+
+// Class static fields are compatible with object types
 (C: { p: string });
+// ok
 (C: { p: number });
+// errors, string ~> number & vice versa (unify)
 declare var o: { p: number };
-(o: Class<C>);
-"
+(o: Class<C>); // error, object type incompatible with class type"
 `;

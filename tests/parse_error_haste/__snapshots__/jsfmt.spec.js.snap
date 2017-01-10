@@ -16,12 +16,11 @@ var C = require(\"./ParseError\"); // Flow file
  * triggering/suppressing parse errors.
  * @flow
  */
+
 // non-flow files should not show parse errors
-// non-Flow file @providesModule Foo
-// non-Flow file
-// Flow file
 var A = require(\"Foo\");
+// non-Flow file @providesModule Foo
 var B = require(\"./NoProvides\");
-var C = require(\"./ParseError\");
-"
+// non-Flow file
+var C = require(\"./ParseError\"); // Flow file"
 `;

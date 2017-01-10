@@ -4,6 +4,6 @@ exports[`test testmodule.js 1`] = `
 export let test = 42;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-export let test = 42;
-"
+
+export let test = 42;"
 `;

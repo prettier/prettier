@@ -129,129 +129,140 @@ for (var x of examples.delegate_yield_iterable([])) {
   (x : string) // error: number ~> string
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// ok
-// error: string ~> number
-// ok
-// error: number ~> string
-// ok
-// error: string ~> number
-// error: number ~> boolean
-// ok, sherlock
-// error: string ~> number
-// error: string ~> number
-// only generators can make use of a value passed to next
-// ok: Iterator has no yield value
-// error: number ~> string
-// error: number ~> boolean
-// error: string ~> boolean
-// ok, sherlock
-// error: string ~> number
-// error: Iterator has no next value
-// error: number ~> string
 class GeneratorExamples {
   *stmt_yield(): Generator<number, void, void> {
     yield 0;
-    yield \"\";
+    // ok
+    yield \"\"; // error: string ~> number
   }
+
   *stmt_next(): Generator<void, void, number> {
     var a = yield;
     if (a) {
-      (a: number);
+      (a: number); // ok
     }
+
     var b = yield;
     if (b) {
-      (b: string);
+      (b: string); // error: number ~> string
     }
   }
+
   *stmt_return_ok(): Generator<void, number, void> {
-    return 0;
+    return 0; // ok
   }
+
   *stmt_return_err(): Generator<void, number, void> {
-    return \"\";
+    return \"\"; // error: string ~> number
   }
+
   *infer_stmt() {
     var x: boolean = yield 0;
+    // error: number ~> boolean
     return \"\";
   }
+
   *widen_next() {
     var x = yield 0;
     if (typeof x === \"number\") {}
     else if (typeof x === \"boolean\") {}
     else {
-      (x: string);
+      (x: string); // ok, sherlock
     }
   }
+
   *widen_yield() {
     yield 0;
     yield \"\";
     yield true;
   }
+
   *delegate_next_generator() {
     function* inner() {
-      var x: number = yield;
+      var x: number = yield; // error: string ~> number
     }
     yield* inner();
   }
+
   *delegate_yield_generator() {
     function* inner() {
       yield \"\";
     }
+
     yield* inner();
   }
+
   *delegate_return_generator() {
     function* inner() {
       return \"\";
     }
-    var x: number = yield* inner();
+
+    var x: number = yield* inner(); // error: string ~> number
   }
+
+  // only generators can make use of a value passed to next
   *delegate_next_iterable(xs: Array<number>) {
     yield* xs;
   }
+
   *delegate_yield_iterable(xs: Array<number>) {
     yield* xs;
   }
+
   *delegate_return_iterable(xs: Array<number>) {
-    var x: void = yield* xs;
+    var x: void = yield* xs; // ok: Iterator has no yield value
   }
+
   *generic_yield<Y>(y: Y): Generator<Y, void, void> {
     yield y;
   }
+
   *generic_return<R>(r: R): Generator<void, R, void> {
     return r;
   }
+
   *generic_next<N>(): Generator<void, N, N> {
     return yield undefined;
   }
 }
+
 var examples = new GeneratorExamples();
+
 for (var x of examples.infer_stmt()) {
   (x: string);
 }
+// error: number ~> string
 var infer_stmt_next = examples.infer_stmt().next(0).value;
+// error: number ~> boolean
 if (typeof infer_stmt_next === \"undefined\") {}
 else if (typeof infer_stmt_next === \"number\") {}
 else {
-  (infer_stmt_next: boolean);
+  (infer_stmt_next: boolean); // error: string ~> boolean
 }
+
 examples.widen_next().next(0);
 examples.widen_next().next(\"\");
 examples.widen_next().next(true);
+
 for (var x of examples.widen_yield()) {
   if (typeof x === \"number\") {}
   else if (typeof x === \"boolean\") {}
   else {
-    (x: string);
+    (x: string); // ok, sherlock
   }
 }
+
 examples.delegate_next_generator().next(\"\");
+
 for (var x of examples.delegate_yield_generator()) {
-  (x: number);
+  (x: number); // error: string ~> number
 }
+
 examples.delegate_next_iterable([]).next(\"\");
+// error: Iterator has no next value
 for (var x of examples.delegate_yield_iterable([])) {
-  (x: string);
-}
-"
+  (x: string); // error: number ~> string
+}"
 `;
 
 exports[`test class_failure.js 1`] = `
@@ -277,27 +288,28 @@ if (typeof infer_stmt_next === \"undefined\") {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // generalization of failure in class.js
-// error: number ~> boolean
-// error: number ~> string
-// error: number ~> boolean
-// error: string ~> boolean
+
 class GeneratorExamples<X> {
   *infer_stmt() {
     var x: boolean = yield 0;
+    // error: number ~> boolean
     return \"\";
   }
 }
+
 var examples = new GeneratorExamples();
+
 for (var x of examples.infer_stmt()) {
   (x: string);
 }
+// error: number ~> string
 var infer_stmt_next = examples.infer_stmt().next(0).value;
+// error: number ~> boolean
 if (typeof infer_stmt_next === \"undefined\") {}
 else if (typeof infer_stmt_next === \"number\") {}
 else {
-  (infer_stmt_next: boolean);
-}
-"
+  (infer_stmt_next: boolean); // error: string ~> boolean
+}"
 `;
 
 exports[`test generators.js 1`] = `
@@ -431,45 +443,32 @@ if (multiple_return_result.done) {
   (multiple_return_result.value: void); // error: number|string ~> void
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// ok
-// error: string ~> number
-// ok
-// error: number ~> string
-// ok
-// error: string ~> number
-// error: number ~> string
-// error: number ~> boolean
-// error: string ~> boolean
-// ok, sherlock
-// ok, sherlock
-// error: string ~> number
-// error: string ~> number
-// error: string ~> number
-// only generators can make use of a value passed to next
-// error: Iterator has no next value
-// error: number ~> string
-// ok: Iterator has no yield value
-// error: number|string ~> void
 function* stmt_yield(): Generator<number, void, void> {
   yield 0;
-  yield \"\";
+  // ok
+  yield \"\"; // error: string ~> number
 }
+
 function* stmt_next(): Generator<void, void, number> {
   var a = yield;
   if (a) {
-    (a: number);
+    (a: number); // ok
   }
+
   var b = yield;
   if (b) {
-    (b: string);
+    (b: string); // error: number ~> string
   }
 }
+
 function* stmt_return_ok(): Generator<void, number, void> {
-  return 0;
+  return 0; // ok
 }
+
 function* stmt_return_err(): Generator<void, number, void> {
-  return \"\";
+  return \"\"; // error: string ~> number
 }
+
 function* infer_stmt() {
   var x: boolean = yield 0;
   return \"\";
@@ -477,23 +476,27 @@ function* infer_stmt() {
 for (var x of infer_stmt()) {
   (x: string);
 }
+// error: number ~> string
 var infer_stmt_next = infer_stmt().next(0).value;
+// error: number ~> boolean
 if (typeof infer_stmt_next === \"undefined\") {}
 else if (typeof infer_stmt_next === \"number\") {}
 else {
-  (infer_stmt_next: boolean);
+  (infer_stmt_next: boolean); // error: string ~> boolean
 }
+
 function* widen_next() {
   var x = yield 0;
   if (typeof x === \"number\") {}
   else if (typeof x === \"boolean\") {}
   else {
-    (x: string);
+    (x: string); // ok, sherlock
   }
 }
 widen_next().next(0);
 widen_next().next(\"\");
 widen_next().next(true);
+
 function* widen_yield() {
   yield 0;
   yield \"\";
@@ -503,53 +506,66 @@ for (var x of widen_yield()) {
   if (typeof x === \"number\") {}
   else if (typeof x === \"boolean\") {}
   else {
-    (x: string);
+    (x: string); // ok, sherlock
   }
 }
+
 function* delegate_next_generator() {
   function* inner() {
-    var x: number = yield;
+    var x: number = yield; // error: string ~> number
   }
   yield* inner();
 }
 delegate_next_generator().next(\"\");
+
 function* delegate_yield_generator() {
   function* inner() {
     yield \"\";
   }
+
   yield* inner();
 }
 for (var x of delegate_yield_generator()) {
-  (x: number);
+  (x: number); // error: string ~> number
 }
+
 function* delegate_return_generator() {
   function* inner() {
     return \"\";
   }
-  var x: number = yield* inner();
+
+  var x: number = yield* inner(); // error: string ~> number
 }
+
+// only generators can make use of a value passed to next
 function* delegate_next_iterable(xs: Array<number>) {
   yield* xs;
 }
 delegate_next_iterable([]).next(\"\");
+// error: Iterator has no next value
 function* delegate_yield_iterable(xs: Array<number>) {
   yield* xs;
 }
 for (var x of delegate_yield_iterable([])) {
-  (x: string);
+  (x: string); // error: number ~> string
 }
+
 function* delegate_return_iterable(xs: Array<number>) {
-  var x: void = yield* xs;
+  var x: void = yield* xs; // ok: Iterator has no yield value
 }
+
 function* generic_yield<Y>(y: Y): Generator<Y, void, void> {
   yield y;
 }
+
 function* generic_return<R>(r: R): Generator<void, R, void> {
   return r;
 }
+
 function* generic_next<N>(): Generator<void, N, N> {
   return yield undefined;
 }
+
 function* multiple_return(b) {
   if (b) {
     return 0;
@@ -559,9 +575,8 @@ function* multiple_return(b) {
 }
 let multiple_return_result = multiple_return().next();
 if (multiple_return_result.done) {
-  (multiple_return_result.value: void);
-}
-"
+  (multiple_return_result.value: void); // error: number|string ~> void
+}"
 `;
 
 exports[`test return.js 1`] = `
@@ -587,16 +602,15 @@ if (refuse_return_result.done) {
   (refuse_return_result.value: string); // error: number | void ~> string
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// You can pass whatever you like to return, it doesn\'t need to be related to
-// the Generator\'s return type
-// error: string | number ~> void
+function test1(gen: Generator<void, string, void>) {
+  // You can pass whatever you like to return, it doesn\'t need to be related to
+  // the Generator\'s return type
+  var ret = gen.return(0);
+  (ret.value: void); // error: string | number ~> void
+}
+
 // However, a generator can \"refuse\" the return by catching an exception and
 // yielding or returning internally.
-// error: number | void ~> string
-function test1(gen: Generator<void, string, void>) {
-  var ret = gen.return(0);
-  (ret.value: void);
-}
 function* refuse_return() {
   try {
     yield 1;
@@ -607,9 +621,8 @@ function* refuse_return() {
 var refuse_return_gen = refuse_return();
 var refuse_return_result = refuse_return_gen.return(\"string\");
 if (refuse_return_result.done) {
-  (refuse_return_result.value: string);
-}
-"
+  (refuse_return_result.value: string); // error: number | void ~> string
+}"
 `;
 
 exports[`test throw.js 1`] = `
@@ -639,8 +652,6 @@ if (yield_return_value !== undefined) {
   (yield_return_value: string); // error: number ~> string
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// error: number ~> string
-// error: number ~> string
 function* catch_return() {
   try {
     yield 0;
@@ -648,10 +659,12 @@ function* catch_return() {
     return e;
   }
 }
+
 var catch_return_value = catch_return().throw(\"\").value;
 if (catch_return_value !== undefined) {
-  (catch_return_value: string);
+  (catch_return_value: string); // error: number ~> string
 }
+
 function* yield_return() {
   try {
     yield 0;
@@ -662,9 +675,8 @@ function* yield_return() {
 }
 var yield_return_value = yield_return().throw(\"\").value;
 if (yield_return_value !== undefined) {
-  (yield_return_value: string);
-}
-"
+  (yield_return_value: string); // error: number ~> string
+}"
 `;
 
 exports[`test variance.js 1`] = `
@@ -672,6 +684,5 @@ exports[`test variance.js 1`] = `
 var g2: Generator<?string, ?string, string> = g1;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare var g1: Generator<string, string, ?string>;
-var g2: Generator<?string, ?string, string> = g1;
-"
+var g2: Generator<?string, ?string, string> = g1;"
 `;

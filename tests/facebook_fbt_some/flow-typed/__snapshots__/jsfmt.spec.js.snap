@@ -1,6 +1,5 @@
 exports[`test fbt.js 1`] = `
 "type Fbt = number
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-type Fbt = number;
-"
+type Fbt = number;"
 `;

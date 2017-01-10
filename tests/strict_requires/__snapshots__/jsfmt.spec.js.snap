@@ -3,8 +3,7 @@ exports[`test A.js 1`] = `
 module.exports = 0;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-module.exports = 0;
-"
+module.exports = 0;"
 `;
 
 exports[`test B.js 1`] = `
@@ -12,8 +11,7 @@ exports[`test B.js 1`] = `
 module.exports = { foo: \"\" }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-module.exports = { foo: \"\" };
-"
+module.exports = { foo: \"\" };"
 `;
 
 exports[`test C.js 1`] = `
@@ -26,8 +24,7 @@ module.exports = o;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 var o = { A: require(\"./A\"), ...require(\"./B\") };
-module.exports = o;
-"
+module.exports = o;"
 `;
 
 exports[`test D.js 1`] = `
@@ -41,6 +38,5 @@ C.A = false;
 var C = require(\"./C\");
 var x: number = C.foo;
 var y: string = C.A;
-C.A = false;
-"
+C.A = false;"
 `;

@@ -6,9 +6,10 @@ class A extends B { }
 module.exports = A;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var B = require(\"./B\");
+
 class A extends B {}
-module.exports = A;
-"
+
+module.exports = A;"
 `;
 
 exports[`test B.js 1`] = `
@@ -18,8 +19,8 @@ exports[`test B.js 1`] = `
 
 module.exports = B;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//class B extends A { }
 var A = require(\"./A\");
-module.exports = B;
-"
+
+//class B extends A { }
+module.exports = B;"
 `;

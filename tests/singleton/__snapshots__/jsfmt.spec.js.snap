@@ -38,21 +38,23 @@ function alwaysFalsy(x: boolean): false {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-// error
-// test bool conversion
-// error
-// error
+
 function veryOptimistic(isThisAwesome: true): boolean {
   return isThisAwesome;
 }
+
 var x: boolean = veryOptimistic(true);
 var y: boolean = veryOptimistic(false);
+// error
 function veryPessimistic(isThisAwesome: true): boolean {
-  return !isThisAwesome;
+  return !isThisAwesome; // test bool conversion
 }
+
 var x: boolean = veryPessimistic(true);
 var y: boolean = veryPessimistic(false);
+// error
 type MyOwnBooleanLOL = true | false;
+
 function bar(x: MyOwnBooleanLOL): false {
   if (x) {
     return x;
@@ -60,17 +62,18 @@ function bar(x: MyOwnBooleanLOL): false {
     return !x;
   }
 }
+
 bar(true);
 bar(false);
 bar(1);
+// error
 function alwaysFalsy(x: boolean): false {
   if (x) {
     return !x;
   } else {
     return x;
   }
-}
-"
+}"
 `;
 
 exports[`test number.js 1`] = `
@@ -99,25 +102,27 @@ function sort(fn: (x: any, y: any) => ComparatorResult) {}
 sort((x, y) => -1);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-// there can be only one!
-// error
-// error
+
 function highlander(howMany: 1): number {
-  return howMany;
+  return howMany; // there can be only one!
 }
+
 highlander(1);
 highlander(2);
+// error
 type Foo = 1 | 2;
+
 function bar(num: Foo): number {
   return num + 1;
 }
+
 bar(1);
 bar(2);
 bar(3);
+// error
 type ComparatorResult = -1 | 0 | 1;
 function sort(fn: (x: any, y: any) => ComparatorResult) {}
-sort((x, y) => -1);
-"
+sort((x, y) => -1);"
 `;
 
 exports[`test string.js 1`] = `
@@ -130,9 +135,10 @@ type HasSpaces = \"foo bar\"
 (\"foo bar\": HasSpaces);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
+
 type NoSpaces = \"foobar\";
 (\"foobar\": NoSpaces);
+
 type HasSpaces = \"foo bar\";
-(\"foo bar\": HasSpaces);
-"
+(\"foo bar\": HasSpaces);"
 `;

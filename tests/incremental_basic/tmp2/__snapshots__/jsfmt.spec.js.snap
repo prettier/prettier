@@ -5,6 +5,5 @@ module.exports = a;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 var a = 0;
-module.exports = a;
-"
+module.exports = a;"
 `;

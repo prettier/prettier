@@ -1,6 +1,5 @@
 exports[`test dino.js 1`] = `
 "declare type Dinosaur = \"T-Rex\" | \"Apatosaurus\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-type Dinosaur = \"T-Rex\" | \"Apatosaurus\";
-"
+type Dinosaur = \"T-Rex\" | \"Apatosaurus\";"
 `;

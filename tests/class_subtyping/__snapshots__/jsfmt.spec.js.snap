@@ -8,8 +8,8 @@ module.exports = { A, B };
 /* @flow */
 class A {}
 class B {}
-module.exports = { A, B };
-"
+
+module.exports = { A, B };"
 `;
 
 exports[`test test2.js 1`] = `
@@ -23,10 +23,11 @@ var y: I.B = new C();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 var I = require(\"./test.js\");
+
 class C extends I.A {}
+
 var x: I.A = new C();
-var y: I.B = new C();
-"
+var y: I.B = new C();"
 `;
 
 exports[`test test3.js 1`] = `
@@ -37,14 +38,13 @@ class C<X, Y, Z> extends B {}
 var c: C<number, string, Array<bool>> = new C; // none of the type args matter
 var a: A<string, number, Array<bool>> = c; // the third type arg is incorrect
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// none of the type args matter
-// the third type arg is incorrect
 class A<X, Y, Z> {}
 class B extends A<string, number, boolean> {}
 class C<X, Y, Z> extends B {}
+
 var c: C<number, string, Array<boolean>> = new C();
-var a: A<string, number, Array<boolean>> = c;
-"
+// none of the type args matter
+var a: A<string, number, Array<boolean>> = c; // the third type arg is incorrect"
 `;
 
 exports[`test test4.js 1`] = `
@@ -65,14 +65,18 @@ foo(new D, { f_: 0 });
 class C<X> {
   x: X;
 }
+
 function foo<X>(c: C<X>, x: X) {}
+
 type O = { f: number };
+
 foo((new C(): C<O>), { f_: 0 });
+
 class D extends C<O> {
   bar() {
     this.x;
   }
 }
-foo(new D(), { f_: 0 });
-"
+
+foo(new D(), { f_: 0 });"
 `;

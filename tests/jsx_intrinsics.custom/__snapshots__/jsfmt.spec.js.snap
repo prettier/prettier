@@ -18,20 +18,23 @@ var c: React.Element<{id: string}> = <div id=\"asdf\" />;
 var d: React.Element<{id: number}> = <div id=\"asdf\" />; // Error: Props<{id:string}> ~> Props<{id:number}>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-/* Error: Props<{prop}> ~> Props<{prop1}>*/
-// Error: (\`id\` prop) number ~> string
-// Error: Props<{id:string}> ~> Props<{id:number}>
+
 var React = require(\"react\");
+
 class CustomComponent extends React.Component {
   props: { prop: string };
 }
-var a: React.Element<{ prop: string }> = <CustomComponent prop=\"asdf\"/>;
-var b: React.Element<{ prop1: string }> = <CustomComponent prop=\"asdf\"/>;
-<div id=\"asdf\"/>;
-<div id={42}/>;
-var c: React.Element<{ id: string }> = <div id=\"asdf\"/>;
-var d: React.Element<{ id: number }> = <div id=\"asdf\"/>;
-"
+
+var a: React.Element<{ prop: string }> = <CustomComponent prop=\"asdf\" />;
+var b: React.Element<{ prop1: string }> = <CustomComponent prop=\"asdf\" />;
+/* Error: Props<{prop}> ~> Props<{prop1}>*/
+<div id=\"asdf\" />;
+<div id={42} />;
+// Error: (\`id\` prop) number ~> string
+var c: React.Element<{ id: string }> = <div id=\"asdf\" />;
+var d: React.Element<{
+  id: number
+}> = <div id=\"asdf\" />; // Error: Props<{id:string}> ~> Props<{id:number}>"
 `;
 
 exports[`test strings.js 1`] = `
@@ -55,24 +58,25 @@ React.createElement(Str, {}); // Error: string ~> keys of JSXIntrinsics
 <Div id={42} />; // Not an error but should be eventually
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-/* This is fine*/
-/* Error: \'bad\' not in JSXIntrinsics*/
-// Error: string ~> keys of JSXIntrinsics
-// This is fine
-// Error: \'bad\' not in JSXIntrinsics
-/* Error: string ~> keys of JSXIntrinsics*/
-/* TODO: Make this an error*/
-// Not an error but should be eventually
+
 var React = require(\"react\");
+
 var Div = \"div\";
 var Bad = \"bad\";
 var Str: string = \"str\";
-<Div/>;
-<Bad/>;
-<Str/>;
+
+<Div />;
+/* This is fine*/
+<Bad />;
+/* Error: \'bad\' not in JSXIntrinsics*/
+<Str />;
+// Error: string ~> keys of JSXIntrinsics
 React.createElement(\"div\", {});
+// This is fine
 React.createElement(\"bad\", {});
+// Error: \'bad\' not in JSXIntrinsics
 React.createElement(Str, {});
-<Div id={42}/>;
-"
+/* Error: string ~> keys of JSXIntrinsics*/
+/* TODO: Make this an error*/
+<Div id={42} />; // Not an error but should be eventually"
 `;

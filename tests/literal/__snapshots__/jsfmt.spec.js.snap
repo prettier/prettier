@@ -7,8 +7,8 @@ exports[`test enum.js 1`] = `
 module.exports = APIKeys;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var APIKeys = { AGE: \"age\", NAME: \"name\" };
-module.exports = APIKeys;
-"
+
+module.exports = APIKeys;"
 `;
 
 exports[`test enum_client.js 1`] = `
@@ -34,30 +34,28 @@ var indices = { red: 0, green: 1, blue: 2 };
 var tuple = [42, \"hello\", false];
 var red:string = tuple[indices.red]; // error: tuple[0] is a number
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// object that maps \"AGE\" to \"age\", \"NAME\" to \"name\"
-// error
-// not an error: APIKeys.AGE = \"age\"
-// error: since \"NAME\" is not in the smaller enum
-// i.e., object.age = 123
-// i.e., object.name = \"FOO\"
-// error: object.name is a string
-// error: tuple[0] is a number
 var APIKeys = require(\"./enum\");
+// object that maps \"AGE\" to \"age\", \"NAME\" to \"name\"
 function foo(x: $Keys<typeof APIKeys>) {}
 foo(\"AGE\");
 foo(\"LOCATION\");
+// error
 function bar(x: $Keys<{ age: number }>) {}
 bar(APIKeys.AGE);
+// not an error: APIKeys.AGE = \"age\"
 bar(APIKeys.NAME);
+// error: since \"NAME\" is not in the smaller enum
 var object = {};
 object[APIKeys.AGE] = 123;
+// i.e., object.age = 123
 object[APIKeys.NAME] = \"FOO\";
+// i.e., object.name = \"FOO\"
 var age: number = object[APIKeys.AGE];
 var name: number = object[APIKeys.NAME];
+// error: object.name is a string
 var indices = { red: 0, green: 1, blue: 2 };
 var tuple = [ 42, \"hello\", false ];
-var red: string = tuple[indices.red];
-"
+var red: string = tuple[indices.red]; // error: tuple[0] is a number"
 `;
 
 exports[`test number.js 1`] = `
@@ -85,14 +83,16 @@ function test4(flip_times: number): number {
   return x;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// sanity checks to make sure merging envs doesn\'t keep creating new NumT\'s
-// because of the UnaryMinusT\'s, causing nontermination
 function test1(x: number): number {
   return -x;
 }
+
 function test2(x: string): number {
   return -x;
 }
+
+// sanity checks to make sure merging envs doesn\'t keep creating new NumT\'s
+// because of the UnaryMinusT\'s, causing nontermination
 function test3(x: number, flip_times: number): number {
   for (var i = 0; i < flip_times; i++) {
     x = -x;
@@ -105,6 +105,5 @@ function test4(flip_times: number): number {
     x = -x;
   }
   return x;
-}
-"
+}"
 `;

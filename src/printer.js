@@ -1551,8 +1551,6 @@ function genericPrintNoParens(path, options, print) {
 }
 
 function printStatementSequence(path, options, print) {
-  let inClassBody = namedTypes.ClassBody &&
-    namedTypes.ClassBody.check(path.getParentNode());
   let printed = [];
 
   path.map(function(stmtPath, i) {
@@ -1571,11 +1569,13 @@ function printStatementSequence(path, options, print) {
     }
 
     const stmtPrinted = print(stmtPath);
+    const text = options.originalText;
     const parts = [];
 
     parts.push(stmtPrinted);
 
-    if (shouldAddSpacing(stmt, options) && !isLastStatement(stmtPath)) {
+    if (util.newlineExistsAfter(text, util.locEnd(stmt)) &&
+        !isLastStatement(stmtPath)) {
       parts.push(hardline);
     }
 
@@ -2006,11 +2006,6 @@ function nodeStr(str, options) {
   } else {
     return JSON.stringify(str);
   }
-}
-
-function shouldAddSpacing(node, options) {
-  const text = options.originalText;
-  return util.newlineExistsAfter(text, util.locEnd(node));
 }
 
 function isFirstStatement(path) {

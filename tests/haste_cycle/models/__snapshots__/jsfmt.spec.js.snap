@@ -4,8 +4,8 @@ exports[`test OpenGraphAction.js 1`] = `
 var OpenGraphValueContainer = require(\'./OpenGraphValueContainer.js\');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-var OpenGraphValueContainer = require(\"./OpenGraphValueContainer.js\");
-"
+
+var OpenGraphValueContainer = require(\"./OpenGraphValueContainer.js\");"
 `;
 
 exports[`test OpenGraphObject.js 1`] = `
@@ -14,8 +14,8 @@ exports[`test OpenGraphObject.js 1`] = `
 var OpenGraphValueContainer = require(\'./OpenGraphValueContainer.js\');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-var OpenGraphValueContainer = require(\"./OpenGraphValueContainer.js\");
-"
+
+var OpenGraphValueContainer = require(\"./OpenGraphValueContainer.js\");"
 `;
 
 exports[`test OpenGraphValueContainer.js 1`] = `
@@ -24,6 +24,6 @@ exports[`test OpenGraphValueContainer.js 1`] = `
 var OpenGraphObject = require(\'./OpenGraphObject.js\');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-var OpenGraphObject = require(\"./OpenGraphObject.js\");
-"
+
+var OpenGraphObject = require(\"./OpenGraphObject.js\");"
 `;

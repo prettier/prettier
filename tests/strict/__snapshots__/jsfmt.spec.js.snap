@@ -10,6 +10,7 @@ class B extends A {
 module.exports = B;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var A = require(\"./unknown_class\");
+
 class B extends A {
   foo(x: A): A {
     return x;
@@ -19,8 +20,8 @@ class B extends A {
     return x;
   }
 }
-module.exports = B;
-"
+
+module.exports = B;"
 `;
 
 exports[`test fun.js 1`] = `
@@ -41,15 +42,17 @@ module.exports = f;
 /**
  * @flow
  */
+
 // progressively annotate:
+
 //function f(x) { return x; }
-//function f(x:number):string { return x; }
 function f(x: number) {
   return x;
 }
+//function f(x:number):string { return x; }
 var x: string = f(0);
-module.exports = f;
-"
+
+module.exports = f;"
 `;
 
 exports[`test obj.js 1`] = `
@@ -69,10 +72,12 @@ module.exports = o;
 /**
  * @flow
  */
+
 // progressively annotate:
-//var o: {x: number;} = { x: 0 }
+
 var o = { x: 0 };
+//var o: {x: number;} = { x: 0 }
 var x: string = o.x;
-module.exports = o;
-"
+
+module.exports = o;"
 `;

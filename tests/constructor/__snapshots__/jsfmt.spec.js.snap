@@ -12,9 +12,10 @@ module.exports = C;
 class C {
   constructor() {}
 }
+
 class D {
   constructor(): number {}
 }
-module.exports = C;
-"
+
+module.exports = C;"
 `;

@@ -42,53 +42,55 @@ function test2(): number { return 0; }
 (test2.apply(): number);
 (test2.apply(\"\"): number);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// expect []/\"\" this
+function test(a: string, b: number): number {
+  return this.length; // expect []/\"\" this
+}
+
 // tuples flow correctly into params
+test.apply(\"\", [ \"\", 0 ]);
+
 // wrong this is an error
+test.apply(0, [ \"\", 0 ]);
 // error: lookup \`length\` on Number
 // not enough arguments is an error (via incompatible RestT)
+test.apply(\"\", [ \"\" ]);
 // error: string ~> number
 // mistyped arguments is an error
+test.apply(\"\", [ \"\", \"\" ]);
 // error: string ~> number (2nd arg)
+test.apply(\"\", [ 0, 0 ]);
 // error: number ~> string (1st arg)
 // resolve args array from tvar
+function f(args) {
+  test.apply(\"\", args);
+}
+f([ \"\", 0 ]);
 // OK
+f([ \"\", \"\" ]);
 // error: string ~> number (2nd arg)
+f([ 0, 0 ]);
 // error: number ~> string (1st arg)
 // expect array
+test.apply(\"\", \"not array\");
 // error: expect array of args
 // expect 4 errors:
 // - lookup length on Number (because 0 is used as \`this\`)
 // - 123 is not a string
 // - \'foo\' is not a number
 // - return type (number) is not void
+(test.call.apply(test, [ 0, 123, \"foo\" ]): void);
+
 // expect 2 errors:
 // - lookup length on number (0 is used as \`this\`)
 // - 123 is not a string
-// args are optional
-function test(a: string, b: number): number {
-  return this.length;
-}
-test.apply(\"\", [ \"\", 0 ]);
-test.apply(0, [ \"\", 0 ]);
-test.apply(\"\", [ \"\" ]);
-test.apply(\"\", [ \"\", \"\" ]);
-test.apply(\"\", [ 0, 0 ]);
-function f(args) {
-  test.apply(\"\", args);
-}
-f([ \"\", 0 ]);
-f([ \"\", \"\" ]);
-f([ 0, 0 ]);
-test.apply(\"\", \"not array\");
-(test.call.apply(test, [ 0, 123, \"foo\" ]): void);
 (test.bind.apply(test, [ 0, 123 ]): (b: number) => number);
+
+// args are optional
 function test2(): number {
   return 0;
 }
 (test2.apply(): number);
-(test2.apply(\"\"): number);
-"
+(test2.apply(\"\"): number);"
 `;
 
 exports[`test bind.js 1`] = `
@@ -103,16 +105,15 @@ let tests = [
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-// ok
-// error, number !~> string
+
 let tests = [
   function(x: (a: string, b: string) => void) {
     let y = x.bind(x, \"foo\");
     y(\"bar\");
-    y(123);
+    // ok
+    y(123); // error, number !~> string
   }
-];
-"
+];"
 `;
 
 exports[`test call.js 1`] = `
@@ -153,45 +154,47 @@ function test2(): number { return 0; }
 (test2.call(\"\"): number);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-// expect []/\"\" this
+
+function test(a: string, b: number): number {
+  return this.length; // expect []/\"\" this
+}
+
 // args flow correctly into params
+test.call(\"\", \"\", 0);
+
 // wrong this is an error
+test.call(0, \"\", 0);
 // error: lookup \`length\` on Number
 // not enough arguments is an error (via incompatible RestT)
+test.call(\"\", \"\");
 // error: string ~> number
 // mistyped arguments is an error
+test.call(\"\", \"\", \"\");
 // error: string ~> number (2nd arg)
+test.call(\"\", 0, 0);
 // error: number ~> string (1st arg)
 // resolve args array from tvar
+function f(args) {
+  test.call(\"\", args[0], args[1]);
+}
+f([ \"\", 0 ]);
 // OK
+f([ \"\", \"\" ]);
 // error: string ~> number (2nd arg)
+f([ 0, 0 ]);
 // error: number ~> string (1st arg)
 // expect 3 errors:
 // - lookup length on Number (0 used as \`this\`)
 // - number !~> string (param a)
 // - string !~> number (param b)
-// args are optional
-function test(a: string, b: number): number {
-  return this.length;
-}
-test.call(\"\", \"\", 0);
-test.call(0, \"\", 0);
-test.call(\"\", \"\");
-test.call(\"\", \"\", \"\");
-test.call(\"\", 0, 0);
-function f(args) {
-  test.call(\"\", args[0], args[1]);
-}
-f([ \"\", 0 ]);
-f([ \"\", \"\" ]);
-f([ 0, 0 ]);
 (test.apply.call(test, 0, [ 0, \"foo\" ]): number);
+
+// args are optional
 function test2(): number {
   return 0;
 }
 (test2.call(): number);
-(test2.call(\"\"): number);
-"
+(test2.call(\"\"): number);"
 `;
 
 exports[`test function.js 1`] = `
@@ -265,76 +268,81 @@ var e = (d.bind(1): Function)();
 /**
  * @flow
  */
+
 // Previously we represented Function as (...rest: any) => any
 // This means the following wouldn\'t pass, because that arrow function
 // can only be called with 3 arguments.
-// Function is an Object
-// Error
-// Error
-// Object is not a Function
-// error, it\'s a number
-// error, it\'s a number
-// error, it\'s a number
-// error, it\'s a string
-// error, it\'s a string
-// error, it\'s a string
-// error, it\'s a number
-// error, it\'s a number
-// error, it\'s a number
-// error, it\'s a string
-// error, it\'s a string
-// error, it\'s a string
-// Non-(Function.prototype) properties on a \`Function\` type should be \`any\`
-// \`Function\` types can be bound (resulting in a \`Function\` type)
 var a: Function = (a, b, c) => 123;
+
 var b: Function = function(a: number, b: number): number {
   return a + b;
 };
+
 class C {}
+
 var c: Function = C;
+
 function good(x: Function, MyThing: Function): number {
   var o: Object = x;
+  // Function is an Object
   x.foo = 123;
   x[\"foo\"] = 456;
   x();
-  <MyThing/>;
+  <MyThing />;
   var { ...something } = x;
   Object.assign(x, { hi: \"there\" });
   Object.keys(x);
   return x.bar + x[\"bar\"] + x.lala();
 }
+
 function bad(x: Function, y: Object): void {
   var a: number = x;
+  // Error
   var b: string = x;
-  var c: Function = y;
+  // Error
+  var c: Function = y; // Object is not a Function
 }
+
 let tests = [
   function(y: () => void, z: Function) {
     function x() {}
     (x.length: void);
+    // error, it\'s a number
     (y.length: void);
+    // error, it\'s a number
     (z.length: void);
+    // error, it\'s a number
     (x.name: void);
+    // error, it\'s a string
     (y.name: void);
-    (z.name: void);
+    // error, it\'s a string
+    (z.name: void); // error, it\'s a string
   },
   function(y: () => void, z: Function) {
     function x() {}
     x.length = \"foo\";
+    // error, it\'s a number
     y.length = \"foo\";
+    // error, it\'s a number
     z.length = \"foo\";
+    // error, it\'s a number
     x.name = 123;
+    // error, it\'s a string
     y.name = 123;
+    // error, it\'s a string
     z.name = 123;
+    // error, it\'s a string
+    // Non-(Function.prototype) properties on a \`Function\` type should be \`any\`
     (z.foo: number);
     (z.foo: string);
   }
 ];
+
+// \`Function\` types can be bound (resulting in a \`Function\` type)
 var d: Function = () => 1;
 var e = (d.bind(1): Function)();
 (e: number);
-(e: string);
-"
+(e: string);"
 `;
 
 exports[`test rest.js 1`] = `
@@ -359,19 +367,22 @@ function rest_t<U, T: Array<U>>(...xs: T): U {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* regression tests */
-// Warn, singleton tuple types don\'t represent rest params
-// Warn, arbitrary subtypes of an array type don\'t represent rest params
+
 function rest_array<T>(...xs: Array<T>): T {
   return xs[0];
 }
+
+// Warn, singleton tuple types don\'t represent rest params
 function rest_tuple<T>(...xs: [T]): T {
   return xs[0];
 }
+
 function rest_any(...xs: any): any {
   return xs[0];
 }
+
+// Warn, arbitrary subtypes of an array type don\'t represent rest params
 function rest_t<U, T: Array<U>>(...xs: T): U {
   return xs[0];
-}
-"
+}"
 `;

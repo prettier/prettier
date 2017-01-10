@@ -37,10 +37,15 @@ function utf16Length(str, pos) {
 /**
  * @flow
  */
+
 /**
  * @param {number} codeUnit   A Unicode code-unit, in range [0, 0x10FFFF]
  * @return {boolean}      Whether code-unit is in a surrogate (hi/low) range
  */
+function inSurrogateRange(codeUnit) {
+  return 55296 <= codeUnit && codeUnit <= 57343;
+}
+
 /**
  * Return the length of the original Unicode character at given position in the
  * String by looking into the UTF-16 code unit; that is equal to 1 for any
@@ -59,11 +64,7 @@ function utf16Length(str, pos) {
  * @param {number} pos  Position in the string to look for one code unit
  * @return {number}      Number 1 or 2
  */
-function inSurrogateRange(codeUnit) {
-  return 55296 <= codeUnit && codeUnit <= 57343;
-}
 function utf16Length(str, pos) {
   return 1 + inSurrogateRange(str.charCodeAt(pos));
-}
-"
+}"
 `;

@@ -27,6 +27,7 @@ function baz(x): number {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
+
 function foo(x): number {
   switch (x) {
   case 0:
@@ -36,6 +37,7 @@ function foo(x): number {
     throw new Error(\"hi\");
   }
 }
+
 function bar(x) {
   switch (x) {
   case 0:
@@ -45,6 +47,7 @@ function bar(x) {
   }
   1;
 }
+
 function baz(x): number {
   switch (x) {
   case 0:
@@ -55,8 +58,7 @@ function baz(x): number {
     throw new Error(\"hi\");
   }
   return 2;
-}
-"
+}"
 `;
 
 exports[`test switch.js 1`] = `
@@ -101,6 +103,7 @@ function foo(): number {
   }
   return 2;
 }
+
 function bar() {
   switch (\"bar\") {
   case \"bar\":
@@ -109,6 +112,7 @@ function bar() {
     break;
   }
 }
+
 function qux(b) {
   var x = b ? 0 : \"\";
   switch (\"qux\") {
@@ -117,8 +121,7 @@ function qux(b) {
   case \"qux\":
     x = x * x;
   }
-}
-"
+}"
 `;
 
 exports[`test switch_default_fallthrough.js 1`] = `
@@ -173,36 +176,32 @@ function baz(x: mixed): number {
 /**
  * @flow
  */
-// a is now string | number
-// error, string | number ~/> string
-// error, string | number ~/> number
-// b is now number
-// ok
-// error, number ~/> string
-// a is now string | number
-// error, string | number ~/> string
-// error, string | number ~/> number
-// b is now string | number
-// error, string | number ~/> string
-// error, string | number ~/> number
-// error, string ~/> number
 function foo(x: mixed): string {
   var a = \"\";
   var b = \"\";
+
   switch (x) {
   case \"foo\":
     a = 0;
   default:
     b = 0;
   }
+
+  // a is now string | number
   (a: string);
+  // error, string | number ~/> string
   (a: number);
+  // error, string | number ~/> number
+  // b is now number
   (b: number);
-  return b;
+  // ok
+  return b; // error, number ~/> string
 }
+
 function baz(x: mixed): number {
   var a = \"\";
   var b = \"\";
+
   switch (x) {
   case \"baz\":
     a = 0;
@@ -212,13 +211,19 @@ function baz(x: mixed): number {
   default:
     b = 0;
   }
+
+  // a is now string | number
   (a: string);
+  // error, string | number ~/> string
   (a: number);
+  // error, string | number ~/> number
+  // b is now string | number
   (b: string);
+  // error, string | number ~/> string
   (b: number);
-  return a + b;
-}
-"
+  // error, string | number ~/> number
+  return a + b; // error, string ~/> number
+}"
 `;
 
 exports[`test trailing_cases.js 1`] = `
@@ -307,13 +312,9 @@ function baz(x): number {
  * trailing cases are allowed - spot checks that we handle them as usual
  * @flow
  */
-// error, number | string ~/> number
-// does not fall through default
-// error, number | uninitialized ~/> number
-// falls through to subsequent cases
-// no error
 function f1(i) {
   var x;
+
   switch (i) {
   case 0:
     x = 0;
@@ -328,31 +329,41 @@ function f1(i) {
     x = \"2\";
     break;
   }
-  var y: number = x;
+
+  var y: number = x; // error, number | string ~/> number
 }
+
 function f2(i) {
   var x;
+
   switch (i) {
   case 0:
   case 1:
   default:
     x = 1;
     break;
+  // does not fall through default
   case 2:
   }
-  var y: number = x;
+
+  var y: number = x; // error, number | uninitialized ~/> number
 }
+
 function f3(i) {
   var x;
+
   switch (i) {
   case 0:
   case 1:
   default:
+  // falls through to subsequent cases
   case 2:
     x = 1;
   }
-  var y: number = x;
+
+  var y: number = x; // no error
 }
+
 function foo(x): number {
   switch (x) {
   case 0:
@@ -362,6 +373,7 @@ function foo(x): number {
     return 1;
   }
 }
+
 function bar(x) {
   switch (x) {
   default:
@@ -371,6 +383,7 @@ function bar(x) {
   }
   1;
 }
+
 function baz(x): number {
   switch (x) {
   case 0:
@@ -381,6 +394,5 @@ function baz(x): number {
     return 1;
   }
   return 2;
-}
-"
+}"
 `;

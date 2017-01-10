@@ -43,12 +43,11 @@ let tests = [
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+
 // Boolean (the class) tests. booleans (the literals) are not part of core.js
-// constructor
-// toString
-// valueOf
-// casting
+
 let tests = [
+  // constructor
   function() {
     new Boolean();
     new Boolean(0);
@@ -59,15 +58,18 @@ let tests = [
     new Boolean(undefined);
     new Boolean(\"\");
   },
+  // toString
   function() {
     true.toString();
     let x: boolean = false;
     x.toString();
     new Boolean(true).toString();
   },
+  // valueOf
   function() {
     (new Boolean(0).valueOf(): boolean);
   },
+  // casting
   function() {
     Boolean();
     Boolean(0);
@@ -78,8 +80,7 @@ let tests = [
     Boolean(undefined);
     Boolean(\"\");
   }
-];
-"
+];"
 `;
 
 exports[`test map.js 1`] = `
@@ -117,19 +118,15 @@ let tests = [
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-// good constructors
-// bad constructors
-// error
-// error
-// get()
-// error, string | void
-// error, wrong key type
+
 function* generator(): Iterable<[string, number]> {
   while (true) {
     yield [ \"foo\", 123 ];
   }
 }
+
 let tests = [
+  // good constructors
   function() {
     let w = new Map();
     let x = new Map(null);
@@ -139,16 +136,19 @@ let tests = [
     let b: Map<string, number> = new Map([ [ \"foo\", 123 ] ]);
     let c: Map<string, number> = new Map(generator());
   },
+  // bad constructors
   function() {
     let x = new Map([ \"foo\", 123 ]);
-    let y: Map<number, string> = new Map([ [ \"foo\", 123 ] ]);
+    // error
+    let y: Map<number, string> = new Map([ [ \"foo\", 123 ] ]); // error
   },
+  // get()
   function(x: Map<string, number>) {
     (x.get(\"foo\"): boolean);
-    x.get(123);
+    // error, string | void
+    x.get(123); // error, wrong key type
   }
-];
-"
+];"
 `;
 
 exports[`test regexp.js 1`] = `
@@ -183,38 +183,35 @@ let tests = [
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-// constructor
-// invalid in ES5, valid in ES6
-// invalid in ES5, valid in ES6
-// called as a function (equivalent to the constructor per ES6 21.2.3)
-// invalid in ES5, valid in ES6
-// invalid in ES5, valid in ES6
-// invalid flags
-// error
-// error
+
 let tests = [
+  // constructor
   function() {
     new RegExp(\"foo\");
     new RegExp(/foo/);
     new RegExp(\"foo\", \"i\");
     new RegExp(\"foo\", \"ig\");
     new RegExp(/foo/, \"i\");
-    new RegExp(/foo/g, \"i\");
+    // invalid in ES5, valid in ES6
+    new RegExp(/foo/g, \"i\"); // invalid in ES5, valid in ES6
   },
+  // called as a function (equivalent to the constructor per ES6 21.2.3)
   function() {
     RegExp(\"foo\");
     RegExp(/foo/);
     RegExp(\"foo\", \"i\");
     RegExp(\"foo\", \"ig\");
     RegExp(/foo/, \"i\");
-    RegExp(/foo/g, \"i\");
+    // invalid in ES5, valid in ES6
+    RegExp(/foo/g, \"i\"); // invalid in ES5, valid in ES6
   },
+  // invalid flags
   function() {
     RegExp(\"foo\", \"z\");
-    new RegExp(\"foo\", \"z\");
+    // error
+    new RegExp(\"foo\", \"z\"); // error
   }
-];
-"
+];"
 `;
 
 exports[`test weakset.js 1`] = `
@@ -256,11 +253,11 @@ function* numbers(): Iterable<number> {
 let ws5 = new WeakSet(numbers()); // error, must be objects
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-// error, must be objects
-// error, must be objects
+
 let ws = new WeakSet();
 let obj: Object = {};
 let dict: { foo: string } = { foo: \"bar\" };
+
 ws.add(window);
 ws.add(obj);
 ws.add(dict);
@@ -270,20 +267,25 @@ ws.has(dict);
 ws.delete(window);
 ws.delete(obj);
 ws.delete(dict);
+
 let ws2 = new WeakSet([ obj, dict ]);
+
 let ws3 = new WeakSet([ 1, 2, 3 ]);
+// error, must be objects
 function* generator(): Iterable<{ foo: string }> {
   while (true) {
     yield { foo: \"bar\" };
   }
 }
+
 let ws4 = new WeakSet(generator());
+
 function* numbers(): Iterable<number> {
   let i = 0;
   while (true) {
     yield i++;
   }
 }
-let ws5 = new WeakSet(numbers());
-"
+
+let ws5 = new WeakSet(numbers()); // error, must be objects"
 `;

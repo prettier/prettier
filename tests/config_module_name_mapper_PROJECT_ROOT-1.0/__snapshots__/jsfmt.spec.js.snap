@@ -7,9 +7,9 @@ var a: number = test;
 var b: string = test; // Error: number ~> string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-// Error: number ~> string
+
 import {test} from \"testmodule\";
+
 var a: number = test;
-var b: string = test;
-"
+var b: string = test; // Error: number ~> string"
 `;

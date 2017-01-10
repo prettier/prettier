@@ -32,49 +32,45 @@ let tests = [
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-// ok
-// ok
-// error
-// ok, number can be appended to string
-// error, object can\'t be appended
-// ok
-// ok
-// ok
-// ok
-// ok
-// ok
-// error
-// error
-// error
-// error
-// error
-// error
+
 (\`foo\`: string);
+// ok
 (\`bar\`: \"bar\");
+// ok
 (\`baz\`: number);
+// error
 \`foo \${123} bar\`;
+// ok, number can be appended to string
 \`foo \${{ bar: 123 }} baz\`;
+// error, object can\'t be appended
 let tests = [
   function(x: string) {
     \`foo \${x}\`;
+    // ok
     \`\${x} bar\`;
-    \`foo \${\"bar\"} \${x}\`;
+    // ok
+    \`foo \${\"bar\"} \${x}\`; // ok
   },
   function(x: number) {
     \`foo \${x}\`;
+    // ok
     \`\${x} bar\`;
-    \`foo \${\"bar\"} \${x}\`;
+    // ok
+    \`foo \${\"bar\"} \${x}\`; // ok
   },
   function(x: boolean) {
     \`foo \${x}\`;
+    // error
     \`\${x} bar\`;
-    \`foo \${\"bar\"} \${x}\`;
+    // error
+    \`foo \${\"bar\"} \${x}\`; // error
   },
   function(x: mixed) {
     \`foo \${x}\`;
+    // error
     \`\${x} bar\`;
-    \`foo \${\"bar\"} \${x}\`;
+    // error
+    \`foo \${\"bar\"} \${x}\`; // error
   }
-];
-"
+];"
 `;

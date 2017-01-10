@@ -3,6 +3,5 @@ exports[`test min.js 1`] = `
 module.exports.fun = (): Implementation => new Implementation;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class Implementation {}
-module.exports.fun = (): Implementation => new Implementation();
-"
+module.exports.fun = (): Implementation => new Implementation();"
 `;

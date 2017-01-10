@@ -21,8 +21,7 @@ function bar(x: boolean) {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-//console.log(\'this is still reachable\');
-//console.log(\'this is still reachable\');
+
 function foo(x: boolean) {
   var ii = 10;
   while (ii-- >= 0) {
@@ -31,14 +30,16 @@ function foo(x: boolean) {
     }
     return;
   }
+  //console.log(\'this is still reachable\');
 }
+
 function bar(x: boolean) {
   var ii = 0;
   while (ii > 0) {
     return;
   }
-}
-"
+  //console.log(\'this is still reachable\');
+}"
 `;
 
 exports[`test test.js 1`] = `
@@ -66,6 +67,5 @@ while (node) {
   var cloneable: C = node;
   blah();
   node = parent.m();
-}
-"
+}"
 `;

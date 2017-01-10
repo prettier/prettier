@@ -8,9 +8,10 @@ declare class Foo {
 export {Foo};
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+
 declare class Foo { bar?: () => string }
-export {Foo}
-"
+
+export {Foo}"
 `;
 
 exports[`test test.js 1`] = `
@@ -33,8 +34,6 @@ function f(x) {
 }
 f(foo);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// error, could be undefined
-// error. caused by \`f(foo)\`; annotate x to track it down.
 class C {
   C() {}
   foo() {}
@@ -46,12 +45,13 @@ class C {
 C.x;
 new C().foo.x;
 C.bar.x;
+
 import {Foo} from \"./exports_optional_prop\";
 const foo = new Foo();
 (foo.bar(): string);
+// error, could be undefined
 function f(x) {
-  (x.bar(): string);
+  (x.bar(): string); // error. caused by \`f(foo)\`; annotate x to track it down.
 }
-f(foo);
-"
+f(foo);"
 `;

@@ -17,21 +17,20 @@ function g() {
     foo = foo1;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// error: number !~> string
-// error: string !~> number
-// error: string !~> number
 var a = [ \"...\" ];
 var b = a.map(function(x) {
   return 0;
 });
 var c: string = b[0];
+// error: number !~> string
 var array = [];
 function f() {
   array = array.map(function() {
     return \"...\";
   });
-  var x: number = array[0];
+  var x: number = array[0]; // error: string !~> number
 }
+
 var Foo = require(\"./genericfoo\");
 var foo = new Foo();
 function g() {
@@ -39,9 +38,9 @@ function g() {
     return \"...\";
   });
   var x: number = foo1.get();
+  // error: string !~> number
   foo = foo1;
-}
-"
+}"
 `;
 
 exports[`test genericfoo.js 1`] = `
@@ -68,6 +67,6 @@ class Foo<T> {
     return this.x;
   }
 }
-module.exports = Foo;
-"
+
+module.exports = Foo;"
 `;

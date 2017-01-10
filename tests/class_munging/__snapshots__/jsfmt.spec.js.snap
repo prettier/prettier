@@ -18,18 +18,18 @@ class Bar extends Foo {
 /**
  * @flow
  */
-// error
+
 class Foo {
   _method(): string {
     return \"this is private\";
   }
 }
+
 class Bar extends Foo {
   test() {
-    (this._method(): string);
+    (this._method(): string); // error
   }
-}
-"
+}"
 `;
 
 exports[`test without_munging.js 1`] = `
@@ -54,16 +54,16 @@ class Bar extends Foo {
  * @flow
  * @preventMunge
  */
-// ok
+
 class Foo {
   _method(): string {
     return \"this is not private\";
   }
 }
+
 class Bar extends Foo {
   test() {
-    (this._method(): string);
+    (this._method(): string); // ok
   }
-}
-"
+}"
 `;

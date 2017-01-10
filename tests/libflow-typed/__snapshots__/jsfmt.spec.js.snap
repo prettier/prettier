@@ -3,6 +3,5 @@ exports[`test libtest.js 1`] = `
 const dino : Dinosaur = \"Stegosaurus\"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-const dino: Dinosaur = \"Stegosaurus\";
-"
+const dino: Dinosaur = \"Stegosaurus\";"
 `;

@@ -4,7 +4,6 @@ exports[`test baz.js 1`] = `
 var x: number = \"not a number\" // Error string ~> number
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-// Error string ~> number
-var x: number = \"not a number\";
-"
+
+var x: number = \"not a number\"; // Error string ~> number"
 `;

@@ -12,19 +12,19 @@ function bar(config: { foo?: number }) {}
 bar({});
 bar({foo: \"\"});
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// OK in TypeScript, not OK in Flow
-// OK; we know that narrowing could not have happened
-// future widening is constrained
 var x: {} = { foo: 0 };
 var y: { foo?: string } = x;
+// OK in TypeScript, not OK in Flow
 var z: string = y.foo || \"\";
+
 var o = {};
 y = o;
+// OK; we know that narrowing could not have happened
 o.foo = 0;
+// future widening is constrained
 function bar(config: { foo?: number }) {}
 bar({});
-bar({ foo: \"\" });
-"
+bar({ foo: \"\" });"
 `;
 
 exports[`test test2.js 1`] = `
@@ -42,25 +42,23 @@ var d: { foo?: string } = { foo: null }; // But this is an error
 var e: { foo?: ?string } = { foo: undefined }; // This is fine
 var f: { foo?: ?string } = { foo: null }; // Also fine
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// This is not an error
-// But this is an error
-// This is fine
-// Also fine
-// This is not an error
-// But this is an error
-// This is fine
-// Also fine
 var a: { foo?: string } = {};
 a.foo = undefined;
+// This is not an error
 a.foo = null;
+// But this is an error
 var b: { foo?: ?string } = {};
 b.foo = undefined;
+// This is fine
 b.foo = null;
+// Also fine
 var c: { foo?: string } = { foo: undefined };
+// This is not an error
 var d: { foo?: string } = { foo: null };
+// But this is an error
 var e: { foo?: ?string } = { foo: undefined };
-var f: { foo?: ?string } = { foo: null };
-"
+// This is fine
+var f: { foo?: ?string } = { foo: null }; // Also fine"
 `;
 
 exports[`test test3.js 1`] = `
@@ -122,6 +120,7 @@ class A {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+
 /*
    object literals are sealed. this is simply a heuristic
    decision: most of the time, the rule gives the \'right\'
@@ -142,37 +141,40 @@ class A {
    properties, is to have the sealed type acquire the optional
    properties.
  */
+
 // x has optional property b.
 // (note that the initializer here does not play into
 // the problem, it\'s just a placeholder. initializers
 // do not narrow the types of annotated variables as do
 // subsequent assignments.)
 //
+var x: { a: number, b?: number } = { a: 0 };
+
 // now assign an object literal lacking property b.
 // the literal\'s type is sealed and has only a at creation.
 // but it then flows, specific ~> general, to x\'s annotation
 // type. at that point, it acquires b as an optional property.
 //
-// ...which allows this assignment to take place.
-// T7810506
-// Something similar should happen here, but doesn\'t: the problem is
-// made explicit by adding generics (see test3_failure.js introduced by
-// D2747512). There is a race between writing b on the object literal
-// type and adding b as an optional property to it, since in general we
-// cannot guarantee that the flow from the object literal to the
-// annotation will be processed before the flow involving the
-// access. Here we lose the race and get an error on the write.
-var x: { a: number, b?: number } = { a: 0 };
 x = { a: 0 };
+
+// ...which allows this assignment to take place.
 x.b = 1;
+
+// T7810506
 class A {
   x: { a: number, b?: string };
   foo() {
+    // Something similar should happen here, but doesn\'t: the problem is
+    // made explicit by adding generics (see test3_failure.js introduced by
+    // D2747512). There is a race between writing b on the object literal
+    // type and adding b as an optional property to it, since in general we
+    // cannot guarantee that the flow from the object literal to the
+    // annotation will be processed before the flow involving the
+    // access. Here we lose the race and get an error on the write.
     this.x = { a: 123 };
     this.x.b = \"hello\";
   }
-}
-"
+}"
 `;
 
 exports[`test test3_failure.js 1`] = `
@@ -187,13 +189,12 @@ class A<O: {x: { a: number, b?: string}}> {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // generalization of failure in test3.js
-// this is a spurious error (see test3.js for details)
+
 class A<O: { x: { a: number, b?: string } }> {
   o: O;
   foo() {
     this.o.x = { a: 123 };
-    this.o.x.b = \"hello\";
+    this.o.x.b = \"hello\"; // this is a spurious error (see test3.js for details)
   }
-}
-"
+}"
 `;

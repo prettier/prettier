@@ -20,13 +20,15 @@ export const X = {
 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+
+let [ x, y ] = [ 1, 2 ];
+
 /**
  * Test what happens when the destructuring is unevaluated. In this case,
  * \`this\` in a function is unbound, so we never actually find out the type of
  * \`this.returnsATuple()\` is; thus, we never evaluate \`b\` and so type-at-pos
  * returns EmptyT.
  */
-let [ x, y ] = [ 1, 2 ];
 export const X = {
   returnsATuple: function(): [number, number] {
     return [ 1, 2 ];
@@ -34,8 +36,7 @@ export const X = {
   test: function() {
     let [ a, b ] = this.returnsATuple();
   }
-};
-"
+};"
 `;
 
 exports[`test function_expressions.js 1`] = `
@@ -51,12 +52,13 @@ const y = {
 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+
 // TODO: type-at-pos between the ()\'s should be () => void
 // class X {
 //   foo(): void {}
 // }
-const y = { bar(): void {} };
-"
+
+const y = { bar(): void {} };"
 `;
 
 exports[`test generics.js 1`] = `
@@ -88,29 +90,34 @@ var mn: Mono<number> = new C; // error: application of non-poly type
 mn;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-// error: application of non-poly type
+
 class C<X> {}
 var cn: C<number> = new C();
 cn;
+
 function foo() {
   return C;
 }
 var D = foo();
 var dn: D<number> = new C();
 dn;
+
 type E<X> = C<X>;
 var en: E<number> = new C();
 en;
+
 type F<X> = C<void>;
 var fn: F<number> = new C();
 fn;
+
 type O<X> = { x: X };
 var on: O<number> = { x: 0 };
 on;
+
 type Mono = C<void>;
 var mn: Mono<number> = new C();
-mn;
-"
+// error: application of non-poly type
+mn;"
 `;
 
 exports[`test import.js 1`] = `
@@ -124,8 +131,7 @@ module.exports = num;
 var num = 42;
 function bar() {}
 bar();
-module.exports = num;
-"
+module.exports = num;"
 `;
 
 exports[`test object_special_cases.js 1`] = `
@@ -139,13 +145,13 @@ let tests = [
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
+
 let tests = [
   function() {
     let x = {};
     Object.defineProperty(x, \"foo\", { value: \"\" });
   }
-];
-"
+];"
 `;
 
 exports[`test optional.js 1`] = `
@@ -166,17 +172,20 @@ function qux(x?) {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+
 function foo(x?: string) {
   return x;
 }
+
 foo();
+
 function bar(obj: { x?: string }) {
   return obj.x;
 }
+
 function qux(x?) {
   return x;
-}
-"
+}"
 `;
 
 exports[`test predicates.js 1`] = `
@@ -188,11 +197,11 @@ if (x == undefined) {}
 if (Array.isArray(x)) {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
+
 let x = 0;
 if (x == null) {}
 if (x == undefined) {}
-if (Array.isArray(x)) {}
-"
+if (Array.isArray(x)) {}"
 `;
 
 exports[`test react.js 1`] = `
@@ -200,8 +209,7 @@ exports[`test react.js 1`] = `
 React.createElement;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import React from \"react\";
-React.createElement;
-"
+React.createElement;"
 `;
 
 exports[`test templates.js 1`] = `
@@ -209,8 +217,7 @@ exports[`test templates.js 1`] = `
 \`foo bar\`;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-\`foo bar\`;
-"
+\`foo bar\`;"
 `;
 
 exports[`test test.js 1`] = `
@@ -234,6 +241,7 @@ var str = require(\"./import\");
 function foo() {}
 foo();
 str;
+
 type Point = [number, string];
 const x: Point = [ 1, \"foo\" ];
 type MyStr = \"cool\";
@@ -241,8 +249,7 @@ const y: MyStr = \"cool\";
 type MyBool = true;
 const z: MyBool = true;
 type MyNum = 42;
-const w: MyNum = 42;
-"
+const w: MyNum = 42;"
 `;
 
 exports[`test trycatch.js 1`] = `
@@ -253,8 +260,8 @@ try {
 } catch (e) {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+
 try {
   throw \"foo\";
-} catch (e) {}
-"
+} catch (e) {}"
 `;

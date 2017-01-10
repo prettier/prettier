@@ -13,8 +13,8 @@ module.exports = {
  * @providesModule A
  * @flow
  */
-module.exports = { numberValueA: 1, stringValueA: \"someString\" };
-"
+
+module.exports = { numberValueA: 1, stringValueA: \"someString\" };"
 `;
 
 exports[`test B.js 1`] = `
@@ -32,8 +32,8 @@ module.exports = {
  * @providesModule B
  * @flow
  */
-module.exports = { numberValueB: 1, stringValueB: \"someString\" };
-"
+
+module.exports = { numberValueB: 1, stringValueB: \"someString\" };"
 `;
 
 exports[`test requireLazy.js 1`] = `
@@ -63,27 +63,27 @@ requireLazy([\'A\']); // Error: No calback expression
 /**
  * @flow
  */
-// Error: string ~> number
-// Error: number ~> string
-// Error: string ~> number
-// Error: number ~> string
-// Error: No args
-// Error: Non-stringliteral args
-// Error: No calback expression
+
 requireLazy([ \"A\", \"B\" ], function(A, B) {
   var num1: number = A.numberValueA;
   var str1: string = A.stringValueA;
   var num2: number = A.stringValueA;
+  // Error: string ~> number
   var str2: string = A.numberValueA;
+  // Error: number ~> string
   var num3: number = B.numberValueB;
   var str3: string = B.stringValueB;
   var num4: number = B.stringValueB;
-  var str4: string = B.numberValueB;
+  // Error: string ~> number
+  var str4: string = B.numberValueB; // Error: number ~> string
 });
+
 var notA: Object = A;
 var notB: Object = B;
+
 requireLazy();
+// Error: No args
 requireLazy([ nope ], function() {});
-requireLazy([ \"A\" ]);
-"
+// Error: Non-stringliteral args
+requireLazy([ \"A\" ]); // Error: No calback expression"
 `;

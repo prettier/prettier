@@ -49,9 +49,23 @@ n.x = [0];
 
 */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type CovArrayVerbose<X, Y: X> = Array<Y>;
+var b: CovArrayVerbose<number, *> = [];
+var y: CovArrayVerbose<mixed, *> = b;
+y[0] = \"\";
 // error
+class NVerbose<E, I: E> {
+  x: CovArrayVerbose<E, I>;
+  foo(): CovArrayVerbose<mixed, I> {
+    return this.x;
+  }
+}
+
+var nv: NVerbose<number, *> = new NVerbose();
+nv.x = [ 0 ];
+(nv.x[0]: string);
 // error
-// error
+(nv.foo()[0]: string); // error
 /* TODO: use existentials for non-verbose covariance?
 
 type CovArray<X> = Array<*:X>;
@@ -85,20 +99,5 @@ n.x = [0];
 (n.x[0]: string); // error
 (n.foo()[0]: string); // not an error!
 
-*/
-type CovArrayVerbose<X, Y: X> = Array<Y>;
-var b: CovArrayVerbose<number, *> = [];
-var y: CovArrayVerbose<mixed, *> = b;
-y[0] = \"\";
-class NVerbose<E, I: E> {
-  x: CovArrayVerbose<E, I>;
-  foo(): CovArrayVerbose<mixed, I> {
-    return this.x;
-  }
-}
-var nv: NVerbose<number, *> = new NVerbose();
-nv.x = [ 0 ];
-(nv.x[0]: string);
-(nv.foo()[0]: string);
-"
+*/"
 `;

@@ -14,11 +14,12 @@ foo(\'Hello, world!\');
 /*
  * @flow
  */
-// This file should be ignored, so this should not result in an error
+
 function foo(x) {
   var a: number = \"asdf\";
   return x * 10;
 }
-foo(\"Hello, world!\");
-"
+
+// This file should be ignored, so this should not result in an error
+foo(\"Hello, world!\");"
 `;

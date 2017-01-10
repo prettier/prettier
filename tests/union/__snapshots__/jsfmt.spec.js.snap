@@ -11,8 +11,7 @@ class C {
   constructor() {
     this.x = null;
   }
-}
-"
+}"
 `;
 
 exports[`test fields2.js 1`] = `
@@ -27,14 +26,14 @@ class D {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class C {}
+
 class D {
   content: string | C;
   copyContent(content: C): string | C {
     this.content = content;
     return this.content;
   }
-}
-"
+}"
 `;
 
 exports[`test issue-17.js 1`] = `
@@ -56,7 +55,9 @@ var l: Array<T> = [
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
+
 type T = { type: \"a\", a: number } | { type: \"b\", b: string };
+
 var l: Array<T> = [
   { type: \"a\", a: 1 },
   { type: \"a\", a: 2 },
@@ -66,8 +67,7 @@ var l: Array<T> = [
   { type: \"b\", b: \"gorilla\" },
   { type: \"b\", b: \"giraffe\" },
   { type: \"b\", b: \"penguin\" }
-];
-"
+];"
 `;
 
 exports[`test issue-198.js 1`] = `
@@ -82,7 +82,6 @@ exports[`test issue-198.js 1`] = `
         return str.toFixed();
     });
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// This should fail because str is string, not number
 var p = new Promise(function(resolve, reject) {
   resolve(5);
 })
@@ -90,9 +89,9 @@ var p = new Promise(function(resolve, reject) {
     return num.toFixed();
   })
   .then(function(str) {
+    // This should fail because str is string, not number
     return str.toFixed();
-  });
-"
+  });"
 `;
 
 exports[`test issue-256.js 1`] = `
@@ -106,9 +105,9 @@ myclass.myfun([\"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", function (ar) {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare class Myclass { myfun(myarray: Array<Function | string>): any }
 declare var myclass: Myclass;
+
 myclass.myfun([ \"1\", \"2\", \"3\", \"4\", \"5\", \"6\", function(ar) {} ]);
-myclass.myfun([ \"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", function(ar) {} ]);
-"
+myclass.myfun([ \"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", function(ar) {} ]);"
 `;
 
 exports[`test issue-323.js 1`] = `
@@ -118,8 +117,7 @@ var foostr: Foo | string = foo;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var Foo = require(\"./issue-323-lib\");
 var foo = new Foo();
-var foostr: Foo | string = foo;
-"
+var foostr: Foo | string = foo;"
 `;
 
 exports[`test issue-323-lib.js 1`] = `
@@ -129,8 +127,7 @@ module.exports = Foo;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 class Foo {}
-module.exports = Foo;
-"
+module.exports = Foo;"
 `;
 
 exports[`test issue-324.js 1`] = `
@@ -145,11 +142,13 @@ foostr = barstr;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 class Foo {}
+
 class Bar {}
+
 var foostr: Foo | string = new Foo();
 var barstr: Bar | string = new Bar();
-foostr = barstr;
-"
+
+foostr = barstr;"
 `;
 
 exports[`test issue-325.js 1`] = `
@@ -174,14 +173,14 @@ class Tag {
     var a2: Array<Tag | string> = a1;
   }
 }
+
 type Node = Tag_ | string;
 class Tag_ {
   constructor() {
     var a1: Array<Node> = [ new Tag_() ];
     var a2: Array<Node> = a1;
   }
-}
-"
+}"
 `;
 
 exports[`test issue-326.js 1`] = `
@@ -190,11 +189,10 @@ var stringArr:Array<string> = [\'a\',\'b\'];
 
 var result = numberAndStringArr.concat(stringArr);  // no error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// no error
 var numberAndStringArr: Array<number | string> = [ 1, 2 ];
 var stringArr: Array<string> = [ \"a\", \"b\" ];
-var result = numberAndStringArr.concat(stringArr);
-"
+
+var result = numberAndStringArr.concat(stringArr); // no error"
 `;
 
 exports[`test issue-582.js 1`] = `
@@ -217,14 +215,16 @@ var nested2: FooBarBaz = \'baz\';
  * nested unions
  * @flow
  */
+
 // inline
-// through tvars
 var nested1: (\"foo\" | \"bar\") | \"baz\" = \"baz\";
+
+// through tvars
 type FooBar = \"foo\" | \"bar\";
 type Baz = \"baz\";
 type FooBarBaz = FooBar | Baz;
-var nested2: FooBarBaz = \"baz\";
-"
+
+var nested2: FooBarBaz = \"baz\";"
 `;
 
 exports[`test issue-963.js 1`] = `
@@ -267,16 +267,22 @@ const u3 : union2 = {
  * unions with embedded intersections
  * @flow
  */
+
 type t1 = { p1: number };
+
 type t2 = { p2: number };
+
 type t3 = { p3: number };
+
 type intersected = t1 & t2;
 type union = intersected | t3;
 type union2 = t3 | intersected;
+
 const u1: union = { p3: 3 };
+
 const u2: union = { p1: 1, p2: 2 };
-const u3: union2 = { p1: 1, p2: 2 };
-"
+
+const u3: union2 = { p1: 1, p2: 2 };"
 `;
 
 exports[`test test.js 1`] = `
@@ -299,26 +305,27 @@ function f() { return \"\"; }
 function bar(x:Bar) { }
 bar(f);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var C = require(\"test-lib\");
+
 // TODO: spurious error! (replacing C with number makes the error go away)
 // type Foo<X> = Array<C> | Array<?C>;
-// workaround
-// TODO: spurious error! (replacing C with number makes the error go away)
-// type Bar = (() => C) | (() => string);
-// workaround
-var C = require(\"test-lib\");
 type Foo<X: ?C> = Array<X>;
+// workaround
 var x: Array<C> = [];
 var y: Array<?C> = [];
 function foo<X>(x: Foo<X>) {}
 foo(x);
 foo(y);
+
+// TODO: spurious error! (replacing C with number makes the error go away)
+// type Bar = (() => C) | (() => string);
 type Bar = () => C | string;
+// workaround
 function f() {
   return \"\";
 }
 function bar(x: Bar) {}
-bar(f);
-"
+bar(f);"
 `;
 
 exports[`test test-lib.js 1`] = `
@@ -328,9 +335,9 @@ class C { }
 module.exports = C;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule test-lib */
+
 class C {}
-module.exports = C;
-"
+module.exports = C;"
 `;
 
 exports[`test type-app.js 1`] = `
@@ -352,15 +359,17 @@ var b: Iterator<number> | number = 123;
 /**
  * @flow
  */
+
+class LocalClass<T> {}
+
+var a: LocalClass<number> | number = 123;
+
 // Iterator is defined in a lib file, so the speculative algorithm for the
 // union type would incorrectly succeed for Iterator<number>. Only later during
 // the merge would we fine the error, but it would be too late. The diff that
 // introduces this test fixes this such that the speculative algorithm is
 // correctly delayed upon encountering a non-concrete TypeAppT
-class LocalClass<T> {}
-var a: LocalClass<number> | number = 123;
-var b: Iterator<number> | number = 123;
-"
+var b: Iterator<number> | number = 123;"
 `;
 
 exports[`test union.js 1`] = `
@@ -386,26 +395,27 @@ function corge(b) {
     new F().foo(x);
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// error, since E could be D, and D is not a subtype of C
-// this annotation is an error: is it C, or is it D?
-// OK
 function bar(x: Document | string): void {}
 bar(0);
+
 class C {}
 class D {}
 function CD(b) {
   var E = b ? C : D;
   var c: C = new E();
+  // error, since E could be D, and D is not a subtype of C
   function qux(e: E) {}
+  // this annotation is an error: is it C, or is it D?
   function qux2(e: C | D) {}
+  // OK
   qux2(new C());
 }
+
 declare class F { foo(x: number): void, foo(x: string): void }
 function corge(b) {
   var x = b ? \"\" : 0;
   new F().foo(x);
-}
-"
+}"
 `;
 
 exports[`test yuge.js 1`] = `
@@ -5447,23 +5457,26 @@ type Data = {
  * This is a band-aid, though: see second case.
  * @flow
  */
-// Bug: right now, any incompatible type coming into a huge
-// union might blow the recursion limit.
-// TODO real solution is to specialize union reps for obvious cases,
-// e.g. (base type, list in decl order, set). Of course we could do
-// something quick to get the union size off the Ocaml call stack,
-// but not sure it\'s worth doing that before the real solution.
-// also, error pos omits this line completely
 \"use strict\";
+
 class SecurityCheckupTypedLogger {
   _data: Data;
+
   setError(value: ErrorCode) {
     this._data[\"error\"] = value;
   }
+
+  // Bug: right now, any incompatible type coming into a huge
+  // union might blow the recursion limit.
+  // TODO real solution is to specialize union reps for obvious cases,
+  // e.g. (base type, list in decl order, set). Of course we could do
+  // something quick to get the union size off the Ocaml call stack,
+  // but not sure it\'s worth doing that before the real solution.
   ohThatsNotSoGood() {
-    (\"\": ErrorCode);
+    (\"\": ErrorCode); // also, error pos omits this line completely
   }
 }
+
 type ErrorCode = 0 |
   1 |
   2 |
@@ -10464,6 +10477,6 @@ type ErrorCode = 0 |
   4997 |
   4998 |
   4999;
-type Data = { error?: ErrorCode };
-"
+
+type Data = { error?: ErrorCode };"
 `;

@@ -9,12 +9,13 @@ class A {
 module.exports = A;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+
 class A {
   b: number;
   c: string;
 }
-module.exports = A;
-"
+
+module.exports = A;"
 `;
 
 exports[`test B.js 1`] = `
@@ -31,11 +32,12 @@ module.exports = B;
 // @flow
 var A = require(\"./A\");
 import type C from \"./C\";
+
 class B extends A {
   c: C;
 }
-module.exports = B;
-"
+
+module.exports = B;"
 `;
 
 exports[`test C.js 1`] = `
@@ -52,9 +54,10 @@ module.exports = C;
 // @flow
 var A = require(\"./A\");
 import type B from \"./B\";
+
 class C extends A {
   b: B;
 }
-module.exports = C;
-"
+
+module.exports = C;"
 `;

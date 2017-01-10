@@ -29,24 +29,26 @@ module.exports = Callsite;
 /* @flow */
 var React = require(\"react\");
 var Hello = require(\"./createclass-module\");
+
 var HelloLocal = React.createClass({
   propTypes: { name: React.PropTypes.string.isRequired },
   render: function(): React.Element<*> {
     return <div>{this.props.name}</div>;
   }
 });
+
 var Callsite = React.createClass({
   render: function(): React.Element<*> {
     return (
       <div>
-        <Hello/>
-        <HelloLocal/>
+        <Hello />
+        <HelloLocal />
       </div>
     );
   }
 });
-module.exports = Callsite;
-"
+
+module.exports = Callsite;"
 `;
 
 exports[`test createclass-module.js 1`] = `
@@ -67,14 +69,15 @@ module.exports = Hello;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 var React = require(\"react\");
+
 var Hello = React.createClass({
   propTypes: { name: React.PropTypes.string.isRequired },
   render: function(): React.Element<*> {
     return <div>{this.props.name}</div>;
   }
 });
-module.exports = Hello;
-"
+
+module.exports = Hello;"
 `;
 
 exports[`test es6class-types-callsite.js 1`] = `
@@ -108,25 +111,29 @@ module.exports = Callsite;
 /* @flow */
 import React from \"react\";
 import Hello from \"./es6class-types-module\";
+
 type Props = { name: string };
+
 class HelloLocal extends React.Component<void, Props, void> {
   props: Props;
+
   render(): React.Element<*> {
     return <div>{this.props.name}</div>;
   }
 }
+
 class Callsite extends React.Component<void, Props, void> {
   render(): React.Element<*> {
     return (
       <div>
-        <Hello/>
-        <HelloLocal/>
+        <Hello />
+        <HelloLocal />
       </div>
     );
   }
 }
-module.exports = Callsite;
-"
+
+module.exports = Callsite;"
 `;
 
 exports[`test es6class-types-module.js 1`] = `
@@ -148,14 +155,17 @@ module.exports = Hello;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 import React from \"react\";
+
 type Props = { name: string };
+
 class Hello extends React.Component<{}, Props, void> {
   props: Props;
   static defaultProps: {};
+
   render(): React.Element<*> {
     return <div>{this.props.name}</div>;
   }
 }
-module.exports = Hello;
-"
+
+module.exports = Hello;"
 `;

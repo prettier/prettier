@@ -13,21 +13,20 @@ function foo(x: ?string): $NonMaybeType<?string> {
 (0: $NonMaybeType<number | null>); // ok
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-// this should be an error
-//(foo(): string); // should not be necessary to expose the error above
-// error
-// ok
-// ok
+
 function foo(x: ?string): $NonMaybeType<?string> {
   if (x != null) {
     return x;
   } else
-    return 0;
+    return 0; // this should be an error
 }
+
+//(foo(): string); // should not be necessary to expose the error above
 (0: $NonMaybeType<null>);
+// error
 (0: $NonMaybeType<?number>);
-(0: $NonMaybeType<number | null>);
-"
+// ok
+(0: $NonMaybeType<number | null>); // ok"
 `;
 
 exports[`test property_type.js 1`] = `
@@ -44,16 +43,18 @@ function foo(o: Obj): $PropertyType<Obj, \'x\'> {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 type Malformed = $PropertyType<any, number>;
+
 type Obj = { x: string };
 type Obj_Prop_x = $PropertyType<Obj, \"x\">;
+
 (42: Obj_Prop_x);
+
 function foo(o: Obj): $PropertyType<Obj, \"x\"> {
   if (false)
     return o.x;
   else
     return 0;
-}
-"
+}"
 `;
 
 exports[`test union.js 1`] = `
@@ -62,13 +63,12 @@ var x1: $NonMaybeType<number|string> = true; // err, boolean ~> number|string
 var x2: $PropertyType<{p:number}|{p:string},\'p\'> = 0; // ok, number ~> number|string
 var x3: $PropertyType<{p:number}|{p:string},\'p\'> = true; // err, boolean ~> number|string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// ok, number ~> number|string
-// err, boolean ~> number|string
-// ok, number ~> number|string
-// err, boolean ~> number|string
 var x0: $NonMaybeType<number | string> = 0;
+// ok, number ~> number|string
 var x1: $NonMaybeType<number | string> = true;
+// err, boolean ~> number|string
 var x2: $PropertyType<{ p: number } | { p: string }, \"p\"> = 0;
-var x3: $PropertyType<{ p: number } | { p: string }, \"p\"> = true;
-"
+// ok, number ~> number|string
+var x3: $PropertyType<{ p: number } |
+  { p: string }, \"p\"> = true; // err, boolean ~> number|string"
 `;

@@ -79,7 +79,8 @@ function decorateComment(node, comment, text) {
     if (locStart(child) - locStart(comment) <= 0 &&
         locEnd(comment) - locEnd(child) <= 0) {
       // The comment is completely contained by this child node.
-      decorateComment(comment.enclosingNode = child, comment, text);
+      comment.enclosingNode = child;
+      decorateComment(child, comment, text);
       return; // Abandon the binary search at this level.
     }
 
@@ -163,7 +164,7 @@ exports.attach = function(comments, ast, text) {
       addDanglingComment(en, comment);
 
     } else {
-      throw new Error("AST contains no nodes at all?");
+      // throw new Error("AST contains no nodes at all?");
     }
   });
 
@@ -271,9 +272,12 @@ function printTrailingComment(commentPath, print, options) {
 
 exports.printComments = function(path, print, options) {
   var value = path.getValue();
+  var parent = path.getParentNode();
   var printed = print(path);
   var comments = n.Node.check(value) &&
       types.getFieldValue(value, "comments");
+  var isFirstInProgram = n.Program.check(parent) &&
+      parent.body[0] === value;
 
   if (!comments || comments.length === 0) {
     return printed;
@@ -291,6 +295,15 @@ exports.printComments = function(path, print, options) {
                                   comment.type === "Block" ||
                                   comment.type === "CommentBlock"))) {
       leadingParts.push(printLeadingComment(commentPath, print));
+
+
+      // Support a special case where a comment exists at the very top
+      // of the file. Allow the user to add spacing between that file
+      // and any code beneath it.
+      if(isFirstInProgram &&
+         util.newlineExistsAfter(options.originalText, util.locEnd(comment))) {
+        leadingParts.push(hardline);
+      }
     } else if (trailing) {
       trailingParts.push(printTrailingComment(commentPath, print, options));
     }

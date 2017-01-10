@@ -23,19 +23,21 @@ ColorIdToNumber.XXX; // oops
 
 module.exports = { ColorId, ColorNumber };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// oops
-// oops
 var ColorId = { RED: \"R\", GREEN: \"G\", BLUE: \"B\" };
+
 var ColorNumber = { RED: \"ff0000\", GREEN: \"00ff00\", BLUE: \"0000ff\" };
+
 var ColorIdToNumber = {
   [ColorId.RED]: ColorNumber.RED,
   [ColorId.GREEN]: ColorNumber.GREEN,
   [ColorId.BLUE]: ColorNumber.BLUE
 };
+
 (ColorIdToNumber[ColorId.RED]: \"ffffff\");
+// oops
 ColorIdToNumber.XXX;
-module.exports = { ColorId, ColorNumber };
-"
+// oops
+module.exports = { ColorId, ColorNumber };"
 `;
 
 exports[`test test2.js 1`] = `
@@ -50,16 +52,16 @@ var ColorIdToNumber = {
 
 module.exports = ColorIdToNumber;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// oops
 var { ColorId, ColorNumber } = require(\"./test\");
 var ColorIdToNumber = {
   [ColorId.RED]: ColorNumber.RED,
   [ColorId.GREEN]: ColorNumber.GREEN,
   [ColorId.BLUE]: ColorNumber.BLUE
 };
+
 (ColorIdToNumber[ColorId.GREEN]: \"ffffff\");
-module.exports = ColorIdToNumber;
-"
+// oops
+module.exports = ColorIdToNumber;"
 `;
 
 exports[`test test3.js 1`] = `
@@ -68,18 +70,16 @@ var ColorIdToNumber = require(\'./test2\');
 
 (ColorIdToNumber[ColorId.BLUE]: \'ffffff\'); // oops
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// oops
 var { ColorId } = require(\"./test\");
 var ColorIdToNumber = require(\"./test2\");
-(ColorIdToNumber[ColorId.BLUE]: \"ffffff\");
-"
+
+(ColorIdToNumber[ColorId.BLUE]: \"ffffff\"); // oops"
 `;
 
 exports[`test test4.js 1`] = `
 "module.exports = \'hello\';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-module.exports = \"hello\";
-"
+module.exports = \"hello\";"
 `;
 
 exports[`test test5.js 1`] = `
@@ -93,18 +93,15 @@ module.exports = {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var hello = require(\"./test4\");
 var dummy = require(\"./test\");
-module.exports = { ...dummy, [hello]: \"world\", ...dummy };
-"
+module.exports = { ...dummy, [hello]: \"world\", ...dummy };"
 `;
 
 exports[`test test6.js 1`] = `
 "var o = require(\'./test5\');
 (o.hello: \'nothing\'); // oops
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// oops
 var o = require(\"./test5\");
-(o.hello: \"nothing\");
-"
+(o.hello: \"nothing\"); // oops"
 `;
 
 exports[`test test7.js 1`] = `
@@ -114,8 +111,6 @@ var x: string = obj[\'m\'](); // error, number ~> string
 var arr = [function() { return this.length }];
 var y: string = arr[0](); // error: number ~> string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// error, number ~> string
-// error: number ~> string
 var obj = {
   x: 0,
   m() {
@@ -123,11 +118,11 @@ var obj = {
   }
 };
 var x: string = obj[\"m\"]();
+// error, number ~> string
 var arr = [
   function() {
     return this.length;
   }
 ];
-var y: string = arr[0]();
-"
+var y: string = arr[0](); // error: number ~> string"
 `;

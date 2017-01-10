@@ -60,18 +60,6 @@ function for_of_scope(xs: number[]) {
   (b : string); // error: number ~> string
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// doesn\'t add lower bound to outer a
-// OK
-// error: number ~> string
-// doesn\'t add lower bound to outer a
-// ok
-// error: number ~> string
-// doesn\'t add lower bound to outer a
-// error: number ~> string
-// doesn\'t add lower bound to outer a
-// error: string ~> number
-// doesn\'t add lower bound to outer a
-// error: number ~> string
 function switch_scope(x: mixed) {
   let a = \"\";
   let b = \"\";
@@ -79,11 +67,14 @@ function switch_scope(x: mixed) {
   case \"foo\":
     let a;
     a = 0;
+    // doesn\'t add lower bound to outer a
     b = 0;
   }
   (a: string);
-  (b: string);
+  // OK
+  (b: string); // error: number ~> string
 }
+
 function try_scope_finally() {
   let a;
   let b;
@@ -93,42 +84,49 @@ function try_scope_finally() {
   } finally {
     let a;
     a = 0;
+    // doesn\'t add lower bound to outer a
     b = 0;
   }
   (a: string);
-  (b: string);
+  // ok
+  (b: string); // error: number ~> string
 }
+
 function for_scope() {
   let a = \"\";
   let b = \"\";
   for (let a; ; ) {
     a = 0;
+    // doesn\'t add lower bound to outer a
     b = 0;
   }
   (a: string);
-  (b: string);
+  (b: string); // error: number ~> string
 }
+
 function for_in_scope(o: Object) {
   let a = 0;
   let b = 0;
   for (let a in o) {
     a = \"\";
+    // doesn\'t add lower bound to outer a
     b = \"\";
   }
   (a: number);
-  (b: number);
+  (b: number); // error: string ~> number
 }
+
 function for_of_scope(xs: number[]) {
   let a = \"\";
   let b = \"\";
   for (let a of xs) {
     a = 0;
+    // doesn\'t add lower bound to outer a
     b = 0;
   }
   (a: string);
-  (b: string);
-}
-"
+  (b: string); // error: number ~> string
+}"
 `;
 
 exports[`test locals.js 1`] = `
@@ -156,11 +154,12 @@ function foo0(b: bool): number {
   return x;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//declare var T: $Type<number | Array<T>>;
-// error: string ~> number
 var x: string = 0;
 var x: number = 1;
+
+//declare var T: $Type<number | Array<T>>;
 function foo(p: boolean) {}
+
 function sorry(really: boolean) {
   if (really) {
     var x: number | string = 1337;
@@ -169,12 +168,12 @@ function sorry(really: boolean) {
   }
   foo(x);
 }
+
 function foo0(b: boolean): number {
   var x = 0;
   if (b) {
-    var x = \"\";
+    var x = \"\"; // error: string ~> number
   }
   return x;
-}
-"
+}"
 `;

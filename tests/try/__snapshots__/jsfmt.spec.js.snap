@@ -16,6 +16,7 @@ function foo() {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
+
 /* This test documents an issue we used to have with merging the environment of
  * the try block and the catch block. The error variable, when inspected and in
  * the presence of an abnormal, would sometimes kind of leak. It would hit an
@@ -27,8 +28,7 @@ function foo() {
       throw error;
     }
   }
-}
-"
+}"
 `;
 
 exports[`test init.js 1`] = `
@@ -191,70 +191,57 @@ function f(b) {
  * test initialization tracking of hoisted stuff
  * @flow
  */
+
 // for illustrative purposes only - Flow considers a throw possible
 // anywhere within a block
-// local use of annotated var within try is ok
-// and within catch
-// but not across try/catch
-// error
-// or try/finally
-// error
-// or catch/finally
-// error
-// or try/catch/finally if init doesn\'t dominate
-// error
-// post-use ok because init dominates here
-// ...but if so, suffix is not reached
-// and here
-// ...but if so, suffix is not reached
-// and here
-// ...but if so, suffix is not reached
-// and here, thank you JS for the wonder that is hoisting
-// ...but if so, suffix is not reached
-// error if used prior to init
-// error
-// another non-dominated post
-// error
-// ditto
-// error
-// ditto
-// error
 function might_throw() {}
+
+// local use of annotated var within try is ok
 function f() {
   try {
     var x: number = 0;
     var y: number = x;
   } catch (e) {}
 }
+
+// and within catch
 function f() {
   try {} catch (e) {
     var x: number = 0;
     var y: number = x;
   }
 }
+
+// but not across try/catch
 function f() {
   try {
     might_throw();
     var x: number = 0;
   } catch (e) {
-    var y: number = x;
+    var y: number = x; // error
   }
 }
+
+// or try/finally
 function f() {
   try {
     might_throw();
     var x: number = 0;
   } finally {
-    var y: number = x;
+    var y: number = x; // error
   }
 }
+
+// or catch/finally
 function f() {
   try {} catch (e) {
     var x: number = 0;
   } finally {
-    var y: number = x;
+    var y: number = x; // error
   }
 }
+
+// or try/catch/finally if init doesn\'t dominate
 function f() {
   try {
     var x: number = 0;
@@ -262,61 +249,82 @@ function f() {
     might_throw();
     var x: number = 0;
   } finally {
-    var y: number = x;
+    var y: number = x; // error
   }
 }
+
+// post-use ok because init dominates here
 function f() {
   try {
     var x: number = 0;
   } catch (e) {
     might_throw();
+    // ...but if so, suffix is not reached
     var x: number = 0;
   }
   var y: number = x;
 }
+
+// and here
 function f() {
   try {} catch (e) {} finally {
     might_throw();
+    // ...but if so, suffix is not reached
     var x: number = 0;
   }
   var y: number = x;
 }
+
+// and here
 function f() {
   try {
     var x: number;
   } catch (e) {} finally {
     might_throw();
+    // ...but if so, suffix is not reached
     x = 0;
   }
   var y: number = x;
 }
+
+// and here, thank you JS for the wonder that is hoisting
 function f() {
   try {} catch (e) {
     var x: number;
   } finally {
     might_throw();
+    // ...but if so, suffix is not reached
     x = 0;
   }
   var y: number = x;
 }
+
+// error if used prior to init
 function f() {
   var y: number = x;
+  // error
   try {
     var x: number = 0;
   } catch (e) {}
 }
+
+// another non-dominated post
 function f() {
   try {
     var x: number = 0;
   } catch (e) {}
-  var y: number = x;
+  var y: number = x; // error
 }
+
+// ditto
 function f() {
   try {} catch (e) {
     var x: number = 0;
   }
-  var y: number = x;
+  var y: number = x; // error
 }
+
+// ditto
 function f(b) {
   try {
     var x: number;
@@ -325,9 +333,8 @@ function f(b) {
     }
     x = 0;
   } catch (e) {}
-  var y: number = x;
-}
-"
+  var y: number = x; // error
+}"
 `;
 
 exports[`test return.js 1`] = `
@@ -400,8 +407,7 @@ function corge(): string {
 /**
  * @flow
  */
-// unreachable
-// unreachable
+
 function foo(x: ?number): string {
   try {} catch (e) {
     return \"bar\";
@@ -409,6 +415,7 @@ function foo(x: ?number): string {
   console.log();
   return \"foo\";
 }
+
 function bar(): string {
   try {
     return \"foo\";
@@ -416,14 +423,16 @@ function bar(): string {
     return \"bar\";
   }
 }
+
 function baz(): string {
   try {
     throw new Error(\"foo\");
   } catch (e) {
     return \"foo\";
   }
-  return \"bar\";
+  return \"bar\"; // unreachable
 }
+
 function qux(): string {
   try {
     throw new Error(\"foo\");
@@ -431,12 +440,14 @@ function qux(): string {
   console.log();
   return \"bar\";
 }
+
 function quux(): string {
   try {
     return qux();
   } catch (e) {}
   return \"bar\";
 }
+
 function bliffl(): string {
   try {
     throw new Error(\"foo\");
@@ -446,15 +457,15 @@ function bliffl(): string {
     return \"bar\";
   }
 }
+
 function corge(): string {
   try {
     return \"foo\";
   } catch (e) {
     throw new Error(\"bar\");
   }
-  bar();
-}
-"
+  bar(); // unreachable
+}"
 `;
 
 exports[`test test.js 1`] = `
@@ -505,13 +516,7 @@ function qux() {
  * test env state tracking thru try/catch/finally
  * @flow
  */
-// here via [try; finally] only.
-// string ~/> function call (no num or bool error)
-// object ~/> function call (no uninitialized error)
-// here via [try] only.
-// ok
-// ...
-// unreachable
+
 function foo() {
   var x = 0;
   var y;
@@ -523,9 +528,12 @@ function foo() {
   } finally {
     y = {};
   }
+  // here via [try; finally] only.
   x();
-  y();
+  // string ~/> function call (no num or bool error)
+  y(); // object ~/> function call (no uninitialized error)
 }
+
 function bar(response) {
   var payload;
   try {
@@ -533,14 +541,15 @@ function bar(response) {
   } catch (e) {
     throw new Error(\"...\");
   }
+  // here via [try] only.
   if (payload.error) {}
 }
+
 function qux() {
   var x = 5;
   try {
     throw -1;
   } finally {}
-  x();
-}
-"
+  x(); // unreachable
+}"
 `;

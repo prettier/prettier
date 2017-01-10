@@ -2,10 +2,8 @@ exports[`test import.js 1`] = `
 "interface I { x: number }
 export type J = I; // workaround for export interface
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// workaround for export interface
 interface I  { x: number }
-export type J = I;
-"
+export type J = I; // workaround for export interface"
 `;
 
 exports[`test indexer.js 1`] = `
@@ -21,10 +19,13 @@ interface Bad {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-/* error: not supported (yet)*/
+
 interface Ok  { [key: string]: string }
-interface Bad  { [k1: string]: string, [k2: number]: number }
-"
+
+interface Bad  {
+  [k1: string]: string,
+  [k2: number]: number /* error: not supported (yet)*/
+}"
 `;
 
 exports[`test interface.js 1`] = `
@@ -41,18 +42,19 @@ function testInterfaceName(o: I) {
   (o.constructor.name: string); // ok
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// error
-// error, name is static
-// ok
 declare class C { x: number }
+
 var x: string = new C().x;
+
 interface I  { x: number }
+
 var i = new I();
+// error
 function testInterfaceName(o: I) {
   (o.name: string);
-  (o.constructor.name: string);
-}
-"
+  // error, name is static
+  (o.constructor.name: string); // ok
+}"
 `;
 
 exports[`test test.js 1`] = `
@@ -79,31 +81,32 @@ var e: E<number> = { x: \"\", y: \"\", z: \"\" }; // error: x and z should be nu
 (e.y: string);
 (e.z: string); // error: z is number
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// error: x should be number
-// error: x is number
-// error: multiple extends
-//declare class E implements I { } // parse error
-// error: x and z should be numbers
-// error: x is number
-// error: z is number
 interface I  { y: string }
 interface I_  { x: number }
 interface J extends I, I_ {}
 interface K extends J {}
+
 var k: K = { x: \"\", y: \"\" };
+// error: x should be number
 (k.x: string);
+// error: x is number
 (k.y: string);
+
 declare class C { x: number }
 declare class D extends C, Other {}
+// error: multiple extends
+//declare class E implements I { } // parse error
 interface A<Y>  { y: Y }
 interface A_<X>  { x: X }
 interface B<Z> extends A<string>, A_<Z> { z: Z }
 interface E<Z> extends B<Z> {}
+
 var e: E<number> = { x: \"\", y: \"\", z: \"\" };
+// error: x and z should be numbers
 (e.x: string);
+// error: x is number
 (e.y: string);
-(e.z: string);
-"
+(e.z: string); // error: z is number"
 `;
 
 exports[`test test2.js 1`] = `
@@ -118,24 +121,24 @@ type M = { y: string } & J & { z: boolean }
 
 function bar(m: M) { m.x; m.y; m.z; } // OK
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// error: z not found in L
-// interface + multiple inheritance is similar to object type + intersection
-// OK
 import type {J} from \"./import\";
 interface K  {}
 interface L extends J, K { y: string }
+
 function foo(l: L) {
   l.x;
   l.y;
   l.z;
 }
+// error: z not found in L
+// interface + multiple inheritance is similar to object type + intersection
 type M = { y: string } & J & { z: boolean };
+
 function bar(m: M) {
   m.x;
   m.y;
   m.z;
-}
-"
+} // OK"
 `;
 
 exports[`test test3.js 1`] = `
@@ -147,17 +150,15 @@ function foo(k: K) {
   (k.y: number); // error: y is string in I
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// error: x is number in I
-// error: x is string in K
-// error: y is string in I
 interface I  { x: number, y: string }
 interface J  { y: number }
 interface K extends I, J { x: string }
+// error: x is number in I
 function foo(k: K) {
   (k.x: number);
-  (k.y: number);
-}
-"
+  // error: x is string in K
+  (k.y: number); // error: y is string in I
+}"
 `;
 
 exports[`test test4.js 1`] = `
@@ -171,11 +172,10 @@ declare class C {
 
 new C().bar((x: string) => { }); // error, number ~/~> string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// error, property \`foo\` not found function
-// error, number ~/~> string
 interface I  { foo(x: number): void }
 (function foo(x: number) {}: I);
+// error, property \`foo\` not found function
 declare class C { bar(i: I): void, bar(f: (x: number) => void): void }
-new C().bar((x: string) => {});
-"
+
+new C().bar((x: string) => {}); // error, number ~/~> string"
 `;

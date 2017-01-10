@@ -10,15 +10,14 @@ function foo(x: Array<number>): [number, ?number] {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-// Error, can\'t enforce arity when flowing array to tuple
-// OK. This is unsound, but at least arity is enforced
+
 function foo(x: Array<number>): [number, ?number] {
-  return x;
+  return x; // Error, can\'t enforce arity when flowing array to tuple
 }
+
 function foo(x: Array<number>): [number, ?number] {
-  return [ x[0], x[1] ];
-}
-"
+  return [ x[0], x[1] ]; // OK. This is unsound, but at least arity is enforced
+}"
 `;
 
 exports[`test optional.js 1`] = `
@@ -30,13 +29,12 @@ exports[`test optional.js 1`] = `
 ([]: [?number, string]); // error, since second element is not marked optional
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-// Ok, correct arity
-// Error, arity is enforced
-// error, since second element is not marked optional
+
 ([ 0, undefined ]: [number, ?string]);
+// Ok, correct arity
 ([ 0 ]: [number, ?string]);
-([]: [?number, string]);
-"
+// Error, arity is enforced
+([]: [?number, string]); // error, since second element is not marked optional"
 `;
 
 exports[`test too-few.js 1`] = `
@@ -47,10 +45,10 @@ function foo(a: [Object, Object]) {}
 foo([ {} ]); // error, too few elements in array passed to a tuple
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-// error, too few elements in array passed to a tuple
+
 function foo(a: [Object, Object]) {}
-foo([ {} ]);
-"
+
+foo([ {} ]); // error, too few elements in array passed to a tuple"
 `;
 
 exports[`test tuples.js 1`] = `
@@ -61,13 +59,12 @@ var d: [number, string] = [123,\'duck\'];
 var e: [number, string,] = [123,\'duck\'];
 var f: [number, string] = [123, 456];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Error - arity mismatch
-// nope
 var a: [] = [];
 var b: [] = [ 123 ];
+// Error - arity mismatch
 var c: [number] = [];
+// nope
 var d: [number, string] = [ 123, \"duck\" ];
 var e: [number, string] = [ 123, \"duck\" ];
-var f: [number, string] = [ 123, 456 ];
-"
+var f: [number, string] = [ 123, 456 ];"
 `;

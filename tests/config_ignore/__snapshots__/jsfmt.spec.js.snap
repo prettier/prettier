@@ -5,7 +5,7 @@ exports[`test foo.js 1`] = `
 var x: number = \"string\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
+
 // No error, this file is ignored
-var x: number = \"string\";
-"
+var x: number = \"string\";"
 `;

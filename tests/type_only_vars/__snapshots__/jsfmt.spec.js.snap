@@ -17,10 +17,12 @@ module.exports = {
 /**
  * @flow
  */
+
 class Foo {}
+
 class Bar {}
-module.exports = { Foo: Foo, Bar: Bar };
-"
+
+module.exports = { Foo: Foo, Bar: Bar };"
 `;
 
 exports[`test bad_shadowing.js 1`] = `
@@ -46,16 +48,19 @@ var duck: string = \"quack\";
 /**
  * @flow
  */
-// These string types should confict with the imported types
-// This string type should conflict with the typedef
+
 import typeof A from \"./A.js\";
 import type {Foo, Bar as Baz} from \"./A.js\";
+
 type duck = { quack(): string };
+
+// These string types should confict with the imported types
 var A: string = \"Hello\";
 var Foo: string = \"Goodbye\";
 var Baz: string = \"Go away please\";
-var duck: string = \"quack\";
-"
+
+// This string type should conflict with the typedef
+var duck: string = \"quack\";"
 `;
 
 exports[`test good_shadowing.js 1`] = `
@@ -83,20 +88,23 @@ var b: Foo = new A.Foo();
 /**
  * @flow
  */
-// errors in prev block leave type bindings in place, so these are errors
-// errors from value positions only
+
 import typeof A from \"./A.js\";
 import type {Foo, Bar as Baz} from \"./A.js\";
+
 var A = require(\"./A.js\");
 var Foo = A.Foo;
 var Baz = A.Bar;
+
+// errors in prev block leave type bindings in place, so these are errors
 var m = A;
 var n = Foo;
 var o = Baz;
+
+// errors from value positions only
 var a: Foo = new Foo();
 var b: Foo = new A.Foo();
-(new A.Bar(): Baz);
-"
+(new A.Bar(): Baz);"
 `;
 
 exports[`test import_type.js 1`] = `
@@ -121,17 +129,20 @@ var a: Foo = new actualA.Foo();
 /**
  * @flow
  */
-// You can\'t use it as an identifier
-// But using it in a type should still work
+
 import typeof A from \"./A.js\";
 import type {Foo, Bar as Baz} from \"./A.js\";
+
 var actualA = require(\"./A.js\");
+
+// You can\'t use it as an identifier
 var m = A;
 var n = Foo;
 var o = Baz;
+
+// But using it in a type should still work
 var a: Foo = new actualA.Foo();
-(new actualA.Bar(): Baz);
-"
+(new actualA.Bar(): Baz);"
 `;
 
 exports[`test type_alias.js 1`] = `
@@ -152,12 +163,14 @@ type c = Foo;
 /**
  * @flow
  */
-// You can\'t use it as an identifier
-// But using it in a type should still work
+
 type Foo = number;
+
+// You can\'t use it as an identifier
 var x = Foo;
+
+// But using it in a type should still work
 var a: Foo = 123;
 var b: Array<Foo> = [ 123 ];
-type c = Foo;
-"
+type c = Foo;"
 `;

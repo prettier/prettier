@@ -6,11 +6,10 @@ class C extends React.PureComponent {
 }
 (<C />); // error (\`x\` is a required prop)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// error (\`x\` is a required prop)
 var React = require(\"react\");
+
 class C extends React.PureComponent {
   props: { x: number };
 }
-<C/>;
-"
+<C />; // error (\`x\` is a required prop)"
 `;

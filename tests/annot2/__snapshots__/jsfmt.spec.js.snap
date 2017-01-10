@@ -18,14 +18,16 @@ export default class {
  * @providesModule A
  * @flow
  */
+
 import type T from \"T\";
+
 export default class {
   p: T;
+
   constructor() {
     this.p = 0;
   }
-}
-"
+}"
 `;
 
 exports[`test B.js 1`] = `
@@ -42,12 +44,12 @@ class B extends A {
 /**
  * @flow
  */
-// OK, string ~> any
+
 import A from \"A\";
+
 class B extends A {
-  p: string;
-}
-"
+  p: string; // OK, string ~> any
+}"
 `;
 
 exports[`test T.js 1`] = `
@@ -55,9 +57,5 @@ exports[`test T.js 1`] = `
  * @providesModule T
  */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/**
- * @providesModule T
- */
-
 "
 `;

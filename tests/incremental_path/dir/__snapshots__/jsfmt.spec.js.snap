@@ -3,6 +3,5 @@ exports[`test a.js 1`] = `
 (require(\'b\'): boolean);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-(require(\"b\"): boolean);
-"
+(require(\"b\"): boolean);"
 `;

@@ -14,18 +14,17 @@ let tests = [
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-// fillRect
-// moveTo
-// error: should be numbers
+
 let tests = [
+  // fillRect
   function(ctx: CanvasRenderingContext2D) {
     ctx.fillRect(0, 0, 200, 100);
   },
+  // moveTo
   function(ctx: CanvasRenderingContext2D) {
-    ctx.moveTo(\"0\", \"1\");
+    ctx.moveTo(\"0\", \"1\"); // error: should be numbers
   }
-];
-"
+];"
 `;
 
 exports[`test CustomEvent.js 1`] = `
@@ -40,14 +39,14 @@ let tests = [
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-// CustomEvent
+
 let tests = [
+  // CustomEvent
   function(document: Document) {
     const event = document.createEvent(\"CustomEvent\");
     event.initCustomEvent(\"butts\", true, false, { nice: 42 });
   }
-];
-"
+];"
 `;
 
 exports[`test Document.js 1`] = `
@@ -64,16 +63,16 @@ let tests = [
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-// createElement
+
 let tests = [
+  // createElement
   function(document: Document) {
     (document.createElement(\"canvas\"): HTMLCanvasElement);
     (document.createElement(\"link\"): HTMLLinkElement);
     (document.createElement(\"option\"): HTMLOptionElement);
     (document.createElement(\"select\"): HTMLSelectElement);
   }
-];
-"
+];"
 `;
 
 exports[`test Element.js 1`] = `
@@ -97,9 +96,9 @@ let tests = [
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-// scrollIntoView
-// fails
+
 let tests = [
+  // scrollIntoView
   function(element: Element) {
     element.scrollIntoView();
     element.scrollIntoView(false);
@@ -107,12 +106,13 @@ let tests = [
     element.scrollIntoView({ behavior: \"smooth\", block: \"end\" });
     element.scrollIntoView({ block: \"end\" });
     element.scrollIntoView({ behavior: \"smooth\" });
+
+    // fails
     element.scrollIntoView({ behavior: \"invalid\" });
     element.scrollIntoView({ block: \"invalid\" });
     element.scrollIntoView(1);
   }
-];
-"
+];"
 `;
 
 exports[`test HTMLCanvasElement.js 1`] = `
@@ -126,13 +126,13 @@ let tests = [
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-// getContext
+
 let tests = [
+  // getContext
   function(el: HTMLCanvasElement) {
     (el.getContext(\"2d\"): ?CanvasRenderingContext2D);
   }
-];
-"
+];"
 `;
 
 exports[`test HTMLElement.js 1`] = `
@@ -156,9 +156,9 @@ let tests = [
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-// scrollIntoView
-// fails
+
 let tests = [
+  // scrollIntoView
   function(element: HTMLElement) {
     element.scrollIntoView();
     element.scrollIntoView(false);
@@ -166,12 +166,13 @@ let tests = [
     element.scrollIntoView({ behavior: \"smooth\", block: \"end\" });
     element.scrollIntoView({ block: \"end\" });
     element.scrollIntoView({ behavior: \"smooth\" });
+
+    // fails
     element.scrollIntoView({ behavior: \"invalid\" });
     element.scrollIntoView({ block: \"invalid\" });
     element.scrollIntoView(1);
   }
-];
-"
+];"
 `;
 
 exports[`test HTMLInputElement.js 1`] = `
@@ -189,19 +190,18 @@ let tests = [
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-// setRangeText
-// end is required
-// invalid value
+
 let tests = [
+  // setRangeText
   function(el: HTMLInputElement) {
     el.setRangeText(\"foo\");
     el.setRangeText(\"foo\", 123);
+    // end is required
     el.setRangeText(\"foo\", 123, 234);
     el.setRangeText(\"foo\", 123, 234, \"select\");
-    el.setRangeText(\"foo\", 123, 234, \"bogus\");
+    el.setRangeText(\"foo\", 123, 234, \"bogus\"); // invalid value
   }
-];
-"
+];"
 `;
 
 exports[`test URL.js 1`] = `
@@ -227,41 +227,40 @@ const q: string = c.search; // correct
 const r: string = c.username; // correct
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-// correct
-// correct
-// correct
-// correct
-// not correct
-// correct
-// correct
-// correct
-// correct
-// correct
-// correct
-// correct
-// correct
-// correct
-// correct
-// correct
-// correct
+
 const a = new URL(\"http://flowtype.org/\");
+// correct
 const b = new URL(\"/docs\", a);
+// correct
 const c = new URL(\"/docs\", \"http://flowtype.org/\");
+// correct
 const d: URLSearchParams = c.searchParams;
+// correct
 const e: string = c.path;
+// not correct
 const f: string = c.pathname;
+// correct
 const g: string = c.hash;
+// correct
 const h: string = c.host;
+// correct
 const i: string = c.hostname;
+// correct
 const j: string = c.href;
+// correct
 const l: string = c.origin;
+// correct
 const m: string = c.password;
+// correct
 const n: string = c.pathname;
+// correct
 const o: string = c.port;
+// correct
 const p: string = c.protocol;
+// correct
 const q: string = c.search;
-const r: string = c.username;
-"
+// correct
+const r: string = c.username; // correct"
 `;
 
 exports[`test eventtarget.js 1`] = `
@@ -292,31 +291,30 @@ let tests = [
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-// attachEvent
-// invalid, may be undefined
-// valid
-// detachEvent
-// invalid, may be undefined
-// valid
+
 let listener: EventListener = function(event: Event): void {};
+
 let tests = [
+  // attachEvent
   function() {
     let target = new EventTarget();
     (target.attachEvent(\"foo\", listener): void);
-    (target.attachEvent && target.attachEvent(\"foo\", listener): void);
+    // invalid, may be undefined
+    (target.attachEvent && target.attachEvent(\"foo\", listener): void); // valid
   },
+  // detachEvent
   function() {
     let target = new EventTarget();
     (target.detachEvent(\"foo\", listener): void);
-    (target.detachEvent && target.detachEvent(\"foo\", listener): void);
+    // invalid, may be undefined
+    (target.detachEvent && target.detachEvent(\"foo\", listener): void); // valid
   },
   function() {
     window.onmessage = (event: MessageEvent) => {
       (event.target: window);
     };
   }
-];
-"
+];"
 `;
 
 exports[`test path2d.js 1`] = `
@@ -333,19 +331,18 @@ let tests = [
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-// arcTo
-// valid
-// valid
-// invalid
+
 let tests = [
+  // arcTo
   function() {
     let path = new Path2D();
     (path.arcTo(0, 0, 0, 0, 10): void);
+    // valid
     (path.arcTo(0, 0, 0, 0, 10, 20, 5): void);
-    (path.arcTo(0, 0, 0, 0, 10, \"20\", 5): void);
+    // valid
+    (path.arcTo(0, 0, 0, 0, 10, \"20\", 5): void); // invalid
   }
-];
-"
+];"
 `;
 
 exports[`test registerElement.js 1`] = `
@@ -409,12 +406,9 @@ let tests = [
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-// should work with Object.create()
-// or with Object.assign()
-// should complain about invalid callback parameters
-// Error: This might be null
-// Error: This might be null
+
 let tests = [
+  // should work with Object.create()
   function() {
     document.registerElement(\"custom-element\", {
       prototype: Object.create(HTMLElement.prototype, {
@@ -432,6 +426,7 @@ let tests = [
       })
     });
   },
+  // or with Object.assign()
   function() {
     document.registerElement(\"custom-element\", {
       prototype: Object.assign(Object.create(HTMLElement.prototype), {
@@ -447,20 +442,22 @@ let tests = [
       })
     });
   },
+  // should complain about invalid callback parameters
   function() {
     document.registerElement(\"custom-element\", {
       prototype: {
         attributeChangedCallback(
           localName: string,
           oldVal: string,
+          // Error: This might be null
           newVal: string,
+          // Error: This might be null
           namespace: string
         ) {}
       }
     });
   }
-];
-"
+];"
 `;
 
 exports[`test traversal.js 1`] = `
@@ -661,24 +658,9 @@ let tests = [
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-// basic functionality
-// rootNode must be a Node
-// valid
-// invalid
-// invalid
-// Type Parameters
-// NodeFilterInterface
-// valid
-// invalid
-// valid
-// invalid
-// invalid
-// valid
-// invalid
-// valid
-// invalid
-// invalid
+
 let tests = [
+  // basic functionality
   function() {
     const i: NodeIterator<*, *> = document.createNodeIterator(document.body);
     const filter: NodeFilter = i.filter;
@@ -693,14 +675,17 @@ let tests = [
       typeof NodeFilter.FILTER_REJECT |
       typeof NodeFilter.FILTER_SKIP = filter.acceptNode(document.body);
   },
+  // rootNode must be a Node
   function() {
     document.createNodeIterator(document.body);
-    document.createNodeIterator({});
+    // valid
+    document.createNodeIterator({}); // invalid
   },
   function() {
     document.createTreeWalker(document.body);
-    document.createTreeWalker({});
+    document.createTreeWalker({}); // invalid
   },
+  // Type Parameters
   function() {
     const _root = document.body;
     const i = document.createNodeIterator(_root, NodeFilter.SHOW_ELEMENT);
@@ -854,20 +839,25 @@ let tests = [
     const previousNode: Node | null = w.previousNode();
     const nextNode: Node | null = w.nextNode();
   },
+  // NodeFilterInterface
   function() {
     document.createNodeIterator(
       document.body,
       -1,
       node => NodeFilter.FILTER_ACCEPT
     );
+    // valid
     document.createNodeIterator(document.body, -1, node => \"accept\");
+    // invalid
     document.createNodeIterator(document.body, -1, {
       accept: node => NodeFilter.FILTER_ACCEPT
     });
+    // valid
     document.createNodeIterator(document.body, -1, {
       accept: node => \"accept\"
     });
-    document.createNodeIterator(document.body, -1, {});
+    // invalid
+    document.createNodeIterator(document.body, -1, {}); // invalid
   },
   function() {
     document.createTreeWalker(
@@ -875,13 +865,16 @@ let tests = [
       -1,
       node => NodeFilter.FILTER_ACCEPT
     );
+    // valid
     document.createTreeWalker(document.body, -1, node => \"accept\");
+    // invalid
     document.createTreeWalker(document.body, -1, {
       accept: node => NodeFilter.FILTER_ACCEPT
     });
+    // valid
     document.createTreeWalker(document.body, -1, { accept: node => \"accept\" });
-    document.createTreeWalker(document.body, -1, {});
+    // invalid
+    document.createTreeWalker(document.body, -1, {}); // invalid
   }
-];
-"
+];"
 `;

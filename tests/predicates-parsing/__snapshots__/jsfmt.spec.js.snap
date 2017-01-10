@@ -6,9 +6,10 @@ exports[`test fail-0.js 1`] = `
 declare function f2(x: mixed): boolean %checks;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+
 // Error: \'declare\', \'checks\' but missing predicate
-declare function f2(x: mixed): boolean %checks;
-"
+
+declare function f2(x: mixed): boolean %checks;"
 `;
 
 exports[`test fail-1.js 1`] = `
@@ -19,9 +20,10 @@ exports[`test fail-1.js 1`] = `
 function f6(x: mixed): %checks (x !== null) {  }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+
 // Error: no return statement
-function f6(x: mixed): %checks(x !== null) {}
-"
+
+function f6(x: mixed): %checks(x !== null) {}"
 `;
 
 exports[`test fail-2.js 1`] = `
@@ -32,12 +34,12 @@ var a2 = (x: mixed): %checks (x !== null) => {        // Error: body form
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-// Error: body form
+
 var a2 = (x: mixed): %checks(x !== null) => {
+  // Error: body form
   var x = 1;
   return x;
-};
-"
+};"
 `;
 
 exports[`test fail-3.js 1`] = `
@@ -50,12 +52,14 @@ function f5(x: mixed): %checks (x !== null) { return x !== null }
 var a2 = (x: mixed): %checks (x !== null) => x !== null;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+
 // Cannot declare predicate with a function body is present.
+
 function f5(x: mixed): %checks(x !== null) {
   return x !== null;
 }
-var a2 = (x: mixed): %checks(x !== null) => x !== null;
-"
+
+var a2 = (x: mixed): %checks(x !== null) => x !== null;"
 `;
 
 exports[`test pass.js 1`] = `
@@ -88,23 +92,33 @@ declare function f(x: mixed): checks
 (typeof x === null);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+
 declare function f1(x: mixed): boolean;
+
 declare function f3(x: mixed): boolean %checks(x !== null);
+
 declare function f4(x: mixed): boolean %checks(x !== null);
+
 function f7(x: mixed): %checks {
   return x !== null;
 }
+
 var a0 = (x: mixed) => x !== null;
+
 var a1 = (x: mixed): %checks => x !== null;
+
 (x): %checks => x !== null;
+
 const insert_a_really_big_predicated_arrow_function_name_here = (
   x
 ): %checks => x !== null;
+
 declare var x;
 x;
 checks => 123;
+
 type checks = any;
+
 declare function f(x: mixed): checks;
-typeof x === null;
-"
+typeof x === null;"
 `;

@@ -83,6 +83,7 @@ export type TypedNode =
 /**
  * @flow
  */
+
 export type InferredType = \"unknown\" |
   \"gender\" |
   \"enum\" |
@@ -90,12 +91,14 @@ export type InferredType = \"unknown\" |
   \"number\" |
   \"string\" |
   \"error\";
+
 export type Pos = {
   firstLine: number,
   firstColumn: number,
   lastLine: number,
   lastColumn: number
 };
+
 export type TypedBinaryOpNode = {
   exprNodeType: \"binary_op\",
   binaryOp: \"plus\" | \"multiply\" | \"divide\" | \"minus\",
@@ -105,6 +108,7 @@ export type TypedBinaryOpNode = {
   exprType: InferredType,
   typed: true
 };
+
 export type TypedUnaryMinusNode = {
   exprNodeType: \"unary_minus\",
   op: TypedNode,
@@ -112,6 +116,7 @@ export type TypedUnaryMinusNode = {
   exprType: InferredType,
   typed: true
 };
+
 export type TypedNumberNode = {
   exprNodeType: \"number\",
   value: number,
@@ -119,6 +124,7 @@ export type TypedNumberNode = {
   exprType: \"number\",
   typed: true
 };
+
 export type TypedStringLiteralNode = {
   exprNodeType: \"string_literal\",
   value: string,
@@ -126,6 +132,7 @@ export type TypedStringLiteralNode = {
   exprType: \"string\",
   typed: true
 };
+
 export type TypedVariableNode = {
   exprNodeType: \"variable\",
   name: string,
@@ -133,6 +140,7 @@ export type TypedVariableNode = {
   exprType: InferredType,
   typed: true
 };
+
 export type TypedFunctionInvocationNode = {
   exprNodeType: \"function_invocation\",
   name: string,
@@ -141,13 +149,13 @@ export type TypedFunctionInvocationNode = {
   exprType: \"error\" | \"string\",
   typed: true
 };
+
 export type TypedNode = TypedBinaryOpNode |
   TypedUnaryMinusNode |
   TypedNumberNode |
   TypedStringLiteralNode |
   TypedVariableNode |
-  TypedFunctionInvocationNode;
-"
+  TypedFunctionInvocationNode;"
 `;
 
 exports[`test emit.js 1`] = `
@@ -220,10 +228,12 @@ export function emitExpression(node: TypedNode) : t.Expression {
 /**
  * @flow
  */
-// FALLTHROUGH
 import * as t from \"./jsAst\";
+
 const b = t.builders;
+
 import type {TypedNode} from \"./ast\";
+
 function getBinaryOp(
   op: \"plus\" | \"minus\" | \"divide\" | \"multiply\"
 ): \"+\" | \"-\" | \"*\" | \"/\" {
@@ -240,9 +250,11 @@ function getBinaryOp(
     throw new Error(\"Invalid binary operator: \" + op);
   }
 }
+
 export function emitExpression(node: TypedNode): t.Expression {
   switch (node.exprNodeType) {
   case \"string_literal\":
+  // FALLTHROUGH
   case \"number\":
     return b.literal(node.value);
   case \"variable\":
@@ -254,6 +266,7 @@ export function emitExpression(node: TypedNode): t.Expression {
   case \"binary_op\": {
       const lhs = emitExpression(node.lhs);
       const rhs = emitExpression(node.rhs);
+
       const op = getBinaryOp(node.binaryOp);
       return b.binaryExpression(op, lhs, rhs);
     }
@@ -267,14 +280,15 @@ export function emitExpression(node: TypedNode): t.Expression {
         b.identifier(node.name),
         false
       );
+
       const args = node.parameters.map(n => emitExpression(n));
+
       return b.callExpression(callee, args);
     }
   default:
     throw new Error(\"Unknown expression type: \" + node.type);
   }
-}
-"
+}"
 `;
 
 exports[`test jsAst.js 1`] = `
@@ -918,21 +932,21 @@ export const builders : {
 /**
  * @flow
  */
-/* TODO Missing from the Parser API.*/
-// ast-types exports all expressions as patterns.
-// That seems not like it was intended.
 export type Comment = {
   loc: ?SourceLocation,
   value: string,
   leading: boolean,
   trailing: boolean
 };
+
 export type SourceLocation = {
   start: SourcePosition,
   end: SourcePosition,
   source: ?string
 };
+
 export type SourcePosition = { line: number, column: number };
+
 export type File = {
   source: ?string,
   start: SourcePosition,
@@ -941,6 +955,7 @@ export type File = {
   type: \"File\",
   program: Program
 };
+
 export type Program = {
   source: ?string,
   start: SourcePosition,
@@ -949,6 +964,7 @@ export type Program = {
   type: \"Program\",
   body: Statement[]
 };
+
 export type BinaryOperator = \"==\" |
   \"!=\" |
   \"===\" |
@@ -965,12 +981,13 @@ export type BinaryOperator = \"==\" |
   \"*\" |
   \"/\" |
   \"%\" |
-  \"&\" |
+  \"&\" /* TODO Missing from the Parser API.*/ |
   \"|\" |
   \"^\" |
   \"in\" |
   \"instanceof\" |
   \"..\";
+
 export type UnaryOperator = \"-\" |
   \"+\" |
   \"!\" |
@@ -978,6 +995,7 @@ export type UnaryOperator = \"-\" |
   \"typeof\" |
   \"void\" |
   \"delete\";
+
 export type AssignmentOperator = \"=\" |
   \"+=\" |
   \"-=\" |
@@ -990,8 +1008,11 @@ export type AssignmentOperator = \"=\" |
   \"|=\" |
   \"^=\" |
   \"&=\";
+
 export type UpdateOperator = \"++\" | \"--\";
+
 export type LogicalOperator = \"&&\" | \"||\";
+
 export type Node = EmptyStatement |
   BlockStatement |
   ExpressionStatement |
@@ -1024,6 +1045,7 @@ export type Node = EmptyStatement |
   VariableDeclaration |
   FunctionDeclaration |
   VariableDeclarator;
+
 export type Statement = BlockStatement |
   EmptyStatement |
   ExpressionStatement |
@@ -1037,6 +1059,7 @@ export type Statement = BlockStatement |
   ForInStatement |
   TryStatement |
   Declaration;
+
 export type EmptyStatement = {
   source: ?string,
   start: SourcePosition,
@@ -1044,6 +1067,7 @@ export type EmptyStatement = {
   comments: ?Array<Comment>,
   type: \"EmptyStatement\"
 };
+
 export type BlockStatement = {
   source: ?string,
   start: SourcePosition,
@@ -1052,6 +1076,7 @@ export type BlockStatement = {
   type: \"BlockStatement\",
   body: Statement[]
 };
+
 export type ExpressionStatement = {
   source: ?string,
   start: SourcePosition,
@@ -1060,6 +1085,7 @@ export type ExpressionStatement = {
   type: \"ExpressionStatement\",
   expression: Expression
 };
+
 export type IfStatement = {
   source: ?string,
   start: SourcePosition,
@@ -1070,6 +1096,7 @@ export type IfStatement = {
   consequent: Statement,
   alternate: ?Statement
 };
+
 export type BreakStatement = {
   source: ?string,
   start: SourcePosition,
@@ -1078,6 +1105,7 @@ export type BreakStatement = {
   type: \"BreakStatement\",
   label: ?Identifier
 };
+
 export type ContinueStatement = {
   source: ?string,
   start: SourcePosition,
@@ -1086,6 +1114,7 @@ export type ContinueStatement = {
   type: \"ContinueStatement\",
   label: ?Identifier
 };
+
 export type ReturnStatement = {
   source: ?string,
   start: SourcePosition,
@@ -1094,6 +1123,7 @@ export type ReturnStatement = {
   type: \"ReturnStatement\",
   argument: ?Expression
 };
+
 export type ThrowStatement = {
   source: ?string,
   start: SourcePosition,
@@ -1102,6 +1132,7 @@ export type ThrowStatement = {
   type: \"ThrowStatement\",
   argument: ?Expression
 };
+
 export type WhileStatement = {
   source: ?string,
   start: SourcePosition,
@@ -1111,6 +1142,7 @@ export type WhileStatement = {
   test: Expression,
   body: Statement
 };
+
 export type ForStatement = {
   source: ?string,
   start: SourcePosition,
@@ -1122,6 +1154,7 @@ export type ForStatement = {
   update: ?Expression,
   body: Statement
 };
+
 export type ForInStatement = {
   source: ?string,
   start: SourcePosition,
@@ -1132,6 +1165,7 @@ export type ForInStatement = {
   right: Expression,
   body: Statement
 };
+
 export type TryStatement = {
   source: ?string,
   start: SourcePosition,
@@ -1143,6 +1177,7 @@ export type TryStatement = {
   handlers: CatchClause[],
   finalizer: ?BlockStatement
 };
+
 export type CatchClause = {
   source: ?string,
   start: SourcePosition,
@@ -1153,6 +1188,7 @@ export type CatchClause = {
   guard: ?Expression,
   body: BlockStatement
 };
+
 export type Expression = Identifier |
   ThisExpression |
   Literal |
@@ -1168,6 +1204,7 @@ export type Expression = Identifier |
   MemberExpression |
   ArrayExpression |
   ObjectExpreession;
+
 export type Identifier = {
   source: ?string,
   start: SourcePosition,
@@ -1176,6 +1213,7 @@ export type Identifier = {
   type: \"Identifier\",
   name: string
 };
+
 export type Literal = {
   source: ?string,
   start: SourcePosition,
@@ -1185,6 +1223,7 @@ export type Literal = {
   value: ?(string | boolean | number | RegExp),
   regex: ?{ pattern: string, flags: string }
 };
+
 export type ThisExpression = {
   source: ?string,
   start: SourcePosition,
@@ -1192,6 +1231,7 @@ export type ThisExpression = {
   comments: ?Array<Comment>,
   type: \"ThisExpression\"
 };
+
 export type ArrayExpression = {
   source: ?string,
   start: SourcePosition,
@@ -1200,6 +1240,7 @@ export type ArrayExpression = {
   type: \"ArrayExpression\",
   elements: Expression[]
 };
+
 export type ObjectExpreession = {
   source: ?string,
   start: SourcePosition,
@@ -1208,6 +1249,7 @@ export type ObjectExpreession = {
   type: \"ObjectExpression\",
   properties: Property[]
 };
+
 export type Property = {
   source: ?string,
   start: SourcePosition,
@@ -1218,6 +1260,7 @@ export type Property = {
   key: Literal | Identifier,
   value: Expression
 };
+
 export type FunctionExpression = {
   source: ?string,
   start: SourcePosition,
@@ -1228,6 +1271,7 @@ export type FunctionExpression = {
   params: Pattern[],
   body: BlockStatement
 };
+
 export type BinaryExpression = {
   source: ?string,
   start: SourcePosition,
@@ -1238,6 +1282,7 @@ export type BinaryExpression = {
   left: Expression,
   right: Expression
 };
+
 export type UnaryExpression = {
   source: ?string,
   start: SourcePosition,
@@ -1248,6 +1293,7 @@ export type UnaryExpression = {
   argument: Expression,
   prefix: boolean
 };
+
 export type AssignmentExpression = {
   source: ?string,
   start: SourcePosition,
@@ -1258,6 +1304,7 @@ export type AssignmentExpression = {
   left: Pattern,
   right: Expression
 };
+
 export type UpdateExpression = {
   source: ?string,
   start: SourcePosition,
@@ -1268,6 +1315,7 @@ export type UpdateExpression = {
   argument: Expression,
   prefix: boolean
 };
+
 export type LogicalExpression = {
   source: ?string,
   start: SourcePosition,
@@ -1278,6 +1326,7 @@ export type LogicalExpression = {
   left: Expression,
   right: Expression
 };
+
 export type ConditionalExpression = {
   source: ?string,
   start: SourcePosition,
@@ -1288,6 +1337,7 @@ export type ConditionalExpression = {
   consequent: Expression,
   alternate: Expression
 };
+
 export type NewExpression = {
   source: ?string,
   start: SourcePosition,
@@ -1297,6 +1347,7 @@ export type NewExpression = {
   callee: Expression,
   arguments: Expression[]
 };
+
 export type CallExpression = {
   source: ?string,
   start: SourcePosition,
@@ -1306,6 +1357,7 @@ export type CallExpression = {
   callee: Expression,
   arguments: Expression[]
 };
+
 export type MemberExpression = {
   source: ?string,
   start: SourcePosition,
@@ -1316,8 +1368,12 @@ export type MemberExpression = {
   property: Identifier | Expression,
   computed: boolean
 };
+// ast-types exports all expressions as patterns.
+// That seems not like it was intended.
 export type Pattern = Identifier;
+
 export type Declaration = VariableDeclaration | FunctionDeclaration;
+
 export type VariableDeclaration = {
   source: ?string,
   start: SourcePosition,
@@ -1327,6 +1383,7 @@ export type VariableDeclaration = {
   kind: \"var\" | \"let\" | \"const\",
   declarations: VariableDeclarator[]
 };
+
 export type FunctionDeclaration = {
   source: ?string,
   start: SourcePosition,
@@ -1337,6 +1394,7 @@ export type FunctionDeclaration = {
   body: BlockStatement,
   params: Pattern[]
 };
+
 export type VariableDeclarator = {
   source: ?string,
   start: SourcePosition,
@@ -1346,7 +1404,9 @@ export type VariableDeclarator = {
   id: Pattern,
   init: ?Expression
 };
+
 const a: any = null;
+
 export const builders: {
   emptyStatement(): EmptyStatement,
   blockStatement(body: Statement[]): BlockStatement,
@@ -1448,6 +1508,5 @@ export const builders: {
     params: Pattern[]
   ): FunctionDeclaration,
   variableDeclarator(id: Pattern, init?: Expression): VariableDeclarator
-} = a;
-"
+} = a;"
 `;

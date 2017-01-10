@@ -5,9 +5,9 @@ var ParentFoo = {foo: \'bar\'};
 module.exports = {ParentFoo};
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+
 var ParentFoo = { foo: \"bar\" };
-module.exports = { ParentFoo };
-"
+module.exports = { ParentFoo };"
 `;
 
 exports[`test main.js 1`] = `
@@ -36,26 +36,28 @@ foo;
 import type {Foo} from \'./types\';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-// Hops through destructuring
-// Points to lval in line above this
-// Follows assignment on simple/\"non-destructuring\" patterns
-// Points to LHS of line above this
-// Follows assignment with declaration
-// Points to LHS of line above this
-// Follows non-destructured property access of \`require(\'Parent\')\`
+
 var Parent = require(\"./Parent\");
+
+// Hops through destructuring
 let ParentFoo;
 ({ ParentFoo } = Parent);
 ParentFoo;
+// Points to lval in line above this
+// Follows assignment on simple/\"non-destructuring\" patterns
 let ParentFoo2;
 ParentFoo2 = Parent;
 ParentFoo2;
+// Points to LHS of line above this
+// Follows assignment with declaration
 let ParentFoo3 = Parent;
 ParentFoo3;
+// Points to LHS of line above this
+// Follows non-destructured property access of \`require(\'Parent\')\`
 let foo = require(\"./Parent\").ParentFoo.foo;
 foo;
-import type {Foo} from \"./types\";
-"
+
+import type {Foo} from \"./types\";"
 `;
 
 exports[`test override.js 1`] = `
@@ -72,9 +74,11 @@ class D extends C {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+
 class C {
   override() {}
 }
+
 class D extends C {
   foo() {
     this.override();
@@ -83,8 +87,7 @@ class D extends C {
     this.override;
   }
   override() {}
-}
-"
+}"
 `;
 
 exports[`test react.js 1`] = `
@@ -101,13 +104,16 @@ let msg = \"hello\";
 (<div id={msg}/>);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var React = require(\"react\");
+
 class C extends React.Component {
   props: { x: string };
 }
+
 let msg = \"hello\";
-<C x={msg}/>;
-<div id={msg}/>;
-"
+
+<C x={msg} />;
+
+<div id={msg} />;"
 `;
 
 exports[`test types.js 1`] = `
@@ -116,6 +122,6 @@ exports[`test types.js 1`] = `
 export type Foo = {};
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-export type Foo = {};
-"
+
+export type Foo = {};"
 `;

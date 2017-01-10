@@ -6,9 +6,8 @@ exports[`test license_with_flow.js 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* Copyright example */
 /* @flow */
-// error
-(\"\": void);
-"
+
+(\"\": void); // error"
 `;
 
 exports[`test max_header_tokens.js 1`] = `
@@ -21,15 +20,6 @@ exports[`test max_header_tokens.js 1`] = `
  * @flow
  */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/* @flow */
-/* second token */
-/* third token */
-/**
- * After max_header_tokens (in .flowconfig), we no longer care:
- *
- * @flow
- */
-
 "
 `;
 
@@ -37,9 +27,6 @@ exports[`test multiple_flows_1.js 1`] = `
 "/* @flow */
 /* @flow */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/* @flow */
-/* @flow */
-
 "
 `;
 
@@ -49,11 +36,6 @@ exports[`test multiple_flows_2.js 1`] = `
  * @noflow
  */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/**
- * @flow
- * @noflow
- */
-
 "
 `;
 
@@ -64,12 +46,6 @@ exports[`test multiple_providesModule_1.js 1`] = `
  * @flow
  */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/**
- * @providesModule Foo
- * @providesModule Bar
- * @flow
- */
-
 "
 `;
 
@@ -82,14 +58,6 @@ exports[`test multiple_providesModule_2.js 1`] = `
  * @providesModule Bar
  */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/**
- * @providesModule Foo
- * @flow
- */
-/**
- * @providesModule Bar
- */
-
 "
 `;
 
@@ -99,11 +67,9 @@ exports[`test use_strict_with_flow.js 1`] = `
 
 (\"\": void); // error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/* @flow */
-// error
 \"use strict\";
-(\"\": void);
-"
+/* @flow */
+(\"\": void); // error"
 `;
 
 exports[`test with_flow.js 1`] = `
@@ -112,9 +78,8 @@ exports[`test with_flow.js 1`] = `
 (\"\": void); // error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-// error
-(\"\": void);
-"
+
+(\"\": void); // error"
 `;
 
 exports[`test without_flow.js 1`] = `
@@ -123,7 +88,6 @@ exports[`test without_flow.js 1`] = `
 (\"\": void); // no error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* some other comment */
-// no error
-(\"\": void);
-"
+
+(\"\": void); // no error"
 `;
