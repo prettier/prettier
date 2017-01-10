@@ -2,9 +2,9 @@
   "name": "prettier",
   "version": "0.0.2",
   "bin": {
-    "prettier": "./bin/prettier"
+    "prettier": "dist/bin/prettier.js"
   },
-  "main": "./index.js",
+  "main": "src/index.js",
   "dependencies": {
     "ast-types": "git+https://github.com/jlongster/ast-types.git",
     "babylon": "git+https://github.com/jlongster/babylon.git#published",
@@ -13,9 +13,14 @@
     "flow-parser": "^0.37.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.21.0",
+    "babel-preset-es2015": "^6.18.0",
     "jest": "^18.0.0"
   },
   "scripts": {
+    "build": "babel src --out-dir dist",
+    "prepublish": "npm run build",
     "test": "jest",
     "format": "./bin/prettier --write src/printer.js"
   },

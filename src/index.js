@@ -1,7 +1,7 @@
 const babylon = require("babylon");
-const Printer = require("./src/printer").Printer;
+const Printer = require("./printer").Printer;
 const flowParser = require("flow-parser");
-const comments = require("./src/comments");
+const comments = require("./comments");
 
 var babylonOptions = {
   sourceType: 'module',
