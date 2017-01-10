@@ -1,9 +1,10 @@
 # Prettier
 
 Prettier is an opinionated JavaScript formatter inspired by
-[refmt](https://facebook.github.io/reason/tools.html). It removes all
-original styling and ensures that all outputted JavaScript conforms to
-a consistent style.
+[refmt](https://facebook.github.io/reason/tools.html) with advanced
+support for language features from ES2017, JSX, and Flow. It removes
+all original styling and ensures that all outputted JavaScript
+conforms to a consistent style.
 
 *Warning*: This is a beta, but should solidify fairly quickly.
 
@@ -94,6 +95,10 @@ You can install it globally if you like.
 Run prettier through the CLI with this script. Run it without any
 arguments to see the options.
 
+To format a file in-place, use `--write`. While this is in beta you
+should probably commit your code before doing that. In the future we
+will have better support for formatting whole projects.
+
 ```js
 prettier <opts> <filename>
 ```
@@ -139,6 +144,18 @@ folder](https://github.com/jlongster/prettier/tree/master/editors/emacs)
 for on-demand formatting.
 
 More editors are coming soon.
+
+## Language Support
+
+Prettier attempts to support all JavaScript language features,
+including non-standardized ones. By default it uses the
+[babylon](https://github.com/babel/babylon) parser with all language
+features enabled, but you can also use
+[flow](https://github.com/facebook/flow) parser with the
+`useFlowParser` API or `--flow-parser` CLI option.
+
+All of JSX and Flow syntax is supported. In fact, the test suite in
+`tests` *is* the entire Flow test suite and they all pass.
 
 ## Technical Details
 
