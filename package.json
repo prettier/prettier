@@ -8,9 +8,11 @@
   "dependencies": {
     "ast-types": "git+https://github.com/jlongster/ast-types.git",
     "babylon": "git+https://github.com/jlongster/babylon.git#published",
+    "flow-parser": "^0.37.0",
     "minimist": "^1.2.0",
+    "private": "^0.1.6",
     "recast": "^0.11.18",
-    "flow-parser": "^0.37.0"
+    "source-map": "^0.5.6"
   },
   "devDependencies": {
     "jest": "^18.0.0"
