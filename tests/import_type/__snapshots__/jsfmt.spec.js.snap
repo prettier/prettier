@@ -21,7 +21,7 @@ class ClassFoo3 {
     return 42;
   }
   static givesAFoo3(): ClassFoo3 {
-    return new ClassFoo3;
+    return new ClassFoo3();
   }
 }
 
@@ -65,17 +65,17 @@ class ClassFoo4 {
 class ClassFoo5 {}
 
 function givesAFoo4(): ClassFoo4 {
-  return new ClassFoo4;
+  return new ClassFoo4();
 }
 
 function givesAFoo5(): ClassFoo5 {
-  return new ClassFoo5;
+  return new ClassFoo5();
 }
 
 exports.ClassFoo4 = ClassFoo4;
 exports.ClassFoo5 = ClassFoo5;
-exports.foo4Inst = new ClassFoo4;
-exports.foo5Inst = new ClassFoo5;"
+exports.foo4Inst = new ClassFoo4();
+exports.foo5Inst = new ClassFoo5();"
 `;
 
 exports[`test ExportDefault_Class.js 1`] = `
@@ -101,7 +101,7 @@ class ClassFoo1 {
 }
 
 export default ClassFoo1
-export var foo1Inst = new ClassFoo1;"
+export var foo1Inst = new ClassFoo1();"
 `;
 
 exports[`test ExportNamed_Alias.js 1`] = `
@@ -156,7 +156,7 @@ class ClassFoo2 {
 }
 
 export {ClassFoo2}
-export var foo2Inst = new ClassFoo2;"
+export var foo2Inst = new ClassFoo2();"
 `;
 
 exports[`test ExportsANumber.js 1`] = `
@@ -267,7 +267,7 @@ import {foo1Inst} from \"./ExportDefault_Class\";
 var a1: ClassFoo1 = foo1Inst;
 var a2: number = foo1Inst;
 // Error: ClassFoo1 ~> number
-new ClassFoo1;
+new ClassFoo1();
 // Error: ClassFoo1 is not a value-identifier
 ///////////////////////////////////////////////
 // == Importing Class Type (Named Export) == //
@@ -278,15 +278,15 @@ import {foo2Inst} from \"./ExportNamed_Class\";
 var b1: ClassFoo2 = foo2Inst;
 var b2: number = foo2Inst;
 // Error: ClassFoo2 ~> number
-new ClassFoo2;
+new ClassFoo2();
 // Error: ClassFoo2 is not a value-identifier
 /////////////////////////////////////////////////////
 // == Importing Class Type (CJS Default Export) == //
 /////////////////////////////////////////////////////
 import type ClassFoo3T from \"./ExportCJSDefault_Class\";
 import ClassFoo3 from \"./ExportCJSDefault_Class\";
-var c1: ClassFoo3T = new ClassFoo3;
-new ClassFoo3T;
+var c1: ClassFoo3T = new ClassFoo3();
+new ClassFoo3T();
 // Error: ClassFoo3 is not a value-identifier
 ///////////////////////////////////////////////////
 // == Importing Class Type (CJS Named Export) == //
@@ -297,7 +297,7 @@ import {foo4Inst, foo5Inst} from \"./ExportCJSNamed_Class\";
 var d1: ClassFoo4 = foo4Inst;
 var d2: number = foo4Inst;
 // Error: ClassFoo4 ~> number
-new ClassFoo4;
+new ClassFoo4();
 // Error: ClassFoo4 is not a value-identifier
 // TODO: this errors correctly, but the message is just \'can\'t resolve name\'
 var d3: typeof ClassFoo5 = foo5Inst;

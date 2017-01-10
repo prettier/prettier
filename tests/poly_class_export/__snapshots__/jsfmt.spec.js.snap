@@ -39,7 +39,7 @@ class B extends A<string> {
   }
 }
 
-module.exports = new B;"
+module.exports = new B();"
 `;
 
 exports[`test C.js 1`] = `

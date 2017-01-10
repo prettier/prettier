@@ -102,7 +102,7 @@ class MyClass1 {
 // an object produced by the MyClass1 constructor
 // function.
 //
-var a: MyClass1 = new MyClass1;
+var a: MyClass1 = new MyClass1();
 
 // Following tests are errors which conflate the type
 // of the class value itself with the type of its
@@ -136,7 +136,7 @@ class MyClass2 {
 // to a variable whose annotated type is the type of
 // the class value (constructor function) MyClass2 itself.
 //
-var c: typeof MyClass2 = new MyClass2;
+var c: typeof MyClass2 = new MyClass2();
 
 //////////////////////////////////////
 // == typeof <<non-class value>> == //

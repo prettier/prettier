@@ -49,7 +49,7 @@ let tests = [
 let tests = [
   // constructor
   function() {
-    new Boolean;
+    new Boolean();
     new Boolean(0);
     new Boolean(-0);
     new Boolean(null);
@@ -128,11 +128,11 @@ function* generator(): Iterable<[string, number]> {
 let tests = [
   // good constructors
   function() {
-    let w = new Map;
+    let w = new Map();
     let x = new Map(null);
     let y = new Map([ [ \"foo\", 123 ] ]);
     let z = new Map(generator());
-    let a: Map<string, number> = new Map;
+    let a: Map<string, number> = new Map();
     let b: Map<string, number> = new Map([ [ \"foo\", 123 ] ]);
     let c: Map<string, number> = new Map(generator());
   },
@@ -254,7 +254,7 @@ let ws5 = new WeakSet(numbers()); // error, must be objects
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-let ws = new WeakSet;
+let ws = new WeakSet();
 let obj: Object = {};
 let dict: { foo: string } = { foo: \"bar\" };
 

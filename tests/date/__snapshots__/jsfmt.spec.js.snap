@@ -34,7 +34,7 @@ var x: string = d.getTime();
 var y: number = d;
 
 // valid constructors
-new Date;
+new Date();
 new Date(1234567890);
 new Date(\"2015/06/18\");
 new Date(2015, 6);

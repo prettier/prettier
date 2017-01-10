@@ -32,7 +32,7 @@ function f() {
 }
 
 var Foo = require(\"./genericfoo\");
-var foo = new Foo;
+var foo = new Foo();
 function g() {
   var foo1 = foo.map(function() {
     return \"...\";
@@ -60,7 +60,7 @@ class Foo<T> {
     return this;
   }
   map<U>(callbackfn: () => U): Foo<U> {
-    return new Foo;
+    return new Foo();
   }
   set(x: T): void {}
   get(): T {

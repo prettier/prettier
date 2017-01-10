@@ -113,7 +113,7 @@ import { C, D } from \"./b2\";
 
 import {C, D} from \"./b2\";
 
-(new D: C);"
+(new D(): C);"
 `;
 
 exports[`test c1.js 1`] = `
@@ -169,7 +169,7 @@ export var x = new A;
 
 export class A {}
 export class B {}
-export var x = new A;"
+export var x = new A();"
 `;
 
 exports[`test d2.js 1`] = `
@@ -304,7 +304,7 @@ import { D } from \'./g2\';
 import {C} from \"./g1\";
 import {D} from \"./g2\";
 
-(new D: C);"
+(new D(): C);"
 `;
 
 exports[`test h1.js 1`] = `

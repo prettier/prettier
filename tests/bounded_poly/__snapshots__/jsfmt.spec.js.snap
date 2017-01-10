@@ -67,7 +67,7 @@ function example<T: { x: number }>(o: T): T {
 var obj1: { x: number, y: string } = example({ x: 0, y: \"\" });
 var obj2: { x: number } = example({ x: 0 });
 
-var c: C<string> = new C;
+var c: C<string> = new C();
 // error, since T = string is incompatible with number
 var q: number = c.qux(0);
 /* 2 more errors, since argument U = number is incompatible with T = string, and

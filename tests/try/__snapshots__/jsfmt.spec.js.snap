@@ -329,7 +329,7 @@ function f(b) {
   try {
     var x: number;
     if (b) {
-      throw new Error;
+      throw new Error();
     }
     x = 0;
   } catch (e) {}

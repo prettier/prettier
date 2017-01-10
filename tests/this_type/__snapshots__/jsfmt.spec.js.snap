@@ -83,8 +83,8 @@ class C {
 
 class D extends C {}
 
-var d = new D;
-(d: C).next = new C;
+var d = new D();
+(d: C).next = new C();
 (d.next: D);
 // sneaky
 class A {
@@ -114,7 +114,7 @@ class Invariant {
 class Misc {
   // Set<X> has invariant X
   out_set(): Set<this> {
-    return new Set.add(this);
+    return new Set().add(this);
   }
   in_set(_: Set<this>) {}
   inout_set: Set<this>;
@@ -198,7 +198,7 @@ class ImplicitNumber extends Implicit {
   arg: number;
 }
 
-(new ImplicitNumber.val: string); // error: number ~> string"
+(new ImplicitNumber().val: string); // error: number ~> string"
 `;
 
 exports[`test import.js 1`] = `
@@ -233,27 +233,27 @@ import {A3} from \"./export\";
 
 class B1 extends A1 {
   foo(): B1 {
-    return new B1;
+    return new B1();
   } // error
 }
 
-(new B1.bar(): B1);
+(new B1().bar(): B1);
 // OK
 class B3<X> extends A3<X> {
   foo(): B3<X> {
-    return new B3;
+    return new B3();
   } // error
 }
 
-(new B3.bar(): B3<*>);
+(new B3().bar(): B3<*>);
 // OK
-(new B3.qux(0): string);
+(new B3().qux(0): string);
 // error
-(new B3.bar(): A2<*>);
+(new B3().bar(): A2<*>);
 // OK
-((new B3.bar(): B3<string>): A2<number>);
+((new B3().bar(): B3<string>): A2<number>);
 // error
-((new B3: A2<number>).qux(0): string); // error"
+((new B3(): A2<number>).qux(0): string); // error"
 `;
 
 exports[`test interface.js 1`] = `
@@ -294,8 +294,8 @@ class C {
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-(new DoublyLinkedList.prev(): DoublyLinkedList);
-(new DoublyLinkedList.next(): DoublyLinkedList);
+(new DoublyLinkedList().prev(): DoublyLinkedList);
+(new DoublyLinkedList().next(): DoublyLinkedList);
 
 var MiniImmutable = require(\"mini-immutable\");
 class C {
@@ -321,7 +321,7 @@ class A {
   // return of foo is not annotated to get around
   // substituting this below
   bar(): this {
-    return new A.foo();
+    return new A().foo();
   }
   // same as returning : A, so error
   qux(): this {
@@ -357,7 +357,7 @@ class A {
     // describes instances of A or subclasses of A: the
     // meaning of the \`this\` type is not changed simply by
     // switching into a static context
-    return new this; // but in a static context, the value \`this\` is bound to
+    return new this(); // but in a static context, the value \`this\` is bound to
     // the class, instead of instances of the class
   }
 }
@@ -451,7 +451,7 @@ class Base {
     return this;
   }
   qux() {
-    return new Base;
+    return new Base();
   }
 
   bar() {
@@ -474,22 +474,22 @@ class Override extends Base {
   }
   // OK, too
   bar() {
-    return new Override;
+    return new Override();
   } // OK (cf. error below)
 }
 
 class InheritOverride extends Override {}
 
-(new Inherit.foo(): Base);
-(new Inherit.foo(): Inherit);
+(new Inherit().foo(): Base);
+(new Inherit().foo(): Inherit);
 // error (cf. OK below)
-((new Inherit: Base).foo(): Base);
-(new Override.foo(): Base);
-(new Override.foo(): Override);
+((new Inherit(): Base).foo(): Base);
+(new Override().foo(): Base);
+(new Override().foo(): Override);
 // OK
-((new Override: Base).foo(): Base);
+((new Override(): Base).foo(): Base);
 
-(new InheritOverride.bar_caller(): InheritOverride);
+(new InheritOverride().bar_caller(): InheritOverride);
 // error
 // blame flips below
 // Examples with \`this\` types (compare with examples above)
@@ -498,7 +498,7 @@ class Base2 {
     return this;
   }
   qux(): Base2 {
-    return new Base2;
+    return new Base2();
   }
 
   bar(): this {
@@ -524,7 +524,7 @@ class Override2 extends Base2 {
   }
   // OK, too
   bar(): Override2 {
-    return new Override2;
+    return new Override2();
   }
   // error (cf. OK above)
   // see exploit below
@@ -536,16 +536,16 @@ class Override2 extends Base2 {
 
 class InheritOverride2 extends Override2 {}
 
-(new Inherit2.foo(): Base2);
-(new Inherit2.foo(): Inherit2);
+(new Inherit2().foo(): Base2);
+(new Inherit2().foo(): Inherit2);
 // OK (cf. error above)
-((new Inherit2: Base2).foo(): Base2);
-(new Override2.foo(): Base2);
-(new Override2.foo(): Override2);
+((new Inherit2(): Base2).foo(): Base2);
+(new Override2().foo(): Base2);
+(new Override2().foo(): Override2);
 // OK
-((new Override2: Base2).foo(): Base2);
+((new Override2(): Base2).foo(): Base2);
 
-(new InheritOverride2.bar_caller(): InheritOverride2);
+(new InheritOverride2().bar_caller(): InheritOverride2);
 // exploits error above
-(new Override2: Base2).corge(new Base2); // exploits error above"
+(new Override2(): Base2).corge(new Base2()); // exploits error above"
 `;

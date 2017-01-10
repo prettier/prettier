@@ -769,7 +769,7 @@ function genericPrintNoParens(path, options, print) {
 
     var args = n.arguments;
 
-    if (args && args.length > 0) {
+    if (args) {
       parts.push(printArgumentsList(path, options, print));
     }
 

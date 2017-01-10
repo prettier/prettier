@@ -42,9 +42,9 @@ function Foo() {
 }
 Foo.prototype.m = function() {};
 
-var o1: { x: number, m(): void } = new Foo;
+var o1: { x: number, m(): void } = new Foo();
 
-var o2: Foo = new Foo;"
+var o2: Foo = new Foo();"
 `;
 
 exports[`test super.js 1`] = `
@@ -58,5 +58,5 @@ class C {
 }
 class D extends C {}
 
-var d: { +m: () => void } = new D;"
+var d: { +m: () => void } = new D();"
 `;

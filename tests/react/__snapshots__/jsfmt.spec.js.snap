@@ -110,8 +110,8 @@ var b: number = new react.Component(); // Error: ReactComponent ~> number
 import react from \"react\";
 import {Component} from \"react\";
 
-var a: Component<*, *, *> = new react.Component;
-var b: number = new react.Component; // Error: ReactComponent ~> number"
+var a: Component<*, *, *> = new react.Component();
+var b: number = new react.Component(); // Error: ReactComponent ~> number"
 `;
 
 exports[`test jsx_spread.js 1`] = `

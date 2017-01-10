@@ -72,7 +72,7 @@ f(x);
 
 class A {}
 function h() {
-  return 42 || new A;
+  return 42 || new A();
 }
 
 var y = h();
@@ -90,7 +90,7 @@ class C {
 
 function foo() {
   var c = \"...\";
-  c = new C;
+  c = new C();
   if (bar()) {
     c.qux();
   }

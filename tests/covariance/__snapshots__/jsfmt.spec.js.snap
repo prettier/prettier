@@ -61,7 +61,7 @@ class NVerbose<E, I: E> {
   }
 }
 
-var nv: NVerbose<number, *> = new NVerbose;
+var nv: NVerbose<number, *> = new NVerbose();
 nv.x = [ 0 ];
 (nv.x[0]: string);
 // error

@@ -69,7 +69,7 @@ declare class C {
   bar(x: { a: string }): string
 }
 
-var a = new C;
+var a = new C();
 
 a.foo(0);
 // ok
@@ -113,8 +113,8 @@ exports[`test test.js 1`] = `
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function foo() {
-  var output = new FakeUint8Array;
-  output.set(new FakeUint8Array, 0); // matches one of the overloads of set
+  var output = new FakeUint8Array();
+  output.set(new FakeUint8Array(), 0); // matches one of the overloads of set
 }"
 `;
 
@@ -128,7 +128,7 @@ var foo = new Foo;
 (foo.bar(\'hmmm\'): number); // error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare class Foo { bar(x: \"hmm\"): number, bar(x: string): string }
-var foo = new Foo;
+var foo = new Foo();
 (foo.bar(\"hmm\"): number);
 // OK
 (foo.bar(\"hmmm\"): number); // error"

@@ -35,11 +35,11 @@ declare class Baz<T> {
   x: T
 }
 
-(new Foo.x: number);
+(new Foo().x: number);
 // error: Qux wins
-(new Foo.y: string);
+(new Foo().y: string);
 // error: Bar wins
-(new Foo.z: number); // error: Qux wins"
+(new Foo().z: number); // error: Qux wins"
 `;
 
 exports[`test test2.js 1`] = `

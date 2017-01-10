@@ -26,7 +26,7 @@ var A = require(\"./A\");
 
 class B extends A {}
 
-let b = new B;
+let b = new B();
 (b.foo: number);
 // error, number !~> function
 module.exports = B;"
@@ -50,7 +50,7 @@ class C extends B {
   foo(x: string): void {}
 }
 
-let c = new C;
+let c = new C();
 (c.foo: number);
 // error, number !~> function
 module.exports = C;"
@@ -63,7 +63,7 @@ new E().x
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class D {}
 class E {}
-new E.x;"
+new E().x;"
 `;
 
 exports[`test class_shapes.js 1`] = `
@@ -120,7 +120,7 @@ class TestClass {
   c: ?string;
 }
 
-var x = new TestClass;
+var x = new TestClass();
 
 x.a;
 // ok
@@ -144,7 +144,7 @@ class Test2Class extends Test2Superclass {
   b: number; // conflicts with cast to Foo
 }
 
-var z = new Test2Class;
+var z = new Test2Class();
 var w: Foo = z;"
 `;
 
@@ -183,33 +183,33 @@ var alias2: Alias = _Alias.factory(); // error: bad pun
 var Bar = class Foo {
   static factory(): Foo {
     // OK: Foo is a type in this scope
-    return new Foo; // OK: Foo is a runtime binding in this scope
+    return new Foo(); // OK: Foo is a runtime binding in this scope
   }
 };
 
-var bar1: Bar = new Bar;
+var bar1: Bar = new Bar();
 // OK
 var bar2: Bar = Bar.factory();
 // OK
 // NB: Don\'t write expected errors using Foo to avoid error collapse hiding an
 // unexpected failure in the above code.
 var B = class Baz {};
-var b = new Baz;
+var b = new Baz();
 // error: Baz is not a runtime binding in this scope
 var C = class Qux {};
-var c: Qux = new C;
+var c: Qux = new C();
 // error: Qux is not a type in this scope
 // OK: anon classes create no binding, but can be bound manually
 var Anon = class {};
-var anon: Anon = new Anon;
+var anon: Anon = new Anon();
 
 class Alias {}
 var _Alias = class Alias {
   static factory(): Alias {
-    return new Alias;
+    return new Alias();
   }
 };
-var alias1: Alias = new _Alias;
+var alias1: Alias = new _Alias();
 // error: bad pun
 var alias2: Alias = _Alias.factory(); // error: bad pun"
 `;

@@ -4,7 +4,7 @@ export function foo(): Implementation { return new Implementation; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class Implementation {}
 export function foo(): Implementation {
-  return new Implementation;
+  return new Implementation();
 }"
 `;
 

@@ -89,7 +89,7 @@ arr[day] = 0;
 (arr[day]: string); // error: number ~> string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var arr = [];
-var day = new Date;
+var day = new Date();
 
 // Date instances are numeric (see Flow_js.numeric) and thus can index into
 // arrays.

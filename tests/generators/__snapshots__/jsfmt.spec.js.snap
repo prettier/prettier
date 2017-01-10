@@ -226,7 +226,7 @@ class GeneratorExamples {
   }
 }
 
-var examples = new GeneratorExamples;
+var examples = new GeneratorExamples();
 
 for (var x of examples.infer_stmt()) {
   (x: string);
@@ -297,7 +297,7 @@ class GeneratorExamples<X> {
   }
 }
 
-var examples = new GeneratorExamples;
+var examples = new GeneratorExamples();
 
 for (var x of examples.infer_stmt()) {
   (x: string);

@@ -104,7 +104,7 @@ C.prototype.foo = function() {
   return this.x;
 };
 
-var c = new C;
+var c = new C();
 var x: string = c.foo();
 
 function foo() {
