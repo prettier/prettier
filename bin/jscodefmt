@@ -5,7 +5,10 @@ const minimist = require("minimist");
 const jscodefmt = require("../index");
 
 const argv = minimist(process.argv.slice(2), {
-  boolean: ["write", "useFlowParser", "bracket-spacing", "single-quote", "trailing-comma"]
+  boolean: ["write", "flow-parser", "bracket-spacing", "single-quote", "trailing-comma"],
+  default: {
+    "bracket-spacing": true
+  }
 });
 
 const filename = argv["_"][0];

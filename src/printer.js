@@ -675,12 +675,12 @@ function genericPrintNoParens(path, options, print) {
             indent(
               options.tabWidth,
               concat([
-                line,
+                options.bracketSpacing ? line : softline,
                 join(concat([ ",", line ]), path.map(print, "elements"))
               ])
             ),
             ifBreak(options.trailingComma ? "," : ""),
-            line,
+            options.bracketSpacing ? line : softline,
             "]"
           ])
         )
