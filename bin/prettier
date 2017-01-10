@@ -16,13 +16,15 @@ const write = argv['write'];
 
 if(!filename || !filename.match(/\S/)) {
   console.log(
-    "Usage: prettier <opts> <filename>\n\n" +
+    "Usage: prettier [opts] [filename]\n\n" +
     "Available options:\n" +
-    "  --write            Edit the file in-place (beware!)\n" +
-    "  --flow-parser      Use the flow parser instead of babylon\n" +
-    "  --single-quote     Use single quotes instead of double\n" +
-    "  --trailing-comma   Print trailing commas wherever possible\n" +
-    "  --bracket-spacing  Put spaces between brackets. Defaults to true, set false to turn off"
+    "  --write              Edit the file in-place (beware!)\n" +
+    "  --print-width <int>  Specify the length of line that the printer will wrap on. Defaults to 80.\n" +
+    "  --tab-width <int>    Specify the number of spaces per indentation-level. Defaults to 2.\n" +
+    "  --flow-parser        Use the flow parser instead of babylon\n" +
+    "  --single-quote       Use single quotes instead of double\n" +
+    "  --trailing-comma     Print trailing commas wherever possible\n" +
+    "  --bracket-spacing    Put spaces between brackets. Defaults to true, set false to turn off"
   );
   process.exit(1);
 }
