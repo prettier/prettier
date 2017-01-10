@@ -213,9 +213,6 @@ function genericPrintNoParens(path, options, print) {
       )
     );
 
-    // Make sure the file always ends with a newline
-    parts.push(hardline);
-
     return concat(parts);
   // Babel extension.
   case "Noop":
@@ -2013,7 +2010,7 @@ function nodeStr(str, options) {
 
 function shouldAddSpacing(node, options) {
   const text = options.originalText;
-  return util.newlineExistsAfter(text, node.end);
+  return util.newlineExistsAfter(text, util.locEnd(node));
 }
 
 function isFirstStatement(path) {

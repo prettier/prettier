@@ -85,12 +85,12 @@ util.composeSourceMaps = function(formerMap, latterMap) {
 };
 
 function expandLoc(parentNode, childNode) {
-  if (childNode.start - parentNode.start < 0) {
-    parentNode.start = childNode.start;
+  if (locStart(childNode) - locStart(parentNode) < 0) {
+    setLocStart(parentNode, locStart(childNode));
   }
 
-  if (parentNode.end - childNode.end < 0) {
-    parentNode.end = childNode.end;
+  if (locEnd(parentNode) - locEnd(childNode) < 0) {
+    setLocEnd(parentNode, locEnd(childNode));
   }
 }
 
@@ -121,12 +121,12 @@ util.fixFaultyLocations = function(node, text) {
       node.value.id = null;
     }
   } else if (node.type === "ObjectTypeProperty") {
-    var end = skipSpaces(text, node.end, true);
+    var end = skipSpaces(text, locEnd(node), true);
     if (end !== false && text.charAt(end) === ",") {
       // Some parsers accidentally include trailing commas in the
-      // .end information for ObjectTypeProperty nodes.
+      // end information for ObjectTypeProperty nodes.
       if ((end = skipSpaces(text, end - 1, true)) !== false) {
-        loc.end = end;
+        setLocEnd(node, end)
       }
     }
   }
@@ -142,51 +142,52 @@ function fixTemplateLiteral(node, text) {
 
   // First we need to exclude the opening ` from the loc of the first
   // quasi element, in case the parser accidentally decided to include it.
-  var afterLeftBackTickPos = node.start;
+  var afterLeftBackTickPos = locStart(node);
   assert.strictEqual(text.charAt(afterLeftBackTickPos), "`");
   assert.ok(afterLeftBackTickPos < text.length);
   var firstQuasi = node.quasis[0];
-  if (firstQuasi.start - afterLeftBackTickPos < 0) {
-    firstQuasi.start = afterLeftBackTickPos;
+  if (locStart(firstQuasi) - afterLeftBackTickPos < 0) {
+    setLocStart(firstQuasi, afterLeftBackTickPos);
   }
 
   // Next we need to exclude the closing ` from the loc of the last quasi
   // element, in case the parser accidentally decided to include it.
-  var rightBackTickPos = node.end;
+  var rightBackTickPos = locEnd(node);
   assert.ok(rightBackTickPos >= 0);
   assert.strictEqual(text.charAt(rightBackTickPos), "`");
   var lastQuasi = node.quasis[node.quasis.length - 1];
-  if (rightBackTickPos - lastQuasi.end < 0) {
-    lastQuasi.end = rightBackTickPos;
+  if (rightBackTickPos - locEnd(lastQuasi) < 0) {
+    setLocEnd(locEnd(lastQuasi), rightBackTickPos);
   }
 
   // Now we need to exclude ${ and } characters from the loc's of all
   // quasi elements, since some parsers accidentally include them.
   node.expressions.forEach(function (expr, i) {
-    // Rewind from expr.start over any whitespace and the ${ that
-    // precedes the expression. The position of the $ should be the same
-    // as the .end of the preceding quasi element, but some parsers
-    // accidentally include the ${ in the loc of the quasi element.
-    var dollarCurlyPos = skipSpaces(text, expr.start - 1, true);
+    // Rewind from the start loc over any whitespace and the ${ that
+    // precedes the expression. The position of the $ should be the
+    // same as the end of the preceding quasi element, but some
+    // parsers accidentally include the ${ in the loc of the quasi
+    // element.
+    var dollarCurlyPos = skipSpaces(text, locStart(expr) - 1, true);
     if (dollarCurlyPos - 1 >= 0 &&
         text.charAt(dollarCurlyPos - 1) === "{" &&
         dollarCurlyPos - 2 >= 0 &&
         text.charAt(dollarCurlyPos - 2) === "$") {
       var quasiBefore = node.quasis[i];
-      if (dollarCurlyPos - quasiBefore.end < 0) {
-        quasiBefore.end = dollarCurlyPos;
+      if (dollarCurlyPos - locEnd(quasiBefore) < 0) {
+        setLocEnd(quasiBefore, dollarCurlyPos);
       }
     }
 
     // Likewise, some parsers accidentally include the } that follows
     // the expression in the loc of the following quasi element.
-    var rightCurlyPos = skipSpaces(text, expr.end);
+    var rightCurlyPos = skipSpaces(text, locEnd(expr));
     if (text.charAt(rightCurlyPos) === "}") {
       assert.ok(rightCurlyPos + 1 < text.length);
       // Now rightCurlyPos is technically the position just after the }.
       var quasiAfter = node.quasis[i + 1];
-      if (quasiAfter.start - rightCurlyPos < 0) {
-        quasiAfter.start = rightCurlyPos;
+      if (locStart(quasiAfter) - rightCurlyPos < 0) {
+        setLocStart(locStart(quasiAfter), rightCurlyPos);
       }
     }
   });
@@ -273,3 +274,39 @@ function skipSpaces(text, index, backwards) {
   return false;
 }
 util.skipSpaces = skipSpaces;
+
+function locStart(node) {
+  if(node.range) {
+    return node.range[0];
+  }
+  return node.start;
+}
+util.locStart = locStart;
+
+function locEnd(node) {
+  if(node.range) {
+    return node.range[1];
+  }
+  return node.end;
+}
+util.locEnd = locEnd;
+
+function setLocStart(node, index) {
+  if(node.range) {
+    node.range[0] = index;
+  }
+  else {
+    node.start = index;
+  }
+}
+util.setLocStart = setLocStart;
+
+function setLocEnd(node, index) {
+  if(node.range) {
+    node.range[1] = index;
+  }
+  else {
+    node.end = index;
+  }
+}
+util.setLocEnd = setLocEnd;

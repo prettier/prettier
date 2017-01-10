@@ -10,6 +10,8 @@ var hardline = pp.hardline;
 var util = require("./util");
 var comparePos = util.comparePos;
 var childNodesCacheKey = require("private").makeUniqueKey();
+var locStart = util.locStart;
+var locEnd = util.locEnd;
 
 // TODO Move a non-caching implementation of this function into ast-types,
 // and implement a caching wrapper function here.
@@ -28,7 +30,7 @@ function getSortedChildNodes(node, text, resultArray) {
       // time because we almost always (maybe always?) append the
       // nodes in order anyway.
       for (var i = resultArray.length - 1; i >= 0; --i) {
-        if (resultArray[i].end - node.start <= 0) {
+        if (locEnd(resultArray[i]) - locStart(node) <= 0) {
           break;
         }
       }
@@ -74,13 +76,14 @@ function decorateComment(node, comment, text) {
     var middle = (left + right) >> 1;
     var child = childNodes[middle];
 
-    if (child.start - comment.start <= 0 && comment.end - child.end <= 0) {
+    if (locStart(child) - locStart(comment) <= 0 &&
+        locEnd(comment) - locEnd(child) <= 0) {
       // The comment is completely contained by this child node.
       decorateComment(comment.enclosingNode = child, comment, text);
       return; // Abandon the binary search at this level.
     }
 
-    if (child.end - comment.start <= 0) {
+    if (locEnd(child) - locStart(comment) <= 0) {
       // This child node falls completely before the comment.
       // Because we will never consider this node or any nodes
       // before it again, this node must be the closest preceding
@@ -90,7 +93,7 @@ function decorateComment(node, comment, text) {
       continue;
     }
 
-    if (comment.end - child.start <= 0) {
+    if (locEnd(comment) - locStart(child) <= 0) {
       // This child node falls completely after the comment.
       // Because we will never consider this node or any nodes after
       // it again, this node must be the closest following node we
@@ -184,7 +187,7 @@ function breakTies(tiesToBreak, text) {
 
   var pn = tiesToBreak[0].precedingNode;
   var fn = tiesToBreak[0].followingNode;
-  var gapEndPos = fn.start;
+  var gapEndPos = locStart(fn);
 
   // Iterate backwards through tiesToBreak, examining the gaps
   // between the tied comments. In order to qualify as leading, a
@@ -197,13 +200,13 @@ function breakTies(tiesToBreak, text) {
     assert.strictEqual(comment.precedingNode, pn);
     assert.strictEqual(comment.followingNode, fn);
 
-    var gap = text.slice(comment.end, gapEndPos);
+    var gap = text.slice(locEnd(comment), gapEndPos);
     if (/\S/.test(gap)) {
       // The gap string contained something other than whitespace.
       break;
     }
 
-    gapEndPos = comment.start;
+    gapEndPos = locStart(comment);
   }
 
   // while (indexOfFirstLeadingComment <= tieCount &&
@@ -261,7 +264,7 @@ function printTrailingComment(commentPath, print, options) {
   const text = options.originalText;
 
   return concat([
-    util.newlineExistsBefore(text, comment.start) ? hardline : " ",
+    util.newlineExistsBefore(text, locStart(comment)) ? hardline : " ",
     print(commentPath)
   ]);
 }
