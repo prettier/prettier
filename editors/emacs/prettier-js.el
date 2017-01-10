@@ -1,4 +1,4 @@
-;;; prettier.el --- utility functions to format reason code
+;;; prettier-js.el --- utility functions to format reason code
 
 ;; Copyright (c) 2014 The go-mode Authors. All rights reserved.
 ;; Portions Copyright (c) 2015-present, Facebook, Inc. All rights reserved.
@@ -208,7 +208,5 @@ function."
      (delete-file bufferfile)
      (delete-file outputfile)))
 
-(provide 'prettier)
-
-;;; prettier.el ends here
+(provide 'prettier-js)
 

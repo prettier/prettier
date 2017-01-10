@@ -1,167 +1,114 @@
-# prettier
+# Prettier
 
-This is a JavaScript pretty-printer that is opinionated. All it takes
-is a width to format the code to and it does the rest. Zero config: it
-just works! Integrate this into your editor to get immediate feedback,
-or run it across an entire project to format all your files.
+Prettier is an opinionated JavaScript formatter. It removes all
+original styling and ensures that all outputted JavaScript conforms to
+a consistent style.
 
-## Details
+*Warning*: This is a **beta**, but should solidify fairly quickly.
 
-This is a fork of [recast](https://github.com/benjamn/recast)'s
-printer because it already handles a lot of edge cases like handling
-comments. The core algorithm has been rewritten to be based on
-Wadler's "[A prettier
-printer](http://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf)"
-paper, however. Recast also supported only re-printing nodes that
-changed from a transformation, but we avoid that and always
-pretty-print the entire AST so it's always consistent.
+This goes way beyond [eslint](http://eslint.org/) and other projects
+[built on it](https://github.com/feross/standard). Unlike eslint,
+there aren't a million configuration options and rules. But more
+importantly: **everything is fixable**. This works because prettier
+never "checks" anything; it takes JavaScript as input and outputs the
+formatted JavaScript as output.
 
-That paper allows a flexible formatting that will break expressions
-across lines if they get too big. This means you can sloppily write
-code as you need and just format it, and it will always produce
-consistent output.
+In technical terms: prettier parses your JavaScript into an AST and
+pretty-prints the AST, completely ignoring any of the original
+formatting. Say hello to completely consistent syntax!
 
-The core of the algorithm is implemented in `pp.js`. The printer should
-use the basic formatting abstractions provided to construct a format
-when printing a node. Parts of the API only exist to be compatible
-with recast's previous API to ease migration, but over time we can
-clean it up.
+There's an extremely important piece missing from existing styling
+tools: **the maximum line length**. Sure, you can tell eslint to warn
+you when you have a line that's too long, but that's an after-thought
+(eslint *never* knows how to fix it). The maximum line length is a
+critical piece the formatter needs for laying out and wrapping code.
 
-The following commands are available:
-
-* **concat**
-
-Combine an array into a single string.
-
-* **group**
-
-Mark a group of items which the printer should try to fit on one line.
-This is the basic command to tell the printer when to break. Groups
-are usually nested, and the printer will try to fit everything on one
-line, but if it doesn't fit it will break the outermost group first
-and try again. It will continue breaking groups until everything fits
-(or there are no more groups to break).
-
-* **multilineGroup**
-
-This is the same as `group`, but with an additional behavior: if this
-group spans any other groups that have hard breaks (see below) this
-group *always* breaks. Otherwise it acts the same as `group`.
-
-For example, an array will try to fit on one line:
+For example, take the following code:
 
 ```js
-[1, "foo", { bar: 2 }]
+foo(arg1, arg2, arg3);
 ```
 
-However, if any of the items inside the array have a hard break, the
-array will *always* break as well:
+That looks like the right way to format it. However, we've all run
+into this situation:
 
 ```js
-[
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+```
+
+Suddenly our previous format for calling function breaks down because
+this is too long. What you would probably do is this instead:
+
+```
+foo(
+  reallyLongArg(),
+  omgSoManyParameters(),
+  IShouldRefactorThis(),
+  isThereSeriouslyAnotherOne()
+);
+```
+
+This clearly shows that the maximum line length has a direct impact on
+the style of code we desire. The fact that current style tools ignore
+this means they can't really help with the situations that are
+actually the most troublesome. Individuals on teams will all format
+these differently according to their own rules and we lose the
+consistency we sought after.
+
+Even if we disregard line widths, it's too easy to sneak in various
+styles of code in all other linters. The most strict linter I know
+happily lets all these styles happen:
+
+```js
+foo({ num: 3 },
+  1, 2)
+
+foo(
+  { num: 3 },
+  1, 2)
+
+foo(
+  { num: 3 },
   1,
-  function() {
-    return 2
-  },
-  3
-]
+  2
+)
 ```
 
-Functions always break after the opening curly brace no matter what,
-so the array breaks as well for consistent formatting. See the
-implementation of `ArrayExpression` for an example.
+Prettier bans all custom styling by parsing it away and re-printing
+the parsed AST with its own rules that take the maximum line width
+into account, wrapping code when necessary.
 
-* **join**
+## Technical Details
 
-Join an array of items with a separator.
+This printer is a fork of
+[recast](https://github.com/benjamn/recast)'s printer with it's
+algorithm replaced by the one described by Wadler in "[A prettier
+printer](http://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf)".
+There still may be leftover code from recast that needs to be cleaned
+up.
 
-* **line**
+The basic idea is that the printer takes an AST and returns an
+intermediate representation of the output, and the printer uses that
+to generate a string. The advantage is that the printer can "measure"
+the IR and see if the output is going to fit on a line, and break if
+not.
 
-Specify a line break. If an expression fits on one line, the line
-break will be replaced with a space. Line breaks always indent the
-next line with the current level of indentation.
+This means that most of the logic of printing an AST involves
+generating an abstract representation of the output involving certain
+commands. For example, `concat(["(", line, arg, line ")"])` would
+represent a concatentation of opening parens, an argument, and closing
+parens. But if that doesn't fit on one line, the printer can break
+where `line` is specified.
 
-* **softline**
-
-Specify a line break. The difference from `line` is that if the
-expression fits on one line, it will be replaced with nothing.
-
-* **hardline**
-
-Specify a line break that is **always** included in the output, no
-matter if the expression fits on one line or not.
-
-* **literalline**
-
-Specify a line break that is **always** included in the output, and
-don't indent the next line. This is used for template literals.
-
-* **indent**
-
-Increase the level of indentation.
-
-### Example
-
-For an example, here's the implementation of the `ArrayExpression` node type:
-
-```js
-return multilineGroup(concat([
-  "[",
-  indent(options.tabWidth,
-         concat([
-           line,
-           join(concat([",", line]),
-                path.map(print, "elements"))
-         ])),
-  line,
-  "]"
-]));
-```
-
-This is a group with opening and closing brackets, and possibly
-indented contents. Because it's a `multilineGroup` it will always be
-broken up if any of the sub-expressions are broken.
-
-## TODO
-
-There is a lot to do:
-
-1. Most importantly, finish the migration of recast's printing. Many
-node types have not been converted from recast's old ways of doing
-things, so need to finish converting them. The easiest way to do this
-is search for `\n` in the printer; there should be no uses of it
-because we use `line` instead. For example see
-[`DoWhileStatement`](https://github.com/jlongster/jscodefmt/blob/master/src/printer.js#L928).
-2. Remove any cruft leftover from recast that we don't need
-3. Polish the API (it was currently designed to be "usable" and compatible with what recast did before)
-4. Better editor integration
-5. Better CLI
-
-## Contributing
-
-```
-$ git clone https://github.com/jlongster/jscodefmt.git
-$ cd jscodefmt
-$ npm install
-$ ./bin/jscodefmt file.js
-```
-
-## Tests
-
-A few snapshot tests are currently implemented. See `tests`. To run
-the tests simply run `npm test` in the root directory.
+More (rough) details can be found in [commands.md](commands.md).
+Better docs will come soon.
 
 ## Editors
 
-It's most useful when integrated with your editor, so see `editors` for
-editor support. Atom and Emacs is currently supported.
+Currently atom and emacs support is provided. Atom users can simply
+install the `prettier-atom` package and use ctrl+alt+f to format a
+file (or format on save if turned on). Emacs users should see [this
+folder](https://github.com/jlongster/prettier/tree/master/editors/emacs).
 
-More docs on editor integration will come soon. To integrate in Emacs,
-add the following code. This will format the file when saved.
+## Contributing
 
-```elisp
-(require 'jscodefmt)
-(add-hook 'js-mode-hook
-          (lambda ()
-            (add-hook 'before-save-hook 'jscodefmt-before-save)))
-```
