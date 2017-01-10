@@ -14,7 +14,29 @@ const argv = minimist(process.argv.slice(2), {
 const filename = argv["_"][0];
 const write = argv['write'];
 
-const output = jscodefmt.format(fs.readFileSync(filename, "utf8"), {
+if(!filename || !filename.match(/\S/)) {
+  console.log(
+    "Usage: prettier <opts> <filename>\n\n" +
+    "Available options:\n" +
+    "  --write            Edit the file in-place (beware!)\n" +
+    "  --flow-parser      Use the flow parser instead of babylon\n" +
+    "  --single-quote     Use single quotes instead of double\n" +
+    "  --trailing-comma   Print trailing commas wherever possible\n" +
+    "  --bracket-spacing  Put spaces between brackets. Defaults to true, set false to turn off"
+  );
+  process.exit(1);
+}
+
+let input;
+try {
+  input = fs.readFileSync(filename, "utf8")
+}
+catch(e) {
+  console.log("Unable to read file: " + filename);
+  process.exit(2);
+}
+
+const output = jscodefmt.format(input, {
   printWidth: argv['print-width'],
   tabWidth: argv['tab-width'],
   bracketSpacing: argv['bracket-spacing'],
