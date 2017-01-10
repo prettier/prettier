@@ -1399,14 +1399,14 @@ let tests = [
   },
   function(mode: Mode) {
     switch (mode) {
-    case 0:
-      (mode: 0);
-      break;
+      case 0:
+        (mode: 0);
+        break;
 
-    case 1:
-    case 2:
-      (mode: 1 | 2);
-      break;
+      case 1:
+      case 2:
+        (mode: 1 | 2);
+        break;
     }
   },
   function(x: number): 0 {
@@ -1972,14 +1972,14 @@ let tests = [
   },
   function(mode: Mode) {
     switch (mode) {
-    case \"a\":
-      (mode: \"a\");
-      break;
+      case \"a\":
+        (mode: \"a\");
+        break;
 
-    case \"b\":
-    case \"c\":
-      (mode: \"b\" | \"c\");
-      break;
+      case \"b\":
+      case \"c\":
+        (mode: \"b\" | \"c\");
+        break;
     }
   },
   function(x: string): \"\" {
@@ -2120,55 +2120,55 @@ function corge(text: string | number | Array<string>): string {
 
 function foo(text: string | number): string {
   switch (typeof text) {
-  case \"string\":
-    return text;
-  // error, should return string
-  case \"number\":
-    return text;
-  default:
-    return \"wat\";
+    case \"string\":
+      return text;
+    // error, should return string
+    case \"number\":
+      return text;
+    default:
+      return \"wat\";
   }
 }
 function bar(text: string | number): string {
   switch (typeof text) {
-  case \"string\":
-    return text[0];
-  default:
-    return text++ + \"\";
+    case \"string\":
+      return text[0];
+    default:
+      return text++ + \"\";
   }
 }
 function baz1(text: string | number): string {
   switch (typeof text) {
-  case \"number\":
-  // error, [0] on number
-  case \"string\":
-    return text[0];
-  default:
-    return \"wat\";
+    case \"number\":
+    // error, [0] on number
+    case \"string\":
+      return text[0];
+    default:
+      return \"wat\";
   }
 }
 function baz2(text: string | number): string {
   switch (typeof text) {
-  case \"string\":
-  // error, [0] on number
-  case \"number\":
-    return text[0];
-  default:
-    return \"wat\";
+    case \"string\":
+    // error, [0] on number
+    case \"number\":
+      return text[0];
+    default:
+      return \"wat\";
   }
 }
 function corge(text: string | number | Array<string>): string {
   switch (typeof text) {
-  case \"object\":
-    return text[0];
-  case \"string\":
-  case // using ++ since it isn\'t valid on arrays or strings.
-  // should only error for string since Array was filtered out.
-  \"number\":
-    return text++ + \"\";
+    case \"object\":
+      return text[0];
+    case \"string\":
+    case // using ++ since it isn\'t valid on arrays or strings.
+    // should only error for string since Array was filtered out.
+    \"number\":
+      return text++ + \"\";
 
-  default:
-    return \"wat\";
+    default:
+      return \"wat\";
   }
 }"
 `;
@@ -2463,10 +2463,10 @@ function list(n) {
 }
 function length(l) {
   switch (l.kind) {
-  case \"cons\":
-    return 1 + length(l.next);
-  default:
-    return 0;
+    case \"cons\":
+      return 1 + length(l.next);
+    default:
+      return 0;
   }
 }
 function check(n) {
@@ -2482,13 +2482,13 @@ type B = { kind: 2, B: number };
 type C = { kind: 3, C: number };
 function kind(x: A | B | C): number {
   switch (x.kind) {
-  case EnumKind.A:
-    return x.A;
-  case EnumKind.B:
-    return x.B;
-  // error, x: C and property A not found in type C
-  default:
-    return x.A;
+    case EnumKind.A:
+      return x.A;
+    case EnumKind.B:
+      return x.B;
+    // error, x: C and property A not found in type C
+    default:
+      return x.A;
   }
 }
 kind({ kind: EnumKind.A, A: 1 });
@@ -2704,11 +2704,11 @@ type Error = { type: typeof ERROR, error: string };
 
 function handleStatus(status: Success | Error) {
   switch (status.type) {
-  case SUCCESS:
-    console.log(\`Successful: \${status.message}\`);
-    break;
-  default:
-    console.log(\`Errored: \${status.error}\`);
+    case SUCCESS:
+      console.log(\`Successful: \${status.message}\`);
+      break;
+    default:
+      console.log(\`Errored: \${status.error}\`);
   }
 }"
 `;

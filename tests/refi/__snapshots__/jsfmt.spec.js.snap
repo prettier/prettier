@@ -624,10 +624,10 @@ function block_scope(x: string | number) {
 
 function switch_scope(x: string | number) {
   switch (x) {
-  // doesn\'t refine outer x
-  default:
-    let x;
-    x = \"\";
+    // doesn\'t refine outer x
+    default:
+      let x;
+      x = \"\";
   }
   (x: string); // error: number ~> string
 }
@@ -1187,13 +1187,13 @@ function exhaustion3(x): number {
 // @flow
 function foo(a, b, c) {
   switch (c) {
-  case a.x.y:
-  // OK
-  case b.x.y:
+    case a.x.y:
     // OK
-    return;
-  default:
-    return;
+    case b.x.y:
+      // OK
+      return;
+    default:
+      return;
   }
 }
 
@@ -1201,13 +1201,13 @@ function foo(a, b, c) {
 function exhaustion1(x): number {
   var foo;
   switch (x) {
-  case 0:
-  // falls through
-  case 1:
-    foo = 3;
-    break;
-  default:
-    throw new Error(\"Invalid state\");
+    case 0:
+    // falls through
+    case 1:
+      foo = 3;
+      break;
+    default:
+      throw new Error(\"Invalid state\");
   }
   return foo; // no error
 }
@@ -1215,11 +1215,11 @@ function exhaustion1(x): number {
 function exhaustion2(x, y): number {
   var foo;
   switch (x) {
-  case 0:
-    if (y) {
-      break; // leaks uninitialized foo out of switch
-    }
-  /**
+    case 0:
+      if (y) {
+        break; // leaks uninitialized foo out of switch
+      }
+    /**
      * TODO this shouldn\'t cause an error, because the path that
      * runs it will always go on to assign a number to foo. But
      * we\'ll need true isolation in env snapshots to model this.
@@ -1228,11 +1228,11 @@ function exhaustion2(x, y): number {
      *
     foo = \"\";
      */
-  case 1:
-    foo = 3;
-    break;
-  default:
-    throw new Error(\"Invalid state\");
+    case 1:
+      foo = 3;
+      break;
+    default:
+      throw new Error(\"Invalid state\");
   }
   return foo; // error, possibly uninitialized
 }
@@ -1240,13 +1240,13 @@ function exhaustion2(x, y): number {
 function exhaustion3(x): number {
   let foo = null;
   switch (x) {
-  case 0:
-  // falls through
-  case 1:
-    foo = 3;
-    break;
-  default:
-    throw new Error(\"Invalid state\");
+    case 0:
+    // falls through
+    case 1:
+      foo = 3;
+      break;
+    default:
+      throw new Error(\"Invalid state\");
   }
   return foo; // no error
 }"
