@@ -23,7 +23,7 @@ function run_spec(dirname) {
       const path = dirname + '/' + filename;
 
       if (!RUN_AST_TESTS) {
-        const source = read(path);
+        const source = read(path).replace(/\r\n/g, '\n');
         const output = prettyprint(source, path);
         test(filename, () => {
           expect(source + '~'.repeat(80) + '\n' + output).toMatchSnapshot();
