@@ -334,9 +334,14 @@ function genericPrintNoParens(path, options, print) {
       ])));
     }
 
-    parts.push(" => ", path.call(print, "body"));
+    parts.push(" => ");
 
-    return concat(parts);
+    return conditionalGroup([
+      concat([ concat(parts), path.call(print, "body") ]),
+      concat([ concat(parts),
+               indent(options.tabWidth,
+                      concat([line, path.call(print, "body")]))])
+    ])
   case "MethodDefinition":
     if (n.static) {
       parts.push("static ");
