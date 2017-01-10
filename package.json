@@ -1,8 +1,8 @@
 {
-  "name": "jscodefmt",
+  "name": "prettier",
   "version": "0.0.1",
   "bin": {
-    "jscodefmt": "./bin/jscodefmt"
+    "prettier": "./bin/prettier"
   },
   "main": "./index.js",
   "dependencies": {
@@ -17,7 +17,7 @@
   },
   "scripts": {
     "test": "jest",
-    "format": "./bin/jscodefmt --write src/printer.js"
+    "format": "./bin/prettier --write src/printer.js"
   },
   "jest": {
     "setupFiles": [
