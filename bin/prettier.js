@@ -13,7 +13,7 @@ const argv = minimist(process.argv.slice(2), {
 });
 
 const filenames = argv["_"];
-const write = argv['write'];
+const write = argv["write"];
 
 if (!filenames.length) {
   console.log(
@@ -40,16 +40,16 @@ filenames.forEach(filename => {
     }
 
     const output = jscodefmt.format(input, {
-      printWidth: argv['print-width'],
-      tabWidth: argv['tab-width'],
-      bracketSpacing: argv['bracket-spacing'],
-      useFlowParser: argv['flow-parser'],
+      printWidth: argv["print-width"],
+      tabWidth: argv["tab-width"],
+      bracketSpacing: argv["bracket-spacing"],
+      useFlowParser: argv["flow-parser"],
       singleQuote: argv["single-quote"],
       trailingComma: argv["trailing-comma"]
     });
 
     if (write) {
-      fs.writeFile(filename, output, "utf8", (err) => {
+      fs.writeFile(filename, output, "utf8", err => {
         if (err) {
           console.error("Unable to write file: " + filename + "\n" + err);
           // Don't exit the process if one file failed
@@ -59,5 +59,5 @@ filenames.forEach(filename => {
     } else {
       console.log(output);
     }
-  })
-})
+  });
+});
