@@ -71,8 +71,12 @@ module.exports = {
         if (!editor.getBuffer().isModified())
           return;
 
-        // var formatOnSave = atom.config.get('prettier.formatOnSave', {scope: editor.getRootScopeDescriptor()})
-        // if (!formatOnSave) return
+        var formatOnSave = atom.config.get("prettier-atom.formatOnSave", {
+          scope: editor.getRootScopeDescriptor()
+        });
+        if (!formatOnSave)
+          return;
+
         // Set the relative path based on the file's nearest package.json.
         // If no package.json is found, use path verbatim.
         var relativePath;
@@ -88,17 +92,18 @@ module.exports = {
         }
       }.bind(this)
     );
-
-    if (editor.editorElement) {
-      window.addEventListener("resize", e => {
-        const { width } = window.document.body.getBoundingClientRect();
-        const columns = width /
-          editor.editorElement.getDefaultCharacterWidth() |
-          0;
-        console.log(width, columns);
-        this.format({ selection: false, printWidth: columns });
-      });
-    }
+    // Uncomment this to format on resize. Not ready yet. :)
+    // 
+    // if (editor.editorElement) {
+    //   window.addEventListener("resize", e => {
+    //     const { width } = window.document.body.getBoundingClientRect();
+    //     const columns = width /
+    //       editor.editorElement.getDefaultCharacterWidth() |
+    //       0;
+    //     console.log(width, columns);
+    //     this.format({ selection: false, printWidth: columns });
+    //   });
+    // }
   },
   config: { formatOnSave: { type: "boolean", default: false } }
 };
