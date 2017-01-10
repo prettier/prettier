@@ -19,7 +19,9 @@
   },
   "scripts": {
     "test": "jest",
-    "format": "./bin/prettier.js --write src/printer.js"
+    "format": "./bin/prettier.js --write",
+    "format:single": "npm run format -- src/printer.js",
+    "format:all": "npm run format -- src/*.js bin/*.js"
   },
   "jest": {
     "setupFiles": [
