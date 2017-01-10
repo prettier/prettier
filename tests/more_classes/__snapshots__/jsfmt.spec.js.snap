@@ -33,7 +33,7 @@ class Bar {
   }
 
   bar(z: string, u: string): string {
-    new Qux().w = \"?\";
+    new Qux.w = \"?\";
     return z;
   }
 }

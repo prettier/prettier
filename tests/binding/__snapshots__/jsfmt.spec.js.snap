@@ -876,11 +876,11 @@ function f5() {
 //
 var x: C;
 // ok
-var y = new C();
+var y = new C;
 // error: let ref before decl from value position
 class C {}
 
-var z: C = new C();
+var z: C = new C;
 // ok
 // --- vars ---
 // it\'s possible to annotate a var with a non-maybe type,

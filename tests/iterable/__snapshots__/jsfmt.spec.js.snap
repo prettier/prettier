@@ -93,7 +93,7 @@ function foo(strs: Iterable<string>): void {
   }
 }
 
-var m: Map<string, number> = new Map();
+var m: Map<string, number> = new Map;
 
 foo(m.keys());"
 `;

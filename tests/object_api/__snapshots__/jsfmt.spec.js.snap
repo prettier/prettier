@@ -96,7 +96,7 @@ class C {
 (Object.create(C.prototype): C);
 
 // OK, \`instanceof C\` would be true
-(Object.create(new C()): C);
+(Object.create(new C): C);
 
 // error, object literals don\'t structurally match instances
 ({ foo: \"foo\" }: C);
@@ -127,7 +127,7 @@ class Bar extends Foo {}
 
 let tests = [
   function() {
-    const x = new Bar();
+    const x = new Bar;
     (Object.getPrototypeOf(x): Foo);
   }
 ];"
@@ -191,14 +191,14 @@ class Foo {
   foo() {}
 }
 // constructor and foo not enumerable
-(Object.keys(new Foo()): Array<\"error\">);
+(Object.keys(new Foo): Array<\"error\">);
 // error: prop ~> error
 class Bar extends Foo {
   bar_prop: string;
   bar() {}
 }
 // only own enumerable props
-(Object.keys(new Bar()): Array<\"error\">); // error: bar_prop ~> error"
+(Object.keys(new Bar): Array<\"error\">); // error: bar_prop ~> error"
 `;
 
 exports[`test object_missing.js 1`] = `
@@ -403,8 +403,8 @@ var c = {
   }
 };
 var d: { [key: string]: string } = { foo: \"bar\" };
-var x = new Date();
-var y = new Foo();
+var x = new Date;
+var y = new Foo;
 
 //
 // toString

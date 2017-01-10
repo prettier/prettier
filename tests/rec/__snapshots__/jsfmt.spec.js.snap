@@ -93,7 +93,7 @@ class P<X> {
 // this is like Promise
 type Pstar<X> = X | Pstar<P<X>>;
 // this is like Promise*
-var p: P<number> = new P();
+var p: P<number> = new P;
 (p.x: string);
 // error
 var pstar: Pstar<number> = 0;
@@ -105,7 +105,7 @@ pstar = p;
 // OK
 (pstar.x: string);
 // error
-pstar = (new P(): P<P<number>>);
+pstar = (new P: P<P<number>>);
 // OK
 (pstar.x: string); // error"
 `;
@@ -156,7 +156,7 @@ function bar() {
 class A<X> {
   x: A<A<X>>;
 }
-var a_ = new A();
+var a_ = new A;
 function foo0() {
   a_ = a_.x; // terminate despite expanding types
 }
@@ -172,7 +172,7 @@ function foo1(b: S<*>) {
 class D<X> {}
 class B<X> extends D<X> {}
 class C<X> extends B<X> {}
-((new C(): C<number>): D<string>); // error: number ~/~ string"
+((new C: C<number>): D<string>); // error: number ~/~ string"
 `;
 
 exports[`test test3.js 1`] = `

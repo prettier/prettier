@@ -116,7 +116,7 @@ var foo = new Foo();
 var foostr: Foo | string = foo;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var Foo = require(\"./issue-323-lib\");
-var foo = new Foo();
+var foo = new Foo;
 var foostr: Foo | string = foo;"
 `;
 
@@ -145,8 +145,8 @@ class Foo {}
 
 class Bar {}
 
-var foostr: Foo | string = new Foo();
-var barstr: Bar | string = new Bar();
+var foostr: Foo | string = new Foo;
+var barstr: Bar | string = new Bar;
 
 foostr = barstr;"
 `;
@@ -177,7 +177,7 @@ class Tag {
 type Node = Tag_ | string;
 class Tag_ {
   constructor() {
-    var a1: Array<Node> = [ new Tag_() ];
+    var a1: Array<Node> = [ new Tag_ ];
     var a2: Array<Node> = a1;
   }
 }"
@@ -402,19 +402,19 @@ class C {}
 class D {}
 function CD(b) {
   var E = b ? C : D;
-  var c: C = new E();
+  var c: C = new E;
   // error, since E could be D, and D is not a subtype of C
   function qux(e: E) {}
   // this annotation is an error: is it C, or is it D?
   function qux2(e: C | D) {}
   // OK
-  qux2(new C());
+  qux2(new C);
 }
 
 declare class F { foo(x: number): void, foo(x: string): void }
 function corge(b) {
   var x = b ? \"\" : 0;
-  new F().foo(x);
+  new F.foo(x);
 }"
 `;
 

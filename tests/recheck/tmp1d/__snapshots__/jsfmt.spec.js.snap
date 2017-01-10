@@ -9,5 +9,5 @@ export var x = new B;
 
 export class A {}
 export class B {}
-export var x = new B();"
+export var x = new B;"
 `;

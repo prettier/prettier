@@ -107,7 +107,7 @@ class Foo {
   set propOverriddenWithSetter(x: string) {}
 }
 
-var foo = new Foo();
+var foo = new Foo;
 
 // Test getting properties with getters
 var testGetterNoError1: number = foo.goodGetterNoAnnotation;
@@ -234,12 +234,12 @@ var obj = {
     return 4;
   },
   get exampleOfOrderOfGetterAndSetter(): A {
-    return new A();
+    return new A;
   },
   set exampleOfOrderOfGetterAndSetter(x: B) {},
   set exampleOfOrderOfGetterAndSetterReordered(x: B) {},
   get exampleOfOrderOfGetterAndSetterReordered(): A {
-    return new A();
+    return new A;
   }
 };
 
@@ -264,7 +264,7 @@ var testSubtypingGetterAndSetter: number = obj.propWithSubtypingGetterAndSetter;
 // When building this feature, it was tempting to flow the setter into the
 // getter and then use either the getter or setter as the type of the property.
 // This example shows the danger of using the getter\'s type
-obj.exampleOfOrderOfGetterAndSetter = new C();
+obj.exampleOfOrderOfGetterAndSetter = new C;
 // Error C ~> B
 // And this example shows the danger of using the setter\'s type.
 var testExampleOrOrderOfGetterAndSetterReordered: number = obj.exampleOfOrderOfGetterAndSetterReordered; // Error A ~> B"

@@ -68,13 +68,13 @@ class C {
 }
 
 // check
-(new C().foo(): boolean);
+(new C.foo(): boolean);
 // last wins
-(new C().x: boolean);
+(new C.x: boolean);
 // last wins
-(new C().bar: boolean);
+(new C.bar: boolean);
 // last wins
-(new C().qux: boolean);
+(new C.qux: boolean);
 // weird outlier where last doesn\'t win in classes
 // Objects
 const o = {

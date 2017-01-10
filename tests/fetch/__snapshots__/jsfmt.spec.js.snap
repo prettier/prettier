@@ -88,7 +88,7 @@ const c = new Headers({ \"Content-Type\", \"image/jpeg\" });
 // correct
 const d = new Headers(c);
 // correct
-const e: Headers = new Headers();
+const e: Headers = new Headers;
 // correct
 e.append(\"Content-Type\", \"image/jpeg\");
 // correct
@@ -173,7 +173,7 @@ h.arrayBuffer().then((ab: ArrayBuffer) => ab); // correct
 h.arrayBuffer().then((ab: Buffer) => ab); // incorrect
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-const a: Request = new Request();
+const a: Request = new Request;
 // incorrect
 const b: Request = new Request(\"http://example.org\");
 // correct
@@ -276,13 +276,13 @@ h.arrayBuffer().then((ab: ArrayBuffer) => ab); // correct
 h.arrayBuffer().then((ab: Buffer) => ab); // incorrect
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-const a: Response = new Response();
+const a: Response = new Response;
 // correct
-const b: Response = new Response(new Blob());
+const b: Response = new Response(new Blob);
 // correct
-const c: Response = new Response(new FormData());
+const c: Response = new Response(new FormData);
 // correct
-const d: Response = new Response(new FormData(), { status: 404 });
+const d: Response = new Response(new FormData, { status: 404 });
 // correct
 const e: Response = new Response(\"responsebody\", { status: \"404\" });
 // incorrect
@@ -358,7 +358,7 @@ const c = new URLSearchParams({ \"key1\", \"value1\" });
 // not correct
 const d = new URLSearchParams(c);
 // correct
-const e: URLSearchParams = new URLSearchParams();
+const e: URLSearchParams = new URLSearchParams;
 // correct
 e.append(\"key1\", \"value1\");
 // correct

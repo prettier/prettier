@@ -85,7 +85,7 @@ class C {
   _p: string;
 }
 
-module.exports = new C();"
+module.exports = new C;"
 `;
 
 exports[`test commonjs_import.js 1`] = `

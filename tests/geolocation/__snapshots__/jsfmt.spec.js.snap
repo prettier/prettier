@@ -22,7 +22,7 @@ geolocation.clearWatch(id);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-var geolocation = new Geolocation();
+var geolocation = new Geolocation;
 var id = geolocation.watchPosition(
   position => {
     var coords: Coordinates = position.coords;
