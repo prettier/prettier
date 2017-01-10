@@ -1,6 +1,7 @@
 # Prettier
 
-Prettier is an opinionated JavaScript formatter. It removes all
+Prettier is an opinionated JavaScript formatter inspired by
+[refmt](https://facebook.github.io/reason/tools.html). It removes all
 original styling and ensures that all outputted JavaScript conforms to
 a consistent style.
 
