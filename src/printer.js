@@ -1648,7 +1648,8 @@ function printArgumentsList(path, options, print) {
     lastArg.type === "ArrayExpression" ||
     lastArg.type === "FunctionExpression" ||
     (lastArg.type === "ArrowFunctionExpression" &&
-     lastArg.body.type === "BlockStatement") ||
+     (lastArg.body.type === "BlockStatement" ||
+      lastArg.body.type === "ArrowFunctionExpression")) ||
     lastArg.type === "NewExpression";
 
   if (groupLastArg) {
@@ -1681,8 +1682,7 @@ function printArgumentsList(path, options, print) {
     );
   }
 
-  const shouldBreak = printed.some(hasHardLine);
-  return group(
+  return multilineGroup(
     concat([
       "(",
       indent(
@@ -1692,8 +1692,7 @@ function printArgumentsList(path, options, print) {
       ifBreak(options.trailingComma ? "," : ""),
       softline,
       ")"
-    ]),
-    {shouldBreak}
+    ])
   );
 }
 
