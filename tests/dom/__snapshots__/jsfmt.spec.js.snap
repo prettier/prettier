@@ -664,16 +664,18 @@ let tests = [
   function() {
     const i: NodeIterator<*, *> = document.createNodeIterator(document.body);
     const filter: NodeFilter = i.filter;
-    const response: typeof NodeFilter.FILTER_ACCEPT |
-      typeof NodeFilter.FILTER_REJECT |
-      typeof NodeFilter.FILTER_SKIP = filter.acceptNode(document.body);
+    const response: 
+      | typeof NodeFilter.FILTER_ACCEPT
+      | typeof NodeFilter.FILTER_REJECT
+      | typeof NodeFilter.FILTER_SKIP = filter.acceptNode(document.body);
   },
   function() {
     const w: TreeWalker<*, *> = document.createTreeWalker(document.body);
     const filter: NodeFilter = w.filter;
-    const response: typeof NodeFilter.FILTER_ACCEPT |
-      typeof NodeFilter.FILTER_REJECT |
-      typeof NodeFilter.FILTER_SKIP = filter.acceptNode(document.body);
+    const response: 
+      | typeof NodeFilter.FILTER_ACCEPT
+      | typeof NodeFilter.FILTER_REJECT
+      | typeof NodeFilter.FILTER_SKIP = filter.acceptNode(document.body);
   },
   // rootNode must be a Node
   function() {
