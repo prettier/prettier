@@ -4,7 +4,7 @@ Prettier is an opinionated JavaScript formatter inspired by
 [refmt](https://facebook.github.io/reason/tools.html) with advanced
 support for language features from ES2017, JSX, and Flow. It removes
 all original styling and ensures that all outputted JavaScript
-conforms to a consistent style.
+conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
 
 *Warning*: This is a beta, but should solidify fairly quickly.
 
