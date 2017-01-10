@@ -40,7 +40,7 @@ class C1 {
   m() {}
 }
 
-new C1().m();
+new C1.m();
 
 class C2 {
   get m() {
@@ -49,14 +49,14 @@ class C2 {
   m() {}
 }
 
-new C2().m();
+new C2.m();
 
 class C3 {
   set m(x) {}
   m() {}
 }
 
-new C3().m();
+new C3.m();
 
 class C4 {
   get m() {
@@ -65,7 +65,7 @@ class C4 {
   set m(x: number) {}
 }
 
-new C4().m = new C4().m - 42;
+new C4.m = new C4.m - 42;
 
 class C5 {
   m() {}
@@ -75,5 +75,5 @@ class C5 {
   set m(x: number) {}
 }
 
-new C5().m = new C5().m - 42;"
+new C5.m = new C5.m - 42;"
 `;

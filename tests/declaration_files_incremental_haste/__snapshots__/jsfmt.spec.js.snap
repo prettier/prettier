@@ -6,7 +6,7 @@ export function foo(): Implementation { return new Implementation; }
 /* @providesModule A */
 class Implementation {}
 export function foo(): Implementation {
-  return new Implementation();
+  return new Implementation;
 }"
 `;
 
@@ -25,7 +25,7 @@ module.exports.fun = (): Implementation => new Implementation;
  */
 
 class Implementation {}
-module.exports.fun = (): Implementation => new Implementation();"
+module.exports.fun = (): Implementation => new Implementation;"
 `;
 
 exports[`test ExplicitProvidesModuleSameName.js 1`] = `
@@ -43,7 +43,7 @@ module.exports.fun = (): Implementation => new Implementation;
  */
 
 class Implementation {}
-module.exports.fun = (): Implementation => new Implementation();"
+module.exports.fun = (): Implementation => new Implementation;"
 `;
 
 exports[`test ImplicitProvidesModule.js 1`] = `
@@ -61,7 +61,7 @@ module.exports.fun = (): Implementation => new Implementation;
  */
 
 class Implementation {}
-module.exports.fun = (): Implementation => new Implementation();"
+module.exports.fun = (): Implementation => new Implementation;"
 `;
 
 exports[`test md5.js 1`] = `

@@ -286,8 +286,8 @@ class L extends L_ {
     return x;
   }
 }
-(new L_(): L_);
-(new L(): L);
+(new L_: L_);
+(new L: L);
 
 // similarly, the converse is true: if the parent\'s constructor returns an
 // object, then the child does too.
@@ -301,8 +301,8 @@ class M extends M_ {
     return super();
   }
 }
-(new M_(): { foo: string });
-(new M(): { foo: string });
+(new M_: { foo: string });
+(new M: { foo: string });
 
 // however! super() calls the parent constructor with the subclass as its \`this\`
 // value (essentially \`super.constructor.call(this)\`).
@@ -317,8 +317,8 @@ class N extends N_ {
     return super();
   }
 }
-(new N_(): N_);
-(new N(): N);"
+(new N_: N_);
+(new N: N);"
 `;
 
 exports[`test import.js 1`] = `

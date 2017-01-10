@@ -38,5 +38,5 @@ C.g = function(x) {
   return x;
 };
 
-var x: string = new C().f();"
+var x: string = new C.f();"
 `;

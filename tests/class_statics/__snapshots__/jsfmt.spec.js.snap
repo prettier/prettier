@@ -88,11 +88,11 @@ class B extends A {
     B.qux(0); // error
   }
   static create(): A {
-    return new this();
+    return new this;
   }
 
   static badCreate(): number {
-    return new this(); // error B ~> number
+    return new this; // error B ~> number
   }
 }
 
@@ -100,7 +100,7 @@ class C<X> {
   static x: X;
   static bar(x: X) {}
   static create(): C<*> {
-    return new this();
+    return new this;
   }
 }
 
@@ -113,7 +113,7 @@ class D extends C<string> {
 }
 
 var d: C<*> = D.create();
-(new A(): typeof A);
+(new A: typeof A);
 (B: typeof A);
 
 class E {

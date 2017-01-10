@@ -70,7 +70,7 @@ for (let [x, y]: [number, number] of a.entries()) {} // incorrect
 /* @flow */
 
 // constructor
-const a: FormData = new FormData();
+const a: FormData = new FormData;
 // correct
 new FormData(\"\");
 // incorrect
@@ -116,11 +116,11 @@ a.set(\"bar\", new File([], \"q\"), \"x\");
 // correct
 a.set(\"bar\", new File([], \"q\"), 2);
 // incorrect
-a.set(\"bar\", new Blob());
+a.set(\"bar\", new Blob);
 // correct
-a.set(\"bar\", new Blob(), \"x\");
+a.set(\"bar\", new Blob, \"x\");
 // correct
-a.set(\"bar\", new Blob(), 2);
+a.set(\"bar\", new Blob, 2);
 // incorrect
 // append
 a.append(\"foo\", \"bar\");
@@ -139,11 +139,11 @@ a.append(\"bar\", new File([], \"q\"), \"x\");
 // correct
 a.append(\"bar\", new File([], \"q\"), 2);
 // incorrect
-a.append(\"bar\", new Blob());
+a.append(\"bar\", new Blob);
 // correct
-a.append(\"bar\", new Blob(), \"x\");
+a.append(\"bar\", new Blob, \"x\");
 // correct
-a.append(\"bar\", new Blob(), 2);
+a.append(\"bar\", new Blob, 2);
 // incorrect
 // delete
 a.delete(\"xx\");
@@ -218,7 +218,7 @@ new MutationObserver((arr: Array<MutationRecord>) => true);
 // correct
 new MutationObserver(() => {});
 // correct
-new MutationObserver();
+new MutationObserver;
 // incorrect
 new MutationObserver(42);
 // incorrect

@@ -908,22 +908,22 @@ import {doesntExist2} from \"CommonJS_Clobbering_Class\";
 import {staticNumber1, baseProp, childProp} from \"CommonJS_Clobbering_Class\";
 // Error
 import CJS_Clobb_Class from \"CommonJS_Clobbering_Class\";
-new CJS_Clobb_Class();
-new CJS_Clobb_Class().doesntExist;
+new CJS_Clobb_Class;
+new CJS_Clobb_Class.doesntExist;
 // Error: Class has no \`doesntExist\` property
 var h1: number = CJS_Clobb_Class.staticNumber2();
 var h2: string = CJS_Clobb_Class.staticNumber2();
 // Error: number ~> string
-var h3: number = new CJS_Clobb_Class().instNumber1();
-var h4: string = new CJS_Clobb_Class().instNumber1();
+var h3: number = new CJS_Clobb_Class.instNumber1();
+var h4: string = new CJS_Clobb_Class.instNumber1();
 // Error: number ~> string
 import * as CJS_Clobb_Class_NS from \"CommonJS_Clobbering_Class\";
-new CJS_Clobb_Class_NS();
+new CJS_Clobb_Class_NS;
 // Error: Namespace object isn\'t constructable
 var i1: number = CJS_Clobb_Class_NS.staticNumber3();
 // Error: Class statics not copied to Namespace object
-var i2: number = new CJS_Clobb_Class_NS.default().instNumber2();
-var i3: string = new CJS_Clobb_Class_NS.default().instNumber2();
+var i2: number = new CJS_Clobb_Class_NS.default.instNumber2();
+var i3: string = new CJS_Clobb_Class_NS.default.instNumber2();
 // Error: number ~> string
 // =================================== //
 // == CommonJS Named Exports -> ES6 == //
@@ -964,8 +964,8 @@ var o1: number = ES6_Def_NamedFunc1();
 var o2: string = ES6_Def_NamedFunc1();
 // Error: number ~> string
 import ES6_Def_NamedClass1 from \"ES6_Default_NamedClass1\";
-var q1: number = new ES6_Def_NamedClass1().givesANum();
-var q2: string = new ES6_Def_NamedClass1().givesANum();
+var q1: number = new ES6_Def_NamedClass1.givesANum();
+var q2: string = new ES6_Def_NamedClass1.givesANum();
 // Error: number ~> string
 ////////////////////////////
 // == ES6 Named -> ES6 == //
@@ -996,8 +996,8 @@ var v1: number = givesANumber();
 var v2: string = givesANumber();
 // Error: number ~> string
 import {NumberGenerator} from \"ES6_Named1\";
-var w1: number = new NumberGenerator().givesANumber();
-var w2: string = new NumberGenerator().givesANumber();
+var w1: number = new NumberGenerator.givesANumber();
+var w2: string = new NumberGenerator.givesANumber();
 // Error: number ~> string
 import {varDeclNumber1, varDeclNumber2} from \"ES6_Named1\";
 var x1: number = varDeclNumber1;
@@ -1032,8 +1032,8 @@ var ae1: number = ES6_Def_NamedFunc2();
 var ae2: string = ES6_Def_NamedFunc2();
 // Error: number ~> string
 var ES6_Def_NamedClass2 = require(\"ES6_Default_NamedClass2\").default;
-var ag1: number = new ES6_Def_NamedClass2().givesANum();
-var ag2: string = new ES6_Def_NamedClass2().givesANum();
+var ag1: number = new ES6_Def_NamedClass2.givesANum();
+var ag2: string = new ES6_Def_NamedClass2.givesANum();
 // Error: number ~> string
 /////////////////////////////////
 // == ES6 Named -> CommonJS == //
@@ -1059,8 +1059,8 @@ var ak1: number = givesANumber2();
 var ak2: string = givesANumber2();
 // Error: number ~> string
 var NumberGenerator2 = require(\"ES6_Named2\").NumberGenerator2;
-var al1: number = new NumberGenerator2().givesANumber();
-var al2: string = new NumberGenerator2().givesANumber();
+var al1: number = new NumberGenerator2.givesANumber();
+var al2: string = new NumberGenerator2.givesANumber();
 // Error: number ~> string
 var varDeclNumber3 = require(\"ES6_Named2\").varDeclNumber3;
 var varDeclNumber4 = require(\"ES6_Named2\").varDeclNumber4;

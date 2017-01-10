@@ -372,7 +372,7 @@ class Child extends Base {
   childprop2: number;
 }
 
-var { baseprop1, childprop1, ...others } = new Child();
+var { baseprop1, childprop1, ...others } = new Child;
 
 var bp1: number = baseprop1;
 var bp1_err: string = baseprop1;

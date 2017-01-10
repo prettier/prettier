@@ -76,10 +76,10 @@ import {num3} from \"ES\";
 // Error: number ~> string
 import {C} from \"ES\";
 import type {C as CType} from \"ES\";
-(new C(): C);
+(new C: C);
 (42: C);
 // Error: number ~> C
-(new C(): CType);
+(new C: CType);
 (42: CType);
 // Error: number ~> CType
 import {T} from \"ES\";

@@ -411,11 +411,11 @@ function unsound_dict_has_every_key(o: { [k: string]: X }) {
 
 // As with any object type, we can assign subtypes to properties.
 function set_prop_covariant(o: { [k: string]: B }) {
-  o.p = new A();
+  o.p = new A;
   // error, A ~> B
-  o.p = new B();
+  o.p = new B;
   // ok
-  o.p = new C(); // ok
+  o.p = new C; // ok
 }
 
 // This isn\'t specific behavior to dictionaries, but for completeness...
@@ -472,7 +472,7 @@ function unsound_string_conversion_alias_declared_prop(
 function unification_dict_values_invariant(x: Array<{ [k: string]: B }>) {
   let a: Array<{ [k: string]: A }> = x;
   // error
-  a[0].p = new A();
+  a[0].p = new A;
   // in[0].p no longer B
   let b: Array<{ [k: string]: B }> = x;
   // ok
@@ -484,7 +484,7 @@ function unification_dict_values_invariant(x: Array<{ [k: string]: B }>) {
 function subtype_dict_values_invariant(x: { [k: string]: B }) {
   let a: { [k: string]: A } = x;
   // error
-  a.p = new A();
+  a.p = new A;
   // x[0].p no longer B
   let b: { [k: string]: B } = x;
   // ok
@@ -495,30 +495,30 @@ function subtype_dict_values_invariant(x: { [k: string]: B }) {
 
 function subtype_dict_values_fresh_exception() {
   let a: { [k: string]: A } = {
-    a: new A(),
+    a: new A,
     // ok, A == A
-    b: new B(),
+    b: new B,
     // ok, B <: A
     // ok, C <: A
-    c: new C()
+    c: new C
   };
 
   let b: { [k: string]: B } = {
-    a: new A(),
+    a: new A,
     // error, A not <: B
-    b: new B(),
+    b: new B,
     // ok, B == B
     // ok, C <: A
-    c: new C()
+    c: new C
   };
 
   let c: { [k: string]: C } = {
-    a: new A(),
+    a: new A,
     // error, A not <: C
-    b: new B(),
+    b: new B,
     // error, A not <: C
     // ok, C == C
-    c: new C()
+    c: new C
   };
 }
 
@@ -548,7 +548,7 @@ function unification_mix_with_declared_props_invariant_l(
 ) {
   let a: Array<{ [k: string]: B, p: A }> = x;
   // error: A ~> B
-  a[0].p = new A();
+  a[0].p = new A;
   // x[0].p no longer B
   let b: Array<{ [k: string]: B, p: B }> = x;
   // ok
@@ -564,7 +564,7 @@ function unification_mix_with_declared_props_invariant_r(
 ) {
   let a: Array<{ [k: string]: A }> = xa;
   // error
-  a[0].p = new A();
+  a[0].p = new A;
   // xa[0].p no longer B
   let b: Array<{ [k: string]: B }> = xb;
   // ok
@@ -576,7 +576,7 @@ function unification_mix_with_declared_props_invariant_r(
 function subtype_mix_with_declared_props_invariant_l(x: { [k: string]: B }) {
   let a: { [k: string]: B, p: A } = x;
   // error: A ~> B
-  a.p = new A();
+  a.p = new A;
   // x.p no longer B
   let b: { [k: string]: B, p: B } = x;
   // ok
@@ -592,7 +592,7 @@ function subtype_mix_with_declared_props_invariant_r(
 ) {
   let a: { [k: string]: A } = xa;
   // error
-  a.p = new A();
+  a.p = new A;
   // xa.p no longer B
   let b: { [k: string]: B } = xb;
   // ok
@@ -616,7 +616,7 @@ function unification_obj_to_dict(
 function subtype_dict_to_obj(x: { [k: string]: B }) {
   let a: { p: A } = x;
   // error
-  a.p = new A();
+  a.p = new A;
   // x.p no longer B
   let b: { p: B } = x;
   // ok
@@ -628,7 +628,7 @@ function subtype_dict_to_obj(x: { [k: string]: B }) {
 function subtype_obj_to_dict(x: { p: B }) {
   let a: { [k: string]: A } = x;
   // error
-  a.p = new A();
+  a.p = new A;
   // x.p no longer B
   let b: { [k: string]: B } = x;
 

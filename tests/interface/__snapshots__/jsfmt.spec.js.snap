@@ -44,11 +44,11 @@ function testInterfaceName(o: I) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare class C { x: number }
 
-var x: string = new C().x;
+var x: string = new C.x;
 
 interface I  { x: number }
 
-var i = new I();
+var i = new I;
 // error
 function testInterfaceName(o: I) {
   (o.name: string);
@@ -177,5 +177,5 @@ interface I  { foo(x: number): void }
 // error, property \`foo\` not found function
 declare class C { bar(i: I): void, bar(f: (x: number) => void): void }
 
-new C().bar((x: string) => {}); // error, number ~/~> string"
+new C.bar((x: string) => {}); // error, number ~/~> string"
 `;

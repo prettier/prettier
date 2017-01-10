@@ -484,7 +484,7 @@ function inst(a: A5 | A6) {}
 
 class B5 {}
 class B6 {}
-inst([ new B6() ]);
+inst([ new B6 ]);
 
 type A5 = B5[];
 type A6 = B6[];"
@@ -605,7 +605,7 @@ class C<X> {}
 
 function inst(a: C<number> | C<string>) {}
 
-inst((new C(): A3));
+inst((new C: A3));
 
 type A3 = C<B3>;
 
@@ -1150,10 +1150,10 @@ class D {}
 function check_inst(_: C | D) {}
 
 // ok
-check_inst(new D());
+check_inst(new D);
 
 // ...even when they \"flow\" in
-check_inst(id(new C()));
+check_inst(id(new C));
 
 ////////////////////////
 // function annotations
@@ -1192,7 +1192,7 @@ class P<X> {}
 function check_poly_inst(_: P<number> | P<string>) {}
 
 // help!
-check_poly_inst(new P());"
+check_poly_inst(new P);"
 `;
 
 exports[`test test11.js 1`] = `
@@ -1445,7 +1445,7 @@ function f() {
   return 0;
 }
 
-new C().m(f());"
+new C.m(f());"
 `;
 
 exports[`test test19.js 1`] = `
@@ -1467,7 +1467,7 @@ declare class D {
 // constructor overloads
 
 function m<X>() {
-  return new D();
+  return new D;
 }
 
 declare class D { constructor(_: void): void, constructor(_: null): void }"
@@ -1758,7 +1758,7 @@ declare class Record {
   set(x: \"bar\", y: string): void
 }
 
-new Record().set(\"foo\", \"42\");"
+new Record.set(\"foo\", \"42\");"
 `;
 
 exports[`test test27.js 1`] = `
@@ -1957,7 +1957,7 @@ declare class ImmutableMap<K, V> {}
 declare function convert<K, V>(iter: SomeIterable<[K, V]>): ImmutableMap<K, V>;
 
 function foo(): ImmutableMap<string, boolean> {
-  const countersGlobalMap = new SomeMap();
+  const countersGlobalMap = new SomeMap;
   countersGlobalMap.set(\"\", false);
   return convert(countersGlobalMap);
 }"
