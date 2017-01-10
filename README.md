@@ -126,6 +126,18 @@ prettier.format(source, {
 });
 ```
 
+### Atom
+
+Atom users can simply install the `prettier-atom` package and use
+ctrl+alt+f to format a file (or format on save if turned on).
+
+### Emacs
+
+Emacs users should see [this
+folder](https://github.com/jlongster/prettier/tree/master/editors/emacs)
+for on-demand formatting.
+
+More editors are coming soon.
 
 ## Technical Details
 
@@ -152,12 +164,22 @@ where `line` is specified.
 More (rough) details can be found in [commands.md](commands.md).
 Better docs will come soon.
 
-## Editors
-
-Currently atom and emacs support is provided. Atom users can simply
-install the `prettier-atom` package and use ctrl+alt+f to format a
-file (or format on save if turned on). Emacs users should see [this
-folder](https://github.com/jlongster/prettier/tree/master/editors/emacs).
-
 ## Contributing
 
+We will work on better docs over time, but in the mean time, here are
+a few notes if you are interested in contributing:
+
+* You should be able to get up and running with just `npm install`
+* This uses jest snapshots for tests. The entire Flow test suite is
+  included here and you can make changes and run `jest -u` and then
+  `git diff` to see the styles that changed. Always update the
+  snapshots if opening a PR.
+* If you can, look at [commands.md](commands.md) and check out
+  [Wadler's
+  paper](http://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf)
+  to understand how this works. I will try to write a better explanation soon.
+* I haven't set up any automated tests yet, but for now as long as you
+  run `jest -u` to update the snapshots and I see them in the PR, that's fine.
+* You can run `AST_COMPARE=1 jest` for a more robust test run. That
+  formats each file, re-parses it, and compares the new AST with the
+  original one and makes sure they are semantically equivalent.
