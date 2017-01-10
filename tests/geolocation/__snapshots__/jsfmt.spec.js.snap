@@ -31,11 +31,11 @@ var id = geolocation.watchPosition(
   e => {
     var message: string = e.message;
     switch (e.code) {
-    case e.PERMISSION_DENIED:
-    case e.POSITION_UNAVAILABLE:
-    case e.TIMEOUT:
-    default:
-      break;
+      case e.PERMISSION_DENIED:
+      case e.POSITION_UNAVAILABLE:
+      case e.TIMEOUT:
+      default:
+        break;
     }
   }
 );

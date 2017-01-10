@@ -86,15 +86,15 @@ function bar(b) {
   if (x == null)
     return;
   switch (\"\") {
-  case 0:
-    var y: number = x;
-    // error: boolean !~> number
-    x = \"\";
-  case 1:
-    var z: number = x;
-    // 2 errors: (boolean | string) !~> number
-    break;
-  case 2:
+    case 0:
+      var y: number = x;
+      // error: boolean !~> number
+      x = \"\";
+    case 1:
+      var z: number = x;
+      // 2 errors: (boolean | string) !~> number
+      break;
+    case 2:
   }
   var w: number = x; // 2 errors: (boolean | string) !~> number
 }
@@ -104,17 +104,17 @@ function bar2(b) {
   if (x == null)
     return;
   switch (\"\") {
-  case 0: {
-      let y: number = x;
-      // error: boolean !~> number
-      x = \"\";
-    }
-  case 1: {
-      let z: number = x;
-      // 2 errors: (boolean | string) !~> number
-      break;
-    }
-  case 2:
+    case 0: {
+        let y: number = x;
+        // error: boolean !~> number
+        x = \"\";
+      }
+    case 1: {
+        let z: number = x;
+        // 2 errors: (boolean | string) !~> number
+        break;
+      }
+    case 2:
   }
   var w: number = x; // 2 errors: (boolean | string) !~> number
 }

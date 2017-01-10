@@ -64,11 +64,11 @@ function switch_scope(x: mixed) {
   let a = \"\";
   let b = \"\";
   switch (x) {
-  case \"foo\":
-    let a;
-    a = 0;
-    // doesn\'t add lower bound to outer a
-    b = 0;
+    case \"foo\":
+      let a;
+      a = 0;
+      // doesn\'t add lower bound to outer a
+      b = 0;
   }
   (a: string);
   // OK

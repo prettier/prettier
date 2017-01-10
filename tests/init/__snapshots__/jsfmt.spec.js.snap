@@ -451,12 +451,12 @@ function if_post_init(b) {
 function switch_partial_post_init(i) {
   var x: number;
   switch (i) {
-  case 0:
-    x = 0;
-    break;
-  case 1:
-    x = 1;
-    break;
+    case 0:
+      x = 0;
+      break;
+    case 1:
+      x = 1;
+      break;
   }
   var y: number = x; // error, possibly uninitialized
 }
@@ -465,14 +465,14 @@ function switch_partial_post_init(i) {
 function switch_post_init(i) {
   var x: number;
   switch (i) {
-  case 0:
-    x = 0;
-    break;
-  case 1:
-    x = 1;
-    break;
-  default:
-    x = 2;
+    case 0:
+      x = 0;
+      break;
+    case 1:
+      x = 1;
+      break;
+    default:
+      x = 2;
   }
   var y: number = x; // no error, all cases covered
 }
@@ -480,9 +480,9 @@ function switch_post_init(i) {
 // local use of annotated var in switch is ok
 function switch_scoped_init_1(i) {
   switch (i) {
-  case 0:
-    var x: number = 0;
-    var y: number = x;
+    case 0:
+      var x: number = 0;
+      var y: number = x;
   }
 }
 
@@ -491,16 +491,16 @@ function switch_scoped_init_2(i) {
   var y: number = x;
   // error
   switch (i) {
-  case 0:
-    var x: number = 0;
+    case 0:
+      var x: number = 0;
   }
 }
 
 // ...and after
 function switch_scoped_init_3(i) {
   switch (i) {
-  case 0:
-    var x: number = 0;
+    case 0:
+      var x: number = 0;
   }
   var y: number = x; // error
 }
@@ -508,11 +508,11 @@ function switch_scoped_init_3(i) {
 // ...and in a fallthrough case without initialization
 function switch_scoped_init_4(i) {
   switch (i) {
-  case 0:
-    var x: number = 0;
-  // error
-  case 1:
-    var y: number = x;
+    case 0:
+      var x: number = 0;
+    // error
+    case 1:
+      var y: number = x;
   }
 }
 
@@ -853,12 +853,12 @@ function if_post_init(b) {
 function switch_partial_post_init(i) {
   let x: number;
   switch (i) {
-  case 0:
-    x = 0;
-    break;
-  case 1:
-    x = 1;
-    break;
+    case 0:
+      x = 0;
+      break;
+    case 1:
+      x = 1;
+      break;
   }
   var y: number = x; // error, possibly uninitialized
 }
@@ -867,14 +867,14 @@ function switch_partial_post_init(i) {
 function switch_post_init(i) {
   let x: number;
   switch (i) {
-  case 0:
-    x = 0;
-    break;
-  case 1:
-    x = 1;
-    break;
-  default:
-    x = 2;
+    case 0:
+      x = 0;
+      break;
+    case 1:
+      x = 1;
+      break;
+    default:
+      x = 2;
   }
   var y: number = x; // no error, all cases covered
 }
@@ -882,11 +882,11 @@ function switch_post_init(i) {
 // use in a switch after a skipped decl is an error
 function switch_scoped_init_2(i) {
   switch (i) {
-  case 0:
-    let x: number;
-  // error, skipped declaration
-  case 1:
-    let y: number = x;
+    case 0:
+      let x: number;
+    // error, skipped declaration
+    case 1:
+      let y: number = x;
   }
 }
 
@@ -930,11 +930,11 @@ function for_of_post_init() {
 function switch_post_init2(i): number {
   let bar;
   switch (i) {
-  case 1:
-    bar = 3;
-    break;
-  default:
-    throw new Error(\"Invalid state\");
+    case 1:
+      bar = 3;
+      break;
+    default:
+      throw new Error(\"Invalid state\");
   }
   return bar; // ok, definitely initialized
 }
@@ -943,11 +943,11 @@ function switch_post_init2(i): number {
 function switch_post_init2(i): number {
   let bar;
   switch (i) {
-  case 1:
-    bar = 3;
-    break;
-  default:
-    throw new Error(\"Invalid state\");
+    case 1:
+      bar = 3;
+      break;
+    default:
+      throw new Error(\"Invalid state\");
   }
   return bar; // ok, definitely initialized
 }

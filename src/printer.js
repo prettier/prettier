@@ -1001,8 +1001,10 @@ function genericPrintNoParens(path, options, print) {
       "switch (",
       path.call(print, "discriminant"),
       ") {",
-      hardline,
-      join(hardline, path.map(print, "cases")),
+      indent(
+        options.tabWidth,
+        concat([ hardline, join(hardline, path.map(print, "cases"))])
+      ),
       hardline,
       "}"
     ]);
