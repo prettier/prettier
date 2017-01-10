@@ -12,10 +12,10 @@ const argv = minimist(process.argv.slice(2), {
   }
 });
 
-const filename = argv["_"][0];
-const write = argv['write'];
+const filenames = argv["_"];
+const write = argv["write"];
 
-if(!filename || !filename.match(/\S/)) {
+if (!filenames.length) {
   console.log(
     "Usage: prettier [opts] [filename]\n\n" +
     "Available options:\n" +
@@ -30,27 +30,34 @@ if(!filename || !filename.match(/\S/)) {
   process.exit(1);
 }
 
-let input;
-try {
-  input = fs.readFileSync(filename, "utf8")
-}
-catch(e) {
-  console.log("Unable to read file: " + filename);
-  process.exit(2);
-}
+filenames.forEach(filename => {
+  fs.readFile(filename, "utf8", (err, input) => {
+    if (err) {
+      console.error("Unable to read file: " + filename + "\n" + err);
+      // Don't exit the process if one file failed
+      process.exitCode = 2;
+      return;
+    }
 
-const output = jscodefmt.format(input, {
-  printWidth: argv['print-width'],
-  tabWidth: argv['tab-width'],
-  bracketSpacing: argv['bracket-spacing'],
-  useFlowParser: argv['flow-parser'],
-  singleQuote: argv["single-quote"],
-  trailingComma: argv["trailing-comma"]
+    const output = jscodefmt.format(input, {
+      printWidth: argv["print-width"],
+      tabWidth: argv["tab-width"],
+      bracketSpacing: argv["bracket-spacing"],
+      useFlowParser: argv["flow-parser"],
+      singleQuote: argv["single-quote"],
+      trailingComma: argv["trailing-comma"]
+    });
+
+    if (write) {
+      fs.writeFile(filename, output, "utf8", err => {
+        if (err) {
+          console.error("Unable to write file: " + filename + "\n" + err);
+          // Don't exit the process if one file failed
+          process.exitCode = 2;
+        }
+      });
+    } else {
+      console.log(output);
+    }
+  });
 });
-
-if(write) {
-  fs.writeFileSync(filename, output, "utf8");
-}
-else {
-  console.log(output);
-}
