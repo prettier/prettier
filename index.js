@@ -1,3 +1,4 @@
+"use strict";
 const babylon = require("babylon");
 const Printer = require("./src/printer").Printer;
 const flowParser = require("flow-parser");
@@ -26,7 +27,8 @@ var babylonOptions = {
 };
 
 module.exports = {
-  format: function(text, opts={}) {
+  format: function(text, opts) {
+    opts = opts || {};
     let ast;
 
     if(opts.useFlowParser) {

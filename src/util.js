@@ -1,3 +1,4 @@
+"use strict";
 var assert = require("assert");
 var types = require("ast-types");
 var getFieldValue = types.getFieldValue;

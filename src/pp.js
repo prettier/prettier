@@ -1,3 +1,4 @@
+"use strict";
 const assert = require("assert");
 
 function assertDoc(val) {
@@ -156,7 +157,10 @@ function fits(next, restCommands, width) {
       }
     }
 
-    const [ ind, mode, doc ] = cmds.pop();
+    const x = cmds.pop();
+    const ind = x[0];
+    const mode = x[1];
+    const doc = x[2];
 
     if (typeof doc === "string") {
       width -= doc.length;
@@ -213,7 +217,10 @@ function print(w, doc) {
   let out = [];
   let shouldRemeasure = false;
   while (cmds.length !== 0) {
-    const [ ind, mode, doc ] = cmds.pop();
+    const x = cmds.pop();
+    const ind = x[0];
+    const mode = x[1];
+    const doc = x[2];
 
     if (typeof doc === "string") {
       out.push(doc);

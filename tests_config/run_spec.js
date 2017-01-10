@@ -1,3 +1,4 @@
+"use strict";
 const fs = require('fs');
 const jscodefmt = require("../");
 const recast = require("recast");
