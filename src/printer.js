@@ -1023,10 +1023,9 @@ function genericPrintNoParens(path, options, print) {
       );
 
       parts.push(
-        indent(
-          options.tabWidth,
-          concat([ isCurlyBracket(cons) ? " " : hardline, cons ])
-        )
+        isCurlyBracket(cons)
+          ? concat([ " ", cons ])
+          : indent(options.tabWidth, concat([ hardline, cons ]))
       );
     }
 
