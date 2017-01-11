@@ -1,3 +1,17 @@
+exports[`test directives.js 1`] = `
+"\"use strict\";
+
+function fn() {
+  \"use strict\";
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\"use strict\";
+
+function fn() {
+  \"use strict\";
+}"
+`;
+
 exports[`test optional-type-name.js 1`] = `
 "type Foo = (any) => string
 
