@@ -173,6 +173,14 @@ autocmd FileType javascript set formatprg=prettier\ --stdin
 This makes Prettier power the [`gq` command](http://vimdoc.sourceforge.net/htmldoc/change.html#gq)
 for automatic formatting without any plugins.
 
+### Visual Studio Code
+
+Can be installed using the extension sidebar. Search for `Prettier - JavaScript formatter`
+
+Can also be installed using `ext install prettier-vscode`
+
+[Check repository for configuration and shortcuts](https://github.com/esbenp/prettier-vscode)
+
 More editors are coming soon.
 
 ## Language Support
