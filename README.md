@@ -117,7 +117,7 @@ prettier.format(source, {
   printWidth: 80,
 
   // Number of spaces it should use per tab
-  tabWidth: 2
+  tabWidth: 2,
 
   // Use the flow parser instead of babylon
   useFlowParser: false,
