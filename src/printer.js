@@ -214,6 +214,8 @@ function genericPrintNoParens(path, options, print) {
       )
     );
 
+    parts.push(hardline);
+
     return concat(parts);
   // Babel extension.
   case "Noop":
