@@ -330,7 +330,7 @@ export * from \"ES6_ExportAllFrom_Source1\";
  * @flow
  */
 
-export * from \"ES6_ExportAllFrom_Source1\""
+export * from \"ES6_ExportAllFrom_Source1\";"
 `;
 
 exports[`test ES6_ExportAllFrom_Intermediary2.js 1`] = `
@@ -346,7 +346,7 @@ export * from \"ES6_ExportAllFrom_Source2\";
  * @flow
  */
 
-export * from \"ES6_ExportAllFrom_Source2\""
+export * from \"ES6_ExportAllFrom_Source2\";"
 `;
 
 exports[`test ES6_ExportAllFrom_Source1.js 1`] = `
@@ -389,8 +389,8 @@ export * from \"./ES6_ExportAllFrom_Source2\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-export * from \"./ES6_ExportAllFrom_Source1\"
-export * from \"./ES6_ExportAllFrom_Source2\""
+export * from \"./ES6_ExportAllFrom_Source1\";
+export * from \"./ES6_ExportAllFrom_Source2\";"
 `;
 
 exports[`test ES6_ExportFrom_Intermediary1.js 1`] = `
@@ -409,7 +409,7 @@ export {
  * @flow
  */
 
-export { numberValue1, numberValue2 as numberValue2_renamed } from \"ES6_ExportFrom_Source1\""
+export { numberValue1, numberValue2 as numberValue2_renamed } from \"ES6_ExportFrom_Source1\";"
 `;
 
 exports[`test ES6_ExportFrom_Intermediary2.js 1`] = `
@@ -428,7 +428,7 @@ export {
  * @flow
  */
 
-export { numberValue1, numberValue2 as numberValue2_renamed2 } from \"ES6_ExportFrom_Source2\""
+export { numberValue1, numberValue2 as numberValue2_renamed2 } from \"ES6_ExportFrom_Source2\";"
 `;
 
 exports[`test ES6_ExportFrom_Source1.js 1`] = `
@@ -498,10 +498,10 @@ var specifierNumber3 = 3;
 var groupedSpecifierNumber1 = 1;
 var groupedSpecifierNumber2 = 2;
 
-export { specifierNumber1 }
-export { specifierNumber2 as specifierNumber2Renamed }
-export { specifierNumber3 }
-export { groupedSpecifierNumber1, groupedSpecifierNumber2 }
+export { specifierNumber1 };
+export { specifierNumber2 as specifierNumber2Renamed };
+export { specifierNumber3 };
+export { groupedSpecifierNumber1, groupedSpecifierNumber2 };
 
 export function givesANumber(): number {
   return 42;
@@ -550,9 +550,9 @@ var specifierNumber5 = 2;
 var groupedSpecifierNumber3 = 1;
 var groupedSpecifierNumber4 = 2;
 
-export { specifierNumber4 }
-export { specifierNumber5 as specifierNumber5Renamed }
-export { groupedSpecifierNumber3, groupedSpecifierNumber4 }
+export { specifierNumber4 };
+export { specifierNumber5 as specifierNumber5Renamed };
+export { groupedSpecifierNumber3, groupedSpecifierNumber4 };
 
 export function givesANumber2(): number {
   return 42;

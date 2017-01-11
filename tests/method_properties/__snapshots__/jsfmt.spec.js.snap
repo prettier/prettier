@@ -11,7 +11,7 @@ export {Foo};
 
 declare class Foo { bar?: () => string }
 
-export { Foo }"
+export { Foo };"
 `;
 
 exports[`test test.js 1`] = `

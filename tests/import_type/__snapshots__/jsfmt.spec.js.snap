@@ -100,7 +100,7 @@ class ClassFoo1 {
   }
 }
 
-export default ClassFoo1
+export default ClassFoo1;
 export var foo1Inst = new ClassFoo1();"
 `;
 
@@ -155,7 +155,7 @@ class ClassFoo2 {
   }
 }
 
-export { ClassFoo2 }
+export { ClassFoo2 };
 export var foo2Inst = new ClassFoo2();"
 `;
 
@@ -345,5 +345,5 @@ export default ClassFoo6;
 
 class ClassFoo6 {}
 
-export default ClassFoo6"
+export default ClassFoo6;"
 `;
