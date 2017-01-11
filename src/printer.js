@@ -336,10 +336,10 @@ function genericPrintNoParens(path, options, print) {
       ])));
     }
 
-    parts.push(" => ");
+    parts.push(" =>");
 
     return conditionalGroup([
-      concat([ concat(parts), path.call(print, "body") ]),
+      concat([ concat(parts), " ", path.call(print, "body") ]),
       concat([ concat(parts),
                indent(options.tabWidth,
                       concat([line, path.call(print, "body")]))])
