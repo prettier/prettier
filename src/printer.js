@@ -1331,7 +1331,7 @@ function genericPrintNoParens(path, options, print) {
     return concat([
       path.call(print, "name"),
       n.optional ? "?" : "",
-      ": ",
+      n.name ? ": " : "",
       path.call(print, "typeAnnotation")
     ]);
   case "GenericTypeAnnotation":
@@ -1421,7 +1421,7 @@ function genericPrintNoParens(path, options, print) {
       variance,
       "[",
       path.call(print, "id"),
-      ": ",
+      n.id ? ": " : "",
       path.call(print, "key"),
       "]: ",
       path.call(print, "value")
