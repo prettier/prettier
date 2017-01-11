@@ -70,12 +70,62 @@ const comp3 = (
 );
 
 const comp4 = (
-  <div style={
-    styles
-  } key=\"something\">Create wrapping parens and indent<strong>all the things</strong>.</div>
+  <div
+    style={styles}
+    key=\"something\"
+  >Create wrapping parens and indent<strong>all the things</strong>.</div>
 );
 
 const comp5 = <div>Keep it on one line.</div>;
+"
+`;
+
+exports[`test jsx-split-attrs.js 1`] = `
+"long_closed =
+  <BaseForm url=\"/auth/google\" method=\"GET\" colour=\"blue\" size=\"large\" submitLabel=\"Sign in with Google\"/>
+
+long_open =
+  <BaseForm url=\"/auth/google\" method=\"GET\" colour=\"blue\" size=\"large\" submitLabel=\"Sign in with Google\">
+    hello
+  </BaseForm>
+
+short_closed =
+  <BaseForm url=\"/auth/google\" method=\"GET\"/>
+
+short_open =
+  <BaseForm url=\"/auth/google\" method=\"GET\">
+    hello
+  </BaseForm>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+long_closed = (
+  <BaseForm
+    url=\"/auth/google\"
+    method=\"GET\"
+    colour=\"blue\"
+    size=\"large\"
+    submitLabel=\"Sign in with Google\"
+  />
+);
+
+long_open = (
+  <BaseForm
+    url=\"/auth/google\"
+    method=\"GET\"
+    colour=\"blue\"
+    size=\"large\"
+    submitLabel=\"Sign in with Google\"
+  >
+    hello
+  </BaseForm>
+);
+
+short_closed = <BaseForm url=\"/auth/google\" method=\"GET\" />;
+
+short_open = (
+  <BaseForm url=\"/auth/google\" method=\"GET\">
+    hello
+  </BaseForm>
+);
 "
 `;
 
@@ -115,9 +165,10 @@ const render3 = ({ styles }) => (
 );
 
 const render4 = ({ styles }) => (
-  <div style={
-    styles
-  } key=\"something\">Create wrapping parens and indent<strong>all the things</strong>.</div>
+  <div
+    style={styles}
+    key=\"something\"
+  >Create wrapping parens and indent<strong>all the things</strong>.</div>
 );
 
 const render5 = ({ styles }) => <div>Keep it on one line.</div>;
