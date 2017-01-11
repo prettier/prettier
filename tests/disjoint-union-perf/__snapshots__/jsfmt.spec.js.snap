@@ -84,13 +84,14 @@ export type TypedNode =
  * @flow
  */
 
-export type InferredType = \"unknown\" |
-  \"gender\" |
-  \"enum\" |
-  \"number-or-string\" |
-  \"number\" |
-  \"string\" |
-  \"error\";
+export type InferredType = 
+  | \"unknown\"
+  | \"gender\"
+  | \"enum\"
+  | \"number-or-string\"
+  | \"number\"
+  | \"string\"
+  | \"error\";
 
 export type Pos = {
   firstLine: number,
@@ -150,12 +151,13 @@ export type TypedFunctionInvocationNode = {
   typed: true
 };
 
-export type TypedNode = TypedBinaryOpNode |
-  TypedUnaryMinusNode |
-  TypedNumberNode |
-  TypedStringLiteralNode |
-  TypedVariableNode |
-  TypedFunctionInvocationNode;"
+export type TypedNode = 
+  | TypedBinaryOpNode
+  | TypedUnaryMinusNode
+  | TypedNumberNode
+  | TypedStringLiteralNode
+  | TypedVariableNode
+  | TypedFunctionInvocationNode;"
 `;
 
 exports[`test emit.js 1`] = `
@@ -965,100 +967,105 @@ export type Program = {
   body: Statement[]
 };
 
-export type BinaryOperator = \"==\" |
-  \"!=\" |
-  \"===\" |
-  \"!==\" |
-  \"<\" |
-  \"<=\" |
-  \">\" |
-  \">=\" |
-  \"<<\" |
-  \">>\" |
-  \">>>\" |
-  \"+\" |
-  \"-\" |
-  \"*\" |
-  \"/\" |
-  \"%\" |
-  \"&\" /* TODO Missing from the Parser API.*/ |
-  \"|\" |
-  \"^\" |
-  \"in\" |
-  \"instanceof\" |
-  \"..\";
+export type BinaryOperator = 
+  | \"==\"
+  | \"!=\"
+  | \"===\"
+  | \"!==\"
+  | \"<\"
+  | \"<=\"
+  | \">\"
+  | \">=\"
+  | \"<<\"
+  | \">>\"
+  | \">>>\"
+  | \"+\"
+  | \"-\"
+  | \"*\"
+  | \"/\"
+  | \"%\"
+  | \"&\" /* TODO Missing from the Parser API.*/
+  | \"|\"
+  | \"^\"
+  | \"in\"
+  | \"instanceof\"
+  | \"..\";
 
-export type UnaryOperator = \"-\" |
-  \"+\" |
-  \"!\" |
-  \"~\" |
-  \"typeof\" |
-  \"void\" |
-  \"delete\";
+export type UnaryOperator = 
+  | \"-\"
+  | \"+\"
+  | \"!\"
+  | \"~\"
+  | \"typeof\"
+  | \"void\"
+  | \"delete\";
 
-export type AssignmentOperator = \"=\" |
-  \"+=\" |
-  \"-=\" |
-  \"*=\" |
-  \"/=\" |
-  \"%=\" |
-  \"<<=\" |
-  \">>=\" |
-  \">>>=\" |
-  \"|=\" |
-  \"^=\" |
-  \"&=\";
+export type AssignmentOperator = 
+  | \"=\"
+  | \"+=\"
+  | \"-=\"
+  | \"*=\"
+  | \"/=\"
+  | \"%=\"
+  | \"<<=\"
+  | \">>=\"
+  | \">>>=\"
+  | \"|=\"
+  | \"^=\"
+  | \"&=\";
 
 export type UpdateOperator = \"++\" | \"--\";
 
 export type LogicalOperator = \"&&\" | \"||\";
 
-export type Node = EmptyStatement |
-  BlockStatement |
-  ExpressionStatement |
-  IfStatement |
-  BreakStatement |
-  ContinueStatement |
-  ReturnStatement |
-  ThrowStatement |
-  WhileStatement |
-  ForStatement |
-  ForInStatement |
-  TryStatement |
-  CatchClause |
-  Identifier |
-  Literal |
-  ThisExpression |
-  ArrayExpression |
-  ObjectExpreession |
-  Property |
-  FunctionExpression |
-  BinaryExpression |
-  UnaryExpression |
-  AssignmentExpression |
-  UpdateExpression |
-  LogicalExpression |
-  ConditionalExpression |
-  NewExpression |
-  CallExpression |
-  MemberExpression |
-  VariableDeclaration |
-  FunctionDeclaration |
-  VariableDeclarator;
+export type Node = 
+  | EmptyStatement
+  | BlockStatement
+  | ExpressionStatement
+  | IfStatement
+  | BreakStatement
+  | ContinueStatement
+  | ReturnStatement
+  | ThrowStatement
+  | WhileStatement
+  | ForStatement
+  | ForInStatement
+  | TryStatement
+  | CatchClause
+  | Identifier
+  | Literal
+  | ThisExpression
+  | ArrayExpression
+  | ObjectExpreession
+  | Property
+  | FunctionExpression
+  | BinaryExpression
+  | UnaryExpression
+  | AssignmentExpression
+  | UpdateExpression
+  | LogicalExpression
+  | ConditionalExpression
+  | NewExpression
+  | CallExpression
+  | MemberExpression
+  | VariableDeclaration
+  | FunctionDeclaration
+  | VariableDeclarator;
 
-export type Statement = BlockStatement |
-  EmptyStatement |
-  ExpressionStatement |
-  IfStatement |
-  BreakStatement |
-  ContinueStatement |
-  ReturnStatement |
-  ThrowStatement |
-  WhileStatement |
-  ForStatement |
-  ForInStatement |
-  TryStatement |
-  Declaration;
+export type Statement = 
+  | BlockStatement
+  | EmptyStatement
+  | ExpressionStatement
+  | IfStatement
+  | BreakStatement
+  | ContinueStatement
+  | ReturnStatement
+  | ThrowStatement
+  | WhileStatement
+  | ForStatement
+  | ForInStatement
+  | TryStatement
+  | Declaration;
 
 export type EmptyStatement = {
   source: ?string,
@@ -1189,21 +1196,22 @@ export type CatchClause = {
   body: BlockStatement
 };
 
-export type Expression = Identifier |
-  ThisExpression |
-  Literal |
-  FunctionExpression |
-  BinaryExpression |
-  UnaryExpression |
-  AssignmentExpression |
-  UpdateExpression |
-  LogicalExpression |
-  ConditionalExpression |
-  NewExpression |
-  CallExpression |
-  MemberExpression |
-  ArrayExpression |
-  ObjectExpreession;
+export type Expression = 
+  | Identifier
+  | ThisExpression
+  | Literal
+  | FunctionExpression
+  | BinaryExpression
+  | UnaryExpression
+  | AssignmentExpression
+  | UpdateExpression
+  | LogicalExpression
+  | ConditionalExpression
+  | NewExpression
+  | CallExpression
+  | MemberExpression
+  | ArrayExpression
+  | ObjectExpreession;
 
 export type Identifier = {
   source: ?string,
