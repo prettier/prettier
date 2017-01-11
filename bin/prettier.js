@@ -32,6 +32,10 @@ if (!filenames.length) {
 
 filenames.forEach(filename => {
   fs.readFile(filename, "utf8", (err, input) => {
+    if (write) {
+      console.log(file);
+    }
+
     if (err) {
       console.error("Unable to read file: " + filename + "\n" + err);
       // Don't exit the process if one file failed
