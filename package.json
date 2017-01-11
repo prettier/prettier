@@ -9,6 +9,7 @@
     "ast-types": "git+https://github.com/jlongster/ast-types.git",
     "babylon": "^6.15.0",
     "flow-parser": "^0.37.0",
+    "get-stdin": "^5.0.1",
     "minimist": "^1.2.0",
     "private": "^0.1.6",
     "recast": "^0.11.18",

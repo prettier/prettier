@@ -150,6 +150,17 @@ Emacs users should see [this
 folder](https://github.com/jlongster/prettier/tree/master/editors/emacs)
 for on-demand formatting.
 
+### Vim
+
+Vim users can add the following to their `.vimrc`:
+
+```
+autocmd FileType javascript set formatprg=prettier\ --stdin
+```
+
+This makes Prettier power the [`gq` command](http://vimdoc.sourceforge.net/htmldoc/change.html#gq)
+for automatic formatting without any plugins.
+
 More editors are coming soon.
 
 ## Language Support
