@@ -311,3 +311,16 @@ function setLocEnd(node, index) {
   }
 }
 util.setLocEnd = setLocEnd;
+
+// http://stackoverflow.com/a/7124052
+function htmlEscapeInsideDoubleQuote(str) {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;');
+// Intentionally disable the following since it is safe inside of a
+// double quote context
+//    .replace(/'/g, '&#39;')
+//    .replace(/</g, '&lt;')
+//    .replace(/>/g, '&gt;');
+}
+util.htmlEscapeInsideDoubleQuote = htmlEscapeInsideDoubleQuote;

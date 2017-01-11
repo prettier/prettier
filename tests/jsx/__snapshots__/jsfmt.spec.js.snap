@@ -1,0 +1,10 @@
+exports[`test quotes.js 1`] = `
+"<div id=\"&quot;\'<>&amp;quot;\" />;
+<div id=\'\"&#39;<>&amp;quot;\' />;
+<div id={\'\\\'\"&quot;<>&amp;quot;\'} />;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div id=\"&quot;\'<>&amp;quot;\" />;
+<div id=\"&quot;\'<>&amp;quot;\" />;
+<div id={\"\'\\\"&quot;<>&amp;quot;\"} />;
+"
+`;
