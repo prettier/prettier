@@ -45,7 +45,12 @@ function format(input) {
 
 if (useStdin) {
   stdin(input => {
-    console.log(format(input));
+    try {
+      console.log(format(input));
+    } catch (ex) {
+      console.error(ex.message);
+      process.exitCode = 1;
+    }
   });
 } else {
   filenames.forEach(filename => {
@@ -57,7 +62,13 @@ if (useStdin) {
         return;
       }
 
-      const output = format(input);
+      let output;
+      try {
+        output = format(input);
+      } catch (ex) {
+        console.error(ex.message);
+        process.exitCode = 1;
+      }
 
       if (write) {
         fs.writeFile(filename, output, "utf8", err => {
