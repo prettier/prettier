@@ -1091,8 +1091,13 @@ function genericPrintNoParens(path, options, print) {
       concat([
         "<",
         path.call(print, "name"),
-        concat(path.map(attr => concat([" ", print(attr)]), "attributes")),
-        n.selfClosing ? " />" : ">"
+        multilineGroup(concat([
+          indent(options.tabWidth,
+            concat(path.map(attr => concat([line, print(attr)]), "attributes"))
+          ),
+          n.selfClosing ? line : softline,
+        ])),
+        n.selfClosing ? "/>" : ">"
       ])
     );
   case "JSXClosingElement":
