@@ -4,9 +4,10 @@
 const fs = require("fs");
 const minimist = require("minimist");
 const jscodefmt = require("../index");
+const stdin = require("stdin");
 
 const argv = minimist(process.argv.slice(2), {
-  boolean: ["write", "flow-parser", "bracket-spacing", "single-quote", "trailing-comma"],
+  boolean: ["write", "stdin", "flow-parser", "bracket-spacing", "single-quote", "trailing-comma"],
   default: {
     "bracket-spacing": true
   }
@@ -14,8 +15,9 @@ const argv = minimist(process.argv.slice(2), {
 
 const filenames = argv["_"];
 const write = argv["write"];
+const useStdin = argv["stdin"];
 
-if (!filenames.length) {
+if (!filenames.length && !useStdin) {
   console.log(
     "Usage: prettier [opts] [filename]\n\n" +
     "Available options:\n" +
@@ -30,34 +32,44 @@ if (!filenames.length) {
   process.exit(1);
 }
 
-filenames.forEach(filename => {
-  fs.readFile(filename, "utf8", (err, input) => {
-    if (err) {
-      console.error("Unable to read file: " + filename + "\n" + err);
-      // Don't exit the process if one file failed
-      process.exitCode = 2;
-      return;
-    }
-
-    const output = jscodefmt.format(input, {
-      printWidth: argv["print-width"],
-      tabWidth: argv["tab-width"],
-      bracketSpacing: argv["bracket-spacing"],
-      useFlowParser: argv["flow-parser"],
-      singleQuote: argv["single-quote"],
-      trailingComma: argv["trailing-comma"]
-    });
-
-    if (write) {
-      fs.writeFile(filename, output, "utf8", err => {
-        if (err) {
-          console.error("Unable to write file: " + filename + "\n" + err);
-          // Don't exit the process if one file failed
-          process.exitCode = 2;
-        }
-      });
-    } else {
-      console.log(output);
-    }
+function format(input) {
+  return jscodefmt.format(input, {
+    printWidth: argv["print-width"],
+    tabWidth: argv["tab-width"],
+    bracketSpacing: argv["bracket-spacing"],
+    useFlowParser: argv["flow-parser"],
+    singleQuote: argv["single-quote"],
+    trailingComma: argv["trailing-comma"]
   });
-});
+}
+
+if (useStdin) {
+  stdin(input => {
+    console.log(format(input));
+  });
+} else {
+  filenames.forEach(filename => {
+    fs.readFile(filename, "utf8", (err, input) => {
+      if (err) {
+        console.error("Unable to read file: " + filename + "\n" + err);
+        // Don't exit the process if one file failed
+        process.exitCode = 2;
+        return;
+      }
+
+      const output = format(input);
+
+      if (write) {
+        fs.writeFile(filename, output, "utf8", err => {
+          if (err) {
+            console.error("Unable to write file: " + filename + "\n" + err);
+            // Don't exit the process if one file failed
+            process.exitCode = 2;
+          }
+        });
+      } else {
+        console.log(output);
+      }
+    });
+  });
+}

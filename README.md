@@ -146,6 +146,17 @@ for on-demand formatting.
 
 More editors are coming soon.
 
+### Vim
+
+Vim users can add the following to their `.vimrc`:
+
+```
+autocmd FileType javascript set formatprg=prettier\ --stdin
+```
+
+This makes Prettier power the [`gq` command](http://vimdoc.sourceforge.net/htmldoc/change.html#gq)
+for automatic formatting without any plugins.
+
 ## Language Support
 
 Prettier attempts to support all JavaScript language features,
