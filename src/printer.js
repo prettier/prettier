@@ -524,7 +524,7 @@ function genericPrintNoParens(path, options, print) {
           parts.push(
             indent(
               options.tabWidth,
-              concat([ line, print(childPath), ";", line ])
+              concat([ hardline, print(childPath), ";", hardline ])
             )
           );
         },
