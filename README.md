@@ -95,7 +95,7 @@ You can install it globally if you like:
 yarn global add prettier
 ```
 
-*We're defaulting to `yarn` but you can use `npm` if you like:
+*We're defaulting to `yarn` but you can use `npm` if you like:*
 
 ```
 npm install [-g] prettier
