@@ -97,12 +97,18 @@ Run prettier through the CLI with this script. Run it without any
 arguments to see the options.
 
 To format a file in-place, use `--write`. While this is in beta you
-should probably commit your code before doing that. In the future we
-will have better support for formatting whole projects.
+should probably commit your code before doing that.
 
 ```js
-prettier <opts> <filename>
+prettier [opts] [filename ...]
 ```
+
+For example, you could format your source using bash filename expansion:
+```bash
+prettier --write src/**/*.js bin/*.js
+```
+
+In the future we will have better support for formatting whole projects.
 
 ### API
 
