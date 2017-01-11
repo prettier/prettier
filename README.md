@@ -86,10 +86,20 @@ into account, wrapping code when necessary.
 Install:
 
 ```
-npm install [-g] prettier
+yarn add prettier
 ```
 
-You can install it globally if you like.
+You can install it globally if you like:
+
+```
+yarn global add prettier
+```
+
+*We're defaulting to `yarn` but you can use `npm` if you like:*
+
+```
+npm install [-g] prettier
+```
 
 ### CLI
 
@@ -205,7 +215,7 @@ Better docs will come soon.
 We will work on better docs over time, but in the mean time, here are
 a few notes if you are interested in contributing:
 
-* You should be able to get up and running with just `npm install`
+* You should be able to get up and running with just `yarn`
 * This uses jest snapshots for tests. The entire Flow test suite is
   included here and you can make changes and run `jest -u` and then
   `git diff` to see the styles that changed. Always update the
