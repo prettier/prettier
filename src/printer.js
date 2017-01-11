@@ -343,12 +343,20 @@ function genericPrintNoParens(path, options, print) {
 
     parts.push(" =>");
 
+    const body = path.call(print, "body");
+    const collapsed = concat([ concat(parts), " ", body ]);
+
+    if (n.body.type === "JSXElement") {
+      return group(collapsed);
+    }
+
     return conditionalGroup([
-      concat([ concat(parts), " ", path.call(print, "body") ]),
-      concat([ concat(parts),
-               indent(options.tabWidth,
-                      concat([line, path.call(print, "body")]))])
-    ])
+      collapsed,
+      concat([
+        concat(parts),
+        indent(options.tabWidth, concat([ line, body ])),
+      ]),
+    ]);
   case "MethodDefinition":
     if (n.static) {
       parts.push("static ");
@@ -553,22 +561,8 @@ function genericPrintNoParens(path, options, print) {
   case "ReturnStatement":
     parts.push("return");
 
-    var arg = path.call(print, "argument");
-
     if (n.argument) {
-      if (
-        namedTypes.JSXElement && namedTypes.JSXElement.check(n.argument) &&
-          hasHardLine(arg)
-      ) {
-        parts.push(
-          " (",
-          indent(options.tabWidth, concat([ hardline, arg ])),
-          hardline,
-          ")"
-        );
-      } else {
-        parts.push(" ", arg);
-      }
+      parts.push(" ", path.call(print, "argument"));
     }
 
     parts.push(";");
@@ -1091,50 +1085,7 @@ function genericPrintNoParens(path, options, print) {
       "}"
     ]));
   case "JSXElement":
-    var openingLines = path.call(print, "openingElement");
-
-    if (n.openingElement.selfClosing) {
-      assert.ok(!n.closingElement);
-
-      return openingLines;
-    }
-
-    var children = [];
-
-    path.map(
-      function(childPath) {
-        var child = childPath.getValue();
-
-        if (
-          namedTypes.Literal.check(child) && typeof child.value === "string"
-        ) {
-          if (/\S/.test(child.value)) {
-            const beginBreak = child.value.match(/^\s*\n/);
-            const endBreak = child.value.match(/\n\s*$/);
-
-            children.push(
-              beginBreak ? hardline : "",
-              child.value.replace(/^\s+|\s+$/g, ""),
-              endBreak ? hardline : ""
-            );
-          } else if (/\n/.test(child.value)) {
-            children.push(hardline);
-          }
-        } else {
-          children.push(print(childPath));
-        }
-      },
-      "children"
-    );
-
-    var mostChildren = children.slice(0, -1);
-    var closingLines = path.call(print, "closingElement");
-    return concat([
-      openingLines,
-      indent(options.tabWidth, concat(mostChildren)),
-      util.getLast(children) || "",
-      closingLines
-    ]);
+    return printJSXElement(path, options, print);
   case "JSXOpeningElement":
     return group(
       concat([
@@ -2051,6 +2002,67 @@ function printMemberChain(node, options, print) {
       ]);
     }
   }
+}
+
+function printJSXElement(path, options, print) {
+  const n = path.getValue();
+  var openingLines = path.call(print, "openingElement");
+
+  let elem;
+  if (n.openingElement.selfClosing) {
+    assert.ok(!n.closingElement);
+
+    elem = openingLines;
+  } else {
+    var children = [];
+
+    path.map(
+      function(childPath) {
+        var child = childPath.getValue();
+
+        if (
+          namedTypes.Literal.check(child) && typeof child.value === "string"
+        ) {
+          if (/\S/.test(child.value)) {
+            const beginBreak = child.value.match(/^\s*\n/);
+            const endBreak = child.value.match(/\n\s*$/);
+
+            children.push(
+              beginBreak ? hardline : "",
+              child.value.replace(/^\s+|\s+$/g, ""),
+              endBreak ? hardline : ""
+            );
+          } else if (/\n/.test(child.value)) {
+            children.push(hardline);
+          }
+        } else {
+          children.push(print(childPath));
+        }
+      },
+      "children"
+    );
+
+    var mostChildren = children.slice(0, -1);
+    var closingLines = path.call(print, "closingElement");
+    elem = concat([
+      openingLines,
+      indent(options.tabWidth, concat(mostChildren)),
+      util.getLast(children) || "",
+      closingLines
+    ]);
+  }
+
+  const parent = path.getParentNode();
+  if (!parent || parent.type === "JSXElement" || parent.type === "ExpressionStatement") {
+    return elem;
+  }
+
+  return multilineGroup(concat([
+    ifBreak("("),
+    indent(options.tabWidth, concat([ softline, elem ])),
+    softline,
+    ifBreak(")"),
+  ]));
 }
 
 function adjustClause(clause, options, forceSpace) {

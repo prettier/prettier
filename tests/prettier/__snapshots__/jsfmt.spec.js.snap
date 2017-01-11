@@ -13,18 +13,6 @@ function fn() {
 "
 `;
 
-exports[`test method-chain.js 1`] = `
-"method().then(x => x)
-  [\"abc\"](x => x)
-  [abc](x => x);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-method()
-  .then(x => x)
-  [\"abc\"](x => x)
-  [abc](x => x);
-"
-`;
-
 exports[`test exports.js 1`] = `
 "export { value1, value2 as value2_renamed, value3, value4 as value4_renamed, value5 } from \"exports\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -35,6 +23,121 @@ export {
   value4 as value4_renamed,
   value5
 } from \"exports\";
+"
+`;
+
+exports[`test jsx-multiline-assign.js 1`] = `
+"const comp1 = (
+  <div style={styles} key=\"something\">
+    Keep the wrapping parens.
+  </div>
+);
+
+const comp2 = <div style={styles} key=\"something\">
+  Create wrapping parens.
+</div>;
+
+comp2A = <div style={styles} key=\"something\">
+  Create wrapping parens.
+</div>;
+
+const comp3 = <div style={styles} key=\"something\">Bump to next line without parens</div>;
+
+const comp4 = <div style={styles} key=\"something\">Create wrapping parens and indent <strong>all the things</strong>.</div>;
+
+const comp5 = <div>Keep it on one line.</div>;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const comp1 = (
+  <div style={styles} key=\"something\">
+    Keep the wrapping parens.
+  </div>
+);
+
+const comp2 = (
+  <div style={styles} key=\"something\">
+    Create wrapping parens.
+  </div>
+);
+
+comp2A = (
+  <div style={styles} key=\"something\">
+    Create wrapping parens.
+  </div>
+);
+
+const comp3 = (
+  <div style={styles} key=\"something\">Bump to next line without parens</div>
+);
+
+const comp4 = (
+  <div style={
+    styles
+  } key=\"something\">Create wrapping parens and indent<strong>all the things</strong>.</div>
+);
+
+const comp5 = <div>Keep it on one line.</div>;
+"
+`;
+
+exports[`test jsx-stateless-arrow-fn.js 1`] = `
+"const render1 = ({ styles }) => (
+  <div style={styles} key=\"something\">
+    Keep the wrapping parens. Put each key on its own line.
+  </div>
+);
+
+const render2 = ({ styles }) => <div style={styles} key=\"something\">
+  Create wrapping parens.
+</div>;
+
+const render3 = ({ styles }) => <div style={styles} key=\"something\">Bump to next line without parens</div>;
+
+const render4 = ({ styles }) => <div style={styles} key=\"something\">Create wrapping parens and indent <strong>all the things</strong>.</div>;
+
+const render5 = ({ styles }) => <div>Keep it on one line.</div>;
+
+const notJSX = (aaaaaaaaaaaaaaaaa, bbbbbbbbbbb) => this.someLongCallWithParams(aaaaaa, bbbbbbb).anotherLongCallWithParams(cccccccccccc, dddddddddddddddddddddd)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const render1 = ({ styles }) => (
+  <div style={styles} key=\"something\">
+    Keep the wrapping parens. Put each key on its own line.
+  </div>
+);
+
+const render2 = ({ styles }) => (
+  <div style={styles} key=\"something\">
+    Create wrapping parens.
+  </div>
+);
+
+const render3 = ({ styles }) => (
+  <div style={styles} key=\"something\">Bump to next line without parens</div>
+);
+
+const render4 = ({ styles }) => (
+  <div style={
+    styles
+  } key=\"something\">Create wrapping parens and indent<strong>all the things</strong>.</div>
+);
+
+const render5 = ({ styles }) => <div>Keep it on one line.</div>;
+
+const notJSX = (aaaaaaaaaaaaaaaaa, bbbbbbbbbbb) =>
+  this
+    .someLongCallWithParams(aaaaaa, bbbbbbb)
+    .anotherLongCallWithParams(cccccccccccc, dddddddddddddddddddddd);
+"
+`;
+
+exports[`test method-chain.js 1`] = `
+"method().then(x => x)
+  [\"abc\"](x => x)
+  [abc](x => x);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+method()
+  .then(x => x)
+  [\"abc\"](x => x)
+  [abc](x => x);
 "
 `;
 
