@@ -73,10 +73,21 @@ const comp4 = (
   <div
     style={styles}
     key=\"something\"
-  >Create wrapping parens and indent<strong>all the things</strong>.</div>
+  >Create wrapping parens and indent <strong>all the things</strong>.</div>
 );
 
 const comp5 = <div>Keep it on one line.</div>;
+"
+`;
+
+exports[`test jsx-significant-space.js 1`] = `
+"<span>
+    foo <span>bar</span>
+</span>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<span>
+   foo <span>bar</span>
+</span>;
 "
 `;
 
@@ -168,7 +179,7 @@ const render4 = ({ styles }) => (
   <div
     style={styles}
     key=\"something\"
-  >Create wrapping parens and indent<strong>all the things</strong>.</div>
+  >Create wrapping parens and indent <strong>all the things</strong>.</div>
 );
 
 const render5 = ({ styles }) => <div>Keep it on one line.</div>;

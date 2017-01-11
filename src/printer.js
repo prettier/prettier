@@ -2034,7 +2034,7 @@ function printJSXElement(path, options, print) {
 
             children.push(
               beginBreak ? hardline : "",
-              child.value.replace(/^\s+|\s+$/g, ""),
+              child.value.replace(/^\s+|\s+$/g, endBreak ? "" : " "),
               endBreak ? hardline : ""
             );
           } else if (/\n/.test(child.value)) {
