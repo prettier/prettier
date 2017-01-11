@@ -24,13 +24,19 @@
     "source-map": "^0.5.6"
   },
   "devDependencies": {
-    "jest": "^18.0.0"
+    "jest": "^18.0.0",
+    "rollup": "^0.41.1",
+    "rollup-plugin-commonjs": "^7.0.0",
+    "rollup-plugin-node-builtins": "^2.0.0",
+    "rollup-plugin-node-resolve": "^2.0.0",
+    "rollup-plugin-real-babili": "^1.0.0-alpha3"
   },
   "scripts": {
     "test": "jest",
     "format": "./bin/prettier.js --write",
     "format:single": "npm run format -- src/printer.js",
-    "format:all": "npm run format -- src/*.js bin/*.js"
+    "format:all": "npm run format -- src/*.js bin/*.js",
+    "build:docs": "rollup -c docs/rollup.config.js"
   },
   "jest": {
     "setupFiles": [
