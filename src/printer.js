@@ -238,12 +238,65 @@ function genericPrintNoParens(path, options, print) {
     );
   case "BinaryExpression":
   case "LogicalExpression":
+    var parent = path.getParentNode();
+    var isStartOfLogicalExpressionChain = parent ? parent.type !== 'LogicalExpression' : false;
+    var chain = collectLogicalExpressions(n);
+
+    if (isStartOfLogicalExpressionChain && chain.length) {
+      const paired = [...pairs(chain)];
+      return conditionalGroup([
+        // single line case
+        // A && B && C
+        concat([
+          path.call(print, "left"),
+          " ",
+          n.operator,
+          " ",
+          path.call(print, "right"),
+        ]),
+        // multiple line case
+        // (
+        //    A &&
+        //    B &&
+        //    C
+        // )
+        group(
+          concat([
+            '(',
+            indent(
+              options.tabWidth,
+              concat(
+                paired.map((n) => {
+                  if (n.length == 2) {
+                    return concat([
+                      line,
+                      print(FastPath.from(n[0])),
+                      ' ',
+                      n[1] ? n[1] : '',
+                    ]);
+                  } else {
+                    return concat([
+                      line,
+                      print(FastPath.from(n[0]))
+                    ]);
+                  }
+                })
+              )
+            ),
+            line,
+            ')',
+          ])
+        )
+      ])
+    }
+
     return group(
       concat([
         path.call(print, "left"),
         " ",
         n.operator,
-        indent(options.tabWidth, concat([ line, path.call(print, "right") ]))
+        " ",
+        path.call(print, "right"),
       ])
     );
   case "AssignmentPattern":
@@ -2050,4 +2103,22 @@ function isLastStatement(path) {
   const node = path.getValue();
   const body = parent.body;
   return body && body[body.length - 1] === node;
+}
+
+function collectLogicalExpressions(node, input=[]) {
+  if (node.left.type === 'LogicalExpression') {
+    return collectLogicalExpressions(
+      node.left,
+      [node.operator, node.right,...input]
+    );
+  }
+
+  return [node.left, node.operator, node.right, ...input];
+}
+
+function pairs(array) {
+  if (array.length > 2) {
+    return [[array[0], array[1]], ...pairs(array.slice(2))]
+  }
+  return [array];
 }
