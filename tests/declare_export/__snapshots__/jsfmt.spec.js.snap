@@ -178,7 +178,7 @@ declare export default class FooImpl { givesANum(): number }
 // Regression test for https://github.com/facebook/flow/issues/511
 //
 // Default-exported class should also be available in local scope
-declare export { FooImpl as Foo }
+declare export { FooImpl as Foo };
 declare export function getAFoo(): FooImpl;"
 `;
 
@@ -335,7 +335,7 @@ declare export {
  * @flow
  */
 
-declare export { numberValue1, numberValue2 as numberValue2_renamed } from \"ES6_ExportFrom_Source1\""
+declare export { numberValue1, numberValue2 as numberValue2_renamed } from \"ES6_ExportFrom_Source1\";"
 `;
 
 exports[`test ES6_ExportFrom_Intermediary2.js 1`] = `
@@ -354,7 +354,7 @@ declare export {
  * @flow
  */
 
-declare export { numberValue1, numberValue2 as numberValue2_renamed2 } from \"ES6_ExportFrom_Source2\""
+declare export { numberValue1, numberValue2 as numberValue2_renamed2 } from \"ES6_ExportFrom_Source2\";"
 `;
 
 exports[`test ES6_ExportFrom_Source1.js 1`] = `
@@ -427,10 +427,10 @@ var specifierNumber3 = 3;
 var groupedSpecifierNumber1 = 1;
 var groupedSpecifierNumber2 = 2;
 
-declare export { specifierNumber1 }
-declare export { specifierNumber2 as specifierNumber2Renamed }
-declare export { specifierNumber3 }
-declare export { groupedSpecifierNumber1, groupedSpecifierNumber2 }
+declare export { specifierNumber1 };
+declare export { specifierNumber2 as specifierNumber2Renamed };
+declare export { specifierNumber3 };
+declare export { groupedSpecifierNumber1, groupedSpecifierNumber2 };
 
 declare export function givesANumber(): number;
 declare export class NumberGenerator { givesANumber(): number }
@@ -470,9 +470,9 @@ var specifierNumber5 = 2;
 var groupedSpecifierNumber3 = 1;
 var groupedSpecifierNumber4 = 2;
 
-declare export { specifierNumber4 }
-declare export { specifierNumber5 as specifierNumber5Renamed }
-declare export { groupedSpecifierNumber3, groupedSpecifierNumber4 }
+declare export { specifierNumber4 };
+declare export { specifierNumber5 as specifierNumber5Renamed };
+declare export { groupedSpecifierNumber3, groupedSpecifierNumber4 };
 
 declare export function givesANumber2(): number;
 declare export class NumberGenerator2 { givesANumber(): number }

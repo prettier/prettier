@@ -443,7 +443,7 @@ function genericPrintNoParens(path, options, print) {
       parts.push(" as ", path.call(print, "exported"));
     }
 
-    parts.push(" from ", path.call(print, "source"));
+    parts.push(" from ", path.call(print, "source"), ";");
 
     return concat(parts);
   case "ExportNamespaceSpecifier":
@@ -1819,6 +1819,10 @@ function printExportDeclaration(path, options, print) {
 
   if (decl.declaration) {
     parts.push(path.call(print, "declaration"));
+
+    if (decl.type === "ExportDefaultDeclaration" && decl.declaration.type == "Identifier") {
+      parts.push(";");
+    }
   } else if (decl.specifiers && decl.specifiers.length > 0) {
     if (
       decl.specifiers.length === 1 &&
@@ -1837,6 +1841,8 @@ function printExportDeclaration(path, options, print) {
     if (decl.source) {
       parts.push(" from ", path.call(print, "source"));
     }
+
+    parts.push(';');
   }
 
   return concat(parts);

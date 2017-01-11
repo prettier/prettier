@@ -9,7 +9,7 @@ export default x;
 
 const x = \"foo\";
 
-export default x"
+export default x;"
 `;
 
 exports[`test exports_named.js 1`] = `

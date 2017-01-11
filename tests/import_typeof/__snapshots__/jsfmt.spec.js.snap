@@ -87,7 +87,7 @@ class ClassFoo1 {
   }
 }
 
-export default ClassFoo1"
+export default ClassFoo1;"
 `;
 
 exports[`test ExportDefault_Number.js 1`] = `
@@ -150,7 +150,7 @@ class ClassFoo2 {
   }
 }
 
-export { ClassFoo2 }"
+export { ClassFoo2 };"
 `;
 
 exports[`test ExportNamed_Multi.js 1`] = `
