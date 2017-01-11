@@ -1926,7 +1926,7 @@ function printMemberChain(node, options, print) {
   // easily analyze.
   while (curr.type === "CallExpression" &&
     curr.callee.type === "MemberExpression") {
-    nodes.push({property: curr.callee.property, call: curr});
+    nodes.push({member: curr.callee, call: curr});
     curr = curr.callee.object;
   }
   nodes.reverse();
@@ -1953,7 +1953,7 @@ function printMemberChain(node, options, print) {
   if (hasMultipleLookups) {
     const currPrinted = print(FastPath.from(curr));
     const nodesPrinted = nodes.map(node => ({
-      property: print(FastPath.from(node.property)),
+      property: printMemberLookup(FastPath.from(node.member), print),
       args: printArgumentsList(FastPath.from(node.call), options, print)
     }));
     const fullyExpanded = concat([
@@ -1962,7 +1962,7 @@ function printMemberChain(node, options, print) {
         nodesPrinted.map(node => {
           return indent(
             options.tabWidth,
-            concat([ hardline, ".", node.property, node.args ])
+            concat([ hardline, node.property, node.args ])
           );
         })
       )
@@ -1984,7 +1984,7 @@ function printMemberChain(node, options, print) {
           currPrinted,
           concat(
             nodesPrinted.map(node => {
-              return concat([ ".", node.property, node.args ]);
+              return concat([ node.property, node.args ]);
             })
           )
         ]),

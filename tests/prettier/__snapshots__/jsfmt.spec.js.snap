@@ -9,7 +9,20 @@ function fn() {
 
 function fn() {
   \"use strict\";
-}"
+}
+"
+`;
+
+exports[`test method-chain.js 1`] = `
+"method().then(x => x)
+  [\"abc\"](x => x)
+  [abc](x => x);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+method()
+  .then(x => x)
+  [\"abc\"](x => x)
+  [abc](x => x);
+"
 `;
 
 exports[`test optional-type-name.js 1`] = `
