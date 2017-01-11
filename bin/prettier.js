@@ -39,14 +39,21 @@ filenames.forEach(filename => {
       return;
     }
 
-    const output = jscodefmt.format(input, {
-      printWidth: argv["print-width"],
-      tabWidth: argv["tab-width"],
-      bracketSpacing: argv["bracket-spacing"],
-      useFlowParser: argv["flow-parser"],
-      singleQuote: argv["single-quote"],
-      trailingComma: argv["trailing-comma"]
-    });
+    let output;
+    try {
+      output = jscodefmt.format(input, {
+        printWidth: argv["print-width"],
+        tabWidth: argv["tab-width"],
+        bracketSpacing: argv["bracket-spacing"],
+        useFlowParser: argv["flow-parser"],
+        singleQuote: argv["single-quote"],
+        trailingComma: argv["trailing-comma"]
+      });
+    } catch (e) {
+      process.exitCode = 2;
+      console.error(e);
+      return;
+    }
 
     if (write) {
       fs.writeFile(filename, output, "utf8", err => {
