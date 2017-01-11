@@ -62,7 +62,7 @@ a `before-save-hook'."
 ;;;###autoload
 (defun prettier-before-save ()
   "Add this to .emacs to run refmt on the current buffer when saving:
- (add-hook 'before-save-hook 'refmt-before-save)."
+ (add-hook 'before-save-hook 'prettier-before-save)."
   (interactive)
   (when (eq major-mode 'js-mode) (prettier)))
 

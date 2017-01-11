@@ -4,5 +4,5 @@ Add this to your init:
 (require 'prettier-js)
 (add-hook 'js-mode-hook
           (lambda ()
-            (add-hook 'before-save-hook 'jscodefmt-before-save)))
+            (add-hook 'before-save-hook 'prettier-before-save)))
 ```
