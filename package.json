@@ -4,6 +4,14 @@
   "bin": {
     "prettier": "./bin/prettier.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jlongster/prettier.git"
+  },
+  "author": "James Long",
+  "bugs": {
+    "url": "https://github.com/jlongster/prettier/issues"
+  },
   "main": "./index.js",
   "dependencies": {
     "ast-types": "git+https://github.com/jlongster/ast-types.git",
