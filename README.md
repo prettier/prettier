@@ -42,7 +42,7 @@ foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriou
 Suddenly our previous format for calling function breaks down because
 this is too long. What you would probably do is this instead:
 
-```
+```js
 foo(
   reallyLongArg(),
   omgSoManyParameters(),
