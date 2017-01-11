@@ -94,5 +94,6 @@ function testKeysOfOtherObj(str: string, lit: \"hi\") {
   (\"hi\": $Keys<ObjLit>);
   // String literal should be fine
   (123: $Keys<ObjLit>); // Error: number -> keys of ObjLit
-}"
+}
+"
 `;

@@ -72,5 +72,6 @@ let tests = [
     // error
     \`foo \${\"bar\"} \${x}\`; // error
   }
-];"
+];
+"
 `;

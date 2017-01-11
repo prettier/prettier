@@ -31,7 +31,8 @@ exec(\"ls\", { timeout: 250 });
 // options + callback.
 exec(\"ls\", { maxBuffer: 100 }, function(error, stdout, stderr) {
   console.info(stdout);
-});"
+});
+"
 `;
 
 exports[`test execFile.js 1`] = `
@@ -89,7 +90,8 @@ execFile(\"ls\", [ \"-l\" ], { timeout: 250 });
 // Put it all together.
 execFile(\"ls\", [ \"-l\" ], { timeout: 250 }, function(error, stdout, stderr) {
   console.info(stdout);
-});"
+});
+"
 `;
 
 exports[`test execSync.js 1`] = `
@@ -118,7 +120,8 @@ execSync(\"ls\", { timeout: \"250\" });
 // error, no signatures match
 execSync(\"ls\", { stdio: \"inherit\" });
 // error, no signatures match
-execSync(\"ls\", { stdio: [ \"inherit\" ] }); // error, no signatures match"
+execSync(\"ls\", { stdio: [ \"inherit\" ] }); // error, no signatures match
+"
 `;
 
 exports[`test spawn.js 1`] = `
@@ -184,5 +187,6 @@ ls.on(\"close\", function(code) {
 });
 
 wc.stdout.pipe(process.stdout);
-wc.stderr.pipe(process.stderr);"
+wc.stderr.pipe(process.stderr);
+"
 `;

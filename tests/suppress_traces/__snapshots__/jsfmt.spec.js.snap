@@ -31,5 +31,6 @@ function foo(x: string) {
   return bar();
 }
 
-var a: string = foo(\"hi\"); // error number ~> string"
+var a: string = foo(\"hi\"); // error number ~> string
+"
 `;

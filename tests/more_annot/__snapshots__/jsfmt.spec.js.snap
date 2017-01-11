@@ -5,7 +5,8 @@ var a:number = o.w.z.y;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var o = require(\"./object\");
 
-var a: number = o.w.z.y;"
+var a: number = o.w.z.y;
+"
 `;
 
 exports[`test object.js 1`] = `
@@ -26,7 +27,8 @@ var o3 = {};
 o3.w = o2;
 
 //declare var exports: { w: any };
-module.exports = o3;"
+module.exports = o3;
+"
 `;
 
 exports[`test proto.js 1`] = `
@@ -44,7 +46,8 @@ Foo.prototype.m = function() {};
 
 var o1: { x: number, m(): void } = new Foo();
 
-var o2: Foo = new Foo();"
+var o2: Foo = new Foo();
+"
 `;
 
 exports[`test super.js 1`] = `
@@ -58,5 +61,6 @@ class C {
 }
 class D extends C {}
 
-var d: { +m: () => void } = new D();"
+var d: { +m: () => void } = new D();
+"
 `;

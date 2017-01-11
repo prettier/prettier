@@ -126,7 +126,8 @@ function for_of_scope(xs: number[]) {
   }
   (a: string);
   (b: string); // error: number ~> string
-}"
+}
+"
 `;
 
 exports[`test locals.js 1`] = `
@@ -175,5 +176,6 @@ function foo0(b: boolean): number {
     var x = \"\"; // error: string ~> number
   }
   return x;
-}"
+}
+"
 `;

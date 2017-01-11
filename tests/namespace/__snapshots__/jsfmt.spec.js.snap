@@ -5,7 +5,8 @@ var bar: string = ns.foo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var ns = require(\"./namespace\");
 
-var bar: string = ns.foo;"
+var bar: string = ns.foo;
+"
 `;
 
 exports[`test namespace.js 1`] = `
@@ -44,5 +45,6 @@ type Seq = number | Array<Seq>;
 var s1: Seq = [ 0, [ 0 ] ];
 var s2: Seq = [ [ \"\" ] ];
 
-module.exports = { foo: (\"\": number) };"
+module.exports = { foo: (\"\": number) };
+"
 `;

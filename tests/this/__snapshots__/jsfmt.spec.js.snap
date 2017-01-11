@@ -133,7 +133,8 @@ var f2_4 = f2();
 // error, (global object).x
 (this: void);
 
-module.exports = true;"
+module.exports = true;
+"
 `;
 
 exports[`test arrows.js 1`] = `
@@ -198,5 +199,6 @@ class F extends E {
       super.foo(\"\"); // find super method, error due to incorrect arg
     })();
   }
-}"
+}
+"
 `;

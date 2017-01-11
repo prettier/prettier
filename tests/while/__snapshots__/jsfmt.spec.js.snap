@@ -39,7 +39,8 @@ function bar(x: boolean) {
     return;
   }
   //console.log(\'this is still reachable\');
-}"
+}
+"
 `;
 
 exports[`test test.js 1`] = `
@@ -67,5 +68,6 @@ while (node) {
   var cloneable: C = node;
   blah();
   node = parent.m();
-}"
+}
+"
 `;

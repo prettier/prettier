@@ -120,7 +120,8 @@ var tests = [
   function() {
     var y: string = x || \"\"; // ok
   }
-];"
+];
+"
 `;
 
 exports[`test heap.js 1`] = `
@@ -573,7 +574,8 @@ var tests = [
       (p: string); // ok
     }
   }
-];"
+];
+"
 `;
 
 exports[`test lex.js 1`] = `
@@ -650,7 +652,8 @@ function try_scope_catch(x: string | number) {
     x = \"\"; // doesn\'t refine outer x
   }
   (x: string); // error: number ~> string
-}"
+}
+"
 `;
 
 exports[`test local.js 1`] = `
@@ -812,7 +815,8 @@ var paths = [
     }
     var y: string = x;
   }
-];"
+];
+"
 `;
 
 exports[`test null_tests.js 1`] = `
@@ -1116,7 +1120,8 @@ class D extends C {
     }
     return \"\";
   }
-}"
+}
+"
 `;
 
 exports[`test switch.js 1`] = `
@@ -1249,7 +1254,8 @@ function exhaustion3(x): number {
       throw new Error(\"Invalid state\");
   }
   return foo; // no error
-}"
+}
+"
 `;
 
 exports[`test typeof_tests.js 1`] = `
@@ -1506,7 +1512,8 @@ class A {
     else
       return this.p;
   }
-}"
+}
+"
 `;
 
 exports[`test undef_tests.js 1`] = `
@@ -1653,7 +1660,8 @@ class A {
     else
       return this.p;
   }
-}"
+}
+"
 `;
 
 exports[`test void_tests.js 1`] = `
@@ -1800,5 +1808,6 @@ class A {
     else
       return this.p;
   }
-}"
+}
+"
 `;

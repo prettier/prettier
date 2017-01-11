@@ -80,7 +80,8 @@ function test(val: Iterable<Promise<number>>) {
 
 function tes2(val: Map<string, Promise<number>>) {
   const r: Promise<Array<number>> = Promise.all(val.values());
-}"
+}
+"
 `;
 
 exports[`test covariance.js 1`] = `
@@ -116,7 +117,8 @@ async function testRace() {
   const x: Array<Promise<?string>> = [];
   const y: Promise<?string> = Promise.race(x);
   const z: ?string = await y;
-}"
+}
+"
 `;
 
 exports[`test promise.js 1`] = `
@@ -590,7 +592,8 @@ Promise
 
     // TODO
     var b: string = num; // Error: string ~> number
-  });"
+  });
+"
 `;
 
 exports[`test resolve_global.js 1`] = `
@@ -676,7 +679,8 @@ async function bar() {
 // error: return type anno is a ref to the local binding
 async function baz(): Promise<number> {
   return 0;
-}"
+}
+"
 `;
 
 exports[`test resolve_void.js 1`] = `
@@ -690,5 +694,6 @@ exports[`test resolve_void.js 1`] = `
 
 (Promise.resolve(): Promise<number>);
 // error
-(Promise.resolve(undefined): Promise<number>); // error"
+(Promise.resolve(undefined): Promise<number>); // error
+"
 `;

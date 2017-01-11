@@ -27,7 +27,8 @@ let d = zs[1];
 // error: boolean ~> void
 (d: void);
 // error: number|string|boolean ~> void
-let [ ...e ] = 0;"
+let [ ...e ] = 0;
+"
 `;
 
 exports[`test computed.js 1`] = `
@@ -49,7 +50,8 @@ var { [key]: val2 } = { key: \"val\" };
 (val2: void);
 // ok (gasp!) by existing StrT -> ElemT rule
 var { [\"key\"]: val3, ...spread } = { key: \"val\" };
-(spread.key: void); // error (gasp!) in general we don\'t know if a computed prop should be excluded from spread"
+(spread.key: void); // error (gasp!) in general we don\'t know if a computed prop should be excluded from spread
+"
 `;
 
 exports[`test defaults.js 1`] = `
@@ -234,7 +236,8 @@ function obj_prop_union({ p }: { p: number | string } = { p: true }) {}
 // TODO: union-of-objects upper bounds preserved through destructuring
 function obj_prop_union2({ p }: { p: number } | { p: string } = { p: true }) {}
 
-function default_expr_scope({ a, b = a }) {}"
+function default_expr_scope({ a, b = a }) {}
+"
 `;
 
 exports[`test destructuring.js 1`] = `
@@ -384,7 +387,8 @@ var cp1: number = childprop1;
 var cp1_err: string = childprop1;
 // Error: number ~> string
 var cp2: number = others.childprop1;
-var cp2_err: string = others.childprop2; // Error: number ~> string"
+var cp2_err: string = others.childprop2; // Error: number ~> string
+"
 `;
 
 exports[`test destructuring_param.js 1`] = `
@@ -410,7 +414,8 @@ function f(a, { b }) {
 // }
 // function h({ a, { b } }, { c }, { { d } }) {
 //   return a + b + c + d;
-// }"
+// }
+"
 `;
 
 exports[`test eager.js 1`] = `
@@ -418,7 +423,8 @@ exports[`test eager.js 1`] = `
 ({x} = null); // error, property \`x\` can not be accessed on \`null\`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var x;
-({ x } = null); // error, property \`x\` can not be accessed on \`null\`"
+({ x } = null); // error, property \`x\` can not be accessed on \`null\`
+"
 `;
 
 exports[`test poly.js 1`] = `
@@ -494,7 +500,8 @@ type ArrRest<X> = [any, X];
 function arr_rest_pattern<X>([ _, ...a ]: ArrRest<X>) {
   // a: [X]
   a[0];
-}"
+}
+"
 `;
 
 exports[`test rec.js 1`] = `
@@ -537,7 +544,8 @@ foo = (i: number) => {
 
 // Also make sure that the following doesn\'t loop
 declare var o;
-var { x: o } = o;"
+var { x: o } = o;
+"
 `;
 
 exports[`test string_lit.js 1`] = `
@@ -551,7 +559,8 @@ var { \"key\": val } = { key: \"val\" };
 (val: void);
 // error: string ~> void
 var { \"with-dash\": with_dash } = { \"with-dash\": \"motivating example\" };
-(with_dash: \"motivating example\"); // ok"
+(with_dash: \"motivating example\"); // ok
+"
 `;
 
 exports[`test unannotated.js 1`] = `
@@ -571,5 +580,6 @@ var { x } = { x: { foo: \"foo\" } };
 
 function bar() {
   x.bar;
-}"
+}
+"
 `;

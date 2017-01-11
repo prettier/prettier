@@ -99,5 +99,6 @@ n.x = [0];
 (n.x[0]: string); // error
 (n.foo()[0]: string); // not an error!
 
-*/"
+*/
+"
 `;

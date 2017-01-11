@@ -5,7 +5,8 @@ export function foo(): Implementation { return new Implementation; }
 class Implementation {}
 export function foo(): Implementation {
   return new Implementation();
-}"
+}
+"
 `;
 
 exports[`test test_absolute.js 1`] = `
@@ -91,7 +92,8 @@ var E = require(\"package_with_no_package_json\");
 (E.fun(): boolean);
 // Error either Implementation ~> boolean or Declaration ~> boolean
 var F = require(\"package_with_dir_main\");
-(F.fun(): boolean); // Error either Implementation ~> boolean or Declaration ~> boolean"
+(F.fun(): boolean); // Error either Implementation ~> boolean or Declaration ~> boolean
+"
 `;
 
 exports[`test test_relative.js 1`] = `
@@ -101,5 +103,6 @@ exports[`test test_relative.js 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import { foo } from \"./A\";
 
-(foo(): boolean); // Error: either Implementation ~> boolean or Definition ~> boolean"
+(foo(): boolean); // Error: either Implementation ~> boolean or Definition ~> boolean
+"
 `;

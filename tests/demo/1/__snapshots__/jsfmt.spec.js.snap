@@ -16,5 +16,6 @@ function f(x) {
 
 var x = null;
 //...
-f(x);"
+f(x);
+"
 `;

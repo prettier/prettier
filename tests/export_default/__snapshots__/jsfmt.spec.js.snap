@@ -1,7 +1,8 @@
 exports[`test P.js 1`] = `
 "module.exports = require(\'M\');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-module.exports = require(\"M\");"
+module.exports = require(\"M\");
+"
 `;
 
 exports[`test test.js 1`] = `
@@ -21,5 +22,6 @@ var P = require(\"./P\");
 N.y = P(N.y);
 var Q = require(\"Q\");
 // declaration of Q redirects to module M
-N.z = Q(N.z);"
+N.z = Q(N.z);
+"
 `;

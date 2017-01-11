@@ -262,7 +262,8 @@ examples.delegate_next_iterable([]).next(\"\");
 // error: Iterator has no next value
 for (var x of examples.delegate_yield_iterable([])) {
   (x: string); // error: number ~> string
-}"
+}
+"
 `;
 
 exports[`test class_failure.js 1`] = `
@@ -309,7 +310,8 @@ if (typeof infer_stmt_next === \"undefined\") {}
 else if (typeof infer_stmt_next === \"number\") {}
 else {
   (infer_stmt_next: boolean); // error: string ~> boolean
-}"
+}
+"
 `;
 
 exports[`test generators.js 1`] = `
@@ -576,7 +578,8 @@ function* multiple_return(b) {
 let multiple_return_result = multiple_return().next();
 if (multiple_return_result.done) {
   (multiple_return_result.value: void); // error: number|string ~> void
-}"
+}
+"
 `;
 
 exports[`test return.js 1`] = `
@@ -622,7 +625,8 @@ var refuse_return_gen = refuse_return();
 var refuse_return_result = refuse_return_gen.return(\"string\");
 if (refuse_return_result.done) {
   (refuse_return_result.value: string); // error: number | void ~> string
-}"
+}
+"
 `;
 
 exports[`test throw.js 1`] = `
@@ -676,7 +680,8 @@ function* yield_return() {
 var yield_return_value = yield_return().throw(\"\").value;
 if (yield_return_value !== undefined) {
   (yield_return_value: string); // error: number ~> string
-}"
+}
+"
 `;
 
 exports[`test variance.js 1`] = `
@@ -684,5 +689,6 @@ exports[`test variance.js 1`] = `
 var g2: Generator<?string, ?string, string> = g1;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare var g1: Generator<string, string, ?string>;
-var g2: Generator<?string, ?string, string> = g1;"
+var g2: Generator<?string, ?string, string> = g1;
+"
 `;

@@ -1,5 +1,6 @@
 exports[`test client.js 1`] = `
 "var y:number = x;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var y: number = x;"
+var y: number = x;
+"
 `;

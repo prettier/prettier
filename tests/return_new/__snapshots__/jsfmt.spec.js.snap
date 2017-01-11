@@ -29,7 +29,8 @@ class A {}
 function B() {
   return new A();
 }
-var a: A = new B(); // OK (returns new A)"
+var a: A = new B(); // OK (returns new A)
+"
 `;
 
 exports[`test test2.js 1`] = `
@@ -56,5 +57,6 @@ d.x = \"\";
 // error, string ~/~ number (but property x is found)
 (new D(): D);
 // error, new D is an object, D not in proto chain
-module.exports = D;"
+module.exports = D;
+"
 `;

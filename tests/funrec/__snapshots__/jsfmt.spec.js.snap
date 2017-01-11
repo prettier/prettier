@@ -13,5 +13,6 @@ function foo() {
   return function bound() {
     return bar(bound);
   };
-}"
+}
+"
 `;

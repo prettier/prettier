@@ -9,7 +9,8 @@ module.exports = num;
 var num = 42;
 function bar() {}
 bar();
-module.exports = num;"
+module.exports = num;
+"
 `;
 
 exports[`test test.js 1`] = `
@@ -63,5 +64,6 @@ function f3(x: ?string) {
 
 declare var idx: $Facebookism$Idx;
 declare var obj: { a?: { b: ?{ c: null | { d: number } } } };
-const idxResult = idx(obj, obj => obj.a.b.c.d);"
+const idxResult = idx(obj, obj => obj.a.b.c.d);
+"
 `;

@@ -80,7 +80,8 @@ let tests = [
     Boolean(undefined);
     Boolean(\"\");
   }
-];"
+];
+"
 `;
 
 exports[`test map.js 1`] = `
@@ -148,7 +149,8 @@ let tests = [
     // error, string | void
     x.get(123); // error, wrong key type
   }
-];"
+];
+"
 `;
 
 exports[`test regexp.js 1`] = `
@@ -211,7 +213,8 @@ let tests = [
     // error
     new RegExp(\"foo\", \"z\"); // error
   }
-];"
+];
+"
 `;
 
 exports[`test weakset.js 1`] = `
@@ -287,5 +290,6 @@ function* numbers(): Iterable<number> {
   }
 }
 
-let ws5 = new WeakSet(numbers()); // error, must be objects"
+let ws5 = new WeakSet(numbers()); // error, must be objects
+"
 `;

@@ -64,5 +64,6 @@ class MyTransform extends stream.Duplex {}
 new MyReadStream()
   .pipe(new MyDuplex())
   .pipe(new MyTransform())
-  .pipe(new MyWriteStream());"
+  .pipe(new MyWriteStream());
+"
 `;

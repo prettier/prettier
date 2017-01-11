@@ -91,7 +91,8 @@ function _for_of(arr: Array<number>) {
     var f = function() {};
   }
   f(); // error, possibly undefined
-}"
+}
+"
 `;
 
 exports[`test hoisted2.js 1`] = `
@@ -639,7 +640,8 @@ function for_in_post_init() {
     var x: number = 0;
   }
   var y: number = x; // error
-}"
+}
+"
 `;
 
 exports[`test let.js 1`] = `
@@ -964,7 +966,8 @@ function sub_closure_init_reference() {
   // var-bindings can reference each other cyclically since they do not incur a
   // TDZ (...even though this is weird...)
   var z = z;
-}"
+}
+"
 `;
 
 exports[`test nullable-init.js 1`] = `
@@ -972,5 +975,6 @@ exports[`test nullable-init.js 1`] = `
 var a: Array<?number> = [null,null];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var o: { x: ?number } = { x: null };
-var a: Array<?number> = [ null, null ];"
+var a: Array<?number> = [ null, null ];
+"
 `;

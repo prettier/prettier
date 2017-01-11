@@ -24,7 +24,8 @@ let tests = [
   function(ctx: CanvasRenderingContext2D) {
     ctx.moveTo(\"0\", \"1\"); // error: should be numbers
   }
-];"
+];
+"
 `;
 
 exports[`test CustomEvent.js 1`] = `
@@ -46,7 +47,8 @@ let tests = [
     const event = document.createEvent(\"CustomEvent\");
     event.initCustomEvent(\"butts\", true, false, { nice: 42 });
   }
-];"
+];
+"
 `;
 
 exports[`test Document.js 1`] = `
@@ -72,7 +74,8 @@ let tests = [
     (document.createElement(\"option\"): HTMLOptionElement);
     (document.createElement(\"select\"): HTMLSelectElement);
   }
-];"
+];
+"
 `;
 
 exports[`test Element.js 1`] = `
@@ -112,7 +115,8 @@ let tests = [
     element.scrollIntoView({ block: \"invalid\" });
     element.scrollIntoView(1);
   }
-];"
+];
+"
 `;
 
 exports[`test HTMLCanvasElement.js 1`] = `
@@ -132,7 +136,8 @@ let tests = [
   function(el: HTMLCanvasElement) {
     (el.getContext(\"2d\"): ?CanvasRenderingContext2D);
   }
-];"
+];
+"
 `;
 
 exports[`test HTMLElement.js 1`] = `
@@ -172,7 +177,8 @@ let tests = [
     element.scrollIntoView({ block: \"invalid\" });
     element.scrollIntoView(1);
   }
-];"
+];
+"
 `;
 
 exports[`test HTMLInputElement.js 1`] = `
@@ -201,7 +207,8 @@ let tests = [
     el.setRangeText(\"foo\", 123, 234, \"select\");
     el.setRangeText(\"foo\", 123, 234, \"bogus\"); // invalid value
   }
-];"
+];
+"
 `;
 
 exports[`test URL.js 1`] = `
@@ -260,7 +267,8 @@ const p: string = c.protocol;
 // correct
 const q: string = c.search;
 // correct
-const r: string = c.username; // correct"
+const r: string = c.username; // correct
+"
 `;
 
 exports[`test eventtarget.js 1`] = `
@@ -314,7 +322,8 @@ let tests = [
       (event.target: window);
     };
   }
-];"
+];
+"
 `;
 
 exports[`test path2d.js 1`] = `
@@ -342,7 +351,8 @@ let tests = [
     // valid
     (path.arcTo(0, 0, 0, 0, 10, \"20\", 5): void); // invalid
   }
-];"
+];
+"
 `;
 
 exports[`test registerElement.js 1`] = `
@@ -457,7 +467,8 @@ let tests = [
       }
     });
   }
-];"
+];
+"
 `;
 
 exports[`test traversal.js 1`] = `
@@ -878,5 +889,6 @@ let tests = [
     // invalid
     document.createTreeWalker(document.body, -1, {}); // invalid
   }
-];"
+];
+"
 `;

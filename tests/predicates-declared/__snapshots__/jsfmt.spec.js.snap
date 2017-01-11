@@ -78,7 +78,8 @@ class D {
 
 declare var m: Function;
 const x = \"\";
-if (m.bind(this)(x)) {}"
+if (m.bind(this)(x)) {}
+"
 `;
 
 exports[`test function-union.js 1`] = `
@@ -117,7 +118,8 @@ function foo(x: number | string | Array<string>): number {
   } else {
     return 1;
   }
-}"
+}
+"
 `;
 
 exports[`test is-string-decl.js 1`] = `
@@ -157,7 +159,8 @@ function foo(x: string | Array<string>): string {
     // guarantees that \`x\` here is an Array<string>
     return x.join();
   }
-}"
+}
+"
 `;
 
 exports[`test logical-or.js 1`] = `
@@ -207,7 +210,8 @@ function foo(x: mixed) {
 }
 foo(dollars) || 0;
 
-Number(dollars) || 0;"
+Number(dollars) || 0;
+"
 `;
 
 exports[`test object-invariant.js 1`] = `
@@ -252,7 +256,8 @@ function f(_this: { m: ?Meeting }): string {
 
   if (_this.m.es.some(a => a.fbid === 0)) {}
   return \"3\";
-}"
+}
+"
 `;
 
 exports[`test orig-string-tag-check.js 1`] = `
@@ -279,7 +284,8 @@ function foo(x: string | Array<string>): string {
   } else {
     return x.join(); // [ERROR] x: string doesn\'t have .join method
   }
-}"
+}
+"
 `;
 
 exports[`test sanity-fall-through.js 1`] = `
@@ -309,7 +315,8 @@ function foo(s: Array<string>): string {
     return \"1\";
   }
   return 1;
-}"
+}
+"
 `;
 
 exports[`test sanity-invalid-calls.js 1`] = `
@@ -350,7 +357,8 @@ function foo(s: Array<string>): string {
   }
 
   return \"1\";
-}"
+}
+"
 `;
 
 exports[`test sanity-is-string-bug.js 1`] = `
@@ -383,7 +391,8 @@ function bar(x: string | Array<string>): string {
   } else {
     return x.join(); // error: both string and Array<string> can flow to x
   }
-}"
+}
+"
 `;
 
 exports[`test sanity-parameter-mismatch.js 1`] = `
@@ -407,7 +416,8 @@ declare function foo(
   types: string | Array<string>
 ): boolean %checks(typeof input === \"string\" || Array.isArray(input));
 
-foo(3, 3);"
+foo(3, 3);
+"
 `;
 
 exports[`test sanity-pred-with-body.js 1`] = `
@@ -442,7 +452,8 @@ function foo(x: string | Array<string>): string {
     return x;
   }
   return \"1\";
-}"
+}
+"
 `;
 
 exports[`test sanity-return-type.js 1`] = `
@@ -452,5 +463,6 @@ declare function f2(x: mixed): string %checks(Array.isArray(x));
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-declare function f2(x: mixed): string %checks(Array.isArray(x));"
+declare function f2(x: mixed): string %checks(Array.isArray(x));
+"
 `;

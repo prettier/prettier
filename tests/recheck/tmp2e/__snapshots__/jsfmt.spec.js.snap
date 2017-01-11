@@ -12,5 +12,6 @@ export const LIFE = 42;
 
 export type Action = { type: \"QUX\" } | { type: \"BAR\" };
 
-export const LIFE = 42;"
+export const LIFE = 42;
+"
 `;

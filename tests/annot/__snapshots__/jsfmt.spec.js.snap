@@ -127,7 +127,8 @@ function foobar(n: ?number): number | null | void {
 }
 function barfoo(n: number | null | void): ?number {
   return n;
-}"
+}
+"
 `;
 
 exports[`test forward_ref.js 1`] = `
@@ -162,7 +163,8 @@ function foo() {
   }
 
   class MyClass {} // looked up above
-}"
+}
+"
 `;
 
 exports[`test issue-530.js 1`] = `
@@ -172,7 +174,8 @@ module.exports = foo;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function foo(...args: any) {}
 
-module.exports = foo;"
+module.exports = foo;
+"
 `;
 
 exports[`test leak.js 1`] = `
@@ -220,7 +223,8 @@ function foo(x: { [key: string]: mixed }) {
 
 function bar(y: MyObj): string {
   return y.foo;
-}"
+}
+"
 `;
 
 exports[`test other.js 1`] = `
@@ -228,7 +232,8 @@ exports[`test other.js 1`] = `
 module.exports = (C: any);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class C {}
-module.exports = (C: any);"
+module.exports = (C: any);
+"
 `;
 
 exports[`test scope.js 1`] = `
@@ -284,7 +289,8 @@ class Foo<A> {
       ([ a, b, c ]: [A, B, C]);
     };
   }
-}"
+}
+"
 `;
 
 exports[`test test.js 1`] = `
@@ -292,5 +298,6 @@ exports[`test test.js 1`] = `
 ((0: C): string);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var C = require(\"./other\");
-((0: C): string);"
+((0: C): string);
+"
 `;

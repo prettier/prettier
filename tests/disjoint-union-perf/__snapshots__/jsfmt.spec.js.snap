@@ -157,7 +157,8 @@ export type TypedNode =
   | TypedNumberNode
   | TypedStringLiteralNode
   | TypedVariableNode
-  | TypedFunctionInvocationNode;"
+  | TypedFunctionInvocationNode;
+"
 `;
 
 exports[`test emit.js 1`] = `
@@ -290,7 +291,8 @@ export function emitExpression(node: TypedNode): t.Expression {
     default:
       throw new Error(\"Unknown expression type: \" + node.type);
   }
-}"
+}
+"
 `;
 
 exports[`test jsAst.js 1`] = `
@@ -1516,5 +1518,6 @@ export const builders: {
     params: Pattern[]
   ): FunctionDeclaration,
   variableDeclarator(id: Pattern, init?: Expression): VariableDeclarator
-} = a;"
+} = a;
+"
 `;

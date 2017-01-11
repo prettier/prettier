@@ -37,7 +37,8 @@ var ColorIdToNumber = {
 // oops
 ColorIdToNumber.XXX;
 // oops
-module.exports = { ColorId, ColorNumber };"
+module.exports = { ColorId, ColorNumber };
+"
 `;
 
 exports[`test test2.js 1`] = `
@@ -61,7 +62,8 @@ var ColorIdToNumber = {
 
 (ColorIdToNumber[ColorId.GREEN]: \"ffffff\");
 // oops
-module.exports = ColorIdToNumber;"
+module.exports = ColorIdToNumber;
+"
 `;
 
 exports[`test test3.js 1`] = `
@@ -73,13 +75,15 @@ var ColorIdToNumber = require(\'./test2\');
 var { ColorId } = require(\"./test\");
 var ColorIdToNumber = require(\"./test2\");
 
-(ColorIdToNumber[ColorId.BLUE]: \"ffffff\"); // oops"
+(ColorIdToNumber[ColorId.BLUE]: \"ffffff\"); // oops
+"
 `;
 
 exports[`test test4.js 1`] = `
 "module.exports = \'hello\';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-module.exports = \"hello\";"
+module.exports = \"hello\";
+"
 `;
 
 exports[`test test5.js 1`] = `
@@ -93,7 +97,8 @@ module.exports = {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var hello = require(\"./test4\");
 var dummy = require(\"./test\");
-module.exports = { ...dummy, [hello]: \"world\", ...dummy };"
+module.exports = { ...dummy, [hello]: \"world\", ...dummy };
+"
 `;
 
 exports[`test test6.js 1`] = `
@@ -101,7 +106,8 @@ exports[`test test6.js 1`] = `
 (o.hello: \'nothing\'); // oops
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var o = require(\"./test5\");
-(o.hello: \"nothing\"); // oops"
+(o.hello: \"nothing\"); // oops
+"
 `;
 
 exports[`test test7.js 1`] = `
@@ -124,5 +130,6 @@ var arr = [
     return this.length;
   }
 ];
-var y: string = arr[0](); // error: number ~> string"
+var y: string = arr[0](); // error: number ~> string
+"
 `;

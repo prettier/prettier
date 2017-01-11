@@ -9,7 +9,8 @@ export var arr = [f];
 
 type Foo = {};
 var f: Foo = {};
-export var arr = [ f ];"
+export var arr = [ f ];
+"
 `;
 
 exports[`test async_return.js 1`] = `
@@ -23,7 +24,8 @@ export async function foo() {
 
 export async function foo() {
   return 123;
-}"
+}
+"
 `;
 
 exports[`test infer.js 1`] = `
@@ -135,5 +137,6 @@ var Bar = {
   d: Foo.d(\"bar\")
 };
 
-module.exports = Foo, Bar;"
+module.exports = Foo, Bar;
+"
 `;

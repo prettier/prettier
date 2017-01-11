@@ -38,7 +38,8 @@ class Bar {
   }
 }
 
-module.exports = Bar;"
+module.exports = Bar;
+"
 `;
 
 exports[`test Foo.js 1`] = `
@@ -93,7 +94,8 @@ class Foo extends Qux {
   }
 }
 
-module.exports = Foo;"
+module.exports = Foo;
+"
 `;
 
 exports[`test Qux.js 1`] = `
@@ -122,5 +124,6 @@ class Qux {
   fooqux(x: number) {}
 }
 
-module.exports = Qux;"
+module.exports = Qux;
+"
 `;

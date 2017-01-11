@@ -28,7 +28,8 @@ function foo() {
       throw error;
     }
   }
-}"
+}
+"
 `;
 
 exports[`test init.js 1`] = `
@@ -334,7 +335,8 @@ function f(b) {
     x = 0;
   } catch (e) {}
   var y: number = x; // error
-}"
+}
+"
 `;
 
 exports[`test return.js 1`] = `
@@ -465,7 +467,8 @@ function corge(): string {
     throw new Error(\"bar\");
   }
   bar(); // unreachable
-}"
+}
+"
 `;
 
 exports[`test test.js 1`] = `
@@ -551,5 +554,6 @@ function qux() {
     throw -1;
   } finally {}
   x(); // unreachable
-}"
+}
+"
 `;

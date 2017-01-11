@@ -26,7 +26,8 @@ module.exports.fn = f;
 
 A.y = \"?\";
 A.x = A.y;
-f(A.x); // A.x is now a string, by def assign"
+f(A.x); // A.x is now a string, by def assign
+"
 `;
 
 exports[`test B.js 1`] = `
@@ -61,7 +62,8 @@ function f(): number {
 B.prototype.s = 0;
 B.prototype.fn = f;
 
-module.exports = B;"
+module.exports = B;
+"
 `;
 
 exports[`test C.js 1`] = `
@@ -92,7 +94,8 @@ function C() {
   o.fn();
 }
 
-module.exports = C;"
+module.exports = C;
+"
 `;
 
 exports[`test D.js 1`] = `
@@ -125,7 +128,8 @@ o.i = true;
 var i = o.fn();
 f(i);
 
-module.exports = \"D for dummy\";"
+module.exports = \"D for dummy\";
+"
 `;
 
 exports[`test E.js 1`] = `
@@ -148,7 +152,8 @@ var proto = { fn: h };
 var o = Object.create(proto);
 o.fn(false);
 
-module.exports = { obj: o };"
+module.exports = { obj: o };
+"
 `;
 
 exports[`test F.js 1`] = `
@@ -166,7 +171,8 @@ fn2({ length: \"hi\" });
 
 function foo(x: Array<number>): string {
   return x.length;
-}"
+}
+"
 `;
 
 exports[`test G.js 1`] = `
@@ -184,5 +190,6 @@ a.length();
 
 var b = [ 123 ];
 b.length = \"duck\";
-b.length();"
+b.length();
+"
 `;

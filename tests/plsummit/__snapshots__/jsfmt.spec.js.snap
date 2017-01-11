@@ -9,7 +9,8 @@ function foo(x) {
 }
 
 var [ n, b, s ] = foo(42);
-n * s.length;"
+n * s.length;
+"
 `;
 
 exports[`test export_class.js 1`] = `
@@ -27,7 +28,8 @@ class C {
   }
 }
 
-module.exports = C;"
+module.exports = C;
+"
 `;
 
 exports[`test generics.js 1`] = `
@@ -42,7 +44,8 @@ var r: number = 0;
 function foo<X>(x: X): X {
   r = x;
   return x;
-}"
+}
+"
 `;
 
 exports[`test import_class.js 1`] = `
@@ -52,7 +55,8 @@ var c = new C(\"\");
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var C = require(\"./export_class\");
 
-var c = new C(\"\");"
+var c = new C(\"\");
+"
 `;
 
 exports[`test locals.js 1`] = `
@@ -79,7 +83,8 @@ function bar(x: ?string): number {
   if (x == null)
     x = \"\";
   return x.length;
-}"
+}
+"
 `;
 
 exports[`test objects.js 1`] = `
@@ -117,5 +122,6 @@ var o = { y: \"\", foo: foo, bar: bar };
 var o2 = { y: 0, foo: foo, bar: bar };
 
 o.bar();
-var y: number = o2.bar();"
+var y: number = o2.bar();
+"
 `;

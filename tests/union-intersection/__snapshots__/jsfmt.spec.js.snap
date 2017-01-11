@@ -5007,7 +5007,8 @@ type TAction =
   | { type: \"a1000\", a100: number };
 function foo(x: TAction): TAction {
   return x;
-}"
+}
+"
 `;
 
 exports[`test test.js 1`] = `
@@ -5138,5 +5139,6 @@ type Comment =
       start: { column: number, line: number }
     },
     start: number
-  };"
+  };
+"
 `;

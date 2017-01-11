@@ -15,7 +15,8 @@ const Thing = class Thing {
   zark() {
     this.x = 123; // error: property not found (must be declared)
   }
-};"
+};
+"
 `;
 
 exports[`test contra.js 1`] = `
@@ -133,7 +134,8 @@ class Misc {
   }
   in_generator(_: Generator<this, this, this>) {}
   inout_generator: Generator<this, this, this>;
-}"
+}
+"
 `;
 
 exports[`test export.js 1`] = `
@@ -171,7 +173,8 @@ export class A2<X> {
   }
 }
 
-export class A3<X> extends A2<X> {}"
+export class A3<X> extends A2<X> {}
+"
 `;
 
 exports[`test generics.js 1`] = `
@@ -198,7 +201,8 @@ class ImplicitNumber extends Implicit {
   arg: number;
 }
 
-(new ImplicitNumber().val: string); // error: number ~> string"
+(new ImplicitNumber().val: string); // error: number ~> string
+"
 `;
 
 exports[`test import.js 1`] = `
@@ -253,7 +257,8 @@ class B3<X> extends A3<X> {
 // OK
 ((new B3().bar(): B3<string>): A2<number>);
 // error
-((new B3(): A2<number>).qux(0): string); // error"
+((new B3(): A2<number>).qux(0): string); // error
+"
 `;
 
 exports[`test interface.js 1`] = `
@@ -279,7 +284,8 @@ function foo(c: C): I {
 }
 function bar(c: C): J {
   return c;
-}"
+}
+"
 `;
 
 exports[`test lib_client.js 1`] = `
@@ -303,7 +309,8 @@ class C {
   update() {
     this.map = this.map.set(0, \"\");
   }
-}"
+}
+"
 `;
 
 exports[`test self.js 1`] = `
@@ -327,7 +334,8 @@ class A {
   qux(): this {
     return this.bar();
   } // OK (don\'t cascade errors)
-}"
+}
+"
 `;
 
 exports[`test statics.js 1`] = `
@@ -369,7 +377,8 @@ class B extends A {}
 // OK
 (B.make(): A);
 // OK
-(A.make(): B); // error"
+(A.make(): B); // error
+"
 `;
 
 exports[`test test.js 1`] = `
@@ -547,5 +556,6 @@ class InheritOverride2 extends Override2 {}
 
 (new InheritOverride2().bar_caller(): InheritOverride2);
 // exploits error above
-(new Override2(): Base2).corge(new Base2()); // exploits error above"
+(new Override2(): Base2).corge(new Base2()); // exploits error above
+"
 `;

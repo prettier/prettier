@@ -43,5 +43,6 @@ function h(x: number): string {
   } else {
     throw new Error();
   }
-}"
+}
+"
 `;

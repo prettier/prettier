@@ -1034,5 +1034,6 @@ function logical19a(x: { y: string, z: boolean }): boolean {
 }
 function logical19b(x: { y: string, z: boolean }): boolean {
   return x.y || x.z; // error: x.y is a string
-}"
+}
+"
 `;

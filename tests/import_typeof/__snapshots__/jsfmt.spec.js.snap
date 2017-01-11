@@ -25,7 +25,8 @@ class ClassFoo3 {
   }
 }
 
-module.exports = ClassFoo3;"
+module.exports = ClassFoo3;
+"
 `;
 
 exports[`test ExportCJSDefault_Number.js 1`] = `
@@ -35,7 +36,8 @@ module.exports = 42;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-module.exports = 42;"
+module.exports = 42;
+"
 `;
 
 exports[`test ExportCJSNamed_Class.js 1`] = `
@@ -53,7 +55,8 @@ exports.ClassFoo4 = ClassFoo4;
 
 class ClassFoo4 {}
 
-exports.ClassFoo4 = ClassFoo4;"
+exports.ClassFoo4 = ClassFoo4;
+"
 `;
 
 exports[`test ExportCJSNamed_Number.js 1`] = `
@@ -63,7 +66,8 @@ exports.num = 42;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-exports.num = 42;"
+exports.num = 42;
+"
 `;
 
 exports[`test ExportDefault_Class.js 1`] = `
@@ -87,7 +91,8 @@ class ClassFoo1 {
   }
 }
 
-export default ClassFoo1;"
+export default ClassFoo1;
+"
 `;
 
 exports[`test ExportDefault_Number.js 1`] = `
@@ -97,7 +102,8 @@ export default 42;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-export default 42"
+export default 42
+"
 `;
 
 exports[`test ExportNamed_Alias.js 1`] = `
@@ -126,6 +132,7 @@ export function givesAFoo3Obj(): AliasFoo3 {
     }
   };
 }
+
 "
 `;
 
@@ -150,7 +157,8 @@ class ClassFoo2 {
   }
 }
 
-export { ClassFoo2 };"
+export { ClassFoo2 };
+"
 `;
 
 exports[`test ExportNamed_Multi.js 1`] = `
@@ -162,7 +170,8 @@ export var str = \'asdf\';
 // @flow
 
 export var num = 42;
-export var str = \"asdf\";"
+export var str = \"asdf\";
+"
 `;
 
 exports[`test ExportNamed_Number.js 1`] = `
@@ -172,7 +181,8 @@ export var num = 42;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-export var num = 42;"
+export var num = 42;
+"
 `;
 
 exports[`test import_typeof.js 1`] = `
@@ -373,5 +383,6 @@ var i2: num_cjs_named = \"asdf\";
 ///////////////////////////////////////////////
 import typeof * as ModuleNSObjT from \"./ExportNamed_Multi\";
 var j1: ModuleNSObjT = { num: 42, str: \"asdf\" };
-var j2: ModuleNSObjT = { num: 42, str: 42 }; // Error: number ~> string"
+var j2: ModuleNSObjT = { num: 42, str: 42 }; // Error: number ~> string
+"
 `;

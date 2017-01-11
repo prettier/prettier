@@ -61,7 +61,8 @@ function f6(x: string, y: $Tainted<number>) {
 // This should cause an error.
 function f7(x: $Tainted<string>, y: $Tainted<number>) {
   var z: string = x + y;
-}"
+}
+"
 `;
 
 exports[`test any_object.js 1`] = `
@@ -114,7 +115,8 @@ let tests = [
     let foo = obj.foo;
     foo(x); // error, taint ~> any
   }
-];"
+];
+"
 `;
 
 exports[`test call-object-property.js 1`] = `
@@ -168,7 +170,8 @@ function f_foo2(f1: Function, o: { t: $Tainted<string> }) {
 }
 function f_foo3(f1: Function, o1: Object, o2: { t: $Tainted<string> }) {
   f1(o1)(o2.t);
-}"
+}
+"
 `;
 
 exports[`test comparator.js 1`] = `
@@ -208,7 +211,8 @@ function f2(x: $Tainted<string>, y: number) {
 // values are compared.
 function f3(x: $Tainted<string>, y: string) {
   var z: boolean = x < y;
-}"
+}
+"
 `;
 
 exports[`test function.js 1`] = `
@@ -239,7 +243,8 @@ let tests = [
     let z = x();
     z(y);
   }
-];"
+];
+"
 `;
 
 exports[`test globals.js 1`] = `
@@ -268,7 +273,8 @@ class A {
     // TODO(rcastano): should cause an error.
     window.fakeLocation = x;
   }
-}"
+}
+"
 `;
 
 exports[`test lib.js 1`] = `
@@ -292,7 +298,8 @@ declare class FakeDocument { location: FakeLocation }
 declare function doStuff(x: $Tainted<any>): void;
 
 declare var fakeDocument: FakeDocument;
-declare var fakeLocation: FakeLocation;"
+declare var fakeLocation: FakeLocation;
+"
 `;
 
 exports[`test taint1.js 1`] = `
@@ -316,7 +323,8 @@ class A {
     // This shouldn\'t give a warning (both are tainted)
     var also_tainted: $Tainted<string> = tainted;
   }
-}"
+}
+"
 `;
 
 exports[`test taint2.js 1`] = `
@@ -340,7 +348,8 @@ class A {
     // This *should* give a warning.
     fakeDocument.location.assign(tainted);
   }
-}"
+}
+"
 `;
 
 exports[`test taint3.js 1`] = `
@@ -368,7 +377,8 @@ class A {
     // This should give a warning.
     var loc: string = safe;
   }
-}"
+}
+"
 `;
 
 exports[`test taint4.js 1`] = `
@@ -398,7 +408,8 @@ var tainted: $Tainted<string> = safe;
 function f(x: $Tainted<any>) {
   // Should cause error.
   var y: any = x;
-}"
+}
+"
 `;
 
 exports[`test use-types.js 1`] = `
@@ -466,5 +477,6 @@ function foo5(a: $Tainted<Array<string>>) {
 
 function foo6(a: $Tainted<Array<string>>) {
   var trusted: $Tainted<string> = a[0];
-}"
+}
+"
 `;

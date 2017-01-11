@@ -77,5 +77,6 @@ let tests = [
     // 1 error
     (hmac.digest(): void); // 1 error
   }
-];"
+];
+"
 `;

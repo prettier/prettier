@@ -12,5 +12,6 @@ while (typeof x == \"number\" || typeof x == \"string\") {
   if (true)
     x = \"\";
 }
-var z: number = x;"
+var z: number = x;
+"
 `;

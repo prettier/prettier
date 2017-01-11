@@ -26,7 +26,8 @@ function foo(x: ?string): $NonMaybeType<?string> {
 // error
 (0: $NonMaybeType<?number>);
 // ok
-(0: $NonMaybeType<number | null>); // ok"
+(0: $NonMaybeType<number | null>); // ok
+"
 `;
 
 exports[`test property_type.js 1`] = `
@@ -54,7 +55,8 @@ function foo(o: Obj): $PropertyType<Obj, \"x\"> {
     return o.x;
   else
     return 0;
-}"
+}
+"
 `;
 
 exports[`test union.js 1`] = `
@@ -71,5 +73,6 @@ var x2: $PropertyType<{ p: number } | { p: string }, \"p\"> = 0;
 // ok, number ~> number|string
 var x3: $PropertyType<
   | { p: number }
-  | { p: string }, \"p\"> = true; // err, boolean ~> number|string"
+  | { p: string }, \"p\"> = true; // err, boolean ~> number|string
+"
 `;

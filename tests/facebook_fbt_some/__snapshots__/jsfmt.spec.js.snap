@@ -7,5 +7,6 @@ exports[`test main.js 1`] = `
 // @flow
 
 (<fbt />: number);
-(<fbt />: string); // Error (the libdef in this test marks fbt as number)"
+(<fbt />: string); // Error (the libdef in this test marks fbt as number)
+"
 `;

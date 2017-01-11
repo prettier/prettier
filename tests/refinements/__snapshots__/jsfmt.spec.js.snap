@@ -62,7 +62,8 @@ function bar2(x: Bar) {
   while (y = y.parent) {
     y.doStuff();
   }
-}"
+}
+"
 `;
 
 exports[`test ast_node.js 1`] = `
@@ -82,7 +83,8 @@ type Node1 = { kind: \"Node1\", prop1?: string };
 
 type Node2 = { kind: \"Node2\", prop2?: string };
 
-export type ASTNode = Node1 | Node2;"
+export type ASTNode = Node1 | Node2;
+"
 `;
 
 exports[`test bool.js 1`] = `
@@ -177,7 +179,8 @@ let tests = [
     }
     return x.result; // error
   }
-];"
+];
+"
 `;
 
 exports[`test computed_string_literal.js 1`] = `
@@ -217,7 +220,8 @@ function testLiteralProperty(a: A) {
   if (a[\"b_c\"]) {
     stuff(a[\"b_c\"]);
   }
-}"
+}
+"
 `;
 
 exports[`test cond_prop.js 1`] = `
@@ -323,7 +327,8 @@ let tests = [
       }
     }
   }
-];"
+];
+"
 `;
 
 exports[`test constants.js 1`] = `
@@ -335,7 +340,8 @@ export const ERROR: \'ERROR\' = \'ERROR\';
 /* @flow */
 
 export const SUCCESS: \"SUCCESS\" = \"SUCCESS\";
-export const ERROR: \"ERROR\" = \"ERROR\";"
+export const ERROR: \"ERROR\" = \"ERROR\";
+"
 `;
 
 exports[`test eq.js 1`] = `
@@ -383,7 +389,8 @@ let tests = [
     // error
     if (x.y === 123) {} // ok
   }
-];"
+];
+"
 `;
 
 exports[`test exists.js 1`] = `
@@ -415,7 +422,8 @@ function foo1(x: ?Foo): string {
 
 function foo2(x: ?Class<Foo>): string {
   return x && new x().foo || \"\";
-}"
+}
+"
 `;
 
 exports[`test func_call.js 1`] = `
@@ -443,7 +451,8 @@ let tests = [
       x.y.indexOf(z()); // no error
     }
   }
-];"
+];
+"
 `;
 
 exports[`test hasOwnProperty.js 1`] = `
@@ -491,7 +500,8 @@ function bar(x: Object) {
   if (x.hasOwnProperty(\"z\")) {
     x.z(); // also treated as \`any\`, so allowed
   }
-}"
+}
+"
 `;
 
 exports[`test heap_defassign.js 1`] = `
@@ -678,7 +688,8 @@ function def_assign_setprop_nohavoc(obj: Obj, obj2: Obj2) {
   obj2.q = \"hey\";
   // doesn\'t clear refi of .p
   var x: number = obj.p; // still ok
-}"
+}
+"
 `;
 
 exports[`test lib.js 1`] = `
@@ -688,7 +699,8 @@ declare var BAZ: {stuff?: (x: number) => void} | void;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-declare var BAZ: { stuff?: (x: number) => void } | void;"
+declare var BAZ: { stuff?: (x: number) => void } | void;
+"
 `;
 
 exports[`test missing-property-cond.js 1`] = `
@@ -801,7 +813,8 @@ function foo8(o: { p: mixed }) {
   if (o.p && o.p.q) {}
   // this is ok because o.p is truthy, so o.p.q is safe
   if (o.p && o.p.q && o.p.q.r) {}
-}"
+}
+"
 `;
 
 exports[`test mixed.js 1`] = `
@@ -1050,13 +1063,15 @@ function arr0(x: mixed) {
   if (Array.isArray(x)) {
     takesString(x[0]); // error
   }
-}"
+}
+"
 `;
 
 exports[`test node1.js 1`] = `
 "module.exports = \'Node1\';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-module.exports = \"Node1\";"
+module.exports = \"Node1\";
+"
 `;
 
 exports[`test not.js 1`] = `
@@ -1164,7 +1179,8 @@ let tests = [
   function(x: TestClass) {
     (!x: false); // ok, classes are always truthy
   }
-];"
+];
+"
 `;
 
 exports[`test null.js 1`] = `
@@ -1188,7 +1204,8 @@ function null_bogus_comparison() {
   if (null * 100) {
     return;
   }
-}"
+}
+"
 `;
 
 exports[`test number.js 1`] = `
@@ -1416,7 +1433,8 @@ let tests = [
       return x; // no error, inferred to be 0
     }
   }
-];"
+];
+"
 `;
 
 exports[`test property.js 1`] = `
@@ -1586,7 +1604,8 @@ function c3(
     return x[y.z]; // ok
   }
   return \"\";
-}"
+}
+"
 `;
 
 exports[`test refinements.js 1`] = `
@@ -1746,7 +1765,8 @@ function global_in_conditional2(x: number) {
   for (var i = 0; i < 100; i++) {
     if (BAZ) {}
   }
-}"
+}
+"
 `;
 
 exports[`test string.js 1`] = `
@@ -1999,7 +2019,8 @@ let tests = [
     }
     return \"foo\";
   }
-];"
+];
+"
 `;
 
 exports[`test super_member.js 1`] = `
@@ -2056,7 +2077,8 @@ class C extends A {
     }
     return \"C\";
   }
-}"
+}
+"
 `;
 
 exports[`test switch.js 1`] = `
@@ -2170,7 +2192,8 @@ function corge(text: string | number | Array<string>): string {
     default:
       return \"wat\";
   }
-}"
+}
+"
 `;
 
 exports[`test tagged_union.js 1`] = `
@@ -2666,7 +2689,8 @@ let tests = [
       x.z; // error
     }
   }
-];"
+];
+"
 `;
 
 exports[`test tagged_union_import.js 1`] = `
@@ -2710,7 +2734,8 @@ function handleStatus(status: Success | Error) {
     default:
       console.log(\`Errored: \${status.error}\`);
   }
-}"
+}
+"
 `;
 
 exports[`test typeof.js 1`] = `
@@ -2844,7 +2869,8 @@ function testInvalidTemplateLiteral(x: string | number) {
     // error
     return 0;
   }
-}"
+}
+"
 `;
 
 exports[`test undef.js 1`] = `
@@ -3008,7 +3034,8 @@ function undef_bogus_comparison() {
   if (undefined * 100) {
     return;
   }
-}"
+}
+"
 `;
 
 exports[`test union.js 1`] = `
@@ -3054,7 +3081,8 @@ function baz(x: ?thing) {
   if (x && x !== true) {
     x[0]; // error on number
   }
-}"
+}
+"
 `;
 
 exports[`test void.js 1`] = `
@@ -3248,5 +3276,6 @@ function void_redefined_undefined(x: ?number) {
   if (x !== null && x !== void 0) {
     var y = x * 1000;
   }
-}"
+}
+"
 `;

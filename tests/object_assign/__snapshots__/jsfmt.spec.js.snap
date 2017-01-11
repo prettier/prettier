@@ -52,7 +52,8 @@ var Good = Object.assign({}, MyEventEmitter.prototype, {
 // Calling Good.foo() in the same file doesn\'t error
 var good: number = Good.foo();
 
-module.exports = { Bad: Bad, Good: Good };"
+module.exports = { Bad: Bad, Good: Good };
+"
 `;
 
 exports[`test B.js 1`] = `
@@ -91,7 +92,8 @@ var bad: number = A.Bad.foo(); // Method call is not fine
 B.js|12 col 1 error|  call of method foo
 || Property not found in
 A.js|8 col 23 error|  object literal
-*/"
+*/
+"
 `;
 
 exports[`test apply.js 1`] = `
@@ -106,7 +108,8 @@ exports[`test apply.js 1`] = `
   a: number,
   b: string
 });
-(Object.assign({}, ...[ { a: 1 }, { b: \"foo\" } ]): { a: number, b: string });"
+(Object.assign({}, ...[ { a: 1 }, { b: \"foo\" } ]): { a: number, b: string });
+"
 `;
 
 exports[`test non_objects.js 1`] = `
@@ -120,7 +123,8 @@ Object.assign({a: \"foo\"}, 123);
 
 Object.assign(\"123\", { a: \"foo\" });
 Object.assign(123, { a: \"foo\" });
-Object.assign({ a: \"foo\" }, 123);"
+Object.assign({ a: \"foo\" }, 123);
+"
 `;
 
 exports[`test undefined.js 1`] = `
@@ -163,5 +167,6 @@ class MyReactThing extends React.Component {
 
 <MyReactThing />;
 /* works*/
-<MyReactThing foo={undefined} />; // also works"
+<MyReactThing foo={undefined} />; // also works
+"
 `;

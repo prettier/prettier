@@ -8,7 +8,8 @@ module.exports = APIKeys;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var APIKeys = { AGE: \"age\", NAME: \"name\" };
 
-module.exports = APIKeys;"
+module.exports = APIKeys;
+"
 `;
 
 exports[`test enum_client.js 1`] = `
@@ -55,7 +56,8 @@ var name: number = object[APIKeys.NAME];
 // error: object.name is a string
 var indices = { red: 0, green: 1, blue: 2 };
 var tuple = [ 42, \"hello\", false ];
-var red: string = tuple[indices.red]; // error: tuple[0] is a number"
+var red: string = tuple[indices.red]; // error: tuple[0] is a number
+"
 `;
 
 exports[`test number.js 1`] = `
@@ -105,5 +107,6 @@ function test4(flip_times: number): number {
     x = -x;
   }
   return x;
-}"
+}
+"
 `;

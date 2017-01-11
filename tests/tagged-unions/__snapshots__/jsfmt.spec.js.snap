@@ -61,7 +61,8 @@ function foo(x: Foo): string {
 
 function bar(x: Bar): string {
   return x.bar;
-}"
+}
+"
 `;
 
 exports[`test interfaces-neg.js 1`] = `
@@ -106,7 +107,8 @@ const data: IData = { id: \"\", name: \"\", kind: \"system\" };
 
 if (data.kind === \"user\") {
   (data: ISystemData);
-}"
+}
+"
 `;
 
 exports[`test interfaces-pos.js 1`] = `
@@ -151,7 +153,8 @@ const data: IData = { id: \"\", name: \"\", kind: \"system\" };
 
 if (data.kind === \"system\") {
   (data: ISystemData);
-}"
+}
+"
 `;
 
 exports[`test type-decls-neg.js 1`] = `
@@ -200,7 +203,8 @@ const data: Data = { id: \"\", name: \"\", kind: \"system\" };
 
 if (data.kind === \"user\") {
   (data: SystemData);
-}"
+}
+"
 `;
 
 exports[`test type-decls-pos.js 1`] = `
@@ -249,5 +253,6 @@ const data: Data = { id: \"\", name: \"\", kind: \"system\" };
 
 if (data.kind === \"system\") {
   (data: SystemData);
-}"
+}
+"
 `;

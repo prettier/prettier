@@ -41,7 +41,8 @@ type B<T> =
 
 declare var b: B<any>;
 
-(b: B<any>);"
+(b: B<any>);
+"
 `;
 
 exports[`test test2.js 1`] = `
@@ -87,5 +88,6 @@ type B<T> =
 
 declare var b: B<any>;
 
-(b: B<any>);"
+(b: B<any>);
+"
 `;

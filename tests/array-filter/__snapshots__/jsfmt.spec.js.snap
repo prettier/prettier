@@ -17,7 +17,8 @@ function filterOutVoids<T>(arr: Array<?T>): Array<T> {
 
 function filterOutSmall(arr: Array<?number>): Array<?number> {
   return arr.filter(num => num && num > 10);
-}"
+}
+"
 `;
 
 exports[`test test2.js 1`] = `
@@ -51,5 +52,6 @@ function filterItems(items: Array<string | number>): Array<string | number> {
 
 const filteredItems = filterItems([ \"foo\", \"b\", 1, 2 ]);
 
-console.log(filteredItems);"
+console.log(filteredItems);
+"
 `;

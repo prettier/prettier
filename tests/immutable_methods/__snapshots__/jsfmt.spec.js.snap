@@ -23,5 +23,6 @@ class C extends A {}
 var a: A = new B();
 a.foo = function(): C {
   return new C();
-};"
+};
+"
 `;

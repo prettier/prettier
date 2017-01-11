@@ -134,5 +134,6 @@ buffer = Buffer.from(
   [ 98, 117, 102, 102, 101, 114 ],
   (a: number) => a + 1,
   {}
-); // should error but doesn\'t"
+); // should error but doesn\'t
+"
 `;

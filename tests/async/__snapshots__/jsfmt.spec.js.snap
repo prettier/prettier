@@ -108,7 +108,8 @@ class C {
 
 // async function props
 var obj = { f: async () => await 1 };
-var objf: () => Promise<number> = obj.f;"
+var objf: () => Promise<number> = obj.f;
+"
 `;
 
 exports[`test async_base_class.js 1`] = `
@@ -140,7 +141,8 @@ var P: Promise<Class<C>> = new Promise(function(resolve, reject) {
 async function foo() {
   class Bar extends (await P) {}
   return Bar;
-}"
+}
+"
 `;
 
 exports[`test async_parse.js 1`] = `
@@ -192,7 +194,8 @@ var x = { async: 5 };
 console.log(x.async);
 
 var async = 3;
-var y = { async };"
+var y = { async };
+"
 `;
 
 exports[`test async_promise.js 1`] = `
@@ -202,7 +205,8 @@ exports[`test async_promise.js 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 async function f(): Promise<number> {
   return Promise.resolve(1);
-}"
+}
+"
 `;
 
 exports[`test async_return_void.js 1`] = `
@@ -234,7 +238,8 @@ async function foo2(): Promise<string> {
 async function foo3(): Promise<string> {
   function bar() {}
   return bar();
-}"
+}
+"
 `;
 
 exports[`test async2.js 1`] = `
@@ -357,7 +362,8 @@ function test5() {
     // error, number != void
     console.log(\"HEY\");
   }
-}"
+}
+"
 `;
 
 exports[`test async3.js 1`] = `
@@ -424,7 +430,8 @@ async function baz() {
   // should be number ~> string error, but currently gives
   // Promise ~> string error for the same reason
   var c: string = a;
-}"
+}
+"
 `;
 
 exports[`test await_parse.js 1`] = `
@@ -506,5 +513,6 @@ var x = { await: 5 };
 console.log(x.await);
 
 var await = 3;
-var y = { await };"
+var y = { await };
+"
 `;

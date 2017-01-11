@@ -19,5 +19,6 @@ declare var a: T;
 declare var b: S;
 declare var c: T;
 
-module.exports = { a, b, c };"
+module.exports = { a, b, c };
+"
 `;

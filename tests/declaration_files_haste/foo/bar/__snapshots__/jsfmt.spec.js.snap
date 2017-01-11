@@ -25,5 +25,6 @@ var unreachable = require(\"annotation\");
 
 (docblock.fun(): string);
 (min.fun(): string);
-(corge.fun(): string);"
+(corge.fun(): string);
+"
 `;

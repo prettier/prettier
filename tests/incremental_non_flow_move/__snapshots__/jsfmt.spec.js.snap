@@ -3,6 +3,7 @@ exports[`test foo.js 1`] = `
  * @providesModule Foo
  */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 "
 `;
 
@@ -17,5 +18,6 @@ require(\'Foo\');
  * @flow
  */
 
-require(\"Foo\");"
+require(\"Foo\");
+"
 `;

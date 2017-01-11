@@ -52,7 +52,8 @@ function parseTimeframe(line: string): { begin: number, end: number } {
     begin: parseTimestamp(timestamps[0].trim()),
     end: parseTimestamp(timestamps[1].trim())
   };
-}"
+}
+"
 `;
 
 exports[`test test2.js 1`] = `
@@ -74,7 +75,8 @@ function foo(o) {
   bar({ ...o });
 }
 function bar(_: { foo: number }) {}
-foo({ foo: 42 });"
+foo({ foo: 42 });
+"
 `;
 
 exports[`test test3.js 1`] = `
@@ -105,7 +107,8 @@ var z: number = o.z;
 // test conflicting keys (they get unioned)
 var r = { y: 123 };
 var s = { ...p, ...r };
-var t: boolean = s.y; // error, string or number"
+var t: boolean = s.y; // error, string or number
+"
 `;
 
 exports[`test test4.js 1`] = `
@@ -117,7 +120,8 @@ test(0, ...[1, 2, 3]);
 /* @flow */
 function test(...nums: Array<number>) {}
 
-test(0, ...[ 1, 2, 3 ]);"
+test(0, ...[ 1, 2, 3 ]);
+"
 `;
 
 exports[`test test5.js 1`] = `
@@ -169,7 +173,8 @@ function test(
     // OK
     return { ...x, kind: value };
   });
-}"
+}
+"
 `;
 
 exports[`test test6.js 1`] = `
@@ -208,7 +213,8 @@ var q = { foo: \"bar\" };
 for (var i = 0; i < 10; i++) {
   q = { ...q };
 }
-(q: { foo: string });"
+(q: { foo: string });
+"
 `;
 
 exports[`test test7.js 1`] = `
@@ -228,5 +234,6 @@ let tests = [
     ({ ...x }: Object);
     ({ ...x }: void); // error, Object
   }
-];"
+];
+"
 `;

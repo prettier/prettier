@@ -11,7 +11,8 @@ class C {
   constructor() {
     this.x = null;
   }
-}"
+}
+"
 `;
 
 exports[`test fields2.js 1`] = `
@@ -33,7 +34,8 @@ class D {
     this.content = content;
     return this.content;
   }
-}"
+}
+"
 `;
 
 exports[`test issue-17.js 1`] = `
@@ -67,7 +69,8 @@ var l: Array<T> = [
   { type: \"b\", b: \"gorilla\" },
   { type: \"b\", b: \"giraffe\" },
   { type: \"b\", b: \"penguin\" }
-];"
+];
+"
 `;
 
 exports[`test issue-198.js 1`] = `
@@ -91,7 +94,8 @@ var p = new Promise(function(resolve, reject) {
   .then(function(str) {
     // This should fail because str is string, not number
     return str.toFixed();
-  });"
+  });
+"
 `;
 
 exports[`test issue-256.js 1`] = `
@@ -107,7 +111,8 @@ declare class Myclass { myfun(myarray: Array<Function | string>): any }
 declare var myclass: Myclass;
 
 myclass.myfun([ \"1\", \"2\", \"3\", \"4\", \"5\", \"6\", function(ar) {} ]);
-myclass.myfun([ \"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", function(ar) {} ]);"
+myclass.myfun([ \"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", function(ar) {} ]);
+"
 `;
 
 exports[`test issue-323.js 1`] = `
@@ -117,7 +122,8 @@ var foostr: Foo | string = foo;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var Foo = require(\"./issue-323-lib\");
 var foo = new Foo();
-var foostr: Foo | string = foo;"
+var foostr: Foo | string = foo;
+"
 `;
 
 exports[`test issue-323-lib.js 1`] = `
@@ -127,7 +133,8 @@ module.exports = Foo;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 class Foo {}
-module.exports = Foo;"
+module.exports = Foo;
+"
 `;
 
 exports[`test issue-324.js 1`] = `
@@ -148,7 +155,8 @@ class Bar {}
 var foostr: Foo | string = new Foo();
 var barstr: Bar | string = new Bar();
 
-foostr = barstr;"
+foostr = barstr;
+"
 `;
 
 exports[`test issue-325.js 1`] = `
@@ -180,7 +188,8 @@ class Tag_ {
     var a1: Array<Node> = [ new Tag_() ];
     var a2: Array<Node> = a1;
   }
-}"
+}
+"
 `;
 
 exports[`test issue-326.js 1`] = `
@@ -192,7 +201,8 @@ var result = numberAndStringArr.concat(stringArr);  // no error
 var numberAndStringArr: Array<number | string> = [ 1, 2 ];
 var stringArr: Array<string> = [ \"a\", \"b\" ];
 
-var result = numberAndStringArr.concat(stringArr); // no error"
+var result = numberAndStringArr.concat(stringArr); // no error
+"
 `;
 
 exports[`test issue-582.js 1`] = `
@@ -224,7 +234,8 @@ type FooBar = \"foo\" | \"bar\";
 type Baz = \"baz\";
 type FooBarBaz = FooBar | Baz;
 
-var nested2: FooBarBaz = \"baz\";"
+var nested2: FooBarBaz = \"baz\";
+"
 `;
 
 exports[`test issue-963.js 1`] = `
@@ -282,7 +293,8 @@ const u1: union = { p3: 3 };
 
 const u2: union = { p1: 1, p2: 2 };
 
-const u3: union2 = { p1: 1, p2: 2 };"
+const u3: union2 = { p1: 1, p2: 2 };
+"
 `;
 
 exports[`test test.js 1`] = `
@@ -325,7 +337,8 @@ function f() {
   return \"\";
 }
 function bar(x: Bar) {}
-bar(f);"
+bar(f);
+"
 `;
 
 exports[`test test-lib.js 1`] = `
@@ -337,7 +350,8 @@ module.exports = C;
 /* @providesModule test-lib */
 
 class C {}
-module.exports = C;"
+module.exports = C;
+"
 `;
 
 exports[`test type-app.js 1`] = `
@@ -369,7 +383,8 @@ var a: LocalClass<number> | number = 123;
 // the merge would we fine the error, but it would be too late. The diff that
 // introduces this test fixes this such that the speculative algorithm is
 // correctly delayed upon encountering a non-concrete TypeAppT
-var b: Iterator<number> | number = 123;"
+var b: Iterator<number> | number = 123;
+"
 `;
 
 exports[`test union.js 1`] = `
@@ -415,7 +430,8 @@ declare class F { foo(x: number): void, foo(x: string): void }
 function corge(b) {
   var x = b ? \"\" : 0;
   new F().foo(x);
-}"
+}
+"
 `;
 
 exports[`test yuge.js 1`] = `
@@ -10479,5 +10495,6 @@ type ErrorCode =
   | 4998
   | 4999;
 
-type Data = { error?: ErrorCode };"
+type Data = { error?: ErrorCode };
+"
 `;

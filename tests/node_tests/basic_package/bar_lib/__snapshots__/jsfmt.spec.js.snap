@@ -1,5 +1,6 @@
 exports[`test bar.js 1`] = `
 "module.exports = \"bar\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-module.exports = \"bar\";"
+module.exports = \"bar\";
+"
 `;

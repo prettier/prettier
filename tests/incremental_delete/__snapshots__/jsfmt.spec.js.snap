@@ -5,7 +5,8 @@ module.exports = a;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 var a: string = 0;
-module.exports = a;"
+module.exports = a;
+"
 `;
 
 exports[`test b.js 1`] = `
@@ -17,7 +18,8 @@ module.exports = b;
 // @flow
 var a = require(\"./a\");
 var b: number = a;
-module.exports = b;"
+module.exports = b;
+"
 `;
 
 exports[`test c.js 1`] = `
@@ -29,7 +31,8 @@ module.exports = c;
 // @flow
 var b = require(\"./b\");
 var c: string = b;
-module.exports = c;"
+module.exports = c;
+"
 `;
 
 exports[`test dupe1.js 1`] = `
@@ -45,7 +48,8 @@ module.exports = \"dupe1\";
  * @providesModule Dupe
  * @flow
  */
-module.exports = \"dupe1\";"
+module.exports = \"dupe1\";
+"
 `;
 
 exports[`test dupe2.js 1`] = `
@@ -61,7 +65,8 @@ module.exports = \"dupe2\";
  * @providesModule Dupe
  * @flow
  */
-module.exports = \"dupe2\";"
+module.exports = \"dupe2\";
+"
 `;
 
 exports[`test requires_dupe.js 1`] = `
@@ -75,7 +80,8 @@ var dupe = require(\'Dupe\');
  * depends on doubly-provided module
  * @flow
  */
-var dupe = require(\"Dupe\");"
+var dupe = require(\"Dupe\");
+"
 `;
 
 exports[`test requires_unchecked.js 1`] = `
@@ -89,7 +95,8 @@ var unchecked = require(\'Unchecked\');
  * depends on an unchecked module, which will be deleted
  * @flow
  */
-var unchecked = require(\"Unchecked\");"
+var unchecked = require(\"Unchecked\");
+"
 `;
 
 exports[`test unchecked.js 1`] = `
@@ -103,5 +110,6 @@ module.exports = \"unchecked\";
  * Not a flow module.
  * @providesModule Unchecked
  */
-module.exports = \"unchecked\";"
+module.exports = \"unchecked\";
+"
 `;

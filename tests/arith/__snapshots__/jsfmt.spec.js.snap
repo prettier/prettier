@@ -203,7 +203,8 @@ let tests = [
     // error, string ~> empty
     (z + x: empty); // error, string ~> empty
   }
-];"
+];
+"
 `;
 
 exports[`test exponent.js 1`] = `
@@ -229,7 +230,8 @@ y **= 2;
 // error
 1 + 2 ** 3 + 4;
 2 ** 2;
-(-2) ** 2;"
+(-2) ** 2;
+"
 `;
 
 exports[`test generic.js 1`] = `
@@ -261,7 +263,8 @@ function f<A, B>(a: A, b: B): B {
 // error
 function f<A, B>(a: A, b: B): B {
   return b + a;
-} // error"
+} // error
+"
 `;
 
 exports[`test mult.js 1`] = `
@@ -289,7 +292,8 @@ let x: number = 2 * 3;
 x *= 4;
 
 let y: string = \"123\";
-y *= 2; // error"
+y *= 2; // error
+"
 `;
 
 exports[`test relational.js 1`] = `
@@ -364,5 +368,6 @@ let tests = [
     x > y;
     x > z;
   }
-];"
+];
+"
 `;

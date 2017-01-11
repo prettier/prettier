@@ -77,7 +77,8 @@ function foo6(): { [key: number]: number, foo: string } {
 // Should still complain about mistyped properties
 function foo7(): { [key: string]: number, foo: number } {
   return { foo: \"bar\" };
-}"
+}
+"
 `;
 
 exports[`test multiple.js 1`] = `
@@ -101,5 +102,6 @@ let tests = [
       [k2: number]: number /* error: not supported (yet)*/
     });
   }
-];"
+];
+"
 `;

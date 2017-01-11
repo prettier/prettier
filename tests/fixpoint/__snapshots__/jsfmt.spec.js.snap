@@ -67,7 +67,8 @@ function mk_factorial() {
 var factorial = mk_factorial();
 factorial(\"...\");
 
-module.exports = { fn: fix };"
+module.exports = { fn: fix };
+"
 `;
 
 exports[`test Ycombinator.js 1`] = `
@@ -118,5 +119,6 @@ function func2(f) {
 Y(func1);
 Y(func2);
 
-module.exports = Y;"
+module.exports = Y;
+"
 `;

@@ -45,7 +45,8 @@ var myInit = {
 
 const c: Promise<Blob> = fetch(\"image.png\").then(response => response.blob());
 // correct
-const d: Promise<Blob> = fetch(\"image.png\"); // incorrect"
+const d: Promise<Blob> = fetch(\"image.png\"); // incorrect
+"
 `;
 
 exports[`test headers.js 1`] = `
@@ -116,7 +117,8 @@ for (let v of e.entries()) {
   const [ i, j ]: [string, string] = v; // correct
 }
 
-e.getAll(\"content-type\").forEach((v: string) => {}); // correct"
+e.getAll(\"content-type\").forEach((v: string) => {}); // correct
+"
 `;
 
 exports[`test request.js 1`] = `
@@ -224,7 +226,8 @@ h.text().then((t: Buffer) => t);
 // incorrect
 h.arrayBuffer().then((ab: ArrayBuffer) => ab);
 // correct
-h.arrayBuffer().then((ab: Buffer) => ab); // incorrect"
+h.arrayBuffer().then((ab: Buffer) => ab); // incorrect
+"
 `;
 
 exports[`test response.js 1`] = `
@@ -315,7 +318,8 @@ h.text().then((t: Buffer) => t);
 // incorrect
 h.arrayBuffer().then((ab: ArrayBuffer) => ab);
 // correct
-h.arrayBuffer().then((ab: Buffer) => ab); // incorrect"
+h.arrayBuffer().then((ab: Buffer) => ab); // incorrect
+"
 `;
 
 exports[`test urlsearchparams.js 1`] = `
@@ -386,5 +390,6 @@ for (let v of e.entries()) {
   const [ i, j ]: [string, string] = v; // correct
 }
 
-e.getAll(\"key1\").forEach((v: string) => {}); // correct"
+e.getAll(\"key1\").forEach((v: string) => {}); // correct
+"
 `;

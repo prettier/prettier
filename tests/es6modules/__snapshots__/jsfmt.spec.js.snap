@@ -5,12 +5,14 @@ exports.numberValue = 42;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-exports.numberValue = 42;"
+exports.numberValue = 42;
+"
 `;
 
 exports[`test C.js 1`] = `
 "/* @flow */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 "
 `;
 
@@ -67,7 +69,8 @@ class Test extends Base {
   }
 }
 
-module.exports = Test;"
+module.exports = Test;
+"
 `;
 
 exports[`test CommonJS_Clobbering_Frozen.js 1`] = `
@@ -85,7 +88,8 @@ module.exports = Object.freeze({
  * @flow
  */
 
-module.exports = Object.freeze({ numberValue1: 1 });"
+module.exports = Object.freeze({ numberValue1: 1 });
+"
 `;
 
 exports[`test CommonJS_Clobbering_Lit.js 1`] = `
@@ -113,7 +117,8 @@ module.exports = {
   numberValue3: 3,
   numberValue4: 4,
   numberValue5: 5
-};"
+};
+"
 `;
 
 exports[`test CommonJS_Named.js 1`] = `
@@ -137,7 +142,8 @@ exports.numberValue1 = 1;
 exports.numberValue2 = 2;
 exports.numberValue3 = 3;
 exports.numberValue4 = 4;
-exports.numberValue5 = 5;"
+exports.numberValue5 = 5;
+"
 `;
 
 exports[`test ES6_Default_AnonClass1.js 1`] = `
@@ -158,6 +164,7 @@ export default class {
     return 42;
   }
 }
+
 "
 `;
 
@@ -179,6 +186,7 @@ export default class {
     return 42;
   }
 }
+
 "
 `;
 
@@ -197,7 +205,8 @@ export default function():number { return 42; }
 
 export default function(): number {
   return 42;
-}"
+}
+"
 `;
 
 exports[`test ES6_Default_AnonFunction2.js 1`] = `
@@ -215,7 +224,8 @@ export default function():number { return 42; }
 
 export default function(): number {
   return 42;
-}"
+}
+"
 `;
 
 exports[`test ES6_Default_NamedClass1.js 1`] = `
@@ -245,7 +255,8 @@ export default class Foo {
 // Regression test for https://github.com/facebook/flow/issues/511
 //
 // Default-exported class should also be available in local scope
-new Foo();"
+new Foo();
+"
 `;
 
 exports[`test ES6_Default_NamedClass2.js 1`] = `
@@ -266,6 +277,7 @@ export default class Foo {
     return 42;
   }
 }
+
 "
 `;
 
@@ -284,7 +296,8 @@ export default function foo():number { return 42; }
 
 export default function foo(): number {
   return 42;
-}"
+}
+"
 `;
 
 exports[`test ES6_Default_NamedFunction2.js 1`] = `
@@ -302,7 +315,8 @@ export default function foo():number { return 42; }
 
 export default function foo(): number {
   return 42;
-}"
+}
+"
 `;
 
 exports[`test ES6_DefaultAndNamed.js 1`] = `
@@ -314,7 +328,8 @@ export var str = \'asdf\';
 /* @flow */
 
 export default 42
-export var str = \"asdf\";"
+export var str = \"asdf\";
+"
 `;
 
 exports[`test ES6_ExportAllFrom_Intermediary1.js 1`] = `
@@ -330,7 +345,8 @@ export * from \"ES6_ExportAllFrom_Source1\";
  * @flow
  */
 
-export * from \"ES6_ExportAllFrom_Source1\";"
+export * from \"ES6_ExportAllFrom_Source1\";
+"
 `;
 
 exports[`test ES6_ExportAllFrom_Intermediary2.js 1`] = `
@@ -346,7 +362,8 @@ export * from \"ES6_ExportAllFrom_Source2\";
  * @flow
  */
 
-export * from \"ES6_ExportAllFrom_Source2\";"
+export * from \"ES6_ExportAllFrom_Source2\";
+"
 `;
 
 exports[`test ES6_ExportAllFrom_Source1.js 1`] = `
@@ -362,7 +379,8 @@ export var numberValue1 = 1;
  * @flow
  */
 
-export var numberValue1 = 1;"
+export var numberValue1 = 1;
+"
 `;
 
 exports[`test ES6_ExportAllFrom_Source2.js 1`] = `
@@ -378,7 +396,8 @@ export var numberValue2 = 1;
  * @flow
  */
 
-export var numberValue2 = 1;"
+export var numberValue2 = 1;
+"
 `;
 
 exports[`test ES6_ExportAllFromMulti.js 1`] = `
@@ -390,7 +409,8 @@ export * from \"./ES6_ExportAllFrom_Source2\";
 // @flow
 
 export * from \"./ES6_ExportAllFrom_Source1\";
-export * from \"./ES6_ExportAllFrom_Source2\";"
+export * from \"./ES6_ExportAllFrom_Source2\";
+"
 `;
 
 exports[`test ES6_ExportFrom_Intermediary1.js 1`] = `
@@ -409,7 +429,8 @@ export {
  * @flow
  */
 
-export { numberValue1, numberValue2 as numberValue2_renamed } from \"ES6_ExportFrom_Source1\";"
+export { numberValue1, numberValue2 as numberValue2_renamed } from \"ES6_ExportFrom_Source1\";
+"
 `;
 
 exports[`test ES6_ExportFrom_Intermediary2.js 1`] = `
@@ -428,7 +449,8 @@ export {
  * @flow
  */
 
-export { numberValue1, numberValue2 as numberValue2_renamed2 } from \"ES6_ExportFrom_Source2\";"
+export { numberValue1, numberValue2 as numberValue2_renamed2 } from \"ES6_ExportFrom_Source2\";
+"
 `;
 
 exports[`test ES6_ExportFrom_Source1.js 1`] = `
@@ -444,7 +466,8 @@ export var numberValue1 = 1, numberValue2 = 2;
  * @flow
  */
 
-export var numberValue1 = 1, numberValue2 = 2;"
+export var numberValue1 = 1, numberValue2 = 2;
+"
 `;
 
 exports[`test ES6_ExportFrom_Source2.js 1`] = `
@@ -460,7 +483,8 @@ export var numberValue1 = 1, numberValue2 = 2;
  * @flow
  */
 
-export var numberValue1 = 1, numberValue2 = 2;"
+export var numberValue1 = 1, numberValue2 = 2;
+"
 `;
 
 exports[`test ES6_Named1.js 1`] = `
@@ -515,7 +539,8 @@ export class NumberGenerator {
 
 export var varDeclNumber1 = 1, varDeclNumber2 = 2;
 export var { destructuredObjNumber } = { destructuredObjNumber: 1 };
-export var [ destructuredArrNumber ] = [ 1 ];"
+export var [ destructuredArrNumber ] = [ 1 ];
+"
 `;
 
 exports[`test ES6_Named2.js 1`] = `
@@ -566,7 +591,8 @@ export class NumberGenerator2 {
 
 export var varDeclNumber3 = 1, varDeclNumber4 = 2;
 export var { destructuredObjNumber2 } = { destructuredObjNumber2: 1 };
-export var [ destructuredArrNumber2 ] = [ 1 ];"
+export var [ destructuredArrNumber2 ] = [ 1 ];
+"
 `;
 
 exports[`test ExportType.js 1`] = `
@@ -576,7 +602,8 @@ export type typeAlias = number;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-export type typeAlias = number;"
+export type typeAlias = number;
+"
 `;
 
 exports[`test ProvidesModuleA.js 1`] = `
@@ -600,7 +627,8 @@ exports.numberValue1 = 42;
 exports.numberValue2 = 42;
 exports.numberValue3 = 42;
 exports.numberValue4 = 42;
-exports.stringValue = \"str\";"
+exports.stringValue = \"str\";
+"
 `;
 
 exports[`test ProvidesModuleCJSDefault.js 1`] = `
@@ -618,7 +646,8 @@ module.exports = {
  * @flow
  */
 
-module.exports = { numberValue: 42 };"
+module.exports = { numberValue: 42 };
+"
 `;
 
 exports[`test ProvidesModuleD.js 1`] = `
@@ -627,6 +656,7 @@ exports[`test ProvidesModuleD.js 1`] = `
  * @flow
  */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 "
 `;
 
@@ -642,12 +672,14 @@ export default {
 };
 */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 "
 `;
 
 exports[`test SideEffects.js 1`] = `
 "/* @flow */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 "
 `;
 
@@ -1248,7 +1280,8 @@ var at4: string = numberValue9;
 /////////////////////////////////////////////////////////////
 // == Vanilla \`import\` cannot import a type-only export == //
 /////////////////////////////////////////////////////////////
-import { typeAlias } from \"./ExportType\"; // Error: Cannot vanilla-import a type alias!"
+import { typeAlias } from \"./ExportType\"; // Error: Cannot vanilla-import a type alias!
+"
 `;
 
 exports[`test test_imports_are_frozen.js 1`] = `
@@ -1356,5 +1389,6 @@ function testRequires() {
   // CommonJS module that clobbers module.exports with a frozen object
   var CommonJS_Frozen_Star = require(\"CommonJS_Clobbering_Frozen\");
   CommonJS_Frozen_Star.numberValue1 = 123; // Error: frozen
-}"
+}
+"
 `;

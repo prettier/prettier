@@ -58,5 +58,6 @@ class XControllerURIBuilder {
   }
 }
 
-module.exports = XControllerURIBuilder;"
+module.exports = XControllerURIBuilder;
+"
 `;

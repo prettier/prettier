@@ -10,7 +10,8 @@ exports[`test maybe.js 1`] = `
 // unwrapping nested maybes should work
 ((\"foo\": ??string): ?string);
 // ok
-((123: ??number): ?string); // error (only num ~> string)"
+((123: ??number): ?string); // error (only num ~> string)
+"
 `;
 
 exports[`test nullable.js 1`] = `
@@ -61,7 +62,8 @@ if (x != null) {
   qux(x);
 }
 
-var array_of_nullable: Array<?number> = [ null, 3 ];"
+var array_of_nullable: Array<?number> = [ null, 3 ];
+"
 `;
 
 exports[`test simple_nullable.js 1`] = `
@@ -79,5 +81,6 @@ foo(\"hmm\");
 bar(\"hmm\");
 
 function fn(data: ?{}) {}
-fn({ some: \"literal\" });"
+fn({ some: \"literal\" });
+"
 `;

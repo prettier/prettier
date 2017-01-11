@@ -51,5 +51,6 @@ var buffer2 = require(\"./buffer\");
 var x2: string = buffer2.INSPECT_MAX_BYTES;
 // error, module not found
 var buffer3 = require(\"./buffer.js\");
-var x3: string = buffer3.INSPECT_MAX_BYTES; // error, module not found"
+var x3: string = buffer3.INSPECT_MAX_BYTES; // error, module not found
+"
 `;

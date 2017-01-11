@@ -51,7 +51,8 @@ function f3(xlam) {
 function double(n) {
   return n * 2;
 }
-f3(double);"
+f3(double);
+"
 `;
 
 exports[`test Traces2.js 1`] = `
@@ -93,5 +94,6 @@ function f(b): React.Element<*> {
   } else {
     return <B bar=\"hey\" />;
   }
-}"
+}
+"
 `;

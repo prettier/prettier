@@ -25,7 +25,8 @@ class ClassFoo3 {
   }
 }
 
-module.exports = ClassFoo3;"
+module.exports = ClassFoo3;
+"
 `;
 
 exports[`test ExportCJSNamed_Class.js 1`] = `
@@ -75,7 +76,8 @@ function givesAFoo5(): ClassFoo5 {
 exports.ClassFoo4 = ClassFoo4;
 exports.ClassFoo5 = ClassFoo5;
 exports.foo4Inst = new ClassFoo4();
-exports.foo5Inst = new ClassFoo5();"
+exports.foo5Inst = new ClassFoo5();
+"
 `;
 
 exports[`test ExportDefault_Class.js 1`] = `
@@ -101,7 +103,8 @@ class ClassFoo1 {
 }
 
 export default ClassFoo1;
-export var foo1Inst = new ClassFoo1();"
+export var foo1Inst = new ClassFoo1();
+"
 `;
 
 exports[`test ExportNamed_Alias.js 1`] = `
@@ -130,6 +133,7 @@ export function givesAFoo3Obj(): AliasFoo3 {
     }
   };
 }
+
 "
 `;
 
@@ -156,7 +160,8 @@ class ClassFoo2 {
 }
 
 export { ClassFoo2 };
-export var foo2Inst = new ClassFoo2();"
+export var foo2Inst = new ClassFoo2();
+"
 `;
 
 exports[`test ExportsANumber.js 1`] = `
@@ -166,7 +171,8 @@ export var numValue = 42;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @ flow */
 
-export var numValue = 42;"
+export var numValue = 42;
+"
 `;
 
 exports[`test import_type.js 1`] = `
@@ -331,7 +337,8 @@ import type { numValue } from \"./ExportsANumber\";
 import type ClassFoo6 from \"./issue-359\";
 function foo() {
   ClassFoo6; // Error: Not a value binding
-}"
+}
+"
 `;
 
 exports[`test issue-359.js 1`] = `
@@ -345,5 +352,6 @@ export default ClassFoo6;
 
 class ClassFoo6 {}
 
-export default ClassFoo6;"
+export default ClassFoo6;
+"
 `;

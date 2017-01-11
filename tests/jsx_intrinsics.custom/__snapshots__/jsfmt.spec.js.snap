@@ -34,7 +34,8 @@ var b: React.Element<{ prop1: string }> = <CustomComponent prop=\"asdf\" />;
 var c: React.Element<{ id: string }> = <div id=\"asdf\" />;
 var d: React.Element<{
   id: number
-}> = <div id=\"asdf\" />; // Error: Props<{id:string}> ~> Props<{id:number}>"
+}> = <div id=\"asdf\" />; // Error: Props<{id:string}> ~> Props<{id:number}>
+"
 `;
 
 exports[`test strings.js 1`] = `
@@ -78,5 +79,6 @@ React.createElement(\"bad\", {});
 React.createElement(Str, {});
 /* Error: string ~> keys of JSXIntrinsics*/
 /* TODO: Make this an error*/
-<Div id={42} />; // Not an error but should be eventually"
+<Div id={42} />; // Not an error but should be eventually
+"
 `;

@@ -70,5 +70,6 @@ function foo8<U>(x: U, y): U {
 }
 /*
  foo8(0,void 0);
-*/"
+*/
+"
 `;

@@ -53,7 +53,8 @@ const [ bar ] = [ \"bar\" ];
 declare var bazzes: { baz: string }[];
 for (const { baz } of bazzes) {
   (baz: number); // error: string ~> number
-}"
+}
+"
 `;
 
 exports[`test rebinding.js 1`] = `
@@ -447,7 +448,8 @@ function fn_params_clash_fn_binding(x, y) {
   let x = 0;
   // error: x already bound
   var y = 0; // OK
-}"
+}
+"
 `;
 
 exports[`test scope.js 1`] = `
@@ -678,7 +680,8 @@ function default_param_2() {
     let b = 0;
     return x;
   }
-}"
+}
+"
 `;
 
 exports[`test tdz.js 1`] = `
@@ -896,5 +899,6 @@ f(a);
 // error: undefined ~/> number
 a = 10;
 
-f(a); // ok, a: number (not ?number)"
+f(a); // ok, a: number (not ?number)
+"
 `;

@@ -13,7 +13,8 @@ class A<T> {
   x: T;
 }
 
-module.exports = A;"
+module.exports = A;
+"
 `;
 
 exports[`test B.js 1`] = `
@@ -39,7 +40,8 @@ class B extends A<string> {
   }
 }
 
-module.exports = new B();"
+module.exports = new B();
+"
 `;
 
 exports[`test C.js 1`] = `
@@ -71,5 +73,6 @@ class Foo {
 
 export function f(x: Foo) {
   return x.foo();
-}"
+}
+"
 `;

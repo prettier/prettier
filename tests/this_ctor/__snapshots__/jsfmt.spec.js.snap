@@ -31,5 +31,6 @@ class A {
 
 var a1 = new A(1);
 var a2: A = new a1.constructor(2);
-var a3: A = a2.clone();"
+var a3: A = a2.clone();
+"
 `;

@@ -21,5 +21,6 @@ function foo(x) {
 }
 
 // This file should be ignored, so this should not result in an error
-foo(\"Hello, world!\");"
+foo(\"Hello, world!\");
+"
 `;

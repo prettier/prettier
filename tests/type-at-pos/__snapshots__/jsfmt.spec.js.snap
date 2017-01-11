@@ -36,7 +36,8 @@ export const X = {
   test: function() {
     let [ a, b ] = this.returnsATuple();
   }
-};"
+};
+"
 `;
 
 exports[`test function_expressions.js 1`] = `
@@ -58,7 +59,8 @@ const y = {
 //   foo(): void {}
 // }
 
-const y = { bar(): void {} };"
+const y = { bar(): void {} };
+"
 `;
 
 exports[`test generics.js 1`] = `
@@ -117,7 +119,8 @@ on;
 type Mono = C<void>;
 var mn: Mono<number> = new C();
 // error: application of non-poly type
-mn;"
+mn;
+"
 `;
 
 exports[`test import.js 1`] = `
@@ -131,7 +134,8 @@ module.exports = num;
 var num = 42;
 function bar() {}
 bar();
-module.exports = num;"
+module.exports = num;
+"
 `;
 
 exports[`test object_special_cases.js 1`] = `
@@ -151,7 +155,8 @@ let tests = [
     let x = {};
     Object.defineProperty(x, \"foo\", { value: \"\" });
   }
-];"
+];
+"
 `;
 
 exports[`test optional.js 1`] = `
@@ -185,7 +190,8 @@ function bar(obj: { x?: string }) {
 
 function qux(x?) {
   return x;
-}"
+}
+"
 `;
 
 exports[`test predicates.js 1`] = `
@@ -201,7 +207,8 @@ if (Array.isArray(x)) {}
 let x = 0;
 if (x == null) {}
 if (x == undefined) {}
-if (Array.isArray(x)) {}"
+if (Array.isArray(x)) {}
+"
 `;
 
 exports[`test react.js 1`] = `
@@ -209,7 +216,8 @@ exports[`test react.js 1`] = `
 React.createElement;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import React from \"react\";
-React.createElement;"
+React.createElement;
+"
 `;
 
 exports[`test templates.js 1`] = `
@@ -217,7 +225,8 @@ exports[`test templates.js 1`] = `
 \`foo bar\`;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-\`foo bar\`;"
+\`foo bar\`;
+"
 `;
 
 exports[`test test.js 1`] = `
@@ -249,7 +258,8 @@ const y: MyStr = \"cool\";
 type MyBool = true;
 const z: MyBool = true;
 type MyNum = 42;
-const w: MyNum = 42;"
+const w: MyNum = 42;
+"
 `;
 
 exports[`test trycatch.js 1`] = `
@@ -263,5 +273,6 @@ try {
 
 try {
   throw \"foo\";
-} catch (e) {}"
+} catch (e) {}
+"
 `;

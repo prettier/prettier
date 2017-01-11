@@ -7,7 +7,8 @@ module.exports = {ParentFoo};
 // @flow
 
 var ParentFoo = { foo: \"bar\" };
-module.exports = { ParentFoo };"
+module.exports = { ParentFoo };
+"
 `;
 
 exports[`test main.js 1`] = `
@@ -57,7 +58,8 @@ ParentFoo3;
 let foo = require(\"./Parent\").ParentFoo.foo;
 foo;
 
-import type { Foo } from \"./types\";"
+import type { Foo } from \"./types\";
+"
 `;
 
 exports[`test override.js 1`] = `
@@ -87,7 +89,8 @@ class D extends C {
     this.override;
   }
   override() {}
-}"
+}
+"
 `;
 
 exports[`test react.js 1`] = `
@@ -113,7 +116,8 @@ let msg = \"hello\";
 
 <C x={msg} />;
 
-<div id={msg} />;"
+<div id={msg} />;
+"
 `;
 
 exports[`test types.js 1`] = `
@@ -123,5 +127,6 @@ export type Foo = {};
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-export type Foo = {};"
+export type Foo = {};
+"
 `;

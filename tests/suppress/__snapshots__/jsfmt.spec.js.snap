@@ -46,7 +46,8 @@ var test5: string = 123;
 /*
  * $FlowNewLine
  */
-var test6: string = 123;"
+var test6: string = 123;
+"
 `;
 
 exports[`test B.js 1`] = `
@@ -54,7 +55,8 @@ exports[`test B.js 1`] = `
 var test1: string = library_num;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // $FlowFixMe
-var test1: string = library_num;"
+var test1: string = library_num;
+"
 `;
 
 exports[`test C.js 1`] = `
@@ -74,11 +76,13 @@ function runTest(y: number): void {
     /* $FlowFixMe - suppressing the error op location should also work */
     y
   );
-}"
+}
+"
 `;
 
 exports[`test lib.js 1`] = `
 "declare var library_num: number;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-declare var library_num: number;"
+declare var library_num: number;
+"
 `;

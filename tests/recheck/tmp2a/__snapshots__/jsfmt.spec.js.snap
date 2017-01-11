@@ -15,5 +15,6 @@ function foo(x: number): number {
 
 foo(\"\");
 
-module.exports = foo;"
+module.exports = foo;
+"
 `;

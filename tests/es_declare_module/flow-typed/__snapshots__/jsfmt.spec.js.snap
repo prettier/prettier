@@ -37,5 +37,6 @@ declare module \"ES\" {
   declare export class C {}
   declare export type T = number;
   declare var exports: number;
-}"
+}
+"
 `;

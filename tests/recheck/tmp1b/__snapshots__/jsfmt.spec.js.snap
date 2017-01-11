@@ -21,5 +21,6 @@ function bar() {
 let X = bar();
 class F extends X {}
 class D extends F {}
-module.exports = { C, D };"
+module.exports = { C, D };
+"
 `;

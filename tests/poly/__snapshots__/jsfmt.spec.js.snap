@@ -24,7 +24,8 @@ function foo(b): A<any> {
 function bar(): A<*> {
   // error, * can\'t be {} and {x: string} at the same time
   return (new A(): A<{}>) || (new A(): A<{ x: string }>);
-}"
+}
+"
 `;
 
 exports[`test implicit_bounded_instantiation.js 1`] = `
@@ -69,7 +70,8 @@ a.meth(new Middle());
 a.meth(new Child());
 a.meth(42);
 // Error: number ~> Middle
-a.meth(new Base()); // Error: Base ~> Middle"
+a.meth(new Base()); // Error: Base ~> Middle
+"
 `;
 
 exports[`test issue-1029.js 1`] = `
@@ -109,7 +111,8 @@ declare var bool: Box<boolean>;
 
 declare function unbox<A>(box: Box<A>): A;
 
-unbox(bool);"
+unbox(bool);
+"
 `;
 
 exports[`test poly.js 1`] = `
@@ -149,7 +152,8 @@ declare var Q: { bar<S>(foo: Foo<S>, y: S): Foo<S> };
 
 var foo = new Foo(0);
 var x: string = foo.x;
-var z: Foo<number> = Q.bar(foo, \"\");"
+var z: Foo<number> = Q.bar(foo, \"\");
+"
 `;
 
 exports[`test test.js 1`] = `
@@ -196,5 +200,6 @@ class D extends C {
   qux<X>(x: X): X {
     return x;
   } // OK (generalization)
-}"
+}
+"
 `;

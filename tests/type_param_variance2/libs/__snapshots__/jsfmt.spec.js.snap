@@ -82,5 +82,6 @@ declare class Promise<R> {
   static allObject<T: Object>(promisesByKey: T): Promise<{
     [key: $Keys<T>]: any
   }>
-}"
+}
+"
 `;

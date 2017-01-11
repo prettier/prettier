@@ -16,7 +16,8 @@ declare module foo {}
 // This file triggers a violation of the \"disjoint-or-nested ranges invariant\"
 // that we implicitly assume in type-at-pos and coverage implementations. In
 // particular, when unchecked it causes a crash with coverage --color.
-declare module bar {}"
+declare module bar {}
+"
 `;
 
 exports[`test declare_module.js 1`] = `
@@ -27,7 +28,8 @@ declare module foo {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // check coverage of declare module
 
-declare module foo {}"
+declare module foo {}
+"
 `;
 
 exports[`test no_pragma.js 1`] = `
@@ -35,7 +37,8 @@ exports[`test no_pragma.js 1`] = `
 (x: string);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let x = 0;
-(x: string);"
+(x: string);
+"
 `;
 
 exports[`test non-termination.js 1`] = `
@@ -60,5 +63,6 @@ declare module foo {}
 // particular, when unchecked it causes non-termination with coverage --color.
 declare module bar {}
 // TODO
-declare class qux {}"
+declare class qux {}
+"
 `;

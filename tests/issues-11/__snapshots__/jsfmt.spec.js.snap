@@ -5,7 +5,8 @@ exports.y = \"\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 exports.x = 1;
-exports.y = \"\";"
+exports.y = \"\";
+"
 `;
 
 exports[`test import.js 1`] = `
@@ -17,5 +18,6 @@ var y: number = e.y;
 /* @flow */
 var e = require(\"./export\");
 var x: string = e.x;
-var y: number = e.y;"
+var y: number = e.y;
+"
 `;

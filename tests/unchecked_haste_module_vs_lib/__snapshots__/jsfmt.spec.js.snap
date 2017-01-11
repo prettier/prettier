@@ -23,7 +23,8 @@ export var INSPECT_MAX_BYTES = 0;
  * to satisfy imports/requires instead.
  */
 
-export var INSPECT_MAX_BYTES = 0;"
+export var INSPECT_MAX_BYTES = 0;
+"
 `;
 
 exports[`test test.js 1`] = `
@@ -53,5 +54,6 @@ var x: string = buffer.INSPECT_MAX_BYTES; // error, number ~/> string
  * instead, we\'ll get the desired error.
  */
 var buffer = require(\"buffer\");
-var x: string = buffer.INSPECT_MAX_BYTES; // error, number ~/> string"
+var x: string = buffer.INSPECT_MAX_BYTES; // error, number ~/> string
+"
 `;

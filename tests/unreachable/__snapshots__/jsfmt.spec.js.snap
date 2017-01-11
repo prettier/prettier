@@ -45,7 +45,8 @@ function test2() {
     // no error, n is still number
     var y: string = n; // error, n is number (EmptyT would work)
   }
-}"
+}
+"
 `;
 
 exports[`test unreachable.js 1`] = `
@@ -100,5 +101,6 @@ function foo(x, y) {
   var t, u = 5, v, w = 7;
 }
 
-foo(1, 2);"
+foo(1, 2);
+"
 `;

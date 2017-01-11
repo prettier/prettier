@@ -1,7 +1,8 @@
 exports[`test bar.js 1`] = `
 "module.exports = \"bar\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-module.exports = \"bar\";"
+module.exports = \"bar\";
+"
 `;
 
 exports[`test foo.js 1`] = `
@@ -9,5 +10,6 @@ exports[`test foo.js 1`] = `
 console.log(x);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var x = require(\"./bar.js\");
-console.log(x);"
+console.log(x);
+"
 `;

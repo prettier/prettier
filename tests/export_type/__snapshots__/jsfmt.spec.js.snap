@@ -11,7 +11,8 @@ module.exports = {}
 export type talias4 = number;
 export interface IFoo  { prop: number }
 
-module.exports = {};"
+module.exports = {};
+"
 `;
 
 exports[`test importer.js 1`] = `
@@ -74,7 +75,8 @@ var k: IFoo = { prop: 42 };
 var l: IFoo = { prop: \"asdf\" };
 // Error: {prop:string} ~> {prop:number}
 var m: IFoo2 = { prop: \"asdf\" };
-var n: IFoo2 = { prop: 42 }; // Error: {prop:number} ~> {prop:string}"
+var n: IFoo2 = { prop: 42 }; // Error: {prop:number} ~> {prop:string}
+"
 `;
 
 exports[`test types_only.js 1`] = `
@@ -109,6 +111,7 @@ export { standaloneType2 };
 export type { talias1, talias2 as talias3, IFoo2 } from \"./types_only2\";
 
 export interface IFoo  { prop: number }
+
 "
 `;
 
@@ -124,5 +127,6 @@ export interface IFoo2 { prop: string };
 export type talias1 = number;
 export type talias2 = number;
 export interface IFoo2  { prop: string }
+
 "
 `;

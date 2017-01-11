@@ -48,5 +48,6 @@ import DEPRECATED__declare_var_exports from \"DEPRECATED__declare_var_exports\";
 // Error: number ~> string
 import declare_m_e_with_declare_var_e from \"declare_m_e_with_declare_var_e\";
 (declare_m_e_with_declare_var_e: number);
-(declare_m_e_with_declare_var_e: string); // Error: number ~> string"
+(declare_m_e_with_declare_var_e: string); // Error: number ~> string
+"
 `;

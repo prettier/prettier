@@ -51,7 +51,8 @@ async function* delegate_return() {
     return 0;
   }
   var x: void = yield* inner(); // error: number ~> void
-}"
+}
+"
 `;
 
 exports[`test generator.js 1`] = `
@@ -101,7 +102,8 @@ async function f() {
   for await (const line of readLines(\"/path/to/file\")) {
     (line: void); // error: string ~> void
   }
-}"
+}
+"
 `;
 
 exports[`test return.js 1`] = `
@@ -149,7 +151,8 @@ refuse_return().return(\"string\").then(result => {
   if (result.done) {
     (result.value: string); // error: number | void ~> string
   }
-});"
+});
+"
 `;
 
 exports[`test throw.js 1`] = `
@@ -217,5 +220,6 @@ async () => {
       (value: void); // error: number ~> void
     }
   });
-};"
+};
+"
 `;

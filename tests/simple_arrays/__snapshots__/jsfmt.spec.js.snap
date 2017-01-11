@@ -49,7 +49,8 @@ bar(0);
 // behavior as such functions are dead code.
 function baz(i: number): string {
   return a[i];
-}"
+}
+"
 `;
 
 exports[`test array2.js 1`] = `
@@ -75,5 +76,6 @@ for (var i = 0; i < 10; ++i) {
 
 function foo(i: number): string {
   return a[i];
-}"
+}
+"
 `;

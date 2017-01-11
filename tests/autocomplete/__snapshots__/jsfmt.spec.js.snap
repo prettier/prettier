@@ -21,7 +21,8 @@ declare var mixin: $Facebookism$Mixin;
 declare var objectGetPrototypeOf: Object$GetPrototypeOf;
 declare var objectAssign: Object$Assign;
 
-m;"
+m;
+"
 `;
 
 exports[`test unknown.js 1`] = `
@@ -29,5 +30,6 @@ exports[`test unknown.js 1`] = `
 module.exports = { x: { y: \"\" } };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
-module.exports = { x: { y: \"\" } };"
+module.exports = { x: { y: \"\" } };
+"
 `;

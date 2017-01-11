@@ -3,7 +3,8 @@ exports[`test Bar.js 1`] = `
 module.exports = Bar;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var Bar = { x: 0 };
-module.exports = Bar;"
+module.exports = Bar;
+"
 `;
 
 exports[`test copyProperties.js 1`] = `
@@ -81,7 +82,8 @@ let tests = [
     function x(cb: Function) {}
     x(copyProperties);
   }
-];"
+];
+"
 `;
 
 exports[`test invariant.js 1`] = `
@@ -112,7 +114,8 @@ let tests = [
     invariant(x);
     (x: string);
   }
-];"
+];
+"
 `;
 
 exports[`test lib.js 1`] = `
@@ -136,7 +139,8 @@ declare module \"mergeInto\" {
 }
 declare module \"mixin\" {
   declare var exports: $Facebookism$Mixin;
-}"
+}
+"
 `;
 
 exports[`test mergeInto.js 1`] = `
@@ -204,7 +208,8 @@ let tests = [
     function x(cb: Function) {}
     x(mergeInto);
   }
-];"
+];
+"
 `;
 
 exports[`test test.js 1`] = `
@@ -226,5 +231,6 @@ class Foo extends mixin(Bar) {
     var x: string = this.x;
     this.y = \"\";
   }
-}"
+}
+"
 `;

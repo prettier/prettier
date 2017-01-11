@@ -7,7 +7,8 @@ export function foo(): Implementation { return new Implementation; }
 class Implementation {}
 export function foo(): Implementation {
   return new Implementation();
-}"
+}
+"
 `;
 
 exports[`test ExplicitProvidesModuleDifferentName.js 1`] = `
@@ -25,7 +26,8 @@ module.exports.fun = (): Implementation => new Implementation;
  */
 
 class Implementation {}
-module.exports.fun = (): Implementation => new Implementation();"
+module.exports.fun = (): Implementation => new Implementation();
+"
 `;
 
 exports[`test ExplicitProvidesModuleSameName.js 1`] = `
@@ -43,7 +45,8 @@ module.exports.fun = (): Implementation => new Implementation;
  */
 
 class Implementation {}
-module.exports.fun = (): Implementation => new Implementation();"
+module.exports.fun = (): Implementation => new Implementation();
+"
 `;
 
 exports[`test ImplicitProvidesModule.js 1`] = `
@@ -61,12 +64,14 @@ module.exports.fun = (): Implementation => new Implementation;
  */
 
 class Implementation {}
-module.exports.fun = (): Implementation => new Implementation();"
+module.exports.fun = (): Implementation => new Implementation();
+"
 `;
 
 exports[`test md5.js 1`] = `
 "/* @providesModule md5 */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 "
 `;
 
@@ -91,5 +96,6 @@ var ExplicitSameName = require(\"ExplicitProvidesModuleSameName\");
 (ExplicitSameName.fun(): boolean);
 // Error: Either Implementation ~> boolean or Declaration ~> boolean
 var ExplicitDifferentName = require(\"ExplicitProvidesModuleDifferentName\");
-(ExplicitDifferentName.fun(): boolean); // Error: Either Implementation ~> boolean or Declaration ~> boolean"
+(ExplicitDifferentName.fun(): boolean); // Error: Either Implementation ~> boolean or Declaration ~> boolean
+"
 `;

@@ -21,7 +21,8 @@ class B {
 }
 function bar(x: Class<B>): B {
   return new x(); // error (too few args)
-}"
+}
+"
 `;
 
 exports[`test test2.js 1`] = `
@@ -53,5 +54,6 @@ check(B, new A());
 check(A, new B());
 check(C, new A());
 check(C, new B());
-check(B, new C());"
+check(B, new C());
+"
 `;

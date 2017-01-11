@@ -28,7 +28,8 @@ const barr = my_filter(arr, is_string);
 
 function is_string(x): %checks {
   return typeof x === \"string\";
-}"
+}
+"
 `;
 
 exports[`test filter-union.js 1`] = `
@@ -69,7 +70,8 @@ declare var ab: Array<A | B | C>;
 
 (my_filter(ab, (x): %checks => x.kind === \"A\"): Array<A>);
 // OK
-(my_filter(ab, (x): %checks => x.kind !== \"A\"): Array<B | C>); // OK"
+(my_filter(ab, (x): %checks => x.kind !== \"A\"): Array<B | C>); // OK
+"
 `;
 
 exports[`test refine.js 1`] = `
@@ -165,7 +167,8 @@ function is_string(x): boolean %checks {
 
 function is_string_and_number(x, y): %checks {
   return typeof x === \"string\" && typeof y === \"number\";
-}"
+}
+"
 `;
 
 exports[`test sanity-filter.js 1`] = `
@@ -215,7 +218,8 @@ function is_string(x): boolean %checks {
 
 function is_string_regular(x): boolean {
   return typeof x === \"string\";
-}"
+}
+"
 `;
 
 exports[`test sanity-filter-union.js 1`] = `
@@ -256,7 +260,8 @@ declare var ab: Array<A | B | C>;
 
 (my_filter(ab, (x): %checks => x.kind === \"A\"): Array<B>);
 // ERROR
-(my_filter(ab, (x): %checks => x.kind !== \"A\"): Array<A | C>); // ERROR"
+(my_filter(ab, (x): %checks => x.kind !== \"A\"): Array<A | C>); // ERROR
+"
 `;
 
 exports[`test sanity-refine.js 1`] = `
@@ -352,5 +357,6 @@ function is_string_regular(x) {
 
 function is_string_and_number(x, y): %checks {
   return typeof x === \"string\" && typeof y === \"number\";
-}"
+}
+"
 `;

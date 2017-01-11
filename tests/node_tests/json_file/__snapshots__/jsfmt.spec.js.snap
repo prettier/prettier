@@ -52,5 +52,6 @@ let data4 = require(\"./json_array\");
 // error, should be false
 (require(\"./json_null\"): void);
 // error, should be null
-(require(\"./json_negative_number\"): -1); // ok"
+(require(\"./json_negative_number\"): -1); // ok
+"
 `;

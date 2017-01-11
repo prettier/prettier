@@ -23,7 +23,8 @@ function doSomethingAsync(): Promise<void> {
 
 // simpler repro to show that too few args are fine when expecting void
 function foo(x: void) {}
-foo();"
+foo();
+"
 `;
 
 exports[`test undefined.js 1`] = `
@@ -50,7 +51,8 @@ function bar() {
     x.bar();
 }
 
-function qux(x?: number, y: string = \"\", z) {}"
+function qux(x?: number, y: string = \"\", z) {}
+"
 `;
 
 exports[`test undefined2.js 1`] = `
@@ -109,5 +111,6 @@ let tests = [
     const bar = [ undefined, \"bar\" ];
     (bar[x]: boolean); // error, string only
   }
-];"
+];
+"
 `;

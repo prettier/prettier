@@ -103,5 +103,6 @@ var fn: Function<string> = function() {
 // error, arity 0
 var fn: function<string> = function() {
   return \"foo\";
-}; // error, arity 0"
+}; // error, arity 0
+"
 `;

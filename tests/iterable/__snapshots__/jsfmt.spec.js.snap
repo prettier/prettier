@@ -19,7 +19,8 @@ var arrayTest3: Iterable<*> = [ 1, 2, 3 ];
 // Error string ~> number
 var arrayTest4: Iterable<number> = [ \"hi\" ];
 // Error string ~> number
-var arrayTest5: Iterable<string> = [ \"hi\", 1 ];"
+var arrayTest5: Iterable<string> = [ \"hi\", 1 ];
+"
 `;
 
 exports[`test caching_bug.js 1`] = `
@@ -69,7 +70,8 @@ function fill_the_cache(x: Array<any | any>): Iterable<string> {
 // Error: number ~> string
 function miss_the_cache(x: Array<string | number>): Iterable<string> {
   return x;
-}"
+}
+"
 `;
 
 exports[`test iter.js 1`] = `
@@ -95,7 +97,8 @@ function foo(strs: Iterable<string>): void {
 
 var m: Map<string, number> = new Map();
 
-foo(m.keys());"
+foo(m.keys());
+"
 `;
 
 exports[`test iterator_result.js 1`] = `
@@ -162,7 +165,8 @@ function makeIterator(coin_flip: () => boolean): Iterator<string> {
       }
     }
   };
-}"
+}
+"
 `;
 
 exports[`test map.js 1`] = `
@@ -197,7 +201,8 @@ function mapTest3(map: Map<string, number>): Iterable<*> {
 // Error - Map is an Iterable<[K, V]>
 function mapTest4(map: Map<number, string>): Iterable<string> {
   return map;
-}"
+}
+"
 `;
 
 exports[`test set.js 1`] = `
@@ -232,7 +237,8 @@ function setTest3(set: Set<string>): Iterable<*> {
 // Error string ~> number
 function setTest4(set: Set<string>): Iterable<number> {
   return set;
-}"
+}
+"
 `;
 
 exports[`test string.js 1`] = `
@@ -246,7 +252,8 @@ var stringTest3: Iterable<number> = \"hi\"; // Error - string is a Iterable<stri
 
 var stringTest1: Iterable<string> = \"hi\";
 var stringTest3: Iterable<*> = \"hi\";
-var stringTest3: Iterable<number> = \"hi\"; // Error - string is a Iterable<string>"
+var stringTest3: Iterable<number> = \"hi\"; // Error - string is a Iterable<string>
+"
 `;
 
 exports[`test variance.js 1`] = `
@@ -260,5 +267,6 @@ exports[`test variance.js 1`] = `
 
 (([]: Array<string>): Iterable<?string>);
 // ok, Iterable<+T>
-(([]: Array<string>).values(): Iterable<?string>); // ok, Iterator<+T>"
+(([]: Array<string>).values(): Iterable<?string>); // ok, Iterator<+T>
+"
 `;

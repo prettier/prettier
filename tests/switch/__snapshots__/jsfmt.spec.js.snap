@@ -58,7 +58,8 @@ function baz(x): number {
       throw new Error(\"hi\");
   }
   return 2;
-}"
+}
+"
 `;
 
 exports[`test switch.js 1`] = `
@@ -121,7 +122,8 @@ function qux(b) {
     case \"qux\":
       x = x * x;
   }
-}"
+}
+"
 `;
 
 exports[`test switch_default_fallthrough.js 1`] = `
@@ -223,7 +225,8 @@ function baz(x: mixed): number {
   (b: number);
   // error, string | number ~/> number
   return a + b; // error, string ~/> number
-}"
+}
+"
 `;
 
 exports[`test trailing_cases.js 1`] = `
@@ -394,5 +397,6 @@ function baz(x): number {
       return 1;
   }
   return 2;
-}"
+}
+"
 `;

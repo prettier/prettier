@@ -12,7 +12,8 @@ export const LIFE = 0;
 
 export type Action = { type: \"QUX\" } | { type: \"BAR\" };
 
-export const LIFE = 0;"
+export const LIFE = 0;
+"
 `;
 
 exports[`test e2.js 1`] = `
@@ -38,5 +39,6 @@ const f = (): Action => {
 
 import { LIFE } from \"./e1\";
 
-(LIFE: 0);"
+(LIFE: 0);
+"
 `;

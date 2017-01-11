@@ -67,7 +67,8 @@ class B extends A {
     return 23;
   }
 }
-B._sProperty = \"B._sProperty string\";"
+B._sProperty = \"B._sProperty string\";
+"
 `;
 
 exports[`test commonjs_export.js 1`] = `
@@ -85,7 +86,8 @@ class C {
   _p: string;
 }
 
-module.exports = new C();"
+module.exports = new C();
+"
 `;
 
 exports[`test commonjs_import.js 1`] = `
@@ -95,5 +97,6 @@ import {_p} from \"./commonjs_export\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-import { _p } from \"./commonjs_export\";"
+import { _p } from \"./commonjs_export\";
+"
 `;

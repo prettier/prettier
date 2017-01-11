@@ -41,7 +41,8 @@ class VirtualNode {
   constructor(type, children: Children) {
     this.children = children.length === 1 ? children[0] : children;
   }
-}"
+}
+"
 `;
 
 exports[`test issue-824.js 1`] = `
@@ -75,7 +76,8 @@ export default class A {
   static bar(p: I & K): boolean {
     return this.foo(p);
   }
-}"
+}
+"
 `;
 
 exports[`test issue-824-helper.js 1`] = `
@@ -103,7 +105,8 @@ export class C extends A {
   which(): number {
     return 2;
   }
-}"
+}
+"
 `;
 
 exports[`test issue-1349.js 1`] = `
@@ -119,7 +122,8 @@ var bar: Array<{b: ?boolean, c: number} | {b: boolean}> = [
 var bar: Array<{ b: ?boolean, c: number } | { b: boolean }> = [
   { b: true, c: 123 },
   { b: true }
-];"
+];
+"
 `;
 
 exports[`test issue-1371.js 1`] = `
@@ -135,7 +139,8 @@ function create(
   a: any
 ): { type: \"B\", data: number } | { type: \"A\", data: string } {
   return { type: \"A\", data: a };
-}"
+}
+"
 `;
 
 exports[`test issue-1455.js 1`] = `
@@ -156,7 +161,8 @@ function create(content: ?Foobar | String | Array<String>) {}
 
 function node(content: ?Foobar | String | Array<String>) {
   create(content);
-}"
+}
+"
 `;
 
 exports[`test issue-1455-helper.js 1`] = `
@@ -166,7 +172,8 @@ export class Foobar { }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-export class Foobar {}"
+export class Foobar {}
+"
 `;
 
 exports[`test issue-1462-i.js 1`] = `
@@ -207,7 +214,8 @@ function print(x: number) {
 
 function printAll(val: MyType) {
   print(val.foo); // <--- foo could be an array
-}"
+}
+"
 `;
 
 exports[`test issue-1462-ii.js 1`] = `
@@ -257,7 +265,8 @@ function printAll(val: MyType) {
   } else {
     val.foo.forEach(print);
   }
-}"
+}
+"
 `;
 
 exports[`test issue-1664.js 1`] = `
@@ -302,7 +311,8 @@ const data: Data = { id: \"\", name: \"\", kind: \"system\" };
 
 if (data.kind === \"system\") {
   (data: SystemData);
-}"
+}
+"
 `;
 
 exports[`test issue-1759.js 1`] = `
@@ -324,7 +334,8 @@ function hello(x: X): string {
     return x.b;
   else
     return x.c;
-}"
+}
+"
 `;
 
 exports[`test issue-2232.js 1`] = `
@@ -366,7 +377,8 @@ function test(f: Foo | EmptyFoo) {
   if (f.kind === 1) {
     (f: Foo);
   }
-}"
+}
+"
 `;
 
 exports[`test test1.js 1`] = `
@@ -487,7 +499,8 @@ class B6 {}
 inst([ new B6() ]);
 
 type A5 = B5[];
-type A6 = B6[];"
+type A6 = B6[];
+"
 `;
 
 exports[`test test2.js 1`] = `
@@ -640,7 +653,8 @@ function tup(a: [number, boolean] | [string, boolean]) {}
 tup(([ \"\", false ]: A6));
 
 type A6 = [B6, boolean];
-type B6 = string;"
+type B6 = string;
+"
 `;
 
 exports[`test test3.js 1`] = `
@@ -701,7 +715,8 @@ arr(([]: A2));
 
 type A2 = B2[];
 
-type B2 = string;"
+type B2 = string;
+"
 `;
 
 exports[`test test4.js 1`] = `
@@ -782,7 +797,8 @@ function arr_get(i: number): string {
 
 type A2 = B2[];
 
-type B2 = string;"
+type B2 = string;
+"
 `;
 
 exports[`test test5.js 1`] = `
@@ -845,7 +861,8 @@ arr(a2);
 
 function arr_set(x: string, i: number) {
   a2[i] = x;
-}"
+}
+"
 `;
 
 exports[`test test6.js 1`] = `
@@ -901,7 +918,8 @@ class E<X> extends _D<X> {}
 const _C = mk_C();
 class D<X> extends _C<X> {}
 
-class C<X> {}"
+class C<X> {}
+"
 `;
 
 exports[`test test7.js 1`] = `
@@ -962,7 +980,8 @@ function polyrec(x: PF<number> | PF<string>) {}
 rec({ x: 0 });
 
 type PF<X> = PG<X>;
-type PG<X> = { x: X, y?: PG<X> };"
+type PG<X> = { x: X, y?: PG<X> };
+"
 `;
 
 exports[`test test8.js 1`] = `
@@ -1012,7 +1031,8 @@ type G2_ = { x: H2_ };
 type H1 = boolean;
 type H1_ = string;
 type H2 = boolean;
-type H2_ = number;"
+type H2_ = number;
+"
 `;
 
 exports[`test test9.js 1`] = `
@@ -1048,7 +1068,8 @@ function square(x? = 0) {
 }
 
 function foo(f: ((_: ?number) => ?number) | (() => void)) {}
-foo((x): number => square(x));"
+foo((x): number => square(x));
+"
 `;
 
 exports[`test test10.js 1`] = `
@@ -1192,7 +1213,8 @@ class P<X> {}
 function check_poly_inst(_: P<number> | P<string>) {}
 
 // help!
-check_poly_inst(new P());"
+check_poly_inst(new P());
+"
 `;
 
 exports[`test test11.js 1`] = `
@@ -1234,7 +1256,8 @@ length({ kind: \"empty\" });
 // \`kind\` not found
 type List = Nil | Cons;
 type Nil = { kind: \"nil\" };
-type Cons = { kind: \"cons\", next: List };"
+type Cons = { kind: \"cons\", next: List };
+"
 `;
 
 exports[`test test12.js 1`] = `
@@ -1258,7 +1281,8 @@ type H = { x: string };
 
 function rec(x: F<string>): G | H {
   return x;
-}"
+}
+"
 `;
 
 exports[`test test13.js 1`] = `
@@ -1280,7 +1304,8 @@ exports[`test test13.js 1`] = `
 
 ({ type: \"B\", id: \"hi\" }: 
   | { type: \"A\", id: ?string }
-  | { type: \"B\", id: string });"
+  | { type: \"B\", id: string });
+"
 `;
 
 exports[`test test14.js 1`] = `
@@ -1308,7 +1333,8 @@ function union(o: { x: string } | { x: number }) {}
 
 function foo(c: C<number>) {
   union({ x: c.get() });
-}"
+}
+"
 `;
 
 exports[`test test15.js 1`] = `
@@ -1359,7 +1385,8 @@ type KeyboardEventHandler = (event: KeyboardEvent) => mixed;
 // example where globals are not yet resolved
 function bar(x: (() => void) | { x: number }) {}
 
-bar(() => {});"
+bar(() => {});
+"
 `;
 
 exports[`test test16.js 1`] = `
@@ -1401,7 +1428,8 @@ var x = false;
 function qux() {
   return x;
 }
-x = \"\";"
+x = \"\";
+"
 `;
 
 exports[`test test17.js 1`] = `
@@ -1419,7 +1447,8 @@ exports[`test test17.js 1`] = `
 
 [].concat([]);
 
-([].concat([ 0, 1 ])[1]: string);"
+([].concat([ 0, 1 ])[1]: string);
+"
 `;
 
 exports[`test test18.js 1`] = `
@@ -1446,7 +1475,8 @@ function f() {
   return 0;
 }
 
-new C().m(f());"
+new C().m(f());
+"
 `;
 
 exports[`test test19.js 1`] = `
@@ -1471,7 +1501,8 @@ function m<X>() {
   return new D();
 }
 
-declare class D { constructor(_: void): void, constructor(_: null): void }"
+declare class D { constructor(_: void): void, constructor(_: null): void }
+"
 `;
 
 exports[`test test20.js 1`] = `
@@ -1503,7 +1534,8 @@ exports[`test test20.js 1`] = `
   \"\"
 );
 
-[ \"\" ].reduce((acc, str) => acc * str.length);"
+[ \"\" ].reduce((acc, str) => acc * str.length);
+"
 `;
 
 exports[`test test21.js 1`] = `
@@ -1547,7 +1579,8 @@ function bar() {
 
 function str() {
   return \"hello\";
-}"
+}
+"
 `;
 
 exports[`test test22.js 1`] = `
@@ -1590,7 +1623,8 @@ function foo(x: T) {
     return x.result;
   else
     return x.result;
-}"
+}
+"
 `;
 
 exports[`test test23.js 1`] = `
@@ -1619,7 +1653,8 @@ function foo(obj: Obj) {
   obj.x;
   // should be OK
   obj.x; // should also be OK (the check above shouldn\'t affect anything)
-}"
+}
+"
 `;
 
 exports[`test test24.js 1`] = `
@@ -1688,7 +1723,8 @@ declare class D extends C {
   unref(): D
 }
 
-(0: D | number);"
+(0: D | number);
+"
 `;
 
 exports[`test test25.js 1`] = `
@@ -1715,7 +1751,8 @@ function foo(rows: Rows, set: Set<number>) {
     (set, row) => row.reduce_row((set, i) => set.add(i), set),
     set
   );
-}"
+}
+"
 `;
 
 exports[`test test26.js 1`] = `
@@ -1759,7 +1796,8 @@ declare class Record {
   set(x: \"bar\", y: string): void
 }
 
-new Record().set(\"foo\", \"42\");"
+new Record().set(\"foo\", \"42\");
+"
 `;
 
 exports[`test test27.js 1`] = `
@@ -1816,7 +1854,8 @@ function hello4(x: X): string {
   } else {
     return x.b;
   }
-}"
+}
+"
 `;
 
 exports[`test test29.js 1`] = `
@@ -1876,7 +1915,8 @@ class C {
   foo(rows: D<Row>, minWidth: number): number {
     return rows.reduce((length, row) => 0, minWidth);
   }
-}"
+}
+"
 `;
 
 exports[`test test30.js 1`] = `
@@ -1896,7 +1936,8 @@ const Constants = require(\"./test30-helper\");
 
 type ActionType = { type: \"foo\", x: number } | { type: \"bar\", x: number };
 
-({ type: Constants.BAR, x: 0 }: ActionType);"
+({ type: Constants.BAR, x: 0 }: ActionType);
+"
 `;
 
 exports[`test test30-helper.js 1`] = `
@@ -1909,7 +1950,8 @@ module.exports = {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
 
-module.exports = { FOO: \"foo\", BAR: \"bar\" };"
+module.exports = { FOO: \"foo\", BAR: \"bar\" };
+"
 `;
 
 exports[`test test31.js 1`] = `
@@ -1961,7 +2003,8 @@ function foo(): ImmutableMap<string, boolean> {
   const countersGlobalMap = new SomeMap();
   countersGlobalMap.set(\"\", false);
   return convert(countersGlobalMap);
-}"
+}
+"
 `;
 
 exports[`test test32.js 1`] = `
@@ -1983,5 +2026,6 @@ function foo(value: Indirect<string> | number): Indirect<string> | number {
 function foo(value: Indirect<string> | number): Indirect<string> | number {
   const castedValue: number = typeof value === \"number\" ? value : 0;
   return castedValue;
-}"
+}
+"
 `;

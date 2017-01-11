@@ -24,7 +24,8 @@ o.foo = 0;
 // future widening is constrained
 function bar(config: { foo?: number }) {}
 bar({});
-bar({ foo: \"\" });"
+bar({ foo: \"\" });
+"
 `;
 
 exports[`test test2.js 1`] = `
@@ -58,7 +59,8 @@ var d: { foo?: string } = { foo: null };
 // But this is an error
 var e: { foo?: ?string } = { foo: undefined };
 // This is fine
-var f: { foo?: ?string } = { foo: null }; // Also fine"
+var f: { foo?: ?string } = { foo: null }; // Also fine
+"
 `;
 
 exports[`test test3.js 1`] = `
@@ -174,7 +176,8 @@ class A {
     this.x = { a: 123 };
     this.x.b = \"hello\";
   }
-}"
+}
+"
 `;
 
 exports[`test test3_failure.js 1`] = `
@@ -196,5 +199,6 @@ class A<O: { x: { a: number, b?: string } }> {
     this.o.x = { a: 123 };
     this.o.x.b = \"hello\"; // this is a spurious error (see test3.js for details)
   }
-}"
+}
+"
 `;

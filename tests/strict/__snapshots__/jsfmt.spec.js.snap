@@ -21,7 +21,8 @@ class B extends A {
   }
 }
 
-module.exports = B;"
+module.exports = B;
+"
 `;
 
 exports[`test fun.js 1`] = `
@@ -52,7 +53,8 @@ function f(x: number) {
 //function f(x:number):string { return x; }
 var x: string = f(0);
 
-module.exports = f;"
+module.exports = f;
+"
 `;
 
 exports[`test obj.js 1`] = `
@@ -79,5 +81,6 @@ var o = { x: 0 };
 //var o: {x: number;} = { x: 0 }
 var x: string = o.x;
 
-module.exports = o;"
+module.exports = o;
+"
 `;

@@ -48,5 +48,6 @@ function d(): string {
   // equivalent to \`return x != null && x\`
   var x: ?number = null;
   return x != null ? x : x != null;
-}"
+}
+"
 `;

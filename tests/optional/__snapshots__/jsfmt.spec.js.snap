@@ -5,7 +5,8 @@ qux(0);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var qux = require(\"./optional\");
 
-qux(0);"
+qux(0);
+"
 `;
 
 exports[`test default.js 1`] = `
@@ -15,7 +16,8 @@ exports[`test default.js 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function f<T>(foo, bar = foo): [T, T] {
   return [ foo, bar ];
-}"
+}
+"
 `;
 
 exports[`test generic.js 1`] = `
@@ -29,7 +31,8 @@ function x<T>(x: T = 0) {}
 
 class C {
   x<T>(x: T = 0) {}
-}"
+}
+"
 `;
 
 exports[`test maybe.js 1`] = `
@@ -39,7 +42,8 @@ exports[`test maybe.js 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function foo(x?: string): ?string {
   return x;
-}"
+}
+"
 `;
 
 exports[`test nullable.js 1`] = `
@@ -141,7 +145,8 @@ function optionalNullable8(x: { y?: ?number }) {
   if (!(x.y === undefined || x.y === null)) {
     x.y++;
   }
-}"
+}
+"
 `;
 
 exports[`test optional.js 1`] = `
@@ -174,7 +179,8 @@ function qux(x = \"hello\", ...y): string {
 qux(0, 0);
 qux(0, ...[ \"\", 42 ]);
 
-module.exports = qux;"
+module.exports = qux;
+"
 `;
 
 exports[`test optional_param.js 1`] = `
@@ -260,7 +266,8 @@ function testOptionalNullableProperty(obj: { x?: ?string }): string {
 function testOptionalNullableFlowingToNullable(x?: ?string): ?string {
   var f = function(y: ?string) {};
   f(x);
-}"
+}
+"
 `;
 
 exports[`test optional_param2.js 1`] = `
@@ -274,7 +281,8 @@ var j:I<number> = i.map(id => id);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare class I<V> { map<M>(mapper: (value?: V) => M): I<M> }
 var i: I<number> = new I();
-var j: I<number> = i.map(id => id);"
+var j: I<number> = i.map(id => id);
+"
 `;
 
 exports[`test optional_param3.js 1`] = `
@@ -292,7 +300,8 @@ foo(undefined);
 function bar(x = \"bar\"): string {
   return x;
 }
-bar(undefined); // ok"
+bar(undefined); // ok
+"
 `;
 
 exports[`test optional_param4.js 1`] = `
@@ -323,7 +332,8 @@ foo(123, \"hello\");
 // OK
 foo(true);
 // ERROR boolean ~> number
-foo(123, true); // ERROR boolean ~> string"
+foo(123, true); // ERROR boolean ~> string
+"
 `;
 
 exports[`test undefined.js 1`] = `
@@ -345,7 +355,8 @@ function foo(bar? = undefined) {
 
 function bar() {
   return x.duck;
-}"
+}
+"
 `;
 
 exports[`test undefined2.js 1`] = `
@@ -367,5 +378,6 @@ function foo(bar?) {
 
 function bar() {
   return x.duck;
-}"
+}
+"
 `;

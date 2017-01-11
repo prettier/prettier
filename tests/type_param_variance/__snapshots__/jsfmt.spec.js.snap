@@ -53,5 +53,6 @@ async function run() {
   console.log(await foo(false));
 }
 
-run();"
+run();
+"
 `;

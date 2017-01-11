@@ -14,7 +14,8 @@ module.exports = {
  * @flow
  */
 
-module.exports = { numberValueA: 1, stringValueA: \"someString\" };"
+module.exports = { numberValueA: 1, stringValueA: \"someString\" };
+"
 `;
 
 exports[`test B.js 1`] = `
@@ -33,7 +34,8 @@ module.exports = {
  * @flow
  */
 
-module.exports = { numberValueB: 1, stringValueB: \"someString\" };"
+module.exports = { numberValueB: 1, stringValueB: \"someString\" };
+"
 `;
 
 exports[`test requireLazy.js 1`] = `
@@ -85,5 +87,6 @@ requireLazy();
 // Error: No args
 requireLazy([ nope ], function() {});
 // Error: Non-stringliteral args
-requireLazy([ \"A\" ]); // Error: No calback expression"
+requireLazy([ \"A\" ]); // Error: No calback expression
+"
 `;

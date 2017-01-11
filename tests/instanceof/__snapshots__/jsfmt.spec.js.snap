@@ -202,5 +202,6 @@ function foo1(x: Array<number> | number) {
   } else {
     x[0] = 123; // error
   }
-}"
+}
+"
 `;

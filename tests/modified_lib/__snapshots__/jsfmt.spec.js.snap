@@ -9,5 +9,6 @@ bar(5);
 
 import { bar } from \"foo\";
 
-bar(5);"
+bar(5);
+"
 `;

@@ -169,7 +169,8 @@ for (let [ x, y ]: [number, string] of a.entries()) {}
 // incorrect
 for (let [ x, y ]: [string, number] of a.entries()) {}
 // incorrect
-for (let [ x, y ]: [number, number] of a.entries()) {} // incorrect"
+for (let [ x, y ]: [number, number] of a.entries()) {} // incorrect
+"
 `;
 
 exports[`test MutationObserver.js 1`] = `
@@ -246,5 +247,6 @@ o.observe(div, { attributes: true, attributeFilter: true });
 o.takeRecords();
 // correct
 // disconnect
-o.disconnect(); // correct"
+o.disconnect(); // correct
+"
 `;

@@ -9,7 +9,8 @@ const val: string = dict[k] // error: number incompatible with string
 
 const dict: { [key: string]: number } = {};
 const k: any = \"foo\";
-const val: string = dict[k]; // error: number incompatible with string"
+const val: string = dict[k]; // error: number incompatible with string
+"
 `;
 
 exports[`test compatible.js 1`] = `
@@ -45,7 +46,8 @@ function foo2(
 ): { [key: string]: number, +toString: () => string } {
   // x\'s prototype has a toString method
   return x;
-}"
+}
+"
 `;
 
 exports[`test dictionary.js 1`] = `
@@ -688,7 +690,8 @@ function subtype_optional_b_to_dict(x: { p?: B }): { [k: string]: B } {
 function subtype_optional_c_to_dict(x: { p?: C }): { [k: string]: B } {
   // error: C ~> B
   return x;
-}"
+}
+"
 `;
 
 exports[`test incompatible.js 1`] = `
@@ -814,7 +817,8 @@ function foo8(x: { [key: string]: number }) {
   (x.foo: string);
   // error
   (x.foo: number);
-}"
+}
+"
 `;
 
 exports[`test issue-1745.js 1`] = `
@@ -868,7 +872,8 @@ class B {
   m1() {
     this.x = { bar: 0 }; // no error
   }
-}"
+}
+"
 `;
 
 exports[`test test.js 1`] = `
@@ -892,7 +897,8 @@ var o: { foo: QueryFunction } = {
   }
 };
 
-module.exports = o;"
+module.exports = o;
+"
 `;
 
 exports[`test test_client.js 1`] = `
@@ -906,5 +912,6 @@ var o = require(\"./test\");
 
 o.foo = function(params) {
   return params.count; // error, number ~/~ string
-};"
+};
+"
 `;

@@ -21,7 +21,8 @@ var a = new A();
 var test4 = a.constructor.bar;
 // Error bar doesn\'t exist
 var test5: string = a.constructor.name;
-var test6: number = a.constructor.name; // Error string ~> number"
+var test6: number = a.constructor.name; // Error string ~> number
+"
 `;
 
 exports[`test function.js 1`] = `
@@ -30,5 +31,6 @@ exports[`test function.js 1`] = `
  * know that .name exists
  */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 "
 `;

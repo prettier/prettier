@@ -21,7 +21,8 @@ var AudienceInsightsContainer = React.createClass({
   }
 });
 
-module.exports = AudienceInsightsContainer;"
+module.exports = AudienceInsightsContainer;
+"
 `;
 
 exports[`test createElement_string.js 1`] = `
@@ -47,7 +48,8 @@ class Foo extends React.Component {
     const Cmp = Math.random() < 0.5 ? \"div\" : Bar;
     return <Cmp />;
   }
-}"
+}
+"
 `;
 
 exports[`test createElementRequiredProp_string.js 1`] = `
@@ -93,7 +95,8 @@ class Foo extends React.Component {
     const Cmp = Math.random() < 0.5 ? \"div\" : Bar;
     return <Cmp />;
   }
-}"
+}
+"
 `;
 
 exports[`test import_react.js 1`] = `
@@ -111,7 +114,8 @@ import react from \"react\";
 import { Component } from \"react\";
 
 var a: Component<*, *, *> = new react.Component();
-var b: number = new react.Component(); // Error: ReactComponent ~> number"
+var b: number = new react.Component(); // Error: ReactComponent ~> number
+"
 `;
 
 exports[`test jsx_spread.js 1`] = `
@@ -135,7 +139,8 @@ var Foo = React.createClass({
 });
 
 var props = { bar: 42 };
-var blah = <Foo {...props} />; // error bar, number given string expected"
+var blah = <Foo {...props} />; // error bar, number given string expected
+"
 `;
 
 exports[`test proptype_arrayOf.js 1`] = `
@@ -165,7 +170,8 @@ var ok_empty = <Example arr={[]} />;
 var ok_numbers = <Example arr={[ 1, 2 ]} />;
 
 var fail_not_array = <Example arr={2} />;
-var fail_mistyped_elems = <Example arr={[ 1, \"foo\" ]} />;"
+var fail_mistyped_elems = <Example arr={[ 1, \"foo\" ]} />;
+"
 `;
 
 exports[`test proptype_func.js 1`] = `
@@ -195,7 +201,8 @@ var ok_void = <Example func={() => {}} />;
 var ok_args = <Example func={x => {}} />;
 var ok_retval = <Example func={() => 1} />;
 
-var fail_mistyped = <Example func={2} />;"
+var fail_mistyped = <Example func={2} />;
+"
 `;
 
 exports[`test proptype_missing.js 1`] = `
@@ -260,7 +267,8 @@ var React = React.createClass({
     // But this never errored
     return <div id={this.props.name} />;
   }
-});"
+});
+"
 `;
 
 exports[`test proptype_object.js 1`] = `
@@ -288,7 +296,8 @@ var Example = React.createClass({
 var ok_empty = <Example object={{}} />;
 var ok_props = <Example object={{ foo: \"bar\" }} />;
 
-var fail_mistyped = <Example object={2} />;"
+var fail_mistyped = <Example object={2} />;
+"
 `;
 
 exports[`test proptype_objectOf.js 1`] = `
@@ -320,7 +329,8 @@ var ok_empty = <Example obj={{}} />;
 var ok_numbers = <Example obj={{ foo: 1, bar: 2 }} />;
 
 var fail_not_object = <Example obj={2} />;
-var fail_mistyped_props = <Example obj={{ foo: \"foo\" }} />;"
+var fail_mistyped_props = <Example obj={{ foo: \"foo\" }} />;
+"
 `;
 
 exports[`test proptype_oneOf.js 1`] = `
@@ -344,7 +354,8 @@ var Example = React.createClass({
 });
 
 var ex1 = <Example literal=\"foo\" />;
-var ex2 = <Example literal=\"bar\" />;"
+var ex2 = <Example literal=\"bar\" />;
+"
 `;
 
 exports[`test proptype_oneOfType.js 1`] = `
@@ -394,5 +405,6 @@ var Example = React.createClass({
 var ok_number = <Example prop={42} />;
 var ok_string = <Example prop=\"bar\" />;
 
-var fail_bool = <Example prop={true} />;"
+var fail_bool = <Example prop={true} />;
+"
 `;

@@ -9,7 +9,8 @@ module.exports = { A, B };
 class A {}
 class B {}
 
-module.exports = { A, B };"
+module.exports = { A, B };
+"
 `;
 
 exports[`test test2.js 1`] = `
@@ -27,7 +28,8 @@ var I = require(\"./test.js\");
 class C extends I.A {}
 
 var x: I.A = new C();
-var y: I.B = new C();"
+var y: I.B = new C();
+"
 `;
 
 exports[`test test3.js 1`] = `
@@ -44,7 +46,8 @@ class C<X, Y, Z> extends B {}
 
 var c: C<number, string, Array<boolean>> = new C();
 // none of the type args matter
-var a: A<string, number, Array<boolean>> = c; // the third type arg is incorrect"
+var a: A<string, number, Array<boolean>> = c; // the third type arg is incorrect
+"
 `;
 
 exports[`test test4.js 1`] = `
@@ -78,5 +81,6 @@ class D extends C<O> {
   }
 }
 
-foo(new D(), { f_: 0 });"
+foo(new D(), { f_: 0 });
+"
 `;

@@ -5,7 +5,8 @@ module.exports.fun = (): string => \'hello there!\';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-module.exports.fun = (): string => \"hello there!\";"
+module.exports.fun = (): string => \"hello there!\";
+"
 `;
 
 exports[`test CJS.js 1`] = `
@@ -13,7 +14,8 @@ exports[`test CJS.js 1`] = `
 module.exports = 42;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-module.exports = 42;"
+module.exports = 42;
+"
 `;
 
 exports[`test test_absolute.js 1`] = `
@@ -59,7 +61,8 @@ var E = require(\"package_with_no_package_json\");
 (E.fun(): string);
 // Error number ~> string
 var F = require(\"package_with_dir_main\");
-(F.fun(): string); // Error number ~> string"
+(F.fun(): string); // Error number ~> string
+"
 `;
 
 exports[`test test_relative.js 1`] = `
@@ -89,5 +92,6 @@ var A2 = require(\"./A.js\");
 // Error number ~> string
 var CJS = require(\"./CJS.js\");
 (CJS: string);
-(CJS: number); // Error: string ~> number"
+(CJS: number); // Error: string ~> number
+"
 `;

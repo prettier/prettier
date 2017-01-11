@@ -141,5 +141,6 @@ var i_number: I<number> = new I(123);
 // Error number ~> ?string
 var i_void: I<void> = new I();
 var i_default: I<> = new I(\"hello\");
-var i_star: I<*> = new I(\"hello\");"
+var i_star: I<*> = new I(\"hello\");
+"
 `;

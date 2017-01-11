@@ -22,7 +22,8 @@ var lengthTest1: IHasLength = [];
 var lengthTest2: IHasLength = \"hello\";
 var lengthTest3: IHasLength = 123;
 // number doesn\'t have length
-var lengthTest4: IHasLength = true; // bool doesn\'t have length"
+var lengthTest4: IHasLength = true; // bool doesn\'t have length
+"
 `;
 
 exports[`test class.js 1`] = `
@@ -67,7 +68,8 @@ interface IHasYString  { y: string }
 var testInstance1: IHasXString = new ClassWithXString();
 var testInstance2: IHasXNumber = new ClassWithXString();
 // Error wrong type
-var testInstance3: IHasYString = new ClassWithXString(); // Error missing prop"
+var testInstance3: IHasYString = new ClassWithXString(); // Error missing prop
+"
 `;
 
 exports[`test obj.js 1`] = `
@@ -111,7 +113,8 @@ function propTest5(y: { [key: string]: string }) {
 
 function propTest6(y: { [key: string]: number }) {
   (y: IHasXString); // error: string != number
-}"
+}
+"
 `;
 
 exports[`test optional.js 1`] = `
@@ -136,5 +139,6 @@ var test1: HasOptional = { a: \"hello\" };
 
 var test2: HasOptional = {};
 // Error: missing property a
-var test3: HasOptional = { a: \"hello\", b: true }; // Error: boolean ~> number"
+var test3: HasOptional = { a: \"hello\", b: true }; // Error: boolean ~> number
+"
 `;

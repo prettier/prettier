@@ -130,7 +130,8 @@ var testSubtypingGetterAndSetter: number = foo.propWithSubtypingGetterAndSetter;
 // Error ?number ~> number
 var testPropOverridenWithGetter: number = foo.propOverriddenWithGetter;
 // Error string ~> number
-foo.propOverriddenWithSetter = 123; // Error number ~> string"
+foo.propOverriddenWithSetter = 123; // Error number ~> string
+"
 `;
 
 exports[`test object.js 1`] = `
@@ -267,7 +268,8 @@ var testSubtypingGetterAndSetter: number = obj.propWithSubtypingGetterAndSetter;
 obj.exampleOfOrderOfGetterAndSetter = new C();
 // Error C ~> B
 // And this example shows the danger of using the setter\'s type.
-var testExampleOrOrderOfGetterAndSetterReordered: number = obj.exampleOfOrderOfGetterAndSetterReordered; // Error A ~> B"
+var testExampleOrOrderOfGetterAndSetterReordered: number = obj.exampleOfOrderOfGetterAndSetterReordered; // Error A ~> B
+"
 `;
 
 exports[`test react.js 1`] = `
@@ -297,7 +299,8 @@ React.createClass({
     },
     c: 10
   }
-});"
+});
+"
 `;
 
 exports[`test variance.js 1`] = `
@@ -460,5 +463,6 @@ class Base {
 (class extends Base {
   // ok: read/write invariant with get/set
   getset: B;
-});"
+});
+"
 `;

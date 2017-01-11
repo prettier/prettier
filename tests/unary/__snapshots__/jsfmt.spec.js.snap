@@ -37,7 +37,8 @@ function x4(y: string): boolean {
   return !y; // ok, coercion is allowed
 }
 
-(-1: void); // error, number ~> void"
+(-1: void); // error, number ~> void
+"
 `;
 
 exports[`test update.js 1`] = `
@@ -114,5 +115,6 @@ let tests = [
   function(y: any) {
     y++; // ok
   }
-];"
+];
+"
 `;

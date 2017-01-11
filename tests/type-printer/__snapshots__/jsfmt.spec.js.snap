@@ -35,7 +35,8 @@ function printBinaryExpression(node: BinaryExpression) {
   console.log(node);
 }
 
-module.exports = printBinaryExpression;"
+module.exports = printBinaryExpression;
+"
 `;
 
 exports[`test types.js 1`] = `
@@ -10332,5 +10333,6 @@ export type JSXSpreadAttribute = {
   },
   start: number,
   trailingComments: ?Array<Comment>
-};"
+};
+"
 `;

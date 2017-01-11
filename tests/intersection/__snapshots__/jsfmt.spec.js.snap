@@ -13,7 +13,8 @@ function foo(x: $All<Error, { type: number }>): number {
 
 function bar(x: Error & { type: number }): number {
   return x.type;
-}"
+}
+"
 `;
 
 exports[`test objassign.js 1`] = `
@@ -39,7 +40,8 @@ let y: ObjAssignT = { ...x }; // should be fine
 
 declare var x: ObjAssignT;
 
-let y: ObjAssignT = { ...x }; // should be fine"
+let y: ObjAssignT = { ...x }; // should be fine
+"
 `;
 
 exports[`test pred.js 1`] = `
@@ -92,7 +94,8 @@ function hasObjectMode_bad(options: DuplexStreamOptions): boolean {
 function hasObjectMode_ok(options: DuplexStreamOptions): boolean {
   return !!(options.objectMode || options.readableObjectMode ||
     options.writableObjectMode);
-}"
+}
+"
 `;
 
 exports[`test test_fun.js 1`] = `
@@ -158,7 +161,8 @@ var fun2: FG = fun1;
 
 // simpler variation
 declare var f: ((_: number) => void) & ((_: string) => void);
-var g: (_: number | string) => void = f;"
+var g: (_: number | string) => void = f;
+"
 `;
 
 exports[`test test_obj.js 1`] = `
@@ -220,5 +224,6 @@ var d: D = c;
 // ok
 // dict type mismatch
 type E = { [key: string]: string };
-var e: E = c; // error"
+var e: E = c; // error
+"
 `;

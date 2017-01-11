@@ -161,7 +161,8 @@ function local_meth() {
   takes_string(local_y);
   // error
   local_y = 42; // shouldn\'t pollute linear refinement
-}"
+}
+"
 `;
 
 exports[`test cond_havoc.js 1`] = `
@@ -193,7 +194,8 @@ function example(b: boolean): number {
     f();
   }
   return x; // error, string ~/~> number (return type anno) TODO
-}"
+}
+"
 `;
 
 exports[`test const.js 1`] = `
@@ -305,5 +307,6 @@ function h(x: number | string | boolean) {
 }
 
 // in a galaxy far far away
-call_me();"
+call_me();
+"
 `;

@@ -23,7 +23,8 @@ function qux(x: mixed): any {
 
 var x: string = foo(0);
 var y: string = bar(0);
-var z: string = qux(0);"
+var z: string = qux(0);
+"
 `;
 
 exports[`test anyexportflowfile.js 1`] = `
@@ -33,7 +34,8 @@ module.exports = ((x: any) => x: any);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-module.exports = ((x: any) => x: any);"
+module.exports = ((x: any) => x: any);
+"
 `;
 
 exports[`test flowfixme.js 1`] = `
@@ -83,7 +85,8 @@ function baz(x: $FlowFixMe<nnumber>): $FlowFixMe<number> {
 var x: string = foo(0);
 var y: string = bar(0);
 var z: string = qux(0);
-var w: string = baz(0);"
+var w: string = baz(0);
+"
 `;
 
 exports[`test flowissue.js 1`] = `
@@ -133,7 +136,8 @@ function baz(x: $FlowIssue<nnumber>): $FlowIssue<number> {
 var x: string = foo(0);
 var y: string = bar(0);
 var z: string = qux(0);
-var w: string = baz(0);"
+var w: string = baz(0);
+"
 `;
 
 exports[`test nonflowfile.js 1`] = `
@@ -143,7 +147,8 @@ module.exports = (x) => x;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
 
-module.exports = x => x;"
+module.exports = x => x;
+"
 `;
 
 exports[`test propagate.js 1`] = `
@@ -197,7 +202,8 @@ function bar2(x: mixed) {
   if (any_fun2(x)) {
     (x: boolean);
   }
-}"
+}
+"
 `;
 
 exports[`test reach.js 1`] = `
@@ -227,5 +233,6 @@ function foo(o: ?AsyncRequest) {
   if (o) {
     var n: number = o;
   }
-}"
+}
+"
 `;

@@ -76,7 +76,8 @@ var abig2: Array<{ x: number, y: number }> = [
   { x: 0, y: 0, c: \"hey\" }
 ];
 
-module.exports = \"arrays\";"
+module.exports = \"arrays\";
+"
 `;
 
 exports[`test numeric_elem.js 1`] = `
@@ -94,5 +95,6 @@ var day = new Date();
 // Date instances are numeric (see Flow_js.numeric) and thus can index into
 // arrays.
 arr[day] = 0;
-(arr[day]: string); // error: number ~> string"
+(arr[day]: string); // error: number ~> string
+"
 `;

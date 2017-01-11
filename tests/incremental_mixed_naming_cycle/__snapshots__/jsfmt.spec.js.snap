@@ -17,7 +17,8 @@ module.exports = \'A\';
 (require(\"./b\"): void);
 (require(\"C\"): void);
 
-module.exports = \"A\";"
+module.exports = \"A\";
+"
 `;
 
 exports[`test b.js 1`] = `
@@ -39,7 +40,8 @@ module.exports = \'B\';
 (require(\"A\"): void);
 (require(\"D\"): void);
 
-module.exports = \"B\";"
+module.exports = \"B\";
+"
 `;
 
 exports[`test c.js 1`] = `
@@ -61,7 +63,8 @@ module.exports = \'C\';
 require(\"Root\");
 (require(\"./b\"): void);
 
-module.exports = \"C\";"
+module.exports = \"C\";
+"
 `;
 
 exports[`test d.js 1`] = `
@@ -81,7 +84,8 @@ module.exports = \'D\';
 
 (require(\"./b\"): void);
 
-module.exports = \"D\";"
+module.exports = \"D\";
+"
 `;
 
 exports[`test root.js 1`] = `
@@ -97,5 +101,6 @@ module.exports = \'Root\';
  * @flow
  */
 
-module.exports = \"Root\";"
+module.exports = \"Root\";
+"
 `;

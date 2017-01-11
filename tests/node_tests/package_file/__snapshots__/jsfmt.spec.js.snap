@@ -1,7 +1,8 @@
 exports[`test bar_lib.js 1`] = `
 "module.exports = \"bar_lib\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-module.exports = \"bar_lib\";"
+module.exports = \"bar_lib\";
+"
 `;
 
 exports[`test foo.js 1`] = `
@@ -10,5 +11,6 @@ console.log(x);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var x: string = require(\"./bar_lib\");
 // \'bar_lib\' does not work!
-console.log(x);"
+console.log(x);
+"
 `;

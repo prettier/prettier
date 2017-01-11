@@ -5,12 +5,14 @@ exports.numberValue = 42;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-exports.numberValue = 42;"
+exports.numberValue = 42;
+"
 `;
 
 exports[`test C.js 1`] = `
 "/* @flow */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 "
 `;
 
@@ -33,7 +35,8 @@ exports = {stringValue: \'\'};
 // does not affect the exports value.
 module.exports = { numberValue: 42 };
 
-exports = { stringValue: \"\" };"
+exports = { stringValue: \"\" };
+"
 `;
 
 exports[`test ProvidesModuleA.js 1`] = `
@@ -49,7 +52,8 @@ exports.numberValue = 42;
  * @flow
  */
 
-exports.numberValue = 42;"
+exports.numberValue = 42;
+"
 `;
 
 exports[`test ProvidesModuleD.js 1`] = `
@@ -58,6 +62,7 @@ exports[`test ProvidesModuleD.js 1`] = `
  * @flow
  */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 "
 `;
 
@@ -70,7 +75,8 @@ require(\"not a module name\");
 // @flow
 
 function require() {}
-require(\"not a module name\");"
+require(\"not a module name\");
+"
 `;
 
 exports[`test not_builtin_require2.js 1`] = `
@@ -82,7 +88,8 @@ var a: require = 42;
 // @flow
 
 type require = number;
-var a: require = 42;"
+var a: require = 42;
+"
 `;
 
 exports[`test require.js 1`] = `
@@ -158,5 +165,6 @@ require(\`./E\`);
 require(\`\${\"./E\"}\`);
 // error: but only if they have no expressions
 // require.call is allowed but circumverts Flow\'s static analysis
-require.call(null, \"DoesNotExist\");"
+require.call(null, \"DoesNotExist\");
+"
 `;

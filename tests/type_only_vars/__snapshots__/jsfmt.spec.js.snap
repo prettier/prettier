@@ -22,7 +22,8 @@ class Foo {}
 
 class Bar {}
 
-module.exports = { Foo: Foo, Bar: Bar };"
+module.exports = { Foo: Foo, Bar: Bar };
+"
 `;
 
 exports[`test bad_shadowing.js 1`] = `
@@ -60,7 +61,8 @@ var Foo: string = \"Goodbye\";
 var Baz: string = \"Go away please\";
 
 // This string type should conflict with the typedef
-var duck: string = \"quack\";"
+var duck: string = \"quack\";
+"
 `;
 
 exports[`test good_shadowing.js 1`] = `
@@ -104,7 +106,8 @@ var o = Baz;
 // errors from value positions only
 var a: Foo = new Foo();
 var b: Foo = new A.Foo();
-(new A.Bar(): Baz);"
+(new A.Bar(): Baz);
+"
 `;
 
 exports[`test import_type.js 1`] = `
@@ -142,7 +145,8 @@ var o = Baz;
 
 // But using it in a type should still work
 var a: Foo = new actualA.Foo();
-(new actualA.Bar(): Baz);"
+(new actualA.Bar(): Baz);
+"
 `;
 
 exports[`test type_alias.js 1`] = `
@@ -172,5 +176,6 @@ var x = Foo;
 // But using it in a type should still work
 var a: Foo = 123;
 var b: Array<Foo> = [ 123 ];
-type c = Foo;"
+type c = Foo;
+"
 `;

@@ -38,7 +38,8 @@ var y = Object(\"123\");
 
 var z = Object(123);
 // error (next line makes this not match any signatures)
-(z.charAt(0): string);"
+(z.charAt(0): string);
+"
 `;
 
 exports[`test objects.js 1`] = `
@@ -87,7 +88,8 @@ y[\"foo\"] = 123;
 // error, number !~> string
 y[\"bar\"] = \"abc\";
 // error, property not found
-(y[\"hasOwnProperty\"]: string); // error, prototype method is not a string"
+(y[\"hasOwnProperty\"]: string); // error, prototype method is not a string
+"
 `;
 
 exports[`test unaliased_assign.js 1`] = `
@@ -145,5 +147,6 @@ function assign_then_widen() {
   var obj: { x: string | number };
   obj = { x: \"hey\" };
   obj.x = 10; // ok, by lvalue\'s given type
-}"
+}
+"
 `;

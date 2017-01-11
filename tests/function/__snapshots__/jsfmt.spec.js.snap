@@ -90,7 +90,8 @@ function test2(): number {
   return 0;
 }
 (test2.apply(): number);
-(test2.apply(\"\"): number);"
+(test2.apply(\"\"): number);
+"
 `;
 
 exports[`test bind.js 1`] = `
@@ -113,7 +114,8 @@ let tests = [
     // ok
     y(123); // error, number !~> string
   }
-];"
+];
+"
 `;
 
 exports[`test call.js 1`] = `
@@ -194,7 +196,8 @@ function test2(): number {
   return 0;
 }
 (test2.call(): number);
-(test2.call(\"\"): number);"
+(test2.call(\"\"): number);
+"
 `;
 
 exports[`test function.js 1`] = `
@@ -342,7 +345,8 @@ let tests = [
 var d: Function = () => 1;
 var e = (d.bind(1): Function)();
 (e: number);
-(e: string);"
+(e: string);
+"
 `;
 
 exports[`test rest.js 1`] = `
@@ -384,5 +388,6 @@ function rest_any(...xs: any): any {
 // Warn, arbitrary subtypes of an array type don\'t represent rest params
 function rest_t<U, T: Array<U>>(...xs: T): U {
   return xs[0];
-}"
+}
+"
 `;

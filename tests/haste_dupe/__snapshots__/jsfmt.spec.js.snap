@@ -11,7 +11,8 @@ module.exports = \"dupe1\";
  * @providesModule Dupe
  * @flow
  */
-module.exports = \"dupe1\";"
+module.exports = \"dupe1\";
+"
 `;
 
 exports[`test dupe2.js 1`] = `
@@ -27,7 +28,8 @@ module.exports = \"dupe2\";
  * @providesModule Dupe
  * @flow
  */
-module.exports = \"dupe2\";"
+module.exports = \"dupe2\";
+"
 `;
 
 exports[`test requires_dupe.js 1`] = `
@@ -41,5 +43,6 @@ var dupe = require(\'Dupe\');
  * depends on doubly-provided module
  * @flow
  */
-var dupe = require(\"Dupe\");"
+var dupe = require(\"Dupe\");
+"
 `;

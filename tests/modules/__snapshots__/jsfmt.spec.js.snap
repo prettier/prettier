@@ -9,7 +9,8 @@ var y:number = f(0);
 
 var f = require(\"./lib\");
 
-var y: number = f(0);"
+var y: number = f(0);
+"
 `;
 
 exports[`test cli2.js 1`] = `
@@ -23,7 +24,8 @@ f(\"...\");
 
 var f = require(\"./lib\");
 
-f(\"...\");"
+f(\"...\");
+"
 `;
 
 exports[`test lib.js 1`] = `
@@ -48,5 +50,6 @@ function f(x: number): number {
   return x;
 }
 
-module.exports = f;"
+module.exports = f;
+"
 `;

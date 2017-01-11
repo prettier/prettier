@@ -40,7 +40,8 @@ function g() {
   var x: number = foo1.get();
   // error: string !~> number
   foo = foo1;
-}"
+}
+"
 `;
 
 exports[`test genericfoo.js 1`] = `
@@ -68,5 +69,6 @@ class Foo<T> {
   }
 }
 
-module.exports = Foo;"
+module.exports = Foo;
+"
 `;

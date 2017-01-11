@@ -137,5 +137,6 @@ function singleton<T>(x: T): Array<T> {
   return [ x ];
 }
 
-var num_array: Array<number> = singleton(0); // ok, type arg inferred"
+var num_array: Array<number> = singleton(0); // ok, type arg inferred
+"
 `;

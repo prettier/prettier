@@ -5,12 +5,14 @@ exports.numberValue = 42;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-exports.numberValue = 42;"
+exports.numberValue = 42;
+"
 `;
 
 exports[`test C.js 1`] = `
 "/* @flow */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 "
 `;
 
@@ -67,7 +69,8 @@ class Test extends Base {
   }
 }
 
-module.exports = Test;"
+module.exports = Test;
+"
 `;
 
 exports[`test CommonJS_Clobbering_Lit.js 1`] = `
@@ -95,7 +98,8 @@ module.exports = {
   numberValue3: 3,
   numberValue4: 4,
   numberValue5: 5
-};"
+};
+"
 `;
 
 exports[`test CommonJS_Named.js 1`] = `
@@ -119,7 +123,8 @@ exports.numberValue1 = 1;
 exports.numberValue2 = 2;
 exports.numberValue3 = 3;
 exports.numberValue4 = 4;
-exports.numberValue5 = 5;"
+exports.numberValue5 = 5;
+"
 `;
 
 exports[`test ES6_Default_AnonFunction1.js 1`] = `
@@ -135,7 +140,8 @@ declare export default () => number;
  * @flow
  */
 
-declare export default () => number"
+declare export default () => number
+"
 `;
 
 exports[`test ES6_Default_AnonFunction2.js 1`] = `
@@ -151,7 +157,8 @@ declare export default () =>number;
  * @flow
  */
 
-declare export default () => number"
+declare export default () => number
+"
 `;
 
 exports[`test ES6_Default_NamedClass1.js 1`] = `
@@ -179,7 +186,8 @@ declare export default class FooImpl { givesANum(): number }
 //
 // Default-exported class should also be available in local scope
 declare export { FooImpl as Foo };
-declare export function getAFoo(): FooImpl;"
+declare export function getAFoo(): FooImpl;
+"
 `;
 
 exports[`test ES6_Default_NamedClass2.js 1`] = `
@@ -196,6 +204,7 @@ declare export default class Foo { givesANum(): number; };
  */
 
 declare export default class Foo { givesANum(): number }
+
 "
 `;
 
@@ -212,7 +221,8 @@ declare export default function foo():number;
  * @flow
  */
 
-declare export default function foo(): number;"
+declare export default function foo(): number;
+"
 `;
 
 exports[`test ES6_Default_NamedFunction2.js 1`] = `
@@ -228,7 +238,8 @@ declare export default function foo():number;
  * @flow
  */
 
-declare export default function foo(): number;"
+declare export default function foo(): number;
+"
 `;
 
 exports[`test ES6_DefaultAndNamed.js 1`] = `
@@ -240,7 +251,8 @@ declare export var str: string;
 /* @flow */
 
 declare export default number
-declare export var str: string;"
+declare export var str: string;
+"
 `;
 
 exports[`test ES6_ExportAllFrom_Intermediary1.js 1`] = `
@@ -256,7 +268,8 @@ declare export * from \"ES6_ExportAllFrom_Source1\";
  * @flow
  */
 
-declare export * from \"ES6_ExportAllFrom_Source1\""
+declare export * from \"ES6_ExportAllFrom_Source1\"
+"
 `;
 
 exports[`test ES6_ExportAllFrom_Intermediary2.js 1`] = `
@@ -272,7 +285,8 @@ declare export * from \"ES6_ExportAllFrom_Source2\";
  * @flow
  */
 
-declare export * from \"ES6_ExportAllFrom_Source2\""
+declare export * from \"ES6_ExportAllFrom_Source2\"
+"
 `;
 
 exports[`test ES6_ExportAllFrom_Source1.js 1`] = `
@@ -288,7 +302,8 @@ declare export var numberValue1: number;
  * @flow
  */
 
-declare export var numberValue1: number;"
+declare export var numberValue1: number;
+"
 `;
 
 exports[`test ES6_ExportAllFrom_Source2.js 1`] = `
@@ -304,7 +319,8 @@ declare export var numberValue2: number;
  * @flow
  */
 
-declare export var numberValue2: number;"
+declare export var numberValue2: number;
+"
 `;
 
 exports[`test ES6_ExportAllFromMulti.js 1`] = `
@@ -316,7 +332,8 @@ declare export * from \"./ES6_ExportAllFrom_Source2\";
 // @flow
 
 declare export * from \"./ES6_ExportAllFrom_Source1\"
-declare export * from \"./ES6_ExportAllFrom_Source2\""
+declare export * from \"./ES6_ExportAllFrom_Source2\"
+"
 `;
 
 exports[`test ES6_ExportFrom_Intermediary1.js 1`] = `
@@ -335,7 +352,8 @@ declare export {
  * @flow
  */
 
-declare export { numberValue1, numberValue2 as numberValue2_renamed } from \"ES6_ExportFrom_Source1\";"
+declare export { numberValue1, numberValue2 as numberValue2_renamed } from \"ES6_ExportFrom_Source1\";
+"
 `;
 
 exports[`test ES6_ExportFrom_Intermediary2.js 1`] = `
@@ -354,7 +372,8 @@ declare export {
  * @flow
  */
 
-declare export { numberValue1, numberValue2 as numberValue2_renamed2 } from \"ES6_ExportFrom_Source2\";"
+declare export { numberValue1, numberValue2 as numberValue2_renamed2 } from \"ES6_ExportFrom_Source2\";
+"
 `;
 
 exports[`test ES6_ExportFrom_Source1.js 1`] = `
@@ -372,7 +391,8 @@ declare export var numberValue2: number;
  */
 
 declare export var numberValue1: number;
-declare export var numberValue2: number;"
+declare export var numberValue2: number;
+"
 `;
 
 exports[`test ES6_ExportFrom_Source2.js 1`] = `
@@ -390,7 +410,8 @@ declare export var numberValue2: number;
  */
 
 declare export var numberValue1: number;
-declare export var numberValue2: number;"
+declare export var numberValue2: number;
+"
 `;
 
 exports[`test ES6_Named1.js 1`] = `
@@ -436,7 +457,8 @@ declare export function givesANumber(): number;
 declare export class NumberGenerator { givesANumber(): number }
 
 declare export var varDeclNumber1: number;
-declare export var varDeclNumber2: number;"
+declare export var varDeclNumber2: number;
+"
 `;
 
 exports[`test ES6_Named2.js 1`] = `
@@ -478,7 +500,8 @@ declare export function givesANumber2(): number;
 declare export class NumberGenerator2 { givesANumber(): number }
 
 declare export var varDeclNumber3: number;
-declare export var varDeclNumber4: number;"
+declare export var varDeclNumber4: number;
+"
 `;
 
 exports[`test ProvidesModuleA.js 1`] = `
@@ -502,7 +525,8 @@ exports.numberValue1 = 42;
 exports.numberValue2 = 42;
 exports.numberValue3 = 42;
 exports.numberValue4 = 42;
-exports.stringValue = \"str\";"
+exports.stringValue = \"str\";
+"
 `;
 
 exports[`test ProvidesModuleCJSDefault.js 1`] = `
@@ -520,7 +544,8 @@ module.exports = {
  * @flow
  */
 
-module.exports = { numberValue: 42 };"
+module.exports = { numberValue: 42 };
+"
 `;
 
 exports[`test ProvidesModuleD.js 1`] = `
@@ -529,6 +554,7 @@ exports[`test ProvidesModuleD.js 1`] = `
  * @flow
  */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 "
 `;
 
@@ -544,12 +570,14 @@ export default {
 };
 */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 "
 `;
 
 exports[`test SideEffects.js 1`] = `
 "/* @flow */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 "
 `;
 
@@ -1116,5 +1144,6 @@ var at1: number = numberValue8;
 var at2: string = numberValue8;
 // Error: number ~> string
 var at3: number = numberValue9;
-var at4: string = numberValue9; // Error: number ~> string"
+var at4: string = numberValue9; // Error: number ~> string
+"
 `;

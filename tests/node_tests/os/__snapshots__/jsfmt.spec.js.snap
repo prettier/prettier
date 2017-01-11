@@ -30,5 +30,6 @@ var u2 = os.userInfo({ encoding: \"utf8\" });
 var u3 = os.userInfo({ encoding: \"buffer\" });
 (u3.username: string);
 // error
-(u3.username: Buffer);"
+(u3.username: Buffer);
+"
 `;

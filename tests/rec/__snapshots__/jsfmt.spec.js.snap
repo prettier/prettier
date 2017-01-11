@@ -43,7 +43,8 @@ function identity<A>(val: A): Functor<A> {
       return identity(f(val));
     }
   };
-}"
+}
+"
 `;
 
 exports[`test issue-1228.js 1`] = `
@@ -66,7 +67,8 @@ type Task<error, value> = {
 
 function id(x: Task<any, any>): Task<any, any> {
   return x;
-}"
+}
+"
 `;
 
 exports[`test test.js 1`] = `
@@ -107,7 +109,8 @@ pstar = p;
 // error
 pstar = (new P(): P<P<number>>);
 // OK
-(pstar.x: string); // error"
+(pstar.x: string); // error
+"
 `;
 
 exports[`test test2.js 1`] = `
@@ -172,7 +175,8 @@ function foo1(b: S<*>) {
 class D<X> {}
 class B<X> extends D<X> {}
 class C<X> extends B<X> {}
-((new C(): C<number>): D<string>); // error: number ~/~ string"
+((new C(): C<number>): D<string>); // error: number ~/~ string
+"
 `;
 
 exports[`test test3.js 1`] = `
@@ -208,13 +212,15 @@ function bar(x: P<number>): () => P<number> {
   return x; // terminate despite expanding types, error
   // P<number> = () => { x: P<number> }
   // () => P<number> = () => () => { x: P<number> }
-}"
+}
+"
 `;
 
 exports[`test test4.js 1`] = `
 "type T = T // cycle in type alias should not cause non-termination
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-type T = T; // cycle in type alias should not cause non-termination"
+type T = T; // cycle in type alias should not cause non-termination
+"
 `;
 
 exports[`test test5.js 1`] = `
@@ -238,5 +244,6 @@ function flatten<T>(arrArg: NestedArray<T>) {
   while (true) {
     arr = Array.prototype.concat.apply([], arr);
   }
-}"
+}
+"
 `;

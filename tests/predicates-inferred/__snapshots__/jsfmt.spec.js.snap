@@ -53,7 +53,8 @@ function bak(z: string | number): number {
   } else {
     return z.length;
   }
-}"
+}
+"
 `;
 
 exports[`test sanity-multi-params.js 1`] = `
@@ -85,7 +86,8 @@ function foo(x: string | Array<string>): string {
   } else {
     return x.join();
   }
-}"
+}
+"
 `;
 
 exports[`test sanity-ordering.js 1`] = `
@@ -125,7 +127,8 @@ function dotAccess(head, create) {
     head = head[key] || create && (head[key] = {});
   } while (stack.length && head);
   return head;
-}"
+}
+"
 `;
 
 exports[`test sanity-unbound-var.js 1`] = `
@@ -163,7 +166,8 @@ function foo(x: string | Array<string>): string {
   } else {
     return x.join();
   }
-}"
+}
+"
 `;
 
 exports[`test simple-predicate-func.js 1`] = `
@@ -313,7 +317,8 @@ function two_strings(x, y): %checks {
   return is_string(x) && is_string(y);
 }
 
-declare function from_two_strings(x: string, y: string): void;"
+declare function from_two_strings(x: string, y: string): void;
+"
 `;
 
 exports[`test simple-predicate-func-post.js 1`] = `
@@ -359,5 +364,6 @@ function foo(x: string | Array<string>): string {
 
 function is_string(x): %checks {
   return typeof x === \"string\";
-}"
+}
+"
 `;

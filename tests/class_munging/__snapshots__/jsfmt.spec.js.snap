@@ -29,7 +29,8 @@ class Bar extends Foo {
   test() {
     (this._method(): string); // error
   }
-}"
+}
+"
 `;
 
 exports[`test without_munging.js 1`] = `
@@ -65,5 +66,6 @@ class Bar extends Foo {
   test() {
     (this._method(): string); // ok
   }
-}"
+}
+"
 `;

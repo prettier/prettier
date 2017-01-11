@@ -9,7 +9,8 @@ foo(0, \"\");
 
 function bar<X: number, Y: X>(x: X, y: Y): number {
   return y * 0;
-}"
+}
+"
 `;
 
 exports[`test test.js 1`] = `
@@ -71,5 +72,6 @@ var c: C<string> = new C();
 // error, since T = string is incompatible with number
 var q: number = c.qux(0);
 /* 2 more errors, since argument U = number is incompatible with T = string, and
- * result T = string is incompatible with number */"
+ * result T = string is incompatible with number */
+"
 `;

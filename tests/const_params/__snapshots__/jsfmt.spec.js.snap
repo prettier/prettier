@@ -59,5 +59,6 @@ function durable_refi(x: ?number) {
       var y: number = x;
     };
   }
-}"
+}
+"
 `;

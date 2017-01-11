@@ -17,7 +17,8 @@ declare module ModuleAliasFoo {
   declare type baz = number;
   declare type toz = string;
   declare function foo(bar: baz): toz;
-}"
+}
+"
 `;
 
 exports[`test declare_type_exports.js 1`] = `
@@ -51,5 +52,6 @@ declare module \"foo\" {
   declare type Id<T> = T;
 
   declare var exports: { (a: number, b: number): number };
-}"
+}
+"
 `;

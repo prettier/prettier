@@ -27,5 +27,6 @@ function foo(): string {
   return _.foo();
 }
 
-module.exports = foo;"
+module.exports = foo;
+"
 `;

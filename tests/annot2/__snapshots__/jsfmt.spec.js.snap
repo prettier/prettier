@@ -27,7 +27,8 @@ export default class {
   constructor() {
     this.p = 0;
   }
-}"
+}
+"
 `;
 
 exports[`test B.js 1`] = `
@@ -49,7 +50,8 @@ import A from \"A\";
 
 class B extends A {
   p: string; // OK, string ~> any
-}"
+}
+"
 `;
 
 exports[`test T.js 1`] = `
@@ -57,5 +59,6 @@ exports[`test T.js 1`] = `
  * @providesModule T
  */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 "
 `;

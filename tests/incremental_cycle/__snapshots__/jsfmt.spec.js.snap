@@ -15,7 +15,8 @@ class A {
   c: string;
 }
 
-module.exports = A;"
+module.exports = A;
+"
 `;
 
 exports[`test B.js 1`] = `
@@ -37,7 +38,8 @@ class B extends A {
   c: C;
 }
 
-module.exports = B;"
+module.exports = B;
+"
 `;
 
 exports[`test C.js 1`] = `
@@ -59,5 +61,6 @@ class C extends A {
   b: B;
 }
 
-module.exports = C;"
+module.exports = C;
+"
 `;

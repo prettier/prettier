@@ -15,5 +15,6 @@ declare function foo<X>(x: X): X;
 // OK
 (foo(\"hello\"): number);
 // OK
-(foo(false): void); // error, boolean ~/~ undefined"
+(foo(false): void); // error, boolean ~/~ undefined
+"
 `;

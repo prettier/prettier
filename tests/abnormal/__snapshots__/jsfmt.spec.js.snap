@@ -18,7 +18,8 @@ function bar() {
   do {
     continue L;
   } while (false);
-}"
+}
+"
 `;
 
 exports[`test return.js 1`] = `
@@ -35,5 +36,6 @@ function foo() {
   if (x == null)
     return;
   bar(x);
-}"
+}
+"
 `;

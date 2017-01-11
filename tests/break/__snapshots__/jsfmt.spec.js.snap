@@ -148,5 +148,6 @@ function test_const() {
   }
 
   return st;
-}"
+}
+"
 `;

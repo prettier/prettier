@@ -75,5 +75,6 @@ class C5 {
   set m(x: number) {}
 }
 
-new C5().m = new C5().m - 42;"
+new C5().m = new C5().m - 42;
+"
 `;

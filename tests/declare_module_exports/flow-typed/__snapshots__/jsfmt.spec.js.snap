@@ -54,5 +54,6 @@ declare module \"DEPRECATED__declare_var_exports\" {
 declare module \"declare_m_e_with_declare_var_e\" {
   declare module.exports: number;
   declare var exports: string;
-}"
+}
+"
 `;

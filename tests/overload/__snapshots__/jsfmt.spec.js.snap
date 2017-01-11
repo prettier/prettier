@@ -103,7 +103,8 @@ var z1:number = new Dummy().dumber(bar1);
 
 function bar2(x:number):string { return \"...\"; }
 var z2:Array<string> = new Dummy().dumber(bar2);
-*/"
+*/
+"
 `;
 
 exports[`test test.js 1`] = `
@@ -115,7 +116,8 @@ exports[`test test.js 1`] = `
 function foo() {
   var output = new FakeUint8Array();
   output.set(new FakeUint8Array(), 0); // matches one of the overloads of set
-}"
+}
+"
 `;
 
 exports[`test test2.js 1`] = `
@@ -131,7 +133,8 @@ declare class Foo { bar(x: \"hmm\"): number, bar(x: string): string }
 var foo = new Foo();
 (foo.bar(\"hmm\"): number);
 // OK
-(foo.bar(\"hmmm\"): number); // error"
+(foo.bar(\"hmmm\"): number); // error
+"
 `;
 
 exports[`test test3.js 1`] = `
@@ -177,7 +180,8 @@ g(x_g);
 declare function h(x: void): void;
 declare function h(x: string): void;
 declare var x_h: { p?: string };
-h(x_h.p); // ok"
+h(x_h.p); // ok
+"
 `;
 
 exports[`test union.js 1`] = `
@@ -191,5 +195,6 @@ function foo<U>(x: $Either<Array<U>, U>): Array<U> {
 }
 
 var x1: number = foo(0)[0];
-var x2: string = foo([ \"\" ])[0];"
+var x2: string = foo([ \"\" ])[0];
+"
 `;

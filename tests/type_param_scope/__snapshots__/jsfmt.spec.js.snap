@@ -16,7 +16,8 @@ class C<T> {
   }
 
   b(x: T) {}
-}"
+}
+"
 `;
 
 exports[`test default_params.js 1`] = `
@@ -48,7 +49,8 @@ function f<T>(a: T) {
   // ok
   g(0, 0); // error: number ~> T
 }
-f(0); // ok"
+f(0); // ok
+"
 `;
 
 exports[`test method_shadow.js 1`] = `
@@ -158,5 +160,6 @@ class H<T> {
   m<T>(x: T) {
     this.x = x; // err, m\'s T != H\'s T
   }
-}"
+}
+"
 `;

@@ -114,7 +114,8 @@ function goofy2() {
   } else {}
 }
 
-module.exports = true;"
+module.exports = true;
+"
 `;
 
 exports[`test FlowSA.js 1`] = `
@@ -141,7 +142,8 @@ function FlowSA() {
   check(x);
 }
 
-module.exports = FlowSA;"
+module.exports = FlowSA;
+"
 `;
 
 exports[`test Sigma.js 1`] = `
@@ -229,7 +231,8 @@ function baz(x: D) {
   if (x instanceof A) {}
 }
 
-module.exports = \"sigma\";"
+module.exports = \"sigma\";
+"
 `;
 
 exports[`test test.js 1`] = `
@@ -261,5 +264,6 @@ function test(obj: BaseClass): string {
     return obj.childProp_TYPO; // error (obj: ChildClass)
   }
   return obj.baseProp;
-}"
+}
+"
 `;

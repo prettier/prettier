@@ -107,5 +107,6 @@ const o = {
 // last wins
 (o.bar: boolean);
 // last wins
-(o.qux(): boolean); // last wins"
+(o.qux(): boolean); // last wins
+"
 `;

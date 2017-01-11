@@ -66,5 +66,6 @@ function inSurrogateRange(codeUnit) {
  */
 function utf16Length(str, pos) {
   return 1 + inSurrogateRange(str.charCodeAt(pos));
-}"
+}
+"
 `;

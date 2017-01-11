@@ -1,7 +1,8 @@
 exports[`test test23_lib.js 1`] = `
 "declare class SomeLibClass { }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-declare class SomeLibClass {}"
+declare class SomeLibClass {}
+"
 `;
 
 exports[`test test25_lib.js 1`] = `
@@ -45,11 +46,13 @@ declare class Rows {
     callbackfn: (previousValue: X, currentValue: Row) => X,
     initialValue: X
   ): X
-}"
+}
+"
 `;
 
 exports[`test test32_lib.js 1`] = `
 "type Indirect<T> = Array<T>;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-type Indirect<T> = Array<T>;"
+type Indirect<T> = Array<T>;
+"
 `;

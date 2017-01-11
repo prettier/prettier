@@ -59,7 +59,8 @@ function e(f: {}): number {
 function f(): number {
   var x = {};
   return x();
-}"
+}
+"
 `;
 
 exports[`test B.js 1`] = `
@@ -119,7 +120,8 @@ var y: {} = function(x: number): string {
 };
 var z: Object = function(x: number): string {
   return \"hi\";
-};"
+};
+"
 `;
 
 exports[`test C.js 1`] = `
@@ -191,7 +193,8 @@ function f(x: { (z: number): string }): Function {
 // ... but only if the object is callable
 function g(x: {}): Function {
   return x; // error
-}"
+}
+"
 `;
 
 exports[`test D.js 1`] = `
@@ -241,7 +244,8 @@ function d(x: { (): string, (x: number): string }): () => string {
 // ...but you need at least one
 function e(x: { (): string, (x: number): string }): () => number {
   return x;
-}"
+}
+"
 `;
 
 exports[`test E.js 1`] = `
@@ -265,7 +269,8 @@ var b: { apply: Function } = function() {};
 // Expecting properties in the functions statics should be fine
 var f = function() {};
 f.myProp = 123;
-var c: { myProp: number } = f;"
+var c: { myProp: number } = f;
+"
 `;
 
 exports[`test F.js 1`] = `
@@ -315,5 +320,6 @@ var g: { (x: Date): void } = x => {
 // param type (date < number)
 // A function can be an object
 var y: {} = x => \"hi\";
-var z: Object = x => \"hi\";"
+var z: Object = x => \"hi\";
+"
 `;

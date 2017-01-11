@@ -54,5 +54,6 @@ class D extends C<{ foo: number, bar: string }> {
 }
 
 type AnyKey = $Keys<Object>;
-var o3: { [key: AnyKey]: number } = { foo: 0 };"
+var o3: { [key: AnyKey]: number } = { foo: 0 };
+"
 `;

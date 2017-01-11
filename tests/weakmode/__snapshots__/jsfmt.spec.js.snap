@@ -19,7 +19,8 @@ function returns_a_string() {
 
 function expects_an_int() {
   return returns_a_string() * 10;
-}"
+}
+"
 `;
 
 exports[`test should_pass_with_weak.js 1`] = `
@@ -43,5 +44,6 @@ function returns_a_string() {
 
 function expects_an_int() {
   return returns_a_string() * 10;
-}"
+}
+"
 `;

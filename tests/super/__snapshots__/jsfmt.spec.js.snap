@@ -318,7 +318,8 @@ class N extends N_ {
   }
 }
 (new N_(): N_);
-(new N(): N);"
+(new N(): N);
+"
 `;
 
 exports[`test import.js 1`] = `
@@ -332,7 +333,8 @@ class D {
     return 0;
   }
 }
-module.exports = D;"
+module.exports = D;
+"
 `;
 
 exports[`test super.js 1`] = `
@@ -382,7 +384,8 @@ class B extends A {
     super.f(0);
     return super.g;
   }
-}"
+}
+"
 `;
 
 exports[`test test.js 1`] = `
@@ -402,5 +405,6 @@ class C extends D {
     return super.foo();
   }
 }
-module.exports = C;"
+module.exports = C;
+"
 `;

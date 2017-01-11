@@ -52,7 +52,8 @@ var c_2: string = m3.numVal;
 // Error: number ~> string
 import { numVal as numVal3 } from \"5DoesntExist\";
 var c_3: number = numVal3;
-var c_4: string = numVal3; // Error: number ~> string"
+var c_4: string = numVal3; // Error: number ~> string
+"
 `;
 
 exports[`test Exists.js 1`] = `
@@ -64,5 +65,6 @@ module.exports = {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-module.exports = { numVal: 42 };"
+module.exports = { numVal: 42 };
+"
 `;

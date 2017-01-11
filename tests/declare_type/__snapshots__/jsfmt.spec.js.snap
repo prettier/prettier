@@ -59,5 +59,6 @@ blah(0, 0);
 // error : {toz : number} ~> string
 (3: Bar);
 // error : number ~> A
-(\"lol\": Id<number>); // error : string ~> number"
+(\"lol\": Id<number>); // error : string ~> number
+"
 `;

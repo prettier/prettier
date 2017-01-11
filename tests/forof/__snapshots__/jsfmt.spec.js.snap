@@ -106,5 +106,6 @@ function testSet2(set: Set<*>): void {
   for (var x of set) {
     (x: number); // Anything goes
   }
-}"
+}
+"
 `;

@@ -3,7 +3,8 @@ exports[`test import.js 1`] = `
 export type J = I; // workaround for export interface
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 interface I  { x: number }
-export type J = I; // workaround for export interface"
+export type J = I; // workaround for export interface
+"
 `;
 
 exports[`test indexer.js 1`] = `
@@ -25,7 +26,8 @@ interface Ok  { [key: string]: string }
 interface Bad  {
   [k1: string]: string,
   [k2: number]: number /* error: not supported (yet)*/
-}"
+}
+"
 `;
 
 exports[`test interface.js 1`] = `
@@ -54,7 +56,8 @@ function testInterfaceName(o: I) {
   (o.name: string);
   // error, name is static
   (o.constructor.name: string); // ok
-}"
+}
+"
 `;
 
 exports[`test test.js 1`] = `
@@ -106,7 +109,8 @@ var e: E<number> = { x: \"\", y: \"\", z: \"\" };
 (e.x: string);
 // error: x is number
 (e.y: string);
-(e.z: string); // error: z is number"
+(e.z: string); // error: z is number
+"
 `;
 
 exports[`test test2.js 1`] = `
@@ -138,7 +142,8 @@ function bar(m: M) {
   m.x;
   m.y;
   m.z;
-} // OK"
+} // OK
+"
 `;
 
 exports[`test test3.js 1`] = `
@@ -158,7 +163,8 @@ function foo(k: K) {
   (k.x: number);
   // error: x is string in K
   (k.y: number); // error: y is string in I
-}"
+}
+"
 `;
 
 exports[`test test4.js 1`] = `
@@ -177,5 +183,6 @@ interface I  { foo(x: number): void }
 // error, property \`foo\` not found function
 declare class C { bar(i: I): void, bar(f: (x: number) => void): void }
 
-new C().bar((x: string) => {}); // error, number ~/~> string"
+new C().bar((x: string) => {}); // error, number ~/~> string
+"
 `;
