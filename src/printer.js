@@ -1615,15 +1615,9 @@ function printStatementSequence(path, options, print) {
 
 function printPropertyKey(path, print) {
   var node = path.getNode().key;
-  if (node.type === "StringLiteral") {
-    if (isIdentifierName(node.value)) { // 'a' -> a
-      return node.value;
-    }
-    let val = parseFloat(node.value);
-    let strVal = fromString(val);
-    if (val >= 0 && strVal === node.value) { // '0' -> 0
-      return strVal;
-    }
+  if (node.type === "StringLiteral" && isIdentifierName(node.value)) {
+    // 'a' -> a
+    return node.value;
   }
   return path.call(print, "key");
 }
