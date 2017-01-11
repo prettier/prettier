@@ -287,7 +287,11 @@ function genericPrintNoParens(path, options, print) {
   case "SpreadProperty":
   case "SpreadPropertyPattern":
   case "RestElement":
-    return concat([ "...", path.call(print, "argument") ]);
+    return concat([
+      "...",
+      path.call(print, "argument"),
+      path.call(print, "typeAnnotation")
+    ]);
   case "FunctionDeclaration":
   case "FunctionExpression":
     if (n.async)
