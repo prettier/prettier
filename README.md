@@ -1,5 +1,7 @@
 # Prettier [![Build Status](https://travis-ci.org/jlongster/prettier.svg?branch=master)](https://travis-ci.org/jlongster/prettier)
 
+[![Gitter](https://badges.gitter.im/gitterHQ/gitter.svg)](https://gitter.im/jlongster/prettier)
+
 Prettier is an opinionated JavaScript formatter inspired by
 [refmt](https://facebook.github.io/reason/tools.html) with advanced
 support for language features from ES2017, JSX, and Flow. It removes
