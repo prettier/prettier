@@ -8,7 +8,7 @@ var b: string = test; // Error: number ~> string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-import {test} from \"testmodule\";
+import { test } from \"testmodule\";
 
 var a: number = test;
 var b: string = test; // Error: number ~> string"

@@ -481,7 +481,7 @@ function genericPrintNoParens(path, options, print) {
             if (!foundImportSpecifier) {
               foundImportSpecifier = true;
 
-              parts.push(options.objectCurlySpacing ? "{ " : "{");
+              parts.push(options.bracketSpacing ? "{ " : "{");
             }
           }
 
@@ -491,7 +491,7 @@ function genericPrintNoParens(path, options, print) {
       );
 
       if (foundImportSpecifier) {
-        parts.push(options.objectCurlySpacing ? " }" : "}");
+        parts.push(options.bracketSpacing ? " }" : "}");
       }
 
       parts.push(" from ");
@@ -1789,7 +1789,7 @@ function printReturnType(path, print) {
 function printExportDeclaration(path, options, print) {
   var decl = path.getValue();
   var parts = [ "export " ];
-  var shouldPrintSpaces = options.objectCurlySpacing;
+  var shouldPrintSpaces = options.bracketSpacing;
 
   namedTypes.Declaration.assert(decl);
 

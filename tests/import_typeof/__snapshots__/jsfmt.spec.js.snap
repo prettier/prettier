@@ -150,7 +150,7 @@ class ClassFoo2 {
   }
 }
 
-export {ClassFoo2}"
+export { ClassFoo2 }"
 `;
 
 exports[`test ExportNamed_Multi.js 1`] = `
@@ -299,8 +299,8 @@ new ClassFoo1T();
 /////////////////////////////////////////////////
 // == Importing Class Typeof (Named Export) == //
 /////////////////////////////////////////////////
-import typeof {ClassFoo2 as ClassFoo2T} from \"./ExportNamed_Class\";
-import {ClassFoo2} from \"./ExportNamed_Class\";
+import typeof { ClassFoo2 as ClassFoo2T } from \"./ExportNamed_Class\";
+import { ClassFoo2 } from \"./ExportNamed_Class\";
 
 var b1: ClassFoo2T = ClassFoo2;
 var b2: ClassFoo2T = new ClassFoo2();
@@ -319,8 +319,8 @@ var c2: ClassFoo3T = new ClassFoo3();
 /////////////////////////////////////////////////////
 // == Importing Class Typeof (CJS Named Export) == //
 /////////////////////////////////////////////////////
-import typeof {ClassFoo4 as ClassFoo4T} from \"./ExportCJSNamed_Class\";
-import {ClassFoo4} from \"./ExportCJSNamed_Class\";
+import typeof { ClassFoo4 as ClassFoo4T } from \"./ExportCJSNamed_Class\";
+import { ClassFoo4 } from \"./ExportCJSNamed_Class\";
 
 var d1: ClassFoo4T = ClassFoo4;
 var d2: ClassFoo4T = new ClassFoo4();
@@ -328,7 +328,7 @@ var d2: ClassFoo4T = new ClassFoo4();
 //////////////////////////////////////////////
 // == Import Typeof Alias (Named Export) == //
 //////////////////////////////////////////////
-import typeof {AliasFoo3} from \"./ExportNamed_Alias\";
+import typeof { AliasFoo3 } from \"./ExportNamed_Alias\";
 // Error: Can\'t \`import typeof\` type aliases!
 ////////////////////////////////////////////////
 // == Import Typeof Alias (Default Export) == //
@@ -347,7 +347,7 @@ var f2: num_default = \"asdf\";
 /////////////////////////////////////////////////////////////
 // == Import Typeof With Non-Class Value (Named Export) == //
 /////////////////////////////////////////////////////////////
-import typeof {num as num_named} from \"./ExportNamed_Number\";
+import typeof { num as num_named } from \"./ExportNamed_Number\";
 
 var g1: num_named = 42;
 var g2: num_named = \"asdf\";
@@ -363,7 +363,7 @@ var h2: num_cjs_default = \"asdf\";
 /////////////////////////////////////////////////////////////////
 // == Import Typeof With Non-Class Value (CJS Named Export) == //
 /////////////////////////////////////////////////////////////////
-import typeof {num as num_cjs_named} from \"./ExportCJSNamed_Number\";
+import typeof { num as num_cjs_named } from \"./ExportCJSNamed_Number\";
 
 var i1: num_cjs_named = 42;
 var i2: num_cjs_named = \"asdf\";

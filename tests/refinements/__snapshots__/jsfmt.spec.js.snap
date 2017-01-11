@@ -2422,7 +2422,7 @@ function getTypeASTName(typeAST: Type): string {
 }
 
 // example 2
-import type {ASTNode} from \"./ast_node\";
+import type { ASTNode } from \"./ast_node\";
 var Node = require(\"./node1\");
 // Node = \"Node1\"
 function foo(x: ASTNode) {
@@ -2696,7 +2696,7 @@ function handleStatus(status: Success | Error) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-import {SUCCESS, ERROR} from \"./constants\";
+import { SUCCESS, ERROR } from \"./constants\";
 
 type Success = { type: typeof SUCCESS, message: string };
 

@@ -11,7 +11,7 @@ var d: number = source.str; // Error: num ~> string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-import {source} from \"./test\";
+import { source } from \"./test\";
 
 var a: number = source.num;
 var b: string = source.num;

@@ -16,7 +16,7 @@ import {numVal as numVal2} from \'3DoesntExist\'; // Error
 /* @flow */
 
 var m1 = require(\"1DoesntExist\");
-import {numVal as numVal1} from \"1DoesntExist\";
+import { numVal as numVal1 } from \"1DoesntExist\";
 var a_1: number = m1.numVal;
 var a_2: number = numVal1;
 
@@ -26,7 +26,7 @@ var a_2: number = numVal1;
 // match the given module name string is picked.
 var m2 = require(\"2DoesntExist\");
 // Error
-import {numVal as numVal2} from \"3DoesntExist\"; // Error"
+import { numVal as numVal2 } from \"3DoesntExist\"; // Error"
 `;
 
 exports[`test Exists.js 1`] = `

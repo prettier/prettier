@@ -121,7 +121,7 @@ type M = { y: string } & J & { z: boolean }
 
 function bar(m: M) { m.x; m.y; m.z; } // OK
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-import type {J} from \"./import\";
+import type { J } from \"./import\";
 interface K  {}
 interface L extends J, K { y: string }
 

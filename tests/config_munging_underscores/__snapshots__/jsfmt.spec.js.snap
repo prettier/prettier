@@ -95,5 +95,5 @@ import {_p} from \"./commonjs_export\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-import {_p} from \"./commonjs_export\";"
+import { _p } from \"./commonjs_export\";"
 `;
