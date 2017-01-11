@@ -99,7 +99,7 @@ exports[`test test_relative.js 1`] = `
 
 (foo(): boolean); // Error: either Implementation ~> boolean or Definition ~> boolean
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-import {foo} from \"./A\";
+import { foo } from \"./A\";
 
 (foo(): boolean); // Error: either Implementation ~> boolean or Definition ~> boolean"
 `;

@@ -62,7 +62,7 @@ export default class A {
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-import {B, C} from \"./issue-824-helper\";
+import { B, C } from \"./issue-824-helper\";
 
 type K = B | C;
 
@@ -150,7 +150,7 @@ function node(content: ?Foobar | String | Array<String>) {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-import type {Foobar} from \"./issue-1455-helper\";
+import type { Foobar } from \"./issue-1455-helper\";
 
 function create(content: ?Foobar | String | Array<String>) {}
 

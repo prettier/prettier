@@ -79,7 +79,7 @@ module.exports = { C, D };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-import {C, E} from \"./b0\";
+import { C, E } from \"./b0\";
 function foo() {
   return C;
 }
@@ -111,7 +111,7 @@ import { C, D } from \"./b2\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-import {C, D} from \"./b2\";
+import { C, D } from \"./b2\";
 
 (new D(): C);"
 `;
@@ -137,7 +137,7 @@ export function bar(props: { x: number }) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-import {foo} from \"./c1\";
+import { foo } from \"./c1\";
 
 export function bar(props: { x: number }) {
   foo({ x: 0 });
@@ -153,7 +153,7 @@ bar({ x: 0 });
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-import {bar} from \"./c2\";
+import { bar } from \"./c2\";
 
 bar({ x: 0 });"
 `;
@@ -180,7 +180,7 @@ export var y: A = x;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-import {A, x} from \"./d1\";
+import { A, x } from \"./d1\";
 export var y: A = x;"
 `;
 
@@ -216,13 +216,13 @@ import { LIFE } from \'./e1\';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-import type {Action} from \"./e1\";
+import type { Action } from \"./e1\";
 
 const f = (): Action => {
   return { type: \"FOO\" };
 };
 
-import {LIFE} from \"./e1\";
+import { LIFE } from \"./e1\";
 
 (LIFE: 42);"
 `;
@@ -284,7 +284,7 @@ module.exports = { D };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-import {C} from \"./g1\";
+import { C } from \"./g1\";
 
 class D extends C {}
 
@@ -301,8 +301,8 @@ import { D } from \'./g2\';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-import {C} from \"./g1\";
-import {D} from \"./g2\";
+import { C } from \"./g1\";
+import { D } from \"./g2\";
 
 (new D(): C);"
 `;
@@ -324,5 +324,5 @@ import type { Foo } from \'./h1\';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-import type {Foo} from \"./h1\";"
+import type { Foo } from \"./h1\";"
 `;

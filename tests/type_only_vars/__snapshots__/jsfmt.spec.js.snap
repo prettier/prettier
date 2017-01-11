@@ -50,7 +50,7 @@ var duck: string = \"quack\";
  */
 
 import typeof A from \"./A.js\";
-import type {Foo, Bar as Baz} from \"./A.js\";
+import type { Foo, Bar as Baz } from \"./A.js\";
 
 type duck = { quack(): string };
 
@@ -90,7 +90,7 @@ var b: Foo = new A.Foo();
  */
 
 import typeof A from \"./A.js\";
-import type {Foo, Bar as Baz} from \"./A.js\";
+import type { Foo, Bar as Baz } from \"./A.js\";
 
 var A = require(\"./A.js\");
 var Foo = A.Foo;
@@ -131,7 +131,7 @@ var a: Foo = new actualA.Foo();
  */
 
 import typeof A from \"./A.js\";
-import type {Foo, Bar as Baz} from \"./A.js\";
+import type { Foo, Bar as Baz } from \"./A.js\";
 
 var actualA = require(\"./A.js\");
 

@@ -155,7 +155,7 @@ class ClassFoo2 {
   }
 }
 
-export {ClassFoo2}
+export { ClassFoo2 }
 export var foo2Inst = new ClassFoo2();"
 `;
 
@@ -262,7 +262,7 @@ function foo() {
 /////////////////////////////////////////////////
 
 import type ClassFoo1 from \"./ExportDefault_Class\";
-import {foo1Inst} from \"./ExportDefault_Class\";
+import { foo1Inst } from \"./ExportDefault_Class\";
 
 var a1: ClassFoo1 = foo1Inst;
 var a2: number = foo1Inst;
@@ -272,8 +272,8 @@ new ClassFoo1();
 ///////////////////////////////////////////////
 // == Importing Class Type (Named Export) == //
 ///////////////////////////////////////////////
-import type {ClassFoo2} from \"./ExportNamed_Class\";
-import {foo2Inst} from \"./ExportNamed_Class\";
+import type { ClassFoo2 } from \"./ExportNamed_Class\";
+import { foo2Inst } from \"./ExportNamed_Class\";
 
 var b1: ClassFoo2 = foo2Inst;
 var b2: number = foo2Inst;
@@ -291,8 +291,8 @@ new ClassFoo3T();
 ///////////////////////////////////////////////////
 // == Importing Class Type (CJS Named Export) == //
 ///////////////////////////////////////////////////
-import type {ClassFoo4, ClassFoo5} from \"./ExportCJSNamed_Class\";
-import {foo4Inst, foo5Inst} from \"./ExportCJSNamed_Class\";
+import type { ClassFoo4, ClassFoo5 } from \"./ExportCJSNamed_Class\";
+import { foo4Inst, foo5Inst } from \"./ExportCJSNamed_Class\";
 
 var d1: ClassFoo4 = foo4Inst;
 var d2: number = foo4Inst;
@@ -305,8 +305,8 @@ var d3: typeof ClassFoo5 = foo5Inst;
 ////////////////////////////////////////////
 // == Import Type Alias (Named Export) == //
 ////////////////////////////////////////////
-import type {AliasFoo3} from \"./ExportNamed_Alias\";
-import {givesAFoo3Obj} from \"./ExportNamed_Alias\";
+import type { AliasFoo3 } from \"./ExportNamed_Alias\";
+import { givesAFoo3Obj } from \"./ExportNamed_Alias\";
 var e1: AliasFoo3 = givesAFoo3Obj();
 var e2: number = givesAFoo3Obj();
 // Error: AliasFoo3 ~> number
@@ -321,7 +321,7 @@ var e3: typeof AliasFoo3 = givesAFoo3Obj();
 ///////////////////////////////////////////////////////
 // == Import Type With Non-Alias Compatible Value == //
 ///////////////////////////////////////////////////////
-import type {numValue} from \"./ExportsANumber\";
+import type { numValue } from \"./ExportsANumber\";
 // Error: Cannot import-type a number value
 ////////////////////////////////////////////////////////////////////////
 // == Regression Test: https://github.com/facebook/flow/issues/359 == //

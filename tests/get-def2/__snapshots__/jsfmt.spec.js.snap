@@ -57,7 +57,7 @@ ParentFoo3;
 let foo = require(\"./Parent\").ParentFoo.foo;
 foo;
 
-import type {Foo} from \"./types\";"
+import type { Foo } from \"./types\";"
 `;
 
 exports[`test override.js 1`] = `

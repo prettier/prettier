@@ -32,9 +32,9 @@ import declare_module_exports from \"declare_module_exports\";
 (declare_module_exports: string);
 // Error: number ~> string
 // Error: Has no named export \"str\"!
-import {str} from \"declare_m_e_with_other_value_declares\";
+import { str } from \"declare_m_e_with_other_value_declares\";
 
-import type {str2} from \"declare_m_e_with_other_type_declares\";
+import type { str2 } from \"declare_m_e_with_other_type_declares\";
 (\"asdf\": str2);
 (42: str2);
 // Error: number ~> string
