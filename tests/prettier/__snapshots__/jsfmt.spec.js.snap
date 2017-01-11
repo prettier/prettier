@@ -9,7 +9,8 @@ function fn() {
 
 function fn() {
   \"use strict\";
-}"
+}
+"
 `;
 
 exports[`test optional-type-name.js 1`] = `
