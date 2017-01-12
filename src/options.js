@@ -12,7 +12,10 @@ var defaults = {
   trailingComma: false,
 
   // Controls the printing of spaces inside array and objects
-  bracketSpacing: true
+  bracketSpacing: true,
+  
+  // If true will allways wraps arrow functions params in parens - even if just 1 param
+  arrowParensAlways: false,
 };
 
 // Copy options and fill in default values.
