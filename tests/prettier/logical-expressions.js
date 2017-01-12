@@ -43,3 +43,11 @@ function e() {
 function f() {
   return (one() && two() || three() && four() && five());
 }
+
+function g() {
+  return (
+    one() && two() ||
+    (three () || five()) &&
+    !(six() && seven() && eight() && nine() || ten())
+  );
+}
