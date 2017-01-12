@@ -1,7 +1,6 @@
 "use strict";
 const fs = require('fs');
 const jscodefmt = require("../");
-const recast = require("recast");
 const types = require("ast-types");
 
 const RUN_AST_TESTS = process.env["AST_COMPARE"];
