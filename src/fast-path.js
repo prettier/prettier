@@ -329,6 +329,10 @@ FPp.needsParens = function(assumeExpressionContext) {
         && name === "object"
         && parent.object === node;
 
+    case "NumericLiteral":
+      return parent.type === "MemberExpression"
+        && isNumber.check(node.value);
+
     case "AssignmentExpression":
     case "ConditionalExpression":
       switch (parent.type) {
