@@ -15,7 +15,7 @@ var defaults = {
   bracketSpacing: true,
 
   // If true will always wrap arrow functions params in parens - even if just 1 param
-  arrowParensAlways: false,
+  arrowParensAlways: false
 };
 
 // Copy options and fill in default values.
