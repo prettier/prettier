@@ -43,9 +43,9 @@ if (!filenames.length && !stdin) {
 
 function formatWithShebang(input) {
   const index = input.indexOf("\n");
-  const shebang = input.slice(0, index);
-  const programInput = input.slice(index);
-  return shebang + "\n" + format(programInput, options);
+  const shebang = input.slice(0, index + 1);
+  const programInput = input.slice(index + 1);
+  return shebang + format(programInput, options);
 }
 
 function format(input) {
