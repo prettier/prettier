@@ -11,8 +11,6 @@ function fn() {
   \"use strict\";
 }
 "
-<<<<<<< bbe2524dab164d43febc1a8d549a76e26eb9d483
-=======
 `;
 
 exports[`test method-chain.js 1`] = `
@@ -25,7 +23,6 @@ method()
   [\"abc\"](x => x)
   [abc](x => x);
 "
->>>>>>> Fix misprinting of computed properties in method chains.
 `;
 
 exports[`test exports.js 1`] = `
