@@ -198,7 +198,7 @@ All of JSX and Flow syntax is supported. In fact, the test suite in
 ## Technical Details
 
 This printer is a fork of
-[recast](https://github.com/benjamn/recast)'s printer with it's
+[recast](https://github.com/benjamn/recast)'s printer with its
 algorithm replaced by the one described by Wadler in "[A prettier
 printer](http://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf)".
 There still may be leftover code from recast that needs to be cleaned
