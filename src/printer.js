@@ -1044,8 +1044,18 @@ function genericPrintNoParens(path, options, print) {
   case "JSXAttribute":
     parts.push(path.call(print, "name"));
 
-    if (n.value)
-      parts.push("=", path.call(print, "value"));
+    if (n.value) {
+      let res;
+      if (
+        (n.value.type === 'StringLiteral' || n.value.type === 'Literal') &&
+        typeof n.value.value === 'string'
+      ) {
+        res = '"' + util.htmlEscapeInsideDoubleQuote(n.value.value) + '"';
+      } else {
+        res = path.call(print, "value");
+      }
+      parts.push("=", res);
+    }
 
     return concat(parts);
   case "JSXIdentifier":
