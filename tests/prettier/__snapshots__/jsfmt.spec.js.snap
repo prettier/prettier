@@ -1,4 +1,3 @@
-<<<<<<< bbe2524dab164d43febc1a8d549a76e26eb9d483
 exports[`test directives.js 1`] = `
 "\"use strict\";
 
@@ -12,7 +11,8 @@ function fn() {
   \"use strict\";
 }
 "
-=======
+`;
+
 exports[`test exports.js 1`] = `
 "export { value1, value2 as value2_renamed, value3, value4 as value4_renamed, value5 } from \"exports\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -22,8 +22,8 @@ export {
   value3,
   value4 as value4_renamed,
   value5
-} from \"exports\";"
->>>>>>> Break long `exports` into multiple lines.
+} from \"exports\";
+"
 `;
 
 exports[`test optional-type-name.js 1`] = `
