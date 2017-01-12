@@ -2059,7 +2059,18 @@ function swapQuotes(str) {
 function nodeStr(str, options) {
   isString.assert(str);
 
-  if (options.singleQuote) {
+  const containsSingleQuote = str.indexOf("'") !== -1;
+  const containsDoubleQuote = str.indexOf('"') !== -1;
+
+  let shouldUseSingleQuote = options.singleQuote;
+  if (options.singleQuote && containsSingleQuote && !containsDoubleQuote) {
+    shouldUseSingleQuote = false;
+  }
+  if (!options.singleQuote && !containsSingleQuote && containsDoubleQuote) {
+    shouldUseSingleQuote = true;
+  }
+
+  if (shouldUseSingleQuote) {
     return swapQuotes(JSON.stringify(swapQuotes(str)));
   } else {
     return JSON.stringify(str);
