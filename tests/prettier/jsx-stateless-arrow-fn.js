@@ -23,4 +23,14 @@ const render6 = ({ styles }) => (
   </div>
 )
 
+const render7 = () =>
+  <div>
+    <span /><span>Dont break each elem onto its own line.</span> <span />
+    <div /> <div />
+  </div>
+
+const render8 = (props) => <div>{props.text}</div>
+const render9 = (props) => <div>{props.looooooooooooooooooooooooooooooong_text}</div>
+const render10 = (props) => <div>{props.even_looooooooooooooooooooooooooooooooooooooooooonger_contents}</div>
+
 const notJSX = (aaaaaaaaaaaaaaaaa, bbbbbbbbbbb) => this.someLongCallWithParams(aaaaaa, bbbbbbb).anotherLongCallWithParams(cccccccccccc, dddddddddddddddddddddd)
