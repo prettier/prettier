@@ -9,7 +9,10 @@ function fn() {
 
 function fn() {
   \"use strict\";
-=======
+}
+"
+`;
+
 exports[`test logical-expressions.js 1`] = `
 "function a() {
   switch(1) {
@@ -60,12 +63,11 @@ function f() {
 function a() {
   switch (1) {
     case \"Literal\":
-      return (
+      return 
         parent.type === \"MemberExpression\" &&
         isNumber.check(node.value) &&
         name === \"object\" &&
-        parent.object === node
-      );
+        parent.object === node;
   }
 }
 
@@ -77,7 +79,7 @@ function b() {
 
 function c() {
   if (
-    (
+    
       isTrue() ||
       isFalse() ||
       isFoo() ||
@@ -85,7 +87,6 @@ function c() {
       isBaz() ||
       isFooBarBaz() ||
       howLongDoesThisHaveToBe()
-    )
   ) {
     return this;
   }
@@ -94,12 +95,20 @@ function c() {
 function d() {
   switch (1) {
     case \"Literal\":
-      return (
+      return 
         parent.type === \"MemberExpression\" &&
         isNumber.check(node.value) &&
         name === \"object\" &&
-        nestedOne || nestedTwo || nestedThree || nestedFour || nestedFive || nestedSix || nestedSeven || nestedEight
-      );
+        (
+          nestedOne ||
+          nestedTwo ||
+          nestedThree ||
+          nestedFour ||
+          nestedFive ||
+          nestedSix ||
+          nestedSeven ||
+          nestedEight
+        );
   }
 }
 
@@ -110,3 +119,16 @@ function e() {
 function f() {
   return one() && two() || three() && four() && five();
 }
+"
+`;
+
+exports[`test optional-type-name.js 1`] = `
+"type Foo = (any) => string
+
+type Bar = { [string]: number }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type Foo = (any) => string;
+
+type Bar = { [string]: number };
+"
+`;
