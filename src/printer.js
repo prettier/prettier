@@ -1866,9 +1866,19 @@ function printExportDeclaration(path, options, print) {
     } else {
       parts.push(
         decl.exportKind === "type" ? "type " : "",
-        shouldPrintSpaces ? "{ " : "{",
-        join(", ", path.map(print, "specifiers")),
-        shouldPrintSpaces ? " }" : "}"
+        group(concat([
+          "{",
+          indent(
+            options.tabWidth,
+            concat([
+              options.bracketSpacing ? line : softline,
+              join(concat([",", options.bracketSpacing ? line : softline]),
+                   path.map(print, "specifiers"))
+            ])
+          ),
+          options.bracketSpacing ? line : softline,
+          "}"
+        ]))
       );
     }
 
