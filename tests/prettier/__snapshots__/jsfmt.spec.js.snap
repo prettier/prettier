@@ -13,6 +13,18 @@ function fn() {
 "
 `;
 
+exports[`test method-chain.js 1`] = `
+"method().then(x => x)
+  [\"abc\"](x => x)
+  [abc](x => x);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+method()
+  .then(x => x)
+  [\"abc\"](x => x)
+  [abc](x => x);
+"
+`;
+
 exports[`test exports.js 1`] = `
 "export { value1, value2 as value2_renamed, value3, value4 as value4_renamed, value5 } from \"exports\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
