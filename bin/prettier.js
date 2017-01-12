@@ -16,6 +16,14 @@ const argv = minimist(process.argv.slice(2), {
 const filenames = argv["_"];
 const write = argv["write"];
 const stdin = argv["stdin"];
+const options = {
+  printWidth: argv["print-width"],
+  tabWidth: argv["tab-width"],
+  bracketSpacing: argv["bracket-spacing"],
+  useFlowParser: argv["flow-parser"],
+  singleQuote: argv["single-quote"],
+  trailingComma: argv["trailing-comma"]
+}
 
 if (!filenames.length && !stdin) {
   console.log(
@@ -33,15 +41,14 @@ if (!filenames.length && !stdin) {
   process.exit(1);
 }
 
+function formatWithShebang(input) {
+  const programInput = input.split("\n");
+  const shebang = programInput.shift() + "\n";
+  return shebang + jscodefmt.format(programInput.join("\n"), options);
+}
+
 function format(input) {
-  return jscodefmt.format(input, {
-    printWidth: argv["print-width"],
-    tabWidth: argv["tab-width"],
-    bracketSpacing: argv["bracket-spacing"],
-    useFlowParser: argv["flow-parser"],
-    singleQuote: argv["single-quote"],
-    trailingComma: argv["trailing-comma"]
-  });
+  return jscodefmt.format(input, options);
 }
 
 if (stdin) {
@@ -70,7 +77,7 @@ if (stdin) {
 
       let output;
       try {
-        output = format(input);
+        output = input.startsWith('#!') ? formatWithShebang(input) : format(input);
       } catch (e) {
         process.exitCode = 2;
         console.error(e);
