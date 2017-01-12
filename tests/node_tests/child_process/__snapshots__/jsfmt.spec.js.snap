@@ -164,9 +164,7 @@ var ls = child_process.spawn(\"ls\");
 var wc = child_process.spawn(\"wc\", [ \"-l\" ]);
 
 // args + options.
-child_process.spawn(\"echo\", [ \"-n\", \"\\\"Testing...\\\"\" ], {
-  env: { TEST: \"foo\" }
-});
+child_process.spawn(\"echo\", [ \"-n\", \'\"Testing...\"\' ], { env: { TEST: \"foo\" } });
 
 // options only.
 child_process.spawn(\"echo\", { env: { FOO: 2 } });
