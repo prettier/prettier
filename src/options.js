@@ -13,8 +13,8 @@ var defaults = {
 
   // Controls the printing of spaces inside array and objects
   bracketSpacing: true,
-  
-  // If true will allways wraps arrow functions params in parens - even if just 1 param
+
+  // If true will always wrap arrow functions params in parens - even if just 1 param
   arrowParensAlways: false,
 };
 

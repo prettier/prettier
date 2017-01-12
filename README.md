@@ -147,7 +147,10 @@ prettier.format(source, {
   trailingComma: false,
 
   // Controls the printing of spaces inside array and objects
-  bracketSpacing: true
+  bracketSpacing: true,
+
+  // If true will always wrap arrow functions params in parens - even if just 1 param
+  arrowParensAlways: false
 });
 ```
 
