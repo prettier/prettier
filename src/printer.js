@@ -239,34 +239,67 @@ function genericPrintNoParens(path, options, print) {
   case "BinaryExpression":
   case "LogicalExpression":
     var parent = path.getParentNode();
-    var isStartOfLogicalExpressionChain = parent ? parent.type !== 'LogicalExpression' : false;
+
+    // For expression chains there are two possible formats, either
+    // it's all in line:
+    //
+    //   A && B && C
+    //
+    // or it should be split after every operator:
+    //
+    //   A &&
+    //   B &&
+    //   C
+    //
+    // So we need to determine when we are at the beginning of a chain
+    // so that we can provide each of these two options
+    var isStartOfLogicalExpressionChain = false;
+    var addParens = false;
+
+    // Assuming this is a chain, let's collect all of the children in
+    // a flat collection
     var chain = collectLogicalExpressions(n);
 
-    if (isStartOfLogicalExpressionChain && chain.length) {
-      const paired = [...pairs(chain)];
-      return conditionalGroup([
-        // single line case
-        // A && B && C
-        concat([
-          path.call(print, "left"),
-          " ",
-          n.operator,
-          " ",
-          path.call(print, "right"),
-        ]),
-        // multiple line case
-        // (
-        //    A &&
-        //    B &&
-        //    C
-        // )
+    if (parent) {
+      if (parent.type !== 'LogicalExpression') {
+        isStartOfLogicalExpressionChain = true;
+      }
+    } else if (n.type === 'LogicalExpression') {
+      // Deal with the case of a nested LogicalExpression, which won't have
+      // a parent node due to `collectLogicalExpressions`
+      isStartOfLogicalExpressionChain = true;
+      // The logic to automatically add parens requires a parent node, so
+      // we have to do it manually in this case
+      addParens = true;
+    }
+
+    // single line case
+    // A && B && C
+    parts.push(
+      concat([
+        path.call(print, "left"),
+        " ",
+        n.operator,
+        " ",
+        path.call(print, "right"),
+      ])
+    );
+
+    // multiple line case
+    // (
+    //    A &&
+    //    B &&
+    //    C
+    // )
+    if (isStartOfLogicalExpressionChain) {
+      parts.push(
         group(
           concat([
-            '(',
+            addParens ? '(' : '',
             indent(
               options.tabWidth,
               concat(
-                paired.map((n) => {
+                pairs(chain).map((n) => {
                   if (n.length == 2) {
                     return concat([
                       line,
@@ -283,22 +316,16 @@ function genericPrintNoParens(path, options, print) {
                 })
               )
             ),
-            line,
-            ')',
+            addParens ? line : '',
+            addParens ? ')' : '',
           ])
         )
-      ])
+      );
     }
 
-    return group(
-      concat([
-        path.call(print, "left"),
-        " ",
-        n.operator,
-        " ",
-        path.call(print, "right"),
-      ])
-    );
+    return isStartOfLogicalExpressionChain ?
+      conditionalGroup(parts) :
+      group(...parts);
   case "AssignmentPattern":
     return concat([
       path.call(print, "left"),
