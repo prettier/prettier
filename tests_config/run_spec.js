@@ -1,6 +1,6 @@
 "use strict";
 const fs = require('fs');
-const jscodefmt = require("../");
+const prettier = require("../");
 const types = require("ast-types");
 
 const RUN_AST_TESTS = process.env["AST_COMPARE"];
@@ -80,7 +80,7 @@ function parse(string) {
 }
 
 function prettyprint(src, filename) {
-  return jscodefmt.format(src, { filename, useFlowParser: true, printWidth: 80 });
+  return prettier.format(src, { filename, useFlowParser: true, printWidth: 80 });
 }
 
 function read(filename) {
