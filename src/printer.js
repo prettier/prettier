@@ -25,6 +25,7 @@ var isString = types.builtInTypes.string;
 var isObject = types.builtInTypes.object;
 var FastPath = require("./fast-path");
 var util = require("./util");
+var isIdentifierName = require("esutils").keyword.isIdentifierNameES6;
 
 function PrintResult(code, sourceMap) {
   assert.ok(this instanceof PrintResult);
@@ -643,13 +644,14 @@ function genericPrintNoParens(path, options, print) {
       return printMethod(path, options, print);
     }
 
-    if (n.computed) {
-      parts.push("[", path.call(print, "key"), "]");
+    if (n.shorthand) {
+      parts.push(path.call(print, "value"));
     } else {
-      parts.push(path.call(print, n.shorthand ? "value" : "key"));
-    }
-
-    if (!n.shorthand) {
+      if (n.computed) {
+        parts.push("[", path.call(print, "key"), "]");
+      } else {
+        parts.push(printPropertyKey(path, print));
+      }
       parts.push(": ", path.call(print, "value"));
     }
 
@@ -1157,15 +1159,18 @@ function genericPrintNoParens(path, options, print) {
     if (n.static)
       parts.push("static ");
 
-    var key = path.call(print, "key");
+    var key;
 
     if (n.computed) {
-      key = concat([ "[", key, "]" ]);
-    } else if (n.variance === "plus") {
-      key = concat([ "+", key ]);
-    } else if (n.variance === "minus") {
-      key = concat([ "-", key ]);
-    }
+      key = concat([ "[", path.call(print, "key"), "]" ]);
+    } else {
+      key = printPropertyKey(path, print);
+      if (n.variance === "plus") {
+        key = concat([ "+", key ]);
+      } else if (n.variance === "minus") {
+        key = concat([ "-", key ]);
+      }
+    } 
 
     parts.push(key);
 
@@ -1610,6 +1615,15 @@ function printStatementSequence(path, options, print) {
   return join(hardline, printed);
 }
 
+function printPropertyKey(path, print) {
+  var node = path.getNode().key;
+  if (node.type === "StringLiteral" && isIdentifierName(node.value)) {
+    // 'a' -> a
+    return node.value;
+  }
+  return path.call(print, "key");
+}
+
 function printMethod(path, options, print) {
   var node = path.getNode();
   var kind = node.kind;
@@ -1635,7 +1649,7 @@ function printMethod(path, options, print) {
     parts.push(kind, " ");
   }
 
-  var key = path.call(print, "key");
+  var key = printPropertyKey(path, print);
 
   if (node.computed) {
     key = concat([ "[", key, "]" ]);
@@ -1775,7 +1789,7 @@ function printObjectMethod(path, options, print) {
     return printMethod(path, options, print);
   }
 
-  var key = path.call(print, "key");
+  var key = printPropertyKey(path, print);
 
   if (objMethod.computed) {
     parts.push("[", key, "]");
