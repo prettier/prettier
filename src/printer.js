@@ -1156,7 +1156,7 @@ function genericPrintNoParens(path, options, print) {
       } else if (n.variance === "minus") {
         key = concat([ "-", key ]);
       }
-    } 
+    }
 
     parts.push(key);
 
@@ -2049,12 +2049,19 @@ function printJSXElement(path, options, print) {
 
     var mostChildren = children.slice(0, -1);
     var closingLines = path.call(print, "closingElement");
-    elem = concat([
+
+    const firstChild = children[0];
+    const lastChild = util.getLast(children);
+    const beginBreak = firstChild && firstChild.type === "line";
+    const endBreak = lastChild && lastChild.type === "line";
+
+    elem = multilineGroup(concat([
       openingLines,
-      indent(options.tabWidth, concat(mostChildren)),
-      util.getLast(children) || "",
-      closingLines
-    ]);
+      indent(options.tabWidth, concat([ beginBreak ? "" : softline ].concat(mostChildren))),
+      lastChild || "",
+      endBreak ? "" : softline,
+      closingLines,
+    ]));
   }
 
   const parent = path.getParentNode();
