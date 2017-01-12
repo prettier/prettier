@@ -1811,6 +1811,10 @@ function printObjectMethod(path, options, print) {
     parts.push(key);
   }
 
+  if (objMethod.typeParameters) {
+    parts.push(path.call(print, "typeParameters"));
+  }
+
   parts.push(
     multilineGroup(concat([
       printFunctionParams(path, print, options),
