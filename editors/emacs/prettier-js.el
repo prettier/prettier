@@ -126,14 +126,14 @@ function."
                 (forward-line len)
                 (let ((text (buffer-substring start (point))))
                   (with-current-buffer target-buffer
-                    (decf line-offset len)
+                    (setq line-offset (- line-offset len))
                     (goto-char (point-min))
                     (forward-line (- from len line-offset))
                     (insert text)))))
              ((equal action "d")
               (with-current-buffer target-buffer
                 (prettier--goto-line (- from line-offset))
-                (incf line-offset len)
+                (setq line-offset (+ line-offset len))
                 (prettier--delete-whole-line len)))
              (t
               (error "invalid rcs patch or internal error in prettier--apply-rcs-patch")))))))))
