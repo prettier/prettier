@@ -42,9 +42,10 @@ if (!filenames.length && !stdin) {
 }
 
 function formatWithShebang(input) {
-  const programInput = input.split("\n");
-  const shebang = programInput.shift() + "\n";
-  return shebang + jscodefmt.format(programInput.join("\n"), options);
+  const index = input.indexOf("\n");
+  const shebang = input.slice(0, index);
+  const programInput = input.slice(index);
+  return shebang + "\n" + format(programInput, options);
 }
 
 function format(input) {
@@ -77,7 +78,7 @@ if (stdin) {
 
       let output;
       try {
-        output = input.startsWith('#!') ? formatWithShebang(input) : format(input);
+        output = input.startsWith("#!") ? formatWithShebang(input) : format(input);
       } catch (e) {
         process.exitCode = 2;
         console.error(e);
