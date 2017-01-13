@@ -35,7 +35,7 @@
     "test": "jest",
     "format": "./bin/prettier.js --write",
     "format:single": "npm run format -- src/printer.js",
-    "format:all": "npm run format -- src/*.js bin/*.js",
+    "format:all": "npm run format -- index.js src/*.js bin/*.js",
     "build:docs": "rollup -c docs/rollup.config.js"
   },
   "jest": {
