@@ -61,6 +61,12 @@
     margin: 5px;
     margin-bottom: 0;
   }
+  .title a {
+    color: #e2e1e1;
+  }
+  .title a:hover {
+    color: #fdfcfc;
+  }
   label {
     margin-right: 5px;
   }
@@ -71,7 +77,7 @@
 
 <div class="container">
   <div class="options">
-    <label class="title">prettier v0.0.6</label>
+    <label class="title"><a href="https://github.com/jlongster/prettier">prettier v0.0.6</a></label>
     <label><input type="number" value="80" id="printWidth"></input> printWidth</label>
     <label><input type="number" value="2" id="tabWidth"></input> tabWidth</label>
     <label><input type="checkbox" id="singleQuote"></input> singleQuote</label>
@@ -142,6 +148,6 @@ try {
   setOptions(json.options);
   inputEditor.setValue(json.content);
 } catch (e) {
-  inputEditor.setValue(code.innerText.trim());  
+  inputEditor.setValue(code.innerText.trim());
 }
 </script>
