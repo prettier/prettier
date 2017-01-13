@@ -874,7 +874,15 @@ function genericPrintNoParens(path, options, print) {
 
     return group(concat(parts));
   case "ForStatement":
-    // TODO Get the for (;;) case right.
+    const body = adjustClause(path.call(print, "body"), options);
+
+    if (!n.init && !n.test && !n.update) {
+      return concat([
+        'for (;;)',
+        body,
+      ]);
+    }
+
     return concat([
       "for (",
       group(
@@ -896,7 +904,7 @@ function genericPrintNoParens(path, options, print) {
         ])
       ),
       ")",
-      adjustClause(path.call(print, "body"), options)
+      body,
     ]);
   case "WhileStatement":
     return concat([
