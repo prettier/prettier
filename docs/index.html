@@ -5,6 +5,7 @@
 <script src="prettier.min.js"></script>
 
 <link rel="stylesheet" href="https://codemirror.net/lib/codemirror.css">
+<link rel="stylesheet" href="https://codemirror.net/theme/base16-dark.css">
 <script src="https://codemirror.net/lib/codemirror.js"></script>
 <script src="https://codemirror.net/mode/javascript/javascript.js"></script>
 <script src="https://codemirror.net/addon/display/rulers.js"></script>
@@ -55,9 +56,6 @@
     font-family: Menlo, monospace;
     font-size: 11.05px;
     line-height: 17.68px;
-  }
-  .editor.output .CodeMirror {
-    background-color: #fdfcfc;
   }
   .editor.input {
     margin-right: 5px;
@@ -149,11 +147,12 @@ var editorOptions = {
   autoCloseBrackets: true,
   matchBrackets: true,
   showCursorWhenSelecting: true,
+  theme: 'base16-dark',
   tabWidth: 2
 };
 var inputEditor = CodeMirror.fromTextArea(input, editorOptions);
 inputEditor.on('change', format);
-var outputEditor = CodeMirror.fromTextArea(output, {readOnly: true, lineNumbers: true });
+var outputEditor = CodeMirror.fromTextArea(output, {readOnly: true, lineNumbers: true, theme: 'base16-dark' });
 </script>
 
 <script>
