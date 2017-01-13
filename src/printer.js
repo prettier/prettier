@@ -327,11 +327,11 @@ function genericPrintNoParens(path, options, print) {
     }
 
     if (
-      !options.arrowParensAlways && n.params.length === 1 && !n.rest &&
-        n.params[0].type === "Identifier" &&
-        !n.params[0].typeAnnotation &&
-        !n.predicate &&
-        !n.returnType
+      n.params.length === 1 && !n.rest &&
+      n.params[0].type === "Identifier" &&
+      !n.params[0].typeAnnotation &&
+      !n.predicate &&
+      !n.returnType
     ) {
       parts.push(path.call(print, "params", 0));
     } else {
