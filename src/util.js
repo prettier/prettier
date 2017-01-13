@@ -24,15 +24,12 @@ function getUnionOfKeys() {
 util.getUnionOfKeys = getUnionOfKeys;
 
 function comparePos(pos1, pos2) {
-  return (pos1.line - pos2.line) || (pos1.column - pos2.column);
+  return pos1.line - pos2.line || pos1.column - pos2.column;
 }
 util.comparePos = comparePos;
 
 function copyPos(pos) {
-  return {
-    line: pos.line,
-    column: pos.column
-  };
+  return { line: pos.line, column: pos.column };
 }
 util.copyPos = copyPos;
 
@@ -98,11 +95,10 @@ function expandLoc(parentNode, childNode) {
 util.fixFaultyLocations = function(node, text) {
   if (node.type === "TemplateLiteral") {
     fixTemplateLiteral(node, text);
-
   } else if (node.decorators) {
     // Expand the loc of the node responsible for printing the decorators
     // (here, the decorated node) so that it includes node.decorators.
-    node.decorators.forEach(function (decorator) {
+    node.decorators.forEach(function(decorator) {
       expandLoc(node, decorator);
     });
   } else if (node.declaration && util.isExportDeclaration(node)) {
@@ -110,12 +106,14 @@ util.fixFaultyLocations = function(node, text) {
     // (here, the export declaration) so that it includes node.decorators.
     var decorators = node.declaration.decorators;
     if (decorators) {
-      decorators.forEach(function (decorator) {
+      decorators.forEach(function(decorator) {
         expandLoc(node, decorator);
       });
     }
-  } else if ((n.MethodDefinition && n.MethodDefinition.check(node)) ||
-             (n.Property.check(node) && (node.method || node.shorthand))) {
+  } else if (
+    n.MethodDefinition && n.MethodDefinition.check(node) ||
+      n.Property.check(node) && (node.method || node.shorthand)
+  ) {
     if (n.FunctionExpression.check(node.value)) {
       // FunctionExpression method values should be anonymous,
       // because their .id fields are ignored anyway.
@@ -127,7 +125,7 @@ util.fixFaultyLocations = function(node, text) {
       // Some parsers accidentally include trailing commas in the
       // end information for ObjectTypeProperty nodes.
       if ((end = skipSpaces(text, end - 1, true)) !== false) {
-        setLocEnd(node, end)
+        setLocEnd(node, end);
       }
     }
   }
@@ -146,7 +144,7 @@ function fixTemplateLiteral(node, text) {
   var afterLeftBackTickPos = locStart(node);
   assert.strictEqual(text.charAt(afterLeftBackTickPos), "`");
   assert.ok(afterLeftBackTickPos < text.length);
-  var firstQuasi = node.quasis[0];
+  var firstQuasi = node.quasis[(0)];
   if (locStart(firstQuasi) - afterLeftBackTickPos < 0) {
     setLocStart(firstQuasi, afterLeftBackTickPos);
   }
@@ -163,17 +161,18 @@ function fixTemplateLiteral(node, text) {
 
   // Now we need to exclude ${ and } characters from the loc's of all
   // quasi elements, since some parsers accidentally include them.
-  node.expressions.forEach(function (expr, i) {
+  node.expressions.forEach(function(expr, i) {
     // Rewind from the start loc over any whitespace and the ${ that
     // precedes the expression. The position of the $ should be the
     // same as the end of the preceding quasi element, but some
     // parsers accidentally include the ${ in the loc of the quasi
     // element.
     var dollarCurlyPos = skipSpaces(text, locStart(expr) - 1, true);
-    if (dollarCurlyPos - 1 >= 0 &&
-        text.charAt(dollarCurlyPos - 1) === "{" &&
+    if (
+      dollarCurlyPos - 1 >= 0 && text.charAt(dollarCurlyPos - 1) === "{" &&
         dollarCurlyPos - 2 >= 0 &&
-        text.charAt(dollarCurlyPos - 2) === "$") {
+        text.charAt(dollarCurlyPos - 2) === "$"
+    ) {
       var quasiBefore = node.quasis[i];
       if (dollarCurlyPos - locEnd(quasiBefore) < 0) {
         setLocEnd(quasiBefore, dollarCurlyPos);
@@ -194,24 +193,26 @@ function fixTemplateLiteral(node, text) {
   });
 }
 
-util.isExportDeclaration = function (node) {
-  if (node) switch (node.type) {
-    case "ExportDeclaration":
-    case "ExportDefaultDeclaration":
-    case "ExportDefaultSpecifier":
-    case "DeclareExportDeclaration":
-    case "ExportNamedDeclaration":
-    case "ExportAllDeclaration":
-    return true;
-  }
+util.isExportDeclaration = function(node) {
+  if (node)
+    switch (node.type) {
+      case "ExportDeclaration":
+      case "ExportDefaultDeclaration":
+      case "ExportDefaultSpecifier":
+      case "DeclareExportDeclaration":
+      case "ExportNamedDeclaration":
+      case "ExportAllDeclaration":
+        return true;
+    }
 
   return false;
 };
 
-util.getParentExportDeclaration = function (path) {
+util.getParentExportDeclaration = function(path) {
   var parentNode = path.getParentNode();
-  if (path.getName() === "declaration" &&
-      util.isExportDeclaration(parentNode)) {
+  if (
+    path.getName() === "declaration" && util.isExportDeclaration(parentNode)
+  ) {
     return parentNode;
   }
 
@@ -227,15 +228,15 @@ util.isTrailingCommaEnabled = function(options, context) {
 };
 
 util.getLast = function(arr) {
-  if(arr.length > 0) {
+  if (arr.length > 0) {
     return arr[arr.length - 1];
   }
   return null;
-}
+};
 
 function _findNewline(text, index, backwards) {
   const length = text.length;
-  let cursor = backwards ? (index - 1) : (index + 1);
+  let cursor = backwards ? index - 1 : index + 1;
   // Look forward and see if there is a newline after/before this code
   // by scanning up/back to the next non-indentation character.
   while (cursor > 0 && cursor < length) {
@@ -253,15 +254,15 @@ function _findNewline(text, index, backwards) {
 
 util.newlineExistsBefore = function(text, index) {
   return _findNewline(text, index, true);
-}
+};
 
 util.newlineExistsAfter = function(text, index) {
   return _findNewline(text, index);
-}
+};
 
 function skipSpaces(text, index, backwards) {
   const length = text.length;
-  let cursor = backwards ? (index - 1) : (index + 1);
+  let cursor = backwards ? index - 1 : index + 1;
   // Look forward and see if there is a newline after/before this code
   // by scanning up/back to the next non-indentation character.
   while (cursor > 0 && cursor < length) {
@@ -277,36 +278,34 @@ function skipSpaces(text, index, backwards) {
 util.skipSpaces = skipSpaces;
 
 function locStart(node) {
-  if(node.range) {
-    return node.range[0];
+  if (node.range) {
+    return node.range[(0)];
   }
   return node.start;
 }
 util.locStart = locStart;
 
 function locEnd(node) {
-  if(node.range) {
-    return node.range[1];
+  if (node.range) {
+    return node.range[(1)];
   }
   return node.end;
 }
 util.locEnd = locEnd;
 
 function setLocStart(node, index) {
-  if(node.range) {
-    node.range[0] = index;
-  }
-  else {
+  if (node.range) {
+    node.range[(0)] = index;
+  } else {
     node.start = index;
   }
 }
 util.setLocStart = setLocStart;
 
 function setLocEnd(node, index) {
-  if(node.range) {
-    node.range[1] = index;
-  }
-  else {
+  if (node.range) {
+    node.range[(1)] = index;
+  } else {
     node.end = index;
   }
 }
@@ -314,13 +313,11 @@ util.setLocEnd = setLocEnd;
 
 // http://stackoverflow.com/a/7124052
 function htmlEscapeInsideDoubleQuote(str) {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/"/g, '&quot;');
-// Intentionally disable the following since it is safe inside of a
-// double quote context
-//    .replace(/'/g, '&#39;')
-//    .replace(/</g, '&lt;')
-//    .replace(/>/g, '&gt;');
+  return str.replace(/&/g, "&amp;").replace(/"/g, "&quot;");
+  // Intentionally disable the following since it is safe inside of a
+  // double quote context
+  //    .replace(/'/g, '&#39;')
+  //    .replace(/</g, '&lt;')
+  //    .replace(/>/g, '&gt;');
 }
 util.htmlEscapeInsideDoubleQuote = htmlEscapeInsideDoubleQuote;

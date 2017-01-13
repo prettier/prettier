@@ -73,11 +73,13 @@ function decorateComment(node, comment, text) {
   // Time to dust off the old binary search robes and wizard hat.
   var left = 0, right = childNodes.length;
   while (left < right) {
-    var middle = (left + right) >> 1;
+    var middle = left + right >> 1;
     var child = childNodes[middle];
 
-    if (locStart(child) - locStart(comment) <= 0 &&
-        locEnd(comment) - locEnd(child) <= 0) {
+    if (
+      locStart(child) - locStart(comment) <= 0 &&
+        locEnd(comment) - locEnd(child) <= 0
+    ) {
       // The comment is completely contained by this child node.
       comment.enclosingNode = child;
       decorateComment(child, comment, text);
@@ -146,26 +148,20 @@ exports.attach = function(comments, ast, text) {
       }
 
       tiesToBreak.push(comment);
-
     } else if (pn) {
       // No contest: we have a trailing comment.
       breakTies(tiesToBreak, text);
       addTrailingComment(pn, comment);
-
     } else if (fn) {
       // No contest: we have a leading comment.
       breakTies(tiesToBreak, text);
       addLeadingComment(fn, comment);
-
     } else if (en) {
       // The enclosing node has no child nodes at all, so what we
       // have here is a dangling comment, e.g. [/* crickets */].
       breakTies(tiesToBreak, text);
       addDanglingComment(en, comment);
-
-    } else {
-      // throw new Error("AST contains no nodes at all?");
-    }
+    } else {}
   });
 
   breakTies(tiesToBreak, text);
@@ -186,17 +182,19 @@ function breakTies(tiesToBreak, text) {
     return;
   }
 
-  var pn = tiesToBreak[0].precedingNode;
-  var fn = tiesToBreak[0].followingNode;
+  var pn = tiesToBreak[(0)].precedingNode;
+  var fn = tiesToBreak[(0)].followingNode;
   var gapEndPos = locStart(fn);
 
   // Iterate backwards through tiesToBreak, examining the gaps
   // between the tied comments. In order to qualify as leading, a
   // comment must be separated from fn by an unbroken series of
   // whitespace-only gaps (or other comments).
-  for (var indexOfFirstLeadingComment = tieCount;
-       indexOfFirstLeadingComment > 0;
-       --indexOfFirstLeadingComment) {
+  for (
+    var indexOfFirstLeadingComment = tieCount;
+    indexOfFirstLeadingComment > 0;
+    --indexOfFirstLeadingComment
+  ) {
     var comment = tiesToBreak[indexOfFirstLeadingComment - 1];
     assert.strictEqual(comment.precedingNode, pn);
     assert.strictEqual(comment.followingNode, fn);
@@ -218,7 +216,6 @@ function breakTies(tiesToBreak, text) {
   //        comment.loc.start.column > fn.loc.start.column) {
   //   ++indexOfFirstLeadingComment;
   // }
-
   tiesToBreak.forEach(function(comment, i) {
     if (i < indexOfFirstLeadingComment) {
       addTrailingComment(pn, comment);
@@ -256,7 +253,7 @@ function addTrailingComment(node, comment) {
 function printLeadingComment(commentPath, print) {
   var comment = commentPath.getValue();
   n.Comment.assert(comment);
-  return concat([print(commentPath), hardline]);
+  return concat([ print(commentPath), hardline ]);
 }
 
 function printTrailingComment(commentPath, print, options) {
@@ -274,40 +271,45 @@ exports.printComments = function(path, print, options) {
   var value = path.getValue();
   var parent = path.getParentNode();
   var printed = print(path);
-  var comments = n.Node.check(value) &&
-      types.getFieldValue(value, "comments");
-  var isFirstInProgram = n.Program.check(parent) &&
-      parent.body[0] === value;
+  var comments = n.Node.check(value) && types.getFieldValue(value, "comments");
+  var isFirstInProgram = n.Program.check(parent) && parent.body[(0)] === value;
 
   if (!comments || comments.length === 0) {
     return printed;
   }
 
   var leadingParts = [];
-  var trailingParts = [printed];
+  var trailingParts = [ printed ];
 
-  path.each(function(commentPath) {
-    var comment = commentPath.getValue();
-    var leading = types.getFieldValue(comment, "leading");
-    var trailing = types.getFieldValue(comment, "trailing");
+  path.each(
+    function(commentPath) {
+      var comment = commentPath.getValue();
+      var leading = types.getFieldValue(comment, "leading");
+      var trailing = types.getFieldValue(comment, "trailing");
 
-    if (leading || (trailing && !(n.Statement.check(value) ||
-                                  comment.type === "Block" ||
-                                  comment.type === "CommentBlock"))) {
-      leadingParts.push(printLeadingComment(commentPath, print));
+      if (
+        leading ||
+          trailing &&
+            !(n.Statement.check(value) || comment.type === "Block" ||
+              comment.type === "CommentBlock")
+      ) {
+        leadingParts.push(printLeadingComment(commentPath, print));
 
-
-      // Support a special case where a comment exists at the very top
-      // of the file. Allow the user to add spacing between that file
-      // and any code beneath it.
-      if(isFirstInProgram &&
-         util.newlineExistsAfter(options.originalText, util.locEnd(comment))) {
-        leadingParts.push(hardline);
+        // Support a special case where a comment exists at the very top
+        // of the file. Allow the user to add spacing between that file
+        // and any code beneath it.
+        if (
+          isFirstInProgram &&
+            util.newlineExistsAfter(options.originalText, util.locEnd(comment))
+        ) {
+          leadingParts.push(hardline);
+        }
+      } else if (trailing) {
+        trailingParts.push(printTrailingComment(commentPath, print, options));
       }
-    } else if (trailing) {
-      trailingParts.push(printTrailingComment(commentPath, print, options));
-    }
-  }, "comments");
+    },
+    "comments"
+  );
 
   leadingParts.push.apply(leadingParts, trailingParts);
   return concat(leadingParts);

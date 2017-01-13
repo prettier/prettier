@@ -15,13 +15,13 @@ function fromString(text) {
 function concat(parts) {
   parts.forEach(assertDoc);
 
-  return {type: "concat", parts};
+  return { type: "concat", parts };
 }
 
 function indent(n, contents) {
   assertDoc(contents);
 
-  return {type: "indent", contents, n};
+  return { type: "indent", contents, n };
 }
 
 function group(contents, opts) {
@@ -40,16 +40,19 @@ function group(contents, opts) {
 function multilineGroup(contents, opts) {
   return group(
     contents,
-    Object.assign(opts || {}, {shouldBreak: hasHardLine(contents)})
+    Object.assign(opts || {}, { shouldBreak: hasHardLine(contents) })
   );
 }
 
 function conditionalGroup(states, opts) {
-  return group(states[0], Object.assign(opts || {}, {expandedStates: states}));
+  return group(
+    states[(0)],
+    Object.assign(opts || {}, { expandedStates: states })
+  );
 }
 
 function ifBreak(contents) {
-  return {type: "if-break", contents};
+  return { type: "if-break", contents };
 }
 
 function iterDoc(topDoc, func) {
@@ -82,10 +85,10 @@ function iterDoc(topDoc, func) {
   }
 }
 
-const line = {type: "line"};
-const softline = {type: "line", soft: true};
-const hardline = {type: "line", hard: true};
-const literalline = {type: "line", hard: true, literal: true};
+const line = { type: "line" };
+const softline = { type: "line", soft: true };
+const hardline = { type: "line", hard: true };
+const literalline = { type: "line", hard: true, literal: true };
 
 function isEmpty(n) {
   return typeof n === "string" && n.length === 0;
@@ -118,12 +121,12 @@ function hasHardLine(doc) {
   // multiline group because they should be marked bottom-up.
   return !!iterDoc(doc, (type, doc) => {
     switch (type) {
-    case "line":
-      if (doc.hard) {
-        return true;
-      }
+      case "line":
+        if (doc.hard) {
+          return true;
+        }
 
-      break;
+        break;
     }
   });
 }
@@ -158,50 +161,50 @@ function fits(next, restCommands, width) {
     }
 
     const x = cmds.pop();
-    const ind = x[0];
-    const mode = x[1];
-    const doc = x[2];
+    const ind = x[(0)];
+    const mode = x[(1)];
+    const doc = x[(2)];
 
     if (typeof doc === "string") {
       width -= doc.length;
     } else {
       switch (doc.type) {
-      case "concat":
-        for (var i = doc.parts.length - 1; i >= 0; i--) {
-          cmds.push([ ind, mode, doc.parts[i] ]);
-        }
-
-        break;
-      case "indent":
-        cmds.push([ ind + doc.n, mode, doc.contents ]);
-
-        break;
-      case "group":
-        cmds.push([ ind, doc.break ? MODE_BREAK : mode, doc.contents ]);
-
-        break;
-      case "if-break":
-        if (mode === MODE_BREAK) {
-          cmds.push([ ind, mode, doc.contents ]);
-        }
-
-        break;
-      case "line":
-        switch (mode) {
-        // fallthrough
-        case MODE_FLAT:
-          if (!doc.hard) {
-            if (!doc.soft) {
-              width -= 1;
-            }
-
-            break;
+        case "concat":
+          for (var i = doc.parts.length - 1; i >= 0; i--) {
+            cmds.push([ ind, mode, doc.parts[i] ]);
           }
 
-        case MODE_BREAK:
-          return true;
-        }
-        break;
+          break;
+        case "indent":
+          cmds.push([ ind + doc.n, mode, doc.contents ]);
+
+          break;
+        case "group":
+          cmds.push([ ind, doc.break ? MODE_BREAK : mode, doc.contents ]);
+
+          break;
+        case "if-break":
+          if (mode === MODE_BREAK) {
+            cmds.push([ ind, mode, doc.contents ]);
+          }
+
+          break;
+        case "line":
+          switch (mode) {
+            // fallthrough
+            case MODE_FLAT:
+              if (!doc.hard) {
+                if (!doc.soft) {
+                  width -= 1;
+                }
+
+                break;
+              }
+
+            case MODE_BREAK:
+              return true;
+          }
+          break;
       }
     }
   }
@@ -218,9 +221,9 @@ function print(w, doc) {
   let shouldRemeasure = false;
   while (cmds.length !== 0) {
     const x = cmds.pop();
-    const ind = x[0];
-    const mode = x[1];
-    const doc = x[2];
+    const ind = x[(0)];
+    const mode = x[(1)];
+    const doc = x[(2)];
 
     if (typeof doc === "string") {
       out.push(doc);
@@ -228,131 +231,131 @@ function print(w, doc) {
       pos += doc.length;
     } else {
       switch (doc.type) {
-      case "concat":
-        for (var i = doc.parts.length - 1; i >= 0; i--) {
-          cmds.push([ ind, mode, doc.parts[i] ]);
-        }
-
-        break;
-      case "indent":
-        cmds.push([ ind + doc.n, mode, doc.contents ]);
-
-        break;
-      case "group":
-        switch (mode) {
-        // fallthrough
-        case MODE_FLAT:
-          if (!shouldRemeasure) {
-            cmds.push([
-              ind,
-              doc.break ? MODE_BREAK : MODE_FLAT,
-              doc.contents
-            ]);
-
-            break;
+        case "concat":
+          for (var i = doc.parts.length - 1; i >= 0; i--) {
+            cmds.push([ ind, mode, doc.parts[i] ]);
           }
 
-        case MODE_BREAK:
-          shouldRemeasure = false;
+          break;
+        case "indent":
+          cmds.push([ ind + doc.n, mode, doc.contents ]);
 
-          const next = [ ind, MODE_FLAT, doc.contents ];
-          let rem = w - pos;
-
-          if (!doc.break && fits(next, cmds, rem)) {
-            cmds.push(next);
-          } else {
-            // Expanded states are a rare case where a document
-            // can manually provide multiple representations of
-            // itself. It provides an array of documents
-            // going from the least expanded (most flattened)
-            // representation first to the most expanded. If a
-            // group has these, we need to manually go through
-            // these states and find the first one that fits.
-            if (doc.expandedStates) {
-              const mostExpanded = doc.expandedStates[doc.expandedStates.length -
-                1];
-
-              if (doc.break) {
-                cmds.push([ ind, MODE_BREAK, mostExpanded ]);
+          break;
+        case "group":
+          switch (mode) {
+            // fallthrough
+            case MODE_FLAT:
+              if (!shouldRemeasure) {
+                cmds.push([
+                  ind,
+                  doc.break ? MODE_BREAK : MODE_FLAT,
+                  doc.contents
+                ]);
 
                 break;
+              }
+
+            case MODE_BREAK:
+              shouldRemeasure = false;
+
+              const next = [ ind, MODE_FLAT, doc.contents ];
+              let rem = w - pos;
+
+              if (!doc.break && fits(next, cmds, rem)) {
+                cmds.push(next);
               } else {
-                for (var i = 1; i < doc.expandedStates.length + 1; i++) {
-                  if (i >= doc.expandedStates.length) {
+                // Expanded states are a rare case where a document
+                // can manually provide multiple representations of
+                // itself. It provides an array of documents
+                // going from the least expanded (most flattened)
+                // representation first to the most expanded. If a
+                // group has these, we need to manually go through
+                // these states and find the first one that fits.
+                if (doc.expandedStates) {
+                  const mostExpanded = doc.expandedStates[doc.expandedStates.length -
+                    1];
+
+                  if (doc.break) {
                     cmds.push([ ind, MODE_BREAK, mostExpanded ]);
 
                     break;
                   } else {
-                    const state = doc.expandedStates[i];
-                    const cmd = [ ind, MODE_FLAT, state ];
+                    for (var i = 1; i < doc.expandedStates.length + 1; i++) {
+                      if (i >= doc.expandedStates.length) {
+                        cmds.push([ ind, MODE_BREAK, mostExpanded ]);
 
-                    if (fits(cmd, cmds, rem)) {
-                      cmds.push(cmd);
+                        break;
+                      } else {
+                        const state = doc.expandedStates[i];
+                        const cmd = [ ind, MODE_FLAT, state ];
 
-                      break;
+                        if (fits(cmd, cmds, rem)) {
+                          cmds.push(cmd);
+
+                          break;
+                        }
+                      }
                     }
                   }
+                } else {
+                  cmds.push([ ind, MODE_BREAK, doc.contents ]);
                 }
               }
-            } else {
-              cmds.push([ ind, MODE_BREAK, doc.contents ]);
-            }
+
+              break;
+          }
+          break;
+        case "if-break":
+          if (mode === MODE_BREAK) {
+            cmds.push([ ind, MODE_BREAK, doc.contents ]);
           }
 
           break;
-        }
-        break;
-      case "if-break":
-        if (mode === MODE_BREAK) {
-          cmds.push([ ind, MODE_BREAK, doc.contents ]);
-        }
+        case "line":
+          switch (mode) {
+            // fallthrough
+            case MODE_FLAT:
+              if (!doc.hard) {
+                if (!doc.soft) {
+                  out.push(" ");
 
-        break;
-      case "line":
-        switch (mode) {
-        // fallthrough
-        case MODE_FLAT:
-          if (!doc.hard) {
-            if (!doc.soft) {
-              out.push(" ");
+                  pos += 1;
+                }
 
-              pos += 1;
-            }
+                break;
+              } else {
+                // This line was forced into the output even if we
+                // were in flattened mode, so we need to tell the next
+                // group that no matter what, it needs to remeasure
+                // because the previous measurement didn't accurately
+                // capture the entire expression (this is necessary
+                // for nested groups)
+                shouldRemeasure = true;
+              }
 
-            break;
-          } else {
-            // This line was forced into the output even if we
-            // were in flattened mode, so we need to tell the next
-            // group that no matter what, it needs to remeasure
-            // because the previous measurement didn't accurately
-            // capture the entire expression (this is necessary
-            // for nested groups)
-            shouldRemeasure = true;
+            case MODE_BREAK:
+              if (out.length > 0) {
+                const lastString = out[out.length - 1];
+
+                if (lastString.match(/^\s*\n\s*$/)) {
+                  out[out.length - 1] = "\n";
+                }
+              }
+
+              if (doc.literal) {
+                out.push("\n");
+
+                pos = 0;
+              } else {
+                out.push("\n" + _makeIndent(ind));
+
+                pos = ind;
+              }
+
+              break;
           }
-
-        case MODE_BREAK:
-          if (out.length > 0) {
-            const lastString = out[out.length - 1];
-
-            if (lastString.match(/^\s*\n\s*$/)) {
-              out[out.length - 1] = "\n";
-            }
-          }
-
-          if (doc.literal) {
-            out.push("\n");
-
-            pos = 0;
-          } else {
-            out.push("\n" + _makeIndent(ind));
-
-            pos = ind;
-          }
-
           break;
-        }
-        break;
-      default:
+        default:
       }
     }
   }

@@ -5,21 +5,21 @@ const flowParser = require("flow-parser");
 const comments = require("./src/comments");
 
 var babylonOptions = {
-  sourceType: 'module',
+  sourceType: "module",
   allowImportExportEverywhere: false,
   allowReturnOutsideFunction: false,
   plugins: [
-    'jsx',
-    'flow',
-    'doExpressions',
-    'objectRestSpread',
-    'decorators',
-    'classProperties',
-    'exportExtensions',
-    'asyncGenerators',
-    'functionBind',
-    'functionSent',
-    'dynamicImport'
+    "jsx",
+    "flow",
+    "doExpressions",
+    "objectRestSpread",
+    "decorators",
+    "classProperties",
+    "exportExtensions",
+    "asyncGenerators",
+    "functionBind",
+    "functionSent",
+    "dynamicImport"
   ]
 };
 
@@ -27,22 +27,22 @@ function format(text, opts) {
   opts = opts || {};
   let ast;
 
-  if(opts.useFlowParser) {
+  if (opts.useFlowParser) {
     ast = flowParser.parse(text);
-    if(ast.errors.length > 0) {
-      let msg = ast.errors[0].message + " on line " + ast.errors[0].loc.start.line
-      if(opts.filename) {
+    if (ast.errors.length > 0) {
+      let msg = ast.errors[(0)].message + " on line " +
+        ast.errors[(0)].loc.start.line;
+      if (opts.filename) {
         msg += " in file " + opts.filename;
       }
       throw new Error(msg);
     }
-  }
-  else {
+  } else {
     ast = babylon.parse(text, babylonOptions);
   }
 
   // Interleave comment nodes
-  if(ast.comments) {
+  if (ast.comments) {
     comments.attach(ast.comments, ast, text);
     ast.comments = [];
   }
