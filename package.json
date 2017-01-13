@@ -9,6 +9,7 @@
     "url": "git+https://github.com/jlongster/prettier.git"
   },
   "author": "James Long",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/jlongster/prettier/issues"
   },
