@@ -465,40 +465,48 @@ function genericPrintNoParens(path, options, print) {
     }
 
     if (n.specifiers && n.specifiers.length > 0) {
-      var foundImportSpecifier = false;
+      var standalones = [];
+      var grouped = [];
 
-      path.each(
-        function(specifierPath) {
-          var i = specifierPath.getName();
+      path.each(function(specifierPath) {
+        var value = specifierPath.getValue();
+        if (
+          namedTypes.ImportDefaultSpecifier.check(value) ||
+          namedTypes.ImportNamespaceSpecifier.check(value)
+        ) {
+          standalones.push(print(specifierPath));
+        } else {
+          grouped.push(print(specifierPath));
+        }
+      }, "specifiers");
 
-          if (i > 0) {
-            parts.push(", ");
-          }
+      assert.ok(standalones.length <= 1);
 
-          var value = specifierPath.getValue();
+      if (standalones.length > 0) {
+        parts.push(standalones[0]);
+      }
 
-          if (
-            namedTypes.ImportDefaultSpecifier.check(value) ||
-              namedTypes.ImportNamespaceSpecifier.check(value)
-          ) {
-            assert.strictEqual(foundImportSpecifier, false);
-          } else {
-            namedTypes.ImportSpecifier.assert(value);
+      if (standalones.length > 0 && grouped.length > 0) {
+        parts.push(", ");
+      }
 
-            if (!foundImportSpecifier) {
-              foundImportSpecifier = true;
-
-              parts.push(options.bracketSpacing ? "{ " : "{");
-            }
-          }
-
-          parts.push(print(specifierPath));
-        },
-        "specifiers"
-      );
-
-      if (foundImportSpecifier) {
-        parts.push(options.bracketSpacing ? " }" : "}");
+      if (grouped.length > 0) {
+        parts.push(
+          group(concat([
+            "{",
+            indent(
+              options.tabWidth,
+              concat([
+                options.bracketSpacing ? line : softline,
+                join(concat([",", options.bracketSpacing ? line : softline]),
+                     grouped)
+              ])
+            ),
+            ifBreak(options.trailingComma ? "," : ""),
+            options.bracketSpacing ? line : softline,
+            "}",
+          ]))
+        );
       }
 
       parts.push(" from ");

@@ -51,7 +51,12 @@ var n: IFoo2 = {prop: 42}; // Error: {prop:number} ~> {prop:string}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-import type { inlinedType1, standaloneType1, talias1, talias3 } from \"./types_only\";
+import type {
+  inlinedType1,
+  standaloneType1,
+  talias1,
+  talias3
+} from \"./types_only\";
 
 var a: inlinedType1 = 42;
 var b: inlinedType1 = \"asdf\";

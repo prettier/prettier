@@ -1144,7 +1144,10 @@ import { specifierNumber } from \"ES6_Named1\";
 ///////////////////////////////////////////////////
 // == Multi \`export *\` should combine exports == //
 ///////////////////////////////////////////////////
-import { numberValue1 as numberValue8, numberValue2 as numberValue9 } from \"./ES6_ExportAllFromMulti\";
+import {
+  numberValue1 as numberValue8,
+  numberValue2 as numberValue9
+} from \"./ES6_ExportAllFromMulti\";
 
 var at1: number = numberValue8;
 var at2: string = numberValue8;
