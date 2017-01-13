@@ -16,14 +16,6 @@ const argv = minimist(process.argv.slice(2), {
 const filenames = argv["_"];
 const write = argv["write"];
 const stdin = argv["stdin"];
-const options = {
-  printWidth: argv["print-width"],
-  tabWidth: argv["tab-width"],
-  bracketSpacing: argv["bracket-spacing"],
-  useFlowParser: argv["flow-parser"],
-  singleQuote: argv["single-quote"],
-  trailingComma: argv["trailing-comma"]
-}
 
 if (!filenames.length && !stdin) {
   console.log(
@@ -45,11 +37,18 @@ function formatWithShebang(input) {
   const index = input.indexOf("\n");
   const shebang = input.slice(0, index + 1);
   const programInput = input.slice(index + 1);
-  return shebang + format(programInput, options);
+  return shebang + format(programInput);
 }
 
 function format(input) {
-  return jscodefmt.format(input, options);
+  return jscodefmt.format(input, {
+    printWidth: argv["print-width"],
+    tabWidth: argv["tab-width"],
+    bracketSpacing: argv["bracket-spacing"],
+    useFlowParser: argv["flow-parser"],
+    singleQuote: argv["single-quote"],
+    trailingComma: argv["trailing-comma"]
+  });
 }
 
 if (stdin) {
