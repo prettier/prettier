@@ -1892,6 +1892,7 @@ function printExportDeclaration(path, options, print) {
                    path.map(print, "specifiers"))
             ])
           ),
+          ifBreak(options.trailingComma ? "," : ""),
           options.bracketSpacing ? line : softline,
           "}"
         ]))
