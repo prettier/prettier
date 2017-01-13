@@ -867,7 +867,7 @@ function genericPrintNoParens(path, options, print) {
     }
 
     return group(concat(parts));
-  case "ForStatement":
+  case "ForStatement": {
     const body = adjustClause(path.call(print, "body"), options);
 
     if (!n.init && !n.test && !n.update) {
@@ -900,6 +900,7 @@ function genericPrintNoParens(path, options, print) {
       ")",
       body,
     ]);
+  }
   case "WhileStatement":
     return concat([
       "while (",
