@@ -8,6 +8,12 @@
 <script src="https://codemirror.net/lib/codemirror.js"></script>
 <script src="https://codemirror.net/mode/javascript/javascript.js"></script>
 <script src="https://codemirror.net/addon/display/rulers.js"></script>
+<script src="https://codemirror.net/addon/search/searchcursor.js"></script>
+<script src="https://codemirror.net/addon/edit/matchbrackets.js"></script>
+<script src="https://codemirror.net/addon/edit/closebrackets.js"></script>
+<script src="https://codemirror.net/addon/comment/comment.js"></script>
+<script src="https://codemirror.net/addon/wrap/hardwrap.js"></script>
+<script src="https://codemirror.net/keymap/sublime.js"></script>
 
 <style type="text/css">
   html, body {
@@ -112,7 +118,7 @@ function getOptions() {
   var options = {};
   OPTIONS.forEach(function(option) {
     var elem = document.getElementById(option);
-    options[option] = elem.type === 'number' ? +elem.value : elem.checked;
+    options[option] = elem.type === 'number' ? Number(elem.value) : elem.checked;
   });
   return options;
 }
@@ -137,9 +143,17 @@ function format() {
 
 document.getElementsByClassName('options')[0].onchange = format;
 
-var inputEditor = CodeMirror.fromTextArea(input);
+var editorOptions = {
+  lineNumbers: true,
+  keyMap: "sublime",
+  autoCloseBrackets: true,
+  matchBrackets: true,
+  showCursorWhenSelecting: true,
+  tabWidth: 2
+};
+var inputEditor = CodeMirror.fromTextArea(input, editorOptions);
 inputEditor.on('change', format);
-var outputEditor = CodeMirror.fromTextArea(output, {readOnly: true});
+var outputEditor = CodeMirror.fromTextArea(output, {readOnly: true, lineNumbers: true });
 </script>
 
 <script>
