@@ -33,13 +33,6 @@ if (!filenames.length && !stdin) {
   process.exit(1);
 }
 
-function formatWithShebang(input) {
-  const index = input.indexOf("\n");
-  const shebang = input.slice(0, index + 1);
-  const programInput = input.slice(index + 1);
-  return shebang + format(programInput);
-}
-
 function format(input) {
   return jscodefmt.format(input, {
     printWidth: argv["print-width"],
@@ -77,7 +70,7 @@ if (stdin) {
 
       let output;
       try {
-        output = input.startsWith("#!") ? formatWithShebang(input) : format(input);
+        output = format(input);
       } catch (e) {
         process.exitCode = 2;
         console.error(e);
