@@ -17,14 +17,14 @@ function removeEmptyStatements(ast) {
   });
 }
 
-function run_spec(dirname) {
+function run_spec(dirname, options = {}) {
   fs.readdirSync(dirname).forEach(filename => {
     if (filename.endsWith('.js') && filename !== 'jsfmt.spec.js') {
       const path = dirname + '/' + filename;
 
       if (!RUN_AST_TESTS) {
         const source = read(path).replace(/\r\n/g, '\n');
-        const output = prettyprint(source, path);
+        const output = prettyprint(source, path, options);
         test(filename, () => {
           expect(source + '~'.repeat(80) + '\n' + output).toMatchSnapshot();
         });
@@ -79,8 +79,12 @@ function parse(string) {
   return stripLocation(flowParser.parse(string));
 }
 
-function prettyprint(src, filename) {
-  return prettier.format(src, { filename, useFlowParser: true, printWidth: 80 });
+function prettyprint(src, filename, options) {
+  return prettier.format(src, Object.assign({
+    filename,
+    useFlowParser: true,
+    printWidth: 80,
+  }, options));
 }
 
 function read(filename) {
