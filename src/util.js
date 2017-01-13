@@ -262,7 +262,7 @@ util.newlineExistsAfter = function(text, index) {
 
 function skipSpaces(text, index, backwards) {
   const length = text.length;
-  let cursor = backwards ? index - 1 : index + 1;
+  let cursor = backwards ? index - 1 : index;
   // Look forward and see if there is a newline after/before this code
   // by scanning up/back to the next non-indentation character.
   while (cursor > 0 && cursor < length) {
