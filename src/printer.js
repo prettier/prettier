@@ -1644,7 +1644,11 @@ function printStatementSequence(path, options, print) {
 
 function printPropertyKey(path, print) {
   var node = path.getNode().key;
-  if (node.type === "StringLiteral" && isIdentifierName(node.value)) {
+  if (
+    (node.type === "StringLiteral" ||
+      node.type === "Literal" && typeof node.value === "string") &&
+    isIdentifierName(node.value)
+  ) {
     // 'a' -> a
     return node.value;
   }

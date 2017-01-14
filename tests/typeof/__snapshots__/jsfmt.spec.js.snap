@@ -161,7 +161,7 @@ var f: typeof numberAlias = 42;
  * These provoke a specific error, not just the generic
  * \"type is incompatible\"
  */
-var Map = { \"A\": \"this is A\", \"B\": \"this is B\", \"C\": \"this is C\" };
+var Map = { A: \"this is A\", B: \"this is B\", C: \"this is C\" };
 var keys: $Keys<Map> = \"A\"; // Error: ineligible value used in type anno
 "
 `;
