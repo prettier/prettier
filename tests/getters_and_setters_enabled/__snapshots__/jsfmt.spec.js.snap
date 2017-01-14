@@ -79,16 +79,19 @@ class Foo {
   get propWithMatchingGetterAndSetter(): number {
     return 4;
   }
-  set propWithMatchingGetterAndSetter(x: number) {}
+  set propWithMatchingGetterAndSetter(x: number) {
+  }
 
   // The getter and setter need not have the same type - no error
   get propWithSubtypingGetterAndSetter(): ?number {
     return 4;
   }
-  set propWithSubtypingGetterAndSetter(x: number) {}
+  set propWithSubtypingGetterAndSetter(x: number) {
+  }
 
   // The getter and setter need not have the same type - no error
-  set propWithSubtypingGetterAndSetterReordered(x: number) {}
+  set propWithSubtypingGetterAndSetterReordered(x: number) {
+  }
   get propWithSubtypingGetterAndSetterReordered(): ?number {
     return 4;
   }
@@ -96,7 +99,8 @@ class Foo {
   get propWithMismatchingGetterAndSetter(): number {
     return 4;
   }
-  set propWithMismatchingGetterAndSetter(x: string) {}
+  set propWithMismatchingGetterAndSetter(x: string) {
+  }
   // doesn\'t match getter (OK)
   propOverriddenWithGetter: number;
   get propOverriddenWithGetter() {
@@ -104,7 +108,8 @@ class Foo {
   }
 
   propOverriddenWithSetter: number;
-  set propOverriddenWithSetter(x: string) {}
+  set propOverriddenWithSetter(x: string) {
+  }
 }
 
 var foo = new Foo();
@@ -222,14 +227,17 @@ var obj = {
   get propWithMatchingGetterAndSetter(): number {
     return 4;
   },
-  set propWithMatchingGetterAndSetter(x: number) {},
+  set propWithMatchingGetterAndSetter(x: number) {
+  },
   // The getter and setter need not have the same type
   get propWithSubtypingGetterAndSetter(): ?number {
     return 4;
   },
   // OK
-  set propWithSubtypingGetterAndSetter(x: number) {},
-  set propWithSubtypingGetterAndSetterReordered(x: number) {},
+  set propWithSubtypingGetterAndSetter(x: number) {
+  },
+  set propWithSubtypingGetterAndSetterReordered(x: number) {
+  },
   // OK
   get propWithSubtypingGetterAndSetterReordered(): ?number {
     return 4;
@@ -237,8 +245,10 @@ var obj = {
   get exampleOfOrderOfGetterAndSetter(): A {
     return new A();
   },
-  set exampleOfOrderOfGetterAndSetter(x: B) {},
-  set exampleOfOrderOfGetterAndSetterReordered(x: B) {},
+  set exampleOfOrderOfGetterAndSetter(x: B) {
+  },
+  set exampleOfOrderOfGetterAndSetterReordered(x: B) {
+  },
   get exampleOfOrderOfGetterAndSetterReordered(): A {
     return new A();
   }
@@ -415,7 +425,8 @@ class Base {
 
 (class extends Base {
   // error: setter incompatible with read/write property
-  set x(value: B): void {}
+  set x(value: B): void {
+  }
 });
 
 (class extends Base {
@@ -423,12 +434,14 @@ class Base {
   get x(): C {
     return c;
   }
-  set x(value: A): void {}
+  set x(value: A): void {
+  }
 });
 
 (class extends Base {
   // error: setter incompatible with read-only property
-  set pos(value: B): void {}
+  set pos(value: B): void {
+  }
 });
 
 (class extends Base {
@@ -447,7 +460,8 @@ class Base {
 
 (class extends Base {
   // ok: setter contravariant with write-only property
-  set neg(value: A): void {}
+  set neg(value: A): void {
+  }
 });
 
 (class extends Base {

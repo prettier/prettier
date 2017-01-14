@@ -44,14 +44,18 @@ var data = \"foo\";
 
 ls.stdin.write(data);
 ls.stdin.write(data, \"utf-8\");
-ls.stdin.write(data, () => {});
-ls.stdin.write(data, \"utf-8\", () => {});
+ls.stdin.write(data, () => {
+});
+ls.stdin.write(data, \"utf-8\", () => {
+});
 
 ls.stdin.end();
 ls.stdin.end(data);
 ls.stdin.end(data, \"utf-8\");
-ls.stdin.end(data, () => {});
-ls.stdin.end(data, \"utf-8\", () => {});
+ls.stdin.end(data, () => {
+});
+ls.stdin.end(data, \"utf-8\", () => {
+});
 
 var ws = fs.createWriteStream(\"/dev/null\");
 ls.stdout.pipe(ws).end();

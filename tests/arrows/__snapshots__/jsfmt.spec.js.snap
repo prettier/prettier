@@ -28,7 +28,8 @@ var ident = <T>(x: T): T => x;
 exports[`test arrow_function_expression.js 1`] = `
 "(a => {}).length
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-(a => {}).length;
+(a => {
+}).length;
 "
 `;
 
@@ -62,7 +63,8 @@ exports[`test long-call-no-args.js 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 veryLongCall(
   VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT,
-  () => {}
+  () => {
+  }
 );
 "
 `;

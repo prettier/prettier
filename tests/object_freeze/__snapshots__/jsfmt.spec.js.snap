@@ -37,7 +37,8 @@ bliffl.corge;
 // error
 bliffl.constructor = baz;
 // error
-bliffl.toString = function() {};
+bliffl.toString = function() {
+};
 // error
 baz.baz = 0;
 

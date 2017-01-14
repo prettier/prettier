@@ -208,7 +208,8 @@ function testLiteralProperty(a: A) {
 
 type A = { \"b_c\": ?string };
 
-function stuff(str: string) {}
+function stuff(str: string) {
+}
 
 function testProperty(a: A) {
   if (a.b_c) {
@@ -371,22 +372,29 @@ let tests = [
 
 let tests = [
   function(x: string, y: number) {
-    if (x == y) {}
+    if (x == y) {
+    }
     // error, string & number are not comparable (unsafe casting)
-    if (x === y) {} // no error, to match \`let z = (x === y)\` which is allowed
+    if (x === y) {
+    } // no error, to match \`let z = (x === y)\` which is allowed
   },
   function(x: string) {
-    if (x == undefined) {}
+    if (x == undefined) {
+    }
     // ok
-    if (x == void 0) {} // ok
+    if (x == void 0) {
+    } // ok
   },
   function(x: string) {
-    if (x == null) {} // ok
+    if (x == null) {
+    } // ok
   },
   function(x: { y: \"foo\" } | { y: \"bar\" }) {
-    if (x.y == 123) {}
+    if (x.y == 123) {
+    }
     // error
-    if (x.y === 123) {} // ok
+    if (x.y === 123) {
+    } // ok
   }
 ];
 "
@@ -593,7 +601,8 @@ function def_assign_setprop_nohavoc(obj: Obj, obj2: Obj2) {
 
 type Obj = { p: number | string };
 
-function f() {}
+function f() {
+}
 
 function def_assign_function_havoc(obj: Obj) {
   obj.p = 10;
@@ -790,28 +799,36 @@ function foo5() {
     o.p();
   }
   function _foo5() {
-    o.p = function() {};
+    o.p = function() {
+    };
   }
 }
 
 function foo6(o: mixed) {
-  if (o.bar) {} // error, any lookup on mixed is unsafe
+  if (o.bar) {
+  } // error, any lookup on mixed is unsafe
 }
 
 function foo7(o: mixed) {
-  if (typeof o.bar === \"string\") {}
+  if (typeof o.bar === \"string\") {
+  }
   // error
-  if (o && typeof o.bar === \"string\") {}
+  if (o && typeof o.bar === \"string\") {
+  }
   // ok
-  if (o != null && typeof o.bar === \"string\") {}
+  if (o != null && typeof o.bar === \"string\") {
+  }
   // ok
-  if (o !== null && o !== undefined && typeof o.bar === \"string\") {} // ok
+  if (o !== null && o !== undefined && typeof o.bar === \"string\") {
+  } // ok
 }
 
 function foo8(o: { p: mixed }) {
-  if (o.p && o.p.q) {}
+  if (o.p && o.p.q) {
+  }
   // this is ok because o.p is truthy, so o.p.q is safe
-  if (o.p && o.p.q && o.p.q.r) {}
+  if (o.p && o.p.q && o.p.q.r) {
+  }
 }
 "
 `;
@@ -941,8 +958,10 @@ function arr0(x: mixed) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-function takesNumber(x: number) {}
-function takesString(x: string) {}
+function takesNumber(x: number) {
+}
+function takesString(x: string) {
+}
 
 function num(x: mixed) {
   if (typeof x === \"number\") {
@@ -1395,10 +1414,12 @@ let tests = [
     }
   },
   function(num: number, obj: { foo: number }) {
-    if (num === obj.bar) {}
+    if (num === obj.bar) {
+    }
   },
   function(num: number, obj: { [key: string]: number }) {
-    if (num === obj.bar) {}
+    if (num === obj.bar) {
+    }
   },
   function(n: number): Mode {
     if (n !== 0 && n !== 1 && n !== 2) {
@@ -1705,7 +1726,8 @@ function bar(b) {
   var z: string = x;
 }
 
-function maybe_throw() {}
+function maybe_throw() {
+}
 function qux() {
   var x = 0;
   try {
@@ -1755,14 +1777,16 @@ function waldo() {
 function global_in_conditional0(x: number) {
   // merge_env
   if (x != 0) {
-    if (BAZ) {}
+    if (BAZ) {
+    }
   }
 }
 
 function global_in_conditional2(x: number) {
   // copy_env
   for (var i = 0; i < 100; i++) {
-    if (BAZ) {}
+    if (BAZ) {
+    }
   }
 }
 "
@@ -1970,10 +1994,12 @@ let tests = [
     }
   },
   function(str: string, obj: { foo: string }) {
-    if (str === obj.bar) {}
+    if (str === obj.bar) {
+    }
   },
   function(str: string, obj: { [key: string]: string }) {
-    if (str === obj.bar) {}
+    if (str === obj.bar) {
+    }
   },
   function(str: string): Mode {
     var ch = str[0];
@@ -2530,14 +2556,18 @@ let tests = [
   },
   // nested objects
   function test8(x: { foo: { bar: 1 } }) {
-    if (x.foo.bar === 1) {}
-    if (x.fooTypo.bar === 1) {} // error, fooTypo doesn\'t exist
+    if (x.foo.bar === 1) {
+    }
+    if (x.fooTypo.bar === 1) {
+    } // error, fooTypo doesn\'t exist
   },
   // invalid RHS
   function(x: A) {
-    if (x.kind === null.toString()) {}
+    if (x.kind === null.toString()) {
+    }
     // error, method on null
-    if ({ kind: 1 }.kind === null.toString()) {} // error, method on null
+    if ({ kind: 1 }.kind === null.toString()) {
+    } // error, method on null
   },
   // non-objects on LHS
   function(
@@ -2549,28 +2579,32 @@ let tests = [
     s: Function,
     t: () => void
   ) {
-    if (x.length === 0) {}
+    if (x.length === 0) {
+    }
     if (x.legnth === 0) {
       // typos are allowed to be tested
       (x.legnth: number);
       // inside the block, it\'s a number
       (x.legnth: string); // error: number literal 0 !~> string
     }
-    if (y.length === 0) {}
+    if (y.length === 0) {
+    }
     if (y.legnth === 0) {
       // typos are allowed to be tested
       (y.legnth: number);
       // inside the block, it\'s a number
       (y.legnth: string); // error: number literal 0 !~> string
     }
-    if (z.toString === 0) {}
+    if (z.toString === 0) {
+    }
     if (z.toStirng === 0) {
       // typos are allowed to be tested
       (z.toStirng: number);
       // inside the block, it\'s a number
       (z.toStirng: string); // error: number literal 0 !~> string
     }
-    if (q.valueOf === 0) {}
+    if (q.valueOf === 0) {
+    }
     if (q.valeuOf === 0) {
       // typos are allowed to be tested
       (q.valeuOf: number);
@@ -2581,12 +2615,14 @@ let tests = [
       // typos are allowed to be tested
       (r.toStirng: empty); // props on AnyObjT are \`any\`
     }
-    if (s.call === 0) {}
+    if (s.call === 0) {
+    }
     if (s.calll === 0) {
       // typos are allowed to be tested
       (t.calll: empty); // ok, props on functions are \`any\` :/
     }
-    if (t.call === 0) {}
+    if (t.call === 0) {
+    }
     if (t.calll === 0) {
       // typos are allowed to be tested
       (t.calll: empty); // ok, props on functions are \`any\` :/
@@ -2958,8 +2994,8 @@ function undef_var(x: ?number) {
 }
 
 function undef_var_rev(x: ?number) {
-  if (x === null || x === undefined) {}
-  else {
+  if (x === null || x === undefined) {
+  } else {
     var y = x * 1000;
   }
 }
@@ -2971,8 +3007,8 @@ function undef_prop(x: { x: ?number }) {
 }
 
 function undef_prop_rev(x: { x: ?number }) {
-  if (x.x === null || x.x === undefined) {}
-  else {
+  if (x.x === null || x.x === undefined) {
+  } else {
     var y = x.x * 1000;
   }
 }
@@ -2984,8 +3020,8 @@ function undef_var_fail(x: ?number) {
 }
 
 function undef_var_fail_rev(x: ?number) {
-  if (x === undefined) {}
-  else {
+  if (x === undefined) {
+  } else {
     var y = x * 1000;
   }
 }
@@ -2997,8 +3033,8 @@ function undef_prop_fail(x: { x: ?number }) {
 }
 
 function undef_prop_fail_rev(x: { x: ?number }) {
-  if (x.x === undefined) {}
-  else {
+  if (x.x === undefined) {
+  } else {
     var y = x.x * 1000;
   }
 }
@@ -3185,8 +3221,8 @@ function void_var(x: ?number) {
 }
 
 function void_var_rev(x: ?number) {
-  if (x === null || x === void 0) {}
-  else {
+  if (x === null || x === void 0) {
+  } else {
     var y = x * 1000;
   }
 }
@@ -3198,8 +3234,8 @@ function void_pro(x: { x: ?number }) {
 }
 
 function void_pro_rev(x: { x: ?number }) {
-  if (x.x === null || x.x === void 0) {}
-  else {
+  if (x.x === null || x.x === void 0) {
+  } else {
     var y = x.x * 1000;
   }
 }
@@ -3211,8 +3247,8 @@ function void_var_fail(x: ?number) {
 }
 
 function void_var_fail_rev(x: ?number) {
-  if (x === void 0) {}
-  else {
+  if (x === void 0) {
+  } else {
     var y = x * 1000;
   }
 }
@@ -3224,8 +3260,8 @@ function void_pro_fail(x: { x: ?number }) {
 }
 
 function void_pro_fail_rev(x: { x: ?number }) {
-  if (x.x === void 0) {}
-  else {
+  if (x.x === void 0) {
+  } else {
     var y = x.x * 1000;
   }
 }
@@ -3237,8 +3273,8 @@ function void_var_side_effect(x: ?number) {
 }
 
 function void_var_side_effect_rev(x: ?number) {
-  if (x === null || x === void (x * 1000)) {}
-  else {
+  if (x === null || x === void (x * 1000)) {
+  } else {
     var y = x * 1000;
   }
 }
@@ -3250,8 +3286,8 @@ function void_prop_side_effect(x: { x: ?number }) {
 }
 
 function void_prop_side_effect_rev(x: { x: ?number }) {
-  if (x.x === null || x.x === void (x.x * 1000)) {}
-  else {
+  if (x.x === null || x.x === void (x.x * 1000)) {
+  } else {
     var y = x.x * 1000;
   }
 }

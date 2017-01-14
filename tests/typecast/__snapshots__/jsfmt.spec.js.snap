@@ -42,7 +42,8 @@ var tests = [
     // (parens always required around typecasts)
     var s: string = ((0: number), (\"hey\": string));
   },
-  () => {}
+  () => {
+  }
 ];
 "
 `;

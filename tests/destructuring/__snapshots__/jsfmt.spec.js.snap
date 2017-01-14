@@ -211,13 +211,17 @@ var {
 };
 (p: void);
 // error: string ~> void
-function obj_prop_err({ x: { y } } = null) {}
+function obj_prop_err({ x: { y } } = null) {
+}
 // error: property \`x\` cannot be accessed on null
-function obj_rest_err({ ...o } = 0) {}
+function obj_rest_err({ ...o } = 0) {
+}
 // error: expected object instead of number
-function arr_elem_err([ x ] = null) {}
+function arr_elem_err([ x ] = null) {
+}
 // error: element 0 cannot be accessed on null
-function arr_rest_err([ ...a ] = null) {}
+function arr_rest_err([ ...a ] = null) {
+}
 // error: expected array instead of null
 function gen<T>(x: T, { p = x }: { p: T }): T {
   return p;
@@ -229,14 +233,19 @@ obj_prop_fun(({}: { p?: { q?: null } }));
 obj_prop_var(({}: { p?: { q?: null } }));
 // ok
 // union-like upper bounds preserved through destructuring
-function obj_prop_opt({ p }: { p?: string } = { p: 0 }) {}
-function obj_prop_maybe({ p }: { p: ?string } = { p: 0 }) {}
-function obj_prop_union({ p }: { p: number | string } = { p: true }) {}
+function obj_prop_opt({ p }: { p?: string } = { p: 0 }) {
+}
+function obj_prop_maybe({ p }: { p: ?string } = { p: 0 }) {
+}
+function obj_prop_union({ p }: { p: number | string } = { p: true }) {
+}
 
 // TODO: union-of-objects upper bounds preserved through destructuring
-function obj_prop_union2({ p }: { p: number } | { p: string } = { p: true }) {}
+function obj_prop_union2({ p }: { p: number } | { p: string } = { p: true }) {
+}
 
-function default_expr_scope({ a, b = a }) {}
+function default_expr_scope({ a, b = a }) {
+}
 "
 `;
 
@@ -342,9 +351,11 @@ bar({ x: \"\", y: 0 });
 var spread = { y: \"\" };
 var extend: { x: number, y: string, z: boolean } = { x: 0, ...spread };
 
-function qux(_: { a: number }) {}
+function qux(_: { a: number }) {
+}
 qux({ a: \"\" });
-function corge({ b }: { b: string }) {}
+function corge({ b }: { b: string }) {
+}
 corge({ b: 0 });
 
 var { n }: { n: number } = { n: \"\" };
@@ -463,24 +474,32 @@ function arr_rest_pattern<X>([ _, ...a ] : ArrRest<X>) { // a: [X]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-function obj_pattern<X>({ prop }: { prop: X }) {}
+function obj_pattern<X>({ prop }: { prop: X }) {
+}
 // prop: X
 type Prop<X> = { prop: X };
-function obj_pattern2<X>({ prop }: Prop<X>) {}
+function obj_pattern2<X>({ prop }: Prop<X>) {
+}
 // prop: X
-function arr_pattern<X>([ elem ]: X[]) {}
+function arr_pattern<X>([ elem ]: X[]) {
+}
 // elem: X
 type Elem<X> = X[];
-function arr_pattern2<X>([ elem ]: Elem<X>) {}
+function arr_pattern2<X>([ elem ]: Elem<X>) {
+}
 // elem: X
-function tup_pattern<X>([ proj ]: [X]) {}
+function tup_pattern<X>([ proj ]: [X]) {
+}
 // proj: X
 type Proj<X> = [X];
-function tup_pattern2<X>([ proj ]: Proj<X>) {}
+function tup_pattern2<X>([ proj ]: Proj<X>) {
+}
 // proj: X
-function rest_antipattern<T>(...t: T) {}
+function rest_antipattern<T>(...t: T) {
+}
 // nonsense
-function rest_pattern<X>(...r: X[]) {}
+function rest_pattern<X>(...r: X[]) {
+}
 // r: X[]
 function obj_rest_pattern<X>({ _, ...o }: { _: any, x: X }) {
   // o: { x: X }

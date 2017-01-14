@@ -72,13 +72,15 @@ class D {
   m: Function;
 
   n() {
-    if (this.m({})) {}
+    if (this.m({})) {
+    }
   }
 }
 
 declare var m: Function;
 const x = \"\";
-if (m.bind(this)(x)) {}
+if (m.bind(this)(x)) {
+}
 "
 `;
 
@@ -254,7 +256,8 @@ function f(_this: { m: ?Meeting }): string {
     return \"0\";
   }
 
-  if (_this.m.es.some(a => a.fbid === 0)) {}
+  if (_this.m.es.some(a => a.fbid === 0)) {
+  }
   return \"3\";
 }
 "

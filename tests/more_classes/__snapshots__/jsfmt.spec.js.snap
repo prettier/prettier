@@ -121,7 +121,8 @@ class Qux {
     return this.w;
   }
 
-  fooqux(x: number) {}
+  fooqux(x: number) {
+  }
 }
 
 module.exports = Qux;

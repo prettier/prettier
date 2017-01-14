@@ -5,6 +5,7 @@ export function foo(props: { y: number }) { }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-export function foo(props: { y: number }) {}
+export function foo(props: { y: number }) {
+}
 "
 `;

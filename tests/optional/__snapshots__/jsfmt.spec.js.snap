@@ -27,10 +27,12 @@ class C {
   x<T>(x: T = 0) {}
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function x<T>(x: T = 0) {}
+function x<T>(x: T = 0) {
+}
 
 class C {
-  x<T>(x: T = 0) {}
+  x<T>(x: T = 0) {
+  }
 }
 "
 `;
@@ -264,7 +266,8 @@ function testOptionalNullableProperty(obj: { x?: ?string }): string {
 }
 
 function testOptionalNullableFlowingToNullable(x?: ?string): ?string {
-  var f = function(y: ?string) {};
+  var f = function(y: ?string) {
+  };
   f(x);
 }
 "
@@ -294,7 +297,8 @@ function bar(x = \"bar\"): string {
 }
 bar(undefined); // ok
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function foo(x?: number) {}
+function foo(x?: number) {
+}
 foo(undefined);
 // ok
 function bar(x = \"bar\"): string {

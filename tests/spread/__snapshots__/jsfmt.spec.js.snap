@@ -74,7 +74,8 @@ foo({foo: 42});
 function foo(o) {
   bar({ ...o });
 }
-function bar(_: { foo: number }) {}
+function bar(_: { foo: number }) {
+}
 foo({ foo: 42 });
 "
 `;
@@ -118,7 +119,8 @@ function test(...nums: Array<number>) {}
 test(0, ...[1, 2, 3]);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-function test(...nums: Array<number>) {}
+function test(...nums: Array<number>) {
+}
 
 test(0, ...[ 1, 2, 3 ]);
 "

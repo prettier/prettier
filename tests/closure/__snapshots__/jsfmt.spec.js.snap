@@ -85,13 +85,15 @@ function local_meth() {
  * @flow
  */
 
-function takes_string(_: string) {}
+function takes_string(_: string) {
+}
 
 // global write from function
 //
 var global_x = \"hello\";
 
-function global_f() {}
+function global_f() {
+}
 function global_g() {
   global_x = 42;
 }
@@ -109,7 +111,8 @@ global_x = 42;
 function local_func() {
   var local_x = \"hello\";
 
-  function local_f() {}
+  function local_f() {
+  }
   function local_g() {
     local_x = 42;
   }
@@ -128,7 +131,8 @@ function local_func() {
 var global_y = \"hello\";
 
 var global_o = {
-  f: function() {},
+  f: function() {
+  },
   g: function() {
     global_y = 42;
   }
@@ -148,7 +152,8 @@ function local_meth() {
   var local_y = \"hello\";
 
   var local_o = {
-    f: function() {},
+    f: function() {
+    },
     g: function() {
       local_y = 42;
     }
@@ -253,7 +258,8 @@ call_me();
  */
 
 // global, anybody can call it at any time
-var call_me: () => void = () => {};
+var call_me: () => void = () => {
+};
 
 function g(x: ?number) {
   const const_x = x;

@@ -58,7 +58,8 @@ function from_test() {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-function foo(x: string) {}
+function foo(x: string) {
+}
 
 var a = [ 0 ];
 var b = a.map(function(x) {

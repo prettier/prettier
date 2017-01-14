@@ -59,7 +59,10 @@ const y = {
 //   foo(): void {}
 // }
 
-const y = { bar(): void {} };
+const y = {
+  bar(): void {
+  }
+};
 "
 `;
 
@@ -132,7 +135,8 @@ module.exports = num;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 var num = 42;
-function bar() {}
+function bar() {
+}
 bar();
 module.exports = num;
 "
@@ -205,9 +209,12 @@ if (Array.isArray(x)) {}
 /* @flow */
 
 let x = 0;
-if (x == null) {}
-if (x == undefined) {}
-if (Array.isArray(x)) {}
+if (x == null) {
+}
+if (x == undefined) {
+}
+if (Array.isArray(x)) {
+}
 "
 `;
 
@@ -247,7 +254,8 @@ const w:MyNum = 42;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 var str = require(\"./import\");
-function foo() {}
+function foo() {
+}
 foo();
 str;
 
@@ -273,6 +281,7 @@ try {
 
 try {
   throw \"foo\";
-} catch (e) {}
+} catch (e) {
+}
 "
 `;

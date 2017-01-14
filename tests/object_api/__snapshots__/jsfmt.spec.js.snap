@@ -4,7 +4,10 @@ exports[`test a.js 1`] = `
 module.exports = { a() {} };~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-module.exports = { a() {} };
+module.exports = {
+  a() {
+  }
+};
 "
 `;
 
@@ -19,7 +22,14 @@ module.exports = b;
 /* @flow */
 
 var a = require(\"./a\");
-var b = Object.assign({ bar() {}, ...{} }, a);
+var b = Object.assign(
+  {
+    bar() {
+    },
+    ...{}
+  },
+  a
+);
 b.a();
 // works here
 module.exports = b;
@@ -194,14 +204,16 @@ var any: Object = {};
 // error, Array<string>
 class Foo {
   prop: string;
-  foo() {}
+  foo() {
+  }
 }
 // constructor and foo not enumerable
 (Object.keys(new Foo()): Array<\"error\">);
 // error: prop ~> error
 class Bar extends Foo {
   bar_prop: string;
-  bar() {}
+  bar() {
+  }
 }
 // only own enumerable props
 (Object.keys(new Bar()): Array<\"error\">); // error: bar_prop ~> error
@@ -395,10 +407,14 @@ var k : Object = a.constructor;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-function takesABool(x: boolean) {}
-function takesAString(x: string) {}
-function takesANumber(x: number) {}
-function takesAnObject(x: Object) {}
+function takesABool(x: boolean) {
+}
+function takesAString(x: string) {
+}
+function takesANumber(x: number) {
+}
+function takesAnObject(x: Object) {
+}
 
 class Foo {}
 
@@ -452,7 +468,8 @@ takesAString(y.toString());
 // ... on a primitive
 (123).toString();
 (123).toString;
-(123).toString = function() {};
+(123).toString = function() {
+};
 // error
 (123).toString(2);
 (123).toString(\"foo\");
