@@ -114,7 +114,7 @@ var o: MyObject = { x: 0 };
 type MySubobject = { y: number } & MyObject;
 // error, missing argument list
 // arity error in interface extends
-interface MyInterface<T>  { x: T }
+interface MyInterface<T> { x: T }
 
 interface MySubinterface extends MyInterface {
   // error, missing argument list

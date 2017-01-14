@@ -1370,9 +1370,12 @@ function genericPrintNoParens(path, options, print) {
         path.call(print, "typeParameters")
       ]);
     case "DeclareInterface":
-      parts.push("declare ");
+    case "InterfaceDeclaration": {
+      const parent = path.getParentNode(1);
+      if (parent && parent.type === "DeclareModule") {
+        parts.push("declare ");
+      }
 
-    case "InterfaceDeclaration":
       parts.push(
         fromString("interface ", options),
         path.call(print, "id"),
@@ -1381,12 +1384,17 @@ function genericPrintNoParens(path, options, print) {
       );
 
       if (n["extends"].length > 0) {
-        parts.push("extends ", join(", ", path.map(print, "extends")));
+        parts.push(
+          "extends ",
+          join(", ", path.map(print, "extends")),
+          " "
+        );
       }
 
-      parts.push(" ", path.call(print, "body"));
+      parts.push(path.call(print, "body"));
 
       return concat(parts);
+    }
     case "ClassImplements":
     case "InterfaceExtends":
       return concat([
