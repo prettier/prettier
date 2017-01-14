@@ -181,6 +181,12 @@ Can also be installed using `ext install prettier-vscode`
 
 [Check repository for configuration and shortcuts](https://github.com/esbenp/prettier-vscode)
 
+### Sublime Text
+
+Support for [Sublime Text](https://www.sublimetext.com) text editor is available
+using the [SublimeJsPrettier](https://github.com/jonlabelle/SublimeJsPrettier)
+plug-in.
+
 More editors are coming soon.
 
 ## Language Support
