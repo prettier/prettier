@@ -1487,11 +1487,7 @@ function genericPrintNoParens(path, options, print) {
     case "DeclareTypeAlias":
     case "TypeAlias": {
       const parent = path.getParentNode(1);
-
-      if (
-        n.type === "DeclareTypeAlias" ||
-          parent && parent.type === "DeclareModule"
-      ) {
+      if (parent && parent.type === "DeclareModule") {
         parts.push("declare ");
       }
 
