@@ -50,7 +50,7 @@ function format(text, opts) {
   opts.originalText = text;
 
   const printer = new Printer(opts);
-  return printer.printGenerically(ast).code;
+  return printer.print(ast);
 }
 
 function formatWithShebang(text, opts) {

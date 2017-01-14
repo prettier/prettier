@@ -1,6 +1,5 @@
 "use strict";
 var assert = require("assert");
-var sourceMap = require("source-map");
 var printComments = require("./comments").printComments;
 var pp = require("./pp");
 var fromString = pp.fromString;
@@ -27,51 +26,12 @@ var FastPath = require("./fast-path");
 var util = require("./util");
 var isIdentifierName = require("esutils").keyword.isIdentifierNameES6;
 
-function PrintResult(code, sourceMap) {
-  assert.ok(this instanceof PrintResult);
-
-  isString.assert(code);
-
-  this.code = code;
-
-  if (sourceMap) {
-    isObject.assert(sourceMap);
-
-    this.map = sourceMap;
-  }
-}
-
-var PRp = PrintResult.prototype;
-var warnedAboutToString = false;
-
-PRp.toString = function() {
-  if (!warnedAboutToString) {
-    console.warn(
-      "Deprecation warning: recast.print now returns an object with " +
-        "a .code property. You appear to be treating the object as a " +
-        "string, which might still work but is strongly discouraged."
-    );
-
-    warnedAboutToString = true;
-  }
-
-  return this.code;
-};
-
-var emptyPrintResult = new PrintResult("");
-
 function Printer(originalOptions) {
   assert.ok(this instanceof Printer);
 
-  var explicitTabWidth = originalOptions && originalOptions.tabWidth;
   var options = normalizeOptions(originalOptions);
 
   assert.notStrictEqual(options, originalOptions);
-
-  // It's common for client code to pass the same options into both
-  // recast.parse and recast.print, but the Printer doesn't need (and
-  // can be confused by) options.sourceFileName, so we null it out.
-  options.sourceFileName = null;
 
   // Print the entire AST generically.
   function printGenerically(path) {
@@ -84,37 +44,13 @@ function Printer(originalOptions) {
 
   this.print = function(ast) {
     if (!ast) {
-      return emptyPrintResult;
-    }
-
-    var lines = print(FastPath.from(ast), true);
-    return new PrintResult(
-      lines.toString(options),
-      util.composeSourceMaps(
-        options.inputSourceMap,
-        lines.getSourceMap(options.sourceMapName, options.sourceRoot)
-      )
-    );
-  };
-
-  this.printGenerically = function(ast) {
-    if (!ast) {
-      return emptyPrintResult;
+      return "";
     }
 
     var path = FastPath.from(ast);
-    var oldReuseWhitespace = options.reuseWhitespace;
-
-    // Do not reuse whitespace (or anything else, for that matter)
-    // when printing generically.
-    options.reuseWhitespace = false;
-
     var res = printGenerically(path);
-    var pr = new PrintResult(pp.print(options.printWidth, res));
 
-    options.reuseWhitespace = oldReuseWhitespace;
-
-    return pr;
+    return pp.print(options.printWidth, res);
   };
 }
 
