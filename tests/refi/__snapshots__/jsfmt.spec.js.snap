@@ -85,8 +85,7 @@ var tests = [
     }
   },
   function() {
-    if (x == null)
-      return;
+    if (x == null) return;
     var y: string = x; // ok
   },
   function() {
@@ -383,8 +382,7 @@ var tests = [
   },
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
-    if (x.p == null)
-      return;
+    if (x.p == null) return;
     var y: string = x.p; // ok
   },
   function() {
@@ -762,8 +760,7 @@ var paths = [
   },
   function() {
     var x: ?string = \"xxx\";
-    if (x == null)
-      return;
+    if (x == null) return;
     var y: string = x; // ok
   },
   function() {
@@ -1071,28 +1068,22 @@ class C {
   p: ?string;
 
   ensure0(): string {
-    if (this.p != null)
-      return this.p;
-    else
-      return \"\";
+    if (this.p != null) return this.p;
+    else return \"\";
   }
 
   ensure1(): string {
-    if (this.p == null)
-      return \"\";
+    if (this.p == null) return \"\";
     return this.p;
   }
 
   ensure2(): string | void {
-    if (this.p !== null)
-      return this.p;
-    else
-      return \"\";
+    if (this.p !== null) return this.p;
+    else return \"\";
   }
 
   ensure3(): string | void {
-    if (this.p === null)
-      return \"\";
+    if (this.p === null) return \"\";
     return this.p;
   }
 }
@@ -1100,17 +1091,13 @@ class C {
 // super.p op null
 class D extends C {
   ensure100(): string {
-    if (super.p != null)
-      return super.p;
-    else
-      return \"\";
+    if (super.p != null) return super.p;
+    else return \"\";
   }
 
   ensure101(): string {
-    if (super.p == null)
-      return \"\";
-    else
-      return super.p;
+    if (super.p == null) return \"\";
+    else return super.p;
   }
 
   ensure103(): string {
@@ -1486,31 +1473,23 @@ class A {
   p: ?string;
 
   ensure0(): string {
-    if (typeof this.p == \"string\")
-      return this.p;
-    else
-      return \"\";
+    if (typeof this.p == \"string\") return this.p;
+    else return \"\";
   }
 
   ensure1(): string {
-    if (typeof this.p != \"string\")
-      return \"\";
-    else
-      return this.p;
+    if (typeof this.p != \"string\") return \"\";
+    else return this.p;
   }
 
   ensure2(): string | void {
-    if (typeof this.p === \"string\")
-      return this.p;
-    else
-      return \"\";
+    if (typeof this.p === \"string\") return this.p;
+    else return \"\";
   }
 
   ensure3(): string | void {
-    if (typeof this.p !== \"string\")
-      return \"\";
-    else
-      return this.p;
+    if (typeof this.p !== \"string\") return \"\";
+    else return this.p;
   }
 }
 "
@@ -1648,17 +1627,13 @@ class A {
   p: ?string;
 
   ensure0(): string {
-    if (this.p !== undefined && this.p !== null)
-      return this.p;
-    else
-      return \"\";
+    if (this.p !== undefined && this.p !== null) return this.p;
+    else return \"\";
   }
 
   ensure1(): string {
-    if (this.p === undefined || this.p === null)
-      return \"\";
-    else
-      return this.p;
+    if (this.p === undefined || this.p === null) return \"\";
+    else return this.p;
   }
 }
 "
@@ -1796,17 +1771,13 @@ class A {
   p: ?string;
 
   ensure0(): string {
-    if (this.p !== void 0 && this.p !== null)
-      return this.p;
-    else
-      return \"\";
+    if (this.p !== void 0 && this.p !== null) return this.p;
+    else return \"\";
   }
 
   ensure1(): string {
-    if (this.p === void 0 || this.p === null)
-      return \"\";
-    else
-      return this.p;
+    if (this.p === void 0 || this.p === null) return \"\";
+    else return this.p;
   }
 }
 "

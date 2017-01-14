@@ -287,8 +287,7 @@ type NonNullType = { kind: \"NonNullType\", type: Name | ListType | BadType };
 type BadType = {};
 
 function getTypeASTName(typeAST: Type): string {
-  if (!typeAST.type)
-    throw new Error(\"Must be wrapping type\");
+  if (!typeAST.type) throw new Error(\"Must be wrapping type\");
   // OK
   return getTypeASTName(typeAST.type); // error, BadType not a subtype of Type
 }
@@ -2466,8 +2465,7 @@ type Breakfast = Apple | Orange | Broccoli | Carrot;
 function bar(x: Breakfast) {
   if (x.kind === \"Fruit\") {
     (x.taste: \"Good\");
-  } // error, Apple.taste = Bad else
-    (x.raw: \"No\"); // error, Carrot.raw = Maybe
+  } // error, Apple.taste = Bad else (x.raw: \"No\"); // error, Carrot.raw = Maybe
 }
 
 function qux(x: Breakfast) {
@@ -2480,8 +2478,7 @@ function qux(x: Breakfast) {
 
 // example 4
 function list(n) {
-  if (n > 0)
-    return { kind: \"cons\", next: list(n - 1) };
+  if (n > 0) return { kind: \"cons\", next: list(n - 1) };
   return { kind: \"nil\" };
 }
 function length(l) {
@@ -2493,8 +2490,7 @@ function length(l) {
   }
 }
 function check(n) {
-  if (n >= 0)
-    return n === length(list(n));
+  if (n >= 0) return n === length(list(n));
   return true;
 }
 
@@ -2520,10 +2516,8 @@ kind({ kind: EnumKind.A, A: 1 });
 type Citizen = { citizen: true };
 type NonCitizen = { citizen: false, nationality: string };
 function nationality(x: Citizen | NonCitizen) {
-  if (x.citizen)
-    return \"Shire\";
-  else
-    return x.nationality;
+  if (x.citizen) return \"Shire\";
+  else return x.nationality;
 }
 
 let tests = [

@@ -33,8 +33,7 @@ function foo() {
 function bar(x: number) {}
 function foo() {
   var x = null;
-  if (x == null)
-    return;
+  if (x == null) return;
   bar(x);
 }
 "
