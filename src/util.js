@@ -1,24 +1,28 @@
 "use strict";
-var assert = require("assert");
-var types = require("ast-types");
-var getFieldValue = types.getFieldValue;
-var n = types.namedTypes;
-var sourceMap = require("source-map");
-var SourceMapConsumer = sourceMap.SourceMapConsumer;
-var SourceMapGenerator = sourceMap.SourceMapGenerator;
-var hasOwn = Object.prototype.hasOwnProperty;
-var util = exports;
+
+const assert = require("assert");
+const types = require("ast-types");
+const getFieldValue = types.getFieldValue;
+const n = types.namedTypes;
+const sourceMap = require("source-map");
+const SourceMapConsumer = sourceMap.SourceMapConsumer;
+const SourceMapGenerator = sourceMap.SourceMapGenerator;
+const hasOwn = Object.prototype.hasOwnProperty;
+const util = exports;
 
 function getUnionOfKeys() {
-  var result = {};
-  var argc = arguments.length;
-  for (var i = 0; i < argc; ++i) {
-    var keys = Object.keys(arguments[i]);
-    var keyCount = keys.length;
+  const argc = arguments.length;
+  let result = {};
+
+  for (let i = 0; i < argc; ++i) {
+    const keys = Object.keys(arguments[i]);
+    const keyCount = keys.length;
+
     for (var j = 0; j < keyCount; ++j) {
       result[keys[j]] = true;
     }
   }
+
   return result;
 }
 util.getUnionOfKeys = getUnionOfKeys;
@@ -33,7 +37,7 @@ function copyPos(pos) {
 }
 util.copyPos = copyPos;
 
-util.composeSourceMaps = function(formerMap, latterMap) {
+util.composeSourceMaps = (formerMap, latterMap) => {
   if (formerMap) {
     if (!latterMap) {
       return formerMap;
@@ -42,22 +46,23 @@ util.composeSourceMaps = function(formerMap, latterMap) {
     return latterMap || null;
   }
 
-  var smcFormer = new SourceMapConsumer(formerMap);
-  var smcLatter = new SourceMapConsumer(latterMap);
-  var smg = new SourceMapGenerator({
+  const smcFormer = new SourceMapConsumer(formerMap);
+  const smcLatter = new SourceMapConsumer(latterMap);
+  const smg = new SourceMapGenerator({
     file: latterMap.file,
     sourceRoot: latterMap.sourceRoot
   });
 
-  var sourcesToContents = {};
+  const sourcesToContents = {};
 
   smcLatter.eachMapping(function(mapping) {
-    var origPos = smcFormer.originalPositionFor({
+    const origPos = smcFormer.originalPositionFor({
       line: mapping.originalLine,
       column: mapping.originalColumn
     });
 
-    var sourceName = origPos.source;
+    const sourceName = origPos.source;
+
     if (sourceName === null) {
       return;
     }
@@ -72,7 +77,8 @@ util.composeSourceMaps = function(formerMap, latterMap) {
       name: mapping.name
     });
 
-    var sourceContent = smcFormer.sourceContentFor(sourceName);
+    const sourceContent = smcFormer.sourceContentFor(sourceName);
+
     if (sourceContent && !hasOwn.call(sourcesToContents, sourceName)) {
       sourcesToContents[sourceName] = sourceContent;
       smg.setSourceContent(sourceName, sourceContent);
@@ -92,7 +98,7 @@ function expandLoc(parentNode, childNode) {
   }
 }
 
-util.fixFaultyLocations = function(node, text) {
+util.fixFaultyLocations = (node, text) => {
   if (node.type === "TemplateLiteral") {
     fixTemplateLiteral(node, text);
   } else if (node.decorators) {
@@ -104,7 +110,8 @@ util.fixFaultyLocations = function(node, text) {
   } else if (node.declaration && util.isExportDeclaration(node)) {
     // Expand the loc of the node responsible for printing the decorators
     // (here, the export declaration) so that it includes node.decorators.
-    var decorators = node.declaration.decorators;
+    const decorators = node.declaration.decorators;
+
     if (decorators) {
       decorators.forEach(function(decorator) {
         expandLoc(node, decorator);
@@ -120,7 +127,8 @@ util.fixFaultyLocations = function(node, text) {
       node.value.id = null;
     }
   } else if (node.type === "ObjectTypeProperty") {
-    var end = skipSpaces(text, locEnd(node), true);
+    const end = skipSpaces(text, locEnd(node), true);
+
     if (end !== false && text.charAt(end) === ",") {
       // Some parsers accidentally include trailing commas in the
       // end information for ObjectTypeProperty nodes.
@@ -141,20 +149,26 @@ function fixTemplateLiteral(node, text) {
 
   // First we need to exclude the opening ` from the loc of the first
   // quasi element, in case the parser accidentally decided to include it.
-  var afterLeftBackTickPos = locStart(node);
+  const afterLeftBackTickPos = locStart(node);
+
   assert.strictEqual(text.charAt(afterLeftBackTickPos), "`");
   assert.ok(afterLeftBackTickPos < text.length);
-  var firstQuasi = node.quasis[(0)];
+
+  const firstQuasi = node.quasis[(0)];
+
   if (locStart(firstQuasi) - afterLeftBackTickPos < 0) {
     setLocStart(firstQuasi, afterLeftBackTickPos);
   }
 
   // Next we need to exclude the closing ` from the loc of the last quasi
   // element, in case the parser accidentally decided to include it.
-  var rightBackTickPos = locEnd(node);
+  const rightBackTickPos = locEnd(node);
+
   assert.ok(rightBackTickPos >= 0);
   assert.strictEqual(text.charAt(rightBackTickPos), "`");
-  var lastQuasi = node.quasis[node.quasis.length - 1];
+
+  const lastQuasi = node.quasis[node.quasis.length - 1];
+
   if (rightBackTickPos - locEnd(lastQuasi) < 0) {
     setLocEnd(locEnd(lastQuasi), rightBackTickPos);
   }
@@ -167,13 +181,15 @@ function fixTemplateLiteral(node, text) {
     // same as the end of the preceding quasi element, but some
     // parsers accidentally include the ${ in the loc of the quasi
     // element.
-    var dollarCurlyPos = skipSpaces(text, locStart(expr) - 1, true);
+    const dollarCurlyPos = skipSpaces(text, locStart(expr) - 1, true);
+
     if (
       dollarCurlyPos - 1 >= 0 && text.charAt(dollarCurlyPos - 1) === "{" &&
         dollarCurlyPos - 2 >= 0 &&
         text.charAt(dollarCurlyPos - 2) === "$"
     ) {
-      var quasiBefore = node.quasis[i];
+      const quasiBefore = node.quasis[i];
+
       if (dollarCurlyPos - locEnd(quasiBefore) < 0) {
         setLocEnd(quasiBefore, dollarCurlyPos);
       }
@@ -181,11 +197,14 @@ function fixTemplateLiteral(node, text) {
 
     // Likewise, some parsers accidentally include the } that follows
     // the expression in the loc of the following quasi element.
-    var rightCurlyPos = skipSpaces(text, locEnd(expr));
+    const rightCurlyPos = skipSpaces(text, locEnd(expr));
+
     if (text.charAt(rightCurlyPos) === "}") {
       assert.ok(rightCurlyPos + 1 < text.length);
+
       // Now rightCurlyPos is technically the position just after the }.
-      var quasiAfter = node.quasis[i + 1];
+      const quasiAfter = node.quasis[i + 1];
+
       if (locStart(quasiAfter) - rightCurlyPos < 0) {
         setLocStart(locStart(quasiAfter), rightCurlyPos);
       }
@@ -193,7 +212,7 @@ function fixTemplateLiteral(node, text) {
   });
 }
 
-util.isExportDeclaration = function(node) {
+util.isExportDeclaration = node => {
   if (node)
     switch (node.type) {
       case "ExportDeclaration":
@@ -208,8 +227,9 @@ util.isExportDeclaration = function(node) {
   return false;
 };
 
-util.getParentExportDeclaration = function(path) {
-  var parentNode = path.getParentNode();
+util.getParentExportDeclaration = path => {
+  const parentNode = path.getParentNode();
+
   if (
     path.getName() === "declaration" && util.isExportDeclaration(parentNode)
   ) {
@@ -219,60 +239,71 @@ util.getParentExportDeclaration = function(path) {
   return null;
 };
 
-util.isTrailingCommaEnabled = function(options, context) {
-  var trailingComma = options.trailingComma;
+util.isTrailingCommaEnabled = (options, context) => {
+  const trailingComma = options.trailingComma;
+
   if (typeof trailingComma === "object") {
     return !!trailingComma[context];
   }
+
   return !!trailingComma;
 };
 
-util.getLast = function(arr) {
+util.getLast = arr => {
   if (arr.length > 0) {
     return arr[arr.length - 1];
   }
+
   return null;
 };
 
 function _findNewline(text, index, backwards) {
   const length = text.length;
   let cursor = backwards ? index - 1 : index + 1;
+
   // Look forward and see if there is a newline after/before this code
   // by scanning up/back to the next non-indentation character.
   while (cursor > 0 && cursor < length) {
     const c = text.charAt(cursor);
+
     // Skip any indentation characters
     if (c !== " " && c !== "\t") {
       // Check if the next non-indentation character is a newline or
       // not.
       return c === "\n" || c === "\r";
     }
+
     backwards ? cursor-- : cursor++;
   }
+
   return false;
 }
 
-util.newlineExistsBefore = function(text, index) {
+util.newlineExistsBefore = (text, index) => {
   return _findNewline(text, index, true);
 };
 
-util.newlineExistsAfter = function(text, index) {
+util.newlineExistsAfter = (text, index) => {
   return _findNewline(text, index);
 };
 
 function skipSpaces(text, index, backwards) {
   const length = text.length;
   let cursor = backwards ? index - 1 : index + 1;
+
   // Look forward and see if there is a newline after/before this code
   // by scanning up/back to the next non-indentation character.
   while (cursor > 0 && cursor < length) {
     const c = text.charAt(cursor);
+
     // Skip any whitespace chars
     if (!c.match(/\S/)) {
       return cursor;
     }
+
     backwards ? cursor-- : cursor++;
   }
+
   return false;
 }
 util.skipSpaces = skipSpaces;
@@ -281,6 +312,7 @@ function locStart(node) {
   if (node.range) {
     return node.range[(0)];
   }
+
   return node.start;
 }
 util.locStart = locStart;
@@ -289,6 +321,7 @@ function locEnd(node) {
   if (node.range) {
     return node.range[(1)];
   }
+
   return node.end;
 }
 util.locEnd = locEnd;

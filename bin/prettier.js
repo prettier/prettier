@@ -1,9 +1,11 @@
 #!/usr/bin/env node
+
 "use strict";
+
 const fs = require("fs");
 const getStdin = require("get-stdin");
-const minimist = require("minimist");
 const jscodefmt = require("../index");
+const minimist = require("minimist");
 
 const argv = minimist(process.argv.slice(2), {
   boolean: [
@@ -17,9 +19,8 @@ const argv = minimist(process.argv.slice(2), {
   default: { "bracket-spacing": true }
 });
 
+const { write, stdin } = argv;
 const filenames = argv["_"];
-const write = argv["write"];
-const stdin = argv["stdin"];
 
 if (!filenames.length && !stdin) {
   console.log(
@@ -54,6 +55,7 @@ if (stdin) {
     } catch (e) {
       process.exitCode = 2;
       console.error(e);
+
       return;
     }
   });
@@ -65,9 +67,10 @@ if (stdin) {
       }
 
       if (err) {
-        console.error("Unable to read file: " + filename + "\n" + err);
+        console.error(`Unable to read file: ${filename}\n${err}`);
         // Don't exit the process if one file failed
         process.exitCode = 2;
+
         return;
       }
 
@@ -77,13 +80,14 @@ if (stdin) {
       } catch (e) {
         process.exitCode = 2;
         console.error(e);
+
         return;
       }
 
       if (write) {
         fs.writeFile(filename, output, "utf8", err => {
           if (err) {
-            console.error("Unable to write file: " + filename + "\n" + err);
+            console.error(`Unable to write file: ${filename}\n${err}`);
             // Don't exit the process if one file failed
             process.exitCode = 2;
           }

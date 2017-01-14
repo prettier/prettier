@@ -1,4 +1,4 @@
-var defaults = {
+const defaults = {
   // Number of spaces the pretty-printer should use per tab
   tabWidth: 2,
   // Fit code within this line limit
@@ -12,12 +12,14 @@ var defaults = {
 };
 
 // Copy options and fill in default values.
-exports.normalize = function(options) {
+exports.normalize = options => {
   const normalized = Object.assign({}, options);
+
   Object.keys(defaults).forEach(k => {
     if (normalized[k] == null) {
       normalized[k] = defaults[k];
     }
   });
+
   return normalized;
 };
