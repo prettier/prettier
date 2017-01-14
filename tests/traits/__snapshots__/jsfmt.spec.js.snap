@@ -47,7 +47,7 @@ exports[`test test2.js 1`] = `
 "declare interface I { }
 declare class C mixins I { }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-interface I  {}
+interface I {}
 declare class C {}
 "
 `;
