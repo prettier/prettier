@@ -221,7 +221,8 @@ FPp.needsParens = function(assumeExpressionContext) {
     parent.type === "BinaryExpression" && parent.operator === "**" &&
       parent.left === node &&
       node.type !== "Identifier" &&
-      node.type !== "Literal"
+      node.type !== "Literal" &&
+      node.type !== "NumericLiteral"
   ) {
     return true;
   }
