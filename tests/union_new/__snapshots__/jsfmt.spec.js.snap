@@ -1986,9 +1986,9 @@ function foo(): ImmutableMap<string, boolean> {
 // make sure tuples are type arguments (as used e.g. when viewing maps as
 // key/value iterables) work
 
-interface SomeIterator<T>  {}
+interface SomeIterator<T> {}
 
-interface SomeIterable<T>  { it(): SomeIterator<T> }
+interface SomeIterable<T> { it(): SomeIterator<T> }
 
 declare class SomeMap<K, V> {
   it(): SomeIterator<[K, V]>,

@@ -1,4 +1,19 @@
 
+# 0.0.7
+
+[link](https://github.com/jlongster/prettier/compare/7e31610...6f5df0e2b6b7db252e28ce80ebc54814fdc61497)
+
+* Update live editor to 0.0.6
+* Adds various prettier-browser changes (#175)
+* Fix `[(0)]` (#179)
+* Do not advance for forward skipSpaces (#176)
+* Fix windows line-endings (#177)
+* add license to package.json (#178)
+* Fix exponent in babylon (#181)
+* Make `declare type` consistent between babylon and flow (#183)
+* Fix DeclareInterface (#182)
+* Change test to workaround babylon bug (#184)
+
 # 0.0.6
 
 [link](https://github.com/jlongster/prettier/compare/faed09ceea32fcdd58b525aa09b880afb9fa55b7...3af7da5748d64efaed781104ec198924c8c369f9)

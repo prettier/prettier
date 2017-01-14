@@ -1464,9 +1464,13 @@ function genericPrintNoParens(path, options, print) {
       ]);
 
     case "DeclareInterface":
-      parts.push("declare ");
-
     case "InterfaceDeclaration":
+      const declarationParent = path.getParentNode(1);
+
+      if (declarationParent && declarationParent.type === "DeclareModule") {
+        parts.push("declare ");
+      }
+
       parts.push(
         fromString("interface ", options),
         path.call(print, "id"),
@@ -1475,10 +1479,14 @@ function genericPrintNoParens(path, options, print) {
       );
 
       if (n["extends"].length > 0) {
-        parts.push("extends ", join(", ", path.map(print, "extends")));
+        parts.push(
+          "extends ",
+          join(", ", path.map(print, "extends")),
+          " "
+        );
       }
 
-      parts.push(" ", path.call(print, "body"));
+      parts.push(path.call(print, "body"));
 
       return concat(parts);
 
@@ -1546,6 +1554,7 @@ function genericPrintNoParens(path, options, print) {
       const variance = n.variance === "plus"
         ? "+"
         : n.variance === "minus" ? "-" : "";
+
       return concat([
         variance,
         "[",
@@ -1596,10 +1605,7 @@ function genericPrintNoParens(path, options, print) {
     case "TypeAlias":
       const aliasParent = path.getParentNode(1);
 
-      if (
-        n.type === "DeclareTypeAlias" ||
-          aliasParent && aliasParent.type === "DeclareModule"
-      ) {
+      if (aliasParent && aliasParent.type === "DeclareModule") {
         parts.push("declare ");
       }
 

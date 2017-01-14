@@ -38,7 +38,7 @@ Foo.prototype = {
 exports.Foo = Foo;
 
 // so you want to type Foo, by declaring it as a class
-interface IFooPrototype  { m(): number }
+interface IFooPrototype { m(): number }
 interface IFoo extends IFooPrototype {
   /* error, should have declared x: number instead*/
   static (): void,

@@ -1,6 +1,6 @@
 {
   "name": "prettier",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "bin": {
     "prettier": "./bin/prettier.js"
   },
@@ -9,6 +9,7 @@
     "url": "git+https://github.com/jlongster/prettier.git"
   },
   "author": "James Long",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/jlongster/prettier/issues"
   },
