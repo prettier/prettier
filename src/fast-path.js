@@ -322,13 +322,11 @@ FPp.needsParens = function(assumeExpressionContext) {
       return parent.type === "UnionTypeAnnotation" ||
         parent.type === "IntersectionTypeAnnotation";
 
+    case "NumericLiteral":
     case "Literal":
       return parent.type === "MemberExpression" && isNumber.check(node.value) &&
         name === "object" &&
         parent.object === node;
-
-    case "NumericLiteral":
-      return parent.type === "MemberExpression";
 
     case "AssignmentExpression":
     case "ConditionalExpression":
