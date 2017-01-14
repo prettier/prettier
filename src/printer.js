@@ -548,21 +548,36 @@ function genericPrintNoParens(path, options, print) {
         "body"
       );
 
-      // If there are no contents, return a simple block
-      if (!getFirstString(naked)) {
+      const hasDirectives = n.directives && n.directives.length > 0;
+      const hasContent = getFirstString(naked);
+      const hasInnerComments = n.innerComments && n.innerComments.length > 0;
+
+      if (!hasInnerComments && !hasDirectives && !hasContent) {
         return "{}";
       }
 
       parts.push("{");
 
-      // Babel 6
-      if (n.directives) {
+      // Babylon 6
+      if (hasInnerComments) {
+        path.each(function(innerComment) {
+          parts.push(
+            indent(
+              options.tabWidth,
+              concat([ hardline, print(innerComment) ])
+            )
+          );
+        }, "innerComments");
+      }
+
+      // Babylon 6
+      if (hasDirectives) {
         path.each(
           function(childPath) {
             parts.push(
               indent(
                 options.tabWidth,
-                concat([ hardline, print(childPath), ";", hardline ])
+                concat([ hardline, print(childPath), ";" ])
               )
             );
           },
@@ -570,7 +585,9 @@ function genericPrintNoParens(path, options, print) {
         );
       }
 
-      parts.push(indent(options.tabWidth, concat([ hardline, naked ])));
+      if (hasContent) {
+        parts.push(indent(options.tabWidth, concat([ hardline, naked ])));
+      }
 
       parts.push(hardline, "}");
 
