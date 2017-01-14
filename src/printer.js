@@ -548,21 +548,24 @@ function genericPrintNoParens(path, options, print) {
         "body"
       );
 
+      const hasContent = getFirstString(naked);
+      const hasDirectives = n.directives && n.directives.length > 0;
+
       // If there are no contents, return a simple block
-      if (!getFirstString(naked)) {
+      if (!hasContent && !hasDirectives) {
         return "{}";
       }
 
       parts.push("{");
 
       // Babel 6
-      if (n.directives) {
+      if (hasDirectives) {
         path.each(
           function(childPath) {
             parts.push(
               indent(
                 options.tabWidth,
-                concat([ hardline, print(childPath), ";", hardline ])
+                concat([ hardline, print(childPath), ";" ])
               )
             );
           },
@@ -570,7 +573,11 @@ function genericPrintNoParens(path, options, print) {
         );
       }
 
-      parts.push(indent(options.tabWidth, concat([ hardline, naked ])));
+      if (hasContent) {
+        parts.push(
+          indent(options.tabWidth, concat([ hardline, naked ]))
+        );
+      }
 
       parts.push(hardline, "}");
 
