@@ -80,8 +80,7 @@ function foo() {
 }
 
 function bar(x: ?string): number {
-  if (x == null)
-    x = \"\";
+  if (x == null) x = \"\";
   return x.length;
 }
 "

@@ -2080,7 +2080,7 @@ function adjustClause(clause, options, forceSpace) {
     return concat([ " ", clause ]);
   }
 
-  return indent(options.tabWidth, concat([ hardline, clause ]));
+  return indent(options.tabWidth, concat([ line, clause ]));
 }
 
 function isCurlyBracket(doc) {
