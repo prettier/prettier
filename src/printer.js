@@ -2034,14 +2034,13 @@ function printJSXElement(path, options, print) {
     path.map(
       function(childPath, index) {
         var child = childPath.getValue();
-        var endBreakRegex = /\n\s*$/;
 
         if (
           namedTypes.Literal.check(child) && typeof child.value === "string"
         ) {
           if (/\S/.test(child.value)) {
             const beginBreak = child.value.match(/^\s*\n/);
-            const endBreak = child.value.match(endBreakRegex);
+            const endBreak = child.value.match(/\n\s*$/);
 
             children.push(
               beginBreak ? hardline : "",
@@ -2063,9 +2062,7 @@ function printJSXElement(path, options, print) {
 
           if (
             typeof nextChild === 'undefined' ||
-              nextChild.type !== 'JSXText' ||
-              (nextChild.type === 'JSXText' &&
-                !nextChild.value.match(endBreakRegex))
+              nextChild.type !== 'JSXText'
           ) {
             children.push(hardline);
           }
