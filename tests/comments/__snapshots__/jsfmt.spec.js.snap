@@ -1,0 +1,43 @@
+exports[`test blocks.js 1`] = `
+"if (1) { /* test */ } else if (1) { /* test */ /* test */ }
+if (1) {
+  // test
+} else if (1) { /* test */ /* test */ } else {
+  // test
+  /* test */
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+if (1) {}
+else if (1) {}
+if (1) {}
+else if (1) {}
+else {}
+"
+`;
+
+exports[`test blocks.js 2`] = `
+"if (1) { /* test */ } else if (1) { /* test */ /* test */ }
+if (1) {
+  // test
+} else if (1) { /* test */ /* test */ } else {
+  // test
+  /* test */
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+if (1) {
+  /* test */
+} else if (1) {
+  /* test */
+  /* test */
+}
+if (1) {
+  // test
+} else if (1) {
+  /* test */
+  /* test */
+} else {
+  // test
+  /* test */
+}
+"
+`;
