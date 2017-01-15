@@ -292,7 +292,11 @@ function genericPrintNoParens(path, options, print) {
       const body = path.call(print, "body");
       const collapsed = concat([ concat(parts), " ", body ]);
 
-      if (n.body.type === "JSXElement") {
+      if (
+        n.body.type === 'ArrayExpression' ||
+        n.body.type === 'ObjectExpression' ||
+        n.body.type === 'JSXElement'
+      ) {
         return group(collapsed);
       }
 
@@ -1667,7 +1671,10 @@ function printArgumentsList(path, options, print) {
     lastArg.type === "FunctionExpression" ||
     lastArg.type === "ArrowFunctionExpression" &&
       (lastArg.body.type === "BlockStatement" ||
-        lastArg.body.type === "ArrowFunctionExpression") ||
+        lastArg.body.type === "ArrowFunctionExpression" ||
+        lastArg.body.type === "ObjectExpression" ||
+        lastArg.body.type === "ArrayExpression" ||
+        lastArg.body.type === "JSXElement") ||
     lastArg.type === "NewExpression";
 
   if (groupLastArg) {
