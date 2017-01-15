@@ -181,6 +181,10 @@ Can also be installed using `ext install prettier-vscode`
 
 [Check repository for configuration and shortcuts](https://github.com/esbenp/prettier-vscode)
 
+### Sublime Text
+
+Please see [this issue](https://github.com/jlongster/prettier/issues/17) for those interested in working on Sublime Text integration.
+
 More editors are coming soon.
 
 ## Language Support
