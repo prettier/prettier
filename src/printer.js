@@ -1720,7 +1720,8 @@ function printArgumentsList(path, options, print) {
     lastArg.type === "FunctionExpression" ||
     lastArg.type === "ArrowFunctionExpression" &&
       (lastArg.body.type === "BlockStatement" ||
-        lastArg.body.type === "ArrowFunctionExpression") ||
+        lastArg.body.type === "ArrowFunctionExpression" ||
+        lastArg.body.type === "JSXElement") ||
     lastArg.type === "NewExpression";
 
   if (groupLastArg) {
