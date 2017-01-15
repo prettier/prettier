@@ -1790,6 +1790,10 @@ function printFunctionParams(path, print, options) {
     printed.push(concat([ "...", path.call(print, "rest") ]));
   }
 
+  if (printed.length === 0) {
+    return "()";
+  }
+
   return concat([
     "(",
     indent(
