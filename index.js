@@ -28,7 +28,11 @@ function format(text, opts) {
   let ast;
 
   if (opts.useFlowParser) {
-    ast = flowParser.parse(text);
+    ast = flowParser.parse(text, {
+      esproposal_class_instance_fields: true,
+      esproposal_class_static_fields: true,
+      esproposal_export_star_as: true,
+    });
     if (ast.errors.length > 0) {
       let msg = ast.errors[(0)].message + " on line " +
         ast.errors[(0)].loc.start.line;
