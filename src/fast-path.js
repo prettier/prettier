@@ -228,6 +228,7 @@ FPp.needsParens = function(assumeExpressionContext) {
   }
 
   switch (node.type) {
+    case "UpdateExpression":
     case "UnaryExpression":
     case "SpreadElement":
     case "SpreadProperty":
