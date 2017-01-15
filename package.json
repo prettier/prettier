@@ -32,6 +32,10 @@
     "rollup-plugin-node-resolve": "^2.0.0",
     "rollup-plugin-real-babili": "^1.0.0-alpha3"
   },
+  "engines": {
+    "node": ">=6.9.4",
+    "npm": ">=3.0.0"
+  },
   "scripts": {
     "test": "jest",
     "format": "./bin/prettier.js --write",

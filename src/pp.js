@@ -1,4 +1,5 @@
 "use strict";
+
 const assert = require("assert");
 
 function assertDoc(val) {
@@ -24,9 +25,7 @@ function indent(n, contents) {
   return { type: "indent", contents, n };
 }
 
-function group(contents, opts) {
-  opts = opts || {};
-
+function group(contents, opts = {}) {
   assertDoc(contents);
 
   return {
@@ -37,17 +36,17 @@ function group(contents, opts) {
   };
 }
 
-function multilineGroup(contents, opts) {
+function multilineGroup(contents, opts = {}) {
   return group(
     contents,
-    Object.assign(opts || {}, { shouldBreak: hasHardLine(contents) })
+    Object.assign(opts, { shouldBreak: hasHardLine(contents) })
   );
 }
 
-function conditionalGroup(states, opts) {
+function conditionalGroup(states, opts = {}) {
   return group(
     states[(0)],
-    Object.assign(opts || {}, { expandedStates: states })
+    Object.assign(opts, { expandedStates: states })
   );
 }
 
@@ -57,25 +56,26 @@ function ifBreak(contents) {
 
 function iterDoc(topDoc, func) {
   const docs = [ topDoc ];
+
   while (docs.length !== 0) {
     const doc = docs.pop();
     let res = undefined;
 
     if (typeof doc === "string") {
-      const res = func("string", doc);
+      res = func("string", doc);
 
       if (res) {
         return res;
       }
     } else {
-      const res = func(doc.type, doc);
+      res = func(doc.type, doc);
 
       if (res) {
         return res;
       }
 
       if (doc.type === "concat") {
-        for (var i = doc.parts.length - 1; i >= 0; i--) {
+        for (let i = doc.parts.length - 1; i >= 0; i--) {
           docs.push(doc.parts[i]);
         }
       } else if (doc.type !== "line") {
@@ -95,9 +95,9 @@ function isEmpty(n) {
 }
 
 function join(sep, arr) {
-  var res = [];
+  let res = [];
 
-  for (var i = 0; i < arr.length; i++) {
+  for (let i = 0; i < arr.length; i++) {
     if (i !== 0) {
       res.push(sep);
     }
@@ -132,9 +132,9 @@ function hasHardLine(doc) {
 }
 
 function _makeIndent(n) {
-  var s = "";
+  let s = "";
 
-  for (var i = 0; i < n; i++) {
+  for (let i = 0; i < n; i++) {
     s += " ";
   }
 
@@ -147,6 +147,7 @@ const MODE_FLAT = 2;
 function fits(next, restCommands, width) {
   let restIdx = restCommands.length;
   const cmds = [ next ];
+
   while (width >= 0) {
     if (cmds.length === 0) {
       if (restIdx === 0) {
@@ -170,25 +171,29 @@ function fits(next, restCommands, width) {
     } else {
       switch (doc.type) {
         case "concat":
-          for (var i = doc.parts.length - 1; i >= 0; i--) {
+          for (let i = doc.parts.length - 1; i >= 0; i--) {
             cmds.push([ ind, mode, doc.parts[i] ]);
           }
 
           break;
+
         case "indent":
           cmds.push([ ind + doc.n, mode, doc.contents ]);
 
           break;
+
         case "group":
           cmds.push([ ind, doc.break ? MODE_BREAK : mode, doc.contents ]);
 
           break;
+
         case "if-break":
           if (mode === MODE_BREAK) {
             cmds.push([ ind, mode, doc.contents ]);
           }
 
           break;
+
         case "line":
           switch (mode) {
             // fallthrough
@@ -208,6 +213,7 @@ function fits(next, restCommands, width) {
       }
     }
   }
+
   return false;
 }
 
@@ -219,6 +225,7 @@ function print(w, doc) {
   let cmds = [ [ 0, MODE_BREAK, doc ] ];
   let out = [];
   let shouldRemeasure = false;
+
   while (cmds.length !== 0) {
     const x = cmds.pop();
     const ind = x[(0)];
@@ -232,15 +239,17 @@ function print(w, doc) {
     } else {
       switch (doc.type) {
         case "concat":
-          for (var i = doc.parts.length - 1; i >= 0; i--) {
+          for (let i = doc.parts.length - 1; i >= 0; i--) {
             cmds.push([ ind, mode, doc.parts[i] ]);
           }
 
           break;
+
         case "indent":
           cmds.push([ ind + doc.n, mode, doc.contents ]);
 
           break;
+
         case "group":
           switch (mode) {
             // fallthrough
@@ -272,15 +281,16 @@ function print(w, doc) {
                 // group has these, we need to manually go through
                 // these states and find the first one that fits.
                 if (doc.expandedStates) {
-                  const mostExpanded = doc.expandedStates[doc.expandedStates.length -
-                    1];
+                  const mostExpanded = doc.expandedStates[
+                    doc.expandedStates.length - 1
+                  ];
 
                   if (doc.break) {
                     cmds.push([ ind, MODE_BREAK, mostExpanded ]);
 
                     break;
                   } else {
-                    for (var i = 1; i < doc.expandedStates.length + 1; i++) {
+                    for (let i = 1; i < doc.expandedStates.length + 1; i++) {
                       if (i >= doc.expandedStates.length) {
                         cmds.push([ ind, MODE_BREAK, mostExpanded ]);
 
@@ -304,13 +314,16 @@ function print(w, doc) {
 
               break;
           }
+
           break;
+
         case "if-break":
           if (mode === MODE_BREAK) {
             cmds.push([ ind, MODE_BREAK, doc.contents ]);
           }
 
           break;
+
         case "line":
           switch (mode) {
             // fallthrough
@@ -355,28 +368,28 @@ function print(w, doc) {
               break;
           }
           break;
-        default:
       }
     }
   }
+
   return out.join("");
 }
 
 module.exports = {
-  fromString,
   concat,
+  conditionalGroup,
+  fromString,
+  getFirstString,
+  group,
+  hardline,
+  hasHardLine,
+  ifBreak,
+  indent,
   isEmpty,
   join,
   line,
-  softline,
-  hardline,
   literalline,
-  group,
   multilineGroup,
-  conditionalGroup,
-  ifBreak,
-  hasHardLine,
-  indent,
   print,
-  getFirstString
+  softline
 };
