@@ -41,9 +41,7 @@ function expandLoc(parentNode, childNode) {
 }
 
 util.fixFaultyLocations = function(node, text) {
-  if (node.type === "TemplateLiteral") {
-    fixTemplateLiteral(node, text);
-  } else if (node.decorators) {
+  if (node.decorators) {
     // Expand the loc of the node responsible for printing the decorators
     // (here, the decorated node) so that it includes node.decorators.
     node.decorators.forEach(function(decorator) {
@@ -78,68 +76,6 @@ util.fixFaultyLocations = function(node, text) {
     }
   }
 };
-
-function fixTemplateLiteral(node, text) {
-  assert.strictEqual(node.type, "TemplateLiteral");
-
-  if (node.quasis.length === 0) {
-    // If there are no quasi elements, then there is nothing to fix.
-    return;
-  }
-
-  // First we need to exclude the opening ` from the loc of the first
-  // quasi element, in case the parser accidentally decided to include it.
-  var afterLeftBackTickPos = locStart(node);
-  assert.strictEqual(text.charAt(afterLeftBackTickPos), "`");
-  assert.ok(afterLeftBackTickPos < text.length);
-  var firstQuasi = node.quasis[(0)];
-  if (locStart(firstQuasi) - afterLeftBackTickPos < 0) {
-    setLocStart(firstQuasi, afterLeftBackTickPos);
-  }
-
-  // Next we need to exclude the closing ` from the loc of the last quasi
-  // element, in case the parser accidentally decided to include it.
-  var rightBackTickPos = locEnd(node);
-  assert.ok(rightBackTickPos >= 0);
-  assert.strictEqual(text.charAt(rightBackTickPos), "`");
-  var lastQuasi = node.quasis[node.quasis.length - 1];
-  if (rightBackTickPos - locEnd(lastQuasi) < 0) {
-    setLocEnd(locEnd(lastQuasi), rightBackTickPos);
-  }
-
-  // Now we need to exclude ${ and } characters from the loc's of all
-  // quasi elements, since some parsers accidentally include them.
-  node.expressions.forEach(function(expr, i) {
-    // Rewind from the start loc over any whitespace and the ${ that
-    // precedes the expression. The position of the $ should be the
-    // same as the end of the preceding quasi element, but some
-    // parsers accidentally include the ${ in the loc of the quasi
-    // element.
-    var dollarCurlyPos = skipSpaces(text, locStart(expr) - 1, true);
-    if (
-      dollarCurlyPos - 1 >= 0 && text.charAt(dollarCurlyPos - 1) === "{" &&
-        dollarCurlyPos - 2 >= 0 &&
-        text.charAt(dollarCurlyPos - 2) === "$"
-    ) {
-      var quasiBefore = node.quasis[i];
-      if (dollarCurlyPos - locEnd(quasiBefore) < 0) {
-        setLocEnd(quasiBefore, dollarCurlyPos);
-      }
-    }
-
-    // Likewise, some parsers accidentally include the } that follows
-    // the expression in the loc of the following quasi element.
-    var rightCurlyPos = skipSpaces(text, locEnd(expr));
-    if (text.charAt(rightCurlyPos) === "}") {
-      assert.ok(rightCurlyPos + 1 < text.length);
-      // Now rightCurlyPos is technically the position just after the }.
-      var quasiAfter = node.quasis[i + 1];
-      if (locStart(quasiAfter) - rightCurlyPos < 0) {
-        setLocStart(locStart(quasiAfter), rightCurlyPos);
-      }
-    }
-  });
-}
 
 util.isExportDeclaration = function(node) {
   if (node)
