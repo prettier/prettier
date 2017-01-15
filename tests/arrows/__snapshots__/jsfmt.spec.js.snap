@@ -49,3 +49,13 @@ function selectBestEffortImageForWidth(
 }
 "
 `;
+
+exports[`test long-call-no-args.js 1`] = `
+"veryLongCall(VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT, () => {})
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+veryLongCall(
+  VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT,
+  () => {}
+);
+"
+`;
