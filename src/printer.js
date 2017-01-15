@@ -2032,7 +2032,7 @@ function printJSXElement(path, options, print) {
     var children = [];
 
     path.map(
-      function(childPath) {
+      function(childPath, i) {
         var child = childPath.getValue();
 
         if (
@@ -2041,17 +2041,67 @@ function printJSXElement(path, options, print) {
           if (/\S/.test(child.value)) {
             const beginBreak = child.value.match(/^\s*\n/);
             const endBreak = child.value.match(/\n\s*$/);
+            const beginSpace = child.value.match(/^\s+/);
+            const endSpace = child.value.match(/\s+$/);
 
-            children.push(
-              beginBreak ? hardline : "",
-              child.value.replace(/^\s+|\s+$/g, endBreak ? "" : " "),
-              endBreak ? hardline : ""
-            );
+            if (beginBreak) {
+              children.push(hardline);
+            } else if (beginSpace) {
+              children.push(" ");
+              // if (beginSpace) children.push(ifBreak("{' '}"));
+            }
+
+            children.push(child.value.replace(/^\s+|\s+$/g, ""));
+
+            if (endBreak) {
+              children.push(hardline);
+            } else if (endSpace) {
+              children.push(" ");
+              // if (endSpace) children.push(ifBreak("{' '}"));
+            }
+
           } else if (/\n/.test(child.value)) {
             children.push(hardline);
+          } else if (/\s/.test(child.value)) {
+            children.push(" ");
           }
         } else {
+          if (!util.newlineExistsBefore(options.originalText, util.locStart(child))) {
+            let prev = util.getLast(children);
+            if (prev && prev.type !== "line") {
+              if (typeof prev === "string" && prev.match(/\s$/)) {
+                children[children.length - 1] = prev.replace(/\s$/, "{' '}");
+              }
+              children.push(softline);
+            }
+          }
           children.push(print(childPath));
+          if (!util.newlineExistsAfter(options.originalText, util.locEnd(child))) {
+            let next = n.children[i + 1];
+            if (next) {
+              if (next.type === "JSXElement") {
+                console.log(next);
+                children.push(softline);
+              // } else if (next.type === "JSXText") {
+              //   // if (next.value.match(/\n/) && !next.value.match(/\S/)) {
+              //   if (!next.value.match(/\S/) && !next.value.match(/\n/)) {
+              //     console.log(JSON.stringify(next.value))
+              //     if (next.value.match(/^s+/)) children.push("{' '}");
+              //     children.push(softline);
+              //   } else if (next.value.match(/^\s+\S/)) {
+              //     children.push("{' '}");
+              //     children.push(softline);
+              //   }
+              }
+            }
+            // if (n.children[i + 1] && n.children[i + 1].type === "JSXElement") {
+              // children.push(softline);
+              // console.log()
+              // console.log(n.children[i])
+              // console.log(n.children[i + 1])
+              // console.log()
+            // }
+          }
         }
       },
       "children"

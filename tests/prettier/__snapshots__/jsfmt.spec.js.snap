@@ -71,7 +71,8 @@ const comp3 = (
 
 const comp4 = (
   <div style={styles} key=\"something\">
-    Create wrapping parens and indent <strong>all the things</strong>.
+    Create wrapping parens and indent{\' \'}
+    <strong>all the things</strong>.
   </div>
 );
 
@@ -80,13 +81,65 @@ const comp5 = <div>Keep it on one line.</div>;
 `;
 
 exports[`test jsx-significant-space.js 1`] = `
-"<span>
-    foo <span>bar</span>
-</span>
+"after =
+  <span>
+      foo <span>bar</span>
+  </span>
+
+before =
+  <span>
+    <span>bar</span> foo
+  </span>
+
+before_break =
+  <span>
+    <span barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar /> foo
+  </span>
+
+after_break =
+  <span>
+    foo <span barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar />
+  </span>
+
+within =
+  <span>
+    foo <span> bar </span>
+  </span>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<span>
-   foo <span>bar</span>
-</span>;
+after = (
+  <span>
+    foo{\' \'}
+    <span>bar</span>
+  </span>
+);
+
+before = (
+  <span>
+    <span>bar</span> foo
+  </span>
+);
+
+before_break = (
+  <span>
+    <span
+      barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar
+    /> foo
+  </span>
+);
+
+after_break = (
+  <span>
+    foo{\' \'}
+    <span barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar />
+  </span>
+);
+
+within = (
+  <span>
+    foo{\' \'}
+    <span> bar </span>
+  </span>
+);
 "
 `;
 
@@ -195,7 +248,8 @@ const render3 = ({ styles }) => (
 
 const render4 = ({ styles }) => (
   <div style={styles} key=\"something\">
-    Create wrapping parens and indent <strong>all the things</strong>.
+    Create wrapping parens and indent{\' \'}
+    <strong>all the things</strong>.
   </div>
 );
 
@@ -209,7 +263,8 @@ const render6 = ({ styles }) => (
       attr3=\"cccccccccccc\"
       attr4
     >
-      ddd d dd d d dddd dddd <strong>hello</strong>
+      ddd d dd d d dddd dddd{\' \'}
+      <strong>hello</strong>
     </div>
     <div
       attr1=\"aaaaaaaaaaaaaaaaa\"
@@ -217,7 +272,8 @@ const render6 = ({ styles }) => (
       attr3=\"cccccccccccc\"
       attr4
     >
-      ddd d dd d d dddd dddd <strong>hello</strong>
+      ddd d dd d d dddd dddd{\' \'}
+      <strong>hello</strong>
     </div>
     <div
       attr1=\"aaaaaaaaaaaaaaaaa\"
@@ -231,16 +287,21 @@ const render6 = ({ styles }) => (
         attr3=\"cccccccccccc\"
         attr4
       >
-        ddd d dd d d dddd dddd <strong>hello</strong>
-      </div><strong>hello</strong>
+        ddd d dd d d dddd dddd{\' \'}
+        <strong>hello</strong>
+      </div>{\' \'}
+      <strong>hello</strong>
     </div>
   </div>
 );
 
 const render7 = () => (
   <div>
-    <span /><span>Dont break each elem onto its own line.</span><span />
-    <div /><div />
+    <span />
+    <span>Dont break each elem onto its own line.</span>{\' \'}
+    <span />
+    <div />{\' \'}
+    <div />
   </div>
 );
 
