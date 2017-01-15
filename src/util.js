@@ -3,9 +3,6 @@ var assert = require("assert");
 var types = require("ast-types");
 var getFieldValue = types.getFieldValue;
 var n = types.namedTypes;
-var sourceMap = require("source-map");
-var SourceMapConsumer = sourceMap.SourceMapConsumer;
-var SourceMapGenerator = sourceMap.SourceMapGenerator;
 var hasOwn = Object.prototype.hasOwnProperty;
 var util = exports;
 
@@ -32,55 +29,6 @@ function copyPos(pos) {
   return { line: pos.line, column: pos.column };
 }
 util.copyPos = copyPos;
-
-util.composeSourceMaps = function(formerMap, latterMap) {
-  if (formerMap) {
-    if (!latterMap) {
-      return formerMap;
-    }
-  } else {
-    return latterMap || null;
-  }
-
-  var smcFormer = new SourceMapConsumer(formerMap);
-  var smcLatter = new SourceMapConsumer(latterMap);
-  var smg = new SourceMapGenerator({
-    file: latterMap.file,
-    sourceRoot: latterMap.sourceRoot
-  });
-
-  var sourcesToContents = {};
-
-  smcLatter.eachMapping(function(mapping) {
-    var origPos = smcFormer.originalPositionFor({
-      line: mapping.originalLine,
-      column: mapping.originalColumn
-    });
-
-    var sourceName = origPos.source;
-    if (sourceName === null) {
-      return;
-    }
-
-    smg.addMapping({
-      source: sourceName,
-      original: copyPos(origPos),
-      generated: {
-        line: mapping.generatedLine,
-        column: mapping.generatedColumn
-      },
-      name: mapping.name
-    });
-
-    var sourceContent = smcFormer.sourceContentFor(sourceName);
-    if (sourceContent && !hasOwn.call(sourcesToContents, sourceName)) {
-      sourcesToContents[sourceName] = sourceContent;
-      smg.setSourceContent(sourceName, sourceContent);
-    }
-  });
-
-  return smg.toJSON();
-};
 
 function expandLoc(parentNode, childNode) {
   if (locStart(childNode) - locStart(parentNode) < 0) {

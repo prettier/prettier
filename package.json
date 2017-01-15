@@ -21,8 +21,7 @@
     "flow-parser": "^0.37.0",
     "get-stdin": "^5.0.1",
     "minimist": "^1.2.0",
-    "private": "^0.1.6",
-    "source-map": "^0.5.6"
+    "private": "^0.1.6"
   },
   "devDependencies": {
     "jest": "^18.0.0",
