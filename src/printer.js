@@ -1042,7 +1042,18 @@ function genericPrintNoParens(path, options, print) {
     case "JSXSpreadAttribute":
       return concat([ "{...", path.call(print, "argument"), "}" ]);
     case "JSXExpressionContainer":
-      return group(
+      const shouldIndent =
+        n.expression.type !== 'ArrayExpression' &&
+        n.expression.type !== 'ObjectExpression' &&
+        n.expression.type !== 'ArrowFunctionExpression' &&
+        n.expression.type !== 'CallExpression' &&
+        n.expression.type !== 'FunctionExpression';
+
+      if (!shouldIndent) {
+        return concat(["{", path.call(print, "expression"), "}"]);
+      }
+
+      return multilineGroup(
         concat([
           "{",
           indent(
