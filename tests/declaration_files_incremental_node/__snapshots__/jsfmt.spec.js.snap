@@ -92,7 +92,8 @@ var E = require(\"package_with_no_package_json\");
 (E.fun(): boolean);
 // Error either Implementation ~> boolean or Declaration ~> boolean
 var F = require(\"package_with_dir_main\");
-(F.fun(): boolean); // Error either Implementation ~> boolean or Declaration ~> boolean
+(F
+  .fun(): boolean); // Error either Implementation ~> boolean or Declaration ~> boolean
 "
 `;
 

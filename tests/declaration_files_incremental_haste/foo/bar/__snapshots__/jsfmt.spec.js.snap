@@ -19,6 +19,7 @@ var corge = require(\"qux/corge\");
 // Error: Either Implementation ~> boolean or Declaration ~> boolean
 (min.fun(): boolean);
 // Error: Either Implementation ~> boolean or Declaration ~> boolean
-(corge.fun(): boolean); // Error: Either Implementation ~> boolean or Declaration ~> boolean
+(corge
+  .fun(): boolean); // Error: Either Implementation ~> boolean or Declaration ~> boolean
 "
 `;
