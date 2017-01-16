@@ -80,13 +80,120 @@ const comp5 = <div>Keep it on one line.</div>;
 `;
 
 exports[`test jsx-significant-space.js 1`] = `
-"<span>
-    foo <span>bar</span>
-</span>
+"after =
+  <span>
+      foo <span>bar</span>
+  </span>
+
+before =
+  <span>
+    <span>bar</span> foo
+  </span>
+
+before_break1 =
+  <span>
+    <span barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar /> foo
+  </span>
+
+before_break2 =
+  <span>
+    <span barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar /> foo
+  </span>
+
+after_break =
+  <span>
+    foo <span barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar />
+  </span>
+
+within =
+  <span>
+    foo <span> bar </span>
+  </span>
+
+break_components =
+  <div>
+    <Foo />
+    <Bar>
+      <p>foo<span>bar bar bar</span></p><h1><span><em>yep</em></span></h1>
+    </Bar>
+    <h2>nope</h2>
+  </div>
+
+var x = <div>
+    hello <strong>hi</strong> <foo>sdkflsdfjk</foo>
+ </div>;
+
+nest_plz =
+  <div>
+    <div>
+    <div></div>
+    </div>
+  </div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<span>
-   foo <span>bar</span>
-</span>;
+after = (
+  <span>
+    foo <span>bar</span>
+  </span>
+);
+
+before = (
+  <span>
+    <span>bar</span> foo
+  </span>
+);
+
+before_break1 = (
+  <span>
+    <span barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar />
+    {\" \"}foo
+  </span>
+);
+
+before_break2 = (
+  <span>
+    <span
+      barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar
+    />
+    {\" \"}foo
+  </span>
+);
+
+after_break = (
+  <span>
+    foo{\" \"}
+    <span barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar />
+  </span>
+);
+
+within = (
+  <span>
+    foo <span> bar </span>
+  </span>
+);
+
+break_components = (
+  <div>
+    <Foo />
+    <Bar>
+      <p>foo<span>bar bar bar</span></p><h1><span><em>yep</em></span></h1>
+    </Bar>
+    <h2>nope</h2>
+  </div>
+);
+
+var x = (
+  <div>
+    hello <strong>hi</strong> <foo>sdkflsdfjk</foo>
+  </div>
+);
+
+nest_plz = (
+  <div>
+    <div>
+      <div />
+    </div>
+  </div>
+);
 "
 `;
 
@@ -99,6 +206,20 @@ long_open =
     hello
   </BaseForm>
 
+long_open_long_children =
+  <BaseForm url=\"/auth/google\" method=\"GET\" colour=\"blue\" size=\"large\" submitLabel=\"Sign in with Google\">
+    <BaseForm url=\"/auth/google\" method=\"GET\" colour=\"blue\" size=\"large\" submitLabel=\"Sign in with Google\">
+      Hello world
+    </BaseForm>
+    <div><div><div><div><div><div>hey hiya how are ya</div></div></div></div></div></div>
+    <div><div><div><div attr=\"long\" attr2=\"also long\" attr3=\"gonna break\"></div></div></div></div>
+    <div><div><div>
+      <div attr=\"long\" attr2=\"also long\" attr3=\"gonna break\" attr4=\"hello please break me\" />
+    </div></div></div>
+    <BaseForm url=\"/auth/google\" method=\"GET\" colour=\"blue\" size=\"large\" submitLabel=\"Sign in with Google\"><BaseForm url=\"/auth/google\" method=\"GET\" colour=\"blue\" size=\"large\" submitLabel=\"Sign in with Google\"></BaseForm>d</BaseForm>
+    <BaseForm url=\"/auth/google\" method=\"GET\" colour=\"blue\" size=\"large\" submitLabel=\"Sign in with Google\"><BaseForm url=\"/auth/google\" method=\"GET\" colour=\"blue\" size=\"large\" submitLabel=\"Sign in with Google\"></BaseForm></BaseForm>
+  </BaseForm>
+
 short_closed =
   <BaseForm url=\"/auth/google\" method=\"GET\"/>
 
@@ -106,6 +227,16 @@ short_open =
   <BaseForm url=\"/auth/google\" method=\"GET\">
     hello
   </BaseForm>
+
+make_self_closing =
+  <div>
+    <BaseForm url=\"/auth/google\" method=\"GET\" colour=\"blue\" size=\"large\" submitLabel=\"Sign in with Google\">
+    </BaseForm>
+    <BaseForm url=\"/auth/google\" method=\"GET\" colour=\"blue\" size=\"large\" submitLabel=\"Sign in with Google\"></BaseForm>
+  </div>
+
+leave_opening =
+  <BaseForm url=\"/auth/google\" method=\"GET\" colour=\"blue\" size=\"large\" submitLabel=\"Sign in with Google\"> </BaseForm>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 long_closed = (
   <BaseForm
@@ -129,11 +260,113 @@ long_open = (
   </BaseForm>
 );
 
+long_open_long_children = (
+  <BaseForm
+    url=\"/auth/google\"
+    method=\"GET\"
+    colour=\"blue\"
+    size=\"large\"
+    submitLabel=\"Sign in with Google\"
+  >
+    <BaseForm
+      url=\"/auth/google\"
+      method=\"GET\"
+      colour=\"blue\"
+      size=\"large\"
+      submitLabel=\"Sign in with Google\"
+    >
+      Hello world
+    </BaseForm>
+    <div>
+      <div><div><div><div><div>hey hiya how are ya</div></div></div></div></div>
+    </div>
+    <div>
+      <div>
+        <div><div attr=\"long\" attr2=\"also long\" attr3=\"gonna break\" /></div>
+      </div>
+    </div>
+    <div>
+      <div>
+        <div>
+          <div
+            attr=\"long\"
+            attr2=\"also long\"
+            attr3=\"gonna break\"
+            attr4=\"hello please break me\"
+          />
+        </div>
+      </div>
+    </div>
+    <BaseForm
+      url=\"/auth/google\"
+      method=\"GET\"
+      colour=\"blue\"
+      size=\"large\"
+      submitLabel=\"Sign in with Google\"
+    >
+      <BaseForm
+        url=\"/auth/google\"
+        method=\"GET\"
+        colour=\"blue\"
+        size=\"large\"
+        submitLabel=\"Sign in with Google\"
+      />
+      d
+    </BaseForm>
+    <BaseForm
+      url=\"/auth/google\"
+      method=\"GET\"
+      colour=\"blue\"
+      size=\"large\"
+      submitLabel=\"Sign in with Google\"
+    >
+      <BaseForm
+        url=\"/auth/google\"
+        method=\"GET\"
+        colour=\"blue\"
+        size=\"large\"
+        submitLabel=\"Sign in with Google\"
+      />
+    </BaseForm>
+  </BaseForm>
+);
+
 short_closed = <BaseForm url=\"/auth/google\" method=\"GET\" />;
 
 short_open = (
   <BaseForm url=\"/auth/google\" method=\"GET\">
     hello
+  </BaseForm>
+);
+
+make_self_closing = (
+  <div>
+    <BaseForm
+      url=\"/auth/google\"
+      method=\"GET\"
+      colour=\"blue\"
+      size=\"large\"
+      submitLabel=\"Sign in with Google\"
+    />
+    <BaseForm
+      url=\"/auth/google\"
+      method=\"GET\"
+      colour=\"blue\"
+      size=\"large\"
+      submitLabel=\"Sign in with Google\"
+    />
+  </div>
+);
+
+leave_opening = (
+  <BaseForm
+    url=\"/auth/google\"
+    method=\"GET\"
+    colour=\"blue\"
+    size=\"large\"
+    submitLabel=\"Sign in with Google\"
+  >
+    {\" \"}
   </BaseForm>
 );
 "
@@ -171,11 +404,48 @@ const render7 = () =>
     <div /> <div />
   </div>
 
+const render7A = () => (
+  <div>
+    <div /><div /><div />
+  </div>
+)
+
+const render7B = () => (
+  <div>
+    <span> <span/> Dont break plz</span>
+    <span><span/>Dont break plz</span>
+    <span>Dont break plz<span/></span>
+  </div>
+)
+
 const render8 = (props) => <div>{props.text}</div>
 const render9 = (props) => <div>{props.looooooooooooooooooooooooooooooong_text}</div>
 const render10 = (props) => <div>{props.even_looooooooooooooooooooooooooooooooooooooooooonger_contents}</div>
 
 const notJSX = (aaaaaaaaaaaaaaaaa, bbbbbbbbbbb) => this.someLongCallWithParams(aaaaaa, bbbbbbb).anotherLongCallWithParams(cccccccccccc, dddddddddddddddddddddd)
+
+React.render(
+  <BaseForm url=\"/auth/google\" method=\"GET\" colour=\"blue\" size=\"large\" submitLabel=\"Sign in with Google\" />
+  , document.querySelector(\'#react-root\')
+)
+
+
+const renderTernary = (props) =>
+  <BaseForm url=\"/auth/google\" method=\"GET\" colour=\"blue\" size=\"large\" submitLabel=\"Sign in with Google\">
+    {props.showTheThing ?
+      <BaseForm url=\"/auth/google\" method=\"GET\" colour=\"blue\" size=\"large\" submitLabel=\"Sign in with Google\">Hello world</BaseForm>
+      : \"hello \" + \"howdy! \"}
+    {props.showTheThing ?
+      <BaseForm url=\"/auth/google\" method=\"GET\" colour=\"blue\" size=\"large\" submitLabel=\"Sign in with Google\">Hello world</BaseForm>
+      :
+      null
+    }
+    {props.showTheThing ? null :
+      <BaseForm url=\"/auth/google\" method=\"GET\" colour=\"blue\" size=\"large\" submitLabel=\"Sign in with Google\">Hello world</BaseForm>
+    }
+    {props.showTheOtherThing ? <div>I am here</div> : <div attr=\"blah\" />}
+    {props.showTheOtherThing ? <div>I am here!!</div> : null}
+  </BaseForm>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const render1 = ({ styles }) => (
   <div style={styles} key=\"something\">
@@ -232,15 +502,31 @@ const render6 = ({ styles }) => (
         attr4
       >
         ddd d dd d d dddd dddd <strong>hello</strong>
-      </div><strong>hello</strong>
+      </div>
+      {\" \"}
+      <strong>hello</strong>
     </div>
   </div>
 );
 
 const render7 = () => (
   <div>
-    <span /><span>Dont break each elem onto its own line.</span><span />
-    <div /><div />
+    <span /><span>Dont break each elem onto its own line.</span> <span />
+    <div /> <div />
+  </div>
+);
+
+const render7A = () => (
+  <div>
+    <div /><div /><div />
+  </div>
+);
+
+const render7B = () => (
+  <div>
+    <span> <span /> Dont break plz</span>
+    <span><span />Dont break plz</span>
+    <span>Dont break plz<span /></span>
   </div>
 );
 
@@ -258,6 +544,69 @@ const notJSX = (aaaaaaaaaaaaaaaaa, bbbbbbbbbbb) =>
   this
     .someLongCallWithParams(aaaaaa, bbbbbbb)
     .anotherLongCallWithParams(cccccccccccc, dddddddddddddddddddddd);
+
+React.render(
+  <BaseForm
+    url=\"/auth/google\"
+    method=\"GET\"
+    colour=\"blue\"
+    size=\"large\"
+    submitLabel=\"Sign in with Google\"
+  />,
+  document.querySelector(\"#react-root\")
+);
+
+const renderTernary = props => (
+  <BaseForm
+    url=\"/auth/google\"
+    method=\"GET\"
+    colour=\"blue\"
+    size=\"large\"
+    submitLabel=\"Sign in with Google\"
+  >
+    {
+      props.showTheThing
+        ? <BaseForm
+          url=\"/auth/google\"
+          method=\"GET\"
+          colour=\"blue\"
+          size=\"large\"
+          submitLabel=\"Sign in with Google\"
+        >
+          Hello world
+        </BaseForm>
+        : \"hello \" + \"howdy! \"
+    }
+    {
+      props.showTheThing
+        ? <BaseForm
+          url=\"/auth/google\"
+          method=\"GET\"
+          colour=\"blue\"
+          size=\"large\"
+          submitLabel=\"Sign in with Google\"
+        >
+          Hello world
+        </BaseForm>
+        : null
+    }
+    {
+      props.showTheThing
+        ? null
+        : <BaseForm
+          url=\"/auth/google\"
+          method=\"GET\"
+          colour=\"blue\"
+          size=\"large\"
+          submitLabel=\"Sign in with Google\"
+        >
+          Hello world
+        </BaseForm>
+    }
+    {props.showTheOtherThing ? <div>I am here</div> : <div attr=\"blah\" />}
+    {props.showTheOtherThing ? <div>I am here!!</div> : null}
+  </BaseForm>
+);
 "
 `;
 
