@@ -362,6 +362,10 @@ FPp.needsParens = function(assumeExpressionContext) {
         return true;
       }
 
+      if (parent.type === "MemberExpression") {
+        return true;
+      }
+
       return isBinary(parent);
 
     case "ClassExpression":

@@ -25,6 +25,13 @@ var ident = <T>(x: T): T => x;
 "
 `;
 
+exports[`test arrow_function_expression.js 1`] = `
+"(a => {}).length
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(a => {}).length;
+"
+`;
+
 exports[`test arrows.js 1`] = `
 "function selectBestEffortImageForWidth(
     maxWidth: number,
