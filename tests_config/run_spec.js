@@ -76,7 +76,11 @@ function stripLocation(ast) {
 
 function parse(string) {
   const flowParser = require('flow-parser');
-  return stripLocation(flowParser.parse(string));
+  return stripLocation(flowParser.parse(string, {
+    esproposal_class_instance_fields: true,
+    esproposal_class_static_fields: true,
+    esproposal_export_star_as: true,
+  }));
 }
 
 function prettyprint(src, filename, options) {
