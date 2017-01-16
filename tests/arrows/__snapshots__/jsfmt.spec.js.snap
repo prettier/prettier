@@ -28,11 +28,17 @@ var ident = <T>(x: T): T => x;
 exports[`test arrow_function_expression.js 1`] = `
 "(a => {}).length
 typeof (() => {});
+export default (() => {})();
+(() => {})()\`\`;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 (a => {
 }).length;
 typeof (() => {
 });
+export default (() => {
+})()
+(() => {
+})()\`\`;
 "
 `;
 

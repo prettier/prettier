@@ -366,6 +366,7 @@ FPp.needsParens = function(assumeExpressionContext) {
           return n.ObjectPattern.check(node.left) && this.firstInStatement();
       }
 
+    case "FunctionExpression":
     case "ArrowFunctionExpression":
       if (parent.type === "CallExpression" && name === "callee") {
         return true;

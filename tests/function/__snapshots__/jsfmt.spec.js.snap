@@ -351,6 +351,23 @@ var e = (d.bind(1): Function)();
 "
 `;
 
+exports[`test function_expression.js 1`] = `
+"(function() {}).length
+typeof (function() {});
+export default (function() {})();
+(function() {})()\`\`;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(function() {
+}).length;
+typeof (function() {
+});
+export default (function() {
+})()
+(function() {
+})()\`\`;
+"
+`;
+
 exports[`test rest.js 1`] = `
 "/* regression tests */
 
