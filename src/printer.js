@@ -565,7 +565,7 @@ function genericPrintNoParens(path, options, print) {
 
       var i = 0;
       var props = [];
-      console.log(fields)
+
       fields.forEach(function(field) {
         path.each(
           function(childPath) {
