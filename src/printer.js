@@ -565,7 +565,7 @@ function genericPrintNoParens(path, options, print) {
 
       var i = 0;
       var props = [];
-
+      console.log(fields)
       fields.forEach(function(field) {
         path.each(
           function(childPath) {
@@ -575,11 +575,20 @@ function genericPrintNoParens(path, options, print) {
         );
       });
 
+      var isParenthesized = (
+        n.extra && n.extra.hasOwnProperty('parenthesized') &&
+          n.extra.parenthesized === true
+      );
+
       if (props.length === 0) {
+        if (isParenthesized ) {
+          return "({})";
+        }
         return "{}";
       } else {
         return multilineGroup(
           concat([
+            isParenthesized ? "(" : "",
             leftBrace,
             indent(
               options.tabWidth,
@@ -591,6 +600,7 @@ function genericPrintNoParens(path, options, print) {
             ifBreak(options.trailingComma ? "," : ""),
             options.bracketSpacing ? line : softline,
             rightBrace,
+            isParenthesized ? ")" : "",
             path.call(print, "typeAnnotation")
           ])
         );
