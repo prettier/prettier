@@ -371,11 +371,14 @@ FPp.needsParens = function(assumeExpressionContext) {
         return true;
       }
 
-      if (parent.type === "MemberExpression") {
-        return true;
-      }
+      switch (parent.type) {
+        case "MemberExpression":
+        case "UnaryExpression":
+          return true;
 
-      return isBinary(parent);
+        default:
+          return isBinary(parent);
+      }
 
     case "ClassExpression":
       return parent.type === "ExpressionStatement";
