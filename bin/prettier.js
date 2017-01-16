@@ -8,6 +8,7 @@ const jscodefmt = require("../index");
 const argv = minimist(process.argv.slice(2), {
   boolean: [
     "write",
+    "check",
     "stdin",
     "flow-parser",
     "bracket-spacing",
@@ -19,6 +20,7 @@ const argv = minimist(process.argv.slice(2), {
 
 const filenames = argv["_"];
 const write = argv["write"];
+const check = argv["check"];
 const stdin = argv["stdin"];
 
 if (!filenames.length && !stdin) {
@@ -31,7 +33,8 @@ if (!filenames.length && !stdin) {
       "  --flow-parser        Use the flow parser instead of babylon\n" +
       "  --single-quote       Use single quotes instead of double\n" +
       "  --trailing-comma     Print trailing commas wherever possible\n" +
-      "  --bracket-spacing    Put spaces between brackets. Defaults to true, set false to turn off"
+      "  --bracket-spacing    Put spaces between brackets. Defaults to true, set false to turn off" +
+      "  --check              Ensure the file is correctly pretty-printed\n"
   );
   process.exit(1);
 }
@@ -53,7 +56,7 @@ if (stdin) {
       console.log(format(input));
     } catch (e) {
       process.exitCode = 2;
-      console.error(e);
+      console.log(e);
       return;
     }
   });
@@ -65,7 +68,7 @@ if (stdin) {
       }
 
       if (err) {
-        console.error("Unable to read file: " + filename + "\n" + err);
+        console.log("Unable to read file: " + filename + "\n" + err);
         // Don't exit the process if one file failed
         process.exitCode = 2;
         return;
@@ -76,19 +79,55 @@ if (stdin) {
         output = format(input);
       } catch (e) {
         process.exitCode = 2;
-        console.error(e);
+        if (check) {
+          console.log(filename);
+        }
+        console.log(e);
         return;
+      }
+
+      if (check) {
+        let output2;
+        try {
+          output2 = format(output);
+        } catch (e) {
+          function padLeft(nr, n, str){
+            return Array(n-String(nr).length+1).join(str||'0')+nr;
+          }
+          console.log(filename);
+          process.exitCode = 2;
+          const match = e.toString().match(/\(([0-9]+):/);
+          if (match) {
+            const line = +match[1];
+            const context = 8;
+            let i = Math.max(line - context, 0);
+            console.log(
+              output
+                .split('\n')
+                .slice(i, line + context)
+                .map(line => padLeft('' + (i++), 4, ' ') + ' | ' + line)
+                .join('\n')
+              );
+          }
+          console.log(e);
+          return;
+        }
+
+        if (output !== output2) {
+          var diff = require('diff').createTwoFilesPatch(filename, filename, output, output2, '', '', {context: 2});
+          console.log(diff);
+        }
       }
 
       if (write) {
         fs.writeFile(filename, output, "utf8", err => {
           if (err) {
-            console.error("Unable to write file: " + filename + "\n" + err);
+            console.log("Unable to write file: " + filename + "\n" + err);
             // Don't exit the process if one file failed
             process.exitCode = 2;
           }
         });
-      } else {
+      } else if (!check) {
         console.log(output);
       }
     });
