@@ -1,1 +1,2 @@
 (a => {}).length
+typeof (() => {});
