@@ -790,8 +790,8 @@ function genericPrintNoParens(path, options, print) {
       return concat([
         "with (",
         path.call(print, "object"),
-        ") ",
-        path.call(print, "body")
+        ")",
+        adjustClause(path.call(print, "body"), options)
       ]);
     case "IfStatement":
       const con = adjustClause(path.call(print, "consequent"), options);
@@ -2098,6 +2098,10 @@ function printJSXElement(path, options, print) {
 }
 
 function adjustClause(clause, options, forceSpace) {
+  if (clause === "") {
+    return ";";
+  }
+
   if (isCurlyBracket(clause) || forceSpace) {
     return concat([ " ", clause ]);
   }
