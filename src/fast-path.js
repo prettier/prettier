@@ -237,7 +237,8 @@ FPp.needsParens = function(assumeExpressionContext) {
     case "UnaryExpression":
       switch (parent.type) {
         case "UnaryExpression":
-          return node.operator !== "!" && parent.operator !== "!";
+          return node.operator === parent.operator &&
+            (node.operator === "+" || node.operator === "-");
 
         case "MemberExpression":
           return name === "object" && parent.object === node;
