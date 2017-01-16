@@ -1,0 +1,8 @@
+exports[`test new_expression.js 1`] = `
+"new (memoize.Cache || MapCache)
+new (typeof this == \"function\" ? this : Dict())
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+new (memoize.Cache || MapCache)();
+new (typeof this == \"function\" ? this : Dict())();
+"
+`;

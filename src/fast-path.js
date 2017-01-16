@@ -239,6 +239,7 @@ FPp.needsParens = function(assumeExpressionContext) {
     case "LogicalExpression":
       switch (parent.type) {
         case "CallExpression":
+        case "NewExpression":
           return name === "callee" && parent.callee === node;
 
         case "UnaryExpression":
@@ -340,6 +341,7 @@ FPp.needsParens = function(assumeExpressionContext) {
         case "SpreadProperty":
         case "BinaryExpression":
         case "LogicalExpression":
+        case "NewExpression":
           return true;
 
         case "CallExpression":
