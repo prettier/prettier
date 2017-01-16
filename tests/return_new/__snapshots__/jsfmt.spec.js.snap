@@ -22,7 +22,8 @@ function Bar() {
 }
 var bar: number = new Bar();
 // error (returns new object)
-function Qux() {}
+function Qux() {
+}
 var qux: number = new Qux();
 // error (returns new object)
 class A {}

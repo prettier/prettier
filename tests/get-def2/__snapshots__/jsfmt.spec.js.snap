@@ -78,7 +78,8 @@ class D extends C {
 // @flow
 
 class C {
-  override() {}
+  override() {
+  }
 }
 
 class D extends C {
@@ -88,7 +89,8 @@ class D extends C {
   bar() {
     this.override;
   }
-  override() {}
+  override() {
+  }
 }
 "
 `;

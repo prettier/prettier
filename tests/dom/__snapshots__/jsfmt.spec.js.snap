@@ -300,7 +300,8 @@ let tests = [
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-let listener: EventListener = function(event: Event): void {};
+let listener: EventListener = function(event: Event): void {
+};
 
 let tests = [
   // attachEvent
@@ -422,16 +423,26 @@ let tests = [
   function() {
     document.registerElement(\"custom-element\", {
       prototype: Object.create(HTMLElement.prototype, {
-        createdCallback: { value: function createdCallback() {} },
-        attachedCallback: { value: function attachedCallback() {} },
-        detachedCallback: { value: function detachedCallback() {} },
+        createdCallback: {
+          value: function createdCallback() {
+          }
+        },
+        attachedCallback: {
+          value: function attachedCallback() {
+          }
+        },
+        detachedCallback: {
+          value: function detachedCallback() {
+          }
+        },
         attributeChangedCallback: {
           value: function attributeChangedCallback(
             attributeLocalName,
             oldAttributeValue,
             newAttributeValue,
             attributeNamespace
-          ) {}
+          ) {
+          }
         }
       })
     });
@@ -440,15 +451,19 @@ let tests = [
   function() {
     document.registerElement(\"custom-element\", {
       prototype: Object.assign(Object.create(HTMLElement.prototype), {
-        createdCallback() {},
-        attachedCallback() {},
-        detachedCallback() {},
+        createdCallback() {
+        },
+        attachedCallback() {
+        },
+        detachedCallback() {
+        },
         attributeChangedCallback(
           attributeLocalName,
           oldAttributeValue,
           newAttributeValue,
           attributeNamespace
-        ) {}
+        ) {
+        }
       })
     });
   },
@@ -463,7 +478,8 @@ let tests = [
           newVal: string,
           // Error: This might be null
           namespace: string
-        ) {}
+        ) {
+        }
       }
     });
   }

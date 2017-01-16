@@ -89,11 +89,13 @@ var d = new D();
 (d.next: D);
 // sneaky
 class A {
-  foo<X: this>(that: X) {} // error: can\'t hide contravariance using a bound
+  foo<X: this>(that: X) {
+  } // error: can\'t hide contravariance using a bound
 }
 
 class B extends A {
-  foo<Y: this>(that: Y) {} // error (see above, catches hidden override)
+  foo<Y: this>(that: Y) {
+  } // error (see above, catches hidden override)
 }
 
 // covariance checks on this type in invariant positions
@@ -101,13 +103,15 @@ class Invariant {
   out_object(): { _: this } {
     return { _: this };
   }
-  in_object(_: { _: this }) {}
+  in_object(_: { _: this }) {
+  }
   inout_object: { _: this };
 
   out_array(): Array<this> {
     return [ this ];
   }
-  in_array(_: Array<this>) {}
+  in_array(_: Array<this>) {
+  }
   inout_array: Array<this>;
 }
 
@@ -117,14 +121,16 @@ class Misc {
   out_set(): Set<this> {
     return new Set().add(this);
   }
-  in_set(_: Set<this>) {}
+  in_set(_: Set<this>) {
+  }
   inout_set: Set<this>;
 
   // Promise<X> has covariant X
   async out_promise(): Promise<this> {
     return this;
   }
-  in_promise(_: Promise<this>) {}
+  in_promise(_: Promise<this>) {
+  }
   inout_promise: Promise<this>;
 
   // Generator<X,Y,Z> has covariant X, covariant Y, contravariant Z
@@ -132,7 +138,8 @@ class Misc {
     yield this;
     return this;
   }
-  in_generator(_: Generator<this, this, this>) {}
+  in_generator(_: Generator<this, this, this>) {
+  }
   inout_generator: Generator<this, this, this>;
 }
 "
@@ -517,8 +524,10 @@ class Base2 {
     return this.bar();
   }
 
-  corge(that: this) {}
-  grault(that: Base2) {}
+  corge(that: this) {
+  }
+  grault(that: Base2) {
+  }
 }
 
 class Inherit2 extends Base2 {}
@@ -537,10 +546,12 @@ class Override2 extends Base2 {
   }
   // error (cf. OK above)
   // see exploit below
-  corge(that: this) {}
+  corge(that: this) {
+  }
   // error
   // see exploit below
-  grault(that: this) {} // error, too
+  grault(that: this) {
+  } // error, too
 }
 
 class InheritOverride2 extends Override2 {}

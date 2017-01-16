@@ -69,7 +69,8 @@ class C<X> {
   x: X;
 }
 
-function foo<X>(c: C<X>, x: X) {}
+function foo<X>(c: C<X>, x: X) {
+}
 
 type O = { f: number };
 

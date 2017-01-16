@@ -85,7 +85,8 @@ var notB: Object = B;
 
 requireLazy();
 // Error: No args
-requireLazy([ nope ], function() {});
+requireLazy([ nope ], function() {
+});
 // Error: Non-stringliteral args
 requireLazy([ \"A\" ]); // Error: No calback expression
 "

@@ -172,7 +172,8 @@ exports[`test issue-530.js 1`] = `
 
 module.exports = foo;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function foo(...args: any) {}
+function foo(...args: any) {
+}
 
 module.exports = foo;
 "

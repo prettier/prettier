@@ -164,9 +164,9 @@ class GeneratorExamples {
 
   *widen_next() {
     var x = yield 0;
-    if (typeof x === \"number\") {}
-    else if (typeof x === \"boolean\") {}
-    else {
+    if (typeof x === \"number\") {
+    } else if (typeof x === \"boolean\") {
+    } else {
       (x: string); // ok, sherlock
     }
   }
@@ -234,9 +234,9 @@ for (var x of examples.infer_stmt()) {
 // error: number ~> string
 var infer_stmt_next = examples.infer_stmt().next(0).value;
 // error: number ~> boolean
-if (typeof infer_stmt_next === \"undefined\") {}
-else if (typeof infer_stmt_next === \"number\") {}
-else {
+if (typeof infer_stmt_next === \"undefined\") {
+} else if (typeof infer_stmt_next === \"number\") {
+} else {
   (infer_stmt_next: boolean); // error: string ~> boolean
 }
 
@@ -245,9 +245,9 @@ examples.widen_next().next(\"\");
 examples.widen_next().next(true);
 
 for (var x of examples.widen_yield()) {
-  if (typeof x === \"number\") {}
-  else if (typeof x === \"boolean\") {}
-  else {
+  if (typeof x === \"number\") {
+  } else if (typeof x === \"boolean\") {
+  } else {
     (x: string); // ok, sherlock
   }
 }
@@ -306,9 +306,9 @@ for (var x of examples.infer_stmt()) {
 // error: number ~> string
 var infer_stmt_next = examples.infer_stmt().next(0).value;
 // error: number ~> boolean
-if (typeof infer_stmt_next === \"undefined\") {}
-else if (typeof infer_stmt_next === \"number\") {}
-else {
+if (typeof infer_stmt_next === \"undefined\") {
+} else if (typeof infer_stmt_next === \"number\") {
+} else {
   (infer_stmt_next: boolean); // error: string ~> boolean
 }
 "
@@ -481,17 +481,17 @@ for (var x of infer_stmt()) {
 // error: number ~> string
 var infer_stmt_next = infer_stmt().next(0).value;
 // error: number ~> boolean
-if (typeof infer_stmt_next === \"undefined\") {}
-else if (typeof infer_stmt_next === \"number\") {}
-else {
+if (typeof infer_stmt_next === \"undefined\") {
+} else if (typeof infer_stmt_next === \"number\") {
+} else {
   (infer_stmt_next: boolean); // error: string ~> boolean
 }
 
 function* widen_next() {
   var x = yield 0;
-  if (typeof x === \"number\") {}
-  else if (typeof x === \"boolean\") {}
-  else {
+  if (typeof x === \"number\") {
+  } else if (typeof x === \"boolean\") {
+  } else {
     (x: string); // ok, sherlock
   }
 }
@@ -505,9 +505,9 @@ function* widen_yield() {
   yield true;
 }
 for (var x of widen_yield()) {
-  if (typeof x === \"number\") {}
-  else if (typeof x === \"boolean\") {}
-  else {
+  if (typeof x === \"number\") {
+  } else if (typeof x === \"boolean\") {
+  } else {
     (x: string); // ok, sherlock
   }
 }

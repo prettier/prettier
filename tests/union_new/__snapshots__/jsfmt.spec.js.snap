@@ -157,7 +157,8 @@ function node(content: ?Foobar | String | Array<String>) {
 /* @flow */
 import type { Foobar } from \"./issue-1455-helper\";
 
-function create(content: ?Foobar | String | Array<String>) {}
+function create(content: ?Foobar | String | Array<String>) {
+}
 
 function node(content: ?Foobar | String | Array<String>) {
   create(content);
@@ -490,7 +491,8 @@ type B4 = string;
 /////////////////////////////////////////////
 // similar example with class instance types
 /////////////////////////////////////////////
-function inst(a: A5 | A6) {}
+function inst(a: A5 | A6) {
+}
 
 class B5 {}
 class B6 {}
@@ -590,7 +592,8 @@ type B6 = string;
 // example with object types
 //////////////////////////////
 
-function obj(a: { x: number } | { x: string }) {}
+function obj(a: { x: number } | { x: string }) {
+}
 
 obj(({ x: \"\" }: A1));
 
@@ -601,7 +604,8 @@ type B1 = string;
 ///////////////////////////////////////
 // similar example with function types
 ///////////////////////////////////////
-function fun(a: (() => number) | (() => string)) {}
+function fun(a: (() => number) | (() => string)) {
+}
 
 fun((() => \"\": A2));
 
@@ -614,7 +618,8 @@ type B2 = string;
 /////////////////////////////////////////////////////
 class C<X> {}
 
-function inst(a: C<number> | C<string>) {}
+function inst(a: C<number> | C<string>) {
+}
 
 inst((new C(): A3));
 
@@ -625,8 +630,12 @@ type B3 = string;
 /////////////////////////////////////////////
 // similar example with generic type aliases
 /////////////////////////////////////////////
-function alias(a: T<number> | T<string>) {}
-alias({ x: (x: V<B4>) => {} });
+function alias(a: T<number> | T<string>) {
+}
+alias({
+  x: (x: V<B4>) => {
+  }
+});
 
 type T<X> = { x: U<X> };
 type U<X> = (x: V<X>) => void;
@@ -635,7 +644,8 @@ type V<X> = X;
 type B4 = string;
 
 // class statics
-function stat(a: { x: number } | { x: string }) {}
+function stat(a: { x: number } | { x: string }) {
+}
 
 class D {
   static x: B5;
@@ -646,7 +656,8 @@ stat(D);
 type B5 = string;
 
 // tuples
-function tup(a: [number, boolean] | [string, boolean]) {}
+function tup(a: [number, boolean] | [string, boolean]) {
+}
 
 tup(([ \"\", false ]: A6));
 
@@ -696,9 +707,13 @@ type B2 = string;
 // example with function types
 ///////////////////////////////
 
-function fun(a: ((x: number) => void) | ((x: string) => void)) {}
+function fun(a: ((x: number) => void) | ((x: string) => void)) {
+}
 
-fun((x => {}: A1));
+fun(
+  (x => {
+  }: A1)
+);
 
 type A1 = (x: B1) => void;
 
@@ -707,7 +722,8 @@ type B1 = string;
 ////////////////////////////
 // example with array types
 ////////////////////////////
-function arr(a: number[] | string[]) {}
+function arr(a: number[] | string[]) {
+}
 
 arr(([]: A2));
 
@@ -765,9 +781,11 @@ type B2 = string;
 // example with function types
 ///////////////////////////////
 
-function fun(a: ((x: number) => void) | ((x: string) => void)) {}
+function fun(a: ((x: number) => void) | ((x: string) => void)) {
+}
 
-const a1 = (x => {}: A1);
+const a1 = (x => {
+}: A1);
 fun(a1);
 
 function fun_call(x: string) {
@@ -781,7 +799,8 @@ type B1 = string;
 ////////////////////////////
 // example with array types
 ////////////////////////////
-function arr(a: number[] | string[]) {}
+function arr(a: number[] | string[]) {
+}
 
 const a2 = ([]: A2);
 arr(a2);
@@ -838,7 +857,8 @@ function arr_set(x: string, i: number) { a2[i] = x; }
 // example with function types
 ///////////////////////////////
 
-function fun(a: ((x: number) => number) | ((x: string) => string)) {}
+function fun(a: ((x: number) => number) | ((x: string) => string)) {
+}
 
 function a1(x) {
   return x;
@@ -852,7 +872,8 @@ function fun_call(x: string): string {
 /////////////////////////////
 // example with array types
 /////////////////////////////
-function arr(a: number[] | string[]) {}
+function arr(a: number[] | string[]) {
+}
 
 var a2 = [];
 arr(a2);
@@ -961,7 +982,8 @@ type PG<X> = { x: X, y?: PG<X> };
 // recursive types
 ////////////////////
 
-function rec(x: F1 | F2) {}
+function rec(x: F1 | F2) {
+}
 rec({ x: 0 });
 
 type F1 = G1;
@@ -974,7 +996,8 @@ type H2 = number;
 ///////////////////////////////
 // polymorphic recursive types
 ///////////////////////////////
-function polyrec(x: PF<number> | PF<string>) {}
+function polyrec(x: PF<number> | PF<string>) {
+}
 rec({ x: 0 });
 
 type PF<X> = PG<X>;
@@ -1017,7 +1040,8 @@ type H2_ = number;
 // nested union types
 //////////////////////
 
-function rec(x: F1 | F2) {}
+function rec(x: F1 | F2) {
+}
 rec({ x: 0 });
 
 type F1 = G1 | G1_;
@@ -1065,7 +1089,8 @@ function square(x? = 0) {
   return x * x;
 }
 
-function foo(f: ((_: ?number) => ?number) | (() => void)) {}
+function foo(f: ((_: ?number) => ?number) | (() => void)) {
+}
 foo((x): number => square(x));
 "
 `;
@@ -1153,7 +1178,8 @@ function id<X>(x: X): X {
 /////////////////////////
 // primitive annotations
 /////////////////////////
-function check_prim(_: number | string) {}
+function check_prim(_: number | string) {
+}
 
 // ok
 check_prim(\"\");
@@ -1166,7 +1192,8 @@ check_prim(id(\"\"));
 //////////////////////////////
 class C {}
 class D {}
-function check_inst(_: C | D) {}
+function check_inst(_: C | D) {
+}
 
 // ok
 check_inst(new D());
@@ -1177,7 +1204,8 @@ check_inst(id(new C()));
 ////////////////////////
 // function annotations
 ////////////////////////
-function check_fun(_: ((_: number) => number) | ((_: string) => string)) {}
+function check_fun(_: ((_: number) => number) | ((_: string) => string)) {
+}
 
 // help!
 check_fun(x => x);
@@ -1185,7 +1213,8 @@ check_fun(x => x);
 //////////////////////
 // object annotations
 //////////////////////
-function check_obj(_: { x: number } | { x: string }) {}
+function check_obj(_: { x: number } | { x: string }) {
+}
 
 // ok
 check_obj({ x: \"\" });
@@ -1196,7 +1225,8 @@ check_obj({ x: id(\"\") });
 /////////////////////
 // array annotations
 /////////////////////
-function check_arr(_: number[] | string[]) {}
+function check_arr(_: number[] | string[]) {
+}
 
 // ok
 check_arr([ \"\" ]);
@@ -1208,7 +1238,8 @@ check_arr([ id(\"\") ]);
 // generic class instance annotations
 //////////////////////////////////////
 class P<X> {}
-function check_poly_inst(_: P<number> | P<string>) {}
+function check_poly_inst(_: P<number> | P<string>) {
+}
 
 // help!
 check_poly_inst(new P());
@@ -1325,7 +1356,8 @@ function foo(c: C<number>) {
 
 declare class C<X> { get(): X }
 
-function union(o: { x: string } | { x: number }) {}
+function union(o: { x: string } | { x: number }) {
+}
 
 function foo(c: C<number>) {
   union({ x: c.get() });
@@ -1364,7 +1396,8 @@ bar(() => { });
 // functions as objects
 
 function foo<X>(target: EventTarget) {
-  target.addEventListener(\"click\", e => {});
+  target.addEventListener(\"click\", e => {
+  });
 }
 
 declare class EventTarget {
@@ -1379,9 +1412,11 @@ type EventHandler = (event: Event) => mixed;
 type KeyboardEventHandler = (event: KeyboardEvent) => mixed;
 
 // example where globals are not yet resolved
-function bar(x: (() => void) | { x: number }) {}
+function bar(x: (() => void) | { x: number }) {
+}
 
-bar(() => {});
+bar(() => {
+});
 "
 `;
 
@@ -1414,10 +1449,12 @@ type Foo = T | (() => boolean);
 
 type Bar = number | (() => string) | (() => boolean);
 
-function foo(x: Foo) {}
+function foo(x: Foo) {
+}
 foo(() => qux());
 
-function bar(x: Bar) {}
+function bar(x: Bar) {
+}
 bar(() => qux());
 
 var x = false;

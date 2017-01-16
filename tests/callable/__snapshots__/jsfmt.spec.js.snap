@@ -44,7 +44,8 @@ callable(0); // error, number ~> string
 callable.call(null, 0); // error, number ~> string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var x = Boolean(4);
-function foo(fn: (value: any) => boolean) {}
+function foo(fn: (value: any) => boolean) {
+}
 foo(Boolean);
 
 var dict: { [k: string]: any } = {};

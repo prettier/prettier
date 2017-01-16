@@ -15,7 +15,8 @@ class C<T> {
     this.b(a); // error: A ~> incompatible instance of T
   }
 
-  b(x: T) {}
+  b(x: T) {
+  }
 }
 "
 `;
@@ -36,7 +37,8 @@ f(0); // ok
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function f<T>(a: T) {
   function g<U>(b: U, c: T = a) {
-    function h(d: U = b) {}
+    function h(d: U = b) {
+    }
     h();
     // ok
     h(b);

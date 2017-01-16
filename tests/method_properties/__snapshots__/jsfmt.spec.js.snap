@@ -36,9 +36,12 @@ function f(x) {
 f(foo);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class C {
-  C() {}
-  foo() {}
-  static bar() {}
+  C() {
+  }
+  foo() {
+  }
+  static bar() {
+  }
   qux() {
     this.constructor.x;
   }

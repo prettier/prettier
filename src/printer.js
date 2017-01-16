@@ -492,11 +492,6 @@ function genericPrintNoParens(path, options, print) {
       const hasContent = getFirstString(naked);
       const hasDirectives = n.directives && n.directives.length > 0;
 
-      // If there are no contents, return a simple block
-      if (!hasContent && !hasDirectives) {
-        return "{}";
-      }
-
       parts.push("{");
 
       // Babel 6

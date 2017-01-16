@@ -22,7 +22,8 @@ function doSomethingAsync(): Promise<void> {
 }
 
 // simpler repro to show that too few args are fine when expecting void
-function foo(x: void) {}
+function foo(x: void) {
+}
 foo();
 "
 `;
@@ -50,7 +51,8 @@ function bar() {
   if (x) x.bar();
 }
 
-function qux(x?: number, y: string = \"\", z) {}
+function qux(x?: number, y: string = \"\", z) {
+}
 "
 `;
 

@@ -38,7 +38,8 @@ for (var y in this) {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var a = [ true, false ];
-function foo(x) {}
+function foo(x) {
+}
 
 for (var i = 0; i < 3; i++) {
   foo(a[i]);
@@ -70,6 +71,7 @@ for (var x in null) {
   foo(x); // unreachable
 }
 
-for (var y in this) {}
+for (var y in this) {
+}
 "
 `;

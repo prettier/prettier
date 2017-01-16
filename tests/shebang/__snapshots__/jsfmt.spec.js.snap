@@ -3,6 +3,7 @@ exports[`test shebang.js 1`] = `
 function a() {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #!/usr/bin/env node
-function a() {}
+function a() {
+}
 "
 `;

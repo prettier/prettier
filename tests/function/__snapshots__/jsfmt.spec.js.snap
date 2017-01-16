@@ -308,7 +308,8 @@ function bad(x: Function, y: Object): void {
 
 let tests = [
   function(y: () => void, z: Function) {
-    function x() {}
+    function x() {
+    }
     (x.length: void);
     // error, it\'s a number
     (y.length: void);
@@ -322,7 +323,8 @@ let tests = [
     (z.name: void); // error, it\'s a string
   },
   function(y: () => void, z: Function) {
-    function x() {}
+    function x() {
+    }
     x.length = \"foo\";
     // error, it\'s a number
     y.length = \"foo\";

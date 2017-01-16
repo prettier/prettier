@@ -41,7 +41,8 @@ module.exports = \"arrays\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule Arrays */
 
-function foo(x: string) {}
+function foo(x: string) {
+}
 
 var a = [];
 a[0] = 1;

@@ -99,11 +99,14 @@ let tests = [
   },
   // in predicates
   function() {
-    if (\"foo\" in 123) {}
+    if (\"foo\" in 123) {
+    }
     // error
-    if (!\"foo\" in {}) {}
+    if (!\"foo\" in {}) {
+    }
     // error, !\'foo\' is a boolean
-    if (!(\"foo\" in {})) {}
+    if (!(\"foo\" in {})) {
+    }
   },
   // annotations on RHS
   function(x: Object, y: mixed) {

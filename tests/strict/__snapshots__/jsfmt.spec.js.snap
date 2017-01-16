@@ -15,7 +15,8 @@ class B extends A {
   foo(x: A): A {
     return x;
   }
-  bar(x) {}
+  bar(x) {
+  }
   qux<X, Y>(x: X, y: Y): X {
     return x;
   }
