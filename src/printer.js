@@ -1835,34 +1835,38 @@ function printExportDeclaration(path, options, print) {
     ) {
       parts.push(";");
     }
-  } else if (decl.specifiers && decl.specifiers.length > 0) {
-    if (
-      decl.specifiers.length === 1 &&
-        decl.specifiers[(0)].type === "ExportBatchSpecifier"
-    ) {
-      parts.push("*");
+  } else {
+    if (decl.specifiers && decl.specifiers.length > 0) {
+      if (
+        decl.specifiers.length === 1 &&
+          decl.specifiers[(0)].type === "ExportBatchSpecifier"
+      ) {
+        parts.push("*");
+      } else {
+        parts.push(
+          decl.exportKind === "type" ? "type " : "",
+          group(
+            concat([
+              "{",
+              indent(
+                options.tabWidth,
+                concat([
+                  options.bracketSpacing ? line : softline,
+                  join(
+                    concat([ ",", options.bracketSpacing ? line : softline ]),
+                    path.map(print, "specifiers")
+                  )
+                ])
+              ),
+              ifBreak(options.trailingComma ? "," : ""),
+              options.bracketSpacing ? line : softline,
+              "}"
+            ])
+          )
+        );
+      }
     } else {
-      parts.push(
-        decl.exportKind === "type" ? "type " : "",
-        group(
-          concat([
-            "{",
-            indent(
-              options.tabWidth,
-              concat([
-                options.bracketSpacing ? line : softline,
-                join(
-                  concat([ ",", options.bracketSpacing ? line : softline ]),
-                  path.map(print, "specifiers")
-                )
-              ])
-            ),
-            ifBreak(options.trailingComma ? "," : ""),
-            options.bracketSpacing ? line : softline,
-            "}"
-          ])
-        )
-      );
+      parts.push("{}");
     }
 
     if (decl.source) {
@@ -1870,8 +1874,6 @@ function printExportDeclaration(path, options, print) {
     }
 
     parts.push(";");
-  } else {
-    parts.push("{};");
   }
 
   return concat(parts);
