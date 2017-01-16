@@ -25,6 +25,7 @@ var isObject = types.builtInTypes.object;
 var FastPath = require("./fast-path");
 var util = require("./util");
 var isIdentifierName = require("esutils").keyword.isIdentifierNameES6;
+var jsesc = require("jsesc");
 
 function Printer(originalOptions) {
   assert.ok(this instanceof Printer);
@@ -2127,12 +2128,6 @@ function lastNonSpaceCharacter(lines) {
   } while (lines.prevPos(pos));
 }
 
-function swapQuotes(str) {
-  return str.replace(/['"]/g, function(m) {
-    return m === '"' ? "'" : '"';
-  });
-}
-
 function nodeStr(str, options) {
   isString.assert(str);
 
@@ -2147,11 +2142,10 @@ function nodeStr(str, options) {
     shouldUseSingleQuote = true;
   }
 
-  if (shouldUseSingleQuote) {
-    return swapQuotes(JSON.stringify(swapQuotes(str)));
-  } else {
-    return JSON.stringify(str);
-  }
+  return jsesc(str, {
+    quotes: shouldUseSingleQuote ? 'single' : 'double',
+    wrap: true
+  });
 }
 
 function isFirstStatement(path) {
