@@ -1870,6 +1870,8 @@ function printExportDeclaration(path, options, print) {
     }
 
     parts.push(";");
+  } else {
+    parts.push("{};");
   }
 
   return concat(parts);
