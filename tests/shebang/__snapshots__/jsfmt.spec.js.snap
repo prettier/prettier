@@ -7,3 +7,15 @@ function a() {
 }
 "
 `;
+
+exports[`test shebang-newline.js 1`] = `
+"#!/usr/bin/env node
+
+function a() {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#!/usr/bin/env node
+
+function a() {
+}
+"
+`;
