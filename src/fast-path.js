@@ -374,6 +374,7 @@ FPp.needsParens = function(assumeExpressionContext) {
 
       switch (parent.type) {
         case "MemberExpression":
+        case "TaggedTemplateExpression":
         case "UnaryExpression":
           return true;
 
