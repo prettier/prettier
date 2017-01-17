@@ -575,20 +575,11 @@ function genericPrintNoParens(path, options, print) {
         );
       });
 
-      var isParenthesized = (
-        n.extra && n.extra.hasOwnProperty('parenthesized') &&
-          n.extra.parenthesized === true
-      );
-
       if (props.length === 0) {
-        if (isParenthesized ) {
-          return "({})";
-        }
         return "{}";
       } else {
         return multilineGroup(
           concat([
-            isParenthesized ? "(" : "",
             leftBrace,
             indent(
               options.tabWidth,
@@ -600,7 +591,6 @@ function genericPrintNoParens(path, options, print) {
             ifBreak(options.trailingComma ? "," : ""),
             options.bracketSpacing ? line : softline,
             rightBrace,
-            isParenthesized ? ")" : "",
             path.call(print, "typeAnnotation")
           ])
         );
@@ -1966,11 +1956,22 @@ function printMemberLookup(path, print) {
 function printMemberChain(node, options, print) {
   const nodes = [];
   let curr = node;
+  let needsParens = false;
+
   // Traverse down and gather up all of the calls on member
   // expressions. This flattens it out into a list that we can
   // easily analyze.
+  // Also inject back parenthesis.
   while (curr.type === "CallExpression" &&
     curr.callee.type === "MemberExpression") {
+    if (
+      curr.callee.object.type === 'ObjectExpression' &&
+        curr.callee.object.extra &&
+        curr.callee.object.extra.parenthesized === true &&
+        needsParens === false
+    ) {
+      needsParens = true
+    }
     nodes.push({ member: curr.callee, call: curr });
     curr = curr.callee.object;
   }
@@ -2029,7 +2030,9 @@ function printMemberChain(node, options, print) {
     } else {
       return conditionalGroup([
         concat([
+          needsParens ? "(" : "",
           currPrinted,
+          needsParens ? ")" : "",
           concat(
             nodesPrinted.map(node => {
               return concat([ node.property, node.args ]);
@@ -2039,6 +2042,27 @@ function printMemberChain(node, options, print) {
         fullyExpanded
       ]);
     }
+  }
+
+  if (needsParens) {
+    const currPrinted = print(FastPath.from(curr));
+    const nodesPrinted = nodes.map(
+      node =>
+        ({
+          property: printMemberLookup(FastPath.from(node.member), print),
+          args: printArgumentsList(FastPath.from(node.call), options, print)
+        })
+    );
+    return concat([
+      "(",
+      currPrinted,
+      concat(
+        nodesPrinted.map(node => {
+          return concat([ node.property, node.args ]);
+        })
+      ),
+      ")"
+    ])
   }
 }
 
