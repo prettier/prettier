@@ -690,12 +690,15 @@ function genericPrintNoParens(path, options, print) {
     "RegExpLiteral":
       return fromString(n.extra.raw);
     // Babel 6 Literal split
-    case "BooleanLiteral":
-    // Babel 6 Literal split
     case "NumericLiteral":
+      return n.extra.raw;
+    // Babel 6 Literal split
+    case "BooleanLiteral":
     // Babel 6 Literal split
     case "StringLiteral":
     case "Literal":
+      if (typeof n.value === "number")
+        return n.raw;
       if (typeof n.value !== "string")
         return fromString(n.value, options);
 
