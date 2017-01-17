@@ -28,6 +28,7 @@ if (!filenames.length && !stdin) {
       "  --stdin              Read input from stdin\n" +
       "  --print-width <int>  Specify the length of line that the printer will wrap on. Defaults to 80.\n" +
       "  --tab-width <int>    Specify the number of spaces per indentation-level. Defaults to 2.\n" +
+      "  --use-tabs           Indent lines with tabs instead of spaces. Defaults to false.\n" +
       "  --flow-parser        Use the flow parser instead of babylon\n" +
       "  --single-quote       Use single quotes instead of double\n" +
       "  --trailing-comma     Print trailing commas wherever possible\n" +
@@ -40,6 +41,7 @@ function format(input) {
   return jscodefmt.format(input, {
     printWidth: argv["print-width"],
     tabWidth: argv["tab-width"],
+    useTabs: argv["use-tabs"],
     bracketSpacing: argv["bracket-spacing"],
     useFlowParser: argv["flow-parser"],
     singleQuote: argv["single-quote"],

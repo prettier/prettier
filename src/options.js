@@ -1,4 +1,6 @@
 var defaults = {
+  // Indent lines with tabs
+  useTabs: false,
   // Number of spaces the pretty-printer should use per tab
   tabWidth: 2,
   // Fit code within this line limit
