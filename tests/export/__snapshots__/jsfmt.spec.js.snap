@@ -1,4 +1,67 @@
+exports[`test bracket.js 1`] = `
+"export {
+  runTaskForChanged,
+  description,
+  someOtherLabel,
+  thatMakes,
+  itGo,
+  multiLine,
+  andMore,
+  soWeCanGetItTo80Columns
+};
+export {fitsIn, oneLine};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export {
+  runTaskForChanged,
+  description,
+  someOtherLabel,
+  thatMakes,
+  itGo,
+  multiLine,
+  andMore,
+  soWeCanGetItTo80Columns
+};
+export { fitsIn, oneLine };
+"
+`;
+
+exports[`test bracket.js 2`] = `
+"export {
+  runTaskForChanged,
+  description,
+  someOtherLabel,
+  thatMakes,
+  itGo,
+  multiLine,
+  andMore,
+  soWeCanGetItTo80Columns
+};
+export {fitsIn, oneLine};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export {
+  runTaskForChanged,
+  description,
+  someOtherLabel,
+  thatMakes,
+  itGo,
+  multiLine,
+  andMore,
+  soWeCanGetItTo80Columns
+};
+export { fitsIn, oneLine };
+"
+`;
+
 exports[`test empty.js 1`] = `
+"export {};
+export {} from \".\";
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export {};
+export {} from \".\";
+"
+`;
+
+exports[`test empty.js 2`] = `
 "export {};
 export {} from \".\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
