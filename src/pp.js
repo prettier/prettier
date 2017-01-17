@@ -358,7 +358,7 @@ function print(options, doc) {
               } else {
                 out.push("\n" + _makeIndent(ind, useTabs, tabWidth));
 
-                pos = ind;
+                pos = ind * tabWidth;
               }
 
               break;

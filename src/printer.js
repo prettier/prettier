@@ -128,6 +128,7 @@ function genericPrintNoParens(path, options, print) {
     return fromString(n, options);
   }
 
+  // var tw = options.tabWidth;
   // TODO: For some reason NumericLiteralTypeAnnotation is not
   // printable so this throws, but I think that's a bug in ast-types.
   // This assert isn't very useful though.
