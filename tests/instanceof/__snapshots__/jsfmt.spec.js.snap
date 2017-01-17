@@ -93,11 +93,9 @@ function foo1(x: Array<number> | number) {
 class X1 {
   foo: number;
 }
-
 class X2 {
   foo: string;
 }
-
 function x(b) {
   return b ? new X1() : new X2();
 }
@@ -117,11 +115,9 @@ function consumer2(b) {
 class Y1 {
   bar: X1;
 }
-
 class Y2 {
   bar: X2;
 }
-
 function y(b) {
   return b ? new Y1() : new Y2();
 }
@@ -141,11 +137,9 @@ function consumer4(b) {
 class Z1 {
   baz: Y1;
 }
-
 class Z2 {
   baz: Y2;
 }
-
 function z(b) {
   return b ? new Z1() : new Z2();
 }

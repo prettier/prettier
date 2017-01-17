@@ -68,7 +68,6 @@ class Test extends Base {
     return 2;
   }
 }
-
 module.exports = Test;
 "
 `;
@@ -164,7 +163,6 @@ export default class {
     return 42;
   }
 }
-
 "
 `;
 
@@ -186,7 +184,6 @@ export default class {
     return 42;
   }
 }
-
 "
 `;
 
@@ -251,7 +248,6 @@ export default class Foo {
     return 42;
   }
 }
-
 // Regression test for https://github.com/facebook/flow/issues/511
 //
 // Default-exported class should also be available in local scope
@@ -277,7 +273,6 @@ export default class Foo {
     return 42;
   }
 }
-
 "
 `;
 
@@ -536,13 +531,11 @@ export { groupedSpecifierNumber1, groupedSpecifierNumber2 };
 export function givesANumber(): number {
   return 42;
 }
-
 export class NumberGenerator {
   givesANumber(): number {
     return 42;
   }
 }
-
 export var varDeclNumber1 = 1, varDeclNumber2 = 2;
 export var { destructuredObjNumber } = { destructuredObjNumber: 1 };
 export var [ destructuredArrNumber ] = [ 1 ];
@@ -588,13 +581,11 @@ export { groupedSpecifierNumber3, groupedSpecifierNumber4 };
 export function givesANumber2(): number {
   return 42;
 }
-
 export class NumberGenerator2 {
   givesANumber(): number {
     return 42;
   }
 }
-
 export var varDeclNumber3 = 1, varDeclNumber4 = 2;
 export var { destructuredObjNumber2 } = { destructuredObjNumber2: 1 };
 export var [ destructuredArrNumber2 ] = [ 1 ];

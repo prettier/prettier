@@ -155,7 +155,6 @@ function bar() {
   // Array<X|Y> ~> .concat(Array<Y>)
   // Array<X|Y|Y> ~> a
 }
-
 class A<X> {
   x: A<A<X>>;
 }

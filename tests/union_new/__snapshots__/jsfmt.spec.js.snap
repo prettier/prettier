@@ -24,13 +24,10 @@ class VirtualNode {
 /* @flow */
 type T = A | B;
 class U {}
-
 declare var children: U;
 (children: T | U);
 class A {}
-
 class B {}
-
 type VirtualElement = Thunk | VirtualNode;
 type Child = VirtualElement;
 type Children = Array<Child>;

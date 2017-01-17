@@ -68,7 +68,6 @@ class Test extends Base {
     return 2;
   }
 }
-
 module.exports = Test;
 "
 `;
@@ -181,7 +180,6 @@ declare export function getAFoo(): FooImpl;
  */
 
 declare export default class FooImpl { givesANum(): number }
-
 // Regression test for https://github.com/facebook/flow/issues/511
 //
 // Default-exported class should also be available in local scope
@@ -204,7 +202,6 @@ declare export default class Foo { givesANum(): number; };
  */
 
 declare export default class Foo { givesANum(): number }
-
 "
 `;
 
@@ -461,7 +458,6 @@ declare export { groupedSpecifierNumber1, groupedSpecifierNumber2 };
 
 declare export function givesANumber(): number;
 declare export class NumberGenerator { givesANumber(): number }
-
 declare export var varDeclNumber1: number;
 declare export var varDeclNumber2: number;
 "
@@ -504,7 +500,6 @@ declare export { groupedSpecifierNumber3, groupedSpecifierNumber4 };
 
 declare export function givesANumber2(): number;
 declare export class NumberGenerator2 { givesANumber(): number }
-
 declare export var varDeclNumber3: number;
 declare export var varDeclNumber4: number;
 "

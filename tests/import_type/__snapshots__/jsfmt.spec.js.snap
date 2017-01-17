@@ -133,7 +133,6 @@ export function givesAFoo3Obj(): AliasFoo3 {
     }
   };
 }
-
 "
 `;
 
@@ -351,7 +350,6 @@ export default ClassFoo6;
 /* @flow */
 
 class ClassFoo6 {}
-
 export default ClassFoo6;
 "
 `;

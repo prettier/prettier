@@ -111,7 +111,6 @@ class Foo {
   set propOverriddenWithSetter(x: string) {
   }
 }
-
 var foo = new Foo();
 
 // Test getting properties with getters
@@ -402,15 +401,12 @@ class Base {
   get get(): B {
     return this.x;
   }
-
   set set(value: B): void {
     this.x = value;
   }
-
   get getset(): B {
     return this.x;
   }
-
   set getset(value: B): void {
     this.x = value;
   }

@@ -412,7 +412,6 @@ function var_var() {
 function function_toplevel() {
   function a() {
   }
-
   function a() {
   }
 }
@@ -421,7 +420,6 @@ function function_block() {
   {
     function a() {
     }
-
     function a() {
     }
   }

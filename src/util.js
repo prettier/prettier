@@ -125,8 +125,7 @@ function skipNewLineForward(text, index) {
   if (text.charAt(index) === "\r" && text.charAt(index + 1) === "\n") {
     return index + 2;
   }
-  // Note: this is incorrect, but makes the current tests pass for now.
-  return index + 1;
+  return index;
 }
 
 function _findNewline(text, index, backwards) {
