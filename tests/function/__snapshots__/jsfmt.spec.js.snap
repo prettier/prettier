@@ -356,6 +356,7 @@ exports[`test function_expression.js 1`] = `
 typeof (function() {});
 export default (function() {})();
 (function() {})()\`\`;
+(function() {})\`\`;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 (function() {
 }).length;
@@ -365,6 +366,8 @@ export default (function() {
 })()
 (function() {
 })()\`\`;
+(function() {
+})\`\`;
 "
 `;
 
