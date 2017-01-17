@@ -454,7 +454,7 @@ function genericPrintNoParens(path, options, print) {
 
         if (grouped.length > 0) {
           parts.push(
-            group(
+            multilineGroup(
               concat([
                 "{",
                 indent(
@@ -462,7 +462,7 @@ function genericPrintNoParens(path, options, print) {
                   concat([
                     options.bracketSpacing ? line : softline,
                     join(
-                      concat([ ",", options.bracketSpacing ? line : softline ]),
+                      concat([ ",", line ]),
                       grouped
                     )
                   ])
