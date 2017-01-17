@@ -1,3 +1,33 @@
+# 0.0.8
+
+[link](https://github.com/jlongster/prettier/compare/e447971...0192d58)
+
+* Fix await parenthesis (#185)
+* Add note about Sublime Test github issue in readme
+* Remove legacy Recast code and simplify API. (#191)
+* Don't break to new line if logical/loop statements are without brackets. (#194)
+* Fix parenthesis for UpdateExpression (#198)
+* Fix directives printing for empty functions (#199)
+* Fix key quotes omission for flow parser (#203)
+* Fix comma when an arrow function with no arguments breaks (#210)
+* Last argument expansion works for arrow functions that return JSX (#211)
+* Remove faulty location check on template literals that throws in Nuclide (#218)
+* Add flow parser experimental options (#221)
+* Fix empty exports (#225)
+* Fix cases of missing parens with NewExpression (#230)
+* Fix issue with ArrowFunctionExpression parens (#236)
+* Add npm version badge (#240)
+* Consolidate badges in readme
+* Fix parens issue with nested UrnaryExpressions (#237)
+* Escape strings using jsesc (#229)
+* Add newline for empty blocks {} (#205)
+* Fix empty export with from clause (#248)
+* Fix missing parenthesis for typeof and arrow functions (#249)
+* Fix FunctionExpression parens issues (#250)
+* Fix last element of an array being null (#232)
+* Make sure empty for loops generate valid code (#224)
+* Fix parens for functions inside TaggedTemplateExpression (#259)
+* Preserve the way numbers were written (#257)
 
 # 0.0.7
 
