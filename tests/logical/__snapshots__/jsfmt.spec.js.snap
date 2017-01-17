@@ -758,7 +758,7 @@ function logical7e(x: number): string {
  */
 function logical8a(): number {
   var x = false;
-  return (x || 0) && \"foo\";
+  return x || 0 && \"foo\";
 }
 
 /**
@@ -768,7 +768,7 @@ function logical8a(): number {
  */
 function logical8b(): string {
   var x = false;
-  return (x || 1) && \"foo\";
+  return x || 1 && \"foo\";
 }
 
 /**
@@ -778,7 +778,7 @@ function logical8b(): string {
  */
 function logical8c(): string {
   var x = true;
-  return (x || 1) && \"foo\";
+  return x || 1 && \"foo\";
 }
 
 /**
@@ -939,7 +939,7 @@ function logical15a(x: number): number {
  * || in an addition
  */
 function logical15b(x: number): number {
-  return (x || 7) + 5;
+  return x || 7 + 5;
 }
 
 /**
@@ -953,7 +953,7 @@ function logical15c(x: number): number {
  * && in an addition
  */
 function logical15d(x: number): number {
-  return (x && 7) + 5;
+  return x && 7 + 5;
 }
 
 /**
@@ -967,7 +967,7 @@ function logical16a(x: number): boolean {
  * || in a comparison
  */
 function logical16b(x: number): boolean {
-  return (x || 7) < 5;
+  return x || 7 < 5;
 }
 
 /**
@@ -981,7 +981,7 @@ function logical16c(x: number): boolean {
  * && in a comparison
  */
 function logical16d(x: number): boolean {
-  return (x && 7) < 5;
+  return x && 7 < 5;
 }
 
 /**
@@ -995,7 +995,7 @@ function logical17a(x: number): boolean {
  * || in an equality
  */
 function logical17b(x: number): boolean {
-  return (x || 7) == 5;
+  return x || 7 == 5;
 }
 
 /**
@@ -1009,7 +1009,7 @@ function logical17c(x: number): boolean {
  * && in an equality
  */
 function logical17d(x: number): boolean {
-  return (x && 7) == 5;
+  return x && 7 == 5;
 }
 
 /**

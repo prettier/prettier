@@ -179,15 +179,17 @@ function genericPrintNoParens(path, options, print) {
         ])
       );
     case "BinaryExpression":
-    case "LogicalExpression":
-      return group(
-        concat([
-          path.call(print, "left"),
-          " ",
-          n.operator,
-          indent(options.tabWidth, concat([ line, path.call(print, "right") ]))
-        ])
-      );
+    case "LogicalExpression": {
+      const parts = [];
+      printBinaryishExpressions(path, parts, print);
+
+      return group(concat([
+        // The first expression always is printed on the current line
+        // so make sure not to increase the indentation level for it.
+        parts.length > 0 ? parts[0] : "",
+        indent(options.tabWidth, concat(parts.slice(1)))
+      ]));
+    }
     case "AssignmentPattern":
       return concat([
         path.call(print, "left"),
@@ -2252,6 +2254,65 @@ function maybeWrapJSXElementInParens(path, elem, options) {
       ifBreak(")")
     ])
   );
+}
+
+function isBinaryish(node) {
+  return node.type === "BinaryExpression" || node.type === "LogicalExpression";
+}
+
+// Binary expressions are hard to find a consistent format for. We
+// decided that we should try to print any combination of binary
+// expressions on one line, but if it doesn't fit, break all of them
+// onto new lines. To do this we need to traverse down the left and
+// right sides of each node in the AST and produce a flat list of
+// documents that exist under a single group. Other various rules are
+// documented below.
+function printBinaryishExpressions(path, parts, print) {
+  let node = path.getValue();
+
+  // We treat BinaryExpression and LogicalExpression nodes the same.
+  if(isBinaryish(node)) {
+    // Recursively print the `left` property.
+    path.call(left => printBinaryishExpressions(left, parts, print), "left");
+
+    // Understanding this requires knowledge of how binary expressions
+    // are parsed. By default, they are "grouped" from the left, so if
+    // you had `1 + 2 + 3 + 4`, the top BinaryExpression node with
+    // have a `left` property of the `1 + 2 + 3` expression and a
+    // `right` property of the `4`. This means that if `right` is
+    // another BinaryExpression, that means the precedence level has
+    // changed. `1 + 2 + 3 * 4` would have a `right` property  of the
+    // `3 * 4` expression because `*` has higher precedence than `+`.
+    // But we don't want `3 * 4` to be in its own group; we want to
+    // collapse everything that we can down to one group. We can't
+    // collapse everything though; `1 * (2 + 3)` would have a `right`
+    // property of `2 + 3`, and that *must* be re-printed separately
+    // in its own group and keep parentheses. So this logic checks if
+    // `right` is a binaryish expression AND the precedence level is
+    // *higher*; that means the natural precedence will take place and
+    // we can collapse it.
+    if(isBinaryish(node.right) &&
+       util.getPrecedence(node.operator) < util.getPrecedence(node.right.operator)) {
+
+      parts.push(" ", node.operator, line);
+      path.call(right => printBinaryishExpressions(right, parts, print), "right");
+    }
+    else {
+      // Otherwise print `right` normally.
+      parts.push(
+        " ",
+        node.operator,
+        line,
+        concat(["", path.call(print, "right"), ""])
+      );
+    }
+  }
+  else {
+    // Our stopping case. Simply print the node normally.
+    parts.push(path.call(print));
+  }
+
+  return parts;
 }
 
 function adjustClause(clause, options, forceSpace) {
