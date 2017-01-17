@@ -702,13 +702,13 @@ function genericPrintNoParens(path, options, print) {
       if (typeof n.value !== "string")
         return fromString(n.value, options);
 
-      return nodeStr(n.value, options);
+      return nodeStr(n, options);
     case // Babel 6
     "Directive":
       return path.call(print, "value");
     case // Babel 6
     "DirectiveLiteral":
-      return fromString(nodeStr(n.value, options));
+      return fromString(nodeStr(n, options));
     case "ModuleSpecifier":
       if (n.local) {
         throw new Error("The ESTree ModuleSpecifier type should be abstract");
@@ -716,7 +716,7 @@ function genericPrintNoParens(path, options, print) {
 
       // The Esprima ModuleSpecifier type is just a string-valued
       // Literal identifying the imported-from module.
-      return fromString(nodeStr(n.value, options), options);
+      return fromString(nodeStr(n, options), options);
     case "UnaryExpression":
       parts.push(n.operator);
 
@@ -1444,7 +1444,7 @@ function genericPrintNoParens(path, options, print) {
         path.call(print, "id")
       ]);
     case "StringLiteralTypeAnnotation":
-      return fromString(nodeStr(n.value, options), options);
+      return fromString(nodeStr(n, options), options);
     case "NumberLiteralTypeAnnotation":
       assert.strictEqual(typeof n.value, "number");
 
@@ -2145,7 +2145,8 @@ function lastNonSpaceCharacter(lines) {
   } while (lines.prevPos(pos));
 }
 
-function nodeStr(str, options) {
+function nodeStr(node, options) {
+  const str = node.value;
   isString.assert(str);
 
   const containsSingleQuote = str.indexOf("'") !== -1;
@@ -2159,10 +2160,19 @@ function nodeStr(str, options) {
     shouldUseSingleQuote = true;
   }
 
-  return jsesc(str, {
+  const result = jsesc(str, {
     quotes: shouldUseSingleQuote ? 'single' : 'double',
     wrap: true
   });
+
+  // Workaround a bug in the Javascript version of the flow parser where
+  // astral unicode characters like \uD801\uDC28 are incorrectly parsed as
+  // a sequence of \uFFFD.
+  if (options.useFlowParser && result.indexOf('\\uFFFD') !== -1) {
+    return node.raw;
+  }
+
+  return result;
 }
 
 function isFirstStatement(path) {
