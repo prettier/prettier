@@ -1857,7 +1857,7 @@ function printExportDeclaration(path, options, print) {
       } else {
         parts.push(
           decl.exportKind === "type" ? "type " : "",
-          group(
+          multilineGroup(
             concat([
               "{",
               indent(
@@ -1865,7 +1865,7 @@ function printExportDeclaration(path, options, print) {
                 concat([
                   options.bracketSpacing ? line : softline,
                   join(
-                    concat([ ",", options.bracketSpacing ? line : softline ]),
+                    concat([ ",", line ]),
                     path.map(print, "specifiers")
                   )
                 ])
