@@ -180,7 +180,7 @@ function genericPrintNoParens(path, options, print) {
       );
     case "BinaryExpression":
     case "LogicalExpression": {
-      return group(printBinaryishExpressions(path, print, options));
+      return printBinaryishExpressions(path, print, options);
     }
     case "AssignmentPattern":
       return concat([
@@ -2298,11 +2298,11 @@ function printBinaryishExpressions(path, print, options) {
 
     const allowBreak = ["*", "/", "+", "-", "&&", "||"].indexOf(node.operator) !== -1;
     if(allowBreak) {
-      return concat([ left, indent(options.tabWidth,
-                                 concat([" ", node.operator, line, right ]))]);
+      return group(concat([ left, indent(options.tabWidth,
+                                         concat([" ", node.operator, line, right ]))]))
 
     }
-    return concat([ left, " ", node.operator, " ", right ]);
+    return group(concat([ left, " ", node.operator, " ", right ]));
   }
   else {
     // Our stopping case. Simply print the node normally.
