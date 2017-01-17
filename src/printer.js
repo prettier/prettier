@@ -180,15 +180,7 @@ function genericPrintNoParens(path, options, print) {
       );
     case "BinaryExpression":
     case "LogicalExpression": {
-      const parts = [];
-      printBinaryishExpressions(path, parts, print);
-
-      return group(concat([
-        // The first expression always is printed on the current line
-        // so make sure not to increase the indentation level for it.
-        parts.length > 0 ? parts[0] : "",
-        indent(options.tabWidth, concat(parts.slice(1)))
-      ]));
+      return group(printBinaryishExpressions(path, print, options));
     }
     case "AssignmentPattern":
       return concat([
@@ -2267,13 +2259,16 @@ function isBinaryish(node) {
 // right sides of each node in the AST and produce a flat list of
 // documents that exist under a single group. Other various rules are
 // documented below.
-function printBinaryishExpressions(path, parts, print) {
+function printBinaryishExpressions(path, print, options) {
   let node = path.getValue();
 
   // We treat BinaryExpression and LogicalExpression nodes the same.
   if(isBinaryish(node)) {
     // Recursively print the `left` property.
-    path.call(left => printBinaryishExpressions(left, parts, print), "left");
+    const left = path.call(left => {
+      return printBinaryishExpressions(left, print, options);
+    }, "left");
+    let right;
 
     // Understanding this requires knowledge of how binary expressions
     // are parsed. By default, they are "grouped" from the left, so if
@@ -2292,27 +2287,27 @@ function printBinaryishExpressions(path, parts, print) {
     // *higher*; that means the natural precedence will take place and
     // we can collapse it.
     if(isBinaryish(node.right) &&
-       util.getPrecedence(node.operator) < util.getPrecedence(node.right.operator)) {
+       util.getPrecedence(node.operator) <= util.getPrecedence(node.right.operator)) {
 
-      parts.push(" ", node.operator, line);
-      path.call(right => printBinaryishExpressions(right, parts, print), "right");
+      right = path.call(right => printBinaryishExpressions(right, print, options), "right");
     }
     else {
       // Otherwise print `right` normally.
-      parts.push(
-        " ",
-        node.operator,
-        line,
-        concat(["", path.call(print, "right"), ""])
-      );
+      right = concat(["", path.call(print, "right"), ""])
     }
+
+    const allowBreak = ["*", "/", "+", "-", "&&", "||"].indexOf(node.operator) !== -1;
+    if(allowBreak) {
+      return concat([ left, indent(options.tabWidth,
+                                 concat([" ", node.operator, line, right ]))]);
+
+    }
+    return concat([ left, " ", node.operator, " ", right ]);
   }
   else {
     // Our stopping case. Simply print the node normally.
-    parts.push(path.call(print));
+    return path.call(print);
   }
-
-  return parts;
 }
 
 function adjustClause(clause, options, forceSpace) {
