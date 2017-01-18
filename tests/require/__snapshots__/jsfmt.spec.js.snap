@@ -157,6 +157,7 @@ require(\"./D\");
 var E = require(\"./E\");
 var e_1: number = E.numberValue;
 E.stringValue;
+
 // Error: The E exports obj has no \'stringValue\' property
 // We require that the param passed to require() be a string literal to support
 // guaranteed static extraction
@@ -166,6 +167,7 @@ require(a);
 require(\`./E\`);
 // template literals are ok...
 require(\`\${\"./E\"}\`);
+
 // error: but only if they have no expressions
 // require.call is allowed but circumverts Flow\'s static analysis
 require.call(null, \"DoesNotExist\");

@@ -28,6 +28,7 @@ declare var children: U;
 (children: T | U);
 class A {}
 class B {}
+
 type VirtualElement = Thunk | VirtualNode;
 type Child = VirtualElement;
 type Children = Array<Child>;
@@ -454,6 +455,7 @@ function obj(a: A1 | A2) {
 }
 
 const obj_result = obj({ x: \"\" });
+
 // currently an error! (expect it to be OK)
 // Type definitions used above are defined below, but in an order that
 // deliberately makes their full resolution as lazy as possible. The call above
@@ -1277,6 +1279,7 @@ length({ kind: \"cons\" });
 // missing \`next\`
 length({ kind: \"cons\", next: { kind: \"nil\" } });
 length({ kind: \"empty\" });
+
 // \`kind\` not found
 type List = Nil | Cons;
 type Nil = { kind: \"nil\" };

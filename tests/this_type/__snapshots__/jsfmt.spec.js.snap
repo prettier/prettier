@@ -87,6 +87,7 @@ class D extends C {}
 var d = new D();
 (d: C).next = new C();
 (d.next: D);
+
 // sneaky
 class A {
   foo<X: this>(that: X) {
@@ -249,6 +250,7 @@ class B1 extends A1 {
 }
 
 (new B1().bar(): B1);
+
 // OK
 class B3<X> extends A3<X> {
   foo(): B3<X> {
@@ -259,6 +261,7 @@ class B3<X> extends A3<X> {
 (new B3().bar(): B3<*>);
 // OK
 (new B3().qux(0): string);
+
 // error
 (new B3().bar(): A2<*>);
 // OK
@@ -377,6 +380,7 @@ class A {
   }
 }
 class B extends A {}
+
 // inherits statics method too, with \`this\` bound to the class
 (A.make(): A);
 // OK
@@ -488,6 +492,7 @@ class Override extends Base {
   qux() {
     return this;
   }
+
   // OK, too
   bar() {
     return new Override();
@@ -540,6 +545,7 @@ class Override2 extends Base2 {
   qux(): this {
     return this;
   }
+
   // OK, too
   bar(): Override2 {
     return new Override2();
@@ -566,6 +572,7 @@ class InheritOverride2 extends Override2 {}
 ((new Override2(): Base2).foo(): Base2);
 
 (new InheritOverride2().bar_caller(): InheritOverride2);
+
 // exploits error above
 (new Override2(): Base2).corge(new Base2()); // exploits error above
 "

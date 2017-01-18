@@ -57,6 +57,7 @@ Promise.all([
   (b: boolean);
   // Error: number ~> boolean
   (c: string);
+
   // Error: boolean ~> string
   // array element type is (string | number | boolean)
   xs.forEach(x => {
@@ -66,9 +67,11 @@ Promise.all([
 
 // First argument is required
 Promise.all();
+
 // Error: expected array instead of undefined (too few arguments)
 // Mis-typed arg
 Promise.all(0);
+
 // Error: expected array instead of number
 // Promise.all is a function
 (Promise.all: Function);
@@ -694,6 +697,7 @@ exports[`test resolve_void.js 1`] = `
 // @flow
 
 (Promise.resolve(): Promise<number>);
+
 // error
 (Promise.resolve(undefined): Promise<number>); // error
 "

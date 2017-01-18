@@ -60,6 +60,7 @@ Foo.prototype = {
 };
 
 var export_o: { x: any } = o;
+
 // awkward type cast
 module.exports = export_o;
 "

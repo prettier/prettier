@@ -96,6 +96,7 @@ class X1 {
 class X2 {
   foo: string;
 }
+
 function x(b) {
   return b ? new X1() : new X2();
 }
@@ -118,6 +119,7 @@ class Y1 {
 class Y2 {
   bar: X2;
 }
+
 function y(b) {
   return b ? new Y1() : new Y2();
 }
@@ -140,6 +142,7 @@ class Z1 {
 class Z2 {
   baz: Y2;
 }
+
 function z(b) {
   return b ? new Z1() : new Z2();
 }

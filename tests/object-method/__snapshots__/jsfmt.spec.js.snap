@@ -48,6 +48,7 @@ export type ObjectType = { +m: () => void };
 function methodCaller(x: ObjectType) {
   x.m();
 }
+
 module.exports = id(methodCaller);
 "
 `;
@@ -120,6 +121,7 @@ function bar(f: () => void) {
 }
 
 bar(foo);
+
 // error, since \`this\` is used non-trivially in \`foo\`
 function qux(o: { f(): void }) {
   o.f(); // passing o as \`this\`

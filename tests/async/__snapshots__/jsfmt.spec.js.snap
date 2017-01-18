@@ -133,6 +133,7 @@ async function foo() {
 // am not clear on whether it should. In any case it\'s a strange corner case
 // that is probably not important to support.
 class C {}
+
 var P: Promise<Class<C>> = new Promise(function(resolve, reject) {
   resolve(C);
 });
@@ -351,6 +352,7 @@ function test2() {
   }
 
   var voidoid2: () => Promise<void> = voidoid1;
+
   // ok
   var voidoid3: () => void = voidoid1; // error, void != Promise<void>
 }

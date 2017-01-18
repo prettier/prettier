@@ -49,6 +49,7 @@ const [ bar ] = [ \"bar\" ];
 (foo: number);
 // error: string ~> number
 (bar: number);
+
 // error: string ~> number
 declare var bazzes: { baz: string }[];
 for (const { baz } of bazzes) {
@@ -887,24 +888,29 @@ function f5() {
 // phasing of AST traversal, and will be fixed.
 //
 var x: C;
+
 // ok
 var y = new C();
+
 // error: let ref before decl from value position
 class C {}
 
 var z: C = new C();
+
 // ok
 // --- vars ---
 // it\'s possible to annotate a var with a non-maybe type,
 // but leave it uninitialized until later (as long as it\'s
 // initialized before use)
 var a: number;
+
 // not an error per se - only if used before init
 function f(n: number) {
   return n;
 }
 
 f(a);
+
 // error: undefined ~/> number
 a = 10;
 

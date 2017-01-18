@@ -193,6 +193,7 @@ function foo(x: mixed): string {
   (a: string);
   // error, string | number ~/> string
   (a: number);
+
   // error, string | number ~/> number
   // b is now number
   (b: number);
@@ -218,11 +219,13 @@ function baz(x: mixed): number {
   (a: string);
   // error, string | number ~/> string
   (a: number);
+
   // error, string | number ~/> number
   // b is now string | number
   (b: string);
   // error, string | number ~/> string
   (b: number);
+
   // error, string | number ~/> number
   return a + b; // error, string ~/> number
 }
