@@ -55,6 +55,10 @@ function ifBreak(contents) {
   return { type: "if-break", contents };
 }
 
+function ifNoBreak(contents) {
+  return { type: "if-no-break", contents };
+}
+
 function iterDoc(topDoc, func) {
   const docs = [ topDoc ];
   while (docs.length !== 0) {
@@ -189,6 +193,12 @@ function fits(next, restCommands, width) {
           }
 
           break;
+        case "if-no-break":
+          if (mode !== MODE_BREAK) {
+            cmds.push([ ind, mode, doc.contents ]);
+          }
+
+          break;
         case "line":
           switch (mode) {
             // fallthrough
@@ -307,7 +317,13 @@ function print(w, doc) {
           break;
         case "if-break":
           if (mode === MODE_BREAK) {
-            cmds.push([ ind, MODE_BREAK, doc.contents ]);
+            cmds.push([ ind, mode, doc.contents ]);
+          }
+
+          break;
+        case "if-no-break":
+          if (mode !== MODE_BREAK) {
+            cmds.push([ ind, mode, doc.contents ]);
           }
 
           break;
@@ -375,6 +391,7 @@ module.exports = {
   multilineGroup,
   conditionalGroup,
   ifBreak,
+  ifNoBreak,
   hasHardLine,
   indent,
   print,
