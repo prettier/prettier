@@ -2,6 +2,7 @@
 <title>Prettier</title>
 
 <script>global = window;</script>
+<script>Buffer = {isBuffer: function() { return false; }};</script>
 <script src="prettier.min.js"></script>
 
 <link rel="stylesheet" href="https://codemirror.net/lib/codemirror.css">
@@ -81,7 +82,7 @@
 
 <div class="container">
   <div class="options">
-    <label class="title"><a href="https://github.com/jlongster/prettier">prettier v0.0.8</a></label>
+    <label class="title"><a href="https://github.com/jlongster/prettier">prettier v<span class="version"></span></a></label>
     <label><input type="number" value="80" id="printWidth"></input> printWidth</label>
     <label><input type="number" value="2" id="tabWidth"></input> tabWidth</label>
     <label><input type="checkbox" id="singleQuote"></input> singleQuote</label>
@@ -153,6 +154,8 @@ var editorOptions = {
 var inputEditor = CodeMirror.fromTextArea(input, editorOptions);
 inputEditor.on('change', format);
 var outputEditor = CodeMirror.fromTextArea(output, {readOnly: true, lineNumbers: true, theme: 'base16-dark' });
+
+document.getElementsByClassName('version')[0].innerText = prettier.version;
 </script>
 
 <script>
