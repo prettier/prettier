@@ -17,6 +17,7 @@ var getFirstString = pp.getFirstString;
 var hasHardLine = pp.hasHardLine;
 var conditionalGroup = pp.conditionalGroup;
 var ifBreak = pp.ifBreak;
+var ifNoBreak = pp.ifNoBreak;
 var normalizeOptions = require("./options").normalize;
 var types = require("ast-types");
 var namedTypes = types.namedTypes;
@@ -1462,7 +1463,8 @@ function genericPrintNoParens(path, options, print) {
         "type ",
         path.call(print, "id"),
         path.call(print, "typeParameters"),
-        " = ",
+        " =",
+        ifNoBreak(" "),
         path.call(print, "right"),
         ";"
       );
