@@ -2053,7 +2053,7 @@ function printJSXElement(path, options, print) {
     var children = [];
 
     path.map(
-      function(childPath) {
+      function(childPath, index) {
         var child = childPath.getValue();
 
         if (
@@ -2073,6 +2073,20 @@ function printJSXElement(path, options, print) {
           }
         } else {
           children.push(print(childPath));
+        }
+
+        if (
+          child.closingElement &&
+            child.closingElement.type === 'JSXClosingElement'
+        ) {
+          const nextChild = n.children[index + 1];
+
+          if (
+            typeof nextChild === 'undefined' ||
+              nextChild.type !== 'JSXText'
+          ) {
+            children.push(hardline);
+          }
         }
       },
       "children"

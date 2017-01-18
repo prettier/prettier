@@ -90,6 +90,32 @@ exports[`test jsx-significant-space.js 1`] = `
 "
 `;
 
+exports[`test jsx-break-components.js 1`] = `
+"<div>
+  <Foo />
+  <Bar>
+    <p>foo<span>bar</span></p><h1><span><em>yep</em></span></h1>
+  </Bar>
+  <h2>nope</h2>
+</div>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div>
+  <Foo />
+  <Bar>
+    <p>
+      foo<span>bar</span>
+    </p>
+    <h1>
+      <span>
+        <em>yep</em>
+      </span>
+    </h1>
+  </Bar>
+  <h2>nope</h2>
+</div>;
+"
+`;
+
 exports[`test jsx-split-attrs.js 1`] = `
 "long_closed =
   <BaseForm url=\"/auth/google\" method=\"GET\" colour=\"blue\" size=\"large\" submitLabel=\"Sign in with Google\"/>
