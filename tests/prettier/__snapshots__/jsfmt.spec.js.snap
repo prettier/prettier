@@ -638,3 +638,23 @@ type Foo = (any) => string;
 type Bar = { [string]: number };
 "
 `;
+
+exports[`test object-prop-break-in-binary-exp.js 1`] = `
+"const foo = classnames({
+  \"some-prop\": this.state.longLongLongLongLongLongLongLongLongTooLongProp
+});
+
+const bar = classnames({
+  \"some-prop\": this.state.longLongLongLongLongLongLongLongLongTooLongProp === true
+});
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const foo = classnames({
+  \"some-prop\": this.state.longLongLongLongLongLongLongLongLongTooLongProp
+});
+
+const bar = classnames({
+  \"some-prop\":
+    this.state.longLongLongLongLongLongLongLongLongTooLongProp === true
+});
+"
+`;
