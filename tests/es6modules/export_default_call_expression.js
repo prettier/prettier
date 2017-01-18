@@ -1,1 +1,1 @@
-export default connect(mapStateToProps)(MyComponent);
+export default foo()
