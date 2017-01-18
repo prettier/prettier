@@ -1830,6 +1830,12 @@ function printReturnType(path, print) {
   return concat(parts);
 }
 
+function typeIsFunction(type) {
+  return type === "FunctionExpression" ||
+    type === "ArrowFunctionExpression" ||
+    type === "NewExpression";
+}
+
 function printExportDeclaration(path, options, print) {
   var decl = path.getValue();
   var parts = [ "export " ];
@@ -1847,7 +1853,8 @@ function printExportDeclaration(path, options, print) {
     if (
       decl.type === "ExportDefaultDeclaration" &&
         (decl.declaration.type == "Identifier" ||
-          decl.declaration.type === "CallExpression")
+          decl.declaration.type === "CallExpression" ||
+          typeIsFunction(decl.declaration.type))
     ) {
       parts.push(";");
     }
@@ -1986,9 +1993,7 @@ function printMemberChain(node, options, print) {
   function argIsFunction(call) {
     if (call.arguments.length > 0) {
       const type = call.arguments[(0)].type;
-      return type === "FunctionExpression" ||
-        type === "ArrowFunctionExpression" ||
-        type === "NewExpression";
+      return typeIsFunction(type);
     }
     return false;
   }
