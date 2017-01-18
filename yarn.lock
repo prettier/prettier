@@ -1441,6 +1441,14 @@ jest-util@^18.1.0:
     jest-mock "^18.0.0"
     mkdirp "^0.5.1"
 
+jest-validate@18.1.0:
+  version "18.1.0"
+  resolved "https://registry.yarnpkg.com/jest-validate/-/jest-validate-18.1.0.tgz#014792ccdb97801db475da0ad42076d94fba301a"
+  dependencies:
+    chalk "^1.1.1"
+    jest-matcher-utils "^18.1.0"
+    pretty-format "^18.1.0"
+
 jest@18.0.0:
   version "18.0.0"
   resolved "https://registry.yarnpkg.com/jest/-/jest-18.0.0.tgz#ef12f70befe0fcb30f1c61c0ae58748706267d4b"

@@ -1,4 +1,7 @@
 "use strict";
+
+const { validate } = require("jest-validate");
+
 var defaults = {
   // Number of spaces the pretty-printer should use per tab
   tabWidth: 2,
@@ -14,8 +17,15 @@ var defaults = {
   parser: "babylon"
 };
 
+var exampleConfig = Object.assign({}, defaults, {
+  filename: "testFilename",
+  printWidth: 80,
+  originalText: "text"
+});
+
 // Copy options and fill in default values.
 function normalize(options) {
+  validate(options, { exampleConfig });
   const normalized = Object.assign({}, options || {});
 
   // For backward compatibility. Deprecated in 0.0.10
