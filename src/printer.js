@@ -1761,13 +1761,16 @@ function printFunctionParams(path, print, options) {
     return "()";
   }
 
+  const lastParam = util.getLast(path.getValue().params);
+  const canHaveTrailingComma = lastParam.type !== "RestElement" && !fun.rest;
+
   return concat([
     "(",
     indent(
       1,
       concat([ softline, join(concat([ ",", line ]), printed) ])
     ),
-    ifBreak(options.trailingComma ? "," : ""),
+    ifBreak(canHaveTrailingComma && options.trailingComma ? "," : ""),
     softline,
     ")"
   ]);
@@ -1844,7 +1847,8 @@ function printExportDeclaration(path, options, print) {
 
     if (
       decl.type === "ExportDefaultDeclaration" &&
-        decl.declaration.type == "Identifier"
+        (decl.declaration.type == "Identifier" ||
+          decl.declaration.type === "CallExpression")
     ) {
       parts.push(";");
     }
