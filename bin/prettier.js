@@ -30,7 +30,8 @@ const stdin = argv["stdin"];
 
 if (!filenames.length && !stdin) {
   console.log(
-    "Usage: prettier [opts] [filename ...]\n\n" + "Available options:\n" +
+    "Usage: prettier [opts] [filename ...]\n\n" +
+      "Available options:\n" +
       "  --write              Edit the file in-place (beware!)\n" +
       "  --stdin              Read input from stdin\n" +
       "  --print-width <int>  Specify the length of line that the printer will wrap on. Defaults to 80.\n" +
