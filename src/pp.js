@@ -141,17 +141,11 @@ function _makeIndent(tabWidth) {
   return s;
 }
 
-function _repeatIndent(n, indent, cache) {
-  if ( cache && n in cache ) {
-    return cache[n];
-  }
+function _repeatIndent(n, indent) {
   let s = "";
 
   for (let i = 0; i < n; i++) {
     s += indent;
-  }
-  if ( cache ) {
-    cache[n] = s;
   }
 
   return s;
