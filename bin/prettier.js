@@ -5,6 +5,7 @@ const fs = require("fs");
 const getStdin = require("get-stdin");
 const minimist = require("minimist");
 const jscodefmt = require("../index");
+const version = require('../package.json').version;
 
 const argv = minimist(process.argv.slice(2), {
   boolean: [
@@ -13,10 +14,16 @@ const argv = minimist(process.argv.slice(2), {
     "flow-parser",
     "bracket-spacing",
     "single-quote",
-    "trailing-comma"
+    "trailing-comma",
+    "version"
   ],
   default: { "bracket-spacing": true }
 });
+
+if (argv["version"]) {
+  console.log(version);
+  process.exit(0);
+}
 
 const filenames = argv["_"];
 const write = argv["write"];
