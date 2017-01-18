@@ -180,7 +180,16 @@ function genericPrintNoParens(path, options, print) {
       );
     case "BinaryExpression":
     case "LogicalExpression": {
-      return printBinaryishExpressions(path, print, options);
+      const parts = [];
+      printBinaryishExpressions(path, parts, print, options);
+
+      return group(concat([
+        // Don't include the initial expression in the indentation
+        // level. The first item is guaranteed to be the first
+        // left-most expression.
+        parts.length > 0 ? parts[0] : "",
+        indent(options.tabWidth, concat(parts.slice(1)))
+      ]));
     }
     case "AssignmentPattern":
       return concat([
@@ -2252,62 +2261,49 @@ function isBinaryish(node) {
   return node.type === "BinaryExpression" || node.type === "LogicalExpression";
 }
 
-// Binary expressions are hard to find a consistent format for. We
-// decided that we should try to print any combination of binary
-// expressions on one line, but if it doesn't fit, break all of them
-// onto new lines. To do this we need to traverse down the left and
-// right sides of each node in the AST and produce a flat list of
-// documents that exist under a single group. Other various rules are
-// documented below.
-function printBinaryishExpressions(path, print, options) {
+// For binary expressions to be consistent, we need to group
+// subsequent operators with the same precedence level under a single
+// group. Otherwise they will be nested such that some of them break
+// onto new lines but not all. Operators with the same precedence
+// level should either all break or not. Because we group them by
+// precedence level and the AST is structured based on precedence
+// level, things are naturally broken up correctly, i.e. `&&` is
+// broken before `+`.
+function printBinaryishExpressions(path, parts, print) {
   let node = path.getValue();
 
   // We treat BinaryExpression and LogicalExpression nodes the same.
   if(isBinaryish(node)) {
-    // Recursively print the `left` property.
-    const left = path.call(left => {
-      return printBinaryishExpressions(left, print, options);
-    }, "left");
-    let right;
-
-    // Understanding this requires knowledge of how binary expressions
-    // are parsed. By default, they are "grouped" from the left, so if
-    // you had `1 + 2 + 3 + 4`, the top BinaryExpression node with
-    // have a `left` property of the `1 + 2 + 3` expression and a
-    // `right` property of the `4`. This means that if `right` is
-    // another BinaryExpression, that means the precedence level has
-    // changed. `1 + 2 + 3 * 4` would have a `right` property  of the
-    // `3 * 4` expression because `*` has higher precedence than `+`.
-    // But we don't want `3 * 4` to be in its own group; we want to
-    // collapse everything that we can down to one group. We can't
-    // collapse everything though; `1 * (2 + 3)` would have a `right`
-    // property of `2 + 3`, and that *must* be re-printed separately
-    // in its own group and keep parentheses. So this logic checks if
-    // `right` is a binaryish expression AND the precedence level is
-    // *higher*; that means the natural precedence will take place and
-    // we can collapse it.
-    if(isBinaryish(node.right) &&
-       util.getPrecedence(node.operator) <= util.getPrecedence(node.right.operator)) {
-
-      right = path.call(right => printBinaryishExpressions(right, print, options), "right");
+    // Put all operators with the same precedence level in the same
+    // group. The reason we only need to do this with the `left`
+    // expression is because given an expression like `1 + 2 - 3`, it
+    // is always parsed like `((1 + 2) - 3)`, meaning the `left` side
+    // is where the rest of the expression will exist. Binary
+    // expressions on the right side mean they have a difference
+    // precedence level and should be treated as a separate group, so
+    // print them normally.
+    if(util.getPrecedence(node.left.operator) === util.getPrecedence(node.operator)) {
+      // Flatten them out by recursively calling this function. The
+      // printed values will all be appended to `parts`.
+      path.call(left => printBinaryishExpressions(left, parts, print), "left");
     }
     else {
-      // Otherwise print `right` normally.
-      right = concat(["", path.call(print, "right"), ""])
+      parts.push(path.call(print, "left"));
     }
 
-    const allowBreak = ["*", "/", "+", "-", "&&", "||"].indexOf(node.operator) !== -1;
-    if(allowBreak) {
-      return group(concat([ left, indent(options.tabWidth,
-                                         concat([" ", node.operator, line, right ]))]))
-
-    }
-    return group(concat([ left, " ", node.operator, " ", right ]));
+    parts.push(
+      " ",
+      node.operator,
+      line,
+      path.call(print, "right")
+    );
   }
   else {
     // Our stopping case. Simply print the node normally.
-    return path.call(print);
+    parts.push(path.call(print));
   }
+
+  return parts;
 }
 
 function adjustClause(clause, options, forceSpace) {
