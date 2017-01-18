@@ -131,29 +131,6 @@ function hasHardLine(doc) {
   });
 }
 
-function _makeIndent(useTabs, tabWidth) {
-  var s = "";
-  if ( useTabs ) {
-    s += "\t";
-  } else {
-    for (var i = 0; i < tabWidth; i++) {
-      s += " ";
-    }
-  }
-
-  return s;
-}
-
-function _repeatIndent(n, indent) {
-  var s = "";
-
-  for (var i = 0; i < n; i++) {
-    s += indent;
-  }
-
-  return s;
-}
-
 const MODE_BREAK = 1;
 const MODE_FLAT = 2;
 
@@ -227,7 +204,7 @@ function fits(next, restCommands, width) {
 function print(options, doc) {
   let w = options.printWidth;
   let tabWidth = options.tabWidth;
-  let indentStr = _makeIndent(options.useTabs, tabWidth);
+  let indentStr = options.useTabs ? "\t" : " ".repeat(tabWidth);
   let pos = 0;
   // cmds is basically a stack. We've turned a recursive call into a
   // while loop which is much faster. The while loop below adds new
@@ -363,7 +340,7 @@ function print(options, doc) {
 
                 pos = 0;
               } else {
-                out.push("\n" + _repeatIndent(ind, indentStr));
+                out.push("\n" + indentStr.repeat(ind));
 
                 pos = ind * tabWidth;
               }
