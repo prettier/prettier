@@ -40,11 +40,11 @@ async function* delegate_yield() {
   }
   yield* inner();
 }
-async () => {
+(async () => {
   for await (const x of delegate_yield()) {
     (x: void); // error: number ~> void
   }
-};
+});
 
 async function* delegate_return() {
   async function* inner() {
@@ -197,13 +197,13 @@ async function* catch_return() {
   }
 }
 
-async () => {
+(async () => {
   catch_return().throw(\"\").then(({ value }) => {
     if (value !== undefined) {
       (value: void); // error: number ~> void
     }
   });
-};
+});
 
 async function* yield_return() {
   try {
@@ -214,12 +214,12 @@ async function* yield_return() {
   }
 }
 
-async () => {
+(async () => {
   yield_return().throw(\"\").then(({ value }) => {
     if (value !== undefined) {
       (value: void); // error: number ~> void
     }
   });
-};
+});
 "
 `;
