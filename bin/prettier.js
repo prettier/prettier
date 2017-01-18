@@ -5,7 +5,6 @@ const fs = require("fs");
 const getStdin = require("get-stdin");
 const minimist = require("minimist");
 const jscodefmt = require("../index");
-const version = require('../package.json').version;
 
 const argv = minimist(process.argv.slice(2), {
   boolean: [
@@ -21,7 +20,7 @@ const argv = minimist(process.argv.slice(2), {
 });
 
 if (argv["version"]) {
-  console.log(version);
+  console.log(jscodefmt.version);
   process.exit(0);
 }
 
