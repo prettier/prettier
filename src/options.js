@@ -25,7 +25,7 @@ var exampleConfig = Object.assign({}, defaults, {
 
 // Copy options and fill in default values.
 function normalize(options) {
-  validate(options, { exampleConfig });
+  validate(options, { exampleConfig: exampleConfig });
   const normalized = Object.assign({}, options || {});
 
   // For backward compatibility. Deprecated in 0.0.10
