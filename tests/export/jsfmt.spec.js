@@ -1,2 +1,2 @@
 run_spec(__dirname);
-run_spec(__dirname, {bracketsSpacing: false});
+run_spec(__dirname, {bracketSpacing: false});
