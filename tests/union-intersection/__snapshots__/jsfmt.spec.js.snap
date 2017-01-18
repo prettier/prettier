@@ -4004,7 +4004,7 @@ type TAction =
 function foo(x: TAction): TAction { return x; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // perf test for big disjoint union with 1000 cases
-type TAction = 
+type TAction =
   | { type: \"a1\", a1: number }
   | { type: \"a2\", a1: number }
   | { type: \"a3\", a1: number }
@@ -5087,7 +5087,7 @@ function f4(x: T4): T4 {
   return x;
 }
 
-type T5 = 
+type T5 =
   | \"1\"
   | \"2\"
   | \"3\"
@@ -5102,13 +5102,13 @@ type T5 =
   | \"12\"
   | \"13\";
 
-type T6 = 
+type T6 =
   | \"a-long-string\"
   | \"another-long-string\"
   | \"yet-another-long-string\"
   | \"one-more-for-good-measure\";
 
-type T7 = 
+type T7 =
   | { eventName: \"these\", a: number }
   | { eventName: \"will\", b: number }
   | { eventName: \"not\", c: number }
@@ -5117,7 +5117,7 @@ type T7 =
   | { eventName: \"one\", f: number }
   | { eventName: \"line\", g: number };
 
-type Comment = 
+type Comment =
   | {
     type: \"CommentLine\",
     _CommentLine: void,
