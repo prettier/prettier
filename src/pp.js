@@ -352,19 +352,17 @@ function print(w, doc) {
               }
 
             case MODE_BREAK:
-              if (out.length > 0) {
-                const lastString = out[out.length - 1];
-
-                if (lastString.match(/^\s*\n\s*$/)) {
-                  out[out.length - 1] = "\n";
-                }
-              }
-
               if (doc.literal) {
                 out.push("\n");
 
                 pos = 0;
               } else {
+                if (out.length > 0) {
+                  // Trim whitespace at the end of line
+                  out[out.length - 1] = out[out.length - 1]
+                    .replace(/[^\S\n]*$/, '');
+                }
+
                 out.push("\n" + " ".repeat(ind));
 
                 pos = ind;

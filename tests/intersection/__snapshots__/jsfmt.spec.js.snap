@@ -77,7 +77,7 @@ function hasObjectMode_ok(options: DuplexStreamOptions): boolean {
  * @flow
  */
 
-type DuplexStreamOptions = 
+type DuplexStreamOptions =
   & ReadableStreamOptions
   & WritableStreamOptions
   & {

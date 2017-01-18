@@ -5096,7 +5096,7 @@ export type JSXSpreadAttribute = {
  * Flow types for the Babylon AST.
  */
 // Abstract types. Something must extend these.
-export type Comment = 
+export type Comment =
   | {
     type: \"CommentLine\",
     _CommentLine: void,
@@ -5120,7 +5120,7 @@ export type Comment =
     start: number
   };
 
-export type Declaration = 
+export type Declaration =
   | {
     type: \"ClassBody\",
     _ClassBody: void,
@@ -5231,7 +5231,7 @@ export type Declaration =
     trailingComments: ?Array<Comment>
   };
 
-export type Expression = 
+export type Expression =
   | {
     type: \"ArrayExpression\",
     _ArrayExpression: void,
@@ -5682,7 +5682,7 @@ export type Expression =
     trailingComments: ?Array<Comment>
   };
 
-export type Function = 
+export type Function =
   | {
     type: \"ArrowFunctionExpression\",
     _ArrowFunctionExpression: void,
@@ -5753,7 +5753,7 @@ export type Function =
     typeParameters: ?TypeParameterDeclaration
   };
 
-export type Node = 
+export type Node =
   | {
     type: \"ArrayExpression\",
     _ArrayExpression: void,
@@ -7605,7 +7605,7 @@ export type Node =
     trailingComments: ?Array<Comment>
   };
 
-export type Pattern = 
+export type Pattern =
   | {
     type: \"ArrayPattern\",
     _ArrayPattern: void,
@@ -7682,7 +7682,7 @@ export type Pattern =
     trailingComments: ?Array<Comment>
   };
 
-export type Statement = 
+export type Statement =
   | {
     type: \"BlockStatement\",
     _BlockStatement: void,
@@ -8033,7 +8033,7 @@ export type Statement =
     trailingComments: ?Array<Comment>
   };
 
-export type Type = 
+export type Type =
   | {
     type: \"AnyTypeAnnotation\",
     _AnyTypeAnnotation: void,
@@ -8357,7 +8357,7 @@ export type ArrowFunctionExpression = {
   typeParameters: ?TypeParameterDeclaration
 };
 
-type AssignmentOperator = 
+type AssignmentOperator =
   | \"=\"
   | \"+=\"
   | \"-=\"
@@ -8420,7 +8420,7 @@ export type AwaitExpression = {
   trailingComments: ?Array<Comment>
 };
 
-type BinaryOperator = 
+type BinaryOperator =
   | \"==\"
   | \"!=\"
   | \"===\"

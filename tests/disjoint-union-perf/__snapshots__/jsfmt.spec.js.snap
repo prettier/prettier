@@ -84,7 +84,7 @@ export type TypedNode =
  * @flow
  */
 
-export type InferredType = 
+export type InferredType =
   | \"unknown\"
   | \"gender\"
   | \"enum\"
@@ -151,7 +151,7 @@ export type TypedFunctionInvocationNode = {
   typed: true
 };
 
-export type TypedNode = 
+export type TypedNode =
   | TypedBinaryOpNode
   | TypedUnaryMinusNode
   | TypedNumberNode
@@ -969,7 +969,7 @@ export type Program = {
   body: Statement[]
 };
 
-export type BinaryOperator = 
+export type BinaryOperator =
   | \"==\"
   | \"!=\"
   | \"===\"
@@ -993,7 +993,7 @@ export type BinaryOperator =
   | \"instanceof\"
   | \"..\";
 
-export type UnaryOperator = 
+export type UnaryOperator =
   | \"-\"
   | \"+\"
   | \"!\"
@@ -1002,7 +1002,7 @@ export type UnaryOperator =
   | \"void\"
   | \"delete\";
 
-export type AssignmentOperator = 
+export type AssignmentOperator =
   | \"=\"
   | \"+=\"
   | \"-=\"
@@ -1020,7 +1020,7 @@ export type UpdateOperator = \"++\" | \"--\";
 
 export type LogicalOperator = \"&&\" | \"||\";
 
-export type Node = 
+export type Node =
   | EmptyStatement
   | BlockStatement
   | ExpressionStatement
@@ -1054,7 +1054,7 @@ export type Node =
   | FunctionDeclaration
   | VariableDeclarator;
 
-export type Statement = 
+export type Statement =
   | BlockStatement
   | EmptyStatement
   | ExpressionStatement
@@ -1198,7 +1198,7 @@ export type CatchClause = {
   body: BlockStatement
 };
 
-export type Expression = 
+export type Expression =
   | Identifier
   | ThisExpression
   | Literal
