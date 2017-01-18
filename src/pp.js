@@ -46,7 +46,7 @@ function multilineGroup(contents, opts) {
 
 function conditionalGroup(states, opts) {
   return group(
-    states[(0)],
+    states[0],
     Object.assign(opts || {}, { expandedStates: states })
   );
 }
@@ -165,9 +165,9 @@ function fits(next, restCommands, width) {
     }
 
     const x = cmds.pop();
-    const ind = x[(0)];
-    const mode = x[(1)];
-    const doc = x[(2)];
+    const ind = x[0];
+    const mode = x[1];
+    const doc = x[2];
 
     if (typeof doc === "string") {
       width -= doc.length;
@@ -190,7 +190,7 @@ function fits(next, restCommands, width) {
         case "if-break":
           if (mode === MODE_BREAK) {
             if (doc.breakContents) {
-              cmds.push([ ind, mode, doc.breakContents ]);              
+              cmds.push([ ind, mode, doc.breakContents ]);
             }
           }
           if (mode === MODE_FLAT) {
@@ -232,9 +232,9 @@ function print(w, doc) {
   let shouldRemeasure = false;
   while (cmds.length !== 0) {
     const x = cmds.pop();
-    const ind = x[(0)];
-    const mode = x[(1)];
-    const doc = x[(2)];
+    const ind = x[0];
+    const mode = x[1];
+    const doc = x[2];
 
     if (typeof doc === "string") {
       out.push(doc);
@@ -319,7 +319,7 @@ function print(w, doc) {
         case "if-break":
           if (mode === MODE_BREAK) {
             if (doc.breakContents) {
-              cmds.push([ ind, mode, doc.breakContents ]);              
+              cmds.push([ ind, mode, doc.breakContents ]);
             }
           }
           if (mode === MODE_FLAT) {
@@ -359,8 +359,10 @@ function print(w, doc) {
               } else {
                 if (out.length > 0) {
                   // Trim whitespace at the end of line
-                  out[out.length - 1] = out[out.length - 1]
-                    .replace(/[^\S\n]*$/, '');
+                  out[out.length - 1] = out[out.length - 1].replace(
+                    /[^\S\n]*$/,
+                    ""
+                  );
                 }
 
                 out.push("\n" + " ".repeat(ind));

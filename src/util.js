@@ -78,8 +78,7 @@ util.fixFaultyLocations = function(node, text) {
 };
 
 util.isExportDeclaration = function(node) {
-  if (node)
-    switch (node.type) {
+  if (node) switch (node.type) {
       case "ExportDeclaration":
       case "ExportDefaultDeclaration":
       case "ExportDefaultSpecifier":
@@ -123,7 +122,7 @@ function skipNewLineForward(text, index) {
   // For some statement/expressions, it's the character immediately
   // afterward. For others, it's the last character in it. We need to
   // scan until we hit a newline in order to skip it.
-  while(index < text.length) {
+  while (index < text.length) {
     if (text.charAt(index) === "\n") {
       return index + 1;
     }
@@ -180,7 +179,7 @@ util.skipSpaces = skipSpaces;
 
 function locStart(node) {
   if (node.range) {
-    return node.range[(0)];
+    return node.range[0];
   }
   return node.start;
 }
@@ -188,7 +187,7 @@ util.locStart = locStart;
 
 function locEnd(node) {
   if (node.range) {
-    return node.range[(1)];
+    return node.range[1];
   }
   return node.end;
 }
@@ -196,7 +195,7 @@ util.locEnd = locEnd;
 
 function setLocStart(node, index) {
   if (node.range) {
-    node.range[(0)] = index;
+    node.range[0] = index;
   } else {
     node.start = index;
   }
@@ -205,7 +204,7 @@ util.setLocStart = setLocStart;
 
 function setLocEnd(node, index) {
   if (node.range) {
-    node.range[(1)] = index;
+    node.range[1] = index;
   } else {
     node.end = index;
   }
@@ -243,4 +242,4 @@ var PRECEDENCE = {};
 
 util.getPrecedence = function(op) {
   return PRECEDENCE[op];
-}
+};
