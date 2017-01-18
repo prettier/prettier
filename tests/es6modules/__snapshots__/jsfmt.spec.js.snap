@@ -1347,6 +1347,13 @@ import {
 "
 `;
 
+exports[`test export_default_call_expression.js 1`] = `
+"export default connect(mapStateToProps)(MyComponent);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export default connect(mapStateToProps)(MyComponent);
+"
+`;
+
 exports[`test test_imports_are_frozen.js 1`] = `
 "/* @flow */
 
