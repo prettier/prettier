@@ -1,3 +1,33 @@
+# 0.0.9
+
+[link](https://github.com/jlongster/prettier/compare/0192d58...a7405257)
+
+* Workaround flow bug parsing astral unicode characters (#277)
+* Allow specifying the major mode that `defun-before-save` will use. (#276
+* Fix space missing before `,` on export with bracket spacing off (#278)
+* Fix space missing before `,` on import with bracket spacing off (#279)
+* Add newline after shebang if necessary. (#215)
+* Remove +1 from newline detection (#261)
+* Fix path when printing member chains so parens work properly (fixes #243
+* Ensure parens on NewExpression with function callee (#282)
+* Fix missing semi when default exporting CallExpression (#287)
+* Workaround flow parser bug with spread in arrays (#285)
+* Update flow-parser to 0.38 (#290)
+* Allow customizing args sent to prettier-command (#289)
+* Do not output trailing commas with rest arguments (#283)
+* Use exact versions in package.json (#291)
+* Use js native String.repeat() (#293)
+* Handle additional export default parens cases (#298)
+* Fix parens around anonymous functions (#297)
+* Introduce second argument to ifBreak (#302)
+* Fix bracketSpacing typo in tests (#299)
+* Remove unused variable (#304)
+* Fix trailing whitespace (#300)
+* add version flag (#294)
+* Add --run-in-band to travis (#306)
+* [JSX] Split elements on newlines and preserve whitespace (w/@yamafaktory) (#234)
+* Print binary and logical expressions in a nicer format (#262)
+
 # 0.0.8
 
 [link](https://github.com/jlongster/prettier/compare/e447971...0192d58)
