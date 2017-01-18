@@ -16,21 +16,21 @@
   "main": "./index.js",
   "dependencies": {
     "ast-types": "git+https://github.com/jlongster/ast-types.git",
-    "babylon": "^6.15.0",
-    "esutils": "^2.0.2",
-    "flow-parser": "^0.38.0",
-    "get-stdin": "^5.0.1",
-    "jsesc": "^2.4.0",
-    "minimist": "^1.2.0",
-    "private": "^0.1.6"
+    "babylon": "6.15.0",
+    "esutils": "2.0.2",
+    "flow-parser": "0.38.0",
+    "get-stdin": "5.0.1",
+    "jsesc": "2.4.0",
+    "minimist": "1.2.0",
+    "private": "0.1.6"
   },
   "devDependencies": {
-    "jest": "^18.0.0",
-    "rollup": "^0.41.1",
-    "rollup-plugin-commonjs": "^7.0.0",
-    "rollup-plugin-node-builtins": "^2.0.0",
-    "rollup-plugin-node-resolve": "^2.0.0",
-    "rollup-plugin-real-babili": "^1.0.0-alpha3"
+    "jest": "18.0.0",
+    "rollup": "0.41.1",
+    "rollup-plugin-commonjs": "7.0.0",
+    "rollup-plugin-node-builtins": "2.0.0",
+    "rollup-plugin-node-resolve": "2.0.0",
+    "rollup-plugin-real-babili": "1.0.0-alpha3"
   },
   "scripts": {
     "test": "jest",
