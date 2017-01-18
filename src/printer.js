@@ -197,7 +197,7 @@ function genericPrintNoParens(path, options, print) {
     case "MemberExpression": {
       return concat([
         path.call(print, "object"),
-        printMemberLookup(path, print)
+        printMemberLookup(path, options, print)
       ]);
     }
     case "MetaProperty":
@@ -529,7 +529,6 @@ function genericPrintNoParens(path, options, print) {
 
       return concat(parts);
     case "CallExpression": {
-      const parent = path.getParentNode();
       // We detect calls on member lookups and possibly print them in a
       // special chain format. See `printMemberChain` for more info.
       if (n.callee.type === "MemberExpression") {
@@ -1945,10 +1944,12 @@ function printClass(path, print) {
   return parts;
 }
 
-function printMemberLookup(path, print) {
+function printMemberLookup(path, options, print) {
   const property = path.call(print, "property");
   const n = path.getValue();
-  return concat(n.computed ? [ "[", property, "]" ] : [ ".", property ]);
+  return n.computed
+    ? concat([ "[", property, "]" ])
+    : group(indent(options.tabWidth, concat([ softline, ".", property ])));
 }
 
 // We detect calls on member expressions specially to format a
@@ -2007,7 +2008,7 @@ function printMemberChain(node, options, print) {
     const nodesPrinted = nodes.map(
       node =>
         ({
-          property: printMemberLookup(FastPath.from(node.member), print),
+          property: printMemberLookup(FastPath.from(node.member), options, print),
           args: printArgumentsList(FastPath.from(node.call), options, print)
         })
     );
