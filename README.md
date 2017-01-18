@@ -1,8 +1,8 @@
-# Prettier 
+# Prettier With Tabs
 
 [![Gitter](https://badges.gitter.im/gitterHQ/gitter.svg)](https://gitter.im/jlongster/prettier)
-[![Build Status](https://travis-ci.org/jlongster/prettier.svg?branch=master)](https://travis-ci.org/jlongster/prettier)
-[![NPM version](https://img.shields.io/npm/v/prettier.svg)](https://www.npmjs.com/package/prettier)
+[![Build Status](https://travis-ci.org/arijs/prettier-with-tabs.svg?branch=master)](https://travis-ci.org/arijs/prettier-with-tabs)
+[![NPM version](https://img.shields.io/npm/v/prettier-with-tabs.svg)](https://www.npmjs.com/package/prettier-with-tabs)
 
 Prettier is an opinionated JavaScript formatter inspired by
 [refmt](https://facebook.github.io/reason/tools.html) with advanced
@@ -133,6 +133,9 @@ argument is optional, and all of the defaults are shown below:
 const prettier = require("prettier");
 
 prettier.format(source, {
+  // Indent lines with tabs
+  useTabs: false,
+
   // Fit code within this line limit
   printWidth: 80,
 
