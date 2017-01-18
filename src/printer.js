@@ -1839,7 +1839,6 @@ function typeIsFunction(type) {
 function printExportDeclaration(path, options, print) {
   var decl = path.getValue();
   var parts = [ "export " ];
-  var shouldPrintSpaces = options.bracketSpacing;
 
   namedTypes.Declaration.assert(decl);
 
