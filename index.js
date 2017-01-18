@@ -3,6 +3,7 @@ const babylon = require("babylon");
 const Printer = require("./src/printer").Printer;
 const flowParser = require("flow-parser");
 const comments = require("./src/comments");
+const version = require('./package.json').version;
 
 var babylonOptions = {
   sourceType: "module",
@@ -74,5 +75,6 @@ function formatWithShebang(text, opts) {
 module.exports = {
   format: function(text, opts) {
     return formatWithShebang(text, opts);
-  }
+  },
+  version: version
 };
