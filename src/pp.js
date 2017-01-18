@@ -141,11 +141,17 @@ function _makeIndent(tabWidth) {
   return s;
 }
 
-function _repeatIndent(n, indent) {
-  var s = "";
+function _repeatIndent(n, indent, cache) {
+  if ( cache && n in cache ) {
+    return cache[n];
+  }
+  let s = "";
 
-  for (var i = 0; i < n; i++) {
+  for (let i = 0; i < n; i++) {
     s += indent;
+  }
+  if ( cache ) {
+    cache[n] = s;
   }
 
   return s;
@@ -225,6 +231,7 @@ function print(options, doc) {
   let w = options.printWidth;
   let tabWidth = options.tabWidth;
   let indentStr = _makeIndent(tabWidth);
+  let indentCache = [];
   let pos = 0;
   // cmds is basically a stack. We've turned a recursive call into a
   // while loop which is much faster. The while loop below adds new
@@ -360,7 +367,13 @@ function print(options, doc) {
 
                 pos = 0;
               } else {
-                out.push("\n" + _repeatIndent(ind, indentStr));
+                let indentLine;
+                if (ind in indentCache) {
+                  indentLine = indentCache[ind];
+                } else {
+                  indentCache[ind] = indentLine = _repeatIndent(ind, indentStr);
+                }
+                out.push("\n" + indentLine);
 
                 pos = ind * tabWidth;
               }
