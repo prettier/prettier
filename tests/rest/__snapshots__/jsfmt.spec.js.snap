@@ -1,0 +1,27 @@
+exports[`test trailing-commas.js 1`] = `
+"declare class C {
+  f(
+    superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong,
+    ...args
+  ): void,
+}
+
+function f(
+  superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong,
+  ...args
+) {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+declare class C {
+  f(
+    superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong,
+    ...args
+  ): void,
+}
+
+function f(
+  superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong,
+  ...args
+) {
+}
+"
+`;
