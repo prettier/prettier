@@ -119,14 +119,20 @@ util.getLast = function(arr) {
 };
 
 function skipNewLineForward(text, index) {
-  if (text.charAt(index) === "\n") {
-    return index + 1;
+  // What the "end" location points to is not consistent in parsers.
+  // For some statement/expressions, it's the character immediately
+  // afterward. For others, it's the last character in it. We need to
+  // scan until we hit a newline in order to skip it.
+  while(index < text.length) {
+    if (text.charAt(index) === "\n") {
+      return index + 1;
+    }
+    if (text.charAt(index) === "\r" && text.charAt(index + 1) === "\n") {
+      return index + 2;
+    }
+    index++;
   }
-  if (text.charAt(index) === "\r" && text.charAt(index + 1) === "\n") {
-    return index + 2;
-  }
-  // Note: this is incorrect, but makes the current tests pass for now.
-  return index + 1;
+  return index;
 }
 
 function _findNewline(text, index, backwards) {

@@ -93,7 +93,6 @@ function foo1(x: Array<number> | number) {
 class X1 {
   foo: number;
 }
-
 class X2 {
   foo: string;
 }
@@ -117,7 +116,6 @@ function consumer2(b) {
 class Y1 {
   bar: X1;
 }
-
 class Y2 {
   bar: X2;
 }
@@ -141,7 +139,6 @@ function consumer4(b) {
 class Z1 {
   baz: Y1;
 }
-
 class Z2 {
   baz: Y2;
 }

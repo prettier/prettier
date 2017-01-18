@@ -76,11 +76,13 @@ var o1 = new F();
 // sets o1.x to 0
 o1.x = \"\";
 foo(o1.x);
+
 // ok by definite assignment
 var o2 = new F();
 o1.y = 0;
 o2.y = \"\";
 foo(o2.y);
+
 // setting o1.y to 0 has no effect on o2.y
 var o3 = new F();
 o3.m();
@@ -89,6 +91,7 @@ o3.y = \"\";
 foo(o3.y);
 // ok by definite assignment
 foo(o2.y);
+
 // setting o3.y to 0 has no effect on o2.y
 /*
  * this bindings:
@@ -106,6 +109,7 @@ var f1_3 = f1.bind({ x: \"\" })();
 // error, string -> number
 // TODO make this error blame the call site, rather than the function body
 var f1_4 = f1();
+
 // error, (global object).x
 /* arrow functions bind this at point of definition */
 /* top level arrow functions bind this to global object */
@@ -114,6 +118,7 @@ var a1 = () => {
 };
 
 var ax = a1();
+
 // error, (this:mixed).x
 /* nested arrows bind enclosing this (which may itself rebind) */
 function f2(): number {
@@ -131,6 +136,7 @@ var f2_3 = f2.bind({ x: \"\" })();
 // error, string -> number
 // TODO make this error blame the call site, rather than the function body
 var f2_4 = f2();
+
 // error, (global object).x
 (this: void);
 
@@ -182,6 +188,7 @@ var f = c.foo();
 var i = f();
 // OK
 (i: C);
+
 // OK
 class D extends C {}
 var d = new D();
@@ -189,6 +196,7 @@ var g = d.foo();
 var j = g();
 // OK
 (j: D);
+
 // error, since return type of bar is C, not the type of \`this\`
 class E {
   foo(x: number) {

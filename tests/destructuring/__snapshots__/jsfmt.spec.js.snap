@@ -18,6 +18,7 @@ let [ b, ...zs ] = ys;
 let c = zs[0];
 // retain tuple info
 let d = zs[1];
+
 // run off the end
 (a: void);
 // error: number ~> void
@@ -26,6 +27,7 @@ let d = zs[1];
 (c: void);
 // error: boolean ~> void
 (d: void);
+
 // error: number|string|boolean ~> void
 let [ ...e ] = 0;
 "
@@ -44,10 +46,12 @@ var { [\"key\"]: val3, ...spread } = { key: \"val\" };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var { [\"key\"]: val1 } = { key: \"val\" };
 (val1: void);
+
 // error: string ~> void
 var key: string = \"key\";
 var { [key]: val2 } = { key: \"val\" };
 (val2: void);
+
 // ok (gasp!) by existing StrT -> ElemT rule
 var { [\"key\"]: val3, ...spread } = { key: \"val\" };
 (spread.key: void); // error (gasp!) in general we don\'t know if a computed prop should be excluded from spread
@@ -155,6 +159,7 @@ obj_prop_fun({});
 obj_prop_fun({ p: {} });
 // ok
 obj_prop_fun({ p: { q: null } });
+
 // ok, provides add\'l lower bound
 function obj_prop_var(o = { p: { q: \"\" } }) {
   var { p: { q = 0 } = { q: true } } = o;
@@ -172,6 +177,7 @@ obj_prop_var({});
 obj_prop_var({ p: {} });
 // ok
 obj_prop_var({ p: { q: null } });
+
 // ok, provides add\'l lower bound
 function obj_rest(
   { p: { q, ...o } = { q: 0, r: 0 } } = { p: { q: 0, r: \"\" } }
@@ -210,6 +216,7 @@ var {
   p: 0
 };
 (p: void);
+
 // error: string ~> void
 function obj_prop_err({ x: { y } } = null) {
 }
@@ -222,6 +229,7 @@ function arr_elem_err([ x ] = null) {
 // error: element 0 cannot be accessed on null
 function arr_rest_err([ ...a ] = null) {
 }
+
 // error: expected array instead of null
 function gen<T>(x: T, { p = x }: { p: T }): T {
   return p;
@@ -231,6 +239,7 @@ function gen<T>(x: T, { p = x }: { p: T }): T {
 obj_prop_fun(({}: { p?: { q?: null } }));
 // ok
 obj_prop_var(({}: { p?: { q?: null } }));
+
 // ok
 // union-like upper bounds preserved through destructuring
 function obj_prop_opt({ p }: { p?: string } = { p: 0 }) {
@@ -393,6 +402,7 @@ var bp1_err: string = baseprop1;
 // Error: number ~> string
 var bp2: number = others.baseprop2;
 var bp2_err: string = others.baseprop2;
+
 // Error: number ~> string
 var cp1: number = childprop1;
 var cp1_err: string = childprop1;
@@ -480,6 +490,7 @@ function obj_pattern<X>({ prop }: { prop: X }) {
 type Prop<X> = { prop: X };
 function obj_pattern2<X>({ prop }: Prop<X>) {
 }
+
 // prop: X
 function arr_pattern<X>([ elem ]: X[]) {
 }
@@ -487,6 +498,7 @@ function arr_pattern<X>([ elem ]: X[]) {
 type Elem<X> = X[];
 function arr_pattern2<X>([ elem ]: Elem<X>) {
 }
+
 // elem: X
 function tup_pattern<X>([ proj ]: [X]) {
 }
@@ -494,12 +506,14 @@ function tup_pattern<X>([ proj ]: [X]) {
 type Proj<X> = [X];
 function tup_pattern2<X>([ proj ]: Proj<X>) {
 }
+
 // proj: X
 function rest_antipattern<T>(...t: T) {
 }
 // nonsense
 function rest_pattern<X>(...r: X[]) {
 }
+
 // r: X[]
 function obj_rest_pattern<X>({ _, ...o }: { _: any, x: X }) {
   // o: { x: X }
@@ -576,6 +590,7 @@ var { \"with-dash\": with_dash } = { \"with-dash\": \"motivating example\" };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var { key: val } = { key: \"val\" };
 (val: void);
+
 // error: string ~> void
 var { \"with-dash\": with_dash } = { \"with-dash\": \"motivating example\" };
 (with_dash: \"motivating example\"); // ok

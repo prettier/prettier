@@ -101,6 +101,7 @@ class Foo {
   }
   set propWithMismatchingGetterAndSetter(x: string) {
   }
+
   // doesn\'t match getter (OK)
   propOverriddenWithGetter: number;
   get propOverriddenWithGetter() {
@@ -121,6 +122,7 @@ var testGetterNoError2: number = foo.goodGetterWithAnnotation;
 var testGetterWithError1: string = foo.goodGetterNoAnnotation;
 // Error number ~> string
 var testGetterWithError2: string = foo.goodGetterWithAnnotation;
+
 // Error number ~> string
 // Test setting properties with getters
 foo.goodSetterNoAnnotation = 123;
@@ -130,8 +132,10 @@ foo.goodSetterWithAnnotation = 123;
 foo.goodSetterNoAnnotation = \"hello\";
 // Error string ~> number
 foo.goodSetterWithAnnotation = \"hello\";
+
 // Error string ~> number
 var testSubtypingGetterAndSetter: number = foo.propWithSubtypingGetterAndSetter;
+
 // Error ?number ~> number
 var testPropOverridenWithGetter: number = foo.propOverriddenWithGetter;
 // Error string ~> number
@@ -261,6 +265,7 @@ var testGetterNoError2: number = obj.goodGetterWithAnnotation;
 var testGetterWithError1: string = obj.goodGetterNoAnnotation;
 // Error number ~> string
 var testGetterWithError2: string = obj.goodGetterWithAnnotation;
+
 // Error number ~> string
 // Test setting properties with getters
 obj.goodSetterNoAnnotation = 123;
@@ -269,13 +274,16 @@ obj.goodSetterWithAnnotation = 123;
 obj.goodSetterNoAnnotation = \"hello\";
 // Error string ~> number
 obj.goodSetterWithAnnotation = \"hello\";
+
 // Error string ~> number
 var testSubtypingGetterAndSetter: number = obj.propWithSubtypingGetterAndSetter;
+
 // Error ?number ~> number
 // When building this feature, it was tempting to flow the setter into the
 // getter and then use either the getter or setter as the type of the property.
 // This example shows the danger of using the getter\'s type
 obj.exampleOfOrderOfGetterAndSetter = new C();
+
 // Error C ~> B
 // And this example shows the danger of using the setter\'s type.
 var testExampleOrOrderOfGetterAndSetterReordered: number = obj.exampleOfOrderOfGetterAndSetterReordered; // Error A ~> B
@@ -402,15 +410,12 @@ class Base {
   get get(): B {
     return this.x;
   }
-
   set set(value: B): void {
     this.x = value;
   }
-
   get getset(): B {
     return this.x;
   }
-
   set getset(value: B): void {
     this.x = value;
   }
