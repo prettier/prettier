@@ -51,8 +51,15 @@ function conditionalGroup(states, opts) {
   );
 }
 
-function ifBreak(contents) {
-  return { type: "if-break", contents };
+function ifBreak(breakContents, flatContents) {
+  if (breakContents) {
+    assertDoc(breakContents);
+  }
+  if (flatContents) {
+    assertDoc(flatContents);
+  }
+
+  return { type: "if-break", breakContents, flatContents };
 }
 
 function iterDoc(topDoc, func) {
@@ -77,6 +84,13 @@ function iterDoc(topDoc, func) {
       if (doc.type === "concat") {
         for (var i = doc.parts.length - 1; i >= 0; i--) {
           docs.push(doc.parts[i]);
+        }
+      } else if (doc.type === "if-break") {
+        if (doc.breakContents) {
+          docs.push(doc.breakContents);
+        }
+        if (doc.flatContents) {
+          docs.push(doc.flatContents);
         }
       } else if (doc.type !== "line") {
         docs.push(doc.contents);
@@ -175,7 +189,14 @@ function fits(next, restCommands, width) {
           break;
         case "if-break":
           if (mode === MODE_BREAK) {
-            cmds.push([ ind, mode, doc.contents ]);
+            if (doc.breakContents) {
+              cmds.push([ ind, mode, doc.breakContents ]);              
+            }
+          }
+          if (mode === MODE_FLAT) {
+            if (doc.flatContents) {
+              cmds.push([ ind, mode, doc.flatContents ]);
+            }
           }
 
           break;
@@ -297,7 +318,14 @@ function print(w, doc) {
           break;
         case "if-break":
           if (mode === MODE_BREAK) {
-            cmds.push([ ind, MODE_BREAK, doc.contents ]);
+            if (doc.breakContents) {
+              cmds.push([ ind, mode, doc.breakContents ]);              
+            }
+          }
+          if (mode === MODE_FLAT) {
+            if (doc.flatContents) {
+              cmds.push([ ind, mode, doc.flatContents ]);
+            }
           }
 
           break;
