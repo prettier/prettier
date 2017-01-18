@@ -48,6 +48,6 @@ import {
   andMore,
   soWeCanGetItTo80Columns
 } from \".\";
-import { fitsIn, oneLine } from \".\";
+import {fitsIn, oneLine} from \".\";
 "
 `;
