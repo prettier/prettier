@@ -1760,13 +1760,16 @@ function printFunctionParams(path, print, options) {
     return "()";
   }
 
+  const lastParam = util.getLast(path.getValue().params);
+  const canHaveTrailingComma = lastParam.type !== "RestElement" && !fun.rest;
+
   return concat([
     "(",
     indent(
       options.tabWidth,
       concat([ softline, join(concat([ ",", line ]), printed) ])
     ),
-    ifBreak(options.trailingComma ? "," : ""),
+    ifBreak(canHaveTrailingComma && options.trailingComma ? "," : ""),
     softline,
     ")"
   ]);
