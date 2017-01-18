@@ -369,6 +369,7 @@ typeof (function() {});
 export default (function() {})();
 (function() {})()\`\`;
 (function() {})\`\`;
+new (function() {});
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 (function() {
 }).length;
@@ -380,6 +381,8 @@ export default (function() {
 })()\`\`;
 (function() {
 })\`\`;
+new (function() {
+})();
 "
 `;
 
