@@ -1843,7 +1843,8 @@ function printExportDeclaration(path, options, print) {
 
     if (
       decl.type === "ExportDefaultDeclaration" &&
-        decl.declaration.type == "Identifier"
+        (decl.declaration.type == "Identifier" ||
+          decl.declaration.type === "CallExpression")
     ) {
       parts.push(";");
     }
