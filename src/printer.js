@@ -641,6 +641,26 @@ function genericPrintNoParens(path, options, print) {
       if (n.elements.length === 0) {
         parts.push("[]");
       } else {
+        // The flow parser in 0.37 has a bug where
+        //   [ ...a, ...a ]
+        // is being parsed as
+        //   ArrayExpression(SpreadElement, null, SpreadElement)
+        // The issue is that it treats the comma as a null element.
+        //
+        // In order to workaround this bug, we delete the null of a sequence
+        // [SpreadElement, null].
+        //
+        // Note: remove this block when we upgrade to 0.38
+        if (options.useFlowParser) {
+          for (let i = 0; i < n.elements.length; ++i) {
+            const element = n.elements[i];
+            if (element && element.type === 'SpreadElement' &&
+                n.elements[i + 1] === null) {
+              n.elements.splice(i + 1, 1);
+            }
+          }
+        }
+
         // JavaScript allows you to have empty elements in an array which
         // changes its length based on the number of commas. The algorithm
         // is that if the last argument is null, we need to force insert
