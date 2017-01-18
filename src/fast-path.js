@@ -1,5 +1,6 @@
 var assert = require("assert");
 var types = require("ast-types");
+var util = require("./util");
 var n = types.namedTypes;
 var Node = n.Node;
 var isArray = types.builtInTypes.array;
@@ -262,9 +263,9 @@ FPp.needsParens = function(assumeExpressionContext) {
         case "BinaryExpression":
         case "LogicalExpression":
           var po = parent.operator;
-          var pp = PRECEDENCE[po];
+          var pp = util.getPrecedence(po);
           var no = node.operator;
-          var np = PRECEDENCE[no];
+          var np = util.getPrecedence(no);
 
           if (pp > np) {
             return true;
@@ -423,24 +424,6 @@ function isUnaryLike(node) {
     node
   ) || n.SpreadElement && n.SpreadElement.check(node) || n.SpreadProperty && n.SpreadProperty.check(node);
 }
-
-var PRECEDENCE = {};
-[
-  [ "||" ],
-  [ "&&" ],
-  [ "|" ],
-  [ "^" ],
-  [ "&" ],
-  [ "==", "===", "!=", "!==" ],
-  [ "<", ">", "<=", ">=", "in", "instanceof" ],
-  [ ">>", "<<", ">>>" ],
-  [ "+", "-" ],
-  [ "*", "/", "%", "**" ]
-].forEach(function(tier, i) {
-  tier.forEach(function(op) {
-    PRECEDENCE[op] = i;
-  });
-});
 
 function containsCallExpression(node) {
   if (n.CallExpression.check(node)) {

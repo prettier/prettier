@@ -222,3 +222,25 @@ function htmlEscapeInsideDoubleQuote(str) {
   //    .replace(/>/g, '&gt;');
 }
 util.htmlEscapeInsideDoubleQuote = htmlEscapeInsideDoubleQuote;
+
+var PRECEDENCE = {};
+[
+  [ "||" ],
+  [ "&&" ],
+  [ "|" ],
+  [ "^" ],
+  [ "&" ],
+  [ "==", "===", "!=", "!==" ],
+  [ "<", ">", "<=", ">=", "in", "instanceof" ],
+  [ ">>", "<<", ">>>" ],
+  [ "+", "-" ],
+  [ "*", "/", "%", "**" ]
+].forEach(function(tier, i) {
+  tier.forEach(function(op) {
+    PRECEDENCE[op] = i;
+  });
+});
+
+util.getPrecedence = function(op) {
+  return PRECEDENCE[op];
+}
