@@ -1068,8 +1068,10 @@ function genericPrintNoParens(path, options, print) {
           "}"
         ])
       );
-    case "JSXElement":
-      return printJSXElement(path, options, print);
+    case "JSXElement": {
+      const elem = printJSXElement(path, options, print);
+      return maybeWrapJSXElementInParens(path, elem, options);
+    }
     case "JSXOpeningElement":
       return group(
         concat([
@@ -2047,71 +2049,198 @@ function printMemberChain(node, options, print) {
   }
 }
 
+function isEmptyJSXElement(node) {
+  if (node.children.length === 0) return true;
+  if (node.children.length > 1) return false;
+
+  // if there is one child but it's just a newline, treat as empty
+  const value = node.children[0].value;
+  if (!/\S/.test(value) && /\n/.test(value)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+// JSX Children are strange, mostly for two reasons:
+// 1. JSX reads newlines into string values, instead of skipping them like JS
+// 2. up to one whitespace between elements within a line is significant,
+//    but not between lines.
+//
+// So for one thing, '\n' needs to be parsed out of string literals
+// and turned into hardlines (with string boundaries otherwise using softline)
+//
+// For another, leading, trailing, and lone whitespace all need to
+// turn themselves into the rather ugly `{' '}` when breaking.
+function printJSXChildren(path, options, print) {
+  const n = path.getValue();
+  const children = [];
+  const jsxWhitespace = options.singleQuote
+    ? ifBreak("{' '}", " ")
+    : ifBreak("{\" \"}", " ");
+
+  // using `map` instead of `each` because it provides `i`
+  path.map(function(childPath, i) {
+    const child = childPath.getValue();
+    const isLiteral = namedTypes.Literal.check(child);
+
+    if (isLiteral && typeof child.value === "string") {
+      if (/\S/.test(child.value)) {
+        const beginBreak = child.value.match(/^\s*\n/);
+        const endBreak = child.value.match(/\n\s*$/);
+        const beginSpace = child.value.match(/^\s+/);
+        const endSpace = child.value.match(/\s+$/);
+
+        if (beginBreak) {
+          children.push(hardline);
+        } else if (beginSpace) {
+          children.push(jsxWhitespace);
+        }
+
+        children.push(child.value.replace(/^\s+|\s+$/g, ""));
+
+        if (endBreak) {
+          children.push(hardline);
+        } else {
+          if (endSpace) children.push(jsxWhitespace);
+          children.push(softline);
+        }
+      } else if (/\n/.test(child.value)) {
+        // TODO: add another hardline if >1 newline appeared. (also above)
+        children.push(hardline);
+      } else if (/\s/.test(child.value)) {
+        // whitespace-only without newlines,
+        // eg; a single space separating two elements
+        children.push(jsxWhitespace);
+        children.push(softline);
+      }
+    } else {
+      children.push(print(childPath));
+
+      // add a line unless it's followed by a JSX newline
+      let next = n.children[i + 1];
+      if (!(next && /^\s*\n/.test(next.value))) {
+        children.push(softline);
+      }
+    }
+  }, "children");
+
+  return children;
+}
+
+// JSX expands children from the inside-out, instead of the outside-in.
+// This is both to break children before attributes,
+// and to ensure that when children break, their parents do as well.
+//
+// Any element that is written without any newlines and fits on a single line
+// is left that way.
+// Not only that, any user-written-line containing multiple JSX siblings
+// should also be kept on one line if possible,
+// so each user-written-line is wrapped in its own group.
+//
+// Elements that contain newlines or don't fit on a single line (recursively)
+// are fully-split, using hardline and shouldBreak: true.
+//
+// To support that case properly, all leading and trailing spaces
+// are stripped from the list of children, and replaced with a single hardline.
 function printJSXElement(path, options, print) {
   const n = path.getValue();
-  var openingLines = path.call(print, "openingElement");
 
-  let elem;
-  if (n.openingElement.selfClosing) {
-    assert.ok(!n.closingElement);
-
-    elem = openingLines;
-  } else {
-    var children = [];
-
-    path.map(
-      function(childPath) {
-        var child = childPath.getValue();
-
-        if (
-          namedTypes.Literal.check(child) && typeof child.value === "string"
-        ) {
-          if (/\S/.test(child.value)) {
-            const beginBreak = child.value.match(/^\s*\n/);
-            const endBreak = child.value.match(/\n\s*$/);
-
-            children.push(
-              beginBreak ? hardline : "",
-              child.value.replace(/^\s+|\s+$/g, endBreak ? "" : " "),
-              endBreak ? hardline : ""
-            );
-          } else if (/\n/.test(child.value)) {
-            children.push(hardline);
-          }
-        } else {
-          children.push(print(childPath));
-        }
-      },
-      "children"
-    );
-
-    var mostChildren = children.slice(0, -1);
-    var closingLines = path.call(print, "closingElement");
-
-    const firstChild = children[(0)];
-    const lastChild = util.getLast(children);
-    const beginBreak = firstChild && firstChild.type === "line";
-    const endBreak = lastChild && lastChild.type === "line";
-
-    elem = multilineGroup(
-      concat([
-        openingLines,
-        indent(
-          options.tabWidth,
-          concat([ beginBreak ? "" : softline ].concat(mostChildren))
-        ),
-        lastChild || "",
-        endBreak ? "" : softline,
-        closingLines
-      ])
-    );
+  // turn <div></div> into <div />
+  if (isEmptyJSXElement(n)) {
+    n.openingElement.selfClosing = true;
+    delete n.closingElement;
   }
 
+  // if no children, just print the opening element
+  const openingLines = path.call(print, "openingElement");
+  if (n.openingElement.selfClosing) {
+    assert.ok(!n.closingElement);
+    return openingLines;
+  }
+
+  const children = printJSXChildren(path, options, print);
+  let hasAnyHardLine = false;
+
+  // trim trailing whitespace, recording if there was a hardline
+  while (children.length && util.getLast(children).type === "line") {
+    if (hasHardLine(util.getLast(children))) hasAnyHardLine = true;
+    children.pop();
+  }
+
+  // trim leading whitespace, recording if there was a hardline
+  while (children.length && children[0].type === "line") {
+    if (hasHardLine(children[0])) hasAnyHardLine = true;
+    children.shift();
+  }
+
+  // group by line, recording if there was a hardline.
+  let childrenGroupedByLine;
+  if (children.length === 1) {
+    if (!hasAnyHardLine && hasHardLine(children[0])) hasAnyHardLine = true;
+
+    // no need for groups, and a lone jsx whitespace doesn't work otherwise
+    childrenGroupedByLine = [ hardline, children[0] ];
+  } else {
+    //  prefill leading newline, and initialize the first line's group
+    childrenGroupedByLine = [ hardline, group(concat([])) ];
+    children.forEach((child, i) => {
+      let prev = children[i - 1];
+      if (prev && hasHardLine(prev)) {
+        hasAnyHardLine = true;
+
+        // on a new line, so create a new group and put this element in it
+        const newLineGroup = group(concat([ child ]));
+        childrenGroupedByLine.push(newLineGroup);
+      } else {
+        // not on a newline, so add this element to the current group
+        const currentLineGroup = util.getLast(childrenGroupedByLine);
+        currentLineGroup.contents.parts.push(child);
+      }
+
+      // ensure we record hardline of last element
+      if (!hasAnyHardLine && i === children.length - 1) {
+        if (hasHardLine(child)) hasAnyHardLine = true;
+      }
+    });
+  }
+
+  const closingLines = path.call(print, "closingElement");
+
+  const multiLineElem = group(concat([
+    openingLines,
+    indent(options.tabWidth, group(
+      concat(childrenGroupedByLine),
+      { shouldBreak: true }
+    )),
+    hardline,
+    closingLines,
+  ]));
+
+  let elem;
+  if (hasAnyHardLine) {
+    elem = multiLineElem;
+  } else {
+    elem = conditionalGroup([
+      group(concat([openingLines, concat(children), closingLines])),
+      multiLineElem,
+    ]);
+  }
+
+  return elem;
+}
+
+function maybeWrapJSXElementInParens(path, elem, options) {
   const parent = path.getParentNode();
-  if (
-    !parent || parent.type === "JSXElement" ||
-      parent.type === "ExpressionStatement"
-  ) {
+  if (!parent) return elem;
+
+  const NO_WRAP_PARENTS = {
+    "JSXElement": true,
+    "ExpressionStatement": true,
+    "CallExpression": true,
+    "ConditionalExpression": true,
+  };
+  if (NO_WRAP_PARENTS[parent.type]) {
     return elem;
   }
 
