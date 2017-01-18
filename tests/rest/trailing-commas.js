@@ -9,3 +9,5 @@ function f(
   superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong,
   ...args
 ) {}
+
+declare class C { f(...superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong): void; }
