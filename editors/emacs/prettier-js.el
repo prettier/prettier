@@ -39,6 +39,11 @@
   :type 'string
   :group 'prettier)
 
+(defcustom prettier-args '()
+  "List of args to send to prettier command"
+  :type 'list
+  :group 'prettier)
+
 (defcustom prettier-target-mode
   "js-mode"
   "Name of the major mode to be used by 'prettier-before-save'."
@@ -198,12 +203,12 @@ function."
              (erase-buffer))
            (if (zerop (apply 'call-process
                              prettier-command nil (list (list :file outputfile) errorfile)
-                             nil (append width-args (list bufferfile))))
+                             nil (append (append prettier-args width-args) (list bufferfile))))
                (progn
                  (call-process-region (point-min) (point-max) "diff" nil patchbuf nil "-n" "-"
                                       outputfile)
                  (prettier--apply-rcs-patch patchbuf)
-                 (message "Applied prettier")
+                 (message "Applied prettier with args `%s'" prettier-args)
                  (if errbuf (prettier--kill-error-buffer errbuf)))
              (message "Could not apply prettier")
              (if errbuf
@@ -215,4 +220,3 @@ function."
      (delete-file outputfile)))
 
 (provide 'prettier-js)
-
