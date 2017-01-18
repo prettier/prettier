@@ -131,16 +131,6 @@ function hasHardLine(doc) {
   });
 }
 
-function _makeIndent(n) {
-  var s = "";
-
-  for (var i = 0; i < n; i++) {
-    s += " ";
-  }
-
-  return s;
-}
-
 const MODE_BREAK = 1;
 const MODE_FLAT = 2;
 
@@ -347,7 +337,7 @@ function print(w, doc) {
 
                 pos = 0;
               } else {
-                out.push("\n" + _makeIndent(ind));
+                out.push("\n" + " ".repeat(ind));
 
                 pos = ind;
               }
