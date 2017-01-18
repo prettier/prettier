@@ -283,3 +283,22 @@ type Foo = (any) => string;
 type Bar = { [string]: number };
 "
 `;
+
+exports[`test keep-parens-object-expressions.js 1`] = `
+"({}).a().b();
+
+({}.a().b());
+
+({ foo: \"bar\" }.a().b());
+
+({ foo: \"bar\" }).a().b();
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+({}).a().b();
+
+({}.a().b());
+
+({ foo: \"bar\" }.a().b());
+
+({ foo: \"bar\" }).a().b();
+"
+`;
