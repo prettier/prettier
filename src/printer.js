@@ -618,7 +618,18 @@ function genericPrintNoParens(path, options, print) {
         } else {
           parts.push(printPropertyKey(path, print));
         }
-        parts.push(": ", path.call(print, "value"));
+        let isBinaryExpression = n.value.type === "BinaryExpression";
+        let printedValue = path.call(print, "value")
+        parts.push(
+          multilineGroup(
+            concat([
+              isBinaryExpression ? ":" : ": ",
+              isBinaryExpression
+                ? indent(options.tabWidth, concat([line, printedValue]))
+                : printedValue
+            ])
+          )
+        );
       }
 
       return concat(parts);
