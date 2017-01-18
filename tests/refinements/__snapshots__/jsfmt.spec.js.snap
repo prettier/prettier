@@ -2213,7 +2213,6 @@ function corge(text: string | number | Array<string>): string {
     // should only error for string since Array was filtered out.
     \"number\":
       return text++ + \"\";
-
     default:
       return \"wat\";
   }

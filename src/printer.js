@@ -455,7 +455,7 @@ function genericPrintNoParens(path, options, print) {
 
         if (grouped.length > 0) {
           parts.push(
-            group(
+            multilineGroup(
               concat([
                 "{",
                 indent(
@@ -463,7 +463,7 @@ function genericPrintNoParens(path, options, print) {
                   concat([
                     options.bracketSpacing ? line : softline,
                     join(
-                      concat([ ",", options.bracketSpacing ? line : softline ]),
+                      concat([ ",", line ]),
                       grouped
                     )
                   ])
@@ -703,13 +703,13 @@ function genericPrintNoParens(path, options, print) {
       if (typeof n.value !== "string")
         return fromString(n.value, options);
 
-      return nodeStr(n.value, options);
+      return nodeStr(n, options);
     case // Babel 6
     "Directive":
       return path.call(print, "value");
     case // Babel 6
     "DirectiveLiteral":
-      return fromString(nodeStr(n.value, options));
+      return fromString(nodeStr(n, options));
     case "ModuleSpecifier":
       if (n.local) {
         throw new Error("The ESTree ModuleSpecifier type should be abstract");
@@ -717,7 +717,7 @@ function genericPrintNoParens(path, options, print) {
 
       // The Esprima ModuleSpecifier type is just a string-valued
       // Literal identifying the imported-from module.
-      return fromString(nodeStr(n.value, options), options);
+      return fromString(nodeStr(n, options), options);
     case "UnaryExpression":
       parts.push(n.operator);
 
@@ -1445,7 +1445,7 @@ function genericPrintNoParens(path, options, print) {
         path.call(print, "id")
       ]);
     case "StringLiteralTypeAnnotation":
-      return fromString(nodeStr(n.value, options), options);
+      return fromString(nodeStr(n, options), options);
     case "NumberLiteralTypeAnnotation":
       assert.strictEqual(typeof n.value, "number");
 
@@ -1858,7 +1858,7 @@ function printExportDeclaration(path, options, print) {
       } else {
         parts.push(
           decl.exportKind === "type" ? "type " : "",
-          group(
+          multilineGroup(
             concat([
               "{",
               indent(
@@ -1866,7 +1866,7 @@ function printExportDeclaration(path, options, print) {
                 concat([
                   options.bracketSpacing ? line : softline,
                   join(
-                    concat([ ",", options.bracketSpacing ? line : softline ]),
+                    concat([ ",", line ]),
                     path.map(print, "specifiers")
                   )
                 ])
@@ -1959,14 +1959,18 @@ function printMemberLookup(path, print) {
 // pass in a function, we treat it like the above.
 function printMemberChain(node, options, print) {
   const nodes = [];
-  let curr = node;
+  let leftmost = node;
+  let leftmostParent = null;
   // Traverse down and gather up all of the calls on member
   // expressions. This flattens it out into a list that we can
   // easily analyze.
-  while (curr.type === "CallExpression" &&
-    curr.callee.type === "MemberExpression") {
-    nodes.push({ member: curr.callee, call: curr });
-    curr = curr.callee.object;
+  while (
+    leftmost.type === "CallExpression" &&
+      leftmost.callee.type === "MemberExpression"
+  ) {
+    nodes.push({ member: leftmost.callee, call: leftmost });
+    leftmostParent = leftmost;
+    leftmost = leftmost.callee.object;
   }
   nodes.reverse();
 
@@ -1990,7 +1994,7 @@ function printMemberChain(node, options, print) {
     nodes.filter(n => argIsFunction(n.call)).length > 1;
 
   if (hasMultipleLookups) {
-    const currPrinted = print(FastPath.from(curr));
+    const leftmostPrinted = FastPath.from(leftmostParent).call(print, "callee", "object");
     const nodesPrinted = nodes.map(
       node =>
         ({
@@ -1999,7 +2003,7 @@ function printMemberChain(node, options, print) {
         })
     );
     const fullyExpanded = concat([
-      currPrinted,
+      leftmostPrinted,
       concat(
         nodesPrinted.map(node => {
           return indent(
@@ -2023,7 +2027,7 @@ function printMemberChain(node, options, print) {
     } else {
       return conditionalGroup([
         concat([
-          currPrinted,
+          leftmostPrinted,
           concat(
             nodesPrinted.map(node => {
               return concat([ node.property, node.args ]);
@@ -2146,7 +2150,8 @@ function lastNonSpaceCharacter(lines) {
   } while (lines.prevPos(pos));
 }
 
-function nodeStr(str, options) {
+function nodeStr(node, options) {
+  const str = node.value;
   isString.assert(str);
 
   const containsSingleQuote = str.indexOf("'") !== -1;
@@ -2160,10 +2165,19 @@ function nodeStr(str, options) {
     shouldUseSingleQuote = true;
   }
 
-  return jsesc(str, {
+  const result = jsesc(str, {
     quotes: shouldUseSingleQuote ? 'single' : 'double',
     wrap: true
   });
+
+  // Workaround a bug in the Javascript version of the flow parser where
+  // astral unicode characters like \uD801\uDC28 are incorrectly parsed as
+  // a sequence of \uFFFD.
+  if (options.useFlowParser && result.indexOf('\\uFFFD') !== -1) {
+    return node.raw;
+  }
+
+  return result;
 }
 
 function isFirstStatement(path) {

@@ -378,6 +378,9 @@ FPp.needsParens = function(assumeExpressionContext) {
         case "UnaryExpression":
           return true;
 
+        case "NewExpression":
+          return name === "callee";
+
         default:
           return isBinary(parent);
       }

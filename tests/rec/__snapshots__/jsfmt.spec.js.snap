@@ -92,11 +92,14 @@ pstar = (new P: P<P<number>>); // OK
 class P<X> {
   x: X;
 }
+
 // this is like Promise
 type Pstar<X> = X | Pstar<P<X>>;
+
 // this is like Promise*
 var p: P<number> = new P();
 (p.x: string);
+
 // error
 var pstar: Pstar<number> = 0;
 // OK
@@ -106,6 +109,7 @@ var pstar: Pstar<number> = 0;
 pstar = p;
 // OK
 (pstar.x: string);
+
 // error
 pstar = (new P(): P<P<number>>);
 // OK

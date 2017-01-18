@@ -475,8 +475,10 @@ function unification_dict_values_invariant(x: Array<{ [k: string]: B }>) {
   let a: Array<{ [k: string]: A }> = x;
   // error
   a[0].p = new A();
+
   // in[0].p no longer B
   let b: Array<{ [k: string]: B }> = x;
+
   // ok
   let c: Array<{ [k: string]: C }> = x;
   // error
@@ -487,8 +489,10 @@ function subtype_dict_values_invariant(x: { [k: string]: B }) {
   let a: { [k: string]: A } = x;
   // error
   a.p = new A();
+
   // x[0].p no longer B
   let b: { [k: string]: B } = x;
+
   // ok
   let c: { [k: string]: C } = x;
   // error
@@ -551,8 +555,10 @@ function unification_mix_with_declared_props_invariant_l(
   let a: Array<{ [k: string]: B, p: A }> = x;
   // error: A ~> B
   a[0].p = new A();
+
   // x[0].p no longer B
   let b: Array<{ [k: string]: B, p: B }> = x;
+
   // ok
   let c: Array<{ [k: string]: B, p: C }> = x;
   // error
@@ -567,8 +573,10 @@ function unification_mix_with_declared_props_invariant_r(
   let a: Array<{ [k: string]: A }> = xa;
   // error
   a[0].p = new A();
+
   // xa[0].p no longer B
   let b: Array<{ [k: string]: B }> = xb;
+
   // ok
   let c: Array<{ [k: string]: C }> = xc;
   // error
@@ -579,8 +587,10 @@ function subtype_mix_with_declared_props_invariant_l(x: { [k: string]: B }) {
   let a: { [k: string]: B, p: A } = x;
   // error: A ~> B
   a.p = new A();
+
   // x.p no longer B
   let b: { [k: string]: B, p: B } = x;
+
   // ok
   let c: { [k: string]: B, p: C } = x;
   // error
@@ -595,8 +605,10 @@ function subtype_mix_with_declared_props_invariant_r(
   let a: { [k: string]: A } = xa;
   // error
   a.p = new A();
+
   // xa.p no longer B
   let b: { [k: string]: B } = xb;
+
   // ok
   let c: { [k: string]: C } = xc;
   // error
@@ -619,8 +631,10 @@ function subtype_dict_to_obj(x: { [k: string]: B }) {
   let a: { p: A } = x;
   // error
   a.p = new A();
+
   // x.p no longer B
   let b: { p: B } = x;
+
   // ok
   let c: { p: C } = x;
   // error
@@ -631,6 +645,7 @@ function subtype_obj_to_dict(x: { p: B }) {
   let a: { [k: string]: A } = x;
   // error
   a.p = new A();
+
   // x.p no longer B
   let b: { [k: string]: B } = x;
 
@@ -759,11 +774,13 @@ var x: { [key: string]: string } = {};
 var y: { [key: string]: number } = x;
 // 2 errors, number !~> string & vice versa
 var z: { [key: number]: string } = x;
+
 // 2 errors, string !~> number & vice versa
 var a: { [key: string]: ?string } = {};
 var b: { [key: string]: string } = a;
 // 2 errors (null & undefined)
 var c: { [key: string]: ?string } = b;
+
 // 2 errors, since c[\'x\'] = null updates b
 // 2 errors (number !~> string, string !~> number)
 function foo0(

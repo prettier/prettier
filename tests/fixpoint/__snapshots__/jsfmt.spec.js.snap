@@ -35,7 +35,6 @@ module.exports = {fn: fix};
 function eq(x: number, y: number) {
   return true;
 }
-
 function sub(x: number, y: number) {
   return 0;
 }

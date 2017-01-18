@@ -15,6 +15,7 @@ foo();
 function doSomethingAsync(): Promise<void> {
   return new Promise((resolve, reject) => {
     resolve();
+
     // OK to leave out arg, same as resolve(undefined)
     var anotherVoidPromise: Promise<void> = Promise.resolve();
     resolve(anotherVoidPromise);
@@ -96,6 +97,7 @@ let tests = [
     var id;
     var name = id ? \"John\" : undefined;
     (name: boolean);
+
     // error, string or void
     const bar = [ undefined, \"bar\" ];
     (bar[x]: boolean); // error, string or void
@@ -103,6 +105,7 @@ let tests = [
   function(x: number) {
     var undefined = \"foo\";
     (undefined: string);
+
     // ok
     var x;
     if (x !== undefined) {

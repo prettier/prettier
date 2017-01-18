@@ -192,8 +192,8 @@ var e = async function() {
 var et = async function<T>(a: T) {
 };
 
-var n = new async function() {
-}();
+var n = new (async function() {
+})();
 
 var o = {
   async m() {
@@ -352,6 +352,7 @@ function test2() {
   }
 
   var voidoid2: () => Promise<void> = voidoid1;
+
   // ok
   var voidoid3: () => void = voidoid1; // error, void != Promise<void>
 }
@@ -515,9 +516,9 @@ var et = async function<T>(a: T) {
   await 1;
 };
 
-var n = new async function() {
+var n = new (async function() {
   await 1;
-}();
+})();
 
 var o = {
   async m() {

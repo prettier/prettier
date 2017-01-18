@@ -168,7 +168,6 @@ foostr = barstr;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 class Foo {}
-
 class Bar {}
 
 var foostr: Foo | string = new Foo();
@@ -352,6 +351,7 @@ foo(y);
 // TODO: spurious error! (replacing C with number makes the error go away)
 // type Bar = (() => C) | (() => string);
 type Bar = () => C | string;
+
 // workaround
 function f() {
   return \"\";

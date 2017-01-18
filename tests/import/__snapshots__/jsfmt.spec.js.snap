@@ -1,5 +1,5 @@
-exports[`test bracket.js 1`] = `
-"export {
+exports[`test brackets.js 1`] = `
+"import {
   runTaskForChanged,
   description,
   someOtherLabel,
@@ -8,10 +8,10 @@ exports[`test bracket.js 1`] = `
   multiLine,
   andMore,
   soWeCanGetItTo80Columns
-};
-export {fitsIn, oneLine};
+} from \'.\';
+import {fitsIn, oneLine} from \'.\';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export {
+import {
   runTaskForChanged,
   description,
   someOtherLabel,
@@ -20,13 +20,13 @@ export {
   multiLine,
   andMore,
   soWeCanGetItTo80Columns
-};
-export { fitsIn, oneLine };
+} from \".\";
+import { fitsIn, oneLine } from \".\";
 "
 `;
 
-exports[`test bracket.js 2`] = `
-"export {
+exports[`test brackets.js 2`] = `
+"import {
   runTaskForChanged,
   description,
   someOtherLabel,
@@ -35,10 +35,10 @@ exports[`test bracket.js 2`] = `
   multiLine,
   andMore,
   soWeCanGetItTo80Columns
-};
-export {fitsIn, oneLine};
+} from \'.\';
+import {fitsIn, oneLine} from \'.\';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export {
+import {
   runTaskForChanged,
   description,
   someOtherLabel,
@@ -47,25 +47,7 @@ export {
   multiLine,
   andMore,
   soWeCanGetItTo80Columns
-};
-export { fitsIn, oneLine };
-"
-`;
-
-exports[`test empty.js 1`] = `
-"export {};
-export {} from \".\";
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export {};
-export {} from \".\";
-"
-`;
-
-exports[`test empty.js 2`] = `
-"export {};
-export {} from \".\";
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export {};
-export {} from \".\";
+} from \".\";
+import { fitsIn, oneLine } from \".\";
 "
 `;

@@ -3,3 +3,4 @@ typeof (function() {});
 export default (function() {})();
 (function() {})()``;
 (function() {})``;
+new (function() {});

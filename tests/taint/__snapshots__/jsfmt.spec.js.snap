@@ -111,6 +111,7 @@ let tests = [
   function(x: $Tainted<string>) {
     let obj: Object = {};
     obj.foo(x);
+
     // error, taint ~> any
     let foo = obj.foo;
     foo(x); // error, taint ~> any

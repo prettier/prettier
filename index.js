@@ -34,8 +34,8 @@ function format(text, opts) {
       esproposal_export_star_as: true,
     });
     if (ast.errors.length > 0) {
-      let msg = ast.errors[(0)].message + " on line " +
-        ast.errors[(0)].loc.start.line;
+      let msg = ast.errors[0].message + " on line " +
+        ast.errors[0].loc.start.line;
       if (opts.filename) {
         msg += " in file " + opts.filename;
       }
@@ -65,7 +65,10 @@ function formatWithShebang(text, opts) {
   const index = text.indexOf("\n");
   const shebang = text.slice(0, index + 1);
   const programText = text.slice(index + 1);
-  return shebang + format(programText, opts);
+  const nextChar = text.charAt(index + 1);
+  const addNewline = nextChar == "\n" || nextChar == "\r";
+
+  return shebang + (addNewline ? "\n" : "") + format(programText, opts);
 }
 
 module.exports = {

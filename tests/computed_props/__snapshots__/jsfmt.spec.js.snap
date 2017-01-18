@@ -34,8 +34,10 @@ var ColorIdToNumber = {
 };
 
 (ColorIdToNumber[ColorId.RED]: \"ffffff\");
+
 // oops
 ColorIdToNumber.XXX;
+
 // oops
 module.exports = { ColorId, ColorNumber };
 "
@@ -61,6 +63,7 @@ var ColorIdToNumber = {
 };
 
 (ColorIdToNumber[ColorId.GREEN]: \"ffffff\");
+
 // oops
 module.exports = ColorIdToNumber;
 "
@@ -124,6 +127,7 @@ var obj = {
   }
 };
 var x: string = obj[\"m\"]();
+
 // error, number ~> string
 var arr = [
   function() {
