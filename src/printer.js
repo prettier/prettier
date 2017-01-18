@@ -1958,14 +1958,18 @@ function printMemberLookup(path, print) {
 // pass in a function, we treat it like the above.
 function printMemberChain(node, options, print) {
   const nodes = [];
-  let curr = node;
+  let leftmost = node;
+  let leftmostParent = null;
   // Traverse down and gather up all of the calls on member
   // expressions. This flattens it out into a list that we can
   // easily analyze.
-  while (curr.type === "CallExpression" &&
-    curr.callee.type === "MemberExpression") {
-    nodes.push({ member: curr.callee, call: curr });
-    curr = curr.callee.object;
+  while (
+    leftmost.type === "CallExpression" &&
+      leftmost.callee.type === "MemberExpression"
+  ) {
+    nodes.push({ member: leftmost.callee, call: leftmost });
+    leftmostParent = leftmost;
+    leftmost = leftmost.callee.object;
   }
   nodes.reverse();
 
@@ -1989,7 +1993,7 @@ function printMemberChain(node, options, print) {
     nodes.filter(n => argIsFunction(n.call)).length > 1;
 
   if (hasMultipleLookups) {
-    const currPrinted = print(FastPath.from(curr));
+    const leftmostPrinted = FastPath.from(leftmostParent).call(print, "callee", "object");
     const nodesPrinted = nodes.map(
       node =>
         ({
@@ -1998,7 +2002,7 @@ function printMemberChain(node, options, print) {
         })
     );
     const fullyExpanded = concat([
-      currPrinted,
+      leftmostPrinted,
       concat(
         nodesPrinted.map(node => {
           return indent(
@@ -2022,7 +2026,7 @@ function printMemberChain(node, options, print) {
     } else {
       return conditionalGroup([
         concat([
-          currPrinted,
+          leftmostPrinted,
           concat(
             nodesPrinted.map(node => {
               return concat([ node.property, node.args ]);
