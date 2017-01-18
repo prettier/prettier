@@ -179,15 +179,18 @@ function genericPrintNoParens(path, options, print) {
         ])
       );
     case "BinaryExpression":
-    case "LogicalExpression":
-      return group(
-        concat([
-          path.call(print, "left"),
-          " ",
-          n.operator,
-          indent(options.tabWidth, concat([ line, path.call(print, "right") ]))
-        ])
-      );
+    case "LogicalExpression": {
+      const parts = [];
+      printBinaryishExpressions(path, parts, print, options);
+
+      return group(concat([
+        // Don't include the initial expression in the indentation
+        // level. The first item is guaranteed to be the first
+        // left-most expression.
+        parts.length > 0 ? parts[0] : "",
+        indent(options.tabWidth, concat(parts.slice(1)))
+      ]));
+    }
     case "AssignmentPattern":
       return concat([
         path.call(print, "left"),
@@ -2252,6 +2255,55 @@ function maybeWrapJSXElementInParens(path, elem, options) {
       ifBreak(")")
     ])
   );
+}
+
+function isBinaryish(node) {
+  return node.type === "BinaryExpression" || node.type === "LogicalExpression";
+}
+
+// For binary expressions to be consistent, we need to group
+// subsequent operators with the same precedence level under a single
+// group. Otherwise they will be nested such that some of them break
+// onto new lines but not all. Operators with the same precedence
+// level should either all break or not. Because we group them by
+// precedence level and the AST is structured based on precedence
+// level, things are naturally broken up correctly, i.e. `&&` is
+// broken before `+`.
+function printBinaryishExpressions(path, parts, print) {
+  let node = path.getValue();
+
+  // We treat BinaryExpression and LogicalExpression nodes the same.
+  if(isBinaryish(node)) {
+    // Put all operators with the same precedence level in the same
+    // group. The reason we only need to do this with the `left`
+    // expression is because given an expression like `1 + 2 - 3`, it
+    // is always parsed like `((1 + 2) - 3)`, meaning the `left` side
+    // is where the rest of the expression will exist. Binary
+    // expressions on the right side mean they have a difference
+    // precedence level and should be treated as a separate group, so
+    // print them normally.
+    if(util.getPrecedence(node.left.operator) === util.getPrecedence(node.operator)) {
+      // Flatten them out by recursively calling this function. The
+      // printed values will all be appended to `parts`.
+      path.call(left => printBinaryishExpressions(left, parts, print), "left");
+    }
+    else {
+      parts.push(path.call(print, "left"));
+    }
+
+    parts.push(
+      " ",
+      node.operator,
+      line,
+      path.call(print, "right")
+    );
+  }
+  else {
+    // Our stopping case. Simply print the node normally.
+    parts.push(path.call(print));
+  }
+
+  return parts;
 }
 
 function adjustClause(clause, options, forceSpace) {
