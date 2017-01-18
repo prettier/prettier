@@ -1,17 +1,17 @@
 {
-  "name": "prettier",
+  "name": "prettier-with-tabs",
   "version": "0.0.8",
   "bin": {
     "prettier": "./bin/prettier.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jlongster/prettier.git"
+    "url": "git+https://github.com/arijs/prettier-with-tabs.git"
   },
-  "author": "James Long",
+  "author": "Rafael Hengles",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jlongster/prettier/issues"
+    "url": "https://github.com/arijs/prettier-with-tabs/issues"
   },
   "main": "./index.js",
   "dependencies": {
