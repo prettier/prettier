@@ -370,6 +370,7 @@ export default (function() {})();
 (function() {})()\`\`;
 (function() {})\`\`;
 new (function() {});
+(function() {})
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 (function() {
 }).length;
@@ -383,6 +384,8 @@ export default (function() {
 })\`\`;
 new (function() {
 })();
+(function() {
+});
 "
 `;
 
