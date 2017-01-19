@@ -118,7 +118,7 @@ function decorateComment(node, comment, text) {
   }
 }
 
-exports.attach = function(comments, ast, text) {
+function attach(comments, ast, text) {
   if (!isArray.check(comments)) {
     return;
   }
@@ -281,9 +281,8 @@ function printDanglingComments(path, print, options) {
   }, "comments");
   return concat(parts);
 }
-exports.printDanglingComments = printDanglingComments;
 
-exports.printComments = function(path, print, options) {
+function printComments(path, print, options) {
   var value = path.getValue();
   var parent = path.getParentNode();
   var printed = print(path);
@@ -331,3 +330,9 @@ exports.printComments = function(path, print, options) {
   leadingParts.push.apply(leadingParts, trailingParts);
   return concat(leadingParts);
 };
+
+module.exports = {
+  attach,
+  printComments,
+  printDanglingComments,
+}
