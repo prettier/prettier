@@ -90,19 +90,19 @@ into account, wrapping code when necessary.
 Install:
 
 ```
-yarn add prettier
+yarn add prettier-with-tabs
 ```
 
 You can install it globally if you like:
 
 ```
-yarn global add prettier
+yarn global add prettier-with-tabs
 ```
 
 *We're defaulting to `yarn` but you can use `npm` if you like:*
 
 ```
-npm install [-g] prettier
+npm install [-g] prettier-with-tabs
 ```
 
 ### CLI
@@ -130,7 +130,7 @@ The API is a single function exported as `format`. The options
 argument is optional, and all of the defaults are shown below:
 
 ```js
-const prettier = require("prettier");
+const prettier = require("prettier-with-tabs");
 
 prettier.format(source, {
   // Indent lines with tabs
