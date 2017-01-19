@@ -621,15 +621,37 @@ function genericPrintNoParens(path, options, print) {
         } else {
           parts.push(printPropertyKey(path, print));
         }
-        let isBinaryExpression = n.value.type === "BinaryExpression";
+        let noBreak = [
+          "ArrayExpression",
+          "ArrayPattern",
+          "ArrowFunctionExpression",
+          "AssignmentPattern",
+          "CallExpression",
+          "FunctionExpression",
+          "Identifier",
+          "Literal",
+          "LogicalExpression",
+          "MemberExpression",
+          "NewExpression",
+          "ObjectExpression",
+          "ObjectPattern",
+          "StringLiteral",
+          "ThisExpression",
+          "TypeCastExpression"
+        ].reduce((stack, type) => stack || (n.value.type === type), false)
         let printedValue = path.call(print, "value")
         parts.push(
-          multilineGroup(
+          group(
             concat([
-              isBinaryExpression ? ":" : ": ",
-              isBinaryExpression
-                ? indent(options.tabWidth, concat([line, printedValue]))
-                : printedValue
+              multilineGroup(
+                concat([
+                  noBreak ? ": " : ": (",
+                  noBreak
+                    ? printedValue
+                    : indent(options.tabWidth, concat([line, printedValue]))
+                ])
+              ),
+              noBreak ? "" : concat([line, ")"])
             ])
           )
         );
