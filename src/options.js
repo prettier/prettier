@@ -10,17 +10,27 @@ var defaults = {
   // Controls the printing of trailing commas wherever possible
   trailingComma: false,
   // Controls the printing of spaces inside array and objects
-  bracketSpacing: true
+  bracketSpacing: true,
+  // Which parser to use. Valid options are 'flow' and 'babylon'
+  parser: 'babylon'
 };
 
 // Copy options and fill in default values.
 function normalize(options) {
   const normalized = Object.assign({}, options || {});
+
+  // For backward compatibility. Deprecated in 0.0.10
+  if ('useFlowParser' in normalized) {
+    normalized.parser = normalized.useFlowParser ? 'flow' : 'babylon';
+    delete normalized.useFlowParser;
+  }
+
   Object.keys(defaults).forEach(k => {
     if (normalized[k] == null) {
       normalized[k] = defaults[k];
     }
   });
+
   return normalized;
 };
 
