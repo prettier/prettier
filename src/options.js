@@ -13,7 +13,7 @@ var defaults = {
 
 // Copy options and fill in default values.
 exports.normalize = function(options) {
-  const normalized = Object.assign({}, options);
+  const normalized = Object.assign({}, options || {});
   Object.keys(defaults).forEach(k => {
     if (normalized[k] == null) {
       normalized[k] = defaults[k];

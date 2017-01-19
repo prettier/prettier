@@ -1,9 +1,11 @@
 "use strict";
 const babylon = require("babylon");
-const Printer = require("./src/printer").Printer;
+const printAstToDoc = require("./src/printer").printAstToDoc;
 const flowParser = require("flow-parser");
 const comments = require("./src/comments");
 const version = require("./package.json").version;
+const pp = require("./src/pp");
+const normalizeOptions = require("./src/options").normalize;
 
 var babylonOptions = {
   sourceType: "module",
@@ -25,8 +27,9 @@ var babylonOptions = {
 };
 
 function format(text, opts) {
-  opts = opts || {};
   let ast;
+
+  opts = normalizeOptions(opts);
 
   if (opts.useFlowParser) {
     ast = flowParser.parse(text, {
@@ -55,8 +58,8 @@ function format(text, opts) {
   ast.tokens = [];
   opts.originalText = text;
 
-  const printer = new Printer(opts);
-  return printer.print(ast);
+  const doc = printAstToDoc(ast, opts)
+  return pp.print(opts.printWidth, doc);
 }
 
 function formatWithShebang(text, opts) {
