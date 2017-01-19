@@ -613,7 +613,7 @@ function genericPrintNoParens(path, options, print) {
         if (n.computed) {
           parts.push("[", path.call(print, "key"), "]");
         } else {
-          parts.push(printPropertyKey(path, print));
+          parts.push(printPropertyKey(path, options, print));
         }
         parts.push(": ", path.call(print, "value"));
       }
@@ -1043,7 +1043,18 @@ function genericPrintNoParens(path, options, print) {
     case "JSXSpreadAttribute":
       return concat([ "{...", path.call(print, "argument"), "}" ]);
     case "JSXExpressionContainer":
-      return group(
+      const shouldIndent =
+        n.expression.type !== 'ArrayExpression' &&
+        n.expression.type !== 'ObjectExpression' &&
+        n.expression.type !== 'ArrowFunctionExpression' &&
+        n.expression.type !== 'CallExpression' &&
+        n.expression.type !== 'FunctionExpression';
+
+      if (!shouldIndent) {
+        return concat(["{", path.call(print, "expression"), "}"]);
+      }
+
+      return multilineGroup(
         concat([
           "{",
           indent(
@@ -1125,7 +1136,7 @@ function genericPrintNoParens(path, options, print) {
       if (n.computed) {
         key = concat([ "[", path.call(print, "key"), "]" ]);
       } else {
-        key = printPropertyKey(path, print);
+        key = printPropertyKey(path, options, print);
         if (n.variance === "plus") {
           key = concat([ "+", key ]);
         } else if (n.variance === "minus") {
@@ -1582,12 +1593,15 @@ function printStatementSequence(path, options, print) {
   return join(hardline, printed);
 }
 
-function printPropertyKey(path, print) {
+function printPropertyKey(path, options, print) {
   var node = path.getNode().key;
   if (
     (node.type === "StringLiteral" ||
       node.type === "Literal" && typeof node.value === "string") &&
-      isIdentifierName(node.value)
+      isIdentifierName(node.value) &&
+      // There's a bug in the flow parser where it throws if there are
+      // unquoted unicode literals as keys. Let's quote them for now.
+      (!options.useFlowParser || node.value.match(/[a-zA-Z0-9$_]/))
   ) {
     // 'a' -> a
     return node.value;
@@ -1620,7 +1634,7 @@ function printMethod(path, options, print) {
     parts.push(kind, " ");
   }
 
-  var key = printPropertyKey(path, print);
+  var key = printPropertyKey(path, options, print);
 
   if (node.computed) {
     key = concat([ "[", key, "]" ]);
@@ -1770,7 +1784,7 @@ function printObjectMethod(path, options, print) {
     return printMethod(path, options, print);
   }
 
-  var key = printPropertyKey(path, print);
+  var key = printPropertyKey(path, options, print);
 
   if (objMethod.computed) {
     parts.push("[", key, "]");
@@ -2057,11 +2071,20 @@ function printJSXChildren(path, options, print) {
       const isLiteral = namedTypes.Literal.check(child);
 
       if (isLiteral && typeof child.value === "string") {
-        if (/\S/.test(child.value)) {
-          const beginBreak = child.value.match(/^\s*\n/);
-          const endBreak = child.value.match(/\n\s*$/);
-          const beginSpace = child.value.match(/^\s+/);
-          const endSpace = child.value.match(/\s+$/);
+        // There's a bug in the flow parser where it doesn't unescape the
+        // value field. To workaround this, we can use rawValue which is
+        // correctly escaped (since it parsed).
+        // We really want to use value and re-escape it ourself when possible
+        // though.
+        const value = options.useFlowParser ?
+          child.raw :
+          util.htmlEscapeInsideAngleBracket(child.value);
+
+        if (/\S/.test(value)) {
+          const beginBreak = value.match(/^\s*\n/);
+          const endBreak = value.match(/\n\s*$/);
+          const beginSpace = value.match(/^\s+/);
+          const endSpace = value.match(/\s+$/);
 
           if (beginBreak) {
             children.push(hardline);
@@ -2069,7 +2092,7 @@ function printJSXChildren(path, options, print) {
             children.push(jsxWhitespace);
           }
 
-          children.push(child.value.replace(/^\s+|\s+$/g, ""));
+          children.push(value.replace(/^\s+|\s+$/g, ""));
 
           if (endBreak) {
             children.push(hardline);
@@ -2077,10 +2100,10 @@ function printJSXChildren(path, options, print) {
             if (endSpace) children.push(jsxWhitespace);
             children.push(softline);
           }
-        } else if (/\n/.test(child.value)) {
+        } else if (/\n/.test(value)) {
           // TODO: add another hardline if >1 newline appeared. (also above)
           children.push(hardline);
-        } else if (/\s/.test(child.value)) {
+        } else if (/\s/.test(value)) {
           // whitespace-only without newlines,
           // eg; a single space separating two elements
           children.push(jsxWhitespace);
