@@ -268,6 +268,21 @@ function printTrailingComment(commentPath, print, options) {
   ]);
 }
 
+function printDanglingComments(path, print, options) {
+  const text = options.originalText;
+
+  const parts = [];
+  path.each(commentPath => {
+    const comment = commentPath.getValue();
+    if(!comment.leading && !comment.trailing) {
+      parts.push(util.newlineExistsBefore(text, locStart(comment)) ? hardline : " ");
+      parts.push(commentPath.call(print));
+    }
+  }, "comments");
+  return concat(parts);
+}
+exports.printDanglingComments = printDanglingComments;
+
 exports.printComments = function(path, print, options) {
   var value = path.getValue();
   var parent = path.getParentNode();
