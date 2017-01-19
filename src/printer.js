@@ -1,30 +1,34 @@
 "use strict";
 var assert = require("assert");
 var comments = require("./comments");
-var pp = require("./pp");
-var fromString = pp.fromString;
-var concat = pp.concat;
-var isEmpty = pp.isEmpty;
-var join = pp.join;
-var line = pp.line;
-var hardline = pp.hardline;
-var softline = pp.softline;
-var literalline = pp.literalline;
-var group = pp.group;
-var multilineGroup = pp.multilineGroup;
-var indent = pp.indent;
-var getFirstString = pp.getFirstString;
-var hasHardLine = pp.hasHardLine;
-var conditionalGroup = pp.conditionalGroup;
-var ifBreak = pp.ifBreak;
-var types = require("ast-types");
-var namedTypes = types.namedTypes;
-var isString = types.builtInTypes.string;
-var isObject = types.builtInTypes.object;
 var FastPath = require("./fast-path");
 var util = require("./util");
 var isIdentifierName = require("esutils").keyword.isIdentifierNameES6;
 var jsesc = require("jsesc");
+
+var docBuilders = require("./doc-builders");
+var fromString = docBuilders.fromString;
+var concat = docBuilders.concat;
+var join = docBuilders.join;
+var line = docBuilders.line;
+var hardline = docBuilders.hardline;
+var softline = docBuilders.softline;
+var literalline = docBuilders.literalline;
+var group = docBuilders.group;
+var multilineGroup = docBuilders.multilineGroup;
+var indent = docBuilders.indent;
+var conditionalGroup = docBuilders.conditionalGroup;
+var ifBreak = docBuilders.ifBreak;
+
+var docUtils = require("./doc-utils");
+var hasHardLine = docUtils.hasHardLine;
+var getFirstString = docUtils.getFirstString;
+var isEmpty = docUtils.isEmpty;
+
+var types = require("ast-types");
+var namedTypes = types.namedTypes;
+var isString = types.builtInTypes.string;
+var isObject = types.builtInTypes.object;
 
 function maybeAddParens(path, lines) {
   return path.needsParens() ? concat([ "(", lines, ")" ]) : lines;
