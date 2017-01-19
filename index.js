@@ -7,25 +7,25 @@ const printDocToString = require("./src/doc-printer").printDocToString;
 const normalizeOptions = require("./src/options").normalize;
 const parser = require("./src/parser");
 
-function format(text, opts) {
-  let ast;
-
-  opts = normalizeOptions(opts);
-
+function parse(text, opts) {
   if (opts.useFlowParser) {
-    ast = parser.parseWithFlow(text, opts.filename);
-  } else {
-    ast = parser.parseWithBabylon(text);
+    return parser.parseWithFlow(text, opts.filename);
   }
+  return parser.parseWithBabylon(text);
+}
 
-  // Interleave comment nodes
+function attachComments(text, ast, opts) {
   if (ast.comments) {
     comments.attach(ast.comments, ast, text);
     ast.comments = [];
   }
   ast.tokens = [];
   opts.originalText = text;
+}
 
+function format(text, opts) {
+  const ast = parse(text, opts);
+  attachComments(text, ast, opts)
   const doc = printAstToDoc(ast, opts)
   const str = printDocToString(doc, opts.printWidth)
   return str;
@@ -47,7 +47,7 @@ function formatWithShebang(text, opts) {
 
 module.exports = {
   format: function(text, opts) {
-    return formatWithShebang(text, opts);
+    return formatWithShebang(text, normalizeOptions(opts));
   },
   version: version
 };
