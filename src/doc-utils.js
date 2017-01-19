@@ -1,3 +1,4 @@
+"use strict";
 
 function iterDoc(topDoc, func) {
   const docs = [ topDoc ];

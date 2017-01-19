@@ -1,3 +1,5 @@
+"use strict";
+
 const assert = require("assert");
 const utils = require("./doc-utils");
 const hasHardLine = utils.hasHardLine;
