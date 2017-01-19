@@ -17,7 +17,6 @@ var getFirstString = pp.getFirstString;
 var hasHardLine = pp.hasHardLine;
 var conditionalGroup = pp.conditionalGroup;
 var ifBreak = pp.ifBreak;
-var normalizeOptions = require("./options").normalize;
 var types = require("ast-types");
 var namedTypes = types.namedTypes;
 var isString = types.builtInTypes.string;
@@ -26,36 +25,6 @@ var FastPath = require("./fast-path");
 var util = require("./util");
 var isIdentifierName = require("esutils").keyword.isIdentifierNameES6;
 var jsesc = require("jsesc");
-
-function Printer(originalOptions) {
-  assert.ok(this instanceof Printer);
-
-  var options = normalizeOptions(originalOptions);
-
-  assert.notStrictEqual(options, originalOptions);
-
-  // Print the entire AST generically.
-  function printGenerically(path) {
-    return comments.printComments(
-      path,
-      p => genericPrint(p, options, printGenerically),
-      options
-    );
-  }
-
-  this.print = function(ast) {
-    if (!ast) {
-      return "";
-    }
-
-    var path = FastPath.from(ast);
-    var res = printGenerically(path);
-
-    return pp.print(options.printWidth, res);
-  };
-}
-
-exports.Printer = Printer;
 
 function maybeAddParens(path, lines) {
   return path.needsParens() ? concat([ "(", lines, ")" ]) : lines;
@@ -2379,3 +2348,19 @@ function isLastStatement(path) {
   const body = parent.body;
   return body && body[body.length - 1] === node;
 }
+
+function printAstToDoc(ast, options) {
+  function printGenerically(path) {
+    return comments.printComments(
+      path,
+      p => genericPrint(p, options, printGenerically),
+      options
+    );
+  }
+
+  return printGenerically(FastPath.from(ast));
+}
+
+module.exports = {
+  printAstToDoc
+};
