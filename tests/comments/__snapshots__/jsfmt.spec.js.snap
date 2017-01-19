@@ -179,6 +179,7 @@ Observable
 
 // Comments disappear in empty blocks
 if (1) {
+  // Comment
 }
 
 // Comments trigger invalid JavaScript in-between else if
@@ -374,6 +375,7 @@ div />;
 
 // Comments disappear in empty blocks
 if (1) {
+  // Comment
 }
 
 // Comments trigger invalid JavaScript in-between else if
