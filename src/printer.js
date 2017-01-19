@@ -612,7 +612,7 @@ function genericPrintNoParens(path, options, print) {
         if (n.computed) {
           parts.push("[", path.call(print, "key"), "]");
         } else {
-          parts.push(printPropertyKey(path, print));
+          parts.push(printPropertyKey(path, options, print));
         }
         parts.push(": ", path.call(print, "value"));
       }
@@ -1124,7 +1124,7 @@ function genericPrintNoParens(path, options, print) {
       if (n.computed) {
         key = concat([ "[", path.call(print, "key"), "]" ]);
       } else {
-        key = printPropertyKey(path, print);
+        key = printPropertyKey(path, options, print);
         if (n.variance === "plus") {
           key = concat([ "+", key ]);
         } else if (n.variance === "minus") {
@@ -1581,12 +1581,15 @@ function printStatementSequence(path, options, print) {
   return join(hardline, printed);
 }
 
-function printPropertyKey(path, print) {
+function printPropertyKey(path, options, print) {
   var node = path.getNode().key;
   if (
     (node.type === "StringLiteral" ||
       node.type === "Literal" && typeof node.value === "string") &&
-      isIdentifierName(node.value)
+      isIdentifierName(node.value) &&
+      // There's a bug in the flow parser where it throws if there are
+      // unquoted unicode literals as keys. Let's quote them for now.
+      (!options.useFlowParser || node.value.match(/[a-zA-Z0-9$_]/))
   ) {
     // 'a' -> a
     return node.value;
@@ -1619,7 +1622,7 @@ function printMethod(path, options, print) {
     parts.push(kind, " ");
   }
 
-  var key = printPropertyKey(path, print);
+  var key = printPropertyKey(path, options, print);
 
   if (node.computed) {
     key = concat([ "[", key, "]" ]);
@@ -1769,7 +1772,7 @@ function printObjectMethod(path, options, print) {
     return printMethod(path, options, print);
   }
 
-  var key = printPropertyKey(path, print);
+  var key = printPropertyKey(path, options, print);
 
   if (objMethod.computed) {
     parts.push("[", key, "]");
