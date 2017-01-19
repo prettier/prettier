@@ -1,6 +1,6 @@
 "use strict";
 var assert = require("assert");
-var printComments = require("./comments").printComments;
+var comments = require("./comments");
 var pp = require("./pp");
 var fromString = pp.fromString;
 var concat = pp.concat;
@@ -36,7 +36,7 @@ function Printer(originalOptions) {
 
   // Print the entire AST generically.
   function printGenerically(path) {
-    return printComments(
+    return comments.printComments(
       path,
       p => genericPrint(p, options, printGenerically),
       options
@@ -509,6 +509,14 @@ function genericPrintNoParens(path, options, print) {
 
       if (hasContent) {
         parts.push(indent(options.tabWidth, concat([ hardline, naked ])));
+      }
+      else if(n.comments) {
+        parts.push(
+          indent(
+            options.tabWidth,
+            comments.printDanglingComments(path, print, options)
+          )
+        );
       }
 
       parts.push(hardline, "}");
