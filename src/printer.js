@@ -1742,7 +1742,7 @@ function printFunctionParams(path, print, options) {
   }
 
   const lastParam = util.getLast(path.getValue().params);
-  const canHaveTrailingComma = lastParam.type !== "RestElement" && !fun.rest;
+  const canHaveTrailingComma = !(lastParam && lastParam.type === "RestElement") && !fun.rest;
 
   return concat([
     "(",

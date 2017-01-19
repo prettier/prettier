@@ -1,6 +1,6 @@
 # 0.0.9
 
-[link](https://github.com/jlongster/prettier/compare/0192d58...a7405257)
+[link](https://github.com/jlongster/prettier/compare/0.0.8...0.0.9)
 
 * Workaround flow bug parsing astral unicode characters (#277)
 * Allow specifying the major mode that `defun-before-save` will use. (#276
