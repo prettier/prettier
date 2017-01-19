@@ -7,7 +7,6 @@ var isIdentifierName = require("esutils").keyword.isIdentifierNameES6;
 var jsesc = require("jsesc");
 
 var docBuilders = require("./doc-builders");
-var fromString = docBuilders.fromString;
 var concat = docBuilders.concat;
 var join = docBuilders.join;
 var line = docBuilders.line;
@@ -96,11 +95,11 @@ function genericPrintNoParens(path, options, print) {
   var n = path.getValue();
 
   if (!n) {
-    return fromString("");
+    return "";
   }
 
   if (typeof n === "string") {
-    return fromString(n, options);
+    return n;
   }
 
   // TODO: For some reason NumericLiteralTypeAnnotation is not
@@ -137,7 +136,7 @@ function genericPrintNoParens(path, options, print) {
     // Babel extension.
     case "Noop":
     case "EmptyStatement":
-      return fromString("");
+      return "";
     case "ExpressionStatement":
       return concat([ path.call(print, "expression"), ";" ]);
     case // Babel extension.
@@ -355,7 +354,7 @@ function genericPrintNoParens(path, options, print) {
 
       return concat(parts);
     case "ExportBatchSpecifier":
-      return fromString("*");
+      return "*"
     case "ImportNamespaceSpecifier":
       parts.push("* as ");
 
@@ -656,15 +655,15 @@ function genericPrintNoParens(path, options, print) {
     case "SequenceExpression":
       return join(", ", path.map(print, "expressions"));
     case "ThisExpression":
-      return fromString("this");
+      return "this"
     case "Super":
-      return fromString("super");
+      return "super"
     case // Babel 6 Literal split
     "NullLiteral":
-      return fromString("null");
+      return "null"
     case // Babel 6 Literal split
     "RegExpLiteral":
-      return fromString(n.extra.raw);
+      return n.extra.raw;
     // Babel 6 Literal split
     case "NumericLiteral":
       return n.extra.raw;
@@ -674,7 +673,7 @@ function genericPrintNoParens(path, options, print) {
     case "StringLiteral":
     case "Literal":
       if (typeof n.value === "number") return n.raw;
-      if (typeof n.value !== "string") return fromString(n.value, options);
+      if (typeof n.value !== "string") return "" + n.value;
 
       return nodeStr(n, options);
     case // Babel 6
@@ -682,7 +681,7 @@ function genericPrintNoParens(path, options, print) {
       return path.call(print, "value");
     case // Babel 6
     "DirectiveLiteral":
-      return fromString(nodeStr(n, options));
+      return nodeStr(n, options);
     case "ModuleSpecifier":
       if (n.local) {
         throw new Error("The ESTree ModuleSpecifier type should be abstract");
@@ -690,7 +689,7 @@ function genericPrintNoParens(path, options, print) {
 
       // The Esprima ModuleSpecifier type is just a string-valued
       // Literal identifying the imported-from module.
-      return fromString(nodeStr(n, options), options);
+      return nodeStr(n, options);
     case "UnaryExpression":
       parts.push(n.operator);
 
@@ -990,7 +989,7 @@ function genericPrintNoParens(path, options, print) {
       return concat(parts);
     // JSX extensions below.
     case "DebuggerStatement":
-      return fromString("debugger;");
+      return "debugger;"
     case "JSXAttribute":
       parts.push(path.call(print, "name"));
 
@@ -1009,7 +1008,7 @@ function genericPrintNoParens(path, options, print) {
 
       return concat(parts);
     case "JSXIdentifier":
-      return fromString(n.name, options);
+      return "" + n.name;
     case "JSXNamespacedName":
       return join(":", [
         path.call(print, "namespace"),
@@ -1082,7 +1081,7 @@ function genericPrintNoParens(path, options, print) {
       ]);
     case "ClassBody":
       if (n.body.length === 0) {
-        return fromString("{}");
+        return "{}"
       }
 
       return concat([
@@ -1209,17 +1208,17 @@ function genericPrintNoParens(path, options, print) {
       return concat([ "[", join(", ", path.map(print, "types")), "]" ]);
     case "ExistentialTypeParam":
     case "ExistsTypeAnnotation":
-      return fromString("*", options);
+      return "*"
     case "EmptyTypeAnnotation":
-      return fromString("empty", options);
+      return "empty"
     case "AnyTypeAnnotation":
-      return fromString("any", options);
+      return "any"
     case "MixedTypeAnnotation":
-      return fromString("mixed", options);
+      return "mixed"
     case "ArrayTypeAnnotation":
       return concat([ path.call(print, "elementType"), "[]" ]);
     case "BooleanTypeAnnotation":
-      return fromString("boolean", options);
+      return "boolean"
     case "NumericLiteralTypeAnnotation":
     case "BooleanLiteralTypeAnnotation":
       return "" + n.value;
@@ -1311,7 +1310,7 @@ function genericPrintNoParens(path, options, print) {
       }
 
       parts.push(
-        fromString("interface ", options),
+        "interface ",
         path.call(print, "id"),
         path.call(print, "typeParameters"),
         " "
@@ -1366,11 +1365,11 @@ function genericPrintNoParens(path, options, print) {
     case "NullableTypeAnnotation":
       return concat([ "?", path.call(print, "typeAnnotation") ]);
     case "NullLiteralTypeAnnotation":
-      return fromString("null", options);
+      return "null"
     case "ThisTypeAnnotation":
-      return fromString("this", options);
+      return "this"
     case "NumberTypeAnnotation":
-      return fromString("number", options);
+      return "number"
     case "ObjectTypeCallProperty":
       if (n.static) {
         parts.push("static ");
@@ -1416,13 +1415,13 @@ function genericPrintNoParens(path, options, print) {
         path.call(print, "id")
       ]);
     case "StringLiteralTypeAnnotation":
-      return fromString(nodeStr(n, options), options);
+      return nodeStr(n, options);
     case "NumberLiteralTypeAnnotation":
       assert.strictEqual(typeof n.value, "number");
 
-      return fromString("" + n.value, options);
+      return "" + n.value;
     case "StringTypeAnnotation":
-      return fromString("string", options);
+      return "string"
     case "DeclareTypeAlias":
     case "TypeAlias": {
       const parent = path.getParentNode(1);
@@ -1477,7 +1476,7 @@ function genericPrintNoParens(path, options, print) {
       return concat(parts);
     case "TypeofTypeAnnotation":
       return concat([
-        fromString("typeof ", options),
+        "typeof ",
         path.call(print, "argument")
       ]);
     case "VoidTypeAnnotation":

@@ -11,10 +11,6 @@ function assertDoc(val) {
   );
 }
 
-function fromString(text) {
-  return "" + text;
-}
-
 function concat(parts) {
   parts.forEach(assertDoc);
 
@@ -85,7 +81,6 @@ function join(sep, arr) {
 }
 
 module.exports = {
-  fromString,
   concat,
   join,
   line,
