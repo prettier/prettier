@@ -638,8 +638,8 @@ function genericPrintNoParens(path, options, print) {
           "StringLiteral",
           "ThisExpression",
           "TypeCastExpression"
-        ].reduce((stack, type) => stack || (n.value.type === type), false)
-        let printedValue = path.call(print, "value")
+        ].reduce((stack, type) => stack || (n.value.type === type), false);
+        let printedValue = path.call(print, "value");
         parts.push(
           group(
             concat([
