@@ -1823,9 +1823,9 @@ function printExportDeclaration(path, options, print) {
 
     if (
       decl.type === "ExportDefaultDeclaration" &&
-        (decl.declaration.type == "Identifier" ||
-          decl.declaration.type === "CallExpression" ||
-          typeIsFunction(decl.declaration.type))
+        (decl.declaration.type !== "ClassDeclaration" &&
+          decl.declaration.type !== "FunctionDeclaration" &&
+          decl.declaration.type !== "FunctionExpression")
     ) {
       parts.push(";");
     }
