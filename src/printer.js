@@ -1,61 +1,33 @@
 "use strict";
 var assert = require("assert");
 var comments = require("./comments");
-var pp = require("./pp");
-var fromString = pp.fromString;
-var concat = pp.concat;
-var isEmpty = pp.isEmpty;
-var join = pp.join;
-var line = pp.line;
-var hardline = pp.hardline;
-var softline = pp.softline;
-var literalline = pp.literalline;
-var group = pp.group;
-var multilineGroup = pp.multilineGroup;
-var indent = pp.indent;
-var getFirstString = pp.getFirstString;
-var hasHardLine = pp.hasHardLine;
-var conditionalGroup = pp.conditionalGroup;
-var ifBreak = pp.ifBreak;
-var normalizeOptions = require("./options").normalize;
-var types = require("ast-types");
-var namedTypes = types.namedTypes;
-var isString = types.builtInTypes.string;
-var isObject = types.builtInTypes.object;
 var FastPath = require("./fast-path");
 var util = require("./util");
 var isIdentifierName = require("esutils").keyword.isIdentifierNameES6;
 var jsesc = require("jsesc");
 
-function Printer(originalOptions) {
-  assert.ok(this instanceof Printer);
+var docBuilders = require("./doc-builders");
+var concat = docBuilders.concat;
+var join = docBuilders.join;
+var line = docBuilders.line;
+var hardline = docBuilders.hardline;
+var softline = docBuilders.softline;
+var literalline = docBuilders.literalline;
+var group = docBuilders.group;
+var multilineGroup = docBuilders.multilineGroup;
+var indent = docBuilders.indent;
+var conditionalGroup = docBuilders.conditionalGroup;
+var ifBreak = docBuilders.ifBreak;
 
-  var options = normalizeOptions(originalOptions);
+var docUtils = require("./doc-utils");
+var hasHardLine = docUtils.hasHardLine;
+var getFirstString = docUtils.getFirstString;
+var isEmpty = docUtils.isEmpty;
 
-  assert.notStrictEqual(options, originalOptions);
-
-  // Print the entire AST generically.
-  function printGenerically(path) {
-    return comments.printComments(
-      path,
-      p => genericPrint(p, options, printGenerically),
-      options
-    );
-  }
-
-  this.print = function(ast) {
-    if (!ast) {
-      return "";
-    }
-
-    var path = FastPath.from(ast);
-    var res = printGenerically(path);
-
-    return pp.print(options, res);
-  };
-}
-
-exports.Printer = Printer;
+var types = require("ast-types");
+var namedTypes = types.namedTypes;
+var isString = types.builtInTypes.string;
+var isObject = types.builtInTypes.object;
 
 function maybeAddParens(path, lines) {
   return path.needsParens() ? concat([ "(", lines, ")" ]) : lines;
@@ -123,11 +95,11 @@ function genericPrintNoParens(path, options, print) {
   var n = path.getValue();
 
   if (!n) {
-    return fromString("");
+    return "";
   }
 
   if (typeof n === "string") {
-    return fromString(n, options);
+    return n;
   }
 
   // var tw = options.tabWidth;
@@ -165,7 +137,7 @@ function genericPrintNoParens(path, options, print) {
     // Babel extension.
     case "Noop":
     case "EmptyStatement":
-      return fromString("");
+      return "";
     case "ExpressionStatement":
       return concat([ path.call(print, "expression"), ";" ]);
     case // Babel extension.
@@ -383,7 +355,7 @@ function genericPrintNoParens(path, options, print) {
 
       return concat(parts);
     case "ExportBatchSpecifier":
-      return fromString("*");
+      return "*"
     case "ImportNamespaceSpecifier":
       parts.push("* as ");
 
@@ -514,7 +486,7 @@ function genericPrintNoParens(path, options, print) {
       else if(n.comments) {
         parts.push(
           indent(
-            options.tabWidth,
+            1,
             comments.printDanglingComments(path, print, options)
           )
         );
@@ -684,15 +656,15 @@ function genericPrintNoParens(path, options, print) {
     case "SequenceExpression":
       return join(", ", path.map(print, "expressions"));
     case "ThisExpression":
-      return fromString("this");
+      return "this"
     case "Super":
-      return fromString("super");
+      return "super"
     case // Babel 6 Literal split
     "NullLiteral":
-      return fromString("null");
+      return "null"
     case // Babel 6 Literal split
     "RegExpLiteral":
-      return fromString(n.extra.raw);
+      return n.extra.raw;
     // Babel 6 Literal split
     case "NumericLiteral":
       return n.extra.raw;
@@ -702,7 +674,7 @@ function genericPrintNoParens(path, options, print) {
     case "StringLiteral":
     case "Literal":
       if (typeof n.value === "number") return n.raw;
-      if (typeof n.value !== "string") return fromString(n.value, options);
+      if (typeof n.value !== "string") return "" + n.value;
 
       return nodeStr(n, options);
     case // Babel 6
@@ -710,7 +682,7 @@ function genericPrintNoParens(path, options, print) {
       return path.call(print, "value");
     case // Babel 6
     "DirectiveLiteral":
-      return fromString(nodeStr(n, options));
+      return nodeStr(n, options);
     case "ModuleSpecifier":
       if (n.local) {
         throw new Error("The ESTree ModuleSpecifier type should be abstract");
@@ -718,7 +690,7 @@ function genericPrintNoParens(path, options, print) {
 
       // The Esprima ModuleSpecifier type is just a string-valued
       // Literal identifying the imported-from module.
-      return fromString(nodeStr(n, options), options);
+      return nodeStr(n, options);
     case "UnaryExpression":
       parts.push(n.operator);
 
@@ -1018,7 +990,7 @@ function genericPrintNoParens(path, options, print) {
       return concat(parts);
     // JSX extensions below.
     case "DebuggerStatement":
-      return fromString("debugger;");
+      return "debugger;"
     case "JSXAttribute":
       parts.push(path.call(print, "name"));
 
@@ -1037,7 +1009,7 @@ function genericPrintNoParens(path, options, print) {
 
       return concat(parts);
     case "JSXIdentifier":
-      return fromString(n.name, options);
+      return "" + n.name;
     case "JSXNamespacedName":
       return join(":", [
         path.call(print, "namespace"),
@@ -1110,7 +1082,7 @@ function genericPrintNoParens(path, options, print) {
       ]);
     case "ClassBody":
       if (n.body.length === 0) {
-        return fromString("{}");
+        return "{}"
       }
 
       return concat([
@@ -1237,17 +1209,17 @@ function genericPrintNoParens(path, options, print) {
       return concat([ "[", join(", ", path.map(print, "types")), "]" ]);
     case "ExistentialTypeParam":
     case "ExistsTypeAnnotation":
-      return fromString("*", options);
+      return "*"
     case "EmptyTypeAnnotation":
-      return fromString("empty", options);
+      return "empty"
     case "AnyTypeAnnotation":
-      return fromString("any", options);
+      return "any"
     case "MixedTypeAnnotation":
-      return fromString("mixed", options);
+      return "mixed"
     case "ArrayTypeAnnotation":
       return concat([ path.call(print, "elementType"), "[]" ]);
     case "BooleanTypeAnnotation":
-      return fromString("boolean", options);
+      return "boolean"
     case "NumericLiteralTypeAnnotation":
     case "BooleanLiteralTypeAnnotation":
       return "" + n.value;
@@ -1339,7 +1311,7 @@ function genericPrintNoParens(path, options, print) {
       }
 
       parts.push(
-        fromString("interface ", options),
+        "interface ",
         path.call(print, "id"),
         path.call(print, "typeParameters"),
         " "
@@ -1394,11 +1366,11 @@ function genericPrintNoParens(path, options, print) {
     case "NullableTypeAnnotation":
       return concat([ "?", path.call(print, "typeAnnotation") ]);
     case "NullLiteralTypeAnnotation":
-      return fromString("null", options);
+      return "null"
     case "ThisTypeAnnotation":
-      return fromString("this", options);
+      return "this"
     case "NumberTypeAnnotation":
-      return fromString("number", options);
+      return "number"
     case "ObjectTypeCallProperty":
       if (n.static) {
         parts.push("static ");
@@ -1444,13 +1416,13 @@ function genericPrintNoParens(path, options, print) {
         path.call(print, "id")
       ]);
     case "StringLiteralTypeAnnotation":
-      return fromString(nodeStr(n, options), options);
+      return nodeStr(n, options);
     case "NumberLiteralTypeAnnotation":
       assert.strictEqual(typeof n.value, "number");
 
-      return fromString("" + n.value, options);
+      return "" + n.value;
     case "StringTypeAnnotation":
-      return fromString("string", options);
+      return "string"
     case "DeclareTypeAlias":
     case "TypeAlias": {
       const parent = path.getParentNode(1);
@@ -1505,7 +1477,7 @@ function genericPrintNoParens(path, options, print) {
       return concat(parts);
     case "TypeofTypeAnnotation":
       return concat([
-        fromString("typeof ", options),
+        "typeof ",
         path.call(print, "argument")
       ]);
     case "VoidTypeAnnotation":
@@ -1609,7 +1581,7 @@ function printPropertyKey(path, options, print) {
       isIdentifierName(node.value) &&
       // There's a bug in the flow parser where it throws if there are
       // unquoted unicode literals as keys. Let's quote them for now.
-      (!options.useFlowParser || node.value.match(/[a-zA-Z0-9$_]/))
+      (options.parser !== 'flow' || node.value.match(/[a-zA-Z0-9$_]/))
   ) {
     // 'a' -> a
     return node.value;
@@ -1852,9 +1824,9 @@ function printExportDeclaration(path, options, print) {
 
     if (
       decl.type === "ExportDefaultDeclaration" &&
-        (decl.declaration.type == "Identifier" ||
-          decl.declaration.type === "CallExpression" ||
-          typeIsFunction(decl.declaration.type))
+        (decl.declaration.type !== "ClassDeclaration" &&
+          decl.declaration.type !== "FunctionDeclaration" &&
+          decl.declaration.type !== "FunctionExpression")
     ) {
       parts.push(";");
     }
@@ -2084,7 +2056,7 @@ function printJSXChildren(path, options, print) {
         // correctly escaped (since it parsed).
         // We really want to use value and re-escape it ourself when possible
         // though.
-        const value = options.useFlowParser ?
+        const value = options.parser === 'flow' ?
           child.raw :
           util.htmlEscapeInsideAngleBracket(child.value);
 
@@ -2360,7 +2332,7 @@ function nodeStr(node, options) {
   // Workaround a bug in the Javascript version of the flow parser where
   // astral unicode characters like \uD801\uDC28 are incorrectly parsed as
   // a sequence of \uFFFD.
-  if (options.useFlowParser && result.indexOf("\\uFFFD") !== -1) {
+  if (options.parser === 'flow' && result.indexOf("\\uFFFD") !== -1) {
     return node.raw;
   }
 
@@ -2380,3 +2352,19 @@ function isLastStatement(path) {
   const body = parent.body;
   return body && body[body.length - 1] === node;
 }
+
+function printAstToDoc(ast, options) {
+  function printGenerically(path) {
+    return comments.printComments(
+      path,
+      p => genericPrint(p, options, printGenerically),
+      options
+    );
+  }
+
+  return printGenerically(FastPath.from(ast));
+}
+
+module.exports = {
+  printAstToDoc
+};

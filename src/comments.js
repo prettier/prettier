@@ -3,10 +3,10 @@ var types = require("ast-types");
 var n = types.namedTypes;
 var isArray = types.builtInTypes.array;
 var isObject = types.builtInTypes.object;
-var pp = require("./pp");
-var fromString = pp.fromString;
-var concat = pp.concat;
-var hardline = pp.hardline;
+var docBuilders = require("./doc-builders");
+var fromString = docBuilders.fromString;
+var concat = docBuilders.concat;
+var hardline = docBuilders.hardline;
 var util = require("./util");
 var comparePos = util.comparePos;
 var childNodesCacheKey = require("private").makeUniqueKey();
@@ -118,7 +118,7 @@ function decorateComment(node, comment, text) {
   }
 }
 
-exports.attach = function(comments, ast, text) {
+function attach(comments, ast, text) {
   if (!isArray.check(comments)) {
     return;
   }
@@ -281,9 +281,8 @@ function printDanglingComments(path, print, options) {
   }, "comments");
   return concat(parts);
 }
-exports.printDanglingComments = printDanglingComments;
 
-exports.printComments = function(path, print, options) {
+function printComments(path, print, options) {
   var value = path.getValue();
   var parent = path.getParentNode();
   var printed = print(path);
@@ -331,3 +330,9 @@ exports.printComments = function(path, print, options) {
   leadingParts.push.apply(leadingParts, trailingParts);
   return concat(leadingParts);
 };
+
+module.exports = {
+  attach,
+  printComments,
+  printDanglingComments,
+}

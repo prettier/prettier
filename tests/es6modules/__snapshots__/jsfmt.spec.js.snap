@@ -324,7 +324,7 @@ export var str = \'asdf\';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-export default 42
+export default 42;
 export var str = \"asdf\";
 "
 `;
@@ -1366,7 +1366,7 @@ exports[`test export_default_function_expression.js 1`] = `
 "export default (function() {});
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export default function() {
-};
+}
 "
 `;
 

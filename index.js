@@ -1,62 +1,34 @@
 "use strict";
-const babylon = require("babylon");
-const Printer = require("./src/printer").Printer;
-const flowParser = require("flow-parser");
+
 const comments = require("./src/comments");
 const version = require("./package.json").version;
+const printAstToDoc = require("./src/printer").printAstToDoc;
+const printDocToString = require("./src/doc-printer").printDocToString;
+const normalizeOptions = require("./src/options").normalize;
+const parser = require("./src/parser");
 
-var babylonOptions = {
-  sourceType: "module",
-  allowImportExportEverywhere: false,
-  allowReturnOutsideFunction: false,
-  plugins: [
-    "jsx",
-    "flow",
-    "doExpressions",
-    "objectRestSpread",
-    "decorators",
-    "classProperties",
-    "exportExtensions",
-    "asyncGenerators",
-    "functionBind",
-    "functionSent",
-    "dynamicImport"
-  ]
-};
-
-function format(text, opts) {
-  opts = opts || {};
-  let ast;
-
-  if (opts.useFlowParser) {
-    ast = flowParser.parse(text, {
-      esproposal_class_instance_fields: true,
-      esproposal_class_static_fields: true,
-      esproposal_export_star_as: true
-    });
-    if (ast.errors.length > 0) {
-      let msg = ast.errors[0].message +
-        " on line " +
-        ast.errors[0].loc.start.line;
-      if (opts.filename) {
-        msg += " in file " + opts.filename;
-      }
-      throw new Error(msg);
-    }
-  } else {
-    ast = babylon.parse(text, babylonOptions);
+function parse(text, opts) {
+  if (opts.parser === 'flow') {
+    return parser.parseWithFlow(text, opts.filename);
   }
+  return parser.parseWithBabylon(text);
+}
 
-  // Interleave comment nodes
+function attachComments(text, ast, opts) {
   if (ast.comments) {
     comments.attach(ast.comments, ast, text);
     ast.comments = [];
   }
   ast.tokens = [];
   opts.originalText = text;
+}
 
-  const printer = new Printer(opts);
-  return printer.print(ast);
+function format(text, opts) {
+  const ast = parse(text, opts);
+  attachComments(text, ast, opts)
+  const doc = printAstToDoc(ast, opts)
+  const str = printDocToString(doc, opts);
+  return str;
 }
 
 function formatWithShebang(text, opts) {
@@ -75,7 +47,7 @@ function formatWithShebang(text, opts) {
 
 module.exports = {
   format: function(text, opts) {
-    return formatWithShebang(text, opts);
+    return formatWithShebang(text, normalizeOptions(opts));
   },
   version: version
 };

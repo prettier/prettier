@@ -12,7 +12,6 @@ function FastPath(value) {
 }
 
 var FPp = FastPath.prototype;
-module.exports = FastPath;
 
 // Static convenience function for coercing a value to a FastPath.
 FastPath.from = function(obj) {
@@ -80,19 +79,6 @@ FPp.getNode = function getNode(count) {
 
 FPp.getParentNode = function getParentNode(count) {
   return getNodeHelper(this, ~~count + 1);
-};
-
-// The length of the stack can be either even or odd, depending on whether
-// or not we have a name for the root value. The difference between the
-// index of the root value and the index of the final value is always
-// even, though, which allows us to return the root value in constant time
-// (i.e. without iterating backwards through the stack).
-FPp.getRootValue = function getRootValue() {
-  var s = this.stack;
-  if (s.length % 2 === 0) {
-    return s[1];
-  }
-  return s[0];
 };
 
 // Temporarily push properties named by string arguments given after the
@@ -422,14 +408,6 @@ function isBinary(node) {
   return n.BinaryExpression.check(node) || n.LogicalExpression.check(node);
 }
 
-function isUnaryLike(node) {
-  // I considered making SpreadElement and SpreadProperty subtypes
-  // of UnaryExpression, but they're not really Expression nodes.
-  return n.UnaryExpression.check(node) ||
-    n.SpreadElement && n.SpreadElement.check(node) ||
-    n.SpreadProperty && n.SpreadProperty.check(node);
-}
-
 function containsCallExpression(node) {
   if (n.CallExpression.check(node)) {
     return true;
@@ -528,3 +506,5 @@ FPp.firstInStatement = function() {
 
   return true;
 };
+
+module.exports = FastPath;
