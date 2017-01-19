@@ -222,6 +222,17 @@ function htmlEscapeInsideDoubleQuote(str) {
 }
 util.htmlEscapeInsideDoubleQuote = htmlEscapeInsideDoubleQuote;
 
+// http://stackoverflow.com/a/7124052
+function htmlEscapeInsideAngleBracket(str) {
+  return str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  // Intentionally disable the following since it is safe inside of a
+  // angle bracket context
+  //    .replace(/&/g, '&amp;')
+  //    .replace(/"/g, '&quot;')
+  //    .replace(/'/g, '&#39;')
+}
+util.htmlEscapeInsideAngleBracket = htmlEscapeInsideAngleBracket;
+
 var PRECEDENCE = {};
 [
   [ "||" ],

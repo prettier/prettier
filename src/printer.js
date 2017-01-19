@@ -2056,11 +2056,20 @@ function printJSXChildren(path, options, print) {
       const isLiteral = namedTypes.Literal.check(child);
 
       if (isLiteral && typeof child.value === "string") {
-        if (/\S/.test(child.value)) {
-          const beginBreak = child.value.match(/^\s*\n/);
-          const endBreak = child.value.match(/\n\s*$/);
-          const beginSpace = child.value.match(/^\s+/);
-          const endSpace = child.value.match(/\s+$/);
+        // There's a bug in the flow parser where it doesn't unescape the
+        // value field. To workaround this, we can use rawValue which is
+        // correctly escaped (since it parsed).
+        // We really want to use value and re-escape it ourself when possible
+        // though.
+        const value = options.useFlowParser ?
+          child.raw :
+          util.htmlEscapeInsideAngleBracket(child.value);
+
+        if (/\S/.test(value)) {
+          const beginBreak = value.match(/^\s*\n/);
+          const endBreak = value.match(/\n\s*$/);
+          const beginSpace = value.match(/^\s+/);
+          const endSpace = value.match(/\s+$/);
 
           if (beginBreak) {
             children.push(hardline);
@@ -2068,7 +2077,7 @@ function printJSXChildren(path, options, print) {
             children.push(jsxWhitespace);
           }
 
-          children.push(child.value.replace(/^\s+|\s+$/g, ""));
+          children.push(value.replace(/^\s+|\s+$/g, ""));
 
           if (endBreak) {
             children.push(hardline);
@@ -2076,10 +2085,10 @@ function printJSXChildren(path, options, print) {
             if (endSpace) children.push(jsxWhitespace);
             children.push(softline);
           }
-        } else if (/\n/.test(child.value)) {
+        } else if (/\n/.test(value)) {
           // TODO: add another hardline if >1 newline appeared. (also above)
           children.push(hardline);
-        } else if (/\s/.test(child.value)) {
+        } else if (/\s/.test(value)) {
           // whitespace-only without newlines,
           // eg; a single space separating two elements
           children.push(jsxWhitespace);
