@@ -146,7 +146,7 @@ prettier.format(source, {
   singleQuote: false,
 
   // Controls the printing of trailing commas wherever possible
-  trailingComma: false,
+  trailingComma: true,
 
   // Controls the printing of spaces inside array and objects
   bracketSpacing: true
