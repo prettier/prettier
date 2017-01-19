@@ -2,6 +2,7 @@
 const fs = require('fs');
 const prettier = require("../");
 const types = require("ast-types");
+const parser = require('../src/parser');
 
 const RUN_AST_TESTS = process.env["AST_COMPARE"];
 
@@ -75,12 +76,7 @@ function stripLocation(ast) {
 }
 
 function parse(string) {
-  const flowParser = require('flow-parser');
-  return stripLocation(flowParser.parse(string, {
-    esproposal_class_instance_fields: true,
-    esproposal_class_static_fields: true,
-    esproposal_export_star_as: true,
-  }));
+  return stripLocation(parser.parseWithFlow(string));
 }
 
 function prettyprint(src, filename, options) {

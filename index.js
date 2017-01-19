@@ -1,30 +1,11 @@
 "use strict";
-const babylon = require("babylon");
-const flowParser = require("flow-parser");
+
 const comments = require("./src/comments");
 const version = require("./package.json").version;
 const printAstToDoc = require("./src/printer").printAstToDoc;
 const printDocToString = require("./src/doc-printer").printDocToString;
 const normalizeOptions = require("./src/options").normalize;
-
-var babylonOptions = {
-  sourceType: "module",
-  allowImportExportEverywhere: false,
-  allowReturnOutsideFunction: false,
-  plugins: [
-    "jsx",
-    "flow",
-    "doExpressions",
-    "objectRestSpread",
-    "decorators",
-    "classProperties",
-    "exportExtensions",
-    "asyncGenerators",
-    "functionBind",
-    "functionSent",
-    "dynamicImport"
-  ]
-};
+const parser = require("./src/parser");
 
 function format(text, opts) {
   let ast;
@@ -32,22 +13,9 @@ function format(text, opts) {
   opts = normalizeOptions(opts);
 
   if (opts.useFlowParser) {
-    ast = flowParser.parse(text, {
-      esproposal_class_instance_fields: true,
-      esproposal_class_static_fields: true,
-      esproposal_export_star_as: true
-    });
-    if (ast.errors.length > 0) {
-      let msg = ast.errors[0].message +
-        " on line " +
-        ast.errors[0].loc.start.line;
-      if (opts.filename) {
-        msg += " in file " + opts.filename;
-      }
-      throw new Error(msg);
-    }
+    ast = parser.parseWithFlow(text, opts.filename);
   } else {
-    ast = babylon.parse(text, babylonOptions);
+    ast = parser.parseWithBabylon(text);
   }
 
   // Interleave comment nodes
