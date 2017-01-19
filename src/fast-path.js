@@ -1,5 +1,6 @@
 var assert = require("assert");
 var types = require("ast-types");
+var util = require("./util");
 var n = types.namedTypes;
 var Node = n.Node;
 var isArray = types.builtInTypes.array;
@@ -25,8 +26,7 @@ FastPath.from = function(obj) {
     // lightweight FastPath [..., name, value] stacks.
     var copy = Object.create(FastPath.prototype);
     var stack = [ obj.value ];
-    for (var pp; pp = obj.parentPath; obj = pp)
-      stack.push(obj.name, pp.value);
+    for (var pp; pp = obj.parentPath; obj = pp) stack.push(obj.name, pp.value);
     copy.stack = stack.reverse();
     return copy;
   }
@@ -90,9 +90,9 @@ FPp.getParentNode = function getParentNode(count) {
 FPp.getRootValue = function getRootValue() {
   var s = this.stack;
   if (s.length % 2 === 0) {
-    return s[(1)];
+    return s[1];
   }
-  return s[(0)];
+  return s[0];
 };
 
 // Temporarily push properties named by string arguments given after the
@@ -209,7 +209,8 @@ FPp.needsParens = function(assumeExpressionContext) {
   // Add parens around a `class` that extends an expression (it should
   // parse correctly, even if it's invalid)
   if (
-    parent.type === "ClassDeclaration" && parent.superClass === node &&
+    parent.type === "ClassDeclaration" &&
+      parent.superClass === node &&
       node.type === "AwaitExpression"
   ) {
     return true;
@@ -218,7 +219,8 @@ FPp.needsParens = function(assumeExpressionContext) {
   // The left-hand side of the ** exponentiation operator must always
   // be parenthesized unless it's an ident or literal
   if (
-    parent.type === "BinaryExpression" && parent.operator === "**" &&
+    parent.type === "BinaryExpression" &&
+      parent.operator === "**" &&
       parent.left === node &&
       node.type !== "Identifier" &&
       node.type !== "Literal" &&
@@ -231,7 +233,8 @@ FPp.needsParens = function(assumeExpressionContext) {
     case "UpdateExpression":
     case "SpreadElement":
     case "SpreadProperty":
-      return parent.type === "MemberExpression" && name === "object" &&
+      return parent.type === "MemberExpression" &&
+        name === "object" &&
         parent.object === node;
 
     case "UnaryExpression":
@@ -262,9 +265,9 @@ FPp.needsParens = function(assumeExpressionContext) {
         case "BinaryExpression":
         case "LogicalExpression":
           var po = parent.operator;
-          var pp = PRECEDENCE[po];
+          var pp = util.getPrecedence(po);
           var no = node.operator;
-          var np = PRECEDENCE[no];
+          var np = util.getPrecedence(no);
 
           if (pp > np) {
             return true;
@@ -338,7 +341,8 @@ FPp.needsParens = function(assumeExpressionContext) {
 
     case "NumericLiteral":
     case "Literal":
-      return parent.type === "MemberExpression" && isNumber.check(node.value) &&
+      return parent.type === "MemberExpression" &&
+        isNumber.check(node.value) &&
         name === "object" &&
         parent.object === node;
 
@@ -373,6 +377,7 @@ FPp.needsParens = function(assumeExpressionContext) {
       }
 
       switch (parent.type) {
+        case "ExpressionStatement":
         case "MemberExpression":
         case "TaggedTemplateExpression":
         case "UnaryExpression":
@@ -395,7 +400,8 @@ FPp.needsParens = function(assumeExpressionContext) {
 
     default:
       if (
-        parent.type === "NewExpression" && name === "callee" &&
+        parent.type === "NewExpression" &&
+          name === "callee" &&
           parent.callee === node
       ) {
         return containsCallExpression(node);
@@ -403,7 +409,8 @@ FPp.needsParens = function(assumeExpressionContext) {
   }
 
   if (
-    assumeExpressionContext !== true && !this.canBeFirstInStatement() &&
+    assumeExpressionContext !== true &&
+      !this.canBeFirstInStatement() &&
       this.firstInStatement()
   )
     return true;
@@ -416,30 +423,12 @@ function isBinary(node) {
 }
 
 function isUnaryLike(node) {
-  return // I considered making SpreadElement and SpreadProperty subtypes
+  // I considered making SpreadElement and SpreadProperty subtypes
   // of UnaryExpression, but they're not really Expression nodes.
-  n.UnaryExpression.check(
-    node
-  ) || n.SpreadElement && n.SpreadElement.check(node) || n.SpreadProperty && n.SpreadProperty.check(node);
+  return n.UnaryExpression.check(node) ||
+    n.SpreadElement && n.SpreadElement.check(node) ||
+    n.SpreadProperty && n.SpreadProperty.check(node);
 }
-
-var PRECEDENCE = {};
-[
-  [ "||" ],
-  [ "&&" ],
-  [ "|" ],
-  [ "^" ],
-  [ "&" ],
-  [ "==", "===", "!=", "!==" ],
-  [ "<", ">", "<=", ">=", "in", "instanceof" ],
-  [ ">>", "<<", ">>>" ],
-  [ "+", "-" ],
-  [ "*", "/", "%", "**" ]
-].forEach(function(tier, i) {
-  tier.forEach(function(op) {
-    PRECEDENCE[op] = i;
-  });
-});
 
 function containsCallExpression(node) {
   if (n.CallExpression.check(node)) {
@@ -461,7 +450,8 @@ function containsCallExpression(node) {
 
 FPp.canBeFirstInStatement = function() {
   var node = this.getNode();
-  return !n.FunctionExpression.check(node) && !n.ObjectExpression.check(node) &&
+  return !n.FunctionExpression.check(node) &&
+    !n.ObjectExpression.check(node) &&
     !n.ClassExpression.check(node) &&
     !(n.AssignmentExpression.check(node) && n.ObjectPattern.check(node.left));
 };
@@ -486,7 +476,7 @@ FPp.firstInStatement = function() {
     if (
       n.BlockStatement.check(parent) && parentName === "body" && childName === 0
     ) {
-      assert.strictEqual(parent.body[(0)], child);
+      assert.strictEqual(parent.body[0], child);
       return true;
     }
 
@@ -496,10 +486,11 @@ FPp.firstInStatement = function() {
     }
 
     if (
-      n.SequenceExpression.check(parent) && parentName === "expressions" &&
+      n.SequenceExpression.check(parent) &&
+        parentName === "expressions" &&
         childName === 0
     ) {
-      assert.strictEqual(parent.expressions[(0)], child);
+      assert.strictEqual(parent.expressions[0], child);
       continue;
     }
 
@@ -524,7 +515,8 @@ FPp.firstInStatement = function() {
     }
 
     if (
-      n.UnaryExpression.check(parent) && !parent.prefix &&
+      n.UnaryExpression.check(parent) &&
+        !parent.prefix &&
         childName === "argument"
     ) {
       assert.strictEqual(parent.argument, child);

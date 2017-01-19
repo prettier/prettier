@@ -29,8 +29,45 @@ const render7 = () =>
     <div /> <div />
   </div>
 
+const render7A = () => (
+  <div>
+    <div /><div /><div />
+  </div>
+)
+
+const render7B = () => (
+  <div>
+    <span> <span/> Dont break plz</span>
+    <span><span/>Dont break plz</span>
+    <span>Dont break plz<span/></span>
+  </div>
+)
+
 const render8 = (props) => <div>{props.text}</div>
 const render9 = (props) => <div>{props.looooooooooooooooooooooooooooooong_text}</div>
 const render10 = (props) => <div>{props.even_looooooooooooooooooooooooooooooooooooooooooonger_contents}</div>
 
 const notJSX = (aaaaaaaaaaaaaaaaa, bbbbbbbbbbb) => this.someLongCallWithParams(aaaaaa, bbbbbbb).anotherLongCallWithParams(cccccccccccc, dddddddddddddddddddddd)
+
+React.render(
+  <BaseForm url="/auth/google" method="GET" colour="blue" size="large" submitLabel="Sign in with Google" />
+  , document.querySelector('#react-root')
+)
+
+
+const renderTernary = (props) =>
+  <BaseForm url="/auth/google" method="GET" colour="blue" size="large" submitLabel="Sign in with Google">
+    {props.showTheThing ?
+      <BaseForm url="/auth/google" method="GET" colour="blue" size="large" submitLabel="Sign in with Google">Hello world</BaseForm>
+      : "hello " + "howdy! "}
+    {props.showTheThing ?
+      <BaseForm url="/auth/google" method="GET" colour="blue" size="large" submitLabel="Sign in with Google">Hello world</BaseForm>
+      :
+      null
+    }
+    {props.showTheThing ? null :
+      <BaseForm url="/auth/google" method="GET" colour="blue" size="large" submitLabel="Sign in with Google">Hello world</BaseForm>
+    }
+    {props.showTheOtherThing ? <div>I am here</div> : <div attr="blah" />}
+    {props.showTheOtherThing ? <div>I am here!!</div> : null}
+  </BaseForm>

@@ -13,10 +13,16 @@ const argv = minimist(process.argv.slice(2), {
     "flow-parser",
     "bracket-spacing",
     "single-quote",
-    "trailing-comma"
+    "trailing-comma",
+    "version"
   ],
   default: { "bracket-spacing": true }
 });
+
+if (argv["version"]) {
+  console.log(jscodefmt.version);
+  process.exit(0);
+}
 
 const filenames = argv["_"];
 const write = argv["write"];
@@ -24,7 +30,8 @@ const stdin = argv["stdin"];
 
 if (!filenames.length && !stdin) {
   console.log(
-    "Usage: prettier [opts] [filename ...]\n\n" + "Available options:\n" +
+    "Usage: prettier [opts] [filename ...]\n\n" +
+      "Available options:\n" +
       "  --write              Edit the file in-place (beware!)\n" +
       "  --stdin              Read input from stdin\n" +
       "  --print-width <int>  Specify the length of line that the printer will wrap on. Defaults to 80.\n" +

@@ -1347,10 +1347,33 @@ import {
 "
 `;
 
-exports[`test export_default_call_expression.js 1`] = `
-"export default connect(mapStateToProps)(MyComponent);
+exports[`test export_default_arrow_expression.js 1`] = `
+"export default () => {};
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export default connect(mapStateToProps)(MyComponent);
+export default () => {
+};
+"
+`;
+
+exports[`test export_default_call_expression.js 1`] = `
+"export default foo()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export default foo();
+"
+`;
+
+exports[`test export_default_function_expression.js 1`] = `
+"export default (function() {});
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export default function() {
+};
+"
+`;
+
+exports[`test export_default_new_expression.js 1`] = `
+"export default new Foo();
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export default new Foo();
 "
 `;
 

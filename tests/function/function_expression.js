@@ -4,3 +4,4 @@ export default (function() {})();
 (function() {})()``;
 (function() {})``;
 new (function() {});
+(function() {})

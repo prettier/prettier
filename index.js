@@ -3,6 +3,7 @@ const babylon = require("babylon");
 const Printer = require("./src/printer").Printer;
 const flowParser = require("flow-parser");
 const comments = require("./src/comments");
+const version = require("./package.json").version;
 
 var babylonOptions = {
   sourceType: "module",
@@ -31,10 +32,11 @@ function format(text, opts) {
     ast = flowParser.parse(text, {
       esproposal_class_instance_fields: true,
       esproposal_class_static_fields: true,
-      esproposal_export_star_as: true,
+      esproposal_export_star_as: true
     });
     if (ast.errors.length > 0) {
-      let msg = ast.errors[0].message + " on line " +
+      let msg = ast.errors[0].message +
+        " on line " +
         ast.errors[0].loc.start.line;
       if (opts.filename) {
         msg += " in file " + opts.filename;
@@ -74,5 +76,6 @@ function formatWithShebang(text, opts) {
 module.exports = {
   format: function(text, opts) {
     return formatWithShebang(text, opts);
-  }
+  },
+  version: version
 };

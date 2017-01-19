@@ -25,7 +25,7 @@ declare var b: B<any>;
 
 class A {}
 
-type B<T> = 
+type B<T> =
   & A
   & {
     +a: () => B<T>,
@@ -72,7 +72,7 @@ declare var b: B<any>;
 
 class A {}
 
-type B<T> = 
+type B<T> =
   & A
   & {
     +a: (x: B<T>) => void,

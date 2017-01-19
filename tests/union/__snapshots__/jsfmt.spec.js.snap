@@ -5517,7 +5517,7 @@ class SecurityCheckupTypedLogger {
   }
 }
 
-type ErrorCode = 
+type ErrorCode =
   | 0
   | 1
   | 2

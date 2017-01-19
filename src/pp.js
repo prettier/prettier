@@ -46,13 +46,20 @@ function multilineGroup(contents, opts) {
 
 function conditionalGroup(states, opts) {
   return group(
-    states[(0)],
+    states[0],
     Object.assign(opts || {}, { expandedStates: states })
   );
 }
 
-function ifBreak(contents) {
-  return { type: "if-break", contents };
+function ifBreak(breakContents, flatContents) {
+  if (breakContents) {
+    assertDoc(breakContents);
+  }
+  if (flatContents) {
+    assertDoc(flatContents);
+  }
+
+  return { type: "if-break", breakContents, flatContents };
 }
 
 function iterDoc(topDoc, func) {
@@ -77,6 +84,13 @@ function iterDoc(topDoc, func) {
       if (doc.type === "concat") {
         for (var i = doc.parts.length - 1; i >= 0; i--) {
           docs.push(doc.parts[i]);
+        }
+      } else if (doc.type === "if-break") {
+        if (doc.breakContents) {
+          docs.push(doc.breakContents);
+        }
+        if (doc.flatContents) {
+          docs.push(doc.flatContents);
         }
       } else if (doc.type !== "line") {
         docs.push(doc.contents);
@@ -151,9 +165,9 @@ function fits(next, restCommands, width) {
     }
 
     const x = cmds.pop();
-    const ind = x[(0)];
-    const mode = x[(1)];
-    const doc = x[(2)];
+    const ind = x[0];
+    const mode = x[1];
+    const doc = x[2];
 
     if (typeof doc === "string") {
       width -= doc.length;
@@ -175,7 +189,14 @@ function fits(next, restCommands, width) {
           break;
         case "if-break":
           if (mode === MODE_BREAK) {
-            cmds.push([ ind, mode, doc.contents ]);
+            if (doc.breakContents) {
+              cmds.push([ ind, mode, doc.breakContents ]);
+            }
+          }
+          if (mode === MODE_FLAT) {
+            if (doc.flatContents) {
+              cmds.push([ ind, mode, doc.flatContents ]);
+            }
           }
 
           break;
@@ -214,9 +235,9 @@ function print(options, doc) {
   let shouldRemeasure = false;
   while (cmds.length !== 0) {
     const x = cmds.pop();
-    const ind = x[(0)];
-    const mode = x[(1)];
-    const doc = x[(2)];
+    const ind = x[0];
+    const mode = x[1];
+    const doc = x[2];
 
     if (typeof doc === "string") {
       out.push(doc);
@@ -300,7 +321,14 @@ function print(options, doc) {
           break;
         case "if-break":
           if (mode === MODE_BREAK) {
-            cmds.push([ ind, MODE_BREAK, doc.contents ]);
+            if (doc.breakContents) {
+              cmds.push([ ind, mode, doc.breakContents ]);
+            }
+          }
+          if (mode === MODE_FLAT) {
+            if (doc.flatContents) {
+              cmds.push([ ind, mode, doc.flatContents ]);
+            }
           }
 
           break;
@@ -327,19 +355,19 @@ function print(options, doc) {
               }
 
             case MODE_BREAK:
-              if (out.length > 0) {
-                const lastString = out[out.length - 1];
-
-                if (lastString.match(/^\s*\n\s*$/)) {
-                  out[out.length - 1] = "\n";
-                }
-              }
-
               if (doc.literal) {
                 out.push("\n");
 
                 pos = 0;
               } else {
+                if (out.length > 0) {
+                  // Trim whitespace at the end of line
+                  out[out.length - 1] = out[out.length - 1].replace(
+                    /[^\S\n]*$/,
+                    ""
+                  );
+                }
+
                 out.push("\n" + indentStr.repeat(ind));
 
                 pos = ind * tabWidth;

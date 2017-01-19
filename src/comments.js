@@ -161,7 +161,8 @@ exports.attach = function(comments, ast, text) {
       // have here is a dangling comment, e.g. [/* crickets */].
       breakTies(tiesToBreak, text);
       addDanglingComment(en, comment);
-    } else {}
+    } else {
+    }
   });
 
   breakTies(tiesToBreak, text);
@@ -182,8 +183,8 @@ function breakTies(tiesToBreak, text) {
     return;
   }
 
-  var pn = tiesToBreak[(0)].precedingNode;
-  var fn = tiesToBreak[(0)].followingNode;
+  var pn = tiesToBreak[0].precedingNode;
+  var fn = tiesToBreak[0].followingNode;
   var gapEndPos = locStart(fn);
 
   // Iterate backwards through tiesToBreak, examining the gaps
@@ -272,7 +273,7 @@ exports.printComments = function(path, print, options) {
   var parent = path.getParentNode();
   var printed = print(path);
   var comments = n.Node.check(value) && types.getFieldValue(value, "comments");
-  var isFirstInProgram = n.Program.check(parent) && parent.body[(0)] === value;
+  var isFirstInProgram = n.Program.check(parent) && parent.body[0] === value;
 
   if (!comments || comments.length === 0) {
     return printed;
@@ -290,7 +291,8 @@ exports.printComments = function(path, print, options) {
       if (
         leading ||
           trailing &&
-            !(n.Statement.check(value) || comment.type === "Block" ||
+            !(n.Statement.check(value) ||
+              comment.type === "Block" ||
               comment.type === "CommentBlock")
       ) {
         leadingParts.push(printLeadingComment(commentPath, print));
