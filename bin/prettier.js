@@ -14,7 +14,8 @@ const argv = minimist(process.argv.slice(2), {
     "bracket-spacing",
     "single-quote",
     "trailing-comma",
-    "version"
+    "version",
+    "debug-print-docs"
   ],
   default: { "bracket-spacing": true }
 });
@@ -44,21 +45,32 @@ if (!filenames.length && !stdin) {
   process.exit(1);
 }
 
+const options = {
+  printWidth: argv["print-width"],
+  tabWidth: argv["tab-width"],
+  bracketSpacing: argv["bracket-spacing"],
+  useFlowParser: argv["flow-parser"],
+  singleQuote: argv["single-quote"],
+  trailingComma: argv["trailing-comma"]
+};
+
 function format(input) {
-  return jscodefmt.format(input, {
-    printWidth: argv["print-width"],
-    tabWidth: argv["tab-width"],
-    bracketSpacing: argv["bracket-spacing"],
-    useFlowParser: argv["flow-parser"],
-    singleQuote: argv["single-quote"],
-    trailingComma: argv["trailing-comma"]
-  });
+  return jscodefmt.format(input, options);
+}
+
+function formatInput(input) {
+  if (argv["debug-print-docs"]) {
+    const docs = jscodefmt.getDocs(input, options);
+    const printDoc = require("../src/printDoc");
+    return format(printDoc(docs), options);
+  }
+  return format(input);
 }
 
 if (stdin) {
   getStdin().then(input => {
     try {
-      console.log(format(input));
+      console.log(formatInput(input));
     } catch (e) {
       process.exitCode = 2;
       console.error(e);
@@ -81,7 +93,7 @@ if (stdin) {
 
       let output;
       try {
-        output = format(input);
+        output = formatInput(input);
       } catch (e) {
         process.exitCode = 2;
         console.error(e);
