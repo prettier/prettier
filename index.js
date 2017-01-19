@@ -8,7 +8,7 @@ const normalizeOptions = require("./src/options").normalize;
 const parser = require("./src/parser");
 
 function parse(text, opts) {
-  if (opts.useFlowParser) {
+  if (opts.parser === 'flow') {
     return parser.parseWithFlow(text, opts.filename);
   }
   return parser.parseWithBabylon(text);

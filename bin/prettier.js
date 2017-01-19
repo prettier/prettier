@@ -10,13 +10,21 @@ const argv = minimist(process.argv.slice(2), {
   boolean: [
     "write",
     "stdin",
-    "flow-parser",
     "bracket-spacing",
     "single-quote",
     "trailing-comma",
-    "version"
+    "version",
+
+    // Deprecated in 0.0.10
+    "flow-parser"
   ],
-  default: { "bracket-spacing": true }
+  string: [
+    "parser"
+  ],
+  default: {
+    "bracket-spacing": true,
+    parser: "babylon",
+  }
 });
 
 if (argv["version"]) {
@@ -32,16 +40,29 @@ if (!filenames.length && !stdin) {
   console.log(
     "Usage: prettier [opts] [filename ...]\n\n" +
       "Available options:\n" +
-      "  --write              Edit the file in-place (beware!)\n" +
-      "  --stdin              Read input from stdin\n" +
-      "  --print-width <int>  Specify the length of line that the printer will wrap on. Defaults to 80.\n" +
-      "  --tab-width <int>    Specify the number of spaces per indentation-level. Defaults to 2.\n" +
-      "  --flow-parser        Use the flow parser instead of babylon\n" +
-      "  --single-quote       Use single quotes instead of double\n" +
-      "  --trailing-comma     Print trailing commas wherever possible\n" +
-      "  --bracket-spacing    Put spaces between brackets. Defaults to true, set false to turn off"
+      "  --write                  Edit the file in-place (beware!)\n" +
+      "  --stdin                  Read input from stdin\n" +
+      "  --print-width <int>      Specify the length of line that the printer will wrap on. Defaults to 80.\n" +
+      "  --tab-width <int>        Specify the number of spaces per indentation-level. Defaults to 2.\n" +
+      "  --parser <flow|babylon>  Specify which parse to use. Defaults to babylon\n" +
+      "  --single-quote           Use single quotes instead of double\n" +
+      "  --trailing-comma         Print trailing commas wherever possible\n" +
+      "  --bracket-spacing        Put spaces between brackets. Defaults to true, set false to turn off"
   );
   process.exit(1);
+}
+
+function getParser() {
+  // For backward compatibility. Deprecated in 0.0.10
+  if (argv["flow-parser"]) {
+    return "flow";
+  }
+
+  if (argv["parser"] === "flow") {
+    return "flow";
+  }
+
+  return "babylon";
 }
 
 function format(input) {
@@ -49,7 +70,7 @@ function format(input) {
     printWidth: argv["print-width"],
     tabWidth: argv["tab-width"],
     bracketSpacing: argv["bracket-spacing"],
-    useFlowParser: argv["flow-parser"],
+    parser: getParser(),
     singleQuote: argv["single-quote"],
     trailingComma: argv["trailing-comma"]
   });

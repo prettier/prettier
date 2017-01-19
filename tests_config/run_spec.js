@@ -82,7 +82,7 @@ function parse(string) {
 function prettyprint(src, filename, options) {
   return prettier.format(src, Object.assign({
     filename,
-    useFlowParser: true,
+    parser: 'flow',
     printWidth: 80,
   }, options));
 }

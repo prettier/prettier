@@ -1580,7 +1580,7 @@ function printPropertyKey(path, options, print) {
       isIdentifierName(node.value) &&
       // There's a bug in the flow parser where it throws if there are
       // unquoted unicode literals as keys. Let's quote them for now.
-      (!options.useFlowParser || node.value.match(/[a-zA-Z0-9$_]/))
+      (options.parser !== 'flow' || node.value.match(/[a-zA-Z0-9$_]/))
   ) {
     // 'a' -> a
     return node.value;
@@ -2055,7 +2055,7 @@ function printJSXChildren(path, options, print) {
         // correctly escaped (since it parsed).
         // We really want to use value and re-escape it ourself when possible
         // though.
-        const value = options.useFlowParser ?
+        const value = options.parser === 'flow' ?
           child.raw :
           util.htmlEscapeInsideAngleBracket(child.value);
 
@@ -2331,7 +2331,7 @@ function nodeStr(node, options) {
   // Workaround a bug in the Javascript version of the flow parser where
   // astral unicode characters like \uD801\uDC28 are incorrectly parsed as
   // a sequence of \uFFFD.
-  if (options.useFlowParser && result.indexOf("\\uFFFD") !== -1) {
+  if (options.parser === 'flow' && result.indexOf("\\uFFFD") !== -1) {
     return node.raw;
   }
 
