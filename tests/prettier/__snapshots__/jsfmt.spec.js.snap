@@ -701,22 +701,57 @@ type Bar = { [string]: number };
 "
 `;
 
-exports[`test object-prop-break-in-binary-exp.js 1`] = `
-"const foo = classnames({
+exports[`test object-prop-break-in.js 1`] = `
+"const a = classnames({
   \"some-prop\": this.state.longLongLongLongLongLongLongLongLongTooLongProp
 });
 
-const bar = classnames({
+const b = classnames({
   \"some-prop\": this.state.longLongLongLongLongLongLongLongLongTooLongProp === true
 });
+
+const c = classnames({
+  \"some-prop\": [ \"foo\", \"bar\", \"foo\", \"bar\", \"foo\", \"bar\", \"foo\", \"bar\", \"foo\" ]
+});
+
+const d = classnames({
+  \"some-prop\": () => {}
+});
+
+const e = classnames({
+  \"some-prop\": function bar() {}
+});
+
+const f = classnames({
+  \"some-prop\": { foo: \"bar\", bar: \"foo\", foo: \"bar\", bar: \"foo\", foo: \"bar\" }
+});
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const foo = classnames({
+const a = classnames({
   \"some-prop\": this.state.longLongLongLongLongLongLongLongLongTooLongProp
 });
 
-const bar = classnames({
-  \"some-prop\":
+const b = classnames({
+  \"some-prop\": (
     this.state.longLongLongLongLongLongLongLongLongTooLongProp === true
+  )
+});
+
+const c = classnames({
+  \"some-prop\": [ \"foo\", \"bar\", \"foo\", \"bar\", \"foo\", \"bar\", \"foo\", \"bar\", \"foo\" ]
+});
+
+const d = classnames({
+  \"some-prop\": () => {
+  }
+});
+
+const e = classnames({
+  \"some-prop\": function bar() {
+  }
+});
+
+const f = classnames({
+  \"some-prop\": { foo: \"bar\", bar: \"foo\", foo: \"bar\", bar: \"foo\", foo: \"bar\" }
 });
 "
 `;
