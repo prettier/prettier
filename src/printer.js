@@ -53,6 +53,15 @@ function Printer(originalOptions) {
 
     return pp.print(options.printWidth, res);
   };
+
+  this.getDocs = function(ast) {
+    if (!ast) {
+      return "";
+    }
+
+    var path = FastPath.from(ast);
+    return printGenerically(path);
+  }
 }
 
 exports.Printer = Printer;

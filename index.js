@@ -24,7 +24,13 @@ var babylonOptions = {
   ]
 };
 
-function format(text, opts) {
+function getPrinter(text, opts) {
+  opts = opts || {};
+  opts.originalText = text;
+  return new Printer(opts);
+}
+
+function getAst(text, opts) {
   opts = opts || {};
   let ast;
 
@@ -53,10 +59,15 @@ function format(text, opts) {
     ast.comments = [];
   }
   ast.tokens = [];
-  opts.originalText = text;
+  return ast;
+}
 
-  const printer = new Printer(opts);
-  return printer.print(ast);
+function getDocs(text, opts) {
+  return getPrinter(text, opts).getDocs(getAst(text, opts));
+}
+
+function format(text, opts) {
+  return getPrinter(text, opts).print(getAst(text, opts));
 }
 
 function formatWithShebang(text, opts) {
@@ -77,5 +88,6 @@ module.exports = {
   format: function(text, opts) {
     return formatWithShebang(text, opts);
   },
+  getDocs: getDocs,
   version: version
 };

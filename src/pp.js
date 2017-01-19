@@ -1,5 +1,6 @@
 "use strict";
 const assert = require("assert");
+const printDoc = require("./printDoc");
 
 function assertDoc(val) {
   assert(
