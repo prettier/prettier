@@ -12,7 +12,6 @@ function FastPath(value) {
 }
 
 var FPp = FastPath.prototype;
-module.exports = FastPath;
 
 // Static convenience function for coercing a value to a FastPath.
 FastPath.from = function(obj) {
@@ -507,3 +506,5 @@ FPp.firstInStatement = function() {
 
   return true;
 };
+
+module.exports = FastPath;
