@@ -362,6 +362,7 @@ FPp.needsParens = function(assumeExpressionContext) {
       }
 
       switch (parent.type) {
+        case "ExportDefaultDeclaration":
         case "ExpressionStatement":
         case "MemberExpression":
         case "TaggedTemplateExpression":
