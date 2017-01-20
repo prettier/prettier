@@ -1,3 +1,29 @@
+# 0.0.10
+
+[link](https://github.com/jlongster/prettier/compare/0.0.9...0.0.10)
+
+* Add description to package.json (#320)
+* Fix crash for single rest on class declaration (#315)
+* Add canonical link to Prettier SublimeText package. (#318)
+* Properly escape JSXText (#329)
+* Hug objects and arrays inside of JSXExpressionContainer (#213)
+* Add quotes around unicode keys in flow parser (#328)
+* Add tests for comments (#330)
+* Print dangling comments in blocks (#331)
+* Remove Printer module in favor of single function (#333)
+* Split pp.js into doc-{printer,builders,utils}.js (#334)
+* Fix node 4 (#336)
+* Remove unused functions from recast (#337)
+* Kill fromString (#335)
+* Extract parser.js (#338)
+* Normalize exports (#339)
+* Refactor index.js (#340)
+* Add semicolon to more default exports (#343)
+* Introduce --parser/parser option and deprecate --flow-parser/useFlowParser (#342)
+* Remove parens around AwaitExpression in ternary (#346)
+* Indent while test the same way as if test (#352)
+* Add debugging support for doc IR (#347)
+
 # 0.0.9
 
 [link](https://github.com/jlongster/prettier/compare/0.0.8...0.0.9)
