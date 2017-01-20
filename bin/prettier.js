@@ -14,6 +14,7 @@ const argv = minimist(process.argv.slice(2), {
     "single-quote",
     "trailing-comma",
     "version",
+    "debug-print-doc",
 
     // Deprecated in 0.0.10
     "flow-parser"
@@ -65,15 +66,21 @@ function getParser() {
   return "babylon";
 }
 
+const options = {
+  printWidth: argv["print-width"],
+  tabWidth: argv["tab-width"],
+  bracketSpacing: argv["bracket-spacing"],
+  parser: getParser(),
+  singleQuote: argv["single-quote"],
+  trailingComma: argv["trailing-comma"]
+};
+
 function format(input) {
-  return jscodefmt.format(input, {
-    printWidth: argv["print-width"],
-    tabWidth: argv["tab-width"],
-    bracketSpacing: argv["bracket-spacing"],
-    parser: getParser(),
-    singleQuote: argv["single-quote"],
-    trailingComma: argv["trailing-comma"]
-  });
+  if (argv["debug-print-doc"]) {
+    const doc = jscodefmt.__debug.printToDoc(input, options);
+    return jscodefmt.__debug.formatDoc(doc);
+  }
+  return jscodefmt.format(input, options);
 }
 
 if (stdin) {
