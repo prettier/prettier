@@ -1350,8 +1350,8 @@ import {
 exports[`test export_default_arrow_expression.js 1`] = `
 "export default () => {};
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export default (() => {
-});
+export default () => {
+};
 "
 `;
 

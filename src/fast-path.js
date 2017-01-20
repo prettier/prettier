@@ -363,6 +363,8 @@ FPp.needsParens = function(assumeExpressionContext) {
 
       switch (parent.type) {
         case "ExportDefaultDeclaration":
+          return node.type !== "ArrowFunctionExpression";
+
         case "ExpressionStatement":
         case "MemberExpression":
         case "TaggedTemplateExpression":
