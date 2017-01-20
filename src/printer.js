@@ -849,7 +849,15 @@ function genericPrintNoParens(path, options, print) {
     case "WhileStatement":
       return concat([
         "while (",
-        path.call(print, "test"),
+        group(
+          concat([
+            indent(
+              options.tabWidth,
+              concat([ softline, path.call(print, "test") ])
+            ),
+            softline
+          ])
+        ),
         ")",
         adjustClause(path.call(print, "body"), options)
       ]);
