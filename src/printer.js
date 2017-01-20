@@ -4,7 +4,6 @@ var comments = require("./comments");
 var FastPath = require("./fast-path");
 var util = require("./util");
 var isIdentifierName = require("esutils").keyword.isIdentifierNameES6;
-var jsesc = require("jsesc");
 
 var docBuilders = require("./doc-builders");
 var concat = docBuilders.concat;
@@ -2319,6 +2318,13 @@ function nodeStr(node, options) {
   const str = node.value;
   isString.assert(str);
 
+  // Workaround a bug in the Javascript version of the flow parser where
+  // astral unicode characters like \uD801\uDC28 are incorrectly parsed as
+  // a sequence of \uFFFD.
+  if (options.parser === "flow" && str.indexOf("\uFFFD") !== -1) {
+    return node.raw;
+  }
+
   const containsSingleQuote = str.indexOf("'") !== -1;
   const containsDoubleQuote = str.indexOf('"') !== -1;
 
@@ -2330,19 +2336,48 @@ function nodeStr(node, options) {
     shouldUseSingleQuote = true;
   }
 
-  const result = jsesc(str, {
-    quotes: shouldUseSingleQuote ? "single" : "double",
-    wrap: true
-  });
+  const raw = node.extra ? node.extra.raw : node.raw;
+  const isSingleQuote = raw.charAt(0) === "'";
 
-  // Workaround a bug in the Javascript version of the flow parser where
-  // astral unicode characters like \uD801\uDC28 are incorrectly parsed as
-  // a sequence of \uFFFD.
-  if (options.parser === "flow" && result.indexOf("\\uFFFD") !== -1) {
-    return node.raw;
+  if (isSingleQuote && shouldUseSingleQuote ||
+      !isSingleQuote && !shouldUseSingleQuote) {
+    return raw;
   }
 
-  return result;
+  const nextQuote = shouldUseSingleQuote ? "'" : '"';
+
+  // When we change the outer quotes, we need to change the number of
+  // backslash before. In order to know how many backslash to put,
+  // I manually did the first few examples and extracted a general rule
+  // out of it.
+  //
+  // shouldSwitch === true
+  //
+  //   3 -> 3 "\\\'" -> '\\\''
+  //   2 -> 3 "\\'"  -> '\\\''
+  //   1 -> 1 "\'"   -> '\''
+  //   0 -> 1 "\'"   -> '\''
+  //
+  //   Rule: n -> Math.floor(n / 2) + 1
+  //
+  // shouldSwitch === false
+  //
+  //   3 -> 2 '\\\'' -> "\\'"
+  //   1 -> 0 '\''   -> "'"
+  //
+  //   Rule: n -> n - 1
+  return nextQuote + raw.slice(1, -1)
+    .replace(/\\*['"]/g, (match) => {
+      const quote = match[match.length - 1];
+      const shouldSwitch = quote === "'" && shouldUseSingleQuote ||
+       quote === '"' && !shouldUseSingleQuote;
+      const numBackslash = match.length - 1;
+      const nextNumBackslash = shouldSwitch ?
+        Math.floor(numBackslash / 2) + 1 :
+        numBackslash - 1;
+
+      return '\\'.repeat(nextNumBackslash) + quote;
+    }) + nextQuote;
 }
 
 function isFirstStatement(path) {
