@@ -550,3 +550,14 @@ async function g() {
 }
 "
 `;
+
+exports[`test conditional-expression.js 1`] = `
+"async function f() {
+  const result = typeof fn === \'function\' ? await fn() : null;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+async function f() {
+  const result = typeof fn === \"function\" ? await fn() : null;
+}
+"
+`;
