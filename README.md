@@ -4,6 +4,12 @@
 [![Build Status](https://travis-ci.org/arijs/prettier-with-tabs.svg?branch=master)](https://travis-ci.org/arijs/prettier-with-tabs)
 [![NPM version](https://img.shields.io/npm/v/prettier-with-tabs.svg)](https://www.npmjs.com/package/prettier-with-tabs)
 
+> # CONFIGURATION WELCOME
+>
+> This is a fork of [jlongster/prettier](https://github.com/jlongster/prettier), with an option added to indent lines with tabs. If you have a simple option you want to add to Prettier With Tabs, send a PR!
+>
+> For example, I don't like javascript code without semicolons, but if you can send me a PR which add this ability with as little code as possible, I'll happily accept it! 😃
+
 Prettier is an opinionated JavaScript formatter inspired by
 [refmt](https://facebook.github.io/reason/tools.html) with advanced
 support for language features from ES2017, JSX, and Flow. It removes
@@ -188,7 +194,7 @@ Can also be installed using `ext install prettier-vscode`
 
 ### Sublime Text
 
-Sublime Text support is available through Package Control and 
+Sublime Text support is available through Package Control and
 the [JsPrettier](https://packagecontrol.io/packages/JsPrettier) plug-in.
 
 More editors are coming soon.
