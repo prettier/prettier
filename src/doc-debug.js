@@ -1,5 +1,4 @@
 "use strict";
-var jsesc = require("jsesc");
 
 function flattenDoc(doc) {
   if (!doc || typeof doc === "string" || doc.type === "line") {
@@ -47,7 +46,7 @@ function flattenDoc(doc) {
 
 function printDoc(doc) {
   if (typeof doc === "string") {
-    return jsesc(doc, { wrap: true });
+    return JSON.stringify(doc);
   }
 
   if (doc.type === "line") {
