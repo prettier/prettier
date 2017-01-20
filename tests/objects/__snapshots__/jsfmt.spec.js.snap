@@ -29,7 +29,6 @@ var z = Object(123); // error (next line makes this not match any signatures)
 (Object(undefined): {});
 (Object(void 0): {});
 (Object(undefined): Number);
-
 // error
 var x = Object(null);
 x.foo = \"bar\";
@@ -83,13 +82,11 @@ x[123] = false;
 x[\"foo\" + \"bar\"] = \"derp\";
 // ok since we can\'t tell
 (x[\`foo\`]: string);
-
 // error, key doesn\'t exist
 var y: { foo: string } = { foo: \"bar\" };
 y[\"foo\"] = 123;
 // error, number !~> string
 y[\"bar\"] = \"abc\";
-
 // error, property not found
 (y[\"hasOwnProperty\"]: string); // error, prototype method is not a string
 "

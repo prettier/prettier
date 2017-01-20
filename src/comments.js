@@ -251,20 +251,33 @@ function addTrailingComment(node, comment) {
   addCommentHelper(node, comment);
 }
 
-function printLeadingComment(commentPath, print) {
+function printLeadingComment(commentPath, print, options) {
   var comment = commentPath.getValue();
-  n.Comment.assert(comment);
-  return concat([ print(commentPath), hardline ]);
-}
-
-function printTrailingComment(commentPath, print, options) {
-  const comment = commentPath.getValue(commentPath);
-  n.Comment.assert(comment);
   const text = options.originalText;
 
   return concat([
-    util.newlineExistsBefore(text, locStart(comment)) ? hardline : " ",
-    print(commentPath)
+    print(commentPath),
+    util.hasNewline(text, locEnd(comment)) ? hardline : " "
+  ]);
+}
+
+function printTrailingComment(commentPath, print, options, addNewline) {
+  const comment = commentPath.getValue(commentPath);
+  const text = options.originalText;
+
+  let trailingSpace = "";
+  if(addNewline && util.hasNewline(text, locEnd(comment))) {
+    trailingSpace = hardline;
+  } else {
+    // if(util.hasSpaces(text, locEnd(comment))) {
+    //   trailingSpace = " ";
+    // }
+  }
+
+  return concat([
+    util.hasNewline(text, locStart(comment), true) ? hardline : " ",
+    print(commentPath),
+    trailingSpace
   ]);
 }
 
@@ -272,18 +285,13 @@ function printDanglingComments(path, print, options) {
   const text = options.originalText;
 
   const parts = [];
-  path.each(
-    commentPath => {
-      const comment = commentPath.getValue();
-      if (!comment.leading && !comment.trailing) {
-        parts.push(
-          util.newlineExistsBefore(text, locStart(comment)) ? hardline : " "
-        );
-        parts.push(commentPath.call(print));
-      }
-    },
-    "comments"
-  );
+  path.each(commentPath => {
+    const comment = commentPath.getValue();
+    if(!comment.leading && !comment.trailing) {
+      parts.push(util.hasNewline(text, locStart(comment)) ? hardline : " ");
+      parts.push(commentPath.call(print));
+    }
+  }, "comments");
   return concat(parts);
 }
 
@@ -308,25 +316,34 @@ function printComments(path, print, options) {
       var trailing = types.getFieldValue(comment, "trailing");
 
       if (
-        leading ||
-          trailing &&
-            !(n.Statement.check(value) ||
-              comment.type === "Block" ||
-              comment.type === "CommentBlock")
+        leading
       ) {
-        leadingParts.push(printLeadingComment(commentPath, print));
+        leadingParts.push(printLeadingComment(commentPath, print, options));
 
         // Support a special case where a comment exists at the very top
         // of the file. Allow the user to add spacing between that file
         // and any code beneath it.
+        const text = options.originalText;
         if (
           isFirstInProgram &&
-            util.newlineExistsAfter(options.originalText, util.locEnd(comment))
+            util.hasNewline(text, util.skipNewline(text, util.locEnd(comment)))
         ) {
           leadingParts.push(hardline);
         }
       } else if (trailing) {
-        trailingParts.push(printTrailingComment(commentPath, print, options));
+        const idx = commentPath.getName();
+        trailingParts.push(
+          printTrailingComment(
+            commentPath,
+            print,
+            options,
+            // Only print a final newline if we are the last comment
+            // line and are not the last node in an array (other code
+            // always prints newlines in both cases).
+            idx === comments.length - 1 &&
+              (comment.type === "CommentLine" || !path.isLast())
+          )
+        );
       }
     },
     "comments"

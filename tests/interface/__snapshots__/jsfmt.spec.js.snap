@@ -54,7 +54,6 @@ var x: string = new C().x;
 interface I { x: number }
 
 var i = new I();
-
 // error
 function testInterfaceName(o: I) {
   (o.name: string);
@@ -139,12 +138,9 @@ interface L extends J, K { y: string }
 
 function foo(l: L) {
   l.x;
-
   l.y;
-
   l.z;
 }
-
 // error: z not found in L
 // interface + multiple inheritance is similar to object type + intersection
 type M = { y: string } & J & { z: boolean };
@@ -192,7 +188,6 @@ new C().bar((x: string) => { }); // error, number ~/~> string
 interface I { foo(x: number): void }
 (function foo(x: number) {
 }: I);
-
 // error, property \`foo\` not found function
 declare class C { bar(i: I): void, bar(f: (x: number) => void): void }
 

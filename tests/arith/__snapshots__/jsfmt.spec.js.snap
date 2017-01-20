@@ -139,7 +139,6 @@ function bar5(x: number, y?: ?number) {
 num(null + null);
 // === 0
 num(undefined + undefined);
-
 // === NaN
 num(null + 1);
 // === 1
@@ -148,7 +147,6 @@ num(1 + null);
 num(undefined + 1);
 // === NaN
 num(1 + undefined);
-
 // === NaN
 num(null + true);
 // === 1
@@ -157,7 +155,6 @@ num(true + null);
 num(undefined + true);
 // === NaN
 num(true + undefined);
-
 // === NaN
 str(\"foo\" + true);
 // error
@@ -170,7 +167,6 @@ str(null + \"foo\");
 str(\"foo\" + undefined);
 // error
 str(undefined + \"foo\");
-
 // error
 let tests = [
   function(x: mixed, y: mixed) {
@@ -204,7 +200,6 @@ let tests = [
     (x + y: string);
     // ok
     (y + x: string);
-
     // ok
     (x + z: empty);
     // error, string ~> empty
@@ -234,7 +229,6 @@ x **= 4;
 
 let y: string = \"123\";
 y **= 2;
-
 // error
 1 + 2 ** 3 + 4;
 2 ** 2;
@@ -354,13 +348,11 @@ let tests = [
 \"foo\" < { foo: 1 };
 // error
 ({ foo: 1 }) < \"foo\";
-
 // error
 var x = (null: ?number);
 1 < x;
 // 2 errors: null !~> number; undefined !~> number
 x < 1;
-
 // 2 errors: null !~> number; undefined !~> number
 null < null;
 // error

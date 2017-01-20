@@ -517,9 +517,8 @@ function switch_scoped_init_4(i) {
   switch (i) {
     case 0:
       var x: number = 0;
-    // error
     case 1:
-      var y: number = x;
+      var y: number = x; // error
   }
 }
 
@@ -892,9 +891,8 @@ function switch_scoped_init_2(i) {
   switch (i) {
     case 0:
       let x: number;
-    // error, skipped declaration
     case 1:
-      let y: number = x;
+      let y: number = x; // error, skipped declaration
   }
 }
 

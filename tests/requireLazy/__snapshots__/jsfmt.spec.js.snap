@@ -72,7 +72,6 @@ requireLazy([ \"A\", \"B\" ], function(A, B) {
   var num2: number = A.stringValueA;
   // Error: string ~> number
   var str2: string = A.numberValueA;
-
   // Error: number ~> string
   var num3: number = B.numberValueB;
   var str3: string = B.stringValueB;

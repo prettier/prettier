@@ -35,7 +35,6 @@ const myRequest = new Request(\"http://google.com\");
 const a: Promise<string> = fetch(myRequest).then(response => response.text());
 
 const b: Promise<string> = fetch(myRequest);
-
 // incorrect
 var myInit = {
   method: \"GET\",
@@ -45,7 +44,6 @@ var myInit = {
 };
 
 const c: Promise<Blob> = fetch(\"image.png\").then(response => response.blob());
-
 // correct
 const d: Promise<Blob> = fetch(\"image.png\"); // incorrect
 "
@@ -104,15 +102,12 @@ e.set(\"Content-Type\", \"image/jpeg\");
 e.set(\"Content-Type\");
 // not correct
 e.set({ \"Content-Type\", \"image/jpeg\" });
-
 // not correct
 const f: Headers = e.append(\"Content-Type\", \"image/jpeg\");
-
 // not correct
 const g: string = e.get(\"Content-Type\");
 // correct
 const h: number = e.get(\"Content-Type\");
-
 // not correct
 for (let v of e) {
   const [ i, j ]: [string, string] = v; // correct
@@ -190,12 +185,10 @@ const c: Request = new Request(b);
 const d: Request = new Request(c.clone());
 // correct (doesn\'t make much sense though)
 const e: Request = new Request(b, c);
-
 // incorrect
 const f: Request = new Request({});
 // incorrect
 const g: Request = new Request(\"http://example.org\", {});
-
 // correct
 const h: Request = new Request(\"http://example.org\", {
   method: \"GET\",
@@ -203,7 +196,6 @@ const h: Request = new Request(\"http://example.org\", {
   mode: \"cors\",
   cache: \"default\"
 });
-
 // correct
 const i: Request = new Request(\"http://example.org\", {
   method: \"POST\",
@@ -212,7 +204,6 @@ const i: Request = new Request(\"http://example.org\", {
   mode: \"cors\",
   cache: \"default\"
 });
-
 // correct
 const j: Request = new Request(\"http://example.org\", {
   method: \"GET\",
@@ -220,7 +211,6 @@ const j: Request = new Request(\"http://example.org\", {
   mode: \"cors\",
   cache: \"default\"
 });
-
 // incorrect - headers is string
 const k: Request = new Request(\"http://example.org\", {
   method: \"CONNECT\",
@@ -228,7 +218,6 @@ const k: Request = new Request(\"http://example.org\", {
   mode: \"cors\",
   cache: \"default\"
 });
-
 // incorrect - CONNECT is forbidden
 var l: boolean = h.bodyUsed;
 
@@ -296,37 +285,30 @@ const a: Response = new Response();
 const b: Response = new Response(new Blob());
 // correct
 const c: Response = new Response(new FormData());
-
 // correct
 const d: Response = new Response(new FormData(), { status: 404 });
-
 // correct
 const e: Response = new Response(\"responsebody\", { status: \"404\" });
-
 // incorrect
 const f: Response = new Response(\"responsebody\", {
   status: 404,
   headers: \"\'Content-Type\': \'image/jpeg\'\"
 });
-
 // incorrect
 const g: Response = new Response(\"responsebody\", {
   status: 404,
   headers: { \"Content-Type\": \"image/jpeg\" }
 });
-
 // correct
 const h: Response = new Response(\"responsebody\", {
   status: 404,
   headers: new Headers({ \"Content-Type\": \"image/jpeg\" })
 });
-
 // correct, if verbose
 const i: Response = new Response({
   status: 404,
   headers: new Headers({ \"Content-Type\": \"image/jpeg\" })
 });
-
 // incorrect
 const ok: boolean = h.ok;
 const status: number = h.status;
@@ -394,15 +376,12 @@ e.set(\"key1\", \"value1\");
 e.set(\"key1\");
 // not correct
 e.set({ \"key1\", \"value1\" });
-
 // not correct
 const f: URLSearchParams = e.append(\"key1\", \"value1\");
-
 // not correct
 const g: string = e.get(\"key1\");
 // correct
 const h: number = e.get(\"key1\");
-
 // not correct
 for (let v of e) {
   const [ i, j ]: [string, string] = v; // correct

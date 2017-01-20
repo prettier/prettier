@@ -155,7 +155,6 @@ g.m(0);
 g.m(true);
 // err, bool ~> number|string
 (g.m(\"\"): G<number>);
-
 // err, string ~> number
 // Shadow bounds incompatible with parent
 class H<T> {

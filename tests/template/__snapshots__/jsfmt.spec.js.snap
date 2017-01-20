@@ -15,8 +15,7 @@ var x = {
 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var o = {
-  [\`key\`]: () => {
-    // Comment
+  [\`key\`]: () => { // Comment
   }
 };
 
@@ -71,12 +70,10 @@ let tests = [
 (\`bar\`: \"bar\");
 // ok
 (\`baz\`: number);
-
 // error
 \`foo \${123} bar\`;
 // ok, number can be appended to string
 \`foo \${{ bar: 123 }} baz\`;
-
 // error, object can\'t be appended
 let tests = [
   function(x: string) {

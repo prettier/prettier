@@ -61,7 +61,6 @@ class PropVariance<+Out, -In> {
   +con1: Out;
   // ok
   +con2: In;
-
   // error
   inv_dict1: { [k: string]: Out };
   // error

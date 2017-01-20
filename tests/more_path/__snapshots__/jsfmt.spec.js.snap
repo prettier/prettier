@@ -102,8 +102,7 @@ function goofy() {
   var x = g();
   if (typeof x == \"function\") {
     x();
-  } else { // if (typeof x == \'number\') {
-    //f(x);
+  } else { // if (typeof x == \'number\') { //f(x);
   }
 }
 
@@ -115,8 +114,7 @@ function goofy2() {
   var y = o.x;
   if (typeof y == \"function\") {
     y();
-  } else {
-    //f(y);
+  } else { //f(y);
   }
 }
 
@@ -239,8 +237,7 @@ class D {
 }
 
 function baz(x: D) {
-  if (x instanceof A) {
-    // unreachable, TODO: this shouldn\'t throw
+  if (x instanceof A) { // unreachable, TODO: this shouldn\'t throw
   }
 }
 
