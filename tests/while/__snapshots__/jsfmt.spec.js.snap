@@ -43,6 +43,27 @@ function bar(x: boolean) {
 "
 `;
 
+exports[`test indent.js 1`] = `
+"if (someVeryLongStringA && someVeryLongStringB && someVeryLongStringC && someVeryLongStringD) {}
+while (someVeryLongStringA && someVeryLongStringB && someVeryLongStringC && someVeryLongStringD) {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+if (
+  someVeryLongStringA &&
+    someVeryLongStringB &&
+    someVeryLongStringC &&
+    someVeryLongStringD
+) {
+}
+while (
+  someVeryLongStringA &&
+    someVeryLongStringB &&
+    someVeryLongStringC &&
+    someVeryLongStringD
+) {
+}
+"
+`;
+
 exports[`test test.js 1`] = `
 "class C {
     m() { return new C; }
