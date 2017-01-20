@@ -593,7 +593,7 @@ function genericPrintNoParens(path, options, print) {
         } else {
           parts.push(printPropertyKey(path, options, print));
         }
-        let noBreak = shouldPrintSameLine(n.value)
+        let noBreak = shouldPrintSameLine(n.value);
         let printedValue = path.call(print, "value");
         if (noBreak) {
           parts.push(concat([": ", printedValue]));
