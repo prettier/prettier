@@ -139,9 +139,6 @@ prettier.format(source, {
   // Number of spaces it should use per tab
   tabWidth: 2,
 
-  // Use the flow parser instead of babylon
-  useFlowParser: false,
-
   // If true, will use single instead of double quotes
   singleQuote: false,
 
@@ -149,7 +146,10 @@ prettier.format(source, {
   trailingComma: false,
 
   // Controls the printing of spaces inside array and objects
-  bracketSpacing: true
+  bracketSpacing: true,
+
+  // Which parser to use. Valid options are 'flow' and 'babylon'
+  parser: 'babylon'
 });
 ```
 
@@ -185,7 +185,8 @@ Can also be installed using `ext install prettier-vscode`
 
 ### Sublime Text
 
-Please see [this issue](https://github.com/jlongster/prettier/issues/17) for those interested in working on Sublime Text integration.
+Sublime Text support is available through Package Control and 
+the [JsPrettier](https://packagecontrol.io/packages/JsPrettier) plug-in.
 
 More editors are coming soon.
 
@@ -196,7 +197,7 @@ including non-standardized ones. By default it uses the
 [babylon](https://github.com/babel/babylon) parser with all language
 features enabled, but you can also use
 [flow](https://github.com/facebook/flow) parser with the
-`useFlowParser` API or `--flow-parser` CLI option.
+`parser` API or `--parser` CLI option.
 
 All of JSX and Flow syntax is supported. In fact, the test suite in
 `tests` *is* the entire Flow test suite and they all pass.

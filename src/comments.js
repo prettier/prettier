@@ -3,10 +3,10 @@ var types = require("ast-types");
 var n = types.namedTypes;
 var isArray = types.builtInTypes.array;
 var isObject = types.builtInTypes.object;
-var pp = require("./pp");
-var fromString = pp.fromString;
-var concat = pp.concat;
-var hardline = pp.hardline;
+var docBuilders = require("./doc-builders");
+var fromString = docBuilders.fromString;
+var concat = docBuilders.concat;
+var hardline = docBuilders.hardline;
 var util = require("./util");
 var comparePos = util.comparePos;
 var childNodesCacheKey = require("private").makeUniqueKey();
@@ -118,7 +118,7 @@ function decorateComment(node, comment, text) {
   }
 }
 
-exports.attach = function(comments, ast, text) {
+function attach(comments, ast, text) {
   if (!isArray.check(comments)) {
     return;
   }
@@ -161,7 +161,8 @@ exports.attach = function(comments, ast, text) {
       // have here is a dangling comment, e.g. [/* crickets */].
       breakTies(tiesToBreak, text);
       addDanglingComment(en, comment);
-    } else {}
+    } else {
+    }
   });
 
   breakTies(tiesToBreak, text);
@@ -174,7 +175,7 @@ exports.attach = function(comments, ast, text) {
     delete comment.enclosingNode;
     delete comment.followingNode;
   });
-};
+}
 
 function breakTies(tiesToBreak, text) {
   var tieCount = tiesToBreak.length;
@@ -182,8 +183,8 @@ function breakTies(tiesToBreak, text) {
     return;
   }
 
-  var pn = tiesToBreak[(0)].precedingNode;
-  var fn = tiesToBreak[(0)].followingNode;
+  var pn = tiesToBreak[0].precedingNode;
+  var fn = tiesToBreak[0].followingNode;
   var gapEndPos = locStart(fn);
 
   // Iterate backwards through tiesToBreak, examining the gaps
@@ -267,12 +268,31 @@ function printTrailingComment(commentPath, print, options) {
   ]);
 }
 
-exports.printComments = function(path, print, options) {
+function printDanglingComments(path, print, options) {
+  const text = options.originalText;
+
+  const parts = [];
+  path.each(
+    commentPath => {
+      const comment = commentPath.getValue();
+      if (!comment.leading && !comment.trailing) {
+        parts.push(
+          util.newlineExistsBefore(text, locStart(comment)) ? hardline : " "
+        );
+        parts.push(commentPath.call(print));
+      }
+    },
+    "comments"
+  );
+  return concat(parts);
+}
+
+function printComments(path, print, options) {
   var value = path.getValue();
   var parent = path.getParentNode();
   var printed = print(path);
   var comments = n.Node.check(value) && types.getFieldValue(value, "comments");
-  var isFirstInProgram = n.Program.check(parent) && parent.body[(0)] === value;
+  var isFirstInProgram = n.Program.check(parent) && parent.body[0] === value;
 
   if (!comments || comments.length === 0) {
     return printed;
@@ -290,7 +310,8 @@ exports.printComments = function(path, print, options) {
       if (
         leading ||
           trailing &&
-            !(n.Statement.check(value) || comment.type === "Block" ||
+            !(n.Statement.check(value) ||
+              comment.type === "Block" ||
               comment.type === "CommentBlock")
       ) {
         leadingParts.push(printLeadingComment(commentPath, print));
@@ -313,4 +334,6 @@ exports.printComments = function(path, print, options) {
 
   leadingParts.push.apply(leadingParts, trailingParts);
   return concat(leadingParts);
-};
+}
+
+module.exports = { attach, printComments, printDanglingComments };

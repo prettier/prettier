@@ -1,150 +1,4 @@
 "use strict";
-const assert = require("assert");
-
-function assertDoc(val) {
-  assert(
-    typeof val === "string" || val != null && typeof val.type === "string",
-    "Value is a valid document"
-  );
-}
-
-function fromString(text) {
-  return "" + text;
-}
-
-function concat(parts) {
-  parts.forEach(assertDoc);
-
-  return { type: "concat", parts };
-}
-
-function indent(n, contents) {
-  assertDoc(contents);
-
-  return { type: "indent", contents, n };
-}
-
-function group(contents, opts) {
-  opts = opts || {};
-
-  assertDoc(contents);
-
-  return {
-    type: "group",
-    contents: contents,
-    break: !!opts.shouldBreak,
-    expandedStates: opts.expandedStates
-  };
-}
-
-function multilineGroup(contents, opts) {
-  return group(
-    contents,
-    Object.assign(opts || {}, { shouldBreak: hasHardLine(contents) })
-  );
-}
-
-function conditionalGroup(states, opts) {
-  return group(
-    states[(0)],
-    Object.assign(opts || {}, { expandedStates: states })
-  );
-}
-
-function ifBreak(breakContents, flatContents) {
-  if (breakContents) {
-    assertDoc(breakContents);
-  }
-  if (flatContents) {
-    assertDoc(flatContents);
-  }
-
-  return { type: "if-break", breakContents, flatContents };
-}
-
-function iterDoc(topDoc, func) {
-  const docs = [ topDoc ];
-  while (docs.length !== 0) {
-    const doc = docs.pop();
-    let res = undefined;
-
-    if (typeof doc === "string") {
-      const res = func("string", doc);
-
-      if (res) {
-        return res;
-      }
-    } else {
-      const res = func(doc.type, doc);
-
-      if (res) {
-        return res;
-      }
-
-      if (doc.type === "concat") {
-        for (var i = doc.parts.length - 1; i >= 0; i--) {
-          docs.push(doc.parts[i]);
-        }
-      } else if (doc.type === "if-break") {
-        if (doc.breakContents) {
-          docs.push(doc.breakContents);
-        }
-        if (doc.flatContents) {
-          docs.push(doc.flatContents);
-        }
-      } else if (doc.type !== "line") {
-        docs.push(doc.contents);
-      }
-    }
-  }
-}
-
-const line = { type: "line" };
-const softline = { type: "line", soft: true };
-const hardline = { type: "line", hard: true };
-const literalline = { type: "line", hard: true, literal: true };
-
-function isEmpty(n) {
-  return typeof n === "string" && n.length === 0;
-}
-
-function join(sep, arr) {
-  var res = [];
-
-  for (var i = 0; i < arr.length; i++) {
-    if (i !== 0) {
-      res.push(sep);
-    }
-
-    res.push(arr[i]);
-  }
-
-  return concat(res);
-}
-
-function getFirstString(doc) {
-  return iterDoc(doc, (type, doc) => {
-    if (type === "string" && doc.trim().length !== 0) {
-      return doc;
-    }
-  });
-}
-
-function hasHardLine(doc) {
-  // TODO: If we hit a group, check if it's already marked as a
-  // multiline group because they should be marked bottom-up.
-  return !!iterDoc(doc, (type, doc) => {
-    switch (type) {
-      case "line":
-        if (doc.hard) {
-          return true;
-        }
-
-        break;
-    }
-  });
-}
-
 const MODE_BREAK = 1;
 const MODE_FLAT = 2;
 
@@ -165,9 +19,9 @@ function fits(next, restCommands, width) {
     }
 
     const x = cmds.pop();
-    const ind = x[(0)];
-    const mode = x[(1)];
-    const doc = x[(2)];
+    const ind = x[0];
+    const mode = x[1];
+    const doc = x[2];
 
     if (typeof doc === "string") {
       width -= doc.length;
@@ -190,7 +44,7 @@ function fits(next, restCommands, width) {
         case "if-break":
           if (mode === MODE_BREAK) {
             if (doc.breakContents) {
-              cmds.push([ ind, mode, doc.breakContents ]);              
+              cmds.push([ ind, mode, doc.breakContents ]);
             }
           }
           if (mode === MODE_FLAT) {
@@ -222,7 +76,7 @@ function fits(next, restCommands, width) {
   return false;
 }
 
-function print(w, doc) {
+function printDocToString(doc, w) {
   let pos = 0;
   // cmds is basically a stack. We've turned a recursive call into a
   // while loop which is much faster. The while loop below adds new
@@ -232,9 +86,9 @@ function print(w, doc) {
   let shouldRemeasure = false;
   while (cmds.length !== 0) {
     const x = cmds.pop();
-    const ind = x[(0)];
-    const mode = x[(1)];
-    const doc = x[(2)];
+    const ind = x[0];
+    const mode = x[1];
+    const doc = x[2];
 
     if (typeof doc === "string") {
       out.push(doc);
@@ -319,7 +173,7 @@ function print(w, doc) {
         case "if-break":
           if (mode === MODE_BREAK) {
             if (doc.breakContents) {
-              cmds.push([ ind, mode, doc.breakContents ]);              
+              cmds.push([ ind, mode, doc.breakContents ]);
             }
           }
           if (mode === MODE_FLAT) {
@@ -359,8 +213,10 @@ function print(w, doc) {
               } else {
                 if (out.length > 0) {
                   // Trim whitespace at the end of line
-                  out[out.length - 1] = out[out.length - 1]
-                    .replace(/[^\S\n]*$/, '');
+                  out[out.length - 1] = out[out.length - 1].replace(
+                    /[^\S\n]*$/,
+                    ""
+                  );
                 }
 
                 out.push("\n" + " ".repeat(ind));
@@ -378,21 +234,4 @@ function print(w, doc) {
   return out.join("");
 }
 
-module.exports = {
-  fromString,
-  concat,
-  isEmpty,
-  join,
-  line,
-  softline,
-  hardline,
-  literalline,
-  group,
-  multilineGroup,
-  conditionalGroup,
-  ifBreak,
-  hasHardLine,
-  indent,
-  print,
-  getFirstString
-};
+module.exports = { printDocToString };

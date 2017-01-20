@@ -561,7 +561,8 @@ function bar(response) {
     throw new Error(\"...\");
   }
   // here via [try] only.
-  if (payload.error) {
+  if (payload.error) { // ok
+    // ...
   }
 }
 

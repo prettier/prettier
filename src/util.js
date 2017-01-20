@@ -1,34 +1,11 @@
 "use strict";
 var assert = require("assert");
 var types = require("ast-types");
-var getFieldValue = types.getFieldValue;
 var n = types.namedTypes;
-var hasOwn = Object.prototype.hasOwnProperty;
-var util = exports;
-
-function getUnionOfKeys() {
-  var result = {};
-  var argc = arguments.length;
-  for (var i = 0; i < argc; ++i) {
-    var keys = Object.keys(arguments[i]);
-    var keyCount = keys.length;
-    for (var j = 0; j < keyCount; ++j) {
-      result[keys[j]] = true;
-    }
-  }
-  return result;
-}
-util.getUnionOfKeys = getUnionOfKeys;
 
 function comparePos(pos1, pos2) {
   return pos1.line - pos2.line || pos1.column - pos2.column;
 }
-util.comparePos = comparePos;
-
-function copyPos(pos) {
-  return { line: pos.line, column: pos.column };
-}
-util.copyPos = copyPos;
 
 function expandLoc(parentNode, childNode) {
   if (locStart(childNode) - locStart(parentNode) < 0) {
@@ -40,14 +17,14 @@ function expandLoc(parentNode, childNode) {
   }
 }
 
-util.fixFaultyLocations = function(node, text) {
+function fixFaultyLocations(node, text) {
   if (node.decorators) {
     // Expand the loc of the node responsible for printing the decorators
     // (here, the decorated node) so that it includes node.decorators.
     node.decorators.forEach(function(decorator) {
       expandLoc(node, decorator);
     });
-  } else if (node.declaration && util.isExportDeclaration(node)) {
+  } else if (node.declaration && isExportDeclaration(node)) {
     // Expand the loc of the node responsible for printing the decorators
     // (here, the export declaration) so that it includes node.decorators.
     var decorators = node.declaration.decorators;
@@ -75,11 +52,10 @@ util.fixFaultyLocations = function(node, text) {
       }
     }
   }
-};
+}
 
-util.isExportDeclaration = function(node) {
-  if (node)
-    switch (node.type) {
+function isExportDeclaration(node) {
+  if (node) switch (node.type) {
       case "ExportDeclaration":
       case "ExportDefaultDeclaration":
       case "ExportDefaultSpecifier":
@@ -90,40 +66,30 @@ util.isExportDeclaration = function(node) {
     }
 
   return false;
-};
+}
 
-util.getParentExportDeclaration = function(path) {
+function getParentExportDeclaration(path) {
   var parentNode = path.getParentNode();
-  if (
-    path.getName() === "declaration" && util.isExportDeclaration(parentNode)
-  ) {
+  if (path.getName() === "declaration" && isExportDeclaration(parentNode)) {
     return parentNode;
   }
 
   return null;
-};
+}
 
-util.isTrailingCommaEnabled = function(options, context) {
-  var trailingComma = options.trailingComma;
-  if (typeof trailingComma === "object") {
-    return !!trailingComma[context];
-  }
-  return !!trailingComma;
-};
-
-util.getLast = function(arr) {
+function getLast(arr) {
   if (arr.length > 0) {
     return arr[arr.length - 1];
   }
   return null;
-};
+}
 
 function skipNewLineForward(text, index) {
   // What the "end" location points to is not consistent in parsers.
   // For some statement/expressions, it's the character immediately
   // afterward. For others, it's the last character in it. We need to
   // scan until we hit a newline in order to skip it.
-  while(index < text.length) {
+  while (index < text.length) {
     if (text.charAt(index) === "\n") {
       return index + 1;
     }
@@ -135,7 +101,7 @@ function skipNewLineForward(text, index) {
   return index;
 }
 
-function _findNewline(text, index, backwards) {
+function findNewline(text, index, backwards) {
   const length = text.length;
   let cursor = backwards ? index - 1 : skipNewLineForward(text, index);
   // Look forward and see if there is a newline after/before this code
@@ -153,13 +119,13 @@ function _findNewline(text, index, backwards) {
   return false;
 }
 
-util.newlineExistsBefore = function(text, index) {
-  return _findNewline(text, index, true);
-};
+function newlineExistsBefore(text, index) {
+  return findNewline(text, index, true);
+}
 
-util.newlineExistsAfter = function(text, index) {
-  return _findNewline(text, index);
-};
+function newlineExistsAfter(text, index) {
+  return findNewline(text, index);
+}
 
 function skipSpaces(text, index, backwards) {
   const length = text.length;
@@ -176,41 +142,36 @@ function skipSpaces(text, index, backwards) {
   }
   return false;
 }
-util.skipSpaces = skipSpaces;
 
 function locStart(node) {
   if (node.range) {
-    return node.range[(0)];
+    return node.range[0];
   }
   return node.start;
 }
-util.locStart = locStart;
 
 function locEnd(node) {
   if (node.range) {
-    return node.range[(1)];
+    return node.range[1];
   }
   return node.end;
 }
-util.locEnd = locEnd;
 
 function setLocStart(node, index) {
   if (node.range) {
-    node.range[(0)] = index;
+    node.range[0] = index;
   } else {
     node.start = index;
   }
 }
-util.setLocStart = setLocStart;
 
 function setLocEnd(node, index) {
   if (node.range) {
-    node.range[(1)] = index;
+    node.range[1] = index;
   } else {
     node.end = index;
   }
 }
-util.setLocEnd = setLocEnd;
 
 // http://stackoverflow.com/a/7124052
 function htmlEscapeInsideDoubleQuote(str) {
@@ -221,7 +182,16 @@ function htmlEscapeInsideDoubleQuote(str) {
   //    .replace(/</g, '&lt;')
   //    .replace(/>/g, '&gt;');
 }
-util.htmlEscapeInsideDoubleQuote = htmlEscapeInsideDoubleQuote;
+
+// http://stackoverflow.com/a/7124052
+function htmlEscapeInsideAngleBracket(str) {
+  return str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  // Intentionally disable the following since it is safe inside of a
+  // angle bracket context
+  //    .replace(/&/g, '&amp;')
+  //    .replace(/"/g, '&quot;')
+  //    .replace(/'/g, '&#39;')
+}
 
 var PRECEDENCE = {};
 [
@@ -241,6 +211,24 @@ var PRECEDENCE = {};
   });
 });
 
-util.getPrecedence = function(op) {
+function getPrecedence(op) {
   return PRECEDENCE[op];
 }
+
+module.exports = {
+  comparePos,
+  getPrecedence,
+  fixFaultyLocations,
+  isExportDeclaration,
+  getParentExportDeclaration,
+  getLast,
+  newlineExistsBefore,
+  newlineExistsAfter,
+  skipSpaces,
+  locStart,
+  locEnd,
+  setLocStart,
+  setLocEnd,
+  htmlEscapeInsideDoubleQuote,
+  htmlEscapeInsideAngleBracket
+};

@@ -58,8 +58,11 @@
     font-size: 11.05px;
     line-height: 17.68px;
   }
-  .editor.input {
-    margin-right: 5px;
+  .editor {
+    margin-left: 5px;
+  }
+  .editor:first-child {
+    margin-left: 0;
   }
   .options {
     display: flex;
@@ -88,20 +91,25 @@
     <label><input type="checkbox" id="singleQuote"></input> singleQuote</label>
     <label><input type="checkbox" id="trailingComma"></input> trailingComma</label>
     <label><input type="checkbox" id="bracketSpacing" checked></input> bracketSpacing</label>
+    <span style="flex: 1"></span>
+    <label><input type="checkbox" id="doc"></input> doc</label>
   </div>
 
   <div class="editors">
     <div class="editor input">
-      <textarea id="input"></textarea>
+      <textarea id="input-editor"></textarea>
+    </div>
+    <div class="editor doc">
+      <textarea id="doc-editor"></textarea>
     </div>
     <div class="editor output">
-      <textarea id="output"></textarea>
+      <textarea id="output-editor"></textarea>
     </div>
   </div>
 </div>
 
 <script id="code">
-var OPTIONS = ['printWidth', 'tabWidth', 'singleQuote', 'trailingComma', 'bracketSpacing'];
+var OPTIONS = ['printWidth', 'tabWidth', 'singleQuote', 'trailingComma', 'bracketSpacing', 'doc'];
 function setOptions(options) {
   OPTIONS.forEach(function(option) {
     var elem = document.getElementById(option);
@@ -124,7 +132,14 @@ function getOptions() {
 
 function format() {
   var options = getOptions();
-  outputEditor.setOption('rulers', [{column: options.printWidth, color: '#444444'}]);
+  [docEditor, outputEditor].forEach(function(editor) {
+    editor.setOption(
+      'rulers',
+      [{column: options.printWidth, color: '#444444'}]
+    );
+  });
+  document.getElementsByClassName('doc')[0].style.display = options.doc ? 'flex' : 'none';
+
   var value = encodeURIComponent(
     JSON.stringify(
       Object.assign({content: inputEditor.getValue(), options: options})
@@ -138,6 +153,17 @@ function format() {
     res = e.toString();
   }
   outputEditor.setValue(res);
+
+  if (options.doc) {
+    var debug;
+    try {
+      var doc = prettier.__debug.printToDoc(inputEditor.getValue(), options);
+      debug = prettier.__debug.formatDoc(doc, options);
+    } catch (e) {
+      debug = e.toString();
+    }
+    docEditor.setValue(debug);
+  }
 }
 
 document.getElementsByClassName('options')[0].onchange = format;
@@ -151,9 +177,21 @@ var editorOptions = {
   theme: 'base16-dark',
   tabWidth: 2
 };
-var inputEditor = CodeMirror.fromTextArea(input, editorOptions);
+var inputEditor = CodeMirror.fromTextArea(
+  document.getElementById('input-editor'),
+  editorOptions
+);
 inputEditor.on('change', format);
-var outputEditor = CodeMirror.fromTextArea(output, {readOnly: true, lineNumbers: true, theme: 'base16-dark' });
+
+var docEditor = CodeMirror.fromTextArea(
+  document.getElementById('doc-editor'),
+  {readOnly: true, lineNumbers: true, theme: 'base16-dark'}
+);
+
+var outputEditor = CodeMirror.fromTextArea(
+  document.getElementById('output-editor'),
+  {readOnly: true, lineNumbers: true, theme: 'base16-dark'}
+);
 
 document.getElementsByClassName('version')[0].innerText = prettier.version;
 </script>
