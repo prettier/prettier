@@ -21,3 +21,7 @@ const e = classnames({
 const f = classnames({
   "some-prop": { foo: "bar", bar: "foo", foo: "bar", bar: "foo", foo: "bar" }
 });
+
+const g = classnames({
+  "some-prop": longLongLongLongLongLongLongLongLongLongLongLongLongTooLongVar || 1337
+});

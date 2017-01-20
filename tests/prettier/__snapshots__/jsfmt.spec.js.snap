@@ -725,6 +725,10 @@ const e = classnames({
 const f = classnames({
   \"some-prop\": { foo: \"bar\", bar: \"foo\", foo: \"bar\", bar: \"foo\", foo: \"bar\" }
 });
+
+const g = classnames({
+  \"some-prop\": longLongLongLongLongLongLongLongLongLongLongLongLongTooLongVar || 1337
+});
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const a = classnames({
   \"some-prop\": this.state.longLongLongLongLongLongLongLongLongTooLongProp
@@ -752,6 +756,12 @@ const e = classnames({
 
 const f = classnames({
   \"some-prop\": { foo: \"bar\", bar: \"foo\", foo: \"bar\", bar: \"foo\", foo: \"bar\" }
+});
+
+const g = classnames({
+  \"some-prop\": (
+    longLongLongLongLongLongLongLongLongLongLongLongLongTooLongVar || 1337
+  )
 });
 "
 `;
