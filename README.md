@@ -2,6 +2,7 @@
 
 [![Gitter](https://badges.gitter.im/gitterHQ/gitter.svg)](https://gitter.im/jlongster/prettier)
 [![Build Status](https://travis-ci.org/arijs/prettier-with-tabs.svg?branch=master)](https://travis-ci.org/arijs/prettier-with-tabs)
+[![CircleCI Status](https://circleci.com/gh/arijs/prettier-with-tabs.svg?style=shield&circle-token=83f2e43548ccf3827a3a1003a3ff0d5f46996fc2)](https://circleci.com/gh/arijs/prettier-with-tabs)
 [![NPM version](https://img.shields.io/npm/v/prettier-with-tabs.svg)](https://www.npmjs.com/package/prettier-with-tabs)
 
 > # CONFIGURATION WELCOME
