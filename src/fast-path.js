@@ -298,7 +298,6 @@ FPp.needsParens = function(assumeExpressionContext) {
         case "SpreadElement":
         case "SpreadProperty":
         case "NewExpression":
-        case "ConditionalExpression":
         case "MemberExpression":
           return true;
 
