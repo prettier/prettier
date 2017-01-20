@@ -1,5 +1,4 @@
 "use strict";
-
 const comments = require("./src/comments");
 const version = require("./package.json").version;
 const printAstToDoc = require("./src/printer").printAstToDoc;
@@ -9,7 +8,7 @@ const parser = require("./src/parser");
 const printDocToDebug = require("./src/doc-debug").printDocToDebug;
 
 function parse(text, opts) {
-  if (opts.parser === 'flow') {
+  if (opts.parser === "flow") {
     return parser.parseWithFlow(text, opts.filename);
   }
   return parser.parseWithBabylon(text);
@@ -51,17 +50,14 @@ module.exports = {
     return formatWithShebang(text, normalizeOptions(opts));
   },
   version: version,
-
   __debug: {
     // Doesn't handle shebang for now
-
     formatDoc: function(doc, opts) {
       opts = normalizeOptions(opts);
       const debug = printDocToDebug(doc);
       const str = format(debug, opts);
       return str;
     },
-
     printToDoc: function(text, opts) {
       opts = normalizeOptions(opts);
       const ast = parse(text, opts);
@@ -69,7 +65,6 @@ module.exports = {
       const doc = printAstToDoc(ast, opts);
       return doc;
     },
-
     printDocToString: function(doc, opts) {
       opts = normalizeOptions(opts);
       const str = printDocToString(doc, opts.printWidth);

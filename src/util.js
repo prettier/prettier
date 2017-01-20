@@ -52,7 +52,7 @@ function fixFaultyLocations(node, text) {
       }
     }
   }
-};
+}
 
 function isExportDeclaration(node) {
   if (node) switch (node.type) {
@@ -66,25 +66,23 @@ function isExportDeclaration(node) {
     }
 
   return false;
-};
+}
 
 function getParentExportDeclaration(path) {
   var parentNode = path.getParentNode();
-  if (
-    path.getName() === "declaration" && isExportDeclaration(parentNode)
-  ) {
+  if (path.getName() === "declaration" && isExportDeclaration(parentNode)) {
     return parentNode;
   }
 
   return null;
-};
+}
 
 function getLast(arr) {
   if (arr.length > 0) {
     return arr[arr.length - 1];
   }
   return null;
-};
+}
 
 function skipNewLineForward(text, index) {
   // What the "end" location points to is not consistent in parsers.
@@ -123,11 +121,11 @@ function findNewline(text, index, backwards) {
 
 function newlineExistsBefore(text, index) {
   return findNewline(text, index, true);
-};
+}
 
 function newlineExistsAfter(text, index) {
   return findNewline(text, index);
-};
+}
 
 function skipSpaces(text, index, backwards) {
   const length = text.length;
@@ -215,7 +213,7 @@ var PRECEDENCE = {};
 
 function getPrecedence(op) {
   return PRECEDENCE[op];
-};
+}
 
 module.exports = {
   comparePos,

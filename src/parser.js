@@ -1,5 +1,4 @@
 "use strict";
-
 function parseWithFlow(text, filename) {
   // Inline the require to avoid loading all the JS if we don't use it
   const flowParser = require("flow-parser");
@@ -47,7 +46,4 @@ function parseWithBabylon(text) {
   });
 }
 
-module.exports = {
-  parseWithFlow,
-  parseWithBabylon
-};
+module.exports = { parseWithFlow, parseWithBabylon };

@@ -15,17 +15,11 @@ const argv = minimist(process.argv.slice(2), {
     "trailing-comma",
     "version",
     "debug-print-doc",
-
     // Deprecated in 0.0.10
     "flow-parser"
   ],
-  string: [
-    "parser"
-  ],
-  default: {
-    "bracket-spacing": true,
-    parser: "babylon",
-  }
+  string: [ "parser" ],
+  default: { "bracket-spacing": true, parser: "babylon" }
 });
 
 if (argv["version"]) {

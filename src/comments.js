@@ -175,7 +175,7 @@ function attach(comments, ast, text) {
     delete comment.enclosingNode;
     delete comment.followingNode;
   });
-};
+}
 
 function breakTies(tiesToBreak, text) {
   var tieCount = tiesToBreak.length;
@@ -272,13 +272,18 @@ function printDanglingComments(path, print, options) {
   const text = options.originalText;
 
   const parts = [];
-  path.each(commentPath => {
-    const comment = commentPath.getValue();
-    if(!comment.leading && !comment.trailing) {
-      parts.push(util.newlineExistsBefore(text, locStart(comment)) ? hardline : " ");
-      parts.push(commentPath.call(print));
-    }
-  }, "comments");
+  path.each(
+    commentPath => {
+      const comment = commentPath.getValue();
+      if (!comment.leading && !comment.trailing) {
+        parts.push(
+          util.newlineExistsBefore(text, locStart(comment)) ? hardline : " "
+        );
+        parts.push(commentPath.call(print));
+      }
+    },
+    "comments"
+  );
   return concat(parts);
 }
 
@@ -329,10 +334,6 @@ function printComments(path, print, options) {
 
   leadingParts.push.apply(leadingParts, trailingParts);
   return concat(leadingParts);
-};
-
-module.exports = {
-  attach,
-  printComments,
-  printDanglingComments,
 }
+
+module.exports = { attach, printComments, printDanglingComments };

@@ -1,11 +1,8 @@
 "use strict";
-
 var jsesc = require("jsesc");
 
 function flattenDoc(doc) {
-  if (!doc || 
-      typeof doc === "string" ||
-      doc.type === "line") {
+  if (!doc || typeof doc === "string" || doc.type === "line") {
     return doc;
   }
 
@@ -24,37 +21,33 @@ function flattenDoc(doc) {
       }
     }
 
-    return Object.assign({}, doc, {
-      parts: res
-    });
+    return Object.assign({}, doc, { parts: res });
   }
 
   if (doc.type === "indent") {
-    return Object.assign({}, doc, {
-      contents: flattenDoc(doc.contents)
-    });
+    return Object.assign({}, doc, { contents: flattenDoc(doc.contents) });
   }
 
   if (doc.type === "if-break") {
     return Object.assign({}, doc, {
       breakContents: flattenDoc(doc.breakContents),
-      flatContents: flattenDoc(doc.flatContents),
+      flatContents: flattenDoc(doc.flatContents)
     });
   }
 
   if (doc.type === "group") {
     return Object.assign({}, doc, {
       contents: flattenDoc(doc.contents),
-      expandedStates: doc.expandedStates ?
-        doc.expandedStates.map(flattenDoc) :
-        doc.expandedStates,
+      expandedStates: doc.expandedStates
+        ? doc.expandedStates.map(flattenDoc)
+        : doc.expandedStates
     });
   }
 }
 
 function printDoc(doc) {
   if (typeof doc === "string") {
-    return jsesc(doc, {wrap: true});
+    return jsesc(doc, { wrap: true });
   }
 
   if (doc.type === "line") {
@@ -86,11 +79,14 @@ function printDoc(doc) {
   }
 
   if (doc.type === "group") {
-    return (doc.break ? "multilineGroup" : (doc.expandedStates ? "conditionalGroup" : "group")) +
-      "(" + printDoc(doc.contents) +
-      (doc.expandedStates ?
-        ", [" + doc.expandedStates.map(printDoc).join(",") + "]" :
-        "") +
+    return (doc.break
+      ? "multilineGroup"
+      : doc.expandedStates ? "conditionalGroup" : "group") +
+      "(" +
+      printDoc(doc.contents) +
+      (doc.expandedStates
+        ? ", [" + doc.expandedStates.map(printDoc).join(",") + "]"
+        : "") +
       ")";
   }
 }
@@ -99,4 +95,4 @@ module.exports = {
   printDocToDebug: function(doc) {
     return printDoc(flattenDoc(doc));
   }
-}
+};
