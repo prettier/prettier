@@ -9,7 +9,7 @@ var concat = docBuilders.concat;
 var hardline = docBuilders.hardline;
 var util = require("./util");
 var comparePos = util.comparePos;
-var childNodesCacheKey = require("private").makeUniqueKey();
+var childNodesCacheKey = Symbol('child-nodes');
 var locStart = util.locStart;
 var locEnd = util.locEnd;
 
