@@ -1,5 +1,4 @@
 "use strict";
-
 const assert = require("assert");
 const utils = require("./doc-utils");
 const hasHardLine = utils.hasHardLine;
@@ -91,5 +90,5 @@ module.exports = {
   multilineGroup,
   conditionalGroup,
   ifBreak,
-  indent,
+  indent
 };

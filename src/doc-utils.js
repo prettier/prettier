@@ -1,5 +1,4 @@
 "use strict";
-
 function iterDoc(topDoc, func) {
   const docs = [ topDoc ];
   while (docs.length !== 0) {
@@ -64,8 +63,4 @@ function hasHardLine(doc) {
   });
 }
 
-module.exports = {
-  isEmpty,
-  getFirstString,
-  hasHardLine,
-};
+module.exports = { isEmpty, getFirstString, hasHardLine };

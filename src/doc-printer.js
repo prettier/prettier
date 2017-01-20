@@ -1,5 +1,4 @@
 "use strict";
-
 const MODE_BREAK = 1;
 const MODE_FLAT = 2;
 
@@ -238,6 +237,4 @@ function printDocToString(doc, options) {
   return out.join("");
 }
 
-module.exports = {
-  printDocToString,
-};
+module.exports = { printDocToString };

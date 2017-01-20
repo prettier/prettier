@@ -355,7 +355,7 @@ function genericPrintNoParens(path, options, print) {
 
       return concat(parts);
     case "ExportBatchSpecifier":
-      return "*"
+      return "*";
     case "ImportNamespaceSpecifier":
       parts.push("* as ");
 
@@ -482,8 +482,7 @@ function genericPrintNoParens(path, options, print) {
 
       if (hasContent) {
         parts.push(indent(1, concat([ hardline, naked ])));
-      }
-      else if(n.comments) {
+      } else if (n.comments) {
         parts.push(
           indent(
             1,
@@ -656,12 +655,12 @@ function genericPrintNoParens(path, options, print) {
     case "SequenceExpression":
       return join(", ", path.map(print, "expressions"));
     case "ThisExpression":
-      return "this"
+      return "this";
     case "Super":
-      return "super"
+      return "super";
     case // Babel 6 Literal split
     "NullLiteral":
-      return "null"
+      return "null";
     case // Babel 6 Literal split
     "RegExpLiteral":
       return n.extra.raw;
@@ -998,7 +997,7 @@ function genericPrintNoParens(path, options, print) {
       return concat(parts);
     // JSX extensions below.
     case "DebuggerStatement":
-      return "debugger;"
+      return "debugger;";
     case "JSXAttribute":
       parts.push(path.call(print, "name"));
 
@@ -1031,15 +1030,14 @@ function genericPrintNoParens(path, options, print) {
     case "JSXSpreadAttribute":
       return concat([ "{...", path.call(print, "argument"), "}" ]);
     case "JSXExpressionContainer":
-      const shouldIndent =
-        n.expression.type !== 'ArrayExpression' &&
-        n.expression.type !== 'ObjectExpression' &&
-        n.expression.type !== 'ArrowFunctionExpression' &&
-        n.expression.type !== 'CallExpression' &&
-        n.expression.type !== 'FunctionExpression';
+      const shouldIndent = n.expression.type !== "ArrayExpression" &&
+        n.expression.type !== "ObjectExpression" &&
+        n.expression.type !== "ArrowFunctionExpression" &&
+        n.expression.type !== "CallExpression" &&
+        n.expression.type !== "FunctionExpression";
 
       if (!shouldIndent) {
-        return concat(["{", path.call(print, "expression"), "}"]);
+        return concat([ "{", path.call(print, "expression"), "}" ]);
       }
 
       return multilineGroup(
@@ -1090,7 +1088,7 @@ function genericPrintNoParens(path, options, print) {
       ]);
     case "ClassBody":
       if (n.body.length === 0) {
-        return "{}"
+        return "{}";
       }
 
       return concat([
@@ -1217,17 +1215,17 @@ function genericPrintNoParens(path, options, print) {
       return concat([ "[", join(", ", path.map(print, "types")), "]" ]);
     case "ExistentialTypeParam":
     case "ExistsTypeAnnotation":
-      return "*"
+      return "*";
     case "EmptyTypeAnnotation":
-      return "empty"
+      return "empty";
     case "AnyTypeAnnotation":
-      return "any"
+      return "any";
     case "MixedTypeAnnotation":
-      return "mixed"
+      return "mixed";
     case "ArrayTypeAnnotation":
       return concat([ path.call(print, "elementType"), "[]" ]);
     case "BooleanTypeAnnotation":
-      return "boolean"
+      return "boolean";
     case "NumericLiteralTypeAnnotation":
     case "BooleanLiteralTypeAnnotation":
       return "" + n.value;
@@ -1374,11 +1372,11 @@ function genericPrintNoParens(path, options, print) {
     case "NullableTypeAnnotation":
       return concat([ "?", path.call(print, "typeAnnotation") ]);
     case "NullLiteralTypeAnnotation":
-      return "null"
+      return "null";
     case "ThisTypeAnnotation":
-      return "this"
+      return "this";
     case "NumberTypeAnnotation":
-      return "number"
+      return "number";
     case "ObjectTypeCallProperty":
       if (n.static) {
         parts.push("static ");
@@ -1430,7 +1428,7 @@ function genericPrintNoParens(path, options, print) {
 
       return "" + n.value;
     case "StringTypeAnnotation":
-      return "string"
+      return "string";
     case "DeclareTypeAlias":
     case "TypeAlias": {
       const parent = path.getParentNode(1);
@@ -1484,10 +1482,7 @@ function genericPrintNoParens(path, options, print) {
 
       return concat(parts);
     case "TypeofTypeAnnotation":
-      return concat([
-        "typeof ",
-        path.call(print, "argument")
-      ]);
+      return concat([ "typeof ", path.call(print, "argument") ]);
     case "VoidTypeAnnotation":
       return "void";
     case "NullTypeAnnotation":
@@ -1589,7 +1584,7 @@ function printPropertyKey(path, options, print) {
       isIdentifierName(node.value) &&
       // There's a bug in the flow parser where it throws if there are
       // unquoted unicode literals as keys. Let's quote them for now.
-      (options.parser !== 'flow' || node.value.match(/[a-zA-Z0-9$_]/))
+      (options.parser !== "flow" || node.value.match(/[a-zA-Z0-9$_]/))
   ) {
     // 'a' -> a
     return node.value;
@@ -1744,7 +1739,9 @@ function printFunctionParams(path, print, options) {
   }
 
   const lastParam = util.getLast(path.getValue().params);
-  const canHaveTrailingComma = !(lastParam && lastParam.type === "RestElement") && !fun.rest;
+  const canHaveTrailingComma = !(lastParam &&
+    lastParam.type === "RestElement") &&
+    !fun.rest;
 
   return concat([
     "(",
@@ -1951,8 +1948,10 @@ function printMemberChain(node, options, print) {
   // Traverse down and gather up all of the calls on member
   // expressions. This flattens it out into a list that we can
   // easily analyze.
-  while (leftmost.type === "CallExpression" &&
-    leftmost.callee.type === "MemberExpression") {
+  while (
+    leftmost.type === "CallExpression" &&
+      leftmost.callee.type === "MemberExpression"
+  ) {
     nodes.push({ member: leftmost.callee, call: leftmost });
     leftmostParent = leftmost;
     leftmost = leftmost.callee.object;
@@ -2064,9 +2063,9 @@ function printJSXChildren(path, options, print) {
         // correctly escaped (since it parsed).
         // We really want to use value and re-escape it ourself when possible
         // though.
-        const value = options.parser === 'flow' ?
-          child.raw :
-          util.htmlEscapeInsideAngleBracket(child.value);
+        const value = options.parser === "flow"
+          ? child.raw
+          : util.htmlEscapeInsideAngleBracket(child.value);
 
         if (/\S/.test(value)) {
           const beginBreak = value.match(/^\s*\n/);
@@ -2340,7 +2339,7 @@ function nodeStr(node, options) {
   // Workaround a bug in the Javascript version of the flow parser where
   // astral unicode characters like \uD801\uDC28 are incorrectly parsed as
   // a sequence of \uFFFD.
-  if (options.parser === 'flow' && result.indexOf("\\uFFFD") !== -1) {
+  if (options.parser === "flow" && result.indexOf("\\uFFFD") !== -1) {
     return node.raw;
   }
 
@@ -2373,6 +2372,4 @@ function printAstToDoc(ast, options) {
   return printGenerically(FastPath.from(ast));
 }
 
-module.exports = {
-  printAstToDoc
-};
+module.exports = { printAstToDoc };
