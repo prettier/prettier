@@ -851,7 +851,7 @@ function genericPrintNoParens(path, options, print) {
         group(
           concat([
             indent(
-              options.tabWidth,
+              1,
               concat([ softline, path.call(print, "test") ])
             ),
             softline
