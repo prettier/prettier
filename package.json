@@ -1,6 +1,6 @@
 {
   "name": "prettier-with-tabs",
-  "version": "0.0.10",
+  "version": "0.0.10-fix-while",
   "description": "Prettier is an opinionated JavaScript formatter",
   "bin": {
     "prettier": "./bin/prettier.js"
