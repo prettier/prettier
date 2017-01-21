@@ -19,7 +19,12 @@ const argv = minimist(process.argv.slice(2), {
     "flow-parser"
   ],
   string: [ "parser" ],
-  default: { "bracket-spacing": true, parser: "babylon" }
+  default: { "bracket-spacing": true, parser: "babylon" },
+  unknown: param => {
+    if (param.startsWith("-")) {
+      console.warn("Ignored unknown option: " + param + "\n");
+    }
+  }
 });
 
 if (argv["version"]) {
@@ -51,6 +56,7 @@ if (!filenames.length && !stdin) {
 function getParser() {
   // For backward compatibility. Deprecated in 0.0.10
   if (argv["flow-parser"]) {
+    console.warn("`--flow-parser` is deprecated. Use `--parser flow` instead.");
     return "flow";
   }
 
