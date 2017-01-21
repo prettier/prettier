@@ -22,8 +22,7 @@ const argv = minimist(process.argv.slice(2), {
   default: { "bracket-spacing": true, parser: "babylon" },
   unknown: param => {
     if (param.startsWith("-")) {
-      console.error("Unknown option: " + param + "\n");
-      process.exit(2);
+      console.warn("Ignored unknown option: " + param + "\n");
     }
   }
 });
