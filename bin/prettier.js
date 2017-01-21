@@ -19,7 +19,13 @@ const argv = minimist(process.argv.slice(2), {
     "flow-parser"
   ],
   string: [ "parser" ],
-  default: { "bracket-spacing": true, parser: "babylon" }
+  default: { "bracket-spacing": true, parser: "babylon" },
+  unknown: param => {
+    if (param.startsWith("-")) {
+      console.error("Unknown option: " + param + "\n");
+      process.exit(2);
+    }
+  }
 });
 
 if (argv["version"]) {
