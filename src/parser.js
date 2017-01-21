@@ -1,5 +1,5 @@
 "use strict";
-function parseWithFlow(text, filename) {
+function parseWithFlow(text) {
   // Inline the require to avoid loading all the JS if we don't use it
   const flowParser = require("flow-parser");
 
@@ -10,13 +10,16 @@ function parseWithFlow(text, filename) {
   });
 
   if (ast.errors.length > 0) {
-    let msg = ast.errors[0].message +
-      " on line " +
-      ast.errors[0].loc.start.line;
-    if (filename) {
-      msg += " in file " + filename;
+    // Construct an error similar to the ones thrown by Babylon.
+    const loc = {
+      line: ast.errors[0].loc.start.line,
+      column: ast.errors[0].loc.start.column,
     }
-    throw new Error(msg);
+    const msg = ast.errors[0].message +
+      " (" + loc.line + ":" + loc.column + ")";
+    const error = new SyntaxError(msg);
+    error.loc = loc;
+    throw error;
   }
 
   return ast;

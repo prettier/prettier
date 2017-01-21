@@ -90,7 +90,7 @@ if (stdin) {
       console.log(format(input));
     } catch (e) {
       process.exitCode = 2;
-      console.error(e);
+      console.error("stdin: " + e);
       return;
     }
   });
@@ -113,7 +113,7 @@ if (stdin) {
         output = format(input);
       } catch (e) {
         process.exitCode = 2;
-        console.error(e);
+        console.error(filename + ": " + e);
         return;
       }
 
