@@ -379,7 +379,11 @@ FPp.needsParens = function(assumeExpressionContext) {
       }
 
     case "ClassExpression":
-      return parent.type === "ExpressionStatement";
+      switch (parent.type) {
+        case "ExportDefaultDeclaration":
+        case "ExpressionStatement":
+          return true;
+      }
 
     case "ObjectExpression":
       if (parent.type === "ArrowFunctionExpression" && name === "body") {
