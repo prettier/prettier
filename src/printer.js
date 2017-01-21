@@ -1828,8 +1828,7 @@ function printExportDeclaration(path, options, print) {
     if (
       decl.type === "ExportDefaultDeclaration" &&
         (decl.declaration.type !== "ClassDeclaration" &&
-          decl.declaration.type !== "FunctionDeclaration" &&
-          decl.declaration.type !== "FunctionExpression")
+          decl.declaration.type !== "FunctionDeclaration")
     ) {
       parts.push(";");
     }

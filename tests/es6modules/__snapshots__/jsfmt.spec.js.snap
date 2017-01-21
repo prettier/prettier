@@ -1396,7 +1396,7 @@ exports[`test export_default_function_expression.js 1`] = `
 "export default (function() {});
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export default (function() {
-})
+});
 "
 `;
 
@@ -1404,7 +1404,7 @@ exports[`test export_default_function_expression_named.js 1`] = `
 "export default (function f(){})
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export default (function f() {
-})
+});
 "
 `;
 

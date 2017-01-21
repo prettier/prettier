@@ -385,6 +385,8 @@ FPp.needsParens = function(assumeExpressionContext) {
           return true;
       }
 
+      return false;
+
     case "ObjectExpression":
       if (parent.type === "ArrowFunctionExpression" && name === "body") {
         return true;
