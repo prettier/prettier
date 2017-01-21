@@ -1841,6 +1841,12 @@ function printExportDeclaration(path, options, print) {
           decl.specifiers[0].type === "ExportBatchSpecifier"
       ) {
         parts.push("*");
+      } else if (
+        decl.specifiers.length === 1 &&
+          decl.specifiers[0].type === "ExportDefaultSpecifier" ||
+          decl.specifiers[0].type === "ExportNamespaceSpecifier"
+      ) {
+        parts.push(path.map(print, "specifiers")[0]);
       } else {
         parts.push(
           decl.exportKind === "type" ? "type " : "",
