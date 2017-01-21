@@ -55,6 +55,7 @@ if (!filenames.length && !stdin) {
 function getParser() {
   // For backward compatibility. Deprecated in 0.0.10
   if (argv["flow-parser"]) {
+    console.warn("`--flow-parser` is deprecated. Use `--parser flow` instead.");
     return "flow";
   }
 
