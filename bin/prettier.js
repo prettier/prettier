@@ -4,7 +4,7 @@
 const fs = require("fs");
 const getStdin = require("get-stdin");
 const minimist = require("minimist");
-const jscodefmt = require("../index");
+const prettier = require("../index");
 
 const argv = minimist(process.argv.slice(2), {
   boolean: [
@@ -28,7 +28,7 @@ const argv = minimist(process.argv.slice(2), {
 });
 
 if (argv["version"]) {
-  console.log(jscodefmt.version);
+  console.log(prettier.version);
   process.exit(0);
 }
 
@@ -77,10 +77,10 @@ const options = {
 
 function format(input) {
   if (argv["debug-print-doc"]) {
-    const doc = jscodefmt.__debug.printToDoc(input, options);
-    return jscodefmt.__debug.formatDoc(doc);
+    const doc = prettier.__debug.printToDoc(input, options);
+    return prettier.__debug.formatDoc(doc);
   }
-  return jscodefmt.format(input, options);
+  return prettier.format(input, options);
 }
 
 if (stdin) {
