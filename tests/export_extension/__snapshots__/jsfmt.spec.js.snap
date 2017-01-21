@@ -1,0 +1,8 @@
+exports[`test export.js 1`] = `
+"export * as ns from \'mod\';
+export v from \'mod\';
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export * as ns from \"mod\";
+export v from \"mod\";
+"
+`;
