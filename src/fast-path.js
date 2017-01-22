@@ -216,12 +216,23 @@ FPp.needsParens = function(assumeExpressionContext) {
   }
 
   switch (node.type) {
-    case "UpdateExpression":
     case "SpreadElement":
     case "SpreadProperty":
       return parent.type === "MemberExpression" &&
         name === "object" &&
         parent.object === node;
+
+    case "UpdateExpression":
+      switch (parent.type) {
+        case "MemberExpression":
+          return name === "object" && parent.object === node;
+
+        case "CallExpression":
+        case "NewExpression":
+          return true;
+
+        return false;
+      }
 
     case "UnaryExpression":
       switch (parent.type) {
