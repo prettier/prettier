@@ -977,7 +977,7 @@ function genericPrintNoParens(path, options, print) {
       if (n.test) parts.push("case ", path.call(print, "test"), ":");
       else parts.push("default:");
 
-      if (n.consequent.length > 0) {
+      if (n.consequent.find(node => node.type !== "EmptyStatement")) {
         const cons = path.call(
           function(consequentPath) {
             return printStatementSequence(consequentPath, options, print);
