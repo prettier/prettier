@@ -746,17 +746,17 @@ function genericPrintNoParens(path, options, print) {
       ];
 
       // We generally want to terminate all variable declarations with a
-      // semicolon, except when they are children of for loops.
+      // semicolon, except when they in the () part of for loops.
       var parentNode = path.getParentNode();
 
-      if (
-        !namedTypes.ForStatement.check(parentNode) &&
-          !namedTypes.ForInStatement.check(parentNode) &&
-          !(namedTypes.ForOfStatement &&
-            namedTypes.ForOfStatement.check(parentNode)) &&
-          !(namedTypes.ForAwaitStatement &&
-            namedTypes.ForAwaitStatement.check(parentNode))
-      ) {
+      var isParentForLoop = namedTypes.ForStatement.check(parentNode) ||
+        namedTypes.ForInStatement.check(parentNode) |
+        (namedTypes.ForOfStatement &&
+          namedTypes.ForOfStatement.check(parentNode)) ||
+        (namedTypes.ForAwaitStatement &&
+          namedTypes.ForAwaitStatement.check(parentNode));
+
+      if (!(isParentForLoop && parentNode.body !== n)) {
         parts.push(";");
       }
 
