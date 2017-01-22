@@ -87,6 +87,13 @@ exports[`test binary.js 1`] = `
 "
 `;
 
+exports[`test class_expression.js 1`] = `
+"(class{})();
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(class {})();
+"
+`;
+
 exports[`test class_shapes.js 1`] = `
 "/* @flow */
 
