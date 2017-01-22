@@ -399,6 +399,9 @@ FPp.needsParens = function(assumeExpressionContext) {
         case "NewExpression":
           return name === "callee";
 
+        case "LogicalExpression":
+          return node.type === "ArrowFunctionExpression";
+
         default:
           return isBinary(parent);
       }
