@@ -51,6 +51,12 @@ module.exports = {
   },
   version: version,
   __debug: {
+    formatAST: function(ast, opts) {
+      opts = normalizeOptions(opts);
+      const doc = printAstToDoc(ast, opts);
+      const str = printDocToString(doc, opts.printWidth);
+      return str;
+    },
     // Doesn't handle shebang for now
     formatDoc: function(doc, opts) {
       opts = normalizeOptions(opts);
