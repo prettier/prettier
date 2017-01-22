@@ -12,6 +12,8 @@ function f(
 ) {}
 
 declare class C { f(...superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong): void; }
+
+[superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong,,]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare class C {
   f(
@@ -31,5 +33,10 @@ declare class C {
     ...superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong
   ): void,
 }
+
+[
+  superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong,
+  ,
+];
 "
 `;
