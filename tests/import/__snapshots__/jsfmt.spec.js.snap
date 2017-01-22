@@ -51,3 +51,17 @@ import {
 import {fitsIn, oneLine} from \".\";
 "
 `;
+
+exports[`test multiple_standalones.js 1`] = `
+"import a, * as b from \'a\';
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import a, * as b from \"a\";
+"
+`;
+
+exports[`test multiple_standalones.js 2`] = `
+"import a, * as b from \'a\';
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import a, * as b from \"a\";
+"
+`;
