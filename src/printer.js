@@ -2330,59 +2330,68 @@ function nodeStr(node, options) {
     return node.raw;
   }
 
-  const containsSingleQuote = str.indexOf("'") !== -1;
-  const containsDoubleQuote = str.indexOf('"') !== -1;
-
-  let shouldUseSingleQuote = options.singleQuote;
-  if (options.singleQuote && containsSingleQuote && !containsDoubleQuote) {
-    shouldUseSingleQuote = false;
-  }
-  if (!options.singleQuote && !containsSingleQuote && containsDoubleQuote) {
-    shouldUseSingleQuote = true;
-  }
-
   const raw = node.extra ? node.extra.raw : node.raw;
-  const isSingleQuote = raw.charAt(0) === "'";
+  // `rawContent` is the string exactly like it appeared in the input source
+  // code, with its enclosing quote.
+  const rawContent = raw.slice(1, -1);
 
-  if (isSingleQuote && shouldUseSingleQuote ||
-      !isSingleQuote && !shouldUseSingleQuote) {
-    return raw;
+  const double = { quote: '"', regex: /"/g };
+  const single = { quote: "'", regex: /'/g };
+
+  const preferred = options.singleQuote ? single : double;
+  const alternate = preferred === single ? double : single;
+
+  let shouldUseAlternateQuote = false;
+
+  // If `rawContent` contains at least one of the quote preferred for enclosing
+  // the string, we might want to enclose with the alternate quote instead, to
+  // minimize the number of escaped quotes.
+  if (rawContent.includes(preferred.quote)) {
+    const numPreferredQuotes = (rawContent.match(preferred.regex) || []).length;
+    const numAlternateQuotes = (rawContent.match(alternate.regex) || []).length;
+
+    shouldUseAlternateQuote = numPreferredQuotes > numAlternateQuotes;
   }
 
-  const nextQuote = shouldUseSingleQuote ? "'" : '"';
+  const enclosingQuote = shouldUseAlternateQuote
+    ? alternate.quote
+    : preferred.quote;
 
-  // When we change the outer quotes, we need to change the number of
-  // backslash before. In order to know how many backslash to put,
-  // I manually did the first few examples and extracted a general rule
-  // out of it.
-  //
-  // shouldSwitch === true
-  //
-  //   3 -> 3 "\\\'" -> '\\\''
-  //   2 -> 3 "\\'"  -> '\\\''
-  //   1 -> 1 "\'"   -> '\''
-  //   0 -> 1 "\'"   -> '\''
-  //
-  //   Rule: n -> Math.floor(n / 2) + 1
-  //
-  // shouldSwitch === false
-  //
-  //   3 -> 2 '\\\'' -> "\\'"
-  //   1 -> 0 '\''   -> "'"
-  //
-  //   Rule: n -> n - 1
-  return nextQuote + raw.slice(1, -1)
-    .replace(/\\*['"]/g, (match) => {
-      const quote = match[match.length - 1];
-      const shouldSwitch = quote === "'" && shouldUseSingleQuote ||
-       quote === '"' && !shouldUseSingleQuote;
-      const numBackslash = match.length - 1;
-      const nextNumBackslash = shouldSwitch ?
-        Math.floor(numBackslash / 2) + 1 :
-        numBackslash - 1;
+  // It might sound unnecessary to use `makeString` even if `node.raw` already
+  // is enclosed with `enclosingQuote`, but it isn't. `node.raw` could contain
+  // unnecessary escapes (such as in `"\'"`). Always using `makeString` makes
+  // sure that we consistently output the minimum amount of escaped quotes.
+  return makeString(rawContent, enclosingQuote);
+}
 
-      return '\\'.repeat(nextNumBackslash) + quote;
-    }) + nextQuote;
+function makeString(rawContent, enclosingQuote) {
+  const otherQuote = enclosingQuote === '"' ? "'" : '"';
+
+  // Matches _any_ escape and unescaped quotes (both single and double).
+  const regex = /\\([\s\S])|(['"])/g;
+
+  // Escape and unescape single and double quotes as needed to be able to
+  // enclose `rawContent` with `enclosingQuote`.
+  const newContent = rawContent.replace(regex, (match, escaped, quote) => {
+    // If we matched an escape, and the escaped character is a quote of the
+    // other type than we intend to enclose the string with, there's no need for
+    // it to be escaped, so return it _without_ the backslash.
+    if (escaped === otherQuote) {
+      return escaped;
+    }
+
+    // If we matched an unescaped quote and it is of the _same_ type as we
+    // intend to enclose the string with, it must be escaped, so return it with
+    // a backslash.
+    if (quote === enclosingQuote) {
+      return "\\" + quote;
+    }
+
+    // Otherwise return the escape or unescaped quote as-is.
+    return match;
+  });
+
+  return enclosingQuote + newContent + enclosingQuote;
 }
 
 function isFirstStatement(path) {
