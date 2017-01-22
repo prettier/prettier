@@ -768,17 +768,17 @@ exports[`test quotes.js 1`] = `
   \"\'\",
   \"\'\",
   // Unnecessary escapes.
-  \"\\\'\",
-  \'\\\"\',
+  \"\'\",
+  \'\"\',
   // One of each.
   \"\\\"\'\",
   \"\\\"\'\",
   // One of each with unnecessary escapes.
-  \"\\\"\\\'\",
+  \"\\\"\'\",
   \"\\\"\'\",
   // More double quotes.
-  \"\\\"\'\\\"\",
-  \"\\\"\'\\\"\",
+  \'\"\\\'\"\',
+  \'\"\\\'\"\',
   // More single quotes.
   \"\\\"\'\'\",
   \"\\\"\'\'\",
@@ -786,14 +786,14 @@ exports[`test quotes.js 1`] = `
   \"\\\"\\\"\'\'\",
   \"\\\"\\\"\'\'\",
   // Backslases.
-  \"\\\"\\\\\\\"\\\\\\\\\\\" \'\\\'\\\\\'\\\\\\\'\\\\\\\\\'\",
-  \"\'\\\\\'\\\\\\\\\' \\\"\\\"\\\\\"\\\\\"\\\\\\\"\",
+  \"\\\"\\\\\\\"\\\\\\\\\\\" \'\'\\\\\'\\\\\'\\\\\\\\\'\",
+  \'\\\'\\\\\\\'\\\\\\\\\\\' \"\"\\\\\"\\\\\"\\\\\\\\\"\',
   // Somewhat more real-word example.
   \"He\'s sayin\': \\\"How\'s it goin\'?\\\" Don\'t ask me why.\",
   \"He\'s sayin\': \\\"How\'s it goin\'?\\\" Don\'t ask me why.\",
   // Somewhat more real-word example 2.
-  \"var backslash = \\\"\\\\\\\", doubleQuote = \'\\\"\';\",
-  \"var backslash = \\\"\\\\\", doubleQuote = \'\\\"\';\"
+  \'var backslash = \"\\\\\", doubleQuote = \\\'\"\\\';\',
+  \'var backslash = \"\\\\\", doubleQuote = \\\'\"\\\';\'
 ];
 "
 `;
