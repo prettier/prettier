@@ -370,7 +370,8 @@ export default (function() {})();
 (function() {})()\`\`;
 (function() {})\`\`;
 new (function() {});
-(function() {})
+(function() {});
+a = function f() {} || b;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 (function() {
 }).length;
@@ -386,6 +387,8 @@ new (function() {
 })();
 (function() {
 });
+a = function f() {
+} || b;
 "
 `;
 
