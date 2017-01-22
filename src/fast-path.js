@@ -245,6 +245,13 @@ FPp.needsParens = function(assumeExpressionContext) {
         case "NewExpression":
           return true;
 
+        case "UnaryExpression":
+          if (node.prefix &&
+            ((node.operator === '++' && parent.operator === '+') ||
+              (node.operator === '--' && parent.operator === '-'))) {
+            return true;
+          }
+
         return false;
       }
 
