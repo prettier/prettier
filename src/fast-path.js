@@ -405,6 +405,7 @@ FPp.needsParens = function(assumeExpressionContext) {
 
     case "ClassExpression":
       switch (parent.type) {
+        case "BinaryExpression":
         case "ExportDefaultDeclaration":
         case "ExpressionStatement":
           return true;
