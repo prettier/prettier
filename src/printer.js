@@ -971,10 +971,10 @@ function genericPrintNoParens(path, options, print) {
         "switch (",
         path.call(print, "discriminant"),
         ") {",
-        indent(
+        n.cases.length > 0 ? indent(
           options.tabWidth,
           concat([ hardline, join(hardline, path.map(print, "cases")) ])
-        ),
+        ) : "",
         hardline,
         "}"
       ]);
