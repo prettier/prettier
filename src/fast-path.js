@@ -192,12 +192,26 @@ FPp.needsParens = function(assumeExpressionContext) {
     return false;
   }
 
-  // Add parens around a `class` that extends an expression (it should
-  // parse correctly, even if it's invalid)
+  // Add parens around the extends clause of a class. It is needed for almost
+  // all expressions.
   if (
     parent.type === "ClassDeclaration" &&
-      parent.superClass === node &&
-      node.type === "AwaitExpression"
+      parent.superClass === node && (
+        node.type === "ArrowFunctionExpression" ||
+        node.type === "AssignmentExpression" ||
+        node.type === "AwaitExpression" ||
+        node.type === "BinaryExpression" ||
+        node.type === "ConditionalExpression" ||
+        node.type === "LogicalExpression" ||
+        node.type === "NewExpression" ||
+        node.type === "ObjectExpression" ||
+        node.type === "ParenthesizedExpression" ||
+        node.type === "SequenceExpression" ||
+        node.type === "TaggedTemplateExpression" ||
+        node.type === "UnaryExpression" ||
+        node.type === "UpdateExpression" ||
+        node.type === "YieldExpression"
+      )
   ) {
     return true;
   }
