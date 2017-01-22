@@ -921,6 +921,13 @@ function genericPrintNoParens(path, options, print) {
 
       return concat(parts);
     case "LabeledStatement":
+      if (n.body.type === "EmptyStatement") {
+        return concat([
+          path.call(print, "label"),
+          ":;"
+        ]);
+      }
+
       return concat([
         path.call(print, "label"),
         ":",
