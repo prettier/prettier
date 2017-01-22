@@ -53,3 +53,5 @@ function* f() {
   // Flow has a bug parsing it.
   // class a extends (yield 1) {}
 }
+
+x = class extends (++b) {}
