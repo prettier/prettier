@@ -637,7 +637,7 @@ function genericPrintNoParens(path, options, print) {
                 ])
               ),
               needsForcedTrailingComma ? "," : "",
-              ifBreak(options.trailingComma ? "," : ""),
+              ifBreak(!needsForcedTrailingComma && options.trailingComma ? "," : ""),
               options.bracketSpacing ? line : softline,
               "]"
             ])
