@@ -195,7 +195,7 @@ FPp.needsParens = function(assumeExpressionContext) {
   // Add parens around the extends clause of a class. It is needed for almost
   // all expressions.
   if (
-    parent.type === "ClassDeclaration" &&
+    (parent.type === "ClassDeclaration" || parent.type === "ClassExpression") &&
       parent.superClass === node && (
         node.type === "ArrowFunctionExpression" ||
         node.type === "AssignmentExpression" ||
