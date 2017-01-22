@@ -267,6 +267,10 @@ FPp.needsParens = function(assumeExpressionContext) {
       }
 
     case "BinaryExpression":
+      if (node.operator === "in" && parent.type === "ForStatement" && parent.init === node) {
+        return true;
+      }
+
     case "LogicalExpression":
       switch (parent.type) {
         case "CallExpression":
