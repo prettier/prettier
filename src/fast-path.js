@@ -405,6 +405,7 @@ FPp.needsParens = function(assumeExpressionContext) {
 
     case "ClassExpression":
       switch (parent.type) {
+        case "BinaryExpression":
         case "ExportDefaultDeclaration":
         case "ExpressionStatement":
           return true;
@@ -414,6 +415,9 @@ FPp.needsParens = function(assumeExpressionContext) {
 
     case "ObjectExpression":
       if (parent.type === "ArrowFunctionExpression" && name === "body") {
+        return true;
+      }
+      if (parent.type === "TaggedTemplateExpression") {
         return true;
       }
 
