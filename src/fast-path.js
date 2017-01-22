@@ -402,6 +402,9 @@ FPp.needsParens = function(assumeExpressionContext) {
       if (parent.type === "ArrowFunctionExpression" && name === "body") {
         return true;
       }
+      if (parent.type === "TaggedTemplateExpression") {
+        return true;
+      }
 
     default:
       if (
