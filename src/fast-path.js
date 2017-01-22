@@ -241,6 +241,7 @@ FPp.needsParens = function(assumeExpressionContext) {
         case "MemberExpression":
           return name === "object" && parent.object === node;
 
+        case "TaggedTemplateExpression":
         case "CallExpression":
         case "NewExpression":
           return true;
@@ -265,6 +266,7 @@ FPp.needsParens = function(assumeExpressionContext) {
         case "NewExpression":
           return name === "callee" && parent.callee === node;
 
+        case "TaggedTemplateExpression":
         case "UnaryExpression":
         case "SpreadElement":
         case "SpreadProperty":
@@ -317,6 +319,7 @@ FPp.needsParens = function(assumeExpressionContext) {
     case "AwaitExpression":
     case "YieldExpression":
       switch (parent.type) {
+        case "TaggedTemplateExpression":
         case "BinaryExpression":
         case "LogicalExpression":
         case "UnaryExpression":
@@ -359,10 +362,12 @@ FPp.needsParens = function(assumeExpressionContext) {
     case "AssignmentExpression":
     case "ConditionalExpression":
       switch (parent.type) {
+        case "TaggedTemplateExpression":
         case "UnaryExpression":
         case "SpreadElement":
         case "SpreadProperty":
         case "BinaryExpression":
+        case "LogicalExpression":
         case "LogicalExpression":
         case "NewExpression":
           return true;
@@ -408,6 +413,7 @@ FPp.needsParens = function(assumeExpressionContext) {
 
     case "ClassExpression":
       switch (parent.type) {
+        case "TaggedTemplateExpression":
         case "BinaryExpression":
         case "ExportDefaultDeclaration":
         case "ExpressionStatement":
