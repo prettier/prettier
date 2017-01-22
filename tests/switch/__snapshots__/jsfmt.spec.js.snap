@@ -1,8 +1,11 @@
 exports[`test empty_switch.js 1`] = `
 "switch (1) { default:; }
+switch (1) {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 switch (1) {
   default:
+}
+switch (1) {
 }
 "
 `;
