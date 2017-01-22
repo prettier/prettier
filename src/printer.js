@@ -414,10 +414,8 @@ function genericPrintNoParens(path, options, print) {
           "specifiers"
         );
 
-        assert.ok(standalones.length <= 1);
-
         if (standalones.length > 0) {
-          parts.push(standalones[0]);
+          parts.push(join(", ", standalones));
         }
 
         if (standalones.length > 0 && grouped.length > 0) {
