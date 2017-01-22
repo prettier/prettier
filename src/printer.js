@@ -613,6 +613,9 @@ function genericPrintNoParens(path, options, print) {
       if (n.elements.length === 0) {
         parts.push("[]");
       } else {
+        const lastElem = util.getLast(n.elements);
+        const canHaveTrailingComma = !(lastElem && lastElem.type === "RestElement");
+
         // JavaScript allows you to have empty elements in an array which
         // changes its length based on the number of commas. The algorithm
         // is that if the last argument is null, we need to force insert
@@ -623,7 +626,7 @@ function genericPrintNoParens(path, options, print) {
         //
         // Note that util.getLast returns null if the array is empty, but
         // we already check for an empty array just above so we are safe
-        const needsForcedTrailingComma = util.getLast(n.elements) === null;
+        const needsForcedTrailingComma = canHaveTrailingComma && lastElem === null;
 
         parts.push(
           multilineGroup(
@@ -637,7 +640,11 @@ function genericPrintNoParens(path, options, print) {
                 ])
               ),
               needsForcedTrailingComma ? "," : "",
-              ifBreak(!needsForcedTrailingComma && options.trailingComma ? "," : ""),
+              ifBreak(
+                canHaveTrailingComma &&
+                !needsForcedTrailingComma &&
+                options.trailingComma ? "," : ""
+              ),
               options.bracketSpacing ? line : softline,
               "]"
             ])
