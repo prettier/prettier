@@ -2565,7 +2565,7 @@ let tests = [
     if (x.kind === null.toString()) {
     }
     // error, method on null
-    if ({ kind: 1 }.kind === null.toString()) {
+    if (({ kind: 1 }).kind === null.toString()) {
     } // error, method on null
   },
   // non-objects on LHS

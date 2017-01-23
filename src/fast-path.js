@@ -449,6 +449,9 @@ FPp.needsParens = function(assumeExpressionContext) {
       if (parent.type === "TaggedTemplateExpression") {
         return true;
       }
+      if (parent.type === "MemberExpression") {
+        return name === "object" && parent.object === node;
+      }
 
     default:
       if (
