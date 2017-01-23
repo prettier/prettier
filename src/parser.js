@@ -13,10 +13,14 @@ function parseWithFlow(text) {
     // Construct an error similar to the ones thrown by Babylon.
     const loc = {
       line: ast.errors[0].loc.start.line,
-      column: ast.errors[0].loc.start.column,
-    }
+      column: ast.errors[0].loc.start.column
+    };
     const msg = ast.errors[0].message +
-      " (" + loc.line + ":" + loc.column + ")";
+      " (" +
+      loc.line +
+      ":" +
+      loc.column +
+      ")";
     const error = new SyntaxError(msg);
     error.loc = loc;
     throw error;
