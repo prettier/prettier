@@ -5,9 +5,13 @@ Prettier is an opinionated JavaScript formatter. This document gives a rationale
 
 ## What prettier is concerned about
 
+### Consistency
+
+Prettier exists for one purpose: to enforce consistency across your entire project. Not only do we output code with consistent whitespace, prettier will lay out code according to a wrapping algorithm based on a maximum line width. That means that long expressions will be broken up across lines, removing the need for manual layout from the programmer which inevitably leads to inconsistency.
+
 ### Correctness
 
-The first goal of prettier is to output valid JavaScript and code that has the exact same behavior as before formatting. Please report any JavaScript code where prettier fails to follow these correctness rules — that's a bug which needs to be fixed!
+The first requirement of prettier is to output valid JavaScript and code that has the exact same behavior as before formatting. Please report any JavaScript code where prettier fails to follow these correctness rules — that's a bug which needs to be fixed!
 
 
 ### Whitespace: indentation and line breaks
