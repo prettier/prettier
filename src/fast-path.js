@@ -376,6 +376,12 @@ FPp.needsParens = function(assumeExpressionContext) {
         parent.object === node;
 
     case "AssignmentExpression":
+      if (parent.type === "ArrowFunctionExpression" &&
+          parent.body === node &&
+          node.left.type === "ObjectPattern") {
+        return true;
+      }
+
     case "ConditionalExpression":
       switch (parent.type) {
         case "TaggedTemplateExpression":
