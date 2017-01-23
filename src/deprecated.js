@@ -6,7 +6,7 @@ const deprecated = {
 
   Prettier now treats your configuration as:
   {
-    ${"\"parser\""}: ${config.seFlowParser ? "\"flow\"" : "\"babylon\""}
+    ${"\"parser\""}: ${config.useFlowParser ? "\"flow\"" : "\"babylon\""}
   }`
 };
 
