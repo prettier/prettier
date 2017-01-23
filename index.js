@@ -1,4 +1,5 @@
 "use strict";
+const codeFrame = require("babel-code-frame");
 const comments = require("./src/comments");
 const version = require("./package.json").version;
 const printAstToDoc = require("./src/printer").printAstToDoc;
@@ -8,10 +9,24 @@ const parser = require("./src/parser");
 const printDocToDebug = require("./src/doc-debug").printDocToDebug;
 
 function parse(text, opts) {
-  if (opts.parser === "flow") {
-    return parser.parseWithFlow(text, opts.filename);
+  const parseFunction = opts.parser === "flow"
+    ? parser.parseWithFlow
+    : parser.parseWithBabylon;
+
+  try {
+    return parseFunction(text);
+  } catch (error) {
+    const loc = error.loc;
+
+    if (loc) {
+      error.codeFrame = codeFrame(text, loc.line, loc.column + 1, {
+        highlightCode: true
+      });
+      error.message += "\n" + error.codeFrame;
+    }
+
+    throw error;
   }
-  return parser.parseWithBabylon(text);
 }
 
 function attachComments(text, ast, opts) {
