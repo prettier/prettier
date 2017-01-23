@@ -1,3 +1,55 @@
+# 0.11.0
+
+[link](https://github.com/jlongster/prettier/compare/0.0.10...0.11.0)
+
+Now using minor versions instead of patch versions for the releases.
+
+ * Swap quotes (#355)
+ * Drop jsesc (#357)
+ * Use a Symbol instead of the private dep (#359)
+ * Add parens for default export FunctionExpressions (#345)
+ * Fix export extension output (#361)
+ * Exit with an error if an unknown CLI option is passed (#365)
+ * Warn if using deprecated CLI options (#364)
+ * s/jscodefmt/prettier/ (#370)
+ * Fix CLI options (#369)
+ * Fix some parens cases for UpdateExpressions (#381)
+ * Output strings with the minimum amount of escaped quotes (#390)
+ * Ignore EmptyStatement inside of switch case (#391)
+ * Support multiple standalones in import (#389)
+ * Fix missing semi-colon in for loop and var body (#388)
+ * Fix empty labels (#383)
+ * Fix forced trailing comma (#382)
+ * Empty switch should not have an empty line (#384)
+ * add formatAST() for formatting ASTs directly (#393)
+ * Fix class extends parenthesis (#396)
+ * Fix class inside of binary expression missing parenthesis (#397)
+ * Fix parenthesis in object as left-hand-side of template (#398)
+ * Remove unneeded parens for FunctionExpression inside LogicalExpression (#399)
+ * Remove trailing comma for array destructuring with rest (#400)
+ * Fix +++x (#401)
+ * Also do the class extend parenthesis for class expressions (#403)
+ * Fix various parenthesis issues on the left side of template (#404)
+ * Fix in inside of the first group of a for (#406)
+ * Add parenthesis for arrow function inside of ternary (#408)
+ * Add parenthesis around class expression when left side of call expression (#409)
+ * Ensure computed method names don't lose quotes (#419)
+ * Add parenthesis for yield inside of a conditional (#418)
+ * Add parenthesis around assignment for arrow function body (#422)
+ * Add parenthesis around export default assignments (#423)
+ * Add parenthesis for class expression on left of member expression (#421)
+ * Fix missing parens around object in MemberExpression (#424)
+ * Re-run snapshot tests
+ * Workaround flow bug around trailing comma (#427)
+ * Add parenthesis when class expressions are left of a ternary (#428)
+ * Revert "Workaround flow bug around trailing comma" (#429)
+ * Update commands.md (#430)
+ * Improve vim integration section (#416)
+ * Add glob support to the CLI (#363)
+ * Use babel-code-frame for syntax errors (#367)
+ * Update yarn.lock
+
+
 # 0.0.10
 
 [link](https://github.com/jlongster/prettier/compare/0.0.9...0.0.10)
