@@ -1,6 +1,7 @@
 "use strict";
 
 var validate = require("jest-validate").validate;
+var deprecatedConfig = require("./deprecated");
 
 var defaults = {
   // Number of spaces the pretty-printer should use per tab
@@ -25,14 +26,11 @@ var exampleConfig = Object.assign({}, defaults, {
 
 // Copy options and fill in default values.
 function normalize(options) {
-  validate(options, { exampleConfig });
+  validate(options, { exampleConfig, deprecatedConfig });
   const normalized = Object.assign({}, options || {});
 
   // For backward compatibility. Deprecated in 0.0.10
   if ("useFlowParser" in normalized) {
-    console.warn(
-      'The `"useFlowParser": true/false` option is deprecated. Use `parser: "flow"` instead.'
-    );
     normalized.parser = normalized.useFlowParser ? "flow" : "babylon";
     delete normalized.useFlowParser;
   }
