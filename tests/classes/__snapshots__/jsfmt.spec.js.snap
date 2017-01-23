@@ -264,6 +264,15 @@ class Foo {} // error, shadows type Foo
 "
 `;
 
+exports[`test member.js 1`] = `
+"(class {})[1];
+(class {}).a;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(class {})[1];
+(class {}).a;
+"
+`;
+
 exports[`test statics.js 1`] = `
 "/* @flow */
 

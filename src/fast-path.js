@@ -449,6 +449,8 @@ FPp.needsParens = function(assumeExpressionContext) {
           if (parent.callee === node) {
             return true;
           }
+        case "MemberExpression":
+          return name === "object" && parent.object === node;
       }
 
       return false;
