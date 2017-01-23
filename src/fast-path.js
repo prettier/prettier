@@ -333,13 +333,6 @@ FPp.needsParens = function(assumeExpressionContext) {
       }
 
     case "YieldExpression":
-      if (
-        parent.type === "ConditionalExpression" &&
-          parent.test === node &&
-          !node.argument
-      ) {
-        return true;
-      }
     case "AwaitExpression":
       switch (parent.type) {
         case "TaggedTemplateExpression":
@@ -354,6 +347,9 @@ FPp.needsParens = function(assumeExpressionContext) {
 
         case "CallExpression":
           return parent.callee === node;
+
+        case "ConditionalExpression":
+          return parent.test === node;
 
         default:
           return false;
