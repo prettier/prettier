@@ -3,7 +3,7 @@ This is very rough documentation of the formatting commands you can
 use to build a printed version of something. This will be improved
 over time.
 
-The core of the algorithm is implemented in `pp.js`. The printer should
+The core of the algorithm is implemented in `doc-{printer,builders,utils}.js`. The printer should
 use the basic formatting abstractions provided to construct a format
 when printing a node. Parts of the API only exist to be compatible
 with recast's previous API to ease migration, but over time we can
