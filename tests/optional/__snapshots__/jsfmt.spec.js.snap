@@ -175,7 +175,6 @@ foo();
 
 function qux(x = \"hello\", ...y): string {
   foo(x);
-
   return y[0];
 }
 
@@ -301,7 +300,6 @@ bar(undefined); // ok
 function foo(x?: number) {
 }
 foo(undefined);
-
 // ok
 function bar(x = \"bar\"): string {
   return x;
@@ -335,7 +333,6 @@ foo();
 // OK
 foo(123), // OK
 foo(123, \"hello\");
-
 // OK
 foo(true);
 // ERROR boolean ~> number

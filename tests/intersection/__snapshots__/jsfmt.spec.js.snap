@@ -223,7 +223,6 @@ var b: B = a;
 // intersection of dictionary types:
 declare var c: C;
 var d: D = c;
-
 // ok
 // dict type mismatch
 type E = { [key: string]: string };

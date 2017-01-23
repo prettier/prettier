@@ -631,10 +631,9 @@ function block_scope(x: string | number) {
 
 function switch_scope(x: string | number) {
   switch (x) {
-    // doesn\'t refine outer x
     default:
       let x;
-      x = \"\";
+      x = \"\"; // doesn\'t refine outer x
   }
   (x: string); // error: number ~> string
 }

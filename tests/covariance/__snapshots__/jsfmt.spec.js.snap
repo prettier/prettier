@@ -53,7 +53,6 @@ type CovArrayVerbose<X, Y: X> = Array<Y>;
 var b: CovArrayVerbose<number, *> = [];
 var y: CovArrayVerbose<mixed, *> = b;
 y[0] = \"\";
-
 // error
 class NVerbose<E, I: E> {
   x: CovArrayVerbose<E, I>;

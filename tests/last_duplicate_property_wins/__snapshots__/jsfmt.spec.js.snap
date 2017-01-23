@@ -75,7 +75,6 @@ class C {
 (new C().bar: boolean);
 // last wins
 (new C().qux: boolean);
-
 // weird outlier where last doesn\'t win in classes
 // Objects
 const o = {
@@ -95,10 +94,9 @@ const o = {
   bar: \"hello\",
   // last wins
   qux: 42,
-  // last wins
   qux(): string {
     return \"hello\";
-  }
+  } // last wins
 };
 
 // check

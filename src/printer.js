@@ -1204,12 +1204,12 @@ function genericPrintNoParens(path, options, print) {
     case "CommentBlock":
     case // Esprima block comment.
     "Block":
-      return concat([ "/*", n.value, "*/" ]);
+      return concat(["/*", n.value, "*/"]);
     // Babel line comment.
     case "CommentLine":
     case // Esprima line comment.
     "Line":
-      return concat([ "//", n.value ]);
+      return concat(["//", n.value]);
     // Type Annotations for Facebook Flow, typically stripped out or
     // transformed away before printing.
     case "TypeAnnotation":
@@ -1576,10 +1576,10 @@ function printStatementSequence(path, options, print) {
 
     parts.push(stmtPrinted);
 
-    if (
-      util.newlineExistsAfter(text, util.locEnd(stmt)) &&
-        !isLastStatement(stmtPath)
-    ) {
+    let idx = util.skipToLineEnd(text, util.locEnd(stmt));
+    idx = util.skipNewline(text, idx);
+
+    if (util.hasNewline(text, idx) && !isLastStatement(stmtPath)) {
       parts.push(hardline);
     }
 

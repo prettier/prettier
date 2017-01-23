@@ -352,7 +352,6 @@ function test2() {
   }
 
   var voidoid2: () => Promise<void> = voidoid1;
-
   // ok
   var voidoid3: () => void = voidoid1; // error, void != Promise<void>
 }

@@ -133,8 +133,7 @@ var Bar = {
   // no annotation required
   c: Foo.c(\"bar\"),
   // no annotation required
-  // no annotation required
-  d: Foo.d(\"bar\")
+  d: Foo.d(\"bar\") // no annotation required
 };
 
 module.exports = Foo, Bar;

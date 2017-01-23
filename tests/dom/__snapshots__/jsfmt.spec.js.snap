@@ -240,7 +240,6 @@ const a = new URL(\"http://flowtype.org/\");
 const b = new URL(\"/docs\", a);
 // correct
 const c = new URL(\"/docs\", \"http://flowtype.org/\");
-
 // correct
 const d: URLSearchParams = c.searchParams;
 // correct
