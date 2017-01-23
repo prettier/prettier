@@ -173,7 +173,12 @@ autocmd FileType javascript set formatprg=prettier\ --stdin
 ```
 
 This makes Prettier power the [`gq` command](http://vimdoc.sourceforge.net/htmldoc/change.html#gq)
-for automatic formatting without any plugins.
+for automatic formatting without any plugins. You can also add the following to your
+`.vimrc` to run prettier when `.js` files are saved:
+
+```
+autocmd BufWritePre *.js :normal gggqG
+```
 
 ### Visual Studio Code
 
