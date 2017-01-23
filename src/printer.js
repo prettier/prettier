@@ -609,24 +609,12 @@ function genericPrintNoParens(path, options, print) {
     case "Decorator":
       return concat([ "@", path.call(print, "expression") ]);
     case "ArrayExpression":
-    case "ArrayPattern": {
+    case "ArrayPattern":
       if (n.elements.length === 0) {
         parts.push("[]");
       } else {
         const lastElem = util.getLast(n.elements);
-        let canHaveTrailingComma = !(lastElem && lastElem.type === "RestElement");
-
-        // There's a bug with flow 0.38 where trailing commas are triggering
-        // parse errors for array patterns in arguments of a function
-        const parent = path.getParentNode(0);
-        if (options.parser === 'flow' &&
-          n.type === "ArrayPattern" &&
-          parent && (
-          parent.type === 'FunctionExpression' ||
-          parent.type === 'FunctionDeclaration' ||
-          parent.type === 'ArrowFunctionExpression')) {
-          canHaveTrailingComma = false;
-        }
+        const canHaveTrailingComma = !(lastElem && lastElem.type === "RestElement");
 
         // JavaScript allows you to have empty elements in an array which
         // changes its length based on the number of commas. The algorithm
@@ -667,7 +655,6 @@ function genericPrintNoParens(path, options, print) {
       if (n.typeAnnotation) parts.push(path.call(print, "typeAnnotation"));
 
       return concat(parts);
-    }
     case "SequenceExpression":
       return join(", ", path.map(print, "expressions"));
     case "ThisExpression":
