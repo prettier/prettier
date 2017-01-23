@@ -196,8 +196,8 @@ FPp.needsParens = function(assumeExpressionContext) {
   // all expressions.
   if (
     (parent.type === "ClassDeclaration" || parent.type === "ClassExpression") &&
-      parent.superClass === node && (
-        node.type === "ArrowFunctionExpression" ||
+      parent.superClass === node &&
+      (node.type === "ArrowFunctionExpression" ||
         node.type === "AssignmentExpression" ||
         node.type === "AwaitExpression" ||
         node.type === "BinaryExpression" ||
@@ -210,8 +210,7 @@ FPp.needsParens = function(assumeExpressionContext) {
         node.type === "TaggedTemplateExpression" ||
         node.type === "UnaryExpression" ||
         node.type === "UpdateExpression" ||
-        node.type === "YieldExpression"
-      )
+        node.type === "YieldExpression")
   ) {
     return true;
   }
@@ -247,13 +246,15 @@ FPp.needsParens = function(assumeExpressionContext) {
           return true;
 
         case "UnaryExpression":
-          if (node.prefix &&
-            ((node.operator === '++' && parent.operator === '+') ||
-              (node.operator === '--' && parent.operator === '-'))) {
+          if (
+            node.prefix &&
+              (node.operator === "++" && parent.operator === "+" ||
+                node.operator === "--" && parent.operator === "-")
+          ) {
             return true;
           }
 
-        return false;
+          return false;
       }
 
     case "UnaryExpression":
@@ -267,7 +268,11 @@ FPp.needsParens = function(assumeExpressionContext) {
       }
 
     case "BinaryExpression":
-      if (node.operator === "in" && parent.type === "ForStatement" && parent.init === node) {
+      if (
+        node.operator === "in" &&
+          parent.type === "ForStatement" &&
+          parent.init === node
+      ) {
         return true;
       }
 
@@ -328,9 +333,11 @@ FPp.needsParens = function(assumeExpressionContext) {
       }
 
     case "YieldExpression":
-      if (parent.type === "ConditionalExpression" &&
+      if (
+        parent.type === "ConditionalExpression" &&
           parent.test === node &&
-          !node.argument) {
+          !node.argument
+      ) {
         return true;
       }
     case "AwaitExpression":
@@ -376,9 +383,11 @@ FPp.needsParens = function(assumeExpressionContext) {
         parent.object === node;
 
     case "AssignmentExpression":
-      if (parent.type === "ArrowFunctionExpression" &&
+      if (
+        parent.type === "ArrowFunctionExpression" &&
           parent.body === node &&
-          node.left.type === "ObjectPattern") {
+          node.left.type === "ObjectPattern"
+      ) {
         return true;
       }
 

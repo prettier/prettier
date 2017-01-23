@@ -1,5 +1,4 @@
 "use strict";
-
 function flattenDoc(doc) {
   if (!doc || typeof doc === "string" || doc.type === "line") {
     return doc;

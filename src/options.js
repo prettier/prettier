@@ -22,7 +22,9 @@ function normalize(options) {
 
   // For backward compatibility. Deprecated in 0.0.10
   if ("useFlowParser" in normalized) {
-    console.warn('The `"useFlowParser": true/false` option is deprecated. Use `parser: "flow"` instead.');
+    console.warn(
+      'The `"useFlowParser": true/false` option is deprecated. Use `parser: "flow"` instead.'
+    );
     normalized.parser = normalized.useFlowParser ? "flow" : "babylon";
     delete normalized.useFlowParser;
   }

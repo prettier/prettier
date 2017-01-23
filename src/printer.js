@@ -615,7 +615,8 @@ function genericPrintNoParens(path, options, print) {
         parts.push("[]");
       } else {
         const lastElem = util.getLast(n.elements);
-        const canHaveTrailingComma = !(lastElem && lastElem.type === "RestElement");
+        const canHaveTrailingComma = !(lastElem &&
+          lastElem.type === "RestElement");
 
         // JavaScript allows you to have empty elements in an array which
         // changes its length based on the number of commas. The algorithm
@@ -627,7 +628,8 @@ function genericPrintNoParens(path, options, print) {
         //
         // Note that util.getLast returns null if the array is empty, but
         // we already check for an empty array just above so we are safe
-        const needsForcedTrailingComma = canHaveTrailingComma && lastElem === null;
+        const needsForcedTrailingComma = canHaveTrailingComma &&
+          lastElem === null;
 
         parts.push(
           multilineGroup(
@@ -643,8 +645,10 @@ function genericPrintNoParens(path, options, print) {
               needsForcedTrailingComma ? "," : "",
               ifBreak(
                 canHaveTrailingComma &&
-                !needsForcedTrailingComma &&
-                options.trailingComma ? "," : ""
+                  !needsForcedTrailingComma &&
+                  options.trailingComma
+                  ? ","
+                  : ""
               ),
               options.bracketSpacing ? line : softline,
               "]"
@@ -758,11 +762,11 @@ function genericPrintNoParens(path, options, print) {
       var parentNode = path.getParentNode();
 
       var isParentForLoop = namedTypes.ForStatement.check(parentNode) ||
-        namedTypes.ForInStatement.check(parentNode) |
-        (namedTypes.ForOfStatement &&
-          namedTypes.ForOfStatement.check(parentNode)) ||
-        (namedTypes.ForAwaitStatement &&
-          namedTypes.ForAwaitStatement.check(parentNode));
+        namedTypes.ForInStatement.check(parentNode) ||
+          (namedTypes.ForOfStatement &&
+            namedTypes.ForOfStatement.check(parentNode)) ||
+        namedTypes.ForAwaitStatement &&
+          namedTypes.ForAwaitStatement.check(parentNode);
 
       if (!(isParentForLoop && parentNode.body !== n)) {
         parts.push(";");
@@ -930,10 +934,7 @@ function genericPrintNoParens(path, options, print) {
       return concat(parts);
     case "LabeledStatement":
       if (n.body.type === "EmptyStatement") {
-        return concat([
-          path.call(print, "label"),
-          ":;"
-        ]);
+        return concat([ path.call(print, "label"), ":;" ]);
       }
 
       return concat([
@@ -979,10 +980,12 @@ function genericPrintNoParens(path, options, print) {
         "switch (",
         path.call(print, "discriminant"),
         ") {",
-        n.cases.length > 0 ? indent(
-          1,
-          concat([ hardline, join(hardline, path.map(print, "cases")) ])
-        ) : "",
+        n.cases.length > 0
+          ? indent(
+            1,
+            concat([ hardline, join(hardline, path.map(print, "cases")) ])
+          )
+          : "",
         hardline,
         "}"
       ]);
