@@ -399,6 +399,11 @@ FPp.needsParens = function(assumeExpressionContext) {
       }
 
       switch (parent.type) {
+        case "ConditionalExpression":
+          if (parent.test === node) {
+            return true;
+          }
+
         case "ExportDefaultDeclaration":
           return node.type !== "ArrowFunctionExpression";
 
