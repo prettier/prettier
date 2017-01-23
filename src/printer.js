@@ -1587,8 +1587,10 @@ function printStatementSequence(path, options, print) {
 }
 
 function printPropertyKey(path, options, print) {
+  var parent = path.getNode();
   var node = path.getNode().key;
   if (
+    !parent.computed &&
     (node.type === "StringLiteral" ||
       node.type === "Literal" && typeof node.value === "string") &&
       isIdentifierName(node.value) &&
