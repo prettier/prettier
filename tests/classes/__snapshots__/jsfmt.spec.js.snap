@@ -305,3 +305,10 @@ declare var o: { p: number };
 (o: Class<C>); // error, object type incompatible with class type
 "
 `;
+
+exports[`test ternary.js 1`] = `
+"if (1) (class {}) ? 1 : 2;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+if (1) (class {}) ? 1 : 2;
+"
+`;

@@ -452,6 +452,10 @@ FPp.needsParens = function(assumeExpressionContext) {
           }
         case "MemberExpression":
           return name === "object" && parent.object === node;
+        case "ConditionalExpression":
+          if (parent.test === node) {
+            return true;
+          }
       }
 
       return false;
