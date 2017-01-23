@@ -24,7 +24,6 @@ function flattenDoc(doc) {
     });
 
   } else if (doc.type === "group") {
-    console.log(doc.expandedStates)
     return Object.assign({}, doc, {
       contents: flattenDoc(doc.contents),
       expandedStates: doc.expandedStates
