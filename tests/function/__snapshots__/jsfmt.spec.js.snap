@@ -388,7 +388,8 @@ new (function() {
 (function() {
 });
 a = function f() {
-} || b;
+} ||
+  b;
 "
 `;
 

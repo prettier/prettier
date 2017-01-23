@@ -125,7 +125,12 @@ if (stdin) {
         output = format(input);
       } catch (e) {
         process.exitCode = 2;
-        console.error(filename + ": " + e);
+        if(e.loc) {
+          console.error(filename + ": " + e);
+        }
+        else {
+          console.error(filename + ":", e);
+        }
         return;
       }
 
