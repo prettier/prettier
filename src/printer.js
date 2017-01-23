@@ -1588,17 +1588,20 @@ function printStatementSequence(path, options, print) {
 }
 
 function printPropertyKey(path, options, print) {
-  var node = path.getNode().key;
+  const node = path.getNode();
+  const key = node.key;
+
   if (
-    (node.type === "StringLiteral" ||
-      node.type === "Literal" && typeof node.value === "string") &&
-      isIdentifierName(node.value) &&
+    (key.type === "StringLiteral" ||
+      key.type === "Literal" && typeof key.value === "string") &&
+      isIdentifierName(key.value) &&
+      !node.computed &&
       // There's a bug in the flow parser where it throws if there are
       // unquoted unicode literals as keys. Let's quote them for now.
-      (options.parser !== "flow" || node.value.match(/[a-zA-Z0-9$_]/))
+      (options.parser !== "flow" || key.value.match(/[a-zA-Z0-9$_]/))
   ) {
     // 'a' -> a
-    return node.value;
+    return key.value;
   }
   return path.call(print, "key");
 }

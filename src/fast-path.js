@@ -327,8 +327,13 @@ FPp.needsParens = function(assumeExpressionContext) {
           return true;
       }
 
-    case "AwaitExpression":
     case "YieldExpression":
+      if (parent.type === "ConditionalExpression" &&
+          parent.test === node &&
+          !node.argument) {
+        return true;
+      }
+    case "AwaitExpression":
       switch (parent.type) {
         case "TaggedTemplateExpression":
         case "BinaryExpression":
@@ -371,6 +376,12 @@ FPp.needsParens = function(assumeExpressionContext) {
         parent.object === node;
 
     case "AssignmentExpression":
+      if (parent.type === "ArrowFunctionExpression" &&
+          parent.body === node &&
+          node.left.type === "ObjectPattern") {
+        return true;
+      }
+
     case "ConditionalExpression":
       switch (parent.type) {
         case "TaggedTemplateExpression":
@@ -381,6 +392,7 @@ FPp.needsParens = function(assumeExpressionContext) {
         case "LogicalExpression":
         case "LogicalExpression":
         case "NewExpression":
+        case "ExportDefaultDeclaration":
           return true;
 
         case "CallExpression":
@@ -438,6 +450,12 @@ FPp.needsParens = function(assumeExpressionContext) {
           if (parent.callee === node) {
             return true;
           }
+        case "MemberExpression":
+          return name === "object" && parent.object === node;
+        case "ConditionalExpression":
+          if (parent.test === node) {
+            return true;
+          }
       }
 
       return false;
@@ -448,6 +466,9 @@ FPp.needsParens = function(assumeExpressionContext) {
       }
       if (parent.type === "TaggedTemplateExpression") {
         return true;
+      }
+      if (parent.type === "MemberExpression") {
+        return name === "object" && parent.object === node;
       }
 
     default:

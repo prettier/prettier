@@ -5,6 +5,13 @@ module.exports = require(\"M\");
 "
 `;
 
+exports[`test body.js 1`] = `
+"export default (class {}[1] = 1);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export default ((class {})[1] = 1);
+"
+`;
+
 exports[`test test.js 1`] = `
 "var M = require(\'M\');
 var N = require(\'N\');
