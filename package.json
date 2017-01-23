@@ -1,6 +1,6 @@
 {
   "name": "prettier-with-tabs",
-  "version": "0.0.10",
+  "version": "0.11.0",
   "description": "Prettier is an opinionated JavaScript formatter",
   "bin": {
     "prettier": "./bin/prettier.js"
@@ -36,7 +36,9 @@
     "rollup-plugin-real-babili": "1.0.0-alpha3"
   },
   "scripts": {
-    "test": "jest",
+    "test": "jest && npm run test-tabs && npm run test-tabs-inv",
+    "test-tabs": "node ./bin/prettier.js --use-tabs -- ./bin/prettier.js > ./bin/prettier-with-tabs.js",
+    "test-tabs-inv": "node ./bin/prettier-with-tabs.js -- ./bin/prettier.js > ./bin/prettier-spaces.js",
     "format": "./bin/prettier.js --write",
     "format:single": "npm run format -- src/printer.js",
     "format:all": "npm run format -- index.js src/*.js bin/*.js",
