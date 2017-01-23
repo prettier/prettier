@@ -95,7 +95,8 @@ function format(input) {
 if (stdin) {
   getStdin().then(input => {
     try {
-      console.log(format(input));
+      // Don't use `console.log` here since it adds an extra newline at the end.
+      process.stdout.write(format(input));
     } catch (e) {
       process.exitCode = 2;
       console.error("stdin: " + e);
@@ -134,7 +135,8 @@ if (stdin) {
           }
         });
       } else {
-        console.log(output);
+        // Don't use `console.log` here since it adds an extra newline at the end.
+        process.stdout.write(output);
       }
     });
   });
