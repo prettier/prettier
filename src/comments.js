@@ -7,6 +7,7 @@ var docBuilders = require("./doc-builders");
 var fromString = docBuilders.fromString;
 var concat = docBuilders.concat;
 var hardline = docBuilders.hardline;
+var breakParent = docBuilders.breakParent;
 var util = require("./util");
 var comparePos = util.comparePos;
 var childNodesCacheKey = Symbol("child-nodes");

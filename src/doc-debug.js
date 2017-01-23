@@ -1,9 +1,5 @@
 "use strict";
 function flattenDoc(doc) {
-  if (!doc || typeof doc === "string" || doc.type === "line") {
-    return doc;
-  }
-
   if (doc.type === "concat") {
     var res = [];
 
@@ -20,26 +16,26 @@ function flattenDoc(doc) {
     }
 
     return Object.assign({}, doc, { parts: res });
-  }
 
-  if (doc.type === "indent") {
-    return Object.assign({}, doc, { contents: flattenDoc(doc.contents) });
-  }
-
-  if (doc.type === "if-break") {
+  } else if (doc.type === "if-break") {
     return Object.assign({}, doc, {
-      breakContents: flattenDoc(doc.breakContents),
-      flatContents: flattenDoc(doc.flatContents)
+      breakContents: doc.breakContents ? flattenDoc(doc.breakContents) : null,
+      flatContents: doc.flatContents ? flattenDoc(doc.flatContents) : null
     });
-  }
 
-  if (doc.type === "group") {
+  } else if (doc.type === "group") {
+    console.log(doc.expandedStates)
     return Object.assign({}, doc, {
       contents: flattenDoc(doc.contents),
       expandedStates: doc.expandedStates
         ? doc.expandedStates.map(flattenDoc)
         : doc.expandedStates
     });
+
+  } else if (doc.contents) {
+    return Object.assign({}, doc, { contents: flattenDoc(doc.contents) });
+  } else {
+    return doc;
   }
 }
 
@@ -61,6 +57,10 @@ function printDoc(doc) {
     return "line";
   }
 
+  if (doc.type === "break-parent") {
+    return "breakParent";
+  }
+
   if (doc.type === "concat") {
     return "[" + doc.parts.map(printDoc).join(", ") + "]";
   }
@@ -77,14 +77,14 @@ function printDoc(doc) {
   }
 
   if (doc.type === "group") {
-    return (doc.break
-      ? "multilineGroup"
-      : doc.expandedStates ? "conditionalGroup" : "group") +
+    if(doc.expandedStates) {
+      return "conditionalGroup(" +
+        "[" + doc.expandedStates.map(printDoc).join(",") + "])";
+    }
+
+    return (doc.break ? "wrappedGroup" : "group") +
       "(" +
       printDoc(doc.contents) +
-      (doc.expandedStates
-        ? ", [" + doc.expandedStates.map(printDoc).join(",") + "]"
-        : "") +
       ")";
   }
 }
