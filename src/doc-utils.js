@@ -1,48 +1,26 @@
 "use strict";
-function traverseDocUpDown(doc, onEnter, onExit) {
-  if (doc.type === "concat") {
-    onEnter(doc);
-    for (var i = doc.parts.length - 1; i >= 0; i--) {
-      traverseDocUpDown(doc.parts[i], onEnter, onExit);
-    }
-    onExit(doc);
-  } else if (doc.type === "if-break") {
-    onEnter(doc);
-    if (doc.breakContents) {
-      traverseDocUpDown(doc.breakContents, onEnter, onExit);
-    }
-    if (doc.flatContents) {
-      traverseDocUpDown(doc.flatContents, onEnter, onExit);
-    }
-    onExit(doc);
-  } else if (doc.contents) {
-    onEnter(doc);
-    traverseDocUpDown(doc.contents, onEnter, onExit);
-    onExit(doc);
-  } else {
+function traverseDoc(doc, onEnter, onExit) {
+  if(onEnter) {
     onEnter(doc);
   }
-}
 
-function traverseDoc(doc, func) {
   if (doc.type === "concat") {
-    func(doc);
     for (var i = 0; i < doc.parts.length; i++) {
-      traverseDoc(doc.parts[i], func);
+      traverseDoc(doc.parts[i], onEnter, onExit);
     }
   } else if (doc.type === "if-break") {
-    func(doc);
     if (doc.breakContents) {
-      traverseDoc(doc.breakContents, func);
+      traverseDoc(doc.breakContents, onEnter, onExit);
     }
     if (doc.flatContents) {
-      traverseDoc(doc.flatContents, func);
+      traverseDoc(doc.flatContents, onEnter, onExit);
     }
   } else if (doc.contents) {
-    func(doc);
-    traverseDoc(doc.contents, func);
-  } else {
-    func(doc);
+    traverseDoc(doc.contents, onEnter, onExit);
+  }
+
+  if(onExit) {
+    onExit(doc);
   }
 }
 
@@ -110,7 +88,7 @@ function breakParentGroup(groupStack) {
 
 function propagateBreaks(doc) {
   const groupStack = [];
-  traverseDocUpDown(
+  traverseDoc(
     doc,
     doc => {
       if (doc.type === "break-parent") {
@@ -137,6 +115,5 @@ module.exports = {
   willBreak,
   isLineNext,
   traverseDoc,
-  traverseDocUpDown,
   propagateBreaks
 };
