@@ -8,7 +8,7 @@ module.exports = require(\"M\");
 exports[`test body.js 1`] = `
 "export default (class {}[1] = 1);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export default (class {}[1] = 1);
+export default ((class {})[1] = 1);
 "
 `;
 
