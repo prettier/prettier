@@ -60,6 +60,8 @@ exports[`test arrows.js 1`] = `
     return images.find(image => image.width >= maxPixelWidth) ||
         images[images.length - 1];
 }
+
+a = () => ({} = this);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function selectBestEffortImageForWidth(
   maxWidth: number,
@@ -71,6 +73,8 @@ function selectBestEffortImageForWidth(
   return images.find(image => image.width >= maxPixelWidth) ||
     images[images.length - 1];
 }
+
+a = () => ({} = this);
 "
 `;
 
