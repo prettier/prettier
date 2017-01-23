@@ -15,13 +15,15 @@ const argv = minimist(process.argv.slice(2), {
     "single-quote",
     "trailing-comma",
     "bracket-spacing",
+    // See https://github.com/chalk/supports-color/#info
+    "color",
     "version",
     "debug-print-doc",
     // Deprecated in 0.0.10
     "flow-parser"
   ],
   string: [ "print-width", "tab-width", "parser" ],
-  default: { "bracket-spacing": true, parser: "babylon" },
+  default: { color: true, "bracket-spacing": true, parser: "babylon" },
   unknown: param => {
     if (param.startsWith("-")) {
       console.warn("Ignored unknown option: " + param + "\n");
@@ -49,9 +51,14 @@ if (!filepatterns.length && !stdin) {
       "  --tab-width <int>        Specify the number of spaces per indentation-level. Defaults to 2.\n" +
       "  --single-quote           Use single quotes instead of double.\n" +
       "  --trailing-comma         Print trailing commas wherever possible.\n" +
-      "  --bracket-spacing        Put spaces between brackets. Defaults to true, set false to turn off.\n" +
+      "  --bracket-spacing        Put spaces between brackets. Defaults to true.\n" +
       "  --parser <flow|babylon>  Specify which parse to use. Defaults to babylon.\n" +
-      "  --version                Print prettier version."
+      "  --color                  Colorize error messages. Defaults to true.\n" +
+      "  --version                Print prettier version.\n" +
+      "\n" +
+      "Boolean options can be turned off like this:\n" +
+      "  --no-bracket-spacing\n" +
+      "  --bracket-spacing=false"
   );
   process.exit(1);
 }
@@ -94,7 +101,7 @@ if (stdin) {
       console.log(format(input));
     } catch (e) {
       process.exitCode = 2;
-      console.error(e);
+      console.error("stdin: " + e);
       return;
     }
   });
@@ -117,7 +124,7 @@ if (stdin) {
         output = format(input);
       } catch (e) {
         process.exitCode = 2;
-        console.error(e);
+        console.error(filename + ": " + e);
         return;
       }
 
