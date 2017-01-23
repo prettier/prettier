@@ -15,7 +15,10 @@ const argv = minimist(process.argv.slice(2), {
     "single-quote",
     "trailing-comma",
     "bracket-spacing",
-    // See https://github.com/chalk/supports-color/#info
+    // The supports-color package (a sub sub dependency) looks directly at
+    // `process.argv` for `--no-color` and such-like options. The reason it is
+    // listed here is to avoid "Ignored unknown option: --no-color" warnings.
+    // See https://github.com/chalk/supports-color/#info for more information.
     "color",
     "version",
     "debug-print-doc",
