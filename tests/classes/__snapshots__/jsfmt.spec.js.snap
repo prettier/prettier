@@ -172,6 +172,18 @@ var w: Foo = z;
 "
 `;
 
+exports[`test computed.js 1`] = `
+"class c {
+  [\"m\"]() {}
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class c {
+  [\"m\"]() {
+  }
+}
+"
+`;
+
 exports[`test expr.js 1`] = `
 "var Bar = class Foo {
   static factory(): Foo { // OK: Foo is a type in this scope
