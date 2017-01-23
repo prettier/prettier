@@ -434,6 +434,10 @@ FPp.needsParens = function(assumeExpressionContext) {
         case "ExportDefaultDeclaration":
         case "ExpressionStatement":
           return true;
+        case "CallExpression":
+          if (parent.callee === node) {
+            return true;
+          }
       }
 
       return false;
