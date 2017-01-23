@@ -124,9 +124,9 @@ should probably commit your code before doing that.
 prettier [opts] [filename ...]
 ```
 
-For example, you could format your source using bash filename expansion:
+For easier cross-platform usage, prettier has built-in glob support:
 ```bash
-prettier --write src/**/*.js bin/*.js
+prettier --write 'src/**/*.js' 'bin/*.js'
 ```
 
 In the future we will have better support for formatting whole projects.
@@ -183,7 +183,12 @@ autocmd FileType javascript set formatprg=prettier\ --stdin
 ```
 
 This makes Prettier power the [`gq` command](http://vimdoc.sourceforge.net/htmldoc/change.html#gq)
-for automatic formatting without any plugins.
+for automatic formatting without any plugins. You can also add the following to your
+`.vimrc` to run prettier when `.js` files are saved:
+
+```
+autocmd BufWritePre *.js :normal gggqG
+```
 
 ### Visual Studio Code
 

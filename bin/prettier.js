@@ -3,6 +3,7 @@
 "use strict";
 const fs = require("fs");
 const getStdin = require("get-stdin");
+const glob = require("glob");
 const minimist = require("minimist");
 const prettier = require("../index");
 
@@ -33,11 +34,11 @@ if (argv["version"]) {
   process.exit(0);
 }
 
-const filenames = argv["_"];
+const filepatterns = argv["_"];
 const write = argv["write"];
 const stdin = argv["stdin"];
 
-if (!filenames.length && !stdin) {
+if (!filepatterns.length && !stdin) {
   console.log(
     "Usage: prettier [opts] [filename ...]\n\n" +
       "Available options:\n" +
@@ -98,7 +99,7 @@ if (stdin) {
     }
   });
 } else {
-  filenames.forEach(filename => {
+  eachFilename(filepatterns, filename => {
     fs.readFile(filename, "utf8", (err, input) => {
       if (write) {
         console.log(filename);
@@ -131,6 +132,23 @@ if (stdin) {
       } else {
         console.log(output);
       }
+    });
+  });
+}
+
+function eachFilename(patterns, callback) {
+  patterns.forEach(pattern => {
+    glob(pattern, (err, filenames) => {
+      if (err) {
+        console.error("Unable to expand glob pattern: " + pattern + "\n" + err);
+        // Don't exit the process if one pattern failed
+        process.exitCode = 2;
+        return;
+      }
+
+      filenames.forEach(filename => {
+        callback(filename);
+      });
     });
   });
 }
