@@ -1598,13 +1598,29 @@ function str() {
 
 // annotations for disjoint unions
 
-type T = { type: \"FOO\", x: number } | { type: \"BAR\", x: string };
+type T = { type: \"FOO\", x: number } | {
+      type: \"BAR\",
 
-({ type: (bar(): \"BAR\"), x: str() }: T);
+      x: string
+    };
 
-({ type: bar(), x: str() }: T);
+({
+  type: (bar(): \"BAR\"),
 
-({ type: bar(), x: (str(): string) }: T);
+  x: str()
+}: T);
+
+({
+  type: bar(),
+
+  x: str()
+}: T);
+
+({
+  type: bar(),
+
+  x: (str(): string)
+}: T);
 
 function bar() {
   return \"BAR\";
@@ -1961,7 +1977,11 @@ type ActionType =
 
 const Constants = require(\"./test30-helper\");
 
-type ActionType = { type: \"foo\", x: number } | { type: \"bar\", x: number };
+type ActionType = { type: \"foo\", x: number } | {
+      type: \"bar\",
+
+      x: number
+    };
 
 ({ type: Constants.BAR, x: 0 }: ActionType);
 "

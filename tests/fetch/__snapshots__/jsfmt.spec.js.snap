@@ -103,7 +103,11 @@ e.set(\"Content-Type\", \"image/jpeg\");
 // correct
 e.set(\"Content-Type\");
 // not correct
-e.set({ \"Content-Type\", \"image/jpeg\" });
+e.set({
+  \"Content-Type\",
+
+  \"image/jpeg\"
+});
 
 // not correct
 const f: Headers = e.append(\"Content-Type\", \"image/jpeg\");
@@ -393,7 +397,11 @@ e.set(\"key1\", \"value1\");
 // correct
 e.set(\"key1\");
 // not correct
-e.set({ \"key1\", \"value1\" });
+e.set({
+  \"key1\",
+
+  \"value1\"
+});
 
 // not correct
 const f: URLSearchParams = e.append(\"key1\", \"value1\");

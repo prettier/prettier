@@ -542,11 +542,28 @@ function genericPrintNoParens(path, options, print) {
       fields.forEach(function(field) {
         path.each(
           function(childPath) {
-            props.push(group(print(childPath)));
+            const shouldInsertNewLine = util.newlineExistsAfter(
+              options.originalText,
+              util.locEnd(childPath.getNode())
+            );
+
+            props.push(
+              group(print(childPath)),
+              concat([
+                separator,
+                line,
+                shouldInsertNewLine ? ifBreak(hardline) : ""
+              ])
+            );
           },
           field
         );
       });
+
+      if (props.length) {
+        // Remove the extra separator at the end
+        props.pop();
+      }
 
       if (props.length === 0) {
         return "{}";
@@ -558,7 +575,7 @@ function genericPrintNoParens(path, options, print) {
               options.tabWidth,
               concat([
                 options.bracketSpacing ? line : softline,
-                join(concat([ separator, line ]), props)
+                concat(props)
               ])
             ),
             ifBreak(options.trailingComma ? "," : ""),

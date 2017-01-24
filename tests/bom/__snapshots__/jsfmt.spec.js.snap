@@ -262,7 +262,11 @@ o.observe(div, {});
 // incorrect
 o.observe(div, { subtree: true });
 // incorrect
-o.observe(div, { attributes: true, attributeFilter: true });
+o.observe(div, {
+  attributes: true,
+
+  attributeFilter: true
+});
 
 // incorrect
 // takeRecords

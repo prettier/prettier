@@ -557,7 +557,11 @@ function unification_mix_with_declared_props_invariant_l(
   a[0].p = new A();
 
   // x[0].p no longer B
-  let b: Array<{ [k: string]: B, p: B }> = x;
+  let b: Array<{
+    [k: string]: B,
+
+    p: B
+  }> = x;
 
   // ok
   let c: Array<{ [k: string]: B, p: C }> = x;
@@ -589,7 +593,11 @@ function subtype_mix_with_declared_props_invariant_l(x: { [k: string]: B }) {
   a.p = new A();
 
   // x.p no longer B
-  let b: { [k: string]: B, p: B } = x;
+  let b: {
+    [k: string]: B,
+
+    p: B
+  } = x;
 
   // ok
   let c: { [k: string]: B, p: C } = x;

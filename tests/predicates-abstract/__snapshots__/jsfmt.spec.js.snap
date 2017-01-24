@@ -64,7 +64,11 @@ type A = { kind: \"A\", u: number };
 type B = { kind: \"B\", v: string };
 type C = { kind: \"C\", y: boolean };
 type D = { kind: \"D\", x: boolean };
-type E = { kind: \"E\", y: boolean };
+type E = {
+  kind: \"E\",
+
+  y: boolean
+};
 
 declare var ab: Array<A | B | C>;
 
@@ -254,7 +258,11 @@ type A = { kind: \"A\", u: number };
 type B = { kind: \"B\", v: string };
 type C = { kind: \"C\", y: boolean };
 type D = { kind: \"D\", x: boolean };
-type E = { kind: \"E\", y: boolean };
+type E = {
+  kind: \"E\",
+
+  y: boolean
+};
 
 declare var ab: Array<A | B | C>;
 

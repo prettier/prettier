@@ -307,7 +307,11 @@ let tests = [
     return x.result; // error
   },
   function() {
-    type T = { foo: Object, bar: string } | { baz: string, quux: string };
+    type T = { foo: Object, bar: string } | {
+          baz: string,
+
+          quux: string
+        };
 
     function testAlwaysTruthyProp(t: T) {
       if (t.foo) {
@@ -2458,7 +2462,11 @@ let tests = [
 
 type Type = Name | ListType;
 type Name = { kind: \"Name\", value: string };
-type ListType = { kind: \"ListType\", name: string };
+type ListType = {
+  kind: \"ListType\",
+
+  name: string
+};
 
 function getTypeASTName(typeAST: Type): string {
   if (typeAST.kind === \"Name\") {
@@ -2483,7 +2491,13 @@ function foo(x: ASTNode) {
 type Apple = { kind: \"Fruit\", taste: \"Bad\" };
 type Orange = { kind: \"Fruit\", taste: \"Good\" };
 type Broccoli = { kind: \"Veg\", taste: \"Bad\", raw: \"No\" };
-type Carrot = { kind: \"Veg\", taste: \"Good\", raw: \"Maybe\" };
+type Carrot = {
+  kind: \"Veg\",
+
+  taste: \"Good\",
+
+  raw: \"Maybe\"
+};
 
 type Breakfast = Apple | Orange | Broccoli | Carrot;
 
@@ -2536,7 +2550,11 @@ function kind(x: A | B | C): number {
       return x.A;
   }
 }
-kind({ kind: EnumKind.A, A: 1 });
+kind({
+  kind: EnumKind.A,
+
+  A: 1
+});
 
 // example 6
 type Citizen = { citizen: true };

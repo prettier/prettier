@@ -69,9 +69,17 @@ var qux = function(str: string, i: number): number {
   return foo(str, i);
 };
 
-var obj: { str: string, i: number, j: boolean } = {
+var obj: {
+  str: string,
+
+  i: number,
+
+  j: boolean
+} = {
   str: \"...\",
+
   i: \"...\",
+
   k: false
 };
 

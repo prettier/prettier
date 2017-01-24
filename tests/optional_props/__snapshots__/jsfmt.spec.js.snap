@@ -156,7 +156,11 @@ class A {
 // do not narrow the types of annotated variables as do
 // subsequent assignments.)
 //
-var x: { a: number, b?: number } = { a: 0 };
+var x: {
+  a: number,
+
+  b?: number
+} = { a: 0 };
 
 // now assign an object literal lacking property b.
 // the literal\'s type is sealed and has only a at creation.

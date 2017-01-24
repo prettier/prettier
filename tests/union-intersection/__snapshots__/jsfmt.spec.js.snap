@@ -5115,7 +5115,11 @@ type T7 =
   | { eventName: \"fit\", d: number }
   | { eventName: \"on\", e: number }
   | { eventName: \"one\", f: number }
-  | { eventName: \"line\", g: number };
+  | {
+    eventName: \"line\",
+
+    g: number
+  };
 
 type Comment =
   | {

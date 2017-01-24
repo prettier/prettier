@@ -273,6 +273,7 @@ var React = React.createClass({
         return \"Alice\";
     }
   },
+
   render() {
     // But this never errored
     return <div id={this.props.name} />;
@@ -336,7 +337,15 @@ var Example = React.createClass({
 });
 
 var ok_empty = <Example obj={{}} />;
-var ok_numbers = <Example obj={{ foo: 1, bar: 2 }} />;
+var ok_numbers = (
+  <Example
+    obj={{
+      foo: 1,
+
+      bar: 2
+    }}
+  />
+);
 
 var fail_not_object = <Example obj={2} />;
 var fail_mistyped_props = <Example obj={{ foo: \"foo\" }} />;

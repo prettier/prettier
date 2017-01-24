@@ -222,17 +222,20 @@ var obj = {
   get goodGetterWithAnnotation(): number {
     return 4;
   },
+
   set goodSetterNoAnnotation(x) {
     z = x;
   },
   set goodSetterWithAnnotation(x: number) {
     z = x;
   },
+
   get propWithMatchingGetterAndSetter(): number {
     return 4;
   },
   set propWithMatchingGetterAndSetter(x: number) {
   },
+
   // The getter and setter need not have the same type
   get propWithSubtypingGetterAndSetter(): ?number {
     return 4;
@@ -240,17 +243,20 @@ var obj = {
   // OK
   set propWithSubtypingGetterAndSetter(x: number) {
   },
+
   set propWithSubtypingGetterAndSetterReordered(x: number) {
   },
   // OK
   get propWithSubtypingGetterAndSetterReordered(): ?number {
     return 4;
   },
+
   get exampleOfOrderOfGetterAndSetter(): A {
     return new A();
   },
   set exampleOfOrderOfGetterAndSetter(x: B) {
   },
+
   set exampleOfOrderOfGetterAndSetterReordered(x: B) {
   },
   get exampleOfOrderOfGetterAndSetterReordered(): A {
