@@ -74,8 +74,7 @@ function runTest(y: number): void {
   );
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function takesAString(x: string): void {
-}
+function takesAString(x: string): void {}
 
 function runTest(y: number): void {
   takesAString(

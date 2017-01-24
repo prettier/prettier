@@ -42,11 +42,9 @@ function bar(): ?string {
   return null;
 }
 
-function qux(x: string) {
-}
+function qux(x: string) {}
 
-function corge(x: number) {
-}
+function corge(x: number) {}
 
 var x = bar();
 // x: ?string
@@ -76,15 +74,12 @@ bar(\'hmm\');
 function fn(data: ?{}) {}
 fn({some: \'literal\'});
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function foo(x: ?string) {
-}
-function bar(x: ?number) {
-}
+function foo(x: ?string) {}
+function bar(x: ?number) {}
 foo(\"hmm\");
 bar(\"hmm\");
 
-function fn(data: ?{}) {
-}
+function fn(data: ?{}) {}
 fn({ some: \"literal\" });
 "
 `;

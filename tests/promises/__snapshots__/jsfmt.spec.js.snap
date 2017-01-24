@@ -589,8 +589,7 @@ Promise
 // TODO: resolvedPromise<T> -> catch() -> then():T
 Promise
   .resolve(0)
-  .catch(function(err) {
-  })
+  .catch(function(err) {})
   .then(function(num) {
     var a: number = num;
 

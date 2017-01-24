@@ -110,27 +110,8 @@ myclass.myfun([\"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", function (ar) {}
 declare class Myclass { myfun(myarray: Array<Function | string>): any }
 declare var myclass: Myclass;
 
-myclass.myfun([
-  \"1\",
-  \"2\",
-  \"3\",
-  \"4\",
-  \"5\",
-  \"6\",
-  function(ar) {
-  }
-]);
-myclass.myfun([
-  \"1\",
-  \"2\",
-  \"3\",
-  \"4\",
-  \"5\",
-  \"6\",
-  \"7\",
-  function(ar) {
-  }
-]);
+myclass.myfun([ \"1\", \"2\", \"3\", \"4\", \"5\", \"6\", function(ar) {} ]);
+myclass.myfun([ \"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", function(ar) {} ]);
 "
 `;
 
@@ -343,8 +324,7 @@ type Foo<X: ?C> = Array<X>;
 // workaround
 var x: Array<C> = [];
 var y: Array<?C> = [];
-function foo<X>(x: Foo<X>) {
-}
+function foo<X>(x: Foo<X>) {}
 foo(x);
 foo(y);
 
@@ -356,8 +336,7 @@ type Bar = () => C | string;
 function f() {
   return \"\";
 }
-function bar(x: Bar) {
-}
+function bar(x: Bar) {}
 bar(f);
 "
 `;
@@ -431,8 +410,7 @@ function corge(b) {
     new F().foo(x);
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function bar(x: Document | string): void {
-}
+function bar(x: Document | string): void {}
 bar(0);
 
 class C {}
@@ -441,11 +419,9 @@ function CD(b) {
   var E = b ? C : D;
   var c: C = new E();
   // error, since E could be D, and D is not a subtype of C
-  function qux(e: E) {
-  }
+  function qux(e: E) {}
   // this annotation is an error: is it C, or is it D?
-  function qux2(e: C | D) {
-  }
+  function qux2(e: C | D) {}
   // OK
   qux2(new C());
 }

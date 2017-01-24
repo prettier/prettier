@@ -74,8 +74,7 @@ require(\"not a module name\");
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-function require() {
-}
+function require() {}
 require(\"not a module name\");
 "
 `;
@@ -132,10 +131,8 @@ require.call(null, \"DoesNotExist\");
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-function takesANumber(num: number): void {
-}
-function takesAString(str: string): void {
-}
+function takesANumber(num: number): void {}
+function takesAString(str: string): void {}
 
 // @providesModule
 var A = require(\"A\");

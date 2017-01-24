@@ -24,8 +24,7 @@ y = o;
 o.foo = 0;
 
 // future widening is constrained
-function bar(config: { foo?: number }) {
-}
+function bar(config: { foo?: number }) {}
 bar({});
 bar({ foo: \"\" });
 "

@@ -64,20 +64,16 @@ module.exports = {
 class A {
   static x: number;
   static y: string;
-  static foo(x: number) {
-  }
-  static bar(y: string) {
-  }
+  static foo(x: number) {}
+  static bar(y: string) {}
 }
-A.qux = function(x: string) {
-};
+A.qux = function(x: string) {};
 
 // error?
 class B extends A {
   static x: string;
   // error?
-  static foo(x: string) {
-  }
+  static foo(x: string) {}
   // error?
   static main() {
     B.x = 0;
@@ -103,8 +99,7 @@ class B extends A {
 
 class C<X> {
   static x: X;
-  static bar(x: X) {
-  }
+  static bar(x: X) {}
   static create(): C<*> {
     return new this();
   }

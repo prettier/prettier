@@ -411,18 +411,14 @@ function var_var() {
 
 // function x *
 function function_toplevel() {
-  function a() {
-  }
-  function a() {
-  }
+  function a() {}
+  function a() {}
 }
 
 function function_block() {
   {
-    function a() {
-    }
-    function a() {
-    }
+    function a() {}
+    function a() {}
   }
 }
 
@@ -446,8 +442,7 @@ function type_shadow_nested_scope() {
 }
 
 // fn params name clash
-function fn_params_name_clash(x, x /* error: x already bound */) {
-}
+function fn_params_name_clash(x, x /* error: x already bound */) {}
 function fn_params_clash_fn_binding(x, y) {
   let x = 0;
   // error: x already bound

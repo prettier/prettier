@@ -41,8 +41,7 @@ var export_o: { x:any; } = o; // awkward type cast
 
 module.exports = export_o;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function Foo() {
-}
+function Foo() {}
 var o = new Foo();
 var x: number = o.x;
 

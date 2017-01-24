@@ -64,8 +64,7 @@ class Foo<T> {
   map<U>(callbackfn: () => U): Foo<U> {
     return new Foo();
   }
-  set(x: T): void {
-  }
+  set(x: T): void {}
   get(): T {
     return this.x;
   }
