@@ -15,6 +15,7 @@ const argv = minimist(process.argv.slice(2), {
     "single-quote",
     "trailing-comma",
     "bracket-spacing",
+    "braces-spacing",
     // The supports-color package (a sub sub dependency) looks directly at
     // `process.argv` for `--no-color` and such-like options. The reason it is
     // listed here is to avoid "Ignored unknown option: --no-color" warnings.
@@ -26,7 +27,7 @@ const argv = minimist(process.argv.slice(2), {
     "flow-parser"
   ],
   string: [ "print-width", "tab-width", "parser" ],
-  default: { color: true, "bracket-spacing": true, parser: "babylon" },
+  default: { color: true, "braces-spacing": true, parser: "babylon" },
   unknown: param => {
     if (param.startsWith("-")) {
       console.warn("Ignored unknown option: " + param + "\n");
@@ -54,14 +55,15 @@ if (!filepatterns.length && !stdin) {
       "  --tab-width <int>        Specify the number of spaces per indentation-level. Defaults to 2.\n" +
       "  --single-quote           Use single quotes instead of double.\n" +
       "  --trailing-comma         Print trailing commas wherever possible.\n" +
-      "  --bracket-spacing        Put spaces between brackets. Defaults to true.\n" +
+      "  --bracket-spacing        Put spaces between [brackets]. Defaults to false.\n" +
+      "  --braces-spacing         Put spaces between {braces}. Defaults to true.\n" +
       "  --parser <flow|babylon>  Specify which parse to use. Defaults to babylon.\n" +
       "  --color                  Colorize error messages. Defaults to true.\n" +
       "  --version                Print prettier version.\n" +
       "\n" +
       "Boolean options can be turned off like this:\n" +
-      "  --no-bracket-spacing\n" +
-      "  --bracket-spacing=false"
+      "  --no-braces-spacing\n" +
+      "  --braces-spacing=false"
   );
   process.exit(1);
 }

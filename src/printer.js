@@ -441,12 +441,12 @@ function genericPrintNoParens(path, options, print) {
                 indent(
                   1,
                   concat([
-                    options.bracketSpacing ? line : softline,
+                    options.bracesSpacing ? line : softline,
                     join(concat([ ",", line ]), grouped)
                   ])
                 ),
                 ifBreak(options.trailingComma ? "," : ""),
-                options.bracketSpacing ? line : softline,
+                options.bracesSpacing ? line : softline,
                 "}"
               ])
             )
@@ -576,12 +576,12 @@ function genericPrintNoParens(path, options, print) {
             indent(
               1,
               concat([
-                options.bracketSpacing ? line : softline,
+                options.bracesSpacing ? line : softline,
                 join(concat([ separator, line ]), props)
               ])
             ),
             ifBreak(options.trailingComma ? "," : ""),
-            options.bracketSpacing ? line : softline,
+            options.bracesSpacing ? line : softline,
             rightBrace,
             path.call(print, "typeAnnotation")
           ])
@@ -675,7 +675,7 @@ function genericPrintNoParens(path, options, print) {
               indent(
                 1,
                 concat([
-                  softline,
+                  options.bracketSpacing ? line : softline,
                   join(concat([ ",", line ]), path.map(print, "elements"))
                 ])
               ),
@@ -687,7 +687,7 @@ function genericPrintNoParens(path, options, print) {
                   ? ","
                   : ""
               ),
-              softline,
+              options.bracketSpacing ? line : softline,
               "]"
             ])
           )
@@ -1911,12 +1911,12 @@ function printExportDeclaration(path, options, print) {
               indent(
                 1,
                 concat([
-                  options.bracketSpacing ? line : softline,
+                  options.bracesSpacing ? line : softline,
                   join(concat([ ",", line ]), path.map(print, "specifiers"))
                 ])
               ),
               ifBreak(options.trailingComma ? "," : ""),
-              options.bracketSpacing ? line : softline,
+              options.bracesSpacing ? line : softline,
               "}"
             ])
           )

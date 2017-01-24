@@ -14,8 +14,10 @@ var defaults = {
   singleQuote: false,
   // Controls the printing of trailing commas wherever possible
   trailingComma: false,
-  // Controls the printing of spaces inside array and objects
-  bracketSpacing: true,
+  // Controls the printing of spaces inside arrays
+  bracketSpacing: false,
+  // Controls the printing of spaces inside objects
+  bracesSpacing: true,
   // Which parser to use. Valid options are 'flow' and 'babylon'
   parser: "babylon"
 };
