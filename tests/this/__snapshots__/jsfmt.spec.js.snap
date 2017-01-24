@@ -69,8 +69,7 @@ F.prototype.m = function() {
   this.y = 0;
 };
 
-function foo(p: string) {
-}
+function foo(p: string) {}
 
 var o1 = new F();
 // sets o1.x to 0
@@ -199,8 +198,7 @@ var j = g();
 
 // error, since return type of bar is C, not the type of \`this\`
 class E {
-  foo(x: number) {
-  }
+  foo(x: number) {}
 }
 class F extends E {
   foo() {

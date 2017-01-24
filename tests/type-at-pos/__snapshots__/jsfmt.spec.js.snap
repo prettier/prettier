@@ -59,10 +59,7 @@ const y = {
 //   foo(): void {}
 // }
 
-const y = {
-  bar(): void {
-  }
-};
+const y = { bar(): void {} };
 "
 `;
 
@@ -135,8 +132,7 @@ module.exports = num;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 var num = 42;
-function bar() {
-}
+function bar() {}
 bar();
 module.exports = num;
 "
@@ -254,8 +250,7 @@ const w:MyNum = 42;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 var str = require(\"./import\");
-function foo() {
-}
+function foo() {}
 foo();
 str;
 

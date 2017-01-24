@@ -79,8 +79,7 @@ let tests = [
   },
   // passed as a function
   function(copyProperties: Object$Assign) {
-    function x(cb: Function) {
-    }
+    function x(cb: Function) {}
     x(copyProperties);
   }
 ];
@@ -206,8 +205,7 @@ let tests = [
   },
   // passed as a function
   function(mergeInto: $Facebookism$MergeInto) {
-    function x(cb: Function) {
-    }
+    function x(cb: Function) {}
     x(mergeInto);
   }
 ];

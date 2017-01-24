@@ -59,8 +59,7 @@ module.exports = true;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule Condition */
 
-function f(x: number) {
-}
+function f(x: number) {}
 function g() {
   return 42 || \"hello\";
 }
@@ -86,8 +85,7 @@ function bar() {
 }
 
 class C {
-  qux() {
-  }
+  qux() {}
 }
 
 function foo() {
@@ -140,8 +138,7 @@ module.exports = FlowSA;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule FlowSA */
 
-function check(x: string) {
-}
+function check(x: string) {}
 
 function FlowSA() {
   var x = 0;
@@ -198,18 +195,15 @@ module.exports = \"sigma\";
 /* @providesModule Sigma */
 
 class A {
-  a() {
-  }
+  a() {}
 }
 
 class B extends A {
-  b() {
-  }
+  b() {}
 }
 
 class C extends B {
-  c() {
-  }
+  c() {}
 }
 
 function bar(x: B) {
@@ -234,8 +228,7 @@ function foo(x: A) {
 }
 
 class D {
-  d() {
-  }
+  d() {}
 }
 
 function baz(x: D) {

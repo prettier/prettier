@@ -49,8 +49,7 @@ foo([ {} ]); // error, too few elements in array passed to a tuple
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-function foo(a: [Object, Object]) {
-}
+function foo(a: [Object, Object]) {}
 
 foo([ {} ]); // error, too few elements in array passed to a tuple
 "
