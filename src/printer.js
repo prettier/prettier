@@ -593,20 +593,22 @@ function genericPrintNoParens(path, options, print) {
         } else {
           parts.push(printPropertyKey(path, options, print));
         }
-        let noBreak = shouldPrintSameLine(n.value);
+
         let printedValue = path.call(print, "value");
-        if (noBreak) {
+        if (shouldPrintSameLine(n.value)) {
           parts.push(concat([": ", printedValue]));
         } else {
           parts.push(
             concat([
-              multilineGroup(
+              group(
                 concat([
-                  ": (",
+                  ": ",
+                  ifBreak("("),
                   indent(options.tabWidth, concat([line, printedValue]))
                 ])
               ),
-              concat([line, ")"])
+              line,
+              ifBreak(")")
             ])
           );
         }
