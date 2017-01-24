@@ -1,13 +1,11 @@
 "use strict";
-const assert = require("assert");
 const utils = require("./doc-utils");
 const willBreak = utils.willBreak;
 
 function assertDoc(val) {
-  assert(
-    typeof val === "string" || val != null && typeof val.type === "string",
-    "Value is a valid document"
-  );
+  if (!(typeof val === "string" || val != null && typeof val.type === "string")) {
+    throw new Error("Value " + JSON.stringify(val) + " is not a valid document");
+  }
 }
 
 function concat(parts) {
