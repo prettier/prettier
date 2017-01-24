@@ -53,8 +53,8 @@ a.forEach(x => y = x);
 
 // for literals, composite element type is union of individuals
 // note: test both tuple and non-tuple inferred literals
-var alittle: Array<?number> = [ 0, 1, 2, 3, null ];
-var abig: Array<?number> = [ 0, 1, 2, 3, 4, 5, 6, 8, null ];
+var alittle: Array<?number> = [0, 1, 2, 3, null];
+var abig: Array<?number> = [0, 1, 2, 3, 4, 5, 6, 8, null];
 
 var abig2: Array<{ x: number, y: number }> = [
   { x: 0, y: 0 },
@@ -86,10 +86,10 @@ exports[`test last.js 1`] = `
 [,,1,];
 [,,1,1];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[ , ];
-[ , , ];
-[ , , 1 ];
-[ , , 1, 1 ];
+[,];
+[, ,];
+[, , 1];
+[, , 1, 1];
 "
 `;
 

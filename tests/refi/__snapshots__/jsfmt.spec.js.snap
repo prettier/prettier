@@ -429,7 +429,7 @@ var tests = [
     var y: string = x.p || \"\"; // ok
   },
   function() {
-    var x: { p: string | string[] } = { p: [ \"xxx\" ] };
+    var x: { p: string | string[] } = { p: [\"xxx\"] };
     if (Array.isArray(x.p)) {
       var y: string[] = x.p; // ok
     } else {
@@ -806,7 +806,7 @@ var paths = [
     var y: string = x || \"\"; // ok
   },
   function() {
-    var x: string | string[] = [ \"xxx\" ];
+    var x: string | string[] = [\"xxx\"];
     if (Array.isArray(x)) {
       var y: string[] = x; // ok
     } else {

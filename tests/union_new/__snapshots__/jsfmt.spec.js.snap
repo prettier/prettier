@@ -493,7 +493,7 @@ function inst(a: A5 | A6) {}
 
 class B5 {}
 class B6 {}
-inst([ new B6() ]);
+inst([new B6()]);
 
 type A5 = B5[];
 type A6 = B6[];
@@ -647,7 +647,7 @@ type B5 = string;
 // tuples
 function tup(a: [number, boolean] | [string, boolean]) {}
 
-tup(([ \"\", false ]: A6));
+tup(([\"\", false]: A6));
 
 type A6 = [B6, boolean];
 type B6 = string;
@@ -1198,10 +1198,10 @@ check_obj({ x: id(\"\") });
 function check_arr(_: number[] | string[]) {}
 
 // ok
-check_arr([ \"\" ]);
+check_arr([\"\"]);
 
 // help!
-check_arr([ id(\"\") ]);
+check_arr([id(\"\")]);
 
 //////////////////////////////////////
 // generic class instance annotations
@@ -1443,7 +1443,7 @@ exports[`test test17.js 1`] = `
 
 [].concat([]);
 
-([].concat([ 0, 1 ])[1]: string);
+([].concat([0, 1])[1]: string);
 "
 `;
 
@@ -1521,16 +1521,16 @@ exports[`test test20.js 1`] = `
 
 // Array#reduce
 
-[ 0, 1 ].reduce((x, y, i) => y);
+[0, 1].reduce((x, y, i) => y);
 
-[ \"a\", \"b\" ].reduce(
+[\"a\", \"b\"].reduce(
   (regex, representation, index) => {
     return regex + (index ? \"|\" : \"\") + \"(\" + representation + \")\";
   },
   \"\"
 );
 
-[ \"\" ].reduce((acc, str) => acc * str.length);
+[\"\"].reduce((acc, str) => acc * str.length);
 "
 `;
 

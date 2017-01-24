@@ -136,7 +136,7 @@ class MySubclass extends MyClass {
 
 // *no* arity error in call of polymorphic function
 function singleton<T>(x: T): Array<T> {
-  return [ x ];
+  return [x];
 }
 
 var num_array: Array<number> = singleton(0); // ok, type arg inferred

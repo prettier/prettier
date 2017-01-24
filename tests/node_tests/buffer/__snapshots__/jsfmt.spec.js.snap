@@ -116,8 +116,8 @@ num = buffer.indexOf(3);
 num = buffer.indexOf(3, 4);
 
 // static methods
-buffer = Buffer.from([ 0x62, 0x75, 0x66, 0x66, 0x65, 0x72 ]);
-const typedArray = new Uint8Array([ 0x34 ]);
+buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]);
+const typedArray = new Uint8Array([0x34]);
 buffer = Buffer.from(
   typedArray.buffer,
   typedArray.byteOffset,
@@ -131,7 +131,7 @@ buffer = Buffer.from(\"foo\", \"utf8\");
 // flow doesn\'t support a subclass hiding a superclass member, so this checks out as
 // ok, even though it is not correct.
 buffer = Buffer.from(
-  [ 0x62, 0x75, 0x66, 0x66, 0x65, 0x72 ],
+  [0x62, 0x75, 0x66, 0x66, 0x65, 0x72],
   (a: number) => a + 1,
   {}
 ); // should error but doesn\'t

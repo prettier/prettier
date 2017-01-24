@@ -106,7 +106,7 @@ class Invariant {
   inout_object: { _: this };
 
   out_array(): Array<this> {
-    return [ this ];
+    return [this];
   }
   in_array(_: Array<this>) {}
   inout_array: Array<this>;

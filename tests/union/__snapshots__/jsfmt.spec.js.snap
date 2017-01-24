@@ -110,8 +110,8 @@ myclass.myfun([\"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", function (ar) {}
 declare class Myclass { myfun(myarray: Array<Function | string>): any }
 declare var myclass: Myclass;
 
-myclass.myfun([ \"1\", \"2\", \"3\", \"4\", \"5\", \"6\", function(ar) {} ]);
-myclass.myfun([ \"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", function(ar) {} ]);
+myclass.myfun([\"1\", \"2\", \"3\", \"4\", \"5\", \"6\", function(ar) {}]);
+myclass.myfun([\"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", function(ar) {}]);
 "
 `;
 
@@ -184,7 +184,7 @@ class Tag {
 type Node = Tag_ | string;
 class Tag_ {
   constructor() {
-    var a1: Array<Node> = [ new Tag_() ];
+    var a1: Array<Node> = [new Tag_()];
     var a2: Array<Node> = a1;
   }
 }
@@ -197,8 +197,8 @@ var stringArr:Array<string> = [\'a\',\'b\'];
 
 var result = numberAndStringArr.concat(stringArr);  // no error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var numberAndStringArr: Array<number | string> = [ 1, 2 ];
-var stringArr: Array<string> = [ \"a\", \"b\" ];
+var numberAndStringArr: Array<number | string> = [1, 2];
+var stringArr: Array<string> = [\"a\", \"b\"];
 
 var result = numberAndStringArr.concat(stringArr); // no error
 "

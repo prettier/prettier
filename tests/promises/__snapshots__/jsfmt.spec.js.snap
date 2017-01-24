@@ -51,7 +51,7 @@ Promise.all([
   true
 ]).then(xs => {
   // tuple information is preserved
-  let [ a, b, c ] = xs;
+  let [a, b, c] = xs;
   (a: number);
   // Error: string ~> number
   (b: boolean);

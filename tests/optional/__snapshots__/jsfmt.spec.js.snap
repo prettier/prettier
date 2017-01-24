@@ -15,7 +15,7 @@ exports[`test default.js 1`] = `
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function f<T>(foo, bar = foo): [T, T] {
-  return [ foo, bar ];
+  return [foo, bar];
 }
 "
 `;
@@ -178,7 +178,7 @@ function qux(x = \"hello\", ...y): string {
 }
 
 qux(0, 0);
-qux(0, ...[ \"\", 42 ]);
+qux(0, ...[\"\", 42]);
 
 module.exports = qux;
 "
@@ -324,7 +324,7 @@ foo(123, true); // ERROR boolean ~> string
 /* @flow */
 
 function foo(x?: number, ...y: Array<string>): [?number, Array<string>] {
-  return [ x, y ];
+  return [x, y];
 }
 
 foo();

@@ -37,7 +37,7 @@ for (var y in this) {
     // allowed, even though we can\'t actually enumerate all the keys on \`this\`.
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var a = [ true, false ];
+var a = [true, false];
 function foo(x) {}
 
 for (var i = 0; i < 3; i++) {

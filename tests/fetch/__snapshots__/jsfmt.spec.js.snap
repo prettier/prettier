@@ -85,7 +85,7 @@ e.getAll(\'content-type\').forEach((v: string) => {}); // correct
 
 const a = new Headers(\"\'Content-Type\': \'image/jpeg\'\");
 // not correct
-const b = new Headers([ \"Content-Type\", \"image/jpeg\" ]);
+const b = new Headers([\"Content-Type\", \"image/jpeg\"]);
 // not correct
 const c = new Headers({ \"Content-Type\", \"image/jpeg\" });
 // correct
@@ -115,11 +115,11 @@ const h: number = e.get(\"Content-Type\");
 
 // not correct
 for (let v of e) {
-  const [ i, j ]: [string, string] = v; // correct
+  const [i, j]: [string, string] = v; // correct
 }
 
 for (let v of e.entries()) {
-  const [ i, j ]: [string, string] = v; // correct
+  const [i, j]: [string, string] = v; // correct
 }
 
 e.getAll(\"content-type\").forEach((v: string) => {}); // correct
@@ -374,7 +374,7 @@ e.getAll(\'key1\').forEach((v: string) => {}); // correct
 
 const a = new URLSearchParams(\"key1=value1\");
 // correct
-const b = new URLSearchParams([ \"key1\", \"value1\" ]);
+const b = new URLSearchParams([\"key1\", \"value1\"]);
 // not correct
 const c = new URLSearchParams({ \"key1\", \"value1\" });
 // not correct
@@ -404,11 +404,11 @@ const h: number = e.get(\"key1\");
 
 // not correct
 for (let v of e) {
-  const [ i, j ]: [string, string] = v; // correct
+  const [i, j]: [string, string] = v; // correct
 }
 
 for (let v of e.entries()) {
-  const [ i, j ]: [string, string] = v; // correct
+  const [i, j]: [string, string] = v; // correct
 }
 
 e.getAll(\"key1\").forEach((v: string) => {}); // correct

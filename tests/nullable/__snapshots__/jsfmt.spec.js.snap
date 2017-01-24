@@ -61,7 +61,7 @@ if (x != null) {
   qux(x);
 }
 
-var array_of_nullable: Array<?number> = [ null, 3 ];
+var array_of_nullable: Array<?number> = [null, 3];
 "
 `;
 
