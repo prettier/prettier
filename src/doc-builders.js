@@ -33,13 +33,6 @@ function group(contents, opts) {
   };
 }
 
-function multilineGroup(contents, opts) {
-  return group(
-    contents,
-    Object.assign(opts || {}, { shouldBreak: willBreak(contents) })
-  );
-}
-
 function conditionalGroup(states, opts) {
   return group(
     states[0],
@@ -62,7 +55,7 @@ const breakParent =  { type: "break-parent" };
 const line = { type: "line" };
 const softline = { type: "line", soft: true };
 const hardline = concat([{ type: "line", hard: true }, breakParent ]);
-const literalline = { type: "line", hard: true, literal: true };
+const literalline = concat([{ type: "line", hard: true, literal: true }, breakParent ]);
 
 function join(sep, arr) {
   var res = [];
@@ -86,7 +79,6 @@ module.exports = {
   hardline,
   literalline,
   group,
-  multilineGroup,
   conditionalGroup,
   breakParent,
   ifBreak,

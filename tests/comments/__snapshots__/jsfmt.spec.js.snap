@@ -179,7 +179,8 @@ Observable
 
 /* Comments in JSX tag are placed in a non optimal way*/
 <div
-/* comment*/ />;
+/* comment*/
+/>;
 
 // Comments disappear in empty blocks
 if (1) {
@@ -379,7 +380,8 @@ Observable
 
 // Comments in JSX tag are placed in a non optimal way
 <// comment
-div />;
+div
+/>;
 
 // Comments disappear in empty blocks
 if (1) {
