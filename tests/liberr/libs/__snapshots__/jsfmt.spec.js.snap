@@ -1,8 +1,51 @@
+exports[`test parse_error.js 1`] = `
+"/**
+ * @flow
+ */
+declare class ExampleClass {
+
+  methodA: () => any // parse error, missing comma
+
+  methodB: () => any
+
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/node_modules/babylon/lib/index.js:4255
+  throw err;
+  ^
+
+SyntaxError: Unexpected token (8:2)
+    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
+    at Parser.pp.unexpected (/node_modules/babylon/lib/index.js:1633:8)
+    at Parser.pp$7.flowObjectTypeSemicolon (/node_modules/babylon/lib/index.js:4832:10)
+    at Parser.pp$7.flowParseObjectType (/node_modules/babylon/lib/index.js:4813:14)
+    at Parser.pp$7.flowParseInterfaceish (/node_modules/babylon/lib/index.js:4575:20)
+    at Parser.pp$7.flowParseDeclareClass (/node_modules/babylon/lib/index.js:4437:8)
+    at Parser.pp$7.flowParseDeclare (/node_modules/babylon/lib/index.js:4474:17)
+    at Parser.parseExpressionStatement (/node_modules/babylon/lib/index.js:5235:25)
+    at Parser.pp$1.parseStatement (/node_modules/babylon/lib/index.js:1785:17)
+    at Parser.parseStatement (/node_modules/babylon/lib/index.js:5224:22)
+"
+`;
+
 exports[`test type_error.js 1`] = `
 "// @flow
 declare function foo(x: number): Array;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// @flow
-declare function foo(x: number): Array;
+/src/printer.js:1348
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
+
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1348:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1254:25)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;

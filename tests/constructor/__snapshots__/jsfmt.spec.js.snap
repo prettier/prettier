@@ -10,13 +10,16 @@ class D {
 module.exports = C;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class C {
-  constructor() {}
+  constructor() {
+    
+  }
 }
-
 class D {
-  constructor(): number {}
+  constructor(): number {
+    
+  }
 }
-
 module.exports = C;
+
 "
 `;

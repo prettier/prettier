@@ -8,13 +8,20 @@ function bar(x: Object): Array<string> {
   return Object.keys(x);
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function foo(x: Array<Object>): Array<Object> {
-  return x.sort((a, b) => a.foo - b.foo);
-}
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
 
-// Make sure Object works with Object.keys()
-function bar(x: Object): Array<string> {
-  return Object.keys(x);
-}
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1374:14)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;

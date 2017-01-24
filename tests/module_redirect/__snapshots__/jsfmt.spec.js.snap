@@ -3,9 +3,21 @@ exports[`test A.js 1`] = `
   declare function foo(): string;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-declare module A {
-  declare function foo(): string;
-}
+/src/printer.js:1348
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
+
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1348:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1254:25)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;
 
@@ -21,8 +33,8 @@ module.exports = require(\'A\');
  * @providesModule B
  * @flow
  */
-
 module.exports = require(\"A\");
+
 "
 `;
 
@@ -38,8 +50,8 @@ module.exports = require(\'B\');
  * @providesModule C
  * @flow
  */
-
 module.exports = require(\"B\");
+
 "
 `;
 
@@ -57,9 +69,9 @@ var bar3: string = require(\'C\');
  * @providesModule D
  * @flow
  */
-
 var bar1: string = require(\"A\");
 var bar2: string = require(\"B\");
 var bar3: string = require(\"C\");
+
 "
 `;

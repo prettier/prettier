@@ -5,11 +5,21 @@ exports[`test fail-0.js 1`] = `
 
 declare function f2(x: mixed): boolean %checks;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// @flow
+/node_modules/babylon/lib/index.js:4255
+  throw err;
+  ^
 
-// Error: \'declare\', \'checks\' but missing predicate
-
-declare function f2(x: mixed): boolean %checks;
+SyntaxError: Unexpected token, expected ; (5:39)
+    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
+    at Parser.pp.unexpected (/node_modules/babylon/lib/index.js:1633:8)
+    at Parser.pp.semicolon (/node_modules/babylon/lib/index.js:1614:38)
+    at Parser.pp$7.flowParseDeclareFunction (/node_modules/babylon/lib/index.js:4467:8)
+    at Parser.pp$7.flowParseDeclare (/node_modules/babylon/lib/index.js:4476:17)
+    at Parser.parseExpressionStatement (/node_modules/babylon/lib/index.js:5235:25)
+    at Parser.pp$1.parseStatement (/node_modules/babylon/lib/index.js:1785:17)
+    at Parser.parseStatement (/node_modules/babylon/lib/index.js:5224:22)
+    at Parser.pp$1.parseBlockBody (/node_modules/babylon/lib/index.js:2139:21)
+    at Parser.pp$1.parseTopLevel (/node_modules/babylon/lib/index.js:1651:8)
 "
 `;
 
@@ -20,11 +30,21 @@ exports[`test fail-1.js 1`] = `
 
 function f6(x: mixed): %checks (x !== null) {  }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// @flow
+/node_modules/babylon/lib/index.js:4255
+  throw err;
+  ^
 
-// Error: no return statement
-
-function f6(x: mixed): %checks(x !== null) {}
+SyntaxError: Unexpected token (5:23)
+    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
+    at Parser.pp.unexpected (/node_modules/babylon/lib/index.js:1633:8)
+    at Parser.pp$7.flowParsePrimaryType (/node_modules/babylon/lib/index.js:5099:8)
+    at Parser.pp$7.flowParsePostfixType (/node_modules/babylon/lib/index.js:5105:19)
+    at Parser.pp$7.flowParsePrefixType (/node_modules/babylon/lib/index.js:5122:17)
+    at Parser.pp$7.flowParseAnonFunctionWithoutParens (/node_modules/babylon/lib/index.js:5127:20)
+    at Parser.pp$7.flowParseIntersectionType (/node_modules/babylon/lib/index.js:5141:19)
+    at Parser.pp$7.flowParseUnionType (/node_modules/babylon/lib/index.js:5151:19)
+    at Parser.pp$7.flowParseType (/node_modules/babylon/lib/index.js:5162:19)
+    at Parser.pp$7.flowParseTypeInitialiser (/node_modules/babylon/lib/index.js:4430:19)
 "
 `;
 
@@ -35,13 +55,21 @@ var a2 = (x: mixed): %checks (x !== null) => {        // Error: body form
   var x = 1; return x;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// @flow
+/node_modules/babylon/lib/index.js:4255
+  throw err;
+  ^
 
-var a2 = (x: mixed): %checks(x !== null) => {
-  // Error: body form
-  var x = 1;
-  return x;
-};
+SyntaxError: Unexpected token, expected ; (3:19)
+    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
+    at Parser.pp.unexpected (/node_modules/babylon/lib/index.js:1633:8)
+    at Parser.pp.semicolon (/node_modules/babylon/lib/index.js:1614:38)
+    at Parser.pp$1.parseVarStatement (/node_modules/babylon/lib/index.js:2043:8)
+    at Parser.pp$1.parseStatement (/node_modules/babylon/lib/index.js:1735:19)
+    at Parser.parseStatement (/node_modules/babylon/lib/index.js:5224:22)
+    at Parser.pp$1.parseBlockBody (/node_modules/babylon/lib/index.js:2139:21)
+    at Parser.pp$1.parseTopLevel (/node_modules/babylon/lib/index.js:1651:8)
+    at Parser.parse (/node_modules/babylon/lib/index.js:1543:17)
+    at Object.parse$1 [as parse] (/node_modules/babylon/lib/index.js:6472:37)
 "
 `;
 
@@ -54,15 +82,21 @@ function f5(x: mixed): %checks (x !== null) { return x !== null }
 
 var a2 = (x: mixed): %checks (x !== null) => x !== null;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// @flow
+/node_modules/babylon/lib/index.js:4255
+  throw err;
+  ^
 
-// Cannot declare predicate with a function body is present.
-
-function f5(x: mixed): %checks(x !== null) {
-  return x !== null;
-}
-
-var a2 = (x: mixed): %checks(x !== null) => x !== null;
+SyntaxError: Unexpected token (5:23)
+    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
+    at Parser.pp.unexpected (/node_modules/babylon/lib/index.js:1633:8)
+    at Parser.pp$7.flowParsePrimaryType (/node_modules/babylon/lib/index.js:5099:8)
+    at Parser.pp$7.flowParsePostfixType (/node_modules/babylon/lib/index.js:5105:19)
+    at Parser.pp$7.flowParsePrefixType (/node_modules/babylon/lib/index.js:5122:17)
+    at Parser.pp$7.flowParseAnonFunctionWithoutParens (/node_modules/babylon/lib/index.js:5127:20)
+    at Parser.pp$7.flowParseIntersectionType (/node_modules/babylon/lib/index.js:5141:19)
+    at Parser.pp$7.flowParseUnionType (/node_modules/babylon/lib/index.js:5151:19)
+    at Parser.pp$7.flowParseType (/node_modules/babylon/lib/index.js:5162:19)
+    at Parser.pp$7.flowParseTypeInitialiser (/node_modules/babylon/lib/index.js:4430:19)
 "
 `;
 
@@ -95,34 +129,96 @@ type checks = any;
 declare function f(x: mixed): checks
 (typeof x === null);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// @flow
+/node_modules/babylon/lib/index.js:4255
+  throw err;
+  ^
 
-declare function f1(x: mixed): boolean;
+SyntaxError: Unexpected token, expected ; (5:39)
+    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
+    at Parser.pp.unexpected (/node_modules/babylon/lib/index.js:1633:8)
+    at Parser.pp.semicolon (/node_modules/babylon/lib/index.js:1614:38)
+    at Parser.pp$7.flowParseDeclareFunction (/node_modules/babylon/lib/index.js:4467:8)
+    at Parser.pp$7.flowParseDeclare (/node_modules/babylon/lib/index.js:4476:17)
+    at Parser.parseExpressionStatement (/node_modules/babylon/lib/index.js:5235:25)
+    at Parser.pp$1.parseStatement (/node_modules/babylon/lib/index.js:1785:17)
+    at Parser.parseStatement (/node_modules/babylon/lib/index.js:5224:22)
+    at Parser.pp$1.parseBlockBody (/node_modules/babylon/lib/index.js:2139:21)
+    at Parser.pp$1.parseTopLevel (/node_modules/babylon/lib/index.js:1651:8)
+"
+`;
 
-declare function f3(x: mixed): boolean %checks(x !== null);
+exports[`test unsupported-0.js 1`] = `
+"// @flow
 
-declare function f4(x: mixed): boolean %checks(x !== null);
+// variables cannot be annotated with a predicate type
 
-function f7(x: mixed): %checks {
-  return x !== null;
-}
+var a3: (x: mixed) => boolean %checks (x !== null);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/node_modules/babylon/lib/index.js:4255
+  throw err;
+  ^
 
-var a0 = (x: mixed) => x !== null;
+SyntaxError: Unexpected token, expected ; (5:30)
+    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
+    at Parser.pp.unexpected (/node_modules/babylon/lib/index.js:1633:8)
+    at Parser.pp.semicolon (/node_modules/babylon/lib/index.js:1614:38)
+    at Parser.pp$1.parseVarStatement (/node_modules/babylon/lib/index.js:2043:8)
+    at Parser.pp$1.parseStatement (/node_modules/babylon/lib/index.js:1735:19)
+    at Parser.parseStatement (/node_modules/babylon/lib/index.js:5224:22)
+    at Parser.pp$1.parseBlockBody (/node_modules/babylon/lib/index.js:2139:21)
+    at Parser.pp$1.parseTopLevel (/node_modules/babylon/lib/index.js:1651:8)
+    at Parser.parse (/node_modules/babylon/lib/index.js:1543:17)
+    at Object.parse$1 [as parse] (/node_modules/babylon/lib/index.js:6472:37)
+"
+`;
 
-var a1 = (x: mixed): %checks => x !== null;
+exports[`test unsupported-1.js 1`] = `
+"// @flow
 
-((x): %checks => x !== null);
+// (inited) variables cannot be annotated with a predicate type
 
-const insert_a_really_big_predicated_arrow_function_name_here = (x): %checks =>
-  x !== null;
+var a4: (x: mixed) => boolean %checks = (x: mixed) => x !== null;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/node_modules/babylon/lib/index.js:4255
+  throw err;
+  ^
 
-declare var x;
-x;
-(checks => 123);
+SyntaxError: Unexpected token, expected ; (5:30)
+    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
+    at Parser.pp.unexpected (/node_modules/babylon/lib/index.js:1633:8)
+    at Parser.pp.semicolon (/node_modules/babylon/lib/index.js:1614:38)
+    at Parser.pp$1.parseVarStatement (/node_modules/babylon/lib/index.js:2043:8)
+    at Parser.pp$1.parseStatement (/node_modules/babylon/lib/index.js:1735:19)
+    at Parser.parseStatement (/node_modules/babylon/lib/index.js:5224:22)
+    at Parser.pp$1.parseBlockBody (/node_modules/babylon/lib/index.js:2139:21)
+    at Parser.pp$1.parseTopLevel (/node_modules/babylon/lib/index.js:1651:8)
+    at Parser.parse (/node_modules/babylon/lib/index.js:1543:17)
+    at Object.parse$1 [as parse] (/node_modules/babylon/lib/index.js:6472:37)
+"
+`;
 
-type checks = any;
+exports[`test unsupported-2.js 1`] = `
+"// @flow
 
-declare function f(x: mixed): checks;
-typeof x === null;
+// Error: no support for checked preds
+
+var a5: (x: mixed) => boolean %checks(x !== null) =
+  (y: mixed) => typeof y !== \"string\";
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/node_modules/babylon/lib/index.js:4255
+  throw err;
+  ^
+
+SyntaxError: Unexpected token, expected ; (5:30)
+    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
+    at Parser.pp.unexpected (/node_modules/babylon/lib/index.js:1633:8)
+    at Parser.pp.semicolon (/node_modules/babylon/lib/index.js:1614:38)
+    at Parser.pp$1.parseVarStatement (/node_modules/babylon/lib/index.js:2043:8)
+    at Parser.pp$1.parseStatement (/node_modules/babylon/lib/index.js:1735:19)
+    at Parser.parseStatement (/node_modules/babylon/lib/index.js:5224:22)
+    at Parser.pp$1.parseBlockBody (/node_modules/babylon/lib/index.js:2139:21)
+    at Parser.pp$1.parseTopLevel (/node_modules/babylon/lib/index.js:1651:8)
+    at Parser.parse (/node_modules/babylon/lib/index.js:1543:17)
+    at Object.parse$1 [as parse] (/node_modules/babylon/lib/index.js:6472:37)
 "
 `;

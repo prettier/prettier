@@ -4,12 +4,21 @@ foo(0, \"\");
 
 function bar<X:number, Y:X>(x:X, y:Y): number { return y*0; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function foo<X, Y: X>(x: X, y: Y): void {}
-foo(0, \"\");
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
 
-function bar<X: number, Y: X>(x: X, y: Y): number {
-  return y * 0;
-}
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:340:16)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;
 
@@ -40,38 +49,20 @@ var q: number = c.qux(0);
 /* 2 more errors, since argument U = number is incompatible with T = string, and
  * result T = string is incompatible with number */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function foo<T: number>(x: T): T {
-  var _ = x * 1;
-  // OK
-  var y: string = x;
-  // error
-  return x; // OK
-}
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
 
-class C<T: number> {
-  bar<U: number>(x: U): T {
-    return x; // error, since T: number and U: number does not imply U: T
-  }
-  qux<U: T>(x: U): T {
-    var _ = x * 1;
-    // OK, since T: number and U: T implies U: number
-    var y: string = x;
-    // error
-    return x; // OK, since U: T
-  }
-}
-
-function example<T: { x: number }>(o: T): T {
-  o.x = 0;
-  return o;
-}
-var obj1: { x: number, y: string } = example({ x: 0, y: \"\" });
-var obj2: { x: number } = example({ x: 0 });
-
-var c: C<string> = new C();
-// error, since T = string is incompatible with number
-var q: number = c.qux(0);
-/* 2 more errors, since argument U = number is incompatible with T = string, and
- * result T = string is incompatible with number */
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:340:16)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;

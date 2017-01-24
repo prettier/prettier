@@ -1,42 +1,3 @@
-exports[`test series.js 1`] = `
-"1 + ++x;
-1 + x++;
-
-+ ++x;
-+ x++;
-
-x++ + 1;
-++x + 1;
-
-1 - --x;
-1 - x--;
-
-- --x;
-- x--;
-
-x-- - 1;
---x - 1;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-1 + ++x;
-1 + x++;
-
-+(++x);
-+x++;
-
-x++ + 1;
-++x + 1;
-
-1 - --x;
-1 - x--;
-
--(--x);
--x--;
-
-x-- - 1;
---x - 1;
-"
-`;
-
 exports[`test unary.js 1`] = `
 "/* @flow */
 
@@ -45,11 +6,11 @@ function x0(y: string): number {
 }
 
 function x1(y: string): number {
-  return -y; // error, we don\'t allow coercion here
+  return -y; // error, we don't allow coercion here
 }
 
 function x3(y: string) {
-  return ~y;  // error, we don\'t allow coercion here
+  return ~y;  // error, we don't allow coercion here
 }
 
 function x4(y: string): boolean {
@@ -59,24 +20,20 @@ function x4(y: string): boolean {
 (-1: void); // error, number ~> void
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-
 function x0(y: string): number {
-  return +y; // ok, + exists solely for coercion
+  return +y;// ok, + exists solely for coercion
 }
-
 function x1(y: string): number {
-  return -y; // error, we don\'t allow coercion here
+  return -y;// error, we don't allow coercion here
 }
-
 function x3(y: string) {
-  return ~y; // error, we don\'t allow coercion here
+  return ~y;// error, we don't allow coercion here
 }
-
 function x4(y: string): boolean {
-  return !y; // ok, coercion is allowed
+  return !y;// ok, coercion is allowed
 }
+(-1: void);// error, number ~> void
 
-(-1: void); // error, number ~> void
 "
 `;
 
@@ -92,27 +49,27 @@ let tests = [
   },
 
   function(y: string) {
-    y++; // error, we don\'t allow coercion here
+    y++; // error, we don't allow coercion here
     (y: number); // ok, y is a number now
-    y++; // error, but you still can\'t write a number to a string
+    y++; // error, but you still can't write a number to a string
   },
 
   function(y: string) {
-    y--; // error, we don\'t allow coercion here
+    y--; // error, we don't allow coercion here
   },
 
   function(y: string) {
-    ++y; // error, we don\'t allow coercion here
+    ++y; // error, we don't allow coercion here
   },
 
   function(y: string) {
-    --y; // error, we don\'t allow coercion here
+    --y; // error, we don't allow coercion here
   },
 
   function() {
     const y = 123;
-    y++; // error, can\'t update const
-    y--; // error, can\'t update const
+    y++; // error, can't update const
+    y--; // error, can't update const
   },
 
   function(y: any) {
@@ -121,7 +78,6 @@ let tests = [
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-
 let tests = [
   function(y: number) {
     y++;
@@ -130,30 +86,28 @@ let tests = [
     --y;
   },
   function(y: string) {
-    y++;
-    // error, we don\'t allow coercion here
-    (y: number);
-    // ok, y is a number now
-    y++; // error, but you still can\'t write a number to a string
+    y++;// error, we don't allow coercion here
+    (y: number);// ok, y is a number now
+    y++;// error, but you still can't write a number to a string
   },
   function(y: string) {
-    y--; // error, we don\'t allow coercion here
+    y--;// error, we don't allow coercion here
   },
   function(y: string) {
-    ++y; // error, we don\'t allow coercion here
+    ++y;// error, we don't allow coercion here
   },
   function(y: string) {
-    --y; // error, we don\'t allow coercion here
+    --y;// error, we don't allow coercion here
   },
   function() {
     const y = 123;
-    y++;
-    // error, can\'t update const
-    y--; // error, can\'t update const
+    y++;// error, can't update const
+    y--;// error, can't update const
   },
   function(y: any) {
-    y++; // ok
+    y++;// ok
   }
 ];
+
 "
 `;

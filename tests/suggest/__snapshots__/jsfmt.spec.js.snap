@@ -6,38 +6,34 @@ function bar(w: number): number { return w; }
 module.exports = bar;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-
 function bar(w: number): number {
   return w;
 }
-
 module.exports = bar;
+
 "
 `;
 
 exports[`test suggest.js 1`] = `
 "/* @flow */
 
-var bar = require(\'./lib\');
+var bar = require('./lib');
 
 function foo(z: number) { return bar(z); }
 
-var array = [\"foo\", \"bar\"];
+var array = ["foo", "bar"];
 array;
 
 module.exports = {foo:foo};
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-
-var bar = require(\"./lib\");
-
+var bar = require("./lib");
 function foo(z: number) {
   return bar(z);
 }
-
-var array = [\"foo\", \"bar\"];
+var array = [ "foo", "bar" ];
 array;
-
 module.exports = { foo: foo };
+
 "
 `;

@@ -11,38 +11,21 @@ var ident = <T>(x: T): T => x;
 (ident(1): number);
 (ident(\"hi\"): number); // Error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/**
- * @flow
- */
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
 
-var add = (x: number, y: number): number => x + y;
-
-var bad = (x: number): string => x;
-
-// Error!
-var ident = <T>(x: T): T => x;
-(ident(1): number);
-(ident(\"hi\"): number); // Error
-"
-`;
-
-exports[`test arrow_function_expression.js 1`] = `
-"(a => {}).length
-typeof (() => {});
-export default (() => {})();
-(() => {})()\`\`;
-(() => {})\`\`;
-new (() => {});
-if ((() => {}) ? 1 : 0) {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-(a => {}).length;
-typeof (() => {});
-export default (() => {})();
-(() => {})()\`\`;
-(() => {})\`\`;
-new (() => {})();
-if ((() => {}) ? 1 : 0) {
-}
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:367:25)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;
 
@@ -57,30 +40,21 @@ exports[`test arrows.js 1`] = `
     return images.find(image => image.width >= maxPixelWidth) ||
         images[images.length - 1];
 }
-
-a = () => ({} = this);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function selectBestEffortImageForWidth(
-  maxWidth: number,
-  images: Array<Image>
-): Image {
-  var maxPixelWidth = maxWidth;
-  //images = images.sort(function (a, b) { return a.width - b.width });
-  images = images.sort((a, b) => a.width - b.width + \"\");
-  return images.find(image => image.width >= maxPixelWidth) ||
-    images[images.length - 1];
-}
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
 
-a = () => ({} = this);
-"
-`;
-
-exports[`test long-call-no-args.js 1`] = `
-"veryLongCall(VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT, () => {})
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-veryLongCall(
-  VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT,
-  () => {}
-);
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1374:14)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;

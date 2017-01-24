@@ -15,11 +15,94 @@ var B = require(\"./ParseError\");        // Flow file
  * triggering/suppressing parse errors.
  * @flow
  */
-
 // non-flow files should not give parse errors
-var A = require(\"./Imported\");
+var A = require(\"./Imported\");// non-Flow file @providesModule Foo
+var B = require(\"./ParseError\");// Flow file
 
-// non-Flow file @providesModule Foo
-var B = require(\"./ParseError\"); // Flow file
+"
+`;
+
+exports[`test Imported.js 1`] = `
+"/**
+ * Parse errors, imported, not in flow, no provides module.
+ * No parse errors are raised because it is ignored by flow.
+ */
+function f(s) { ### // illegal token
+  return s;
+}
+
+module.exports = { f: f }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/node_modules/babylon/lib/index.js:4255
+  throw err;
+  ^
+
+SyntaxError: Unexpected character \'#\' (5:16)
+    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
+    at Parser.getTokenFromCode (/node_modules/babylon/lib/index.js:1065:10)
+    at Parser.readToken (/node_modules/babylon/lib/index.js:694:19)
+    at Parser.<anonymous> (/node_modules/babylon/lib/index.js:6441:20)
+    at Parser.readToken (/node_modules/babylon/lib/index.js:5376:22)
+    at Parser.nextToken (/node_modules/babylon/lib/index.js:684:19)
+    at Parser.next (/node_modules/babylon/lib/index.js:609:10)
+    at Parser.eat (/node_modules/babylon/lib/index.js:616:12)
+    at Parser.pp.expect (/node_modules/babylon/lib/index.js:1621:15)
+    at Parser.pp$1.parseBlock (/node_modules/babylon/lib/index.js:2119:8)
+"
+`;
+
+exports[`test ParseError.js 1`] = `
+"// @flow
+
+function foo() { ### // invalid token
+}
+
+module.exports = foo;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/node_modules/babylon/lib/index.js:4255
+  throw err;
+  ^
+
+SyntaxError: Unexpected character \'#\' (3:17)
+    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
+    at Parser.getTokenFromCode (/node_modules/babylon/lib/index.js:1065:10)
+    at Parser.readToken (/node_modules/babylon/lib/index.js:694:19)
+    at Parser.<anonymous> (/node_modules/babylon/lib/index.js:6441:20)
+    at Parser.readToken (/node_modules/babylon/lib/index.js:5376:22)
+    at Parser.nextToken (/node_modules/babylon/lib/index.js:684:19)
+    at Parser.next (/node_modules/babylon/lib/index.js:609:10)
+    at Parser.eat (/node_modules/babylon/lib/index.js:616:12)
+    at Parser.pp.expect (/node_modules/babylon/lib/index.js:1621:15)
+    at Parser.pp$1.parseBlock (/node_modules/babylon/lib/index.js:2119:8)
+"
+`;
+
+exports[`test Unimported.js 1`] = `
+"/**
+ * Parse errors but not in flow and not imported.
+ * Should see no parse errors for this file.
+ * @providesModule Bar
+ */
+function f(s:string):string { ### // illegal token
+  return s;
+}
+
+module.exports = { f: f }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/node_modules/babylon/lib/index.js:4255
+  throw err;
+  ^
+
+SyntaxError: Unexpected character \'#\' (6:30)
+    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
+    at Parser.getTokenFromCode (/node_modules/babylon/lib/index.js:1065:10)
+    at Parser.readToken (/node_modules/babylon/lib/index.js:694:19)
+    at Parser.<anonymous> (/node_modules/babylon/lib/index.js:6441:20)
+    at Parser.readToken (/node_modules/babylon/lib/index.js:5376:22)
+    at Parser.nextToken (/node_modules/babylon/lib/index.js:684:19)
+    at Parser.next (/node_modules/babylon/lib/index.js:609:10)
+    at Parser.eat (/node_modules/babylon/lib/index.js:616:12)
+    at Parser.pp.expect (/node_modules/babylon/lib/index.js:1621:15)
+    at Parser.pp$1.parseBlock (/node_modules/babylon/lib/index.js:2119:8)
 "
 `;

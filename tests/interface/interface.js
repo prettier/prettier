@@ -10,7 +10,3 @@ function testInterfaceName(o: I) {
   (o.name: string); // error, name is static
   (o.constructor.name: string); // ok
 }
-
-declare module X {
-  declare interface Y { x: number; }
-}

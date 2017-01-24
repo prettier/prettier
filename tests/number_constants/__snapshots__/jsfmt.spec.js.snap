@@ -24,5 +24,6 @@ var i: number = Number.NaN;
 var j: string = Number.NaN;
 var k: number = Number.EPSILON;
 var l: string = Number.EPSILON;
+
 "
 `;

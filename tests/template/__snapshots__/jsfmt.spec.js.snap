@@ -1,225 +1,64 @@
-exports[`test faulty-locations.js 1`] = `
-"var o = {
-  [\`key\`]: () => {
-    // Comment
-  }
-};
-
-var x = {
-  y: () => Relay.QL\`
-    query {
-      \${foo},
-      field,
-    }
-  \`
-};
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var o = {
-  [\`key\`]: () => {
-    // Comment
-  }
-};
-
-var x = {
-  y: () => Relay.QL\`
-    query {
-      \${foo},
-      field,
-    }
-  \`
-};
-"
-`;
-
-exports[`test parenthesis.js 1`] = `
-"// \"ArrowFunctionExpression\"
-(() => {})\`\`;
-
-// \"AssignmentExpression\"
-(b = c)\`\`;
-
-// \"AwaitExpression\"
-async function f() {
-  (await b)\`\`;
-}
-
-// \"BinaryExpression\"
-(b + c)\`\`;
-
-// \"CallExpression\"
-b()\`\`;
-
-// \"ClassExpression\"
-(class {})\`\`;
-
-// \"ConditionalExpression\"
-(b ? c : d)\`\`;
-
-// \"FunctionExpression\"
-(function() {})\`\`;
-
-// \"LogicalExpression\"
-(b || c)\`\`;
-
-// \"MemberExpression\"
-b.c\`\`;
-
-// \"NewExpression\"
-(new B())\`\`;
-
-// \"ObjectExpression\"
-({})\`\`;
-
-// \"SequenceExpression\"
-(b, c)\`\`;
-
-// \"TaggedTemplateExpression\"
-(\`\`)\`\`;
-
-// \"UnaryExpression\"
-(void b)\`\`;
-
-// \"UpdateExpression\"
-(++b)\`\`;
-
-// \"YieldExpression\"
-function* f() {
-  (yield 1)\`\`;
-}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// \"ArrowFunctionExpression\"
-(() => {})\`\`;
-
-// \"AssignmentExpression\"
-(b = c)\`\`;
-
-// \"AwaitExpression\"
-async function f() {
-  (await b)\`\`;
-}
-
-// \"BinaryExpression\"
-(b + c)\`\`;
-
-// \"CallExpression\"
-b()\`\`;
-
-// \"ClassExpression\"
-(class {})\`\`;
-
-// \"ConditionalExpression\"
-(b ? c : d)\`\`;
-
-// \"FunctionExpression\"
-(function() {})\`\`;
-
-// \"LogicalExpression\"
-(b || c)\`\`;
-
-// \"MemberExpression\"
-b.c\`\`;
-
-// \"NewExpression\"
-new B()\`\`;
-
-// \"ObjectExpression\"
-({})\`\`;
-
-// \"SequenceExpression\"
-(b, c)\`\`;
-
-// \"TaggedTemplateExpression\"
-\`\`\`\`;
-
-// \"UnaryExpression\"
-(void b)\`\`;
-
-// \"UpdateExpression\"
-(++b)\`\`;
-
-// \"YieldExpression\"
-function* f() {
-  (yield 1)\`\`;
-}
-"
-`;
-
 exports[`test template.js 1`] = `
 "/* @flow */
 
 (\`foo\`: string); // ok
-(\`bar\`: \'bar\'); // ok
+(\`bar\`: 'bar'); // ok
 (\`baz\`: number); // error
 
 \`foo \${123} bar\`; // ok, number can be appended to string
-\`foo \${{bar: 123}} baz\`; // error, object can\'t be appended
+\`foo \${{bar: 123}} baz\`; // error, object can't be appended
 
 let tests = [
   function(x: string) {
     \`foo \${x}\`; // ok
     \`\${x} bar\`; // ok
-    \`foo \${\'bar\'} \${x}\`; // ok
+    \`foo \${'bar'} \${x}\`; // ok
   },
   function(x: number) {
     \`foo \${x}\`; // ok
     \`\${x} bar\`; // ok
-    \`foo \${\'bar\'} \${x}\`; // ok
+    \`foo \${'bar'} \${x}\`; // ok
   },
   function(x: boolean) {
     \`foo \${x}\`; // error
     \`\${x} bar\`; // error
-    \`foo \${\'bar\'} \${x}\`; // error
+    \`foo \${'bar'} \${x}\`; // error
   },
   function(x: mixed) {
     \`foo \${x}\`; // error
     \`\${x} bar\`; // error
-    \`foo \${\'bar\'} \${x}\`; // error
+    \`foo \${'bar'} \${x}\`; // error
   },
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-
-(\`foo\`: string);
-// ok
-(\`bar\`: \"bar\");
-// ok
-(\`baz\`: number);
-
-// error
-\`foo \${123} bar\`;
-// ok, number can be appended to string
-\`foo \${{ bar: 123 }} baz\`;
-
-// error, object can\'t be appended
+(\`foo\`: string);// ok
+(\`bar\`: "bar");// ok
+(\`baz\`: number);// error
+\`foo \${123} bar\`;// ok, number can be appended to string
+\`foo \${{ bar: 123 }} baz\`;// error, object can't be appended
 let tests = [
   function(x: string) {
-    \`foo \${x}\`;
-    // ok
-    \`\${x} bar\`;
-    // ok
-    \`foo \${\"bar\"} \${x}\`; // ok
+    \`foo \${x}\`;// ok
+    \`\${x} bar\`;// ok
+    \`foo \${"bar"} \${x}\`;// ok
   },
   function(x: number) {
-    \`foo \${x}\`;
-    // ok
-    \`\${x} bar\`;
-    // ok
-    \`foo \${\"bar\"} \${x}\`; // ok
+    \`foo \${x}\`;// ok
+    \`\${x} bar\`;// ok
+    \`foo \${"bar"} \${x}\`;// ok
   },
   function(x: boolean) {
-    \`foo \${x}\`;
-    // error
-    \`\${x} bar\`;
-    // error
-    \`foo \${\"bar\"} \${x}\`; // error
+    \`foo \${x}\`;// error
+    \`\${x} bar\`;// error
+    \`foo \${"bar"} \${x}\`;// error
   },
   function(x: mixed) {
-    \`foo \${x}\`;
-    // error
-    \`\${x} bar\`;
-    // error
-    \`foo \${\"bar\"} \${x}\`; // error
+    \`foo \${x}\`;// error
+    \`\${x} bar\`;// error
+    \`foo \${"bar"} \${x}\`;// error
   }
 ];
+
 "
 `;

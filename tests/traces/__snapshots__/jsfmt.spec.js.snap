@@ -20,38 +20,21 @@ function f3(xlam) { g3(xlam) }
 function double(n) { return n * 2 }
 f3(double);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// arg/param type mismatch on arg 0
-function g0(y: string) {}
-function f0(x) {
-  g0(x);
-}
-f0(0);
+/src/printer.js:1348
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
 
-// ...on arg n
-function g1(a: string, b: string) {}
-function f1(x, y) {
-  g1(x, y);
-}
-f1(\"hey\", 0);
-
-// h/o call with function expr
-function g2(ylam: (s: string) => number) {}
-function f2(xlam) {
-  g2(xlam);
-}
-f2(function(x) {
-  return x * x;
-});
-
-// h/o call with function def
-function g3(ylam: (s: string) => number) {}
-function f3(xlam) {
-  g3(xlam);
-}
-function double(n) {
-  return n * 2;
-}
-f3(double);
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1348:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1254:25)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;
 
@@ -76,24 +59,20 @@ function f(b): React.Element<*> {
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// @flow
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
 
-var React = require(\"react\");
-
-var A = React.createClass({
-  propTypes: { foo: React.PropTypes.string.isRequired }
-});
-
-var B = React.createClass({
-  propTypes: { bar: React.PropTypes.string.isRequired }
-});
-
-function f(b): React.Element<*> {
-  if (b) {
-    return <A foo=\"hey\" />;
-  } else {
-    return <B bar=\"hey\" />;
-  }
-}
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1374:14)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;

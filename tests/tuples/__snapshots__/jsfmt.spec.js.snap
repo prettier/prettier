@@ -9,15 +9,21 @@ function foo(x: Array<number>): [number, ?number] {
   return [x[0], x[1]]; // OK. This is unsound, but at least arity is enforced
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// @flow
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
 
-function foo(x: Array<number>): [number, ?number] {
-  return x; // Error, can\'t enforce arity when flowing array to tuple
-}
-
-function foo(x: Array<number>): [number, ?number] {
-  return [x[0], x[1]]; // OK. This is unsound, but at least arity is enforced
-}
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1374:14)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;
 
@@ -29,14 +35,21 @@ exports[`test optional.js 1`] = `
 
 ([]: [?number, string]); // error, since second element is not marked optional
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// @flow
+/src/printer.js:1237
+      throw new Error(\"unprintable type: \" + JSON.stringify(n.type));
+      ^
 
-([0, undefined]: [number, ?string]);
-// Ok, correct arity
-([0]: [number, ?string]);
-
-// Error, arity is enforced
-([]: [?number, string]); // error, since second element is not marked optional
+Error: unprintable type: \"TupleTypeAnnotation\"
+    at genericPrintNoParens (/src/printer.js:1237:13)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1254:25)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;
 
@@ -47,11 +60,21 @@ function foo(a: [Object, Object]) {}
 
 foo([ {} ]); // error, too few elements in array passed to a tuple
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/* @flow */
+/src/printer.js:1237
+      throw new Error(\"unprintable type: \" + JSON.stringify(n.type));
+      ^
 
-function foo(a: [Object, Object]) {}
-
-foo([{}]); // error, too few elements in array passed to a tuple
+Error: unprintable type: \"TupleTypeAnnotation\"
+    at genericPrintNoParens (/src/printer.js:1237:13)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1254:25)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;
 
@@ -63,13 +86,20 @@ var d: [number, string] = [123,\'duck\'];
 var e: [number, string,] = [123,\'duck\'];
 var f: [number, string] = [123, 456];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var a: [] = [];
-var b: [] = [123];
-// Error - arity mismatch
-var c: [number] = [];
-// nope
-var d: [number, string] = [123, \"duck\"];
-var e: [number, string] = [123, \"duck\"];
-var f: [number, string] = [123, 456];
+/src/printer.js:1237
+      throw new Error(\"unprintable type: \" + JSON.stringify(n.type));
+      ^
+
+Error: unprintable type: \"TupleTypeAnnotation\"
+    at genericPrintNoParens (/src/printer.js:1237:13)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1254:25)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;

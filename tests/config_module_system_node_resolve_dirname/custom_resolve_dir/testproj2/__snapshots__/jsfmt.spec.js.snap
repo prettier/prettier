@@ -1,10 +1,10 @@
 exports[`test index.js 1`] = `
 "// @flow
 
-export var name: \"otherdir/testproj2\" = \"otherdir/testproj2\";
+export var name: "otherdir/testproj2" = "otherdir/testproj2";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+export var name: "otherdir/testproj2" = "otherdir/testproj2";
 
-export var name: \"otherdir/testproj2\" = \"otherdir/testproj2\";
 "
 `;

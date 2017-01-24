@@ -8,5 +8,3 @@ function selectBestEffortImageForWidth(
     return images.find(image => image.width >= maxPixelWidth) ||
         images[images.length - 1];
 }
-
-a = () => ({} = this);

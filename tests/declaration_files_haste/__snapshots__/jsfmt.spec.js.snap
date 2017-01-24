@@ -4,14 +4,14 @@ exports[`test ExplicitProvidesModuleDifferentName.js 1`] = `
  * @flow
  */
 
-module.exports.fun = (): string => \"hello there\";
+module.exports.fun = (): string => "hello there";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /*
  * @providesModule ExplicitProvidesModuleDifferentName
  * @flow
  */
+module.exports.fun = (): string => "hello there";
 
-module.exports.fun = (): string => \"hello there\";
 "
 `;
 
@@ -21,14 +21,14 @@ exports[`test ExplicitProvidesModuleSameName.js 1`] = `
  * @flow
  */
 
-module.exports.fun = (): string => \"hello there\";
+module.exports.fun = (): string => "hello there";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /*
  * @providesModule ExplicitProvidesModuleSameName
  * @flow
  */
+module.exports.fun = (): string => "hello there";
 
-module.exports.fun = (): string => \"hello there\";
 "
 `;
 
@@ -38,14 +38,14 @@ exports[`test ImplicitProvidesModule.js 1`] = `
  * @flow
  */
 
-module.exports.fun = (): string => \"hello there\";
+module.exports.fun = (): string => "hello there";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /*
  * @providesModule ImplicitProvidesModule
  * @flow
  */
+module.exports.fun = (): string => "hello there";
 
-module.exports.fun = (): string => \"hello there\";
 "
 `;
 
@@ -53,30 +53,29 @@ exports[`test md5.js 1`] = `
 "/* @providesModule md5 */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+
 "
 `;
 
 exports[`test test.js 1`] = `
 "/* @flow */
 
-var Implicit = require(\'ImplicitProvidesModule\');
+var Implicit = require('ImplicitProvidesModule');
 (Implicit.fun(): string);
 
-var ExplicitSameName = require(\'ExplicitProvidesModuleSameName\');
+var ExplicitSameName = require('ExplicitProvidesModuleSameName');
 (ExplicitSameName.fun(): string);
 
-var ExplicitDifferentName = require(\'ExplicitProvidesModuleDifferentName\');
+var ExplicitDifferentName = require('ExplicitProvidesModuleDifferentName');
 (ExplicitDifferentName.fun(): string);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-
-var Implicit = require(\"ImplicitProvidesModule\");
+var Implicit = require("ImplicitProvidesModule");
 (Implicit.fun(): string);
-
-var ExplicitSameName = require(\"ExplicitProvidesModuleSameName\");
+var ExplicitSameName = require("ExplicitProvidesModuleSameName");
 (ExplicitSameName.fun(): string);
-
-var ExplicitDifferentName = require(\"ExplicitProvidesModuleDifferentName\");
+var ExplicitDifferentName = require("ExplicitProvidesModuleDifferentName");
 (ExplicitDifferentName.fun(): string);
+
 "
 `;

@@ -9,7 +9,7 @@ function foo(x: boolean) {
     }
     return;
   }
-  //console.log(\'this is still reachable\');
+  //console.log('this is still reachable');
 }
 
 function bar(x: boolean) {
@@ -17,11 +17,10 @@ function bar(x: boolean) {
   while (ii > 0) {
     return;
   }
-  //console.log(\'this is still reachable\');
+  //console.log('this is still reachable');
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-
 function foo(x: boolean) {
   var ii = 10;
   while (ii-- >= 0) {
@@ -29,38 +28,15 @@ function foo(x: boolean) {
       continue;
     }
     return;
-  }
-  //console.log(\'this is still reachable\');
+  }//console.log('this is still reachable');
 }
-
 function bar(x: boolean) {
   var ii = 0;
   while (ii > 0) {
     return;
-  }
-  //console.log(\'this is still reachable\');
+  }//console.log('this is still reachable');
 }
-"
-`;
 
-exports[`test indent.js 1`] = `
-"if (someVeryLongStringA && someVeryLongStringB && someVeryLongStringC && someVeryLongStringD) {}
-while (someVeryLongStringA && someVeryLongStringB && someVeryLongStringC && someVeryLongStringD) {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-if (
-  someVeryLongStringA &&
-    someVeryLongStringB &&
-    someVeryLongStringC &&
-    someVeryLongStringD
-) {
-}
-while (
-  someVeryLongStringA &&
-    someVeryLongStringB &&
-    someVeryLongStringC &&
-    someVeryLongStringD
-) {
-}
 "
 `;
 
@@ -82,7 +58,9 @@ class C {
     return new C();
   }
 }
-function blah() {}
+function blah() {
+  
+}
 var node: ?C = new C();
 while (node) {
   var parent = node.m();
@@ -90,5 +68,6 @@ while (node) {
   blah();
   node = parent.m();
 }
+
 "
 `;

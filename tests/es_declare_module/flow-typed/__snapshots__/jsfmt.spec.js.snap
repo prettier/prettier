@@ -21,22 +21,20 @@ declare module \"ES\" {
   declare var exports: number;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-declare module \"CJS_Named\" {
-  declare var num1: number;
-  declare var str1: string;
-}
-declare module \"CJS_Clobbered\" {
-  declare var num2: number;
-  declare type numType = number;
-  declare var exports: { numExport: number };
-}
-declare module \"ES\" {
-  declare var strHidden: string;
-  declare export { strHidden as str3 };
-  declare export var num3: number;
-  declare export class C {}
-  declare export type T = number;
-  declare var exports: number;
-}
+/node_modules/babylon/lib/index.js:4255
+  throw err;
+  ^
+
+SyntaxError: Unexpected token (16:10)
+    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
+    at Parser.pp.unexpected (/node_modules/babylon/lib/index.js:1633:8)
+    at Parser.pp$7.flowParseDeclare (/node_modules/babylon/lib/index.js:4490:10)
+    at Parser.pp$7.flowParseDeclareModule (/node_modules/babylon/lib/index.js:4518:20)
+    at Parser.pp$7.flowParseDeclare (/node_modules/babylon/lib/index.js:4483:19)
+    at Parser.parseExpressionStatement (/node_modules/babylon/lib/index.js:5235:25)
+    at Parser.pp$1.parseStatement (/node_modules/babylon/lib/index.js:1785:17)
+    at Parser.parseStatement (/node_modules/babylon/lib/index.js:5224:22)
+    at Parser.pp$1.parseBlockBody (/node_modules/babylon/lib/index.js:2139:21)
+    at Parser.pp$1.parseTopLevel (/node_modules/babylon/lib/index.js:1651:8)
 "
 `;

@@ -26,29 +26,21 @@ var Callsite = React.createClass({
 
 module.exports = Callsite;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/* @flow */
-var React = require(\"react\");
-var Hello = require(\"./createclass-module\");
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
 
-var HelloLocal = React.createClass({
-  propTypes: { name: React.PropTypes.string.isRequired },
-  render: function(): React.Element<*> {
-    return <div>{this.props.name}</div>;
-  }
-});
-
-var Callsite = React.createClass({
-  render: function(): React.Element<*> {
-    return (
-      <div>
-        <Hello />
-        <HelloLocal />
-      </div>
-    );
-  }
-});
-
-module.exports = Callsite;
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1374:14)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;
 
@@ -68,17 +60,102 @@ var Hello = React.createClass({
 
 module.exports = Hello;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/* @flow */
-var React = require(\"react\");
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
 
-var Hello = React.createClass({
-  propTypes: { name: React.PropTypes.string.isRequired },
-  render: function(): React.Element<*> {
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1374:14)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+"
+`;
+
+exports[`test es6class-proptypes-callsite.js 1`] = `
+"/* @flow */
+import React from \'react\';
+import Hello from \'./es6class-proptypes-module\';
+
+class HelloLocal extends React.Component<void, {name: string}, void> {
+  defaultProps = {};
+  propTypes = {
+    name: React.PropTypes.string.isRequired,
+  };
+  render(): React.Element<*> {
     return <div>{this.props.name}</div>;
   }
-});
+}
+
+class Callsite extends React.Component<void, {}, void> {
+  render(): React.Element<*> {
+    return (
+      <div>
+        <Hello />
+        <HelloLocal />
+      </div>
+    );
+  }
+}
+
+module.exports = Callsite;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
+
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1180:16)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+"
+`;
+
+exports[`test es6class-proptypes-module.js 1`] = `
+"/* @flow */
+import React from \'react\';
+
+class Hello extends React.Component<void, {name: string}, void> {
+  defaultProps = {};
+  propTypes = {
+    name: React.PropTypes.string.isRequired,
+  };
+
+  render(): React.Element<*> {
+    return <div>{this.props.name}</div>;
+  }
+}
 
 module.exports = Hello;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
+
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1180:16)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;
 
@@ -110,32 +187,21 @@ class Callsite extends React.Component<void, Props, void> {
 
 module.exports = Callsite;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/* @flow */
-import React from \"react\";
-import Hello from \"./es6class-types-module\";
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
 
-type Props = { name: string };
-
-class HelloLocal extends React.Component<void, Props, void> {
-  props: Props;
-
-  render(): React.Element<*> {
-    return <div>{this.props.name}</div>;
-  }
-}
-
-class Callsite extends React.Component<void, Props, void> {
-  render(): React.Element<*> {
-    return (
-      <div>
-        <Hello />
-        <HelloLocal />
-      </div>
-    );
-  }
-}
-
-module.exports = Callsite;
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1180:16)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;
 
@@ -156,20 +222,20 @@ class Hello extends React.Component<{}, Props, void>{
 
 module.exports = Hello;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/* @flow */
-import React from \"react\";
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
 
-type Props = { name: string };
-
-class Hello extends React.Component<{}, Props, void> {
-  props: Props;
-  static defaultProps: {};
-
-  render(): React.Element<*> {
-    return <div>{this.props.name}</div>;
-  }
-}
-
-module.exports = Hello;
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1180:16)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;

@@ -30,39 +30,20 @@ blah(0, 0);
 
 (\"lol\" : Id<number>); // error : string ~> number
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/**
- * @flow
- */
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
 
-////////////////////////////////////////////////////////////
-// == Import Declared Type Alias From Declared Module == //
-//////////////////////////////////////////////////////////
-import type { baz } from \"ModuleAliasFoo\";
-import { foo } from \"ModuleAliasFoo\";
-var k1: baz = 42;
-var k2: baz = \"shab\";
-// Error: string to int
-var k3: toz = foo(k1);
-
-// works
-import type { toz } from \"ModuleAliasFoo\";
-var k4: toz = foo(k1);
-
-// works
-//////////////////////////////////////////////////////////
-// == Declared Module with exports prop (issue 880) == //
-////////////////////////////////////////////////////////
-import blah from \"foo\";
-import type { Foo, Bar, Id } from \"foo\";
-
-blah(0, 0);
-
-({ toz: 3 }: Foo);
-
-// error : {toz : number} ~> string
-(3: Bar);
-
-// error : number ~> A
-(\"lol\": Id<number>); // error : string ~> number
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1374:14)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;

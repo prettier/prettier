@@ -2,8 +2,21 @@ exports[`test import.js 1`] = `
 "interface I { x: number }
 export type J = I; // workaround for export interface
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-interface I { x: number }
-export type J = I; // workaround for export interface
+/src/printer.js:1391
+          fromString(\", \").join(path.map(print, \"extends\"))
+                           ^
+
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1391:28)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at /src/printer.js:1601:18
+    at FastPath.map (/src/fast-path.js:167:19)
+    at printStatementSequence (/src/printer.js:1586:8)
+    at /src/printer.js:238:16
+    at FastPath.call (/src/fast-path.js:113:16)
 "
 `;
 
@@ -19,14 +32,21 @@ interface Bad {
   [k2: number]: number; // error: not supported (yet)
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// @flow
+/src/printer.js:1391
+          fromString(\", \").join(path.map(print, \"extends\"))
+                           ^
 
-interface Ok { [key: string]: string }
-
-interface Bad {
-  [k1: string]: string,
-  [k2: number]: number /* error: not supported (yet)*/
-}
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1391:28)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at /src/printer.js:1601:18
+    at FastPath.map (/src/fast-path.js:167:19)
+    at printStatementSequence (/src/printer.js:1586:8)
+    at /src/printer.js:238:16
+    at FastPath.call (/src/fast-path.js:113:16)
 "
 `;
 
@@ -43,28 +63,22 @@ function testInterfaceName(o: I) {
   (o.name: string); // error, name is static
   (o.constructor.name: string); // ok
 }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/src/printer.js:1391
+          fromString(\", \").join(path.map(print, \"extends\"))
+                           ^
 
-declare module X {
-  declare interface Y { x: number; }
-}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-declare class C { x: number }
-
-var x: string = new C().x;
-
-interface I { x: number }
-
-var i = new I();
-
-// error
-function testInterfaceName(o: I) {
-  (o.name: string);
-  // error, name is static
-  (o.constructor.name: string); // ok
-}
-
-declare module X {
-  declare interface Y { x: number }
-}
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1391:28)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at /src/printer.js:1601:18
+    at FastPath.map (/src/fast-path.js:167:19)
+    at printStatementSequence (/src/printer.js:1586:8)
+    at /src/printer.js:238:16
+    at FastPath.call (/src/fast-path.js:113:16)
 "
 `;
 
@@ -92,32 +106,21 @@ var e: E<number> = { x: \"\", y: \"\", z: \"\" }; // error: x and z should be nu
 (e.y: string);
 (e.z: string); // error: z is number
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-interface I { y: string }
-interface I_ { x: number }
-interface J extends I, I_ {}
-interface K extends J {}
+/src/printer.js:1391
+          fromString(\", \").join(path.map(print, \"extends\"))
+                           ^
 
-var k: K = { x: \"\", y: \"\" };
-// error: x should be number
-(k.x: string);
-// error: x is number
-(k.y: string);
-
-declare class C { x: number }
-declare class D extends C, Other {}
-// error: multiple extends
-//declare class E implements I { } // parse error
-interface A<Y> { y: Y }
-interface A_<X> { x: X }
-interface B<Z> extends A<string>, A_<Z> { z: Z }
-interface E<Z> extends B<Z> {}
-
-var e: E<number> = { x: \"\", y: \"\", z: \"\" };
-// error: x and z should be numbers
-(e.x: string);
-// error: x is number
-(e.y: string);
-(e.z: string); // error: z is number
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1391:28)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at /src/printer.js:1601:18
+    at FastPath.map (/src/fast-path.js:167:19)
+    at printStatementSequence (/src/printer.js:1586:8)
+    at /src/printer.js:238:16
+    at FastPath.call (/src/fast-path.js:113:16)
 "
 `;
 
@@ -133,27 +136,21 @@ type M = { y: string } & J & { z: boolean }
 
 function bar(m: M) { m.x; m.y; m.z; } // OK
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-import type { J } from \"./import\";
-interface K {}
-interface L extends J, K { y: string }
+/src/printer.js:1391
+          fromString(\", \").join(path.map(print, \"extends\"))
+                           ^
 
-function foo(l: L) {
-  l.x;
-
-  l.y;
-
-  l.z;
-}
-
-// error: z not found in L
-// interface + multiple inheritance is similar to object type + intersection
-type M = { y: string } & J & { z: boolean };
-
-function bar(m: M) {
-  m.x;
-  m.y;
-  m.z;
-} // OK
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1391:28)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at /src/printer.js:1601:18
+    at FastPath.map (/src/fast-path.js:167:19)
+    at printStatementSequence (/src/printer.js:1586:8)
+    at /src/printer.js:238:16
+    at FastPath.call (/src/fast-path.js:113:16)
 "
 `;
 
@@ -166,15 +163,21 @@ function foo(k: K) {
   (k.y: number); // error: y is string in I
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-interface I { x: number, y: string }
-interface J { y: number }
-interface K extends I, J { x: string }
-// error: x is number in I
-function foo(k: K) {
-  (k.x: number);
-  // error: x is string in K
-  (k.y: number); // error: y is string in I
-}
+/src/printer.js:1391
+          fromString(\", \").join(path.map(print, \"extends\"))
+                           ^
+
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1391:28)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at /src/printer.js:1601:18
+    at FastPath.map (/src/fast-path.js:167:19)
+    at printStatementSequence (/src/printer.js:1586:8)
+    at /src/printer.js:238:16
+    at FastPath.call (/src/fast-path.js:113:16)
 "
 `;
 
@@ -189,12 +192,20 @@ declare class C {
 
 new C().bar((x: string) => { }); // error, number ~/~> string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-interface I { foo(x: number): void }
-(function foo(x: number) {}: I);
+/src/printer.js:1391
+          fromString(\", \").join(path.map(print, \"extends\"))
+                           ^
 
-// error, property \`foo\` not found function
-declare class C { bar(i: I): void, bar(f: (x: number) => void): void }
-
-new C().bar((x: string) => {}); // error, number ~/~> string
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1391:28)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at /src/printer.js:1601:18
+    at FastPath.map (/src/fast-path.js:167:19)
+    at printStatementSequence (/src/printer.js:1586:8)
+    at /src/printer.js:238:16
+    at FastPath.call (/src/fast-path.js:113:16)
 "
 `;

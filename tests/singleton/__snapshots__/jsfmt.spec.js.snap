@@ -37,46 +37,21 @@ function alwaysFalsy(x: boolean): false {
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/* @flow */
+/src/printer.js:1530
+      return fromString(\" | \").join(path.map(print, \"types\"));
+                               ^
 
-function veryOptimistic(isThisAwesome: true): boolean {
-  return isThisAwesome;
-}
-
-var x: boolean = veryOptimistic(true);
-var y: boolean = veryOptimistic(false);
-
-// error
-function veryPessimistic(isThisAwesome: true): boolean {
-  return !isThisAwesome; // test bool conversion
-}
-
-var x: boolean = veryPessimistic(true);
-var y: boolean = veryPessimistic(false);
-
-// error
-type MyOwnBooleanLOL = true | false;
-
-function bar(x: MyOwnBooleanLOL): false {
-  if (x) {
-    return x;
-  } else {
-    return !x;
-  }
-}
-
-bar(true);
-bar(false);
-bar(1);
-
-// error
-function alwaysFalsy(x: boolean): false {
-  if (x) {
-    return !x;
-  } else {
-    return x;
-  }
-}
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1530:32)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1481:14)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;
 
@@ -105,30 +80,21 @@ type ComparatorResult = -1 | 0 | 1
 function sort(fn: (x: any, y: any) => ComparatorResult) {}
 sort((x, y) => -1);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/* @flow */
+/node_modules/ast-types/lib/types.js:60
+            throw new Error(str + \" does not match type \" + this);
+            ^
 
-function highlander(howMany: 1): number {
-  return howMany; // there can be only one!
-}
-
-highlander(1);
-highlander(2);
-
-// error
-type Foo = 1 | 2;
-
-function bar(num: Foo): number {
-  return num + 1;
-}
-
-bar(1);
-bar(2);
-bar(3);
-
-// error
-type ComparatorResult = -1 | 0 | 1;
-function sort(fn: (x: any, y: any) => ComparatorResult) {}
-sort((x, y) => -1);
+Error: {type: NumericLiteralTypeAnnotation, start: 42, end: 43, loc: [object Object], value: 1, extra: [object Object]} does not match type Printable
+    at Type.Tp.assert (/node_modules/ast-types/lib/types.js:60:19)
+    at genericPrintNoParens (/src/printer.js:221:24)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1254:25)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
 "
 `;
 
@@ -142,11 +108,10 @@ type HasSpaces = \"foo bar\"
 (\"foo bar\": HasSpaces);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-
 type NoSpaces = \"foobar\";
 (\"foobar\": NoSpaces);
-
 type HasSpaces = \"foo bar\";
 (\"foo bar\": HasSpaces);
+
 "
 `;

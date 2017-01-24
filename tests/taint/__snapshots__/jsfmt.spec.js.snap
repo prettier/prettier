@@ -31,37 +31,21 @@ function f7(x : $Tainted<string>, y : $Tainted<number>) {
   var z : string = x + y;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// @flow
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
 
-function f(x: $Tainted<number>, y: $Tainted<number>) {
-  var z: $Tainted<number> = x + y;
-}
-function f1(x: $Tainted<number>, y: number) {
-  var z: $Tainted<number> = x + y;
-}
-function f2(x: number, y: $Tainted<number>) {
-  var z: $Tainted<number> = x + y;
-}
-// This should cause an error.
-function f3(x: $Tainted<number>, y: number) {
-  var z: number = x + y;
-}
-// This should cause an error.
-function f4(x: number, y: $Tainted<number>) {
-  var z: number = x + y;
-}
-// This should cause an error.
-function f5(x: number, y: $Tainted<number>) {
-  var z: string = x + y;
-}
-// This should cause an error.
-function f6(x: string, y: $Tainted<number>) {
-  var z: string = x + y;
-}
-// This should cause an error.
-function f7(x: $Tainted<string>, y: $Tainted<number>) {
-  var z: string = x + y;
-}
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1374:14)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;
 
@@ -92,31 +76,21 @@ let tests = [
   },
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// @flow
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
 
-let tests = [
-  // setting a property
-  function(x: $Tainted<string>, y: string) {
-    let obj: Object = {};
-    obj.foo = x;
-    // error, taint ~> any
-    obj[y] = x; // error, taint ~> any
-  },
-  // getting a property
-  function() {
-    let obj: Object = { foo: \"foo\" };
-    (obj.foo: $Tainted<string>); // ok
-  },
-  // calling a method
-  function(x: $Tainted<string>) {
-    let obj: Object = {};
-    obj.foo(x);
-
-    // error, taint ~> any
-    let foo = obj.foo;
-    foo(x); // error, taint ~> any
-  }
-];
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1374:14)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;
 
@@ -147,31 +121,21 @@ function f_foo3(f1 : Function, o1 : Object, o2 : {t : $Tainted<string>}) {
   (f1(o1))(o2.t);
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// @flow
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
 
-function foo(x: $Tainted<string>, o: Object) {
-  // Error
-  o.f(x);
-}
-function foo1(x: $Tainted<string>, o: { f(y: $Tainted<string>): void }) {
-  o.f(x);
-}
-function foo2(o1: Object, o2: { t: $Tainted<string> }) {
-  o1.f(o2.t);
-}
-function foo3<T>(x: $Tainted<T>, o: { f(y: $Tainted<T>): void }) {
-  o.f(x);
-}
-function f_foo1(x: $Tainted<string>, f: Function) {
-  // Error
-  f(x);
-}
-function f_foo2(f1: Function, o: { t: $Tainted<string> }) {
-  f1(o.t);
-}
-function f_foo3(f1: Function, o1: Object, o2: { t: $Tainted<string> }) {
-  f1(o1)(o2.t);
-}
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1374:14)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;
 
@@ -195,24 +159,21 @@ function f3(x : $Tainted<string>, y : string) {
   var z : bool = x < y;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// @flow
-// Should cause an error.
-function f(x: $Tainted<string>, y: $Tainted<number>) {
-  var z: $Tainted<boolean> = x < y;
-}
-// Should cause an error.
-function f1(x: string, y: $Tainted<number>) {
-  var z: $Tainted<boolean> = x < y;
-}
-// Should cause an error.
-function f2(x: $Tainted<string>, y: number) {
-  var z: $Tainted<boolean> = x < y;
-}
-// Note: We allow removing Taint when two tainted
-// values are compared.
-function f3(x: $Tainted<string>, y: string) {
-  var z: boolean = x < y;
-}
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
+
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1374:14)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;
 
@@ -232,19 +193,21 @@ let tests = [
   }
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// @flow
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
 
-let tests = [
-  // flows any to each param
-  function(x: any, y: $Tainted<string>) {
-    x(y); // error, taint ~> any
-  },
-  // calling \`any\` returns \`any\`
-  function(x: any, y: $Tainted<string>) {
-    let z = x();
-    z(y);
-  }
-];
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1374:14)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;
 
@@ -262,19 +225,21 @@ class A {
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// @flow
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
 
-class A {
-  f(x: $Tainted<FakeLocation>) {
-    fakeDocument.location = x;
-    // error
-    doStuff(x); // ok
-  }
-  f1(x: $Tainted<FakeLocation>) {
-    // TODO(rcastano): should cause an error.
-    window.fakeLocation = x;
-  }
-}
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1374:14)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;
 
@@ -292,14 +257,21 @@ declare function doStuff(x: $Tainted<any>): void;
 declare var fakeDocument: FakeDocument;
 declare var fakeLocation: FakeLocation;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-declare class FakeLocation { assign(url: string): void }
+/src/printer.js:1348
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
 
-declare class FakeDocument { location: FakeLocation }
-
-declare function doStuff(x: $Tainted<any>): void;
-
-declare var fakeDocument: FakeDocument;
-declare var fakeLocation: FakeLocation;
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1348:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1452:14)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;
 
@@ -315,16 +287,21 @@ class A {
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/*
- *
- * @flow
- */
-class A {
-  f(tainted: $Tainted<string>) {
-    // This shouldn\'t give a warning (both are tainted)
-    var also_tainted: $Tainted<string> = tainted;
-  }
-}
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
+
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1374:14)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;
 
@@ -340,16 +317,21 @@ class A {
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/*
- *
- * @flow
- */
-class A {
-  f(tainted: $Tainted<string>) {
-    // This *should* give a warning.
-    fakeDocument.location.assign(tainted);
-  }
-}
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
+
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1374:14)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;
 
@@ -367,18 +349,21 @@ class A {
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/*
- *
- * @flow
- */
-class A {
-  f(tainted: $Tainted<string>) {
-    // The Tainted annotation should still flow.
-    var safe = tainted;
-    // This should give a warning.
-    var loc: string = safe;
-  }
-}
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
+
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1374:14)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;
 
@@ -397,19 +382,21 @@ function f(x : $Tainted<any>) {
   var y : any = x;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/*
- *
- * @flow
- */
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
 
-var safe: string = \"safe\";
-// This should be allowed.
-var tainted: $Tainted<string> = safe;
-
-function f(x: $Tainted<any>) {
-  // Should cause error.
-  var y: any = x;
-}
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1374:14)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;
 
@@ -447,37 +434,20 @@ function foo6 (a : $Tainted<Array<string>>) {
   var trusted : $Tainted<string> = a[0];
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/*
- * @flow
- */
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
 
-// Should cause an error.
-function foo(x: $Tainted<number>) {
-  var should_fail: number = x * 42;
-}
-// Should cause an error.
-function foo1(x: $Tainted<{ f: number }>) {
-  var ok: number = x.f;
-}
-// Should cause an error.
-function foo2(o: { f(y: number): number }, t: $Tainted<number>) {
-  return o.f(t);
-}
-
-function foo3(x: $Tainted<{ f: number }>) {
-  var also_tainted: $Tainted<number> = x.f;
-}
-// Should cause an error.
-function foo4(a: $Tainted<Array<string>>) {
-  var trusted: string = a[0];
-}
-// Type error.
-function foo5(a: $Tainted<Array<string>>) {
-  var trusted_number: number = a[0];
-}
-
-function foo6(a: $Tainted<Array<string>>) {
-  var trusted: $Tainted<string> = a[0];
-}
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1374:14)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;

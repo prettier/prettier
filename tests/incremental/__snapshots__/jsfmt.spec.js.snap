@@ -2,6 +2,7 @@ exports[`test a.js 1`] = `
 "/* @providesModule IncrModuleA */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+
 "
 `;
 
@@ -10,13 +11,13 @@ exports[`test b.js 1`] = `
    @flow
 */
 
-var A = require(\'IncrModuleA\');
+var A = require('IncrModuleA');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule IncrModuleB
    @flow
 */
+var A = require("IncrModuleA");
 
-var A = require(\"IncrModuleA\");
 "
 `;
 
@@ -26,7 +27,7 @@ exports[`test dup_a.js 1`] = `
 var x:string = 0;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule IncrModuleA */
-
 var x: string = 0;
+
 "
 `;

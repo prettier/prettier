@@ -37,15 +37,13 @@ function utf16Length(str, pos) {
 /**
  * @flow
  */
-
 /**
  * @param {number} codeUnit   A Unicode code-unit, in range [0, 0x10FFFF]
  * @return {boolean}      Whether code-unit is in a surrogate (hi/low) range
  */
 function inSurrogateRange(codeUnit) {
-  return 0xD800 <= codeUnit && codeUnit <= 0xDFFF;
+  return 55296 <= codeUnit && codeUnit <= 57343;
 }
-
 /**
  * Return the length of the original Unicode character at given position in the
  * String by looking into the UTF-16 code unit; that is equal to 1 for any
@@ -67,12 +65,6 @@ function inSurrogateRange(codeUnit) {
 function utf16Length(str, pos) {
   return 1 + inSurrogateRange(str.charCodeAt(pos));
 }
-"
-`;
 
-exports[`test keys.js 1`] = `
-"({\'この事はつもり素晴らしいことさ\': \'35jL9V\'})
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-({ \"この事はつもり素晴らしいことさ\": \"35jL9V\" });
 "
 `;

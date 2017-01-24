@@ -1,21 +1,3 @@
-exports[`test multiple.js 1`] = `
-"[...a, ...b,];
-[...a, ...b];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[...a, ...b];
-[...a, ...b];
-"
-`;
-
-exports[`test multiple.js 2`] = `
-"[...a, ...b,];
-[...a, ...b];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[...a, ...b];
-[...a, ...b];
-"
-`;
-
 exports[`test test.js 1`] = `
 "var A = [1,2,3];
 var B = [...A];
@@ -26,34 +8,20 @@ C.sort((a, b) => a - b);
 var x: Array<string> = [\'1\', \'2\'];
 var y: Array<string> = [\'3\', ...x];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var A = [1, 2, 3];
-var B = [...A];
-var C = [1, 2, 3];
-B.sort((a, b) => a - b);
-C.sort((a, b) => a - b);
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
 
-var x: Array<string> = [\"1\", \"2\"];
-var y: Array<string> = [\"3\", ...x];
-"
-`;
-
-exports[`test test.js 2`] = `
-"var A = [1,2,3];
-var B = [...A];
-var C = [1,2,3];
-B.sort((a, b) => a - b);
-C.sort((a, b) => a - b);
-
-var x: Array<string> = [\'1\', \'2\'];
-var y: Array<string> = [\'3\', ...x];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var A = [1, 2, 3];
-var B = [...A];
-var C = [1, 2, 3];
-B.sort((a, b) => a - b);
-C.sort((a, b) => a - b);
-
-var x: Array<string> = [\"1\", \"2\"];
-var y: Array<string> = [\"3\", ...x];
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1374:14)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;

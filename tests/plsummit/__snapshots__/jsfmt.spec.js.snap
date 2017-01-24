@@ -5,11 +5,11 @@ var [n, b, s] = foo(42);
 n * s.length;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function foo(x) {
-  return [x, x > 0, \"number \" + x];
+  return [ x, x > 0, \"number \" + x ];
 }
-
-var [n, b, s] = foo(42);
+var [ n, b, s ] = foo(42);
 n * s.length;
+
 "
 `;
 
@@ -27,8 +27,8 @@ class C {
     this.x = x;
   }
 }
-
 module.exports = C;
+
 "
 `;
 
@@ -38,13 +38,21 @@ exports[`test generics.js 1`] = `
 var r: number = 0;
 function foo<X>(x: X): X { r = x; return x; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/* @flow */
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
 
-var r: number = 0;
-function foo<X>(x: X): X {
-  r = x;
-  return x;
-}
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:340:16)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;
 
@@ -54,8 +62,8 @@ exports[`test import_class.js 1`] = `
 var c = new C(\"\");
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var C = require(\"./export_class\");
-
 var c = new C(\"\");
+
 "
 `;
 
@@ -73,16 +81,16 @@ function bar(x: ?string): number {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-
 function foo() {
   var x = 0;
   var y = x;
 }
-
 function bar(x: ?string): number {
-  if (x == null) x = \"\";
+  if (x == null)
+    x = \"\";
   return x.length;
 }
+
 "
 `;
 
@@ -107,10 +115,8 @@ function C() {
 C.prototype.foo = function() {
   return this.x;
 };
-
 var c = new C();
 var x: string = c.foo();
-
 function foo() {
   return this.y;
 }
@@ -119,8 +125,8 @@ function bar() {
 }
 var o = { y: \"\", foo: foo, bar: bar };
 var o2 = { y: 0, foo: foo, bar: bar };
-
 o.bar();
 var y: number = o2.bar();
+
 "
 `;

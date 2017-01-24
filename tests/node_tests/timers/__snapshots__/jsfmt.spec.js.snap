@@ -8,11 +8,10 @@ function setImmediateCallback(): number {
 setImmediate(setImmediateCallback);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-
 function setImmediateCallback(): number {
   return 0;
 }
-
 setImmediate(setImmediateCallback);
+
 "
 `;

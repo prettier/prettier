@@ -1,6 +1,7 @@
 exports[`test no_at_flow.js 1`] = `
-"var x: number = \"not a number\"; // No error
+"var x: number = "not a number"; // No error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var x: number = \"not a number\"; // No error
+var x: number = "not a number";// No error
+
 "
 `;

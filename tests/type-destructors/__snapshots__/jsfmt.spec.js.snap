@@ -12,21 +12,21 @@ function foo(x: ?string): $NonMaybeType<?string> {
 (0: $NonMaybeType<?number>); // ok
 (0: $NonMaybeType<number | null>); // ok
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// @flow
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
 
-function foo(x: ?string): $NonMaybeType<?string> {
-  if (x != null) {
-    return x;
-  } else
-    return 0; // this should be an error
-}
-
-//(foo(): string); // should not be necessary to expose the error above
-(0: $NonMaybeType<null>);
-// error
-(0: $NonMaybeType<?number>);
-// ok
-(0: $NonMaybeType<number | null>); // ok
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1374:14)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;
 
@@ -43,17 +43,21 @@ function foo(o: Obj): $PropertyType<Obj, \'x\'> {
   else return 0;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-type Malformed = $PropertyType<any, number>;
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
 
-type Obj = { x: string };
-type Obj_Prop_x = $PropertyType<Obj, \"x\">;
-
-(42: Obj_Prop_x);
-
-function foo(o: Obj): $PropertyType<Obj, \"x\"> {
-  if (false) return o.x;
-  else return 0;
-}
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1374:14)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;
 
@@ -63,14 +67,20 @@ var x1: $NonMaybeType<number|string> = true; // err, boolean ~> number|string
 var x2: $PropertyType<{p:number}|{p:string},\'p\'> = 0; // ok, number ~> number|string
 var x3: $PropertyType<{p:number}|{p:string},\'p\'> = true; // err, boolean ~> number|string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var x0: $NonMaybeType<number | string> = 0;
-// ok, number ~> number|string
-var x1: $NonMaybeType<number | string> = true;
-// err, boolean ~> number|string
-var x2: $PropertyType<{ p: number } | { p: string }, \"p\"> = 0;
-// ok, number ~> number|string
-var x3: $PropertyType<
-  | { p: number }
-  | { p: string }, \"p\"> = true; // err, boolean ~> number|string
+/src/printer.js:1530
+      return fromString(\" | \").join(path.map(print, \"types\"));
+                               ^
+
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1530:32)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.map (/src/fast-path.js:167:19)
+    at genericPrintNoParens (/src/printer.js:1497:36)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;

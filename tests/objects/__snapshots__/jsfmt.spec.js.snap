@@ -20,7 +20,6 @@ var z = Object(123); // error (next line makes this not match any signatures)
 (z.charAt(0): string);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-
 (Object({ foo: \"bar\" }): { foo: string });
 (Object(\"123\"): String);
 (Object(123): Number);
@@ -28,29 +27,14 @@ var z = Object(123); // error (next line makes this not match any signatures)
 (Object(null): {});
 (Object(undefined): {});
 (Object(void 0): {});
-(Object(undefined): Number);
-
-// error
+(Object(undefined): Number);// error
 var x = Object(null);
 x.foo = \"bar\";
-
 var y = Object(\"123\");
 (y.charAt(0): string);
-
-var z = Object(123);
-// error (next line makes this not match any signatures)
+var z = Object(123);// error (next line makes this not match any signatures)
 (z.charAt(0): string);
-"
-`;
 
-exports[`test expression.js 1`] = `
-"() => ({}\`\`);
-({})\`\`;
-a = () => ({}).x;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-(() => ({})\`\`);
-({})\`\`;
-a = () => ({}).x;
 "
 `;
 
@@ -75,34 +59,21 @@ y[\'bar\'] = \'abc\'; // error, property not found
 (y[\'hasOwnProperty\']: string); // error, prototype method is not a string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-
 var x: { \"123\": string, bar: string } = { \"123\": \"val\", bar: \"bar\" };
-(x.foo: string);
-// error, key doesn\'t exist
-(x[\"foo\"]: string);
-// error, key doesn\'t exist
-(x[123]: boolean);
-// TODO: use the number\'s value to error here
-(x.bar: boolean);
-// error, string !~> boolean
-(x[\"123\"]: boolean);
-// error, string !~> boolean
-x[\"123\"] = false;
-// error, boolean !~> string
-x[123] = false;
-// TODO: use the number\'s value to error here
-x[\"foo\" + \"bar\"] = \"derp\";
-// ok since we can\'t tell
-(x[\`foo\`]: string);
-
-// error, key doesn\'t exist
+(x.foo: string);// error, key doesn\'t exist
+(x[\"foo\"]: string);// error, key doesn\'t exist
+(x[123]: boolean);// TODO: use the number\'s value to error here
+(x.bar: boolean);// error, string !~> boolean
+(x[\"123\"]: boolean);// error, string !~> boolean
+x[\"123\"] = false;// error, boolean !~> string
+x[123] = false;// TODO: use the number\'s value to error here
+x[\"foo\" + \"bar\"] = \"derp\";// ok since we can\'t tell
+(x[\`foo\`]: string);// error, key doesn\'t exist
 var y: { foo: string } = { foo: \"bar\" };
-y[\"foo\"] = 123;
-// error, number !~> string
-y[\"bar\"] = \"abc\";
+y[\"foo\"] = 123;// error, number !~> string
+y[\"bar\"] = \"abc\";// error, property not found
+(y[\"hasOwnProperty\"]: string);// error, prototype method is not a string
 
-// error, property not found
-(y[\"hasOwnProperty\"]: string); // error, prototype method is not a string
 "
 `;
 
@@ -135,32 +106,20 @@ function assign_then_widen() {
   obj.x = 10;  // ok, by lvalue\'s given type
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/**
- * test handling of unaliased value assignment.
- *
- * An unaliased object rvalue may be assigned to a supertype lvalue,
- * because later widening mutations on the rvalue can\'t break assumptions
- * made by other lvalues.
- *
- * However, upon assignment the rvalue must take on the type of the
- * lvalue, to avoid both false positives and false negatives
- * (unsoundness), as shown below.
- *
- * @flow
- */
+/src/printer.js:1530
+      return fromString(\" | \").join(path.map(print, \"types\"));
+                               ^
 
-var glob: { x: string } = { x: \"hey\" };
-
-function assign_then_alias() {
-  var obj: { x: string | number };
-  obj = { x: \"hey\" };
-  glob = obj; // error: subsequent assignment might make glob.x a number
-}
-
-function assign_then_widen() {
-  var obj: { x: string | number };
-  obj = { x: \"hey\" };
-  obj.x = 10; // ok, by lvalue\'s given type
-}
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1530:32)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1452:14)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;

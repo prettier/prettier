@@ -19,31 +19,21 @@ function identity<A>(val: A): Functor<A> {
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/* @flow */
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
 
-type F<A> = { foo<B>(x: A): F<B> };
-declare function foo(x: any): F<any>;
-({ foo }: F<any>);
-
-function bar(y: F<number>): F<string> {
-  return y;
-}
-function bar1<X>(y: F<X>): F<any> {
-  return y;
-}
-function bar2<X>(y: F<any>): F<X> {
-  return y;
-}
-
-type Functor<A> = { map<B>(f: (val: A) => B): Functor<B> };
-
-function identity<A>(val: A): Functor<A> {
-  return {
-    map<B>(f: (_: typeof val) => B): Functor<B> {
-      return identity(f(val));
-    }
-  };
-}
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1479:14)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;
 
@@ -57,17 +47,21 @@ type Task <error, value>
 
 function id(x: Task<any,any>): Task<any,any> { return x; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/* @flow */
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
 
-type Task<error, value> = {
-  chain<tagged>(
-    next: (input: value) => Task<error, tagged>
-  ): Task<error, tagged>
-};
-
-function id(x: Task<any, any>): Task<any, any> {
-  return x;
-}
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1479:14)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;
 
@@ -89,31 +83,21 @@ pstar = p; // OK
 pstar = (new P: P<P<number>>); // OK
 (pstar.x: string); // error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-class P<X> {
-  x: X;
-}
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
 
-// this is like Promise
-type Pstar<X> = X | Pstar<P<X>>;
-
-// this is like Promise*
-var p: P<number> = new P();
-(p.x: string);
-
-// error
-var pstar: Pstar<number> = 0;
-// OK
-(pstar: number);
-// error, but limit potentially unbounded number of errors!
-// e.g., P<number> ~/~ number, P<P<number>> ~/~ number, ...
-pstar = p;
-// OK
-(pstar.x: string);
-
-// error
-pstar = (new P(): P<P<number>>);
-// OK
-(pstar.x: string); // error
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1172:16)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;
 
@@ -149,37 +133,21 @@ class B<X> extends D<X> { }
 class C<X> extends B<X> { }
 ((new C: C<number>): D<string>) // error: number ~/~ string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var a = [];
-// Array<X> ~> a
-function bar() {
-  a = a.concat([]); // terminate despite expanding types:
-  // a ~> .concat(Array<Y>)
-  // Array<X> ~> .concat(Array<Y>)
-  // Array<X|Y> ~> a
-  // Array<X|Y> ~> .concat(Array<Y>)
-  // Array<X|Y|Y> ~> a
-}
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
 
-class A<X> {
-  x: A<A<X>>;
-}
-var a_ = new A();
-function foo0() {
-  a_ = a_.x; // terminate despite expanding types
-}
-
-type T<X> = { y: S<X> };
-type S<X> = T<S<X>>;
-function foo1(b: S<*>) {
-  b = b.y; // terminate despite expanding types, OK
-  // S<*> = { y: S<S<*>> }
-  // Both S<S<*>> and S<*> expand to { y: { y: ... }}.
-}
-
-class D<X> {}
-class B<X> extends D<X> {}
-class C<X> extends B<X> {}
-((new C(): C<number>): D<string>); // error: number ~/~ string
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1172:16)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;
 
@@ -201,29 +169,29 @@ function bar(x: P<number>): () => P<number> {
   // () => P<number> = () => () => { x: P<number> }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-type I<X> = () => I<I<X>>;
-type J<X> = () => J<J<X>>;
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
 
-function foo(x: I<number>): J<number> {
-  return x; // terminate despite expanding types, OK
-  // I<number> and J<number> both expand to () => () => ...
-}
-
-type Q<X> = { x: X };
-type P<X> = () => Q<P<X>>;
-
-function bar(x: P<number>): () => P<number> {
-  return x; // terminate despite expanding types, error
-  // P<number> = () => { x: P<number> }
-  // () => P<number> = () => () => { x: P<number> }
-}
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1479:14)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;
 
 exports[`test test4.js 1`] = `
 "type T = T // cycle in type alias should not cause non-termination
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-type T = T; // cycle in type alias should not cause non-termination
+type T = T;// cycle in type alias should not cause non-termination
+
 "
 `;
 
@@ -239,15 +207,20 @@ function flatten<T>(arrArg: NestedArray<T>) {
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/* @flow */
+/src/printer.js:1497
+        fromString(\", \").join(path.map(print, \"params\")),
+                         ^
 
-type NestedArray<T> = Array<T | NestedArray<T>>;
-
-function flatten<T>(arrArg: NestedArray<T>) {
-  let arr = arrArg;
-  while (true) {
-    arr = Array.prototype.concat.apply([], arr);
-  }
-}
+TypeError: fromString(...).join is not a function
+    at genericPrintNoParens (/src/printer.js:1497:26)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
+    at printGenerically (/src/printer.js:111:12)
+    at FastPath.call (/src/fast-path.js:113:16)
+    at genericPrintNoParens (/src/printer.js:1479:14)
+    at genericPrint (/src/printer.js:166:7)
+    at p (/src/printer.js:111:37)
+    at exports.printComments (/src/comments.js:327:20)
 "
 `;
