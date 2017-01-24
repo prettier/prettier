@@ -602,9 +602,9 @@ function genericPrintNoParens(path, options, print) {
             concat([
               group(
                 concat([
-                  ": ",
-                  ifBreak("("),
-                  indent(options.tabWidth, concat([line, printedValue]))
+                  ":",
+                  ifBreak(" (", " "),
+                  indent(options.tabWidth, concat([softline, printedValue]))
                 ])
               ),
               line,

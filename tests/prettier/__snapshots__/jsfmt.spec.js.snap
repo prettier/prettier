@@ -690,17 +690,6 @@ method()
 "
 `;
 
-exports[`test optional-type-name.js 1`] = `
-"type Foo = (any) => string
-
-type Bar = { [string]: number }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-type Foo = (any) => string;
-
-type Bar = { [string]: number };
-"
-`;
-
 exports[`test object-prop-break-in.js 1`] = `
 "const a = classnames({
   \"some-prop\": this.state.longLongLongLongLongLongLongLongLongTooLongProp
@@ -763,5 +752,16 @@ const g = classnames({
     longLongLongLongLongLongLongLongLongLongLongLongLongTooLongVar || 1337
   )
 });
+"
+`;
+
+exports[`test optional-type-name.js 1`] = `
+"type Foo = (any) => string
+
+type Bar = { [string]: number }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type Foo = (any) => string;
+
+type Bar = { [string]: number };
 "
 `;
