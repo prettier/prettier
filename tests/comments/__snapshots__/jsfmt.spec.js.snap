@@ -149,11 +149,16 @@ export type AsyncExecuteOptions = child_process$execFileOpts & {
 // optional trailing comma gets moved all the way to the beginning
 const regex = new RegExp(
   // optional trailing comma
-  \"^\\\\s*\" + // beginning of the line
-    \"name\\\\s*=\\\\s*\" + // name =
-    \"[\'\\\"]\" + // opening quotation mark
-    escapeStringRegExp(target.name) + // target name
-    \"[\'\\\"]\" + // closing quotation mark
+  \"^\\\\s*\" +
+    // beginning of the line
+    \"name\\\\s*=\\\\s*\" +
+    // name =
+    \"[\'\\\"]\" +
+    // opening quotation mark
+    escapeStringRegExp(target.name) +
+    // target name
+    \"[\'\\\"]\" +
+    // closing quotation mark
     \",?$\"
 );
 
@@ -345,11 +350,16 @@ export type AsyncExecuteOptions = child_process$execFileOpts & {
 // optional trailing comma gets moved all the way to the beginning
 const regex = new RegExp(
   // optional trailing comma
-  \"^\\\\s*\" + // beginning of the line
-    \"name\\\\s*=\\\\s*\" + // name =
-    \"[\'\\\"]\" + // opening quotation mark
-    escapeStringRegExp(target.name) + // target name
-    \"[\'\\\"]\" + // closing quotation mark
+  \"^\\\\s*\" +
+    // beginning of the line
+    \"name\\\\s*=\\\\s*\" +
+    // name =
+    \"[\'\\\"]\" +
+    // opening quotation mark
+    escapeStringRegExp(target.name) +
+    // target name
+    \"[\'\\\"]\" +
+    // closing quotation mark
     \",?$\"
 );
 

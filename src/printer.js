@@ -19,7 +19,8 @@ var conditionalGroup = docBuilders.conditionalGroup;
 var ifBreak = docBuilders.ifBreak;
 
 var docUtils = require("./doc-utils");
-var hasHardLine = docUtils.hasHardLine;
+var willBreak = docUtils.willBreak;
+var isLineNext = docUtils.isLineNext;
 var getFirstString = docUtils.getFirstString;
 var isEmpty = docUtils.isEmpty;
 
@@ -227,7 +228,7 @@ function genericPrintNoParens(path, options, print) {
 
       parts.push(
         path.call(print, "typeParameters"),
-        multilineGroup(
+        group(
           concat([
             printFunctionParams(path, print, options),
             printReturnType(path, print)
@@ -256,7 +257,7 @@ function genericPrintNoParens(path, options, print) {
         parts.push(path.call(print, "params", 0));
       } else {
         parts.push(
-          multilineGroup(
+          group(
             concat([
               printFunctionParams(path, print, options),
               printReturnType(path, print)
@@ -809,7 +810,10 @@ function genericPrintNoParens(path, options, print) {
         if (hasBraces && !isEmpty) {
           parts.push(" else");
         } else {
-          parts.push(concat([ hardline, "else" ]));
+          // We use `conditionalGroup` to suppress break propagation.
+          // This allows us to provide a hardline without forcing the
+          // entire `if` clause to break up.
+          parts.push(conditionalGroup([concat([ hardline, "else" ])]));
         }
 
         parts.push(
@@ -1054,7 +1058,7 @@ function genericPrintNoParens(path, options, print) {
         return concat([ "{", path.call(print, "expression"), "}" ]);
       }
 
-      return multilineGroup(
+      return group(
         concat([
           "{",
           indent(
@@ -1685,7 +1689,7 @@ function printArgumentsList(path, options, print) {
     lastArg.type === "NewExpression";
 
   if (groupLastArg) {
-    const shouldBreak = printed.slice(0, -1).some(hasHardLine);
+    const shouldBreak = printed.slice(0, -1).some(willBreak);
     return conditionalGroup(
       [
         concat([ "(", join(concat([ ", " ]), printed), ")" ]),
@@ -2152,13 +2156,13 @@ function printJSXChildren(path, options, print) {
 function printJSXElement(path, options, print) {
   const n = path.getValue();
 
-  // turn <div></div> into <div />
+  // Turn <div></div> into <div />
   if (isEmptyJSXElement(n)) {
     n.openingElement.selfClosing = true;
     delete n.closingElement;
   }
 
-  // if no children, just print the opening element
+  // If no children, just print the opening element
   const openingLines = path.call(print, "openingElement");
   if (n.openingElement.selfClosing) {
     assert.ok(!n.closingElement);
@@ -2166,49 +2170,64 @@ function printJSXElement(path, options, print) {
   }
 
   const children = printJSXChildren(path, options, print);
-  let hasAnyHardLine = false;
+  let forcedBreak = false;
 
-  // trim trailing whitespace, recording if there was a hardline
-  while (children.length && util.getLast(children).type === "line") {
-    if (hasHardLine(util.getLast(children))) hasAnyHardLine = true;
+  // Trim trailing whitespace, recording if there was a hardline
+  while (children.length && isLineNext(util.getLast(children))) {
+    if (willBreak(util.getLast(children))) {
+      forcedBreak = true;
+    }
     children.pop();
   }
 
-  // trim leading whitespace, recording if there was a hardline
-  while (children.length && children[0].type === "line") {
-    if (hasHardLine(children[0])) hasAnyHardLine = true;
+  // Trim leading whitespace, recording if there was a hardline
+  while (children.length && isLineNext(children[0])) {
+    if (willBreak(children[0])) {
+      forcedBreak = true;
+    }
     children.shift();
   }
 
-  // group by line, recording if there was a hardline.
+  // Group by line, recording if there was a hardline.
   let childrenGroupedByLine;
   if (children.length === 1) {
-    if (!hasAnyHardLine && hasHardLine(children[0])) hasAnyHardLine = true;
+    if (!forcedBreak && willBreak(children[0])) {
+      forcedBreak = true;
+    }
 
-    // no need for groups, and a lone jsx whitespace doesn't work otherwise
-    childrenGroupedByLine = [ hardline, children[0] ];
+    // Don't wrap a single child in a group as there is no need, and a
+    // lone JSX whitespace doesn't work otherwise because the group
+    // will be printed in flat mode, and we need to print `{' '}` in
+    // break mode.
+    childrenGroupedByLine = [concat([ hardline, children[0] ])];
   } else {
-    //  prefill leading newline, and initialize the first line's group
-    childrenGroupedByLine = [ hardline, group(concat([])) ];
+    // Prefill leading newline, and initialize the first line's group
+    let groups = [[]];
     children.forEach((child, i) => {
       let prev = children[i - 1];
-      if (prev && hasHardLine(prev)) {
-        hasAnyHardLine = true;
+      if (prev && willBreak(prev)) {
+        forcedBreak = true;
 
-        // on a new line, so create a new group and put this element in it
-        const newLineGroup = group(concat([ child ]));
-        childrenGroupedByLine.push(newLineGroup);
+        // On a new line, so create a new group and put this element
+        // in it.
+        groups.push([ child ]);
       } else {
-        // not on a newline, so add this element to the current group
-        const currentLineGroup = util.getLast(childrenGroupedByLine);
-        currentLineGroup.contents.parts.push(child);
+        // Not on a newline, so add this element to the current group.
+        util.getLast(groups).push(child);
       }
 
-      // ensure we record hardline of last element
-      if (!hasAnyHardLine && i === children.length - 1) {
-        if (hasHardLine(child)) hasAnyHardLine = true;
+      // Ensure we record hardline of last element.
+      if (!forcedBreak && i === children.length - 1) {
+        if (willBreak(child)) forcedBreak = true;
       }
     });
+
+    childrenGroupedByLine = [
+      hardline,
+      // Conditional groups suppress break propagation; we want output
+      // hard lines without breaking up the entire jsx element.
+      concat(groups.map(contents => conditionalGroup([concat(contents)])))
+    ];
   }
 
   const closingLines = path.call(print, "closingElement");
@@ -2225,17 +2244,14 @@ function printJSXElement(path, options, print) {
     ])
   );
 
-  let elem;
-  if (hasAnyHardLine) {
-    elem = multiLineElem;
-  } else {
-    elem = conditionalGroup([
-      group(concat([ openingLines, concat(children), closingLines ])),
-      multiLineElem
-    ]);
+  if (forcedBreak) {
+    return multiLineElem;
   }
 
-  return elem;
+  return conditionalGroup([
+    group(concat([ openingLines, concat(children), closingLines ])),
+    multiLineElem
+  ]);
 }
 
 function maybeWrapJSXElementInParens(path, elem, options) {
@@ -2436,7 +2452,9 @@ function printAstToDoc(ast, options) {
     );
   }
 
-  return printGenerically(FastPath.from(ast));
+  const doc = printGenerically(FastPath.from(ast));
+  docUtils.propagateBreaks(doc);
+  return doc;
 }
 
 module.exports = { printAstToDoc };

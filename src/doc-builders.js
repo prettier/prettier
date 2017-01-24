@@ -1,7 +1,7 @@
 "use strict";
 const assert = require("assert");
 const utils = require("./doc-utils");
-const hasHardLine = utils.hasHardLine;
+const willBreak = utils.willBreak;
 
 function assertDoc(val) {
   assert(
@@ -38,7 +38,7 @@ function group(contents, opts) {
 function multilineGroup(contents, opts) {
   return group(
     contents,
-    Object.assign(opts || {}, { shouldBreak: hasHardLine(contents) })
+    Object.assign(opts || {}, { shouldBreak: willBreak(contents) })
   );
 }
 
@@ -60,9 +60,10 @@ function ifBreak(breakContents, flatContents) {
   return { type: "if-break", breakContents, flatContents };
 }
 
+const breakParent =  { type: "break-parent" };
 const line = { type: "line" };
 const softline = { type: "line", soft: true };
-const hardline = { type: "line", hard: true };
+const hardline = concat([{ type: "line", hard: true }, breakParent ]);
 const literalline = { type: "line", hard: true, literal: true };
 
 function join(sep, arr) {
@@ -89,6 +90,7 @@ module.exports = {
   group,
   multilineGroup,
   conditionalGroup,
+  breakParent,
   ifBreak,
   indent
 };
