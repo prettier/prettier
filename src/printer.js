@@ -2313,7 +2313,8 @@ function printBinaryishExpressions(path, parts, print) {
       parts.push(path.call(print, "left"));
     }
 
-    parts.push(" ", node.operator, line, path.call(print, "right"));
+    const allowLine = !namedTypes.Literal.check(node.right);
+    parts.push(" ", node.operator, allowLine ? line : " ", path.call(print, "right"));
   } else {
     // Our stopping case. Simply print the node normally.
     parts.push(path.call(print));

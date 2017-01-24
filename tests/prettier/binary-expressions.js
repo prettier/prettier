@@ -14,3 +14,5 @@ const x = longVariable * longint && longVariable >> 0 && longVariable + longVari
 const x = longVariable > longint && longVariable === 0 + longVariable * longVariable;
 
 foo(obj.property * new Class() && obj instanceof Class && longVariable ? number + 5 : false);
+
+const x = 100000 + 200000 + 300000 + 100000 + 200000 + 300000 + 100000 + 200000 + 300000 + 100000 + 200000;
