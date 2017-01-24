@@ -730,7 +730,7 @@ const b = classnames({
 });
 
 const c = classnames({
-  \"some-prop\": [ \"foo\", \"bar\", \"foo\", \"bar\", \"foo\", \"bar\", \"foo\", \"bar\", \"foo\" ]
+  \"some-prop\": [\"foo\", \"bar\", \"foo\", \"bar\", \"foo\", \"bar\", \"foo\", \"bar\", \"foo\"]
 });
 
 const d = classnames({ \"some-prop\": () => {} });
