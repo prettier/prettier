@@ -38,7 +38,7 @@
   },
   "scripts": {
     "test": "jest && npm run test-tabs && npm run test-tabs-inv",
-    "test-tabs": "node ./bin/prettier.js --use-tabs -- ./bin/prettier.js > ./bin/prettier-with-tabs.js",
+    "test-tabs": "node ./bin/prettier.js --use-tabs --bracket-spacing -- ./bin/prettier.js > ./bin/prettier-with-tabs.js",
     "test-tabs-inv": "node ./bin/prettier-with-tabs.js -- ./bin/prettier-with-tabs.js > ./bin/prettier-spaces.js",
     "format": "./bin/prettier.js --write",
     "format:single": "npm run format -- src/printer.js",
