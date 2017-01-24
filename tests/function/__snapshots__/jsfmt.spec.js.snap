@@ -1,0 +1,20 @@
+exports[`test function_expression.js 1`] = `
+"(function() {}).length
+typeof (function() {});
+export default (function() {})();
+(function() {})()\`\`;
+(function() {})\`\`;
+new (function() {});
+(function() {});
+a = function f() {} || b;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(function() {}).length;
+typeof (function() {});
+export default (function() {})();
+(function() {})()\`\`;
+(function() {})\`\`;
+new (function() {})();
+(function() {});
+a = function f() {} || b;
+"
+`;

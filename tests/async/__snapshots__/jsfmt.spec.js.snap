@@ -1,0 +1,26 @@
+exports[`test await_parse.js 1`] = `
+"async function f() { (await f()).length }
+async function g() {
+  invariant(
+    (await driver.navigator.getUrl()).substr(-7)
+  );
+}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+async function f() {
+  (await f()).length;
+}
+async function g() {
+  invariant((await driver.navigator.getUrl()).substr(-7));
+}
+"
+`;
+
+exports[`test conditional-expression.js 1`] = `
+"async function f() {
+  const result = typeof fn === \'function\' ? await fn() : null;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+async function f() {
+  const result = typeof fn === \"function\" ? await fn() : null;
+}
+"
+`;

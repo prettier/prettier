@@ -1,0 +1,12 @@
+exports[`test number.js 1`] = `
+"// parentheses around numeric literal should be preserved
+function test5(): string {
+  return (100).toString();
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// parentheses around numeric literal should be preserved
+function test5(): string {
+  return (100).toString();
+}
+"
+`;
