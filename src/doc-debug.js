@@ -19,8 +19,8 @@ function flattenDoc(doc) {
 
   } else if (doc.type === "if-break") {
     return Object.assign({}, doc, {
-      breakContents: doc.breakContents ? flattenDoc(doc.breakContents) : null,
-      flatContents: doc.flatContents ? flattenDoc(doc.flatContents) : null
+      breakContents: doc.breakContents != null ? flattenDoc(doc.breakContents) : null,
+      flatContents: doc.flatContents != null ? flattenDoc(doc.flatContents) : null
     });
 
   } else if (doc.type === "group") {
