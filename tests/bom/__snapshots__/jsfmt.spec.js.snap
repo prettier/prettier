@@ -235,15 +235,13 @@ const o: MutationObserver = new MutationObserver(callback);
 // correct
 new MutationObserver((arr: Array<MutationRecord>) => true);
 // correct
-new MutationObserver(() => {
-});
+new MutationObserver(() => {});
 // correct
 new MutationObserver();
 // incorrect
 new MutationObserver(42);
 // incorrect
-new MutationObserver((n: number) => {
-});
+new MutationObserver((n: number) => {});
 
 // incorrect
 // observe

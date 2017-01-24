@@ -6,8 +6,7 @@ exports[`test A.js 1`] = `
 module.exports = A;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class A {
-  foo(x: number): void {
-  }
+  foo(x: number): void {}
 }
 
 module.exports = A;
@@ -51,8 +50,7 @@ module.exports = C;
 var B = require(\"./B\");
 
 class C extends B {
-  foo(x: string): void {
-  }
+  foo(x: string): void {}
 }
 
 let c = new C();

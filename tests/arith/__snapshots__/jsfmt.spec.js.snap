@@ -93,11 +93,9 @@ let tests = [
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule Arith */
 
-function num(x: number) {
-}
+function num(x: number) {}
 
-function str(x: string) {
-}
+function str(x: string) {}
 
 function foo() {
   var x = 0;
@@ -291,8 +289,7 @@ y *= 2; // error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-function num(x: number) {
-}
+function num(x: number) {}
 
 num(null * 1);
 num(1 * null);

@@ -1,77 +1,83 @@
 "use strict";
+
 function traverseDoc(doc, onEnter, onExit) {
-  if(onEnter) {
-    onEnter(doc);
+  var hasStopped = false;
+  function traverseDocRec(doc) {
+    if (onEnter) {
+      hasStopped = hasStopped || onEnter(doc) === false;
+    }
+    if (hasStopped) {
+      return;
+    }
+
+    if (doc.type === "concat") {
+      for (var i = 0; i < doc.parts.length; i++) {
+        traverseDocRec(doc.parts[i]);
+      }
+    } else if (doc.type === "if-break") {
+      if (doc.breakContents) {
+        traverseDocRec(doc.breakContents);
+      }
+      if (doc.flatContents) {
+        traverseDocRec(doc.flatContents);
+      }
+    } else if (doc.contents) {
+      traverseDocRec(doc.contents);
+    }
+
+    if (onExit) {
+      onExit(doc);
+    }
   }
 
-  if (doc.type === "concat") {
-    for (var i = 0; i < doc.parts.length; i++) {
-      traverseDoc(doc.parts[i], onEnter, onExit);
-    }
-  } else if (doc.type === "if-break") {
-    if (doc.breakContents) {
-      traverseDoc(doc.breakContents, onEnter, onExit);
-    }
-    if (doc.flatContents) {
-      traverseDoc(doc.flatContents, onEnter, onExit);
-    }
-  } else if (doc.contents) {
-    traverseDoc(doc.contents, onEnter, onExit);
-  }
-
-  if(onExit) {
-    onExit(doc);
-  }
+  traverseDocRec(doc);
 }
+
+function findInDoc(doc, fn, defaultValue) {
+  var result = defaultValue;
+  traverseDoc(doc, function(doc) {
+    var maybeResult = fn(doc);
+    if (maybeResult !== undefined) {
+      result = maybeResult;
+      return false;
+    }
+  });
+  return result;
+}
+
 
 function isEmpty(n) {
   return typeof n === "string" && n.length === 0;
 }
 
 function getFirstString(doc) {
-  let firstString = null;
-  traverseDoc(doc, doc => {
-    if (
-      typeof doc === "string" && doc.trim().length !== 0 && firstString === null
-    ) {
-      firstString = doc;
+  return findInDoc(doc, doc => {
+    if (typeof doc === "string" && doc.trim().length !== 0) {
+      return doc;
     }
-  });
-  return firstString;
+  }, null);
 }
 
 function isLineNext(doc) {
-  let flag = null;
-  traverseDoc(doc, doc => {
-    if(flag === null) {
-      if (typeof doc === "string") {
-        flag = false;
-      }
-      if (doc.type === "line") {
-        flag = true;
-      }
+  return findInDoc(doc, doc => {
+    if (typeof doc === "string") {
+      return false;
     }
-  });
-  return !!flag;
+    if (doc.type === "line") {
+      return true;
+    }
+  }, false);
 }
 
 function willBreak(doc) {
-  let willBreak = false;
-  traverseDoc(doc, doc => {
-    switch (doc.type) {
-      case "group":
-        if(doc.break) {
-          willBreak = true;
-        }
-      case "line":
-        if (doc.hard) {
-          willBreak = true;
-        }
-
-        break;
+  return findInDoc(doc, doc => {
+    if (doc.type === "group" && doc.break) {
+      return true;
     }
-  });
-  return willBreak;
+    if (doc.type === "line" && doc.hard) {
+      return true;
+    }
+  }, false);
 }
 
 function breakParentGroup(groupStack) {
@@ -101,7 +107,7 @@ function propagateBreaks(doc) {
     doc => {
       if (doc.type === "group") {
         const group = groupStack.pop();
-        if(group.break) {
+        if (group.break) {
           breakParentGroup(groupStack);
         }
       }

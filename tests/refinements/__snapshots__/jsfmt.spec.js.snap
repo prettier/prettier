@@ -208,8 +208,7 @@ function testLiteralProperty(a: A) {
 
 type A = { \"b_c\": ?string };
 
-function stuff(str: string) {
-}
+function stuff(str: string) {}
 
 function testProperty(a: A) {
   if (a.b_c) {
@@ -601,8 +600,7 @@ function def_assign_setprop_nohavoc(obj: Obj, obj2: Obj2) {
 
 type Obj = { p: number | string };
 
-function f() {
-}
+function f() {}
 
 function def_assign_function_havoc(obj: Obj) {
   obj.p = 10;
@@ -799,8 +797,7 @@ function foo5() {
     o.p();
   }
   function _foo5() {
-    o.p = function() {
-    };
+    o.p = function() {};
   }
 }
 
@@ -958,10 +955,8 @@ function arr0(x: mixed) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-function takesNumber(x: number) {
-}
-function takesString(x: string) {
-}
+function takesNumber(x: number) {}
+function takesString(x: string) {}
 
 function num(x: mixed) {
   if (typeof x === \"number\") {
@@ -1726,8 +1721,7 @@ function bar(b) {
   var z: string = x;
 }
 
-function maybe_throw() {
-}
+function maybe_throw() {}
 function qux() {
   var x = 0;
   try {

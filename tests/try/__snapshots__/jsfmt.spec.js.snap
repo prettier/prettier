@@ -196,8 +196,7 @@ function f(b) {
 
 // for illustrative purposes only - Flow considers a throw possible
 // anywhere within a block
-function might_throw() {
-}
+function might_throw() {}
 
 // local use of annotated var within try is ok
 function f() {

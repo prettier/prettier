@@ -7,8 +7,7 @@ module.exports = num;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 var num = 42;
-function bar() {
-}
+function bar() {}
 bar();
 module.exports = num;
 "
@@ -39,8 +38,7 @@ const idxResult = idx(obj, obj => obj.a.b.c.d);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 var num = require(\"./import\");
-function foo(x) {
-}
+function foo(x) {}
 foo(0);
 var a: string = num;
 

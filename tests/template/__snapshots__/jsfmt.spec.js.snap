@@ -88,8 +88,7 @@ function* f() {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // \"ArrowFunctionExpression\"
-(() => {
-})\`\`;
+(() => {})\`\`;
 
 // \"AssignmentExpression\"
 (b = c)\`\`;
@@ -112,8 +111,7 @@ b()\`\`;
 (b ? c : d)\`\`;
 
 // \"FunctionExpression\"
-(function() {
-})\`\`;
+(function() {})\`\`;
 
 // \"LogicalExpression\"
 (b || c)\`\`;

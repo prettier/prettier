@@ -223,8 +223,7 @@ class I_ {
   constructor(leaked_this) {
     leaked_this.foo();
   }
-  foo() {
-  }
+  foo() {}
 }
 class I extends I_ {
   constructor() {
@@ -238,8 +237,7 @@ class J_ extends J__ {
     closure_leaking_this();
     super();
   }
-  foo() {
-  }
+  foo() {}
 }
 class J extends J_ {
   constructor() {
@@ -257,8 +255,7 @@ class K_ {
   constructor(closure_leaking_this) {
     this.closure_leaking_this = closure_leaking_this;
   }
-  foo() {
-  }
+  foo() {}
 }
 class K extends K_ {
   constructor() {
@@ -362,13 +359,11 @@ class B extends A {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class A {
-  constructor(x: number) {
-  }
+  constructor(x: number) {}
   static staticMethod(x: string): string {
     return x;
   }
-  f(x: string) {
-  }
+  f(x: string) {}
 }
 
 class B extends A {

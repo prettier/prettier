@@ -450,7 +450,7 @@ function genericPrintNoParens(path, options, print) {
       parts.push(path.call(print, "source"), ";");
 
       return concat(parts);
-    case "BlockStatement":
+    case "BlockStatement": {
       var naked = path.call(
         function(bodyPath) {
           return printStatementSequence(bodyPath, options, print);
@@ -460,6 +460,14 @@ function genericPrintNoParens(path, options, print) {
 
       const hasContent = getFirstString(naked);
       const hasDirectives = n.directives && n.directives.length > 0;
+
+      var parent = path.getParentNode();
+      if (!hasContent && !hasDirectives && !n.comments &&
+          (parent.type === "ArrowFunctionExpression" ||
+            parent.type === "FunctionExpression" ||
+            parent.type === "FunctionDeclaration")) {
+        return "{}";
+      }
 
       parts.push("{");
 
@@ -492,6 +500,7 @@ function genericPrintNoParens(path, options, print) {
       parts.push(hardline, "}");
 
       return concat(parts);
+    }
     case "ReturnStatement":
       parts.push("return");
 
