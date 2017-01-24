@@ -79,8 +79,8 @@ function getParser() {
 }
 
 const options = {
-  printWidth: argv["print-width"],
-  tabWidth: argv["tab-width"],
+  printWidth: argv["print-width"] && parseInt(argv["print-width"]),
+  tabWidth: argv["tab-width"] && parseInt(argv["tab-width"]),
   bracketSpacing: argv["bracket-spacing"],
   parser: getParser(),
   singleQuote: argv["single-quote"],
