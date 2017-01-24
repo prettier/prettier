@@ -92,7 +92,7 @@ class H<Z> extends G<Array<Z>> {
 }
 
 var h1 = new H();
-h1.foo([ \"...\" ]);
+h1.foo([\"...\"]);
 var h2: F<Array<Array<Array<number>>>> = h1;
 
 var obj: Object<string, string> = {};

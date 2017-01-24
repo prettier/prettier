@@ -36,7 +36,7 @@ export const log = y => {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const formatData = pipe(
   zip,
-  map(([ ref, data ]) => ({
+  map(([ref, data]) => ({
     nodeId: ref.nodeId.toString(),
     ...attributeFromDataValue(ref.attributeId, data)
   })),

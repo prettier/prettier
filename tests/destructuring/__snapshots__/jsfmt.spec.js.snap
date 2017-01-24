@@ -12,9 +12,9 @@ let d = zs[1]; // run off the end
 
 let [...e] = 0;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-let xs = [ 0, \"\", true ];
-let [ a, ...ys ] = xs;
-let [ b, ...zs ] = ys;
+let xs = [0, \"\", true];
+let [a, ...ys] = xs;
+let [b, ...zs] = ys;
 let c = zs[0];
 // retain tuple info
 let d = zs[1];
@@ -29,7 +29,7 @@ let d = zs[1];
 (d: void);
 
 // error: number|string|boolean ~> void
-let [ ...e ] = 0;
+let [...e] = 0;
 "
 `;
 
@@ -222,9 +222,9 @@ function obj_prop_err({ x: { y } } = null) {}
 // error: property \`x\` cannot be accessed on null
 function obj_rest_err({ ...o } = 0) {}
 // error: expected object instead of number
-function arr_elem_err([ x ] = null) {}
+function arr_elem_err([x] = null) {}
 // error: element 0 cannot be accessed on null
-function arr_rest_err([ ...a ] = null) {}
+function arr_rest_err([...a] = null) {}
 
 // error: expected array instead of null
 function gen<T>(x: T, { p = x }: { p: T }): T {
@@ -325,23 +325,23 @@ var cp2_err: string = others.childprop2; // Error: number ~> string
 declare var a: string;
 declare var b: string;
 declare var c: string;
-[ { a1: a, b }, c ] = [ { a1: 0, b: 1 }, 2 ];
+[{ a1: a, b }, c] = [{ a1: 0, b: 1 }, 2];
 
 var { m } = { m: 0 };
 ({ m } = { m: m });
 
 var obj;
 ({ n: obj.x } = { n: 3 });
-[ obj.x ] = [ \"foo\" ];
+[obj.x] = [\"foo\"];
 
-function foo({ p, z: [ r ] }) {
+function foo({ p, z: [r] }) {
   a = p;
   b = z;
   c = r;
 }
-foo({ p: 0, z: [ 1, 2 ] });
+foo({ p: 0, z: [1, 2] });
 
-[ a, , b, ...c ] = [ 0, 1, true, 3 ];
+[a, , b, ...c] = [0, 1, true, 3];
 
 function bar({ x, ...z }) {
   var o: { x: string, y: number } = z;
@@ -479,16 +479,16 @@ type Prop<X> = { prop: X };
 function obj_pattern2<X>({ prop }: Prop<X>) {}
 
 // prop: X
-function arr_pattern<X>([ elem ]: X[]) {}
+function arr_pattern<X>([elem]: X[]) {}
 // elem: X
 type Elem<X> = X[];
-function arr_pattern2<X>([ elem ]: Elem<X>) {}
+function arr_pattern2<X>([elem]: Elem<X>) {}
 
 // elem: X
-function tup_pattern<X>([ proj ]: [X]) {}
+function tup_pattern<X>([proj]: [X]) {}
 // proj: X
 type Proj<X> = [X];
-function tup_pattern2<X>([ proj ]: Proj<X>) {}
+function tup_pattern2<X>([proj]: Proj<X>) {}
 
 // proj: X
 function rest_antipattern<T>(...t: T) {}
@@ -506,12 +506,12 @@ function obj_rest_pattern<X>({ _, ...o }: ObjRest<X>) {
   o.x;
 }
 
-function arr_rest_pattern<X>([ _, ...a ]: [any, X]) {
+function arr_rest_pattern<X>([_, ...a]: [any, X]) {
   // a: [X]
   a[0];
 }
 type ArrRest<X> = [any, X];
-function arr_rest_pattern<X>([ _, ...a ]: ArrRest<X>) {
+function arr_rest_pattern<X>([_, ...a]: ArrRest<X>) {
   // a: [X]
   a[0];
 }
@@ -545,11 +545,11 @@ var { x: o } = o;
 // Make sure that destructuring doesn\'t cause infinite loops when combined with
 // funny doses of repositioning
 
-let foo = (i: number) => [ i ];
+let foo = (i: number) => [i];
 
 const bar = (i: number) => {
-  [ i ] = foo(i);
-  return [ i ];
+  [i] = foo(i);
+  return [i];
 };
 
 foo = (i: number) => {

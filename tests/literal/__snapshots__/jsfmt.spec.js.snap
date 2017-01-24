@@ -59,7 +59,7 @@ var name: number = object[APIKeys.NAME];
 
 // error: object.name is a string
 var indices = { red: 0, green: 1, blue: 2 };
-var tuple = [ 42, \"hello\", false ];
+var tuple = [42, \"hello\", false];
 var red: string = tuple[indices.red]; // error: tuple[0] is a number
 "
 `;

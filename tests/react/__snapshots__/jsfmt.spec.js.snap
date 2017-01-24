@@ -167,10 +167,10 @@ var Example = React.createClass({
 });
 
 var ok_empty = <Example arr={[]} />;
-var ok_numbers = <Example arr={[ 1, 2 ]} />;
+var ok_numbers = <Example arr={[1, 2]} />;
 
 var fail_not_array = <Example arr={2} />;
-var fail_mistyped_elems = <Example arr={[ 1, \"foo\" ]} />;
+var fail_mistyped_elems = <Example arr={[1, \"foo\"]} />;
 "
 `;
 
@@ -350,7 +350,7 @@ var ex2 = <Example literal=\"bar\" />;
 
 var React = require(\"react\");
 var Example = React.createClass({
-  propTypes: { literal: React.PropTypes.oneOf([ \"foo\" ]).isRequired }
+  propTypes: { literal: React.PropTypes.oneOf([\"foo\"]).isRequired }
 });
 
 var ex1 = <Example literal=\"foo\" />;

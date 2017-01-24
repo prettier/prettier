@@ -580,7 +580,7 @@ function logical2f(): string {
  * A literal on the left side of &&
  */
 function logical2g(): string {
-  return [ 1, 2, 3 ] && \"foo\";
+  return [1, 2, 3] && \"foo\";
 }
 
 /**

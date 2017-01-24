@@ -120,7 +120,7 @@ test(0, ...[1, 2, 3]);
 /* @flow */
 function test(...nums: Array<number>) {}
 
-test(0, ...[ 1, 2, 3 ]);
+test(0, ...[1, 2, 3]);
 "
 `;
 

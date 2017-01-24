@@ -45,7 +45,7 @@ x &= 0;
 
 // regression tests -- OK to assign consts like this:
 const { foo } = { foo: \"foo\" };
-const [ bar ] = [ \"bar\" ];
+const [bar] = [\"bar\"];
 (foo: number);
 // error: string ~> number
 (bar: number);
