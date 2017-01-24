@@ -1,31 +1,3 @@
-exports[`test advanced_arrows.js 1`] = `
-"/**
- * @flow
- */
-
-var add = (x: number, y: number): number => x + y;
-
-var bad = (x: number): string => x; // Error!
-
-var ident = <T>(x: T): T => x;
-(ident(1): number);
-(ident(\"hi\"): number); // Error
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/**
- * @flow
- */
-
-var add = (x: number, y: number): number => x + y;
-
-var bad = (x: number): string => x;
-
-// Error!
-var ident = <T>(x: T): T => x;
-(ident(1): number);
-(ident(\"hi\"): number); // Error
-"
-`;
-
 exports[`test arrow_function_expression.js 1`] = `
 "(a => {}).length
 typeof (() => {});
@@ -46,31 +18,9 @@ if ((() => {}) ? 1 : 0) {
 "
 `;
 
-exports[`test arrows.js 1`] = `
-"function selectBestEffortImageForWidth(
-    maxWidth: number,
-    images: Array<Image>
-): Image {
-    var maxPixelWidth = maxWidth;
-    //images = images.sort(function (a, b) { return a.width - b.width });
-    images = images.sort((a, b) => (a.width - b.width) + \"\");
-    return images.find(image => image.width >= maxPixelWidth) ||
-        images[images.length - 1];
-}
-
-a = () => ({} = this);
+exports[`test block_like.js 1`] = `
+"a = () => ({} = this);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function selectBestEffortImageForWidth(
-  maxWidth: number,
-  images: Array<Image>
-): Image {
-  var maxPixelWidth = maxWidth;
-  //images = images.sort(function (a, b) { return a.width - b.width });
-  images = images.sort((a, b) => a.width - b.width + \"\");
-  return images.find(image => image.width >= maxPixelWidth) ||
-    images[images.length - 1];
-}
-
 a = () => ({} = this);
 "
 `;

@@ -1,0 +1,14 @@
+exports[`test test.js 1`] = `
+"\"use strict\";
+
+function fn() {
+  \"use strict\";
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\"use strict\";
+
+function fn() {
+  \"use strict\";
+}
+"
+`;
