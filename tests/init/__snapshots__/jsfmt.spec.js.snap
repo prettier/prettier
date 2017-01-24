@@ -403,8 +403,7 @@ function if_else_partial_init(b) {
 
 // use of var before if gives undefined
 function if_pre_init(b) {
-  var y: number = x;
-  // error
+  var y: number = x; // error
   if (b) {
     var x: number = 0;
   }
@@ -489,8 +488,7 @@ function switch_scoped_init_1(i) {
 
 // ...but use of var before switch gives undefined
 function switch_scoped_init_2(i) {
-  var y: number = x;
-  // error
+  var y: number = x; // error
   switch (i) {
     case 0:
       var x: number = 0;
@@ -511,9 +509,8 @@ function switch_scoped_init_4(i) {
   switch (i) {
     case 0:
       var x: number = 0;
-    // error
     case 1:
-      var y: number = x;
+      var y: number = x; // error
   }
 }
 
@@ -527,8 +524,7 @@ function while_scoped_init(b) {
 
 // ...but use of var before while gives undefined
 function while_pre_init(b) {
-  var y: number = x;
-  // error
+  var y: number = x; // error
   while (b) {
     var x: number = 0;
   }
@@ -552,8 +548,7 @@ function do_while_scoped_init(b) {
 
 // ...but use before do-while gives undefined
 function do_while_pre_init(b) {
-  var y: number = x;
-  // error
+  var y: number = x; // error
   do {
     var x: number = 0;
   } while (b);
@@ -577,8 +572,7 @@ function for_scoped_init(b) {
 
 // ...but use before for gives undefined
 function for_pre_init(b) {
-  var y: number = x;
-  // error
+  var y: number = x; // error
   for (; b; ) {
     var x: number = 0;
   }
@@ -602,8 +596,7 @@ function for_in_scoped_init() {
 
 // ...but use before while gives undefined
 function for_in_pre_init() {
-  var y: number = x;
-  // error
+  var y: number = x; // error
   for (var p in { a: 1, b: 2 }) {
     var x: number = 0;
   }
@@ -627,8 +620,7 @@ function for_of_scoped_init() {
 
 // ...but use before while gives undefined
 function for_in_pre_init() {
-  var y: number = x;
-  // error
+  var y: number = x; // error
   for (var x of [1, 2, 3]) {
     var x: number = 0;
   }
@@ -818,10 +810,8 @@ function linear_deferred_init() {
 // use of let before init gives undefined
 function linear_pre_init() {
   let x: number;
-  let y: ?number = x;
-  // ok
-  let z: number = x;
-  // error
+  let y: ?number = x; // ok
+  let z: number = x; // error
   x = 0;
   let w: number = x; // ok
 }
@@ -886,9 +876,8 @@ function switch_scoped_init_2(i) {
   switch (i) {
     case 0:
       let x: number;
-    // error, skipped declaration
     case 1:
-      let y: number = x;
+      let y: number = x; // error, skipped declaration
   }
 }
 

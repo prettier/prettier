@@ -31,11 +31,8 @@ exports[`test optional.js 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-([0, undefined]: [number, ?string]);
-// Ok, correct arity
-([0]: [number, ?string]);
-
-// Error, arity is enforced
+([0, undefined]: [number, ?string]); // Ok, correct arity
+([0]: [number, ?string]); // Error, arity is enforced
 ([]: [?number, string]); // error, since second element is not marked optional
 "
 `;
@@ -64,10 +61,8 @@ var e: [number, string,] = [123,\'duck\'];
 var f: [number, string] = [123, 456];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var a: [] = [];
-var b: [] = [123];
-// Error - arity mismatch
-var c: [number] = [];
-// nope
+var b: [] = [123]; // Error - arity mismatch
+var c: [number] = []; // nope
 var d: [number, string] = [123, \"duck\"];
 var e: [number, string] = [123, \"duck\"];
 var f: [number, string] = [123, 456];

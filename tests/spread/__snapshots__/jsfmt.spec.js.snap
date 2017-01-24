@@ -169,8 +169,7 @@ function test(
   kinds: { [key: string]: string }
 ): Array<{ kind: ?string }> {
   return map(kinds, value => {
-    (value: string);
-    // OK
+    (value: string); // OK
     return { ...x, kind: value };
   });
 }
@@ -204,8 +203,7 @@ o = { ...o };
 (o: { foo: string });
 
 var p = { foo: \"bar\" };
-(p: { foo: string, abc: string });
-// error, p doesn\'t have \`abc\` yet
+(p: { foo: string, abc: string }); // error, p doesn\'t have \`abc\` yet
 p = { ...p, abc: \"def\" };
 (p: { foo: string, abc: string });
 

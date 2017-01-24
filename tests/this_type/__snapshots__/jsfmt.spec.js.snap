@@ -86,9 +86,7 @@ class D extends C {}
 
 var d = new D();
 (d: C).next = new C();
-(d.next: D);
-
-// sneaky
+(d.next: D); // sneaky
 class A {
   foo<X: this>(that: X) {} // error: can\'t hide contravariance using a bound
 }
@@ -242,24 +240,17 @@ class B1 extends A1 {
   } // error
 }
 
-(new B1().bar(): B1);
-
-// OK
+(new B1().bar(): B1); // OK
 class B3<X> extends A3<X> {
   foo(): B3<X> {
     return new B3();
   } // error
 }
 
-(new B3().bar(): B3<*>);
-// OK
-(new B3().qux(0): string);
-
-// error
-(new B3().bar(): A2<*>);
-// OK
-((new B3().bar(): B3<string>): A2<number>);
-// error
+(new B3().bar(): B3<*>); // OK
+(new B3().qux(0): string); // error
+(new B3().bar(): A2<*>); // OK
+((new B3().bar(): B3<string>): A2<number>); // error
 ((new B3(): A2<number>).qux(0): string); // error
 "
 `;
@@ -327,13 +318,11 @@ exports[`test self.js 1`] = `
 class A {
   foo() {
     return this;
-  }
-  // return of foo is not annotated to get around
+  } // return of foo is not annotated to get around
   // substituting this below
   bar(): this {
     return new A().foo();
-  }
-  // same as returning : A, so error
+  } // same as returning : A, so error
   qux(): this {
     return this.bar();
   } // OK (don\'t cascade errors)
@@ -363,8 +352,7 @@ class B extends A { } // inherits statics method too, with \`this\` bound to the
 // supporting \`this\` type in statics
 
 class A {
-  static make(): this {
-    // factory method, whose return type \`this\` (still)
+  static make(): this { // factory method, whose return type \`this\` (still)
     // describes instances of A or subclasses of A: the
     // meaning of the \`this\` type is not changed simply by
     // switching into a static context
@@ -372,15 +360,10 @@ class A {
     // the class, instead of instances of the class
   }
 }
-class B extends A {}
-
-// inherits statics method too, with \`this\` bound to the class
-(A.make(): A);
-// OK
-(B.make(): B);
-// OK
-(B.make(): A);
-// OK
+class B extends A {} // inherits statics method too, with \`this\` bound to the class
+(A.make(): A); // OK
+(B.make(): B); // OK
+(B.make(): A); // OK
 (A.make(): B); // error
 "
 `;
@@ -480,13 +463,10 @@ class Inherit extends Base {}
 class Override extends Base {
   foo() {
     return this;
-  }
-  // OK
+  } // OK
   qux() {
     return this;
-  }
-
-  // OK, too
+  } // OK, too
   bar() {
     return new Override();
   } // OK (cf. error below)
@@ -495,16 +475,13 @@ class Override extends Base {
 class InheritOverride extends Override {}
 
 (new Inherit().foo(): Base);
-(new Inherit().foo(): Inherit);
-// error (cf. OK below)
+(new Inherit().foo(): Inherit); // error (cf. OK below)
 ((new Inherit(): Base).foo(): Base);
 (new Override().foo(): Base);
-(new Override().foo(): Override);
-// OK
+(new Override().foo(): Override); // OK
 ((new Override(): Base).foo(): Base);
 
-(new InheritOverride().bar_caller(): InheritOverride);
-// error
+(new InheritOverride().bar_caller(): InheritOverride); // error
 // blame flips below
 // Examples with \`this\` types (compare with examples above)
 class Base2 {
@@ -531,20 +508,15 @@ class Inherit2 extends Base2 {}
 class Override2 extends Base2 {
   foo(): this {
     return this;
-  }
-  // OK
+  } // OK
   qux(): this {
     return this;
-  }
-
-  // OK, too
+  } // OK, too
   bar(): Override2 {
     return new Override2();
-  }
-  // error (cf. OK above)
+  } // error (cf. OK above)
   // see exploit below
-  corge(that: this) {}
-  // error
+  corge(that: this) {} // error
   // see exploit below
   grault(that: this) {} // error, too
 }
@@ -552,17 +524,13 @@ class Override2 extends Base2 {
 class InheritOverride2 extends Override2 {}
 
 (new Inherit2().foo(): Base2);
-(new Inherit2().foo(): Inherit2);
-// OK (cf. error above)
+(new Inherit2().foo(): Inherit2); // OK (cf. error above)
 ((new Inherit2(): Base2).foo(): Base2);
 (new Override2().foo(): Base2);
-(new Override2().foo(): Override2);
-// OK
+(new Override2().foo(): Override2); // OK
 ((new Override2(): Base2).foo(): Base2);
 
-(new InheritOverride2().bar_caller(): InheritOverride2);
-
-// exploits error above
+(new InheritOverride2().bar_caller(): InheritOverride2); // exploits error above
 (new Override2(): Base2).corge(new Base2()); // exploits error above
 "
 `;

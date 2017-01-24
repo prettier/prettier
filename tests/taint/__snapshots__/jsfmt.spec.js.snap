@@ -98,8 +98,7 @@ let tests = [
   // setting a property
   function(x: $Tainted<string>, y: string) {
     let obj: Object = {};
-    obj.foo = x;
-    // error, taint ~> any
+    obj.foo = x; // error, taint ~> any
     obj[y] = x; // error, taint ~> any
   },
   // getting a property
@@ -110,9 +109,7 @@ let tests = [
   // calling a method
   function(x: $Tainted<string>) {
     let obj: Object = {};
-    obj.foo(x);
-
-    // error, taint ~> any
+    obj.foo(x); // error, taint ~> any
     let foo = obj.foo;
     foo(x); // error, taint ~> any
   }
@@ -266,8 +263,7 @@ class A {
 
 class A {
   f(x: $Tainted<FakeLocation>) {
-    fakeDocument.location = x;
-    // error
+    fakeDocument.location = x; // error
     doStuff(x); // ok
   }
   f1(x: $Tainted<FakeLocation>) {

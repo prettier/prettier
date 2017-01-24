@@ -91,9 +91,7 @@ class MyClass<T> {
   }
 }
 
-var c: MyClass = new MyClass(0);
-
-// error, missing argument list (1)
+var c: MyClass = new MyClass(0); // error, missing argument list (1)
 // arity error in type annotation using polymorphic class with defaulting
 class MyClass2<T, U=string> {
   x: T;
@@ -104,30 +102,20 @@ class MyClass2<T, U=string> {
   }
 }
 
-var c2: MyClass2 = new MyClass2(0, \"\");
-
-// error, missing argument list (1-2)
+var c2: MyClass2 = new MyClass2(0, \"\"); // error, missing argument list (1-2)
 // arity error in type annotation using polymorphic type alias
 type MyObject<T> = { x: T };
 
-var o: MyObject = { x: 0 };
-
-// error, missing argument list
+var o: MyObject = { x: 0 }; // error, missing argument list
 // arity error in type alias rhs
-type MySubobject = { y: number } & MyObject;
-
-// error, missing argument list
+type MySubobject = { y: number } & MyObject; // error, missing argument list
 // arity error in interface extends
 interface MyInterface<T> { x: T }
 
-interface MySubinterface extends MyInterface {
-  // error, missing argument list
-  y: number
-}
+interface MySubinterface extends MyInterface { y: number } // error, missing argument list
 
 // *no* arity error in extends of polymorphic class
-class MySubclass extends MyClass {
-  // ok, type arg inferred
+class MySubclass extends MyClass { // ok, type arg inferred
   y: number;
   constructor(y: number) {
     super(y);

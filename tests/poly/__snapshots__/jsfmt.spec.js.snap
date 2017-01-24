@@ -12,18 +12,15 @@ function bar(): A<*> { // error, * can\'t be {} and {x: string} at the same time
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class A<X> {}
-new A();
-// OK, implicitly inferred type args
-class B extends A {}
-
-// OK, same as above
-function foo(b): A<any> {
-  // ok but unsafe, caller may assume any type arg
+new A(); // OK, implicitly inferred type args
+class B extends A {} // OK, same as above
+function foo(
+  b
+): A<any> { // ok but unsafe, caller may assume any type arg
   return b ? (new A(): A<number>) : (new A(): A<string>);
 }
 
-function bar(): A<*> {
-  // error, * can\'t be {} and {x: string} at the same time
+function bar(): A<*> { // error, * can\'t be {} and {x: string} at the same time
   return (new A(): A<{}>) || (new A(): A<{ x: string }>);
 }
 "
@@ -69,8 +66,7 @@ var a: C<*> = new C();
 
 a.meth(new Middle());
 a.meth(new Child());
-a.meth(42);
-// Error: number ~> Middle
+a.meth(42); // Error: number ~> Middle
 a.meth(new Base()); // Error: Base ~> Middle
 "
 `;
@@ -188,16 +184,13 @@ class C {
 class D extends C {
   foo(x: number): number {
     return x;
-  }
-  // error (specialization, see below)
+  } // error (specialization, see below)
   foo_(x: number): number {
     return x;
-  }
-  // OK, but only because the overridden foo accepts no more than number and returns exactly number
+  } // OK, but only because the overridden foo accepts no more than number and returns exactly number
   bar<X>(x: X): X {
     return x;
-  }
-  // OK
+  } // OK
   qux<X>(x: X): X {
     return x;
   } // OK (generalization)

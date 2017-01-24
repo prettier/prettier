@@ -84,63 +84,81 @@ function getLast(arr) {
   return null;
 }
 
-function skipNewLineForward(text, index) {
-  // What the "end" location points to is not consistent in parsers.
-  // For some statement/expressions, it's the character immediately
-  // afterward. For others, it's the last character in it. We need to
-  // scan until we hit a newline in order to skip it.
-  while (index < text.length) {
-    if (text.charAt(index) === "\n") {
+function skip(chars) {
+  return (text, index, backwards) => {
+    // Allow `skip` functions to be threaded together without having
+    // to check for failures (did someone say monads?).
+    if(index === false) {
+      return false;
+    }
+
+    const length = text.length;
+    let cursor = index;
+    while (cursor >= 0 && cursor < length) {
+      const c = text.charAt(cursor);
+      if(chars.test) {
+        if(!chars.test(c)) {
+          return cursor;
+        }
+      }
+      else if (chars.indexOf(c) === -1) {
+        return cursor;
+      }
+
+      backwards ? cursor-- : cursor++;
+    }
+
+    if(cursor === -1 || cursor === length) {
+      // If we reached the beginning or end of the file, return the
+      // out-of-bounds cursor. It's up to the caller to handle this
+      // correctly. We don't wan to indicate `false` though if it
+      // actually skipped valid characters.
+      return cursor;
+    }
+    return false;
+  }
+}
+
+const skipWhitespace = skip(/\s/);
+const skipSpaces = skip(" \t");
+const skipToLineEnd = skip("; \t");
+
+// This one doesn't use the above helper function because it wants to
+// test \r\n in order and `skip` doesn't support ordering and we only
+// want to skip one newline. It's simple to implement.
+function skipNewline(text, index, backwards) {
+  if(index === false) {
+    return false;
+  }
+  else if(backwards) {
+    if(text.charAt(index) === "\n") {
+      return index - 1;
+    }
+    if(text.charAt(index - 1) === "\r" && text.charAt(index) === "\n") {
+      return index - 2;
+    }
+  }
+  else {
+    if(text.charAt(index) === "\n") {
       return index + 1;
     }
-    if (text.charAt(index) === "\r" && text.charAt(index + 1) === "\n") {
+    if(text.charAt(index) === "\r" && text.charAt(index + 1) === "\n") {
       return index + 2;
     }
-    index++;
   }
+
   return index;
 }
 
-function findNewline(text, index, backwards) {
-  const length = text.length;
-  let cursor = backwards ? index - 1 : skipNewLineForward(text, index);
-  // Look forward and see if there is a newline after/before this code
-  // by scanning up/back to the next non-indentation character.
-  while (cursor > 0 && cursor < length) {
-    const c = text.charAt(cursor);
-    // Skip any indentation characters
-    if (c !== " " && c !== "\t") {
-      // Check if the next non-indentation character is a newline or
-      // not.
-      return c === "\n" || c === "\r";
-    }
-    backwards ? cursor-- : cursor++;
-  }
-  return false;
+function hasNewline(text, index, backwards) {
+  const idx = skipSpaces(text, backwards ? index - 1 : index, backwards);
+  const idx2 = skipNewline(text, idx, backwards);
+  return idx !== idx2;
 }
 
-function newlineExistsBefore(text, index) {
-  return findNewline(text, index, true);
-}
-
-function newlineExistsAfter(text, index) {
-  return findNewline(text, index);
-}
-
-function skipSpaces(text, index, backwards) {
-  const length = text.length;
-  let cursor = backwards ? index - 1 : index;
-  // Look forward and see if there is a newline after/before this code
-  // by scanning up/back to the next non-indentation character.
-  while (cursor > 0 && cursor < length) {
-    const c = text.charAt(cursor);
-    // Skip any whitespace chars
-    if (!c.match(/\S/)) {
-      return cursor;
-    }
-    backwards ? cursor-- : cursor++;
-  }
-  return false;
+function hasSpaces(text, index, backwards) {
+  const idx = skipSpaces(text, backwards ? index - 1 : index, backwards);
+  return idx !== index;
 }
 
 function locStart(node) {
@@ -222,9 +240,12 @@ module.exports = {
   isExportDeclaration,
   getParentExportDeclaration,
   getLast,
-  newlineExistsBefore,
-  newlineExistsAfter,
+  skipWhitespace,
   skipSpaces,
+  skipToLineEnd,
+  skipNewline,
+  hasNewline,
+  hasSpaces,
   locStart,
   locEnd,
   setLocStart,

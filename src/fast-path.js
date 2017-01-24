@@ -81,6 +81,22 @@ FPp.getParentNode = function getParentNode(count) {
   return getNodeHelper(this, ~~count + 1);
 };
 
+FPp.isLast = function isLast() {
+  var s = this.stack;
+  if(this.getParentNode()) {
+    var idx = s[s.length - 2];
+    // The name of this node should be an index
+    assert.ok(typeof idx === "number");
+
+    const arr = s[s.length - 3];
+    // We should have an array as a parent node
+    assert.ok(Array.isArray(arr));
+
+    return idx === arr.length - 1;
+  }
+  return false;
+}
+
 // Temporarily push properties named by string arguments given after the
 // callback function onto this.stack, then call the callback with a
 // reference to this (modified) FastPath object. Note that the stack will
