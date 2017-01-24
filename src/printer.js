@@ -610,7 +610,25 @@ function genericPrintNoParens(path, options, print) {
         } else {
           parts.push(printPropertyKey(path, options, print));
         }
-        parts.push(": ", path.call(print, "value"));
+
+        let printedValue = path.call(print, "value");
+        if (shouldPrintSameLine(n.value)) {
+          parts.push(concat([": ", printedValue]));
+        } else {
+          parts.push(
+            concat([
+              group(
+                concat([
+                  ":",
+                  ifBreak(" (", " "),
+                  indent(options.tabWidth, concat([softline, printedValue]))
+                ])
+              ),
+              line,
+              ifBreak(")")
+            ])
+          );
+        }
       }
 
       return concat(parts);
@@ -2457,6 +2475,26 @@ function isLastStatement(path) {
   const node = path.getValue();
   const body = parent.body;
   return body && body[body.length - 1] === node;
+}
+
+function shouldPrintSameLine(node) {
+  const type = node.type;
+  return namedTypes.Literal.check(node) ||
+    type === "ArrayExpression" ||
+    type === "ArrayPattern" ||
+    type === "ArrowFunctionExpression" ||
+    type === "AssignmentPattern" ||
+    type === "CallExpression" ||
+    type === "FunctionExpression" ||
+    type === "Identifier" ||
+    type === "Literal" ||
+    type === "MemberExpression" ||
+    type === "NewExpression" ||
+    type === "ObjectExpression" ||
+    type === "ObjectPattern" ||
+    type === "StringLiteral" ||
+    type === "ThisExpression" ||
+    type === "TypeCastExpression";
 }
 
 function printAstToDoc(ast, options) {
