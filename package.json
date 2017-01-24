@@ -16,7 +16,7 @@
   },
   "main": "./index.js",
   "dependencies": {
-    "ast-types": "git+https://github.com/jlongster/ast-types.git",
+    "ast-types": "0.9.4",
     "babel-code-frame": "6.22.0",
     "babylon": "6.15.0",
     "esutils": "2.0.2",
