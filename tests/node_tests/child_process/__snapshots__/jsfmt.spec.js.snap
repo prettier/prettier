@@ -69,7 +69,7 @@ execFile(\'ls\', [\'-l\'], {timeout: 250}, function(error, stdout, stderr) {
 var execFile = require(\"child_process\").execFile;
 
 // args only.
-execFile(\"ls\", [ \"-lh\" ]);
+execFile(\"ls\", [\"-lh\"]);
 
 // callback only.
 execFile(\"ls\", function(error, stdout, stderr) {
@@ -80,15 +80,15 @@ execFile(\"ls\", function(error, stdout, stderr) {
 execFile(\"wc\", { timeout: 250 });
 
 // args + callback.
-execFile(\"ls\", [ \"-l\" ], function(error, stdout, stderr) {
+execFile(\"ls\", [\"-l\"], function(error, stdout, stderr) {
   console.info(stdout);
 });
 
 // args + options.
-execFile(\"ls\", [ \"-l\" ], { timeout: 250 });
+execFile(\"ls\", [\"-l\"], { timeout: 250 });
 
 // Put it all together.
-execFile(\"ls\", [ \"-l\" ], { timeout: 250 }, function(error, stdout, stderr) {
+execFile(\"ls\", [\"-l\"], { timeout: 250 }, function(error, stdout, stderr) {
   console.info(stdout);
 });
 "
@@ -120,7 +120,7 @@ execSync(\"ls\", { timeout: \"250\" });
 // error, no signatures match
 execSync(\"ls\", { stdio: \"inherit\" });
 // error, no signatures match
-execSync(\"ls\", { stdio: [ \"inherit\" ] }); // error, no signatures match
+execSync(\"ls\", { stdio: [\"inherit\"] }); // error, no signatures match
 "
 `;
 
@@ -161,10 +161,10 @@ wc.stderr.pipe(process.stderr);
 var child_process = require(\"child_process\");
 
 var ls = child_process.spawn(\"ls\");
-var wc = child_process.spawn(\"wc\", [ \"-l\" ]);
+var wc = child_process.spawn(\"wc\", [\"-l\"]);
 
 // args + options.
-child_process.spawn(\"echo\", [ \"-n\", \'\"Testing...\"\' ], { env: { TEST: \"foo\" } });
+child_process.spawn(\"echo\", [\"-n\", \'\"Testing...\"\'], { env: { TEST: \"foo\" } });
 
 // options only.
 child_process.spawn(\"echo\", { env: { FOO: 2 } });

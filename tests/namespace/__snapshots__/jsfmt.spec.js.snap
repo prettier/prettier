@@ -42,8 +42,8 @@ function bar<U, V>(x: U, f: Map<U, V>): V {
 var y: number = bar(0, x => \"\");
 
 type Seq = number | Array<Seq>;
-var s1: Seq = [ 0, [ 0 ] ];
-var s2: Seq = [ [ \"\" ] ];
+var s1: Seq = [0, [0]];
+var s2: Seq = [[\"\"]];
 
 module.exports = { foo: (\"\": number) };
 "

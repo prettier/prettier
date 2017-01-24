@@ -16,7 +16,7 @@ function foo(x: Array<number>): [number, ?number] {
 }
 
 function foo(x: Array<number>): [number, ?number] {
-  return [ x[0], x[1] ]; // OK. This is unsound, but at least arity is enforced
+  return [x[0], x[1]]; // OK. This is unsound, but at least arity is enforced
 }
 "
 `;
@@ -31,9 +31,9 @@ exports[`test optional.js 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-([ 0, undefined ]: [number, ?string]);
+([0, undefined]: [number, ?string]);
 // Ok, correct arity
-([ 0 ]: [number, ?string]);
+([0]: [number, ?string]);
 
 // Error, arity is enforced
 ([]: [?number, string]); // error, since second element is not marked optional
@@ -51,7 +51,7 @@ foo([ {} ]); // error, too few elements in array passed to a tuple
 
 function foo(a: [Object, Object]) {}
 
-foo([ {} ]); // error, too few elements in array passed to a tuple
+foo([{}]); // error, too few elements in array passed to a tuple
 "
 `;
 
@@ -64,12 +64,12 @@ var e: [number, string,] = [123,\'duck\'];
 var f: [number, string] = [123, 456];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var a: [] = [];
-var b: [] = [ 123 ];
+var b: [] = [123];
 // Error - arity mismatch
 var c: [number] = [];
 // nope
-var d: [number, string] = [ 123, \"duck\" ];
-var e: [number, string] = [ 123, \"duck\" ];
-var f: [number, string] = [ 123, 456 ];
+var d: [number, string] = [123, \"duck\"];
+var e: [number, string] = [123, \"duck\"];
+var f: [number, string] = [123, 456];
 "
 `;

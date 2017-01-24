@@ -235,7 +235,7 @@ function corge(x: boolean) {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function foo(x: boolean) {
-  var arr = [ 1, 2, 3 ];
+  var arr = [1, 2, 3];
   for (var elem of arr) {
     if (x) {
       continue;
@@ -260,7 +260,7 @@ function baz(x: boolean) {
 }
 
 function bliffl(x: boolean) {
-  var arr = [ 1, 2, 3 ];
+  var arr = [1, 2, 3];
   loop1:
   for (var elem of arr) {
     loop2:

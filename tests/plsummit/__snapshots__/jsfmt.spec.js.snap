@@ -5,10 +5,10 @@ var [n, b, s] = foo(42);
 n * s.length;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function foo(x) {
-  return [ x, x > 0, \"number \" + x ];
+  return [x, x > 0, \"number \" + x];
 }
 
-var [ n, b, s ] = foo(42);
+var [n, b, s] = foo(42);
 n * s.length;
 "
 `;

@@ -619,7 +619,7 @@ function for_in_post_init() {
 
 // local use of annotated var in for-of is ok
 function for_of_scoped_init() {
-  for (var x of [ 1, 2, 3 ]) {
+  for (var x of [1, 2, 3]) {
     var x: number = 0;
     var y: number = x;
   }
@@ -629,14 +629,14 @@ function for_of_scoped_init() {
 function for_in_pre_init() {
   var y: number = x;
   // error
-  for (var x of [ 1, 2, 3 ]) {
+  for (var x of [1, 2, 3]) {
     var x: number = 0;
   }
 }
 
 // ...and after
 function for_in_post_init() {
-  for (var x of [ 1, 2, 3 ]) {
+  for (var x of [1, 2, 3]) {
     var x: number = 0;
   }
   var y: number = x; // error
@@ -975,6 +975,6 @@ exports[`test nullable-init.js 1`] = `
 var a: Array<?number> = [null,null];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var o: { x: ?number } = { x: null };
-var a: Array<?number> = [ null, null ];
+var a: Array<?number> = [null, null];
 "
 `;

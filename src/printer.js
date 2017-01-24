@@ -675,7 +675,7 @@ function genericPrintNoParens(path, options, print) {
               indent(
                 1,
                 concat([
-                  options.bracketSpacing ? line : softline,
+                  softline,
                   join(concat([ ",", line ]), path.map(print, "elements"))
                 ])
               ),
@@ -687,7 +687,7 @@ function genericPrintNoParens(path, options, print) {
                   ? ","
                   : ""
               ),
-              options.bracketSpacing ? line : softline,
+              softline,
               "]"
             ])
           )

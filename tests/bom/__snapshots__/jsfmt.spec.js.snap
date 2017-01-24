@@ -174,19 +174,19 @@ for (let x: string | File | Blob of a.values()) {
 
 // incorrect
 // entries
-for (let [ x, y ]: [string, string | File] of a.entries()) {
+for (let [x, y]: [string, string | File] of a.entries()) {
 }
 // correct
-for (let [ x, y ]: [string, string | File | Blob] of a.entries()) {
+for (let [x, y]: [string, string | File | Blob] of a.entries()) {
 }
 // incorrect
-for (let [ x, y ]: [number, string] of a.entries()) {
+for (let [x, y]: [number, string] of a.entries()) {
 }
 // incorrect
-for (let [ x, y ]: [string, number] of a.entries()) {
+for (let [x, y]: [string, number] of a.entries()) {
 }
 // incorrect
-for (let [ x, y ]: [number, number] of a.entries()) {
+for (let [x, y]: [number, number] of a.entries()) {
 } // incorrect
 "
 `;
@@ -246,7 +246,7 @@ new MutationObserver((n: number) => {});
 // incorrect
 // observe
 const div = document.createElement(\"div\");
-o.observe(div, { attributes: true, attributeFilter: [ \"style\" ] });
+o.observe(div, { attributes: true, attributeFilter: [\"style\"] });
 // correct
 o.observe(div, { characterData: true, invalid: true });
 // correct
