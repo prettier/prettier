@@ -4,9 +4,7 @@ exports[`test c1.js 1`] = `
 export function foo(props: { y: number }) { }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-export function foo(props: { y: number }) {
-  
-}
 
+export function foo(props: { y: number }) {}
 "
 `;

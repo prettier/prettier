@@ -45,20 +45,59 @@ function testKeysOfOtherObj(str: string, lit: \'hi\') {
   (123: $Keys<ObjLit>); // Error: number -> keys of ObjLit
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+/* @flow */
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+function testKeysOfObject(str: string, lit: \"hi\") {
+  (str: $Keys<Object>);
+  // Any string should be fine
+  if (str) {
+    (str: $Keys<Object>); // No error, truthy string should be fine
+  }
+  (\"hi\": $Keys<Object>);
+
+  // String literal should be fine
+  (123: $Keys<Object>); // Error: number -> keys of Object
+}
+
+type StrDict = { [key: string]: mixed };
+function testKeysOfStrDict(str: string, lit: \"hi\") {
+  (str: $Keys<StrDict>);
+  // Any string should be fine
+  if (str) {
+    (str: $Keys<StrDict>); // No error, truthy string should be fine
+  }
+  (\"hi\": $Keys<StrDict>);
+
+  // String literal should be fine
+  (123: $Keys<StrDict>); // Error: number -> keys of StrDict
+}
+
+type StrLitDict = { [key: \"hi\"]: mixed };
+function testKeysOfStrLitDict(str: string, lit: \"hi\") {
+  (str: $Keys<StrLitDict>);
+  // Error: Not all strings are allowed
+  if (str) {
+    (str: $Keys<StrLitDict>); // Error: Not all truthy strings are allowed
+  }
+  (\"hi\": $Keys<StrLitDict>);
+  // The right string literal is allowed
+  (\"bye\": $Keys<StrLitDict>);
+
+  // Error: The wrong string literal is not allowed
+  (123: $Keys<StrLitDict>); // Error: number -> keys of StrLitDict
+}
+
+type ObjLit = { hi: mixed };
+function testKeysOfOtherObj(str: string, lit: \"hi\") {
+  (str: $Keys<ObjLit>);
+  // Error: string -> keys of ObjLit
+  if (str) {
+    (str: $Keys<ObjLit>); // Error: truthy string -> keys of ObjLit
+  }
+  (\"hi\": $Keys<ObjLit>);
+
+  // String literal should be fine
+  (123: $Keys<ObjLit>); // Error: number -> keys of ObjLit
+}
 "
 `;

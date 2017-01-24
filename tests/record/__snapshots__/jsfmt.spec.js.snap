@@ -24,20 +24,38 @@ class D extends C<{foo: number, bar: string}> {
 type AnyKey = $Keys<Object>;
 var o3: {[key: AnyKey]: number} = { foo: 0 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1530
-      return fromString(\" | \").join(path.map(print, \"types\"));
-                               ^
+type Key1 = \"foo\" | \"bar\";
+// make an enum type with known key set
+var o1: { [key: Key1]: number } = {
+  foo: 0,
+  // error: string ~/~ number
+  bar: \"\"
+};
+o1.foo;
+// OK
+o1.qux;
+// error: qux not found
+o1.toString();
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1530:32)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1481:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// ok
+type R = { foo: any, bar: any };
+type Key2 = $Keys<R>;
+// another way to make an enum type, with unknown key set
+var o2: { [key: Key2]: number } = { foo: 0 };
+// OK to leave out bar
+o2.bar;
+// OK to access bar
+o2.qux;
+
+// error: qux not found
+class C<X> {
+  x: $Subtype<{ [key: $Keys<X>]: any }>; // object with larger key set than X\'s
+}
+class D extends C<{ foo: number, bar: string }> {
+  x: { foo: number, qux: boolean }; // error: qux not found
+}
+
+type AnyKey = $Keys<Object>;
+var o3: { [key: AnyKey]: number } = { foo: 0 };
 "
 `;

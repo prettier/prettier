@@ -4,7 +4,7 @@ exports[`test h1.js 1`] = `
 export type Bar = number;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-export type Bar = number;
 
+export type Bar = number;
 "
 `;

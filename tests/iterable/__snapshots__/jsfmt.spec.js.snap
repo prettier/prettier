@@ -10,21 +10,16 @@ var arrayTest4: Iterable<number> = [\"hi\"];
 // Error string ~> number
 var arrayTest5: Iterable<string> = [\"hi\", 1];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+/* @flow */
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+var arrayTest1: Iterable<number> = ([1, 2]: Array<number>);
+var arrayTest2: Iterable<number | string> = [1, 2, \"hi\"];
+var arrayTest3: Iterable<*> = [1, 2, 3];
+
+// Error string ~> number
+var arrayTest4: Iterable<number> = [\"hi\"];
+// Error string ~> number
+var arrayTest5: Iterable<string> = [\"hi\", 1];
 "
 `;
 
@@ -51,21 +46,31 @@ function fill_the_cache(x: Array<any | any>): Iterable<string> { return x; }
 // Error: number ~> string
 function miss_the_cache(x: Array<string | number>): Iterable<string> { return x; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1530
-      return fromString(\" | \").join(path.map(print, \"types\"));
-                               ^
+/* @flow */
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1530:32)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.map (/src/fast-path.js:167:19)
-    at genericPrintNoParens (/src/printer.js:1497:36)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+/**
+ * I\'ve hit a bug with the caching in flow_js.ml. Avik is removing that caching
+ * so it should be fixed soon. The basic idea is I flow something like
+ *
+ * Array<any | any> ~> Iterable<string>
+ *
+ * then Flow won\'t notice when I try to flow
+ *
+ * Array<string | number> ~> Iterable<string>
+ *
+ * We shouldn\'t hit the cache because the union types are different, but we do
+ * anyway. I\'ve fixed this temporarily by bumping the \"meaningful\" param to
+ * Hashtbl.hash_param
+ */
+
+function fill_the_cache(x: Array<any | any>): Iterable<string> {
+  return x;
+}
+
+// Error: number ~> string
+function miss_the_cache(x: Array<string | number>): Iterable<string> {
+  return x;
+}
 "
 `;
 
@@ -82,21 +87,17 @@ var m: Map<string, number> = new Map();
 
 foo(m.keys());
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+/* @flow */
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+function foo(strs: Iterable<string>): void {
+  for (var s: string of strs) {
+    console.log(s);
+  }
+}
+
+var m: Map<string, number> = new Map();
+
+foo(m.keys());
 "
 `;
 
@@ -131,21 +132,40 @@ function makeIterator(coin_flip: () => boolean ): Iterator<string> {
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1348
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+/* @flow */
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1348:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1254:25)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+function makeIterator(coin_flip: () => boolean): Iterator<string> {
+  return {
+    \"@@iterator\"() {
+      return makeIterator(coin_flip);
+    },
+    next(): IteratorResult<string, void> {
+      var done = coin_flip();
+      if (!done) {
+        return { done, value: \"still going...\" };
+      } else {
+        return { done };
+      }
+    }
+  };
+}
+
+function makeIterator(coin_flip: () => boolean): Iterator<string> {
+  return {
+    \"@@iterator\"() {
+      return makeIterator(coin_flip);
+    },
+    next(): IteratorResult<string, void> {
+      var done = coin_flip();
+      if (done) {
+        // Whoops, made a mistake and forgot to negate done
+        return { done, value: \"still going...\" }; // Error string ~> void
+      } else {
+        return { done }; // Error void ~> string
+      }
+    }
+  };
+}
 "
 `;
 
@@ -166,21 +186,21 @@ function mapTest4(map: Map<number, string>): Iterable<string> {
   return map;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+/* @flow */
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+function mapTest1(map: Map<string, number>): Iterable<[string, number]> {
+  return map;
+}
+function mapTest2<K, V>(map: Map<K, V>): Iterable<[K, V]> {
+  return map;
+}
+function mapTest3(map: Map<string, number>): Iterable<*> {
+  return map;
+}
+// Error - Map is an Iterable<[K, V]>
+function mapTest4(map: Map<number, string>): Iterable<string> {
+  return map;
+}
 "
 `;
 
@@ -201,21 +221,21 @@ function setTest4(set: Set<string>): Iterable<number> {
   return set;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+/* @flow */
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+function setTest1(set: Set<string>): Iterable<string> {
+  return set;
+}
+function setTest2<T>(set: Set<T>): Iterable<T> {
+  return set;
+}
+function setTest3(set: Set<string>): Iterable<*> {
+  return set;
+}
+// Error string ~> number
+function setTest4(set: Set<string>): Iterable<number> {
+  return set;
+}
 "
 `;
 
@@ -226,21 +246,11 @@ var stringTest1: Iterable<string> = \"hi\";
 var stringTest3: Iterable<*> = \"hi\";
 var stringTest3: Iterable<number> = \"hi\"; // Error - string is a Iterable<string>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+/* @flow */
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+var stringTest1: Iterable<string> = \"hi\";
+var stringTest3: Iterable<*> = \"hi\";
+var stringTest3: Iterable<number> = \"hi\"; // Error - string is a Iterable<string>
 "
 `;
 
@@ -251,20 +261,11 @@ exports[`test variance.js 1`] = `
 
 (([]: Array<string>).values(): Iterable<?string>); // ok, Iterator<+T>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+/* @flow */
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+(([]: Array<string>): Iterable<?string>);
+
+// ok, Iterable<+T>
+(([]: Array<string>).values(): Iterable<?string>); // ok, Iterator<+T>
 "
 `;

@@ -27,20 +27,32 @@ async function run() {
 
 run()
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+/**
+ * At the moment, all type params are invariant with
+ * the exception of the single param to the Promise class,
+ * which is covariant.
+ *
+ * Explicit variance control via annotation is coming,
+ * but not immediately. In the meantime, Promise\'s
+ * participation in async/await makes certain kinds of
+ * errors onerous (and nonobvious) without covariance.
+ *
+ * @flow
+ */
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+async function foo(x: boolean): Promise<?{ bar: string }> {
+  if (x) {
+    return { bar: \"baz\" }; // OK, because of covariant type param
+  } else {
+    return null;
+  }
+}
+
+async function run() {
+  console.log(await foo(true));
+  console.log(await foo(false));
+}
+
+run();
 "
 `;

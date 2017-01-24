@@ -8,12 +8,14 @@ foo(0);
 module.exports = foo;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+
 function foo(x: number): string {
   return 5;
 }
-foo(0);
-module.exports = foo;
 
+foo(0);
+
+module.exports = foo;
 "
 `;
 
@@ -25,9 +27,10 @@ const foo = require(\'./a1\');
 module.exports = foo(\"\");
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-const foo = require(\"./a1\");
-module.exports = foo(\"\");
 
+const foo = require(\"./a1\");
+
+module.exports = foo(\"\");
 "
 `;
 
@@ -39,9 +42,10 @@ const five = require(\'./a2\');
 (five + five: string);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-const five = require(\"./a2\");
-(five + five: string);
 
+const five = require(\"./a2\");
+
+(five + five: string);
 "
 `;
 
@@ -54,14 +58,15 @@ class E { x: C; }
 module.exports = { C, E };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+
 class C {
   x: C;
 }
 class E {
   x: C;
 }
-module.exports = { C, E };
 
+module.exports = { C, E };
 "
 `;
 
@@ -77,6 +82,7 @@ class D extends F { }
 module.exports = { C, D };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+
 import { C, E } from \"./b0\";
 function foo() {
   return C;
@@ -88,7 +94,6 @@ let X = foo();
 class F extends X {}
 class D extends F {}
 module.exports = { C, D };
-
 "
 `;
 
@@ -98,8 +103,8 @@ exports[`test b2.js 1`] = `
 module.exports = require(\"./b1\");
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-module.exports = require(\"./b1\");
 
+module.exports = require(\"./b1\");
 "
 `;
 
@@ -111,9 +116,10 @@ import { C, D } from \"./b2\";
 (new D: C);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-import { C, D } from \"./b2\";
-(new D(): C);
 
+import { C, D } from \"./b2\";
+
+(new D(): C);
 "
 `;
 
@@ -123,10 +129,8 @@ exports[`test c1.js 1`] = `
 export function foo(props: { x: number }) { }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-export function foo(props: { x: number }) {
-  
-}
 
+export function foo(props: { x: number }) {}
 "
 `;
 
@@ -140,11 +144,12 @@ export function bar(props: { x: number }) {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+
 import { foo } from \"./c1\";
+
 export function bar(props: { x: number }) {
   foo({ x: 0 });
 }
-
 "
 `;
 
@@ -156,9 +161,10 @@ import { bar } from \"./c2\";
 bar({ x: 0 });
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-import { bar } from \"./c2\";
-bar({ x: 0 });
 
+import { bar } from \"./c2\";
+
+bar({ x: 0 });
 "
 `;
 
@@ -170,10 +176,10 @@ export class B {}
 export var x = new A;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+
 export class A {}
 export class B {}
 export var x = new A();
-
 "
 `;
 
@@ -184,9 +190,9 @@ import {A, x} from \"./d1\";
 export var y: A = x;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+
 import { A, x } from \"./d1\";
 export var y: A = x;
-
 "
 `;
 
@@ -200,21 +206,11 @@ export type Action =
 
 export const LIFE = 42;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1530
-      return fromString(\" | \").join(path.map(print, \"types\"));
-                               ^
+// @flow
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1530:32)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1481:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+export type Action = { type: \"FOO\" } | { type: \"BAR\" };
+
+export const LIFE = 42;
 "
 `;
 
@@ -231,21 +227,17 @@ import { LIFE } from \'./e1\';
 
 (LIFE: 42);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/node_modules/ast-types/lib/types.js:60
-            throw new Error(str + \" does not match type \" + this);
-            ^
+// @flow
 
-Error: {type: NumericLiteralTypeAnnotation, start: 139, end: 141, loc: [object Object], value: 42, extra: [object Object]} does not match type Printable
-    at Type.Tp.assert (/node_modules/ast-types/lib/types.js:60:19)
-    at genericPrintNoParens (/src/printer.js:221:24)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1254:25)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
+import type { Action } from \"./e1\";
+
+const f = (): Action => {
+  return { type: \"FOO\" };
+};
+
+import { LIFE } from \"./e1\";
+
+(LIFE: 42);
 "
 `;
 
@@ -262,13 +254,15 @@ declare var c: T;
 module.exports = { a, b, c };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+
 type T = { x: number };
 type S = { x: string };
+
 declare var a: T;
 declare var b: S;
 declare var c: T;
-module.exports = { a, b, c };
 
+module.exports = { a, b, c };
 "
 `;
 
@@ -279,9 +273,9 @@ var { a, b, c } = require(\'./f1\');
 (c: { x: number });
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+
 var { a, b, c } = require(\"./f1\");
 (c: { x: number });
-
 "
 `;
 
@@ -291,8 +285,8 @@ exports[`test g1.js 1`] = `
 export class C { }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-export class C {}
 
+export class C {}
 "
 `;
 
@@ -306,10 +300,12 @@ class D extends C { }
 module.exports = { D };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-import { C } from \"./g1\";
-class D extends C {}
-module.exports = { D };
 
+import { C } from \"./g1\";
+
+class D extends C {}
+
+module.exports = { D };
 "
 `;
 
@@ -322,10 +318,11 @@ import { D } from \'./g2\';
 (new D: C)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+
 import { C } from \"./g1\";
 import { D } from \"./g2\";
-(new D(): C);
 
+(new D(): C);
 "
 `;
 
@@ -335,8 +332,8 @@ exports[`test h1.js 1`] = `
 export type Foo = number;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-export type Foo = number;
 
+export type Foo = number;
 "
 `;
 
@@ -346,7 +343,7 @@ exports[`test h2.js 1`] = `
 import type { Foo } from \'./h1\';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-import type { Foo } from \"./h1\";
 
+import type { Foo } from \"./h1\";
 "
 `;

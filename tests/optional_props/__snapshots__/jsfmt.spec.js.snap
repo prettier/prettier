@@ -13,17 +13,20 @@ bar({});
 bar({foo: \"\"});
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var x: {} = { foo: 0 };
-var y: { foo?: string } = x;// OK in TypeScript, not OK in Flow
+var y: { foo?: string } = x;
+
+// OK in TypeScript, not OK in Flow
 var z: string = y.foo || \"\";
+
 var o = {};
-y = o;// OK; we know that narrowing could not have happened
-o.foo = 0;// future widening is constrained
-function bar(config: { foo?: number }) {
-  
-}
+y = o;
+// OK; we know that narrowing could not have happened
+o.foo = 0;
+
+// future widening is constrained
+function bar(config: { foo?: number }) {}
 bar({});
 bar({ foo: \"\" });
-
 "
 `;
 
@@ -43,16 +46,25 @@ var e: { foo?: ?string } = { foo: undefined }; // This is fine
 var f: { foo?: ?string } = { foo: null }; // Also fine
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var a: { foo?: string } = {};
-a.foo = undefined;// This is not an error
-a.foo = null;// But this is an error
-var b: { foo?: ?string } = {};
-b.foo = undefined;// This is fine
-b.foo = null;// Also fine
-var c: { foo?: string } = { foo: undefined };// This is not an error
-var d: { foo?: string } = { foo: null };// But this is an error
-var e: { foo?: ?string } = { foo: undefined };// This is fine
-var f: { foo?: ?string } = { foo: null };// Also fine
+a.foo = undefined;
+// This is not an error
+a.foo = null;
 
+// But this is an error
+var b: { foo?: ?string } = {};
+b.foo = undefined;
+// This is fine
+b.foo = null;
+
+// Also fine
+var c: { foo?: string } = { foo: undefined };
+// This is not an error
+var d: { foo?: string } = { foo: null };
+
+// But this is an error
+var e: { foo?: ?string } = { foo: undefined };
+// This is fine
+var f: { foo?: ?string } = { foo: null }; // Also fine
 "
 `;
 
@@ -115,6 +127,7 @@ class A {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+
 /*
    object literals are sealed. this is simply a heuristic
    decision: most of the time, the rule gives the \'right\'
@@ -135,6 +148,7 @@ class A {
    properties, is to have the sealed type acquire the optional
    properties.
  */
+
 // x has optional property b.
 // (note that the initializer here does not play into
 // the problem, it\'s just a placeholder. initializers
@@ -142,14 +156,17 @@ class A {
 // subsequent assignments.)
 //
 var x: { a: number, b?: number } = { a: 0 };
+
 // now assign an object literal lacking property b.
 // the literal\'s type is sealed and has only a at creation.
 // but it then flows, specific ~> general, to x\'s annotation
 // type. at that point, it acquires b as an optional property.
 //
 x = { a: 0 };
+
 // ...which allows this assignment to take place.
 x.b = 1;
+
 // T7810506
 class A {
   x: { a: number, b?: string };
@@ -165,7 +182,6 @@ class A {
     this.x.b = \"hello\";
   }
 }
-
 "
 `;
 
@@ -180,20 +196,14 @@ class A<O: {x: { a: number, b?: string}}> {
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+// generalization of failure in test3.js
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1172:16)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+class A<O: { x: { a: number, b?: string } }> {
+  o: O;
+  foo() {
+    this.o.x = { a: 123 };
+    this.o.x.b = \"hello\"; // this is a spurious error (see test3.js for details)
+  }
+}
 "
 `;

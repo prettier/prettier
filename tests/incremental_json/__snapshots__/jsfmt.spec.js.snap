@@ -2,14 +2,13 @@ exports[`test test.js 1`] = `
 "/**
  * @flow
  */
-var data = require('./data');
+var data = require(\'./data\');
 var x: number = data.x;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /**
  * @flow
  */
-var data = require("./data");
+var data = require(\"./data\");
 var x: number = data.x;
-
 "
 `;

@@ -20,20 +20,25 @@ var id = geolocation.watchPosition(
 );
 geolocation.clearWatch(id);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1020
-        }, \"consequent\").indent(options.tabWidth));
-                         ^
+/* @flow */
 
-TypeError: path.call(...).indent is not a function
-    at genericPrintNoParens (/src/printer.js:1020:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.map (/src/fast-path.js:167:19)
-    at genericPrintNoParens (/src/printer.js:1005:36)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+var geolocation = new Geolocation();
+var id = geolocation.watchPosition(
+  position => {
+    var coords: Coordinates = position.coords;
+    var accuracy: number = coords.accuracy;
+  },
+  e => {
+    var message: string = e.message;
+    switch (e.code) {
+      case e.PERMISSION_DENIED:
+      case e.POSITION_UNAVAILABLE:
+      case e.TIMEOUT:
+      default:
+        break;
+    }
+  }
+);
+geolocation.clearWatch(id);
 "
 `;

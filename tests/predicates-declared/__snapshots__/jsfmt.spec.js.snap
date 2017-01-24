@@ -40,21 +40,47 @@ declare var m: Function;
 const x = \"\";
 if (m.bind(this)(x)) { }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/node_modules/ast-types/lib/types.js:60
-            throw new Error(str + \" does not match type \" + this);
-            ^
+// @flow
 
-Error: {type: NumericLiteralTypeAnnotation, start: 288, end: 289, loc: [object Object], value: 1, extra: [object Object]} does not match type Printable
-    at Type.Tp.assert (/node_modules/ast-types/lib/types.js:60:19)
-    at genericPrintNoParens (/src/printer.js:221:24)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1254:25)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
+// Sanity checks:
+//  - use of bind in a position of a function predicate.
+//    (This case should fall through, as method calls
+//    are currently not supported.) The original behavior
+//    (including \`havoc\`) should be retained.
+
+class C {
+  m() {
+    return true;
+  }
+  a: 1;
+
+  n() {
+    if (this.m.bind(this)) {
+      this.a;
+    }
+  }
+}
+
+declare var m: Function;
+const o = { a: 1 };
+
+if (m.bind(o)) {
+  o.a;
+}
+
+class D {
+  m: Function;
+
+  n() {
+    if (this.m({})) {
+    }
+  }
+}
+
+declare var m: Function;
+const x = \"\";
+if (m.bind(this)(x)) {
+}
 "
 `;
 
@@ -78,21 +104,23 @@ function foo(x: number | string | Array<string>): number {
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/node_modules/babylon/lib/index.js:4255
-  throw err;
-  ^
+// @flow
 
-SyntaxError: Unexpected token, expected ; (3:39)
-    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
-    at Parser.pp.unexpected (/node_modules/babylon/lib/index.js:1633:8)
-    at Parser.pp.semicolon (/node_modules/babylon/lib/index.js:1614:38)
-    at Parser.pp$7.flowParseDeclareFunction (/node_modules/babylon/lib/index.js:4467:8)
-    at Parser.pp$7.flowParseDeclare (/node_modules/babylon/lib/index.js:4476:17)
-    at Parser.parseExpressionStatement (/node_modules/babylon/lib/index.js:5235:25)
-    at Parser.pp$1.parseStatement (/node_modules/babylon/lib/index.js:1785:17)
-    at Parser.parseStatement (/node_modules/babylon/lib/index.js:5224:22)
-    at Parser.pp$1.parseBlockBody (/node_modules/babylon/lib/index.js:2139:21)
-    at Parser.pp$1.parseTopLevel (/node_modules/babylon/lib/index.js:1651:8)
+declare function f1(x: mixed): boolean %checks(typeof x === \"string\");
+declare function f2(x: mixed): boolean %checks(Array.isArray(x));
+
+declare var cond: boolean;
+
+// Feature check:
+function foo(x: number | string | Array<string>): number {
+  var f = cond ? f1 : f2;
+
+  if (f(x)) {
+    return x.length;
+  } else {
+    return 1;
+  }
+}
 "
 `;
 
@@ -116,21 +144,24 @@ function foo(x: string | Array<string>): string {
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/node_modules/babylon/lib/index.js:4255
-  throw err;
-  ^
+// @flow
 
-SyntaxError: Unexpected token, expected ; (3:46)
-    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
-    at Parser.pp.unexpected (/node_modules/babylon/lib/index.js:1633:8)
-    at Parser.pp.semicolon (/node_modules/babylon/lib/index.js:1614:38)
-    at Parser.pp$7.flowParseDeclareFunction (/node_modules/babylon/lib/index.js:4467:8)
-    at Parser.pp$7.flowParseDeclare (/node_modules/babylon/lib/index.js:4476:17)
-    at Parser.parseExpressionStatement (/node_modules/babylon/lib/index.js:5235:25)
-    at Parser.pp$1.parseStatement (/node_modules/babylon/lib/index.js:1785:17)
-    at Parser.parseStatement (/node_modules/babylon/lib/index.js:5224:22)
-    at Parser.pp$1.parseBlockBody (/node_modules/babylon/lib/index.js:2139:21)
-    at Parser.pp$1.parseTopLevel (/node_modules/babylon/lib/index.js:1651:8)
+declare function is_string(x: mixed): boolean %checks(typeof x === \"string\");
+declare function is_number(x: mixed): boolean %checks(typeof x === \"number\");
+
+// Feature check:
+function foo(x: string | Array<string>): string {
+  if (is_string(x)) {
+    // The use of \`is_string\` as a conditional check
+    // should guarantee the narrowing of the type of \`x\`
+    // to string.
+    return x;
+  } else {
+    // Accordingly the negation of the above check
+    // guarantees that \`x\` here is an Array<string>
+    return x.join();
+  }
+}
 "
 `;
 
@@ -158,21 +189,30 @@ function foo(x: mixed) { return 1; }
 
 (Number(dollars) || 0);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1348
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+// @flow
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1348:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1254:25)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// Sanity check:
+// - conditional functions do not affect behavior of conditional
+//   expressions (e.g. \`||\`)
+
+declare function r(x: string): number;
+var s = \"a\";
+var n = r(s) || 1;
+(n: number);
+
+var x = \"\";
+if (x = r(s) || 1) {
+  (x: number);
+}
+
+declare var dollars: mixed;
+
+function foo(x: mixed) {
+  return 1;
+}
+foo(dollars) || 0;
+
+Number(dollars) || 0;
 "
 `;
 
@@ -202,21 +242,24 @@ function f(_this: { m: ?Meeting }): string {
   return \"3\";
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+// @flow
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// Sanity check:
+// - preserving \`havoc\` semantics
+
+type Meeting = { organizer: ?Invitee, es: Array<Invitee> };
+
+type Invitee = { fbid: number };
+
+function f(_this: { m: ?Meeting }): string {
+  if (!_this.m) {
+    return \"0\";
+  }
+
+  if (_this.m.es.some(a => a.fbid === 0)) {
+  }
+  return \"3\";
+}
 "
 `;
 
@@ -234,46 +277,17 @@ function foo(x: string | Array<string>): string {
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+// @flow
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-"
-`;
+// The original first-order case
 
-exports[`test sanity-conditional.js 1`] = `
-"// @flow
-
-// ERROR: only allow conditional expressions in \`%checks\`
-
-declare function foo(x: string): mixed %checks(x = \"1\");
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/node_modules/babylon/lib/index.js:4255
-  throw err;
-  ^
-
-SyntaxError: Unexpected token, expected ; (5:39)
-    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
-    at Parser.pp.unexpected (/node_modules/babylon/lib/index.js:1633:8)
-    at Parser.pp.semicolon (/node_modules/babylon/lib/index.js:1614:38)
-    at Parser.pp$7.flowParseDeclareFunction (/node_modules/babylon/lib/index.js:4467:8)
-    at Parser.pp$7.flowParseDeclare (/node_modules/babylon/lib/index.js:4476:17)
-    at Parser.parseExpressionStatement (/node_modules/babylon/lib/index.js:5235:25)
-    at Parser.pp$1.parseStatement (/node_modules/babylon/lib/index.js:1785:17)
-    at Parser.parseStatement (/node_modules/babylon/lib/index.js:5224:22)
-    at Parser.pp$1.parseBlockBody (/node_modules/babylon/lib/index.js:2139:21)
-    at Parser.pp$1.parseTopLevel (/node_modules/babylon/lib/index.js:1651:8)
+function foo(x: string | Array<string>): string {
+  if (typeof x === \"string\") {
+    return x; // [ERROR] x: Array<string> doesn\'t match return type
+  } else {
+    return x.join(); // [ERROR] x: string doesn\'t have .join method
+  }
+}
 "
 `;
 
@@ -292,21 +306,19 @@ function foo(s: Array<string>): string {
   return 1;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1348
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+// @flow
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1348:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1254:25)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// Sanity check:
+// - we should still be getting an error at the second return statement
+
+declare function pred<T>(x: T): boolean;
+
+function foo(s: Array<string>): string {
+  if (pred(s)) {
+    return \"1\";
+  }
+  return 1;
+}
 "
 `;
 
@@ -331,21 +343,24 @@ function foo(s: Array<string>): string {
   return \"1\"
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1348
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+// @flow
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1348:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1254:25)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// Sanity check:
+// - invalid calls at predicate positions
+
+declare function pred<T>(x: T): boolean;
+
+function foo(s: Array<string>): string {
+  if (1(s)) {
+    return \"1\";
+  }
+
+  if ((pred + 1)(\"s\")) {
+    return \"1\";
+  }
+
+  return \"1\";
+}
 "
 `;
 
@@ -366,21 +381,20 @@ function bar(x: string | Array<string>): string {
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/node_modules/babylon/lib/index.js:4255
-  throw err;
-  ^
+// @flow
 
-SyntaxError: Unexpected token, expected ; (3:46)
-    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
-    at Parser.pp.unexpected (/node_modules/babylon/lib/index.js:1633:8)
-    at Parser.pp.semicolon (/node_modules/babylon/lib/index.js:1614:38)
-    at Parser.pp$7.flowParseDeclareFunction (/node_modules/babylon/lib/index.js:4467:8)
-    at Parser.pp$7.flowParseDeclare (/node_modules/babylon/lib/index.js:4476:17)
-    at Parser.parseExpressionStatement (/node_modules/babylon/lib/index.js:5235:25)
-    at Parser.pp$1.parseStatement (/node_modules/babylon/lib/index.js:1785:17)
-    at Parser.parseStatement (/node_modules/babylon/lib/index.js:5224:22)
-    at Parser.pp$1.parseBlockBody (/node_modules/babylon/lib/index.js:2139:21)
-    at Parser.pp$1.parseTopLevel (/node_modules/babylon/lib/index.js:1651:8)
+declare function is_string(x: mixed): boolean %checks(typeof x === \"string\");
+declare function is_number(x: mixed): boolean %checks(typeof x === \"number\");
+
+// Sanity check:
+// - Erroneous logic
+function bar(x: string | Array<string>): string {
+  if (is_number(x)) {
+    return x;
+  } else {
+    return x.join(); // error: both string and Array<string> can flow to x
+  }
+}
 "
 `;
 
@@ -396,21 +410,16 @@ declare function foo(
 
 foo(3, 3);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/node_modules/babylon/lib/index.js:4255
-  throw err;
-  ^
+// @flow
 
-SyntaxError: Unexpected token, expected ; (8:11)
-    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
-    at Parser.pp.unexpected (/node_modules/babylon/lib/index.js:1633:8)
-    at Parser.pp.semicolon (/node_modules/babylon/lib/index.js:1614:38)
-    at Parser.pp$7.flowParseDeclareFunction (/node_modules/babylon/lib/index.js:4467:8)
-    at Parser.pp$7.flowParseDeclare (/node_modules/babylon/lib/index.js:4476:17)
-    at Parser.parseExpressionStatement (/node_modules/babylon/lib/index.js:5235:25)
-    at Parser.pp$1.parseStatement (/node_modules/babylon/lib/index.js:1785:17)
-    at Parser.parseStatement (/node_modules/babylon/lib/index.js:5224:22)
-    at Parser.pp$1.parseBlockBody (/node_modules/babylon/lib/index.js:2139:21)
-    at Parser.pp$1.parseTopLevel (/node_modules/babylon/lib/index.js:1651:8)
+// Sanity check: make sure the parameters are checked as usual
+
+declare function foo(
+  input: mixed,
+  types: string | Array<string>
+): boolean %checks(typeof input === \"string\" || Array.isArray(input));
+
+foo(3, 3);
 "
 `;
 
@@ -431,21 +440,22 @@ function foo(x: string | Array<string>): string {
   return \"1\"
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/node_modules/babylon/lib/index.js:4255
-  throw err;
-  ^
+// @flow
 
-SyntaxError: Unexpected token, expected { (6:33)
-    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
-    at Parser.pp.unexpected (/node_modules/babylon/lib/index.js:1633:8)
-    at Parser.pp.expect (/node_modules/babylon/lib/index.js:1621:33)
-    at Parser.pp$1.parseBlock (/node_modules/babylon/lib/index.js:2119:8)
-    at Parser.pp$3.parseFunctionBody (/node_modules/babylon/lib/index.js:4004:22)
-    at Parser.parseFunctionBody (/node_modules/babylon/lib/index.js:5211:20)
-    at Parser.pp$1.parseFunction (/node_modules/babylon/lib/index.js:2257:8)
-    at Parser.pp$1.parseFunctionStatement (/node_modules/babylon/lib/index.js:1926:15)
-    at Parser.pp$1.parseStatement (/node_modules/babylon/lib/index.js:1712:19)
-    at Parser.parseStatement (/node_modules/babylon/lib/index.js:5224:22)
+// Sanity check:
+// - predicate functions cannot have bodies (can only be declarations)
+
+function pred(x: mixed): boolean %checks(typeof x === \"string\") {
+  // error: cannot use pred type here
+  return typeof x === \"string\";
+}
+
+function foo(x: string | Array<string>): string {
+  if (pred(x)) {
+    return x;
+  }
+  return \"1\";
+}
 "
 `;
 
@@ -454,20 +464,8 @@ exports[`test sanity-return-type.js 1`] = `
 
 declare function f2(x: mixed): string %checks(Array.isArray(x));
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/node_modules/babylon/lib/index.js:4255
-  throw err;
-  ^
+// @flow
 
-SyntaxError: Unexpected token, expected ; (3:38)
-    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
-    at Parser.pp.unexpected (/node_modules/babylon/lib/index.js:1633:8)
-    at Parser.pp.semicolon (/node_modules/babylon/lib/index.js:1614:38)
-    at Parser.pp$7.flowParseDeclareFunction (/node_modules/babylon/lib/index.js:4467:8)
-    at Parser.pp$7.flowParseDeclare (/node_modules/babylon/lib/index.js:4476:17)
-    at Parser.parseExpressionStatement (/node_modules/babylon/lib/index.js:5235:25)
-    at Parser.pp$1.parseStatement (/node_modules/babylon/lib/index.js:1785:17)
-    at Parser.parseStatement (/node_modules/babylon/lib/index.js:5224:22)
-    at Parser.pp$1.parseBlockBody (/node_modules/babylon/lib/index.js:2139:21)
-    at Parser.pp$1.parseTopLevel (/node_modules/babylon/lib/index.js:1651:8)
+declare function f2(x: mixed): string %checks(Array.isArray(x));
 "
 `;

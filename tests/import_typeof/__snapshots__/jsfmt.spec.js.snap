@@ -15,16 +15,17 @@ module.exports = ClassFoo3;
 /**
  * @flow
  */
+
 class ClassFoo3 {
   givesANum(): number {
     return 42;
   }
-  givesAFoo3(): ClassFoo3 {
+  static givesAFoo3(): ClassFoo3 {
     return new ClassFoo3();
   }
 }
-module.exports = ClassFoo3;
 
+module.exports = ClassFoo3;
 "
 `;
 
@@ -34,8 +35,8 @@ exports[`test ExportCJSDefault_Number.js 1`] = `
 module.exports = 42;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-module.exports = 42;
 
+module.exports = 42;
 "
 `;
 
@@ -51,9 +52,10 @@ exports.ClassFoo4 = ClassFoo4;
 /**
  * @flow
  */
-class ClassFoo4 {}
-exports.ClassFoo4 = ClassFoo4;
 
+class ClassFoo4 {}
+
+exports.ClassFoo4 = ClassFoo4;
 "
 `;
 
@@ -63,8 +65,8 @@ exports[`test ExportCJSNamed_Number.js 1`] = `
 exports.num = 42;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-exports.num = 42;
 
+exports.num = 42;
 "
 `;
 
@@ -82,13 +84,14 @@ export default ClassFoo1;
 /**
  * @flow
  */
+
 class ClassFoo1 {
   returnsANumber(): number {
     return 42;
   }
 }
-export default ClassFoo1
 
+export default ClassFoo1;
 "
 `;
 
@@ -98,8 +101,8 @@ exports[`test ExportDefault_Number.js 1`] = `
 export default 42;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-export default 42
 
+export default 42;
 "
 `;
 
@@ -117,21 +120,18 @@ export function givesAFoo3Obj(): AliasFoo3 {
   };
 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1348
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+/**
+ * @flow
+ */
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1348:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1452:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+export type AliasFoo3 = { givesANum(): number };
+export function givesAFoo3Obj(): AliasFoo3 {
+  return {
+    givesANum(): number {
+      return 42;
+    }
+  };
+}
 "
 `;
 
@@ -146,21 +146,17 @@ class ClassFoo2 {
 
 export {ClassFoo2};
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1785
-        fromString(\", \").join(path.map(print, \"specifiers\")),
-                         ^
+/**
+ * @flow
+ */
 
-TypeError: fromString(...).join is not a function
-    at printExportDeclaration (/src/printer.js:1785:26)
-    at genericPrintNoParens (/src/printer.js:488:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at /src/printer.js:1601:18
-    at FastPath.map (/src/fast-path.js:167:19)
-    at printStatementSequence (/src/printer.js:1586:8)
-    at /src/printer.js:238:16
+class ClassFoo2 {
+  returnsANumber(): number {
+    return 42;
+  }
+}
+
+export { ClassFoo2 };
 "
 `;
 
@@ -171,9 +167,9 @@ export var num = 42;
 export var str = \'asdf\';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+
 export var num = 42;
 export var str = \"asdf\";
-
 "
 `;
 
@@ -183,8 +179,8 @@ exports[`test ExportNamed_Number.js 1`] = `
 export var num = 42;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-export var num = 42;
 
+export var num = 42;
 "
 `;
 
@@ -296,40 +292,58 @@ var j2: ModuleNSObjT = {num: 42, str: 42}; // Error: number ~> string
 /**
  * @flow
  */
+
 ///////////////////////////////////////////////////
 // == Importing Class Typeof (Default Export) == //
 ///////////////////////////////////////////////////
+
 import typeof ClassFoo1T from \"./ExportDefault_Class\";
 import ClassFoo1 from \"./ExportDefault_Class\";
+
 var a1: ClassFoo1T = ClassFoo1;
-var a2: ClassFoo1T = new ClassFoo1();// Error: ClassFoo1 (inst) ~> ClassFoo1 (class)
-new ClassFoo1T();// Error: ClassFoo1T is not bound to a value
+var a2: ClassFoo1T = new ClassFoo1();
+// Error: ClassFoo1 (inst) ~> ClassFoo1 (class)
+new ClassFoo1T();
+
+// Error: ClassFoo1T is not bound to a value
 /////////////////////////////////////////////////
 // == Importing Class Typeof (Named Export) == //
 /////////////////////////////////////////////////
 import typeof { ClassFoo2 as ClassFoo2T } from \"./ExportNamed_Class\";
 import { ClassFoo2 } from \"./ExportNamed_Class\";
+
 var b1: ClassFoo2T = ClassFoo2;
-var b2: ClassFoo2T = new ClassFoo2();// Error: ClassFoo2 (inst) ~> ClassFoo2 (class)
-new ClassFoo2T();// Error: ClassFoo2T is not bound to a value
+var b2: ClassFoo2T = new ClassFoo2();
+// Error: ClassFoo2 (inst) ~> ClassFoo2 (class)
+new ClassFoo2T();
+
+// Error: ClassFoo2T is not bound to a value
 ///////////////////////////////////////////////////////
 // == Importing Class Typeof (CJS Default Export) == //
 ///////////////////////////////////////////////////////
 import typeof ClassFoo3T from \"./ExportCJSDefault_Class\";
 import ClassFoo3 from \"./ExportCJSDefault_Class\";
+
 var c1: ClassFoo3T = ClassFoo3;
-var c2: ClassFoo3T = new ClassFoo3();// Error: ClassFoo3 (inst) ~> ClassFoo3 (class)
+var c2: ClassFoo3T = new ClassFoo3();
+
+// Error: ClassFoo3 (inst) ~> ClassFoo3 (class)
 /////////////////////////////////////////////////////
 // == Importing Class Typeof (CJS Named Export) == //
 /////////////////////////////////////////////////////
 import typeof { ClassFoo4 as ClassFoo4T } from \"./ExportCJSNamed_Class\";
 import { ClassFoo4 } from \"./ExportCJSNamed_Class\";
+
 var d1: ClassFoo4T = ClassFoo4;
-var d2: ClassFoo4T = new ClassFoo4();// Error: ClassFoo4 (inst) ~> ClassFoo4 (class)
+var d2: ClassFoo4T = new ClassFoo4();
+
+// Error: ClassFoo4 (inst) ~> ClassFoo4 (class)
 //////////////////////////////////////////////
 // == Import Typeof Alias (Named Export) == //
 //////////////////////////////////////////////
-import typeof { AliasFoo3 } from \"./ExportNamed_Alias\";// Error: Can\'t \`import typeof\` type aliases!
+import typeof { AliasFoo3 } from \"./ExportNamed_Alias\";
+
+// Error: Can\'t \`import typeof\` type aliases!
 ////////////////////////////////////////////////
 // == Import Typeof Alias (Default Export) == //
 ////////////////////////////////////////////////
@@ -340,32 +354,43 @@ import typeof { AliasFoo3 } from \"./ExportNamed_Alias\";// Error: Can\'t \`impo
 // == Import Typeof With Non-Class Value (Default Export) == //
 ///////////////////////////////////////////////////////////////
 import typeof num_default from \"./ExportDefault_Number\";
+
 var f1: num_default = 42;
-var f2: num_default = \"asdf\";// Error: string ~> number
+var f2: num_default = \"asdf\";
+
+// Error: string ~> number
 /////////////////////////////////////////////////////////////
 // == Import Typeof With Non-Class Value (Named Export) == //
 /////////////////////////////////////////////////////////////
 import typeof { num as num_named } from \"./ExportNamed_Number\";
+
 var g1: num_named = 42;
-var g2: num_named = \"asdf\";// Error: string ~> number
+var g2: num_named = \"asdf\";
+
+// Error: string ~> number
 ///////////////////////////////////////////////////////////////////
 // == Import Typeof With Non-Class Value (CJS Default Export) == //
 ///////////////////////////////////////////////////////////////////
 import typeof num_cjs_default from \"./ExportCJSDefault_Number\";
+
 var h1: num_cjs_default = 42;
-var h2: num_cjs_default = \"asdf\";// Error: string ~> number
+var h2: num_cjs_default = \"asdf\";
+
+// Error: string ~> number
 /////////////////////////////////////////////////////////////////
 // == Import Typeof With Non-Class Value (CJS Named Export) == //
 /////////////////////////////////////////////////////////////////
 import typeof { num as num_cjs_named } from \"./ExportCJSNamed_Number\";
+
 var i1: num_cjs_named = 42;
-var i2: num_cjs_named = \"asdf\";// Error: string ~> number
+var i2: num_cjs_named = \"asdf\";
+
+// Error: string ~> number
 ///////////////////////////////////////////////
 // == Import Typeof ModuleNamespaceObject == //
 ///////////////////////////////////////////////
 import typeof * as ModuleNSObjT from \"./ExportNamed_Multi\";
 var j1: ModuleNSObjT = { num: 42, str: \"asdf\" };
-var j2: ModuleNSObjT = { num: 42, str: 42 };// Error: number ~> string
-
+var j2: ModuleNSObjT = { num: 42, str: 42 }; // Error: number ~> string
 "
 `;

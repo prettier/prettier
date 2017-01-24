@@ -1,9 +1,8 @@
 exports[`test a.js 1`] = `
 "// @flow
-(require('b'): boolean);
+(require(\'b\'): boolean);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-(require("b"): boolean);
-
+(require(\"b\"): boolean);
 "
 `;

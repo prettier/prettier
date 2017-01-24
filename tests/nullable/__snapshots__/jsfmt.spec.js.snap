@@ -6,10 +6,11 @@ exports[`test maybe.js 1`] = `
 ((123: ?(?number)): ?string); // error (only num ~> string)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-// unwrapping nested maybes should work
-((\"foo\": ??string): ?string);// ok
-((123: ??number): ?string);// error (only num ~> string)
 
+// unwrapping nested maybes should work
+((\"foo\": ??string): ?string);
+// ok
+((123: ??number): ?string); // error (only num ~> string)
 "
 `;
 
@@ -33,21 +34,34 @@ if (x != null) {
 
 var array_of_nullable: Array<?number> = [null, 3];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+function foo(): string {
+  return null;
+}
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+function bar(): ?string {
+  return null;
+}
+
+function qux(x: string) {}
+
+function corge(x: number) {}
+
+var x = bar();
+// x: ?string
+if (x != null) qux(x);
+// x: ?string | null
+if (x != null) corge(x);
+
+// x: ?string | null
+function grault() {
+  x = null;
+}
+if (x != null) {
+  grault();
+  qux(x);
+}
+
+var array_of_nullable: Array<?number> = [null, 3];
 "
 `;
 
@@ -60,18 +74,12 @@ bar(\'hmm\');
 function fn(data: ?{}) {}
 fn({some: \'literal\'});
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function foo(x: ?string) {
-  
-}
-function bar(x: ?number) {
-  
-}
+function foo(x: ?string) {}
+function bar(x: ?number) {}
 foo(\"hmm\");
 bar(\"hmm\");
-function fn(data: ?{}) {
-  
-}
-fn({ some: \"literal\" });
 
+function fn(data: ?{}) {}
+fn({ some: \"literal\" });
 "
 `;

@@ -10,12 +10,12 @@ const Thing = class Thing {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 // issue #1191
+
 const Thing = class Thing {
   zark() {
-    this.x = 123;// error: property not found (must be declared)
+    this.x = 123; // error: property not found (must be declared)
   }
 };
-
 "
 `;
 
@@ -75,21 +75,67 @@ class Misc {
   inout_generator: Generator<this,this,this>;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+// Counterexample with contravariant this type
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+class C {
+  next: this; // error (see below for exploit): \`this\` should only appear in
+  // covariant positions
+}
+
+class D extends C {}
+
+var d = new D();
+(d: C).next = new C();
+(d.next: D);
+
+// sneaky
+class A {
+  foo<X: this>(that: X) {} // error: can\'t hide contravariance using a bound
+}
+
+class B extends A {
+  foo<Y: this>(that: Y) {} // error (see above, catches hidden override)
+}
+
+// covariance checks on this type in invariant positions
+class Invariant {
+  out_object(): { _: this } {
+    return { _: this };
+  }
+  in_object(_: { _: this }) {}
+  inout_object: { _: this };
+
+  out_array(): Array<this> {
+    return [this];
+  }
+  in_array(_: Array<this>) {}
+  inout_array: Array<this>;
+}
+
+// covariance checks on this type as type args
+class Misc {
+  // Set<X> has invariant X
+  out_set(): Set<this> {
+    return new Set().add(this);
+  }
+  in_set(_: Set<this>) {}
+  inout_set: Set<this>;
+
+  // Promise<X> has covariant X
+  async out_promise(): Promise<this> {
+    return this;
+  }
+  in_promise(_: Promise<this>) {}
+  inout_promise: Promise<this>;
+
+  // Generator<X,Y,Z> has covariant X, covariant Y, contravariant Z
+  *out_generator(): Generator<this, this, this> {
+    yield this;
+    return this;
+  }
+  in_generator(_: Generator<this, this, this>) {}
+  inout_generator: Generator<this, this, this>;
+}
 "
 `;
 
@@ -107,21 +153,28 @@ export class A2<X> {
 
 export class A3<X> extends A2<X> {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+export class A1 {
+  foo(): this {
+    return this;
+  }
+  bar(): this {
+    return this;
+  }
+}
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1172:16)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+export class A2<X> {
+  foo(): this {
+    return this;
+  }
+  bar(): this {
+    return this;
+  }
+  qux(x: X): X {
+    return x;
+  }
+}
+
+export class A3<X> extends A2<X> {}
 "
 `;
 
@@ -135,21 +188,21 @@ class ImplicitNumber extends Implicit { arg: number; }
 
 (new ImplicitNumber().val: string) // error: number ~> string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+class Generic<X> {
+  clone(): Generic<X> {
+    return this;
+  }
+}
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1172:16)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+class Implicit<X> {
+  arg: X;
+  val: X;
+}
+class ImplicitNumber extends Implicit {
+  arg: number;
+}
+
+(new ImplicitNumber().val: string); // error: number ~> string
 "
 `;
 
@@ -177,21 +230,37 @@ class B3<X> extends A3<X> {
 ((new B3().bar(): B3<string>): A2<number>); // error
 ((new B3(): A2<number>).qux(0): string); // error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+// Check that imports are handled properly with this types
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1172:16)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+import { A1 } from \"./export\";
+import type { A2 } from \"./export\";
+import { A3 } from \"./export\";
+
+class B1 extends A1 {
+  foo(): B1 {
+    return new B1();
+  } // error
+}
+
+(new B1().bar(): B1);
+
+// OK
+class B3<X> extends A3<X> {
+  foo(): B3<X> {
+    return new B3();
+  } // error
+}
+
+(new B3().bar(): B3<*>);
+// OK
+(new B3().qux(0): string);
+
+// error
+(new B3().bar(): A2<*>);
+// OK
+((new B3().bar(): B3<string>): A2<number>);
+// error
+((new B3(): A2<number>).qux(0): string); // error
 "
 `;
 
@@ -205,21 +274,20 @@ class C {
 function foo(c: C): I { return c; }
 function bar(c: C): J { return c; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1391
-          fromString(\", \").join(path.map(print, \"extends\"))
-                           ^
-
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1391:28)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at /src/printer.js:1601:18
-    at FastPath.map (/src/fast-path.js:167:19)
-    at printStatementSequence (/src/printer.js:1586:8)
-    at /src/printer.js:238:16
-    at FastPath.call (/src/fast-path.js:113:16)
+interface I { xs: Array<this> }
+interface J { f(): J }
+class C {
+  xs: Array<C>;
+  f(): C {
+    return this;
+  }
+}
+function foo(c: C): I {
+  return c;
+}
+function bar(c: C): J {
+  return c;
+}
 "
 `;
 
@@ -235,21 +303,16 @@ class C {
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+(new DoublyLinkedList().prev(): DoublyLinkedList);
+(new DoublyLinkedList().next(): DoublyLinkedList);
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+var MiniImmutable = require(\"mini-immutable\");
+class C {
+  map: MiniImmutable.OrderedMap<number, string>;
+  update() {
+    this.map = this.map.set(0, \"\");
+  }
+}
 "
 `;
 
@@ -264,15 +327,17 @@ exports[`test self.js 1`] = `
 class A {
   foo() {
     return this;
-  }// return of foo is not annotated to get around// substituting this below
+  }
+  // return of foo is not annotated to get around
+  // substituting this below
   bar(): this {
     return new A().foo();
-  }// same as returning : A, so error
+  }
+  // same as returning : A, so error
   qux(): this {
     return this.bar();
-  }// OK (don\'t cascade errors)
+  } // OK (don\'t cascade errors)
 }
-
 "
 `;
 
@@ -296,21 +361,27 @@ class B extends A { } // inherits statics method too, with \`this\` bound to the
 (A.make(): B); // error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // supporting \`this\` type in statics
+
 class A {
-  make(): this {
+  static make(): this {
     // factory method, whose return type \`this\` (still)
     // describes instances of A or subclasses of A: the
     // meaning of the \`this\` type is not changed simply by
     // switching into a static context
-    return new this();// but in a static context, the value \`this\` is bound to// the class, instead of instances of the class
+    return new this(); // but in a static context, the value \`this\` is bound to
+    // the class, instead of instances of the class
   }
 }
-class B extends A {}// inherits statics method too, with \`this\` bound to the class
-(A.make(): A);// OK
-(B.make(): B);// OK
-(B.make(): A);// OK
-(A.make(): B);// error
+class B extends A {}
 
+// inherits statics method too, with \`this\` bound to the class
+(A.make(): A);
+// OK
+(B.make(): B);
+// OK
+(B.make(): A);
+// OK
+(A.make(): B); // error
 "
 `;
 
@@ -387,6 +458,7 @@ class InheritOverride2 extends Override2 { }
 (new Override2(): Base2).corge(new Base2()); // exploits error above
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Examples without \`this\` types (compare with examples below)
+
 class Base {
   foo() {
     return this;
@@ -394,6 +466,7 @@ class Base {
   qux() {
     return new Base();
   }
+
   bar() {
     return this;
   }
@@ -401,26 +474,38 @@ class Base {
     return this.bar();
   }
 }
+
 class Inherit extends Base {}
+
 class Override extends Base {
   foo() {
     return this;
-  }// OK
+  }
+  // OK
   qux() {
     return this;
-  }// OK, too
+  }
+
+  // OK, too
   bar() {
     return new Override();
-  }// OK (cf. error below)
+  } // OK (cf. error below)
 }
+
 class InheritOverride extends Override {}
+
 (new Inherit().foo(): Base);
-(new Inherit().foo(): Inherit);// error (cf. OK below)
+(new Inherit().foo(): Inherit);
+// error (cf. OK below)
 ((new Inherit(): Base).foo(): Base);
 (new Override().foo(): Base);
-(new Override().foo(): Override);// OK
+(new Override().foo(): Override);
+// OK
 ((new Override(): Base).foo(): Base);
-(new InheritOverride().bar_caller(): InheritOverride);// error// blame flips below
+
+(new InheritOverride().bar_caller(): InheritOverride);
+// error
+// blame flips below
 // Examples with \`this\` types (compare with examples above)
 class Base2 {
   foo(): this {
@@ -429,46 +514,55 @@ class Base2 {
   qux(): Base2 {
     return new Base2();
   }
+
   bar(): this {
     return this;
   }
   bar_caller(): this {
     return this.bar();
   }
-  corge(that: this) {
-    
-  }
-  grault(that: Base2) {
-    
-  }
+
+  corge(that: this) {}
+  grault(that: Base2) {}
 }
+
 class Inherit2 extends Base2 {}
+
 class Override2 extends Base2 {
   foo(): this {
     return this;
-  }// OK
+  }
+  // OK
   qux(): this {
     return this;
-  }// OK, too
+  }
+
+  // OK, too
   bar(): Override2 {
     return new Override2();
-  }// error (cf. OK above)// see exploit below
-  corge(that: this) {
-    
-  }// error// see exploit below
-  grault(that: this) {
-    
-  }// error, too
+  }
+  // error (cf. OK above)
+  // see exploit below
+  corge(that: this) {}
+  // error
+  // see exploit below
+  grault(that: this) {} // error, too
 }
+
 class InheritOverride2 extends Override2 {}
+
 (new Inherit2().foo(): Base2);
-(new Inherit2().foo(): Inherit2);// OK (cf. error above)
+(new Inherit2().foo(): Inherit2);
+// OK (cf. error above)
 ((new Inherit2(): Base2).foo(): Base2);
 (new Override2().foo(): Base2);
-(new Override2().foo(): Override2);// OK
+(new Override2().foo(): Override2);
+// OK
 ((new Override2(): Base2).foo(): Base2);
-(new InheritOverride2().bar_caller(): InheritOverride2);// exploits error above
-(new Override2(): Base2).corge(new Base2());// exploits error above
 
+(new InheritOverride2().bar_caller(): InheritOverride2);
+
+// exploits error above
+(new Override2(): Base2).corge(new Base2()); // exploits error above
 "
 `;

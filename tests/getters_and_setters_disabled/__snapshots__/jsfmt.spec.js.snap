@@ -12,6 +12,7 @@ var f = {
 /**
  * @flow
  */
+
 var f = {
   get a() {
     return 4;
@@ -21,6 +22,5 @@ var f = {
   },
   c: 10
 };
-
 "
 `;

@@ -3,20 +3,8 @@ exports[`test test.js 1`] = `
 
 (01: number);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/node_modules/babylon/lib/index.js:4255
-  throw err;
-  ^
+// @flow
 
-SyntaxError: Invalid number (3:1)
-    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
-    at Parser.readNumber (/node_modules/babylon/lib/index.js:1180:12)
-    at Parser.getTokenFromCode (/node_modules/babylon/lib/index.js:1020:21)
-    at Parser.readToken (/node_modules/babylon/lib/index.js:694:19)
-    at Parser.<anonymous> (/node_modules/babylon/lib/index.js:6441:20)
-    at Parser.readToken (/node_modules/babylon/lib/index.js:5376:22)
-    at Parser.nextToken (/node_modules/babylon/lib/index.js:684:19)
-    at Parser.next (/node_modules/babylon/lib/index.js:609:10)
-    at Parser.eat (/node_modules/babylon/lib/index.js:616:12)
-    at Parser.pp.expect (/node_modules/babylon/lib/index.js:1621:15)
+(01: number);
 "
 `;

@@ -28,29 +28,30 @@ async function *delegate_return() {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 async function* delegate_next() {
   async function* inner() {
-    var x: void = yield;// error: number ~> void
+    var x: void = yield; // error: number ~> void
   }
   yield* inner();
 }
 delegate_next().next(0);
+
 async function* delegate_yield() {
   async function* inner() {
     yield 0;
   }
   yield* inner();
 }
-async () => {
+(async () => {
   for await (const x of delegate_yield()) {
-    (x: void);// error: number ~> void
+    (x: void); // error: number ~> void
   }
-};
+});
+
 async function* delegate_return() {
   async function* inner() {
     return 0;
   }
-  var x: void = yield* inner();// error: number ~> void
+  var x: void = yield* inner(); // error: number ~> void
 }
-
 "
 `;
 
@@ -81,21 +82,27 @@ async function f() {
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1391
-          fromString(\", \").join(path.map(print, \"extends\"))
-                           ^
+interface File { readLine(): Promise<string>, close(): void, EOF: boolean }
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1391:28)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at /src/printer.js:1601:18
-    at FastPath.map (/src/fast-path.js:167:19)
-    at printStatementSequence (/src/printer.js:1586:8)
-    at /src/printer.js:238:16
-    at FastPath.call (/src/fast-path.js:113:16)
+declare function fileOpen(path: string): Promise<File>;
+
+async function* readLines(path) {
+  let file: File = await fileOpen(path);
+
+  try {
+    while (!file.EOF) {
+      yield await file.readLine();
+    }
+  } finally {
+    file.close();
+  }
+}
+
+async function f() {
+  for await (const line of readLines(\"/path/to/file\")) {
+    (line: void); // error: string ~> void
+  }
+}
 "
 `;
 
@@ -123,21 +130,28 @@ refuse_return().return(\"string\").then(result => {
   }
 });
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+declare var gen: AsyncGenerator<void, string, void>;
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// You can pass whatever you like to return, it doesn\'t need to be related to
+// the AsyncGenerator\'s return type
+gen.return(0).then(result => {
+  (result.value: void); // error: string | number ~> void
+});
+
+// However, a generator can \"refuse\" the return by catching an exception and
+// yielding or returning internally.
+async function* refuse_return() {
+  try {
+    yield 1;
+  } finally {
+    return 0;
+  }
+}
+refuse_return().return(\"string\").then(result => {
+  if (result.done) {
+    (result.value: string); // error: number | void ~> string
+  }
+});
 "
 `;
 
@@ -182,15 +196,15 @@ async function* catch_return() {
     return e;
   }
 }
-async () => {
-  catch_return().throw(\"\").then(
-    ({ value }) => {
-      if (value !== undefined) {
-        (value: void);// error: number ~> void
-      }
+
+(async () => {
+  catch_return().throw(\"\").then(({ value }) => {
+    if (value !== undefined) {
+      (value: void); // error: number ~> void
     }
-  );
-};
+  });
+});
+
 async function* yield_return() {
   try {
     yield 0;
@@ -199,15 +213,13 @@ async function* yield_return() {
     yield e;
   }
 }
-async () => {
-  yield_return().throw(\"\").then(
-    ({ value }) => {
-      if (value !== undefined) {
-        (value: void);// error: number ~> void
-      }
-    }
-  );
-};
 
+(async () => {
+  yield_return().throw(\"\").then(({ value }) => {
+    if (value !== undefined) {
+      (value: void); // error: number ~> void
+    }
+  });
+});
 "
 `;

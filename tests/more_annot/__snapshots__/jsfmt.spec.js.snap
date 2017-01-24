@@ -4,8 +4,8 @@ exports[`test client_object.js 1`] = `
 var a:number = o.w.z.y;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var o = require(\"./object\");
-var a: number = o.w.z.y;
 
+var a: number = o.w.z.y;
 "
 `;
 
@@ -22,11 +22,12 @@ module.exports = o3;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var o1 = { x: 0, y: \"\" };
 var o2 = { z: o1 };
+
 var o3 = {};
 o3.w = o2;
+
 //declare var exports: { w: any };
 module.exports = o3;
-
 "
 `;
 
@@ -38,21 +39,14 @@ var o1: { x: number; m(): void } = new Foo();
 
 var o2: Foo = new Foo();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1348
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+function Foo() {
+  this.x = 0;
+}
+Foo.prototype.m = function() {};
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1348:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1452:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+var o1: { x: number, m(): void } = new Foo();
+
+var o2: Foo = new Foo();
 "
 `;
 
@@ -62,20 +56,11 @@ class D extends C { }
 
 var d: { +m: () => void } = new D();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1348
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+class C {
+  m() {}
+}
+class D extends C {}
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1348:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1452:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+var d: { +m: () => void } = new D();
 "
 `;

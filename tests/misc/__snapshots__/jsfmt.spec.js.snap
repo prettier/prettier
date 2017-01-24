@@ -15,17 +15,18 @@ A.x = A.y;
 f(A.x); // A.x is now a string, by def assign
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule A */
+
 module.exports = {};
+
 var A = { x: true, ...{} };
 module.exports.cls = A;
-function f(x: boolean) {
-  
-}
+
+function f(x: boolean) {}
 module.exports.fn = f;
+
 A.y = \"?\";
 A.x = A.y;
-f(A.x);// A.x is now a string, by def assign
-
+f(A.x); // A.x is now a string, by def assign
 "
 `;
 
@@ -47,17 +48,21 @@ B.prototype.fn = f;
 module.exports = B;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule B */
+
 var A = require(\"A\").cls;
+
 function B() {
   this.b = \"...\";
 }
+
 function f(): number {
   return this.b;
 }
+
 B.prototype.s = 0;
 B.prototype.fn = f;
-module.exports = B;
 
+module.exports = B;
 "
 `;
 
@@ -78,16 +83,18 @@ function C() {
 module.exports = C;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule C */
+
 var B = require(\"B\");
 var f = require(\"A\").fn;
+
 function C() {
   var o = new B();
   f(o.b);
   f(o.s);
   o.fn();
 }
-module.exports = C;
 
+module.exports = C;
 "
 `;
 
@@ -108,16 +115,20 @@ f(i);
 module.exports = \"D for dummy\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule D */
+
 var f = require(\"A\").fn;
+
 function g(): string {
   return this.i;
 }
+
 var o = { fn: g, ...{} };
 o.i = true;
+
 var i = o.fn();
 f(i);
-module.exports = \"D for dummy\";
 
+module.exports = \"D for dummy\";
 "
 `;
 
@@ -134,14 +145,14 @@ o.fn(false);
 module.exports = {obj: o};
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule E */
-function h(x: number) {
-  
-}
+
+function h(x: number) {}
 var proto = { fn: h };
+
 var o = Object.create(proto);
 o.fn(false);
-module.exports = { obj: o };
 
+module.exports = { obj: o };
 "
 `;
 
@@ -153,21 +164,14 @@ function foo(x: Array<number>): string {
   return x.length;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+function fn2(x) {
+  return x.length * 4;
+}
+fn2({ length: \"hi\" });
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+function foo(x: Array<number>): string {
+  return x.length;
+}
 "
 `;
 
@@ -183,9 +187,9 @@ b.length();
 var a = { length: \"duck\" };
 a.length = 123;
 a.length();
-var b = [ 123 ];
+
+var b = [123];
 b.length = \"duck\";
 b.length();
-
 "
 `;

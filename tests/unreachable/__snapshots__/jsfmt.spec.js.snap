@@ -24,23 +24,28 @@ function test2() {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
+
 function test1(): string {
   return bar();
+
   function bar() {
     return 0;
   }
 }
+
 // regression test for analysis after abnormal control flow:
 // consts must not become bot (EmptyT).
 function test2() {
   const n = 0;
+
   return;
+
   function f() {
-    var x: typeof n = 0;// no error, n is still number
-    var y: string = n;// error, n is number (EmptyT would work)
+    var x: typeof n = 0;
+    // no error, n is still number
+    var y: string = n; // error, n is number (EmptyT would work)
   }
 }
-
 "
 `;
 
@@ -48,7 +53,7 @@ exports[`test unreachable.js 1`] = `
 "/* @flow */
 
 function foo(x, y) {
-  "use strict";
+  \"use strict\";
   return bar(x) + baz(y);
 
   // function declaration is hoisted, should not generate warning
@@ -74,22 +79,28 @@ function foo(x, y) {
 foo(1, 2);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-function foo(x, y) { "use strict"; 
+
+function foo(x, y) {
+  \"use strict\";
   return bar(x) + baz(y);
+
   // function declaration is hoisted, should not generate warning
   function bar(ecks) {
     return x + ecks;
   }
+
   // assignment is not hoisted, should generate warning
   var baz = function(why) {
     return y + why;
   };
-  // variable declaration is hoisted, should not generate warning
-  var xy,z;
-  // assignments are not hoisted, should generate 2 warnings
-  var tu = 5,v,w = 7;
-}
-foo(1, 2);
 
+  // variable declaration is hoisted, should not generate warning
+  var x, y, z;
+
+  // assignments are not hoisted, should generate 2 warnings
+  var t, u = 5, v, w = 7;
+}
+
+foo(1, 2);
 "
 `;

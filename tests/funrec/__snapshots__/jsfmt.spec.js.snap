@@ -14,6 +14,5 @@ function foo() {
     return bar(bound);
   };
 }
-
 "
 `;

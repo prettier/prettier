@@ -11,21 +11,17 @@ function bar(x: Class<B>): B {
   return new x(); // error (too few args)
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+class A {}
+function foo(x: Class<A>): A {
+  return new x(); // OK
+}
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+class B {
+  constructor(_: any) {}
+}
+function bar(x: Class<B>): B {
+  return new x(); // error (too few args)
+}
 "
 `;
 
@@ -45,20 +41,19 @@ check(C, new A);
 check(C, new B);
 check(B, new C);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+// A function to typecheck values against their types. Covariance of Class<.>
+// makes it useless in such a function (when limited to classes and instances),
+// since everything can be trivially satisfied by going to \`mixed\`.
+declare function check<X>(cls: $Type<X>, inst: X): void;
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+class A {}
+class B extends A {}
+class C {}
+
+check(B, new A());
+check(A, new B());
+check(C, new A());
+check(C, new B());
+check(B, new C());
 "
 `;

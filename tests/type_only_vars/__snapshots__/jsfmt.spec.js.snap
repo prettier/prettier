@@ -17,10 +17,12 @@ module.exports = {
 /**
  * @flow
  */
-class Foo {}
-class Bar {}
-module.exports = { Foo: Foo, Bar: Bar };
 
+class Foo {}
+
+class Bar {}
+
+module.exports = { Foo: Foo, Bar: Bar };
 "
 `;
 
@@ -44,21 +46,22 @@ var Baz: string = \"Go away please\";
 // This string type should conflict with the typedef
 var duck: string = \"quack\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1348
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+/**
+ * @flow
+ */
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1348:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1452:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+import typeof A from \"./A.js\";
+import type { Foo, Bar as Baz } from \"./A.js\";
+
+type duck = { quack(): string };
+
+// These string types should confict with the imported types
+var A: string = \"Hello\";
+var Foo: string = \"Goodbye\";
+var Baz: string = \"Go away please\";
+
+// This string type should conflict with the typedef
+var duck: string = \"quack\";
 "
 `;
 
@@ -87,20 +90,23 @@ var b: Foo = new A.Foo();
 /**
  * @flow
  */
+
 import typeof A from \"./A.js\";
 import type { Foo, Bar as Baz } from \"./A.js\";
+
 var A = require(\"./A.js\");
 var Foo = A.Foo;
 var Baz = A.Bar;
+
 // errors in prev block leave type bindings in place, so these are errors
 var m = A;
 var n = Foo;
 var o = Baz;
+
 // errors from value positions only
 var a: Foo = new Foo();
 var b: Foo = new A.Foo();
 (new A.Bar(): Baz);
-
 "
 `;
 
@@ -126,17 +132,20 @@ var a: Foo = new actualA.Foo();
 /**
  * @flow
  */
+
 import typeof A from \"./A.js\";
 import type { Foo, Bar as Baz } from \"./A.js\";
+
 var actualA = require(\"./A.js\");
+
 // You can\'t use it as an identifier
 var m = A;
 var n = Foo;
 var o = Baz;
+
 // But using it in a type should still work
 var a: Foo = new actualA.Foo();
 (new actualA.Bar(): Baz);
-
 "
 `;
 
@@ -155,20 +164,18 @@ var a: Foo = 123;
 var b: Array<Foo> = [123];
 type c = Foo;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+/**
+ * @flow
+ */
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+type Foo = number;
+
+// You can\'t use it as an identifier
+var x = Foo;
+
+// But using it in a type should still work
+var a: Foo = 123;
+var b: Array<Foo> = [123];
+type c = Foo;
 "
 `;

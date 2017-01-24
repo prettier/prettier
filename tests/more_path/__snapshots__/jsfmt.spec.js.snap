@@ -2,10 +2,10 @@ exports[`test Condition.js 1`] = `
 "/* @providesModule Condition */
 
 function f(x:number) { }
-function g() { return (42 || "hello"); }
+function g() { return (42 || \"hello\"); }
 
 var x = g();
-if (typeof x === "string") {
+if (typeof x === \"string\") {
   x = 0;
 }
 f(x);
@@ -25,7 +25,7 @@ class C { qux() { } }
 
 function foo() {
 
-  var c = "...";
+  var c = \"...\";
   c = new C();
   if (bar()) {
     c.qux();
@@ -35,20 +35,20 @@ function foo() {
 
 function goofy() {
   var x = g();
-  if (typeof x == 'function') {
+  if (typeof x == \'function\') {
     x();
-  } else { // if (typeof x == 'number') {
+  } else { // if (typeof x == \'number\') {
     //f(x);
   }
 }
 
 function goofy2() {
   var o = {x : 0}
-  if (typeof o.x == 'function') {
+  if (typeof o.x == \'function\') {
     o.x();
   }
   var y = o.x;
-  if (typeof y == 'function') {
+  if (typeof y == \'function\') {
     y();
   } else {
     //f(y);
@@ -58,21 +58,23 @@ function goofy2() {
 module.exports = true;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule Condition */
-function f(x: number) {
-  
-}
+
+function f(x: number) {}
 function g() {
-  return 42 || "hello";
+  return 42 || \"hello\";
 }
+
 var x = g();
-if (typeof x === "string") {
+if (typeof x === \"string\") {
   x = 0;
 }
 f(x);
+
 class A {}
 function h() {
   return 42 || new A();
 }
+
 var y = h();
 if (y instanceof A) {
   y = 0;
@@ -81,40 +83,42 @@ if (y instanceof A) {
 function bar() {
   return true;
 }
+
 class C {
-  qux() {
-    
-  }
+  qux() {}
 }
+
 function foo() {
-  var c = "...";
+  var c = \"...\";
   c = new C();
   if (bar()) {
     c.qux();
   }
 }
+
 function goofy() {
   var x = g();
-  if (typeof x == "function") {
+  if (typeof x == \"function\") {
     x();
-  } else {
-    
+  } else { // if (typeof x == \'number\') {
+    //f(x);
   }
 }
+
 function goofy2() {
   var o = { x: 0 };
-  if (typeof o.x == "function") {
+  if (typeof o.x == \"function\") {
     o.x();
   }
   var y = o.x;
-  if (typeof y == "function") {
+  if (typeof y == \"function\") {
     y();
   } else {
-    
+    //f(y);
   }
 }
-module.exports = true;
 
+module.exports = true;
 "
 `;
 
@@ -126,23 +130,23 @@ function check(x:string) { }
 
 function FlowSA() {
   var x = 0;
-  x = "...";
+  x = \"...\";
   check(x);
 }
 
 module.exports = FlowSA;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule FlowSA */
-function check(x: string) {
-  
-}
+
+function check(x: string) {}
+
 function FlowSA() {
   var x = 0;
-  x = "...";
+  x = \"...\";
   check(x);
 }
-module.exports = FlowSA;
 
+module.exports = FlowSA;
 "
 `;
 
@@ -182,59 +186,58 @@ class D { d() {} }
 
 function baz(x:D) {
   if (x instanceof A) {
-    // unreachable, TODO: this shouldn't throw
+    // unreachable, TODO: this shouldn\'t throw
   }
 }
 
-module.exports = "sigma";
+module.exports = \"sigma\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule Sigma */
+
 class A {
-  a() {
-    
-  }
+  a() {}
 }
+
 class B extends A {
-  b() {
-    
-  }
+  b() {}
 }
+
 class C extends B {
-  c() {
-    
-  }
+  c() {}
 }
+
 function bar(x: B) {
   if (x instanceof A) {
     x.a();
-    x.c();// error
+    x.c(); // error
   } else {
-    x++;// TODO no error? since unreachable (x: B implies x: A)
+    x++; // TODO no error? since unreachable (x: B implies x: A)
   }
 }
+
 function foo(x: A) {
   if (x instanceof C) {
     x.a();
     x.b();
     x.c();
-    x.d();// error
+    x.d(); // error
   } else {
     x.a();
-    x.c();// error
+    x.c(); // error
   }
 }
+
 class D {
-  d() {
-    
-  }
+  d() {}
 }
+
 function baz(x: D) {
   if (x instanceof A) {
-    
+    // unreachable, TODO: this shouldn\'t throw
   }
 }
-module.exports = "sigma";
 
+module.exports = \"sigma\";
 "
 `;
 
@@ -257,15 +260,16 @@ function test(obj: BaseClass): string {
 class BaseClass {
   baseProp: string;
 }
+
 class ChildClass extends BaseClass {
   childProp: string;
 }
+
 function test(obj: BaseClass): string {
   if (obj instanceof ChildClass) {
-    return obj.childProp_TYPO;// error (obj: ChildClass)
+    return obj.childProp_TYPO; // error (obj: ChildClass)
   }
   return obj.baseProp;
 }
-
 "
 `;

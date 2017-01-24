@@ -5,7 +5,7 @@ exports[`test with_munging.js 1`] = `
 
 class Foo {
   _method(): string {
-    return 'this is private';
+    return \'this is private\';
   }
 }
 
@@ -18,17 +18,18 @@ class Bar extends Foo {
 /**
  * @flow
  */
+
 class Foo {
   _method(): string {
-    return "this is private";
-  }
-}
-class Bar extends Foo {
-  test() {
-    (this._method(): string);// error
+    return \"this is private\";
   }
 }
 
+class Bar extends Foo {
+  test() {
+    (this._method(): string); // error
+  }
+}
 "
 `;
 
@@ -40,7 +41,7 @@ exports[`test without_munging.js 1`] = `
 
 class Foo {
   _method(): string {
-    return 'this is not private';
+    return \'this is not private\';
   }
 }
 
@@ -54,16 +55,17 @@ class Bar extends Foo {
  * @flow
  * @preventMunge
  */
+
 class Foo {
   _method(): string {
-    return "this is not private";
-  }
-}
-class Bar extends Foo {
-  test() {
-    (this._method(): string);// ok
+    return \"this is not private\";
   }
 }
 
+class Bar extends Foo {
+  test() {
+    (this._method(): string); // ok
+  }
+}
 "
 `;

@@ -10,6 +10,7 @@ var y:string = bar(0);
 var z:string = qux(0);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+
 function foo(x: any): any {
   return x;
 }
@@ -19,10 +20,10 @@ function bar(x: any): mixed {
 function qux(x: mixed): any {
   return x;
 }
+
 var x: string = foo(0);
 var y: string = bar(0);
 var z: string = qux(0);
-
 "
 `;
 
@@ -32,8 +33,8 @@ exports[`test anyexportflowfile.js 1`] = `
 module.exports = ((x: any) => x: any);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-module.exports = ((x: any) => x: any);
 
+module.exports = ((x: any) => x: any);
 "
 `;
 
@@ -58,21 +59,33 @@ var y:string = bar(0);
 var z:string = qux(0);
 var w:string = baz(0);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+/*
+  FlowFixMe is a synonym for any, used by the Flow team to
+  signal a needed mod to JS devs.
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+  @flow
+ */
+
+// no param
+function foo(x: $FlowFixMe): $FlowFixMe {
+  return x;
+}
+function bar(x: $FlowFixMe): mixed {
+  return x;
+}
+// param (info only)
+function qux(x: $FlowFixMe<number>): $FlowFixMe<number> {
+  return x;
+}
+// ...params are still checked. unknown type
+function baz(x: $FlowFixMe<nnumber>): $FlowFixMe<number> {
+  return x;
+}
+
+var x: string = foo(0);
+var y: string = bar(0);
+var z: string = qux(0);
+var w: string = baz(0);
 "
 `;
 
@@ -97,21 +110,33 @@ var y:string = bar(0);
 var z:string = qux(0);
 var w:string = baz(0);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+/*
+  $FlowIssue is a synonym for any, used by JS devs to signal
+  a potential typechecker bug to the Flow team.
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+  @flow
+ */
+
+// no param
+function foo(x: $FlowIssue): $FlowIssue {
+  return x;
+}
+function bar(x: $FlowIssue): mixed {
+  return x;
+}
+// param (info only)
+function qux(x: $FlowIssue<number>): $FlowIssue<number> {
+  return x;
+}
+// ...params are still checked. unknown type
+function baz(x: $FlowIssue<nnumber>): $FlowIssue<number> {
+  return x;
+}
+
+var x: string = foo(0);
+var y: string = bar(0);
+var z: string = qux(0);
+var w: string = baz(0);
 "
 `;
 
@@ -121,8 +146,8 @@ exports[`test nonflowfile.js 1`] = `
 module.exports = (x) => x;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
-module.exports = x => x;
 
+module.exports = x => x;
 "
 `;
 
@@ -153,21 +178,31 @@ function bar2(x: mixed) {
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1348
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+// @flow
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1348:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1452:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+declare class C {
+  bar(n1: number, n2: number): number,
+  bar(s1: string, s2: string): string
+}
+
+function foo(c: C, x: any): string {
+  let y = x.y;
+  return c.bar(0, y); // should be able to select first case and error
+}
+
+var any_fun1 = require(\"./nonflowfile\");
+function bar1(x: mixed) {
+  if (any_fun1(x)) {
+    (x: boolean);
+  }
+}
+
+var any_fun2 = require(\"./anyexportflowfile\");
+function bar2(x: mixed) {
+  if (any_fun2(x)) {
+    (x: boolean);
+  }
+}
 "
 `;
 
@@ -191,12 +226,13 @@ function foo(o: ?AsyncRequest) {
  * type annotations. Here we test propagation of any through the
  * annotation - without it, the body of the if will be unreachable 
  */
+
 type AsyncRequest = any;
+
 function foo(o: ?AsyncRequest) {
   if (o) {
     var n: number = o;
   }
 }
-
 "
 `;

@@ -25,21 +25,29 @@ const c: Promise<Blob> =
 
 const d: Promise<Blob> = fetch(\'image.png\'); // incorrect
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+/* @flow */
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1374:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+// most of the details are tested in the separate file
+// here I test the basic usage
+
+const myRequest = new Request(\"http://google.com\");
+
+const a: Promise<string> = fetch(myRequest).then(response => response.text());
+
+const b: Promise<string> = fetch(myRequest);
+
+// incorrect
+var myInit = {
+  method: \"GET\",
+  headers: { \"Content-Type\": \"image/jpeg\" },
+  mode: \"cors\",
+  cache: \"default\"
+};
+
+const c: Promise<Blob> = fetch(\"image.png\").then(response => response.blob());
+
+// correct
+const d: Promise<Blob> = fetch(\"image.png\"); // incorrect
 "
 `;
 
@@ -73,21 +81,48 @@ for (let v of e.entries()) {
 
 e.getAll(\'content-type\').forEach((v: string) => {}); // correct
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/node_modules/babylon/lib/index.js:4255
-  throw err;
-  ^
+/* @flow */
 
-SyntaxError: Unexpected token (5:37)
-    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
-    at Parser.pp.unexpected (/node_modules/babylon/lib/index.js:1633:8)
-    at Parser.pp$3.parseObjPropValue (/node_modules/babylon/lib/index.js:3940:8)
-    at Parser.parseObjPropValue (/node_modules/babylon/lib/index.js:5537:13)
-    at Parser.pp$3.parseObj (/node_modules/babylon/lib/index.js:3871:10)
-    at Parser.pp$3.parseExprAtom (/node_modules/babylon/lib/index.js:3561:19)
-    at Parser.parseExprAtom (/node_modules/babylon/lib/index.js:6408:22)
-    at Parser.pp$3.parseExprSubscripts (/node_modules/babylon/lib/index.js:3337:19)
-    at Parser.pp$3.parseMaybeUnary (/node_modules/babylon/lib/index.js:3317:19)
-    at Parser.pp$3.parseExprOps (/node_modules/babylon/lib/index.js:3247:19)
+const a = new Headers(\"\'Content-Type\': \'image/jpeg\'\");
+// not correct
+const b = new Headers([\"Content-Type\", \"image/jpeg\"]);
+// not correct
+const c = new Headers({ \"Content-Type\", \"image/jpeg\" });
+// correct
+const d = new Headers(c);
+// correct
+const e: Headers = new Headers();
+// correct
+e.append(\"Content-Type\", \"image/jpeg\");
+// correct
+e.append(\"Content-Type\");
+// not correct
+e.append({ \"Content-Type\", \"image/jpeg\" });
+// not correct
+e.set(\"Content-Type\", \"image/jpeg\");
+// correct
+e.set(\"Content-Type\");
+// not correct
+e.set({ \"Content-Type\", \"image/jpeg\" });
+
+// not correct
+const f: Headers = e.append(\"Content-Type\", \"image/jpeg\");
+
+// not correct
+const g: string = e.get(\"Content-Type\");
+// correct
+const h: number = e.get(\"Content-Type\");
+
+// not correct
+for (let v of e) {
+  const [i, j]: [string, string] = v; // correct
+}
+
+for (let v of e.entries()) {
+  const [i, j]: [string, string] = v; // correct
+}
+
+e.getAll(\"content-type\").forEach((v: string) => {}); // correct
 "
 `;
 
@@ -145,58 +180,64 @@ h.arrayBuffer().then((ab: ArrayBuffer) => ab); // correct
 h.arrayBuffer().then((ab: Buffer) => ab); // incorrect
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-const a: Request = new Request();// incorrect
-const b: Request = new Request(\"http://example.org\");// correct
-const c: Request = new Request(b);// correct
-const d: Request = new Request(
-  c.clone()
-);// correct (doesn\'t make much sense though)
-const e: Request = new Request(b, c);// incorrect
-const f: Request = new Request({});// incorrect
-const g: Request = new Request(\"http://example.org\", {});// correct
-const h: Request = new Request(
-  \"http://example.org\",
-  {
-    method: \"GET\",
-    headers: { \"Content-Type\": \"image/jpeg\" },
-    mode: \"cors\",
-    cache: \"default\"
-  }
-);// correct
-const i: Request = new Request(
-  \"http://example.org\",
-  {
-    method: \"POST\",
-    headers: { \"Content-Type\": \"image/jpeg\" },
-    body: new URLSearchParams(\"key=value\"),
-    mode: \"cors\",
-    cache: \"default\"
-  }
-);// correct
-const j: Request = new Request(
-  \"http://example.org\",
-  {
-    method: \"GET\",
-    headers: \"Content-Type: image/jpeg\",
-    mode: \"cors\",
-    cache: \"default\"
-  }
-);// incorrect - headers is string
-const k: Request = new Request(
-  \"http://example.org\",
-  {
-    method: \"CONNECT\",
-    headers: { \"Content-Type\": \"image/jpeg\" },
-    mode: \"cors\",
-    cache: \"default\"
-  }
-);// incorrect - CONNECT is forbidden
-var l: boolean = h.bodyUsed;
-h.text().then((t: string) => t);// correct
-h.text().then((t: Buffer) => t);// incorrect
-h.arrayBuffer().then((ab: ArrayBuffer) => ab);// correct
-h.arrayBuffer().then((ab: Buffer) => ab);// incorrect
+const a: Request = new Request();
+// incorrect
+const b: Request = new Request(\"http://example.org\");
+// correct
+const c: Request = new Request(b);
+// correct
+const d: Request = new Request(c.clone());
+// correct (doesn\'t make much sense though)
+const e: Request = new Request(b, c);
 
+// incorrect
+const f: Request = new Request({});
+// incorrect
+const g: Request = new Request(\"http://example.org\", {});
+
+// correct
+const h: Request = new Request(\"http://example.org\", {
+  method: \"GET\",
+  headers: { \"Content-Type\": \"image/jpeg\" },
+  mode: \"cors\",
+  cache: \"default\"
+});
+
+// correct
+const i: Request = new Request(\"http://example.org\", {
+  method: \"POST\",
+  headers: { \"Content-Type\": \"image/jpeg\" },
+  body: new URLSearchParams(\"key=value\"),
+  mode: \"cors\",
+  cache: \"default\"
+});
+
+// correct
+const j: Request = new Request(\"http://example.org\", {
+  method: \"GET\",
+  headers: \"Content-Type: image/jpeg\",
+  mode: \"cors\",
+  cache: \"default\"
+});
+
+// incorrect - headers is string
+const k: Request = new Request(\"http://example.org\", {
+  method: \"CONNECT\",
+  headers: { \"Content-Type\": \"image/jpeg\" },
+  mode: \"cors\",
+  cache: \"default\"
+});
+
+// incorrect - CONNECT is forbidden
+var l: boolean = h.bodyUsed;
+
+h.text().then((t: string) => t);
+// correct
+h.text().then((t: Buffer) => t);
+// incorrect
+h.arrayBuffer().then((ab: ArrayBuffer) => ab);
+// correct
+h.arrayBuffer().then((ab: Buffer) => ab); // incorrect
 "
 `;
 
@@ -249,34 +290,53 @@ h.arrayBuffer().then((ab: ArrayBuffer) => ab); // correct
 h.arrayBuffer().then((ab: Buffer) => ab); // incorrect
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-const a: Response = new Response();// correct
-const b: Response = new Response(new Blob());// correct
-const c: Response = new Response(new FormData());// correct
-const d: Response = new Response(new FormData(), { status: 404 });// correct
-const e: Response = new Response(\"responsebody\", { status: \"404\" });// incorrect
-const f: Response = new Response(
-  \"responsebody\",
-  { status: 404, headers: \"\'Content-Type\': \'image/jpeg\'\" }
-);// incorrect
-const g: Response = new Response(
-  \"responsebody\",
-  { status: 404, headers: { \"Content-Type\": \"image/jpeg\" } }
-);// correct
-const h: Response = new Response(
-  \"responsebody\",
-  { status: 404, headers: new Headers({ \"Content-Type\": \"image/jpeg\" }) }
-);// correct, if verbose
+const a: Response = new Response();
+// correct
+const b: Response = new Response(new Blob());
+// correct
+const c: Response = new Response(new FormData());
+
+// correct
+const d: Response = new Response(new FormData(), { status: 404 });
+
+// correct
+const e: Response = new Response(\"responsebody\", { status: \"404\" });
+
+// incorrect
+const f: Response = new Response(\"responsebody\", {
+  status: 404,
+  headers: \"\'Content-Type\': \'image/jpeg\'\"
+});
+
+// incorrect
+const g: Response = new Response(\"responsebody\", {
+  status: 404,
+  headers: { \"Content-Type\": \"image/jpeg\" }
+});
+
+// correct
+const h: Response = new Response(\"responsebody\", {
+  status: 404,
+  headers: new Headers({ \"Content-Type\": \"image/jpeg\" })
+});
+
+// correct, if verbose
 const i: Response = new Response({
   status: 404,
   headers: new Headers({ \"Content-Type\": \"image/jpeg\" })
-});// incorrect
+});
+
+// incorrect
 const ok: boolean = h.ok;
 const status: number = h.status;
-h.text().then((t: string) => t);// correct
-h.text().then((t: Buffer) => t);// incorrect
-h.arrayBuffer().then((ab: ArrayBuffer) => ab);// correct
-h.arrayBuffer().then((ab: Buffer) => ab);// incorrect
 
+h.text().then((t: string) => t);
+// correct
+h.text().then((t: Buffer) => t);
+// incorrect
+h.arrayBuffer().then((ab: ArrayBuffer) => ab);
+// correct
+h.arrayBuffer().then((ab: Buffer) => ab); // incorrect
 "
 `;
 
@@ -310,20 +370,47 @@ for (let v of e.entries()) {
 
 e.getAll(\'key1\').forEach((v: string) => {}); // correct
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/node_modules/babylon/lib/index.js:4255
-  throw err;
-  ^
+/* @flow */
 
-SyntaxError: Unexpected token (5:37)
-    at Parser.pp$5.raise (/node_modules/babylon/lib/index.js:4252:13)
-    at Parser.pp.unexpected (/node_modules/babylon/lib/index.js:1633:8)
-    at Parser.pp$3.parseObjPropValue (/node_modules/babylon/lib/index.js:3940:8)
-    at Parser.parseObjPropValue (/node_modules/babylon/lib/index.js:5537:13)
-    at Parser.pp$3.parseObj (/node_modules/babylon/lib/index.js:3871:10)
-    at Parser.pp$3.parseExprAtom (/node_modules/babylon/lib/index.js:3561:19)
-    at Parser.parseExprAtom (/node_modules/babylon/lib/index.js:6408:22)
-    at Parser.pp$3.parseExprSubscripts (/node_modules/babylon/lib/index.js:3337:19)
-    at Parser.pp$3.parseMaybeUnary (/node_modules/babylon/lib/index.js:3317:19)
-    at Parser.pp$3.parseExprOps (/node_modules/babylon/lib/index.js:3247:19)
+const a = new URLSearchParams(\"key1=value1\");
+// correct
+const b = new URLSearchParams([\"key1\", \"value1\"]);
+// not correct
+const c = new URLSearchParams({ \"key1\", \"value1\" });
+// not correct
+const d = new URLSearchParams(c);
+// correct
+const e: URLSearchParams = new URLSearchParams();
+// correct
+e.append(\"key1\", \"value1\");
+// correct
+e.append(\"key1\");
+// not correct
+e.append({ \"key1\", \"value1\" });
+// not correct
+e.set(\"key1\", \"value1\");
+// correct
+e.set(\"key1\");
+// not correct
+e.set({ \"key1\", \"value1\" });
+
+// not correct
+const f: URLSearchParams = e.append(\"key1\", \"value1\");
+
+// not correct
+const g: string = e.get(\"key1\");
+// correct
+const h: number = e.get(\"key1\");
+
+// not correct
+for (let v of e) {
+  const [i, j]: [string, string] = v; // correct
+}
+
+for (let v of e.entries()) {
+  const [i, j]: [string, string] = v; // correct
+}
+
+e.getAll(\"key1\").forEach((v: string) => {}); // correct
 "
 `;

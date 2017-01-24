@@ -10,21 +10,13 @@ function f(x) {
 
 (f: F);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1348
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+type F = { (x: string): number, p?: string };
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1348:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1425:19)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+function f(x) {
+  return x.length;
+}
+
+(f: F);
 "
 `;
 
@@ -51,20 +43,26 @@ declare var callable: Callable;
 callable(0); // error, number ~> string
 callable.call(null, 0); // error, number ~> string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1348
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+var x = Boolean(4);
+function foo(fn: (value: any) => boolean) {}
+foo(Boolean);
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1348:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1254:25)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+var dict: { [k: string]: any } = {};
+dict();
+
+// error, callable signature not found
+interface ICall { (x: string): void }
+declare var icall: ICall;
+icall(0);
+// error, number ~> string
+icall.call(null, 0);
+
+// error, number ~> string
+type Callable = { (x: string): void };
+
+declare var callable: Callable;
+callable(0);
+// error, number ~> string
+callable.call(null, 0); // error, number ~> string
 "
 `;

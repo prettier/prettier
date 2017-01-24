@@ -2,11 +2,11 @@ exports[`test foo.js 1`] = `
 "/* @flow */
 
 // No error, this file is ignored
-var x: number = "string";
+var x: number = \"string\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-// No error, this file is ignored
-var x: number = "string";
 
+// No error, this file is ignored
+var x: number = \"string\";
 "
 `;

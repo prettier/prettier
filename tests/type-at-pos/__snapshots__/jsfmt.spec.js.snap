@@ -19,21 +19,24 @@ export const X = {
   }
 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1237
-      throw new Error(\"unprintable type: \" + JSON.stringify(n.type));
-      ^
+// @flow
 
-Error: unprintable type: \"TupleTypeAnnotation\"
-    at genericPrintNoParens (/src/printer.js:1237:13)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1254:25)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+let [x, y] = [1, 2];
+
+/**
+ * Test what happens when the destructuring is unevaluated. In this case,
+ * \`this\` in a function is unbound, so we never actually find out the type of
+ * \`this.returnsATuple()\` is; thus, we never evaluate \`b\` and so type-at-pos
+ * returns EmptyT.
+ */
+export const X = {
+  returnsATuple: function(): [number, number] {
+    return [1, 2];
+  },
+  test: function() {
+    let [a, b] = this.returnsATuple();
+  }
+};
 "
 `;
 
@@ -50,16 +53,13 @@ const y = {
 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+
 // TODO: type-at-pos between the ()\'s should be () => void
 // class X {
 //   foo(): void {}
 // }
-const y = {
-  bar(): void {
-    
-  }
-};
 
+const y = { bar(): void {} };
 "
 `;
 
@@ -91,21 +91,35 @@ type Mono = C<void>;
 var mn: Mono<number> = new C; // error: application of non-poly type
 mn;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+// @flow
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1172:16)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+class C<X> {}
+var cn: C<number> = new C();
+cn;
+
+function foo() {
+  return C;
+}
+var D = foo();
+var dn: D<number> = new C();
+dn;
+
+type E<X> = C<X>;
+var en: E<number> = new C();
+en;
+
+type F<X> = C<void>;
+var fn: F<number> = new C();
+fn;
+
+type O<X> = { x: X };
+var on: O<number> = { x: 0 };
+on;
+
+type Mono = C<void>;
+var mn: Mono<number> = new C();
+// error: application of non-poly type
+mn;
 "
 `;
 
@@ -118,12 +132,9 @@ module.exports = num;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 var num = 42;
-function bar() {
-  
-}
+function bar() {}
 bar();
 module.exports = num;
-
 "
 `;
 
@@ -138,13 +149,13 @@ let tests = [
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
+
 let tests = [
   function() {
     let x = {};
     Object.defineProperty(x, \"foo\", { value: \"\" });
   }
 ];
-
 "
 `;
 
@@ -166,17 +177,20 @@ function qux(x?) {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-function foo(x: string) {
-  return x;
-}
-foo();
-function bar(obj: { x?: string }) {
-  return obj.x;
-}
-function qux(x) {
+
+function foo(x?: string) {
   return x;
 }
 
+foo();
+
+function bar(obj: { x?: string }) {
+  return obj.x;
+}
+
+function qux(x?) {
+  return x;
+}
 "
 `;
 
@@ -189,17 +203,14 @@ if (x == undefined) {}
 if (Array.isArray(x)) {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
+
 let x = 0;
 if (x == null) {
-  
 }
 if (x == undefined) {
-  
 }
 if (Array.isArray(x)) {
-  
 }
-
 "
 `;
 
@@ -209,7 +220,6 @@ React.createElement;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import React from \"react\";
 React.createElement;
-
 "
 `;
 
@@ -219,7 +229,6 @@ exports[`test templates.js 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 \`foo bar\`;
-
 "
 `;
 
@@ -239,21 +248,20 @@ const z:MyBool = true;
 type MyNum = 42;
 const w:MyNum = 42;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1237
-      throw new Error(\"unprintable type: \" + JSON.stringify(n.type));
-      ^
+// @flow
+var str = require(\"./import\");
+function foo() {}
+foo();
+str;
 
-Error: unprintable type: \"TupleTypeAnnotation\"
-    at genericPrintNoParens (/src/printer.js:1237:13)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1481:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+type Point = [number, string];
+const x: Point = [1, \"foo\"];
+type MyStr = \"cool\";
+const y: MyStr = \"cool\";
+type MyBool = true;
+const z: MyBool = true;
+type MyNum = 42;
+const w: MyNum = 42;
 "
 `;
 
@@ -265,11 +273,10 @@ try {
 } catch (e) {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+
 try {
   throw \"foo\";
 } catch (e) {
-  
 }
-
 "
 `;

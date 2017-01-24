@@ -20,21 +20,28 @@ declare var b: B<any>;
 
 (b: B<any>);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+/* This test ensures that the code below does not take a long time to check. If
+ * this test is taking a very long time to complete, there is a bug. */
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1479:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+class A {}
+
+type B<T> =
+  & A
+  & {
+    +a: () => B<T>,
+    +b: () => B<T>,
+    +c: () => B<T>,
+    +d: () => B<T>,
+    +e: () => B<T>,
+    +f: () => B<T>,
+    +g: () => B<T>,
+    +h: () => B<T>,
+    +i: () => B<T>
+  };
+
+declare var b: B<any>;
+
+(b: B<any>);
 "
 `;
 
@@ -60,20 +67,27 @@ declare var b: B<any>;
 
 (b: B<any>);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/src/printer.js:1497
-        fromString(\", \").join(path.map(print, \"params\")),
-                         ^
+/* This test ensures that the code below does not take a long time to check. If
+ * this test is taking a very long time to complete, there is a bug. */
 
-TypeError: fromString(...).join is not a function
-    at genericPrintNoParens (/src/printer.js:1497:26)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
-    at printGenerically (/src/printer.js:111:12)
-    at FastPath.call (/src/fast-path.js:113:16)
-    at genericPrintNoParens (/src/printer.js:1479:14)
-    at genericPrint (/src/printer.js:166:7)
-    at p (/src/printer.js:111:37)
-    at exports.printComments (/src/comments.js:327:20)
+class A {}
+
+type B<T> =
+  & A
+  & {
+    +a: (x: B<T>) => void,
+    +b: (x: B<T>) => void,
+    +c: (x: B<T>) => void,
+    +d: (x: B<T>) => void,
+    +e: (x: B<T>) => void,
+    +f: (x: B<T>) => void,
+    +g: (x: B<T>) => void,
+    +h: (x: B<T>) => void,
+    +i: (x: B<T>) => void
+  };
+
+declare var b: B<any>;
+
+(b: B<any>);
 "
 `;

@@ -5,13 +5,13 @@ exports[`test test.js 1`] = `
 
 class C {
   foo(): number { return 0; }
-  foo(): string { return "hello" } // last wins
+  foo(): string { return \"hello\" } // last wins
   x: number;
   x: string; // last wins
   bar(): number { return 0; }
   bar: string; // field wins over method
   qux: number;
-  qux(): string { return "hello" } // method loses to field!
+  qux(): string { return \"hello\" } // method loses to field!
 }
 
 // check
@@ -19,19 +19,19 @@ class C {
 ((new C).foo(): boolean); // last wins
 ((new C).x: boolean); // last wins
 ((new C).bar: boolean); // last wins
-((new C).qux: boolean); // weird outlier where last doesn't win in classes
+((new C).qux: boolean); // weird outlier where last doesn\'t win in classes
 
 // Objects
 
 const o = {
   foo(): number { return 0; },
-  foo(): string { return "hello" }, // last wins
+  foo(): string { return \"hello\" }, // last wins
   x: 42,
-  x: "hello", // last wins
+  x: \"hello\", // last wins
   bar(): number { return 0; },
-  bar: "hello", // last wins
+  bar: \"hello\", // last wins
   qux: 42,
-  qux(): string { return "hello" }, // last wins
+  qux(): string { return \"hello\" }, // last wins
 };
 
 // check
@@ -42,54 +42,72 @@ const o = {
 (o.qux(): boolean); // last wins
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
+
 // Classes
+
 class C {
   foo(): number {
     return 0;
   }
   foo(): string {
-    return "hello";
-  }// last wins
+    return \"hello\";
+  }
+  // last wins
   x: number;
-  x: string;// last wins
+  x: string;
+  // last wins
   bar(): number {
     return 0;
   }
-  bar: string;// field wins over method
+  bar: string;
+  // field wins over method
   qux: number;
   qux(): string {
-    return "hello";
-  }// method loses to field!
+    return \"hello\";
+  } // method loses to field!
 }
+
 // check
-(new C().foo(): boolean);// last wins
-(new C().x: boolean);// last wins
-(new C().bar: boolean);// last wins
-(new C().qux: boolean);// weird outlier where last doesn't win in classes
+(new C().foo(): boolean);
+// last wins
+(new C().x: boolean);
+// last wins
+(new C().bar: boolean);
+// last wins
+(new C().qux: boolean);
+
+// weird outlier where last doesn\'t win in classes
 // Objects
 const o = {
   foo(): number {
     return 0;
   },
-  // last wins foo(): string {
-    return "hello";
+  foo(): string {
+    return \"hello\";
   },
+  // last wins
   x: 42,
-  // last wins x: "hello",
+  x: \"hello\",
+  // last wins
   bar(): number {
     return 0;
   },
-  // last wins bar: "hello",
+  bar: \"hello\",
+  // last wins
   qux: 42,
-  // last wins qux(): string {
-    return "hello";
+  // last wins
+  qux(): string {
+    return \"hello\";
   }
 };
-// check
-(o.foo(): boolean);// last wins
-(o.x: boolean);// last wins
-(o.bar: boolean);// last wins
-(o.qux(): boolean);// last wins
 
+// check
+(o.foo(): boolean);
+// last wins
+(o.x: boolean);
+// last wins
+(o.bar: boolean);
+// last wins
+(o.qux(): boolean); // last wins
 "
 `;
