@@ -13,7 +13,6 @@ var hardline = docBuilders.hardline;
 var softline = docBuilders.softline;
 var literalline = docBuilders.literalline;
 var group = docBuilders.group;
-var multilineGroup = docBuilders.multilineGroup;
 var indent = docBuilders.indent;
 var conditionalGroup = docBuilders.conditionalGroup;
 var ifBreak = docBuilders.ifBreak;
@@ -271,6 +270,8 @@ function genericPrintNoParens(path, options, print) {
       const body = path.call(print, "body");
       const collapsed = concat([ concat(parts), " ", body ]);
 
+      // We want to always keep these types of nodes on the same line
+      // as the arrow.
       if (
         n.body.type === "ArrayExpression" ||
           n.body.type === "ObjectExpression" ||
@@ -279,13 +280,21 @@ function genericPrintNoParens(path, options, print) {
         return group(collapsed);
       }
 
-      return conditionalGroup([
-        collapsed,
-        concat([
-          concat(parts),
-          indent(1, concat([ line, body ]))
-        ])
-      ]);
+      // These nested groups are a little wonky, but because
+      // `conditionalGroup` suppresses break propagation, we want to
+      // re-propagate it. We still want to allow the printer to choose
+      // the more collapsed version, but still break parents if there
+      // are any hard breaks in the content.
+      return group(
+        conditionalGroup([
+          collapsed,
+          concat([
+            concat(parts),
+            indent(1, concat([ line, body ]))
+          ])
+        ]),
+        { shouldBreak: willBreak(body) }
+      );
     case "MethodDefinition":
       if (n.static) {
         parts.push("static ");
@@ -426,7 +435,7 @@ function genericPrintNoParens(path, options, print) {
 
         if (grouped.length > 0) {
           parts.push(
-            multilineGroup(
+            group(
               concat([
                 "{",
                 indent(
@@ -561,7 +570,7 @@ function genericPrintNoParens(path, options, print) {
       if (props.length === 0) {
         return "{}";
       } else {
-        return multilineGroup(
+        return group(
           concat([
             leftBrace,
             indent(
@@ -642,7 +651,7 @@ function genericPrintNoParens(path, options, print) {
           lastElem === null;
 
         parts.push(
-          multilineGroup(
+          group(
             concat([
               "[",
               indent(
@@ -782,7 +791,7 @@ function genericPrintNoParens(path, options, print) {
         parts.push(";");
       }
 
-      return multilineGroup(concat(parts));
+      return group(concat(parts));
     case "VariableDeclarator":
       return n.init
         ? concat([ path.call(print, "id"), " = ", path.call(print, "init") ])
@@ -1087,17 +1096,15 @@ function genericPrintNoParens(path, options, print) {
         concat([
           "<",
           path.call(print, "name"),
-          multilineGroup(
-            concat([
-              indent(
-                1,
-                concat(
-                  path.map(attr => concat([ line, print(attr) ]), "attributes")
-                )
-              ),
-              n.selfClosing ? line : softline
-            ])
-          ),
+          concat([
+            indent(
+              1,
+              concat(
+                path.map(attr => concat([ line, print(attr) ]), "attributes")
+              )
+            ),
+            n.selfClosing ? line : softline
+          ]),
           n.selfClosing ? "/>" : ">"
         ])
       );
@@ -1311,7 +1318,7 @@ function genericPrintNoParens(path, options, print) {
 
       parts.push(path.call(print, "typeParameters"));
 
-      parts.push(multilineGroup(printFunctionParams(path, print, options)));
+      parts.push(group(printFunctionParams(path, print, options)));
 
       // The returnType is not wrapped in a TypeAnnotation, so the colon
       // needs to be added separately.
@@ -1656,7 +1663,7 @@ function printMethod(path, options, print) {
   parts.push(
     key,
     path.call(print, "value", "typeParameters"),
-    multilineGroup(
+    group(
       concat([
         path.call(
           function(valuePath) {
@@ -1727,7 +1734,7 @@ function printArgumentsList(path, options, print) {
     );
   }
 
-  return multilineGroup(
+  return group(
     concat([
       "(",
       indent(
@@ -1812,7 +1819,7 @@ function printObjectMethod(path, options, print) {
   }
 
   parts.push(
-    multilineGroup(
+    group(
       concat([
         printFunctionParams(path, print, options),
         printReturnType(path, print)
@@ -1880,7 +1887,7 @@ function printExportDeclaration(path, options, print) {
       } else {
         parts.push(
           decl.exportKind === "type" ? "type " : "",
-          multilineGroup(
+          group(
             concat([
               "{",
               indent(
@@ -2277,7 +2284,7 @@ function maybeWrapJSXElementInParens(path, elem, options) {
     return elem;
   }
 
-  return multilineGroup(
+  return group(
     concat([
       ifBreak("("),
       indent(1, concat([ softline, elem ])),

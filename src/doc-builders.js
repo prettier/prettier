@@ -1,13 +1,11 @@
 "use strict";
-const assert = require("assert");
 const utils = require("./doc-utils");
 const willBreak = utils.willBreak;
 
 function assertDoc(val) {
-  assert(
-    typeof val === "string" || val != null && typeof val.type === "string",
-    "Value is a valid document"
-  );
+  if (!(typeof val === "string" || val != null && typeof val.type === "string")) {
+    throw new Error("Value " + JSON.stringify(val) + " is not a valid document");
+  }
 }
 
 function concat(parts) {
@@ -35,13 +33,6 @@ function group(contents, opts) {
   };
 }
 
-function multilineGroup(contents, opts) {
-  return group(
-    contents,
-    Object.assign(opts || {}, { shouldBreak: willBreak(contents) })
-  );
-}
-
 function conditionalGroup(states, opts) {
   return group(
     states[0],
@@ -64,7 +55,7 @@ const breakParent =  { type: "break-parent" };
 const line = { type: "line" };
 const softline = { type: "line", soft: true };
 const hardline = concat([{ type: "line", hard: true }, breakParent ]);
-const literalline = { type: "line", hard: true, literal: true };
+const literalline = concat([{ type: "line", hard: true, literal: true }, breakParent ]);
 
 function join(sep, arr) {
   var res = [];
@@ -88,7 +79,6 @@ module.exports = {
   hardline,
   literalline,
   group,
-  multilineGroup,
   conditionalGroup,
   breakParent,
   ifBreak,
