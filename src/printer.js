@@ -2168,25 +2168,30 @@ function printJSXChildren(path, options, print) {
           : util.htmlEscapeInsideAngleBracket(child.value);
 
         if (/\S/.test(value)) {
-          const beginBreak = value.match(/^\s*\n/);
-          const endBreak = value.match(/\n\s*$/);
-          const beginSpace = value.match(/^\s+/);
-          const endSpace = value.match(/\s+$/);
+          // treat each line of text as its own entity
+          value.split(/(\n\s*)/).forEach(line => {
+            if (line.match(/\n/)) {
+              children.push(hardline);
+              return;
+            }
 
-          if (beginBreak) {
-            children.push(hardline);
-          } else if (beginSpace) {
-            children.push(jsxWhitespace);
-          }
+            const beginSpace = /^\s+/.test(line);
+            if (beginSpace) {
+              children.push(jsxWhitespace);
+            }
 
-          children.push(value.replace(/^\s+|\s+$/g, ""));
+            const stripped = line.replace(/^\s+|\s+$/g, "");
+            if (stripped) {
+              children.push(stripped);
+            }
 
-          if (endBreak) {
-            children.push(hardline);
-          } else {
-            if (endSpace) children.push(jsxWhitespace);
+            const endSpace = /\s+$/.test(line);
+            if (endSpace) {
+              children.push(jsxWhitespace);
+            }
+
             children.push(softline);
-          }
+          });
         } else if (/\n/.test(value)) {
           // TODO: add another hardline if >1 newline appeared. (also above)
           children.push(hardline);
