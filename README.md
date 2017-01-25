@@ -207,6 +207,14 @@ features enabled, but you can also use
 All of JSX and Flow syntax is supported. In fact, the test suite in
 `tests` *is* the entire Flow test suite and they all pass.
 
+## Related Projects
+
+- [`prettier-eslint`](https://github.com/kentcdodds/prettier-eslint)
+passes `prettier` output to `eslint --fix`
+- [`prettier-standard-formatter`](https://github.com/dtinth/prettier-standard-formatter)
+passes `prettier` output to `standard --fix`
+
+
 ## Technical Details
 
 This printer is a fork of
