@@ -1202,7 +1202,7 @@ function genericPrintNoParens(path, options, print) {
       return concat(parts);
     case "ClassDeclaration":
     case "ClassExpression":
-      return concat(printClass(path, print));
+      return concat(printClass(path, options, print));
     case "TemplateElement":
       return join(literalline, n.value.raw.split("\n"));
     case "TemplateLiteral":
@@ -1291,7 +1291,7 @@ function genericPrintNoParens(path, options, print) {
     case "BooleanLiteralTypeAnnotation":
       return "" + n.value;
     case "DeclareClass":
-      return printFlowDeclaration(path, printClass(path, print));
+      return printFlowDeclaration(path, printClass(path, options, print));
     case "DeclareFunction":
       return printFlowDeclaration(path, [
         "function ",
@@ -1960,7 +1960,7 @@ function printFlowDeclaration(path, parts) {
   return concat(parts);
 }
 
-function printClass(path, print) {
+function printClass(path, options, print) {
   const n = path.getValue();
   const parts = [ "class" ];
 
@@ -1968,18 +1968,24 @@ function printClass(path, print) {
     parts.push(" ", path.call(print, "id"), path.call(print, "typeParameters"));
   }
 
+  const partsGroup = [];
   if (n.superClass) {
-    parts.push(
-      " extends ",
+    partsGroup.push(
+      line,
+      "extends ",
       path.call(print, "superClass"),
       path.call(print, "superTypeParameters")
     );
   } else if (n.extends && n.extends.length > 0) {
-    parts.push(" extends ", join(", ", path.map(print, "extends")));
+    partsGroup.push(line, "extends ", join(", ", path.map(print, "extends")));
   }
 
   if (n["implements"] && n["implements"].length > 0) {
-    parts.push(" implements ", join(", ", path.map(print, "implements")));
+    partsGroup.push(line, "implements ", join(", ", path.map(print, "implements")));
+  }
+
+  if (partsGroup.length > 0) {
+    parts.push(group(indent(options.tabWidth, concat(partsGroup))));
   }
 
   parts.push(" ", path.call(print, "body"));
