@@ -213,6 +213,8 @@ All of JSX and Flow syntax is supported. In fact, the test suite in
 passes `prettier` output to `eslint --fix`
 - [`prettier-standard-formatter`](https://github.com/dtinth/prettier-standard-formatter)
 passes `prettier` output to `standard --fix`
+- [`prettier-with-tabs`](https://github.com/arijs/prettier-with-tabs)
+allows you to configure prettier to use `tabs`
 
 
 ## Technical Details
