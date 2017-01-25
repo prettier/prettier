@@ -627,7 +627,7 @@ function genericPrintNoParens(path, options, print) {
                   indent(options.tabWidth, concat([softline, printedValue]))
                 ])
               ),
-              line,
+              softline,
               ifBreak(")")
             ])
           );
