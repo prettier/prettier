@@ -2170,8 +2170,14 @@ function printJSXChildren(path, options, print) {
         if (/\S/.test(value)) {
           // treat each line of text as its own entity
           value.split(/(\n\s*)/).forEach(line => {
-            if (line.match(/\n/)) {
+            const newlines = line.match(/\n/g);
+            if (newlines) {
               children.push(hardline);
+
+              // allow one extra newline
+              if (newlines.length > 1) {
+                children.push(hardline)
+              }
               return;
             }
 
@@ -2193,8 +2199,12 @@ function printJSXChildren(path, options, print) {
             children.push(softline);
           });
         } else if (/\n/.test(value)) {
-          // TODO: add another hardline if >1 newline appeared. (also above)
           children.push(hardline);
+
+          // allow one extra newline
+          if (value.match(/\n/g).length > 1) {
+            children.push(hardline)
+          }
         } else if (/\s/.test(value)) {
           // whitespace-only without newlines,
           // eg; a single space separating two elements
@@ -2251,20 +2261,32 @@ function printJSXElement(path, options, print) {
   const children = printJSXChildren(path, options, print);
   let forcedBreak = false;
 
-  // Trim trailing whitespace, recording if there was a hardline
+  // Trim trailing lines, recording if there was a hardline
+  let numTrailingHard = 0;
   while (children.length && isLineNext(util.getLast(children))) {
     if (willBreak(util.getLast(children))) {
+      ++numTrailingHard;
       forcedBreak = true;
     }
     children.pop();
   }
+  // allow one extra newline
+  if (numTrailingHard > 1) {
+    children.push(hardline);
+  }
 
-  // Trim leading whitespace, recording if there was a hardline
+  // Trim leading lines, recording if there was a hardline
+  let numLeadingHard = 0;
   while (children.length && isLineNext(children[0])) {
     if (willBreak(children[0])) {
+      ++numLeadingHard;
       forcedBreak = true;
     }
     children.shift();
+  }
+  // allow one extra newline
+  if (numLeadingHard > 1) {
+    children.unshift(hardline);
   }
 
   // Group by line, recording if there was a hardline.
