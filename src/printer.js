@@ -1722,6 +1722,7 @@ function printArgumentsList(path, options, print) {
         lastArg.body.type === "ArrowFunctionExpression" ||
         lastArg.body.type === "ObjectExpression" ||
         lastArg.body.type === "ArrayExpression" ||
+        lastArg.body.type === "CallExpression" ||
         lastArg.body.type === "JSXElement") ||
     lastArg.type === "NewExpression";
 
