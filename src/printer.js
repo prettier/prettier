@@ -51,9 +51,12 @@ function genericPrint(path, options, printPath) {
       // responsible for printing node.decorators.
       !util.getParentExportDeclaration(path)
   ) {
+    const separator = node.decorators.length === 1 &&
+      node.decorators[0].expression.type === "Identifier"
+      ? " " : hardline;
     path.each(
       function(decoratorPath) {
-        parts.push(printPath(decoratorPath), line);
+        parts.push(printPath(decoratorPath), separator);
       },
       "decorators"
     );
