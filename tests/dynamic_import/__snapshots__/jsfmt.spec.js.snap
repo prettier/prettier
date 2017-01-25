@@ -1,0 +1,8 @@
+exports[`test test.js 1`] = `
+"import(\"module.js\");
+import(\"module.js\").then((a) => a);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import(\"module.js\");
+import(\"module.js\").then(a => a);
+"
+`;
