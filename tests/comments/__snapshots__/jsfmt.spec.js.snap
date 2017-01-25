@@ -228,12 +228,14 @@ export type BuckWebSocketMessage =
   };
 
 // Missing one level of indentation because of the comment
-const rootEpic = (actions, store) =>
-  combineEpics(...epics)(actions, store).// Log errors and continue.
-  catch((err, stream) => {
-    getLogger().error(err);
-    return stream;
-  });
+const rootEpic = (actions, store) => combineEpics(...epics)(
+  actions,
+  store
+).// Log errors and continue.
+catch((err, stream) => {
+  getLogger().error(err);
+  return stream;
+});
 
 // Two extra levels of indentation because of the comment
 export type AsyncExecuteOptions =
@@ -258,11 +260,12 @@ const regex = new RegExp(
 import path from \"path\"; // eslint-disable-line nuclide-internal/prefer-nuclide-uri
 
 // Comments disappear in-between MemberExpressions
-Observable.of(process).// Don\'t complete until we say so!
-merge(Observable.never()).// Get the errors.
-takeUntil(
-  throwOnError ? errors.flatMap(Observable.throw) : errors
-).takeUntil(exit);
+Observable.of(process)
+  .// Don\'t complete until we say so!
+  merge(Observable.never())
+  .// Get the errors.
+  takeUntil(throwOnError ? errors.flatMap(Observable.throw) : errors)
+  .takeUntil(exit);
 
 /* Comments disappear inside of JSX*/
 <div>
@@ -455,12 +458,14 @@ export type BuckWebSocketMessage =
   };
 
 // Missing one level of indentation because of the comment
-const rootEpic = (actions, store) =>
-  combineEpics(...epics)(actions, store).// Log errors and continue.
-  catch((err, stream) => {
-    getLogger().error(err);
-    return stream;
-  });
+const rootEpic = (actions, store) => combineEpics(...epics)(
+  actions,
+  store
+).// Log errors and continue.
+catch((err, stream) => {
+  getLogger().error(err);
+  return stream;
+});
 
 // Two extra levels of indentation because of the comment
 export type AsyncExecuteOptions =
@@ -485,11 +490,12 @@ const regex = new RegExp(
 import path from \"path\"; // eslint-disable-line nuclide-internal/prefer-nuclide-uri
 
 // Comments disappear in-between MemberExpressions
-Observable.of(process).// Don\'t complete until we say so!
-merge(Observable.never()).// Get the errors.
-takeUntil(
-  throwOnError ? errors.flatMap(Observable.throw) : errors
-).takeUntil(exit);
+Observable.of(process)
+  .// Don\'t complete until we say so!
+  merge(Observable.never())
+  .// Get the errors.
+  takeUntil(throwOnError ? errors.flatMap(Observable.throw) : errors)
+  .takeUntil(exit);
 
 // Comments disappear inside of JSX
 <div>

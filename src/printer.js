@@ -535,10 +535,7 @@ function genericPrintNoParens(path, options, print) {
       // We detect calls on member lookups and possibly print them in a
       // special chain format. See `printMemberChain` for more info.
       if (n.callee.type === "MemberExpression") {
-        const printed = printMemberChain(n, options, print);
-        if (printed) {
-          return printed;
-        }
+        return printMemberChain(path, options, print);
       }
 
       return concat([
@@ -2023,86 +2020,150 @@ function printMemberLookup(path, options, print) {
 //   .filter(x => x > 10)
 //   .some(x => x % 2)
 //
-// where there is a "chain" of function calls on the result of
-// previous expressions. We want to format them like above so they
-// are consistently aligned.
-//
-// The way we do is by eagerly traversing the AST tree and
-// re-shape it into a list of calls on member expressions. This
-// lets us implement a heuristic easily for when we want to format
-// it: if there are more than 1 calls on a member expression that
-// pass in a function, we treat it like the above.
-function printMemberChain(node, options, print) {
-  const nodes = [];
-  let leftmost = node;
-  let leftmostParent = null;
-  // Traverse down and gather up all of the calls on member
-  // expressions. This flattens it out into a list that we can
-  // easily analyze.
-  while (
-    leftmost.type === "CallExpression" &&
-      leftmost.callee.type === "MemberExpression"
-  ) {
-    nodes.push({ member: leftmost.callee, call: leftmost });
-    leftmostParent = leftmost;
-    leftmost = leftmost.callee.object;
-  }
-  nodes.reverse();
+// The way it is structured in the AST is via a nested sequence of
+// MemberExpression and CallExpression. We need to traverse the AST
+// and make groups out of it to print it in the desired way.
+function printMemberChain(path, options, print) {
+  // The first phase is to linearize the AST by traversing it down.
+  //
+  //   a().b()
+  // has the following AST structure:
+  //   CallExpression(MemberExpression(CallExpression(Identifier)))
+  // and we transform it into
+  //   [Identifier, CallExpression, MemberExpression, CallExpression]
+  const printedNodes = [];
 
-  // There are two kinds of formats we want to specialize: first,
-  // if there are multiple calls on lookups we want to group them
-  // together so they will all break at the same time. Second,
-  // it's a chain if there 2 or more calls pass in functions and
-  // we want to forcibly break all of the lookups onto new lines
-  // and indent them.
-  function argIsFunction(call) {
-    if (call.arguments.length > 0) {
-      const type = call.arguments[0].type;
-      return typeIsFunction(type);
-    }
-    return false;
-  }
-  const hasMultipleLookups = nodes.length > 1;
-  const isChain = hasMultipleLookups &&
-    nodes.filter(n => argIsFunction(n.call)).length > 1;
-
-  if (hasMultipleLookups) {
-    const leftmostPrinted = FastPath
-      .from(leftmostParent)
-      .call(print, "callee", "object");
-    const nodesPrinted = nodes.map(node => ({
-      property: printMemberLookup(FastPath.from(node.member), options, print),
-      args: printArgumentsList(FastPath.from(node.call), options, print)
-    }));
-    const fullyExpanded = concat([
-      leftmostPrinted,
-      concat(nodesPrinted.map(node => {
-          return indent(
-            options.tabWidth,
-            concat([hardline, node.property, node.args])
-          );
-        }))
-    ]);
-
-    // If it's a chain, force it to be fully expanded and print a
-    // newline before each lookup. If we're not sure if it's a
-    // chain (it *might* be printed on one line, but if gets too
-    // long it will be printed as a chain), we need to use
-    // `conditionalGroup` to describe both of these
-    // representations. We cannot describe both at the same time
-    // because the fully expanded form adds indentation, which
-    // messes up anything with hard lines.
-    if (isChain) {
-      return fullyExpanded;
+  function rec(path) {
+    const node = path.getValue();
+    if (node.type === "CallExpression") {
+      printedNodes.unshift({
+        node: node,
+        printed: printArgumentsList(path, options, print)
+      });
+      path.call(callee => rec(callee), "callee");
+    } else if (node.type === "MemberExpression") {
+      printedNodes.unshift({
+        node: node,
+        printed: comments.printComments(path, p => printMemberLookup(path, options, print), options)
+      });
+      path.call(object => rec(object), "object");
     } else {
-      return conditionalGroup([
-        concat([leftmostPrinted, concat(nodesPrinted.map(node => {
-              return concat([node.property, node.args]);
-            }))]),
-        fullyExpanded
-      ]);
+      printedNodes.unshift({
+        node: node,
+        printed: path.call(print)
+      });
     }
   }
+  rec(path);
+
+
+  // Once we have a linear list of printed nodes, we want to create groups out
+  // of it.
+  //
+  //   a().b.c().d().e
+  // will be grouped as
+  //   [
+  //     [Identifier, CallExpression],
+  //     [MemberExpression, MemberExpression, CallExpression],
+  //     [MemberExpression, CallExpression],
+  //     [MemberExpression],
+  //   ]
+  // so that we can print it as
+  //   a()
+  //     .b.c()
+  //     .d()
+  //     .e
+
+  // The first group is the first node followed by as many CallExpression as possible
+  var groups = [];
+  var currentGroup = [printedNodes[0]];
+  var i = 1;
+  for (; i < printedNodes.length; ++i) {
+    if (printedNodes[i].node.type === "CallExpression") {
+      currentGroup.push(printedNodes[i]);
+    } else {
+      break;
+    }
+  }
+  groups.push(currentGroup);
+  currentGroup = [];
+
+  // Then, each following group is a sequence of MemberExpression followed by
+  // a sequence of CallExpression. To compute it, we keep adding things to the
+  // group until we has seen a CallExpression in the past and reach a
+  // MemberExpression
+  var hasSeenCallExpression = false;
+  for (; i < printedNodes.length; ++i) {
+    if (hasSeenCallExpression &&
+        printedNodes[i].node.type === "MemberExpression") {
+      groups.push(currentGroup);
+      currentGroup = [];
+      hasSeenCallExpression = false;
+    }
+
+    if (printedNodes[i].node.type === "CallExpression") {
+      hasSeenCallExpression = true;
+    }
+    currentGroup.push(printedNodes[i]);
+  }
+  if (currentGroup.length > 0) {
+    groups.push(currentGroup);
+  }
+
+  // There are cases like Object.keys(), Observable.of(), _.values() where
+  // they are the subject of all the chained calls and therefore should
+  // be kept on the same line:
+  //
+  //   Object.keys(items)
+  //     .filter(x => x)
+  //     .map(x => x)
+  //
+  // In order to detect those cases, we use an heuristic: if the first
+  // node is just an identifier with the name starting with a capital
+  // letter or just a sequence of _$. The rationale is that they are
+  // likely to be factories.
+  if (groups[0].length === 1 &&
+      groups[0][0].node.type === "Identifier" &&
+      groups[0][0].node.name.match(/(^[A-Z])|^[_$]+$/) &&
+      groups.length >= 2) {
+    // Push all the values of groups[0] at the beginning of groups[1]
+    [].unshift.apply(groups[1], groups[0]);
+    // Remove groups[0]
+    groups.splice(0, 1);
+  }
+
+  function printGroup(printedGroup) {
+    return concat(printedGroup.map(tuple => tuple.printed));
+  }
+
+  const printedGroups = groups.map(printGroup);
+
+  const oneLine = concat(printedGroups);
+
+  // If we only have a single `.`, we shouldn't do anything fancy and just
+  // render everything concatenated together.
+  if (groups.length <= 2) {
+    return group(oneLine);
+  }
+
+  const expanded = concat([
+    printGroup(groups[0]),
+    indent(
+      options.tabWidth,
+      group(concat([
+        hardline,
+        join(hardline, groups.slice(1).map(printGroup))
+      ]))
+    )
+  ]);
+
+  // If any group but the last one has a hard line, we want to force expand
+  // it. If the last group is a function it's okay to inline if it fits.
+  if (printedGroups.slice(0, -1).some(willBreak)) {
+    return group(expanded);
+  }
+
+  return conditionalGroup([oneLine, expanded]);
 }
 
 function isEmptyJSXElement(node) {
