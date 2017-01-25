@@ -264,3 +264,4 @@ a few notes if you are interested in contributing:
 * You can run `AST_COMPARE=1 jest` for a more robust test run. That
   formats each file, re-parses it, and compares the new AST with the
   original one and makes sure they are semantically equivalent.
+ * Each test folder has a `jsfmt.spec.js` that runs the tests. Normally you can just put `run_spec(__dirname);` there but if you want to pass specific options you can add the options object as the 2nd parameter like: `run_spec(__dirname, { parser: 'babylon' });`
