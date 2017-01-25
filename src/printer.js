@@ -459,6 +459,10 @@ function genericPrintNoParens(path, options, print) {
       parts.push(path.call(print, "source"), ";");
 
       return concat(parts);
+
+    case "Import": {
+      return "import";
+    }
     case "BlockStatement": {
       var naked = path.call(
         function(bodyPath) {
