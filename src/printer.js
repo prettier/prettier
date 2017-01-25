@@ -115,6 +115,9 @@ function genericPrintNoParens(path, options, print) {
         path.each(
           function(childPath) {
             parts.push(print(childPath), ";", hardline);
+            if (util.newlineExistsAfter(options.originalText, util.locEnd(childPath.getValue()))) {
+              parts.push(hardline);
+            }
           },
           "directives"
         );

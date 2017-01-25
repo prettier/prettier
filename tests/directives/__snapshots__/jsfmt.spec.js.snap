@@ -1,4 +1,56 @@
+exports[`test newline.js 1`] = `
+"/* @flow */
+
+\"use strict\";
+
+import a from \"a\";
+
+a();
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @flow */
+
+\"use strict\";
+
+import a from \"a\";
+
+a();
+"
+`;
+
+exports[`test newline.js 2`] = `
+"/* @flow */
+
+\"use strict\";
+
+import a from \"a\";
+
+a();
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @flow */
+\"use strict\";
+
+import a from \"a\";
+
+a();
+"
+`;
+
 exports[`test test.js 1`] = `
+"\"use strict\";
+
+function fn() {
+  \"use strict\";
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\"use strict\";
+
+function fn() {
+  \"use strict\";
+}
+"
+`;
+
+exports[`test test.js 2`] = `
 "\"use strict\";
 
 function fn() {
