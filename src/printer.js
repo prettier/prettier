@@ -118,7 +118,7 @@ function genericPrintNoParens(path, options, print) {
         path.each(
           function(childPath) {
             parts.push(print(childPath), ";", hardline);
-            if (util.newlineExistsAfter(options.originalText, util.locEnd(childPath.getValue()))) {
+            if (util.hasNewline(options.originalText, util.locEnd(childPath.getValue()))) {
               parts.push(hardline);
             }
           },
@@ -134,6 +134,10 @@ function genericPrintNoParens(path, options, print) {
           "body"
         )
       );
+
+      if(n.comments) {
+        parts.push(comments.printDanglingComments(path, print, options));
+      }
 
       parts.push(hardline);
 
@@ -1248,16 +1252,7 @@ function genericPrintNoParens(path, options, print) {
     case // Flow
     "Type":
       throw new Error("unprintable type: " + JSON.stringify(n.type));
-    // Babel block comment.
-    case "CommentBlock":
-    case // Esprima block comment.
-    "Block":
-      return concat([ "/*", n.value, "*/" ]);
-    // Babel line comment.
-    case "CommentLine":
-    case // Esprima line comment.
-    "Line":
-      return concat([ "//", n.value ]);
+
     // Type Annotations for Facebook Flow, typically stripped out or
     // transformed away before printing.
     case "TypeAnnotation":
@@ -1624,10 +1619,10 @@ function printStatementSequence(path, options, print) {
 
     parts.push(stmtPrinted);
 
-    if (
-      util.newlineExistsAfter(text, util.locEnd(stmt)) &&
-        !isLastStatement(stmtPath)
-    ) {
+    let idx = util.skipToLineEnd(text, util.locEnd(stmt));
+    idx = util.skipNewline(text, idx);
+
+    if (util.hasNewline(text, idx) && !isLastStatement(stmtPath)) {
       parts.push(hardline);
     }
 

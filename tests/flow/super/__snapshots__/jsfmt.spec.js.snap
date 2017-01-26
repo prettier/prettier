@@ -170,8 +170,7 @@ class C extends A {}
 class D extends A {
   y: number;
   constructor() {
-    this.y;
-    // error (no super call)
+    this.y; // error (no super call)
     this.x; // error (no super call)
   }
 }
@@ -180,22 +179,19 @@ class E extends A {
   y: number;
   constructor() {
     super();
-    this.y;
-    // OK
+    this.y; // OK
     this.x; // OK
   }
 }
 
 function leak(f) {
-  f.y;
-  // error
+  f.y; // error
   f.x; // error
 }
 class F extends A {
   y: number;
   constructor() {
-    leak(this);
-    // error (no super call yet)
+    leak(this); // error (no super call yet)
     super();
     this.y;
     this.x;
@@ -213,8 +209,7 @@ class H extends A {
   constructor() {
     if (Math.random() < 0.5) super();
     else super();
-    this.y;
-    // OK
+    this.y; // OK
     this.x; // OK
   }
 }
@@ -261,8 +256,7 @@ class K extends K_ {
   constructor() {
     super(() => {
       if (_this) _this.foo();
-    });
-    // OK
+    }); // OK
     var _this = this;
     this.closure_leaking_this();
   }
@@ -372,8 +366,7 @@ class B extends A {
   }
 
   static anotherStatic() {
-    (super.staticMethod(\"foo\"): number);
-    // error, string !~> number
+    (super.staticMethod(\"foo\"): number); // error, string !~> number
     super.doesntExist(); // error, A doesn\'t have a doesntExist method
   }
 

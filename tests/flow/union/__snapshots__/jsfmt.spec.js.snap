@@ -320,8 +320,7 @@ var C = require(\"test-lib\");
 
 // TODO: spurious error! (replacing C with number makes the error go away)
 // type Foo<X> = Array<C> | Array<?C>;
-type Foo<X: ?C> = Array<X>;
-// workaround
+type Foo<X: ?C> = Array<X>; // workaround
 var x: Array<C> = [];
 var y: Array<?C> = [];
 function foo<X>(x: Foo<X>) {}
@@ -330,9 +329,7 @@ foo(y);
 
 // TODO: spurious error! (replacing C with number makes the error go away)
 // type Bar = (() => C) | (() => string);
-type Bar = () => C | string;
-
-// workaround
+type Bar = () => C | string; // workaround
 function f() {
   return \"\";
 }
@@ -417,12 +414,9 @@ class C {}
 class D {}
 function CD(b) {
   var E = b ? C : D;
-  var c: C = new E();
-  // error, since E could be D, and D is not a subtype of C
-  function qux(e: E) {}
-  // this annotation is an error: is it C, or is it D?
-  function qux2(e: C | D) {}
-  // OK
+  var c: C = new E(); // error, since E could be D, and D is not a subtype of C
+  function qux(e: E) {} // this annotation is an error: is it C, or is it D?
+  function qux2(e: C | D) {} // OK
   qux2(new C());
 }
 

@@ -256,8 +256,7 @@ function getBinaryOp(
 
 export function emitExpression(node: TypedNode): t.Expression {
   switch (node.exprNodeType) {
-    case \"string_literal\":
-    // FALLTHROUGH
+    case \"string_literal\": // FALLTHROUGH
     case \"number\":
       return b.literal(node.value);
     case \"variable\":

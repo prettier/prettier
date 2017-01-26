@@ -173,7 +173,6 @@ foo();
 
 function qux(x = \"hello\", ...y): string {
   foo(x);
-
   return y[0];
 }
 
@@ -296,9 +295,7 @@ function bar(x = \"bar\"): string {
 bar(undefined); // ok
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function foo(x?: number) {}
-foo(undefined);
-
-// ok
+foo(undefined); // ok
 function bar(x = \"bar\"): string {
   return x;
 }
@@ -327,14 +324,9 @@ function foo(x?: number, ...y: Array<string>): [?number, Array<string>] {
   return [x, y];
 }
 
-foo();
-// OK
-foo(123), // OK
-foo(123, \"hello\");
-
-// OK
-foo(true);
-// ERROR boolean ~> number
+foo(); // OK
+foo(123), foo(123, \"hello\"); // OK // OK
+foo(true); // ERROR boolean ~> number
 foo(123, true); // ERROR boolean ~> string
 "
 `;

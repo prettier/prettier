@@ -263,8 +263,7 @@ function f() {
   try {
     var x: number = 0;
   } catch (e) {
-    might_throw();
-    // ...but if so, suffix is not reached
+    might_throw(); // ...but if so, suffix is not reached
     var x: number = 0;
   }
   var y: number = x;
@@ -275,8 +274,7 @@ function f() {
   try {
   } catch (e) {
   } finally {
-    might_throw();
-    // ...but if so, suffix is not reached
+    might_throw(); // ...but if so, suffix is not reached
     var x: number = 0;
   }
   var y: number = x;
@@ -288,8 +286,7 @@ function f() {
     var x: number;
   } catch (e) {
   } finally {
-    might_throw();
-    // ...but if so, suffix is not reached
+    might_throw(); // ...but if so, suffix is not reached
     x = 0;
   }
   var y: number = x;
@@ -301,8 +298,7 @@ function f() {
   } catch (e) {
     var x: number;
   } finally {
-    might_throw();
-    // ...but if so, suffix is not reached
+    might_throw(); // ...but if so, suffix is not reached
     x = 0;
   }
   var y: number = x;
@@ -310,8 +306,7 @@ function f() {
 
 // error if used prior to init
 function f() {
-  var y: number = x;
-  // error
+  var y: number = x; // error
   try {
     var x: number = 0;
   } catch (e) {
@@ -547,8 +542,7 @@ function foo() {
     y = {};
   }
   // here via [try; finally] only.
-  x();
-  // string ~/> function call (no num or bool error)
+  x(); // string ~/> function call (no num or bool error)
   y(); // object ~/> function call (no uninitialized error)
 }
 
@@ -560,7 +554,9 @@ function bar(response) {
     throw new Error(\"...\");
   }
   // here via [try] only.
-  if (payload.error) { // ok
+  if (
+    payload.error // ok
+  ) {
     // ...
   }
 }

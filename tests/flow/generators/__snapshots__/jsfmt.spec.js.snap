@@ -131,8 +131,7 @@ for (var x of examples.delegate_yield_iterable([])) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class GeneratorExamples {
   *stmt_yield(): Generator<number, void, void> {
-    yield 0;
-    // ok
+    yield 0; // ok
     yield \"\"; // error: string ~> number
   }
 
@@ -157,8 +156,7 @@ class GeneratorExamples {
   }
 
   *infer_stmt() {
-    var x: boolean = yield 0;
-    // error: number ~> boolean
+    var x: boolean = yield 0; // error: number ~> boolean
     return \"\";
   }
 
@@ -230,11 +228,8 @@ var examples = new GeneratorExamples();
 
 for (var x of examples.infer_stmt()) {
   (x: string);
-}
-
-// error: number ~> string
-var infer_stmt_next = examples.infer_stmt().next(0).value;
-// error: number ~> boolean
+} // error: number ~> string
+var infer_stmt_next = examples.infer_stmt().next(0).value; // error: number ~> boolean
 if (typeof infer_stmt_next === \"undefined\") {
 } else if (typeof infer_stmt_next === \"number\") {
 } else {
@@ -259,9 +254,7 @@ for (var x of examples.delegate_yield_generator()) {
   (x: number); // error: string ~> number
 }
 
-examples.delegate_next_iterable([]).next(\"\");
-
-// error: Iterator has no next value
+examples.delegate_next_iterable([]).next(\"\"); // error: Iterator has no next value
 for (var x of examples.delegate_yield_iterable([])) {
   (x: string); // error: number ~> string
 }
@@ -294,8 +287,7 @@ if (typeof infer_stmt_next === \"undefined\") {
 
 class GeneratorExamples<X> {
   *infer_stmt() {
-    var x: boolean = yield 0;
-    // error: number ~> boolean
+    var x: boolean = yield 0; // error: number ~> boolean
     return \"\";
   }
 }
@@ -304,12 +296,8 @@ var examples = new GeneratorExamples();
 
 for (var x of examples.infer_stmt()) {
   (x: string);
-}
-
-// error: number ~> string
-var infer_stmt_next = examples.infer_stmt().next(0).value;
-
-// error: number ~> boolean
+} // error: number ~> string
+var infer_stmt_next = examples.infer_stmt().next(0).value; // error: number ~> boolean
 if (typeof infer_stmt_next === \"undefined\") {
 } else if (typeof infer_stmt_next === \"number\") {
 } else {
@@ -450,8 +438,7 @@ if (multiple_return_result.done) {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function* stmt_yield(): Generator<number, void, void> {
-  yield 0;
-  // ok
+  yield 0; // ok
   yield \"\"; // error: string ~> number
 }
 
@@ -481,10 +468,8 @@ function* infer_stmt() {
 }
 for (var x of infer_stmt()) {
   (x: string);
-}
-// error: number ~> string
-var infer_stmt_next = infer_stmt().next(0).value;
-// error: number ~> boolean
+} // error: number ~> string
+var infer_stmt_next = infer_stmt().next(0).value; // error: number ~> boolean
 if (typeof infer_stmt_next === \"undefined\") {
 } else if (typeof infer_stmt_next === \"number\") {
 } else {
@@ -547,9 +532,7 @@ function* delegate_return_generator() {
 function* delegate_next_iterable(xs: Array<number>) {
   yield* xs;
 }
-delegate_next_iterable([]).next(\"\");
-
-// error: Iterator has no next value
+delegate_next_iterable([]).next(\"\"); // error: Iterator has no next value
 function* delegate_yield_iterable(xs: Array<number>) {
   yield* xs;
 }

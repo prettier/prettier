@@ -41,8 +41,7 @@ function test2() {
   return;
 
   function f() {
-    var x: typeof n = 0;
-    // no error, n is still number
+    var x: typeof n = 0; // no error, n is still number
     var y: string = n; // error, n is number (EmptyT would work)
   }
 }

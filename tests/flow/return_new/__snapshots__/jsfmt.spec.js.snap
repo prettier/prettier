@@ -15,19 +15,13 @@ var a: A = new B(); // OK (returns new A)
 function Foo() {
   return {};
 }
-var foo: number = new Foo();
-
-// error (returns object literal above)
+var foo: number = new Foo(); // error (returns object literal above)
 function Bar() {
   return 0;
 }
-var bar: number = new Bar();
-
-// error (returns new object)
+var bar: number = new Bar(); // error (returns new object)
 function Qux() {}
-var qux: number = new Qux();
-
-// error (returns new object)
+var qux: number = new Qux(); // error (returns new object)
 class A {}
 function B() {
   return new A();
@@ -50,18 +44,13 @@ d.x = \"\"; // error, string ~/~ number (but property x is found)
 module.exports = D;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare class D {
-  constructor(): { x: number },
-  // OK
+  constructor(): { x: number }, // OK
   y: any
 }
 
 var d = new D();
-d.x = \"\";
-
-// error, string ~/~ number (but property x is found)
-(new D(): D);
-
-// error, new D is an object, D not in proto chain
+d.x = \"\"; // error, string ~/~ number (but property x is found)
+(new D(): D); // error, new D is an object, D not in proto chain
 module.exports = D;
 "
 `;

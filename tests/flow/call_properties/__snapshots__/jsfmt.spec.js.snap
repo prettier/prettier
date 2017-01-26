@@ -106,15 +106,11 @@ var d: { (): string } = function(x: number): string {
 };
 
 // ...but subtyping rules still apply
-var e: { (x: any): void } = function() {};
-// arity
+var e: { (x: any): void } = function() {}; // arity
 var f: { (): mixed } = function(): string {
   return \"hi\";
-};
-// return type
-var g: { (x: string): void } = function(x: mixed) {};
-
-// param type
+}; // return type
+var g: { (x: string): void } = function(x: mixed) {}; // param type
 // A function can be an object
 var y: {} = function(x: number): string {
   return \"hi\";
@@ -311,15 +307,11 @@ var c: { (x: string): string } = x => x.toFixed();
 var d: { (): string } = x => \"hi\";
 
 // ...but subtyping rules still apply
-var e: { (x: any): void } = () => {};
-// arity
-var f: { (): mixed } = () => \"hi\";
-// return type
+var e: { (x: any): void } = () => {}; // arity
+var f: { (): mixed } = () => \"hi\"; // return type
 var g: { (x: Date): void } = x => {
   x * 2;
-};
-
-// param type (date < number)
+}; // param type (date < number)
 // A function can be an object
 var y: {} = x => \"hi\";
 var z: Object = x => \"hi\";

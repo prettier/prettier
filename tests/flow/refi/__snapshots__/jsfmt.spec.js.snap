@@ -534,8 +534,7 @@ var tests = [
   },
   function(x: mixed) {
     if (typeof x.bar === \"string\") {
-    }
-    // error, so \`x.bar\` refinement is empty
+    } // error, so \`x.bar\` refinement is empty
     (x: string & number);
   },
   // --- nested conditionals ---
@@ -574,8 +573,7 @@ var tests = [
   function() {
     var x: { p: ?string } = { p: \"xxx\" };
     if (x.p != null) {
-      var { p } = x;
-      // TODO: annot checked against type of x
+      var { p } = x; // TODO: annot checked against type of x
       (p: string); // ok
     }
   }
@@ -631,10 +629,9 @@ function block_scope(x: string | number) {
 
 function switch_scope(x: string | number) {
   switch (x) {
-    // doesn\'t refine outer x
     default:
       let x;
-      x = \"\";
+      x = \"\"; // doesn\'t refine outer x
   }
   (x: string); // error: number ~> string
 }
@@ -1187,10 +1184,8 @@ function exhaustion3(x): number {
 // @flow
 function foo(a, b, c) {
   switch (c) {
-    case a.x.y:
-    // OK
-    case b.x.y:
-      // OK
+    case a.x.y: // OK
+    case b.x.y: // OK
       return;
     default:
       return;
@@ -1201,8 +1196,7 @@ function foo(a, b, c) {
 function exhaustion1(x): number {
   var foo;
   switch (x) {
-    case 0:
-    // falls through
+    case 0: // falls through
     case 1:
       foo = 3;
       break;
@@ -1240,8 +1234,7 @@ function exhaustion2(x, y): number {
 function exhaustion3(x): number {
   let foo = null;
   switch (x) {
-    case 0:
-    // falls through
+    case 0: // falls through
     case 1:
       foo = 3;
       break;
