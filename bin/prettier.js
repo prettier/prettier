@@ -30,6 +30,7 @@ const argv = minimist(process.argv.slice(2), {
   unknown: param => {
     if (param.startsWith("-")) {
       console.warn("Ignored unknown option: " + param + "\n");
+      return false;
     }
   }
 });
