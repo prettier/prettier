@@ -38,6 +38,15 @@ make_self_closing =
 
 leave_opening =
   <BaseForm url=\"/auth/google\" method=\"GET\" colour=\"blue\" size=\"large\" submitLabel=\"Sign in with Google\"> </BaseForm>
+
+long_string =
+  <div className=\"i use bootstrap and just put loooaads of classnames in here all the time\">hello world</div>
+
+long_string_with_extra_param =
+  <div className=\"i use bootstrap and just put loooaads of classnames in here all the time\" blah=\"3\">hello world</div>
+
+long_obj =
+  <div style={{ i: \'dont\', use: \'bootstrap\', and: \'instead\', use: \'massive\', objects }}>hello world</div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 long_closed = (
   <BaseForm
@@ -169,6 +178,35 @@ leave_opening = (
   >
     {\" \"}
   </BaseForm>
+);
+
+long_string = (
+  <div className=\"i use bootstrap and just put loooaads of classnames in here all the time\">
+    hello world
+  </div>
+);
+
+long_string_with_extra_param = (
+  <div
+    className=\"i use bootstrap and just put loooaads of classnames in here all the time\"
+    blah=\"3\"
+  >
+    hello world
+  </div>
+);
+
+long_obj = (
+  <div
+    style={{
+      i: \"dont\",
+      use: \"bootstrap\",
+      and: \"instead\",
+      use: \"massive\",
+      objects
+    }}
+  >
+    hello world
+  </div>
 );
 "
 `;
