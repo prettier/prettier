@@ -97,16 +97,10 @@ function global_g() {
 }
 
 global_f();
-takes_string(global_x);
-
-// ok
+takes_string(global_x); // ok
 global_g();
-takes_string(global_x);
-
-// error
-global_x = 42;
-
-// shouldn\'t pollute linear refinement
+takes_string(global_x); // error
+global_x = 42; // shouldn\'t pollute linear refinement
 // local write from function
 //
 function local_func() {
@@ -118,13 +112,9 @@ function local_func() {
   }
 
   local_f();
-  takes_string(local_x);
-
-  // ok
+  takes_string(local_x); // ok
   local_g();
-  takes_string(local_x);
-
-  // error
+  takes_string(local_x); // error
   local_x = 42; // shouldn\'t pollute linear refinement
 }
 
@@ -140,16 +130,10 @@ var global_o = {
 };
 
 global_o.f();
-takes_string(global_y);
-
-// ok
+takes_string(global_y); // ok
 global_o.g();
-takes_string(global_y);
-
-// error
-global_y = 42;
-
-// shouldn\'t pollute linear refinement
+takes_string(global_y); // error
+global_y = 42; // shouldn\'t pollute linear refinement
 // local write from method
 //
 function local_meth() {
@@ -163,13 +147,9 @@ function local_meth() {
   };
 
   local_o.f();
-  takes_string(local_y);
-
-  // ok
+  takes_string(local_y); // ok
   local_o.g();
-  takes_string(local_y);
-
-  // error
+  takes_string(local_y); // error
   local_y = 42; // shouldn\'t pollute linear refinement
 }
 "

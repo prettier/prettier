@@ -201,8 +201,7 @@ let tests = [
   // setRangeText
   function(el: HTMLInputElement) {
     el.setRangeText(\"foo\");
-    el.setRangeText(\"foo\", 123);
-    // end is required
+    el.setRangeText(\"foo\", 123); // end is required
     el.setRangeText(\"foo\", 123, 234);
     el.setRangeText(\"foo\", 123, 234, \"select\");
     el.setRangeText(\"foo\", 123, 234, \"bogus\"); // invalid value
@@ -235,39 +234,22 @@ const r: string = c.username; // correct
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-const a = new URL(\"http://flowtype.org/\");
-// correct
-const b = new URL(\"/docs\", a);
-// correct
-const c = new URL(\"/docs\", \"http://flowtype.org/\");
-
-// correct
-const d: URLSearchParams = c.searchParams;
-// correct
-const e: string = c.path;
-// not correct
-const f: string = c.pathname;
-// correct
-const g: string = c.hash;
-// correct
-const h: string = c.host;
-// correct
-const i: string = c.hostname;
-// correct
-const j: string = c.href;
-// correct
-const l: string = c.origin;
-// correct
-const m: string = c.password;
-// correct
-const n: string = c.pathname;
-// correct
-const o: string = c.port;
-// correct
-const p: string = c.protocol;
-// correct
-const q: string = c.search;
-// correct
+const a = new URL(\"http://flowtype.org/\"); // correct
+const b = new URL(\"/docs\", a); // correct
+const c = new URL(\"/docs\", \"http://flowtype.org/\"); // correct
+const d: URLSearchParams = c.searchParams; // correct
+const e: string = c.path; // not correct
+const f: string = c.pathname; // correct
+const g: string = c.hash; // correct
+const h: string = c.host; // correct
+const i: string = c.hostname; // correct
+const j: string = c.href; // correct
+const l: string = c.origin; // correct
+const m: string = c.password; // correct
+const n: string = c.pathname; // correct
+const o: string = c.port; // correct
+const p: string = c.protocol; // correct
+const q: string = c.search; // correct
 const r: string = c.username; // correct
 "
 `;
@@ -307,15 +289,13 @@ let tests = [
   // attachEvent
   function() {
     let target = new EventTarget();
-    (target.attachEvent(\"foo\", listener): void);
-    // invalid, may be undefined
+    (target.attachEvent(\"foo\", listener): void); // invalid, may be undefined
     (target.attachEvent && target.attachEvent(\"foo\", listener): void); // valid
   },
   // detachEvent
   function() {
     let target = new EventTarget();
-    (target.detachEvent(\"foo\", listener): void);
-    // invalid, may be undefined
+    (target.detachEvent(\"foo\", listener): void); // invalid, may be undefined
     (target.detachEvent && target.detachEvent(\"foo\", listener): void); // valid
   },
   function() {
@@ -346,10 +326,8 @@ let tests = [
   // arcTo
   function() {
     let path = new Path2D();
-    (path.arcTo(0, 0, 0, 0, 10): void);
-    // valid
-    (path.arcTo(0, 0, 0, 0, 10, 20, 5): void);
-    // valid
+    (path.arcTo(0, 0, 0, 0, 10): void); // valid
+    (path.arcTo(0, 0, 0, 0, 10, 20, 5): void); // valid
     (path.arcTo(0, 0, 0, 0, 10, \"20\", 5): void); // invalid
   }
 ];
@@ -459,10 +437,8 @@ let tests = [
       prototype: {
         attributeChangedCallback(
           localName: string,
-          oldVal: string,
-          // Error: This might be null
-          newVal: string,
-          // Error: This might be null
+          oldVal: string, // Error: This might be null
+          newVal: string, // Error: This might be null
           namespace: string
         ) {}
       }
@@ -691,8 +667,7 @@ let tests = [
   },
   // rootNode must be a Node
   function() {
-    document.createNodeIterator(document.body);
-    // valid
+    document.createNodeIterator(document.body); // valid
     document.createNodeIterator({}); // invalid
   },
   function() {
@@ -859,18 +834,14 @@ let tests = [
       document.body,
       -1,
       node => NodeFilter.FILTER_ACCEPT
-    );
-    // valid
-    document.createNodeIterator(document.body, -1, node => \"accept\");
-    // invalid
+    ); // valid
+    document.createNodeIterator(document.body, -1, node => \"accept\"); // invalid
     document.createNodeIterator(document.body, -1, {
       accept: node => NodeFilter.FILTER_ACCEPT
-    });
-    // valid
+    }); // valid
     document.createNodeIterator(document.body, -1, {
       accept: node => \"accept\"
-    });
-    // invalid
+    }); // invalid
     document.createNodeIterator(document.body, -1, {}); // invalid
   },
   function() {
@@ -878,16 +849,12 @@ let tests = [
       document.body,
       -1,
       node => NodeFilter.FILTER_ACCEPT
-    );
-    // valid
-    document.createTreeWalker(document.body, -1, node => \"accept\");
-    // invalid
+    ); // valid
+    document.createTreeWalker(document.body, -1, node => \"accept\"); // invalid
     document.createTreeWalker(document.body, -1, {
       accept: node => NodeFilter.FILTER_ACCEPT
-    });
-    // valid
-    document.createTreeWalker(document.body, -1, { accept: node => \"accept\" });
-    // invalid
+    }); // valid
+    document.createTreeWalker(document.body, -1, { accept: node => \"accept\" }); // invalid
     document.createTreeWalker(document.body, -1, {}); // invalid
   }
 ];

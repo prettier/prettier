@@ -33,12 +33,8 @@ var ColorIdToNumber = {
   [ColorId.BLUE]: ColorNumber.BLUE
 };
 
-(ColorIdToNumber[ColorId.RED]: \"ffffff\");
-
-// oops
-ColorIdToNumber.XXX;
-
-// oops
+(ColorIdToNumber[ColorId.RED]: \"ffffff\"); // oops
+ColorIdToNumber.XXX; // oops
 module.exports = { ColorId, ColorNumber };
 "
 `;
@@ -62,9 +58,7 @@ var ColorIdToNumber = {
   [ColorId.BLUE]: ColorNumber.BLUE
 };
 
-(ColorIdToNumber[ColorId.GREEN]: \"ffffff\");
-
-// oops
+(ColorIdToNumber[ColorId.GREEN]: \"ffffff\"); // oops
 module.exports = ColorIdToNumber;
 "
 `;
@@ -126,9 +120,7 @@ var obj = {
     return this.x;
   }
 };
-var x: string = obj[\"m\"]();
-
-// error, number ~> string
+var x: string = obj[\"m\"](); // error, number ~> string
 var arr = [
   function() {
     return this.length;

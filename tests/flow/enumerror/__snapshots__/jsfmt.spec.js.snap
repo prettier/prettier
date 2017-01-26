@@ -46,8 +46,7 @@ type Union = \"x\" | \"y\";
 
 function keys2union(s: Keys): Union {
   return s;
-}
-// ok
+} // ok
 function union2keys(s: Union): Keys {
   return s;
 } // ok

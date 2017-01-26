@@ -20,8 +20,7 @@ module.exports = b;
 
 var a = require(\"./a\");
 var b = Object.assign({ bar() {}, ...{} }, a);
-b.a();
-// works here
+b.a(); // works here
 module.exports = b;
 "
 `;
@@ -65,9 +64,7 @@ var export_ = Object.assign({}, {
 var decl_export_: { foo: any, bar: any } = Object.assign({}, export_);
 
 let anyObj: Object = {};
-Object.assign(anyObj, anyObj);
-
-// makes sure this terminates
+Object.assign(anyObj, anyObj); // makes sure this terminates
 module.exports = export_;
 "
 `;
@@ -178,9 +175,7 @@ class Bar extends Foo {
 
 var sealed = { one: \"one\", two: \"two\" };
 (Object.keys(sealed): Array<\"one\" | \"two\">);
-(Object.keys(sealed): void);
-
-// error, Array<string>
+(Object.keys(sealed): void); // error, Array<string>
 var unsealed = {};
 Object.keys(unsealed).forEach(k => {
   (k: number); // error: number ~> string
@@ -192,17 +187,13 @@ Object.keys(dict).forEach(k => {
 });
 
 var any: Object = {};
-(Object.keys(any): Array<number>);
-
-// error, Array<string>
+(Object.keys(any): Array<number>); // error, Array<string>
 class Foo {
   prop: string;
   foo() {}
 }
 // constructor and foo not enumerable
-(Object.keys(new Foo()): Array<\"error\">);
-
-// error: prop ~> error
+(Object.keys(new Foo()): Array<\"error\">); // error: prop ~> error
 class Bar extends Foo {
   bar_prop: string;
   bar() {}
@@ -423,9 +414,7 @@ var y = new Foo();
 //
 // call
 takesAString(a.toString());
-d.toString();
-
-// ok, even though dict specifies strings, this is a function
+d.toString(); // ok, even though dict specifies strings, this is a function
 // get
 var aToString: () => string = a.toString;
 var aToString2 = a.toString;
@@ -443,28 +432,21 @@ c.toString = function(): number {
 var cToString: () => number = c.toString;
 
 // ... on a built-in instance
-var xToString: number = x.toString;
-// error
-var xToString2: () => number = x.toString;
-// error
+var xToString: number = x.toString; // error
+var xToString2: () => number = x.toString; // error
 takesAString(x.toString());
 
 // ... on an instance
-var yToString: number = y.toString;
-// error
+var yToString: number = y.toString; // error
 takesAString(y.toString());
 
 // ... on a primitive
 (123).toString();
 (123).toString;
-(123).toString = function() {};
-// error
+(123).toString = function() {}; // error
 (123).toString(2);
-(123).toString(\"foo\");
-// error
-(123).toString(null);
-
-// error
+(123).toString(\"foo\"); // error
+(123).toString(null); // error
 //
 // hasOwnProperty
 //
@@ -482,15 +464,12 @@ b.hasOwnProperty = function() {
 };
 
 // ... on a built-in instance
-var xHasOwnProperty: number = x.hasOwnProperty;
-// error
-var xHasOwnProperty2: (prop: string) => number = x.hasOwnProperty;
-// error
+var xHasOwnProperty: number = x.hasOwnProperty; // error
+var xHasOwnProperty2: (prop: string) => number = x.hasOwnProperty; // error
 takesABool(x.hasOwnProperty(\"foo\"));
 
 // ... on an instance
-var yHasOwnProperty: number = y.hasOwnProperty;
-// error
+var yHasOwnProperty: number = y.hasOwnProperty; // error
 takesABool(y.hasOwnProperty(\"foo\"));
 
 //
@@ -510,15 +489,12 @@ b.propertyIsEnumerable = function() {
 };
 
 // ... on a built-in instance
-var xPropertyIsEnumerable: number = x.propertyIsEnumerable;
-// error
-var xPropertyIsEnumerable2: (prop: string) => number = x.propertyIsEnumerable;
-// error
+var xPropertyIsEnumerable: number = x.propertyIsEnumerable; // error
+var xPropertyIsEnumerable2: (prop: string) => number = x.propertyIsEnumerable; // error
 takesABool(x.propertyIsEnumerable(\"foo\"));
 
 // ... on an instance
-var yPropertyIsEnumerable: number = y.propertyIsEnumerable;
-// error
+var yPropertyIsEnumerable: number = y.propertyIsEnumerable; // error
 takesABool(y.propertyIsEnumerable(\"foo\"));
 
 //
@@ -538,13 +514,11 @@ b.valueOf = function() {
 };
 
 // ... on a built-in instance
-var xValueOf: number = x.valueOf;
-// error
+var xValueOf: number = x.valueOf; // error
 takesANumber(x.valueOf());
 
 // ... on an instance
-var yValueOf: number = y.valueOf;
-// error
+var yValueOf: number = y.valueOf; // error
 takesAnObject(y.valueOf());
 
 // ... on a literal
@@ -569,15 +543,12 @@ b.toLocaleString = function() {
 };
 
 // ... on a built-in instance
-var xToLocaleString: number = x.toLocaleString;
-// error
-var xToLocaleString2: () => number = x.toLocaleString;
-// error
+var xToLocaleString: number = x.toLocaleString; // error
+var xToLocaleString2: () => number = x.toLocaleString; // error
 takesAString(x.toLocaleString());
 
 // ... on an instance
-var yToLocaleString: number = y.toLocaleString;
-// error
+var yToLocaleString: number = y.toLocaleString; // error
 takesAString(y.toLocaleString());
 
 //

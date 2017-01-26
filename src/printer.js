@@ -119,7 +119,7 @@ function genericPrintNoParens(path, options, print) {
         path.each(
           function(childPath) {
             parts.push(print(childPath), ";", hardline);
-            if (util.newlineExistsAfter(options.originalText, util.locEnd(childPath.getValue()))) {
+            if (util.hasNewline(options.originalText, util.locEnd(childPath.getValue()))) {
               parts.push(hardline);
             }
           },
@@ -135,6 +135,10 @@ function genericPrintNoParens(path, options, print) {
           "body"
         )
       );
+
+      if(n.comments) {
+        parts.push(comments.printDanglingComments(path, print, options));
+      }
 
       parts.push(hardline);
 
@@ -1093,14 +1097,20 @@ function genericPrintNoParens(path, options, print) {
       ]);
     case "JSXSpreadAttribute":
       return concat([ "{...", path.call(print, "argument"), "}" ]);
-    case "JSXExpressionContainer":
-      const shouldIndent = n.expression.type !== "ArrayExpression" &&
-        n.expression.type !== "ObjectExpression" &&
-        n.expression.type !== "ArrowFunctionExpression" &&
-        n.expression.type !== "CallExpression" &&
-        n.expression.type !== "FunctionExpression";
+    case "JSXExpressionContainer": {
+      const parent = path.getParentNode(0);
 
-      if (!shouldIndent) {
+      const shouldInline = n.expression.type === "ArrayExpression" ||
+        n.expression.type === "ObjectExpression" ||
+        n.expression.type === "ArrowFunctionExpression" ||
+        n.expression.type === "CallExpression" ||
+        n.expression.type === "FunctionExpression" ||
+        parent.type === "JSXElement" && (
+          n.expression.type === "ConditionalExpression" ||
+          n.expression.type === "LogicalExpression"
+        );
+
+      if (shouldInline) {
         return concat([ "{", path.call(print, "expression"), "}" ]);
       }
 
@@ -1115,6 +1125,7 @@ function genericPrintNoParens(path, options, print) {
           "}"
         ])
       );
+    }
     case "JSXElement": {
       const elem = printJSXElement(path, options, print);
       return maybeWrapJSXElementInParens(path, elem, options);
@@ -1252,16 +1263,7 @@ function genericPrintNoParens(path, options, print) {
     case // Flow
     "Type":
       throw new Error("unprintable type: " + JSON.stringify(n.type));
-    // Babel block comment.
-    case "CommentBlock":
-    case // Esprima block comment.
-    "Block":
-      return concat([ "/*", n.value, "*/" ]);
-    // Babel line comment.
-    case "CommentLine":
-    case // Esprima line comment.
-    "Line":
-      return concat([ "//", n.value ]);
+
     // Type Annotations for Facebook Flow, typically stripped out or
     // transformed away before printing.
     case "TypeAnnotation":
@@ -1628,10 +1630,10 @@ function printStatementSequence(path, options, print) {
 
     parts.push(stmtPrinted);
 
-    if (
-      util.newlineExistsAfter(text, util.locEnd(stmt)) &&
-        !isLastStatement(stmtPath)
-    ) {
+    let idx = util.skipToLineEnd(text, util.locEnd(stmt));
+    idx = util.skipNewline(text, idx);
+
+    if (util.hasNewline(text, idx) && !isLastStatement(stmtPath)) {
       parts.push(hardline);
     }
 
@@ -2315,7 +2317,8 @@ function maybeWrapJSXElementInParens(path, elem, options) {
     JSXElement: true,
     ExpressionStatement: true,
     CallExpression: true,
-    ConditionalExpression: true
+    ConditionalExpression: true,
+    LogicalExpression: true,
   };
   if (NO_WRAP_PARENTS[parent.type]) {
     return elem;

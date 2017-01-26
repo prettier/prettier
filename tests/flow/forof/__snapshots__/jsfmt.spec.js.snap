@@ -90,8 +90,7 @@ function testMap1(map: Map<string, number>): void {
 
 function testMap2(map: Map<*, *>): void {
   for (var elem of map) {
-    (elem: [number, string]);
-    // Any tuple is fine
+    (elem: [number, string]); // Any tuple is fine
     (elem: number); // Error - tuple ~> number
   }
 }

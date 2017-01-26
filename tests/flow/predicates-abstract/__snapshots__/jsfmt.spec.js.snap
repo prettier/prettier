@@ -68,8 +68,7 @@ type E = { kind: \"E\", y: boolean };
 
 declare var ab: Array<A | B | C>;
 
-(my_filter(ab, (x): %checks => x.kind === \"A\"): Array<A>);
-// OK
+(my_filter(ab, (x): %checks => x.kind === \"A\"): Array<A>); // OK
 (my_filter(ab, (x): %checks => x.kind !== \"A\"): Array<B | C>); // OK
 "
 `;
@@ -258,8 +257,7 @@ type E = { kind: \"E\", y: boolean };
 
 declare var ab: Array<A | B | C>;
 
-(my_filter(ab, (x): %checks => x.kind === \"A\"): Array<B>);
-// ERROR
+(my_filter(ab, (x): %checks => x.kind === \"A\"): Array<B>); // ERROR
 (my_filter(ab, (x): %checks => x.kind !== \"A\"): Array<A | C>); // ERROR
 "
 `;
@@ -316,8 +314,7 @@ function is_string_and_number(x, y): %checks {
 declare function refine<T, P: $Pred<1>>(v: T, cb: P): $Refine<T, P, 2>;
 
 declare var a: mixed;
-var b = refine(a, is_string);
-// ERROR: index out of bounds
+var b = refine(a, is_string); // ERROR: index out of bounds
 (b: string);
 
 // Sanity check B: refine2 expects a function that accepts 3 arguments but
@@ -341,8 +338,7 @@ function is_string_and_number(x, y): %checks {
 }
 
 // Sanity check C: expecting a predicate function but passed a non-predicate one
-var e = refine(a, is_string_regular);
-// ERROR: is_string_regular is not a
+var e = refine(a, is_string_regular); // ERROR: is_string_regular is not a
 // predicate function
 (e: number);
 

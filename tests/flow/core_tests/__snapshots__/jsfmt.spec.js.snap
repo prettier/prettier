@@ -139,14 +139,12 @@ let tests = [
   },
   // bad constructors
   function() {
-    let x = new Map([\"foo\", 123]);
-    // error
+    let x = new Map([\"foo\", 123]); // error
     let y: Map<number, string> = new Map([[\"foo\", 123]]); // error
   },
   // get()
   function(x: Map<string, number>) {
-    (x.get(\"foo\"): boolean);
-    // error, string | void
+    (x.get(\"foo\"): boolean); // error, string | void
     x.get(123); // error, wrong key type
   }
 ];
@@ -193,8 +191,7 @@ let tests = [
     new RegExp(/foo/);
     new RegExp(\"foo\", \"i\");
     new RegExp(\"foo\", \"ig\");
-    new RegExp(/foo/, \"i\");
-    // invalid in ES5, valid in ES6
+    new RegExp(/foo/, \"i\"); // invalid in ES5, valid in ES6
     new RegExp(/foo/g, \"i\"); // invalid in ES5, valid in ES6
   },
   // called as a function (equivalent to the constructor per ES6 21.2.3)
@@ -203,14 +200,12 @@ let tests = [
     RegExp(/foo/);
     RegExp(\"foo\", \"i\");
     RegExp(\"foo\", \"ig\");
-    RegExp(/foo/, \"i\");
-    // invalid in ES5, valid in ES6
+    RegExp(/foo/, \"i\"); // invalid in ES5, valid in ES6
     RegExp(/foo/g, \"i\"); // invalid in ES5, valid in ES6
   },
   // invalid flags
   function() {
-    RegExp(\"foo\", \"z\");
-    // error
+    RegExp(\"foo\", \"z\"); // error
     new RegExp(\"foo\", \"z\"); // error
   }
 ];
@@ -273,9 +268,7 @@ ws.delete(dict);
 
 let ws2 = new WeakSet([obj, dict]);
 
-let ws3 = new WeakSet([1, 2, 3]);
-
-// error, must be objects
+let ws3 = new WeakSet([1, 2, 3]); // error, must be objects
 function* generator(): Iterable<{ foo: string }> {
   while (true) {
     yield { foo: \"bar\" };

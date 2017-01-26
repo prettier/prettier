@@ -8,8 +8,7 @@ exports[`test maybe.js 1`] = `
 // @flow
 
 // unwrapping nested maybes should work
-((\"foo\": ??string): ?string);
-// ok
+((\"foo\": ??string): ?string); // ok
 ((123: ??number): ?string); // error (only num ~> string)
 "
 `;
@@ -46,13 +45,9 @@ function qux(x: string) {}
 
 function corge(x: number) {}
 
-var x = bar();
-// x: ?string
-if (x != null) qux(x);
-// x: ?string | null
-if (x != null) corge(x);
-
-// x: ?string | null
+var x = bar(); // x: ?string
+if (x != null) qux(x); // x: ?string | null
+if (x != null) corge(x); // x: ?string | null
 function grault() {
   x = null;
 }
