@@ -1986,7 +1986,7 @@ function printClass(path, options, print) {
   }
 
   if (partsGroup.length > 0) {
-    parts.push(group(indent(options.tabWidth, concat(partsGroup))));
+    parts.push(group(indent(1, concat(partsGroup))));
   }
 
   parts.push(" ", path.call(print, "body"));
