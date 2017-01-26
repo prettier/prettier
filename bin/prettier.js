@@ -19,6 +19,7 @@ const argv = minimist(process.argv.slice(2), {
     // listed here is to avoid "Ignored unknown option: --no-color" warnings.
     // See https://github.com/chalk/supports-color/#info for more information.
     "color",
+    "help",
     "version",
     "debug-print-doc",
     // Deprecated in 0.0.10
@@ -42,7 +43,7 @@ const filepatterns = argv["_"];
 const write = argv["write"];
 const stdin = argv["stdin"];
 
-if (!filepatterns.length && !stdin) {
+if (argv["help"] || (!filepatterns.length && !stdin)) {
   console.log(
     "Usage: prettier [opts] [filename ...]\n\n" +
       "Available options:\n" +
@@ -61,7 +62,7 @@ if (!filepatterns.length && !stdin) {
       "  --no-bracket-spacing\n" +
       "  --bracket-spacing=false"
   );
-  process.exit(1);
+  process.exit(argv["help"] ? 0 : 1);
 }
 
 function getParser() {
