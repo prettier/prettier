@@ -25,7 +25,7 @@ const argv = minimist(process.argv.slice(2), {
     // Deprecated in 0.0.10
     "flow-parser"
   ],
-  string: [ "print-width", "tab-width", "parser" ],
+  string: ["print-width", "tab-width", "parser"],
   default: { color: true, "bracket-spacing": true, parser: "babylon" },
   alias: { help: "h", version: "v" },
   unknown: param => {
@@ -43,9 +43,9 @@ if (argv["version"]) {
 
 const filepatterns = argv["_"];
 const write = argv["write"];
-const stdin = argv["stdin"] || (!filepatterns.length && !process.stdin.isTTY);
+const stdin = argv["stdin"] || !filepatterns.length && !process.stdin.isTTY;
 
-if (argv["help"] || (!filepatterns.length && !stdin)) {
+if (argv["help"] || !filepatterns.length && !stdin) {
   console.log(
     "Usage: prettier [opts] [filename ...]\n\n" +
       "Available options:\n" +
@@ -86,8 +86,11 @@ function getParserOption() {
   }
 
   console.warn(
-    "Ignoring unknown --" + optionName + ' value, falling back to "babylon":\n' +
-    '  Expected "flow" or "babylon", but received: ' + JSON.stringify(value)
+    "Ignoring unknown --" +
+      optionName +
+      ' value, falling back to "babylon":\n' +
+      '  Expected "flow" or "babylon", but received: ' +
+      JSON.stringify(value)
   );
 
   return "babylon";
@@ -104,7 +107,12 @@ function getIntOption(optionName) {
     return Number(value);
   }
 
-  console.error("Invalid --" + optionName + " value. Expected an integer, but received: " + JSON.stringify(value));
+  console.error(
+    "Invalid --" +
+      optionName +
+      " value. Expected an integer, but received: " +
+      JSON.stringify(value)
+  );
   process.exit(1);
 }
 
@@ -135,16 +143,13 @@ function handleError(filename, e) {
   // `console.error`. That includes the stack trace (if any), and shows a nice
   // `util.inspect` of throws things that aren't `Error` objects. (The Flow
   // parser has mistakenly thrown arrays sometimes.)
-
   if (isParseError) {
     console.error(filename + ": " + String(e));
-  }
-  else if (isValidationError) {
+  } else if (isValidationError) {
     console.error(String(e));
     // If validation fails for one file, it will fail for all of them.
     process.exit(1);
-  }
-  else {
+  } else {
     console.error(filename + ":", e);
   }
 
