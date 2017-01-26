@@ -276,6 +276,13 @@ FPp.needsParens = function(assumeExpressionContext) {
         return true;
       }
 
+      if (
+        node.operator === 'in' &&
+          parent.type === 'AssignmentExpression'
+      ) {
+        return true;
+      }
+
     case "LogicalExpression":
       switch (parent.type) {
         case "CallExpression":

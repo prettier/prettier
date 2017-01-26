@@ -11,6 +11,19 @@ exports[`test binary.js 1`] = `
 "
 `;
 
+exports[`test break.js 1`] = `
+"class MyContractSelectionWidget extends React.Component<void,  MyContractSelectionWidgetPropsType, void> implements SomethingLarge {
+  method() {}
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class MyContractSelectionWidget
+  extends React.Component<void, MyContractSelectionWidgetPropsType, void>
+  implements SomethingLarge {
+  method() {}
+}
+"
+`;
+
 exports[`test call.js 1`] = `
 "(class {})(class {});
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -14,3 +14,8 @@ const aLong = {
   },
   dHasALongName: 'a-long-value-too'
 };
+
+const aLong = {
+  dHasALongName: 'a-long-value-too',
+  eHasABooleanExpression: a === a,
+};
