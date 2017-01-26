@@ -767,10 +767,10 @@ function genericPrintNoParens(path, options, print) {
             concat([
               line,
               "? ",
-              path.call(print, "consequent"),
+              indent(options.tabWidth, path.call(print, "consequent")),
               line,
               ": ",
-              path.call(print, "alternate")
+              indent(options.tabWidth, path.call(print, "alternate"))
             ])
           )
         ])
