@@ -43,7 +43,7 @@ if (argv["version"]) {
 
 const filepatterns = argv["_"];
 const write = argv["write"];
-const stdin = argv["stdin"];
+const stdin = argv["stdin"] || (!filepatterns.length && !process.stdin.isTTY);
 
 if (argv["help"] || (!filepatterns.length && !stdin)) {
   console.log(
