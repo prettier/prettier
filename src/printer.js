@@ -1131,9 +1131,12 @@ function genericPrintNoParens(path, options, print) {
                 path.map(attr => concat([ line, print(attr) ]), "attributes")
               )
             ),
-            n.selfClosing ? line : softline
+            // reference: https://github.com/jlongster/prettier/pull/474/files
+            n.selfClosing ? line : (
+              options.jsxFbCloseTag ? ">" : softline
+            )
           ]),
-          n.selfClosing ? "/>" : ">"
+          n.selfClosing ? "/>" : (options.jsxFbCloseTag ? "" : ">")
         ])
       );
     case "JSXClosingElement":

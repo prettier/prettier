@@ -16,6 +16,7 @@ const argv = minimist(process.argv.slice(2), {
     "trailing-comma",
     "bracket-spacing",
     "braces-spacing",
+    "jsx-fb-close-tag",
     // The supports-color package (a sub sub dependency) looks directly at
     // `process.argv` for `--no-color` and such-like options. The reason it is
     // listed here is to avoid "Ignored unknown option: --no-color" warnings.
@@ -57,6 +58,7 @@ if (!filepatterns.length && !stdin) {
       "  --trailing-comma         Print trailing commas wherever possible.\n" +
       "  --bracket-spacing        Put spaces between [brackets]. Defaults to false.\n" +
       "  --braces-spacing         Put spaces between {braces}. Defaults to true.\n" +
+      "  --jsx-fb-close-tag       Close JSX tags on the last attribute instead of new line. Defaults to false.\n" +
       "  --parser <flow|babylon>  Specify which parse to use. Defaults to babylon.\n" +
       "  --color                  Colorize error messages. Defaults to true.\n" +
       "  --version                Print prettier version.\n" +
@@ -88,6 +90,7 @@ const options = {
   useTabs: argv["use-tabs"],
   bracketSpacing: argv["bracket-spacing"],
   bracesSpacing: argv["braces-spacing"],
+  jsxFbCloseTag: argv["jsx-fb-close-tag"],
   parser: getParser(),
   singleQuote: argv["single-quote"],
   trailingComma: argv["trailing-comma"]

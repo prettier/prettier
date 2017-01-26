@@ -161,6 +161,9 @@ prettier.format(source, {
   // Controls the printing of spaces inside objects
   bracesSpacing: true,
 
+  // Close JSX tags on the last line instead of a new line (Facebok Style)
+  jsxFbCloseTag: false,
+
   // Which parser to use. Valid options are 'flow' and 'babylon'
   parser: 'babylon'
 });
