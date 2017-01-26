@@ -67,25 +67,52 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
   process.exit(argv["help"] ? 0 : 1);
 }
 
-function getParser() {
+function getParserOption() {
+  const optionName = "parser";
+  const value = argv[optionName];
+
+  if (value === undefined) {
+    return value;
+  }
+
   // For backward compatibility. Deprecated in 0.0.10
   if (argv["flow-parser"]) {
     console.warn("`--flow-parser` is deprecated. Use `--parser flow` instead.");
     return "flow";
   }
 
-  if (argv["parser"] === "flow") {
-    return "flow";
+  if (value === "flow" || value === "babylon") {
+    return value;
   }
+
+  console.warn(
+    "Ignoring unknown --" + optionName + ' value, falling back to "babylon":\n' +
+    '  Expected "flow" or "babylon", but received: ' + JSON.stringify(value)
+  );
 
   return "babylon";
 }
 
+function getIntOption(optionName) {
+  const value = argv[optionName];
+
+  if (value === undefined) {
+    return value;
+  }
+
+  if (/^\d+$/.test(value)) {
+    return Number(value);
+  }
+
+  console.error("Invalid --" + optionName + " value. Expected an integer, but received: " + JSON.stringify(value));
+  process.exit(1);
+}
+
 const options = {
-  printWidth: argv["print-width"] && parseInt(argv["print-width"]),
-  tabWidth: argv["tab-width"] && parseInt(argv["tab-width"]),
+  printWidth: getIntOption("print-width"),
+  tabWidth: getIntOption("tab-width"),
   bracketSpacing: argv["bracket-spacing"],
-  parser: getParser(),
+  parser: getParserOption(),
   singleQuote: argv["single-quote"],
   trailingComma: argv["trailing-comma"]
 };
@@ -98,14 +125,40 @@ function format(input) {
   return prettier.format(input, options);
 }
 
+function handleError(filename, e) {
+  const isParseError = Boolean(e && e.loc);
+  const isValidationError = /Validation Error/.test(e && e.message);
+
+  // For parse errors and validation errors, we only want to show the error
+  // message formatted in a nice way. `String(e)` takes care of that. Other
+  // (unexpected) errors are passed as-is as a separate argument to
+  // `console.error`. That includes the stack trace (if any), and shows a nice
+  // `util.inspect` of throws things that aren't `Error` objects. (The Flow
+  // parser has mistakenly thrown arrays sometimes.)
+
+  if (isParseError) {
+    console.error(filename + ": " + String(e));
+  }
+  else if (isValidationError) {
+    console.error(String(e));
+    // If validation fails for one file, it will fail for all of them.
+    process.exit(1);
+  }
+  else {
+    console.error(filename + ":", e);
+  }
+
+  // Don't exit the process if one file failed
+  process.exitCode = 2;
+}
+
 if (stdin) {
   getStdin().then(input => {
     try {
       // Don't use `console.log` here since it adds an extra newline at the end.
       process.stdout.write(format(input));
     } catch (e) {
-      process.exitCode = 2;
-      console.error("stdin: " + e);
+      handleError("stdin", e);
       return;
     }
   });
@@ -127,13 +180,7 @@ if (stdin) {
       try {
         output = format(input);
       } catch (e) {
-        process.exitCode = 2;
-        if(e.loc) {
-          console.error(filename + ": " + e);
-        }
-        else {
-          console.error(filename + ":", e);
-        }
+        handleError(filename, e);
         return;
       }
 
