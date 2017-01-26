@@ -8,6 +8,14 @@ const normalizeOptions = require("./src/options").normalize;
 const parser = require("./src/parser");
 const printDocToDebug = require("./src/doc-debug").printDocToDebug;
 
+function guessLineEnding(text) {
+  const index = text.indexOf("\n");
+  if (index >= 0 && text.charAt(index - 1) === "\r") {
+    return "\r\n";
+  }
+  return "\n";
+}
+
 function parse(text, opts) {
   const parseFunction = opts.parser === "flow"
     ? parser.parseWithFlow
@@ -42,6 +50,7 @@ function format(text, opts) {
   const ast = parse(text, opts);
   attachComments(text, ast, opts);
   const doc = printAstToDoc(ast, opts);
+  opts.newLine = guessLineEnding(text);
   const str = printDocToString(doc, opts);
   return str;
 }
@@ -55,9 +64,9 @@ function formatWithShebang(text, opts) {
   const shebang = text.slice(0, index + 1);
   const programText = text.slice(index + 1);
   const nextChar = text.charAt(index + 1);
-  const addNewline = nextChar == "\n" || nextChar == "\r";
+  const newLine = nextChar === "\n" ? "\n" : (nextChar === "\r" ? "\r\n" : "");
 
-  return shebang + (addNewline ? "\n" : "") + format(programText, opts);
+  return shebang + newLine + format(programText, opts);
 }
 
 module.exports = {

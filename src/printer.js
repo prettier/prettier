@@ -1130,7 +1130,24 @@ function genericPrintNoParens(path, options, print) {
       const elem = printJSXElement(path, options, print);
       return maybeWrapJSXElementInParens(path, elem, options);
     }
-    case "JSXOpeningElement":
+    case "JSXOpeningElement": {
+      const n = path.getValue();
+
+      // don't break up opening elements with a single long text attribute
+      if (n.attributes.length === 1 &&
+          n.attributes[0].value &&
+          n.attributes[0].value.type === "Literal" &&
+          typeof n.attributes[0].value.value === "string"
+      ) {
+        return group(concat([
+          "<",
+          path.call(print, "name"),
+          " ",
+          concat(path.map(print, "attributes")),
+          n.selfClosing ? " />" : ">"
+        ]));
+      }
+
       return group(
         concat([
           "<",
@@ -1150,6 +1167,7 @@ function genericPrintNoParens(path, options, print) {
           n.selfClosing ? "/>" : (options.jsxFbCloseTag ? "" : ">")
         ])
       );
+    }
     case "JSXClosingElement":
       return concat([ "</", path.call(print, "name"), ">" ]);
     case "JSXText":
@@ -1734,6 +1752,7 @@ function printArgumentsList(path, options, print) {
         lastArg.body.type === "ArrowFunctionExpression" ||
         lastArg.body.type === "ObjectExpression" ||
         lastArg.body.type === "ArrayExpression" ||
+        lastArg.body.type === "CallExpression" ||
         lastArg.body.type === "JSXElement") ||
     lastArg.type === "NewExpression";
 
