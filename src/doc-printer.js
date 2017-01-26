@@ -76,7 +76,9 @@ function fits(next, restCommands, width) {
   return false;
 }
 
-function printDocToString(doc, w) {
+function printDocToString(doc, width, newLine) {
+  newLine = newLine || "\n";
+
   let pos = 0;
   // cmds is basically a stack. We've turned a recursive call into a
   // while loop which is much faster. The while loop below adds new
@@ -126,7 +128,7 @@ function printDocToString(doc, w) {
               shouldRemeasure = false;
 
               const next = [ ind, MODE_FLAT, doc.contents ];
-              let rem = w - pos;
+              let rem = width - pos;
 
               if (!doc.break && fits(next, cmds, rem)) {
                 cmds.push(next);
@@ -212,7 +214,7 @@ function printDocToString(doc, w) {
 
             case MODE_BREAK:
               if (doc.literal) {
-                out.push(lineSuffix + "\n");
+                out.push(lineSuffix + newLine);
                 pos = 0;
               } else {
                 if (out.length > 0) {
@@ -223,7 +225,7 @@ function printDocToString(doc, w) {
                   );
                 }
 
-                out.push(lineSuffix + "\n" + " ".repeat(ind));
+                out.push(lineSuffix + newLine + " ".repeat(ind));
                 pos = ind;
               }
 

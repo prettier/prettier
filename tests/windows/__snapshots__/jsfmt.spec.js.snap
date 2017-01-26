@@ -1,0 +1,14 @@
+exports[`test line-ending.js 1`] = `
+"this;
+has;
+windows;
+line;
+endings;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+this;
+has;
+windows;
+line;
+endings;
+"
+`;
