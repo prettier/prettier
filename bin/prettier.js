@@ -27,6 +27,7 @@ const argv = minimist(process.argv.slice(2), {
   ],
   string: [ "print-width", "tab-width", "parser" ],
   default: { color: true, "bracket-spacing": true, parser: "babylon" },
+  alias: { help: "h", version: "v" },
   unknown: param => {
     if (param.startsWith("-")) {
       console.warn("Ignored unknown option: " + param + "\n");
