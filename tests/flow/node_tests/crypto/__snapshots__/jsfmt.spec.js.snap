@@ -53,8 +53,7 @@ let tests = [
     });
 
     hmac.write(\"some data to hash\");
-    hmac.write(123);
-    // 2 errors: not a string or a Buffer
+    hmac.write(123); // 2 errors: not a string or a Buffer
     hmac.end();
   },
   // Hmac supports update and digest functions too
@@ -63,19 +62,15 @@ let tests = [
 
     hmac.update(\"some data to hash\");
     hmac.update(\"foo\", \"utf8\");
-    hmac.update(\"foo\", \"bogus\");
-    // 1 error
+    hmac.update(\"foo\", \"bogus\"); // 1 error
     hmac.update(buf);
-    hmac.update(buf, \"utf8\");
-
-    // 1 error: no encoding when passing a buffer
+    hmac.update(buf, \"utf8\"); // 1 error: no encoding when passing a buffer
     // it\'s also chainable
     (hmac.update(\"some data to hash\").update(buf).digest(): Buffer);
 
     (hmac.digest(\"hex\"): string);
     (hmac.digest(): Buffer);
-    (hmac.digest(\"hex\"): void);
-    // 1 error
+    (hmac.digest(\"hex\"): void); // 1 error
     (hmac.digest(): void); // 1 error
   }
 ];

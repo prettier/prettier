@@ -117,8 +117,7 @@ var on: O<number> = { x: 0 };
 on;
 
 type Mono = C<void>;
-var mn: Mono<number> = new C();
-// error: application of non-poly type
+var mn: Mono<number> = new C(); // error: application of non-poly type
 mn;
 "
 `;

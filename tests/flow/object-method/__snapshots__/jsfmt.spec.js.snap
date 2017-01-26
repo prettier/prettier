@@ -82,8 +82,7 @@ var a = { p: 0, f };
 
 var b = { f };
 
-a.f();
-// okey-dokie
+a.f(); // okey-dokie
 b.f(); // error, property \`p\` not found
 "
 `;
@@ -115,14 +114,11 @@ function foo() {
 }
 
 function bar(f: () => void) {
-  f();
-  // passing global object as \`this\`
+  f(); // passing global object as \`this\`
   ({ f }).f(); // passing container object as \`this\`
 }
 
-bar(foo);
-
-// error, since \`this\` is used non-trivially in \`foo\`
+bar(foo); // error, since \`this\` is used non-trivially in \`foo\`
 function qux(o: { f(): void }) {
   o.f(); // passing o as \`this\`
 }

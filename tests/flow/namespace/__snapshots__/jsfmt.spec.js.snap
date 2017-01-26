@@ -28,8 +28,7 @@ var s2:Seq = [[\"\"]];
 
 module.exports = { foo: (\"\": number) };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/*@flow*/
-// import type { T } from \'...\'
+/*@flow*/ // import type { T } from \'...\'
 type T = (x: number) => void;
 var f: T = function(x: string): void {};
 

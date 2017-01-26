@@ -175,27 +175,30 @@ type T1 = {};
 type T2 = { x: number };
 type T3 = { x: number, y: number };
 
-class C1 extends React.Component<T1, T2, any> {}
+class C1
+  extends React.Component<T1, T2, any> {} // error
 
-class C2 extends React.Component<void, T2, any> {}
+class C2
+  extends React.Component<void, T2, any> {} // OK
 
 // no need to add type arguments to React.Component
-class C3 extends React.Component {
-  // OK
+class C3
+  extends React.Component { // OK
   static defaultProps: T1;
   props: T2;
 }
 
-class C4 extends React.Component {
-  // OK, recommended
+class C4
+  extends React.Component { // OK, recommended
   // no need to declare defaultProps unless necessary
   props: T2;
 }
 
-class C5 extends React.Component<T2, T3, any> {}
+class C5
+  extends React.Component<T2, T3, any> {} // error
 
-class C6 extends React.Component {
-  // OK, recommended
+class C6
+  extends React.Component { // OK, recommended
   static defaultProps: T2;
   props: T3;
 }
@@ -349,8 +352,7 @@ var FooLegacy = React.createClass({
   }
 });
 
-FooLegacy.defaultProps = 0;
-// TODO: should be error
+FooLegacy.defaultProps = 0; // TODO: should be error
 var foo_legacy: $jsx<number> = <FooLegacy />;
 
 FooLegacy.bar();
@@ -394,8 +396,7 @@ class HelloMessage extends React.Component {
   props: { name: string };
 }
 
-<HelloMessage name={007} />;
-/* number ~/~> string error*/
+<HelloMessage name={007} />; /* number ~/~> string error*/
 <HelloMessage name=\"Bond\" />; // ok
 "
 `;
@@ -506,9 +507,7 @@ var C = React.createClass({
   }
 });
 
-<C statistics={[{}, { label: \"\", value: undefined }]} />;
-
-// error (label is required, value not required)
+<C statistics={[{}, { label: \"\", value: undefined }]} />; // error (label is required, value not required)
 var props: Array<{ label: string, value?: number }> = [
   {},
   { label: \"\", value: undefined }
@@ -552,17 +551,13 @@ var TestProps = React.createClass({
     return { x: \"\", y: 0 };
   },
   test: function() {
-    var a: number = this.props.x;
-    // error
-    var b: string = this.props.y;
-    // error
+    var a: number = this.props.x; // error
+    var b: string = this.props.y; // error
     var c: string = this.props.z; // error
   }
 });
 
-var element = <TestProps x={false} y={false} z={false} />;
-
-// 3 errors
+var element = <TestProps x={false} y={false} z={false} />; // 3 errors
 (element: $jsx<*>);
 (element: $jsx<TestProps>);
 var FooProps = React.createClass({
@@ -870,8 +865,7 @@ type FooState = { key: ?Object };
 var Comp = React.createClass({
   getInitialState: function(): FooState {
     return {
-      // this used to cause a missing annotation error
-      key: null
+      key: null // this used to cause a missing annotation error
     };
   }
 });
@@ -906,12 +900,9 @@ var TestState = React.createClass({
     return { x: \"\" };
   },
   test: function() {
-    var a: number = this.state.x;
-
-    // error
+    var a: number = this.state.x; // error
     this.setState({
-      // error
-      x: false
+      x: false // error
     });
   }
 });

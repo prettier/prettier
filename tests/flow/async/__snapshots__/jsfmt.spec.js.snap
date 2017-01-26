@@ -99,8 +99,7 @@ class C {
   }
   static async m(a): void {
     await a;
-  }
-  // error, void != Promise<void>
+  } // error, void != Promise<void>
   static async mt<T>(a: T): Promise<T> {
     return a;
   }
@@ -315,8 +314,7 @@ function test1() {
 
   async function bar() {
     var a = await foo();
-    var b: number = a;
-    // valid
+    var b: number = a; // valid
     var c: string = a; // Error: number ~> string
   }
 }
@@ -332,17 +330,14 @@ function test2() {
     console.log(\"HEY\");
   }
 
-  var voidoid2: () => Promise<void> = voidoid1;
-
-  // ok
+  var voidoid2: () => Promise<void> = voidoid1; // ok
   var voidoid3: () => void = voidoid1; // error, void != Promise<void>
 }
 
 // annotated return type of Promise<void> should work
 //
 function test3() {
-  async function voidoid4(): Promise<void> {
-    // ok
+  async function voidoid4(): Promise<void> { // ok
     console.log(\"HEY\");
   }
 }
@@ -352,15 +347,13 @@ function test3() {
 // return statements are covered in async.js)
 //
 function test4() {
-  async function voidoid5(): void {
-    // error, void != Promise<void>
+  async function voidoid5(): void { // error, void != Promise<void>
     console.log(\"HEY\");
   }
 }
 
 function test5() {
-  async function voidoid6(): Promise<number> {
-    // error, number != void
+  async function voidoid6(): Promise<number> { // error, number != void
     console.log(\"HEY\");
   }
 }

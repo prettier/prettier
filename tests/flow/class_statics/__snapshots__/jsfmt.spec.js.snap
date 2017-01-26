@@ -67,25 +67,17 @@ class A {
   static foo(x: number) {}
   static bar(y: string) {}
 }
-A.qux = function(x: string) {};
-
-// error?
+A.qux = function(x: string) {}; // error?
 class B extends A {
-  static x: string;
-  // error?
-  static foo(x: string) {}
-  // error?
+  static x: string; // error?
+  static foo(x: string) {} // error?
   static main() {
-    B.x = 0;
-    // error
+    B.x = 0; // error
     B.x = \"\";
-    B.foo(0);
-    // error
+    B.foo(0); // error
     B.foo(\"\");
-    B.y = 0;
-    // error
-    B.bar(0);
-    // error
+    B.y = 0; // error
+    B.bar(0); // error
     B.qux(0); // error
   }
   static create(): A {
@@ -107,9 +99,7 @@ class C<X> {
 
 class D extends C<string> {
   static main() {
-    D.foo(0);
-
-    // error?
+    D.foo(0); // error?
     D.bar(0);
   }
 }
@@ -121,8 +111,7 @@ var d: C<*> = D.create();
 class E {
   static x: number;
   static foo(): string {
-    this.bar();
-    // error
+    this.bar(); // error
     return this.x; // error
   }
 }

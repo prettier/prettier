@@ -63,7 +63,6 @@ function foo(x: string) {}
 var a = [0];
 var b = a.map(function(x) {
   foo(x);
-
   return \"\" + x;
 });
 
@@ -83,9 +82,7 @@ var j: Array<number | string> = h.concat(i);
 var k: Array<number> = h.concat(h);
 var l: Array<number> = h.concat(1, 2, 3);
 var m: Array<number | string> = h.concat(\"a\", \"b\", \"c\");
-var n: Array<number> = h.concat(\"a\", \"b\", \"c\");
-
-// Error
+var n: Array<number> = h.concat(\"a\", \"b\", \"c\"); // Error
 function reduce_test() {
   /* Adapted from the following source:
    * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
@@ -111,8 +108,7 @@ function reduce_test() {
 
   /* Added later, because the above is insufficient */
   // acc is element type of array when no init is provided
-  [\"\"].reduce((acc, str) => acc * str.length);
-  // error, string ~> number
+  [\"\"].reduce((acc, str) => acc * str.length); // error, string ~> number
   [\"\"].reduceRight((acc, str) => acc * str.length); // error, string ~> number
 }
 

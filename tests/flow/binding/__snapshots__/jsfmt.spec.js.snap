@@ -46,11 +46,8 @@ x &= 0;
 // regression tests -- OK to assign consts like this:
 const { foo } = { foo: \"foo\" };
 const [bar] = [\"bar\"];
-(foo: number);
-// error: string ~> number
-(bar: number);
-
-// error: string ~> number
+(foo: number); // error: string ~> number
+(bar: number); // error: string ~> number
 declare var bazzes: { baz: string }[];
 for (const { baz } of bazzes) {
   (baz: number); // error: string ~> number
@@ -444,8 +441,7 @@ function type_shadow_nested_scope() {
 // fn params name clash
 function fn_params_name_clash(x, x /* error: x already bound */) {}
 function fn_params_clash_fn_binding(x, y) {
-  let x = 0;
-  // error: x already bound
+  let x = 0; // error: x already bound
   var y = 0; // OK
 }
 "
@@ -566,8 +562,7 @@ function block_scope() {
   let a: number = 0;
   var b: number = 0;
   {
-    let a = \"\";
-    // ok: local to block
+    let a = \"\"; // ok: local to block
     var b = \"\"; // error: string ~> number
   }
 }
@@ -577,14 +572,11 @@ function switch_scope(x: string) {
   var b: number = 0;
   switch (x) {
     case \"foo\":
-      let a = \"\";
-      // ok: local to switch
-      var b = \"\";
-      // error: string ~> number
+      let a = \"\"; // ok: local to switch
+      var b = \"\"; // error: string ~> number
       break;
     case \"bar\":
-      let a = \"\";
-      // error: a already bound in switch
+      let a = \"\"; // error: a already bound in switch
       break;
   }
 }
@@ -595,23 +587,19 @@ function switch_scope(x: string) {
 function switch_scope2(x: number) {
   switch (x) {
     case 0:
-      a = \"\";
-      // error: assign before declaration
+      a = \"\"; // error: assign before declaration
       break;
     case 1:
-      var b = a;
-      // error: use before declaration
+      var b = a; // error: use before declaration
       break;
     case 2:
       let a = \"\";
       break;
     case 3:
-      a = \"\";
-      // error: skipped initializer
+      a = \"\"; // error: skipped initializer
       break;
     case 4:
-      var c: string = a;
-      // error: skipped initializer
+      var c: string = a; // error: skipped initializer
       break;
   }
   a = \"\"; // error: a no longer in scope
@@ -667,8 +655,7 @@ function for_of_scope_var(xs: string[]) {
 function default_param_1() {
   // function binding in scope in default expr
   function f(
-    // error: number ~> string
-    x: () => string = f
+    x: () => string = f // error: number ~> string
   ): number {
     return 0;
   }
@@ -797,8 +784,7 @@ f(a); // ok, a: number (not ?number)
 
 // type aliases are hoisted and always available
 
-type T1 = T2;
-// ok
+type T1 = T2; // ok
 type T2 = number;
 
 // --- lets ---
@@ -814,19 +800,16 @@ type T2 = number;
 // forward references to let/consts from within lambdas entirely,
 // which would be annoying. TODO
 function f0() {
-  var v = x * c;
-  // errors, let + const referenced before decl
+  var v = x * c; // errors, let + const referenced before decl
   let x = 0;
   const c = 0;
 }
 
 function f1(b) {
-  x = 10;
-  // error, attempt to write to let before decl
+  x = 10; // error, attempt to write to let before decl
   let x = 0;
   if (b) {
-    y = 10;
-    // error, attempt to write to let before decl
+    y = 10; // error, attempt to write to let before decl
     let y = 0;
   }
 }
@@ -841,17 +824,14 @@ function f2() {
 
 // functions are let-scoped and hoisted
 function f3() {
-  var s: string = foo();
-  // ok, finds hoisted outer
+  var s: string = foo(); // ok, finds hoisted outer
   {
-    var n: number = foo();
-    // ok, finds hoisted inner
+    var n: number = foo(); // ok, finds hoisted inner
     function foo() {
       return 0;
     }
   }
-  var s2: string = foo();
-  // ok, hoisted outer not clobbered
+  var s2: string = foo(); // ok, hoisted outer not clobbered
   function foo() {
     return \"\";
   }
@@ -861,8 +841,7 @@ function f3() {
 function f4() {
   function g() {
     return x + c;
-  }
-  // ok, g doesn\'t run in TDZ
+  } // ok, g doesn\'t run in TDZ
   let x = 0;
   const c = 0;
 }
@@ -872,8 +851,7 @@ function f5() {
   function g() {
     return x;
   }
-  g();
-  // should error, but doesn\'t currently
+  g(); // should error, but doesn\'t currently
   let x = 0;
   const c = 0;
 }
@@ -882,31 +860,21 @@ function f5() {
 // value (i.e., class or function). this is a basic flaw in our
 // phasing of AST traversal, and will be fixed.
 //
-var x: C;
-
-// ok
-var y = new C();
-
-// error: let ref before decl from value position
+var x: C; // ok
+var y = new C(); // error: let ref before decl from value position
 class C {}
 
-var z: C = new C();
-
-// ok
+var z: C = new C(); // ok
 // --- vars ---
 // it\'s possible to annotate a var with a non-maybe type,
 // but leave it uninitialized until later (as long as it\'s
 // initialized before use)
-var a: number;
-
-// not an error per se - only if used before init
+var a: number; // not an error per se - only if used before init
 function f(n: number) {
   return n;
 }
 
-f(a);
-
-// error: undefined ~/> number
+f(a); // error: undefined ~/> number
 a = 10;
 
 f(a); // ok, a: number (not ?number)
