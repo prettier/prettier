@@ -543,7 +543,7 @@ function genericPrintNoParens(path, options, print) {
     case "ObjectExpression":
     case "ObjectPattern":
     case "ObjectTypeAnnotation":
-      var allowBreak = false;
+      var parent = path.getParentNode();
       var isTypeAnnotation = n.type === "ObjectTypeAnnotation";
       // Leave this here because we *might* want to make this
       // configurable later -- flow accepts ";" for type separators
@@ -570,6 +570,13 @@ function genericPrintNoParens(path, options, print) {
         );
       });
 
+      // We want to always expand an object if it's contained inside of
+      // another object or array
+      const shouldForceBreak = parent.type === "ObjectProperty" ||
+        parent.type === "ArrayExpression";
+
+      const lineType = shouldForceBreak ? hardline : (options.bracketSpacing ? line : softline);
+
       if (props.length === 0) {
         return "{}";
       } else {
@@ -579,7 +586,7 @@ function genericPrintNoParens(path, options, print) {
             indent(
               options.tabWidth,
               concat([
-                options.bracketSpacing ? line : softline,
+                lineType,
                 join(concat([ separator, line ]), props)
               ])
             ),

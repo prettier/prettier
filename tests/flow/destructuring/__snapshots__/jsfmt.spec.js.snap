@@ -325,7 +325,13 @@ var cp2_err: string = others.childprop2; // Error: number ~> string
 declare var a: string;
 declare var b: string;
 declare var c: string;
-[{ a1: a, b }, c] = [{ a1: 0, b: 1 }, 2];
+[{ a1: a, b }, c] = [
+  {
+    a1: 0,
+    b: 1
+  },
+  2
+];
 
 var { m } = { m: 0 };
 ({ m } = { m: m });
