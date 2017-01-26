@@ -772,10 +772,10 @@ function genericPrintNoParens(path, options, print) {
             concat([
               line,
               "? ",
-              indent(options.tabWidth, path.call(print, "consequent")),
+              indent(1, path.call(print, "consequent")),
               line,
               ": ",
-              indent(options.tabWidth, path.call(print, "alternate"))
+              indent(1, path.call(print, "alternate"))
             ])
           )
         ])
@@ -2005,7 +2005,7 @@ function printMemberLookup(path, options, print) {
 
   return concat(
     n.computed
-    ? [ "[", group(concat([indent(options.tabWidth, concat([ softline, property ])), softline])), "]" ]
+    ? [ "[", group(concat([indent(1, concat([ softline, property ])), softline])), "]" ]
     : [ ".", property ]);
 }
 
