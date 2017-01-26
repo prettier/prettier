@@ -1092,14 +1092,20 @@ function genericPrintNoParens(path, options, print) {
       ]);
     case "JSXSpreadAttribute":
       return concat([ "{...", path.call(print, "argument"), "}" ]);
-    case "JSXExpressionContainer":
-      const shouldIndent = n.expression.type !== "ArrayExpression" &&
-        n.expression.type !== "ObjectExpression" &&
-        n.expression.type !== "ArrowFunctionExpression" &&
-        n.expression.type !== "CallExpression" &&
-        n.expression.type !== "FunctionExpression";
+    case "JSXExpressionContainer": {
+      const parent = path.getParentNode(0);
 
-      if (!shouldIndent) {
+      const shouldInline = n.expression.type === "ArrayExpression" ||
+        n.expression.type === "ObjectExpression" ||
+        n.expression.type === "ArrowFunctionExpression" ||
+        n.expression.type === "CallExpression" ||
+        n.expression.type === "FunctionExpression" ||
+        parent.type === "JSXElement" && (
+          n.expression.type === "ConditionalExpression" ||
+          n.expression.type === "LogicalExpression"
+        );
+
+      if (shouldInline) {
         return concat([ "{", path.call(print, "expression"), "}" ]);
       }
 
@@ -1114,6 +1120,7 @@ function genericPrintNoParens(path, options, print) {
           "}"
         ])
       );
+    }
     case "JSXElement": {
       const elem = printJSXElement(path, options, print);
       return maybeWrapJSXElementInParens(path, elem, options);
@@ -2311,7 +2318,8 @@ function maybeWrapJSXElementInParens(path, elem, options) {
     JSXElement: true,
     ExpressionStatement: true,
     CallExpression: true,
-    ConditionalExpression: true
+    ConditionalExpression: true,
+    LogicalExpression: true,
   };
   if (NO_WRAP_PARENTS[parent.type]) {
     return elem;
