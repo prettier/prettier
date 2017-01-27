@@ -2159,28 +2159,43 @@ function printJSXChildren(path, options, print) {
           : util.htmlEscapeInsideAngleBracket(child.value);
 
         if (/\S/.test(value)) {
-          const beginBreak = value.match(/^\s*\n/);
-          const endBreak = value.match(/\n\s*$/);
-          const beginSpace = value.match(/^\s+/);
-          const endSpace = value.match(/\s+$/);
+          // treat each line of text as its own entity
+          value.split(/(\n\s*)/).forEach(line => {
+            const newlines = line.match(/\n/g);
+            if (newlines) {
+              children.push(hardline);
 
-          if (beginBreak) {
-            children.push(hardline);
-          } else if (beginSpace) {
-            children.push(jsxWhitespace);
-          }
+              // allow one extra newline
+              if (newlines.length > 1) {
+                children.push(hardline)
+              }
+              return;
+            }
 
-          children.push(value.replace(/^\s+|\s+$/g, ""));
+            const beginSpace = /^\s+/.test(line);
+            if (beginSpace) {
+              children.push(jsxWhitespace);
+            }
 
-          if (endBreak) {
-            children.push(hardline);
-          } else {
-            if (endSpace) children.push(jsxWhitespace);
+            const stripped = line.replace(/^\s+|\s+$/g, "");
+            if (stripped) {
+              children.push(stripped);
+            }
+
+            const endSpace = /\s+$/.test(line);
+            if (endSpace) {
+              children.push(jsxWhitespace);
+            }
+
             children.push(softline);
-          }
+          });
         } else if (/\n/.test(value)) {
-          // TODO: add another hardline if >1 newline appeared. (also above)
           children.push(hardline);
+
+          // allow one extra newline
+          if (value.match(/\n/g).length > 1) {
+            children.push(hardline)
+          }
         } else if (/\s/.test(value)) {
           // whitespace-only without newlines,
           // eg; a single space separating two elements
@@ -2237,20 +2252,32 @@ function printJSXElement(path, options, print) {
   const children = printJSXChildren(path, options, print);
   let forcedBreak = false;
 
-  // Trim trailing whitespace, recording if there was a hardline
+  // Trim trailing lines, recording if there was a hardline
+  let numTrailingHard = 0;
   while (children.length && isLineNext(util.getLast(children))) {
     if (willBreak(util.getLast(children))) {
+      ++numTrailingHard;
       forcedBreak = true;
     }
     children.pop();
   }
+  // allow one extra newline
+  if (numTrailingHard > 1) {
+    children.push(hardline);
+  }
 
-  // Trim leading whitespace, recording if there was a hardline
+  // Trim leading lines, recording if there was a hardline
+  let numLeadingHard = 0;
   while (children.length && isLineNext(children[0])) {
     if (willBreak(children[0])) {
+      ++numLeadingHard;
       forcedBreak = true;
     }
     children.shift();
+  }
+  // allow one extra newline
+  if (numLeadingHard > 1) {
+    children.unshift(hardline);
   }
 
   // Group by line, recording if there was a hardline.
