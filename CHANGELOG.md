@@ -1,3 +1,13 @@
+# 0.13.0
+
+[link](https://github.com/jlongster/prettier/compare/0.12.0...0.13.0)
+
+* Simplify arrow functions that use blocks (#496)
+* Properly print comments for BinaryExpression (#494)
+* Preserve empty line after comment (#493)
+* [JSX] Handle each line of text separately (#455)
+* Proper support for dangling comments (#492)
+
 # 0.12.0
 
 [link](https://github.com/jlongster/prettier/compare/0.11.0...0.12.0)
