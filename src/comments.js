@@ -193,12 +193,12 @@ function attach(comments, ast, text) {
           }
         }
         tiesToBreak.push(comment);
-      }
-      else if(precedingNode) {
+      } else if(precedingNode) {
         addTrailingComment(precedingNode, comment);
-      }
-      else if(followingNode) {
+      } else if(followingNode) {
         addLeadingComment(followingNode, comment);
+      } else if (enclosingNode) {
+        addDanglingComment(enclosingNode, comment);
       }
     }
   });
@@ -352,16 +352,23 @@ function printTrailingComment(commentPath, print, options, parentNode) {
   ])
 }
 
-function printDanglingComments(path, print, options) {
+function printDanglingComment(commentPath, print, options) {
   const text = options.originalText;
+  const parts = [];
+  const comment = commentPath.getValue();
+  if (util.hasNewline(text, locStart(comment), { backwards: true })) {
+    parts.push(hardline);
+  }
+  parts.push(printComment(commentPath));
+  return concat(parts);
+}
+
+function printDanglingComments(path, print, options) {
   const parts = [];
   path.each(commentPath => {
     const comment = commentPath.getValue();
-    if(!comment.leading && !comment.trailing) {
-      if(util.hasNewline(text, locStart(comment), { backwards: true })) {
-        parts.push(hardline);
-      }
-      parts.push(printComment(commentPath));
+    if (!comment.leading && !comment.trailing) {
+      parts.push(printDanglingComment(commentPath, print, options));
     }
   }, "comments");
   return concat(parts);
@@ -387,9 +394,7 @@ function printComments(path, print, options) {
       var leading = types.getFieldValue(comment, "leading");
       var trailing = types.getFieldValue(comment, "trailing");
 
-      if (
-        leading
-      ) {
+      if (leading) {
         leadingParts.push(printLeadingComment(commentPath, print, options));
 
         // Support a special case where a comment exists at the very top
@@ -403,7 +408,6 @@ function printComments(path, print, options) {
           leadingParts.push(hardline);
         }
       } else if (trailing) {
-        const idx = commentPath.getName();
         trailingParts.push(
           printTrailingComment(
             commentPath,
@@ -412,19 +416,27 @@ function printComments(path, print, options) {
             parent
           )
         );
+      } else {
+        // Those two node types print their dangling comments themselves
+        if (value.type !== "Program" && value.type !== "BlockStatement") {
+          trailingParts.push(
+            printDanglingComment(
+              commentPath,
+              print,
+              options
+            )
+          );
+        }
       }
     },
     "comments"
   );
 
-  leadingParts.push.apply(leadingParts, trailingParts);
-  return concat(leadingParts);
+  return concat(leadingParts.concat(trailingParts));
 }
 
 module.exports = {
   attach,
   printComments,
-  printLeadingComment,
-  printTrailingComment,
   printDanglingComments
 };

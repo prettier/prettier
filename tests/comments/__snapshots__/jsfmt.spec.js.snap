@@ -188,7 +188,7 @@ takeUntil(
 
 /* Comments disappear inside of JSX*/
 <div>
-  {}
+  {/* Some comment */}
 </div>;
 
 /* Comments in JSX tag are placed in a non optimal way*/
@@ -377,7 +377,7 @@ takeUntil(
 
 // Comments disappear inside of JSX
 <div>
-  {}
+  {/* Some comment */}
 </div>;
 
 // Comments in JSX tag are placed in a non optimal way
