@@ -36,6 +36,7 @@ fs.readFile(\"file.exp\", {}, (_, data) => {
 var fs = require(\"fs\");
 
 /* readFile */
+
 fs.readFile(\"file.exp\", (_, data) => {
   (data: Buffer);
 });
@@ -53,6 +54,7 @@ fs.readFile(\"file.exp\", {}, (_, data) => {
 });
 
 /* readFileSync */
+
 (fs.readFileSync(\"file.exp\"): Buffer);
 (fs.readFileSync(\"file.exp\"): string); // error
 (fs.readFileSync(\"file.exp\", \"blah\"): string);

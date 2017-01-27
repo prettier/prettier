@@ -505,6 +505,7 @@ foo = (i: number) => {
 };
 
 // Also make sure that the following doesn\'t loop
+
 declare var o;
 var { x: o } = o;
 "

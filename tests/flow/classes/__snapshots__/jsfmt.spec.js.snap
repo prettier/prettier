@@ -183,6 +183,7 @@ var bar1: Bar = new Bar(); // OK
 var bar2: Bar = Bar.factory(); // OK
 // NB: Don\'t write expected errors using Foo to avoid error collapse hiding an
 // unexpected failure in the above code.
+
 var B = class Baz {};
 var b = new Baz(); // error: Baz is not a runtime binding in this scope
 var C = class Qux {};

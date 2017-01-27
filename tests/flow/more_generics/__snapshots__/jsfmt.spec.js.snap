@@ -55,6 +55,7 @@ function foo5<T>(): Array<T> {
  var b = foo5();
  var y: string = b[0];
 */
+
 var foo6 = function<R>(x: R): R {
   return foo1(x);
 };

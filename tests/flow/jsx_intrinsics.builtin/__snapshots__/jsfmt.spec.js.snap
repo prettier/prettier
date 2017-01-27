@@ -69,6 +69,7 @@ React.createElement(\'bad\', {}); // This is fine
 var React = require(\"react\");
 
 // The builtin $JSXIntrinsics should allow any string
+
 var Div = \"div\";
 var Bad = \"bad\";
 var Str: string = \"str\";
