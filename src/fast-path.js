@@ -8,7 +8,7 @@ var isNumber = types.builtInTypes.number;
 
 function FastPath(value) {
   assert.ok(this instanceof FastPath);
-  this.stack = [ value ];
+  this.stack = [value];
 }
 
 var FPp = FastPath.prototype;
@@ -24,8 +24,9 @@ FastPath.from = function(obj) {
     // For backwards compatibility, unroll NodePath instances into
     // lightweight FastPath [..., name, value] stacks.
     var copy = Object.create(FastPath.prototype);
-    var stack = [ obj.value ];
-    for (var pp; pp = obj.parentPath; obj = pp) stack.push(obj.name, pp.value);
+    var stack = [obj.value];
+    for (var pp; pp = obj.parentPath; obj = pp)
+      stack.push(obj.name, pp.value);
     copy.stack = stack.reverse();
     return copy;
   }
@@ -83,7 +84,7 @@ FPp.getParentNode = function getParentNode(count) {
 
 FPp.isLast = function isLast() {
   var s = this.stack;
-  if(this.getParentNode()) {
+  if (this.getParentNode()) {
     var idx = s[s.length - 2];
     // The name of this node should be an index
     assert.ok(typeof idx === "number");
@@ -95,7 +96,7 @@ FPp.isLast = function isLast() {
     return idx === arr.length - 1;
   }
   return false;
-}
+};
 
 // Temporarily push properties named by string arguments given after the
 // callback function onto this.stack, then call the callback with a
@@ -292,10 +293,7 @@ FPp.needsParens = function(assumeExpressionContext) {
         return true;
       }
 
-      if (
-        node.operator === 'in' &&
-          parent.type === 'AssignmentExpression'
-      ) {
+      if (node.operator === "in" && parent.type === "AssignmentExpression") {
         return true;
       }
 

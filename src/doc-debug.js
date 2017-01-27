@@ -1,4 +1,5 @@
 "use strict";
+
 function flattenDoc(doc) {
   if (doc.type === "concat") {
     var res = [];
@@ -16,21 +17,24 @@ function flattenDoc(doc) {
     }
 
     return Object.assign({}, doc, { parts: res });
-
   } else if (doc.type === "if-break") {
     return Object.assign({}, doc, {
-      breakContents: doc.breakContents != null ? flattenDoc(doc.breakContents) : null,
-      flatContents: doc.flatContents != null ? flattenDoc(doc.flatContents) : null
+      breakContents: (
+        doc.breakContents != null ? flattenDoc(doc.breakContents) : null
+      ),
+      flatContents: (
+        doc.flatContents != null ? flattenDoc(doc.flatContents) : null
+      )
     });
-
   } else if (doc.type === "group") {
     return Object.assign({}, doc, {
       contents: flattenDoc(doc.contents),
-      expandedStates: doc.expandedStates
-        ? doc.expandedStates.map(flattenDoc)
-        : doc.expandedStates
+      expandedStates: (
+        doc.expandedStates
+          ? doc.expandedStates.map(flattenDoc)
+          : doc.expandedStates
+      )
     });
-
   } else if (doc.contents) {
     return Object.assign({}, doc, { contents: flattenDoc(doc.contents) });
   } else {
@@ -76,9 +80,11 @@ function printDoc(doc) {
   }
 
   if (doc.type === "group") {
-    if(doc.expandedStates) {
+    if (doc.expandedStates) {
       return "conditionalGroup(" +
-        "[" + doc.expandedStates.map(printDoc).join(",") + "])";
+        "[" +
+        doc.expandedStates.map(printDoc).join(",") +
+        "])";
     }
 
     return (doc.break ? "wrappedGroup" : "group") +

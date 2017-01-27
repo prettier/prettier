@@ -1,10 +1,15 @@
 "use strict";
+
 const utils = require("./doc-utils");
 const willBreak = utils.willBreak;
 
 function assertDoc(val) {
-  if (!(typeof val === "string" || val != null && typeof val.type === "string")) {
-    throw new Error("Value " + JSON.stringify(val) + " is not a valid document");
+  if (
+    !(typeof val === "string" || val != null && typeof val.type === "string")
+  ) {
+    throw new Error(
+      "Value " + JSON.stringify(val) + " is not a valid document"
+    );
   }
 }
 
@@ -58,19 +63,22 @@ function ifBreak(breakContents, flatContents) {
 }
 
 function lineSuffix(contents) {
-  if(typeof contents !== "string") {
+  if (typeof contents !== "string") {
     throw new Error(
       "lineSuffix only takes a string, but given: " + JSON.stringify(contents)
-    )
+    );
   }
   return { type: "line-suffix", contents };
 }
 
-const breakParent =  { type: "break-parent" };
+const breakParent = { type: "break-parent" };
 const line = { type: "line" };
 const softline = { type: "line", soft: true };
-const hardline = concat([{ type: "line", hard: true }, breakParent ]);
-const literalline = concat([{ type: "line", hard: true, literal: true }, breakParent ]);
+const hardline = concat([{ type: "line", hard: true }, breakParent]);
+const literalline = concat([
+  { type: "line", hard: true, literal: true },
+  breakParent
+]);
 
 function join(sep, arr) {
   var res = [];

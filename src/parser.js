@@ -1,4 +1,5 @@
 "use strict";
+
 function parseWithFlow(text) {
   // Inline the require to avoid loading all the JS if we don't use it
   const flowParser = require("flow-parser");

@@ -1,4 +1,5 @@
 "use strict";
+
 var assert = require("assert");
 var types = require("ast-types");
 var n = types.namedTypes;
@@ -55,7 +56,8 @@ function fixFaultyLocations(node, text) {
 }
 
 function isExportDeclaration(node) {
-  if (node) switch (node.type) {
+  if (node)
+    switch (node.type) {
       case "ExportDeclaration":
       case "ExportDefaultDeclaration":
       case "ExportDefaultSpecifier":
@@ -90,7 +92,7 @@ function skip(chars) {
 
     // Allow `skip` functions to be threaded together without having
     // to check for failures (did someone say monads?).
-    if(index === false) {
+    if (index === false) {
       return false;
     }
 
@@ -98,19 +100,18 @@ function skip(chars) {
     let cursor = index;
     while (cursor >= 0 && cursor < length) {
       const c = text.charAt(cursor);
-      if(chars instanceof RegExp) {
-        if(!chars.test(c)) {
+      if (chars instanceof RegExp) {
+        if (!chars.test(c)) {
           return cursor;
         }
-      }
-      else if (chars.indexOf(c) === -1) {
+      } else if (chars.indexOf(c) === -1) {
         return cursor;
       }
 
       backwards ? cursor-- : cursor++;
     }
 
-    if(cursor === -1 || cursor === length) {
+    if (cursor === -1 || cursor === length) {
       // If we reached the beginning or end of the file, return the
       // out-of-bounds cursor. It's up to the caller to handle this
       // correctly. We don't want to indicate `false` though if it
@@ -118,7 +119,7 @@ function skip(chars) {
       return cursor;
     }
     return false;
-  }
+  };
 }
 
 const skipWhitespace = skip(/\s/);
@@ -130,22 +131,20 @@ const skipToLineEnd = skip("; \t");
 // want to skip one newline. It's simple to implement.
 function skipNewline(text, index, opts) {
   const backwards = opts && opts.backwards;
-  if(index === false) {
+  if (index === false) {
     return false;
-  }
-  else if(backwards) {
-    if(text.charAt(index) === "\n") {
+  } else if (backwards) {
+    if (text.charAt(index) === "\n") {
       return index - 1;
     }
-    if(text.charAt(index - 1) === "\r" && text.charAt(index) === "\n") {
+    if (text.charAt(index - 1) === "\r" && text.charAt(index) === "\n") {
       return index - 2;
     }
-  }
-  else {
-    if(text.charAt(index) === "\n") {
+  } else {
+    if (text.charAt(index) === "\n") {
       return index + 1;
     }
-    if(text.charAt(index) === "\r" && text.charAt(index + 1) === "\n") {
+    if (text.charAt(index) === "\r" && text.charAt(index + 1) === "\n") {
       return index + 2;
     }
   }
@@ -218,16 +217,16 @@ function htmlEscapeInsideAngleBracket(str) {
 
 var PRECEDENCE = {};
 [
-  [ "||" ],
-  [ "&&" ],
-  [ "|" ],
-  [ "^" ],
-  [ "&" ],
-  [ "==", "===", "!=", "!==" ],
-  [ "<", ">", "<=", ">=", "in", "instanceof" ],
-  [ ">>", "<<", ">>>" ],
-  [ "+", "-" ],
-  [ "*", "/", "%", "**" ]
+  ["||"],
+  ["&&"],
+  ["|"],
+  ["^"],
+  ["&"],
+  ["==", "===", "!=", "!=="],
+  ["<", ">", "<=", ">=", "in", "instanceof"],
+  [">>", "<<", ">>>"],
+  ["+", "-"],
+  ["*", "/", "%", "**"]
 ].forEach(function(tier, i) {
   tier.forEach(function(op) {
     PRECEDENCE[op] = i;
