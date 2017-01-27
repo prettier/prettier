@@ -352,25 +352,28 @@ function printTrailingComment(commentPath, print, options, parentNode) {
   ])
 }
 
-function printDanglingComment(commentPath, print, options) {
+function printDanglingComments(path, options, noIndent) {
   const text = options.originalText;
   const parts = [];
-  const comment = commentPath.getValue();
-  if (util.hasNewline(text, locStart(comment), { backwards: true })) {
-    parts.push(hardline);
-  }
-  parts.push(printComment(commentPath));
-  return concat(parts);
-}
+  const node = path.getValue();
 
-function printDanglingComments(path, print, options) {
-  const parts = [];
+  if(!node || !node.comments) {
+    return "";
+  }
+
   path.each(commentPath => {
     const comment = commentPath.getValue();
-    if (!comment.leading && !comment.trailing) {
-      parts.push(printDanglingComment(commentPath, print, options));
+    if(!comment.leading && !comment.trailing) {
+      if(util.hasNewline(text, locStart(comment), { backwards: true })) {
+        parts.push(hardline);
+      }
+      parts.push(printComment(commentPath));
     }
   }, "comments");
+
+  if(!noIndent) {
+    return indent(options.tabWidth, concat(parts));
+  }
   return concat(parts);
 }
 
@@ -416,17 +419,6 @@ function printComments(path, print, options) {
             parent
           )
         );
-      } else {
-        // Those two node types print their dangling comments themselves
-        if (value.type !== "Program" && value.type !== "BlockStatement") {
-          trailingParts.push(
-            printDanglingComment(
-              commentPath,
-              print,
-              options
-            )
-          );
-        }
       }
     },
     "comments"

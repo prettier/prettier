@@ -135,10 +135,10 @@ function genericPrintNoParens(path, options, print) {
         )
       );
 
-      if(n.comments) {
-        parts.push(comments.printDanglingComments(path, print, options));
-      }
 
+      parts.push(
+        comments.printDanglingComments(path, options, /* noIdent */ true)
+      );
       parts.push(hardline);
 
       return concat(parts);
@@ -510,15 +510,9 @@ function genericPrintNoParens(path, options, print) {
 
       if (hasContent) {
         parts.push(indent(options.tabWidth, concat([ hardline, naked ])));
-      } else if (n.comments) {
-        parts.push(
-          indent(
-            options.tabWidth,
-            comments.printDanglingComments(path, print, options)
-          )
-        );
       }
 
+      parts.push(comments.printDanglingComments(path, options));
       parts.push(hardline, "}");
 
       return concat(parts);
@@ -581,7 +575,11 @@ function genericPrintNoParens(path, options, print) {
       });
 
       if (props.length === 0) {
-        return "{}";
+        return concat([
+          "{",
+          comments.printDanglingComments(path, options),
+          "}"
+        ]);
       } else {
         return group(
           concat([
@@ -662,7 +660,11 @@ function genericPrintNoParens(path, options, print) {
     case "ArrayExpression":
     case "ArrayPattern":
       if (n.elements.length === 0) {
-        parts.push("[]");
+        parts.push(concat([
+          "[",
+          comments.printDanglingComments(path, options),
+          "]"
+        ]));
       } else {
         const lastElem = util.getLast(n.elements);
         const canHaveTrailingComma = !(lastElem &&
@@ -1169,7 +1171,7 @@ function genericPrintNoParens(path, options, print) {
     case "JSXText":
       throw new Error("JSXTest should be handled by JSXElement");
     case "JSXEmptyExpression":
-      return "";
+      return comments.printDanglingComments(path, options);
     case "TypeAnnotatedIdentifier":
       return concat([
         path.call(print, "annotation"),
