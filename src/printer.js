@@ -727,13 +727,13 @@ function genericPrintNoParens(path, options, print) {
       return n.extra.raw;
     // Babel 6 Literal split
     case "NumericLiteral":
-      return n.extra.raw;
+      return printNumber(n.extra.raw);
     // Babel 6 Literal split
     case "BooleanLiteral":
     // Babel 6 Literal split
     case "StringLiteral":
     case "Literal":
-      if (typeof n.value === "number") return n.raw;
+      if (typeof n.value === "number") return printNumber(n.raw);
       if (typeof n.value !== "string") return "" + n.value;
 
       return nodeStr(n, options);
@@ -2535,6 +2535,20 @@ function makeString(rawContent, enclosingQuote) {
   });
 
   return enclosingQuote + newContent + enclosingQuote;
+}
+
+function printNumber(rawNumber) {
+  return rawNumber
+    // Uppercase hex digits.
+    .replace(/[a-f]/g, match => match.toUpperCase())
+    // Lowercase radix letter.
+    .replace(/^0[BOX]/, match => match.toLowerCase())
+    // Lowercase scientific notation, with unnecessary plus and zeroes removed.
+    .replace(/^([\d.]+)[eE](?:\+|(-))?0*/, "$1e$2")
+    // Make sure numbers always start with a digit.
+    .replace(/^\./, "0.")
+    // Remove trailing dot.
+    .replace(/\.$/, "");
 }
 
 function isFirstStatement(path) {
