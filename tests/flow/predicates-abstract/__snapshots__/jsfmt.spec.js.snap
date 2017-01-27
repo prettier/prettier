@@ -136,6 +136,7 @@ function is_string_and_number(x, y): %checks {
 declare function refine<T, P: $Pred<1>>(v: T, cb: P): $Refine<T, P, 1>;
 // function refine(v, cb)
 // { if (cb(v)) { return v; } else { throw new Error(); } }
+
 /*
   Use case
 */
@@ -150,6 +151,7 @@ declare function refine_fst<T, P: $Pred<2>>(
 ): $Refine<T, P, 1>;
 // function refine_fst(v, w, cb)
 // { if (cb(v, w)) { return v; } else { throw new Error(); } }
+
 declare var c: mixed;
 declare var d: mixed;
 
@@ -160,6 +162,7 @@ declare function refine2<T, P: $Pred<2>>(v: T, w: T, cb: P): $Refine<T, P, 1>;
 
 // function refine_fst(v, w, cb)
 // { if (cb(v, w)) { return w; } else { throw new Error(); } }
+
 function is_string(x): boolean %checks {
   return typeof x === \"string\";
 }
@@ -343,6 +346,7 @@ var e = refine(a, is_string_regular); // ERROR: is_string_regular is not a
 (e: number);
 
 ////////////////////////////////////////////////////////////////////////////////
+
 function is_string(x): %checks {
   return typeof x === \"string\";
 }

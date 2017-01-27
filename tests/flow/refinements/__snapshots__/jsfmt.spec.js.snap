@@ -668,6 +668,7 @@ function def_assign_within_for(b: boolean, obj: Obj) {
 }
 
 // --- name-sensitive havoc ---
+
 type Obj2 = { q: number | string };
 
 function def_assign_setprop_nohavoc(obj: Obj, obj2: Obj2) {
@@ -1582,6 +1583,7 @@ function e_array(x: Array<?string>): string {
 }
 
 // --- name-sensitive havoc ---
+
 function c2(x: { [key: string]: ?string }, y: { z: string }): string {
   if (x[y.z]) {
     y.z = \"HEY\";

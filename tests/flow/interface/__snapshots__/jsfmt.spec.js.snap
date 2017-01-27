@@ -94,6 +94,7 @@ var k: K = { x: \"\", y: \"\" }; // error: x should be number
 declare class C { x: number }
 declare class D extends C, Other {} // error: multiple extends
 //declare class E implements I { } // parse error
+
 interface A<Y> { y: Y }
 interface A_<X> { x: X }
 interface B<Z> extends A<string>, A_<Z> { z: Z }

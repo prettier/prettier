@@ -51,6 +51,7 @@ function f(x: number) {
   return x;
 }
 //function f(x:number):string { return x; }
+
 var x: string = f(0);
 
 module.exports = f;
@@ -79,6 +80,7 @@ module.exports = o;
 
 var o = { x: 0 };
 //var o: {x: number;} = { x: 0 }
+
 var x: string = o.x;
 
 module.exports = o;

@@ -107,6 +107,7 @@ function reduce_test() {
   });
 
   /* Added later, because the above is insufficient */
+
   // acc is element type of array when no init is provided
   [\"\"].reduce((acc, str) => acc * str.length); // error, string ~> number
   [\"\"].reduceRight((acc, str) => acc * str.length); // error, string ~> number

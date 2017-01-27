@@ -35,6 +35,7 @@ function test1(): string {
 
 // regression test for analysis after abnormal control flow:
 // consts must not become bot (EmptyT).
+
 function test2() {
   const n = 0;
 

@@ -412,6 +412,7 @@ var y = new Foo();
 //
 // toString
 //
+
 // call
 takesAString(a.toString());
 d.toString(); // ok, even though dict specifies strings, this is a function
@@ -450,6 +451,7 @@ takesAString(y.toString());
 //
 // hasOwnProperty
 //
+
 // call
 takesABool(a.hasOwnProperty(\"foo\"));
 
@@ -475,6 +477,7 @@ takesABool(y.hasOwnProperty(\"foo\"));
 //
 // propertyIsEnumerable
 //
+
 // call
 takesABool(a.propertyIsEnumerable(\"foo\"));
 
@@ -500,6 +503,7 @@ takesABool(y.propertyIsEnumerable(\"foo\"));
 //
 // valueOf
 //
+
 // call
 takesAnObject(a.valueOf());
 
@@ -529,6 +533,7 @@ var boolValueOf: boolean = true.valueOf();
 //
 // toLocaleString
 //
+
 // call
 takesAString(a.toLocaleString());
 
@@ -554,6 +559,7 @@ takesAString(y.toLocaleString());
 //
 // constructor
 //
+
 var k: Object = a.constructor;
 (123).constructor;
 "

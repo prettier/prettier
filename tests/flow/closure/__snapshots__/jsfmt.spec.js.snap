@@ -89,6 +89,7 @@ function takes_string(_: string) {}
 
 // global write from function
 //
+
 var global_x = \"hello\";
 
 function global_f() {}
@@ -103,6 +104,7 @@ takes_string(global_x); // error
 global_x = 42; // shouldn\'t pollute linear refinement
 // local write from function
 //
+
 function local_func() {
   var local_x = \"hello\";
 
@@ -120,6 +122,7 @@ function local_func() {
 
 // global write from method
 //
+
 var global_y = \"hello\";
 
 var global_o = {
@@ -136,6 +139,7 @@ takes_string(global_y); // error
 global_y = 42; // shouldn\'t pollute linear refinement
 // local write from method
 //
+
 function local_meth() {
   var local_y = \"hello\";
 

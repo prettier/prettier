@@ -107,6 +107,7 @@ var a: MyClass1 = new MyClass1();
 // Following tests are errors which conflate the type
 // of the class value itself with the type of its
 // instances.
+
 // Aside: it\'s worth staring at the following (correct)
 // type annotations until they make sense:
 //
@@ -121,6 +122,7 @@ var a: MyClass1 = new MyClass1();
 // The second says that objects produced by the MyClass1
 // constructor function have type MyClass1 - the type of
 // instances of MyClass1.
+
 // Error: assign the actual MyClass1 value to a  variable
 // whose annotated type is of instances of MyClass1.
 //
@@ -141,12 +143,14 @@ var c: typeof MyClass2 = new MyClass2();
 //////////////////////////////////////
 // == typeof <<non-class value>> == //
 //////////////////////////////////////
+
 var numValue: number = 42;
 var d: typeof numValue = 100;
 var e: typeof numValue = \"asdf\"; // Error: string ~> number
 /////////////////////////////////
 // == typeof <<type-alias>> == //
 /////////////////////////////////
+
 type numberAlias = number;
 
 // This is an error because typeof takes a value, not
@@ -159,6 +163,7 @@ var f: typeof numberAlias = 42; // Error: \'typeof <<type-alias>>\' makes no sen
  * These provoke a specific error, not just the generic
  * \"type is incompatible\"
  */
+
 var Map = { A: \"this is A\", B: \"this is B\", C: \"this is C\" };
 var keys: $Keys<Map> = \"A\"; // Error: ineligible value used in type anno
 "

@@ -44,6 +44,7 @@ x ^= 0;
 x &= 0;
 
 // regression tests -- OK to assign consts like this:
+
 const { foo } = { foo: \"foo\" };
 const [bar] = [\"bar\"];
 (foo: number); // error: string ~> number
@@ -298,6 +299,7 @@ function type_reassign() {
 }
 
 // class x *
+
 function class_type() {
   class A {}
   type A = number; // error: name already bound
@@ -324,6 +326,7 @@ function class_var() {
 }
 
 // let x *
+
 function let_type() {
   let A = 0;
   type A = number; // error: name already bound
@@ -350,6 +353,7 @@ function let_var() {
 }
 
 // const x *
+
 function const_type() {
   const A = 0;
   type A = number; // error: name already bound
@@ -381,6 +385,7 @@ function const_reassign() {
 }
 
 // var x *
+
 function var_type() {
   var A = 0;
   type A = number; // error: name already bound
@@ -407,6 +412,7 @@ function var_var() {
 }
 
 // function x *
+
 function function_toplevel() {
   function a() {}
   function a() {}
@@ -420,6 +426,7 @@ function function_block() {
 }
 
 // corner cases
+
 function var_shadow_nested_scope() {
   {
     let x = 0;
@@ -439,6 +446,7 @@ function type_shadow_nested_scope() {
 }
 
 // fn params name clash
+
 function fn_params_name_clash(x, x /* error: x already bound */) {}
 function fn_params_clash_fn_binding(x, y) {
   let x = 0; // error: x already bound
@@ -788,6 +796,7 @@ type T1 = T2; // ok
 type T2 = number;
 
 // --- lets ---
+
 // to be correct, we would
 // - not allow forward refs to lets from value positions,
 // while let is in TDZ.
@@ -799,6 +808,7 @@ type T2 = number;
 // a lambda runs. But a simple conservative approach would prohibit
 // forward references to let/consts from within lambdas entirely,
 // which would be annoying. TODO
+
 function f0() {
   var v = x * c; // errors, let + const referenced before decl
   let x = 0;
@@ -860,15 +870,18 @@ function f5() {
 // value (i.e., class or function). this is a basic flaw in our
 // phasing of AST traversal, and will be fixed.
 //
+
 var x: C; // ok
 var y = new C(); // error: let ref before decl from value position
 class C {}
 
 var z: C = new C(); // ok
 // --- vars ---
+
 // it\'s possible to annotate a var with a non-maybe type,
 // but leave it uninitialized until later (as long as it\'s
 // initialized before use)
+
 var a: number; // not an error per se - only if used before init
 function f(n: number) {
   return n;

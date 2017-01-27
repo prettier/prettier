@@ -22,6 +22,7 @@ module.exports = printBinaryExpression;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \"use babel\";
 /* @flow */
+
 /*
  * Copyright (c) 2015-present, Facebook, Inc.
  * All rights reserved.
@@ -29,6 +30,7 @@ module.exports = printBinaryExpression;
  * This source code is licensed under the license found in the LICENSE file in
  * the root directory of this source tree.
  */
+
 import type { BinaryExpression } from \"./types\";
 
 function printBinaryExpression(node: BinaryExpression) {
@@ -5095,7 +5097,9 @@ export type JSXSpreadAttribute = {
 /*
  * Flow types for the Babylon AST.
  */
+
 // Abstract types. Something must extend these.
+
 export type Comment =
   | {
     type: \"CommentLine\",
@@ -8277,6 +8281,7 @@ export type Type =
   };
 
 // Concrete Types. Nothing can extend these.
+
 export type CommentLine = {
   type: \"CommentLine\",
   _CommentLine: void,
@@ -8302,6 +8307,7 @@ export type CommentBlock = {
 };
 
 // Babel concrete types.
+
 export type ArrayExpression = {
   type: \"ArrayExpression\",
   _ArrayExpression: void,
