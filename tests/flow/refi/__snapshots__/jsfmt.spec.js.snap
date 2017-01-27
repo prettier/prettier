@@ -543,6 +543,7 @@ var tests = [
   // the scope that gets merged after the if statement is the correct
   // post-condition scope, not the one that was saved at the beginning of the
   // if statement.
+
   function() {
     let x: { foo: ?string } = { foo: null };
     if (!x.foo) {
@@ -1193,6 +1194,7 @@ function foo(a, b, c) {
 }
 
 // test refis out of switches that are exhaustive without default case
+
 function exhaustion1(x): number {
   var foo;
   switch (x) {
@@ -1574,6 +1576,7 @@ class A {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var undef_tests = [
   // NOTE: not (yet?) supporting non-strict eq test for undefined
+
   // expr !== undefined
   function() {
     var x: ?string = \"xxx\";
@@ -1718,6 +1721,7 @@ class A {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var void_tests = [
   // NOTE: not (yet?) supporting non-strict eq test for undefined
+
   // expr !== void(...)
   function() {
     var x: ?string = \"xxx\";

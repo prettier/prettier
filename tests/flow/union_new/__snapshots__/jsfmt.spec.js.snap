@@ -327,6 +327,7 @@ function hello(x:X): string {
 
 type X = ({ a: true } & { b: string }) | ({ a: false } & { c: string });
 //type X = {a:true, b:string} | {a:false, c:string}; // this works.
+
 function hello(x: X): string {
   if (x.a === true) return x.b;
   else return x.c;
@@ -459,6 +460,7 @@ const obj_result = obj({ x: \"\" }); // currently an error! (expect it to be OK)
 // blocks until A1 is partially resolved. Since the argument partially matches
 // A1, that branch is selected. Later, that branch errors, but other branches
 // have been lost by then.
+
 type A1 = { x: B1 };
 type A2 = { x: B2 };
 
@@ -470,6 +472,7 @@ type B2 = string;
 ///////////////////////////////////////
 // similar example with function types
 ///////////////////////////////////////
+
 function fun(a: A3 | A4) {
   return a();
 }
@@ -487,6 +490,7 @@ type B4 = string;
 /////////////////////////////////////////////
 // similar example with class instance types
 /////////////////////////////////////////////
+
 function inst(a: A5 | A6) {}
 
 class B5 {}
@@ -598,6 +602,7 @@ type B1 = string;
 ///////////////////////////////////////
 // similar example with function types
 ///////////////////////////////////////
+
 function fun(a: (() => number) | (() => string)) {}
 
 fun((() => \"\": A2));
@@ -609,6 +614,7 @@ type B2 = string;
 /////////////////////////////////////////////////////
 // similar example with generic class instance types
 /////////////////////////////////////////////////////
+
 class C<X> {}
 
 function inst(a: C<number> | C<string>) {}
@@ -622,6 +628,7 @@ type B3 = string;
 /////////////////////////////////////////////
 // similar example with generic type aliases
 /////////////////////////////////////////////
+
 function alias(a: T<number> | T<string>) {}
 alias({ x: (x: V<B4>) => {} });
 
@@ -632,6 +639,7 @@ type V<X> = X;
 type B4 = string;
 
 // class statics
+
 function stat(a: { x: number } | { x: string }) {}
 
 class D {
@@ -643,6 +651,7 @@ stat(D);
 type B5 = string;
 
 // tuples
+
 function tup(a: [number, boolean] | [string, boolean]) {}
 
 tup(([\"\", false]: A6));
@@ -704,6 +713,7 @@ type B1 = string;
 ////////////////////////////
 // example with array types
 ////////////////////////////
+
 function arr(a: number[] | string[]) {}
 
 arr(([]: A2));
@@ -778,6 +788,7 @@ type B1 = string;
 ////////////////////////////
 // example with array types
 ////////////////////////////
+
 function arr(a: number[] | string[]) {}
 
 const a2 = ([]: A2);
@@ -849,6 +860,7 @@ function fun_call(x: string): string {
 /////////////////////////////
 // example with array types
 /////////////////////////////
+
 function arr(a: number[] | string[]) {}
 
 var a2 = [];
@@ -971,6 +983,7 @@ type H2 = number;
 ///////////////////////////////
 // polymorphic recursive types
 ///////////////////////////////
+
 function polyrec(x: PF<number> | PF<string>) {}
 rec({ x: 0 });
 
@@ -1150,6 +1163,7 @@ function id<X>(x: X): X {
 /////////////////////////
 // primitive annotations
 /////////////////////////
+
 function check_prim(_: number | string) {}
 
 // ok
@@ -1161,6 +1175,7 @@ check_prim(id(\"\"));
 //////////////////////////////
 // class instance annotations
 //////////////////////////////
+
 class C {}
 class D {}
 function check_inst(_: C | D) {}
@@ -1174,6 +1189,7 @@ check_inst(id(new C()));
 ////////////////////////
 // function annotations
 ////////////////////////
+
 function check_fun(_: ((_: number) => number) | ((_: string) => string)) {}
 
 // help!
@@ -1182,6 +1198,7 @@ check_fun(x => x);
 //////////////////////
 // object annotations
 //////////////////////
+
 function check_obj(_: { x: number } | { x: string }) {}
 
 // ok
@@ -1193,6 +1210,7 @@ check_obj({ x: id(\"\") });
 /////////////////////
 // array annotations
 /////////////////////
+
 function check_arr(_: number[] | string[]) {}
 
 // ok
@@ -1204,6 +1222,7 @@ check_arr([id(\"\")]);
 //////////////////////////////////////
 // generic class instance annotations
 //////////////////////////////////////
+
 class P<X> {}
 function check_poly_inst(_: P<number> | P<string>) {}
 
@@ -1374,6 +1393,7 @@ type EventHandler = (event: Event) => mixed;
 type KeyboardEventHandler = (event: KeyboardEvent) => mixed;
 
 // example where globals are not yet resolved
+
 function bar(x: (() => void) | { x: number }) {}
 
 bar(() => {});
@@ -1814,6 +1834,7 @@ function hello4(x:X): string {
 
 type X = ({ a: true } & { b: string }) | ({ a: false } & { c: string });
 //type X = {a:true, b:string} | {a:false, c:string}; // this works.
+
 function hello1(x: X): string {
   if (x.a === true) return x.b;
   else return x.c;

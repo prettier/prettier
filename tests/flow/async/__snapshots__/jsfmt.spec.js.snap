@@ -68,6 +68,7 @@ async function f1(): Promise<boolean> {
 
 // await: (p: Promise<T> | T) => T
 //
+
 async function f2(p: Promise<number>): Promise<number> {
   var x: number = await p;
   var y: number = await 1;
@@ -86,10 +87,12 @@ async function f4(p: Promise<number>): Promise<boolean> {
 
 // async arrow functions
 //
+
 var f5: () => Promise<number> = async () => await 1;
 
 // async methods
 //
+
 class C {
   async m() {
     return 1;
@@ -106,6 +109,7 @@ class C {
 }
 
 // async function props
+
 var obj = { f: async () => await 1 };
 var objf: () => Promise<number> = obj.f;
 "
@@ -322,9 +326,11 @@ function test1() {
 //
 // void returns:
 //
+
 // inference should produce return type Promise<void>
 // in the absence of an explicit return
 //
+
 function test2() {
   async function voidoid1() {
     console.log(\"HEY\");
@@ -336,6 +342,7 @@ function test2() {
 
 // annotated return type of Promise<void> should work
 //
+
 function test3() {
   async function voidoid4(): Promise<void> { // ok
     console.log(\"HEY\");
@@ -346,6 +353,7 @@ function test3() {
 // (note: misannotated return types with explicit
 // return statements are covered in async.js)
 //
+
 function test4() {
   async function voidoid5(): void { // error, void != Promise<void>
     console.log(\"HEY\");

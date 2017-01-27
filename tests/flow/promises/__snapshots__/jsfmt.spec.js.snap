@@ -412,6 +412,7 @@ new Promise(function(resolve, reject) {
 /////////////////////////////////////////////////
 // == Promise constructor reject() function == //
 /////////////////////////////////////////////////
+
 // TODO: Promise constructor reject(T) -> catch(T)
 new Promise(function(resolve, reject) {
   reject(0);
@@ -455,6 +456,7 @@ new Promise(function(resolve, reject) {
 /////////////////////////////
 // == Promise.resolve() == //
 /////////////////////////////
+
 // Promise.resolve(T) -> then(T)
 Promise.resolve(0).then(function(num) {
   var a: number = num;
@@ -476,6 +478,7 @@ Promise.resolve(Promise.resolve(Promise.resolve(0))).then(function(num) {
 ////////////////////////////
 // == Promise.reject() == //
 ////////////////////////////
+
 // TODO: Promise.reject(T) -> catch(T)
 Promise.reject(0).catch(function(num) {
   var a: number = num;
@@ -495,6 +498,7 @@ Promise.reject(Promise.resolve(0)).then(function(num) {
 //////////////////////////////////
 // == Promise.prototype.then == //
 //////////////////////////////////
+
 // resolvedPromise.then():T -> then(T)
 Promise
   .resolve(0)
@@ -544,6 +548,7 @@ Promise
 ///////////////////////////////////
 // == Promise.prototype.catch == //
 ///////////////////////////////////
+
 // rejectedPromise.catch():U -> then(U)
 Promise
   .reject(0)

@@ -80,6 +80,7 @@ if (y instanceof A) {
   y = 0;
 }
 //f(y);
+
 function bar() {
   return true;
 }

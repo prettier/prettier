@@ -372,7 +372,6 @@ function printComments(path, print, options) {
   var parent = path.getParentNode();
   var printed = print(path);
   var comments = n.Node.check(value) && types.getFieldValue(value, "comments");
-  var isFirstInProgram = n.Program.check(parent) && parent.body[0] === value;
 
   if (!comments || comments.length === 0) {
     return printed;
@@ -392,14 +391,8 @@ function printComments(path, print, options) {
       ) {
         leadingParts.push(printLeadingComment(commentPath, print, options));
 
-        // Support a special case where a comment exists at the very top
-        // of the file. Allow the user to add spacing between that file
-        // and any code beneath it.
         const text = options.originalText;
-        if (
-          isFirstInProgram &&
-            util.hasNewline(text, util.skipNewline(text, util.locEnd(comment)))
-        ) {
+        if (util.hasNewline(text, util.skipNewline(text, util.locEnd(comment)))) {
           leadingParts.push(hardline);
         }
       } else if (trailing) {
