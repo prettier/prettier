@@ -1427,32 +1427,22 @@ function genericPrintNoParens(path, options, print) {
       const types = path.map(print, "types");
       const op = n.type === "IntersectionTypeAnnotation" ? "&" : "|";
 
-      return conditionalGroup([
-        // single-line variation
-        // A | B | C
-        concat([
-          indent(
-            1,
-            concat([
-              types[0],
-              indent(
-                1,
-                concat(types.slice(1).map(t => concat([ " ", op, line, t ])))
-              )
-            ])
-          )
-        ]),
-        // multi-line variation
-        // | A
-        // | B
-        // | C
-        concat([
-          indent(
-            1,
-            concat(types.map(t => concat([ line, op, " ", t ])))
-          )
-        ])
-      ]);
+      // single-line variation
+      // A | B | C
+
+      // multi-line variation
+      // | A
+      // | B
+      // | C
+      return group(
+        indent(
+          1,
+          concat([
+            ifBreak(concat([line, op, " "])),
+            join(concat([line, op, " "]), types)
+          ])
+        )
+      );
     }
     case "NullableTypeAnnotation":
       return concat([ "?", path.call(print, "typeAnnotation") ]);
