@@ -2356,7 +2356,7 @@ function isBinaryish(node) {
 // precedence level and the AST is structured based on precedence
 // level, things are naturally broken up correctly, i.e. `&&` is
 // broken before `+`.
-function printBinaryishExpressions(path, parts, print) {
+function printBinaryishExpressions(path, parts, print, options, isNested) {
   let node = path.getValue();
 
   // We treat BinaryExpression and LogicalExpression nodes the same.
@@ -2375,12 +2375,25 @@ function printBinaryishExpressions(path, parts, print) {
     ) {
       // Flatten them out by recursively calling this function. The
       // printed values will all be appended to `parts`.
-      path.call(left => printBinaryishExpressions(left, parts, print), "left");
+      path.call(left => printBinaryishExpressions(left, parts, print, options, /* isNested */ true), "left");
     } else {
       parts.push(path.call(print, "left"));
     }
 
     parts.push(" ", node.operator, line, path.call(print, "right"));
+
+    // The root comments are already printed, but we need to manually print
+    // the other ones since we don't call the normal print on BinaryExpression,
+    // only for the left and right parts
+    if (isNested && node.comments) {
+      parts.push(
+        comments.printComments(
+          path,
+          p => "",
+          options
+        )
+      );
+    }
   } else {
     // Our stopping case. Simply print the node normally.
     parts.push(path.call(print));
