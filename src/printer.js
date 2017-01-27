@@ -284,7 +284,8 @@ function genericPrintNoParens(path, options, print) {
       if (
         n.body.type === "ArrayExpression" ||
           n.body.type === "ObjectExpression" ||
-          n.body.type === "JSXElement"
+          n.body.type === "JSXElement" ||
+          n.body.type === "BlockStatement"
       ) {
         return group(collapsed);
       }
