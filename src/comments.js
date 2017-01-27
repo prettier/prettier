@@ -193,12 +193,12 @@ function attach(comments, ast, text) {
           }
         }
         tiesToBreak.push(comment);
-      }
-      else if(precedingNode) {
+      } else if(precedingNode) {
         addTrailingComment(precedingNode, comment);
-      }
-      else if(followingNode) {
+      } else if(followingNode) {
         addLeadingComment(followingNode, comment);
+      } else if (enclosingNode) {
+        addDanglingComment(enclosingNode, comment);
       }
     }
   });
@@ -352,9 +352,15 @@ function printTrailingComment(commentPath, print, options, parentNode) {
   ])
 }
 
-function printDanglingComments(path, print, options) {
+function printDanglingComments(path, options, noIndent) {
   const text = options.originalText;
   const parts = [];
+  const node = path.getValue();
+
+  if(!node || !node.comments) {
+    return "";
+  }
+
   path.each(commentPath => {
     const comment = commentPath.getValue();
     if(!comment.leading && !comment.trailing) {
@@ -364,6 +370,10 @@ function printDanglingComments(path, print, options) {
       parts.push(printComment(commentPath));
     }
   }, "comments");
+
+  if(!noIndent) {
+    return indent(options.tabWidth, concat(parts));
+  }
   return concat(parts);
 }
 
@@ -386,9 +396,7 @@ function printComments(path, print, options) {
       var leading = types.getFieldValue(comment, "leading");
       var trailing = types.getFieldValue(comment, "trailing");
 
-      if (
-        leading
-      ) {
+      if (leading) {
         leadingParts.push(printLeadingComment(commentPath, print, options));
 
         const text = options.originalText;
@@ -396,7 +404,6 @@ function printComments(path, print, options) {
           leadingParts.push(hardline);
         }
       } else if (trailing) {
-        const idx = commentPath.getName();
         trailingParts.push(
           printTrailingComment(
             commentPath,
@@ -410,14 +417,11 @@ function printComments(path, print, options) {
     "comments"
   );
 
-  leadingParts.push.apply(leadingParts, trailingParts);
-  return concat(leadingParts);
+  return concat(leadingParts.concat(trailingParts));
 }
 
 module.exports = {
   attach,
   printComments,
-  printLeadingComment,
-  printTrailingComment,
   printDanglingComments
 };
