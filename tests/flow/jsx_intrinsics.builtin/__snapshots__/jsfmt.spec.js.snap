@@ -26,7 +26,9 @@ var e: React.Element<{not_a_real_attr: string}> = <div not_a_real_attr=\"asdf\" 
 var React = require(\"react\");
 
 class CustomComponent extends React.Component {
-  props: { prop: string };
+  props: {
+    prop: string
+  };
 }
 
 var a: React.Element<{ prop: string }> = <CustomComponent prop=\"asdf\" />;

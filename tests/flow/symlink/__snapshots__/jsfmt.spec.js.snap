@@ -1,14 +1,18 @@
 exports[`test bar.js 1`] = `
 "export type Foo = { x: number; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export type Foo = { x: number };
+export type Foo = {
+  x: number
+};
 "
 `;
 
 exports[`test foo.js 1`] = `
 "export type Foo = { x: number; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export type Foo = { x: number };
+export type Foo = {
+  x: number
+};
 "
 `;
 

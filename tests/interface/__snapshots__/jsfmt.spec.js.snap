@@ -4,7 +4,9 @@ exports[`test module.js 1`] = `
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare module X {
-  declare interface Y { x: number }
+  declare interface Y {
+    x: number
+  }
 }
 "
 `;

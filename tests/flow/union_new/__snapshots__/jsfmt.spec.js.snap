@@ -65,7 +65,9 @@ import { B, C } from \"./issue-824-helper\";
 
 type K = B | C;
 
-type I = { which(): number };
+type I = {
+  which(): number
+};
 
 export default class A {
   static foo(p: K): boolean {
@@ -119,7 +121,9 @@ var bar: Array<{b: ?boolean, c: number} | {b: boolean}> = [
 
 var bar: Array<{ b: ?boolean, c: number } | { b: boolean }> = [
   { b: true, c: 123 },
-  { b: true }
+  {
+    b: true
+  }
 ];
 "
 `;
@@ -135,8 +139,16 @@ exports[`test issue-1371.js 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function create(
   a: any
-): { type: \"B\", data: number } | { type: \"A\", data: string } {
-  return { type: \"A\", data: a };
+):
+  | { type: \"B\", data: number }
+  | {
+    type: \"A\",
+    data: string
+  } {
+  return {
+    type: \"A\",
+    data: a
+  };
 }
 "
 `;
@@ -200,9 +212,19 @@ function printAll(val: MyType) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 type Common = {};
 
-type A = Common & { type: \"A\", foo: number };
+type A =
+  & Common
+  & {
+    type: \"A\",
+    foo: number
+  };
 
-type B = Common & { type: \"B\", foo: Array<number> };
+type B =
+  & Common
+  & {
+    type: \"B\",
+    foo: Array<number>
+  };
 
 type MyType = A | B;
 
@@ -247,9 +269,19 @@ function printAll(val: MyType) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 type Common = {};
 
-type A = { type: \"A\", foo: number } & Common;
+type A =
+  & {
+    type: \"A\",
+    foo: number
+  }
+  & Common;
 
-type B = { type: \"B\", foo: Array<number> } & Common;
+type B =
+  & {
+    type: \"B\",
+    foo: Array<number>
+  }
+  & Common;
 
 type MyType = A | B;
 
@@ -297,15 +329,30 @@ if (data.kind === \"system\") {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-type DataBase = { id: string, name: string };
+type DataBase = {
+  id: string,
+  name: string
+};
 
-type UserData = DataBase & { kind: \"user\" };
+type UserData =
+  & DataBase
+  & {
+    kind: \"user\"
+  };
 
-type SystemData = DataBase & { kind: \"system\" };
+type SystemData =
+  & DataBase
+  & {
+    kind: \"system\"
+  };
 
 type Data = UserData | SystemData;
 
-const data: Data = { id: \"\", name: \"\", kind: \"system\" };
+const data: Data = {
+  id: \"\",
+  name: \"\",
+  kind: \"system\"
+};
 
 if (data.kind === \"system\") {
   (data: SystemData);
@@ -363,12 +410,25 @@ function test(f: Foo| EmptyFoo) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-type Entity<T> = { id: T, name: string };
+type Entity<T> = {
+  id: T,
+  name: string
+};
 
 type StringEntity = Entity<string>;
 
-type Foo = StringEntity & { bars: Object, kind: 1 };
-type EmptyFoo = StringEntity & { bars: null, kind: 2 };
+type Foo =
+  & StringEntity
+  & {
+    bars: Object,
+    kind: 1
+  };
+type EmptyFoo =
+  & StringEntity
+  & {
+    bars: null,
+    kind: 2
+  };
 
 function test(f: Foo | EmptyFoo) {
   if (f.kind === 1) {
@@ -632,7 +692,9 @@ type B3 = string;
 function alias(a: T<number> | T<string>) {}
 alias({ x: (x: V<B4>) => {} });
 
-type T<X> = { x: U<X> };
+type T<X> = {
+  x: U<X>
+};
 type U<X> = (x: V<X>) => void;
 type V<X> = X;
 
@@ -1285,9 +1347,16 @@ function rec(x: F<string>): G | H { return x; }
 
 // polymorphic recursive types
 
-type F<X> = { f: F<X>, x: X };
-type G = { x: number };
-type H = { x: string };
+type F<X> = {
+  f: F<X>,
+  x: X
+};
+type G = {
+  x: number
+};
+type H = {
+  x: string
+};
 
 function rec(x: F<string>): G | H {
   return x;
@@ -1313,8 +1382,14 @@ exports[`test test13.js 1`] = `
 /* ensure there are no unintended side effects when trying branches */
 
 ({ type: \"B\", id: \"hi\" }:
-  | { type: \"A\", id: ?string }
-  | { type: \"B\", id: string });
+  | {
+    type: \"A\",
+    id: ?string
+  }
+  | {
+    type: \"B\",
+    id: string
+  });
 "
 `;
 
@@ -1337,7 +1412,9 @@ function foo(c: C<number>) {
 
 // annotations
 
-declare class C<X> { get(): X }
+declare class C<X> {
+  get(): X
+}
 
 function union(o: { x: string } | { x: number }) {}
 
@@ -1480,7 +1557,10 @@ new C().m(f());
 
 // method overloads
 
-declare class C { m(x: number): void, m(x: string): void }
+declare class C {
+  m(x: number): void,
+  m(x: string): void
+}
 
 function f() {
   return 0;
@@ -1512,7 +1592,10 @@ function m<X>() {
   return new D();
 }
 
-declare class D { constructor(_: void): void, constructor(_: null): void }
+declare class D {
+  constructor(_: void): void,
+  constructor(_: null): void
+}
 "
 `;
 
@@ -1576,7 +1659,15 @@ function str() {
 
 // annotations for disjoint unions
 
-type T = { type: \"FOO\", x: number } | { type: \"BAR\", x: string };
+type T =
+  | {
+    type: \"FOO\",
+    x: number
+  }
+  | {
+    type: \"BAR\",
+    x: string
+  };
 
 ({ type: (bar(): \"BAR\"), x: str() }: T);
 
@@ -1623,9 +1714,16 @@ function foo(x: T) {
 
 type Empty = {};
 
-type Success = { type: \"SUCCESS\", result: string };
+type Success = {
+  type: \"SUCCESS\",
+  result: string
+};
 
-type Error = { type: \"ERROR\" } & Empty;
+type Error =
+  & {
+    type: \"ERROR\"
+  }
+  & Empty;
 
 export type T = Success | Error;
 
@@ -1939,7 +2037,15 @@ type ActionType =
 
 const Constants = require(\"./test30-helper\");
 
-type ActionType = { type: \"foo\", x: number } | { type: \"bar\", x: number };
+type ActionType =
+  | {
+    type: \"foo\",
+    x: number
+  }
+  | {
+    type: \"bar\",
+    x: number
+  };
 
 ({ type: Constants.BAR, x: 0 }: ActionType);
 "
@@ -1955,7 +2061,10 @@ module.exports = {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
 
-module.exports = { FOO: \"foo\", BAR: \"bar\" };
+module.exports = {
+  FOO: \"foo\",
+  BAR: \"bar\"
+};
 "
 `;
 
@@ -1993,7 +2102,9 @@ function foo(): ImmutableMap<string, boolean> {
 
 interface SomeIterator<T> {}
 
-interface SomeIterable<T> { it(): SomeIterator<T> }
+interface SomeIterable<T> {
+  it(): SomeIterator<T>
+}
 
 declare class SomeMap<K, V> {
   it(): SomeIterator<[K, V]>,

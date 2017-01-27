@@ -59,11 +59,9 @@ let tests = [
   function(copyProperties: Object$Assign) {
     let result = {};
     result.baz = false;
-    (copyProperties(result, { foo: \"a\" }, { bar: 123 }): {
-      foo: string,
-      bar: number,
-      baz: boolean
-    });
+    (copyProperties(result, { foo: \"a\" }, {
+      bar: 123
+    }): { foo: string, bar: number, baz: boolean });
   },
   // module from lib
   function() {

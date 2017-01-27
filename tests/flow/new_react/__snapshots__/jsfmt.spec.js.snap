@@ -83,7 +83,9 @@ module.exports = {
 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule Mixin */
-module.exports = { success: function() {} };
+module.exports = {
+  success: function() {}
+};
 "
 `;
 
@@ -172,8 +174,13 @@ class C6 extends React.Component { // OK, recommended
 var React = require(\"React\");
 
 type T1 = {};
-type T2 = { x: number };
-type T3 = { x: number, y: number };
+type T2 = {
+  x: number
+};
+type T3 = {
+  x: number,
+  y: number
+};
 
 class C1
   extends React.Component<T1, T2, any> {} // error
@@ -332,11 +339,15 @@ Foo.bar();
 
 var FooLegacy = React.createClass({
   is_mounted: (undefined: ?boolean),
-  propTypes: { x: React.PropTypes.number.isRequired },
+  propTypes: {
+    x: React.PropTypes.number.isRequired
+  },
   getDefaultProps(): DefaultProps {
     return {};
   },
-  statics: { bar(): void {} },
+  statics: {
+    bar(): void {}
+  },
   qux(): void {
     var _: string = this.props.x;
   },
@@ -499,12 +510,10 @@ var PropTypes = React.PropTypes;
 
 var C = React.createClass({
   propTypes: {
-    statistics: PropTypes.arrayOf(
-      PropTypes.shape({
+    statistics: PropTypes.arrayOf(PropTypes.shape({
         label: PropTypes.string.isRequired,
         value: PropTypes.number
-      })
-    ).isRequired
+      })).isRequired
   }
 });
 
@@ -547,9 +556,15 @@ var FooProps = React.createClass({
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var React = require(\"react\");
 var TestProps = React.createClass({
-  propTypes: { x: React.PropTypes.string, z: React.PropTypes.number },
+  propTypes: {
+    x: React.PropTypes.string,
+    z: React.PropTypes.number
+  },
   getDefaultProps: function() {
-    return { x: \"\", y: 0 };
+    return {
+      x: \"\",
+      y: 0
+    };
   },
   test: function() {
     var a: number = this.props.x; // error
@@ -562,7 +577,9 @@ var element = <TestProps x={false} y={false} z={false} />; // 3 errors
 (element: $jsx<*>);
 (element: $jsx<TestProps>);
 var FooProps = React.createClass({
-  propTypes: { w: React.PropTypes.string.isRequired }
+  propTypes: {
+    w: React.PropTypes.string.isRequired
+  }
 });
 (element: $jsx<FooProps>);
 "
@@ -749,7 +766,9 @@ import React from \"React\";
 
 class JDiv extends React.Component {
   // static defaultProps: { };
-  props: { id: string };
+  props: {
+    id: string
+  };
 }
 
 /* Should be a type error (\'id\' takes a string, not a number..)*/
@@ -819,7 +838,9 @@ var ReactClass = React.createClass({
 
 var React = require(\"react\");
 
-type State = { bar: ?{ qux: string } };
+type State = {
+  bar: ?{ qux: string }
+};
 
 var ReactClass = React.createClass({
   getInitialState: function(): State {
@@ -861,7 +882,9 @@ module.exports = Comp;
 
 var React = require(\"react\");
 
-type FooState = { key: ?Object };
+type FooState = {
+  key: ?Object
+};
 
 var Comp = React.createClass({
   getInitialState: function(): FooState {
@@ -898,7 +921,9 @@ var TestState = React.createClass({
 var React = require(\"react\");
 var TestState = React.createClass({
   getInitialState: function(): { x: string } {
-    return { x: \"\" };
+    return {
+      x: \"\"
+    };
   },
   test: function() {
     var a: number = this.state.x; // error

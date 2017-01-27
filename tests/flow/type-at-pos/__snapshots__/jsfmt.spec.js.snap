@@ -59,7 +59,9 @@ const y = {
 //   foo(): void {}
 // }
 
-const y = { bar(): void {} };
+const y = {
+  bar(): void {}
+};
 "
 `;
 

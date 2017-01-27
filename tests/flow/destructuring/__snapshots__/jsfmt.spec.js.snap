@@ -174,7 +174,9 @@ obj_rest({ p: { q: 0, r: null } });
 function obj_prop_annot(
   {
     p = true // error: boolean ~> string
-  }: { p: string } = {
+  }: {
+    p: string
+  } = {
     p: 0 // error: number ~> string
   }
 ) {
@@ -183,7 +185,9 @@ function obj_prop_annot(
 
 var {
   p = true // error: boolean ~> string
-}: { p: string } = {
+}: {
+  p: string
+} = {
   p: 0 // error: number ~> string
 };
 (p: void); // error: string ~> void
@@ -317,7 +321,9 @@ qux({ a: \"\" });
 function corge({ b }: { b: string }) {}
 corge({ b: 0 });
 
-var { n }: { n: number } = { n: \"\" };
+var { n }: { n: number } = {
+  n: \"\"
+};
 
 function test() {
   var { foo } = { bar: 123 }; // error on foo
@@ -538,7 +544,11 @@ function bar() {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-var { x } = { x: { foo: \"foo\" } };
+var { x } = {
+  x: {
+    foo: \"foo\"
+  }
+};
 
 function bar() {
   x.bar;

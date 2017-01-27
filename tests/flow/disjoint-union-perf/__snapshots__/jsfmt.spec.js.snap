@@ -948,7 +948,10 @@ export type SourceLocation = {
   source: ?string
 };
 
-export type SourcePosition = { line: number, column: number };
+export type SourcePosition = {
+  line: number,
+  column: number
+};
 
 export type File = {
   source: ?string,
@@ -1455,7 +1458,10 @@ export const builders: {
   identifier(name: string): Identifier,
   literal(
     value: ?(string | boolean | number | RegExp),
-    regex?: { pattern: string, flags: string }
+    regex?: {
+      pattern: string,
+      flags: string
+    }
   ): Literal,
   thisExpression(): ThisExpression,
   arrayExpression(elements: Expression[]): ArrayExpression,

@@ -104,7 +104,9 @@ class C {
 ({ foo: \"foo\" }: C);
 
 // error, object types don\'t structurally match instances
-type O = { foo: string };
+type O = {
+  foo: string
+};
 declare var o: O;
 (o: C);
 "

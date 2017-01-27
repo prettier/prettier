@@ -73,7 +73,11 @@ var abig2: Array<{ x: number, y: number }> = [
   { x: 0, y: 0, a: true },
   { x: 0, y: 0, b: \"hey\" },
   { x: 0, y: 0, c: 1 },
-  { x: 0, y: 0, c: \"hey\" }
+  {
+    x: 0,
+    y: 0,
+    c: \"hey\"
+  }
 ];
 
 module.exports = \"arrays\";

@@ -586,6 +586,12 @@ function genericPrintNoParens(path, options, print) {
       const canHaveTrailingComma = !(lastElem &&
         lastElem.type === "RestProperty");
 
+      const shouldBreak = util.hasNewlineInRange(
+        options.originalText,
+        util.locStart(n),
+        util.locEnd(n)
+      );
+
       if (props.length === 0) {
         return concat([
           "{",
@@ -607,7 +613,8 @@ function genericPrintNoParens(path, options, print) {
             options.bracketSpacing ? line : softline,
             rightBrace,
             path.call(print, "typeAnnotation")
-          ])
+          ]),
+          { shouldBreak }
         );
       }
 

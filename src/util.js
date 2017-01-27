@@ -159,6 +159,15 @@ function hasNewline(text, index, opts) {
   return idx !== idx2;
 }
 
+function hasNewlineInRange(text, start, end) {
+  for (var i = start; i <= end; ++i) {
+    if (text.charAt(i) === "\n") {
+      return true;
+    }
+  }
+  return false;
+}
+
 function hasSpaces(text, index, opts) {
   opts = opts || {};
   const idx = skipSpaces(text, opts.backwards ? index - 1 : index, opts);
@@ -249,6 +258,7 @@ module.exports = {
   skipToLineEnd,
   skipNewline,
   hasNewline,
+  hasNewlineInRange,
   hasSpaces,
   locStart,
   locEnd,
