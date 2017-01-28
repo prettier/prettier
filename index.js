@@ -1,4 +1,5 @@
 "use strict";
+
 const codeFrame = require("babel-code-frame");
 const comments = require("./src/comments");
 const version = require("./package.json").version;
@@ -63,7 +64,7 @@ function formatWithShebang(text, opts) {
   const shebang = text.slice(0, index + 1);
   const programText = text.slice(index + 1);
   const nextChar = text.charAt(index + 1);
-  const newLine = nextChar === "\n" ? "\n" : (nextChar === "\r" ? "\r\n" : "");
+  const newLine = nextChar === "\n" ? "\n" : nextChar === "\r" ? "\r\n" : "";
 
   return shebang + newLine + format(programText, opts);
 }

@@ -45,47 +45,58 @@ function findInDoc(doc, fn, defaultValue) {
   return result;
 }
 
-
 function isEmpty(n) {
   return typeof n === "string" && n.length === 0;
 }
 
 function getFirstString(doc) {
-  return findInDoc(doc, doc => {
-    if (typeof doc === "string" && doc.trim().length !== 0) {
-      return doc;
-    }
-  }, null);
+  return findInDoc(
+    doc,
+    doc => {
+      if (typeof doc === "string" && doc.trim().length !== 0) {
+        return doc;
+      }
+    },
+    null
+  );
 }
 
 function isLineNext(doc) {
-  return findInDoc(doc, doc => {
-    if (typeof doc === "string") {
-      return false;
-    }
-    if (doc.type === "line") {
-      return true;
-    }
-  }, false);
+  return findInDoc(
+    doc,
+    doc => {
+      if (typeof doc === "string") {
+        return false;
+      }
+      if (doc.type === "line") {
+        return true;
+      }
+    },
+    false
+  );
 }
 
 function willBreak(doc) {
-  return findInDoc(doc, doc => {
-    if (doc.type === "group" && doc.break) {
-      return true;
-    }
-    if (doc.type === "line" && doc.hard) {
-      return true;
-    }
-  }, false);
+  return findInDoc(
+    doc,
+    doc => {
+      if (doc.type === "group" && doc.break) {
+        return true;
+      }
+      if (doc.type === "line" && doc.hard) {
+        return true;
+      }
+    },
+    false
+  );
 }
 
 function breakParentGroup(groupStack) {
-  if(groupStack.length > 0) {
+  if (groupStack.length > 0) {
     const parentGroup = groupStack[groupStack.length - 1];
     // Breaks are not propagated through conditional groups because
     // the user is expected to manually handle what breaks.
-    if(!parentGroup.expandedStates) {
+    if (!parentGroup.expandedStates) {
       parentGroup.break = true;
     }
   }
