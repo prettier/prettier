@@ -24,6 +24,40 @@ exports[`test blank.js 2`] = `
 "
 `;
 
+exports[`test dangling.js 1`] = `
+"var x = {/* dangling */};
+var x = [/* dangling */];
+function x() {
+  /* dangling */
+}
+declare class Foo extends Qux<string> {/* dangling */}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var x = {/* dangling */};
+var x = [/* dangling */];
+function x() {
+  /* dangling */
+}
+declare class Foo extends Qux<string> {/* dangling */}
+"
+`;
+
+exports[`test dangling.js 2`] = `
+"var x = {/* dangling */};
+var x = [/* dangling */];
+function x() {
+  /* dangling */
+}
+declare class Foo extends Qux<string> {/* dangling */}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var x = {/* dangling */};
+var x = [/* dangling */];
+function x() {
+  /* dangling */
+}
+declare class Foo extends Qux<string> {/* dangling */}
+"
+`;
+
 exports[`test issues.js 1`] = `
 "// Does not need to break as it fits in 80 columns
 this.call(a, /* comment */ b);
@@ -198,7 +232,7 @@ takeUntil(
 
 /* Comments disappear inside of JSX*/
 <div>
-  {}
+  {/* Some comment */}
 </div>;
 
 /* Comments in JSX tag are placed in a non optimal way*/
@@ -397,7 +431,7 @@ takeUntil(
 
 // Comments disappear inside of JSX
 <div>
-  {}
+  {/* Some comment */}
 </div>;
 
 // Comments in JSX tag are placed in a non optimal way
