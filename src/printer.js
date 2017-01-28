@@ -635,13 +635,9 @@ function genericPrintNoParens(path, options, print) {
         } else {
           parts.push(
             concat([
-              group(
-                concat([
-                  ":",
-                  ifBreak(" (", " "),
-                  indent(options.tabWidth, concat([softline, printedValue]))
-                ])
-              ),
+              ":",
+              ifBreak(" (", " "),
+              indent(options.tabWidth, concat([softline, printedValue])),
               softline,
               ifBreak(")")
             ])
