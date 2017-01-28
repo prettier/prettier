@@ -21,6 +21,7 @@ function test5(): string {
 
 0x123abcdef456ABCDEF
 0X123abcdef456ABCDEF
+0xdeadbeef;
 
 0b111000
 0b000111

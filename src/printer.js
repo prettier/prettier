@@ -2538,13 +2538,9 @@ function makeString(rawContent, enclosingQuote) {
 }
 
 function printNumber(rawNumber) {
-  return rawNumber
-    // Uppercase hex digits.
-    .replace(/[a-f]/g, match => match.toUpperCase())
-    // Lowercase radix letter.
-    .replace(/^0[BOX]/, match => match.toLowerCase())
-    // Lowercase scientific notation, with unnecessary plus and zeroes removed.
-    .replace(/^([\d.]+)[eE](?:\+|(-))?0*/, "$1e$2")
+  return rawNumber.toLowerCase()
+    // Remove unnecessary plus and zeroes from scientific notation.
+    .replace(/^([\d.]+e)(?:\+|(-))?0*/, "$1$2")
     // Make sure numbers always start with a digit.
     .replace(/^\./, "0.")
     // Remove trailing dot.
