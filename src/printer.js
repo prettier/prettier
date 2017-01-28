@@ -2544,7 +2544,7 @@ function printNumber(rawNumber) {
     // Make sure numbers always start with a digit.
     .replace(/^\./, "0.")
     // Remove trailing dot.
-    .replace(/\.$/, "");
+    .replace(/\.(?=e|$)/, "");
 }
 
 function isFirstStatement(path) {
