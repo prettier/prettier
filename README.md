@@ -193,6 +193,12 @@ Can also be installed using `ext install prettier-vscode`
 Sublime Text support is available through Package Control and 
 the [JsPrettier](https://packagecontrol.io/packages/JsPrettier) plug-in.
 
+### JetBrains
+
+JetBrains users can configure `prettier` as an **External Tool** see [this
+blog post](https://blog.jetbrains.com/webstorm/2016/08/using-external-tools/) or [this
+directory](https://github.com/jlongster/prettier/tree/master/editors/jetbrains) with examples.
+
 More editors are coming soon.
 
 ## Language Support
