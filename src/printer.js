@@ -1761,7 +1761,8 @@ function printArgumentsList(path, options, print) {
       ifBreak(options.trailingComma ? "," : ""),
       softline,
       ")"
-    ])
+    ]),
+    { shouldBreak: printed.some(willBreak) }
   );
 }
 
