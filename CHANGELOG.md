@@ -1,3 +1,54 @@
+# 0.13.0
+
+[link](https://github.com/jlongster/prettier/compare/0.12.0...0.13.0)
+
+* Simplify arrow functions that use blocks (#496)
+* Properly print comments for BinaryExpression (#494)
+* Preserve empty line after comment (#493)
+* [JSX] Handle each line of text separately (#455)
+* Proper support for dangling comments (#492)
+
+# 0.12.0
+
+[link](https://github.com/jlongster/prettier/compare/0.11.0...0.12.0)
+
+* [WIP] Add rationale document (#372)
+* Proper parenthesis for yield and await in conditional (#436)
+* Don't print double newlines at EOF to stdout (#437)
+* Explain the `--color` option in a comment (#434)
+* Validate user-provided config with jest-validate (#301)
+* Propagate breaks upwards automatically, introduce `breakParent` (#440)
+* Fix typo in variable name (#441)
+* Refactor traversal (#442)
+* Do not put a newline on empty `{}` for functions (#447)
+* Better error message for assertDoc (#449)
+* Remove `multilineGroup` (#450)
+* Ability to break on `:` for objects (#314)
+* Update snapshots
+* [RFC] Do not put spacing inside of arrays with bracketSpacing (#446)
+* Fix integer CLI arguments (#452)
+* Move tests around (#454)
+* Update package.json, use ast-types 0.9.4 (#453)
+* Update lockfile
+* Support printing import("a") (#458)
+* Explain that you can pass options to the spec runner (#460)
+* Fix spurious whitespace (#463)
+* Preserve new lines after directives (#464)
+* Put decorators on the same line (#459)
+* docs: add related projects (#456)
+* Add break points for class declaration (#466)
+* Added parens around in operator in for loops 🚀. (#468)
+* CLI improvements (#478)
+* [RFC] Hug Conditionals in JSX (#473)
+* Refactor comment algorithm and improve newline/spaces detection (#482)
+* Indent ternaries (#484)
+* Indent computed member (#471)
+* Maintain windows line ending (#472)
+* Don't break up JSXOpeningElement if it only has a single text (#488)
+* Add CallExpression to the last argument expansion whitelist (#470)
+* Mention eslint-plugin-prettier in Related Projects (#490)
+* Stop using conditionalGroup inside of UnionTypeAnnotation (#491)
+
 # 0.11.0
 
 [link](https://github.com/jlongster/prettier/compare/0.0.10...0.11.0)
@@ -48,7 +99,6 @@ Now using minor versions instead of patch versions for the releases.
  * Add glob support to the CLI (#363)
  * Use babel-code-frame for syntax errors (#367)
  * Update yarn.lock
-
 
 # 0.0.10
 

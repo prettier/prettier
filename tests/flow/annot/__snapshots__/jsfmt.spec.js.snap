@@ -107,6 +107,7 @@ function param_anno2(
   // error below, since we\'re assigning elements to batchRequests
   // which lack a path property.
   // just assign result to new var instead of reassigning to param.
+
   // Transform the requests to the format the Graph API expects.
   batchRequests = batchRequests.map(request => {
     return {
@@ -149,6 +150,7 @@ function foo() {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let myClassInstance: MyClass = null;
 // forward ref ok, null ~> class error
+
 function bar(): MyClass {
   return null; // forward ref ok, null ~> class error
 }

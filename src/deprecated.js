@@ -2,11 +2,11 @@
 
 const deprecated = {
   useFlowParser: config =>
-`  The ${"\"useFlowParser\""} option is deprecated. Use ${"\"parser\""} instead.
+    `  The ${'"useFlowParser"'} option is deprecated. Use ${'"parser"'} instead.
 
   Prettier now treats your configuration as:
   {
-    ${"\"parser\""}: ${config.useFlowParser ? "\"flow\"" : "\"babylon\""}
+    ${'"parser"'}: ${config.useFlowParser ? '"flow"' : '"babylon"'}
   }`
 };
 

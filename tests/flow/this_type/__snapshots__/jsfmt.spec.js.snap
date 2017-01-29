@@ -96,6 +96,7 @@ class B extends A {
 }
 
 // covariance checks on this type in invariant positions
+
 class Invariant {
   out_object(): { _: this } {
     return { _: this };
@@ -111,6 +112,7 @@ class Invariant {
 }
 
 // covariance checks on this type as type args
+
 class Misc {
   // Set<X> has invariant X
   out_set(): Set<this> {
@@ -483,7 +485,9 @@ class InheritOverride extends Override {}
 
 (new InheritOverride().bar_caller(): InheritOverride); // error
 // blame flips below
+
 // Examples with \`this\` types (compare with examples above)
+
 class Base2 {
   foo(): this {
     return this;
@@ -516,6 +520,7 @@ class Override2 extends Base2 {
     return new Override2();
   } // error (cf. OK above)
   // see exploit below
+
   corge(that: this) {} // error
   // see exploit below
   grault(that: this) {} // error, too

@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 "use strict";
+
 const fs = require("fs");
 const getStdin = require("get-stdin");
 const glob = require("glob");
@@ -190,13 +191,17 @@ if (stdin) {
       }
 
       if (write) {
-        fs.writeFile(filename, output, "utf8", err => {
-          if (err) {
-            console.error("Unable to write file: " + filename + "\n" + err);
-            // Don't exit the process if one file failed
-            process.exitCode = 2;
-          }
-        });
+        // Don't write the file if it won't change in order not to invalidate
+        // mtime based caches.
+        if (output !== input) {
+          fs.writeFile(filename, output, "utf8", err => {
+            if (err) {
+              console.error("Unable to write file: " + filename + "\n" + err);
+              // Don't exit the process if one file failed
+              process.exitCode = 2;
+            }
+          });
+        }
       } else {
         // Don't use `console.log` here since it adds an extra newline at the end.
         process.stdout.write(output);

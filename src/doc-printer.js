@@ -1,10 +1,11 @@
 "use strict";
+
 const MODE_BREAK = 1;
 const MODE_FLAT = 2;
 
 function fits(next, restCommands, width) {
   let restIdx = restCommands.length;
-  const cmds = [ next ];
+  const cmds = [next];
   while (width >= 0) {
     if (cmds.length === 0) {
       if (restIdx === 0) {
@@ -29,27 +30,27 @@ function fits(next, restCommands, width) {
       switch (doc.type) {
         case "concat":
           for (var i = doc.parts.length - 1; i >= 0; i--) {
-            cmds.push([ ind, mode, doc.parts[i] ]);
+            cmds.push([ind, mode, doc.parts[i]]);
           }
 
           break;
         case "indent":
-          cmds.push([ ind + doc.n, mode, doc.contents ]);
+          cmds.push([ind + doc.n, mode, doc.contents]);
 
           break;
         case "group":
-          cmds.push([ ind, doc.break ? MODE_BREAK : mode, doc.contents ]);
+          cmds.push([ind, doc.break ? MODE_BREAK : mode, doc.contents]);
 
           break;
         case "if-break":
           if (mode === MODE_BREAK) {
             if (doc.breakContents) {
-              cmds.push([ ind, mode, doc.breakContents ]);
+              cmds.push([ind, mode, doc.breakContents]);
             }
           }
           if (mode === MODE_FLAT) {
             if (doc.flatContents) {
-              cmds.push([ ind, mode, doc.flatContents ]);
+              cmds.push([ind, mode, doc.flatContents]);
             }
           }
 
@@ -76,12 +77,14 @@ function fits(next, restCommands, width) {
   return false;
 }
 
-function printDocToString(doc, w) {
+function printDocToString(doc, width, newLine) {
+  newLine = newLine || "\n";
+
   let pos = 0;
   // cmds is basically a stack. We've turned a recursive call into a
   // while loop which is much faster. The while loop below adds new
   // cmds to the array instead of recursively calling `print`.
-  let cmds = [ [ 0, MODE_BREAK, doc ] ];
+  let cmds = [[0, MODE_BREAK, doc]];
   let out = [];
   let shouldRemeasure = false;
   let lineSuffix = "";
@@ -100,12 +103,12 @@ function printDocToString(doc, w) {
       switch (doc.type) {
         case "concat":
           for (var i = doc.parts.length - 1; i >= 0; i--) {
-            cmds.push([ ind, mode, doc.parts[i] ]);
+            cmds.push([ind, mode, doc.parts[i]]);
           }
 
           break;
         case "indent":
-          cmds.push([ ind + doc.n, mode, doc.contents ]);
+          cmds.push([ind + doc.n, mode, doc.contents]);
 
           break;
         case "group":
@@ -125,8 +128,8 @@ function printDocToString(doc, w) {
             case MODE_BREAK:
               shouldRemeasure = false;
 
-              const next = [ ind, MODE_FLAT, doc.contents ];
-              let rem = w - pos;
+              const next = [ind, MODE_FLAT, doc.contents];
+              let rem = width - pos;
 
               if (!doc.break && fits(next, cmds, rem)) {
                 cmds.push(next);
@@ -139,22 +142,23 @@ function printDocToString(doc, w) {
                 // group has these, we need to manually go through
                 // these states and find the first one that fits.
                 if (doc.expandedStates) {
-                  const mostExpanded = doc.expandedStates[doc.expandedStates.length -
-                    1];
+                  const mostExpanded = doc.expandedStates[
+                    doc.expandedStates.length - 1
+                  ];
 
                   if (doc.break) {
-                    cmds.push([ ind, MODE_BREAK, mostExpanded ]);
+                    cmds.push([ind, MODE_BREAK, mostExpanded]);
 
                     break;
                   } else {
                     for (var i = 1; i < doc.expandedStates.length + 1; i++) {
                       if (i >= doc.expandedStates.length) {
-                        cmds.push([ ind, MODE_BREAK, mostExpanded ]);
+                        cmds.push([ind, MODE_BREAK, mostExpanded]);
 
                         break;
                       } else {
                         const state = doc.expandedStates[i];
-                        const cmd = [ ind, MODE_FLAT, state ];
+                        const cmd = [ind, MODE_FLAT, state];
 
                         if (fits(cmd, cmds, rem)) {
                           cmds.push(cmd);
@@ -165,7 +169,7 @@ function printDocToString(doc, w) {
                     }
                   }
                 } else {
-                  cmds.push([ ind, MODE_BREAK, doc.contents ]);
+                  cmds.push([ind, MODE_BREAK, doc.contents]);
                 }
               }
 
@@ -175,12 +179,12 @@ function printDocToString(doc, w) {
         case "if-break":
           if (mode === MODE_BREAK) {
             if (doc.breakContents) {
-              cmds.push([ ind, mode, doc.breakContents ]);
+              cmds.push([ind, mode, doc.breakContents]);
             }
           }
           if (mode === MODE_FLAT) {
             if (doc.flatContents) {
-              cmds.push([ ind, mode, doc.flatContents ]);
+              cmds.push([ind, mode, doc.flatContents]);
             }
           }
 
@@ -212,7 +216,7 @@ function printDocToString(doc, w) {
 
             case MODE_BREAK:
               if (doc.literal) {
-                out.push(lineSuffix + "\n");
+                out.push(lineSuffix + newLine);
                 pos = 0;
               } else {
                 if (out.length > 0) {
@@ -223,7 +227,7 @@ function printDocToString(doc, w) {
                   );
                 }
 
-                out.push(lineSuffix + "\n" + " ".repeat(ind));
+                out.push(lineSuffix + newLine + " ".repeat(ind));
                 pos = ind;
               }
 

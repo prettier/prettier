@@ -82,6 +82,40 @@ else {
 "
 `;
 
+exports[`test dangling.js 1`] = `
+"var x = {/* dangling */};
+var x = [/* dangling */];
+function x() {
+  /* dangling */
+}
+declare class Foo extends Qux<string> {/* dangling */}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var x = {/* dangling */};
+var x = [/* dangling */];
+function x() {
+  /* dangling */
+}
+declare class Foo extends Qux<string> {/* dangling */}
+"
+`;
+
+exports[`test dangling.js 2`] = `
+"var x = {/* dangling */};
+var x = [/* dangling */];
+function x() {
+  /* dangling */
+}
+declare class Foo extends Qux<string> {/* dangling */}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var x = {/* dangling */};
+var x = [/* dangling */];
+function x() {
+  /* dangling */
+}
+declare class Foo extends Qux<string> {/* dangling */}
+"
+`;
+
 exports[`test issues.js 1`] = `
 "// Does not need to break as it fits in 80 columns
 this.call(a, /* comment */ b);
@@ -197,10 +231,18 @@ throw new ProcessSystemError({
 
 // Adding a comment stops the pretty printing process and everything is
 // squished in a single line afterward
-export type BuckWebSocketMessage = {
+export type BuckWebSocketMessage =
+  | {
     // Not actually from Buck - this is to let the receiver know that the socket is connected.
     type: \"SocketConnected\"
-  } | { type: \"BuildProgressUpdated\", progressValue: number } | { type: \"BuildFinished\", exitCode: number } | { type: \"BuildStarted\" } | { type: \"ParseStarted\" } | { type: \"ParseFinished\" } | { type: \"RunStarted\" } | { type: \"RunComplete\" };
+  }
+  | { type: \"BuildProgressUpdated\", progressValue: number }
+  | { type: \"BuildFinished\", exitCode: number }
+  | { type: \"BuildStarted\" }
+  | { type: \"ParseStarted\" }
+  | { type: \"ParseFinished\" }
+  | { type: \"RunStarted\" }
+  | { type: \"RunComplete\" };
 
 // Missing one level of indentation because of the comment
 const rootEpic = (actions, store) =>
@@ -211,19 +253,21 @@ const rootEpic = (actions, store) =>
   });
 
 // Two extra levels of indentation because of the comment
-export type AsyncExecuteOptions = child_process$execFileOpts & {
-      // The contents to write to stdin.
-      stdin?: ?string,
-      dontLogInNuclide?: ?boolean
-    };
+export type AsyncExecuteOptions =
+  & child_process$execFileOpts
+  & {
+    // The contents to write to stdin.
+    stdin?: ?string,
+    dontLogInNuclide?: ?boolean
+  };
 
 // optional trailing comma gets moved all the way to the beginning
 const regex = new RegExp(
   \"^\\\\s*\" + // beginning of the line
-    \"name\\\\s*=\\\\s*\" +
-    \"[\'\\\"]\" +
-    escapeStringRegExp(target.name) +
-    \"[\'\\\"]\" +
+    \"name\\\\s*=\\\\s*\" + // name =
+    \"[\'\\\"]\" + // opening quotation mark
+    escapeStringRegExp(target.name) + // target name
+    \"[\'\\\"]\" + // closing quotation mark
     \",?$\" // optional trailing comma
 );
 
@@ -238,7 +282,7 @@ takeUntil(
 
 /* Comments disappear inside of JSX*/
 <div>
-  {}
+  {/* Some comment */}
 </div>;
 
 /* Comments in JSX tag are placed in a non optimal way*/
@@ -371,10 +415,18 @@ throw new ProcessSystemError({
 
 // Adding a comment stops the pretty printing process and everything is
 // squished in a single line afterward
-export type BuckWebSocketMessage = {
+export type BuckWebSocketMessage =
+  | {
     // Not actually from Buck - this is to let the receiver know that the socket is connected.
     type: \"SocketConnected\"
-  } | { type: \"BuildProgressUpdated\", progressValue: number } | { type: \"BuildFinished\", exitCode: number } | { type: \"BuildStarted\" } | { type: \"ParseStarted\" } | { type: \"ParseFinished\" } | { type: \"RunStarted\" } | { type: \"RunComplete\" };
+  }
+  | { type: \"BuildProgressUpdated\", progressValue: number }
+  | { type: \"BuildFinished\", exitCode: number }
+  | { type: \"BuildStarted\" }
+  | { type: \"ParseStarted\" }
+  | { type: \"ParseFinished\" }
+  | { type: \"RunStarted\" }
+  | { type: \"RunComplete\" };
 
 // Missing one level of indentation because of the comment
 const rootEpic = (actions, store) =>
@@ -385,19 +437,21 @@ const rootEpic = (actions, store) =>
   });
 
 // Two extra levels of indentation because of the comment
-export type AsyncExecuteOptions = child_process$execFileOpts & {
-      // The contents to write to stdin.
-      stdin?: ?string,
-      dontLogInNuclide?: ?boolean
-    };
+export type AsyncExecuteOptions =
+  & child_process$execFileOpts
+  & {
+    // The contents to write to stdin.
+    stdin?: ?string,
+    dontLogInNuclide?: ?boolean
+  };
 
 // optional trailing comma gets moved all the way to the beginning
 const regex = new RegExp(
   \"^\\\\s*\" + // beginning of the line
-    \"name\\\\s*=\\\\s*\" +
-    \"[\'\\\"]\" +
-    escapeStringRegExp(target.name) +
-    \"[\'\\\"]\" +
+    \"name\\\\s*=\\\\s*\" + // name =
+    \"[\'\\\"]\" + // opening quotation mark
+    escapeStringRegExp(target.name) + // target name
+    \"[\'\\\"]\" + // closing quotation mark
     \",?$\" // optional trailing comma
 );
 
@@ -412,7 +466,7 @@ takeUntil(
 
 // Comments disappear inside of JSX
 <div>
-  {}
+  {/* Some comment */}
 </div>;
 
 // Comments in JSX tag are placed in a non optimal way

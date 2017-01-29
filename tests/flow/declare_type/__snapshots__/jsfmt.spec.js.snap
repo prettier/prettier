@@ -47,6 +47,7 @@ var k4: toz = foo(k1); // works
 //////////////////////////////////////////////////////////
 // == Declared Module with exports prop (issue 880) == //
 ////////////////////////////////////////////////////////
+
 import blah from \"foo\";
 import type { Foo, Bar, Id } from \"foo\";
 

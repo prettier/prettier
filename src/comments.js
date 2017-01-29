@@ -128,7 +128,6 @@ function decorateComment(node, comment, text) {
   if (followingNode) {
     comment.followingNode = followingNode;
   }
-
 }
 
 function attach(comments, ast, text) {
@@ -169,8 +168,7 @@ function attach(comments, ast, text) {
         // TODO: If there are no nodes at all, we should still somehow
         // print the comment.
       }
-
-    } else if(util.hasNewline(text, locEnd(comment))) {
+    } else if (util.hasNewline(text, locEnd(comment))) {
       // There is content before this comment on the same line, but
       // none after it, so prefer a trailing comment. A trailing
       // comment *always* attaches itself to the previous node, no
@@ -179,8 +177,7 @@ function attach(comments, ast, text) {
       if (lastNode) {
         // Always a trailing comment
         addTrailingComment(lastNode, comment);
-      }
-      else {
+      } else {
         throw new Error("Preceding node not found");
       }
     } else {
@@ -189,7 +186,7 @@ function attach(comments, ast, text) {
       // node, use a tie-breaking algorithm to determine if it should
       // be attached to the next or previous node. In the last case,
       // simply attach the right node;
-      if(precedingNode && followingNode) {
+      if (precedingNode && followingNode) {
         const tieCount = tiesToBreak.length;
         if (tieCount > 0) {
           var lastTie = tiesToBreak[tieCount - 1];
@@ -198,12 +195,12 @@ function attach(comments, ast, text) {
           }
         }
         tiesToBreak.push(comment);
-      }
-      else if(precedingNode) {
+      } else if (precedingNode) {
         addTrailingComment(precedingNode, comment);
-      }
-      else if(followingNode) {
+      } else if (followingNode) {
         addLeadingComment(followingNode, comment);
+      } else if (enclosingNode) {
+        addDanglingComment(enclosingNode, comment);
       }
     }
   });
@@ -290,7 +287,7 @@ function addTrailingComment(node, comment, isInBetween) {
 function printComment(commentPath) {
   const comment = commentPath.getValue();
 
-  switch(comment.type) {
+  switch (comment.type) {
     case "CommentBlock":
     case "Block":
       return "/*" + comment.value + "*/";
@@ -310,7 +307,7 @@ function printLeadingComment(commentPath, print, options) {
 
   // Leading block comments should see if they need to stay on the
   // same line or not.
-  if(isBlock) {
+  if (isBlock) {
     return concat([
       contents,
       util.hasNewline(options.originalText, locEnd(comment)) ? hardline : " "
@@ -328,12 +325,10 @@ function printTrailingComment(commentPath, print, options, parentNode) {
   const consequentIsBlock = parentNode.consequent &&
     parentNode.consequent.type === 'BlockStatement'
 
-  if(
-    util.hasNewline(
-      options.originalText,
-      locStart(comment),
-      { backwards: true }
-    )
+  if (
+    util.hasNewline(options.originalText, locStart(comment), {
+      backwards: true
+    })
   ) {
     // This allows comments at the end of nested structures:
     // {
@@ -353,34 +348,41 @@ function printTrailingComment(commentPath, print, options, parentNode) {
         consequentIsBlock ? hardline : ""
       ])
     } else {
-      return concat([
-        hardline,
-        contents
-      ]);
+      return concat([hardline, contents]);
     }
   } else if (isBlock) {
     // Trailing block comments never need a newline
     return concat([" ", contents]);
   }
 
-  return concat([
-    lineSuffix(" " + contents),
-    !isBlock ? breakParent : ""
-  ])
+  return concat([lineSuffix(" " + contents), !isBlock ? breakParent : ""]);
 }
 
-function printDanglingComments(path, print, options) {
+function printDanglingComments(path, options, noIndent) {
   const text = options.originalText;
   const parts = [];
-  path.each(commentPath => {
-    const comment = commentPath.getValue();
-    if(!comment.leading && !comment.trailing) {
-      if(util.hasNewline(text, locStart(comment), { backwards: true })) {
-        parts.push(hardline);
+  const node = path.getValue();
+
+  if (!node || !node.comments) {
+    return "";
+  }
+
+  path.each(
+    commentPath => {
+      const comment = commentPath.getValue();
+      if (!comment.leading && !comment.trailing) {
+        if (util.hasNewline(text, locStart(comment), { backwards: true })) {
+          parts.push(hardline);
+        }
+        parts.push(printComment(commentPath));
       }
-      parts.push(printComment(commentPath));
-    }
-  }, "comments");
+    },
+    "comments"
+  );
+
+  if (!noIndent) {
+    return indent(options.tabWidth, concat(parts));
+  }
   return concat(parts);
 }
 
@@ -389,14 +391,13 @@ function printComments(path, print, options) {
   var parent = path.getParentNode();
   var printed = print(path);
   var comments = n.Node.check(value) && types.getFieldValue(value, "comments");
-  var isFirstInProgram = n.Program.check(parent) && parent.body[0] === value;
 
   if (!comments || comments.length === 0) {
     return printed;
   }
 
   var leadingParts = [];
-  var trailingParts = [ printed ];
+  var trailingParts = [printed];
 
   path.each(
     function(commentPath) {
@@ -404,44 +405,25 @@ function printComments(path, print, options) {
       var leading = types.getFieldValue(comment, "leading");
       var trailing = types.getFieldValue(comment, "trailing");
 
-      if (
-        leading
-      ) {
+      if (leading) {
         leadingParts.push(printLeadingComment(commentPath, print, options));
 
-        // Support a special case where a comment exists at the very top
-        // of the file. Allow the user to add spacing between that file
-        // and any code beneath it.
         const text = options.originalText;
         if (
-          isFirstInProgram &&
-            util.hasNewline(text, util.skipNewline(text, util.locEnd(comment)))
+          util.hasNewline(text, util.skipNewline(text, util.locEnd(comment)))
         ) {
           leadingParts.push(hardline);
         }
       } else if (trailing) {
-        const idx = commentPath.getName();
         trailingParts.push(
-          printTrailingComment(
-            commentPath,
-            print,
-            options,
-            parent
-          )
+          printTrailingComment(commentPath, print, options, parent)
         );
       }
     },
     "comments"
   );
 
-  leadingParts.push.apply(leadingParts, trailingParts);
-  return concat(leadingParts);
+  return concat(leadingParts.concat(trailingParts));
 }
 
-module.exports = {
-  attach,
-  printComments,
-  printLeadingComment,
-  printTrailingComment,
-  printDanglingComments
-};
+module.exports = { attach, printComments, printDanglingComments };
