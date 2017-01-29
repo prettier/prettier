@@ -90,13 +90,5 @@ if (1) {
   // Comment
 }
 
-// Comments trigger invalid JavaScript in-between else if
-if (1) {
-}
-// Comment
-else {
-
-}
-
 // The comment makes the line break in a weird way
 const result = asyncExecute('non_existing_command', /* args */ []);
