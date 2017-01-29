@@ -10,7 +10,6 @@ const prettier = require("../index");
 
 const argv = minimist(process.argv.slice(2), {
   boolean: [
-    // Exit the process if one file failed.
     "bail",
     "write",
     "stdin",
@@ -53,6 +52,7 @@ if (argv["help"] || !filepatterns.length && !stdin) {
   console.log(
     "Usage: prettier [opts] [filename ...]\n\n" +
       "Available options:\n" +
+      "  --bail                   Exit the process on first error.\n" +
       "  --write                  Edit the file in-place. (Beware!)\n" +
       "  --stdin                  Read input from stdin.\n" +
       "  --print-width <int>      Specify the length of line that the printer will wrap on. Defaults to 80.\n" +
