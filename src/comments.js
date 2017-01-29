@@ -7,6 +7,7 @@ var docBuilders = require("./doc-builders");
 var fromString = docBuilders.fromString;
 var concat = docBuilders.concat;
 var hardline = docBuilders.hardline;
+var literalline = docBuilders.literalline
 var breakParent = docBuilders.breakParent;
 var indent = docBuilders.indent;
 var lineSuffix = docBuilders.lineSuffix;
@@ -154,8 +155,12 @@ function attach(comments, ast, text) {
       // We also need to check if it's the first line of the file.
 
       if (followingNode) {
-        // Always a leading comment.
-        addLeadingComment(followingNode, comment);
+        // There are some exceptions like in-between comments.
+        if (enclosingNode && enclosingNode.type === 'IfStatement') {
+          addTrailingComment(precedingNode, comment, true)
+        } else {
+          addLeadingComment(followingNode, comment);
+        }
       } else if (precedingNode) {
         addTrailingComment(precedingNode, comment);
       } else if (enclosingNode) {
@@ -275,9 +280,10 @@ function addDanglingComment(node, comment) {
   addCommentHelper(node, comment);
 }
 
-function addTrailingComment(node, comment) {
+function addTrailingComment(node, comment, isInBetween) {
   comment.leading = false;
   comment.trailing = true;
+  if (isInBetween) comment.isInBetween = true;
   addCommentHelper(node, comment);
 }
 
@@ -318,6 +324,9 @@ function printTrailingComment(commentPath, print, options, parentNode) {
   const comment = commentPath.getValue();
   const contents = printComment(commentPath);
   const isBlock = comment.type === "Block" || comment.type === "CommentBlock";
+  const isException = parentNode.type === 'IfStatement'
+  const consequentIsBlock = parentNode.consequent &&
+    parentNode.consequent.type === 'BlockStatement'
 
   if(
     util.hasNewline(
@@ -337,10 +346,18 @@ function printTrailingComment(commentPath, print, options, parentNode) {
     // trailing comment for `2`. We can simulate the above by checking
     // if this a comment on its own line; normal trailing comments are
     // always at the end of another expression.
-    return concat([
-      hardline,
-      contents
-    ]);
+    if (isException) {
+      return concat([
+        consequentIsBlock ? hardline : literalline,
+        contents,
+        consequentIsBlock ? hardline : ""
+      ])
+    } else {
+      return concat([
+        hardline,
+        contents
+      ]);
+    }
   } else if (isBlock) {
     // Trailing block comments never need a newline
     return concat([" ", contents]);
