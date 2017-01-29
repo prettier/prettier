@@ -10,6 +10,8 @@ const prettier = require("../index");
 
 const argv = minimist(process.argv.slice(2), {
   boolean: [
+    // Exit the process if one file failed.
+    "bail",
     "write",
     "stdin",
     "single-quote",
@@ -43,6 +45,7 @@ if (argv["version"]) {
 }
 
 const filepatterns = argv["_"];
+const bail = argv["bail"];
 const write = argv["write"];
 const stdin = argv["stdin"] || !filepatterns.length && !process.stdin.isTTY;
 
@@ -134,6 +137,16 @@ function format(input) {
   return prettier.format(input, options);
 }
 
+function setExitCode(code) {
+  if (bail) {
+    // Exit the process if one file failed
+    process.exit(code);
+  } else {
+    // Don't exit the process if one file failed
+    process.exitCode = code;
+  }
+}
+
 function handleError(filename, e) {
   const isParseError = Boolean(e && e.loc);
   const isValidationError = /Validation Error/.test(e && e.message);
@@ -154,8 +167,7 @@ function handleError(filename, e) {
     console.error(filename + ":", e);
   }
 
-  // Don't exit the process if one file failed
-  process.exitCode = 2;
+  setExitCode(2);
 }
 
 if (stdin) {
@@ -177,8 +189,7 @@ if (stdin) {
 
       if (err) {
         console.error("Unable to read file: " + filename + "\n" + err);
-        // Don't exit the process if one file failed
-        process.exitCode = 2;
+        setExitCode(2);
         return;
       }
 
@@ -194,8 +205,7 @@ if (stdin) {
         fs.writeFile(filename, output, "utf8", err => {
           if (err) {
             console.error("Unable to write file: " + filename + "\n" + err);
-            // Don't exit the process if one file failed
-            process.exitCode = 2;
+            setExitCode(2);
           }
         });
       } else {
@@ -211,8 +221,7 @@ function eachFilename(patterns, callback) {
     glob(pattern, (err, filenames) => {
       if (err) {
         console.error("Unable to expand glob pattern: " + pattern + "\n" + err);
-        // Don't exit the process if one pattern failed
-        process.exitCode = 2;
+        setExitCode(2);
         return;
       }
 
