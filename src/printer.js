@@ -541,10 +541,10 @@ function genericPrintNoParens(path, options, print) {
         }
       }
 
-      return concat([
+      return group(concat([
         path.call(print, "callee"),
         printArgumentsList(path, options, print)
-      ]);
+      ]));
     }
 
     case "ObjectExpression":
