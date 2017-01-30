@@ -164,7 +164,8 @@ exports[`test hug.js 1`] = `
             getComponent={routeES6Modules[route.value]}
           />
         ))}
-      </div>}
+      </div>
+  }
 </div>;
 
 <div>
@@ -178,7 +179,8 @@ exports[`test hug.js 1`] = `
           getComponent={routeES6Modules[route.value]}
         />
       ))}
-    </div>}
+    </div>
+  }
 </div>;
 "
 `;

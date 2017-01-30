@@ -1110,7 +1110,16 @@ function genericPrintNoParens(path, options, print) {
             n.expression.type === "LogicalExpression");
 
       if (shouldInline) {
-        return concat(["{", path.call(print, "expression"), "}"]);
+        const shouldPutBracketOnNextLine =
+          n.expression.type === "LogicalExpression" ||
+          n.expression.type === "ConditionalExpression";
+
+        return concat([
+          "{",
+          path.call(print, "expression"),
+          shouldPutBracketOnNextLine ? softline : "",
+          "}"
+        ]);
       }
 
       return group(
