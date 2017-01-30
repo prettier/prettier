@@ -83,7 +83,13 @@ const aLong = {
   eHasABooleanExpression: a === a,
 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const a = { b: true, c: { c1: \"hello\" }, d: false };
+const a = {
+  b: true,
+  c: {
+    c1: \"hello\"
+  },
+  d: false
+};
 
 const aLong = {
   bHasALongName: \"a-long-value\",
@@ -124,7 +130,13 @@ const aLong = {
   eHasABooleanExpression: a === a,
 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const a = { b: true, c: { c1: \"hello\" }, d: false };
+const a = {
+  b: true,
+  c: {
+    c1: \"hello\",
+  },
+  d: false,
+};
 
 const aLong = {
   bHasALongName: \"a-long-value\",

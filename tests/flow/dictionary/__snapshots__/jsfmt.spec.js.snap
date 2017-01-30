@@ -42,7 +42,9 @@ function foo0(
 }
 
 function foo2(
-  x: { [key: string]: number }
+  x: {
+    [key: string]: number
+  }
 ): { [key: string]: number, +toString: () => string } {
   // x\'s prototype has a toString method
   return x;

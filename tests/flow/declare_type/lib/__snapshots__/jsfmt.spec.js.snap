@@ -43,7 +43,9 @@ declare module \'foo\' {
 /* @flow */
 
 declare module \"foo\" {
-  declare class A { toz: number }
+  declare class A {
+    toz: number
+  }
 
   declare var n: string;
 
@@ -51,7 +53,9 @@ declare module \"foo\" {
   declare type Bar = A;
   declare type Id<T> = T;
 
-  declare var exports: { (a: number, b: number): number };
+  declare var exports: {
+    (a: number, b: number): number
+  };
 }
 "
 `;

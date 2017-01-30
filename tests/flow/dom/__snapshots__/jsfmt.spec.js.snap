@@ -401,9 +401,15 @@ let tests = [
   function() {
     document.registerElement(\"custom-element\", {
       prototype: Object.create(HTMLElement.prototype, {
-        createdCallback: { value: function createdCallback() {} },
-        attachedCallback: { value: function attachedCallback() {} },
-        detachedCallback: { value: function detachedCallback() {} },
+        createdCallback: {
+          value: function createdCallback() {}
+        },
+        attachedCallback: {
+          value: function attachedCallback() {}
+        },
+        detachedCallback: {
+          value: function detachedCallback() {}
+        },
         attributeChangedCallback: {
           value: function attributeChangedCallback(
             attributeLocalName,

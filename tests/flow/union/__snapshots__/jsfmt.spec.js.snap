@@ -107,7 +107,9 @@ declare var myclass: Myclass;
 myclass.myfun([\"1\", \"2\", \"3\", \"4\", \"5\", \"6\", function (ar) {}])
 myclass.myfun([\"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", function (ar) {}])
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-declare class Myclass { myfun(myarray: Array<Function | string>): any }
+declare class Myclass {
+  myfun(myarray: Array<Function | string>): any
+}
 declare var myclass: Myclass;
 
 myclass.myfun([\"1\", \"2\", \"3\", \"4\", \"5\", \"6\", function(ar) {}]);
@@ -278,21 +280,35 @@ const u3 : union2 = {
  * @flow
  */
 
-type t1 = { p1: number };
+type t1 = {
+  p1: number
+};
 
-type t2 = { p2: number };
+type t2 = {
+  p2: number
+};
 
-type t3 = { p3: number };
+type t3 = {
+  p3: number
+};
 
 type intersected = t1 & t2;
 type union = intersected | t3;
 type union2 = t3 | intersected;
 
-const u1: union = { p3: 3 };
+const u1: union = {
+  p3: 3
+};
 
-const u2: union = { p1: 1, p2: 2 };
+const u2: union = {
+  p1: 1,
+  p2: 2
+};
 
-const u3: union2 = { p1: 1, p2: 2 };
+const u3: union2 = {
+  p1: 1,
+  p2: 2
+};
 "
 `;
 
@@ -420,7 +436,10 @@ function CD(b) {
   qux2(new C());
 }
 
-declare class F { foo(x: number): void, foo(x: string): void }
+declare class F {
+  foo(x: number): void,
+  foo(x: string): void
+}
 function corge(b) {
   var x = b ? \"\" : 0;
   new F().foo(x);
@@ -10489,6 +10508,8 @@ type ErrorCode =
   | 4998
   | 4999;
 
-type Data = { error?: ErrorCode };
+type Data = {
+  error?: ErrorCode
+};
 "
 `;

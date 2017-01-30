@@ -99,15 +99,25 @@ var Foo = {
   b: function(
     arg // missing arg annotation
   ) {
-    return { bar: arg };
+    return {
+      bar: arg
+    };
   },
   c: function(
     arg: string // no return annotation required
   ) {
-    return { bar: arg };
+    return {
+      bar: arg
+    };
   },
-  d: function(arg: string): { bar: string } {
-    return { bar: arg };
+  d: function(
+    arg: string
+  ): {
+    bar: string
+  } {
+    return {
+      bar: arg
+    };
   },
   // return type annotation may be omitted, but if so, input positions on
   // observed return type (e.g. param types in a function type) must come

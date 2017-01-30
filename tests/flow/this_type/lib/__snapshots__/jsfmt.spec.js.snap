@@ -23,8 +23,12 @@ declare module \"mini-immutable\" {
 // errors in ../lib_client.js. If support for \`this\` types in declare classes
 // is disabled for perf reasons, these will produce warnings.
 
-declare class LinkedList { next(): this }
-declare class DoublyLinkedList extends LinkedList { prev(): this }
+declare class LinkedList {
+  next(): this
+}
+declare class DoublyLinkedList extends LinkedList {
+  prev(): this
+}
 
 declare module \"mini-immutable\" {
   declare class Map<K, V> {

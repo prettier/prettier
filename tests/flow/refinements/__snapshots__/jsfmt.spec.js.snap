@@ -41,7 +41,10 @@ function foo(x: ?number) {
   }
 }
 
-type Bar = { parent: ?Bar, doStuff(): void };
+type Bar = {
+  parent: ?Bar,
+  doStuff(): void
+};
 
 function bar0(x: Bar) {
   while (
@@ -81,9 +84,15 @@ type Node2 = {
 
 export type ASTNode = Node1 | Node2;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-type Node1 = { kind: \"Node1\", prop1?: string };
+type Node1 = {
+  kind: \"Node1\",
+  prop1?: string
+};
 
-type Node2 = { kind: \"Node2\", prop2?: string };
+type Node2 = {
+  kind: \"Node2\",
+  prop2?: string
+};
 
 export type ASTNode = Node1 | Node2;
 "
@@ -208,7 +217,9 @@ function testLiteralProperty(a: A) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-type A = { \"b_c\": ?string };
+type A = {
+  \"b_c\": ?string
+};
 
 function stuff(str: string) {}
 
@@ -307,7 +318,15 @@ let tests = [
     return x.result; // error
   },
   function() {
-    type T = { foo: Object, bar: string } | { baz: string, quux: string };
+    type T =
+      | {
+        foo: Object,
+        bar: string
+      }
+      | {
+        baz: string,
+        quux: string
+      };
 
     function testAlwaysTruthyProp(t: T) {
       if (t.foo) {
@@ -414,7 +433,9 @@ function foo2(x: ?Class<Foo>): string {
   return x && new x().foo || \"\";
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-declare class Foo { foo: string }
+declare class Foo {
+  foo: string
+}
 
 function foo0(x: ?string): string {
   return x && x || \"\";
@@ -594,7 +615,9 @@ function def_assign_setprop_nohavoc(obj: Obj, obj2: Obj2) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-type Obj = { p: number | string };
+type Obj = {
+  p: number | string
+};
 
 function f() {}
 
@@ -669,7 +692,9 @@ function def_assign_within_for(b: boolean, obj: Obj) {
 
 // --- name-sensitive havoc ---
 
-type Obj2 = { q: number | string };
+type Obj2 = {
+  q: number | string
+};
 
 function def_assign_setprop_nohavoc(obj: Obj, obj2: Obj2) {
   obj.p = 10; // (obj.p : number)
@@ -1378,7 +1403,14 @@ let tests = [
     }
     return x.foo; // error
   },
-  function(x: { kind: 0, foo: number } | { kind: 1, bar: number }): number {
+  function(
+    x:
+      | { kind: 0, foo: number }
+      | {
+        kind: 1,
+        bar: number
+      }
+  ): number {
     if (x.kind === 0) {
       return x.foo;
     } else {
@@ -1961,7 +1993,12 @@ let tests = [
     return x.foo; // error
   },
   function(
-    x: { kind: \"foo\", foo: string } | { kind: \"bar\", bar: string }
+    x:
+      | { kind: \"foo\", foo: string }
+      | {
+        kind: \"bar\",
+        bar: string
+      }
   ): string {
     if (x.kind === \"foo\") {
       return x.foo;
@@ -2456,10 +2493,24 @@ function foo(x: ASTNode) {
 }
 
 // example 3
-type Apple = { kind: \"Fruit\", taste: \"Bad\" };
-type Orange = { kind: \"Fruit\", taste: \"Good\" };
-type Broccoli = { kind: \"Veg\", taste: \"Bad\", raw: \"No\" };
-type Carrot = { kind: \"Veg\", taste: \"Good\", raw: \"Maybe\" };
+type Apple = {
+  kind: \"Fruit\",
+  taste: \"Bad\"
+};
+type Orange = {
+  kind: \"Fruit\",
+  taste: \"Good\"
+};
+type Broccoli = {
+  kind: \"Veg\",
+  taste: \"Bad\",
+  raw: \"No\"
+};
+type Carrot = {
+  kind: \"Veg\",
+  taste: \"Good\",
+  raw: \"Maybe\"
+};
 
 type Breakfast = Apple | Orange | Broccoli | Carrot;
 
@@ -2515,7 +2566,10 @@ kind({ kind: EnumKind.A, A: 1 });
 
 // example 6
 type Citizen = { citizen: true };
-type NonCitizen = { citizen: false, nationality: string };
+type NonCitizen = {
+  citizen: false,
+  nationality: string
+};
 function nationality(x: Citizen | NonCitizen) {
   if (x.citizen) return \"Shire\";
   else return x.nationality;
@@ -2724,9 +2778,15 @@ function handleStatus(status: Success | Error) {
 
 import { SUCCESS, ERROR } from \"./constants\";
 
-type Success = { type: typeof SUCCESS, message: string };
+type Success = {
+  type: typeof SUCCESS,
+  message: string
+};
 
-type Error = { type: typeof ERROR, error: string };
+type Error = {
+  type: typeof ERROR,
+  error: string
+};
 
 function handleStatus(status: Success | Error) {
   switch (status.type) {

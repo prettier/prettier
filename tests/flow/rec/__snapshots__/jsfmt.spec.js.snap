@@ -21,7 +21,9 @@ function identity<A>(val: A): Functor<A> {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-type F<A> = { foo<B>(x: A): F<B> };
+type F<A> = {
+  foo<B>(x: A): F<B>
+};
 declare function foo(x: any): F<any>;
 ({ foo }: F<any>);
 
@@ -35,7 +37,9 @@ function bar2<X>(y: F<any>): F<X> {
   return y;
 }
 
-type Functor<A> = { map<B>(f: (val: A) => B): Functor<B> };
+type Functor<A> = {
+  map<B>(f: (val: A) => B): Functor<B>
+};
 
 function identity<A>(val: A): Functor<A> {
   return {
@@ -200,7 +204,9 @@ function foo(x: I<number>): J<number> {
   // I<number> and J<number> both expand to () => () => ...
 }
 
-type Q<X> = { x: X };
+type Q<X> = {
+  x: X
+};
 type P<X> = () => Q<P<X>>;
 
 function bar(x: P<number>): () => P<number> {

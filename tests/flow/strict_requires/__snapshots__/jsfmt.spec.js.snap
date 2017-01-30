@@ -12,7 +12,9 @@ exports[`test B.js 1`] = `
 module.exports = { foo: \"\" }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-module.exports = { foo: \"\" };
+module.exports = {
+  foo: \"\"
+};
 "
 `;
 
@@ -25,7 +27,10 @@ var o = {
 module.exports = o;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-var o = { A: require(\"./A\"), ...require(\"./B\") };
+var o = {
+  A: require(\"./A\"),
+  ...require(\"./B\")
+};
 module.exports = o;
 "
 `;
