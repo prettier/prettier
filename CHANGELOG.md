@@ -1,3 +1,16 @@
+# 0.14.0
+
+[link](https://github.com/jlongster/prettier/compare/0.13.0...0.14.0)
+
+* Only write to files if the change (#511)
+* Remove extra group when printing object values (#502)
+* Add documentation for JetBrains products. (#509)
+* Don't print trailing commas for object destructuring and rest (#512)
+* Mention eslint-config-prettier (#516)
+* [RFC] Keep expanded objects expanded (#495)
+* Do not always put an empty lines after directives (#505)
+* Print numbers in a uniform way (#498)
+
 # 0.13.0
 
 [link](https://github.com/jlongster/prettier/compare/0.12.0...0.13.0)
