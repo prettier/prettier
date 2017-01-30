@@ -35,7 +35,9 @@ function bar2<X>(y: F<any>): F<X> {
   return y;
 }
 
-type Functor<A> = { map<B>(f: (val: A) => B): Functor<B> };
+type Functor<A> = {
+  map<B>(f: (val: A) => B): Functor<B>
+};
 
 function identity<A>(val: A): Functor<A> {
   return {

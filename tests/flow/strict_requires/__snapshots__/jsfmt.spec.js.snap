@@ -25,7 +25,10 @@ var o = {
 module.exports = o;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-var o = { A: require(\"./A\"), ...require(\"./B\") };
+var o = {
+  A: require(\"./A\"),
+  ...require(\"./B\")
+};
 module.exports = o;
 "
 `;

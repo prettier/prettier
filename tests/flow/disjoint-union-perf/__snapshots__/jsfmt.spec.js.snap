@@ -948,7 +948,10 @@ export type SourceLocation = {
   source: ?string
 };
 
-export type SourcePosition = { line: number, column: number };
+export type SourcePosition = {
+  line: number,
+  column: number
+};
 
 export type File = {
   source: ?string,

@@ -28,7 +28,9 @@ declare class Rows {
     ): X;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-declare class Set<T> { add(): Set<T> }
+declare class Set<T> {
+  add(): Set<T>
+}
 
 declare class Row {
   reduce_row(

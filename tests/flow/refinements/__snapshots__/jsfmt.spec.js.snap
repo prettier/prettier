@@ -41,7 +41,10 @@ function foo(x: ?number) {
   }
 }
 
-type Bar = { parent: ?Bar, doStuff(): void };
+type Bar = {
+  parent: ?Bar,
+  doStuff(): void
+};
 
 function bar0(x: Bar) {
   while (
@@ -81,9 +84,15 @@ type Node2 = {
 
 export type ASTNode = Node1 | Node2;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-type Node1 = { kind: \"Node1\", prop1?: string };
+type Node1 = {
+  kind: \"Node1\",
+  prop1?: string
+};
 
-type Node2 = { kind: \"Node2\", prop2?: string };
+type Node2 = {
+  kind: \"Node2\",
+  prop2?: string
+};
 
 export type ASTNode = Node1 | Node2;
 "
@@ -208,7 +217,9 @@ function testLiteralProperty(a: A) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-type A = { \"b_c\": ?string };
+type A = {
+  \"b_c\": ?string
+};
 
 function stuff(str: string) {}
 
@@ -414,7 +425,9 @@ function foo2(x: ?Class<Foo>): string {
   return x && new x().foo || \"\";
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-declare class Foo { foo: string }
+declare class Foo {
+  foo: string
+}
 
 function foo0(x: ?string): string {
   return x && x || \"\";
@@ -2724,9 +2737,15 @@ function handleStatus(status: Success | Error) {
 
 import { SUCCESS, ERROR } from \"./constants\";
 
-type Success = { type: typeof SUCCESS, message: string };
+type Success = {
+  type: typeof SUCCESS,
+  message: string
+};
 
-type Error = { type: typeof ERROR, error: string };
+type Error = {
+  type: typeof ERROR,
+  error: string
+};
 
 function handleStatus(status: Success | Error) {
   switch (status.type) {

@@ -37,7 +37,9 @@ const a: Promise<string> = fetch(myRequest).then(response => response.text());
 const b: Promise<string> = fetch(myRequest); // incorrect
 var myInit = {
   method: \"GET\",
-  headers: { \"Content-Type\": \"image/jpeg\" },
+  headers: {
+    \"Content-Type\": \"image/jpeg\"
+  },
   mode: \"cors\",
   cache: \"default\"
 };
@@ -168,13 +170,17 @@ const f: Request = new Request({}); // incorrect
 const g: Request = new Request(\"http://example.org\", {}); // correct
 const h: Request = new Request(\"http://example.org\", {
   method: \"GET\",
-  headers: { \"Content-Type\": \"image/jpeg\" },
+  headers: {
+    \"Content-Type\": \"image/jpeg\"
+  },
   mode: \"cors\",
   cache: \"default\"
 }); // correct
 const i: Request = new Request(\"http://example.org\", {
   method: \"POST\",
-  headers: { \"Content-Type\": \"image/jpeg\" },
+  headers: {
+    \"Content-Type\": \"image/jpeg\"
+  },
   body: new URLSearchParams(\"key=value\"),
   mode: \"cors\",
   cache: \"default\"
@@ -187,7 +193,9 @@ const j: Request = new Request(\"http://example.org\", {
 }); // incorrect - headers is string
 const k: Request = new Request(\"http://example.org\", {
   method: \"CONNECT\",
-  headers: { \"Content-Type\": \"image/jpeg\" },
+  headers: {
+    \"Content-Type\": \"image/jpeg\"
+  },
   mode: \"cors\",
   cache: \"default\"
 }); // incorrect - CONNECT is forbidden
@@ -252,23 +260,33 @@ h.arrayBuffer().then((ab: Buffer) => ab); // incorrect
 const a: Response = new Response(); // correct
 const b: Response = new Response(new Blob()); // correct
 const c: Response = new Response(new FormData()); // correct
-const d: Response = new Response(new FormData(), { status: 404 }); // correct
-const e: Response = new Response(\"responsebody\", { status: \"404\" }); // incorrect
+const d: Response = new Response(new FormData(), {
+  status: 404
+}); // correct
+const e: Response = new Response(\"responsebody\", {
+  status: \"404\"
+}); // incorrect
 const f: Response = new Response(\"responsebody\", {
   status: 404,
   headers: \"\'Content-Type\': \'image/jpeg\'\"
 }); // incorrect
 const g: Response = new Response(\"responsebody\", {
   status: 404,
-  headers: { \"Content-Type\": \"image/jpeg\" }
+  headers: {
+    \"Content-Type\": \"image/jpeg\"
+  }
 }); // correct
 const h: Response = new Response(\"responsebody\", {
   status: 404,
-  headers: new Headers({ \"Content-Type\": \"image/jpeg\" })
+  headers: new Headers({
+    \"Content-Type\": \"image/jpeg\"
+  })
 }); // correct, if verbose
 const i: Response = new Response({
   status: 404,
-  headers: new Headers({ \"Content-Type\": \"image/jpeg\" })
+  headers: new Headers({
+    \"Content-Type\": \"image/jpeg\"
+  })
 }); // incorrect
 const ok: boolean = h.ok;
 const status: number = h.status;
