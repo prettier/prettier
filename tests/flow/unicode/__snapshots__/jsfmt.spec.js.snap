@@ -43,7 +43,7 @@ function utf16Length(str, pos) {
  * @return {boolean}      Whether code-unit is in a surrogate (hi/low) range
  */
 function inSurrogateRange(codeUnit) {
-  return 0xD800 <= codeUnit && codeUnit <= 0xDFFF;
+  return 0xd800 <= codeUnit && codeUnit <= 0xdfff;
 }
 
 /**
