@@ -24,6 +24,21 @@ exports[`test strings.js 1`] = `
 
   \'\\uD801\\uDC28\',
 ];
+
+// Normalization of \\x and \\u escapes:
+
+// Basic case.
+\"a\\xAaAb\\uB1cDE\"
+
+// ES2015 unicode escapes.
+\"\\u{1Fa3}\"
+\"\\u{00000000A0}\"
+
+// Leaves other escapes alone.
+\"\\B\\S\"
+
+// Handles escaped backslashes.
+\"\\\\xAB\\\\\\xAB\\\\\\\\xAB\\B\\\\\\B\\u1234\"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [
   \"abc\",
@@ -42,6 +57,11 @@ exports[`test strings.js 1`] = `
   \"\\0\",
   \"🐶\",
   \'\\uD801\\uDC28\'
-];
+]; // Normalization of \\x and \\u escapes: // Basic case.
+\"a\\xaaAb\\ub1cdE\"; // ES2015 unicode escapes.
+\"\\u{1fa3}\";
+\"\\u{00000000a0}\"; // Leaves other escapes alone.
+\"\\B\\S\"; // Handles escaped backslashes.
+\"\\\\xAB\\\\\\xab\\\\\\\\xAB\\B\\\\\\B\\u1234\";
 "
 `;
