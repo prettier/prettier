@@ -583,6 +583,10 @@ function genericPrintNoParens(path, options, print) {
         );
       });
 
+      const lastElem = util.getLast(n.properties);
+      const canHaveTrailingComma = !(lastElem &&
+        lastElem.type === "RestProperty");
+
       if (props.length === 0) {
         return concat([
           "{",
@@ -600,7 +604,7 @@ function genericPrintNoParens(path, options, print) {
                 join(concat([separator, line]), props)
               ])
             ),
-            ifBreak(options.trailingComma ? "," : ""),
+            ifBreak(canHaveTrailingComma && options.trailingComma ? "," : ""),
             options.bracesSpacing ? line : softline,
             rightBrace,
             path.call(print, "typeAnnotation")
@@ -636,13 +640,9 @@ function genericPrintNoParens(path, options, print) {
         } else {
           parts.push(
             concat([
-              group(
-                concat([
-                  ":",
-                  ifBreak(" (", " "),
-                  indent(1, concat([softline, printedValue]))
-                ])
-              ),
+              ":",
+              ifBreak(" (", " "),
+              indent(1, concat([softline, printedValue])),
               softline,
               ifBreak(")")
             ])
