@@ -318,15 +318,7 @@ let tests = [
     return x.result; // error
   },
   function() {
-    type T =
-      | {
-        foo: Object,
-        bar: string
-      }
-      | {
-        baz: string,
-        quux: string
-      };
+    type T = { foo: Object, bar: string } | { baz: string, quux: string };
 
     function testAlwaysTruthyProp(t: T) {
       if (t.foo) {
@@ -615,9 +607,7 @@ function def_assign_setprop_nohavoc(obj: Obj, obj2: Obj2) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-type Obj = {
-  p: number | string
-};
+type Obj = { p: number | string };
 
 function f() {}
 
@@ -692,9 +682,7 @@ function def_assign_within_for(b: boolean, obj: Obj) {
 
 // --- name-sensitive havoc ---
 
-type Obj2 = {
-  q: number | string
-};
+type Obj2 = { q: number | string };
 
 function def_assign_setprop_nohavoc(obj: Obj, obj2: Obj2) {
   obj.p = 10; // (obj.p : number)
@@ -1403,14 +1391,7 @@ let tests = [
     }
     return x.foo; // error
   },
-  function(
-    x:
-      | { kind: 0, foo: number }
-      | {
-        kind: 1,
-        bar: number
-      }
-  ): number {
+  function(x: { kind: 0, foo: number } | { kind: 1, bar: number }): number {
     if (x.kind === 0) {
       return x.foo;
     } else {
@@ -1993,12 +1974,7 @@ let tests = [
     return x.foo; // error
   },
   function(
-    x:
-      | { kind: \"foo\", foo: string }
-      | {
-        kind: \"bar\",
-        bar: string
-      }
+    x: { kind: \"foo\", foo: string } | { kind: \"bar\", bar: string }
   ): string {
     if (x.kind === \"foo\") {
       return x.foo;
@@ -2493,24 +2469,10 @@ function foo(x: ASTNode) {
 }
 
 // example 3
-type Apple = {
-  kind: \"Fruit\",
-  taste: \"Bad\"
-};
-type Orange = {
-  kind: \"Fruit\",
-  taste: \"Good\"
-};
-type Broccoli = {
-  kind: \"Veg\",
-  taste: \"Bad\",
-  raw: \"No\"
-};
-type Carrot = {
-  kind: \"Veg\",
-  taste: \"Good\",
-  raw: \"Maybe\"
-};
+type Apple = { kind: \"Fruit\", taste: \"Bad\" };
+type Orange = { kind: \"Fruit\", taste: \"Good\" };
+type Broccoli = { kind: \"Veg\", taste: \"Bad\", raw: \"No\" };
+type Carrot = { kind: \"Veg\", taste: \"Good\", raw: \"Maybe\" };
 
 type Breakfast = Apple | Orange | Broccoli | Carrot;
 
@@ -2566,10 +2528,7 @@ kind({ kind: EnumKind.A, A: 1 });
 
 // example 6
 type Citizen = { citizen: true };
-type NonCitizen = {
-  citizen: false,
-  nationality: string
-};
+type NonCitizen = { citizen: false, nationality: string };
 function nationality(x: Citizen | NonCitizen) {
   if (x.citizen) return \"Shire\";
   else return x.nationality;

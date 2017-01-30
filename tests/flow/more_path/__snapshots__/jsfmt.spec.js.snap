@@ -107,9 +107,7 @@ function goofy() {
 }
 
 function goofy2() {
-  var o = {
-    x: 0
-  };
+  var o = { x: 0 };
   if (typeof o.x == \"function\") {
     o.x();
   }
