@@ -120,12 +120,7 @@ function genericPrintNoParens(path, options, print) {
         path.each(
           function(childPath) {
             parts.push(print(childPath), ";", hardline);
-            if (
-              util.hasNewline(
-                options.originalText,
-                util.locEnd(childPath.getValue())
-              )
-            ) {
+            if (util.isNextLineEmpty(options.originalText, childPath.getValue())) {
               parts.push(hardline);
             }
           },
@@ -1628,10 +1623,7 @@ function printStatementSequence(path, options, print) {
 
     parts.push(stmtPrinted);
 
-    let idx = util.skipToLineEnd(text, util.locEnd(stmt));
-    idx = util.skipNewline(text, idx);
-
-    if (util.hasNewline(text, idx) && !isLastStatement(stmtPath)) {
+    if (util.isNextLineEmpty(text, stmt) && !isLastStatement(stmtPath)) {
       parts.push(hardline);
     }
 
