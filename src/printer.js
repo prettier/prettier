@@ -1231,7 +1231,10 @@ function genericPrintNoParens(path, options, print) {
     case "ClassExpression":
       return concat(printClass(path, options, print));
     case "TemplateElement":
-      return join(literalline, n.value.raw.split("\n"));
+      return join(
+        literalline,
+        n.value.raw.split("\n").map(line => normalizeEscapes(line))
+      );
     case "TemplateLiteral":
       var expressions = path.map(print, "expressions");
 
