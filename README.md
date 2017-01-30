@@ -216,6 +216,7 @@ All of JSX and Flow syntax is supported. In fact, the test suite in
 ## Related Projects
 
 - [`eslint-plugin-prettier`](https://github.com/not-an-aardvark/eslint-plugin-prettier) plugs `prettier` into your `eslint` workflow
+- [`eslint-config-prettier`](https://github.com/lydell/eslint-config-prettier) turns all `eslint` rules that are unnecessary or might conflict with prettier off
 - [`prettier-eslint`](https://github.com/kentcdodds/prettier-eslint)
 passes `prettier` output to `eslint --fix`
 - [`prettier-standard-formatter`](https://github.com/dtinth/prettier-standard-formatter)
