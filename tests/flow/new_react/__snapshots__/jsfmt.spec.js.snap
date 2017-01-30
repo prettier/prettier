@@ -174,13 +174,8 @@ class C6 extends React.Component { // OK, recommended
 var React = require(\"React\");
 
 type T1 = {};
-type T2 = {
-  x: number
-};
-type T3 = {
-  x: number,
-  y: number
-};
+type T2 = { x: number };
+type T3 = { x: number, y: number };
 
 class C1
   extends React.Component<T1, T2, any> {} // error
@@ -561,10 +556,7 @@ var TestProps = React.createClass({
     z: React.PropTypes.number
   },
   getDefaultProps: function() {
-    return {
-      x: \"\",
-      y: 0
-    };
+    return { x: \"\", y: 0 };
   },
   test: function() {
     var a: number = this.props.x; // error
@@ -577,9 +569,7 @@ var element = <TestProps x={false} y={false} z={false} />; // 3 errors
 (element: $jsx<*>);
 (element: $jsx<TestProps>);
 var FooProps = React.createClass({
-  propTypes: {
-    w: React.PropTypes.string.isRequired
-  }
+  propTypes: { w: React.PropTypes.string.isRequired }
 });
 (element: $jsx<FooProps>);
 "

@@ -2,9 +2,7 @@ exports[`test import.js 1`] = `
 "interface I { x: number }
 export type J = I; // workaround for export interface
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-interface I {
-  x: number
-}
+interface I { x: number }
 export type J = I; // workaround for export interface
 "
 `;
@@ -48,15 +46,11 @@ function testInterfaceName(o: I) {
   (o.constructor.name: string); // ok
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-declare class C {
-  x: number
-}
+declare class C { x: number }
 
 var x: string = new C().x;
 
-interface I {
-  x: number
-}
+interface I { x: number }
 
 var i = new I(); // error
 function testInterfaceName(o: I) {
@@ -90,12 +84,8 @@ var e: E<number> = { x: \"\", y: \"\", z: \"\" }; // error: x and z should be nu
 (e.y: string);
 (e.z: string); // error: z is number
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-interface I {
-  y: string
-}
-interface I_ {
-  x: number
-}
+interface I { y: string }
+interface I_ { x: number }
 interface J extends I, I_ {}
 interface K extends J {}
 
@@ -103,21 +93,13 @@ var k: K = { x: \"\", y: \"\" }; // error: x should be number
 (k.x: string); // error: x is number
 (k.y: string);
 
-declare class C {
-  x: number
-}
+declare class C { x: number }
 declare class D extends C, Other {} // error: multiple extends
 //declare class E implements I { } // parse error
 
-interface A<Y> {
-  y: Y
-}
-interface A_<X> {
-  x: X
-}
-interface B<Z> extends A<string>, A_<Z> {
-  z: Z
-}
+interface A<Y> { y: Y }
+interface A_<X> { x: X }
+interface B<Z> extends A<string>, A_<Z> { z: Z }
 interface E<Z> extends B<Z> {}
 
 var e: E<number> = { x: \"\", y: \"\", z: \"\" }; // error: x and z should be numbers
@@ -141,9 +123,7 @@ function bar(m: M) { m.x; m.y; m.z; } // OK
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import type { J } from \"./import\";
 interface K {}
-interface L extends J, K {
-  y: string
-}
+interface L extends J, K { y: string }
 
 function foo(l: L) {
   l.x;
@@ -151,12 +131,7 @@ function foo(l: L) {
   l.z;
 } // error: z not found in L
 // interface + multiple inheritance is similar to object type + intersection
-type M =
-  & { y: string }
-  & J
-  & {
-    z: boolean
-  };
+type M = { y: string } & J & { z: boolean };
 
 function bar(m: M) {
   m.x;
@@ -175,13 +150,8 @@ function foo(k: K) {
   (k.y: number); // error: y is string in I
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-interface I {
-  x: number,
-  y: string
-}
-interface J {
-  y: number
-}
+interface I { x: number, y: string }
+interface J { y: number }
 interface K extends I, J { x: string } // error: x is number in I
 function foo(k: K) {
   (k.x: number); // error: x is string in K
@@ -201,9 +171,7 @@ declare class C {
 
 new C().bar((x: string) => { }); // error, number ~/~> string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-interface I {
-  foo(x: number): void
-}
+interface I { foo(x: number): void }
 (function foo(x: number) {}: I); // error, property \`foo\` not found function
 declare class C {
   bar(i: I): void,

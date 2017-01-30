@@ -121,9 +121,7 @@ var bar: Array<{b: ?boolean, c: number} | {b: boolean}> = [
 
 var bar: Array<{ b: ?boolean, c: number } | { b: boolean }> = [
   { b: true, c: 123 },
-  {
-    b: true
-  }
+  { b: true }
 ];
 "
 `;
@@ -139,12 +137,7 @@ exports[`test issue-1371.js 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function create(
   a: any
-):
-  | { type: \"B\", data: number }
-  | {
-    type: \"A\",
-    data: string
-  } {
+): { type: \"B\", data: number } | { type: \"A\", data: string } {
   return {
     type: \"A\",
     data: a
@@ -692,9 +685,7 @@ type B3 = string;
 function alias(a: T<number> | T<string>) {}
 alias({ x: (x: V<B4>) => {} });
 
-type T<X> = {
-  x: U<X>
-};
+type T<X> = { x: U<X> };
 type U<X> = (x: V<X>) => void;
 type V<X> = X;
 
@@ -1347,16 +1338,9 @@ function rec(x: F<string>): G | H { return x; }
 
 // polymorphic recursive types
 
-type F<X> = {
-  f: F<X>,
-  x: X
-};
-type G = {
-  x: number
-};
-type H = {
-  x: string
-};
+type F<X> = { f: F<X>, x: X };
+type G = { x: number };
+type H = { x: string };
 
 function rec(x: F<string>): G | H {
   return x;
@@ -1659,15 +1643,7 @@ function str() {
 
 // annotations for disjoint unions
 
-type T =
-  | {
-    type: \"FOO\",
-    x: number
-  }
-  | {
-    type: \"BAR\",
-    x: string
-  };
+type T = { type: \"FOO\", x: number } | { type: \"BAR\", x: string };
 
 ({ type: (bar(): \"BAR\"), x: str() }: T);
 
@@ -2037,15 +2013,7 @@ type ActionType =
 
 const Constants = require(\"./test30-helper\");
 
-type ActionType =
-  | {
-    type: \"foo\",
-    x: number
-  }
-  | {
-    type: \"bar\",
-    x: number
-  };
+type ActionType = { type: \"foo\", x: number } | { type: \"bar\", x: number };
 
 ({ type: Constants.BAR, x: 0 }: ActionType);
 "

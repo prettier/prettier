@@ -182,9 +182,7 @@ declare function map<Tv, TNext>(
  */
 function test(
   x: { kind: ?string },
-  kinds: {
-    [key: string]: string
-  }
+  kinds: { [key: string]: string }
 ): Array<{ kind: ?string }> {
   return map(kinds, value => {
     (value: string); // OK

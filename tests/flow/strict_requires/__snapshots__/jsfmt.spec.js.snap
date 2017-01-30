@@ -12,9 +12,7 @@ exports[`test B.js 1`] = `
 module.exports = { foo: \"\" }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-module.exports = {
-  foo: \"\"
-};
+module.exports = { foo: \"\" };
 "
 `;
 

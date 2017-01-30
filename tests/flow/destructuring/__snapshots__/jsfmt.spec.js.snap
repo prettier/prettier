@@ -321,9 +321,7 @@ qux({ a: \"\" });
 function corge({ b }: { b: string }) {}
 corge({ b: 0 });
 
-var { n }: { n: number } = {
-  n: \"\"
-};
+var { n }: { n: number } = { n: \"\" };
 
 function test() {
   var { foo } = { bar: 123 }; // error on foo
@@ -545,9 +543,7 @@ function bar() {
 // @flow
 
 var { x } = {
-  x: {
-    foo: \"foo\"
-  }
+  x: { foo: \"foo\" }
 };
 
 function bar() {

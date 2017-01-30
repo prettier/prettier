@@ -50,13 +50,7 @@ const e = classnames({
 });
 
 const f = classnames({
-  \"some-prop\": {
-    foo: \"bar\",
-    bar: \"foo\",
-    foo: \"bar\",
-    bar: \"foo\",
-    foo: \"bar\"
-  }
+  \"some-prop\": { foo: \"bar\", bar: \"foo\", foo: \"bar\", bar: \"foo\", foo: \"bar\" }
 });
 
 const g = classnames({

@@ -160,7 +160,7 @@ function hasNewline(text, index, opts) {
 }
 
 function hasNewlineInRange(text, start, end) {
-  for (var i = start; i <= end; ++i) {
+  for (var i = start; i < end; ++i) {
     if (text.charAt(i) === "\n") {
       return true;
     }

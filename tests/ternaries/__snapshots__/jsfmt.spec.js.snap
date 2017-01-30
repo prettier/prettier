@@ -19,12 +19,7 @@ const obj1 = conditionIsTruthy
 
 const obj2 = conditionIsTruthy
   ? shortThing
-  : {
-      some: \"long\",
-      object: \"with\",
-      lots: \"of\",
-      stuff
-    };
+  : { some: \"long\", object: \"with\", lots: \"of\", stuff };
 
 const obj3 = conditionIsTruthy
   ? {
