@@ -145,7 +145,7 @@ prettier.format(source, {
   // Controls the printing of trailing commas wherever possible
   trailingComma: false,
 
-  // Controls the printing of spaces inside array and objects
+  // Controls the printing of spaces inside object literals
   bracketSpacing: true,
 
   // Which parser to use. Valid options are 'flow' and 'babylon'
