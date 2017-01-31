@@ -24,6 +24,29 @@ exports[`test strings.js 1`] = `
 
   \'\\uD801\\uDC28\',
 ];
+
+// Normalization of \\x and \\u escapes:
+
+// Basic case.
+\"a\\xAaAb\\uB1cDE\";
+\`a\\xAaAb\\uB1cDE\`;
+
+// ES2015 unicode escapes.
+\"\\u{1Fa3}\";
+\`\\u{1Fa3}\`;
+\"\\u{00000000A0}\";
+\`\\u{00000000A0}\`;
+
+// Leaves other escapes alone.
+\"\\B\\S\";
+\`\\B\\S\`;
+
+// Handles escaped backslashes.
+\"\\\\xAB\\\\\\xAB\\\\\\\\xAB\\B\\\\\\B\\u1234\";
+\`\\\\xAB\\\\\\xAB\\\\\\\\xAB\\B\\\\\\B\\u1234\`;
+
+// Mix of everything.
+\"\\xF0\"\`a\\uaBcD\${\'\\xFdE\'}\\\\\\u{00AbCdE}\`;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [
   \"abc\",
@@ -42,6 +65,17 @@ exports[`test strings.js 1`] = `
   \"\\0\",
   \"🐶\",
   \'\\uD801\\uDC28\'
-];
+]; // Normalization of \\x and \\u escapes: // Basic case.
+\"a\\xaaAb\\ub1cdE\";
+\`a\\xaaAb\\ub1cdE\`; // ES2015 unicode escapes.
+\"\\u{1fa3}\";
+\`\\u{1fa3}\`;
+\"\\u{00000000a0}\";
+\`\\u{00000000a0}\`; // Leaves other escapes alone.
+\"\\B\\S\";
+\`\\B\\S\`; // Handles escaped backslashes.
+\"\\\\xAB\\\\\\xab\\\\\\\\xAB\\B\\\\\\B\\u1234\";
+\`\\\\xAB\\\\\\xab\\\\\\\\xAB\\B\\\\\\B\\u1234\`; // Mix of everything.
+\"\\xf0\"\`a\\uabcd\${\"\\xfdE\"}\\\\\\u{00abcde}\`;
 "
 `;

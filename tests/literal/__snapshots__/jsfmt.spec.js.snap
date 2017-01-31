@@ -116,3 +116,48 @@ function test5(): string {
 0.1e-10;
 "
 `;
+
+exports[`test regex.js 1`] = `
+"// Normalization of \\x and \\u escapes:
+
+// Basic case.
+/a\\xAaAb\\uB1cDE/gim;
+
+// ES2015 unicode escapes.
+/\\u{1Fa3}/u;
+/\\u{00000000A0}/u;
+
+// Leaves what looks like a ES2015 unicode escape alone if not using the /u flag.
+/\\u{1Fa3}/;
+
+// Leaves what looks like escapes but aren\'t alone.
+/\\xA\\u00BG/;
+
+// Leaves other escapes alone.
+/\\B\\S/;
+
+// Handles escaped backslashes.
+/\\\\xAB\\\\\\xAB\\\\\\\\xAB\\B\\\\\\B\\uAbCd/;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Normalization of \\x and \\u escapes:
+
+// Basic case.
+/a\\xaaAb\\ub1cdE/gim;
+
+// ES2015 unicode escapes.
+/\\u{1fa3}/u;
+/\\u{00000000a0}/u;
+
+// Leaves what looks like a ES2015 unicode escape alone if not using the /u flag.
+/\\u{1Fa3}/;
+
+// Leaves what looks like escapes but aren\'t alone.
+/\\xA\\u00BG/;
+
+// Leaves other escapes alone.
+/\\B\\S/;
+
+// Handles escaped backslashes.
+/\\\\xAB\\\\\\xab\\\\\\\\xAB\\B\\\\\\B\\uabcd/;
+"
+`;
