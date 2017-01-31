@@ -105,3 +105,6 @@ const result = asyncExecute('non_existing_command', /* args */ []);
 foo(
   // Hi!
 );
+foo({},
+  // Hi
+);
