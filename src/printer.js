@@ -1708,17 +1708,18 @@ function printArgumentsList(path, options, print) {
   // This is just an optimization; I think we could return the
   // conditional group for all function calls, but it's more expensive
   // so only do it for specific forms.
-  const groupLastArg = lastArg.type === "ObjectExpression" ||
-    lastArg.type === "ArrayExpression" ||
-    lastArg.type === "FunctionExpression" ||
-    lastArg.type === "ArrowFunctionExpression" &&
-      (lastArg.body.type === "BlockStatement" ||
-        lastArg.body.type === "ArrowFunctionExpression" ||
-        lastArg.body.type === "ObjectExpression" ||
-        lastArg.body.type === "ArrayExpression" ||
-        lastArg.body.type === "CallExpression" ||
-        lastArg.body.type === "JSXElement") ||
-    lastArg.type === "NewExpression";
+  const groupLastArg = (!lastArg.comments || !lastArg.comments.length) &&
+    (lastArg.type === "ObjectExpression" ||
+      lastArg.type === "ArrayExpression" ||
+      lastArg.type === "FunctionExpression" ||
+      lastArg.type === "ArrowFunctionExpression" &&
+        (lastArg.body.type === "BlockStatement" ||
+          lastArg.body.type === "ArrowFunctionExpression" ||
+          lastArg.body.type === "ObjectExpression" ||
+          lastArg.body.type === "ArrayExpression" ||
+          lastArg.body.type === "CallExpression" ||
+          lastArg.body.type === "JSXElement") ||
+      lastArg.type === "NewExpression");
 
   if (groupLastArg) {
     const shouldBreak = printed.slice(0, -1).some(willBreak);
