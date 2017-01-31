@@ -505,10 +505,12 @@ var PropTypes = React.PropTypes;
 
 var C = React.createClass({
   propTypes: {
-    statistics: PropTypes.arrayOf(PropTypes.shape({
+    statistics: PropTypes.arrayOf(
+      PropTypes.shape({
         label: PropTypes.string.isRequired,
         value: PropTypes.number
-      })).isRequired
+      })
+    ).isRequired
   }
 });
 
