@@ -51,11 +51,14 @@ test.apply(\"\", [\"\", 0]);
 
 // wrong this is an error
 test.apply(0, [\"\", 0]); // error: lookup \`length\` on Number
+
 // not enough arguments is an error (via incompatible RestT)
 test.apply(\"\", [\"\"]); // error: string ~> number
+
 // mistyped arguments is an error
 test.apply(\"\", [\"\", \"\"]); // error: string ~> number (2nd arg)
 test.apply(\"\", [0, 0]); // error: number ~> string (1st arg)
+
 // resolve args array from tvar
 function f(args) {
   test.apply(\"\", args);
@@ -63,8 +66,10 @@ function f(args) {
 f([\"\", 0]); // OK
 f([\"\", \"\"]); // error: string ~> number (2nd arg)
 f([0, 0]); // error: number ~> string (1st arg)
+
 // expect array
 test.apply(\"\", \"not array\"); // error: expect array of args
+
 // expect 4 errors:
 // - lookup length on Number (because 0 is used as \`this\`)
 // - 123 is not a string
@@ -157,11 +162,14 @@ test.call(\"\", \"\", 0);
 
 // wrong this is an error
 test.call(0, \"\", 0); // error: lookup \`length\` on Number
+
 // not enough arguments is an error (via incompatible RestT)
 test.call(\"\", \"\"); // error: string ~> number
+
 // mistyped arguments is an error
 test.call(\"\", \"\", \"\"); // error: string ~> number (2nd arg)
 test.call(\"\", 0, 0); // error: number ~> string (1st arg)
+
 // resolve args array from tvar
 function f(args) {
   test.call(\"\", args[0], args[1]);
@@ -169,6 +177,7 @@ function f(args) {
 f([\"\", 0]); // OK
 f([\"\", \"\"]); // error: string ~> number (2nd arg)
 f([0, 0]); // error: number ~> string (1st arg)
+
 // expect 3 errors:
 // - lookup length on Number (0 used as \`this\`)
 // - number !~> string (param a)
@@ -293,6 +302,7 @@ let tests = [
     (x.length: void); // error, it\'s a number
     (y.length: void); // error, it\'s a number
     (z.length: void); // error, it\'s a number
+
     (x.name: void); // error, it\'s a string
     (y.name: void); // error, it\'s a string
     (z.name: void); // error, it\'s a string
@@ -302,9 +312,11 @@ let tests = [
     x.length = \"foo\"; // error, it\'s a number
     y.length = \"foo\"; // error, it\'s a number
     z.length = \"foo\"; // error, it\'s a number
+
     x.name = 123; // error, it\'s a string
     y.name = 123; // error, it\'s a string
     z.name = 123; // error, it\'s a string
+
     // Non-(Function.prototype) properties on a \`Function\` type should be \`any\`
     (z.foo: number);
     (z.foo: string);

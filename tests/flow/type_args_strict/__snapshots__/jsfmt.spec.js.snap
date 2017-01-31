@@ -92,6 +92,7 @@ class MyClass<T> {
 }
 
 var c: MyClass = new MyClass(0); // error, missing argument list (1)
+
 // arity error in type annotation using polymorphic class with defaulting
 
 class MyClass2<T, U=string> {
@@ -104,6 +105,7 @@ class MyClass2<T, U=string> {
 }
 
 var c2: MyClass2 = new MyClass2(0, \"\"); // error, missing argument list (1-2)
+
 // arity error in type annotation using polymorphic type alias
 
 type MyObject<T> = {
@@ -111,9 +113,11 @@ type MyObject<T> = {
 };
 
 var o: MyObject = { x: 0 }; // error, missing argument list
+
 // arity error in type alias rhs
 
 type MySubobject = { y: number } & MyObject; // error, missing argument list
+
 // arity error in interface extends
 
 interface MyInterface<T> {

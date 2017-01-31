@@ -22,6 +22,7 @@ var b = a.map(function(x) {
   return 0;
 });
 var c: string = b[0]; // error: number !~> string
+
 var array = [];
 function f() {
   array = array.map(function() {

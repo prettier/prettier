@@ -49,6 +49,7 @@ const { foo } = { foo: \"foo\" };
 const [bar] = [\"bar\"];
 (foo: number); // error: string ~> number
 (bar: number); // error: string ~> number
+
 declare var bazzes: { baz: string }[];
 for (const { baz } of bazzes) {
   (baz: number); // error: string ~> number
@@ -872,10 +873,13 @@ function f5() {
 //
 
 var x: C; // ok
+
 var y = new C(); // error: let ref before decl from value position
+
 class C {}
 
 var z: C = new C(); // ok
+
 // --- vars ---
 
 // it\'s possible to annotate a var with a non-maybe type,
@@ -883,11 +887,13 @@ var z: C = new C(); // ok
 // initialized before use)
 
 var a: number; // not an error per se - only if used before init
+
 function f(n: number) {
   return n;
 }
 
 f(a); // error: undefined ~/> number
+
 a = 10;
 
 f(a); // ok, a: number (not ?number)

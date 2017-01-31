@@ -66,6 +66,7 @@ exports[`test strings.js 1`] = `
   \"🐶\",
   \'\\uD801\\uDC28\'
 ]; // Normalization of \\x and \\u escapes: // Basic case.
+
 \"a\\xaaAb\\ub1cdE\";
 \`a\\xaaAb\\ub1cdE\`; // ES2015 unicode escapes.
 \"\\u{1fa3}\";

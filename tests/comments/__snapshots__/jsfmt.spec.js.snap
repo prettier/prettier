@@ -256,6 +256,7 @@ const regex = new RegExp(
 
 // The comment is moved and doesn\'t trigger the eslint rule anymore
 import path from \"path\"; // eslint-disable-line nuclide-internal/prefer-nuclide-uri
+
 // Comments disappear in-between MemberExpressions
 Observable.of(process).// Don\'t complete until we say so!
 merge(Observable.never()).// Get the errors.
@@ -482,6 +483,7 @@ const regex = new RegExp(
 
 // The comment is moved and doesn\'t trigger the eslint rule anymore
 import path from \"path\"; // eslint-disable-line nuclide-internal/prefer-nuclide-uri
+
 // Comments disappear in-between MemberExpressions
 Observable.of(process).// Don\'t complete until we say so!
 merge(Observable.never()).// Get the errors.
