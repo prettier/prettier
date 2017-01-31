@@ -8,7 +8,7 @@ In **Parameters** set `--write [other opts] $FilePathRelativeToProjectRoot$`
 
 In **Working directory** set `$ProjectFileDir$`
 
-![With `prettier`](https://github.com/jlongster/prettier/tree/master/editors/jetbrains/with-prettier.png "With Prettier")
+![Example](https://raw.githubusercontent.com/jlongster/prettier/master/editors/jetbrains/with-prettier.png)
 
 If on the other hand you have `prettier` installed locally, replace the **Program** with `./node_modules/.bin/prettier` (on OS X and Linux) or `.\node_modules\.bin\prettier.cmd` (on Windows).
 
