@@ -588,11 +588,14 @@ function genericPrintNoParens(path, options, print) {
       );
 
       if (props.length === 0) {
-        return concat([
-          "{",
-          comments.printDanglingComments(path, options),
-          "}"
-        ]);
+        return group(
+          concat([
+            "{",
+            comments.printDanglingComments(path, options),
+            softline,
+            "}"
+          ])
+        );
       } else {
         return group(
           concat([

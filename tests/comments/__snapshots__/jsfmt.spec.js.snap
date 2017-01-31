@@ -26,6 +26,9 @@ exports[`test blank.js 2`] = `
 
 exports[`test dangling.js 1`] = `
 "var x = {/* dangling */};
+var x = {
+  // dangling
+};
 var x = [/* dangling */];
 function x() {
   /* dangling */
@@ -33,6 +36,9 @@ function x() {
 declare class Foo extends Qux<string> {/* dangling */}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var x = {/* dangling */};
+var x = {
+  // dangling
+};
 var x = [/* dangling */];
 function x() {
   /* dangling */
@@ -43,6 +49,9 @@ declare class Foo extends Qux<string> {/* dangling */}
 
 exports[`test dangling.js 2`] = `
 "var x = {/* dangling */};
+var x = {
+  // dangling
+};
 var x = [/* dangling */];
 function x() {
   /* dangling */
@@ -50,6 +59,9 @@ function x() {
 declare class Foo extends Qux<string> {/* dangling */}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var x = {/* dangling */};
+var x = {
+  // dangling
+};
 var x = [/* dangling */];
 function x() {
   /* dangling */
