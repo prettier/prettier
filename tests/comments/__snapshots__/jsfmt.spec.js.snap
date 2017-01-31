@@ -161,6 +161,11 @@ else {
 
 // The comment makes the line break in a weird way
 const result = asyncExecute(\'non_existing_command\', /* args */ []);
+
+// The closing paren is printed on the same line as the comment
+foo({}
+  // Hi
+);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Does not need to break as it fits in 80 columns
 this.call(a, /* comment */ b);
@@ -270,6 +275,12 @@ if (1) {
 
 // The comment makes the line break in a weird way
 const result = asyncExecute(\"non_existing_command\", /* args */ []);
+
+// The closing paren is printed on the same line as the comment
+foo(
+  {}
+  // Hi
+);
 "
 `;
 
@@ -376,6 +387,11 @@ else {
 
 // The comment makes the line break in a weird way
 const result = asyncExecute(\'non_existing_command\', /* args */ []);
+
+// The closing paren is printed on the same line as the comment
+foo({}
+  // Hi
+);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Does not need to break as it fits in 80 columns
 this.call(a, /* comment */ b);
@@ -485,5 +501,11 @@ if (1) {
 
 // The comment makes the line break in a weird way
 const result = asyncExecute(\"non_existing_command\", /* args */ []);
+
+// The closing paren is printed on the same line as the comment
+foo(
+  {}
+  // Hi
+);
 "
 `;
