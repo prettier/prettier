@@ -265,6 +265,7 @@ exports[`test variance.js 1`] = `
 /* @flow */
 
 (([]: Array<string>): Iterable<?string>); // ok, Iterable<+T>
+
 (([]: Array<string>).values(): Iterable<?string>); // ok, Iterator<+T>
 "
 `;

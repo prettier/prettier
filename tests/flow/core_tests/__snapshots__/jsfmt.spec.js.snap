@@ -269,6 +269,7 @@ ws.delete(dict);
 let ws2 = new WeakSet([obj, dict]);
 
 let ws3 = new WeakSet([1, 2, 3]); // error, must be objects
+
 function* generator(): Iterable<{ foo: string }> {
   while (true) {
     yield { foo: \"bar\" };

@@ -68,6 +68,7 @@ class A {
   static bar(y: string) {}
 }
 A.qux = function(x: string) {}; // error?
+
 class B extends A {
   static x: string; // error?
   static foo(x: string) {} // error?
@@ -100,6 +101,7 @@ class C<X> {
 class D extends C<string> {
   static main() {
     D.foo(0); // error?
+
     D.bar(0);
   }
 }

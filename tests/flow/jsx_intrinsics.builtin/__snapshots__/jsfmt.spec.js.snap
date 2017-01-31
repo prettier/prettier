@@ -33,6 +33,7 @@ class CustomComponent extends React.Component {
 
 var a: React.Element<{ prop: string }> = <CustomComponent prop=\"asdf\" />;
 var b: React.Element<{ prop1: string }> = <CustomComponent prop=\"asdf\" />; // Error: Props<{prop}> ~> Props<{prop1}>
+
 // Since intrinsics are typed as \`any\` out of the box, we can pass any
 // attributes to intrinsics!
 var c: React.Element<any> = <div not_a_real_attr=\"asdf\" />;
@@ -79,8 +80,10 @@ var Str: string = \"str\";
 <Div />; /* This is fine*/
 <Bad />; /* This is fine*/
 <Str />; // This is fine
+
 React.createElement(\"div\", {}); // This is fine
 React.createElement(\"bad\", {}); /* This is fine*/
+
 <Div id={42} />; // This is fine
 "
 `;
