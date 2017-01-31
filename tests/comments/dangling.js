@@ -1,4 +1,7 @@
 var x = {/* dangling */};
+var x = {
+  // dangling
+};
 var x = [/* dangling */];
 function x() {
   /* dangling */

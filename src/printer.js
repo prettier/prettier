@@ -589,11 +589,14 @@ function genericPrintNoParens(path, options, print) {
       );
 
       if (props.length === 0) {
-        return concat([
-          "{",
-          comments.printDanglingComments(path, options),
-          "}"
-        ]);
+        return group(
+          concat([
+            "{",
+            comments.printDanglingComments(path, options),
+            softline,
+            "}"
+          ])
+        );
       } else {
         return group(
           concat([
@@ -727,7 +730,7 @@ function genericPrintNoParens(path, options, print) {
     case "NullLiteral":
       return "null"; // Babel 6 Literal split
     case "RegExpLiteral":
-      return n.extra.raw;
+      return printRegex(n);
     // Babel 6 Literal split
     case "NumericLiteral":
       return printNumber(n.extra.raw);
@@ -737,6 +740,7 @@ function genericPrintNoParens(path, options, print) {
     case "StringLiteral":
     case "Literal":
       if (typeof n.value === "number") return printNumber(n.raw);
+      if (n.regex) return printRegex(n.regex);
       if (typeof n.value !== "string") return "" + n.value;
 
       return nodeStr(n, options); // Babel 6
@@ -1234,7 +1238,10 @@ function genericPrintNoParens(path, options, print) {
     case "ClassExpression":
       return concat(printClass(path, options, print));
     case "TemplateElement":
-      return join(literalline, n.value.raw.split("\n"));
+      return join(
+        literalline,
+        n.value.raw.split("\n").map(line => normalizeEscapes(line))
+      );
     case "TemplateLiteral":
       var expressions = path.map(print, "expressions");
 
@@ -1712,17 +1719,18 @@ function printArgumentsList(path, options, print) {
   // This is just an optimization; I think we could return the
   // conditional group for all function calls, but it's more expensive
   // so only do it for specific forms.
-  const groupLastArg = lastArg.type === "ObjectExpression" ||
-    lastArg.type === "ArrayExpression" ||
-    lastArg.type === "FunctionExpression" ||
-    lastArg.type === "ArrowFunctionExpression" &&
-      (lastArg.body.type === "BlockStatement" ||
-        lastArg.body.type === "ArrowFunctionExpression" ||
-        lastArg.body.type === "ObjectExpression" ||
-        lastArg.body.type === "ArrayExpression" ||
-        lastArg.body.type === "CallExpression" ||
-        lastArg.body.type === "JSXElement") ||
-    lastArg.type === "NewExpression";
+  const groupLastArg = (!lastArg.comments || !lastArg.comments.length) &&
+    (lastArg.type === "ObjectExpression" ||
+      lastArg.type === "ArrayExpression" ||
+      lastArg.type === "FunctionExpression" ||
+      lastArg.type === "ArrowFunctionExpression" &&
+        (lastArg.body.type === "BlockStatement" ||
+          lastArg.body.type === "ArrowFunctionExpression" ||
+          lastArg.body.type === "ObjectExpression" ||
+          lastArg.body.type === "ArrayExpression" ||
+          lastArg.body.type === "CallExpression" ||
+          lastArg.body.type === "JSXElement") ||
+      lastArg.type === "NewExpression");
 
   if (groupLastArg) {
     const shouldBreak = printed.slice(0, -1).some(willBreak);
@@ -2524,7 +2532,37 @@ function makeString(rawContent, enclosingQuote) {
     return match;
   });
 
-  return enclosingQuote + newContent + enclosingQuote;
+  return enclosingQuote + normalizeEscapes(newContent) + enclosingQuote;
+}
+
+function printRegex(regexData) {
+  const pattern = regexData.pattern;
+  const flags = regexData.flags;
+  const skipES2015 = !flags.includes("u");
+
+  return "/" + normalizeEscapes(pattern, skipES2015) + "/" + flags;
+}
+
+function normalizeEscapes(rawContent, skipES2015) {
+  // Matches \x escapes and \u escapes (including the ES2015 variant) and other
+  // escapes.
+  const regex = /(\\x[\da-f]{2}|\\u[\da-f]{4}|\\u\{[\da-f]+\})|(\\[\s\S])/gi;
+
+  return rawContent.replace(regex, (match, escape, otherEscape) => {
+    // Return other escapes as-is.
+    if (otherEscape) {
+      return otherEscape;
+    }
+
+    // Regexes without the /u flag do not support ES2015 unicode escapes, so
+    // return the match as-is.
+    if (skipES2015 && escape[2] === "{") {
+      return escape;
+    }
+
+    // Print all \x and \u escapes lowercase.
+    return escape.toLowerCase();
+  });
 }
 
 function printNumber(rawNumber) {

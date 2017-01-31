@@ -22,7 +22,8 @@ declare class Baz<T> {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare class Foo extends Qux<string> {
   /* KeyedCollection <: Collection*/
-  /* ...KeyedIterable*/}
+  /* ...KeyedIterable*/
+}
 declare class Bar<T> extends Baz<T> {
   // KeyedIterable <: Iterable
   y: T

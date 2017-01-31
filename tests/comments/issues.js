@@ -100,3 +100,8 @@ else {
 
 // The comment makes the line break in a weird way
 const result = asyncExecute('non_existing_command', /* args */ []);
+
+// The closing paren is printed on the same line as the comment
+foo({}
+  // Hi
+);
