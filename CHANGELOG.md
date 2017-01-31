@@ -1,3 +1,10 @@
+# 0.14.1
+
+[link](https://github.com/jlongster/prettier/compare/0.14.0...0.14.1)
+
+* Fix range for object newline detection (#520)
+  * a bugfix for "Keep expanded objects expanded" (#495)
+
 # 0.14.0
 
 [link](https://github.com/jlongster/prettier/compare/0.13.0...0.14.0)
