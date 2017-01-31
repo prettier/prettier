@@ -111,6 +111,7 @@ var f: { (): mixed } = function(): string {
   return \"hi\";
 }; // return type
 var g: { (x: string): void } = function(x: mixed) {}; // param type
+
 // A function can be an object
 var y: {} = function(x: number): string {
   return \"hi\";
@@ -312,6 +313,7 @@ var f: { (): mixed } = () => \"hi\"; // return type
 var g: { (x: Date): void } = x => {
   x * 2;
 }; // param type (date < number)
+
 // A function can be an object
 var y: {} = x => \"hi\";
 var z: Object = x => \"hi\";

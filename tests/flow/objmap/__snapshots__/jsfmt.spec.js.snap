@@ -28,6 +28,7 @@ var o = keyMirror({
 
 (o.FOO: \"FOO\"); // ok
 (o.FOO: \"BAR\"); // error, \'FOO\' incompatible with \'BAR\'
+
 promiseAllByKey({
   foo: Promise.resolve(0),
   bar: \"bar\"

@@ -147,6 +147,7 @@ var c: typeof MyClass2 = new MyClass2();
 var numValue: number = 42;
 var d: typeof numValue = 100;
 var e: typeof numValue = \"asdf\"; // Error: string ~> number
+
 /////////////////////////////////
 // == typeof <<type-alias>> == //
 /////////////////////////////////
@@ -158,6 +159,7 @@ type numberAlias = number;
 // is suboptimal - just \'cannot resolve name\'. TODO.
 //
 var f: typeof numberAlias = 42; // Error: \'typeof <<type-alias>>\' makes no sense...
+
 /**
  * Use of a non-class/non-function value in type annotation.
  * These provoke a specific error, not just the generic

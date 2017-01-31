@@ -125,6 +125,33 @@ function skip(chars) {
 const skipWhitespace = skip(/\s/);
 const skipSpaces = skip(" \t");
 const skipToLineEnd = skip("; \t");
+const skipEverythingButNewLine = skip(/[^\r\n]/);
+
+function skipInlineComment(text, index) {
+  if (index === false) {
+    return false;
+  }
+
+  if (text.charAt(index) === "/" && text.charAt(index + 1) === "*") {
+    for (var i = index + 2; i < text.length; ++i) {
+      if (text.charAt(i) === "*" && text.charAt(i + 1) === "/") {
+        return i + 2;
+      }
+    }
+  }
+  return index;
+}
+
+function skipTrailingComment(text, index) {
+  if (index === false) {
+    return false;
+  }
+
+  if (text.charAt(index) === "/" && text.charAt(index + 1) === "/") {
+    return skipEverythingButNewLine(text, index);
+  }
+  return index;
+}
 
 // This one doesn't use the above helper function because it wants to
 // test \r\n in order and `skip` doesn't support ordering and we only
@@ -169,8 +196,16 @@ function hasNewlineInRange(text, start, end) {
 }
 
 function isNextLineEmpty(text, node) {
+  let oldIdx = null;
   let idx = locEnd(node);
   idx = skipToLineEnd(text, idx);
+  while (idx !== oldIdx) {
+    // We need to skip all the potential trailing inline comments
+    oldIdx = idx;
+    idx = skipInlineComment(text, idx);
+    idx = skipSpaces(text, idx);
+  }
+  idx = skipTrailingComment(text, idx);
   idx = skipNewline(text, idx);
   return hasNewline(text, idx);
 }

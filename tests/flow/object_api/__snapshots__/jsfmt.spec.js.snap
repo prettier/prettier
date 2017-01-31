@@ -65,6 +65,7 @@ var decl_export_: { foo: any, bar: any } = Object.assign({}, export_);
 
 let anyObj: Object = {};
 Object.assign(anyObj, anyObj); // makes sure this terminates
+
 module.exports = export_;
 "
 `;
@@ -176,6 +177,7 @@ class Bar extends Foo {
 var sealed = { one: \"one\", two: \"two\" };
 (Object.keys(sealed): Array<\"one\" | \"two\">);
 (Object.keys(sealed): void); // error, Array<string>
+
 var unsealed = {};
 Object.keys(unsealed).forEach(k => {
   (k: number); // error: number ~> string
@@ -188,12 +190,14 @@ Object.keys(dict).forEach(k => {
 
 var any: Object = {};
 (Object.keys(any): Array<number>); // error, Array<string>
+
 class Foo {
   prop: string;
   foo() {}
 }
 // constructor and foo not enumerable
 (Object.keys(new Foo()): Array<\"error\">); // error: prop ~> error
+
 class Bar extends Foo {
   bar_prop: string;
   bar() {}
@@ -416,6 +420,7 @@ var y = new Foo();
 // call
 takesAString(a.toString());
 d.toString(); // ok, even though dict specifies strings, this is a function
+
 // get
 var aToString: () => string = a.toString;
 var aToString2 = a.toString;
@@ -448,6 +453,7 @@ takesAString(y.toString());
 (123).toString(2);
 (123).toString(\"foo\"); // error
 (123).toString(null); // error
+
 //
 // hasOwnProperty
 //

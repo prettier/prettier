@@ -53,6 +53,7 @@ function testKeysOfObject(str: string, lit: \"hi\") {
     (str: $Keys<Object>); // No error, truthy string should be fine
   }
   (\"hi\": $Keys<Object>); // String literal should be fine
+
   (123: $Keys<Object>); // Error: number -> keys of Object
 }
 
@@ -63,6 +64,7 @@ function testKeysOfStrDict(str: string, lit: \"hi\") {
     (str: $Keys<StrDict>); // No error, truthy string should be fine
   }
   (\"hi\": $Keys<StrDict>); // String literal should be fine
+
   (123: $Keys<StrDict>); // Error: number -> keys of StrDict
 }
 
@@ -74,6 +76,7 @@ function testKeysOfStrLitDict(str: string, lit: \"hi\") {
   }
   (\"hi\": $Keys<StrLitDict>); // The right string literal is allowed
   (\"bye\": $Keys<StrLitDict>); // Error: The wrong string literal is not allowed
+
   (123: $Keys<StrLitDict>); // Error: number -> keys of StrLitDict
 }
 
@@ -84,6 +87,7 @@ function testKeysOfOtherObj(str: string, lit: \"hi\") {
     (str: $Keys<ObjLit>); // Error: truthy string -> keys of ObjLit
   }
   (\"hi\": $Keys<ObjLit>); // String literal should be fine
+
   (123: $Keys<ObjLit>); // Error: number -> keys of ObjLit
 }
 "
