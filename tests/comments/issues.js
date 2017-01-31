@@ -100,3 +100,8 @@ else {
 
 // The comment makes the line break in a weird way
 const result = asyncExecute('non_existing_command', /* args */ []);
+
+// Commments in call expression cause a syntax error
+foo(
+  // Hi!
+);
