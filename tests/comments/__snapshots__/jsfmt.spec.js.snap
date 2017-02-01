@@ -24,6 +24,64 @@ exports[`test blank.js 2`] = `
 "
 `;
 
+exports[`test if-else.js 1`] = `
+"if (a) doSomething();
+// comment
+else doSomethingElse();
+
+if (b) {
+  doSomething();
+}
+// comment
+else {
+  doSomethingElse();
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+if (a)
+  doSomething();
+// comment
+else
+  doSomethingElse();
+
+if (b) {
+  doSomething();
+}
+// comment
+else {
+  doSomethingElse();
+}
+"
+`;
+
+exports[`test if-else.js 2`] = `
+"if (a) doSomething();
+// comment
+else doSomethingElse();
+
+if (b) {
+  doSomething();
+}
+// comment
+else {
+  doSomethingElse();
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+if (a)
+  doSomething();
+// comment
+else
+  doSomethingElse();
+
+if (b) {
+  doSomething();
+}
+// comment
+else {
+  doSomethingElse();
+}
+"
+`;
+
 exports[`test dangling.js 1`] = `
 "var x = {/* dangling */};
 var x = {
@@ -163,14 +221,6 @@ if (1) {
   // Comment
 }
 
-// Comments trigger invalid JavaScript in-between else if
-if (1) {
-}
-// Comment
-else {
-
-}
-
 // The comment makes the line break in a weird way
 const result = asyncExecute(\'non_existing_command\', /* args */ []);
 
@@ -282,13 +332,6 @@ if (1) {
   // Comment
 }
 
-// Comments trigger invalid JavaScript in-between else if
-if (1) {
-} else
-  // Comment
-  {
-  }
-
 // The comment makes the line break in a weird way
 const result = asyncExecute(\"non_existing_command\", /* args */ []);
 
@@ -391,14 +434,6 @@ Observable.of(process)
 // Comments disappear in empty blocks
 if (1) {
   // Comment
-}
-
-// Comments trigger invalid JavaScript in-between else if
-if (1) {
-}
-// Comment
-else {
-
 }
 
 // The comment makes the line break in a weird way
@@ -511,13 +546,6 @@ Observable.of(process)
 if (1) {
   // Comment
 }
-
-// Comments trigger invalid JavaScript in-between else if
-if (1) {
-} else
-  // Comment
-  {
-  }
 
 // The comment makes the line break in a weird way
 const result = asyncExecute(\"non_existing_command\", /* args */ []);

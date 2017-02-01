@@ -861,7 +861,18 @@ function genericPrintNoParens(path, options, print) {
         const isEmpty = isEmptyBlock(con);
 
         if (hasBraces && !isEmpty) {
-          parts.push(" else");
+          // Exception for comments in-between if-else blocks.
+          const hasInBetweenComment = n.consequent &&
+            n.consequent.type === 'BlockStatement' &&
+            n.consequent.comments &&
+            n.consequent.comments[n.consequent.comments.length - 1].isInBetween;
+
+          parts.push(
+            concat([
+              hasInBetweenComment ? "": " ",
+              "else"
+            ])
+          );
         } else {
           // We use `conditionalGroup` to suppress break propagation.
           // This allows us to provide a hardline without forcing the
