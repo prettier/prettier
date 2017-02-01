@@ -2208,9 +2208,10 @@ function printJSXChildren(path, options, print) {
         // correctly escaped (since it parsed).
         // We really want to use value and re-escape it ourself when possible
         // though.
-        const value = options.parser === "flow"
+        const partiallyEscapedValue = options.parser === "flow"
           ? child.raw
           : util.htmlEscapeInsideAngleBracket(child.value);
+        const value = partiallyEscapedValue.replace(/\u00a0/g, '&nbsp;');
 
         if (/\S/.test(value)) {
           // treat each line of text as its own entity
