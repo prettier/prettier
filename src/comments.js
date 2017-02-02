@@ -151,8 +151,8 @@ function attach(comments, ast, text) {
     ) {
       // If a comment exists on its own line, prefer a leading comment.
       // We also need to check if it's the first line of the file.
-
-      if (handleIfStatementComments(enclosingNode, followingNode, comment)) {
+      if (handleMemberExpressionComment(enclosingNode, followingNode, comment) ||
+          handleIfStatementComments(enclosingNode, followingNode, comment)) {
         // We're good
       } else if (followingNode) {
         // Always a leading comment.
@@ -320,6 +320,18 @@ function handleIfStatementComments(enclosingNode, followingNode, comment) {
     } else {
       addLeadingComment(followingNode.consequent, comment);
     }
+    return true;
+  }
+
+  return false;
+}
+
+function handleMemberExpressionComment(enclosingNode, followingNode, comment) {
+  if (enclosingNode &&
+      enclosingNode.type === "MemberExpression" &&
+      followingNode &&
+      followingNode.type === "Identifier") {
+    addLeadingComment(enclosingNode, comment);
     return true;
   }
 

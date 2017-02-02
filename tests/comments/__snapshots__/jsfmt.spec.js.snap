@@ -319,8 +319,8 @@ export type BuckWebSocketMessage =
 const rootEpic = (actions, store) => combineEpics(...epics)(
   actions,
   store
-).// Log errors and continue.
-catch((err, stream) => {
+)// Log errors and continue.
+.catch((err, stream) => {
   getLogger().error(err);
   return stream;
 });
@@ -349,10 +349,10 @@ import path from \"path\"; // eslint-disable-line nuclide-internal/prefer-nuclid
 
 // Comments disappear in-between MemberExpressions
 Observable.of(process)
-  .// Don\'t complete until we say so!
-  merge(Observable.never())
-  .// Get the errors.
-  takeUntil(throwOnError ? errors.flatMap(Observable.throw) : errors)
+  // Don\'t complete until we say so!
+  .merge(Observable.never())
+  // Get the errors.
+  .takeUntil(throwOnError ? errors.flatMap(Observable.throw) : errors)
   .takeUntil(exit);
 
 /* Comments disappear inside of JSX*/
@@ -548,8 +548,8 @@ export type BuckWebSocketMessage =
 const rootEpic = (actions, store) => combineEpics(...epics)(
   actions,
   store
-).// Log errors and continue.
-catch((err, stream) => {
+)// Log errors and continue.
+.catch((err, stream) => {
   getLogger().error(err);
   return stream;
 });
@@ -578,10 +578,10 @@ import path from \"path\"; // eslint-disable-line nuclide-internal/prefer-nuclid
 
 // Comments disappear in-between MemberExpressions
 Observable.of(process)
-  .// Don\'t complete until we say so!
-  merge(Observable.never())
-  .// Get the errors.
-  takeUntil(throwOnError ? errors.flatMap(Observable.throw) : errors)
+  // Don\'t complete until we say so!
+  .merge(Observable.never())
+  // Get the errors.
+  .takeUntil(throwOnError ? errors.flatMap(Observable.throw) : errors)
   .takeUntil(exit);
 
 // Comments disappear inside of JSX

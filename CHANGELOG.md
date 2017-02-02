@@ -1,3 +1,24 @@
+# 0.15.0
+
+[link](https://github.com/jlongster/prettier/compare/0.14.1...0.15.0)
+
+* Fix syntax error in empty object with dangling comment (#533)
+* Fix closing call expression commented out (#530)
+* Update `bracketSpacing` comment to say it's about {} (#529)
+* Add 0.14.1 to CHANGELOG (#525)
+* Print \x and \u escapes in strings and regexes lowercase (#522)
+* Fix Jetbrains example screenshot url. (#534)
+* Preserve next line with trailing comment (#535)
+* Break nested calls (#517)
+* Update snapshot tests from conflicting PRs
+* Reimplement MemberExpression printing (#469)
+* Remove spurious test.js
+* Fix small typo on Jetbrains section (#552)
+* [JSX] Handle non-breaking space (#557)
+* Make comments between if & else to look good (#544)
+* Whitelist UnaryExpression for parentless objects (#545)
+* Make comments inside of MemberExpression look good (#556)
+
 # 0.14.1
 
 [link](https://github.com/jlongster/prettier/compare/0.14.0...0.14.1)
