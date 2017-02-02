@@ -15,6 +15,7 @@ var softline = docBuilders.softline;
 var literalline = docBuilders.literalline;
 var group = docBuilders.group;
 var indent = docBuilders.indent;
+var alignSpaces = docBuilders.alignSpaces;
 var conditionalGroup = docBuilders.conditionalGroup;
 var ifBreak = docBuilders.ifBreak;
 
@@ -775,10 +776,10 @@ function genericPrintNoParens(path, options, print) {
             concat([
               line,
               "? ",
-              indent(1, path.call(print, "consequent")),
+              alignSpaces(2, path.call(print, "consequent")),
               line,
               ": ",
-              indent(1, path.call(print, "alternate"))
+              alignSpaces(2, path.call(print, "alternate"))
             ])
           )
         ])
