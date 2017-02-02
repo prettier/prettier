@@ -152,7 +152,9 @@ function attach(comments, ast, text) {
       // If a comment exists on its own line, prefer a leading comment.
       // We also need to check if it's the first line of the file.
 
-      if (followingNode) {
+      if (handleIfStatementComments(enclosingNode, followingNode, comment)) {
+        // We're good
+      } else if (followingNode) {
         // Always a leading comment.
         addLeadingComment(followingNode, comment);
       } else if (precedingNode) {
@@ -276,6 +278,52 @@ function addTrailingComment(node, comment) {
   comment.leading = false;
   comment.trailing = true;
   addCommentHelper(node, comment);
+}
+
+function addBlockStatementFirstComment(node, comment) {
+  if (node.body.length === 0) {
+    addDanglingComment(node, comment);
+  } else {
+    addLeadingComment(node.body[0], comment);
+  }
+}
+
+// There are often comments before the else clause of if statements like
+//
+//   if (1) { ... }
+//   // comment
+//   else { ... }
+//
+// They are being attached as leading comments of the BlockExpression which
+// is not well printed. What we want is to instead move the comment inside
+// of the block and make it leadingComment of the first element of the block
+// or dangling comment of the block if there is nothing inside
+//
+//   if (1) { ... }
+//   else {
+//     // comment
+//     ...  
+//   }
+function handleIfStatementComments(enclosingNode, followingNode, comment) {
+  if (!enclosingNode || enclosingNode.type !== "IfStatement" || !followingNode) {
+    return false;
+  }
+
+  if (followingNode.type === "BlockStatement") {
+    addBlockStatementFirstComment(followingNode, comment);
+    return true;
+  }
+
+  if (followingNode.type === "IfStatement") {
+    if (followingNode.consequent.type === "BlockStatement") {
+      addBlockStatementFirstComment(followingNode.consequent, comment);
+    } else {
+      addLeadingComment(followingNode.consequent, comment);
+    }
+    return true;
+  }
+
+  return false;
 }
 
 function printComment(commentPath) {

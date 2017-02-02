@@ -70,6 +70,94 @@ declare class Foo extends Qux<string> {/* dangling */}
 "
 `;
 
+exports[`test if.js 1`] = `
+"if (1)
+// comment
+{
+  false
+}
+// comment
+else if (2)
+  true
+// multi
+// ple
+// lines
+else if (3)
+  // existing comment
+  true
+// okay?
+else if (4) {
+  // empty with existing comment
+}
+// comment
+else {
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+if (1) {
+  // comment
+  false;
+} else if (2)
+  // comment
+  true;
+else if (3)
+  // multi
+  // ple
+  // lines
+  // existing comment
+  true;
+else if (4) {
+  // okay?
+  // empty with existing comment
+} else {
+  // comment
+}
+"
+`;
+
+exports[`test if.js 2`] = `
+"if (1)
+// comment
+{
+  false
+}
+// comment
+else if (2)
+  true
+// multi
+// ple
+// lines
+else if (3)
+  // existing comment
+  true
+// okay?
+else if (4) {
+  // empty with existing comment
+}
+// comment
+else {
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+if (1) {
+  // comment
+  false;
+} else if (2)
+  // comment
+  true;
+else if (3)
+  // multi
+  // ple
+  // lines
+  // existing comment
+  true;
+else if (4) {
+  // okay?
+  // empty with existing comment
+} else {
+  // comment
+}
+"
+`;
+
 exports[`test issues.js 1`] = `
 "// Does not need to break as it fits in 80 columns
 this.call(a, /* comment */ b);
@@ -284,10 +372,9 @@ if (1) {
 
 // Comments trigger invalid JavaScript in-between else if
 if (1) {
-} else
+} else {
   // Comment
-  {
-  }
+}
 
 // The comment makes the line break in a weird way
 const result = asyncExecute(\"non_existing_command\", /* args */ []);
@@ -514,10 +601,9 @@ if (1) {
 
 // Comments trigger invalid JavaScript in-between else if
 if (1) {
-} else
+} else {
   // Comment
-  {
-  }
+}
 
 // The comment makes the line break in a weird way
 const result = asyncExecute(\"non_existing_command\", /* args */ []);
