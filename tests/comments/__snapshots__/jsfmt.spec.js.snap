@@ -615,3 +615,135 @@ foo(
 );
 "
 `;
+
+exports[`test jsx.js 1`] = `
+"<div>
+  {/* comment */
+  }
+</div>;
+
+<div>
+  {/* comment
+*/
+  }
+</div>;
+
+<div>
+  {a/* comment
+*/
+  }
+</div>;
+
+<div>
+  {/* comment
+*/
+  a
+  }
+</div>;
+
+<div>
+  {/* comment */
+  }
+</div>;
+
+<div>
+  {/* comment */}
+</div>;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div>
+  {/* comment */}
+</div>;
+
+<div>
+  {/* comment
+*/}
+</div>;
+
+<div>
+  {a /* comment
+*/}
+</div>;
+
+<div>
+  {
+    /* comment
+*/
+    a
+  }
+</div>;
+
+<div>
+  {/* comment */}
+</div>;
+
+<div>
+  {/* comment */}
+</div>;
+"
+`;
+
+exports[`test jsx.js 2`] = `
+"<div>
+  {/* comment */
+  }
+</div>;
+
+<div>
+  {/* comment
+*/
+  }
+</div>;
+
+<div>
+  {a/* comment
+*/
+  }
+</div>;
+
+<div>
+  {/* comment
+*/
+  a
+  }
+</div>;
+
+<div>
+  {/* comment */
+  }
+</div>;
+
+<div>
+  {/* comment */}
+</div>;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div>
+  {/* comment */}
+</div>;
+
+<div>
+  {/* comment
+*/}
+</div>;
+
+<div>
+  {a /* comment
+*/}
+</div>;
+
+<div>
+  {
+    /* comment
+*/
+    a
+  }
+</div>;
+
+<div>
+  {/* comment */}
+</div>;
+
+<div>
+  {/* comment */}
+</div>;
+"
+`;

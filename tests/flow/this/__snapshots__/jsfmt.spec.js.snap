@@ -183,7 +183,8 @@ class E {
   foo(x: number) {}
 }
 class F extends E {
-  foo() { // OK to override with generalization
+  foo() {
+    // OK to override with generalization
     (() => {
       super.foo(\"\"); // find super method, error due to incorrect arg
     })();

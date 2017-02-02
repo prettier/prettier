@@ -37,9 +37,8 @@ var a2 = (x: mixed): %checks (x !== null) => {        // Error: body form
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-var a2 = (
-  x: mixed // Error: body form
-): %checks(x !== null) => {
+var a2 = (x: mixed): %checks(x !== null) => {
+  // Error: body form
   var x = 1;
   return x;
 };

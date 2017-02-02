@@ -43,7 +43,8 @@ function c(): number {
   return temp ? temp : 0;
 }
 
-function d(): string { // expected \`: number | boolean\`
+function d(): string {
+  // expected \`: number | boolean\`
   // equivalent to \`return x != null && x\`
   var x: ?number = null;
   return x != null ? x : x != null;

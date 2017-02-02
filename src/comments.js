@@ -86,13 +86,6 @@ function decorateComment(node, comment, text) {
       // The comment is completely contained by this child node.
       comment.enclosingNode = child;
 
-      if (middle > 0) {
-        // Store the global preceding node separately from
-        // `precedingNode` because they mean different things. This is
-        // the previous node, ignoring any delimiters/blocks/etc.
-        comment.globalPrecedingNode = childNodes[middle - 1];
-      }
-
       decorateComment(child, comment, text);
       return; // Abandon the binary search at this level.
     }
@@ -140,7 +133,6 @@ function attach(comments, ast, text) {
     decorateComment(ast, comment, text);
 
     const precedingNode = comment.precedingNode;
-    const globalPrecedingNode = comment.globalPrecedingNode;
     const enclosingNode = comment.enclosingNode;
     const followingNode = comment.followingNode;
     const isStartOfFile = comment.loc.start.line === 1;
@@ -169,15 +161,16 @@ function attach(comments, ast, text) {
       }
     } else if (util.hasNewline(text, locEnd(comment))) {
       // There is content before this comment on the same line, but
-      // none after it, so prefer a trailing comment. A trailing
-      // comment *always* attaches itself to the previous node, no
-      // matter if there's any syntax between them.
-      const lastNode = precedingNode || globalPrecedingNode;
-      if (lastNode) {
-        // Always a trailing comment
-        addTrailingComment(lastNode, comment);
+      // none after it, so prefer a trailing comment of the previous node.
+      if (precedingNode) {
+        addTrailingComment(precedingNode, comment);
+      } else if (followingNode) {
+        addLeadingComment(followingNode, comment);        
+      } else if (enclosingNode) {
+        addDanglingComment(enclosingNode, comment);
       } else {
-        throw new Error("Preceding node not found");
+        // TODO: If there are no nodes at all, we should still somehow
+        // print the comment.
       }
     } else {
       // Otherwise, text exists both before and after the comment on
@@ -200,6 +193,9 @@ function attach(comments, ast, text) {
         addLeadingComment(followingNode, comment);
       } else if (enclosingNode) {
         addDanglingComment(enclosingNode, comment);
+      } else {
+        // TODO: If there are no nodes at all, we should still somehow
+        // print the comment.        
       }
     }
   });

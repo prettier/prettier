@@ -1206,20 +1206,13 @@ function genericPrintNoParens(path, options, print) {
         path.call(print, "identifier")
       ]);
     case "ClassBody":
-      if (n.body.length === 0) {
-        return group(
-          concat([
-            "{",
-            comments.printDanglingComments(path, options),
-            softline,
-            "}"
-          ])
-        );
+      if (!n.comments && n.body.length === 0) {
+        return "{}";
       }
 
       return concat([
         "{",
-        indent(
+        n.body.length > 0 ? indent(
           options.tabWidth,
           concat([
             hardline,
@@ -1230,7 +1223,7 @@ function genericPrintNoParens(path, options, print) {
               "body"
             )
           ])
-        ),
+        ) : comments.printDanglingComments(path, options),
         hardline,
         "}"
       ]);
