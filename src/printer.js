@@ -2669,7 +2669,8 @@ function shouldPrintSameLine(node) {
     type === "ObjectPattern" ||
     type === "StringLiteral" ||
     type === "ThisExpression" ||
-    type === "TypeCastExpression";
+    type === "TypeCastExpression" ||
+    type === "UnaryExpression";
 }
 
 function printAstToDoc(ast, options) {
