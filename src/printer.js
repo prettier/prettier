@@ -1187,7 +1187,14 @@ function genericPrintNoParens(path, options, print) {
       ]);
     case "ClassBody":
       if (n.body.length === 0) {
-        return "{}";
+        return group(
+          concat([
+            "{",
+            comments.printDanglingComments(path, options),
+            softline,
+            "}"
+          ])
+        );
       }
 
       return concat([
