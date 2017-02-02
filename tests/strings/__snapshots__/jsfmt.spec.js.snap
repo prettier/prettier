@@ -77,6 +77,6 @@ exports[`test strings.js 1`] = `
 \`\\B\\S\`; // Handles escaped backslashes.
 \"\\\\xAB\\\\\\xab\\\\\\\\xAB\\B\\\\\\B\\u1234\";
 \`\\\\xAB\\\\\\xab\\\\\\\\xAB\\B\\\\\\B\\u1234\`; // Mix of everything.
-\"\\xf0\"\`a\\uabcd\${\"\\xfdE\"}\\\\\\u{00abcde}\`;
+\"\\xf0\"\`a\\uaBcD\${\"\\xfdE\"}\\\\\\u{00AbCdE}\`;
 "
 `;
