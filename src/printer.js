@@ -727,7 +727,7 @@ function genericPrintNoParens(path, options, print) {
     case "NullLiteral":
       return "null"; // Babel 6 Literal split
     case "RegExpLiteral":
-      return printRegex(n);
+      return n.extra.raw;
     // Babel 6 Literal split
     case "NumericLiteral":
       return printNumber(n.extra.raw);
@@ -737,7 +737,6 @@ function genericPrintNoParens(path, options, print) {
     case "StringLiteral":
     case "Literal":
       if (typeof n.value === "number") return printNumber(n.raw);
-      if (n.regex) return printRegex(n.regex);
       if (typeof n.value !== "string") return "" + n.value;
 
       return nodeStr(n, options); // Babel 6
@@ -1235,10 +1234,7 @@ function genericPrintNoParens(path, options, print) {
     case "ClassExpression":
       return concat(printClass(path, options, print));
     case "TemplateElement":
-      return join(
-        literalline,
-        n.value.raw.split("\n").map(line => normalizeEscapes(line))
-      );
+      return join(literalline, n.value.raw.split("\n"));
     case "TemplateLiteral":
       var expressions = path.map(print, "expressions");
 
@@ -2595,37 +2591,7 @@ function makeString(rawContent, enclosingQuote) {
     return match;
   });
 
-  return enclosingQuote + normalizeEscapes(newContent) + enclosingQuote;
-}
-
-function printRegex(regexData) {
-  const pattern = regexData.pattern;
-  const flags = regexData.flags;
-  const skipES2015 = !flags.includes("u");
-
-  return "/" + normalizeEscapes(pattern, skipES2015) + "/" + flags;
-}
-
-function normalizeEscapes(rawContent, skipES2015) {
-  // Matches \x escapes and \u escapes (including the ES2015 variant) and other
-  // escapes.
-  const regex = /(\\x[\da-f]{2}|\\u[\da-f]{4}|\\u\{[\da-f]+\})|(\\[\s\S])/gi;
-
-  return rawContent.replace(regex, (match, escape, otherEscape) => {
-    // Return other escapes as-is.
-    if (otherEscape) {
-      return otherEscape;
-    }
-
-    // Regexes without the /u flag do not support ES2015 unicode escapes, so
-    // return the match as-is.
-    if (skipES2015 && escape[2] === "{") {
-      return escape;
-    }
-
-    // Print all \x and \u escapes lowercase.
-    return escape.toLowerCase();
-  });
+  return enclosingQuote + newContent + enclosingQuote;
 }
 
 function printNumber(rawNumber) {
