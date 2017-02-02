@@ -151,8 +151,10 @@ function attach(comments, ast, text) {
     ) {
       // If a comment exists on its own line, prefer a leading comment.
       // We also need to check if it's the first line of the file.
-      if (handleMemberExpressionComment(enclosingNode, followingNode, comment) ||
-          handleIfStatementComments(enclosingNode, followingNode, comment)) {
+      if (
+        handleMemberExpressionComment(enclosingNode, followingNode, comment) ||
+          handleIfStatementComments(enclosingNode, followingNode, comment)
+      ) {
         // We're good
       } else if (followingNode) {
         // Always a leading comment.
@@ -302,10 +304,12 @@ function addBlockStatementFirstComment(node, comment) {
 //   if (1) { ... }
 //   else {
 //     // comment
-//     ...  
+//     ...
 //   }
 function handleIfStatementComments(enclosingNode, followingNode, comment) {
-  if (!enclosingNode || enclosingNode.type !== "IfStatement" || !followingNode) {
+  if (
+    !enclosingNode || enclosingNode.type !== "IfStatement" || !followingNode
+  ) {
     return false;
   }
 
@@ -327,10 +331,12 @@ function handleIfStatementComments(enclosingNode, followingNode, comment) {
 }
 
 function handleMemberExpressionComment(enclosingNode, followingNode, comment) {
-  if (enclosingNode &&
+  if (
+    enclosingNode &&
       enclosingNode.type === "MemberExpression" &&
       followingNode &&
-      followingNode.type === "Identifier") {
+      followingNode.type === "Identifier"
+  ) {
     addLeadingComment(enclosingNode, comment);
     return true;
   }
@@ -376,11 +382,9 @@ function printTrailingComment(commentPath, print, options, parentNode) {
   const contents = printComment(commentPath);
   const isBlock = comment.type === "Block" || comment.type === "CommentBlock";
 
-  if (
-    util.hasNewline(options.originalText, locStart(comment), {
+  if (util.hasNewline(options.originalText, locStart(comment), {
       backwards: true
-    })
-  ) {
+    })) {
     // This allows comments at the end of nested structures:
     // {
     //   x: 1,
