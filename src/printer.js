@@ -1231,6 +1231,11 @@ function genericPrintNoParens(path, options, print) {
     case "ClassExpression":
       return concat(printClass(path, options, print));
     case "TemplateElement":
+      if (path.getParentNode(1).type === "TaggedTemplateExpression") {
+        // Raw values of escapes are visible in tagged template expressions;
+        // they cannot be normalized.
+        return join(literalline, n.value.raw.split("\n"));
+      }
       return join(
         literalline,
         n.value.raw.split("\n").map(line => normalizeEscapes(line))
