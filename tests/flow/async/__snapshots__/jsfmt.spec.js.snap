@@ -345,7 +345,8 @@ function test2() {
 //
 
 function test3() {
-  async function voidoid4(): Promise<void> { // ok
+  async function voidoid4(): Promise<void> {
+    // ok
     console.log(\"HEY\");
   }
 }
@@ -356,13 +357,15 @@ function test3() {
 //
 
 function test4() {
-  async function voidoid5(): void { // error, void != Promise<void>
+  async function voidoid5(): void {
+    // error, void != Promise<void>
     console.log(\"HEY\");
   }
 }
 
 function test5() {
-  async function voidoid6(): Promise<number> { // error, number != void
+  async function voidoid6(): Promise<number> {
+    // error, number != void
     console.log(\"HEY\");
   }
 }
