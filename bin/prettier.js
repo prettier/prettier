@@ -5,6 +5,7 @@
 const fs = require("fs");
 const getStdin = require("get-stdin");
 const glob = require("glob");
+const colors = require("colors");
 const minimist = require("minimist");
 const prettier = require("../index");
 
@@ -192,9 +193,11 @@ if (stdin) {
         // Don't write the file if it won't change in order not to invalidate
         // mtime based caches.
         if (output === input) {
-          console.log("[ignore] %s", filename);
+          console.log(
+            colors.grey(filename + " " + (Date.now() - start) + "ms")
+          );
         } else {
-          console.log("[update] %s %dms", filename, Date.now() - start);
+          console.log(filename + " " + (Date.now() - start) + "ms");
 
           fs.writeFile(filename, output, "utf8", err => {
             if (err) {
