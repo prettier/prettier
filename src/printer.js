@@ -1771,6 +1771,10 @@ function printArgumentsList(path, options, print) {
     );
   }
 
+  // For next group, there are some exceptions where we don't want
+  // a trailing comma in the last comment.
+  const noTrailingCommaInLastComment = lastArg.type === "ObjectExpression";
+
   return group(
     concat([
       "(",
@@ -1778,7 +1782,9 @@ function printArgumentsList(path, options, print) {
         options.tabWidth,
         concat([softline, join(concat([",", line]), printed)])
       ),
-      ifBreak(options.trailingComma ? "," : ""),
+      noTrailingCommaInLastComment
+        ? ""
+        : ifBreak(options.trailingComma ? "," : ""),
       softline,
       ")"
     ]),
