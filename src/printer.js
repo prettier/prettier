@@ -2106,12 +2106,24 @@ function printMemberChain(path, options, print) {
   //     .d()
   //     .e
 
-  // The first group is the first node followed by as many CallExpression as possible
+  // The first group is the first node followed by
+  //   - as many CallExpression as possible
+  //       < fn()()() >.something()
+  //   - then, as many MemberExpression as possible but the last one
+  //       < this.items >.something()
   var groups = [];
   var currentGroup = [printedNodes[0]];
   var i = 1;
   for (; i < printedNodes.length; ++i) {
     if (printedNodes[i].node.type === "CallExpression") {
+      currentGroup.push(printedNodes[i]);
+    } else {
+      break;
+    }
+  }
+  for (; i + 1 < printedNodes.length; ++i) {
+    if (printedNodes[i].node.type === "MemberExpression" &&
+        printedNodes[i + 1].node.type === "MemberExpression") {
       currentGroup.push(printedNodes[i]);
     } else {
       break;
