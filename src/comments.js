@@ -135,11 +135,9 @@ function attach(comments, ast, text) {
     const precedingNode = comment.precedingNode;
     const enclosingNode = comment.enclosingNode;
     const followingNode = comment.followingNode;
-    const isStartOfFile = comment.loc.start.line === 1;
 
     if (
-      util.hasNewline(text, locStart(comment), { backwards: true }) ||
-        isStartOfFile
+      util.hasNewline(text, locStart(comment), { backwards: true })
     ) {
       // If a comment exists on its own line, prefer a leading comment.
       // We also need to check if it's the first line of the file.

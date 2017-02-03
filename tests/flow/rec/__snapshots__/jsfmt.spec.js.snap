@@ -93,9 +93,7 @@ pstar = (new P: P<P<number>>); // OK
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class P<X> {
   x: X;
-}
-
-// this is like Promise
+} // this is like Promise
 
 type Pstar<X> = X | Pstar<P<X>>; // this is like Promise*
 
@@ -146,8 +144,7 @@ class B<X> extends D<X> { }
 class C<X> extends B<X> { }
 ((new C: C<number>): D<string>) // error: number ~/~ string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var a = [];
-// Array<X> ~> a
+var a = []; // Array<X> ~> a
 function bar() {
   a = a.concat([]); // terminate despite expanding types:
   // a ~> .concat(Array<Y>)

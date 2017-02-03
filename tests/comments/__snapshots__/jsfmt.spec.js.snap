@@ -70,6 +70,24 @@ declare class Foo extends Qux<string> {/* dangling */}
 "
 `;
 
+exports[`test first-line.js 1`] = `
+"a // comment
+b
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a; // comment
+b;
+"
+`;
+
+exports[`test first-line.js 2`] = `
+"a // comment
+b
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a; // comment
+b;
+"
+`;
+
 exports[`test if.js 1`] = `
 "if (1)
 // comment

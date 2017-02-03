@@ -148,9 +148,7 @@ function foo() {
   class MyClass { } // looked up above
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-let myClassInstance: MyClass = null;
-
-// forward ref ok, null ~> class error
+let myClassInstance: MyClass = null; // forward ref ok, null ~> class error
 
 function bar(): MyClass {
   return null; // forward ref ok, null ~> class error
