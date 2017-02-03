@@ -17,6 +17,7 @@ var group = docBuilders.group;
 var indent = docBuilders.indent;
 var conditionalGroup = docBuilders.conditionalGroup;
 var ifBreak = docBuilders.ifBreak;
+var breakParent = docBuilders.breakParent;
 
 var docUtils = require("./doc-utils");
 var willBreak = docUtils.willBreak;
@@ -1743,32 +1744,35 @@ function printArgumentsList(path, options, print) {
 
   if (groupLastArg) {
     const shouldBreak = printed.slice(0, -1).some(willBreak);
-    return conditionalGroup(
-      [
-        concat(["(", join(concat([", "]), printed), ")"]),
-        concat([
-          "(",
-          join(concat([",", line]), printed.slice(0, -1)),
-          printed.length > 1 ? ", " : "",
-          group(util.getLast(printed), { shouldBreak: true }),
-          ")"
-        ]),
-        group(
+    return concat([
+      printed.some(willBreak) ? breakParent : "",
+      conditionalGroup(
+        [
+          concat(["(", join(concat([", "]), printed), ")"]),
           concat([
             "(",
-            indent(
-              options.tabWidth,
-              concat([line, join(concat([",", line]), printed)])
-            ),
-            options.trailingComma ? "," : "",
-            line,
+            join(concat([",", line]), printed.slice(0, -1)),
+            printed.length > 1 ? ", " : "",
+            group(util.getLast(printed), { shouldBreak: true }),
             ")"
           ]),
-          { shouldBreak: true }
-        )
-      ],
-      { shouldBreak }
-    );
+          group(
+            concat([
+              "(",
+              indent(
+                options.tabWidth,
+                concat([line, join(concat([",", line]), printed)])
+              ),
+              options.trailingComma ? "," : "",
+              line,
+              ")"
+            ]),
+            { shouldBreak: true }
+          )
+        ],
+        { shouldBreak }
+      )
+    ]);
   }
 
   return group(
