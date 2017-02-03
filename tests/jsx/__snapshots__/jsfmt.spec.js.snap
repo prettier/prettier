@@ -193,3 +193,34 @@ exports[`test quotes.js 1`] = `
 <div id={\"\'\\\"&quot;<>&amp;quot;\"} />;
 "
 `;
+
+exports[`test object-property.js 1`] = `
+"const tabs = [
+  {
+    title: \"General Info\",
+    content: (
+      <GeneralForm
+        long-attribute=\"i-need-long-value-here\"
+        onSave={ onSave }
+        onCancel={ onCancel }
+        countries={ countries }
+      />
+    )
+  }
+];
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const tabs = [
+  {
+    title: \"General Info\",
+    content: (
+      <GeneralForm
+        long-attribute=\"i-need-long-value-here\"
+        onSave={onSave}
+        onCancel={onCancel}
+        countries={countries}
+      />
+    )
+  }
+];
+"
+`;

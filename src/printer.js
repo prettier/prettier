@@ -2624,6 +2624,7 @@ function shouldPrintSameLine(node) {
     type === "CallExpression" ||
     type === "FunctionExpression" ||
     type === "Identifier" ||
+    type === "JSXElement" ||
     type === "Literal" ||
     type === "MemberExpression" ||
     type === "NewExpression" ||
