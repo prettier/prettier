@@ -261,6 +261,8 @@ function genericPrintNoParens(path, options, print) {
           !n.rest &&
           n.params[0].type === "Identifier" &&
           !n.params[0].typeAnnotation &&
+          !n.params[0].leadingComments &&
+          !n.params[0].trailingComments &&
           !n.predicate &&
           !n.returnType
       ) {
