@@ -178,6 +178,8 @@ if (stdin) {
         return;
       }
 
+      const start = Date.now();
+
       let output;
       try {
         output = format(input);
@@ -190,9 +192,9 @@ if (stdin) {
         // Don't write the file if it won't change in order not to invalidate
         // mtime based caches.
         if (output === input) {
-          console.log("[ignore] " + filename);
+          console.log("[ignore] %s", filename);
         } else {
-          console.log("[update] " + filename);
+          console.log("[update] %s %dms", filename, Date.now() - start);
 
           fs.writeFile(filename, output, "utf8", err => {
             if (err) {
