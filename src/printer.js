@@ -122,7 +122,9 @@ function genericPrintNoParens(path, options, print) {
         path.each(
           function(childPath) {
             parts.push(print(childPath), ";", hardline);
-            if (util.isNextLineEmpty(options.originalText, childPath.getValue())) {
+            if (
+              util.isNextLineEmpty(options.originalText, childPath.getValue())
+            ) {
               parts.push(hardline);
             }
           },
@@ -168,13 +170,15 @@ function genericPrintNoParens(path, options, print) {
       const parts = [];
       printBinaryishExpressions(path, parts, print, options);
 
-      return group(concat([
+      return group(
+        concat([
           // Don't include the initial expression in the indentation
           // level. The first item is guaranteed to be the first
           // left-most expression.
           parts.length > 0 ? parts[0] : "",
           indent(1, concat(parts.slice(1)))
-        ]));
+        ])
+      );
     }
     case "AssignmentPattern":
       return concat([
@@ -1191,7 +1195,11 @@ function genericPrintNoParens(path, options, print) {
         return "{}";
       }
 
-      return concat(["{", indent(1, concat([
+      return concat([
+        "{",
+        indent(
+          1,
+          concat([
             hardline,
             path.call(
               function(bodyPath) {
@@ -1199,7 +1207,11 @@ function genericPrintNoParens(path, options, print) {
               },
               "body"
             )
-          ])), hardline, "}"]);
+          ])
+        ),
+        hardline,
+        "}"
+      ]);
     case "ClassPropertyDefinition":
       parts.push("static ", path.call(print, "definition"));
 
@@ -1688,7 +1700,11 @@ function printMethod(path, options, print) {
     key = concat(["[", key, "]"]);
   }
 
-  parts.push(key, path.call(print, "value", "typeParameters"), group(concat([
+  parts.push(
+    key,
+    path.call(print, "value", "typeParameters"),
+    group(
+      concat([
         path.call(
           function(valuePath) {
             return printFunctionParams(valuePath, print, options);
@@ -1696,7 +1712,11 @@ function printMethod(path, options, print) {
           "value"
         ),
         path.call(p => printReturnType(p, print), "value")
-      ])), " ", path.call(print, "value", "body"));
+      ])
+    ),
+    " ",
+    path.call(print, "value", "body")
+  );
 
   return concat(parts);
 }
@@ -2045,7 +2065,11 @@ function printMemberChain(path, options, print) {
     } else if (node.type === "MemberExpression") {
       printedNodes.unshift({
         node: node,
-        printed: comments.printComments(path, p => printMemberLookup(path, options, print), options)
+        printed: comments.printComments(
+          path,
+          p => printMemberLookup(path, options, print),
+          options
+        )
       });
       path.call(object => rec(object), "object");
     } else {
@@ -2056,7 +2080,6 @@ function printMemberChain(path, options, print) {
     }
   }
   rec(path);
-
 
   // Once we have a linear list of printed nodes, we want to create groups out
   // of it.
@@ -2095,8 +2118,9 @@ function printMemberChain(path, options, print) {
   // MemberExpression
   var hasSeenCallExpression = false;
   for (; i < printedNodes.length; ++i) {
-    if (hasSeenCallExpression &&
-        printedNodes[i].node.type === "MemberExpression") {
+    if (
+      hasSeenCallExpression && printedNodes[i].node.type === "MemberExpression"
+    ) {
       groups.push(currentGroup);
       currentGroup = [];
       hasSeenCallExpression = false;
@@ -2123,10 +2147,12 @@ function printMemberChain(path, options, print) {
   // node is just an identifier with the name starting with a capital
   // letter or just a sequence of _$. The rationale is that they are
   // likely to be factories.
-  if (groups[0].length === 1 &&
+  if (
+    groups[0].length === 1 &&
       groups[0][0].node.type === "Identifier" &&
       groups[0][0].node.name.match(/(^[A-Z])|^[_$]+$/) &&
-      groups.length >= 2) {
+      groups.length >= 2
+  ) {
     // Push all the values of groups[0] at the beginning of groups[1]
     [].unshift.apply(groups[1], groups[0]);
     // Remove groups[0]
@@ -2151,10 +2177,7 @@ function printMemberChain(path, options, print) {
     printGroup(groups[0]),
     indent(
       1,
-      group(concat([
-        hardline,
-        join(hardline, groups.slice(1).map(printGroup))
-      ]))
+      group(concat([hardline, join(hardline, groups.slice(1).map(printGroup))]))
     )
   ]);
 
@@ -2212,7 +2235,7 @@ function printJSXChildren(path, options, print) {
         const partiallyEscapedValue = options.parser === "flow"
           ? child.raw
           : util.htmlEscapeInsideAngleBracket(child.value);
-        const value = partiallyEscapedValue.replace(/\u00a0/g, '&nbsp;');
+        const value = partiallyEscapedValue.replace(/\u00a0/g, "&nbsp;");
 
         if (/\S/.test(value)) {
           // treat each line of text as its own entity
@@ -2527,7 +2550,7 @@ function nodeStr(node, options) {
   // Workaround a bug in the Javascript version of the flow parser where
   // astral unicode characters like \uD801\uDC28 are incorrectly parsed as
   // a sequence of \uFFFD.
-  if (options.parser === "flow" && str.indexOf("\uFFFD") !== -1) {
+  if (options.parser === "flow" && str.indexOf("\ufffd") !== -1) {
     return node.raw;
   }
 
@@ -2596,7 +2619,8 @@ function makeString(rawContent, enclosingQuote) {
 }
 
 function printNumber(rawNumber) {
-  return rawNumber.toLowerCase()
+  return rawNumber
+    .toLowerCase()
     // Remove unnecessary plus and zeroes from scientific notation.
     .replace(/^([\d.]+e)(?:\+|(-))?0*/, "$1$2")
     // Make sure numbers always start with a digit.
