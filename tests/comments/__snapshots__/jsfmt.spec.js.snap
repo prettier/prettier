@@ -618,6 +618,12 @@ foo(
 
 exports[`test jsx.js 1`] = `
 "<div>
+  {
+    /* comment */
+  }
+</div>;
+
+<div>
   {/* comment */
   }
 </div>;
@@ -650,6 +656,12 @@ exports[`test jsx.js 1`] = `
   {/* comment */}
 </div>;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div>
+  {
+    /* comment */
+  }
+</div>;
+
 <div>
   {/* comment */}
 </div>;
@@ -684,6 +696,12 @@ exports[`test jsx.js 1`] = `
 
 exports[`test jsx.js 2`] = `
 "<div>
+  {
+    /* comment */
+  }
+</div>;
+
+<div>
   {/* comment */
   }
 </div>;
@@ -716,6 +734,12 @@ exports[`test jsx.js 2`] = `
   {/* comment */}
 </div>;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div>
+  {
+    /* comment */
+  }
+</div>;
+
 <div>
   {/* comment */}
 </div>;
