@@ -17,6 +17,7 @@ var group = docBuilders.group;
 var indent = docBuilders.indent;
 var conditionalGroup = docBuilders.conditionalGroup;
 var ifBreak = docBuilders.ifBreak;
+var breakParent = docBuilders.breakParent;
 
 var docUtils = require("./doc-utils");
 var willBreak = docUtils.willBreak;
@@ -261,6 +262,8 @@ function genericPrintNoParens(path, options, print) {
           !n.rest &&
           n.params[0].type === "Identifier" &&
           !n.params[0].typeAnnotation &&
+          !n.params[0].leadingComments &&
+          !n.params[0].trailingComments &&
           !n.predicate &&
           !n.returnType
       ) {
@@ -414,14 +417,15 @@ function genericPrintNoParens(path, options, print) {
     case "ImportDeclaration":
       parts.push("import ");
 
+      const fromParts = [];
+
       if (n.importKind && n.importKind !== "value") {
         parts.push(n.importKind + " ");
       }
 
+      var standalones = [];
+      var grouped = [];
       if (n.specifiers && n.specifiers.length > 0) {
-        var standalones = [];
-        var grouped = [];
-
         path.each(
           function(specifierPath) {
             var value = specifierPath.getValue();
@@ -465,12 +469,28 @@ function genericPrintNoParens(path, options, print) {
           );
         }
 
-        parts.push(" from ");
+        fromParts.push(grouped.length === 0 ? line : " ", "from ");
       }
 
-      parts.push(path.call(print, "source"), ";");
+      fromParts.push(path.call(print, "source"), ";");
 
-      return concat(parts);
+      // If there's a very long import, break the following way:
+      //
+      //   import veryLong
+      //     from 'verylong'
+      //
+      // In case there are grouped elements, they will already break the way
+      // we want and this break would take precedence instead.
+      if (grouped.length === 0) {
+        return group(
+          concat([
+            concat(parts),
+            indent(options.tabWidth, concat(fromParts))
+          ])
+        );
+      }
+
+      return concat([concat(parts), concat(fromParts)]);
 
     case "Import": {
       return "import";
@@ -1187,7 +1207,14 @@ function genericPrintNoParens(path, options, print) {
       ]);
     case "ClassBody":
       if (n.body.length === 0) {
-        return "{}";
+        return group(
+          concat([
+            "{",
+            comments.printDanglingComments(path, options),
+            softline,
+            "}"
+          ])
+        );
       }
 
       return concat([
@@ -1743,32 +1770,35 @@ function printArgumentsList(path, options, print) {
 
   if (groupLastArg) {
     const shouldBreak = printed.slice(0, -1).some(willBreak);
-    return conditionalGroup(
-      [
-        concat(["(", join(concat([", "]), printed), ")"]),
-        concat([
-          "(",
-          join(concat([",", line]), printed.slice(0, -1)),
-          printed.length > 1 ? ", " : "",
-          group(util.getLast(printed), { shouldBreak: true }),
-          ")"
-        ]),
-        group(
+    return concat([
+      printed.some(willBreak) ? breakParent : "",
+      conditionalGroup(
+        [
+          concat(["(", join(concat([", "]), printed), ")"]),
           concat([
             "(",
-            indent(
-              options.tabWidth,
-              concat([line, join(concat([",", line]), printed)])
-            ),
-            options.trailingComma ? "," : "",
-            line,
+            join(concat([",", line]), printed.slice(0, -1)),
+            printed.length > 1 ? ", " : "",
+            group(util.getLast(printed), { shouldBreak: true }),
             ")"
           ]),
-          { shouldBreak: true }
-        )
-      ],
-      { shouldBreak }
-    );
+          group(
+            concat([
+              "(",
+              indent(
+                options.tabWidth,
+                concat([line, join(concat([",", line]), printed)])
+              ),
+              options.trailingComma ? "," : "",
+              line,
+              ")"
+            ]),
+            { shouldBreak: true }
+          )
+        ],
+        { shouldBreak }
+      )
+    ]);
   }
 
   // For next group, there are some exceptions where we don't want
@@ -2099,12 +2129,24 @@ function printMemberChain(path, options, print) {
   //     .d()
   //     .e
 
-  // The first group is the first node followed by as many CallExpression as possible
+  // The first group is the first node followed by
+  //   - as many CallExpression as possible
+  //       < fn()()() >.something()
+  //   - then, as many MemberExpression as possible but the last one
+  //       < this.items >.something()
   var groups = [];
   var currentGroup = [printedNodes[0]];
   var i = 1;
   for (; i < printedNodes.length; ++i) {
     if (printedNodes[i].node.type === "CallExpression") {
+      currentGroup.push(printedNodes[i]);
+    } else {
+      break;
+    }
+  }
+  for (; i + 1 < printedNodes.length; ++i) {
+    if (printedNodes[i].node.type === "MemberExpression" &&
+        printedNodes[i + 1].node.type === "MemberExpression") {
       currentGroup.push(printedNodes[i]);
     } else {
       break;
