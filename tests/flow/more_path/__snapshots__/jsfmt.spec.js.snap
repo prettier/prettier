@@ -101,7 +101,7 @@ function goofy() {
   var x = g();
   if (typeof x == \"function\") {
     x();
-  } else { // if (typeof x == \'number\') {
+  } else {// if (typeof x == \'number\') {
     //f(x);
   }
 }

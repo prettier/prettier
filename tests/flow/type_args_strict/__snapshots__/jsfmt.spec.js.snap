@@ -124,14 +124,15 @@ interface MyInterface<T> {
   x: T
 }
 
-interface MySubinterface extends MyInterface { // error, missing argument list
+interface MySubinterface extends MyInterface {
+  // error, missing argument list
   y: number
 }
 
 // *no* arity error in extends of polymorphic class
 
-class MySubclass
-  extends MyClass { // ok, type arg inferred
+class MySubclass extends MyClass {
+  // ok, type arg inferred
   y: number;
   constructor(y: number) {
     super(y);
