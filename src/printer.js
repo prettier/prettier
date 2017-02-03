@@ -1760,7 +1760,6 @@ function printArgumentsList(path, options, print) {
               options.tabWidth,
               concat([line, join(concat([",", line]), printed)])
             ),
-            options.trailingComma ? "," : "",
             line,
             ")"
           ]),
@@ -1778,7 +1777,6 @@ function printArgumentsList(path, options, print) {
         options.tabWidth,
         concat([softline, join(concat([",", line]), printed)])
       ),
-      ifBreak(options.trailingComma ? "," : ""),
       softline,
       ")"
     ]),
