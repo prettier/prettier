@@ -414,14 +414,15 @@ function genericPrintNoParens(path, options, print) {
     case "ImportDeclaration":
       parts.push("import ");
 
+      const fromParts = [];
+
       if (n.importKind && n.importKind !== "value") {
         parts.push(n.importKind + " ");
       }
 
+      var standalones = [];
+      var grouped = [];
       if (n.specifiers && n.specifiers.length > 0) {
-        var standalones = [];
-        var grouped = [];
-
         path.each(
           function(specifierPath) {
             var value = specifierPath.getValue();
@@ -465,12 +466,28 @@ function genericPrintNoParens(path, options, print) {
           );
         }
 
-        parts.push(" from ");
+        fromParts.push(grouped.length === 0 ? line : " ", "from ");
       }
 
-      parts.push(path.call(print, "source"), ";");
+      fromParts.push(path.call(print, "source"), ";");
 
-      return concat(parts);
+      // If there's a very long import, break the following way:
+      //
+      //   import veryLong
+      //     from 'verylong'
+      //
+      // In case there are grouped elements, they will already break the way
+      // we want and this break would take precedence instead.
+      if (grouped.length === 0) {
+        return group(
+          concat([
+            concat(parts),
+            indent(options.tabWidth, concat(fromParts))
+          ])
+        );
+      }
+
+      return concat([concat(parts), concat(fromParts)]);
 
     case "Import": {
       return "import";

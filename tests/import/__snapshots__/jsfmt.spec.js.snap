@@ -52,6 +52,22 @@ import {fitsIn, oneLine} from \".\";
 "
 `;
 
+exports[`test long-line.js 1`] = `
+"import someCoolUtilWithARatherLongName from \'../../../../utils/someCoolUtilWithARatherLongName\';
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import someCoolUtilWithARatherLongName
+  from \"../../../../utils/someCoolUtilWithARatherLongName\";
+"
+`;
+
+exports[`test long-line.js 2`] = `
+"import someCoolUtilWithARatherLongName from \'../../../../utils/someCoolUtilWithARatherLongName\';
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import someCoolUtilWithARatherLongName
+  from \"../../../../utils/someCoolUtilWithARatherLongName\";
+"
+`;
+
 exports[`test multiple_standalones.js 1`] = `
 "import a, * as b from \'a\';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
