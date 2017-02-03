@@ -171,10 +171,6 @@ if (stdin) {
 } else {
   eachFilename(filepatterns, filename => {
     fs.readFile(filename, "utf8", (err, input) => {
-      if (write) {
-        console.log(filename);
-      }
-
       if (err) {
         console.error("Unable to read file: " + filename + "\n" + err);
         // Don't exit the process if one file failed
@@ -193,7 +189,11 @@ if (stdin) {
       if (write) {
         // Don't write the file if it won't change in order not to invalidate
         // mtime based caches.
-        if (output !== input) {
+        if (output === input) {
+          console.log("[ignore] " + filename);
+        } else {
+          console.log("[update] " + filename);
+
           fs.writeFile(filename, output, "utf8", err => {
             if (err) {
               console.error("Unable to write file: " + filename + "\n" + err);
