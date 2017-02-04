@@ -168,6 +168,15 @@ function genericPrintNoParens(path, options, print) {
     case "LogicalExpression": {
       const parts = [];
       printBinaryishExpressions(path, parts, print, options);
+      const parent = path.getParentNode();
+
+      const shouldNotIndent =
+        (parent.type === "IfStatement" ||
+        parent.type === "WhileStatement" ||
+        parent.type === "DoStatement" ||
+        parent.type === "ForStatement") && n !== parent.body;
+
+      const rest = concat(parts.slice(1));
 
       return group(
         concat([
@@ -175,7 +184,7 @@ function genericPrintNoParens(path, options, print) {
           // level. The first item is guaranteed to be the first
           // left-most expression.
           parts.length > 0 ? parts[0] : "",
-          indent(options.tabWidth, concat(parts.slice(1)))
+          shouldNotIndent ? rest : indent(options.tabWidth, rest)
         ])
       );
     }
