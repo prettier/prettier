@@ -497,6 +497,11 @@ FPp.needsParens = function(assumeExpressionContext) {
         return name === "object" && parent.object === node;
       }
 
+    case "StringLiteral":
+      if (parent.type === "ExpressionStatement") {
+        return true;
+      }
+
     default:
       if (
         parent.type === "NewExpression" &&
