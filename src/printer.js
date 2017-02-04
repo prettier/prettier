@@ -166,8 +166,39 @@ function genericPrintNoParens(path, options, print) {
       );
     case "BinaryExpression":
     case "LogicalExpression": {
+      let i = 0;
+      while (
+        path.getParentNode(i) &&
+        path.getParentNode(i).type === "UnaryExpression"
+      ) {
+        i++;
+      }
+      const parent = path.getParentNode(i);
+      const parentParent = path.getParentNode(i + 1);
       const parts = [];
       printBinaryishExpressions(path, parts, print, options);
+
+      // Always indent comparison operators that are unlikely to be chained
+      const indentOperators = ["==", "===", "!=", "!==", "<", ">", "<=", ">="];
+
+      const shouldIndent = indentOperators.indexOf(n.operator) !== -1 ||
+        // All those are places where we do not automatically assume a level of
+        // indentation, so we need to manually list them
+        parent.type === "ConditionalExpression" ||
+        parent.type === "VariableDeclarator" ||
+        parent.type === "AssignmentExpression" &&
+          parentParent.type === "ExpressionStatement" ||
+        parent.type === "ReturnStatement" ||
+        parent.type === "JSXExpressionContainer" ||
+
+        // If the parent is a binary expression and has a different priority,
+        // we want to indent.
+        (parent.type === "BinaryExpression" ||
+          parent.type === "LogicalExpression") &&
+          util.getPrecedence(n.operator) !==
+            util.getPrecedence(parent.operator);
+
+      const rest = concat(parts.slice(1));
 
       return group(
         concat([
@@ -175,7 +206,7 @@ function genericPrintNoParens(path, options, print) {
           // level. The first item is guaranteed to be the first
           // left-most expression.
           parts.length > 0 ? parts[0] : "",
-          indent(options.tabWidth, concat(parts.slice(1)))
+          shouldIndent ? indent(options.tabWidth, rest) : rest
         ])
       );
     }
