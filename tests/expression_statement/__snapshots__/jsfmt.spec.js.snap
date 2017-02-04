@@ -1,0 +1,8 @@
+exports[`test use_strict.js 1`] = `
+"// Parentheses around expression statement should be preserved in this case.
+(\"use strict\");
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Parentheses around expression statement should be preserved in this case.
+(\"use strict\");
+"
+`;
