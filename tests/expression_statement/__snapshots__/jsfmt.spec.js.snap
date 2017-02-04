@@ -1,11 +1,16 @@
 exports[`test use_strict.js 1`] = `
 "// Parentheses around expression statement should be preserved in this case.
 (\"use strict\");
-// Ensure no regression.
-\"use strict\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Parentheses around expression statement should be preserved in this case.
 (\"use strict\");
+"
+`;
+
+exports[`test no_regression.js 1`] = `
+"// Ensure no regression.
+\"use strict\";
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Ensure no regression.
 \"use strict\";
 "
