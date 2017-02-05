@@ -747,3 +747,59 @@ exports[`test jsx.js 2`] = `
 </div>;
 "
 `;
+
+exports[`test try.js 1`] = `
+"// comment 1
+try {
+  // comment 2
+}
+// comment 3
+catch(e) {
+  // comment 4
+}
+// comment 5
+finally // comment 6
+{
+  // comment 7
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// comment 1
+try {
+  // comment 2
+} catch (e) {
+  // comment 3
+  // comment 4
+} finally { // comment 6
+  // comment 5
+  // comment 7
+}
+"
+`;
+
+exports[`test try.js 2`] = `
+"// comment 1
+try {
+  // comment 2
+}
+// comment 3
+catch(e) {
+  // comment 4
+}
+// comment 5
+finally // comment 6
+{
+  // comment 7
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// comment 1
+try {
+  // comment 2
+} catch (e) {
+  // comment 3
+  // comment 4
+} finally { // comment 6
+  // comment 5
+  // comment 7
+}
+"
+`;

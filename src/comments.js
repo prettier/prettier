@@ -145,7 +145,8 @@ function attach(comments, ast, text) {
       // We also need to check if it's the first line of the file.
       if (
         handleMemberExpressionComment(enclosingNode, followingNode, comment) ||
-          handleIfStatementComments(enclosingNode, followingNode, comment)
+          handleIfStatementComments(enclosingNode, followingNode, comment) ||
+          handleTryStatementComments(enclosingNode, followingNode, comment)
       ) {
         // We're good
       } else if (followingNode) {
@@ -286,6 +287,14 @@ function addBlockStatementFirstComment(node, comment) {
   }
 }
 
+function addBlockOrNotComment(node, comment) {
+  if (node.type === "BlockStatement") {
+    addBlockStatementFirstComment(node, comment);
+  } else {
+    addLeadingComment(node, comment);
+  }
+}
+
 // There are often comments before the else clause of if statements like
 //
 //   if (1) { ... }
@@ -315,11 +324,33 @@ function handleIfStatementComments(enclosingNode, followingNode, comment) {
   }
 
   if (followingNode.type === "IfStatement") {
-    if (followingNode.consequent.type === "BlockStatement") {
-      addBlockStatementFirstComment(followingNode.consequent, comment);
-    } else {
-      addLeadingComment(followingNode.consequent, comment);
-    }
+    addBlockOrNotComment(followingNode.consequent, comment);
+    return true;
+  }
+
+  return false;
+}
+
+// Same as IfStatement but for TryStatement
+function handleTryStatementComments(enclosingNode, followingNode, comment) {
+  if (
+    !enclosingNode || enclosingNode.type !== "TryStatement" || !followingNode
+  ) {
+    return false;
+  }
+
+  if (followingNode.type === "BlockStatement") {
+    addBlockStatementFirstComment(followingNode, comment);
+    return true;
+  }
+
+  if (followingNode.type === "TryStatement") {
+    addBlockOrNotComment(followingNode.finalizer, comment);
+    return true;
+  }
+
+  if (followingNode.type === "CatchClause") {
+    addBlockOrNotComment(followingNode.body, comment);
     return true;
   }
 
