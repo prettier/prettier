@@ -28,7 +28,7 @@ function getSortedChildNodes(node, text, resultArray) {
   util.fixFaultyLocations(node, text);
 
   if (resultArray) {
-    if (n.Node.check(node)) {
+    if (n.Node.check(node) && node.type !== "EmptyStatement") {
       // This reverse insertion sort almost always takes constant
       // time because we almost always (maybe always?) append the
       // nodes in order anyway.
