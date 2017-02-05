@@ -1131,12 +1131,13 @@ function genericPrintNoParens(path, options, print) {
         n.expression.type === "ArrowFunctionExpression" ||
         n.expression.type === "CallExpression" ||
         n.expression.type === "FunctionExpression" ||
+        n.expression.type === "JSXEmptyExpression" ||
         parent.type === "JSXElement" &&
           (n.expression.type === "ConditionalExpression" ||
             n.expression.type === "LogicalExpression");
 
       if (shouldInline) {
-        return concat(["{", path.call(print, "expression"), "}"]);
+        return group(concat(["{", path.call(print, "expression"), "}"]));
       }
 
       return group(
@@ -1198,7 +1199,7 @@ function genericPrintNoParens(path, options, print) {
     case "JSXText":
       throw new Error("JSXTest should be handled by JSXElement");
     case "JSXEmptyExpression":
-      return comments.printDanglingComments(path, options);
+      return concat([comments.printDanglingComments(path, options), softline]);
     case "TypeAnnotatedIdentifier":
       return concat([
         path.call(print, "annotation"),
