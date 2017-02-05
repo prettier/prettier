@@ -17,6 +17,7 @@ var group = docBuilders.group;
 var indent = docBuilders.indent;
 var conditionalGroup = docBuilders.conditionalGroup;
 var ifBreak = docBuilders.ifBreak;
+var breakParent = docBuilders.breakParent;
 
 var docUtils = require("./doc-utils");
 var willBreak = docUtils.willBreak;
@@ -120,7 +121,9 @@ function genericPrintNoParens(path, options, print) {
         path.each(
           function(childPath) {
             parts.push(print(childPath), ";", hardline);
-            if (util.isNextLineEmpty(options.originalText, childPath.getValue())) {
+            if (
+              util.isNextLineEmpty(options.originalText, childPath.getValue())
+            ) {
               parts.push(hardline);
             }
           },
@@ -166,13 +169,15 @@ function genericPrintNoParens(path, options, print) {
       const parts = [];
       printBinaryishExpressions(path, parts, print, options);
 
-      return group(concat([
+      return group(
+        concat([
           // Don't include the initial expression in the indentation
           // level. The first item is guaranteed to be the first
           // left-most expression.
           parts.length > 0 ? parts[0] : "",
           indent(options.tabWidth, concat(parts.slice(1)))
-        ]));
+        ])
+      );
     }
     case "AssignmentPattern":
       return concat([
@@ -257,6 +262,8 @@ function genericPrintNoParens(path, options, print) {
           !n.rest &&
           n.params[0].type === "Identifier" &&
           !n.params[0].typeAnnotation &&
+          !n.params[0].leadingComments &&
+          !n.params[0].trailingComments &&
           !n.predicate &&
           !n.returnType
       ) {
@@ -410,14 +417,15 @@ function genericPrintNoParens(path, options, print) {
     case "ImportDeclaration":
       parts.push("import ");
 
+      const fromParts = [];
+
       if (n.importKind && n.importKind !== "value") {
         parts.push(n.importKind + " ");
       }
 
+      var standalones = [];
+      var grouped = [];
       if (n.specifiers && n.specifiers.length > 0) {
-        var standalones = [];
-        var grouped = [];
-
         path.each(
           function(specifierPath) {
             var value = specifierPath.getValue();
@@ -461,12 +469,28 @@ function genericPrintNoParens(path, options, print) {
           );
         }
 
-        parts.push(" from ");
+        fromParts.push(grouped.length === 0 ? line : " ", "from ");
       }
 
-      parts.push(path.call(print, "source"), ";");
+      fromParts.push(path.call(print, "source"), ";");
 
-      return concat(parts);
+      // If there's a very long import, break the following way:
+      //
+      //   import veryLong
+      //     from 'verylong'
+      //
+      // In case there are grouped elements, they will already break the way
+      // we want and this break would take precedence instead.
+      if (grouped.length === 0) {
+        return group(
+          concat([
+            concat(parts),
+            indent(options.tabWidth, concat(fromParts))
+          ])
+        );
+      }
+
+      return concat([concat(parts), concat(fromParts)]);
 
     case "Import": {
       return "import";
@@ -1107,12 +1131,13 @@ function genericPrintNoParens(path, options, print) {
         n.expression.type === "ArrowFunctionExpression" ||
         n.expression.type === "CallExpression" ||
         n.expression.type === "FunctionExpression" ||
+        n.expression.type === "JSXEmptyExpression" ||
         parent.type === "JSXElement" &&
           (n.expression.type === "ConditionalExpression" ||
             n.expression.type === "LogicalExpression");
 
       if (shouldInline) {
-        return concat(["{", path.call(print, "expression"), "}"]);
+        return group(concat(["{", path.call(print, "expression"), "}"]));
       }
 
       return group(
@@ -1174,7 +1199,7 @@ function genericPrintNoParens(path, options, print) {
     case "JSXText":
       throw new Error("JSXTest should be handled by JSXElement");
     case "JSXEmptyExpression":
-      return comments.printDanglingComments(path, options);
+      return concat([comments.printDanglingComments(path, options), softline]);
     case "TypeAnnotatedIdentifier":
       return concat([
         path.call(print, "annotation"),
@@ -1182,11 +1207,15 @@ function genericPrintNoParens(path, options, print) {
         path.call(print, "identifier")
       ]);
     case "ClassBody":
-      if (n.body.length === 0) {
+      if (!n.comments && n.body.length === 0) {
         return "{}";
       }
 
-      return concat(["{", indent(options.tabWidth, concat([
+      return concat([
+        "{",
+        n.body.length > 0 ? indent(
+          options.tabWidth,
+          concat([
             hardline,
             path.call(
               function(bodyPath) {
@@ -1194,7 +1223,11 @@ function genericPrintNoParens(path, options, print) {
               },
               "body"
             )
-          ])), hardline, "}"]);
+          ])
+        ) : comments.printDanglingComments(path, options),
+        hardline,
+        "}"
+      ]);
     case "ClassPropertyDefinition":
       parts.push("static ", path.call(print, "definition"));
 
@@ -1345,8 +1378,14 @@ function genericPrintNoParens(path, options, print) {
         namedTypes.ObjectTypeProperty.check(parent) ||
         namedTypes.ObjectTypeCallProperty.check(parent) ||
         namedTypes.DeclareFunction.check(path.getParentNode(2)));
+
       var needsColon = isArrowFunctionTypeAnnotation &&
         namedTypes.TypeAnnotation.check(parent);
+
+      if (isObjectTypePropertyAFunction(parent)) {
+        isArrowFunctionTypeAnnotation = true;
+        needsColon = true;
+      }
 
       if (needsColon) {
         parts.push(": ");
@@ -1467,6 +1506,11 @@ function genericPrintNoParens(path, options, print) {
       var isFunction = !n.variance &&
         !n.optional &&
         n.value.type === "FunctionTypeAnnotation";
+
+      if (isObjectTypePropertyAFunction(n)) {
+        isFunction = true;
+      }
+
       return concat([
         n.static ? "static " : "",
         variance,
@@ -1683,7 +1727,11 @@ function printMethod(path, options, print) {
     key = concat(["[", key, "]"]);
   }
 
-  parts.push(key, path.call(print, "value", "typeParameters"), group(concat([
+  parts.push(
+    key,
+    path.call(print, "value", "typeParameters"),
+    group(
+      concat([
         path.call(
           function(valuePath) {
             return printFunctionParams(valuePath, print, options);
@@ -1691,7 +1739,11 @@ function printMethod(path, options, print) {
           "value"
         ),
         path.call(p => printReturnType(p, print), "value")
-      ])), " ", path.call(print, "value", "body"));
+      ])
+    ),
+    " ",
+    path.call(print, "value", "body")
+  );
 
   return concat(parts);
 }
@@ -1723,32 +1775,35 @@ function printArgumentsList(path, options, print) {
 
   if (groupLastArg) {
     const shouldBreak = printed.slice(0, -1).some(willBreak);
-    return conditionalGroup(
-      [
-        concat(["(", join(concat([", "]), printed), ")"]),
-        concat([
-          "(",
-          join(concat([",", line]), printed.slice(0, -1)),
-          printed.length > 1 ? ", " : "",
-          group(util.getLast(printed), { shouldBreak: true }),
-          ")"
-        ]),
-        group(
+    return concat([
+      printed.some(willBreak) ? breakParent : "",
+      conditionalGroup(
+        [
+          concat(["(", join(concat([", "]), printed), ")"]),
           concat([
             "(",
-            indent(
-              options.tabWidth,
-              concat([line, join(concat([",", line]), printed)])
-            ),
-            options.trailingComma ? "," : "",
-            line,
+            join(concat([",", line]), printed.slice(0, -1)),
+            printed.length > 1 ? ", " : "",
+            group(util.getLast(printed), { shouldBreak: true }),
             ")"
           ]),
-          { shouldBreak: true }
-        )
-      ],
-      { shouldBreak }
-    );
+          group(
+            concat([
+              "(",
+              indent(
+                options.tabWidth,
+                concat([line, join(concat([",", line]), printed)])
+              ),
+              options.trailingComma ? "," : "",
+              line,
+              ")"
+            ]),
+            { shouldBreak: true }
+          )
+        ],
+        { shouldBreak }
+      )
+    ]);
   }
 
   return group(
@@ -2034,13 +2089,21 @@ function printMemberChain(path, options, print) {
     if (node.type === "CallExpression") {
       printedNodes.unshift({
         node: node,
-        printed: printArgumentsList(path, options, print)
+        printed: comments.printComments(
+          path,
+          p => printArgumentsList(path, options, print),
+          options
+        )
       });
       path.call(callee => rec(callee), "callee");
     } else if (node.type === "MemberExpression") {
       printedNodes.unshift({
         node: node,
-        printed: comments.printComments(path, p => printMemberLookup(path, options, print), options)
+        printed: comments.printComments(
+          path,
+          p => printMemberLookup(path, options, print),
+          options
+        )
       });
       path.call(object => rec(object), "object");
     } else {
@@ -2050,8 +2113,14 @@ function printMemberChain(path, options, print) {
       });
     }
   }
-  rec(path);
-
+  // Note: the comments of the root node have already been printed, so we
+  // need to extract this first call without printing them as they would
+  // if handled inside of the recursive call.
+  printedNodes.unshift({
+    node: path.getValue(),
+    printed: printArgumentsList(path, options, print)
+  });
+  path.call(callee => rec(callee), "callee");
 
   // Once we have a linear list of printed nodes, we want to create groups out
   // of it.
@@ -2070,12 +2139,24 @@ function printMemberChain(path, options, print) {
   //     .d()
   //     .e
 
-  // The first group is the first node followed by as many CallExpression as possible
+  // The first group is the first node followed by
+  //   - as many CallExpression as possible
+  //       < fn()()() >.something()
+  //   - then, as many MemberExpression as possible but the last one
+  //       < this.items >.something()
   var groups = [];
   var currentGroup = [printedNodes[0]];
   var i = 1;
   for (; i < printedNodes.length; ++i) {
     if (printedNodes[i].node.type === "CallExpression") {
+      currentGroup.push(printedNodes[i]);
+    } else {
+      break;
+    }
+  }
+  for (; i + 1 < printedNodes.length; ++i) {
+    if (printedNodes[i].node.type === "MemberExpression" &&
+        printedNodes[i + 1].node.type === "MemberExpression") {
       currentGroup.push(printedNodes[i]);
     } else {
       break;
@@ -2090,8 +2171,9 @@ function printMemberChain(path, options, print) {
   // MemberExpression
   var hasSeenCallExpression = false;
   for (; i < printedNodes.length; ++i) {
-    if (hasSeenCallExpression &&
-        printedNodes[i].node.type === "MemberExpression") {
+    if (
+      hasSeenCallExpression && printedNodes[i].node.type === "MemberExpression"
+    ) {
       groups.push(currentGroup);
       currentGroup = [];
       hasSeenCallExpression = false;
@@ -2118,10 +2200,12 @@ function printMemberChain(path, options, print) {
   // node is just an identifier with the name starting with a capital
   // letter or just a sequence of _$. The rationale is that they are
   // likely to be factories.
-  if (groups[0].length === 1 &&
+  if (
+    groups[0].length === 1 &&
       groups[0][0].node.type === "Identifier" &&
       groups[0][0].node.name.match(/(^[A-Z])|^[_$]+$/) &&
-      groups.length >= 2) {
+      groups.length >= 2
+  ) {
     // Push all the values of groups[0] at the beginning of groups[1]
     [].unshift.apply(groups[1], groups[0]);
     // Remove groups[0]
@@ -2146,10 +2230,7 @@ function printMemberChain(path, options, print) {
     printGroup(groups[0]),
     indent(
       options.tabWidth,
-      group(concat([
-        hardline,
-        join(hardline, groups.slice(1).map(printGroup))
-      ]))
+      group(concat([hardline, join(hardline, groups.slice(1).map(printGroup))]))
     )
   ]);
 
@@ -2207,7 +2288,7 @@ function printJSXChildren(path, options, print) {
         const partiallyEscapedValue = options.parser === "flow"
           ? child.raw
           : util.htmlEscapeInsideAngleBracket(child.value);
-        const value = partiallyEscapedValue.replace(/\u00a0/g, '&nbsp;');
+        const value = partiallyEscapedValue.replace(/\u00a0/g, "&nbsp;");
 
         if (/\S/.test(value)) {
           // treat each line of text as its own entity
@@ -2522,7 +2603,7 @@ function nodeStr(node, options) {
   // Workaround a bug in the Javascript version of the flow parser where
   // astral unicode characters like \uD801\uDC28 are incorrectly parsed as
   // a sequence of \uFFFD.
-  if (options.parser === "flow" && str.indexOf("\uFFFD") !== -1) {
+  if (options.parser === "flow" && str.indexOf("\ufffd") !== -1) {
     return node.raw;
   }
 
@@ -2591,7 +2672,8 @@ function makeString(rawContent, enclosingQuote) {
 }
 
 function printNumber(rawNumber) {
-  return rawNumber.toLowerCase()
+  return rawNumber
+    .toLowerCase()
     // Remove unnecessary plus and zeroes from scientific notation.
     .replace(/^([\d.]+e)(?:\+|(-))?0*/, "$1$2")
     // Make sure numbers always start with a digit.
@@ -2612,6 +2694,16 @@ function isLastStatement(path) {
   const node = path.getValue();
   const body = parent.body;
   return body && body[body.length - 1] === node;
+}
+
+// Hack to differentiate between the following two which have the same ast
+// type T = { method: () => void };
+// type T = { method(): void };
+function isObjectTypePropertyAFunction(node) {
+  return node.type === "ObjectTypeProperty" &&
+    node.value.type === "FunctionTypeAnnotation" &&
+    !node.static &&
+    util.locStart(node.key) !== util.locStart(node.value);
 }
 
 function shouldPrintSameLine(node) {

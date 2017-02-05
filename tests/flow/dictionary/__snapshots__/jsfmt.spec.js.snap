@@ -633,21 +633,18 @@ function subtype_dict_to_optional_c(x: { [k: string]: B }) {
   let c: { p?: C } = x; // error
 }
 
-function subtype_optional_a_to_dict(
-  x: { p?: A }
-): { [k: string]: B } { // error: A ~> B
+function subtype_optional_a_to_dict(x: { p?: A }): { [k: string]: B } {
+  // error: A ~> B
   return x;
 }
 
-function subtype_optional_b_to_dict(
-  x: { p?: B }
-): { [k: string]: B } { // ok
+function subtype_optional_b_to_dict(x: { p?: B }): { [k: string]: B } {
+  // ok
   return x;
 }
 
-function subtype_optional_c_to_dict(
-  x: { p?: C }
-): { [k: string]: B } { // error: C ~> B
+function subtype_optional_c_to_dict(x: { p?: C }): { [k: string]: B } {
+  // error: C ~> B
   return x;
 }
 "

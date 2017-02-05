@@ -519,7 +519,8 @@ function logical19b(x: { y: string, z: boolean }): boolean {
 /**
  * A falsy variable on the left side of &&
  */
-function logical1a(): number { // expected \`: boolean\`
+function logical1a(): number {
+  // expected \`: boolean\`
   var x = false;
   return x && \"123\";
 }
@@ -535,7 +536,8 @@ function logical1b(): string {
 /**
  * A literal on the left side of &&
  */
-function logical2a(): number { // expected \`: boolean\`
+function logical2a(): number {
+  // expected \`: boolean\`
   return false && \"123\";
 }
 
@@ -612,7 +614,8 @@ function logical2k(x: Function): string {
 /**
  * An expression on the left side of &&
  */
-function logical3a(): string { // expected \`: boolean\`
+function logical3a(): string {
+  // expected \`: boolean\`
   var x: ?number = null;
   return x != null && x > 10;
 }
@@ -620,7 +623,8 @@ function logical3a(): string { // expected \`: boolean\`
 /**
  * An expression on the left side of &&
  */
-function logical3b(): number { // expected \`: boolean | number\`
+function logical3b(): number {
+  // expected \`: boolean | number\`
   var x: ?number = null;
   return x != null && x;
 }
@@ -628,7 +632,8 @@ function logical3b(): number { // expected \`: boolean | number\`
 /**
  * An expression on the left side of &&
  */
-function logical3c(): ?number { // expected \`: boolean | ?number\`
+function logical3c(): ?number {
+  // expected \`: boolean | ?number\`
   var x: ?number = null;
   return x != undefined && x;
 }
@@ -636,9 +641,8 @@ function logical3c(): ?number { // expected \`: boolean | ?number\`
 /**
  * Maybe truthy returns both types
  */
-function logical4(
-  x: boolean
-): string { // expected \`: boolean | string\`
+function logical4(x: boolean): string {
+  // expected \`: boolean | string\`
   return x && \"123\";
 }
 
@@ -661,7 +665,8 @@ function logical5b(): number {
 /**
  * A truthy variable on the left side of ||
  */
-function logical5c(): string { // expected \`: boolean\`
+function logical5c(): string {
+  // expected \`: boolean\`
   var x = true;
   return x || 0;
 }
@@ -690,7 +695,8 @@ function logical6c(): number {
 /**
  * A literal on the left side of ||
  */
-function logical6d(): number { // expected \`: boolean\`
+function logical6d(): number {
+  // expected \`: boolean\`
   return true || \"123\";
 }
 
@@ -794,7 +800,8 @@ function logical8e(): string {
 /**
  * A composite || and &&
  */
-function logical8f(): string { // expected \`: boolean\`
+function logical8f(): string {
+  // expected \`: boolean\`
   var x = true;
   return x || 1 && \"foo\";
 }
@@ -802,10 +809,8 @@ function logical8f(): string { // expected \`: boolean\`
 /**
  * A composite || and ||
  */
-function logical9a(
-  x: number,
-  y: string
-): number | string { // expected \`: number | string | boolean\`
+function logical9a(x: number, y: string): number | string {
+  // expected \`: number | string | boolean\`
   return x || y || false;
 }
 
@@ -826,30 +831,24 @@ function logical9c(x: number, y: boolean): string {
 /**
  * A composite && and &&
  */
-function logical10a(
-  x: number,
-  y: string
-): number | string { // expected \`: number | string | boolean\`
+function logical10a(x: number, y: string): number | string {
+  // expected \`: number | string | boolean\`
   return x && y && false;
 }
 
 /**
  * A composite && and &&
  */
-function logical10b(
-  x: number,
-  y: string
-): Array<any> { // expected \`: boolean\`
+function logical10b(x: number, y: string): Array<any> {
+  // expected \`: boolean\`
   return false && x && y;
 }
 
 /**
  * A composite && and &&
  */
-function logical10c(
-  x: number,
-  y: string
-): Array<any> { // expected \`number | boolean\`
+function logical10c(x: number, y: string): Array<any> {
+  // expected \`number | boolean\`
   return x && false && y;
 }
 

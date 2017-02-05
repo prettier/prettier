@@ -28,7 +28,7 @@ function getSortedChildNodes(node, text, resultArray) {
   util.fixFaultyLocations(node, text);
 
   if (resultArray) {
-    if (n.Node.check(node)) {
+    if (n.Node.check(node) && node.type !== "EmptyStatement") {
       // This reverse insertion sort almost always takes constant
       // time because we almost always (maybe always?) append the
       // nodes in order anyway.
@@ -86,13 +86,6 @@ function decorateComment(node, comment, text) {
       // The comment is completely contained by this child node.
       comment.enclosingNode = child;
 
-      if (middle > 0) {
-        // Store the global preceding node separately from
-        // `precedingNode` because they mean different things. This is
-        // the previous node, ignoring any delimiters/blocks/etc.
-        comment.globalPrecedingNode = childNodes[middle - 1];
-      }
-
       decorateComment(child, comment, text);
       return; // Abandon the binary search at this level.
     }
@@ -140,19 +133,19 @@ function attach(comments, ast, text) {
     decorateComment(ast, comment, text);
 
     const precedingNode = comment.precedingNode;
-    const globalPrecedingNode = comment.globalPrecedingNode;
     const enclosingNode = comment.enclosingNode;
     const followingNode = comment.followingNode;
-    const isStartOfFile = comment.loc.start.line === 1;
 
     if (
-      util.hasNewline(text, locStart(comment), { backwards: true }) ||
-        isStartOfFile
+      util.hasNewline(text, locStart(comment), { backwards: true })
     ) {
       // If a comment exists on its own line, prefer a leading comment.
       // We also need to check if it's the first line of the file.
-      if (handleMemberExpressionComment(enclosingNode, followingNode, comment) ||
-          handleIfStatementComments(enclosingNode, followingNode, comment)) {
+      if (
+        handleMemberExpressionComment(enclosingNode, followingNode, comment) ||
+          handleIfStatementComments(enclosingNode, followingNode, comment) ||
+          handleTryStatementComments(enclosingNode, followingNode, comment)
+      ) {
         // We're good
       } else if (followingNode) {
         // Always a leading comment.
@@ -162,20 +155,21 @@ function attach(comments, ast, text) {
       } else if (enclosingNode) {
         addDanglingComment(enclosingNode, comment);
       } else {
-        // TODO: If there are no nodes at all, we should still somehow
-        // print the comment.
+        // There are no nodes, let's attach it to the root of the ast
+        addDanglingComment(ast, comment);
       }
     } else if (util.hasNewline(text, locEnd(comment))) {
       // There is content before this comment on the same line, but
-      // none after it, so prefer a trailing comment. A trailing
-      // comment *always* attaches itself to the previous node, no
-      // matter if there's any syntax between them.
-      const lastNode = precedingNode || globalPrecedingNode;
-      if (lastNode) {
-        // Always a trailing comment
-        addTrailingComment(lastNode, comment);
+      // none after it, so prefer a trailing comment of the previous node.
+      if (precedingNode) {
+        addTrailingComment(precedingNode, comment);
+      } else if (followingNode) {
+        addLeadingComment(followingNode, comment);        
+      } else if (enclosingNode) {
+        addDanglingComment(enclosingNode, comment);
       } else {
-        throw new Error("Preceding node not found");
+        // There are no nodes, let's attach it to the root of the ast
+        addDanglingComment(ast, comment);
       }
     } else {
       // Otherwise, text exists both before and after the comment on
@@ -198,6 +192,9 @@ function attach(comments, ast, text) {
         addLeadingComment(followingNode, comment);
       } else if (enclosingNode) {
         addDanglingComment(enclosingNode, comment);
+      } else {
+        // There are no nodes, let's attach it to the root of the ast
+        addDanglingComment(ast, comment);
       }
     }
   });
@@ -288,6 +285,14 @@ function addBlockStatementFirstComment(node, comment) {
   }
 }
 
+function addBlockOrNotComment(node, comment) {
+  if (node.type === "BlockStatement") {
+    addBlockStatementFirstComment(node, comment);
+  } else {
+    addLeadingComment(node, comment);
+  }
+}
+
 // There are often comments before the else clause of if statements like
 //
 //   if (1) { ... }
@@ -302,10 +307,12 @@ function addBlockStatementFirstComment(node, comment) {
 //   if (1) { ... }
 //   else {
 //     // comment
-//     ...  
+//     ...
 //   }
 function handleIfStatementComments(enclosingNode, followingNode, comment) {
-  if (!enclosingNode || enclosingNode.type !== "IfStatement" || !followingNode) {
+  if (
+    !enclosingNode || enclosingNode.type !== "IfStatement" || !followingNode
+  ) {
     return false;
   }
 
@@ -315,11 +322,33 @@ function handleIfStatementComments(enclosingNode, followingNode, comment) {
   }
 
   if (followingNode.type === "IfStatement") {
-    if (followingNode.consequent.type === "BlockStatement") {
-      addBlockStatementFirstComment(followingNode.consequent, comment);
-    } else {
-      addLeadingComment(followingNode.consequent, comment);
-    }
+    addBlockOrNotComment(followingNode.consequent, comment);
+    return true;
+  }
+
+  return false;
+}
+
+// Same as IfStatement but for TryStatement
+function handleTryStatementComments(enclosingNode, followingNode, comment) {
+  if (
+    !enclosingNode || enclosingNode.type !== "TryStatement" || !followingNode
+  ) {
+    return false;
+  }
+
+  if (followingNode.type === "BlockStatement") {
+    addBlockStatementFirstComment(followingNode, comment);
+    return true;
+  }
+
+  if (followingNode.type === "TryStatement") {
+    addBlockOrNotComment(followingNode.finalizer, comment);
+    return true;
+  }
+
+  if (followingNode.type === "CatchClause") {
+    addBlockOrNotComment(followingNode.body, comment);
     return true;
   }
 
@@ -327,10 +356,12 @@ function handleIfStatementComments(enclosingNode, followingNode, comment) {
 }
 
 function handleMemberExpressionComment(enclosingNode, followingNode, comment) {
-  if (enclosingNode &&
+  if (
+    enclosingNode &&
       enclosingNode.type === "MemberExpression" &&
       followingNode &&
-      followingNode.type === "Identifier") {
+      followingNode.type === "Identifier"
+  ) {
     addLeadingComment(enclosingNode, comment);
     return true;
   }
@@ -376,11 +407,9 @@ function printTrailingComment(commentPath, print, options, parentNode) {
   const contents = printComment(commentPath);
   const isBlock = comment.type === "Block" || comment.type === "CommentBlock";
 
-  if (
-    util.hasNewline(options.originalText, locStart(comment), {
+  if (util.hasNewline(options.originalText, locStart(comment), {
       backwards: true
-    })
-  ) {
+    })) {
     // This allows comments at the end of nested structures:
     // {
     //   x: 1,

@@ -5,7 +5,11 @@ exports[`test blank.js 1`] = `
 //
 // when printed.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+// This file only
+// has comments. This comment
+// should still exist
+//
+// when printed.
 "
 `;
 
@@ -67,6 +71,24 @@ function x() {
   /* dangling */
 }
 declare class Foo extends Qux<string> {/* dangling */}
+"
+`;
+
+exports[`test first-line.js 1`] = `
+"a // comment
+b
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a; // comment
+b;
+"
+`;
+
+exports[`test first-line.js 2`] = `
+"a // comment
+b
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a; // comment
+b;
 "
 `;
 
@@ -613,5 +635,217 @@ foo(
   {}
   // Hi
 );
+"
+`;
+
+exports[`test jsx.js 1`] = `
+"<div>
+  {
+    /* comment */
+  }
+</div>;
+
+<div>
+  {/* comment */
+  }
+</div>;
+
+<div>
+  {/* comment
+*/
+  }
+</div>;
+
+<div>
+  {a/* comment
+*/
+  }
+</div>;
+
+<div>
+  {/* comment
+*/
+  a
+  }
+</div>;
+
+<div>
+  {/* comment */
+  }
+</div>;
+
+<div>
+  {/* comment */}
+</div>;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div>
+  {
+    /* comment */
+  }
+</div>;
+
+<div>
+  {/* comment */}
+</div>;
+
+<div>
+  {/* comment
+*/}
+</div>;
+
+<div>
+  {a /* comment
+*/}
+</div>;
+
+<div>
+  {
+    /* comment
+*/
+    a
+  }
+</div>;
+
+<div>
+  {/* comment */}
+</div>;
+
+<div>
+  {/* comment */}
+</div>;
+"
+`;
+
+exports[`test jsx.js 2`] = `
+"<div>
+  {
+    /* comment */
+  }
+</div>;
+
+<div>
+  {/* comment */
+  }
+</div>;
+
+<div>
+  {/* comment
+*/
+  }
+</div>;
+
+<div>
+  {a/* comment
+*/
+  }
+</div>;
+
+<div>
+  {/* comment
+*/
+  a
+  }
+</div>;
+
+<div>
+  {/* comment */
+  }
+</div>;
+
+<div>
+  {/* comment */}
+</div>;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div>
+  {
+    /* comment */
+  }
+</div>;
+
+<div>
+  {/* comment */}
+</div>;
+
+<div>
+  {/* comment
+*/}
+</div>;
+
+<div>
+  {a /* comment
+*/}
+</div>;
+
+<div>
+  {
+    /* comment
+*/
+    a
+  }
+</div>;
+
+<div>
+  {/* comment */}
+</div>;
+
+<div>
+  {/* comment */}
+</div>;
+"
+`;
+
+exports[`test try.js 1`] = `
+"// comment 1
+try {
+  // comment 2
+}
+// comment 3
+catch(e) {
+  // comment 4
+}
+// comment 5
+finally // comment 6
+{
+  // comment 7
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// comment 1
+try {
+  // comment 2
+} catch (e) {
+  // comment 3
+  // comment 4
+} finally { // comment 6
+  // comment 5
+  // comment 7
+}
+"
+`;
+
+exports[`test try.js 2`] = `
+"// comment 1
+try {
+  // comment 2
+}
+// comment 3
+catch(e) {
+  // comment 4
+}
+// comment 5
+finally // comment 6
+{
+  // comment 7
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// comment 1
+try {
+  // comment 2
+} catch (e) {
+  // comment 3
+  // comment 4
+} finally { // comment 6
+  // comment 5
+  // comment 7
+}
 "
 `;

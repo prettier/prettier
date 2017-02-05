@@ -416,13 +416,13 @@ function var_var() {
 
 function function_toplevel() {
   function a() {}
-  function a() {}
+  function a() {} // OK
 }
 
 function function_block() {
   {
     function a() {}
-    function a() {}
+    function a() {} // error: name already bound
   }
 }
 

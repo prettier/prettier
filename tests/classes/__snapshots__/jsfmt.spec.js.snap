@@ -31,6 +31,28 @@ exports[`test call.js 1`] = `
 "
 `;
 
+exports[`test empty.js 1`] = `
+"class A {
+  // comment
+}
+
+class A { // comment
+}
+
+class A {
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class A {
+  // comment
+}
+
+class A {// comment
+}
+
+class A {}
+"
+`;
+
 exports[`test member.js 1`] = `
 "(class {})[1];
 (class {}).a;

@@ -166,3 +166,14 @@ method().then(x => x)[\"abc\"](x => x)[abc](x => x);
 ({}).a().b();
 "
 `;
+
+exports[`test this.js 1`] = `
+"const sel = this.connections
+  .concat(this.activities.concat(this.operators))
+  .filter(x => x.selected);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const sel = this.connections
+  .concat(this.activities.concat(this.operators))
+  .filter(x => x.selected);
+"
+`;

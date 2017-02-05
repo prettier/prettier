@@ -39,9 +39,10 @@ function parse(text, opts) {
 }
 
 function attachComments(text, ast, opts) {
-  if (ast.comments) {
-    comments.attach(ast.comments, ast, text);
-    ast.comments = [];
+  const astComments = ast.comments;
+  if (astComments) {
+    delete ast.comments;
+    comments.attach(astComments, ast, text);
   }
   ast.tokens = [];
   opts.originalText = text;
