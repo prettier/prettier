@@ -2318,9 +2318,9 @@ function printJSXChildren(path, options, print) {
             if (endSpace) {
               children.push(jsxWhitespace);
             }
-
-            children.push(softline);
           });
+
+          children.push(softline);
         } else if (/\n/.test(value)) {
           children.push(hardline);
 
