@@ -5,6 +5,7 @@
 const fs = require("fs");
 const getStdin = require("get-stdin");
 const glob = require("glob");
+const chalk = require("chalk");
 const minimist = require("minimist");
 const prettier = require("../index");
 
@@ -66,10 +67,6 @@ if (argv["help"] || !filepatterns.length && !stdin) {
       "  --bracket-spacing=false"
   );
   process.exit(argv["help"] ? 0 : 1);
-}
-
-function makeGrey(text) {
-  return argv["color"] ? "\u001b[90m" + text + "\u001b[39m" : text;
 }
 
 function getParserOption() {
@@ -197,7 +194,7 @@ if (stdin) {
         // Don't write the file if it won't change in order not to invalidate
         // mtime based caches.
         if (output === input) {
-          console.log(makeGrey("%s %dms"), filename, Date.now() - start);
+          console.log(chalk.grey("%s %dms"), filename, Date.now() - start);
         } else {
           console.log("%s %dms", filename, Date.now() - start);
 
