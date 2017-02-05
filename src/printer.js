@@ -143,7 +143,10 @@ function genericPrintNoParens(path, options, print) {
       parts.push(
         comments.printDanglingComments(path, options, /* noIdent */ true)
       );
-      parts.push(hardline);
+
+      if (n.body.length || n.comments) {
+        parts.push(hardline);
+      }
 
       return concat(parts);
     // Babel extension.

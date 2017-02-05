@@ -44,7 +44,7 @@ function attachComments(text, ast, opts) {
     ast.comments = [];
   }
   ast.tokens = [];
-  opts.originalText = text;
+  opts.originalText = text.trimRight();
 }
 
 function format(text, opts) {
