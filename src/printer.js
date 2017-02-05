@@ -2088,7 +2088,11 @@ function printMemberChain(path, options, print) {
     if (node.type === "CallExpression") {
       printedNodes.unshift({
         node: node,
-        printed: printArgumentsList(path, options, print)
+        printed: comments.printComments(
+          path,
+          p => printArgumentsList(path, options, print),
+          options
+        )
       });
       path.call(callee => rec(callee), "callee");
     } else if (node.type === "MemberExpression") {
@@ -2108,7 +2112,14 @@ function printMemberChain(path, options, print) {
       });
     }
   }
-  rec(path);
+  // Note: the comments of the root node have already been printed, so we
+  // need to extract this first call without printing them as they would
+  // if handled inside of the recursive call.
+  printedNodes.unshift({
+    node: path.getValue(),
+    printed: printArgumentsList(path, options, print)
+  });
+  path.call(callee => rec(callee), "callee");
 
   // Once we have a linear list of printed nodes, we want to create groups out
   // of it.
