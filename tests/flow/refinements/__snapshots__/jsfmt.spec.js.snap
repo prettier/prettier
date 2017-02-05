@@ -43,7 +43,7 @@ function foo(x: ?number) {
 
 type Bar = {
   parent: ?Bar,
-  doStuff(): void
+  doStuff: () => void
 };
 
 function bar0(x: Bar) {
