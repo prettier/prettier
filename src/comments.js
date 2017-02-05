@@ -28,7 +28,7 @@ function getSortedChildNodes(node, text, resultArray) {
   util.fixFaultyLocations(node, text);
 
   if (resultArray) {
-    if (n.Node.check(node)) {
+    if (n.Node.check(node) && node.type !== "EmptyStatement") {
       // This reverse insertion sort almost always takes constant
       // time because we almost always (maybe always?) append the
       // nodes in order anyway.
@@ -135,17 +135,16 @@ function attach(comments, ast, text) {
     const precedingNode = comment.precedingNode;
     const enclosingNode = comment.enclosingNode;
     const followingNode = comment.followingNode;
-    const isStartOfFile = comment.loc.start.line === 1;
 
     if (
-      util.hasNewline(text, locStart(comment), { backwards: true }) ||
-        isStartOfFile
+      util.hasNewline(text, locStart(comment), { backwards: true })
     ) {
       // If a comment exists on its own line, prefer a leading comment.
       // We also need to check if it's the first line of the file.
       if (
         handleMemberExpressionComment(enclosingNode, followingNode, comment) ||
-          handleIfStatementComments(enclosingNode, followingNode, comment)
+          handleIfStatementComments(enclosingNode, followingNode, comment) ||
+          handleTryStatementComments(enclosingNode, followingNode, comment)
       ) {
         // We're good
       } else if (followingNode) {
@@ -156,8 +155,8 @@ function attach(comments, ast, text) {
       } else if (enclosingNode) {
         addDanglingComment(enclosingNode, comment);
       } else {
-        // TODO: If there are no nodes at all, we should still somehow
-        // print the comment.
+        // There are no nodes, let's attach it to the root of the ast
+        addDanglingComment(ast, comment);
       }
     } else if (util.hasNewline(text, locEnd(comment))) {
       // There is content before this comment on the same line, but
@@ -169,8 +168,8 @@ function attach(comments, ast, text) {
       } else if (enclosingNode) {
         addDanglingComment(enclosingNode, comment);
       } else {
-        // TODO: If there are no nodes at all, we should still somehow
-        // print the comment.
+        // There are no nodes, let's attach it to the root of the ast
+        addDanglingComment(ast, comment);
       }
     } else {
       // Otherwise, text exists both before and after the comment on
@@ -194,8 +193,8 @@ function attach(comments, ast, text) {
       } else if (enclosingNode) {
         addDanglingComment(enclosingNode, comment);
       } else {
-        // TODO: If there are no nodes at all, we should still somehow
-        // print the comment.        
+        // There are no nodes, let's attach it to the root of the ast
+        addDanglingComment(ast, comment);
       }
     }
   });
@@ -286,6 +285,14 @@ function addBlockStatementFirstComment(node, comment) {
   }
 }
 
+function addBlockOrNotComment(node, comment) {
+  if (node.type === "BlockStatement") {
+    addBlockStatementFirstComment(node, comment);
+  } else {
+    addLeadingComment(node, comment);
+  }
+}
+
 // There are often comments before the else clause of if statements like
 //
 //   if (1) { ... }
@@ -315,11 +322,33 @@ function handleIfStatementComments(enclosingNode, followingNode, comment) {
   }
 
   if (followingNode.type === "IfStatement") {
-    if (followingNode.consequent.type === "BlockStatement") {
-      addBlockStatementFirstComment(followingNode.consequent, comment);
-    } else {
-      addLeadingComment(followingNode.consequent, comment);
-    }
+    addBlockOrNotComment(followingNode.consequent, comment);
+    return true;
+  }
+
+  return false;
+}
+
+// Same as IfStatement but for TryStatement
+function handleTryStatementComments(enclosingNode, followingNode, comment) {
+  if (
+    !enclosingNode || enclosingNode.type !== "TryStatement" || !followingNode
+  ) {
+    return false;
+  }
+
+  if (followingNode.type === "BlockStatement") {
+    addBlockStatementFirstComment(followingNode, comment);
+    return true;
+  }
+
+  if (followingNode.type === "TryStatement") {
+    addBlockOrNotComment(followingNode.finalizer, comment);
+    return true;
+  }
+
+  if (followingNode.type === "CatchClause") {
+    addBlockOrNotComment(followingNode.body, comment);
     return true;
   }
 

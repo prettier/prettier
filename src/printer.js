@@ -1133,12 +1133,13 @@ function genericPrintNoParens(path, options, print) {
         n.expression.type === "ArrowFunctionExpression" ||
         n.expression.type === "CallExpression" ||
         n.expression.type === "FunctionExpression" ||
+        n.expression.type === "JSXEmptyExpression" ||
         parent.type === "JSXElement" &&
           (n.expression.type === "ConditionalExpression" ||
             n.expression.type === "LogicalExpression");
 
       if (shouldInline) {
-        return concat(["{", path.call(print, "expression"), "}"]);
+        return group(concat(["{", path.call(print, "expression"), "}"]));
       }
 
       return group(
@@ -1203,7 +1204,7 @@ function genericPrintNoParens(path, options, print) {
     case "JSXText":
       throw new Error("JSXTest should be handled by JSXElement");
     case "JSXEmptyExpression":
-      return comments.printDanglingComments(path, options);
+      return concat([comments.printDanglingComments(path, options), softline]);
     case "TypeAnnotatedIdentifier":
       return concat([
         path.call(print, "annotation"),
@@ -1382,8 +1383,14 @@ function genericPrintNoParens(path, options, print) {
         namedTypes.ObjectTypeProperty.check(parent) ||
         namedTypes.ObjectTypeCallProperty.check(parent) ||
         namedTypes.DeclareFunction.check(path.getParentNode(2)));
+
       var needsColon = isArrowFunctionTypeAnnotation &&
         namedTypes.TypeAnnotation.check(parent);
+
+      if (isObjectTypePropertyAFunction(parent)) {
+        isArrowFunctionTypeAnnotation = true;
+        needsColon = true;
+      }
 
       if (needsColon) {
         parts.push(": ");
@@ -1504,6 +1511,11 @@ function genericPrintNoParens(path, options, print) {
       var isFunction = !n.variance &&
         !n.optional &&
         n.value.type === "FunctionTypeAnnotation";
+
+      if (isObjectTypePropertyAFunction(n)) {
+        isFunction = true;
+      }
+
       return concat([
         n.static ? "static " : "",
         variance,
@@ -2082,7 +2094,11 @@ function printMemberChain(path, options, print) {
     if (node.type === "CallExpression") {
       printedNodes.unshift({
         node: node,
-        printed: printArgumentsList(path, options, print)
+        printed: comments.printComments(
+          path,
+          p => printArgumentsList(path, options, print),
+          options
+        )
       });
       path.call(callee => rec(callee), "callee");
     } else if (node.type === "MemberExpression") {
@@ -2102,7 +2118,14 @@ function printMemberChain(path, options, print) {
       });
     }
   }
-  rec(path);
+  // Note: the comments of the root node have already been printed, so we
+  // need to extract this first call without printing them as they would
+  // if handled inside of the recursive call.
+  printedNodes.unshift({
+    node: path.getValue(),
+    printed: printArgumentsList(path, options, print)
+  });
+  path.call(callee => rec(callee), "callee");
 
   // Once we have a linear list of printed nodes, we want to create groups out
   // of it.
@@ -2676,6 +2699,16 @@ function isLastStatement(path) {
   const node = path.getValue();
   const body = parent.body;
   return body && body[body.length - 1] === node;
+}
+
+// Hack to differentiate between the following two which have the same ast
+// type T = { method: () => void };
+// type T = { method(): void };
+function isObjectTypePropertyAFunction(node) {
+  return node.type === "ObjectTypeProperty" &&
+    node.value.type === "FunctionTypeAnnotation" &&
+    !node.static &&
+    util.locStart(node.key) !== util.locStart(node.value);
 }
 
 function shouldPrintSameLine(node) {

@@ -1,4 +1,10 @@
 <div>
+  {
+    /* comment */
+  }
+</div>;
+
+<div>
   {/* comment */
   }
 </div>;

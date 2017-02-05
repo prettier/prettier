@@ -21,7 +21,14 @@ exports[`test max_header_tokens.js 1`] = `
  * @flow
  */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+/* @flow */
+/* second token */
+/* third token */
+/**
+ * After max_header_tokens (in .flowconfig), we no longer care:
+ *
+ * @flow
+ */
 "
 `;
 
@@ -29,7 +36,8 @@ exports[`test multiple_flows_1.js 1`] = `
 "/* @flow */
 /* @flow */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+/* @flow */
+/* @flow */
 "
 `;
 
@@ -39,7 +47,10 @@ exports[`test multiple_flows_2.js 1`] = `
  * @noflow
  */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+/**
+ * @flow
+ * @noflow
+ */
 "
 `;
 
@@ -50,7 +61,11 @@ exports[`test multiple_providesModule_1.js 1`] = `
  * @flow
  */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+/**
+ * @providesModule Foo
+ * @providesModule Bar
+ * @flow
+ */
 "
 `;
 
@@ -63,7 +78,13 @@ exports[`test multiple_providesModule_2.js 1`] = `
  * @providesModule Bar
  */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+/**
+ * @providesModule Foo
+ * @flow
+ */
+/**
+ * @providesModule Bar
+ */
 "
 `;
 

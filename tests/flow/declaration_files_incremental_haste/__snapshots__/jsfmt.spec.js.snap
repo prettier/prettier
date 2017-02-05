@@ -71,7 +71,7 @@ module.exports.fun = (): Implementation => new Implementation();
 exports[`test md5.js 1`] = `
 "/* @providesModule md5 */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+/* @providesModule md5 */
 "
 `;
 
