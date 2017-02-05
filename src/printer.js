@@ -1377,8 +1377,14 @@ function genericPrintNoParens(path, options, print) {
         namedTypes.ObjectTypeProperty.check(parent) ||
         namedTypes.ObjectTypeCallProperty.check(parent) ||
         namedTypes.DeclareFunction.check(path.getParentNode(2)));
+
       var needsColon = isArrowFunctionTypeAnnotation &&
         namedTypes.TypeAnnotation.check(parent);
+
+      if (isObjectTypePropertyAFunction(parent)) {
+        isArrowFunctionTypeAnnotation = true;
+        needsColon = true;
+      }
 
       if (needsColon) {
         parts.push(": ");
@@ -1499,6 +1505,11 @@ function genericPrintNoParens(path, options, print) {
       var isFunction = !n.variance &&
         !n.optional &&
         n.value.type === "FunctionTypeAnnotation";
+
+      if (isObjectTypePropertyAFunction(n)) {
+        isFunction = true;
+      }
+
       return concat([
         n.static ? "static " : "",
         variance,
@@ -2671,6 +2682,16 @@ function isLastStatement(path) {
   const node = path.getValue();
   const body = parent.body;
   return body && body[body.length - 1] === node;
+}
+
+// Hack to differentiate between the following two which have the same ast
+// type T = { method: () => void };
+// type T = { method(): void };
+function isObjectTypePropertyAFunction(node) {
+  return node.type === "ObjectTypeProperty" &&
+    node.value.type === "FunctionTypeAnnotation" &&
+    !node.static &&
+    util.locStart(node.key) !== util.locStart(node.value);
 }
 
 function shouldPrintSameLine(node) {
