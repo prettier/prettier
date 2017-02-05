@@ -8,6 +8,6 @@ var md5 = require(\"./md5\");
 exports[`test md5.js 1`] = `
 "/* @providesModule md5 */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+/* @providesModule md5 */
 "
 `;

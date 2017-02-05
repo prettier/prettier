@@ -1,7 +1,7 @@
 exports[`test a.js 1`] = `
 "/* @providesModule IncrModuleA */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+/* @providesModule IncrModuleA */
 "
 `;
 

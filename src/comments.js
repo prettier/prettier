@@ -157,8 +157,8 @@ function attach(comments, ast, text) {
       } else if (enclosingNode) {
         addDanglingComment(enclosingNode, comment);
       } else {
-        // TODO: If there are no nodes at all, we should still somehow
-        // print the comment.
+        // There are no nodes, let's attach it to the root of the ast
+        addDanglingComment(ast, comment);
       }
     } else if (util.hasNewline(text, locEnd(comment))) {
       // There is content before this comment on the same line, but

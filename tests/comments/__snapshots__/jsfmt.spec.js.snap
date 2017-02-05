@@ -5,7 +5,11 @@ exports[`test blank.js 1`] = `
 //
 // when printed.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+// This file only
+// has comments. This comment
+// should still exist
+//
+// when printed.
 "
 `;
 
