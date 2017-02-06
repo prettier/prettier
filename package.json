@@ -34,7 +34,8 @@
     "rollup-plugin-node-builtins": "2.0.0",
     "rollup-plugin-node-globals": "1.1.0",
     "rollup-plugin-node-resolve": "2.0.0",
-    "rollup-plugin-real-babili": "1.0.0-alpha3"
+    "rollup-plugin-real-babili": "1.0.0-alpha3",
+    "diff": "3.2.0"
   },
   "scripts": {
     "test": "jest",
