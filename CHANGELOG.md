@@ -1,3 +1,28 @@
+# 0.16.0
+
+[link](https://github.com/jlongster/prettier/compare/0.15.0...0.16.0)
+
+* Revert "Print \x and \u escapes in strings and regexes lowercase (#522)
+* Fix ternary indent bug (#577)
+* jsx parentheses fix (#580)
+* Run prettier on 0.15.0 (#558)
+* Add parenthesis around single argument arrow if comments (#573)
+* Use breakParent inside of last arrow expansion (#559)
+* Support dangling comments in ClassBody (#570)
+* Make all the member expressions but the last one part of the first group (#589)
+* Break long imports (#590)
+* Remove the concept of globalPrecedingNode (#561)
+* Remove test.js and put it back in the gitignore
+* Fix use strict as expression statement (#602)
+* Use arrow function when inputted that way for flow objects (#608)
+* Better support try/catch comments (#607)
+* Print CallExpression comments inside of memberChain (#600)
+* Do not attach comments to EmptyStatement (#599)
+* Fix files with only comments on the flow parser (#598)
+* Remove first line special case (#597)
+* Fix single indented JSX comment (#596)
+* Print dangling on ast on all the paths
+
 # 0.15.0
 
 [link](https://github.com/jlongster/prettier/compare/0.14.1...0.15.0)
