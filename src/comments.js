@@ -136,9 +136,7 @@ function attach(comments, ast, text) {
     const enclosingNode = comment.enclosingNode;
     const followingNode = comment.followingNode;
 
-    if (
-      util.hasNewline(text, locStart(comment), { backwards: true })
-    ) {
+    if (util.hasNewline(text, locStart(comment), { backwards: true })) {
       // If a comment exists on its own line, prefer a leading comment.
       // We also need to check if it's the first line of the file.
       if (
@@ -164,7 +162,7 @@ function attach(comments, ast, text) {
       if (precedingNode) {
         addTrailingComment(precedingNode, comment);
       } else if (followingNode) {
-        addLeadingComment(followingNode, comment);        
+        addLeadingComment(followingNode, comment);
       } else if (enclosingNode) {
         addDanglingComment(enclosingNode, comment);
       } else {
@@ -407,9 +405,11 @@ function printTrailingComment(commentPath, print, options, parentNode) {
   const contents = printComment(commentPath);
   const isBlock = comment.type === "Block" || comment.type === "CommentBlock";
 
-  if (util.hasNewline(options.originalText, locStart(comment), {
+  if (
+    util.hasNewline(options.originalText, locStart(comment), {
       backwards: true
-    })) {
+    })
+  ) {
     // This allows comments at the end of nested structures:
     // {
     //   x: 1,
