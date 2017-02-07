@@ -145,7 +145,11 @@ function genericPrintNoParens(path, options, print) {
       parts.push(
         comments.printDanglingComments(path, options, /* noIdent */ true)
       );
-      parts.push(hardline);
+
+      // Only force a trailing newline if there were any contents.
+      if (n.body.length || n.comments) {
+        parts.push(hardline);
+      }
 
       return concat(parts);
     // Babel extension.

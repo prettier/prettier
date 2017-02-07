@@ -4,7 +4,6 @@ exports[`test no_regression.js 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Ensure no regression.
 \"use strict\";
-
 "
 `;
 
