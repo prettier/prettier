@@ -172,7 +172,15 @@ if (stdin) {
 } else {
   eachFilename(filepatterns, filename => {
     fs.readFile(filename, "utf8", (err, input) => {
+      if (write) {
+        // Don't use `console.log` here since we need to replace this line.
+        process.stdout.write(filename);
+      }
+
       if (err) {
+        // Add newline to split errors from filename line.
+        process.stdout.write("\n");
+
         console.error("Unable to read file: " + filename + "\n" + err);
         // Don't exit the process if one file failed
         process.exitCode = 2;
@@ -180,11 +188,6 @@ if (stdin) {
       }
 
       const start = Date.now();
-
-      if (write) {
-        // Don't use `console.log` here since we need to replace this line.
-        process.stdout.write(filename);
-      }
 
       let output;
 
