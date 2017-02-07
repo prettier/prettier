@@ -1,9 +1,13 @@
----
 language: node_js
 node_js:
-  - 4
-  - 6
+- 4
+- 6
 cache:
   directories:
   - node_modules
 script: npm test -- --runInBand
+after_success:
+- scripts/publish_docs.sh
+env:
+  global:
+    secure: dIC0jXp5WzC7dRvjggGFLP8N4BB6H3nx2txfJ53w/V912LFBiWFNeMfJ5OB5AbyMXMr+2zEADrWO8qEPObPfvCQDcOIEfwqZyiqbRz99aewejJAlL2oPgbFv85eyU5N1iPj1WxRbMHak/mAN9iegcJcbkaKXzXrrlXua/qbbOiETtXRprL4p0KyngcZkg3zwPOrLsyd4lLBiiy074hqqfuzdnYQgo4Rovqa6BaEKizm3bbhGUoiYhDahH3Y19i9NitqlpV3gnckE29zdZYSWtBQh5AqjRvCg59GR8Gs9rCxea3fJb0l22pEGDuDGb3n9QxGSNrKAgxyTvgtLZnIxWyaVaajwjQbAI76VsP0uSqjKgjZUP4sU5l8amnaKx74W7dfn7J3+vpSctkA75SZpnXYFDZ+LBp8WNe1kMWeDp64KmLzoGX/8HHsoc+Adljywj2zHuADAr+wAxObW+PVq8jJ7/fUSsGZy4qjjHxxzIZ2u2jrraPFMrcl4BVhSSDI8UpWTvzjITuEzsYMpcy7V4SgfvePrzkVa4w9a2tcPfvhDgOge6YwDqD//MV0lcuOjXUcjFQlmcNn3BZd01bwS3/JVt9IVOnrZ7jV9l9CqsZoQpsa4T2dTtm8kvBmN1Mf0PvGvrC+cF8q/DxFi4AjFmcgRaWDpPzoW9czkNEE+Swk=
