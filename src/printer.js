@@ -144,6 +144,7 @@ function genericPrintNoParens(path, options, print) {
         comments.printDanglingComments(path, options, /* noIdent */ true)
       );
 
+      // Only force a trailing newline if there were any contents.
       if (n.body.length || n.comments) {
         parts.push(hardline);
       }
