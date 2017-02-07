@@ -151,9 +151,18 @@ prettier.format(source, {
 
   // If true, will use single instead of double quotes
   singleQuote: false,
-
-  // Controls the printing of trailing commas wherever possible
+  
+  // Controls the printing of trailing commas in objects and arrays
   trailingComma: false,
+
+  // Controls the printing of trailing commas in js module imports
+  trailingCommaImports: false,
+
+  // Controls the printing of trailing commas in js module exports
+  trailingCommaExports: false,
+
+  // Controls the printing of trailing commas in function call arguments
+  trailingCommaArgs: false,
 
   // Controls the printing of spaces inside arrays
   bracketSpacing: false,

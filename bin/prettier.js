@@ -15,6 +15,9 @@ const argv = minimist(process.argv.slice(2), {
     "use-tabs",
     "single-quote",
     "trailing-comma",
+    "trailing-comma-imports",
+    "trailing-comma-exports",
+    "trailing-comma-arguments",
     "bracket-spacing",
     "braces-spacing",
     "jsx-fb-close-tag",
@@ -59,7 +62,10 @@ if (argv["help"] || !filepatterns.length && !stdin) {
       "  --use-tabs               Indent lines with tabs instead of spaces. Defaults to false.\n" +
       "  --tab-width <int>        Specify the number of spaces per indentation-level. Defaults to 2.\n" +
       "  --single-quote           Use single quotes instead of double.\n" +
-      "  --trailing-comma         Print trailing commas wherever possible.\n" +
+      "  --trailing-comma         Print trailing commas in objects and arrays.\n" +
+      "  --trailing-comma-imports Print trailing commas in js module imports.\n" +
+      "  --trailing-comma-exports Print trailing commas in js module exports.\n" +
+      "  --trailing-comma-args    Print trailing commas in function call arguments.\n" +
       "  --bracket-spacing        Put spaces between [brackets]. Defaults to false.\n" +
       "  --braces-spacing         Put spaces between {braces}. Defaults to true.\n" +
       "  --jsx-fb-close-tag       Close JSX tags on the last attribute instead of new line. Defaults to false.\n" +
