@@ -421,7 +421,13 @@ function printTrailingComment(commentPath, print, options, parentNode) {
     // trailing comment for `2`. We can simulate the above by checking
     // if this a comment on its own line; normal trailing comments are
     // always at the end of another expression.
-    return concat([hardline, contents]);
+
+    const isLineBeforeEmpty = util.isPreviousLineEmpty(
+      options.originalText,
+      comment
+    );
+
+    return concat([hardline, isLineBeforeEmpty ? hardline : "", contents]);
   } else if (isBlock) {
     // Trailing block comments never need a newline
     return concat([" ", contents]);

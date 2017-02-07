@@ -794,6 +794,54 @@ exports[`test jsx.js 2`] = `
 "
 `;
 
+exports[`test preserve-new-line-last.js 1`] = `
+"function name() {
+  // comment1
+  func1()
+
+  // comment2
+  func2()
+
+  // comment3 why func3 commented
+  // func3()
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function name() {
+  // comment1
+  func1();
+
+  // comment2
+  func2();
+  // comment3 why func3 commented
+  // func3()
+}
+"
+`;
+
+exports[`test preserve-new-line-last.js 2`] = `
+"function name() {
+  // comment1
+  func1()
+
+  // comment2
+  func2()
+
+  // comment3 why func3 commented
+  // func3()
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function name() {
+  // comment1
+  func1();
+
+  // comment2
+  func2();
+  // comment3 why func3 commented
+  // func3()
+}
+"
+`;
+
 exports[`test try.js 1`] = `
 "// comment 1
 try {
