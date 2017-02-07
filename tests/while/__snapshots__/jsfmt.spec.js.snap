@@ -4,16 +4,16 @@ while (someVeryLongStringA && someVeryLongStringB && someVeryLongStringC && some
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 if (
   someVeryLongStringA &&
-    someVeryLongStringB &&
-    someVeryLongStringC &&
-    someVeryLongStringD
+  someVeryLongStringB &&
+  someVeryLongStringC &&
+  someVeryLongStringD
 ) {
 }
 while (
   someVeryLongStringA &&
-    someVeryLongStringB &&
-    someVeryLongStringC &&
-    someVeryLongStringD
+  someVeryLongStringB &&
+  someVeryLongStringC &&
+  someVeryLongStringD
 ) {
 }
 "
