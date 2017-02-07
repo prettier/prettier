@@ -5,7 +5,9 @@ node_js:
 cache:
   directories:
   - node_modules
-script: npm test -- --runInBand
+script:
+ - npm test -- --runInBand
+ - scripts/check_format.sh
 after_success:
 - scripts/publish_docs.sh
 env:
