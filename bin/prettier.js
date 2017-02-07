@@ -138,7 +138,10 @@ const options = {
   jsxFbCloseTag: argv["jsx-fb-close-tag"],
   parser: getParserOption(),
   singleQuote: argv["single-quote"],
-  trailingComma: argv["trailing-comma"]
+  trailingComma: argv["trailing-comma"],
+  trailingCommaImports: argv["trailing-comma-imports"],
+  trailingCommaExports: argv["trailing-comma-exports"],
+  trailingCommaArgs: argv["trailing-comma-args"]
 };
 
 function format(input) {
