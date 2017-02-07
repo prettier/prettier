@@ -23,6 +23,7 @@ function fits(next, restCommands, width) {
     const ind = x[0];
     const mode = x[1];
     const doc = x[2];
+    const align = x[3];
 
     if (typeof doc === "string") {
       width -= doc.length;
@@ -30,27 +31,31 @@ function fits(next, restCommands, width) {
       switch (doc.type) {
         case "concat":
           for (var i = doc.parts.length - 1; i >= 0; i--) {
-            cmds.push([ind, mode, doc.parts[i]]);
+            cmds.push([ind, mode, doc.parts[i], align]);
           }
 
           break;
         case "indent":
-          cmds.push([ind + doc.n, mode, doc.contents]);
+          cmds.push([ind + doc.n, mode, doc.contents, align]);
+
+          break;
+        case "align-spaces":
+          cmds.push([ind, mode, doc.contents, align + doc.n]);
 
           break;
         case "group":
-          cmds.push([ind, doc.break ? MODE_BREAK : mode, doc.contents]);
+          cmds.push([ind, doc.break ? MODE_BREAK : mode, doc.contents, align]);
 
           break;
         case "if-break":
           if (mode === MODE_BREAK) {
             if (doc.breakContents) {
-              cmds.push([ind, mode, doc.breakContents]);
+              cmds.push([ind, mode, doc.breakContents, align]);
             }
           }
           if (mode === MODE_FLAT) {
             if (doc.flatContents) {
-              cmds.push([ind, mode, doc.flatContents]);
+              cmds.push([ind, mode, doc.flatContents, align]);
             }
           }
 
@@ -77,14 +82,17 @@ function fits(next, restCommands, width) {
   return false;
 }
 
-function printDocToString(doc, width, newLine) {
-  newLine = newLine || "\n";
-
+function printDocToString(doc, options) {
+  let width = options.printWidth;
+  let tabWidth = options.tabWidth;
+  let useTabs = options.useTabs;
+  let indentStr = useTabs ? "\t" : " ".repeat(tabWidth);
+  let newLine = options.newLine || "\n";
   let pos = 0;
   // cmds is basically a stack. We've turned a recursive call into a
   // while loop which is much faster. The while loop below adds new
   // cmds to the array instead of recursively calling `print`.
-  let cmds = [[0, MODE_BREAK, doc]];
+  let cmds = [[0, MODE_BREAK, doc, 0]];
   let out = [];
   let shouldRemeasure = false;
   let lineSuffix = "";
@@ -94,6 +102,7 @@ function printDocToString(doc, width, newLine) {
     const ind = x[0];
     const mode = x[1];
     const doc = x[2];
+    const align = x[3];
 
     if (typeof doc === "string") {
       out.push(doc);
@@ -103,12 +112,17 @@ function printDocToString(doc, width, newLine) {
       switch (doc.type) {
         case "concat":
           for (var i = doc.parts.length - 1; i >= 0; i--) {
-            cmds.push([ind, mode, doc.parts[i]]);
+            cmds.push([ind, mode, doc.parts[i], align]);
           }
 
           break;
         case "indent":
-          cmds.push([ind + doc.n, mode, doc.contents]);
+          cmds.push([ind + doc.n, mode, doc.contents, align]);
+
+          break;
+        case "align-spaces":
+          let nextAlign = align + (useTabs ? (doc.n ? 1 : 0) : doc.n);
+          cmds.push([ind, mode, doc.contents, nextAlign]);
 
           break;
         case "group":
@@ -119,7 +133,8 @@ function printDocToString(doc, width, newLine) {
                 cmds.push([
                   ind,
                   doc.break ? MODE_BREAK : MODE_FLAT,
-                  doc.contents
+                  doc.contents,
+                  align
                 ]);
 
                 break;
@@ -128,7 +143,7 @@ function printDocToString(doc, width, newLine) {
             case MODE_BREAK:
               shouldRemeasure = false;
 
-              const next = [ind, MODE_FLAT, doc.contents];
+              const next = [ind, MODE_FLAT, doc.contents, align];
               let rem = width - pos;
 
               if (!doc.break && fits(next, cmds, rem)) {
@@ -147,18 +162,18 @@ function printDocToString(doc, width, newLine) {
                   ];
 
                   if (doc.break) {
-                    cmds.push([ind, MODE_BREAK, mostExpanded]);
+                    cmds.push([ind, MODE_BREAK, mostExpanded, align]);
 
                     break;
                   } else {
                     for (var i = 1; i < doc.expandedStates.length + 1; i++) {
                       if (i >= doc.expandedStates.length) {
-                        cmds.push([ind, MODE_BREAK, mostExpanded]);
+                        cmds.push([ind, MODE_BREAK, mostExpanded, align]);
 
                         break;
                       } else {
                         const state = doc.expandedStates[i];
-                        const cmd = [ind, MODE_FLAT, state];
+                        const cmd = [ind, MODE_FLAT, state, align];
 
                         if (fits(cmd, cmds, rem)) {
                           cmds.push(cmd);
@@ -169,7 +184,7 @@ function printDocToString(doc, width, newLine) {
                     }
                   }
                 } else {
-                  cmds.push([ind, MODE_BREAK, doc.contents]);
+                  cmds.push([ind, MODE_BREAK, doc.contents, align]);
                 }
               }
 
@@ -179,12 +194,12 @@ function printDocToString(doc, width, newLine) {
         case "if-break":
           if (mode === MODE_BREAK) {
             if (doc.breakContents) {
-              cmds.push([ind, mode, doc.breakContents]);
+              cmds.push([ind, mode, doc.breakContents, align]);
             }
           }
           if (mode === MODE_FLAT) {
             if (doc.flatContents) {
-              cmds.push([ind, mode, doc.flatContents]);
+              cmds.push([ind, mode, doc.flatContents, align]);
             }
           }
 
@@ -227,8 +242,11 @@ function printDocToString(doc, width, newLine) {
                   );
                 }
 
-                out.push(lineSuffix + newLine + " ".repeat(ind));
-                pos = ind;
+                let lineIndent = useTabs
+                  ? indentStr.repeat(ind + align)
+                  : indentStr.repeat(ind) + " ".repeat(align);
+                out.push(lineSuffix + newLine + lineIndent);
+                pos = ind * tabWidth + align;
               }
 
               lineSuffix = "";

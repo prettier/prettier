@@ -12,9 +12,15 @@ const argv = minimist(process.argv.slice(2), {
   boolean: [
     "write",
     "stdin",
+    "use-tabs",
     "single-quote",
     "trailing-comma",
+    "trailing-comma-imports",
+    "trailing-comma-exports",
+    "trailing-comma-arguments",
     "bracket-spacing",
+    "braces-spacing",
+    "jsx-fb-close-tag",
     // The supports-color package (a sub sub dependency) looks directly at
     // `process.argv` for `--no-color` and such-like options. The reason it is
     // listed here is to avoid "Ignored unknown option: --no-color" warnings.
@@ -27,7 +33,7 @@ const argv = minimist(process.argv.slice(2), {
     "flow-parser"
   ],
   string: ["print-width", "tab-width", "parser"],
-  default: { color: true, "bracket-spacing": true, parser: "babylon" },
+  default: { color: true, "braces-spacing": true, parser: "babylon" },
   alias: { help: "h", version: "v" },
   unknown: param => {
     if (param.startsWith("-")) {
@@ -53,17 +59,23 @@ if (argv["help"] || !filepatterns.length && !stdin) {
       "  --write                  Edit the file in-place. (Beware!)\n" +
       "  --stdin                  Read input from stdin.\n" +
       "  --print-width <int>      Specify the length of line that the printer will wrap on. Defaults to 80.\n" +
+      "  --use-tabs               Indent lines with tabs instead of spaces. Defaults to false.\n" +
       "  --tab-width <int>        Specify the number of spaces per indentation-level. Defaults to 2.\n" +
       "  --single-quote           Use single quotes instead of double.\n" +
-      "  --trailing-comma         Print trailing commas wherever possible.\n" +
-      "  --bracket-spacing        Put spaces between brackets. Defaults to true.\n" +
+      "  --trailing-comma         Print trailing commas in objects and arrays.\n" +
+      "  --trailing-comma-imports Print trailing commas in js module imports.\n" +
+      "  --trailing-comma-exports Print trailing commas in js module exports.\n" +
+      "  --trailing-comma-args    Print trailing commas in function call arguments.\n" +
+      "  --bracket-spacing        Put spaces between [brackets]. Defaults to false.\n" +
+      "  --braces-spacing         Put spaces between {braces}. Defaults to true.\n" +
+      "  --jsx-fb-close-tag       Close JSX tags on the last attribute instead of new line. Defaults to false.\n" +
       "  --parser <flow|babylon>  Specify which parse to use. Defaults to babylon.\n" +
       "  --color                  Colorize error messages. Defaults to true.\n" +
       "  --version                Print prettier version.\n" +
       "\n" +
       "Boolean options can be turned off like this:\n" +
-      "  --no-bracket-spacing\n" +
-      "  --bracket-spacing=false"
+      "  --no-braces-spacing\n" +
+      "  --braces-spacing=false"
   );
   process.exit(argv["help"] ? 0 : 1);
 }
@@ -118,9 +130,12 @@ function getIntOption(optionName) {
 }
 
 const options = {
+  useTabs: argv["use-tabs"],
   printWidth: getIntOption("print-width"),
   tabWidth: getIntOption("tab-width"),
   bracketSpacing: argv["bracket-spacing"],
+  bracesSpacing: argv["braces-spacing"],
+  jsxFbCloseTag: argv["jsx-fb-close-tag"],
   parser: getParserOption(),
   singleQuote: argv["single-quote"],
   trailingComma: argv["trailing-comma"]

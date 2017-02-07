@@ -15,6 +15,7 @@ var softline = docBuilders.softline;
 var literalline = docBuilders.literalline;
 var group = docBuilders.group;
 var indent = docBuilders.indent;
+var alignSpaces = docBuilders.alignSpaces;
 var conditionalGroup = docBuilders.conditionalGroup;
 var ifBreak = docBuilders.ifBreak;
 var breakParent = docBuilders.breakParent;
@@ -107,6 +108,7 @@ function genericPrintNoParens(path, options, print) {
     return n;
   }
 
+  // var tw = options.tabWidth;
   // TODO: For some reason NumericLiteralTypeAnnotation is not
   // printable so this throws, but I think that's a bug in ast-types.
   // This assert isn't very useful though.
@@ -175,7 +177,7 @@ function genericPrintNoParens(path, options, print) {
           // level. The first item is guaranteed to be the first
           // left-most expression.
           parts.length > 0 ? parts[0] : "",
-          indent(options.tabWidth, concat(parts.slice(1)))
+          indent(1, concat(parts.slice(1)))
         ])
       );
     }
@@ -305,7 +307,7 @@ function genericPrintNoParens(path, options, print) {
           collapsed,
           concat([
             concat(parts),
-            indent(options.tabWidth, concat([line, body]))
+            indent(1, concat([line, body]))
           ])
         ]),
         { shouldBreak: willBreak(body) }
@@ -455,14 +457,14 @@ function genericPrintNoParens(path, options, print) {
               concat([
                 "{",
                 indent(
-                  options.tabWidth,
+                  1,
                   concat([
-                    options.bracketSpacing ? line : softline,
+                    options.bracesSpacing ? line : softline,
                     join(concat([",", line]), grouped)
                   ])
                 ),
-                ifBreak(options.trailingComma ? "," : ""),
-                options.bracketSpacing ? line : softline,
+                ifBreak(options.trailingCommaImports ? "," : ""),
+                options.bracesSpacing ? line : softline,
                 "}"
               ])
             )
@@ -485,7 +487,7 @@ function genericPrintNoParens(path, options, print) {
         return group(
           concat([
             concat(parts),
-            indent(options.tabWidth, concat(fromParts))
+            indent(1, concat(fromParts))
           ])
         );
       }
@@ -526,7 +528,7 @@ function genericPrintNoParens(path, options, print) {
           function(childPath) {
             parts.push(
               indent(
-                options.tabWidth,
+                1,
                 concat([hardline, print(childPath), ";"])
               )
             );
@@ -536,7 +538,7 @@ function genericPrintNoParens(path, options, print) {
       }
 
       if (hasContent) {
-        parts.push(indent(options.tabWidth, concat([hardline, naked])));
+        parts.push(indent(1, concat([hardline, naked])));
       }
 
       parts.push(comments.printDanglingComments(path, options));
@@ -622,14 +624,14 @@ function genericPrintNoParens(path, options, print) {
           concat([
             leftBrace,
             indent(
-              options.tabWidth,
+              1,
               concat([
-                options.bracketSpacing ? line : softline,
+                options.bracesSpacing ? line : softline,
                 join(concat([separator, line]), props)
               ])
             ),
             ifBreak(canHaveTrailingComma && options.trailingComma ? "," : ""),
-            options.bracketSpacing ? line : softline,
+            options.bracesSpacing ? line : softline,
             rightBrace,
             path.call(print, "typeAnnotation")
           ]),
@@ -667,7 +669,7 @@ function genericPrintNoParens(path, options, print) {
             concat([
               ":",
               ifBreak(" (", " "),
-              indent(options.tabWidth, concat([softline, printedValue])),
+              indent(1, concat([softline, printedValue])),
               softline,
               ifBreak(")")
             ])
@@ -717,9 +719,9 @@ function genericPrintNoParens(path, options, print) {
             concat([
               "[",
               indent(
-                options.tabWidth,
+                1,
                 concat([
-                  softline,
+                  options.bracketSpacing ? line : softline,
                   join(concat([",", line]), path.map(print, "elements"))
                 ])
               ),
@@ -731,7 +733,7 @@ function genericPrintNoParens(path, options, print) {
                   ? ","
                   : ""
               ),
-              softline,
+              options.bracketSpacing ? line : softline,
               "]"
             ])
           )
@@ -794,14 +796,14 @@ function genericPrintNoParens(path, options, print) {
         concat([
           path.call(print, "test"),
           indent(
-            options.tabWidth,
+            1,
             concat([
               line,
               "? ",
-              indent(2, path.call(print, "consequent")),
+              alignSpaces(2, path.call(print, "consequent")),
               line,
               ": ",
-              indent(2, path.call(print, "alternate"))
+              alignSpaces(2, path.call(print, "alternate"))
             ])
           )
         ])
@@ -829,7 +831,7 @@ function genericPrintNoParens(path, options, print) {
         " ",
         printed[0],
         indent(
-          options.tabWidth,
+          1,
           concat(printed.slice(1).map(p => concat([",", line, p])))
         )
       ];
@@ -869,7 +871,7 @@ function genericPrintNoParens(path, options, print) {
         group(
           concat([
             indent(
-              options.tabWidth,
+              1,
               concat([softline, path.call(print, "test")])
             ),
             softline
@@ -914,7 +916,7 @@ function genericPrintNoParens(path, options, print) {
         group(
           concat([
             indent(
-              options.tabWidth,
+              1,
               concat([
                 softline,
                 path.call(print, "init"),
@@ -939,7 +941,7 @@ function genericPrintNoParens(path, options, print) {
         group(
           concat([
             indent(
-              options.tabWidth,
+              1,
               concat([softline, path.call(print, "test")])
             ),
             softline
@@ -995,7 +997,7 @@ function genericPrintNoParens(path, options, print) {
         },
         "body"
       );
-      return concat(["do {\n", statements.indent(options.tabWidth), "\n}"]);
+      return concat(["do {\n", statements.indent(1), "\n}"]);
     case "BreakStatement":
       parts.push("break");
 
@@ -1062,7 +1064,7 @@ function genericPrintNoParens(path, options, print) {
         ") {",
         n.cases.length > 0
           ? indent(
-              options.tabWidth,
+              1,
               concat([hardline, join(hardline, path.map(print, "cases"))])
             )
           : "",
@@ -1084,7 +1086,7 @@ function genericPrintNoParens(path, options, print) {
         parts.push(
           isCurlyBracket(cons)
             ? concat([" ", cons])
-            : indent(options.tabWidth, concat([hardline, cons]))
+            : indent(1, concat([hardline, cons]))
         );
       }
 
@@ -1144,7 +1146,7 @@ function genericPrintNoParens(path, options, print) {
         concat([
           "{",
           indent(
-            options.tabWidth,
+            1,
             concat([softline, path.call(print, "expression")])
           ),
           softline,
@@ -1183,14 +1185,17 @@ function genericPrintNoParens(path, options, print) {
           path.call(print, "name"),
           concat([
             indent(
-              options.tabWidth,
+              1,
               concat(
                 path.map(attr => concat([line, print(attr)]), "attributes")
               )
             ),
-            n.selfClosing ? line : softline
+            // reference: https://github.com/jlongster/prettier/pull/474/files
+            n.selfClosing ? line : (
+              options.jsxFbCloseTag ? ">" : softline
+            )
           ]),
-          n.selfClosing ? "/>" : ">"
+          n.selfClosing ? "/>" : (options.jsxFbCloseTag ? "" : ">")
         ])
       );
     }
@@ -1214,7 +1219,7 @@ function genericPrintNoParens(path, options, print) {
       return concat([
         "{",
         n.body.length > 0 ? indent(
-          options.tabWidth,
+          1,
           concat([
             hardline,
             path.call(
@@ -1460,7 +1465,7 @@ function genericPrintNoParens(path, options, print) {
       // | C
       return group(
         indent(
-          options.tabWidth,
+          1,
           concat([
             ifBreak(concat([line, op, " "])),
             join(concat([line, op, " "]), types)
@@ -1791,10 +1796,10 @@ function printArgumentsList(path, options, print) {
             concat([
               "(",
               indent(
-                options.tabWidth,
+                1,
                 concat([line, join(concat([",", line]), printed)])
               ),
-              options.trailingComma ? "," : "",
+              options.trailingCommaArgs ? "," : "",
               line,
               ")"
             ]),
@@ -1810,10 +1815,10 @@ function printArgumentsList(path, options, print) {
     concat([
       "(",
       indent(
-        options.tabWidth,
+        1,
         concat([softline, join(concat([",", line]), printed)])
       ),
-      ifBreak(options.trailingComma ? "," : ""),
+      ifBreak(options.trailingCommaArgs ? "," : ""),
       softline,
       ")"
     ]),
@@ -1856,10 +1861,10 @@ function printFunctionParams(path, print, options) {
   return concat([
     "(",
     indent(
-      options.tabWidth,
+      1,
       concat([softline, join(concat([",", line]), printed)])
     ),
-    ifBreak(canHaveTrailingComma && options.trailingComma ? "," : ""),
+    ifBreak(canHaveTrailingComma && options.trailingCommaArgs ? "," : ""),
     softline,
     ")"
   ]);
@@ -1964,14 +1969,14 @@ function printExportDeclaration(path, options, print) {
             concat([
               "{",
               indent(
-                options.tabWidth,
+                1,
                 concat([
-                  options.bracketSpacing ? line : softline,
+                  options.bracesSpacing ? line : softline,
                   join(concat([",", line]), path.map(print, "specifiers"))
                 ])
               ),
-              ifBreak(options.trailingComma ? "," : ""),
-              options.bracketSpacing ? line : softline,
+              ifBreak(options.trailingCommaExports ? "," : ""),
+              options.bracesSpacing ? line : softline,
               "}"
             ])
           )
@@ -2035,7 +2040,7 @@ function printClass(path, options, print) {
   }
 
   if (partsGroup.length > 0) {
-    parts.push(group(indent(options.tabWidth, concat(partsGroup))));
+    parts.push(group(indent(1, concat(partsGroup))));
   }
 
   parts.push(" ", path.call(print, "body"));
@@ -2053,7 +2058,7 @@ function printMemberLookup(path, options, print) {
           "[",
           group(
             concat([
-              indent(options.tabWidth, concat([softline, property])),
+              indent(1, concat([softline, property])),
               softline
             ])
           ),
@@ -2229,7 +2234,7 @@ function printMemberChain(path, options, print) {
   const expanded = concat([
     printGroup(groups[0]),
     indent(
-      options.tabWidth,
+      1,
       group(concat([hardline, join(hardline, groups.slice(1).map(printGroup))]))
     )
   ]);
@@ -2460,7 +2465,7 @@ function printJSXElement(path, options, print) {
     concat([
       openingLines,
       indent(
-        options.tabWidth,
+        1,
         group(concat(childrenGroupedByLine), { shouldBreak: true })
       ),
       hardline,
@@ -2496,7 +2501,7 @@ function maybeWrapJSXElementInParens(path, elem, options) {
   return group(
     concat([
       ifBreak("("),
-      indent(options.tabWidth, concat([softline, elem])),
+      indent(1, concat([softline, elem])),
       softline,
       ifBreak(")")
     ])
@@ -2574,7 +2579,7 @@ function adjustClause(clause, options, forceSpace) {
     return concat([" ", clause]);
   }
 
-  return indent(options.tabWidth, concat([line, clause]));
+  return indent(1, concat([line, clause]));
 }
 
 function isCurlyBracket(doc) {

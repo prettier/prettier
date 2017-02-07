@@ -1,0 +1,48 @@
+exports[`test test.js 1`] = `
+"<nav
+  className="navbar navbar-light navbar-toggleable-md justify-content-center"
+  customProp={this.customProp}
+>
+  <div className="navbar-nav">
+    <NavLink to="/article">
+      News
+    </NavLink>
+  </div>
+</nav>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<nav
+  className="navbar navbar-light navbar-toggleable-md justify-content-center"
+  customProp={this.customProp}
+>
+  <div className="navbar-nav">
+    <NavLink to="/article">
+      News
+    </NavLink>
+  </div>
+</nav>;
+"
+`;
+
+exports[`test test.js 2`] = `
+"<nav
+  className="navbar navbar-light navbar-toggleable-md justify-content-center"
+  customProp={this.customProp}
+>
+  <div className="navbar-nav">
+    <NavLink to="/article">
+      News
+    </NavLink>
+  </div>
+</nav>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<nav
+  className="navbar navbar-light navbar-toggleable-md justify-content-center"
+  customProp={this.customProp}>
+  <div className="navbar-nav">
+    <NavLink to="/article">
+      News
+    </NavLink>
+  </div>
+</nav>;
+"
+`;

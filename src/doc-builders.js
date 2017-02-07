@@ -31,6 +31,12 @@ function indent(n, contents) {
   return { type: "indent", contents, n };
 }
 
+function alignSpaces(n, contents) {
+  assertDoc(contents);
+
+  return { type: "align-spaces", contents, n };
+}
+
 function group(contents, opts) {
   opts = opts || {};
 
@@ -106,5 +112,6 @@ module.exports = {
   lineSuffix,
   breakParent,
   ifBreak,
-  indent
+  indent,
+  alignSpaces
 };

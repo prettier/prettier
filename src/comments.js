@@ -453,7 +453,7 @@ function printDanglingComments(path, options, noIndent) {
   );
 
   if (!noIndent) {
-    return indent(options.tabWidth, concat(parts));
+    return indent(1, concat(parts));
   }
   return concat(parts);
 }

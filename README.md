@@ -1,8 +1,15 @@
-# Prettier 
+# Prettier With Tabs
 
 [![Gitter](https://badges.gitter.im/gitterHQ/gitter.svg)](https://gitter.im/jlongster/prettier)
-[![Build Status](https://travis-ci.org/jlongster/prettier.svg?branch=master)](https://travis-ci.org/jlongster/prettier)
-[![NPM version](https://img.shields.io/npm/v/prettier.svg)](https://www.npmjs.com/package/prettier)
+[![Build Status](https://travis-ci.org/arijs/prettier-with-tabs.svg?branch=master)](https://travis-ci.org/arijs/prettier-with-tabs)
+[![CircleCI Status](https://circleci.com/gh/arijs/prettier-with-tabs.svg?style=shield&circle-token=83f2e43548ccf3827a3a1003a3ff0d5f46996fc2)](https://circleci.com/gh/arijs/prettier-with-tabs)
+[![NPM version](https://img.shields.io/npm/v/prettier-with-tabs.svg)](https://www.npmjs.com/package/prettier-with-tabs)
+
+> # CONFIGURATION WELCOME
+>
+> This is a fork of [jlongster/prettier](https://github.com/jlongster/prettier), with an option added to indent lines with tabs. If you have a simple option you want to add to Prettier With Tabs, send a PR!
+>
+> For example, I don't like javascript code without semicolons, but if you can send me a PR which add this ability with as little code as possible, I'll happily accept it! 😃
 
 Prettier is an opinionated JavaScript formatter inspired by
 [refmt](https://facebook.github.io/reason/tools.html) with advanced
@@ -90,19 +97,19 @@ into account, wrapping code when necessary.
 Install:
 
 ```
-yarn add prettier
+yarn add prettier-with-tabs
 ```
 
 You can install it globally if you like:
 
 ```
-yarn global add prettier
+yarn global add prettier-with-tabs
 ```
 
 *We're defaulting to `yarn` but you can use `npm` if you like:*
 
 ```
-npm install [-g] prettier
+npm install [-g] prettier-with-tabs
 ```
 
 ### CLI
@@ -130,9 +137,12 @@ The API is a single function exported as `format`. The options
 argument is optional, and all of the defaults are shown below:
 
 ```js
-const prettier = require("prettier");
+const prettier = require("prettier-with-tabs");
 
 prettier.format(source, {
+  // Indent lines with tabs
+  useTabs: false,
+
   // Fit code within this line limit
   printWidth: 80,
 
@@ -141,12 +151,27 @@ prettier.format(source, {
 
   // If true, will use single instead of double quotes
   singleQuote: false,
-
-  // Controls the printing of trailing commas wherever possible
+  
+  // Controls the printing of trailing commas in objects and arrays
   trailingComma: false,
 
+  // Controls the printing of trailing commas in js module imports
+  trailingCommaImports: false,
+
+  // Controls the printing of trailing commas in js module exports
+  trailingCommaExports: false,
+
+  // Controls the printing of trailing commas in function call arguments
+  trailingCommaArgs: false,
+
+  // Controls the printing of spaces inside arrays
+  bracketSpacing: false,
+
   // Controls the printing of spaces inside object literals
-  bracketSpacing: true,
+  bracesSpacing: true,
+
+  // Close JSX tags on the last line instead of a new line (Facebook Style)
+  jsxFbCloseTag: false,
 
   // Which parser to use. Valid options are 'flow' and 'babylon'
   parser: 'babylon'
@@ -190,7 +215,7 @@ Can also be installed using `ext install prettier-vscode`
 
 ### Sublime Text
 
-Sublime Text support is available through Package Control and 
+Sublime Text support is available through Package Control and
 the [JsPrettier](https://packagecontrol.io/packages/JsPrettier) plug-in.
 
 ### JetBrains
