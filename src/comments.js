@@ -161,7 +161,7 @@ function attach(comments, ast, text) {
     } else if (util.hasNewline(text, locEnd(comment))) {
       // There is content before this comment on the same line, but
       // none after it, so prefer a trailing comment of the previous node.
-      if (handleTemplateLiteralComment(precedingNode, enclosingNode, comment)) {
+      if (handleTemplateLiteralComment(enclosingNode, comment)) {
       // We are good.
       } else if (precedingNode) {
         addTrailingComment(precedingNode, comment);
@@ -371,12 +371,13 @@ function handleMemberExpressionComment(enclosingNode, followingNode, comment) {
   return false;
 }
 
-function handleTemplateLiteralComment(precedingNode, enclosingNode, comment) {
+function handleTemplateLiteralComment(enclosingNode, comment) {
   if (
     enclosingNode &&
-      enclosingNode.type === "TemplateLiteral"
+      enclosingNode.type === "TemplateLiteral" &&
+      enclosingNode.expressions
   ) {
-    addTrailingComment(precedingNode, comment);
+    addLeadingComment(enclosingNode.expressions[0], comment);
     return true;
   }
 
