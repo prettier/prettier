@@ -184,7 +184,9 @@ If you want to restore cursor position after formatting, try this
 (although it's not guaranteed that it will be restored to the same
 place in the code since it may have moved):
 
+```
 autocmd BufWritePre *.js exe "normal! gggqG\<C-o>\<C-o>"
+```
 
 ### Visual Studio Code
 
