@@ -7,7 +7,7 @@ var defaults = {
   tabWidth: 2,
   printWidth: 80,
   singleQuote: false,
-  trailingComma: false,
+  trailingComma: "none",
   bracketSpacing: true,
   jsxBracketSameLine: false,
   parser: "babylon"
