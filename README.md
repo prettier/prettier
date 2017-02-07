@@ -1,4 +1,4 @@
-# Prettier 
+# Prettier
 
 [![Gitter](https://badges.gitter.im/gitterHQ/gitter.svg)](https://gitter.im/jlongster/prettier)
 [![Build Status](https://travis-ci.org/jlongster/prettier.svg?branch=master)](https://travis-ci.org/jlongster/prettier)
@@ -179,6 +179,12 @@ for automatic formatting without any plugins. You can also add the following to 
 ```
 autocmd BufWritePre *.js :normal gggqG
 ```
+
+If you want to restore cursor position after formatting, try this
+(although it's not guaranteed that it will be restored to the same
+place in the code since it may have moved):
+
+autocmd BufWritePre *.js exe "normal! gggqG\<C-o>\<C-o>"
 
 ### Visual Studio Code
 
