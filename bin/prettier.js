@@ -181,16 +181,28 @@ if (stdin) {
 
       const start = Date.now();
 
+      if (write) {
+        // Don't use `console.log` here since we need to replace this line.
+        process.stdout.write(filename);
+      }
+
       let output;
 
       try {
         output = format(input);
       } catch (e) {
+        // Add newline to split errors from filename line.
+        process.stdout.write("\n");
+
         handleError(filename, e);
         return;
       }
 
       if (write) {
+        // Remove previously printed filename to log it with duration.
+        process.stdout.clearLine();
+        process.stdout.cursorTo(0);
+
         // Don't write the file if it won't change in order not to invalidate
         // mtime based caches.
         if (output === input) {
