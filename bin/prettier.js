@@ -29,6 +29,7 @@ const argv = minimist(process.argv.slice(2), {
     "help",
     "version",
     "debug-print-doc",
+    "debug-check",
     // Deprecated in 0.0.10
     "flow-parser"
   ],
@@ -149,6 +150,17 @@ function format(input) {
     const doc = prettier.__debug.printToDoc(input, options);
     return prettier.__debug.formatDoc(doc);
   }
+
+  if (argv["debug-check"]) {
+    const pp = prettier.format(input, options);
+    const pppp = prettier.format(pp, options);
+    if (pp !== pppp) {
+      const diff = require('diff').createTwoFilesPatch('', '', pp, pppp, '', '', {context: 2});
+      console.error(diff);
+    }
+    return;
+  }
+
   return prettier.format(input, options);
 }
 
@@ -189,7 +201,7 @@ if (stdin) {
 } else {
   eachFilename(filepatterns, filename => {
     fs.readFile(filename, "utf8", (err, input) => {
-      if (write) {
+      if (write || argv["debug-check"]) {
         console.log(filename);
       }
 
