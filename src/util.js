@@ -195,6 +195,14 @@ function hasNewlineInRange(text, start, end) {
   return false;
 }
 
+// Note: this function doesn't ignore leading comments unlike isNextLineEmpty
+function isPreviousLineEmpty(text, node) {
+  let idx = locStart(node) - 1;
+  idx = skipSpaces(text, idx, {backwards: true});
+  idx = skipNewline(text, idx, {backwards: true});
+  return hasNewline(text, idx, {backwards: true});
+}
+
 function isNextLineEmpty(text, node) {
   let oldIdx = null;
   let idx = locEnd(node);
@@ -299,6 +307,7 @@ module.exports = {
   skipSpaces,
   skipNewline,
   isNextLineEmpty,
+  isPreviousLineEmpty,
   hasNewline,
   hasNewlineInRange,
   hasSpaces,
