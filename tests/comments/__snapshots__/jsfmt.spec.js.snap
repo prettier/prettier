@@ -794,35 +794,51 @@ exports[`test jsx.js 2`] = `
 "
 `;
 
-exports[`test template-literal.js 1`] = `
-"\`
-\${// $FlowFixMe found when converting React.createClass to ES6
-ExampleStory.getFragment(\'story\')
-// Another comment
+exports[`test preserve-new-line-last.js 1`] = `
+"function name() {
+  // comment1
+  func1()
+
+  // comment2
+  func2()
+
+  // comment3 why func3 commented
+  // func3()
 }
-\`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\`
-\${// $FlowFixMe found when converting React.createClass to ES6
-ExampleStory.getFragment(\"story\")
-/* Another comment*/}
-\`;
+function name() {
+  // comment1
+  func1();
+
+  // comment2
+  func2();
+  // comment3 why func3 commented
+  // func3()
+}
 "
 `;
 
-exports[`test template-literal.js 2`] = `
-"\`
-\${// $FlowFixMe found when converting React.createClass to ES6
-ExampleStory.getFragment(\'story\')
-// Another comment
+exports[`test preserve-new-line-last.js 2`] = `
+"function name() {
+  // comment1
+  func1()
+
+  // comment2
+  func2()
+
+  // comment3 why func3 commented
+  // func3()
 }
-\`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\`
-\${// $FlowFixMe found when converting React.createClass to ES6
-ExampleStory.getFragment(\"story\")
-// Another comment}
-\`;
+function name() {
+  // comment1
+  func1();
+
+  // comment2
+  func2();
+  // comment3 why func3 commented
+  // func3()
+}
 "
 `;
 
@@ -879,5 +895,37 @@ try {
   // comment 5
   // comment 7
 }
+"
+`;
+
+exports[`test template-literal.js 1`] = `
+"\`
+\${// $FlowFixMe found when converting React.createClass to ES6
+ExampleStory.getFragment(\'story\')
+// Another comment
+}
+\`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\`
+\${// $FlowFixMe found when converting React.createClass to ES6
+ExampleStory.getFragment(\"story\")
+/* Another comment*/}
+\`;
+"
+`;
+
+exports[`test template-literal.js 2`] = `
+"\`
+\${// $FlowFixMe found when converting React.createClass to ES6
+ExampleStory.getFragment(\'story\')
+// Another comment
+}
+\`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\`
+\${// $FlowFixMe found when converting React.createClass to ES6
+ExampleStory.getFragment(\"story\")
+// Another comment}
+\`;
 "
 `;

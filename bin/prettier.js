@@ -5,6 +5,7 @@
 const fs = require("fs");
 const getStdin = require("get-stdin");
 const glob = require("glob");
+const chalk = require("chalk");
 const minimist = require("minimist");
 const prettier = require("../index");
 
@@ -23,6 +24,7 @@ const argv = minimist(process.argv.slice(2), {
     "help",
     "version",
     "debug-print-doc",
+    "debug-check",
     // Deprecated in 0.0.10
     "flow-parser"
   ],
@@ -131,6 +133,17 @@ function format(input) {
     const doc = prettier.__debug.printToDoc(input, options);
     return prettier.__debug.formatDoc(doc);
   }
+
+  if (argv["debug-check"]) {
+    const pp = prettier.format(input, options);
+    const pppp = prettier.format(pp, options);
+    if (pp !== pppp) {
+      const diff = require('diff').createTwoFilesPatch('', '', pp, pppp, '', '', {context: 2});
+      console.error(diff);
+    }
+    return;
+  }
+
   return prettier.format(input, options);
 }
 
@@ -171,29 +184,47 @@ if (stdin) {
 } else {
   eachFilename(filepatterns, filename => {
     fs.readFile(filename, "utf8", (err, input) => {
-      if (write) {
-        console.log(filename);
+      if (write || argv["debug-check"]) {
+        // Don't use `console.log` here since we need to replace this line.
+        process.stdout.write(filename);
       }
 
       if (err) {
+        // Add newline to split errors from filename line.
+        process.stdout.write("\n");
+
         console.error("Unable to read file: " + filename + "\n" + err);
         // Don't exit the process if one file failed
         process.exitCode = 2;
         return;
       }
 
+      const start = Date.now();
+
       let output;
+
       try {
         output = format(input);
       } catch (e) {
+        // Add newline to split errors from filename line.
+        process.stdout.write("\n");
+
         handleError(filename, e);
         return;
       }
 
       if (write) {
+        // Remove previously printed filename to log it with duration.
+        process.stdout.clearLine();
+        process.stdout.cursorTo(0);
+
         // Don't write the file if it won't change in order not to invalidate
         // mtime based caches.
-        if (output !== input) {
+        if (output === input) {
+          console.log(chalk.grey("%s %dms"), filename, Date.now() - start);
+        } else {
+          console.log("%s %dms", filename, Date.now() - start);
+
           fs.writeFile(filename, output, "utf8", err => {
             if (err) {
               console.error("Unable to write file: " + filename + "\n" + err);

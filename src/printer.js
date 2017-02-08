@@ -143,7 +143,11 @@ function genericPrintNoParens(path, options, print) {
       parts.push(
         comments.printDanglingComments(path, options, /* noIdent */ true)
       );
-      parts.push(hardline);
+
+      // Only force a trailing newline if there were any contents.
+      if (n.body.length || n.comments) {
+        parts.push(hardline);
+      }
 
       return concat(parts);
     // Babel extension.
@@ -2266,12 +2270,9 @@ function isEmptyJSXElement(node) {
 //
 // For another, leading, trailing, and lone whitespace all need to
 // turn themselves into the rather ugly `{' '}` when breaking.
-function printJSXChildren(path, options, print) {
+function printJSXChildren(path, options, print, jsxWhitespace) {
   const n = path.getValue();
   const children = [];
-  const jsxWhitespace = options.singleQuote
-    ? ifBreak("{' '}", " ")
-    : ifBreak('{" "}', " ");
 
   // using `map` instead of `each` because it provides `i`
   path.map(
@@ -2318,9 +2319,9 @@ function printJSXChildren(path, options, print) {
             if (endSpace) {
               children.push(jsxWhitespace);
             }
-
-            children.push(softline);
           });
+
+          children.push(softline);
         } else if (/\n/.test(value)) {
           children.push(hardline);
 
@@ -2381,7 +2382,10 @@ function printJSXElement(path, options, print) {
     return openingLines;
   }
 
-  const children = printJSXChildren(path, options, print);
+  const jsxWhitespace = options.singleQuote
+    ? ifBreak("{' '}", " ")
+    : ifBreak('{" "}', " ");
+  const children = printJSXChildren(path, options, print, jsxWhitespace);
   let forcedBreak = false;
 
   // Trim trailing lines, recording if there was a hardline
@@ -2413,46 +2417,47 @@ function printJSXElement(path, options, print) {
   }
 
   // Group by line, recording if there was a hardline.
-  let childrenGroupedByLine;
-  if (children.length === 1) {
-    if (!forcedBreak && willBreak(children[0])) {
-      forcedBreak = true;
+  let groups = [[]]; // Initialize the first line's group
+  children.forEach((child, i) => {
+    // leading and trailing JSX whitespace don't go into a group
+    if (child === jsxWhitespace) {
+      if (i === 0) {
+        groups.unshift(child);
+        return;
+      } else if (i === children.length - 1) {
+        groups.push(child);
+        return;
+      }
     }
 
-    // Don't wrap a single child in a group as there is no need, and a
-    // lone JSX whitespace doesn't work otherwise because the group
-    // will be printed in flat mode, and we need to print `{' '}` in
-    // break mode.
-    childrenGroupedByLine = [concat([hardline, children[0]])];
-  } else {
-    // Prefill leading newline, and initialize the first line's group
-    let groups = [[]];
-    children.forEach((child, i) => {
-      let prev = children[i - 1];
-      if (prev && willBreak(prev)) {
-        forcedBreak = true;
+    let prev = children[i - 1];
+    if (prev && willBreak(prev)) {
+      forcedBreak = true;
 
-        // On a new line, so create a new group and put this element
-        // in it.
-        groups.push([child]);
-      } else {
-        // Not on a newline, so add this element to the current group.
-        util.getLast(groups).push(child);
-      }
+      // On a new line, so create a new group and put this element in it.
+      groups.push([child]);
+    } else {
+      // Not on a newline, so add this element to the current group.
+      util.getLast(groups).push(child);
+    }
 
-      // Ensure we record hardline of last element.
-      if (!forcedBreak && i === children.length - 1) {
-        if (willBreak(child)) forcedBreak = true;
-      }
-    });
+    // Ensure we record hardline of last element.
+    if (!forcedBreak && i === children.length - 1) {
+      if (willBreak(child)) forcedBreak = true;
+    }
+  });
 
-    childrenGroupedByLine = [
-      hardline,
-      // Conditional groups suppress break propagation; we want output
-      // hard lines without breaking up the entire jsx element.
-      concat(groups.map(contents => conditionalGroup([concat(contents)])))
-    ];
-  }
+  const childrenGroupedByLine = [
+    hardline,
+    // Conditional groups suppress break propagation; we want to output
+    // hard lines without breaking up the entire jsx element.
+    // Note that leading and trailing JSX Whitespace don't go into a group.
+    concat(groups.map(contents =>
+      Array.isArray(contents)
+        ? conditionalGroup([concat(contents)])
+        : contents
+    ))
+  ];
 
   const closingLines = path.call(print, "closingElement");
 
