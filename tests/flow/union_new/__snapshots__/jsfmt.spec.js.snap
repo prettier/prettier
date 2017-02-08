@@ -1369,12 +1369,12 @@ exports[`test test13.js 1`] = `
 
 ({ type: \"B\", id: \"hi\" }:
   | {
-    type: \"A\",
-    id: ?string
+      type: \"A\",
+      id: ?string
   }
   | {
-    type: \"B\",
-    id: string
+      type: \"B\",
+      id: string
   });
 "
 `;
