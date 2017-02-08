@@ -144,7 +144,8 @@ function attach(comments, ast, text) {
       if (
         handleMemberExpressionComment(enclosingNode, followingNode, comment) ||
           handleIfStatementComments(enclosingNode, followingNode, comment) ||
-          handleTryStatementComments(enclosingNode, followingNode, comment)
+          handleTryStatementComments(enclosingNode, followingNode, comment, true) ||
+          handleTemplateLiteralComment(enclosingNode, comment, true)
       ) {
         // We're good
       } else if (followingNode) {
@@ -371,13 +372,16 @@ function handleMemberExpressionComment(enclosingNode, followingNode, comment) {
   return false;
 }
 
-function handleTemplateLiteralComment(enclosingNode, comment) {
+function handleTemplateLiteralComment(enclosingNode, comment, isOwnLine) {
   if (
     enclosingNode &&
-      enclosingNode.type === "TemplateLiteral" &&
-      enclosingNode.expressions
+      enclosingNode.type === "TemplateLiteral"
   ) {
-    addLeadingComment(enclosingNode.expressions[0], comment);
+    if (isOwnLine) {
+      addTrailingComment(enclosingNode.expressions[0], comment);
+    } else {
+      addLeadingComment(enclosingNode.expressions[0], comment);
+    }
     return true;
   }
 
