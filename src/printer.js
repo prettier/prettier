@@ -583,6 +583,8 @@ function genericPrintNoParens(path, options, print) {
       var fields = [];
       var leftBrace = n.exact ? "{|" : "{";
       var rightBrace = n.exact ? "|}" : "}";
+      var parent = path.getParentNode(0);
+      var parentIsUnionTypeAnnotation = parent.type === "UnionTypeAnnotation"
 
       if (isTypeAnnotation) {
         fields.push("indexers", "callProperties");
@@ -626,7 +628,7 @@ function genericPrintNoParens(path, options, print) {
           concat([
             leftBrace,
             indent(
-              options.tabWidth,
+              options.tabWidth * (parentIsUnionTypeAnnotation ? 2 : 1),
               concat([
                 options.bracketSpacing ? line : softline,
                 join(concat([separator, line]), props)
