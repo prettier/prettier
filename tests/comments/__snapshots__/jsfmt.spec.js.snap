@@ -794,6 +794,38 @@ exports[`test jsx.js 2`] = `
 "
 `;
 
+exports[`test template-literal.js 1`] = `
+"\`
+\${// $FlowFixMe found when converting React.createClass to ES6
+ExampleStory.getFragment(\'story\')
+// Another comment
+}
+\`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\`
+\${// $FlowFixMe found when converting React.createClass to ES6
+ExampleStory.getFragment(\"story\")
+/* Another comment*/}
+\`;
+"
+`;
+
+exports[`test template-literal.js 2`] = `
+"\`
+\${// $FlowFixMe found when converting React.createClass to ES6
+ExampleStory.getFragment(\'story\')
+// Another comment
+}
+\`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\`
+\${// $FlowFixMe found when converting React.createClass to ES6
+ExampleStory.getFragment(\"story\")
+// Another comment}
+\`;
+"
+`;
+
 exports[`test try.js 1`] = `
 "// comment 1
 try {
