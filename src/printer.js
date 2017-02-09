@@ -564,12 +564,14 @@ function genericPrintNoParens(path, options, print) {
       if (n.argument) {
         if (n.argument.comments) {
           parts.push(
-            concat([
-              ' (',
-              indent(options.tabWidth, concat([softline, path.call(print, "argument")])),
-              line,
-              ')'
-            ])
+            n.loc.start.line === n.loc.end.line
+              ? concat([" ", path.call(print, "argument")])
+              : concat([
+                ' (',
+                indent(options.tabWidth, concat([softline, path.call(print, "argument")])),
+                line,
+                ')'
+              ])
           );
         } else {
           parts.push(" ", path.call(print, "argument"));
