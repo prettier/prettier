@@ -628,15 +628,17 @@ function genericPrintNoParens(path, options, print) {
           concat([
             leftBrace,
             indent(
-              options.tabWidth * (parentIsUnionTypeAnnotation ? 2 : 1),
+              options.tabWidth + (parentIsUnionTypeAnnotation ? 3 : 0),
               concat([
                 options.bracketSpacing ? line : softline,
                 join(concat([separator, line]), props)
               ])
             ),
             ifBreak(canHaveTrailingComma && options.trailingComma ? "," : ""),
-            options.bracketSpacing ? line : softline,
-            rightBrace,
+            indent(
+              parentIsUnionTypeAnnotation ? 2 : 0,
+              concat([options.bracketSpacing ? line : softline, rightBrace])
+            ),
             path.call(print, "typeAnnotation")
           ]),
           { shouldBreak }
