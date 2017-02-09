@@ -72,7 +72,7 @@ class E<X> extends C<X> {
   //x:X;
   set(x: X): X {
     /*return x;*/ this.x = x;
-    return(
+    return (
       /*this.x; */ this.get()
     );
   }
