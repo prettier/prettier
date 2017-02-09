@@ -170,11 +170,15 @@ function genericPrintNoParens(path, options, print) {
       printBinaryishExpressions(path, parts, print, options);
       const parent = path.getParentNode();
 
-      const shouldNotIndent =
+      // Avoid indenting sub-expressions in if/etc statements.
+      if(
         (parent.type === "IfStatement" ||
-        parent.type === "WhileStatement" ||
-        parent.type === "DoStatement" ||
-        parent.type === "ForStatement") && n !== parent.body;
+         parent.type === "WhileStatement" ||
+         parent.type === "DoStatement" ||
+         parent.type === "ForStatement") && n !== parent.body
+      ) {
+        return group(concat(parts));
+      }
 
       const rest = concat(parts.slice(1));
 
@@ -184,7 +188,7 @@ function genericPrintNoParens(path, options, print) {
           // level. The first item is guaranteed to be the first
           // left-most expression.
           parts.length > 0 ? parts[0] : "",
-          shouldNotIndent ? rest : indent(options.tabWidth, rest)
+          indent(options.tabWidth, rest)
         ])
       );
     }
@@ -2516,7 +2520,7 @@ function printBinaryishExpressions(path, parts, print, options, isNested) {
     // print them normally.
     if (
       util.getPrecedence(node.left.operator) ===
-        util.getPrecedence(node.operator)
+      util.getPrecedence(node.operator)
     ) {
       // Flatten them out by recursively calling this function. The
       // printed values will all be appended to `parts`.
