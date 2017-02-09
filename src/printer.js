@@ -562,7 +562,18 @@ function genericPrintNoParens(path, options, print) {
       parts.push("return");
 
       if (n.argument) {
-        parts.push(" ", path.call(print, "argument"));
+        if (n.argument.comments) {
+          parts.push(
+            concat([
+              '(',
+              indent(options.tabWidth, concat([softline, path.call(print, "argument")])),
+              line,
+              ')'
+            ])
+          );
+        } else {
+          parts.push(" ", path.call(print, "argument"));
+        }
       }
 
       parts.push(";");
