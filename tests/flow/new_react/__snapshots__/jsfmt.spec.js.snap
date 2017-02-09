@@ -67,6 +67,7 @@ var FeedUFI = React.createClass({
       <UFILikeCount className=\"\" key=\"\" feedback={feedback} permalink=\"\" />
     );
   },
+
   render: function(): ?React.Element<any> {
     return <div />;
   }
@@ -130,6 +131,7 @@ var UFILikeCount = React.createClass({
     permalink: React.PropTypes.string,
     feedback: React.PropTypes.object.isRequired
   },
+
   render: function(): ?React.Element<any> {
     return <div />;
   }
@@ -337,22 +339,29 @@ var FooLegacy = React.createClass({
   propTypes: {
     x: React.PropTypes.number.isRequired
   },
+
   getDefaultProps(): DefaultProps {
     return {};
   },
+
   statics: {
     bar(): void {}
   },
+
   qux(): void {
     var _: string = this.props.x;
   },
+
   getInitialState(): { y: string } {
     return { y: \"\" };
   },
+
   setState(o: { y_: string }): void {},
+
   componentDidMount(): void {
     this.is_mounted = true;
   },
+
   componentWillReceiveProps(nextProps: Object, nextContext: any): void {
     this.qux();
   }
@@ -452,6 +461,7 @@ var C = React.createClass({
     z: React.PropTypes.number
   },
   replaceProps(props: {}) {},
+
   getDefaultProps(): { z: number } {
     return { z: 0 };
   },
@@ -558,9 +568,11 @@ var TestProps = React.createClass({
     x: React.PropTypes.string,
     z: React.PropTypes.number
   },
+
   getDefaultProps: function() {
     return { x: \"\", y: 0 };
   },
+
   test: function() {
     var a: number = this.props.x; // error
     var b: string = this.props.y; // error
@@ -688,12 +700,14 @@ var TestProps = React.createClass({
     object_rec: React.PropTypes.object.isRequired,
     string: React.PropTypes.string,
     string_rec: React.PropTypes.string.isRequired,
+
     any: React.PropTypes.any,
     any_rec: React.PropTypes.any.isRequired,
     element: React.PropTypes.element,
     element_rec: React.PropTypes.element.isRequired,
     node: React.PropTypes.node,
     node_rec: React.PropTypes.node.isRequired,
+
     arrayOf: React.PropTypes.arrayOf(React.PropTypes.string),
     arrayOf_rec: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
     instanceOf: React.PropTypes.instanceOf(Object),
@@ -718,6 +732,7 @@ var TestProps = React.createClass({
       foo: React.PropTypes.string,
       bar: React.PropTypes.number
     }).isRequired,
+
     // And do something bad here
     bad_one: React.PropTypes.imaginaryType,
     bad_two: React.PropTypes.string.inRequired
@@ -840,6 +855,7 @@ var ReactClass = React.createClass({
   getInitialState: function(): State {
     return { bar: null };
   },
+
   render: function(): any {
     // Any state access here seems to make state any
     this.state;
@@ -919,6 +935,7 @@ var TestState = React.createClass({
       x: \"\"
     };
   },
+
   test: function() {
     var a: number = this.state.x; // error
 
@@ -951,6 +968,7 @@ var C = React.createClass({
   getInitialState: function() {
     return { x: 0 };
   },
+
   render() {
     this.setState({ y: 0 });
     return <div>{this.state.z}</div>;

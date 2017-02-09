@@ -600,13 +600,19 @@ function genericPrintNoParens(path, options, print) {
 
       fields.push("properties");
 
-      var i = 0;
       var props = [];
+      let separatorParts = [];
 
       fields.forEach(function(field) {
         path.each(
           function(childPath) {
+            props.push(concat(separatorParts));
             props.push(group(print(childPath)));
+
+            separatorParts = [separator, line];
+            if (util.isNextLineEmpty(options.originalText, childPath.getValue())) {
+              separatorParts.push(hardline);
+            }
           },
           field
         );
@@ -639,7 +645,7 @@ function genericPrintNoParens(path, options, print) {
               options.tabWidth,
               concat([
                 options.bracketSpacing ? line : softline,
-                join(concat([separator, line]), props)
+                concat(props)
               ])
             ),
             ifBreak(canHaveTrailingComma && options.trailingComma ? "," : ""),
