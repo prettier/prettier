@@ -1,3 +1,36 @@
+exports[`test short-right.js 1`] = `
+"this._cumulativeHeights &&
+ Math.abs(
+   this._cachedItemHeight(this._firstVisibleIndex + i) -
+     this._provider.fastHeight(i + this._firstVisibleIndex),
+ ) >
+   1
+
+foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo(
+  aaaaaaaaaaaaaaaaaaa
+) +
+  a;
+
+const isPartOfPackageJSON = dependenciesArray.indexOf(
+  dependencyWithOutRelativePath.split(\'/\')[0],
+) !== -1;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+this._cumulativeHeights &&
+  Math.abs(
+    this._cachedItemHeight(this._firstVisibleIndex + i) -
+      this._provider.fastHeight(i + this._firstVisibleIndex)
+  ) > 1;
+
+foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo(
+  aaaaaaaaaaaaaaaaaaa
+) + a;
+
+const isPartOfPackageJSON = dependenciesArray.indexOf(
+  dependencyWithOutRelativePath.split(\"/\")[0]
+) !== -1;
+"
+`;
+
 exports[`test test.js 1`] = `
 "// It should always break the highest precedence operators first, and
 // break them all at the same time.

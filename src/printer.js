@@ -2567,7 +2567,18 @@ function printBinaryishExpressions(path, parts, print, options, isNested) {
       parts.push(path.call(print, "left"));
     }
 
-    parts.push(" ", node.operator, line, path.call(print, "right"));
+    const right = concat([node.operator, line, path.call(print, "right")]);
+
+    // If there's only a single binary expression: everything except && and ||,
+    // we want to create a group in order to avoid having a small right part
+    // like -1 be on its own line.
+    const parent = path.getParentNode();
+    const shouldGroup = node.type === "BinaryExpression" &&
+      parent.type !== "BinaryExpression" &&
+      node.left.type !== "BinaryExpression" &&
+      node.right.type !== "BinaryExpression";
+
+    parts.push(" ", shouldGroup ? group(right) : right);
 
     // The root comments are already printed, but we need to manually print
     // the other ones since we don't call the normal print on BinaryExpression,
