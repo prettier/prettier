@@ -174,6 +174,19 @@ function genericPrintNoParens(path, options, print) {
     case "LogicalExpression": {
       const parts = [];
       printBinaryishExpressions(path, parts, print, options);
+      const parent = path.getParentNode();
+
+      // Avoid indenting sub-expressions in if/etc statements.
+      if(
+        (parent.type === "IfStatement" ||
+         parent.type === "WhileStatement" ||
+         parent.type === "DoStatement" ||
+         parent.type === "ForStatement") && n !== parent.body
+      ) {
+        return group(concat(parts));
+      }
+
+      const rest = concat(parts.slice(1));
 
       return group(
         concat([
@@ -181,7 +194,7 @@ function genericPrintNoParens(path, options, print) {
           // level. The first item is guaranteed to be the first
           // left-most expression.
           parts.length > 0 ? parts[0] : "",
-          indent(1, concat(parts.slice(1)))
+          indent(1, rest)
         ])
       );
     }
@@ -489,10 +502,7 @@ function genericPrintNoParens(path, options, print) {
       // we want and this break would take precedence instead.
       if (grouped.length === 0) {
         return group(
-          concat([
-            concat(parts),
-            indent(1, concat(fromParts))
-          ])
+          concat([concat(parts), indent(1, concat(fromParts))])
         );
       }
 
@@ -592,13 +602,19 @@ function genericPrintNoParens(path, options, print) {
 
       fields.push("properties");
 
-      var i = 0;
       var props = [];
+      let separatorParts = [];
 
       fields.forEach(function(field) {
         path.each(
           function(childPath) {
+            props.push(concat(separatorParts));
             props.push(group(print(childPath)));
+
+            separatorParts = [separator, line];
+            if (util.isNextLineEmpty(options.originalText, childPath.getValue())) {
+              separatorParts.push(hardline);
+            }
           },
           field
         );
@@ -631,7 +647,7 @@ function genericPrintNoParens(path, options, print) {
               1,
               concat([
                 options.bracesSpacing ? line : softline,
-                join(concat([separator, line]), props)
+                concat(props)
               ])
             ),
             ifBreak(canHaveTrailingComma && options.trailingComma ? "," : ""),
@@ -1222,18 +1238,20 @@ function genericPrintNoParens(path, options, print) {
 
       return concat([
         "{",
-        n.body.length > 0 ? indent(
-          1,
-          concat([
-            hardline,
-            path.call(
-              function(bodyPath) {
-                return printStatementSequence(bodyPath, options, print);
-              },
-              "body"
+        n.body.length > 0
+          ? indent(
+              1,
+              concat([
+                hardline,
+                path.call(
+                  function(bodyPath) {
+                    return printStatementSequence(bodyPath, options, print);
+                  },
+                  "body"
+                )
+              ])
             )
-          ])
-        ) : comments.printDanglingComments(path, options),
+          : comments.printDanglingComments(path, options),
         hardline,
         "}"
       ]);
@@ -2164,8 +2182,10 @@ function printMemberChain(path, options, print) {
     }
   }
   for (; i + 1 < printedNodes.length; ++i) {
-    if (printedNodes[i].node.type === "MemberExpression" &&
-        printedNodes[i + 1].node.type === "MemberExpression") {
+    if (
+      printedNodes[i].node.type === "MemberExpression" &&
+        printedNodes[i + 1].node.type === "MemberExpression"
+    ) {
       currentGroup.push(printedNodes[i]);
     } else {
       break;
@@ -2540,7 +2560,7 @@ function printBinaryishExpressions(path, parts, print, options, isNested) {
     // print them normally.
     if (
       util.getPrecedence(node.left.operator) ===
-        util.getPrecedence(node.operator)
+      util.getPrecedence(node.operator)
     ) {
       // Flatten them out by recursively calling this function. The
       // printed values will all be appended to `parts`.
@@ -2559,7 +2579,18 @@ function printBinaryishExpressions(path, parts, print, options, isNested) {
       parts.push(path.call(print, "left"));
     }
 
-    parts.push(" ", node.operator, line, path.call(print, "right"));
+    const right = concat([node.operator, line, path.call(print, "right")]);
+
+    // If there's only a single binary expression: everything except && and ||,
+    // we want to create a group in order to avoid having a small right part
+    // like -1 be on its own line.
+    const parent = path.getParentNode();
+    const shouldGroup = node.type === "BinaryExpression" &&
+      parent.type !== "BinaryExpression" &&
+      node.left.type !== "BinaryExpression" &&
+      node.right.type !== "BinaryExpression";
+
+    parts.push(" ", shouldGroup ? group(right) : right);
 
     // The root comments are already printed, but we need to manually print
     // the other ones since we don't call the normal print on BinaryExpression,

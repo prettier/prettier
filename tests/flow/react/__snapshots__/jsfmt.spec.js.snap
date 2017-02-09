@@ -271,6 +271,7 @@ var React = React.createClass({
         return \"Alice\";
     }
   },
+
   render() {
     // But this never errored
     return <div id={this.props.name} />;
