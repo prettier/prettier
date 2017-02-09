@@ -500,10 +500,7 @@ function genericPrintNoParens(path, options, print) {
       // we want and this break would take precedence instead.
       if (grouped.length === 0) {
         return group(
-          concat([
-            concat(parts),
-            indent(options.tabWidth, concat(fromParts))
-          ])
+          concat([concat(parts), indent(options.tabWidth, concat(fromParts))])
         );
       }
 
@@ -1230,18 +1227,20 @@ function genericPrintNoParens(path, options, print) {
 
       return concat([
         "{",
-        n.body.length > 0 ? indent(
-          options.tabWidth,
-          concat([
-            hardline,
-            path.call(
-              function(bodyPath) {
-                return printStatementSequence(bodyPath, options, print);
-              },
-              "body"
+        n.body.length > 0
+          ? indent(
+              options.tabWidth,
+              concat([
+                hardline,
+                path.call(
+                  function(bodyPath) {
+                    return printStatementSequence(bodyPath, options, print);
+                  },
+                  "body"
+                )
+              ])
             )
-          ])
-        ) : comments.printDanglingComments(path, options),
+          : comments.printDanglingComments(path, options),
         hardline,
         "}"
       ]);
@@ -2172,8 +2171,10 @@ function printMemberChain(path, options, print) {
     }
   }
   for (; i + 1 < printedNodes.length; ++i) {
-    if (printedNodes[i].node.type === "MemberExpression" &&
-        printedNodes[i + 1].node.type === "MemberExpression") {
+    if (
+      printedNodes[i].node.type === "MemberExpression" &&
+        printedNodes[i + 1].node.type === "MemberExpression"
+    ) {
       currentGroup.push(printedNodes[i]);
     } else {
       break;
