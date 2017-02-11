@@ -1117,10 +1117,7 @@ function genericPrintNoParens(path, options, print) {
 
       if (n.value) {
         let res;
-        if (
-          (n.value.type === "StringLiteral" || n.value.type === "Literal") &&
-            typeof n.value.value === "string"
-        ) {
+        if (isStringLiteral(n.value)) {
           res = '"' + util.htmlEscapeInsideDoubleQuote(n.value.value) + '"';
         } else {
           res = path.call(print, "value");
@@ -1704,8 +1701,7 @@ function printPropertyKey(path, options, print) {
   const key = node.key;
 
   if (
-    (key.type === "StringLiteral" ||
-      key.type === "Literal" && typeof key.value === "string") &&
+    isStringLiteral(key) &&
       isIdentifierName(key.value) &&
       !node.computed &&
       // There's a bug in the flow parser where it throws if there are
@@ -2532,6 +2528,27 @@ function isBinaryish(node) {
   return node.type === "BinaryExpression" || node.type === "LogicalExpression";
 }
 
+function leftMostPlusNode(node) {
+  if (node.type === "BinaryExpression" && node.operator === '+') {
+    return leftMostPlusNode(node.left);
+  }
+  return node;
+}
+
+function rightMostPlusNode(node) {
+  if (node.type === "BinaryExpression" && node.operator === '+') {
+    return rightMostPlusNode(node.right);
+  }
+  return node;
+}
+
+function hasStringEitherSide(node) {
+  return node.type === "BinaryExpression" && (
+    isStringLiteral(leftMostPlusNode(node.right)) ||
+    isStringLiteral(rightMostPlusNode(node.left))
+  );
+}
+
 // For binary expressions to be consistent, we need to group
 // subsequent operators with the same precedence level under a single
 // group. Otherwise they will be nested such that some of them break
@@ -2574,16 +2591,37 @@ function printBinaryishExpressions(path, parts, print, options, isNested) {
       parts.push(path.call(print, "left"));
     }
 
-    const right = concat([node.operator, line, path.call(print, "right")]);
+    const shouldBreak = node.left.comments ||
+      hasStringEitherSide(node) &&
+        util.hasNewline(
+          options.originalText,
+          util.skipPlus(options.originalText, util.locEnd(node.left))
+        );
+
+    const right = concat([
+      node.operator,
+      shouldBreak ? hardline : line,
+      path.call(print, "right")
+    ]);
+
+    const parent = path.getParentNode();
+
+    // If the parent of the node is part of a string concatenation,
+    // we want to create a group in order to be able to split.
+    const isPartOfStringConcatenation =
+      hasStringEitherSide(node) ||
+      hasStringEitherSide(parent);
 
     // If there's only a single binary expression: everything except && and ||,
     // we want to create a group in order to avoid having a small right part
     // like -1 be on its own line.
-    const parent = path.getParentNode();
-    const shouldGroup = node.type === "BinaryExpression" &&
+    const isSingleBinaryExpression =
+      node.type === "BinaryExpression" &&
       parent.type !== "BinaryExpression" &&
       node.left.type !== "BinaryExpression" &&
       node.right.type !== "BinaryExpression";
+
+    const shouldGroup = isPartOfStringConcatenation || isSingleBinaryExpression;
 
     parts.push(" ", shouldGroup ? group(right) : right);
 
@@ -2730,6 +2768,10 @@ function isLastStatement(path) {
   const node = path.getValue();
   const body = parent.body;
   return body && body[body.length - 1] === node;
+}
+
+function isStringLiteral(node) {
+  return node.type === "StringLiteral" || node.type === "Literal" && typeof node.value === "string";
 }
 
 // Hack to differentiate between the following two which have the same ast

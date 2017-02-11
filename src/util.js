@@ -125,6 +125,7 @@ function skip(chars) {
 const skipWhitespace = skip(/\s/);
 const skipSpaces = skip(" \t");
 const skipToLineEnd = skip(",; \t");
+const skipPlus = skip("+ \t");
 const skipEverythingButNewLine = skip(/[^\r\n]/);
 
 function skipInlineComment(text, index) {
@@ -306,6 +307,7 @@ module.exports = {
   skipWhitespace,
   skipSpaces,
   skipNewline,
+  skipPlus,
   isNextLineEmpty,
   isPreviousLineEmpty,
   hasNewline,
