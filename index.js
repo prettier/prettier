@@ -51,7 +51,7 @@ function attachComments(text, ast, opts) {
 function format(text, opts) {
   const ast = parse(text, opts);
   attachComments(text, ast, opts);
-  const doc = printAstToDoc(ast, opts);
+  const doc = printAstToDoc(ast, opts, text);
   const str = printDocToString(doc, opts.printWidth, guessLineEnding(text));
   return str;
 }
