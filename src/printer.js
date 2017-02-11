@@ -24,6 +24,7 @@ var willBreak = docUtils.willBreak;
 var isLineNext = docUtils.isLineNext;
 var getFirstString = docUtils.getFirstString;
 var isEmpty = docUtils.isEmpty;
+var getNodeSource = docUtils.getNodeSource;
 
 var types = require("ast-types");
 var namedTypes = types.namedTypes;
@@ -34,13 +35,13 @@ function maybeAddParens(path, lines) {
   return path.needsParens() ? concat(["(", lines, ")"]) : lines;
 }
 
-function genericPrint(path, options, printPath) {
+function genericPrint(path, options, printPath, text) {
   assert.ok(path instanceof FastPath);
 
   var node = path.getValue();
   var parts = [];
   var needsParens = false;
-  var linesWithoutParens = genericPrintNoParens(path, options, printPath);
+  var linesWithoutParens = genericPrintNoParens(path, options, printPath, text);
 
   if (!node || isEmpty(linesWithoutParens)) {
     return linesWithoutParens;
@@ -96,7 +97,7 @@ function genericPrint(path, options, printPath) {
   return concat(parts);
 }
 
-function genericPrintNoParens(path, options, print) {
+function genericPrintNoParens(path, options, print, text) {
   var n = path.getValue();
 
   if (!n) {
@@ -1558,7 +1559,11 @@ function genericPrintNoParens(path, options, print) {
     case "DeclareTypeAlias":
     case "TypeAlias": {
       const parent = path.getParentNode(1);
-      if (parent && parent.type === "DeclareModule") {
+      if (
+        (parent && parent.type === "DeclareModule") ||
+          n.type === "DeclareTypeAlias" ||
+          (options.parser === "flow" && /declare/.test(getNodeSource(n, text)))
+      ) {
         parts.push("declare ");
       }
 
@@ -2764,11 +2769,11 @@ function shouldPrintSameLine(node) {
     type === "UnaryExpression";
 }
 
-function printAstToDoc(ast, options) {
+function printAstToDoc(ast, options, text) {
   function printGenerically(path) {
     return comments.printComments(
       path,
-      p => genericPrint(p, options, printGenerically),
+      p => genericPrint(p, options, printGenerically, text),
       options
     );
   }
