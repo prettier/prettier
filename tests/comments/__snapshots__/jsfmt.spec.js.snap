@@ -74,6 +74,32 @@ declare class Foo extends Qux<string> {/* dangling */}
 "
 `;
 
+exports[`test dangling_array.js 1`] = `
+"expect(() => {}).toTriggerReadyStateChanges([
+  // Nothing.
+]);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+expect(() => {}).toTriggerReadyStateChanges(
+  [
+    // Nothing.
+  ]
+);
+"
+`;
+
+exports[`test dangling_array.js 2`] = `
+"expect(() => {}).toTriggerReadyStateChanges([
+  // Nothing.
+]);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+expect(() => {}).toTriggerReadyStateChanges(
+  [
+    // Nothing.
+  ]
+);
+"
+`;
+
 exports[`test first-line.js 1`] = `
 "a // comment
 b
