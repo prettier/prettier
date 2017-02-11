@@ -2224,20 +2224,21 @@ function printMemberChain(path, options, print) {
   // node is just an identifier with the name starting with a capital
   // letter or just a sequence of _$. The rationale is that they are
   // likely to be factories.
-  if (
+  const shouldMerge =
     groups[0].length === 1 &&
-      groups[0][0].node.type === "Identifier" &&
-      groups[0][0].node.name.match(/(^[A-Z])|^[_$]+$/) &&
-      groups.length >= 2
-  ) {
-    // Push all the values of groups[0] at the beginning of groups[1]
-    [].unshift.apply(groups[1], groups[0]);
-    // Remove groups[0]
-    groups.splice(0, 1);
-  }
+    groups[0][0].node.type === "Identifier" &&
+    groups[0][0].node.name.match(/(^[A-Z])|^[_$]+$/) &&
+    groups.length >= 2;
 
   function printGroup(printedGroup) {
     return concat(printedGroup.map(tuple => tuple.printed));
+  }
+
+  function printIndentedGroup(groups, lineType) {
+    return indent(
+      options.tabWidth,
+      group(concat([lineType, join(lineType, groups.map(printGroup))]))
+    );
   }
 
   const printedGroups = groups.map(printGroup);
@@ -2252,10 +2253,8 @@ function printMemberChain(path, options, print) {
 
   const expanded = concat([
     printGroup(groups[0]),
-    indent(
-      options.tabWidth,
-      group(concat([hardline, join(hardline, groups.slice(1).map(printGroup))]))
-    )
+    shouldMerge ? printIndentedGroup(groups.slice(1, 2), softline) : "",
+    printIndentedGroup(groups.slice(shouldMerge ? 2 : 1), hardline)
   ]);
 
   // If any group but the last one has a hard line, we want to force expand
