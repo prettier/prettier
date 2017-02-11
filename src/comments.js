@@ -427,7 +427,7 @@ function printTrailingComment(commentPath, print, options, parentNode) {
       comment
     );
 
-    return concat([hardline, isLineBeforeEmpty ? hardline : "", contents]);
+    return lineSuffix(concat([hardline, isLineBeforeEmpty ? hardline : "", contents]));
   } else if (isBlock) {
     // Trailing block comments never need a newline
     return concat([" ", contents]);

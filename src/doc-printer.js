@@ -87,7 +87,7 @@ function printDocToString(doc, width, newLine) {
   let cmds = [[0, MODE_BREAK, doc]];
   let out = [];
   let shouldRemeasure = false;
-  let lineSuffix = "";
+  let lineSuffix = [];
 
   while (cmds.length !== 0) {
     const x = cmds.pop();
@@ -190,7 +190,7 @@ function printDocToString(doc, width, newLine) {
 
           break;
         case "line-suffix":
-          lineSuffix += doc.contents;
+          lineSuffix.push([ind, mode, doc.contents]);
           break;
         case "line":
           switch (mode) {
@@ -215,8 +215,15 @@ function printDocToString(doc, width, newLine) {
               }
 
             case MODE_BREAK:
+              if (lineSuffix.length) {
+                cmds.push([ind, mode, doc]);
+                [].push.apply(cmds, lineSuffix.reverse());
+                lineSuffix = [];
+                break;
+              }
+
               if (doc.literal) {
-                out.push(lineSuffix + newLine);
+                out.push(newLine);
                 pos = 0;
               } else {
                 if (out.length > 0) {
@@ -227,11 +234,9 @@ function printDocToString(doc, width, newLine) {
                   );
                 }
 
-                out.push(lineSuffix + newLine + " ".repeat(ind));
+                out.push(newLine + " ".repeat(ind));
                 pos = ind;
               }
-
-              lineSuffix = "";
               break;
           }
           break;

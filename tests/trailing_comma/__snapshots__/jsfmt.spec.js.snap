@@ -153,3 +153,153 @@ const aLong = {
 };
 "
 `;
+
+exports[`test trailing_whitespace.js 1`] = `
+"let example = [
+  \'FOO\',
+  \'BAR\',
+  // Comment
+];
+
+foo({},
+  // Comment
+);
+
+o = {
+  state,
+  // Comment
+};
+
+o = {
+  state,
+
+  // Comment
+};
+
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB
+  // Comment
+) {
+  a
+}
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB,
+  // Comment
+) {
+  a
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let example = [
+  \"FOO\",
+  \"BAR\"
+  // Comment
+];
+
+foo(
+  {}
+  // Comment
+);
+
+o = {
+  state
+  // Comment
+};
+
+o = {
+  state
+  // Comment
+};
+
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB
+) // Comment
+{
+  a;
+}
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB
+) // Comment
+{
+  a;
+}
+"
+`;
+
+exports[`test trailing_whitespace.js 2`] = `
+"let example = [
+  \'FOO\',
+  \'BAR\',
+  // Comment
+];
+
+foo({},
+  // Comment
+);
+
+o = {
+  state,
+  // Comment
+};
+
+o = {
+  state,
+
+  // Comment
+};
+
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB
+  // Comment
+) {
+  a
+}
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB,
+  // Comment
+) {
+  a
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let example = [
+  \"FOO\",
+  \"BAR\",
+  // Comment
+];
+
+foo(
+  {},
+  // Comment
+);
+
+o = {
+  state,
+  // Comment
+};
+
+o = {
+  state,
+  // Comment
+};
+
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB,
+) // Comment
+{
+  a;
+}
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB,
+) // Comment
+{
+  a;
+}
+"
+`;
