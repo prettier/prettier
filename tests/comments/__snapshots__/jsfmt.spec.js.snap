@@ -364,14 +364,12 @@ export type BuckWebSocketMessage =
     };
 
 // Missing one level of indentation because of the comment
-const rootEpic = (actions, store) => combineEpics(...epics)(
-  actions,
-  store
-)// Log errors and continue.
-.catch((err, stream) => {
-  getLogger().error(err);
-  return stream;
-});
+const rootEpic = (actions, store) => combineEpics(...epics)(actions, store)
+  // Log errors and continue.
+  .catch((err, stream) => {
+    getLogger().error(err);
+    return stream;
+  });
 
 // Two extra levels of indentation because of the comment
 export type AsyncExecuteOptions =
@@ -593,14 +591,12 @@ export type BuckWebSocketMessage =
     };
 
 // Missing one level of indentation because of the comment
-const rootEpic = (actions, store) => combineEpics(...epics)(
-  actions,
-  store
-)// Log errors and continue.
-.catch((err, stream) => {
-  getLogger().error(err);
-  return stream;
-});
+const rootEpic = (actions, store) => combineEpics(...epics)(actions, store)
+  // Log errors and continue.
+  .catch((err, stream) => {
+    getLogger().error(err);
+    return stream;
+  });
 
 // Two extra levels of indentation because of the comment
 export type AsyncExecuteOptions =
