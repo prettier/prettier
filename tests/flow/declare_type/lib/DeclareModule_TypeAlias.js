@@ -7,3 +7,5 @@ declare module ModuleAliasFoo {
     declare type toz = string;
     declare function foo(bar : baz) : toz;
 }
+
+declare type Foo = string;
