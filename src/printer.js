@@ -24,7 +24,6 @@ var willBreak = docUtils.willBreak;
 var isLineNext = docUtils.isLineNext;
 var getFirstString = docUtils.getFirstString;
 var isEmpty = docUtils.isEmpty;
-var getNodeSource = docUtils.getNodeSource;
 
 var types = require("ast-types");
 var namedTypes = types.namedTypes;
@@ -1558,10 +1557,10 @@ function genericPrintNoParens(path, options, print) {
       return "string";
     case "DeclareTypeAlias":
     case "TypeAlias": {
-      const nodeSource = getNodeSource(n, options.originalText)
+      const nodeSource = options.originalText.slice(0, util.locStart(n))
       if (
-          n.type === "DeclareTypeAlias" ||
-          (options.parser === "flow" && nodeSource.trim().startsWith("declare"))
+        n.type === "DeclareTypeAlias" ||
+          (options.parser === "flow" && nodeSource.match(/declare\s*$/))
       ) {
         parts.push("declare ");
       }
