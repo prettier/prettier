@@ -39,15 +39,21 @@ function x() {
 }
 declare class Foo extends Qux<string> {/* dangling */}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var x = {/* dangling */};
+var x = {
+  /* dangling */
+};
 var x = {
   // dangling
 };
-var x = [/* dangling */];
+var x = [
+  /* dangling */
+];
 function x() {
   /* dangling */
 }
-declare class Foo extends Qux<string> {/* dangling */}
+declare class Foo extends Qux<string> {
+  /* dangling */
+}
 "
 `;
 
@@ -62,15 +68,21 @@ function x() {
 }
 declare class Foo extends Qux<string> {/* dangling */}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var x = {/* dangling */};
+var x = {
+  /* dangling */
+};
 var x = {
   // dangling
 };
-var x = [/* dangling */];
+var x = [
+  /* dangling */
+];
 function x() {
   /* dangling */
 }
-declare class Foo extends Qux<string> {/* dangling */}
+declare class Foo extends Qux<string> {
+  /* dangling */
+}
 "
 `;
 
@@ -701,9 +713,7 @@ exports[`test jsx.js 1`] = `
 </div>;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div>
-  {
-    /* comment */
-  }
+  {/* comment */}
 </div>;
 
 <div>
@@ -779,9 +789,7 @@ exports[`test jsx.js 2`] = `
 </div>;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div>
-  {
-    /* comment */
-  }
+  {/* comment */}
 </div>;
 
 <div>

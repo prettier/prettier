@@ -141,7 +141,7 @@ function genericPrintNoParens(path, options, print) {
       );
 
       parts.push(
-        comments.printDanglingComments(path, options, /* noIdent */ true)
+        comments.printDanglingComments(path, options, /* sameIndent */ true)
       );
 
       // Only force a trailing newline if there were any contents.
@@ -1230,7 +1230,7 @@ function genericPrintNoParens(path, options, print) {
     case "JSXText":
       throw new Error("JSXTest should be handled by JSXElement");
     case "JSXEmptyExpression":
-      return concat([comments.printDanglingComments(path, options), softline]);
+      return concat([comments.printDanglingComments(path, options, /* sameIndent */ true), softline]);
     case "TypeAnnotatedIdentifier":
       return concat([
         path.call(print, "annotation"),
