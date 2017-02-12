@@ -170,12 +170,14 @@ function attach(comments, ast, text) {
         addDanglingComment(ast, comment);
       }
     } else {
-      // Otherwise, text exists both before and after the comment on
-      // the same line. If there is both a preceding and following
-      // node, use a tie-breaking algorithm to determine if it should
-      // be attached to the next or previous node. In the last case,
-      // simply attach the right node;
-      if (precedingNode && followingNode) {
+      if (handleIfStatementComments(enclosingNode, followingNode, comment)) {
+        // We're good
+      } else if (precedingNode && followingNode) {
+        // Otherwise, text exists both before and after the comment on
+        // the same line. If there is both a preceding and following
+        // node, use a tie-breaking algorithm to determine if it should
+        // be attached to the next or previous node. In the last case,
+        // simply attach the right node;
         const tieCount = tiesToBreak.length;
         if (tieCount > 0) {
           var lastTie = tiesToBreak[tieCount - 1];
