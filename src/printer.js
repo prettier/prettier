@@ -46,6 +46,16 @@ function genericPrint(path, options, printPath) {
     return linesWithoutParens;
   }
 
+  // Escape hatch
+  if (node.comments &&
+      node.comments.length > 0 &&
+      node.comments[0].value.trim() === 'prettier-ignore') {
+    return options.originalText.slice(
+      util.locStart(node),
+      util.locEnd(node)
+    );
+  }
+
   if (
     node.decorators &&
       node.decorators.length > 0 &&
