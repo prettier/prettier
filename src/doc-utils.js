@@ -126,19 +126,11 @@ function propagateBreaks(doc) {
   );
 }
 
-function getNodeSource (node, text) {
-  return text
-    .split('\n')
-    .slice(node.loc.start.line - 1, node.loc.end.line)
-    .join('\n')
-}
-
 module.exports = {
   isEmpty,
   getFirstString,
   willBreak,
   isLineNext,
   traverseDoc,
-  propagateBreaks,
-  getNodeSource
+  propagateBreaks
 };
