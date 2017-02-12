@@ -1442,8 +1442,11 @@ function genericPrintNoParens(path, options, print) {
       ]);
     case "DeclareInterface":
     case "InterfaceDeclaration": {
-      const parent = path.getParentNode(1);
-      if (parent && parent.type === "DeclareModule") {
+      const nodeSource = options.originalText.slice(0, util.locStart(n))
+      if (
+        n.type === "DeclareInterface" ||
+          (options.parser === "flow" && nodeSource.match(/declare\s*$/))
+      ) {
         parts.push("declare ");
       }
 
@@ -1571,7 +1574,7 @@ function genericPrintNoParens(path, options, print) {
         path.call(print, "typeParameters"),
         " = ",
         path.call(print, "right"),
-        ";"
+        ";",
       );
 
       return concat(parts);
