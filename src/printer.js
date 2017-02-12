@@ -35,13 +35,13 @@ function maybeAddParens(path, lines) {
   return path.needsParens() ? concat(["(", lines, ")"]) : lines;
 }
 
-function genericPrint(path, options, printPath, text) {
+function genericPrint(path, options, printPath) {
   assert.ok(path instanceof FastPath);
 
   var node = path.getValue();
   var parts = [];
   var needsParens = false;
-  var linesWithoutParens = genericPrintNoParens(path, options, printPath, text);
+  var linesWithoutParens = genericPrintNoParens(path, options, printPath);
 
   if (!node || isEmpty(linesWithoutParens)) {
     return linesWithoutParens;
@@ -97,7 +97,7 @@ function genericPrint(path, options, printPath, text) {
   return concat(parts);
 }
 
-function genericPrintNoParens(path, options, print, text) {
+function genericPrintNoParens(path, options, print) {
   var n = path.getValue();
 
   if (!n) {
@@ -1558,11 +1558,10 @@ function genericPrintNoParens(path, options, print, text) {
       return "string";
     case "DeclareTypeAlias":
     case "TypeAlias": {
-      const parent = path.getParentNode(1);
+      const nodeSource = getNodeSource(n, options.originalText)
       if (
-        (parent && parent.type === "DeclareModule") ||
           n.type === "DeclareTypeAlias" ||
-          (options.parser === "flow" && /declare/.test(getNodeSource(n, text)))
+          (options.parser === "flow" && nodeSource.trim().startsWith("declare"))
       ) {
         parts.push("declare ");
       }
@@ -2769,11 +2768,11 @@ function shouldPrintSameLine(node) {
     type === "UnaryExpression";
 }
 
-function printAstToDoc(ast, options, text) {
+function printAstToDoc(ast, options) {
   function printGenerically(path) {
     return comments.printComments(
       path,
-      p => genericPrint(p, options, printGenerically, text),
+      p => genericPrint(p, options, printGenerically),
       options
     );
   }
