@@ -1,4 +1,4 @@
-exports[`test DeclareModule_TypeAlias.js 1`] = `
+exports[`test declare_module_type_alias.js 1`] = `
 "/**
  * @flow
  */
