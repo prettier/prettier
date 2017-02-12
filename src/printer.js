@@ -1442,7 +1442,7 @@ function genericPrintNoParens(path, options, print) {
       ]);
     case "DeclareInterface":
     case "InterfaceDeclaration": {
-      const nodeSource = options.originalText.slice(0, util.locStart(n))
+      const nodeSource = options.originalText.slice(0, util.locStart(n));
       if (
         n.type === "DeclareInterface" ||
           (options.parser === "flow" && nodeSource.match(/declare\s*$/))
@@ -1560,7 +1560,7 @@ function genericPrintNoParens(path, options, print) {
       return "string";
     case "DeclareTypeAlias":
     case "TypeAlias": {
-      const nodeSource = options.originalText.slice(0, util.locStart(n))
+      const nodeSource = options.originalText.slice(0, util.locStart(n));
       if (
         n.type === "DeclareTypeAlias" ||
           (options.parser === "flow" && nodeSource.match(/declare\s*$/))
@@ -1574,7 +1574,7 @@ function genericPrintNoParens(path, options, print) {
         path.call(print, "typeParameters"),
         " = ",
         path.call(print, "right"),
-        ";",
+        ";"
       );
 
       return concat(parts);
