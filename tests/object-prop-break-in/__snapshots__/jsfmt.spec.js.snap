@@ -1,3 +1,20 @@
+exports[`test comment.js 1`] = `
+"function foo() {
+  return {
+    // this comment causes the problem
+    bar: baz() + 1
+  };
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function foo() {
+  return {
+    // this comment causes the problem
+    bar: baz() + 1
+  };
+}
+"
+`;
+
 exports[`test test.js 1`] = `
 "const a = classnames({
   \"some-prop\": this.state.longLongLongLongLongLongLongLongLongTooLongProp
