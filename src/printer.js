@@ -2772,8 +2772,10 @@ function isFlowNodeStartingWithDeclare(node, options) {
   if (options.parser !== "flow") {
     return false;
   }
-  const nodeSource = options.originalText.slice(0, util.locStart(node));
-  return nodeSource.match(/declare\s*$/);
+
+  return options.originalText
+    .slice(0, util.locStart(node))
+    .match(/declare\s*$/);
 }
 
 function printAstToDoc(ast, options) {
