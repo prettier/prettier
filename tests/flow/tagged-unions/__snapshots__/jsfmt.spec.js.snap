@@ -108,7 +108,7 @@ interface ISystemData extends IDataBase {
   kind: \"system\"
 }
 
-type IData = IUserData | ISystemData;
+declare type IData = IUserData | ISystemData;
 
 const data: IData = {
   id: \"\",
@@ -165,7 +165,7 @@ interface ISystemData extends IDataBase {
   kind: \"system\"
 }
 
-type IData = IUserData | ISystemData;
+declare type IData = IUserData | ISystemData;
 
 const data: IData = {
   id: \"\",
@@ -230,7 +230,7 @@ type SystemData = {
   kind: \"system\"
 };
 
-type Data = UserData | SystemData;
+declare type Data = UserData | SystemData;
 
 const data: Data = {
   id: \"\",
@@ -295,7 +295,7 @@ type SystemData = {
   kind: \"system\"
 };
 
-type Data = UserData | SystemData;
+declare type Data = UserData | SystemData;
 
 const data: Data = {
   id: \"\",

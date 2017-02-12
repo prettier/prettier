@@ -403,20 +403,20 @@ function test(f: Foo| EmptyFoo) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-type Entity<T> = {
+declare type Entity<T> = {
   id: T,
   name: string
 };
 
-type StringEntity = Entity<string>;
+declare type StringEntity = Entity<string>;
 
-type Foo =
+declare type Foo =
   & StringEntity
   & {
     bars: Object,
     kind: 1
   };
-type EmptyFoo =
+declare type EmptyFoo =
   & StringEntity
   & {
     bars: null,
