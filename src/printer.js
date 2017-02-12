@@ -1208,9 +1208,9 @@ function genericPrintNoParens(path, options, print) {
                 path.map(attr => concat([line, print(attr)]), "attributes")
               )
             ),
-            n.selfClosing ? line : softline
+            n.selfClosing ? line : concat([">", softline])
           ]),
-          n.selfClosing ? "/>" : ">"
+          n.selfClosing ? "/>" : ""
         ])
       );
     }
