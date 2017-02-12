@@ -2769,8 +2769,11 @@ function shouldPrintSameLine(node) {
 }
 
 function isFlowNodeStartingWithDeclare(node, options) {
+  if (options.parser !== "flow") {
+    return false;
+  }
   const nodeSource = options.originalText.slice(0, util.locStart(node));
-  return (options.parser === "flow" && nodeSource.match(/declare\s*$/));
+  return nodeSource.match(/declare\s*$/);
 }
 
 function printAstToDoc(ast, options) {
