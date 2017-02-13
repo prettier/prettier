@@ -140,10 +140,10 @@ function attach(comments, ast, text) {
       // If a comment exists on its own line, prefer a leading comment.
       // We also need to check if it's the first line of the file.
       if (
-        handleMemberExpressionComment(enclosingNode, followingNode, comment) ||
+        handleMemberExpressionComments(enclosingNode, followingNode, comment) ||
           handleIfStatementComments(enclosingNode, followingNode, comment) ||
-          handleTryStatementComments(enclosingNode, followingNode, comment, true) ||
-          handleTemplateLiteralComment(enclosingNode, comment, true)
+          handleTryStatementComments(enclosingNode, followingNode, comment) ||
+          handleTemplateLiteralComments(enclosingNode, comment, true)
       ) {
         // We're good
       } else if (followingNode) {
@@ -159,6 +159,8 @@ function attach(comments, ast, text) {
       }
     } else if (util.hasNewline(text, locEnd(comment))) {
       if (handleConditionalExpressionComments(enclosingNode, followingNode, comment)) {
+        // We're good
+      } else if (handleTemplateLiteralComments(enclosingNode, comment)) {
         // We're good
       } else if (precedingNode) {
         // There is content before this comment on the same line, but
@@ -358,7 +360,7 @@ function handleTryStatementComments(enclosingNode, followingNode, comment) {
   return false;
 }
 
-function handleMemberExpressionComment(enclosingNode, followingNode, comment) {
+function handleMemberExpressionComments(enclosingNode, followingNode, comment) {
   if (
     enclosingNode &&
       enclosingNode.type === "MemberExpression" &&
@@ -372,8 +374,7 @@ function handleMemberExpressionComment(enclosingNode, followingNode, comment) {
   return false;
 }
 
-<<<<<<< HEAD
-function handleTemplateLiteralComment(enclosingNode, comment, isOwnLine) {
+function handleTemplateLiteralComments(enclosingNode, comment, isOwnLine) {
   if (
     enclosingNode &&
       enclosingNode.type === "TemplateLiteral"
@@ -383,16 +384,19 @@ function handleTemplateLiteralComment(enclosingNode, comment, isOwnLine) {
     } else {
       addLeadingComment(enclosingNode.expressions[0], comment);
     }
+
     return true;
   }
 
-=======
+  return false;
+}
+
 function handleConditionalExpressionComments(enclosingNode, followingNode, comment) {
   if (enclosingNode && enclosingNode.type === 'ConditionalExpression' && followingNode) {
     addLeadingComment(followingNode, comment);
     return true;
   }
->>>>>>> 1a8e97f92bdb991fae1eb09c2333b6f99644bae2
+
   return false;
 }
 
