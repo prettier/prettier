@@ -124,7 +124,7 @@ function skip(chars) {
 
 const skipWhitespace = skip(/\s/);
 const skipSpaces = skip(" \t");
-const skipToLineEnd = skip("; \t");
+const skipToLineEnd = skip(",; \t");
 const skipEverythingButNewLine = skip(/[^\r\n]/);
 
 function skipInlineComment(text, index) {

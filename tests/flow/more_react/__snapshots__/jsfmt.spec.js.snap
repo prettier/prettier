@@ -79,12 +79,15 @@ var App = React.createClass({
   getDefaultProps: function(): { y: string } {
     return { y: \"\" }; // infer props.y: string
   },
+
   getInitialState: function() {
     return { z: 0 }; // infer state.z: number
   },
+
   handler: function() {
     this.setState({ z: 42 }); // ok
   },
+
   render: function() {
     var x = this.props.x;
     var y = this.props.y;

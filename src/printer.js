@@ -172,6 +172,19 @@ function genericPrintNoParens(path, options, print) {
     case "LogicalExpression": {
       const parts = [];
       printBinaryishExpressions(path, parts, print, options);
+      const parent = path.getParentNode();
+
+      // Avoid indenting sub-expressions in if/etc statements.
+      if(
+        (parent.type === "IfStatement" ||
+         parent.type === "WhileStatement" ||
+         parent.type === "DoStatement" ||
+         parent.type === "ForStatement") && n !== parent.body
+      ) {
+        return group(concat(parts));
+      }
+
+      const rest = concat(parts.slice(1));
 
       return group(
         concat([
@@ -179,7 +192,7 @@ function genericPrintNoParens(path, options, print) {
           // level. The first item is guaranteed to be the first
           // left-most expression.
           parts.length > 0 ? parts[0] : "",
-          indent(options.tabWidth, concat(parts.slice(1)))
+          indent(options.tabWidth, rest)
         ])
       );
     }
@@ -487,10 +500,7 @@ function genericPrintNoParens(path, options, print) {
       // we want and this break would take precedence instead.
       if (grouped.length === 0) {
         return group(
-          concat([
-            concat(parts),
-            indent(options.tabWidth, concat(fromParts))
-          ])
+          concat([concat(parts), indent(options.tabWidth, concat(fromParts))])
         );
       }
 
@@ -590,13 +600,19 @@ function genericPrintNoParens(path, options, print) {
 
       fields.push("properties");
 
-      var i = 0;
       var props = [];
+      let separatorParts = [];
 
       fields.forEach(function(field) {
         path.each(
           function(childPath) {
+            props.push(concat(separatorParts));
             props.push(group(print(childPath)));
+
+            separatorParts = [separator, line];
+            if (util.isNextLineEmpty(options.originalText, childPath.getValue())) {
+              separatorParts.push(hardline);
+            }
           },
           field
         );
@@ -629,7 +645,7 @@ function genericPrintNoParens(path, options, print) {
               options.tabWidth,
               concat([
                 options.bracketSpacing ? line : softline,
-                join(concat([separator, line]), props)
+                concat(props)
               ])
             ),
             ifBreak(canHaveTrailingComma && options.trailingComma ? "," : ""),
@@ -668,13 +684,13 @@ function genericPrintNoParens(path, options, print) {
           parts.push(concat([": ", printedValue]));
         } else {
           parts.push(
-            concat([
+            group(concat([
               ":",
               ifBreak(" (", " "),
               indent(options.tabWidth, concat([softline, printedValue])),
               softline,
               ifBreak(")")
-            ])
+            ]))
           );
         }
       }
@@ -696,7 +712,14 @@ function genericPrintNoParens(path, options, print) {
     case "ArrayPattern":
       if (n.elements.length === 0) {
         parts.push(
-          concat(["[", comments.printDanglingComments(path, options), "]"])
+          group(
+            concat([
+              "[",
+              comments.printDanglingComments(path, options),
+              softline,
+              "]"
+            ])
+          )
         );
       } else {
         const lastElem = util.getLast(n.elements);
@@ -1217,18 +1240,20 @@ function genericPrintNoParens(path, options, print) {
 
       return concat([
         "{",
-        n.body.length > 0 ? indent(
-          options.tabWidth,
-          concat([
-            hardline,
-            path.call(
-              function(bodyPath) {
-                return printStatementSequence(bodyPath, options, print);
-              },
-              "body"
+        n.body.length > 0
+          ? indent(
+              options.tabWidth,
+              concat([
+                hardline,
+                path.call(
+                  function(bodyPath) {
+                    return printStatementSequence(bodyPath, options, print);
+                  },
+                  "body"
+                )
+              ])
             )
-          ])
-        ) : comments.printDanglingComments(path, options),
+          : comments.printDanglingComments(path, options),
         hardline,
         "}"
       ]);
@@ -2159,8 +2184,10 @@ function printMemberChain(path, options, print) {
     }
   }
   for (; i + 1 < printedNodes.length; ++i) {
-    if (printedNodes[i].node.type === "MemberExpression" &&
-        printedNodes[i + 1].node.type === "MemberExpression") {
+    if (
+      printedNodes[i].node.type === "MemberExpression" &&
+        printedNodes[i + 1].node.type === "MemberExpression"
+    ) {
       currentGroup.push(printedNodes[i]);
     } else {
       break;
@@ -2204,20 +2231,21 @@ function printMemberChain(path, options, print) {
   // node is just an identifier with the name starting with a capital
   // letter or just a sequence of _$. The rationale is that they are
   // likely to be factories.
-  if (
+  const shouldMerge =
     groups[0].length === 1 &&
-      groups[0][0].node.type === "Identifier" &&
-      groups[0][0].node.name.match(/(^[A-Z])|^[_$]+$/) &&
-      groups.length >= 2
-  ) {
-    // Push all the values of groups[0] at the beginning of groups[1]
-    [].unshift.apply(groups[1], groups[0]);
-    // Remove groups[0]
-    groups.splice(0, 1);
-  }
+    groups[0][0].node.type === "Identifier" &&
+    groups[0][0].node.name.match(/(^[A-Z])|^[_$]+$/) &&
+    groups.length >= 2;
 
   function printGroup(printedGroup) {
     return concat(printedGroup.map(tuple => tuple.printed));
+  }
+
+  function printIndentedGroup(groups, lineType) {
+    return indent(
+      options.tabWidth,
+      group(concat([lineType, join(lineType, groups.map(printGroup))]))
+    );
   }
 
   const printedGroups = groups.map(printGroup);
@@ -2232,10 +2260,8 @@ function printMemberChain(path, options, print) {
 
   const expanded = concat([
     printGroup(groups[0]),
-    indent(
-      options.tabWidth,
-      group(concat([hardline, join(hardline, groups.slice(1).map(printGroup))]))
-    )
+    shouldMerge ? printIndentedGroup(groups.slice(1, 2), softline) : "",
+    printIndentedGroup(groups.slice(shouldMerge ? 2 : 1), hardline)
   ]);
 
   // If any group but the last one has a hard line, we want to force expand
@@ -2535,7 +2561,7 @@ function printBinaryishExpressions(path, parts, print, options, isNested) {
     // print them normally.
     if (
       util.getPrecedence(node.left.operator) ===
-        util.getPrecedence(node.operator)
+      util.getPrecedence(node.operator)
     ) {
       // Flatten them out by recursively calling this function. The
       // printed values will all be appended to `parts`.
@@ -2554,7 +2580,18 @@ function printBinaryishExpressions(path, parts, print, options, isNested) {
       parts.push(path.call(print, "left"));
     }
 
-    parts.push(" ", node.operator, line, path.call(print, "right"));
+    const right = concat([node.operator, line, path.call(print, "right")]);
+
+    // If there's only a single binary expression: everything except && and ||,
+    // we want to create a group in order to avoid having a small right part
+    // like -1 be on its own line.
+    const parent = path.getParentNode();
+    const shouldGroup = node.type === "BinaryExpression" &&
+      parent.type !== "BinaryExpression" &&
+      node.left.type !== "BinaryExpression" &&
+      node.right.type !== "BinaryExpression";
+
+    parts.push(" ", shouldGroup ? group(right) : right);
 
     // The root comments are already printed, but we need to manually print
     // the other ones since we don't call the normal print on BinaryExpression,

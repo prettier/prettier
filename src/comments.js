@@ -136,9 +136,7 @@ function attach(comments, ast, text) {
     const enclosingNode = comment.enclosingNode;
     const followingNode = comment.followingNode;
 
-    if (
-      util.hasNewline(text, locStart(comment), { backwards: true })
-    ) {
+    if (util.hasNewline(text, locStart(comment), { backwards: true })) {
       // If a comment exists on its own line, prefer a leading comment.
       // We also need to check if it's the first line of the file.
       if (
@@ -160,11 +158,11 @@ function attach(comments, ast, text) {
         addDanglingComment(ast, comment);
       }
     } else if (util.hasNewline(text, locEnd(comment))) {
-      // There is content before this comment on the same line, but
-      // none after it, so prefer a trailing comment of the previous node.
-      if (handleTemplateLiteralComment(enclosingNode, comment)) {
-      // We are good.
+      if (handleConditionalExpressionComments(enclosingNode, followingNode, comment)) {
+        // We're good
       } else if (precedingNode) {
+        // There is content before this comment on the same line, but
+        // none after it, so prefer a trailing comment of the previous node.
         addTrailingComment(precedingNode, comment);
       } else if (followingNode) {
         addLeadingComment(followingNode, comment);
@@ -175,12 +173,14 @@ function attach(comments, ast, text) {
         addDanglingComment(ast, comment);
       }
     } else {
-      // Otherwise, text exists both before and after the comment on
-      // the same line. If there is both a preceding and following
-      // node, use a tie-breaking algorithm to determine if it should
-      // be attached to the next or previous node. In the last case,
-      // simply attach the right node;
-      if (precedingNode && followingNode) {
+      if (handleIfStatementComments(enclosingNode, followingNode, comment)) {
+        // We're good
+      } else if (precedingNode && followingNode) {
+        // Otherwise, text exists both before and after the comment on
+        // the same line. If there is both a preceding and following
+        // node, use a tie-breaking algorithm to determine if it should
+        // be attached to the next or previous node. In the last case,
+        // simply attach the right node;
         const tieCount = tiesToBreak.length;
         if (tieCount > 0) {
           var lastTie = tiesToBreak[tieCount - 1];
@@ -372,6 +372,7 @@ function handleMemberExpressionComment(enclosingNode, followingNode, comment) {
   return false;
 }
 
+<<<<<<< HEAD
 function handleTemplateLiteralComment(enclosingNode, comment, isOwnLine) {
   if (
     enclosingNode &&
@@ -385,6 +386,13 @@ function handleTemplateLiteralComment(enclosingNode, comment, isOwnLine) {
     return true;
   }
 
+=======
+function handleConditionalExpressionComments(enclosingNode, followingNode, comment) {
+  if (enclosingNode && enclosingNode.type === 'ConditionalExpression' && followingNode) {
+    addLeadingComment(followingNode, comment);
+    return true;
+  }
+>>>>>>> 1a8e97f92bdb991fae1eb09c2333b6f99644bae2
   return false;
 }
 
@@ -426,9 +434,11 @@ function printTrailingComment(commentPath, print, options, parentNode) {
   const contents = printComment(commentPath);
   const isBlock = comment.type === "Block" || comment.type === "CommentBlock";
 
-  if (util.hasNewline(options.originalText, locStart(comment), {
+  if (
+    util.hasNewline(options.originalText, locStart(comment), {
       backwards: true
-    })) {
+    })
+  ) {
     // This allows comments at the end of nested structures:
     // {
     //   x: 1,
@@ -446,7 +456,7 @@ function printTrailingComment(commentPath, print, options, parentNode) {
       comment
     );
 
-    return concat([hardline, isLineBeforeEmpty ? hardline : "", contents]);
+    return lineSuffix(concat([hardline, isLineBeforeEmpty ? hardline : "", contents]));
   } else if (isBlock) {
     // Trailing block comments never need a newline
     return concat([" ", contents]);

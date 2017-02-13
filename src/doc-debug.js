@@ -92,6 +92,12 @@ function printDoc(doc) {
       printDoc(doc.contents) +
       ")";
   }
+
+  if (doc.type === "line-suffix") {
+    return "lineSuffix(" + printDoc(doc.contents) + ")";
+  }
+
+  throw new Error('Unknown doc type ' + doc.type);
 }
 
 module.exports = {
