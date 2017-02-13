@@ -115,6 +115,41 @@ it(\"should group messages with same created time\", () => {
 "
 `;
 
+exports[`test first_long.js 1`] = `
+"export default function theFunction(action$, store) {
+  return action$.ofType(THE_ACTION).switchMap(action => Observable
+    .webSocket({
+      url: THE_URL,
+      more: stuff(),
+      evenMore: stuff({
+        value1: true,
+        value2: false,
+        value3: false
+      })
+    })
+    .filter(data => theFilter(data))
+    .map(({ theType, ...data }) => theMap(theType, data))
+    .retryWhen(errors => errors));
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export default function theFunction(action$, store) {
+  return action$.ofType(THE_ACTION).switchMap(action => Observable
+    .webSocket({
+      url: THE_URL,
+      more: stuff(),
+      evenMore: stuff({
+        value1: true,
+        value2: false,
+        value3: false
+      })
+    })
+    .filter(data => theFilter(data))
+    .map(({ theType, ...data }) => theMap(theType, data))
+    .retryWhen(errors => errors));
+}
+"
+`;
+
 exports[`test multiple-members.js 1`] = `
 "if (testConfig.ENABLE_ONLINE_TESTS === \"true\") {
   describe(\"POST /users/me/pet\", function() {

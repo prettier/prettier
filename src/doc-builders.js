@@ -69,11 +69,7 @@ function ifBreak(breakContents, flatContents) {
 }
 
 function lineSuffix(contents) {
-  if (typeof contents !== "string") {
-    throw new Error(
-      "lineSuffix only takes a string, but given: " + JSON.stringify(contents)
-    );
-  }
+  assertDoc(contents);
   return { type: "line-suffix", contents };
 }
 
