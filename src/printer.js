@@ -2253,12 +2253,12 @@ function printMemberChain(path, options, print) {
   }
 
   const printedGroups = groups.map(printGroup);
-
   const oneLine = concat(printedGroups);
+  const hasComment = groups.length >= 2 && groups[1][0].node.comments;
 
   // If we only have a single `.`, we shouldn't do anything fancy and just
   // render everything concatenated together.
-  if (groups.length <= 2) {
+  if (groups.length <= 2 && !hasComment) {
     return group(oneLine);
   }
 
@@ -2267,6 +2267,11 @@ function printMemberChain(path, options, print) {
     shouldMerge ? printIndentedGroup(groups.slice(1, 2), softline) : "",
     printIndentedGroup(groups.slice(shouldMerge ? 2 : 1), hardline)
   ]);
+
+  // If there's a comment, we don't want to print in one line.
+  if (hasComment) {
+    return group(expanded);
+  }
 
   // If any group but the last one has a hard line, we want to force expand
   // it. If the last group is a function it's okay to inline if it fits.
