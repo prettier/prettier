@@ -66,26 +66,26 @@ type T7 =
 
 type Comment =
   | {
-       type: \"CommentLine\",
-       _CommentLine: void,
-       value: string,
-       end: number,
-       loc: {
-         end: { column: number, line: number },
-         start: { column: number, line: number }
-       },
-       start: number
+      type: \"CommentLine\",
+      _CommentLine: void,
+      value: string,
+      end: number,
+      loc: {
+        end: { column: number, line: number },
+        start: { column: number, line: number }
+      },
+      start: number
     }
   | {
-       type: \"CommentBlock\",
-       _CommentBlock: void,
-       value: string,
-       end: number,
-       loc: {
-         end: { column: number, line: number },
-         start: { column: number, line: number }
-       },
-       start: number
+      type: \"CommentBlock\",
+      _CommentBlock: void,
+      value: string,
+      end: number,
+      loc: {
+        end: { column: number, line: number },
+        start: { column: number, line: number }
+      },
+      start: number
     };
 "
 `;

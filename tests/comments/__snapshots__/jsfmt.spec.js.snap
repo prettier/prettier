@@ -310,31 +310,31 @@ throw new ProcessSystemError({
 // squished in a single line afterward
 export type BuckWebSocketMessage =
   | {
-       // Not actually from Buck - this is to let the receiver know that the socket is connected.
-       type: \"SocketConnected\"
+      // Not actually from Buck - this is to let the receiver know that the socket is connected.
+      type: \"SocketConnected\"
     }
   | {
-       type: \"BuildProgressUpdated\",
-       progressValue: number
+      type: \"BuildProgressUpdated\",
+      progressValue: number
     }
   | {
-       type: \"BuildFinished\",
-       exitCode: number
+      type: \"BuildFinished\",
+      exitCode: number
     }
   | {
-       type: \"BuildStarted\"
+      type: \"BuildStarted\"
     }
   | {
-       type: \"ParseStarted\"
+      type: \"ParseStarted\"
     }
   | {
-       type: \"ParseFinished\"
+      type: \"ParseFinished\"
     }
   | {
-       type: \"RunStarted\"
+      type: \"RunStarted\"
     }
   | {
-       type: \"RunComplete\"
+      type: \"RunComplete\"
     };
 
 // Missing one level of indentation because of the comment
@@ -539,31 +539,31 @@ throw new ProcessSystemError({
 // squished in a single line afterward
 export type BuckWebSocketMessage =
   | {
-       // Not actually from Buck - this is to let the receiver know that the socket is connected.
-       type: \"SocketConnected\"
+      // Not actually from Buck - this is to let the receiver know that the socket is connected.
+      type: \"SocketConnected\"
     }
   | {
-       type: \"BuildProgressUpdated\",
-       progressValue: number
+      type: \"BuildProgressUpdated\",
+      progressValue: number
     }
   | {
-       type: \"BuildFinished\",
-       exitCode: number
+      type: \"BuildFinished\",
+      exitCode: number
     }
   | {
-       type: \"BuildStarted\"
+      type: \"BuildStarted\"
     }
   | {
-       type: \"ParseStarted\"
+      type: \"ParseStarted\"
     }
   | {
-       type: \"ParseFinished\"
+      type: \"ParseFinished\"
     }
   | {
-       type: \"RunStarted\"
+      type: \"RunStarted\"
     }
   | {
-       type: \"RunComplete\"
+      type: \"RunComplete\"
     };
 
 // Missing one level of indentation because of the comment
