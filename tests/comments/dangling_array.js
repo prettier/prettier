@@ -1,0 +1,3 @@
+expect(() => {}).toTriggerReadyStateChanges([
+  // Nothing.
+]);
