@@ -115,6 +115,23 @@ it(\"should group messages with same created time\", () => {
 "
 `;
 
+exports[`test comment.js 1`] = `
+"function f() {
+  return observableFromSubscribeFunction()
+    // Debounce manually rather than using editor.onDidStopChanging so that the debounce time is
+    // configurable.
+    .debounceTime(debounceInterval);
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function f() {
+  return observableFromSubscribeFunction()
+    // Debounce manually rather than using editor.onDidStopChanging so that the debounce time is
+    // configurable.
+    .debounceTime(debounceInterval);
+}
+"
+`;
+
 exports[`test first_long.js 1`] = `
 "export default function theFunction(action$, store) {
   return action$.ofType(THE_ACTION).switchMap(action => Observable

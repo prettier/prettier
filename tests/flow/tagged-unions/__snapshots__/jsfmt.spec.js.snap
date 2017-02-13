@@ -95,20 +95,20 @@ if (data.kind === \"user\") {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-interface IDataBase {
+declare interface IDataBase {
   id: string,
   name: string
 }
 
-interface IUserData extends IDataBase {
+declare interface IUserData extends IDataBase {
   kind: \"user\"
 }
 
-interface ISystemData extends IDataBase {
+declare interface ISystemData extends IDataBase {
   kind: \"system\"
 }
 
-type IData = IUserData | ISystemData;
+declare type IData = IUserData | ISystemData;
 
 const data: IData = {
   id: \"\",
@@ -152,20 +152,20 @@ if (data.kind === \"system\") {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-interface IDataBase {
+declare interface IDataBase {
   id: string,
   name: string
 }
 
-interface IUserData extends IDataBase {
+declare interface IUserData extends IDataBase {
   kind: \"user\"
 }
 
-interface ISystemData extends IDataBase {
+declare interface ISystemData extends IDataBase {
   kind: \"system\"
 }
 
-type IData = IUserData | ISystemData;
+declare type IData = IUserData | ISystemData;
 
 const data: IData = {
   id: \"\",
@@ -230,7 +230,7 @@ type SystemData = {
   kind: \"system\"
 };
 
-type Data = UserData | SystemData;
+declare type Data = UserData | SystemData;
 
 const data: Data = {
   id: \"\",
@@ -295,7 +295,7 @@ type SystemData = {
   kind: \"system\"
 };
 
-type Data = UserData | SystemData;
+declare type Data = UserData | SystemData;
 
 const data: Data = {
   id: \"\",

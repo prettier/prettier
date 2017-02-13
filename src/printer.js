@@ -1461,8 +1461,10 @@ function genericPrintNoParens(path, options, print) {
       ]);
     case "DeclareInterface":
     case "InterfaceDeclaration": {
-      const parent = path.getParentNode(1);
-      if (parent && parent.type === "DeclareModule") {
+      if (
+        n.type === "DeclareInterface" ||
+          isFlowNodeStartingWithDeclare(n, options)
+      ) {
         parts.push("declare ");
       }
 
@@ -1576,8 +1578,10 @@ function genericPrintNoParens(path, options, print) {
       return "string";
     case "DeclareTypeAlias":
     case "TypeAlias": {
-      const parent = path.getParentNode(1);
-      if (parent && parent.type === "DeclareModule") {
+      if (
+        n.type === "DeclareTypeAlias" ||
+          isFlowNodeStartingWithDeclare(n, options)
+      ) {
         parts.push("declare ");
       }
 
@@ -2261,12 +2265,12 @@ function printMemberChain(path, options, print) {
   }
 
   const printedGroups = groups.map(printGroup);
-
   const oneLine = concat(printedGroups);
+  const hasComment = groups.length >= 2 && groups[1][0].node.comments;
 
   // If we only have a single `.`, we shouldn't do anything fancy and just
   // render everything concatenated together.
-  if (groups.length <= 2) {
+  if (groups.length <= 2 && !hasComment) {
     return group(oneLine);
   }
 
@@ -2275,6 +2279,11 @@ function printMemberChain(path, options, print) {
     shouldMerge ? printIndentedGroup(groups.slice(1, 2), softline) : "",
     printIndentedGroup(groups.slice(shouldMerge ? 2 : 1), hardline)
   ]);
+
+  // If there's a comment, we don't want to print in one line.
+  if (hasComment) {
+    return group(expanded);
+  }
 
   // If any group but the last one has a hard line, we want to force expand
   // it. If the last group is a function it's okay to inline if it fits.
@@ -2780,6 +2789,16 @@ function shouldPrintSameLine(node) {
     type === "ThisExpression" ||
     type === "TypeCastExpression" ||
     type === "UnaryExpression";
+}
+
+function isFlowNodeStartingWithDeclare(node, options) {
+  if (options.parser !== "flow") {
+    return false;
+  }
+
+  return options.originalText
+    .slice(0, util.locStart(node))
+    .match(/declare\s*$/);
 }
 
 function printAstToDoc(ast, options) {
