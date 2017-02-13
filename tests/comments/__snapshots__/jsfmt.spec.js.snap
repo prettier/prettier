@@ -934,8 +934,8 @@ ExampleStory.getFragment(\'story\')
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \`
 \${// $FlowFixMe found when converting React.createClass to ES6
-ExampleStory.getFragment(\"story\")
-/* Another comment*/}
+ExampleStory.getFragment(\"story\")}
+/* Another comment*/
 \`;
 "
 `;
@@ -950,8 +950,8 @@ ExampleStory.getFragment(\'story\')
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \`
 \${// $FlowFixMe found when converting React.createClass to ES6
-ExampleStory.getFragment(\"story\")
-// Another comment}
+ExampleStory.getFragment(\"story\")}
+// Another comment
 \`;
 "
 `;
