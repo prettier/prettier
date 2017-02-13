@@ -259,6 +259,7 @@ function breakTies(tiesToBreak, text) {
 function addCommentHelper(node, comment) {
   var comments = node.comments || (node.comments = []);
   comments.push(comment);
+  comment.printed = false;
 }
 
 function addLeadingComment(node, comment) {
@@ -381,6 +382,7 @@ function handleConditionalExpressionComments(enclosingNode, followingNode, comme
 
 function printComment(commentPath) {
   const comment = commentPath.getValue();
+  comment.printed = true;
 
   switch (comment.type) {
     case "CommentBlock":
