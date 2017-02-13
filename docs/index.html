@@ -91,6 +91,7 @@
     <label><input type="checkbox" id="singleQuote"></input> singleQuote</label>
     <label><input type="checkbox" id="trailingComma"></input> trailingComma</label>
     <label><input type="checkbox" id="bracketSpacing" checked></input> bracketSpacing</label>
+    <label><input type="checkbox" id="jsxBracketSameLine"></input> jsxBracketSameLine</label>
     <span style="flex: 1"></span>
     <label><input type="checkbox" id="doc"></input> doc</label>
   </div>
@@ -109,7 +110,7 @@
 </div>
 
 <script id="code">
-var OPTIONS = ['printWidth', 'tabWidth', 'singleQuote', 'trailingComma', 'bracketSpacing', 'doc'];
+var OPTIONS = ['printWidth', 'tabWidth', 'singleQuote', 'trailingComma', 'bracketSpacing', 'jsxBracketSameLine', 'doc'];
 function setOptions(options) {
   OPTIONS.forEach(function(option) {
     var elem = document.getElementById(option);
