@@ -173,6 +173,10 @@ prettier.format(source, {
   // Close JSX tags on the last line instead of a new line (Facebook Style)
   jsxFbCloseTag: false,
 
+  // If true, puts the `>` of a multi-line jsx element at the end of
+  // the last line instead of being alone on the next line
+  jsxBracketSameLine: false,
+
   // Which parser to use. Valid options are 'flow' and 'babylon'
   parser: 'babylon'
 });

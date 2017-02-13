@@ -21,7 +21,7 @@ const argv = minimist(process.argv.slice(2), {
     "trailing-comma-arguments",
     "bracket-spacing",
     "braces-spacing",
-    "jsx-fb-close-tag",
+    "jsx-bracket-same-line",
     // The supports-color package (a sub sub dependency) looks directly at
     // `process.argv` for `--no-color` and such-like options. The reason it is
     // listed here is to avoid "Ignored unknown option: --no-color" warnings.
@@ -70,7 +70,7 @@ if (argv["help"] || !filepatterns.length && !stdin) {
       "  --trailing-comma-args    Print trailing commas in function call arguments.\n" +
       "  --bracket-spacing        Put spaces between [brackets]. Defaults to false.\n" +
       "  --braces-spacing         Put spaces between {braces}. Defaults to true.\n" +
-      "  --jsx-fb-close-tag       Close JSX tags on the last attribute instead of new line. Defaults to false.\n" +
+      "  --jsx-bracket-same-line  Put > on the last line. Defaults to false.\n" +
       "  --parser <flow|babylon>  Specify which parse to use. Defaults to babylon.\n" +
       "  --color                  Colorize error messages. Defaults to true.\n" +
       "  --version                Print prettier version.\n" +
@@ -137,13 +137,13 @@ const options = {
   tabWidth: getIntOption("tab-width"),
   bracketSpacing: argv["bracket-spacing"],
   bracesSpacing: argv["braces-spacing"],
-  jsxFbCloseTag: argv["jsx-fb-close-tag"],
   parser: getParserOption(),
   singleQuote: argv["single-quote"],
   trailingComma: argv["trailing-comma"],
   trailingCommaImports: argv["trailing-comma-imports"],
   trailingCommaExports: argv["trailing-comma-exports"],
-  trailingCommaArgs: argv["trailing-comma-args"]
+  trailingCommaArgs: argv["trailing-comma-args"],
+  jsxBracketSameLine: argv["jsx-bracket-same-line"],
 };
 
 function format(input) {
