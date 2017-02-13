@@ -74,6 +74,32 @@ declare class Foo extends Qux<string> {/* dangling */}
 "
 `;
 
+exports[`test dangling_array.js 1`] = `
+"expect(() => {}).toTriggerReadyStateChanges([
+  // Nothing.
+]);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+expect(() => {}).toTriggerReadyStateChanges(
+  [
+    // Nothing.
+  ]
+);
+"
+`;
+
+exports[`test dangling_array.js 2`] = `
+"expect(() => {}).toTriggerReadyStateChanges([
+  // Nothing.
+]);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+expect(() => {}).toTriggerReadyStateChanges(
+  [
+    // Nothing.
+  ]
+);
+"
+`;
+
 exports[`test first-line.js 1`] = `
 "a // comment
 b
@@ -310,42 +336,40 @@ throw new ProcessSystemError({
 // squished in a single line afterward
 export type BuckWebSocketMessage =
   | {
-    // Not actually from Buck - this is to let the receiver know that the socket is connected.
-    type: \"SocketConnected\"
-  }
+      // Not actually from Buck - this is to let the receiver know that the socket is connected.
+      type: \"SocketConnected\"
+    }
   | {
-    type: \"BuildProgressUpdated\",
-    progressValue: number
-  }
+      type: \"BuildProgressUpdated\",
+      progressValue: number
+    }
   | {
-    type: \"BuildFinished\",
-    exitCode: number
-  }
+      type: \"BuildFinished\",
+      exitCode: number
+    }
   | {
-    type: \"BuildStarted\"
-  }
+      type: \"BuildStarted\"
+    }
   | {
-    type: \"ParseStarted\"
-  }
+      type: \"ParseStarted\"
+    }
   | {
-    type: \"ParseFinished\"
-  }
+      type: \"ParseFinished\"
+    }
   | {
-    type: \"RunStarted\"
-  }
+      type: \"RunStarted\"
+    }
   | {
-    type: \"RunComplete\"
-  };
+      type: \"RunComplete\"
+    };
 
 // Missing one level of indentation because of the comment
-const rootEpic = (actions, store) => combineEpics(...epics)(
-  actions,
-  store
-)// Log errors and continue.
-.catch((err, stream) => {
-  getLogger().error(err);
-  return stream;
-});
+const rootEpic = (actions, store) => combineEpics(...epics)(actions, store)
+  // Log errors and continue.
+  .catch((err, stream) => {
+    getLogger().error(err);
+    return stream;
+  });
 
 // Two extra levels of indentation because of the comment
 export type AsyncExecuteOptions =
@@ -539,42 +563,40 @@ throw new ProcessSystemError({
 // squished in a single line afterward
 export type BuckWebSocketMessage =
   | {
-    // Not actually from Buck - this is to let the receiver know that the socket is connected.
-    type: \"SocketConnected\"
-  }
+      // Not actually from Buck - this is to let the receiver know that the socket is connected.
+      type: \"SocketConnected\"
+    }
   | {
-    type: \"BuildProgressUpdated\",
-    progressValue: number
-  }
+      type: \"BuildProgressUpdated\",
+      progressValue: number
+    }
   | {
-    type: \"BuildFinished\",
-    exitCode: number
-  }
+      type: \"BuildFinished\",
+      exitCode: number
+    }
   | {
-    type: \"BuildStarted\"
-  }
+      type: \"BuildStarted\"
+    }
   | {
-    type: \"ParseStarted\"
-  }
+      type: \"ParseStarted\"
+    }
   | {
-    type: \"ParseFinished\"
-  }
+      type: \"ParseFinished\"
+    }
   | {
-    type: \"RunStarted\"
-  }
+      type: \"RunStarted\"
+    }
   | {
-    type: \"RunComplete\"
-  };
+      type: \"RunComplete\"
+    };
 
 // Missing one level of indentation because of the comment
-const rootEpic = (actions, store) => combineEpics(...epics)(
-  actions,
-  store
-)// Log errors and continue.
-.catch((err, stream) => {
-  getLogger().error(err);
-  return stream;
-});
+const rootEpic = (actions, store) => combineEpics(...epics)(actions, store)
+  // Log errors and continue.
+  .catch((err, stream) => {
+    getLogger().error(err);
+    return stream;
+  });
 
 // Two extra levels of indentation because of the comment
 export type AsyncExecuteOptions =
