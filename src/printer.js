@@ -1453,8 +1453,10 @@ function genericPrintNoParens(path, options, print) {
       ]);
     case "DeclareInterface":
     case "InterfaceDeclaration": {
-      const parent = path.getParentNode(1);
-      if (parent && parent.type === "DeclareModule") {
+      if (
+        n.type === "DeclareInterface" ||
+          isFlowNodeStartingWithDeclare(n, options)
+      ) {
         parts.push("declare ");
       }
 
@@ -1568,8 +1570,10 @@ function genericPrintNoParens(path, options, print) {
       return "string";
     case "DeclareTypeAlias":
     case "TypeAlias": {
-      const parent = path.getParentNode(1);
-      if (parent && parent.type === "DeclareModule") {
+      if (
+        n.type === "DeclareTypeAlias" ||
+          isFlowNodeStartingWithDeclare(n, options)
+      ) {
         parts.push("declare ");
       }
 
@@ -2777,6 +2781,16 @@ function shouldPrintSameLine(node) {
     type === "ThisExpression" ||
     type === "TypeCastExpression" ||
     type === "UnaryExpression";
+}
+
+function isFlowNodeStartingWithDeclare(node, options) {
+  if (options.parser !== "flow") {
+    return false;
+  }
+
+  return options.originalText
+    .slice(0, util.locStart(node))
+    .match(/declare\s*$/);
 }
 
 function printAstToDoc(ast, options) {
