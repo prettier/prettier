@@ -68,6 +68,7 @@ function lineSuffix(contents) {
 }
 
 const lineSuffixBoundary = { type: "line-suffix-boundary" };
+const infiniteWidth = { type: "infinite-width" };
 const breakParent = { type: "break-parent" };
 const line = { type: "line" };
 const softline = { type: "line", soft: true };
@@ -104,5 +105,6 @@ module.exports = {
   lineSuffixBoundary,
   breakParent,
   ifBreak,
+  infiniteWidth,
   indent
 };
