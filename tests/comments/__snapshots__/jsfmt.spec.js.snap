@@ -864,6 +864,84 @@ function name() {
 "
 `;
 
+exports[`test return-statement.js 1`] = `
+"function a() {
+  return (
+    // Comment
+    <div />
+  );
+}
+
+function b() {
+  return (
+    // Comment
+    !!x
+  );
+}
+
+function c() {
+  return 1337; // Comment
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function a() {
+  return (
+    /* Comment*/
+    <div />
+  );
+}
+
+function b() {
+  return (
+    // Comment
+    !!x
+  );
+}
+
+function c() {
+  return 1337; // Comment
+}
+"
+`;
+
+exports[`test return-statement.js 2`] = `
+"function a() {
+  return (
+    // Comment
+    <div />
+  );
+}
+
+function b() {
+  return (
+    // Comment
+    !!x
+  );
+}
+
+function c() {
+  return 1337; // Comment
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function a() {
+  return (
+    // Comment
+    <div />
+  );
+}
+
+function b() {
+  return (
+    // Comment
+    !!x
+  );
+}
+
+function c() {
+  return 1337; // Comment
+}
+"
+`;
+
 exports[`test try.js 1`] = `
 "// comment 1
 try {

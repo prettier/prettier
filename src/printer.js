@@ -561,7 +561,18 @@ function genericPrintNoParens(path, options, print) {
     case "ReturnStatement":
       parts.push("return");
 
-      if (n.argument) {
+      if (n.argument &&
+          n.argument.comments &&
+          n.argument.comments.some(comment => comment.leading)) {
+        parts.push(
+          concat([
+            ' (',
+            indent(options.tabWidth, concat([softline, path.call(print, "argument")])),
+            line,
+            ')'
+          ])
+        );
+      } else if (n.argument) {
         parts.push(" ", path.call(print, "argument"));
       }
 
