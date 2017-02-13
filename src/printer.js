@@ -595,6 +595,8 @@ function genericPrintNoParens(path, options, print) {
       var fields = [];
       var leftBrace = n.exact ? "{|" : "{";
       var rightBrace = n.exact ? "|}" : "}";
+      var parent = path.getParentNode(0);
+      var parentIsUnionTypeAnnotation = parent.type === "UnionTypeAnnotation"
 
       if (isTypeAnnotation) {
         fields.push("indexers", "callProperties");
@@ -645,14 +647,19 @@ function genericPrintNoParens(path, options, print) {
             leftBrace,
             indent(
               1,
-              concat([
-                options.bracesSpacing ? line : softline,
-                concat(props)
-              ])
+              alignSpaces(
+                parentIsUnionTypeAnnotation ? 2 : 0,
+                concat([
+                  options.bracesSpacing ? line : softline,
+                  concat(props)
+                ])
+              )
             ),
             ifBreak(canHaveTrailingComma && options.trailingComma ? "," : ""),
-            options.bracesSpacing ? line : softline,
-            rightBrace,
+            alignSpaces(
+              parentIsUnionTypeAnnotation ? 2 : 0,
+              concat([options.bracesSpacing ? line : softline, rightBrace])
+            ),
             path.call(print, "typeAnnotation")
           ]),
           { shouldBreak }
