@@ -628,7 +628,7 @@ function genericPrintNoParens(path, options, print) {
           concat([
             leftBrace,
             indent(
-              options.tabWidth + (parentIsUnionTypeAnnotation ? 3 : 0),
+              options.tabWidth + (parentIsUnionTypeAnnotation ? 2 : 0),
               concat([
                 options.bracketSpacing ? line : softline,
                 join(concat([separator, line]), props)
