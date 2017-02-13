@@ -714,7 +714,14 @@ function genericPrintNoParens(path, options, print) {
     case "ArrayPattern":
       if (n.elements.length === 0) {
         parts.push(
-          concat(["[", comments.printDanglingComments(path, options), "]"])
+          group(
+            concat([
+              "[",
+              comments.printDanglingComments(path, options),
+              softline,
+              "]"
+            ])
+          )
         );
       } else {
         const lastElem = util.getLast(n.elements);
