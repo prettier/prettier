@@ -213,21 +213,21 @@ FPp.needsParens = function(assumeExpressionContext) {
   // all expressions.
   if (
     (parent.type === "ClassDeclaration" || parent.type === "ClassExpression") &&
-      parent.superClass === node &&
-      (node.type === "ArrowFunctionExpression" ||
-        node.type === "AssignmentExpression" ||
-        node.type === "AwaitExpression" ||
-        node.type === "BinaryExpression" ||
-        node.type === "ConditionalExpression" ||
-        node.type === "LogicalExpression" ||
-        node.type === "NewExpression" ||
-        node.type === "ObjectExpression" ||
-        node.type === "ParenthesizedExpression" ||
-        node.type === "SequenceExpression" ||
-        node.type === "TaggedTemplateExpression" ||
-        node.type === "UnaryExpression" ||
-        node.type === "UpdateExpression" ||
-        node.type === "YieldExpression")
+    parent.superClass === node &&
+    (node.type === "ArrowFunctionExpression" ||
+      node.type === "AssignmentExpression" ||
+      node.type === "AwaitExpression" ||
+      node.type === "BinaryExpression" ||
+      node.type === "ConditionalExpression" ||
+      node.type === "LogicalExpression" ||
+      node.type === "NewExpression" ||
+      node.type === "ObjectExpression" ||
+      node.type === "ParenthesizedExpression" ||
+      node.type === "SequenceExpression" ||
+      node.type === "TaggedTemplateExpression" ||
+      node.type === "UnaryExpression" ||
+      node.type === "UpdateExpression" ||
+      node.type === "YieldExpression")
   ) {
     return true;
   }
@@ -236,11 +236,11 @@ FPp.needsParens = function(assumeExpressionContext) {
   // be parenthesized unless it's an ident or literal
   if (
     parent.type === "BinaryExpression" &&
-      parent.operator === "**" &&
-      parent.left === node &&
-      node.type !== "Identifier" &&
-      node.type !== "Literal" &&
-      node.type !== "NumericLiteral"
+    parent.operator === "**" &&
+    parent.left === node &&
+    node.type !== "Identifier" &&
+    node.type !== "Literal" &&
+    node.type !== "NumericLiteral"
   ) {
     return true;
   }
@@ -265,8 +265,8 @@ FPp.needsParens = function(assumeExpressionContext) {
         case "UnaryExpression":
           if (
             node.prefix &&
-              (node.operator === "++" && parent.operator === "+" ||
-                node.operator === "--" && parent.operator === "-")
+            (node.operator === "++" && parent.operator === "+" ||
+              node.operator === "--" && parent.operator === "-")
           ) {
             return true;
           }
@@ -287,8 +287,8 @@ FPp.needsParens = function(assumeExpressionContext) {
     case "BinaryExpression":
       if (
         node.operator === "in" &&
-          parent.type === "ForStatement" &&
-          parent.init === node
+        parent.type === "ForStatement" &&
+        parent.init === node
       ) {
         return true;
       }
@@ -402,8 +402,8 @@ FPp.needsParens = function(assumeExpressionContext) {
     case "AssignmentExpression":
       if (
         parent.type === "ArrowFunctionExpression" &&
-          parent.body === node &&
-          node.left.type === "ObjectPattern"
+        parent.body === node &&
+        node.left.type === "ObjectPattern"
       ) {
         return true;
       }
@@ -505,8 +505,8 @@ FPp.needsParens = function(assumeExpressionContext) {
     default:
       if (
         parent.type === "NewExpression" &&
-          name === "callee" &&
-          parent.callee === node
+        name === "callee" &&
+        parent.callee === node
       ) {
         return containsCallExpression(node);
       }
@@ -514,8 +514,8 @@ FPp.needsParens = function(assumeExpressionContext) {
 
   if (
     assumeExpressionContext !== true &&
-      !this.canBeFirstInStatement() &&
-      this.firstInStatement()
+    !this.canBeFirstInStatement() &&
+    this.firstInStatement()
   )
     return true;
 
@@ -583,8 +583,8 @@ FPp.firstInStatement = function() {
 
     if (
       n.SequenceExpression.check(parent) &&
-        parentName === "expressions" &&
-        childName === 0
+      parentName === "expressions" &&
+      childName === 0
     ) {
       assert.strictEqual(parent.expressions[0], child);
       continue;
@@ -612,8 +612,8 @@ FPp.firstInStatement = function() {
 
     if (
       n.UnaryExpression.check(parent) &&
-        !parent.prefix &&
-        childName === "argument"
+      !parent.prefix &&
+      childName === "argument"
     ) {
       assert.strictEqual(parent.argument, child);
       continue;

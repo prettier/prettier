@@ -97,7 +97,7 @@ function printDoc(doc) {
     return "lineSuffix(" + printDoc(doc.contents) + ")";
   }
 
-  throw new Error('Unknown doc type ' + doc.type);
+  throw new Error("Unknown doc type " + doc.type);
 }
 
 module.exports = {
