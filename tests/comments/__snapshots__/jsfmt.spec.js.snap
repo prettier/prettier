@@ -112,6 +112,32 @@ expect(() => {}).toTriggerReadyStateChanges(
 "
 `;
 
+exports[`test dangling_array.js 1`] = `
+"expect(() => {}).toTriggerReadyStateChanges([
+  // Nothing.
+]);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+expect(() => {}).toTriggerReadyStateChanges(
+  [
+    // Nothing.
+  ]
+);
+"
+`;
+
+exports[`test dangling_array.js 2`] = `
+"expect(() => {}).toTriggerReadyStateChanges([
+  // Nothing.
+]);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+expect(() => {}).toTriggerReadyStateChanges(
+  [
+    // Nothing.
+  ]
+);
+"
+`;
+
 exports[`test first-line.js 1`] = `
 "a // comment
 b
@@ -868,6 +894,84 @@ function name() {
   func2();
   // comment3 why func3 commented
   // func3()
+}
+"
+`;
+
+exports[`test return-statement.js 1`] = `
+"function a() {
+  return (
+    // Comment
+    <div />
+  );
+}
+
+function b() {
+  return (
+    // Comment
+    !!x
+  );
+}
+
+function c() {
+  return 1337; // Comment
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function a() {
+  return (
+    /* Comment*/
+    <div />
+  );
+}
+
+function b() {
+  return (
+    // Comment
+    !!x
+  );
+}
+
+function c() {
+  return 1337; // Comment
+}
+"
+`;
+
+exports[`test return-statement.js 2`] = `
+"function a() {
+  return (
+    // Comment
+    <div />
+  );
+}
+
+function b() {
+  return (
+    // Comment
+    !!x
+  );
+}
+
+function c() {
+  return 1337; // Comment
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function a() {
+  return (
+    // Comment
+    <div />
+  );
+}
+
+function b() {
+  return (
+    // Comment
+    !!x
+  );
+}
+
+function c() {
+  return 1337; // Comment
 }
 "
 `;
