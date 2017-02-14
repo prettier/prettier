@@ -1,3 +1,25 @@
+exports[`test assignment-pattern.js 1`] = `
+"const { a /* comment */ = 1 } = b;
+
+const { c = 1 /* comment */ } = d;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const { a /* comment */ = 1 } = b;
+
+const { c = 1 /* comment */ } = d;
+"
+`;
+
+exports[`test assignment-pattern.js 2`] = `
+"const { a /* comment */ = 1 } = b;
+
+const { c = 1 /* comment */ } = d;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const { a /* comment */ = 1 } = b;
+
+const { c = 1 /* comment */ } = d;
+"
+`;
+
 exports[`test blank.js 1`] = `
 "// This file only
 // has comments. This comment
@@ -83,32 +105,6 @@ function x() {
 declare class Foo extends Qux<string> {
   /* dangling */
 }
-"
-`;
-
-exports[`test dangling_array.js 1`] = `
-"expect(() => {}).toTriggerReadyStateChanges([
-  // Nothing.
-]);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-expect(() => {}).toTriggerReadyStateChanges(
-  [
-    // Nothing.
-  ]
-);
-"
-`;
-
-exports[`test dangling_array.js 2`] = `
-"expect(() => {}).toTriggerReadyStateChanges([
-  // Nothing.
-]);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-expect(() => {}).toTriggerReadyStateChanges(
-  [
-    // Nothing.
-  ]
-);
 "
 `;
 
