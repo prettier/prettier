@@ -1,4 +1,6 @@
-# 0.17.0
+# 0.17.1
+
+* Use `readline` api to manipulate `process.stdout` output. (#687)
 
 [link](https://github.com/jlongster/prettier/compare/0.16.0...0.17.0)
 
