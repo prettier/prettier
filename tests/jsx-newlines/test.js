@@ -80,3 +80,15 @@ regression_extra_newline = (
     New Messages
   </div>
 );
+
+
+regression_extra_newline_2 = (
+  <div>
+    (
+    <FormattedMessage
+      id="some-id"
+      defaultMessage="some loooooooooooooooooooooooooooong default"
+    />
+    )
+  </div>
+);

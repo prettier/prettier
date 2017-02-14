@@ -2381,7 +2381,9 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
             }
           });
 
-          children.push(softline);
+          if (!isLineNext(util.getLast(children))) {
+            children.push(softline);
+          }
         } else if (/\n/.test(value)) {
           children.push(hardline);
 
