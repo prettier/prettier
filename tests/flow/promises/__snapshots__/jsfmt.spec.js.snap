@@ -376,9 +376,11 @@ new Promise((resolve, reject) => resolve(0)).then(function(num) {
 
 // Promise constructor resolve(Promise<T>) -> then(T)
 new Promise(function(resolve, reject) {
-  resolve(new Promise(function(resolve, reject) {
-    resolve(0);
-  }));
+  resolve(
+    new Promise(function(resolve, reject) {
+      resolve(0);
+    })
+  );
 }).then(function(num) {
   var a: number = num;
   var b: string = num; // Error: number ~> string
@@ -386,11 +388,15 @@ new Promise(function(resolve, reject) {
 
 // Promise constructor resolve(Promise<Promise<T>>) -> then(T)
 new Promise(function(resolve, reject) {
-  resolve(new Promise(function(resolve, reject) {
-    resolve(new Promise(function(resolve, reject) {
-      resolve(0);
-    }));
-  }));
+  resolve(
+    new Promise(function(resolve, reject) {
+      resolve(
+        new Promise(function(resolve, reject) {
+          resolve(0);
+        })
+      );
+    })
+  );
 }).then(function(num) {
   var a: number = num;
   var b: string = num; // Error: number ~> string
@@ -428,9 +434,11 @@ new Promise(function(resolve, reject) {
 
 // TODO: Promise constructor reject(Promise<T>) ~> catch(Promise<T>)
 new Promise(function(resolve, reject) {
-  reject(new Promise(function(resolve, reject) {
-    reject(0);
-  }));
+  reject(
+    new Promise(function(resolve, reject) {
+      reject(0);
+    })
+  );
 }).catch(function(num) {
   var a: Promise<number> = num;
 

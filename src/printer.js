@@ -1828,8 +1828,7 @@ function printArgumentsList(path, options, print) {
           lastArg.body.type === "ObjectExpression" ||
           lastArg.body.type === "ArrayExpression" ||
           lastArg.body.type === "CallExpression" ||
-          lastArg.body.type === "JSXElement") ||
-      lastArg.type === "NewExpression");
+          lastArg.body.type === "JSXElement"));
 
   if (groupLastArg) {
     const shouldBreak = printed.slice(0, -1).some(willBreak);
