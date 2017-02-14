@@ -47,6 +47,16 @@ function genericPrint(path, options, printPath) {
     return linesWithoutParens;
   }
 
+  // Escape hatch
+  if (node.comments &&
+      node.comments.length > 0 &&
+      node.comments[0].value.trim() === 'prettier-ignore') {
+    return options.originalText.slice(
+      util.locStart(node),
+      util.locEnd(node)
+    );
+  }
+
   if (
     node.decorators &&
       node.decorators.length > 0 &&
@@ -143,7 +153,7 @@ function genericPrintNoParens(path, options, print) {
       );
 
       parts.push(
-        comments.printDanglingComments(path, options, /* noIdent */ true)
+        comments.printDanglingComments(path, options, /* sameIndent */ true)
       );
 
       // Only force a trailing newline if there were any contents.
@@ -563,7 +573,18 @@ function genericPrintNoParens(path, options, print) {
     case "ReturnStatement":
       parts.push("return");
 
-      if (n.argument) {
+      if (n.argument &&
+          n.argument.comments &&
+          n.argument.comments.some(comment => comment.leading)) {
+        parts.push(
+          concat([
+            ' (',
+            indent(1, concat([softline, path.call(print, "argument")])),
+            line,
+            ')'
+          ])
+        );
+      } else if (n.argument) {
         parts.push(" ", path.call(print, "argument"));
       }
 
@@ -1235,7 +1256,7 @@ function genericPrintNoParens(path, options, print) {
     case "JSXText":
       throw new Error("JSXTest should be handled by JSXElement");
     case "JSXEmptyExpression":
-      return concat([comments.printDanglingComments(path, options), softline]);
+      return concat([comments.printDanglingComments(path, options, /* sameIndent */ true), softline]);
     case "TypeAnnotatedIdentifier":
       return concat([
         path.call(print, "annotation"),

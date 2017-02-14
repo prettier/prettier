@@ -251,6 +251,11 @@ if (stdin) {
             }
           });
         }
+      } else if (argv["debug-check"]) {
+        process.stdout.write("\n");
+        if (output) {
+          console.log(output);
+        }
       } else {
         // Don't use `console.log` here since it adds an extra newline at the end.
         process.stdout.write(output);

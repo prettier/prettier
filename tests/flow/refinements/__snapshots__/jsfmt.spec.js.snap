@@ -1394,11 +1394,13 @@ let tests = [
     }
   },
   function(num: number, obj: { foo: number }) {
-    if (num === obj.bar) {// ok, typos allowed in conditionals
+    if (num === obj.bar) {
+      // ok, typos allowed in conditionals
     }
   },
   function(num: number, obj: { [key: string]: number }) {
-    if (num === obj.bar) {// ok
+    if (num === obj.bar) {
+      // ok
     }
   },
   function(n: number): Mode {
@@ -1974,11 +1976,13 @@ let tests = [
     }
   },
   function(str: string, obj: { foo: string }) {
-    if (str === obj.bar) {// ok, typos allowed in conditionals
+    if (str === obj.bar) {
+      // ok, typos allowed in conditionals
     }
   },
   function(str: string, obj: { [key: string]: string }) {
-    if (str === obj.bar) {// ok
+    if (str === obj.bar) {
+      // ok
     }
   },
   function(str: string): Mode {

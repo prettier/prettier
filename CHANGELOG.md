@@ -1,3 +1,38 @@
+# 0.17.0
+
+[link](https://github.com/jlongster/prettier/compare/0.16.0...0.17.0)
+
+* [JSX] Fix spurious newline (fixes #614) (#628)
+* Add --debug-check cli option (#627)
+* Remove last trailing line for directives-only files (#609)
+* Expand vim instructions
+* Fix formatting in readme
+* Update snapshots
+* Preserve empty line before last comment (#594)
+* test on current release of node.js (#595)
+* [JSX] jsx-whitespace breaks with parent (fixes #622) (#626)
+* Log filename with [update] or [ignore] flags during `--write` process. (#584)
+* Do not indent binary expressions inside of if (#604)
+* Put short elements at right of single binary expression on same line (#605)
+* Run prettier 0.16.0 on the codebase (#631)
+* Preserve blank lines inside of objects (#606)
+* fix typo in JetBrains External Tool config readme (#679)
+* Fix dangling comments for arrays (#665)
+* Print line-suffix in --debug-print-doc (#676)
+* Avoid unneeded parenthesis for colon with comments (#673)
+* Stabilize comments inside of if/then/else before { (#672)
+* Soft break the first member of a chain (#667)
+* Stabilize comments inside of ternaries (#666)
+* Fix trailing commas with a trailing comment (#664)
+* Fix Flow union type annotations indentation (#650)
+* Ensure that all comments are printed (#571)
+* Properly support member chains comments (#668)
+* [WIP] Fix Flow DeclareTypeAlias (#669)
+* Add option for putting > on the last line in jsx (#661)
+* Always put a hardline before dangling comment (#675)
+* Fix comments in return statement argument (#657)
+* [RFC] Introduce prettier-ignore-next (#671)
+
 # 0.16.0
 
 [link](https://github.com/jlongster/prettier/compare/0.15.0...0.16.0)
