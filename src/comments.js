@@ -122,7 +122,7 @@ function decorateComment(node, comment, text) {
   }
 }
 
-function attach(comments, ast, text) {
+function attach(comments, ast, text, options) {
   if (!isArray.check(comments)) {
     return;
   }
@@ -143,7 +143,7 @@ function attach(comments, ast, text) {
         handleMemberExpressionComments(enclosingNode, followingNode, comment) ||
           handleIfStatementComments(enclosingNode, followingNode, comment) ||
           handleTryStatementComments(enclosingNode, followingNode, comment) ||
-          handleTemplateLiteralComments(enclosingNode, comment, true)
+          handleTemplateLiteralComments(enclosingNode, comment, options)
       ) {
         // We're good
       } else if (followingNode) {
@@ -160,7 +160,7 @@ function attach(comments, ast, text) {
     } else if (util.hasNewline(text, locEnd(comment))) {
       if (handleConditionalExpressionComments(enclosingNode, followingNode, comment)) {
         // We're good
-      } else if (handleTemplateLiteralComments(enclosingNode, comment)) {
+      } else if (handleTemplateLiteralComments(enclosingNode, comment, options)) {
         // We're good
       } else if (precedingNode) {
         // There is content before this comment on the same line, but
@@ -374,16 +374,17 @@ function handleMemberExpressionComments(enclosingNode, followingNode, comment) {
   return false;
 }
 
-function handleTemplateLiteralComments(enclosingNode, comment, isOwnLine) {
+function handleTemplateLiteralComments(enclosingNode, comment, options) {
   if (
     enclosingNode &&
       enclosingNode.type === "TemplateLiteral"
   ) {
-    if (isOwnLine) {
-      addTrailingComment(enclosingNode.expressions[0], comment);
-    } else {
-      addLeadingComment(enclosingNode.expressions[0], comment);
-    }
+    const expressionIndex = findExpressionIndexForComment(
+      enclosingNode.expressions,
+      comment,
+      options
+    )
+    addLeadingComment(enclosingNode.expressions[expressionIndex], comment);
 
     return true;
   }
@@ -413,6 +414,35 @@ function printComment(commentPath) {
     default:
       throw new Error("Not a comment: " + JSON.stringify(comment));
   }
+}
+
+function findExpressionIndexForComment (expressions, comment, options) {
+  let match;
+  const startPos = locStart(comment) - 1;
+  const endPos = locEnd(comment) + 1;
+
+  for (var i = 0; i < expressions.length; ++i) {
+    if (
+      options.parser === "flow"
+        ? (
+          (startPos >= expressions[i].range[0] &&
+           startPos <= expressions[i].range[1]) ||
+            (endPos >= expressions[i].range[0] &&
+             endPos<= expressions[i].range[1])
+        )
+        : (
+          (startPos >= expressions[i].start &&
+           startPos <= expressions[i].end) ||
+            (endPos >= expressions[i].start &&
+             endPos<= expressions[i].end)
+        )
+    ) {
+      match = i;
+      break;
+    }
+  }
+
+  return match
 }
 
 function printLeadingComment(commentPath, print, options) {
