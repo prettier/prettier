@@ -703,21 +703,7 @@ function genericPrintNoParens(path, options, print) {
         } else {
           parts.push(printPropertyKey(path, options, print));
         }
-
-        let printedValue = path.call(print, "value");
-        if (shouldPrintSameLine(n.value)) {
-          parts.push(concat([": ", printedValue]));
-        } else {
-          parts.push(
-            group(concat([
-              ":",
-              ifBreak(" (", " "),
-              indent(options.tabWidth, concat([softline, printedValue])),
-              softline,
-              ifBreak(")")
-            ]))
-          );
-        }
+        parts.push(concat([": ", path.call(print, "value")]));
       }
 
       return concat(parts); // Babel 6
@@ -2780,28 +2766,6 @@ function isObjectTypePropertyAFunction(node) {
     node.value.type === "FunctionTypeAnnotation" &&
     !node.static &&
     util.locStart(node.key) !== util.locStart(node.value);
-}
-
-function shouldPrintSameLine(node) {
-  const type = node.type;
-  return namedTypes.Literal.check(node) ||
-    type === "ArrayExpression" ||
-    type === "ArrayPattern" ||
-    type === "ArrowFunctionExpression" ||
-    type === "AssignmentPattern" ||
-    type === "CallExpression" ||
-    type === "FunctionExpression" ||
-    type === "Identifier" ||
-    type === "JSXElement" ||
-    type === "Literal" ||
-    type === "MemberExpression" ||
-    type === "NewExpression" ||
-    type === "ObjectExpression" ||
-    type === "ObjectPattern" ||
-    type === "StringLiteral" ||
-    type === "ThisExpression" ||
-    type === "TypeCastExpression" ||
-    type === "UnaryExpression";
 }
 
 function isFlowNodeStartingWithDeclare(node, options) {
