@@ -46,6 +46,16 @@ function genericPrint(path, options, printPath) {
     return linesWithoutParens;
   }
 
+  // Escape hatch
+  if (node.comments &&
+      node.comments.length > 0 &&
+      node.comments[0].value.trim() === 'prettier-ignore') {
+    return options.originalText.slice(
+      util.locStart(node),
+      util.locEnd(node)
+    );
+  }
+
   if (
     node.decorators &&
       node.decorators.length > 0 &&
@@ -141,7 +151,7 @@ function genericPrintNoParens(path, options, print) {
       );
 
       parts.push(
-        comments.printDanglingComments(path, options, /* noIdent */ true)
+        comments.printDanglingComments(path, options, /* sameIndent */ true)
       );
 
       // Only force a trailing newline if there were any contents.
@@ -561,7 +571,18 @@ function genericPrintNoParens(path, options, print) {
     case "ReturnStatement":
       parts.push("return");
 
-      if (n.argument) {
+      if (n.argument &&
+          n.argument.comments &&
+          n.argument.comments.some(comment => comment.leading)) {
+        parts.push(
+          concat([
+            ' (',
+            indent(options.tabWidth, concat([softline, path.call(print, "argument")])),
+            line,
+            ')'
+          ])
+        );
+      } else if (n.argument) {
         parts.push(" ", path.call(print, "argument"));
       }
 
@@ -593,6 +614,8 @@ function genericPrintNoParens(path, options, print) {
       var fields = [];
       var leftBrace = n.exact ? "{|" : "{";
       var rightBrace = n.exact ? "|}" : "}";
+      var parent = path.getParentNode(0);
+      var parentIsUnionTypeAnnotation = parent.type === "UnionTypeAnnotation"
 
       if (isTypeAnnotation) {
         fields.push("indexers", "callProperties");
@@ -642,15 +665,17 @@ function genericPrintNoParens(path, options, print) {
           concat([
             leftBrace,
             indent(
-              options.tabWidth,
+              options.tabWidth + (parentIsUnionTypeAnnotation ? 2 : 0),
               concat([
                 options.bracketSpacing ? line : softline,
                 concat(props)
               ])
             ),
             ifBreak(canHaveTrailingComma && options.trailingComma ? "," : ""),
-            options.bracketSpacing ? line : softline,
-            rightBrace,
+            indent(
+              parentIsUnionTypeAnnotation ? 2 : 0,
+              concat([options.bracketSpacing ? line : softline, rightBrace])
+            ),
             path.call(print, "typeAnnotation")
           ]),
           { shouldBreak }
@@ -1215,9 +1240,9 @@ function genericPrintNoParens(path, options, print) {
                 path.map(attr => concat([line, print(attr)]), "attributes")
               )
             ),
-            n.selfClosing ? line : softline
+            n.selfClosing ? line : (options.jsxBracketSameLine ? ">" : softline)
           ]),
-          n.selfClosing ? "/>" : ">"
+          n.selfClosing ? "/>" : (options.jsxBracketSameLine ? "" : ">")
         ])
       );
     }
@@ -1226,7 +1251,7 @@ function genericPrintNoParens(path, options, print) {
     case "JSXText":
       throw new Error("JSXTest should be handled by JSXElement");
     case "JSXEmptyExpression":
-      return concat([comments.printDanglingComments(path, options), softline]);
+      return concat([comments.printDanglingComments(path, options, /* sameIndent */ true), softline]);
     case "TypeAnnotatedIdentifier":
       return concat([
         path.call(print, "annotation"),
@@ -1449,8 +1474,10 @@ function genericPrintNoParens(path, options, print) {
       ]);
     case "DeclareInterface":
     case "InterfaceDeclaration": {
-      const parent = path.getParentNode(1);
-      if (parent && parent.type === "DeclareModule") {
+      if (
+        n.type === "DeclareInterface" ||
+          isFlowNodeStartingWithDeclare(n, options)
+      ) {
         parts.push("declare ");
       }
 
@@ -1564,8 +1591,10 @@ function genericPrintNoParens(path, options, print) {
       return "string";
     case "DeclareTypeAlias":
     case "TypeAlias": {
-      const parent = path.getParentNode(1);
-      if (parent && parent.type === "DeclareModule") {
+      if (
+        n.type === "DeclareTypeAlias" ||
+          isFlowNodeStartingWithDeclare(n, options)
+      ) {
         parts.push("declare ");
       }
 
@@ -2249,12 +2278,12 @@ function printMemberChain(path, options, print) {
   }
 
   const printedGroups = groups.map(printGroup);
-
   const oneLine = concat(printedGroups);
+  const hasComment = groups.length >= 2 && groups[1][0].node.comments;
 
   // If we only have a single `.`, we shouldn't do anything fancy and just
   // render everything concatenated together.
-  if (groups.length <= 2) {
+  if (groups.length <= 2 && !hasComment) {
     return group(oneLine);
   }
 
@@ -2263,6 +2292,11 @@ function printMemberChain(path, options, print) {
     shouldMerge ? printIndentedGroup(groups.slice(1, 2), softline) : "",
     printIndentedGroup(groups.slice(shouldMerge ? 2 : 1), hardline)
   ]);
+
+  // If there's a comment, we don't want to print in one line.
+  if (hasComment) {
+    return group(expanded);
+  }
 
   // If any group but the last one has a hard line, we want to force expand
   // it. If the last group is a function it's okay to inline if it fits.
@@ -2768,6 +2802,16 @@ function shouldPrintSameLine(node) {
     type === "ThisExpression" ||
     type === "TypeCastExpression" ||
     type === "UnaryExpression";
+}
+
+function isFlowNodeStartingWithDeclare(node, options) {
+  if (options.parser !== "flow") {
+    return false;
+  }
+
+  return options.originalText
+    .slice(0, util.locStart(node))
+    .match(/declare\s*$/);
 }
 
 function printAstToDoc(ast, options) {

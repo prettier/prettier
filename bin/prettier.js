@@ -16,6 +16,7 @@ const argv = minimist(process.argv.slice(2), {
     "single-quote",
     "trailing-comma",
     "bracket-spacing",
+    "jsx-bracket-same-line",
     // The supports-color package (a sub sub dependency) looks directly at
     // `process.argv` for `--no-color` and such-like options. The reason it is
     // listed here is to avoid "Ignored unknown option: --no-color" warnings.
@@ -59,6 +60,7 @@ if (argv["help"] || !filepatterns.length && !stdin) {
       "  --single-quote           Use single quotes instead of double.\n" +
       "  --trailing-comma         Print trailing commas wherever possible.\n" +
       "  --bracket-spacing        Put spaces between brackets. Defaults to true.\n" +
+      "  --jsx-bracket-same-line  Put > on the last line. Defaults to false.\n" +
       "  --parser <flow|babylon>  Specify which parse to use. Defaults to babylon.\n" +
       "  --color                  Colorize error messages. Defaults to true.\n" +
       "  --version                Print prettier version.\n" +
@@ -125,7 +127,8 @@ const options = {
   bracketSpacing: argv["bracket-spacing"],
   parser: getParserOption(),
   singleQuote: argv["single-quote"],
-  trailingComma: argv["trailing-comma"]
+  trailingComma: argv["trailing-comma"],
+  jsxBracketSameLine: argv["jsx-bracket-same-line"],
 };
 
 function format(input) {
@@ -232,6 +235,11 @@ if (stdin) {
               process.exitCode = 2;
             }
           });
+        }
+      } else if (argv["debug-check"]) {
+        process.stdout.write("\n");
+        if (output) {
+          console.log(output);
         }
       } else {
         // Don't use `console.log` here since it adds an extra newline at the end.

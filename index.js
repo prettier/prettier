@@ -46,13 +46,26 @@ function attachComments(text, ast, opts) {
   }
   ast.tokens = [];
   opts.originalText = text.trimRight();
+  return astComments;
+}
+
+function ensureAllCommentsPrinted(astComments) {
+  astComments.forEach(comment => {
+    if (!comment.printed) {
+      throw new Error(
+        'Comment "' + comment.value.trim() + '" was not printed. Please report this error!'
+      );
+    }
+    delete comment.printed;
+  });
 }
 
 function format(text, opts) {
   const ast = parse(text, opts);
-  attachComments(text, ast, opts);
+  const astComments = attachComments(text, ast, opts);
   const doc = printAstToDoc(ast, opts);
   const str = printDocToString(doc, opts.printWidth, guessLineEnding(text));
+  ensureAllCommentsPrinted(astComments);
   return str;
 }
 

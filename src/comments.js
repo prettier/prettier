@@ -10,6 +10,7 @@ var hardline = docBuilders.hardline;
 var breakParent = docBuilders.breakParent;
 var indent = docBuilders.indent;
 var lineSuffix = docBuilders.lineSuffix;
+var join = docBuilders.join;
 var util = require("./util");
 var comparePos = util.comparePos;
 var childNodesCacheKey = Symbol("child-nodes");
@@ -262,6 +263,7 @@ function breakTies(tiesToBreak, text) {
 function addCommentHelper(node, comment) {
   var comments = node.comments || (node.comments = []);
   comments.push(comment);
+  comment.printed = false;
 }
 
 function addLeadingComment(node, comment) {
@@ -403,6 +405,7 @@ function handleConditionalExpressionComments(enclosingNode, followingNode, comme
 
 function printComment(commentPath) {
   const comment = commentPath.getValue();
+  comment.printed = true;
 
   switch (comment.type) {
     case "CommentBlock":
@@ -499,7 +502,7 @@ function printTrailingComment(commentPath, print, options, parentNode) {
   return concat([lineSuffix(" " + contents), !isBlock ? breakParent : ""]);
 }
 
-function printDanglingComments(path, options, noIndent) {
+function printDanglingComments(path, options, sameIndent) {
   const text = options.originalText;
   const parts = [];
   const node = path.getValue();
@@ -512,19 +515,20 @@ function printDanglingComments(path, options, noIndent) {
     commentPath => {
       const comment = commentPath.getValue();
       if (!comment.leading && !comment.trailing) {
-        if (util.hasNewline(text, locStart(comment), { backwards: true })) {
-          parts.push(hardline);
-        }
         parts.push(printComment(commentPath));
       }
     },
     "comments"
   );
 
-  if (!noIndent) {
-    return indent(options.tabWidth, concat(parts));
+  if (parts.length === 0) {
+    return "";
   }
-  return concat(parts);
+
+  if (sameIndent) {
+    return join(hardline, parts);
+  }
+  return indent(options.tabWidth, concat([hardline, join(hardline, parts)]));
 }
 
 function printComments(path, print, options) {
