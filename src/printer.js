@@ -186,11 +186,12 @@ function genericPrintNoParens(path, options, print) {
       // Avoid indenting sub-expressions in if/etc statements.
       if (
         shouldInlineLogicalExpression(n) ||
+        n !== parent.body &&
         (parent.type === "IfStatement" ||
           parent.type === "WhileStatement" ||
           parent.type === "DoStatement" ||
-          parent.type === "ForStatement") &&
-          n !== parent.body
+          parent.type === "ForStatement") ||
+        n === parent.body && parent.type === "ArrowFunctionExpression"
       ) {
         return group(concat(parts));
       }
