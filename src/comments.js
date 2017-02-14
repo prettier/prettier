@@ -175,6 +175,8 @@ function attach(comments, ast, text) {
     } else {
       if (handleIfStatementComments(enclosingNode, followingNode, comment)) {
         // We're good
+      } else if (handleAssignmentPatternComments(enclosingNode, followingNode, comment)) {
+        // We're good
       } else if (precedingNode && followingNode) {
         // Otherwise, text exists both before and after the comment on
         // the same line. If there is both a preceding and following
@@ -378,6 +380,20 @@ function handleConditionalExpressionComments(enclosingNode, followingNode, comme
     addLeadingComment(followingNode, comment);
     return true;
   }
+  return false;
+}
+
+function handleAssignmentPatternComments(enclosingNode, followingNode, comment) {
+  if (
+    enclosingNode &&
+      (enclosingNode.type === "Property" || enclosingNode.type === "ObjectProperty") &&
+      enclosingNode.value && enclosingNode.value.type === "AssignmentPattern"
+  ) {
+    addTrailingComment(enclosingNode.value.left, comment);
+
+    return true;
+  }
+
   return false;
 }
 
