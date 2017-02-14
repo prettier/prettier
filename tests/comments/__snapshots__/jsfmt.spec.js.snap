@@ -868,6 +868,62 @@ function name() {
 "
 `;
 
+exports[`test template-literal.js 1`] = `
+"\`
+\${// $FlowFixMe found when converting React.createClass to ES6
+ExampleStory.getFragment(\"story\")
+}
+
+\${// Another comment
+foo()
+}
+
+\${// And another one
+Bar()
+}
+\`;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\`
+\${// $FlowFixMe found when converting React.createClass to ES6
+ExampleStory.getFragment(\"story\")}
+
+\${// Another comment
+foo()}
+
+\${// And another one
+Bar()}
+\`;
+"
+`;
+
+exports[`test template-literal.js 2`] = `
+"\`
+\${// $FlowFixMe found when converting React.createClass to ES6
+ExampleStory.getFragment(\"story\")
+}
+
+\${// Another comment
+foo()
+}
+
+\${// And another one
+Bar()
+}
+\`;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\`
+\${// $FlowFixMe found when converting React.createClass to ES6
+ExampleStory.getFragment(\"story\")}
+
+\${// Another comment
+foo()}
+
+\${// And another one
+Bar()}
+\`;
+"
+`;
+
 exports[`test try.js 1`] = `
 "// comment 1
 try {
@@ -921,37 +977,5 @@ try {
   // comment 5
   // comment 7
 }
-"
-`;
-
-exports[`test template-literal.js 1`] = `
-"\`
-\${// $FlowFixMe found when converting React.createClass to ES6
-ExampleStory.getFragment(\'story\')
-// Another comment
-}
-\`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\`
-\${// $FlowFixMe found when converting React.createClass to ES6
-ExampleStory.getFragment(\"story\")}
-/* Another comment*/
-\`;
-"
-`;
-
-exports[`test template-literal.js 2`] = `
-"\`
-\${// $FlowFixMe found when converting React.createClass to ES6
-ExampleStory.getFragment(\'story\')
-// Another comment
-}
-\`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\`
-\${// $FlowFixMe found when converting React.createClass to ES6
-ExampleStory.getFragment(\"story\")}
-// Another comment
-\`;
 "
 `;
