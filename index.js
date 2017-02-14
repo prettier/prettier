@@ -42,7 +42,7 @@ function attachComments(text, ast, opts) {
   const astComments = ast.comments;
   if (astComments) {
     delete ast.comments;
-    comments.attach(astComments, ast, text);
+    comments.attach(astComments, ast, text, opts);
   }
   ast.tokens = [];
   opts.originalText = text.trimRight();
