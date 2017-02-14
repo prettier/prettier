@@ -764,16 +764,29 @@ function genericPrintNoParens(path, options, print) {
         const needsForcedTrailingComma = canHaveTrailingComma &&
           lastElem === null;
 
+        var printedElements = [];
+        let separatorParts = [];
+        path.each(
+          function(childPath) {
+            printedElements.push(concat(separatorParts));
+            printedElements.push(group(print(childPath)));
+
+            separatorParts = [",", line];
+            if (childPath.getValue() &&
+                util.isNextLineEmpty(options.originalText, childPath.getValue())) {
+              separatorParts.push(softline);
+            }
+          },
+          "elements"
+        );
+
         parts.push(
           group(
             concat([
               "[",
               indent(
                 options.tabWidth,
-                concat([
-                  softline,
-                  join(concat([",", line]), path.map(print, "elements"))
-                ])
+                concat([softline, concat(printedElements)])
               ),
               needsForcedTrailingComma ? "," : "",
               ifBreak(

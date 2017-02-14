@@ -162,6 +162,7 @@ let tests = [
     x + {}; // error
     ({}) + x; // error
   },
+
   // when one side is a string or number and the other is invalid, we
   // assume you are expecting a string or number (respectively), rather than
   // erroring twice saying number !~> string and obj !~> string.
@@ -171,6 +172,7 @@ let tests = [
     (\"1\" + {}: string); // error: object !~> string
     ({} + \"1\": string); // error: object !~> string
   },
+
   function(x: any, y: number, z: string) {
     (x + y: string); // ok
     (y + x: string); // ok
