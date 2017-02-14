@@ -175,7 +175,7 @@ function attach(comments, ast, text) {
     } else {
       if (handleIfStatementComments(enclosingNode, followingNode, comment)) {
         // We're good
-      } else if (handleAssignmentPatternComments(enclosingNode, followingNode, comment)) {
+      } else if (handleAssignmentPatternComments(enclosingNode, comment)) {
         // We're good
       } else if (precedingNode && followingNode) {
         // Otherwise, text exists both before and after the comment on
@@ -383,7 +383,7 @@ function handleConditionalExpressionComments(enclosingNode, followingNode, comme
   return false;
 }
 
-function handleAssignmentPatternComments(enclosingNode, followingNode, comment) {
+function handleAssignmentPatternComments(enclosingNode, comment) {
   if (
     enclosingNode &&
       (enclosingNode.type === "Property" || enclosingNode.type === "ObjectProperty") &&
