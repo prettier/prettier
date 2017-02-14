@@ -420,7 +420,7 @@ function printComment(commentPath) {
 }
 
 function findExpressionIndexForComment (expressions, comment, options) {
-  let match;
+  var match;
   const startPos = locStart(comment) - 1;
   const endPos = locEnd(comment) + 1;
 
