@@ -131,6 +131,20 @@ function getOptions() {
   return options;
 }
 
+function replaceHash(hash) {
+  if (
+    typeof URL === "function" &&
+    typeof history === "object" &&
+    typeof history.replaceState === "function"
+  ) {
+    var url = new URL(location);
+    url.hash = hash;
+    history.replaceState(null, null, url);
+  } else {
+    location.hash = hash;
+  }
+}
+
 function format() {
   var options = getOptions();
   [docEditor, outputEditor].forEach(function(editor) {
@@ -146,7 +160,7 @@ function format() {
       Object.assign({content: inputEditor.getValue(), options: options})
     )
   );
-  location.hash = value;
+  replaceHash(value);
   var res;
   try {
     res = prettier.format(inputEditor.getValue(), options);
