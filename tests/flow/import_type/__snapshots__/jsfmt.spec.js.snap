@@ -345,6 +345,21 @@ function foo() {
 "
 `;
 
+exports[`test import_type_specifier.js 1`] = `
+"/**
+ * @flow
+ */
+
+import { Foo, type Baz } from \"../module\";
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * @flow
+ */
+
+import { Foo, type Baz } from \"../module\";
+"
+`;
+
 exports[`test issue-359.js 1`] = `
 "/* @flow */
 
