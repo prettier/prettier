@@ -185,7 +185,8 @@ function genericPrintNoParens(path, options, print) {
       const parent = path.getParentNode();
 
       // Avoid indenting sub-expressions in if/etc statements.
-      if(
+      if (
+        shouldInlineLogicalExpression(n) ||
         (parent.type === "IfStatement" ||
          parent.type === "WhileStatement" ||
          parent.type === "DoStatement" ||
@@ -2573,6 +2574,13 @@ function isBinaryish(node) {
   return node.type === "BinaryExpression" || node.type === "LogicalExpression";
 }
 
+function shouldInlineLogicalExpression(node) {
+  return node.type === "LogicalExpression" && (
+    node.right.type === "ObjectExpression" ||
+    node.right.type === "ArrayExpression"
+  );
+}
+
 // For binary expressions to be consistent, we need to group
 // subsequent operators with the same precedence level under a single
 // group. Otherwise they will be nested such that some of them break
@@ -2615,7 +2623,11 @@ function printBinaryishExpressions(path, parts, print, options, isNested) {
       parts.push(path.call(print, "left"));
     }
 
-    const right = concat([node.operator, line, path.call(print, "right")]);
+    const right = concat([
+      node.operator,
+      shouldInlineLogicalExpression(node) ? " " : line,
+      path.call(print, "right")
+    ]);
 
     // If there's only a single binary expression: everything except && and ||,
     // we want to create a group in order to avoid having a small right part
