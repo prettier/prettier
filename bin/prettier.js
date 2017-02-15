@@ -22,6 +22,7 @@ const argv = minimist(process.argv.slice(2), {
     "trailing-comma-arguments",
     "bracket-spacing",
     "braces-spacing",
+    "breakProperty",
     "jsx-bracket-same-line",
     // The supports-color package (a sub sub dependency) looks directly at
     // `process.argv` for `--no-color` and such-like options. The reason it is
@@ -71,6 +72,7 @@ if (argv["help"] || !filepatterns.length && !stdin) {
       "  --trailing-comma-args    Print trailing commas in function call arguments.\n" +
       "  --bracket-spacing        Put spaces between [brackets]. Defaults to false.\n" +
       "  --braces-spacing         Put spaces between {braces}. Defaults to true.\n" +
+      "  --break-property         Allow object properties to break lines. Defaults to false.\n" +
       "  --jsx-bracket-same-line  Put > on the last line. Defaults to false.\n" +
       "  --parser <flow|babylon>  Specify which parse to use. Defaults to babylon.\n" +
       "  --color                  Colorize error messages. Defaults to true.\n" +
@@ -138,6 +140,7 @@ const options = {
   tabWidth: getIntOption("tab-width"),
   bracketSpacing: argv["bracket-spacing"],
   bracesSpacing: argv["braces-spacing"],
+  breakProperty: argv["break-property"],
   parser: getParserOption(),
   singleQuote: argv["single-quote"],
   trailingComma: argv["trailing-comma"],

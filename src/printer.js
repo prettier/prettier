@@ -711,7 +711,7 @@ function genericPrintNoParens(path, options, print) {
         }
 
         let printedValue = path.call(print, "value");
-        if (shouldPrintSameLine(n.value)) {
+        if (!options.breakProperty || shouldPrintSameLine(n.value)) {
           parts.push(concat([": ", printedValue]));
         } else {
           parts.push(
@@ -724,6 +724,7 @@ function genericPrintNoParens(path, options, print) {
             ]))
           );
         }
+
       }
 
       return concat(parts); // Babel 6

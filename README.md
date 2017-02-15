@@ -170,6 +170,9 @@ prettier.format(source, {
   // Controls the printing of spaces inside object literals
   bracesSpacing: true,
 
+  // Allow object properties to break lines.
+  breakProperty: false,
+
   // Close JSX tags on the last line instead of a new line (Facebook Style)
   jsxFbCloseTag: false,
 
