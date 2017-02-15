@@ -1,3 +1,36 @@
+exports[`test inline-object-array.js 1`] = `
+"prevState = prevState || {
+  catalogs: [],
+  loadState: LOADED,
+  opened: false,
+  searchQuery: \'\',
+  selectedCatalog: null,
+};
+
+this.steps = steps || [
+  {
+    name: \'mock-module\',
+    path: \'/nux/mock-module\',
+  },
+];
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+prevState = prevState || {
+  catalogs: [],
+  loadState: LOADED,
+  opened: false,
+  searchQuery: \"\",
+  selectedCatalog: null
+};
+
+this.steps = steps || [
+  {
+    name: \"mock-module\",
+    path: \"/nux/mock-module\"
+  }
+];
+"
+`;
+
 exports[`test short-right.js 1`] = `
 "this._cumulativeHeights &&
  Math.abs(
