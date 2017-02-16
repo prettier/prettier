@@ -542,7 +542,9 @@ function genericPrintNoParens(path, options, print) {
           !n.comments &&
           (parent.type === "ArrowFunctionExpression" ||
             parent.type === "FunctionExpression" ||
-            parent.type === "FunctionDeclaration")
+            parent.type === "FunctionDeclaration" ||
+            parent.type === "ObjectMethod" ||
+            parent.type === "ClassMethod")
       ) {
         return "{}";
       }
