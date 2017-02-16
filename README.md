@@ -200,6 +200,10 @@ Can also be installed using `ext install prettier-vscode`
 
 [Check repository for configuration and shortcuts](https://github.com/esbenp/prettier-vscode)
 
+### Visual Studio
+
+Install the [JavaScript Prettier extension](https://github.com/madskristensen/JavaScriptPrettier)
+
 ### Sublime Text
 
 Sublime Text support is available through Package Control and 
