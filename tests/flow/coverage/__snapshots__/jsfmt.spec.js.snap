@@ -13,6 +13,7 @@ declare module bar {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare module foo {
 }
+
 // TODO
 // This file triggers a violation of the \"disjoint-or-nested ranges invariant\"
 // that we implicitly assume in type-at-pos and coverage implementations. In

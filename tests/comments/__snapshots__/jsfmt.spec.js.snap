@@ -86,32 +86,6 @@ declare class Foo extends Qux<string> {
 "
 `;
 
-exports[`test dangling_array.js 1`] = `
-"expect(() => {}).toTriggerReadyStateChanges([
-  // Nothing.
-]);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-expect(() => {}).toTriggerReadyStateChanges(
-  [
-    // Nothing.
-  ]
-);
-"
-`;
-
-exports[`test dangling_array.js 2`] = `
-"expect(() => {}).toTriggerReadyStateChanges([
-  // Nothing.
-]);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-expect(() => {}).toTriggerReadyStateChanges(
-  [
-    // Nothing.
-  ]
-);
-"
-`;
-
 exports[`test first-line.js 1`] = `
 "a // comment
 b
@@ -825,7 +799,18 @@ exports[`test jsx.js 2`] = `
 `;
 
 exports[`test preserve-new-line-last.js 1`] = `
-"function name() {
+"function f() {
+  a
+  /* eslint-disable */
+}
+
+function f() {
+  a
+
+  /* eslint-disable */
+}
+
+function name() {
   // comment1
   func1()
 
@@ -836,12 +821,24 @@ exports[`test preserve-new-line-last.js 1`] = `
   // func3()
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function f() {
+  a;
+  /* eslint-disable */
+}
+
+function f() {
+  a;
+
+  /* eslint-disable */
+}
+
 function name() {
   // comment1
   func1();
 
   // comment2
   func2();
+
   // comment3 why func3 commented
   // func3()
 }
@@ -849,7 +846,18 @@ function name() {
 `;
 
 exports[`test preserve-new-line-last.js 2`] = `
-"function name() {
+"function f() {
+  a
+  /* eslint-disable */
+}
+
+function f() {
+  a
+
+  /* eslint-disable */
+}
+
+function name() {
   // comment1
   func1()
 
@@ -860,12 +868,24 @@ exports[`test preserve-new-line-last.js 2`] = `
   // func3()
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function f() {
+  a;
+  /* eslint-disable */
+}
+
+function f() {
+  a;
+
+  /* eslint-disable */
+}
+
 function name() {
   // comment1
   func1();
 
   // comment2
   func2();
+
   // comment3 why func3 commented
   // func3()
 }

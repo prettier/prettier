@@ -48,6 +48,7 @@ declare module \"declare_m_e_with_other_type_declares\" {
 
 declare module \"DEPRECATED__declare_var_exports\" {
   declare var exports: number;
+
   /**
  * Ensure that, if both are present, \`declare module.exports\` wins
  */
