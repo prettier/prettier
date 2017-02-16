@@ -58,6 +58,7 @@ let tests = [
     new Boolean(undefined);
     new Boolean(\"\");
   },
+
   // toString
   function() {
     true.toString();
@@ -65,10 +66,12 @@ let tests = [
     x.toString();
     new Boolean(true).toString();
   },
+
   // valueOf
   function() {
     (new Boolean(0).valueOf(): boolean);
   },
+
   // casting
   function() {
     Boolean();
@@ -137,11 +140,13 @@ let tests = [
     let b: Map<string, number> = new Map([[\"foo\", 123]]);
     let c: Map<string, number> = new Map(generator());
   },
+
   // bad constructors
   function() {
     let x = new Map([\"foo\", 123]); // error
     let y: Map<number, string> = new Map([[\"foo\", 123]]); // error
   },
+
   // get()
   function(x: Map<string, number>) {
     (x.get(\"foo\"): boolean); // error, string | void
@@ -194,6 +199,7 @@ let tests = [
     new RegExp(/foo/, \"i\"); // invalid in ES5, valid in ES6
     new RegExp(/foo/g, \"i\"); // invalid in ES5, valid in ES6
   },
+
   // called as a function (equivalent to the constructor per ES6 21.2.3)
   function() {
     RegExp(\"foo\");
@@ -203,6 +209,7 @@ let tests = [
     RegExp(/foo/, \"i\"); // invalid in ES5, valid in ES6
     RegExp(/foo/g, \"i\"); // invalid in ES5, valid in ES6
   },
+
   // invalid flags
   function() {
     RegExp(\"foo\", \"z\"); // error

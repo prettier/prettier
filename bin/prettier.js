@@ -7,6 +7,7 @@ const getStdin = require("get-stdin");
 const glob = require("glob");
 const chalk = require("chalk");
 const minimist = require("minimist");
+const readline = require("readline");
 const prettier = require("../index");
 
 const argv = minimist(process.argv.slice(2), {
@@ -128,7 +129,7 @@ const options = {
   parser: getParserOption(),
   singleQuote: argv["single-quote"],
   trailingComma: argv["trailing-comma"],
-  jsxBracketSameLine: argv["jsx-bracket-same-line"],
+  jsxBracketSameLine: argv["jsx-bracket-same-line"]
 };
 
 function format(input) {
@@ -141,7 +142,9 @@ function format(input) {
     const pp = prettier.format(input, options);
     const pppp = prettier.format(pp, options);
     if (pp !== pppp) {
-      const diff = require('diff').createTwoFilesPatch('', '', pp, pppp, '', '', {context: 2});
+      const diff = require(
+        "diff"
+      ).createTwoFilesPatch("", "", pp, pppp, "", "", { context: 2 });
       console.error(diff);
     }
     return;
@@ -218,8 +221,8 @@ if (stdin) {
 
       if (write) {
         // Remove previously printed filename to log it with duration.
-        process.stdout.clearLine();
-        process.stdout.cursorTo(0);
+        readline.clearLine(process.stdout, 0);
+        readline.cursorTo(process.stdout, 0, null);
 
         // Don't write the file if it won't change in order not to invalidate
         // mtime based caches.

@@ -56,6 +56,7 @@ let tests = [
     hmac.write(123); // 2 errors: not a string or a Buffer
     hmac.end();
   },
+
   // Hmac supports update and digest functions too
   function(buf: Buffer) {
     const hmac = crypto.createHmac(\"sha256\", \"a secret\");

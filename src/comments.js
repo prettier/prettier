@@ -82,7 +82,7 @@ function decorateComment(node, comment, text) {
 
     if (
       locStart(child) - locStart(comment) <= 0 &&
-        locEnd(comment) - locEnd(child) <= 0
+      locEnd(comment) - locEnd(child) <= 0
     ) {
       // The comment is completely contained by this child node.
       comment.enclosingNode = child;
@@ -159,7 +159,13 @@ function attach(comments, ast, text, options) {
         addDanglingComment(ast, comment);
       }
     } else if (util.hasNewline(text, locEnd(comment))) {
-      if (handleConditionalExpressionComments(enclosingNode, followingNode, comment)) {
+      if (
+        handleConditionalExpressionComments(
+          enclosingNode,
+          followingNode,
+          comment
+        )
+      ) {
         // We're good
       } else if (handleTemplateLiteralComments(enclosingNode, comment, options)) {
         // We're good
@@ -365,14 +371,30 @@ function handleTryStatementComments(enclosingNode, followingNode, comment) {
 function handleMemberExpressionComments(enclosingNode, followingNode, comment) {
   if (
     enclosingNode &&
-      enclosingNode.type === "MemberExpression" &&
-      followingNode &&
-      followingNode.type === "Identifier"
+    enclosingNode.type === "MemberExpression" &&
+    followingNode &&
+    followingNode.type === "Identifier"
   ) {
     addLeadingComment(enclosingNode, comment);
     return true;
   }
 
+  return false;
+}
+
+function handleConditionalExpressionComments(
+  enclosingNode,
+  followingNode,
+  comment
+) {
+  if (
+    enclosingNode &&
+    enclosingNode.type === "ConditionalExpression" &&
+    followingNode
+  ) {
+    addLeadingComment(followingNode, comment);
+    return true;
+  }
   return false;
 }
 
@@ -388,15 +410,6 @@ function handleTemplateLiteralComments(enclosingNode, comment, options) {
     )
     addLeadingComment(enclosingNode.expressions[expressionIndex], comment);
 
-    return true;
-  }
-
-  return false;
-}
-
-function handleConditionalExpressionComments(enclosingNode, followingNode, comment) {
-  if (enclosingNode && enclosingNode.type === 'ConditionalExpression' && followingNode) {
-    addLeadingComment(followingNode, comment);
     return true;
   }
 
@@ -493,7 +506,9 @@ function printTrailingComment(commentPath, print, options, parentNode) {
       comment
     );
 
-    return lineSuffix(concat([hardline, isLineBeforeEmpty ? hardline : "", contents]));
+    return lineSuffix(
+      concat([hardline, isLineBeforeEmpty ? hardline : "", contents])
+    );
   } else if (isBlock) {
     // Trailing block comments never need a newline
     return concat([" ", contents]);

@@ -64,17 +64,20 @@ let tests = [
     0 in {};
     0 in { \"0\": null };
   },
+
   // arrays on RHS
   function() {
     \"foo\" in [];
     0 in [];
     \"length\" in [];
   },
+
   // primitive classes on RHS
   function() {
     \"foo\" in new String(\"bar\");
     \"foo\" in new Number(123);
   },
+
   // primitives on RHS
   function() {
     \"foo\" in 123; // error
@@ -82,6 +85,7 @@ let tests = [
     \"foo\" in void 0; // error
     \"foo\" in null; // error
   },
+
   // bogus stuff on LHS
   function() {
     null in {}; // error
@@ -90,6 +94,7 @@ let tests = [
     [] in {}; // error
     false in []; // error
   },
+
   // in predicates
   function() {
     if (\"foo\" in 123) {
@@ -99,6 +104,7 @@ let tests = [
     if (!(\"foo\" in {})) {
     }
   },
+
   // annotations on RHS
   function(x: Object, y: mixed) {
     \"foo\" in x; // ok

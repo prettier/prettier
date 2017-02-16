@@ -307,6 +307,7 @@ let tests = [
     (y.name: void); // error, it\'s a string
     (z.name: void); // error, it\'s a string
   },
+
   function(y: () => void, z: Function) {
     function x() {}
     x.length = \"foo\"; // error, it\'s a number

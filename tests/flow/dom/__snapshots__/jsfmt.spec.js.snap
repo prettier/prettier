@@ -20,6 +20,7 @@ let tests = [
   function(ctx: CanvasRenderingContext2D) {
     ctx.fillRect(0, 0, 200, 100);
   },
+
   // moveTo
   function(ctx: CanvasRenderingContext2D) {
     ctx.moveTo(\"0\", \"1\"); // error: should be numbers
@@ -293,12 +294,14 @@ let tests = [
     (target.attachEvent(\"foo\", listener): void); // invalid, may be undefined
     (target.attachEvent && target.attachEvent(\"foo\", listener): void); // valid
   },
+
   // detachEvent
   function() {
     let target = new EventTarget();
     (target.detachEvent(\"foo\", listener): void); // invalid, may be undefined
     (target.detachEvent && target.detachEvent(\"foo\", listener): void); // valid
   },
+
   function() {
     window.onmessage = (event: MessageEvent) => {
       (event.target: window);
