@@ -491,7 +491,7 @@ function printComments(path, print, options) {
   }
 
   var leadingParts = [];
-  var trailingParts = [printed];
+  var trailingParts = [];
 
   path.each(
     function(commentPath) {
@@ -517,7 +517,33 @@ function printComments(path, print, options) {
     "comments"
   );
 
-  return concat(leadingParts.concat(trailingParts));
+  // There's a mode in flow where you can have annotations as inline comments
+  // Flow relies on parenthesis in order to find the right comment. We need to
+  // preserve it.
+  const needsParens = comments.some(comment =>
+    comment.value.startsWith(':') &&
+    comment.type === 'CommentBlock' &&
+    comment.trailing
+  );
+
+  if (needsParens) {
+    return concat([].concat(
+      leadingParts,
+      ["("],
+      [printed],
+      // We only put the first comment in parenthesis to make sure return
+      // type of arrow functions is not inside of the last argument type
+      trailingParts.slice(0, 1),
+      [")"],
+      trailingParts.slice(1)
+    ));
+  }
+
+  return concat([].concat(
+    leadingParts,
+    [printed],
+    trailingParts
+  ));
 }
 
 module.exports = { attach, printComments, printDanglingComments };
