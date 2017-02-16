@@ -82,7 +82,7 @@ function decorateComment(node, comment, text) {
 
     if (
       locStart(child) - locStart(comment) <= 0 &&
-        locEnd(comment) - locEnd(child) <= 0
+      locEnd(comment) - locEnd(child) <= 0
     ) {
       // The comment is completely contained by this child node.
       comment.enclosingNode = child;
@@ -142,8 +142,8 @@ function attach(comments, ast, text) {
       // We also need to check if it's the first line of the file.
       if (
         handleMemberExpressionComment(enclosingNode, followingNode, comment) ||
-          handleIfStatementComments(enclosingNode, followingNode, comment) ||
-          handleTryStatementComments(enclosingNode, followingNode, comment)
+        handleIfStatementComments(enclosingNode, followingNode, comment) ||
+        handleTryStatementComments(enclosingNode, followingNode, comment)
       ) {
         // We're good
       } else if (followingNode) {
@@ -158,7 +158,13 @@ function attach(comments, ast, text) {
         addDanglingComment(ast, comment);
       }
     } else if (util.hasNewline(text, locEnd(comment))) {
-      if (handleConditionalExpressionComments(enclosingNode, followingNode, comment)) {
+      if (
+        handleConditionalExpressionComments(
+          enclosingNode,
+          followingNode,
+          comment
+        )
+      ) {
         // We're good
       } else if (precedingNode) {
         // There is content before this comment on the same line, but
@@ -362,9 +368,9 @@ function handleTryStatementComments(enclosingNode, followingNode, comment) {
 function handleMemberExpressionComment(enclosingNode, followingNode, comment) {
   if (
     enclosingNode &&
-      enclosingNode.type === "MemberExpression" &&
-      followingNode &&
-      followingNode.type === "Identifier"
+    enclosingNode.type === "MemberExpression" &&
+    followingNode &&
+    followingNode.type === "Identifier"
   ) {
     addLeadingComment(enclosingNode, comment);
     return true;
@@ -373,8 +379,16 @@ function handleMemberExpressionComment(enclosingNode, followingNode, comment) {
   return false;
 }
 
-function handleConditionalExpressionComments(enclosingNode, followingNode, comment) {
-  if (enclosingNode && enclosingNode.type === 'ConditionalExpression' && followingNode) {
+function handleConditionalExpressionComments(
+  enclosingNode,
+  followingNode,
+  comment
+) {
+  if (
+    enclosingNode &&
+    enclosingNode.type === "ConditionalExpression" &&
+    followingNode
+  ) {
     addLeadingComment(followingNode, comment);
     return true;
   }
@@ -442,7 +456,9 @@ function printTrailingComment(commentPath, print, options, parentNode) {
       comment
     );
 
-    return lineSuffix(concat([hardline, isLineBeforeEmpty ? hardline : "", contents]));
+    return lineSuffix(
+      concat([hardline, isLineBeforeEmpty ? hardline : "", contents])
+    );
   } else if (isBlock) {
     // Trailing block comments never need a newline
     return concat([" ", contents]);
