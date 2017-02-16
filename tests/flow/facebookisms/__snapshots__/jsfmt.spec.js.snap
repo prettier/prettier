@@ -55,6 +55,7 @@ let tests = [
   function() {
     copyProperties(); // error, unknown global
   },
+
   // annotation
   function(copyProperties: Object$Assign) {
     let result = {};
@@ -65,6 +66,7 @@ let tests = [
       baz: boolean
     });
   },
+
   // module from lib
   function() {
     const copyProperties = require(\"copyProperties\");
@@ -72,11 +74,13 @@ let tests = [
     let y = { bar: 123 };
     (copyProperties({}, x, y): { foo: string, bar: number });
   },
+
   // too few args
   function(copyProperties: Object$Assign) {
     copyProperties();
     (copyProperties({ foo: \"a\" }): { foo: number }); // err, num !~> string
   },
+
   // passed as a function
   function(copyProperties: Object$Assign) {
     function x(cb: Function) {}
@@ -109,6 +113,7 @@ let tests = [
     let x: ?string = null;
     invariant(x, \"truthy only\"); // error, forgot to require invariant
   },
+
   function(invariant: Function) {
     let x: ?string = null;
     invariant(x);
@@ -186,6 +191,7 @@ let tests = [
   function() {
     mergeInto(); // error, unknown global
   },
+
   // annotation
   function(mergeInto: $Facebookism$MergeInto) {
     let result = {};
@@ -193,16 +199,19 @@ let tests = [
     (mergeInto(result, { foo: \"a\" }, { bar: 123 }): void);
     (result: { foo: string, bar: number, baz: boolean });
   },
+
   // module from lib
   function() {
     const mergeInto = require(\"mergeInto\");
     let result: { foo?: string, bar?: number, baz: boolean } = { baz: false };
     (mergeInto(result, { foo: \"a\" }, { bar: 123 }): void);
   },
+
   // too few args
   function(mergeInto: $Facebookism$MergeInto) {
     mergeInto();
   },
+
   // passed as a function
   function(mergeInto: $Facebookism$MergeInto) {
     function x(cb: Function) {}

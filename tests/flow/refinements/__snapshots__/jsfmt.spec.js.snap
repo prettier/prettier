@@ -182,6 +182,7 @@ let tests = [
     }
     return x.result; // error
   },
+
   function(x: { done: true, result: string } | { done: false }) {
     if (true === x.done) {
       return x.result;
@@ -309,12 +310,14 @@ let tests = [
     }
     return x.result; // error
   },
+
   function(x: { done: true, result: string } | { foo: string }) {
     if (x.done) {
       return x.result; // error, consider { foo: \"herp\", done: \"derp\" }
     }
     return x.result; // error
   },
+
   function() {
     type T = { foo: Object, bar: string } | { baz: string, quux: string };
 
@@ -386,16 +389,19 @@ let tests = [
     if (x === y) {
     } // no error, to match \`let z = (x === y)\` which is allowed
   },
+
   function(x: string) {
     if (x == undefined) {
     } // ok
     if (x == void 0) {
     } // ok
   },
+
   function(x: string) {
     if (x == null) {
     } // ok
   },
+
   function(x: { y: \"foo\" } | { y: \"bar\" }) {
     if (x.y == 123) {
     } // error
@@ -1340,36 +1346,42 @@ let tests = [
     }
     (x: 0); // error
   },
+
   function(x: number) {
     if (x !== 0) {
       (x: 0); // error
     }
     (x: void); // error
   },
+
   function(x: 1): 0 {
     if (x === 0) {
       return x; // unreachable, no error
     }
     return 0;
   },
+
   function(x: 0): number {
     if (x === 1) {
       return x;
     }
     return x;
   },
+
   function(x: 0) {
     if (x !== 1) {
       (x: 0);
     }
     (x: 0);
   },
+
   function(x: 0): number {
     if (x === 0) {
       return x;
     }
     return x;
   },
+
   function(x: 0 | 1) {
     if (x === 0) {
       (x: 0);
@@ -1380,12 +1392,14 @@ let tests = [
       (x: void); // error
     }
   },
+
   function(x: { foo: number }): 0 {
     if (x.foo === 0) {
       return x.foo;
     }
     return x.foo; // error
   },
+
   function(x: { kind: 0, foo: number } | { kind: 1, bar: number }): number {
     if (x.kind === 0) {
       return x.foo;
@@ -1393,22 +1407,26 @@ let tests = [
       return x.bar;
     }
   },
+
   function(num: number, obj: { foo: number }) {
     if (num === obj.bar) {
       // ok, typos allowed in conditionals
     }
   },
+
   function(num: number, obj: { [key: string]: number }) {
     if (num === obj.bar) {
       // ok
     }
   },
+
   function(n: number): Mode {
     if (n !== 0 && n !== 1 && n !== 2) {
       throw new Error(\"Wrong number passed\");
     }
     return n;
   },
+
   function(s: number): ?Mode {
     if (s === 0) {
       return s;
@@ -1416,6 +1434,7 @@ let tests = [
       return s; // error
     }
   },
+
   function(mode: Mode) {
     switch (mode) {
       case 0:
@@ -1428,6 +1447,7 @@ let tests = [
         break;
     }
   },
+
   function(x: number): 0 {
     if (x) {
       return x; // error
@@ -1920,36 +1940,42 @@ let tests = [
     }
     (x: \"foo\"); // error
   },
+
   function(x: string) {
     if (x !== \"foo\") {
       (x: \"foo\"); // error
     }
     (x: void); // error
   },
+
   function(x: \"bar\"): \"foo\" {
     if (x === \"foo\") {
       return x; // unreachable, no error
     }
     return \"foo\";
   },
+
   function(x: \"foo\"): string {
     if (x === \"bar\") {
       return x;
     }
     return x;
   },
+
   function(x: \"foo\") {
     if (x !== \"bar\") {
       (x: \"foo\");
     }
     (x: \"foo\");
   },
+
   function(x: \"foo\"): string {
     if (x === \"foo\") {
       return x;
     }
     return x;
   },
+
   function(x: \"foo\" | \"bar\") {
     if (x === \"foo\") {
       (x: \"foo\");
@@ -1960,12 +1986,14 @@ let tests = [
       (x: void); // error
     }
   },
+
   function(x: { foo: string }): \"foo\" {
     if (x.foo === \"foo\") {
       return x.foo;
     }
     return x.foo; // error
   },
+
   function(
     x: { kind: \"foo\", foo: string } | { kind: \"bar\", bar: string }
   ): string {
@@ -1975,16 +2003,19 @@ let tests = [
       return x.bar;
     }
   },
+
   function(str: string, obj: { foo: string }) {
     if (str === obj.bar) {
       // ok, typos allowed in conditionals
     }
   },
+
   function(str: string, obj: { [key: string]: string }) {
     if (str === obj.bar) {
       // ok
     }
   },
+
   function(str: string): Mode {
     var ch = str[0];
     if (ch !== \"a\" && ch !== \"b\" && ch !== \"c\") {
@@ -1992,6 +2023,7 @@ let tests = [
     }
     return ch;
   },
+
   function(s: string): ?Mode {
     if (s === \"a\") {
       return s;
@@ -1999,6 +2031,7 @@ let tests = [
       return s; // error
     }
   },
+
   function(mode: Mode) {
     switch (mode) {
       case \"a\":
@@ -2011,6 +2044,7 @@ let tests = [
         break;
     }
   },
+
   function(x: string): \"\" {
     if (x) {
       return x; // error
@@ -2018,6 +2052,7 @@ let tests = [
       return x; // no error, inferred to be \"\"
     }
   },
+
   // Simple template literals are ok
   function(x: string): \"foo\" {
     if (x === \`foo\`) {
@@ -2532,6 +2567,7 @@ let tests = [
       (x.kindTypo: string); // typos can\'t be used, though
     }
   },
+
   // nested objects
   function test8(x: { foo: { bar: 1 } }) {
     if (x.foo.bar === 1) {
@@ -2539,6 +2575,7 @@ let tests = [
     if (x.fooTypo.bar === 1) {
     } // error, fooTypo doesn\'t exist
   },
+
   // invalid RHS
   function(x: A) {
     if (x.kind === null.toString()) {
@@ -2546,6 +2583,7 @@ let tests = [
     if (({ kind: 1 }).kind === null.toString()) {
     } // error, method on null
   },
+
   // non-objects on LHS
   function(
     x: Array<string>,
@@ -2601,6 +2639,7 @@ let tests = [
       (t.calll: empty); // ok, props on functions are \`any\` :/
     }
   },
+
   // sentinel props become the RHS
   function(x: { str: string, num: number, bool: boolean }) {
     if (x.str === \"str\") {
@@ -2623,6 +2662,7 @@ let tests = [
       (x.badBool: empty); // error: true !~> empty
     }
   },
+
   // type mismatch
   function(x: { foo: 123, y: string } | { foo: \"foo\", z: string }) {
     if (x.foo === 123) {
@@ -2640,6 +2680,7 @@ let tests = [
       x.z; // error
     }
   },
+
   // type mismatch, but one is not a literal
   function(x: { foo: number, y: string } | { foo: \"foo\", z: string }) {
     if (x.foo === 123) {
@@ -2658,6 +2699,7 @@ let tests = [
       x.z; // error
     }
   },
+
   // type mismatch, neither is a literal
   function(x: { foo: number, y: string } | { foo: string, z: string }) {
     if (x.foo === 123) {
@@ -2676,6 +2718,7 @@ let tests = [
       x.z; // error: x.foo could be a number
     }
   },
+
   // type mismatch, neither is a literal, test is not a literal either
   function(
     x: { foo: number, y: string } | { foo: string, z: string },
