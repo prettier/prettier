@@ -1,3 +1,14 @@
+function f() {
+  a
+  /* eslint-disable */
+}
+
+function f() {
+  a
+
+  /* eslint-disable */
+}
+
 function name() {
   // comment1
   func1()

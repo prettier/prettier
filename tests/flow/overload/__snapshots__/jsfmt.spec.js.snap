@@ -83,6 +83,7 @@ a.bar({ a: true }); // error, function cannot be called on intersection type
 declare var x: { a: boolean } & { b: string };
 
 a.bar(x); // error with nested intersection info (outer for bar, inner for x)
+
 /********** tests **************
 interface Dummy<T> {
     dumb(foo: (x:number) => number):number;

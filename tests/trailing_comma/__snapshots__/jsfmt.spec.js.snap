@@ -209,6 +209,7 @@ o = {
 
 o = {
   state
+
   // Comment
 };
 
@@ -284,6 +285,7 @@ o = {
 
 o = {
   state,
+
   // Comment
 };
 

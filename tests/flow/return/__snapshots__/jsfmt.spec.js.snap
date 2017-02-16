@@ -73,6 +73,7 @@ function i(x): ?number {
 }
 
 module.exports = C;
+
 //function fn(x:number) { return x; }
 //module.exports = fn;
 "

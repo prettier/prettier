@@ -200,7 +200,9 @@ function isPreviousLineEmpty(text, node) {
   let idx = locStart(node) - 1;
   idx = skipSpaces(text, idx, { backwards: true });
   idx = skipNewline(text, idx, { backwards: true });
-  return hasNewline(text, idx, { backwards: true });
+  idx = skipSpaces(text, idx, { backwards: true });
+  const idx2 = skipNewline(text, idx, { backwards: true });
+  return idx !== idx2;
 }
 
 function isNextLineEmpty(text, node) {

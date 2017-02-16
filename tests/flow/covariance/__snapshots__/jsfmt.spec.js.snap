@@ -65,6 +65,7 @@ var nv: NVerbose<number, *> = new NVerbose();
 nv.x = [0];
 (nv.x[0]: string); // error
 (nv.foo()[0]: string); // error
+
 /* TODO: use existentials for non-verbose covariance?
 
 type CovArray<X> = Array<*:X>;
