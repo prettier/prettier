@@ -131,6 +131,34 @@ prettier --write 'src/**/*.js' 'bin/*.js'
 
 In the future we will have better support for formatting whole projects.
 
+#### Pre-commit hook for changed files
+
+[🚫💩 lint-staged](https://github.com/okonet/lint-staged) can re-format your files that are marked as "staged" via `git add`  before you commit.
+
+Install it along with [pre-commit](https://github.com/observing/pre-commit) (or [husky](https://github.com/typicode/husky)):
+
+```bash
+npm install --save-dev lint-staged pre-commit
+```
+
+and add this config to your `package.json`:
+
+```json
+{
+  "scripts": {
+    "lint:staged": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "pre-commit": "lint:staged"
+}
+```
+
+
 ### API
 
 The API is a single function exported as `format`. The options
@@ -227,6 +255,10 @@ Can be installed using the extension sidebar. Search for `Prettier - JavaScript 
 Can also be installed using `ext install prettier-vscode`
 
 [Check repository for configuration and shortcuts](https://github.com/esbenp/prettier-vscode)
+
+### Visual Studio
+
+Install the [JavaScript Prettier extension](https://github.com/madskristensen/JavaScriptPrettier)
 
 ### Sublime Text
 

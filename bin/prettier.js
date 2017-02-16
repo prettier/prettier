@@ -147,7 +147,7 @@ const options = {
   trailingCommaImports: argv["trailing-comma-imports"],
   trailingCommaExports: argv["trailing-comma-exports"],
   trailingCommaArgs: argv["trailing-comma-args"],
-  jsxBracketSameLine: argv["jsx-bracket-same-line"],
+  jsxBracketSameLine: argv["jsx-bracket-same-line"]
 };
 
 function format(input) {
@@ -160,7 +160,9 @@ function format(input) {
     const pp = prettier.format(input, options);
     const pppp = prettier.format(pp, options);
     if (pp !== pppp) {
-      const diff = require('diff').createTwoFilesPatch('', '', pp, pppp, '', '', {context: 2});
+      const diff = require(
+        "diff"
+      ).createTwoFilesPatch("", "", pp, pppp, "", "", { context: 2 });
       console.error(diff);
     }
     return;

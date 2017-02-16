@@ -98,6 +98,7 @@ let tests = [
     const bar = [undefined, \"bar\"];
     (bar[x]: boolean); // error, string or void
   },
+
   function(x: number) {
     var undefined = \"foo\";
     (undefined: string); // ok

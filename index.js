@@ -53,7 +53,9 @@ function ensureAllCommentsPrinted(astComments) {
   astComments.forEach(comment => {
     if (!comment.printed) {
       throw new Error(
-        'Comment "' + comment.value.trim() + '" was not printed. Please report this error!'
+        'Comment "' +
+          comment.value.trim() +
+          '" was not printed. Please report this error!'
       );
     }
     delete comment.printed;
