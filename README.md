@@ -138,7 +138,7 @@ In the future we will have better support for formatting whole projects.
 Install it along with [pre-commit](https://github.com/observing/pre-commit) (or [husky](https://github.com/typicode/husky)):
 
 ```bash
-npm install --save-dev lint-staged pre-commit
+yarn add lint-staged pre-commit --dev
 ```
 
 and add this config to your `package.json`:
