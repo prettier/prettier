@@ -407,6 +407,7 @@ o = {
 
 o = {
   state
+
   // Comment
 };
 
@@ -429,8 +430,8 @@ function supersupersupersuperLongF(
 
 exports[`test trailing_whitespace.js 2`] = `
 "let example = [
-  'FOO',
-  'BAR',
+  \'FOO\',
+  \'BAR\',
   // Comment
 ];
 
@@ -465,8 +466,8 @@ function supersupersupersuperLongF(
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let example = [
-  "FOO",
-  "BAR",
+  \"FOO\",
+  \"BAR\",
   // Comment
 ];
 
@@ -482,6 +483,7 @@ o = {
 
 o = {
   state,
+
   // Comment
 };
 
@@ -557,6 +559,7 @@ o = {
 
 o = {
   state,
+
   // Comment
 };
 

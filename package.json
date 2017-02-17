@@ -1,6 +1,6 @@
 {
   "name": "prettier-with-tabs",
-  "version": "0.17.1",
+  "version": "0.18.0",
   "description": "Prettier is an opinionated JavaScript formatter",
   "bin": {
     "prettier": "./bin/prettier.js"
@@ -39,7 +39,8 @@
     "diff": "3.2.0"
   },
   "scripts": {
-    "test": "jest && npm run test-tabs && npm run test-tabs-inv",
+    "jest": "jest",
+    "test": "npm run jest && npm run test-tabs && npm run test-tabs-inv",
     "test-tabs": "node ./bin/prettier.js --use-tabs --bracket-spacing -- ./bin/prettier.js > ./bin/prettier-with-tabs.js",
     "test-tabs-inv": "node ./bin/prettier-with-tabs.js -- ./bin/prettier-with-tabs.js > ./bin/prettier-spaces.js",
     "format": "./bin/prettier.js --write",
