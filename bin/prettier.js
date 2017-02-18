@@ -15,7 +15,6 @@ const argv = minimist(process.argv.slice(2), {
     "write",
     "stdin",
     "single-quote",
-    "trailing-comma",
     "bracket-spacing",
     "jsx-bracket-same-line",
     // The supports-color package (a sub sub dependency) looks directly at
@@ -30,7 +29,7 @@ const argv = minimist(process.argv.slice(2), {
     // Deprecated in 0.0.10
     "flow-parser"
   ],
-  string: ["print-width", "tab-width", "parser"],
+  string: ["print-width", "tab-width", "parser", "trailing-comma"],
   default: { color: true, "bracket-spacing": true, parser: "babylon" },
   alias: { help: "h", version: "v" },
   unknown: param => {
@@ -49,29 +48,6 @@ if (argv["version"]) {
 const filepatterns = argv["_"];
 const write = argv["write"];
 const stdin = argv["stdin"] || !filepatterns.length && !process.stdin.isTTY;
-
-if (argv["help"] || !filepatterns.length && !stdin) {
-  console.log(
-    "Usage: prettier [opts] [filename ...]\n\n" +
-      "Available options:\n" +
-      "  --write                  Edit the file in-place. (Beware!)\n" +
-      "  --stdin                  Read input from stdin.\n" +
-      "  --print-width <int>      Specify the length of line that the printer will wrap on. Defaults to 80.\n" +
-      "  --tab-width <int>        Specify the number of spaces per indentation-level. Defaults to 2.\n" +
-      "  --single-quote           Use single quotes instead of double.\n" +
-      "  --trailing-comma         Print trailing commas wherever possible.\n" +
-      "  --bracket-spacing        Put spaces between brackets. Defaults to true.\n" +
-      "  --jsx-bracket-same-line  Put > on the last line. Defaults to false.\n" +
-      "  --parser <flow|babylon>  Specify which parse to use. Defaults to babylon.\n" +
-      "  --color                  Colorize error messages. Defaults to true.\n" +
-      "  --version                Print prettier version.\n" +
-      "\n" +
-      "Boolean options can be turned off like this:\n" +
-      "  --no-bracket-spacing\n" +
-      "  --bracket-spacing=false"
-  );
-  process.exit(argv["help"] ? 0 : 1);
-}
 
 function getParserOption() {
   const optionName = "parser";
@@ -122,14 +98,32 @@ function getIntOption(optionName) {
   process.exit(1);
 }
 
+function getTrailingComma() {
+  let trailingComma;
+  switch (argv["trailing-comma"]) {
+    case undefined:
+    case "none":
+      return "none";
+    case "":
+      console.warn("Warning: `--trailing-comma` was used without an argument. This is deprecated. " +
+                   'Specify "none", "es5", or "all".')
+    case "es5":
+      return "es5";
+    case "all":
+      return "all";
+    default:
+      throw new Error("Invalid option for --trailing-comma");
+  }
+}
+
 const options = {
   printWidth: getIntOption("print-width"),
   tabWidth: getIntOption("tab-width"),
   bracketSpacing: argv["bracket-spacing"],
-  parser: getParserOption(),
   singleQuote: argv["single-quote"],
-  trailingComma: argv["trailing-comma"],
-  jsxBracketSameLine: argv["jsx-bracket-same-line"]
+  jsxBracketSameLine: argv["jsx-bracket-same-line"],
+  trailingComma: getTrailingComma(),
+  parser: getParserOption()
 };
 
 function format(input) {
@@ -175,6 +169,30 @@ function handleError(filename, e) {
 
   // Don't exit the process if one file failed
   process.exitCode = 2;
+}
+
+if (argv["help"] || !filepatterns.length && !stdin) {
+  console.log(
+    "Usage: prettier [opts] [filename ...]\n\n" +
+      "Available options:\n" +
+      "  --write                  Edit the file in-place. (Beware!)\n" +
+      "  --stdin                  Read input from stdin.\n" +
+      "  --print-width <int>      Specify the length of line that the printer will wrap on. Defaults to 80.\n" +
+      "  --tab-width <int>        Specify the number of spaces per indentation-level. Defaults to 2.\n" +
+      "  --single-quote           Use single quotes instead of double.\n" +
+      "  --bracket-spacing        Put spaces between brackets. Defaults to true.\n" +
+      "  --jsx-bracket-same-line  Put > on the last line. Defaults to false.\n" +
+      "  --trailing-comma <none|es5|all>\n" +
+      "                           Print trailing commas wherever possible. Defaults to none.\n" +
+      "  --parser <flow|babylon>  Specify which parse to use. Defaults to babylon.\n" +
+      "  --color                  Colorize error messages. Defaults to true.\n" +
+      "  --version                Print prettier version.\n" +
+      "\n" +
+      "Boolean options can be turned off like this:\n" +
+      "  --no-bracket-spacing\n" +
+      "  --bracket-spacing=false"
+  );
+  process.exit(argv["help"] ? 0 : 1);
 }
 
 if (stdin) {
