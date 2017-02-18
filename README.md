@@ -170,8 +170,11 @@ prettier.format(source, {
   // If true, will use single instead of double quotes
   singleQuote: false,
 
-  // Controls the printing of trailing commas wherever possible
-  trailingComma: false,
+  // Controls the printing of trailing commas wherever possible. Valid options:
+  // "none" - No trailing commas
+  // "es5"  - Trailing commas where valid in ES5 (objects, arrays, etc)
+  // "all"  - Trailing commas wherever possible (function arguments)
+  trailingComma: "none",
 
   // Controls the printing of spaces inside object literals
   bracketSpacing: true,
