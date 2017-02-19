@@ -419,6 +419,7 @@ FPp.needsParens = function(assumeExpressionContext) {
         case "LogicalExpression":
         case "NewExpression":
         case "ExportDefaultDeclaration":
+        case "AwaitExpression":
           return true;
 
         case "CallExpression":
