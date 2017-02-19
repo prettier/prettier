@@ -7,3 +7,4 @@ function x() {
   /* dangling */
 }
 declare class Foo extends Qux<string> {/* dangling */}
+export /* dangling */{};
