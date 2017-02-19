@@ -112,6 +112,31 @@ expect(() => {}).toTriggerReadyStateChanges(
 "
 `;
 
+exports[`test dangling_for.js 1`] = `
+"for // comment
+(;;);
+
+for /* comment */(;;);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+for // comment
+(;;);
+
+for /* comment */(;;);
+"
+`;
+
+exports[`test dangling_for.js 2`] = `
+"for // comment
+(;;);
+
+for /* comment */(;;);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+for // comment(;;);
+
+for /* comment */(;;);
+"
+`;
+
 exports[`test first-line.js 1`] = `
 "a // comment
 b
