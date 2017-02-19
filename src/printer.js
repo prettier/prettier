@@ -814,6 +814,7 @@ function genericPrintNoParens(path, options, print) {
                   ? ","
                   : ""
               ),
+              comments.printDanglingComments(path, options, /* sameIndent */ true),
               softline,
               "]"
             ])
