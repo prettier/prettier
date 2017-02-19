@@ -205,19 +205,15 @@ function printAll(val: MyType) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 type Common = {};
 
-type A =
-  & Common
-  & {
-    type: \"A\",
-    foo: number
-  };
+type A = Common & {
+  type: \"A\",
+  foo: number
+};
 
-type B =
-  & Common
-  & {
-    type: \"B\",
-    foo: Array<number>
-  };
+type B = Common & {
+  type: \"B\",
+  foo: Array<number>
+};
 
 type MyType = A | B;
 
@@ -327,17 +323,13 @@ type DataBase = {
   name: string
 };
 
-type UserData =
-  & DataBase
-  & {
-    kind: \"user\"
-  };
+type UserData = DataBase & {
+  kind: \"user\"
+};
 
-type SystemData =
-  & DataBase
-  & {
-    kind: \"system\"
-  };
+type SystemData = DataBase & {
+  kind: \"system\"
+};
 
 type Data = UserData | SystemData;
 
@@ -410,18 +402,14 @@ declare type Entity<T> = {
 
 declare type StringEntity = Entity<string>;
 
-declare type Foo =
-  & StringEntity
-  & {
-    bars: Object,
-    kind: 1
-  };
-declare type EmptyFoo =
-  & StringEntity
-  & {
-    bars: null,
-    kind: 2
-  };
+declare type Foo = StringEntity & {
+  bars: Object,
+  kind: 1
+};
+declare type EmptyFoo = StringEntity & {
+  bars: null,
+  kind: 2
+};
 
 function test(f: Foo | EmptyFoo) {
   if (f.kind === 1) {
