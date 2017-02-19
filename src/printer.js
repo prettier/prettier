@@ -2025,6 +2025,8 @@ function printExportDeclaration(path, options, print) {
     parts.push("default ");
   }
 
+  parts.push(comments.printDanglingComments(path, options, true));
+
   if (decl.declaration) {
     parts.push(path.call(print, "declaration"));
 
