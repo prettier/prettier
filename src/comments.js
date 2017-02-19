@@ -1,5 +1,6 @@
 var assert = require("assert");
 var types = require("ast-types");
+var FastPath = require("./fast-path");
 var n = types.namedTypes;
 var isArray = types.builtInTypes.array;
 var isObject = types.builtInTypes.object;
@@ -174,8 +175,6 @@ function attach(comments, ast, text) {
       }
     } else {
       if (handleIfStatementComments(enclosingNode, followingNode, comment)) {
-        // We're good
-      } else if (handleAssignmentPatternComments(enclosingNode, comment)) {
         // We're good
       } else if (precedingNode && followingNode) {
         // Otherwise, text exists both before and after the comment on
@@ -383,20 +382,6 @@ function handleConditionalExpressionComments(enclosingNode, followingNode, comme
   return false;
 }
 
-function handleAssignmentPatternComments(enclosingNode, comment) {
-  if (
-    enclosingNode &&
-      (enclosingNode.type === "Property" || enclosingNode.type === "ObjectProperty") &&
-      enclosingNode.value && enclosingNode.value.type === "AssignmentPattern"
-  ) {
-    addTrailingComment(enclosingNode.value.left, comment);
-
-    return true;
-  }
-
-  return false;
-}
-
 function printComment(commentPath) {
   const comment = commentPath.getValue();
   comment.printed = true;
@@ -497,41 +482,54 @@ function printDanglingComments(path, options, sameIndent) {
 }
 
 function printComments(path, print, options) {
-  var value = path.getValue();
-  var parent = path.getParentNode();
-  var printed = print(path);
-  var comments = n.Node.check(value) && types.getFieldValue(value, "comments");
+  const value = path.getValue();
+  const parent = path.getParentNode();
+  const printed = print(path);
+  const comments = n.Node.check(value) && types.getFieldValue(value, "comments");
+  const keyNode = n.Node.check(value) && types.getFieldValue(value, "key");
+  const hasKeyNodeComments = keyNode && keyNode.comments;
+  var leadingParts = [];
+  var trailingParts = [printed];
+
+  const extractComments = (comment, isNode) => {
+    var commentPath;
+
+    if (!isNode) {
+      commentPath = comment;
+      comment = comment.getValue();
+    } else {
+      commentPath = FastPath.from(comment);
+    }
+
+    var leading = types.getFieldValue(comment, "leading");
+    var trailing = types.getFieldValue(comment, "trailing");
+
+    if (leading) {
+      leadingParts.push(printLeadingComment(commentPath, print, options));
+
+      const text = options.originalText;
+      if (
+        util.hasNewline(text, util.skipNewline(text, util.locEnd(comment)))
+      ) {
+        leadingParts.push(hardline);
+      }
+    } else if (trailing) {
+      trailingParts.push(
+        printTrailingComment(commentPath, print, options, parent)
+      );
+    }
+  };
+
+  // Special case when comments are attached to the key prop of the node.
+  if (hasKeyNodeComments) {
+    keyNode.comments.forEach(c => extractComments(c, true));
+  }
 
   if (!comments || comments.length === 0) {
     return printed;
   }
 
-  var leadingParts = [];
-  var trailingParts = [printed];
-
-  path.each(
-    function(commentPath) {
-      var comment = commentPath.getValue();
-      var leading = types.getFieldValue(comment, "leading");
-      var trailing = types.getFieldValue(comment, "trailing");
-
-      if (leading) {
-        leadingParts.push(printLeadingComment(commentPath, print, options));
-
-        const text = options.originalText;
-        if (
-          util.hasNewline(text, util.skipNewline(text, util.locEnd(comment)))
-        ) {
-          leadingParts.push(hardline);
-        }
-      } else if (trailing) {
-        trailingParts.push(
-          printTrailingComment(commentPath, print, options, parent)
-        );
-      }
-    },
-    "comments"
-  );
+  path.each(extractComments, "comments");
 
   return concat(leadingParts.concat(trailingParts));
 }
