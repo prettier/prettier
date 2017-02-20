@@ -164,10 +164,9 @@ function attach(comments, ast, text, options) {
           enclosingNode,
           followingNode,
           comment
-        )
+        ) ||
+          handleTemplateLiteralComments(enclosingNode, comment, options)
       ) {
-        // We're good
-      } else if (handleTemplateLiteralComments(enclosingNode, comment, options)) {
         // We're good
       } else if (precedingNode) {
         // There is content before this comment on the same line, but
