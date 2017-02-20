@@ -94,12 +94,16 @@ exports[`test dangling_array.js 1`] = `
 "expect(() => {}).toTriggerReadyStateChanges([
   // Nothing.
 ]);
+
+[1 /* first comment */, 2 /* second comment */, 3];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 expect(() => {}).toTriggerReadyStateChanges(
   [
     // Nothing.
   ]
 );
+
+[1 /* first comment */, 2 /* second comment */, 3];
 "
 `;
 
@@ -107,12 +111,16 @@ exports[`test dangling_array.js 2`] = `
 "expect(() => {}).toTriggerReadyStateChanges([
   // Nothing.
 ]);
+
+[1 /* first comment */, 2 /* second comment */, 3];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 expect(() => {}).toTriggerReadyStateChanges(
   [
     // Nothing.
   ]
 );
+
+[1 /* first comment */, 2 /* second comment */, 3];
 "
 `;
 
