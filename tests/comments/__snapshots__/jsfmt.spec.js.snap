@@ -424,13 +424,11 @@ const rootEpic = (actions, store) => combineEpics(...epics)(actions, store)
   });
 
 // Two extra levels of indentation because of the comment
-export type AsyncExecuteOptions =
-  & child_process$execFileOpts
-  & {
-    // The contents to write to stdin.
-    stdin?: ?string,
-    dontLogInNuclide?: ?boolean
-  };
+export type AsyncExecuteOptions = child_process$execFileOpts & {
+  // The contents to write to stdin.
+  stdin?: ?string,
+  dontLogInNuclide?: ?boolean
+};
 
 // optional trailing comma gets moved all the way to the beginning
 const regex = new RegExp(
@@ -651,13 +649,11 @@ const rootEpic = (actions, store) => combineEpics(...epics)(actions, store)
   });
 
 // Two extra levels of indentation because of the comment
-export type AsyncExecuteOptions =
-  & child_process$execFileOpts
-  & {
-    // The contents to write to stdin.
-    stdin?: ?string,
-    dontLogInNuclide?: ?boolean
-  };
+export type AsyncExecuteOptions = child_process$execFileOpts & {
+  // The contents to write to stdin.
+  stdin?: ?string,
+  dontLogInNuclide?: ?boolean
+};
 
 // optional trailing comma gets moved all the way to the beginning
 const regex = new RegExp(

@@ -1547,7 +1547,9 @@ function genericPrintNoParens(path, options, print) {
     case "IntersectionTypeAnnotation":
     case "UnionTypeAnnotation": {
       const types = path.map(print, "types");
-      const op = n.type === "IntersectionTypeAnnotation" ? "&" : "|";
+      const isIntersection = n.type === "IntersectionTypeAnnotation"
+      const shouldInline = isIntersection &&
+        !(n.types.length > 1 && n.types[0].type === "ObjectTypeAnnotation")
 
       // single-line variation
       // A | B | C
@@ -1556,12 +1558,18 @@ function genericPrintNoParens(path, options, print) {
       // | A
       // | B
       // | C
+
+      // We want & operators to be inlined.
+      if (shouldInline) {
+        return join(" & ", types);
+      }
+
       return group(
         indent(
           options.tabWidth,
           concat([
-            ifBreak(concat([line, op, " "])),
-            join(concat([line, op, " "]), types)
+            ifBreak(concat([line, isIntersection ? "&" : "|", " "])),
+            join(concat([line, isIntersection ? "&" : "|", " "]), types)
           ])
         )
       );
