@@ -399,6 +399,19 @@ function handleConditionalExpressionComments(
   return false;
 }
 
+function handleObjectProperty(enclosingNode, precedingNode, comment) {
+  if (enclosingNode &&
+      (enclosingNode.type === "ObjectProperty" ||
+       enclosingNode.type === "Property") &&
+      enclosingNode.shorthand &&
+      enclosingNode.key === precedingNode &&
+      enclosingNode.value.type === "AssignmentPattern") {
+    addTrailingComment(enclosingNode.value.left, comment);
+    return true;
+  }
+  return false;
+}
+
 function handleTemplateLiteralComments(enclosingNode, comment, options) {
   if (
     enclosingNode &&
@@ -414,19 +427,6 @@ function handleTemplateLiteralComments(enclosingNode, comment, options) {
     return true;
   }
 
-  return false;
-}
-
-function handleObjectProperty(enclosingNode, precedingNode, comment) {
-  if (enclosingNode &&
-      (enclosingNode.type === "ObjectProperty" ||
-       enclosingNode.type === "Property") &&
-      enclosingNode.shorthand &&
-      enclosingNode.key === precedingNode &&
-      enclosingNode.value.type === "AssignmentPattern") {
-    addTrailingComment(enclosingNode.value.left, comment);
-    return true;
-  }
   return false;
 }
 
