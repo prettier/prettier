@@ -124,6 +124,34 @@ prettier --write 'src/**/*.js' 'bin/*.js'
 
 In the future we will have better support for formatting whole projects.
 
+#### Pre-commit hook for changed files
+
+[🚫💩 lint-staged](https://github.com/okonet/lint-staged) can re-format your files that are marked as "staged" via `git add`  before you commit.
+
+Install it along with [pre-commit](https://github.com/observing/pre-commit) (or [husky](https://github.com/typicode/husky)):
+
+```bash
+yarn add lint-staged pre-commit --dev
+```
+
+and add this config to your `package.json`:
+
+```json
+{
+  "scripts": {
+    "lint:staged": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "pre-commit": "lint:staged"
+}
+```
+
+
 ### API
 
 The API is a single function exported as `format`. The options
@@ -142,8 +170,14 @@ prettier.format(source, {
   // If true, will use single instead of double quotes
   singleQuote: false,
 
-  // Controls the printing of trailing commas wherever possible
-  trailingComma: false,
+  // Controls the printing of trailing commas wherever possible. Valid options:
+  // "none" - No trailing commas
+  // "es5"  - Trailing commas where valid in ES5 (objects, arrays, etc)
+  // "all"  - Trailing commas wherever possible (function arguments)
+  //
+  // NOTE: Above is only available in 0.19.0 and above. Previously this was
+  // a boolean argument.
+  trailingComma: "none",
 
   // Controls the printing of spaces inside object literals
   bracketSpacing: true,
@@ -200,9 +234,13 @@ Can also be installed using `ext install prettier-vscode`
 
 [Check repository for configuration and shortcuts](https://github.com/esbenp/prettier-vscode)
 
+### Visual Studio
+
+Install the [JavaScript Prettier extension](https://github.com/madskristensen/JavaScriptPrettier)
+
 ### Sublime Text
 
-Sublime Text support is available through Package Control and 
+Sublime Text support is available through Package Control and
 the [JsPrettier](https://packagecontrol.io/packages/JsPrettier) plug-in.
 
 ### JetBrains

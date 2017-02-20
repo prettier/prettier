@@ -60,6 +60,37 @@ a(
 "
 `;
 
+exports[`test function-calls.js 3`] = `
+"const a = (param1, param2, param3) => {}
+
+a(\'value\', \'value2\', \'value3\');
+
+a(
+  \'a-long-value\',
+  \'a-really-really-long-value\',
+  \'a-really-really-really-long-value\',
+);
+
+a(\'value\', \'value2\', a(\'long-nested-value\', \'long-nested-value2\', \'long-nested-value3\'));
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const a = (param1, param2, param3) => {};
+
+a(\"value\", \"value2\", \"value3\");
+
+a(
+  \"a-long-value\",
+  \"a-really-really-long-value\",
+  \"a-really-really-really-long-value\"
+);
+
+a(
+  \"value\",
+  \"value2\",
+  a(\"long-nested-value\", \"long-nested-value2\", \"long-nested-value3\")
+);
+"
+`;
+
 exports[`test object.js 1`] = `
 "const a = {
   b: true,
@@ -108,6 +139,53 @@ const aLong = {
 `;
 
 exports[`test object.js 2`] = `
+"const a = {
+  b: true,
+  c: {
+    c1: \'hello\'
+  },
+  d: false
+};
+
+const aLong = {
+  bHasALongName: \'a-long-value\',
+  cHasALongName: {
+    c1: \'a-really-long-value\',
+    c2: \'a-really-really-long-value\',
+  },
+  dHasALongName: \'a-long-value-too\'
+};
+
+const aLong = {
+  dHasALongName: \'a-long-value-too\',
+  eHasABooleanExpression: a === a,
+};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const a = {
+  b: true,
+  c: {
+    c1: \"hello\",
+  },
+  d: false,
+};
+
+const aLong = {
+  bHasALongName: \"a-long-value\",
+  cHasALongName: {
+    c1: \"a-really-long-value\",
+    c2: \"a-really-really-long-value\",
+  },
+  dHasALongName: \"a-long-value-too\",
+};
+
+const aLong = {
+  dHasALongName: \"a-long-value-too\",
+  eHasABooleanExpression: a === a,
+};
+"
+`;
+
+exports[`test object.js 3`] = `
 "const a = {
   b: true,
   c: {
@@ -209,6 +287,7 @@ o = {
 
 o = {
   state
+
   // Comment
 };
 
@@ -284,6 +363,83 @@ o = {
 
 o = {
   state,
+
+  // Comment
+};
+
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB,
+) // Comment
+{
+  a;
+}
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB,
+) // Comment
+{
+  a;
+}
+"
+`;
+
+exports[`test trailing_whitespace.js 3`] = `
+"let example = [
+  \'FOO\',
+  \'BAR\',
+  // Comment
+];
+
+foo({},
+  // Comment
+);
+
+o = {
+  state,
+  // Comment
+};
+
+o = {
+  state,
+
+  // Comment
+};
+
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB
+  // Comment
+) {
+  a
+}
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB,
+  // Comment
+) {
+  a
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let example = [
+  \"FOO\",
+  \"BAR\",
+  // Comment
+];
+
+foo(
+  {}
+  // Comment
+);
+
+o = {
+  state,
+  // Comment
+};
+
+o = {
+  state,
+
   // Comment
 };
 

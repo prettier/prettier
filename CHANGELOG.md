@@ -1,3 +1,26 @@
+# 0.18.0
+
+[link](https://github.com/jlongster/prettier/compare/0.17.0...0.18.0)
+
+* fix --debug-check
+* [JSX] Don't add newline following newline (#690)
+* [Docs] Use replaceState API when demo code changes (#710)
+* Do not inline new as last argument (#705)
+* Inline objects & arrays as right part of a boolean expression (#692)
+* [RFC] Remove parenthesis object special case (#689)
+* Ensure importKind is printed (#718)
+* [Docs]: update Readme to reference VS extension (#720)
+* docs: Add pre-commit hook with 🚫💩 lint-staged section to the README (#714)
+* [RFC] Preserve new lines between array elements (#707)
+* Do not put \n inside of empty object method bodies (#706)
+* Align boolean inside of arrow functions (#691)
+* Fix trailing new lines preservation (#724)
+* Unified Split
+
+# 0.17.1
+
+* Use `readline` api to manipulate `process.stdout` output. (#687)
+
 # 0.17.0
 
 [link](https://github.com/jlongster/prettier/compare/0.16.0...0.17.0)

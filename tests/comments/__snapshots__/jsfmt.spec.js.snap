@@ -38,6 +38,7 @@ function x() {
   /* dangling */
 }
 declare class Foo extends Qux<string> {/* dangling */}
+export /* dangling */{};
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var x = {
   /* dangling */
@@ -54,6 +55,7 @@ function x() {
 declare class Foo extends Qux<string> {
   /* dangling */
 }
+export /* dangling */{};
 "
 `;
 
@@ -67,6 +69,7 @@ function x() {
   /* dangling */
 }
 declare class Foo extends Qux<string> {/* dangling */}
+export /* dangling */{};
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var x = {
   /* dangling */
@@ -83,6 +86,7 @@ function x() {
 declare class Foo extends Qux<string> {
   /* dangling */
 }
+export /* dangling */{};
 "
 `;
 
@@ -90,12 +94,16 @@ exports[`test dangling_array.js 1`] = `
 "expect(() => {}).toTriggerReadyStateChanges([
   // Nothing.
 ]);
+
+[1 /* first comment */, 2 /* second comment */, 3];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 expect(() => {}).toTriggerReadyStateChanges(
   [
     // Nothing.
   ]
 );
+
+[1 /* first comment */, 2 /* second comment */, 3];
 "
 `;
 
@@ -103,38 +111,44 @@ exports[`test dangling_array.js 2`] = `
 "expect(() => {}).toTriggerReadyStateChanges([
   // Nothing.
 ]);
+
+[1 /* first comment */, 2 /* second comment */, 3];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 expect(() => {}).toTriggerReadyStateChanges(
   [
     // Nothing.
   ]
 );
+
+[1 /* first comment */, 2 /* second comment */, 3];
 "
 `;
 
-exports[`test dangling_array.js 1`] = `
-"expect(() => {}).toTriggerReadyStateChanges([
-  // Nothing.
-]);
+exports[`test dangling_for.js 1`] = `
+"for // comment
+(;;);
+
+for /* comment */(;;);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-expect(() => {}).toTriggerReadyStateChanges(
-  [
-    // Nothing.
-  ]
-);
+// comment
+for (;;);
+
+/* comment */
+for (;;);
 "
 `;
 
-exports[`test dangling_array.js 2`] = `
-"expect(() => {}).toTriggerReadyStateChanges([
-  // Nothing.
-]);
+exports[`test dangling_for.js 2`] = `
+"for // comment
+(;;);
+
+for /* comment */(;;);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-expect(() => {}).toTriggerReadyStateChanges(
-  [
-    // Nothing.
-  ]
-);
+// comment
+for (;;);
+
+/* comment */
+for (;;);
 "
 `;
 
@@ -410,13 +424,11 @@ const rootEpic = (actions, store) => combineEpics(...epics)(actions, store)
   });
 
 // Two extra levels of indentation because of the comment
-export type AsyncExecuteOptions =
-  & child_process$execFileOpts
-  & {
-    // The contents to write to stdin.
-    stdin?: ?string,
-    dontLogInNuclide?: ?boolean
-  };
+export type AsyncExecuteOptions = child_process$execFileOpts & {
+  // The contents to write to stdin.
+  stdin?: ?string,
+  dontLogInNuclide?: ?boolean
+};
 
 // optional trailing comma gets moved all the way to the beginning
 const regex = new RegExp(
@@ -637,13 +649,11 @@ const rootEpic = (actions, store) => combineEpics(...epics)(actions, store)
   });
 
 // Two extra levels of indentation because of the comment
-export type AsyncExecuteOptions =
-  & child_process$execFileOpts
-  & {
-    // The contents to write to stdin.
-    stdin?: ?string,
-    dontLogInNuclide?: ?boolean
-  };
+export type AsyncExecuteOptions = child_process$execFileOpts & {
+  // The contents to write to stdin.
+  stdin?: ?string,
+  dontLogInNuclide?: ?boolean
+};
 
 // optional trailing comma gets moved all the way to the beginning
 const regex = new RegExp(
@@ -851,7 +861,18 @@ exports[`test jsx.js 2`] = `
 `;
 
 exports[`test preserve-new-line-last.js 1`] = `
-"function name() {
+"function f() {
+  a
+  /* eslint-disable */
+}
+
+function f() {
+  a
+
+  /* eslint-disable */
+}
+
+function name() {
   // comment1
   func1()
 
@@ -862,12 +883,24 @@ exports[`test preserve-new-line-last.js 1`] = `
   // func3()
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function f() {
+  a;
+  /* eslint-disable */
+}
+
+function f() {
+  a;
+
+  /* eslint-disable */
+}
+
 function name() {
   // comment1
   func1();
 
   // comment2
   func2();
+
   // comment3 why func3 commented
   // func3()
 }
@@ -875,7 +908,18 @@ function name() {
 `;
 
 exports[`test preserve-new-line-last.js 2`] = `
-"function name() {
+"function f() {
+  a
+  /* eslint-disable */
+}
+
+function f() {
+  a
+
+  /* eslint-disable */
+}
+
+function name() {
   // comment1
   func1()
 
@@ -886,12 +930,24 @@ exports[`test preserve-new-line-last.js 2`] = `
   // func3()
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function f() {
+  a;
+  /* eslint-disable */
+}
+
+function f() {
+  a;
+
+  /* eslint-disable */
+}
+
 function name() {
   // comment1
   func1();
 
   // comment2
   func2();
+
   // comment3 why func3 commented
   // func3()
 }
