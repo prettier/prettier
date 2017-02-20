@@ -987,27 +987,16 @@ function genericPrintNoParens(path, options, print) {
       return group(concat(parts));
     case "ForStatement": {
       const body = adjustClause(path.call(print, "body"), options);
-      const hasSomeDanglingLineComment = n.comments &&
-        n.comments.some(comment => {
-          return !comment.leading && !comment.trailing &&
-            comment.type === "Line"
-        });
+
+      const dangling = comments.printDanglingComments(path, options, /* sameLine */ true);
+      const printedComments = dangling ? concat([dangling, softline]) : "";
 
       if (!n.init && !n.test && !n.update) {
-        return concat([
-          "for ",
-          hasSomeDanglingLineComment
-            ? concat([
-              comments.printDanglingComments(path, options, true),
-              line
-            ])
-            : comments.printDanglingComments(path, options, true),
-          "(;;)",
-          body
-        ]);
+        return concat([printedComments, "for (;;)", body]);
       }
 
       return concat([
+        printedComments,
         "for (",
         group(
           concat([
