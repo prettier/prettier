@@ -25,9 +25,11 @@
     "get-stdin": "5.0.1",
     "glob": "7.1.1",
     "jest-validate": "18.2.0",
-    "minimist": "1.2.0"
+    "minimist": "1.2.0",
+    "vscode-jsonrpc": "^3.0.4"
   },
   "devDependencies": {
+    "diff": "3.2.0",
     "jest": "18.0.0",
     "rollup": "0.41.1",
     "rollup-plugin-commonjs": "7.0.0",
@@ -35,8 +37,7 @@
     "rollup-plugin-node-builtins": "2.0.0",
     "rollup-plugin-node-globals": "1.1.0",
     "rollup-plugin-node-resolve": "2.0.0",
-    "rollup-plugin-real-babili": "1.0.0-alpha3",
-    "diff": "3.2.0"
+    "rollup-plugin-real-babili": "1.0.0-alpha3"
   },
   "scripts": {
     "test": "jest",

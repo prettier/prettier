@@ -24,6 +24,7 @@ const argv = minimist(process.argv.slice(2), {
     "color",
     "help",
     "version",
+    "json-rpc",
     "debug-print-doc",
     "debug-check",
     // Deprecated in 0.0.10
@@ -48,6 +49,7 @@ if (argv["version"]) {
 const filepatterns = argv["_"];
 const write = argv["write"];
 const stdin = argv["stdin"] || !filepatterns.length && !process.stdin.isTTY;
+const jsonRPC = argv["json-rpc"];
 
 function getParserOption() {
   const optionName = "parser";
@@ -171,12 +173,13 @@ function handleError(filename, e) {
   process.exitCode = 2;
 }
 
-if (argv["help"] || !filepatterns.length && !stdin) {
+if (argv["help"] || !filepatterns.length && !stdin && !jsonRPC) {
   console.log(
     "Usage: prettier [opts] [filename ...]\n\n" +
       "Available options:\n" +
       "  --write                  Edit the file in-place. (Beware!)\n" +
       "  --stdin                  Read input from stdin.\n" +
+      "  --json-rpc               Response to commands using JSON-RPC on stdin.\n" +
       "  --print-width <int>      Specify the length of line that the printer will wrap on. Defaults to 80.\n" +
       "  --tab-width <int>        Specify the number of spaces per indentation-level. Defaults to 2.\n" +
       "  --single-quote           Use single quotes instead of double.\n" +
@@ -195,7 +198,23 @@ if (argv["help"] || !filepatterns.length && !stdin) {
   process.exit(argv["help"] ? 0 : 1);
 }
 
-if (stdin) {
+if (jsonRPC) {
+  var rpc = require('vscode-jsonrpc');
+  var connection = rpc.createMessageConnection(
+    new rpc.StreamMessageReader(process.stdin),
+    new rpc.StreamMessageWriter(process.stdout)
+  );
+
+  connection.onRequest('format', content => {
+    try {
+      return {error: null, formatted: format(content)};
+    } catch(e) {
+      return {error: e.toString()};
+    }
+  });
+
+  connection.listen();
+} else if (stdin) {
   getStdin().then(input => {
     try {
       // Don't use `console.log` here since it adds an extra newline at the end.
