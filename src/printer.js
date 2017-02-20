@@ -18,6 +18,7 @@ var indent = docBuilders.indent;
 var conditionalGroup = docBuilders.conditionalGroup;
 var ifBreak = docBuilders.ifBreak;
 var breakParent = docBuilders.breakParent;
+var lineSuffixBoundary = docBuilders.lineSuffixBoundary;
 
 var docUtils = require("./doc-utils");
 var willBreak = docUtils.willBreak;
@@ -1230,7 +1231,7 @@ function genericPrintNoParens(path, options, print) {
             n.expression.type === "LogicalExpression");
 
       if (shouldInline) {
-        return group(concat(["{", path.call(print, "expression"), "}"]));
+        return group(concat(["{", path.call(print, "expression"), lineSuffixBoundary, "}"]));
       }
 
       return group(
@@ -1241,6 +1242,7 @@ function genericPrintNoParens(path, options, print) {
             concat([softline, path.call(print, "expression")])
           ),
           softline,
+          lineSuffixBoundary,
           "}"
         ])
       );
@@ -1387,7 +1389,11 @@ function genericPrintNoParens(path, options, print) {
           parts.push(print(childPath));
 
           if (i < expressions.length) {
-            parts.push("${", removeLines(expressions[i]), "}");
+            parts.push(
+              "${",
+              removeLines(expressions[i]), lineSuffixBoundary,
+              "}"
+            );
           }
         },
         "quasis"
