@@ -118,10 +118,11 @@ exports[`test dangling_for.js 1`] = `
 
 for /* comment */(;;);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-for // comment
-(;;);
+// comment
+for (;;);
 
-for /* comment */(;;);
+/* comment */
+for (;;);
 "
 `;
 
@@ -131,9 +132,11 @@ exports[`test dangling_for.js 2`] = `
 
 for /* comment */(;;);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-for // comment(;;);
+// comment
+for (;;);
 
-for /* comment */(;;);
+/* comment */
+for (;;);
 "
 `;
 
