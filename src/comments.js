@@ -397,7 +397,8 @@ function handleConditionalExpressionComments(
 }
 
 function handleObjectProperty(enclosingNode, precedingNode, comment) {
-  if ((enclosingNode.type === "ObjectProperty" ||
+  if (enclosingNode &&
+      (enclosingNode.type === "ObjectProperty" ||
        enclosingNode.type === "Property") &&
       enclosingNode.shorthand &&
       enclosingNode.key === precedingNode &&
