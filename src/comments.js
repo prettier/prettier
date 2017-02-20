@@ -144,7 +144,7 @@ function attach(comments, ast, text, options) {
         handleMemberExpressionComments(enclosingNode, followingNode, comment) ||
           handleIfStatementComments(enclosingNode, followingNode, comment) ||
           handleTryStatementComments(enclosingNode, followingNode, comment) ||
-          handleTemplateLiteralComments(enclosingNode, comment, options)
+          handleTemplateLiteralComments(enclosingNode, comment)
       ) {
         // We're good
       } else if (followingNode) {
@@ -165,7 +165,7 @@ function attach(comments, ast, text, options) {
           followingNode,
           comment
         ) ||
-          handleTemplateLiteralComments(enclosingNode, comment, options)
+          handleTemplateLiteralComments(enclosingNode, comment)
       ) {
         // We're good
       } else if (precedingNode) {
@@ -411,15 +411,14 @@ function handleObjectProperty(enclosingNode, precedingNode, comment) {
   return false;
 }
 
-function handleTemplateLiteralComments(enclosingNode, comment, options) {
+function handleTemplateLiteralComments(enclosingNode, comment) {
   if (
     enclosingNode &&
       enclosingNode.type === "TemplateLiteral"
   ) {
     const expressionIndex = findExpressionIndexForComment(
       enclosingNode.expressions,
-      comment,
-      options
+      comment
     )
     addLeadingComment(enclosingNode.expressions[expressionIndex], comment);
 
@@ -445,26 +444,19 @@ function printComment(commentPath) {
   }
 }
 
-function findExpressionIndexForComment (expressions, comment, options) {
+function findExpressionIndexForComment(expressions, comment) {
   var match;
   const startPos = locStart(comment) - 1;
   const endPos = locEnd(comment) + 1;
 
   for (var i = 0; i < expressions.length; ++i) {
+    const range = getExpressionRange(expressions[i])
+
     if (
-      options.parser === "flow"
-        ? (
-          (startPos >= expressions[i].range[0] &&
-           startPos <= expressions[i].range[1]) ||
-            (endPos >= expressions[i].range[0] &&
-             endPos<= expressions[i].range[1])
-        )
-        : (
-          (startPos >= expressions[i].start &&
-           startPos <= expressions[i].end) ||
-            (endPos >= expressions[i].start &&
-             endPos<= expressions[i].end)
-        )
+      (startPos >= range.start &&
+       startPos <= range.end) ||
+        (endPos >= range.start &&
+         endPos<= range.end)
     ) {
       match = i;
       break;
@@ -472,6 +464,15 @@ function findExpressionIndexForComment (expressions, comment, options) {
   }
 
   return match
+}
+
+function getExpressionRange(expr) {
+  if (expr.start !== undefined) {
+    // Babylon
+    return {start: expr.start, end: expr.end}
+  }
+  // Flow
+  return {start: expr.range[0], end: expr.range[1]}
 }
 
 function printLeadingComment(commentPath, print, options) {
