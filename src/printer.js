@@ -989,6 +989,7 @@ function genericPrintNoParens(path, options, print) {
     case "ForStatement": {
       const body = adjustClause(path.call(print, "body"), options);
 
+      // We want to keep dangling comments above the loop to stay consistent.
       const dangling = comments.printDanglingComments(path, options, /* sameLine */ true);
       const printedComments = dangling ? concat([dangling, softline]) : "";
 
