@@ -1,6 +1,5 @@
 var assert = require("assert");
 var types = require("ast-types");
-var FastPath = require("./fast-path");
 var n = types.namedTypes;
 var isArray = types.builtInTypes.array;
 var isObject = types.builtInTypes.object;
@@ -83,7 +82,7 @@ function decorateComment(node, comment, text) {
 
     if (
       locStart(child) - locStart(comment) <= 0 &&
-        locEnd(comment) - locEnd(child) <= 0
+      locEnd(comment) - locEnd(child) <= 0
     ) {
       // The comment is completely contained by this child node.
       comment.enclosingNode = child;
@@ -143,8 +142,8 @@ function attach(comments, ast, text) {
       // We also need to check if it's the first line of the file.
       if (
         handleMemberExpressionComment(enclosingNode, followingNode, comment) ||
-          handleIfStatementComments(enclosingNode, followingNode, comment) ||
-          handleTryStatementComments(enclosingNode, followingNode, comment)
+        handleIfStatementComments(enclosingNode, followingNode, comment) ||
+        handleTryStatementComments(enclosingNode, followingNode, comment)
       ) {
         // We're good
       } else if (followingNode) {
@@ -159,7 +158,13 @@ function attach(comments, ast, text) {
         addDanglingComment(ast, comment);
       }
     } else if (util.hasNewline(text, locEnd(comment))) {
-      if (handleConditionalExpressionComments(enclosingNode, followingNode, comment)) {
+      if (
+        handleConditionalExpressionComments(
+          enclosingNode,
+          followingNode,
+          comment
+        )
+      ) {
         // We're good
       } else if (precedingNode) {
         // There is content before this comment on the same line, but
@@ -174,7 +179,8 @@ function attach(comments, ast, text) {
         addDanglingComment(ast, comment);
       }
     } else {
-      if (handleIfStatementComments(enclosingNode, followingNode, comment)) {
+      if (handleIfStatementComments(enclosingNode, followingNode, comment) ||
+          handleObjectProperty(enclosingNode, precedingNode, comment)) {
         // We're good
       } else if (precedingNode && followingNode) {
         // Otherwise, text exists both before and after the comment on
@@ -363,9 +369,9 @@ function handleTryStatementComments(enclosingNode, followingNode, comment) {
 function handleMemberExpressionComment(enclosingNode, followingNode, comment) {
   if (
     enclosingNode &&
-      enclosingNode.type === "MemberExpression" &&
-      followingNode &&
-      followingNode.type === "Identifier"
+    enclosingNode.type === "MemberExpression" &&
+    followingNode &&
+    followingNode.type === "Identifier"
   ) {
     addLeadingComment(enclosingNode, comment);
     return true;
@@ -374,9 +380,29 @@ function handleMemberExpressionComment(enclosingNode, followingNode, comment) {
   return false;
 }
 
-function handleConditionalExpressionComments(enclosingNode, followingNode, comment) {
-  if (enclosingNode && enclosingNode.type === 'ConditionalExpression' && followingNode) {
+function handleConditionalExpressionComments(
+  enclosingNode,
+  followingNode,
+  comment
+) {
+  if (
+    enclosingNode &&
+    enclosingNode.type === "ConditionalExpression" &&
+    followingNode
+  ) {
     addLeadingComment(followingNode, comment);
+    return true;
+  }
+  return false;
+}
+
+function handleObjectProperty(enclosingNode, precedingNode, comment) {
+  if ((enclosingNode.type === "ObjectProperty" ||
+       enclosingNode.type === "Property") &&
+      enclosingNode.shorthand &&
+      enclosingNode.key === precedingNode &&
+      enclosingNode.value.type === "AssignmentPattern") {
+    addTrailingComment(enclosingNode.value.left, comment);
     return true;
   }
   return false;
@@ -443,7 +469,9 @@ function printTrailingComment(commentPath, print, options, parentNode) {
       comment
     );
 
-    return lineSuffix(concat([hardline, isLineBeforeEmpty ? hardline : "", contents]));
+    return lineSuffix(
+      concat([hardline, isLineBeforeEmpty ? hardline : "", contents])
+    );
   } else if (isBlock) {
     // Trailing block comments never need a newline
     return concat([" ", contents]);
@@ -482,54 +510,41 @@ function printDanglingComments(path, options, sameIndent) {
 }
 
 function printComments(path, print, options) {
-  const value = path.getValue();
-  const parent = path.getParentNode();
-  const printed = print(path);
-  const comments = n.Node.check(value) && types.getFieldValue(value, "comments");
-  const keyNode = n.Node.check(value) && types.getFieldValue(value, "key");
-  const hasKeyNodeComments = keyNode && keyNode.comments;
-  var leadingParts = [];
-  var trailingParts = [printed];
-
-  const extractComments = (comment, isNode) => {
-    var commentPath;
-
-    if (!isNode) {
-      commentPath = comment;
-      comment = comment.getValue();
-    } else {
-      commentPath = FastPath.from(comment);
-    }
-
-    var leading = types.getFieldValue(comment, "leading");
-    var trailing = types.getFieldValue(comment, "trailing");
-
-    if (leading) {
-      leadingParts.push(printLeadingComment(commentPath, print, options));
-
-      const text = options.originalText;
-      if (
-        util.hasNewline(text, util.skipNewline(text, util.locEnd(comment)))
-      ) {
-        leadingParts.push(hardline);
-      }
-    } else if (trailing) {
-      trailingParts.push(
-        printTrailingComment(commentPath, print, options, parent)
-      );
-    }
-  };
-
-  // Special case when comments are attached to the key prop of the node.
-  if (hasKeyNodeComments) {
-    keyNode.comments.forEach(c => extractComments(c, true));
-  }
+  var value = path.getValue();
+  var parent = path.getParentNode();
+  var printed = print(path);
+  var comments = n.Node.check(value) && types.getFieldValue(value, "comments");
 
   if (!comments || comments.length === 0) {
     return printed;
   }
 
-  path.each(extractComments, "comments");
+  var leadingParts = [];
+  var trailingParts = [printed];
+
+  path.each(
+    function(commentPath) {
+      var comment = commentPath.getValue();
+      var leading = types.getFieldValue(comment, "leading");
+      var trailing = types.getFieldValue(comment, "trailing");
+
+      if (leading) {
+        leadingParts.push(printLeadingComment(commentPath, print, options));
+
+        const text = options.originalText;
+        if (
+          util.hasNewline(text, util.skipNewline(text, util.locEnd(comment)))
+        ) {
+          leadingParts.push(hardline);
+        }
+      } else if (trailing) {
+        trailingParts.push(
+          printTrailingComment(commentPath, print, options, parent)
+        );
+      }
+    },
+    "comments"
+  );
 
   return concat(leadingParts.concat(trailingParts));
 }
