@@ -181,16 +181,10 @@ prettier.format(source, {
   singleQuote: false,
 
   // Controls the printing of trailing commas in objects and arrays
-  trailingComma: false,
-
-  // Controls the printing of trailing commas in js module imports
-  trailingCommaImports: false,
-
-  // Controls the printing of trailing commas in js module exports
-  trailingCommaExports: false,
-
-  // Controls the printing of trailing commas in function call arguments
-  trailingCommaArgs: false,
+  trailingComma: 'none',
+  // other possible values:
+  // trailingComma: 'es5' (is equivalent to 'array,object,import,export')
+  // trailingComma: 'all' (is equivalent to 'array,object,import,export,arguments')
 
   // Controls the printing of spaces inside arrays
   bracketSpacing: false,
