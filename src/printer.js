@@ -989,11 +989,18 @@ function genericPrintNoParens(path, options, print) {
     case "ForStatement": {
       const body = adjustClause(path.call(print, "body"), options);
 
+      // We want to keep dangling comments above the loop to stay consistent.
+      // Any comment positioned between the for statement and the parentheses
+      // is going to be printed before the statement.
+      const dangling = comments.printDanglingComments(path, options, /* sameLine */ true);
+      const printedComments = dangling ? concat([dangling, softline]) : "";
+
       if (!n.init && !n.test && !n.update) {
-        return concat(["for (;;)", body]);
+        return concat([printedComments, "for (;;)", body]);
       }
 
       return concat([
+        printedComments,
         "for (",
         group(
           concat([
@@ -1540,7 +1547,9 @@ function genericPrintNoParens(path, options, print) {
     case "IntersectionTypeAnnotation":
     case "UnionTypeAnnotation": {
       const types = path.map(print, "types");
-      const op = n.type === "IntersectionTypeAnnotation" ? "&" : "|";
+      const isIntersection = n.type === "IntersectionTypeAnnotation"
+      const shouldInline = isIntersection &&
+        !(n.types.length > 1 && n.types[0].type === "ObjectTypeAnnotation")
 
       // single-line variation
       // A | B | C
@@ -1549,12 +1558,18 @@ function genericPrintNoParens(path, options, print) {
       // | A
       // | B
       // | C
+
+      // We want & operators to be inlined.
+      if (shouldInline) {
+        return join(" & ", types);
+      }
+
       return group(
         indent(
           options.tabWidth,
           concat([
-            ifBreak(concat([line, op, " "])),
-            join(concat([line, op, " "]), types)
+            ifBreak(concat([line, isIntersection ? "&" : "|", " "])),
+            join(concat([line, isIntersection ? "&" : "|", " "]), types)
           ])
         )
       );
