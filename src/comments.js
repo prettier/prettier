@@ -182,7 +182,8 @@ function attach(comments, ast, text, options) {
         addDanglingComment(ast, comment);
       }
     } else {
-      if (handleIfStatementComments(enclosingNode, followingNode, comment)) {
+      if (handleIfStatementComments(enclosingNode, followingNode, comment) ||
+          handleObjectProperty(enclosingNode, precedingNode, comment)) {
         // We're good
       } else if (precedingNode && followingNode) {
         // Otherwise, text exists both before and after the comment on
@@ -413,6 +414,19 @@ function handleTemplateLiteralComments(enclosingNode, comment, options) {
     return true;
   }
 
+  return false;
+}
+
+function handleObjectProperty(enclosingNode, precedingNode, comment) {
+  if (enclosingNode &&
+      (enclosingNode.type === "ObjectProperty" ||
+       enclosingNode.type === "Property") &&
+      enclosingNode.shorthand &&
+      enclosingNode.key === precedingNode &&
+      enclosingNode.value.type === "AssignmentPattern") {
+    addTrailingComment(enclosingNode.value.left, comment);
+    return true;
+  }
   return false;
 }
 

@@ -34,6 +34,24 @@ function maybeAddParens(path, lines) {
   return path.needsParens() ? concat(["(", lines, ")"]) : lines;
 }
 
+function shouldPrintComma(options, level) {
+  level = level || "es5";
+
+  switch(options.trailingComma) {
+    case "all":
+      if(level === "all") {
+        return true;
+      }
+    case "es5":
+      if(level === "es5") {
+        return true;
+      }
+    case "none":
+    default:
+      return false;
+  }
+}
+
 function genericPrint(path, options, printPath) {
   assert.ok(path instanceof FastPath);
 
@@ -494,7 +512,7 @@ function genericPrintNoParens(path, options, print) {
                     join(concat([",", line]), grouped)
                   ])
                 ),
-                ifBreak(options.trailingComma ? "," : ""),
+                ifBreak(shouldPrintComma(options) ? "," : ""),
                 options.bracketSpacing ? line : softline,
                 "}"
               ])
@@ -683,7 +701,7 @@ function genericPrintNoParens(path, options, print) {
               options.tabWidth + (parentIsUnionTypeAnnotation ? 2 : 0),
               concat([options.bracketSpacing ? line : softline, concat(props)])
             ),
-            ifBreak(canHaveTrailingComma && options.trailingComma ? "," : ""),
+            ifBreak(canHaveTrailingComma && shouldPrintComma(options) ? "," : ""),
             indent(
               parentIsUnionTypeAnnotation ? 2 : 0,
               concat([options.bracketSpacing ? line : softline, rightBrace])
@@ -792,10 +810,11 @@ function genericPrintNoParens(path, options, print) {
               ifBreak(
                 canHaveTrailingComma &&
                   !needsForcedTrailingComma &&
-                  options.trailingComma
+                  shouldPrintComma(options)
                   ? ","
                   : ""
               ),
+              comments.printDanglingComments(path, options, /* sameIndent */ true),
               softline,
               "]"
             ])
@@ -970,11 +989,18 @@ function genericPrintNoParens(path, options, print) {
     case "ForStatement": {
       const body = adjustClause(path.call(print, "body"), options);
 
+      // We want to keep dangling comments above the loop to stay consistent.
+      // Any comment positioned between the for statement and the parentheses
+      // is going to be printed before the statement.
+      const dangling = comments.printDanglingComments(path, options, /* sameLine */ true);
+      const printedComments = dangling ? concat([dangling, softline]) : "";
+
       if (!n.init && !n.test && !n.update) {
-        return concat(["for (;;)", body]);
+        return concat([printedComments, "for (;;)", body]);
       }
 
       return concat([
+        printedComments,
         "for (",
         group(
           concat([
@@ -1521,7 +1547,9 @@ function genericPrintNoParens(path, options, print) {
     case "IntersectionTypeAnnotation":
     case "UnionTypeAnnotation": {
       const types = path.map(print, "types");
-      const op = n.type === "IntersectionTypeAnnotation" ? "&" : "|";
+      const isIntersection = n.type === "IntersectionTypeAnnotation"
+      const shouldInline = isIntersection &&
+        !(n.types.length > 1 && n.types[0].type === "ObjectTypeAnnotation")
 
       // single-line variation
       // A | B | C
@@ -1530,12 +1558,18 @@ function genericPrintNoParens(path, options, print) {
       // | A
       // | B
       // | C
+
+      // We want & operators to be inlined.
+      if (shouldInline) {
+        return join(" & ", types);
+      }
+
       return group(
         indent(
           options.tabWidth,
           concat([
-            ifBreak(concat([line, op, " "])),
-            join(concat([line, op, " "]), types)
+            ifBreak(concat([line, isIntersection ? "&" : "|", " "])),
+            join(concat([line, isIntersection ? "&" : "|", " "]), types)
           ])
         )
       );
@@ -1867,7 +1901,7 @@ function printArgumentsList(path, options, print) {
                 options.tabWidth,
                 concat([line, join(concat([",", line]), printed)])
               ),
-              options.trailingComma ? "," : "",
+              shouldPrintComma(options, "all") ? "," : "",
               line,
               ")"
             ]),
@@ -1886,7 +1920,7 @@ function printArgumentsList(path, options, print) {
         options.tabWidth,
         concat([softline, join(concat([",", line]), printed)])
       ),
-      ifBreak(options.trailingComma ? "," : ""),
+      ifBreak(shouldPrintComma(options, "all") ? "," : ""),
       softline,
       ")"
     ]),
@@ -1932,7 +1966,7 @@ function printFunctionParams(path, print, options) {
       options.tabWidth,
       concat([softline, join(concat([",", line]), printed)])
     ),
-    ifBreak(canHaveTrailingComma && options.trailingComma ? "," : ""),
+    ifBreak(canHaveTrailingComma && shouldPrintComma(options) ? "," : ""),
     softline,
     ")"
   ]);
@@ -2007,6 +2041,8 @@ function printExportDeclaration(path, options, print) {
     parts.push("default ");
   }
 
+  parts.push(comments.printDanglingComments(path, options, /* sameIndent */ true));
+
   if (decl.declaration) {
     parts.push(path.call(print, "declaration"));
 
@@ -2043,7 +2079,7 @@ function printExportDeclaration(path, options, print) {
                   join(concat([",", line]), path.map(print, "specifiers"))
                 ])
               ),
-              ifBreak(options.trailingComma ? "," : ""),
+              ifBreak(shouldPrintComma(options) ? "," : ""),
               options.bracketSpacing ? line : softline,
               "}"
             ])

@@ -131,7 +131,7 @@ In the future we will have better support for formatting whole projects.
 Install it along with [pre-commit](https://github.com/observing/pre-commit) (or [husky](https://github.com/typicode/husky)):
 
 ```bash
-npm install --save-dev lint-staged pre-commit
+yarn add lint-staged pre-commit --dev
 ```
 
 and add this config to your `package.json`:
@@ -170,8 +170,14 @@ prettier.format(source, {
   // If true, will use single instead of double quotes
   singleQuote: false,
 
-  // Controls the printing of trailing commas wherever possible
-  trailingComma: false,
+  // Controls the printing of trailing commas wherever possible. Valid options:
+  // "none" - No trailing commas
+  // "es5"  - Trailing commas where valid in ES5 (objects, arrays, etc)
+  // "all"  - Trailing commas wherever possible (function arguments)
+  //
+  // NOTE: Above is only available in 0.19.0 and above. Previously this was
+  // a boolean argument.
+  trailingComma: "none",
 
   // Controls the printing of spaces inside object literals
   bracketSpacing: true,

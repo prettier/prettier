@@ -38,6 +38,7 @@ function x() {
   /* dangling */
 }
 declare class Foo extends Qux<string> {/* dangling */}
+export /* dangling */{};
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var x = {
   /* dangling */
@@ -54,6 +55,7 @@ function x() {
 declare class Foo extends Qux<string> {
   /* dangling */
 }
+export /* dangling */{};
 "
 `;
 
@@ -67,6 +69,7 @@ function x() {
   /* dangling */
 }
 declare class Foo extends Qux<string> {/* dangling */}
+export /* dangling */{};
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var x = {
   /* dangling */
@@ -83,6 +86,69 @@ function x() {
 declare class Foo extends Qux<string> {
   /* dangling */
 }
+export /* dangling */{};
+"
+`;
+
+exports[`test dangling_array.js 1`] = `
+"expect(() => {}).toTriggerReadyStateChanges([
+  // Nothing.
+]);
+
+[1 /* first comment */, 2 /* second comment */, 3];
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+expect(() => {}).toTriggerReadyStateChanges(
+  [
+    // Nothing.
+  ]
+);
+
+[1 /* first comment */, 2 /* second comment */, 3];
+"
+`;
+
+exports[`test dangling_array.js 2`] = `
+"expect(() => {}).toTriggerReadyStateChanges([
+  // Nothing.
+]);
+
+[1 /* first comment */, 2 /* second comment */, 3];
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+expect(() => {}).toTriggerReadyStateChanges(
+  [
+    // Nothing.
+  ]
+);
+
+[1 /* first comment */, 2 /* second comment */, 3];
+"
+`;
+
+exports[`test dangling_for.js 1`] = `
+"for // comment
+(;;);
+
+for /* comment */(;;);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// comment
+for (;;);
+
+/* comment */
+for (;;);
+"
+`;
+
+exports[`test dangling_for.js 2`] = `
+"for // comment
+(;;);
+
+for /* comment */(;;);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// comment
+for (;;);
+
+/* comment */
+for (;;);
 "
 `;
 
@@ -384,13 +450,11 @@ const rootEpic = (actions, store) => combineEpics(...epics)(actions, store)
   });
 
 // Two extra levels of indentation because of the comment
-export type AsyncExecuteOptions =
-  & child_process$execFileOpts
-  & {
-    // The contents to write to stdin.
-    stdin?: ?string,
-    dontLogInNuclide?: ?boolean
-  };
+export type AsyncExecuteOptions = child_process$execFileOpts & {
+  // The contents to write to stdin.
+  stdin?: ?string,
+  dontLogInNuclide?: ?boolean
+};
 
 // optional trailing comma gets moved all the way to the beginning
 const regex = new RegExp(
@@ -611,13 +675,11 @@ const rootEpic = (actions, store) => combineEpics(...epics)(actions, store)
   });
 
 // Two extra levels of indentation because of the comment
-export type AsyncExecuteOptions =
-  & child_process$execFileOpts
-  & {
-    // The contents to write to stdin.
-    stdin?: ?string,
-    dontLogInNuclide?: ?boolean
-  };
+export type AsyncExecuteOptions = child_process$execFileOpts & {
+  // The contents to write to stdin.
+  stdin?: ?string,
+  dontLogInNuclide?: ?boolean
+};
 
 // optional trailing comma gets moved all the way to the beginning
 const regex = new RegExp(
@@ -1105,5 +1167,27 @@ try {
   // comment 5
   // comment 7
 }
+"
+`;
+
+exports[`test assignment-pattern.js 1`] = `
+"const { a /* comment */ = 1 } = b;
+
+const { c = 1 /* comment */ } = d;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const { a /* comment */ = 1 } = b;
+
+const { c = 1 /* comment */ } = d;
+"
+`;
+
+exports[`test assignment-pattern.js 2`] = `
+"const { a /* comment */ = 1 } = b;
+
+const { c = 1 /* comment */ } = d;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const { a /* comment */ = 1 } = b;
+
+const { c = 1 /* comment */ } = d;
 "
 `;

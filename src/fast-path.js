@@ -354,12 +354,14 @@ FPp.needsParens = function(assumeExpressionContext) {
       }
 
     case "YieldExpression":
+      if (parent.type === "UnaryExpression") {
+        return true;
+      }
     case "AwaitExpression":
       switch (parent.type) {
         case "TaggedTemplateExpression":
         case "BinaryExpression":
         case "LogicalExpression":
-        case "UnaryExpression":
         case "SpreadElement":
         case "SpreadProperty":
         case "NewExpression":
@@ -419,6 +421,7 @@ FPp.needsParens = function(assumeExpressionContext) {
         case "LogicalExpression":
         case "NewExpression":
         case "ExportDefaultDeclaration":
+        case "AwaitExpression":
           return true;
 
         case "CallExpression":
