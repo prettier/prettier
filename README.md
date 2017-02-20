@@ -184,10 +184,14 @@ prettier.format(source, {
   // "none" - No trailing commas
   // "es5"  - Trailing commas where valid in ES5 (objects, arrays, etc)
   // "all"  - Trailing commas wherever possible (function arguments)
+  //
   // You can also customize each place to use trailing commas with a object:
   // { array: true, object: true, import: true, export: true, arguments: false }
   // or with a comma separated string list:
   // "array,object,import,export,arguments"
+  //
+  // NOTE: Above is only available in 0.19.0 and above. Previously this was
+  // a boolean argument.
   trailingComma: "none",
 
   // Controls the printing of spaces inside arrays

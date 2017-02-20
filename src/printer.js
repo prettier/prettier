@@ -1000,11 +1000,15 @@ function genericPrintNoParens(path, options, print) {
     case "ForStatement": {
       const body = adjustClause(path.call(print, "body"), options);
 
+      const dangling = comments.printDanglingComments(path, options, /* sameLine */ true);
+      const printedComments = dangling ? concat([dangling, softline]) : "";
+
       if (!n.init && !n.test && !n.update) {
-        return concat(["for (;;)", body]);
+        return concat([printedComments, "for (;;)", body]);
       }
 
       return concat([
+        printedComments,
         "for (",
         group(
           concat([
