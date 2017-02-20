@@ -990,6 +990,8 @@ function genericPrintNoParens(path, options, print) {
       const body = adjustClause(path.call(print, "body"), options);
 
       // We want to keep dangling comments above the loop to stay consistent.
+      // Any comment positioned between the for statement and the parentheses
+      // is going to be printed before the statement.
       const dangling = comments.printDanglingComments(path, options, /* sameLine */ true);
       const printedComments = dangling ? concat([dangling, softline]) : "";
 
