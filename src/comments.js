@@ -161,8 +161,10 @@ function attach(comments, ast, text) {
       if (
         handleConditionalExpressionComments(
           enclosingNode,
+          precedingNode,
           followingNode,
-          comment
+          comment,
+          text
         )
       ) {
         // We're good
@@ -382,10 +384,16 @@ function handleMemberExpressionComment(enclosingNode, followingNode, comment) {
 
 function handleConditionalExpressionComments(
   enclosingNode,
+  precedingNode,
   followingNode,
-  comment
+  comment,
+  text
 ) {
+  const isSameLineAsPrecedingNode = precedingNode &&
+    !util.hasNewlineInRange(text, locEnd(precedingNode), locStart(comment));
+
   if (
+    (!precedingNode || !isSameLineAsPrecedingNode) &&
     enclosingNode &&
     enclosingNode.type === "ConditionalExpression" &&
     followingNode

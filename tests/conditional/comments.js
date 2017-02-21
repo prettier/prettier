@@ -31,3 +31,7 @@ const extractTextPluginOptions = shouldUseRelativeAssetPaths
 const extractTextPluginOptions = shouldUseRelativeAssetPaths // Making sure that the publicPath goes back to to build folder.
   ? { publicPath: Array(cssFilename.split("/").length).join("../") }
   : {};
+
+const { configureStore } = process.env.NODE_ENV === "production"
+  ? require("./configureProdStore") // a
+  : require("./configureDevStore"); // b

@@ -203,9 +203,6 @@ prettier.format(source, {
   // Allow object properties to break lines.
   breakProperty: false,
 
-  // Close JSX tags on the last line instead of a new line (Facebook Style)
-  jsxFbCloseTag: false,
-
   // If true, puts the `>` of a multi-line jsx element at the end of
   // the last line instead of being alone on the next line
   jsxBracketSameLine: false,
@@ -217,7 +214,7 @@ prettier.format(source, {
 
 ### Atom
 
-Atom users can simply install the `prettier-atom` package and use
+Atom users can simply install the [`prettier-atom-with-tabs`](https://atom.io/packages/prettier-atom-with-tabs) package and use
 ctrl+alt+f to format a file (or format on save if turned on).
 
 ### Emacs
