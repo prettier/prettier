@@ -123,7 +123,7 @@ function decorateComment(node, comment, text) {
   }
 }
 
-function attach(comments, ast, text) {
+function attach(comments, ast, text, options) {
   if (!isArray.check(comments)) {
     return;
   }
@@ -132,6 +132,14 @@ function attach(comments, ast, text) {
 
   comments.forEach(function(comment) {
     decorateComment(ast, comment, text);
+
+    // Workaround a bug in the flow parser where it sometimes incorrectly
+    // reports the wrong type for comments
+    if (options.parser === "flow") {
+      comment.type = text.charAt(locStart(comment) + 1) === "*"
+        ? "Block"
+        : "Line";
+    }
 
     const precedingNode = comment.precedingNode;
     const enclosingNode = comment.enclosingNode;

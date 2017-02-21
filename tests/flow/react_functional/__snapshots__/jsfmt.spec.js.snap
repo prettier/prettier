@@ -16,8 +16,8 @@ var Z = 0;
 import React from \"react\";
 
 function F(props: { foo: string }) {}
-<F />; /* error: missing \`foo\`*/
-<F foo={0} />; /* error: number ~> string*/
+<F />; // error: missing \`foo\`
+<F foo={0} />; // error: number ~> string
 <F foo=\"\" />; // ok
 
 // props subtyping is property-wise covariant
