@@ -1,127 +1,129 @@
-exports[`test last-line-0.js 1`] = `
-"\'use strict\';~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\"use strict\";
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`last-line-0.js 1`] = `
+"'use strict';~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\\"use strict\\";
 "
 `;
 
-exports[`test last-line-0.js 2`] = `
-"\'use strict\';~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\"use strict\";
+exports[`last-line-0.js 2`] = `
+"'use strict';~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\\"use strict\\";
 "
 `;
 
-exports[`test last-line-1.js 1`] = `
-"\'use strict\';
+exports[`last-line-1.js 1`] = `
+"'use strict';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\"use strict\";
+\\"use strict\\";
 "
 `;
 
-exports[`test last-line-1.js 2`] = `
-"\'use strict\';
+exports[`last-line-1.js 2`] = `
+"'use strict';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\"use strict\";
+\\"use strict\\";
 "
 `;
 
-exports[`test last-line-2.js 1`] = `
-"\'use strict\';
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\"use strict\";
-"
-`;
-
-exports[`test last-line-2.js 2`] = `
-"\'use strict\';
+exports[`last-line-2.js 1`] = `
+"'use strict';
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\"use strict\";
+\\"use strict\\";
 "
 `;
 
-exports[`test newline.js 1`] = `
+exports[`last-line-2.js 2`] = `
+"'use strict';
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\\"use strict\\";
+"
+`;
+
+exports[`newline.js 1`] = `
 "/* @flow */
 
-\"use strict\";
+\\"use strict\\";
 
-import a from \"a\";
+import a from \\"a\\";
 
 a();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-\"use strict\";
+\\"use strict\\";
 
-import a from \"a\";
+import a from \\"a\\";
 
 a();
 "
 `;
 
-exports[`test newline.js 2`] = `
+exports[`newline.js 2`] = `
 "/* @flow */
 
-\"use strict\";
+\\"use strict\\";
 
-import a from \"a\";
+import a from \\"a\\";
 
 a();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-\"use strict\";
+\\"use strict\\";
 
-import a from \"a\";
+import a from \\"a\\";
 
 a();
 "
 `;
 
-exports[`test no-newline.js 1`] = `
-"\"use strict\";
+exports[`no-newline.js 1`] = `
+"\\"use strict\\";
 a
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\"use strict\";
+\\"use strict\\";
 a;
 "
 `;
 
-exports[`test no-newline.js 2`] = `
-"\"use strict\";
+exports[`no-newline.js 2`] = `
+"\\"use strict\\";
 a
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\"use strict\";
+\\"use strict\\";
 a;
 "
 `;
 
-exports[`test test.js 1`] = `
-"\"use strict\";
+exports[`test.js 1`] = `
+"\\"use strict\\";
 
 function fn() {
-  \"use strict\";
+  \\"use strict\\";
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\"use strict\";
+\\"use strict\\";
 
 function fn() {
-  \"use strict\";
+  \\"use strict\\";
 }
 "
 `;
 
-exports[`test test.js 2`] = `
-"\"use strict\";
+exports[`test.js 2`] = `
+"\\"use strict\\";
 
 function fn() {
-  \"use strict\";
+  \\"use strict\\";
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\"use strict\";
+\\"use strict\\";
 
 function fn() {
-  \"use strict\";
+  \\"use strict\\";
 }
 "
 `;

@@ -1,8 +1,10 @@
-exports[`test async.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`async.js 1`] = `
 "// @flow
 
-// \"For async functions, a Promise<T> is returned,
-// and the type of return expressions must be T.\"
+// \\"For async functions, a Promise<T> is returned,
+// and the type of return expressions must be T.\\"
 //
 
 async function f0(): Promise<number> {
@@ -27,7 +29,7 @@ async function f3(p: Promise<number>): Promise<number> {
 }
 
 // TODO: this is one of those bad generic errors, currently:
-// \"inconsistent use of library definitions\" with two core.js locs
+// \\"inconsistent use of library definitions\\" with two core.js locs
 async function f4(p: Promise<number>): Promise<bool> {
   return await p; // error, number != bool
 }
@@ -54,8 +56,8 @@ var objf : () => Promise<number> = obj.f;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-// \"For async functions, a Promise<T> is returned,
-// and the type of return expressions must be T.\"
+// \\"For async functions, a Promise<T> is returned,
+// and the type of return expressions must be T.\\"
 //
 
 async function f0(): Promise<number> {
@@ -80,7 +82,7 @@ async function f3(p: Promise<number>): Promise<number> {
 }
 
 // TODO: this is one of those bad generic errors, currently:
-// \"inconsistent use of library definitions\" with two core.js locs
+// \\"inconsistent use of library definitions\\" with two core.js locs
 async function f4(p: Promise<number>): Promise<boolean> {
   return await p; // error, number != bool
 }
@@ -115,10 +117,10 @@ var objf: () => Promise<number> = obj.f;
 "
 `;
 
-exports[`test async_base_class.js 1`] = `
+exports[`async_base_class.js 1`] = `
 "// This is kind of weird, but it should parse. This works in babel without the
 // parens around (await promise). From the es6 and async/await specs I (nmote)
-// am not clear on whether it should. In any case it\'s a strange corner case
+// am not clear on whether it should. In any case it's a strange corner case
 // that is probably not important to support.
 class C {};
 
@@ -133,7 +135,7 @@ async function foo() {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // This is kind of weird, but it should parse. This works in babel without the
 // parens around (await promise). From the es6 and async/await specs I (nmote)
-// am not clear on whether it should. In any case it\'s a strange corner case
+// am not clear on whether it should. In any case it's a strange corner case
 // that is probably not important to support.
 class C {}
 
@@ -148,7 +150,7 @@ async function foo() {
 "
 `;
 
-exports[`test async_parse.js 1`] = `
+exports[`async_parse.js 1`] = `
 "async function f() {}
 async function ft<T>(a: T) {}
 
@@ -201,7 +203,7 @@ var y = { async };
 "
 `;
 
-exports[`test async_promise.js 1`] = `
+exports[`async_promise.js 1`] = `
 "async function f(): Promise<number> {
   return Promise.resolve(1);
 }
@@ -212,7 +214,7 @@ async function f(): Promise<number> {
 "
 `;
 
-exports[`test async_return_void.js 1`] = `
+exports[`async_return_void.js 1`] = `
 "// @flow
 
 async function foo1(): Promise<string> {
@@ -245,7 +247,7 @@ async function foo3(): Promise<string> {
 "
 `;
 
-exports[`test async2.js 1`] = `
+exports[`async2.js 1`] = `
 "// @flow
 
 // misc basic
@@ -272,7 +274,7 @@ function test1() {
 
 function test2() {
   async function voidoid1() {
-    console.log(\"HEY\");
+    console.log(\\"HEY\\");
   }
 
   var voidoid2: () => Promise<void> = voidoid1; // ok
@@ -285,7 +287,7 @@ function test2() {
 
 function test3() {
   async function voidoid4(): Promise<void> { // ok
-    console.log(\"HEY\");
+    console.log(\\"HEY\\");
   }
 }
 
@@ -296,14 +298,14 @@ function test3() {
 
 function test4() {
   async function voidoid5(): void { // error, void != Promise<void>
-    console.log(\"HEY\");
+    console.log(\\"HEY\\");
   }
 }
 
 function test5() {
   async function voidoid6()
   : Promise<number> { // error, number != void
-    console.log(\"HEY\");
+    console.log(\\"HEY\\");
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -333,7 +335,7 @@ function test1() {
 
 function test2() {
   async function voidoid1() {
-    console.log(\"HEY\");
+    console.log(\\"HEY\\");
   }
 
   var voidoid2: () => Promise<void> = voidoid1; // ok
@@ -347,7 +349,7 @@ function test2() {
 function test3() {
   async function voidoid4(): Promise<void> {
     // ok
-    console.log(\"HEY\");
+    console.log(\\"HEY\\");
   }
 }
 
@@ -359,27 +361,27 @@ function test3() {
 function test4() {
   async function voidoid5(): void {
     // error, void != Promise<void>
-    console.log(\"HEY\");
+    console.log(\\"HEY\\");
   }
 }
 
 function test5() {
   async function voidoid6(): Promise<number> {
     // error, number != void
-    console.log(\"HEY\");
+    console.log(\\"HEY\\");
   }
 }
 "
 `;
 
-exports[`test async3.js 1`] = `
+exports[`async3.js 1`] = `
 "// @flow
 
 /**
  * test nested-promise unwrapping.
- * Note: currently we don\'t do this properly in the underlying
+ * Note: currently we don't do this properly in the underlying
  * type of the Promise class, which causes spurious errors to
- * be raised here. Once that\'s fixed, the errors here will go
+ * be raised here. Once that's fixed, the errors here will go
  * away.
  */
 
@@ -410,9 +412,9 @@ async function baz() {
 
 /**
  * test nested-promise unwrapping.
- * Note: currently we don\'t do this properly in the underlying
+ * Note: currently we don't do this properly in the underlying
  * type of the Promise class, which causes spurious errors to
- * be raised here. Once that\'s fixed, the errors here will go
+ * be raised here. Once that's fixed, the errors here will go
  * away.
  */
 
@@ -440,7 +442,7 @@ async function baz() {
 "
 `;
 
-exports[`test await_parse.js 1`] = `
+exports[`await_parse.js 1`] = `
 "async function f() { await 1; }
 async function ft<T>(a: T) { await 1; }
 

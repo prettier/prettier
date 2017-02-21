@@ -1,11 +1,13 @@
-exports[`test b.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`b.js 1`] = `
 "// @flow
-var a = require(\'./a\');
+var a = require('./a');
 var b = a;
 module.exports = b;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-var a = require(\"./a\");
+var a = require(\\"./a\\");
 var b = a;
 module.exports = b;
 "

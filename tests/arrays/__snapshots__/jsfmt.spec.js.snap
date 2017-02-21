@@ -1,4 +1,6 @@
-exports[`test last.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`last.js 1`] = `
 "[,];
 [,,];
 [,,1,];
@@ -11,7 +13,7 @@ exports[`test last.js 1`] = `
 "
 `;
 
-exports[`test preserve_empty_lines.js 1`] = `
+exports[`preserve_empty_lines.js 1`] = `
 "a = [
 
   1,

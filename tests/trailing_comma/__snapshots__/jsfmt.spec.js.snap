@@ -1,5 +1,7 @@
-exports[`test export.js 1`] = `
-"export { value1, value2 as value2_renamed, value3, value4 as value4_renamed, value5 } from \"exports\";
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`export.js 1`] = `
+"export { value1, value2 as value2_renamed, value3, value4 as value4_renamed, value5 } from \\"exports\\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export {
   value1,
@@ -7,12 +9,12 @@ export {
   value3,
   value4 as value4_renamed,
   value5
-} from \"exports\";
+} from \\"exports\\";
 "
 `;
 
-exports[`test export.js 2`] = `
-"export { value1, value2 as value2_renamed, value3, value4 as value4_renamed, value5 } from \"exports\";
+exports[`export.js 2`] = `
+"export { value1, value2 as value2_renamed, value3, value4 as value4_renamed, value5 } from \\"exports\\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export {
   value1,
@@ -20,12 +22,12 @@ export {
   value3,
   value4 as value4_renamed,
   value5,
-} from \"exports\";
+} from \\"exports\\";
 "
 `;
 
-exports[`test export.js 3`] = `
-"export { value1, value2 as value2_renamed, value3, value4 as value4_renamed, value5 } from \"exports\";
+exports[`export.js 3`] = `
+"export { value1, value2 as value2_renamed, value3, value4 as value4_renamed, value5 } from \\"exports\\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export {
   value1,
@@ -33,12 +35,12 @@ export {
   value3,
   value4 as value4_renamed,
   value5,
-} from \"exports\";
+} from \\"exports\\";
 "
 `;
 
-exports[`test export.js 4`] = `
-"export { value1, value2 as value2_renamed, value3, value4 as value4_renamed, value5 } from \"exports\";
+exports[`export.js 4`] = `
+"export { value1, value2 as value2_renamed, value3, value4 as value4_renamed, value5 } from \\"exports\\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export {
   value1,
@@ -46,12 +48,12 @@ export {
   value3,
   value4 as value4_renamed,
   value5
-} from \"exports\";
+} from \\"exports\\";
 "
 `;
 
-exports[`test export.js 5`] = `
-"export { value1, value2 as value2_renamed, value3, value4 as value4_renamed, value5 } from \"exports\";
+exports[`export.js 5`] = `
+"export { value1, value2 as value2_renamed, value3, value4 as value4_renamed, value5 } from \\"exports\\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export {
   value1,
@@ -59,166 +61,166 @@ export {
   value3,
   value4 as value4_renamed,
   value5,
-} from \"exports\";
+} from \\"exports\\";
 "
 `;
 
-exports[`test function-calls.js 1`] = `
+exports[`function-calls.js 1`] = `
 "const a = (param1, param2, param3) => {}
 
-a(\'value\', \'value2\', \'value3\');
+a('value', 'value2', 'value3');
 
 a(
-  \'a-long-value\',
-  \'a-really-really-long-value\',
-  \'a-really-really-really-long-value\',
+  'a-long-value',
+  'a-really-really-long-value',
+  'a-really-really-really-long-value',
 );
 
-a(\'value\', \'value2\', a(\'long-nested-value\', \'long-nested-value2\', \'long-nested-value3\'));
+a('value', 'value2', a('long-nested-value', 'long-nested-value2', 'long-nested-value3'));
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const a = (param1, param2, param3) => {};
 
-a(\"value\", \"value2\", \"value3\");
+a(\\"value\\", \\"value2\\", \\"value3\\");
 
 a(
-  \"a-long-value\",
-  \"a-really-really-long-value\",
-  \"a-really-really-really-long-value\"
+  \\"a-long-value\\",
+  \\"a-really-really-long-value\\",
+  \\"a-really-really-really-long-value\\"
 );
 
 a(
-  \"value\",
-  \"value2\",
-  a(\"long-nested-value\", \"long-nested-value2\", \"long-nested-value3\")
+  \\"value\\",
+  \\"value2\\",
+  a(\\"long-nested-value\\", \\"long-nested-value2\\", \\"long-nested-value3\\")
 );
 "
 `;
 
-exports[`test function-calls.js 2`] = `
+exports[`function-calls.js 2`] = `
 "const a = (param1, param2, param3) => {}
 
-a(\'value\', \'value2\', \'value3\');
+a('value', 'value2', 'value3');
 
 a(
-  \'a-long-value\',
-  \'a-really-really-long-value\',
-  \'a-really-really-really-long-value\',
+  'a-long-value',
+  'a-really-really-long-value',
+  'a-really-really-really-long-value',
 );
 
-a(\'value\', \'value2\', a(\'long-nested-value\', \'long-nested-value2\', \'long-nested-value3\'));
+a('value', 'value2', a('long-nested-value', 'long-nested-value2', 'long-nested-value3'));
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const a = (param1, param2, param3) => {};
 
-a(\"value\", \"value2\", \"value3\");
+a(\\"value\\", \\"value2\\", \\"value3\\");
 
 a(
-  \"a-long-value\",
-  \"a-really-really-long-value\",
-  \"a-really-really-really-long-value\",
+  \\"a-long-value\\",
+  \\"a-really-really-long-value\\",
+  \\"a-really-really-really-long-value\\",
 );
 
 a(
-  \"value\",
-  \"value2\",
-  a(\"long-nested-value\", \"long-nested-value2\", \"long-nested-value3\"),
+  \\"value\\",
+  \\"value2\\",
+  a(\\"long-nested-value\\", \\"long-nested-value2\\", \\"long-nested-value3\\"),
 );
 "
 `;
 
-exports[`test function-calls.js 3`] = `
+exports[`function-calls.js 3`] = `
 "const a = (param1, param2, param3) => {}
 
-a(\'value\', \'value2\', \'value3\');
+a('value', 'value2', 'value3');
 
 a(
-  \'a-long-value\',
-  \'a-really-really-long-value\',
-  \'a-really-really-really-long-value\',
+  'a-long-value',
+  'a-really-really-long-value',
+  'a-really-really-really-long-value',
 );
 
-a(\'value\', \'value2\', a(\'long-nested-value\', \'long-nested-value2\', \'long-nested-value3\'));
+a('value', 'value2', a('long-nested-value', 'long-nested-value2', 'long-nested-value3'));
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const a = (param1, param2, param3) => {};
 
-a(\"value\", \"value2\", \"value3\");
+a(\\"value\\", \\"value2\\", \\"value3\\");
 
 a(
-  \"a-long-value\",
-  \"a-really-really-long-value\",
-  \"a-really-really-really-long-value\"
+  \\"a-long-value\\",
+  \\"a-really-really-long-value\\",
+  \\"a-really-really-really-long-value\\"
 );
 
 a(
-  \"value\",
-  \"value2\",
-  a(\"long-nested-value\", \"long-nested-value2\", \"long-nested-value3\")
+  \\"value\\",
+  \\"value2\\",
+  a(\\"long-nested-value\\", \\"long-nested-value2\\", \\"long-nested-value3\\")
 );
 "
 `;
 
-exports[`test function-calls.js 4`] = `
+exports[`function-calls.js 4`] = `
 "const a = (param1, param2, param3) => {}
 
-a(\'value\', \'value2\', \'value3\');
+a('value', 'value2', 'value3');
 
 a(
-  \'a-long-value\',
-  \'a-really-really-long-value\',
-  \'a-really-really-really-long-value\',
+  'a-long-value',
+  'a-really-really-long-value',
+  'a-really-really-really-long-value',
 );
 
-a(\'value\', \'value2\', a(\'long-nested-value\', \'long-nested-value2\', \'long-nested-value3\'));
+a('value', 'value2', a('long-nested-value', 'long-nested-value2', 'long-nested-value3'));
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const a = (param1, param2, param3) => {};
 
-a(\"value\", \"value2\", \"value3\");
+a(\\"value\\", \\"value2\\", \\"value3\\");
 
 a(
-  \"a-long-value\",
-  \"a-really-really-long-value\",
-  \"a-really-really-really-long-value\"
+  \\"a-long-value\\",
+  \\"a-really-really-long-value\\",
+  \\"a-really-really-really-long-value\\"
 );
 
 a(
-  \"value\",
-  \"value2\",
-  a(\"long-nested-value\", \"long-nested-value2\", \"long-nested-value3\")
+  \\"value\\",
+  \\"value2\\",
+  a(\\"long-nested-value\\", \\"long-nested-value2\\", \\"long-nested-value3\\")
 );
 "
 `;
 
-exports[`test function-calls.js 5`] = `
+exports[`function-calls.js 5`] = `
 "const a = (param1, param2, param3) => {}
 
-a(\'value\', \'value2\', \'value3\');
+a('value', 'value2', 'value3');
 
 a(
-  \'a-long-value\',
-  \'a-really-really-long-value\',
-  \'a-really-really-really-long-value\',
+  'a-long-value',
+  'a-really-really-long-value',
+  'a-really-really-really-long-value',
 );
 
-a(\'value\', \'value2\', a(\'long-nested-value\', \'long-nested-value2\', \'long-nested-value3\'));
+a('value', 'value2', a('long-nested-value', 'long-nested-value2', 'long-nested-value3'));
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const a = (param1, param2, param3) => {};
 
-a(\"value\", \"value2\", \"value3\");
+a(\\"value\\", \\"value2\\", \\"value3\\");
 
 a(
-  \"a-long-value\",
-  \"a-really-really-long-value\",
-  \"a-really-really-really-long-value\",
+  \\"a-long-value\\",
+  \\"a-really-really-long-value\\",
+  \\"a-really-really-really-long-value\\",
 );
 
 a(
-  \"value\",
-  \"value2\",
-  a(\"long-nested-value\", \"long-nested-value2\", \"long-nested-value3\"),
+  \\"value\\",
+  \\"value2\\",
+  a(\\"long-nested-value\\", \\"long-nested-value2\\", \\"long-nested-value3\\"),
 );
 "
 `;
 
-exports[`test import.js 1`] = `
+exports[`import.js 1`] = `
 "import {
   runTaskForChanged,
   description,
@@ -228,8 +230,8 @@ exports[`test import.js 1`] = `
   multiLine,
   andMore,
   soWeCanGetItTo80Columns
-} from \'.\';
-import {fitsIn, oneLine} from \'.\';
+} from '.';
+import {fitsIn, oneLine} from '.';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import {
   runTaskForChanged,
@@ -240,12 +242,12 @@ import {
   multiLine,
   andMore,
   soWeCanGetItTo80Columns
-} from \".\";
-import { fitsIn, oneLine } from \".\";
+} from \\".\\";
+import { fitsIn, oneLine } from \\".\\";
 "
 `;
 
-exports[`test import.js 2`] = `
+exports[`import.js 2`] = `
 "import {
   runTaskForChanged,
   description,
@@ -255,35 +257,8 @@ exports[`test import.js 2`] = `
   multiLine,
   andMore,
   soWeCanGetItTo80Columns
-} from \'.\';
-import {fitsIn, oneLine} from \'.\';
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-import {
-  runTaskForChanged,
-  description,
-  someOtherLabel,
-  thatMakes,
-  itGo,
-  multiLine,
-  andMore,
-  soWeCanGetItTo80Columns,
-} from \".\";
-import { fitsIn, oneLine } from \".\";
-"
-`;
-
-exports[`test import.js 3`] = `
-"import {
-  runTaskForChanged,
-  description,
-  someOtherLabel,
-  thatMakes,
-  itGo,
-  multiLine,
-  andMore,
-  soWeCanGetItTo80Columns
-} from \'.\';
-import {fitsIn, oneLine} from \'.\';
+} from '.';
+import {fitsIn, oneLine} from '.';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import {
   runTaskForChanged,
@@ -294,12 +269,12 @@ import {
   multiLine,
   andMore,
   soWeCanGetItTo80Columns,
-} from \".\";
-import { fitsIn, oneLine } from \".\";
+} from \\".\\";
+import { fitsIn, oneLine } from \\".\\";
 "
 `;
 
-exports[`test import.js 4`] = `
+exports[`import.js 3`] = `
 "import {
   runTaskForChanged,
   description,
@@ -309,8 +284,8 @@ exports[`test import.js 4`] = `
   multiLine,
   andMore,
   soWeCanGetItTo80Columns
-} from \'.\';
-import {fitsIn, oneLine} from \'.\';
+} from '.';
+import {fitsIn, oneLine} from '.';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import {
   runTaskForChanged,
@@ -321,12 +296,12 @@ import {
   multiLine,
   andMore,
   soWeCanGetItTo80Columns,
-} from \".\";
-import { fitsIn, oneLine } from \".\";
+} from \\".\\";
+import { fitsIn, oneLine } from \\".\\";
 "
 `;
 
-exports[`test import.js 5`] = `
+exports[`import.js 4`] = `
 "import {
   runTaskForChanged,
   description,
@@ -336,8 +311,35 @@ exports[`test import.js 5`] = `
   multiLine,
   andMore,
   soWeCanGetItTo80Columns
-} from \'.\';
-import {fitsIn, oneLine} from \'.\';
+} from '.';
+import {fitsIn, oneLine} from '.';
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import {
+  runTaskForChanged,
+  description,
+  someOtherLabel,
+  thatMakes,
+  itGo,
+  multiLine,
+  andMore,
+  soWeCanGetItTo80Columns,
+} from \\".\\";
+import { fitsIn, oneLine } from \\".\\";
+"
+`;
+
+exports[`import.js 5`] = `
+"import {
+  runTaskForChanged,
+  description,
+  someOtherLabel,
+  thatMakes,
+  itGo,
+  multiLine,
+  andMore,
+  soWeCanGetItTo80Columns
+} from '.';
+import {fitsIn, oneLine} from '.';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import {
   runTaskForChanged,
@@ -348,250 +350,250 @@ import {
   multiLine,
   andMore,
   soWeCanGetItTo80Columns
-} from \".\";
-import { fitsIn, oneLine } from \".\";
+} from \\".\\";
+import { fitsIn, oneLine } from \\".\\";
 "
 `;
 
-exports[`test object.js 1`] = `
+exports[`object.js 1`] = `
 "const a = {
   b: true,
   c: {
-    c1: \'hello\'
+    c1: 'hello'
   },
   d: false
 };
 
 const aLong = {
-  bHasALongName: \'a-long-value\',
+  bHasALongName: 'a-long-value',
   cHasALongName: {
-    c1: \'a-really-long-value\',
-    c2: \'a-really-really-long-value\',
+    c1: 'a-really-long-value',
+    c2: 'a-really-really-long-value',
   },
-  dHasALongName: \'a-long-value-too\'
+  dHasALongName: 'a-long-value-too'
 };
 
 const aLong = {
-  dHasALongName: \'a-long-value-too\',
+  dHasALongName: 'a-long-value-too',
   eHasABooleanExpression: a === a,
 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const a = {
   b: true,
   c: {
-    c1: \"hello\"
+    c1: \\"hello\\"
   },
   d: false
 };
 
 const aLong = {
-  bHasALongName: \"a-long-value\",
+  bHasALongName: \\"a-long-value\\",
   cHasALongName: {
-    c1: \"a-really-long-value\",
-    c2: \"a-really-really-long-value\"
+    c1: \\"a-really-long-value\\",
+    c2: \\"a-really-really-long-value\\"
   },
-  dHasALongName: \"a-long-value-too\"
+  dHasALongName: \\"a-long-value-too\\"
 };
 
 const aLong = {
-  dHasALongName: \"a-long-value-too\",
+  dHasALongName: \\"a-long-value-too\\",
   eHasABooleanExpression: a === a
 };
 "
 `;
 
-exports[`test object.js 2`] = `
+exports[`object.js 2`] = `
 "const a = {
   b: true,
   c: {
-    c1: \'hello\'
+    c1: 'hello'
   },
   d: false
 };
 
 const aLong = {
-  bHasALongName: \'a-long-value\',
+  bHasALongName: 'a-long-value',
   cHasALongName: {
-    c1: \'a-really-long-value\',
-    c2: \'a-really-really-long-value\',
+    c1: 'a-really-long-value',
+    c2: 'a-really-really-long-value',
   },
-  dHasALongName: \'a-long-value-too\'
+  dHasALongName: 'a-long-value-too'
 };
 
 const aLong = {
-  dHasALongName: \'a-long-value-too\',
+  dHasALongName: 'a-long-value-too',
   eHasABooleanExpression: a === a,
 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const a = {
   b: true,
   c: {
-    c1: \"hello\",
+    c1: \\"hello\\",
   },
   d: false,
 };
 
 const aLong = {
-  bHasALongName: \"a-long-value\",
+  bHasALongName: \\"a-long-value\\",
   cHasALongName: {
-    c1: \"a-really-long-value\",
-    c2: \"a-really-really-long-value\",
+    c1: \\"a-really-long-value\\",
+    c2: \\"a-really-really-long-value\\",
   },
-  dHasALongName: \"a-long-value-too\",
+  dHasALongName: \\"a-long-value-too\\",
 };
 
 const aLong = {
-  dHasALongName: \"a-long-value-too\",
+  dHasALongName: \\"a-long-value-too\\",
   eHasABooleanExpression: a === a,
 };
 "
 `;
 
-exports[`test object.js 3`] = `
+exports[`object.js 3`] = `
 "const a = {
   b: true,
   c: {
-    c1: \'hello\'
+    c1: 'hello'
   },
   d: false
 };
 
 const aLong = {
-  bHasALongName: \'a-long-value\',
+  bHasALongName: 'a-long-value',
   cHasALongName: {
-    c1: \'a-really-long-value\',
-    c2: \'a-really-really-long-value\',
+    c1: 'a-really-long-value',
+    c2: 'a-really-really-long-value',
   },
-  dHasALongName: \'a-long-value-too\'
+  dHasALongName: 'a-long-value-too'
 };
 
 const aLong = {
-  dHasALongName: \'a-long-value-too\',
+  dHasALongName: 'a-long-value-too',
   eHasABooleanExpression: a === a,
 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const a = {
   b: true,
   c: {
-    c1: \"hello\",
+    c1: \\"hello\\",
   },
   d: false,
 };
 
 const aLong = {
-  bHasALongName: \"a-long-value\",
+  bHasALongName: \\"a-long-value\\",
   cHasALongName: {
-    c1: \"a-really-long-value\",
-    c2: \"a-really-really-long-value\",
+    c1: \\"a-really-long-value\\",
+    c2: \\"a-really-really-long-value\\",
   },
-  dHasALongName: \"a-long-value-too\",
+  dHasALongName: \\"a-long-value-too\\",
 };
 
 const aLong = {
-  dHasALongName: \"a-long-value-too\",
+  dHasALongName: \\"a-long-value-too\\",
   eHasABooleanExpression: a === a,
 };
 "
 `;
 
-exports[`test object.js 4`] = `
+exports[`object.js 4`] = `
 "const a = {
   b: true,
   c: {
-    c1: \'hello\'
+    c1: 'hello'
   },
   d: false
 };
 
 const aLong = {
-  bHasALongName: \'a-long-value\',
+  bHasALongName: 'a-long-value',
   cHasALongName: {
-    c1: \'a-really-long-value\',
-    c2: \'a-really-really-long-value\',
+    c1: 'a-really-long-value',
+    c2: 'a-really-really-long-value',
   },
-  dHasALongName: \'a-long-value-too\'
+  dHasALongName: 'a-long-value-too'
 };
 
 const aLong = {
-  dHasALongName: \'a-long-value-too\',
+  dHasALongName: 'a-long-value-too',
   eHasABooleanExpression: a === a,
 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const a = {
   b: true,
   c: {
-    c1: \"hello\"
+    c1: \\"hello\\"
   },
   d: false
 };
 
 const aLong = {
-  bHasALongName: \"a-long-value\",
+  bHasALongName: \\"a-long-value\\",
   cHasALongName: {
-    c1: \"a-really-long-value\",
-    c2: \"a-really-really-long-value\"
+    c1: \\"a-really-long-value\\",
+    c2: \\"a-really-really-long-value\\"
   },
-  dHasALongName: \"a-long-value-too\"
+  dHasALongName: \\"a-long-value-too\\"
 };
 
 const aLong = {
-  dHasALongName: \"a-long-value-too\",
+  dHasALongName: \\"a-long-value-too\\",
   eHasABooleanExpression: a === a
 };
 "
 `;
 
-exports[`test object.js 5`] = `
+exports[`object.js 5`] = `
 "const a = {
   b: true,
   c: {
-    c1: \'hello\'
+    c1: 'hello'
   },
   d: false
 };
 
 const aLong = {
-  bHasALongName: \'a-long-value\',
+  bHasALongName: 'a-long-value',
   cHasALongName: {
-    c1: \'a-really-long-value\',
-    c2: \'a-really-really-long-value\',
+    c1: 'a-really-long-value',
+    c2: 'a-really-really-long-value',
   },
-  dHasALongName: \'a-long-value-too\'
+  dHasALongName: 'a-long-value-too'
 };
 
 const aLong = {
-  dHasALongName: \'a-long-value-too\',
+  dHasALongName: 'a-long-value-too',
   eHasABooleanExpression: a === a,
 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const a = {
   b: true,
   c: {
-    c1: \"hello\",
+    c1: \\"hello\\",
   },
   d: false,
 };
 
 const aLong = {
-  bHasALongName: \"a-long-value\",
+  bHasALongName: \\"a-long-value\\",
   cHasALongName: {
-    c1: \"a-really-long-value\",
-    c2: \"a-really-really-long-value\",
+    c1: \\"a-really-long-value\\",
+    c2: \\"a-really-really-long-value\\",
   },
-  dHasALongName: \"a-long-value-too\",
+  dHasALongName: \\"a-long-value-too\\",
 };
 
 const aLong = {
-  dHasALongName: \"a-long-value-too\",
+  dHasALongName: \\"a-long-value-too\\",
   eHasABooleanExpression: a === a,
 };
 "
 `;
 
-exports[`test trailing_whitespace.js 1`] = `
+exports[`trailing_whitespace.js 1`] = `
 "let example = [
-  \'FOO\',
-  \'BAR\',
+  'FOO',
+  'BAR',
   // Comment
 ];
 
@@ -626,8 +628,8 @@ function supersupersupersuperLongF(
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let example = [
-  \"FOO\",
-  \"BAR\"
+  \\"FOO\\",
+  \\"BAR\\"
   // Comment
 ];
 
@@ -664,10 +666,10 @@ function supersupersupersuperLongF(
 "
 `;
 
-exports[`test trailing_whitespace.js 2`] = `
+exports[`trailing_whitespace.js 2`] = `
 "let example = [
-  \'FOO\',
-  \'BAR\',
+  'FOO',
+  'BAR',
   // Comment
 ];
 
@@ -702,8 +704,8 @@ function supersupersupersuperLongF(
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let example = [
-  \"FOO\",
-  \"BAR\",
+  \\"FOO\\",
+  \\"BAR\\",
   // Comment
 ];
 
@@ -740,10 +742,10 @@ function supersupersupersuperLongF(
 "
 `;
 
-exports[`test trailing_whitespace.js 3`] = `
+exports[`trailing_whitespace.js 3`] = `
 "let example = [
-  \'FOO\',
-  \'BAR\',
+  'FOO',
+  'BAR',
   // Comment
 ];
 
@@ -778,8 +780,8 @@ function supersupersupersuperLongF(
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let example = [
-  \"FOO\",
-  \"BAR\",
+  \\"FOO\\",
+  \\"BAR\\",
   // Comment
 ];
 
@@ -816,10 +818,10 @@ function supersupersupersuperLongF(
 "
 `;
 
-exports[`test trailing_whitespace.js 4`] = `
+exports[`trailing_whitespace.js 4`] = `
 "let example = [
-  \'FOO\',
-  \'BAR\',
+  'FOO',
+  'BAR',
   // Comment
 ];
 
@@ -854,8 +856,8 @@ function supersupersupersuperLongF(
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let example = [
-  \"FOO\",
-  \"BAR\",
+  \\"FOO\\",
+  \\"BAR\\",
   // Comment
 ];
 
@@ -892,10 +894,10 @@ function supersupersupersuperLongF(
 "
 `;
 
-exports[`test trailing_whitespace.js 5`] = `
+exports[`trailing_whitespace.js 5`] = `
 "let example = [
-  \'FOO\',
-  \'BAR\',
+  'FOO',
+  'BAR',
   // Comment
 ];
 
@@ -930,8 +932,8 @@ function supersupersupersuperLongF(
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let example = [
-  \"FOO\",
-  \"BAR\"
+  \\"FOO\\",
+  \\"BAR\\"
   // Comment
 ];
 

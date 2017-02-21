@@ -1,4 +1,6 @@
-exports[`test array.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`array.js 1`] = `
 "// @flow
 
 type Foo = {};
@@ -13,7 +15,7 @@ export var arr = [f];
 "
 `;
 
-exports[`test async_return.js 1`] = `
+exports[`async_return.js 1`] = `
 "// @flow
 
 export async function foo() {
@@ -28,7 +30,7 @@ export async function foo() {
 "
 `;
 
-exports[`test infer.js 1`] = `
+exports[`infer.js 1`] = `
 "/* @flow */
 
 var Foo = {
@@ -75,15 +77,15 @@ var Foo = {
 };
 
 var Bar = {
-  a: Foo.a(\'Foo\'),    // no annotation required
+  a: Foo.a('Foo'),    // no annotation required
 
-  // object property types are inferred, so make sure that this doesn\'t cause
-  // us to also infer the parameter\'s type.
-  b: Foo.b(\'bar\'),    // no annotation required
+  // object property types are inferred, so make sure that this doesn't cause
+  // us to also infer the parameter's type.
+  b: Foo.b('bar'),    // no annotation required
 
-  c: Foo.c(\'bar\'),            // no annotation required
+  c: Foo.c('bar'),            // no annotation required
 
-  d: Foo.d(\'bar\'),            // no annotation required
+  d: Foo.d('bar'),            // no annotation required
 };
 
 module.exports = Foo, Bar;
@@ -140,15 +142,15 @@ var Foo = {
 };
 
 var Bar = {
-  a: Foo.a(\"Foo\"), // no annotation required
+  a: Foo.a(\\"Foo\\"), // no annotation required
 
-  // object property types are inferred, so make sure that this doesn\'t cause
-  // us to also infer the parameter\'s type.
-  b: Foo.b(\"bar\"), // no annotation required
+  // object property types are inferred, so make sure that this doesn't cause
+  // us to also infer the parameter's type.
+  b: Foo.b(\\"bar\\"), // no annotation required
 
-  c: Foo.c(\"bar\"), // no annotation required
+  c: Foo.c(\\"bar\\"), // no annotation required
 
-  d: Foo.d(\"bar\") // no annotation required
+  d: Foo.d(\\"bar\\") // no annotation required
 };
 
 module.exports = Foo, Bar;

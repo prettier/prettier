@@ -1,10 +1,12 @@
-exports[`test foo.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`foo.js 1`] = `
 "/* @flow */
 
-var x: number = \"string\"; // Error string ~> number
+var x: number = \\"string\\"; // Error string ~> number
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-var x: number = \"string\"; // Error string ~> number
+var x: number = \\"string\\"; // Error string ~> number
 "
 `;

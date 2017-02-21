@@ -1,55 +1,57 @@
-exports[`test extends.js 1`] = `
-"// \"ArrowFunctionExpression\"
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`extends.js 1`] = `
+"// \\"ArrowFunctionExpression\\"
 class a extends (() => {}) {}
 
-// \"AssignmentExpression\"
+// \\"AssignmentExpression\\"
 class a extends (b = c) {}
 
-// \"AwaitExpression\"
+// \\"AwaitExpression\\"
 async function f() {
   class a extends (await b) {}
 }
 
-// \"BinaryExpression\"
+// \\"BinaryExpression\\"
 class a extends (b + c) {}
 
-// \"CallExpression\"
+// \\"CallExpression\\"
 class a extends b() {}
 
-// \"ClassExpression\"
+// \\"ClassExpression\\"
 class a extends class {} {}
 
-// \"ConditionalExpression\"
+// \\"ConditionalExpression\\"
 class a extends (b ? c : d) {}
 
-// \"FunctionExpression\"
+// \\"FunctionExpression\\"
 class a extends (function() {}) {}
 
-// \"LogicalExpression\"
+// \\"LogicalExpression\\"
 class a extends (b || c) {}
 
-// \"MemberExpression\"
+// \\"MemberExpression\\"
 class a extends b.c {}
 
-// \"NewExpression\"
+// \\"NewExpression\\"
 class a extends (new B()) {}
 
-// \"ObjectExpression\"
+// \\"ObjectExpression\\"
 class a extends ({}) {}
 
-// \"SequenceExpression\"
+// \\"SequenceExpression\\"
 class a extends (b, c) {}
 
-// \"TaggedTemplateExpression\"
+// \\"TaggedTemplateExpression\\"
 class a extends \`\` {}
 
-// \"UnaryExpression\"
+// \\"UnaryExpression\\"
 class a extends (void b) {}
 
-// \"UpdateExpression\"
+// \\"UpdateExpression\\"
 class a extends (++b) {}
 
-// \"YieldExpression\"
+// \\"YieldExpression\\"
 function* f() {
   // Flow has a bug parsing it.
   // class a extends (yield 1) {}
@@ -57,57 +59,57 @@ function* f() {
 
 x = class extends (++b) {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// \"ArrowFunctionExpression\"
+// \\"ArrowFunctionExpression\\"
 class a extends (() => {}) {}
 
-// \"AssignmentExpression\"
+// \\"AssignmentExpression\\"
 class a extends (b = c) {}
 
-// \"AwaitExpression\"
+// \\"AwaitExpression\\"
 async function f() {
   class a extends (await b) {}
 }
 
-// \"BinaryExpression\"
+// \\"BinaryExpression\\"
 class a extends (b + c) {}
 
-// \"CallExpression\"
+// \\"CallExpression\\"
 class a extends b() {}
 
-// \"ClassExpression\"
+// \\"ClassExpression\\"
 class a extends class {} {}
 
-// \"ConditionalExpression\"
+// \\"ConditionalExpression\\"
 class a extends (b ? c : d) {}
 
-// \"FunctionExpression\"
+// \\"FunctionExpression\\"
 class a extends function() {} {}
 
-// \"LogicalExpression\"
+// \\"LogicalExpression\\"
 class a extends (b || c) {}
 
-// \"MemberExpression\"
+// \\"MemberExpression\\"
 class a extends b.c {}
 
-// \"NewExpression\"
+// \\"NewExpression\\"
 class a extends (new B()) {}
 
-// \"ObjectExpression\"
+// \\"ObjectExpression\\"
 class a extends ({}) {}
 
-// \"SequenceExpression\"
+// \\"SequenceExpression\\"
 class a extends (b, c) {}
 
-// \"TaggedTemplateExpression\"
+// \\"TaggedTemplateExpression\\"
 class a extends \`\` {}
 
-// \"UnaryExpression\"
+// \\"UnaryExpression\\"
 class a extends (void b) {}
 
-// \"UpdateExpression\"
+// \\"UpdateExpression\\"
 class a extends (++b) {}
 
-// \"YieldExpression\"
+// \\"YieldExpression\\"
 function* f() {
   // Flow has a bug parsing it.
   // class a extends (yield 1) {}

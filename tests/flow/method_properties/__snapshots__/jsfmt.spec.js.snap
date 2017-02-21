@@ -1,4 +1,6 @@
-exports[`test exports_optional_prop.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`exports_optional_prop.js 1`] = `
 "// @flow
 
 declare class Foo {
@@ -17,7 +19,7 @@ export { Foo };
 "
 `;
 
-exports[`test test.js 1`] = `
+exports[`test.js 1`] = `
 "class C {
   C() { }
   foo() { }
@@ -28,7 +30,7 @@ C.x;
 (new C).foo.x;
 C.bar.x;
 
-import {Foo} from \'./exports_optional_prop\';
+import {Foo} from './exports_optional_prop';
 const foo = new Foo();
 (foo.bar(): string); // error, could be undefined
 
@@ -49,7 +51,7 @@ C.x;
 new C().foo.x;
 C.bar.x;
 
-import { Foo } from \"./exports_optional_prop\";
+import { Foo } from \\"./exports_optional_prop\\";
 const foo = new Foo();
 (foo.bar(): string); // error, could be undefined
 

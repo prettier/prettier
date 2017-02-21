@@ -1,4 +1,6 @@
-exports[`test brackets.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`brackets.js 1`] = `
 "import {
   runTaskForChanged,
   description,
@@ -8,8 +10,8 @@ exports[`test brackets.js 1`] = `
   multiLine,
   andMore,
   soWeCanGetItTo80Columns
-} from \'.\';
-import {fitsIn, oneLine} from \'.\';
+} from '.';
+import {fitsIn, oneLine} from '.';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import {
   runTaskForChanged,
@@ -20,12 +22,12 @@ import {
   multiLine,
   andMore,
   soWeCanGetItTo80Columns
-} from \".\";
-import { fitsIn, oneLine } from \".\";
+} from \\".\\";
+import { fitsIn, oneLine } from \\".\\";
 "
 `;
 
-exports[`test brackets.js 2`] = `
+exports[`brackets.js 2`] = `
 "import {
   runTaskForChanged,
   description,
@@ -35,8 +37,8 @@ exports[`test brackets.js 2`] = `
   multiLine,
   andMore,
   soWeCanGetItTo80Columns
-} from \'.\';
-import {fitsIn, oneLine} from \'.\';
+} from '.';
+import {fitsIn, oneLine} from '.';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import {
   runTaskForChanged,
@@ -47,37 +49,37 @@ import {
   multiLine,
   andMore,
   soWeCanGetItTo80Columns
-} from \".\";
-import {fitsIn, oneLine} from \".\";
+} from \\".\\";
+import {fitsIn, oneLine} from \\".\\";
 "
 `;
 
-exports[`test long-line.js 1`] = `
-"import someCoolUtilWithARatherLongName from \'../../../../utils/someCoolUtilWithARatherLongName\';
+exports[`long-line.js 1`] = `
+"import someCoolUtilWithARatherLongName from '../../../../utils/someCoolUtilWithARatherLongName';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import someCoolUtilWithARatherLongName
-  from \"../../../../utils/someCoolUtilWithARatherLongName\";
+  from \\"../../../../utils/someCoolUtilWithARatherLongName\\";
 "
 `;
 
-exports[`test long-line.js 2`] = `
-"import someCoolUtilWithARatherLongName from \'../../../../utils/someCoolUtilWithARatherLongName\';
+exports[`long-line.js 2`] = `
+"import someCoolUtilWithARatherLongName from '../../../../utils/someCoolUtilWithARatherLongName';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import someCoolUtilWithARatherLongName
-  from \"../../../../utils/someCoolUtilWithARatherLongName\";
+  from \\"../../../../utils/someCoolUtilWithARatherLongName\\";
 "
 `;
 
-exports[`test multiple_standalones.js 1`] = `
-"import a, * as b from \'a\';
+exports[`multiple_standalones.js 1`] = `
+"import a, * as b from 'a';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-import a, * as b from \"a\";
+import a, * as b from \\"a\\";
 "
 `;
 
-exports[`test multiple_standalones.js 2`] = `
-"import a, * as b from \'a\';
+exports[`multiple_standalones.js 2`] = `
+"import a, * as b from 'a';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-import a, * as b from \"a\";
+import a, * as b from \\"a\\";
 "
 `;

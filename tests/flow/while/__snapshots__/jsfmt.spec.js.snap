@@ -1,4 +1,6 @@
-exports[`test abnormal.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`abnormal.js 1`] = `
 "/* @flow */
 
 function foo(x: boolean) {
@@ -9,7 +11,7 @@ function foo(x: boolean) {
     }
     return;
   }
-  //console.log(\'this is still reachable\');
+  //console.log('this is still reachable');
 }
 
 function bar(x: boolean) {
@@ -17,7 +19,7 @@ function bar(x: boolean) {
   while (ii > 0) {
     return;
   }
-  //console.log(\'this is still reachable\');
+  //console.log('this is still reachable');
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
@@ -30,7 +32,7 @@ function foo(x: boolean) {
     }
     return;
   }
-  //console.log(\'this is still reachable\');
+  //console.log('this is still reachable');
 }
 
 function bar(x: boolean) {
@@ -38,12 +40,12 @@ function bar(x: boolean) {
   while (ii > 0) {
     return;
   }
-  //console.log(\'this is still reachable\');
+  //console.log('this is still reachable');
 }
 "
 `;
 
-exports[`test test.js 1`] = `
+exports[`test.js 1`] = `
 "class C {
     m() { return new C; }
 }

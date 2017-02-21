@@ -1,4 +1,6 @@
-exports[`test typecheck.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`typecheck.js 1`] = `
 "/* @flow */
 
 function test1(): string {
@@ -49,11 +51,11 @@ function test2() {
 "
 `;
 
-exports[`test unreachable.js 1`] = `
+exports[`unreachable.js 1`] = `
 "/* @flow */
 
 function foo(x, y) {
-  \"use strict\";
+  \\"use strict\\";
   return bar(x) + baz(y);
 
   // function declaration is hoisted, should not generate warning
@@ -81,7 +83,7 @@ foo(1, 2);
 /* @flow */
 
 function foo(x, y) {
-  \"use strict\";
+  \\"use strict\\";
   return bar(x) + baz(y);
 
   // function declaration is hoisted, should not generate warning

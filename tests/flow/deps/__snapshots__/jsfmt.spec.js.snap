@@ -1,68 +1,70 @@
-exports[`test A.js 1`] = `
-"require(\'./C\');
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`A.js 1`] = `
+"require('./C');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-require(\"./C\");
+require(\\"./C\\");
 "
 `;
 
-exports[`test B.js 1`] = `
-"require(\'./C\');
+exports[`B.js 1`] = `
+"require('./C');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-require(\"./C\");
+require(\\"./C\\");
 "
 `;
 
-exports[`test C.js 1`] = `
-"require(\'./D\');
-require(\'./E\');
-require(\'./F\');
-require(\'./G\');
+exports[`C.js 1`] = `
+"require('./D');
+require('./E');
+require('./F');
+require('./G');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-require(\"./D\");
-require(\"./E\");
-require(\"./F\");
-require(\"./G\");
+require(\\"./D\\");
+require(\\"./E\\");
+require(\\"./F\\");
+require(\\"./G\\");
 "
 `;
 
-exports[`test D.js 1`] = `
-"require(\'./I\');
+exports[`D.js 1`] = `
+"require('./I');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-require(\"./I\");
+require(\\"./I\\");
 "
 `;
 
-exports[`test E.js 1`] = `
-"require(\'./I\');
+exports[`E.js 1`] = `
+"require('./I');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-require(\"./I\");
+require(\\"./I\\");
 "
 `;
 
-exports[`test F.js 1`] = `
+exports[`F.js 1`] = `
 "// empty
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // empty
 "
 `;
 
-exports[`test G.js 1`] = `
-"require(\'./H\');
+exports[`G.js 1`] = `
+"require('./H');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-require(\"./H\");
+require(\\"./H\\");
 "
 `;
 
-exports[`test H.js 1`] = `
+exports[`H.js 1`] = `
 "// empty
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // empty
 "
 `;
 
-exports[`test I.js 1`] = `
-"require(\'./A\');
+exports[`I.js 1`] = `
+"require('./A');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-require(\"./A\");
+require(\\"./A\\");
 "
 `;

@@ -1,11 +1,13 @@
-exports[`test promise.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`promise.js 1`] = `
 "/**
  * At the moment, all type params are invariant with
  * the exception of the single param to the Promise class,
  * which is covariant.
  *
  * Explicit variance control via annotation is coming,
- * but not immediately. In the meantime, Promise\'s
+ * but not immediately. In the meantime, Promise's
  * participation in async/await makes certain kinds of
  * errors onerous (and nonobvious) without covariance.
  *
@@ -14,7 +16,7 @@ exports[`test promise.js 1`] = `
 
 async function foo(x: boolean): Promise<?{bar: string}> {
   if (x) {
-    return {bar: \'baz\'};  // OK, because of covariant type param
+    return {bar: 'baz'};  // OK, because of covariant type param
   } else {
     return null;
   }
@@ -33,7 +35,7 @@ run()
  * which is covariant.
  *
  * Explicit variance control via annotation is coming,
- * but not immediately. In the meantime, Promise\'s
+ * but not immediately. In the meantime, Promise's
  * participation in async/await makes certain kinds of
  * errors onerous (and nonobvious) without covariance.
  *
@@ -42,7 +44,7 @@ run()
 
 async function foo(x: boolean): Promise<?{ bar: string }> {
   if (x) {
-    return { bar: \"baz\" }; // OK, because of covariant type param
+    return { bar: \\"baz\\" }; // OK, because of covariant type param
   } else {
     return null;
   }

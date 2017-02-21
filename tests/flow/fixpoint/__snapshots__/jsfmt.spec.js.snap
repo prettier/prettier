@@ -1,4 +1,6 @@
-exports[`test Fun.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Fun.js 1`] = `
 "
 /* @providesModule Fun */
 
@@ -26,7 +28,7 @@ function mk_factorial() {
 
 
 var factorial = mk_factorial();
-factorial(\"...\");
+factorial(\\"...\\");
 
 module.exports = {fn: fix};
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -64,13 +66,13 @@ function mk_factorial() {
 }
 
 var factorial = mk_factorial();
-factorial(\"...\");
+factorial(\\"...\\");
 
 module.exports = { fn: fix };
 "
 `;
 
-exports[`test Ycombinator.js 1`] = `
+exports[`Ycombinator.js 1`] = `
 "
 /* @providesModule Ycombinator */
 

@@ -1,8 +1,10 @@
-exports[`test foo.js 1`] = `
-"var x = require(\'./bar_lib\'); // \'bar_lib\' does not work!
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`foo.js 1`] = `
+"var x = require('./bar_lib'); // 'bar_lib' does not work!
 console.log(x);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var x = require(\"./bar_lib\"); // \'bar_lib\' does not work!
+var x = require(\\"./bar_lib\\"); // 'bar_lib' does not work!
 console.log(x);
 "
 `;

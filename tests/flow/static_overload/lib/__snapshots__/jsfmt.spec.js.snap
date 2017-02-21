@@ -1,4 +1,6 @@
-exports[`test lib.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`lib.js 1`] = `
 "declare class StaticOverload {
   static foo(x: number): number;
   static foo(x: string): string;

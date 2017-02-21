@@ -1,4 +1,6 @@
-exports[`test window1.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`window1.js 1`] = `
 "/*
 @providesModule Window1
 */
@@ -11,7 +13,7 @@ module.exports = window.history;
 "
 `;
 
-exports[`test window2.js 1`] = `
+exports[`window2.js 1`] = `
 "/* @providesModule Window2 */
 
 module.exports = window.parent;

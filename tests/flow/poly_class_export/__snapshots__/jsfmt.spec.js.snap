@@ -1,4 +1,6 @@
-exports[`test A.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`A.js 1`] = `
 "// @flow
 
 class A<T> {
@@ -17,10 +19,10 @@ module.exports = A;
 "
 `;
 
-exports[`test B.js 1`] = `
+exports[`B.js 1`] = `
 "// @flow
 
-let A = require(\'./A\');
+let A = require('./A');
 
 class B extends A<string> {
   constructor() {
@@ -32,7 +34,7 @@ module.exports = new B();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-let A = require(\"./A\");
+let A = require(\\"./A\\");
 
 class B extends A<string> {
   constructor() {
@@ -44,10 +46,10 @@ module.exports = new B();
 "
 `;
 
-exports[`test C.js 1`] = `
+exports[`C.js 1`] = `
 "// @flow
 
-// This test exports a function whose return type is the class\'s \`this\` type.
+// This test exports a function whose return type is the class's \`this\` type.
 // It should be inferred (no annotation required).
 
 class Foo {
@@ -62,7 +64,7 @@ export function f(x: Foo) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-// This test exports a function whose return type is the class\'s \`this\` type.
+// This test exports a function whose return type is the class's \`this\` type.
 // It should be inferred (no annotation required).
 
 class Foo {

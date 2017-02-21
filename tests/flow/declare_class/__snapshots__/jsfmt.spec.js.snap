@@ -1,24 +1,26 @@
-exports[`test declare_class.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`declare_class.js 1`] = `
 "declare class C {
     static x: number;
     static foo(x: number): void;
 }
 
-C.x = \"\";
-C.foo(\"\");
+C.x = \\"\\";
+C.foo(\\"\\");
 
 (C.name: string);
-(C.name: number); // error, it\'s a string
+(C.name: number); // error, it's a string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare class C {
   static x: number,
   static foo(x: number): void
 }
 
-C.x = \"\";
-C.foo(\"\");
+C.x = \\"\\";
+C.foo(\\"\\");
 
 (C.name: string);
-(C.name: number); // error, it\'s a string
+(C.name: number); // error, it's a string
 "
 `;

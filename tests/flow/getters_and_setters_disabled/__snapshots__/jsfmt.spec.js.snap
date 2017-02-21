@@ -1,4 +1,6 @@
-exports[`test getters_and_setters.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getters_and_setters.js 1`] = `
 "/**
  * @flow
  */

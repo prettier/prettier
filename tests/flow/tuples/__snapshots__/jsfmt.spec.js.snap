@@ -1,8 +1,10 @@
-exports[`test array.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`array.js 1`] = `
 "// @flow
 
 function foo(x: Array<number>): [number, ?number] {
-  return x; // Error, can\'t enforce arity when flowing array to tuple
+  return x; // Error, can't enforce arity when flowing array to tuple
 }
 
 function foo(x: Array<number>): [number, ?number] {
@@ -12,7 +14,7 @@ function foo(x: Array<number>): [number, ?number] {
 // @flow
 
 function foo(x: Array<number>): [number, ?number] {
-  return x; // Error, can\'t enforce arity when flowing array to tuple
+  return x; // Error, can't enforce arity when flowing array to tuple
 }
 
 function foo(x: Array<number>): [number, ?number] {
@@ -21,7 +23,7 @@ function foo(x: Array<number>): [number, ?number] {
 "
 `;
 
-exports[`test optional.js 1`] = `
+exports[`optional.js 1`] = `
 "// @flow
 
 ([0, undefined]: [number, ?string]); // Ok, correct arity
@@ -38,7 +40,7 @@ exports[`test optional.js 1`] = `
 "
 `;
 
-exports[`test too-few.js 1`] = `
+exports[`too-few.js 1`] = `
 "/* @flow */
 
 function foo(a: [Object, Object]) {}
@@ -53,19 +55,19 @@ foo([{}]); // error, too few elements in array passed to a tuple
 "
 `;
 
-exports[`test tuples.js 1`] = `
+exports[`tuples.js 1`] = `
 "var a: [] = [];
 var b: [] = [123]; // Error - arity mismatch
 var c: [number] = []; // nope
-var d: [number, string] = [123,\'duck\'];
-var e: [number, string,] = [123,\'duck\'];
+var d: [number, string] = [123,'duck'];
+var e: [number, string,] = [123,'duck'];
 var f: [number, string] = [123, 456];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var a: [] = [];
 var b: [] = [123]; // Error - arity mismatch
 var c: [number] = []; // nope
-var d: [number, string] = [123, \"duck\"];
-var e: [number, string] = [123, \"duck\"];
+var d: [number, string] = [123, \\"duck\\"];
+var e: [number, string] = [123, \\"duck\\"];
 var f: [number, string] = [123, 456];
 "
 `;

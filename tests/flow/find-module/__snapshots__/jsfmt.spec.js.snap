@@ -1,19 +1,21 @@
-exports[`test req.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`req.js 1`] = `
 "module.exports = 0;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 module.exports = 0;
 "
 `;
 
-exports[`test test.js 1`] = `
-"var x = require(\'./req\');
+exports[`test.js 1`] = `
+"var x = require('./req');
 (x: string);
 
-import x from \'./req\';
+import x from './req';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var x = require(\"./req\");
+var x = require(\\"./req\\");
 (x: string);
 
-import x from \"./req\";
+import x from \\"./req\\";
 "
 `;

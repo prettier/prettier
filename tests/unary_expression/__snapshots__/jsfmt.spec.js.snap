@@ -1,4 +1,6 @@
-exports[`test urnary_expression.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`urnary_expression.js 1`] = `
 "!!x
 x++
 x--;

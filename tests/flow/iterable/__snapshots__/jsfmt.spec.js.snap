@@ -1,43 +1,45 @@
-exports[`test array.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`array.js 1`] = `
 "/* @flow */
 
 var arrayTest1: Iterable<number> = ([1, 2]: Array<number>);
-var arrayTest2: Iterable<number | string> = [1,2,\"hi\"];
+var arrayTest2: Iterable<number | string> = [1,2,\\"hi\\"];
 var arrayTest3: Iterable<*> = [1,2,3];
 
 // Error string ~> number
-var arrayTest4: Iterable<number> = [\"hi\"];
+var arrayTest4: Iterable<number> = [\\"hi\\"];
 // Error string ~> number
-var arrayTest5: Iterable<string> = [\"hi\", 1];
+var arrayTest5: Iterable<string> = [\\"hi\\", 1];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
 var arrayTest1: Iterable<number> = ([1, 2]: Array<number>);
-var arrayTest2: Iterable<number | string> = [1, 2, \"hi\"];
+var arrayTest2: Iterable<number | string> = [1, 2, \\"hi\\"];
 var arrayTest3: Iterable<*> = [1, 2, 3];
 
 // Error string ~> number
-var arrayTest4: Iterable<number> = [\"hi\"];
+var arrayTest4: Iterable<number> = [\\"hi\\"];
 // Error string ~> number
-var arrayTest5: Iterable<string> = [\"hi\", 1];
+var arrayTest5: Iterable<string> = [\\"hi\\", 1];
 "
 `;
 
-exports[`test caching_bug.js 1`] = `
+exports[`caching_bug.js 1`] = `
 "/* @flow */
 
 /**
- * I\'ve hit a bug with the caching in flow_js.ml. Avik is removing that caching
+ * I've hit a bug with the caching in flow_js.ml. Avik is removing that caching
  * so it should be fixed soon. The basic idea is I flow something like
  *
  * Array<any | any> ~> Iterable<string>
  *
- * then Flow won\'t notice when I try to flow
+ * then Flow won't notice when I try to flow
  *
  * Array<string | number> ~> Iterable<string>
  *
- * We shouldn\'t hit the cache because the union types are different, but we do
- * anyway. I\'ve fixed this temporarily by bumping the \"meaningful\" param to
+ * We shouldn't hit the cache because the union types are different, but we do
+ * anyway. I've fixed this temporarily by bumping the \\"meaningful\\" param to
  * Hashtbl.hash_param
  */
 
@@ -49,17 +51,17 @@ function miss_the_cache(x: Array<string | number>): Iterable<string> { return x;
 /* @flow */
 
 /**
- * I\'ve hit a bug with the caching in flow_js.ml. Avik is removing that caching
+ * I've hit a bug with the caching in flow_js.ml. Avik is removing that caching
  * so it should be fixed soon. The basic idea is I flow something like
  *
  * Array<any | any> ~> Iterable<string>
  *
- * then Flow won\'t notice when I try to flow
+ * then Flow won't notice when I try to flow
  *
  * Array<string | number> ~> Iterable<string>
  *
- * We shouldn\'t hit the cache because the union types are different, but we do
- * anyway. I\'ve fixed this temporarily by bumping the \"meaningful\" param to
+ * We shouldn't hit the cache because the union types are different, but we do
+ * anyway. I've fixed this temporarily by bumping the \\"meaningful\\" param to
  * Hashtbl.hash_param
  */
 
@@ -74,7 +76,7 @@ function miss_the_cache(x: Array<string | number>): Iterable<string> {
 "
 `;
 
-exports[`test iter.js 1`] = `
+exports[`iter.js 1`] = `
 "/* @flow */
 
 function foo(strs: Iterable<string>): void {
@@ -101,16 +103,16 @@ foo(m.keys());
 "
 `;
 
-exports[`test iterator_result.js 1`] = `
+exports[`iterator_result.js 1`] = `
 "/* @flow */
 
 function makeIterator(coin_flip: () => boolean ): Iterator<string> {
   return {
-    \"@@iterator\"() { return makeIterator(coin_flip); },
+    \\"@@iterator\\"() { return makeIterator(coin_flip); },
     next(): IteratorResult<string, void> {
       var done = coin_flip();
       if (!done) {
-        return { done, value: \"still going...\" };
+        return { done, value: \\"still going...\\" };
       } else {
         return { done };
       }
@@ -120,11 +122,11 @@ function makeIterator(coin_flip: () => boolean ): Iterator<string> {
 
 function makeIterator(coin_flip: () => boolean ): Iterator<string> {
   return {
-    \"@@iterator\"() { return makeIterator(coin_flip); },
+    \\"@@iterator\\"() { return makeIterator(coin_flip); },
     next(): IteratorResult<string, void> {
       var done = coin_flip();
       if (done) { // Whoops, made a mistake and forgot to negate done
-        return { done, value: \"still going...\" }; // Error string ~> void
+        return { done, value: \\"still going...\\" }; // Error string ~> void
       } else {
         return { done }; // Error void ~> string
       }
@@ -136,13 +138,13 @@ function makeIterator(coin_flip: () => boolean ): Iterator<string> {
 
 function makeIterator(coin_flip: () => boolean): Iterator<string> {
   return {
-    \"@@iterator\"() {
+    \\"@@iterator\\"() {
       return makeIterator(coin_flip);
     },
     next(): IteratorResult<string, void> {
       var done = coin_flip();
       if (!done) {
-        return { done, value: \"still going...\" };
+        return { done, value: \\"still going...\\" };
       } else {
         return { done };
       }
@@ -152,14 +154,14 @@ function makeIterator(coin_flip: () => boolean): Iterator<string> {
 
 function makeIterator(coin_flip: () => boolean): Iterator<string> {
   return {
-    \"@@iterator\"() {
+    \\"@@iterator\\"() {
       return makeIterator(coin_flip);
     },
     next(): IteratorResult<string, void> {
       var done = coin_flip();
       if (done) {
         // Whoops, made a mistake and forgot to negate done
-        return { done, value: \"still going...\" }; // Error string ~> void
+        return { done, value: \\"still going...\\" }; // Error string ~> void
       } else {
         return { done }; // Error void ~> string
       }
@@ -169,7 +171,7 @@ function makeIterator(coin_flip: () => boolean): Iterator<string> {
 "
 `;
 
-exports[`test map.js 1`] = `
+exports[`map.js 1`] = `
 "/* @flow */
 
 function mapTest1(map: Map<string, number>): Iterable<[string, number]> {
@@ -204,7 +206,7 @@ function mapTest4(map: Map<number, string>): Iterable<string> {
 "
 `;
 
-exports[`test set.js 1`] = `
+exports[`set.js 1`] = `
 "/* @flow */
 
 function setTest1(set: Set<string>): Iterable<string> {
@@ -239,22 +241,22 @@ function setTest4(set: Set<string>): Iterable<number> {
 "
 `;
 
-exports[`test string.js 1`] = `
+exports[`string.js 1`] = `
 "/* @flow */
 
-var stringTest1: Iterable<string> = \"hi\";
-var stringTest3: Iterable<*> = \"hi\";
-var stringTest3: Iterable<number> = \"hi\"; // Error - string is a Iterable<string>
+var stringTest1: Iterable<string> = \\"hi\\";
+var stringTest3: Iterable<*> = \\"hi\\";
+var stringTest3: Iterable<number> = \\"hi\\"; // Error - string is a Iterable<string>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-var stringTest1: Iterable<string> = \"hi\";
-var stringTest3: Iterable<*> = \"hi\";
-var stringTest3: Iterable<number> = \"hi\"; // Error - string is a Iterable<string>
+var stringTest1: Iterable<string> = \\"hi\\";
+var stringTest3: Iterable<*> = \\"hi\\";
+var stringTest3: Iterable<number> = \\"hi\\"; // Error - string is a Iterable<string>
 "
 `;
 
-exports[`test variance.js 1`] = `
+exports[`variance.js 1`] = `
 "/* @flow */
 
 (([]: Array<string>): Iterable<?string>); // ok, Iterable<+T>

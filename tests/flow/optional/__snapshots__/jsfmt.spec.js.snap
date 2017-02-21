@@ -1,15 +1,17 @@
-exports[`test client_optional.js 1`] = `
-"var qux = require(\'./optional\');
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`client_optional.js 1`] = `
+"var qux = require('./optional');
 
 qux(0);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var qux = require(\"./optional\");
+var qux = require(\\"./optional\\");
 
 qux(0);
 "
 `;
 
-exports[`test default.js 1`] = `
+exports[`default.js 1`] = `
 "function f<T>(foo, bar = foo): [T, T] {
   return [foo, bar];
 }
@@ -20,7 +22,7 @@ function f<T>(foo, bar = foo): [T, T] {
 "
 `;
 
-exports[`test generic.js 1`] = `
+exports[`generic.js 1`] = `
 "function x<T>(x: T = 0) {}
 
 class C {
@@ -35,7 +37,7 @@ class C {
 "
 `;
 
-exports[`test maybe.js 1`] = `
+exports[`maybe.js 1`] = `
 "function foo(x?: string): ?string {
     return x;
 }
@@ -46,7 +48,7 @@ function foo(x?: string): ?string {
 "
 `;
 
-exports[`test nullable.js 1`] = `
+exports[`nullable.js 1`] = `
 "/* @flow */
 
 function optionalNullable1(x: {y?: ?number}) {
@@ -149,17 +151,17 @@ function optionalNullable8(x: { y?: ?number }) {
 "
 `;
 
-exports[`test optional.js 1`] = `
+exports[`optional.js 1`] = `
 "function bar(x?,y?) { x * 0; }
 bar(0);
 
 var foo:(x?:number)=>void = bar;
 foo();
 
-function qux(x=\"hello\",...y):string { foo(x); return y[0]; }
+function qux(x=\\"hello\\",...y):string { foo(x); return y[0]; }
 
 qux(0,0);
-qux(0,...[\"\",42]);
+qux(0,...[\\"\\",42]);
 
 module.exports = qux;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -171,27 +173,27 @@ bar(0);
 var foo: (x?: number) => void = bar;
 foo();
 
-function qux(x = \"hello\", ...y): string {
+function qux(x = \\"hello\\", ...y): string {
   foo(x);
   return y[0];
 }
 
 qux(0, 0);
-qux(0, ...[\"\", 42]);
+qux(0, ...[\\"\\", 42]);
 
 module.exports = qux;
 "
 `;
 
-exports[`test optional_param.js 1`] = `
+exports[`optional_param.js 1`] = `
 "/* @flow */
 function foo(x?: string): string {
-    if (x == null) { return \'foo\'; }
+    if (x == null) { return 'foo'; }
     return x;
 }
 
 function bar(obj: {x?: string}): string {
-    if (obj.x == null) { return \'foo\'; }
+    if (obj.x == null) { return 'foo'; }
     return obj.x;
 }
 
@@ -201,17 +203,17 @@ function baz(bar?) {
 }
 
 function testOptionalNullable(x?: ?string): string {
-    if (x == null) { return \'foo\'; }
+    if (x == null) { return 'foo'; }
     return x;
 }
 
-function testOptionalNullableDefault(x?: ?string = \"hi\"): string {
-    if (x == null) { return \'foo\'; }
+function testOptionalNullableDefault(x?: ?string = \\"hi\\"): string {
+    if (x == null) { return 'foo'; }
     return x;
 }
 
 function testOptionalNullableProperty(obj: {x?: ?string}): string {
-    if (obj.x == null) { return \'foo\'; }
+    if (obj.x == null) { return 'foo'; }
     return obj.x;
 }
 
@@ -223,14 +225,14 @@ function testOptionalNullableFlowingToNullable(x?: ?string): ?string {
 /* @flow */
 function foo(x?: string): string {
   if (x == null) {
-    return \"foo\";
+    return \\"foo\\";
   }
   return x;
 }
 
 function bar(obj: { x?: string }): string {
   if (obj.x == null) {
-    return \"foo\";
+    return \\"foo\\";
   }
   return obj.x;
 }
@@ -244,21 +246,21 @@ function baz(bar?) {
 
 function testOptionalNullable(x?: ?string): string {
   if (x == null) {
-    return \"foo\";
+    return \\"foo\\";
   }
   return x;
 }
 
-function testOptionalNullableDefault(x?: ?string = \"hi\"): string {
+function testOptionalNullableDefault(x?: ?string = \\"hi\\"): string {
   if (x == null) {
-    return \"foo\";
+    return \\"foo\\";
   }
   return x;
 }
 
 function testOptionalNullableProperty(obj: { x?: ?string }): string {
   if (obj.x == null) {
-    return \"foo\";
+    return \\"foo\\";
   }
   return obj.x;
 }
@@ -270,7 +272,7 @@ function testOptionalNullableFlowingToNullable(x?: ?string): ?string {
 "
 `;
 
-exports[`test optional_param2.js 1`] = `
+exports[`optional_param2.js 1`] = `
 "declare class I<V> {
     map<M>(
         mapper: (value?: V) => M
@@ -287,11 +289,11 @@ var j: I<number> = i.map(id => id);
 "
 `;
 
-exports[`test optional_param3.js 1`] = `
+exports[`optional_param3.js 1`] = `
 "function foo(x?: number) {}
 foo(undefined); // ok
 
-function bar(x = \"bar\"): string {
+function bar(x = \\"bar\\"): string {
   return x;
 }
 bar(undefined); // ok
@@ -299,14 +301,14 @@ bar(undefined); // ok
 function foo(x?: number) {}
 foo(undefined); // ok
 
-function bar(x = \"bar\"): string {
+function bar(x = \\"bar\\"): string {
   return x;
 }
 bar(undefined); // ok
 "
 `;
 
-exports[`test optional_param4.js 1`] = `
+exports[`optional_param4.js 1`] = `
 "/* @flow */
 
 function foo(x?: number, ...y: Array<string>): [?number, Array<string>] {
@@ -315,7 +317,7 @@ function foo(x?: number, ...y: Array<string>): [?number, Array<string>] {
 
 foo(); // OK
 foo(123), // OK
-foo(123, \'hello\'); // OK
+foo(123, 'hello'); // OK
 
 
 foo(true); // ERROR boolean ~> number
@@ -328,14 +330,14 @@ function foo(x?: number, ...y: Array<string>): [?number, Array<string>] {
 }
 
 foo(); // OK
-foo(123), foo(123, \"hello\"); // OK // OK
+foo(123), foo(123, \\"hello\\"); // OK // OK
 
 foo(true); // ERROR boolean ~> number
 foo(123, true); // ERROR boolean ~> string
 "
 `;
 
-exports[`test undefined.js 1`] = `
+exports[`undefined.js 1`] = `
 "var x;
 
 function foo(bar? = undefined) {
@@ -358,7 +360,7 @@ function bar() {
 "
 `;
 
-exports[`test undefined2.js 1`] = `
+exports[`undefined2.js 1`] = `
 "var x;
 
 function foo(bar?) {

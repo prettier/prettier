@@ -1,4 +1,6 @@
-exports[`test expression.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`expression.js 1`] = `
 "() => ({}\`\`);
 ({})\`\`;
 a = () => ({}).x;
@@ -9,38 +11,38 @@ a = () => ({}).x;
 "
 `;
 
-exports[`test method.js 1`] = `
+exports[`method.js 1`] = `
 "a = { f() {} }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 a = { f() {} };
 "
 `;
 
-exports[`test range.js 1`] = `
+exports[`range.js 1`] = `
 "group(
   concat([
-    \"(\",
+    \\"(\\",
     indent(
       options.tabWidth,
-      concat([line, join(concat([\",\", line]), printed)])
+      concat([line, join(concat([\\",\\", line]), printed)])
     ),
-    options.trailingComma ? \",\" : \"\",
+    options.trailingComma ? \\",\\" : \\"\\",
     line,
-    \")\"
+    \\")\\"
   ]),
   {shouldBreak: true}
 )
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 group(
   concat([
-    \"(\",
+    \\"(\\",
     indent(
       options.tabWidth,
-      concat([line, join(concat([\",\", line]), printed)])
+      concat([line, join(concat([\\",\\", line]), printed)])
     ),
-    options.trailingComma ? \",\" : \"\",
+    options.trailingComma ? \\",\\" : \\"\\",
     line,
-    \")\"
+    \\")\\"
   ]),
   { shouldBreak: true }
 );

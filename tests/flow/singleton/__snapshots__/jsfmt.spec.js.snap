@@ -1,4 +1,6 @@
-exports[`test boolean.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`boolean.js 1`] = `
 "/* @flow */
 
 function veryOptimistic(isThisAwesome: true): boolean {
@@ -77,7 +79,7 @@ function alwaysFalsy(x: boolean): false {
 "
 `;
 
-exports[`test number.js 1`] = `
+exports[`number.js 1`] = `
 "/* @flow */
 
 function highlander(howMany: 1): number {
@@ -127,21 +129,21 @@ sort((x, y) => -1);
 "
 `;
 
-exports[`test string.js 1`] = `
+exports[`string.js 1`] = `
 "/* @flow */
 
-type NoSpaces = \"foobar\"
-(\"foobar\": NoSpaces);
+type NoSpaces = \\"foobar\\"
+(\\"foobar\\": NoSpaces);
 
-type HasSpaces = \"foo bar\"
-(\"foo bar\": HasSpaces);
+type HasSpaces = \\"foo bar\\"
+(\\"foo bar\\": HasSpaces);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-type NoSpaces = \"foobar\";
-(\"foobar\": NoSpaces);
+type NoSpaces = \\"foobar\\";
+(\\"foobar\\": NoSpaces);
 
-type HasSpaces = \"foo bar\";
-(\"foo bar\": HasSpaces);
+type HasSpaces = \\"foo bar\\";
+(\\"foo bar\\": HasSpaces);
 "
 `;

@@ -1,32 +1,34 @@
-exports[`test a.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`a.js 1`] = `
 "// @flow
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 "
 `;
 
-exports[`test b.js 1`] = `
+exports[`b.js 1`] = `
 "/**
  * @flow
  * @providesModule b
  */
-require(\'./a\');
+require('./a');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /**
  * @flow
  * @providesModule b
  */
-require(\"./a\");
+require(\\"./a\\");
 "
 `;
 
-exports[`test c.js 1`] = `
+exports[`c.js 1`] = `
 "// @flow
-require(\'./a.js\');
-require(\'b\');
+require('./a.js');
+require('b');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-require(\"./a.js\");
-require(\"b\");
+require(\\"./a.js\\");
+require(\\"b\\");
 "
 `;

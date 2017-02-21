@@ -1,5 +1,7 @@
-exports[`test mobx.js 1`] = `
-"import {observable} from \"mobx\";
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`mobx.js 1`] = `
+"import {observable} from \\"mobx\\";
 
 @observer class OrderLine {
   @observable price:number = 0;
@@ -14,7 +16,7 @@ exports[`test mobx.js 1`] = `
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-import { observable } from \"mobx\";
+import { observable } from \\"mobx\\";
 
 @observer class OrderLine {
   @observable price: number = 0;
@@ -31,7 +33,7 @@ import { observable } from \"mobx\";
 "
 `;
 
-exports[`test multiple.js 1`] = `
+exports[`multiple.js 1`] = `
 "const dog = {
   @readonly
   @nonenumerable
@@ -48,7 +50,7 @@ const dog = {
 "
 `;
 
-exports[`test redux.js 1`] = `
+exports[`redux.js 1`] = `
 "@connect(mapStateToProps, mapDispatchToProps)
 export class MyApp extends React.Component {}
 

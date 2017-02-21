@@ -1,4 +1,6 @@
-exports[`test g1.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`g1.js 1`] = `
 "// @flow
 
 export class C { }

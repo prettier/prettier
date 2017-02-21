@@ -1,4 +1,6 @@
-exports[`test last_line.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`last_line.js 1`] = `
 "<SomeHighlyConfiguredComponent
   onEnter={this.onEnter}
   onLeave={this.onLeave}
@@ -22,7 +24,7 @@ exports[`test last_line.js 1`] = `
 "
 `;
 
-exports[`test last_line.js 2`] = `
+exports[`last_line.js 2`] = `
 "<SomeHighlyConfiguredComponent
   onEnter={this.onEnter}
   onLeave={this.onLeave}

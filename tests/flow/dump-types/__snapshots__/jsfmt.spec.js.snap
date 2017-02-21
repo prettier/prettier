@@ -1,4 +1,6 @@
-exports[`test import.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`import.js 1`] = `
 "// @flow
 var num = 42;
 function bar() { }
@@ -13,9 +15,9 @@ module.exports = num;
 "
 `;
 
-exports[`test test.js 1`] = `
+exports[`test.js 1`] = `
 "// @flow
-var num = require(\'./import\');
+var num = require('./import');
 function foo(x) { }
 foo(0);
 var a:string = num;
@@ -37,7 +39,7 @@ declare var obj: {a?: {b: ?{c: null | {d: number}}}};
 const idxResult = idx(obj, obj => obj.a.b.c.d);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-var num = require(\"./import\");
+var num = require(\\"./import\\");
 function foo(x) {}
 foo(0);
 var a: string = num;
