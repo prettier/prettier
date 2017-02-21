@@ -7,7 +7,7 @@
 
 > # CONFIGURATION WELCOME
 >
-> This is a fork of [jlongster/prettier](https://github.com/jlongster/prettier), with an option added to indent lines with tabs. If you have a simple option you want to add to Prettier With Tabs, send a PR!
+> This is a fork of [prettier/prettier](https://github.com/prettier/prettier), with an option added to indent lines with tabs. If you have a simple option you want to add to Prettier With Tabs, send a PR!
 >
 > For example, I don't like javascript code without semicolons, but if you can send me a PR which add this ability with as little code as possible, I'll happily accept it! 😃
 
@@ -126,7 +126,7 @@ prettier [opts] [filename ...]
 
 For easier cross-platform usage, prettier has built-in glob support:
 ```bash
-prettier --write 'src/**/*.js' 'bin/*.js'
+prettier --write "src/**/*.js" "bin/*.js"
 ```
 
 In the future we will have better support for formatting whole projects.
