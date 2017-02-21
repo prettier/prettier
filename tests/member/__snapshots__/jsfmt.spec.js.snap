@@ -1,4 +1,6 @@
-exports[`test expand.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`expand.js 1`] = `
 "const veryVeryVeryVeryVeryVeryVeryLong = doc.expandedStates[doc.expandedStates.length - 1];
 const small = doc.expandedStates[doc.expandedStates.length - 1];~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const veryVeryVeryVeryVeryVeryVeryLong = doc.expandedStates[

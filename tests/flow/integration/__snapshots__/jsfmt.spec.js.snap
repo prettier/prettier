@@ -1,15 +1,17 @@
-exports[`test bar.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bar.js 1`] = `
 "// @flow
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 "
 `;
 
-exports[`test foo.js 1`] = `
+exports[`foo.js 1`] = `
 "// @flow
-require(\'./bar\');
+require('./bar');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-require(\"./bar\");
+require(\\"./bar\\");
 "
 `;

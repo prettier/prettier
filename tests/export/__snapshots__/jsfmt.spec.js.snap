@@ -1,4 +1,6 @@
-exports[`test bracket.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bracket.js 1`] = `
 "export {
   runTaskForChanged,
   description,
@@ -25,7 +27,7 @@ export { fitsIn, oneLine };
 "
 `;
 
-exports[`test bracket.js 2`] = `
+exports[`bracket.js 2`] = `
 "export {
   runTaskForChanged,
   description,
@@ -52,20 +54,20 @@ export {fitsIn, oneLine};
 "
 `;
 
-exports[`test empty.js 1`] = `
+exports[`empty.js 1`] = `
 "export {};
-export {} from \".\";
+export {} from \\".\\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export {};
-export {} from \".\";
+export {} from \\".\\";
 "
 `;
 
-exports[`test empty.js 2`] = `
+exports[`empty.js 2`] = `
 "export {};
-export {} from \".\";
+export {} from \\".\\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export {};
-export {} from \".\";
+export {} from \\".\\";
 "
 `;

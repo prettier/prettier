@@ -1,4 +1,6 @@
-exports[`test number.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`number.js 1`] = `
 "// parentheses around numeric literal should be preserved
 function test5(): string {
   return (100).toString();

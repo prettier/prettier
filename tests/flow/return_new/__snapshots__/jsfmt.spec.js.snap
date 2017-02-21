@@ -1,4 +1,6 @@
-exports[`test test.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test.js 1`] = `
 "function Foo() { return {}; }
 var foo: number = new Foo(); // error (returns object literal above)
 
@@ -33,14 +35,14 @@ var a: A = new B(); // OK (returns new A)
 "
 `;
 
-exports[`test test2.js 1`] = `
+exports[`test2.js 1`] = `
 "declare class D {
   constructor(): { x: number }; // OK
   y: any;
 }
 
 var d = new D();
-d.x = \"\"; // error, string ~/~ number (but property x is found)
+d.x = \\"\\"; // error, string ~/~ number (but property x is found)
 
 (new D: D); // error, new D is an object, D not in proto chain
 
@@ -52,7 +54,7 @@ declare class D {
 }
 
 var d = new D();
-d.x = \"\"; // error, string ~/~ number (but property x is found)
+d.x = \\"\\"; // error, string ~/~ number (but property x is found)
 
 (new D(): D); // error, new D is an object, D not in proto chain
 

@@ -1,4 +1,6 @@
-exports[`test A.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`A.js 1`] = `
 "
 /* @providesModule A */
 
@@ -10,7 +12,7 @@ module.exports.cls = A;
 function f(x:boolean) { }
 module.exports.fn = f;
 
-A.y = \"?\";
+A.y = \\"?\\";
 A.x = A.y;
 f(A.x); // A.x is now a string, by def assign
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -24,20 +26,20 @@ module.exports.cls = A;
 function f(x: boolean) {}
 module.exports.fn = f;
 
-A.y = \"?\";
+A.y = \\"?\\";
 A.x = A.y;
 f(A.x); // A.x is now a string, by def assign
 "
 `;
 
-exports[`test B.js 1`] = `
+exports[`B.js 1`] = `
 "
 /* @providesModule B */
 
-var A = require(\'A\').cls;
+var A = require('A').cls;
 
 function B() {
-  this.b = \"...\";
+  this.b = \\"...\\";
 }
 
 function f():number { return this.b; }
@@ -49,10 +51,10 @@ module.exports = B;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule B */
 
-var A = require(\"A\").cls;
+var A = require(\\"A\\").cls;
 
 function B() {
-  this.b = \"...\";
+  this.b = \\"...\\";
 }
 
 function f(): number {
@@ -66,12 +68,12 @@ module.exports = B;
 "
 `;
 
-exports[`test C.js 1`] = `
+exports[`C.js 1`] = `
 "
 /* @providesModule C */
 
-var B = require(\'B\');
-var f = require(\'A\').fn;
+var B = require('B');
+var f = require('A').fn;
 
 function C() {
   var o = new B();
@@ -84,8 +86,8 @@ module.exports = C;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule C */
 
-var B = require(\"B\");
-var f = require(\"A\").fn;
+var B = require(\\"B\\");
+var f = require(\\"A\\").fn;
 
 function C() {
   var o = new B();
@@ -98,11 +100,11 @@ module.exports = C;
 "
 `;
 
-exports[`test D.js 1`] = `
+exports[`D.js 1`] = `
 "
 /* @providesModule D */
 
-var f = require(\'A\').fn;
+var f = require('A').fn;
 
 function g():string { return this.i; }
 
@@ -112,11 +114,11 @@ o.i = true;
 var i = o.fn();
 f(i);
 
-module.exports = \"D for dummy\";
+module.exports = \\"D for dummy\\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule D */
 
-var f = require(\"A\").fn;
+var f = require(\\"A\\").fn;
 
 function g(): string {
   return this.i;
@@ -128,11 +130,11 @@ o.i = true;
 var i = o.fn();
 f(i);
 
-module.exports = \"D for dummy\";
+module.exports = \\"D for dummy\\";
 "
 `;
 
-exports[`test E.js 1`] = `
+exports[`E.js 1`] = `
 "
 /* @providesModule E */
 
@@ -156,9 +158,9 @@ module.exports = { obj: o };
 "
 `;
 
-exports[`test F.js 1`] = `
+exports[`F.js 1`] = `
 "function fn2(x) { return x.length * 4; }
-fn2({length: \'hi\'});
+fn2({length: 'hi'});
 
 function foo(x: Array<number>): string {
   return x.length;
@@ -167,7 +169,7 @@ function foo(x: Array<number>): string {
 function fn2(x) {
   return x.length * 4;
 }
-fn2({ length: \"hi\" });
+fn2({ length: \\"hi\\" });
 
 function foo(x: Array<number>): string {
   return x.length;
@@ -175,21 +177,21 @@ function foo(x: Array<number>): string {
 "
 `;
 
-exports[`test G.js 1`] = `
-"var a = { length: \"duck\" };
+exports[`G.js 1`] = `
+"var a = { length: \\"duck\\" };
 a.length = 123;
 a.length();
 
 var b = [ 123 ];
-b.length = \"duck\";
+b.length = \\"duck\\";
 b.length();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var a = { length: \"duck\" };
+var a = { length: \\"duck\\" };
 a.length = 123;
 a.length();
 
 var b = [123];
-b.length = \"duck\";
+b.length = \\"duck\\";
 b.length();
 "
 `;

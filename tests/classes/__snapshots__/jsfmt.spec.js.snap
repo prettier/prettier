@@ -1,4 +1,6 @@
-exports[`test binary.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`binary.js 1`] = `
 "(class {}) + 1;
 (class a {}) + 1;
 (class extends b {}) + 1;
@@ -11,7 +13,7 @@ exports[`test binary.js 1`] = `
 "
 `;
 
-exports[`test break.js 1`] = `
+exports[`break.js 1`] = `
 "class MyContractSelectionWidget extends React.Component<void,  MyContractSelectionWidgetPropsType, void> implements SomethingLarge {
   method() {}
 }
@@ -24,14 +26,14 @@ class MyContractSelectionWidget
 "
 `;
 
-exports[`test call.js 1`] = `
+exports[`call.js 1`] = `
 "(class {})(class {});
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 (class {})(class {});
 "
 `;
 
-exports[`test empty.js 1`] = `
+exports[`empty.js 1`] = `
 "class A {
   // comment
 }
@@ -62,7 +64,7 @@ class A {
 "
 `;
 
-exports[`test member.js 1`] = `
+exports[`member.js 1`] = `
 "(class {})[1];
 (class {}).a;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -71,7 +73,7 @@ exports[`test member.js 1`] = `
 "
 `;
 
-exports[`test ternary.js 1`] = `
+exports[`ternary.js 1`] = `
 "if (1) (class {}) ? 1 : 2;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 if (1) (class {}) ? 1 : 2;

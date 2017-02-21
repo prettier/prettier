@@ -1,4 +1,6 @@
-exports[`test const.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`const.js 1`] = `
 "const x = 0;
 
 // errors: const cannot be reassigned
@@ -17,8 +19,8 @@ x &= 0;
 
 // regression tests -- OK to assign consts like this:
 
-const { foo } = { foo: \"foo\" }
-const [ bar ] = [\"bar\"];
+const { foo } = { foo: \\"foo\\" }
+const [ bar ] = [\\"bar\\"];
 (foo: number); // error: string ~> number
 (bar: number); // error: string ~> number
 
@@ -45,8 +47,8 @@ x &= 0;
 
 // regression tests -- OK to assign consts like this:
 
-const { foo } = { foo: \"foo\" };
-const [bar] = [\"bar\"];
+const { foo } = { foo: \\"foo\\" };
+const [bar] = [\\"bar\\"];
 (foo: number); // error: string ~> number
 (bar: number); // error: string ~> number
 
@@ -57,7 +59,7 @@ for (const { baz } of bazzes) {
 "
 `;
 
-exports[`test rebinding.js 1`] = `
+exports[`rebinding.js 1`] = `
 "/* @flow
  * test errors on illegal rebinding/reassignment
  *
@@ -98,7 +100,7 @@ function type_var() {
 
 function type_reassign() {
   type A = number;
-  A = 42;           // error: type alias ref\'d from value pos
+  A = 42;           // error: type alias ref'd from value pos
 }
 
 // class x *
@@ -296,7 +298,7 @@ function type_var() {
 
 function type_reassign() {
   type A = number;
-  A = 42; // error: type alias ref\'d from value pos
+  A = 42; // error: type alias ref'd from value pos
 }
 
 // class x *
@@ -456,13 +458,13 @@ function fn_params_clash_fn_binding(x, y) {
 "
 `;
 
-exports[`test scope.js 1`] = `
+exports[`scope.js 1`] = `
 "function block_scope() {
   let a: number = 0;
   var b: number = 0;
   {
-    let a = \"\"; // ok: local to block
-    var b = \"\"; // error: string ~> number
+    let a = \\"\\"; // ok: local to block
+    var b = \\"\\"; // error: string ~> number
   }
 }
 
@@ -470,12 +472,12 @@ function switch_scope(x: string) {
   let a: number = 0;
   var b: number = 0;
   switch (x) {
-    case \"foo\":
-      let a = \"\"; // ok: local to switch
-      var b = \"\"; // error: string ~> number
+    case \\"foo\\":
+      let a = \\"\\"; // ok: local to switch
+      var b = \\"\\"; // error: string ~> number
       break;
-    case \"bar\":
-      let a = \"\"; // error: a already bound in switch
+    case \\"bar\\":
+      let a = \\"\\"; // error: a already bound in switch
       break;
   }
 }
@@ -486,43 +488,43 @@ function switch_scope(x: string) {
 function switch_scope2(x: number) {
   switch (x) {
     case 0:
-     a = \"\";     // error: assign before declaration
+     a = \\"\\";     // error: assign before declaration
      break;
     case 1:
      var b = a;  // error: use before declaration
      break;
     case 2:
-      let a = \"\";
+      let a = \\"\\";
       break;
     case 3:
-      a = \"\";     // error: skipped initializer
+      a = \\"\\";     // error: skipped initializer
       break;
     case 4:
       var c:string = a;  // error: skipped initializer
       break;
   }
-  a = \"\"; // error: a no longer in scope
+  a = \\"\\"; // error: a no longer in scope
 }
 
 function try_scope() {
   let a: number = 0;
   try {
-    let a = \"\"; // ok
+    let a = \\"\\"; // ok
   } catch (e) {
-    let a = \"\"; // ok
+    let a = \\"\\"; // ok
   } finally {
-    let a = \"\"; // ok
+    let a = \\"\\"; // ok
   }
 }
 
 function for_scope_let() {
   let a: number = 0;
-  for (let a = \"\" /* ok: local to init */;;) {}
+  for (let a = \\"\\" /* ok: local to init */;;) {}
 }
 
 function for_scope_var() {
   var a: number = 0;
-  for (var a = \"\" /* error: string ~> number */;;) {}
+  for (var a = \\"\\" /* error: string ~> number */;;) {}
 }
 
 function for_in_scope_let(o: Object) {
@@ -556,7 +558,7 @@ function default_param_1() {
 
 function default_param_2() {
   // fn body bindings not visible from param scope
-  let a = \"\";
+  let a = \\"\\";
   function f0(x = () => a): number {
     let a = 0;
     return x(); // error: string ~> number
@@ -571,8 +573,8 @@ function block_scope() {
   let a: number = 0;
   var b: number = 0;
   {
-    let a = \"\"; // ok: local to block
-    var b = \"\"; // error: string ~> number
+    let a = \\"\\"; // ok: local to block
+    var b = \\"\\"; // error: string ~> number
   }
 }
 
@@ -580,12 +582,12 @@ function switch_scope(x: string) {
   let a: number = 0;
   var b: number = 0;
   switch (x) {
-    case \"foo\":
-      let a = \"\"; // ok: local to switch
-      var b = \"\"; // error: string ~> number
+    case \\"foo\\":
+      let a = \\"\\"; // ok: local to switch
+      var b = \\"\\"; // error: string ~> number
       break;
-    case \"bar\":
-      let a = \"\"; // error: a already bound in switch
+    case \\"bar\\":
+      let a = \\"\\"; // error: a already bound in switch
       break;
   }
 }
@@ -596,44 +598,44 @@ function switch_scope(x: string) {
 function switch_scope2(x: number) {
   switch (x) {
     case 0:
-      a = \"\"; // error: assign before declaration
+      a = \\"\\"; // error: assign before declaration
       break;
     case 1:
       var b = a; // error: use before declaration
       break;
     case 2:
-      let a = \"\";
+      let a = \\"\\";
       break;
     case 3:
-      a = \"\"; // error: skipped initializer
+      a = \\"\\"; // error: skipped initializer
       break;
     case 4:
       var c: string = a; // error: skipped initializer
       break;
   }
-  a = \"\"; // error: a no longer in scope
+  a = \\"\\"; // error: a no longer in scope
 }
 
 function try_scope() {
   let a: number = 0;
   try {
-    let a = \"\"; // ok
+    let a = \\"\\"; // ok
   } catch (e) {
-    let a = \"\"; // ok
+    let a = \\"\\"; // ok
   } finally {
-    let a = \"\"; // ok
+    let a = \\"\\"; // ok
   }
 }
 
 function for_scope_let() {
   let a: number = 0;
-  for (let a = \"\" /* ok: local to init */; ; ) {
+  for (let a = \\"\\" /* ok: local to init */; ; ) {
   }
 }
 
 function for_scope_var() {
   var a: number = 0;
-  for (var a = \"\" /* error: string ~> number */; ; ) {
+  for (var a = \\"\\" /* error: string ~> number */; ; ) {
   }
 }
 
@@ -672,7 +674,7 @@ function default_param_1() {
 
 function default_param_2() {
   // fn body bindings not visible from param scope
-  let a = \"\";
+  let a = \\"\\";
   function f0(x = () => a): number {
     let a = 0;
     return x(); // error: string ~> number
@@ -685,7 +687,7 @@ function default_param_2() {
 "
 `;
 
-exports[`test tdz.js 1`] = `
+exports[`tdz.js 1`] = `
 "/** @flow */
 
 // -- types ---
@@ -702,7 +704,7 @@ type T2 = number;
 // while let is in TDZ.
 // - allow forward refs to lets from type positions.
 //
-// currently we\'re too lenient about TDZ in closures -
+// currently we're too lenient about TDZ in closures -
 // from value positions, we currently enforce TDZ only in-scope.
 // this is unsound - a let or const may remain uninitialized when
 // a lambda runs. But a simple conservative approach would prohibit
@@ -740,12 +742,12 @@ function f3() {
     function foo() { return 0; }
   }
   var s2: string = foo();         // ok, hoisted outer not clobbered
-  function foo() { return \"\"; }
+  function foo() { return \\"\\"; }
 }
 
 // out-of-scope TDZ not enforced. sometimes right...
 function f4() {
-  function g() { return x + c; }  // ok, g doesn\'t run in TDZ
+  function g() { return x + c; }  // ok, g doesn't run in TDZ
   let x = 0;
   const c = 0;
 }
@@ -753,7 +755,7 @@ function f4() {
 // ...sometimes wrong
 function f5() {
   function g() { return x; }
-  g();          // should error, but doesn\'t currently
+  g();          // should error, but doesn't currently
   let x = 0;
   const c = 0;
 }
@@ -773,8 +775,8 @@ var z: C = new C(); // ok
 
 // --- vars ---
 
-// it\'s possible to annotate a var with a non-maybe type,
-// but leave it uninitialized until later (as long as it\'s
+// it's possible to annotate a var with a non-maybe type,
+// but leave it uninitialized until later (as long as it's
 // initialized before use)
 
 var a: number;  // not an error per se - only if used before init
@@ -803,7 +805,7 @@ type T2 = number;
 // while let is in TDZ.
 // - allow forward refs to lets from type positions.
 //
-// currently we\'re too lenient about TDZ in closures -
+// currently we're too lenient about TDZ in closures -
 // from value positions, we currently enforce TDZ only in-scope.
 // this is unsound - a let or const may remain uninitialized when
 // a lambda runs. But a simple conservative approach would prohibit
@@ -844,7 +846,7 @@ function f3() {
   }
   var s2: string = foo(); // ok, hoisted outer not clobbered
   function foo() {
-    return \"\";
+    return \\"\\";
   }
 }
 
@@ -852,7 +854,7 @@ function f3() {
 function f4() {
   function g() {
     return x + c;
-  } // ok, g doesn\'t run in TDZ
+  } // ok, g doesn't run in TDZ
   let x = 0;
   const c = 0;
 }
@@ -862,7 +864,7 @@ function f5() {
   function g() {
     return x;
   }
-  g(); // should error, but doesn\'t currently
+  g(); // should error, but doesn't currently
   let x = 0;
   const c = 0;
 }
@@ -882,8 +884,8 @@ var z: C = new C(); // ok
 
 // --- vars ---
 
-// it\'s possible to annotate a var with a non-maybe type,
-// but leave it uninitialized until later (as long as it\'s
+// it's possible to annotate a var with a non-maybe type,
+// but leave it uninitialized until later (as long as it's
 // initialized before use)
 
 var a: number; // not an error per se - only if used before init

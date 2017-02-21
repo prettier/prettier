@@ -1,5 +1,7 @@
-exports[`test annot.js 1`] = `
-"var A = require(\'./unknown_class\');
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`annot.js 1`] = `
+"var A = require('./unknown_class');
 
 class B extends A {
   foo(x:A):A { return x; }
@@ -9,7 +11,7 @@ class B extends A {
 
 module.exports = B;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var A = require(\"./unknown_class\");
+var A = require(\\"./unknown_class\\");
 
 class B extends A {
   foo(x: A): A {
@@ -25,7 +27,7 @@ module.exports = B;
 "
 `;
 
-exports[`test fun.js 1`] = `
+exports[`fun.js 1`] = `
 "/**
  * @flow
  */
@@ -58,7 +60,7 @@ module.exports = f;
 "
 `;
 
-exports[`test obj.js 1`] = `
+exports[`obj.js 1`] = `
 "/**
  * @flow
  */

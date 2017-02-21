@@ -1,9 +1,11 @@
-exports[`test array.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`array.js 1`] = `
 "/* @flow */
 var a = [];
 for (var i = 0; i < 10; ++i) {
     if (i % 2 == 0) { a[i] = 0; }
-    else { a[i] = \'\'; };
+    else { a[i] = ''; };
 }
 
 // \`i\` never gets a lower bound, so the array access is stalled until the
@@ -26,7 +28,7 @@ for (var i = 0; i < 10; ++i) {
   if (i % 2 == 0) {
     a[i] = 0;
   } else {
-    a[i] = \"\";
+    a[i] = \\"\\";
   }
 }
 
@@ -52,12 +54,12 @@ function baz(i: number): string {
 "
 `;
 
-exports[`test array2.js 1`] = `
+exports[`array2.js 1`] = `
 "/* @flow */
 var a = [];
 for (var i = 0; i < 10; ++i) {
     if (i % 2 == 0) { a[i] = 0; }
-    else { a[i] = \'\'; };
+    else { a[i] = ''; };
 }
 
 function foo(i: number): string { return a[i]; }
@@ -68,7 +70,7 @@ for (var i = 0; i < 10; ++i) {
   if (i % 2 == 0) {
     a[i] = 0;
   } else {
-    a[i] = \"\";
+    a[i] = \\"\\";
   }
 }
 

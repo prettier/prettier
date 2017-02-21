@@ -1,4 +1,6 @@
-exports[`test await_parse.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`await_parse.js 1`] = `
 "async function f() { (await f()).length }
 async function g() {
   invariant(
@@ -27,23 +29,23 @@ async function f() {
 "
 `;
 
-exports[`test conditional-expression.js 1`] = `
+exports[`conditional-expression.js 1`] = `
 "async function f() {
-  const result = typeof fn === \'function\' ? await fn() : null;
+  const result = typeof fn === 'function' ? await fn() : null;
 }
 
 (async function() {
   console.log(
-    await (true ? Promise.resolve(\"A\") : Promise.resolve(\"B\"))
+    await (true ? Promise.resolve(\\"A\\") : Promise.resolve(\\"B\\"))
   );
 })()
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 async function f() {
-  const result = typeof fn === \"function\" ? await fn() : null;
+  const result = typeof fn === \\"function\\" ? await fn() : null;
 }
 
 (async function() {
-  console.log(await (true ? Promise.resolve(\"A\") : Promise.resolve(\"B\")));
+  console.log(await (true ? Promise.resolve(\\"A\\") : Promise.resolve(\\"B\\")));
 })();
 "
 `;

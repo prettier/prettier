@@ -1,24 +1,26 @@
-exports[`test imp.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`imp.js 1`] = `
 "/* @flow */
 
-var imp = require(\'./obj_annot\');
-imp({ name: \"imp\" });
+var imp = require('./obj_annot');
+imp({ name: \\"imp\\" });
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-var imp = require(\"./obj_annot\");
-imp({ name: \"imp\" });
+var imp = require(\\"./obj_annot\\");
+imp({ name: \\"imp\\" });
 "
 `;
 
-exports[`test obj_annot.js 1`] = `
+exports[`obj_annot.js 1`] = `
 "/* @flow */
 
 function foo(param: { name: string; }): number {
     return param.id;
 }
 
-foo({ name: \"test\" });
+foo({ name: \\"test\\" });
 
 module.exports = foo;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -28,7 +30,7 @@ function foo(param: { name: string }): number {
   return param.id;
 }
 
-foo({ name: \"test\" });
+foo({ name: \\"test\\" });
 
 module.exports = foo;
 "

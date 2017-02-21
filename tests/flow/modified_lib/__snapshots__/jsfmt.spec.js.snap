@@ -1,13 +1,15 @@
-exports[`test test.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test.js 1`] = `
 "// @flow
 
-import {bar} from \'foo\';
+import {bar} from 'foo';
 
 bar(5);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-import { bar } from \"foo\";
+import { bar } from \\"foo\\";
 
 bar(5);
 "

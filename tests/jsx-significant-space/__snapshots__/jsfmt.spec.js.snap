@@ -1,4 +1,6 @@
-exports[`test test.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test.js 1`] = `
 "after =
   <span>
       foo <span>bar</span>
@@ -50,19 +52,19 @@ nest_plz =
   </div>
 
 regression_not_transformed_1 =
-  <span> <Icon icon=\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\" /></span>;
+  <span> <Icon icon=\\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\" /></span>;
 
 regression_not_transformed_2 =
-  <span><Icon icon=\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\" /> </span>;
+  <span><Icon icon=\\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\" /> </span>;
 
 similar_1 =
-  <span> <Icon icon=\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\" /></span>;
+  <span> <Icon icon=\\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\" /></span>;
 
 similar_2 =
-  <span><Icon icon=\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\" /> </span>;
+  <span><Icon icon=\\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\" /> </span>;
 
 similar_3 =
-  <span><Icon icon=\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\" /> <Icon icon=\"\" /></span>;
+  <span><Icon icon=\\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\" /> <Icon icon=\\"\\" /></span>;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 after = (
   <span>
@@ -79,7 +81,7 @@ before = (
 before_break1 = (
   <span>
     <span barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar />
-    {\" \"}foo
+    {\\" \\"}foo
   </span>
 );
 
@@ -88,13 +90,13 @@ before_break2 = (
     <span
       barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar
     />
-    {\" \"}foo
+    {\\" \\"}foo
   </span>
 );
 
 after_break = (
   <span>
-    foo{\" \"}
+    foo{\\" \\"}
     <span barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar />
   </span>
 );
@@ -131,33 +133,33 @@ nest_plz = (
 
 regression_not_transformed_1 = (
   <span>
-    {\" \"}<Icon icon=\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\" />
+    {\\" \\"}<Icon icon=\\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\" />
   </span>
 );
 
 regression_not_transformed_2 = (
   <span>
-    <Icon icon=\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\" />{\" \"}
+    <Icon icon=\\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\" />{\\" \\"}
   </span>
 );
 
 similar_1 = (
   <span>
-    {\" \"}
-    <Icon icon=\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\" />
+    {\\" \\"}
+    <Icon icon=\\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\" />
   </span>
 );
 
 similar_2 = (
   <span>
-    <Icon icon=\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\" />
-    {\" \"}
+    <Icon icon=\\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\" />
+    {\\" \\"}
   </span>
 );
 
 similar_3 = (
   <span>
-    <Icon icon=\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\" /> <Icon icon=\"\" />
+    <Icon icon=\\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\" /> <Icon icon=\\"\\" />
   </span>
 );
 "

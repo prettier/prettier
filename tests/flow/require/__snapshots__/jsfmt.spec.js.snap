@@ -1,4 +1,6 @@
-exports[`test B.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`B.js 1`] = `
 "/* @flow */
 
 exports.numberValue = 42;
@@ -9,14 +11,14 @@ exports.numberValue = 42;
 "
 `;
 
-exports[`test C.js 1`] = `
+exports[`C.js 1`] = `
 "/* @flow */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 "
 `;
 
-exports[`test E.js 1`] = `
+exports[`E.js 1`] = `
 "/* @flow */
 
 // Local \`exports\` var is just a ref to module.exports, so mutating the original
@@ -26,7 +28,7 @@ module.exports = {
   numberValue: 42
 };
 
-exports = {stringValue: \'\'};
+exports = {stringValue: ''};
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
@@ -37,11 +39,11 @@ module.exports = {
   numberValue: 42
 };
 
-exports = { stringValue: \"\" };
+exports = { stringValue: \\"\\" };
 "
 `;
 
-exports[`test ProvidesModuleA.js 1`] = `
+exports[`ProvidesModuleA.js 1`] = `
 "/**
  * @providesModule A
  * @flow
@@ -58,7 +60,7 @@ exports.numberValue = 42;
 "
 `;
 
-exports[`test ProvidesModuleD.js 1`] = `
+exports[`ProvidesModuleD.js 1`] = `
 "/**
  * @providesModule D
  * @flow
@@ -71,20 +73,20 @@ exports[`test ProvidesModuleD.js 1`] = `
 "
 `;
 
-exports[`test not_builtin_require.js 1`] = `
+exports[`not_builtin_require.js 1`] = `
 "// @flow
 
 function require() {}
-require(\"not a module name\");
+require(\\"not a module name\\");
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
 function require() {}
-require(\"not a module name\");
+require(\\"not a module name\\");
 "
 `;
 
-exports[`test not_builtin_require2.js 1`] = `
+exports[`not_builtin_require2.js 1`] = `
 "// @flow
 
 type require = number;
@@ -97,42 +99,42 @@ var a: require = 42;
 "
 `;
 
-exports[`test require.js 1`] = `
+exports[`require.js 1`] = `
 "/* @flow */
 
 function takesANumber(num: number): void {}
 function takesAString(str: string): void {}
 
 // @providesModule
-var A = require(\"A\");
+var A = require(\\"A\\");
 takesANumber(A.numberValue);
 takesAString(A.numberValue);
 
 // File path
-var B = require(\"./B\");
+var B = require(\\"./B\\");
 takesANumber(B.numberValue);
 takesAString(B.numberValue);
 
 // C.js exists, but not as a providesModule
-require(\"C\");
+require(\\"C\\");
 
 // @providesModule D exists, but not as a filename
-require(\"./D\");
+require(\\"./D\\");
 
 // E exports an object with a numVal property
-var E = require(\'./E\');
+var E = require('./E');
 var e_1: number = E.numberValue;
-E.stringValue; // Error: The E exports obj has no \'stringValue\' property
+E.stringValue; // Error: The E exports obj has no 'stringValue' property
 
 // We require that the param passed to require() be a string literal to support
 // guaranteed static extraction
-var a = \'./E\';
+var a = './E';
 require(a); // Error: Param must be string literal
 require(\`./E\`); // template literals are ok...
-require(\`\${\'./E\'}\`); // error: but only if they have no expressions
+require(\`\${'./E'}\`); // error: but only if they have no expressions
 
-// require.call is allowed but circumverts Flow\'s static analysis
-require.call(null, \"DoesNotExist\");
+// require.call is allowed but circumverts Flow's static analysis
+require.call(null, \\"DoesNotExist\\");
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
@@ -140,34 +142,34 @@ function takesANumber(num: number): void {}
 function takesAString(str: string): void {}
 
 // @providesModule
-var A = require(\"A\");
+var A = require(\\"A\\");
 takesANumber(A.numberValue);
 takesAString(A.numberValue);
 
 // File path
-var B = require(\"./B\");
+var B = require(\\"./B\\");
 takesANumber(B.numberValue);
 takesAString(B.numberValue);
 
 // C.js exists, but not as a providesModule
-require(\"C\");
+require(\\"C\\");
 
 // @providesModule D exists, but not as a filename
-require(\"./D\");
+require(\\"./D\\");
 
 // E exports an object with a numVal property
-var E = require(\"./E\");
+var E = require(\\"./E\\");
 var e_1: number = E.numberValue;
-E.stringValue; // Error: The E exports obj has no \'stringValue\' property
+E.stringValue; // Error: The E exports obj has no 'stringValue' property
 
 // We require that the param passed to require() be a string literal to support
 // guaranteed static extraction
-var a = \"./E\";
+var a = \\"./E\\";
 require(a); // Error: Param must be string literal
 require(\`./E\`); // template literals are ok...
-require(\`\${\"./E\"}\`); // error: but only if they have no expressions
+require(\`\${\\"./E\\"}\`); // error: but only if they have no expressions
 
-// require.call is allowed but circumverts Flow\'s static analysis
-require.call(null, \"DoesNotExist\");
+// require.call is allowed but circumverts Flow's static analysis
+require.call(null, \\"DoesNotExist\\");
 "
 `;

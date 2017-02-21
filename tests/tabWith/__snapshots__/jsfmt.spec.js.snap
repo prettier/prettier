@@ -1,10 +1,12 @@
-exports[`test class.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`class.js 1`] = `
 "class A {
   method() {
     var x = 1;
-    while(typeof x == \"number\" || typeof x == \"string\") {
+    while(typeof x == \\"number\\" || typeof x == \\"string\\") {
         x = x + 1;
-        if (true) x = \"\";
+        if (true) x = \\"\\";
     }
     var z:number = x;
   }
@@ -13,9 +15,9 @@ exports[`test class.js 1`] = `
 class A {
   method() {
     var x = 1;
-    while (typeof x == \"number\" || typeof x == \"string\") {
+    while (typeof x == \\"number\\" || typeof x == \\"string\\") {
       x = x + 1;
-      if (true) x = \"\";
+      if (true) x = \\"\\";
     }
     var z: number = x;
   }
@@ -23,13 +25,13 @@ class A {
 "
 `;
 
-exports[`test class.js 2`] = `
+exports[`class.js 2`] = `
 "class A {
   method() {
     var x = 1;
-    while(typeof x == \"number\" || typeof x == \"string\") {
+    while(typeof x == \\"number\\" || typeof x == \\"string\\") {
         x = x + 1;
-        if (true) x = \"\";
+        if (true) x = \\"\\";
     }
     var z:number = x;
   }
@@ -38,9 +40,9 @@ exports[`test class.js 2`] = `
 class A {
     method() {
         var x = 1;
-        while (typeof x == \"number\" || typeof x == \"string\") {
+        while (typeof x == \\"number\\" || typeof x == \\"string\\") {
             x = x + 1;
-            if (true) x = \"\";
+            if (true) x = \\"\\";
         }
         var z: number = x;
     }
@@ -48,7 +50,7 @@ class A {
 "
 `;
 
-exports[`test nested-functions.spec.js 1`] = `
+exports[`nested-functions.spec.js 1`] = `
 "const c = () => {};
 
 function a() {
@@ -75,7 +77,7 @@ function a() {
 "
 `;
 
-exports[`test nested-functions.spec.js 2`] = `
+exports[`nested-functions.spec.js 2`] = `
 "const c = () => {};
 
 function a() {

@@ -1,4 +1,6 @@
-exports[`test issue-598.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`issue-598.js 1`] = `
 "/* @flow */
 
 type F<A> = { foo<B>(x: A): F<B> }
@@ -49,7 +51,7 @@ function identity<A>(val: A): Functor<A> {
 "
 `;
 
-exports[`test issue-1228.js 1`] = `
+exports[`issue-1228.js 1`] = `
 "/* @flow */
 
 type Task <error, value>
@@ -73,7 +75,7 @@ function id(x: Task<any, any>): Task<any, any> {
 "
 `;
 
-exports[`test test.js 1`] = `
+exports[`test.js 1`] = `
 "class P<X> { x: X; } // this is like Promise
 
 type Pstar<X> = X | Pstar<P<X>>; // this is like Promise*
@@ -112,7 +114,7 @@ pstar = (new P(): P<P<number>>); // OK
 "
 `;
 
-exports[`test test2.js 1`] = `
+exports[`test2.js 1`] = `
 "var a = []; // Array<X> ~> a
 function bar() {
   a = a.concat([]); // terminate despite expanding types:
@@ -177,7 +179,7 @@ class C<X> extends B<X> {}
 "
 `;
 
-exports[`test test3.js 1`] = `
+exports[`test3.js 1`] = `
 "type I<X> = () => I<I<X>>;
 type J<X> = () => J<J<X>>;
 
@@ -214,14 +216,14 @@ function bar(x: P<number>): () => P<number> {
 "
 `;
 
-exports[`test test4.js 1`] = `
+exports[`test4.js 1`] = `
 "type T = T // cycle in type alias should not cause non-termination
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 type T = T; // cycle in type alias should not cause non-termination
 "
 `;
 
-exports[`test test5.js 1`] = `
+exports[`test5.js 1`] = `
 "/* @flow */
 
 type NestedArray<T> = Array<T | NestedArray<T>>;

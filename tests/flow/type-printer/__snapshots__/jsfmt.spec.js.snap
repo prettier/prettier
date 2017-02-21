@@ -1,5 +1,7 @@
-exports[`test printBinaryExpression.js 1`] = `
-"\'use babel\';
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`printBinaryExpression.js 1`] = `
+"'use babel';
 /* @flow */
 
 /*
@@ -10,7 +12,7 @@ exports[`test printBinaryExpression.js 1`] = `
  * the root directory of this source tree.
  */
 
-import type {BinaryExpression} from \'./types\';
+import type {BinaryExpression} from './types';
 
 function printBinaryExpression(
   node: BinaryExpression,
@@ -20,7 +22,7 @@ function printBinaryExpression(
 
 module.exports = printBinaryExpression;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\"use babel\";
+\\"use babel\\";
 /* @flow */
 
 /*
@@ -31,7 +33,7 @@ module.exports = printBinaryExpression;
  * the root directory of this source tree.
  */
 
-import type { BinaryExpression } from \"./types\";
+import type { BinaryExpression } from \\"./types\\";
 
 function printBinaryExpression(node: BinaryExpression) {
   console.log(node);
@@ -41,12 +43,12 @@ module.exports = printBinaryExpression;
 "
 `;
 
-exports[`test types.js 1`] = `
+exports[`types.js 1`] = `
 "/**
  * @flow
  */
 
-\'use strict\';
+'use strict';
 
 /*
  * Flow types for the Babylon AST.
@@ -55,7 +57,7 @@ exports[`test types.js 1`] = `
 // Abstract types. Something must extend these.
 
 export type Comment = {
-  type: \'CommentLine\';
+  type: 'CommentLine';
   _CommentLine: void;
   value: string;
   end: number;
@@ -65,7 +67,7 @@ export type Comment = {
   };
   start: number;
 } | {
-  type: \'CommentBlock\';
+  type: 'CommentBlock';
   _CommentBlock: void;
   value: string;
   end: number;
@@ -77,7 +79,7 @@ export type Comment = {
 };
 
 export type Declaration = {
-  type: \'ClassBody\';
+  type: 'ClassBody';
   _ClassBody: void;
   body: Array<Node>;
   end: number;
@@ -90,7 +92,7 @@ export type Declaration = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ClassDeclaration\';
+  type: 'ClassDeclaration';
   _ClassDeclaration: void;
   body: ClassBody;
   id: ?Identifier;
@@ -108,7 +110,7 @@ export type Declaration = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'FunctionDeclaration\';
+  type: 'FunctionDeclaration';
   _FunctionDeclaration: void;
   body: BlockStatement;
   id: Identifier;
@@ -130,11 +132,11 @@ export type Declaration = {
   returnType: ?TypeAnnotation;
   typeParameters: ?TypeParameterDeclaration;
 } | {
-  type: \'MethodDefinition\';
+  type: 'MethodDefinition';
   _MethodDefinition: void;
   computed: boolean;
   key: Node;
-  kind: \'constructor\' | \'method\' | \'get\' | \'set\';
+  kind: 'constructor' | 'method' | 'get' | 'set';
   static: boolean;
   value: FunctionExpression;
   decorators: ?Array<Decorator>;
@@ -148,10 +150,10 @@ export type Declaration = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'VariableDeclaration\';
+  type: 'VariableDeclaration';
   _VariableDeclaration: void;
   declarations: Array<VariableDeclarator>;
-  kind: \'var\' | \'let\' | \'const\';
+  kind: 'var' | 'let' | 'const';
   end: number;
   innerComments: ?Array<Comment>;
   leadingComments: ?Array<Comment>;
@@ -162,7 +164,7 @@ export type Declaration = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ClassProperty\';
+  type: 'ClassProperty';
   _ClassProperty: void;
   computed: boolean;
   key: Node;
@@ -182,7 +184,7 @@ export type Declaration = {
 };
 
 export type Expression = {
-  type: \'ArrayExpression\';
+  type: 'ArrayExpression';
   _ArrayExpression: void;
   elements: Array<?Node>;
   end: number;
@@ -195,7 +197,7 @@ export type Expression = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'AssignmentExpression\';
+  type: 'AssignmentExpression';
   _AssignmentExpression: void;
   left: Pattern;
   operator: AssignmentOperator;
@@ -210,7 +212,7 @@ export type Expression = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'AwaitExpression\';
+  type: 'AwaitExpression';
   _AwaitExpression: void;
   all: boolean;
   argument: ?Expression;
@@ -224,7 +226,7 @@ export type Expression = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'BinaryExpression\';
+  type: 'BinaryExpression';
   _BinaryExpression: void;
   left: Expression;
   operator: BinaryOperator;
@@ -239,7 +241,7 @@ export type Expression = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'BindExpression\';
+  type: 'BindExpression';
   _BindExpression: void;
   callee: Node;
   object: Node;
@@ -253,7 +255,7 @@ export type Expression = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'CallExpression\';
+  type: 'CallExpression';
   _CallExpression: void;
   arguments: Array<Node>;
   callee: Expression;
@@ -267,7 +269,7 @@ export type Expression = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ClassExpression\';
+  type: 'ClassExpression';
   _ClassExpression: void;
   body: ClassBody;
   id: ?Identifier;
@@ -285,7 +287,7 @@ export type Expression = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ComprehensionExpression\';
+  type: 'ComprehensionExpression';
   _ComprehensionExpression: void;
   body: Expression;
   blocks: Array<ComprehensionBlock>;
@@ -300,7 +302,7 @@ export type Expression = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ConditionalExpression\';
+  type: 'ConditionalExpression';
   _ConditionalExpression: void;
   alternate: Expression;
   consequent: Expression;
@@ -315,7 +317,7 @@ export type Expression = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'DoExpression\';
+  type: 'DoExpression';
   _DoExpression: void;
   body: Statement;
   end: number;
@@ -328,7 +330,7 @@ export type Expression = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'FunctionExpression\';
+  type: 'FunctionExpression';
   _FunctionExpression: void;
   body: BlockStatement;
   id: ?Identifier;
@@ -350,7 +352,7 @@ export type Expression = {
   returnType: ?TypeAnnotation;
   typeParameters: ?TypeParameterDeclaration;
 } | {
-  type: \'Identifier\';
+  type: 'Identifier';
   _Identifier: void;
   name: string;
   typeAnnotation: ?TypeAnnotation;
@@ -364,7 +366,7 @@ export type Expression = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'Literal\';
+  type: 'Literal';
   _Literal: void;
   raw: string;
   regex: ?{pattern: string, flags: string};
@@ -379,7 +381,7 @@ export type Expression = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'LogicalExpression\';
+  type: 'LogicalExpression';
   _LogicalExpression: void;
   left: Expression;
   operator: LogicalOperator;
@@ -394,7 +396,7 @@ export type Expression = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'MemberExpression\';
+  type: 'MemberExpression';
   _MemberExpression: void;
   computed: boolean;
   object: Expression;
@@ -409,7 +411,7 @@ export type Expression = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'NewExpression\';
+  type: 'NewExpression';
   _NewExpression: void;
   arguments: Array<Node>;
   callee: Expression;
@@ -423,7 +425,7 @@ export type Expression = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ObjectExpression\';
+  type: 'ObjectExpression';
   _ObjectExpression: void;
   properties: Array<Node>;
   end: number;
@@ -436,7 +438,7 @@ export type Expression = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'SequenceExpression\';
+  type: 'SequenceExpression';
   _SequenceExpression: void;
   expression: Array<Expression>;
   end: number;
@@ -449,7 +451,7 @@ export type Expression = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'TaggedTemplateExpression\';
+  type: 'TaggedTemplateExpression';
   _TaggedTemplateExpression: void;
   quasi: TemplateLiteral;
   tag: Expression;
@@ -463,7 +465,7 @@ export type Expression = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'TemplateLiteral\';
+  type: 'TemplateLiteral';
   _TemplateLiteral: void;
   expressions: Array<Expression>;
   quasis: Array<TemplateElement>;
@@ -477,7 +479,7 @@ export type Expression = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ThisExpression\';
+  type: 'ThisExpression';
   _ThisExpression: void;
   end: number;
   innerComments: ?Array<Comment>;
@@ -489,7 +491,7 @@ export type Expression = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'UnaryExpression\';
+  type: 'UnaryExpression';
   _UnaryExpression: void;
   argument: Expression;
   operator: UnaryOperator;
@@ -504,7 +506,7 @@ export type Expression = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'UpdateExpression\';
+  type: 'UpdateExpression';
   _UpdateExpression: void;
   argument: Expression;
   operator: UpdateOperator;
@@ -519,7 +521,7 @@ export type Expression = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'YieldExpression\';
+  type: 'YieldExpression';
   _YieldExpression: void;
   argument: ?Expression;
   delegate: boolean;
@@ -533,7 +535,7 @@ export type Expression = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'TypeCastExpression\';
+  type: 'TypeCastExpression';
   _TypeCastExpression: void;
   expression: Expression;
   typeAnnotation: TypeAnnotation;
@@ -547,7 +549,7 @@ export type Expression = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'JSXElement\';
+  type: 'JSXElement';
   _JSXElement: void;
   children: Array<Node>;
   closingElement: ?JSXClosingElement;
@@ -562,7 +564,7 @@ export type Expression = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'JSXEmptyExpression\';
+  type: 'JSXEmptyExpression';
   _JSXEmptyExpression: void;
   end: number;
   innerComments: ?Array<Comment>;
@@ -574,7 +576,7 @@ export type Expression = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'JSXExpressionContainer\';
+  type: 'JSXExpressionContainer';
   _JSXExpressionContainer: void;
   expression: Expression;
   end: number;
@@ -587,7 +589,7 @@ export type Expression = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'JSXMemberExpression\';
+  type: 'JSXMemberExpression';
   _JSXMemberExpression: void;
   computed: boolean;
   object: Node;
@@ -604,7 +606,7 @@ export type Expression = {
 };
 
 export type Function = {
-  type: \'ArrowFunctionExpression\';
+  type: 'ArrowFunctionExpression';
   _ArrowFunctionExpression: void;
   body: Node;
   id: ?Identifier;
@@ -626,7 +628,7 @@ export type Function = {
   returnType: ?TypeAnnotation;
   typeParameters: ?TypeParameterDeclaration;
 } | {
-  type: \'FunctionDeclaration\';
+  type: 'FunctionDeclaration';
   _FunctionDeclaration: void;
   body: BlockStatement;
   id: Identifier;
@@ -648,7 +650,7 @@ export type Function = {
   returnType: ?TypeAnnotation;
   typeParameters: ?TypeParameterDeclaration;
 } | {
-  type: \'FunctionExpression\';
+  type: 'FunctionExpression';
   _FunctionExpression: void;
   body: BlockStatement;
   id: ?Identifier;
@@ -672,7 +674,7 @@ export type Function = {
 };
 
 export type Node = {
-  type: \'ArrayExpression\';
+  type: 'ArrayExpression';
   _ArrayExpression: void;
   elements: Array<?Node>;
   end: number;
@@ -685,7 +687,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ArrayPattern\';
+  type: 'ArrayPattern';
   _ArrayPattern: void;
   elements: Array<?Node>;
   typeAnnotation: ?TypeAnnotation;
@@ -699,7 +701,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ArrowFunctionExpression\';
+  type: 'ArrowFunctionExpression';
   _ArrowFunctionExpression: void;
   body: Node;
   id: ?Identifier;
@@ -721,7 +723,7 @@ export type Node = {
   returnType: ?TypeAnnotation;
   typeParameters: ?TypeParameterDeclaration;
 } | {
-  type: \'AssignmentExpression\';
+  type: 'AssignmentExpression';
   _AssignmentExpression: void;
   left: Pattern;
   operator: AssignmentOperator;
@@ -736,7 +738,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'AssignmentPattern\';
+  type: 'AssignmentPattern';
   _AssignmentPattern: void;
   left: Pattern;
   right: Expression;
@@ -750,7 +752,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'AwaitExpression\';
+  type: 'AwaitExpression';
   _AwaitExpression: void;
   all: boolean;
   argument: ?Expression;
@@ -764,7 +766,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'BinaryExpression\';
+  type: 'BinaryExpression';
   _BinaryExpression: void;
   left: Expression;
   operator: BinaryOperator;
@@ -779,7 +781,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'BindExpression\';
+  type: 'BindExpression';
   _BindExpression: void;
   callee: Node;
   object: Node;
@@ -793,7 +795,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'BlockStatement\';
+  type: 'BlockStatement';
   _BlockStatement: void;
   body: Array<Statement>;
   end: number;
@@ -806,7 +808,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'BreakStatement\';
+  type: 'BreakStatement';
   _BreakStatement: void;
   label: ?Identifier;
   end: number;
@@ -819,7 +821,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'CallExpression\';
+  type: 'CallExpression';
   _CallExpression: void;
   arguments: Array<Node>;
   callee: Expression;
@@ -833,7 +835,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'CatchClause\';
+  type: 'CatchClause';
   _CatchClause: void;
   body: BlockStatement;
   param: Pattern;
@@ -847,7 +849,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ClassBody\';
+  type: 'ClassBody';
   _ClassBody: void;
   body: Array<Node>;
   end: number;
@@ -860,7 +862,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ClassDeclaration\';
+  type: 'ClassDeclaration';
   _ClassDeclaration: void;
   body: ClassBody;
   id: ?Identifier;
@@ -878,7 +880,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ClassExpression\';
+  type: 'ClassExpression';
   _ClassExpression: void;
   body: ClassBody;
   id: ?Identifier;
@@ -896,7 +898,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ComprehensionBlock\';
+  type: 'ComprehensionBlock';
   _ComprehensionBlock: void;
   each: boolean;
   left: Pattern;
@@ -911,7 +913,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ComprehensionExpression\';
+  type: 'ComprehensionExpression';
   _ComprehensionExpression: void;
   body: Expression;
   blocks: Array<ComprehensionBlock>;
@@ -926,7 +928,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ConditionalExpression\';
+  type: 'ConditionalExpression';
   _ConditionalExpression: void;
   alternate: Expression;
   consequent: Expression;
@@ -941,7 +943,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ContinueStatement\';
+  type: 'ContinueStatement';
   _ContinueStatement: void;
   label: ?Identifier;
   end: number;
@@ -954,7 +956,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'Decorator\';
+  type: 'Decorator';
   _Decorator: void;
   expression: Expression;
   end: number;
@@ -967,7 +969,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'DebuggerStatement\';
+  type: 'DebuggerStatement';
   _DebuggerStatement: void;
   end: number;
   innerComments: ?Array<Comment>;
@@ -979,7 +981,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'DoWhileStatement\';
+  type: 'DoWhileStatement';
   _DoWhileStatement: void;
   body: Statement;
   test: Expression;
@@ -993,7 +995,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'DoExpression\';
+  type: 'DoExpression';
   _DoExpression: void;
   body: Statement;
   end: number;
@@ -1006,7 +1008,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'EmptyStatement\';
+  type: 'EmptyStatement';
   _EmptyStatement: void;
   end: number;
   innerComments: ?Array<Comment>;
@@ -1018,7 +1020,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ExpressionStatement\';
+  type: 'ExpressionStatement';
   _ExpressionStatement: void;
   expression: Expression;
   end: number;
@@ -1031,7 +1033,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'File\';
+  type: 'File';
   _File: void;
   program: Program;
   end: number;
@@ -1044,7 +1046,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ForInStatement\';
+  type: 'ForInStatement';
   _ForInStatement: void;
   body: Statement;
   left: Node;
@@ -1059,7 +1061,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ForOfStatement\';
+  type: 'ForOfStatement';
   _ForOfStatement: void;
   body: Statement;
   left: Node;
@@ -1074,7 +1076,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ForStatement\';
+  type: 'ForStatement';
   _ForStatement: void;
   init: ?Node;
   test: ?Expression;
@@ -1090,7 +1092,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'FunctionDeclaration\';
+  type: 'FunctionDeclaration';
   _FunctionDeclaration: void;
   body: BlockStatement;
   id: Identifier;
@@ -1112,7 +1114,7 @@ export type Node = {
   returnType: ?TypeAnnotation;
   typeParameters: ?TypeParameterDeclaration;
 } | {
-  type: \'FunctionExpression\';
+  type: 'FunctionExpression';
   _FunctionExpression: void;
   body: BlockStatement;
   id: ?Identifier;
@@ -1134,7 +1136,7 @@ export type Node = {
   returnType: ?TypeAnnotation;
   typeParameters: ?TypeParameterDeclaration;
 } | {
-  type: \'Identifier\';
+  type: 'Identifier';
   _Identifier: void;
   name: string;
   typeAnnotation: ?TypeAnnotation;
@@ -1148,7 +1150,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'IfStatement\';
+  type: 'IfStatement';
   _IfStatement: void;
   alternate: ?Statement;
   consequent: Statement;
@@ -1163,7 +1165,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ImportDefaultSpecifier\';
+  type: 'ImportDefaultSpecifier';
   _ImportDefaultSpecifier: void;
   local: Node;
   end: number;
@@ -1176,7 +1178,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ImportNamespaceSpecifier\';
+  type: 'ImportNamespaceSpecifier';
   _ImportNamespaceSpecifier: void;
   local: Node;
   end: number;
@@ -1189,7 +1191,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ImportDeclaration\';
+  type: 'ImportDeclaration';
   _ImportDeclaration: void;
   specifiers: Array<Node>;
   source: Literal;
@@ -1203,7 +1205,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ImportSpecifier\';
+  type: 'ImportSpecifier';
   _ImportSpecifier: void;
   imported: Node;
   local: Node;
@@ -1217,7 +1219,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'LabeledStatement\';
+  type: 'LabeledStatement';
   _LabeledStatement: void;
   body: Statement;
   label: Identifier;
@@ -1231,7 +1233,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'Literal\';
+  type: 'Literal';
   _Literal: void;
   raw: string;
   regex: ?{pattern: string, flags: string};
@@ -1246,7 +1248,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'LogicalExpression\';
+  type: 'LogicalExpression';
   _LogicalExpression: void;
   left: Expression;
   operator: LogicalOperator;
@@ -1261,7 +1263,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'MemberExpression\';
+  type: 'MemberExpression';
   _MemberExpression: void;
   computed: boolean;
   object: Expression;
@@ -1276,7 +1278,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'MetaProperty\';
+  type: 'MetaProperty';
   _MetaProperty: void;
   meta: Node;
   property: Node;
@@ -1290,11 +1292,11 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'MethodDefinition\';
+  type: 'MethodDefinition';
   _MethodDefinition: void;
   computed: boolean;
   key: Node;
-  kind: \'constructor\' | \'method\' | \'get\' | \'set\';
+  kind: 'constructor' | 'method' | 'get' | 'set';
   static: boolean;
   value: FunctionExpression;
   decorators: ?Array<Decorator>;
@@ -1308,7 +1310,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'NewExpression\';
+  type: 'NewExpression';
   _NewExpression: void;
   arguments: Array<Node>;
   callee: Expression;
@@ -1322,7 +1324,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'Noop\';
+  type: 'Noop';
   _Noop: void;
   end: number;
   innerComments: ?Array<Comment>;
@@ -1334,7 +1336,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ObjectExpression\';
+  type: 'ObjectExpression';
   _ObjectExpression: void;
   properties: Array<Node>;
   end: number;
@@ -1347,7 +1349,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ObjectPattern\';
+  type: 'ObjectPattern';
   _ObjectPattern: void;
   properties: Array<Node>;
   typeAnnotation: ?TypeAnnotation;
@@ -1361,7 +1363,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'Program\';
+  type: 'Program';
   _Program: void;
   body: Array<Statement>;
   end: number;
@@ -1374,11 +1376,11 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'Property\';
+  type: 'Property';
   _Property: void;
   computed: boolean;
   key: Node;
-  kind: \'init\' | \'get\' | \'set\';
+  kind: 'init' | 'get' | 'set';
   method: boolean;
   shorthand: boolean;
   value: Node;
@@ -1393,7 +1395,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'RestElement\';
+  type: 'RestElement';
   _RestElement: void;
   argument: Pattern;
   typeAnnotation: ?TypeAnnotation;
@@ -1407,7 +1409,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ReturnStatement\';
+  type: 'ReturnStatement';
   _ReturnStatement: void;
   argument: ?Expression;
   end: number;
@@ -1420,7 +1422,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'SequenceExpression\';
+  type: 'SequenceExpression';
   _SequenceExpression: void;
   expression: Array<Expression>;
   end: number;
@@ -1433,7 +1435,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'SpreadElement\';
+  type: 'SpreadElement';
   _SpreadElement: void;
   argument: Expression;
   end: number;
@@ -1446,7 +1448,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'SpreadProperty\';
+  type: 'SpreadProperty';
   _SpreadProperty: void;
   argument: Expression;
   end: number;
@@ -1459,7 +1461,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'Super\';
+  type: 'Super';
   _Super: void;
   end: number;
   innerComments: ?Array<Comment>;
@@ -1471,7 +1473,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'SwitchCase\';
+  type: 'SwitchCase';
   _SwitchCase: void;
   consequent: Array<Statement>;
   test: ?Expression;
@@ -1485,7 +1487,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'SwitchStatement\';
+  type: 'SwitchStatement';
   _SwitchStatement: void;
   cases: Array<SwitchCase>;
   discriminant: Expression;
@@ -1500,7 +1502,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'TaggedTemplateExpression\';
+  type: 'TaggedTemplateExpression';
   _TaggedTemplateExpression: void;
   quasi: TemplateLiteral;
   tag: Expression;
@@ -1514,7 +1516,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'TemplateElement\';
+  type: 'TemplateElement';
   _TemplateElement: void;
   tail: boolean;
   value: {cooked: string, raw: string};
@@ -1528,7 +1530,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'TemplateLiteral\';
+  type: 'TemplateLiteral';
   _TemplateLiteral: void;
   expressions: Array<Expression>;
   quasis: Array<TemplateElement>;
@@ -1542,7 +1544,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ThisExpression\';
+  type: 'ThisExpression';
   _ThisExpression: void;
   end: number;
   innerComments: ?Array<Comment>;
@@ -1554,7 +1556,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ThrowStatement\';
+  type: 'ThrowStatement';
   _ThrowStatement: void;
   argument: Expression;
   end: number;
@@ -1567,7 +1569,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'TryStatement\';
+  type: 'TryStatement';
   _TryStatement: void;
   block: BlockStatement;
   finalizer: ?BlockStatement;
@@ -1584,7 +1586,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'UnaryExpression\';
+  type: 'UnaryExpression';
   _UnaryExpression: void;
   argument: Expression;
   operator: UnaryOperator;
@@ -1599,7 +1601,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'UpdateExpression\';
+  type: 'UpdateExpression';
   _UpdateExpression: void;
   argument: Expression;
   operator: UpdateOperator;
@@ -1614,10 +1616,10 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'VariableDeclaration\';
+  type: 'VariableDeclaration';
   _VariableDeclaration: void;
   declarations: Array<VariableDeclarator>;
-  kind: \'var\' | \'let\' | \'const\';
+  kind: 'var' | 'let' | 'const';
   end: number;
   innerComments: ?Array<Comment>;
   leadingComments: ?Array<Comment>;
@@ -1628,7 +1630,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'VariableDeclarator\';
+  type: 'VariableDeclarator';
   _VariableDeclarator: void;
   id: Pattern;
   init: ?Expression;
@@ -1642,7 +1644,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'WhileStatement\';
+  type: 'WhileStatement';
   _WhileStatement: void;
   body: Statement;
   test: Expression;
@@ -1656,7 +1658,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'WithStatement\';
+  type: 'WithStatement';
   _WithStatement: void;
   body: Statement;
   object: Expression;
@@ -1670,7 +1672,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'YieldExpression\';
+  type: 'YieldExpression';
   _YieldExpression: void;
   argument: ?Expression;
   delegate: boolean;
@@ -1684,7 +1686,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ExportAllDeclaration\';
+  type: 'ExportAllDeclaration';
   _ExportAllDeclaration: void;
   exported: Node;
   source: Node;
@@ -1698,7 +1700,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ExportDefaultDeclaration\';
+  type: 'ExportDefaultDeclaration';
   _ExportDefaultDeclaration: void;
   declaration: Node;
   end: number;
@@ -1711,7 +1713,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ExportNamedDeclaration\';
+  type: 'ExportNamedDeclaration';
   _ExportNamedDeclaration: void;
   declaration: Node;
   source: Literal;
@@ -1726,7 +1728,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ExportDefaultSpecifier\';
+  type: 'ExportDefaultSpecifier';
   _ExportDefaultSpecifier: void;
   exported: Node;
   end: number;
@@ -1739,7 +1741,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ExportNamespaceSpecifier\';
+  type: 'ExportNamespaceSpecifier';
   _ExportNamespaceSpecifier: void;
   exported: Node;
   end: number;
@@ -1752,7 +1754,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ExportSpecifier\';
+  type: 'ExportSpecifier';
   _ExportSpecifier: void;
   local: Node;
   exported: Node;
@@ -1766,7 +1768,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'AnyTypeAnnotation\';
+  type: 'AnyTypeAnnotation';
   _AnyTypeAnnotation: void;
   end: number;
   innerComments: ?Array<Comment>;
@@ -1778,7 +1780,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ArrayTypeAnnotation\';
+  type: 'ArrayTypeAnnotation';
   _ArrayTypeAnnotation: void;
   elementType: Type;
   end: number;
@@ -1791,7 +1793,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'BooleanLiteralTypeAnnotation\';
+  type: 'BooleanLiteralTypeAnnotation';
   _BooleanLiteralTypeAnnotation: void;
   raw: string;
   value: boolean;
@@ -1805,7 +1807,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'BooleanTypeAnnotation\';
+  type: 'BooleanTypeAnnotation';
   _BooleanTypeAnnotation: void;
   end: number;
   innerComments: ?Array<Comment>;
@@ -1817,7 +1819,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ClassImplements\';
+  type: 'ClassImplements';
   _ClassImplements: void;
   id: Identifier;
   typeParameters: ?TypeParameterInstantiation;
@@ -1832,7 +1834,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ClassProperty\';
+  type: 'ClassProperty';
   _ClassProperty: void;
   computed: boolean;
   key: Node;
@@ -1850,7 +1852,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'DeclareClass\';
+  type: 'DeclareClass';
   _DeclareClass: void;
   body: ObjectTypeAnnotation;
   extends: Array<InterfaceExtends>;
@@ -1866,7 +1868,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'DeclareFunction\';
+  type: 'DeclareFunction';
   _DeclareFunction: void;
   id: Identifier;
   end: number;
@@ -1879,7 +1881,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'DeclareModule\';
+  type: 'DeclareModule';
   _DeclareModule: void;
   body: BlockStatement;
   id: Node;
@@ -1893,7 +1895,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'DeclareVariable\';
+  type: 'DeclareVariable';
   _DeclareVariable: void;
   id: Identifier;
   end: number;
@@ -1906,7 +1908,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'FunctionTypeAnnotation\';
+  type: 'FunctionTypeAnnotation';
   _FunctionTypeAnnotation: void;
   params: Array<FunctionTypeParam>;
   rest: ?FunctionTypeParam;
@@ -1922,7 +1924,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'FunctionTypeParam\';
+  type: 'FunctionTypeParam';
   _FunctionTypeParam: void;
   name: Identifier;
   optional: boolean;
@@ -1937,7 +1939,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'GenericTypeAnnotation\';
+  type: 'GenericTypeAnnotation';
   _GenericTypeAnnotation: void;
   id: Node;
   typeParameters: ?TypeParameterInstantiation;
@@ -1951,7 +1953,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'InterfaceExtends\';
+  type: 'InterfaceExtends';
   _InterfaceExtends: void;
   id: Identifier;
   typeParameters: ?TypeParameterInstantiation;
@@ -1965,7 +1967,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'InterfaceDeclaration\';
+  type: 'InterfaceDeclaration';
   _InterfaceDeclaration: void;
   body: ObjectTypeAnnotation;
   extends: Array<InterfaceExtends>;
@@ -1981,7 +1983,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'IntersectionTypeAnnotation\';
+  type: 'IntersectionTypeAnnotation';
   _IntersectionTypeAnnotation: void;
   types: Array<Type>;
   end: number;
@@ -1994,7 +1996,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'MixedTypeAnnotation\';
+  type: 'MixedTypeAnnotation';
   _MixedTypeAnnotation: void;
   end: number;
   innerComments: ?Array<Comment>;
@@ -2006,7 +2008,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'NullableTypeAnnotation\';
+  type: 'NullableTypeAnnotation';
   _NullableTypeAnnotation: void;
   typeAnnotation: Type;
   end: number;
@@ -2019,7 +2021,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'NumberLiteralTypeAnnotation\';
+  type: 'NumberLiteralTypeAnnotation';
   _NumberLiteralTypeAnnotation: void;
   raw: string;
   value: number;
@@ -2033,7 +2035,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'NumberTypeAnnotation\';
+  type: 'NumberTypeAnnotation';
   _NumberTypeAnnotation: void;
   end: number;
   innerComments: ?Array<Comment>;
@@ -2045,7 +2047,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'StringLiteralTypeAnnotation\';
+  type: 'StringLiteralTypeAnnotation';
   _StringLiteralTypeAnnotation: void;
   raw: string;
   value: string;
@@ -2059,7 +2061,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'StringTypeAnnotation\';
+  type: 'StringTypeAnnotation';
   _StringTypeAnnotation: void;
   end: number;
   innerComments: ?Array<Comment>;
@@ -2071,7 +2073,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'TupleTypeAnnotation\';
+  type: 'TupleTypeAnnotation';
   _TupleTypeAnnotation: void;
   types: Array<Type>;
   end: number;
@@ -2084,7 +2086,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'TypeofTypeAnnotation\';
+  type: 'TypeofTypeAnnotation';
   _TypeofTypeAnnotation: void;
   argument: Type;
   end: number;
@@ -2097,7 +2099,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'TypeAlias\';
+  type: 'TypeAlias';
   _TypeAlias: void;
   id: Identifier;
   right: Type;
@@ -2112,7 +2114,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'TypeAnnotation\';
+  type: 'TypeAnnotation';
   _TypeAnnotation: void;
   typeAnnotation: Type;
   end: number;
@@ -2125,7 +2127,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'TypeCastExpression\';
+  type: 'TypeCastExpression';
   _TypeCastExpression: void;
   expression: Expression;
   typeAnnotation: TypeAnnotation;
@@ -2139,7 +2141,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'TypeParameterDeclaration\';
+  type: 'TypeParameterDeclaration';
   _TypeParameterDeclaration: void;
   params: Array<Identifier>;
   end: number;
@@ -2152,7 +2154,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'TypeParameterInstantiation\';
+  type: 'TypeParameterInstantiation';
   _TypeParameterInstantiation: void;
   params: Array<Type>;
   end: number;
@@ -2165,7 +2167,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ObjectTypeAnnotation\';
+  type: 'ObjectTypeAnnotation';
   _ObjectTypeAnnotation: void;
   callProperties: Array<ObjectTypeCallProperty>;
   indexers: Array<ObjectTypeIndexer>;
@@ -2180,7 +2182,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ObjectTypeCallProperty\';
+  type: 'ObjectTypeCallProperty';
   _ObjectTypeCallProperty: void;
   static: boolean;
   value: FunctionTypeAnnotation;
@@ -2194,7 +2196,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ObjectTypeIndexer\';
+  type: 'ObjectTypeIndexer';
   _ObjectTypeIndexer: void;
   id: Identifier;
   key: Type;
@@ -2209,7 +2211,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ObjectTypeProperty\';
+  type: 'ObjectTypeProperty';
   _ObjectTypeProperty: void;
   key: Node;
   optional: boolean;
@@ -2224,7 +2226,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'QualifiedTypeIdentifier\';
+  type: 'QualifiedTypeIdentifier';
   _QualifiedTypeIdentifier: void;
   id: Identifier;
   qualification: Node;
@@ -2238,7 +2240,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'UnionTypeAnnotation\';
+  type: 'UnionTypeAnnotation';
   _UnionTypeAnnotation: void;
   types: Array<Type>;
   end: number;
@@ -2251,7 +2253,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'VoidTypeAnnotation\';
+  type: 'VoidTypeAnnotation';
   _VoidTypeAnnotation: void;
   end: number;
   innerComments: ?Array<Comment>;
@@ -2263,7 +2265,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'JSXAttribute\';
+  type: 'JSXAttribute';
   _JSXAttribute: void;
   name: Node;
   value: ?Node;
@@ -2277,7 +2279,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'JSXClosingElement\';
+  type: 'JSXClosingElement';
   _JSXClosingElement: void;
   name: Node;
   end: number;
@@ -2290,7 +2292,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'JSXElement\';
+  type: 'JSXElement';
   _JSXElement: void;
   children: Array<Node>;
   closingElement: ?JSXClosingElement;
@@ -2305,7 +2307,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'JSXEmptyExpression\';
+  type: 'JSXEmptyExpression';
   _JSXEmptyExpression: void;
   end: number;
   innerComments: ?Array<Comment>;
@@ -2317,7 +2319,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'JSXExpressionContainer\';
+  type: 'JSXExpressionContainer';
   _JSXExpressionContainer: void;
   expression: Expression;
   end: number;
@@ -2330,7 +2332,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'JSXIdentifier\';
+  type: 'JSXIdentifier';
   _JSXIdentifier: void;
   name: string;
   end: number;
@@ -2343,7 +2345,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'JSXMemberExpression\';
+  type: 'JSXMemberExpression';
   _JSXMemberExpression: void;
   computed: boolean;
   object: Node;
@@ -2358,7 +2360,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'JSXNamespacedName\';
+  type: 'JSXNamespacedName';
   _JSXNamespacedName: void;
   name: JSXIdentifier;
   namespace: JSXIdentifier;
@@ -2372,7 +2374,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'JSXOpeningElement\';
+  type: 'JSXOpeningElement';
   _JSXOpeningElement: void;
   attributes: Array<Node>;
   name: Array<Node>;
@@ -2387,7 +2389,7 @@ export type Node = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'JSXSpreadAttribute\';
+  type: 'JSXSpreadAttribute';
   _JSXSpreadAttribute: void;
   argument: Expression;
   end: number;
@@ -2402,7 +2404,7 @@ export type Node = {
 };
 
 export type Pattern = {
-  type: \'ArrayPattern\';
+  type: 'ArrayPattern';
   _ArrayPattern: void;
   elements: Array<?Node>;
   typeAnnotation: ?TypeAnnotation;
@@ -2416,7 +2418,7 @@ export type Pattern = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'AssignmentPattern\';
+  type: 'AssignmentPattern';
   _AssignmentPattern: void;
   left: Pattern;
   right: Expression;
@@ -2430,7 +2432,7 @@ export type Pattern = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'Identifier\';
+  type: 'Identifier';
   _Identifier: void;
   name: string;
   typeAnnotation: ?TypeAnnotation;
@@ -2444,7 +2446,7 @@ export type Pattern = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ObjectPattern\';
+  type: 'ObjectPattern';
   _ObjectPattern: void;
   properties: Array<Node>;
   typeAnnotation: ?TypeAnnotation;
@@ -2458,7 +2460,7 @@ export type Pattern = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'RestElement\';
+  type: 'RestElement';
   _RestElement: void;
   argument: Pattern;
   typeAnnotation: ?TypeAnnotation;
@@ -2474,7 +2476,7 @@ export type Pattern = {
 };
 
 export type Statement = {
-  type: \'BlockStatement\';
+  type: 'BlockStatement';
   _BlockStatement: void;
   body: Array<Statement>;
   end: number;
@@ -2487,7 +2489,7 @@ export type Statement = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'BreakStatement\';
+  type: 'BreakStatement';
   _BreakStatement: void;
   label: ?Identifier;
   end: number;
@@ -2500,7 +2502,7 @@ export type Statement = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ContinueStatement\';
+  type: 'ContinueStatement';
   _ContinueStatement: void;
   label: ?Identifier;
   end: number;
@@ -2513,7 +2515,7 @@ export type Statement = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'DoWhileStatement\';
+  type: 'DoWhileStatement';
   _DoWhileStatement: void;
   body: Statement;
   test: Expression;
@@ -2527,7 +2529,7 @@ export type Statement = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'EmptyStatement\';
+  type: 'EmptyStatement';
   _EmptyStatement: void;
   end: number;
   innerComments: ?Array<Comment>;
@@ -2539,7 +2541,7 @@ export type Statement = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ExpressionStatement\';
+  type: 'ExpressionStatement';
   _ExpressionStatement: void;
   expression: Expression;
   end: number;
@@ -2552,7 +2554,7 @@ export type Statement = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ForInStatement\';
+  type: 'ForInStatement';
   _ForInStatement: void;
   body: Statement;
   left: Node;
@@ -2567,7 +2569,7 @@ export type Statement = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ForOfStatement\';
+  type: 'ForOfStatement';
   _ForOfStatement: void;
   body: Statement;
   left: Node;
@@ -2582,7 +2584,7 @@ export type Statement = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ForStatement\';
+  type: 'ForStatement';
   _ForStatement: void;
   init: ?Node;
   test: ?Expression;
@@ -2598,7 +2600,7 @@ export type Statement = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'IfStatement\';
+  type: 'IfStatement';
   _IfStatement: void;
   alternate: ?Statement;
   consequent: Statement;
@@ -2613,7 +2615,7 @@ export type Statement = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'LabeledStatement\';
+  type: 'LabeledStatement';
   _LabeledStatement: void;
   body: Statement;
   label: Identifier;
@@ -2627,7 +2629,7 @@ export type Statement = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ReturnStatement\';
+  type: 'ReturnStatement';
   _ReturnStatement: void;
   argument: ?Expression;
   end: number;
@@ -2640,7 +2642,7 @@ export type Statement = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'SwitchStatement\';
+  type: 'SwitchStatement';
   _SwitchStatement: void;
   cases: Array<SwitchCase>;
   discriminant: Expression;
@@ -2655,7 +2657,7 @@ export type Statement = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ThrowStatement\';
+  type: 'ThrowStatement';
   _ThrowStatement: void;
   argument: Expression;
   end: number;
@@ -2668,7 +2670,7 @@ export type Statement = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'TryStatement\';
+  type: 'TryStatement';
   _TryStatement: void;
   block: BlockStatement;
   finalizer: ?BlockStatement;
@@ -2685,7 +2687,7 @@ export type Statement = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'WhileStatement\';
+  type: 'WhileStatement';
   _WhileStatement: void;
   body: Statement;
   test: Expression;
@@ -2699,7 +2701,7 @@ export type Statement = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'WithStatement\';
+  type: 'WithStatement';
   _WithStatement: void;
   body: Statement;
   object: Expression;
@@ -2713,7 +2715,7 @@ export type Statement = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'DeclareClass\';
+  type: 'DeclareClass';
   _DeclareClass: void;
   body: ObjectTypeAnnotation;
   extends: Array<InterfaceExtends>;
@@ -2729,7 +2731,7 @@ export type Statement = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'DeclareFunction\';
+  type: 'DeclareFunction';
   _DeclareFunction: void;
   id: Identifier;
   end: number;
@@ -2742,7 +2744,7 @@ export type Statement = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'DeclareModule\';
+  type: 'DeclareModule';
   _DeclareModule: void;
   body: BlockStatement;
   id: Node;
@@ -2756,7 +2758,7 @@ export type Statement = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'DeclareVariable\';
+  type: 'DeclareVariable';
   _DeclareVariable: void;
   id: Identifier;
   end: number;
@@ -2769,7 +2771,7 @@ export type Statement = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'InterfaceDeclaration\';
+  type: 'InterfaceDeclaration';
   _InterfaceDeclaration: void;
   body: ObjectTypeAnnotation;
   extends: Array<InterfaceExtends>;
@@ -2785,7 +2787,7 @@ export type Statement = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'TypeAlias\';
+  type: 'TypeAlias';
   _TypeAlias: void;
   id: Identifier;
   right: Type;
@@ -2802,7 +2804,7 @@ export type Statement = {
 };
 
 export type Type = {
-  type: \'AnyTypeAnnotation\';
+  type: 'AnyTypeAnnotation';
   _AnyTypeAnnotation: void;
   end: number;
   innerComments: ?Array<Comment>;
@@ -2814,7 +2816,7 @@ export type Type = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ArrayTypeAnnotation\';
+  type: 'ArrayTypeAnnotation';
   _ArrayTypeAnnotation: void;
   elementType: Type;
   end: number;
@@ -2827,7 +2829,7 @@ export type Type = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'BooleanLiteralTypeAnnotation\';
+  type: 'BooleanLiteralTypeAnnotation';
   _BooleanLiteralTypeAnnotation: void;
   raw: string;
   value: boolean;
@@ -2841,7 +2843,7 @@ export type Type = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'BooleanTypeAnnotation\';
+  type: 'BooleanTypeAnnotation';
   _BooleanTypeAnnotation: void;
   end: number;
   innerComments: ?Array<Comment>;
@@ -2853,7 +2855,7 @@ export type Type = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'FunctionTypeAnnotation\';
+  type: 'FunctionTypeAnnotation';
   _FunctionTypeAnnotation: void;
   params: Array<FunctionTypeParam>;
   rest: ?FunctionTypeParam;
@@ -2869,7 +2871,7 @@ export type Type = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'GenericTypeAnnotation\';
+  type: 'GenericTypeAnnotation';
   _GenericTypeAnnotation: void;
   id: Node;
   typeParameters: ?TypeParameterInstantiation;
@@ -2883,7 +2885,7 @@ export type Type = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'IntersectionTypeAnnotation\';
+  type: 'IntersectionTypeAnnotation';
   _IntersectionTypeAnnotation: void;
   types: Array<Type>;
   end: number;
@@ -2896,7 +2898,7 @@ export type Type = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'MixedTypeAnnotation\';
+  type: 'MixedTypeAnnotation';
   _MixedTypeAnnotation: void;
   end: number;
   innerComments: ?Array<Comment>;
@@ -2908,7 +2910,7 @@ export type Type = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'NullableTypeAnnotation\';
+  type: 'NullableTypeAnnotation';
   _NullableTypeAnnotation: void;
   typeAnnotation: Type;
   end: number;
@@ -2921,7 +2923,7 @@ export type Type = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'NumberLiteralTypeAnnotation\';
+  type: 'NumberLiteralTypeAnnotation';
   _NumberLiteralTypeAnnotation: void;
   raw: string;
   value: number;
@@ -2935,7 +2937,7 @@ export type Type = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'NumberTypeAnnotation\';
+  type: 'NumberTypeAnnotation';
   _NumberTypeAnnotation: void;
   end: number;
   innerComments: ?Array<Comment>;
@@ -2947,7 +2949,7 @@ export type Type = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'StringLiteralTypeAnnotation\';
+  type: 'StringLiteralTypeAnnotation';
   _StringLiteralTypeAnnotation: void;
   raw: string;
   value: string;
@@ -2961,7 +2963,7 @@ export type Type = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'StringTypeAnnotation\';
+  type: 'StringTypeAnnotation';
   _StringTypeAnnotation: void;
   end: number;
   innerComments: ?Array<Comment>;
@@ -2973,7 +2975,7 @@ export type Type = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'TupleTypeAnnotation\';
+  type: 'TupleTypeAnnotation';
   _TupleTypeAnnotation: void;
   types: Array<Type>;
   end: number;
@@ -2986,7 +2988,7 @@ export type Type = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'ObjectTypeAnnotation\';
+  type: 'ObjectTypeAnnotation';
   _ObjectTypeAnnotation: void;
   callProperties: Array<ObjectTypeCallProperty>;
   indexers: Array<ObjectTypeIndexer>;
@@ -3001,7 +3003,7 @@ export type Type = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'UnionTypeAnnotation\';
+  type: 'UnionTypeAnnotation';
   _UnionTypeAnnotation: void;
   types: Array<Type>;
   end: number;
@@ -3014,7 +3016,7 @@ export type Type = {
   start: number;
   trailingComments: ?Array<Comment>;
 } | {
-  type: \'VoidTypeAnnotation\';
+  type: 'VoidTypeAnnotation';
   _VoidTypeAnnotation: void;
   end: number;
   innerComments: ?Array<Comment>;
@@ -3030,7 +3032,7 @@ export type Type = {
 // Concrete Types. Nothing can extend these.
 
 export type CommentLine = {
-  type: \'CommentLine\';
+  type: 'CommentLine';
   _CommentLine: void;
   value: string;
   end: number;
@@ -3042,7 +3044,7 @@ export type CommentLine = {
 };
 
 export type CommentBlock = {
-  type: \'CommentBlock\';
+  type: 'CommentBlock';
   _CommentBlock: void;
   value: string;
   end: number;
@@ -3056,7 +3058,7 @@ export type CommentBlock = {
 // Babel concrete types.
 
 export type ArrayExpression = {
-  type: \'ArrayExpression\';
+  type: 'ArrayExpression';
   _ArrayExpression: void;
   elements: Array<?Node>;
   end: number;
@@ -3071,7 +3073,7 @@ export type ArrayExpression = {
 };
 
 export type ArrayPattern = {
-  type: \'ArrayPattern\';
+  type: 'ArrayPattern';
   _ArrayPattern: void;
   elements: Array<?Node>;
   typeAnnotation: ?TypeAnnotation;
@@ -3087,7 +3089,7 @@ export type ArrayPattern = {
 };
 
 export type ArrowFunctionExpression = {
-  type: \'ArrowFunctionExpression\';
+  type: 'ArrowFunctionExpression';
   _ArrowFunctionExpression: void;
   body: Node;
   id: ?Identifier;
@@ -3111,21 +3113,21 @@ export type ArrowFunctionExpression = {
 };
 
 type AssignmentOperator =
-  \'=\' |
-  \'+=\' |
-  \'-=\' |
-  \'*=\' |
-  \'/=\' |
-  \'%=\' |
-  \'<<=\' |
-  \'>>=\' |
-  \'>>>=\' |
-  \'|=\' |
-  \'^=\' |
-  \'&=\';
+  '=' |
+  '+=' |
+  '-=' |
+  '*=' |
+  '/=' |
+  '%=' |
+  '<<=' |
+  '>>=' |
+  '>>>=' |
+  '|=' |
+  '^=' |
+  '&=';
 
 export type AssignmentExpression = {
-  type: \'AssignmentExpression\';
+  type: 'AssignmentExpression';
   _AssignmentExpression: void;
   left: Pattern;
   operator: AssignmentOperator;
@@ -3142,7 +3144,7 @@ export type AssignmentExpression = {
 };
 
 export type AssignmentPattern = {
-  type: \'AssignmentPattern\';
+  type: 'AssignmentPattern';
   _AssignmentPattern: void;
   left: Pattern;
   right: Expression;
@@ -3158,7 +3160,7 @@ export type AssignmentPattern = {
 };
 
 export type AwaitExpression = {
-  type: \'AwaitExpression\';
+  type: 'AwaitExpression';
   _AwaitExpression: void;
   all: boolean;
   argument: ?Expression;
@@ -3174,31 +3176,31 @@ export type AwaitExpression = {
 };
 
 type BinaryOperator =
-  \'==\' |
-  \'!=\' |
-  \'===\' |
-  \'!==\' |
-  \'<\' |
-  \'<=\' |
-  \'>\' |
-  \'>=\' |
-  \'<<\' |
-  \'>>\' |
-  \'>>>\' |
-  \'+\' |
-  \'-\' |
-  \'*\' |
-  \'/\' |
-  \'%\' |
-  \'&\' |
-  \'|\' |
-  \'^\' |
-  \'in\' |
-  \'instanceof\' |
-  \'..\';
+  '==' |
+  '!=' |
+  '===' |
+  '!==' |
+  '<' |
+  '<=' |
+  '>' |
+  '>=' |
+  '<<' |
+  '>>' |
+  '>>>' |
+  '+' |
+  '-' |
+  '*' |
+  '/' |
+  '%' |
+  '&' |
+  '|' |
+  '^' |
+  'in' |
+  'instanceof' |
+  '..';
 
 export type BinaryExpression = {
-  type: \'BinaryExpression\';
+  type: 'BinaryExpression';
   _BinaryExpression: void;
   left: Expression;
   operator: BinaryOperator;
@@ -3216,7 +3218,7 @@ export type BinaryExpression = {
 
 // TODO: What is this?
 export type BindExpression = {
-  type: \'BindExpression\';
+  type: 'BindExpression';
   _BindExpression: void;
   callee: Node;
   object: Node;
@@ -3232,7 +3234,7 @@ export type BindExpression = {
 };
 
 export type BlockStatement = {
-  type: \'BlockStatement\';
+  type: 'BlockStatement';
   _BlockStatement: void;
   body: Array<Statement>;
   end: number;
@@ -3247,7 +3249,7 @@ export type BlockStatement = {
 };
 
 export type BreakStatement = {
-  type: \'BreakStatement\';
+  type: 'BreakStatement';
   _BreakStatement: void;
   label: ?Identifier;
   end: number;
@@ -3262,7 +3264,7 @@ export type BreakStatement = {
 };
 
 export type CallExpression = {
-  type: \'CallExpression\';
+  type: 'CallExpression';
   _CallExpression: void;
   arguments: Array<Node>;
   callee: Expression;
@@ -3278,7 +3280,7 @@ export type CallExpression = {
 };
 
 export type CatchClause = {
-  type: \'CatchClause\';
+  type: 'CatchClause';
   _CatchClause: void;
   body: BlockStatement;
   param: Pattern;
@@ -3294,7 +3296,7 @@ export type CatchClause = {
 };
 
 export type ClassBody = {
-  type: \'ClassBody\';
+  type: 'ClassBody';
   _ClassBody: void;
   body: Array<Node>;
   end: number;
@@ -3309,7 +3311,7 @@ export type ClassBody = {
 };
 
 export type ClassDeclaration = {
-  type: \'ClassDeclaration\';
+  type: 'ClassDeclaration';
   _ClassDeclaration: void;
   body: ClassBody;
   id: ?Identifier;
@@ -3329,7 +3331,7 @@ export type ClassDeclaration = {
 };
 
 export type ClassExpression = {
-  type: \'ClassExpression\';
+  type: 'ClassExpression';
   _ClassExpression: void;
   body: ClassBody;
   id: ?Identifier;
@@ -3349,7 +3351,7 @@ export type ClassExpression = {
 };
 
 export type ComprehensionBlock = {
-  type: \'ComprehensionBlock\';
+  type: 'ComprehensionBlock';
   _ComprehensionBlock: void;
   each: boolean;
   left: Pattern;
@@ -3366,7 +3368,7 @@ export type ComprehensionBlock = {
 };
 
 export type ComprehensionExpression = {
-  type: \'ComprehensionExpression\';
+  type: 'ComprehensionExpression';
   _ComprehensionExpression: void;
   body: Expression;
   blocks: Array<ComprehensionBlock>;
@@ -3383,7 +3385,7 @@ export type ComprehensionExpression = {
 };
 
 export type ConditionalExpression = {
-  type: \'ConditionalExpression\';
+  type: 'ConditionalExpression';
   _ConditionalExpression: void;
   alternate: Expression;
   consequent: Expression;
@@ -3400,7 +3402,7 @@ export type ConditionalExpression = {
 };
 
 export type ContinueStatement = {
-  type: \'ContinueStatement\';
+  type: 'ContinueStatement';
   _ContinueStatement: void;
   label: ?Identifier;
   end: number;
@@ -3416,7 +3418,7 @@ export type ContinueStatement = {
 
 // TODO: Make this correct.
 export type Decorator = {
-  type: \'Decorator\';
+  type: 'Decorator';
   _Decorator: void;
   expression: Expression;
   end: number;
@@ -3431,7 +3433,7 @@ export type Decorator = {
 };
 
 export type DebuggerStatement = {
-  type: \'DebuggerStatement\';
+  type: 'DebuggerStatement';
   _DebuggerStatement: void;
   end: number;
   innerComments: ?Array<Comment>;
@@ -3445,7 +3447,7 @@ export type DebuggerStatement = {
 };
 
 export type DoWhileStatement = {
-  type: \'DoWhileStatement\';
+  type: 'DoWhileStatement';
   _DoWhileStatement: void;
   body: Statement;
   test: Expression;
@@ -3462,7 +3464,7 @@ export type DoWhileStatement = {
 
 // TODO: Make this correct.
 export type DoExpression = {
-  type: \'DoExpression\';
+  type: 'DoExpression';
   _DoExpression: void;
   body: Statement;
   end: number;
@@ -3477,7 +3479,7 @@ export type DoExpression = {
 };
 
 export type EmptyStatement = {
-  type: \'EmptyStatement\';
+  type: 'EmptyStatement';
   _EmptyStatement: void;
   end: number;
   innerComments: ?Array<Comment>;
@@ -3491,7 +3493,7 @@ export type EmptyStatement = {
 };
 
 export type ExpressionStatement = {
-  type: \'ExpressionStatement\';
+  type: 'ExpressionStatement';
   _ExpressionStatement: void;
   expression: Expression;
   end: number;
@@ -3506,7 +3508,7 @@ export type ExpressionStatement = {
 };
 
 export type File = {
-  type: \'File\';
+  type: 'File';
   _File: void;
   program: Program;
   end: number;
@@ -3521,7 +3523,7 @@ export type File = {
 };
 
 export type ForInStatement = {
-  type: \'ForInStatement\';
+  type: 'ForInStatement';
   _ForInStatement: void;
   body: Statement;
   left: Node;
@@ -3539,7 +3541,7 @@ export type ForInStatement = {
 
 // TODO: Make this correct.
 export type ForOfStatement = {
-  type: \'ForOfStatement\';
+  type: 'ForOfStatement';
   _ForOfStatement: void;
   body: Statement;
   left: Node;
@@ -3556,7 +3558,7 @@ export type ForOfStatement = {
 };
 
 export type ForStatement = {
-  type: \'ForStatement\';
+  type: 'ForStatement';
   _ForStatement: void;
   init: ?Node;
   test: ?Expression;
@@ -3574,7 +3576,7 @@ export type ForStatement = {
 };
 
 export type FunctionDeclaration = {
-  type: \'FunctionDeclaration\';
+  type: 'FunctionDeclaration';
   _FunctionDeclaration: void;
   body: BlockStatement;
   id: Identifier;
@@ -3598,7 +3600,7 @@ export type FunctionDeclaration = {
 };
 
 export type FunctionExpression = {
-  type: \'FunctionExpression\';
+  type: 'FunctionExpression';
   _FunctionExpression: void;
   body: BlockStatement;
   id: ?Identifier;
@@ -3622,7 +3624,7 @@ export type FunctionExpression = {
 };
 
 export type Identifier = {
-  type: \'Identifier\';
+  type: 'Identifier';
   _Identifier: void;
   name: string;
   typeAnnotation: ?TypeAnnotation;
@@ -3638,7 +3640,7 @@ export type Identifier = {
 };
 
 export type IfStatement = {
-  type: \'IfStatement\';
+  type: 'IfStatement';
   _IfStatement: void;
   alternate: ?Statement;
   consequent: Statement;
@@ -3656,7 +3658,7 @@ export type IfStatement = {
 
 // TODO: Make this correct.
 export type ImportDefaultSpecifier = {
-  type: \'ImportDefaultSpecifier\';
+  type: 'ImportDefaultSpecifier';
   _ImportDefaultSpecifier: void;
   local: Node;
   end: number;
@@ -3672,7 +3674,7 @@ export type ImportDefaultSpecifier = {
 
 // TODO: Make this correct.
 export type ImportNamespaceSpecifier = {
-  type: \'ImportNamespaceSpecifier\';
+  type: 'ImportNamespaceSpecifier';
   _ImportNamespaceSpecifier: void;
   local: Node;
   end: number;
@@ -3688,7 +3690,7 @@ export type ImportNamespaceSpecifier = {
 
 // TODO: Make this correct.
 export type ImportDeclaration = {
-  type: \'ImportDeclaration\';
+  type: 'ImportDeclaration';
   _ImportDeclaration: void;
   specifiers: Array<Node>;
   source: Literal;
@@ -3705,7 +3707,7 @@ export type ImportDeclaration = {
 
 // TODO: Make this correct.
 export type ImportSpecifier = {
-  type: \'ImportSpecifier\';
+  type: 'ImportSpecifier';
   _ImportSpecifier: void;
   imported: Node;
   local: Node;
@@ -3721,7 +3723,7 @@ export type ImportSpecifier = {
 };
 
 export type LabeledStatement = {
-  type: \'LabeledStatement\';
+  type: 'LabeledStatement';
   _LabeledStatement: void;
   body: Statement;
   label: Identifier;
@@ -3737,7 +3739,7 @@ export type LabeledStatement = {
 };
 
 export type Literal = {
-  type: \'Literal\';
+  type: 'Literal';
   _Literal: void;
   raw: string;
   regex: ?{pattern: string, flags: string};
@@ -3753,10 +3755,10 @@ export type Literal = {
   trailingComments: ?Array<Comment>;
 };
 
-type LogicalOperator = \'||\' | \'&&\';
+type LogicalOperator = '||' | '&&';
 
 export type LogicalExpression = {
-  type: \'LogicalExpression\';
+  type: 'LogicalExpression';
   _LogicalExpression: void;
   left: Expression;
   operator: LogicalOperator;
@@ -3773,7 +3775,7 @@ export type LogicalExpression = {
 };
 
 export type MemberExpression = {
-  type: \'MemberExpression\';
+  type: 'MemberExpression';
   _MemberExpression: void;
   computed: boolean;
   object: Expression;
@@ -3791,7 +3793,7 @@ export type MemberExpression = {
 
 // TODO: Make this correct.
 export type MetaProperty = {
-  type: \'MetaProperty\';
+  type: 'MetaProperty';
   _MetaProperty: void;
   meta: Node;
   property: Node;
@@ -3807,11 +3809,11 @@ export type MetaProperty = {
 };
 
 export type MethodDefinition = {
-  type: \'MethodDefinition\';
+  type: 'MethodDefinition';
   _MethodDefinition: void;
   computed: boolean;
   key: Node;
-  kind: \'constructor\' | \'method\' | \'get\' | \'set\';
+  kind: 'constructor' | 'method' | 'get' | 'set';
   static: boolean;
   value: FunctionExpression;
   decorators: ?Array<Decorator>;
@@ -3827,7 +3829,7 @@ export type MethodDefinition = {
 };
 
 export type NewExpression = {
-  type: \'NewExpression\';
+  type: 'NewExpression';
   _NewExpression: void;
   arguments: Array<Node>;
   callee: Expression;
@@ -3843,7 +3845,7 @@ export type NewExpression = {
 };
 
 export type Noop = {
-  type: \'Noop\';
+  type: 'Noop';
   _Noop: void;
   end: number;
   innerComments: ?Array<Comment>;
@@ -3857,7 +3859,7 @@ export type Noop = {
 };
 
 export type ObjectExpression = {
-  type: \'ObjectExpression\';
+  type: 'ObjectExpression';
   _ObjectExpression: void;
   properties: Array<Node>;
   end: number;
@@ -3872,7 +3874,7 @@ export type ObjectExpression = {
 };
 
 export type ObjectPattern = {
-  type: \'ObjectPattern\';
+  type: 'ObjectPattern';
   _ObjectPattern: void;
   properties: Array<Node>;
   typeAnnotation: ?TypeAnnotation;
@@ -3888,7 +3890,7 @@ export type ObjectPattern = {
 };
 
 export type Program = {
-  type: \'Program\';
+  type: 'Program';
   _Program: void;
   body: Array<Statement>;
   end: number;
@@ -3903,11 +3905,11 @@ export type Program = {
 };
 
 export type Property = {
-  type: \'Property\';
+  type: 'Property';
   _Property: void;
   computed: boolean;
   key: Node;
-  kind: \'init\' | \'get\' | \'set\';
+  kind: 'init' | 'get' | 'set';
   method: boolean;
   shorthand: boolean;
   value: Node;
@@ -3924,7 +3926,7 @@ export type Property = {
 };
 
 export type RestElement = {
-  type: \'RestElement\';
+  type: 'RestElement';
   _RestElement: void;
   argument: Pattern;
   typeAnnotation: ?TypeAnnotation;
@@ -3940,7 +3942,7 @@ export type RestElement = {
 };
 
 export type ReturnStatement = {
-  type: \'ReturnStatement\';
+  type: 'ReturnStatement';
   _ReturnStatement: void;
   argument: ?Expression;
   end: number;
@@ -3955,7 +3957,7 @@ export type ReturnStatement = {
 };
 
 export type SequenceExpression = {
-  type: \'SequenceExpression\';
+  type: 'SequenceExpression';
   _SequenceExpression: void;
   expression: Array<Expression>;
   end: number;
@@ -3970,7 +3972,7 @@ export type SequenceExpression = {
 };
 
 export type SpreadElement = {
-  type: \'SpreadElement\';
+  type: 'SpreadElement';
   _SpreadElement: void;
   argument: Expression;
   end: number;
@@ -3985,7 +3987,7 @@ export type SpreadElement = {
 };
 
 export type SpreadProperty = {
-  type: \'SpreadProperty\';
+  type: 'SpreadProperty';
   _SpreadProperty: void;
   argument: Expression;
   end: number;
@@ -4000,7 +4002,7 @@ export type SpreadProperty = {
 };
 
 export type Super = {
-  type: \'Super\';
+  type: 'Super';
   _Super: void;
   end: number;
   innerComments: ?Array<Comment>;
@@ -4014,7 +4016,7 @@ export type Super = {
 };
 
 export type SwitchCase = {
-  type: \'SwitchCase\';
+  type: 'SwitchCase';
   _SwitchCase: void;
   consequent: Array<Statement>;
   test: ?Expression;
@@ -4030,7 +4032,7 @@ export type SwitchCase = {
 };
 
 export type SwitchStatement = {
-  type: \'SwitchStatement\';
+  type: 'SwitchStatement';
   _SwitchStatement: void;
   cases: Array<SwitchCase>;
   discriminant: Expression;
@@ -4047,7 +4049,7 @@ export type SwitchStatement = {
 };
 
 export type TaggedTemplateExpression = {
-  type: \'TaggedTemplateExpression\';
+  type: 'TaggedTemplateExpression';
   _TaggedTemplateExpression: void;
   quasi: TemplateLiteral;
   tag: Expression;
@@ -4063,7 +4065,7 @@ export type TaggedTemplateExpression = {
 };
 
 export type TemplateElement = {
-  type: \'TemplateElement\';
+  type: 'TemplateElement';
   _TemplateElement: void;
   tail: boolean;
   value: {cooked: string, raw: string};
@@ -4079,7 +4081,7 @@ export type TemplateElement = {
 };
 
 export type TemplateLiteral = {
-  type: \'TemplateLiteral\';
+  type: 'TemplateLiteral';
   _TemplateLiteral: void;
   expressions: Array<Expression>;
   quasis: Array<TemplateElement>;
@@ -4095,7 +4097,7 @@ export type TemplateLiteral = {
 };
 
 export type ThisExpression = {
-  type: \'ThisExpression\';
+  type: 'ThisExpression';
   _ThisExpression: void;
   end: number;
   innerComments: ?Array<Comment>;
@@ -4109,7 +4111,7 @@ export type ThisExpression = {
 };
 
 export type ThrowStatement = {
-  type: \'ThrowStatement\';
+  type: 'ThrowStatement';
   _ThrowStatement: void;
   argument: Expression;
   end: number;
@@ -4124,7 +4126,7 @@ export type ThrowStatement = {
 };
 
 export type TryStatement = {
-  type: \'TryStatement\';
+  type: 'TryStatement';
   _TryStatement: void;
   block: BlockStatement;
   finalizer: ?BlockStatement;
@@ -4142,10 +4144,10 @@ export type TryStatement = {
   trailingComments: ?Array<Comment>;
 };
 
-type UnaryOperator = \'-\' | \'+\' | \'!\' | \'~\' | \'typeof\' | \'void\' | \'delete\';
+type UnaryOperator = '-' | '+' | '!' | '~' | 'typeof' | 'void' | 'delete';
 
 export type UnaryExpression = {
-  type: \'UnaryExpression\';
+  type: 'UnaryExpression';
   _UnaryExpression: void;
   argument: Expression;
   operator: UnaryOperator;
@@ -4161,10 +4163,10 @@ export type UnaryExpression = {
   trailingComments: ?Array<Comment>;
 };
 
-type UpdateOperator = \'++\' | \'--\';
+type UpdateOperator = '++' | '--';
 
 export type UpdateExpression = {
-  type: \'UpdateExpression\';
+  type: 'UpdateExpression';
   _UpdateExpression: void;
   argument: Expression;
   operator: UpdateOperator;
@@ -4181,10 +4183,10 @@ export type UpdateExpression = {
 };
 
 export type VariableDeclaration = {
-  type: \'VariableDeclaration\';
+  type: 'VariableDeclaration';
   _VariableDeclaration: void;
   declarations: Array<VariableDeclarator>;
-  kind: \'var\' | \'let\' | \'const\';
+  kind: 'var' | 'let' | 'const';
   end: number;
   innerComments: ?Array<Comment>;
   leadingComments: ?Array<Comment>;
@@ -4197,7 +4199,7 @@ export type VariableDeclaration = {
 };
 
 export type VariableDeclarator = {
-  type: \'VariableDeclarator\';
+  type: 'VariableDeclarator';
   _VariableDeclarator: void;
   id: Pattern;
   init: ?Expression;
@@ -4213,7 +4215,7 @@ export type VariableDeclarator = {
 };
 
 export type WhileStatement = {
-  type: \'WhileStatement\';
+  type: 'WhileStatement';
   _WhileStatement: void;
   body: Statement;
   test: Expression;
@@ -4229,7 +4231,7 @@ export type WhileStatement = {
 };
 
 export type WithStatement = {
-  type: \'WithStatement\';
+  type: 'WithStatement';
   _WithStatement: void;
   body: Statement;
   object: Expression;
@@ -4245,7 +4247,7 @@ export type WithStatement = {
 };
 
 export type YieldExpression = {
-  type: \'YieldExpression\';
+  type: 'YieldExpression';
   _YieldExpression: void;
   argument: ?Expression;
   delegate: boolean;
@@ -4262,7 +4264,7 @@ export type YieldExpression = {
 
 // TODO: Make this correct.
 export type ExportAllDeclaration = {
-  type: \'ExportAllDeclaration\';
+  type: 'ExportAllDeclaration';
   _ExportAllDeclaration: void;
   exported: Node;
   source: Node;
@@ -4279,7 +4281,7 @@ export type ExportAllDeclaration = {
 
 // TODO: Make this correct.
 export type ExportDefaultDeclaration = {
-  type: \'ExportDefaultDeclaration\';
+  type: 'ExportDefaultDeclaration';
   _ExportDefaultDeclaration: void;
   declaration: Node;
   end: number;
@@ -4295,7 +4297,7 @@ export type ExportDefaultDeclaration = {
 
 // TODO: Make this correct.
 export type ExportNamedDeclaration = {
-  type: \'ExportNamedDeclaration\';
+  type: 'ExportNamedDeclaration';
   _ExportNamedDeclaration: void;
   declaration: Node;
   source: Literal;
@@ -4313,7 +4315,7 @@ export type ExportNamedDeclaration = {
 
 // TODO: Make this correct.
 export type ExportDefaultSpecifier = {
-  type: \'ExportDefaultSpecifier\';
+  type: 'ExportDefaultSpecifier';
   _ExportDefaultSpecifier: void;
   exported: Node;
   end: number;
@@ -4329,7 +4331,7 @@ export type ExportDefaultSpecifier = {
 
 // TODO: Make this correct.
 export type ExportNamespaceSpecifier = {
-  type: \'ExportNamespaceSpecifier\';
+  type: 'ExportNamespaceSpecifier';
   _ExportNamespaceSpecifier: void;
   exported: Node;
   end: number;
@@ -4345,7 +4347,7 @@ export type ExportNamespaceSpecifier = {
 
 // TODO: Make this correct.
 export type ExportSpecifier = {
-  type: \'ExportSpecifier\';
+  type: 'ExportSpecifier';
   _ExportSpecifier: void;
   local: Node;
   exported: Node;
@@ -4361,7 +4363,7 @@ export type ExportSpecifier = {
 };
 
 export type AnyTypeAnnotation = {
-  type: \'AnyTypeAnnotation\';
+  type: 'AnyTypeAnnotation';
   _AnyTypeAnnotation: void;
   end: number;
   innerComments: ?Array<Comment>;
@@ -4375,7 +4377,7 @@ export type AnyTypeAnnotation = {
 };
 
 export type ArrayTypeAnnotation = {
-  type: \'ArrayTypeAnnotation\';
+  type: 'ArrayTypeAnnotation';
   _ArrayTypeAnnotation: void;
   elementType: Type;
   end: number;
@@ -4390,7 +4392,7 @@ export type ArrayTypeAnnotation = {
 };
 
 export type BooleanLiteralTypeAnnotation = {
-  type: \'BooleanLiteralTypeAnnotation\';
+  type: 'BooleanLiteralTypeAnnotation';
   _BooleanLiteralTypeAnnotation: void;
   raw: string;
   value: boolean;
@@ -4406,7 +4408,7 @@ export type BooleanLiteralTypeAnnotation = {
 };
 
 export type BooleanTypeAnnotation = {
-  type: \'BooleanTypeAnnotation\';
+  type: 'BooleanTypeAnnotation';
   _BooleanTypeAnnotation: void;
   end: number;
   innerComments: ?Array<Comment>;
@@ -4420,7 +4422,7 @@ export type BooleanTypeAnnotation = {
 };
 
 export type ClassImplements = {
-  type: \'ClassImplements\';
+  type: 'ClassImplements';
   _ClassImplements: void;
   id: Identifier;
   typeParameters: ?TypeParameterInstantiation;
@@ -4437,7 +4439,7 @@ export type ClassImplements = {
 };
 
 export type ClassProperty = {
-  type: \'ClassProperty\';
+  type: 'ClassProperty';
   _ClassProperty: void;
   computed: boolean;
   key: Node;
@@ -4457,7 +4459,7 @@ export type ClassProperty = {
 };
 
 export type DeclareClass = {
-  type: \'DeclareClass\';
+  type: 'DeclareClass';
   _DeclareClass: void;
   body: ObjectTypeAnnotation;
   extends: Array<InterfaceExtends>;
@@ -4476,7 +4478,7 @@ export type DeclareClass = {
 
 // TODO: Make this correct.
 export type DeclareFunction = {
-  type: \'DeclareFunction\';
+  type: 'DeclareFunction';
   _DeclareFunction: void;
   id: Identifier;
   end: number;
@@ -4491,7 +4493,7 @@ export type DeclareFunction = {
 };
 
 export type DeclareModule = {
-  type: \'DeclareModule\';
+  type: 'DeclareModule';
   _DeclareModule: void;
   body: BlockStatement;
   id: Node;
@@ -4508,7 +4510,7 @@ export type DeclareModule = {
 
 // TODO: Make this correct.
 export type DeclareVariable = {
-  type: \'DeclareVariable\';
+  type: 'DeclareVariable';
   _DeclareVariable: void;
   id: Identifier;
   end: number;
@@ -4523,7 +4525,7 @@ export type DeclareVariable = {
 };
 
 export type FunctionTypeAnnotation = {
-  type: \'FunctionTypeAnnotation\';
+  type: 'FunctionTypeAnnotation';
   _FunctionTypeAnnotation: void;
   params: Array<FunctionTypeParam>;
   rest: ?FunctionTypeParam;
@@ -4541,7 +4543,7 @@ export type FunctionTypeAnnotation = {
 };
 
 export type FunctionTypeParam = {
-  type: \'FunctionTypeParam\';
+  type: 'FunctionTypeParam';
   _FunctionTypeParam: void;
   name: Identifier;
   optional: boolean;
@@ -4558,7 +4560,7 @@ export type FunctionTypeParam = {
 };
 
 export type GenericTypeAnnotation = {
-  type: \'GenericTypeAnnotation\';
+  type: 'GenericTypeAnnotation';
   _GenericTypeAnnotation: void;
   id: Node;
   typeParameters: ?TypeParameterInstantiation;
@@ -4574,7 +4576,7 @@ export type GenericTypeAnnotation = {
 };
 
 export type InterfaceExtends = {
-  type: \'InterfaceExtends\';
+  type: 'InterfaceExtends';
   _InterfaceExtends: void;
   id: Identifier;
   typeParameters: ?TypeParameterInstantiation;
@@ -4590,7 +4592,7 @@ export type InterfaceExtends = {
 };
 
 export type InterfaceDeclaration = {
-  type: \'InterfaceDeclaration\';
+  type: 'InterfaceDeclaration';
   _InterfaceDeclaration: void;
   body: ObjectTypeAnnotation;
   extends: Array<InterfaceExtends>;
@@ -4608,7 +4610,7 @@ export type InterfaceDeclaration = {
 };
 
 export type IntersectionTypeAnnotation = {
-  type: \'IntersectionTypeAnnotation\';
+  type: 'IntersectionTypeAnnotation';
   _IntersectionTypeAnnotation: void;
   types: Array<Type>;
   end: number;
@@ -4623,7 +4625,7 @@ export type IntersectionTypeAnnotation = {
 };
 
 export type MixedTypeAnnotation = {
-  type: \'MixedTypeAnnotation\';
+  type: 'MixedTypeAnnotation';
   _MixedTypeAnnotation: void;
   end: number;
   innerComments: ?Array<Comment>;
@@ -4637,7 +4639,7 @@ export type MixedTypeAnnotation = {
 };
 
 export type NullableTypeAnnotation = {
-  type: \'NullableTypeAnnotation\';
+  type: 'NullableTypeAnnotation';
   _NullableTypeAnnotation: void;
   typeAnnotation: Type;
   end: number;
@@ -4652,7 +4654,7 @@ export type NullableTypeAnnotation = {
 };
 
 export type NumberLiteralTypeAnnotation = {
-  type: \'NumberLiteralTypeAnnotation\';
+  type: 'NumberLiteralTypeAnnotation';
   _NumberLiteralTypeAnnotation: void;
   raw: string;
   value: number;
@@ -4668,7 +4670,7 @@ export type NumberLiteralTypeAnnotation = {
 };
 
 export type NumberTypeAnnotation = {
-  type: \'NumberTypeAnnotation\';
+  type: 'NumberTypeAnnotation';
   _NumberTypeAnnotation: void;
   end: number;
   innerComments: ?Array<Comment>;
@@ -4682,7 +4684,7 @@ export type NumberTypeAnnotation = {
 };
 
 export type StringLiteralTypeAnnotation = {
-  type: \'StringLiteralTypeAnnotation\';
+  type: 'StringLiteralTypeAnnotation';
   _StringLiteralTypeAnnotation: void;
   raw: string;
   value: string;
@@ -4698,7 +4700,7 @@ export type StringLiteralTypeAnnotation = {
 };
 
 export type StringTypeAnnotation = {
-  type: \'StringTypeAnnotation\';
+  type: 'StringTypeAnnotation';
   _StringTypeAnnotation: void;
   end: number;
   innerComments: ?Array<Comment>;
@@ -4712,7 +4714,7 @@ export type StringTypeAnnotation = {
 };
 
 export type TupleTypeAnnotation = {
-  type: \'TupleTypeAnnotation\';
+  type: 'TupleTypeAnnotation';
   _TupleTypeAnnotation: void;
   types: Array<Type>;
   end: number;
@@ -4727,7 +4729,7 @@ export type TupleTypeAnnotation = {
 };
 
 export type TypeofTypeAnnotation = {
-  type: \'TypeofTypeAnnotation\';
+  type: 'TypeofTypeAnnotation';
   _TypeofTypeAnnotation: void;
   argument: Type;
   end: number;
@@ -4742,7 +4744,7 @@ export type TypeofTypeAnnotation = {
 };
 
 export type TypeAlias = {
-  type: \'TypeAlias\';
+  type: 'TypeAlias';
   _TypeAlias: void;
   id: Identifier;
   right: Type;
@@ -4759,7 +4761,7 @@ export type TypeAlias = {
 };
 
 export type TypeAnnotation = {
-  type: \'TypeAnnotation\';
+  type: 'TypeAnnotation';
   _TypeAnnotation: void;
   typeAnnotation: Type;
   end: number;
@@ -4774,7 +4776,7 @@ export type TypeAnnotation = {
 };
 
 export type TypeCastExpression = {
-  type: \'TypeCastExpression\';
+  type: 'TypeCastExpression';
   _TypeCastExpression: void;
   expression: Expression;
   typeAnnotation: TypeAnnotation;
@@ -4790,7 +4792,7 @@ export type TypeCastExpression = {
 };
 
 export type TypeParameterDeclaration = {
-  type: \'TypeParameterDeclaration\';
+  type: 'TypeParameterDeclaration';
   _TypeParameterDeclaration: void;
   params: Array<Identifier>;
   end: number;
@@ -4805,7 +4807,7 @@ export type TypeParameterDeclaration = {
 };
 
 export type TypeParameterInstantiation = {
-  type: \'TypeParameterInstantiation\';
+  type: 'TypeParameterInstantiation';
   _TypeParameterInstantiation: void;
   params: Array<Type>;
   end: number;
@@ -4820,7 +4822,7 @@ export type TypeParameterInstantiation = {
 };
 
 export type ObjectTypeAnnotation = {
-  type: \'ObjectTypeAnnotation\';
+  type: 'ObjectTypeAnnotation';
   _ObjectTypeAnnotation: void;
   callProperties: Array<ObjectTypeCallProperty>;
   indexers: Array<ObjectTypeIndexer>;
@@ -4837,7 +4839,7 @@ export type ObjectTypeAnnotation = {
 };
 
 export type ObjectTypeCallProperty = {
-  type: \'ObjectTypeCallProperty\';
+  type: 'ObjectTypeCallProperty';
   _ObjectTypeCallProperty: void;
   static: boolean;
   value: FunctionTypeAnnotation;
@@ -4853,7 +4855,7 @@ export type ObjectTypeCallProperty = {
 };
 
 export type ObjectTypeIndexer = {
-  type: \'ObjectTypeIndexer\';
+  type: 'ObjectTypeIndexer';
   _ObjectTypeIndexer: void;
   id: Identifier;
   key: Type;
@@ -4870,7 +4872,7 @@ export type ObjectTypeIndexer = {
 };
 
 export type ObjectTypeProperty = {
-  type: \'ObjectTypeProperty\';
+  type: 'ObjectTypeProperty';
   _ObjectTypeProperty: void;
   key: Node;
   optional: boolean;
@@ -4887,7 +4889,7 @@ export type ObjectTypeProperty = {
 };
 
 export type QualifiedTypeIdentifier = {
-  type: \'QualifiedTypeIdentifier\';
+  type: 'QualifiedTypeIdentifier';
   _QualifiedTypeIdentifier: void;
   id: Identifier;
   qualification: Node;
@@ -4903,7 +4905,7 @@ export type QualifiedTypeIdentifier = {
 };
 
 export type UnionTypeAnnotation = {
-  type: \'UnionTypeAnnotation\';
+  type: 'UnionTypeAnnotation';
   _UnionTypeAnnotation: void;
   types: Array<Type>;
   end: number;
@@ -4918,7 +4920,7 @@ export type UnionTypeAnnotation = {
 };
 
 export type VoidTypeAnnotation = {
-  type: \'VoidTypeAnnotation\';
+  type: 'VoidTypeAnnotation';
   _VoidTypeAnnotation: void;
   end: number;
   innerComments: ?Array<Comment>;
@@ -4932,7 +4934,7 @@ export type VoidTypeAnnotation = {
 };
 
 export type JSXAttribute = {
-  type: \'JSXAttribute\';
+  type: 'JSXAttribute';
   _JSXAttribute: void;
   name: Node;
   value: ?Node;
@@ -4948,7 +4950,7 @@ export type JSXAttribute = {
 };
 
 export type JSXClosingElement = {
-  type: \'JSXClosingElement\';
+  type: 'JSXClosingElement';
   _JSXClosingElement: void;
   name: Node;
   end: number;
@@ -4963,7 +4965,7 @@ export type JSXClosingElement = {
 };
 
 export type JSXElement = {
-  type: \'JSXElement\';
+  type: 'JSXElement';
   _JSXElement: void;
   children: Array<Node>;
   closingElement: ?JSXClosingElement;
@@ -4980,7 +4982,7 @@ export type JSXElement = {
 };
 
 export type JSXEmptyExpression = {
-  type: \'JSXEmptyExpression\';
+  type: 'JSXEmptyExpression';
   _JSXEmptyExpression: void;
   end: number;
   innerComments: ?Array<Comment>;
@@ -4994,7 +4996,7 @@ export type JSXEmptyExpression = {
 };
 
 export type JSXExpressionContainer = {
-  type: \'JSXExpressionContainer\';
+  type: 'JSXExpressionContainer';
   _JSXExpressionContainer: void;
   expression: Expression;
   end: number;
@@ -5009,7 +5011,7 @@ export type JSXExpressionContainer = {
 };
 
 export type JSXIdentifier = {
-  type: \'JSXIdentifier\';
+  type: 'JSXIdentifier';
   _JSXIdentifier: void;
   name: string;
   end: number;
@@ -5024,7 +5026,7 @@ export type JSXIdentifier = {
 };
 
 export type JSXMemberExpression = {
-  type: \'JSXMemberExpression\';
+  type: 'JSXMemberExpression';
   _JSXMemberExpression: void;
   computed: boolean;
   object: Node;
@@ -5041,7 +5043,7 @@ export type JSXMemberExpression = {
 };
 
 export type JSXNamespacedName = {
-  type: \'JSXNamespacedName\';
+  type: 'JSXNamespacedName';
   _JSXNamespacedName: void;
   name: JSXIdentifier;
   namespace: JSXIdentifier;
@@ -5057,7 +5059,7 @@ export type JSXNamespacedName = {
 };
 
 export type JSXOpeningElement = {
-  type: \'JSXOpeningElement\';
+  type: 'JSXOpeningElement';
   _JSXOpeningElement: void;
   attributes: Array<Node>;
   name: Array<Node>;
@@ -5074,7 +5076,7 @@ export type JSXOpeningElement = {
 };
 
 export type JSXSpreadAttribute = {
-  type: \'JSXSpreadAttribute\';
+  type: 'JSXSpreadAttribute';
   _JSXSpreadAttribute: void;
   argument: Expression;
   end: number;
@@ -5092,7 +5094,7 @@ export type JSXSpreadAttribute = {
  * @flow
  */
 
-\"use strict\";
+\\"use strict\\";
 
 /*
  * Flow types for the Babylon AST.
@@ -5102,7 +5104,7 @@ export type JSXSpreadAttribute = {
 
 export type Comment =
   | {
-      type: \"CommentLine\",
+      type: \\"CommentLine\\",
       _CommentLine: void,
       value: string,
       end: number,
@@ -5113,7 +5115,7 @@ export type Comment =
       start: number
     }
   | {
-      type: \"CommentBlock\",
+      type: \\"CommentBlock\\",
       _CommentBlock: void,
       value: string,
       end: number,
@@ -5126,7 +5128,7 @@ export type Comment =
 
 export type Declaration =
   | {
-      type: \"ClassBody\",
+      type: \\"ClassBody\\",
       _ClassBody: void,
       body: Array<Node>,
       end: number,
@@ -5140,7 +5142,7 @@ export type Declaration =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ClassDeclaration\",
+      type: \\"ClassDeclaration\\",
       _ClassDeclaration: void,
       body: ClassBody,
       id: ?Identifier,
@@ -5159,7 +5161,7 @@ export type Declaration =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"FunctionDeclaration\",
+      type: \\"FunctionDeclaration\\",
       _FunctionDeclaration: void,
       body: BlockStatement,
       id: Identifier,
@@ -5182,11 +5184,11 @@ export type Declaration =
       typeParameters: ?TypeParameterDeclaration
     }
   | {
-      type: \"MethodDefinition\",
+      type: \\"MethodDefinition\\",
       _MethodDefinition: void,
       computed: boolean,
       key: Node,
-      kind: \"constructor\" | \"method\" | \"get\" | \"set\",
+      kind: \\"constructor\\" | \\"method\\" | \\"get\\" | \\"set\\",
       static: boolean,
       value: FunctionExpression,
       decorators: ?Array<Decorator>,
@@ -5201,10 +5203,10 @@ export type Declaration =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"VariableDeclaration\",
+      type: \\"VariableDeclaration\\",
       _VariableDeclaration: void,
       declarations: Array<VariableDeclarator>,
-      kind: \"var\" | \"let\" | \"const\",
+      kind: \\"var\\" | \\"let\\" | \\"const\\",
       end: number,
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
@@ -5216,7 +5218,7 @@ export type Declaration =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ClassProperty\",
+      type: \\"ClassProperty\\",
       _ClassProperty: void,
       computed: boolean,
       key: Node,
@@ -5237,7 +5239,7 @@ export type Declaration =
 
 export type Expression =
   | {
-      type: \"ArrayExpression\",
+      type: \\"ArrayExpression\\",
       _ArrayExpression: void,
       elements: Array<?Node>,
       end: number,
@@ -5251,7 +5253,7 @@ export type Expression =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"AssignmentExpression\",
+      type: \\"AssignmentExpression\\",
       _AssignmentExpression: void,
       left: Pattern,
       operator: AssignmentOperator,
@@ -5267,7 +5269,7 @@ export type Expression =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"AwaitExpression\",
+      type: \\"AwaitExpression\\",
       _AwaitExpression: void,
       all: boolean,
       argument: ?Expression,
@@ -5282,7 +5284,7 @@ export type Expression =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"BinaryExpression\",
+      type: \\"BinaryExpression\\",
       _BinaryExpression: void,
       left: Expression,
       operator: BinaryOperator,
@@ -5298,7 +5300,7 @@ export type Expression =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"BindExpression\",
+      type: \\"BindExpression\\",
       _BindExpression: void,
       callee: Node,
       object: Node,
@@ -5313,7 +5315,7 @@ export type Expression =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"CallExpression\",
+      type: \\"CallExpression\\",
       _CallExpression: void,
       arguments: Array<Node>,
       callee: Expression,
@@ -5328,7 +5330,7 @@ export type Expression =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ClassExpression\",
+      type: \\"ClassExpression\\",
       _ClassExpression: void,
       body: ClassBody,
       id: ?Identifier,
@@ -5347,7 +5349,7 @@ export type Expression =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ComprehensionExpression\",
+      type: \\"ComprehensionExpression\\",
       _ComprehensionExpression: void,
       body: Expression,
       blocks: Array<ComprehensionBlock>,
@@ -5363,7 +5365,7 @@ export type Expression =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ConditionalExpression\",
+      type: \\"ConditionalExpression\\",
       _ConditionalExpression: void,
       alternate: Expression,
       consequent: Expression,
@@ -5379,7 +5381,7 @@ export type Expression =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"DoExpression\",
+      type: \\"DoExpression\\",
       _DoExpression: void,
       body: Statement,
       end: number,
@@ -5393,7 +5395,7 @@ export type Expression =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"FunctionExpression\",
+      type: \\"FunctionExpression\\",
       _FunctionExpression: void,
       body: BlockStatement,
       id: ?Identifier,
@@ -5416,7 +5418,7 @@ export type Expression =
       typeParameters: ?TypeParameterDeclaration
     }
   | {
-      type: \"Identifier\",
+      type: \\"Identifier\\",
       _Identifier: void,
       name: string,
       typeAnnotation: ?TypeAnnotation,
@@ -5431,7 +5433,7 @@ export type Expression =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"Literal\",
+      type: \\"Literal\\",
       _Literal: void,
       raw: string,
       regex: ?{ pattern: string, flags: string },
@@ -5447,7 +5449,7 @@ export type Expression =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"LogicalExpression\",
+      type: \\"LogicalExpression\\",
       _LogicalExpression: void,
       left: Expression,
       operator: LogicalOperator,
@@ -5463,7 +5465,7 @@ export type Expression =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"MemberExpression\",
+      type: \\"MemberExpression\\",
       _MemberExpression: void,
       computed: boolean,
       object: Expression,
@@ -5479,7 +5481,7 @@ export type Expression =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"NewExpression\",
+      type: \\"NewExpression\\",
       _NewExpression: void,
       arguments: Array<Node>,
       callee: Expression,
@@ -5494,7 +5496,7 @@ export type Expression =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ObjectExpression\",
+      type: \\"ObjectExpression\\",
       _ObjectExpression: void,
       properties: Array<Node>,
       end: number,
@@ -5508,7 +5510,7 @@ export type Expression =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"SequenceExpression\",
+      type: \\"SequenceExpression\\",
       _SequenceExpression: void,
       expression: Array<Expression>,
       end: number,
@@ -5522,7 +5524,7 @@ export type Expression =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"TaggedTemplateExpression\",
+      type: \\"TaggedTemplateExpression\\",
       _TaggedTemplateExpression: void,
       quasi: TemplateLiteral,
       tag: Expression,
@@ -5537,7 +5539,7 @@ export type Expression =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"TemplateLiteral\",
+      type: \\"TemplateLiteral\\",
       _TemplateLiteral: void,
       expressions: Array<Expression>,
       quasis: Array<TemplateElement>,
@@ -5552,7 +5554,7 @@ export type Expression =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ThisExpression\",
+      type: \\"ThisExpression\\",
       _ThisExpression: void,
       end: number,
       innerComments: ?Array<Comment>,
@@ -5565,7 +5567,7 @@ export type Expression =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"UnaryExpression\",
+      type: \\"UnaryExpression\\",
       _UnaryExpression: void,
       argument: Expression,
       operator: UnaryOperator,
@@ -5581,7 +5583,7 @@ export type Expression =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"UpdateExpression\",
+      type: \\"UpdateExpression\\",
       _UpdateExpression: void,
       argument: Expression,
       operator: UpdateOperator,
@@ -5597,7 +5599,7 @@ export type Expression =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"YieldExpression\",
+      type: \\"YieldExpression\\",
       _YieldExpression: void,
       argument: ?Expression,
       delegate: boolean,
@@ -5612,7 +5614,7 @@ export type Expression =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"TypeCastExpression\",
+      type: \\"TypeCastExpression\\",
       _TypeCastExpression: void,
       expression: Expression,
       typeAnnotation: TypeAnnotation,
@@ -5627,7 +5629,7 @@ export type Expression =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"JSXElement\",
+      type: \\"JSXElement\\",
       _JSXElement: void,
       children: Array<Node>,
       closingElement: ?JSXClosingElement,
@@ -5643,7 +5645,7 @@ export type Expression =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"JSXEmptyExpression\",
+      type: \\"JSXEmptyExpression\\",
       _JSXEmptyExpression: void,
       end: number,
       innerComments: ?Array<Comment>,
@@ -5656,7 +5658,7 @@ export type Expression =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"JSXExpressionContainer\",
+      type: \\"JSXExpressionContainer\\",
       _JSXExpressionContainer: void,
       expression: Expression,
       end: number,
@@ -5670,7 +5672,7 @@ export type Expression =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"JSXMemberExpression\",
+      type: \\"JSXMemberExpression\\",
       _JSXMemberExpression: void,
       computed: boolean,
       object: Node,
@@ -5688,7 +5690,7 @@ export type Expression =
 
 export type Function =
   | {
-      type: \"ArrowFunctionExpression\",
+      type: \\"ArrowFunctionExpression\\",
       _ArrowFunctionExpression: void,
       body: Node,
       id: ?Identifier,
@@ -5711,7 +5713,7 @@ export type Function =
       typeParameters: ?TypeParameterDeclaration
     }
   | {
-      type: \"FunctionDeclaration\",
+      type: \\"FunctionDeclaration\\",
       _FunctionDeclaration: void,
       body: BlockStatement,
       id: Identifier,
@@ -5734,7 +5736,7 @@ export type Function =
       typeParameters: ?TypeParameterDeclaration
     }
   | {
-      type: \"FunctionExpression\",
+      type: \\"FunctionExpression\\",
       _FunctionExpression: void,
       body: BlockStatement,
       id: ?Identifier,
@@ -5759,7 +5761,7 @@ export type Function =
 
 export type Node =
   | {
-      type: \"ArrayExpression\",
+      type: \\"ArrayExpression\\",
       _ArrayExpression: void,
       elements: Array<?Node>,
       end: number,
@@ -5773,7 +5775,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ArrayPattern\",
+      type: \\"ArrayPattern\\",
       _ArrayPattern: void,
       elements: Array<?Node>,
       typeAnnotation: ?TypeAnnotation,
@@ -5788,7 +5790,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ArrowFunctionExpression\",
+      type: \\"ArrowFunctionExpression\\",
       _ArrowFunctionExpression: void,
       body: Node,
       id: ?Identifier,
@@ -5811,7 +5813,7 @@ export type Node =
       typeParameters: ?TypeParameterDeclaration
     }
   | {
-      type: \"AssignmentExpression\",
+      type: \\"AssignmentExpression\\",
       _AssignmentExpression: void,
       left: Pattern,
       operator: AssignmentOperator,
@@ -5827,7 +5829,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"AssignmentPattern\",
+      type: \\"AssignmentPattern\\",
       _AssignmentPattern: void,
       left: Pattern,
       right: Expression,
@@ -5842,7 +5844,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"AwaitExpression\",
+      type: \\"AwaitExpression\\",
       _AwaitExpression: void,
       all: boolean,
       argument: ?Expression,
@@ -5857,7 +5859,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"BinaryExpression\",
+      type: \\"BinaryExpression\\",
       _BinaryExpression: void,
       left: Expression,
       operator: BinaryOperator,
@@ -5873,7 +5875,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"BindExpression\",
+      type: \\"BindExpression\\",
       _BindExpression: void,
       callee: Node,
       object: Node,
@@ -5888,7 +5890,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"BlockStatement\",
+      type: \\"BlockStatement\\",
       _BlockStatement: void,
       body: Array<Statement>,
       end: number,
@@ -5902,7 +5904,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"BreakStatement\",
+      type: \\"BreakStatement\\",
       _BreakStatement: void,
       label: ?Identifier,
       end: number,
@@ -5916,7 +5918,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"CallExpression\",
+      type: \\"CallExpression\\",
       _CallExpression: void,
       arguments: Array<Node>,
       callee: Expression,
@@ -5931,7 +5933,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"CatchClause\",
+      type: \\"CatchClause\\",
       _CatchClause: void,
       body: BlockStatement,
       param: Pattern,
@@ -5946,7 +5948,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ClassBody\",
+      type: \\"ClassBody\\",
       _ClassBody: void,
       body: Array<Node>,
       end: number,
@@ -5960,7 +5962,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ClassDeclaration\",
+      type: \\"ClassDeclaration\\",
       _ClassDeclaration: void,
       body: ClassBody,
       id: ?Identifier,
@@ -5979,7 +5981,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ClassExpression\",
+      type: \\"ClassExpression\\",
       _ClassExpression: void,
       body: ClassBody,
       id: ?Identifier,
@@ -5998,7 +6000,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ComprehensionBlock\",
+      type: \\"ComprehensionBlock\\",
       _ComprehensionBlock: void,
       each: boolean,
       left: Pattern,
@@ -6014,7 +6016,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ComprehensionExpression\",
+      type: \\"ComprehensionExpression\\",
       _ComprehensionExpression: void,
       body: Expression,
       blocks: Array<ComprehensionBlock>,
@@ -6030,7 +6032,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ConditionalExpression\",
+      type: \\"ConditionalExpression\\",
       _ConditionalExpression: void,
       alternate: Expression,
       consequent: Expression,
@@ -6046,7 +6048,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ContinueStatement\",
+      type: \\"ContinueStatement\\",
       _ContinueStatement: void,
       label: ?Identifier,
       end: number,
@@ -6060,7 +6062,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"Decorator\",
+      type: \\"Decorator\\",
       _Decorator: void,
       expression: Expression,
       end: number,
@@ -6074,7 +6076,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"DebuggerStatement\",
+      type: \\"DebuggerStatement\\",
       _DebuggerStatement: void,
       end: number,
       innerComments: ?Array<Comment>,
@@ -6087,7 +6089,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"DoWhileStatement\",
+      type: \\"DoWhileStatement\\",
       _DoWhileStatement: void,
       body: Statement,
       test: Expression,
@@ -6102,7 +6104,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"DoExpression\",
+      type: \\"DoExpression\\",
       _DoExpression: void,
       body: Statement,
       end: number,
@@ -6116,7 +6118,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"EmptyStatement\",
+      type: \\"EmptyStatement\\",
       _EmptyStatement: void,
       end: number,
       innerComments: ?Array<Comment>,
@@ -6129,7 +6131,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ExpressionStatement\",
+      type: \\"ExpressionStatement\\",
       _ExpressionStatement: void,
       expression: Expression,
       end: number,
@@ -6143,7 +6145,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"File\",
+      type: \\"File\\",
       _File: void,
       program: Program,
       end: number,
@@ -6157,7 +6159,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ForInStatement\",
+      type: \\"ForInStatement\\",
       _ForInStatement: void,
       body: Statement,
       left: Node,
@@ -6173,7 +6175,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ForOfStatement\",
+      type: \\"ForOfStatement\\",
       _ForOfStatement: void,
       body: Statement,
       left: Node,
@@ -6189,7 +6191,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ForStatement\",
+      type: \\"ForStatement\\",
       _ForStatement: void,
       init: ?Node,
       test: ?Expression,
@@ -6206,7 +6208,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"FunctionDeclaration\",
+      type: \\"FunctionDeclaration\\",
       _FunctionDeclaration: void,
       body: BlockStatement,
       id: Identifier,
@@ -6229,7 +6231,7 @@ export type Node =
       typeParameters: ?TypeParameterDeclaration
     }
   | {
-      type: \"FunctionExpression\",
+      type: \\"FunctionExpression\\",
       _FunctionExpression: void,
       body: BlockStatement,
       id: ?Identifier,
@@ -6252,7 +6254,7 @@ export type Node =
       typeParameters: ?TypeParameterDeclaration
     }
   | {
-      type: \"Identifier\",
+      type: \\"Identifier\\",
       _Identifier: void,
       name: string,
       typeAnnotation: ?TypeAnnotation,
@@ -6267,7 +6269,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"IfStatement\",
+      type: \\"IfStatement\\",
       _IfStatement: void,
       alternate: ?Statement,
       consequent: Statement,
@@ -6283,7 +6285,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ImportDefaultSpecifier\",
+      type: \\"ImportDefaultSpecifier\\",
       _ImportDefaultSpecifier: void,
       local: Node,
       end: number,
@@ -6297,7 +6299,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ImportNamespaceSpecifier\",
+      type: \\"ImportNamespaceSpecifier\\",
       _ImportNamespaceSpecifier: void,
       local: Node,
       end: number,
@@ -6311,7 +6313,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ImportDeclaration\",
+      type: \\"ImportDeclaration\\",
       _ImportDeclaration: void,
       specifiers: Array<Node>,
       source: Literal,
@@ -6326,7 +6328,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ImportSpecifier\",
+      type: \\"ImportSpecifier\\",
       _ImportSpecifier: void,
       imported: Node,
       local: Node,
@@ -6341,7 +6343,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"LabeledStatement\",
+      type: \\"LabeledStatement\\",
       _LabeledStatement: void,
       body: Statement,
       label: Identifier,
@@ -6356,7 +6358,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"Literal\",
+      type: \\"Literal\\",
       _Literal: void,
       raw: string,
       regex: ?{ pattern: string, flags: string },
@@ -6372,7 +6374,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"LogicalExpression\",
+      type: \\"LogicalExpression\\",
       _LogicalExpression: void,
       left: Expression,
       operator: LogicalOperator,
@@ -6388,7 +6390,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"MemberExpression\",
+      type: \\"MemberExpression\\",
       _MemberExpression: void,
       computed: boolean,
       object: Expression,
@@ -6404,7 +6406,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"MetaProperty\",
+      type: \\"MetaProperty\\",
       _MetaProperty: void,
       meta: Node,
       property: Node,
@@ -6419,11 +6421,11 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"MethodDefinition\",
+      type: \\"MethodDefinition\\",
       _MethodDefinition: void,
       computed: boolean,
       key: Node,
-      kind: \"constructor\" | \"method\" | \"get\" | \"set\",
+      kind: \\"constructor\\" | \\"method\\" | \\"get\\" | \\"set\\",
       static: boolean,
       value: FunctionExpression,
       decorators: ?Array<Decorator>,
@@ -6438,7 +6440,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"NewExpression\",
+      type: \\"NewExpression\\",
       _NewExpression: void,
       arguments: Array<Node>,
       callee: Expression,
@@ -6453,7 +6455,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"Noop\",
+      type: \\"Noop\\",
       _Noop: void,
       end: number,
       innerComments: ?Array<Comment>,
@@ -6466,7 +6468,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ObjectExpression\",
+      type: \\"ObjectExpression\\",
       _ObjectExpression: void,
       properties: Array<Node>,
       end: number,
@@ -6480,7 +6482,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ObjectPattern\",
+      type: \\"ObjectPattern\\",
       _ObjectPattern: void,
       properties: Array<Node>,
       typeAnnotation: ?TypeAnnotation,
@@ -6495,7 +6497,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"Program\",
+      type: \\"Program\\",
       _Program: void,
       body: Array<Statement>,
       end: number,
@@ -6509,11 +6511,11 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"Property\",
+      type: \\"Property\\",
       _Property: void,
       computed: boolean,
       key: Node,
-      kind: \"init\" | \"get\" | \"set\",
+      kind: \\"init\\" | \\"get\\" | \\"set\\",
       method: boolean,
       shorthand: boolean,
       value: Node,
@@ -6529,7 +6531,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"RestElement\",
+      type: \\"RestElement\\",
       _RestElement: void,
       argument: Pattern,
       typeAnnotation: ?TypeAnnotation,
@@ -6544,7 +6546,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ReturnStatement\",
+      type: \\"ReturnStatement\\",
       _ReturnStatement: void,
       argument: ?Expression,
       end: number,
@@ -6558,7 +6560,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"SequenceExpression\",
+      type: \\"SequenceExpression\\",
       _SequenceExpression: void,
       expression: Array<Expression>,
       end: number,
@@ -6572,7 +6574,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"SpreadElement\",
+      type: \\"SpreadElement\\",
       _SpreadElement: void,
       argument: Expression,
       end: number,
@@ -6586,7 +6588,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"SpreadProperty\",
+      type: \\"SpreadProperty\\",
       _SpreadProperty: void,
       argument: Expression,
       end: number,
@@ -6600,7 +6602,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"Super\",
+      type: \\"Super\\",
       _Super: void,
       end: number,
       innerComments: ?Array<Comment>,
@@ -6613,7 +6615,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"SwitchCase\",
+      type: \\"SwitchCase\\",
       _SwitchCase: void,
       consequent: Array<Statement>,
       test: ?Expression,
@@ -6628,7 +6630,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"SwitchStatement\",
+      type: \\"SwitchStatement\\",
       _SwitchStatement: void,
       cases: Array<SwitchCase>,
       discriminant: Expression,
@@ -6644,7 +6646,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"TaggedTemplateExpression\",
+      type: \\"TaggedTemplateExpression\\",
       _TaggedTemplateExpression: void,
       quasi: TemplateLiteral,
       tag: Expression,
@@ -6659,7 +6661,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"TemplateElement\",
+      type: \\"TemplateElement\\",
       _TemplateElement: void,
       tail: boolean,
       value: { cooked: string, raw: string },
@@ -6674,7 +6676,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"TemplateLiteral\",
+      type: \\"TemplateLiteral\\",
       _TemplateLiteral: void,
       expressions: Array<Expression>,
       quasis: Array<TemplateElement>,
@@ -6689,7 +6691,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ThisExpression\",
+      type: \\"ThisExpression\\",
       _ThisExpression: void,
       end: number,
       innerComments: ?Array<Comment>,
@@ -6702,7 +6704,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ThrowStatement\",
+      type: \\"ThrowStatement\\",
       _ThrowStatement: void,
       argument: Expression,
       end: number,
@@ -6716,7 +6718,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"TryStatement\",
+      type: \\"TryStatement\\",
       _TryStatement: void,
       block: BlockStatement,
       finalizer: ?BlockStatement,
@@ -6734,7 +6736,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"UnaryExpression\",
+      type: \\"UnaryExpression\\",
       _UnaryExpression: void,
       argument: Expression,
       operator: UnaryOperator,
@@ -6750,7 +6752,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"UpdateExpression\",
+      type: \\"UpdateExpression\\",
       _UpdateExpression: void,
       argument: Expression,
       operator: UpdateOperator,
@@ -6766,10 +6768,10 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"VariableDeclaration\",
+      type: \\"VariableDeclaration\\",
       _VariableDeclaration: void,
       declarations: Array<VariableDeclarator>,
-      kind: \"var\" | \"let\" | \"const\",
+      kind: \\"var\\" | \\"let\\" | \\"const\\",
       end: number,
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
@@ -6781,7 +6783,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"VariableDeclarator\",
+      type: \\"VariableDeclarator\\",
       _VariableDeclarator: void,
       id: Pattern,
       init: ?Expression,
@@ -6796,7 +6798,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"WhileStatement\",
+      type: \\"WhileStatement\\",
       _WhileStatement: void,
       body: Statement,
       test: Expression,
@@ -6811,7 +6813,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"WithStatement\",
+      type: \\"WithStatement\\",
       _WithStatement: void,
       body: Statement,
       object: Expression,
@@ -6826,7 +6828,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"YieldExpression\",
+      type: \\"YieldExpression\\",
       _YieldExpression: void,
       argument: ?Expression,
       delegate: boolean,
@@ -6841,7 +6843,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ExportAllDeclaration\",
+      type: \\"ExportAllDeclaration\\",
       _ExportAllDeclaration: void,
       exported: Node,
       source: Node,
@@ -6856,7 +6858,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ExportDefaultDeclaration\",
+      type: \\"ExportDefaultDeclaration\\",
       _ExportDefaultDeclaration: void,
       declaration: Node,
       end: number,
@@ -6870,7 +6872,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ExportNamedDeclaration\",
+      type: \\"ExportNamedDeclaration\\",
       _ExportNamedDeclaration: void,
       declaration: Node,
       source: Literal,
@@ -6886,7 +6888,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ExportDefaultSpecifier\",
+      type: \\"ExportDefaultSpecifier\\",
       _ExportDefaultSpecifier: void,
       exported: Node,
       end: number,
@@ -6900,7 +6902,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ExportNamespaceSpecifier\",
+      type: \\"ExportNamespaceSpecifier\\",
       _ExportNamespaceSpecifier: void,
       exported: Node,
       end: number,
@@ -6914,7 +6916,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ExportSpecifier\",
+      type: \\"ExportSpecifier\\",
       _ExportSpecifier: void,
       local: Node,
       exported: Node,
@@ -6929,7 +6931,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"AnyTypeAnnotation\",
+      type: \\"AnyTypeAnnotation\\",
       _AnyTypeAnnotation: void,
       end: number,
       innerComments: ?Array<Comment>,
@@ -6942,7 +6944,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ArrayTypeAnnotation\",
+      type: \\"ArrayTypeAnnotation\\",
       _ArrayTypeAnnotation: void,
       elementType: Type,
       end: number,
@@ -6956,7 +6958,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"BooleanLiteralTypeAnnotation\",
+      type: \\"BooleanLiteralTypeAnnotation\\",
       _BooleanLiteralTypeAnnotation: void,
       raw: string,
       value: boolean,
@@ -6971,7 +6973,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"BooleanTypeAnnotation\",
+      type: \\"BooleanTypeAnnotation\\",
       _BooleanTypeAnnotation: void,
       end: number,
       innerComments: ?Array<Comment>,
@@ -6984,7 +6986,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ClassImplements\",
+      type: \\"ClassImplements\\",
       _ClassImplements: void,
       id: Identifier,
       typeParameters: ?TypeParameterInstantiation,
@@ -7000,7 +7002,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ClassProperty\",
+      type: \\"ClassProperty\\",
       _ClassProperty: void,
       computed: boolean,
       key: Node,
@@ -7019,7 +7021,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"DeclareClass\",
+      type: \\"DeclareClass\\",
       _DeclareClass: void,
       body: ObjectTypeAnnotation,
       extends: Array<InterfaceExtends>,
@@ -7036,7 +7038,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"DeclareFunction\",
+      type: \\"DeclareFunction\\",
       _DeclareFunction: void,
       id: Identifier,
       end: number,
@@ -7050,7 +7052,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"DeclareModule\",
+      type: \\"DeclareModule\\",
       _DeclareModule: void,
       body: BlockStatement,
       id: Node,
@@ -7065,7 +7067,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"DeclareVariable\",
+      type: \\"DeclareVariable\\",
       _DeclareVariable: void,
       id: Identifier,
       end: number,
@@ -7079,7 +7081,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"FunctionTypeAnnotation\",
+      type: \\"FunctionTypeAnnotation\\",
       _FunctionTypeAnnotation: void,
       params: Array<FunctionTypeParam>,
       rest: ?FunctionTypeParam,
@@ -7096,7 +7098,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"FunctionTypeParam\",
+      type: \\"FunctionTypeParam\\",
       _FunctionTypeParam: void,
       name: Identifier,
       optional: boolean,
@@ -7112,7 +7114,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"GenericTypeAnnotation\",
+      type: \\"GenericTypeAnnotation\\",
       _GenericTypeAnnotation: void,
       id: Node,
       typeParameters: ?TypeParameterInstantiation,
@@ -7127,7 +7129,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"InterfaceExtends\",
+      type: \\"InterfaceExtends\\",
       _InterfaceExtends: void,
       id: Identifier,
       typeParameters: ?TypeParameterInstantiation,
@@ -7142,7 +7144,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"InterfaceDeclaration\",
+      type: \\"InterfaceDeclaration\\",
       _InterfaceDeclaration: void,
       body: ObjectTypeAnnotation,
       extends: Array<InterfaceExtends>,
@@ -7159,7 +7161,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"IntersectionTypeAnnotation\",
+      type: \\"IntersectionTypeAnnotation\\",
       _IntersectionTypeAnnotation: void,
       types: Array<Type>,
       end: number,
@@ -7173,7 +7175,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"MixedTypeAnnotation\",
+      type: \\"MixedTypeAnnotation\\",
       _MixedTypeAnnotation: void,
       end: number,
       innerComments: ?Array<Comment>,
@@ -7186,7 +7188,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"NullableTypeAnnotation\",
+      type: \\"NullableTypeAnnotation\\",
       _NullableTypeAnnotation: void,
       typeAnnotation: Type,
       end: number,
@@ -7200,7 +7202,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"NumberLiteralTypeAnnotation\",
+      type: \\"NumberLiteralTypeAnnotation\\",
       _NumberLiteralTypeAnnotation: void,
       raw: string,
       value: number,
@@ -7215,7 +7217,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"NumberTypeAnnotation\",
+      type: \\"NumberTypeAnnotation\\",
       _NumberTypeAnnotation: void,
       end: number,
       innerComments: ?Array<Comment>,
@@ -7228,7 +7230,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"StringLiteralTypeAnnotation\",
+      type: \\"StringLiteralTypeAnnotation\\",
       _StringLiteralTypeAnnotation: void,
       raw: string,
       value: string,
@@ -7243,7 +7245,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"StringTypeAnnotation\",
+      type: \\"StringTypeAnnotation\\",
       _StringTypeAnnotation: void,
       end: number,
       innerComments: ?Array<Comment>,
@@ -7256,7 +7258,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"TupleTypeAnnotation\",
+      type: \\"TupleTypeAnnotation\\",
       _TupleTypeAnnotation: void,
       types: Array<Type>,
       end: number,
@@ -7270,7 +7272,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"TypeofTypeAnnotation\",
+      type: \\"TypeofTypeAnnotation\\",
       _TypeofTypeAnnotation: void,
       argument: Type,
       end: number,
@@ -7284,7 +7286,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"TypeAlias\",
+      type: \\"TypeAlias\\",
       _TypeAlias: void,
       id: Identifier,
       right: Type,
@@ -7300,7 +7302,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"TypeAnnotation\",
+      type: \\"TypeAnnotation\\",
       _TypeAnnotation: void,
       typeAnnotation: Type,
       end: number,
@@ -7314,7 +7316,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"TypeCastExpression\",
+      type: \\"TypeCastExpression\\",
       _TypeCastExpression: void,
       expression: Expression,
       typeAnnotation: TypeAnnotation,
@@ -7329,7 +7331,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"TypeParameterDeclaration\",
+      type: \\"TypeParameterDeclaration\\",
       _TypeParameterDeclaration: void,
       params: Array<Identifier>,
       end: number,
@@ -7343,7 +7345,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"TypeParameterInstantiation\",
+      type: \\"TypeParameterInstantiation\\",
       _TypeParameterInstantiation: void,
       params: Array<Type>,
       end: number,
@@ -7357,7 +7359,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ObjectTypeAnnotation\",
+      type: \\"ObjectTypeAnnotation\\",
       _ObjectTypeAnnotation: void,
       callProperties: Array<ObjectTypeCallProperty>,
       indexers: Array<ObjectTypeIndexer>,
@@ -7373,7 +7375,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ObjectTypeCallProperty\",
+      type: \\"ObjectTypeCallProperty\\",
       _ObjectTypeCallProperty: void,
       static: boolean,
       value: FunctionTypeAnnotation,
@@ -7388,7 +7390,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ObjectTypeIndexer\",
+      type: \\"ObjectTypeIndexer\\",
       _ObjectTypeIndexer: void,
       id: Identifier,
       key: Type,
@@ -7404,7 +7406,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ObjectTypeProperty\",
+      type: \\"ObjectTypeProperty\\",
       _ObjectTypeProperty: void,
       key: Node,
       optional: boolean,
@@ -7420,7 +7422,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"QualifiedTypeIdentifier\",
+      type: \\"QualifiedTypeIdentifier\\",
       _QualifiedTypeIdentifier: void,
       id: Identifier,
       qualification: Node,
@@ -7435,7 +7437,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"UnionTypeAnnotation\",
+      type: \\"UnionTypeAnnotation\\",
       _UnionTypeAnnotation: void,
       types: Array<Type>,
       end: number,
@@ -7449,7 +7451,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"VoidTypeAnnotation\",
+      type: \\"VoidTypeAnnotation\\",
       _VoidTypeAnnotation: void,
       end: number,
       innerComments: ?Array<Comment>,
@@ -7462,7 +7464,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"JSXAttribute\",
+      type: \\"JSXAttribute\\",
       _JSXAttribute: void,
       name: Node,
       value: ?Node,
@@ -7477,7 +7479,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"JSXClosingElement\",
+      type: \\"JSXClosingElement\\",
       _JSXClosingElement: void,
       name: Node,
       end: number,
@@ -7491,7 +7493,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"JSXElement\",
+      type: \\"JSXElement\\",
       _JSXElement: void,
       children: Array<Node>,
       closingElement: ?JSXClosingElement,
@@ -7507,7 +7509,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"JSXEmptyExpression\",
+      type: \\"JSXEmptyExpression\\",
       _JSXEmptyExpression: void,
       end: number,
       innerComments: ?Array<Comment>,
@@ -7520,7 +7522,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"JSXExpressionContainer\",
+      type: \\"JSXExpressionContainer\\",
       _JSXExpressionContainer: void,
       expression: Expression,
       end: number,
@@ -7534,7 +7536,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"JSXIdentifier\",
+      type: \\"JSXIdentifier\\",
       _JSXIdentifier: void,
       name: string,
       end: number,
@@ -7548,7 +7550,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"JSXMemberExpression\",
+      type: \\"JSXMemberExpression\\",
       _JSXMemberExpression: void,
       computed: boolean,
       object: Node,
@@ -7564,7 +7566,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"JSXNamespacedName\",
+      type: \\"JSXNamespacedName\\",
       _JSXNamespacedName: void,
       name: JSXIdentifier,
       namespace: JSXIdentifier,
@@ -7579,7 +7581,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"JSXOpeningElement\",
+      type: \\"JSXOpeningElement\\",
       _JSXOpeningElement: void,
       attributes: Array<Node>,
       name: Array<Node>,
@@ -7595,7 +7597,7 @@ export type Node =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"JSXSpreadAttribute\",
+      type: \\"JSXSpreadAttribute\\",
       _JSXSpreadAttribute: void,
       argument: Expression,
       end: number,
@@ -7611,7 +7613,7 @@ export type Node =
 
 export type Pattern =
   | {
-      type: \"ArrayPattern\",
+      type: \\"ArrayPattern\\",
       _ArrayPattern: void,
       elements: Array<?Node>,
       typeAnnotation: ?TypeAnnotation,
@@ -7626,7 +7628,7 @@ export type Pattern =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"AssignmentPattern\",
+      type: \\"AssignmentPattern\\",
       _AssignmentPattern: void,
       left: Pattern,
       right: Expression,
@@ -7641,7 +7643,7 @@ export type Pattern =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"Identifier\",
+      type: \\"Identifier\\",
       _Identifier: void,
       name: string,
       typeAnnotation: ?TypeAnnotation,
@@ -7656,7 +7658,7 @@ export type Pattern =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ObjectPattern\",
+      type: \\"ObjectPattern\\",
       _ObjectPattern: void,
       properties: Array<Node>,
       typeAnnotation: ?TypeAnnotation,
@@ -7671,7 +7673,7 @@ export type Pattern =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"RestElement\",
+      type: \\"RestElement\\",
       _RestElement: void,
       argument: Pattern,
       typeAnnotation: ?TypeAnnotation,
@@ -7688,7 +7690,7 @@ export type Pattern =
 
 export type Statement =
   | {
-      type: \"BlockStatement\",
+      type: \\"BlockStatement\\",
       _BlockStatement: void,
       body: Array<Statement>,
       end: number,
@@ -7702,7 +7704,7 @@ export type Statement =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"BreakStatement\",
+      type: \\"BreakStatement\\",
       _BreakStatement: void,
       label: ?Identifier,
       end: number,
@@ -7716,7 +7718,7 @@ export type Statement =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ContinueStatement\",
+      type: \\"ContinueStatement\\",
       _ContinueStatement: void,
       label: ?Identifier,
       end: number,
@@ -7730,7 +7732,7 @@ export type Statement =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"DoWhileStatement\",
+      type: \\"DoWhileStatement\\",
       _DoWhileStatement: void,
       body: Statement,
       test: Expression,
@@ -7745,7 +7747,7 @@ export type Statement =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"EmptyStatement\",
+      type: \\"EmptyStatement\\",
       _EmptyStatement: void,
       end: number,
       innerComments: ?Array<Comment>,
@@ -7758,7 +7760,7 @@ export type Statement =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ExpressionStatement\",
+      type: \\"ExpressionStatement\\",
       _ExpressionStatement: void,
       expression: Expression,
       end: number,
@@ -7772,7 +7774,7 @@ export type Statement =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ForInStatement\",
+      type: \\"ForInStatement\\",
       _ForInStatement: void,
       body: Statement,
       left: Node,
@@ -7788,7 +7790,7 @@ export type Statement =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ForOfStatement\",
+      type: \\"ForOfStatement\\",
       _ForOfStatement: void,
       body: Statement,
       left: Node,
@@ -7804,7 +7806,7 @@ export type Statement =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ForStatement\",
+      type: \\"ForStatement\\",
       _ForStatement: void,
       init: ?Node,
       test: ?Expression,
@@ -7821,7 +7823,7 @@ export type Statement =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"IfStatement\",
+      type: \\"IfStatement\\",
       _IfStatement: void,
       alternate: ?Statement,
       consequent: Statement,
@@ -7837,7 +7839,7 @@ export type Statement =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"LabeledStatement\",
+      type: \\"LabeledStatement\\",
       _LabeledStatement: void,
       body: Statement,
       label: Identifier,
@@ -7852,7 +7854,7 @@ export type Statement =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ReturnStatement\",
+      type: \\"ReturnStatement\\",
       _ReturnStatement: void,
       argument: ?Expression,
       end: number,
@@ -7866,7 +7868,7 @@ export type Statement =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"SwitchStatement\",
+      type: \\"SwitchStatement\\",
       _SwitchStatement: void,
       cases: Array<SwitchCase>,
       discriminant: Expression,
@@ -7882,7 +7884,7 @@ export type Statement =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ThrowStatement\",
+      type: \\"ThrowStatement\\",
       _ThrowStatement: void,
       argument: Expression,
       end: number,
@@ -7896,7 +7898,7 @@ export type Statement =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"TryStatement\",
+      type: \\"TryStatement\\",
       _TryStatement: void,
       block: BlockStatement,
       finalizer: ?BlockStatement,
@@ -7914,7 +7916,7 @@ export type Statement =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"WhileStatement\",
+      type: \\"WhileStatement\\",
       _WhileStatement: void,
       body: Statement,
       test: Expression,
@@ -7929,7 +7931,7 @@ export type Statement =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"WithStatement\",
+      type: \\"WithStatement\\",
       _WithStatement: void,
       body: Statement,
       object: Expression,
@@ -7944,7 +7946,7 @@ export type Statement =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"DeclareClass\",
+      type: \\"DeclareClass\\",
       _DeclareClass: void,
       body: ObjectTypeAnnotation,
       extends: Array<InterfaceExtends>,
@@ -7961,7 +7963,7 @@ export type Statement =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"DeclareFunction\",
+      type: \\"DeclareFunction\\",
       _DeclareFunction: void,
       id: Identifier,
       end: number,
@@ -7975,7 +7977,7 @@ export type Statement =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"DeclareModule\",
+      type: \\"DeclareModule\\",
       _DeclareModule: void,
       body: BlockStatement,
       id: Node,
@@ -7990,7 +7992,7 @@ export type Statement =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"DeclareVariable\",
+      type: \\"DeclareVariable\\",
       _DeclareVariable: void,
       id: Identifier,
       end: number,
@@ -8004,7 +8006,7 @@ export type Statement =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"InterfaceDeclaration\",
+      type: \\"InterfaceDeclaration\\",
       _InterfaceDeclaration: void,
       body: ObjectTypeAnnotation,
       extends: Array<InterfaceExtends>,
@@ -8021,7 +8023,7 @@ export type Statement =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"TypeAlias\",
+      type: \\"TypeAlias\\",
       _TypeAlias: void,
       id: Identifier,
       right: Type,
@@ -8039,7 +8041,7 @@ export type Statement =
 
 export type Type =
   | {
-      type: \"AnyTypeAnnotation\",
+      type: \\"AnyTypeAnnotation\\",
       _AnyTypeAnnotation: void,
       end: number,
       innerComments: ?Array<Comment>,
@@ -8052,7 +8054,7 @@ export type Type =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ArrayTypeAnnotation\",
+      type: \\"ArrayTypeAnnotation\\",
       _ArrayTypeAnnotation: void,
       elementType: Type,
       end: number,
@@ -8066,7 +8068,7 @@ export type Type =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"BooleanLiteralTypeAnnotation\",
+      type: \\"BooleanLiteralTypeAnnotation\\",
       _BooleanLiteralTypeAnnotation: void,
       raw: string,
       value: boolean,
@@ -8081,7 +8083,7 @@ export type Type =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"BooleanTypeAnnotation\",
+      type: \\"BooleanTypeAnnotation\\",
       _BooleanTypeAnnotation: void,
       end: number,
       innerComments: ?Array<Comment>,
@@ -8094,7 +8096,7 @@ export type Type =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"FunctionTypeAnnotation\",
+      type: \\"FunctionTypeAnnotation\\",
       _FunctionTypeAnnotation: void,
       params: Array<FunctionTypeParam>,
       rest: ?FunctionTypeParam,
@@ -8111,7 +8113,7 @@ export type Type =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"GenericTypeAnnotation\",
+      type: \\"GenericTypeAnnotation\\",
       _GenericTypeAnnotation: void,
       id: Node,
       typeParameters: ?TypeParameterInstantiation,
@@ -8126,7 +8128,7 @@ export type Type =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"IntersectionTypeAnnotation\",
+      type: \\"IntersectionTypeAnnotation\\",
       _IntersectionTypeAnnotation: void,
       types: Array<Type>,
       end: number,
@@ -8140,7 +8142,7 @@ export type Type =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"MixedTypeAnnotation\",
+      type: \\"MixedTypeAnnotation\\",
       _MixedTypeAnnotation: void,
       end: number,
       innerComments: ?Array<Comment>,
@@ -8153,7 +8155,7 @@ export type Type =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"NullableTypeAnnotation\",
+      type: \\"NullableTypeAnnotation\\",
       _NullableTypeAnnotation: void,
       typeAnnotation: Type,
       end: number,
@@ -8167,7 +8169,7 @@ export type Type =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"NumberLiteralTypeAnnotation\",
+      type: \\"NumberLiteralTypeAnnotation\\",
       _NumberLiteralTypeAnnotation: void,
       raw: string,
       value: number,
@@ -8182,7 +8184,7 @@ export type Type =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"NumberTypeAnnotation\",
+      type: \\"NumberTypeAnnotation\\",
       _NumberTypeAnnotation: void,
       end: number,
       innerComments: ?Array<Comment>,
@@ -8195,7 +8197,7 @@ export type Type =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"StringLiteralTypeAnnotation\",
+      type: \\"StringLiteralTypeAnnotation\\",
       _StringLiteralTypeAnnotation: void,
       raw: string,
       value: string,
@@ -8210,7 +8212,7 @@ export type Type =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"StringTypeAnnotation\",
+      type: \\"StringTypeAnnotation\\",
       _StringTypeAnnotation: void,
       end: number,
       innerComments: ?Array<Comment>,
@@ -8223,7 +8225,7 @@ export type Type =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"TupleTypeAnnotation\",
+      type: \\"TupleTypeAnnotation\\",
       _TupleTypeAnnotation: void,
       types: Array<Type>,
       end: number,
@@ -8237,7 +8239,7 @@ export type Type =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"ObjectTypeAnnotation\",
+      type: \\"ObjectTypeAnnotation\\",
       _ObjectTypeAnnotation: void,
       callProperties: Array<ObjectTypeCallProperty>,
       indexers: Array<ObjectTypeIndexer>,
@@ -8253,7 +8255,7 @@ export type Type =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"UnionTypeAnnotation\",
+      type: \\"UnionTypeAnnotation\\",
       _UnionTypeAnnotation: void,
       types: Array<Type>,
       end: number,
@@ -8267,7 +8269,7 @@ export type Type =
       trailingComments: ?Array<Comment>
     }
   | {
-      type: \"VoidTypeAnnotation\",
+      type: \\"VoidTypeAnnotation\\",
       _VoidTypeAnnotation: void,
       end: number,
       innerComments: ?Array<Comment>,
@@ -8283,7 +8285,7 @@ export type Type =
 // Concrete Types. Nothing can extend these.
 
 export type CommentLine = {
-  type: \"CommentLine\",
+  type: \\"CommentLine\\",
   _CommentLine: void,
   value: string,
   end: number,
@@ -8295,7 +8297,7 @@ export type CommentLine = {
 };
 
 export type CommentBlock = {
-  type: \"CommentBlock\",
+  type: \\"CommentBlock\\",
   _CommentBlock: void,
   value: string,
   end: number,
@@ -8309,7 +8311,7 @@ export type CommentBlock = {
 // Babel concrete types.
 
 export type ArrayExpression = {
-  type: \"ArrayExpression\",
+  type: \\"ArrayExpression\\",
   _ArrayExpression: void,
   elements: Array<?Node>,
   end: number,
@@ -8324,7 +8326,7 @@ export type ArrayExpression = {
 };
 
 export type ArrayPattern = {
-  type: \"ArrayPattern\",
+  type: \\"ArrayPattern\\",
   _ArrayPattern: void,
   elements: Array<?Node>,
   typeAnnotation: ?TypeAnnotation,
@@ -8340,7 +8342,7 @@ export type ArrayPattern = {
 };
 
 export type ArrowFunctionExpression = {
-  type: \"ArrowFunctionExpression\",
+  type: \\"ArrowFunctionExpression\\",
   _ArrowFunctionExpression: void,
   body: Node,
   id: ?Identifier,
@@ -8364,21 +8366,21 @@ export type ArrowFunctionExpression = {
 };
 
 type AssignmentOperator =
-  | \"=\"
-  | \"+=\"
-  | \"-=\"
-  | \"*=\"
-  | \"/=\"
-  | \"%=\"
-  | \"<<=\"
-  | \">>=\"
-  | \">>>=\"
-  | \"|=\"
-  | \"^=\"
-  | \"&=\";
+  | \\"=\\"
+  | \\"+=\\"
+  | \\"-=\\"
+  | \\"*=\\"
+  | \\"/=\\"
+  | \\"%=\\"
+  | \\"<<=\\"
+  | \\">>=\\"
+  | \\">>>=\\"
+  | \\"|=\\"
+  | \\"^=\\"
+  | \\"&=\\";
 
 export type AssignmentExpression = {
-  type: \"AssignmentExpression\",
+  type: \\"AssignmentExpression\\",
   _AssignmentExpression: void,
   left: Pattern,
   operator: AssignmentOperator,
@@ -8395,7 +8397,7 @@ export type AssignmentExpression = {
 };
 
 export type AssignmentPattern = {
-  type: \"AssignmentPattern\",
+  type: \\"AssignmentPattern\\",
   _AssignmentPattern: void,
   left: Pattern,
   right: Expression,
@@ -8411,7 +8413,7 @@ export type AssignmentPattern = {
 };
 
 export type AwaitExpression = {
-  type: \"AwaitExpression\",
+  type: \\"AwaitExpression\\",
   _AwaitExpression: void,
   all: boolean,
   argument: ?Expression,
@@ -8427,31 +8429,31 @@ export type AwaitExpression = {
 };
 
 type BinaryOperator =
-  | \"==\"
-  | \"!=\"
-  | \"===\"
-  | \"!==\"
-  | \"<\"
-  | \"<=\"
-  | \">\"
-  | \">=\"
-  | \"<<\"
-  | \">>\"
-  | \">>>\"
-  | \"+\"
-  | \"-\"
-  | \"*\"
-  | \"/\"
-  | \"%\"
-  | \"&\"
-  | \"|\"
-  | \"^\"
-  | \"in\"
-  | \"instanceof\"
-  | \"..\";
+  | \\"==\\"
+  | \\"!=\\"
+  | \\"===\\"
+  | \\"!==\\"
+  | \\"<\\"
+  | \\"<=\\"
+  | \\">\\"
+  | \\">=\\"
+  | \\"<<\\"
+  | \\">>\\"
+  | \\">>>\\"
+  | \\"+\\"
+  | \\"-\\"
+  | \\"*\\"
+  | \\"/\\"
+  | \\"%\\"
+  | \\"&\\"
+  | \\"|\\"
+  | \\"^\\"
+  | \\"in\\"
+  | \\"instanceof\\"
+  | \\"..\\";
 
 export type BinaryExpression = {
-  type: \"BinaryExpression\",
+  type: \\"BinaryExpression\\",
   _BinaryExpression: void,
   left: Expression,
   operator: BinaryOperator,
@@ -8469,7 +8471,7 @@ export type BinaryExpression = {
 
 // TODO: What is this?
 export type BindExpression = {
-  type: \"BindExpression\",
+  type: \\"BindExpression\\",
   _BindExpression: void,
   callee: Node,
   object: Node,
@@ -8485,7 +8487,7 @@ export type BindExpression = {
 };
 
 export type BlockStatement = {
-  type: \"BlockStatement\",
+  type: \\"BlockStatement\\",
   _BlockStatement: void,
   body: Array<Statement>,
   end: number,
@@ -8500,7 +8502,7 @@ export type BlockStatement = {
 };
 
 export type BreakStatement = {
-  type: \"BreakStatement\",
+  type: \\"BreakStatement\\",
   _BreakStatement: void,
   label: ?Identifier,
   end: number,
@@ -8515,7 +8517,7 @@ export type BreakStatement = {
 };
 
 export type CallExpression = {
-  type: \"CallExpression\",
+  type: \\"CallExpression\\",
   _CallExpression: void,
   arguments: Array<Node>,
   callee: Expression,
@@ -8531,7 +8533,7 @@ export type CallExpression = {
 };
 
 export type CatchClause = {
-  type: \"CatchClause\",
+  type: \\"CatchClause\\",
   _CatchClause: void,
   body: BlockStatement,
   param: Pattern,
@@ -8547,7 +8549,7 @@ export type CatchClause = {
 };
 
 export type ClassBody = {
-  type: \"ClassBody\",
+  type: \\"ClassBody\\",
   _ClassBody: void,
   body: Array<Node>,
   end: number,
@@ -8562,7 +8564,7 @@ export type ClassBody = {
 };
 
 export type ClassDeclaration = {
-  type: \"ClassDeclaration\",
+  type: \\"ClassDeclaration\\",
   _ClassDeclaration: void,
   body: ClassBody,
   id: ?Identifier,
@@ -8582,7 +8584,7 @@ export type ClassDeclaration = {
 };
 
 export type ClassExpression = {
-  type: \"ClassExpression\",
+  type: \\"ClassExpression\\",
   _ClassExpression: void,
   body: ClassBody,
   id: ?Identifier,
@@ -8602,7 +8604,7 @@ export type ClassExpression = {
 };
 
 export type ComprehensionBlock = {
-  type: \"ComprehensionBlock\",
+  type: \\"ComprehensionBlock\\",
   _ComprehensionBlock: void,
   each: boolean,
   left: Pattern,
@@ -8619,7 +8621,7 @@ export type ComprehensionBlock = {
 };
 
 export type ComprehensionExpression = {
-  type: \"ComprehensionExpression\",
+  type: \\"ComprehensionExpression\\",
   _ComprehensionExpression: void,
   body: Expression,
   blocks: Array<ComprehensionBlock>,
@@ -8636,7 +8638,7 @@ export type ComprehensionExpression = {
 };
 
 export type ConditionalExpression = {
-  type: \"ConditionalExpression\",
+  type: \\"ConditionalExpression\\",
   _ConditionalExpression: void,
   alternate: Expression,
   consequent: Expression,
@@ -8653,7 +8655,7 @@ export type ConditionalExpression = {
 };
 
 export type ContinueStatement = {
-  type: \"ContinueStatement\",
+  type: \\"ContinueStatement\\",
   _ContinueStatement: void,
   label: ?Identifier,
   end: number,
@@ -8669,7 +8671,7 @@ export type ContinueStatement = {
 
 // TODO: Make this correct.
 export type Decorator = {
-  type: \"Decorator\",
+  type: \\"Decorator\\",
   _Decorator: void,
   expression: Expression,
   end: number,
@@ -8684,7 +8686,7 @@ export type Decorator = {
 };
 
 export type DebuggerStatement = {
-  type: \"DebuggerStatement\",
+  type: \\"DebuggerStatement\\",
   _DebuggerStatement: void,
   end: number,
   innerComments: ?Array<Comment>,
@@ -8698,7 +8700,7 @@ export type DebuggerStatement = {
 };
 
 export type DoWhileStatement = {
-  type: \"DoWhileStatement\",
+  type: \\"DoWhileStatement\\",
   _DoWhileStatement: void,
   body: Statement,
   test: Expression,
@@ -8715,7 +8717,7 @@ export type DoWhileStatement = {
 
 // TODO: Make this correct.
 export type DoExpression = {
-  type: \"DoExpression\",
+  type: \\"DoExpression\\",
   _DoExpression: void,
   body: Statement,
   end: number,
@@ -8730,7 +8732,7 @@ export type DoExpression = {
 };
 
 export type EmptyStatement = {
-  type: \"EmptyStatement\",
+  type: \\"EmptyStatement\\",
   _EmptyStatement: void,
   end: number,
   innerComments: ?Array<Comment>,
@@ -8744,7 +8746,7 @@ export type EmptyStatement = {
 };
 
 export type ExpressionStatement = {
-  type: \"ExpressionStatement\",
+  type: \\"ExpressionStatement\\",
   _ExpressionStatement: void,
   expression: Expression,
   end: number,
@@ -8759,7 +8761,7 @@ export type ExpressionStatement = {
 };
 
 export type File = {
-  type: \"File\",
+  type: \\"File\\",
   _File: void,
   program: Program,
   end: number,
@@ -8774,7 +8776,7 @@ export type File = {
 };
 
 export type ForInStatement = {
-  type: \"ForInStatement\",
+  type: \\"ForInStatement\\",
   _ForInStatement: void,
   body: Statement,
   left: Node,
@@ -8792,7 +8794,7 @@ export type ForInStatement = {
 
 // TODO: Make this correct.
 export type ForOfStatement = {
-  type: \"ForOfStatement\",
+  type: \\"ForOfStatement\\",
   _ForOfStatement: void,
   body: Statement,
   left: Node,
@@ -8809,7 +8811,7 @@ export type ForOfStatement = {
 };
 
 export type ForStatement = {
-  type: \"ForStatement\",
+  type: \\"ForStatement\\",
   _ForStatement: void,
   init: ?Node,
   test: ?Expression,
@@ -8827,7 +8829,7 @@ export type ForStatement = {
 };
 
 export type FunctionDeclaration = {
-  type: \"FunctionDeclaration\",
+  type: \\"FunctionDeclaration\\",
   _FunctionDeclaration: void,
   body: BlockStatement,
   id: Identifier,
@@ -8851,7 +8853,7 @@ export type FunctionDeclaration = {
 };
 
 export type FunctionExpression = {
-  type: \"FunctionExpression\",
+  type: \\"FunctionExpression\\",
   _FunctionExpression: void,
   body: BlockStatement,
   id: ?Identifier,
@@ -8875,7 +8877,7 @@ export type FunctionExpression = {
 };
 
 export type Identifier = {
-  type: \"Identifier\",
+  type: \\"Identifier\\",
   _Identifier: void,
   name: string,
   typeAnnotation: ?TypeAnnotation,
@@ -8891,7 +8893,7 @@ export type Identifier = {
 };
 
 export type IfStatement = {
-  type: \"IfStatement\",
+  type: \\"IfStatement\\",
   _IfStatement: void,
   alternate: ?Statement,
   consequent: Statement,
@@ -8909,7 +8911,7 @@ export type IfStatement = {
 
 // TODO: Make this correct.
 export type ImportDefaultSpecifier = {
-  type: \"ImportDefaultSpecifier\",
+  type: \\"ImportDefaultSpecifier\\",
   _ImportDefaultSpecifier: void,
   local: Node,
   end: number,
@@ -8925,7 +8927,7 @@ export type ImportDefaultSpecifier = {
 
 // TODO: Make this correct.
 export type ImportNamespaceSpecifier = {
-  type: \"ImportNamespaceSpecifier\",
+  type: \\"ImportNamespaceSpecifier\\",
   _ImportNamespaceSpecifier: void,
   local: Node,
   end: number,
@@ -8941,7 +8943,7 @@ export type ImportNamespaceSpecifier = {
 
 // TODO: Make this correct.
 export type ImportDeclaration = {
-  type: \"ImportDeclaration\",
+  type: \\"ImportDeclaration\\",
   _ImportDeclaration: void,
   specifiers: Array<Node>,
   source: Literal,
@@ -8958,7 +8960,7 @@ export type ImportDeclaration = {
 
 // TODO: Make this correct.
 export type ImportSpecifier = {
-  type: \"ImportSpecifier\",
+  type: \\"ImportSpecifier\\",
   _ImportSpecifier: void,
   imported: Node,
   local: Node,
@@ -8974,7 +8976,7 @@ export type ImportSpecifier = {
 };
 
 export type LabeledStatement = {
-  type: \"LabeledStatement\",
+  type: \\"LabeledStatement\\",
   _LabeledStatement: void,
   body: Statement,
   label: Identifier,
@@ -8990,7 +8992,7 @@ export type LabeledStatement = {
 };
 
 export type Literal = {
-  type: \"Literal\",
+  type: \\"Literal\\",
   _Literal: void,
   raw: string,
   regex: ?{ pattern: string, flags: string },
@@ -9006,10 +9008,10 @@ export type Literal = {
   trailingComments: ?Array<Comment>
 };
 
-type LogicalOperator = \"||\" | \"&&\";
+type LogicalOperator = \\"||\\" | \\"&&\\";
 
 export type LogicalExpression = {
-  type: \"LogicalExpression\",
+  type: \\"LogicalExpression\\",
   _LogicalExpression: void,
   left: Expression,
   operator: LogicalOperator,
@@ -9026,7 +9028,7 @@ export type LogicalExpression = {
 };
 
 export type MemberExpression = {
-  type: \"MemberExpression\",
+  type: \\"MemberExpression\\",
   _MemberExpression: void,
   computed: boolean,
   object: Expression,
@@ -9044,7 +9046,7 @@ export type MemberExpression = {
 
 // TODO: Make this correct.
 export type MetaProperty = {
-  type: \"MetaProperty\",
+  type: \\"MetaProperty\\",
   _MetaProperty: void,
   meta: Node,
   property: Node,
@@ -9060,11 +9062,11 @@ export type MetaProperty = {
 };
 
 export type MethodDefinition = {
-  type: \"MethodDefinition\",
+  type: \\"MethodDefinition\\",
   _MethodDefinition: void,
   computed: boolean,
   key: Node,
-  kind: \"constructor\" | \"method\" | \"get\" | \"set\",
+  kind: \\"constructor\\" | \\"method\\" | \\"get\\" | \\"set\\",
   static: boolean,
   value: FunctionExpression,
   decorators: ?Array<Decorator>,
@@ -9080,7 +9082,7 @@ export type MethodDefinition = {
 };
 
 export type NewExpression = {
-  type: \"NewExpression\",
+  type: \\"NewExpression\\",
   _NewExpression: void,
   arguments: Array<Node>,
   callee: Expression,
@@ -9096,7 +9098,7 @@ export type NewExpression = {
 };
 
 export type Noop = {
-  type: \"Noop\",
+  type: \\"Noop\\",
   _Noop: void,
   end: number,
   innerComments: ?Array<Comment>,
@@ -9110,7 +9112,7 @@ export type Noop = {
 };
 
 export type ObjectExpression = {
-  type: \"ObjectExpression\",
+  type: \\"ObjectExpression\\",
   _ObjectExpression: void,
   properties: Array<Node>,
   end: number,
@@ -9125,7 +9127,7 @@ export type ObjectExpression = {
 };
 
 export type ObjectPattern = {
-  type: \"ObjectPattern\",
+  type: \\"ObjectPattern\\",
   _ObjectPattern: void,
   properties: Array<Node>,
   typeAnnotation: ?TypeAnnotation,
@@ -9141,7 +9143,7 @@ export type ObjectPattern = {
 };
 
 export type Program = {
-  type: \"Program\",
+  type: \\"Program\\",
   _Program: void,
   body: Array<Statement>,
   end: number,
@@ -9156,11 +9158,11 @@ export type Program = {
 };
 
 export type Property = {
-  type: \"Property\",
+  type: \\"Property\\",
   _Property: void,
   computed: boolean,
   key: Node,
-  kind: \"init\" | \"get\" | \"set\",
+  kind: \\"init\\" | \\"get\\" | \\"set\\",
   method: boolean,
   shorthand: boolean,
   value: Node,
@@ -9177,7 +9179,7 @@ export type Property = {
 };
 
 export type RestElement = {
-  type: \"RestElement\",
+  type: \\"RestElement\\",
   _RestElement: void,
   argument: Pattern,
   typeAnnotation: ?TypeAnnotation,
@@ -9193,7 +9195,7 @@ export type RestElement = {
 };
 
 export type ReturnStatement = {
-  type: \"ReturnStatement\",
+  type: \\"ReturnStatement\\",
   _ReturnStatement: void,
   argument: ?Expression,
   end: number,
@@ -9208,7 +9210,7 @@ export type ReturnStatement = {
 };
 
 export type SequenceExpression = {
-  type: \"SequenceExpression\",
+  type: \\"SequenceExpression\\",
   _SequenceExpression: void,
   expression: Array<Expression>,
   end: number,
@@ -9223,7 +9225,7 @@ export type SequenceExpression = {
 };
 
 export type SpreadElement = {
-  type: \"SpreadElement\",
+  type: \\"SpreadElement\\",
   _SpreadElement: void,
   argument: Expression,
   end: number,
@@ -9238,7 +9240,7 @@ export type SpreadElement = {
 };
 
 export type SpreadProperty = {
-  type: \"SpreadProperty\",
+  type: \\"SpreadProperty\\",
   _SpreadProperty: void,
   argument: Expression,
   end: number,
@@ -9253,7 +9255,7 @@ export type SpreadProperty = {
 };
 
 export type Super = {
-  type: \"Super\",
+  type: \\"Super\\",
   _Super: void,
   end: number,
   innerComments: ?Array<Comment>,
@@ -9267,7 +9269,7 @@ export type Super = {
 };
 
 export type SwitchCase = {
-  type: \"SwitchCase\",
+  type: \\"SwitchCase\\",
   _SwitchCase: void,
   consequent: Array<Statement>,
   test: ?Expression,
@@ -9283,7 +9285,7 @@ export type SwitchCase = {
 };
 
 export type SwitchStatement = {
-  type: \"SwitchStatement\",
+  type: \\"SwitchStatement\\",
   _SwitchStatement: void,
   cases: Array<SwitchCase>,
   discriminant: Expression,
@@ -9300,7 +9302,7 @@ export type SwitchStatement = {
 };
 
 export type TaggedTemplateExpression = {
-  type: \"TaggedTemplateExpression\",
+  type: \\"TaggedTemplateExpression\\",
   _TaggedTemplateExpression: void,
   quasi: TemplateLiteral,
   tag: Expression,
@@ -9316,7 +9318,7 @@ export type TaggedTemplateExpression = {
 };
 
 export type TemplateElement = {
-  type: \"TemplateElement\",
+  type: \\"TemplateElement\\",
   _TemplateElement: void,
   tail: boolean,
   value: { cooked: string, raw: string },
@@ -9332,7 +9334,7 @@ export type TemplateElement = {
 };
 
 export type TemplateLiteral = {
-  type: \"TemplateLiteral\",
+  type: \\"TemplateLiteral\\",
   _TemplateLiteral: void,
   expressions: Array<Expression>,
   quasis: Array<TemplateElement>,
@@ -9348,7 +9350,7 @@ export type TemplateLiteral = {
 };
 
 export type ThisExpression = {
-  type: \"ThisExpression\",
+  type: \\"ThisExpression\\",
   _ThisExpression: void,
   end: number,
   innerComments: ?Array<Comment>,
@@ -9362,7 +9364,7 @@ export type ThisExpression = {
 };
 
 export type ThrowStatement = {
-  type: \"ThrowStatement\",
+  type: \\"ThrowStatement\\",
   _ThrowStatement: void,
   argument: Expression,
   end: number,
@@ -9377,7 +9379,7 @@ export type ThrowStatement = {
 };
 
 export type TryStatement = {
-  type: \"TryStatement\",
+  type: \\"TryStatement\\",
   _TryStatement: void,
   block: BlockStatement,
   finalizer: ?BlockStatement,
@@ -9395,10 +9397,10 @@ export type TryStatement = {
   trailingComments: ?Array<Comment>
 };
 
-type UnaryOperator = \"-\" | \"+\" | \"!\" | \"~\" | \"typeof\" | \"void\" | \"delete\";
+type UnaryOperator = \\"-\\" | \\"+\\" | \\"!\\" | \\"~\\" | \\"typeof\\" | \\"void\\" | \\"delete\\";
 
 export type UnaryExpression = {
-  type: \"UnaryExpression\",
+  type: \\"UnaryExpression\\",
   _UnaryExpression: void,
   argument: Expression,
   operator: UnaryOperator,
@@ -9414,10 +9416,10 @@ export type UnaryExpression = {
   trailingComments: ?Array<Comment>
 };
 
-type UpdateOperator = \"++\" | \"--\";
+type UpdateOperator = \\"++\\" | \\"--\\";
 
 export type UpdateExpression = {
-  type: \"UpdateExpression\",
+  type: \\"UpdateExpression\\",
   _UpdateExpression: void,
   argument: Expression,
   operator: UpdateOperator,
@@ -9434,10 +9436,10 @@ export type UpdateExpression = {
 };
 
 export type VariableDeclaration = {
-  type: \"VariableDeclaration\",
+  type: \\"VariableDeclaration\\",
   _VariableDeclaration: void,
   declarations: Array<VariableDeclarator>,
-  kind: \"var\" | \"let\" | \"const\",
+  kind: \\"var\\" | \\"let\\" | \\"const\\",
   end: number,
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
@@ -9450,7 +9452,7 @@ export type VariableDeclaration = {
 };
 
 export type VariableDeclarator = {
-  type: \"VariableDeclarator\",
+  type: \\"VariableDeclarator\\",
   _VariableDeclarator: void,
   id: Pattern,
   init: ?Expression,
@@ -9466,7 +9468,7 @@ export type VariableDeclarator = {
 };
 
 export type WhileStatement = {
-  type: \"WhileStatement\",
+  type: \\"WhileStatement\\",
   _WhileStatement: void,
   body: Statement,
   test: Expression,
@@ -9482,7 +9484,7 @@ export type WhileStatement = {
 };
 
 export type WithStatement = {
-  type: \"WithStatement\",
+  type: \\"WithStatement\\",
   _WithStatement: void,
   body: Statement,
   object: Expression,
@@ -9498,7 +9500,7 @@ export type WithStatement = {
 };
 
 export type YieldExpression = {
-  type: \"YieldExpression\",
+  type: \\"YieldExpression\\",
   _YieldExpression: void,
   argument: ?Expression,
   delegate: boolean,
@@ -9515,7 +9517,7 @@ export type YieldExpression = {
 
 // TODO: Make this correct.
 export type ExportAllDeclaration = {
-  type: \"ExportAllDeclaration\",
+  type: \\"ExportAllDeclaration\\",
   _ExportAllDeclaration: void,
   exported: Node,
   source: Node,
@@ -9532,7 +9534,7 @@ export type ExportAllDeclaration = {
 
 // TODO: Make this correct.
 export type ExportDefaultDeclaration = {
-  type: \"ExportDefaultDeclaration\",
+  type: \\"ExportDefaultDeclaration\\",
   _ExportDefaultDeclaration: void,
   declaration: Node,
   end: number,
@@ -9548,7 +9550,7 @@ export type ExportDefaultDeclaration = {
 
 // TODO: Make this correct.
 export type ExportNamedDeclaration = {
-  type: \"ExportNamedDeclaration\",
+  type: \\"ExportNamedDeclaration\\",
   _ExportNamedDeclaration: void,
   declaration: Node,
   source: Literal,
@@ -9566,7 +9568,7 @@ export type ExportNamedDeclaration = {
 
 // TODO: Make this correct.
 export type ExportDefaultSpecifier = {
-  type: \"ExportDefaultSpecifier\",
+  type: \\"ExportDefaultSpecifier\\",
   _ExportDefaultSpecifier: void,
   exported: Node,
   end: number,
@@ -9582,7 +9584,7 @@ export type ExportDefaultSpecifier = {
 
 // TODO: Make this correct.
 export type ExportNamespaceSpecifier = {
-  type: \"ExportNamespaceSpecifier\",
+  type: \\"ExportNamespaceSpecifier\\",
   _ExportNamespaceSpecifier: void,
   exported: Node,
   end: number,
@@ -9598,7 +9600,7 @@ export type ExportNamespaceSpecifier = {
 
 // TODO: Make this correct.
 export type ExportSpecifier = {
-  type: \"ExportSpecifier\",
+  type: \\"ExportSpecifier\\",
   _ExportSpecifier: void,
   local: Node,
   exported: Node,
@@ -9614,7 +9616,7 @@ export type ExportSpecifier = {
 };
 
 export type AnyTypeAnnotation = {
-  type: \"AnyTypeAnnotation\",
+  type: \\"AnyTypeAnnotation\\",
   _AnyTypeAnnotation: void,
   end: number,
   innerComments: ?Array<Comment>,
@@ -9628,7 +9630,7 @@ export type AnyTypeAnnotation = {
 };
 
 export type ArrayTypeAnnotation = {
-  type: \"ArrayTypeAnnotation\",
+  type: \\"ArrayTypeAnnotation\\",
   _ArrayTypeAnnotation: void,
   elementType: Type,
   end: number,
@@ -9643,7 +9645,7 @@ export type ArrayTypeAnnotation = {
 };
 
 export type BooleanLiteralTypeAnnotation = {
-  type: \"BooleanLiteralTypeAnnotation\",
+  type: \\"BooleanLiteralTypeAnnotation\\",
   _BooleanLiteralTypeAnnotation: void,
   raw: string,
   value: boolean,
@@ -9659,7 +9661,7 @@ export type BooleanLiteralTypeAnnotation = {
 };
 
 export type BooleanTypeAnnotation = {
-  type: \"BooleanTypeAnnotation\",
+  type: \\"BooleanTypeAnnotation\\",
   _BooleanTypeAnnotation: void,
   end: number,
   innerComments: ?Array<Comment>,
@@ -9673,7 +9675,7 @@ export type BooleanTypeAnnotation = {
 };
 
 export type ClassImplements = {
-  type: \"ClassImplements\",
+  type: \\"ClassImplements\\",
   _ClassImplements: void,
   id: Identifier,
   typeParameters: ?TypeParameterInstantiation,
@@ -9690,7 +9692,7 @@ export type ClassImplements = {
 };
 
 export type ClassProperty = {
-  type: \"ClassProperty\",
+  type: \\"ClassProperty\\",
   _ClassProperty: void,
   computed: boolean,
   key: Node,
@@ -9710,7 +9712,7 @@ export type ClassProperty = {
 };
 
 export type DeclareClass = {
-  type: \"DeclareClass\",
+  type: \\"DeclareClass\\",
   _DeclareClass: void,
   body: ObjectTypeAnnotation,
   extends: Array<InterfaceExtends>,
@@ -9729,7 +9731,7 @@ export type DeclareClass = {
 
 // TODO: Make this correct.
 export type DeclareFunction = {
-  type: \"DeclareFunction\",
+  type: \\"DeclareFunction\\",
   _DeclareFunction: void,
   id: Identifier,
   end: number,
@@ -9744,7 +9746,7 @@ export type DeclareFunction = {
 };
 
 export type DeclareModule = {
-  type: \"DeclareModule\",
+  type: \\"DeclareModule\\",
   _DeclareModule: void,
   body: BlockStatement,
   id: Node,
@@ -9761,7 +9763,7 @@ export type DeclareModule = {
 
 // TODO: Make this correct.
 export type DeclareVariable = {
-  type: \"DeclareVariable\",
+  type: \\"DeclareVariable\\",
   _DeclareVariable: void,
   id: Identifier,
   end: number,
@@ -9776,7 +9778,7 @@ export type DeclareVariable = {
 };
 
 export type FunctionTypeAnnotation = {
-  type: \"FunctionTypeAnnotation\",
+  type: \\"FunctionTypeAnnotation\\",
   _FunctionTypeAnnotation: void,
   params: Array<FunctionTypeParam>,
   rest: ?FunctionTypeParam,
@@ -9794,7 +9796,7 @@ export type FunctionTypeAnnotation = {
 };
 
 export type FunctionTypeParam = {
-  type: \"FunctionTypeParam\",
+  type: \\"FunctionTypeParam\\",
   _FunctionTypeParam: void,
   name: Identifier,
   optional: boolean,
@@ -9811,7 +9813,7 @@ export type FunctionTypeParam = {
 };
 
 export type GenericTypeAnnotation = {
-  type: \"GenericTypeAnnotation\",
+  type: \\"GenericTypeAnnotation\\",
   _GenericTypeAnnotation: void,
   id: Node,
   typeParameters: ?TypeParameterInstantiation,
@@ -9827,7 +9829,7 @@ export type GenericTypeAnnotation = {
 };
 
 export type InterfaceExtends = {
-  type: \"InterfaceExtends\",
+  type: \\"InterfaceExtends\\",
   _InterfaceExtends: void,
   id: Identifier,
   typeParameters: ?TypeParameterInstantiation,
@@ -9843,7 +9845,7 @@ export type InterfaceExtends = {
 };
 
 export type InterfaceDeclaration = {
-  type: \"InterfaceDeclaration\",
+  type: \\"InterfaceDeclaration\\",
   _InterfaceDeclaration: void,
   body: ObjectTypeAnnotation,
   extends: Array<InterfaceExtends>,
@@ -9861,7 +9863,7 @@ export type InterfaceDeclaration = {
 };
 
 export type IntersectionTypeAnnotation = {
-  type: \"IntersectionTypeAnnotation\",
+  type: \\"IntersectionTypeAnnotation\\",
   _IntersectionTypeAnnotation: void,
   types: Array<Type>,
   end: number,
@@ -9876,7 +9878,7 @@ export type IntersectionTypeAnnotation = {
 };
 
 export type MixedTypeAnnotation = {
-  type: \"MixedTypeAnnotation\",
+  type: \\"MixedTypeAnnotation\\",
   _MixedTypeAnnotation: void,
   end: number,
   innerComments: ?Array<Comment>,
@@ -9890,7 +9892,7 @@ export type MixedTypeAnnotation = {
 };
 
 export type NullableTypeAnnotation = {
-  type: \"NullableTypeAnnotation\",
+  type: \\"NullableTypeAnnotation\\",
   _NullableTypeAnnotation: void,
   typeAnnotation: Type,
   end: number,
@@ -9905,7 +9907,7 @@ export type NullableTypeAnnotation = {
 };
 
 export type NumberLiteralTypeAnnotation = {
-  type: \"NumberLiteralTypeAnnotation\",
+  type: \\"NumberLiteralTypeAnnotation\\",
   _NumberLiteralTypeAnnotation: void,
   raw: string,
   value: number,
@@ -9921,7 +9923,7 @@ export type NumberLiteralTypeAnnotation = {
 };
 
 export type NumberTypeAnnotation = {
-  type: \"NumberTypeAnnotation\",
+  type: \\"NumberTypeAnnotation\\",
   _NumberTypeAnnotation: void,
   end: number,
   innerComments: ?Array<Comment>,
@@ -9935,7 +9937,7 @@ export type NumberTypeAnnotation = {
 };
 
 export type StringLiteralTypeAnnotation = {
-  type: \"StringLiteralTypeAnnotation\",
+  type: \\"StringLiteralTypeAnnotation\\",
   _StringLiteralTypeAnnotation: void,
   raw: string,
   value: string,
@@ -9951,7 +9953,7 @@ export type StringLiteralTypeAnnotation = {
 };
 
 export type StringTypeAnnotation = {
-  type: \"StringTypeAnnotation\",
+  type: \\"StringTypeAnnotation\\",
   _StringTypeAnnotation: void,
   end: number,
   innerComments: ?Array<Comment>,
@@ -9965,7 +9967,7 @@ export type StringTypeAnnotation = {
 };
 
 export type TupleTypeAnnotation = {
-  type: \"TupleTypeAnnotation\",
+  type: \\"TupleTypeAnnotation\\",
   _TupleTypeAnnotation: void,
   types: Array<Type>,
   end: number,
@@ -9980,7 +9982,7 @@ export type TupleTypeAnnotation = {
 };
 
 export type TypeofTypeAnnotation = {
-  type: \"TypeofTypeAnnotation\",
+  type: \\"TypeofTypeAnnotation\\",
   _TypeofTypeAnnotation: void,
   argument: Type,
   end: number,
@@ -9995,7 +9997,7 @@ export type TypeofTypeAnnotation = {
 };
 
 export type TypeAlias = {
-  type: \"TypeAlias\",
+  type: \\"TypeAlias\\",
   _TypeAlias: void,
   id: Identifier,
   right: Type,
@@ -10012,7 +10014,7 @@ export type TypeAlias = {
 };
 
 export type TypeAnnotation = {
-  type: \"TypeAnnotation\",
+  type: \\"TypeAnnotation\\",
   _TypeAnnotation: void,
   typeAnnotation: Type,
   end: number,
@@ -10027,7 +10029,7 @@ export type TypeAnnotation = {
 };
 
 export type TypeCastExpression = {
-  type: \"TypeCastExpression\",
+  type: \\"TypeCastExpression\\",
   _TypeCastExpression: void,
   expression: Expression,
   typeAnnotation: TypeAnnotation,
@@ -10043,7 +10045,7 @@ export type TypeCastExpression = {
 };
 
 export type TypeParameterDeclaration = {
-  type: \"TypeParameterDeclaration\",
+  type: \\"TypeParameterDeclaration\\",
   _TypeParameterDeclaration: void,
   params: Array<Identifier>,
   end: number,
@@ -10058,7 +10060,7 @@ export type TypeParameterDeclaration = {
 };
 
 export type TypeParameterInstantiation = {
-  type: \"TypeParameterInstantiation\",
+  type: \\"TypeParameterInstantiation\\",
   _TypeParameterInstantiation: void,
   params: Array<Type>,
   end: number,
@@ -10073,7 +10075,7 @@ export type TypeParameterInstantiation = {
 };
 
 export type ObjectTypeAnnotation = {
-  type: \"ObjectTypeAnnotation\",
+  type: \\"ObjectTypeAnnotation\\",
   _ObjectTypeAnnotation: void,
   callProperties: Array<ObjectTypeCallProperty>,
   indexers: Array<ObjectTypeIndexer>,
@@ -10090,7 +10092,7 @@ export type ObjectTypeAnnotation = {
 };
 
 export type ObjectTypeCallProperty = {
-  type: \"ObjectTypeCallProperty\",
+  type: \\"ObjectTypeCallProperty\\",
   _ObjectTypeCallProperty: void,
   static: boolean,
   value: FunctionTypeAnnotation,
@@ -10106,7 +10108,7 @@ export type ObjectTypeCallProperty = {
 };
 
 export type ObjectTypeIndexer = {
-  type: \"ObjectTypeIndexer\",
+  type: \\"ObjectTypeIndexer\\",
   _ObjectTypeIndexer: void,
   id: Identifier,
   key: Type,
@@ -10123,7 +10125,7 @@ export type ObjectTypeIndexer = {
 };
 
 export type ObjectTypeProperty = {
-  type: \"ObjectTypeProperty\",
+  type: \\"ObjectTypeProperty\\",
   _ObjectTypeProperty: void,
   key: Node,
   optional: boolean,
@@ -10140,7 +10142,7 @@ export type ObjectTypeProperty = {
 };
 
 export type QualifiedTypeIdentifier = {
-  type: \"QualifiedTypeIdentifier\",
+  type: \\"QualifiedTypeIdentifier\\",
   _QualifiedTypeIdentifier: void,
   id: Identifier,
   qualification: Node,
@@ -10156,7 +10158,7 @@ export type QualifiedTypeIdentifier = {
 };
 
 export type UnionTypeAnnotation = {
-  type: \"UnionTypeAnnotation\",
+  type: \\"UnionTypeAnnotation\\",
   _UnionTypeAnnotation: void,
   types: Array<Type>,
   end: number,
@@ -10171,7 +10173,7 @@ export type UnionTypeAnnotation = {
 };
 
 export type VoidTypeAnnotation = {
-  type: \"VoidTypeAnnotation\",
+  type: \\"VoidTypeAnnotation\\",
   _VoidTypeAnnotation: void,
   end: number,
   innerComments: ?Array<Comment>,
@@ -10185,7 +10187,7 @@ export type VoidTypeAnnotation = {
 };
 
 export type JSXAttribute = {
-  type: \"JSXAttribute\",
+  type: \\"JSXAttribute\\",
   _JSXAttribute: void,
   name: Node,
   value: ?Node,
@@ -10201,7 +10203,7 @@ export type JSXAttribute = {
 };
 
 export type JSXClosingElement = {
-  type: \"JSXClosingElement\",
+  type: \\"JSXClosingElement\\",
   _JSXClosingElement: void,
   name: Node,
   end: number,
@@ -10216,7 +10218,7 @@ export type JSXClosingElement = {
 };
 
 export type JSXElement = {
-  type: \"JSXElement\",
+  type: \\"JSXElement\\",
   _JSXElement: void,
   children: Array<Node>,
   closingElement: ?JSXClosingElement,
@@ -10233,7 +10235,7 @@ export type JSXElement = {
 };
 
 export type JSXEmptyExpression = {
-  type: \"JSXEmptyExpression\",
+  type: \\"JSXEmptyExpression\\",
   _JSXEmptyExpression: void,
   end: number,
   innerComments: ?Array<Comment>,
@@ -10247,7 +10249,7 @@ export type JSXEmptyExpression = {
 };
 
 export type JSXExpressionContainer = {
-  type: \"JSXExpressionContainer\",
+  type: \\"JSXExpressionContainer\\",
   _JSXExpressionContainer: void,
   expression: Expression,
   end: number,
@@ -10262,7 +10264,7 @@ export type JSXExpressionContainer = {
 };
 
 export type JSXIdentifier = {
-  type: \"JSXIdentifier\",
+  type: \\"JSXIdentifier\\",
   _JSXIdentifier: void,
   name: string,
   end: number,
@@ -10277,7 +10279,7 @@ export type JSXIdentifier = {
 };
 
 export type JSXMemberExpression = {
-  type: \"JSXMemberExpression\",
+  type: \\"JSXMemberExpression\\",
   _JSXMemberExpression: void,
   computed: boolean,
   object: Node,
@@ -10294,7 +10296,7 @@ export type JSXMemberExpression = {
 };
 
 export type JSXNamespacedName = {
-  type: \"JSXNamespacedName\",
+  type: \\"JSXNamespacedName\\",
   _JSXNamespacedName: void,
   name: JSXIdentifier,
   namespace: JSXIdentifier,
@@ -10310,7 +10312,7 @@ export type JSXNamespacedName = {
 };
 
 export type JSXOpeningElement = {
-  type: \"JSXOpeningElement\",
+  type: \\"JSXOpeningElement\\",
   _JSXOpeningElement: void,
   attributes: Array<Node>,
   name: Array<Node>,
@@ -10327,7 +10329,7 @@ export type JSXOpeningElement = {
 };
 
 export type JSXSpreadAttribute = {
-  type: \"JSXSpreadAttribute\",
+  type: \\"JSXSpreadAttribute\\",
   _JSXSpreadAttribute: void,
   argument: Expression,
   end: number,

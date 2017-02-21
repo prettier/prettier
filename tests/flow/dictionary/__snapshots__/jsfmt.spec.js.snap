@@ -1,32 +1,34 @@
-exports[`test any.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`any.js 1`] = `
 "/* @flow */
 
 const dict: {[key: string]: number} = {}
-const k: any = \'foo\'
+const k: any = 'foo'
 const val: string = dict[k] // error: number incompatible with string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
 const dict: { [key: string]: number } = {};
-const k: any = \"foo\";
+const k: any = \\"foo\\";
 const val: string = dict[k]; // error: number incompatible with string
 "
 `;
 
-exports[`test compatible.js 1`] = `
+exports[`compatible.js 1`] = `
 "/* @flow */
 
 function foo0(x: Array<{[key: string]: mixed}>): Array<{[key: string]: mixed}> {
   // this adds a fooBar property to the param type, which should NOT cause
   // an error in the return type because it is a dictionary.
-  x[0].fooBar = \'foobar\';
+  x[0].fooBar = 'foobar';
   return x;
 }
 
 function foo2(
   x: {[key: string]: number}
 ): {[key: string]: number, +toString: () => string} {
-  // x\'s prototype has a toString method
+  // x's prototype has a toString method
   return x;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -37,20 +39,20 @@ function foo0(
 ): Array<{ [key: string]: mixed }> {
   // this adds a fooBar property to the param type, which should NOT cause
   // an error in the return type because it is a dictionary.
-  x[0].fooBar = \"foobar\";
+  x[0].fooBar = \\"foobar\\";
   return x;
 }
 
 function foo2(
   x: { [key: string]: number }
 ): { [key: string]: number, +toString: () => string } {
-  // x\'s prototype has a toString method
+  // x's prototype has a toString method
   return x;
 }
 "
 `;
 
-exports[`test dictionary.js 1`] = `
+exports[`dictionary.js 1`] = `
 "/* Dictionary types are object types that include an indexer, which specifies a
  * key type and a value type. The presence of an indexer makes the object type
  * unsealed, but all added properties must be consistent with the indexer
@@ -60,7 +62,7 @@ exports[`test dictionary.js 1`] = `
  * maps. They can also be used to represent array-like objects, e.g., NodeList
  * from the DOM API.
  *
- * A dictionary is assumed to have every property described by it\'s key type.
+ * A dictionary is assumed to have every property described by it's key type.
  * This behavior is similar to the behavior of arrays, which are assumed to have
  * a value at every index.
  *
@@ -80,17 +82,17 @@ class Y {}
 function set_prop_to_string_key(
   o: {[k:string]:any},
 ) {
-  o.prop = \"ok\";
+  o.prop = \\"ok\\";
 }
 
 // **UNSOUND**
-// This is allowed by design. We don\'t track get/set and we don\'t wrap the
+// This is allowed by design. We don't track get/set and we don't wrap the
 // return type in a maybe.
 function unsound_dict_has_every_key(
   o: {[k:string]:X},
 ) {
   (o.p: X); // ok
-  (o[\"p\"]: X); // ok
+  (o[\\"p\\"]: X); // ok
 }
 
 // As with any object type, we can assign subtypes to properties.
@@ -102,7 +104,7 @@ function set_prop_covariant(
   o.p = new C; // ok
 }
 
-// This isn\'t specific behavior to dictionaries, but for completeness...
+// This isn't specific behavior to dictionaries, but for completeness...
 function get_prop_contravariant(
   o: {[k:string]:B},
 ) {
@@ -116,7 +118,7 @@ function get_prop_contravariant(
 function add_prop_to_nonstring_key_dot(
   o: {[k:number]:any},
 ) {
-  o.prop = \"err\"; // error: string ~> number
+  o.prop = \\"err\\"; // error: string ~> number
 }
 
 // Bracket notation can be used to add properties to dictionaries with
@@ -125,7 +127,7 @@ function add_prop_to_nonstring_key_dot(
 function add_prop_to_nonstring_key_bracket(
   o: {[k:number]:any},
 ) {
-  o[0] = \"ok\";
+  o[0] = \\"ok\\";
 }
 
 // Objects can be part dict, part not by mixing an indexer with declared props.
@@ -149,12 +151,12 @@ function object_prototype(
 }
 
 // **UNSOUND**
-// Because we support non-string props w/ bracket notation, it\'s possible to
+// Because we support non-string props w/ bracket notation, it's possible to
 // write into a declared prop unsoundly.
 function unsound_string_conversion_alias_declared_prop(
-  o: {[k:number]:any, \"0\":X},
+  o: {[k:number]:any, \\"0\\":X},
 ) {
-  o[0] = \"not-x\"; // a[\"0\"] no longer X
+  o[0] = \\"not-x\\"; // a[\\"0\\"] no longer X
 }
 
 function unification_dict_values_invariant(
@@ -202,7 +204,7 @@ function subtype_dict_values_fresh_exception() {
 }
 
 // Actually, unsound_string_conversion_alias_declared_prop behavior makes an
-// argument that we shouldn\'t really care about this, since we ignore the fact
+// argument that we shouldn't really care about this, since we ignore the fact
 // that coercing values to string keys can cause unintended aliasing in general.
 // Barring some compelling use case for that in this context, though, we choose
 // to be strict.
@@ -381,7 +383,7 @@ function subtype_optional_c_to_dict(
  * maps. They can also be used to represent array-like objects, e.g., NodeList
  * from the DOM API.
  *
- * A dictionary is assumed to have every property described by it\'s key type.
+ * A dictionary is assumed to have every property described by it's key type.
  * This behavior is similar to the behavior of arrays, which are assumed to have
  * a value at every index.
  *
@@ -399,15 +401,15 @@ class Y {}
 
 // Any property can be set on a dict with string keys.
 function set_prop_to_string_key(o: { [k: string]: any }) {
-  o.prop = \"ok\";
+  o.prop = \\"ok\\";
 }
 
 // **UNSOUND**
-// This is allowed by design. We don\'t track get/set and we don\'t wrap the
+// This is allowed by design. We don't track get/set and we don't wrap the
 // return type in a maybe.
 function unsound_dict_has_every_key(o: { [k: string]: X }) {
   (o.p: X); // ok
-  (o[\"p\"]: X); // ok
+  (o[\\"p\\"]: X); // ok
 }
 
 // As with any object type, we can assign subtypes to properties.
@@ -417,7 +419,7 @@ function set_prop_covariant(o: { [k: string]: B }) {
   o.p = new C(); // ok
 }
 
-// This isn\'t specific behavior to dictionaries, but for completeness...
+// This isn't specific behavior to dictionaries, but for completeness...
 function get_prop_contravariant(o: { [k: string]: B }) {
   (o.p: A); // ok
   (o.p: B); // ok
@@ -427,14 +429,14 @@ function get_prop_contravariant(o: { [k: string]: B }) {
 // Dot-notation can not be used to add properties to dictionaries with
 // non-string keys, because keys are strings.
 function add_prop_to_nonstring_key_dot(o: { [k: number]: any }) {
-  o.prop = \"err\"; // error: string ~> number
+  o.prop = \\"err\\"; // error: string ~> number
 }
 
 // Bracket notation can be used to add properties to dictionaries with
 // non-string keys, even though all keys are strings. This is a convenient
 // affordance.
 function add_prop_to_nonstring_key_bracket(o: { [k: number]: any }) {
-  o[0] = \"ok\";
+  o[0] = \\"ok\\";
 }
 
 // Objects can be part dict, part not by mixing an indexer with declared props.
@@ -454,12 +456,12 @@ function object_prototype(
 }
 
 // **UNSOUND**
-// Because we support non-string props w/ bracket notation, it\'s possible to
+// Because we support non-string props w/ bracket notation, it's possible to
 // write into a declared prop unsoundly.
 function unsound_string_conversion_alias_declared_prop(
-  o: { [k: number]: any, \"0\": X }
+  o: { [k: number]: any, \\"0\\": X }
 ) {
-  o[0] = \"not-x\"; // a[\"0\"] no longer X
+  o[0] = \\"not-x\\"; // a[\\"0\\"] no longer X
 }
 
 function unification_dict_values_invariant(x: Array<{ [k: string]: B }>) {
@@ -503,7 +505,7 @@ function subtype_dict_values_fresh_exception() {
 }
 
 // Actually, unsound_string_conversion_alias_declared_prop behavior makes an
-// argument that we shouldn\'t really care about this, since we ignore the fact
+// argument that we shouldn't really care about this, since we ignore the fact
 // that coercing values to string keys can cause unintended aliasing in general.
 // Barring some compelling use case for that in this context, though, we choose
 // to be strict.
@@ -650,7 +652,7 @@ function subtype_optional_c_to_dict(x: { p?: C }): { [k: string]: B } {
 "
 `;
 
-exports[`test incompatible.js 1`] = `
+exports[`incompatible.js 1`] = `
 "/* @flow */
 
 var x : {[key: string]: string} = {};
@@ -659,14 +661,14 @@ var z : {[key: number]: string} = x; // 2 errors, string !~> number & vice versa
 
 var a : {[key: string]: ?string} = {};
 var b : {[key: string]: string} = a; // 2 errors (null & undefined)
-var c : {[key: string]: ?string} = b; // 2 errors, since c[\'x\'] = null updates b
+var c : {[key: string]: ?string} = b; // 2 errors, since c['x'] = null updates b
 
 // 2 errors (number !~> string, string !~> number)
 function foo0(x: Array<{[key: string]: number}>): Array<{[key: string]: string}> {
   return x;
 }
 
-// error, fooBar:string !~> number (x\'s dictionary)
+// error, fooBar:string !~> number (x's dictionary)
 function foo1(
   x: Array<{[key: string]: number}>
 ): Array<{[key: string]: number, fooBar: string}> {
@@ -676,7 +678,7 @@ function foo1(
 function foo2(
   x: Array<{[key: string]: mixed}>
 ): Array<{[key: string]: mixed, fooBar: string}> {
-  x[0].fooBar = 123; // OK, since number ~> mixed (x elem\'s dictionary)
+  x[0].fooBar = 123; // OK, since number ~> mixed (x elem's dictionary)
   return x; // error: mixed ~> string
 }
 
@@ -685,7 +687,7 @@ function foo3(x: {[key: string]: number}): {foo: number} {
   return x;
 }
 
-// error: foo can\'t exist in x
+// error: foo can't exist in x
 function foo4(x: {[key: string]: number}): {[key: string]: number, foo: string} {
   return x;
 }
@@ -717,7 +719,7 @@ var z: { [key: number]: string } = x; // 2 errors, string !~> number & vice vers
 
 var a: { [key: string]: ?string } = {};
 var b: { [key: string]: string } = a; // 2 errors (null & undefined)
-var c: { [key: string]: ?string } = b; // 2 errors, since c[\'x\'] = null updates b
+var c: { [key: string]: ?string } = b; // 2 errors, since c['x'] = null updates b
 
 // 2 errors (number !~> string, string !~> number)
 function foo0(
@@ -726,7 +728,7 @@ function foo0(
   return x;
 }
 
-// error, fooBar:string !~> number (x\'s dictionary)
+// error, fooBar:string !~> number (x's dictionary)
 function foo1(
   x: Array<{ [key: string]: number }>
 ): Array<{ [key: string]: number, fooBar: string }> {
@@ -736,7 +738,7 @@ function foo1(
 function foo2(
   x: Array<{ [key: string]: mixed }>
 ): Array<{ [key: string]: mixed, fooBar: string }> {
-  x[0].fooBar = 123; // OK, since number ~> mixed (x elem\'s dictionary)
+  x[0].fooBar = 123; // OK, since number ~> mixed (x elem's dictionary)
   return x; // error: mixed ~> string
 }
 
@@ -745,7 +747,7 @@ function foo3(x: { [key: string]: number }): { foo: number } {
   return x;
 }
 
-// error: foo can\'t exist in x
+// error: foo can't exist in x
 function foo4(
   x: { [key: string]: number }
 ): { [key: string]: number, foo: string } {
@@ -773,7 +775,7 @@ function foo8(x: { [key: string]: number }) {
 "
 `;
 
-exports[`test issue-1745.js 1`] = `
+exports[`issue-1745.js 1`] = `
 "/* @flow */
 
 class A {
@@ -828,7 +830,7 @@ class B {
 "
 `;
 
-exports[`test test.js 1`] = `
+exports[`test.js 1`] = `
 "type Params = {count: number; [name: string]: string};
 type QueryFunction = (params: Params) => string;
 
@@ -853,14 +855,14 @@ module.exports = o;
 "
 `;
 
-exports[`test test_client.js 1`] = `
-"var o = require(\'./test\');
+exports[`test_client.js 1`] = `
+"var o = require('./test');
 
 o.foo = function (params) {
   return params.count; // error, number ~/~ string
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var o = require(\"./test\");
+var o = require(\\"./test\\");
 
 o.foo = function(params) {
   return params.count; // error, number ~/~ string

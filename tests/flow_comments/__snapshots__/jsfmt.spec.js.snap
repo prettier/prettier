@@ -1,4 +1,6 @@
-exports[`test arrow.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`arrow.js 1`] = `
 "// Error
 const beep = (data/*: Object*/) => {}
 
@@ -13,7 +15,7 @@ const beep = (data: Object, secondData: Object) => {};
 "
 `;
 
-exports[`test arrow.js 2`] = `
+exports[`arrow.js 2`] = `
 "// Error
 const beep = (data/*: Object*/) => {}
 

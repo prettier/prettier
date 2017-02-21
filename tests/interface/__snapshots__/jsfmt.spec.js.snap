@@ -1,4 +1,6 @@
-exports[`test module.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`module.js 1`] = `
 "declare module X {
   declare interface Y { x: number; }
 }

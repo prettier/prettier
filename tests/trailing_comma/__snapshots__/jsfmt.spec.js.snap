@@ -1,241 +1,243 @@
-exports[`test function-calls.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`function-calls.js 1`] = `
 "const a = (param1, param2, param3) => {}
 
-a(\'value\', \'value2\', \'value3\');
+a('value', 'value2', 'value3');
 
 a(
-  \'a-long-value\',
-  \'a-really-really-long-value\',
-  \'a-really-really-really-long-value\',
+  'a-long-value',
+  'a-really-really-long-value',
+  'a-really-really-really-long-value',
 );
 
-a(\'value\', \'value2\', a(\'long-nested-value\', \'long-nested-value2\', \'long-nested-value3\'));
+a('value', 'value2', a('long-nested-value', 'long-nested-value2', 'long-nested-value3'));
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const a = (param1, param2, param3) => {};
 
-a(\"value\", \"value2\", \"value3\");
+a(\\"value\\", \\"value2\\", \\"value3\\");
 
 a(
-  \"a-long-value\",
-  \"a-really-really-long-value\",
-  \"a-really-really-really-long-value\"
+  \\"a-long-value\\",
+  \\"a-really-really-long-value\\",
+  \\"a-really-really-really-long-value\\"
 );
 
 a(
-  \"value\",
-  \"value2\",
-  a(\"long-nested-value\", \"long-nested-value2\", \"long-nested-value3\")
+  \\"value\\",
+  \\"value2\\",
+  a(\\"long-nested-value\\", \\"long-nested-value2\\", \\"long-nested-value3\\")
 );
 "
 `;
 
-exports[`test function-calls.js 2`] = `
+exports[`function-calls.js 2`] = `
 "const a = (param1, param2, param3) => {}
 
-a(\'value\', \'value2\', \'value3\');
+a('value', 'value2', 'value3');
 
 a(
-  \'a-long-value\',
-  \'a-really-really-long-value\',
-  \'a-really-really-really-long-value\',
+  'a-long-value',
+  'a-really-really-long-value',
+  'a-really-really-really-long-value',
 );
 
-a(\'value\', \'value2\', a(\'long-nested-value\', \'long-nested-value2\', \'long-nested-value3\'));
+a('value', 'value2', a('long-nested-value', 'long-nested-value2', 'long-nested-value3'));
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const a = (param1, param2, param3) => {};
 
-a(\"value\", \"value2\", \"value3\");
+a(\\"value\\", \\"value2\\", \\"value3\\");
 
 a(
-  \"a-long-value\",
-  \"a-really-really-long-value\",
-  \"a-really-really-really-long-value\",
+  \\"a-long-value\\",
+  \\"a-really-really-long-value\\",
+  \\"a-really-really-really-long-value\\",
 );
 
 a(
-  \"value\",
-  \"value2\",
-  a(\"long-nested-value\", \"long-nested-value2\", \"long-nested-value3\"),
+  \\"value\\",
+  \\"value2\\",
+  a(\\"long-nested-value\\", \\"long-nested-value2\\", \\"long-nested-value3\\"),
 );
 "
 `;
 
-exports[`test function-calls.js 3`] = `
+exports[`function-calls.js 3`] = `
 "const a = (param1, param2, param3) => {}
 
-a(\'value\', \'value2\', \'value3\');
+a('value', 'value2', 'value3');
 
 a(
-  \'a-long-value\',
-  \'a-really-really-long-value\',
-  \'a-really-really-really-long-value\',
+  'a-long-value',
+  'a-really-really-long-value',
+  'a-really-really-really-long-value',
 );
 
-a(\'value\', \'value2\', a(\'long-nested-value\', \'long-nested-value2\', \'long-nested-value3\'));
+a('value', 'value2', a('long-nested-value', 'long-nested-value2', 'long-nested-value3'));
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const a = (param1, param2, param3) => {};
 
-a(\"value\", \"value2\", \"value3\");
+a(\\"value\\", \\"value2\\", \\"value3\\");
 
 a(
-  \"a-long-value\",
-  \"a-really-really-long-value\",
-  \"a-really-really-really-long-value\"
+  \\"a-long-value\\",
+  \\"a-really-really-long-value\\",
+  \\"a-really-really-really-long-value\\"
 );
 
 a(
-  \"value\",
-  \"value2\",
-  a(\"long-nested-value\", \"long-nested-value2\", \"long-nested-value3\")
+  \\"value\\",
+  \\"value2\\",
+  a(\\"long-nested-value\\", \\"long-nested-value2\\", \\"long-nested-value3\\")
 );
 "
 `;
 
-exports[`test object.js 1`] = `
+exports[`object.js 1`] = `
 "const a = {
   b: true,
   c: {
-    c1: \'hello\'
+    c1: 'hello'
   },
   d: false
 };
 
 const aLong = {
-  bHasALongName: \'a-long-value\',
+  bHasALongName: 'a-long-value',
   cHasALongName: {
-    c1: \'a-really-long-value\',
-    c2: \'a-really-really-long-value\',
+    c1: 'a-really-long-value',
+    c2: 'a-really-really-long-value',
   },
-  dHasALongName: \'a-long-value-too\'
+  dHasALongName: 'a-long-value-too'
 };
 
 const aLong = {
-  dHasALongName: \'a-long-value-too\',
+  dHasALongName: 'a-long-value-too',
   eHasABooleanExpression: a === a,
 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const a = {
   b: true,
   c: {
-    c1: \"hello\"
+    c1: \\"hello\\"
   },
   d: false
 };
 
 const aLong = {
-  bHasALongName: \"a-long-value\",
+  bHasALongName: \\"a-long-value\\",
   cHasALongName: {
-    c1: \"a-really-long-value\",
-    c2: \"a-really-really-long-value\"
+    c1: \\"a-really-long-value\\",
+    c2: \\"a-really-really-long-value\\"
   },
-  dHasALongName: \"a-long-value-too\"
+  dHasALongName: \\"a-long-value-too\\"
 };
 
 const aLong = {
-  dHasALongName: \"a-long-value-too\",
+  dHasALongName: \\"a-long-value-too\\",
   eHasABooleanExpression: a === a
 };
 "
 `;
 
-exports[`test object.js 2`] = `
+exports[`object.js 2`] = `
 "const a = {
   b: true,
   c: {
-    c1: \'hello\'
+    c1: 'hello'
   },
   d: false
 };
 
 const aLong = {
-  bHasALongName: \'a-long-value\',
+  bHasALongName: 'a-long-value',
   cHasALongName: {
-    c1: \'a-really-long-value\',
-    c2: \'a-really-really-long-value\',
+    c1: 'a-really-long-value',
+    c2: 'a-really-really-long-value',
   },
-  dHasALongName: \'a-long-value-too\'
+  dHasALongName: 'a-long-value-too'
 };
 
 const aLong = {
-  dHasALongName: \'a-long-value-too\',
+  dHasALongName: 'a-long-value-too',
   eHasABooleanExpression: a === a,
 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const a = {
   b: true,
   c: {
-    c1: \"hello\",
+    c1: \\"hello\\",
   },
   d: false,
 };
 
 const aLong = {
-  bHasALongName: \"a-long-value\",
+  bHasALongName: \\"a-long-value\\",
   cHasALongName: {
-    c1: \"a-really-long-value\",
-    c2: \"a-really-really-long-value\",
+    c1: \\"a-really-long-value\\",
+    c2: \\"a-really-really-long-value\\",
   },
-  dHasALongName: \"a-long-value-too\",
+  dHasALongName: \\"a-long-value-too\\",
 };
 
 const aLong = {
-  dHasALongName: \"a-long-value-too\",
+  dHasALongName: \\"a-long-value-too\\",
   eHasABooleanExpression: a === a,
 };
 "
 `;
 
-exports[`test object.js 3`] = `
+exports[`object.js 3`] = `
 "const a = {
   b: true,
   c: {
-    c1: \'hello\'
+    c1: 'hello'
   },
   d: false
 };
 
 const aLong = {
-  bHasALongName: \'a-long-value\',
+  bHasALongName: 'a-long-value',
   cHasALongName: {
-    c1: \'a-really-long-value\',
-    c2: \'a-really-really-long-value\',
+    c1: 'a-really-long-value',
+    c2: 'a-really-really-long-value',
   },
-  dHasALongName: \'a-long-value-too\'
+  dHasALongName: 'a-long-value-too'
 };
 
 const aLong = {
-  dHasALongName: \'a-long-value-too\',
+  dHasALongName: 'a-long-value-too',
   eHasABooleanExpression: a === a,
 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const a = {
   b: true,
   c: {
-    c1: \"hello\",
+    c1: \\"hello\\",
   },
   d: false,
 };
 
 const aLong = {
-  bHasALongName: \"a-long-value\",
+  bHasALongName: \\"a-long-value\\",
   cHasALongName: {
-    c1: \"a-really-long-value\",
-    c2: \"a-really-really-long-value\",
+    c1: \\"a-really-long-value\\",
+    c2: \\"a-really-really-long-value\\",
   },
-  dHasALongName: \"a-long-value-too\",
+  dHasALongName: \\"a-long-value-too\\",
 };
 
 const aLong = {
-  dHasALongName: \"a-long-value-too\",
+  dHasALongName: \\"a-long-value-too\\",
   eHasABooleanExpression: a === a,
 };
 "
 `;
 
-exports[`test trailing_whitespace.js 1`] = `
+exports[`trailing_whitespace.js 1`] = `
 "let example = [
-  \'FOO\',
-  \'BAR\',
+  'FOO',
+  'BAR',
   // Comment
 ];
 
@@ -270,8 +272,8 @@ function supersupersupersuperLongF(
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let example = [
-  \"FOO\",
-  \"BAR\"
+  \\"FOO\\",
+  \\"BAR\\"
   // Comment
 ];
 
@@ -308,10 +310,10 @@ function supersupersupersuperLongF(
 "
 `;
 
-exports[`test trailing_whitespace.js 2`] = `
+exports[`trailing_whitespace.js 2`] = `
 "let example = [
-  \'FOO\',
-  \'BAR\',
+  'FOO',
+  'BAR',
   // Comment
 ];
 
@@ -346,8 +348,8 @@ function supersupersupersuperLongF(
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let example = [
-  \"FOO\",
-  \"BAR\",
+  \\"FOO\\",
+  \\"BAR\\",
   // Comment
 ];
 
@@ -384,10 +386,10 @@ function supersupersupersuperLongF(
 "
 `;
 
-exports[`test trailing_whitespace.js 3`] = `
+exports[`trailing_whitespace.js 3`] = `
 "let example = [
-  \'FOO\',
-  \'BAR\',
+  'FOO',
+  'BAR',
   // Comment
 ];
 
@@ -422,8 +424,8 @@ function supersupersupersuperLongF(
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let example = [
-  \"FOO\",
-  \"BAR\",
+  \\"FOO\\",
+  \\"BAR\\",
   // Comment
 ];
 

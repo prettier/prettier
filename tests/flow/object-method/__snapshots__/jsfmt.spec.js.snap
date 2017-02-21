@@ -1,4 +1,6 @@
-exports[`test id.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`id.js 1`] = `
 "declare function id<X>(_: X): X;
 
 module.exports = id;
@@ -9,18 +11,18 @@ module.exports = id;
 "
 `;
 
-exports[`test subtype.js 1`] = `
+exports[`subtype.js 1`] = `
 "interface Interface {
   m(): void;
 }
-import type { ObjectType } from \'./test\';
+import type { ObjectType } from './test';
 
 function subtypeCheck(x: Interface): ObjectType { return x; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 interface Interface {
   m(): void
 }
-import type { ObjectType } from \"./test\";
+import type { ObjectType } from \\"./test\\";
 
 function subtypeCheck(x: Interface): ObjectType {
   return x;
@@ -28,8 +30,8 @@ function subtypeCheck(x: Interface): ObjectType {
 "
 `;
 
-exports[`test test.js 1`] = `
-"const id = require(\'./id\');
+exports[`test.js 1`] = `
+"const id = require('./id');
 
 export type ObjectType = {
   +m: () => void,
@@ -43,7 +45,7 @@ module.exports = id(
   methodCaller
 );
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const id = require(\"./id\");
+const id = require(\\"./id\\");
 
 export type ObjectType = {
   +m: () => void
@@ -57,7 +59,7 @@ module.exports = id(methodCaller);
 "
 `;
 
-exports[`test test2.js 1`] = `
+exports[`test2.js 1`] = `
 "/* @flow */
 
 function f() {
@@ -96,7 +98,7 @@ b.f(); // error, property \`p\` not found
 "
 `;
 
-exports[`test test3.js 1`] = `
+exports[`test3.js 1`] = `
 "/* @flow */
 
 function foo() {

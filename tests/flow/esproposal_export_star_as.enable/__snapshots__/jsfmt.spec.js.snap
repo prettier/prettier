@@ -1,7 +1,9 @@
-exports[`test dest.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`dest.js 1`] = `
 "// @flow
 
-import {source} from \"./test\";
+import {source} from \\"./test\\";
 
 var a: number = source.num;
 var b: string = source.num; // Error: num ~> string
@@ -11,7 +13,7 @@ var d: number = source.str; // Error: num ~> string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-import { source } from \"./test\";
+import { source } from \\"./test\\";
 
 var a: number = source.num;
 var b: string = source.num; // Error: num ~> string
@@ -21,15 +23,15 @@ var d: number = source.str; // Error: num ~> string
 "
 `;
 
-exports[`test source.js 1`] = `
+exports[`source.js 1`] = `
 "// @flow
 
-export var str = \'asdf\';
+export var str = 'asdf';
 export var num = 42;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-export var str = \"asdf\";
+export var str = \\"asdf\\";
 export var num = 42;
 "
 `;

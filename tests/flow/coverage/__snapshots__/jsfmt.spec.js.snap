@@ -1,5 +1,7 @@
-exports[`test crash.js 1`] = `
-"// This file triggers a violation of the \"disjoint-or-nested ranges invariant\"
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`crash.js 1`] = `
+"// This file triggers a violation of the \\"disjoint-or-nested ranges invariant\\"
 // that we implicitly assume in type-at-pos and coverage implementations. In
 // particular, when unchecked it causes a crash with coverage --color.
 
@@ -15,7 +17,7 @@ declare module foo {
 }
 
 // TODO
-// This file triggers a violation of the \"disjoint-or-nested ranges invariant\"
+// This file triggers a violation of the \\"disjoint-or-nested ranges invariant\\"
 // that we implicitly assume in type-at-pos and coverage implementations. In
 // particular, when unchecked it causes a crash with coverage --color.
 
@@ -24,7 +26,7 @@ declare module bar {
 "
 `;
 
-exports[`test declare_module.js 1`] = `
+exports[`declare_module.js 1`] = `
 "// check coverage of declare module
 
 declare module foo {
@@ -37,7 +39,7 @@ declare module foo {
 "
 `;
 
-exports[`test no_pragma.js 1`] = `
+exports[`no_pragma.js 1`] = `
 "let x = 0;
 (x: string);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -46,8 +48,8 @@ let x = 0;
 "
 `;
 
-exports[`test non-termination.js 1`] = `
-"// This file triggers a violation of the \"disjoint-or-nested ranges invariant\"
+exports[`non-termination.js 1`] = `
+"// This file triggers a violation of the \\"disjoint-or-nested ranges invariant\\"
 // that we implicitly assume in type-at-pos and coverage implementations. In
 // particular, when unchecked it causes non-termination with coverage --color.
 
@@ -64,7 +66,7 @@ declare class qux {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare module foo {
 }
-// This file triggers a violation of the \"disjoint-or-nested ranges invariant\"
+// This file triggers a violation of the \\"disjoint-or-nested ranges invariant\\"
 // that we implicitly assume in type-at-pos and coverage implementations. In
 // particular, when unchecked it causes non-termination with coverage --color.
 

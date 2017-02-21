@@ -1,4 +1,6 @@
-exports[`test arrow.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`arrow.js 1`] = `
 "function f() {
   const appEntitys = getAppEntitys(loadObject).filter(
     entity => entity && entity.isInstallAvailable() && !entity.isQueue() && entity.isDisabled()
@@ -17,19 +19,19 @@ function f() {
 "
 `;
 
-exports[`test inline-object-array.js 1`] = `
+exports[`inline-object-array.js 1`] = `
 "prevState = prevState || {
   catalogs: [],
   loadState: LOADED,
   opened: false,
-  searchQuery: \'\',
+  searchQuery: '',
   selectedCatalog: null,
 };
 
 this.steps = steps || [
   {
-    name: \'mock-module\',
-    path: \'/nux/mock-module\',
+    name: 'mock-module',
+    path: '/nux/mock-module',
   },
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -37,20 +39,20 @@ prevState = prevState || {
   catalogs: [],
   loadState: LOADED,
   opened: false,
-  searchQuery: \"\",
+  searchQuery: \\"\\",
   selectedCatalog: null
 };
 
 this.steps = steps || [
   {
-    name: \"mock-module\",
-    path: \"/nux/mock-module\"
+    name: \\"mock-module\\",
+    path: \\"/nux/mock-module\\"
   }
 ];
 "
 `;
 
-exports[`test short-right.js 1`] = `
+exports[`short-right.js 1`] = `
 "this._cumulativeHeights &&
  Math.abs(
    this._cachedItemHeight(this._firstVisibleIndex + i) -
@@ -64,7 +66,7 @@ foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo(
   a;
 
 const isPartOfPackageJSON = dependenciesArray.indexOf(
-  dependencyWithOutRelativePath.split(\'/\')[0],
+  dependencyWithOutRelativePath.split('/')[0],
 ) !== -1;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 this._cumulativeHeights &&
@@ -78,12 +80,12 @@ foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo(
 ) + a;
 
 const isPartOfPackageJSON = dependenciesArray.indexOf(
-  dependencyWithOutRelativePath.split(\"/\")[0]
+  dependencyWithOutRelativePath.split(\\"/\\")[0]
 ) !== -1;
 "
 `;
 
-exports[`test test.js 1`] = `
+exports[`test.js 1`] = `
 "// It should always break the highest precedence operators first, and
 // break them all at the same time.
 

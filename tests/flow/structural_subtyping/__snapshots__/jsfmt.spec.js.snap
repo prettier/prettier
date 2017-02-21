@@ -1,4 +1,6 @@
-exports[`test builtin.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`builtin.js 1`] = `
 "/**
  * @flow
  */
@@ -8,9 +10,9 @@ interface IHasLength {
 }
 
 var lengthTest1: IHasLength = [];
-var lengthTest2: IHasLength = \'hello\';
-var lengthTest3: IHasLength = 123; // number doesn\'t have length
-var lengthTest4: IHasLength = true; // bool doesn\'t have length
+var lengthTest2: IHasLength = 'hello';
+var lengthTest3: IHasLength = 123; // number doesn't have length
+var lengthTest4: IHasLength = true; // bool doesn't have length
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /**
  * @flow
@@ -21,13 +23,13 @@ interface IHasLength {
 }
 
 var lengthTest1: IHasLength = [];
-var lengthTest2: IHasLength = \"hello\";
-var lengthTest3: IHasLength = 123; // number doesn\'t have length
-var lengthTest4: IHasLength = true; // bool doesn\'t have length
+var lengthTest2: IHasLength = \\"hello\\";
+var lengthTest3: IHasLength = 123; // number doesn't have length
+var lengthTest4: IHasLength = true; // bool doesn't have length
 "
 `;
 
-exports[`test class.js 1`] = `
+exports[`class.js 1`] = `
 "/**
  * @flow
  */
@@ -78,7 +80,7 @@ var testInstance3: IHasYString = new ClassWithXString(); // Error missing prop
 "
 `;
 
-exports[`test obj.js 1`] = `
+exports[`obj.js 1`] = `
 "/**
  * @flow
  */
@@ -87,7 +89,7 @@ interface IHasXString {
   x: string;
 }
 
-var propTest1: IHasXString = { x: \'hello\' };
+var propTest1: IHasXString = { x: 'hello' };
 var propTest2: IHasXString = { x: 123 }; // Error string != number
 var propTest3: IHasXString = {}; // Property not found
 var propTest4: IHasXString = ({}: Object);
@@ -108,7 +110,7 @@ interface IHasXString {
   x: string
 }
 
-var propTest1: IHasXString = { x: \"hello\" };
+var propTest1: IHasXString = { x: \\"hello\\" };
 var propTest2: IHasXString = { x: 123 }; // Error string != number
 var propTest3: IHasXString = {}; // Property not found
 var propTest4: IHasXString = ({}: Object);
@@ -123,7 +125,7 @@ function propTest6(y: { [key: string]: number }) {
 "
 `;
 
-exports[`test optional.js 1`] = `
+exports[`optional.js 1`] = `
 "/* @flow */
 
 interface HasOptional {
@@ -131,11 +133,11 @@ interface HasOptional {
   b?: number,
 };
 
-var test1: HasOptional = { a: \"hello\" }
+var test1: HasOptional = { a: \\"hello\\" }
 
 var test2: HasOptional = {}; // Error: missing property a
 
-var test3: HasOptional = { a: \"hello\", b: true }; // Error: boolean ~> number
+var test3: HasOptional = { a: \\"hello\\", b: true }; // Error: boolean ~> number
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
@@ -144,10 +146,10 @@ interface HasOptional {
   b?: number
 }
 
-var test1: HasOptional = { a: \"hello\" };
+var test1: HasOptional = { a: \\"hello\\" };
 
 var test2: HasOptional = {}; // Error: missing property a
 
-var test3: HasOptional = { a: \"hello\", b: true }; // Error: boolean ~> number
+var test3: HasOptional = { a: \\"hello\\", b: true }; // Error: boolean ~> number
 "
 `;
