@@ -251,9 +251,9 @@ autocmd BufWritePre *.js exe "normal! gggqG\<C-o>\<C-o>"
 
 Can be installed using the extension sidebar. Search for `Prettier - JavaScript formatter`
 
-Can also be installed using `ext install prettier-vscode`
+Can also be installed using `ext install prettier-vscode-with-tabs`
 
-[Check repository for configuration and shortcuts](https://github.com/esbenp/prettier-vscode)
+[Check repository for configuration and shortcuts](https://marketplace.visualstudio.com/items?itemName=passionkind.prettier-vscode-with-tabs)
 
 ### Visual Studio
 
