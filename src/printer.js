@@ -1359,32 +1359,15 @@ function genericPrintNoParens(path, options, print) {
     case "ClassExpression":
       return concat(printClass(path, options, print));
     case "TemplateElement":
-      return join(literalline, n.value.raw.split("\n"));
     case "TemplateLiteral":
-      var expressions = path.map(print, "expressions");
-
-      parts.push("`");
-
-      path.each(
-        function(childPath) {
-          var i = childPath.getName();
-
-          parts.push(print(childPath));
-
-          if (i < expressions.length) {
-            parts.push("${", expressions[i], "}");
-          }
-        },
-        "quasis"
+      return options.originalText.slice(
+        util.locStart(n),
+        util.locEnd(n)
       );
-
-      parts.push("`");
-
-      return concat(parts);
-    // These types are unprintable because they serve as abstract
-    // supertypes for other (printable) types.
     case "TaggedTemplateExpression":
       return concat([path.call(print, "tag"), path.call(print, "quasi")]);
+    // These types are unprintable because they serve as abstract
+    // supertypes for other (printable) types.
     case "Node":
     case "Printable":
     case "SourceLocation":
