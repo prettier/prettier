@@ -119,7 +119,7 @@ prettier [opts] [filename ...]
 
 For easier cross-platform usage, prettier has built-in glob support:
 ```bash
-prettier --write 'src/**/*.js' 'bin/*.js'
+prettier --write "src/**/*.js" "bin/*.js"
 ```
 
 In the future we will have better support for formatting whole projects.
