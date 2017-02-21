@@ -1,4 +1,6 @@
-exports[`test object_is.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`object_is.js 1`] = `
 "Object.is(1, 1);
 Object.is(1, 2);
 Object.is(1, {});
@@ -17,10 +19,10 @@ Object.is(emptyObject, emptyArray);
 var squared = x => x * x;
 Object.is(squared, squared);
 
-var a: boolean = Object.is(\'a\', \'a\');
-var b: string = Object.is(\'a\', \'a\');
-var c: boolean = Object.is(\'a\');
-var d: boolean = Object.is(\'a\', \'b\', \'c\');
+var a: boolean = Object.is('a', 'a');
+var b: string = Object.is('a', 'a');
+var c: boolean = Object.is('a');
+var d: boolean = Object.is('a', 'b', 'c');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Object.is(1, 1);
 Object.is(1, 2);
@@ -40,9 +42,9 @@ Object.is(emptyObject, emptyArray);
 var squared = x => x * x;
 Object.is(squared, squared);
 
-var a: boolean = Object.is(\"a\", \"a\");
-var b: string = Object.is(\"a\", \"a\");
-var c: boolean = Object.is(\"a\");
-var d: boolean = Object.is(\"a\", \"b\", \"c\");
+var a: boolean = Object.is(\\"a\\", \\"a\\");
+var b: string = Object.is(\\"a\\", \\"a\\");
+var c: boolean = Object.is(\\"a\\");
+var d: boolean = Object.is(\\"a\\", \\"b\\", \\"c\\");
 "
 `;

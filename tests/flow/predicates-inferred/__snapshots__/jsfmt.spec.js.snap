@@ -1,10 +1,12 @@
-exports[`test sanity.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`sanity.js 1`] = `
 "// @flow
 
-// Sanity check: shouldn\'t be allowed to declare a predicate AND use \`chekcs\`
+// Sanity check: shouldn't be allowed to declare a predicate AND use \`chekcs\`
 
-function check(y): %checks(typeof y === \"string\") {
-  return typeof y === \"number\";
+function check(y): %checks(typeof y === \\"string\\") {
+  return typeof y === \\"number\\";
 }
 
 declare var y: number | boolean;
@@ -16,7 +18,7 @@ if (check(y)) {
 // Sanity: disallowed body
 function indirect_is_number(y): %checks {
   var y = 1;
-  return typeof y === \"number\";
+  return typeof y === \\"number\\";
 }
 
 function bak(z: string | number): number {
@@ -29,10 +31,10 @@ function bak(z: string | number): number {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-// Sanity check: shouldn\'t be allowed to declare a predicate AND use \`chekcs\`
+// Sanity check: shouldn't be allowed to declare a predicate AND use \`chekcs\`
 
-function check(y): %checks(typeof y === \"string\") {
-  return typeof y === \"number\";
+function check(y): %checks(typeof y === \\"string\\") {
+  return typeof y === \\"number\\";
 }
 
 declare var y: number | boolean;
@@ -44,7 +46,7 @@ if (check(y)) {
 // Sanity: disallowed body
 function indirect_is_number(y): %checks {
   var y = 1;
-  return typeof y === \"number\";
+  return typeof y === \\"number\\";
 }
 
 function bak(z: string | number): number {
@@ -57,16 +59,16 @@ function bak(z: string | number): number {
 "
 `;
 
-exports[`test sanity-multi-params.js 1`] = `
+exports[`sanity-multi-params.js 1`] = `
 "// @flow
 
 // Feature: multi params
 function multi_param(w,x,y,z): %checks {
-  return typeof z === \"string\";
+  return typeof z === \\"string\\";
 }
 
 function foo(x: string | Array<string>): string {
-  if (multi_param(\"1\", \"2\", x, \"3\")) {
+  if (multi_param(\\"1\\", \\"2\\", x, \\"3\\")) {
     return x;
   } else {
     return x.join();
@@ -77,11 +79,11 @@ function foo(x: string | Array<string>): string {
 
 // Feature: multi params
 function multi_param(w, x, y, z): %checks {
-  return typeof z === \"string\";
+  return typeof z === \\"string\\";
 }
 
 function foo(x: string | Array<string>): string {
-  if (multi_param(\"1\", \"2\", x, \"3\")) {
+  if (multi_param(\\"1\\", \\"2\\", x, \\"3\\")) {
     return x;
   } else {
     return x.join();
@@ -90,7 +92,7 @@ function foo(x: string | Array<string>): string {
 "
 `;
 
-exports[`test sanity-ordering.js 1`] = `
+exports[`sanity-ordering.js 1`] = `
 "// @flow
 
 declare var key: string;
@@ -101,8 +103,8 @@ if (dotAccess(obj)) {
 }
 
 function dotAccess(head, create) {
-  const path = \'path.location\';
-  const stack = path.split(\'.\');
+  const path = 'path.location';
+  const stack = path.split('.');
   do {
     const key = stack.shift();
     head = head[key] || create && (head[key] = {});
@@ -120,8 +122,8 @@ if (dotAccess(obj)) {
 }
 
 function dotAccess(head, create) {
-  const path = \"path.location\";
-  const stack = path.split(\".\");
+  const path = \\"path.location\\";
+  const stack = path.split(\\".\\");
   do {
     const key = stack.shift();
     head = head[key] || create && (head[key] = {});
@@ -131,7 +133,7 @@ function dotAccess(head, create) {
 "
 `;
 
-exports[`test sanity-unbound-var.js 1`] = `
+exports[`sanity-unbound-var.js 1`] = `
 "// @flow
 
 declare var y: mixed;
@@ -139,7 +141,7 @@ declare var y: mixed;
 // Sanity check: this should fail, because the preficate function
 // checks \`y\` instead of \`x\`.
 function err(x): %checks {
-  return typeof y === \"string\";
+  return typeof y === \\"string\\";
 }
 
 function foo(x: string | Array<string>): string {
@@ -157,7 +159,7 @@ declare var y: mixed;
 // Sanity check: this should fail, because the preficate function
 // checks \`y\` instead of \`x\`.
 function err(x): %checks {
-  return typeof y === \"string\";
+  return typeof y === \\"string\\";
 }
 
 function foo(x: string | Array<string>): string {
@@ -170,19 +172,19 @@ function foo(x: string | Array<string>): string {
 "
 `;
 
-exports[`test simple-predicate-func.js 1`] = `
+exports[`simple-predicate-func.js 1`] = `
 "// @flow
 
 function is_string(y): %checks {
-  return typeof y === \"string\";
+  return typeof y === \\"string\\";
 }
 
 function is_bool(y): %checks {
-  return typeof y === \"boolean\";
+  return typeof y === \\"boolean\\";
 }
 
 function is_number(y): %checks {
-  return typeof y === \"number\";
+  return typeof y === \\"number\\";
 }
 
 // Feature check:
@@ -222,11 +224,11 @@ function baz(z: string | number): number {
 
 // Feature: multi params
 function multi_param(w,x,y,z): %checks {
-  return typeof z === \"string\";
+  return typeof z === \\"string\\";
 }
 
 function foo(x: string | Array<string>): string {
-  if (multi_param(\"1\", \"2\", \"3\", x)) {
+  if (multi_param(\\"1\\", \\"2\\", \\"3\\", x)) {
     return x;
   } else {
     return x.join();
@@ -248,15 +250,15 @@ declare function from_two_strings(x: string, y: string): void;
 // @flow
 
 function is_string(y): %checks {
-  return typeof y === \"string\";
+  return typeof y === \\"string\\";
 }
 
 function is_bool(y): %checks {
-  return typeof y === \"boolean\";
+  return typeof y === \\"boolean\\";
 }
 
 function is_number(y): %checks {
-  return typeof y === \"number\";
+  return typeof y === \\"number\\";
 }
 
 // Feature check:
@@ -296,11 +298,11 @@ function baz(z: string | number): number {
 
 // Feature: multi params
 function multi_param(w, x, y, z): %checks {
-  return typeof z === \"string\";
+  return typeof z === \\"string\\";
 }
 
 function foo(x: string | Array<string>): string {
-  if (multi_param(\"1\", \"2\", \"3\", x)) {
+  if (multi_param(\\"1\\", \\"2\\", \\"3\\", x)) {
     return x;
   } else {
     return x.join();
@@ -321,7 +323,7 @@ declare function from_two_strings(x: string, y: string): void;
 "
 `;
 
-exports[`test simple-predicate-func-post.js 1`] = `
+exports[`simple-predicate-func-post.js 1`] = `
 "// @flow
 
 // Feature check:
@@ -341,7 +343,7 @@ function foo(x: string | Array<string>): string {
 }
 
 function is_string(x): %checks {
-  return typeof x === \"string\";
+  return typeof x === \\"string\\";
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
@@ -363,7 +365,7 @@ function foo(x: string | Array<string>): string {
 }
 
 function is_string(x): %checks {
-  return typeof x === \"string\";
+  return typeof x === \\"string\\";
 }
 "
 `;

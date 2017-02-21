@@ -1,16 +1,18 @@
-exports[`test value.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`value.js 1`] = `
 "var o = {};
-o[\"x\"] = 4;
-var y:string = o[\"x\"];
+o[\\"x\\"] = 4;
+var y:string = o[\\"x\\"];
 
 var table: { [_: string]: number } = {};
-table[\"x\"] = \"hello\";
+table[\\"x\\"] = \\"hello\\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var o = {};
-o[\"x\"] = 4;
-var y: string = o[\"x\"];
+o[\\"x\\"] = 4;
+var y: string = o[\\"x\\"];
 
 var table: { [_: string]: number } = {};
-table[\"x\"] = \"hello\";
+table[\\"x\\"] = \\"hello\\";
 "
 `;

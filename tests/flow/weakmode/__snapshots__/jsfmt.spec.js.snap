@@ -1,9 +1,11 @@
-exports[`test should_fail_without_weak.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should_fail_without_weak.js 1`] = `
 "/* @flow */
 // This should fail without weak mode, because of the glaring type error.
 
 function returns_a_string() {
-  return \"Hello\";
+  return \\"Hello\\";
 }
 
 function expects_an_int() {
@@ -14,7 +16,7 @@ function expects_an_int() {
 // This should fail without weak mode, because of the glaring type error.
 
 function returns_a_string() {
-  return \"Hello\";
+  return \\"Hello\\";
 }
 
 function expects_an_int() {
@@ -23,12 +25,12 @@ function expects_an_int() {
 "
 `;
 
-exports[`test should_pass_with_weak.js 1`] = `
+exports[`should_pass_with_weak.js 1`] = `
 "/* @flow weak */
 // This should fail without weak mode, because of the glaring type error.
 
 function returns_a_string() {
-  return \"Hello\";
+  return \\"Hello\\";
 }
 
 function expects_an_int() {
@@ -39,7 +41,7 @@ function expects_an_int() {
 // This should fail without weak mode, because of the glaring type error.
 
 function returns_a_string() {
-  return \"Hello\";
+  return \\"Hello\\";
 }
 
 function expects_an_int() {

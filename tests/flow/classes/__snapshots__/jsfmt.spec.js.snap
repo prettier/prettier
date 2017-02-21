@@ -1,4 +1,6 @@
-exports[`test A.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`A.js 1`] = `
 "class A {
   foo(x:number):void { }
 }
@@ -13,8 +15,8 @@ module.exports = A;
 "
 `;
 
-exports[`test B.js 1`] = `
-"var A = require(\'./A\');
+exports[`B.js 1`] = `
+"var A = require('./A');
 
 class B extends A { }
 
@@ -23,7 +25,7 @@ let b = new B();
 
 module.exports = B;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var A = require(\"./A\");
+var A = require(\\"./A\\");
 
 class B extends A {}
 
@@ -34,8 +36,8 @@ module.exports = B;
 "
 `;
 
-exports[`test C.js 1`] = `
-"var B = require(\'./B\');
+exports[`C.js 1`] = `
+"var B = require('./B');
 
 class C extends B {
   foo(x:string):void { }
@@ -46,7 +48,7 @@ let c = new C();
 
 module.exports = C;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var B = require(\"./B\");
+var B = require(\\"./B\\");
 
 class C extends B {
   foo(x: string): void {}
@@ -59,7 +61,7 @@ module.exports = C;
 "
 `;
 
-exports[`test D.js 1`] = `
+exports[`D.js 1`] = `
 "class D { }
 class E { }
 new E().x
@@ -70,14 +72,14 @@ new E().x;
 "
 `;
 
-exports[`test class_shapes.js 1`] = `
+exports[`class_shapes.js 1`] = `
 "/* @flow */
 
 type Foo = {
   a: string;    // exists in TestClass
-  b: string;    // doesn\'t exist
+  b: string;    // doesn't exist
   c?: ?string;  // exists in TestClass, optional
-  d?: number;   // doesn\'t exist
+  d?: number;   // doesn't exist
 }
 
 class TestClass {
@@ -93,8 +95,8 @@ x.c; // ok
 x.d; // error, TestClass has no d
 
 var y : Foo = x;
-y.b; // error, doesn\'t exist in TestClass
-y.d; // ok, it\'s optional
+y.b; // error, doesn't exist in TestClass
+y.d; // ok, it's optional
 
 class Test2Superclass {
   a: number;  // conflicts with cast to Foo
@@ -111,9 +113,9 @@ var w : Foo = z;
 
 type Foo = {
   a: string, // exists in TestClass
-  b: string, // doesn\'t exist
+  b: string, // doesn't exist
   c?: ?string, // exists in TestClass, optional
-  d?: number /* doesn\'t exist*/
+  d?: number /* doesn't exist*/
 };
 
 class TestClass {
@@ -129,8 +131,8 @@ x.c; // ok
 x.d; // error, TestClass has no d
 
 var y: Foo = x;
-y.b; // error, doesn\'t exist in TestClass
-y.d; // ok, it\'s optional
+y.b; // error, doesn't exist in TestClass
+y.d; // ok, it's optional
 
 class Test2Superclass {
   a: number; // conflicts with cast to Foo
@@ -145,7 +147,7 @@ var w: Foo = z;
 "
 `;
 
-exports[`test expr.js 1`] = `
+exports[`expr.js 1`] = `
 "var Bar = class Foo {
   static factory(): Foo { // OK: Foo is a type in this scope
     return new Foo()      // OK: Foo is a runtime binding in this scope
@@ -155,7 +157,7 @@ exports[`test expr.js 1`] = `
 var bar1: Bar = new Bar() // OK
 var bar2: Bar = Bar.factory() // OK
 
-// NB: Don\'t write expected errors using Foo to avoid error collapse hiding an
+// NB: Don't write expected errors using Foo to avoid error collapse hiding an
 // unexpected failure in the above code.
 
 var B = class Baz { }
@@ -187,7 +189,7 @@ var Bar = class Foo {
 var bar1: Bar = new Bar(); // OK
 var bar2: Bar = Bar.factory(); // OK
 
-// NB: Don\'t write expected errors using Foo to avoid error collapse hiding an
+// NB: Don't write expected errors using Foo to avoid error collapse hiding an
 // unexpected failure in the above code.
 
 var B = class Baz {};
@@ -211,7 +213,7 @@ var alias2: Alias = _Alias.factory(); // error: bad pun
 "
 `;
 
-exports[`test loc.js 1`] = `
+exports[`loc.js 1`] = `
 "/* @flow */
 
 type Foo = number
@@ -226,13 +228,13 @@ class Foo {} // error, shadows type Foo
 "
 `;
 
-exports[`test statics.js 1`] = `
+exports[`statics.js 1`] = `
 "/* @flow */
 
 class C {
   static p: string;
 }
-C.p = \"hi\";
+C.p = \\"hi\\";
 
 // Class static fields are compatible with object types
 (C: {p:string}); // ok
@@ -246,7 +248,7 @@ declare var o: {p:number};
 class C {
   static p: string;
 }
-C.p = \"hi\";
+C.p = \\"hi\\";
 
 // Class static fields are compatible with object types
 (C: { p: string }); // ok

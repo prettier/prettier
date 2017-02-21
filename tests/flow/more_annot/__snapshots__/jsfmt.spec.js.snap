@@ -1,16 +1,18 @@
-exports[`test client_object.js 1`] = `
-"var o = require(\'./object\');
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`client_object.js 1`] = `
+"var o = require('./object');
 
 var a:number = o.w.z.y;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var o = require(\"./object\");
+var o = require(\\"./object\\");
 
 var a: number = o.w.z.y;
 "
 `;
 
-exports[`test object.js 1`] = `
-"var o1 = { x: 0, y: \"\" };
+exports[`object.js 1`] = `
+"var o1 = { x: 0, y: \\"\\" };
 var o2 = { z: o1 }
 
 var o3 = {};
@@ -20,7 +22,7 @@ o3.w = o2;
 
 module.exports = o3;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var o1 = { x: 0, y: \"\" };
+var o1 = { x: 0, y: \\"\\" };
 var o2 = { z: o1 };
 
 var o3 = {};
@@ -32,7 +34,7 @@ module.exports = o3;
 "
 `;
 
-exports[`test proto.js 1`] = `
+exports[`proto.js 1`] = `
 "function Foo() { this.x = 0; }
 Foo.prototype.m = function() { }
 
@@ -51,7 +53,7 @@ var o2: Foo = new Foo();
 "
 `;
 
-exports[`test super.js 1`] = `
+exports[`super.js 1`] = `
 "class C { m() { } }
 class D extends C { }
 

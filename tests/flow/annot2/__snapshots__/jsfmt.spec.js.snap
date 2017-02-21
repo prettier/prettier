@@ -1,10 +1,12 @@
-exports[`test A.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`A.js 1`] = `
 "/**
  * @providesModule A
  * @flow
  */
 
-import type T from \"T\";
+import type T from \\"T\\";
 
 export default class {
   p: T;
@@ -19,7 +21,7 @@ export default class {
  * @flow
  */
 
-import type T from \"T\";
+import type T from \\"T\\";
 
 export default class {
   p: T;
@@ -31,12 +33,12 @@ export default class {
 "
 `;
 
-exports[`test B.js 1`] = `
+exports[`B.js 1`] = `
 "/**
  * @flow
  */
 
-import A from \"A\"
+import A from \\"A\\"
 
 class B extends A {
   p: string; // OK, string ~> any
@@ -46,7 +48,7 @@ class B extends A {
  * @flow
  */
 
-import A from \"A\";
+import A from \\"A\\";
 
 class B extends A {
   p: string; // OK, string ~> any
@@ -54,7 +56,7 @@ class B extends A {
 "
 `;
 
-exports[`test T.js 1`] = `
+exports[`T.js 1`] = `
 "/**
  * @providesModule T
  */

@@ -1,4 +1,6 @@
-exports[`test object.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`object.js 1`] = `
 "state = {
   // students
   hoverColumn: -1
@@ -11,7 +13,7 @@ state = {
 "
 `;
 
-exports[`test series.js 1`] = `
+exports[`series.js 1`] = `
 "1 + ++x;
 1 + x++;
 

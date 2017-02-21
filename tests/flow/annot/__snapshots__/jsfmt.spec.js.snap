@@ -1,4 +1,6 @@
-exports[`test annot.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`annot.js 1`] = `
 "function foo(str:string, i:number):string {
   return str;
 }
@@ -6,12 +8,12 @@ var bar: (str:number, i:number)=> string = foo;
 
 var qux = function(str:string, i:number):number { return foo(str,i); }
 
-var obj: {str:string; i:number; j:boolean} = {str: \"...\", i: \"...\", k: false};
+var obj: {str:string; i:number; j:boolean} = {str: \\"...\\", i: \\"...\\", k: false};
 
-var arr: Array<number> = [1,2,\"...\"];
+var arr: Array<number> = [1,2,\\"...\\"];
 
 // array sugar
-var array: number[] = [1,2,\"...\"];
+var array: number[] = [1,2,\\"...\\"];
 
 var matrix: number[][] = [[1,2],[3,4]];
 var matrix_parens: (number[])[] = matrix;
@@ -21,15 +23,15 @@ var nullable_array_parens: ?(number[]) = nullable_array;
 
 var array_of_nullable: (?number)[] = [null, 3];
 
-var array_of_tuple: [number, string][] = [[0, \"foo\"], [1, \"bar\"]];
+var array_of_tuple: [number, string][] = [[0, \\"foo\\"], [1, \\"bar\\"]];
 var array_of_tuple_parens: ([number, string])[] = array_of_tuple;
 
-type ObjType = { \'bar-foo\': string; \'foo-bar\': number; };
-var test_obj: ObjType = { \'bar-foo\': \'23\' };
+type ObjType = { 'bar-foo': string; 'foo-bar': number; };
+var test_obj: ObjType = { 'bar-foo': '23' };
 
 // param type annos are strict UBs like var type annos
 function param_anno(n:number):void {
-  n = \"hey\"; // error
+  n = \\"hey\\"; // error
 }
 
 // another error on param UB, more typical of www (mis)use-cases
@@ -38,7 +40,7 @@ function param_anno2(
     batchRequests: Array<{method: string; path: string; params: ?Object}>,
   ): void {
 
-    // error below, since we\'re assigning elements to batchRequests
+    // error below, since we're assigning elements to batchRequests
     // which lack a path property.
     // just assign result to new var instead of reassigning to param.
 
@@ -70,15 +72,15 @@ var qux = function(str: string, i: number): number {
 };
 
 var obj: { str: string, i: number, j: boolean } = {
-  str: \"...\",
-  i: \"...\",
+  str: \\"...\\",
+  i: \\"...\\",
   k: false
 };
 
-var arr: Array<number> = [1, 2, \"...\"];
+var arr: Array<number> = [1, 2, \\"...\\"];
 
 // array sugar
-var array: number[] = [1, 2, \"...\"];
+var array: number[] = [1, 2, \\"...\\"];
 
 var matrix: number[][] = [[1, 2], [3, 4]];
 var matrix_parens: number[][] = matrix;
@@ -88,15 +90,15 @@ var nullable_array_parens: ?(number[]) = nullable_array;
 
 var array_of_nullable: (?number)[] = [null, 3];
 
-var array_of_tuple: [number, string][] = [[0, \"foo\"], [1, \"bar\"]];
+var array_of_tuple: [number, string][] = [[0, \\"foo\\"], [1, \\"bar\\"]];
 var array_of_tuple_parens: [number, string][] = array_of_tuple;
 
-type ObjType = { \"bar-foo\": string, \"foo-bar\": number };
-var test_obj: ObjType = { \"bar-foo\": \"23\" };
+type ObjType = { \\"bar-foo\\": string, \\"foo-bar\\": number };
+var test_obj: ObjType = { \\"bar-foo\\": \\"23\\" };
 
 // param type annos are strict UBs like var type annos
 function param_anno(n: number): void {
-  n = \"hey\"; // error
+  n = \\"hey\\"; // error
 }
 
 // another error on param UB, more typical of www (mis)use-cases
@@ -104,7 +106,7 @@ function param_anno(n: number): void {
 function param_anno2(
   batchRequests: Array<{ method: string, path: string, params: ?Object }>
 ): void {
-  // error below, since we\'re assigning elements to batchRequests
+  // error below, since we're assigning elements to batchRequests
   // which lack a path property.
   // just assign result to new var instead of reassigning to param.
 
@@ -132,7 +134,7 @@ function barfoo(n: number | null | void): ?number {
 "
 `;
 
-exports[`test forward_ref.js 1`] = `
+exports[`forward_ref.js 1`] = `
 "let myClassInstance: MyClass = null; // forward ref ok, null ~> class error
 
 function bar(): MyClass {
@@ -167,7 +169,7 @@ function foo() {
 "
 `;
 
-exports[`test issue-530.js 1`] = `
+exports[`issue-530.js 1`] = `
 "function foo(...args: any) { }
 
 module.exports = foo;
@@ -178,7 +180,7 @@ module.exports = foo;
 "
 `;
 
-exports[`test leak.js 1`] = `
+exports[`leak.js 1`] = `
 "/** @flow */
 
 /* This test documents an example we ran into of a type annotation leaking.
@@ -187,7 +189,7 @@ exports[`test leak.js 1`] = `
  * annotation for y and stop. We should type the body of bar() with the type
  * annotation of y.
  *
- * However, the leaky type annotation meant that we were flowing x\'s type to y
+ * However, the leaky type annotation meant that we were flowing x's type to y
  * and type checking the body of bar() using the stricter dictionary type,
  * leading to an error.
  */
@@ -210,7 +212,7 @@ function bar(y: MyObj): string {
  * annotation for y and stop. We should type the body of bar() with the type
  * annotation of y.
  *
- * However, the leaky type annotation meant that we were flowing x\'s type to y
+ * However, the leaky type annotation meant that we were flowing x's type to y
  * and type checking the body of bar() using the stricter dictionary type,
  * leading to an error.
  */
@@ -227,7 +229,7 @@ function bar(y: MyObj): string {
 "
 `;
 
-exports[`test other.js 1`] = `
+exports[`other.js 1`] = `
 "class C { }
 module.exports = (C: any);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -236,7 +238,7 @@ module.exports = (C: any);
 "
 `;
 
-exports[`test scope.js 1`] = `
+exports[`scope.js 1`] = `
 "type Merge<T> = (a: T, b: T) => T;
 
 // hypothetical immutable map
@@ -293,11 +295,11 @@ class Foo<A> {
 "
 `;
 
-exports[`test test.js 1`] = `
-"var C = require(\'./other\');
+exports[`test.js 1`] = `
+"var C = require('./other');
 ((0: C): string);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var C = require(\"./other\");
+var C = require(\\"./other\\");
 ((0: C): string);
 "
 `;

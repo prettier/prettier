@@ -1,4 +1,6 @@
-exports[`test optional.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`optional.js 1`] = `
 "type F = {
   (x: string): number;
   p?: string;
@@ -23,7 +25,7 @@ function f(x) {
 "
 `;
 
-exports[`test primitives.js 1`] = `
+exports[`primitives.js 1`] = `
 "var x = Boolean(4);
 function foo(fn:(value:any)=>boolean) { }
 foo(Boolean);

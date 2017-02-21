@@ -1,4 +1,6 @@
-exports[`test test.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test.js 1`] = `
 "/**
  * @flow
  */
@@ -16,7 +18,7 @@ function g(a: ?string) {
 
 function h(x: number): string {
   if (x) {
-    return \'foo\';
+    return 'foo';
   } else {
     throw new Error();
   }
@@ -39,7 +41,7 @@ function g(a: ?string) {
 
 function h(x: number): string {
   if (x) {
-    return \"foo\";
+    return \\"foo\\";
   } else {
     throw new Error();
   }

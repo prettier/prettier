@@ -1,11 +1,13 @@
-exports[`test with_munging.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`with_munging.js 1`] = `
 "/**
  * @flow
  */
 
 class Foo {
   _method(): string {
-    return \'this is private\';
+    return 'this is private';
   }
 }
 
@@ -21,7 +23,7 @@ class Bar extends Foo {
 
 class Foo {
   _method(): string {
-    return \"this is private\";
+    return \\"this is private\\";
   }
 }
 
@@ -33,7 +35,7 @@ class Bar extends Foo {
 "
 `;
 
-exports[`test without_munging.js 1`] = `
+exports[`without_munging.js 1`] = `
 "/**
  * @flow
  * @preventMunge
@@ -41,7 +43,7 @@ exports[`test without_munging.js 1`] = `
 
 class Foo {
   _method(): string {
-    return \'this is not private\';
+    return 'this is not private';
   }
 }
 
@@ -58,7 +60,7 @@ class Bar extends Foo {
 
 class Foo {
   _method(): string {
-    return \"this is not private\";
+    return \\"this is not private\\";
   }
 }
 

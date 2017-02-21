@@ -1,4 +1,6 @@
-exports[`test abnormals.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`abnormals.js 1`] = `
 "/* @flow */
 
 /* This test documents an issue we used to have with merging the environment of
@@ -33,7 +35,7 @@ function foo() {
 "
 `;
 
-exports[`test init.js 1`] = `
+exports[`init.js 1`] = `
 "/***
  * test initialization tracking of hoisted stuff
  * @flow
@@ -91,7 +93,7 @@ function f() {
   }
 }
 
-// or try/catch/finally if init doesn\'t dominate
+// or try/catch/finally if init doesn't dominate
 function f() {
   try {
     var x:number = 0;
@@ -246,7 +248,7 @@ function f() {
   }
 }
 
-// or try/catch/finally if init doesn\'t dominate
+// or try/catch/finally if init doesn't dominate
 function f() {
   try {
     var x: number = 0;
@@ -346,7 +348,7 @@ function f(b) {
 "
 `;
 
-exports[`test return.js 1`] = `
+exports[`return.js 1`] = `
 "/**
  * @flow
  */
@@ -354,36 +356,36 @@ exports[`test return.js 1`] = `
 function foo(x: ?number): string {
     try {
     } catch (e) {
-        return \'bar\';
+        return 'bar';
     }
     console.log();
-    return \'foo\';
+    return 'foo';
 }
 
 function bar(): string {
   try {
-    return \'foo\';
+    return 'foo';
   } catch (e) {
-    return \'bar\';
+    return 'bar';
   }
 }
 
 function baz(): string {
   try {
-    throw new Error(\"foo\");
+    throw new Error(\\"foo\\");
   } catch (e) {
-    return \"foo\";
+    return \\"foo\\";
   }
-  return \"bar\"; // unreachable
+  return \\"bar\\"; // unreachable
 }
 
 function qux(): string {
   try {
-    throw new Error(\"foo\");
+    throw new Error(\\"foo\\");
   } catch (e) {
   }
   console.log();
-  return \'bar\';
+  return 'bar';
 }
 
 function quux(): string {
@@ -391,24 +393,24 @@ function quux(): string {
     return qux();
   } catch (e) {
   }
-  return \'bar\';
+  return 'bar';
 }
 
 function bliffl(): string {
   try {
-    throw new Error(\"foo\");
+    throw new Error(\\"foo\\");
   } catch (e) {
-    return \"foo\";
+    return \\"foo\\";
   } finally {
-    return \"bar\";
+    return \\"bar\\";
   }
 }
 
 function corge(): string {
   try {
-    return \'foo\';
+    return 'foo';
   } catch (e) {
-    throw new Error(\'bar\');
+    throw new Error('bar');
   }
   bar(); // unreachable
 }
@@ -420,36 +422,36 @@ function corge(): string {
 function foo(x: ?number): string {
   try {
   } catch (e) {
-    return \"bar\";
+    return \\"bar\\";
   }
   console.log();
-  return \"foo\";
+  return \\"foo\\";
 }
 
 function bar(): string {
   try {
-    return \"foo\";
+    return \\"foo\\";
   } catch (e) {
-    return \"bar\";
+    return \\"bar\\";
   }
 }
 
 function baz(): string {
   try {
-    throw new Error(\"foo\");
+    throw new Error(\\"foo\\");
   } catch (e) {
-    return \"foo\";
+    return \\"foo\\";
   }
-  return \"bar\"; // unreachable
+  return \\"bar\\"; // unreachable
 }
 
 function qux(): string {
   try {
-    throw new Error(\"foo\");
+    throw new Error(\\"foo\\");
   } catch (e) {
   }
   console.log();
-  return \"bar\";
+  return \\"bar\\";
 }
 
 function quux(): string {
@@ -457,31 +459,31 @@ function quux(): string {
     return qux();
   } catch (e) {
   }
-  return \"bar\";
+  return \\"bar\\";
 }
 
 function bliffl(): string {
   try {
-    throw new Error(\"foo\");
+    throw new Error(\\"foo\\");
   } catch (e) {
-    return \"foo\";
+    return \\"foo\\";
   } finally {
-    return \"bar\";
+    return \\"bar\\";
   }
 }
 
 function corge(): string {
   try {
-    return \"foo\";
+    return \\"foo\\";
   } catch (e) {
-    throw new Error(\"bar\");
+    throw new Error(\\"bar\\");
   }
   bar(); // unreachable
 }
 "
 `;
 
-exports[`test test.js 1`] = `
+exports[`test.js 1`] = `
 "/***
  * test env state tracking thru try/catch/finally
  * @flow
@@ -491,7 +493,7 @@ function foo() {
     var x = 0;
     var y;
     try {
-        x = \"\";
+        x = \\"\\";
     } catch(e) {
         x = false;
         throw -1;
@@ -508,7 +510,7 @@ function bar(response) {
     try {
         payload = JSON.parse(response);
     } catch (e) {
-        throw new Error(\'...\');
+        throw new Error('...');
     }
     // here via [try] only.
     if (payload.error) {    // ok
@@ -534,7 +536,7 @@ function foo() {
   var x = 0;
   var y;
   try {
-    x = \"\";
+    x = \\"\\";
   } catch (e) {
     x = false;
     throw -1;
@@ -551,7 +553,7 @@ function bar(response) {
   try {
     payload = JSON.parse(response);
   } catch (e) {
-    throw new Error(\"...\");
+    throw new Error(\\"...\\");
   }
   // here via [try] only.
   if (payload.error) {

@@ -1,4 +1,6 @@
-exports[`test promise.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`promise.js 1`] = `
 "/**
  * Here the definition of Promise<T> is routed to the class Promise
  * in the user-specified library libs/Promise.js
@@ -11,7 +13,7 @@ exports[`test promise.js 1`] = `
 
 async function foo(x: boolean): Promise<?{bar: string}> {
   if (x) {
-    return {bar: \'baz\'};  // OK, because of covariant type param
+    return {bar: 'baz'};  // OK, because of covariant type param
   } else {
     return null;
   }
@@ -36,7 +38,7 @@ run()
 
 async function foo(x: boolean): Promise<?{ bar: string }> {
   if (x) {
-    return { bar: \"baz\" }; // OK, because of covariant type param
+    return { bar: \\"baz\\" }; // OK, because of covariant type param
   } else {
     return null;
   }

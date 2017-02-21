@@ -1,4 +1,6 @@
-exports[`test function.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`function.js 1`] = `
 "/* @flow */
 
 function Bar(x: number) {
@@ -25,7 +27,7 @@ module.exports = Bar;
 "
 `;
 
-exports[`test proto.js 1`] = `
+exports[`proto.js 1`] = `
 "function Foo() { }
 var o = new Foo();
 var x:number = o.x;
@@ -33,7 +35,7 @@ var x:number = o.x;
 Foo.prototype.m = function() { return this.x; }
 
 var y:number = o.m();
-o.x = \"...\";
+o.x = \\"...\\";
 
 Foo.prototype = { m: function() { return false; } }
 
@@ -50,7 +52,7 @@ Foo.prototype.m = function() {
 };
 
 var y: number = o.m();
-o.x = \"...\";
+o.x = \\"...\\";
 
 Foo.prototype = {
   m: function() {
@@ -64,28 +66,28 @@ module.exports = export_o;
 "
 `;
 
-exports[`test sealed.js 1`] = `
-"var o = require(\'./proto\');
+exports[`sealed.js 1`] = `
+"var o = require('./proto');
 
 o.z = 0;
 var x:string = o.x;
 
-var Bar = require(\'./function\');
+var Bar = require('./function');
 var a = new Bar(234);
 a.x = 123;
-a.y = \'abc\'; // error, needs to be declared in Bar\'s constructor
+a.y = 'abc'; // error, needs to be declared in Bar's constructor
 (a.getX(): number);
 (a.getY(): string);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var o = require(\"./proto\");
+var o = require(\\"./proto\\");
 
 o.z = 0;
 var x: string = o.x;
 
-var Bar = require(\"./function\");
+var Bar = require(\\"./function\\");
 var a = new Bar(234);
 a.x = 123;
-a.y = \"abc\"; // error, needs to be declared in Bar\'s constructor
+a.y = \\"abc\\"; // error, needs to be declared in Bar's constructor
 (a.getX(): number);
 (a.getY(): string);
 "

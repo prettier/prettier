@@ -1,4 +1,6 @@
-exports[`test break-last-call.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`break-last-call.js 1`] = `
 "export default store => {
   return callApi(endpoint, schema).then(
     response => next(actionWith({
@@ -7,30 +9,30 @@ exports[`test break-last-call.js 1`] = `
     })),
     error => next(actionWith({
       type: failureType,
-      error: error.message || \'Something bad happened\'
+      error: error.message || 'Something bad happened'
     }))
   )
 }
 
-it(\'should group messages with same created time\', () => {
+it('should group messages with same created time', () => {
   expect(
     groupMessages(messages).toJS(),
   ).toEqual({
-    \'11/01/2017 13:36\': [
-      {message: \'test\', messageType: \'SMS\', status: \'Unknown\', created: \'11/01/2017 13:36\'},
-      {message: \'test\', messageType: \'Email\', status: \'Unknown\', created: \'11/01/2017 13:36\'},
+    '11/01/2017 13:36': [
+      {message: 'test', messageType: 'SMS', status: 'Unknown', created: '11/01/2017 13:36'},
+      {message: 'test', messageType: 'Email', status: 'Unknown', created: '11/01/2017 13:36'},
     ],
-    \'09/01/2017 17:25\': [
-      {message: \'te\', messageType: \'SMS\', status: \'Unknown\', created: \'09/01/2017 17:25\'},
-      {message: \'te\', messageType: \'Email\', status: \'Unknown\', created: \'09/01/2017 17:25\'},
+    '09/01/2017 17:25': [
+      {message: 'te', messageType: 'SMS', status: 'Unknown', created: '09/01/2017 17:25'},
+      {message: 'te', messageType: 'Email', status: 'Unknown', created: '09/01/2017 17:25'},
     ],
-    \'11/01/2017 13:33\': [
-      {message: \'test\', messageType: \'SMS\', status: \'Unknown\', created: \'11/01/2017 13:33\'},
-      {message: \'test\', messageType: \'Email\', status: \'Unknown\', created: \'11/01/2017 13:33\'},
+    '11/01/2017 13:33': [
+      {message: 'test', messageType: 'SMS', status: 'Unknown', created: '11/01/2017 13:33'},
+      {message: 'test', messageType: 'Email', status: 'Unknown', created: '11/01/2017 13:33'},
     ],
-    \'11/01/2017 13:37\': [
-      {message: \'test\', messageType: \'SMS\', status: \'Unknown\', created: \'11/01/2017 13:37\'},
-      {message: \'test\', messageType: \'Email\', status: \'Unknown\', created: \'11/01/2017 13:37\'},
+    '11/01/2017 13:37': [
+      {message: 'test', messageType: 'SMS', status: 'Unknown', created: '11/01/2017 13:37'},
+      {message: 'test', messageType: 'Email', status: 'Unknown', created: '11/01/2017 13:37'},
     ],
   });
 });
@@ -46,68 +48,68 @@ export default store => {
     error => next(
       actionWith({
         type: failureType,
-        error: error.message || \"Something bad happened\"
+        error: error.message || \\"Something bad happened\\"
       })
     )
   );
 };
 
-it(\"should group messages with same created time\", () => {
+it(\\"should group messages with same created time\\", () => {
   expect(groupMessages(messages).toJS()).toEqual({
-    \"11/01/2017 13:36\": [
+    \\"11/01/2017 13:36\\": [
       {
-        message: \"test\",
-        messageType: \"SMS\",
-        status: \"Unknown\",
-        created: \"11/01/2017 13:36\"
+        message: \\"test\\",
+        messageType: \\"SMS\\",
+        status: \\"Unknown\\",
+        created: \\"11/01/2017 13:36\\"
       },
       {
-        message: \"test\",
-        messageType: \"Email\",
-        status: \"Unknown\",
-        created: \"11/01/2017 13:36\"
+        message: \\"test\\",
+        messageType: \\"Email\\",
+        status: \\"Unknown\\",
+        created: \\"11/01/2017 13:36\\"
       }
     ],
-    \"09/01/2017 17:25\": [
+    \\"09/01/2017 17:25\\": [
       {
-        message: \"te\",
-        messageType: \"SMS\",
-        status: \"Unknown\",
-        created: \"09/01/2017 17:25\"
+        message: \\"te\\",
+        messageType: \\"SMS\\",
+        status: \\"Unknown\\",
+        created: \\"09/01/2017 17:25\\"
       },
       {
-        message: \"te\",
-        messageType: \"Email\",
-        status: \"Unknown\",
-        created: \"09/01/2017 17:25\"
+        message: \\"te\\",
+        messageType: \\"Email\\",
+        status: \\"Unknown\\",
+        created: \\"09/01/2017 17:25\\"
       }
     ],
-    \"11/01/2017 13:33\": [
+    \\"11/01/2017 13:33\\": [
       {
-        message: \"test\",
-        messageType: \"SMS\",
-        status: \"Unknown\",
-        created: \"11/01/2017 13:33\"
+        message: \\"test\\",
+        messageType: \\"SMS\\",
+        status: \\"Unknown\\",
+        created: \\"11/01/2017 13:33\\"
       },
       {
-        message: \"test\",
-        messageType: \"Email\",
-        status: \"Unknown\",
-        created: \"11/01/2017 13:33\"
+        message: \\"test\\",
+        messageType: \\"Email\\",
+        status: \\"Unknown\\",
+        created: \\"11/01/2017 13:33\\"
       }
     ],
-    \"11/01/2017 13:37\": [
+    \\"11/01/2017 13:37\\": [
       {
-        message: \"test\",
-        messageType: \"SMS\",
-        status: \"Unknown\",
-        created: \"11/01/2017 13:37\"
+        message: \\"test\\",
+        messageType: \\"SMS\\",
+        status: \\"Unknown\\",
+        created: \\"11/01/2017 13:37\\"
       },
       {
-        message: \"test\",
-        messageType: \"Email\",
-        status: \"Unknown\",
-        created: \"11/01/2017 13:37\"
+        message: \\"test\\",
+        messageType: \\"Email\\",
+        status: \\"Unknown\\",
+        created: \\"11/01/2017 13:37\\"
       }
     ]
   });
@@ -115,7 +117,7 @@ it(\"should group messages with same created time\", () => {
 "
 `;
 
-exports[`test comment.js 1`] = `
+exports[`comment.js 1`] = `
 "function f() {
   return observableFromSubscribeFunction()
     // Debounce manually rather than using editor.onDidStopChanging so that the debounce time is
@@ -132,7 +134,7 @@ function f() {
 "
 `;
 
-exports[`test first_long.js 1`] = `
+exports[`first_long.js 1`] = `
 "export default function theFunction(action$, store) {
   return action$.ofType(THE_ACTION).switchMap(action => Observable
     .webSocket({
@@ -167,35 +169,35 @@ export default function theFunction(action$, store) {
 "
 `;
 
-exports[`test multiple-members.js 1`] = `
-"if (testConfig.ENABLE_ONLINE_TESTS === \"true\") {
-  describe(\"POST /users/me/pet\", function() {
-    it(\"saves pet\", function() {
+exports[`multiple-members.js 1`] = `
+"if (testConfig.ENABLE_ONLINE_TESTS === \\"true\\") {
+  describe(\\"POST /users/me/pet\\", function() {
+    it(\\"saves pet\\", function() {
       function assert(pet) {
-        expect(pet).to.have.property(\"OwnerAddress\").that.deep.equals({
-          AddressLine1: \"Alexanderstrasse\",
-          AddressLine2: \"\",
-          PostalCode: \"10999\",
-          Region: \"Berlin\",
-          City: \"Berlin\",
-          Country: \"DE\"
+        expect(pet).to.have.property(\\"OwnerAddress\\").that.deep.equals({
+          AddressLine1: \\"Alexanderstrasse\\",
+          AddressLine2: \\"\\",
+          PostalCode: \\"10999\\",
+          Region: \\"Berlin\\",
+          City: \\"Berlin\\",
+          Country: \\"DE\\"
         });
       }
     });
   });
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-if (testConfig.ENABLE_ONLINE_TESTS === \"true\") {
-  describe(\"POST /users/me/pet\", function() {
-    it(\"saves pet\", function() {
+if (testConfig.ENABLE_ONLINE_TESTS === \\"true\\") {
+  describe(\\"POST /users/me/pet\\", function() {
+    it(\\"saves pet\\", function() {
       function assert(pet) {
-        expect(pet).to.have.property(\"OwnerAddress\").that.deep.equals({
-          AddressLine1: \"Alexanderstrasse\",
-          AddressLine2: \"\",
-          PostalCode: \"10999\",
-          Region: \"Berlin\",
-          City: \"Berlin\",
-          Country: \"DE\"
+        expect(pet).to.have.property(\\"OwnerAddress\\").that.deep.equals({
+          AddressLine1: \\"Alexanderstrasse\\",
+          AddressLine2: \\"\\",
+          PostalCode: \\"10999\\",
+          Region: \\"Berlin\\",
+          City: \\"Berlin\\",
+          Country: \\"DE\\"
         });
       }
     });
@@ -204,22 +206,22 @@ if (testConfig.ENABLE_ONLINE_TESTS === \"true\") {
 "
 `;
 
-exports[`test test.js 1`] = `
+exports[`test.js 1`] = `
 "method().then(x => x)
-  [\"abc\"](x => x)
+  [\\"abc\\"](x => x)
   [abc](x => x);
 
 ({}.a().b());
 ({}).a().b();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-method().then(x => x)[\"abc\"](x => x)[abc](x => x);
+method().then(x => x)[\\"abc\\"](x => x)[abc](x => x);
 
 ({}).a().b();
 ({}).a().b();
 "
 `;
 
-exports[`test this.js 1`] = `
+exports[`this.js 1`] = `
 "const sel = this.connections
   .concat(this.activities.concat(this.operators))
   .filter(x => x.selected);

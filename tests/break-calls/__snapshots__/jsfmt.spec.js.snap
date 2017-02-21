@@ -1,4 +1,6 @@
-exports[`test break.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`break.js 1`] = `
 "h(f(g(() => {
   a
 })))

@@ -1,4 +1,28 @@
-exports[`test blank.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`assignment-pattern.js 1`] = `
+"const { a /* comment */ = 1 } = b;
+
+const { c = 1 /* comment */ } = d;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const { a /* comment */ = 1 } = b;
+
+const { c = 1 /* comment */ } = d;
+"
+`;
+
+exports[`assignment-pattern.js 2`] = `
+"const { a /* comment */ = 1 } = b;
+
+const { c = 1 /* comment */ } = d;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const { a /* comment */ = 1 } = b;
+
+const { c = 1 /* comment */ } = d;
+"
+`;
+
+exports[`blank.js 1`] = `
 "// This file only
 // has comments. This comment
 // should still exist
@@ -13,7 +37,7 @@ exports[`test blank.js 1`] = `
 "
 `;
 
-exports[`test blank.js 2`] = `
+exports[`blank.js 2`] = `
 "// This file only
 // has comments. This comment
 // should still exist
@@ -28,7 +52,7 @@ exports[`test blank.js 2`] = `
 "
 `;
 
-exports[`test dangling.js 1`] = `
+exports[`dangling.js 1`] = `
 "var x = {/* dangling */};
 var x = {
   // dangling
@@ -59,7 +83,7 @@ export /* dangling */{};
 "
 `;
 
-exports[`test dangling.js 2`] = `
+exports[`dangling.js 2`] = `
 "var x = {/* dangling */};
 var x = {
   // dangling
@@ -90,7 +114,7 @@ export /* dangling */{};
 "
 `;
 
-exports[`test dangling_array.js 1`] = `
+exports[`dangling_array.js 1`] = `
 "expect(() => {}).toTriggerReadyStateChanges([
   // Nothing.
 ]);
@@ -107,7 +131,7 @@ expect(() => {}).toTriggerReadyStateChanges(
 "
 `;
 
-exports[`test dangling_array.js 2`] = `
+exports[`dangling_array.js 2`] = `
 "expect(() => {}).toTriggerReadyStateChanges([
   // Nothing.
 ]);
@@ -124,7 +148,7 @@ expect(() => {}).toTriggerReadyStateChanges(
 "
 `;
 
-exports[`test dangling_for.js 1`] = `
+exports[`dangling_for.js 1`] = `
 "for // comment
 (;;);
 
@@ -138,7 +162,7 @@ for (;;);
 "
 `;
 
-exports[`test dangling_for.js 2`] = `
+exports[`dangling_for.js 2`] = `
 "for // comment
 (;;);
 
@@ -152,7 +176,7 @@ for (;;);
 "
 `;
 
-exports[`test first-line.js 1`] = `
+exports[`first-line.js 1`] = `
 "a // comment
 b
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -161,7 +185,7 @@ b;
 "
 `;
 
-exports[`test first-line.js 2`] = `
+exports[`first-line.js 2`] = `
 "a // comment
 b
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -170,7 +194,7 @@ b;
 "
 `;
 
-exports[`test if.js 1`] = `
+exports[`if.js 1`] = `
 "if (1)
 // comment
 {
@@ -214,7 +238,7 @@ else if (4) {
 "
 `;
 
-exports[`test if.js 2`] = `
+exports[`if.js 2`] = `
 "if (1)
 // comment
 {
@@ -258,7 +282,7 @@ else if (4) {
 "
 `;
 
-exports[`test issues.js 1`] = `
+exports[`issues.js 1`] = `
 "// Does not need to break as it fits in 80 columns
 this.call(a, /* comment */ b);
 
@@ -279,23 +303,23 @@ throw new ProcessSystemError({
 // squished in a single line afterward
 export type BuckWebSocketMessage = {
   // Not actually from Buck - this is to let the receiver know that the socket is connected.
-  type: \'SocketConnected\',
+  type: 'SocketConnected',
 } | {
-  type: \'BuildProgressUpdated\',
+  type: 'BuildProgressUpdated',
   progressValue: number,
 } | {
-  type: \'BuildFinished\',
+  type: 'BuildFinished',
   exitCode: number,
 } | {
-  type: \'BuildStarted\',
+  type: 'BuildStarted',
 } | {
-  type: \'ParseStarted\',
+  type: 'ParseStarted',
 } | {
-  type: \'ParseFinished\',
+  type: 'ParseFinished',
 } | {
-  type: \'RunStarted\',
+  type: 'RunStarted',
 } | {
-  type: \'RunComplete\',
+  type: 'RunComplete',
 };
 
 // Missing one level of indentation because of the comment
@@ -317,20 +341,20 @@ export type AsyncExecuteOptions = child_process$execFileOpts & {
 
 // optional trailing comma gets moved all the way to the beginning
 const regex = new RegExp(
-  \'^\\\\s*\' + // beginning of the line
-  \'name\\\\s*=\\\\s*\' + // name =
-  \'[\\\'\"]\' + // opening quotation mark
+  '^\\\\\\\\s*' + // beginning of the line
+  'name\\\\\\\\s*=\\\\\\\\s*' + // name =
+  '[\\\\'\\"]' + // opening quotation mark
   escapeStringRegExp(target.name) + // target name
-  \'[\\\'\"]\' + // closing quotation mark
-  \',?$\', // optional trailing comma
+  '[\\\\'\\"]' + // closing quotation mark
+  ',?$', // optional trailing comma
 );
 
-// The comment is moved and doesn\'t trigger the eslint rule anymore
-import path from \'path\'; // eslint-disable-line nuclide-internal/prefer-nuclide-uri
+// The comment is moved and doesn't trigger the eslint rule anymore
+import path from 'path'; // eslint-disable-line nuclide-internal/prefer-nuclide-uri
 
 // Comments disappear in-between MemberExpressions
 Observable.of(process)
-  // Don\'t complete until we say so!
+  // Don't complete until we say so!
   .merge(Observable.never())
   // Get the errors.
   .takeUntil(throwOnError ? errors.flatMap(Observable.throw) : errors)
@@ -360,7 +384,7 @@ else {
 }
 
 // The comment makes the line break in a weird way
-const result = asyncExecute(\'non_existing_command\', /* args */ []);
+const result = asyncExecute('non_existing_command', /* args */ []);
 
 // The closing paren is printed on the same line as the comment
 foo({}
@@ -389,30 +413,30 @@ throw new ProcessSystemError({
 export type BuckWebSocketMessage =
   | {
       // Not actually from Buck - this is to let the receiver know that the socket is connected.
-      type: \"SocketConnected\"
+      type: \\"SocketConnected\\"
     }
   | {
-      type: \"BuildProgressUpdated\",
+      type: \\"BuildProgressUpdated\\",
       progressValue: number
     }
   | {
-      type: \"BuildFinished\",
+      type: \\"BuildFinished\\",
       exitCode: number
     }
   | {
-      type: \"BuildStarted\"
+      type: \\"BuildStarted\\"
     }
   | {
-      type: \"ParseStarted\"
+      type: \\"ParseStarted\\"
     }
   | {
-      type: \"ParseFinished\"
+      type: \\"ParseFinished\\"
     }
   | {
-      type: \"RunStarted\"
+      type: \\"RunStarted\\"
     }
   | {
-      type: \"RunComplete\"
+      type: \\"RunComplete\\"
     };
 
 // Missing one level of indentation because of the comment
@@ -432,20 +456,20 @@ export type AsyncExecuteOptions = child_process$execFileOpts & {
 
 // optional trailing comma gets moved all the way to the beginning
 const regex = new RegExp(
-  \"^\\\\s*\" + // beginning of the line
-    \"name\\\\s*=\\\\s*\" + // name =
-    \"[\'\\\"]\" + // opening quotation mark
+  \\"^\\\\\\\\s*\\" + // beginning of the line
+    \\"name\\\\\\\\s*=\\\\\\\\s*\\" + // name =
+    \\"['\\\\\\"]\\" + // opening quotation mark
     escapeStringRegExp(target.name) + // target name
-    \"[\'\\\"]\" + // closing quotation mark
-    \",?$\" // optional trailing comma
+    \\"['\\\\\\"]\\" + // closing quotation mark
+    \\",?$\\" // optional trailing comma
 );
 
-// The comment is moved and doesn\'t trigger the eslint rule anymore
-import path from \"path\"; // eslint-disable-line nuclide-internal/prefer-nuclide-uri
+// The comment is moved and doesn't trigger the eslint rule anymore
+import path from \\"path\\"; // eslint-disable-line nuclide-internal/prefer-nuclide-uri
 
 // Comments disappear in-between MemberExpressions
 Observable.of(process)
-  // Don\'t complete until we say so!
+  // Don't complete until we say so!
   .merge(Observable.never())
   // Get the errors.
   .takeUntil(throwOnError ? errors.flatMap(Observable.throw) : errors)
@@ -473,7 +497,7 @@ if (1) {
 }
 
 // The comment makes the line break in a weird way
-const result = asyncExecute(\"non_existing_command\", /* args */ []);
+const result = asyncExecute(\\"non_existing_command\\", /* args */ []);
 
 // The closing paren is printed on the same line as the comment
 foo(
@@ -483,7 +507,7 @@ foo(
 "
 `;
 
-exports[`test issues.js 2`] = `
+exports[`issues.js 2`] = `
 "// Does not need to break as it fits in 80 columns
 this.call(a, /* comment */ b);
 
@@ -504,23 +528,23 @@ throw new ProcessSystemError({
 // squished in a single line afterward
 export type BuckWebSocketMessage = {
   // Not actually from Buck - this is to let the receiver know that the socket is connected.
-  type: \'SocketConnected\',
+  type: 'SocketConnected',
 } | {
-  type: \'BuildProgressUpdated\',
+  type: 'BuildProgressUpdated',
   progressValue: number,
 } | {
-  type: \'BuildFinished\',
+  type: 'BuildFinished',
   exitCode: number,
 } | {
-  type: \'BuildStarted\',
+  type: 'BuildStarted',
 } | {
-  type: \'ParseStarted\',
+  type: 'ParseStarted',
 } | {
-  type: \'ParseFinished\',
+  type: 'ParseFinished',
 } | {
-  type: \'RunStarted\',
+  type: 'RunStarted',
 } | {
-  type: \'RunComplete\',
+  type: 'RunComplete',
 };
 
 // Missing one level of indentation because of the comment
@@ -542,20 +566,20 @@ export type AsyncExecuteOptions = child_process$execFileOpts & {
 
 // optional trailing comma gets moved all the way to the beginning
 const regex = new RegExp(
-  \'^\\\\s*\' + // beginning of the line
-  \'name\\\\s*=\\\\s*\' + // name =
-  \'[\\\'\"]\' + // opening quotation mark
+  '^\\\\\\\\s*' + // beginning of the line
+  'name\\\\\\\\s*=\\\\\\\\s*' + // name =
+  '[\\\\'\\"]' + // opening quotation mark
   escapeStringRegExp(target.name) + // target name
-  \'[\\\'\"]\' + // closing quotation mark
-  \',?$\', // optional trailing comma
+  '[\\\\'\\"]' + // closing quotation mark
+  ',?$', // optional trailing comma
 );
 
-// The comment is moved and doesn\'t trigger the eslint rule anymore
-import path from \'path\'; // eslint-disable-line nuclide-internal/prefer-nuclide-uri
+// The comment is moved and doesn't trigger the eslint rule anymore
+import path from 'path'; // eslint-disable-line nuclide-internal/prefer-nuclide-uri
 
 // Comments disappear in-between MemberExpressions
 Observable.of(process)
-  // Don\'t complete until we say so!
+  // Don't complete until we say so!
   .merge(Observable.never())
   // Get the errors.
   .takeUntil(throwOnError ? errors.flatMap(Observable.throw) : errors)
@@ -585,7 +609,7 @@ else {
 }
 
 // The comment makes the line break in a weird way
-const result = asyncExecute(\'non_existing_command\', /* args */ []);
+const result = asyncExecute('non_existing_command', /* args */ []);
 
 // The closing paren is printed on the same line as the comment
 foo({}
@@ -614,30 +638,30 @@ throw new ProcessSystemError({
 export type BuckWebSocketMessage =
   | {
       // Not actually from Buck - this is to let the receiver know that the socket is connected.
-      type: \"SocketConnected\"
+      type: \\"SocketConnected\\"
     }
   | {
-      type: \"BuildProgressUpdated\",
+      type: \\"BuildProgressUpdated\\",
       progressValue: number
     }
   | {
-      type: \"BuildFinished\",
+      type: \\"BuildFinished\\",
       exitCode: number
     }
   | {
-      type: \"BuildStarted\"
+      type: \\"BuildStarted\\"
     }
   | {
-      type: \"ParseStarted\"
+      type: \\"ParseStarted\\"
     }
   | {
-      type: \"ParseFinished\"
+      type: \\"ParseFinished\\"
     }
   | {
-      type: \"RunStarted\"
+      type: \\"RunStarted\\"
     }
   | {
-      type: \"RunComplete\"
+      type: \\"RunComplete\\"
     };
 
 // Missing one level of indentation because of the comment
@@ -657,20 +681,20 @@ export type AsyncExecuteOptions = child_process$execFileOpts & {
 
 // optional trailing comma gets moved all the way to the beginning
 const regex = new RegExp(
-  \"^\\\\s*\" + // beginning of the line
-    \"name\\\\s*=\\\\s*\" + // name =
-    \"[\'\\\"]\" + // opening quotation mark
+  \\"^\\\\\\\\s*\\" + // beginning of the line
+    \\"name\\\\\\\\s*=\\\\\\\\s*\\" + // name =
+    \\"['\\\\\\"]\\" + // opening quotation mark
     escapeStringRegExp(target.name) + // target name
-    \"[\'\\\"]\" + // closing quotation mark
-    \",?$\" // optional trailing comma
+    \\"['\\\\\\"]\\" + // closing quotation mark
+    \\",?$\\" // optional trailing comma
 );
 
-// The comment is moved and doesn\'t trigger the eslint rule anymore
-import path from \"path\"; // eslint-disable-line nuclide-internal/prefer-nuclide-uri
+// The comment is moved and doesn't trigger the eslint rule anymore
+import path from \\"path\\"; // eslint-disable-line nuclide-internal/prefer-nuclide-uri
 
 // Comments disappear in-between MemberExpressions
 Observable.of(process)
-  // Don\'t complete until we say so!
+  // Don't complete until we say so!
   .merge(Observable.never())
   // Get the errors.
   .takeUntil(throwOnError ? errors.flatMap(Observable.throw) : errors)
@@ -698,7 +722,7 @@ if (1) {
 }
 
 // The comment makes the line break in a weird way
-const result = asyncExecute(\"non_existing_command\", /* args */ []);
+const result = asyncExecute(\\"non_existing_command\\", /* args */ []);
 
 // The closing paren is printed on the same line as the comment
 foo(
@@ -708,7 +732,7 @@ foo(
 "
 `;
 
-exports[`test jsx.js 1`] = `
+exports[`jsx.js 1`] = `
 "<div>
   {
     /* comment */
@@ -784,7 +808,7 @@ exports[`test jsx.js 1`] = `
 "
 `;
 
-exports[`test jsx.js 2`] = `
+exports[`jsx.js 2`] = `
 "<div>
   {
     /* comment */
@@ -860,7 +884,7 @@ exports[`test jsx.js 2`] = `
 "
 `;
 
-exports[`test preserve-new-line-last.js 1`] = `
+exports[`preserve-new-line-last.js 1`] = `
 "function f() {
   a
   /* eslint-disable */
@@ -907,7 +931,7 @@ function name() {
 "
 `;
 
-exports[`test preserve-new-line-last.js 2`] = `
+exports[`preserve-new-line-last.js 2`] = `
 "function f() {
   a
   /* eslint-disable */
@@ -954,7 +978,7 @@ function name() {
 "
 `;
 
-exports[`test return-statement.js 1`] = `
+exports[`return-statement.js 1`] = `
 "function a() {
   return (
     // Comment
@@ -993,7 +1017,7 @@ function c() {
 "
 `;
 
-exports[`test return-statement.js 2`] = `
+exports[`return-statement.js 2`] = `
 "function a() {
   return (
     // Comment
@@ -1032,7 +1056,7 @@ function c() {
 "
 `;
 
-exports[`test try.js 1`] = `
+exports[`try.js 1`] = `
 "// comment 1
 try {
   // comment 2
@@ -1060,7 +1084,7 @@ try {
 "
 `;
 
-exports[`test try.js 2`] = `
+exports[`try.js 2`] = `
 "// comment 1
 try {
   // comment 2
@@ -1085,27 +1109,5 @@ try {
   // comment 5
   // comment 7
 }
-"
-`;
-
-exports[`test assignment-pattern.js 1`] = `
-"const { a /* comment */ = 1 } = b;
-
-const { c = 1 /* comment */ } = d;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const { a /* comment */ = 1 } = b;
-
-const { c = 1 /* comment */ } = d;
-"
-`;
-
-exports[`test assignment-pattern.js 2`] = `
-"const { a /* comment */ = 1 } = b;
-
-const { c = 1 /* comment */ } = d;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const { a /* comment */ = 1 } = b;
-
-const { c = 1 /* comment */ } = d;
 "
 `;

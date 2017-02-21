@@ -1,4 +1,6 @@
-exports[`test function-bind.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`function-bind.js 1`] = `
 "// @flow
 
 // Sanity checks:
@@ -37,7 +39,7 @@ class D {
 }
 
 declare var m: Function;
-const x = \"\";
+const x = \\"\\";
 if (m.bind(this)(x)) { }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
@@ -78,16 +80,16 @@ class D {
 }
 
 declare var m: Function;
-const x = \"\";
+const x = \\"\\";
 if (m.bind(this)(x)) {
 }
 "
 `;
 
-exports[`test function-union.js 1`] = `
+exports[`function-union.js 1`] = `
 "// @flow
 
-declare function f1(x: mixed): boolean %checks(typeof x === \"string\");
+declare function f1(x: mixed): boolean %checks(typeof x === \\"string\\");
 declare function f2(x: mixed): boolean %checks(Array.isArray(x));
 
 declare var cond: boolean;
@@ -106,7 +108,7 @@ function foo(x: number | string | Array<string>): number {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-declare function f1(x: mixed): boolean %checks(typeof x === \"string\");
+declare function f1(x: mixed): boolean %checks(typeof x === \\"string\\");
 declare function f2(x: mixed): boolean %checks(Array.isArray(x));
 
 declare var cond: boolean;
@@ -124,11 +126,11 @@ function foo(x: number | string | Array<string>): number {
 "
 `;
 
-exports[`test is-string-decl.js 1`] = `
+exports[`is-string-decl.js 1`] = `
 "// @flow
 
-declare function is_string(x: mixed): boolean %checks(typeof x === \"string\");
-declare function is_number(x: mixed): boolean %checks(typeof x === \"number\");
+declare function is_string(x: mixed): boolean %checks(typeof x === \\"string\\");
+declare function is_number(x: mixed): boolean %checks(typeof x === \\"number\\");
 
 // Feature check:
 function foo(x: string | Array<string>): string {
@@ -146,8 +148,8 @@ function foo(x: string | Array<string>): string {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-declare function is_string(x: mixed): boolean %checks(typeof x === \"string\");
-declare function is_number(x: mixed): boolean %checks(typeof x === \"number\");
+declare function is_string(x: mixed): boolean %checks(typeof x === \\"string\\");
+declare function is_number(x: mixed): boolean %checks(typeof x === \\"number\\");
 
 // Feature check:
 function foo(x: string | Array<string>): string {
@@ -165,7 +167,7 @@ function foo(x: string | Array<string>): string {
 "
 `;
 
-exports[`test logical-or.js 1`] = `
+exports[`logical-or.js 1`] = `
 "// @flow
 
 // Sanity check:
@@ -173,11 +175,11 @@ exports[`test logical-or.js 1`] = `
 //   expressions (e.g. \`||\`)
 
 declare function r(x: string): number;
-var s = \'a\';
+var s = 'a';
 var n = r(s) || 1;
 (n: number);
 
-var x = \"\";
+var x = \\"\\";
 if (x = r(s) || 1) {
   (x: number);
 }
@@ -196,11 +198,11 @@ function foo(x: mixed) { return 1; }
 //   expressions (e.g. \`||\`)
 
 declare function r(x: string): number;
-var s = \"a\";
+var s = \\"a\\";
 var n = r(s) || 1;
 (n: number);
 
-var x = \"\";
+var x = \\"\\";
 if (x = r(s) || 1) {
   (x: number);
 }
@@ -216,7 +218,7 @@ Number(dollars) || 0;
 "
 `;
 
-exports[`test object-invariant.js 1`] = `
+exports[`object-invariant.js 1`] = `
 "// @flow
 
 // Sanity check:
@@ -233,13 +235,13 @@ type Invitee = {
 
 function f(_this: { m: ?Meeting }): string {
   if (!_this.m) {
-    return \"0\";
+    return \\"0\\";
   }
 
   if (_this.m.es.some((a) => a.fbid === 0)) {
 
   }
-  return \"3\";
+  return \\"3\\";
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
@@ -258,27 +260,27 @@ type Invitee = {
 
 function f(_this: { m: ?Meeting }): string {
   if (!_this.m) {
-    return \"0\";
+    return \\"0\\";
   }
 
   if (_this.m.es.some(a => a.fbid === 0)) {
   }
-  return \"3\";
+  return \\"3\\";
 }
 "
 `;
 
-exports[`test orig-string-tag-check.js 1`] = `
+exports[`orig-string-tag-check.js 1`] = `
 "// @flow
 
 // The original first-order case
 
 function foo(x: string | Array<string>): string {
-  if (typeof x === \"string\") {
-    return x; // [ERROR] x: Array<string> doesn\'t match return type
+  if (typeof x === \\"string\\") {
+    return x; // [ERROR] x: Array<string> doesn't match return type
   }
   else {
-    return x.join(); // [ERROR] x: string doesn\'t have .join method
+    return x.join(); // [ERROR] x: string doesn't have .join method
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -287,16 +289,16 @@ function foo(x: string | Array<string>): string {
 // The original first-order case
 
 function foo(x: string | Array<string>): string {
-  if (typeof x === \"string\") {
-    return x; // [ERROR] x: Array<string> doesn\'t match return type
+  if (typeof x === \\"string\\") {
+    return x; // [ERROR] x: Array<string> doesn't match return type
   } else {
-    return x.join(); // [ERROR] x: string doesn\'t have .join method
+    return x.join(); // [ERROR] x: string doesn't have .join method
   }
 }
 "
 `;
 
-exports[`test sanity-fall-through.js 1`] = `
+exports[`sanity-fall-through.js 1`] = `
 "// @flow
 
 // Sanity check:
@@ -306,7 +308,7 @@ declare function pred<T>(x: T): boolean;
 
 function foo(s: Array<string>): string {
   if (pred(s)) {
-    return \"1\";
+    return \\"1\\";
   }
   return 1;
 }
@@ -320,14 +322,14 @@ declare function pred<T>(x: T): boolean;
 
 function foo(s: Array<string>): string {
   if (pred(s)) {
-    return \"1\";
+    return \\"1\\";
   }
   return 1;
 }
 "
 `;
 
-exports[`test sanity-invalid-calls.js 1`] = `
+exports[`sanity-invalid-calls.js 1`] = `
 "// @flow
 
 // Sanity check:
@@ -338,14 +340,14 @@ declare function pred<T>(x: T): boolean;
 function foo(s: Array<string>): string {
 
   if ((1)(s)) {
-    return \"1\";
+    return \\"1\\";
   }
 
-  if ((pred + 1)(\"s\")) {
-    return \"1\";
+  if ((pred + 1)(\\"s\\")) {
+    return \\"1\\";
   }
 
-  return \"1\"
+  return \\"1\\"
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
@@ -357,23 +359,23 @@ declare function pred<T>(x: T): boolean;
 
 function foo(s: Array<string>): string {
   if (1(s)) {
-    return \"1\";
+    return \\"1\\";
   }
 
-  if ((pred + 1)(\"s\")) {
-    return \"1\";
+  if ((pred + 1)(\\"s\\")) {
+    return \\"1\\";
   }
 
-  return \"1\";
+  return \\"1\\";
 }
 "
 `;
 
-exports[`test sanity-is-string-bug.js 1`] = `
+exports[`sanity-is-string-bug.js 1`] = `
 "// @flow
 
-declare function is_string(x: mixed): boolean %checks(typeof x === \"string\");
-declare function is_number(x: mixed): boolean %checks(typeof x === \"number\");
+declare function is_string(x: mixed): boolean %checks(typeof x === \\"string\\");
+declare function is_number(x: mixed): boolean %checks(typeof x === \\"number\\");
 
 // Sanity check:
 // - Erroneous logic
@@ -388,8 +390,8 @@ function bar(x: string | Array<string>): string {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-declare function is_string(x: mixed): boolean %checks(typeof x === \"string\");
-declare function is_number(x: mixed): boolean %checks(typeof x === \"number\");
+declare function is_string(x: mixed): boolean %checks(typeof x === \\"string\\");
+declare function is_number(x: mixed): boolean %checks(typeof x === \\"number\\");
 
 // Sanity check:
 // - Erroneous logic
@@ -404,7 +406,7 @@ function bar(x: string | Array<string>): string {
 "
 `;
 
-exports[`test sanity-parameter-mismatch.js 1`] = `
+exports[`sanity-parameter-mismatch.js 1`] = `
 "// @flow
 
 // Sanity check: make sure the parameters are checked as usual
@@ -412,7 +414,7 @@ exports[`test sanity-parameter-mismatch.js 1`] = `
 declare function foo(
   input: mixed,
   types: string | Array<string>
-): boolean %checks(typeof input === \"string\" || Array.isArray(input));
+): boolean %checks(typeof input === \\"string\\" || Array.isArray(input));
 
 foo(3, 3);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -423,27 +425,27 @@ foo(3, 3);
 declare function foo(
   input: mixed,
   types: string | Array<string>
-): boolean %checks(typeof input === \"string\" || Array.isArray(input));
+): boolean %checks(typeof input === \\"string\\" || Array.isArray(input));
 
 foo(3, 3);
 "
 `;
 
-exports[`test sanity-pred-with-body.js 1`] = `
+exports[`sanity-pred-with-body.js 1`] = `
 "// @flow
 
 // Sanity check:
 // - predicate functions cannot have bodies (can only be declarations)
 
-function pred(x: mixed): boolean %checks(typeof x === \"string\") { // error: cannot use pred type here
-  return typeof x === \"string\";
+function pred(x: mixed): boolean %checks(typeof x === \\"string\\") { // error: cannot use pred type here
+  return typeof x === \\"string\\";
 }
 
 function foo(x: string | Array<string>): string {
   if (pred(x)) {
     return x;
   }
-  return \"1\"
+  return \\"1\\"
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
@@ -451,21 +453,21 @@ function foo(x: string | Array<string>): string {
 // Sanity check:
 // - predicate functions cannot have bodies (can only be declarations)
 
-function pred(x: mixed): boolean %checks(typeof x === \"string\") {
+function pred(x: mixed): boolean %checks(typeof x === \\"string\\") {
   // error: cannot use pred type here
-  return typeof x === \"string\";
+  return typeof x === \\"string\\";
 }
 
 function foo(x: string | Array<string>): string {
   if (pred(x)) {
     return x;
   }
-  return \"1\";
+  return \\"1\\";
 }
 "
 `;
 
-exports[`test sanity-return-type.js 1`] = `
+exports[`sanity-return-type.js 1`] = `
 "// @flow
 
 declare function f2(x: mixed): string %checks(Array.isArray(x));

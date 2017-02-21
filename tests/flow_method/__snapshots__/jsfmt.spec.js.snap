@@ -1,4 +1,6 @@
-exports[`test method.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`method.js 1`] = `
 "type T = { method: () => void };
 type T = { method(): void };
 declare class X { method(): void }

@@ -1,4 +1,6 @@
-exports[`test test.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test.js 1`] = `
 "var o = Object.freeze({ foo: 0 });
 (o.foo: string);
 module.exports = o;
@@ -9,11 +11,11 @@ module.exports = o;
 "
 `;
 
-exports[`test test2.js 1`] = `
-"var o = require(\'./test\');
+exports[`test2.js 1`] = `
+"var o = require('./test');
 (o.foo: string);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var o = require(\"./test\");
+var o = require(\\"./test\\");
 (o.foo: string);
 "
 `;

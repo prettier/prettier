@@ -1,19 +1,21 @@
-exports[`test fail-0.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fail-0.js 1`] = `
 "// @flow
 
-// Error: \'declare\', \'checks\' but missing predicate
+// Error: 'declare', 'checks' but missing predicate
 
 declare function f2(x: mixed): boolean %checks;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-// Error: \'declare\', \'checks\' but missing predicate
+// Error: 'declare', 'checks' but missing predicate
 
 declare function f2(x: mixed): boolean %checks;
 "
 `;
 
-exports[`test fail-1.js 1`] = `
+exports[`fail-1.js 1`] = `
 "// @flow
 
 // Error: no return statement
@@ -28,7 +30,7 @@ function f6(x: mixed): %checks(x !== null) {}
 "
 `;
 
-exports[`test fail-2.js 1`] = `
+exports[`fail-2.js 1`] = `
 "// @flow
 
 var a2 = (x: mixed): %checks (x !== null) => {        // Error: body form
@@ -45,7 +47,7 @@ var a2 = (x: mixed): %checks(x !== null) => {
 "
 `;
 
-exports[`test fail-3.js 1`] = `
+exports[`fail-3.js 1`] = `
 "// @flow
 
 // Cannot declare predicate with a function body is present.
@@ -66,7 +68,7 @@ var a2 = (x: mixed): %checks(x !== null) => x !== null;
 "
 `;
 
-exports[`test pass.js 1`] = `
+exports[`pass.js 1`] = `
 "// @flow
 
 declare function f1(x: mixed): boolean;

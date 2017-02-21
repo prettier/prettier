@@ -1,4 +1,6 @@
-exports[`test faulty-locations.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`faulty-locations.js 1`] = `
 "var o = {
   [\`key\`]: () => {
     // Comment
@@ -31,113 +33,113 @@ var x = {
 "
 `;
 
-exports[`test parenthesis.js 1`] = `
-"// \"ArrowFunctionExpression\"
+exports[`parenthesis.js 1`] = `
+"// \\"ArrowFunctionExpression\\"
 (() => {})\`\`;
 
-// \"AssignmentExpression\"
+// \\"AssignmentExpression\\"
 (b = c)\`\`;
 
-// \"AwaitExpression\"
+// \\"AwaitExpression\\"
 async function f() {
   (await b)\`\`;
 }
 
-// \"BinaryExpression\"
+// \\"BinaryExpression\\"
 (b + c)\`\`;
 
-// \"CallExpression\"
+// \\"CallExpression\\"
 b()\`\`;
 
-// \"ClassExpression\"
+// \\"ClassExpression\\"
 (class {})\`\`;
 
-// \"ConditionalExpression\"
+// \\"ConditionalExpression\\"
 (b ? c : d)\`\`;
 
-// \"FunctionExpression\"
+// \\"FunctionExpression\\"
 (function() {})\`\`;
 
-// \"LogicalExpression\"
+// \\"LogicalExpression\\"
 (b || c)\`\`;
 
-// \"MemberExpression\"
+// \\"MemberExpression\\"
 b.c\`\`;
 
-// \"NewExpression\"
+// \\"NewExpression\\"
 (new B())\`\`;
 
-// \"ObjectExpression\"
+// \\"ObjectExpression\\"
 ({})\`\`;
 
-// \"SequenceExpression\"
+// \\"SequenceExpression\\"
 (b, c)\`\`;
 
-// \"TaggedTemplateExpression\"
+// \\"TaggedTemplateExpression\\"
 (\`\`)\`\`;
 
-// \"UnaryExpression\"
+// \\"UnaryExpression\\"
 (void b)\`\`;
 
-// \"UpdateExpression\"
+// \\"UpdateExpression\\"
 (++b)\`\`;
 
-// \"YieldExpression\"
+// \\"YieldExpression\\"
 function* f() {
   (yield 1)\`\`;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// \"ArrowFunctionExpression\"
+// \\"ArrowFunctionExpression\\"
 (() => {})\`\`;
 
-// \"AssignmentExpression\"
+// \\"AssignmentExpression\\"
 (b = c)\`\`;
 
-// \"AwaitExpression\"
+// \\"AwaitExpression\\"
 async function f() {
   (await b)\`\`;
 }
 
-// \"BinaryExpression\"
+// \\"BinaryExpression\\"
 (b + c)\`\`;
 
-// \"CallExpression\"
+// \\"CallExpression\\"
 b()\`\`;
 
-// \"ClassExpression\"
+// \\"ClassExpression\\"
 (class {})\`\`;
 
-// \"ConditionalExpression\"
+// \\"ConditionalExpression\\"
 (b ? c : d)\`\`;
 
-// \"FunctionExpression\"
+// \\"FunctionExpression\\"
 (function() {})\`\`;
 
-// \"LogicalExpression\"
+// \\"LogicalExpression\\"
 (b || c)\`\`;
 
-// \"MemberExpression\"
+// \\"MemberExpression\\"
 b.c\`\`;
 
-// \"NewExpression\"
+// \\"NewExpression\\"
 new B()\`\`;
 
-// \"ObjectExpression\"
+// \\"ObjectExpression\\"
 ({})\`\`;
 
-// \"SequenceExpression\"
+// \\"SequenceExpression\\"
 (b, c)\`\`;
 
-// \"TaggedTemplateExpression\"
+// \\"TaggedTemplateExpression\\"
 \`\`\`\`;
 
-// \"UnaryExpression\"
+// \\"UnaryExpression\\"
 (void b)\`\`;
 
-// \"UpdateExpression\"
+// \\"UpdateExpression\\"
 (++b)\`\`;
 
-// \"YieldExpression\"
+// \\"YieldExpression\\"
 function* f() {
   (yield 1)\`\`;
 }

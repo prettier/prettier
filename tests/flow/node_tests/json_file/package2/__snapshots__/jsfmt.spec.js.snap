@@ -1,4 +1,6 @@
-exports[`test index.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`index.js 1`] = `
 "// @flow
 
 module.exports = {

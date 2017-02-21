@@ -1,4 +1,6 @@
-exports[`test A.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`A.js 1`] = `
 "type T = any;
 
 export default class {
@@ -21,14 +23,14 @@ export default class {
 "
 `;
 
-exports[`test B.js 1`] = `
-"import A from \"./A\"
+exports[`B.js 1`] = `
+"import A from \\"./A\\"
 
 class B extends A {
   p: string; // OK, string ~> any
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-import A from \"./A\";
+import A from \\"./A\\";
 
 class B extends A {
   p: string; // OK, string ~> any

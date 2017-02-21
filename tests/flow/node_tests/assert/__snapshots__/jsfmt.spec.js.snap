@@ -1,13 +1,15 @@
-exports[`test assert.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`assert.js 1`] = `
 "/* @flow */
 
-var assert = require(\"assert\")
+var assert = require(\\"assert\\")
 assert(true) // ok
 assert.ok(true) // ok
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-var assert = require(\"assert\");
+var assert = require(\\"assert\\");
 assert(true); // ok
 assert.ok(true); // ok
 "

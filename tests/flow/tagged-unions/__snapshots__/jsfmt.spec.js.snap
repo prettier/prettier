@@ -1,25 +1,27 @@
-exports[`test classes.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`classes.js 1`] = `
 "// @flow
 
 class Foo {
-  type: \'foo\';
+  type: 'foo';
   foo: string;
 }
 
 class Bar {
-  type: \'bar\';
+  type: 'bar';
   bar: string;
 }
 
 type Foobar = Foo | Bar;
 
 function foobar(x: Foobar): string {
-  if (x.type === \'foo\') {
+  if (x.type === 'foo') {
     return foo(x);
-  } else if (x.type === \'bar\') {
+  } else if (x.type === 'bar') {
     return bar(x);
   } else {
-    return \'unknown\';
+    return 'unknown';
   }
 }
 
@@ -34,24 +36,24 @@ function bar(x: Bar): string {
 // @flow
 
 class Foo {
-  type: \"foo\";
+  type: \\"foo\\";
   foo: string;
 }
 
 class Bar {
-  type: \"bar\";
+  type: \\"bar\\";
   bar: string;
 }
 
 type Foobar = Foo | Bar;
 
 function foobar(x: Foobar): string {
-  if (x.type === \"foo\") {
+  if (x.type === \\"foo\\") {
     return foo(x);
-  } else if (x.type === \"bar\") {
+  } else if (x.type === \\"bar\\") {
     return bar(x);
   } else {
-    return \"unknown\";
+    return \\"unknown\\";
   }
 }
 
@@ -65,7 +67,7 @@ function bar(x: Bar): string {
 "
 `;
 
-exports[`test interfaces-neg.js 1`] = `
+exports[`interfaces-neg.js 1`] = `
 "/* @flow */
 
 declare interface IDataBase {
@@ -74,22 +76,22 @@ declare interface IDataBase {
 }
 
 declare interface IUserData extends IDataBase {
-  kind: \"user\",
+  kind: \\"user\\",
 }
 
 declare interface ISystemData extends IDataBase {
-  kind: \"system\",
+  kind: \\"system\\",
 }
 
 declare type IData = IUserData | ISystemData;
 
 const data: IData = {
-  id: \"\",
-  name: \"\",
-  kind: \"system\",
+  id: \\"\\",
+  name: \\"\\",
+  kind: \\"system\\",
 }
 
-if (data.kind === \"user\") {
+if (data.kind === \\"user\\") {
   (data: ISystemData);
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -101,28 +103,28 @@ declare interface IDataBase {
 }
 
 declare interface IUserData extends IDataBase {
-  kind: \"user\"
+  kind: \\"user\\"
 }
 
 declare interface ISystemData extends IDataBase {
-  kind: \"system\"
+  kind: \\"system\\"
 }
 
 declare type IData = IUserData | ISystemData;
 
 const data: IData = {
-  id: \"\",
-  name: \"\",
-  kind: \"system\"
+  id: \\"\\",
+  name: \\"\\",
+  kind: \\"system\\"
 };
 
-if (data.kind === \"user\") {
+if (data.kind === \\"user\\") {
   (data: ISystemData);
 }
 "
 `;
 
-exports[`test interfaces-pos.js 1`] = `
+exports[`interfaces-pos.js 1`] = `
 "/* @flow */
 
 declare interface IDataBase {
@@ -131,22 +133,22 @@ declare interface IDataBase {
 }
 
 declare interface IUserData extends IDataBase {
-  kind: \"user\",
+  kind: \\"user\\",
 }
 
 declare interface ISystemData extends IDataBase {
-  kind: \"system\",
+  kind: \\"system\\",
 }
 
 declare type IData = IUserData | ISystemData;
 
 const data: IData = {
-  id: \"\",
-  name: \"\",
-  kind: \"system\",
+  id: \\"\\",
+  name: \\"\\",
+  kind: \\"system\\",
 }
 
-if (data.kind === \"system\") {
+if (data.kind === \\"system\\") {
   (data: ISystemData);
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -158,28 +160,28 @@ declare interface IDataBase {
 }
 
 declare interface IUserData extends IDataBase {
-  kind: \"user\"
+  kind: \\"user\\"
 }
 
 declare interface ISystemData extends IDataBase {
-  kind: \"system\"
+  kind: \\"system\\"
 }
 
 declare type IData = IUserData | ISystemData;
 
 const data: IData = {
-  id: \"\",
-  name: \"\",
-  kind: \"system\"
+  id: \\"\\",
+  name: \\"\\",
+  kind: \\"system\\"
 };
 
-if (data.kind === \"system\") {
+if (data.kind === \\"system\\") {
   (data: ISystemData);
 }
 "
 `;
 
-exports[`test type-decls-neg.js 1`] = `
+exports[`type-decls-neg.js 1`] = `
 "/* @flow */
 
 type DataBase = {
@@ -190,24 +192,24 @@ type DataBase = {
 type UserData = {
   id: string,
   name: string,
-  kind: \"user\",
+  kind: \\"user\\",
 }
 
 type SystemData = {
   id: string,
   name: string,
-  kind: \"system\",
+  kind: \\"system\\",
 }
 
 declare type Data = UserData | SystemData;
 
 const data: Data = {
-  id: \"\",
-  name: \"\",
-  kind: \"system\",
+  id: \\"\\",
+  name: \\"\\",
+  kind: \\"system\\",
 }
 
-if (data.kind === \"user\") {
+if (data.kind === \\"user\\") {
   (data: SystemData);
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -221,30 +223,30 @@ type DataBase = {
 type UserData = {
   id: string,
   name: string,
-  kind: \"user\"
+  kind: \\"user\\"
 };
 
 type SystemData = {
   id: string,
   name: string,
-  kind: \"system\"
+  kind: \\"system\\"
 };
 
 declare type Data = UserData | SystemData;
 
 const data: Data = {
-  id: \"\",
-  name: \"\",
-  kind: \"system\"
+  id: \\"\\",
+  name: \\"\\",
+  kind: \\"system\\"
 };
 
-if (data.kind === \"user\") {
+if (data.kind === \\"user\\") {
   (data: SystemData);
 }
 "
 `;
 
-exports[`test type-decls-pos.js 1`] = `
+exports[`type-decls-pos.js 1`] = `
 "/* @flow */
 
 type DataBase = {
@@ -255,24 +257,24 @@ type DataBase = {
 type UserData = {
   id: string,
   name: string,
-  kind: \"user\",
+  kind: \\"user\\",
 }
 
 type SystemData = {
   id: string,
   name: string,
-  kind: \"system\",
+  kind: \\"system\\",
 }
 
 declare type Data = UserData | SystemData;
 
 const data: Data = {
-  id: \"\",
-  name: \"\",
-  kind: \"system\",
+  id: \\"\\",
+  name: \\"\\",
+  kind: \\"system\\",
 }
 
-if (data.kind === \"system\") {
+if (data.kind === \\"system\\") {
   (data: SystemData);
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -286,24 +288,24 @@ type DataBase = {
 type UserData = {
   id: string,
   name: string,
-  kind: \"user\"
+  kind: \\"user\\"
 };
 
 type SystemData = {
   id: string,
   name: string,
-  kind: \"system\"
+  kind: \\"system\\"
 };
 
 declare type Data = UserData | SystemData;
 
 const data: Data = {
-  id: \"\",
-  name: \"\",
-  kind: \"system\"
+  id: \\"\\",
+  name: \\"\\",
+  kind: \\"system\\"
 };
 
-if (data.kind === \"system\") {
+if (data.kind === \\"system\\") {
   (data: SystemData);
 }
 "

@@ -1,4 +1,6 @@
-exports[`test arrow_function_expression.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`arrow_function_expression.js 1`] = `
 "(a => {}).length
 typeof (() => {});
 export default (() => {})();
@@ -18,14 +20,14 @@ if ((() => {}) ? 1 : 0) {
 "
 `;
 
-exports[`test block_like.js 1`] = `
+exports[`block_like.js 1`] = `
 "a = () => ({} = this);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 a = () => ({} = this);
 "
 `;
 
-exports[`test long-call-no-args.js 1`] = `
+exports[`long-call-no-args.js 1`] = `
 "veryLongCall(VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT, () => {})
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 veryLongCall(
@@ -35,17 +37,17 @@ veryLongCall(
 "
 `;
 
-exports[`test long-contents.js 1`] = `
+exports[`long-contents.js 1`] = `
 "const foo = () => {
-  expect(arg1, arg2, arg3).toEqual({message: \'test\', messageType: \'SMS\', status: \'Unknown\', created: \'11/01/2017 13:36\'});
+  expect(arg1, arg2, arg3).toEqual({message: 'test', messageType: 'SMS', status: 'Unknown', created: '11/01/2017 13:36'});
 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const foo = () => {
   expect(arg1, arg2, arg3).toEqual({
-    message: \"test\",
-    messageType: \"SMS\",
-    status: \"Unknown\",
-    created: \"11/01/2017 13:36\"
+    message: \\"test\\",
+    messageType: \\"SMS\\",
+    status: \\"Unknown\\",
+    created: \\"11/01/2017 13:36\\"
   });
 };
 "

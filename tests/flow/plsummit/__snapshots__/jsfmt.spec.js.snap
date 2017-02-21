@@ -1,11 +1,13 @@
-exports[`test arrays.js 1`] = `
-"function foo(x) { return [x, x > 0, \"number \" + x]; }
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`arrays.js 1`] = `
+"function foo(x) { return [x, x > 0, \\"number \\" + x]; }
 
 var [n, b, s] = foo(42);
 n * s.length;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function foo(x) {
-  return [x, x > 0, \"number \" + x];
+  return [x, x > 0, \\"number \\" + x];
 }
 
 var [n, b, s] = foo(42);
@@ -13,7 +15,7 @@ n * s.length;
 "
 `;
 
-exports[`test export_class.js 1`] = `
+exports[`export_class.js 1`] = `
 "class C {
     x: number;
     constructor(x: number) { this.x = x; }
@@ -32,7 +34,7 @@ module.exports = C;
 "
 `;
 
-exports[`test generics.js 1`] = `
+exports[`generics.js 1`] = `
 "/* @flow */
 
 var r: number = 0;
@@ -48,18 +50,18 @@ function foo<X>(x: X): X {
 "
 `;
 
-exports[`test import_class.js 1`] = `
-"var C = require(\'./export_class\');
+exports[`import_class.js 1`] = `
+"var C = require('./export_class');
 
-var c = new C(\"\");
+var c = new C(\\"\\");
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var C = require(\"./export_class\");
+var C = require(\\"./export_class\\");
 
-var c = new C(\"\");
+var c = new C(\\"\\");
 "
 `;
 
-exports[`test locals.js 1`] = `
+exports[`locals.js 1`] = `
 "/* @flow */
 
 function foo() {
@@ -68,7 +70,7 @@ function foo() {
 }
 
 function bar(x: ?string): number {
-    if (x == null) x = \"\";
+    if (x == null) x = \\"\\";
     return x.length;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -80,13 +82,13 @@ function foo() {
 }
 
 function bar(x: ?string): number {
-  if (x == null) x = \"\";
+  if (x == null) x = \\"\\";
   return x.length;
 }
 "
 `;
 
-exports[`test objects.js 1`] = `
+exports[`objects.js 1`] = `
 "function C() { this.x = 0; }
 C.prototype.foo = function() { return this.x; }
 
@@ -95,7 +97,7 @@ var x: string = c.foo();
 
 function foo() { return this.y; }
 function bar() { return this.foo(); }
-var o = { y: \"\", foo: foo, bar: bar };
+var o = { y: \\"\\", foo: foo, bar: bar };
 var o2 = { y: 0, foo: foo, bar: bar };
 
 o.bar();
@@ -117,7 +119,7 @@ function foo() {
 function bar() {
   return this.foo();
 }
-var o = { y: \"\", foo: foo, bar: bar };
+var o = { y: \\"\\", foo: foo, bar: bar };
 var o2 = { y: 0, foo: foo, bar: bar };
 
 o.bar();

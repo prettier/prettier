@@ -1,60 +1,62 @@
-exports[`test export_default_arrow_expression.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`export_default_arrow_expression.js 1`] = `
 "export default () => {};
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export default () => {};
 "
 `;
 
-exports[`test export_default_call_expression.js 1`] = `
+exports[`export_default_call_expression.js 1`] = `
 "export default foo()
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export default foo();
 "
 `;
 
-exports[`test export_default_class_declaration.js 1`] = `
+exports[`export_default_class_declaration.js 1`] = `
 "export default class Foo {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export default class Foo {}
 "
 `;
 
-exports[`test export_default_class_expression.js 1`] = `
+exports[`export_default_class_expression.js 1`] = `
 "export default (class foobar {})
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export default (class foobar {});
 "
 `;
 
-exports[`test export_default_function_declaration.js 1`] = `
+exports[`export_default_function_declaration.js 1`] = `
 "export default function() {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export default function() {}
 "
 `;
 
-exports[`test export_default_function_declaration_named.js 1`] = `
+exports[`export_default_function_declaration_named.js 1`] = `
 "export default function f(){}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export default function f() {}
 "
 `;
 
-exports[`test export_default_function_expression.js 1`] = `
+exports[`export_default_function_expression.js 1`] = `
 "export default (function() {});
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export default (function() {});
 "
 `;
 
-exports[`test export_default_function_expression_named.js 1`] = `
+exports[`export_default_function_expression_named.js 1`] = `
 "export default (function f(){})
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export default (function f() {});
 "
 `;
 
-exports[`test export_default_new_expression.js 1`] = `
+exports[`export_default_new_expression.js 1`] = `
 "export default new Foo();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export default new Foo();

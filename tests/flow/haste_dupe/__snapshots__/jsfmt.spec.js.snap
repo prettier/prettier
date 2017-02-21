@@ -1,48 +1,50 @@
-exports[`test dupe1.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`dupe1.js 1`] = `
 "/**
  * Dupe provider 1/2
  * @providesModule Dupe
  * @flow
  */
-module.exports = \"dupe1\";
+module.exports = \\"dupe1\\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /**
  * Dupe provider 1/2
  * @providesModule Dupe
  * @flow
  */
-module.exports = \"dupe1\";
+module.exports = \\"dupe1\\";
 "
 `;
 
-exports[`test dupe2.js 1`] = `
+exports[`dupe2.js 1`] = `
 "/**
  * Dupe provider 2/2
  * @providesModule Dupe
  * @flow
  */
-module.exports = \"dupe2\";
+module.exports = \\"dupe2\\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /**
  * Dupe provider 2/2
  * @providesModule Dupe
  * @flow
  */
-module.exports = \"dupe2\";
+module.exports = \\"dupe2\\";
 "
 `;
 
-exports[`test requires_dupe.js 1`] = `
+exports[`requires_dupe.js 1`] = `
 "/**
  * depends on doubly-provided module
  * @flow
  */
-var dupe = require(\'Dupe\');
+var dupe = require('Dupe');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /**
  * depends on doubly-provided module
  * @flow
  */
-var dupe = require(\"Dupe\");
+var dupe = require(\\"Dupe\\");
 "
 `;

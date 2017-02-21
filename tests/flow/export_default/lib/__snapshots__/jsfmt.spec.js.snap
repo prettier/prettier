@@ -1,4 +1,6 @@
-exports[`test lib.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`lib.js 1`] = `
 "declare module M {
     declare function exports(x:string): string;
 }
@@ -8,7 +10,7 @@ declare module N {
     declare var z: number;
 }
 declare module Q {
-    declare var exports: $Exports<\'M\'>;
+    declare var exports: $Exports<'M'>;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare module M {
@@ -20,7 +22,7 @@ declare module N {
   declare var z: number;
 }
 declare module Q {
-  declare var exports: $Exports<\"M\">;
+  declare var exports: $Exports<\\"M\\">;
 }
 "
 `;
