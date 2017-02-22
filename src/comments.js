@@ -291,10 +291,11 @@ function addTrailingComment(node, comment) {
 }
 
 function addBlockStatementFirstComment(node, comment) {
-  if (node.body.length === 0) {
+  const body = node.body.filter(n => n.type !== "EmptyStatement");
+  if (body.length === 0) {
     addDanglingComment(node, comment);
   } else {
-    addLeadingComment(node.body[0], comment);
+    addLeadingComment(body[0], comment);
   }
 }
 
