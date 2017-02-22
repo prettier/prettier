@@ -555,6 +555,7 @@ function genericPrintNoParens(path, options, print) {
       const hasDirectives = n.directives && n.directives.length > 0;
 
       var parent = path.getParentNode();
+      const parentParent = path.getParentNode(1);
       if (
         !hasContent &&
         !hasDirectives &&
@@ -563,7 +564,8 @@ function genericPrintNoParens(path, options, print) {
           parent.type === "FunctionExpression" ||
           parent.type === "FunctionDeclaration" ||
           parent.type === "ObjectMethod" ||
-          parent.type === "ClassMethod")
+          parent.type === "ClassMethod" ||
+          (parent.type === "CatchClause" && !parentParent.finalizer))
       ) {
         return "{}";
       }
