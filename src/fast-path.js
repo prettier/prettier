@@ -419,11 +419,11 @@ FPp.needsParens = function(assumeExpressionContext) {
         case "BinaryExpression":
         case "LogicalExpression":
         case "LogicalExpression":
-        case "NewExpression":
         case "ExportDefaultDeclaration":
         case "AwaitExpression":
           return true;
 
+        case "NewExpression":
         case "CallExpression":
           return name === "callee" && parent.callee === node;
 

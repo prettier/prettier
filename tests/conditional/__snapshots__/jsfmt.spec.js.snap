@@ -78,3 +78,14 @@ const { configureStore } = process.env.NODE_ENV === \\"production\\"
   : require(\\"./configureDevStore\\"); // b
 "
 `;
+
+exports[`new-expression.js 1`] = `
+"const testConsole = new TestConsole(
+  config.useStderr ? process.stderr : process.stdout
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const testConsole = new TestConsole(
+  config.useStderr ? process.stderr : process.stdout
+);
+"
+`;
