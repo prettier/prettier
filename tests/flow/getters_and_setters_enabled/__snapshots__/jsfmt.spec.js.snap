@@ -1,4 +1,6 @@
-exports[`test class.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`class.js 1`] = `
 "/**
  * @flow
  */
@@ -24,10 +26,10 @@ class Foo {
   get propWithSubtypingGetterAndSetterReordered(): ?number { return 4; }
 
   get propWithMismatchingGetterAndSetter(): number { return 4; }
-  set propWithMismatchingGetterAndSetter(x: string) { } // doesn\'t match getter (OK)
+  set propWithMismatchingGetterAndSetter(x: string) { } // doesn't match getter (OK)
 
   propOverriddenWithGetter: number;
-  get propOverriddenWithGetter() { return \"hello\"; }
+  get propOverriddenWithGetter() { return \\"hello\\"; }
 
   propOverriddenWithSetter: number;
   set propOverriddenWithSetter(x: string) { }
@@ -47,8 +49,8 @@ foo.goodSetterNoAnnotation = 123;
 foo.goodSetterWithAnnotation = 123;
 
 // TODO: Why does no annotation mean no error?
-foo.goodSetterNoAnnotation = \"hello\"; // Error string ~> number
-foo.goodSetterWithAnnotation = \"hello\"; // Error string ~> number
+foo.goodSetterNoAnnotation = \\"hello\\"; // Error string ~> number
+foo.goodSetterWithAnnotation = \\"hello\\"; // Error string ~> number
 
 var testSubtypingGetterAndSetter: number = foo.propWithSubtypingGetterAndSetter; // Error ?number ~> number
 
@@ -96,11 +98,11 @@ class Foo {
   get propWithMismatchingGetterAndSetter(): number {
     return 4;
   }
-  set propWithMismatchingGetterAndSetter(x: string) {} // doesn\'t match getter (OK)
+  set propWithMismatchingGetterAndSetter(x: string) {} // doesn't match getter (OK)
 
   propOverriddenWithGetter: number;
   get propOverriddenWithGetter() {
-    return \"hello\";
+    return \\"hello\\";
   }
 
   propOverriddenWithSetter: number;
@@ -121,8 +123,8 @@ foo.goodSetterNoAnnotation = 123;
 foo.goodSetterWithAnnotation = 123;
 
 // TODO: Why does no annotation mean no error?
-foo.goodSetterNoAnnotation = \"hello\"; // Error string ~> number
-foo.goodSetterWithAnnotation = \"hello\"; // Error string ~> number
+foo.goodSetterNoAnnotation = \\"hello\\"; // Error string ~> number
+foo.goodSetterWithAnnotation = \\"hello\\"; // Error string ~> number
 
 var testSubtypingGetterAndSetter: number = foo.propWithSubtypingGetterAndSetter; // Error ?number ~> number
 
@@ -131,7 +133,7 @@ foo.propOverriddenWithSetter = 123; // Error number ~> string
 "
 `;
 
-exports[`test object.js 1`] = `
+exports[`object.js 1`] = `
 "/**
  * @flow
  */
@@ -179,17 +181,17 @@ var testGetterWithError2: string = obj.goodGetterWithAnnotation; // Error number
 obj.goodSetterNoAnnotation = 123;
 obj.goodSetterWithAnnotation = 123;
 
-obj.goodSetterNoAnnotation = \"hello\"; // Error string ~> number
-obj.goodSetterWithAnnotation = \"hello\"; // Error string ~> number
+obj.goodSetterNoAnnotation = \\"hello\\"; // Error string ~> number
+obj.goodSetterWithAnnotation = \\"hello\\"; // Error string ~> number
 
 var testSubtypingGetterAndSetter: number = obj.propWithSubtypingGetterAndSetter; // Error ?number ~> number
 
 // When building this feature, it was tempting to flow the setter into the
 // getter and then use either the getter or setter as the type of the property.
-// This example shows the danger of using the getter\'s type
+// This example shows the danger of using the getter's type
 obj.exampleOfOrderOfGetterAndSetter = new C(); // Error C ~> B
 
-// And this example shows the danger of using the setter\'s type.
+// And this example shows the danger of using the setter's type.
 var testExampleOrOrderOfGetterAndSetterReordered: number =
   obj.exampleOfOrderOfGetterAndSetterReordered; // Error A ~> B
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -256,22 +258,22 @@ var testGetterWithError2: string = obj.goodGetterWithAnnotation; // Error number
 obj.goodSetterNoAnnotation = 123;
 obj.goodSetterWithAnnotation = 123;
 
-obj.goodSetterNoAnnotation = \"hello\"; // Error string ~> number
-obj.goodSetterWithAnnotation = \"hello\"; // Error string ~> number
+obj.goodSetterNoAnnotation = \\"hello\\"; // Error string ~> number
+obj.goodSetterWithAnnotation = \\"hello\\"; // Error string ~> number
 
 var testSubtypingGetterAndSetter: number = obj.propWithSubtypingGetterAndSetter; // Error ?number ~> number
 
 // When building this feature, it was tempting to flow the setter into the
 // getter and then use either the getter or setter as the type of the property.
-// This example shows the danger of using the getter\'s type
+// This example shows the danger of using the getter's type
 obj.exampleOfOrderOfGetterAndSetter = new C(); // Error C ~> B
 
-// And this example shows the danger of using the setter\'s type.
+// And this example shows the danger of using the setter's type.
 var testExampleOrOrderOfGetterAndSetterReordered: number = obj.exampleOfOrderOfGetterAndSetterReordered; // Error A ~> B
 "
 `;
 
-exports[`test react.js 1`] = `
+exports[`react.js 1`] = `
 "/**
  * @flow
  */
@@ -302,7 +304,7 @@ React.createClass({
 "
 `;
 
-exports[`test variance.js 1`] = `
+exports[`variance.js 1`] = `
 "/* @flow */
 
 class A {}

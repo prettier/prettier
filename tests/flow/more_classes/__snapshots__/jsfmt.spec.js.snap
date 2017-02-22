@@ -1,8 +1,10 @@
-exports[`test Bar.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Bar.js 1`] = `
 "
 /* @providesModule Bar */
 
-var Qux = require(\'Qux\');
+var Qux = require('Qux');
 
 class Bar {
   y:number;
@@ -13,7 +15,7 @@ class Bar {
   }
 
   bar(z:string,u:string):string {
-    new Qux().w = \"?\";
+    new Qux().w = \\"?\\";
     return z;
   }
 }
@@ -22,7 +24,7 @@ module.exports = Bar;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule Bar */
 
-var Qux = require(\"Qux\");
+var Qux = require(\\"Qux\\");
 
 class Bar {
   y: number;
@@ -33,7 +35,7 @@ class Bar {
   }
 
   bar(z: string, u: string): string {
-    new Qux().w = \"?\";
+    new Qux().w = \\"?\\";
     return z;
   }
 }
@@ -42,12 +44,12 @@ module.exports = Bar;
 "
 `;
 
-exports[`test Foo.js 1`] = `
+exports[`Foo.js 1`] = `
 "
 /* @providesModule Foo */
 
-var Bar = require(\'Bar\');
-var Qux = require(\'Qux\');
+var Bar = require('Bar');
+var Qux = require('Qux');
 
 class Foo extends Qux {
   x:string;
@@ -57,7 +59,7 @@ class Foo extends Qux {
 
   foo(y:string,z):number {
     this.x = y;
-    var u = new Foo(\"...\").qux();
+    var u = new Foo(\\"...\\").qux();
     var v = new Bar(y);
     v.self = v;
     return v.bar(z,u);
@@ -72,8 +74,8 @@ module.exports = Foo;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule Foo */
 
-var Bar = require(\"Bar\");
-var Qux = require(\"Qux\");
+var Bar = require(\\"Bar\\");
+var Qux = require(\\"Qux\\");
 
 class Foo extends Qux {
   x: string;
@@ -83,7 +85,7 @@ class Foo extends Qux {
 
   foo(y: string, z): number {
     this.x = y;
-    var u = new Foo(\"...\").qux();
+    var u = new Foo(\\"...\\").qux();
     var v = new Bar(y);
     v.self = v;
     return v.bar(z, u);
@@ -98,7 +100,7 @@ module.exports = Foo;
 "
 `;
 
-exports[`test Qux.js 1`] = `
+exports[`Qux.js 1`] = `
 "
 /* @providesModule Qux */
 

@@ -1,4 +1,6 @@
-exports[`test underscore.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`underscore.js 1`] = `
 "interface C<T> {
   foo(): CArrays<T>;
   bar(): C<any>;

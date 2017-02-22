@@ -1,15 +1,17 @@
-exports[`test bar.js 1`] = `
-"module.exports = \"bar\";
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bar.js 1`] = `
+"module.exports = \\"bar\\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-module.exports = \"bar\";
+module.exports = \\"bar\\";
 "
 `;
 
-exports[`test foo.js 1`] = `
-"var x = require(\'./bar\'); // bar.js does not work
+exports[`foo.js 1`] = `
+"var x = require('./bar'); // bar.js does not work
 console.log(x);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var x = require(\"./bar\"); // bar.js does not work
+var x = require(\\"./bar\\"); // bar.js does not work
 console.log(x);
 "
 `;

@@ -1,13 +1,12 @@
 `
-${// $FlowFixMe found when converting React.createClass to ES6
-ExampleStory.getFragment("story")
+${a // comment
 }
 
-${// Another comment
-foo()
-}
+${b /* comment */}
 
-${// And another one
-Bar()
-}
-`;
+${/* comment */ c /* comment */}
+
+${// comment
+d //comment
+};
+`

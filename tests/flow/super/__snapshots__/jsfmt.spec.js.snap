@@ -1,4 +1,6 @@
-exports[`test constructor.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`constructor.js 1`] = `
 "class A { x: number; }
 
 class B {
@@ -105,7 +107,7 @@ class K extends K_ {
   }
 }
 
-// even though super() calls the parent\'s constructor(), it does not do the same
+// even though super() calls the parent's constructor(), it does not do the same
 // conversion on non-objects. so \`new L_()\` returns an instance of \`L_\` because
 // the constructor returns false (a non-object), but \`super()\` returns false,
 // which then similarly causes \`new L()\` to return an instance of \`L\`.
@@ -123,11 +125,11 @@ class L extends L_ {
 (new L_(): L_);
 (new L(): L);
 
-// similarly, the converse is true: if the parent\'s constructor returns an
+// similarly, the converse is true: if the parent's constructor returns an
 // object, then the child does too.
 class M_ {
   constructor() {
-    return {foo: \'foo\'};
+    return {foo: 'foo'};
   }
 }
 class M extends M_ {
@@ -262,7 +264,7 @@ class K extends K_ {
   }
 }
 
-// even though super() calls the parent\'s constructor(), it does not do the same
+// even though super() calls the parent's constructor(), it does not do the same
 // conversion on non-objects. so \`new L_()\` returns an instance of \`L_\` because
 // the constructor returns false (a non-object), but \`super()\` returns false,
 // which then similarly causes \`new L()\` to return an instance of \`L\`.
@@ -280,11 +282,11 @@ class L extends L_ {
 (new L_(): L_);
 (new L(): L);
 
-// similarly, the converse is true: if the parent\'s constructor returns an
+// similarly, the converse is true: if the parent's constructor returns an
 // object, then the child does too.
 class M_ {
   constructor() {
-    return { foo: \"foo\" };
+    return { foo: \\"foo\\" };
   }
 }
 class M extends M_ {
@@ -313,7 +315,7 @@ class N extends N_ {
 "
 `;
 
-exports[`test import.js 1`] = `
+exports[`import.js 1`] = `
 "class D {
   foo(): number { return 0; }
 }
@@ -328,7 +330,7 @@ module.exports = D;
 "
 `;
 
-exports[`test super.js 1`] = `
+exports[`super.js 1`] = `
 "
 class A {
   constructor(x:number) { }
@@ -342,8 +344,8 @@ class B extends A {
   }
 
   static anotherStatic() {
-    (super.staticMethod(\'foo\'): number); // error, string !~> number
-    (super.doesntExist()); // error, A doesn\'t have a doesntExist method
+    (super.staticMethod('foo'): number); // error, string !~> number
+    (super.doesntExist()); // error, A doesn't have a doesntExist method
   }
 
   g() {
@@ -366,8 +368,8 @@ class B extends A {
   }
 
   static anotherStatic() {
-    (super.staticMethod(\"foo\"): number); // error, string !~> number
-    super.doesntExist(); // error, A doesn\'t have a doesntExist method
+    (super.staticMethod(\\"foo\\"): number); // error, string !~> number
+    super.doesntExist(); // error, A doesn't have a doesntExist method
   }
 
   g() {
@@ -378,15 +380,15 @@ class B extends A {
 "
 `;
 
-exports[`test test.js 1`] = `
-"var D = require(\'./import\');
+exports[`test.js 1`] = `
+"var D = require('./import');
 class C extends D {
   constructor() { return super(); }
   foo() { return super.foo(); }
 }
 module.exports = C;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var D = require(\"./import\");
+var D = require(\\"./import\\");
 class C extends D {
   constructor() {
     return super();

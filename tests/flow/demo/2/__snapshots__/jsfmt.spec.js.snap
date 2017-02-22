@@ -1,4 +1,6 @@
-exports[`test A.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`A.js 1`] = `
 "/* @providesModule Demo */
 
 class A {
@@ -47,13 +49,13 @@ module.exports = A;
 "
 `;
 
-exports[`test B.js 1`] = `
-"var A = require(\'Demo\');
+exports[`B.js 1`] = `
+"var A = require('Demo');
 
-var z = new A(\"42\").getX();
+var z = new A(\\"42\\").getX();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var A = require(\"Demo\");
+var A = require(\\"Demo\\");
 
-var z = new A(\"42\").getX();
+var z = new A(\\"42\\").getX();
 "
 `;

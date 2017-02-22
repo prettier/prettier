@@ -1,9 +1,11 @@
-exports[`test break.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`break.js 1`] = `
 "function foo(b) {
     var x = b ? null: false;
     var z;
     while(b) {
-        if (x == null) { z = \"\"; break; }
+        if (x == null) { z = \\"\\"; break; }
         var y:number = x; // error: boolean !~> number
     }
     var w:number = z; // 2 errors: ?string !~> number
@@ -12,10 +14,10 @@ exports[`test break.js 1`] = `
 function bar(b) {
     var x = b ? null: false;
     if (x == null) return;
-    switch (\"\") {
+    switch (\\"\\") {
     case 0:
         var y:number = x; // error: boolean !~> number
-        x = \"\";
+        x = \\"\\";
     case 1:
         var z:number = x; // 2 errors: (boolean | string) !~> number
         break;
@@ -27,10 +29,10 @@ function bar(b) {
 function bar2(b) {
     var x = b ? null: false;
     if (x == null) return;
-    switch (\"\") {
+    switch (\\"\\") {
     case 0: {
       let y:number = x; // error: boolean !~> number
-      x = \"\";
+      x = \\"\\";
     }
     case 1: {
       let z:number = x; // 2 errors: (boolean | string) !~> number
@@ -45,7 +47,7 @@ function qux(b) {
     var z = 0;
     while(b) {
         var y:number = z;
-        if (b) { z = \"\"; continue; } // error: string !~> number
+        if (b) { z = \\"\\"; continue; } // error: string !~> number
         z = 0;
     }
     var w:number = z; // error: string !~> number
@@ -54,10 +56,10 @@ function qux(b) {
 // same basic test as foo(), but with const. probes the
 // logic that still uses havoc to do env resets.
 function test_const() {
-  let st: string = \'abc\';
+  let st: string = 'abc';
 
   for (let i = 1; i < 100; i++) {
-    const fooRes: ?string = \"HEY\";
+    const fooRes: ?string = \\"HEY\\";
     if (!fooRes) {
       break;
     }
@@ -73,7 +75,7 @@ function foo(b) {
   var z;
   while (b) {
     if (x == null) {
-      z = \"\";
+      z = \\"\\";
       break;
     }
     var y: number = x; // error: boolean !~> number
@@ -84,10 +86,10 @@ function foo(b) {
 function bar(b) {
   var x = b ? null : false;
   if (x == null) return;
-  switch (\"\") {
+  switch (\\"\\") {
     case 0:
       var y: number = x; // error: boolean !~> number
-      x = \"\";
+      x = \\"\\";
     case 1:
       var z: number = x; // 2 errors: (boolean | string) !~> number
       break;
@@ -99,10 +101,10 @@ function bar(b) {
 function bar2(b) {
   var x = b ? null : false;
   if (x == null) return;
-  switch (\"\") {
+  switch (\\"\\") {
     case 0: {
       let y: number = x; // error: boolean !~> number
-      x = \"\";
+      x = \\"\\";
     }
     case 1: {
       let z: number = x; // 2 errors: (boolean | string) !~> number
@@ -118,7 +120,7 @@ function qux(b) {
   while (b) {
     var y: number = z;
     if (b) {
-      z = \"\";
+      z = \\"\\";
       continue;
     } // error: string !~> number
     z = 0;
@@ -129,10 +131,10 @@ function qux(b) {
 // same basic test as foo(), but with const. probes the
 // logic that still uses havoc to do env resets.
 function test_const() {
-  let st: string = \"abc\";
+  let st: string = \\"abc\\";
 
   for (let i = 1; i < 100; i++) {
-    const fooRes: ?string = \"HEY\";
+    const fooRes: ?string = \\"HEY\\";
     if (!fooRes) {
       break;
     }

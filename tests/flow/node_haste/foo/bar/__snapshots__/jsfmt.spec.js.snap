@@ -1,18 +1,20 @@
-exports[`test client.js 1`] = `
-"var docblock = require(\'qux/docblock\');
-var min = require(\'d3/min.js\');
-var corge = require(\'qux/corge\');
+// Jest Snapshot v1, https://goo.gl/fbAQLP
 
-// make sure we don\'t pick up non-header @providesModule
+exports[`client.js 1`] = `
+"var docblock = require('qux/docblock');
+var min = require('d3/min.js');
+var corge = require('qux/corge');
+
+// make sure we don't pick up non-header @providesModule
 // annotations - see node_modules/qux/docblock.js
-var unreachable = require(\'annotation\');
+var unreachable = require('annotation');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var docblock = require(\"qux/docblock\");
-var min = require(\"d3/min.js\");
-var corge = require(\"qux/corge\");
+var docblock = require(\\"qux/docblock\\");
+var min = require(\\"d3/min.js\\");
+var corge = require(\\"qux/corge\\");
 
-// make sure we don\'t pick up non-header @providesModule
+// make sure we don't pick up non-header @providesModule
 // annotations - see node_modules/qux/docblock.js
-var unreachable = require(\"annotation\");
+var unreachable = require(\\"annotation\\");
 "
 `;

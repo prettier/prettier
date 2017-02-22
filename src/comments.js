@@ -143,8 +143,7 @@ function attach(comments, ast, text, options) {
       if (
         handleMemberExpressionComments(enclosingNode, followingNode, comment) ||
           handleIfStatementComments(enclosingNode, followingNode, comment) ||
-          handleTryStatementComments(enclosingNode, followingNode, comment) ||
-          handleTemplateLiteralComments(enclosingNode, comment)
+          handleTryStatementComments(enclosingNode, followingNode, comment)
       ) {
         // We're good
       } else if (followingNode) {
@@ -162,8 +161,10 @@ function attach(comments, ast, text, options) {
       if (
         handleConditionalExpressionComments(
           enclosingNode,
+          precedingNode,
           followingNode,
-          comment
+          comment,
+          text
         ) ||
           handleTemplateLiteralComments(enclosingNode, comment)
       ) {
@@ -181,8 +182,11 @@ function attach(comments, ast, text, options) {
         addDanglingComment(ast, comment);
       }
     } else {
-      if (handleIfStatementComments(enclosingNode, followingNode, comment) ||
-          handleObjectProperty(enclosingNode, precedingNode, comment)) {
+      if (
+        handleIfStatementComments(enclosingNode, followingNode, comment) ||
+          handleObjectProperty(enclosingNode, precedingNode, comment) ||
+          handleTemplateLiteralComments(enclosingNode, comment)
+      ) {
         // We're good
       } else if (precedingNode && followingNode) {
         // Otherwise, text exists both before and after the comment on
@@ -384,10 +388,16 @@ function handleMemberExpressionComments(enclosingNode, followingNode, comment) {
 
 function handleConditionalExpressionComments(
   enclosingNode,
+  precedingNode,
   followingNode,
-  comment
+  comment,
+  text
 ) {
+  const isSameLineAsPrecedingNode = precedingNode &&
+    !util.hasNewlineInRange(text, locEnd(precedingNode), locStart(comment));
+
   if (
+    (!precedingNode || !isSameLineAsPrecedingNode) &&
     enclosingNode &&
     enclosingNode.type === "ConditionalExpression" &&
     followingNode
@@ -420,11 +430,11 @@ function handleTemplateLiteralComments(enclosingNode, comment) {
       enclosingNode.expressions,
       comment
     )
+    // Enforce all comments to be leading block comments.
+    comment.type = "CommentBlock";
     addLeadingComment(enclosingNode.expressions[expressionIndex], comment);
-
     return true;
   }
-
   return false;
 }
 

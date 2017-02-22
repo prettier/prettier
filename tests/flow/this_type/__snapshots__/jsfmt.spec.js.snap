@@ -1,4 +1,6 @@
-exports[`test class_expr.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`class_expr.js 1`] = `
 "/* @flow */
 // issue #1191
 
@@ -19,7 +21,7 @@ const Thing = class Thing {
 "
 `;
 
-exports[`test contra.js 1`] = `
+exports[`contra.js 1`] = `
 "// Counterexample with contravariant this type
 
 class C {
@@ -34,7 +36,7 @@ var d = new D();
 (d.next: D); // sneaky
 
 class A {
-  foo<X: this>(that: X) { } // error: can\'t hide contravariance using a bound
+  foo<X: this>(that: X) { } // error: can't hide contravariance using a bound
 }
 
 class B extends A {
@@ -89,7 +91,7 @@ var d = new D();
 (d.next: D); // sneaky
 
 class A {
-  foo<X: this>(that: X) {} // error: can\'t hide contravariance using a bound
+  foo<X: this>(that: X) {} // error: can't hide contravariance using a bound
 }
 
 class B extends A {
@@ -140,7 +142,7 @@ class Misc {
 "
 `;
 
-exports[`test export.js 1`] = `
+exports[`export.js 1`] = `
 "export class A1 {
   foo(): this { return this; }
   bar(): this { return this; }
@@ -179,7 +181,7 @@ export class A3<X> extends A2<X> {}
 "
 `;
 
-exports[`test generics.js 1`] = `
+exports[`generics.js 1`] = `
 "class Generic<X> {
   clone(): Generic<X> { return this; }
 }
@@ -207,12 +209,12 @@ class ImplicitNumber extends Implicit {
 "
 `;
 
-exports[`test import.js 1`] = `
+exports[`import.js 1`] = `
 "// Check that imports are handled properly with this types
 
-import { A1 } from \'./export\';
-import type { A2 } from \'./export\';
-import { A3 } from \'./export\';
+import { A1 } from './export';
+import type { A2 } from './export';
+import { A3 } from './export';
 
 class B1 extends A1 {
   foo(): B1 { return new B1(); } // error
@@ -233,9 +235,9 @@ class B3<X> extends A3<X> {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Check that imports are handled properly with this types
 
-import { A1 } from \"./export\";
-import type { A2 } from \"./export\";
-import { A3 } from \"./export\";
+import { A1 } from \\"./export\\";
+import type { A2 } from \\"./export\\";
+import { A3 } from \\"./export\\";
 
 class B1 extends A1 {
   foo(): B1 {
@@ -260,7 +262,7 @@ class B3<X> extends A3<X> {
 "
 `;
 
-exports[`test interface.js 1`] = `
+exports[`interface.js 1`] = `
 "interface I { xs: Array<this>; }
 interface J { f(): J; }
 class C {
@@ -287,37 +289,37 @@ function bar(c: C): J {
 "
 `;
 
-exports[`test lib_client.js 1`] = `
+exports[`lib_client.js 1`] = `
 "(new DoublyLinkedList().prev(): DoublyLinkedList);
 (new DoublyLinkedList().next(): DoublyLinkedList)
 
-var MiniImmutable = require(\"mini-immutable\");
+var MiniImmutable = require(\\"mini-immutable\\");
 class C {
   map: MiniImmutable.OrderedMap<number,string>;
   update() {
-    this.map = this.map.set(0,\"\");
+    this.map = this.map.set(0,\\"\\");
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 (new DoublyLinkedList().prev(): DoublyLinkedList);
 (new DoublyLinkedList().next(): DoublyLinkedList);
 
-var MiniImmutable = require(\"mini-immutable\");
+var MiniImmutable = require(\\"mini-immutable\\");
 class C {
   map: MiniImmutable.OrderedMap<number, string>;
   update() {
-    this.map = this.map.set(0, \"\");
+    this.map = this.map.set(0, \\"\\");
   }
 }
 "
 `;
 
-exports[`test self.js 1`] = `
+exports[`self.js 1`] = `
 "class A {
   foo() { return this; } // return of foo is not annotated to get around
                          // substituting this below
   bar(): this { return new A().foo(); } // same as returning : A, so error
-  qux(): this { return this.bar(); } // OK (don\'t cascade errors)
+  qux(): this { return this.bar(); } // OK (don't cascade errors)
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class A {
@@ -330,12 +332,12 @@ class A {
   } // same as returning : A, so error
   qux(): this {
     return this.bar();
-  } // OK (don\'t cascade errors)
+  } // OK (don't cascade errors)
 }
 "
 `;
 
-exports[`test statics.js 1`] = `
+exports[`statics.js 1`] = `
 "// supporting \`this\` type in statics
 
 class A {
@@ -375,7 +377,7 @@ class B extends A {} // inherits statics method too, with \`this\` bound to the 
 "
 `;
 
-exports[`test test.js 1`] = `
+exports[`test.js 1`] = `
 "// Examples without \`this\` types (compare with examples below)
 
 class Base {

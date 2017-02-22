@@ -1,4 +1,6 @@
-exports[`test A.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`A.js 1`] = `
 "/* @providesModule A */
 class Implementation {}
 export function foo(): Implementation { return new Implementation; }
@@ -11,7 +13,7 @@ export function foo(): Implementation {
 "
 `;
 
-exports[`test ExplicitProvidesModuleDifferentName.js 1`] = `
+exports[`ExplicitProvidesModuleDifferentName.js 1`] = `
 "/*
  * @providesModule ExplicitProvidesModuleDifferentName
  * @flow
@@ -30,7 +32,7 @@ module.exports.fun = (): Implementation => new Implementation();
 "
 `;
 
-exports[`test ExplicitProvidesModuleSameName.js 1`] = `
+exports[`ExplicitProvidesModuleSameName.js 1`] = `
 "/*
  * @providesModule ExplicitProvidesModuleSameName
  * @flow
@@ -49,7 +51,7 @@ module.exports.fun = (): Implementation => new Implementation();
 "
 `;
 
-exports[`test ImplicitProvidesModule.js 1`] = `
+exports[`ImplicitProvidesModule.js 1`] = `
 "/*
  * @providesModule ImplicitProvidesModule
  * @flow
@@ -68,34 +70,34 @@ module.exports.fun = (): Implementation => new Implementation();
 "
 `;
 
-exports[`test md5.js 1`] = `
+exports[`md5.js 1`] = `
 "/* @providesModule md5 */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule md5 */
 "
 `;
 
-exports[`test test.js 1`] = `
+exports[`test.js 1`] = `
 "/* @flow */
 
-var Implicit = require(\'ImplicitProvidesModule\');
+var Implicit = require('ImplicitProvidesModule');
 (Implicit.fun(): boolean); // Error: Either Implementation ~> boolean or Declaration ~> boolean
 
-var ExplicitSameName = require(\'ExplicitProvidesModuleSameName\');
+var ExplicitSameName = require('ExplicitProvidesModuleSameName');
 (ExplicitSameName.fun(): boolean); // Error: Either Implementation ~> boolean or Declaration ~> boolean
 
-var ExplicitDifferentName = require(\'ExplicitProvidesModuleDifferentName\');
+var ExplicitDifferentName = require('ExplicitProvidesModuleDifferentName');
 (ExplicitDifferentName.fun(): boolean); // Error: Either Implementation ~> boolean or Declaration ~> boolean
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-var Implicit = require(\"ImplicitProvidesModule\");
+var Implicit = require(\\"ImplicitProvidesModule\\");
 (Implicit.fun(): boolean); // Error: Either Implementation ~> boolean or Declaration ~> boolean
 
-var ExplicitSameName = require(\"ExplicitProvidesModuleSameName\");
+var ExplicitSameName = require(\\"ExplicitProvidesModuleSameName\\");
 (ExplicitSameName.fun(): boolean); // Error: Either Implementation ~> boolean or Declaration ~> boolean
 
-var ExplicitDifferentName = require(\"ExplicitProvidesModuleDifferentName\");
+var ExplicitDifferentName = require(\\"ExplicitProvidesModuleDifferentName\\");
 (ExplicitDifferentName.fun(): boolean); // Error: Either Implementation ~> boolean or Declaration ~> boolean
 "
 `;

@@ -1,25 +1,27 @@
-exports[`test P.js 1`] = `
-"module.exports = require(\'M\');
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`P.js 1`] = `
+"module.exports = require('M');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-module.exports = require(\"M\");
+module.exports = require(\\"M\\");
 "
 `;
 
-exports[`test test.js 1`] = `
-"var M = require(\'M\');
-var N = require(\'N\');
+exports[`test.js 1`] = `
+"var M = require('M');
+var N = require('N');
 N.x = M(N.x);
-var P = require(\'./P\'); // implementation of P redirects to module M
+var P = require('./P'); // implementation of P redirects to module M
 N.y = P(N.y);
-var Q = require(\'Q\'); // declaration of Q redirects to module M
+var Q = require('Q'); // declaration of Q redirects to module M
 N.z = Q(N.z);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var M = require(\"M\");
-var N = require(\"N\");
+var M = require(\\"M\\");
+var N = require(\\"N\\");
 N.x = M(N.x);
-var P = require(\"./P\"); // implementation of P redirects to module M
+var P = require(\\"./P\\"); // implementation of P redirects to module M
 N.y = P(N.y);
-var Q = require(\"Q\"); // declaration of Q redirects to module M
+var Q = require(\\"Q\\"); // declaration of Q redirects to module M
 N.z = Q(N.z);
 "
 `;

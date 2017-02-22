@@ -1,4 +1,6 @@
-exports[`test multiple.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`multiple.js 1`] = `
 "[...a, ...b,];
 [...a, ...b];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

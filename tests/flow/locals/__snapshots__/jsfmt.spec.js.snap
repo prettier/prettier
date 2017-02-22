@@ -1,11 +1,13 @@
-exports[`test lex.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`lex.js 1`] = `
 "function switch_scope(x: mixed) {
-  let a = \"\";
-  let b = \"\";
+  let a = \\"\\";
+  let b = \\"\\";
   switch (x) {
-    case \"foo\":
+    case \\"foo\\":
       let a;
-      a = 0; // doesn\'t add lower bound to outer a
+      a = 0; // doesn't add lower bound to outer a
       b = 0;
   }
   (a : string); // OK
@@ -16,11 +18,11 @@ function try_scope_finally() {
   let a;
   let b;
   try {
-    a = \"\";
-    b = \"\";
+    a = \\"\\";
+    b = \\"\\";
   } finally {
     let a;
-    a = 0; // doesn\'t add lower bound to outer a
+    a = 0; // doesn't add lower bound to outer a
     b = 0;
   }
   (a : string); // ok
@@ -28,10 +30,10 @@ function try_scope_finally() {
 }
 
 function for_scope() {
-  let a = \"\";
-  let b = \"\";
+  let a = \\"\\";
+  let b = \\"\\";
   for (let a;;) {
-    a = 0; // doesn\'t add lower bound to outer a
+    a = 0; // doesn't add lower bound to outer a
     b = 0;
   }
   (a : string);
@@ -42,18 +44,18 @@ function for_in_scope(o: Object) {
   let a = 0;
   let b = 0;
   for (let a in o) {
-    a = \"\"; // doesn\'t add lower bound to outer a
-    b = \"\";
+    a = \\"\\"; // doesn't add lower bound to outer a
+    b = \\"\\";
   }
   (a : number);
   (b : number); // error: string ~> number
 }
 
 function for_of_scope(xs: number[]) {
-  let a = \"\";
-  let b = \"\";
+  let a = \\"\\";
+  let b = \\"\\";
   for (let a of xs) {
-    a = 0; // doesn\'t add lower bound to outer a
+    a = 0; // doesn't add lower bound to outer a
     b = 0;
   }
   (a : string);
@@ -61,12 +63,12 @@ function for_of_scope(xs: number[]) {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function switch_scope(x: mixed) {
-  let a = \"\";
-  let b = \"\";
+  let a = \\"\\";
+  let b = \\"\\";
   switch (x) {
-    case \"foo\":
+    case \\"foo\\":
       let a;
-      a = 0; // doesn\'t add lower bound to outer a
+      a = 0; // doesn't add lower bound to outer a
       b = 0;
   }
   (a: string); // OK
@@ -77,11 +79,11 @@ function try_scope_finally() {
   let a;
   let b;
   try {
-    a = \"\";
-    b = \"\";
+    a = \\"\\";
+    b = \\"\\";
   } finally {
     let a;
-    a = 0; // doesn\'t add lower bound to outer a
+    a = 0; // doesn't add lower bound to outer a
     b = 0;
   }
   (a: string); // ok
@@ -89,10 +91,10 @@ function try_scope_finally() {
 }
 
 function for_scope() {
-  let a = \"\";
-  let b = \"\";
+  let a = \\"\\";
+  let b = \\"\\";
   for (let a; ; ) {
-    a = 0; // doesn\'t add lower bound to outer a
+    a = 0; // doesn't add lower bound to outer a
     b = 0;
   }
   (a: string);
@@ -103,18 +105,18 @@ function for_in_scope(o: Object) {
   let a = 0;
   let b = 0;
   for (let a in o) {
-    a = \"\"; // doesn\'t add lower bound to outer a
-    b = \"\";
+    a = \\"\\"; // doesn't add lower bound to outer a
+    b = \\"\\";
   }
   (a: number);
   (b: number); // error: string ~> number
 }
 
 function for_of_scope(xs: number[]) {
-  let a = \"\";
-  let b = \"\";
+  let a = \\"\\";
+  let b = \\"\\";
   for (let a of xs) {
-    a = 0; // doesn\'t add lower bound to outer a
+    a = 0; // doesn't add lower bound to outer a
     b = 0;
   }
   (a: string);
@@ -123,7 +125,7 @@ function for_of_scope(xs: number[]) {
 "
 `;
 
-exports[`test locals.js 1`] = `
+exports[`locals.js 1`] = `
 "var x:string = 0;
 var x:number = 1;
 
@@ -143,7 +145,7 @@ function sorry(really: bool) {
 function foo0(b: bool): number {
   var x = 0;
   if (b) {
-    var x = \"\"; // error: string ~> number
+    var x = \\"\\"; // error: string ~> number
   }
   return x;
 }
@@ -167,7 +169,7 @@ function sorry(really: boolean) {
 function foo0(b: boolean): number {
   var x = 0;
   if (b) {
-    var x = \"\"; // error: string ~> number
+    var x = \\"\\"; // error: string ~> number
   }
   return x;
 }

@@ -1,4 +1,6 @@
-exports[`test qualified.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`qualified.js 1`] = `
 "class C { }
 var M = { C: C };
 
@@ -10,7 +12,7 @@ declare var of_type_foo: foo;
 type bar = typeof of_type_foo.bar;
 
 var a: bar = 42;
-var b: bar = \'asdf\'; // Error: string ~> number
+var b: bar = 'asdf'; // Error: string ~> number
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class C {}
 var M = { C: C };
@@ -23,6 +25,6 @@ declare var of_type_foo: foo;
 type bar = typeof of_type_foo.bar;
 
 var a: bar = 42;
-var b: bar = \"asdf\"; // Error: string ~> number
+var b: bar = \\"asdf\\"; // Error: string ~> number
 "
 `;

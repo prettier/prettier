@@ -1,4 +1,6 @@
-exports[`test Arrays.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Arrays.js 1`] = `
 "
 /* @providesModule Arrays */
 
@@ -6,7 +8,7 @@ function foo(x:string) { }
 
 var a = [];
 a[0] = 1;
-a[1] = \"...\";
+a[1] = \\"...\\";
 
 foo(a[1]);
 var y;
@@ -32,12 +34,12 @@ var abig2: Array<{x:number; y:number}> = [
   {x:0, y:0},
   {x:0, y:0},
   {x:0, y:0, a:true},
-  {x:0, y:0, b:\"hey\"},
+  {x:0, y:0, b:\\"hey\\"},
   {x:0, y:0, c:1},
-  {x:0, y:0, c:\"hey\"}
+  {x:0, y:0, c:\\"hey\\"}
 ];
 
-module.exports = \"arrays\";
+module.exports = \\"arrays\\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule Arrays */
 
@@ -45,7 +47,7 @@ function foo(x: string) {}
 
 var a = [];
 a[0] = 1;
-a[1] = \"...\";
+a[1] = \\"...\\";
 
 foo(a[1]);
 var y;
@@ -71,16 +73,16 @@ var abig2: Array<{ x: number, y: number }> = [
   { x: 0, y: 0 },
   { x: 0, y: 0 },
   { x: 0, y: 0, a: true },
-  { x: 0, y: 0, b: \"hey\" },
+  { x: 0, y: 0, b: \\"hey\\" },
   { x: 0, y: 0, c: 1 },
-  { x: 0, y: 0, c: \"hey\" }
+  { x: 0, y: 0, c: \\"hey\\" }
 ];
 
-module.exports = \"arrays\";
+module.exports = \\"arrays\\";
 "
 `;
 
-exports[`test numeric_elem.js 1`] = `
+exports[`numeric_elem.js 1`] = `
 "var arr = [];
 var day = new Date;
 

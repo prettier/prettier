@@ -1,22 +1,24 @@
-exports[`test bar.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bar.js 1`] = `
 "export type Foo = { x: number; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export type Foo = { x: number };
 "
 `;
 
-exports[`test foo.js 1`] = `
+exports[`foo.js 1`] = `
 "export type Foo = { x: number; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export type Foo = { x: number };
 "
 `;
 
-exports[`test qux.js 1`] = `
-"import type { Foo } from \'./bar.js\';
-({ x: \"\" }: Foo);
+exports[`qux.js 1`] = `
+"import type { Foo } from './bar.js';
+({ x: \\"\\" }: Foo);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-import type { Foo } from \"./bar.js\";
-({ x: \"\" }: Foo);
+import type { Foo } from \\"./bar.js\\";
+({ x: \\"\\" }: Foo);
 "
 `;

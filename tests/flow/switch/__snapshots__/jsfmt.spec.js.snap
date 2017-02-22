@@ -1,11 +1,13 @@
-exports[`test more_switch.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`more_switch.js 1`] = `
 "/* @flow */
 
 function foo(x): number {
     switch (x) {
       case 0:
       case 1: return 1;
-      default: throw new Error(\'hi\');
+      default: throw new Error('hi');
     }
 }
 
@@ -21,7 +23,7 @@ function baz(x): number {
   switch (x) {
     case 0: break;
     case 1: return 1;
-    default: throw new Error(\'hi\');
+    default: throw new Error('hi');
   }
   return 2;
 }
@@ -34,7 +36,7 @@ function foo(x): number {
     case 1:
       return 1;
     default:
-      throw new Error(\"hi\");
+      throw new Error(\\"hi\\");
   }
 }
 
@@ -55,29 +57,29 @@ function baz(x): number {
     case 1:
       return 1;
     default:
-      throw new Error(\"hi\");
+      throw new Error(\\"hi\\");
   }
   return 2;
 }
 "
 `;
 
-exports[`test switch.js 1`] = `
+exports[`switch.js 1`] = `
 "/**
  * @flow
  */
 function foo(
 ): number {
-    switch (\'foo\') {
-    case \'foo\':
+    switch ('foo') {
+    case 'foo':
         return 1;
     }
     return 2;
 }
 
 function bar() {
-    switch (\'bar\') {
-    case \'bar\':
+    switch ('bar') {
+    case 'bar':
         break;
     default:
         break;
@@ -85,11 +87,11 @@ function bar() {
 }
 
 function qux(b) {
-    var x = b? 0: \"\";
-    switch(\'qux\') {
-    case \'\':
+    var x = b? 0: \\"\\";
+    switch('qux') {
+    case '':
         x = 0;
-    case \'qux\':
+    case 'qux':
         x = x*x;
     }
 }
@@ -98,16 +100,16 @@ function qux(b) {
  * @flow
  */
 function foo(): number {
-  switch (\"foo\") {
-    case \"foo\":
+  switch (\\"foo\\") {
+    case \\"foo\\":
       return 1;
   }
   return 2;
 }
 
 function bar() {
-  switch (\"bar\") {
-    case \"bar\":
+  switch (\\"bar\\") {
+    case \\"bar\\":
       break;
     default:
       break;
@@ -115,27 +117,27 @@ function bar() {
 }
 
 function qux(b) {
-  var x = b ? 0 : \"\";
-  switch (\"qux\") {
-    case \"\":
+  var x = b ? 0 : \\"\\";
+  switch (\\"qux\\") {
+    case \\"\\":
       x = 0;
-    case \"qux\":
+    case \\"qux\\":
       x = x * x;
   }
 }
 "
 `;
 
-exports[`test switch_default_fallthrough.js 1`] = `
+exports[`switch_default_fallthrough.js 1`] = `
 "/**
  * @flow
  */
 function foo(x : mixed): string {
-    var a = \"\";
-    var b = \"\";
+    var a = \\"\\";
+    var b = \\"\\";
 
     switch (x) {
-      case \"foo\":
+      case \\"foo\\":
         a = 0;
       default:
         b = 0;
@@ -151,15 +153,15 @@ function foo(x : mixed): string {
 }
 
 function baz(x: mixed): number {
-    var a = \"\";
-    var b = \"\";
+    var a = \\"\\";
+    var b = \\"\\";
 
     switch (x) {
-      case \"baz\":
+      case \\"baz\\":
         a = 0;
         break;
-      case \"bar\":
-        a = \"\";
+      case \\"bar\\":
+        a = \\"\\";
       default:
         b = 0;
     }
@@ -179,11 +181,11 @@ function baz(x: mixed): number {
  * @flow
  */
 function foo(x: mixed): string {
-  var a = \"\";
-  var b = \"\";
+  var a = \\"\\";
+  var b = \\"\\";
 
   switch (x) {
-    case \"foo\":
+    case \\"foo\\":
       a = 0;
     default:
       b = 0;
@@ -199,15 +201,15 @@ function foo(x: mixed): string {
 }
 
 function baz(x: mixed): number {
-  var a = \"\";
-  var b = \"\";
+  var a = \\"\\";
+  var b = \\"\\";
 
   switch (x) {
-    case \"baz\":
+    case \\"baz\\":
       a = 0;
       break;
-    case \"bar\":
-      a = \"\";
+    case \\"bar\\":
+      a = \\"\\";
     default:
       b = 0;
   }
@@ -225,7 +227,7 @@ function baz(x: mixed): number {
 "
 `;
 
-exports[`test trailing_cases.js 1`] = `
+exports[`trailing_cases.js 1`] = `
 "/**
  * trailing cases are allowed - spot checks that we handle them as usual
  * @flow
@@ -244,7 +246,7 @@ function f1(i) {
     x = -1;
     break;
   case 2:
-    x = \"2\";
+    x = \\"2\\";
     break;
   }
 
@@ -285,7 +287,7 @@ function f3(i) {
 function foo(x): number {
     switch (x) {
       case 0:
-      default: throw new Error(\'hi\');
+      default: throw new Error('hi');
       case 1: return 1;
     }
 }
@@ -301,7 +303,7 @@ function bar(x) {
 function baz(x): number {
   switch (x) {
     case 0: break;
-    default: throw new Error(\'hi\');
+    default: throw new Error('hi');
     case 1: return 1;
   }
   return 2;
@@ -325,7 +327,7 @@ function f1(i) {
       x = -1;
       break;
     case 2:
-      x = \"2\";
+      x = \\"2\\";
       break;
   }
 
@@ -367,7 +369,7 @@ function foo(x): number {
   switch (x) {
     case 0:
     default:
-      throw new Error(\"hi\");
+      throw new Error(\\"hi\\");
     case 1:
       return 1;
   }
@@ -388,7 +390,7 @@ function baz(x): number {
     case 0:
       break;
     default:
-      throw new Error(\"hi\");
+      throw new Error(\\"hi\\");
     case 1:
       return 1;
   }

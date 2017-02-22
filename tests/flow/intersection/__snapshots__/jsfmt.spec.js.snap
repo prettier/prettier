@@ -1,4 +1,6 @@
-exports[`test intersection.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`intersection.js 1`] = `
 "function foo(x: $All<Error,{type:number}>): number {
     return x.type;
 }
@@ -17,7 +19,7 @@ function bar(x: Error & { type: number }): number {
 "
 `;
 
-exports[`test objassign.js 1`] = `
+exports[`objassign.js 1`] = `
 "/**
  * Test intersection of objects flowing to spread assignment.
  *
@@ -44,7 +46,7 @@ let y: ObjAssignT = { ...x }; // should be fine
 "
 `;
 
-exports[`test pred.js 1`] = `
+exports[`pred.js 1`] = `
 "/**
  * Test interaction of object intersections and predicates.
  * Definitions in lib/lib.js
@@ -97,7 +99,7 @@ function hasObjectMode_ok(options: DuplexStreamOptions): boolean {
 "
 `;
 
-exports[`test test_fun.js 1`] = `
+exports[`test_fun.js 1`] = `
 "/**
  * Tests for intersections of function types.
  *
@@ -164,7 +166,7 @@ var g: (_: number | string) => void = f;
 "
 `;
 
-exports[`test test_obj.js 1`] = `
+exports[`test_obj.js 1`] = `
 "/**
  * Tests for intersections of object types
  *

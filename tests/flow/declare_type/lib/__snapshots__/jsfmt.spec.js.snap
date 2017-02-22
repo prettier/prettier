@@ -1,4 +1,6 @@
-exports[`test declare_module_type_alias.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`declare_module_type_alias.js 1`] = `
 "/**
  * @flow
  */
@@ -27,10 +29,10 @@ declare type Foo = string;
 "
 `;
 
-exports[`test declare_type_exports.js 1`] = `
+exports[`declare_type_exports.js 1`] = `
 "/* @flow */
 
-declare module \'foo\' {
+declare module 'foo' {
     declare class A {
         toz : number
     }
@@ -48,7 +50,7 @@ declare module \'foo\' {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-declare module \"foo\" {
+declare module \\"foo\\" {
   declare class A {
     toz: number
   }

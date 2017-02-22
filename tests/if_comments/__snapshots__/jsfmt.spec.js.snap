@@ -1,4 +1,6 @@
-exports[`test if_comments.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`if_comments.js 1`] = `
 "async function f() {
   if (untrackedChoice === 0) /* Cancel */ {
     return null;

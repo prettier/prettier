@@ -1,11 +1,13 @@
-exports[`test Condition.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Condition.js 1`] = `
 "/* @providesModule Condition */
 
 function f(x:number) { }
-function g() { return (42 || \"hello\"); }
+function g() { return (42 || \\"hello\\"); }
 
 var x = g();
-if (typeof x === \"string\") {
+if (typeof x === \\"string\\") {
   x = 0;
 }
 f(x);
@@ -25,7 +27,7 @@ class C { qux() { } }
 
 function foo() {
 
-  var c = \"...\";
+  var c = \\"...\\";
   c = new C();
   if (bar()) {
     c.qux();
@@ -35,20 +37,20 @@ function foo() {
 
 function goofy() {
   var x = g();
-  if (typeof x == \'function\') {
+  if (typeof x == 'function') {
     x();
-  } else { // if (typeof x == \'number\') {
+  } else { // if (typeof x == 'number') {
     //f(x);
   }
 }
 
 function goofy2() {
   var o = {x : 0}
-  if (typeof o.x == \'function\') {
+  if (typeof o.x == 'function') {
     o.x();
   }
   var y = o.x;
-  if (typeof y == \'function\') {
+  if (typeof y == 'function') {
     y();
   } else {
     //f(y);
@@ -61,11 +63,11 @@ module.exports = true;
 
 function f(x: number) {}
 function g() {
-  return 42 || \"hello\";
+  return 42 || \\"hello\\";
 }
 
 var x = g();
-if (typeof x === \"string\") {
+if (typeof x === \\"string\\") {
   x = 0;
 }
 f(x);
@@ -90,7 +92,7 @@ class C {
 }
 
 function foo() {
-  var c = \"...\";
+  var c = \\"...\\";
   c = new C();
   if (bar()) {
     c.qux();
@@ -99,21 +101,21 @@ function foo() {
 
 function goofy() {
   var x = g();
-  if (typeof x == \"function\") {
+  if (typeof x == \\"function\\") {
     x();
   } else {
-    // if (typeof x == \'number\') {
+    // if (typeof x == 'number') {
     //f(x);
   }
 }
 
 function goofy2() {
   var o = { x: 0 };
-  if (typeof o.x == \"function\") {
+  if (typeof o.x == \\"function\\") {
     o.x();
   }
   var y = o.x;
-  if (typeof y == \"function\") {
+  if (typeof y == \\"function\\") {
     y();
   } else {
     //f(y);
@@ -124,7 +126,7 @@ module.exports = true;
 "
 `;
 
-exports[`test FlowSA.js 1`] = `
+exports[`FlowSA.js 1`] = `
 "
 /* @providesModule FlowSA */
 
@@ -132,7 +134,7 @@ function check(x:string) { }
 
 function FlowSA() {
   var x = 0;
-  x = \"...\";
+  x = \\"...\\";
   check(x);
 }
 
@@ -144,7 +146,7 @@ function check(x: string) {}
 
 function FlowSA() {
   var x = 0;
-  x = \"...\";
+  x = \\"...\\";
   check(x);
 }
 
@@ -152,7 +154,7 @@ module.exports = FlowSA;
 "
 `;
 
-exports[`test Sigma.js 1`] = `
+exports[`Sigma.js 1`] = `
 "
 /* @providesModule Sigma */
 
@@ -188,11 +190,11 @@ class D { d() {} }
 
 function baz(x:D) {
   if (x instanceof A) {
-    // unreachable, TODO: this shouldn\'t throw
+    // unreachable, TODO: this shouldn't throw
   }
 }
 
-module.exports = \"sigma\";
+module.exports = \\"sigma\\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule Sigma */
 
@@ -235,15 +237,15 @@ class D {
 
 function baz(x: D) {
   if (x instanceof A) {
-    // unreachable, TODO: this shouldn\'t throw
+    // unreachable, TODO: this shouldn't throw
   }
 }
 
-module.exports = \"sigma\";
+module.exports = \\"sigma\\";
 "
 `;
 
-exports[`test test.js 1`] = `
+exports[`test.js 1`] = `
 "class BaseClass {
   baseProp: string;
 }

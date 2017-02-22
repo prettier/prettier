@@ -1,4 +1,6 @@
-exports[`test any.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`any.js 1`] = `
 "// @flow
 
 function foo(x:any):any { return x; }
@@ -27,7 +29,7 @@ var z: string = qux(0);
 "
 `;
 
-exports[`test anyexportflowfile.js 1`] = `
+exports[`anyexportflowfile.js 1`] = `
 "// @flow
 
 module.exports = ((x: any) => x: any);
@@ -38,7 +40,7 @@ module.exports = ((x: any) => x: any);
 "
 `;
 
-exports[`test flowfixme.js 1`] = `
+exports[`flowfixme.js 1`] = `
 "/*
   FlowFixMe is a synonym for any, used by the Flow team to
   signal a needed mod to JS devs.
@@ -89,7 +91,7 @@ var w: string = baz(0);
 "
 `;
 
-exports[`test flowissue.js 1`] = `
+exports[`flowissue.js 1`] = `
 "/*
   $FlowIssue is a synonym for any, used by JS devs to signal
   a potential typechecker bug to the Flow team.
@@ -140,7 +142,7 @@ var w: string = baz(0);
 "
 `;
 
-exports[`test nonflowfile.js 1`] = `
+exports[`nonflowfile.js 1`] = `
 "// @noflow
 
 module.exports = (x) => x;
@@ -151,7 +153,7 @@ module.exports = x => x;
 "
 `;
 
-exports[`test propagate.js 1`] = `
+exports[`propagate.js 1`] = `
 "// @flow
 
 declare class C {
@@ -164,14 +166,14 @@ function foo(c: C, x: any): string {
   return c.bar(0, y); // should be able to select first case and error
 }
 
-var any_fun1 = require(\'./nonflowfile\');
+var any_fun1 = require('./nonflowfile');
 function bar1(x: mixed) {
   if (any_fun1(x)) {
     (x: boolean);
   }
 }
 
-var any_fun2 = require(\'./anyexportflowfile\');
+var any_fun2 = require('./anyexportflowfile');
 function bar2(x: mixed) {
   if (any_fun2(x)) {
     (x: boolean);
@@ -190,14 +192,14 @@ function foo(c: C, x: any): string {
   return c.bar(0, y); // should be able to select first case and error
 }
 
-var any_fun1 = require(\"./nonflowfile\");
+var any_fun1 = require(\\"./nonflowfile\\");
 function bar1(x: mixed) {
   if (any_fun1(x)) {
     (x: boolean);
   }
 }
 
-var any_fun2 = require(\"./anyexportflowfile\");
+var any_fun2 = require(\\"./anyexportflowfile\\");
 function bar2(x: mixed) {
   if (any_fun2(x)) {
     (x: boolean);
@@ -206,7 +208,7 @@ function bar2(x: mixed) {
 "
 `;
 
-exports[`test reach.js 1`] = `
+exports[`reach.js 1`] = `
 "/**
  * like class and function values, any-typed values may be used in
  * type annotations. Here we test propagation of any through the

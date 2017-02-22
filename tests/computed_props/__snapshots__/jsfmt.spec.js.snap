@@ -1,10 +1,12 @@
-exports[`test classes.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`classes.js 1`] = `
 "class c {
-  [\"i\"]() {}
+  [\\"i\\"]() {}
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class c {
-  [\"i\"]() {}
+  [\\"i\\"]() {}
 }
 "
 `;

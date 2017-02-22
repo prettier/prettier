@@ -1,14 +1,16 @@
-exports[`test symbol.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`symbol.js 1`] = `
 "var FOO = Symbol();
-var BAR = Symbol(\'bar\');
+var BAR = Symbol('bar');
 
 // TODO: Expected error
-var WAT = Symbol(\'foo\', \'bar\');
+var WAT = Symbol('foo', 'bar');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var FOO = Symbol();
-var BAR = Symbol(\"bar\");
+var BAR = Symbol(\\"bar\\");
 
 // TODO: Expected error
-var WAT = Symbol(\"foo\", \"bar\");
+var WAT = Symbol(\\"foo\\", \\"bar\\");
 "
 `;

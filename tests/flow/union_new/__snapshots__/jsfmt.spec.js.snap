@@ -1,4 +1,6 @@
-exports[`test issue-815.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`issue-815.js 1`] = `
 "/* @flow */
 type T = A|B;
 class U {};
@@ -43,8 +45,8 @@ class VirtualNode {
 "
 `;
 
-exports[`test issue-824.js 1`] = `
-"import { B, C } from \"./issue-824-helper\";
+exports[`issue-824.js 1`] = `
+"import { B, C } from \\"./issue-824-helper\\";
 
 type K = B | C;
 
@@ -61,7 +63,7 @@ export default class A {
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-import { B, C } from \"./issue-824-helper\";
+import { B, C } from \\"./issue-824-helper\\";
 
 type K = B | C;
 
@@ -80,8 +82,8 @@ export default class A {
 "
 `;
 
-exports[`test issue-824-helper.js 1`] = `
-"import A from \"./issue-824\";
+exports[`issue-824-helper.js 1`] = `
+"import A from \\"./issue-824\\";
 
 export class B extends A {
   which(): number {
@@ -94,7 +96,7 @@ export class C extends A {
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-import A from \"./issue-824\";
+import A from \\"./issue-824\\";
 
 export class B extends A {
   which(): number {
@@ -109,7 +111,7 @@ export class C extends A {
 "
 `;
 
-exports[`test issue-1349.js 1`] = `
+exports[`issue-1349.js 1`] = `
 "/* @flow */
 
 var bar: Array<{b: ?boolean, c: number} | {b: boolean}> = [
@@ -126,29 +128,29 @@ var bar: Array<{ b: ?boolean, c: number } | { b: boolean }> = [
 "
 `;
 
-exports[`test issue-1371.js 1`] = `
-"function create(a: any): { type: \'B\', data: number } | { type: \'A\', data: string }
+exports[`issue-1371.js 1`] = `
+"function create(a: any): { type: 'B', data: number } | { type: 'A', data: string }
 {
   return {
-    type: \'A\',
+    type: 'A',
     data: a
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function create(
   a: any
-): { type: \"B\", data: number } | { type: \"A\", data: string } {
+): { type: \\"B\\", data: number } | { type: \\"A\\", data: string } {
   return {
-    type: \"A\",
+    type: \\"A\\",
     data: a
   };
 }
 "
 `;
 
-exports[`test issue-1455.js 1`] = `
+exports[`issue-1455.js 1`] = `
 "/* @flow */
-import type {Foobar} from \"./issue-1455-helper\"
+import type {Foobar} from \\"./issue-1455-helper\\"
 
 function create(content: ?Foobar | String | Array<String>) {
 }
@@ -158,7 +160,7 @@ function node(content: ?Foobar | String | Array<String>) {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-import type { Foobar } from \"./issue-1455-helper\";
+import type { Foobar } from \\"./issue-1455-helper\\";
 
 function create(content: ?Foobar | String | Array<String>) {}
 
@@ -168,7 +170,7 @@ function node(content: ?Foobar | String | Array<String>) {
 "
 `;
 
-exports[`test issue-1455-helper.js 1`] = `
+exports[`issue-1455-helper.js 1`] = `
 "/* @flow */
 
 export class Foobar { }
@@ -179,17 +181,17 @@ export class Foobar {}
 "
 `;
 
-exports[`test issue-1462-i.js 1`] = `
+exports[`issue-1462-i.js 1`] = `
 "type Common = {
 };
 
 type A = Common & {
-  type: \'A\',
+  type: 'A',
   foo: number
 };
 
 type B = Common & {
-  type: \'B\',
+  type: 'B',
   foo: Array<number>
 }
 
@@ -206,12 +208,12 @@ function printAll(val: MyType) {
 type Common = {};
 
 type A = Common & {
-  type: \"A\",
+  type: \\"A\\",
   foo: number
 };
 
 type B = Common & {
-  type: \"B\",
+  type: \\"B\\",
   foo: Array<number>
 };
 
@@ -227,17 +229,17 @@ function printAll(val: MyType) {
 "
 `;
 
-exports[`test issue-1462-ii.js 1`] = `
+exports[`issue-1462-ii.js 1`] = `
 "type Common = {
 };
 
 type A = {
-  type: \'A\',
+  type: 'A',
   foo: number
 } & Common;
 
 type B = {
-  type: \'B\',
+  type: 'B',
   foo: Array<number>
 } & Common;
 
@@ -249,7 +251,7 @@ function print(x: number) {
 }
 
 function printAll(val: MyType) {
-  if (val.type === \'A\') {
+  if (val.type === 'A') {
     print(val.foo);
   } else {
     val.foo.forEach(print);
@@ -260,14 +262,14 @@ type Common = {};
 
 type A =
   & {
-    type: \"A\",
+    type: \\"A\\",
     foo: number
   }
   & Common;
 
 type B =
   & {
-    type: \"B\",
+    type: \\"B\\",
     foo: Array<number>
   }
   & Common;
@@ -279,7 +281,7 @@ function print(x: number) {
 }
 
 function printAll(val: MyType) {
-  if (val.type === \"A\") {
+  if (val.type === \\"A\\") {
     print(val.foo);
   } else {
     val.foo.forEach(print);
@@ -288,7 +290,7 @@ function printAll(val: MyType) {
 "
 `;
 
-exports[`test issue-1664.js 1`] = `
+exports[`issue-1664.js 1`] = `
 "/* @flow */
 
 type DataBase = {
@@ -297,22 +299,22 @@ type DataBase = {
 };
 
 type UserData = DataBase & {
-  kind: \"user\",
+  kind: \\"user\\",
 };
 
 type SystemData = DataBase & {
-  kind: \"system\",
+  kind: \\"system\\",
 }
 
 type Data = UserData | SystemData;
 
 const data: Data = {
-  id: \"\",
-  name: \"\",
-  kind: \"system\",
+  id: \\"\\",
+  name: \\"\\",
+  kind: \\"system\\",
 }
 
-if (data.kind === \"system\") {
+if (data.kind === \\"system\\") {
   (data: SystemData);
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -324,28 +326,28 @@ type DataBase = {
 };
 
 type UserData = DataBase & {
-  kind: \"user\"
+  kind: \\"user\\"
 };
 
 type SystemData = DataBase & {
-  kind: \"system\"
+  kind: \\"system\\"
 };
 
 type Data = UserData | SystemData;
 
 const data: Data = {
-  id: \"\",
-  name: \"\",
-  kind: \"system\"
+  id: \\"\\",
+  name: \\"\\",
+  kind: \\"system\\"
 };
 
-if (data.kind === \"system\") {
+if (data.kind === \\"system\\") {
   (data: SystemData);
 }
 "
 `;
 
-exports[`test issue-1759.js 1`] = `
+exports[`issue-1759.js 1`] = `
 "// @flow
 
 type X = ({a:true} & {b:string}) | ({a:false} & {c:string});
@@ -367,7 +369,7 @@ function hello(x: X): string {
 "
 `;
 
-exports[`test issue-2232.js 1`] = `
+exports[`issue-2232.js 1`] = `
 "/* @flow */
 
 declare type Entity<T> = {
@@ -419,7 +421,7 @@ function test(f: Foo | EmptyFoo) {
 "
 `;
 
-exports[`test test1.js 1`] = `
+exports[`test1.js 1`] = `
 "// @noflow
 
 /**
@@ -434,7 +436,7 @@ function obj(a: A1 | A2) {
   return a.x;
 }
 
-const obj_result = obj({ x: \"\" }); // currently an error! (expect it to be OK)
+const obj_result = obj({ x: \\"\\" }); // currently an error! (expect it to be OK)
 
 // Type definitions used above are defined below, but in an order that
 // deliberately makes their full resolution as lazy as possible. The call above
@@ -458,7 +460,7 @@ function fun(a: A3 | A4) {
   return a();
 }
 
-const fun_result = fun(() => \"\");
+const fun_result = fun(() => \\"\\");
 
 type A3 = () => B3;
 type A4 = () => B4;
@@ -495,7 +497,7 @@ function obj(a: A1 | A2) {
   return a.x;
 }
 
-const obj_result = obj({ x: \"\" }); // currently an error! (expect it to be OK)
+const obj_result = obj({ x: \\"\\" }); // currently an error! (expect it to be OK)
 
 // Type definitions used above are defined below, but in an order that
 // deliberately makes their full resolution as lazy as possible. The call above
@@ -519,7 +521,7 @@ function fun(a: A3 | A4) {
   return a();
 }
 
-const fun_result = fun(() => \"\");
+const fun_result = fun(() => \\"\\");
 
 type A3 = () => B3;
 type A4 = () => B4;
@@ -544,7 +546,7 @@ type A6 = B6[];
 "
 `;
 
-exports[`test test2.js 1`] = `
+exports[`test2.js 1`] = `
 "// @noflow
 
 /**
@@ -557,7 +559,7 @@ exports[`test test2.js 1`] = `
 
 function obj(a: { x: number } | { x: string }) { }
 
-obj(({ x: \"\" }: A1));
+obj(({ x: \\"\\" }: A1));
 
 type A1 = { x: B1 };
 
@@ -569,7 +571,7 @@ type B1 = string;
 
 function fun(a: (() => number) | (() => string)) { }
 
-fun(((() => \"\"): A2));
+fun(((() => \\"\\"): A2));
 
 type A2 = () => B2;
 
@@ -618,7 +620,7 @@ type B5 = string;
 
 function tup(a: [number,boolean] | [string,boolean]) { }
 
-tup(([\"\",false]: A6));
+tup(([\\"\\",false]: A6));
 
 type A6 = [B6,boolean];
 type B6 = string;
@@ -635,7 +637,7 @@ type B6 = string;
 
 function obj(a: { x: number } | { x: string }) {}
 
-obj(({ x: \"\" }: A1));
+obj(({ x: \\"\\" }: A1));
 
 type A1 = { x: B1 };
 
@@ -647,7 +649,7 @@ type B1 = string;
 
 function fun(a: (() => number) | (() => string)) {}
 
-fun((() => \"\": A2));
+fun((() => \\"\\": A2));
 
 type A2 = () => B2;
 
@@ -696,14 +698,14 @@ type B5 = string;
 
 function tup(a: [number, boolean] | [string, boolean]) {}
 
-tup(([\"\", false]: A6));
+tup(([\\"\\", false]: A6));
 
 type A6 = [B6, boolean];
 type B6 = string;
 "
 `;
 
-exports[`test test3.js 1`] = `
+exports[`test3.js 1`] = `
 "// @noflow
 
 /**
@@ -766,7 +768,7 @@ type B2 = string;
 "
 `;
 
-exports[`test test4.js 1`] = `
+exports[`test4.js 1`] = `
 "// @noflow
 
 /**
@@ -849,7 +851,7 @@ type B2 = string;
 "
 `;
 
-exports[`test test5.js 1`] = `
+exports[`test5.js 1`] = `
 "// @noflow
 
 /**
@@ -914,7 +916,7 @@ function arr_set(x: string, i: number) {
 "
 `;
 
-exports[`test test6.js 1`] = `
+exports[`test6.js 1`] = `
 "// @noflow
 
 /**
@@ -971,7 +973,7 @@ class C<X> {}
 "
 `;
 
-exports[`test test7.js 1`] = `
+exports[`test7.js 1`] = `
 "// @noflow
 
 /**
@@ -1034,7 +1036,7 @@ type PG<X> = { x: X, y?: PG<X> };
 "
 `;
 
-exports[`test test8.js 1`] = `
+exports[`test8.js 1`] = `
 "// @noflow
 
 /**
@@ -1085,7 +1087,7 @@ type H2_ = number;
 "
 `;
 
-exports[`test test9.js 1`] = `
+exports[`test9.js 1`] = `
 "// @noflow
 
 /**
@@ -1122,7 +1124,7 @@ foo((x): number => square(x));
 "
 `;
 
-exports[`test test10.js 1`] = `
+exports[`test10.js 1`] = `
 "// @noflow
 
 function id<X>(x: X): X { return x; }
@@ -1134,10 +1136,10 @@ function id<X>(x: X): X { return x; }
 function check_prim(_: number | string) { }
 
 // ok
-check_prim(\"\");
+check_prim(\\"\\");
 
-// ...even when they \"flow\" in
-check_prim(id(\"\"));
+// ...even when they \\"flow\\" in
+check_prim(id(\\"\\"));
 
 //////////////////////////////
 // class instance annotations
@@ -1150,7 +1152,7 @@ function check_inst(_: C | D) { }
 // ok
 check_inst(new D);
 
-// ...even when they \"flow\" in
+// ...even when they \\"flow\\" in
 check_inst(id(new C));
 
 ////////////////////////
@@ -1169,10 +1171,10 @@ check_fun((x) => x);
 function check_obj(_: { x: number } | { x: string }) { }
 
 // ok
-check_obj({ x: \"\" });
+check_obj({ x: \\"\\" });
 
 // help!
-check_obj({ x: id(\"\") });
+check_obj({ x: id(\\"\\") });
 
 /////////////////////
 // array annotations
@@ -1181,10 +1183,10 @@ check_obj({ x: id(\"\") });
 function check_arr(_: number[] | string[]) { }
 
 // ok
-check_arr([\"\"]);
+check_arr([\\"\\"]);
 
 // help!
-check_arr([id(\"\")]);
+check_arr([id(\\"\\")]);
 
 //////////////////////////////////////
 // generic class instance annotations
@@ -1209,10 +1211,10 @@ function id<X>(x: X): X {
 function check_prim(_: number | string) {}
 
 // ok
-check_prim(\"\");
+check_prim(\\"\\");
 
-// ...even when they \"flow\" in
-check_prim(id(\"\"));
+// ...even when they \\"flow\\" in
+check_prim(id(\\"\\"));
 
 //////////////////////////////
 // class instance annotations
@@ -1225,7 +1227,7 @@ function check_inst(_: C | D) {}
 // ok
 check_inst(new D());
 
-// ...even when they \"flow\" in
+// ...even when they \\"flow\\" in
 check_inst(id(new C()));
 
 ////////////////////////
@@ -1244,10 +1246,10 @@ check_fun(x => x);
 function check_obj(_: { x: number } | { x: string }) {}
 
 // ok
-check_obj({ x: \"\" });
+check_obj({ x: \\"\\" });
 
 // help!
-check_obj({ x: id(\"\") });
+check_obj({ x: id(\\"\\") });
 
 /////////////////////
 // array annotations
@@ -1256,10 +1258,10 @@ check_obj({ x: id(\"\") });
 function check_arr(_: number[] | string[]) {}
 
 // ok
-check_arr([\"\"]);
+check_arr([\\"\\"]);
 
 // help!
-check_arr([id(\"\")]);
+check_arr([id(\\"\\")]);
 
 //////////////////////////////////////
 // generic class instance annotations
@@ -1273,47 +1275,47 @@ check_poly_inst(new P());
 "
 `;
 
-exports[`test test11.js 1`] = `
+exports[`test11.js 1`] = `
 "// @noflow
 
 // disjoint unions
 
 function length(list: List) {
-  if (list.kind === \"cons\") return length(list.next) + 1;
+  if (list.kind === \\"cons\\") return length(list.next) + 1;
   else return 0;
 }
 
 
-length({ kind: \"nil\" });
-length({ kind: \"cons\" }); // missing \`next\`
-length({ kind: \"cons\", next: { kind: \"nil\" } });
-length({ kind: \"empty\" }); // \`kind\` not found
+length({ kind: \\"nil\\" });
+length({ kind: \\"cons\\" }); // missing \`next\`
+length({ kind: \\"cons\\", next: { kind: \\"nil\\" } });
+length({ kind: \\"empty\\" }); // \`kind\` not found
 
 type List = Nil | Cons;
-type Nil = { kind: \"nil\" };
-type Cons = { kind: \"cons\", next: List };
+type Nil = { kind: \\"nil\\" };
+type Cons = { kind: \\"cons\\", next: List };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
 
 // disjoint unions
 
 function length(list: List) {
-  if (list.kind === \"cons\") return length(list.next) + 1;
+  if (list.kind === \\"cons\\") return length(list.next) + 1;
   else return 0;
 }
 
-length({ kind: \"nil\" });
-length({ kind: \"cons\" }); // missing \`next\`
-length({ kind: \"cons\", next: { kind: \"nil\" } });
-length({ kind: \"empty\" }); // \`kind\` not found
+length({ kind: \\"nil\\" });
+length({ kind: \\"cons\\" }); // missing \`next\`
+length({ kind: \\"cons\\", next: { kind: \\"nil\\" } });
+length({ kind: \\"empty\\" }); // \`kind\` not found
 
 type List = Nil | Cons;
-type Nil = { kind: \"nil\" };
-type Cons = { kind: \"cons\", next: List };
+type Nil = { kind: \\"nil\\" };
+type Cons = { kind: \\"cons\\", next: List };
 "
 `;
 
-exports[`test test12.js 1`] = `
+exports[`test12.js 1`] = `
 "// @noflow
 
 // polymorphic recursive types
@@ -1338,16 +1340,16 @@ function rec(x: F<string>): G | H {
 "
 `;
 
-exports[`test test13.js 1`] = `
+exports[`test13.js 1`] = `
 "// @noflow
 
 /* ensure there are no unintended side effects when trying branches */
 
-({type: \'B\', id: \'hi\'}: {
-  type: \'A\';
+({type: 'B', id: 'hi'}: {
+  type: 'A';
   id: ?string;
 } | {
-  type: \'B\';
+  type: 'B';
   id: string;
 });
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1355,19 +1357,19 @@ exports[`test test13.js 1`] = `
 
 /* ensure there are no unintended side effects when trying branches */
 
-({ type: \"B\", id: \"hi\" }:
+({ type: \\"B\\", id: \\"hi\\" }:
   | {
-      type: \"A\",
+      type: \\"A\\",
       id: ?string
     }
   | {
-      type: \"B\",
+      type: \\"B\\",
       id: string
     });
 "
 `;
 
-exports[`test test14.js 1`] = `
+exports[`test14.js 1`] = `
 "// @noflow
 
 // annotations
@@ -1398,17 +1400,17 @@ function foo(c: C<number>) {
 "
 `;
 
-exports[`test test15.js 1`] = `
+exports[`test15.js 1`] = `
 "// @noflow
 
 // functions as objects
 
 function foo<X>(target: EventTarget) {
-  target.addEventListener(\'click\', (e) => {});
+  target.addEventListener('click', (e) => {});
 }
 
 declare class EventTarget {
-  addEventListener(type: \'foo\', listener: KeyboardEventHandler): void;
+  addEventListener(type: 'foo', listener: KeyboardEventHandler): void;
   addEventListener(type: string, listener: EventHandler): void;
 }
 
@@ -1429,11 +1431,11 @@ bar(() => { });
 // functions as objects
 
 function foo<X>(target: EventTarget) {
-  target.addEventListener(\"click\", e => {});
+  target.addEventListener(\\"click\\", e => {});
 }
 
 declare class EventTarget {
-  addEventListener(type: \"foo\", listener: KeyboardEventHandler): void,
+  addEventListener(type: \\"foo\\", listener: KeyboardEventHandler): void,
   addEventListener(type: string, listener: EventHandler): void
 }
 
@@ -1451,7 +1453,7 @@ bar(() => {});
 "
 `;
 
-exports[`test test16.js 1`] = `
+exports[`test16.js 1`] = `
 "// @noflow
 
 // annotations
@@ -1469,7 +1471,7 @@ bar(() => qux());
 
 var x = false;
 function qux() { return x; }
-x = \"\";
+x = \\"\\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
 
@@ -1490,11 +1492,11 @@ var x = false;
 function qux() {
   return x;
 }
-x = \"\";
+x = \\"\\";
 "
 `;
 
-exports[`test test17.js 1`] = `
+exports[`test17.js 1`] = `
 "// @noflow
 
 // Array#concat
@@ -1513,7 +1515,7 @@ exports[`test test17.js 1`] = `
 "
 `;
 
-exports[`test test18.js 1`] = `
+exports[`test18.js 1`] = `
 "// @noflow
 
 // method overloads
@@ -1544,7 +1546,7 @@ new C().m(f());
 "
 `;
 
-exports[`test test19.js 1`] = `
+exports[`test19.js 1`] = `
 "// @noflow
 
 // constructor overloads
@@ -1573,21 +1575,21 @@ declare class D {
 "
 `;
 
-exports[`test test20.js 1`] = `
+exports[`test20.js 1`] = `
 "// @noflow
 
 // Array#reduce
 
 [0,1].reduce((x,y,i) => y);
 
-[\"a\", \"b\"].reduce(
+[\\"a\\", \\"b\\"].reduce(
   (regex, representation, index) => {
-    return regex + (index ? \'|\' : \'\') + \'(\' + representation + \')\';
+    return regex + (index ? '|' : '') + '(' + representation + ')';
   },
-  \'\',
+  '',
 );
 
-[\"\"].reduce((acc,str) => acc * str.length);
+[\\"\\"].reduce((acc,str) => acc * str.length);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
 
@@ -1595,63 +1597,63 @@ exports[`test test20.js 1`] = `
 
 [0, 1].reduce((x, y, i) => y);
 
-[\"a\", \"b\"].reduce(
+[\\"a\\", \\"b\\"].reduce(
   (regex, representation, index) => {
-    return regex + (index ? \"|\" : \"\") + \"(\" + representation + \")\";
+    return regex + (index ? \\"|\\" : \\"\\") + \\"(\\" + representation + \\")\\";
   },
-  \"\"
+  \\"\\"
 );
 
-[\"\"].reduce((acc, str) => acc * str.length);
+[\\"\\"].reduce((acc, str) => acc * str.length);
 "
 `;
 
-exports[`test test21.js 1`] = `
+exports[`test21.js 1`] = `
 "// @noflow
 
 // annotations for disjoint unions
 
 type T =
-  | { type: \"FOO\", x: number }
-  | { type: \"BAR\", x: string }
+  | { type: \\"FOO\\", x: number }
+  | { type: \\"BAR\\", x: string }
 
-({ type: (bar(): \"BAR\"), x: str() }: T);
+({ type: (bar(): \\"BAR\\"), x: str() }: T);
 
 ({ type: bar(), x: str() }: T);
 
 ({ type: bar(), x: (str(): string) }: T);
 
 function bar() {
-  return \"BAR\";
+  return \\"BAR\\";
 }
 
 function str() {
-  return \"hello\";
+  return \\"hello\\";
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
 
 // annotations for disjoint unions
 
-type T = { type: \"FOO\", x: number } | { type: \"BAR\", x: string };
+type T = { type: \\"FOO\\", x: number } | { type: \\"BAR\\", x: string };
 
-({ type: (bar(): \"BAR\"), x: str() }: T);
+({ type: (bar(): \\"BAR\\"), x: str() }: T);
 
 ({ type: bar(), x: str() }: T);
 
 ({ type: bar(), x: (str(): string) }: T);
 
 function bar() {
-  return \"BAR\";
+  return \\"BAR\\";
 }
 
 function str() {
-  return \"hello\";
+  return \\"hello\\";
 }
 "
 `;
 
-exports[`test test22.js 1`] = `
+exports[`test22.js 1`] = `
 "// @noflow
 
 // refinement of disjoint unions
@@ -1659,18 +1661,18 @@ exports[`test test22.js 1`] = `
 type Empty = { }
 
 type Success = {
-  type: \'SUCCESS\';
+  type: 'SUCCESS';
   result: string;
 };
 
 type Error = {
-  type: \'ERROR\';
+  type: 'ERROR';
 } & Empty;
 
 export type T = Success | Error;
 
 function foo(x: T) {
-  if (x.type === \'SUCCESS\') return x.result;
+  if (x.type === 'SUCCESS') return x.result;
   else return x.result;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1681,26 +1683,26 @@ function foo(x: T) {
 type Empty = {};
 
 type Success = {
-  type: \"SUCCESS\",
+  type: \\"SUCCESS\\",
   result: string
 };
 
 type Error =
   & {
-    type: \"ERROR\"
+    type: \\"ERROR\\"
   }
   & Empty;
 
 export type T = Success | Error;
 
 function foo(x: T) {
-  if (x.type === \"SUCCESS\") return x.result;
+  if (x.type === \\"SUCCESS\\") return x.result;
   else return x.result;
 }
 "
 `;
 
-exports[`test test23.js 1`] = `
+exports[`test23.js 1`] = `
 "// @noflow
 
 // nested intersections (see also lib/test23_lib.js)
@@ -1711,7 +1713,7 @@ type Obj = NestedObj & { x: string };
 
 function foo(obj: Obj) {
   obj.x; // should be OK
-  obj.x; // should also be OK (the check above shouldn\'t affect anything)
+  obj.x; // should also be OK (the check above shouldn't affect anything)
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
@@ -1724,12 +1726,12 @@ type Obj = NestedObj & { x: string };
 
 function foo(obj: Obj) {
   obj.x; // should be OK
-  obj.x; // should also be OK (the check above shouldn\'t affect anything)
+  obj.x; // should also be OK (the check above shouldn't affect anything)
 }
 "
 `;
 
-exports[`test test24.js 1`] = `
+exports[`test24.js 1`] = `
 "// @noflow
 
 // scaling test for full type resolution
@@ -1799,7 +1801,7 @@ declare class D extends C {
 "
 `;
 
-exports[`test test25.js 1`] = `
+exports[`test25.js 1`] = `
 "// @noflow
 
 // termination test (see also lib/test25_lib.js)
@@ -1827,7 +1829,7 @@ function foo(rows: Rows, set: Set<number>) {
 "
 `;
 
-exports[`test test26.js 1`] = `
+exports[`test26.js 1`] = `
 "// @noflow
 
 declare function foo(x: number): number;
@@ -1843,11 +1845,11 @@ declare var y: T;
 (foo(y): T);
 
 declare class Record {
-  set(x: \'foo\', y: number): void;
-  set(x: \'bar\', y: string): void;
+  set(x: 'foo', y: number): void;
+  set(x: 'bar', y: string): void;
 }
 
-new Record().set(\'foo\', \"42\");
+new Record().set('foo', \\"42\\");
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
 
@@ -1864,15 +1866,15 @@ declare var y: T;
 (foo(y): T);
 
 declare class Record {
-  set(x: \"foo\", y: number): void,
-  set(x: \"bar\", y: string): void
+  set(x: \\"foo\\", y: number): void,
+  set(x: \\"bar\\", y: string): void
 }
 
-new Record().set(\"foo\", \"42\");
+new Record().set(\\"foo\\", \\"42\\");
 "
 `;
 
-exports[`test test27.js 1`] = `
+exports[`test27.js 1`] = `
 "// @noflow
 
 type X = ({a:true} & {b:string}) | ({a:false} & {c:string});
@@ -1927,10 +1929,10 @@ function hello4(x: X): string {
 "
 `;
 
-exports[`test test29.js 1`] = `
+exports[`test29.js 1`] = `
 "// @noflow
 
-// Make sure caching doesn\'t cause a spurious successful match (e.g., when a
+// Make sure caching doesn't cause a spurious successful match (e.g., when a
 // failed match is tried again). This may happen, e.g., when checking
 // polymorphic definitions, where the same code may be checked multiple times
 // with different instantiations.
@@ -1962,7 +1964,7 @@ class C {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
 
-// Make sure caching doesn\'t cause a spurious successful match (e.g., when a
+// Make sure caching doesn't cause a spurious successful match (e.g., when a
 // failed match is tried again). This may happen, e.g., when checking
 // polymorphic definitions, where the same code may be checked multiple times
 // with different instantiations.
@@ -1988,45 +1990,45 @@ class C {
 "
 `;
 
-exports[`test test30.js 1`] = `
+exports[`test30.js 1`] = `
 "// @noflow
 
-const Constants = require(\'./test30-helper\');
+const Constants = require('./test30-helper');
 
 type ActionType =
-  | { type: \'foo\', x: number }
-  | { type: \'bar\', x: number }
+  | { type: 'foo', x: number }
+  | { type: 'bar', x: number }
 
 ({ type: Constants.BAR, x: 0 }: ActionType);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
 
-const Constants = require(\"./test30-helper\");
+const Constants = require(\\"./test30-helper\\");
 
-type ActionType = { type: \"foo\", x: number } | { type: \"bar\", x: number };
+type ActionType = { type: \\"foo\\", x: number } | { type: \\"bar\\", x: number };
 
 ({ type: Constants.BAR, x: 0 }: ActionType);
 "
 `;
 
-exports[`test test30-helper.js 1`] = `
+exports[`test30-helper.js 1`] = `
 "// @noflow
 
 module.exports = {
-  FOO: \'foo\',
-  BAR: \'bar\',
+  FOO: 'foo',
+  BAR: 'bar',
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @noflow
 
 module.exports = {
-  FOO: \"foo\",
-  BAR: \"bar\"
+  FOO: \\"foo\\",
+  BAR: \\"bar\\"
 };
 "
 `;
 
-exports[`test test31.js 1`] = `
+exports[`test31.js 1`] = `
 "// @noflow
 
 // make sure tuples are type arguments (as used e.g. when viewing maps as
@@ -2049,7 +2051,7 @@ declare function convert<K,V>(iter: SomeIterable<[K,V]>): ImmutableMap<K,V>;
 
 function foo(): ImmutableMap<string, boolean> {
   const countersGlobalMap = new SomeMap();
-  countersGlobalMap.set(\"\", false);
+  countersGlobalMap.set(\\"\\", false);
   return convert(countersGlobalMap);
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2075,30 +2077,30 @@ declare function convert<K, V>(iter: SomeIterable<[K, V]>): ImmutableMap<K, V>;
 
 function foo(): ImmutableMap<string, boolean> {
   const countersGlobalMap = new SomeMap();
-  countersGlobalMap.set(\"\", false);
+  countersGlobalMap.set(\\"\\", false);
   return convert(countersGlobalMap);
 }
 "
 `;
 
-exports[`test test32.js 1`] = `
+exports[`test32.js 1`] = `
 "// @flow
 
-// make sure that full resolution jobs don\'t cache improperly to signal success
+// make sure that full resolution jobs don't cache improperly to signal success
 // when they have failed earlier
 
 function foo(value: Indirect<string> | number): Indirect<string> | number {
-  const castedValue: number = typeof value === \'number\' ? value : 0;
+  const castedValue: number = typeof value === 'number' ? value : 0;
   return castedValue;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-// make sure that full resolution jobs don\'t cache improperly to signal success
+// make sure that full resolution jobs don't cache improperly to signal success
 // when they have failed earlier
 
 function foo(value: Indirect<string> | number): Indirect<string> | number {
-  const castedValue: number = typeof value === \"number\" ? value : 0;
+  const castedValue: number = typeof value === \\"number\\" ? value : 0;
   return castedValue;
 }
 "

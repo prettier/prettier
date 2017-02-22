@@ -1,8 +1,10 @@
-exports[`test traces.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`traces.js 1`] = `
 "/*
  * The location marked with the FlowFixMe does not show up in the original
  * error but shows up in the flow check --traces 10 result. This test makes
- * sure that we don\'t suppress the error due to a location that only shows up
+ * sure that we don't suppress the error due to a location that only shows up
  * when --traces is turned on.
  */
 
@@ -13,12 +15,12 @@ function foo(x: string) {
   return bar();
 }
 
-var a: string = foo(\'hi\'); // error number ~> string
+var a: string = foo('hi'); // error number ~> string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /*
  * The location marked with the FlowFixMe does not show up in the original
  * error but shows up in the flow check --traces 10 result. This test makes
- * sure that we don\'t suppress the error due to a location that only shows up
+ * sure that we don't suppress the error due to a location that only shows up
  * when --traces is turned on.
  */
 
@@ -31,6 +33,6 @@ function foo(x: string) {
   return bar();
 }
 
-var a: string = foo(\"hi\"); // error number ~> string
+var a: string = foo(\\"hi\\"); // error number ~> string
 "
 `;

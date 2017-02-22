@@ -1,4 +1,6 @@
-exports[`test Client.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Client.js 1`] = `
 "/**
  * Client imports some but not all modules,
  * triggering/suppressing parse errors.
@@ -6,9 +8,9 @@ exports[`test Client.js 1`] = `
  */
 
 // non-flow files should not give parse errors
-var A = require(\"./Imported\");          // non-Flow file @providesModule Foo
+var A = require(\\"./Imported\\");          // non-Flow file @providesModule Foo
 
-var B = require(\"./ParseError\");        // Flow file
+var B = require(\\"./ParseError\\");        // Flow file
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /**
  * Client imports some but not all modules,
@@ -17,8 +19,8 @@ var B = require(\"./ParseError\");        // Flow file
  */
 
 // non-flow files should not give parse errors
-var A = require(\"./Imported\"); // non-Flow file @providesModule Foo
+var A = require(\\"./Imported\\"); // non-Flow file @providesModule Foo
 
-var B = require(\"./ParseError\"); // Flow file
+var B = require(\\"./ParseError\\"); // Flow file
 "
 `;

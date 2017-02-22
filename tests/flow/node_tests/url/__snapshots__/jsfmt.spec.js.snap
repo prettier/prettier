@@ -1,8 +1,10 @@
-exports[`test url.js 1`] = `
-"const url = require(\'url\');
-url.format(url.parse(\'https://example.com/foo\'));
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`url.js 1`] = `
+"const url = require('url');
+url.format(url.parse('https://example.com/foo'));
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const url = require(\"url\");
-url.format(url.parse(\"https://example.com/foo\"));
+const url = require(\\"url\\");
+url.format(url.parse(\\"https://example.com/foo\\"));
 "
 `;

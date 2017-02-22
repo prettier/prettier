@@ -1,4 +1,6 @@
-exports[`test Traces.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Traces.js 1`] = `
 "// arg/param type mismatch on arg 0
 function g0(y:string) { }
 function f0(x) { g0(x) }
@@ -7,7 +9,7 @@ f0(0);
 // ...on arg n
 function g1(a:string, b:string) { }
 function f1(x, y) { g1(x, y) }
-f1(\"hey\", 0);
+f1(\\"hey\\", 0);
 
 // h/o call with function expr
 function g2(ylam: (s:string) => number) { }
@@ -32,7 +34,7 @@ function g1(a: string, b: string) {}
 function f1(x, y) {
   g1(x, y);
 }
-f1(\"hey\", 0);
+f1(\\"hey\\", 0);
 
 // h/o call with function expr
 function g2(ylam: (s: string) => number) {}
@@ -55,10 +57,10 @@ f3(double);
 "
 `;
 
-exports[`test Traces2.js 1`] = `
+exports[`Traces2.js 1`] = `
 "// @flow
 
-var React = require(\'react\');
+var React = require('react');
 
 var A = React.createClass({
   propTypes: { foo: React.PropTypes.string.isRequired }
@@ -70,15 +72,15 @@ var B = React.createClass({
 
 function f(b): React.Element<*> {
   if (b) {
-    return <A foo=\"hey\"/>;
+    return <A foo=\\"hey\\"/>;
   } else {
-    return <B bar=\"hey\"/>;
+    return <B bar=\\"hey\\"/>;
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-var React = require(\"react\");
+var React = require(\\"react\\");
 
 var A = React.createClass({
   propTypes: { foo: React.PropTypes.string.isRequired }
@@ -90,9 +92,9 @@ var B = React.createClass({
 
 function f(b): React.Element<*> {
   if (b) {
-    return <A foo=\"hey\" />;
+    return <A foo=\\"hey\\" />;
   } else {
-    return <B bar=\"hey\" />;
+    return <B bar=\\"hey\\" />;
   }
 }
 "

@@ -1,4 +1,6 @@
-exports[`test test.js 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test.js 1`] = `
 "class A {
   n: number;
   constructor(n: number) {
