@@ -54,7 +54,7 @@ function normalizeTrailingComma(value) {
 
     console.warn(
       "Warning: `trailingComma` without any argument is deprecated. " +
-      'Specify "none", "es5", or "all".'
+        'Specify "none", "es5", or "all".'
     );
   } else if ("object" === typeof value) {
     trailingComma = {};

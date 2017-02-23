@@ -193,12 +193,12 @@ function genericPrintNoParens(path, options, print) {
       // Avoid indenting sub-expressions in if/etc statements.
       if (
         shouldInlineLogicalExpression(n) ||
-        n !== parent.body &&
-        (parent.type === "IfStatement" ||
-          parent.type === "WhileStatement" ||
-          parent.type === "DoStatement" ||
-          parent.type === "ForStatement") ||
-        n === parent.body && parent.type === "ArrowFunctionExpression"
+        (n !== parent.body &&
+          (parent.type === "IfStatement" ||
+            parent.type === "WhileStatement" ||
+            parent.type === "DoStatement" ||
+            parent.type === "ForStatement")) ||
+        (n === parent.body && parent.type === "ArrowFunctionExpression")
       ) {
         return group(concat(parts));
       }
@@ -698,7 +698,9 @@ function genericPrintNoParens(path, options, print) {
                 ])
               )
             ),
-            ifBreak(canHaveTrailingComma && shouldPrintComma(options, "object") ? "," : ""),
+            ifBreak(
+              canHaveTrailingComma && shouldPrintComma(options, "object") ? "," : ""
+            ),
             alignSpaces(
               parentIsUnionTypeAnnotation ? 2 : 0,
               concat([options.bracesSpacing ? line : softline, rightBrace])
@@ -828,7 +830,11 @@ function genericPrintNoParens(path, options, print) {
                   ? ","
                   : ""
               ),
-              comments.printDanglingComments(path, options, /* sameIndent */ true),
+              comments.printDanglingComments(
+                path,
+                options,
+                /* sameIndent */ true
+              ),
               options.bracketSpacing ? line : softline,
               "]"
             ])
@@ -938,10 +944,10 @@ function genericPrintNoParens(path, options, print) {
 
       var isParentForLoop = namedTypes.ForStatement.check(parentNode) ||
         namedTypes.ForInStatement.check(parentNode) ||
-        namedTypes.ForOfStatement &&
-          namedTypes.ForOfStatement.check(parentNode) ||
-        namedTypes.ForAwaitStatement &&
-          namedTypes.ForAwaitStatement.check(parentNode);
+        (namedTypes.ForOfStatement &&
+          namedTypes.ForOfStatement.check(parentNode)) ||
+        (namedTypes.ForAwaitStatement &&
+          namedTypes.ForAwaitStatement.check(parentNode));
 
       if (!(isParentForLoop && parentNode.body !== n)) {
         parts.push(";");
@@ -1006,7 +1012,11 @@ function genericPrintNoParens(path, options, print) {
       // We want to keep dangling comments above the loop to stay consistent.
       // Any comment positioned between the for statement and the parentheses
       // is going to be printed before the statement.
-      const dangling = comments.printDanglingComments(path, options, /* sameLine */ true);
+      const dangling = comments.printDanglingComments(
+        path,
+        options,
+        /* sameLine */ true
+      );
       const printedComments = dangling ? concat([dangling, softline]) : "";
 
       if (!n.init && !n.test && !n.update) {
@@ -1237,12 +1247,14 @@ function genericPrintNoParens(path, options, print) {
         n.expression.type === "CallExpression" ||
         n.expression.type === "FunctionExpression" ||
         n.expression.type === "JSXEmptyExpression" ||
-        parent.type === "JSXElement" &&
+        (parent.type === "JSXElement" &&
           (n.expression.type === "ConditionalExpression" ||
-            n.expression.type === "LogicalExpression");
+            n.expression.type === "LogicalExpression"));
 
       if (shouldInline) {
-        return group(concat(["{", path.call(print, "expression"), lineSuffixBoundary, "}"]));
+        return group(
+          concat(["{", path.call(print, "expression"), lineSuffixBoundary, "}"])
+        );
       }
 
       return group(
@@ -1402,7 +1414,8 @@ function genericPrintNoParens(path, options, print) {
           if (i < expressions.length) {
             parts.push(
               "${",
-              removeLines(expressions[i]), lineSuffixBoundary,
+              removeLines(expressions[i]),
+              lineSuffixBoundary,
               "}"
             );
           }
@@ -1501,9 +1514,9 @@ function genericPrintNoParens(path, options, print) {
       // declare function foo(a: B): void; OR
       // var A: (a: B) => void;
       var parent = path.getParentNode(0);
-      var isArrowFunctionTypeAnnotation = !(!parent.variance &&
+      var isArrowFunctionTypeAnnotation = !((!parent.variance &&
         !parent.optional &&
-        namedTypes.ObjectTypeProperty.check(parent) ||
+        namedTypes.ObjectTypeProperty.check(parent)) ||
         namedTypes.ObjectTypeCallProperty.check(parent) ||
         namedTypes.DeclareFunction.check(path.getParentNode(2)));
 
@@ -1579,9 +1592,9 @@ function genericPrintNoParens(path, options, print) {
     case "IntersectionTypeAnnotation":
     case "UnionTypeAnnotation": {
       const types = path.map(print, "types");
-      const isIntersection = n.type === "IntersectionTypeAnnotation"
+      const isIntersection = n.type === "IntersectionTypeAnnotation";
       const shouldInline = isIntersection &&
-        !(n.types.length > 1 && n.types[0].type === "ObjectTypeAnnotation")
+        !(n.types.length > 1 && n.types[0].type === "ObjectTypeAnnotation");
 
       // single-line variation
       // A | B | C
@@ -1823,7 +1836,7 @@ function printPropertyKey(path, options, print) {
 
   if (
     (key.type === "StringLiteral" ||
-      key.type === "Literal" && typeof key.value === "string") &&
+      (key.type === "Literal" && typeof key.value === "string")) &&
     isIdentifierName(key.value) &&
     !node.computed &&
     // There's a bug in the flow parser where it throws if there are
@@ -1904,13 +1917,13 @@ function printArgumentsList(path, options, print) {
     (lastArg.type === "ObjectExpression" ||
       lastArg.type === "ArrayExpression" ||
       lastArg.type === "FunctionExpression" ||
-      lastArg.type === "ArrowFunctionExpression" &&
+      (lastArg.type === "ArrowFunctionExpression" &&
         (lastArg.body.type === "BlockStatement" ||
           lastArg.body.type === "ArrowFunctionExpression" ||
           lastArg.body.type === "ObjectExpression" ||
           lastArg.body.type === "ArrayExpression" ||
           lastArg.body.type === "CallExpression" ||
-          lastArg.body.type === "JSXElement"));
+          lastArg.body.type === "JSXElement")));
 
   if (groupLastArg) {
     const shouldBreak = printed.slice(0, -1).some(willBreak);
@@ -1998,7 +2011,9 @@ function printFunctionParams(path, print, options) {
       1,
       concat([softline, join(concat([",", line]), printed)])
     ),
-    ifBreak(canHaveTrailingComma && shouldPrintComma(options, "arguments") ? "," : ""),
+    ifBreak(
+      canHaveTrailingComma && shouldPrintComma(options, "arguments") ? "," : ""
+    ),
     softline,
     ")"
   ]);
@@ -2073,7 +2088,9 @@ function printExportDeclaration(path, options, print) {
     parts.push("default ");
   }
 
-  parts.push(comments.printDanglingComments(path, options, /* sameIndent */ true));
+  parts.push(
+    comments.printDanglingComments(path, options, /* sameIndent */ true)
+  );
 
   if (decl.declaration) {
     parts.push(path.call(print, "declaration"));
@@ -2093,8 +2110,8 @@ function printExportDeclaration(path, options, print) {
       ) {
         parts.push("*");
       } else if (
-        decl.specifiers.length === 1 &&
-          decl.specifiers[0].type === "ExportDefaultSpecifier" ||
+        (decl.specifiers.length === 1 &&
+          decl.specifiers[0].type === "ExportDefaultSpecifier") ||
         decl.specifiers[0].type === "ExportNamespaceSpecifier"
       ) {
         parts.push(path.map(print, "specifiers")[0]);
@@ -2352,8 +2369,8 @@ function printMemberChain(path, options, print) {
   // likely to be factories.
   const shouldMerge = groups[0].length === 1 &&
     (groups[0][0].node.type === "ThisExpression" ||
-      groups[0][0].node.type === "Identifier" &&
-      groups[0][0].node.name.match(/(^[A-Z])|^[_$]+$/)) &&
+      (groups[0][0].node.type === "Identifier" &&
+        groups[0][0].node.name.match(/(^[A-Z])|^[_$]+$/))) &&
     groups.length >= 2;
 
   function printGroup(printedGroup) {

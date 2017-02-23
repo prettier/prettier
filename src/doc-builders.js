@@ -5,7 +5,7 @@ const willBreak = utils.willBreak;
 
 function assertDoc(val) {
   if (
-    !(typeof val === "string" || val != null && typeof val.type === "string")
+    !(typeof val === "string" || (val != null && typeof val.type === "string"))
   ) {
     throw new Error(
       "Value " + JSON.stringify(val) + " is not a valid document"

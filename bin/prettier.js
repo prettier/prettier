@@ -50,7 +50,7 @@ if (argv["version"]) {
 
 const filepatterns = argv["_"];
 const write = argv["write"];
-const stdin = argv["stdin"] || !filepatterns.length && !process.stdin.isTTY;
+const stdin = argv["stdin"] || (!filepatterns.length && !process.stdin.isTTY);
 
 function getParserOption() {
   const optionName = "parser";
@@ -108,8 +108,10 @@ function getTrailingComma() {
     case "none":
       return "none";
     case "":
-      console.warn("Warning: `--trailing-comma` was used without an argument. This is deprecated. " +
-                   'Specify "none", "es5", or "all".')
+      console.warn(
+        "Warning: `--trailing-comma` was used without an argument. This is deprecated. " +
+          'Specify "none", "es5", or "all".'
+      );
     case "es5":
       return "es5";
     case "all":
@@ -180,7 +182,7 @@ function handleError(filename, e) {
   process.exitCode = 2;
 }
 
-if (argv["help"] || !filepatterns.length && !stdin) {
+if (argv["help"] || (!filepatterns.length && !stdin)) {
   console.log(
     "Usage: prettier [opts] [filename ...]\n\n" +
       "Available options:\n" +

@@ -144,8 +144,8 @@ function attach(comments, ast, text, options) {
       // We also need to check if it's the first line of the file.
       if (
         handleMemberExpressionComments(enclosingNode, followingNode, comment) ||
-          handleIfStatementComments(enclosingNode, followingNode, comment) ||
-          handleTryStatementComments(enclosingNode, followingNode, comment)
+        handleIfStatementComments(enclosingNode, followingNode, comment) ||
+        handleTryStatementComments(enclosingNode, followingNode, comment)
       ) {
         // We're good
       } else if (followingNode) {
@@ -168,7 +168,7 @@ function attach(comments, ast, text, options) {
           comment,
           text
         ) ||
-          handleTemplateLiteralComments(enclosingNode, comment)
+        handleTemplateLiteralComments(enclosingNode, comment)
       ) {
         // We're good
       } else if (precedingNode) {
@@ -186,8 +186,8 @@ function attach(comments, ast, text, options) {
     } else {
       if (
         handleIfStatementComments(enclosingNode, followingNode, comment) ||
-          handleObjectProperty(enclosingNode, precedingNode, comment) ||
-          handleTemplateLiteralComments(enclosingNode, comment)
+        handleObjectProperty(enclosingNode, precedingNode, comment) ||
+        handleTemplateLiteralComments(enclosingNode, comment)
       ) {
         // We're good
       } else if (precedingNode && followingNode) {
@@ -412,12 +412,14 @@ function handleConditionalExpressionComments(
 }
 
 function handleObjectProperty(enclosingNode, precedingNode, comment) {
-  if (enclosingNode &&
-      (enclosingNode.type === "ObjectProperty" ||
-       enclosingNode.type === "Property") &&
-      enclosingNode.shorthand &&
-      enclosingNode.key === precedingNode &&
-      enclosingNode.value.type === "AssignmentPattern") {
+  if (
+    enclosingNode &&
+    (enclosingNode.type === "ObjectProperty" ||
+      enclosingNode.type === "Property") &&
+    enclosingNode.shorthand &&
+    enclosingNode.key === precedingNode &&
+    enclosingNode.value.type === "AssignmentPattern"
+  ) {
     addTrailingComment(enclosingNode.value.left, comment);
     return true;
   }
@@ -425,14 +427,11 @@ function handleObjectProperty(enclosingNode, precedingNode, comment) {
 }
 
 function handleTemplateLiteralComments(enclosingNode, comment) {
-  if (
-    enclosingNode &&
-      enclosingNode.type === "TemplateLiteral"
-  ) {
+  if (enclosingNode && enclosingNode.type === "TemplateLiteral") {
     const expressionIndex = findExpressionIndexForComment(
       enclosingNode.expressions,
       comment
-    )
+    );
     // Enforce all comments to be leading block comments.
     comment.type = "CommentBlock";
     addLeadingComment(enclosingNode.expressions[expressionIndex], comment);
@@ -463,29 +462,27 @@ function findExpressionIndexForComment(expressions, comment) {
   const endPos = locEnd(comment) + 1;
 
   for (let i = 0; i < expressions.length; ++i) {
-    const range = getExpressionRange(expressions[i])
+    const range = getExpressionRange(expressions[i]);
 
     if (
-      (startPos >= range.start &&
-       startPos <= range.end) ||
-        (endPos >= range.start &&
-         endPos<= range.end)
+      (startPos >= range.start && startPos <= range.end) ||
+      (endPos >= range.start && endPos <= range.end)
     ) {
       match = i;
       break;
     }
   }
 
-  return match
+  return match;
 }
 
 function getExpressionRange(expr) {
   if (expr.start !== undefined) {
     // Babylon
-    return {start: expr.start, end: expr.end}
+    return { start: expr.start, end: expr.end };
   }
   // Flow
-  return {start: expr.range[0], end: expr.range[1]}
+  return { start: expr.range[0], end: expr.range[1] };
 }
 
 function printLeadingComment(commentPath, print, options) {
