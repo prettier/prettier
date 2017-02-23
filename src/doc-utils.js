@@ -36,14 +36,16 @@ function traverseDoc(doc, onEnter, onExit) {
 function mapDoc(doc, func) {
   doc = func(doc);
 
-  if(doc.type === "concat") {
-    return Object.assign({}, doc, { parts: doc.parts.map(d => mapDoc(d, func)) });
+  if (doc.type === "concat") {
+    return Object.assign({}, doc, {
+      parts: doc.parts.map(d => mapDoc(d, func))
+    });
   } else if (doc.type === "if-break") {
     return Object.assign({}, doc, {
       breakContents: doc.breakContents && mapDoc(doc.breakContents, func),
       flatContents: doc.flatContents && mapDoc(doc.flatContents, func)
     });
-  } else if(doc.contents) {
+  } else if (doc.contents) {
     return Object.assign({}, doc, { contents: mapDoc(doc.contents, func) });
   } else {
     return doc;
