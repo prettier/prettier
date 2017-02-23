@@ -123,7 +123,7 @@ function decorateComment(node, comment, text) {
   }
 }
 
-function attach(comments, ast, text) {
+function attach(comments, ast, text, options) {
   if (!isArray.check(comments)) {
     return;
   }
@@ -141,9 +141,9 @@ function attach(comments, ast, text) {
       // If a comment exists on its own line, prefer a leading comment.
       // We also need to check if it's the first line of the file.
       if (
-        handleMemberExpressionComment(enclosingNode, followingNode, comment) ||
-        handleIfStatementComments(enclosingNode, followingNode, comment) ||
-        handleTryStatementComments(enclosingNode, followingNode, comment)
+        handleMemberExpressionComments(enclosingNode, followingNode, comment) ||
+          handleIfStatementComments(enclosingNode, followingNode, comment) ||
+          handleTryStatementComments(enclosingNode, followingNode, comment)
       ) {
         // We're good
       } else if (followingNode) {
@@ -165,7 +165,8 @@ function attach(comments, ast, text) {
           followingNode,
           comment,
           text
-        )
+        ) ||
+          handleTemplateLiteralComments(enclosingNode, comment)
       ) {
         // We're good
       } else if (precedingNode) {
@@ -181,8 +182,11 @@ function attach(comments, ast, text) {
         addDanglingComment(ast, comment);
       }
     } else {
-      if (handleIfStatementComments(enclosingNode, followingNode, comment) ||
-          handleObjectProperty(enclosingNode, precedingNode, comment)) {
+      if (
+        handleIfStatementComments(enclosingNode, followingNode, comment) ||
+          handleObjectProperty(enclosingNode, precedingNode, comment) ||
+          handleTemplateLiteralComments(enclosingNode, comment)
+      ) {
         // We're good
       } else if (precedingNode && followingNode) {
         // Otherwise, text exists both before and after the comment on
@@ -369,7 +373,7 @@ function handleTryStatementComments(enclosingNode, followingNode, comment) {
   return false;
 }
 
-function handleMemberExpressionComment(enclosingNode, followingNode, comment) {
+function handleMemberExpressionComments(enclosingNode, followingNode, comment) {
   if (
     enclosingNode &&
     enclosingNode.type === "MemberExpression" &&
@@ -418,6 +422,23 @@ function handleObjectProperty(enclosingNode, precedingNode, comment) {
   return false;
 }
 
+function handleTemplateLiteralComments(enclosingNode, comment) {
+  if (
+    enclosingNode &&
+      enclosingNode.type === "TemplateLiteral"
+  ) {
+    const expressionIndex = findExpressionIndexForComment(
+      enclosingNode.expressions,
+      comment
+    )
+    // Enforce all comments to be leading block comments.
+    comment.type = "CommentBlock";
+    addLeadingComment(enclosingNode.expressions[expressionIndex], comment);
+    return true;
+  }
+  return false;
+}
+
 function printComment(commentPath) {
   const comment = commentPath.getValue();
   comment.printed = true;
@@ -432,6 +453,37 @@ function printComment(commentPath) {
     default:
       throw new Error("Not a comment: " + JSON.stringify(comment));
   }
+}
+
+function findExpressionIndexForComment(expressions, comment) {
+  var match;
+  const startPos = locStart(comment) - 1;
+  const endPos = locEnd(comment) + 1;
+
+  for (var i = 0; i < expressions.length; ++i) {
+    const range = getExpressionRange(expressions[i])
+
+    if (
+      (startPos >= range.start &&
+       startPos <= range.end) ||
+        (endPos >= range.start &&
+         endPos<= range.end)
+    ) {
+      match = i;
+      break;
+    }
+  }
+
+  return match
+}
+
+function getExpressionRange(expr) {
+  if (expr.start !== undefined) {
+    // Babylon
+    return {start: expr.start, end: expr.end}
+  }
+  // Flow
+  return {start: expr.range[0], end: expr.range[1]}
 }
 
 function printLeadingComment(commentPath, print, options) {
