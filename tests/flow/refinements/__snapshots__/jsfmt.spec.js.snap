@@ -436,15 +436,15 @@ declare class Foo {
 }
 
 function foo0(x: ?string): string {
-  return x && x || \\"\\";
+  return (x && x) || \\"\\";
 }
 
 function foo1(x: ?Foo): string {
-  return x && x.foo || \\"\\";
+  return (x && x.foo) || \\"\\";
 }
 
 function foo2(x: ?Class<Foo>): string {
-  return x && new x().foo || \\"\\";
+  return (x && new x().foo) || \\"\\";
 }
 "
 `;

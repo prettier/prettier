@@ -319,6 +319,10 @@ FPp.needsParens = function(assumeExpressionContext) {
           var no = node.operator;
           var np = util.getPrecedence(no);
 
+          if (po === "||" && no === "&&") {
+            return true;
+          }
+
           if (pp > np) {
             return true;
           }
