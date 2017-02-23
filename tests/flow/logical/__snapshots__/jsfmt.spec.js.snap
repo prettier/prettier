@@ -721,35 +721,35 @@ function logical6f(): number {
  */
 function logical7a(): number {
   var x: ?number = null;
-  return x != null && x || 0;
+  return (x != null && x) || 0;
 }
 
 /**
  * A composite && and || where the truthiness is unknown
  */
 function logical7b(x: boolean, y: number): number {
-  return x && y || 0;
+  return (x && y) || 0;
 }
 
 /**
  * A composite && and ||
  */
 function logical7c(x: string): number {
-  return x && 1 || 0;
+  return (x && 1) || 0;
 }
 
 /**
  * A composite && and ||
  */
 function logical7d(x: number): string {
-  return x && \\"foo\\" || \\"bar\\";
+  return (x && \\"foo\\") || \\"bar\\";
 }
 
 /**
  * A composite && and ||
  */
 function logical7e(x: number): string {
-  return false && x || \\"bar\\";
+  return (false && x) || \\"bar\\";
 }
 
 /**
@@ -788,7 +788,7 @@ function logical8c(): string {
  */
 function logical8d(): number {
   var x = false;
-  return x || 0 && \\"foo\\";
+  return x || (0 && \\"foo\\");
 }
 
 /**
@@ -796,7 +796,7 @@ function logical8d(): number {
  */
 function logical8e(): string {
   var x = false;
-  return x || 1 && \\"foo\\";
+  return x || (1 && \\"foo\\");
 }
 
 /**
@@ -805,7 +805,7 @@ function logical8e(): string {
 function logical8f(): string {
   // expected \`: boolean\`
   var x = true;
-  return x || 1 && \\"foo\\";
+  return x || (1 && \\"foo\\");
 }
 
 /**

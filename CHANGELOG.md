@@ -1,3 +1,37 @@
+# 0.19.0
+
+[link](https://github.com/jlongster/prettier/compare/0.18.0...0.19.0)
+
+* docs(README): use yarn add for consistency (#734)
+* Make trailing-comma option support 2 different modes (#641)
+* Update README with valid trailingComma options
+* Fix await ternary parenthesis (#740)
+* Fix missing dangling comment in exports (#741)
+* Fix missing dangling comments in arrays (#744)
+* Remove extra parenthesis around await inside of unary expression (#745)
+* Fix missing dangling comments in for loop (#742)
+* Add note about trailingComma option in versions 0.18.0 and below
+* Add missing explanatory comment in ForStatement case (#748)
+* Fix leading & operators in flow types (#738)
+* Fix missing comments in assignment pattern (#704)
+* Correctly place trailing comments in conditionals (#754)
+* Use double quotes in script wildcards to support windows `cmd.exe`. (#761)
+* Upgrade to Jest 19 (#762)
+* Upgrade to Jest 19.0.1 (#779)
+* Remove extra parens around ternary arguments of a new call (#776)
+* Do not attach comments to EmptyStatements in try/catch (#763)
+* Bump babylon & add test for async func decl (#790)
+* Add `this` for Member factory whitelist and remove softline (#782)
+* Do not expand empty catch (#783)
+* Group [0] at the end of the previous chain instead of beginning of next one (#784)
+* Do not format template literals (#749)
+* Revert babylon bump (#792)
+* Do not put trailing commas for function declaration in es5 mode (#791)
+* [WIP] Fix comments in template literals (#643)
+* Introduce line-suffix-boundary (#750)
+* [RFC] Add parenthesis around && inside of || (#780)
+* Fix tests on node 4
+
 # 0.18.0
 
 [link](https://github.com/jlongster/prettier/compare/0.17.0...0.18.0)
