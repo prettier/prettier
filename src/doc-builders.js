@@ -67,6 +67,7 @@ function lineSuffix(contents) {
   return { type: "line-suffix", contents };
 }
 
+const lineSuffixBoundary = { type: "line-suffix-boundary" };
 const breakParent = { type: "break-parent" };
 const line = { type: "line" };
 const softline = { type: "line", soft: true };
@@ -100,6 +101,7 @@ module.exports = {
   group,
   conditionalGroup,
   lineSuffix,
+  lineSuffixBoundary,
   breakParent,
   ifBreak,
   indent

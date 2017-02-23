@@ -192,6 +192,11 @@ function printDocToString(doc, width, newLine) {
         case "line-suffix":
           lineSuffix.push([ind, mode, doc.contents]);
           break;
+        case "line-suffix-boundary":
+          if (lineSuffix.length > 0) {
+            cmds.push([ind, mode, { type: "line", hard: true }]);
+          }
+          break;
         case "line":
           switch (mode) {
             // fallthrough
