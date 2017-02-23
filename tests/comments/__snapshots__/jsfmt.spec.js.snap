@@ -194,6 +194,28 @@ b;
 "
 `;
 
+exports[`function-declaration.js 1`] = `
+"function a(/* comment */) {} // comment
+function b() {} // comment
+function c(/* comment */ argA, argB, argC) {} // comment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function a(/* comment */) {} // comment
+function b() {} // comment
+function c(/* comment */ argA, argB, argC) {} // comment
+"
+`;
+
+exports[`function-declaration.js 2`] = `
+"function a(/* comment */) {} // comment
+function b() {} // comment
+function c(/* comment */ argA, argB, argC) {} // comment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function a(/* comment */) {} // comment
+function b() {} // comment
+function c(/* comment */ argA, argB, argC) {} // comment
+"
+`;
+
 exports[`if.js 1`] = `
 "if (1)
 // comment

@@ -450,7 +450,7 @@ function type_shadow_nested_scope() {
 
 // fn params name clash
 
-function fn_params_name_clash(x, x /* error: x already bound */) {}
+function fn_params_name_clash(/* error: x already bound */ x, x) {}
 function fn_params_clash_fn_binding(x, y) {
   let x = 0; // error: x already bound
   var y = 0; // OK
@@ -679,7 +679,7 @@ function default_param_2() {
     let a = 0;
     return x(); // error: string ~> number
   }
-  function f1(x = b /* error: cannot resolve b */): number {
+  function f1(/* error: cannot resolve b */ x = b): number {
     let b = 0;
     return x;
   }
