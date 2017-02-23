@@ -1966,7 +1966,7 @@ function printFunctionParams(path, print, options) {
       options.tabWidth,
       concat([softline, join(concat([",", line]), printed)])
     ),
-    ifBreak(canHaveTrailingComma && shouldPrintComma(options) ? "," : ""),
+    ifBreak(canHaveTrailingComma && shouldPrintComma(options, "all") ? "," : ""),
     softline,
     ")"
   ]);
