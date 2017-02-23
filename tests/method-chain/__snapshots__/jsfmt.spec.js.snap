@@ -150,10 +150,28 @@ exports[`first_long.js 1`] = `
     .map(({ theType, ...data }) => theMap(theType, data))
     .retryWhen(errors => errors));
 }
+
+function f() {
+  return this._getWorker(workerOptions)({
+    filePath,
+    hasteImplModulePath: this._options.hasteImplModulePath,
+  }).then(
+    metadata => {
+      // \`1\` for truthy values instead of \`true\` to save cache space.
+      fileMetadata[H.VISITED] = 1;
+      const metadataId = metadata.id;
+      const metadataModule = metadata.module;
+      if (metadataId && metadataModule) {
+        fileMetadata[H.ID] = metadataId;
+        setModule(metadataId, metadataModule);
+      }
+      fileMetadata[H.DEPENDENCIES] = metadata.dependencies || [];
+    }
+  );
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export default function theFunction(action$, store) {
-  return action$.ofType(THE_ACTION).switchMap(action => Observable
-    .webSocket({
+  return action$.ofType(THE_ACTION).switchMap(action => Observable.webSocket({
       url: THE_URL,
       more: stuff(),
       evenMore: stuff({
@@ -165,6 +183,24 @@ export default function theFunction(action$, store) {
     .filter(data => theFilter(data))
     .map(({ theType, ...data }) => theMap(theType, data))
     .retryWhen(errors => errors));
+}
+
+function f() {
+  return this._getWorker(workerOptions)({
+      filePath,
+      hasteImplModulePath: this._options.hasteImplModulePath
+    })
+    .then(metadata => {
+      // \`1\` for truthy values instead of \`true\` to save cache space.
+      fileMetadata[H.VISITED] = 1;
+      const metadataId = metadata.id;
+      const metadataModule = metadata.module;
+      if (metadataId && metadataModule) {
+        fileMetadata[H.ID] = metadataId;
+        setModule(metadataId, metadataModule);
+      }
+      fileMetadata[H.DEPENDENCIES] = metadata.dependencies || [];
+    });
 }
 "
 `;
@@ -203,6 +239,21 @@ if (testConfig.ENABLE_ONLINE_TESTS === \\"true\\") {
     });
   });
 }
+"
+`;
+
+exports[`square_0.js 1`] = `
+"const version = someLongString
+  .split('jest version =')
+  .pop()
+  .split(EOL)[0]
+  .trim();
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const version = someLongString
+  .split(\\"jest version =\\")
+  .pop()
+  .split(EOL)[0]
+  .trim();
 "
 `;
 

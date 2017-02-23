@@ -169,8 +169,7 @@ const render10 = props => (
 );
 
 const notJSX = (aaaaaaaaaaaaaaaaa, bbbbbbbbbbb) =>
-  this
-    .someLongCallWithParams(aaaaaa, bbbbbbb)
+  this.someLongCallWithParams(aaaaaa, bbbbbbb)
     .anotherLongCallWithParams(cccccccccccc, dddddddddddddddddddddd);
 
 React.render(

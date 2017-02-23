@@ -205,8 +205,7 @@ function f() {
   try {
     var x: number = 0;
     var y: number = x;
-  } catch (e) {
-  }
+  } catch (e) {}
 }
 
 // and within catch
@@ -311,16 +310,14 @@ function f() {
   var y: number = x; // error
   try {
     var x: number = 0;
-  } catch (e) {
-  }
+  } catch (e) {}
 }
 
 // another non-dominated post
 function f() {
   try {
     var x: number = 0;
-  } catch (e) {
-  }
+  } catch (e) {}
   var y: number = x; // error
 }
 
@@ -341,8 +338,7 @@ function f(b) {
       throw new Error();
     }
     x = 0;
-  } catch (e) {
-  }
+  } catch (e) {}
   var y: number = x; // error
 }
 "
@@ -448,8 +444,7 @@ function baz(): string {
 function qux(): string {
   try {
     throw new Error(\\"foo\\");
-  } catch (e) {
-  }
+  } catch (e) {}
   console.log();
   return \\"bar\\";
 }
@@ -457,8 +452,7 @@ function qux(): string {
 function quux(): string {
   try {
     return qux();
-  } catch (e) {
-  }
+  } catch (e) {}
   return \\"bar\\";
 }
 
