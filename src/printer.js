@@ -1365,6 +1365,19 @@ function genericPrintNoParens(path, options, print) {
     case "TemplateLiteral":
       var expressions = path.map(print, "expressions");
 
+      function removeLines(doc) {
+        // Force this doc into flat mode by statically converting all
+        // lines into spaces (or soft lines into nothing). Hard lines
+        // should still output because there's too great of a chance
+        // of breaking existing assumptions otherwise.
+        return docUtils.mapDoc(doc, d => {
+          if (d.type === "line" && !d.hard) {
+            return d.soft ? "" : " ";
+          }
+          return d;
+        });
+      }
+
       parts.push("`");
 
       path.each(
@@ -1374,7 +1387,7 @@ function genericPrintNoParens(path, options, print) {
           parts.push(print(childPath));
 
           if (i < expressions.length) {
-            parts.push("${", expressions[i], "}");
+            parts.push("${", removeLines(expressions[i]), "}");
           }
         },
         "quasis"
