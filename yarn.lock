@@ -424,7 +424,11 @@ babel-types@^6.16.0, babel-types@^6.18.0, babel-types@^6.21.0:
     lodash "^4.2.0"
     to-fast-properties "^1.0.1"
 
-babylon@6.15.0, babylon@^6.11.0, babylon@^6.13.0:
+babylon@6.16.0:
+  version "6.16.0"
+  resolved "https://registry.yarnpkg.com/babylon/-/babylon-6.16.0.tgz#fed89928e23b06e8e3c32f7546365a03dd1d3824"
+
+babylon@^6.11.0, babylon@^6.13.0:
   version "6.15.0"
   resolved "https://registry.yarnpkg.com/babylon/-/babylon-6.15.0.tgz#ba65cfa1a80e1759b0e89fb562e27dccae70348e"
 
