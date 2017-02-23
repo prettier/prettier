@@ -1388,6 +1388,9 @@ function genericPrintNoParens(path, options, print) {
           if (d.type === "line" && !d.hard) {
             return d.soft ? "" : " ";
           }
+          else if(d.type === "if-break") {
+            return d.flatContents || "";
+          }
           return d;
         });
       }
