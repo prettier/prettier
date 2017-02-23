@@ -2309,11 +2309,12 @@ function printMemberChain(path, options, print) {
   //
   // In order to detect those cases, we use an heuristic: if the first
   // node is just an identifier with the name starting with a capital
-  // letter or just a sequence of _$. The rationale is that they are
+  // letter, just a sequence of _$ or this. The rationale is that they are
   // likely to be factories.
   const shouldMerge = groups[0].length === 1 &&
-    groups[0][0].node.type === "Identifier" &&
-    groups[0][0].node.name.match(/(^[A-Z])|^[_$]+$/) &&
+    (groups[0][0].node.type === "ThisExpression" ||
+      groups[0][0].node.type === "Identifier" &&
+      groups[0][0].node.name.match(/(^[A-Z])|^[_$]+$/)) &&
     groups.length >= 2;
 
   function printGroup(printedGroup) {
@@ -2339,7 +2340,7 @@ function printMemberChain(path, options, print) {
 
   const expanded = concat([
     printGroup(groups[0]),
-    shouldMerge ? printIndentedGroup(groups.slice(1, 2), softline) : "",
+    shouldMerge ? printIndentedGroup(groups.slice(1, 2), "") : "",
     printIndentedGroup(groups.slice(shouldMerge ? 2 : 1), hardline)
   ]);
 

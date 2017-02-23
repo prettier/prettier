@@ -13,3 +13,22 @@ export default function theFunction(action$, store) {
     .map(({ theType, ...data }) => theMap(theType, data))
     .retryWhen(errors => errors));
 }
+
+function f() {
+  return this._getWorker(workerOptions)({
+    filePath,
+    hasteImplModulePath: this._options.hasteImplModulePath,
+  }).then(
+    metadata => {
+      // `1` for truthy values instead of `true` to save cache space.
+      fileMetadata[H.VISITED] = 1;
+      const metadataId = metadata.id;
+      const metadataModule = metadata.module;
+      if (metadataId && metadataModule) {
+        fileMetadata[H.ID] = metadataId;
+        setModule(metadataId, metadataModule);
+      }
+      fileMetadata[H.DEPENDENCIES] = metadata.dependencies || [];
+    }
+  );
+}
