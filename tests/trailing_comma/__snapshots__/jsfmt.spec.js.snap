@@ -1,5 +1,122 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`es5.js 1`] = `
+"function send_single_email(
+  app,
+  email_id,
+  email_address,
+  subject,
+  html,
+  reply_to
+) {
+  send_single_email_implementation(  app,
+  email_id,
+  email_address,
+  subject,
+  html,
+  reply_to);
+  return \\"nothing\\";
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function send_single_email(
+  app,
+  email_id,
+  email_address,
+  subject,
+  html,
+  reply_to
+) {
+  send_single_email_implementation(
+    app,
+    email_id,
+    email_address,
+    subject,
+    html,
+    reply_to
+  );
+  return \\"nothing\\";
+}
+"
+`;
+
+exports[`es5.js 2`] = `
+"function send_single_email(
+  app,
+  email_id,
+  email_address,
+  subject,
+  html,
+  reply_to
+) {
+  send_single_email_implementation(  app,
+  email_id,
+  email_address,
+  subject,
+  html,
+  reply_to);
+  return \\"nothing\\";
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function send_single_email(
+  app,
+  email_id,
+  email_address,
+  subject,
+  html,
+  reply_to,
+) {
+  send_single_email_implementation(
+    app,
+    email_id,
+    email_address,
+    subject,
+    html,
+    reply_to,
+  );
+  return \\"nothing\\";
+}
+"
+`;
+
+exports[`es5.js 3`] = `
+"function send_single_email(
+  app,
+  email_id,
+  email_address,
+  subject,
+  html,
+  reply_to
+) {
+  send_single_email_implementation(  app,
+  email_id,
+  email_address,
+  subject,
+  html,
+  reply_to);
+  return \\"nothing\\";
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function send_single_email(
+  app,
+  email_id,
+  email_address,
+  subject,
+  html,
+  reply_to
+) {
+  send_single_email_implementation(
+    app,
+    email_id,
+    email_address,
+    subject,
+    html,
+    reply_to
+  );
+  return \\"nothing\\";
+}
+"
+`;
+
 exports[`function-calls.js 1`] = `
 "const a = (param1, param2, param3) => {}
 
@@ -447,14 +564,14 @@ o = {
 
 function supersupersupersuperLongF(
   supersupersupersuperLongA,
-  supersupersupersuperLongB,
+  supersupersupersuperLongB
 ) // Comment
 {
   a;
 }
 function supersupersupersuperLongF(
   supersupersupersuperLongA,
-  supersupersupersuperLongB,
+  supersupersupersuperLongB
 ) // Comment
 {
   a;
