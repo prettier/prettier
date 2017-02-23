@@ -258,7 +258,6 @@ FPp.needsParens = function(assumeExpressionContext) {
           return name === "object" && parent.object === node;
 
         case "TaggedTemplateExpression":
-        case "CallExpression":
         case "NewExpression":
           return true;
 
