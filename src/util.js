@@ -35,8 +35,8 @@ function fixFaultyLocations(node, text) {
       });
     }
   } else if (
-    n.MethodDefinition && n.MethodDefinition.check(node) ||
-    n.Property.check(node) && (node.method || node.shorthand)
+    (n.MethodDefinition && n.MethodDefinition.check(node)) ||
+    (n.Property.check(node) && (node.method || node.shorthand))
   ) {
     if (n.FunctionExpression.check(node.value)) {
       // FunctionExpression method values should be anonymous,
