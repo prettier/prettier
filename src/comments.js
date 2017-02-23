@@ -1,3 +1,5 @@
+"use strict";
+
 var assert = require("assert");
 var types = require("ast-types");
 var n = types.namedTypes;
@@ -456,11 +458,11 @@ function printComment(commentPath) {
 }
 
 function findExpressionIndexForComment(expressions, comment) {
-  var match;
+  let match;
   const startPos = locStart(comment) - 1;
   const endPos = locEnd(comment) + 1;
 
-  for (var i = 0; i < expressions.length; ++i) {
+  for (let i = 0; i < expressions.length; ++i) {
     const range = getExpressionRange(expressions[i])
 
     if (
