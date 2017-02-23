@@ -2287,6 +2287,13 @@ function printMemberChain(path, options, print) {
     if (
       hasSeenCallExpression && printedNodes[i].node.type === "MemberExpression"
     ) {
+      // [0] should be appended at the end of the group instead of the
+      // beginning of the next one
+      if (printedNodes[i].node.computed) {
+        currentGroup.push(printedNodes[i]);
+        continue;
+      }
+
       groups.push(currentGroup);
       currentGroup = [];
       hasSeenCallExpression = false;
