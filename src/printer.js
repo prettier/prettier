@@ -1660,12 +1660,22 @@ function genericPrintNoParens(path, options, print) {
       return concat(parts);
     }
     case "TypeCastExpression":
-      return concat([
-        "(",
-        path.call(print, "expression"),
-        path.call(print, "typeAnnotation"),
-        ")"
-      ]);
+      return group(
+        concat([
+          "(",
+          indent(
+            options.tabWidth,
+            concat([
+              softline,
+              path.call(print, "expression"),
+              path.call(print, "typeAnnotation"),
+            ])
+          ),
+          ifBreak(shouldPrintComma(options, "all") ? "," : ""),
+          softline,
+          ")"
+        ])
+      )
     case "TypeParameterDeclaration":
     case "TypeParameterInstantiation":
       return concat(["<", join(", ", path.map(print, "params")), ">"]);

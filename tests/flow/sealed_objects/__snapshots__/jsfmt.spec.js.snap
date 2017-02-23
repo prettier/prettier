@@ -39,9 +39,8 @@ var s5: string = o5.y; // ok (spreads make object types extensible)
 var o6: { [_: any]: any, x: number } = { x: 0 };
 var s6: string = o6.y; // ok  (indexers make object types extensible)
 
-var o7: { x: number, y?: string } = ({ x: 0, y: 0 }: {
-  [_: any]: number,
-  x: number
-}); // error
+var o7: { x: number, y?: string } = (
+  { x: 0, y: 0 }: { [_: any]: number, x: number }
+); // error
 "
 `;
