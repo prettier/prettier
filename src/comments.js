@@ -188,7 +188,7 @@ function attach(comments, ast, text, options) {
         handleIfStatementComments(enclosingNode, followingNode, comment) ||
         handleObjectProperty(enclosingNode, precedingNode, comment) ||
         handleTemplateLiteralComments(enclosingNode, comment) ||
-        handleFunctionDeclarationComments(enclosingNode, followingNode, comment)
+        handleFunctionDeclarationComments(enclosingNode, comment)
       ) {
         // We're good
       } else if (precedingNode && followingNode) {
@@ -441,8 +441,13 @@ function handleTemplateLiteralComments(enclosingNode, comment) {
   return false;
 }
 
-function handleFunctionDeclarationComments(enclosingNode, followingNode, comment) {
-  if (enclosingNode && enclosingNode.type === "FunctionDeclaration") {
+function handleFunctionDeclarationComments(enclosingNode, comment) {
+  // Only add dangling comments to fix the case when no params are present,
+  // i.e. a function without any argument.
+  if (
+    enclosingNode && enclosingNode.type === "FunctionDeclaration" &&
+    enclosingNode.params.length === 0
+  ) {
     addDanglingComment(enclosingNode, comment);
     return true;
   }
