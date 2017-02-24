@@ -23,8 +23,8 @@ declare class Baz<T> {
 ((new Foo).z: number); // error: Qux wins
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare class Foo extends Qux<string> {
-  /* KeyedCollection <: Collection*/
-  /* ...KeyedIterable*/
+  // KeyedCollection <: Collection
+  // ...KeyedIterable
 }
 declare class Bar<T> extends Baz<T> {
   // KeyedIterable <: Iterable

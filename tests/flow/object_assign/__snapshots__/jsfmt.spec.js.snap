@@ -173,7 +173,7 @@ class MyReactThing extends React.Component {
   }
 }
 
-<MyReactThing />; /* works*/
+<MyReactThing />; // works
 <MyReactThing foo={undefined} />; // also works
 "
 `;

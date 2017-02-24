@@ -44,8 +44,8 @@ interface IFooPrototype {
 }
 interface IFoo extends IFooPrototype {
   static (): void,
-  x: boolean /* error, should have declared x: number instead*/,
-  static y: boolean /* error, should have declared static y: number instead*/
+  x: boolean, // error, should have declared x: number instead
+  static y: boolean // error, should have declared static y: number instead
 }
 exports.Foo2 = (Foo: Class<IFoo>);
 "
