@@ -497,14 +497,14 @@ Observable.of(process)
   .takeUntil(throwOnError ? errors.flatMap(Observable.throw) : errors)
   .takeUntil(exit);
 
-/* Comments disappear inside of JSX*/
+// Comments disappear inside of JSX
 <div>
   {/* Some comment */}
 </div>;
 
-/* Comments in JSX tag are placed in a non optimal way*/
+// Comments in JSX tag are placed in a non optimal way
 <div
-/* comment*/
+// comment
 />;
 
 // Comments disappear in empty blocks
@@ -1021,7 +1021,7 @@ function c() {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function a() {
   return (
-    /* Comment*/
+    // Comment
     <div />
   );
 }
