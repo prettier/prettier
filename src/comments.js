@@ -187,7 +187,8 @@ function attach(comments, ast, text, options) {
       if (
         handleIfStatementComments(enclosingNode, followingNode, comment) ||
         handleObjectProperty(enclosingNode, precedingNode, comment) ||
-        handleTemplateLiteralComments(enclosingNode, comment)
+        handleTemplateLiteralComments(enclosingNode, comment) ||
+        handleFunctionDeclarationComments(enclosingNode, comment)
       ) {
         // We're good
       } else if (precedingNode && followingNode) {
@@ -435,6 +436,19 @@ function handleTemplateLiteralComments(enclosingNode, comment) {
     // Enforce all comments to be leading block comments.
     comment.type = "CommentBlock";
     addLeadingComment(enclosingNode.expressions[expressionIndex], comment);
+    return true;
+  }
+  return false;
+}
+
+function handleFunctionDeclarationComments(enclosingNode, comment) {
+  // Only add dangling comments to fix the case when no params are present,
+  // i.e. a function without any argument.
+  if (
+    enclosingNode && enclosingNode.type === "FunctionDeclaration" &&
+    enclosingNode.params.length === 0
+  ) {
+    addDanglingComment(enclosingNode, comment);
     return true;
   }
   return false;

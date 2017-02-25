@@ -990,7 +990,7 @@ export type BinaryOperator =
   | \\"*\\"
   | \\"/\\"
   | \\"%\\"
-  | \\"&\\" /* TODO Missing from the Parser API.*/
+  | \\"&\\" // TODO Missing from the Parser API.
   | \\"|\\"
   | \\"^\\"
   | \\"in\\"

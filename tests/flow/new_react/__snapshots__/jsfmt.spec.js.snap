@@ -417,7 +417,7 @@ class HelloMessage extends React.Component {
   props: { name: string };
 }
 
-<HelloMessage name={007} />; /* number ~/~> string error*/
+<HelloMessage name={007} />; // number ~/~> string error
 <HelloMessage name=\\"Bond\\" />; // ok
 "
 `;
@@ -785,7 +785,7 @@ class JDiv extends React.Component {
   };
 }
 
-/* Should be a type error ('id' takes a string, not a number..)*/
+// Should be a type error ('id' takes a string, not a number..)
 <JDiv id={42} />;
 
 class Example extends React.Component {

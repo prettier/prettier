@@ -83,10 +83,10 @@ function normalizeTrailingComma(value) {
 
 // Copy options and fill in default values.
 function normalize(options) {
-
-  options.trailingComma = normalizeTrailingComma(options.trailingComma);
-  validate(options, { exampleConfig, deprecatedConfig });
   const normalized = Object.assign({}, options || {});
+
+  normalized.trailingComma = normalizeTrailingComma(normalized.trailingComma);
+  validate(normalized, { exampleConfig, deprecatedConfig });
 
   // For backward compatibility. Deprecated in 0.0.10
   if ("useFlowParser" in normalized) {

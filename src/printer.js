@@ -1399,6 +1399,9 @@ function genericPrintNoParens(path, options, print) {
           if (d.type === "line" && !d.hard) {
             return d.soft ? "" : " ";
           }
+          else if(d.type === "if-break") {
+            return d.flatContents || "";
+          }
           return d;
         });
       }
@@ -1997,7 +2000,11 @@ function printFunctionParams(path, print, options) {
   }
 
   if (printed.length === 0) {
-    return "()";
+    return concat([
+      "(",
+      comments.printDanglingComments(path, options, /* sameIndent */ true),
+      ")"
+    ])
   }
 
   const lastParam = util.getLast(path.getValue().params);
