@@ -2061,7 +2061,6 @@ function printReturnType(path, print) {
   const parts = [path.call(print, "returnType")];
 
   if (n.predicate) {
-
     // The return type will already add the colon, but otherwise we
     // need to do it ourselves
     parts.push(n.returnType ? " " : ": ", path.call(print, "predicate"));
