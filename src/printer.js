@@ -1895,13 +1895,14 @@ function printMethod(path, options, print) {
 
 function printArgumentsList(path, options, print) {
   var printed = path.map(print, "arguments");
-  var args;
 
   if (printed.length === 0) {
     return "()";
   }
 
-  const lastArg = util.getLast(path.getValue().arguments);
+  const args = path.getValue().arguments;
+  const lastArg = util.getLast(args);
+  const penultimateArg = util.getPenultimate(args)
   // This is just an optimization; I think we could return the
   // conditional group for all function calls, but it's more expensive
   // so only do it for specific forms.
@@ -1919,6 +1920,10 @@ function printArgumentsList(path, options, print) {
 
   if (groupLastArg) {
     const shouldBreak = printed.slice(0, -1).some(willBreak);
+    // If the last two arguments are of the same type,
+    // disable last element expansion.
+    const shouldNotBreakArgs = penultimateArg &&
+      penultimateArg.type === lastArg.type;
     return concat([
       printed.some(willBreak) ? breakParent : "",
       conditionalGroup(
@@ -1928,7 +1933,7 @@ function printArgumentsList(path, options, print) {
             "(",
             join(concat([",", line]), printed.slice(0, -1)),
             printed.length > 1 ? ", " : "",
-            group(util.getLast(printed), { shouldBreak: true }),
+            group(util.getLast(printed), { shouldBreak: !shouldNotBreakArgs }),
             ")"
           ]),
           group(
@@ -2056,6 +2061,7 @@ function printReturnType(path, print) {
   const parts = [path.call(print, "returnType")];
 
   if (n.predicate) {
+
     // The return type will already add the colon, but otherwise we
     // need to do it ourselves
     parts.push(n.returnType ? " " : ": ", path.call(print, "predicate"));
