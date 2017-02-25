@@ -66,6 +66,7 @@ exports[`blank.js 1`] = `
 // comment
 
 // comment
+
 "
 `;
 
@@ -113,6 +114,7 @@ exports[`blank.js 2`] = `
 // comment
 
 // comment
+
 "
 `;
 
