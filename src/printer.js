@@ -1093,13 +1093,7 @@ function genericPrintNoParens(path, options, print) {
 
       return concat(parts);
     case "DoExpression":
-      var statements = path.call(
-        function(bodyPath) {
-          return printStatementSequence(bodyPath, options, print);
-        },
-        "body"
-      );
-      return concat(["do {\n", statements.indent(options.tabWidth), "\n}"]);
+      return concat(["do ", path.call(print, "body")]);
     case "BreakStatement":
       parts.push("break");
 
