@@ -32,4 +32,4 @@ const mapChargeItems = fp.flow(
   l => Immutable.Range(l).toMap()
 );
 
-expect(new Range([0, 0], [0, 0])).toEqualAtomRange(new Range([0, 0], [0, 0]));
+expect(new LongLongLongLongLongRange([0, 0], [0, 0])).toEqualAtomLongLongLongLongRange(new LongLongLongRange([0, 0], [0, 0]));
