@@ -145,7 +145,8 @@ function attach(comments, ast, text, options) {
       if (
         handleMemberExpressionComments(enclosingNode, followingNode, comment) ||
         handleIfStatementComments(enclosingNode, followingNode, comment) ||
-        handleTryStatementComments(enclosingNode, followingNode, comment)
+        handleTryStatementComments(enclosingNode, followingNode, comment) ||
+        handleOnlyComments(enclosingNode, ast, comment)
       ) {
         // We're good
       } else if (followingNode) {
@@ -168,7 +169,8 @@ function attach(comments, ast, text, options) {
           comment,
           text
         ) ||
-        handleTemplateLiteralComments(enclosingNode, comment)
+        handleTemplateLiteralComments(enclosingNode, comment) ||
+        handleOnlyComments(enclosingNode, ast, comment)
       ) {
         // We're good
       } else if (precedingNode) {
@@ -449,6 +451,21 @@ function handleFunctionDeclarationComments(enclosingNode, comment) {
     enclosingNode.params.length === 0
   ) {
     addDanglingComment(enclosingNode, comment);
+    return true;
+  }
+  return false;
+}
+
+function handleOnlyComments(enclosingNode, ast, comment) {
+  // With Flow the enclosingNode is undefined so use the AST instead.
+  if (ast && ast.body && ast.body.length === 0) {
+    addLeadingComment(ast, comment);
+    return true;
+  } else if (
+    enclosingNode && enclosingNode.type === 'Program' &&
+    enclosingNode.body.length === 0
+  ) {
+    addLeadingComment(enclosingNode, comment);
     return true;
   }
   return false;
