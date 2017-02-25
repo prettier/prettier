@@ -1916,14 +1916,13 @@ function printArgumentsList(path, options, print) {
           lastArg.body.type === "ObjectExpression" ||
           lastArg.body.type === "ArrayExpression" ||
           lastArg.body.type === "CallExpression" ||
-          lastArg.body.type === "JSXElement")));
+         lastArg.body.type === "JSXElement"))) &&
+        // If the last two arguments are of the same type,
+        // disable last element expansion.
+        (!penultimateArg || penultimateArg.type !== lastArg.type);
 
   if (groupLastArg) {
     const shouldBreak = printed.slice(0, -1).some(willBreak);
-    // If the last two arguments are of the same type,
-    // disable last element expansion.
-    const shouldNotBreakArgs = penultimateArg &&
-      penultimateArg.type === lastArg.type;
     return concat([
       printed.some(willBreak) ? breakParent : "",
       conditionalGroup(
@@ -1933,7 +1932,7 @@ function printArgumentsList(path, options, print) {
             "(",
             join(concat([",", line]), printed.slice(0, -1)),
             printed.length > 1 ? ", " : "",
-            group(util.getLast(printed), { shouldBreak: !shouldNotBreakArgs }),
+            group(util.getLast(printed), { shouldBreak: true }),
             ")"
           ]),
           group(
