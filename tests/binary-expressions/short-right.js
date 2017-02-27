@@ -13,3 +13,7 @@ foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo(
 const isPartOfPackageJSON = dependenciesArray.indexOf(
   dependencyWithOutRelativePath.split('/')[0],
 ) !== -1;
+
+defaultContent.filter(defaultLocale => {
+  // ...
+})[0] || null;

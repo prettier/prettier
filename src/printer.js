@@ -2732,14 +2732,13 @@ function printBinaryishExpressions(path, parts, print, options, isNested) {
       path.call(print, "right")
     ]);
 
-    // If there's only a single binary expression: everything except && and ||,
-    // we want to create a group in order to avoid having a small right part
-    // like -1 be on its own line.
+    // If there's only a single binary expression, we want to create a group
+    // in order to avoid having a small right part like -1 be on its own line.
     const parent = path.getParentNode();
-    const shouldGroup = node.type === "BinaryExpression" &&
-      parent.type !== "BinaryExpression" &&
-      node.left.type !== "BinaryExpression" &&
-      node.right.type !== "BinaryExpression";
+    const shouldGroup =
+      parent.type !== node.type &&
+      node.left.type !== node.type &&
+      node.right.type !== node.type;
 
     parts.push(" ", shouldGroup ? group(right) : right);
 
