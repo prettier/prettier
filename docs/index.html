@@ -89,9 +89,10 @@
     <label><input type="number" value="80" id="printWidth"></input> printWidth</label>
     <label><input type="number" value="2" id="tabWidth"></input> tabWidth</label>
     <label><input type="checkbox" id="singleQuote"></input> singleQuote</label>
-    <label><input type="checkbox" id="trailingComma"></input> trailingComma</label>
     <label><input type="checkbox" id="bracketSpacing" checked></input> bracketSpacing</label>
     <label><input type="checkbox" id="jsxBracketSameLine"></input> jsxBracketSameLine</label>
+    <label>trailingComma <select id="trailingComma"><option value="none">none</option><option value="es5">es5</option><option value="all">all</option></select></label>
+    <label>parser <select id="parser"><option value="babylon">babylon</option><option value="flow">flow</option></select></label>
     <span style="flex: 1"></span>
     <label><input type="checkbox" id="doc"></input> doc</label>
   </div>
@@ -110,11 +111,13 @@
 </div>
 
 <script id="code">
-var OPTIONS = ['printWidth', 'tabWidth', 'singleQuote', 'trailingComma', 'bracketSpacing', 'jsxBracketSameLine', 'doc'];
+var OPTIONS = ['printWidth', 'tabWidth', 'singleQuote', 'trailingComma', 'bracketSpacing', 'jsxBracketSameLine', 'parser', 'doc'];
 function setOptions(options) {
   OPTIONS.forEach(function(option) {
     var elem = document.getElementById(option);
-    if (elem.type === 'number') {
+    if (elem.tagName === 'SELECT') {
+      elem.value = options[option];
+    } else if (elem.type === 'number') {
       elem.value = options[option];
     } else {
       elem.checked = options[option];
@@ -126,7 +129,13 @@ function getOptions() {
   var options = {};
   OPTIONS.forEach(function(option) {
     var elem = document.getElementById(option);
-    options[option] = elem.type === 'number' ? Number(elem.value) : elem.checked;
+    if (elem.tagName === 'SELECT') {
+      options[option] = elem.value;
+    } else if (elem.type === 'number') {
+      options[option] = Number(elem.value);
+    } else {
+      options[option] = elem.checked;
+    }
   });
   return options;
 }
