@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`do.js 1`] = `
+"const envSpecific = {
+  domain:
+    do {
+      if(env === 'production') 'https://abc.mno.com/';
+      else if(env === 'development') 'http://localhost:4000';
+    }
+};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const envSpecific = {
+  domain: do {
+    if (env === \\"production\\") (\\"https://abc.mno.com/\\");
+    else if (env === \\"development\\") (\\"http://localhost:4000\\");
+  }
+};
+"
+`;
