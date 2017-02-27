@@ -20,7 +20,72 @@ if ((() => {}) ? 1 : 0) {
 "
 `;
 
+exports[`arrow_function_expression.js 2`] = `
+"(a => {}).length
+typeof (() => {});
+export default (() => {})();
+(() => {})()\`\`;
+(() => {})\`\`;
+new (() => {});
+if ((() => {}) ? 1 : 0) {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+((a) => {}).length;
+typeof (() => {});
+export default (() => {})();
+(() => {})()\`\`;
+(() => {})\`\`;
+new (() => {})();
+if ((() => {}) ? 1 : 0) {
+}
+"
+`;
+
+exports[`arrow-parens.js 1`] = `
+"() => {};
+(a) => { return a; };
+a => a;
+(a, b) => a * b;
+(a, b, c) => { return a * b + c; };
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(() => {});
+(a => {
+  return a;
+});
+(a => a);
+((a, b) => a * b);
+((a, b, c) => {
+  return a * b + c;
+});
+"
+`;
+
+exports[`arrow-parens.js 2`] = `
+"() => {};
+(a) => { return a; };
+a => a;
+(a, b) => a * b;
+(a, b, c) => { return a * b + c; };
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(() => {});
+((a) => {
+  return a;
+});
+((a) => a);
+((a, b) => a * b);
+((a, b, c) => {
+  return a * b + c;
+});
+"
+`;
+
 exports[`block_like.js 1`] = `
+"a = () => ({} = this);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a = () => ({} = this);
+"
+`;
+
+exports[`block_like.js 2`] = `
 "a = () => ({} = this);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 a = () => ({} = this);
@@ -37,7 +102,33 @@ veryLongCall(
 "
 `;
 
+exports[`long-call-no-args.js 2`] = `
+"veryLongCall(VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT, () => {})
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+veryLongCall(
+  VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT,
+  () => {}
+);
+"
+`;
+
 exports[`long-contents.js 1`] = `
+"const foo = () => {
+  expect(arg1, arg2, arg3).toEqual({message: 'test', messageType: 'SMS', status: 'Unknown', created: '11/01/2017 13:36'});
+};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const foo = () => {
+  expect(arg1, arg2, arg3).toEqual({
+    message: \\"test\\",
+    messageType: \\"SMS\\",
+    status: \\"Unknown\\",
+    created: \\"11/01/2017 13:36\\"
+  });
+};
+"
+`;
+
+exports[`long-contents.js 2`] = `
 "const foo = () => {
   expect(arg1, arg2, arg3).toEqual({message: 'test', messageType: 'SMS', status: 'Unknown', created: '11/01/2017 13:36'});
 };

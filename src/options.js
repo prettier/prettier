@@ -34,6 +34,7 @@ var defaults = {
   bracketSpacing: false,
   bracesSpacing: true,
   breakProperty: false,
+  arrowParens: false,
   jsxBracketSameLine: false,
   parser: "babylon",
   __log: false

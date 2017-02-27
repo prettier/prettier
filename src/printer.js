@@ -301,7 +301,8 @@ function genericPrintNoParens(path, options, print) {
         !n.params[0].leadingComments &&
         !n.params[0].trailingComments &&
         !n.predicate &&
-        !n.returnType
+        !n.returnType &&
+        !options.arrowParens
       ) {
         parts.push(path.call(print, "params", 0));
       } else {

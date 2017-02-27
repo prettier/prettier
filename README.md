@@ -203,6 +203,9 @@ prettier.format(source, {
   // Allow object properties to break lines.
   breakProperty: false,
 
+  // Always put parentheses on arrow function arguments.
+  arrowParens: false,
+
   // If true, puts the `>` of a multi-line jsx element at the end of
   // the last line instead of being alone on the next line
   jsxBracketSameLine: false,

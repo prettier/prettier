@@ -19,6 +19,7 @@ const argv = minimist(process.argv.slice(2), {
     "bracket-spacing",
     "braces-spacing",
     "breakProperty",
+    "arrowParens",
     "jsx-bracket-same-line",
     // The supports-color package (a sub sub dependency) looks directly at
     // `process.argv` for `--no-color` and such-like options. The reason it is
@@ -131,6 +132,7 @@ const options = {
   bracketSpacing: argv["bracket-spacing"],
   bracesSpacing: argv["braces-spacing"],
   breakProperty: argv["break-property"],
+  arrowParens: argv["arrow-parens"],
   singleQuote: argv["single-quote"],
   jsxBracketSameLine: argv["jsx-bracket-same-line"],
   trailingComma: getTrailingComma(),
@@ -195,6 +197,7 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
       "  --bracket-spacing        Put spaces between [brackets]. Defaults to false.\n" +
       "  --braces-spacing         Put spaces between {braces}. Defaults to true.\n" +
       "  --break-property         Allow object properties to break lines. Defaults to false.\n" +
+      "  --arrow-parens           Always put parentheses on arrow function arguments. Defaults to false.\n" +
       "  --jsx-bracket-same-line  Put > on the last line. Defaults to false.\n" +
       "  --trailing-comma <none|es5|all>\n" +
       "                           Print trailing commas wherever possible. Defaults to none.\n" +
