@@ -451,9 +451,16 @@ FPp.needsParens = function(assumeExpressionContext) {
           if (parent.test === node) {
             return true;
           }
+          return false;
 
         case "ExportDefaultDeclaration":
-          return node.type !== "ArrowFunctionExpression";
+          if (node.type === "ArrowFunctionExpression") {
+            return false;
+          }
+          if (node.type === "FunctionExpression" && !node.id) {
+            return false;
+          }
+          return true;
 
         case "ExpressionStatement":
         case "MemberExpression":
