@@ -2371,10 +2371,10 @@ function printMemberChain(path, options, print) {
     return concat(printedGroup.map(tuple => tuple.printed));
   }
 
-  function printIndentedGroup(groups, lineType) {
+  function printIndentedGroup(groups) {
     return indent(
       options.tabWidth,
-      group(concat([lineType, join(lineType, groups.map(printGroup))]))
+      group(concat([hardline, join(hardline, groups.map(printGroup))]))
     );
   }
 
@@ -2384,14 +2384,14 @@ function printMemberChain(path, options, print) {
 
   // If we only have a single `.`, we shouldn't do anything fancy and just
   // render everything concatenated together.
-  if (groups.length <= 2 && !hasComment) {
+  if (groups.length <= (shouldMerge ? 3 : 2) && !hasComment) {
     return group(oneLine);
   }
 
   const expanded = concat([
     printGroup(groups[0]),
-    shouldMerge ? printIndentedGroup(groups.slice(1, 2), "") : "",
-    printIndentedGroup(groups.slice(shouldMerge ? 2 : 1), hardline)
+    shouldMerge ? concat(groups.slice(1, 2).map(printGroup)) : "",
+    printIndentedGroup(groups.slice(shouldMerge ? 2 : 1))
   ]);
 
   // If there's a comment, we don't want to print in one line.
