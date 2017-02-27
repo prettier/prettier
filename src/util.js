@@ -79,6 +79,13 @@ function getParentExportDeclaration(path) {
   return null;
 }
 
+function getPenultimate(arr) {
+  if (arr.length > 1) {
+    return arr[arr.length - 2];
+  }
+  return null;
+}
+
 function getLast(arr) {
   if (arr.length > 0) {
     return arr[arr.length - 1];
@@ -304,6 +311,7 @@ module.exports = {
   fixFaultyLocations,
   isExportDeclaration,
   getParentExportDeclaration,
+  getPenultimate,
   getLast,
   skipWhitespace,
   skipSpaces,

@@ -1104,13 +1104,7 @@ function genericPrintNoParens(path, options, print) {
 
       return concat(parts);
     case "DoExpression":
-      var statements = path.call(
-        function(bodyPath) {
-          return printStatementSequence(bodyPath, options, print);
-        },
-        "body"
-      );
-      return concat(["do {\n", statements.indent(1), "\n}"]);
+      return concat(["do ", path.call(print, "body")]);
     case "BreakStatement":
       parts.push("break");
 
@@ -1906,13 +1900,14 @@ function printMethod(path, options, print) {
 
 function printArgumentsList(path, options, print) {
   var printed = path.map(print, "arguments");
-  var args;
 
   if (printed.length === 0) {
     return "()";
   }
 
-  const lastArg = util.getLast(path.getValue().arguments);
+  const args = path.getValue().arguments;
+  const lastArg = util.getLast(args);
+  const penultimateArg = util.getPenultimate(args)
   // This is just an optimization; I think we could return the
   // conditional group for all function calls, but it's more expensive
   // so only do it for specific forms.
@@ -1926,7 +1921,10 @@ function printArgumentsList(path, options, print) {
           lastArg.body.type === "ObjectExpression" ||
           lastArg.body.type === "ArrayExpression" ||
           lastArg.body.type === "CallExpression" ||
-          lastArg.body.type === "JSXElement")));
+         lastArg.body.type === "JSXElement"))) &&
+        // If the last two arguments are of the same type,
+        // disable last element expansion.
+        (!penultimateArg || penultimateArg.type !== lastArg.type);
 
   if (groupLastArg) {
     const shouldBreak = printed.slice(0, -1).some(willBreak);
