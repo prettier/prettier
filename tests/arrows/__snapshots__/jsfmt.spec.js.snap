@@ -52,3 +52,20 @@ const foo = () => {
 };
 "
 `;
+
+exports[`short_body.js 1`] = `
+"const initializeSnapshotState = (
+  testFile: Path,
+  update: boolean,
+  testPath: string,
+  expand: boolean,
+) => new SnapshotState(testFile, update, testPath, expand);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const initializeSnapshotState = (
+  testFile: Path,
+  update: boolean,
+  testPath: string,
+  expand: boolean
+) => new SnapshotState(testFile, update, testPath, expand);
+"
+`;
