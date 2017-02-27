@@ -342,7 +342,7 @@ function genericPrintNoParens(path, options, print) {
           collapsed,
           concat([
             concat(parts),
-            indent(1, concat([line, body]))
+            group(indent(1, concat([line, body])))
           ])
         ]),
         { shouldBreak: willBreak(body) }
