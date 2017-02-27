@@ -802,7 +802,7 @@ function genericPrintNoParens(path, options, print) {
             printedElements.push(concat(separatorParts));
             printedElements.push(group(print(childPath)));
 
-            separatorParts = [",", line];
+            separatorParts = [",", options.arrayExpand ? hardline : line];
             if (
               childPath.getValue() &&
               util.isNextLineEmpty(options.originalText, childPath.getValue())
@@ -820,7 +820,11 @@ function genericPrintNoParens(path, options, print) {
               indent(
                 1,
                 concat([
-                  options.bracketSpacing ? line : softline,
+                  options.arrayExpand
+                    ? hardline
+                    : options.bracketSpacing
+                      ? line
+                      : softline,
                   concat(printedElements)])
               ),
               needsForcedTrailingComma ? "," : "",
@@ -836,7 +840,11 @@ function genericPrintNoParens(path, options, print) {
                 options,
                 /* sameIndent */ true
               ),
-              options.bracketSpacing ? line : softline,
+              options.arrayExpand
+                ? hardline
+                : options.bracketSpacing
+                  ? line
+                  : softline,
               "]"
             ])
           )

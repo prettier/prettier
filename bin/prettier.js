@@ -133,6 +133,7 @@ const options = {
   bracesSpacing: argv["braces-spacing"],
   breakProperty: argv["break-property"],
   arrowParens: argv["arrow-parens"],
+  arrayExpand: argv["array-expand"],
   singleQuote: argv["single-quote"],
   jsxBracketSameLine: argv["jsx-bracket-same-line"],
   trailingComma: getTrailingComma(),
@@ -198,6 +199,7 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
       "  --braces-spacing         Put spaces between {braces}. Defaults to true.\n" +
       "  --break-property         Allow object properties to break lines. Defaults to false.\n" +
       "  --arrow-parens           Always put parentheses on arrow function arguments. Defaults to false.\n" +
+      "  --array-expand           Expand arrays into one item per line. Defaults to false.\n" +
       "  --jsx-bracket-same-line  Put > on the last line. Defaults to false.\n" +
       "  --trailing-comma <none|es5|all>\n" +
       "                           Print trailing commas wherever possible. Defaults to none.\n" +

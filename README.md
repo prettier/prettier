@@ -206,6 +206,9 @@ prettier.format(source, {
   // Always put parentheses on arrow function arguments.
   arrowParens: false,
 
+  // Expand arrays into one item per line.
+  arrayExpand: false,
+
   // If true, puts the `>` of a multi-line jsx element at the end of
   // the last line instead of being alone on the next line
   jsxBracketSameLine: false,
