@@ -286,11 +286,13 @@ function h(x: number | string | boolean) {
     call_me = () => {
       var y: number = const_x;
     }; // ok
-  } else if (typeof const_x == \\"string\\") {
+  }
+  else if (typeof const_x == \\"string\\") {
     call_me = () => {
       var y: string = const_x;
     }; // ok
-  } else if (typeof const_x == \\"boolean\\") {
+  }
+  else if (typeof const_x == \\"boolean\\") {
     call_me = () => {
       var y: boolean = const_x;
     }; // ok
@@ -301,11 +303,13 @@ function h(x: number | string | boolean) {
     call_me = () => {
       var y: number = var_x;
     }; // error
-  } else if (typeof var_x == \\"string\\") {
+  }
+  else if (typeof var_x == \\"string\\") {
     call_me = () => {
       var y: string = var_x;
     }; // error
-  } else if (typeof var_x == \\"boolean\\") {
+  }
+  else if (typeof var_x == \\"boolean\\") {
     call_me = () => {
       var y: boolean = var_x;
     }; // error

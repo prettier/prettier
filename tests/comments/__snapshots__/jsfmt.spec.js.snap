@@ -242,7 +242,8 @@ else {
 if (1) {
   // comment
   false;
-} else if (2)
+}
+else if (2)
   // comment
   true;
 else if (3)
@@ -254,7 +255,8 @@ else if (3)
 else if (4) {
   // okay?
   // empty with existing comment
-} else {
+}
+else {
   // comment
 }
 "
@@ -286,7 +288,8 @@ else {
 if (1) {
   // comment
   false;
-} else if (2)
+}
+else if (2)
   // comment
   true;
 else if (3)
@@ -298,7 +301,8 @@ else if (3)
 else if (4) {
   // okay?
   // empty with existing comment
-} else {
+}
+else {
   // comment
 }
 "
@@ -514,7 +518,8 @@ if (1) {
 
 // Comments trigger invalid JavaScript in-between else if
 if (1) {
-} else {
+}
+else {
   // Comment
 }
 
@@ -739,7 +744,8 @@ if (1) {
 
 // Comments trigger invalid JavaScript in-between else if
 if (1) {
-} else {
+}
+else {
   // Comment
 }
 

@@ -52,7 +52,8 @@ function indirect_is_number(y): %checks {
 function bak(z: string | number): number {
   if (indirect_is_number(z)) {
     return z;
-  } else {
+  }
+  else {
     return z.length;
   }
 }
@@ -85,7 +86,8 @@ function multi_param(w, x, y, z): %checks {
 function foo(x: string | Array<string>): string {
   if (multi_param(\\"1\\", \\"2\\", x, \\"3\\")) {
     return x;
-  } else {
+  }
+  else {
     return x.join();
   }
 }
@@ -165,7 +167,8 @@ function err(x): %checks {
 function foo(x: string | Array<string>): string {
   if (err(x)) {
     return x;
-  } else {
+  }
+  else {
     return x.join();
   }
 }
@@ -268,7 +271,8 @@ function foo(x: string | Array<string>): string {
     // should guarantee the narrowing of the type of \`x\`
     // to string.
     return x;
-  } else {
+  }
+  else {
     // Accordingly the negation of the above check
     // guarantees that \`x\` here is an Array<string>
     return x.join();
@@ -279,7 +283,8 @@ function foo(x: string | Array<string>): string {
 function bar(z: { f: string | Array<string> }): string {
   if (is_string(z.f)) {
     return z.f;
-  } else {
+  }
+  else {
     return z.f.join();
   }
 }
@@ -291,7 +296,8 @@ function is_number_or_bool(y): %checks {
 function baz(z: string | number): number {
   if (is_number_or_bool(z)) {
     return z;
-  } else {
+  }
+  else {
     return z.length;
   }
 }
@@ -304,7 +310,8 @@ function multi_param(w, x, y, z): %checks {
 function foo(x: string | Array<string>): string {
   if (multi_param(\\"1\\", \\"2\\", \\"3\\", x)) {
     return x;
-  } else {
+  }
+  else {
     return x.join();
   }
 }
@@ -357,7 +364,8 @@ function foo(x: string | Array<string>): string {
     // should guarantee the narrowing of the type of \`x\`
     // to string.
     return x;
-  } else {
+  }
+  else {
     // Accordingly the negation of the above check
     // guarantees that \`x\` here is an Array<string>
     return x.join();

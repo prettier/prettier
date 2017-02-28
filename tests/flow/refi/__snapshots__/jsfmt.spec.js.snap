@@ -84,7 +84,8 @@ var tests = [
 
   function() {
     if (x == null) {
-    } else {
+    }
+    else {
       var y: string = x; // ok
     }
   },
@@ -96,7 +97,8 @@ var tests = [
 
   function() {
     if (!(x != null)) {
-    } else {
+    }
+    else {
       var y: string = x; // ok
     }
   },
@@ -118,7 +120,8 @@ var tests = [
 
   function() {
     if (x != null) {
-    } else {
+    }
+    else {
       var y: string = x; // not ok
     }
   },
@@ -389,7 +392,8 @@ var tests = [
   function() {
     var x: { p: ?string } = { p: \\"xxx\\" };
     if (x.p == null) {
-    } else {
+    }
+    else {
       var y: string = x.p; // ok
     }
   },
@@ -403,7 +407,8 @@ var tests = [
   function() {
     var x: { p: ?string } = { p: \\"xxx\\" };
     if (!(x.p != null)) {
-    } else {
+    }
+    else {
       var y: string = x.p; // ok
     }
   },
@@ -434,7 +439,8 @@ var tests = [
   function() {
     var x: { p: ?string } = { p: \\"xxx\\" };
     if (x.p != null) {
-    } else {
+    }
+    else {
       var y: string = x.p; // not ok
     }
   },
@@ -453,7 +459,8 @@ var tests = [
     var x: { p: string | string[] } = { p: [\\"xxx\\"] };
     if (Array.isArray(x.p)) {
       var y: string[] = x.p; // ok
-    } else {
+    }
+    else {
       var z: string = x.p; // ok
     }
   },
@@ -469,7 +476,8 @@ var tests = [
   function() {
     var x: { y: ?string } = { y: null };
     if (x.y) {
-    } else {
+    }
+    else {
       x.y = \\"foo\\";
     }
     (x.y: string);
@@ -487,7 +495,8 @@ var tests = [
     var x: { y: ?string } = { y: null };
     if (x.y) {
       x.y = \\"foo\\";
-    } else {
+    }
+    else {
       x.y = \\"bar\\";
     }
     (x.y: string);
@@ -505,7 +514,8 @@ var tests = [
     var x: { y: string | number | boolean } = { y: false };
     if (typeof x.y == \\"number\\") {
       x.y = \\"foo\\";
-    } else if (typeof x.y == \\"boolean\\") {
+    }
+    else if (typeof x.y == \\"boolean\\") {
       x.y = \\"bar\\";
     }
     (x.y: boolean); // error, string
@@ -553,7 +563,8 @@ var tests = [
     var z: string = \\"foo\\";
     if (x.y) {
       x.y = z;
-    } else {
+    }
+    else {
       x.y = z;
     }
     (x.y: string);
@@ -798,7 +809,8 @@ var paths = [
   function() {
     var x: ?string = \\"xxx\\";
     if (x == null) {
-    } else {
+    }
+    else {
       var y: string = x; // ok
     }
   },
@@ -812,7 +824,8 @@ var paths = [
   function() {
     var x: ?string = \\"xxx\\";
     if (!(x != null)) {
-    } else {
+    }
+    else {
       var y: string = x; // ok
     }
   },
@@ -835,7 +848,8 @@ var paths = [
   function() {
     var x: ?string = \\"xxx\\";
     if (x != null) {
-    } else {
+    }
+    else {
       var y: string = x; // not ok
     }
   },
@@ -854,7 +868,8 @@ var paths = [
     var x: string | string[] = [\\"xxx\\"];
     if (Array.isArray(x)) {
       var y: string[] = x; // ok
-    } else {
+    }
+    else {
       var z: string = x; // ok
     }
   },
@@ -1060,7 +1075,8 @@ var null_tests = [
   function() {
     var x: ?string = \\"xxx\\";
     if (x == null) {
-    } else {
+    }
+    else {
       var y: string = x; // ok
     }
   },
@@ -1068,7 +1084,8 @@ var null_tests = [
   function() {
     var x: { p: ?string } = { p: \\"xxx\\" };
     if (x.p == null) {
-    } else {
+    }
+    else {
       var y: string = x.p; // ok
     }
   },
@@ -1076,7 +1093,8 @@ var null_tests = [
   function() {
     var x: { p: { q: ?string } } = { p: { q: \\"xxx\\" } };
     if (x.p.q == null) {
-    } else {
+    }
+    else {
       var y: string = x.p.q; // ok
     }
   },
@@ -1107,7 +1125,8 @@ var null_tests = [
   function() {
     var x: ?string = \\"xxx\\";
     if (x === null) {
-    } else {
+    }
+    else {
       var y: string | void = x; // ok
     }
   },
@@ -1115,7 +1134,8 @@ var null_tests = [
   function() {
     var x: { p: ?string } = { p: \\"xxx\\" };
     if (x.p === null) {
-    } else {
+    }
+    else {
       var y: string | void = x.p; // ok
     }
   },
@@ -1123,7 +1143,8 @@ var null_tests = [
   function() {
     var x: { p: { q: ?string } } = { p: { q: \\"xxx\\" } };
     if (x.p.q === null) {
-    } else {
+    }
+    else {
       var y: string | void = x.p.q; // ok
     }
   }
@@ -1474,7 +1495,8 @@ var null_tests = [
   function() {
     var x: ?string = \\"xxx\\";
     if (typeof x != \\"string\\") {
-    } else {
+    }
+    else {
       var y: string = x; // ok
     }
   },
@@ -1482,7 +1504,8 @@ var null_tests = [
   function() {
     var x: { p: ?string } = { p: \\"xxx\\" };
     if (typeof x.p != \\"string\\") {
-    } else {
+    }
+    else {
       var y: string = x.p; // ok
     }
   },
@@ -1490,7 +1513,8 @@ var null_tests = [
   function() {
     var x: { p: { q: ?string } } = { p: { q: \\"xxx\\" } };
     if (typeof x.p.q != \\"string\\") {
-    } else {
+    }
+    else {
       var y: string = x.p.q; // ok
     }
   },
@@ -1521,7 +1545,8 @@ var null_tests = [
   function() {
     var x: ?string = \\"xxx\\";
     if (typeof x !== \\"string\\") {
-    } else {
+    }
+    else {
       var y: string = x; // ok
     }
   },
@@ -1529,7 +1554,8 @@ var null_tests = [
   function() {
     var x: { p: ?string } = { p: \\"xxx\\" };
     if (typeof x.p !== \\"string\\") {
-    } else {
+    }
+    else {
       var y: string = x.p; // ok
     }
   },
@@ -1537,7 +1563,8 @@ var null_tests = [
   function() {
     var x: { p: { q: ?string } } = { p: { q: \\"xxx\\" } };
     if (typeof x.p.q !== \\"string\\") {
-    } else {
+    }
+    else {
       var y: string = x.p.q; // ok
     }
   }
@@ -1682,7 +1709,8 @@ var undef_tests = [
   function() {
     var x: ?string = \\"xxx\\";
     if (x === undefined || x === null) {
-    } else {
+    }
+    else {
       var y: string = x; // ok
     }
   },
@@ -1690,7 +1718,8 @@ var undef_tests = [
   function() {
     var x: { p: ?string } = { p: \\"xxx\\" };
     if (x.p === undefined || x.p === null) {
-    } else {
+    }
+    else {
       var y: string = x.p; // ok
     }
   },
@@ -1698,7 +1727,8 @@ var undef_tests = [
   function() {
     var x: { p: { q: ?string } } = { p: { q: \\"xxx\\" } };
     if (x.p.q === undefined || x.p.q === null) {
-    } else {
+    }
+    else {
       var y: string = x.p.q; // ok
     }
   }
@@ -1833,7 +1863,8 @@ var void_tests = [
   function() {
     var x: ?string = \\"xxx\\";
     if (x === void 0 || x === null) {
-    } else {
+    }
+    else {
       var y: string = x; // ok
     }
   },
@@ -1841,7 +1872,8 @@ var void_tests = [
   function() {
     var x: { p: ?string } = { p: \\"xxx\\" };
     if (x.p === void 0 || x.p === null) {
-    } else {
+    }
+    else {
       var y: string = x.p; // ok
     }
   },
@@ -1849,7 +1881,8 @@ var void_tests = [
   function() {
     var x: { p: { q: ?string } } = { p: { q: \\"xxx\\" } };
     if (x.p.q === void 0 || x.p.q === null) {
-    } else {
+    }
+    else {
       var y: string = x.p.q; // ok
     }
   }

@@ -987,7 +987,7 @@ function genericPrintNoParens(path, options, print) {
         const isEmpty = isEmptyBlock(con);
 
         if (hasBraces && !isEmpty) {
-          parts.push(" else");
+          parts.push(concat([hardline, "else"]));
         } else {
           // We use `conditionalGroup` to suppress break propagation.
           // This allows us to provide a hardline without forcing the

@@ -408,13 +408,15 @@ new Promise(function(resolve, reject) {
 new Promise(function(resolve, reject) {
   if (Math.random()) {
     resolve(42);
-  } else {
+  }
+  else {
     resolve(\\"str\\");
   }
 }).then(function(numOrStr) {
   if (typeof numOrStr === \\"string\\") {
     var a: string = numOrStr;
-  } else {
+  }
+  else {
     var b: number = numOrStr;
   }
   var c: string = numOrStr; // Error: number|string -> string
@@ -452,13 +454,15 @@ new Promise(function(resolve, reject) {
 new Promise(function(resolve, reject) {
   if (Math.random()) {
     reject(42);
-  } else {
+  }
+  else {
     reject(\\"str\\");
   }
 }).catch(function(numOrStr) {
   if (typeof numOrStr === \\"string\\") {
     var a: string = numOrStr;
-  } else {
+  }
+  else {
     var b: number = numOrStr;
   }
 
@@ -657,7 +661,8 @@ class Promise {}
 async function foo(x: boolean) {
   if (x) {
     return { bar: \\"baz\\" };
-  } else {
+  }
+  else {
     return null;
   }
 }

@@ -179,7 +179,8 @@ class D extends C {
 function foo0(x: Array<number> | number) {
   if (x instanceof Array) {
     x[0] = 123;
-  } else {
+  }
+  else {
     x++;
   }
 }
@@ -187,7 +188,8 @@ function foo0(x: Array<number> | number) {
 function foo1(x: Array<number> | number) {
   if (x instanceof Array) {
     x++; // error
-  } else {
+  }
+  else {
     x[0] = 123; // error
   }
 }

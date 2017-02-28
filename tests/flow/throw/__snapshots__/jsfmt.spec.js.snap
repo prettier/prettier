@@ -42,7 +42,8 @@ function g(a: ?string) {
 function h(x: number): string {
   if (x) {
     return \\"foo\\";
-  } else {
+  }
+  else {
     throw new Error();
   }
 }
