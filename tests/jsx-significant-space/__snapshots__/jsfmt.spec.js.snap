@@ -65,6 +65,16 @@ similar_2 =
 
 similar_3 =
   <span><Icon icon=\\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\" /> <Icon icon=\\"\\" /></span>;
+
+regression_not_broken_end =
+  <div>
+    long text long text long text long text long text long text long text long text <link>url</link> long text long text
+  </div>
+
+regression_not_broken_begin =
+  <div>
+    <br /> long text long text long text long text long text long text long text long text<link>url</link> long text long text
+  </div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 after = (
   <span>
@@ -81,7 +91,8 @@ before = (
 before_break1 = (
   <span>
     <span barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar />
-    {\\" \\"}foo
+    {\\" \\"}
+    foo
   </span>
 );
 
@@ -90,13 +101,15 @@ before_break2 = (
     <span
       barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar
     />
-    {\\" \\"}foo
+    {\\" \\"}
+    foo
   </span>
 );
 
 after_break = (
   <span>
-    foo{\\" \\"}
+    foo
+    {\\" \\"}
     <span barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar />
   </span>
 );
@@ -161,6 +174,27 @@ similar_3 = (
   <span>
     <Icon icon=\\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\" /> <Icon icon=\\"\\" />
   </span>
+);
+
+regression_not_broken_end = (
+  <div>
+    long text long text long text long text long text long text long text long text
+    {\\" \\"}
+    <link>url</link>
+    {\\" \\"}
+    long text long text
+  </div>
+);
+
+regression_not_broken_begin = (
+  <div>
+    <br />
+    {\\" \\"}
+    long text long text long text long text long text long text long text long text
+    <link>url</link>
+    {\\" \\"}
+    long text long text
+  </div>
 );
 "
 `;
