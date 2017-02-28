@@ -192,8 +192,9 @@ function genericPrintNoParens(path, options, print) {
           path.call(print, "left"),
           " ",
           n.operator,
-          " ",
-          path.call(print, "right")
+          hasLeadingOwnLineComment(options.originalText, n.right) ?
+            indent(options.tabWidth, concat([hardline, path.call(print, "right")])) :
+            concat([" ", path.call(print, "right")]),
         ])
       );
     case "BinaryExpression":
@@ -204,6 +205,9 @@ function genericPrintNoParens(path, options, print) {
 
       // Avoid indenting sub-expressions in if/etc statements.
       if (
+        hasLeadingOwnLineComment(options.originalText, n) &&
+          (parent.type === "AssignmentExpression" ||
+            parent.type === "VariableDeclarator") ||
         shouldInlineLogicalExpression(n) ||
         (n !== parent.body &&
           (parent.type === "IfStatement" ||
@@ -945,7 +949,13 @@ function genericPrintNoParens(path, options, print) {
       return group(concat(parts));
     case "VariableDeclarator":
       return n.init
-        ? concat([path.call(print, "id"), " = ", path.call(print, "init")])
+        ? concat([
+            path.call(print, "id"),
+            " =",
+            hasLeadingOwnLineComment(options.originalText, n.init) ?
+              indent(options.tabWidth, concat([hardline, path.call(print, "init")])) :
+              concat([" ", path.call(print, "init")]),
+          ])
         : path.call(print, "id");
     case "WithStatement":
       return concat([
@@ -2886,6 +2896,16 @@ function isLastStatement(path) {
   const node = path.getValue();
   const body = parent.body;
   return body && body[body.length - 1] === node;
+}
+
+function hasLeadingOwnLineComment(text, node) {
+  const res = node.comments &&
+    node.comments.some(comment =>
+      comment.leading &&
+      util.hasNewline(text, util.locStart(comment), { backwards: true }) &&
+      util.hasNewline(text, util.locEnd(comment))
+    );
+  return res;
 }
 
 // Hack to differentiate between the following two which have the same ast
