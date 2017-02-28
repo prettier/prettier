@@ -903,22 +903,40 @@ function genericPrintNoParens(path, options, print) {
 
       return concat(parts);
     case "ConditionalExpression":
-      return group(
-        concat([
+      if (options.flattenTernaries) {
+        const parent = path.getParentNode();
+        const subTernary = parent.type === n.type;
+        const parts = [
           path.call(print, "test"),
-          indent(
-            1,
-            concat([
-              line,
-              "? ",
-              alignSpaces(2, path.call(print, "consequent")),
-              line,
-              ": ",
-              alignSpaces(2, path.call(print, "alternate"))
-            ])
-          )
-        ])
-      );
+          " ? ",
+          path.call(print, "consequent"),
+          " :",
+          hardline,
+          path.call(print, "alternate")
+        ];
+        return group(
+          subTernary
+          ? concat(parts)
+          : indent(1, concat([softline].concat(parts)))
+        );
+      } else {
+        return group(
+          concat([
+            path.call(print, "test"),
+            indent(
+              1,
+              concat([
+                line,
+                "? ",
+                alignSpaces(2, path.call(print, "consequent")),
+                line,
+                ": ",
+                alignSpaces(2, path.call(print, "alternate"))
+              ])
+            )
+          ])
+        );
+      }
     case "NewExpression":
       parts.push("new ", path.call(print, "callee"));
 

@@ -36,6 +36,7 @@ var defaults = {
   breakProperty: false,
   arrowParens: false,
   arrayExpand: false,
+  flattenTernaries: false,
   jsxBracketSameLine: false,
   parser: "babylon",
   __log: false

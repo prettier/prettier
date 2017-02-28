@@ -1,5 +1,80 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`nested.js 1`] = `
+"const value = condition1
+  ? value1
+  : condition2
+      ? value2
+      : condition3
+          ? value3
+          : value4;
+
+const value =
+  condition1 ? value1 :
+  condition2 ? value2 :
+  condition3 ? value3 :
+  value4;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const value = condition1
+  ? value1
+  : condition2 ? value2 : condition3 ? value3 : value4;
+
+const value = condition1
+  ? value1
+  : condition2 ? value2 : condition3 ? value3 : value4;
+"
+`;
+
+exports[`nested.js 2`] = `
+"const value = condition1
+  ? value1
+  : condition2
+      ? value2
+      : condition3
+          ? value3
+          : value4;
+
+const value =
+  condition1 ? value1 :
+  condition2 ? value2 :
+  condition3 ? value3 :
+  value4;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const value = condition1
+    ? value1
+    : condition2 ? value2 : condition3 ? value3 : value4;
+
+const value = condition1
+    ? value1
+    : condition2 ? value2 : condition3 ? value3 : value4;
+"
+`;
+
+exports[`nested.js 3`] = `
+"const value = condition1
+  ? value1
+  : condition2
+      ? value2
+      : condition3
+          ? value3
+          : value4;
+
+const value =
+  condition1 ? value1 :
+  condition2 ? value2 :
+  condition3 ? value3 :
+  value4;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const value = condition1
+  ? value1
+  : condition2 ? value2 : condition3 ? value3 : value4;
+
+const value = condition1
+  ? value1
+  : condition2 ? value2 : condition3 ? value3 : value4;
+"
+`;
+
 exports[`test.js 1`] = `
 "const obj0 = conditionIsTruthy ? shortThing : otherShortThing
 
@@ -101,5 +176,57 @@ const obj5 = conditionIsTruthy
           lots: \\"of\\",
           stuff
       };
+"
+`;
+
+exports[`test.js 3`] = `
+"const obj0 = conditionIsTruthy ? shortThing : otherShortThing
+
+const obj1 = conditionIsTruthy ? { some: 'long', object: 'with', lots: 'of', stuff } : shortThing
+
+const obj2 = conditionIsTruthy ? shortThing : { some: 'long', object: 'with', lots: 'of', stuff }
+
+const obj3 = conditionIsTruthy ? { some: 'eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger', object: 'with', lots: 'of', stuff } : shortThing
+
+const obj4 = conditionIsTruthy ? shortThing : { some: 'eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger', object: 'with', lots: 'of', stuff }
+
+const obj5 = conditionIsTruthy ? { some: 'long', object: 'with', lots: 'of', stuff } : { some: 'eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger', object: 'with', lots: 'of', stuff }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const obj0 = conditionIsTruthy ? shortThing : otherShortThing;
+
+const obj1 = conditionIsTruthy
+  ? { some: \\"long\\", object: \\"with\\", lots: \\"of\\", stuff }
+  : shortThing;
+
+const obj2 = conditionIsTruthy
+  ? shortThing
+  : { some: \\"long\\", object: \\"with\\", lots: \\"of\\", stuff };
+
+const obj3 = conditionIsTruthy
+  ? {
+      some: \\"eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger\\",
+      object: \\"with\\",
+      lots: \\"of\\",
+      stuff
+    }
+  : shortThing;
+
+const obj4 = conditionIsTruthy
+  ? shortThing
+  : {
+      some: \\"eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger\\",
+      object: \\"with\\",
+      lots: \\"of\\",
+      stuff
+    };
+
+const obj5 = conditionIsTruthy
+  ? { some: \\"long\\", object: \\"with\\", lots: \\"of\\", stuff }
+  : {
+      some: \\"eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger\\",
+      object: \\"with\\",
+      lots: \\"of\\",
+      stuff
+    };
 "
 `;
