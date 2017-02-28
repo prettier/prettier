@@ -132,12 +132,14 @@ function attach(comments, ast, text, options) {
 
   var tiesToBreak = [];
 
-  comments.forEach(function(comment) {
+  comments.forEach((comment, i) => {
     decorateComment(ast, comment, text);
 
     const precedingNode = comment.precedingNode;
     const enclosingNode = comment.enclosingNode;
     const followingNode = comment.followingNode;
+
+    const isLastComment = comments.length - 1 === i;
 
     if (util.hasNewline(text, locStart(comment), { backwards: true })) {
       // If a comment exists on its own line, prefer a leading comment.
@@ -146,7 +148,7 @@ function attach(comments, ast, text, options) {
         handleMemberExpressionComments(enclosingNode, followingNode, comment) ||
         handleIfStatementComments(enclosingNode, followingNode, comment) ||
         handleTryStatementComments(enclosingNode, followingNode, comment) ||
-        handleOnlyComments(enclosingNode, ast, comment)
+        handleOnlyComments(enclosingNode, ast, comment, isLastComment)
       ) {
         // We're good
       } else if (followingNode) {
@@ -170,7 +172,7 @@ function attach(comments, ast, text, options) {
           text
         ) ||
         handleTemplateLiteralComments(enclosingNode, comment) ||
-        handleOnlyComments(enclosingNode, ast, comment)
+        handleOnlyComments(enclosingNode, ast, comment, isLastComment)
       ) {
         // We're good
       } else if (precedingNode) {
@@ -190,7 +192,8 @@ function attach(comments, ast, text, options) {
         handleIfStatementComments(enclosingNode, followingNode, comment) ||
         handleObjectProperty(enclosingNode, precedingNode, comment) ||
         handleTemplateLiteralComments(enclosingNode, comment) ||
-        handleFunctionDeclarationComments(enclosingNode, comment)
+        handleFunctionDeclarationComments(enclosingNode, comment) ||
+        handleOnlyComments(enclosingNode, ast, comment, isLastComment)
       ) {
         // We're good
       } else if (precedingNode && followingNode) {
@@ -456,16 +459,24 @@ function handleFunctionDeclarationComments(enclosingNode, comment) {
   return false;
 }
 
-function handleOnlyComments(enclosingNode, ast, comment) {
+function handleOnlyComments(enclosingNode, ast, comment, isLastComment) {
   // With Flow the enclosingNode is undefined so use the AST instead.
   if (ast && ast.body && ast.body.length === 0) {
-    addLeadingComment(ast, comment);
+    if (isLastComment) {
+      addDanglingComment(ast, comment);
+    } else {
+      addLeadingComment(ast, comment);
+    }
     return true;
   } else if (
     enclosingNode && enclosingNode.type === 'Program' &&
     enclosingNode.body.length === 0
   ) {
-    addLeadingComment(enclosingNode, comment);
+    if (isLastComment) {
+      addDanglingComment(enclosingNode, comment);
+    } else {
+      addLeadingComment(enclosingNode, comment);
+    }
     return true;
   }
   return false;
