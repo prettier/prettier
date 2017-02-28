@@ -1,3 +1,25 @@
+# 0.20.0
+
+[link](https://github.com/jlongster/prettier/compare/0.19.0...0.20.0)
+
+* Fix extra parens for update expressions (#796)    
+* Fix empty options (#803)    
+* Eagerly evaluate `ifBreak` when processing template literals (fixes #795    
+* Fix function declaration params comments (#802)   
+* Update flow to 0.40 (#808)    
+* Correct link for travis   
+* Fix function call args (#809)   
+* Properly support `do` (#811)    
+* Do not put parenthesis around not named default export (#819)   
+* Adds another preset to related projects (#820)    
+* Fix trailing commas in docs (#825)    
+* Put short body of arrow functions on the same line (#829)   
+* Preserve new lines for comments after `=` (#830)    
+* Fix indentation of a merged group (#828)    
+* Migrate class comments to the beginning (#831)    
+* Update list of related projects (#833)    
+* Allow breaking for logical expressions in member chains (#827)
+
 # 0.19.0
 
 [link](https://github.com/jlongster/prettier/compare/0.18.0...0.19.0)
