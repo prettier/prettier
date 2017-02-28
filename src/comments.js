@@ -145,7 +145,8 @@ function attach(comments, ast, text, options) {
       if (
         handleMemberExpressionComments(enclosingNode, followingNode, comment) ||
         handleIfStatementComments(enclosingNode, followingNode, comment) ||
-        handleTryStatementComments(enclosingNode, followingNode, comment)
+        handleTryStatementComments(enclosingNode, followingNode, comment) ||
+        handleClassComments(enclosingNode, comment)
       ) {
         // We're good
       } else if (followingNode) {
@@ -168,7 +169,8 @@ function attach(comments, ast, text, options) {
           comment,
           text
         ) ||
-        handleTemplateLiteralComments(enclosingNode, comment)
+        handleTemplateLiteralComments(enclosingNode, comment) ||
+        handleClassComments(enclosingNode, comment)
       ) {
         // We're good
       } else if (precedingNode) {
@@ -449,6 +451,16 @@ function handleFunctionDeclarationComments(enclosingNode, comment) {
     enclosingNode.params.length === 0
   ) {
     addDanglingComment(enclosingNode, comment);
+    return true;
+  }
+  return false;
+}
+
+function handleClassComments(enclosingNode, comment) {
+  if (enclosingNode &&
+      (enclosingNode.type === "ClassDeclaration" ||
+        enclosingNode.type === "ClassExpression")) {
+    addLeadingComment(enclosingNode, comment);
     return true;
   }
   return false;
