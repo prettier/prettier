@@ -482,7 +482,8 @@ function handleOnlyComments(enclosingNode, ast, comment, isLastComment) {
     return true;
   } else if (
     enclosingNode && enclosingNode.type === 'Program' &&
-    enclosingNode.body.length === 0
+    enclosingNode.body.length === 0 && enclosingNode.directives &&
+    enclosingNode.directives.length === 0
   ) {
     if (isLastComment) {
       addDanglingComment(enclosingNode, comment);
