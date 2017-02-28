@@ -19,6 +19,7 @@ var conditionalGroup = docBuilders.conditionalGroup;
 var ifBreak = docBuilders.ifBreak;
 var breakParent = docBuilders.breakParent;
 var lineSuffixBoundary = docBuilders.lineSuffixBoundary;
+var infiniteWidth = docBuilders.infiniteWidth;
 
 var docUtils = require("./doc-utils");
 var willBreak = docUtils.willBreak;
@@ -715,9 +716,9 @@ function genericPrintNoParens(path, options, print) {
               parentIsUnionTypeAnnotation ? 2 : 0,
               concat([options.bracketSpacing ? line : softline, rightBrace])
             ),
+            shouldBreak ? infiniteWidth : "",
             path.call(print, "typeAnnotation")
-          ]),
-          { shouldBreak }
+          ])
         );
       }
 

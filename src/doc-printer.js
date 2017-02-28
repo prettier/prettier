@@ -28,6 +28,10 @@ function fits(next, restCommands, width) {
       width -= doc.length;
     } else {
       switch (doc.type) {
+        case "infinite-width":
+          width = -1;
+
+          break;
         case "concat":
           for (var i = doc.parts.length - 1; i >= 0; i--) {
             cmds.push([ind, mode, doc.parts[i]]);
@@ -101,6 +105,8 @@ function printDocToString(doc, width, newLine) {
       pos += doc.length;
     } else {
       switch (doc.type) {
+        case "infinite-width":
+          break;
         case "concat":
           for (var i = doc.parts.length - 1; i >= 0; i--) {
             cmds.push([ind, mode, doc.parts[i]]);
