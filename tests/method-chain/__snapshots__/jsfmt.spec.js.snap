@@ -224,6 +224,15 @@ Object.keys(
 "
 `;
 
+exports[`logical.js 1`] = `
+"(veryLongVeryLongVeryLong || e).map(tickets =>
+  TicketRecord.createFromSomeLongString());
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(veryLongVeryLongVeryLong || e)
+  .map(tickets => TicketRecord.createFromSomeLongString());
+"
+`;
+
 exports[`multiple-members.js 1`] = `
 "if (testConfig.ENABLE_ONLINE_TESTS === \\"true\\") {
   describe(\\"POST /users/me/pet\\", function() {

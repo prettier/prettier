@@ -2432,7 +2432,10 @@ function printMemberChain(path, options, print) {
 
   // If we only have a single `.`, we shouldn't do anything fancy and just
   // render everything concatenated together.
-  if (groups.length <= (shouldMerge ? 3 : 2) && !hasComment) {
+  if (groups.length <= (shouldMerge ? 3 : 2) &&
+      !hasComment &&
+      // (a || b).map() should be break before .map() instead of ||
+      groups[0][0].node.type !== "LogicalExpression") {
     return group(oneLine);
   }
 
