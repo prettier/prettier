@@ -180,8 +180,9 @@ function genericPrintNoParens(path, options, print) {
           path.call(print, "left"),
           " ",
           n.operator,
-          " ",
-          path.call(print, "right")
+          hasLeadingOwnLineComment(options.originalText, n.right) ?
+            indent(1, concat([hardline, path.call(print, "right")])) :
+            concat([" ", path.call(print, "right")]),
         ])
       );
     case "BinaryExpression":
@@ -192,6 +193,9 @@ function genericPrintNoParens(path, options, print) {
 
       // Avoid indenting sub-expressions in if/etc statements.
       if (
+        hasLeadingOwnLineComment(options.originalText, n) &&
+          (parent.type === "AssignmentExpression" ||
+            parent.type === "VariableDeclarator") ||
         shouldInlineLogicalExpression(n) ||
         (n !== parent.body &&
           (parent.type === "IfStatement" ||
@@ -983,7 +987,13 @@ function genericPrintNoParens(path, options, print) {
       return group(concat(parts));
     case "VariableDeclarator":
       return n.init
-        ? concat([path.call(print, "id"), " = ", path.call(print, "init")])
+        ? concat([
+            path.call(print, "id"),
+            " =",
+            hasLeadingOwnLineComment(options.originalText, n.init) ?
+              indent(1, concat([hardline, path.call(print, "init")])) :
+              concat([" ", path.call(print, "init")]),
+          ])
         : path.call(print, "id");
     case "WithStatement":
       return concat([
@@ -2409,10 +2419,10 @@ function printMemberChain(path, options, print) {
     return concat(printedGroup.map(tuple => tuple.printed));
   }
 
-  function printIndentedGroup(groups, lineType) {
+  function printIndentedGroup(groups) {
     return indent(
       1,
-      group(concat([lineType, join(lineType, groups.map(printGroup))]))
+      group(concat([hardline, join(hardline, groups.map(printGroup))]))
     );
   }
 
@@ -2422,14 +2432,14 @@ function printMemberChain(path, options, print) {
 
   // If we only have a single `.`, we shouldn't do anything fancy and just
   // render everything concatenated together.
-  if (groups.length <= 2 && !hasComment) {
+  if (groups.length <= (shouldMerge ? 3 : 2) && !hasComment) {
     return group(oneLine);
   }
 
   const expanded = concat([
     printGroup(groups[0]),
-    shouldMerge ? printIndentedGroup(groups.slice(1, 2), "") : "",
-    printIndentedGroup(groups.slice(shouldMerge ? 2 : 1), hardline)
+    shouldMerge ? concat(groups.slice(1, 2).map(printGroup)) : "",
+    printIndentedGroup(groups.slice(shouldMerge ? 2 : 1))
   ]);
 
   // If there's a comment, we don't want to print in one line.
@@ -2924,6 +2934,16 @@ function isLastStatement(path) {
   const node = path.getValue();
   const body = parent.body;
   return body && body[body.length - 1] === node;
+}
+
+function hasLeadingOwnLineComment(text, node) {
+  const res = node.comments &&
+    node.comments.some(comment =>
+      comment.leading &&
+      util.hasNewline(text, util.locStart(comment), { backwards: true }) &&
+      util.hasNewline(text, util.locEnd(comment))
+    );
+  return res;
 }
 
 // Hack to differentiate between the following two which have the same ast
