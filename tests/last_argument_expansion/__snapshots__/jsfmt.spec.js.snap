@@ -149,3 +149,16 @@ export const log = y => {
 };
 "
 `;
+
+exports[`overflow.js 1`] = `
+"SuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLongCall((err, result) => {
+  // comment
+});
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+SuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLongCall(
+  (err, result) => {
+    // comment
+  }
+);
+"
+`;
