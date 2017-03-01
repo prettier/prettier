@@ -2523,6 +2523,7 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
             const beginSpace = /^\s+/.test(line);
             if (beginSpace) {
               children.push(jsxWhitespace);
+              children.push(softline);
             }
 
             const stripped = line.replace(/^\s+|\s+$/g, "");
@@ -2532,6 +2533,7 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
 
             const endSpace = /\s+$/.test(line);
             if (endSpace) {
+              children.push(softline);
               children.push(jsxWhitespace);
             }
           });
