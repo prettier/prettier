@@ -628,11 +628,18 @@ function genericPrintNoParens(path, options, print) {
 
       return concat(parts);
     case "CallExpression": {
-      const parent = path.getParentNode();
       // We detect calls on member lookups and possibly print them in a
       // special chain format. See `printMemberChain` for more info.
       if (n.callee.type === "MemberExpression") {
         return printMemberChain(path, options, print);
+      }
+
+      // We want to keep require calls as a unit
+      if (n.callee.type === "Identifier" && n.callee.name === "require") {
+        return concat([
+          path.call(print, "callee"),
+          concat(["(", join(", ", path.map(print, "arguments")), ")"])
+        ]);
       }
 
       return concat([
