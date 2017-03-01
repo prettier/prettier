@@ -60,7 +60,13 @@ exports[`expression.js 1`] = `
     this.props.veryBigItemImageViewFunc(option)}
   heading={this.props.displayTextFunc(option)}
   value={option}
-/>
+/>;
+
+<ParentComponent prop={
+  <Child>
+    test
+  </Child>
+}/>;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <View
   style={{
@@ -121,6 +127,14 @@ exports[`expression.js 1`] = `
   }
   heading={this.props.displayTextFunc(option)}
   value={option}
+/>;
+
+<ParentComponent
+  prop={
+    <Child>
+      test
+    </Child>
+  }
 />;
 "
 `;
