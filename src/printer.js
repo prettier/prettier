@@ -192,9 +192,12 @@ function genericPrintNoParens(path, options, print) {
           path.call(print, "left"),
           " ",
           n.operator,
-          hasLeadingOwnLineComment(options.originalText, n.right) ?
-            indent(options.tabWidth, concat([hardline, path.call(print, "right")])) :
-            concat([" ", path.call(print, "right")]),
+          hasLeadingOwnLineComment(options.originalText, n.right)
+            ? indent(
+                options.tabWidth,
+                concat([hardline, path.call(print, "right")])
+              )
+            : concat([" ", path.call(print, "right")])
         ])
       );
     case "BinaryExpression":
@@ -205,9 +208,9 @@ function genericPrintNoParens(path, options, print) {
 
       // Avoid indenting sub-expressions in if/etc statements.
       if (
-        hasLeadingOwnLineComment(options.originalText, n) &&
+        (hasLeadingOwnLineComment(options.originalText, n) &&
           (parent.type === "AssignmentExpression" ||
-            parent.type === "VariableDeclarator") ||
+            parent.type === "VariableDeclarator")) ||
         shouldInlineLogicalExpression(n) ||
         (n !== parent.body &&
           (parent.type === "IfStatement" ||
@@ -952,9 +955,12 @@ function genericPrintNoParens(path, options, print) {
         ? concat([
             path.call(print, "id"),
             " =",
-            hasLeadingOwnLineComment(options.originalText, n.init) ?
-              indent(options.tabWidth, concat([hardline, path.call(print, "init")])) :
-              concat([" ", path.call(print, "init")]),
+            hasLeadingOwnLineComment(options.originalText, n.init)
+              ? indent(
+                  options.tabWidth,
+                  concat([hardline, path.call(print, "init")])
+                )
+              : concat([" ", path.call(print, "init")])
           ])
         : path.call(print, "id");
     case "WithStatement":
@@ -1391,8 +1397,7 @@ function genericPrintNoParens(path, options, print) {
         return docUtils.mapDoc(doc, d => {
           if (d.type === "line" && !d.hard) {
             return d.soft ? "" : " ";
-          }
-          else if(d.type === "if-break") {
+          } else if (d.type === "if-break") {
             return d.flatContents || "";
           }
           return d;
@@ -1906,7 +1911,7 @@ function printArgumentsList(path, options, print) {
 
   const args = path.getValue().arguments;
   const lastArg = util.getLast(args);
-  const penultimateArg = util.getPenultimate(args)
+  const penultimateArg = util.getPenultimate(args);
   // This is just an optimization; I think we could return the
   // conditional group for all function calls, but it's more expensive
   // so only do it for specific forms.
@@ -1920,10 +1925,10 @@ function printArgumentsList(path, options, print) {
           lastArg.body.type === "ObjectExpression" ||
           lastArg.body.type === "ArrayExpression" ||
           lastArg.body.type === "CallExpression" ||
-         lastArg.body.type === "JSXElement"))) &&
-        // If the last two arguments are of the same type,
-        // disable last element expansion.
-        (!penultimateArg || penultimateArg.type !== lastArg.type);
+          lastArg.body.type === "JSXElement"))) &&
+    // If the last two arguments are of the same type,
+    // disable last element expansion.
+    (!penultimateArg || penultimateArg.type !== lastArg.type);
 
   if (groupLastArg) {
     const shouldBreak = printed.slice(0, -1).some(willBreak);
@@ -2001,7 +2006,7 @@ function printFunctionParams(path, print, options) {
       "(",
       comments.printDanglingComments(path, options, /* sameIndent */ true),
       ")"
-    ])
+    ]);
   }
 
   const lastParam = util.getLast(path.getValue().params);
@@ -2394,7 +2399,12 @@ function printMemberChain(path, options, print) {
 
   // If we only have a single `.`, we shouldn't do anything fancy and just
   // render everything concatenated together.
-  if (groups.length <= (shouldMerge ? 3 : 2) && !hasComment) {
+  if (
+    groups.length <= (shouldMerge ? 3 : 2) &&
+    !hasComment &&
+    // (a || b).map() should be break before .map() instead of ||
+    groups[0][0].node.type !== "LogicalExpression"
+  ) {
     return group(oneLine);
   }
 
@@ -2479,6 +2489,7 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
             const beginSpace = /^\s+/.test(line);
             if (beginSpace) {
               children.push(jsxWhitespace);
+              children.push(softline);
             }
 
             const stripped = line.replace(/^\s+|\s+$/g, "");
@@ -2488,6 +2499,7 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
 
             const endSpace = /\s+$/.test(line);
             if (endSpace) {
+              children.push(softline);
               children.push(jsxWhitespace);
             }
           });
@@ -2900,10 +2912,11 @@ function isLastStatement(path) {
 
 function hasLeadingOwnLineComment(text, node) {
   const res = node.comments &&
-    node.comments.some(comment =>
-      comment.leading &&
-      util.hasNewline(text, util.locStart(comment), { backwards: true }) &&
-      util.hasNewline(text, util.locEnd(comment))
+    node.comments.some(
+      comment =>
+        comment.leading &&
+        util.hasNewline(text, util.locStart(comment), { backwards: true }) &&
+        util.hasNewline(text, util.locEnd(comment))
     );
   return res;
 }
