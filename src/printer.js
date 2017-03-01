@@ -1390,6 +1390,13 @@ function genericPrintNoParens(path, options, print) {
       var expressions = path.map(print, "expressions");
 
       function removeLines(doc) {
+        // Exceptions returning raw doc.
+        if (
+          n.expressions && n.expressions.length === 1 &&
+          n.expressions[0].type === "ObjectExpression"
+        ) {
+          return doc
+        }
         // Force this doc into flat mode by statically converting all
         // lines into spaces (or soft lines into nothing). Hard lines
         // should still output because there's too great of a chance
