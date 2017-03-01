@@ -18,8 +18,11 @@ const argv = minimist(process.argv.slice(2), {
     "single-quote",
     "bracket-spacing",
     "braces-spacing",
-    "breakProperty",
-    "arrowParens",
+    "break-property",
+    "arrow-parens",
+    "array-expand",
+    "break-before-else",
+    "flatten-ternaries",
     "jsx-bracket-same-line",
     // The supports-color package (a sub sub dependency) looks directly at
     // `process.argv` for `--no-color` and such-like options. The reason it is
@@ -135,6 +138,7 @@ const options = {
   arrowParens: argv["arrow-parens"],
   arrayExpand: argv["array-expand"],
   flattenTernaries: argv["flatten-ternaries"],
+  breakBeforeElse: argv["break-before-else"],
   singleQuote: argv["single-quote"],
   jsxBracketSameLine: argv["jsx-bracket-same-line"],
   trailingComma: getTrailingComma(),
@@ -202,6 +206,7 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
       "  --arrow-parens           Always put parentheses on arrow function arguments. Defaults to false.\n" +
       "  --array-expand           Expand arrays into one item per line. Defaults to false.\n" +
       "  --flatten-ternaries      Format ternaries in a flat style. Defaults to false.\n" +
+      "  --break-before-else      Put `else` clause in a new line. Defaults to false.\n" +
       "  --jsx-bracket-same-line  Put > on the last line. Defaults to false.\n" +
       "  --trailing-comma <none|es5|all>\n" +
       "                           Print trailing commas wherever possible. Defaults to none.\n" +
