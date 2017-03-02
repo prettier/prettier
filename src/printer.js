@@ -1622,12 +1622,19 @@ function genericPrintNoParens(path, options, print) {
         return join(" & ", types);
       }
 
+      const parent = path.getParentNode();
+      // If there's a leading comment, the parent is doing the indentation
+      const shouldIndent = !(parent.type === 'TypeAlias' &&
+        hasLeadingOwnLineComment(options.originalText, n));
+
+      const token = isIntersection ? "&" : "|";
+
       return group(
         indent(
-          options.tabWidth,
+          shouldIndent ? options.tabWidth : 0,
           concat([
-            ifBreak(concat([line, isIntersection ? "&" : "|", " "])),
-            join(concat([line, isIntersection ? "&" : "|", " "]), types)
+            ifBreak(concat([shouldIndent ? line : "", token, " "])),
+            join(concat([line, token, " "]), types)
           ])
         )
       );
@@ -1710,8 +1717,13 @@ function genericPrintNoParens(path, options, print) {
         "type ",
         path.call(print, "id"),
         path.call(print, "typeParameters"),
-        " = ",
-        path.call(print, "right"),
+        " =",
+        hasLeadingOwnLineComment(options.originalText, n.right)
+          ? indent(
+              options.tabWidth,
+              concat([hardline, path.call(print, "right")])
+            )
+          : concat([" ", path.call(print, "right")]),
         ";"
       );
 
