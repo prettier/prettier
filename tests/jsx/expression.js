@@ -57,4 +57,10 @@
     this.props.veryBigItemImageViewFunc(option)}
   heading={this.props.displayTextFunc(option)}
   value={option}
-/>
+/>;
+
+<ParentComponent prop={
+  <Child>
+    test
+  </Child>
+}/>;

@@ -447,7 +447,8 @@ function handleFunctionDeclarationComments(enclosingNode, comment) {
   // Only add dangling comments to fix the case when no params are present,
   // i.e. a function without any argument.
   if (
-    enclosingNode && enclosingNode.type === "FunctionDeclaration" &&
+    enclosingNode &&
+    enclosingNode.type === "FunctionDeclaration" &&
     enclosingNode.params.length === 0
   ) {
     addDanglingComment(enclosingNode, comment);
@@ -457,9 +458,11 @@ function handleFunctionDeclarationComments(enclosingNode, comment) {
 }
 
 function handleClassComments(enclosingNode, comment) {
-  if (enclosingNode &&
-      (enclosingNode.type === "ClassDeclaration" ||
-        enclosingNode.type === "ClassExpression")) {
+  if (
+    enclosingNode &&
+    (enclosingNode.type === "ClassDeclaration" ||
+      enclosingNode.type === "ClassExpression")
+  ) {
     addLeadingComment(enclosingNode, comment);
     return true;
   }
