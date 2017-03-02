@@ -1101,26 +1101,11 @@ function genericPrintNoParens(path, options, print) {
       );
       return concat(["do {\n", statements.indent(options.tabWidth), "\n}"]);
     case "BreakStatement":
-      var parentParent = path.getParentNode(1);
-      var parent = path.getParentNode();
-
       parts.push("break");
 
       if (n.label) parts.push(" ", path.call(print, "label"));
 
-      if (parent.type === "SwitchCase") {
-        const lastCase = parentParent.cases[parentParent.cases.length - 1];
-
-        // Only inject a hardline if the break is not the last one.
-        parts.push(concat([
-          ";",
-          n !== lastCase.consequent[lastCase.consequent.length - 1]
-            ? hardline
-            : ""
-        ]));
-      } else {
-        parts.push(";");
-      }
+      parts.push(";");
 
       return concat(parts);
     case "ContinueStatement":
@@ -1188,7 +1173,9 @@ function genericPrintNoParens(path, options, print) {
         hardline,
         "}"
       ]);
-    case "SwitchCase":
+    case "SwitchCase": {
+      if (hasBreakBefore(path, n)) parts.push(hardline);
+
       if (n.test) parts.push("case ", path.call(print, "test"), ":");
       else parts.push("default:");
 
@@ -1208,6 +1195,7 @@ function genericPrintNoParens(path, options, print) {
       }
 
       return concat(parts);
+    }
     // JSX extensions below.
     case "DebuggerStatement":
       return "debugger;";
@@ -2905,22 +2893,40 @@ function isLastStatement(path) {
   const node = path.getValue();
   const last = parentParent && parentParent.cases &&
     parentParent.cases[parentParent.cases.length - 1].consequent[0];
+
+  if (hasBreak(parent)) return true;
+
+  if (node.comments) return false;
+
+  return last === node;
+}
+
+function hasBreak (node) {
   let hasBreak = false;
-  console.log('\n\n', node.comments)
-  if (parent.consequent && parent.type === "SwitchCase") {
-    for (let i = 0; i < parent.consequent.length; ++i) {
-      if (parent.consequent[i].type === "BreakStatement") {
+  if (node.consequent && node.type === "SwitchCase") {
+    for (let i = 0; i < node.consequent.length; ++i) {
+      if (node.consequent[i].type === "BreakStatement") {
         hasBreak = true;
         break;
       }
     }
   }
+  return hasBreak;
+}
 
-  if (node.comments) return false;
-
-  if (hasBreak) return true;
-
-  return last === node;
+function hasBreakBefore (path, node) {
+  const parent = path.getParentNode(0);
+  let breakBefore = false
+  for (let i = 0; i < parent.cases.length; ++i) {
+    if (
+      node === parent.cases[i] && parent.cases[i - 1] &&
+      hasBreak(parent.cases[i - 1])
+    ) {
+      breakBefore = true;
+      break;
+    }
+  }
+  return breakBefore;
 }
 
 // Hack to differentiate between the following two which have the same ast
