@@ -1,5 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`call.js 1`] = `
+insertRule(\`*, *:before, *:after {
+  box-sizing: inherit;
+}\`);
+
+insertRule\`*, *:before, *:after {
+  box-sizing: inherit;
+}\`;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+insertRule(\`*, *:before, *:after {
+  box-sizing: inherit;
+}\`);
+
+insertRule\`*, *:before, *:after {
+  box-sizing: inherit;
+}\`;
+
+`;
+
 exports[`comment.js 1`] = `
 \`
 (?:\${escapeChar}[\\\\S\\\\s]|(?:(?!\${// Using \`XRegExp.union\` safely rewrites backreferences in \`left\` and \`right\`.

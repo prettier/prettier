@@ -667,6 +667,8 @@ function genericPrintNoParens(path, options, print, args) {
       if (
         // We want to keep require calls as a unit
         (n.callee.type === "Identifier" && n.callee.name === "require") ||
+        // Template literals as single arguments
+        n.arguments.length === 1 && n.arguments[0].type === "TemplateLiteral" ||
         // Keep test declarations on a single line
         // e.g. `it('long name', () => {`
         (n.callee.type === "Identifier" &&
