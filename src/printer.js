@@ -2926,7 +2926,7 @@ function hasBreakOrReturn (node) {
 
 function hasBreakOrReturnBefore (path, node) {
   const parent = path.getParentNode(0);
-  let breakOrReturnBefore = false
+  let breakOrReturnBefore = false;
   for (let i = 0; i < parent.cases.length; ++i) {
     if (
       node === parent.cases[i] && parent.cases[i - 1] &&
