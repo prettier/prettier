@@ -202,6 +202,7 @@ function genericPrintNoParens(path, options, print) {
         parent.type === "AssignmentExpression" ||
         parent.type === "VariableDeclarator" ||
         shouldInlineLogicalExpression(n) ||
+        parent.type === "ReturnStatement" ||
         (n !== parent.body &&
           (parent.type === "IfStatement" ||
             parent.type === "WhileStatement" ||
@@ -605,6 +606,21 @@ function genericPrintNoParens(path, options, print) {
               line,
               ")"
             ])
+          );
+        } else if (
+          n.argument.type === 'LogicalExpression' ||
+          n.argument.type === 'BinaryExpression'
+        ) {
+          parts.push(
+            group(concat([
+              ifBreak(" (", " "),
+              indent(
+                options.tabWidth,
+                concat([softline, path.call(print, "argument")])
+              ),
+              softline,
+              ifBreak(")")
+            ]))
           );
         } else {
           parts.push(" ", path.call(print, "argument"));
