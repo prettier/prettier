@@ -146,6 +146,7 @@ function attach(comments, ast, text, options) {
         handleMemberExpressionComments(enclosingNode, followingNode, comment) ||
         handleIfStatementComments(enclosingNode, followingNode, comment) ||
         handleTryStatementComments(enclosingNode, followingNode, comment) ||
+        handleImportSpecifierComments(enclosingNode, comment) ||
         handleClassComments(enclosingNode, comment)
       ) {
         // We're good
@@ -169,6 +170,7 @@ function attach(comments, ast, text, options) {
           comment,
           text
         ) ||
+        handleImportSpecifierComments(enclosingNode, comment) ||
         handleTemplateLiteralComments(enclosingNode, comment) ||
         handleClassComments(enclosingNode, comment)
       ) {
@@ -463,6 +465,14 @@ function handleClassComments(enclosingNode, comment) {
     (enclosingNode.type === "ClassDeclaration" ||
       enclosingNode.type === "ClassExpression")
   ) {
+    addLeadingComment(enclosingNode, comment);
+    return true;
+  }
+  return false;
+}
+
+function handleImportSpecifierComments(enclosingNode, comment) {
+  if (enclosingNode && enclosingNode.type === "ImportSpecifier") {
     addLeadingComment(enclosingNode, comment);
     return true;
   }
