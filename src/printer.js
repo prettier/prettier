@@ -1906,20 +1906,10 @@ function printMethod(path, options, print) {
   return concat(parts);
 }
 
-function printArgumentsList(path, options, print) {
-  var printed = path.map(print, "arguments");
-
-  if (printed.length === 0) {
-    return "()";
-  }
-
-  const args = path.getValue().arguments;
+function shouldGroupLastArg(args) {
   const lastArg = util.getLast(args);
-  const penultimateArg = util.getPenultimate(args);
-  // This is just an optimization; I think we could return the
-  // conditional group for all function calls, but it's more expensive
-  // so only do it for specific forms.
-  const groupLastArg = (!lastArg.comments || !lastArg.comments.length) &&
+  const penultimateArg = util.getPenultimate(args)
+  return (!lastArg.comments || !lastArg.comments.length) &&
     (lastArg.type === "ObjectExpression" ||
       lastArg.type === "ArrayExpression" ||
       lastArg.type === "FunctionExpression" ||
@@ -1933,8 +1923,20 @@ function printArgumentsList(path, options, print) {
     // If the last two arguments are of the same type,
     // disable last element expansion.
     (!penultimateArg || penultimateArg.type !== lastArg.type);
+}
 
-  if (groupLastArg) {
+function printArgumentsList(path, options, print) {
+  var printed = path.map(print, "arguments");
+
+  if (printed.length === 0) {
+    return "()";
+  }
+
+  const args = path.getValue().arguments;
+  // This is just an optimization; I think we could return the
+  // conditional group for all function calls, but it's more expensive
+  // so only do it for specific forms.
+  if (shouldGroupLastArg(args)) {
     const shouldBreak = printed.slice(0, -1).some(willBreak);
     return concat([
       printed.some(willBreak) ? breakParent : "",
@@ -2017,6 +2019,23 @@ function printFunctionParams(path, print, options) {
   const canHaveTrailingComma = !(lastParam &&
     lastParam.type === "RestElement") &&
     !fun.rest;
+
+  // If the parent is a call with the last argument expansion and this is the
+  // params of the last argument, we dont want the arguments to break and instead
+  // want the whole expression to be on a new line.
+  //
+  // Good:                 Bad:
+  //   verylongcall(         verylongcall((
+  //     (a, b) => {           a,
+  //     }                     b,
+  //   })                    ) => {
+  //                         })
+  const parent = path.getParentNode();
+  if ((parent.type === "CallExpression" || parent.type === "NewExpression") &&
+    util.getLast(parent.arguments) === path.getValue() &&
+    shouldGroupLastArg(parent.arguments)) {
+    return concat(["(", join(", ", printed), ")"]);
+  }
 
   return concat([
     "(",
