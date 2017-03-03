@@ -203,7 +203,7 @@ var n = r(s) || 1;
 (n: number);
 
 var x = \\"\\";
-if (x = r(s) || 1) {
+if ((x = r(s) || 1)) {
   (x: number);
 }
 
