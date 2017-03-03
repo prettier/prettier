@@ -1323,10 +1323,7 @@ function genericPrintNoParens(path, options, print) {
     case "JSXText":
       throw new Error("JSXTest should be handled by JSXElement");
     case "JSXEmptyExpression":
-      return concat([
-        comments.printDanglingComments(path, options, /* sameIndent */ true),
-        softline
-      ]);
+      return comments.printDanglingComments(path, options, /* sameIndent */ true);
     case "TypeAnnotatedIdentifier":
       return concat([
         path.call(print, "annotation"),
