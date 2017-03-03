@@ -173,6 +173,7 @@ function attach(comments, ast, text, options) {
         ) ||
         handleImportSpecifierComments(enclosingNode, comment) ||
         handleTemplateLiteralComments(enclosingNode, comment) ||
+        handleCallExpressionComments(precedingNode, enclosingNode, comment) ||
         handleClassComments(enclosingNode, comment)
       ) {
         // We're good
@@ -496,6 +497,16 @@ function handleClassComments(enclosingNode, comment) {
 function handleImportSpecifierComments(enclosingNode, comment) {
   if (enclosingNode && enclosingNode.type === "ImportSpecifier") {
     addLeadingComment(enclosingNode, comment);
+    return true;
+  }
+  return false;
+}
+
+function handleCallExpressionComments(precedingNode, enclosingNode, comment) {
+  if (enclosingNode && enclosingNode.type === "CallExpression" &&
+      precedingNode && enclosingNode.callee === precedingNode &&
+      enclosingNode.arguments.length > 0) {
+    addLeadingComment(enclosingNode.arguments[0], comment);
     return true;
   }
   return false;
