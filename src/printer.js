@@ -1173,8 +1173,8 @@ function genericPrintNoParens(path, options, print) {
         hardline,
         "}"
       ]);
-    case "SwitchCase": {
-      if (hasBreakBefore(path, n)) parts.push(hardline);
+    case "SwitchCase":
+      if (hasBreakOrReturnBefore(path, n)) parts.push(hardline);
 
       if (n.test) parts.push("case ", path.call(print, "test"), ":");
       else parts.push("default:");
@@ -1195,7 +1195,6 @@ function genericPrintNoParens(path, options, print) {
       }
 
       return concat(parts);
-    }
     // JSX extensions below.
     case "DebuggerStatement":
       return "debugger;";
@@ -1816,10 +1815,14 @@ function printStatementSequence(path, options, print) {
 
     parts.push(stmtPrinted);
 
-    if (
-      (parent.type === "SwitchCase" || util.isNextLineEmpty(text, stmt)) &&
-      !isLastStatement(stmtPath)
-    ) {
+    if (parent.type === "SwitchCase") {
+      if (
+        util.isNextLineEmpty(text, stmt) &&
+        !isLastSwitchStatement(stmtPath)
+      ) {
+        parts.push(hardline);
+      }
+    } else if (util.isNextLineEmpty(text, stmt) && !isLastStatement(stmtPath)) {
       parts.push(hardline);
     }
 
@@ -2888,45 +2891,52 @@ function printNumber(rawNumber) {
 }
 
 function isLastStatement(path) {
+  const parent = path.getParentNode();
+  const node = path.getValue();
+  const body = parent.body;
+  return body && body[body.length - 1] === node;
+}
+
+function isLastSwitchStatement(path) {
   const parentParent = path.getParentNode(1);
   const parent = path.getParentNode();
   const node = path.getValue();
   const last = parentParent && parentParent.cases &&
     parentParent.cases[parentParent.cases.length - 1].consequent[0];
-
-  if (hasBreak(parent)) return true;
-
+  if (hasBreakOrReturn(parent)) return true;
   if (node.comments) return false;
-
   return last === node;
 }
 
-function hasBreak (node) {
-  let hasBreak = false;
+function hasBreakOrReturn (node) {
+  let hasBreakOrReturn = false;
   if (node.consequent && node.type === "SwitchCase") {
     for (let i = 0; i < node.consequent.length; ++i) {
-      if (node.consequent[i].type === "BreakStatement") {
-        hasBreak = true;
+      if (
+        node.consequent[i].type === "BreakStatement" ||
+        node.consequent[i].type === "ReturnStatement"
+      ) {
+        hasBreakOrReturn = true;
         break;
       }
     }
   }
-  return hasBreak;
+  return hasBreakOrReturn;
 }
 
-function hasBreakBefore (path, node) {
+function hasBreakOrReturnBefore (path, node) {
   const parent = path.getParentNode(0);
-  let breakBefore = false
+  let breakOrReturnBefore = false
   for (let i = 0; i < parent.cases.length; ++i) {
     if (
       node === parent.cases[i] && parent.cases[i - 1] &&
-      hasBreak(parent.cases[i - 1])
+      hasBreakOrReturn(parent.cases[i - 1])
     ) {
-      breakBefore = true;
+      breakOrReturnBefore = true;
       break;
     }
   }
-  return breakBefore;
+  return breakOrReturnBefore;
 }
 
 // Hack to differentiate between the following two which have the same ast
