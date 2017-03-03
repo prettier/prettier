@@ -25,7 +25,7 @@ FastPath.from = function(obj) {
     // lightweight FastPath [..., name, value] stacks.
     var copy = Object.create(FastPath.prototype);
     var stack = [obj.value];
-    for (var pp; pp = obj.parentPath; obj = pp)
+    for (var pp; (pp = obj.parentPath); obj = pp)
       stack.push(obj.name, pp.value);
     copy.stack = stack.reverse();
     return copy;
@@ -405,14 +405,13 @@ FPp.needsParens = function(assumeExpressionContext) {
         parent.object === node;
 
     case "AssignmentExpression":
-      if (
-        parent.type === "ArrowFunctionExpression" &&
-        parent.body === node
-      ) {
+      if (parent.type === "ArrowFunctionExpression" && parent.body === node) {
         return node.left.type === "ObjectPattern";
       }
-      if (parent.type === "ForStatement" &&
-        (parent.init === node || parent.update === node)) {
+      if (
+        parent.type === "ForStatement" &&
+        (parent.init === node || parent.update === node)
+      ) {
         return false;
       }
       if (parent.type === "ExpressionStatement") {

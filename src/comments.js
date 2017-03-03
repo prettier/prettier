@@ -58,7 +58,7 @@ function getSortedChildNodes(node, text, resultArray) {
 
   if (!resultArray) {
     Object.defineProperty(node, childNodesCacheKey, {
-      value: resultArray = [],
+      value: (resultArray = []),
       enumerable: false
     });
   }
@@ -143,13 +143,23 @@ function attach(comments, ast, text, options) {
       // If a comment exists on its own line, prefer a leading comment.
       // We also need to check if it's the first line of the file.
       if (
-        handleLastFunctionArgComments(precedingNode, enclosingNode, followingNode, comment) ||
+        handleLastFunctionArgComments(
+          precedingNode,
+          enclosingNode,
+          followingNode,
+          comment
+        ) ||
         handleMemberExpressionComments(enclosingNode, followingNode, comment) ||
         handleIfStatementComments(enclosingNode, followingNode, comment) ||
         handleTryStatementComments(enclosingNode, followingNode, comment) ||
         handleImportSpecifierComments(enclosingNode, comment) ||
         handleClassComments(enclosingNode, comment) ||
-        handleUnionTypeComments(precedingNode, enclosingNode, followingNode, comment)
+        handleUnionTypeComments(
+          precedingNode,
+          enclosingNode,
+          followingNode,
+          comment
+        )
       ) {
         // We're good
       } else if (followingNode) {
@@ -462,21 +472,35 @@ function handleFunctionDeclarationComments(enclosingNode, comment) {
   return false;
 }
 
-function handleLastFunctionArgComments(precedingNode, enclosingNode, followingNode, comment) {
+function handleLastFunctionArgComments(
+  precedingNode,
+  enclosingNode,
+  followingNode,
+  comment
+) {
   // Type definitions functions
-  if (precedingNode && precedingNode.type === 'FunctionTypeParam' &&
-    enclosingNode && enclosingNode.type === 'FunctionTypeAnnotation' &&
-    followingNode && followingNode.type !== 'FunctionTypeParam') {
+  if (
+    precedingNode &&
+    precedingNode.type === "FunctionTypeParam" &&
+    enclosingNode &&
+    enclosingNode.type === "FunctionTypeAnnotation" &&
+    followingNode &&
+    followingNode.type !== "FunctionTypeParam"
+  ) {
     addTrailingComment(precedingNode, comment);
     return true;
   }
 
   // Real functions
-  if (precedingNode && precedingNode.type === 'Identifier' &&
-    enclosingNode && (
-      enclosingNode.type === 'ArrowFunctionExpression' ||
-      enclosingNode.type === 'FunctionExpression') &&
-    followingNode && followingNode.type !== 'Identifier') {
+  if (
+    precedingNode &&
+    precedingNode.type === "Identifier" &&
+    enclosingNode &&
+    (enclosingNode.type === "ArrowFunctionExpression" ||
+      enclosingNode.type === "FunctionExpression") &&
+    followingNode &&
+    followingNode.type !== "Identifier"
+  ) {
     addTrailingComment(precedingNode, comment);
     return true;
   }
@@ -504,19 +528,33 @@ function handleImportSpecifierComments(enclosingNode, comment) {
 }
 
 function handleCallExpressionComments(precedingNode, enclosingNode, comment) {
-  if (enclosingNode && enclosingNode.type === "CallExpression" &&
-      precedingNode && enclosingNode.callee === precedingNode &&
-      enclosingNode.arguments.length > 0) {
+  if (
+    enclosingNode &&
+    enclosingNode.type === "CallExpression" &&
+    precedingNode &&
+    enclosingNode.callee === precedingNode &&
+    enclosingNode.arguments.length > 0
+  ) {
     addLeadingComment(enclosingNode.arguments[0], comment);
     return true;
   }
   return false;
 }
 
-function handleUnionTypeComments(precedingNode, enclosingNode, followingNode, comment) {
-  if (enclosingNode && enclosingNode.type === 'UnionTypeAnnotation' &&
-      precedingNode && precedingNode.type === 'ObjectTypeAnnotation' &&
-      followingNode && followingNode.type === 'ObjectTypeAnnotation') {
+function handleUnionTypeComments(
+  precedingNode,
+  enclosingNode,
+  followingNode,
+  comment
+) {
+  if (
+    enclosingNode &&
+    enclosingNode.type === "UnionTypeAnnotation" &&
+    precedingNode &&
+    precedingNode.type === "ObjectTypeAnnotation" &&
+    followingNode &&
+    followingNode.type === "ObjectTypeAnnotation"
+  ) {
     addTrailingComment(precedingNode, comment);
     return true;
   }
