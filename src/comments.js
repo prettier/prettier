@@ -148,7 +148,8 @@ function attach(comments, ast, text, options) {
         handleIfStatementComments(enclosingNode, followingNode, comment) ||
         handleTryStatementComments(enclosingNode, followingNode, comment) ||
         handleImportSpecifierComments(enclosingNode, comment) ||
-        handleClassComments(enclosingNode, comment)
+        handleClassComments(enclosingNode, comment) ||
+        handleUnionTypeComments(precedingNode, enclosingNode, followingNode, comment)
       ) {
         // We're good
       } else if (followingNode) {
@@ -507,6 +508,16 @@ function handleCallExpressionComments(precedingNode, enclosingNode, comment) {
       precedingNode && enclosingNode.callee === precedingNode &&
       enclosingNode.arguments.length > 0) {
     addLeadingComment(enclosingNode.arguments[0], comment);
+    return true;
+  }
+  return false;
+}
+
+function handleUnionTypeComments(precedingNode, enclosingNode, followingNode, comment) {
+  if (enclosingNode && enclosingNode.type === 'UnionTypeAnnotation' &&
+      precedingNode && precedingNode.type === 'ObjectTypeAnnotation' &&
+      followingNode && followingNode.type === 'ObjectTypeAnnotation') {
+    addTrailingComment(precedingNode, comment);
     return true;
   }
   return false;
