@@ -269,6 +269,7 @@ var React = React.createClass({
     switch (this.props.name) {
       case \\"a\\":
         return \\"Bob\\";
+
       default:
         return \\"Alice\\";
     }

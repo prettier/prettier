@@ -586,6 +586,7 @@ function switch_scope(x: string) {
       let a = \\"\\"; // ok: local to switch
       var b = \\"\\"; // error: string ~> number
       break;
+
     case \\"bar\\":
       let a = \\"\\"; // error: a already bound in switch
       break;
@@ -600,15 +601,19 @@ function switch_scope2(x: number) {
     case 0:
       a = \\"\\"; // error: assign before declaration
       break;
+
     case 1:
       var b = a; // error: use before declaration
       break;
+
     case 2:
       let a = \\"\\";
       break;
+
     case 3:
       a = \\"\\"; // error: skipped initializer
       break;
+
     case 4:
       var c: string = a; // error: skipped initializer
       break;

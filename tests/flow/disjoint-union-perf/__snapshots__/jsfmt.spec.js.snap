@@ -245,12 +245,16 @@ function getBinaryOp(
   switch (op) {
     case \\"plus\\":
       return \\"+\\";
+
     case \\"minus\\":
       return \\"-\\";
+
     case \\"divide\\":
       return \\"/\\";
+
     case \\"multiply\\":
       return \\"*\\";
+
     default:
       throw new Error(\\"Invalid binary operator: \\" + op);
   }
@@ -261,12 +265,14 @@ export function emitExpression(node: TypedNode): t.Expression {
     case \\"string_literal\\": // FALLTHROUGH
     case \\"number\\":
       return b.literal(node.value);
+
     case \\"variable\\":
       return b.memberExpression(
         b.identifier(\\"vars\\"),
         b.identifier(node.name),
         false
       );
+
     case \\"binary_op\\": {
       const lhs = emitExpression(node.lhs);
       const rhs = emitExpression(node.rhs);
