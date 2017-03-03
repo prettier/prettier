@@ -620,11 +620,18 @@ function genericPrintNoParens(path, options, print) {
 
       return concat(parts);
     case "CallExpression": {
-      const parent = path.getParentNode();
       // We detect calls on member lookups and possibly print them in a
       // special chain format. See `printMemberChain` for more info.
       if (n.callee.type === "MemberExpression") {
         return printMemberChain(path, options, print);
+      }
+
+      // We want to keep require calls as a unit
+      if (n.callee.type === "Identifier" && n.callee.name === "require") {
+        return concat([
+          path.call(print, "callee"),
+          concat(["(", join(", ", path.map(print, "arguments")), ")"])
+        ]);
       }
 
       return concat([
@@ -1357,10 +1364,7 @@ function genericPrintNoParens(path, options, print) {
     case "JSXText":
       throw new Error("JSXTest should be handled by JSXElement");
     case "JSXEmptyExpression":
-      return concat([
-        comments.printDanglingComments(path, options, /* sameIndent */ true),
-        softline
-      ]);
+      return comments.printDanglingComments(path, options, /* sameIndent */ true);
     case "TypeAnnotatedIdentifier":
       return concat([
         path.call(print, "annotation"),
@@ -1943,20 +1947,10 @@ function printMethod(path, options, print) {
   return concat(parts);
 }
 
-function printArgumentsList(path, options, print) {
-  var printed = path.map(print, "arguments");
-
-  if (printed.length === 0) {
-    return "()";
-  }
-
-  const args = path.getValue().arguments;
+function shouldGroupLastArg(args) {
   const lastArg = util.getLast(args);
-  const penultimateArg = util.getPenultimate(args);
-  // This is just an optimization; I think we could return the
-  // conditional group for all function calls, but it's more expensive
-  // so only do it for specific forms.
-  const groupLastArg = (!lastArg.comments || !lastArg.comments.length) &&
+  const penultimateArg = util.getPenultimate(args)
+  return (!lastArg.comments || !lastArg.comments.length) &&
     (lastArg.type === "ObjectExpression" ||
       lastArg.type === "ArrayExpression" ||
       lastArg.type === "FunctionExpression" ||
@@ -1970,8 +1964,20 @@ function printArgumentsList(path, options, print) {
     // If the last two arguments are of the same type,
     // disable last element expansion.
     (!penultimateArg || penultimateArg.type !== lastArg.type);
+}
 
-  if (groupLastArg) {
+function printArgumentsList(path, options, print) {
+  var printed = path.map(print, "arguments");
+
+  if (printed.length === 0) {
+    return "()";
+  }
+
+  const args = path.getValue().arguments;
+  // This is just an optimization; I think we could return the
+  // conditional group for all function calls, but it's more expensive
+  // so only do it for specific forms.
+  if (shouldGroupLastArg(args)) {
     const shouldBreak = printed.slice(0, -1).some(willBreak);
     return concat([
       printed.some(willBreak) ? breakParent : "",
@@ -2054,6 +2060,23 @@ function printFunctionParams(path, print, options) {
   const canHaveTrailingComma = !(lastParam &&
     lastParam.type === "RestElement") &&
     !fun.rest;
+
+  // If the parent is a call with the last argument expansion and this is the
+  // params of the last argument, we dont want the arguments to break and instead
+  // want the whole expression to be on a new line.
+  //
+  // Good:                 Bad:
+  //   verylongcall(         verylongcall((
+  //     (a, b) => {           a,
+  //     }                     b,
+  //   })                    ) => {
+  //                         })
+  const parent = path.getParentNode();
+  if ((parent.type === "CallExpression" || parent.type === "NewExpression") &&
+    util.getLast(parent.arguments) === path.getValue() &&
+    shouldGroupLastArg(parent.arguments)) {
+    return concat(["(", join(", ", printed), ")"]);
+  }
 
   return concat([
     "(",
@@ -2796,14 +2819,13 @@ function printBinaryishExpressions(path, parts, print, options, isNested) {
       path.call(print, "right")
     ]);
 
-    // If there's only a single binary expression: everything except && and ||,
-    // we want to create a group in order to avoid having a small right part
-    // like -1 be on its own line.
+    // If there's only a single binary expression, we want to create a group
+    // in order to avoid having a small right part like -1 be on its own line.
     const parent = path.getParentNode();
-    const shouldGroup = node.type === "BinaryExpression" &&
-      parent.type !== "BinaryExpression" &&
-      node.left.type !== "BinaryExpression" &&
-      node.right.type !== "BinaryExpression";
+    const shouldGroup =
+      parent.type !== node.type &&
+      node.left.type !== node.type &&
+      node.right.type !== node.type;
 
     parts.push(" ", shouldGroup ? group(right) : right);
 

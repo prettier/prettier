@@ -454,10 +454,10 @@ FPp.needsParens = function(assumeExpressionContext) {
           return false;
 
         case "ExportDefaultDeclaration":
-          if (node.type === "ArrowFunctionExpression") {
-            return false;
-          }
-          if (node.type === "FunctionExpression" && !node.id) {
+          if (
+            node.type === "ArrowFunctionExpression" ||
+            node.type === "FunctionDeclaration"
+          ) {
             return false;
           }
           return true;
