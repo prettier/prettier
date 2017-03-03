@@ -80,10 +80,8 @@ function baz(x: boolean) {
 
 function bliffl(x: boolean) {
   var max = 10;
-  loop1:
-  for (var ii = 0; ii < max; ii++) {
-    loop2:
-    for (var jj = 0; jj < max; jj++) {
+  loop1: for (var ii = 0; ii < max; ii++) {
+    loop2: for (var jj = 0; jj < max; jj++) {
       break loop1;
     }
     console.log(\\"this is still reachable\\");
@@ -172,10 +170,8 @@ function baz(x: boolean) {
 
 function bliffl(x: boolean) {
   var obj = { a: 1, b: 2 };
-  loop1:
-  for (var prop1 in obj) {
-    loop2:
-    for (var prop2 in obj) {
+  loop1: for (var prop1 in obj) {
+    loop2: for (var prop2 in obj) {
       break loop1;
     }
     console.log(\\"this is still reachable\\");
@@ -263,10 +259,8 @@ function baz(x: boolean) {
 
 function bliffl(x: boolean) {
   var arr = [1, 2, 3];
-  loop1:
-  for (var elem of arr) {
-    loop2:
-    for (var elem of arr) {
+  loop1: for (var elem of arr) {
+    loop2: for (var elem of arr) {
       break loop1;
     }
     console.log(\\"this is still reachable\\");

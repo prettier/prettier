@@ -1140,8 +1140,7 @@ function genericPrintNoParens(path, options, print) {
 
       return concat([
         path.call(print, "label"),
-        ":",
-        hardline,
+        ": ",
         path.call(print, "body")
       ]);
     case "TryStatement":
