@@ -143,6 +143,7 @@ function attach(comments, ast, text, options) {
       // If a comment exists on its own line, prefer a leading comment.
       // We also need to check if it's the first line of the file.
       if (
+        handleLastFunctionArgComments(precedingNode, enclosingNode, followingNode, comment) ||
         handleMemberExpressionComments(enclosingNode, followingNode, comment) ||
         handleIfStatementComments(enclosingNode, followingNode, comment) ||
         handleTryStatementComments(enclosingNode, followingNode, comment) ||
@@ -452,6 +453,27 @@ function handleFunctionDeclarationComments(enclosingNode, comment) {
     enclosingNode.params.length === 0
   ) {
     addDanglingComment(enclosingNode, comment);
+    return true;
+  }
+  return false;
+}
+
+function handleLastFunctionArgComments(precedingNode, enclosingNode, followingNode, comment) {
+  // Type definitions functions
+  if (precedingNode && precedingNode.type === 'FunctionTypeParam' &&
+    enclosingNode && enclosingNode.type === 'FunctionTypeAnnotation' &&
+    followingNode && followingNode.type !== 'FunctionTypeParam') {
+    addTrailingComment(precedingNode, comment);
+    return true;
+  }
+
+  // Real functions
+  if (precedingNode && precedingNode.type === 'Identifier' &&
+    enclosingNode && (
+      enclosingNode.type === 'ArrowFunctionExpression' ||
+      enclosingNode.type === 'FunctionExpression') &&
+    followingNode && followingNode.type !== 'Identifier') {
+    addTrailingComment(precedingNode, comment);
     return true;
   }
   return false;
