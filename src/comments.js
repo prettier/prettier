@@ -145,9 +145,12 @@ function attach(comments, ast, text, options) {
       // If a comment exists on its own line, prefer a leading comment.
       // We also need to check if it's the first line of the file.
       if (
+        handleLastFunctionArgComments(precedingNode, enclosingNode, followingNode, comment) ||
         handleMemberExpressionComments(enclosingNode, followingNode, comment) ||
         handleIfStatementComments(enclosingNode, followingNode, comment) ||
         handleTryStatementComments(enclosingNode, followingNode, comment) ||
+        handleClassComments(enclosingNode, comment) ||
+        handleImportSpecifierComments(enclosingNode, comment) ||
         handleClassComments(enclosingNode, comment) ||
         handleOnlyComments(enclosingNode, ast, comment, isLastComment)
       ) {
@@ -172,6 +175,7 @@ function attach(comments, ast, text, options) {
           comment,
           text
         ) ||
+        handleImportSpecifierComments(enclosingNode, comment) ||
         handleTemplateLiteralComments(enclosingNode, comment) ||
         handleClassComments(enclosingNode, comment) ||
         handleOnlyComments(enclosingNode, ast, comment, isLastComment)
@@ -462,12 +466,41 @@ function handleFunctionDeclarationComments(enclosingNode, comment) {
   return false;
 }
 
+function handleLastFunctionArgComments(precedingNode, enclosingNode, followingNode, comment) {
+  // Type definitions functions
+  if (precedingNode && precedingNode.type === 'FunctionTypeParam' &&
+    enclosingNode && enclosingNode.type === 'FunctionTypeAnnotation' &&
+    followingNode && followingNode.type !== 'FunctionTypeParam') {
+    addTrailingComment(precedingNode, comment);
+    return true;
+  }
+
+  // Real functions
+  if (precedingNode && precedingNode.type === 'Identifier' &&
+    enclosingNode && (
+      enclosingNode.type === 'ArrowFunctionExpression' ||
+      enclosingNode.type === 'FunctionExpression') &&
+    followingNode && followingNode.type !== 'Identifier') {
+    addTrailingComment(precedingNode, comment);
+    return true;
+  }
+  return false;
+}
+
 function handleClassComments(enclosingNode, comment) {
   if (
     enclosingNode &&
     (enclosingNode.type === "ClassDeclaration" ||
       enclosingNode.type === "ClassExpression")
   ) {
+    addLeadingComment(enclosingNode, comment);
+    return true;
+  }
+  return false;
+}
+
+function handleImportSpecifierComments(enclosingNode, comment) {
+  if (enclosingNode && enclosingNode.type === "ImportSpecifier") {
     addLeadingComment(enclosingNode, comment);
     return true;
   }

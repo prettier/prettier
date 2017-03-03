@@ -857,6 +857,8 @@ exports[`jsx.js 1`] = `
 <div>
   {/* comment */}
 </div>;
+
+<div>{/*<div>  Some very v  ery very very long line to break line width limit </div>*/}</div>;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div>
   {/* comment */}
@@ -890,6 +892,10 @@ exports[`jsx.js 1`] = `
 
 <div>
   {/* comment */}
+</div>;
+
+<div>
+  {/*<div>  Some very v  ery very very long line to break line width limit </div>*/}
 </div>;
 "
 `;
@@ -933,6 +939,8 @@ exports[`jsx.js 2`] = `
 <div>
   {/* comment */}
 </div>;
+
+<div>{/*<div>  Some very v  ery very very long line to break line width limit </div>*/}</div>;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div>
   {/* comment */}
@@ -967,6 +975,96 @@ exports[`jsx.js 2`] = `
 <div>
   {/* comment */}
 </div>;
+
+<div>
+  {/*<div>  Some very v  ery very very long line to break line width limit </div>*/}
+</div>;
+"
+`;
+
+exports[`last-arg.js 1`] = `
+"type f = (
+  currentRequest: {a: number},
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) => number;
+
+f = (
+  currentRequest: {a: number},
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+): number => {};
+
+f = (
+  currentRequest: {a: number},
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) => {};
+
+f = function(
+  currentRequest: {a: number},
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) {};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type f = (
+  currentRequest: { a: number }
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) => number;
+
+f = (
+  currentRequest: { a: number }
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+): number => {};
+
+f = (
+  currentRequest: { a: number }
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) => {};
+
+f = function(
+  currentRequest: { a: number }
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) {};
+"
+`;
+
+exports[`last-arg.js 2`] = `
+"type f = (
+  currentRequest: {a: number},
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) => number;
+
+f = (
+  currentRequest: {a: number},
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+): number => {};
+
+f = (
+  currentRequest: {a: number},
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) => {};
+
+f = function(
+  currentRequest: {a: number},
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) {};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type f = (
+  currentRequest: { a: number }
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) => number;
+
+f = (
+  currentRequest: { a: number }
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+): number => {};
+
+f = (
+  currentRequest: { a: number }
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) => {};
+
+f = function(
+  currentRequest: { a: number }
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) {};
 "
 `;
 
