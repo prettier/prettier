@@ -16,8 +16,7 @@ function foo() {
 }
 
 function bar() {
-  L:
-  do {
+  L: do {
     continue L;
   } while (false);
 }

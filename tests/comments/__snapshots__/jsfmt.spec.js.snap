@@ -52,6 +52,56 @@ exports[`blank.js 2`] = `
 "
 `;
 
+exports[`call_comment.js 1`] = `
+"render( // Warm any cache
+  <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
+  container
+);
+
+React.render( // Warm any cache
+  <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
+  container
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+render(
+  // Warm any cache
+  <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
+  container
+);
+
+React.render(
+  // Warm any cache
+  <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
+  container
+);
+"
+`;
+
+exports[`call_comment.js 2`] = `
+"render( // Warm any cache
+  <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
+  container
+);
+
+React.render( // Warm any cache
+  <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
+  container
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+render(
+  // Warm any cache
+  <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
+  container
+);
+
+React.render(
+  // Warm any cache
+  <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
+  container
+);
+"
+`;
+
 exports[`dangling.js 1`] = `
 "var x = {/* dangling */};
 var x = {
@@ -191,6 +241,52 @@ b
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 a; // comment
 b;
+"
+`;
+
+exports[`flow_union.js 1`] = `
+"type UploadState<E, EM, D>
+  // The upload hasnt begun yet
+  = {type: \\"Not_begun\\"}
+  // The upload timed out
+  | {type: \\"Timed_out\\"}
+  // Failed somewhere on the line
+  | {type: \\"Failed\\", error: E, errorMsg: EM}
+  // Uploading to aws3 and CreatePostMutation succeeded
+  | {type: \\"Success\\", data: D};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type UploadState<E, EM, D> =
+  // The upload hasnt begun yet
+  | { type: \\"Not_begun\\" }
+  // The upload timed out
+  | { type: \\"Timed_out\\" }
+  // Failed somewhere on the line
+  | { type: \\"Failed\\", error: E, errorMsg: EM }
+  // Uploading to aws3 and CreatePostMutation succeeded
+  | { type: \\"Success\\", data: D };
+"
+`;
+
+exports[`flow_union.js 2`] = `
+"type UploadState<E, EM, D>
+  // The upload hasnt begun yet
+  = {type: \\"Not_begun\\"}
+  // The upload timed out
+  | {type: \\"Timed_out\\"}
+  // Failed somewhere on the line
+  | {type: \\"Failed\\", error: E, errorMsg: EM}
+  // Uploading to aws3 and CreatePostMutation succeeded
+  | {type: \\"Success\\", data: D};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type UploadState<E, EM, D> =
+  // The upload hasnt begun yet
+  | { type: \\"Not_begun\\" }
+  // The upload timed out
+  | { type: \\"Timed_out\\" }
+  // Failed somewhere on the line
+  | { type: \\"Failed\\", error: E, errorMsg: EM }
+  // Uploading to aws3 and CreatePostMutation succeeded
+  | { type: \\"Success\\", data: D };
 "
 `;
 
