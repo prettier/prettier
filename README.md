@@ -147,7 +147,7 @@ and add this config to your `package.json`:
       "git add"
     ]
   },
-  "pre-commit": "lint:staged"
+  "pre-commit": "lint-staged"
 }
 ```
 
