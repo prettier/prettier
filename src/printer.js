@@ -1925,23 +1925,40 @@ function printMethod(path, options, print) {
   return concat(parts);
 }
 
+function couldGroupArg(arg) {
+  return (arg.type === "ObjectExpression" ||
+      arg.type === "ArrayExpression" ||
+      arg.type === "FunctionExpression" ||
+      (arg.type === "ArrowFunctionExpression" &&
+        (arg.body.type === "BlockStatement" ||
+          arg.body.type === "ArrowFunctionExpression" ||
+          arg.body.type === "ObjectExpression" ||
+          arg.body.type === "ArrayExpression" ||
+          arg.body.type === "CallExpression" ||
+          arg.body.type === "JSXElement")));
+}
+
 function shouldGroupLastArg(args) {
   const lastArg = util.getLast(args);
   const penultimateArg = util.getPenultimate(args);
   return (!lastArg.comments || !lastArg.comments.length) &&
-    (lastArg.type === "ObjectExpression" ||
-      lastArg.type === "ArrayExpression" ||
-      lastArg.type === "FunctionExpression" ||
-      (lastArg.type === "ArrowFunctionExpression" &&
-        (lastArg.body.type === "BlockStatement" ||
-          lastArg.body.type === "ArrowFunctionExpression" ||
-          lastArg.body.type === "ObjectExpression" ||
-          lastArg.body.type === "ArrayExpression" ||
-          lastArg.body.type === "CallExpression" ||
-          lastArg.body.type === "JSXElement"))) &&
+    couldGroupArg(lastArg) &&
     // If the last two arguments are of the same type,
     // disable last element expansion.
     (!penultimateArg || penultimateArg.type !== lastArg.type);
+}
+
+function shouldGroupFirstArg(args) {
+  if (args.length !== 2) {
+    return false;
+  }
+
+  const firstArg = args[0];
+  const secondArg = args[1];
+  return (firstArg.type === 'FunctionExpression' ||
+    (firstArg.type === 'ArrowFunctionExpression' &&
+      firstArg.body.type === 'BlockStatement')) &&
+      !couldGroupArg(secondArg);
 }
 
 function printArgumentsList(path, options, print) {
@@ -1959,20 +1976,31 @@ function printArgumentsList(path, options, print) {
   // This is just an optimization; I think we could return the
   // conditional group for all function calls, but it's more expensive
   // so only do it for specific forms.
-  if (shouldGroupLastArg(args)) {
-    const shouldBreak = printed.slice(0, -1).some(willBreak);
+  const shouldGroupFirst = shouldGroupFirstArg(args);
+  if (shouldGroupFirst || shouldGroupLastArg(args)) {
+    const shouldBreak = shouldGroupFirst
+      ? printed.slice(1).some(willBreak)
+      : printed.slice(0, -1).some(willBreak);
     return concat([
       printed.some(willBreak) ? breakParent : "",
       conditionalGroup(
         [
           concat(["(", join(concat([", "]), printed), ")"]),
-          concat([
-            "(",
-            join(concat([",", line]), printed.slice(0, -1)),
-            printed.length > 1 ? ", " : "",
-            group(util.getLast(printed), { shouldBreak: true }),
-            ")"
-          ]),
+          shouldGroupFirst
+            ? concat([
+                "(",
+                group(printed[0], { shouldBreak: true }),
+                printed.length > 1 ? ", " : "",
+                join(concat([",", line]), printed.slice(1)),
+                ")"
+              ])
+            : concat([
+                "(",
+                join(concat([",", line]), printed.slice(0, -1)),
+                printed.length > 1 ? ", " : "",
+                group(util.getLast(printed), { shouldBreak: true }),
+                ")"
+              ]),
           group(
             concat([
               "(",
@@ -2042,8 +2070,8 @@ function printFunctionParams(path, print, options) {
   const canHaveTrailingComma = !(lastParam &&
     lastParam.type === "RestElement") && !fun.rest;
 
-  // If the parent is a call with the last argument expansion and this is the
-  // params of the last argument, we dont want the arguments to break and instead
+  // If the parent is a call with the first/last argument expansion and this is the
+  // params of the first/last argument, we dont want the arguments to break and instead
   // want the whole expression to be on a new line.
   //
   // Good:                 Bad:
@@ -2055,8 +2083,10 @@ function printFunctionParams(path, print, options) {
   const parent = path.getParentNode();
   if (
     (parent.type === "CallExpression" || parent.type === "NewExpression") &&
-    util.getLast(parent.arguments) === path.getValue() &&
-    shouldGroupLastArg(parent.arguments)
+    ((util.getLast(parent.arguments) === path.getValue() &&
+      shouldGroupLastArg(parent.arguments)) ||
+      (parent.arguments[0] === path.getValue() &&
+        shouldGroupFirstArg(parent.arguments)))
   ) {
     return concat(["(", join(", ", printed), ")"]);
   }
