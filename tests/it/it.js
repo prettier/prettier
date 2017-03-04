@@ -8,13 +8,25 @@ it("does something really long and complicated so I have to write a very long na
   console.log("hello!");
 });
 
+it(`does something really long and complicated so I have to write a very long name for the test`, function() {
+  console.log("hello!");
+});
+
 test("does something really long and complicated so I have to write a very long name for the test", (done) => {
+  console.log("hello!");
+});
+
+test(`does something really long and complicated so I have to write a very long name for the test`, (done) => {
   console.log("hello!");
 });
 
 // Should break
 
 it.only("does something really long and complicated so I have to write a very long name for the test", () => {
+  console.log("hello!");
+});
+
+it.only(`does something really long and complicated so I have to write a very long name for the test`, () => {
   console.log("hello!");
 });
 

@@ -641,6 +641,7 @@ function genericPrintNoParens(path, options, print) {
           (n.callee.name === "it" || n.callee.name === "test") &&
           n.arguments.length === 2 &&
           (n.arguments[0].type === "StringLiteral" ||
+            n.arguments[0].type === "TemplateLiteral" ||
             (n.arguments[0].type === "Literal" &&
               typeof n.arguments[0].value === "string")) &&
           (n.arguments[1].type === "FunctionExpression" ||
