@@ -4,10 +4,18 @@ exports[`assignment-pattern.js 1`] = `
 "const { a /* comment */ = 1 } = b;
 
 const { c = 1 /* comment */ } = d;
+
+let {a //comment
+= b} = c
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const { a /* comment */ = 1 } = b;
 
 const { c = 1 /* comment */ } = d;
+
+let {
+  //comment
+  a = b
+} = c;
 "
 `;
 
@@ -15,10 +23,18 @@ exports[`assignment-pattern.js 2`] = `
 "const { a /* comment */ = 1 } = b;
 
 const { c = 1 /* comment */ } = d;
+
+let {a //comment
+= b} = c
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const { a /* comment */ = 1 } = b;
 
 const { c = 1 /* comment */ } = d;
+
+let {
+  //comment
+  a = b
+} = c;
 "
 `;
 
