@@ -185,7 +185,8 @@ function attach(comments, ast, text, options) {
         handleImportSpecifierComments(enclosingNode, comment) ||
         handleTemplateLiteralComments(enclosingNode, comment) ||
         handleCallExpressionComments(precedingNode, enclosingNode, comment) ||
-        handleClassComments(enclosingNode, comment)
+        handleClassComments(enclosingNode, comment) ||
+        handleExportNamedDeclarationComments(enclosingNode, comment)
       ) {
         // We're good
       } else if (precedingNode) {
@@ -556,6 +557,16 @@ function handleUnionTypeComments(
     followingNode.type === "ObjectTypeAnnotation"
   ) {
     addTrailingComment(precedingNode, comment);
+    return true;
+  }
+  return false;
+}
+
+function handleExportNamedDeclarationComments(enclosingNode, comment) {
+  if (enclosingNode && enclosingNode.type === "ExportNamedDeclaration") {
+    // Enforce all comments to be leading block comments.
+    comment.type = "CommentBlock";
+    addDanglingComment(enclosingNode, comment);
     return true;
   }
   return false;
