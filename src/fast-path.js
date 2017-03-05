@@ -246,6 +246,15 @@ FPp.needsParens = function(assumeExpressionContext) {
   }
 
   switch (node.type) {
+    case "CallExpression":
+      if (
+        node.callee.type === "ObjectExpression" &&
+        parent.type === "ArrowFunctionExpression"
+      ) {
+        return true;
+      }
+      return false;
+
     case "SpreadElement":
     case "SpreadProperty":
       return parent.type === "MemberExpression" &&
