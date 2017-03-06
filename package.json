@@ -25,7 +25,9 @@
     "get-stdin": "5.0.1",
     "glob": "7.1.1",
     "jest-validate": "19.0.0",
-    "minimist": "1.2.0"
+    "minimist": "1.2.0",
+    "typescript": "2.2.1",
+    "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#master"
   },
   "devDependencies": {
     "diff": "3.2.0",
