@@ -587,15 +587,38 @@ function containsCallExpression(node) {
 }
 
 function isBinarishOpInArrowFunction(node, parent) {
+  return parent.type === "ArrowFunctionExpression" && getCombinedDeepest(node);
+}
+
+function getCombinedDeepest(node) {
   const leftist = getLeftist(node);
-  return parent.type === "ArrowFunctionExpression" &&
-    (leftist.type === "ObjectExpression" ||
-     (leftist.type === "MemberExpression" &&
-      leftist.object.type === "ObjectExpression") ||
-     (leftist.type === "TaggedTemplateExpression" &&
-      leftist.tag.type === "ObjectExpression") ||
-     (leftist.type === "CallExpression" &&
-      getDeepestCallee(leftist).type === "ObjectExpression"));
+  if (leftist.type === "ObjectExpression") return true;
+  switch (leftist.type) {
+    case "ObjectExpression":
+      return true;
+    case "MemberExpression":
+      if (leftist.object.type === "ObjectExpression") {
+        return true;
+      } else {
+        return getCombinedDeepest(leftist.object);
+      }
+    case "TaggedTemplateExpression":
+      if (leftist.tag.type === "ObjectExpression") {
+        return true;
+      } else {
+        return getCombinedDeepest(leftist.tag);
+      }
+    case "CallExpression": {
+      const deepestCallee = getDeepestCallee(leftist);
+      if (deepestCallee.type === "ObjectExpression") {
+        return true;
+      } else {
+        return getCombinedDeepest(deepestCallee);
+      }
+    }
+    default:
+      return false;
+  }
 }
 
 function getLeftist(node) {
