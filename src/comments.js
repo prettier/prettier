@@ -578,9 +578,7 @@ function handlePropertyComments(enclosingNode, comment) {
 
 function handleExportNamedDeclarationComments(enclosingNode, comment) {
   if (enclosingNode && enclosingNode.type === "ExportNamedDeclaration") {
-    // Enforce all comments to be leading block comments.
-    comment.type = "CommentBlock";
-    addDanglingComment(enclosingNode, comment);
+    addLeadingComment(enclosingNode, comment);
     return true;
   }
   return false;
