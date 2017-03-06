@@ -529,6 +529,8 @@ function genericPrintNoParens(path, options, print) {
         }
 
         fromParts.push(grouped.length === 0 ? line : " ", "from ");
+      } else if (n.importKind && n.importKind === "type") {
+        parts.push("{} from ");
       }
 
       fromParts.push(path.call(print, "source"), ";");
