@@ -25,10 +25,16 @@ function concat(parts) {
   return { type: "concat", parts };
 }
 
-function indent(n, contents) {
+function indent(contents) {
   assertDoc(contents);
 
-  return { type: "indent", contents, n };
+  return { type: "indent", contents };
+}
+
+function align(n, contents) {
+  assertDoc(contents);
+
+  return { type: "align", contents, n };
 }
 
 function group(contents, opts) {
@@ -104,5 +110,6 @@ module.exports = {
   lineSuffixBoundary,
   breakParent,
   ifBreak,
-  indent
+  indent,
+  align
 };
