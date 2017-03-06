@@ -305,14 +305,11 @@ FPp.needsParens = function(assumeExpressionContext) {
         return true;
       }
 
-      if (
-        node.operator === "instanceof" &&
-        parent.type === "ArrowFunctionExpression"
-      ) {
-        return true;
-      }
+      if (isBinarishOpInArrowFunction(node, parent)) return true;
 
     case "LogicalExpression":
+      if (isBinarishOpInArrowFunction(node, parent)) return true;
+
       switch (parent.type) {
         case "CallExpression":
         case "NewExpression":
@@ -581,6 +578,34 @@ function containsCallExpression(node) {
   }
 
   return false;
+}
+
+function isBinarishOpInArrowFunction(node, parent) {
+  const leftist = getLeftist(node);
+  return parent.type === "ArrowFunctionExpression" &&
+    (leftist.type === "ObjectExpression" ||
+     (leftist.type === "MemberExpression" &&
+      leftist.object.type === "ObjectExpression") ||
+     (leftist.type === "TaggedTemplateExpression" &&
+      leftist.tag.type === "ObjectExpression") ||
+     (leftist.type === "CallExpression" &&
+      getDeepestCallee(leftist).type === "ObjectExpression"))
+}
+
+function getLeftist(node) {
+  if (node.left) {
+    return getLeftist(node.left)
+  } else {
+    return node
+  }
+}
+
+function getDeepestCallee(node) {
+   if (node.callee) {
+    return getDeepestCallee(node.callee)
+  } else {
+    return node
+  }
 }
 
 FPp.canBeFirstInStatement = function() {
