@@ -120,13 +120,11 @@ prettier [opts] [filename ...]
 In practice, this may look something like:
 
 ```bash
-prettier --single-quote --trailing-comma es5 --write '{app,__{tests,mocks}__}/**/*.js'
+prettier --single-quote --trailing-comma es5 --write "{app,__{tests,mocks}__}/**/*.js"
 ```
 
-For easier cross-platform usage, prettier has built-in glob support:
-```bash
-prettier --write "src/**/*.js" "bin/*.js"
-```
+(Don't forget the quotes around the globs! The quotes make sure that prettier
+expands the globs rather than your shell, for cross-platform usage.)
 
 In the future we will have better support for formatting whole projects.
 
