@@ -589,22 +589,22 @@ function isBinarishOpInArrowFunction(node, parent) {
      (leftist.type === "TaggedTemplateExpression" &&
       leftist.tag.type === "ObjectExpression") ||
      (leftist.type === "CallExpression" &&
-      getDeepestCallee(leftist).type === "ObjectExpression"))
+      getDeepestCallee(leftist).type === "ObjectExpression"));
 }
 
 function getLeftist(node) {
   if (node.left) {
-    return getLeftist(node.left)
+    return getLeftist(node.left);
   } else {
-    return node
+    return node;
   }
 }
 
 function getDeepestCallee(node) {
    if (node.callee) {
-    return getDeepestCallee(node.callee)
+     return getDeepestCallee(node.callee);
   } else {
-    return node
+    return node;
   }
 }
 
