@@ -113,8 +113,14 @@ arguments to see the options.
 To format a file in-place, use `--write`. While this is in beta you
 should probably commit your code before doing that.
 
-```js
+```bash
 prettier [opts] [filename ...]
+```
+
+In practice, this may look something like:
+
+```bash
+prettier --single-quote --trailing-comma es5 --write '{app,__{tests,mocks}__}/**/*.js'
 ```
 
 For easier cross-platform usage, prettier has built-in glob support:
