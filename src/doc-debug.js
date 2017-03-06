@@ -67,7 +67,11 @@ function printDoc(doc) {
   }
 
   if (doc.type === "indent") {
-    return "indent(" + doc.n + ", " + printDoc(doc.contents) + ")";
+    return "indent(" + printDoc(doc.contents) + ")";
+  }
+
+  if (doc.type === "align") {
+    return "align(" + doc.n + ", " + printDoc(doc.contents) + ")";
   }
 
   if (doc.type === "if-break") {
