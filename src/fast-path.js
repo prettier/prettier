@@ -361,6 +361,12 @@ FPp.needsParens = function(assumeExpressionContext) {
           return false;
 
         case "ExpressionStatement":
+          if (
+            node.expressions.length > 0 &&
+            getLeftist(node.expressions[0]).type === "ObjectExpression"
+          ) {
+            return true;
+          }
           return name !== "expression";
 
         default:
