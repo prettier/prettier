@@ -305,6 +305,13 @@ FPp.needsParens = function(assumeExpressionContext) {
         return true;
       }
 
+      if (
+        node.operator === "instanceof" &&
+        parent.type === "ArrowFunctionExpression"
+      ) {
+        return true;
+      }
+
     case "LogicalExpression":
       switch (parent.type) {
         case "CallExpression":
