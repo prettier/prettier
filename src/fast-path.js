@@ -246,6 +246,15 @@ FPp.needsParens = function(assumeExpressionContext) {
   }
 
   switch (node.type) {
+    case "CallExpression":
+      if (
+        node.callee.type === "ObjectExpression" &&
+        parent.type === "ArrowFunctionExpression"
+      ) {
+        return true;
+      }
+      return false;
+
     case "SpreadElement":
     case "SpreadProperty":
       return parent.type === "MemberExpression" &&
@@ -293,6 +302,13 @@ FPp.needsParens = function(assumeExpressionContext) {
       }
 
       if (node.operator === "in" && parent.type === "AssignmentExpression") {
+        return true;
+      }
+
+      if (
+        node.operator === "instanceof" &&
+        parent.type === "ArrowFunctionExpression"
+      ) {
         return true;
       }
 
@@ -386,7 +402,8 @@ FPp.needsParens = function(assumeExpressionContext) {
 
     case "IntersectionTypeAnnotation":
     case "UnionTypeAnnotation":
-      return parent.type === "NullableTypeAnnotation" ||
+      return parent.type === "ArrayTypeAnnotation" ||
+        parent.type === "NullableTypeAnnotation" ||
         parent.type === "IntersectionTypeAnnotation" ||
         parent.type === "UnionTypeAnnotation";
 

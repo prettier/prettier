@@ -185,7 +185,9 @@ function attach(comments, ast, text, options) {
         handleImportSpecifierComments(enclosingNode, comment) ||
         handleTemplateLiteralComments(enclosingNode, comment) ||
         handleCallExpressionComments(precedingNode, enclosingNode, comment) ||
-        handleClassComments(enclosingNode, comment)
+        handleClassComments(enclosingNode, comment) ||
+        handlePropertyComments(enclosingNode, comment) ||
+        handleExportNamedDeclarationComments(enclosingNode, comment)
       ) {
         // We're good
       } else if (precedingNode) {
@@ -556,6 +558,27 @@ function handleUnionTypeComments(
     followingNode.type === "ObjectTypeAnnotation"
   ) {
     addTrailingComment(precedingNode, comment);
+    return true;
+  }
+  return false;
+}
+
+function handlePropertyComments(enclosingNode, comment) {
+  if (
+    enclosingNode && (
+      enclosingNode.type === "Property" ||
+      enclosingNode.type === "ObjectProperty"
+    )
+  ) {
+    addLeadingComment(enclosingNode, comment);
+    return true;
+  }
+  return false;
+}
+
+function handleExportNamedDeclarationComments(enclosingNode, comment) {
+  if (enclosingNode && enclosingNode.type === "ExportNamedDeclaration") {
+    addLeadingComment(enclosingNode, comment);
     return true;
   }
   return false;

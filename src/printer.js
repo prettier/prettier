@@ -518,6 +518,8 @@ function genericPrintNoParens(path, options, print) {
         }
 
         fromParts.push(grouped.length === 0 ? line : " ", "from ");
+      } else if (n.importKind && n.importKind === "type") {
+        parts.push("{} from ");
       }
 
       fromParts.push(path.call(print, "source"), ";");
@@ -2768,6 +2770,7 @@ function maybeWrapJSXElementInParens(path, elem, options) {
   if (!parent) return elem;
 
   const NO_WRAP_PARENTS = {
+    ArrayExpression: true,
     JSXElement: true,
     JSXExpressionContainer: true,
     ExpressionStatement: true,
@@ -2980,7 +2983,9 @@ function printNumber(rawNumber) {
   return rawNumber
     .toLowerCase()
     // Remove unnecessary plus and zeroes from scientific notation.
-    .replace(/^([\d.]+e)(?:\+|(-))?0*/, "$1$2")
+    .replace(/^([\d.]+e)(?:\+|(-))?0*(\d)/, "$1$2$3")
+    // Remove unnecessary scientific notation (1e0).
+    .replace(/^([\d.]+)e[+-]?0+$/, "$1")
     // Make sure numbers always start with a digit.
     .replace(/^\./, "0.")
     // Remove trailing dot.
