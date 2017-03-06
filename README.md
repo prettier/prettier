@@ -1,7 +1,7 @@
 # Prettier
 
 [![Gitter](https://badges.gitter.im/gitterHQ/gitter.svg)](https://gitter.im/jlongster/prettier)
-[![Build Status](https://travis-ci.org/jlongster/prettier.svg?branch=master)](https://travis-ci.org/prettier/prettier)
+[![Build Status](https://travis-ci.org/prettier/prettier.svg?branch=master)](https://travis-ci.org/prettier/prettier)
 [![NPM version](https://img.shields.io/npm/v/prettier.svg)](https://www.npmjs.com/package/prettier)
 
 Prettier is an opinionated JavaScript formatter inspired by
@@ -147,7 +147,7 @@ and add this config to your `package.json`:
       "git add"
     ]
   },
-  "pre-commit": "lint:staged"
+  "pre-commit": "lint-staged"
 }
 ```
 

@@ -100,3 +100,10 @@ arr[day] = 0;
 (arr[day]: string); // error: number ~> string
 "
 `;
+
+exports[`union.js 1`] = `
+"let arr: (number|string)[] = [];
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let arr: (number | string)[] = [];
+"
+`;

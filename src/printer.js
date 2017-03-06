@@ -635,7 +635,26 @@ function genericPrintNoParens(path, options, print) {
 
       return concat(parts);
     case "CallExpression": {
-      const parent = path.getParentNode();
+      if (
+        // We want to keep require calls as a unit
+        (n.callee.type === "Identifier" && n.callee.name === "require") ||
+        // `it('long name', () => {` should not break
+        (n.callee.type === "Identifier" &&
+          (n.callee.name === "it" || n.callee.name === "test") &&
+          n.arguments.length === 2 &&
+          (n.arguments[0].type === "StringLiteral" ||
+            (n.arguments[0].type === "Literal" &&
+              typeof n.arguments[0].value === "string")) &&
+          (n.arguments[1].type === "FunctionExpression" ||
+            n.arguments[1].type === "ArrowFunctionExpression") &&
+          n.arguments[1].params.length <= 1)
+      ) {
+        return concat([
+          path.call(print, "callee"),
+          concat(["(", join(", ", path.map(print, "arguments")), ")"])
+        ]);
+      }
+
       // We detect calls on member lookups and possibly print them in a
       // special chain format. See `printMemberChain` for more info.
       if (n.callee.type === "MemberExpression") {
@@ -1137,8 +1156,7 @@ function genericPrintNoParens(path, options, print) {
 
       return concat([
         path.call(print, "label"),
-        ":",
-        hardline,
+        ": ",
         path.call(print, "body")
       ]);
     case "TryStatement":
@@ -1320,10 +1338,11 @@ function genericPrintNoParens(path, options, print) {
     case "JSXText":
       throw new Error("JSXTest should be handled by JSXElement");
     case "JSXEmptyExpression":
-      return concat([
-        comments.printDanglingComments(path, options, /* sameIndent */ true),
-        softline
-      ]);
+      return comments.printDanglingComments(
+        path,
+        options,
+        /* sameIndent */ true
+      );
     case "TypeAnnotatedIdentifier":
       return concat([
         path.call(print, "annotation"),
@@ -1614,12 +1633,19 @@ function genericPrintNoParens(path, options, print) {
         return join(" & ", types);
       }
 
+      const parent = path.getParentNode();
+      // If there's a leading comment, the parent is doing the indentation
+      const shouldIndent = !(parent.type === "TypeAlias" &&
+        hasLeadingOwnLineComment(options.originalText, n));
+
+      const token = isIntersection ? "&" : "|";
+
       return group(
         indent(
-          options.tabWidth,
+          shouldIndent ? options.tabWidth : 0,
           concat([
-            ifBreak(concat([line, isIntersection ? "&" : "|", " "])),
-            join(concat([line, isIntersection ? "&" : "|", " "]), types)
+            ifBreak(concat([shouldIndent ? line : "", token, " "])),
+            join(concat([line, token, " "]), types)
           ])
         )
       );
@@ -1702,8 +1728,13 @@ function genericPrintNoParens(path, options, print) {
         "type ",
         path.call(print, "id"),
         path.call(print, "typeParameters"),
-        " = ",
-        path.call(print, "right"),
+        " =",
+        hasLeadingOwnLineComment(options.originalText, n.right)
+          ? indent(
+              options.tabWidth,
+              concat([hardline, path.call(print, "right")])
+            )
+          : concat([" ", path.call(print, "right")]),
         getSemi(options.semi)
       );
 
@@ -1906,20 +1937,10 @@ function printMethod(path, options, print) {
   return concat(parts);
 }
 
-function printArgumentsList(path, options, print) {
-  var printed = path.map(print, "arguments");
-
-  if (printed.length === 0) {
-    return "()";
-  }
-
-  const args = path.getValue().arguments;
+function shouldGroupLastArg(args) {
   const lastArg = util.getLast(args);
   const penultimateArg = util.getPenultimate(args);
-  // This is just an optimization; I think we could return the
-  // conditional group for all function calls, but it's more expensive
-  // so only do it for specific forms.
-  const groupLastArg = (!lastArg.comments || !lastArg.comments.length) &&
+  return (!lastArg.comments || !lastArg.comments.length) &&
     (lastArg.type === "ObjectExpression" ||
       lastArg.type === "ArrayExpression" ||
       lastArg.type === "FunctionExpression" ||
@@ -1933,8 +1954,20 @@ function printArgumentsList(path, options, print) {
     // If the last two arguments are of the same type,
     // disable last element expansion.
     (!penultimateArg || penultimateArg.type !== lastArg.type);
+}
 
-  if (groupLastArg) {
+function printArgumentsList(path, options, print) {
+  var printed = path.map(print, "arguments");
+
+  if (printed.length === 0) {
+    return "()";
+  }
+
+  const args = path.getValue().arguments;
+  // This is just an optimization; I think we could return the
+  // conditional group for all function calls, but it's more expensive
+  // so only do it for specific forms.
+  if (shouldGroupLastArg(args)) {
     const shouldBreak = printed.slice(0, -1).some(willBreak);
     return concat([
       printed.some(willBreak) ? breakParent : "",
@@ -2015,8 +2048,26 @@ function printFunctionParams(path, print, options) {
 
   const lastParam = util.getLast(path.getValue().params);
   const canHaveTrailingComma = !(lastParam &&
-    lastParam.type === "RestElement") &&
-    !fun.rest;
+    lastParam.type === "RestElement") && !fun.rest;
+
+  // If the parent is a call with the last argument expansion and this is the
+  // params of the last argument, we dont want the arguments to break and instead
+  // want the whole expression to be on a new line.
+  //
+  // Good:                 Bad:
+  //   verylongcall(         verylongcall((
+  //     (a, b) => {           a,
+  //     }                     b,
+  //   })                    ) => {
+  //                         })
+  const parent = path.getParentNode();
+  if (
+    (parent.type === "CallExpression" || parent.type === "NewExpression") &&
+    util.getLast(parent.arguments) === path.getValue() &&
+    shouldGroupLastArg(parent.arguments)
+  ) {
+    return concat(["(", join(", ", printed), ")"]);
+  }
 
   return concat([
     "(",
@@ -2680,6 +2731,7 @@ function maybeWrapJSXElementInParens(path, elem, options) {
   if (!parent) return elem;
 
   const NO_WRAP_PARENTS = {
+    ArrayExpression: true,
     JSXElement: true,
     JSXExpressionContainer: true,
     ExpressionStatement: true,
@@ -2759,14 +2811,12 @@ function printBinaryishExpressions(path, parts, print, options, isNested) {
       path.call(print, "right")
     ]);
 
-    // If there's only a single binary expression: everything except && and ||,
-    // we want to create a group in order to avoid having a small right part
-    // like -1 be on its own line.
+    // If there's only a single binary expression, we want to create a group
+    // in order to avoid having a small right part like -1 be on its own line.
     const parent = path.getParentNode();
-    const shouldGroup = node.type === "BinaryExpression" &&
-      parent.type !== "BinaryExpression" &&
-      node.left.type !== "BinaryExpression" &&
-      node.right.type !== "BinaryExpression";
+    const shouldGroup = parent.type !== node.type &&
+      node.left.type !== node.type &&
+      node.right.type !== node.type;
 
     parts.push(" ", shouldGroup ? group(right) : right);
 

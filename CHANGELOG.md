@@ -1,3 +1,26 @@
+# 0.21.0
+
+[link](https://github.com/jlongster/prettier/compare/0.20.0...0.21.0)
+
+* [JSX] Break before and after jsx whitespace (#836)
+* re-run snapshot tests
+* Run prettier 0.20.0 (#835)
+* [JSX] Don't wrap JSX Elements in parentheses in {} (#845) 
+* Fix comment after the last argument of a function (#856)
+* Fix travis build imag
+* Do not break require calls (#841) 
+* Stabilize import as comments (#855)
+* Fix jsx expression comment that break (#852)
+* Inline last arg function arguments (#847)
+* Keep parenthesis on export default function (#844)
+* Inline short expressions for boolean operators too (#826)
+* Introduce -l option (#854)
+* Add parenthesis around assignments (#862)
+* Do not put \n after label (#860)
+* Fix comment for `call( // comment` (#858)
+* Do not break long it calls (#842)
+* Fix flow union comments (#853)
+
 # 0.20.0
 
 [link](https://github.com/jlongster/prettier/compare/0.19.0...0.20.0)

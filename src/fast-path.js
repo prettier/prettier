@@ -25,7 +25,7 @@ FastPath.from = function(obj) {
     // lightweight FastPath [..., name, value] stacks.
     var copy = Object.create(FastPath.prototype);
     var stack = [obj.value];
-    for (var pp; pp = obj.parentPath; obj = pp)
+    for (var pp; (pp = obj.parentPath); obj = pp)
       stack.push(obj.name, pp.value);
     copy.stack = stack.reverse();
     return copy;
@@ -246,6 +246,15 @@ FPp.needsParens = function(assumeExpressionContext) {
   }
 
   switch (node.type) {
+    case "CallExpression":
+      if (
+        node.callee.type === "ObjectExpression" &&
+        parent.type === "ArrowFunctionExpression"
+      ) {
+        return true;
+      }
+      return false;
+
     case "SpreadElement":
     case "SpreadProperty":
       return parent.type === "MemberExpression" &&
@@ -386,7 +395,8 @@ FPp.needsParens = function(assumeExpressionContext) {
 
     case "IntersectionTypeAnnotation":
     case "UnionTypeAnnotation":
-      return parent.type === "NullableTypeAnnotation" ||
+      return parent.type === "ArrayTypeAnnotation" ||
+        parent.type === "NullableTypeAnnotation" ||
         parent.type === "IntersectionTypeAnnotation" ||
         parent.type === "UnionTypeAnnotation";
 
@@ -405,13 +415,22 @@ FPp.needsParens = function(assumeExpressionContext) {
         parent.object === node;
 
     case "AssignmentExpression":
-      if (
-        parent.type === "ArrowFunctionExpression" &&
-        parent.body === node &&
-        node.left.type === "ObjectPattern"
-      ) {
-        return true;
+      if (parent.type === "ArrowFunctionExpression" && parent.body === node) {
+        return node.left.type === "ObjectPattern";
       }
+      if (
+        parent.type === "ForStatement" &&
+        (parent.init === node || parent.update === node)
+      ) {
+        return false;
+      }
+      if (parent.type === "ExpressionStatement") {
+        if (node.left.type === "ObjectPattern") {
+          return true;
+        }
+        return false;
+      }
+      return true;
 
     case "ConditionalExpression":
       switch (parent.type) {
@@ -454,10 +473,10 @@ FPp.needsParens = function(assumeExpressionContext) {
           return false;
 
         case "ExportDefaultDeclaration":
-          if (node.type === "ArrowFunctionExpression") {
-            return false;
-          }
-          if (node.type === "FunctionExpression" && !node.id) {
+          if (
+            node.type === "ArrowFunctionExpression" ||
+            node.type === "FunctionDeclaration"
+          ) {
             return false;
           }
           return true;

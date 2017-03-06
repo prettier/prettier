@@ -4,10 +4,18 @@ exports[`assignment-pattern.js 1`] = `
 "const { a /* comment */ = 1 } = b;
 
 const { c = 1 /* comment */ } = d;
+
+let {a //comment
+= b} = c
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const { a /* comment */ = 1 } = b;
 
 const { c = 1 /* comment */ } = d;
+
+let {
+  //comment
+  a = b
+} = c;
 "
 `;
 
@@ -15,10 +23,18 @@ exports[`assignment-pattern.js 2`] = `
 "const { a /* comment */ = 1 } = b;
 
 const { c = 1 /* comment */ } = d;
+
+let {a //comment
+= b} = c
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const { a /* comment */ = 1 } = b;
 
 const { c = 1 /* comment */ } = d;
+
+let {
+  //comment
+  a = b
+} = c;
 "
 `;
 
@@ -49,6 +65,56 @@ exports[`blank.js 2`] = `
 // should still exist
 //
 // when printed.
+"
+`;
+
+exports[`call_comment.js 1`] = `
+"render( // Warm any cache
+  <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
+  container
+);
+
+React.render( // Warm any cache
+  <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
+  container
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+render(
+  // Warm any cache
+  <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
+  container
+);
+
+React.render(
+  // Warm any cache
+  <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
+  container
+);
+"
+`;
+
+exports[`call_comment.js 2`] = `
+"render( // Warm any cache
+  <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
+  container
+);
+
+React.render( // Warm any cache
+  <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
+  container
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+render(
+  // Warm any cache
+  <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
+  container
+);
+
+React.render(
+  // Warm any cache
+  <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
+  container
+);
 "
 `;
 
@@ -191,6 +257,52 @@ b
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 a; // comment
 b;
+"
+`;
+
+exports[`flow_union.js 1`] = `
+"type UploadState<E, EM, D>
+  // The upload hasnt begun yet
+  = {type: \\"Not_begun\\"}
+  // The upload timed out
+  | {type: \\"Timed_out\\"}
+  // Failed somewhere on the line
+  | {type: \\"Failed\\", error: E, errorMsg: EM}
+  // Uploading to aws3 and CreatePostMutation succeeded
+  | {type: \\"Success\\", data: D};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type UploadState<E, EM, D> =
+  // The upload hasnt begun yet
+  | { type: \\"Not_begun\\" }
+  // The upload timed out
+  | { type: \\"Timed_out\\" }
+  // Failed somewhere on the line
+  | { type: \\"Failed\\", error: E, errorMsg: EM }
+  // Uploading to aws3 and CreatePostMutation succeeded
+  | { type: \\"Success\\", data: D };
+"
+`;
+
+exports[`flow_union.js 2`] = `
+"type UploadState<E, EM, D>
+  // The upload hasnt begun yet
+  = {type: \\"Not_begun\\"}
+  // The upload timed out
+  | {type: \\"Timed_out\\"}
+  // Failed somewhere on the line
+  | {type: \\"Failed\\", error: E, errorMsg: EM}
+  // Uploading to aws3 and CreatePostMutation succeeded
+  | {type: \\"Success\\", data: D};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type UploadState<E, EM, D> =
+  // The upload hasnt begun yet
+  | { type: \\"Not_begun\\" }
+  // The upload timed out
+  | { type: \\"Timed_out\\" }
+  // Failed somewhere on the line
+  | { type: \\"Failed\\", error: E, errorMsg: EM }
+  // Uploading to aws3 and CreatePostMutation succeeded
+  | { type: \\"Success\\", data: D };
 "
 `;
 
@@ -793,6 +905,8 @@ exports[`jsx.js 1`] = `
 <div>
   {/* comment */}
 </div>;
+
+<div>{/*<div>  Some very v  ery very very long line to break line width limit </div>*/}</div>;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div>
   {/* comment */}
@@ -826,6 +940,10 @@ exports[`jsx.js 1`] = `
 
 <div>
   {/* comment */}
+</div>;
+
+<div>
+  {/*<div>  Some very v  ery very very long line to break line width limit </div>*/}
 </div>;
 "
 `;
@@ -869,6 +987,8 @@ exports[`jsx.js 2`] = `
 <div>
   {/* comment */}
 </div>;
+
+<div>{/*<div>  Some very v  ery very very long line to break line width limit </div>*/}</div>;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div>
   {/* comment */}
@@ -903,6 +1023,96 @@ exports[`jsx.js 2`] = `
 <div>
   {/* comment */}
 </div>;
+
+<div>
+  {/*<div>  Some very v  ery very very long line to break line width limit </div>*/}
+</div>;
+"
+`;
+
+exports[`last-arg.js 1`] = `
+"type f = (
+  currentRequest: {a: number},
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) => number;
+
+f = (
+  currentRequest: {a: number},
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+): number => {};
+
+f = (
+  currentRequest: {a: number},
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) => {};
+
+f = function(
+  currentRequest: {a: number},
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) {};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type f = (
+  currentRequest: { a: number }
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) => number;
+
+f = (
+  currentRequest: { a: number }
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+): number => {};
+
+f = (
+  currentRequest: { a: number }
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) => {};
+
+f = function(
+  currentRequest: { a: number }
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) {};
+"
+`;
+
+exports[`last-arg.js 2`] = `
+"type f = (
+  currentRequest: {a: number},
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) => number;
+
+f = (
+  currentRequest: {a: number},
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+): number => {};
+
+f = (
+  currentRequest: {a: number},
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) => {};
+
+f = function(
+  currentRequest: {a: number},
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) {};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type f = (
+  currentRequest: { a: number }
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) => number;
+
+f = (
+  currentRequest: { a: number }
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+): number => {};
+
+f = (
+  currentRequest: { a: number }
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) => {};
+
+f = function(
+  currentRequest: { a: number }
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) {};
 "
 `;
 

@@ -55,12 +55,12 @@ for (var j in b) {
 }
 
 var c;
-for (var m in c = b) {
+for (var m in (c = b)) {
   foo(c[m]);
 }
 
 var d;
-for (var n in d = a) {
+for (var n in (d = a)) {
   foo(d[n]); // d is a string, which shouldn't be used for array access
 }
 

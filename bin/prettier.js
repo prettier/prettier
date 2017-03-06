@@ -22,6 +22,7 @@ const argv = minimist(process.argv.slice(2), {
     // listed here is to avoid "Ignored unknown option: --no-color" warnings.
     // See https://github.com/chalk/supports-color/#info for more information.
     "color",
+    "list-different",
     "help",
     "version",
     "debug-print-doc",
@@ -31,7 +32,7 @@ const argv = minimist(process.argv.slice(2), {
   ],
   string: ["print-width", "tab-width", "parser", "trailing-comma", "semi"],
   default: { color: true, "bracket-spacing": true, parser: "babylon" },
-  alias: { help: "h", version: "v" },
+  alias: { help: "h", version: "v", "list-different": "l" },
   unknown: param => {
     if (param.startsWith("-")) {
       console.warn("Ignored unknown option: " + param + "\n");
@@ -179,6 +180,7 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
     "Usage: prettier [opts] [filename ...]\n\n" +
       "Available options:\n" +
       "  --write                  Edit the file in-place. (Beware!)\n" +
+      "  --list-different or -l   Print filenames of files that are different from prettier formatting\n" +
       "  --stdin                  Read input from stdin.\n" +
       "  --print-width <int>      Specify the length of line that the printer will wrap on. Defaults to 80.\n" +
       "  --tab-width <int>        Specify the number of spaces per indentation-level. Defaults to 2.\n" +
@@ -190,7 +192,7 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
       "  --parser <flow|babylon>  Specify which parse to use. Defaults to babylon.\n" +
       "  --color                  Colorize error messages. Defaults to true.\n" +
       "  --semi <false|true>      Insert semi. False will remove them all. Beware experimental.\n" +
-      "  --version                Print prettier version.\n" +
+      "  --version or -v          Print prettier version.\n" +
       "\n" +
       "Boolean options can be turned off like this:\n" +
       "  --no-bracket-spacing\n" +
@@ -265,6 +267,11 @@ if (stdin) {
         process.stdout.write("\n");
         if (output) {
           console.log(output);
+        }
+      } else if (argv["list-different"]) {
+        if (input !== output) {
+          console.log(filename);
+          process.exitCode = 1;
         }
       } else {
         // Don't use `console.log` here since it adds an extra newline at the end.
