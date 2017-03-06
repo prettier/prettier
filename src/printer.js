@@ -2942,7 +2942,7 @@ function printNumber(rawNumber) {
   return rawNumber
     .toLowerCase()
     // Remove unnecessary plus and zeroes from scientific notation.
-    .replace(/^([\d.]+e)(?:\+|(-))?0*/, "$1$2")
+    .replace(/^([\d.]+e)(?:\+|(-))?0*(\d)/, "$1$2$3")
     // Make sure numbers always start with a digit.
     .replace(/^\./, "0.")
     // Remove trailing dot.
