@@ -255,6 +255,9 @@ FPp.needsParens = function(assumeExpressionContext) {
       }
       return false;
 
+    case "BindExpression":
+      if (isBinarishOpInArrowFunction(node, parent)) return true;
+
     case "SpreadElement":
     case "SpreadProperty":
       return parent.type === "MemberExpression" &&
@@ -262,6 +265,7 @@ FPp.needsParens = function(assumeExpressionContext) {
         parent.object === node;
 
     case "UpdateExpression":
+      if (isBinarishOpInArrowFunction(node, parent)) return true;
       switch (parent.type) {
         case "MemberExpression":
           return name === "object" && parent.object === node;
@@ -309,7 +313,6 @@ FPp.needsParens = function(assumeExpressionContext) {
 
     case "LogicalExpression":
       if (isBinarishOpInArrowFunction(node, parent)) return true;
-
       switch (parent.type) {
         case "CallExpression":
         case "NewExpression":
@@ -443,6 +446,7 @@ FPp.needsParens = function(assumeExpressionContext) {
       return true;
 
     case "ConditionalExpression":
+      if (isBinarishOpInArrowFunction(node, parent)) return true;
       switch (parent.type) {
         case "TaggedTemplateExpression":
         case "UnaryExpression":
@@ -616,6 +620,24 @@ function getCombinedDeepest(node) {
         return getCombinedDeepest(deepestCallee);
       }
     }
+    case "ConditionalExpression":
+      if (leftist.test.type === "ObjectExpression") {
+        return true;
+      } else {
+        return getCombinedDeepest(leftist.test);
+      }
+    case "UpdateExpression":
+      if (leftist.argument.type === "ObjectExpression") {
+        return true;
+      } else {
+        return getCombinedDeepest(leftist.argument);
+      }
+    case "BindExpression":
+      if (leftist.object.type === "ObjectExpression") {
+        return true;
+      } else {
+        return getCombinedDeepest(leftist.object);
+      }
     default:
       return false;
   }
@@ -630,7 +652,8 @@ function getLeftist(node) {
 }
 
 function getDeepestCallee(node) {
-   if (node.callee) {
+  // Don't go deeper with BindExpression.
+  if (node.callee && node.type !== "BindExpression") {
      return getDeepestCallee(node.callee);
   } else {
     return node;
