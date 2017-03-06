@@ -242,6 +242,24 @@ for (;;);
 "
 `;
 
+exports[`export.js 1`] = `
+"export //comment
+{}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//comment
+export {};
+"
+`;
+
+exports[`export.js 2`] = `
+"export //comment
+{}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//comment
+export {};
+"
+`;
+
 exports[`first-line.js 1`] = `
 "a // comment
 b

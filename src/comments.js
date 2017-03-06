@@ -186,7 +186,8 @@ function attach(comments, ast, text, options) {
         handleTemplateLiteralComments(enclosingNode, comment) ||
         handleCallExpressionComments(precedingNode, enclosingNode, comment) ||
         handleClassComments(enclosingNode, comment) ||
-        handlePropertyComments(enclosingNode, comment)
+        handlePropertyComments(enclosingNode, comment) ||
+        handleExportNamedDeclarationComments(enclosingNode, comment)
       ) {
         // We're good
       } else if (precedingNode) {
@@ -569,6 +570,14 @@ function handlePropertyComments(enclosingNode, comment) {
       enclosingNode.type === "ObjectProperty"
     )
   ) {
+    addLeadingComment(enclosingNode, comment);
+    return true;
+  }
+  return false;
+}
+
+function handleExportNamedDeclarationComments(enclosingNode, comment) {
+  if (enclosingNode && enclosingNode.type === "ExportNamedDeclaration") {
     addLeadingComment(enclosingNode, comment);
     return true;
   }
