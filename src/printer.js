@@ -1834,8 +1834,9 @@ function genericPrintNoParens(path, options, print) {
 function printStatementSequence(path, options, print) {
   let printed = [];
 
-  path.map(function(stmtPath, i) {
-    var stmt = stmtPath.getValue();
+  path.map(stmtPath => {
+    const stmt = stmtPath.getValue();
+    const parent = stmtPath.getParentNode();
 
     // Just in case the AST has been modified to contain falsy
     // "statements," it's safer simply to skip them.
@@ -1855,7 +1856,17 @@ function printStatementSequence(path, options, print) {
 
     parts.push(stmtPrinted);
 
-    if (util.isNextLineEmpty(text, stmt) && !isLastStatement(stmtPath)) {
+    if (parent.type === "SwitchCase") {
+      if (
+        util.isNextLineEmpty(text, stmt) &&
+        !isLastSwitchCase(stmtPath)
+      ) {
+        parts.push(hardline);
+      }
+    } else if (
+      util.isNextLineEmpty(text, stmt) &&
+      !isLastStatement(stmtPath)
+    ) {
       parts.push(hardline);
     }
 
@@ -2964,6 +2975,14 @@ function isLastStatement(path) {
   const node = path.getValue();
   const body = parent.body;
   return body && body[body.length - 1] === node;
+}
+
+function isLastSwitchCase(path) {
+  const parentParent = path.getParentNode(1);
+  const parent = path.getParentNode();
+  const last = parentParent && parentParent.cases &&
+    parentParent.cases[parentParent.cases.length - 1];
+  return last === parent;
 }
 
 function hasLeadingOwnLineComment(text, node) {
