@@ -1370,6 +1370,92 @@ function c() {
 "
 `;
 
+exports[`switch.js 1`] = `
+"switch (node && node.type) {
+  case \\"Property\\":
+  case \\"MethodDefinition\\":
+    prop = node.key;
+    break;
+
+  case \\"MemberExpression\\":
+    prop = node.property;
+    break;
+
+  // no default
+}
+
+switch (foo) {
+  case \\"bar\\":
+    doThing()
+
+  // no default
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+switch (node && node.type) {
+  case \\"Property\\":
+  case \\"MethodDefinition\\":
+    prop = node.key;
+    break;
+
+  case \\"MemberExpression\\":
+    prop = node.property;
+    break;
+
+  // no default
+}
+
+switch (foo) {
+  case \\"bar\\":
+    doThing();
+
+  // no default
+}
+"
+`;
+
+exports[`switch.js 2`] = `
+"switch (node && node.type) {
+  case \\"Property\\":
+  case \\"MethodDefinition\\":
+    prop = node.key;
+    break;
+
+  case \\"MemberExpression\\":
+    prop = node.property;
+    break;
+
+  // no default
+}
+
+switch (foo) {
+  case \\"bar\\":
+    doThing()
+
+  // no default
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+switch (node && node.type) {
+  case \\"Property\\":
+  case \\"MethodDefinition\\":
+    prop = node.key;
+    break;
+
+  case \\"MemberExpression\\":
+    prop = node.property;
+    break;
+
+  // no default
+}
+
+switch (foo) {
+  case \\"bar\\":
+    doThing();
+
+  // no default
+}
+"
+`;
+
 exports[`template-literal.js 1`] = `
 "\`
 \${a // comment
