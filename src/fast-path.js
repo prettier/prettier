@@ -245,6 +245,19 @@ FPp.needsParens = function(assumeExpressionContext) {
     return true;
   }
 
+  if (
+    parent.type === 'ArrowFunctionExpression' && parent.body === node &&
+      isBinarishOpInArrowFunction(node, parent) &&
+      (node.type === "BindExpression" ||
+       node.type === "UpdateExpression" ||
+       node.type === "BinaryExpression" ||
+       node.type === "LogicalExpression" ||
+       node.type === "AssignmentExpression" ||
+       node.type === "ConditionalExpression")
+  ) {
+    return true;
+  }
+
   switch (node.type) {
     case "CallExpression":
       if (
@@ -255,9 +268,6 @@ FPp.needsParens = function(assumeExpressionContext) {
       }
       return false;
 
-    case "BindExpression":
-      if (isBinarishOpInArrowFunction(node, parent)) return true;
-
     case "SpreadElement":
     case "SpreadProperty":
       return parent.type === "MemberExpression" &&
@@ -265,7 +275,6 @@ FPp.needsParens = function(assumeExpressionContext) {
         parent.object === node;
 
     case "UpdateExpression":
-      if (isBinarishOpInArrowFunction(node, parent)) return true;
       switch (parent.type) {
         case "MemberExpression":
           return name === "object" && parent.object === node;
@@ -309,10 +318,7 @@ FPp.needsParens = function(assumeExpressionContext) {
         return true;
       }
 
-      if (isBinarishOpInArrowFunction(node, parent)) return true;
-
     case "LogicalExpression":
-      if (isBinarishOpInArrowFunction(node, parent)) return true;
       switch (parent.type) {
         case "CallExpression":
         case "NewExpression":
@@ -366,7 +372,7 @@ FPp.needsParens = function(assumeExpressionContext) {
         case "ExpressionStatement":
           if (
             node.expressions.length > 0 &&
-            getLeftist(node.expressions[0]).type === "ObjectExpression"
+            getLeftMost(node.expressions[0]).type === "ObjectExpression"
           ) {
             return true;
           }
@@ -428,7 +434,6 @@ FPp.needsParens = function(assumeExpressionContext) {
         parent.object === node;
 
     case "AssignmentExpression":
-      if (isBinarishOpInArrowFunction(node, parent)) return true;
       if (parent.type === "ArrowFunctionExpression" && parent.body === node) {
         return node.left.type === "ObjectPattern";
       }
@@ -447,7 +452,6 @@ FPp.needsParens = function(assumeExpressionContext) {
       return true;
 
     case "ConditionalExpression":
-      if (isBinarishOpInArrowFunction(node, parent)) return true;
       switch (parent.type) {
         case "TaggedTemplateExpression":
         case "UnaryExpression":
@@ -592,36 +596,34 @@ function containsCallExpression(node) {
 }
 
 function isBinarishOpInArrowFunction(node, parent) {
-  return parent.type === "ArrowFunctionExpression" && getCombinedDeepest(node);
+  return parent.type === "ArrowFunctionExpression" && startsWithOpenCurlyBrace(node);
 }
 
-function getCombinedDeepest(node) {
-  while (node.left) {
-    node = node.left;
-  }
+function startsWithOpenCurlyBrace(node) {
+  node = getLeftMost(node);
   switch (node.type) {
     case "ObjectExpression":
       return true;
     case "MemberExpression":
-        return getCombinedDeepest(node.object);
+        return startsWithOpenCurlyBrace(node.object);
     case "TaggedTemplateExpression":
-        return getCombinedDeepest(node.tag);
+        return startsWithOpenCurlyBrace(node.tag);
     case "CallExpression":
-        return getCombinedDeepest(node.callee);
+        return startsWithOpenCurlyBrace(node.callee);
     case "ConditionalExpression":
-        return getCombinedDeepest(node.test);
+        return startsWithOpenCurlyBrace(node.test);
     case "UpdateExpression":
-        return !node.prefix && getCombinedDeepest(node.argument);
+        return !node.prefix && startsWithOpenCurlyBrace(node.argument);
     case "BindExpression":
-        return node.object && getCombinedDeepest(node.object);
+        return node.object && startsWithOpenCurlyBrace(node.object);
     default:
       return false;
   }
 }
 
-function getLeftist(node) {
+function getLeftMost(node) {
   if (node.left) {
-    return getLeftist(node.left);
+    return getLeftMost(node.left);
   } else {
     return node;
   }
