@@ -246,14 +246,16 @@ FPp.needsParens = function(assumeExpressionContext) {
   }
 
   if (
-    parent.type === 'ArrowFunctionExpression' && parent.body === node &&
-      isBinarishOpInArrowFunction(node, parent) &&
+    ((parent.type === "ArrowFunctionExpression" && parent.body === node) ||
+     parent.type === "ExpressionStatement") &&
+      startsWithOpenCurlyBrace(node) &&
       (node.type === "BindExpression" ||
        node.type === "UpdateExpression" ||
        node.type === "BinaryExpression" ||
        node.type === "LogicalExpression" ||
        node.type === "AssignmentExpression" ||
-       node.type === "ConditionalExpression")
+       node.type === "ConditionalExpression" ||
+       node.type === "SequenceExpression")
   ) {
     return true;
   }
@@ -595,27 +597,25 @@ function containsCallExpression(node) {
   return false;
 }
 
-function isBinarishOpInArrowFunction(node, parent) {
-  return parent.type === "ArrowFunctionExpression" && startsWithOpenCurlyBrace(node);
-}
-
 function startsWithOpenCurlyBrace(node) {
   node = getLeftMost(node);
   switch (node.type) {
     case "ObjectExpression":
       return true;
     case "MemberExpression":
-        return startsWithOpenCurlyBrace(node.object);
+      return startsWithOpenCurlyBrace(node.object);
     case "TaggedTemplateExpression":
-        return startsWithOpenCurlyBrace(node.tag);
+      return startsWithOpenCurlyBrace(node.tag);
     case "CallExpression":
-        return startsWithOpenCurlyBrace(node.callee);
+      return startsWithOpenCurlyBrace(node.callee);
     case "ConditionalExpression":
-        return startsWithOpenCurlyBrace(node.test);
+      return startsWithOpenCurlyBrace(node.test);
     case "UpdateExpression":
-        return !node.prefix && startsWithOpenCurlyBrace(node.argument);
+      return !node.prefix && startsWithOpenCurlyBrace(node.argument);
     case "BindExpression":
-        return node.object && startsWithOpenCurlyBrace(node.object);
+      return node.object && startsWithOpenCurlyBrace(node.object);
+    case "SequenceExpression":
+      return startsWithOpenCurlyBrace(node.expressions[0])
     default:
       return false;
   }
