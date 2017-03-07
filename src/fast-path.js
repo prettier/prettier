@@ -264,26 +264,12 @@ FPp.needsParens = function(assumeExpressionContext) {
         parent.object === node;
 
     case "UpdateExpression":
-      switch (parent.type) {
-        case "MemberExpression":
-          return name === "object" && parent.object === node;
-
-        case "TaggedTemplateExpression":
-        case "NewExpression":
-          return true;
-
-        case "UnaryExpression":
-          if (
-            node.prefix &&
-            ((node.operator === "++" && parent.operator === "+") ||
-              (node.operator === "--" && parent.operator === "-"))
-          ) {
-            return true;
-          }
-
-          return false;
+      if (parent.type === "UnaryExpression") {
+        return node.prefix &&
+          ((node.operator === "++" && parent.operator === "+") ||
+              (node.operator === "--" && parent.operator === "-"));
       }
-
+      // else fall through
     case "UnaryExpression":
       switch (parent.type) {
         case "UnaryExpression":
@@ -292,9 +278,20 @@ FPp.needsParens = function(assumeExpressionContext) {
 
         case "MemberExpression":
           return name === "object" && parent.object === node;
+
+        case "TaggedTemplateExpression":
+          return true;
+
+        case "NewExpression":
+        case "CallExpression":
+          return name === "callee" && parent.callee == node;
+
+        default:
+          return false;
       }
 
     case "BinaryExpression":
+      // TODO https://github.com/prettier/prettier/issues/907 this is not complete
       if (
         node.operator === "in" &&
         parent.type === "ForStatement" &&
@@ -302,11 +299,10 @@ FPp.needsParens = function(assumeExpressionContext) {
       ) {
         return true;
       }
-
       if (node.operator === "in" && parent.type === "AssignmentExpression") {
         return true;
       }
-
+      // else fall through
     case "LogicalExpression":
       switch (parent.type) {
         case "CallExpression":
@@ -371,6 +367,7 @@ FPp.needsParens = function(assumeExpressionContext) {
       if (parent.type === "UnaryExpression") {
         return true;
       }
+      // else fall through
     case "AwaitExpression":
       switch (parent.type) {
         case "TaggedTemplateExpression":
@@ -419,18 +416,13 @@ FPp.needsParens = function(assumeExpressionContext) {
     case "AssignmentExpression":
       if (parent.type === "ArrowFunctionExpression" && parent.body === node) {
         return node.left.type === "ObjectPattern";
-      }
-      if (
+      } else if (
         parent.type === "ForStatement" &&
         (parent.init === node || parent.update === node)
       ) {
         return false;
-      }
-      if (parent.type === "ExpressionStatement") {
-        if (node.left.type === "ObjectPattern") {
-          return true;
-        }
-        return false;
+      } else if (parent.type === "ExpressionStatement") {
+        return node.left.type === "ObjectPattern";
       }
       return true;
 
@@ -458,7 +450,7 @@ FPp.needsParens = function(assumeExpressionContext) {
           return name === "object" && parent.object === node;
 
         default:
-          return n.ObjectPattern.check(node.left) && this.firstInStatement();
+          return false;
       }
 
     case "FunctionExpression":
@@ -516,31 +508,29 @@ FPp.needsParens = function(assumeExpressionContext) {
           if (parent.test === node) {
             return true;
           }
+        default:
+          return false;
       }
-
-      return false;
 
     case "StringLiteral":
-      if (parent.type === "ExpressionStatement") {
-        return true;
-      }
+      return parent.type === "ExpressionStatement"; // to avoid becoming a directive
+  }
 
-    default:
-      if (
-        parent.type === "NewExpression" &&
-        name === "callee" &&
-        parent.callee === node
-      ) {
-        return containsCallExpression(node);
-      }
+  if (
+    parent.type === "NewExpression" &&
+    name === "callee" &&
+    parent.callee === node
+  ) {
+    return containsCallExpression(node);
   }
 
   if (
     assumeExpressionContext !== true &&
     !this.canBeFirstInStatement() &&
     this.firstInStatement()
-  )
+  ) {
     return true;
+  }
 
   return false;
 };
