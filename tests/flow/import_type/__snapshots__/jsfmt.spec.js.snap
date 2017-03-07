@@ -353,12 +353,14 @@ exports[`import_type_specifier.js 1`] = `
  */
 
 import { Foo, type Baz } from \\"../module\\";
+import type {} from 'foo';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /**
  * @flow
  */
 
 import { Foo, type Baz } from \\"../module\\";
+import type {} from \\"foo\\";
 "
 `;
 
