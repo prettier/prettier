@@ -39,6 +39,7 @@ var defaults = {
   flattenTernaries: false,
   breakBeforeElse: false,
   jsxBracketSameLine: false,
+  groupFirstArg: false,
   parser: "babylon",
   __log: false
 };
