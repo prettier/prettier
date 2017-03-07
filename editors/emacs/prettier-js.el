@@ -186,9 +186,9 @@ function."
           (width-args
            (cond
             ((equal prettier-width-mode 'window)
-             (list "--width" (number-to-string (window-body-width))))
+             (list "--print-width" (number-to-string (window-body-width))))
             ((equal prettier-width-mode 'fill)
-             (list "--width" (number-to-string fill-column)))
+             (list "--print-width" (number-to-string fill-column)))
             (t
              '()))))
      (unwind-protect
