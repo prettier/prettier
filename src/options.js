@@ -10,6 +10,7 @@ var defaults = {
   trailingComma: "none",
   bracketSpacing: true,
   jsxBracketSameLine: false,
+  groupFirstArg: false,
   parser: "babylon"
 };
 
