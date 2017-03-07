@@ -151,7 +151,6 @@ function attach(comments, ast, text, options) {
         handleTryStatementComments(enclosingNode, followingNode, comment) ||
         handleClassComments(enclosingNode, comment) ||
         handleImportSpecifierComments(enclosingNode, comment) ||
-        handleClassComments(enclosingNode, comment) ||
         handleOnlyComments(enclosingNode, ast, comment, isLastComment)
       ) {
         // We're good
