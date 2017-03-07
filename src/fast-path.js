@@ -255,12 +255,6 @@ FPp.needsParens = function(assumeExpressionContext) {
 
   switch (node.type) {
     case "CallExpression":
-      if (
-        node.callee.type === "ObjectExpression" &&
-        parent.type === "ArrowFunctionExpression"
-      ) {
-        return true;
-      }
       return false;
 
     case "SpreadElement":
@@ -606,11 +600,8 @@ function getLeftMost(node) {
 }
 
 FPp.canBeFirstInStatement = function() {
-  var node = this.getNode();
-  return !n.FunctionExpression.check(node) &&
-    !n.ObjectExpression.check(node) &&
-    !n.ClassExpression.check(node) &&
-    !(n.AssignmentExpression.check(node) && n.ObjectPattern.check(node.left));
+  const node = this.getNode();
+  return !n.FunctionExpression.check(node) && !n.ClassExpression.check(node);
 };
 
 FPp.firstInStatement = function() {
