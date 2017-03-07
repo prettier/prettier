@@ -139,10 +139,10 @@ In the future we will have better support for formatting whole projects.
 
 [🚫💩 lint-staged](https://github.com/okonet/lint-staged) can re-format your files that are marked as "staged" via `git add`  before you commit.
 
-Install it along with [pre-commit](https://github.com/observing/pre-commit) (or [husky](https://github.com/typicode/husky)):
+Install it along with [husky](https://github.com/typicode/husky):
 
 ```bash
-yarn add lint-staged pre-commit --dev
+yarn add lint-staged husky --dev
 ```
 
 and add this config to your `package.json`:
@@ -150,18 +150,18 @@ and add this config to your `package.json`:
 ```json
 {
   "scripts": {
-    "lint:staged": "lint-staged"
+    "precommit": "lint-staged"
   },
   "lint-staged": {
     "*.js": [
       "prettier --write",
       "git add"
     ]
-  },
-  "pre-commit": "lint-staged"
+  }
 }
 ```
 
+See https://github.com/okonet/lint-staged#configuration for more deatils about how you can configure 🚫💩 lint-staged.
 
 ### API
 
