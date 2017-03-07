@@ -246,16 +246,16 @@ FPp.needsParens = function(assumeExpressionContext) {
   }
 
   if (
+    (node.type === "BindExpression" ||
+     node.type === "UpdateExpression" ||
+     node.type === "BinaryExpression" ||
+     node.type === "LogicalExpression" ||
+     node.type === "AssignmentExpression" ||
+     node.type === "ConditionalExpression" ||
+     node.type === "SequenceExpression") &&
     ((parent.type === "ArrowFunctionExpression" && parent.body === node) ||
-     parent.type === "ExpressionStatement") &&
-      startsWithOpenCurlyBrace(node) &&
-      (node.type === "BindExpression" ||
-       node.type === "UpdateExpression" ||
-       node.type === "BinaryExpression" ||
-       node.type === "LogicalExpression" ||
-       node.type === "AssignmentExpression" ||
-       node.type === "ConditionalExpression" ||
-       node.type === "SequenceExpression")
+    parent.type === "ExpressionStatement") &&
+    startsWithOpenCurlyBrace(node)
   ) {
     return true;
   }
