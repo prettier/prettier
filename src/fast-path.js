@@ -428,6 +428,7 @@ FPp.needsParens = function(assumeExpressionContext) {
         parent.object === node;
 
     case "AssignmentExpression":
+      if (isBinarishOpInArrowFunction(node, parent)) return true;
       if (parent.type === "ArrowFunctionExpression" && parent.body === node) {
         return node.left.type === "ObjectPattern";
       }
