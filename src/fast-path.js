@@ -246,13 +246,6 @@ FPp.needsParens = function(assumeExpressionContext) {
   }
 
   if (
-    (node.type === "BindExpression" ||
-     node.type === "UpdateExpression" ||
-     node.type === "BinaryExpression" ||
-     node.type === "LogicalExpression" ||
-     node.type === "AssignmentExpression" ||
-     node.type === "ConditionalExpression" ||
-     node.type === "SequenceExpression") &&
     ((parent.type === "ArrowFunctionExpression" && parent.body === node) ||
     parent.type === "ExpressionStatement") &&
     startsWithOpenCurlyBrace(node)
@@ -372,12 +365,6 @@ FPp.needsParens = function(assumeExpressionContext) {
           return false;
 
         case "ExpressionStatement":
-          if (
-            node.expressions.length > 0 &&
-            getLeftMost(node.expressions[0]).type === "ObjectExpression"
-          ) {
-            return true;
-          }
           return name !== "expression";
 
         default:
@@ -538,17 +525,6 @@ FPp.needsParens = function(assumeExpressionContext) {
       }
 
       return false;
-
-    case "ObjectExpression":
-      if (parent.type === "ArrowFunctionExpression" && name === "body") {
-        return true;
-      }
-      if (parent.type === "TaggedTemplateExpression") {
-        return true;
-      }
-      if (parent.type === "MemberExpression") {
-        return name === "object" && parent.object === node;
-      }
 
     case "StringLiteral":
       if (parent.type === "ExpressionStatement") {
