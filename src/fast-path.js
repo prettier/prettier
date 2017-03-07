@@ -245,14 +245,16 @@ FPp.needsParens = function(assumeExpressionContext) {
     return true;
   }
 
+  if (
+    ((parent.type === "ArrowFunctionExpression" && parent.body === node) ||
+    parent.type === "ExpressionStatement") &&
+    startsWithOpenCurlyBrace(node)
+  ) {
+    return true;
+  }
+
   switch (node.type) {
     case "CallExpression":
-      if (
-        node.callee.type === "ObjectExpression" &&
-        parent.type === "ArrowFunctionExpression"
-      ) {
-        return true;
-      }
       return false;
 
     case "SpreadElement":
@@ -302,13 +304,6 @@ FPp.needsParens = function(assumeExpressionContext) {
       }
 
       if (node.operator === "in" && parent.type === "AssignmentExpression") {
-        return true;
-      }
-
-      if (
-        node.operator === "instanceof" &&
-        parent.type === "ArrowFunctionExpression"
-      ) {
         return true;
       }
 
@@ -525,17 +520,6 @@ FPp.needsParens = function(assumeExpressionContext) {
 
       return false;
 
-    case "ObjectExpression":
-      if (parent.type === "ArrowFunctionExpression" && name === "body") {
-        return true;
-      }
-      if (parent.type === "TaggedTemplateExpression") {
-        return true;
-      }
-      if (parent.type === "MemberExpression") {
-        return name === "object" && parent.object === node;
-      }
-
     case "StringLiteral":
       if (parent.type === "ExpressionStatement") {
         return true;
@@ -583,12 +567,41 @@ function containsCallExpression(node) {
   return false;
 }
 
+function startsWithOpenCurlyBrace(node) {
+  node = getLeftMost(node);
+  switch (node.type) {
+    case "ObjectExpression":
+      return true;
+    case "MemberExpression":
+      return startsWithOpenCurlyBrace(node.object);
+    case "TaggedTemplateExpression":
+      return startsWithOpenCurlyBrace(node.tag);
+    case "CallExpression":
+      return startsWithOpenCurlyBrace(node.callee);
+    case "ConditionalExpression":
+      return startsWithOpenCurlyBrace(node.test);
+    case "UpdateExpression":
+      return !node.prefix && startsWithOpenCurlyBrace(node.argument);
+    case "BindExpression":
+      return node.object && startsWithOpenCurlyBrace(node.object);
+    case "SequenceExpression":
+      return startsWithOpenCurlyBrace(node.expressions[0])
+    default:
+      return false;
+  }
+}
+
+function getLeftMost(node) {
+  if (node.left) {
+    return getLeftMost(node.left);
+  } else {
+    return node;
+  }
+}
+
 FPp.canBeFirstInStatement = function() {
-  var node = this.getNode();
-  return !n.FunctionExpression.check(node) &&
-    !n.ObjectExpression.check(node) &&
-    !n.ClassExpression.check(node) &&
-    !(n.AssignmentExpression.check(node) && n.ObjectPattern.check(node.left));
+  const node = this.getNode();
+  return !n.FunctionExpression.check(node) && !n.ClassExpression.check(node);
 };
 
 FPp.firstInStatement = function() {
