@@ -595,49 +595,24 @@ function isBinarishOpInArrowFunction(node, parent) {
 }
 
 function getCombinedDeepest(node) {
-  const leftist = getLeftist(node);
-  if (leftist.type === "ObjectExpression") return true;
-  switch (leftist.type) {
+  while (node.left) {
+    node = node.left;
+  }
+  switch (node.type) {
     case "ObjectExpression":
       return true;
     case "MemberExpression":
-      if (leftist.object.type === "ObjectExpression") {
-        return true;
-      } else {
-        return getCombinedDeepest(leftist.object);
-      }
+        return getCombinedDeepest(node.object);
     case "TaggedTemplateExpression":
-      if (leftist.tag.type === "ObjectExpression") {
-        return true;
-      } else {
-        return getCombinedDeepest(leftist.tag);
-      }
-    case "CallExpression": {
-      const deepestCallee = getDeepestCallee(leftist);
-      if (deepestCallee.type === "ObjectExpression") {
-        return true;
-      } else {
-        return getCombinedDeepest(deepestCallee);
-      }
-    }
+        return getCombinedDeepest(node.tag);
+    case "CallExpression":
+        return getCombinedDeepest(node.callee);
     case "ConditionalExpression":
-      if (leftist.test.type === "ObjectExpression") {
-        return true;
-      } else {
-        return getCombinedDeepest(leftist.test);
-      }
+        return getCombinedDeepest(node.test);
     case "UpdateExpression":
-      if (leftist.argument.type === "ObjectExpression") {
-        return true;
-      } else {
-        return getCombinedDeepest(leftist.argument);
-      }
+        return !node.prefix && getCombinedDeepest(node.argument);
     case "BindExpression":
-      if (leftist.object.type === "ObjectExpression") {
-        return true;
-      } else {
-        return getCombinedDeepest(leftist.object);
-      }
+        return node.object && getCombinedDeepest(node.object);
     default:
       return false;
   }
@@ -646,15 +621,6 @@ function getCombinedDeepest(node) {
 function getLeftist(node) {
   if (node.left) {
     return getLeftist(node.left);
-  } else {
-    return node;
-  }
-}
-
-function getDeepestCallee(node) {
-  // Don't go deeper with BindExpression.
-  if (node.callee && node.type !== "BindExpression") {
-     return getDeepestCallee(node.callee);
   } else {
     return node;
   }
