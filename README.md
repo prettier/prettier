@@ -154,7 +154,7 @@ and add this config to your `package.json`:
 }
 ```
 
-See https://github.com/okonet/lint-staged#configuration for more deatils about how you can configure 🚫💩 lint-staged.
+See https://github.com/okonet/lint-staged#configuration for more details about how you can configure 🚫💩 lint-staged.
 
 ### API
 
