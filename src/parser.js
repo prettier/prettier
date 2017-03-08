@@ -56,7 +56,7 @@ function parseWithBabylon(text) {
 
 function parseWithTypeScript(text) {
     const parser = require('typescript-eslint-parser')
-    const result = parser.parse(text, {
+    return parser.parse(text, {
         loc: true,
         range: true,
         tokens: true,
@@ -65,13 +65,6 @@ function parseWithTypeScript(text) {
             jsx: true,
         }
     })
-    return JSON.parse(JSON.stringify(result, function(key, value) {
-        if ((key === "start" || key === "end") && typeof value === "number") {
-            return undefined;
-        }
-
-        return value;
-    }))
 }
 
 module.exports = { parseWithFlow, parseWithBabylon, parseWithTypeScript };
