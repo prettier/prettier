@@ -6,10 +6,10 @@ exports[`binary.js 1`] = `
 (class extends b {}) + 1;
 (class a extends b {}) + 1;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-(class {}) + 1;
-(class a {}) + 1;
-(class extends b {}) + 1;
-(class a extends b {}) + 1;
+(class {} + 1);
+(class a {} + 1);
+(class extends b {} + 1);
+(class a extends b {} + 1);
 "
 `;
 
@@ -29,7 +29,7 @@ class MyContractSelectionWidget
 exports[`call.js 1`] = `
 "(class {})(class {});
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-(class {})(class {});
+(class {}(class {}));
 "
 `;
 
@@ -68,14 +68,14 @@ exports[`member.js 1`] = `
 "(class {})[1];
 (class {}).a;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-(class {})[1];
-(class {}).a;
+(class {}[1]);
+(class {}.a);
 "
 `;
 
 exports[`ternary.js 1`] = `
 "if (1) (class {}) ? 1 : 2;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-if (1) (class {}) ? 1 : 2;
+if (1) (class {} ? 1 : 2);
 "
 `;

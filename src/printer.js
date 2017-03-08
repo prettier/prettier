@@ -2684,12 +2684,13 @@ function printJSXElement(path, options, print) {
     assert.ok(!n.closingElement);
     return openingLines;
   }
+  // Record any breaks. Should never go from true to false, only false to true.
+  let forcedBreak = willBreak(openingLines);
 
   const jsxWhitespace = options.singleQuote
     ? ifBreak("{' '}", " ")
     : ifBreak('{" "}', " ");
   const children = printJSXChildren(path, options, print, jsxWhitespace);
-  let forcedBreak = false;
 
   // Trim trailing lines, recording if there was a hardline
   let numTrailingHard = 0;
