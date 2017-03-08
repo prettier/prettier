@@ -246,9 +246,8 @@ FPp.needsParens = function(assumeExpressionContext) {
   }
 
   if (
-    ((parent.type === "ArrowFunctionExpression" && parent.body === node) ||
-    parent.type === "ExpressionStatement") &&
-    startsWithOpenCurlyBrace(node)
+    parent.type === "ArrowFunctionExpression" && parent.body === node && startsWithNoLookaheadToken(node, false)
+    || parent.type === "ExpressionStatement" && startsWithNoLookaheadToken(node, true)
   ) {
     return true;
   }
@@ -454,66 +453,47 @@ FPp.needsParens = function(assumeExpressionContext) {
       }
 
     case "FunctionExpression":
-    case "ArrowFunctionExpression":
-      if (parent.type === "CallExpression" && name === "callee") {
-        return true;
+      switch (parent.type) {
+        case "CallExpression":
+          return name === "callee"; // Not strictly necessary, but it's clearer to the reader if IIFEs are wrapped in parentheses.
+        case "TaggedTemplateExpression":
+          return true; // This is basically a kind of IIFE.
+        case "ExportDefaultDeclaration":
+          return true;
+        default:
+          return false;
       }
 
+    case "ArrowFunctionExpression":
       switch (parent.type) {
-        case "ConditionalExpression":
-          if (parent.test === node) {
-            return true;
-          }
-          return false;
-
-        case "ExportDefaultDeclaration":
-          if (
-            node.type === "ArrowFunctionExpression" ||
-            node.type === "FunctionDeclaration"
-          ) {
-            return false;
-          }
-          return true;
-
-        case "ExpressionStatement":
-        case "MemberExpression":
-        case "TaggedTemplateExpression":
-        case "UnaryExpression":
-          return true;
+        case "CallExpression":
+          return name === "callee";
 
         case "NewExpression":
           return name === "callee";
 
-        case "LogicalExpression":
-          return node.type === "ArrowFunctionExpression";
-
-        default:
-          return isBinary(parent);
-      }
-
-    case "ClassExpression":
-      switch (parent.type) {
-        case "TaggedTemplateExpression":
-        case "BinaryExpression":
-        case "ExportDefaultDeclaration":
-        case "ExpressionStatement":
-          return true;
-        case "CallExpression":
-          if (parent.callee === node) {
-            return true;
-          }
         case "MemberExpression":
-          return name === "object" && parent.object === node;
+          return name === "object";
+
+        case "BindExpression":
+        case "TaggedTemplateExpression":
+        case "UnaryExpression":  
+        case "LogicalExpression":
+        case "BinaryExpression":
+          return true;
+
         case "ConditionalExpression":
-          if (parent.test === node) {
-            return true;
-          }
+          return name === "test";
+
         default:
           return false;
       }
 
+    case "ClassExpression":
+      return parent.type === "ExportDefaultDeclaration";
+
     case "StringLiteral":
-      return parent.type === "ExpressionStatement"; // to avoid becoming a directive
+      return parent.type === "ExpressionStatement"; // To avoid becoming a directive
   }
 
   if (
@@ -522,14 +502,6 @@ FPp.needsParens = function(assumeExpressionContext) {
     parent.callee === node
   ) {
     return containsCallExpression(node);
-  }
-
-  if (
-    assumeExpressionContext !== true &&
-    !this.canBeFirstInStatement() &&
-    this.firstInStatement()
-  ) {
-    return true;
   }
 
   return false;
@@ -557,25 +529,38 @@ function containsCallExpression(node) {
   return false;
 }
 
-function startsWithOpenCurlyBrace(node) {
+// Tests if an expression starts with `{`, or (if forbidFunctionAndClass holds) `function` or `class`.
+// Will be overzealous if there's already necessary grouping parentheses.
+function startsWithNoLookaheadToken(node, forbidFunctionAndClass) {
   node = getLeftMost(node);
   switch (node.type) {
+    case "FunctionExpression":
+    case "ClassExpression":
+      return forbidFunctionAndClass;
     case "ObjectExpression":
       return true;
     case "MemberExpression":
-      return startsWithOpenCurlyBrace(node.object);
+      return startsWithNoLookaheadToken(node.object, forbidFunctionAndClass);
     case "TaggedTemplateExpression":
-      return startsWithOpenCurlyBrace(node.tag);
+      if (node.tag.type === "FunctionExpression") {
+        // IIFEs are always already parenthesized
+        return false;
+      }
+      return startsWithNoLookaheadToken(node.tag, forbidFunctionAndClass);
     case "CallExpression":
-      return startsWithOpenCurlyBrace(node.callee);
+      if (node.callee.type === "FunctionExpression") {
+        // IIFEs are always already parenthesized
+        return false;
+      }
+      return startsWithNoLookaheadToken(node.callee, forbidFunctionAndClass);
     case "ConditionalExpression":
-      return startsWithOpenCurlyBrace(node.test);
+      return startsWithNoLookaheadToken(node.test, forbidFunctionAndClass);
     case "UpdateExpression":
-      return !node.prefix && startsWithOpenCurlyBrace(node.argument);
+      return !node.prefix && startsWithNoLookaheadToken(node.argument, forbidFunctionAndClass);
     case "BindExpression":
-      return node.object && startsWithOpenCurlyBrace(node.object);
+      return node.object && startsWithNoLookaheadToken(node.object, forbidFunctionAndClass);
     case "SequenceExpression":
-      return startsWithOpenCurlyBrace(node.expressions[0])
+      return startsWithNoLookaheadToken(node.expressions[0], forbidFunctionAndClass)
     default:
       return false;
   }
@@ -588,83 +573,5 @@ function getLeftMost(node) {
     return node;
   }
 }
-
-FPp.canBeFirstInStatement = function() {
-  const node = this.getNode();
-  return !n.FunctionExpression.check(node) && !n.ClassExpression.check(node);
-};
-
-FPp.firstInStatement = function() {
-  var s = this.stack;
-  var parentName, parent;
-  var childName, child;
-
-  for (var i = s.length - 1; i >= 0; i -= 2) {
-    if (n.Node.check(s[i])) {
-      childName = parentName;
-      child = parent;
-      parentName = s[i - 1];
-      parent = s[i];
-    }
-
-    if (!parent || !child) {
-      continue;
-    }
-
-    if (
-      n.BlockStatement.check(parent) && parentName === "body" && childName === 0
-    ) {
-      assert.strictEqual(parent.body[0], child);
-      return true;
-    }
-
-    if (n.ExpressionStatement.check(parent) && childName === "expression") {
-      assert.strictEqual(parent.expression, child);
-      return true;
-    }
-
-    if (
-      n.SequenceExpression.check(parent) &&
-      parentName === "expressions" &&
-      childName === 0
-    ) {
-      assert.strictEqual(parent.expressions[0], child);
-      continue;
-    }
-
-    if (n.CallExpression.check(parent) && childName === "callee") {
-      assert.strictEqual(parent.callee, child);
-      continue;
-    }
-
-    if (n.MemberExpression.check(parent) && childName === "object") {
-      assert.strictEqual(parent.object, child);
-      continue;
-    }
-
-    if (n.ConditionalExpression.check(parent) && childName === "test") {
-      assert.strictEqual(parent.test, child);
-      continue;
-    }
-
-    if (isBinary(parent) && childName === "left") {
-      assert.strictEqual(parent.left, child);
-      continue;
-    }
-
-    if (
-      n.UnaryExpression.check(parent) &&
-      !parent.prefix &&
-      childName === "argument"
-    ) {
-      assert.strictEqual(parent.argument, child);
-      continue;
-    }
-
-    return false;
-  }
-
-  return true;
-};
 
 module.exports = FastPath;
