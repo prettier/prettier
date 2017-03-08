@@ -107,7 +107,7 @@ async function f() {
 b()\`\`;
 
 // \\"ClassExpression\\"
-(class {})\`\`;
+(class {}\`\`);
 
 // \\"ConditionalExpression\\"
 (b ? c : d)\`\`;
