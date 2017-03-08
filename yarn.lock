@@ -2138,7 +2138,7 @@ type-check@~0.3.2:
   dependencies:
     prelude-ls "~1.1.2"
 
-"typescript-eslint-parser@git://github.com/eslint/typescript-eslint-parser.git#master":
+"typescript-eslint-parser@git://github.com/eslint/typescript-eslint-parser.git#215a012ec4d272939fa5a57d0231d22fb7f7a9e0":
   version "2.0.0"
   resolved "git://github.com/eslint/typescript-eslint-parser.git#215a012ec4d272939fa5a57d0231d22fb7f7a9e0"
   dependencies:
