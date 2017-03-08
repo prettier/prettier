@@ -19,6 +19,27 @@ function f() {
 "
 `;
 
+exports[`exp.js 1`] = `
+"a ** b ** c;
+(a ** b) ** c;
+a.b ** c;
+(-a) ** b;
+a ** -b;
+-(a**b);
+(a * b) ** c;
+a ** (b * c);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a ** b ** c;
+(a ** b) ** c;
+a.b ** c;
+(-a) ** b;
+a ** -b;
+-(a ** b);
+(a * b) ** c;
+a ** (b * c);
+"
+`;
+
 exports[`inline-object-array.js 1`] = `
 "prevState = prevState || {
   catalogs: [],

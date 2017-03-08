@@ -232,19 +232,6 @@ FPp.needsParens = function(assumeExpressionContext) {
     return true;
   }
 
-  // The left-hand side of the ** exponentiation operator must always
-  // be parenthesized unless it's an ident or literal
-  if (
-    parent.type === "BinaryExpression" &&
-    parent.operator === "**" &&
-    parent.left === node &&
-    node.type !== "Identifier" &&
-    node.type !== "Literal" &&
-    node.type !== "NumericLiteral"
-  ) {
-    return true;
-  }
-
   if (
     parent.type === "ArrowFunctionExpression" && parent.body === node && startsWithNoLookaheadToken(node, /* forbidFunctionAndClass */ false)
     || parent.type === "ExpressionStatement" && startsWithNoLookaheadToken(node, /* forbidFunctionAndClass */ true)
@@ -284,6 +271,9 @@ FPp.needsParens = function(assumeExpressionContext) {
         case "NewExpression":
         case "CallExpression":
           return name === "callee" && parent.callee == node;
+
+        case "BinaryExpression":
+          return parent.operator === "**" && name === "left";
 
         default:
           return false;
@@ -330,6 +320,10 @@ FPp.needsParens = function(assumeExpressionContext) {
 
           if (pp > np) {
             return true;
+          }
+
+          if (no === "**" && po === "**") {
+            return name === "left";
           }
 
           if (pp === np && name === "right") {
