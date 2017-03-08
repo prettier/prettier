@@ -246,8 +246,8 @@ FPp.needsParens = function(assumeExpressionContext) {
   }
 
   if (
-    parent.type === "ArrowFunctionExpression" && parent.body === node && startsWithNoLookaheadToken(node, false)
-    || parent.type === "ExpressionStatement" && startsWithNoLookaheadToken(node, true)
+    parent.type === "ArrowFunctionExpression" && parent.body === node && startsWithNoLookaheadToken(node, /* forbidFunctionAndClass */ false)
+    || parent.type === "ExpressionStatement" && startsWithNoLookaheadToken(node, /* forbidFunctionAndClass */ true)
   ) {
     return true;
   }
