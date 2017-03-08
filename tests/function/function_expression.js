@@ -6,7 +6,6 @@ export default (function() {})();
 new (function() {});
 (function() {});
 a = function f() {} || b;
-(function() {}::a);
 (function() {} && a);
 a + function() {};
 new function() {};
