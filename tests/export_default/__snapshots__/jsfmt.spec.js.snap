@@ -6,3 +6,10 @@ exports[`body.js 1`] = `
 export default (class {}[1] = 1);
 "
 `;
+
+exports[`body.js 2`] = `
+"export default (class {}[1] = 1);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export default ((class {})[1] = 1);
+"
+`;

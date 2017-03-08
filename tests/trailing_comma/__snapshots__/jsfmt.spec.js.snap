@@ -117,6 +117,123 @@ function send_single_email(
 "
 `;
 
+exports[`es5.js 4`] = `
+"function send_single_email(
+  app,
+  email_id,
+  email_address,
+  subject,
+  html,
+  reply_to
+) {
+  send_single_email_implementation(  app,
+  email_id,
+  email_address,
+  subject,
+  html,
+  reply_to);
+  return \\"nothing\\";
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function send_single_email(
+  app,
+  email_id,
+  email_address,
+  subject,
+  html,
+  reply_to
+) {
+  send_single_email_implementation(
+    app,
+    email_id,
+    email_address,
+    subject,
+    html,
+    reply_to
+  );
+  return \\"nothing\\";
+}
+"
+`;
+
+exports[`es5.js 5`] = `
+"function send_single_email(
+  app,
+  email_id,
+  email_address,
+  subject,
+  html,
+  reply_to
+) {
+  send_single_email_implementation(  app,
+  email_id,
+  email_address,
+  subject,
+  html,
+  reply_to);
+  return \\"nothing\\";
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function send_single_email(
+  app,
+  email_id,
+  email_address,
+  subject,
+  html,
+  reply_to,
+) {
+  send_single_email_implementation(
+    app,
+    email_id,
+    email_address,
+    subject,
+    html,
+    reply_to,
+  );
+  return \\"nothing\\";
+}
+"
+`;
+
+exports[`es5.js 6`] = `
+"function send_single_email(
+  app,
+  email_id,
+  email_address,
+  subject,
+  html,
+  reply_to
+) {
+  send_single_email_implementation(  app,
+  email_id,
+  email_address,
+  subject,
+  html,
+  reply_to);
+  return \\"nothing\\";
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function send_single_email(
+  app,
+  email_id,
+  email_address,
+  subject,
+  html,
+  reply_to
+) {
+  send_single_email_implementation(
+    app,
+    email_id,
+    email_address,
+    subject,
+    html,
+    reply_to
+  );
+  return \\"nothing\\";
+}
+"
+`;
+
 exports[`function-calls.js 1`] = `
 "const a = (param1, param2, param3) => {}
 
@@ -180,6 +297,99 @@ a(
 `;
 
 exports[`function-calls.js 3`] = `
+"const a = (param1, param2, param3) => {}
+
+a('value', 'value2', 'value3');
+
+a(
+  'a-long-value',
+  'a-really-really-long-value',
+  'a-really-really-really-long-value',
+);
+
+a('value', 'value2', a('long-nested-value', 'long-nested-value2', 'long-nested-value3'));
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const a = (param1, param2, param3) => {};
+
+a(\\"value\\", \\"value2\\", \\"value3\\");
+
+a(
+  \\"a-long-value\\",
+  \\"a-really-really-long-value\\",
+  \\"a-really-really-really-long-value\\"
+);
+
+a(
+  \\"value\\",
+  \\"value2\\",
+  a(\\"long-nested-value\\", \\"long-nested-value2\\", \\"long-nested-value3\\")
+);
+"
+`;
+
+exports[`function-calls.js 4`] = `
+"const a = (param1, param2, param3) => {}
+
+a('value', 'value2', 'value3');
+
+a(
+  'a-long-value',
+  'a-really-really-long-value',
+  'a-really-really-really-long-value',
+);
+
+a('value', 'value2', a('long-nested-value', 'long-nested-value2', 'long-nested-value3'));
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const a = (param1, param2, param3) => {};
+
+a(\\"value\\", \\"value2\\", \\"value3\\");
+
+a(
+  \\"a-long-value\\",
+  \\"a-really-really-long-value\\",
+  \\"a-really-really-really-long-value\\"
+);
+
+a(
+  \\"value\\",
+  \\"value2\\",
+  a(\\"long-nested-value\\", \\"long-nested-value2\\", \\"long-nested-value3\\")
+);
+"
+`;
+
+exports[`function-calls.js 5`] = `
+"const a = (param1, param2, param3) => {}
+
+a('value', 'value2', 'value3');
+
+a(
+  'a-long-value',
+  'a-really-really-long-value',
+  'a-really-really-really-long-value',
+);
+
+a('value', 'value2', a('long-nested-value', 'long-nested-value2', 'long-nested-value3'));
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const a = (param1, param2, param3) => {};
+
+a(\\"value\\", \\"value2\\", \\"value3\\");
+
+a(
+  \\"a-long-value\\",
+  \\"a-really-really-long-value\\",
+  \\"a-really-really-really-long-value\\",
+);
+
+a(
+  \\"value\\",
+  \\"value2\\",
+  a(\\"long-nested-value\\", \\"long-nested-value2\\", \\"long-nested-value3\\"),
+);
+"
+`;
+
+exports[`function-calls.js 6`] = `
 "const a = (param1, param2, param3) => {}
 
 a('value', 'value2', 'value3');
@@ -305,6 +515,147 @@ const aLong = {
 `;
 
 exports[`object.js 3`] = `
+"const a = {
+  b: true,
+  c: {
+    c1: 'hello'
+  },
+  d: false
+};
+
+const aLong = {
+  bHasALongName: 'a-long-value',
+  cHasALongName: {
+    c1: 'a-really-long-value',
+    c2: 'a-really-really-long-value',
+  },
+  dHasALongName: 'a-long-value-too'
+};
+
+const aLong = {
+  dHasALongName: 'a-long-value-too',
+  eHasABooleanExpression: a === a,
+};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const a = {
+  b: true,
+  c: {
+    c1: \\"hello\\",
+  },
+  d: false,
+};
+
+const aLong = {
+  bHasALongName: \\"a-long-value\\",
+  cHasALongName: {
+    c1: \\"a-really-long-value\\",
+    c2: \\"a-really-really-long-value\\",
+  },
+  dHasALongName: \\"a-long-value-too\\",
+};
+
+const aLong = {
+  dHasALongName: \\"a-long-value-too\\",
+  eHasABooleanExpression: a === a,
+};
+"
+`;
+
+exports[`object.js 4`] = `
+"const a = {
+  b: true,
+  c: {
+    c1: 'hello'
+  },
+  d: false
+};
+
+const aLong = {
+  bHasALongName: 'a-long-value',
+  cHasALongName: {
+    c1: 'a-really-long-value',
+    c2: 'a-really-really-long-value',
+  },
+  dHasALongName: 'a-long-value-too'
+};
+
+const aLong = {
+  dHasALongName: 'a-long-value-too',
+  eHasABooleanExpression: a === a,
+};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const a = {
+  b: true,
+  c: {
+    c1: \\"hello\\"
+  },
+  d: false
+};
+
+const aLong = {
+  bHasALongName: \\"a-long-value\\",
+  cHasALongName: {
+    c1: \\"a-really-long-value\\",
+    c2: \\"a-really-really-long-value\\"
+  },
+  dHasALongName: \\"a-long-value-too\\"
+};
+
+const aLong = {
+  dHasALongName: \\"a-long-value-too\\",
+  eHasABooleanExpression: a === a
+};
+"
+`;
+
+exports[`object.js 5`] = `
+"const a = {
+  b: true,
+  c: {
+    c1: 'hello'
+  },
+  d: false
+};
+
+const aLong = {
+  bHasALongName: 'a-long-value',
+  cHasALongName: {
+    c1: 'a-really-long-value',
+    c2: 'a-really-really-long-value',
+  },
+  dHasALongName: 'a-long-value-too'
+};
+
+const aLong = {
+  dHasALongName: 'a-long-value-too',
+  eHasABooleanExpression: a === a,
+};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const a = {
+  b: true,
+  c: {
+    c1: \\"hello\\",
+  },
+  d: false,
+};
+
+const aLong = {
+  bHasALongName: \\"a-long-value\\",
+  cHasALongName: {
+    c1: \\"a-really-long-value\\",
+    c2: \\"a-really-really-long-value\\",
+  },
+  dHasALongName: \\"a-long-value-too\\",
+};
+
+const aLong = {
+  dHasALongName: \\"a-long-value-too\\",
+  eHasABooleanExpression: a === a,
+};
+"
+`;
+
+exports[`object.js 6`] = `
 "const a = {
   b: true,
   c: {
@@ -504,6 +855,234 @@ function supersupersupersuperLongF(
 `;
 
 exports[`trailing_whitespace.js 3`] = `
+"let example = [
+  'FOO',
+  'BAR',
+  // Comment
+];
+
+foo({},
+  // Comment
+);
+
+o = {
+  state,
+  // Comment
+};
+
+o = {
+  state,
+
+  // Comment
+};
+
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB
+  // Comment
+) {
+  a
+}
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB,
+  // Comment
+) {
+  a
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let example = [
+  \\"FOO\\",
+  \\"BAR\\",
+  // Comment
+];
+
+foo(
+  {}
+  // Comment
+);
+
+o = {
+  state,
+  // Comment
+};
+
+o = {
+  state,
+
+  // Comment
+};
+
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB
+) // Comment
+{
+  a;
+}
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB
+) // Comment
+{
+  a;
+}
+"
+`;
+
+exports[`trailing_whitespace.js 4`] = `
+"let example = [
+  'FOO',
+  'BAR',
+  // Comment
+];
+
+foo({},
+  // Comment
+);
+
+o = {
+  state,
+  // Comment
+};
+
+o = {
+  state,
+
+  // Comment
+};
+
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB
+  // Comment
+) {
+  a
+}
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB,
+  // Comment
+) {
+  a
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let example = [
+  \\"FOO\\",
+  \\"BAR\\"
+  // Comment
+];
+
+foo(
+  {}
+  // Comment
+);
+
+o = {
+  state
+  // Comment
+};
+
+o = {
+  state
+
+  // Comment
+};
+
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB
+) // Comment
+{
+  a;
+}
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB
+) // Comment
+{
+  a;
+}
+"
+`;
+
+exports[`trailing_whitespace.js 5`] = `
+"let example = [
+  'FOO',
+  'BAR',
+  // Comment
+];
+
+foo({},
+  // Comment
+);
+
+o = {
+  state,
+  // Comment
+};
+
+o = {
+  state,
+
+  // Comment
+};
+
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB
+  // Comment
+) {
+  a
+}
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB,
+  // Comment
+) {
+  a
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let example = [
+  \\"FOO\\",
+  \\"BAR\\",
+  // Comment
+];
+
+foo(
+  {},
+  // Comment
+);
+
+o = {
+  state,
+  // Comment
+};
+
+o = {
+  state,
+
+  // Comment
+};
+
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB,
+) // Comment
+{
+  a;
+}
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB,
+) // Comment
+{
+  a;
+}
+"
+`;
+
+exports[`trailing_whitespace.js 6`] = `
 "let example = [
   'FOO',
   'BAR',

@@ -14,3 +14,18 @@ line;
 endings;
 "
 `;
+
+exports[`line-ending.js 2`] = `
+"this;
+has;
+windows;
+line;
+endings;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+this;
+has;
+windows;
+line;
+endings;
+"
+`;

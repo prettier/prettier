@@ -48,3 +48,52 @@ exports[`last_line.js 2`] = `
 </SomeHighlyConfiguredComponent>;
 "
 `;
+
+exports[`last_line.js 3`] = `
+"<SomeHighlyConfiguredComponent
+  onEnter={this.onEnter}
+  onLeave={this.onLeave}
+  onChange={this.onChange}
+  initialValue={this.state.initialValue}
+  ignoreStuff={true}
+>
+  <div>and the children go here</div>
+  <div>and here too</div>
+</SomeHighlyConfiguredComponent>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<SomeHighlyConfiguredComponent
+  onEnter={this.onEnter}
+  onLeave={this.onLeave}
+  onChange={this.onChange}
+  initialValue={this.state.initialValue}
+  ignoreStuff={true}>
+  <div>and the children go here</div>
+  <div>and here too</div>
+</SomeHighlyConfiguredComponent>;
+"
+`;
+
+exports[`last_line.js 4`] = `
+"<SomeHighlyConfiguredComponent
+  onEnter={this.onEnter}
+  onLeave={this.onLeave}
+  onChange={this.onChange}
+  initialValue={this.state.initialValue}
+  ignoreStuff={true}
+>
+  <div>and the children go here</div>
+  <div>and here too</div>
+</SomeHighlyConfiguredComponent>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<SomeHighlyConfiguredComponent
+  onEnter={this.onEnter}
+  onLeave={this.onLeave}
+  onChange={this.onChange}
+  initialValue={this.state.initialValue}
+  ignoreStuff={true}
+>
+  <div>and the children go here</div>
+  <div>and here too</div>
+</SomeHighlyConfiguredComponent>;
+"
+`;
