@@ -156,6 +156,31 @@ and add this config to your `package.json`:
 
 See https://github.com/okonet/lint-staged#configuration for more details about how you can configure 🚫💩 lint-staged.
 
+Alternately you can just save this script as `pre-commit` in your `.git/hooks` directory and give it execute permissions:
+
+```bash
+#!/bin/sh
+# don't allow the commit if it contains any files that are not correctly
+# formatted by prettier (https://github.com/jlongster/prettier/).
+# Directly inspired by the gofmt precommit hook: 
+# https://golang.org/misc/git/pre-commit
+#
+# To use, store as .git/hooks/pre-commit inside your repository and make sure
+# it has execute permissions. It will not handle files with spaces in their
+# name.
+
+jsfiles=$(git diff --cached --name-only --diff-filter=ACM | grep '\.js$')
+[ -z "$jsfiles" ] && exit 0
+
+diffs=$(node_modules/.bin/prettier -l $jsfiles | tr '\n' ' ')
+[ -z "$diffs" ] && exit 0
+
+echo >&2 "Javascript files must be formatted with prettier. Please run:"
+echo >&2 "prettier --write $(echo $jsfiles | tr '\n' ' ')"
+
+exit 1
+```
+
 ### API
 
 The API is a single function exported as `format`. The options
