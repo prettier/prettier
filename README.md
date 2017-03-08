@@ -167,7 +167,7 @@ diffs=$(node_modules/.bin/prettier -l "$jsfiles" | tr '\n' ' ')
 [ -z "$diffs" ] && exit 0
 
 echo >&2 "Javascript files must be formatted with prettier. Please run:"
-echo >&2 "prettier --write $(echo "$jsfiles" | tr '\n' ' ')"
+echo >&2 "node_modules/.bin/prettier --write $(echo "$jsfiles" | tr '\n' ' ')"
 
 exit 1
 ```
