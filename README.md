@@ -163,11 +163,11 @@ Alternately you can just save this script as `.git/hooks/pre-commit` and give it
 jsfiles=$(git diff --cached --name-only --diff-filter=ACM | grep '\.js$')
 [ -z "$jsfiles" ] && exit 0
 
-diffs=$(node_modules/.bin/prettier -l $jsfiles | tr '\n' ' ')
+diffs=$(node_modules/.bin/prettier -l "$jsfiles" | tr '\n' ' ')
 [ -z "$diffs" ] && exit 0
 
 echo >&2 "Javascript files must be formatted with prettier. Please run:"
-echo >&2 "prettier --write $(echo $jsfiles | tr '\n' ' ')"
+echo >&2 "prettier --write $(echo "$jsfiles" | tr '\n' ' ')"
 
 exit 1
 ```
