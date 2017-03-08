@@ -2783,10 +2783,12 @@ function printBinaryishExpressions(path, parts, print, options, isNested) {
     // is where the rest of the expression will exist. Binary
     // expressions on the right side mean they have a difference
     // precedence level and should be treated as a separate group, so
-    // print them normally.
+    // print them normally. (This doesn't hold for the `**` operator,
+    // which is unique in that it is right-associative.)
     if (
       util.getPrecedence(node.left.operator) ===
       util.getPrecedence(node.operator)
+      && node.operator !== "**"
     ) {
       // Flatten them out by recursively calling this function. The
       // printed values will all be appended to `parts`.
