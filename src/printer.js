@@ -31,10 +31,6 @@ var namedTypes = types.namedTypes;
 var isString = types.builtInTypes.string;
 var isObject = types.builtInTypes.object;
 
-function maybeAddParens(path, lines) {
-  return path.needsParens() ? concat(["(", lines, ")"]) : lines;
-}
-
 function shouldPrintComma(options, level) {
   level = level || "es5";
 
@@ -609,24 +605,22 @@ function genericPrintNoParens(path, options, print) {
     case "ReturnStatement":
       parts.push("return");
 
-      if (
-        n.argument &&
-        n.argument.comments &&
-        n.argument.comments.some(comment => comment.leading)
-      ) {
-        parts.push(
-          concat([
-            " (",
-            indent(
-              options.tabWidth,
-              concat([softline, path.call(print, "argument")])
-            ),
-            line,
-            ")"
-          ])
-        );
-      } else if (n.argument) {
-        parts.push(" ", path.call(print, "argument"));
+      if (n.argument) {
+        if (returnArgumentHasLeadingComment(options, n.argument)) {
+          parts.push(
+            concat([
+              " (",
+              indent(
+                options.tabWidth,
+                concat([softline, path.call(print, "argument")])
+              ),
+              line,
+              ")"
+            ])
+          );
+        } else {
+          parts.push(" ", path.call(print, "argument"));
+        }
       }
 
       parts.push(";");
@@ -2975,6 +2969,44 @@ function hasLeadingOwnLineComment(text, node) {
         util.hasNewline(text, util.locEnd(comment))
     );
   return res;
+}
+
+// This recurses the return argument, looking for the first token
+// (the leftmost leaf node) and, if it (or its parents) has any
+// leadingComments, returns true (so it can be wrapped in parens).
+function returnArgumentHasLeadingComment(options, argument) {
+  if (hasLeadingOwnLineComment(options.originalText, argument)) {
+    return true;
+  }
+
+  const hasCommentableLeftSide = argument.type === "BinaryExpression" ||
+    argument.type === "LogicalExpression" ||
+    argument.type === "ConditionalExpression" ||
+    argument.type === "CallExpression" ||
+    argument.type === "MemberExpression" ||
+    argument.type === "SequenceExpression" ||
+    argument.type === "TaggedTemplateExpression";
+
+  if (hasCommentableLeftSide) {
+    const getLeftSide = (node) => {
+      if (node.expressions) {
+        return node.expressions[0];
+      }
+      return node.left || node.test || node.callee || node.object || node.tag;
+    }
+
+    let leftMost = argument;
+    let newLeftMost;
+    while (newLeftMost = getLeftSide(leftMost)) {
+      leftMost = newLeftMost;
+
+      if (hasLeadingOwnLineComment(options.originalText, leftMost)) {
+        return true;
+      }
+    }
+  }
+
+  return false;
 }
 
 // Hack to differentiate between the following two which have the same ast
