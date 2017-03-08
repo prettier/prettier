@@ -156,7 +156,7 @@ and add this config to your `package.json`:
 
 See https://github.com/okonet/lint-staged#configuration for more details about how you can configure 🚫💩 lint-staged.
 
-Alternately you can just save this script as `pre-commit` in your `.git/hooks` directory and give it execute permissions:
+Alternately you can just save this script as `.git/hooks/pre-commit` and give it execute permission:
 
 ```bash
 #!/bin/sh
