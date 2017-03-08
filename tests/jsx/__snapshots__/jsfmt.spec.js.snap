@@ -230,6 +230,36 @@ const tabs = [
 "
 `;
 
+exports[`open-break.js 1`] = `
+"<td
+onClick={() => {
+  a
+}}>{header}{showSort}</td>;
+
+<td
+onClick={() => {
+  a
+}}>{header}<showSort attr=\\"long long long long long long long long long long long\\"/></td>;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<td
+  onClick={() => {
+    a;
+  }}
+>
+  {header}{showSort}
+</td>;
+
+<td
+  onClick={() => {
+    a;
+  }}
+>
+  {header}
+  <showSort attr=\\"long long long long long long long long long long long\\" />
+</td>;
+"
+`;
+
 exports[`parens.js 1`] = `
 "a = [
   <path
