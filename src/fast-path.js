@@ -1,3 +1,5 @@
+"use strict";
+
 var assert = require("assert");
 var types = require("ast-types");
 var util = require("./util");
@@ -280,15 +282,21 @@ FPp.needsParens = function(assumeExpressionContext) {
       }
 
     case "BinaryExpression":
-      // TODO https://github.com/prettier/prettier/issues/907 this is not complete
-      if (
-        node.operator === "in" &&
-        parent.type === "ForStatement" &&
-        parent.init === node
-      ) {
-        return true;
-      }
-      if (node.operator === "in" && parent.type === "AssignmentExpression") {
+      const isLeftOfAForStatement = node => {
+        let i = 0;
+        while (node) {
+          let parent = this.getParentNode(i++);
+          if (!parent) {
+            return false;
+          }
+          if (parent.type === "ForStatement" && parent.init === node) {
+            return true;
+          }
+          node = parent;
+        }
+        return false;
+      };
+      if (node.operator === "in" && isLeftOfAForStatement(node)) {
         return true;
       }
       // else fall through
