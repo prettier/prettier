@@ -10,6 +10,8 @@
 > This is a fork of [prettier/prettier](https://github.com/prettier/prettier), with an option added to indent lines with tabs. If you have a simple option you want to add to Prettier With Tabs, send a PR!
 >
 > For example, I don't like javascript code without semicolons, but if you can send me a PR which add this ability with as little code as possible, I'll happily accept it! 😃
+>
+> ![Happyness](https://i.redd.it/p63sznfyu38y.jpg)
 
 Prettier is an opinionated JavaScript formatter inspired by
 [refmt](https://facebook.github.io/reason/tools.html) with advanced
