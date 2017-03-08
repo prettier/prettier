@@ -156,6 +156,23 @@ and add this config to your `package.json`:
 
 See https://github.com/okonet/lint-staged#configuration for more details about how you can configure 🚫💩 lint-staged.
 
+Alternately you can just save this script as `.git/hooks/pre-commit` and give it execute permission:
+
+```bash
+#!/bin/sh
+jsfiles=$(git diff --cached --name-only --diff-filter=ACM | grep '\.js$' | tr '\n' ' ')
+[ -z "$jsfiles" ] && exit 0
+
+diffs=$(node_modules/.bin/prettier -l $jsfiles)
+[ -z "$diffs" ] && exit 0
+
+echo "here"
+echo >&2 "Javascript files must be formatted with prettier. Please run:"
+echo >&2 "node_modules/.bin/prettier --write "$diffs""
+
+exit 1
+```
+
 ### API
 
 The API is a single function exported as `format`. The options
