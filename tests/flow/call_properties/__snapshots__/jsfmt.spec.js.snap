@@ -108,11 +108,11 @@ var d: { (): string } = function(x: number): string {
 };
 
 // ...but subtyping rules still apply
-var e: { (x: any): void } = function() {}; // arity
+var e: { (x: any): void } = function(){}; // arity
 var f: { (): mixed } = function(): string {
   return \\"hi\\";
 }; // return type
-var g: { (x: string): void } = function(x: mixed) {}; // param type
+var g: { (x: string): void } = function(x: mixed){}; // param type
 
 // A function can be an object
 var y: {} = function(x: number): string {
@@ -261,13 +261,13 @@ f.myProp = 123;
 var c : { myProp: number } = f;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Expecting properties that don't exist should be an error
-var a: { someProp: number } = function() {};
+var a: { someProp: number } = function(){};
 
 // Expecting properties that do exist should be fine
-var b: { apply: Function } = function() {};
+var b: { apply: Function } = function(){};
 
 // Expecting properties in the functions statics should be fine
-var f = function() {};
+var f = function(){};
 f.myProp = 123;
 var c: { myProp: number } = f;
 "

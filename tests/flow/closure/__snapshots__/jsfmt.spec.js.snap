@@ -133,7 +133,7 @@ function local_func() {
 var global_y = \\"hello\\";
 
 var global_o = {
-  f: function() {},
+  f: function(){},
   g: function() {
     global_y = 42;
   }
@@ -154,7 +154,7 @@ function local_meth() {
   var local_y = \\"hello\\";
 
   var local_o = {
-    f: function() {},
+    f: function(){},
     g: function() {
       local_y = 42;
     }

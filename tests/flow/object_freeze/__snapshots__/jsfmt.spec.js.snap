@@ -35,7 +35,7 @@ bliffl.bar = \\"23456\\"; // error
 bliffl.baz = 3456; // error
 bliffl.corge; // error
 bliffl.constructor = baz; // error
-bliffl.toString = function() {}; // error
+bliffl.toString = function(){}; // error
 
 baz.baz = 0;
 
