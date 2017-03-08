@@ -31,6 +31,18 @@ test(`does something really long and complicated so I have to write a very long 
   console.log("hello!");
 });
 
+describe("does something really long and complicated so I have to write a very long name for the describe block", () => {
+  it("an example test", (done) => {
+    console.log("hello!");
+  });
+});
+
+describe(`does something really long and complicated so I have to write a very long name for the describe block`, () => {
+  it(`an example test`, (done) => {
+    console.log("hello!");
+  });
+});
+
 // Should break
 
 it.only("does something really long and complicated so I have to write a very long name for the test", () => {
