@@ -280,6 +280,8 @@ function genericPrintNoParens(path, options, print) {
         parts.push(" ", path.call(print, "id"));
       }
 
+      const exp_body = path.call(print, "body");
+
       parts.push(
         path.call(print, "typeParameters"),
         group(
@@ -288,8 +290,18 @@ function genericPrintNoParens(path, options, print) {
             printReturnType(path, print)
           ])
         ),
-        " ",
-        path.call(print, "body")
+        (
+          !options.noSpaceEmptyFn ||
+          n.id ||
+          n.predicate ||
+          n.returnType ||
+          exp_body.type !== "concat" ||
+          exp_body.parts.length !== 1 ||
+          exp_body.parts[0] !== "{}"
+          ? " "
+          : ""
+        ),
+        exp_body
       );
 
       return concat(parts);

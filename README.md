@@ -243,6 +243,9 @@ prettier.format(source, {
   // Print functions like setTimeout in a more compact form.
   groupFirstArg: false,
 
+  // Omit space before empty anonymous function body
+  noSpaceEmptyFn: false,
+
   // Which parser to use. Valid options are 'flow' and 'babylon'
   parser: 'babylon'
 });
