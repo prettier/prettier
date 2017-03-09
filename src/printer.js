@@ -1956,7 +1956,11 @@ function printArgumentsList(path, options, print) {
   var printed = path.map(print, "arguments");
 
   if (printed.length === 0) {
-    return "()";
+    return concat([
+      "(",
+      comments.printDanglingComments(path, options, /* sameIndent */ true),
+      ")"
+    ]);
   }
 
   const args = path.getValue().arguments;
