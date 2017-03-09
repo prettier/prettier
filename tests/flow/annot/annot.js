@@ -58,3 +58,7 @@ var zer : null = null;
 
 function foobar(n : ?number) : number | null | void { return n; }
 function barfoo(n : number | null | void) : ?number { return n; }
+
+type Banana = {
+  eat: string => boolean,
+};
