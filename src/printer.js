@@ -2998,12 +2998,38 @@ function returnArgumentHasLeadingComment(options, argument) {
       return node.left || node.test || node.callee || node.object || node.tag;
     }
 
+    let commentsByLine = {};
+    let leftMostLine = null;
     let leftMost = argument;
     let newLeftMost;
     while (newLeftMost = getLeftSide(leftMost)) {
       leftMost = newLeftMost;
+      const line = (leftMost.loc && leftMost.loc.end && leftMost.loc.end.line)
+        ? leftMost.loc.end.line
+        : null;
+      leftMostLine = line;
 
       if (hasLeadingOwnLineComment(options.originalText, leftMost)) {
+        // bail if the node doesn't have line information, erring on the side of caution.
+        if (line === null) {
+          return true;
+        }
+        commentsByLine[line] = true;
+      } else {
+        if (line === null) {
+          return false;
+        }
+        if (!commentsByLine[line]) {
+          commentsByLine[line] = false;
+        }
+      }
+    }
+
+    let returnLine = argument.loc && argument.loc.start && argument.loc.start.line
+      ? argument.loc.start.line
+      : null;
+    for (let i = returnLine; i <= leftMostLine; i++) {
+      if (commentsByLine[i]) {
         return true;
       }
     }

@@ -112,3 +112,11 @@ function inlineComment() {
     /* hi */ 42
   ) || 42
 }
+
+function iosOpen(url: string) {
+  return SafariView.isAvailable()
+    // if it's around, open in safari
+    .then(() => SafariView.show({url}))
+    // fall back to opening in default browser
+    .catch(() => genericOpen(url))
+}
