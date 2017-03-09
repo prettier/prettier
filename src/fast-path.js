@@ -1,3 +1,5 @@
+"use strict";
+
 var assert = require("assert");
 var types = require("ast-types");
 var util = require("./util");
@@ -232,19 +234,6 @@ FPp.needsParens = function(assumeExpressionContext) {
     return true;
   }
 
-  // The left-hand side of the ** exponentiation operator must always
-  // be parenthesized unless it's an ident or literal
-  if (
-    parent.type === "BinaryExpression" &&
-    parent.operator === "**" &&
-    parent.left === node &&
-    node.type !== "Identifier" &&
-    node.type !== "Literal" &&
-    node.type !== "NumericLiteral"
-  ) {
-    return true;
-  }
-
   if (
     parent.type === "ArrowFunctionExpression" && parent.body === node && startsWithNoLookaheadToken(node, /* forbidFunctionAndClass */ false)
     || parent.type === "ExpressionStatement" && startsWithNoLookaheadToken(node, /* forbidFunctionAndClass */ true)
@@ -285,20 +274,29 @@ FPp.needsParens = function(assumeExpressionContext) {
         case "CallExpression":
           return name === "callee" && parent.callee == node;
 
+        case "BinaryExpression":
+          return parent.operator === "**" && name === "left";
+
         default:
           return false;
       }
 
     case "BinaryExpression":
-      // TODO https://github.com/prettier/prettier/issues/907 this is not complete
-      if (
-        node.operator === "in" &&
-        parent.type === "ForStatement" &&
-        parent.init === node
-      ) {
-        return true;
-      }
-      if (node.operator === "in" && parent.type === "AssignmentExpression") {
+      const isLeftOfAForStatement = node => {
+        let i = 0;
+        while (node) {
+          let parent = this.getParentNode(i++);
+          if (!parent) {
+            return false;
+          }
+          if (parent.type === "ForStatement" && parent.init === node) {
+            return true;
+          }
+          node = parent;
+        }
+        return false;
+      };
+      if (node.operator === "in" && isLeftOfAForStatement(node)) {
         return true;
       }
       // else fall through
@@ -330,6 +328,10 @@ FPp.needsParens = function(assumeExpressionContext) {
 
           if (pp > np) {
             return true;
+          }
+
+          if (no === "**" && po === "**") {
+            return name === "left";
           }
 
           if (pp === np && name === "right") {

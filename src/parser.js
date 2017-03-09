@@ -54,4 +54,17 @@ function parseWithBabylon(text) {
   });
 }
 
-module.exports = { parseWithFlow, parseWithBabylon };
+function parseWithTypeScript(text) {
+    const parser = require('typescript-eslint-parser')
+    return parser.parse(text, {
+        loc: true,
+        range: true,
+        tokens: true,
+        attachComment: true,
+        ecmaFeatures: {
+            jsx: true,
+        }
+    })
+}
+
+module.exports = { parseWithFlow, parseWithBabylon, parseWithTypeScript };

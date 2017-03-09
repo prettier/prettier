@@ -294,7 +294,8 @@ var PRECEDENCE = {};
   ["<", ">", "<=", ">=", "in", "instanceof"],
   [">>", "<<", ">>>"],
   ["+", "-"],
-  ["*", "/", "%", "**"]
+  ["*", "/", "%"],
+  ["**"]
 ].forEach(function(tier, i) {
   tier.forEach(function(op) {
     PRECEDENCE[op] = i;

@@ -18,9 +18,15 @@ function guessLineEnding(text) {
 }
 
 function parse(text, opts) {
-  const parseFunction = opts.parser === "flow"
-    ? parser.parseWithFlow
-    : parser.parseWithBabylon;
+  let parseFunction;
+
+  if (opts.parser === 'flow') {
+    parseFunction = parser.parseWithFlow;
+  } else if (opts.parser === 'typescript') {
+    parseFunction = parser.parseWithTypeScript;
+  } else {
+    parseFunction = parser.parseWithBabylon;
+  }
 
   try {
     return parseFunction(text);
