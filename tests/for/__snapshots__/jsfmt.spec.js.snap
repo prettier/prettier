@@ -25,10 +25,28 @@ for (var i = 0; i < 10; ++i) {
 exports[`in.js 1`] = `
 "for ((x in a);;) {}
 for (a=(a in b);;) {}
+for (let a = (b in c); ; );
+for (a && (b in c); ; );
+for (a => (b in c); ; );
+function* g() {
+  for (yield (a in b); ; );
+}
+async function f() {
+  for (await (a in b); ; );
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 for ((x in a); ; ) {
 }
 for (a = (a in b); ; ) {
+}
+for (let a = (b in c); ; );
+for (a && (b in c); ; );
+for (a => (b in c); ; );
+function* g() {
+  for (yield (a in b); ; );
+}
+async function f() {
+  for (await (a in b); ; );
 }
 "
 `;
@@ -36,10 +54,28 @@ for (a = (a in b); ; ) {
 exports[`in.js 2`] = `
 "for ((x in a);;) {}
 for (a=(a in b);;) {}
+for (let a = (b in c); ; );
+for (a && (b in c); ; );
+for (a => (b in c); ; );
+function* g() {
+  for (yield (a in b); ; );
+}
+async function f() {
+  for (await (a in b); ; );
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 for ((x in a); ; ) {
 }
 for (a = (a in b); ; ) {
+}
+for (let a = (b in c); ; );
+for (a && (b in c); ; );
+for (a => (b in c); ; );
+function* g() {
+  for (yield (a in b); ; );
+}
+async function f() {
+  for (await (a in b); ; );
 }
 "
 `;
