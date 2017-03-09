@@ -306,6 +306,11 @@ exports[`hug.js 1`] = `
     ))}
     </div>}
 </div>;
+
+<div>
+  {member.memberName.memberSomething +
+    (member.memberDef.memberSomething.signatures ? '()' : '')}
+</div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div>
   {__DEV__
@@ -334,6 +339,11 @@ exports[`hug.js 1`] = `
         />
       ))}
     </div>}
+</div>;
+
+<div>
+  {member.memberName.memberSomething +
+    (member.memberDef.memberSomething.signatures ? \\"()\\" : \\"\\")}
 </div>;
 "
 `;
