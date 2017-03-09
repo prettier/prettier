@@ -2063,8 +2063,8 @@ function printFunctionParams(path, print, options) {
   }
 
   const isFlowShorthandWithOneArg = fun.type === "FunctionTypeAnnotation" &&
-    fun.params.length === 1 && fun.params[0].name === null && fun.rest === null &&
-    (fun.start ? fun.start === fun.params[0].start : fun.range[0] === fun.params[0].range[0]);
+    util.locStart(fun) !== util.locStart(parent) &&
+    fun.params.length === 1 && fun.params[0].name === null && fun.rest === null;
 
   return concat([
     isFlowShorthandWithOneArg ? "" : "(",
