@@ -25,3 +25,8 @@
     ))}
     </div>}
 </div>;
+
+<div>
+  {member.memberName.memberSomething +
+    (member.memberDef.memberSomething.signatures ? '()' : '')}
+</div>

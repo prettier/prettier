@@ -1268,7 +1268,7 @@ function genericPrintNoParens(path, options, print) {
         n.expression.type === "JSXEmptyExpression" ||
         (parent.type === "JSXElement" &&
           (n.expression.type === "ConditionalExpression" ||
-            n.expression.type === "LogicalExpression"));
+            isBinaryish(n.expression)));
 
       if (shouldInline) {
         return group(
