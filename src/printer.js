@@ -341,25 +341,18 @@ function genericPrintNoParens(path, options, print) {
         n.body.type === "ArrayExpression" ||
         n.body.type === "ObjectExpression" ||
         n.body.type === "JSXElement" ||
-        n.body.type === "BlockStatement"
+        n.body.type === "BlockStatement" ||
+        n.body.type === "TaggedTemplateExpression" ||
+        n.body.type === "TemplateElement"
       ) {
         return group(collapsed);
       }
 
-      // These nested groups are a little wonky, but because
-      // `conditionalGroup` suppresses break propagation, we want to
-      // re-propagate it. We still want to allow the printer to choose
-      // the more collapsed version, but still break parents if there
-      // are any hard breaks in the content.
       return group(
-        conditionalGroup([
-          collapsed,
-          concat([
-            concat(parts),
-            group(indent(options.tabWidth, concat([line, body])))
-          ])
-        ]),
-        { shouldBreak: willBreak(body) }
+        concat([
+          concat(parts),
+          group(indent(options.tabWidth, concat([line, body])))
+        ])
       );
     case "MethodDefinition":
       if (n.static) {
