@@ -211,7 +211,7 @@ function attach(comments, ast, text, options) {
         handleIfStatementComments(enclosingNode, followingNode, comment) ||
         handleObjectProperty(enclosingNode, precedingNode, comment) ||
         handleTemplateLiteralComments(enclosingNode, comment) ||
-        handleFunctionDeclarationComments(enclosingNode, comment) ||
+        handleCommentInEmptyParens(enclosingNode, comment) ||
         handleOnlyComments(enclosingNode, ast, comment, isLastComment)
       ) {
         // We're good
@@ -465,15 +465,27 @@ function handleTemplateLiteralComments(enclosingNode, comment) {
   return false;
 }
 
-function handleFunctionDeclarationComments(enclosingNode, comment) {
+function handleCommentInEmptyParens(enclosingNode, comment) {
   // Only add dangling comments to fix the case when no params are present,
   // i.e. a function without any argument.
   if (
     enclosingNode &&
-    enclosingNode.type === "FunctionDeclaration" &&
-    enclosingNode.params.length === 0
+    (((enclosingNode.type === "FunctionDeclaration" ||
+      enclosingNode.type === "FunctionExpression" ||
+      enclosingNode.type === "ArrowFunctionExpression" ||
+      enclosingNode.type === "ClassMethod" ||
+      enclosingNode.type === "ObjectMethod") &&
+    enclosingNode.params.length === 0) ||
+    (enclosingNode.type === "CallExpression" &&
+      enclosingNode.arguments.length === 0))
   ) {
     addDanglingComment(enclosingNode, comment);
+    return true;
+  }
+  if (enclosingNode &&
+    (enclosingNode.type === "MethodDefinition" &&
+      enclosingNode.value.params.length === 0)) {
+    addDanglingComment(enclosingNode.value, comment);
     return true;
   }
   return false;
