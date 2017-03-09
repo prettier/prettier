@@ -2062,8 +2062,12 @@ function printFunctionParams(path, print, options) {
     return concat(["(", join(", ", printed), ")"]);
   }
 
+  const isFlowShorthandWithOneArg = fun.type === "FunctionTypeAnnotation" &&
+    parent.type === "ObjectTypeProperty" && fun.params.length === 1 &&
+    fun.params[0].name === null && fun.rest === null;
+
   return concat([
-    "(",
+    isFlowShorthandWithOneArg ? "" : "(",
     indent(
       options.tabWidth,
       concat([softline, join(concat([",", line]), printed)])
@@ -2072,7 +2076,7 @@ function printFunctionParams(path, print, options) {
       canHaveTrailingComma && shouldPrintComma(options, "all") ? "," : ""
     ),
     softline,
-    ")"
+    isFlowShorthandWithOneArg ? "" : ")"
   ]);
 }
 
