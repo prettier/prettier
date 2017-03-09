@@ -5,7 +5,7 @@ exports[`test.js 1`] = `
 
 type Bar = { [string]: number }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-type Foo = (any) => string;
+type Foo = any => string;
 
 type Bar = { [string]: number };
 "
