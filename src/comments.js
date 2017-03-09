@@ -156,6 +156,7 @@ function attach(comments, ast, text, options) {
         handleTryStatementComments(enclosingNode, followingNode, comment) ||
         handleClassComments(enclosingNode, comment) ||
         handleImportSpecifierComments(enclosingNode, comment) ||
+        handleObjectPropertyComments(enclosingNode, comment) ||
         handleUnionTypeComments(
           precedingNode,
           enclosingNode,
@@ -209,7 +210,7 @@ function attach(comments, ast, text, options) {
     } else {
       if (
         handleIfStatementComments(enclosingNode, followingNode, comment) ||
-        handleObjectProperty(enclosingNode, precedingNode, comment) ||
+        handleObjectPropertyAssignment(enclosingNode, precedingNode, comment) ||
         handleTemplateLiteralComments(enclosingNode, comment) ||
         handleCommentInEmptyParens(enclosingNode, comment) ||
         handleOnlyComments(enclosingNode, ast, comment, isLastComment)
@@ -436,7 +437,7 @@ function handleConditionalExpressionComments(
   return false;
 }
 
-function handleObjectProperty(enclosingNode, precedingNode, comment) {
+function handleObjectPropertyAssignment(enclosingNode, precedingNode, comment) {
   if (
     enclosingNode &&
     (enclosingNode.type === "ObjectProperty" ||
@@ -540,6 +541,14 @@ function handleClassComments(enclosingNode, comment) {
 
 function handleImportSpecifierComments(enclosingNode, comment) {
   if (enclosingNode && enclosingNode.type === "ImportSpecifier") {
+    addLeadingComment(enclosingNode, comment);
+    return true;
+  }
+  return false;
+}
+
+function handleObjectPropertyComments(enclosingNode, comment) {
+  if (enclosingNode && enclosingNode.type === "ObjectProperty") {
     addLeadingComment(enclosingNode, comment);
     return true;
   }
