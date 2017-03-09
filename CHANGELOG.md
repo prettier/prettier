@@ -1,3 +1,38 @@
+# 0.22.0
+
+[link](https://github.com/jlongster/prettier/compare/0.21.0...0.22.0)
+
+* Run 0.21.0 (#876)
+* Fix paren removal on UnionTypeAnnotation (#878)
+* Fix typo (#891)
+* Ensure no parens for JSX inside of an ArrayExpression (#895)
+* Fix object expression in arrow function expression (#897)
+* Fix unprinted comments in destructuring (#898)
+* Fix bug with importing empty type (#904)
+* Fix broken export comment (#899)
+* Add CLI Example to Readme (#909)
+* Fix 0.5e0 (#911)
+* Fix binary expression instanceof in arrow function expression (#913)
+* Improve readme CLI usage example (#910)
+* Do not break long it/test calls when template literal (#893)
+* Update lint-staged docs to use husky for less config. (#923)
+* Fix files with comments only (#813)
+* Update README.md (#928)
+* Fix binary op as body in arrow expression (#921)
+* cleanup needsParens (#935)
+* [JSX] Break if opening element breaks (#942)
+* Parenthesize function expressions in expression position (#941)
+* update the README to add a pre-commit hook (#944)
+* Fix #951: properly parenthesize ** expressions (#952)
+* [WIP] TypeScript Parser (#915)
+* Do not break long `describe` calls (#953)
+* Recursively find leading comments inside ReturnStatements (#955)
+* Fix `in` inside of a for in a nested way (#954)
+* Make comments around empty parenthesis be inside (#957)
+* Stabilize comment after object label (#958)
+* Inline BinaryExpressions inside JSXExpression (#965)
+* Only allow same-line arrow-less body for explicit nodes (#966)
+
 # 0.21.0
 
 [link](https://github.com/jlongster/prettier/compare/0.20.0...0.21.0)

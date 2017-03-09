@@ -424,6 +424,8 @@ FPp.needsParens = function(assumeExpressionContext) {
         return false;
       } else if (parent.type === "ExpressionStatement") {
         return node.left.type === "ObjectPattern";
+      } else if (parent.type === "AssignmentExpression") {
+        return false;
       }
       return true;
 

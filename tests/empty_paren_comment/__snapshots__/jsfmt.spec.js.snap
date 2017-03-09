@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`empty_paren_comment.js 1`] = `
+"let f = (/* ... */) => {}
+(function (/* ... */) {})(/* ... */)
+function f(/* ... */) {}
+
+const obj = {
+  f(/* ... */) {},
+  f: (/* ... */) => {},
+  f: function(/* ... */) {},
+  f: function f(/* ... */) {}
+}
+
+class Foo {
+  f(/* ... */) {}
+  f = (/* ... */) => {};
+  static f(/* ... */) {};
+  static f = (/* ... */) => {};
+  static f = function(/* ... */) {};
+  static f = function f(/* ... */) {};
+  static f /* ... */() {};
+}
+
+f(/* ... */);
+f(a, /* ... */);
+f(a, /* ... */ b);
+f(/* ... */ a, b);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let f = (/* ... */) => {};
+(function(/* ... */) {})(/* ... */);
+function f(/* ... */) {}
+
+const obj = {
+  f(/* ... */) {},
+  f: (/* ... */) => {},
+  f: function(/* ... */) {},
+  f: function f(/* ... */) {}
+};
+
+class Foo {
+  f(/* ... */) {}
+  f = (/* ... */) => {};
+  static f(/* ... */) {}
+  static f = (/* ... */) => {};
+  static f = function(/* ... */) {};
+  static f = function f(/* ... */) {};
+  static f(/* ... */) {}
+}
+
+f(/* ... */);
+f(a /* ... */);
+f(a, /* ... */ b);
+f(/* ... */ a, b);
+"
+`;
+
+exports[`empty_paren_comment.js 2`] = `
+"let f = (/* ... */) => {}
+(function (/* ... */) {})(/* ... */)
+function f(/* ... */) {}
+
+const obj = {
+  f(/* ... */) {},
+  f: (/* ... */) => {},
+  f: function(/* ... */) {},
+  f: function f(/* ... */) {}
+}
+
+class Foo {
+  f(/* ... */) {}
+  f = (/* ... */) => {};
+  static f(/* ... */) {};
+  static f = (/* ... */) => {};
+  static f = function(/* ... */) {};
+  static f = function f(/* ... */) {};
+  static f /* ... */() {};
+}
+
+f(/* ... */);
+f(a, /* ... */);
+f(a, /* ... */ b);
+f(/* ... */ a, b);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let f = (/* ... */) => {};
+(function(/* ... */) {})(/* ... */);
+function f(/* ... */) {}
+
+const obj = {
+  f(/* ... */) {},
+  f: (/* ... */) => {},
+  f: function(/* ... */) {},
+  f: function f(/* ... */) {}
+};
+
+class Foo {
+  f(/* ... */) {}
+  f = (/* ... */) => {};
+  static f(/* ... */) {}
+  static f = (/* ... */) => {};
+  static f = function(/* ... */) {};
+  static f = function f(/* ... */) {};
+  static f(/* ... */) {}
+}
+
+f(/* ... */);
+f(a /* ... */);
+f(a, /* ... */ b);
+f(/* ... */ a, b);
+"
+`;
