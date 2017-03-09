@@ -62,3 +62,13 @@ function barfoo(n : number | null | void) : ?number { return n; }
 type Banana = {
   eat: string => boolean,
 };
+
+type T = { method: (a) => void };
+
+type T = { method(a): void };
+
+declare class X { method(a): void }
+
+declare function f(a): void;
+
+var f: (a) => void;
