@@ -1209,13 +1209,20 @@ function genericPrintNoParens(path, options, print) {
       else parts.push("default:");
 
       if (n.consequent.find(node => node.type !== "EmptyStatement")) {
-        const cons = path.call(
-          function(consequentPath) {
-            return printStatementSequence(consequentPath, options, print);
-          },
-          "consequent"
-        );
-
+        const cons = path.call(consequentPath => {
+          let printed = [];
+          path.map(p => {
+            const value = p.getValue();
+            const parent = p.getParentNode();
+            const parentParent = path.getParentNode(1);
+            const last = parentParent && parentParent.cases &&
+              parentParent.cases[parentParent.cases.length - 1];
+            const shouldAddLine = util.isNextLineEmpty(options.originalText, value) &&
+              parent !== last;
+            printed.push(concat([print(p), shouldAddLine ? hardline : ""]));
+          });
+          return join(hardline, printed);
+        }, "consequent");
         parts.push(
           isCurlyBracket(cons)
             ? concat([" ", cons])
@@ -1856,17 +1863,7 @@ function printStatementSequence(path, options, print) {
 
     parts.push(stmtPrinted);
 
-    if (parent.type === "SwitchCase") {
-      if (
-        util.isNextLineEmpty(text, stmt) &&
-        !isLastSwitchCase(stmtPath)
-      ) {
-        parts.push(hardline);
-      }
-    } else if (
-      util.isNextLineEmpty(text, stmt) &&
-      !isLastStatement(stmtPath)
-    ) {
+    if (util.isNextLineEmpty(text, stmt) && !isLastStatement(stmtPath)) {
       parts.push(hardline);
     }
 
@@ -2975,14 +2972,6 @@ function isLastStatement(path) {
   const node = path.getValue();
   const body = parent.body;
   return body && body[body.length - 1] === node;
-}
-
-function isLastSwitchCase(path) {
-  const parentParent = path.getParentNode(1);
-  const parent = path.getParentNode();
-  const last = parentParent && parentParent.cases &&
-    parentParent.cases[parentParent.cases.length - 1];
-  return last === parent;
 }
 
 function hasLeadingOwnLineComment(text, node) {
