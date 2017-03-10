@@ -38,6 +38,36 @@ let {
 "
 `;
 
+exports[`binary_expression.js 1`] = `
+"a = (
+  // Commment 1
+  (Math.random() * (yRange * (1 - minVerticalFraction)))
+  + (minVerticalFraction * yRange)
+) - offset;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a =
+  // Commment 1
+  Math.random() * (yRange * (1 - minVerticalFraction)) +
+  minVerticalFraction * yRange -
+  offset;
+"
+`;
+
+exports[`binary_expression.js 2`] = `
+"a = (
+  // Commment 1
+  (Math.random() * (yRange * (1 - minVerticalFraction)))
+  + (minVerticalFraction * yRange)
+) - offset;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a =
+  // Commment 1
+  Math.random() * (yRange * (1 - minVerticalFraction)) +
+  minVerticalFraction * yRange -
+  offset;
+"
+`;
+
 exports[`blank.js 1`] = `
 "// This file only
 // has comments. This comment
@@ -1445,8 +1475,7 @@ function binary() {
 function binaryInBinaryLeft() {
   return (
     // Reason for 42
-    42 *
-      84 +
+    42 * 84 +
       2
   );
 }
@@ -1454,8 +1483,7 @@ function binaryInBinaryLeft() {
 function binaryInBinaryRight() {
   return (
     // Reason for 42
-    42 +
-      84 * 2
+    42 + 84 * 2
   );
 }
 
@@ -1685,8 +1713,7 @@ function binary() {
 function binaryInBinaryLeft() {
   return (
     // Reason for 42
-    42 *
-      84 +
+    42 * 84 +
       2
   );
 }
@@ -1694,8 +1721,7 @@ function binaryInBinaryLeft() {
 function binaryInBinaryRight() {
   return (
     // Reason for 42
-    42 +
-      84 * 2
+    42 + 84 * 2
   );
 }
 
