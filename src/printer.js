@@ -700,11 +700,12 @@ function genericPrintNoParens(path, options, print) {
       const canHaveTrailingComma = !(lastElem &&
         lastElem.type === "RestProperty");
 
-      const shouldBreak = util.hasNewlineInRange(
-        options.originalText,
-        util.locStart(n),
-        util.locEnd(n)
-      );
+      const shouldBreak = n.type !== "ObjectPattern" &&
+        util.hasNewlineInRange(
+          options.originalText,
+          util.locStart(n),
+          util.locEnd(n)
+        );
 
       if (props.length === 0) {
         return group(
