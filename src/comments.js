@@ -647,6 +647,14 @@ function handleForComments(enclosingNode, precedingNode, comment) {
   return false;
 }
 
+function handleBinaryExpressionComments(enclosingNode, comment) {
+  if (enclosingNode && enclosingNode.type === "BinaryExpression") {
+    addLeadingComment(enclosingNode, comment);
+    return true;
+  }
+  return false;
+}
+
 function printComment(commentPath) {
   const comment = commentPath.getValue();
   comment.printed = true;
