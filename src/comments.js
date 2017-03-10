@@ -163,7 +163,8 @@ function attach(comments, ast, text, options) {
           followingNode,
           comment
         ) ||
-        handleOnlyComments(enclosingNode, ast, comment, isLastComment)
+          handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
+          handleBinaryExpressionComments(enclosingNode, comment)
       ) {
         // We're good
       } else if (followingNode) {
@@ -629,6 +630,14 @@ function handleOnlyComments(enclosingNode, ast, comment, isLastComment) {
     } else {
       addLeadingComment(enclosingNode, comment);
     }
+    return true;
+  }
+  return false;
+}
+
+function handleBinaryExpressionComments(enclosingNode, comment) {
+  if (enclosingNode && enclosingNode.type === "BinaryExpression") {
+    addLeadingComment(enclosingNode, comment);
     return true;
   }
   return false;
