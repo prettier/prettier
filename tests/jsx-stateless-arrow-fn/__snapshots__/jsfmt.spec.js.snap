@@ -82,9 +82,7 @@ const render1 = ({ styles }) => (
 );
 
 const render2 = ({ styles }) => (
-  <div style={styles} key=\\"something\\">
-    Create wrapping parens.
-  </div>
+  <div style={styles} key=\\"something\\">Create wrapping parens.</div>
 );
 
 const render3 = ({ styles }) => (
@@ -315,9 +313,7 @@ const render1 = ({ styles }) => (
 );
 
 const render2 = ({ styles }) => (
-  <div style={styles} key=\\"something\\">
-    Create wrapping parens.
-  </div>
+  <div style={styles} key=\\"something\\">Create wrapping parens.</div>
 );
 
 const render3 = ({ styles }) => (

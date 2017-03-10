@@ -2522,13 +2522,20 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
 
         if (/\S/.test(value)) {
           // treat each line of text as its own entity
-          value.split(/(\n\s*)/).forEach(line => {
+          const lines = value.split(/(\n\s*)/);
+
+          // if there's a single line of text, we don't want to force a
+          // hardline but make it fit in a single line if possible
+          const isSingleText = n.children.length === 1 &&
+            lines.filter(l => l.trim()).length === 1;
+
+          lines.forEach(line => {
             const newlines = line.match(/\n/g);
             if (newlines) {
-              children.push(hardline);
+              children.push(isSingleText ? softline : hardline);
 
               // allow one extra newline
-              if (newlines.length > 1) {
+              if (!isSingleText && newlines.length > 1) {
                 children.push(hardline);
               }
               return;
