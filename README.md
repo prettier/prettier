@@ -295,6 +295,7 @@ passes `prettier` output to `standard --fix`
 - [`prettier-with-tabs`](https://github.com/arijs/prettier-with-tabs)
 allows you to configure prettier to use `tabs`
 - [`neutrino-preset-prettier`](https://github.com/SpencerCDixon/neutrino-preset-prettier) allows you to use prettier as a neutrino preset
+- [`prettier-check`](https://github.com/hexacta/prettier-check) checks all files are using prettier style (for CI)
 
 
 ## Technical Details
