@@ -157,6 +157,7 @@ function attach(comments, ast, text, options) {
         handleClassComments(enclosingNode, comment) ||
         handleImportSpecifierComments(enclosingNode, comment) ||
         handleObjectPropertyComments(enclosingNode, comment) ||
+        handleForComments(enclosingNode, precedingNode, comment) ||
         handleUnionTypeComments(
           precedingNode,
           enclosingNode,
@@ -629,6 +630,17 @@ function handleOnlyComments(enclosingNode, ast, comment, isLastComment) {
     } else {
       addLeadingComment(enclosingNode, comment);
     }
+    return true;
+  }
+  return false;
+}
+
+function handleForComments(enclosingNode, precedingNode, comment) {
+  if (enclosingNode && (
+    enclosingNode.type === "ForInStatement" ||
+    enclosingNode.type === "ForOfStatement")
+  ) {
+    addLeadingComment(enclosingNode, comment);
     return true;
   }
   return false;
