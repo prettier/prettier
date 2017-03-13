@@ -459,7 +459,6 @@ function genericPrintNoParens(path, options, print) {
 
       return concat(parts);
     case "ExportNamespaceSpecifier":
-      //return concat(["* as ", path.call(print, "exported")]);
     case "ExportDefaultSpecifier":
       return path.call(print, "exported");
     case "ImportDeclaration":
