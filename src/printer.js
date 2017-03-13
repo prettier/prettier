@@ -459,7 +459,7 @@ function genericPrintNoParens(path, options, print) {
 
       return concat(parts);
     case "ExportNamespaceSpecifier":
-      return concat(["* as ", path.call(print, "exported")]);
+      //return concat(["* as ", path.call(print, "exported")]);
     case "ExportDefaultSpecifier":
       return path.call(print, "exported");
     case "ImportDeclaration":
@@ -2143,8 +2143,8 @@ function typeIsFunction(type) {
 }
 
 function printExportDeclaration(path, options, print) {
-  var decl = path.getValue();
-  var parts = ["export "];
+  const decl = path.getValue();
+  let parts = ["export "];
 
   namedTypes.Declaration.assert(decl);
 
@@ -2162,7 +2162,7 @@ function printExportDeclaration(path, options, print) {
     if (
       decl.type === "ExportDefaultDeclaration" &&
       (decl.declaration.type !== "ClassDeclaration" &&
-        decl.declaration.type !== "FunctionDeclaration")
+       decl.declaration.type !== "FunctionDeclaration")
     ) {
       parts.push(";");
     }
@@ -2173,30 +2173,50 @@ function printExportDeclaration(path, options, print) {
         decl.specifiers[0].type === "ExportBatchSpecifier"
       ) {
         parts.push("*");
-      } else if (
-        (decl.specifiers.length === 1 &&
-          decl.specifiers[0].type === "ExportDefaultSpecifier") ||
-        decl.specifiers[0].type === "ExportNamespaceSpecifier"
-      ) {
-        parts.push(path.map(print, "specifiers")[0]);
       } else {
+        let specifiers = [];
+        let defaultSpecifiers = [];
+        let namespaceSpecifiers = [];
+
+        path.map(specifierPath => {
+          const specifierType = path.getValue().type;
+          if (specifierType === "ExportSpecifier") {
+            specifiers.push(print(specifierPath));
+          } else if (specifierType === "ExportDefaultSpecifier") {
+            defaultSpecifiers.push(print(specifierPath));
+          } else if (specifierType === "ExportNamespaceSpecifier") {
+            namespaceSpecifiers.push(concat(["* as ", print(specifierPath)]));
+          }
+        }, "specifiers");
+
+        const isNamespaceFollowed = namespaceSpecifiers.length !== 0 &&
+          (specifiers.length !== 0 || defaultSpecifiers.length !== 0);
+        const isDefaultFollowed = defaultSpecifiers.length !== 0 &&
+          specifiers.length !== 0;
+
         parts.push(
           decl.exportKind === "type" ? "type " : "",
-          group(
-            concat([
-              "{",
-              indent(
-                options.tabWidth,
-                concat([
-                  options.bracketSpacing ? line : softline,
-                  join(concat([",", line]), path.map(print, "specifiers"))
-                ])
-              ),
-              ifBreak(shouldPrintComma(options) ? "," : ""),
-              options.bracketSpacing ? line : softline,
-              "}"
-            ])
-          )
+          concat(namespaceSpecifiers),
+          concat([isNamespaceFollowed ? ", " : ""]),
+          concat(defaultSpecifiers),
+          concat([isDefaultFollowed ? ", " : ""]),
+          specifiers.length !== 0
+            ? group(
+              concat([
+                "{",
+                indent(
+                  options.tabWidth,
+                  concat([
+                    options.bracketSpacing ? line : softline,
+                    join(concat([",", line]), specifiers)
+                  ])
+                ),
+                ifBreak(shouldPrintComma(options) ? "," : ""),
+                options.bracketSpacing ? line : softline,
+                "}"
+              ])
+            )
+          : ""
         );
       }
     } else {
