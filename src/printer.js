@@ -315,6 +315,7 @@ function genericPrintNoParens(path, options, print) {
         !n.params[0].typeAnnotation &&
         !n.params[0].leadingComments &&
         !n.params[0].trailingComments &&
+        !n.params[0].optional &&
         !n.predicate &&
         !n.returnType
       ) {
