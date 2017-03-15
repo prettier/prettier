@@ -233,10 +233,11 @@ autocmd FileType javascript set formatprg=prettier\ --stdin
 
 This makes Prettier power the [`gq` command](http://vimdoc.sourceforge.net/htmldoc/change.html#gq)
 for automatic formatting without any plugins. You can also add the following to your
-`.vimrc` to run prettier when `.js` files are saved:
+`.vimrc` to run prettier when `.js` files are saved (`<C-o>`s in the end
+will ensure that cursor position is restored after the autocommand):
 
 ```
-autocmd BufWritePre *.js :normal gggqG
+autocmd BufWritePre *.js exe "normal! gggqG\<C-o>\<C-o>"
 ```
 
 If you want to restore cursor position after formatting, try this
