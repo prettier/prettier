@@ -805,31 +805,16 @@ function genericPrintNoParens(path, options, print) {
         const needsForcedTrailingComma = canHaveTrailingComma &&
           lastElem === null;
 
-        var printedElements = [];
-        let separatorParts = [];
-        path.each(
-          function(childPath) {
-            printedElements.push(concat(separatorParts));
-            printedElements.push(group(print(childPath)));
-
-            separatorParts = [",", line];
-            if (
-              childPath.getValue() &&
-              util.isNextLineEmpty(options.originalText, childPath.getValue())
-            ) {
-              separatorParts.push(softline);
-            }
-          },
-          "elements"
-        );
-
         parts.push(
           group(
             concat([
               "[",
               indent(
                 options.tabWidth,
-                concat([softline, concat(printedElements)])
+                concat([
+                  softline,
+                  printArrayItems(path, options, "elements", print)
+                ])
               ),
               needsForcedTrailingComma ? "," : "",
               ifBreak(
@@ -1484,7 +1469,27 @@ function genericPrintNoParens(path, options, print) {
 
       return "";
     case "TupleTypeAnnotation":
-      return concat(["[", join(", ", path.map(print, "types")), "]"]);
+      return group(
+        concat([
+          "[",
+          indent(
+            options.tabWidth,
+            concat([
+              softline,
+              printArrayItems(path, options, "types", print)
+            ])
+          ),
+          ifBreak(shouldPrintComma(options) ? "," : ""),
+          comments.printDanglingComments(
+            path,
+            options,
+            /* sameIndent */ true
+          ),
+          softline,
+          "]"
+        ])
+      );
+
     case "ExistentialTypeParam":
     case "ExistsTypeAnnotation":
       return "*";
@@ -3038,6 +3043,29 @@ function isFlowNodeStartingWithDeclare(node, options) {
   return options.originalText
     .slice(0, util.locStart(node))
     .match(/declare\s*$/);
+}
+
+function printArrayItems(path, options, printPath, print) {
+  const printedElements = [];
+  let separatorParts = [];
+
+  path.each(
+    function(childPath) {
+      printedElements.push(concat(separatorParts));
+      printedElements.push(group(print(childPath)));
+
+      separatorParts = [",", line];
+      if (
+        childPath.getValue() &&
+        util.isNextLineEmpty(options.originalText, childPath.getValue())
+      ) {
+        separatorParts.push(softline);
+      }
+    },
+    printPath
+  );
+
+  return concat(printedElements);
 }
 
 function printAstToDoc(ast, options) {
