@@ -456,6 +456,7 @@ function switch_partial_post_init(i) {
     case 0:
       x = 0;
       break;
+
     case 1:
       x = 1;
       break;
@@ -470,9 +471,11 @@ function switch_post_init(i) {
     case 0:
       x = 0;
       break;
+
     case 1:
       x = 1;
       break;
+
     default:
       x = 2;
   }
@@ -850,6 +853,7 @@ function switch_partial_post_init(i) {
     case 0:
       x = 0;
       break;
+
     case 1:
       x = 1;
       break;
@@ -864,9 +868,11 @@ function switch_post_init(i) {
     case 0:
       x = 0;
       break;
+
     case 1:
       x = 1;
       break;
+
     default:
       x = 2;
   }
@@ -926,6 +932,7 @@ function switch_post_init2(i): number {
     case 1:
       bar = 3;
       break;
+
     default:
       throw new Error(\\"Invalid state\\");
   }
@@ -939,6 +946,7 @@ function switch_post_init2(i): number {
     case 1:
       bar = 3;
       break;
+
     default:
       throw new Error(\\"Invalid state\\");
   }

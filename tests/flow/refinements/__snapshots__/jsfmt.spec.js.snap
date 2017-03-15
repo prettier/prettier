@@ -2190,8 +2190,10 @@ function foo(text: string | number): string {
   switch (typeof text) {
     case \\"string\\":
       return text;
+
     case \\"number\\":
       return text; // error, should return string
+
     default:
       return \\"wat\\";
   }
@@ -2200,6 +2202,7 @@ function bar(text: string | number): string {
   switch (typeof text) {
     case \\"string\\":
       return text[0];
+
     default:
       return text++ + \\"\\";
   }
@@ -2210,6 +2213,7 @@ function baz1(text: string | number): string {
     case \\"string\\":
       return text[0];
     // error, [0] on number
+
     default:
       return \\"wat\\";
   }
@@ -2219,6 +2223,7 @@ function baz2(text: string | number): string {
     case \\"string\\":
     case \\"number\\":
       return text[0]; // error, [0] on number
+
     default:
       return \\"wat\\";
   }
@@ -2227,9 +2232,11 @@ function corge(text: string | number | Array<string>): string {
   switch (typeof text) {
     case \\"object\\":
       return text[0];
+
     case \\"string\\":
     case \\"number\\": // using ++ since it isn't valid on arrays or strings. // should only error for string since Array was filtered out.
       return text++ + \\"\\";
+
     default:
       return \\"wat\\";
   }
@@ -2527,6 +2534,7 @@ function length(l) {
   switch (l.kind) {
     case \\"cons\\":
       return 1 + length(l.next);
+
     default:
       return 0;
   }
@@ -2545,8 +2553,10 @@ function kind(x: A | B | C): number {
   switch (x.kind) {
     case EnumKind.A:
       return x.A;
+
     case EnumKind.B:
       return x.B;
+
     default:
       return x.A; // error, x: C and property A not found in type C
   }
@@ -2779,6 +2789,7 @@ function handleStatus(status: Success | Error) {
     case SUCCESS:
       console.log(\`Successful: \${status.message}\`);
       break;
+
     default:
       console.log(\`Errored: \${status.error}\`);
   }

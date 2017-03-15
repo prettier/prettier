@@ -1169,6 +1169,8 @@ function genericPrintNoParens(path, options, print) {
         "}"
       ]);
     case "SwitchCase":
+      if (hasBreakOrReturnBefore(path, n)) parts.push(hardline);
+
       if (n.test) parts.push("case ", path.call(print, "test"), ":");
       else parts.push("default:");
 
@@ -1825,8 +1827,9 @@ function genericPrintNoParens(path, options, print) {
 function printStatementSequence(path, options, print) {
   let printed = [];
 
-  path.map(function(stmtPath, i) {
-    var stmt = stmtPath.getValue();
+  path.map(stmtPath => {
+    const stmt = stmtPath.getValue();
+    const parent = stmtPath.getParentNode();
 
     // Just in case the AST has been modified to contain falsy
     // "statements," it's safer simply to skip them.
@@ -1846,7 +1849,14 @@ function printStatementSequence(path, options, print) {
 
     parts.push(stmtPrinted);
 
-    if (util.isNextLineEmpty(text, stmt) && !isLastStatement(stmtPath)) {
+    if (parent.type === "SwitchCase") {
+      if (
+        util.isNextLineEmpty(text, stmt) &&
+        !isLastSwitchStatement(stmtPath)
+      ) {
+        parts.push(hardline);
+      }
+    } else if (util.isNextLineEmpty(text, stmt) && !isLastStatement(stmtPath)) {
       parts.push(hardline);
     }
 
@@ -2998,18 +3008,53 @@ function printNumber(rawNumber) {
     .replace(/\.(?=e|$)/, "");
 }
 
-function isFirstStatement(path) {
-  const parent = path.getParentNode();
-  const node = path.getValue();
-  const body = parent.body;
-  return body && body[0] === node;
-}
-
 function isLastStatement(path) {
   const parent = path.getParentNode();
   const node = path.getValue();
   const body = parent.body;
   return body && body[body.length - 1] === node;
+}
+
+function isLastSwitchStatement(path) {
+  const parentParent = path.getParentNode(1);
+  const parent = path.getParentNode();
+  const node = path.getValue();
+  const last = parentParent && parentParent.cases &&
+    parentParent.cases[parentParent.cases.length - 1].consequent[0];
+  if (hasBreakOrReturn(parent)) return true;
+  if (node.comments) return false;
+  return last === node;
+}
+
+function hasBreakOrReturn (node) {
+  let hasBreakOrReturn = false;
+  if (node.consequent && node.type === "SwitchCase") {
+    for (let i = 0; i < node.consequent.length; ++i) {
+      if (
+        node.consequent[i].type === "BreakStatement" ||
+        node.consequent[i].type === "ReturnStatement"
+      ) {
+        hasBreakOrReturn = true;
+        break;
+      }
+    }
+  }
+  return hasBreakOrReturn;
+}
+
+function hasBreakOrReturnBefore (path, node) {
+  const parent = path.getParentNode(0);
+  let breakOrReturnBefore = false;
+  for (let i = 0; i < parent.cases.length; ++i) {
+    if (
+      node === parent.cases[i] && parent.cases[i - 1] &&
+      hasBreakOrReturn(parent.cases[i - 1])
+    ) {
+      breakOrReturnBefore = true;
+      break;
+    }
+  }
+  return breakOrReturnBefore;
 }
 
 function hasLeadingOwnLineComment(text, node) {

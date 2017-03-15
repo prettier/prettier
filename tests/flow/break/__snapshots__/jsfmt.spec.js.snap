@@ -93,6 +93,7 @@ function bar(b) {
     case 1:
       var z: number = x; // 2 errors: (boolean | string) !~> number
       break;
+
     case 2:
   }
   var w: number = x; // 2 errors: (boolean | string) !~> number

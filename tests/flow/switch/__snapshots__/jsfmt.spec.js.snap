@@ -35,6 +35,7 @@ function foo(x): number {
     case 0:
     case 1:
       return 1;
+
     default:
       throw new Error(\\"hi\\");
   }
@@ -44,6 +45,7 @@ function bar(x) {
   switch (x) {
     case 0:
       break;
+
     default:
       return;
   }
@@ -54,8 +56,10 @@ function baz(x): number {
   switch (x) {
     case 0:
       break;
+
     case 1:
       return 1;
+
     default:
       throw new Error(\\"hi\\");
   }
@@ -111,6 +115,7 @@ function bar() {
   switch (\\"bar\\") {
     case \\"bar\\":
       break;
+
     default:
       break;
   }
@@ -208,6 +213,7 @@ function baz(x: mixed): number {
     case \\"baz\\":
       a = 0;
       break;
+
     case \\"bar\\":
       a = \\"\\";
     default:
@@ -320,12 +326,15 @@ function f1(i) {
     case 0:
       x = 0;
       break;
+
     case 1:
       x = 1;
       break;
+
     default:
       x = -1;
       break;
+
     case 2:
       x = \\"2\\";
       break;
@@ -343,6 +352,7 @@ function f2(i) {
     default:
       x = 1;
       break;
+
     case 2:
     // does not fall through default
   }
@@ -379,6 +389,7 @@ function bar(x) {
   switch (x) {
     default:
       return;
+
     case 0:
       break;
   }
@@ -389,6 +400,7 @@ function baz(x): number {
   switch (x) {
     case 0:
       break;
+
     default:
       throw new Error(\\"hi\\");
     case 1:
