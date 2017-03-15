@@ -104,9 +104,8 @@ foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo(
   aaaaaaaaaaaaaaaaaaa
 ) + a;
 
-const isPartOfPackageJSON = dependenciesArray.indexOf(
-  dependencyWithOutRelativePath.split(\\"/\\")[0]
-) !== -1;
+const isPartOfPackageJSON =
+  dependenciesArray.indexOf(dependencyWithOutRelativePath.split(\\"/\\")[0]) !== -1;
 
 defaultContent.filter(defaultLocale => {
   // ...
@@ -136,37 +135,41 @@ foo(obj.property * new Class() && obj instanceof Class && longVariable ? number 
 // break them all at the same time.
 
 const x = longVariable + longVariable + longVariable;
-const x = longVariable +
+const x =
+  longVariable +
   longVariable +
   longVariable +
   longVariable -
   longVariable +
   longVariable;
-const x = longVariable +
+const x =
+  longVariable +
   longVariable * longVariable +
   longVariable -
   longVariable +
   longVariable;
-const x = longVariable +
+const x =
+  longVariable +
   longVariable * longVariable * longVariable / longVariable +
   longVariable;
 
-const x = longVariable &&
+const x =
+  longVariable &&
   longVariable &&
   longVariable &&
   longVariable &&
   longVariable &&
   longVariable;
-const x = (longVariable && longVariable) ||
+const x =
+  (longVariable && longVariable) ||
   (longVariable && longVariable) ||
   (longVariable && longVariable);
 
-const x = longVariable * longint &&
-  longVariable >> 0 &&
-  longVariable + longVariable;
+const x =
+  longVariable * longint && longVariable >> 0 && longVariable + longVariable;
 
-const x = longVariable > longint &&
-  longVariable === 0 + longVariable * longVariable;
+const x =
+  longVariable > longint && longVariable === 0 + longVariable * longVariable;
 
 foo(
   obj.property * new Class() && obj instanceof Class && longVariable

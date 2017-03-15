@@ -68,7 +68,8 @@ var fnString =
    */
   \\"some\\" + \\"long\\" + \\"string\\";
 
-var fnString = /* inline */ \\"some\\" +
+var fnString =
+  /* inline */ \\"some\\" +
   \\"long\\" +
   \\"string\\" +
   \\"some\\" +
@@ -85,7 +86,8 @@ var fnString = // Comment
   // Comment
   \\"some\\" + \\"long\\" + \\"string\\";
 
-var fnString = \\"some\\" + \\"long\\" + \\"string\\"; // Comment
+var fnString = // Comment
+  \\"some\\" + \\"long\\" + \\"string\\";
 "
 `;
 
