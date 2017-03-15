@@ -1,5 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`expand.js 1`] = `
+"const Component1 = ({ props }) => (
+  <Text>Test</Text>
+);
+
+const Component2 = ({
+  props
+}) => (
+  <Text>Test</Text>
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const Component1 = ({ props }) => <Text>Test</Text>;
+
+const Component2 = ({ props }) => <Text>Test</Text>;
+"
+`;
+
 exports[`expression.js 1`] = `
 "() => ({}\`\`);
 ({})\`\`;
