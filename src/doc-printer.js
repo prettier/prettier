@@ -3,6 +3,33 @@
 const MODE_BREAK = 1;
 const MODE_FLAT = 2;
 
+function rootIndent() {
+  return {
+    indent: 0,
+    align: {
+      spaces: 0,
+      tabs: 0
+    }
+  };
+}
+
+function indent(ind) {
+  return {
+    indent: ind.indent + 1,
+    align: ind.align
+  };
+}
+
+function align(ind, n) {
+  return {
+    indent: ind.indent,
+    align: {
+      spaces: ind.align.spaces + n,
+      tabs: ind.align.tabs + (n ? 1 : 0)
+    }
+  };
+}
+
 function fits(next, restCommands, width) {
   let restIdx = restCommands.length;
   const cmds = [next];
@@ -35,7 +62,11 @@ function fits(next, restCommands, width) {
 
           break;
         case "indent":
-          cmds.push([ind + doc.n, mode, doc.contents]);
+          cmds.push([indent(ind), mode, doc.contents]);
+
+          break;
+        case "align":
+          cmds.push([align(ind, doc.n), mode, doc.contents]);
 
           break;
         case "group":
@@ -77,14 +108,17 @@ function fits(next, restCommands, width) {
   return false;
 }
 
-function printDocToString(doc, width, newLine) {
-  newLine = newLine || "\n";
-
+function printDocToString(doc, options) {
+  let width = options.printWidth;
+  let tabWidth = options.tabWidth;
+  let useTabs = options.useTabs;
+  let indentStr = useTabs ? "\t" : " ".repeat(tabWidth);
+  let newLine = options.newLine || "\n";
   let pos = 0;
   // cmds is basically a stack. We've turned a recursive call into a
   // while loop which is much faster. The while loop below adds new
   // cmds to the array instead of recursively calling `print`.
-  let cmds = [[0, MODE_BREAK, doc]];
+  let cmds = [[rootIndent(), MODE_BREAK, doc]];
   let out = [];
   let shouldRemeasure = false;
   let lineSuffix = [];
@@ -108,7 +142,11 @@ function printDocToString(doc, width, newLine) {
 
           break;
         case "indent":
-          cmds.push([ind + doc.n, mode, doc.contents]);
+          cmds.push([indent(ind), mode, doc.contents]);
+
+          break;
+        case "align":
+          cmds.push([align(ind, doc.n), mode, doc.contents]);
 
           break;
         case "group":
@@ -239,8 +277,11 @@ function printDocToString(doc, width, newLine) {
                   );
                 }
 
-                out.push(newLine + " ".repeat(ind));
-                pos = ind;
+                let lineIndent = useTabs
+                  ? indentStr.repeat(ind.indent + ind.align.tabs)
+                  : indentStr.repeat(ind.indent) + " ".repeat(ind.align.spaces);
+                out.push(newLine + lineIndent);
+                pos = ind.indent * tabWidth + ind.align.spaces;
               }
               break;
           }
