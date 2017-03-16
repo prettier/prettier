@@ -440,6 +440,7 @@ FPp.needsParens = function(assumeExpressionContext) {
         case "LogicalExpression":
         case "ExportDefaultDeclaration":
         case "AwaitExpression":
+        case "JSXSpreadAttribute":
           return true;
 
         case "NewExpression":
