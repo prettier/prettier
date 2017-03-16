@@ -72,3 +72,11 @@ declare class X { method(a): void }
 declare function f(a): void;
 
 var f: (a) => void;
+
+interface F { m(string): number }
+
+interface F { m: (string) => number }
+
+function f(o: { f: (string) => void }) {}
+
+function f(o: { f(string): void }) {}
