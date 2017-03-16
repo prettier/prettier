@@ -78,7 +78,8 @@ function genericPrint(path, options, printPath) {
     !util.getParentExportDeclaration(path)
   ) {
     const separator = node.decorators.length === 1 &&
-      node.decorators[0].expression.type === "Identifier"
+      (node.decorators[0].expression.type === "Identifier" ||
+       node.decorators[0].expression.type === "MemberExpression")
       ? " "
       : hardline;
     path.each(

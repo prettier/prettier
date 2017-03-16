@@ -11,4 +11,8 @@ import {observable} from "mobx";
   @computed get total() {
     return this.price * this.amount;
   }
+
+  @action.bound setPrice(price) {
+    this.price = price;
+  }
 }
