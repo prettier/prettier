@@ -1,6 +1,5 @@
 "use strict";
 
-var assert = require("assert");
 var types = require("ast-types");
 var n = types.namedTypes;
 

@@ -652,7 +652,6 @@ function genericPrintNoParens(path, options, print) {
     case "ObjectExpression":
     case "ObjectPattern":
     case "ObjectTypeAnnotation":
-      var allowBreak = false;
       var isTypeAnnotation = n.type === "ObjectTypeAnnotation";
       // Leave this here because we *might* want to make this
       // configurable later -- flow accepts ";" for type separators
@@ -1309,7 +1308,7 @@ function genericPrintNoParens(path, options, print) {
         comments.printDanglingComments(
           path,
           options,
-          /* sameIndent */ requiresHardline ? false : true
+          /* sameIndent */ !requiresHardline
         ),
         requiresHardline ? hardline : ""
       ]);
@@ -1819,13 +1818,12 @@ function genericPrintNoParens(path, options, print) {
       debugger;
       throw new Error("unknown type: " + JSON.stringify(n.type));
   }
-  return p;
 }
 
 function printStatementSequence(path, options, print) {
   let printed = [];
 
-  path.map(function(stmtPath, i) {
+  path.map(stmtPath => {
     var stmt = stmtPath.getValue();
 
     // Just in case the AST has been modified to contain falsy
@@ -2903,15 +2901,6 @@ function isCurlyBracket(doc) {
 function isEmptyBlock(doc) {
   const str = getFirstString(doc);
   return str === "{}";
-}
-
-function lastNonSpaceCharacter(lines) {
-  var pos = lines.lastPos();
-  do {
-    var ch = lines.charAt(pos);
-
-    if (/\S/.test(ch)) return ch;
-  } while (lines.prevPos(pos));
 }
 
 function nodeStr(node, options) {
