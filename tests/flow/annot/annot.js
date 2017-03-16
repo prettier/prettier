@@ -80,3 +80,11 @@ interface F { m: (string) => number }
 function f(o: { f: (string) => void }) {}
 
 function f(o: { f(string): void }) {}
+
+type f = (...arg) => void;
+
+type f = (/* comment */ arg) => void;
+
+type f = (arg /* comment */) => void;
+
+type f = (?arg) => void;
