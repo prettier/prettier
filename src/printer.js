@@ -1212,13 +1212,11 @@ function genericPrintNoParens(path, options, print) {
         const parent = path.getParentNode();
         const lastCase = util.getLast(parent.cases);
         const cons = path.call(consequentPath => {
-          let printed = [];
-          path.map(p => {
+          return join(hardline, path.map(p => {
             const shouldAddLine = p.getParentNode() !== lastCase &&
               util.isNextLineEmpty(options.originalText, p.getValue());
-            printed.push(concat([print(p), shouldAddLine ? hardline : ""]));
-          });
-          return join(hardline, printed);
+            return concat([print(p), shouldAddLine ? hardline : ""]);
+          }));
         }, "consequent");
         parts.push(
           isCurlyBracket(cons)
