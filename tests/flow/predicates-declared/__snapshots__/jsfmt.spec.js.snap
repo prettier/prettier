@@ -119,7 +119,8 @@ function foo(x: number | string | Array<string>): number {
 
   if (f(x)) {
     return x.length;
-  } else {
+  }
+  else {
     return 1;
   }
 }
@@ -158,7 +159,8 @@ function foo(x: string | Array<string>): string {
     // should guarantee the narrowing of the type of \`x\`
     // to string.
     return x;
-  } else {
+  }
+  else {
     // Accordingly the negation of the above check
     // guarantees that \`x\` here is an Array<string>
     return x.join();
@@ -291,7 +293,8 @@ function foo(x: string | Array<string>): string {
 function foo(x: string | Array<string>): string {
   if (typeof x === \\"string\\") {
     return x; // [ERROR] x: Array<string> doesn't match return type
-  } else {
+  }
+  else {
     return x.join(); // [ERROR] x: string doesn't have .join method
   }
 }
@@ -399,7 +402,8 @@ declare function is_number(x: mixed): boolean %checks(typeof x === \\"number\\")
 function bar(x: string | Array<string>): string {
   if (is_number(x)) {
     return x;
-  } else {
+  }
+  else {
     return x.join(); // error: both string and Array<string> can flow to x
   }
 }

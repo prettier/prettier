@@ -101,7 +101,8 @@ function f(b) {
 function f(b) {
   if (b) {
     return undefined;
-  } else {
+  }
+  else {
     return \\"nope\\";
   }
 }

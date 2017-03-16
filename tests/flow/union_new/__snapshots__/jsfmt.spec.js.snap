@@ -283,7 +283,8 @@ function print(x: number) {
 function printAll(val: MyType) {
   if (val.type === \\"A\\") {
     print(val.foo);
-  } else {
+  }
+  else {
     val.foo.forEach(print);
   }
 }
@@ -1914,7 +1915,8 @@ function hello2(x: X): string {
 function hello3(x: X): string {
   if (x.a) {
     return x.b;
-  } else {
+  }
+  else {
     return x.c;
   }
 }
@@ -1922,7 +1924,8 @@ function hello3(x: X): string {
 function hello4(x: X): string {
   if (!x.a) {
     return x.c;
-  } else {
+  }
+  else {
     return x.b;
   }
 }

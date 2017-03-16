@@ -160,7 +160,8 @@ function foo(p: boolean) {}
 function sorry(really: boolean) {
   if (really) {
     var x: number | string = 1337;
-  } else {
+  }
+  else {
     var x: boolean = true;
   }
   foo(x);

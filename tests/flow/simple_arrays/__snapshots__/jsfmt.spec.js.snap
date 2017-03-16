@@ -27,7 +27,8 @@ var a = [];
 for (var i = 0; i < 10; ++i) {
   if (i % 2 == 0) {
     a[i] = 0;
-  } else {
+  }
+  else {
     a[i] = \\"\\";
   }
 }
@@ -69,7 +70,8 @@ var a = [];
 for (var i = 0; i < 10; ++i) {
   if (i % 2 == 0) {
     a[i] = 0;
-  } else {
+  }
+  else {
     a[i] = \\"\\";
   }
 }

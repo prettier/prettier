@@ -398,7 +398,8 @@ function if_scoped_init(b) {
 function if_else_partial_init(b) {
   if (b) {
     var x: number = 0;
-  } else {
+  }
+  else {
     var y: number = x; // error
   }
 }
@@ -423,7 +424,8 @@ function if_partial_post_init(b) {
 function if_post_init(b) {
   if (b) {
     var x: number = 0;
-  } else {
+  }
+  else {
     var x: number = 1;
   }
   var y: number = x;
@@ -443,7 +445,8 @@ function if_post_init(b) {
   var x: number;
   if (b) {
     x = 0;
-  } else {
+  }
+  else {
     x = 1;
   }
   var y: number = x;
@@ -837,7 +840,8 @@ function if_post_init(b) {
   let x: number;
   if (b) {
     x = 0;
-  } else {
+  }
+  else {
     x = 1;
   }
   var y: number = x;

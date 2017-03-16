@@ -93,7 +93,8 @@ var B = React.createClass({
 function f(b): React.Element<*> {
   if (b) {
     return <A foo=\\"hey\\" />;
-  } else {
+  }
+  else {
     return <B bar=\\"hey\\" />;
   }
 }

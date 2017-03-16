@@ -47,7 +47,8 @@ function filterItems(items: Array<string | number>): Array<string | number> {
     .map(item => {
       if (typeof item === \\"string\\") {
         return item.length > 2 ? item : null;
-      } else {
+      }
+      else {
         return item * 10;
       }
     })

@@ -50,9 +50,11 @@ type Foobar = Foo | Bar;
 function foobar(x: Foobar): string {
   if (x.type === \\"foo\\") {
     return foo(x);
-  } else if (x.type === \\"bar\\") {
+  }
+  else if (x.type === \\"bar\\") {
     return bar(x);
-  } else {
+  }
+  else {
     return \\"unknown\\";
   }
 }

@@ -39,7 +39,8 @@ run()
 async function foo(x: boolean): Promise<?{ bar: string }> {
   if (x) {
     return { bar: \\"baz\\" }; // OK, because of covariant type param
-  } else {
+  }
+  else {
     return null;
   }
 }

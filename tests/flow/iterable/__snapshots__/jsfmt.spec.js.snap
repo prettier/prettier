@@ -145,7 +145,8 @@ function makeIterator(coin_flip: () => boolean): Iterator<string> {
       var done = coin_flip();
       if (!done) {
         return { done, value: \\"still going...\\" };
-      } else {
+      }
+      else {
         return { done };
       }
     }
@@ -162,7 +163,8 @@ function makeIterator(coin_flip: () => boolean): Iterator<string> {
       if (done) {
         // Whoops, made a mistake and forgot to negate done
         return { done, value: \\"still going...\\" }; // Error string ~> void
-      } else {
+      }
+      else {
         return { done }; // Error void ~> string
       }
     }
