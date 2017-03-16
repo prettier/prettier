@@ -1212,13 +1212,11 @@ function genericPrintNoParens(path, options, print) {
         const cons = path.call(consequentPath => {
           let printed = [];
           path.map(p => {
-            const value = p.getValue();
-            const parent = p.getParentNode();
             const parentParent = path.getParentNode(1);
             const last = parentParent && parentParent.cases &&
               parentParent.cases[parentParent.cases.length - 1];
-            const shouldAddLine = util.isNextLineEmpty(options.originalText, value) &&
-              parent !== last;
+            const shouldAddLine = p.getParentNode() !== last &&
+              util.isNextLineEmpty(options.originalText, p.getValue());
             printed.push(concat([print(p), shouldAddLine ? hardline : ""]));
           });
           return join(hardline, printed);
@@ -1841,9 +1839,8 @@ function genericPrintNoParens(path, options, print) {
 function printStatementSequence(path, options, print) {
   let printed = [];
 
-  path.map(stmtPath => {
-    const stmt = stmtPath.getValue();
-    const parent = stmtPath.getParentNode();
+  path.map(function(stmtPath, i) {
+    var stmt = stmtPath.getValue();
 
     // Just in case the AST has been modified to contain falsy
     // "statements," it's safer simply to skip them.
