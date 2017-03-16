@@ -1209,12 +1209,12 @@ function genericPrintNoParens(path, options, print) {
       else parts.push("default:");
 
       if (n.consequent.find(node => node.type !== "EmptyStatement")) {
+        const parent = path.getParentNode();
+        const lastCase = util.getLast(parent.cases);
         const cons = path.call(consequentPath => {
           let printed = [];
           path.map(p => {
-            const parentParent = path.getParentNode(1);
-            const last = util.getLast(parentParent.cases);
-            const shouldAddLine = p.getParentNode() !== last &&
+            const shouldAddLine = p.getParentNode() !== lastCase &&
               util.isNextLineEmpty(options.originalText, p.getValue());
             printed.push(concat([print(p), shouldAddLine ? hardline : ""]));
           });
