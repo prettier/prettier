@@ -2063,7 +2063,7 @@ function printFunctionParams(path, print, options) {
   }
 
   const isFlowShorthandWithOneArg = (isObjectTypePropertyAFunction(parent) ||
-    isTypeAnnotationAFunction(parent) ||parent.type === "TypeAlias") &&
+    isTypeAnnotationAFunction(parent) || parent.type === "TypeAlias") &&
     fun.params.length === 1 && fun.params[0].name === null && fun.rest === null;
 
   return concat([
