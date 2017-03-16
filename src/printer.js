@@ -2040,7 +2040,7 @@ function printFunctionParams(path, print, options) {
     ]);
   }
 
-  const lastParam = util.getLast(path.getValue().params);
+  const lastParam = util.getLast(fun.params);
   const canHaveTrailingComma = !(lastParam &&
     lastParam.type === "RestElement") && !fun.rest;
 
@@ -2063,8 +2063,12 @@ function printFunctionParams(path, print, options) {
     return concat(["(", join(", ", printed), ")"]);
   }
 
+  const isFlowShorthandWithOneArg = (isObjectTypePropertyAFunction(parent) ||
+    isTypeAnnotationAFunction(parent) || parent.type === "TypeAlias") &&
+    fun.params.length === 1 && fun.params[0].name === null && fun.rest === null;
+
   return concat([
-    "(",
+    isFlowShorthandWithOneArg ? "" : "(",
     indent(
       options.tabWidth,
       concat([softline, join(concat([",", line]), printed)])
@@ -2073,7 +2077,7 @@ function printFunctionParams(path, print, options) {
       canHaveTrailingComma && shouldPrintComma(options, "all") ? "," : ""
     ),
     softline,
-    ")"
+    isFlowShorthandWithOneArg ? "" : ")"
   ]);
 }
 
@@ -3069,6 +3073,16 @@ function isObjectTypePropertyAFunction(node) {
     node.value.type === "FunctionTypeAnnotation" &&
     !node.static &&
     util.locStart(node.key) !== util.locStart(node.value);
+}
+
+// Hack to differentiate between the following two which have the same ast
+// declare function f(a): void;
+// var f: (a) => void;
+function isTypeAnnotationAFunction(node) {
+  return node.type === "TypeAnnotation" &&
+    node.typeAnnotation.type === "FunctionTypeAnnotation" &&
+    !node.static &&
+    util.locStart(node) !== util.locStart(node.typeAnnotation)
 }
 
 function isFlowNodeStartingWithDeclare(node, options) {
