@@ -565,7 +565,7 @@ a = [
   />
 ];
 
-<div {...foo || foo === null ? { foo } : null} />;
+<div {...(foo || foo === null ? { foo } : null)} />;
 "
 `;
 
@@ -594,7 +594,7 @@ a = [
   />
 ];
 
-<div {...foo || foo === null ? { foo } : null} />;
+<div {...(foo || foo === null ? { foo } : null)} />;
 "
 `;
 
