@@ -83,7 +83,7 @@ class a extends class {} {}
 class a extends (b ? c : d) {}
 
 // \\"FunctionExpression\\"
-class a extends function() {} {}
+class a extends function(){} {}
 
 // \\"LogicalExpression\\"
 class a extends (b || c) {}

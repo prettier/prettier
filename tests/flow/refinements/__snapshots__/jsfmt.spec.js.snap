@@ -797,7 +797,7 @@ function foo5() {
     o.p();
   }
   function _foo5() {
-    o.p = function() {};
+    o.p = function(){};
   }
 }
 

@@ -270,7 +270,7 @@ function genericPrintNoParens(path, options, print) {
         path.call(print, "typeAnnotation")
       ]);
     case "FunctionDeclaration":
-    case "FunctionExpression":
+    case "FunctionExpression": {
       if (n.async) parts.push("async ");
 
       parts.push("function");
@@ -288,12 +288,26 @@ function genericPrintNoParens(path, options, print) {
             printFunctionParams(path, print, options),
             printReturnType(path, print)
           ])
-        ),
-        " ",
-        path.call(print, "body")
+        )
       );
 
+      const body = path.call(print, "body");
+
+      if (
+        n.id ||
+        n.predicate ||
+        n.returnType ||
+        body.type !== "concat" ||
+        body.parts.length !== 1 ||
+        body.parts[0] !== "{}"
+      ) {
+        parts.push(" ");
+      }
+
+      parts.push(body);
+
       return concat(parts);
+    }
     case "ArrowFunctionExpression":
       if (n.async) parts.push("async ");
 

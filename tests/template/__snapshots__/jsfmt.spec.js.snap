@@ -146,7 +146,7 @@ b()\`\`;
 (b ? c : d)\`\`;
 
 // \\"FunctionExpression\\"
-(function() {})\`\`;
+(function(){})\`\`;
 
 // \\"LogicalExpression\\"
 (b || c)\`\`;

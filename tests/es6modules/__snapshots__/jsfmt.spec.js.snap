@@ -59,14 +59,14 @@ export default (class foobar {});
 exports[`export_default_function_declaration.js 1`] = `
 "export default function() {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export default function() {}
+export default function(){}
 "
 `;
 
 exports[`export_default_function_declaration.js 2`] = `
 "export default function() {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export default function() {}
+export default function(){}
 "
 `;
 
@@ -101,14 +101,14 @@ export default function f() {}
 exports[`export_default_function_expression.js 1`] = `
 "export default (function() {});
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export default (function() {});
+export default (function(){});
 "
 `;
 
 exports[`export_default_function_expression.js 2`] = `
 "export default (function() {});
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export default (function() {});
+export default (function(){});
 "
 `;
 

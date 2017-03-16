@@ -454,7 +454,7 @@ takesAString(y.toString());
 // ... on a primitive
 (123).toString();
 (123).toString;
-(123).toString = function() {}; // error
+(123).toString = function(){}; // error
 (123).toString(2);
 (123).toString(\\"foo\\"); // error
 (123).toString(null); // error

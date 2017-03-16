@@ -266,7 +266,7 @@ function testOptionalNullableProperty(obj: { x?: ?string }): string {
 }
 
 function testOptionalNullableFlowingToNullable(x?: ?string): ?string {
-  var f = function(y: ?string) {};
+  var f = function(y: ?string){};
   f(x);
 }
 "
