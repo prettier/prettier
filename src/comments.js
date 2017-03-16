@@ -164,8 +164,8 @@ function attach(comments, ast, text, options) {
           followingNode,
           comment
         ) ||
-          handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
-          handleImportDeclarationComments(enclosingNode, precedingNode, comment)
+        handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
+        handleImportDeclarationComments(enclosingNode, precedingNode, comment)
       ) {
         // We're good
       } else if (followingNode) {
