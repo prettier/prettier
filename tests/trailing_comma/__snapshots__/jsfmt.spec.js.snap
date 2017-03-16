@@ -411,7 +411,7 @@ export {
   value2 as value2_renamed,
   value3,
   value4 as value4_renamed,
-  value5,
+  value5
 } from \\"exports\\";
 "
 `;
@@ -424,7 +424,7 @@ export {
   value2 as value2_renamed,
   value3,
   value4 as value4_renamed,
-  value5,
+  value5
 } from \\"exports\\";
 "
 `;
@@ -450,7 +450,7 @@ export {
   value2 as value2_renamed,
   value3,
   value4 as value4_renamed,
-  value5,
+  value5
 } from \\"exports\\";
 "
 `;
@@ -476,7 +476,7 @@ export {
   value2 as value2_renamed,
   value3,
   value4 as value4_renamed,
-  value5,
+  value5
 } from \\"exports\\";
 "
 `;
@@ -489,7 +489,7 @@ export {
   value2 as value2_renamed,
   value3,
   value4 as value4_renamed,
-  value5,
+  value5
 } from \\"exports\\";
 "
 `;
@@ -515,7 +515,7 @@ export {
   value2 as value2_renamed,
   value3,
   value4 as value4_renamed,
-  value5,
+  value5
 } from \\"exports\\";
 "
 `;

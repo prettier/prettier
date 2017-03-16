@@ -5,15 +5,9 @@
   "bin": {
     "prettier": "./bin/prettier.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/arijs/prettier-with-tabs.git"
-  },
+  "repository": "arijs/prettier-with-tabs",
   "author": "Rafael Hengles",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/arijs/prettier-with-tabs/issues"
-  },
   "main": "./index.js",
   "dependencies": {
     "ast-types": "0.9.4",
