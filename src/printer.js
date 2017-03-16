@@ -1213,8 +1213,7 @@ function genericPrintNoParens(path, options, print) {
           let printed = [];
           path.map(p => {
             const parentParent = path.getParentNode(1);
-            const last = parentParent && parentParent.cases &&
-              parentParent.cases[parentParent.cases.length - 1];
+            const last = util.getLast(parentParent.cases);
             const shouldAddLine = p.getParentNode() !== last &&
               util.isNextLineEmpty(options.originalText, p.getValue());
             printed.push(concat([print(p), shouldAddLine ? hardline : ""]));
