@@ -5,6 +5,7 @@ node_js:
   - 6
   - stable
 cache:
+  yarn: true
   directories:
   - node_modules
 script: npm test -- --runInBand
