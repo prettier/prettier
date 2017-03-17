@@ -1212,7 +1212,7 @@ function genericPrintNoParens(path, options, print) {
         const parent = path.getParentNode();
         const lastCase = util.getLast(parent.cases);
         const cons = path.call(consequentPath => {
-          return join(hardline, path.map(p => {
+          return join(hardline, consequentPath.map(p => {
             const shouldAddLine = p.getParentNode() !== lastCase &&
               util.isNextLineEmpty(options.originalText, p.getValue());
             return concat([print(p), shouldAddLine ? hardline : ""]);
