@@ -105,6 +105,9 @@ function willBreak(doc) {
       if (doc.type === "line" && doc.hard) {
         return true;
       }
+      if (doc.type === "break-parent") {
+        return true;
+      }
     },
     false
   );
