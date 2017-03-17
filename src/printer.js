@@ -65,7 +65,8 @@ function genericPrint(path, options, printPath) {
     !util.getParentExportDeclaration(path)
   ) {
     const separator = node.decorators.length === 1 &&
-      node.decorators[0].expression.type === "Identifier"
+      (node.decorators[0].expression.type === "Identifier" ||
+       node.decorators[0].expression.type === "MemberExpression")
       ? " "
       : hardline;
     path.each(
@@ -653,7 +654,6 @@ function genericPrintNoParens(path, options, print) {
     case "ObjectExpression":
     case "ObjectPattern":
     case "ObjectTypeAnnotation":
-      var allowBreak = false;
       var isTypeAnnotation = n.type === "ObjectTypeAnnotation";
       // Leave this here because we *might* want to make this
       // configurable later -- flow accepts ";" for type separators
@@ -1238,13 +1238,15 @@ function genericPrintNoParens(path, options, print) {
       else parts.push("default:");
 
       if (n.consequent.find(node => node.type !== "EmptyStatement")) {
-        const cons = path.call(
-          function(consequentPath) {
-            return printStatementSequence(consequentPath, options, print);
-          },
-          "consequent"
-        );
-
+        const parent = path.getParentNode();
+        const lastCase = util.getLast(parent.cases);
+        const cons = path.call(consequentPath => {
+          return join(hardline, consequentPath.map(p => {
+            const shouldAddLine = p.getParentNode() !== lastCase &&
+              util.isNextLineEmpty(options.originalText, p.getValue());
+            return concat([print(p), shouldAddLine ? hardline : ""]);
+          }));
+        }, "consequent");
         parts.push(
           isCurlyBracket(cons)
             ? concat([" ", cons])
@@ -1374,7 +1376,7 @@ function genericPrintNoParens(path, options, print) {
         comments.printDanglingComments(
           path,
           options,
-          /* sameIndent */ requiresHardline ? false : true
+          /* sameIndent */ !requiresHardline
         ),
         requiresHardline ? hardline : ""
       ]);
@@ -1884,13 +1886,12 @@ function genericPrintNoParens(path, options, print) {
       debugger;
       throw new Error("unknown type: " + JSON.stringify(n.type));
   }
-  return p;
 }
 
 function printStatementSequence(path, options, print) {
   let printed = [];
 
-  path.map(function(stmtPath, i) {
+  path.map(stmtPath => {
     var stmt = stmtPath.getValue();
 
     // Just in case the AST has been modified to contain falsy
@@ -2125,7 +2126,7 @@ function printFunctionParams(path, print, options) {
     ]);
   }
 
-  const lastParam = util.getLast(path.getValue().params);
+  const lastParam = util.getLast(fun.params);
   const canHaveTrailingComma = !(lastParam &&
     lastParam.type === "RestElement") && !fun.rest;
 
@@ -2151,8 +2152,12 @@ function printFunctionParams(path, print, options) {
     return concat(["(", join(", ", printed), ")"]);
   }
 
+  const isFlowShorthandWithOneArg = (isObjectTypePropertyAFunction(parent) ||
+    isTypeAnnotationAFunction(parent) || parent.type === "TypeAlias") &&
+    fun.params.length === 1 && fun.params[0].name === null && fun.rest === null;
+
   return concat([
-    "(",
+    isFlowShorthandWithOneArg ? "" : "(",
     indent(
       1,
       concat([softline, join(concat([",", line]), printed)])
@@ -2161,7 +2166,7 @@ function printFunctionParams(path, print, options) {
       canHaveTrailingComma && shouldPrintComma(options, "arguments") ? "," : ""
     ),
     softline,
-    ")"
+    isFlowShorthandWithOneArg ? "" : ")"
   ]);
 }
 
@@ -2989,15 +2994,6 @@ function isEmptyBlock(doc) {
   return str === "{}";
 }
 
-function lastNonSpaceCharacter(lines) {
-  var pos = lines.lastPos();
-  do {
-    var ch = lines.charAt(pos);
-
-    if (/\S/.test(ch)) return ch;
-  } while (lines.prevPos(pos));
-}
-
 function nodeStr(node, options) {
   const str = node.value;
   isString.assert(str);
@@ -3179,6 +3175,16 @@ function shouldPrintSameLine(node) {
     type === "ThisExpression" ||
     type === "TypeCastExpression" ||
     type === "UnaryExpression";
+}
+
+// Hack to differentiate between the following two which have the same ast
+// declare function f(a): void;
+// var f: (a) => void;
+function isTypeAnnotationAFunction(node) {
+  return node.type === "TypeAnnotation" &&
+    node.typeAnnotation.type === "FunctionTypeAnnotation" &&
+    !node.static &&
+    util.locStart(node) !== util.locStart(node.typeAnnotation)
 }
 
 function isFlowNodeStartingWithDeclare(node, options) {

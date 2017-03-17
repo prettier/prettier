@@ -164,7 +164,8 @@ function attach(comments, ast, text, options) {
           followingNode,
           comment
         ) ||
-        handleOnlyComments(enclosingNode, ast, comment, isLastComment)
+        handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
+        handleImportDeclarationComments(enclosingNode, precedingNode, comment)
       ) {
         // We're good
       } else if (followingNode) {
@@ -641,6 +642,18 @@ function handleForComments(enclosingNode, precedingNode, comment) {
     enclosingNode.type === "ForOfStatement")
   ) {
     addLeadingComment(enclosingNode, comment);
+    return true;
+  }
+  return false;
+}
+
+function handleImportDeclarationComments(enclosingNode, precedingNode, comment) {
+  if (
+    precedingNode &&
+    enclosingNode && enclosingNode.type === "ImportDeclaration" &&
+    comment.type !== "CommentBlock" && comment.type !== "Block"
+  ) {
+    addTrailingComment(precedingNode, comment);
     return true;
   }
   return false;

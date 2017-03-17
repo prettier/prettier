@@ -109,7 +109,6 @@ function getIntOption(optionName) {
 }
 
 function getTrailingComma() {
-  let trailingComma;
   switch (argv["trailing-comma"]) {
     case undefined:
     case "none":

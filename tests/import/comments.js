@@ -20,3 +20,13 @@ import {
   a as //comment3 //comment2 //comment1
   b
 } from "";
+
+import {
+  // comment 1
+  FN1, // comment 2
+  /* comment 3 */ FN2,
+  // FN3,
+  FN4 /* comment 4 */
+  // FN4,
+  // FN5
+} from "./module";

@@ -272,7 +272,7 @@ FPp.needsParens = function(assumeExpressionContext) {
 
         case "NewExpression":
         case "CallExpression":
-          return name === "callee" && parent.callee == node;
+          return name === "callee" && parent.callee === node;
 
         case "BinaryExpression":
           return parent.operator === "**" && name === "left";
@@ -437,7 +437,6 @@ FPp.needsParens = function(assumeExpressionContext) {
         case "SpreadProperty":
         case "BinaryExpression":
         case "LogicalExpression":
-        case "LogicalExpression":
         case "ExportDefaultDeclaration":
         case "AwaitExpression":
         case "JSXSpreadAttribute":
@@ -482,7 +481,7 @@ FPp.needsParens = function(assumeExpressionContext) {
 
         case "BindExpression":
         case "TaggedTemplateExpression":
-        case "UnaryExpression":  
+        case "UnaryExpression":
         case "LogicalExpression":
         case "BinaryExpression":
           return true;

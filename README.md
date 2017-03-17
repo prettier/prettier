@@ -331,6 +331,8 @@ All of JSX and Flow syntax is supported. In fact, the test suite in
 - [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier) turns off all ESLint rules that are unnecessary or might conflict with prettier
 - [`prettier-eslint`](https://github.com/prettier/prettier-eslint)
 passes `prettier` output to `eslint --fix`
+- [`prettier-standard`](https://github.com/sheerun/prettier-standard)
+uses `prettier` and `prettier-eslint` to format code with standard rules 
 - [`prettier-standard-formatter`](https://github.com/dtinth/prettier-standard-formatter)
 passes `prettier` output to `standard --fix`
 - [`prettier-with-tabs`](https://github.com/arijs/prettier-with-tabs)
