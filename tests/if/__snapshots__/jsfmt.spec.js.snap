@@ -1,5 +1,89 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`else.js 1`] = `
+"// Both functions below should be formatted exactly the same
+
+function f() {
+  if (position)
+    return {name: pair};
+  else
+    return {name: pair.substring(0, position), value: pair.substring(position + 1)};
+}
+
+function f() {
+  if (position)
+    return {name: pair};
+  else
+    return {
+      name: pair.substring(0, position),
+      value: pair.substring(position + 1)
+    };
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Both functions below should be formatted exactly the same
+
+function f() {
+  if (position) return { name: pair };
+  else
+    return {
+      name: pair.substring(0, position),
+      value: pair.substring(position + 1)
+    };
+}
+
+function f() {
+  if (position) return { name: pair };
+  else
+    return {
+      name: pair.substring(0, position),
+      value: pair.substring(position + 1)
+    };
+}
+"
+`;
+
+exports[`else.js 2`] = `
+"// Both functions below should be formatted exactly the same
+
+function f() {
+  if (position)
+    return {name: pair};
+  else
+    return {name: pair.substring(0, position), value: pair.substring(position + 1)};
+}
+
+function f() {
+  if (position)
+    return {name: pair};
+  else
+    return {
+      name: pair.substring(0, position),
+      value: pair.substring(position + 1)
+    };
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Both functions below should be formatted exactly the same
+
+function f() {
+  if (position) return { name: pair };
+  else
+    return {
+      name: pair.substring(0, position),
+      value: pair.substring(position + 1)
+    };
+}
+
+function f() {
+  if (position) return { name: pair };
+  else
+    return {
+      name: pair.substring(0, position),
+      value: pair.substring(position + 1)
+    };
+}
+"
+`;
+
 exports[`if_comments.js 1`] = `
 "async function f() {
   if (untrackedChoice === 0) /* Cancel */ {
