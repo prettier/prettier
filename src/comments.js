@@ -648,7 +648,11 @@ function handleForComments(enclosingNode, precedingNode, comment) {
 }
 
 function handleImportDeclarationComments(enclosingNode, precedingNode, comment) {
-  if (enclosingNode && enclosingNode.type === "ImportDeclaration") {
+  if (
+    precedingNode &&
+    enclosingNode && enclosingNode.type === "ImportDeclaration" &&
+    comment.type !== "CommentBlock" && comment.type !== "Block"
+  ) {
     addTrailingComment(precedingNode, comment);
     return true;
   }
