@@ -635,6 +635,7 @@ function genericPrintNoParens(path, options, print) {
       ) {
         return concat([
           path.call(print, "callee"),
+          path.call(print, "typeParameters"),
           concat(["(", join(", ", path.map(print, "arguments")), ")"])
         ]);
       }
@@ -647,6 +648,7 @@ function genericPrintNoParens(path, options, print) {
 
       return concat([
         path.call(print, "callee"),
+        path.call(print, "typeParameters"),
         printArgumentsList(path, options, print)
       ]);
     }
@@ -900,6 +902,10 @@ function genericPrintNoParens(path, options, print) {
       );
     case "NewExpression":
       parts.push("new ", path.call(print, "callee"));
+
+      if (n.typeParameters) {
+        parts.push(path.call(print, "typeParameters"))
+      }
 
       var args = n.arguments;
 
@@ -1361,6 +1367,8 @@ function genericPrintNoParens(path, options, print) {
           key = concat(["+", key]);
         } else if (n.variance === "minus") {
           key = concat(["-", key]);
+        } else if (n.accessibility === "private") {
+          key = concat(["private ", key]);
         }
       }
 
@@ -1758,6 +1766,11 @@ function genericPrintNoParens(path, options, print) {
         parts.push(path.call(print, "bound"));
       }
 
+      if (n.constraint) {
+        // TODO: Figure out how to remove the colon
+        parts.push(" extends ", path.call(print, "constraint"));
+      }
+
       if (n["default"]) {
         parts.push("=", path.call(print, "default"));
       }
@@ -1776,6 +1789,31 @@ function genericPrintNoParens(path, options, print) {
     // supported by the pretty-printer.
     case "DeclaredPredicate":
       return concat(["%checks(", path.call(print, "value"), ")"]);
+    case "TSAnyKeyword":
+      return "any";
+    case "TSNumberKeyword":
+      return "number";
+    case "TSObjectKeyword":
+      return "object";
+    case "TSStringKeyword":
+      return "string";
+    case "TSVoidKeyword":
+      return "void";
+    case "TSFunctionType":
+      console.log('TSFunctionType', path.getValue())
+      return options.originalText.slice(util.locStart(path.getValue()), util.locEnd(path.getValue()));
+    case "TSArrayType":
+      return concat([path.call(print, "elementType"), "[]"]);
+    case "TSTypeLiteral": 
+      console.log('TSTypeLiteral', path.getValue())
+      return options.originalText.slice(util.locStart(path.getValue()), util.locEnd(path.getValue()));
+    case "TSPropertySignature":
+      console.log('TSPropertySignature', path.getValue())
+      return "TSPropertySignature"
+    case "TSParameterProperty":
+    case "TSTypeReference":
+      console.log('TSParameterProperty', path.getValue())
+      return options.originalText.slice(util.locStart(path.getValue()), util.locEnd(path.getValue()));
     // TODO
     case "ClassHeritage":
     // TODO

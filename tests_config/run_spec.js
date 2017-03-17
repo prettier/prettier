@@ -20,7 +20,7 @@ function removeEmptyStatements(ast) {
 
 function run_spec(dirname, options) {
   fs.readdirSync(dirname).forEach(filename => {
-    if (filename.endsWith('.js') && filename !== 'jsfmt.spec.js') {
+    if ((filename.endsWith('.js') || filename.endsWith('.ts')) && filename !== 'jsfmt.spec.js') {
       const path = dirname + '/' + filename;
 
       if (!RUN_AST_TESTS) {
