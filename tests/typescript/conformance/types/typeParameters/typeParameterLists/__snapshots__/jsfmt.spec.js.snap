@@ -32,8 +32,8 @@ function f2<T extends Date, U extends Date>() {
 // inner type parameters shadow outer ones of the same name
 // no errors expected
 
-function f<T extends : Date>() {
-  function g<T extends : Number>() {
+function f<T extends Date>() {
+  function g<T extends Number>() {
     var x: T;
     x.toFixed();
   }
@@ -41,8 +41,8 @@ function f<T extends : Date>() {
   x.getDate();
 }
 
-function f2<T extends : Date, U extends : Date>() {
-  function g<T extends : Number, U extends : Number>() {
+function f2<T extends Date, U extends Date>() {
+  function g<T extends Number, U extends Number>() {
     var x: U;
     x.toFixed();
   }
@@ -101,7 +101,7 @@ class C2<T extends Date, U extends Date> {
 // inner type parameters shadow outer ones of the same name
 // no errors expected
 
-class C<T extends : Date> {
+class C<T extends Date> {
   g() {
     var x: T;
     x.toFixed();
@@ -113,7 +113,7 @@ class C<T extends : Date> {
   }
 }
 
-class C2<T extends : Date, U extends : Date> {
+class C2<T extends Date, U extends Date> {
   g() {
     var x: U;
     x.toFixed();
@@ -165,7 +165,7 @@ class C2<T, U> {
   static f(x: U) {}
 }
 
-class C3<T extends : Date> {
+class C3<T extends Date> {
   static x;
   static f(x: T) {}
 }

@@ -1453,7 +1453,12 @@ function genericPrintNoParens(path, options, print) {
     // transformed away before printing.
     case "TypeAnnotation":
       if (n.typeAnnotation) {
-        if (n.typeAnnotation.type !== "FunctionTypeAnnotation") {
+        if (
+          n.typeAnnotation.type !== "FunctionTypeAnnotation" &&
+          // TypeScript should not have a colon before type parameter constraints
+          !(path.getParentNode().type === "TypeParameter" &&
+            path.getParentNode().constraint)
+        ) {
           parts.push(": ");
         }
 
@@ -1767,7 +1772,6 @@ function genericPrintNoParens(path, options, print) {
       }
 
       if (n.constraint) {
-        // TODO: Figure out how to remove the colon
         parts.push(" extends ", path.call(print, "constraint"));
       }
 
