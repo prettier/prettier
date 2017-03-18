@@ -656,21 +656,25 @@ function genericPrintNoParens(path, options, print) {
     case "ObjectExpression":
     case "ObjectPattern":
     case "ObjectTypeAnnotation":
+    case "TSTypeLiteral":
       var isTypeAnnotation = n.type === "ObjectTypeAnnotation";
+      var isTypeScriptTypeAnnotaion = n.type === "TSTypeLiteral";
       // Leave this here because we *might* want to make this
-      // configurable later -- flow accepts ";" for type separators
+      // configurable later -- flow accepts ";" for type separators, 
+      // typescript accepts ";" and newlines
       var separator = isTypeAnnotation ? "," : ",";
       var fields = [];
       var leftBrace = n.exact ? "{|" : "{";
       var rightBrace = n.exact ? "|}" : "}";
       var parent = path.getParentNode(0);
       var parentIsUnionTypeAnnotation = parent.type === "UnionTypeAnnotation";
+      var propertiesField = isTypeScriptTypeAnnotaion ? "members" : "properties";
 
       if (isTypeAnnotation) {
         fields.push("indexers", "callProperties");
       }
 
-      fields.push("properties");
+      fields.push(propertiesField);
 
       var props = [];
       let separatorParts = [];
@@ -692,7 +696,7 @@ function genericPrintNoParens(path, options, print) {
         );
       });
 
-      const lastElem = util.getLast(n.properties);
+      const lastElem = util.getLast(n[propertiesField]);
       const canHaveTrailingComma = !(lastElem &&
         lastElem.type === "RestProperty");
 
@@ -1803,21 +1807,18 @@ function genericPrintNoParens(path, options, print) {
       return "string";
     case "TSVoidKeyword":
       return "void";
-    case "TSFunctionType":
-      console.log('TSFunctionType', path.getValue())
-      return options.originalText.slice(util.locStart(path.getValue()), util.locEnd(path.getValue()));
     case "TSArrayType":
       return concat([path.call(print, "elementType"), "[]"]);
-    case "TSTypeLiteral": 
-      console.log('TSTypeLiteral', path.getValue())
+    case "TSFunctionType":
+      // console.log('TSFunctionType', path.getValue())
       return options.originalText.slice(util.locStart(path.getValue()), util.locEnd(path.getValue()));
     case "TSPropertySignature":
-      console.log('TSPropertySignature', path.getValue())
-      return "TSPropertySignature"
-    case "TSParameterProperty":
+      parts.push(path.call(print, "name"));
+      parts.push(path.call(print, "typeAnnotation"));
+
+      return concat(parts);
     case "TSTypeReference":
-      console.log('TSParameterProperty', path.getValue())
-      return options.originalText.slice(util.locStart(path.getValue()), util.locEnd(path.getValue()));
+      return concat([path.call(print, "typeName")]);
     // TODO
     case "ClassHeritage":
     // TODO
