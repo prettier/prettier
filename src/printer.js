@@ -232,9 +232,22 @@ function genericPrintNoParens(path, options, print, args) {
         path.call(print, "right")
       ]);
     case "MemberExpression": {
+      const parent = path.getParentNode();
+      const shouldInline =
+        n.computed ||
+        (n.object.type === "Identifier" &&
+          n.property.type === "Identifier" &&
+          parent.type !== "MemberExpression");
+
       return concat([
         path.call(print, "object"),
-        printMemberLookup(path, options, print)
+        shouldInline
+          ? printMemberLookup(path, options, print)
+          : group(
+              indent(
+                concat([softline, printMemberLookup(path, options, print)])
+              )
+            )
       ]);
     }
     case "MetaProperty":
