@@ -236,11 +236,11 @@ f12345(\\"a\\");  // error
 f12345(\\"a\\", \\"b\\");
 f12345(\\"a\\", \\"b\\", \\"c\\");  // error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-type F1 = (a: string, b?: string) => : void;
-type F2 = (a: string, b?: string, c?: string) => : void;
-type F3 = (a: string, ...rest: string[]) => : void;
-type F4 = (a: string, b?: string, ...rest: string[]) => : void;
-type F5 = (a: string, b: string) => : void;
+type F1 = (a: string, b?: string) => void;
+type F2 = (a: string, b?: string, c?: string) => void;
+type F3 = (a: string, ...rest: string[]) => void;
+type F4 = (a: string, b?: string, ...rest: string[]) => void;
+type F5 = (a: string, b: string) => void;
 
 var f12: F1 | F2;
 f12(\\"a\\");

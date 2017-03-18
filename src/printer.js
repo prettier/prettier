@@ -272,29 +272,7 @@ function genericPrintNoParens(path, options, print) {
       ]);
     case "FunctionDeclaration":
     case "FunctionExpression":
-      if (n.async) parts.push("async ");
-
-      parts.push("function");
-
-      if (n.generator) parts.push("*");
-
-      if (n.id) {
-        parts.push(" ", path.call(print, "id"));
-      }
-
-      parts.push(
-        path.call(print, "typeParameters"),
-        group(
-          concat([
-            printFunctionParams(path, print, options),
-            printReturnType(path, print)
-          ])
-        ),
-        " ",
-        path.call(print, "body")
-      );
-
-      return concat(parts);
+      return printFunctionDeclaration(path, print, options)
     case "ArrowFunctionExpression":
       if (n.async) parts.push("async ");
 
@@ -1463,9 +1441,7 @@ function genericPrintNoParens(path, options, print) {
       if (n.typeAnnotation) {
         if (
           n.typeAnnotation.type !== "FunctionTypeAnnotation" &&
-          !(path.getParentNode().type === 'TypeAnnotation' && 
-            path.getParentNode().typeAnnotation &&
-            path.getParentNode().typeAnnotation.type !== "TSTypeLiteral") &&
+          !shouldTypeScriptTypeAvoidColon(path) &&
           // TypeScript should not have a colon before type parameter constraints
           !(path.getParentNode().type === "TypeParameter" &&
             path.getParentNode().constraint)
@@ -1522,6 +1498,14 @@ function genericPrintNoParens(path, options, print) {
     case "DeclareClass":
       return printFlowDeclaration(path, printClass(path, options, print));
     case "DeclareFunction":
+      // For TypeScript the DeclareFunction node shares the AST
+      // structure with FunctionDeclaration
+      if (n.params) {
+        return concat([
+          "declare ",
+          printFunctionDeclaration(path, print, options),
+        ])
+      }
       return printFlowDeclaration(path, [
         "function ",
         path.call(print, "id"),
@@ -1821,6 +1805,12 @@ function genericPrintNoParens(path, options, print) {
       return "string";
     case "TSVoidKeyword":
       return "void";
+    case "TSAsExpression":
+      return concat([
+        path.call(print, "expression"), 
+        " as ", 
+        path.call(print, "typeAnnotation"),
+      ])
     case "TSArrayType":
       return concat([path.call(print, "elementType"), "[]"]);
     case "TSPropertySignature":
@@ -2190,6 +2180,35 @@ function printFunctionParams(path, print, options) {
     softline,
     isFlowShorthandWithOneArg ? "" : ")"
   ]);
+}
+
+function printFunctionDeclaration(path, print, options) {
+  var n = path.getValue();
+  var parts = [];
+
+  if (n.async) parts.push("async ");
+
+  parts.push("function");
+
+  if (n.generator) parts.push("*");
+
+  if (n.id) {
+    parts.push(" ", path.call(print, "id"));
+  }
+
+  parts.push(
+    path.call(print, "typeParameters"),
+    group(
+      concat([
+        printFunctionParams(path, print, options),
+        printReturnType(path, print)
+      ])
+    ),
+    " ",
+    path.call(print, "body")
+  );
+
+  return concat(parts);
 }
 
 function printObjectMethod(path, options, print) {
@@ -3014,6 +3033,26 @@ function isCurlyBracket(doc) {
 function isEmptyBlock(doc) {
   const str = getFirstString(doc);
   return str === "{}";
+}
+
+
+function shouldTypeScriptTypeAvoidColon(path) {
+  // As the special TS nodes isn't returned by the node helpers,
+  // we use the stack directly to get the parent node.
+  const parent = path.stack[path.stack.length - 3]
+
+  switch (parent.type) {
+    case "TSFunctionType":
+    case "TSIndexSignature":
+    case "TSParenthesizedType":
+    case "TSCallSignature":
+    case "TSConstructSignature":
+    case "TSAsExpression":
+      return true
+    default:
+      return false
+
+  }
 }
 
 function nodeStr(node, options) {
