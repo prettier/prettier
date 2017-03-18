@@ -318,7 +318,8 @@ var f12: (x: number) => any = x => { // should be (x: number) => Base | AnotherC
     return new Base();
     return; // should be ignored
     return new AnotherClass();
-}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @allowUnreachableCode: true
 
 // FunctionExpression with no return type annotation and no return statement returns void
@@ -504,7 +505,8 @@ exports[`functionOverloadCompatibilityWithVoid01.ts 1`] = `
 "function f(x: string): number;
 function f(x: string): void {
     return;
-} ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+} 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function f(x: string): number 
 function f(x: string): void {
   return;
@@ -516,7 +518,8 @@ exports[`functionOverloadCompatibilityWithVoid02.ts 1`] = `
 "function f(x: string): void;
 function f(x: string): number {
     return 0;
-} ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+} 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function f(x: string): void 
 function f(x: string): number {
   return 0;
@@ -528,7 +531,8 @@ exports[`functionOverloadCompatibilityWithVoid03.ts 1`] = `
 "function f(x: string): void;
 function f(x: string): void {
     return;
-} ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+} 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function f(x: string): void 
 function f(x: string): void {
   return;
@@ -602,7 +606,8 @@ var x = (a = b, b = c, c = d) => { var d; };
 
 // Should not produce errors - can reference later parameters if they occur within a function expression initializer.
 function f(a, b = function () { return c; }, c = b()) {
-}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function left(a, b = a, c = b) {
   a;
   b;

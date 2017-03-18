@@ -10,7 +10,8 @@ var b = new x('hello');
 var c = new x(x);
 
 // grammar allows this for constructors
-var d = new x<any>(x); // no error~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var d = new x<any>(x); // no error
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // any is considered an untyped function call
 // can be called except with type arguments which is an error
 
@@ -31,7 +32,8 @@ exports[`anyAsFunctionCall.ts 1`] = `
 var x: any;
 var a = x();
 var b = x('hello');
-var c = x(x);~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var c = x(x);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // any is considered an untyped function call
 // can be called except with type arguments which is an error
 
@@ -53,7 +55,8 @@ var c = x<object>('hello');
 
 class C { foo: string; }
 var c = x<C>(x);
-var d = x<any>(x);~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var d = x<any>(x);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // any is considered an untyped function call
 // can be called except with type arguments which is an error
 
@@ -77,7 +80,8 @@ var b = x['foo'];
 var c = x['fn']();
 var d = x.bar.baz;
 var e = x[0].foo;
-var f = x['0'].bar;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var f = x['0'].bar;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var x: any;
 var a = x.foo;
 var b = x[\\"foo\\"];

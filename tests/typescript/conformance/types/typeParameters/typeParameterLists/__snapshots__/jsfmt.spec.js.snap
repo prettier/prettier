@@ -28,7 +28,8 @@ function f2<T extends Date, U extends Date>() {
 //    }
 //    var x: U;
 //    x.getDate();
-//}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // inner type parameters shadow outer ones of the same name
 // no errors expected
 
@@ -97,7 +98,8 @@ class C2<T extends Date, U extends Date> {
 //        var x: U;
 //        x.getDate();
 //    }
-//}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // inner type parameters shadow outer ones of the same name
 // no errors expected
 
@@ -153,7 +155,8 @@ class C2<T, U> {
 class C3<T extends Date> {
     static x: T;
     static f(x: T) { }
-}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // BUG 745747
 class C<T> {
   static x;
@@ -181,7 +184,8 @@ exports[`typeParametersAvailableInNestedScope2.ts 1`] = `
             var e: V;
         }
     }
-}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function foo<T, U>(x: T, y: U) {
   function bar<V>(z: V) {
     function baz<W>(a: W) {
