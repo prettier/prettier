@@ -1371,6 +1371,10 @@ function genericPrintNoParens(path, options, print) {
           key = concat(["+", key]);
         } else if (n.variance === "minus") {
           key = concat(["-", key]);
+        } else if (n.accessibility === "public") {
+          key = concat(["public ", key]);
+        } else if (n.accessibility === "protected") {
+          key = concat(["protected ", key]);
         } else if (n.accessibility === "private") {
           key = concat(["private ", key]);
         }
@@ -1459,8 +1463,9 @@ function genericPrintNoParens(path, options, print) {
       if (n.typeAnnotation) {
         if (
           n.typeAnnotation.type !== "FunctionTypeAnnotation" &&
-          !(path.getParentNode().typeAnnotation &&
-            path.getParentNode().typeAnnotation.type === "TSFunctionType") &&
+          !(path.getParentNode().type === 'TypeAnnotation' && 
+            path.getParentNode().typeAnnotation &&
+            path.getParentNode().typeAnnotation.type !== "TSTypeLiteral") &&
           // TypeScript should not have a colon before type parameter constraints
           !(path.getParentNode().type === "TypeParameter" &&
             path.getParentNode().constraint)
@@ -1474,7 +1479,9 @@ function genericPrintNoParens(path, options, print) {
       }
 
       return "";
+    case "TSTupleType":
     case "TupleTypeAnnotation":
+      let typesField = n.type === "TSTupleType" ? "elementTypes" : "types"
       return group(
         concat([
           "[",
@@ -1482,7 +1489,7 @@ function genericPrintNoParens(path, options, print) {
             options.tabWidth,
             concat([
               softline,
-              printArrayItems(path, options, "types", print)
+              printArrayItems(path, options, typesField, print)
             ])
           ),
           ifBreak(shouldPrintComma(options) ? "," : ""),
@@ -1804,6 +1811,8 @@ function genericPrintNoParens(path, options, print) {
       return concat(["%checks(", path.call(print, "value"), ")"]);
     case "TSAnyKeyword":
       return "any";
+    case "TSBooleanKeyword":
+      return "boolean";
     case "TSNumberKeyword":
       return "number";
     case "TSObjectKeyword":
@@ -1821,6 +1830,33 @@ function genericPrintNoParens(path, options, print) {
       return concat(parts);
     case "TSTypeReference":
       return concat([path.call(print, "typeName")]);
+    case "TSCallSignature":
+      return concat([
+        "(", 
+        join(", ", path.map(print, "parameters")), 
+        "): ",
+        path.call(print, "typeAnnotation"), 
+      ]);
+    case "TSConstructSignature":
+      return concat([
+        "new (", 
+        join(", ", path.map(print, "parameters")), 
+        "): ",
+        path.call(print, "typeAnnotation"), 
+      ]);
+    case "TSTypeQuery":
+      return concat(["typeof ", path.call(print, "exprName")]);
+    case "TSParenthesizedType":
+      return concat(["(", path.call(print, "typeAnnotation"), ")"]);
+    case "TSIndexSignature":
+      return concat([
+        "[", 
+        // This should only contain a single element, however TypeScript parses
+        // it using parseDelimitedList that uses commas as delimiter.
+        join(", ", path.map(print, "parameters")), 
+        "]: ",
+        path.call(print, "typeAnnotation"), 
+      ]);
     // TODO
     case "ClassHeritage":
     // TODO
