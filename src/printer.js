@@ -1459,6 +1459,8 @@ function genericPrintNoParens(path, options, print) {
       if (n.typeAnnotation) {
         if (
           n.typeAnnotation.type !== "FunctionTypeAnnotation" &&
+          !(path.getParentNode().typeAnnotation &&
+            path.getParentNode().typeAnnotation.type === "TSFunctionType") &&
           // TypeScript should not have a colon before type parameter constraints
           !(path.getParentNode().type === "TypeParameter" &&
             path.getParentNode().constraint)
@@ -1540,11 +1542,12 @@ function genericPrintNoParens(path, options, print) {
     case "DeclareExportDeclaration":
       return concat(["declare ", printExportDeclaration(path, options, print)]);
     case "FunctionTypeAnnotation":
+    case "TSFunctionType":
       // FunctionTypeAnnotation is ambiguous:
       // declare function foo(a: B): void; OR
       // var A: (a: B) => void;
       var parent = path.getParentNode(0);
-      var isArrowFunctionTypeAnnotation = !((!parent.variance &&
+      var isArrowFunctionTypeAnnotation = n.type === "TSFunctionType" || !((!parent.variance &&
         !parent.optional &&
         namedTypes.ObjectTypeProperty.check(parent)) ||
         namedTypes.ObjectTypeCallProperty.check(parent) ||
@@ -1568,11 +1571,12 @@ function genericPrintNoParens(path, options, print) {
 
       // The returnType is not wrapped in a TypeAnnotation, so the colon
       // needs to be added separately.
-      if (n.returnType || n.predicate) {
+      if (n.returnType || n.predicate || n.typeAnnotation) {
         parts.push(
           isArrowFunctionTypeAnnotation ? " => " : ": ",
           path.call(print, "returnType"),
-          path.call(print, "predicate")
+          path.call(print, "predicate"),
+          path.call(print, "typeAnnotation")
         );
       }
 
@@ -1620,6 +1624,7 @@ function genericPrintNoParens(path, options, print) {
         path.call(print, "typeParameters")
       ]);
     case "IntersectionTypeAnnotation":
+    case "TSUnionType":
     case "UnionTypeAnnotation": {
       const types = path.map(print, "types");
       const isIntersection = n.type === "IntersectionTypeAnnotation";
@@ -1809,9 +1814,6 @@ function genericPrintNoParens(path, options, print) {
       return "void";
     case "TSArrayType":
       return concat([path.call(print, "elementType"), "[]"]);
-    case "TSFunctionType":
-      // console.log('TSFunctionType', path.getValue())
-      return options.originalText.slice(util.locStart(path.getValue()), util.locEnd(path.getValue()));
     case "TSPropertySignature":
       parts.push(path.call(print, "name"));
       parts.push(path.call(print, "typeAnnotation"));
@@ -2082,7 +2084,8 @@ function printArgumentsList(path, options, print) {
 function printFunctionParams(path, print, options) {
   var fun = path.getValue();
   // namedTypes.Function.assert(fun);
-  var printed = path.map(print, "params");
+  var paramsField = fun.type === "TSFunctionType" ? "parameters" : "params";
+  var printed = path.map(print, paramsField);
 
   if (fun.defaults) {
     path.each(
@@ -2110,7 +2113,7 @@ function printFunctionParams(path, print, options) {
     ]);
   }
 
-  const lastParam = util.getLast(fun.params);
+  const lastParam = util.getLast(fun[paramsField]);
   const canHaveTrailingComma = !(lastParam &&
     lastParam.type === "RestElement") && !fun.rest;
 
@@ -2137,7 +2140,7 @@ function printFunctionParams(path, print, options) {
 
   const isFlowShorthandWithOneArg = (isObjectTypePropertyAFunction(parent) ||
     isTypeAnnotationAFunction(parent) || parent.type === "TypeAlias") &&
-    fun.params.length === 1 && fun.params[0].name === null && fun.rest === null;
+    fun[paramsField].length === 1 && fun[paramsField][0].name === null && fun.rest === null;
 
   return concat([
     isFlowShorthandWithOneArg ? "" : "(",
