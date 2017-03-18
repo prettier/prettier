@@ -1955,10 +1955,11 @@ function shouldGroupFirstArg(args) {
 
   const firstArg = args[0];
   const secondArg = args[1];
-  return (firstArg.type === 'FunctionExpression' ||
-    (firstArg.type === 'ArrowFunctionExpression' &&
-      firstArg.body.type === 'BlockStatement')) &&
-      !couldGroupArg(secondArg);
+  return (!firstArg.comments || !firstArg.comments.length) &&
+    (firstArg.type === 'FunctionExpression' ||
+      (firstArg.type === 'ArrowFunctionExpression' &&
+        firstArg.body.type === 'BlockStatement')) &&
+        !couldGroupArg(secondArg);
 }
 
 function printArgumentsList(path, options, print) {

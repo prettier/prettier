@@ -66,3 +66,14 @@ renderThing(a =>
   <div>Content. So much to say. Oh my. Are we done yet?</div>
 ,args);
 
+setTimeout(
+  // Something
+  function() {
+    thing();
+  },
+  500
+);
+
+setTimeout(/* blip */ function() {
+  thing();
+}, 500);
