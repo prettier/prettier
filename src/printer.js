@@ -1926,8 +1926,8 @@ function printMethod(path, options, print) {
 }
 
 function couldGroupArg(arg) {
-  return (arg.type === "ObjectExpression" ||
-      arg.type === "ArrayExpression" ||
+  return ((arg.type === "ObjectExpression" && arg.properties.length > 0) ||
+      (arg.type === "ArrayExpression" && arg.elements.length > 0) ||
       arg.type === "FunctionExpression" ||
       (arg.type === "ArrowFunctionExpression" &&
         (arg.body.type === "BlockStatement" ||

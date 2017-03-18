@@ -38,6 +38,14 @@ compose((a) => {
   return a.thing;
 }, b => b * b);
 
+somthing.reduce(function(item, thing) {
+  return thing.blah =  item;
+}, {})
+
+somthing.reduce(function(item, thing) {
+  return thing.push(item);
+}, [])
+
 reallyLongLongLongLongLongLongLongLongLongLongLongLongLongLongMethod((f, g, h) => {
   return f.pop();
 }, true);
