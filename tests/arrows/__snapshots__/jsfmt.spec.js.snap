@@ -251,7 +251,17 @@ function render() {
       />
     </View>
   );
-}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+}
+
+jest.mock(
+  '../SearchSource',
+  () => class {
+    findMatchingTests(pattern) {
+      return {paths: []};
+    }
+  },
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Seq(typeDef.interface.groups).forEach(group =>
   Seq(group.members).forEach((member, memberName) =>
     markdownDoc(member.doc, {
@@ -320,6 +330,15 @@ function render() {
     </View>
   );
 }
+
+jest.mock(
+  \\"../SearchSource\\",
+  () => class {
+    findMatchingTests(pattern) {
+      return { paths: [] };
+    }
+  }
+);
 "
 `;
 
@@ -390,7 +409,17 @@ function render() {
       />
     </View>
   );
-}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+}
+
+jest.mock(
+  '../SearchSource',
+  () => class {
+    findMatchingTests(pattern) {
+      return {paths: []};
+    }
+  },
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Seq(typeDef.interface.groups).forEach((group) =>
   Seq(group.members).forEach((member, memberName) =>
     markdownDoc(member.doc, {
@@ -459,6 +488,15 @@ function render() {
     </View>
   );
 }
+
+jest.mock(
+  \\"../SearchSource\\",
+  () => class {
+    findMatchingTests(pattern) {
+      return { paths: [] };
+    }
+  }
+);
 "
 `;
 

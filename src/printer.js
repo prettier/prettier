@@ -339,7 +339,8 @@ function genericPrintNoParens(path, options, print) {
         n.body.type === "JSXElement" ||
         n.body.type === "BlockStatement" ||
         n.body.type === "TaggedTemplateExpression" ||
-        n.body.type === "TemplateElement"
+        n.body.type === "TemplateElement" ||
+        n.body.type === "ClassExpression"
       ) {
         return group(collapsed);
       }
@@ -1020,21 +1021,20 @@ function genericPrintNoParens(path, options, print) {
       ]);
     case "IfStatement":
       const con = adjustClause(path.call(print, "consequent"), options);
-
-      parts = [
+      const opening = group(concat([
         "if (",
-        group(
-          concat([
-            indent(
-              1,
-              concat([softline, path.call(print, "test")])
-            ),
-            softline
-          ])
-        ),
+        group(concat([
+          indent(
+            1,
+            concat([softline, path.call(print, "test")])
+          ),
+          softline
+        ])),
         ")",
         con
-      ];
+      ]));
+
+      parts.push(opening);
 
       if (n.alternate) {
         const hasBraces = isCurlyBracket(con);
@@ -1046,22 +1046,19 @@ function genericPrintNoParens(path, options, print) {
             "else"
           ]));
         } else {
-          // We use `conditionalGroup` to suppress break propagation.
-          // This allows us to provide a hardline without forcing the
-          // entire `if` clause to break up.
-          parts.push(conditionalGroup([concat([hardline, "else"])]));
+          parts.push(hardline, "else");
         }
 
         parts.push(
-          adjustClause(
+          group(adjustClause(
             path.call(print, "alternate"),
             options,
             n.alternate.type === "IfStatement"
-          )
+          ))
         );
       }
 
-      return group(concat(parts));
+      return concat(parts);
     case "ForStatement": {
       const body = adjustClause(path.call(print, "body"), options);
 

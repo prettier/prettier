@@ -55,16 +55,19 @@ function parseWithBabylon(text) {
 }
 
 function parseWithTypeScript(text) {
-    const parser = require('typescript-eslint-parser')
-    return parser.parse(text, {
-        loc: true,
-        range: true,
-        tokens: true,
-        attachComment: true,
-        ecmaFeatures: {
-            jsx: true,
-        }
-    })
+  // While we are working on typescript, we are putting it in devDependencies
+  // so it shouldn't be picked up by static analysis
+  const r = require;
+  const parser = r('typescript-eslint-parser')
+  return parser.parse(text, {
+    loc: true,
+    range: true,
+    tokens: true,
+    attachComment: true,
+    ecmaFeatures: {
+      jsx: true,
+    }
+  })
 }
 
 module.exports = { parseWithFlow, parseWithBabylon, parseWithTypeScript };

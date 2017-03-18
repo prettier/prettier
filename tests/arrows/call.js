@@ -65,3 +65,12 @@ function render() {
     </View>
   );
 }
+
+jest.mock(
+  '../SearchSource',
+  () => class {
+    findMatchingTests(pattern) {
+      return {paths: []};
+    }
+  },
+);
