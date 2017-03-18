@@ -456,7 +456,7 @@ function f6(): number {
 }
 
 class Derived2 extends Base {
-  private r;
+  private r: string;
 }
 class AnotherClass {
   private x;

@@ -66,7 +66,7 @@ var b = x<string>(\\"hello\\");
 var c = x<object>(\\"hello\\");
 
 class C {
-  foo;
+  foo: string;
 }
 var c = x<C>(x);
 var d = x<any>(x);
