@@ -88,9 +88,9 @@ declare class Promise<R> {
   static all<T>(promises: Array<?Promise<T> | T>): Promise<Array<T>>,
   static race<T>(promises: Array<Promise<T>>): Promise<T>,
 
-  static allObject<T: Object>(promisesByKey: T): Promise<{
-    [key: $Keys<T>]: any
-  }>
+  static allObject<T: Object>(
+    promisesByKey: T
+  ): Promise<{ [key: $Keys<T>]: any }>
 }
 "
 `;
