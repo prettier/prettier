@@ -1587,7 +1587,7 @@ function binaryInBinaryLeft() {
     // Reason for 42
     42 *
       84 +
-      2
+    2
   );
 }
 
@@ -1595,7 +1595,7 @@ function binaryInBinaryRight() {
   return (
     // Reason for 42
     42 +
-      84 * 2
+    84 * 2
   );
 }
 
@@ -1827,7 +1827,7 @@ function binaryInBinaryLeft() {
     // Reason for 42
     42 *
       84 +
-      2
+    2
   );
 }
 
@@ -1835,7 +1835,7 @@ function binaryInBinaryRight() {
   return (
     // Reason for 42
     42 +
-      84 * 2
+    84 * 2
   );
 }
 
