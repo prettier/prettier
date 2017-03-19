@@ -36,7 +36,8 @@ function getSortedChildNodes(node, text, resultArray) {
       // time because we almost always (maybe always?) append the
       // nodes in order anyway.
       for (var i = resultArray.length - 1; i >= 0; --i) {
-        if (locEnd(resultArray[i]) - locStart(node) <= 0) {
+        if (locStart(resultArray[i]) <= locStart(node) &&
+            locEnd(resultArray[i]) <= locEnd(node)) {
           break;
         }
       }
