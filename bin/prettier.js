@@ -210,71 +210,72 @@ if (stdin) {
   });
 } else {
   eachFilename(filepatterns, filename => {
-    fs.readFile(filename, "utf8", (err, input) => {
-      if (write || argv["debug-check"]) {
-        // Don't use `console.log` here since we need to replace this line.
-        process.stdout.write(filename);
-      }
+    if (write || argv["debug-check"]) {
+      // Don't use `console.log` here since we need to replace this line.
+      process.stdout.write(filename);
+    }
 
-      if (err) {
-        // Add newline to split errors from filename line.
-        process.stdout.write("\n");
+    let input;
+    try {
+      input = fs.readFileSync(filename, "utf8");
+    } catch(e) {
+      // Add newline to split errors from filename line.
+      process.stdout.write("\n");
 
-        console.error("Unable to read file: " + filename + "\n" + err);
-        // Don't exit the process if one file failed
-        process.exitCode = 2;
-        return;
-      }
+      console.error("Unable to read file: " + filename + "\n" + err);
+      // Don't exit the process if one file failed
+      process.exitCode = 2;
+      return;
+    }
 
-      const start = Date.now();
+    const start = Date.now();
 
-      let output;
+    let output;
 
-      try {
-        output = format(input);
-      } catch (e) {
-        // Add newline to split errors from filename line.
-        process.stdout.write("\n");
+    try {
+      output = format(input);
+    } catch (e) {
+      // Add newline to split errors from filename line.
+      process.stdout.write("\n");
 
-        handleError(filename, e);
-        return;
-      }
+      handleError(filename, e);
+      return;
+    }
 
-      if (write) {
-        // Remove previously printed filename to log it with duration.
-        readline.clearLine(process.stdout, 0);
-        readline.cursorTo(process.stdout, 0, null);
+    if (write) {
+      // Remove previously printed filename to log it with duration.
+      readline.clearLine(process.stdout, 0);
+      readline.cursorTo(process.stdout, 0, null);
 
-        // Don't write the file if it won't change in order not to invalidate
-        // mtime based caches.
-        if (output === input) {
-          console.log(chalk.grey("%s %dms"), filename, Date.now() - start);
-        } else {
-          console.log("%s %dms", filename, Date.now() - start);
-
-          fs.writeFile(filename, output, "utf8", err => {
-            if (err) {
-              console.error("Unable to write file: " + filename + "\n" + err);
-              // Don't exit the process if one file failed
-              process.exitCode = 2;
-            }
-          });
-        }
-      } else if (argv["debug-check"]) {
-        process.stdout.write("\n");
-        if (output) {
-          console.log(output);
-        }
-      } else if (argv["list-different"]) {
-        if (input !== output) {
-          console.log(filename);
-          process.exitCode = 1;
-        }
+      // Don't write the file if it won't change in order not to invalidate
+      // mtime based caches.
+      if (output === input) {
+        console.log(chalk.grey("%s %dms"), filename, Date.now() - start);
       } else {
-        // Don't use `console.log` here since it adds an extra newline at the end.
-        process.stdout.write(output);
+        console.log("%s %dms", filename, Date.now() - start);
+
+        fs.writeFile(filename, output, "utf8", err => {
+          if (err) {
+            console.error("Unable to write file: " + filename + "\n" + err);
+            // Don't exit the process if one file failed
+            process.exitCode = 2;
+          }
+        });
       }
-    });
+    } else if (argv["debug-check"]) {
+      process.stdout.write("\n");
+      if (output) {
+        console.log(output);
+      }
+    } else if (argv["list-different"]) {
+      if (input !== output) {
+        console.log(filename);
+        process.exitCode = 1;
+      }
+    } else {
+      // Don't use `console.log` here since it adds an extra newline at the end.
+      process.stdout.write(output);
+    }
   });
 }
 
