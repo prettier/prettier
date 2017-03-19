@@ -30,7 +30,7 @@ const argv = minimist(process.argv.slice(2), {
     // Deprecated in 0.0.10
     "flow-parser"
   ],
-  string: ["print-width", "tab-width", "parser", "trailing-comma"],
+  string: ["print-width", "tab-width", "parser", "trailing-comma", "semi"],
   default: { color: true, "bracket-spacing": true, parser: "babylon" },
   alias: { help: "h", version: "v", "list-different": "l" },
   unknown: param => {
@@ -125,7 +125,8 @@ const options = {
   singleQuote: argv["single-quote"],
   jsxBracketSameLine: argv["jsx-bracket-same-line"],
   trailingComma: getTrailingComma(),
-  parser: getParserOption()
+  parser: getParserOption(),
+  semi: !(argv["semi"] && argv["semi"] === "false")
 };
 
 function format(input) {
@@ -189,6 +190,7 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
       "                           Print trailing commas wherever possible. Defaults to none.\n" +
       "  --parser <flow|babylon>  Specify which parse to use. Defaults to babylon.\n" +
       "  --color                  Colorize error messages. Defaults to true.\n" +
+      "  --semi <false|true>      Insert semi. False will remove them all. Beware experimental.\n" +
       "  --version or -v          Print prettier version.\n" +
       "\n" +
       "Boolean options can be turned off like this:\n" +

@@ -49,6 +49,10 @@ function shouldPrintComma(options, level) {
   }
 }
 
+function getSemi(semi) {
+  return semi ? ";" : "";
+}
+
 function genericPrint(path, options, printPath) {
   assert.ok(path instanceof FastPath);
 
@@ -145,7 +149,7 @@ function genericPrintNoParens(path, options, print) {
       if (n.directives) {
         path.each(
           function(childPath) {
-            parts.push(print(childPath), ";", hardline);
+            parts.push(print(childPath), getSemi(options.semi), hardline);
             if (
               util.isNextLineEmpty(options.originalText, childPath.getValue())
             ) {
@@ -180,7 +184,7 @@ function genericPrintNoParens(path, options, print) {
     case "EmptyStatement":
       return "";
     case "ExpressionStatement":
-      return concat([path.call(print, "expression"), ";"]); // Babel extension.
+      return concat([path.call(print, "expression"), getSemi(options.semi)]); // Babel extension.
     case "ParenthesizedExpression":
       return concat(["(", path.call(print, "expression"), ")"]);
     case "AssignmentExpression":
@@ -452,7 +456,7 @@ function genericPrintNoParens(path, options, print) {
         parts.push(" as ", path.call(print, "exported"));
       }
 
-      parts.push(" from ", path.call(print, "source"), ";");
+      parts.push(" from ", path.call(print, "source"), getSemi(options.semi));
 
       return concat(parts);
     case "ExportNamespaceSpecifier":
@@ -518,7 +522,7 @@ function genericPrintNoParens(path, options, print) {
         parts.push("{} from ");
       }
 
-      fromParts.push(path.call(print, "source"), ";");
+      fromParts.push(path.call(print, "source"), getSemi(options.semi));
 
       // If there's a very long import, break the following way:
       //
@@ -574,7 +578,7 @@ function genericPrintNoParens(path, options, print) {
             parts.push(
               indent(
                 options.tabWidth,
-                concat([hardline, print(childPath), ";"])
+                concat([hardline, print(childPath), getSemi(options.semi)])
               )
             );
           },
@@ -627,7 +631,7 @@ function genericPrintNoParens(path, options, print) {
         }
       }
 
-      parts.push(";");
+      parts.push(getSemi(options.semi));
 
       return concat(parts);
     case "CallExpression": {
@@ -672,7 +676,7 @@ function genericPrintNoParens(path, options, print) {
     case "ObjectTypeAnnotation":
       var isTypeAnnotation = n.type === "ObjectTypeAnnotation";
       // Leave this here because we *might* want to make this
-      // configurable later -- flow accepts ";" for type separators
+      // configurable later -- flow accepts getSemi(options.semi) for type separators
       var separator = isTypeAnnotation ? "," : ",";
       var fields = [];
       var leftBrace = n.exact ? "{|" : "{";
@@ -954,7 +958,7 @@ function genericPrintNoParens(path, options, print) {
           namedTypes.ForAwaitStatement.check(parentNode));
 
       if (!(isParentForLoop && parentNode.body !== n)) {
-        parts.push(";");
+        parts.push(getSemi(options.semi));
       }
 
       return group(concat(parts));
@@ -1037,10 +1041,10 @@ function genericPrintNoParens(path, options, print) {
               concat([
                 softline,
                 path.call(print, "init"),
-                ";",
+                getSemi(options.semi),
                 line,
                 path.call(print, "test"),
-                ";",
+                getSemi(options.semi),
                 line,
                 path.call(print, "update")
               ])
@@ -1114,7 +1118,7 @@ function genericPrintNoParens(path, options, print) {
 
       if (n.label) parts.push(" ", path.call(print, "label"));
 
-      parts.push(";");
+      parts.push(getSemi(options.semi));
 
       return concat(parts);
     case "ContinueStatement":
@@ -1122,7 +1126,7 @@ function genericPrintNoParens(path, options, print) {
 
       if (n.label) parts.push(" ", path.call(print, "label"));
 
-      parts.push(";");
+      parts.push(getSemi(options.semi));
 
       return concat(parts);
     case "LabeledStatement":
@@ -1165,7 +1169,7 @@ function genericPrintNoParens(path, options, print) {
 
       return concat(parts);
     case "ThrowStatement":
-      return concat(["throw ", path.call(print, "argument"), ";"]);
+      return concat(["throw ", path.call(print, "argument"), getSemi(options.semi)]);
     // Note: ignoring n.lexical because it has no printing consequences.
     case "SwitchStatement":
       return concat([
@@ -1361,7 +1365,7 @@ function genericPrintNoParens(path, options, print) {
     case "ClassPropertyDefinition":
       parts.push("static ", path.call(print, "definition"));
 
-      if (!namedTypes.MethodDefinition.check(n.definition)) parts.push(";");
+      if (!namedTypes.MethodDefinition.check(n.definition)) parts.push(getSemi(options.semi));
 
       return concat(parts);
     case "ClassProperty":
@@ -1386,7 +1390,7 @@ function genericPrintNoParens(path, options, print) {
 
       if (n.value) parts.push(" = ", path.call(print, "value"));
 
-      parts.push(";");
+      parts.push(getSemi(options.semi));
 
       return concat(parts);
     case "ClassDeclaration":
@@ -1517,7 +1521,7 @@ function genericPrintNoParens(path, options, print) {
         path.call(print, "id"),
         n.predicate ? " " : "",
         path.call(print, "predicate"),
-        ";"
+        getSemi(options.semi)
       ]);
     case "DeclareModule":
       return printFlowDeclaration(path, [
@@ -1530,10 +1534,10 @@ function genericPrintNoParens(path, options, print) {
       return printFlowDeclaration(path, [
         "module.exports",
         path.call(print, "typeAnnotation"),
-        ";"
+        getSemi(options.semi)
       ]);
     case "DeclareVariable":
-      return printFlowDeclaration(path, ["var ", path.call(print, "id"), ";"]);
+      return printFlowDeclaration(path, ["var ", path.call(print, "id"), getSemi(options.semi)]);
     case "DeclareExportAllDeclaration":
       return concat(["declare export * from ", path.call(print, "source")]);
     case "DeclareExportDeclaration":
@@ -1740,7 +1744,7 @@ function genericPrintNoParens(path, options, print) {
               concat([hardline, path.call(print, "right")])
             )
           : concat([" ", path.call(print, "right")]),
-        ";"
+        getSemi(options.semi)
       );
 
       return concat(parts);
@@ -2207,7 +2211,7 @@ function printExportDeclaration(path, options, print) {
       (decl.declaration.type !== "ClassDeclaration" &&
        decl.declaration.type !== "FunctionDeclaration")
     ) {
-      parts.push(";");
+      parts.push(getSemi(options.semi));
     }
   } else {
     if (decl.specifiers && decl.specifiers.length > 0) {
@@ -2270,7 +2274,7 @@ function printExportDeclaration(path, options, print) {
       parts.push(" from ", path.call(print, "source"));
     }
 
-    parts.push(";");
+    parts.push(getSemi(options.semi));
   }
 
   return concat(parts);
@@ -2930,7 +2934,7 @@ function printAssignment(printedLeft, operator, rightNode, printedRight, options
 
 function adjustClause(clause, options, forceSpace) {
   if (clause === "") {
-    return ";";
+    return getSemi(options.semi);
   }
 
   if (isCurlyBracket(clause) || forceSpace) {
