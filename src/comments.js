@@ -580,11 +580,7 @@ function handleUnionTypeComments(
 ) {
   if (
     enclosingNode &&
-    enclosingNode.type === "UnionTypeAnnotation" &&
-    precedingNode &&
-    precedingNode.type === "ObjectTypeAnnotation" &&
-    followingNode &&
-    followingNode.type === "ObjectTypeAnnotation"
+    enclosingNode.type === "UnionTypeAnnotation"
   ) {
     addTrailingComment(precedingNode, comment);
     return true;
