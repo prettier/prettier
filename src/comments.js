@@ -18,6 +18,7 @@ var comparePos = util.comparePos;
 var childNodesCacheKey = Symbol("child-nodes");
 var locStart = util.locStart;
 var locEnd = util.locEnd;
+var getNextNonSpaceNonCommentCharacter = util.getNextNonSpaceNonCommentCharacter;
 
 // TODO Move a non-caching implementation of this function into ast-types,
 // and implement a caching wrapper function here.
@@ -153,7 +154,7 @@ function attach(comments, ast, text, options) {
           comment
         ) ||
         handleMemberExpressionComments(enclosingNode, followingNode, comment) ||
-        handleIfStatementComments(enclosingNode, followingNode, comment) ||
+        handleIfStatementComments(text, enclosingNode, followingNode, comment) ||
         handleTryStatementComments(enclosingNode, followingNode, comment) ||
         handleClassComments(enclosingNode, comment) ||
         handleImportSpecifierComments(enclosingNode, comment) ||
@@ -214,7 +215,7 @@ function attach(comments, ast, text, options) {
       }
     } else {
       if (
-        handleIfStatementComments(enclosingNode, followingNode, comment) ||
+        handleIfStatementComments(text, enclosingNode, followingNode, comment) ||
         handleObjectPropertyAssignment(enclosingNode, precedingNode, comment) ||
         handleTemplateLiteralComments(enclosingNode, comment) ||
         handleCommentInEmptyParens(enclosingNode, comment) ||
@@ -360,10 +361,22 @@ function addBlockOrNotComment(node, comment) {
 //     // comment
 //     ...
 //   }
-function handleIfStatementComments(enclosingNode, followingNode, comment) {
+function handleIfStatementComments(text, enclosingNode, followingNode, comment) {
   if (
-    !enclosingNode || enclosingNode.type !== "IfStatement" || !followingNode
+    !enclosingNode ||
+    enclosingNode.type !== "IfStatement" ||
+    !followingNode
   ) {
+    return false;
+  }
+
+  // We unfortunately have no way using the AST or location of nodes to know
+  // if the comment is positioned before or after the condition parenthesis:
+  //   if (a /* comment */) {}
+  //   if (a) /* comment */ {}
+  // The only workaround I found is to look at the next character to see if
+  // it is a ).
+  if (getNextNonSpaceNonCommentCharacter(text, comment) === ")") {
     return false;
   }
 

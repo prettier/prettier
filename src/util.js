@@ -226,6 +226,19 @@ function isNextLineEmpty(text, node) {
   return hasNewline(text, idx);
 }
 
+function getNextNonSpaceNonCommentCharacter(text, node) {
+  let oldIdx = null;
+  let idx = locEnd(node);
+  while (idx !== oldIdx) {
+    oldIdx = idx;
+    idx = skipSpaces(text, idx);
+    idx = skipInlineComment(text, idx);
+    idx = skipTrailingComment(text, idx);
+    idx = skipNewline(text, idx);
+  }
+  return text.charAt(idx);
+}
+
 function hasSpaces(text, index, opts) {
   opts = opts || {};
   const idx = skipSpaces(text, opts.backwards ? index - 1 : index, opts);
@@ -313,6 +326,7 @@ module.exports = {
   getParentExportDeclaration,
   getPenultimate,
   getLast,
+  getNextNonSpaceNonCommentCharacter,
   skipWhitespace,
   skipSpaces,
   skipNewline,
