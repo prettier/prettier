@@ -165,7 +165,8 @@ function attach(comments, ast, text, options) {
           comment
         ) ||
         handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
-        handleImportDeclarationComments(enclosingNode, precedingNode, comment)
+        handleImportDeclarationComments(enclosingNode, precedingNode, comment) ||
+        handleAssignmentPatternComments(enclosingNode, comment)
       ) {
         // We're good
       } else if (followingNode) {
@@ -655,6 +656,14 @@ function handleImportDeclarationComments(enclosingNode, precedingNode, comment) 
     comment.type !== "CommentBlock" && comment.type !== "Block"
   ) {
     addTrailingComment(precedingNode, comment);
+    return true;
+  }
+  return false;
+}
+
+function handleAssignmentPatternComments(enclosingNode, comment) {
+  if (enclosingNode && enclosingNode.type === "AssignmentPattern") {
+    addLeadingComment(enclosingNode, comment);
     return true;
   }
   return false;
