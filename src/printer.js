@@ -1574,7 +1574,7 @@ function genericPrintNoParens(path, options, print) {
 
       parts.push(path.call(print, "typeParameters"));
 
-      parts.push(group(printFunctionParams(path, print, options)));
+      parts.push(printFunctionParams(path, print, options));
 
       // The returnType is not wrapped in a TypeAnnotation, so the colon
       // needs to be added separately.
@@ -1587,7 +1587,7 @@ function genericPrintNoParens(path, options, print) {
         );
       }
 
-      return concat(parts);
+      return group(concat(parts));
     case "FunctionTypeParam":
       return concat([
         path.call(print, "name"),
@@ -1766,8 +1766,28 @@ function genericPrintNoParens(path, options, print) {
         ")"
       ]);
     case "TypeParameterDeclaration":
-    case "TypeParameterInstantiation":
-      return concat(["<", join(", ", path.map(print, "params")), ">"]);
+    case "TypeParameterInstantiation": {
+      const shouldInline =
+        n.params.length === 1 &&
+        n.params[0].type === "ObjectTypeAnnotation";
+
+      if (shouldInline) {
+        return concat(["<", join(", ", path.map(print, "params")), ">"]);
+      }
+
+      return group(concat([
+        "<",
+        indent(
+          options.tabWidth,
+          concat([
+            softline,
+            join(concat([",", line]), path.map(print, "params")),
+          ])
+        ),
+        softline,
+        ">"
+      ]));
+    }
     case "TypeParameter":
       switch (n.variance) {
         case "plus":
@@ -2614,7 +2634,9 @@ function printMemberChain(path, options, print) {
 
   const printedGroups = groups.map(printGroup);
   const oneLine = concat(printedGroups);
-  const hasComment = groups.length >= 2 && groups[1][0].node.comments;
+  const hasComment =
+    (groups.length >= 2 && groups[1][0].node.comments) ||
+    (groups.length >= 3 && groups[2][0].node.comments);
 
   // If we only have a single `.`, we shouldn't do anything fancy and just
   // render everything concatenated together.

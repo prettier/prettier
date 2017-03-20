@@ -4,3 +4,16 @@ function f() {
     // configurable.
     .debounceTime(debounceInterval);
 }
+
+_.a(a)
+  /* very very very very very very very long such that it is longer than 80 columns */
+  .a()
+
+_.a(
+  a
+)/* very very very very very very very long such that it is longer than 80 columns */
+.a();
+
+_.a(
+  a
+) /* very very very very very very very long such that it is longer than 80 columns */.a();

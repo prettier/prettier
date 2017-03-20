@@ -1,5 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`comment.js 1`] = `
+"type Foo = {
+  method(
+    arg: number, // I belong with baz
+    qux: string
+  ) : void
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type Foo = {
+  method(
+    arg: number, // I belong with baz
+    qux: string
+  ): void
+};
+"
+`;
+
 exports[`method.js 1`] = `
 "type T = { method: () => void };
 type T = { method(): void };
