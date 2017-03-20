@@ -24,7 +24,6 @@ const argv = minimist(process.argv.slice(2), {
     "break-before-else",
     "flatten-ternaries",
     "jsx-bracket-same-line",
-    "group-first-arg",
     "no-space-empty-fn",
     // The supports-color package (a sub sub dependency) looks directly at
     // `process.argv` for `--no-color` and such-like options. The reason it is
@@ -143,7 +142,6 @@ const options = {
   breakBeforeElse: argv["break-before-else"],
   singleQuote: argv["single-quote"],
   jsxBracketSameLine: argv["jsx-bracket-same-line"],
-  groupFirstArg: argv["group-first-arg"],
   noSpaceEmptyFn: argv["no-space-empty-fn"],
   trailingComma: getTrailingComma(),
   parser: getParserOption()
@@ -217,7 +215,6 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
       "                           Print trailing commas wherever possible. Defaults to none.\n" +
       "                           You can customize with a comma separated list. 'all' is equivalent to:\n" +
       "                           'array,object,import,export,arguments'\n" +
-      "  --group-first-arg        Print functions like setTimeout in a more compact form. Defaults to false.\n" +
       "  --no-space-empty-fn      Omit space before empty function body. Defaults to false.\n" +
       "  --parser <flow|babylon>  Specify which parse to use. Defaults to babylon.\n" +
       "  --color                  Colorize error messages. Defaults to true.\n" +

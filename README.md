@@ -242,9 +242,6 @@ prettier.format(source, {
   // the last line instead of being alone on the next line
   jsxBracketSameLine: false,
 
-  // Print functions like setTimeout in a more compact form.
-  groupFirstArg: false,
-
   // Omit space before empty anonymous function body
   noSpaceEmptyFn: false,
 
@@ -332,7 +329,7 @@ All of JSX and Flow syntax is supported. In fact, the test suite in
 - [`prettier-eslint`](https://github.com/prettier/prettier-eslint)
 passes `prettier` output to `eslint --fix`
 - [`prettier-standard`](https://github.com/sheerun/prettier-standard)
-uses `prettier` and `prettier-eslint` to format code with standard rules 
+uses `prettier` and `prettier-eslint` to format code with standard rules
 - [`prettier-standard-formatter`](https://github.com/dtinth/prettier-standard-formatter)
 passes `prettier` output to `standard --fix`
 - [`prettier-with-tabs`](https://github.com/arijs/prettier-with-tabs)
