@@ -225,27 +225,7 @@ for on-demand formatting.
 
 ### Vim
 
-Vim users can add the following to their `.vimrc`:
-
-```
-autocmd FileType javascript set formatprg=prettier\ --stdin
-```
-
-This makes Prettier power the [`gq` command](http://vimdoc.sourceforge.net/htmldoc/change.html#gq)
-for automatic formatting without any plugins. You can also add the following to your
-`.vimrc` to run prettier when `.js` files are saved:
-
-```
-autocmd BufWritePre *.js :normal gggqG
-```
-
-If you want to restore cursor position after formatting, try this
-(although it's not guaranteed that it will be restored to the same
-place in the code since it may have moved):
-
-```
-autocmd BufWritePre *.js exe "normal! gggqG\<C-o>\<C-o>"
-```
+Vim users should see [this folder](https://github.com/jlongster/prettier/tree/master/editors/vim) for on-demand formatting.
 
 ### Visual Studio Code
 
