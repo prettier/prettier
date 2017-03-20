@@ -352,6 +352,16 @@ exports[`flow_union.js 1`] = `
   | {type: \\"Failed\\", error: E, errorMsg: EM}
   // Uploading to aws3 and CreatePostMutation succeeded
   | {type: \\"Success\\", data: D};
+
+type UploadState<E, EM, D>
+  // The upload hasnt begun yet
+  = A
+  // The upload timed out
+  | B
+  // Failed somewhere on the line
+  | C
+  // Uploading to aws3 and CreatePostMutation succeeded
+  | D;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 type UploadState<E, EM, D> =
   // The upload hasnt begun yet
@@ -362,6 +372,16 @@ type UploadState<E, EM, D> =
   | { type: \\"Failed\\", error: E, errorMsg: EM }
   // Uploading to aws3 and CreatePostMutation succeeded
   | { type: \\"Success\\", data: D };
+
+type UploadState<E, EM, D> =
+  // The upload hasnt begun yet
+  | A
+  // The upload timed out
+  | B
+  // Failed somewhere on the line
+  | C
+  // Uploading to aws3 and CreatePostMutation succeeded
+  | D;
 "
 `;
 
@@ -375,6 +395,16 @@ exports[`flow_union.js 2`] = `
   | {type: \\"Failed\\", error: E, errorMsg: EM}
   // Uploading to aws3 and CreatePostMutation succeeded
   | {type: \\"Success\\", data: D};
+
+type UploadState<E, EM, D>
+  // The upload hasnt begun yet
+  = A
+  // The upload timed out
+  | B
+  // Failed somewhere on the line
+  | C
+  // Uploading to aws3 and CreatePostMutation succeeded
+  | D;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 type UploadState<E, EM, D> =
   // The upload hasnt begun yet
@@ -385,6 +415,16 @@ type UploadState<E, EM, D> =
   | { type: \\"Failed\\", error: E, errorMsg: EM }
   // Uploading to aws3 and CreatePostMutation succeeded
   | { type: \\"Success\\", data: D };
+
+type UploadState<E, EM, D> =
+  // The upload hasnt begun yet
+  | A
+  // The upload timed out
+  | B
+  // Failed somewhere on the line
+  | C
+  // Uploading to aws3 and CreatePostMutation succeeded
+  | D;
 "
 `;
 
