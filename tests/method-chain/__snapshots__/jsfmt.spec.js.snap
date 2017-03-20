@@ -126,6 +126,19 @@ exports[`comment.js 1`] = `
     // configurable.
     .debounceTime(debounceInterval);
 }
+
+_.a(a)
+  /* very very very very very very very long such that it is longer than 80 columns */
+  .a()
+
+_.a(
+  a
+)/* very very very very very very very long such that it is longer than 80 columns */
+.a();
+
+_.a(
+  a
+) /* very very very very very very very long such that it is longer than 80 columns */.a();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function f() {
   return (
@@ -135,6 +148,18 @@ function f() {
       .debounceTime(debounceInterval)
   );
 }
+
+_.a(a)
+  /* very very very very very very very long such that it is longer than 80 columns */
+  .a();
+
+_.a(
+  a
+) /* very very very very very very very long such that it is longer than 80 columns */.a();
+
+_.a(
+  a
+) /* very very very very very very very long such that it is longer than 80 columns */.a();
 "
 `;
 

@@ -2614,7 +2614,9 @@ function printMemberChain(path, options, print) {
 
   const printedGroups = groups.map(printGroup);
   const oneLine = concat(printedGroups);
-  const hasComment = groups.length >= 2 && groups[1][0].node.comments;
+  const hasComment =
+    (groups.length >= 2 && groups[1][0].node.comments) ||
+    (groups.length >= 3 && groups[2][0].node.comments);
 
   // If we only have a single `.`, we shouldn't do anything fancy and just
   // render everything concatenated together.
