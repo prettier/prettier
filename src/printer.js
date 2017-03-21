@@ -1203,11 +1203,13 @@ function genericPrintNoParens(path, options, print) {
           (n.value.type === "StringLiteral" || n.value.type === "Literal") &&
           typeof n.value.value === "string"
         ) {
-          if (n.name.name === "href" || n.name.name === "src") {
-             res = '"' + n.value.value + '"';
-           } else {
-             res = '"' + util.htmlEscapeInsideDoubleQuote(n.value.value) + '"';
-           }
+          // Whenever the parser wouldn't convert it to an entity
+          // do not escape.
+          if (/&amp;/.test(n.value.value)) {
+            res = '"' + util.htmlEscapeInsideDoubleQuote(n.value.value) + '"';
+          } else {
+            res = '"' + n.value.value + '"';
+          }
         } else {
           res = path.call(print, "value");
         }
