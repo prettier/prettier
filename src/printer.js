@@ -1205,7 +1205,7 @@ function genericPrintNoParens(path, options, print) {
         ) {
           // Whenever the parser wouldn't convert it to an entity
           // do not escape.
-          if (isParserKeepingEntities(n)) {
+          if (isParserKeepingEntities(n, options)) {
             res = '"' + n.value.value + '"';
           } else {
             res = '"' + util.htmlEscapeInsideDoubleQuote(n.value.value) + '"';
@@ -3303,7 +3303,7 @@ function printArrayItems(path, options, printPath, print) {
   return concat(printedElements);
 }
 
-function isParserKeepingEntities(node) {
+function isParserKeepingEntities(node, options) {
   const nodeSrc = options.originalText.slice(
     util.locStart(node.value), util.locEnd(node.value)
   );
