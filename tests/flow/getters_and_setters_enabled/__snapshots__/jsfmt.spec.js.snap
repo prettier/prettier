@@ -133,7 +133,280 @@ foo.propOverriddenWithSetter = 123; // Error number ~> string
 "
 `;
 
+exports[`class.js 2`] = `
+"/**
+ * @flow
+ */
+
+var z: number = 123;
+
+class Foo {
+  get goodGetterNoAnnotation() { return 4; }
+  get goodGetterWithAnnotation(): number { return 4; }
+
+  set goodSetterNoAnnotation(x) { z = x; }
+  set goodSetterWithAnnotation(x: number) { z = x; }
+
+  get propWithMatchingGetterAndSetter(): number { return 4; }
+  set propWithMatchingGetterAndSetter(x: number) { }
+
+  // The getter and setter need not have the same type - no error
+  get propWithSubtypingGetterAndSetter(): ?number { return 4; }
+  set propWithSubtypingGetterAndSetter(x: number) { }
+
+  // The getter and setter need not have the same type - no error
+  set propWithSubtypingGetterAndSetterReordered(x: number) { }
+  get propWithSubtypingGetterAndSetterReordered(): ?number { return 4; }
+
+  get propWithMismatchingGetterAndSetter(): number { return 4; }
+  set propWithMismatchingGetterAndSetter(x: string) { } // doesn't match getter (OK)
+
+  propOverriddenWithGetter: number;
+  get propOverriddenWithGetter() { return \\"hello\\"; }
+
+  propOverriddenWithSetter: number;
+  set propOverriddenWithSetter(x: string) { }
+};
+
+var foo = new Foo();
+
+// Test getting properties with getters
+var testGetterNoError1: number = foo.goodGetterNoAnnotation;
+var testGetterNoError2: number = foo.goodGetterWithAnnotation;
+
+var testGetterWithError1: string = foo.goodGetterNoAnnotation; // Error number ~> string
+var testGetterWithError2: string = foo.goodGetterWithAnnotation; // Error number ~> string
+
+// Test setting properties with getters
+foo.goodSetterNoAnnotation = 123;
+foo.goodSetterWithAnnotation = 123;
+
+// TODO: Why does no annotation mean no error?
+foo.goodSetterNoAnnotation = \\"hello\\"; // Error string ~> number
+foo.goodSetterWithAnnotation = \\"hello\\"; // Error string ~> number
+
+var testSubtypingGetterAndSetter: number = foo.propWithSubtypingGetterAndSetter; // Error ?number ~> number
+
+var testPropOverridenWithGetter: number = foo.propOverriddenWithGetter; // Error string ~> number
+foo.propOverriddenWithSetter = 123; // Error number ~> string
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * @flow
+ */
+
+var z: number = 123;
+
+class Foo {
+  get goodGetterNoAnnotation() {
+    return 4;
+  }
+  get goodGetterWithAnnotation(): number {
+    return 4;
+  }
+
+  set goodSetterNoAnnotation(x) {
+    z = x;
+  }
+  set goodSetterWithAnnotation(x: number) {
+    z = x;
+  }
+
+  get propWithMatchingGetterAndSetter(): number {
+    return 4;
+  }
+  set propWithMatchingGetterAndSetter(x: number) {}
+
+  // The getter and setter need not have the same type - no error
+  get propWithSubtypingGetterAndSetter(): ?number {
+    return 4;
+  }
+  set propWithSubtypingGetterAndSetter(x: number) {}
+
+  // The getter and setter need not have the same type - no error
+  set propWithSubtypingGetterAndSetterReordered(x: number) {}
+  get propWithSubtypingGetterAndSetterReordered(): ?number {
+    return 4;
+  }
+
+  get propWithMismatchingGetterAndSetter(): number {
+    return 4;
+  }
+  set propWithMismatchingGetterAndSetter(x: string) {} // doesn't match getter (OK)
+
+  propOverriddenWithGetter: number;
+  get propOverriddenWithGetter() {
+    return \\"hello\\";
+  }
+
+  propOverriddenWithSetter: number;
+  set propOverriddenWithSetter(x: string) {}
+}
+
+var foo = new Foo();
+
+// Test getting properties with getters
+var testGetterNoError1: number = foo.goodGetterNoAnnotation;
+var testGetterNoError2: number = foo.goodGetterWithAnnotation;
+
+var testGetterWithError1: string = foo.goodGetterNoAnnotation; // Error number ~> string
+var testGetterWithError2: string = foo.goodGetterWithAnnotation; // Error number ~> string
+
+// Test setting properties with getters
+foo.goodSetterNoAnnotation = 123;
+foo.goodSetterWithAnnotation = 123;
+
+// TODO: Why does no annotation mean no error?
+foo.goodSetterNoAnnotation = \\"hello\\"; // Error string ~> number
+foo.goodSetterWithAnnotation = \\"hello\\"; // Error string ~> number
+
+var testSubtypingGetterAndSetter: number = foo.propWithSubtypingGetterAndSetter; // Error ?number ~> number
+
+var testPropOverridenWithGetter: number = foo.propOverriddenWithGetter; // Error string ~> number
+foo.propOverriddenWithSetter = 123; // Error number ~> string
+"
+`;
+
 exports[`object.js 1`] = `
+"/**
+ * @flow
+ */
+
+var z: number = 123;
+
+class A {}
+class B extends A {}
+class C extends A {}
+
+var obj = {
+  get goodGetterNoAnnotation() { return 4; },
+  get goodGetterWithAnnotation(): number { return 4; },
+
+  set goodSetterNoAnnotation(x) { z = x; },
+  set goodSetterWithAnnotation(x: number) { z = x; },
+
+  get propWithMatchingGetterAndSetter(): number { return 4; },
+  set propWithMatchingGetterAndSetter(x: number) { },
+
+  // The getter and setter need not have the same type
+  get propWithSubtypingGetterAndSetter(): ?number { return 4; }, // OK
+  set propWithSubtypingGetterAndSetter(x: number) { },
+
+  set propWithSubtypingGetterAndSetterReordered(x: number) { }, // OK
+  get propWithSubtypingGetterAndSetterReordered(): ?number { return 4; },
+
+  get exampleOfOrderOfGetterAndSetter(): A { return new A(); },
+  set exampleOfOrderOfGetterAndSetter(x: B) {},
+
+  set exampleOfOrderOfGetterAndSetterReordered(x: B) {},
+  get exampleOfOrderOfGetterAndSetterReordered(): A { return new A(); },
+};
+
+
+
+// Test getting properties with getters
+var testGetterNoError1: number = obj.goodGetterNoAnnotation;
+var testGetterNoError2: number = obj.goodGetterWithAnnotation;
+
+var testGetterWithError1: string = obj.goodGetterNoAnnotation; // Error number ~> string
+var testGetterWithError2: string = obj.goodGetterWithAnnotation; // Error number ~> string
+
+// Test setting properties with getters
+obj.goodSetterNoAnnotation = 123;
+obj.goodSetterWithAnnotation = 123;
+
+obj.goodSetterNoAnnotation = \\"hello\\"; // Error string ~> number
+obj.goodSetterWithAnnotation = \\"hello\\"; // Error string ~> number
+
+var testSubtypingGetterAndSetter: number = obj.propWithSubtypingGetterAndSetter; // Error ?number ~> number
+
+// When building this feature, it was tempting to flow the setter into the
+// getter and then use either the getter or setter as the type of the property.
+// This example shows the danger of using the getter's type
+obj.exampleOfOrderOfGetterAndSetter = new C(); // Error C ~> B
+
+// And this example shows the danger of using the setter's type.
+var testExampleOrOrderOfGetterAndSetterReordered: number =
+  obj.exampleOfOrderOfGetterAndSetterReordered; // Error A ~> B
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * @flow
+ */
+
+var z: number = 123;
+
+class A {}
+class B extends A {}
+class C extends A {}
+
+var obj = {
+  get goodGetterNoAnnotation() {
+    return 4;
+  },
+  get goodGetterWithAnnotation(): number {
+    return 4;
+  },
+
+  set goodSetterNoAnnotation(x) {
+    z = x;
+  },
+  set goodSetterWithAnnotation(x: number) {
+    z = x;
+  },
+
+  get propWithMatchingGetterAndSetter(): number {
+    return 4;
+  },
+  set propWithMatchingGetterAndSetter(x: number) {},
+
+  // The getter and setter need not have the same type
+  get propWithSubtypingGetterAndSetter(): ?number {
+    return 4;
+  }, // OK
+  set propWithSubtypingGetterAndSetter(x: number) {},
+
+  set propWithSubtypingGetterAndSetterReordered(x: number) {}, // OK
+  get propWithSubtypingGetterAndSetterReordered(): ?number {
+    return 4;
+  },
+
+  get exampleOfOrderOfGetterAndSetter(): A {
+    return new A();
+  },
+  set exampleOfOrderOfGetterAndSetter(x: B) {},
+
+  set exampleOfOrderOfGetterAndSetterReordered(x: B) {},
+  get exampleOfOrderOfGetterAndSetterReordered(): A {
+    return new A();
+  }
+};
+
+// Test getting properties with getters
+var testGetterNoError1: number = obj.goodGetterNoAnnotation;
+var testGetterNoError2: number = obj.goodGetterWithAnnotation;
+
+var testGetterWithError1: string = obj.goodGetterNoAnnotation; // Error number ~> string
+var testGetterWithError2: string = obj.goodGetterWithAnnotation; // Error number ~> string
+
+// Test setting properties with getters
+obj.goodSetterNoAnnotation = 123;
+obj.goodSetterWithAnnotation = 123;
+
+obj.goodSetterNoAnnotation = \\"hello\\"; // Error string ~> number
+obj.goodSetterWithAnnotation = \\"hello\\"; // Error string ~> number
+
+var testSubtypingGetterAndSetter: number = obj.propWithSubtypingGetterAndSetter; // Error ?number ~> number
+
+// When building this feature, it was tempting to flow the setter into the
+// getter and then use either the getter or setter as the type of the property.
+// This example shows the danger of using the getter's type
+obj.exampleOfOrderOfGetterAndSetter = new C(); // Error C ~> B
+
+// And this example shows the danger of using the setter's type.
+var testExampleOrOrderOfGetterAndSetterReordered: number = obj.exampleOfOrderOfGetterAndSetterReordered; // Error A ~> B
+"
+`;
+
+exports[`object.js 2`] = `
 "/**
  * @flow
  */
@@ -304,6 +577,37 @@ React.createClass({
 "
 `;
 
+exports[`react.js 2`] = `
+"/**
+ * @flow
+ */
+
+React.createClass({
+  propTypes: {
+    get a() { return 4; },
+    set b(x: number) { this.c = x; },
+    c: 10,
+  }
+});
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * @flow
+ */
+
+React.createClass({
+  propTypes: {
+    get a() {
+      return 4;
+    },
+    set b(x: number) {
+      this.c = x;
+    },
+    c: 10
+  }
+});
+"
+`;
+
 exports[`variance.js 1`] = `
 "/* @flow */
 
@@ -390,6 +694,167 @@ class Base {
   x: B;
   +pos: B;
   -neg: B;
+  get get(): B {
+    return this.x;
+  }
+  set set(value: B): void {
+    this.x = value;
+  }
+  get getset(): B {
+    return this.x;
+  }
+  set getset(value: B): void {
+    this.x = value;
+  }
+}
+
+(class extends Base {
+  // error: getter incompatible with read/write property
+  get x(): B {
+    return b;
+  }
+});
+
+(class extends Base {
+  // error: setter incompatible with read/write property
+  set x(value: B): void {}
+});
+
+(class extends Base {
+  // ok: get/set co/contra with read/write property, resp.
+  get x(): C {
+    return c;
+  }
+  set x(value: A): void {}
+});
+
+(class extends Base {
+  // error: setter incompatible with read-only property
+  set pos(value: B): void {}
+});
+
+(class extends Base {
+  // ok: getter covariant with read-only property
+  get pos(): C {
+    return c;
+  }
+});
+
+(class extends Base {
+  // error: getter incompatible with write-only property
+  get neg(): B {
+    return b;
+  }
+});
+
+(class extends Base {
+  // ok: setter contravariant with write-only property
+  set neg(value: A): void {}
+});
+
+(class extends Base {
+  // ok: read/write covariant with getter
+  get: C;
+});
+
+(class extends Base {
+  // ok: read/write contravariant with setter
+  set: A;
+});
+
+(class extends Base {
+  // ok: read/write invariant with get/set
+  getset: B;
+});
+"
+`;
+
+exports[`variance.js 2`] = `
+"/* @flow */
+
+class A {}
+class B extends A {}
+class C extends B {}
+
+declare var a: A;
+declare var b: B;
+declare var c: C;
+
+class Base {
+  x: B;
+  +pos: B;
+  -neg: B;
+  get get(): B { return this.x };
+  set set(value: B): void { this.x = value };
+  get getset(): B { return this.x };
+  set getset(value: B): void { this.x = value };
+}
+
+(class extends Base {
+  // error: getter incompatible with read/write property
+  get x(): B { return b }
+});
+
+(class extends Base {
+  // error: setter incompatible with read/write property
+  set x(value: B): void {}
+});
+
+(class extends Base {
+  // ok: get/set co/contra with read/write property, resp.
+  get x(): C { return c }
+  set x(value: A): void {}
+});
+
+(class extends Base {
+  // error: setter incompatible with read-only property
+  set pos(value: B): void {}
+});
+
+(class extends Base {
+  // ok: getter covariant with read-only property
+  get pos(): C { return c }
+});
+
+(class extends Base {
+  // error: getter incompatible with write-only property
+  get neg(): B { return b }
+});
+
+(class extends Base {
+  // ok: setter contravariant with write-only property
+  set neg(value: A): void {}
+});
+
+(class extends Base {
+  // ok: read/write covariant with getter
+  get: C;
+});
+
+(class extends Base {
+  // ok: read/write contravariant with setter
+  set: A;
+});
+
+(class extends Base {
+  // ok: read/write invariant with get/set
+  getset: B;
+});
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @flow */
+
+class A {}
+class B extends A {}
+class C extends B {}
+
+declare var a: A;
+declare var b: B;
+declare var c: C;
+
+class Base {
+  x: B;
+  pos: B;
+  neg: B;
   get get(): B {
     return this.x;
   }

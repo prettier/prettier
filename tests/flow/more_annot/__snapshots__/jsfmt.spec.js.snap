@@ -11,7 +11,41 @@ var a: number = o.w.z.y;
 "
 `;
 
+exports[`client_object.js 2`] = `
+"var o = require('./object');
+
+var a:number = o.w.z.y;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var o = require(\\"./object\\");
+
+var a: number = o.w.z.y;
+"
+`;
+
 exports[`object.js 1`] = `
+"var o1 = { x: 0, y: \\"\\" };
+var o2 = { z: o1 }
+
+var o3 = {};
+o3.w = o2;
+
+//declare var exports: { w: any };
+
+module.exports = o3;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var o1 = { x: 0, y: \\"\\" };
+var o2 = { z: o1 };
+
+var o3 = {};
+o3.w = o2;
+
+//declare var exports: { w: any };
+
+module.exports = o3;
+"
+`;
+
+exports[`object.js 2`] = `
 "var o1 = { x: 0, y: \\"\\" };
 var o2 = { z: o1 }
 
@@ -53,6 +87,25 @@ var o2: Foo = new Foo();
 "
 `;
 
+exports[`proto.js 2`] = `
+"function Foo() { this.x = 0; }
+Foo.prototype.m = function() { }
+
+var o1: { x: number; m(): void } = new Foo();
+
+var o2: Foo = new Foo();
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function Foo() {
+  this.x = 0;
+}
+Foo.prototype.m = function() {};
+
+var o1: { x: number, m(): void } = new Foo();
+
+var o2: Foo = new Foo();
+"
+`;
+
 exports[`super.js 1`] = `
 "class C { m() { } }
 class D extends C { }
@@ -65,5 +118,20 @@ class C {
 class D extends C {}
 
 var d: { +m: () => void } = new D();
+"
+`;
+
+exports[`super.js 2`] = `
+"class C { m() { } }
+class D extends C { }
+
+var d: { +m: () => void } = new D();
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class C {
+  m() {}
+}
+class D extends C {}
+
+var d: { m: () => void } = new D();
 "
 `;
