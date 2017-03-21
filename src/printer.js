@@ -193,8 +193,7 @@ function genericPrintNoParens(path, options, print) {
       );
     case "BinaryExpression":
     case "LogicalExpression": {
-      const parts = [];
-      printBinaryishExpressions(path, parts, print, options);
+      const parts = printBinaryishExpressions(path, print, options);
       const parent = path.getParentNode();
 
       // Avoid indenting sub-expressions in if/etc statements.
@@ -2958,7 +2957,8 @@ function shouldInlineLogicalExpression(node) {
 // precedence level and the AST is structured based on precedence
 // level, things are naturally broken up correctly, i.e. `&&` is
 // broken before `+`.
-function printBinaryishExpressions(path, parts, print, options, isNested) {
+function printBinaryishExpressions(path, print, options, isNested) {
+  let parts = [];
   let node = path.getValue();
 
   // We treat BinaryExpression and LogicalExpression nodes the same.
@@ -2977,19 +2977,17 @@ function printBinaryishExpressions(path, parts, print, options, isNested) {
       util.getPrecedence(node.operator)
       && node.operator !== "**"
     ) {
-      // Flatten them out by recursively calling this function. The
-      // printed values will all be appended to `parts`.
-      path.call(
+      // Flatten them out by recursively calling this function.
+      parts = parts.concat(path.call(
         left =>
           printBinaryishExpressions(
             left,
-            parts,
             print,
             options,
             /* isNested */ true
           ),
         "left"
-      );
+      ));
     } else {
       parts.push(path.call(print, "left"));
     }
@@ -3013,11 +3011,7 @@ function printBinaryishExpressions(path, parts, print, options, isNested) {
     // the other ones since we don't call the normal print on BinaryExpression,
     // only for the left and right parts
     if (isNested && node.comments) {
-      parts.splice(
-        0,
-        parts.length,
-        comments.printComments(path, p => concat(parts.slice()), options)
-      );
+      parts = comments.printComments(path, p => concat(parts), options);
     }
   } else {
     // Our stopping case. Simply print the node normally.
