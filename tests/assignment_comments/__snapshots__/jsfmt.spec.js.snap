@@ -39,6 +39,22 @@ var fnString = // Comment
 
 var fnString = // Comment
   'some' + 'long' + 'string';
+
+let f = (
+  a =
+  //comment
+  b
+) => {};
+
+let f = (
+  a = //comment
+  b
+) => {};
+
+let f = (
+  a =
+  b //comment
+) => {};
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 fnString =
   // Comment
@@ -88,6 +104,19 @@ var fnString = // Comment
 
 var fnString = // Comment
   \\"some\\" + \\"long\\" + \\"string\\";
+
+let f = (
+  //comment
+  a = b
+) => {};
+
+let f = (
+  a = b //comment
+) => {};
+
+let f = (
+  a = b //comment
+) => {};
 "
 `;
 
@@ -130,6 +159,22 @@ var fnString = // Comment
 
 var fnString = // Comment
   'some' + 'long' + 'string';
+
+let f = (
+  a =
+  //comment
+  b
+) => {};
+
+let f = (
+  a = //comment
+  b
+) => {};
+
+let f = (
+  a =
+  b //comment
+) => {};
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 fnString =
   // Comment
@@ -179,5 +224,18 @@ var fnString = // Comment
 
 var fnString = // Comment
   \\"some\\" + \\"long\\" + \\"string\\";
+
+let f = (
+  //comment
+  a = b
+) => {};
+
+let f = (
+  a = b //comment
+) => {};
+
+let f = (
+  a = b //comment
+) => {};
 "
 `;
