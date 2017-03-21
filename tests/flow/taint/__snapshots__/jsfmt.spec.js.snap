@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`adder.js 1`] = `
+exports[`adder.js-flow 1`] = `
 "// @flow
 
 function f(x : $Tainted<number>, y : $Tainted<number>) {
@@ -67,7 +67,7 @@ function f7(x: $Tainted<string>, y: $Tainted<number>) {
 "
 `;
 
-exports[`any_object.js 1`] = `
+exports[`any_object.js-flow 1`] = `
 "// @flow
 
 let tests = [
@@ -122,7 +122,7 @@ let tests = [
 "
 `;
 
-exports[`call-object-property.js 1`] = `
+exports[`call-object-property.js-flow 1`] = `
 "// @flow
 
 function foo(x : $Tainted<string>, o : Object) {
@@ -177,7 +177,7 @@ function f_foo3(f1: Function, o1: Object, o2: { t: $Tainted<string> }) {
 "
 `;
 
-exports[`comparator.js 1`] = `
+exports[`comparator.js-flow 1`] = `
 "// @flow
 // Should cause an error.
 function f(x : $Tainted<string>, y : $Tainted<number>) {
@@ -218,7 +218,7 @@ function f3(x: $Tainted<string>, y: string) {
 "
 `;
 
-exports[`function.js 1`] = `
+exports[`function.js-flow 1`] = `
 "// @flow
 
 let tests = [
@@ -251,7 +251,7 @@ let tests = [
 "
 `;
 
-exports[`globals.js 1`] = `
+exports[`globals.js-flow 1`] = `
 "// @flow
 
 class A {
@@ -280,7 +280,7 @@ class A {
 "
 `;
 
-exports[`lib.js 1`] = `
+exports[`lib.js-flow 1`] = `
 "declare class FakeLocation {
   assign(url: string): void;
 }
@@ -309,7 +309,7 @@ declare var fakeLocation: FakeLocation;
 "
 `;
 
-exports[`taint1.js 1`] = `
+exports[`taint1.js-flow 1`] = `
 "/*
  *
  * @flow
@@ -334,7 +334,7 @@ class A {
 "
 `;
 
-exports[`taint2.js 1`] = `
+exports[`taint2.js-flow 1`] = `
 "/*
  *
  * @flow
@@ -359,7 +359,7 @@ class A {
 "
 `;
 
-exports[`taint3.js 1`] = `
+exports[`taint3.js-flow 1`] = `
 "/*
  *
  * @flow
@@ -388,7 +388,7 @@ class A {
 "
 `;
 
-exports[`taint4.js 1`] = `
+exports[`taint4.js-flow 1`] = `
 "/*
  *
  * @flow
@@ -419,7 +419,7 @@ function f(x: $Tainted<any>) {
 "
 `;
 
-exports[`use-types.js 1`] = `
+exports[`use-types.js-flow 1`] = `
 "/*
  * @flow
  */

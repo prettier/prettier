@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`abnormals.js 1`] = `
+exports[`abnormals.js-flow 1`] = `
 "/* @flow */
 
 /* This test documents an issue we used to have with merging the environment of
@@ -35,7 +35,7 @@ function foo() {
 "
 `;
 
-exports[`init.js 1`] = `
+exports[`init.js-flow 1`] = `
 "/***
  * test initialization tracking of hoisted stuff
  * @flow
@@ -344,7 +344,7 @@ function f(b) {
 "
 `;
 
-exports[`return.js 1`] = `
+exports[`return.js-flow 1`] = `
 "/**
  * @flow
  */
@@ -477,7 +477,7 @@ function corge(): string {
 "
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js-flow 1`] = `
 "/***
  * test env state tracking thru try/catch/finally
  * @flow

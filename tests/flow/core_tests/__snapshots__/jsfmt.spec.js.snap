@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`boolean.js 1`] = `
+exports[`boolean.js-flow 1`] = `
 "// @flow
 
 // Boolean (the class) tests. booleans (the literals) are not part of core.js
@@ -89,7 +89,7 @@ let tests = [
 "
 `;
 
-exports[`map.js 1`] = `
+exports[`map.js-flow 1`] = `
 "// @flow
 
 function* generator(): Iterable<[string, number]> {
@@ -158,7 +158,7 @@ let tests = [
 "
 `;
 
-exports[`regexp.js 1`] = `
+exports[`regexp.js-flow 1`] = `
 "// @flow
 
 let tests = [
@@ -221,7 +221,7 @@ let tests = [
 "
 `;
 
-exports[`weakset.js 1`] = `
+exports[`weakset.js-flow 1`] = `
 "// @flow
 
 let ws = new WeakSet();

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`break.js 1`] = `
+exports[`break.js-flow 1`] = `
 "h(f(g(() => {
   a
 })))
@@ -80,7 +80,7 @@ expect(
 "
 `;
 
-exports[`break.js 2`] = `
+exports[`break.js-typescript 1`] = `
 "h(f(g(() => {
   a
 })))
@@ -160,7 +160,7 @@ expect(
 "
 `;
 
-exports[`parent.js 1`] = `
+exports[`parent.js-flow 1`] = `
 "runtimeAgent.getProperties(
   objectId,
   false, // ownProperties
@@ -183,7 +183,7 @@ runtimeAgent.getProperties(
 "
 `;
 
-exports[`parent.js 2`] = `
+exports[`parent.js-typescript 1`] = `
 "runtimeAgent.getProperties(
   objectId,
   false, // ownProperties

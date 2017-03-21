@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Traces.js 1`] = `
+exports[`Traces.js-flow 1`] = `
 "// arg/param type mismatch on arg 0
 function g0(y:string) { }
 function f0(x) { g0(x) }
@@ -57,7 +57,7 @@ f3(double);
 "
 `;
 
-exports[`Traces2.js 1`] = `
+exports[`Traces2.js-flow 1`] = `
 "// @flow
 
 var React = require('react');

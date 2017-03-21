@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`API.react.js 1`] = `
+exports[`API.react.js-flow 1`] = `
 "
 var app = require('JSX');
 
@@ -20,7 +20,7 @@ bar(app.props.children); // No error, App doesn't specify propTypes so anything 
 "
 `;
 
-exports[`App.react.js 1`] = `
+exports[`App.react.js-flow 1`] = `
 "
 /**
  * @providesModule App.react
@@ -110,7 +110,7 @@ module.exports = App;
 "
 `;
 
-exports[`JSX.js 1`] = `
+exports[`JSX.js-flow 1`] = `
 "
 /* @providesModule JSX */
 
@@ -140,7 +140,7 @@ module.exports = app;
 "
 `;
 
-exports[`propTypes.js 1`] = `
+exports[`propTypes.js-flow 1`] = `
 "var React = require('React');
 
 var C = React.createClass({

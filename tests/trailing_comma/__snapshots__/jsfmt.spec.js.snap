@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`es5.js 1`] = `
+exports[`es5.js-flow 1`] = `
 "function send_single_email(
   app,
   email_id,
@@ -39,7 +39,7 @@ function send_single_email(
 "
 `;
 
-exports[`es5.js 2`] = `
+exports[`es5.js-flow 2`] = `
 "function send_single_email(
   app,
   email_id,
@@ -78,7 +78,7 @@ function send_single_email(
 "
 `;
 
-exports[`es5.js 3`] = `
+exports[`es5.js-flow 3`] = `
 "function send_single_email(
   app,
   email_id,
@@ -117,7 +117,7 @@ function send_single_email(
 "
 `;
 
-exports[`es5.js 4`] = `
+exports[`es5.js-typescript 1`] = `
 "function send_single_email(
   app,
   email_id,
@@ -156,7 +156,7 @@ function send_single_email(
 "
 `;
 
-exports[`es5.js 5`] = `
+exports[`es5.js-typescript 2`] = `
 "function send_single_email(
   app,
   email_id,
@@ -195,7 +195,7 @@ function send_single_email(
 "
 `;
 
-exports[`es5.js 6`] = `
+exports[`es5.js-typescript 3`] = `
 "function send_single_email(
   app,
   email_id,
@@ -234,7 +234,7 @@ function send_single_email(
 "
 `;
 
-exports[`function-calls.js 1`] = `
+exports[`function-calls.js-flow 1`] = `
 "const a = (param1, param2, param3) => {}
 
 a('value', 'value2', 'value3');
@@ -265,7 +265,7 @@ a(
 "
 `;
 
-exports[`function-calls.js 2`] = `
+exports[`function-calls.js-flow 2`] = `
 "const a = (param1, param2, param3) => {}
 
 a('value', 'value2', 'value3');
@@ -296,7 +296,7 @@ a(
 "
 `;
 
-exports[`function-calls.js 3`] = `
+exports[`function-calls.js-flow 3`] = `
 "const a = (param1, param2, param3) => {}
 
 a('value', 'value2', 'value3');
@@ -327,7 +327,7 @@ a(
 "
 `;
 
-exports[`function-calls.js 4`] = `
+exports[`function-calls.js-typescript 1`] = `
 "const a = (param1, param2, param3) => {}
 
 a('value', 'value2', 'value3');
@@ -358,7 +358,7 @@ a(
 "
 `;
 
-exports[`function-calls.js 5`] = `
+exports[`function-calls.js-typescript 2`] = `
 "const a = (param1, param2, param3) => {}
 
 a('value', 'value2', 'value3');
@@ -389,7 +389,7 @@ a(
 "
 `;
 
-exports[`function-calls.js 6`] = `
+exports[`function-calls.js-typescript 3`] = `
 "const a = (param1, param2, param3) => {}
 
 a('value', 'value2', 'value3');
@@ -420,7 +420,7 @@ a(
 "
 `;
 
-exports[`object.js 1`] = `
+exports[`object.js-flow 1`] = `
 "const a = {
   b: true,
   c: {
@@ -467,7 +467,7 @@ const aLong = {
 "
 `;
 
-exports[`object.js 2`] = `
+exports[`object.js-flow 2`] = `
 "const a = {
   b: true,
   c: {
@@ -514,7 +514,7 @@ const aLong = {
 "
 `;
 
-exports[`object.js 3`] = `
+exports[`object.js-flow 3`] = `
 "const a = {
   b: true,
   c: {
@@ -561,7 +561,7 @@ const aLong = {
 "
 `;
 
-exports[`object.js 4`] = `
+exports[`object.js-typescript 1`] = `
 "const a = {
   b: true,
   c: {
@@ -608,7 +608,7 @@ const aLong = {
 "
 `;
 
-exports[`object.js 5`] = `
+exports[`object.js-typescript 2`] = `
 "const a = {
   b: true,
   c: {
@@ -655,7 +655,7 @@ const aLong = {
 "
 `;
 
-exports[`object.js 6`] = `
+exports[`object.js-typescript 3`] = `
 "const a = {
   b: true,
   c: {
@@ -702,7 +702,7 @@ const aLong = {
 "
 `;
 
-exports[`trailing_whitespace.js 1`] = `
+exports[`trailing_whitespace.js-flow 1`] = `
 "let example = [
   'FOO',
   'BAR',
@@ -778,7 +778,7 @@ function supersupersupersuperLongF(
 "
 `;
 
-exports[`trailing_whitespace.js 2`] = `
+exports[`trailing_whitespace.js-flow 2`] = `
 "let example = [
   'FOO',
   'BAR',
@@ -854,7 +854,7 @@ function supersupersupersuperLongF(
 "
 `;
 
-exports[`trailing_whitespace.js 3`] = `
+exports[`trailing_whitespace.js-flow 3`] = `
 "let example = [
   'FOO',
   'BAR',
@@ -930,7 +930,7 @@ function supersupersupersuperLongF(
 "
 `;
 
-exports[`trailing_whitespace.js 4`] = `
+exports[`trailing_whitespace.js-typescript 1`] = `
 "let example = [
   'FOO',
   'BAR',
@@ -1006,7 +1006,7 @@ function supersupersupersuperLongF(
 "
 `;
 
-exports[`trailing_whitespace.js 5`] = `
+exports[`trailing_whitespace.js-typescript 2`] = `
 "let example = [
   'FOO',
   'BAR',
@@ -1082,7 +1082,7 @@ function supersupersupersuperLongF(
 "
 `;
 
-exports[`trailing_whitespace.js 6`] = `
+exports[`trailing_whitespace.js-typescript 3`] = `
 "let example = [
   'FOO',
   'BAR',

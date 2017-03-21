@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrow_function_expression.js 1`] = `
+exports[`arrow_function_expression.js-babylon 1`] = `
 "(a => {}).length
 typeof (() => {});
 export default (() => {})();
@@ -66,14 +66,14 @@ a = (b?) => c;
 "
 `;
 
-exports[`block_like.js 1`] = `
+exports[`block_like.js-babylon 1`] = `
 "a = () => ({} = this);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 a = () => ({} = this);
 "
 `;
 
-exports[`call.js 1`] = `
+exports[`call.js-babylon 1`] = `
 "Seq(typeDef.interface.groups).forEach(group =>
   Seq(group.members).forEach((member, memberName) =>
     markdownDoc(
@@ -231,7 +231,7 @@ jest.mock(
 "
 `;
 
-exports[`long-call-no-args.js 1`] = `
+exports[`long-call-no-args.js-babylon 1`] = `
 "veryLongCall(VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT, () => {})
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 veryLongCall(
@@ -241,7 +241,7 @@ veryLongCall(
 "
 `;
 
-exports[`long-contents.js 1`] = `
+exports[`long-contents.js-babylon 1`] = `
 "const foo = () => {
   expect(arg1, arg2, arg3).toEqual({message: 'test', messageType: 'SMS', status: 'Unknown', created: '11/01/2017 13:36'});
 };
@@ -257,7 +257,7 @@ const foo = () => {
 "
 `;
 
-exports[`short_body.js 1`] = `
+exports[`short_body.js-babylon 1`] = `
 "const initializeSnapshotState = (
   testFile: Path,
   update: boolean,

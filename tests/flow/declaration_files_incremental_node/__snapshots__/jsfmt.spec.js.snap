@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`A.js 1`] = `
+exports[`A.js-flow 1`] = `
 "class Implementation {}
 export function foo(): Implementation { return new Implementation; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -11,7 +11,7 @@ export function foo(): Implementation {
 "
 `;
 
-exports[`test_absolute.js 1`] = `
+exports[`test_absolute.js-flow 1`] = `
 "/* @flow */
 
 // This will require ./node_modules/B.js.flow
@@ -98,7 +98,7 @@ var F = require(\\"package_with_dir_main\\");
 "
 `;
 
-exports[`test_relative.js 1`] = `
+exports[`test_relative.js-flow 1`] = `
 "import { foo } from './A';
 
 (foo(): boolean); // Error: either Implementation ~> boolean or Definition ~> boolean

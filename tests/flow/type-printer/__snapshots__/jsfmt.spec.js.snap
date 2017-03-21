@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`printBinaryExpression.js 1`] = `
+exports[`printBinaryExpression.js-flow 1`] = `
 "'use babel';
 /* @flow */
 
@@ -43,7 +43,7 @@ module.exports = printBinaryExpression;
 "
 `;
 
-exports[`types.js 1`] = `
+exports[`types.js-flow 1`] = `
 "/**
  * @flow
  */

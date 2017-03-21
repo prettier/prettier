@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fetch.js 1`] = `
+exports[`fetch.js-flow 1`] = `
 "/* @flow */
 
 // most of the details are tested in the separate file
@@ -53,7 +53,7 @@ const d: Promise<Blob> = fetch(\\"image.png\\"); // incorrect
 "
 `;
 
-exports[`headers.js 1`] = `
+exports[`headers.js-flow 1`] = `
 "/* @flow */
 
 const a = new Headers(\\"'Content-Type': 'image/jpeg'\\"); // not correct
@@ -114,7 +114,7 @@ e.getAll(\\"content-type\\").forEach((v: string) => {}); // correct
 "
 `;
 
-exports[`request.js 1`] = `
+exports[`request.js-flow 1`] = `
 "/* @flow */
 const a: Request = new Request(); // incorrect
 const b: Request = new Request('http://example.org'); // correct
@@ -221,7 +221,7 @@ h.arrayBuffer().then((ab: Buffer) => ab); // incorrect
 "
 `;
 
-exports[`response.js 1`] = `
+exports[`response.js-flow 1`] = `
 "/* @flow */
 const a: Response = new Response(); // correct
 const b: Response = new Response(new Blob()); // correct
@@ -318,7 +318,7 @@ h.arrayBuffer().then((ab: Buffer) => ab); // incorrect
 "
 `;
 
-exports[`urlsearchparams.js 1`] = `
+exports[`urlsearchparams.js-flow 1`] = `
 "/* @flow */
 
 const a = new URLSearchParams(\\"key1=value1\\"); // correct

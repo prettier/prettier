@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`main.js 1`] = `
+exports[`main.js-flow 1`] = `
 "// @flow
 
 var React = require('react');
@@ -39,7 +39,7 @@ var d: React.Element<{ id: number }> = <div id=\\"asdf\\" />; // Error: Props<{i
 "
 `;
 
-exports[`strings.js 1`] = `
+exports[`strings.js-flow 1`] = `
 "/* @flow */
 
 var React = require('react');

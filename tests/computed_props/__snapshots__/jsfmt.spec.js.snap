@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`classes.js 1`] = `
+exports[`classes.js-flow 1`] = `
 "class c {
   [\\"i\\"]() {}
 }
@@ -11,7 +11,7 @@ class c {
 "
 `;
 
-exports[`classes.js 2`] = `
+exports[`classes.js-typescript 1`] = `
 "class c {
   [\\"i\\"]() {}
 }

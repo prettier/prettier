@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`id.js 1`] = `
+exports[`id.js-flow 1`] = `
 "declare function id<X>(_: X): X;
 
 module.exports = id;
@@ -11,7 +11,7 @@ module.exports = id;
 "
 `;
 
-exports[`subtype.js 1`] = `
+exports[`subtype.js-flow 1`] = `
 "interface Interface {
   m(): void;
 }
@@ -30,7 +30,7 @@ function subtypeCheck(x: Interface): ObjectType {
 "
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js-flow 1`] = `
 "const id = require('./id');
 
 export type ObjectType = {
@@ -59,7 +59,7 @@ module.exports = id(methodCaller);
 "
 `;
 
-exports[`test2.js 1`] = `
+exports[`test2.js-flow 1`] = `
 "/* @flow */
 
 function f() {
@@ -98,7 +98,7 @@ b.f(); // error, property \`p\` not found
 "
 `;
 
-exports[`test3.js 1`] = `
+exports[`test3.js-flow 1`] = `
 "/* @flow */
 
 function foo() {

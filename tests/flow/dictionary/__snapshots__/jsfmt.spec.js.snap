@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`any.js 1`] = `
+exports[`any.js-flow 1`] = `
 "/* @flow */
 
 const dict: {[key: string]: number} = {}
@@ -15,7 +15,7 @@ const val: string = dict[k]; // error: number incompatible with string
 "
 `;
 
-exports[`compatible.js 1`] = `
+exports[`compatible.js-flow 1`] = `
 "/* @flow */
 
 function foo0(x: Array<{[key: string]: mixed}>): Array<{[key: string]: mixed}> {
@@ -52,7 +52,7 @@ function foo2(
 "
 `;
 
-exports[`dictionary.js 1`] = `
+exports[`dictionary.js-flow 1`] = `
 "/* Dictionary types are object types that include an indexer, which specifies a
  * key type and a value type. The presence of an indexer makes the object type
  * unsealed, but all added properties must be consistent with the indexer
@@ -652,7 +652,7 @@ function subtype_optional_c_to_dict(x: { p?: C }): { [k: string]: B } {
 "
 `;
 
-exports[`incompatible.js 1`] = `
+exports[`incompatible.js-flow 1`] = `
 "/* @flow */
 
 var x : {[key: string]: string} = {};
@@ -775,7 +775,7 @@ function foo8(x: { [key: string]: number }) {
 "
 `;
 
-exports[`issue-1745.js 1`] = `
+exports[`issue-1745.js-flow 1`] = `
 "/* @flow */
 
 class A {
@@ -830,7 +830,7 @@ class B {
 "
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js-flow 1`] = `
 "type Params = {count: number; [name: string]: string};
 type QueryFunction = (params: Params) => string;
 
@@ -855,7 +855,7 @@ module.exports = o;
 "
 `;
 
-exports[`test_client.js 1`] = `
+exports[`test_client.js-flow 1`] = `
 "var o = require('./test');
 
 o.foo = function (params) {

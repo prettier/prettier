@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`functionImplementationErrors.ts 1`] = `
+exports[`functionImplementationErrors.ts-typescript 1`] = `
 "// @allowUnreachableCode: true
 
 // FunctionExpression with no return type annotation with multiple return statements with unrelated types
@@ -160,7 +160,7 @@ var f13 = () => {
 "
 `;
 
-exports[`functionImplementations.ts 1`] = `
+exports[`functionImplementations.ts-typescript 1`] = `
 "// @allowUnreachableCode: true
 
 // FunctionExpression with no return type annotation and no return statement returns void
@@ -501,7 +501,7 @@ var f12: (x: number) => any = x => {
 "
 `;
 
-exports[`functionOverloadCompatibilityWithVoid01.ts 1`] = `
+exports[`functionOverloadCompatibilityWithVoid01.ts-typescript 1`] = `
 "function f(x: string): number;
 function f(x: string): void {
     return;
@@ -514,7 +514,7 @@ function f(x: string): void {
 "
 `;
 
-exports[`functionOverloadCompatibilityWithVoid02.ts 1`] = `
+exports[`functionOverloadCompatibilityWithVoid02.ts-typescript 1`] = `
 "function f(x: string): void;
 function f(x: string): number {
     return 0;
@@ -527,7 +527,7 @@ function f(x: string): number {
 "
 `;
 
-exports[`functionOverloadCompatibilityWithVoid03.ts 1`] = `
+exports[`functionOverloadCompatibilityWithVoid03.ts-typescript 1`] = `
 "function f(x: string): void;
 function f(x: string): void {
     return;
@@ -540,7 +540,7 @@ function f(x: string): void {
 "
 `;
 
-exports[`functionOverloadErrorsSyntax.ts 1`] = `
+exports[`functionOverloadErrorsSyntax.ts-typescript 1`] = `
 "//Function overload signature with optional parameter followed by non-optional parameter
 function fn4a(x?: number, y: string);
 function fn4a() { }
@@ -565,7 +565,7 @@ function fn5() {}
 "
 `;
 
-exports[`parameterInitializersForwardReferencing.ts 1`] = `
+exports[`parameterInitializersForwardReferencing.ts-typescript 1`] = `
 "function left(a, b = a, c = b) {
     a;
     b;

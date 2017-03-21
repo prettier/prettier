@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`assignment-pattern.js 1`] = `
+exports[`assignment-pattern.js-babylon 1`] = `
 "const { a /* comment */ = 1 } = b;
 
 const { c = 1 /* comment */ } = d;
@@ -18,7 +18,7 @@ let {
 "
 `;
 
-exports[`assignment-pattern.js 2`] = `
+exports[`assignment-pattern.js-flow 1`] = `
 "const { a /* comment */ = 1 } = b;
 
 const { c = 1 /* comment */ } = d;
@@ -36,7 +36,7 @@ let {
 "
 `;
 
-exports[`blank.js 1`] = `
+exports[`blank.js-babylon 1`] = `
 "// This file only
 // has comments. This comment
 // should still exist
@@ -83,7 +83,7 @@ exports[`blank.js 1`] = `
 "
 `;
 
-exports[`blank.js 2`] = `
+exports[`blank.js-flow 1`] = `
 "// This file only
 // has comments. This comment
 // should still exist
@@ -130,7 +130,7 @@ exports[`blank.js 2`] = `
 "
 `;
 
-exports[`call_comment.js 1`] = `
+exports[`call_comment.js-babylon 1`] = `
 "render( // Warm any cache
   <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
   container
@@ -155,7 +155,7 @@ React.render(
 "
 `;
 
-exports[`call_comment.js 2`] = `
+exports[`call_comment.js-flow 1`] = `
 "render( // Warm any cache
   <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
   container
@@ -180,7 +180,7 @@ React.render(
 "
 `;
 
-exports[`dangling.js 1`] = `
+exports[`dangling.js-babylon 1`] = `
 "var x = {/* dangling */};
 var x = {
   // dangling
@@ -211,7 +211,7 @@ export /* dangling */{};
 "
 `;
 
-exports[`dangling.js 2`] = `
+exports[`dangling.js-flow 1`] = `
 "var x = {/* dangling */};
 var x = {
   // dangling
@@ -242,7 +242,7 @@ export /* dangling */{};
 "
 `;
 
-exports[`dangling_array.js 1`] = `
+exports[`dangling_array.js-babylon 1`] = `
 "expect(() => {}).toTriggerReadyStateChanges([
   // Nothing.
 ]);
@@ -259,7 +259,7 @@ expect(() => {}).toTriggerReadyStateChanges(
 "
 `;
 
-exports[`dangling_array.js 2`] = `
+exports[`dangling_array.js-flow 1`] = `
 "expect(() => {}).toTriggerReadyStateChanges([
   // Nothing.
 ]);
@@ -276,7 +276,7 @@ expect(() => {}).toTriggerReadyStateChanges(
 "
 `;
 
-exports[`dangling_for.js 1`] = `
+exports[`dangling_for.js-babylon 1`] = `
 "for // comment
 (;;);
 
@@ -290,7 +290,7 @@ for (;;);
 "
 `;
 
-exports[`dangling_for.js 2`] = `
+exports[`dangling_for.js-flow 1`] = `
 "for // comment
 (;;);
 
@@ -304,7 +304,7 @@ for (;;);
 "
 `;
 
-exports[`export.js 1`] = `
+exports[`export.js-babylon 1`] = `
 "export //comment
 {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -313,7 +313,7 @@ export {};
 "
 `;
 
-exports[`export.js 2`] = `
+exports[`export.js-flow 1`] = `
 "export //comment
 {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -322,7 +322,7 @@ export {};
 "
 `;
 
-exports[`first-line.js 1`] = `
+exports[`first-line.js-babylon 1`] = `
 "a // comment
 b
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -331,7 +331,7 @@ b;
 "
 `;
 
-exports[`first-line.js 2`] = `
+exports[`first-line.js-flow 1`] = `
 "a // comment
 b
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -340,7 +340,7 @@ b;
 "
 `;
 
-exports[`flow_union.js 1`] = `
+exports[`flow_union.js-babylon 1`] = `
 "type UploadState<E, EM, D>
   // The upload hasnt begun yet
   = {type: \\"Not_begun\\"}
@@ -383,7 +383,7 @@ type UploadState<E, EM, D> =
 "
 `;
 
-exports[`flow_union.js 2`] = `
+exports[`flow_union.js-flow 1`] = `
 "type UploadState<E, EM, D>
   // The upload hasnt begun yet
   = {type: \\"Not_begun\\"}
@@ -426,7 +426,7 @@ type UploadState<E, EM, D> =
 "
 `;
 
-exports[`function-declaration.js 1`] = `
+exports[`function-declaration.js-babylon 1`] = `
 "function a(/* comment */) {} // comment
 function b() {} // comment
 function c(/* comment */ argA, argB, argC) {} // comment
@@ -437,7 +437,7 @@ function c(/* comment */ argA, argB, argC) {} // comment
 "
 `;
 
-exports[`function-declaration.js 2`] = `
+exports[`function-declaration.js-flow 1`] = `
 "function a(/* comment */) {} // comment
 function b() {} // comment
 function c(/* comment */ argA, argB, argC) {} // comment
@@ -448,7 +448,7 @@ function c(/* comment */ argA, argB, argC) {} // comment
 "
 `;
 
-exports[`if.js 1`] = `
+exports[`if.js-babylon 1`] = `
 "if (1)
 // comment
 {
@@ -492,7 +492,7 @@ else if (4) {
 "
 `;
 
-exports[`if.js 2`] = `
+exports[`if.js-flow 1`] = `
 "if (1)
 // comment
 {
@@ -536,7 +536,7 @@ else if (4) {
 "
 `;
 
-exports[`issues.js 1`] = `
+exports[`issues.js-babylon 1`] = `
 "// Does not need to break as it fits in 80 columns
 this.call(a, /* comment */ b);
 
@@ -762,7 +762,7 @@ foo(
 "
 `;
 
-exports[`issues.js 2`] = `
+exports[`issues.js-flow 1`] = `
 "// Does not need to break as it fits in 80 columns
 this.call(a, /* comment */ b);
 
@@ -988,7 +988,7 @@ foo(
 "
 `;
 
-exports[`jsx.js 1`] = `
+exports[`jsx.js-babylon 1`] = `
 "<div>
   {
     /* comment */
@@ -1126,7 +1126,7 @@ exports[`jsx.js 1`] = `
 "
 `;
 
-exports[`jsx.js 2`] = `
+exports[`jsx.js-flow 1`] = `
 "<div>
   {
     /* comment */
@@ -1264,7 +1264,7 @@ exports[`jsx.js 2`] = `
 "
 `;
 
-exports[`last-arg.js 1`] = `
+exports[`last-arg.js-babylon 1`] = `
 "type f = (
   currentRequest: {a: number},
   // TODO this is a very very very very long comment that makes it go > 80 columns
@@ -1321,7 +1321,7 @@ class X {
 "
 `;
 
-exports[`last-arg.js 2`] = `
+exports[`last-arg.js-flow 1`] = `
 "type f = (
   currentRequest: {a: number},
   // TODO this is a very very very very long comment that makes it go > 80 columns
@@ -1378,7 +1378,7 @@ class X {
 "
 `;
 
-exports[`preserve-new-line-last.js 1`] = `
+exports[`preserve-new-line-last.js-babylon 1`] = `
 "function f() {
   a
   /* eslint-disable */
@@ -1425,7 +1425,7 @@ function name() {
 "
 `;
 
-exports[`preserve-new-line-last.js 2`] = `
+exports[`preserve-new-line-last.js-flow 1`] = `
 "function f() {
   a
   /* eslint-disable */
@@ -1472,7 +1472,7 @@ function name() {
 "
 `;
 
-exports[`return-statement.js 1`] = `
+exports[`return-statement.js-babylon 1`] = `
 "function jsx() {
   return (
     // Comment
@@ -1712,7 +1712,7 @@ function inlineComment() {
 "
 `;
 
-exports[`return-statement.js 2`] = `
+exports[`return-statement.js-flow 1`] = `
 "function jsx() {
   return (
     // Comment
@@ -1952,7 +1952,7 @@ function inlineComment() {
 "
 `;
 
-exports[`switch.js 1`] = `
+exports[`switch.js-babylon 1`] = `
 "switch (node && node.type) {
   case \\"Property\\":
   case \\"MethodDefinition\\":
@@ -1995,7 +1995,7 @@ switch (foo) {
 "
 `;
 
-exports[`switch.js 2`] = `
+exports[`switch.js-flow 1`] = `
 "switch (node && node.type) {
   case \\"Property\\":
   case \\"MethodDefinition\\":
@@ -2038,7 +2038,7 @@ switch (foo) {
 "
 `;
 
-exports[`template-literal.js 1`] = `
+exports[`template-literal.js-babylon 1`] = `
 "\`
 \${a // comment
 }
@@ -2067,7 +2067,7 @@ d};
 "
 `;
 
-exports[`template-literal.js 2`] = `
+exports[`template-literal.js-flow 1`] = `
 "\`
 \${a // comment
 }
@@ -2096,7 +2096,7 @@ d};
 "
 `;
 
-exports[`try.js 1`] = `
+exports[`try.js-babylon 1`] = `
 "// comment 1
 try {
   // comment 2
@@ -2124,7 +2124,7 @@ try {
 "
 `;
 
-exports[`try.js 2`] = `
+exports[`try.js-flow 1`] = `
 "// comment 1
 try {
   // comment 2

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`builtin.js 1`] = `
+exports[`builtin.js-flow 1`] = `
 "/**
  * @flow
  */
@@ -29,7 +29,7 @@ var lengthTest4: IHasLength = true; // bool doesn't have length
 "
 `;
 
-exports[`class.js 1`] = `
+exports[`class.js-flow 1`] = `
 "/**
  * @flow
  */
@@ -80,7 +80,7 @@ var testInstance3: IHasYString = new ClassWithXString(); // Error missing prop
 "
 `;
 
-exports[`obj.js 1`] = `
+exports[`obj.js-flow 1`] = `
 "/**
  * @flow
  */
@@ -125,7 +125,7 @@ function propTest6(y: { [key: string]: number }) {
 "
 `;
 
-exports[`optional.js 1`] = `
+exports[`optional.js-flow 1`] = `
 "/* @flow */
 
 interface HasOptional {

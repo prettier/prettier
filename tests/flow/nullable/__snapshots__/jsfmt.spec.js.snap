@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`maybe.js 1`] = `
+exports[`maybe.js-flow 1`] = `
 "// @flow
 
 // unwrapping nested maybes should work
@@ -15,7 +15,7 @@ exports[`maybe.js 1`] = `
 "
 `;
 
-exports[`nullable.js 1`] = `
+exports[`nullable.js-flow 1`] = `
 "function foo():string { return null; }
 
 function bar():?string { return null; }
@@ -63,7 +63,7 @@ var array_of_nullable: Array<?number> = [null, 3];
 "
 `;
 
-exports[`simple_nullable.js 1`] = `
+exports[`simple_nullable.js-flow 1`] = `
 "function foo(x:?string) {}
 function bar(x:?number) {}
 foo('hmm');

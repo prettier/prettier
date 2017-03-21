@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`A.js 1`] = `
+exports[`A.js-flow 1`] = `
 "// No indexer should be fine
 function foo0(): {} {
   return { foo: \\"bar\\" }
@@ -83,7 +83,7 @@ function foo7(): { [key: string]: number, foo: number } {
 "
 `;
 
-exports[`multiple.js 1`] = `
+exports[`multiple.js-flow 1`] = `
 "// @flow
 
 let tests = [

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`object.js 1`] = `
+exports[`object.js-flow 1`] = `
 "state = {
   // students
   hoverColumn: -1
@@ -13,7 +13,7 @@ state = {
 "
 `;
 
-exports[`object.js 2`] = `
+exports[`object.js-typescript 1`] = `
 "state = {
   // students
   hoverColumn: -1
@@ -26,7 +26,7 @@ state = {
 "
 `;
 
-exports[`series.js 1`] = `
+exports[`series.js-flow 1`] = `
 "1 + ++x;
 1 + x++;
 
@@ -65,7 +65,7 @@ x-- - 1;
 "
 `;
 
-exports[`series.js 2`] = `
+exports[`series.js-typescript 1`] = `
 "1 + ++x;
 1 + x++;
 

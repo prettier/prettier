@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`functions.js 1`] = `
+exports[`functions.js-flow 1`] = `
 "const a = () => \\"Foo bar\\";
 
 function b(object, key) {
@@ -15,7 +15,7 @@ function b(object, key) {
 "
 `;
 
-exports[`functions.js 2`] = `
+exports[`functions.js-flow 2`] = `
 "const a = () => \\"Foo bar\\";
 
 function b(object, key) {
@@ -30,7 +30,7 @@ function b(object, key) {
 "
 `;
 
-exports[`strings.js 1`] = `
+exports[`strings.js-flow 1`] = `
 "// Every string will be changed to double quotes, unless we end up with fewer
 // escaped quotes by using single quotes. (Vice versa if the \\"singleQuote\\"
 // option is true).
@@ -147,7 +147,7 @@ exports[`strings.js 1`] = `
 "
 `;
 
-exports[`strings.js 2`] = `
+exports[`strings.js-flow 2`] = `
 "// Every string will be changed to double quotes, unless we end up with fewer
 // escaped quotes by using single quotes. (Vice versa if the \\"singleQuote\\"
 // option is true).

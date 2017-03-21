@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should_fail_without_weak.js 1`] = `
+exports[`should_fail_without_weak.js-flow 1`] = `
 "/* @flow */
 // This should fail without weak mode, because of the glaring type error.
 
@@ -25,7 +25,7 @@ function expects_an_int() {
 "
 `;
 
-exports[`should_pass_with_weak.js 1`] = `
+exports[`should_pass_with_weak.js-flow 1`] = `
 "/* @flow weak */
 // This should fail without weak mode, because of the glaring type error.
 

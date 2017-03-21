@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`This.js 1`] = `
+exports[`This.js-flow 1`] = `
 "/* @providesModule This */
 
 function F() { this.x = 0; }
@@ -131,7 +131,7 @@ module.exports = true;
 "
 `;
 
-exports[`arrows.js 1`] = `
+exports[`arrows.js-flow 1`] = `
 "class C {
   foo() {
     return () => { return this.bar(); }; // OK, since this: C

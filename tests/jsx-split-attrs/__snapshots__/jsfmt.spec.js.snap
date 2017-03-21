@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js 1`] = `
+exports[`test.js-flow 1`] = `
 "long_closed =
   <BaseForm url=\\"/auth/google\\" method=\\"GET\\" colour=\\"blue\\" size=\\"large\\" submitLabel=\\"Sign in with Google\\"/>
 
@@ -213,7 +213,7 @@ long_obj = (
 "
 `;
 
-exports[`test.js 2`] = `
+exports[`test.js-typescript 1`] = `
 "long_closed =
   <BaseForm url=\\"/auth/google\\" method=\\"GET\\" colour=\\"blue\\" size=\\"large\\" submitLabel=\\"Sign in with Google\\"/>
 

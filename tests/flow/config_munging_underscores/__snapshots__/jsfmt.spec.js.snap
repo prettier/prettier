@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`chain.js 1`] = `
+exports[`chain.js-flow 1`] = `
 "/* @flow */
 
 class A {
@@ -73,7 +73,7 @@ B._sProperty = \\"B._sProperty string\\";
 "
 `;
 
-exports[`commonjs_export.js 1`] = `
+exports[`commonjs_export.js-flow 1`] = `
 "/* @flow */
 
 class C {
@@ -92,7 +92,7 @@ module.exports = new C();
 "
 `;
 
-exports[`commonjs_import.js 1`] = `
+exports[`commonjs_import.js-flow 1`] = `
 "/* @flow */
 
 import {_p} from \\"./commonjs_export\\";

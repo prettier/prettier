@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`A.js 1`] = `
+exports[`A.js-flow 1`] = `
 "/**
  * @flow
  */
@@ -61,7 +61,7 @@ module.exports = {
 "
 `;
 
-exports[`B.js 1`] = `
+exports[`B.js-flow 1`] = `
 "/**
  * @flow
  */
@@ -100,7 +100,7 @@ A.js|8 col 23 error|  object literal
 "
 `;
 
-exports[`apply.js 1`] = `
+exports[`apply.js-flow 1`] = `
 "// @flow
 
 (Object.assign.apply(null, [{}, {a: 1}, {b: 'foo'}]): {a: number, b: string});
@@ -116,7 +116,7 @@ exports[`apply.js 1`] = `
 "
 `;
 
-exports[`non_objects.js 1`] = `
+exports[`non_objects.js-flow 1`] = `
 "/* @flow */
 
 Object.assign(\\"123\\", {a: \\"foo\\"});
@@ -131,7 +131,7 @@ Object.assign({ a: \\"foo\\" }, 123);
 "
 `;
 
-exports[`undefined.js 1`] = `
+exports[`undefined.js-flow 1`] = `
 "/* @flow */
 
 var React = require('react');

@@ -1,37 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`escape.js 1`] = `
+exports[`escape.js-babylon 1`] = `
 "<div>&lt;</div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div>&lt;</div>;
 "
 `;
 
-exports[`escape.js 2`] = `
+exports[`escape.js-flow 1`] = `
 "<div>&lt;</div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div>&lt;</div>;
 "
 `;
 
-exports[`nbsp.js 1`] = `
-"many_nbsp = <div>&nbsp; &nbsp; </div>
-single_nbsp = <div>&nbsp;</div>
-many_raw_nbsp = <div>   </div>
-
-
-amp = <span>foo &amp; bar</span>
-raw_amp = <span>foo & bar</span>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-many_nbsp = <div>&nbsp; &nbsp; </div>;
-single_nbsp = <div>&nbsp;</div>;
-many_raw_nbsp = <div>&nbsp;&nbsp;&nbsp;</div>;
-amp = <span>foo &amp; bar</span>;
-raw_amp = <span>foo & bar</span>;
-"
-`;
-
-exports[`nbsp.js 2`] = `
+exports[`nbsp.js-babylon 1`] = `
 "many_nbsp = <div>&nbsp; &nbsp; </div>
 single_nbsp = <div>&nbsp;</div>
 many_raw_nbsp = <div>   </div>
@@ -45,6 +28,23 @@ single_nbsp = <div>&nbsp;</div>;
 many_raw_nbsp = <div>&nbsp;&nbsp;&nbsp;</div>;
 
 amp = <span>foo & bar</span>;
+raw_amp = <span>foo & bar</span>;
+"
+`;
+
+exports[`nbsp.js-flow 1`] = `
+"many_nbsp = <div>&nbsp; &nbsp; </div>
+single_nbsp = <div>&nbsp;</div>
+many_raw_nbsp = <div>   </div>
+
+
+amp = <span>foo &amp; bar</span>
+raw_amp = <span>foo & bar</span>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+many_nbsp = <div>&nbsp; &nbsp; </div>;
+single_nbsp = <div>&nbsp;</div>;
+many_raw_nbsp = <div>&nbsp;&nbsp;&nbsp;</div>;
+amp = <span>foo &amp; bar</span>;
 raw_amp = <span>foo & bar</span>;
 "
 `;

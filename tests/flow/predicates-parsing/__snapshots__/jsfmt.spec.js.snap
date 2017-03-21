@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fail-0.js 1`] = `
+exports[`fail-0.js-flow 1`] = `
 "// @flow
 
 // Error: 'declare', 'checks' but missing predicate
@@ -15,7 +15,7 @@ declare function f2(x: mixed): boolean %checks;
 "
 `;
 
-exports[`fail-1.js 1`] = `
+exports[`fail-1.js-flow 1`] = `
 "// @flow
 
 // Error: no return statement
@@ -30,7 +30,7 @@ function f6(x: mixed): %checks(x !== null) {}
 "
 `;
 
-exports[`fail-2.js 1`] = `
+exports[`fail-2.js-flow 1`] = `
 "// @flow
 
 var a2 = (x: mixed): %checks (x !== null) => {        // Error: body form
@@ -47,7 +47,7 @@ var a2 = (x: mixed): %checks(x !== null) => {
 "
 `;
 
-exports[`fail-3.js 1`] = `
+exports[`fail-3.js-flow 1`] = `
 "// @flow
 
 // Cannot declare predicate with a function body is present.
@@ -68,7 +68,7 @@ var a2 = (x: mixed): %checks(x !== null) => x !== null;
 "
 `;
 
-exports[`pass.js 1`] = `
+exports[`pass.js-flow 1`] = `
 "// @flow
 
 declare function f1(x: mixed): boolean;

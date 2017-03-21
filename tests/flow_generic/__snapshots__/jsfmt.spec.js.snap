@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`break.js 1`] = `
+exports[`break.js-flow 1`] = `
 "var X = {
   perform: function<    
      A, B, C, D, E, F, G,     
