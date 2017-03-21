@@ -265,6 +265,7 @@ function genericPrintNoParens(path, options, print) {
     case "SpreadProperty":
     case "SpreadPropertyPattern":
     case "RestElement":
+    case "ObjectTypeSpreadProperty":
       return concat([
         "...",
         path.call(print, "argument"),
