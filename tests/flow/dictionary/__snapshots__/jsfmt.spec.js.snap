@@ -97,7 +97,7 @@ function foo0(
 
 function foo2(
   x: { [key: string]: number }
-): { [key: string]: number, toString: () => string } {
+): { [key: string]: number, +toString: () => string } {
   // x's prototype has a toString method
   return x;
 }
@@ -1102,7 +1102,7 @@ function mix_with_declared_props(o: { [k: number]: X, p: Y }, x: X, y: Y) {
 // Indeed, dict types are still Objects and have Object.prototype stuff
 function object_prototype(
   o: { [k: string]: number }
-): { [k: string]: number, toString: () => string } {
+): { [k: string]: number, +toString: () => string } {
   (o.toString(): boolean); // error: string ~> boolean
   return o; // ok
 }

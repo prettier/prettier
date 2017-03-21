@@ -853,8 +853,8 @@ declare var c: C;
 
 class Base {
   x: B;
-  pos: B;
-  neg: B;
+  +pos: B;
+  -neg: B;
   get get(): B {
     return this.x;
   }

@@ -132,6 +132,6 @@ class C {
 }
 class D extends C {}
 
-var d: { m: () => void } = new D();
+var d: { +m: () => void } = new D();
 "
 `;
