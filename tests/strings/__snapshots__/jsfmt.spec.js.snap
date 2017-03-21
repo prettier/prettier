@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`strings.js 1`] = `
+exports[`strings.js-flow 1`] = `
 "[
   \\"abc\\",
   'abc',
@@ -54,7 +54,7 @@ exports[`strings.js 1`] = `
 "
 `;
 
-exports[`strings.js 2`] = `
+exports[`strings.js-flow 2`] = `
 "[
   \\"abc\\",
   'abc',
@@ -108,7 +108,7 @@ exports[`strings.js 2`] = `
 "
 `;
 
-exports[`template-literals.js 1`] = `
+exports[`template-literals.js-flow 1`] = `
 "foo(\`a long string \${ 1 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 } with expr\`);
 
 const x = \`a long string \${ 1 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + ( function() {return 3 })() + 3 + 2 + 3 + 2 + 3 } with expr\`;
@@ -145,7 +145,7 @@ pipe.write(
 "
 `;
 
-exports[`template-literals.js 2`] = `
+exports[`template-literals.js-flow 2`] = `
 "foo(\`a long string \${ 1 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 } with expr\`);
 
 const x = \`a long string \${ 1 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + ( function() {return 3 })() + 3 + 2 + 3 + 2 + 3 } with expr\`;

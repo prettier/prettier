@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test_declarations.js 1`] = `
+exports[`test_declarations.js-flow 1`] = `
 "// Shouldn't break
 
 it(\\"does something really long and complicated so I have to write a very long name for the test\\", () => {
@@ -153,7 +153,7 @@ it.only.only(
 "
 `;
 
-exports[`test_declarations.js 2`] = `
+exports[`test_declarations.js-typescript 1`] = `
 "// Shouldn't break
 
 it(\\"does something really long and complicated so I have to write a very long name for the test\\", () => {

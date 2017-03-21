@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Bar.js 1`] = `
+exports[`Bar.js-flow 1`] = `
 "
 /* @providesModule Bar */
 
@@ -44,7 +44,7 @@ module.exports = Bar;
 "
 `;
 
-exports[`Foo.js 1`] = `
+exports[`Foo.js-flow 1`] = `
 "
 /* @providesModule Foo */
 
@@ -100,7 +100,7 @@ module.exports = Foo;
 "
 `;
 
-exports[`Qux.js 1`] = `
+exports[`Qux.js-flow 1`] = `
 "
 /* @providesModule Qux */
 

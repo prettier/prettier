@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`declare_module_type_alias.js 1`] = `
+exports[`declare_module_type_alias.js-flow 1`] = `
 "/**
  * @flow
  */
@@ -29,7 +29,7 @@ declare type Foo = string;
 "
 `;
 
-exports[`declare_type_exports.js 1`] = `
+exports[`declare_type_exports.js-flow 1`] = `
 "/* @flow */
 
 declare module 'foo' {

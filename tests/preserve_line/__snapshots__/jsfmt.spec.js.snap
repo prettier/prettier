@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comments.js 1`] = `
+exports[`comments.js-flow 1`] = `
 "function a() {
   const a = 5; // comment
 
@@ -61,7 +61,7 @@ function a() {
 "
 `;
 
-exports[`comments.js 2`] = `
+exports[`comments.js-typescript 1`] = `
 "function a() {
   const a = 5; // comment
 

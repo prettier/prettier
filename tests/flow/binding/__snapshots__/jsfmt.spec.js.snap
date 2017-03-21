@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`const.js 1`] = `
+exports[`const.js-flow 1`] = `
 "const x = 0;
 
 // errors: const cannot be reassigned
@@ -59,7 +59,7 @@ for (const { baz } of bazzes) {
 "
 `;
 
-exports[`rebinding.js 1`] = `
+exports[`rebinding.js-flow 1`] = `
 "/* @flow
  * test errors on illegal rebinding/reassignment
  *
@@ -458,7 +458,7 @@ function fn_params_clash_fn_binding(x, y) {
 "
 `;
 
-exports[`scope.js 1`] = `
+exports[`scope.js-flow 1`] = `
 "function block_scope() {
   let a: number = 0;
   var b: number = 0;
@@ -687,7 +687,7 @@ function default_param_2() {
 "
 `;
 
-exports[`tdz.js 1`] = `
+exports[`tdz.js-flow 1`] = `
 "/** @flow */
 
 // -- types ---

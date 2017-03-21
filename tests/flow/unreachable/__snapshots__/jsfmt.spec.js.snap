@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`typecheck.js 1`] = `
+exports[`typecheck.js-flow 1`] = `
 "/* @flow */
 
 function test1(): string {
@@ -51,7 +51,7 @@ function test2() {
 "
 `;
 
-exports[`unreachable.js 1`] = `
+exports[`unreachable.js-flow 1`] = `
 "/* @flow */
 
 function foo(x, y) {

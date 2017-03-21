@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`boolean.js 1`] = `
+exports[`boolean.js-flow 1`] = `
 "/* @flow */
 
 function veryOptimistic(isThisAwesome: true): boolean {
@@ -79,7 +79,7 @@ function alwaysFalsy(x: boolean): false {
 "
 `;
 
-exports[`number.js 1`] = `
+exports[`number.js-flow 1`] = `
 "/* @flow */
 
 function highlander(howMany: 1): number {
@@ -129,7 +129,7 @@ sort((x, y) => -1);
 "
 `;
 
-exports[`string.js 1`] = `
+exports[`string.js-flow 1`] = `
 "/* @flow */
 
 type NoSpaces = \\"foobar\\"

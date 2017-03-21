@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`conversion.js 1`] = `
+exports[`conversion.js-flow 1`] = `
 "/* @flow */
 
 (Object({foo: 'bar'}): {foo: string});
@@ -43,7 +43,7 @@ var z = Object(123); // error (next line makes this not match any signatures)
 "
 `;
 
-exports[`objects.js 1`] = `
+exports[`objects.js-flow 1`] = `
 "/* @flow */
 
 var x : {'123': string, bar: string} = {'123': 'val', bar: 'bar'};
@@ -84,7 +84,7 @@ y[\\"bar\\"] = \\"abc\\"; // error, property not found
 "
 `;
 
-exports[`unaliased_assign.js 1`] = `
+exports[`unaliased_assign.js-flow 1`] = `
 "/**
  * test handling of unaliased value assignment.
  *

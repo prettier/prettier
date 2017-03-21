@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ArityError.react.js 1`] = `
+exports[`ArityError.react.js-flow 1`] = `
 "/**
  * @providesModule ArityError.react
  */
@@ -27,7 +27,7 @@ module.exports = AudienceInsightsContainer;
 "
 `;
 
-exports[`createElement_string.js 1`] = `
+exports[`createElement_string.js-flow 1`] = `
 "// @flow
 import React from 'react';
 
@@ -54,7 +54,7 @@ class Foo extends React.Component {
 "
 `;
 
-exports[`createElementRequiredProp_string.js 1`] = `
+exports[`createElementRequiredProp_string.js-flow 1`] = `
 "// @flow
 import React from 'react';
 
@@ -103,7 +103,7 @@ class Foo extends React.Component {
 "
 `;
 
-exports[`import_react.js 1`] = `
+exports[`import_react.js-flow 1`] = `
 "/* @flow */
 
 import react from \\"react\\";
@@ -122,7 +122,7 @@ var b: number = new react.Component(); // Error: ReactComponent ~> number
 "
 `;
 
-exports[`jsx_spread.js 1`] = `
+exports[`jsx_spread.js-flow 1`] = `
 "/* @flow */
 
 var React = require('react');
@@ -149,7 +149,7 @@ var blah = <Foo {...props} />; // error bar, number given string expected
 "
 `;
 
-exports[`proptype_arrayOf.js 1`] = `
+exports[`proptype_arrayOf.js-flow 1`] = `
 "/* @flow */
 
 var React = require('react');
@@ -182,7 +182,7 @@ var fail_mistyped_elems = <Example arr={[1, \\"foo\\"]} />;
 "
 `;
 
-exports[`proptype_func.js 1`] = `
+exports[`proptype_func.js-flow 1`] = `
 "/* @flow */
 
 var React = require('react');
@@ -215,7 +215,7 @@ var fail_mistyped = <Example func={2} />;
 "
 `;
 
-exports[`proptype_missing.js 1`] = `
+exports[`proptype_missing.js-flow 1`] = `
 "/* @flow */
 
 /* If you create a react component with createClass() but don't specify the
@@ -282,7 +282,7 @@ var React = React.createClass({
 "
 `;
 
-exports[`proptype_object.js 1`] = `
+exports[`proptype_object.js-flow 1`] = `
 "/* @flow */
 
 var React = require('react');
@@ -313,7 +313,7 @@ var fail_mistyped = <Example object={2} />;
 "
 `;
 
-exports[`proptype_objectOf.js 1`] = `
+exports[`proptype_objectOf.js-flow 1`] = `
 "/* @flow */
 
 var React = require('react');
@@ -346,7 +346,7 @@ var fail_mistyped_props = <Example obj={{ foo: \\"foo\\" }} />;
 "
 `;
 
-exports[`proptype_oneOf.js 1`] = `
+exports[`proptype_oneOf.js-flow 1`] = `
 "/* @flow */
 
 var React = require('react');
@@ -373,7 +373,7 @@ var ex2 = <Example literal=\\"bar\\" />;
 "
 `;
 
-exports[`proptype_oneOfType.js 1`] = `
+exports[`proptype_oneOfType.js-flow 1`] = `
 "/* @flow */
 
 var React = require('react');

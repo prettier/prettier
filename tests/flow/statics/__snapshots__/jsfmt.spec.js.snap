@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class_statics.js 1`] = `
+exports[`class_statics.js-flow 1`] = `
 "class C {
   static f(x:number) { }
   static x:string;
@@ -26,7 +26,7 @@ C.x = 0;
 "
 `;
 
-exports[`funstatics.js 1`] = `
+exports[`funstatics.js-flow 1`] = `
 "function C() { }
 C.prototype.f = function() { return C.g(0); }
 C.g = function(x) { return x; };

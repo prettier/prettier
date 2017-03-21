@@ -1,21 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrow.js 1`] = `
-"// Error
-const beep = (data/*: Object*/) => {}
-
-// OK
-const beep = (data/*: Object*/, secondData/*: Object*/) => {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Error
-const beep = (data: Object) => {};
-
-// OK
-const beep = (data: Object, secondData: Object) => {};
-"
-`;
-
-exports[`arrow.js 2`] = `
+exports[`arrow.js-babylon 1`] = `
 "// Error
 const beep = (data/*: Object*/) => {}
 
@@ -27,5 +12,20 @@ const beep = (data /*: Object*/) => {};
 
 // OK
 const beep = (data /*: Object*/, secondData /*: Object*/) => {};
+"
+`;
+
+exports[`arrow.js-flow 1`] = `
+"// Error
+const beep = (data/*: Object*/) => {}
+
+// OK
+const beep = (data/*: Object*/, secondData/*: Object*/) => {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Error
+const beep = (data: Object) => {};
+
+// OK
+const beep = (data: Object, secondData: Object) => {};
 "
 `;

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ast.js 1`] = `
+exports[`ast.js-flow 1`] = `
 "/**
  * @flow
  */
@@ -163,7 +163,7 @@ export type TypedNode =
 "
 `;
 
-exports[`emit.js 1`] = `
+exports[`emit.js-flow 1`] = `
 "/**
  * @flow
  */
@@ -296,7 +296,7 @@ export function emitExpression(node: TypedNode): t.Expression {
 "
 `;
 
-exports[`jsAst.js 1`] = `
+exports[`jsAst.js-flow 1`] = `
 "/**
  * @flow
  */

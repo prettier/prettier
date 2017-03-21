@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`enum.js 1`] = `
+exports[`enum.js-flow 1`] = `
 "var APIKeys = {
     AGE: 'age',
     NAME: 'name',
@@ -17,7 +17,7 @@ module.exports = APIKeys;
 "
 `;
 
-exports[`enum_client.js 1`] = `
+exports[`enum_client.js-flow 1`] = `
 "var APIKeys = require('./enum');
 // object that maps \\"AGE\\" to \\"age\\", \\"NAME\\" to \\"name\\"
 
@@ -64,7 +64,7 @@ var red: string = tuple[indices.red]; // error: tuple[0] is a number
 "
 `;
 
-exports[`number.js 1`] = `
+exports[`number.js-flow 1`] = `
 "function test1(x: number): number {
   return -x;
 }

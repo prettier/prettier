@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js 1`] = `
+exports[`test.js-flow 1`] = `
 "after =
   <span>
       foo <span>bar</span>
@@ -199,7 +199,7 @@ not_broken_begin = (
 "
 `;
 
-exports[`test.js 2`] = `
+exports[`test.js-typescript 1`] = `
 "after =
   <span>
       foo <span>bar</span>

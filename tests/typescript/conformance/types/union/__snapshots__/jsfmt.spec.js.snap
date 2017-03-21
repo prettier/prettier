@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`unionTypeCallSignatures.ts 1`] = `
+exports[`unionTypeCallSignatures.ts-typescript 1`] = `
 "﻿var numOrDate: number | Date;
 var strOrBoolean: string | boolean;
 var strOrNum: string | number;
@@ -175,7 +175,7 @@ strOrNum = unionWithRestParameter4(\\"hello\\", \\"world\\");
 "
 `;
 
-exports[`unionTypeCallSignatures3.ts 1`] = `
+exports[`unionTypeCallSignatures3.ts-typescript 1`] = `
 "﻿function f1(s: string) { }
 function f2(s?: string) { }
 function f3(...s: string[]) { }
@@ -209,7 +209,7 @@ fUnion(\\"\\"); // All constituents can be called by passing a single string.
 "
 `;
 
-exports[`unionTypeCallSignatures4.ts 1`] = `
+exports[`unionTypeCallSignatures4.ts-typescript 1`] = `
 "﻿type F1 = (a: string, b?: string) => void;
 type F2 = (a: string, b?: string, c?: string) => void;
 type F3 = (a: string, ...rest: string[]) => void;
@@ -264,7 +264,7 @@ f12345(\\"a\\", \\"b\\", \\"c\\"); // error
 "
 `;
 
-exports[`unionTypeConstructSignatures.ts 1`] = `
+exports[`unionTypeConstructSignatures.ts-typescript 1`] = `
 "﻿var numOrDate: number | Date;
 var strOrBoolean: string | boolean;
 var strOrNum: string | number;
@@ -431,7 +431,7 @@ strOrNum = new unionWithRestParameter3(); // error no call signature
 "
 `;
 
-exports[`unionTypeEquivalence.ts 1`] = `
+exports[`unionTypeEquivalence.ts-typescript 1`] = `
 "﻿// A | B is equivalent to A if B is a subtype of A
 class C { }
 class D extends C { foo() { } }
@@ -474,7 +474,7 @@ var z1: string | typeof BC;
 "
 `;
 
-exports[`unionTypeFromArrayLiteral.ts 1`] = `
+exports[`unionTypeFromArrayLiteral.ts-typescript 1`] = `
 "﻿// The resulting type an array literal expression is determined as follows:
 // If the array literal is empty, the resulting type is an array type with the element type Undefined.
 // Otherwise, if the array literal is contextually typed by a type that has a property with the numeric name ‘0’, the resulting type is a tuple type constructed from the types of the element expressions.
@@ -533,7 +533,7 @@ var arr9 = [e, f]; // (E|F)[]
 "
 `;
 
-exports[`unionTypeIndexSignature.ts 1`] = `
+exports[`unionTypeIndexSignature.ts-typescript 1`] = `
 "﻿var numOrDate: number | Date;
 var anyVar: number;
 
@@ -590,7 +590,7 @@ anyVar = unionOfTypesWithAndWithoutStringSignature1[10]; // any
 "
 `;
 
-exports[`unionTypePropertyAccessibility.ts 1`] = `
+exports[`unionTypePropertyAccessibility.ts-typescript 1`] = `
 "class Default {
     member: string;
 }

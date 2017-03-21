@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`array.js 1`] = `
+exports[`array.js-flow 1`] = `
 "var a = [\\"...\\"];
 var b = a.map (function (x) { return 0; });
 var c: string = b[0]; // error: number !~> string
@@ -45,7 +45,7 @@ function g() {
 "
 `;
 
-exports[`genericfoo.js 1`] = `
+exports[`genericfoo.js-flow 1`] = `
 "class Foo<T> {
     x:T;
     self():Foo<T> { return this; }

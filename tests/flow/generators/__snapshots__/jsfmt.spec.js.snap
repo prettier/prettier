@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class.js 1`] = `
+exports[`class.js-flow 1`] = `
 "class GeneratorExamples {
   *stmt_yield(): Generator<number, void, void> {
     yield 0; // ok
@@ -265,7 +265,7 @@ for (var x of examples.delegate_yield_iterable([])) {
 "
 `;
 
-exports[`class_failure.js 1`] = `
+exports[`class_failure.js-flow 1`] = `
 "// generalization of failure in class.js
 
 class GeneratorExamples<X> {
@@ -312,7 +312,7 @@ if (typeof infer_stmt_next === \\"undefined\\") {
 "
 `;
 
-exports[`generators.js 1`] = `
+exports[`generators.js-flow 1`] = `
 "function *stmt_yield(): Generator<number, void, void> {
   yield 0; // ok
   yield \\"\\"; // error: string ~> number
@@ -577,7 +577,7 @@ if (multiple_return_result.done) {
 "
 `;
 
-exports[`return.js 1`] = `
+exports[`return.js-flow 1`] = `
 "function test1(gen: Generator<void, string, void>) {
   // You can pass whatever you like to return, it doesn't need to be related to
   // the Generator's return type
@@ -624,7 +624,7 @@ if (refuse_return_result.done) {
 "
 `;
 
-exports[`throw.js 1`] = `
+exports[`throw.js-flow 1`] = `
 "function *catch_return() {
   try {
     yield 0;
@@ -679,7 +679,7 @@ if (yield_return_value !== undefined) {
 "
 `;
 
-exports[`variance.js 1`] = `
+exports[`variance.js-flow 1`] = `
 "declare var g1: Generator<string, string, ?string>;
 var g2: Generator<?string, ?string, string> = g1;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

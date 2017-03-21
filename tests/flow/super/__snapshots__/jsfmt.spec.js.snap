@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`constructor.js 1`] = `
+exports[`constructor.js-flow 1`] = `
 "class A { x: number; }
 
 class B {
@@ -315,7 +315,7 @@ class N extends N_ {
 "
 `;
 
-exports[`import.js 1`] = `
+exports[`import.js-flow 1`] = `
 "class D {
   foo(): number { return 0; }
 }
@@ -330,7 +330,7 @@ module.exports = D;
 "
 `;
 
-exports[`super.js 1`] = `
+exports[`super.js-flow 1`] = `
 "
 class A {
   constructor(x:number) { }
@@ -380,7 +380,7 @@ class B extends A {
 "
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js-flow 1`] = `
 "var D = require('./import');
 class C extends D {
   constructor() { return super(); }

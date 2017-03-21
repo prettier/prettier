@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`empty_label.js 1`] = `
+exports[`empty_label.js-flow 1`] = `
 "a:;
 b
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -9,7 +9,7 @@ b;
 "
 `;
 
-exports[`empty_label.js 2`] = `
+exports[`empty_label.js-typescript 1`] = `
 "a:;
 b
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

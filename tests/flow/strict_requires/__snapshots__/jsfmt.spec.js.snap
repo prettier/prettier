@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`A.js 1`] = `
+exports[`A.js-flow 1`] = `
 "/* @flow */
 module.exports = 0;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -9,7 +9,7 @@ module.exports = 0;
 "
 `;
 
-exports[`B.js 1`] = `
+exports[`B.js-flow 1`] = `
 "/* @flow */
 module.exports = { foo: \\"\\" }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -18,7 +18,7 @@ module.exports = { foo: \\"\\" };
 "
 `;
 
-exports[`C.js 1`] = `
+exports[`C.js-flow 1`] = `
 "/* @flow */
 var o = {
     A: require('./A'),
@@ -35,7 +35,7 @@ module.exports = o;
 "
 `;
 
-exports[`D.js 1`] = `
+exports[`D.js-flow 1`] = `
 "/* @flow */
 var C = require('./C');
 var x: number = C.foo;

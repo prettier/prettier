@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`update_expression.js 1`] = `
+exports[`update_expression.js-flow 1`] = `
 "(this.x++).toString()
 new (r++);
 (x++)();
@@ -13,7 +13,7 @@ const uuid = String(this._uuidCounter++);
 "
 `;
 
-exports[`update_expression.js 2`] = `
+exports[`update_expression.js-typescript 1`] = `
 "(this.x++).toString()
 new (r++);
 (x++)();

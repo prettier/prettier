@@ -18,6 +18,13 @@ function removeEmptyStatements(ast) {
   });
 }
 
+function getParserOrDefault(options)  {
+  if (!options || !options.parser) {
+    return 'flow';
+  }
+  return options.parser;
+}
+
 function run_spec(dirname, options) {
   fs.readdirSync(dirname).forEach(filename => {
     if ((filename.endsWith('.js') || filename.endsWith('.ts')) && filename !== 'jsfmt.spec.js') {
@@ -26,7 +33,8 @@ function run_spec(dirname, options) {
       if (!RUN_AST_TESTS) {
         const source = read(path).replace(/\r\n/g, '\n');
         const output = prettyprint(source, path, options || {});
-        test(filename, () => {
+        const parserFilename = filename + "-" + getParserOrDefault(options);
+        test(parserFilename, () => {
           expect(source + '~'.repeat(80) + '\n' + output).toMatchSnapshot();
         });
       }
@@ -82,7 +90,7 @@ function parse(string) {
 function prettyprint(src, filename, options) {
   return prettier.format(src, Object.assign({
     filename,
-    parser: 'flow',
+    parser: getParserOrDefault(),
     printWidth: 80,
   }, options));
 }

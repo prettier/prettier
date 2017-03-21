@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`contextualTypeWithTuple.ts 1`] = `
+exports[`contextualTypeWithTuple.ts-typescript 1`] = `
 "﻿// no error
 var numStrTuple: [number, string] = [5, \\"hello\\"];
 var numStrTuple2: [number, string] = [5, \\"foo\\", true];
@@ -55,7 +55,7 @@ numStrTuple = unionTuple3;
 "
 `;
 
-exports[`indexerWithTuple.ts 1`] = `
+exports[`indexerWithTuple.ts-typescript 1`] = `
 "﻿var strNumTuple: [string, number] = [\\"foo\\", 10]; 
 var numTupleTuple: [number, [string, number]] = [10, [\\"bar\\", 20]];
 var unionTuple1: [number, string| number] = [10, \\"foo\\"]; 
@@ -124,35 +124,35 @@ var eleUnion26 = unionTuple2[\\"1\\"]; // string | number
 "
 `;
 
-exports[`tupleElementTypes1.ts 1`] = `
+exports[`tupleElementTypes1.ts-typescript 1`] = `
 "var [a, b]: [number, any] = [undefined, undefined];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var [a, b]: [number, any] = [undefined, undefined];
 "
 `;
 
-exports[`tupleElementTypes2.ts 1`] = `
+exports[`tupleElementTypes2.ts-typescript 1`] = `
 "function f([a, b]: [number, any]) { }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function f([a, b]: [number, any]) {}
 "
 `;
 
-exports[`tupleElementTypes3.ts 1`] = `
+exports[`tupleElementTypes3.ts-typescript 1`] = `
 "var [a, b] = [0, undefined];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var [a, b] = [0, undefined];
 "
 `;
 
-exports[`tupleElementTypes4.ts 1`] = `
+exports[`tupleElementTypes4.ts-typescript 1`] = `
 "function f([a, b] = [0, undefined]) { }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function f([a, b] = [0, undefined]) {}
 "
 `;
 
-exports[`typeInferenceWithTupleType.ts 1`] = `
+exports[`typeInferenceWithTupleType.ts-typescript 1`] = `
 "﻿function combine<T, U>(x: T, y: U): [T, U] {
     return [x, y];
 }
@@ -204,7 +204,7 @@ var zipResultEleEle = zipResult[0][0]; // string
 "
 `;
 
-exports[`wideningTuples1.ts 1`] = `
+exports[`wideningTuples1.ts-typescript 1`] = `
 "//@noImplicitAny: true
 declare function foo<T extends [any]>(x: T): T;
 
@@ -219,7 +219,7 @@ y = [\\"\\"];
 "
 `;
 
-exports[`wideningTuples2.ts 1`] = `
+exports[`wideningTuples2.ts-typescript 1`] = `
 "//@noImplicitAny: true
 var foo: () => [any] = function bar() {
     let intermediate = bar();
@@ -236,7 +236,7 @@ var foo: () => [any] = function bar() {
 "
 `;
 
-exports[`wideningTuples3.ts 1`] = `
+exports[`wideningTuples3.ts-typescript 1`] = `
 "//@noImplicitAny: true
 var a: [any];
 
@@ -249,7 +249,7 @@ var b = (a = [undefined, null]);
 "
 `;
 
-exports[`wideningTuples4.ts 1`] = `
+exports[`wideningTuples4.ts-typescript 1`] = `
 "var a: [any];
 
 var b = a = [undefined, null];
@@ -262,7 +262,7 @@ b = [\\"\\", \\"\\"];
 "
 `;
 
-exports[`wideningTuples5.ts 1`] = `
+exports[`wideningTuples5.ts-typescript 1`] = `
 "//@noImplicitAny: true
 var [a, b] = [undefined, null];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -271,7 +271,7 @@ var [a, b] = [undefined, null];
 "
 `;
 
-exports[`wideningTuples6.ts 1`] = `
+exports[`wideningTuples6.ts-typescript 1`] = `
 "var [a, b] = [undefined, null];
 a = \\"\\";
 b = \\"\\";
@@ -282,7 +282,7 @@ b = \\"\\";
 "
 `;
 
-exports[`wideningTuples7.ts 1`] = `
+exports[`wideningTuples7.ts-typescript 1`] = `
 "//@noImplicitAny: true
 var foo = function bar() {
     let intermediate: [string];

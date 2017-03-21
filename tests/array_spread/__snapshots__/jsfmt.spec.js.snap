@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`multiple.js 1`] = `
+exports[`multiple.js-flow 1`] = `
 "[...a, ...b,];
 [...a, ...b];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -9,7 +9,7 @@ exports[`multiple.js 1`] = `
 "
 `;
 
-exports[`multiple.js 2`] = `
+exports[`multiple.js-typescript 1`] = `
 "[...a, ...b,];
 [...a, ...b];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

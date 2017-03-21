@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fields.js 1`] = `
+exports[`fields.js-flow 1`] = `
 "class C {
     x: ?number|string;
     constructor() {
@@ -17,7 +17,7 @@ class C {
 "
 `;
 
-exports[`fields2.js 1`] = `
+exports[`fields2.js-flow 1`] = `
 "class C { }
 
 class D {
@@ -40,7 +40,7 @@ class D {
 "
 `;
 
-exports[`issue-17.js 1`] = `
+exports[`issue-17.js-flow 1`] = `
 "/* @flow */
 
 type T =
@@ -75,7 +75,7 @@ var l: Array<T> = [
 "
 `;
 
-exports[`issue-198.js 1`] = `
+exports[`issue-198.js-flow 1`] = `
 "var p = new Promise(function(resolve, reject) {
     resolve(5);
 })
@@ -100,7 +100,7 @@ var p = new Promise(function(resolve, reject) {
 "
 `;
 
-exports[`issue-256.js 1`] = `
+exports[`issue-256.js-flow 1`] = `
 "declare class Myclass {
     myfun(myarray: Array<Function | string>): any;
 }
@@ -119,7 +119,7 @@ myclass.myfun([\\"1\\", \\"2\\", \\"3\\", \\"4\\", \\"5\\", \\"6\\", \\"7\\", fu
 "
 `;
 
-exports[`issue-323.js 1`] = `
+exports[`issue-323.js-flow 1`] = `
 "var Foo = require(\\"./issue-323-lib\\");
 var foo = new Foo();
 var foostr: Foo | string = foo;
@@ -130,7 +130,7 @@ var foostr: Foo | string = foo;
 "
 `;
 
-exports[`issue-323-lib.js 1`] = `
+exports[`issue-323-lib.js-flow 1`] = `
 "/* @flow */
 class Foo {}
 module.exports = Foo;
@@ -141,7 +141,7 @@ module.exports = Foo;
 "
 `;
 
-exports[`issue-324.js 1`] = `
+exports[`issue-324.js-flow 1`] = `
 "/* @flow */
 class Foo{};
 class Bar{};
@@ -162,7 +162,7 @@ foostr = barstr;
 "
 `;
 
-exports[`issue-325.js 1`] = `
+exports[`issue-325.js-flow 1`] = `
 "class Tag {
     constructor() {
         var a1: Array<Tag|string> = [];
@@ -195,7 +195,7 @@ class Tag_ {
 "
 `;
 
-exports[`issue-326.js 1`] = `
+exports[`issue-326.js-flow 1`] = `
 "var numberAndStringArr:Array<number|string> = [1,2];
 var stringArr:Array<string> = ['a','b'];
 
@@ -208,7 +208,7 @@ var result = numberAndStringArr.concat(stringArr); // no error
 "
 `;
 
-exports[`issue-582.js 1`] = `
+exports[`issue-582.js-flow 1`] = `
 "/***
  * nested unions
  * @flow
@@ -241,7 +241,7 @@ var nested2: FooBarBaz = \\"baz\\";
 "
 `;
 
-exports[`issue-963.js 1`] = `
+exports[`issue-963.js-flow 1`] = `
 "/***
  * unions with embedded intersections
  * @flow
@@ -314,7 +314,7 @@ const u3: union2 = {
 "
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js-flow 1`] = `
 "var C = require('test-lib');
 
 // TODO: spurious error! (replacing C with number makes the error go away)
@@ -357,7 +357,7 @@ bar(f);
 "
 `;
 
-exports[`test-lib.js 1`] = `
+exports[`test-lib.js-flow 1`] = `
 "/* @providesModule test-lib */
 
 class C { }
@@ -370,7 +370,7 @@ module.exports = C;
 "
 `;
 
-exports[`type-app.js 1`] = `
+exports[`type-app.js-flow 1`] = `
 "/**
  * @flow
  */
@@ -403,7 +403,7 @@ var b: Iterator<number> | number = 123;
 "
 `;
 
-exports[`union.js 1`] = `
+exports[`union.js-flow 1`] = `
 "function bar(x: Document | string): void { }
 bar(0);
 
@@ -450,7 +450,7 @@ function corge(b) {
 "
 `;
 
-exports[`yuge.js 1`] = `
+exports[`yuge.js-flow 1`] = `
 "/**
  * great big union used as type annotation will be flowed into itself.
  * List.mem check avoids pathology, as long as singletons aren't converted.

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`brackets.js 1`] = `
+exports[`brackets.js-flow 1`] = `
 "import {
   runTaskForChanged,
   description,
@@ -27,7 +27,7 @@ import { fitsIn, oneLine } from \\".\\";
 "
 `;
 
-exports[`brackets.js 2`] = `
+exports[`brackets.js-flow 2`] = `
 "import {
   runTaskForChanged,
   description,
@@ -54,7 +54,7 @@ import {fitsIn, oneLine} from \\".\\";
 "
 `;
 
-exports[`brackets.js 3`] = `
+exports[`brackets.js-typescript 1`] = `
 "import {
   runTaskForChanged,
   description,
@@ -81,7 +81,7 @@ import { fitsIn, oneLine } from \\".\\";
 "
 `;
 
-exports[`brackets.js 4`] = `
+exports[`brackets.js-typescript 2`] = `
 "import {
   runTaskForChanged,
   description,
@@ -108,7 +108,7 @@ import {fitsIn, oneLine} from \\".\\";
 "
 `;
 
-exports[`comments.js 1`] = `
+exports[`comments.js-flow 1`] = `
 "import { a //comment1
 //comment2
 //comment3
@@ -179,7 +179,7 @@ import {
 "
 `;
 
-exports[`comments.js 2`] = `
+exports[`comments.js-flow 2`] = `
 "import { a //comment1
 //comment2
 //comment3
@@ -250,7 +250,7 @@ import {
 "
 `;
 
-exports[`comments.js 3`] = `
+exports[`comments.js-typescript 1`] = `
 "import { a //comment1
 //comment2
 //comment3
@@ -321,7 +321,7 @@ import {
 "
 `;
 
-exports[`comments.js 4`] = `
+exports[`comments.js-typescript 2`] = `
 "import { a //comment1
 //comment2
 //comment3
@@ -392,7 +392,7 @@ import {
 "
 `;
 
-exports[`long-line.js 1`] = `
+exports[`long-line.js-flow 1`] = `
 "import someCoolUtilWithARatherLongName from '../../../../utils/someCoolUtilWithARatherLongName';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import someCoolUtilWithARatherLongName
@@ -400,7 +400,7 @@ import someCoolUtilWithARatherLongName
 "
 `;
 
-exports[`long-line.js 2`] = `
+exports[`long-line.js-flow 2`] = `
 "import someCoolUtilWithARatherLongName from '../../../../utils/someCoolUtilWithARatherLongName';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import someCoolUtilWithARatherLongName
@@ -408,7 +408,7 @@ import someCoolUtilWithARatherLongName
 "
 `;
 
-exports[`long-line.js 3`] = `
+exports[`long-line.js-typescript 1`] = `
 "import someCoolUtilWithARatherLongName from '../../../../utils/someCoolUtilWithARatherLongName';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import someCoolUtilWithARatherLongName
@@ -416,7 +416,7 @@ import someCoolUtilWithARatherLongName
 "
 `;
 
-exports[`long-line.js 4`] = `
+exports[`long-line.js-typescript 2`] = `
 "import someCoolUtilWithARatherLongName from '../../../../utils/someCoolUtilWithARatherLongName';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import someCoolUtilWithARatherLongName
@@ -424,28 +424,28 @@ import someCoolUtilWithARatherLongName
 "
 `;
 
-exports[`multiple_standalones.js 1`] = `
+exports[`multiple_standalones.js-flow 1`] = `
 "import a, * as b from 'a';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import a, * as b from \\"a\\";
 "
 `;
 
-exports[`multiple_standalones.js 2`] = `
+exports[`multiple_standalones.js-flow 2`] = `
 "import a, * as b from 'a';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import a, * as b from \\"a\\";
 "
 `;
 
-exports[`multiple_standalones.js 3`] = `
+exports[`multiple_standalones.js-typescript 1`] = `
 "import a, * as b from 'a';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import a, * as b from \\"a\\";
 "
 `;
 
-exports[`multiple_standalones.js 4`] = `
+exports[`multiple_standalones.js-typescript 2`] = `
 "import a, * as b from 'a';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import a, * as b from \\"a\\";

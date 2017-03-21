@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`all.js 1`] = `
+exports[`all.js-flow 1`] = `
 "// @flow
 
 declare var pstr: Promise<string>;
@@ -83,7 +83,7 @@ function tes2(val: Map<string, Promise<number>>) {
 "
 `;
 
-exports[`covariance.js 1`] = `
+exports[`covariance.js-flow 1`] = `
 "/* @flow */
 
 async function testAll() {
@@ -120,7 +120,7 @@ async function testRace() {
 "
 `;
 
-exports[`promise.js 1`] = `
+exports[`promise.js-flow 1`] = `
 "/**
  * @flow
  */
@@ -598,7 +598,7 @@ Promise.resolve(0).catch(function(err) {}).then(function(num) {
 "
 `;
 
-exports[`resolve_global.js 1`] = `
+exports[`resolve_global.js-flow 1`] = `
 "/**
  * test Promise name resolution
  * @flow
@@ -685,7 +685,7 @@ async function baz(): Promise<number> {
 "
 `;
 
-exports[`resolve_void.js 1`] = `
+exports[`resolve_void.js-flow 1`] = `
 "// @flow
 
 (Promise.resolve(): Promise<number>); // error

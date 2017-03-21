@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`issue-815.js 1`] = `
+exports[`issue-815.js-flow 1`] = `
 "/* @flow */
 type T = A|B;
 class U {};
@@ -45,7 +45,7 @@ class VirtualNode {
 "
 `;
 
-exports[`issue-824.js 1`] = `
+exports[`issue-824.js-flow 1`] = `
 "import { B, C } from \\"./issue-824-helper\\";
 
 type K = B | C;
@@ -82,7 +82,7 @@ export default class A {
 "
 `;
 
-exports[`issue-824-helper.js 1`] = `
+exports[`issue-824-helper.js-flow 1`] = `
 "import A from \\"./issue-824\\";
 
 export class B extends A {
@@ -111,7 +111,7 @@ export class C extends A {
 "
 `;
 
-exports[`issue-1349.js 1`] = `
+exports[`issue-1349.js-flow 1`] = `
 "/* @flow */
 
 var bar: Array<{b: ?boolean, c: number} | {b: boolean}> = [
@@ -128,7 +128,7 @@ var bar: Array<{ b: ?boolean, c: number } | { b: boolean }> = [
 "
 `;
 
-exports[`issue-1371.js 1`] = `
+exports[`issue-1371.js-flow 1`] = `
 "function create(a: any): { type: 'B', data: number } | { type: 'A', data: string }
 {
   return {
@@ -148,7 +148,7 @@ function create(
 "
 `;
 
-exports[`issue-1455.js 1`] = `
+exports[`issue-1455.js-flow 1`] = `
 "/* @flow */
 import type {Foobar} from \\"./issue-1455-helper\\"
 
@@ -170,7 +170,7 @@ function node(content: ?Foobar | String | Array<String>) {
 "
 `;
 
-exports[`issue-1455-helper.js 1`] = `
+exports[`issue-1455-helper.js-flow 1`] = `
 "/* @flow */
 
 export class Foobar { }
@@ -181,7 +181,7 @@ export class Foobar {}
 "
 `;
 
-exports[`issue-1462-i.js 1`] = `
+exports[`issue-1462-i.js-flow 1`] = `
 "type Common = {
 };
 
@@ -229,7 +229,7 @@ function printAll(val: MyType) {
 "
 `;
 
-exports[`issue-1462-ii.js 1`] = `
+exports[`issue-1462-ii.js-flow 1`] = `
 "type Common = {
 };
 
@@ -290,7 +290,7 @@ function printAll(val: MyType) {
 "
 `;
 
-exports[`issue-1664.js 1`] = `
+exports[`issue-1664.js-flow 1`] = `
 "/* @flow */
 
 type DataBase = {
@@ -347,7 +347,7 @@ if (data.kind === \\"system\\") {
 "
 `;
 
-exports[`issue-1759.js 1`] = `
+exports[`issue-1759.js-flow 1`] = `
 "// @flow
 
 type X = ({a:true} & {b:string}) | ({a:false} & {c:string});
@@ -369,7 +369,7 @@ function hello(x: X): string {
 "
 `;
 
-exports[`issue-2232.js 1`] = `
+exports[`issue-2232.js-flow 1`] = `
 "/* @flow */
 
 declare type Entity<T> = {
@@ -421,7 +421,7 @@ function test(f: Foo | EmptyFoo) {
 "
 `;
 
-exports[`test1.js 1`] = `
+exports[`test1.js-flow 1`] = `
 "// @noflow
 
 /**
@@ -546,7 +546,7 @@ type A6 = B6[];
 "
 `;
 
-exports[`test2.js 1`] = `
+exports[`test2.js-flow 1`] = `
 "// @noflow
 
 /**
@@ -705,7 +705,7 @@ type B6 = string;
 "
 `;
 
-exports[`test3.js 1`] = `
+exports[`test3.js-flow 1`] = `
 "// @noflow
 
 /**
@@ -768,7 +768,7 @@ type B2 = string;
 "
 `;
 
-exports[`test4.js 1`] = `
+exports[`test4.js-flow 1`] = `
 "// @noflow
 
 /**
@@ -851,7 +851,7 @@ type B2 = string;
 "
 `;
 
-exports[`test5.js 1`] = `
+exports[`test5.js-flow 1`] = `
 "// @noflow
 
 /**
@@ -916,7 +916,7 @@ function arr_set(x: string, i: number) {
 "
 `;
 
-exports[`test6.js 1`] = `
+exports[`test6.js-flow 1`] = `
 "// @noflow
 
 /**
@@ -973,7 +973,7 @@ class C<X> {}
 "
 `;
 
-exports[`test7.js 1`] = `
+exports[`test7.js-flow 1`] = `
 "// @noflow
 
 /**
@@ -1036,7 +1036,7 @@ type PG<X> = { x: X, y?: PG<X> };
 "
 `;
 
-exports[`test8.js 1`] = `
+exports[`test8.js-flow 1`] = `
 "// @noflow
 
 /**
@@ -1087,7 +1087,7 @@ type H2_ = number;
 "
 `;
 
-exports[`test9.js 1`] = `
+exports[`test9.js-flow 1`] = `
 "// @noflow
 
 /**
@@ -1124,7 +1124,7 @@ foo((x): number => square(x));
 "
 `;
 
-exports[`test10.js 1`] = `
+exports[`test10.js-flow 1`] = `
 "// @noflow
 
 function id<X>(x: X): X { return x; }
@@ -1275,7 +1275,7 @@ check_poly_inst(new P());
 "
 `;
 
-exports[`test11.js 1`] = `
+exports[`test11.js-flow 1`] = `
 "// @noflow
 
 // disjoint unions
@@ -1315,7 +1315,7 @@ type Cons = { kind: \\"cons\\", next: List };
 "
 `;
 
-exports[`test12.js 1`] = `
+exports[`test12.js-flow 1`] = `
 "// @noflow
 
 // polymorphic recursive types
@@ -1340,7 +1340,7 @@ function rec(x: F<string>): G | H {
 "
 `;
 
-exports[`test13.js 1`] = `
+exports[`test13.js-flow 1`] = `
 "// @noflow
 
 /* ensure there are no unintended side effects when trying branches */
@@ -1369,7 +1369,7 @@ exports[`test13.js 1`] = `
 "
 `;
 
-exports[`test14.js 1`] = `
+exports[`test14.js-flow 1`] = `
 "// @noflow
 
 // annotations
@@ -1400,7 +1400,7 @@ function foo(c: C<number>) {
 "
 `;
 
-exports[`test15.js 1`] = `
+exports[`test15.js-flow 1`] = `
 "// @noflow
 
 // functions as objects
@@ -1453,7 +1453,7 @@ bar(() => {});
 "
 `;
 
-exports[`test16.js 1`] = `
+exports[`test16.js-flow 1`] = `
 "// @noflow
 
 // annotations
@@ -1496,7 +1496,7 @@ x = \\"\\";
 "
 `;
 
-exports[`test17.js 1`] = `
+exports[`test17.js-flow 1`] = `
 "// @noflow
 
 // Array#concat
@@ -1515,7 +1515,7 @@ exports[`test17.js 1`] = `
 "
 `;
 
-exports[`test18.js 1`] = `
+exports[`test18.js-flow 1`] = `
 "// @noflow
 
 // method overloads
@@ -1546,7 +1546,7 @@ new C().m(f());
 "
 `;
 
-exports[`test19.js 1`] = `
+exports[`test19.js-flow 1`] = `
 "// @noflow
 
 // constructor overloads
@@ -1575,7 +1575,7 @@ declare class D {
 "
 `;
 
-exports[`test20.js 1`] = `
+exports[`test20.js-flow 1`] = `
 "// @noflow
 
 // Array#reduce
@@ -1605,7 +1605,7 @@ exports[`test20.js 1`] = `
 "
 `;
 
-exports[`test21.js 1`] = `
+exports[`test21.js-flow 1`] = `
 "// @noflow
 
 // annotations for disjoint unions
@@ -1650,7 +1650,7 @@ function str() {
 "
 `;
 
-exports[`test22.js 1`] = `
+exports[`test22.js-flow 1`] = `
 "// @noflow
 
 // refinement of disjoint unions
@@ -1699,7 +1699,7 @@ function foo(x: T) {
 "
 `;
 
-exports[`test23.js 1`] = `
+exports[`test23.js-flow 1`] = `
 "// @noflow
 
 // nested intersections (see also lib/test23_lib.js)
@@ -1728,7 +1728,7 @@ function foo(obj: Obj) {
 "
 `;
 
-exports[`test24.js 1`] = `
+exports[`test24.js-flow 1`] = `
 "// @noflow
 
 // scaling test for full type resolution
@@ -1798,7 +1798,7 @@ declare class D extends C {
 "
 `;
 
-exports[`test25.js 1`] = `
+exports[`test25.js-flow 1`] = `
 "// @noflow
 
 // termination test (see also lib/test25_lib.js)
@@ -1826,7 +1826,7 @@ function foo(rows: Rows, set: Set<number>) {
 "
 `;
 
-exports[`test26.js 1`] = `
+exports[`test26.js-flow 1`] = `
 "// @noflow
 
 declare function foo(x: number): number;
@@ -1871,7 +1871,7 @@ new Record().set(\\"foo\\", \\"42\\");
 "
 `;
 
-exports[`test27.js 1`] = `
+exports[`test27.js-flow 1`] = `
 "// @noflow
 
 type X = ({a:true} & {b:string}) | ({a:false} & {c:string});
@@ -1926,7 +1926,7 @@ function hello4(x: X): string {
 "
 `;
 
-exports[`test29.js 1`] = `
+exports[`test29.js-flow 1`] = `
 "// @noflow
 
 // Make sure caching doesn't cause a spurious successful match (e.g., when a
@@ -1987,7 +1987,7 @@ class C {
 "
 `;
 
-exports[`test30.js 1`] = `
+exports[`test30.js-flow 1`] = `
 "// @noflow
 
 const Constants = require('./test30-helper');
@@ -2008,7 +2008,7 @@ type ActionType = { type: \\"foo\\", x: number } | { type: \\"bar\\", x: number 
 "
 `;
 
-exports[`test30-helper.js 1`] = `
+exports[`test30-helper.js-flow 1`] = `
 "// @noflow
 
 module.exports = {
@@ -2025,7 +2025,7 @@ module.exports = {
 "
 `;
 
-exports[`test31.js 1`] = `
+exports[`test31.js-flow 1`] = `
 "// @noflow
 
 // make sure tuples are type arguments (as used e.g. when viewing maps as
@@ -2080,7 +2080,7 @@ function foo(): ImmutableMap<string, boolean> {
 "
 `;
 
-exports[`test32.js 1`] = `
+exports[`test32.js-flow 1`] = `
 "// @flow
 
 // make sure that full resolution jobs don't cache improperly to signal success

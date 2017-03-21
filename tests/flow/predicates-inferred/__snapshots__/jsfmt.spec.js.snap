@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`sanity.js 1`] = `
+exports[`sanity.js-flow 1`] = `
 "// @flow
 
 // Sanity check: shouldn't be allowed to declare a predicate AND use \`chekcs\`
@@ -59,7 +59,7 @@ function bak(z: string | number): number {
 "
 `;
 
-exports[`sanity-multi-params.js 1`] = `
+exports[`sanity-multi-params.js-flow 1`] = `
 "// @flow
 
 // Feature: multi params
@@ -92,7 +92,7 @@ function foo(x: string | Array<string>): string {
 "
 `;
 
-exports[`sanity-ordering.js 1`] = `
+exports[`sanity-ordering.js-flow 1`] = `
 "// @flow
 
 declare var key: string;
@@ -133,7 +133,7 @@ function dotAccess(head, create) {
 "
 `;
 
-exports[`sanity-unbound-var.js 1`] = `
+exports[`sanity-unbound-var.js-flow 1`] = `
 "// @flow
 
 declare var y: mixed;
@@ -172,7 +172,7 @@ function foo(x: string | Array<string>): string {
 "
 `;
 
-exports[`simple-predicate-func.js 1`] = `
+exports[`simple-predicate-func.js-flow 1`] = `
 "// @flow
 
 function is_string(y): %checks {
@@ -323,7 +323,7 @@ declare function from_two_strings(x: string, y: string): void;
 "
 `;
 
-exports[`simple-predicate-func-post.js 1`] = `
+exports[`simple-predicate-func-post.js-flow 1`] = `
 "// @flow
 
 // Feature check:

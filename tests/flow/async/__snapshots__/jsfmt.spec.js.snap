@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`async.js 1`] = `
+exports[`async.js-flow 1`] = `
 "// @flow
 
 // \\"For async functions, a Promise<T> is returned,
@@ -117,7 +117,7 @@ var objf: () => Promise<number> = obj.f;
 "
 `;
 
-exports[`async_base_class.js 1`] = `
+exports[`async_base_class.js-flow 1`] = `
 "// This is kind of weird, but it should parse. This works in babel without the
 // parens around (await promise). From the es6 and async/await specs I (nmote)
 // am not clear on whether it should. In any case it's a strange corner case
@@ -150,7 +150,7 @@ async function foo() {
 "
 `;
 
-exports[`async_parse.js 1`] = `
+exports[`async_parse.js-flow 1`] = `
 "async function f() {}
 async function ft<T>(a: T) {}
 
@@ -203,7 +203,7 @@ var y = { async };
 "
 `;
 
-exports[`async_promise.js 1`] = `
+exports[`async_promise.js-flow 1`] = `
 "async function f(): Promise<number> {
   return Promise.resolve(1);
 }
@@ -214,7 +214,7 @@ async function f(): Promise<number> {
 "
 `;
 
-exports[`async_return_void.js 1`] = `
+exports[`async_return_void.js-flow 1`] = `
 "// @flow
 
 async function foo1(): Promise<string> {
@@ -247,7 +247,7 @@ async function foo3(): Promise<string> {
 "
 `;
 
-exports[`async2.js 1`] = `
+exports[`async2.js-flow 1`] = `
 "// @flow
 
 // misc basic
@@ -374,7 +374,7 @@ function test5() {
 "
 `;
 
-exports[`async3.js 1`] = `
+exports[`async3.js-flow 1`] = `
 "// @flow
 
 /**
@@ -442,7 +442,7 @@ async function baz() {
 "
 `;
 
-exports[`await_parse.js 1`] = `
+exports[`await_parse.js-flow 1`] = `
 "async function f() { await 1; }
 async function ft<T>(a: T) { await 1; }
 

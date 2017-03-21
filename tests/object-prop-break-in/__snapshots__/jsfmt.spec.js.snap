@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment.js 1`] = `
+exports[`comment.js-flow 1`] = `
 "function foo() {
   return {
     // this comment causes the problem
@@ -17,7 +17,7 @@ function foo() {
 "
 `;
 
-exports[`comment.js 2`] = `
+exports[`comment.js-typescript 1`] = `
 "function foo() {
   return {
     // this comment causes the problem
@@ -34,7 +34,7 @@ function foo() {
 "
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js-flow 1`] = `
 "const a = classnames({
   \\"some-prop\\": this.state.longLongLongLongLongLongLongLongLongTooLongProp
 });
@@ -95,7 +95,7 @@ const g = classnames({
 "
 `;
 
-exports[`test.js 2`] = `
+exports[`test.js-typescript 1`] = `
 "const a = classnames({
   \\"some-prop\\": this.state.longLongLongLongLongLongLongLongLongTooLongProp
 });

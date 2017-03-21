@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Arrays.js 1`] = `
+exports[`Arrays.js-flow 1`] = `
 "
 /* @providesModule Arrays */
 
@@ -82,7 +82,7 @@ module.exports = \\"arrays\\";
 "
 `;
 
-exports[`comments.js 1`] = `
+exports[`comments.js-flow 1`] = `
 "export type FileMetaData = [
   /* id */ string,
   /* mtime */ number,
@@ -103,7 +103,7 @@ export type ModuleMetaData = [Path, /* type */ number];
 "
 `;
 
-exports[`numeric_elem.js 1`] = `
+exports[`numeric_elem.js-flow 1`] = `
 "var arr = [];
 var day = new Date;
 
@@ -122,7 +122,7 @@ arr[day] = 0;
 "
 `;
 
-exports[`union.js 1`] = `
+exports[`union.js-flow 1`] = `
 "let arr: (number|string)[] = [];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let arr: (number | string)[] = [];

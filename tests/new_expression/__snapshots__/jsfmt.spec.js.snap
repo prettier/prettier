@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`new_expression.js 1`] = `
+exports[`new_expression.js-flow 1`] = `
 "new (memoize.Cache || MapCache)
 new (typeof this == \\"function\\" ? this : Dict())
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -9,7 +9,7 @@ new (typeof this == \\"function\\" ? this : Dict())();
 "
 `;
 
-exports[`new_expression.js 2`] = `
+exports[`new_expression.js-typescript 1`] = `
 "new (memoize.Cache || MapCache)
 new (typeof this == \\"function\\" ? this : Dict())
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

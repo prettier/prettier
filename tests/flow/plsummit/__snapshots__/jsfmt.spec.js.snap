@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrays.js 1`] = `
+exports[`arrays.js-flow 1`] = `
 "function foo(x) { return [x, x > 0, \\"number \\" + x]; }
 
 var [n, b, s] = foo(42);
@@ -15,7 +15,7 @@ n * s.length;
 "
 `;
 
-exports[`export_class.js 1`] = `
+exports[`export_class.js-flow 1`] = `
 "class C {
     x: number;
     constructor(x: number) { this.x = x; }
@@ -34,7 +34,7 @@ module.exports = C;
 "
 `;
 
-exports[`generics.js 1`] = `
+exports[`generics.js-flow 1`] = `
 "/* @flow */
 
 var r: number = 0;
@@ -50,7 +50,7 @@ function foo<X>(x: X): X {
 "
 `;
 
-exports[`import_class.js 1`] = `
+exports[`import_class.js-flow 1`] = `
 "var C = require('./export_class');
 
 var c = new C(\\"\\");
@@ -61,7 +61,7 @@ var c = new C(\\"\\");
 "
 `;
 
-exports[`locals.js 1`] = `
+exports[`locals.js-flow 1`] = `
 "/* @flow */
 
 function foo() {
@@ -88,7 +88,7 @@ function bar(x: ?string): number {
 "
 `;
 
-exports[`objects.js 1`] = `
+exports[`objects.js-flow 1`] = `
 "function C() { this.x = 0; }
 C.prototype.foo = function() { return this.x; }
 

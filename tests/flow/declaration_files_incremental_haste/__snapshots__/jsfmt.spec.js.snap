@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`A.js 1`] = `
+exports[`A.js-flow 1`] = `
 "/* @providesModule A */
 class Implementation {}
 export function foo(): Implementation { return new Implementation; }
@@ -13,7 +13,7 @@ export function foo(): Implementation {
 "
 `;
 
-exports[`ExplicitProvidesModuleDifferentName.js 1`] = `
+exports[`ExplicitProvidesModuleDifferentName.js-flow 1`] = `
 "/*
  * @providesModule ExplicitProvidesModuleDifferentName
  * @flow
@@ -32,7 +32,7 @@ module.exports.fun = (): Implementation => new Implementation();
 "
 `;
 
-exports[`ExplicitProvidesModuleSameName.js 1`] = `
+exports[`ExplicitProvidesModuleSameName.js-flow 1`] = `
 "/*
  * @providesModule ExplicitProvidesModuleSameName
  * @flow
@@ -51,7 +51,7 @@ module.exports.fun = (): Implementation => new Implementation();
 "
 `;
 
-exports[`ImplicitProvidesModule.js 1`] = `
+exports[`ImplicitProvidesModule.js-flow 1`] = `
 "/*
  * @providesModule ImplicitProvidesModule
  * @flow
@@ -70,14 +70,14 @@ module.exports.fun = (): Implementation => new Implementation();
 "
 `;
 
-exports[`md5.js 1`] = `
+exports[`md5.js-flow 1`] = `
 "/* @providesModule md5 */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule md5 */
 "
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js-flow 1`] = `
 "/* @flow */
 
 var Implicit = require('ImplicitProvidesModule');
