@@ -1,8 +1,7 @@
-# Vim prettier
 
 For Vim users there are two main approaches, one that leans on [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/neoformat), which has the advantage of leaving the cursor in the same position despite changes, or a vanilla approach which can only approximate the cursor location, but might be good enough for your needs.
 
-## Vanilla approach 
+#### Vanilla approach 
 
 Vim users can add the following to their `.vimrc`:
 
@@ -26,7 +25,7 @@ place in the code since it may have moved):
 autocmd BufWritePre *.js exe "normal! gggqG\<C-o>\<C-o>"
 ``` 
 
-## Neoformat approach
+#### Neoformat approach
 
 Add [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/neoformat) to your list based on the tool you use:
 
@@ -40,7 +39,7 @@ Then make Neoformat run on save:
 autocmd BufWritePre *.js Neoformat 
 ```
 
-## Customizing prettier in Vim
+#### Customizing prettier in Vim
 
 If your project requires settings other than the default prettier settings you can pass arguments to do so in your `.vimrc` or [vim project](http://vim.wikia.com/wiki/Project_specific_settings), you can do so:
 
