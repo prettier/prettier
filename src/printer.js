@@ -654,7 +654,7 @@ function genericPrintNoParens(path, options, print) {
       var isTypeAnnotation = n.type === "ObjectTypeAnnotation";
       var isTypeScriptTypeAnnotaion = n.type === "TSTypeLiteral";
       // Leave this here because we *might* want to make this
-      // configurable later -- flow accepts ";" for type separators, 
+      // configurable later -- flow accepts ";" for type separators,
       // typescript accepts ";" and newlines
       var separator = isTypeAnnotation ? "," : ",";
       var fields = [];
@@ -1205,10 +1205,10 @@ function genericPrintNoParens(path, options, print) {
         ) {
           // Whenever the parser wouldn't convert it to an entity
           // do not escape.
-          if (/&amp;/.test(n.value.value)) {
-            res = '"' + util.htmlEscapeInsideDoubleQuote(n.value.value) + '"';
-          } else {
+          if (isParserKeepingEntities(n)) {
             res = '"' + n.value.value + '"';
+          } else {
+            res = '"' + util.htmlEscapeInsideDoubleQuote(n.value.value) + '"';
           }
         } else {
           res = path.call(print, "value");
@@ -1849,8 +1849,8 @@ function genericPrintNoParens(path, options, print) {
       return "void";
     case "TSAsExpression":
       return concat([
-        path.call(print, "expression"), 
-        " as ", 
+        path.call(print, "expression"),
+        " as ",
         path.call(print, "typeAnnotation"),
       ])
     case "TSArrayType":
@@ -1864,17 +1864,17 @@ function genericPrintNoParens(path, options, print) {
       return concat([path.call(print, "typeName")]);
     case "TSCallSignature":
       return concat([
-        "(", 
-        join(", ", path.map(print, "parameters")), 
+        "(",
+        join(", ", path.map(print, "parameters")),
         "): ",
-        path.call(print, "typeAnnotation"), 
+        path.call(print, "typeAnnotation"),
       ]);
     case "TSConstructSignature":
       return concat([
-        "new (", 
-        join(", ", path.map(print, "parameters")), 
+        "new (",
+        join(", ", path.map(print, "parameters")),
         "): ",
-        path.call(print, "typeAnnotation"), 
+        path.call(print, "typeAnnotation"),
       ]);
     case "TSTypeQuery":
       return concat(["typeof ", path.call(print, "exprName")]);
@@ -1882,12 +1882,12 @@ function genericPrintNoParens(path, options, print) {
       return concat(["(", path.call(print, "typeAnnotation"), ")"]);
     case "TSIndexSignature":
       return concat([
-        "[", 
+        "[",
         // This should only contain a single element, however TypeScript parses
         // it using parseDelimitedList that uses commas as delimiter.
-        join(", ", path.map(print, "parameters")), 
+        join(", ", path.map(print, "parameters")),
         "]: ",
-        path.call(print, "typeAnnotation"), 
+        path.call(print, "typeAnnotation"),
       ]);
     // TODO
     case "ClassHeritage":
@@ -3301,6 +3301,19 @@ function printArrayItems(path, options, printPath, print) {
   );
 
   return concat(printedElements);
+}
+
+function isParserKeepingEntities(node) {
+  const nodeSrc = options.originalText.slice(
+    util.locStart(node.value), util.locEnd(node.value)
+  );
+  if (node.value.type === "StringLiteral" || node.value.type === "Literal") {
+    return nodeSrc === '"' + node.value.value + '"';
+  } else {
+    // Assume JSXExpressionContainer.
+    return nodeSrc === "'" + node.value.expression.value + "'";
+  }
+  return false;
 }
 
 function printAstToDoc(ast, options) {
