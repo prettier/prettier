@@ -3013,7 +3013,11 @@ function printBinaryishExpressions(path, parts, print, options, isNested) {
     // the other ones since we don't call the normal print on BinaryExpression,
     // only for the left and right parts
     if (isNested && node.comments) {
-      parts.push(comments.printComments(path, p => "", options));
+      parts.splice(
+        0,
+        parts.length,
+        comments.printComments(path, p => concat(parts.slice()), options)
+      );
     }
   } else {
     // Our stopping case. Simply print the node normally.
