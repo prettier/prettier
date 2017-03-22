@@ -1629,14 +1629,29 @@ function genericPrintNoParens(path, options, print) {
         path.call(print, "id"),
         path.call(print, "typeParameters")
       ]);
-    case "IntersectionTypeAnnotation":
+    case "IntersectionTypeAnnotation": {
+      const types = path.map(print, "types");
+      const result = [];
+      for (let i = 0; i < types.length; ++i) {
+        if (i === 0) {
+          result.push(types[i]);
+        } else if (
+          (n.types[i - 1].type === "ObjectTypeAnnotation" &&
+            n.types[i].type !== "ObjectTypeAnnotation") ||
+          (n.types[i - 1].type !== "ObjectTypeAnnotation" &&
+            n.types[i].type === "ObjectTypeAnnotation")
+        ) {
+          // If you go from object to non-object or vis-versa, then inline it
+          result.push(" & ", types[i]);
+        } else {
+          // Otherwise go to the next line and indent
+          result.push(indent(options.tabWidth, concat([" &", line, types[i]])));
+        }
+      }
+      return group(concat(result));
+    }
     case "TSUnionType":
     case "UnionTypeAnnotation": {
-      const types = path.map(print, "types");
-      const isIntersection = n.type === "IntersectionTypeAnnotation";
-      const shouldInline = isIntersection &&
-        !(n.types.length > 1 && n.types[0].type === "ObjectTypeAnnotation");
-
       // single-line variation
       // A | B | C
 
@@ -1645,24 +1660,17 @@ function genericPrintNoParens(path, options, print) {
       // | B
       // | C
 
-      // We want & operators to be inlined.
-      if (shouldInline) {
-        return join(" & ", types);
-      }
-
       const parent = path.getParentNode();
       // If there's a leading comment, the parent is doing the indentation
       const shouldIndent = !(parent.type === "TypeAlias" &&
         hasLeadingOwnLineComment(options.originalText, n));
 
-      const token = isIntersection ? "&" : "|";
-
       return group(
         indent(
           shouldIndent ? options.tabWidth : 0,
           concat([
-            ifBreak(concat([shouldIndent ? line : "", token, " "])),
-            join(concat([line, token, " "]), types)
+            ifBreak(concat([shouldIndent ? line : "", "| "])),
+            join(concat([line, "| "]), path.map(print, "types"))
           ])
         )
       );
