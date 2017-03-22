@@ -13,16 +13,14 @@ exports[`flow_object_comment.js 1`] = `
   },
 ) => {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export default (
-  {
-    foo,
-    bar
-  }: {
-    // comment
-    foo?: Object,
-    // comment 2
-    bar?: Object
-  }
-) => {};
+export default ({
+  foo,
+  bar
+}: {
+  // comment
+  foo?: Object,
+  // comment 2
+  bar?: Object
+}) => {};
 "
 `;

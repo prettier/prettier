@@ -2204,7 +2204,8 @@ function printFunctionParams(path, print, options) {
   //   b,
   //   c
   // }) {}
-  if (fun.params.length === 1 &&
+  if (fun.params &&
+    fun.params.length === 1 &&
     !fun.params[0].comments &&
     (fun.params[0].type === "ObjectPattern" ||
       fun.params[0].type === "FunctionTypeParam" &&
