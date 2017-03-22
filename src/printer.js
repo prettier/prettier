@@ -2189,9 +2189,25 @@ function printFunctionParams(path, print, options) {
     return concat(["(", join(", ", printed), ")"]);
   }
 
+  // Single object destructuring should hug
+  //
+  // function({
+  //   a,
+  //   b,
+  //   c
+  // }) {}
+  if (fun.params.length === 1 &&
+    !fun.params[0].comments &&
+    (fun.params[0].type === "ObjectPattern" ||
+      fun.params[0].type === "FunctionTypeParam" &&
+        fun.params[0].typeAnnotation.type === "ObjectTypeAnnotation") &&
+    !fun.rest) {
+    return concat(["(", join(", ", printed), ")"]);
+  }
+
   const isFlowShorthandWithOneArg = (isObjectTypePropertyAFunction(parent) ||
     isTypeAnnotationAFunction(parent) || parent.type === "TypeAlias") &&
-    fun[paramsField].length === 1 && fun[paramsField][0].name === null && fun.rest === null;
+    fun[paramsField].length === 1 && fun[paramsField][0].name === null && !fun.rest;
 
   return concat([
     isFlowShorthandWithOneArg ? "" : "(",
