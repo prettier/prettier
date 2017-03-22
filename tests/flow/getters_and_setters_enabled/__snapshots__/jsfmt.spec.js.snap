@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class.js-flow 1`] = `
+exports[`class.js 1`] = `
 "/**
  * @flow
  */
@@ -133,7 +133,7 @@ foo.propOverriddenWithSetter = 123; // Error number ~> string
 "
 `;
 
-exports[`object.js-flow 1`] = `
+exports[`object.js 1`] = `
 "/**
  * @flow
  */
@@ -273,7 +273,7 @@ var testExampleOrOrderOfGetterAndSetterReordered: number = obj.exampleOfOrderOfG
 "
 `;
 
-exports[`react.js-flow 1`] = `
+exports[`react.js 1`] = `
 "/**
  * @flow
  */
@@ -304,7 +304,7 @@ React.createClass({
 "
 `;
 
-exports[`variance.js-flow 1`] = `
+exports[`variance.js 1`] = `
 "/* @flow */
 
 class A {}

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`equals.js-flow 1`] = `
+exports[`equals.js 1`] = `
 "/* @flow */
 
 (1 == 1);

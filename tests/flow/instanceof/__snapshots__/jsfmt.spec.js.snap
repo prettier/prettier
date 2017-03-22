@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`instanceof.js-flow 1`] = `
+exports[`instanceof.js 1`] = `
 "/* @flow */
 
 // x instancof t

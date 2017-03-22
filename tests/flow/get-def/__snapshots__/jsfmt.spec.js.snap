@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`example.js-flow 1`] = `
+exports[`example.js 1`] = `
 "/* @flow */
 
 var lib = require('./library');
@@ -35,7 +35,7 @@ lib.bar();
 "
 `;
 
-exports[`imports.js-flow 1`] = `
+exports[`imports.js 1`] = `
 "// @flow
 
 import thing from \\"./helpers/exports_default.js\\";
@@ -62,7 +62,7 @@ things;
 "
 `;
 
-exports[`library.js-flow 1`] = `
+exports[`library.js 1`] = `
 "/* @flow */
 
 module.exports = {

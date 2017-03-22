@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Arith.js-flow 1`] = `
+exports[`Arith.js 1`] = `
 "
 /* @providesModule Arith */
 
@@ -186,7 +186,7 @@ let tests = [
 "
 `;
 
-exports[`exponent.js-flow 1`] = `
+exports[`exponent.js 1`] = `
 "/* @flow */
 
 let x: number = 2 ** 3;
@@ -213,7 +213,7 @@ y **= 2; // error
 "
 `;
 
-exports[`generic.js-flow 1`] = `
+exports[`generic.js 1`] = `
 "/* @flow */
 
 function f<A>(a: A): A { return a + a; } // error
@@ -242,7 +242,7 @@ function f<A, B>(a: A, b: B): B {
 "
 `;
 
-exports[`mult.js-flow 1`] = `
+exports[`mult.js 1`] = `
 "/* @flow */
 
 function num(x:number) { }
@@ -271,7 +271,7 @@ y *= 2; // error
 "
 `;
 
-exports[`relational.js-flow 1`] = `
+exports[`relational.js 1`] = `
 "/* @flow */
 
 (1 < 2);

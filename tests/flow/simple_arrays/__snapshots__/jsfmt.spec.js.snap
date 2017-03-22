@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`array.js-flow 1`] = `
+exports[`array.js 1`] = `
 "/* @flow */
 var a = [];
 for (var i = 0; i < 10; ++i) {
@@ -54,7 +54,7 @@ function baz(i: number): string {
 "
 `;
 
-exports[`array2.js-flow 1`] = `
+exports[`array2.js 1`] = `
 "/* @flow */
 var a = [];
 for (var i = 0; i < 10; ++i) {

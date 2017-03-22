@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js-flow 1`] = `
+exports[`test.js 1`] = `
 "var x: { } = { foo: 0 };
 var y: { foo?: string } = x; // OK in TypeScript, not OK in Flow
 
@@ -29,7 +29,7 @@ bar({ foo: \\"\\" });
 "
 `;
 
-exports[`test2.js-flow 1`] = `
+exports[`test2.js 1`] = `
 "var a: { foo?: string } = {};
 a.foo = undefined; // This is not an error
 a.foo = null; // But this is an error
@@ -60,7 +60,7 @@ var f: { foo?: ?string } = { foo: null }; // Also fine
 "
 `;
 
-exports[`test3.js-flow 1`] = `
+exports[`test3.js 1`] = `
 "// @flow
 
 /*
@@ -177,7 +177,7 @@ class A {
 "
 `;
 
-exports[`test3_failure.js-flow 1`] = `
+exports[`test3_failure.js 1`] = `
 "// generalization of failure in test3.js
 
 class A<O: {x: { a: number, b?: string}}> {

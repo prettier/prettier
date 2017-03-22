@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bug.js-flow 1`] = `
+exports[`bug.js 1`] = `
 "const foo = {
   bar: props.bar ? props.bar : noop,
   baz: props.baz
@@ -15,7 +15,7 @@ const foo = {
 "
 `;
 
-exports[`bug.js-typescript 1`] = `
+exports[`bug.js 2`] = `
 "const foo = {
   bar: props.bar ? props.bar : noop,
   baz: props.baz

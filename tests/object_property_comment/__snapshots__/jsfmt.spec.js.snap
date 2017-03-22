@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment.js-flow 1`] = `
+exports[`comment.js 1`] = `
 "o = {
   name:
     // Comment A

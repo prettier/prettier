@@ -1,53 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`last-line-0.js-babylon 1`] = `
+exports[`last-line-0.js 1`] = `
 "'use strict';~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \\"use strict\\";
 "
 `;
 
-exports[`last-line-0.js-flow 1`] = `
+exports[`last-line-0.js 2`] = `
 "'use strict';~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \\"use strict\\";
 "
 `;
 
-exports[`last-line-0.js-typescript 1`] = `
+exports[`last-line-0.js 3`] = `
 "'use strict';~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \\"use strict\\";
 "
 `;
 
-exports[`last-line-1.js-babylon 1`] = `
+exports[`last-line-1.js 1`] = `
 "'use strict';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \\"use strict\\";
 "
 `;
 
-exports[`last-line-1.js-flow 1`] = `
+exports[`last-line-1.js 2`] = `
 "'use strict';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \\"use strict\\";
 "
 `;
 
-exports[`last-line-1.js-typescript 1`] = `
+exports[`last-line-1.js 3`] = `
 "'use strict';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \\"use strict\\";
 "
 `;
 
-exports[`last-line-2.js-babylon 1`] = `
-"'use strict';
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\\"use strict\\";
-"
-`;
-
-exports[`last-line-2.js-flow 1`] = `
+exports[`last-line-2.js 1`] = `
 "'use strict';
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -55,7 +47,7 @@ exports[`last-line-2.js-flow 1`] = `
 "
 `;
 
-exports[`last-line-2.js-typescript 1`] = `
+exports[`last-line-2.js 2`] = `
 "'use strict';
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -63,7 +55,15 @@ exports[`last-line-2.js-typescript 1`] = `
 "
 `;
 
-exports[`newline.js-babylon 1`] = `
+exports[`last-line-2.js 3`] = `
+"'use strict';
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\\"use strict\\";
+"
+`;
+
+exports[`newline.js 1`] = `
 "/* @flow */
 
 \\"use strict\\";
@@ -82,7 +82,7 @@ a();
 "
 `;
 
-exports[`newline.js-flow 1`] = `
+exports[`newline.js 2`] = `
 "/* @flow */
 
 \\"use strict\\";
@@ -101,7 +101,7 @@ a();
 "
 `;
 
-exports[`newline.js-typescript 1`] = `
+exports[`newline.js 3`] = `
 "/* @flow */
 
 \\"use strict\\";
@@ -120,7 +120,7 @@ a();
 "
 `;
 
-exports[`no-newline.js-babylon 1`] = `
+exports[`no-newline.js 1`] = `
 "\\"use strict\\";
 a
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -129,7 +129,7 @@ a;
 "
 `;
 
-exports[`no-newline.js-flow 1`] = `
+exports[`no-newline.js 2`] = `
 "\\"use strict\\";
 a
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -138,7 +138,7 @@ a;
 "
 `;
 
-exports[`no-newline.js-typescript 1`] = `
+exports[`no-newline.js 3`] = `
 "\\"use strict\\";
 a
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -147,7 +147,7 @@ a;
 "
 `;
 
-exports[`test.js-babylon 1`] = `
+exports[`test.js 1`] = `
 "\\"use strict\\";
 
 function fn() {
@@ -162,7 +162,7 @@ function fn() {
 "
 `;
 
-exports[`test.js-flow 1`] = `
+exports[`test.js 2`] = `
 "\\"use strict\\";
 
 function fn() {
@@ -177,7 +177,7 @@ function fn() {
 "
 `;
 
-exports[`test.js-typescript 1`] = `
+exports[`test.js 3`] = `
 "\\"use strict\\";
 
 function fn() {

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`shebang.js-flow 1`] = `
+exports[`shebang.js 1`] = `
 "#!/usr/bin/env node
 function a() {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -9,7 +9,7 @@ function a() {}
 "
 `;
 
-exports[`shebang.js-typescript 1`] = `
+exports[`shebang.js 2`] = `
 "#!/usr/bin/env node
 function a() {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -18,7 +18,7 @@ function a() {}
 "
 `;
 
-exports[`shebang-newline.js-flow 1`] = `
+exports[`shebang-newline.js 1`] = `
 "#!/usr/bin/env node
 
 function a() {}
@@ -29,7 +29,7 @@ function a() {}
 "
 `;
 
-exports[`shebang-newline.js-typescript 1`] = `
+exports[`shebang-newline.js 2`] = `
 "#!/usr/bin/env node
 
 function a() {}

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`A.js-flow 1`] = `
+exports[`A.js 1`] = `
 "// You should be able to call objects with call properties
 function a(f: { (): string }, g: { (x: number): string } ): string {
   return f() + g(123);
@@ -65,7 +65,7 @@ function f(): number {
 "
 `;
 
-exports[`B.js-flow 1`] = `
+exports[`B.js 1`] = `
 "// You should be able to use a function as an object with a call property
 var a: { (x: number): string } = function (x: number): string { return \\"hi\\"; };
 
@@ -124,7 +124,7 @@ var z: Object = function(x: number): string {
 "
 `;
 
-exports[`C.js-flow 1`] = `
+exports[`C.js 1`] = `
 "// You should be able to use an object as a function
 function a(x: { (z: number): string }): (z: number) => string {
   return x;
@@ -197,7 +197,7 @@ function g(x: {}): Function {
 "
 `;
 
-exports[`D.js-flow 1`] = `
+exports[`D.js 1`] = `
 "// Multiple call properties should also be supported
 function a(f: { (): string; (x: number): string }): string {
   return f() + f(123);
@@ -248,7 +248,7 @@ function e(x: { (): string, (x: number): string }): () => number {
 "
 `;
 
-exports[`E.js-flow 1`] = `
+exports[`E.js 1`] = `
 "// Expecting properties that don't exist should be an error
 var a : { someProp: number } = function () {};
 
@@ -273,7 +273,7 @@ var c: { myProp: number } = f;
 "
 `;
 
-exports[`F.js-flow 1`] = `
+exports[`F.js 1`] = `
 "// You should be able to use an arrow function as an object with a call property
 
 var a: { (x: number): string } = (x) => x.toString()

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`break-continue.js-flow 1`] = `
+exports[`break-continue.js 1`] = `
 "function foo() {
     while(true) { break; }
 }
@@ -23,7 +23,7 @@ function bar() {
 "
 `;
 
-exports[`return.js-flow 1`] = `
+exports[`return.js 1`] = `
 "function bar(x:number) { }
 function foo() {
     var x = null;

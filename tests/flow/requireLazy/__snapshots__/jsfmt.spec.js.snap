@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`A.js-flow 1`] = `
+exports[`A.js 1`] = `
 "/**
  * @providesModule A
  * @flow
@@ -23,7 +23,7 @@ module.exports = {
 "
 `;
 
-exports[`B.js-flow 1`] = `
+exports[`B.js 1`] = `
 "/**
  * @providesModule B
  * @flow
@@ -46,7 +46,7 @@ module.exports = {
 "
 `;
 
-exports[`requireLazy.js-flow 1`] = `
+exports[`requireLazy.js 1`] = `
 "/**
  * @flow
  */

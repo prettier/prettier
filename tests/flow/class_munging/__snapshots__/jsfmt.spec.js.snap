@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`with_munging.js-flow 1`] = `
+exports[`with_munging.js 1`] = `
 "/**
  * @flow
  */
@@ -35,7 +35,7 @@ class Bar extends Foo {
 "
 `;
 
-exports[`without_munging.js-flow 1`] = `
+exports[`without_munging.js 1`] = `
 "/**
  * @flow
  * @preventMunge

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Bar.js-flow 1`] = `
+exports[`Bar.js 1`] = `
 "var Bar = { x: 0 };
 module.exports = Bar;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -9,7 +9,7 @@ module.exports = Bar;
 "
 `;
 
-exports[`copyProperties.js-flow 1`] = `
+exports[`copyProperties.js 1`] = `
 "// @flow
 
 let tests = [
@@ -92,7 +92,7 @@ let tests = [
 "
 `;
 
-exports[`invariant.js-flow 1`] = `
+exports[`invariant.js 1`] = `
 "/* @flow */
 
 let tests = [
@@ -125,7 +125,7 @@ let tests = [
 "
 `;
 
-exports[`lib.js-flow 1`] = `
+exports[`lib.js 1`] = `
 "declare module \\"copyProperties\\" {
   declare var exports: Object$Assign;
 }
@@ -150,7 +150,7 @@ declare module \\"mixin\\" {
 "
 `;
 
-exports[`mergeInto.js-flow 1`] = `
+exports[`mergeInto.js 1`] = `
 "// @flow
 
 let tests = [
@@ -223,7 +223,7 @@ let tests = [
 "
 `;
 
-exports[`test.js-flow 1`] = `
+exports[`test.js 1`] = `
 "var Bar = require('./Bar');
 var mixin = require('mixin');
 

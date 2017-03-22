@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`A.js-flow 1`] = `
+exports[`A.js 1`] = `
 "/* @providesModule Demo */
 
 class A {
@@ -49,7 +49,7 @@ module.exports = A;
 "
 `;
 
-exports[`B.js-flow 1`] = `
+exports[`B.js 1`] = `
 "var A = require('Demo');
 
 var z = new A(\\"42\\").getX();

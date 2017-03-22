@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`overload.js-flow 1`] = `
+exports[`overload.js 1`] = `
 "/**
  * tests of overload selection
  *
@@ -107,7 +107,7 @@ var z2:Array<string> = new Dummy().dumber(bar2);
 "
 `;
 
-exports[`test.js-flow 1`] = `
+exports[`test.js 1`] = `
 "function foo() {
   var output = new FakeUint8Array();
   output.set(new FakeUint8Array(), 0); // matches one of the overloads of set
@@ -120,7 +120,7 @@ function foo() {
 "
 `;
 
-exports[`test2.js-flow 1`] = `
+exports[`test2.js 1`] = `
 "declare class Foo {
   bar(x: 'hmm'): number;
   bar(x: string): string;
@@ -139,7 +139,7 @@ var foo = new Foo();
 "
 `;
 
-exports[`test3.js-flow 1`] = `
+exports[`test3.js 1`] = `
 "// passing a union-like thing into an overload is ok
 // if overload handles each branch of union-like thing
 
@@ -186,7 +186,7 @@ h(x_h.p); // ok
 "
 `;
 
-exports[`union.js-flow 1`] = `
+exports[`union.js 1`] = `
 "function foo<U> (x: $Either<Array<U>,U>): Array<U> { return []; }
 
 var x1:number = foo(0)[0];

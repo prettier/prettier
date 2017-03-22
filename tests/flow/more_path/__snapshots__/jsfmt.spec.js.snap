@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Condition.js-flow 1`] = `
+exports[`Condition.js 1`] = `
 "/* @providesModule Condition */
 
 function f(x:number) { }
@@ -126,7 +126,7 @@ module.exports = true;
 "
 `;
 
-exports[`FlowSA.js-flow 1`] = `
+exports[`FlowSA.js 1`] = `
 "
 /* @providesModule FlowSA */
 
@@ -154,7 +154,7 @@ module.exports = FlowSA;
 "
 `;
 
-exports[`Sigma.js-flow 1`] = `
+exports[`Sigma.js 1`] = `
 "
 /* @providesModule Sigma */
 
@@ -245,7 +245,7 @@ module.exports = \\"sigma\\";
 "
 `;
 
-exports[`test.js-flow 1`] = `
+exports[`test.js 1`] = `
 "class BaseClass {
   baseProp: string;
 }

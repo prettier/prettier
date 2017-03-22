@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`windows.js-flow 1`] = `
+exports[`windows.js 1`] = `
 "const vscode = require(\\"vscode\\");
 const {getDir, getActiveFile, uint8arrayToString} = require(\\"./utils\\");
 
@@ -15,7 +15,7 @@ let _commands;
 "
 `;
 
-exports[`windows.js-typescript 1`] = `
+exports[`windows.js 2`] = `
 "const vscode = require(\\"vscode\\");
 const {getDir, getActiveFile, uint8arrayToString} = require(\\"./utils\\");
 

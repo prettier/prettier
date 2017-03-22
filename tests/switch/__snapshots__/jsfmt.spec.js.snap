@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`empty_switch.js-flow 1`] = `
+exports[`empty_switch.js 1`] = `
 "switch (1) { default:; }
 switch (1) {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -12,7 +12,7 @@ switch (1) {
 "
 `;
 
-exports[`empty_switch.js-typescript 1`] = `
+exports[`empty_switch.js 2`] = `
 "switch (1) { default:; }
 switch (1) {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

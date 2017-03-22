@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`urnary_expression.js-flow 1`] = `
+exports[`urnary_expression.js 1`] = `
 "!!x
 x++
 x--;
@@ -21,7 +21,7 @@ x * +y;
 "
 `;
 
-exports[`urnary_expression.js-typescript 1`] = `
+exports[`urnary_expression.js 2`] = `
 "!!x
 x++
 x--;

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`client_object.js-flow 1`] = `
+exports[`client_object.js 1`] = `
 "var o = require('./object');
 
 var a:number = o.w.z.y;
@@ -11,7 +11,7 @@ var a: number = o.w.z.y;
 "
 `;
 
-exports[`object.js-flow 1`] = `
+exports[`object.js 1`] = `
 "var o1 = { x: 0, y: \\"\\" };
 var o2 = { z: o1 }
 
@@ -34,7 +34,7 @@ module.exports = o3;
 "
 `;
 
-exports[`proto.js-flow 1`] = `
+exports[`proto.js 1`] = `
 "function Foo() { this.x = 0; }
 Foo.prototype.m = function() { }
 
@@ -53,7 +53,7 @@ var o2: Foo = new Foo();
 "
 `;
 
-exports[`super.js-flow 1`] = `
+exports[`super.js 1`] = `
 "class C { m() { } }
 class D extends C { }
 

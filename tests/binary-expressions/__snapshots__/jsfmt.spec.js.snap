@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrow.js-flow 1`] = `
+exports[`arrow.js 1`] = `
 "function f() {
   const appEntitys = getAppEntitys(loadObject).filter(
     entity => entity && entity.isInstallAvailable() && !entity.isQueue() && entity.isDisabled()
@@ -19,7 +19,7 @@ function f() {
 "
 `;
 
-exports[`comment.js-flow 1`] = `
+exports[`comment.js 1`] = `
 "a = (
   // Commment 1
   (Math.random() * (yRange * (1 - minVerticalFraction)))
@@ -34,7 +34,7 @@ a =
 "
 `;
 
-exports[`exp.js-flow 1`] = `
+exports[`exp.js 1`] = `
 "a ** b ** c;
 (a ** b) ** c;
 a.b ** c;
@@ -55,7 +55,7 @@ a ** (b * c);
 "
 `;
 
-exports[`inline-object-array.js-flow 1`] = `
+exports[`inline-object-array.js 1`] = `
 "prevState = prevState || {
   catalogs: [],
   loadState: LOADED,
@@ -88,7 +88,7 @@ this.steps = steps || [
 "
 `;
 
-exports[`short-right.js-flow 1`] = `
+exports[`short-right.js 1`] = `
 "this._cumulativeHeights &&
  Math.abs(
    this._cachedItemHeight(this._firstVisibleIndex + i) -
@@ -128,7 +128,7 @@ defaultContent.filter(defaultLocale => {
 "
 `;
 
-exports[`test.js-flow 1`] = `
+exports[`test.js 1`] = `
 "// It should always break the highest precedence operators first, and
 // break them all at the same time.
 

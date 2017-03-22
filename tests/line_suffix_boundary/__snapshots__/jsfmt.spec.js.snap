@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`boundary.js-babylon 1`] = `
+exports[`boundary.js 1`] = `
 "\`\${
 a +  // a
   a
@@ -51,7 +51,7 @@ ExampleStory.getFragment(\\"story\\")}
 "
 `;
 
-exports[`boundary.js-flow 1`] = `
+exports[`boundary.js 2`] = `
 "\`\${
 a +  // a
   a

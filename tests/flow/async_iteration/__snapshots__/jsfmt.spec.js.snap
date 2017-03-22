@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`delegate_yield.js-flow 1`] = `
+exports[`delegate_yield.js 1`] = `
 "async function *delegate_next() {
   async function *inner() {
     var x: void = yield; // error: number ~> void
@@ -57,7 +57,7 @@ async function* delegate_return() {
 "
 `;
 
-exports[`generator.js-flow 1`] = `
+exports[`generator.js 1`] = `
 "declare interface File {
   readLine(): Promise<string>;
   close(): void;
@@ -112,7 +112,7 @@ async function f() {
 "
 `;
 
-exports[`return.js-flow 1`] = `
+exports[`return.js 1`] = `
 "declare var gen: AsyncGenerator<void,string,void>;
 
 // You can pass whatever you like to return, it doesn't need to be related to
@@ -161,7 +161,7 @@ refuse_return().return(\\"string\\").then(result => {
 "
 `;
 
-exports[`throw.js-flow 1`] = `
+exports[`throw.js 1`] = `
 "async function *catch_return() {
   try {
     yield 0;

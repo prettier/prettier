@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`conditional.js-babylon 1`] = `
+exports[`conditional.js 1`] = `
 "function* f() {
   a = (yield) ? 1 : 1;
   a = yield 1 ? 1 : 1;
@@ -43,7 +43,7 @@ async function f() {
 "
 `;
 
-exports[`conditional.js-typescript 1`] = `
+exports[`conditional.js 2`] = `
 "function* f() {
   a = (yield) ? 1 : 1;
   a = yield 1 ? 1 : 1;

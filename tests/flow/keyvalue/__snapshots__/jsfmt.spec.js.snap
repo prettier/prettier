@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`keyvalue.js-flow 1`] = `
+exports[`keyvalue.js 1`] = `
 "// @flow
 
 let tests = [

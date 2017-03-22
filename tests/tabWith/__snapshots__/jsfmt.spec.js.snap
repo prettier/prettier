@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class.js-flow 1`] = `
+exports[`class.js 1`] = `
 "class A {
   method() {
     var x = 1;
@@ -25,7 +25,7 @@ class A {
 "
 `;
 
-exports[`class.js-flow 2`] = `
+exports[`class.js 2`] = `
 "class A {
   method() {
     var x = 1;
@@ -50,7 +50,7 @@ class A {
 "
 `;
 
-exports[`nested-functions.spec.js-flow 1`] = `
+exports[`nested-functions.spec.js 1`] = `
 "const c = () => {};
 
 function a() {
@@ -77,7 +77,7 @@ function a() {
 "
 `;
 
-exports[`nested-functions.spec.js-flow 2`] = `
+exports[`nested-functions.spec.js 2`] = `
 "const c = () => {};
 
 function a() {

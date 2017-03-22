@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`client.js-flow 1`] = `
+exports[`client.js 1`] = `
 "var docblock = require('qux/docblock');
 var min = require('d3/min.js');
 var corge = require('qux/corge');

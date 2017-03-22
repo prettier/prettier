@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`function_return.js-flow 1`] = `
+exports[`function_return.js 1`] = `
 "class C {
     foo() { }
     bar() { return; }
@@ -81,7 +81,7 @@ module.exports = C;
 "
 `;
 
-exports[`void.js-flow 1`] = `
+exports[`void.js 1`] = `
 "/* This is a regression test. At one point we incorrectly inferred the return
    type of functions that have an explicit \`undefined\` to be only \`undefined\` --
    ignoring other possible exits. */

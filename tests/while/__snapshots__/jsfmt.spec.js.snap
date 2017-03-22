@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`indent.js-flow 1`] = `
+exports[`indent.js 1`] = `
 "if (someVeryLongStringA && someVeryLongStringB && someVeryLongStringC && someVeryLongStringD) {}
 while (someVeryLongStringA && someVeryLongStringB && someVeryLongStringC && someVeryLongStringD) {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -21,7 +21,7 @@ while (
 "
 `;
 
-exports[`indent.js-typescript 1`] = `
+exports[`indent.js 2`] = `
 "if (someVeryLongStringA && someVeryLongStringB && someVeryLongStringC && someVeryLongStringD) {}
 while (someVeryLongStringA && someVeryLongStringB && someVeryLongStringC && someVeryLongStringD) {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

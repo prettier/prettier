@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comments.js-flow 1`] = `
+exports[`comments.js 1`] = `
 "var inspect = 4 === util.inspect.length
   ? // node <= 0.8.x
     (function(v, colors) {
@@ -79,7 +79,7 @@ const { configureStore } = process.env.NODE_ENV === \\"production\\"
 "
 `;
 
-exports[`comments.js-typescript 1`] = `
+exports[`comments.js 2`] = `
 "var inspect = 4 === util.inspect.length
   ? // node <= 0.8.x
     (function(v, colors) {
@@ -158,7 +158,7 @@ const { configureStore } = process.env.NODE_ENV === \\"production\\"
 "
 `;
 
-exports[`new-expression.js-flow 1`] = `
+exports[`new-expression.js 1`] = `
 "const testConsole = new TestConsole(
   config.useStderr ? process.stderr : process.stdout
 );
@@ -169,7 +169,7 @@ const testConsole = new TestConsole(
 "
 `;
 
-exports[`new-expression.js-typescript 1`] = `
+exports[`new-expression.js 2`] = `
 "const testConsole = new TestConsole(
   config.useStderr ? process.stderr : process.stdout
 );

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`body.js-flow 1`] = `
+exports[`body.js 1`] = `
 "with (a);
 if (1); else if (2); else;
 for (;;);
@@ -22,7 +22,7 @@ while (1);
 "
 `;
 
-exports[`body.js-typescript 1`] = `
+exports[`body.js 2`] = `
 "with (a);
 if (1); else if (2); else;
 for (;;);

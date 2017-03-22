@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`a1.js-flow 1`] = `
+exports[`a1.js 1`] = `
 "// @flow
 
 function foo(x: number): string { return 5; }
@@ -21,7 +21,7 @@ module.exports = foo;
 "
 `;
 
-exports[`a2.js-flow 1`] = `
+exports[`a2.js 1`] = `
 "// @flow
 
 const foo = require('./a1');
@@ -36,7 +36,7 @@ module.exports = foo(\\"\\");
 "
 `;
 
-exports[`a3.js-flow 1`] = `
+exports[`a3.js 1`] = `
 "// @flow
 
 const five = require('./a2');
@@ -51,7 +51,7 @@ const five = require(\\"./a2\\");
 "
 `;
 
-exports[`b0.js-flow 1`] = `
+exports[`b0.js 1`] = `
 "// @flow
 
 class C { x: C; }
@@ -72,7 +72,7 @@ module.exports = { C, E };
 "
 `;
 
-exports[`b1.js-flow 1`] = `
+exports[`b1.js 1`] = `
 "// @flow
 
 import { C, E } from \\"./b0\\";
@@ -99,7 +99,7 @@ module.exports = { C, D };
 "
 `;
 
-exports[`b2.js-flow 1`] = `
+exports[`b2.js 1`] = `
 "// @flow
 
 module.exports = require(\\"./b1\\");
@@ -110,7 +110,7 @@ module.exports = require(\\"./b1\\");
 "
 `;
 
-exports[`b3.js-flow 1`] = `
+exports[`b3.js 1`] = `
 "// @flow
 
 import { C, D } from \\"./b2\\";
@@ -125,7 +125,7 @@ import { C, D } from \\"./b2\\";
 "
 `;
 
-exports[`c1.js-flow 1`] = `
+exports[`c1.js 1`] = `
 "// @flow
 
 export function foo(props: { x: number }) { }
@@ -136,7 +136,7 @@ export function foo(props: { x: number }) {}
 "
 `;
 
-exports[`c2.js-flow 1`] = `
+exports[`c2.js 1`] = `
 "// @flow
 
 import { foo } from \\"./c1\\";
@@ -155,7 +155,7 @@ export function bar(props: { x: number }) {
 "
 `;
 
-exports[`c3.js-flow 1`] = `
+exports[`c3.js 1`] = `
 "// @flow
 
 import { bar } from \\"./c2\\";
@@ -170,7 +170,7 @@ bar({ x: 0 });
 "
 `;
 
-exports[`d1.js-flow 1`] = `
+exports[`d1.js 1`] = `
 "// @flow
 
 export class A {}
@@ -185,7 +185,7 @@ export var x = new A();
 "
 `;
 
-exports[`d2.js-flow 1`] = `
+exports[`d2.js 1`] = `
 "// @flow
 
 import {A, x} from \\"./d1\\";
@@ -198,7 +198,7 @@ export var y: A = x;
 "
 `;
 
-exports[`e1.js-flow 1`] = `
+exports[`e1.js 1`] = `
 "// @flow
 
 export type Action =
@@ -216,7 +216,7 @@ export const LIFE = 42;
 "
 `;
 
-exports[`e2.js-flow 1`] = `
+exports[`e2.js 1`] = `
 "// @flow
 
 import type { Action } from './e1';
@@ -243,7 +243,7 @@ import { LIFE } from \\"./e1\\";
 "
 `;
 
-exports[`f1.js-flow 1`] = `
+exports[`f1.js 1`] = `
 "// @flow
 
 type T = { x: number };
@@ -268,7 +268,7 @@ module.exports = { a, b, c };
 "
 `;
 
-exports[`f2.js-flow 1`] = `
+exports[`f2.js 1`] = `
 "// @flow
 
 var { a, b, c } = require('./f1');
@@ -281,7 +281,7 @@ var { a, b, c } = require(\\"./f1\\");
 "
 `;
 
-exports[`g1.js-flow 1`] = `
+exports[`g1.js 1`] = `
 "// @flow
 
 export class C { }
@@ -292,7 +292,7 @@ export class C {}
 "
 `;
 
-exports[`g2.js-flow 1`] = `
+exports[`g2.js 1`] = `
 "// @flow
 
 import { C } from './g1';
@@ -311,7 +311,7 @@ module.exports = { D };
 "
 `;
 
-exports[`g3.js-flow 1`] = `
+exports[`g3.js 1`] = `
 "// @flow
 
 import { C } from './g1';
@@ -328,7 +328,7 @@ import { D } from \\"./g2\\";
 "
 `;
 
-exports[`h1.js-flow 1`] = `
+exports[`h1.js 1`] = `
 "// @flow
 
 export type Foo = number;
@@ -339,7 +339,7 @@ export type Foo = number;
 "
 `;
 
-exports[`h2.js-flow 1`] = `
+exports[`h2.js 1`] = `
 "// @flow
 
 import type { Foo } from './h1';

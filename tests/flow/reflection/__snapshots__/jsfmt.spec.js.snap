@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`type.js-flow 1`] = `
+exports[`type.js 1`] = `
 "declare var a: number;
 var b: typeof a = \\"...\\";
 var c: typeof a = \\"...\\";

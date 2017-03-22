@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`main.js-flow 1`] = `
+exports[`main.js 1`] = `
 "// @flow
 
 var React = require('react');
@@ -49,7 +49,7 @@ var e: React.Element<{ not_a_real_attr: string }> = (
 "
 `;
 
-exports[`strings.js-flow 1`] = `
+exports[`strings.js 1`] = `
 "/* @flow */
 
 var React = require('react');

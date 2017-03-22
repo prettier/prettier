@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`in.js-flow 1`] = `
+exports[`in.js 1`] = `
 "// @flow
 
 let tests = [

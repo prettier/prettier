@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`constructors.js-flow 1`] = `
+exports[`constructors.js 1`] = `
 "// Foo is a class-like function
 function Foo() {
   this.x = 0; // constructs objects with property x
@@ -51,7 +51,7 @@ exports.Foo2 = (Foo: Class<IFoo>);
 "
 `;
 
-exports[`test.js-flow 1`] = `
+exports[`test.js 1`] = `
 "var Foo = require('./constructors').Foo;
 var x: string = new Foo().x; // error, found number instead of string
 var y: string = Foo.y; // error, found number instead of string

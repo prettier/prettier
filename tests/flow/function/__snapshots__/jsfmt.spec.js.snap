@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`apply.js-flow 1`] = `
+exports[`apply.js 1`] = `
 "function test(a: string, b: number): number {
   return this.length; // expect []/\\"\\" this
 }
@@ -93,7 +93,7 @@ function test2(): number {
 "
 `;
 
-exports[`bind.js-flow 1`] = `
+exports[`bind.js 1`] = `
 "// @flow
 
 let tests = [
@@ -116,7 +116,7 @@ let tests = [
 "
 `;
 
-exports[`call.js-flow 1`] = `
+exports[`call.js 1`] = `
 "// @flow
 
 function test(a: string, b: number): number {
@@ -195,7 +195,7 @@ function test2(): number {
 "
 `;
 
-exports[`function.js-flow 1`] = `
+exports[`function.js 1`] = `
 "/**
  * @flow
  */
@@ -334,7 +334,7 @@ var e = (d.bind(1): Function)();
 "
 `;
 
-exports[`rest.js-flow 1`] = `
+exports[`rest.js 1`] = `
 "/* regression tests */
 
 function rest_array<T>(...xs: Array<T>): T {

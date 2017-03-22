@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`await_parse.js-flow 1`] = `
+exports[`await_parse.js 1`] = `
 "async function f() { (await f()).length }
 async function g() {
   invariant(
@@ -29,7 +29,7 @@ async function f() {
 "
 `;
 
-exports[`await_parse.js-typescript 1`] = `
+exports[`await_parse.js 2`] = `
 "async function f() { (await f()).length }
 async function g() {
   invariant(
@@ -58,7 +58,7 @@ async function f() {
 "
 `;
 
-exports[`conditional-expression.js-flow 1`] = `
+exports[`conditional-expression.js 1`] = `
 "async function f() {
   const result = typeof fn === 'function' ? await fn() : null;
 }
@@ -79,7 +79,7 @@ async function f() {
 "
 `;
 
-exports[`conditional-expression.js-typescript 1`] = `
+exports[`conditional-expression.js 2`] = `
 "async function f() {
   const result = typeof fn === 'function' ? await fn() : null;
 }

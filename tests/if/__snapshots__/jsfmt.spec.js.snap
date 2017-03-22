@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`else.js-flow 1`] = `
+exports[`else.js 1`] = `
 "// Both functions below should be formatted exactly the same
 
 function f() {
@@ -42,7 +42,7 @@ function f() {
 "
 `;
 
-exports[`else.js-typescript 1`] = `
+exports[`else.js 2`] = `
 "// Both functions below should be formatted exactly the same
 
 function f() {
@@ -84,7 +84,7 @@ function f() {
 "
 `;
 
-exports[`if_comments.js-flow 1`] = `
+exports[`if_comments.js 1`] = `
 "async function f() {
   if (untrackedChoice === 0) /* Cancel */ {
     return null;
@@ -158,7 +158,7 @@ async function f() {
 "
 `;
 
-exports[`if_comments.js-typescript 1`] = `
+exports[`if_comments.js 2`] = `
 "async function f() {
   if (untrackedChoice === 0) /* Cancel */ {
     return null;

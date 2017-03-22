@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js-flow 1`] = `
+exports[`test.js 1`] = `
 "import React from \\"react\\";
 
 function F(props: { foo: string }) {}

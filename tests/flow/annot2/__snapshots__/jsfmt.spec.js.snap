@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`A.js-flow 1`] = `
+exports[`A.js 1`] = `
 "/**
  * @providesModule A
  * @flow
@@ -33,7 +33,7 @@ export default class {
 "
 `;
 
-exports[`B.js-flow 1`] = `
+exports[`B.js 1`] = `
 "/**
  * @flow
  */
@@ -56,7 +56,7 @@ class B extends A {
 "
 `;
 
-exports[`T.js-flow 1`] = `
+exports[`T.js 1`] = `
 "/**
  * @providesModule T
  */

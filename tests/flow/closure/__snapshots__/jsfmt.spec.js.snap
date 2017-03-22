@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Closure.js-flow 1`] = `
+exports[`Closure.js 1`] = `
 "/***
  * Test tracking of variable types across closure calls.
  * @flow
@@ -171,7 +171,7 @@ function local_meth() {
 "
 `;
 
-exports[`cond_havoc.js-flow 1`] = `
+exports[`cond_havoc.js 1`] = `
 "// @flow
 
 // from sam, https://github.com/facebook/flow/issues/780
@@ -204,7 +204,7 @@ function example(b: boolean): number {
 "
 `;
 
-exports[`const.js-flow 1`] = `
+exports[`const.js 1`] = `
 "/***
  * consts retain refinements
  * @flow
