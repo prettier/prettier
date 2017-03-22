@@ -1361,10 +1361,11 @@ function genericPrintNoParens(path, options, print) {
         key = concat(["[", path.call(print, "key"), "]"]);
       } else {
         key = printPropertyKey(path, options, print);
-        if (n.variance === "plus") {
-          key = concat(["+", key]);
-        } else if (n.variance === "minus") {
-          key = concat(["-", key]);
+
+        var variance = getFlowVariance(n, options);
+
+        if (variance) {
+          key = concat([variance, key]);
         } else if (n.accessibility === "public") {
           key = concat(["public ", key]);
         } else if (n.accessibility === "protected") {
@@ -1554,7 +1555,7 @@ function genericPrintNoParens(path, options, print) {
       // declare function foo(a: B): void; OR
       // var A: (a: B) => void;
       var parent = path.getParentNode(0);
-      var isArrowFunctionTypeAnnotation = n.type === "TSFunctionType" || !((!parent.variance &&
+      var isArrowFunctionTypeAnnotation = n.type === "TSFunctionType" || !((!getFlowVariance(parent, options) &&
         !parent.optional &&
         namedTypes.ObjectTypeProperty.check(parent)) ||
         namedTypes.ObjectTypeCallProperty.check(parent) ||
@@ -1685,11 +1686,9 @@ function genericPrintNoParens(path, options, print) {
 
       return concat(parts);
     case "ObjectTypeIndexer":
-      var variance = n.variance === "plus"
-        ? "+"
-        : n.variance === "minus" ? "-" : "";
+      var variance = getFlowVariance(n, options);
       return concat([
-        variance,
+        variance || "",
         "[",
         path.call(print, "id"),
         n.id ? ": " : "",
@@ -1698,12 +1697,10 @@ function genericPrintNoParens(path, options, print) {
         path.call(print, "value")
       ]);
     case "ObjectTypeProperty":
-      var variance = n.variance === "plus"
-        ? "+"
-        : n.variance === "minus" ? "-" : "";
+      var variance = getFlowVariance(n, options);
       // TODO: This is a bad hack and we need a better way to know
       // when to emit an arrow function or not.
-      var isFunction = !n.variance &&
+      var isFunction = !variance &&
         !n.optional &&
         n.value.type === "FunctionTypeAnnotation";
 
@@ -1713,7 +1710,7 @@ function genericPrintNoParens(path, options, print) {
 
       return concat([
         n.static ? "static " : "",
-        variance,
+        variance || "",
         path.call(print, "key"),
         n.optional ? "?" : "",
         isFunction ? "" : ": ",
@@ -1789,16 +1786,10 @@ function genericPrintNoParens(path, options, print) {
       ]));
     }
     case "TypeParameter":
-      switch (n.variance) {
-        case "plus":
-          parts.push("+");
+      var variance = getFlowVariance(n, options);
 
-          break;
-        case "minus":
-          parts.push("-");
-
-          break;
-        default:
+      if (variance) {
+        parts.push(variance);
       }
 
       parts.push(path.call(print, "name"));
@@ -2410,6 +2401,28 @@ function printFlowDeclaration(path, parts) {
   }
 
   return concat(parts);
+}
+
+function getFlowVariance(path, options) {
+  if (!path.variance) {
+    return null;
+  }
+
+  // Babylon 7.0 currently uses variance node type, and flow should
+  // follow suit soon:
+  // https://github.com/babel/babel/issues/4722
+  const variance = path.variance.kind || path.variance;
+
+  switch (variance) {
+    case "plus":
+      return "+";
+
+    case "minus":
+      return "-";
+
+    default:
+      return variance;
+  }
 }
 
 function printClass(path, options, print) {
