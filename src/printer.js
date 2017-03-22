@@ -1205,11 +1205,7 @@ function genericPrintNoParens(path, options, print) {
         ) {
           // Whenever the parser wouldn't convert it to an entity
           // do not escape.
-          if (isParserKeepingEntities(n, options)) {
-            res = '"' + n.value.value + '"';
-          } else {
-            res = '"' + util.htmlEscapeInsideDoubleQuote(n.value.value) + '"';
-          }
+          res = getJSXRawValue(n, options);
         } else {
           res = path.call(print, "value");
         }
@@ -3314,6 +3310,18 @@ function isParserKeepingEntities(node, options) {
     return nodeSrc === "'" + node.value.expression.value + "'";
   }
   return false;
+}
+
+function getJSXRawValue(node, options) {
+  const origin = options.originalText.slice(
+    util.locStart(node.value), util.locEnd(node.value)
+  )
+  if (node.value.raw) {
+    const quote = origin[0];
+    return quote + node.value.raw.slice(1, node.value.raw.length - 1) + quote;
+  } else {
+    return origin;
+  }
 }
 
 function printAstToDoc(ast, options) {
