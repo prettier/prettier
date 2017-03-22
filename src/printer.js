@@ -132,10 +132,10 @@ function genericPrintNoParens(path, options, print) {
     return n;
   }
 
-  // TODO: For some reason NumericLiteralTypeAnnotation is not
-  // printable so this throws, but I think that's a bug in ast-types.
+  // TODO: Investigate types that return not printable.
   // This assert isn't very useful though.
   // namedTypes.Printable.assert(n);
+
   var parts = [];
   switch (n.type) {
     case "File":
@@ -1496,7 +1496,6 @@ function genericPrintNoParens(path, options, print) {
         ])
       );
 
-    case "ExistentialTypeParam":
     case "ExistsTypeAnnotation":
       return "*";
     case "EmptyTypeAnnotation":
@@ -1509,7 +1508,6 @@ function genericPrintNoParens(path, options, print) {
       return concat([path.call(print, "elementType"), "[]"]);
     case "BooleanTypeAnnotation":
       return "boolean";
-    case "NumericLiteralTypeAnnotation":
     case "BooleanLiteralTypeAnnotation":
       return "" + n.value;
     case "DeclareClass":
