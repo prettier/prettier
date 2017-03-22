@@ -231,6 +231,33 @@ jest.mock(
 "
 `;
 
+exports[`currying.js 1`] = `
+"const fn = b => c => d => {
+  return 3;
+};
+
+const mw = store => next => action => {
+  return next(action)
+}
+
+const middleware = options => (req, res, next) => {
+  // ...
+};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const fn = b => c => d => {
+  return 3;
+};
+
+const mw = store => next => action => {
+  return next(action);
+};
+
+const middleware = options => (req, res, next) => {
+  // ...
+};
+"
+`;
+
 exports[`long-call-no-args.js 1`] = `
 "veryLongCall(VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT, () => {})
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
