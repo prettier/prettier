@@ -119,11 +119,10 @@ function genericPrintNoParens(path, options, print) {
     return n;
   }
 
-  // var tw = options.tabWidth;
-  // TODO: For some reason NumericLiteralTypeAnnotation is not
-  // printable so this throws, but I think that's a bug in ast-types.
+  // TODO: Investigate types that return not printable.
   // This assert isn't very useful though.
   // namedTypes.Printable.assert(n);
+
   var parts = [];
   switch (n.type) {
     case "File":
@@ -181,8 +180,7 @@ function genericPrintNoParens(path, options, print) {
       );
     case "BinaryExpression":
     case "LogicalExpression": {
-      const parts = [];
-      printBinaryishExpressions(path, parts, print, options);
+      const parts = printBinaryishExpressions(path, print, options);
       const parent = path.getParentNode();
 
       // Avoid indenting sub-expressions in if/etc statements.
@@ -307,7 +305,8 @@ function genericPrintNoParens(path, options, print) {
         n.body.type === "BlockStatement" ||
         n.body.type === "TaggedTemplateExpression" ||
         n.body.type === "TemplateElement" ||
-        n.body.type === "ClassExpression"
+        n.body.type === "ClassExpression" ||
+        n.body.type === "ArrowFunctionExpression"
       ) {
         return group(collapsed);
       }
@@ -1118,24 +1117,25 @@ function genericPrintNoParens(path, options, print) {
         ")",
         adjustClause(path.call(print, "body"), options)
       ]);
+
     case "ForOfStatement":
-      return concat([
-        "for (",
-        path.call(print, "left"),
-        " of ",
-        path.call(print, "right"),
-        ")",
-        adjustClause(path.call(print, "body"), options)
-      ]);
     case "ForAwaitStatement":
+      // Babylon 7 removed ForAwaitStatement in favor of ForOfStatement
+      // with `"await": true`:
+      // https://github.com/estree/estree/pull/138
+      const isAwait = (n.type === "ForAwaitStatement" || n.await);
+
       return concat([
-        "for await (",
+        "for",
+        isAwait ? " await" : "",
+        " (",
         path.call(print, "left"),
         " of ",
         path.call(print, "right"),
         ")",
         adjustClause(path.call(print, "body"), options)
       ]);
+
     case "DoWhileStatement":
       var clause = adjustClause(path.call(print, "body"), options);
       var doBody = concat(["do", clause]);
@@ -1414,10 +1414,11 @@ function genericPrintNoParens(path, options, print) {
         key = concat(["[", path.call(print, "key"), "]"]);
       } else {
         key = printPropertyKey(path, options, print);
-        if (n.variance === "plus") {
-          key = concat(["+", key]);
-        } else if (n.variance === "minus") {
-          key = concat(["-", key]);
+
+        var variance = getFlowVariance(n, options);
+
+        if (variance) {
+          key = concat([variance, key]);
         } else if (n.accessibility === "public") {
           key = concat(["public ", key]);
         } else if (n.accessibility === "protected") {
@@ -1548,7 +1549,6 @@ function genericPrintNoParens(path, options, print) {
         ])
       );
 
-    case "ExistentialTypeParam":
     case "ExistsTypeAnnotation":
       return "*";
     case "EmptyTypeAnnotation":
@@ -1561,7 +1561,6 @@ function genericPrintNoParens(path, options, print) {
       return concat([path.call(print, "elementType"), "[]"]);
     case "BooleanTypeAnnotation":
       return "boolean";
-    case "NumericLiteralTypeAnnotation":
     case "BooleanLiteralTypeAnnotation":
       return "" + n.value;
     case "DeclareClass":
@@ -1607,7 +1606,7 @@ function genericPrintNoParens(path, options, print) {
       // declare function foo(a: B): void; OR
       // var A: (a: B) => void;
       var parent = path.getParentNode(0);
-      var isArrowFunctionTypeAnnotation = n.type === "TSFunctionType" || !((!parent.variance &&
+      var isArrowFunctionTypeAnnotation = n.type === "TSFunctionType" || !((!getFlowVariance(parent, options) &&
         !parent.optional &&
         namedTypes.ObjectTypeProperty.check(parent)) ||
         namedTypes.ObjectTypeCallProperty.check(parent) ||
@@ -1683,14 +1682,29 @@ function genericPrintNoParens(path, options, print) {
         path.call(print, "id"),
         path.call(print, "typeParameters")
       ]);
-    case "IntersectionTypeAnnotation":
+    case "IntersectionTypeAnnotation": {
+      const types = path.map(print, "types");
+      const result = [];
+      for (let i = 0; i < types.length; ++i) {
+        if (i === 0) {
+          result.push(types[i]);
+        } else if (
+          (n.types[i - 1].type === "ObjectTypeAnnotation" &&
+            n.types[i].type !== "ObjectTypeAnnotation") ||
+          (n.types[i - 1].type !== "ObjectTypeAnnotation" &&
+            n.types[i].type === "ObjectTypeAnnotation")
+        ) {
+          // If you go from object to non-object or vis-versa, then inline it
+          result.push(" & ", types[i]);
+        } else {
+          // Otherwise go to the next line and indent
+          result.push(indent(1, concat([" &", line, types[i]])));
+        }
+      }
+      return group(concat(result));
+    }
     case "TSUnionType":
     case "UnionTypeAnnotation": {
-      const types = path.map(print, "types");
-      const isIntersection = n.type === "IntersectionTypeAnnotation";
-      const shouldInline = isIntersection &&
-        !(n.types.length > 1 && n.types[0].type === "ObjectTypeAnnotation");
-
       // single-line variation
       // A | B | C
 
@@ -1699,24 +1713,17 @@ function genericPrintNoParens(path, options, print) {
       // | B
       // | C
 
-      // We want & operators to be inlined.
-      if (shouldInline) {
-        return join(" & ", types);
-      }
-
       const parent = path.getParentNode();
       // If there's a leading comment, the parent is doing the indentation
       const shouldIndent = !(parent.type === "TypeAlias" &&
         hasLeadingOwnLineComment(options.originalText, n));
 
-      const token = isIntersection ? "&" : "|";
-
       return group(
         indent(
           shouldIndent ? 1 : 0,
           concat([
-            ifBreak(concat([shouldIndent ? line : "", token, " "])),
-            join(concat([line, token, " "]), types)
+            ifBreak(concat([shouldIndent ? line : "", "| "])),
+            join(concat([line, "| "]), path.map(print, "types"))
           ])
         )
       );
@@ -1738,11 +1745,9 @@ function genericPrintNoParens(path, options, print) {
 
       return concat(parts);
     case "ObjectTypeIndexer":
-      var variance = n.variance === "plus"
-        ? "+"
-        : n.variance === "minus" ? "-" : "";
+      var variance = getFlowVariance(n, options);
       return concat([
-        variance,
+        variance || "",
         "[",
         path.call(print, "id"),
         n.id ? ": " : "",
@@ -1751,12 +1756,10 @@ function genericPrintNoParens(path, options, print) {
         path.call(print, "value")
       ]);
     case "ObjectTypeProperty":
-      var variance = n.variance === "plus"
-        ? "+"
-        : n.variance === "minus" ? "-" : "";
+      var variance = getFlowVariance(n, options);
       // TODO: This is a bad hack and we need a better way to know
       // when to emit an arrow function or not.
-      var isFunction = !n.variance &&
+      var isFunction = !variance &&
         !n.optional &&
         n.value.type === "FunctionTypeAnnotation";
 
@@ -1766,7 +1769,7 @@ function genericPrintNoParens(path, options, print) {
 
       return concat([
         n.static ? "static " : "",
-        variance,
+        variance || "",
         path.call(print, "key"),
         n.optional ? "?" : "",
         isFunction ? "" : ": ",
@@ -1842,16 +1845,10 @@ function genericPrintNoParens(path, options, print) {
       ]));
     }
     case "TypeParameter":
-      switch (n.variance) {
-        case "plus":
-          parts.push("+");
+      var variance = getFlowVariance(n, options);
 
-          break;
-        case "minus":
-          parts.push("-");
-
-          break;
-        default:
+      if (variance) {
+        parts.push(variance);
       }
 
       parts.push(path.call(print, "name"));
@@ -2253,9 +2250,26 @@ function printFunctionParams(path, print, options) {
     return concat(["(", join(", ", printed), ")"]);
   }
 
+  // Single object destructuring should hug
+  //
+  // function({
+  //   a,
+  //   b,
+  //   c
+  // }) {}
+  if (fun.params &&
+    fun.params.length === 1 &&
+    !fun.params[0].comments &&
+    (fun.params[0].type === "ObjectPattern" ||
+      fun.params[0].type === "FunctionTypeParam" &&
+        fun.params[0].typeAnnotation.type === "ObjectTypeAnnotation") &&
+    !fun.rest) {
+    return concat(["(", join(", ", printed), ")"]);
+  }
+
   const isFlowShorthandWithOneArg = (isObjectTypePropertyAFunction(parent) ||
     isTypeAnnotationAFunction(parent) || parent.type === "TypeAlias") &&
-    fun[paramsField].length === 1 && fun[paramsField][0].name === null && fun.rest === null;
+    fun[paramsField].length === 1 && fun[paramsField][0].name === null && !fun.rest;
 
   return concat([
     isFlowShorthandWithOneArg ? "" : "(",
@@ -2463,6 +2477,28 @@ function printFlowDeclaration(path, parts) {
   }
 
   return concat(parts);
+}
+
+function getFlowVariance(path, options) {
+  if (!path.variance) {
+    return null;
+  }
+
+  // Babylon 7.0 currently uses variance node type, and flow should
+  // follow suit soon:
+  // https://github.com/babel/babel/issues/4722
+  const variance = path.variance.kind || path.variance;
+
+  switch (variance) {
+    case "plus":
+      return "+";
+
+    case "minus":
+      return "-";
+
+    default:
+      return variance;
+  }
 }
 
 function printClass(path, options, print) {
@@ -3011,7 +3047,8 @@ function shouldInlineLogicalExpression(node) {
 // precedence level and the AST is structured based on precedence
 // level, things are naturally broken up correctly, i.e. `&&` is
 // broken before `+`.
-function printBinaryishExpressions(path, parts, print, options, isNested) {
+function printBinaryishExpressions(path, print, options, isNested) {
+  let parts = [];
   let node = path.getValue();
 
   // We treat BinaryExpression and LogicalExpression nodes the same.
@@ -3030,19 +3067,17 @@ function printBinaryishExpressions(path, parts, print, options, isNested) {
       util.getPrecedence(node.operator)
       && node.operator !== "**"
     ) {
-      // Flatten them out by recursively calling this function. The
-      // printed values will all be appended to `parts`.
-      path.call(
+      // Flatten them out by recursively calling this function.
+      parts = parts.concat(path.call(
         left =>
           printBinaryishExpressions(
             left,
-            parts,
             print,
             options,
             /* isNested */ true
           ),
         "left"
-      );
+      ));
     } else {
       parts.push(path.call(print, "left"));
     }
@@ -3066,7 +3101,7 @@ function printBinaryishExpressions(path, parts, print, options, isNested) {
     // the other ones since we don't call the normal print on BinaryExpression,
     // only for the left and right parts
     if (isNested && node.comments) {
-      parts.push(comments.printComments(path, p => "", options));
+      parts = comments.printComments(path, p => concat(parts), options);
     }
   } else {
     // Our stopping case. Simply print the node normally.

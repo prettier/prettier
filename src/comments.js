@@ -166,7 +166,8 @@ function attach(comments, ast, text, options) {
           comment
         ) ||
         handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
-        handleImportDeclarationComments(enclosingNode, precedingNode, comment)
+        handleImportDeclarationComments(enclosingNode, precedingNode, comment) ||
+        handleAssignmentPatternComments(enclosingNode, comment)
       ) {
         // We're good
       } else if (followingNode) {
@@ -195,7 +196,8 @@ function attach(comments, ast, text, options) {
         handleCallExpressionComments(precedingNode, enclosingNode, comment) ||
         handlePropertyComments(enclosingNode, comment) ||
         handleExportNamedDeclarationComments(enclosingNode, comment) ||
-        handleOnlyComments(enclosingNode, ast, comment, isLastComment)
+        handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
+        handleClassMethodComments(enclosingNode, comment)
       ) {
         // We're good
       } else if (precedingNode) {
@@ -652,6 +654,22 @@ function handleImportDeclarationComments(enclosingNode, precedingNode, comment) 
     comment.type !== "CommentBlock" && comment.type !== "Block"
   ) {
     addTrailingComment(precedingNode, comment);
+    return true;
+  }
+  return false;
+}
+
+function handleAssignmentPatternComments(enclosingNode, comment) {
+  if (enclosingNode && enclosingNode.type === "AssignmentPattern") {
+    addLeadingComment(enclosingNode, comment);
+    return true;
+  }
+  return false;
+}
+
+function handleClassMethodComments(enclosingNode, comment) {
+  if (enclosingNode && enclosingNode.type === "ClassMethod") {
+    addTrailingComment(enclosingNode, comment);
     return true;
   }
   return false;

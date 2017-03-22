@@ -260,19 +260,15 @@ function printAll(val: MyType) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 type Common = {};
 
-type A =
-  & {
-    type: \\"A\\",
-    foo: number
-  }
-  & Common;
+type A = {
+  type: \\"A\\",
+  foo: number
+} & Common;
 
-type B =
-  & {
-    type: \\"B\\",
-    foo: Array<number>
-  }
-  & Common;
+type B = {
+  type: \\"B\\",
+  foo: Array<number>
+} & Common;
 
 type MyType = A | B;
 
@@ -1684,11 +1680,9 @@ type Success = {
   result: string
 };
 
-type Error =
-  & {
-    type: \\"ERROR\\"
-  }
-  & Empty;
+type Error = {
+  type: \\"ERROR\\"
+} & Empty;
 
 export type T = Success | Error;
 
