@@ -1064,24 +1064,25 @@ function genericPrintNoParens(path, options, print) {
         ")",
         adjustClause(path.call(print, "body"), options)
       ]);
+
     case "ForOfStatement":
-      return concat([
-        "for (",
-        path.call(print, "left"),
-        " of ",
-        path.call(print, "right"),
-        ")",
-        adjustClause(path.call(print, "body"), options)
-      ]);
     case "ForAwaitStatement":
+      // Babylon 7 removed ForAwaitStatement in favor of ForOfStatement 
+      // with `"await": true`:
+      // https://github.com/estree/estree/pull/138
+      const isAwait = (n.type === "ForAwaitStatement" || n.await);
+
       return concat([
-        "for await (",
+        "for",
+        isAwait ? " await" : "",
+        " (",
         path.call(print, "left"),
         " of ",
         path.call(print, "right"),
         ")",
         adjustClause(path.call(print, "body"), options)
       ]);
+
     case "DoWhileStatement":
       var clause = adjustClause(path.call(print, "body"), options);
       var doBody = concat(["do", clause]);

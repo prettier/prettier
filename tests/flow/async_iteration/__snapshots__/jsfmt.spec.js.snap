@@ -100,7 +100,7 @@ async function* delegate_yield() {
   yield* inner();
 }
 async () => {
-  for (const x of delegate_yield()) {
+  for await (const x of delegate_yield()) {
     (x: void); // error: number ~> void
   }
 };
@@ -217,7 +217,7 @@ async function* readLines(path) {
 }
 
 async function f() {
-  for (const line of readLines(\\"/path/to/file\\")) {
+  for await (const line of readLines(\\"/path/to/file\\")) {
     (line: void); // error: string ~> void
   }
 }
