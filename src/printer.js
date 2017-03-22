@@ -1494,7 +1494,6 @@ function genericPrintNoParens(path, options, print) {
         ])
       );
 
-    case "ExistentialTypeParam":
     case "ExistsTypeAnnotation":
       return "*";
     case "EmptyTypeAnnotation":
