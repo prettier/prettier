@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js-flow 1`] = `
+exports[`test.js 1`] = `
 "const comp1 = (
   <div style={styles} key=\\"something\\">
     Keep the wrapping parens.
@@ -53,7 +53,7 @@ const comp5 = <div>Keep it on one line.</div>;
 "
 `;
 
-exports[`test.js-typescript 1`] = `
+exports[`test.js 2`] = `
 "const comp1 = (
   <div style={styles} key=\\"something\\">
     Keep the wrapping parens.

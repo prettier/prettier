@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`function_expression.js-flow 1`] = `
+exports[`function_expression.js 1`] = `
 "(function() {}).length
 typeof (function() {});
 export default (function() {})();
@@ -27,7 +27,7 @@ new function() {}();
 "
 `;
 
-exports[`function_expression.js-typescript 1`] = `
+exports[`function_expression.js 2`] = `
 "(function() {}).length
 typeof (function() {});
 export default (function() {})();

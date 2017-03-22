@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bracket.js-flow 1`] = `
+exports[`bracket.js 1`] = `
 "export {
   runTaskForChanged,
   description,
@@ -27,7 +27,7 @@ export { fitsIn, oneLine };
 "
 `;
 
-exports[`bracket.js-flow 2`] = `
+exports[`bracket.js 2`] = `
 "export {
   runTaskForChanged,
   description,
@@ -54,7 +54,7 @@ export {fitsIn, oneLine};
 "
 `;
 
-exports[`bracket.js-typescript 1`] = `
+exports[`bracket.js 3`] = `
 "export {
   runTaskForChanged,
   description,
@@ -81,7 +81,7 @@ export { fitsIn, oneLine };
 "
 `;
 
-exports[`bracket.js-typescript 2`] = `
+exports[`bracket.js 4`] = `
 "export {
   runTaskForChanged,
   description,
@@ -108,7 +108,7 @@ export {fitsIn, oneLine};
 "
 `;
 
-exports[`empty.js-flow 1`] = `
+exports[`empty.js 1`] = `
 "export {};
 export {} from \\".\\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -117,7 +117,7 @@ export {} from \\".\\";
 "
 `;
 
-exports[`empty.js-flow 2`] = `
+exports[`empty.js 2`] = `
 "export {};
 export {} from \\".\\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -126,7 +126,7 @@ export {} from \\".\\";
 "
 `;
 
-exports[`empty.js-typescript 1`] = `
+exports[`empty.js 3`] = `
 "export {};
 export {} from \\".\\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -135,7 +135,7 @@ export {} from \\".\\";
 "
 `;
 
-exports[`empty.js-typescript 2`] = `
+exports[`empty.js 4`] = `
 "export {};
 export {} from \\".\\";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

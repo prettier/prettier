@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment.js-flow 1`] = `
+exports[`comment.js 1`] = `
 "for (x
 /*a*/
 in //b
@@ -67,7 +67,7 @@ for (x of y);
 "
 `;
 
-exports[`comment.js-typescript 1`] = `
+exports[`comment.js 2`] = `
 "for (x
 /*a*/
 in //b
@@ -134,7 +134,7 @@ for (x of y);
 "
 `;
 
-exports[`for.js-flow 1`] = `
+exports[`for.js 1`] = `
 "for (;;) {}
 for (var i = 0; i < 10; ++i) {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -145,7 +145,7 @@ for (var i = 0; i < 10; ++i) {
 "
 `;
 
-exports[`for.js-typescript 1`] = `
+exports[`for.js 2`] = `
 "for (;;) {}
 for (var i = 0; i < 10; ++i) {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -156,7 +156,7 @@ for (var i = 0; i < 10; ++i) {
 "
 `;
 
-exports[`in.js-flow 1`] = `
+exports[`in.js 1`] = `
 "for ((x in a);;) {}
 for (a=(a in b);;) {}
 for (let a = (b in c); ; );
@@ -185,7 +185,7 @@ async function f() {
 "
 `;
 
-exports[`in.js-typescript 1`] = `
+exports[`in.js 2`] = `
 "for ((x in a);;) {}
 for (a=(a in b);;) {}
 for (let a = (b in c); ; );
@@ -214,7 +214,7 @@ async function f() {
 "
 `;
 
-exports[`var.js-flow 1`] = `
+exports[`var.js 1`] = `
 "for (a in b) var c = {}; [];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 for (a in b)
@@ -223,7 +223,7 @@ for (a in b)
 "
 `;
 
-exports[`var.js-typescript 1`] = `
+exports[`var.js 2`] = `
 "for (a in b) var c = {}; [];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 for (a in b)

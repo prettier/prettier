@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`B.js-flow 1`] = `
+exports[`B.js 1`] = `
 "/* @flow */
 
 exports.numberValue = 42;
@@ -11,14 +11,14 @@ exports.numberValue = 42;
 "
 `;
 
-exports[`C.js-flow 1`] = `
+exports[`C.js 1`] = `
 "/* @flow */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 "
 `;
 
-exports[`CommonJS_Clobbering_Class.js-flow 1`] = `
+exports[`CommonJS_Clobbering_Class.js 1`] = `
 "/**
  * @providesModule CommonJS_Clobbering_Class
  * @flow
@@ -75,7 +75,7 @@ module.exports = Test;
 "
 `;
 
-exports[`CommonJS_Clobbering_Lit.js-flow 1`] = `
+exports[`CommonJS_Clobbering_Lit.js 1`] = `
 "/**
  * @providesModule CommonJS_Clobbering_Lit
  * @flow
@@ -104,7 +104,7 @@ module.exports = {
 "
 `;
 
-exports[`CommonJS_Named.js-flow 1`] = `
+exports[`CommonJS_Named.js 1`] = `
 "/**
  * @providesModule CommonJS_Named
  * @flow
@@ -129,7 +129,7 @@ exports.numberValue5 = 5;
 "
 `;
 
-exports[`ES6_Default_AnonFunction1.js-flow 1`] = `
+exports[`ES6_Default_AnonFunction1.js 1`] = `
 "/**
  * @providesModule ES6_Default_AnonFunction1
  * @flow
@@ -146,7 +146,7 @@ declare export default () => number
 "
 `;
 
-exports[`ES6_Default_AnonFunction2.js-flow 1`] = `
+exports[`ES6_Default_AnonFunction2.js 1`] = `
 "/**
  * @providesModule ES6_Default_AnonFunction2
  * @flow
@@ -163,7 +163,7 @@ declare export default () => number
 "
 `;
 
-exports[`ES6_Default_NamedClass1.js-flow 1`] = `
+exports[`ES6_Default_NamedClass1.js 1`] = `
 "/**
  * @providesModule ES6_Default_NamedClass1
  * @flow
@@ -192,7 +192,7 @@ declare export function getAFoo(): FooImpl;
 "
 `;
 
-exports[`ES6_Default_NamedClass2.js-flow 1`] = `
+exports[`ES6_Default_NamedClass2.js 1`] = `
 "/**
  * @providesModule ES6_Default_NamedClass2
  * @flow
@@ -209,7 +209,7 @@ declare export default class Foo { givesANum(): number }
 "
 `;
 
-exports[`ES6_Default_NamedFunction1.js-flow 1`] = `
+exports[`ES6_Default_NamedFunction1.js 1`] = `
 "/**
  * @providesModule ES6_Default_NamedFunction1
  * @flow
@@ -226,7 +226,7 @@ declare export default function foo(): number;
 "
 `;
 
-exports[`ES6_Default_NamedFunction2.js-flow 1`] = `
+exports[`ES6_Default_NamedFunction2.js 1`] = `
 "/**
  * @providesModule ES6_Default_NamedFunction2
  * @flow
@@ -243,7 +243,7 @@ declare export default function foo(): number;
 "
 `;
 
-exports[`ES6_DefaultAndNamed.js-flow 1`] = `
+exports[`ES6_DefaultAndNamed.js 1`] = `
 "/* @flow */
 
 declare export default number;
@@ -256,7 +256,7 @@ declare export var str: string;
 "
 `;
 
-exports[`ES6_ExportAllFrom_Intermediary1.js-flow 1`] = `
+exports[`ES6_ExportAllFrom_Intermediary1.js 1`] = `
 "/**
  * @providesModule ES6_ExportAllFrom_Intermediary1
  * @flow
@@ -273,7 +273,7 @@ declare export * from \\"ES6_ExportAllFrom_Source1\\"
 "
 `;
 
-exports[`ES6_ExportAllFrom_Intermediary2.js-flow 1`] = `
+exports[`ES6_ExportAllFrom_Intermediary2.js 1`] = `
 "/**
  * @providesModule ES6_ExportAllFrom_Intermediary2
  * @flow
@@ -290,7 +290,7 @@ declare export * from \\"ES6_ExportAllFrom_Source2\\"
 "
 `;
 
-exports[`ES6_ExportAllFrom_Source1.js-flow 1`] = `
+exports[`ES6_ExportAllFrom_Source1.js 1`] = `
 "/**
  * @providesModule ES6_ExportAllFrom_Source1
  * @flow
@@ -307,7 +307,7 @@ declare export var numberValue1: number;
 "
 `;
 
-exports[`ES6_ExportAllFrom_Source2.js-flow 1`] = `
+exports[`ES6_ExportAllFrom_Source2.js 1`] = `
 "/**
  * @providesModule ES6_ExportAllFrom_Source2
  * @flow
@@ -324,7 +324,7 @@ declare export var numberValue2: number;
 "
 `;
 
-exports[`ES6_ExportAllFromMulti.js-flow 1`] = `
+exports[`ES6_ExportAllFromMulti.js 1`] = `
 "// @flow
 
 declare export * from \\"./ES6_ExportAllFrom_Source1\\";
@@ -337,7 +337,7 @@ declare export * from \\"./ES6_ExportAllFrom_Source2\\"
 "
 `;
 
-exports[`ES6_ExportFrom_Intermediary1.js-flow 1`] = `
+exports[`ES6_ExportFrom_Intermediary1.js 1`] = `
 "/**
  * @providesModule ES6_ExportFrom_Intermediary1
  * @flow
@@ -360,7 +360,7 @@ declare export {
 "
 `;
 
-exports[`ES6_ExportFrom_Intermediary2.js-flow 1`] = `
+exports[`ES6_ExportFrom_Intermediary2.js 1`] = `
 "/**
  * @providesModule ES6_ExportFrom_Intermediary2
  * @flow
@@ -383,7 +383,7 @@ declare export {
 "
 `;
 
-exports[`ES6_ExportFrom_Source1.js-flow 1`] = `
+exports[`ES6_ExportFrom_Source1.js 1`] = `
 "/**
  * @providesModule ES6_ExportFrom_Source1
  * @flow
@@ -402,7 +402,7 @@ declare export var numberValue2: number;
 "
 `;
 
-exports[`ES6_ExportFrom_Source2.js-flow 1`] = `
+exports[`ES6_ExportFrom_Source2.js 1`] = `
 "/**
  * @providesModule ES6_ExportFrom_Source2
  * @flow
@@ -421,7 +421,7 @@ declare export var numberValue2: number;
 "
 `;
 
-exports[`ES6_Named1.js-flow 1`] = `
+exports[`ES6_Named1.js 1`] = `
 "/**
  * @providesModule ES6_Named1
  * @flow
@@ -468,7 +468,7 @@ declare export var varDeclNumber2: number;
 "
 `;
 
-exports[`ES6_Named2.js-flow 1`] = `
+exports[`ES6_Named2.js 1`] = `
 "/**
  * @providesModule ES6_Named2
  * @flow
@@ -511,7 +511,7 @@ declare export var varDeclNumber4: number;
 "
 `;
 
-exports[`ProvidesModuleA.js-flow 1`] = `
+exports[`ProvidesModuleA.js 1`] = `
 "/**
  * @providesModule A
  * @flow
@@ -536,7 +536,7 @@ exports.stringValue = \\"str\\";
 "
 `;
 
-exports[`ProvidesModuleCJSDefault.js-flow 1`] = `
+exports[`ProvidesModuleCJSDefault.js 1`] = `
 "/**
  * @providesModule CJSDefault
  * @flow
@@ -557,7 +557,7 @@ module.exports = {
 "
 `;
 
-exports[`ProvidesModuleD.js-flow 1`] = `
+exports[`ProvidesModuleD.js 1`] = `
 "/**
  * @providesModule D
  * @flow
@@ -570,7 +570,7 @@ exports[`ProvidesModuleD.js-flow 1`] = `
 "
 `;
 
-exports[`ProvidesModuleES6Default.js-flow 1`] = `
+exports[`ProvidesModuleES6Default.js 1`] = `
 "/**
  * @providesModule ES6Default
  * @flow
@@ -595,14 +595,14 @@ export default {
 "
 `;
 
-exports[`SideEffects.js-flow 1`] = `
+exports[`SideEffects.js 1`] = `
 "/* @flow */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 "
 `;
 
-exports[`es6modules.js-flow 1`] = `
+exports[`es6modules.js 1`] = `
 "/* @flow */
 
 // ===================== //

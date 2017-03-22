@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`binaryish.js-flow 1`] = `
+exports[`binaryish.js 1`] = `
 "function f() {
   return (
     property.isIdentifier() &&

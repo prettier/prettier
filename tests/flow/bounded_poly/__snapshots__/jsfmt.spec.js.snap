@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`scope.js-flow 1`] = `
+exports[`scope.js 1`] = `
 "function foo<X, Y:X>(x:X, y:Y):void { }
 foo(0, \\"\\");
 
@@ -15,7 +15,7 @@ function bar<X: number, Y: X>(x: X, y: Y): number {
 "
 `;
 
-exports[`test.js-flow 1`] = `
+exports[`test.js 1`] = `
 "function foo<T: number>(x: T): T {
     var _ = x * 1; // OK
     var y: string = x; // error

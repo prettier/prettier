@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`a.js-flow 1`] = `
+exports[`a.js 1`] = `
 "/* @flow */
 
 module.exports = { a() {} };~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -10,7 +10,7 @@ module.exports = { a() {} };
 "
 `;
 
-exports[`b.js-flow 1`] = `
+exports[`b.js 1`] = `
 "/* @flow */
 
 var a = require('./a');
@@ -27,7 +27,7 @@ module.exports = b;
 "
 `;
 
-exports[`c.js-flow 1`] = `
+exports[`c.js 1`] = `
 "/* @flow */
 
 var c = require('./b');
@@ -41,7 +41,7 @@ c.foo();
 "
 `;
 
-exports[`object_assign.js-flow 1`] = `
+exports[`object_assign.js 1`] = `
 "/* @flow */
 
 var export_ = Object.assign({}, {
@@ -75,7 +75,7 @@ module.exports = export_;
 "
 `;
 
-exports[`object_create.js-flow 1`] = `
+exports[`object_create.js 1`] = `
 "/* @flow */
 
 class C { foo: string; }
@@ -116,7 +116,7 @@ declare var o: O;
 "
 `;
 
-exports[`object_getprototypeof.js-flow 1`] = `
+exports[`object_getprototypeof.js 1`] = `
 "// @flow
 
 class Foo {}
@@ -143,7 +143,7 @@ let tests = [
 "
 `;
 
-exports[`object_keys.js-flow 1`] = `
+exports[`object_keys.js 1`] = `
 "/* @flow */
 
 var sealed = {one: 'one', two: 'two'};
@@ -212,7 +212,7 @@ class Bar extends Foo {
 "
 `;
 
-exports[`object_missing.js-flow 1`] = `
+exports[`object_missing.js 1`] = `
 "// @flow
 
 let tests = [
@@ -231,7 +231,7 @@ let tests = [
 "
 `;
 
-exports[`object_prototype.js-flow 1`] = `
+exports[`object_prototype.js 1`] = `
 "/* @flow */
 
 function takesABool(x: boolean) {}

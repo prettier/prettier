@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`array.js-flow 1`] = `
+exports[`array.js 1`] = `
 "// @flow
 
 type Foo = {};
@@ -15,7 +15,7 @@ export var arr = [f];
 "
 `;
 
-exports[`async_return.js-flow 1`] = `
+exports[`async_return.js 1`] = `
 "// @flow
 
 export async function foo() {
@@ -30,7 +30,7 @@ export async function foo() {
 "
 `;
 
-exports[`infer.js-flow 1`] = `
+exports[`infer.js 1`] = `
 "/* @flow */
 
 var Foo = {

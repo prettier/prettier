@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`expand.js-babylon 1`] = `
+exports[`expand.js 1`] = `
 "const Component1 = ({ props }) => (
   <Text>Test</Text>
 );
@@ -17,7 +17,7 @@ const Component2 = ({ props }) => <Text>Test</Text>;
 "
 `;
 
-exports[`expression.js-babylon 1`] = `
+exports[`expression.js 1`] = `
 "() => ({}\`\`);
 ({})\`\`;
 a = () => ({}).x;
@@ -40,14 +40,14 @@ a = () => ({}.x);
 "
 `;
 
-exports[`method.js-babylon 1`] = `
+exports[`method.js 1`] = `
 "a = { f() {} }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 a = { f() {} };
 "
 `;
 
-exports[`range.js-babylon 1`] = `
+exports[`range.js 1`] = `
 "group(
   concat([
     \\"(\\",

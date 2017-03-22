@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`createclass-callsite.js-flow 1`] = `
+exports[`createclass-callsite.js 1`] = `
 "/* @flow */
 var React = require('react');
 var Hello = require('./createclass-module');
@@ -57,7 +57,7 @@ module.exports = Callsite;
 "
 `;
 
-exports[`createclass-module.js-flow 1`] = `
+exports[`createclass-module.js 1`] = `
 "/* @flow */
 var React = require('react');
 
@@ -90,7 +90,7 @@ module.exports = Hello;
 "
 `;
 
-exports[`es6class-types-callsite.js-flow 1`] = `
+exports[`es6class-types-callsite.js 1`] = `
 "/* @flow */
 import React from 'react';
 import Hello from './es6class-types-module';
@@ -147,7 +147,7 @@ module.exports = Callsite;
 "
 `;
 
-exports[`es6class-types-module.js-flow 1`] = `
+exports[`es6class-types-module.js 1`] = `
 "/* @flow */
 import React from 'react';
 

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`last.js-flow 1`] = `
+exports[`last.js 1`] = `
 "[,];
 [,,];
 [,,1,];
@@ -13,7 +13,7 @@ exports[`last.js-flow 1`] = `
 "
 `;
 
-exports[`last.js-typescript 1`] = `
+exports[`last.js 2`] = `
 "[,];
 [,,];
 [,,1,];
@@ -26,7 +26,7 @@ exports[`last.js-typescript 1`] = `
 "
 `;
 
-exports[`preserve_empty_lines.js-flow 1`] = `
+exports[`preserve_empty_lines.js 1`] = `
 "a = [
 
   1,
@@ -44,7 +44,7 @@ a = [1, 2, 3, 4];
 "
 `;
 
-exports[`preserve_empty_lines.js-typescript 1`] = `
+exports[`preserve_empty_lines.js 2`] = `
 "a = [
 
   1,

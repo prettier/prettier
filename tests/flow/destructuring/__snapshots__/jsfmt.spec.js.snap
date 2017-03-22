@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`array_rest.js-flow 1`] = `
+exports[`array_rest.js 1`] = `
 "let xs = [0, \\"\\", true];
 let [a, ...ys] = xs;
 let [b, ...zs] = ys;
@@ -29,7 +29,7 @@ let [...e] = 0;
 "
 `;
 
-exports[`computed.js-flow 1`] = `
+exports[`computed.js 1`] = `
 "var { [\\"key\\"]: val1 } = { key: \\"val\\" };
 (val1: void); // error: string ~> void
 
@@ -52,7 +52,7 @@ var { [\\"key\\"]: val3, ...spread } = { key: \\"val\\" };
 "
 `;
 
-exports[`defaults.js-flow 1`] = `
+exports[`defaults.js 1`] = `
 "/* @flow */
 
 function obj_prop_fun({p:{q=0}={q:true}}={p:{q:\\"\\"}}) {
@@ -225,7 +225,7 @@ function default_expr_scope({ a, b = a }) {}
 "
 `;
 
-exports[`destructuring.js-flow 1`] = `
+exports[`destructuring.js 1`] = `
 "declare var a:string;
 declare var b:string;
 declare var c:string;
@@ -372,7 +372,7 @@ var cp2_err: string = others.childprop2; // Error: number ~> string
 "
 `;
 
-exports[`destructuring_param.js-flow 1`] = `
+exports[`destructuring_param.js 1`] = `
 "function f(a, { b }) {
   return a + b;
 }
@@ -403,7 +403,7 @@ function f(a, { b }) {
 "
 `;
 
-exports[`eager.js-flow 1`] = `
+exports[`eager.js 1`] = `
 "var x;
 ({x} = null); // error, property \`x\` can not be accessed on \`null\`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -412,7 +412,7 @@ var x;
 "
 `;
 
-exports[`poly.js-flow 1`] = `
+exports[`poly.js 1`] = `
 "// @flow
 
 function obj_pattern<X>({ prop } : { prop: X }) {} // prop: X
@@ -485,7 +485,7 @@ function arr_rest_pattern<X>([_, ...a]: ArrRest<X>) {
 "
 `;
 
-exports[`rec.js-flow 1`] = `
+exports[`rec.js 1`] = `
 "// @flow
 
 // Make sure that destructuring doesn't cause infinite loops when combined with
@@ -530,7 +530,7 @@ var { x: o } = o;
 "
 `;
 
-exports[`string_lit.js-flow 1`] = `
+exports[`string_lit.js 1`] = `
 "var { \\"key\\": val } = { key: \\"val\\" };
 (val: void); // error: string ~> void
 
@@ -545,7 +545,7 @@ var { \\"with-dash\\": with_dash } = { \\"with-dash\\": \\"motivating example\\"
 "
 `;
 
-exports[`unannotated.js-flow 1`] = `
+exports[`unannotated.js 1`] = `
 "// @flow
 
 var { x } = {

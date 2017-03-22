@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js-flow 1`] = `
+exports[`test.js 1`] = `
 "const render1 = ({ styles }) => (
   <div style={styles} key=\\"something\\">
     Keep the wrapping parens. Put each key on its own line.
@@ -233,7 +233,7 @@ const renderTernary = props => (
 "
 `;
 
-exports[`test.js-typescript 1`] = `
+exports[`test.js 2`] = `
 "const render1 = ({ styles }) => (
   <div style={styles} key=\\"something\\">
     Keep the wrapping parens. Put each key on its own line.

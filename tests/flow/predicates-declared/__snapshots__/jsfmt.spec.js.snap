@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`function-bind.js-flow 1`] = `
+exports[`function-bind.js 1`] = `
 "// @flow
 
 // Sanity checks:
@@ -86,7 +86,7 @@ if (m.bind(this)(x)) {
 "
 `;
 
-exports[`function-union.js-flow 1`] = `
+exports[`function-union.js 1`] = `
 "// @flow
 
 declare function f1(x: mixed): boolean %checks(typeof x === \\"string\\");
@@ -126,7 +126,7 @@ function foo(x: number | string | Array<string>): number {
 "
 `;
 
-exports[`is-string-decl.js-flow 1`] = `
+exports[`is-string-decl.js 1`] = `
 "// @flow
 
 declare function is_string(x: mixed): boolean %checks(typeof x === \\"string\\");
@@ -167,7 +167,7 @@ function foo(x: string | Array<string>): string {
 "
 `;
 
-exports[`logical-or.js-flow 1`] = `
+exports[`logical-or.js 1`] = `
 "// @flow
 
 // Sanity check:
@@ -218,7 +218,7 @@ Number(dollars) || 0;
 "
 `;
 
-exports[`object-invariant.js-flow 1`] = `
+exports[`object-invariant.js 1`] = `
 "// @flow
 
 // Sanity check:
@@ -270,7 +270,7 @@ function f(_this: { m: ?Meeting }): string {
 "
 `;
 
-exports[`orig-string-tag-check.js-flow 1`] = `
+exports[`orig-string-tag-check.js 1`] = `
 "// @flow
 
 // The original first-order case
@@ -298,7 +298,7 @@ function foo(x: string | Array<string>): string {
 "
 `;
 
-exports[`sanity-fall-through.js-flow 1`] = `
+exports[`sanity-fall-through.js 1`] = `
 "// @flow
 
 // Sanity check:
@@ -329,7 +329,7 @@ function foo(s: Array<string>): string {
 "
 `;
 
-exports[`sanity-invalid-calls.js-flow 1`] = `
+exports[`sanity-invalid-calls.js 1`] = `
 "// @flow
 
 // Sanity check:
@@ -371,7 +371,7 @@ function foo(s: Array<string>): string {
 "
 `;
 
-exports[`sanity-is-string-bug.js-flow 1`] = `
+exports[`sanity-is-string-bug.js 1`] = `
 "// @flow
 
 declare function is_string(x: mixed): boolean %checks(typeof x === \\"string\\");
@@ -406,7 +406,7 @@ function bar(x: string | Array<string>): string {
 "
 `;
 
-exports[`sanity-parameter-mismatch.js-flow 1`] = `
+exports[`sanity-parameter-mismatch.js 1`] = `
 "// @flow
 
 // Sanity check: make sure the parameters are checked as usual
@@ -431,7 +431,7 @@ foo(3, 3);
 "
 `;
 
-exports[`sanity-pred-with-body.js-flow 1`] = `
+exports[`sanity-pred-with-body.js 1`] = `
 "// @flow
 
 // Sanity check:
@@ -467,7 +467,7 @@ function foo(x: string | Array<string>): string {
 "
 `;
 
-exports[`sanity-return-type.js-flow 1`] = `
+exports[`sanity-return-type.js 1`] = `
 "// @flow
 
 declare function f2(x: mixed): string %checks(Array.isArray(x));

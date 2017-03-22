@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class_expr.js-flow 1`] = `
+exports[`class_expr.js 1`] = `
 "/* @flow */
 // issue #1191
 
@@ -21,7 +21,7 @@ const Thing = class Thing {
 "
 `;
 
-exports[`contra.js-flow 1`] = `
+exports[`contra.js 1`] = `
 "// Counterexample with contravariant this type
 
 class C {
@@ -142,7 +142,7 @@ class Misc {
 "
 `;
 
-exports[`export.js-flow 1`] = `
+exports[`export.js 1`] = `
 "export class A1 {
   foo(): this { return this; }
   bar(): this { return this; }
@@ -181,7 +181,7 @@ export class A3<X> extends A2<X> {}
 "
 `;
 
-exports[`generics.js-flow 1`] = `
+exports[`generics.js 1`] = `
 "class Generic<X> {
   clone(): Generic<X> { return this; }
 }
@@ -209,7 +209,7 @@ class ImplicitNumber extends Implicit {
 "
 `;
 
-exports[`import.js-flow 1`] = `
+exports[`import.js 1`] = `
 "// Check that imports are handled properly with this types
 
 import { A1 } from './export';
@@ -262,7 +262,7 @@ class B3<X> extends A3<X> {
 "
 `;
 
-exports[`interface.js-flow 1`] = `
+exports[`interface.js 1`] = `
 "interface I { xs: Array<this>; }
 interface J { f(): J; }
 class C {
@@ -289,7 +289,7 @@ function bar(c: C): J {
 "
 `;
 
-exports[`lib_client.js-flow 1`] = `
+exports[`lib_client.js 1`] = `
 "(new DoublyLinkedList().prev(): DoublyLinkedList);
 (new DoublyLinkedList().next(): DoublyLinkedList)
 
@@ -314,7 +314,7 @@ class C {
 "
 `;
 
-exports[`self.js-flow 1`] = `
+exports[`self.js 1`] = `
 "class A {
   foo() { return this; } // return of foo is not annotated to get around
                          // substituting this below
@@ -337,7 +337,7 @@ class A {
 "
 `;
 
-exports[`statics.js-flow 1`] = `
+exports[`statics.js 1`] = `
 "// supporting \`this\` type in statics
 
 class A {
@@ -377,7 +377,7 @@ class B extends A {} // inherits statics method too, with \`this\` bound to the 
 "
 `;
 
-exports[`test.js-flow 1`] = `
+exports[`test.js 1`] = `
 "// Examples without \`this\` types (compare with examples below)
 
 class Base {

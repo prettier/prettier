@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`A.js-flow 1`] = `
+exports[`A.js 1`] = `
 "// $FlowFixMe
 var test1: string = 123; // This error should be suppressed
 
@@ -53,7 +53,7 @@ var test6: string = 123;
 "
 `;
 
-exports[`B.js-flow 1`] = `
+exports[`B.js 1`] = `
 "// $FlowFixMe
 var test1: string = library_num;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -62,7 +62,7 @@ var test1: string = library_num;
 "
 `;
 
-exports[`C.js-flow 1`] = `
+exports[`C.js 1`] = `
 "function takesAString(x: string): void {}
 
 function runTest(y: number): void {
@@ -83,7 +83,7 @@ function runTest(y: number): void {
 "
 `;
 
-exports[`lib.js-flow 1`] = `
+exports[`lib.js 1`] = `
 "declare var library_num: number;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare var library_num: number;

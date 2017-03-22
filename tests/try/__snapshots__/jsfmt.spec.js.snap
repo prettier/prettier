@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`empty.js-flow 1`] = `
+exports[`empty.js 1`] = `
 "try {
 } catch (e) {
 }
@@ -21,7 +21,7 @@ try {
 "
 `;
 
-exports[`empty.js-typescript 1`] = `
+exports[`empty.js 2`] = `
 "try {
 } catch (e) {
 }
@@ -42,7 +42,7 @@ try {
 "
 `;
 
-exports[`try.js-flow 1`] = `
+exports[`try.js 1`] = `
 "try
 /* missing comment */
 {;}
@@ -55,7 +55,7 @@ try {
 "
 `;
 
-exports[`try.js-typescript 1`] = `
+exports[`try.js 2`] = `
 "try
 /* missing comment */
 {;}

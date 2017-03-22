@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`exec.js-flow 1`] = `
+exports[`exec.js 1`] = `
 "/* @flow */
 
 var exec = require('child_process').exec;
@@ -37,7 +37,7 @@ exec(\\"ls\\", { maxBuffer: 100 }, function(error, stdout, stderr) {
 "
 `;
 
-exports[`execFile.js-flow 1`] = `
+exports[`execFile.js 1`] = `
 "/* @flow */
 
 var execFile = require('child_process').execFile;
@@ -96,7 +96,7 @@ execFile(\\"ls\\", [\\"-l\\"], { timeout: 250 }, function(error, stdout, stderr)
 "
 `;
 
-exports[`execSync.js-flow 1`] = `
+exports[`execSync.js 1`] = `
 "/* @flow */
 
 var execSync = require('child_process').execSync;
@@ -121,7 +121,7 @@ execSync(\\"ls\\", { stdio: [\\"inherit\\"] }); // error, no signatures match
 "
 `;
 
-exports[`spawn.js-flow 1`] = `
+exports[`spawn.js 1`] = `
 "/* @flow */
 
 var child_process = require('child_process');

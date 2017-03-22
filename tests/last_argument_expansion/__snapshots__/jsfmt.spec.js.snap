@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrow.js-flow 1`] = `
+exports[`arrow.js 1`] = `
 "export default function searchUsers(action$) {
   return action$.ofType(ActionTypes.SEARCHED_USERS)
     .map(action => action.payload.query)
@@ -37,7 +37,7 @@ export default function searchUsers(action$) {
 "
 `;
 
-exports[`break-parent.js-flow 1`] = `
+exports[`break-parent.js 1`] = `
 "({
   processors: [
     require(\\"autoprefixer\\", {
@@ -92,7 +92,7 @@ true
 "
 `;
 
-exports[`jsx.js-flow 1`] = `
+exports[`jsx.js 1`] = `
 "const els = items.map(item => (
   <div className=\\"whatever\\">
     <span>{children}</span>
@@ -107,7 +107,7 @@ const els = items.map(item => (
 "
 `;
 
-exports[`object.js-flow 1`] = `
+exports[`object.js 1`] = `
 "const formatData = pipe(
   zip,
   map(([ ref, data ]) => ({
@@ -150,7 +150,7 @@ export const log = y => {
 "
 `;
 
-exports[`overflow.js-flow 1`] = `
+exports[`overflow.js 1`] = `
 "SuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLongCall((err, result) => {
   // comment
 });

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`array.js-flow 1`] = `
+exports[`array.js 1`] = `
 "const arr1 = [1,2,3,4];
 const arr2 = [1, 2, 3, 4];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -9,7 +9,7 @@ const arr2 = [1, 2, 3, 4];
 "
 `;
 
-exports[`array.js-flow 2`] = `
+exports[`array.js 2`] = `
 "const arr1 = [1,2,3,4];
 const arr2 = [1, 2, 3, 4];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -18,7 +18,7 @@ const arr2 = [1, 2, 3, 4];
 "
 `;
 
-exports[`array.js-typescript 1`] = `
+exports[`array.js 3`] = `
 "const arr1 = [1,2,3,4];
 const arr2 = [1, 2, 3, 4];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -27,7 +27,7 @@ const arr2 = [1, 2, 3, 4];
 "
 `;
 
-exports[`array.js-typescript 2`] = `
+exports[`array.js 4`] = `
 "const arr1 = [1,2,3,4];
 const arr2 = [1, 2, 3, 4];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -36,7 +36,7 @@ const arr2 = [1, 2, 3, 4];
 "
 `;
 
-exports[`object.js-flow 1`] = `
+exports[`object.js 1`] = `
 "const obj1 = {a:1, b:2, c:3}
 const obj2 = { a:1, b:2, c:3 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -45,7 +45,7 @@ const obj2 = { a: 1, b: 2, c: 3 };
 "
 `;
 
-exports[`object.js-flow 2`] = `
+exports[`object.js 2`] = `
 "const obj1 = {a:1, b:2, c:3}
 const obj2 = { a:1, b:2, c:3 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -54,7 +54,7 @@ const obj2 = {a: 1, b: 2, c: 3};
 "
 `;
 
-exports[`object.js-typescript 1`] = `
+exports[`object.js 3`] = `
 "const obj1 = {a:1, b:2, c:3}
 const obj2 = { a:1, b:2, c:3 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -63,7 +63,7 @@ const obj2 = { a: 1, b: 2, c: 3 };
 "
 `;
 
-exports[`object.js-typescript 2`] = `
+exports[`object.js 4`] = `
 "const obj1 = {a:1, b:2, c:3}
 const obj2 = { a:1, b:2, c:3 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`API.js-flow 1`] = `
+exports[`API.js 1`] = `
 "// @flow
 
 var OpenGraphObject = require('./models/OpenGraphObject.js');

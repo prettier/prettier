@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`gen_big_disjoint_union.js-flow 1`] = `
+exports[`gen_big_disjoint_union.js 1`] = `
 "// perf test for big disjoint union with 1000 cases
 type TAction =
 {
@@ -8013,7 +8013,7 @@ function foo(x: TAction): TAction {
 "
 `;
 
-exports[`test.js-flow 1`] = `
+exports[`test.js 1`] = `
 "type A = {a: number};
 type B = {b: number};
 type C = {c: number};

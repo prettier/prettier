@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`empty_paren_comment.js-babylon 1`] = `
+exports[`empty_paren_comment.js 1`] = `
 "let f = (/* ... */) => {}
 (function (/* ... */) {})(/* ... */)
 function f(/* ... */) {}
@@ -55,7 +55,7 @@ f(/* ... */ a, b);
 "
 `;
 
-exports[`empty_paren_comment.js-flow 1`] = `
+exports[`empty_paren_comment.js 2`] = `
 "let f = (/* ... */) => {}
 (function (/* ... */) {})(/* ... */)
 function f(/* ... */) {}

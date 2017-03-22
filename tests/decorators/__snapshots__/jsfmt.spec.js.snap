@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`mobx.js-babylon 1`] = `
+exports[`mobx.js 1`] = `
 "import {observable} from \\"mobx\\";
 
 @observer class OrderLine {
@@ -41,7 +41,7 @@ import { observable } from \\"mobx\\";
 "
 `;
 
-exports[`multiple.js-babylon 1`] = `
+exports[`multiple.js 1`] = `
 "const dog = {
   @readonly
   @nonenumerable
@@ -58,7 +58,7 @@ const dog = {
 "
 `;
 
-exports[`redux.js-babylon 1`] = `
+exports[`redux.js 1`] = `
 "@connect(mapStateToProps, mapDispatchToProps)
 export class MyApp extends React.Component {}
 

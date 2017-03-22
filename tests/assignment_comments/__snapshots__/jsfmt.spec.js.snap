@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`assignment_comments.js-flow 1`] = `
+exports[`assignment_comments.js 1`] = `
 "fnString =
   // Comment
   'some' + 'long' + 'string';
@@ -120,7 +120,7 @@ let f = (
 "
 `;
 
-exports[`assignment_comments.js-typescript 1`] = `
+exports[`assignment_comments.js 2`] = `
 "fnString =
   // Comment
   'some' + 'long' + 'string';

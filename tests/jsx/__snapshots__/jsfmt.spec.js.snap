@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`expression.js-flow 1`] = `
+exports[`expression.js 1`] = `
 "<View
   style={
     {
@@ -139,7 +139,7 @@ exports[`expression.js-flow 1`] = `
 "
 `;
 
-exports[`expression.js-typescript 1`] = `
+exports[`expression.js 2`] = `
 "<View
   style={
     {
@@ -278,7 +278,7 @@ exports[`expression.js-typescript 1`] = `
 "
 `;
 
-exports[`hug.js-flow 1`] = `
+exports[`hug.js 1`] = `
 "<div>
   {__DEV__
     ? this.renderDevApp()
@@ -348,7 +348,7 @@ exports[`hug.js-flow 1`] = `
 "
 `;
 
-exports[`hug.js-typescript 1`] = `
+exports[`hug.js 2`] = `
 "<div>
   {__DEV__
     ? this.renderDevApp()
@@ -418,7 +418,7 @@ exports[`hug.js-typescript 1`] = `
 "
 `;
 
-exports[`object-property.js-flow 1`] = `
+exports[`object-property.js 1`] = `
 "const tabs = [
   {
     title: \\"General Info\\",
@@ -449,7 +449,7 @@ const tabs = [
 "
 `;
 
-exports[`object-property.js-typescript 1`] = `
+exports[`object-property.js 2`] = `
 "const tabs = [
   {
     title: \\"General Info\\",
@@ -480,7 +480,7 @@ const tabs = [
 "
 `;
 
-exports[`open-break.js-flow 1`] = `
+exports[`open-break.js 1`] = `
 "<td
 onClick={() => {
   a
@@ -510,7 +510,7 @@ onClick={() => {
 "
 `;
 
-exports[`open-break.js-typescript 1`] = `
+exports[`open-break.js 2`] = `
 "<td
 onClick={() => {
   a
@@ -540,7 +540,7 @@ onClick={() => {
 "
 `;
 
-exports[`parens.js-flow 1`] = `
+exports[`parens.js 1`] = `
 "a = [
   <path
     key='0'
@@ -569,7 +569,7 @@ a = [
 "
 `;
 
-exports[`parens.js-typescript 1`] = `
+exports[`parens.js 2`] = `
 "a = [
   <path
     key='0'
@@ -598,7 +598,7 @@ a = [
 "
 `;
 
-exports[`quotes.js-flow 1`] = `
+exports[`quotes.js 1`] = `
 "<div id=\\"&quot;'<>&amp;quot;\\" />;
 <div id='\\"&#39;<>&amp;quot;' />;
 <div id={'\\\\'\\"&quot;<>&amp;quot;'} />;
@@ -609,7 +609,7 @@ exports[`quotes.js-flow 1`] = `
 "
 `;
 
-exports[`quotes.js-typescript 1`] = `
+exports[`quotes.js 2`] = `
 "<div id=\\"&quot;'<>&amp;quot;\\" />;
 <div id='\\"&#39;<>&amp;quot;' />;
 <div id={'\\\\'\\"&quot;<>&amp;quot;'} />;

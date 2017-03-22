@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`enumerror.js-flow 1`] = `
+exports[`enumerror.js 1`] = `
 "/** @flow */
 
 function isActive(ad: {state: $Keys<{

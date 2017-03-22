@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`array.js-flow 1`] = `
+exports[`array.js 1`] = `
 "/* @flow */
 
 var arrayTest1: Iterable<number> = ([1, 2]: Array<number>);
@@ -25,7 +25,7 @@ var arrayTest5: Iterable<string> = [\\"hi\\", 1];
 "
 `;
 
-exports[`caching_bug.js-flow 1`] = `
+exports[`caching_bug.js 1`] = `
 "/* @flow */
 
 /**
@@ -76,7 +76,7 @@ function miss_the_cache(x: Array<string | number>): Iterable<string> {
 "
 `;
 
-exports[`iter.js-flow 1`] = `
+exports[`iter.js 1`] = `
 "/* @flow */
 
 function foo(strs: Iterable<string>): void {
@@ -103,7 +103,7 @@ foo(m.keys());
 "
 `;
 
-exports[`iterator_result.js-flow 1`] = `
+exports[`iterator_result.js 1`] = `
 "/* @flow */
 
 function makeIterator(coin_flip: () => boolean ): Iterator<string> {
@@ -171,7 +171,7 @@ function makeIterator(coin_flip: () => boolean): Iterator<string> {
 "
 `;
 
-exports[`map.js-flow 1`] = `
+exports[`map.js 1`] = `
 "/* @flow */
 
 function mapTest1(map: Map<string, number>): Iterable<[string, number]> {
@@ -206,7 +206,7 @@ function mapTest4(map: Map<number, string>): Iterable<string> {
 "
 `;
 
-exports[`set.js-flow 1`] = `
+exports[`set.js 1`] = `
 "/* @flow */
 
 function setTest1(set: Set<string>): Iterable<string> {
@@ -241,7 +241,7 @@ function setTest4(set: Set<string>): Iterable<number> {
 "
 `;
 
-exports[`string.js-flow 1`] = `
+exports[`string.js 1`] = `
 "/* @flow */
 
 var stringTest1: Iterable<string> = \\"hi\\";
@@ -256,7 +256,7 @@ var stringTest3: Iterable<number> = \\"hi\\"; // Error - string is a Iterable<st
 "
 `;
 
-exports[`variance.js-flow 1`] = `
+exports[`variance.js 1`] = `
 "/* @flow */
 
 (([]: Array<string>): Iterable<?string>); // ok, Iterable<+T>

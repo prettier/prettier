@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`A.js-flow 1`] = `
+exports[`A.js 1`] = `
 "
 /* @providesModule A */
 
@@ -32,7 +32,7 @@ f(A.x); // A.x is now a string, by def assign
 "
 `;
 
-exports[`B.js-flow 1`] = `
+exports[`B.js 1`] = `
 "
 /* @providesModule B */
 
@@ -68,7 +68,7 @@ module.exports = B;
 "
 `;
 
-exports[`C.js-flow 1`] = `
+exports[`C.js 1`] = `
 "
 /* @providesModule C */
 
@@ -100,7 +100,7 @@ module.exports = C;
 "
 `;
 
-exports[`D.js-flow 1`] = `
+exports[`D.js 1`] = `
 "
 /* @providesModule D */
 
@@ -134,7 +134,7 @@ module.exports = \\"D for dummy\\";
 "
 `;
 
-exports[`E.js-flow 1`] = `
+exports[`E.js 1`] = `
 "
 /* @providesModule E */
 
@@ -158,7 +158,7 @@ module.exports = { obj: o };
 "
 `;
 
-exports[`F.js-flow 1`] = `
+exports[`F.js 1`] = `
 "function fn2(x) { return x.length * 4; }
 fn2({length: 'hi'});
 
@@ -177,7 +177,7 @@ function foo(x: Array<number>): string {
 "
 `;
 
-exports[`G.js-flow 1`] = `
+exports[`G.js 1`] = `
 "var a = { length: \\"duck\\" };
 a.length = 123;
 a.length();

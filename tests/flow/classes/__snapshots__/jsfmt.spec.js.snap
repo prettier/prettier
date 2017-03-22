@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`A.js-flow 1`] = `
+exports[`A.js 1`] = `
 "class A {
   foo(x:number):void { }
 }
@@ -15,7 +15,7 @@ module.exports = A;
 "
 `;
 
-exports[`B.js-flow 1`] = `
+exports[`B.js 1`] = `
 "var A = require('./A');
 
 class B extends A { }
@@ -36,7 +36,7 @@ module.exports = B;
 "
 `;
 
-exports[`C.js-flow 1`] = `
+exports[`C.js 1`] = `
 "var B = require('./B');
 
 class C extends B {
@@ -61,7 +61,7 @@ module.exports = C;
 "
 `;
 
-exports[`D.js-flow 1`] = `
+exports[`D.js 1`] = `
 "class D { }
 class E { }
 new E().x
@@ -72,7 +72,7 @@ new E().x;
 "
 `;
 
-exports[`class_shapes.js-flow 1`] = `
+exports[`class_shapes.js 1`] = `
 "/* @flow */
 
 type Foo = {
@@ -147,7 +147,7 @@ var w: Foo = z;
 "
 `;
 
-exports[`expr.js-flow 1`] = `
+exports[`expr.js 1`] = `
 "var Bar = class Foo {
   static factory(): Foo { // OK: Foo is a type in this scope
     return new Foo()      // OK: Foo is a runtime binding in this scope
@@ -213,7 +213,7 @@ var alias2: Alias = _Alias.factory(); // error: bad pun
 "
 `;
 
-exports[`loc.js-flow 1`] = `
+exports[`loc.js 1`] = `
 "/* @flow */
 
 type Foo = number
@@ -228,7 +228,7 @@ class Foo {} // error, shadows type Foo
 "
 `;
 
-exports[`statics.js-flow 1`] = `
+exports[`statics.js 1`] = `
 "/* @flow */
 
 class C {

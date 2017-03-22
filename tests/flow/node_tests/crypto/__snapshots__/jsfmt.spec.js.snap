@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`crypto.js-flow 1`] = `
+exports[`crypto.js 1`] = `
 "/* @flow */
 
 const crypto = require('crypto');
