@@ -3299,19 +3299,6 @@ function printArrayItems(path, options, printPath, print) {
   return concat(printedElements);
 }
 
-function isParserKeepingEntities(node, options) {
-  const nodeSrc = options.originalText.slice(
-    util.locStart(node.value), util.locEnd(node.value)
-  );
-  if (node.value.type === "StringLiteral" || node.value.type === "Literal") {
-    return nodeSrc === '"' + node.value.value + '"';
-  } else {
-    // Assume JSXExpressionContainer.
-    return nodeSrc === "'" + node.value.expression.value + "'";
-  }
-  return false;
-}
-
 function getJSXRawValue(node, options) {
   const origin = options.originalText.slice(
     util.locStart(node.value), util.locEnd(node.value)
