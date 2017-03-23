@@ -129,13 +129,7 @@ exports[`expression.js 1`] = `
   value={option}
 />;
 
-<ParentComponent
-  prop={
-    <Child>
-      test
-    </Child>
-  }
-/>;
+<ParentComponent prop={<Child>test</Child>} />;
 "
 `;
 
@@ -268,13 +262,7 @@ exports[`expression.js 2`] = `
   value={option}
 />;
 
-<ParentComponent
-  prop={
-    <Child>
-      test
-    </Child>
-  }
-/>;
+<ParentComponent prop={<Child>test</Child>} />;
 "
 `;
 
@@ -617,5 +605,107 @@ exports[`quotes.js 2`] = `
 <div id=\\"&quot;'<>&amp;quot;\\" />;
 <div id=\\"&quot;'<>&amp;quot;\\" />;
 <div id={\\"'\\\\\\"&quot;<>&amp;quot;\\"} />;
+"
+`;
+
+exports[`single-text.js 1`] = `
+"var Component = ({ props }) => <Text>Test</Text>;
+
+var Component = ({ props }) => (
+  <Text>Test</Text>
+);
+
+var Component = ({ props }) => (
+  <Text>
+  Test
+  </Text>
+);
+
+var Component = ({ props }) => (
+  <Text>
+
+  Test
+
+  </Text>
+);
+
+var Component = ({ props }) => <Text>Super Super Super Super Super Super Super Super Super Super Super Super Super Super Super Super Test</Text>;
+
+var Component = ({ props }) => (
+  <Text>
+    Super Super Super Super Super Super Super Super Super Super Super Super Super Super Super Super Test
+  </Text>
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var Component = ({ props }) => <Text>Test</Text>;
+
+var Component = ({ props }) => <Text>Test</Text>;
+
+var Component = ({ props }) => <Text>Test</Text>;
+
+var Component = ({ props }) => <Text>Test</Text>;
+
+var Component = ({ props }) => (
+  <Text>
+    Super Super Super Super Super Super Super Super Super Super Super Super Super Super Super Super Test
+  </Text>
+);
+
+var Component = ({ props }) => (
+  <Text>
+    Super Super Super Super Super Super Super Super Super Super Super Super Super Super Super Super Test
+  </Text>
+);
+"
+`;
+
+exports[`single-text.js 2`] = `
+"var Component = ({ props }) => <Text>Test</Text>;
+
+var Component = ({ props }) => (
+  <Text>Test</Text>
+);
+
+var Component = ({ props }) => (
+  <Text>
+  Test
+  </Text>
+);
+
+var Component = ({ props }) => (
+  <Text>
+
+  Test
+
+  </Text>
+);
+
+var Component = ({ props }) => <Text>Super Super Super Super Super Super Super Super Super Super Super Super Super Super Super Super Test</Text>;
+
+var Component = ({ props }) => (
+  <Text>
+    Super Super Super Super Super Super Super Super Super Super Super Super Super Super Super Super Test
+  </Text>
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var Component = ({ props }) => <Text>Test</Text>;
+
+var Component = ({ props }) => <Text>Test</Text>;
+
+var Component = ({ props }) => <Text>Test</Text>;
+
+var Component = ({ props }) => <Text>Test</Text>;
+
+var Component = ({ props }) => (
+  <Text>
+    Super Super Super Super Super Super Super Super Super Super Super Super Super Super Super Super Test
+  </Text>
+);
+
+var Component = ({ props }) => (
+  <Text>
+    Super Super Super Super Super Super Super Super Super Super Super Super Super Super Super Super Test
+  </Text>
+);
 "
 `;

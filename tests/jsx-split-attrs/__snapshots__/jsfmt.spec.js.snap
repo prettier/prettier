@@ -145,11 +145,7 @@ long_open_long_children = (
 
 short_closed = <BaseForm url=\\"/auth/google\\" method=\\"GET\\" />;
 
-short_open = (
-  <BaseForm url=\\"/auth/google\\" method=\\"GET\\">
-    hello
-  </BaseForm>
-);
+short_open = <BaseForm url=\\"/auth/google\\" method=\\"GET\\">hello</BaseForm>;
 
 make_self_closing = (
   <div>
@@ -358,11 +354,7 @@ long_open_long_children = (
 
 short_closed = <BaseForm url=\\"/auth/google\\" method=\\"GET\\" />;
 
-short_open = (
-  <BaseForm url=\\"/auth/google\\" method=\\"GET\\">
-    hello
-  </BaseForm>
-);
+short_open = <BaseForm url=\\"/auth/google\\" method=\\"GET\\">hello</BaseForm>;
 
 make_self_closing = (
   <div>
