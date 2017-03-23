@@ -23,9 +23,27 @@ const beep = (data/*: Object*/) => {}
 const beep = (data/*: Object*/, secondData/*: Object*/) => {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Error
-const beep = (data /*: Object*/) => {};
+const beep = ((data /*: Object*/)) => {};
 
 // OK
-const beep = (data /*: Object*/, secondData /*: Object*/) => {};
+const beep = ((data /*: Object*/), (secondData /*: Object*/)) => {};
+"
+`;
+
+exports[`test parens.js 1`] = `
+"(obj /*: Class */).property
+const x = (input /*: string */) /*: string */ => {};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(obj: Class).property;
+const x = (input: string): string => {};
+"
+`;
+
+exports[`test parens.js 2`] = `
+"(obj /*: Class */).property
+const x = (input /*: string */) /*: string */ => {};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(obj /*: Class */).property;
+const x = ((input /*: string */) /*: string */) => {};
 "
 `;
