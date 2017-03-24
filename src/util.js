@@ -312,7 +312,7 @@ function getProjectOptions(searchDirectory) {
     const packagePath = path.join(searchDirectory, "package.json");
     const packageJson = readPackageJson(packagePath);
 
-    if (packageJson) {
+    if (packageJson && packageJson.prettier) {
       return packageJson.prettier || {};
     }
 
