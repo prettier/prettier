@@ -3,13 +3,13 @@
 "use strict";
 
 const fs = require("fs");
-const path = require("path");
 const getStdin = require("get-stdin");
 const glob = require("glob");
 const chalk = require("chalk");
 const minimist = require("minimist");
 const readline = require("readline");
 const prettier = require("../index");
+const { getProjectOptions } = require("../src/util");
 
 const argv = minimist(process.argv.slice(2), {
   boolean: [
@@ -119,16 +119,10 @@ function getTrailingComma() {
   }
 }
 
-const projectOptions = getProjectOptions();
-const options = Object.assign({
-  printWidth: getIntOption("print-width"),
-  tabWidth: getIntOption("tab-width"),
-  bracketSpacing: argv["bracket-spacing"],
-  singleQuote: argv["single-quote"],
-  jsxBracketSameLine: argv["jsx-bracket-same-line"],
-  trailingComma: getTrailingComma(),
-  parser: getParserOption()
-}, projectOptions);
+const options = Object.assign(
+  getProjectOptions(process.cwd()),
+  getCliOptions()
+);
 
 function format(input) {
   if (argv["debug-print-doc"]) {
@@ -298,43 +292,22 @@ function eachFilename(patterns, callback) {
   });
 }
 
-function getProjectOptions() {
-  let searchDirectory = process.cwd();
+function getCliOptions() {
+  const cliOptions = {
+    printWidth: getIntOption("print-width"),
+    tabWidth: getIntOption("tab-width"),
+    bracketSpacing: argv["bracket-spacing"],
+    singleQuote: argv["single-quote"],
+    jsxBracketSameLine: argv["jsx-bracket-same-line"],
+    trailingComma: getTrailingComma(),
+    parser: getParserOption()
+  };
 
-  while (searchDirectory !== path.sep) {
-    const packagePath = path.join(searchDirectory, "package.json");
-    const packageJson = readPackageJson(packagePath);
-
-    if (packageJson) {
-      return packageJson.prettier || {};
+  Object.keys(cliOptions).forEach(function clearUndefinedValues(optionName) {
+    if (cliOptions[optionName] === undefined) {
+      delete cliOptions[optionName];
     }
+  });
 
-    // continue searching
-    searchDirectory = path.resolve(searchDirectory, "..");
-  }
-
-  return {};
-}
-
-function readPackageJson(packagePath) {
-  let content;
-
-  try {
-    content = fs.readFileSync(packagePath);
-  } catch (e) {
-    return null;
-  }
-
-  content = content.toString("utf-8");
-
-  // Remove BOM
-  if (content.charCodeAt(0) === 0xfeff) {
-    content = content.slice(1);
-  }
-
-  try {
-    return JSON.parse(content);
-  } catch (e) {
-    return null;
-  }
+  return cliOptions;
 }
