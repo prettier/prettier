@@ -120,7 +120,7 @@ function getTrailingComma() {
 }
 
 const projectOptions = getProjectOptions();
-const options = {
+const options = Object.assign({
   printWidth: getIntOption("print-width"),
   tabWidth: getIntOption("tab-width"),
   bracketSpacing: argv["bracket-spacing"],
@@ -128,7 +128,7 @@ const options = {
   jsxBracketSameLine: argv["jsx-bracket-same-line"],
   trailingComma: getTrailingComma(),
   parser: getParserOption()
-};
+}, projectOptions);
 
 function format(input) {
   if (argv["debug-print-doc"]) {
