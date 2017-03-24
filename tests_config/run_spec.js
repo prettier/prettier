@@ -5,6 +5,8 @@ const types = require("ast-types");
 const parser = require('../src/parser');
 
 const RUN_AST_TESTS = process.env["AST_COMPARE"];
+const VERIFY_ALL_PARSERS = process.env["VERIFY_ALL_PARSERS"] || false;
+const ALL_PASERS = process.env["ALL_PASERS"] ? JSON.parse(process.env["ALL_PASERS"]) : ["flow", "babylon", "typescript"];
 
 // Ignoring empty statements that are added into the output removes a
 // lot of noise from test failures and let's us focus on the real
@@ -18,16 +20,25 @@ function removeEmptyStatements(ast) {
   });
 }
 
-function run_spec(dirname, options) {
+function run_spec(dirname, options = {}, additionalParsers = []) {
   fs.readdirSync(dirname).forEach(filename => {
     if ((filename.endsWith('.js') || filename.endsWith('.ts')) && filename !== 'jsfmt.spec.js') {
       const path = dirname + '/' + filename;
 
       if (!RUN_AST_TESTS) {
         const source = read(path).replace(/\r\n/g, '\n');
-        const output = prettyprint(source, path, options || {});
-        test(filename, () => {
-          expect(source + '~'.repeat(80) + '\n' + output).toMatchSnapshot();
+        const mergedOptions = mergeDefaultOptions(options);
+        const output = prettyprint(source, path, mergedOptions);
+        test(`${mergedOptions.parser} - ${parser.parser}-verify`, () => {
+          expect(source + '~'.repeat(80) + '\n' + output).toMatchSnapshot(filename);
+        });
+
+        getParsersToVerify(mergedOptions.parser, additionalParsers).forEach(parserName => {
+          test(`${filename} - ${parserName}-verify` , () => {
+            const verifyOptions = Object.assign(mergedOptions, { parser: parserName });
+            const verifyOutput = prettyprint(source, path, verifyOptions);
+            expect(output).toEqual(verifyOutput)
+          });
         });
       }
 
@@ -82,11 +93,23 @@ function parse(string) {
 function prettyprint(src, filename, options) {
   return prettier.format(src, Object.assign({
     filename,
-    parser: 'flow',
-    printWidth: 80,
   }, options));
 }
 
 function read(filename) {
   return fs.readFileSync(filename, 'utf8');
+}
+
+function mergeDefaultOptions(parserConfig) {
+  return Object.assign({
+    parser: 'flow',
+    printWidth: 80,
+  }, parserConfig);
+}
+
+function getParsersToVerify(parser, additionalParsers) {
+  if (VERIFY_ALL_PARSERS) {
+    return ALL_PASERS.splice(ALL_PASERS.indexOf(parent), 1);
+  }
+  return additionalParsers;
 }
