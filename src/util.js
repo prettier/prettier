@@ -313,7 +313,7 @@ function getProjectOptions(searchDirectory) {
     const packageJson = readPackageJson(packagePath);
 
     if (packageJson && packageJson.prettier) {
-      return packageJson.prettier || {};
+      return packageJson.prettier;
     }
 
     // continue searching
