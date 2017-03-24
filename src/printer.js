@@ -49,6 +49,20 @@ function shouldPrintComma(options, level) {
   }
 }
 
+function shouldUseSingleQuote(options, type) {
+  type = type || "js";
+
+  if (options.singleQuote === "none") {
+    return false;
+  }
+
+  if (options.singleQuote === "all") {
+    return true;
+  }
+
+  return type === options.singleQuote;
+}
+
 function genericPrint(path, options, printPath) {
   assert.ok(path instanceof FastPath);
 
@@ -654,7 +668,7 @@ function genericPrintNoParens(path, options, print) {
       var isTypeAnnotation = n.type === "ObjectTypeAnnotation";
       var isTypeScriptTypeAnnotaion = n.type === "TSTypeLiteral";
       // Leave this here because we *might* want to make this
-      // configurable later -- flow accepts ";" for type separators, 
+      // configurable later -- flow accepts ";" for type separators,
       // typescript accepts ";" and newlines
       var separator = isTypeAnnotation ? "," : ",";
       var fields = [];
@@ -1068,7 +1082,7 @@ function genericPrintNoParens(path, options, print) {
 
     case "ForOfStatement":
     case "ForAwaitStatement":
-      // Babylon 7 removed ForAwaitStatement in favor of ForOfStatement 
+      // Babylon 7 removed ForAwaitStatement in favor of ForOfStatement
       // with `"await": true`:
       // https://github.com/estree/estree/pull/138
       const isAwait = (n.type === "ForAwaitStatement" || n.await);
@@ -1204,7 +1218,10 @@ function genericPrintNoParens(path, options, print) {
           (n.value.type === "StringLiteral" || n.value.type === "Literal") &&
           typeof n.value.value === "string"
         ) {
-          res = '"' + util.htmlEscapeInsideDoubleQuote(n.value.value) + '"';
+          res = makeString(
+            n.value.value,
+            getEnclosingQuote(n.value.value, options, "jsx")
+          );
         } else {
           res = path.call(print, "value");
         }
@@ -1841,8 +1858,8 @@ function genericPrintNoParens(path, options, print) {
       return "void";
     case "TSAsExpression":
       return concat([
-        path.call(print, "expression"), 
-        " as ", 
+        path.call(print, "expression"),
+        " as ",
         path.call(print, "typeAnnotation"),
       ])
     case "TSArrayType":
@@ -1856,17 +1873,17 @@ function genericPrintNoParens(path, options, print) {
       return concat([path.call(print, "typeName")]);
     case "TSCallSignature":
       return concat([
-        "(", 
-        join(", ", path.map(print, "parameters")), 
+        "(",
+        join(", ", path.map(print, "parameters")),
         "): ",
-        path.call(print, "typeAnnotation"), 
+        path.call(print, "typeAnnotation"),
       ]);
     case "TSConstructSignature":
       return concat([
-        "new (", 
-        join(", ", path.map(print, "parameters")), 
+        "new (",
+        join(", ", path.map(print, "parameters")),
         "): ",
-        path.call(print, "typeAnnotation"), 
+        path.call(print, "typeAnnotation"),
       ]);
     case "TSTypeQuery":
       return concat(["typeof ", path.call(print, "exprName")]);
@@ -1874,12 +1891,12 @@ function genericPrintNoParens(path, options, print) {
       return concat(["(", path.call(print, "typeAnnotation"), ")"]);
     case "TSIndexSignature":
       return concat([
-        "[", 
+        "[",
         // This should only contain a single element, however TypeScript parses
         // it using parseDelimitedList that uses commas as delimiter.
-        join(", ", path.map(print, "parameters")), 
+        join(", ", path.map(print, "parameters")),
         "]: ",
-        path.call(print, "typeAnnotation"), 
+        path.call(print, "typeAnnotation"),
       ]);
     // TODO
     case "ClassHeritage":
@@ -2847,7 +2864,7 @@ function printJSXElement(path, options, print) {
   // Record any breaks. Should never go from true to false, only false to true.
   let forcedBreak = willBreak(openingLines);
 
-  const jsxWhitespace = options.singleQuote
+  const jsxWhitespace = shouldUseSingleQuote(options)
     ? ifBreak("{' '}", " ")
     : ifBreak('{" "}', " ");
   const children = printJSXChildren(path, options, print, jsxWhitespace);
@@ -3129,6 +3146,28 @@ function shouldTypeScriptTypeAvoidColon(path) {
   }
 }
 
+function getEnclosingQuote(rawContent, options, singleQuoteType) {
+  const double = { quote: '"', regex: /"/g };
+  const single = { quote: "'", regex: /'/g };
+
+  const preferred = shouldUseSingleQuote(options, singleQuoteType) ? single : double;
+  const alternate = preferred === single ? double : single;
+
+  let shouldUseAlternateQuote = false;
+
+  // If `rawContent` contains at least one of the quote preferred for enclosing
+  // the string, we might want to enclose with the alternate quote instead, to
+  // minimize the number of escaped quotes.
+  if (rawContent.includes(preferred.quote)) {
+    const numPreferredQuotes = (rawContent.match(preferred.regex) || []).length;
+    const numAlternateQuotes = (rawContent.match(alternate.regex) || []).length;
+
+    shouldUseAlternateQuote = numPreferredQuotes > numAlternateQuotes;
+  }
+
+  return shouldUseAlternateQuote ? alternate.quote : preferred.quote;
+}
+
 function nodeStr(node, options) {
   const str = node.value;
   isString.assert(str);
@@ -3145,33 +3184,11 @@ function nodeStr(node, options) {
   // code, with its enclosing quote.
   const rawContent = raw.slice(1, -1);
 
-  const double = { quote: '"', regex: /"/g };
-  const single = { quote: "'", regex: /'/g };
-
-  const preferred = options.singleQuote ? single : double;
-  const alternate = preferred === single ? double : single;
-
-  let shouldUseAlternateQuote = false;
-
-  // If `rawContent` contains at least one of the quote preferred for enclosing
-  // the string, we might want to enclose with the alternate quote instead, to
-  // minimize the number of escaped quotes.
-  if (rawContent.includes(preferred.quote)) {
-    const numPreferredQuotes = (rawContent.match(preferred.regex) || []).length;
-    const numAlternateQuotes = (rawContent.match(alternate.regex) || []).length;
-
-    shouldUseAlternateQuote = numPreferredQuotes > numAlternateQuotes;
-  }
-
-  const enclosingQuote = shouldUseAlternateQuote
-    ? alternate.quote
-    : preferred.quote;
-
   // It might sound unnecessary to use `makeString` even if `node.raw` already
   // is enclosed with `enclosingQuote`, but it isn't. `node.raw` could contain
   // unnecessary escapes (such as in `"\'"`). Always using `makeString` makes
   // sure that we consistently output the minimum amount of escaped quotes.
-  return makeString(rawContent, enclosingQuote);
+  return makeString(rawContent, getEnclosingQuote(rawContent, options));
 }
 
 function makeString(rawContent, enclosingQuote) {

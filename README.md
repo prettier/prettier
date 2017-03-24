@@ -120,7 +120,7 @@ prettier [opts] [filename ...]
 In practice, this may look something like:
 
 ```bash
-prettier --single-quote --trailing-comma es5 --write "{app,__{tests,mocks}__}/**/*.js"
+prettier --single-quote js --trailing-comma es5 --write "{app,__{tests,mocks}__}/**/*.js"
 ```
 
 (Don't forget the quotes around the globs! The quotes make sure that prettier
@@ -188,8 +188,15 @@ prettier.format(source, {
   // Number of spaces it should use per tab
   tabWidth: 2,
 
-  // If true, will use single instead of double quotes
-  singleQuote: false,
+  // Controls the use of double or single quotes for strings. Valid options:
+  // "none" - No single quotes
+  // "js"   - Single quotes in regular js, double quotes in jsx
+  // "jsx"  - Single quotes in jsx, double quotes in js
+  // "all"  - Single quotes in regular js and in jsx
+  //
+  // NOTE: Above is only available in 0.23.0 and above. Previously this was
+  // a boolean argument.
+  singleQuote: "none",
 
   // Controls the printing of trailing commas wherever possible. Valid options:
   // "none" - No trailing commas
@@ -259,7 +266,7 @@ Emacs users should see [this
 folder](https://github.com/jlongster/prettier/tree/master/editors/emacs)
 for on-demand formatting.
 
-### Vim 
+### Vim
 
 For Vim users there are two main approaches, one that leans on [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/neoformat), which has the advantage of leaving the cursor in the same position despite changes, or a vanilla approach which can only approximate the cursor location, but might be good enough for your needs.
 
@@ -306,7 +313,7 @@ autocmd BufWritePre *.js Neoformat
 If your project requires settings other than the default prettier settings you can pass arguments to do so in your `.vimrc` or [vim project](http://vim.wikia.com/wiki/Project_specific_settings), you can do so:
 
 ```vim
-autocmd FileType javascript set formatprg=prettier\ --stdin\ --parser\ flow\ --single-quote\ --trailing-comma\ es5
+autocmd FileType javascript set formatprg=prettier\ --stdin\ --parser\ flow\ --single-quote\ js\ --trailing-comma\ es5
 ```
 
 Each command needs to be escaped with `\`. If you are using Neoformat and you want it to recognize your formatprg settings you can also do that by adding the following to your `.vimrc`:
@@ -360,7 +367,7 @@ All of JSX and Flow syntax is supported. In fact, the test suite in
 - [`prettier-eslint`](https://github.com/prettier/prettier-eslint)
 passes `prettier` output to `eslint --fix`
 - [`prettier-standard`](https://github.com/sheerun/prettier-standard)
-uses `prettier` and `prettier-eslint` to format code with standard rules 
+uses `prettier` and `prettier-eslint` to format code with standard rules
 - [`prettier-standard-formatter`](https://github.com/dtinth/prettier-standard-formatter)
 passes `prettier` output to `standard --fix`
 - [`prettier-with-tabs`](https://github.com/arijs/prettier-with-tabs)

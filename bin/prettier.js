@@ -14,7 +14,6 @@ const argv = minimist(process.argv.slice(2), {
   boolean: [
     "write",
     "stdin",
-    "single-quote",
     "bracket-spacing",
     "jsx-bracket-same-line",
     // The supports-color package (a sub sub dependency) looks directly at
@@ -30,7 +29,13 @@ const argv = minimist(process.argv.slice(2), {
     // Deprecated in 0.0.10
     "flow-parser"
   ],
-  string: ["print-width", "tab-width", "parser", "trailing-comma"],
+  string: [
+    "parser",
+    "print-width",
+    "single-quote",
+    "tab-width",
+    "trailing-comma"
+  ],
   default: { color: true, "bracket-spacing": true, parser: "babylon" },
   alias: { help: "h", version: "v", "list-different": "l" },
   unknown: param => {
@@ -99,6 +104,27 @@ function getIntOption(optionName) {
   process.exit(1);
 }
 
+function getSingleQuote() {
+  switch (argv["single-quote"]) {
+    case undefined:
+    case "none":
+      return "none";
+    case "":
+      console.warn(
+        "Warning: `--single-quote` was used without an argument. This is deprecated. " +
+          'Specify "none", "js", "jsx", or "all".'
+      );
+    case "js":
+      return "js";
+    case "jsx":
+      return "jsx";
+    case "all":
+      return "all";
+    default:
+      throw new Error("Invalid option for --single-quote");
+  }
+}
+
 function getTrailingComma() {
   switch (argv["trailing-comma"]) {
     case undefined:
@@ -122,7 +148,7 @@ const options = {
   printWidth: getIntOption("print-width"),
   tabWidth: getIntOption("tab-width"),
   bracketSpacing: argv["bracket-spacing"],
-  singleQuote: argv["single-quote"],
+  singleQuote: getSingleQuote(),
   jsxBracketSameLine: argv["jsx-bracket-same-line"],
   trailingComma: getTrailingComma(),
   parser: getParserOption()
@@ -182,7 +208,8 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
       "  --stdin                  Read input from stdin.\n" +
       "  --print-width <int>      Specify the length of line that the printer will wrap on. Defaults to 80.\n" +
       "  --tab-width <int>        Specify the number of spaces per indentation-level. Defaults to 2.\n" +
-      "  --single-quote           Use single quotes instead of double.\n" +
+      "  --single-quote <none|js|jsx|all>\n" +
+      "                           Use single quotes instead of double.\n" +
       "  --bracket-spacing        Put spaces between brackets. Defaults to true.\n" +
       "  --jsx-bracket-same-line  Put > on the last line. Defaults to false.\n" +
       "  --trailing-comma <none|es5|all>\n" +
@@ -218,7 +245,7 @@ if (stdin) {
     let input;
     try {
       input = fs.readFileSync(filename, "utf8");
-    } catch(e) {
+    } catch (e) {
       // Add newline to split errors from filename line.
       process.stdout.write("\n");
 

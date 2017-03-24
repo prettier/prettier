@@ -1,6 +1,6 @@
 // Every string will be changed to double quotes, unless we end up with fewer
 // escaped quotes by using single quotes. (Vice versa if the "singleQuote"
-// option is true).
+// option is enabled).
 //
 // Note that even if a string already has the correct enclosing quotes, it is
 // still processed in order to remove unnecessarily escaped quotes within it,
