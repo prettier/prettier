@@ -6,7 +6,7 @@ var deprecatedConfig = require("./deprecated");
 var defaults = {
   tabWidth: 2,
   printWidth: 80,
-  singleQuote: false,
+  singleQuote: "none",
   trailingComma: "none",
   bracketSpacing: true,
   jsxBracketSameLine: false,
@@ -31,6 +31,17 @@ function normalize(options) {
     console.warn(
       "Warning: `trailingComma` without any argument is deprecated. " +
         'Specify "none", "es5", or "all".'
+    );
+  }
+
+  if (typeof normalized.singleQuote === "boolean") {
+    // Support a deprecated boolean type for the single quote comma config for a
+    // few versions. This code can be removed later.
+    normalized.singleQuote = normalized.singleQuote ? "js" : "none";
+
+    console.warn(
+      "Warning: `singleQuote` without any argument is deprecated. " +
+        'Specify "none", "js", "jsx", or "all".'
     );
   }
 
