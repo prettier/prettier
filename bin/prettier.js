@@ -3,6 +3,7 @@
 "use strict";
 
 const fs = require("fs");
+const path = require("path");
 const getStdin = require("get-stdin");
 const glob = require("glob");
 const chalk = require("chalk");
@@ -118,6 +119,7 @@ function getTrailingComma() {
   }
 }
 
+const projectOptions = getProjectOptions();
 const options = {
   printWidth: getIntOption("print-width"),
   tabWidth: getIntOption("tab-width"),
@@ -218,7 +220,7 @@ if (stdin) {
     let input;
     try {
       input = fs.readFileSync(filename, "utf8");
-    } catch(e) {
+    } catch (e) {
       // Add newline to split errors from filename line.
       process.stdout.write("\n");
 
@@ -294,4 +296,45 @@ function eachFilename(patterns, callback) {
       });
     });
   });
+}
+
+function getProjectOptions() {
+  let searchDirectory = process.cwd();
+
+  while (searchDirectory !== path.sep) {
+    const packagePath = path.join(searchDirectory, "package.json");
+    const packageJson = readPackageJson(packagePath);
+
+    if (packageJson) {
+      return packageJson.prettier || {};
+    }
+
+    // continue searching
+    searchDirectory = path.resolve(searchDirectory, "..");
+  }
+
+  return {};
+}
+
+function readPackageJson(packagePath) {
+  let content;
+
+  try {
+    content = fs.readFileSync(packagePath);
+  } catch (e) {
+    return null;
+  }
+
+  content = content.toString("utf-8");
+
+  // Remove BOM
+  if (content.charCodeAt(0) === 0xfeff) {
+    content = content.slice(1);
+  }
+
+  try {
+    return JSON.parse(content);
+  } catch (e) {
+    return null;
+  }
 }
