@@ -22,7 +22,7 @@ function removeEmptyStatements(ast) {
   });
 }
 
-function run_spec(dirname, options = {}, additionalParsers = []) {
+function run_spec(dirname, options, additionalParsers) {
   fs.readdirSync(dirname).forEach(filename => {
     if (
       (filename.endsWith(".js") || filename.endsWith(".ts")) &&
@@ -32,7 +32,7 @@ function run_spec(dirname, options = {}, additionalParsers = []) {
 
       if (!RUN_AST_TESTS) {
         const source = read(path).replace(/\r\n/g, "\n");
-        const mergedOptions = mergeDefaultOptions(options);
+        const mergedOptions = mergeDefaultOptions(options || {});
         const output = prettyprint(source, path, mergedOptions);
         test(`${mergedOptions.parser} - ${parser.parser}-verify`, () => {
           expect(source + "~".repeat(80) + "\n" + output).toMatchSnapshot(
@@ -42,7 +42,7 @@ function run_spec(dirname, options = {}, additionalParsers = []) {
 
         getParsersToVerify(
           mergedOptions.parser,
-          additionalParsers
+          additionalParsers || []
         ).forEach(parserName => {
           test(`${filename} - ${parserName}-verify`, () => {
             const verifyOptions = Object.assign(mergedOptions, {
