@@ -8,12 +8,3 @@ new (memoize.Cache || MapCache)();
 new (typeof this == \\"function\\" ? this : Dict())();
 "
 `;
-
-exports[`new_expression.js 2`] = `
-"new (memoize.Cache || MapCache)
-new (typeof this == \\"function\\" ? this : Dict())
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-new (memoize.Cache || MapCache)();
-new (typeof this == \\"function\\" ? this : Dict())();
-"
-`;
