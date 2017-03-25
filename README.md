@@ -259,7 +259,7 @@ Emacs users should see [this
 folder](https://github.com/jlongster/prettier/tree/master/editors/emacs)
 for on-demand formatting.
 
-### Vim 
+### Vim
 
 For Vim users there are two main approaches, one that leans on [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/neoformat), which has the advantage of leaving the cursor in the same position despite changes, or a vanilla approach which can only approximate the cursor location, but might be good enough for your needs.
 
@@ -269,6 +269,14 @@ Vim users can add the following to their `.vimrc`:
 
 ```vim
 autocmd FileType javascript set formatprg=prettier\ --stdin
+```
+
+If you use the [vim-jsx](https://github.com/mxw/vim-jsx) plugin without
+requiring the `.jsx` file extension (See https://github.com/mxw/vim-jsx#usage),
+the FileType needs to include `javascript.jsx`:
+
+```vim
+autocmd FileType javascript.jsx,javascript setlocal formatprg=prettier\ --stdin
 ```
 
 This makes Prettier power the [`gq` command](http://vimdoc.sourceforge.net/htmldoc/change.html#gq)
@@ -360,7 +368,7 @@ All of JSX and Flow syntax is supported. In fact, the test suite in
 - [`prettier-eslint`](https://github.com/prettier/prettier-eslint)
 passes `prettier` output to `eslint --fix`
 - [`prettier-standard`](https://github.com/sheerun/prettier-standard)
-uses `prettier` and `prettier-eslint` to format code with standard rules 
+uses `prettier` and `prettier-eslint` to format code with standard rules
 - [`prettier-standard-formatter`](https://github.com/dtinth/prettier-standard-formatter)
 passes `prettier` output to `standard --fix`
 - [`prettier-with-tabs`](https://github.com/arijs/prettier-with-tabs)
