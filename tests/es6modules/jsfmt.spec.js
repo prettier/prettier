@@ -1,2 +1,3 @@
 run_spec(__dirname);
-run_spec(__dirname, { parser: 'babylon' });
+// FIXME export_default_function_declaration_async.js flow != babylon output
+run_spec(__dirname, { parser: "babylon" });

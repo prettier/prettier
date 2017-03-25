@@ -23,3 +23,10 @@ class A extends /* a */ B {}
 (class A /* a */ extends B {});
 (class A extends B /* a */ {});
 (class A extends /* a */ B {});
+
+class x {
+  focus() // do nothing
+  {
+    // do nothing
+  }
+}

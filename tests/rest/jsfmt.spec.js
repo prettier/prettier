@@ -1,1 +1,1 @@
-run_spec(__dirname, {trailingComma: "all"});
+run_spec(__dirname, { trailingComma: "all" });

@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`intersection.js 1`] = `
+"export type ReallyBigSocketServer = ReallyBigSocketServerInterface & ReallyBigSocketServerStatics;
+
+type Props = {
+  focusedChildren?: React.Children,
+  onClick: () => void,
+  overlayChildren?: React.Children,
+  style?: Object,
+  thumbnail: ImageSource,
+} & FooterProps;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export type ReallyBigSocketServer = ReallyBigSocketServerInterface &
+  ReallyBigSocketServerStatics;
+
+type Props = {
+  focusedChildren?: React.Children,
+  onClick: () => void,
+  overlayChildren?: React.Children,
+  style?: Object,
+  thumbnail: ImageSource
+} & FooterProps;
+"
+`;

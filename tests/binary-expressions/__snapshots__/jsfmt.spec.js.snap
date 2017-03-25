@@ -19,6 +19,21 @@ function f() {
 "
 `;
 
+exports[`comment.js 1`] = `
+"a = (
+  // Commment 1
+  (Math.random() * (yRange * (1 - minVerticalFraction)))
+  + (minVerticalFraction * yRange)
+) - offset;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a =
+  // Commment 1
+  Math.random() * (yRange * (1 - minVerticalFraction)) +
+  minVerticalFraction * yRange -
+  offset;
+"
+`;
+
 exports[`exp.js 1`] = `
 "a ** b ** c;
 (a ** b) ** c;
