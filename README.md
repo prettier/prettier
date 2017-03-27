@@ -250,6 +250,42 @@ prettier.format(source, {
 });
 ```
 
+### Excluding code from formatting
+
+A JavaScript comment of `// prettier-ignore` will exclude the next node in the abstract syntax tree from formatting.
+
+For example:
+
+```js
+matrix(
+  1, 0, 0,
+  0, 1, 0,
+  0, 0, 1
+)
+
+// prettier-ignore
+matrix(
+  1, 0, 0,
+  0, 1, 0,
+  0, 0, 1
+)
+```
+
+will be transformed to:
+
+```js
+matrix(1, 0, 0, 0, 1, 0, 0, 0, 1);
+
+// prettier-ignore
+matrix(
+  1, 0, 0,
+  0, 1, 0,
+  0, 0, 1
+)
+```
+
+## Editor Integration
+
 ### Atom
 
 Atom users can simply install the [`prettier-atom-with-tabs`](https://atom.io/packages/prettier-atom-with-tabs) package and use
@@ -261,7 +297,7 @@ Emacs users should see [this
 folder](https://github.com/jlongster/prettier/tree/master/editors/emacs)
 for on-demand formatting.
 
-### Vim 
+### Vim
 
 For Vim users there are two main approaches, one that leans on [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/neoformat), which has the advantage of leaving the cursor in the same position despite changes, or a vanilla approach which can only approximate the cursor location, but might be good enough for your needs.
 
@@ -271,6 +307,14 @@ Vim users can add the following to their `.vimrc`:
 
 ```vim
 autocmd FileType javascript set formatprg=prettier\ --stdin
+```
+
+If you use the [vim-jsx](https://github.com/mxw/vim-jsx) plugin without
+requiring the `.jsx` file extension (See https://github.com/mxw/vim-jsx#usage),
+the FileType needs to include `javascript.jsx`:
+
+```vim
+autocmd FileType javascript.jsx,javascript setlocal formatprg=prettier\ --stdin
 ```
 
 This makes Prettier power the [`gq` command](http://vimdoc.sourceforge.net/htmldoc/change.html#gq)
