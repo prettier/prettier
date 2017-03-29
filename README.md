@@ -401,6 +401,15 @@ where `line` is specified.
 More (rough) details can be found in [commands.md](commands.md).
 Better docs will come soon.
 
+## Badge
+
+Show the world you're using *Prettier* → [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+
+```md
+[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+```
+
+
 ## Contributing
 
 We will work on better docs over time, but in the mean time, here are
