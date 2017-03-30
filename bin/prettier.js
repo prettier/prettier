@@ -232,6 +232,21 @@ if (stdin) {
 
     let output;
 
+    if (argv["list-different"]) {
+      try {
+        if (!prettier.check(input, options)) {
+          console.log(filename);
+          process.exitCode = 1;
+        }
+      } catch (e) {
+        // Add newline to split errors from filename line.
+        process.stdout.write("\n");
+        handleError(filename, e);
+      } finally {
+        return;
+      }
+    }
+
     try {
       output = format(input);
     } catch (e) {
@@ -266,11 +281,6 @@ if (stdin) {
       process.stdout.write("\n");
       if (output) {
         console.log(output);
-      }
-    } else if (argv["list-different"]) {
-      if (input !== output) {
-        console.log(filename);
-        process.exitCode = 1;
       }
     } else {
       // Don't use `console.log` here since it adds an extra newline at the end.

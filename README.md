@@ -175,7 +175,7 @@ exit 1
 
 ### API
 
-The API is a single function exported as `format`. The options
+The API has two functions, exported as `format` and `check`. The options
 argument is optional, and all of the defaults are shown below:
 
 ```js
@@ -211,6 +211,9 @@ prettier.format(source, {
   parser: 'babylon'
 });
 ```
+
+`check` checks to see if the file has been formatted with prettier given the those options and returns a Boolean.
+This is similar to the `--list-different` parameter in the CLI and is useful for running Prettier in CI scenarios.
 
 ### Excluding code from formatting
 
