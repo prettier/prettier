@@ -654,7 +654,7 @@ function genericPrintNoParens(path, options, print) {
       var isTypeAnnotation = n.type === "ObjectTypeAnnotation";
       var isTypeScriptTypeAnnotaion = n.type === "TSTypeLiteral";
       // Leave this here because we *might* want to make this
-      // configurable later -- flow accepts ";" for type separators, 
+      // configurable later -- flow accepts ";" for type separators,
       // typescript accepts ";" and newlines
       var separator = isTypeAnnotation ? "," : ",";
       var fields = [];
@@ -750,7 +750,8 @@ function genericPrintNoParens(path, options, print) {
         if (n.computed) {
           parts.push("[", path.call(print, "key"), "]");
         } else {
-          parts.push(printPropertyKey(path, options, print));
+
+          parts.push(path.call(print, "key"));
         }
         parts.push(concat([": ", path.call(print, "value")]));
       }
@@ -1068,7 +1069,7 @@ function genericPrintNoParens(path, options, print) {
 
     case "ForOfStatement":
     case "ForAwaitStatement":
-      // Babylon 7 removed ForAwaitStatement in favor of ForOfStatement 
+      // Babylon 7 removed ForAwaitStatement in favor of ForOfStatement
       // with `"await": true`:
       // https://github.com/estree/estree/pull/138
       const isAwait = (n.type === "ForAwaitStatement" || n.await);
@@ -1361,7 +1362,7 @@ function genericPrintNoParens(path, options, print) {
       if (n.computed) {
         key = concat(["[", path.call(print, "key"), "]"]);
       } else {
-        key = printPropertyKey(path, options, print);
+        key = path.call(print, "key");
 
         var variance = getFlowVariance(n, options);
 
@@ -1841,8 +1842,8 @@ function genericPrintNoParens(path, options, print) {
       return "void";
     case "TSAsExpression":
       return concat([
-        path.call(print, "expression"), 
-        " as ", 
+        path.call(print, "expression"),
+        " as ",
         path.call(print, "typeAnnotation"),
       ])
     case "TSArrayType":
@@ -1856,17 +1857,17 @@ function genericPrintNoParens(path, options, print) {
       return concat([path.call(print, "typeName")]);
     case "TSCallSignature":
       return concat([
-        "(", 
-        join(", ", path.map(print, "parameters")), 
+        "(",
+        join(", ", path.map(print, "parameters")),
         "): ",
-        path.call(print, "typeAnnotation"), 
+        path.call(print, "typeAnnotation"),
       ]);
     case "TSConstructSignature":
       return concat([
-        "new (", 
-        join(", ", path.map(print, "parameters")), 
+        "new (",
+        join(", ", path.map(print, "parameters")),
         "): ",
-        path.call(print, "typeAnnotation"), 
+        path.call(print, "typeAnnotation"),
       ]);
     case "TSTypeQuery":
       return concat(["typeof ", path.call(print, "exprName")]);
@@ -1874,12 +1875,12 @@ function genericPrintNoParens(path, options, print) {
       return concat(["(", path.call(print, "typeAnnotation"), ")"]);
     case "TSIndexSignature":
       return concat([
-        "[", 
+        "[",
         // This should only contain a single element, however TypeScript parses
         // it using parseDelimitedList that uses commas as delimiter.
-        join(", ", path.map(print, "parameters")), 
+        join(", ", path.map(print, "parameters")),
         "]: ",
-        path.call(print, "typeAnnotation"), 
+        path.call(print, "typeAnnotation"),
       ]);
     // TODO
     case "ClassHeritage":
@@ -1959,25 +1960,6 @@ function printStatementSequence(path, options, print) {
   return join(hardline, printed);
 }
 
-function printPropertyKey(path, options, print) {
-  const node = path.getNode();
-  const key = node.key;
-
-  if (
-    (key.type === "StringLiteral" ||
-      (key.type === "Literal" && typeof key.value === "string")) &&
-    isIdentifierName(key.value) &&
-    !node.computed &&
-    // There's a bug in the flow parser where it throws if there are
-    // unquoted unicode literals as keys. Let's quote them for now.
-    (options.parser !== "flow" || key.value.match(/[a-zA-Z0-9$_]/))
-  ) {
-    // 'a' -> a
-    return key.value;
-  }
-  return path.call(print, "key");
-}
-
 function printMethod(path, options, print) {
   var node = path.getNode();
   var kind = node.kind;
@@ -2003,7 +1985,7 @@ function printMethod(path, options, print) {
     parts.push(kind, " ");
   }
 
-  var key = printPropertyKey(path, options, print);
+  var key = path.call(print, "key");
 
   if (node.computed) {
     key = concat(["[", key, "]"]);
@@ -2276,7 +2258,7 @@ function printObjectMethod(path, options, print) {
     return printMethod(path, options, print);
   }
 
-  var key = printPropertyKey(path, options, print);
+  var key = path.call(print, "key");
 
   if (objMethod.computed) {
     parts.push("[", key, "]");
