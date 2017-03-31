@@ -537,7 +537,7 @@ exports[`string_lit.js 1`] = `
 var { \\"with-dash\\": with_dash } = { \\"with-dash\\": \\"motivating example\\" };
 (with_dash: \\"motivating example\\"); // ok
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var { key: val } = { key: \\"val\\" };
+var { \\"key\\": val } = { key: \\"val\\" };
 (val: void); // error: string ~> void
 
 var { \\"with-dash\\": with_dash } = { \\"with-dash\\": \\"motivating example\\" };
