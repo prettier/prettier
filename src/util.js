@@ -2,7 +2,6 @@
 
 var types = require("ast-types");
 var path = require("path");
-var fs = require("fs");
 var n = types.namedTypes;
 
 function comparePos(pos1, pos2) {
@@ -307,49 +306,9 @@ function getPrecedence(op) {
   return PRECEDENCE[op];
 }
 
-function getProjectOptions(searchDirectory) {
-  while (searchDirectory !== path.sep) {
-    const packagePath = path.join(searchDirectory, "package.json");
-    const packageJson = readPackageJson(packagePath);
-
-    if (packageJson && packageJson.prettier) {
-      return packageJson.prettier;
-    }
-
-    // continue searching
-    searchDirectory = path.resolve(searchDirectory, "..");
-  }
-
-  return {};
-}
-
-function readPackageJson(packagePath) {
-  let content;
-
-  try {
-    content = fs.readFileSync(packagePath);
-  } catch (e) {
-    return null;
-  }
-
-  content = content.toString("utf-8");
-
-  // Remove BOM
-  if (content.charCodeAt(0) === 0xfeff) {
-    content = content.slice(1);
-  }
-
-  try {
-    return JSON.parse(content);
-  } catch (e) {
-    return null;
-  }
-}
-
 module.exports = {
   comparePos,
   getPrecedence,
-  getProjectOptions,
   fixFaultyLocations,
   isExportDeclaration,
   getParentExportDeclaration,

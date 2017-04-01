@@ -14,12 +14,14 @@
     "babel-code-frame": "6.22.0",
     "babylon": "7.0.0-beta.4",
     "chalk": "1.1.3",
+    "dashify": "^0.2.2",
     "esutils": "2.0.2",
     "flow-parser": "0.40.0",
     "get-stdin": "5.0.1",
     "glob": "7.1.1",
     "jest-validate": "19.0.0",
-    "minimist": "1.2.0"
+    "minimist": "1.2.0",
+    "pkg-conf": "^2.0.0"
   },
   "devDependencies": {
     "diff": "3.2.0",

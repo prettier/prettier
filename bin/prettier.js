@@ -9,7 +9,8 @@ const chalk = require("chalk");
 const minimist = require("minimist");
 const readline = require("readline");
 const prettier = require("../index");
-const { getProjectOptions } = require("../src/util");
+const pkgConf = require("pkg-conf");
+const dashify = require("dashify");
 
 const argv = minimist(process.argv.slice(2), {
   boolean: [
@@ -32,7 +33,10 @@ const argv = minimist(process.argv.slice(2), {
     "flow-parser"
   ],
   string: ["print-width", "tab-width", "parser", "trailing-comma"],
-  default: { color: true, "bracket-spacing": true, parser: "babylon" },
+  default: Object.assign(
+    { color: true, "bracket-spacing": true, parser: "babylon" },
+    dashifyConfig(pkgConf.sync("prettier", process.cwd()))
+  ),
   alias: { help: "h", version: "v", "list-different": "l" },
   unknown: param => {
     if (param.startsWith("-")) {
@@ -119,10 +123,15 @@ function getTrailingComma() {
   }
 }
 
-const options = Object.assign(
-  getProjectOptions(process.cwd()),
-  getCliOptions()
-);
+const options = {
+  printWidth: getIntOption("print-width"),
+  tabWidth: getIntOption("tab-width"),
+  bracketSpacing: argv["bracket-spacing"],
+  singleQuote: argv["single-quote"],
+  jsxBracketSameLine: argv["jsx-bracket-same-line"],
+  trailingComma: getTrailingComma(),
+  parser: getParserOption()
+};
 
 function format(input) {
   if (argv["debug-print-doc"]) {
@@ -275,6 +284,15 @@ if (stdin) {
   });
 }
 
+function dashifyConfig(config = {}) {
+  const result = {};
+
+  for (let name in config) {
+    result[dashify(name)] = config[name];
+  }
+  return result;
+}
+
 function eachFilename(patterns, callback) {
   patterns.forEach(pattern => {
     glob(pattern, (err, filenames) => {
@@ -290,24 +308,4 @@ function eachFilename(patterns, callback) {
       });
     });
   });
-}
-
-function getCliOptions() {
-  const cliOptions = {
-    printWidth: getIntOption("print-width"),
-    tabWidth: getIntOption("tab-width"),
-    bracketSpacing: argv["bracket-spacing"],
-    singleQuote: argv["single-quote"],
-    jsxBracketSameLine: argv["jsx-bracket-same-line"],
-    trailingComma: getTrailingComma(),
-    parser: getParserOption()
-  };
-
-  Object.keys(cliOptions).forEach(function clearUndefinedValues(optionName) {
-    if (cliOptions[optionName] === undefined) {
-      delete cliOptions[optionName];
-    }
-  });
-
-  return cliOptions;
 }
