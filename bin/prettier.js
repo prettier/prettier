@@ -239,9 +239,7 @@ if (stdin) {
           process.exitCode = 1;
         }
       } catch (e) {
-        // Add newline to split errors from filename line.
-        process.stdout.write("\n");
-        handleError(filename, e);
+        // should never hit this block since check catches errors before it returns
       } finally {
         return;
       }

@@ -96,7 +96,12 @@ module.exports = {
     return formatWithShebang(text, normalizeOptions(opts));
   },
   check: function(text, opts) {
-    return this.format(text, opts) === text;
+    try {
+      const formatted = this.format(text, opts);
+      return formatted === text;
+    } catch (e) {
+      return false;
+    }
   },
   version: version,
   __debug: {
