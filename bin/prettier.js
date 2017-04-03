@@ -229,14 +229,11 @@ if (stdin) {
     }
 
     if (argv["list-different"]) {
-      try {
-        if (!prettier.check(input, options)) {
-          console.log(filename);
-          process.exitCode = 1;
-        }
-      } finally {
-        return;
+      if (!prettier.check(input, options)) {
+        console.log(filename);
+        process.exitCode = 1;
       }
+      return;
     }
 
     const start = Date.now();
