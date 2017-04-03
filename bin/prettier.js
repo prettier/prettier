@@ -228,22 +228,20 @@ if (stdin) {
       return;
     }
 
-    const start = Date.now();
-
-    let output;
-
     if (argv["list-different"]) {
       try {
         if (!prettier.check(input, options)) {
           console.log(filename);
           process.exitCode = 1;
         }
-      } catch (e) {
-        // should never hit this block since check catches errors before it returns
       } finally {
         return;
       }
     }
+
+    const start = Date.now();
+
+    let output;
 
     try {
       output = format(input);
