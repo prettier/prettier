@@ -704,10 +704,10 @@ function genericPrintNoParens(path, options, print) {
       if (props.length === 0) {
         return group(
           concat([
-            "{",
+            leftBrace,
             comments.printDanglingComments(path, options),
             softline,
-            "}"
+            rightBrace
           ])
         );
       } else {
