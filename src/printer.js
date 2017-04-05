@@ -1985,7 +1985,10 @@ function printPropertyKey(path, options, print) {
     (options.parser !== "flow" || key.value.match(/[a-zA-Z0-9$_]/))
   ) {
     // 'a' -> a
-    return key.value;
+    return path.call(
+      keyPath => comments.printComments(keyPath, p => key.value, options),
+      "key"
+    );
   }
   return path.call(print, "key");
 }
