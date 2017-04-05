@@ -1009,6 +1009,14 @@ switch (foo) {
 
   // no default
 }
+
+switch (foo) {
+  case \\"bar\\": //comment
+    doThing(); //comment
+
+  case \\"baz\\":
+    doOtherThing();
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 switch (node && node.type) {
   case \\"Property\\":
@@ -1028,6 +1036,14 @@ switch (foo) {
     doThing();
 
   // no default
+}
+
+switch (foo) {
+  case \\"bar\\": //comment
+    doThing(); //comment
+
+  case \\"baz\\":
+    doOtherThing();
 }
 "
 `;
