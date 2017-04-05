@@ -26,6 +26,11 @@ exports[`ignore.js 1`] = `
             \\"gross-formatting\\",
   };
 
+  function giveMeSome() {
+    a(  a  ); // prettier-ignore
+    // shouldn't I return something?  :shrug:
+  }
+
   // prettier-ignore
   console.error(
     'In order to use ' + prompt + ', you need to configure a ' +
@@ -84,6 +89,11 @@ function a() {
     \\"ewww\\":
             \\"gross-formatting\\",
   };
+
+  function giveMeSome() {
+    a(  a  ); // prettier-ignore
+    // shouldn't I return something?  :shrug:
+  }
 
   // prettier-ignore
   console.error(
