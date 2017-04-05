@@ -1,5 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`break.js 1`] = `
+"const promises = [
+  Promise.resolve().then(console.log).catch(err => {
+    console.log(err)
+    return null
+  }),
+  redis.fetch(),
+  other.fetch(),
+]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const promises = [
+  Promise.resolve().then(console.log).catch(err => {
+    console.log(err);
+    return null;
+  }),
+  redis.fetch(),
+  other.fetch()
+];
+"
+`;
+
 exports[`last.js 1`] = `
 "[,];
 [,,];
