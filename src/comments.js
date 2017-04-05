@@ -197,7 +197,8 @@ function attach(comments, ast, text, options) {
         handlePropertyComments(enclosingNode, comment) ||
         handleExportNamedDeclarationComments(enclosingNode, comment) ||
         handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
-        handleClassMethodComments(enclosingNode, comment)
+        handleClassMethodComments(enclosingNode, comment) ||
+        handleSwitchCaseComments(enclosingNode, comment)
       ) {
         // We're good
       } else if (precedingNode) {
@@ -675,6 +676,25 @@ function handleClassMethodComments(enclosingNode, comment) {
   return false;
 }
 
+function handleSwitchCaseComments(enclosingNode, comment) {
+  if (
+    enclosingNode && enclosingNode.type === "SwitchStatement" &&
+    comment.precedingNode && comment.precedingNode.type === "SwitchCase" &&
+    comment.followingNode && comment.followingNode.type === "SwitchCase"
+  ) {
+    const caseIdx = findSwitchCaseIndexForComment(enclosingNode.cases, comment);
+    const relatedCase = enclosingNode.cases[caseIdx];
+    addTrailingComment(
+      relatedCase.consequent.length !== 0
+        ? relatedCase.consequent[relatedCase.consequent.length - 1]
+        : relatedCase,
+      comment
+    );
+    return true;
+  }
+  return false;
+}
+
 function printComment(commentPath) {
   const comment = commentPath.getValue();
   comment.printed = true;
@@ -689,6 +709,17 @@ function printComment(commentPath) {
     default:
       throw new Error("Not a comment: " + JSON.stringify(comment));
   }
+}
+
+function findSwitchCaseIndexForComment(cases, comment) {
+  let match;
+  for (let i = 0; i < cases.length; ++i) {
+    if (comment.precedingNode === cases[i]) {
+      match = i;
+      break;
+    }
+  }
+  return match;
 }
 
 function findExpressionIndexForComment(expressions, comment) {
