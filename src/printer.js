@@ -1746,7 +1746,11 @@ function genericPrintNoParens(path, options, print) {
     case "NumberLiteralTypeAnnotation":
       assert.strictEqual(typeof n.value, "number");
 
-      return "" + n.value;
+      if (n.extra != null) {
+        return printNumber(n.extra.raw);
+      } else {
+        return printNumber(n.raw);
+      }
     case "StringTypeAnnotation":
       return "string";
     case "DeclareTypeAlias":
