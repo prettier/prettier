@@ -11,7 +11,8 @@ var defaults = {
   trailingComma: "none",
   bracketSpacing: true,
   jsxBracketSameLine: false,
-  parser: "babylon"
+  parser: "babylon",
+  semi: true
 };
 
 var exampleConfig = Object.assign({}, defaults, {
