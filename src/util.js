@@ -214,10 +214,10 @@ function isPreviousLineEmpty(text, node) {
 function isNextLineEmpty(text, node) {
   let oldIdx = null;
   let idx = locEnd(node);
-  idx = skipToLineEnd(text, idx);
   while (idx !== oldIdx) {
     // We need to skip all the potential trailing inline comments
     oldIdx = idx;
+    idx = skipToLineEnd(text, idx);
     idx = skipInlineComment(text, idx);
     idx = skipSpaces(text, idx);
   }

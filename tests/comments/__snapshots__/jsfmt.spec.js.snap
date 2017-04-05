@@ -18,6 +18,23 @@ let {
 "
 `;
 
+exports[`before-comma.js 1`] = `
+"const foo = {
+  a: 'a' /* comment for this line */,
+
+  /* Section B */
+  b: 'b',
+};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const foo = {
+  a: \\"a\\" /* comment for this line */,
+
+  /* Section B */
+  b: \\"b\\"
+};
+"
+`;
+
 exports[`blank.js 1`] = `
 "// This file only
 // has comments. This comment
