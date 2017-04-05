@@ -1175,15 +1175,15 @@ function genericPrintNoParens(path, options, print) {
       if (n.test) parts.push("case ", path.call(print, "test"), ":");
       else parts.push("default:");
 
+      const isFirstCase = path.getNode() === path.getParentNode().cases[0];
+
+      if (!isFirstCase && util.isPreviousLineEmpty(options.originalText, path.getValue())) {
+        parts.unshift(hardline);
+      }
+
       if (n.consequent.find(node => node.type !== "EmptyStatement")) {
-        const parent = path.getParentNode();
-        const lastCase = util.getLast(parent.cases);
         const cons = path.call(consequentPath => {
-          return join(hardline, consequentPath.map(p => {
-            const shouldAddLine = p.getParentNode() !== lastCase &&
-              util.isNextLineEmpty(options.originalText, p.getValue());
-            return concat([print(p), shouldAddLine ? hardline : ""]);
-          }));
+          return join(hardline, consequentPath.map(print));
         }, "consequent");
         parts.push(
           isCurlyBracket(cons)
