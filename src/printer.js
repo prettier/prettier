@@ -3255,7 +3255,6 @@ function hasLeadingOwnLineComment(text, node) {
     node.comments.some(
       comment =>
         comment.leading &&
-        util.hasNewline(text, util.locStart(comment), { backwards: true }) &&
         util.hasNewline(text, util.locEnd(comment))
     );
   return res;
