@@ -65,7 +65,7 @@ function genericPrint(path, options, printPath) {
   if (
     node.comments &&
     node.comments.length > 0 &&
-    node.comments[node.comments.length - 1].value.trim() === "prettier-ignore"
+    node.comments.some(comment => comment.value.trim() === "prettier-ignore")
   ) {
     return options.originalText.slice(util.locStart(node), util.locEnd(node));
   }

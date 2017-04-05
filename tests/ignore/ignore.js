@@ -23,6 +23,11 @@ function a() {
             "gross-formatting",
   };
 
+  function giveMeSome() {
+    a(  a  ); // prettier-ignore
+    // shouldn't I return something?  :shrug:
+  }
+
   // prettier-ignore
   console.error(
     'In order to use ' + prompt + ', you need to configure a ' +
