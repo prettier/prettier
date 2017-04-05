@@ -21,41 +21,7 @@ try {
 "
 `;
 
-exports[`empty.js 2`] = `
-"try {
-} catch (e) {
-}
-finally {
-}
-
-try {
-} catch (e) {
-}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-try {
-} catch (e) {
-} finally {
-}
-
-try {
-} catch (e) {}
-"
-`;
-
 exports[`try.js 1`] = `
-"try
-/* missing comment */
-{;}
-finally {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-try {
-  /* missing comment */
-} finally {
-}
-"
-`;
-
-exports[`try.js 2`] = `
 "try
 /* missing comment */
 {;}

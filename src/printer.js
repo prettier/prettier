@@ -265,6 +265,7 @@ function genericPrintNoParens(path, options, print) {
     case "SpreadProperty":
     case "SpreadPropertyPattern":
     case "RestElement":
+    case "ObjectTypeSpreadProperty":
       return concat([
         "...",
         path.call(print, "argument"),
@@ -704,10 +705,10 @@ function genericPrintNoParens(path, options, print) {
       if (props.length === 0) {
         return group(
           concat([
-            "{",
+            leftBrace,
             comments.printDanglingComments(path, options),
             softline,
-            "}"
+            rightBrace
           ])
         );
       } else {
@@ -1612,17 +1613,28 @@ function genericPrintNoParens(path, options, print) {
       parts.push(
         "interface ",
         path.call(print, "id"),
-        path.call(print, "typeParameters"),
-        " "
+        path.call(print, "typeParameters")
       );
 
       if (n["extends"].length > 0) {
-        parts.push("extends ", join(", ", path.map(print, "extends")), " ");
+        parts.push(
+          group(
+            indent(
+              options.tabWidth,
+              concat([
+                line,
+                "extends ",
+                join(", ", path.map(print, "extends")),
+              ])
+            )
+          )
+        );
       }
 
+      parts.push(" ");
       parts.push(path.call(print, "body"));
 
-      return concat(parts);
+      return group(concat(parts));
     }
     case "ClassImplements":
     case "InterfaceExtends":

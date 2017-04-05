@@ -233,6 +233,14 @@ if (stdin) {
       return;
     }
 
+    if (argv["list-different"]) {
+      if (!prettier.check(input, options)) {
+        console.log(filename);
+        process.exitCode = 1;
+      }
+      return;
+    }
+
     const start = Date.now();
 
     let output;
@@ -271,11 +279,6 @@ if (stdin) {
       process.stdout.write("\n");
       if (output) {
         console.log(output);
-      }
-    } else if (argv["list-different"]) {
-      if (input !== output) {
-        console.log(filename);
-        process.exitCode = 1;
       }
     } else {
       // Don't use `console.log` here since it adds an extra newline at the end.
