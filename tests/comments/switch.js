@@ -17,3 +17,11 @@ switch (foo) {
 
   // no default
 }
+
+switch (token) {
+  case TOKEN_TRUE:
+    a; // Comment
+
+  case TOKEN_FALSE:
+    b;
+}

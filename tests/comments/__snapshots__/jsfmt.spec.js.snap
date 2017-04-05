@@ -996,6 +996,14 @@ switch (foo) {
 
   // no default
 }
+
+switch (token) {
+  case TOKEN_TRUE:
+    a; // Comment
+
+  case TOKEN_FALSE:
+    b;
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 switch (node && node.type) {
   case \\"Property\\":
@@ -1015,6 +1023,14 @@ switch (foo) {
     doThing();
 
   // no default
+}
+
+switch (token) {
+  case TOKEN_TRUE:
+    a; // Comment
+
+  case TOKEN_FALSE:
+    b;
 }
 "
 `;
