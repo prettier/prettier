@@ -18,6 +18,14 @@ exports[`ignore.js 1`] = `
     0, 0, 0
   );
 
+  // Let's make sure that this comment doesn't interfere
+
+  // prettier-ignore
+  const commentsWithPrettierIgnore =   {
+    \\"ewww\\":
+            \\"gross-formatting\\",
+  };
+
   // prettier-ignore
   console.error(
     'In order to use ' + prompt + ', you need to configure a ' +
@@ -68,6 +76,14 @@ function a() {
     0, 1, 0,
     0, 0, 0
   );
+
+  // Let's make sure that this comment doesn't interfere
+
+  // prettier-ignore
+  const commentsWithPrettierIgnore =   {
+    \\"ewww\\":
+            \\"gross-formatting\\",
+  };
 
   // prettier-ignore
   console.error(
