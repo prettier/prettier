@@ -1178,7 +1178,7 @@ function genericPrintNoParens(path, options, print) {
       const isFirstCase = path.getNode() === path.getParentNode().cases[0];
 
       if (!isFirstCase && util.isPreviousLineEmpty(options.originalText, path.getValue())) {
-        parts.splice(0, 0, hardline);
+        parts.unshift(hardline);
       }
 
       if (n.consequent.find(node => node.type !== "EmptyStatement")) {

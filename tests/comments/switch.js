@@ -23,5 +23,16 @@ switch (foo) {
     doThing(); //comment
 
   case "baz":
-    doOtherThing();
+    doOtherThing(); //comment
+
+}
+
+switch (foo) {
+  case "bar": {
+    doThing();
+  } //comment
+
+  case "baz": {
+    doThing();
+  } //comment
 }
