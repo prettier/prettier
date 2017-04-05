@@ -4,6 +4,32 @@
 [![Build Status](https://travis-ci.org/prettier/prettier.svg?branch=master)](https://travis-ci.org/prettier/prettier)
 [![NPM version](https://img.shields.io/npm/v/prettier.svg)](https://www.npmjs.com/package/prettier)
 
+<!-- toc -->
+
+- [Usage](#usage)
+  * [CLI](#cli)
+    + [Pre-commit hook for changed files](#pre-commit-hook-for-changed-files)
+  * [API](#api)
+  * [Excluding code from formatting](#excluding-code-from-formatting)
+- [Editor Integration](#editor-integration)
+  * [Atom](#atom)
+  * [Emacs](#emacs)
+  * [Vim](#vim)
+    + [Vanilla approach](#vanilla-approach)
+    + [Neoformat approach](#neoformat-approach)
+    + [Customizing Prettier in Vim](#customizing-prettier-in-vim)
+  * [Visual Studio Code](#visual-studio-code)
+  * [Visual Studio](#visual-studio)
+  * [Sublime Text](#sublime-text)
+  * [JetBrains](#jetbrains)
+- [Language Support](#language-support)
+- [Related Projects](#related-projects)
+- [Technical Details](#technical-details)
+- [Badge](#badge)
+- [Contributing](#contributing)
+
+<!-- tocstop -->
+
 Prettier is an opinionated JavaScript formatter inspired by
 [refmt](https://facebook.github.io/reason/tools.html) with advanced
 support for language features from [ES2017](https://github.com/tc39/proposals/blob/master/finished-proposals.md), [JSX](https://facebook.github.io/jsx/), and [Flow](https://flow.org/). It removes
