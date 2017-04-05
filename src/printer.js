@@ -655,7 +655,7 @@ function genericPrintNoParens(path, options, print) {
       var isTypeAnnotation = n.type === "ObjectTypeAnnotation";
       var isTypeScriptTypeAnnotaion = n.type === "TSTypeLiteral";
       // Leave this here because we *might* want to make this
-      // configurable later -- flow accepts ";" for type separators, 
+      // configurable later -- flow accepts ";" for type separators,
       // typescript accepts ";" and newlines
       var separator = isTypeAnnotation ? "," : ",";
       var fields = [];
@@ -1069,7 +1069,7 @@ function genericPrintNoParens(path, options, print) {
 
     case "ForOfStatement":
     case "ForAwaitStatement":
-      // Babylon 7 removed ForAwaitStatement in favor of ForOfStatement 
+      // Babylon 7 removed ForAwaitStatement in favor of ForOfStatement
       // with `"await": true`:
       // https://github.com/estree/estree/pull/138
       const isAwait = (n.type === "ForAwaitStatement" || n.await);
@@ -1857,8 +1857,8 @@ function genericPrintNoParens(path, options, print) {
       return "void";
     case "TSAsExpression":
       return concat([
-        path.call(print, "expression"), 
-        " as ", 
+        path.call(print, "expression"),
+        " as ",
         path.call(print, "typeAnnotation"),
       ])
     case "TSArrayType":
@@ -1872,17 +1872,17 @@ function genericPrintNoParens(path, options, print) {
       return concat([path.call(print, "typeName")]);
     case "TSCallSignature":
       return concat([
-        "(", 
-        join(", ", path.map(print, "parameters")), 
+        "(",
+        join(", ", path.map(print, "parameters")),
         "): ",
-        path.call(print, "typeAnnotation"), 
+        path.call(print, "typeAnnotation"),
       ]);
     case "TSConstructSignature":
       return concat([
-        "new (", 
-        join(", ", path.map(print, "parameters")), 
+        "new (",
+        join(", ", path.map(print, "parameters")),
         "): ",
-        path.call(print, "typeAnnotation"), 
+        path.call(print, "typeAnnotation"),
       ]);
     case "TSTypeQuery":
       return concat(["typeof ", path.call(print, "exprName")]);
@@ -1890,12 +1890,12 @@ function genericPrintNoParens(path, options, print) {
       return concat(["(", path.call(print, "typeAnnotation"), ")"]);
     case "TSIndexSignature":
       return concat([
-        "[", 
+        "[",
         // This should only contain a single element, however TypeScript parses
         // it using parseDelimitedList that uses commas as delimiter.
-        join(", ", path.map(print, "parameters")), 
+        join(", ", path.map(print, "parameters")),
         "]: ",
-        path.call(print, "typeAnnotation"), 
+        path.call(print, "typeAnnotation"),
       ]);
     // TODO
     case "ClassHeritage":
