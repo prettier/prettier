@@ -197,7 +197,8 @@ function attach(comments, ast, text, options) {
         handlePropertyComments(enclosingNode, comment) ||
         handleExportNamedDeclarationComments(enclosingNode, comment) ||
         handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
-        handleClassMethodComments(enclosingNode, comment)
+        handleClassMethodComments(enclosingNode, comment) ||
+        handleVariableDeclaratorComments(enclosingNode, followingNode, comment)
       ) {
         // We're good
       } else if (precedingNode) {
@@ -670,6 +671,20 @@ function handleAssignmentPatternComments(enclosingNode, comment) {
 function handleClassMethodComments(enclosingNode, comment) {
   if (enclosingNode && enclosingNode.type === "ClassMethod") {
     addTrailingComment(enclosingNode, comment);
+    return true;
+  }
+  return false;
+}
+
+function handleVariableDeclaratorComments(enclosingNode, followingNode, comment) {
+  if (
+    enclosingNode &&
+    enclosingNode.type === "VariableDeclarator" &&
+    followingNode && (
+      followingNode.type === "ObjectExpression" ||
+      followingNode.type === "ArrayExpression")
+  ) {
+    addLeadingComment(followingNode, comment);
     return true;
   }
   return false;
