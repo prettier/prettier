@@ -2877,8 +2877,23 @@ function printJSXElement(path, options, print) {
     delete n.closingElement;
   }
 
-  // If no children, just print the opening element
   const openingLines = path.call(print, "openingElement");
+  const closingLines = path.call(print, "closingElement");
+
+  if (
+    n.children.length === 1 &&
+    n.children[0].type === "JSXExpressionContainer" &&
+    (n.children[0].expression.type === "TemplateLiteral" ||
+      n.children[0].expression.type === "TaggedTemplateExpression")
+  ) {
+    return concat([
+      openingLines,
+      concat(path.map(print, "children")),
+      closingLines
+    ]);
+  }
+
+  // If no children, just print the opening element
   if (n.openingElement.selfClosing) {
     assert.ok(!n.closingElement);
     return openingLines;
@@ -2964,8 +2979,6 @@ function printJSXElement(path, options, print) {
       )
     )
   ];
-
-  const closingLines = path.call(print, "closingElement");
 
   const multiLineElem = group(
     concat([

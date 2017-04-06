@@ -9,3 +9,10 @@
     color: red;
   }
 `}</style>;
+
+<style jsx>
+  {`p {
+     color: red;
+     }
+  `}
+</style>;
