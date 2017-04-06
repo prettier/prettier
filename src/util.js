@@ -166,19 +166,22 @@ function skipNewline(text, index, opts) {
   const backwards = opts && opts.backwards;
   if (index === false) {
     return false;
-  } else if (backwards) {
-    if (text.charAt(index) === "\n") {
+  }
+
+  const atIndex = text.charAt(index);
+  if (backwards) {
+    if (atIndex === "\n" || atIndex === "\r" ||  atIndex === "\u2028" ||  atIndex === "\u2029") {
       return index - 1;
     }
-    if (text.charAt(index - 1) === "\r" && text.charAt(index) === "\n") {
+    if (text.charAt(index - 1) === "\r" && atIndex === "\n") {
       return index - 2;
     }
   } else {
-    if (text.charAt(index) === "\n") {
-      return index + 1;
-    }
-    if (text.charAt(index) === "\r" && text.charAt(index + 1) === "\n") {
+    if (atIndex === "\r" && text.charAt(index + 1) === "\n") {
       return index + 2;
+    }
+    if (atIndex === "\n" || atIndex === "\r" ||  atIndex === "\u2028" ||  atIndex === "\u2029") {
+      return index + 1;
     }
   }
 

@@ -63,6 +63,8 @@ type Banana = {
   eat: string => boolean,
 };
 
+type Hex = {n: 0x01};
+
 type T = { method: (a) => void };
 
 type T = { method(a): void };

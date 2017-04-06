@@ -52,7 +52,7 @@ function genericPrint(path, options, printPath) {
   if (
     node.comments &&
     node.comments.length > 0 &&
-    node.comments[0].value.trim() === "prettier-ignore"
+    node.comments.some(comment => comment.value.trim() === "prettier-ignore")
   ) {
     return options.originalText.slice(util.locStart(node), util.locEnd(node));
   }
@@ -252,6 +252,7 @@ function genericPrintNoParens(path, options, print) {
     case "SpreadProperty":
     case "SpreadPropertyPattern":
     case "RestElement":
+    case "ObjectTypeSpreadProperty":
       return concat([
         "...",
         path.call(print, "argument"),
@@ -692,10 +693,10 @@ function genericPrintNoParens(path, options, print) {
       if (props.length === 0) {
         return group(
           concat([
-            "{",
+            leftBrace,
             comments.printDanglingComments(path, options),
             softline,
-            "}"
+            rightBrace
           ])
         );
       } else {
@@ -1226,15 +1227,15 @@ function genericPrintNoParens(path, options, print) {
       if (n.test) parts.push("case ", path.call(print, "test"), ":");
       else parts.push("default:");
 
+      const isFirstCase = path.getNode() === path.getParentNode().cases[0];
+
+      if (!isFirstCase && util.isPreviousLineEmpty(options.originalText, path.getValue())) {
+        parts.unshift(hardline);
+      }
+
       if (n.consequent.find(node => node.type !== "EmptyStatement")) {
-        const parent = path.getParentNode();
-        const lastCase = util.getLast(parent.cases);
         const cons = path.call(consequentPath => {
-          return join(hardline, consequentPath.map(p => {
-            const shouldAddLine = p.getParentNode() !== lastCase &&
-              util.isNextLineEmpty(options.originalText, p.getValue());
-            return concat([print(p), shouldAddLine ? hardline : ""]);
-          }));
+          return join(hardline, consequentPath.map(print));
         }, "consequent");
         parts.push(
           isCurlyBracket(cons)
@@ -1664,17 +1665,28 @@ function genericPrintNoParens(path, options, print) {
       parts.push(
         "interface ",
         path.call(print, "id"),
-        path.call(print, "typeParameters"),
-        " "
+        path.call(print, "typeParameters")
       );
 
       if (n["extends"].length > 0) {
-        parts.push("extends ", join(", ", path.map(print, "extends")), " ");
+        parts.push(
+          group(
+            indent(
+              1,
+              concat([
+                line,
+                "extends ",
+                join(", ", path.map(print, "extends")),
+              ])
+            )
+          )
+        );
       }
 
+      parts.push(" ");
       parts.push(path.call(print, "body"));
 
-      return concat(parts);
+      return group(concat(parts));
     }
     case "ClassImplements":
     case "InterfaceExtends":
@@ -1786,7 +1798,11 @@ function genericPrintNoParens(path, options, print) {
     case "NumberLiteralTypeAnnotation":
       assert.strictEqual(typeof n.value, "number");
 
-      return "" + n.value;
+      if (n.extra != null) {
+        return printNumber(n.extra.raw);
+      } else {
+        return printNumber(n.raw);
+      }
     case "StringTypeAnnotation":
       return "string";
     case "DeclareTypeAlias":
@@ -2025,7 +2041,10 @@ function printPropertyKey(path, options, print) {
     (options.parser !== "flow" || key.value.match(/[a-zA-Z0-9$_]/))
   ) {
     // 'a' -> a
-    return key.value;
+    return path.call(
+      keyPath => comments.printComments(keyPath, p => key.value, options),
+      "key"
+    );
   }
   return path.call(print, "key");
 }
@@ -3288,7 +3307,6 @@ function hasLeadingOwnLineComment(text, node) {
     node.comments.some(
       comment =>
         comment.leading &&
-        util.hasNewline(text, util.locStart(comment), { backwards: true }) &&
         util.hasNewline(text, util.locEnd(comment))
     );
   return res;

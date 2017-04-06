@@ -839,6 +839,12 @@ function sequenceExpression() {
   ), b
 }
 
+function sequenceExpressionInside() {
+  return ( // Reason for a
+    a, b
+  );
+}
+
 function taggedTemplate() {
   return (
     // Reason for a
@@ -963,6 +969,13 @@ function sequenceExpression() {
   );
 }
 
+function sequenceExpressionInside() {
+  return (
+    // Reason for a
+    a, b
+  );
+}
+
 function taggedTemplate() {
   return (
     // Reason for a
@@ -996,6 +1009,25 @@ switch (foo) {
 
   // no default
 }
+
+switch (foo) {
+  case \\"bar\\": //comment
+    doThing(); //comment
+
+  case \\"baz\\":
+    doOtherThing(); //comment
+
+}
+
+switch (foo) {
+  case \\"bar\\": {
+    doThing();
+  } //comment
+
+  case \\"baz\\": {
+    doThing();
+  } //comment
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 switch (node && node.type) {
   case \\"Property\\":
@@ -1015,6 +1047,24 @@ switch (foo) {
     doThing();
 
   // no default
+}
+
+switch (foo) {
+  case \\"bar\\": //comment
+    doThing(); //comment
+
+  case \\"baz\\":
+    doOtherThing(); //comment
+}
+
+switch (foo) {
+  case \\"bar\\": {
+    doThing();
+  } //comment
+
+  case \\"baz\\": {
+    doThing();
+  } //comment
 }
 "
 `;
