@@ -1,1 +1,0 @@
-type TypeB = { ...TypeA };
