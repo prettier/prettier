@@ -1253,6 +1253,8 @@ function genericPrintNoParens(path, options, print) {
         n.expression.type === "CallExpression" ||
         n.expression.type === "FunctionExpression" ||
         n.expression.type === "JSXEmptyExpression" ||
+        n.expression.type === "TemplateLiteral" ||
+        n.expression.type === "TaggedTemplateExpression" ||
         (parent.type === "JSXElement" &&
           (n.expression.type === "ConditionalExpression" ||
             isBinaryish(n.expression)));
