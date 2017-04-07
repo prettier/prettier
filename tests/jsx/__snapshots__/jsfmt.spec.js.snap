@@ -317,8 +317,8 @@ exports[`quotes.js 1`] = `
 <div id='\\"&#39;<>&amp;quot;' />;
 <div id={'\\\\'\\"&quot;<>&amp;quot;'} />;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<div id=\\"&quot;'<>&amp;quot;\\" />;
-<div id=\\"&quot;'<>&amp;quot;\\" />;
+<div id=\\"&quot;'<>&quot;\\" />;
+<div id=\\"&quot;'<>&quot;\\" />;
 <div id={\\"'\\\\\\"&quot;<>&amp;quot;\\"} />;
 "
 `;
