@@ -3070,7 +3070,12 @@ function printAssignment(printedLeft, operator, rightNode, printedRight, options
     printed = indent(
       concat([hardline, printedRight])
     );
-  } else if (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) {
+  } else if (
+    (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) ||
+    rightNode.type === "StringLiteral" ||
+    (rightNode.type === "Literal" &&
+      typeof rightNode.value === "string")
+  ) {
     printed = indent(
       concat([line, printedRight])
     );
