@@ -1178,7 +1178,11 @@ function genericPrintNoParens(path, options, print) {
 
       if (n.consequent.find(node => node.type !== "EmptyStatement")) {
         const cons = path.call(consequentPath => {
-          return join(hardline, consequentPath.map(print));
+          return join(hardline, consequentPath.map((p, i) => {
+            const shouldAddLine = i !== n.consequent.length - 1 &&
+              util.isNextLineEmpty(options.originalText, p.getValue());
+            return concat([print(p), shouldAddLine ? hardline : ""]);
+          }));
         }, "consequent");
         parts.push(
           isCurlyBracket(cons)
