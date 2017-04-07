@@ -14,6 +14,7 @@ const argv = minimist(process.argv.slice(2), {
   boolean: [
     "write",
     "stdin",
+    "use-tabs",
     "single-quote",
     "bracket-spacing",
     "jsx-bracket-same-line",
@@ -119,6 +120,7 @@ function getTrailingComma() {
 }
 
 const options = {
+  useTabs: argv["use-tabs"],
   printWidth: getIntOption("print-width"),
   tabWidth: getIntOption("tab-width"),
   bracketSpacing: argv["bracket-spacing"],
@@ -182,6 +184,7 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
       "  --stdin                  Read input from stdin.\n" +
       "  --print-width <int>      Specify the length of line that the printer will wrap on. Defaults to 80.\n" +
       "  --tab-width <int>        Specify the number of spaces per indentation-level. Defaults to 2.\n" +
+      "  --use-tabs               Indent lines with tabs instead of spaces. Defaults to false.\n" +
       "  --single-quote           Use single quotes instead of double.\n" +
       "  --bracket-spacing        Put spaces between brackets. Defaults to true.\n" +
       "  --jsx-bracket-same-line  Put > on the last line. Defaults to false.\n" +

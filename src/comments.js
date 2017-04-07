@@ -11,6 +11,7 @@ var concat = docBuilders.concat;
 var hardline = docBuilders.hardline;
 var breakParent = docBuilders.breakParent;
 var indent = docBuilders.indent;
+var align = docBuilders.align;
 var lineSuffix = docBuilders.lineSuffix;
 var join = docBuilders.join;
 var util = require("./util");
@@ -802,7 +803,7 @@ function printDanglingComments(path, options, sameIndent) {
   if (sameIndent) {
     return join(hardline, parts);
   }
-  return indent(options.tabWidth, concat([hardline, join(hardline, parts)]));
+  return indent(concat([hardline, join(hardline, parts)]));
 }
 
 function printComments(path, print, options) {

@@ -208,6 +208,9 @@ argument is optional, and all of the defaults are shown below:
 const prettier = require("prettier");
 
 prettier.format(source, {
+  // Indent lines with tabs
+  useTabs: false,
+
   // Fit code within this line limit
   printWidth: 80,
 
