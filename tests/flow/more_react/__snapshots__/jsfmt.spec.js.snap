@@ -56,7 +56,7 @@ var App = React.createClass({
     return (
       <div>
         {foo(x,y)}
-        {foo(z,x)} // error, since z: number
+        {foo(z,x) /* error, since z: number */}
       </div>
     );
   }
@@ -100,7 +100,7 @@ var App = React.createClass({
     return (
       <div>
         {foo(x, y)}
-        {foo(z, x)} // error, since z: number
+        {foo(z, x) /* error, since z: number */}
       </div>
     );
   }
@@ -118,7 +118,7 @@ var React = require('react');
 var App = require('App.react');
 
 var app =
-  <App y={42}> // error, y: number but foo expects string in App.react
+  <App y={42}> {/* error, y: number but foo expects string in App.react */}
     Some text.
   </App>;
 
@@ -131,7 +131,7 @@ var App = require(\\"App.react\\");
 
 var app = (
   <App y={42}>
-    {\\" \\"}// error, y: number but foo expects string in App.react
+    {\\" \\"}{/* error, y: number but foo expects string in App.react */}
     Some text.
   </App>
 );
