@@ -402,8 +402,8 @@ passes `prettier` output to `eslint --fix`
 uses `prettier` and `prettier-eslint` to format code with standard rules
 - [`prettier-standard-formatter`](https://github.com/dtinth/prettier-standard-formatter)
 passes `prettier` output to `standard --fix`
-- [`prettier-with-tabs`](https://github.com/arijs/prettier-with-tabs)
-allows you to configure prettier to use `tabs`
+- [`prettier-miscellaneous`](https://github.com/arijs/prettier-miscellaneous)
+`prettier` with a few minor extra options
 - [`neutrino-preset-prettier`](https://github.com/SpencerCDixon/neutrino-preset-prettier) allows you to use Prettier as a Neutrino preset
 
 
