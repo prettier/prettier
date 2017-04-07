@@ -1639,16 +1639,14 @@ function genericPrintNoParens(path, options, print) {
         if (i === 0) {
           result.push(types[i]);
         } else if (
-          (n.types[i - 1].type === "ObjectTypeAnnotation" &&
-            n.types[i].type !== "ObjectTypeAnnotation") ||
-          (n.types[i - 1].type !== "ObjectTypeAnnotation" &&
-            n.types[i].type === "ObjectTypeAnnotation")
+          n.types[i - 1].type !== "ObjectTypeAnnotation" &&
+          n.types[i].type !== "ObjectTypeAnnotation"
         ) {
-          // If you go from object to non-object or vis-versa, then inline it
-          result.push(" & ", types[i]);
-        } else {
-          // Otherwise go to the next line and indent
+          // If no object is involved, go to the next line if it breaks
           result.push(indent(concat([" &", line, types[i]])));
+        } else {
+          // If you go from object to non-object or vis-versa, then inline it
+          result.push(" & ", i > 1 ? indent(types[i]) : types[i]);
         }
       }
       return group(concat(result));
