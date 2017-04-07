@@ -99,6 +99,10 @@ function printDoc(doc) {
     return "lineSuffix(" + printDoc(doc.contents) + ")";
   }
 
+  if (doc.type === "line-suffix-boundary") {
+    return "lineSuffixBoundary";
+  }
+
   throw new Error("Unknown doc type " + doc.type);
 }
 
