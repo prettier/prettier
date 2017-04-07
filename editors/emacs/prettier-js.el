@@ -51,10 +51,10 @@
   :group 'prettier)
 
 (defcustom prettier-show-errors 'buffer
-    "Where to display refmt error output.
+    "Where to display prettier error output.
 It can either be displayed in its own buffer, in the echo area, or not at all.
 Please note that Emacs outputs to the echo area when writing
-files and will overwrite refmt's echo output if used from inside
+files and will overwrite prettier's echo output if used from inside
 a `before-save-hook'."
     :type '(choice
             (const :tag "Own buffer" buffer)
@@ -72,7 +72,7 @@ a `before-save-hook'."
 
 ;;;###autoload
 (defun prettier-before-save ()
-  "Add this to .emacs to run refmt on the current buffer when saving:
+  "Add this to .emacs to run prettier on the current buffer when saving:
  (add-hook 'before-save-hook 'prettier-before-save)."
   (interactive)
   (when (string-equal (symbol-name major-mode) prettier-target-mode) (prettier)))
@@ -156,7 +156,7 @@ function."
           (message "%s" (buffer-string))
           (prettier--kill-error-buffer errbuf))
       (insert-file-contents errorfile nil nil nil)
-      ;; Convert the refmt stderr to something understood by the compilation mode.
+      ;; Convert the prettier stderr to something understood by the compilation mode.
       (goto-char (point-min))
       (insert "prettier errors:\n")
       (while (search-forward-regexp (regexp-quote tmpfile) nil t)
