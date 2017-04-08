@@ -12,7 +12,7 @@ var C = React.createClass({
     getDefaultProps(): { z: number } {
         return { z: 0 };
     },
-    getInitialState() { return 4; },
+    getInitialState() { return null; },
     render() {
         var foo: string = this.state;
         var bar: string = this.props;

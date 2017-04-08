@@ -35,3 +35,14 @@ export var str = \\"asdf\\";
 export var num = 42;
 "
 `;
+
+exports[`test.js 1`] = `
+"// @flow
+
+export * as source from \\"./source\\";
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+
+export * as source from \\"./source\\";
+"
+`;

@@ -228,5 +228,41 @@ let tests = [
       x.y; // error: flow isn't smart enough to figure this out yet
       x.z; // error
     }
-  }
+  },
+
+  // null
+  function(x: { foo: null, y: string } | { foo: 'foo', z: string }) {
+    if (x.foo === null) {
+      (x.y: string);
+      x.z; // error
+    } else {
+      (x.z: string);
+      x.y; // error
+    }
+    if (x.foo === 'foo') {
+      (x.z: string);
+      x.y; // error
+    } else {
+      (x.y: string);
+      x.z; // error
+    }
+  },
+
+  // void
+  function(x: { foo: void, y: string } | { foo: 'foo', z: string }) {
+    if (x.foo === undefined) {
+      (x.y: string);
+      x.z; // error
+    } else {
+      (x.z: string);
+      x.y; // error
+    }
+    if (x.foo === 'foo') {
+      (x.z: string);
+      x.y; // error
+    } else {
+      (x.y: string);
+      x.z; // error
+    }
+  },
 ];

@@ -349,3 +349,63 @@ import type { Foo } from './h1';
 import type { Foo } from \\"./h1\\";
 "
 `;
+
+exports[`i1.js 1`] = `
+"// @flow
+
+const foo: { p: number } = { p: 0 };
+
+module.exports = foo;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+
+const foo: { p: number } = { p: 0 };
+
+module.exports = foo;
+"
+`;
+
+exports[`i2.js 1`] = `
+"// @flow
+
+const foo = require('./i1');
+
+foo.p = 0;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+
+const foo = require(\\"./i1\\");
+
+foo.p = 0;
+"
+`;
+
+exports[`j1.js 1`] = `
+"// @flow
+
+const foo: { [string]: number } = {};
+
+module.exports = foo;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+
+const foo: { [string]: number } = {};
+
+module.exports = foo;
+"
+`;
+
+exports[`j2.js 1`] = `
+"// @flow
+
+const foo = require('./j1');
+
+foo.p = 0;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+
+const foo = require(\\"./j1\\");
+
+foo.p = 0;
+"
+`;

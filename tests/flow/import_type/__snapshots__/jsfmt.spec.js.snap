@@ -347,23 +347,6 @@ function foo() {
 "
 `;
 
-exports[`import_type_specifier.js 1`] = `
-"/**
- * @flow
- */
-
-import { Foo, type Baz } from \\"../module\\";
-import type {} from 'foo';
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/**
- * @flow
- */
-
-import { Foo, type Baz } from \\"../module\\";
-import type {} from \\"foo\\";
-"
-`;
-
 exports[`issue-359.js 1`] = `
 "/* @flow */
 

@@ -39,3 +39,14 @@ function foo() {
 }
 "
 `;
+
+exports[`toplevel_throw.js 1`] = `
+"// @flow
+
+throw new Error('foo'); // no error
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+
+throw new Error(\\"foo\\"); // no error
+"
+`;

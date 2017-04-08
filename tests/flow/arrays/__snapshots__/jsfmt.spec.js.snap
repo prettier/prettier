@@ -82,27 +82,6 @@ module.exports = \\"arrays\\";
 "
 `;
 
-exports[`comments.js 1`] = `
-"export type FileMetaData = [
-  /* id */ string,
-  /* mtime */ number,
-  /* visited */ 0|1,
-  /* dependencies */ Array<string>,
-];
-
-export type ModuleMetaData = [Path, /* type */ number];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export type FileMetaData = [
-  /* id */ string,
-  /* mtime */ number,
-  /* visited */ 0 | 1,
-  /* dependencies */ Array<string>
-];
-
-export type ModuleMetaData = [Path, /* type */ number];
-"
-`;
-
 exports[`numeric_elem.js 1`] = `
 "var arr = [];
 var day = new Date;
@@ -119,12 +98,5 @@ var day = new Date();
 // arrays.
 arr[day] = 0;
 (arr[day]: string); // error: number ~> string
-"
-`;
-
-exports[`union.js 1`] = `
-"let arr: (number|string)[] = [];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-let arr: (number | string)[] = [];
 "
 `;

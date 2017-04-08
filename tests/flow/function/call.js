@@ -10,8 +10,8 @@ test.call("", "", 0);
 // wrong this is an error
 test.call(0, "", 0); // error: lookup `length` on Number
 
-// not enough arguments is an error (via incompatible RestT)
-test.call("", ""); // error: string ~> number
+// not enough arguments is an error
+test.call("", ""); // error: void ~> number
 
 // mistyped arguments is an error
 test.call("", "", ""); // error: string ~> number (2nd arg)
@@ -33,3 +33,9 @@ f([0, 0]); // error: number ~> string (1st arg)
 function test2(): number { return 0; }
 (test2.call(): number);
 (test2.call(""): number);
+
+// callable objects
+function test3(x: { (a: string, b: string): void }) {
+  x.call(x, 'foo', 'bar'); // ok
+  x.call(x, 'foo', 123); // error, number !~> string
+}

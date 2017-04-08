@@ -213,6 +213,21 @@ var alias2: Alias = _Alias.factory(); // error: bad pun
 "
 `;
 
+exports[`extends_any.js 1`] = `
+"const Base: any = class {}
+class Derived1 extends Base {}
+class Derived2 extends Derived1 {
+    m() {}
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const Base: any = class {};
+class Derived1 extends Base {}
+class Derived2 extends Derived1 {
+  m() {}
+}
+"
+`;
+
 exports[`loc.js 1`] = `
 "/* @flow */
 

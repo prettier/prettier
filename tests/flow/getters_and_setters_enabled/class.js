@@ -30,6 +30,9 @@ class Foo {
 
   propOverriddenWithSetter: number;
   set propOverriddenWithSetter(x: string) { }
+
+  set [z](x: string) {}
+  get [z](): string { return string; }
 };
 
 var foo = new Foo();
