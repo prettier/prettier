@@ -266,16 +266,6 @@ function setLocEnd(node, index) {
 }
 
 // http://stackoverflow.com/a/7124052
-function htmlEscapeInsideDoubleQuote(str) {
-  return str.replace(/&/g, "&amp;").replace(/"/g, "&quot;");
-  // Intentionally disable the following since it is safe inside of a
-  // double quote context
-  //    .replace(/'/g, '&#39;')
-  //    .replace(/</g, '&lt;')
-  //    .replace(/>/g, '&gt;');
-}
-
-// http://stackoverflow.com/a/7124052
 function htmlEscapeInsideAngleBracket(str) {
   return str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
   // Intentionally disable the following since it is safe inside of a
@@ -328,6 +318,5 @@ module.exports = {
   locEnd,
   setLocStart,
   setLocEnd,
-  htmlEscapeInsideDoubleQuote,
   htmlEscapeInsideAngleBracket
 };
