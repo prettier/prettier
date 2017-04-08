@@ -1202,7 +1202,7 @@ function genericPrintNoParens(path, options, print) {
         ) {
           const value = n.value.extra ? n.value.extra.raw : n.value.raw;
           res = '"' +
-            value.slice(1, value.length - 1).replace(/"/g, "&quot;") +
+            value.slice(1, -1).replace(/"/g, "&quot;") +
             '"';
         } else {
           res = path.call(print, "value");
