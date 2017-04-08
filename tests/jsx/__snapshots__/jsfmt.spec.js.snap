@@ -140,12 +140,10 @@ exports[`expression.js 1`] = `
 `;
 
 exports[`html_escape.js 1`] = `
-"// Should be preserved!
-export default () => <a href=\\"https://foo.bar?q1=foo&q2=bar\\" />;
+"export default () => <a href=\\"https://foo.bar?q1=foo&q2=bar\\" />;
 
 () => <img src=\\"https://bar.foo?param1=1&param2=2\\" />;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Should be preserved!
 export default () => <a href=\\"https://foo.bar?q1=foo&q2=bar\\" />;
 
 () => <img src=\\"https://bar.foo?param1=1&param2=2\\" />;
@@ -317,8 +315,8 @@ exports[`quotes.js 1`] = `
 <div id='\\"&#39;<>&amp;quot;' />;
 <div id={'\\\\'\\"&quot;<>&amp;quot;'} />;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<div id=\\"&quot;'<>&quot;\\" />;
-<div id=\\"&quot;'<>&quot;\\" />;
+<div id=\\"&quot;'<>&amp;quot;\\" />;
+<div id=\\"&quot;&#39;<>&amp;quot;\\" />;
 <div id={\\"'\\\\\\"&quot;<>&amp;quot;\\"} />;
 "
 `;
