@@ -2745,15 +2745,7 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
       const isLiteral = namedTypes.Literal.check(child);
 
       if (isLiteral && typeof child.value === "string") {
-        // There's a bug in the flow parser where it doesn't unescape the
-        // value field. To workaround this, we can use rawValue which is
-        // correctly escaped (since it parsed).
-        // We really want to use value and re-escape it ourself when possible
-        // though.
-        const partiallyEscapedValue = options.parser === "flow"
-          ? child.raw
-          : util.htmlEscapeInsideAngleBracket(child.value);
-        const value = partiallyEscapedValue.replace(/\u00a0/g, "&nbsp;");
+        const value = child.extra ? child.extra.raw : child.raw;
 
         if (/\S/.test(value)) {
           // treat each line of text as its own entity
