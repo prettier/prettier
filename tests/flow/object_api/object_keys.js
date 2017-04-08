@@ -6,12 +6,12 @@ var sealed = {one: 'one', two: 'two'};
 
 var unsealed = {};
 Object.keys(unsealed).forEach(k => {
-  (k : number) // error: number ~> string
+  (k : number) // error: string ~> number
 });
 
 var dict: { [k: number]: string } = {};
 Object.keys(dict).forEach(k => {
-  (k : number) // error: number ~> string
+  (k : number) // error: string ~> number
 });
 
 var any: Object = {};

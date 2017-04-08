@@ -760,6 +760,18 @@ function foo8(o: { p: mixed }) {
   if (o.p && o.p.q) {} // this is ok because o.p is truthy, so o.p.q is safe
   if (o.p && o.p.q && o.p.q.r) {}
 }
+
+type Foo9Expected = {
+  foo: string,
+}
+
+function foo9() {
+  const actual = {};
+  if (actual.foo === undefined) {
+    actual.foo = 'foo';
+  }
+  (actual: Foo9Expected);
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
@@ -822,6 +834,18 @@ function foo8(o: { p: mixed }) {
   } // this is ok because o.p is truthy, so o.p.q is safe
   if (o.p && o.p.q && o.p.q.r) {
   }
+}
+
+type Foo9Expected = {
+  foo: string
+};
+
+function foo9() {
+  const actual = {};
+  if (actual.foo === undefined) {
+    actual.foo = \\"foo\\";
+  }
+  (actual: Foo9Expected);
 }
 "
 `;
@@ -2468,7 +2492,43 @@ let tests = [
       x.y; // error: flow isn't smart enough to figure this out yet
       x.z; // error
     }
-  }
+  },
+
+  // null
+  function(x: { foo: null, y: string } | { foo: 'foo', z: string }) {
+    if (x.foo === null) {
+      (x.y: string);
+      x.z; // error
+    } else {
+      (x.z: string);
+      x.y; // error
+    }
+    if (x.foo === 'foo') {
+      (x.z: string);
+      x.y; // error
+    } else {
+      (x.y: string);
+      x.z; // error
+    }
+  },
+
+  // void
+  function(x: { foo: void, y: string } | { foo: 'foo', z: string }) {
+    if (x.foo === undefined) {
+      (x.y: string);
+      x.z; // error
+    } else {
+      (x.z: string);
+      x.y; // error
+    }
+    if (x.foo === 'foo') {
+      (x.z: string);
+      x.y; // error
+    } else {
+      (x.y: string);
+      x.z; // error
+    }
+  },
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // example 1
@@ -2727,6 +2787,42 @@ let tests = [
   ) {
     if (x.foo === num) {
       x.y; // error: flow isn't smart enough to figure this out yet
+      x.z; // error
+    }
+  },
+
+  // null
+  function(x: { foo: null, y: string } | { foo: \\"foo\\", z: string }) {
+    if (x.foo === null) {
+      (x.y: string);
+      x.z; // error
+    } else {
+      (x.z: string);
+      x.y; // error
+    }
+    if (x.foo === \\"foo\\") {
+      (x.z: string);
+      x.y; // error
+    } else {
+      (x.y: string);
+      x.z; // error
+    }
+  },
+
+  // void
+  function(x: { foo: void, y: string } | { foo: \\"foo\\", z: string }) {
+    if (x.foo === undefined) {
+      (x.y: string);
+      x.z; // error
+    } else {
+      (x.z: string);
+      x.y; // error
+    }
+    if (x.foo === \\"foo\\") {
+      (x.z: string);
+      x.y; // error
+    } else {
+      (x.y: string);
       x.z; // error
     }
   }

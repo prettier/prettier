@@ -48,3 +48,15 @@ function foo8(o: { p: mixed }) {
   if (o.p && o.p.q) {} // this is ok because o.p is truthy, so o.p.q is safe
   if (o.p && o.p.q && o.p.q.r) {}
 }
+
+type Foo9Expected = {
+  foo: string,
+}
+
+function foo9() {
+  const actual = {};
+  if (actual.foo === undefined) {
+    actual.foo = 'foo';
+  }
+  (actual: Foo9Expected);
+}
