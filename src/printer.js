@@ -1200,7 +1200,10 @@ function genericPrintNoParens(path, options, print) {
           (n.value.type === "StringLiteral" || n.value.type === "Literal") &&
           typeof n.value.value === "string"
         ) {
-          res = '"' + util.htmlEscapeInsideDoubleQuote(n.value.value) + '"';
+          const value = n.value.extra ? n.value.extra.raw : n.value.raw;
+          res = '"' +
+            value.slice(1, value.length - 1).replace(/"/g, "&quot;") +
+            '"';
         } else {
           res = path.call(print, "value");
         }
