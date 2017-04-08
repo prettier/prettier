@@ -1200,9 +1200,10 @@ function genericPrintNoParens(path, options, print) {
           (n.value.type === "StringLiteral" || n.value.type === "Literal") &&
           typeof n.value.value === "string"
         ) {
-          // Whenever the parser wouldn't convert it to an entity
-          // do not escape.
-          res = getJSXRawValue(n);
+          const value = n.value.extra ? n.value.extra.raw : n.value.raw;
+          res = '"' +
+            value.slice(1, value.length - 1).replace(/"/g, "&quot;") +
+            '"';
         } else {
           res = path.call(print, "value");
         }
@@ -3331,13 +3332,6 @@ function printArrayItems(path, options, printPath, print) {
   );
 
   return concat(printedElements);
-}
-
-function getJSXRawValue(node) {
-  const value = node.value.extra
-    ? node.value.extra.rawValue
-    : node.value.value
-  return '"' + value.replace(/"/g, "&quot;") + '"';
 }
 
 function printAstToDoc(ast, options) {
