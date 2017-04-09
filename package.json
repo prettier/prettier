@@ -38,7 +38,7 @@
   },
   "scripts": {
     "build:docs": "rollup -c docs/rollup.config.js",
-    "lint": "eslint --cache --ext .js,.jsx .",
+    "lint": "eslint --cache --ext .js .",
     "format": "./bin/prettier.js --write",
     "format:all": "npm run format -- index.js src/*.js bin/*.js",
     "format:single": "npm run format -- src/printer.js",
