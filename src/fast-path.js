@@ -4,7 +4,6 @@ var assert = require("assert");
 var types = require("ast-types");
 var util = require("./util");
 var n = types.namedTypes;
-var Node = n.Node;
 var isArray = types.builtInTypes.array;
 var isNumber = types.builtInTypes.number;
 
@@ -181,7 +180,7 @@ FPp.map = function map(callback /*, name1, name2, ... */) {
 
 // Inspired by require("ast-types").NodePath.prototype.needsParens, but
 // more efficient because we're iterating backwards through a stack.
-FPp.needsParens = function(assumeExpressionContext) {
+FPp.needsParens = function() {
   var parent = this.getParentNode();
   if (!parent) {
     return false;
@@ -510,10 +509,6 @@ FPp.needsParens = function(assumeExpressionContext) {
 
   return false;
 };
-
-function isBinary(node) {
-  return n.BinaryExpression.check(node) || n.LogicalExpression.check(node);
-}
 
 function containsCallExpression(node) {
   if (n.CallExpression.check(node)) {

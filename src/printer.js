@@ -30,7 +30,6 @@ var isEmpty = docUtils.isEmpty;
 var types = require("ast-types");
 var namedTypes = types.namedTypes;
 var isString = types.builtInTypes.string;
-var isObject = types.builtInTypes.object;
 
 function shouldPrintComma(options, level) {
   level = level || "es5";
@@ -1927,7 +1926,6 @@ function genericPrintNoParens(path, options, print) {
     case "XMLComment":
     case "XMLProcessingInstruction":
     default:
-      debugger;
       throw new Error("unknown type: " + JSON.stringify(n.type));
   }
 }
@@ -1981,7 +1979,7 @@ function printPropertyKey(path, options, print) {
   ) {
     // 'a' -> a
     return path.call(
-      keyPath => comments.printComments(keyPath, p => key.value, options),
+      keyPath => comments.printComments(keyPath, () => key.value, options),
       "key"
     );
   }
@@ -2322,12 +2320,6 @@ function printReturnType(path, print) {
   return concat(parts);
 }
 
-function typeIsFunction(type) {
-  return type === "FunctionExpression" ||
-    type === "ArrowFunctionExpression" ||
-    type === "NewExpression";
-}
-
 function printExportDeclaration(path, options, print) {
   const decl = path.getValue();
   let parts = ["export "];
@@ -2433,7 +2425,7 @@ function printFlowDeclaration(path, parts) {
   return concat(parts);
 }
 
-function getFlowVariance(path, options) {
+function getFlowVariance(path) {
   if (!path.variance) {
     return null;
   }
@@ -2540,7 +2532,7 @@ function printMemberChain(path, options, print) {
         node: node,
         printed: comments.printComments(
           path,
-          p => printArgumentsList(path, options, print),
+          () => printArgumentsList(path, options, print),
           options
         )
       });
@@ -2550,7 +2542,7 @@ function printMemberChain(path, options, print) {
         node: node,
         printed: comments.printComments(
           path,
-          p => printMemberLookup(path, options, print),
+          () => printMemberLookup(path, options, print),
           options
         )
       });
@@ -2954,7 +2946,7 @@ function printJSXElement(path, options, print) {
   ]);
 }
 
-function maybeWrapJSXElementInParens(path, elem, options) {
+function maybeWrapJSXElementInParens(path, elem) {
   const parent = path.getParentNode();
   if (!parent) return elem;
 
@@ -3053,7 +3045,7 @@ function printBinaryishExpressions(path, print, options, isNested) {
     // the other ones since we don't call the normal print on BinaryExpression,
     // only for the left and right parts
     if (isNested && node.comments) {
-      parts = comments.printComments(path, p => concat(parts), options);
+      parts = comments.printComments(path, () => concat(parts), options);
     }
   } else {
     // Our stopping case. Simply print the node normally.
@@ -3222,13 +3214,6 @@ function printNumber(rawNumber) {
     .replace(/^\./, "0.")
     // Remove trailing dot.
     .replace(/\.(?=e|$)/, "");
-}
-
-function isFirstStatement(path) {
-  const parent = path.getParentNode();
-  const node = path.getValue();
-  const body = parent.body;
-  return body && body[0] === node;
 }
 
 function isLastStatement(path) {
