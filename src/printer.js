@@ -2754,7 +2754,7 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
 
         if (/\S/.test(value)) {
           // treat each line of text as its own entity
-          value.split(/(\n\s*)/).forEach(line => {
+          value.split(/(\r?\n\s*)/).forEach(line => {
             const newlines = line.match(/\n/g);
             if (newlines) {
               children.push(hardline);
