@@ -8,4 +8,4 @@ cache:
   yarn: true
   directories:
   - node_modules
-script: npm test -- --runInBand
+script: npm run lint && npm test -- --runInBand
