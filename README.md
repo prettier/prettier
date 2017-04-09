@@ -4,30 +4,56 @@
 [![Build Status](https://travis-ci.org/prettier/prettier.svg?branch=master)](https://travis-ci.org/prettier/prettier)
 [![NPM version](https://img.shields.io/npm/v/prettier.svg)](https://www.npmjs.com/package/prettier)
 
+<!-- toc -->
+
+- [Usage](#usage)
+  * [CLI](#cli)
+    + [Pre-commit hook for changed files](#pre-commit-hook-for-changed-files)
+  * [API](#api)
+  * [Excluding code from formatting](#excluding-code-from-formatting)
+- [Editor Integration](#editor-integration)
+  * [Atom](#atom)
+  * [Emacs](#emacs)
+  * [Vim](#vim)
+    + [Vanilla approach](#vanilla-approach)
+    + [Neoformat approach](#neoformat-approach)
+    + [Customizing Prettier in Vim](#customizing-prettier-in-vim)
+  * [Visual Studio Code](#visual-studio-code)
+  * [Visual Studio](#visual-studio)
+  * [Sublime Text](#sublime-text)
+  * [JetBrains](#jetbrains)
+- [Language Support](#language-support)
+- [Related Projects](#related-projects)
+- [Technical Details](#technical-details)
+- [Badge](#badge)
+- [Contributing](#contributing)
+
+<!-- tocstop -->
+
 Prettier is an opinionated JavaScript formatter inspired by
 [refmt](https://facebook.github.io/reason/tools.html) with advanced
-support for language features from ES2017, JSX, and Flow. It removes
+support for language features from [ES2017](https://github.com/tc39/proposals/blob/master/finished-proposals.md), [JSX](https://facebook.github.io/jsx/), and [Flow](https://flow.org/). It removes
 all original styling and ensures that all outputted JavaScript
 conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
 
-*Warning*: This is a beta, and the format may change over time. If you
+*Warning*: This is a **beta**, and the format may change over time. If you
  aren't OK with the format changing, wait for a more stable version.
 
-This goes way beyond [eslint](http://eslint.org/) and other projects
-[built on it](https://github.com/feross/standard). Unlike eslint,
+This goes way beyond [ESLint](http://eslint.org/) and other projects
+[built on it](https://github.com/feross/standard). Unlike ESLint,
 there aren't a million configuration options and rules. But more
-importantly: **everything is fixable**. This works because prettier
-never "checks" anything; it takes JavaScript as input and outputs the
+importantly: **everything is fixable**. This works because Prettier
+never "checks" anything; it takes JavaScript as input and delivers the
 formatted JavaScript as output.
 
-In technical terms: prettier parses your JavaScript into an AST and
+In technical terms: Prettier parses your JavaScript into an AST (Abstract Syntax Tree) and
 pretty-prints the AST, completely ignoring any of the original
 formatting. Say hello to completely consistent syntax!
 
 There's an extremely important piece missing from existing styling
-tools: **the maximum line length**. Sure, you can tell eslint to warn
+tools: **the maximum line length**. Sure, you can tell ESLint to warn
 you when you have a line that's too long, but that's an after-thought
-(eslint *never* knows how to fix it). The maximum line length is a
+(ESLint *never* knows how to fix it). The maximum line length is a
 critical piece the formatter needs for laying out and wrapping code.
 
 For example, take the following code:
@@ -107,7 +133,7 @@ npm install [-g] prettier
 
 ### CLI
 
-Run prettier through the CLI with this script. Run it without any
+Run Prettier through the CLI with this script. Run it without any
 arguments to see the options.
 
 To format a file in-place, use `--write`. While this is in beta you
@@ -123,7 +149,7 @@ In practice, this may look something like:
 prettier --single-quote --trailing-comma es5 --write "{app,__{tests,mocks}__}/**/*.js"
 ```
 
-(Don't forget the quotes around the globs! The quotes make sure that prettier
+(Don't forget the quotes around the globs! The quotes make sure that Prettier
 expands the globs rather than your shell, for cross-platform usage.)
 
 In the future we will have better support for formatting whole projects.
@@ -175,13 +201,16 @@ exit 1
 
 ### API
 
-The API is a single function exported as `format`. The options
+The API has two functions, exported as `format` and `check`. The options
 argument is optional, and all of the defaults are shown below:
 
 ```js
 const prettier = require("prettier");
 
 prettier.format(source, {
+  // Indent lines with tabs
+  useTabs: false,
+
   // Fit code within this line limit
   printWidth: 80,
 
@@ -211,6 +240,9 @@ prettier.format(source, {
   parser: 'babylon'
 });
 ```
+
+`check` checks to see if the file has been formatted with Prettier given those options and returns a Boolean.
+This is similar to the `--list-different` parameter in the CLI and is useful for running Prettier in CI scenarios.
 
 ### Excluding code from formatting
 
@@ -250,18 +282,17 @@ matrix(
 
 ### Atom
 
-Atom users can simply install the `prettier-atom` package and use
-ctrl+alt+f to format a file (or format on save if turned on).
+Atom users can simply install the [prettier-atom](https://github.com/prettier/prettier-atom) package and use
+`Ctrl+Alt+F` to format a file (or format on save if enabled).
 
 ### Emacs
 
-Emacs users should see [this
-folder](https://github.com/jlongster/prettier/tree/master/editors/emacs)
+Emacs users should see [this directory](https://github.com/prettier/prettier/tree/master/editors/emacs)
 for on-demand formatting.
 
 ### Vim
 
-For Vim users there are two main approaches, one that leans on [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/neoformat), which has the advantage of leaving the cursor in the same position despite changes, or a vanilla approach which can only approximate the cursor location, but might be good enough for your needs.
+For Vim users, there are two main approaches: one that leans on [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/neoformat), which has the advantage of leaving the cursor in the same position despite changes, or a vanilla approach which can only approximate the cursor location, but might be good enough for your needs.
 
 #### Vanilla approach
 
@@ -281,7 +312,7 @@ autocmd FileType javascript.jsx,javascript setlocal formatprg=prettier\ --stdin
 
 This makes Prettier power the [`gq` command](http://vimdoc.sourceforge.net/htmldoc/change.html#gq)
 for automatic formatting without any plugins. You can also add the following to your
-`.vimrc` to run prettier when `.js` files are saved:
+`.vimrc` to run Prettier when `.js` files are saved:
 
 ```vim
 autocmd BufWritePre *.js :normal gggqG
@@ -309,9 +340,9 @@ Then make Neoformat run on save:
 autocmd BufWritePre *.js Neoformat
 ```
 
-#### Customizing prettier in Vim
+#### Customizing Prettier in Vim
 
-If your project requires settings other than the default prettier settings you can pass arguments to do so in your `.vimrc` or [vim project](http://vim.wikia.com/wiki/Project_specific_settings), you can do so:
+If your project requires settings other than the default Prettier settings, you can pass arguments to do so in your `.vimrc` or [vim project](http://vim.wikia.com/wiki/Project_specific_settings), you can do so:
 
 ```vim
 autocmd FileType javascript set formatprg=prettier\ --stdin\ --parser\ flow\ --single-quote\ --trailing-comma\ es5
@@ -326,15 +357,15 @@ let g:neoformat_try_formatprg = 1
 
 ### Visual Studio Code
 
-Can be installed using the extension sidebar. Search for `Prettier - JavaScript formatter`
+Can be installed using the extension sidebar. Search for `Prettier - JavaScript formatter`.
 
-Can also be installed using `ext install prettier-vscode`
+Can also be installed using `ext install prettier-vscode`.
 
-[Check repository for configuration and shortcuts](https://github.com/esbenp/prettier-vscode)
+[Check its repository for configuration and shortcuts](https://github.com/esbenp/prettier-vscode)
 
 ### Visual Studio
 
-Install the [JavaScript Prettier extension](https://github.com/madskristensen/JavaScriptPrettier)
+Install the [JavaScript Prettier extension](https://github.com/madskristensen/JavaScriptPrettier).
 
 ### Sublime Text
 
@@ -343,8 +374,8 @@ the [JsPrettier](https://packagecontrol.io/packages/JsPrettier) plug-in.
 
 ### JetBrains
 
-JetBrains users can configure `prettier` as an **External Tool** see [this
-blog post](https://blog.jetbrains.com/webstorm/2016/08/using-external-tools/) or [this
+JetBrains users can configure `prettier` as an **External Tool**.
+See [this blog post](https://blog.jetbrains.com/webstorm/2016/08/using-external-tools/) or [this
 directory](https://github.com/jlongster/prettier/tree/master/editors/jetbrains) with examples.
 
 More editors are coming soon.
@@ -353,9 +384,9 @@ More editors are coming soon.
 
 Prettier attempts to support all JavaScript language features,
 including non-standardized ones. By default it uses the
-[babylon](https://github.com/babel/babylon) parser with all language
-features enabled, but you can also use
-[flow](https://github.com/facebook/flow) parser with the
+[Babylon](https://github.com/babel/babylon) parser with all language
+features enabled, but you can also use the
+[Flow](https://github.com/facebook/flow) parser with the
 `parser` API or `--parser` CLI option.
 
 All of JSX and Flow syntax is supported. In fact, the test suite in
@@ -363,17 +394,17 @@ All of JSX and Flow syntax is supported. In fact, the test suite in
 
 ## Related Projects
 
-- [`eslint-plugin-prettier`](https://github.com/not-an-aardvark/eslint-plugin-prettier) plugs prettier into your ESLint workflow
-- [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier) turns off all ESLint rules that are unnecessary or might conflict with prettier
+- [`eslint-plugin-prettier`](https://github.com/not-an-aardvark/eslint-plugin-prettier) plugs Prettier into your ESLint workflow
+- [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier) turns off all ESLint rules that are unnecessary or might conflict with Prettier
 - [`prettier-eslint`](https://github.com/prettier/prettier-eslint)
 passes `prettier` output to `eslint --fix`
 - [`prettier-standard`](https://github.com/sheerun/prettier-standard)
 uses `prettier` and `prettier-eslint` to format code with standard rules
 - [`prettier-standard-formatter`](https://github.com/dtinth/prettier-standard-formatter)
 passes `prettier` output to `standard --fix`
-- [`prettier-with-tabs`](https://github.com/arijs/prettier-with-tabs)
-allows you to configure prettier to use `tabs`
-- [`neutrino-preset-prettier`](https://github.com/SpencerCDixon/neutrino-preset-prettier) allows you to use prettier as a neutrino preset
+- [`prettier-miscellaneous`](https://github.com/arijs/prettier-miscellaneous)
+`prettier` with a few minor extra options
+- [`neutrino-preset-prettier`](https://github.com/SpencerCDixon/neutrino-preset-prettier) allows you to use Prettier as a Neutrino preset
 
 
 ## Technical Details
@@ -409,24 +440,32 @@ Show the world you're using *Prettier* → [![styled with prettier](https://img.
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 ```
 
-
 ## Contributing
 
-We will work on better docs over time, but in the mean time, here are
-a few notes if you are interested in contributing:
+To get up and running, install the dependencies and run the tests:
 
-* You should be able to get up and running with just `yarn`
-* This uses jest snapshots for tests. The entire Flow test suite is
-  included here and you can make changes and run `jest -u` and then
-  `git diff` to see the styles that changed. Always update the
-  snapshots if opening a PR.
-* If you can, look at [commands.md](commands.md) and check out
-  [Wadler's
-  paper](http://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf)
-  to understand how this works. I will try to write a better explanation soon.
-* I haven't set up any automated tests yet, but for now as long as you
-  run `jest -u` to update the snapshots and I see them in the PR, that's fine.
-* You can run `AST_COMPARE=1 jest` for a more robust test run. That
-  formats each file, re-parses it, and compares the new AST with the
-  original one and makes sure they are semantically equivalent.
- * Each test folder has a `jsfmt.spec.js` that runs the tests. Normally you can just put `run_spec(__dirname);` there but if you want to pass specific options you can add the options object as the 2nd parameter like: `run_spec(__dirname, { parser: 'babylon' });`
+```
+yarn
+yarn test
+```
+
+Here's what you need to know about the tests:
+
+* The tests uses [Jest](https://facebook.github.io/jest/) snapshots.
+* You can make changes and run `jest -u` to update the snapshots. Then run `git
+  diff` to take a look at what changed. Always update the snapshots when opening
+  a PR.
+* You can run `AST_COMPARE=1 jest` for a more robust test run. That formats each
+  file, re-parses it, and compares the new AST with the original one and makes
+  sure they are semantically equivalent.
+* Each test folder has a `jsfmt.spec.js` that runs the tests. Normally you can
+  just put `run_spec(__dirname);` there. You can also pass options and
+  additional parsers, like this:
+  `run_spec(__dirname, { trailingComma: "es5" }, ["babylon"]);`
+* `tests/flow/` contains the Flow test suite, and is not supposed to be edited
+  by hand. To update it, clone the Flow repo next to the Prettier repo and run:
+  `node scripts/sync-flow-tests.js ../flow/tests/`.
+
+If you can, take look at [commands.md](commands.md) and check out [Wadler's
+paper](http://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf) to
+understand how Prettier works.

@@ -15,6 +15,19 @@ function a() {
     0, 0, 0
   );
 
+  // Let's make sure that this comment doesn't interfere
+
+  // prettier-ignore
+  const commentsWithPrettierIgnore =   {
+    "ewww":
+            "gross-formatting",
+  };
+
+  function giveMeSome() {
+    a(  a  ); // prettier-ignore
+    // shouldn't I return something?  :shrug:
+  }
+
   // prettier-ignore
   console.error(
     'In order to use ' + prompt + ', you need to configure a ' +

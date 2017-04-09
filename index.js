@@ -72,7 +72,8 @@ function format(text, opts) {
   const ast = parse(text, opts);
   const astComments = attachComments(text, ast, opts);
   const doc = printAstToDoc(ast, opts);
-  const str = printDocToString(doc, opts.printWidth, guessLineEnding(text));
+  opts.newLine = guessLineEnding(text);
+  const str = printDocToString(doc, opts);
   ensureAllCommentsPrinted(astComments);
   return str;
 }
@@ -95,12 +96,20 @@ module.exports = {
   format: function(text, opts) {
     return formatWithShebang(text, normalizeOptions(opts));
   },
+  check: function(text, opts) {
+    try {
+      const formatted = this.format(text, opts);
+      return formatted === text;
+    } catch (e) {
+      return false;
+    }
+  },
   version: version,
   __debug: {
     formatAST: function(ast, opts) {
       opts = normalizeOptions(opts);
       const doc = printAstToDoc(ast, opts);
-      const str = printDocToString(doc, opts.printWidth);
+      const str = printDocToString(doc, opts);
       return str;
     },
     // Doesn't handle shebang for now
@@ -119,7 +128,7 @@ module.exports = {
     },
     printDocToString: function(doc, opts) {
       opts = normalizeOptions(opts);
-      const str = printDocToString(doc, opts.printWidth);
+      const str = printDocToString(doc, opts);
       return str;
     }
   }

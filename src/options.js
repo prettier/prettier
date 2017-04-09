@@ -4,6 +4,7 @@ var validate = require("jest-validate").validate;
 var deprecatedConfig = require("./deprecated");
 
 var defaults = {
+  useTabs: false,
   tabWidth: 2,
   printWidth: 80,
   singleQuote: false,

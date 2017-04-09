@@ -17,3 +17,22 @@ switch (foo) {
 
   // no default
 }
+
+switch (foo) {
+  case "bar": //comment
+    doThing(); //comment
+
+  case "baz":
+    doOtherThing(); //comment
+
+}
+
+switch (foo) {
+  case "bar": {
+    doThing();
+  } //comment
+
+  case "baz": {
+    doThing();
+  } //comment
+}

@@ -166,19 +166,22 @@ function skipNewline(text, index, opts) {
   const backwards = opts && opts.backwards;
   if (index === false) {
     return false;
-  } else if (backwards) {
-    if (text.charAt(index) === "\n") {
+  }
+
+  const atIndex = text.charAt(index);
+  if (backwards) {
+    if (atIndex === "\n" || atIndex === "\r" ||  atIndex === "\u2028" ||  atIndex === "\u2029") {
       return index - 1;
     }
-    if (text.charAt(index - 1) === "\r" && text.charAt(index) === "\n") {
+    if (text.charAt(index - 1) === "\r" && atIndex === "\n") {
       return index - 2;
     }
   } else {
-    if (text.charAt(index) === "\n") {
-      return index + 1;
-    }
-    if (text.charAt(index) === "\r" && text.charAt(index + 1) === "\n") {
+    if (atIndex === "\r" && text.charAt(index + 1) === "\n") {
       return index + 2;
+    }
+    if (atIndex === "\n" || atIndex === "\r" ||  atIndex === "\u2028" ||  atIndex === "\u2029") {
+      return index + 1;
     }
   }
 
@@ -263,16 +266,6 @@ function setLocEnd(node, index) {
 }
 
 // http://stackoverflow.com/a/7124052
-function htmlEscapeInsideDoubleQuote(str) {
-  return str.replace(/&/g, "&amp;").replace(/"/g, "&quot;");
-  // Intentionally disable the following since it is safe inside of a
-  // double quote context
-  //    .replace(/'/g, '&#39;')
-  //    .replace(/</g, '&lt;')
-  //    .replace(/>/g, '&gt;');
-}
-
-// http://stackoverflow.com/a/7124052
 function htmlEscapeInsideAngleBracket(str) {
   return str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
   // Intentionally disable the following since it is safe inside of a
@@ -325,6 +318,5 @@ module.exports = {
   locEnd,
   setLocStart,
   setLocEnd,
-  htmlEscapeInsideDoubleQuote,
   htmlEscapeInsideAngleBracket
 };

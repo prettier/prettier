@@ -67,7 +67,11 @@ function printDoc(doc) {
   }
 
   if (doc.type === "indent") {
-    return "indent(" + doc.n + ", " + printDoc(doc.contents) + ")";
+    return "indent(" + printDoc(doc.contents) + ")";
+  }
+
+  if (doc.type === "align") {
+    return "align(" + doc.n + ", " + printDoc(doc.contents) + ")";
   }
 
   if (doc.type === "if-break") {
@@ -93,6 +97,10 @@ function printDoc(doc) {
 
   if (doc.type === "line-suffix") {
     return "lineSuffix(" + printDoc(doc.contents) + ")";
+  }
+
+  if (doc.type === "line-suffix-boundary") {
+    return "lineSuffixBoundary";
   }
 
   throw new Error("Unknown doc type " + doc.type);

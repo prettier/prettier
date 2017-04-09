@@ -139,6 +139,17 @@ exports[`expression.js 1`] = `
 "
 `;
 
+exports[`html_escape.js 1`] = `
+"export default () => <a href=\\"https://foo.bar?q1=foo&q2=bar\\" />;
+
+() => <img src=\\"https://bar.foo?param1=1&param2=2\\" />;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export default () => <a href=\\"https://foo.bar?q1=foo&q2=bar\\" />;
+
+() => <img src=\\"https://bar.foo?param1=1&param2=2\\" />;
+"
+`;
+
 exports[`hug.js 1`] = `
 "<div>
   {__DEV__
@@ -279,7 +290,7 @@ exports[`parens.js 1`] = `
   <path
     key='1'
     d='M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,'
-  />,        
+  />,
 ];
 
 <div {...((foo || foo === null) ? {foo} : null)} />
@@ -305,7 +316,7 @@ exports[`quotes.js 1`] = `
 <div id={'\\\\'\\"&quot;<>&amp;quot;'} />;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div id=\\"&quot;'<>&amp;quot;\\" />;
-<div id=\\"&quot;'<>&amp;quot;\\" />;
+<div id=\\"&quot;&#39;<>&amp;quot;\\" />;
 <div id={\\"'\\\\\\"&quot;<>&amp;quot;\\"} />;
 "
 `;

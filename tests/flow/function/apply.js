@@ -8,8 +8,8 @@ test.apply("", ["", 0]);
 // wrong this is an error
 test.apply(0, ["", 0]); // error: lookup `length` on Number
 
-// not enough arguments is an error (via incompatible RestT)
-test.apply("", [""]); // error: string ~> number
+// not enough arguments is an error
+test.apply("", [""]); // error: void ~> number
 
 // mistyped arguments is an error
 test.apply("", ["", ""]); // error: string ~> number (2nd arg)
@@ -40,3 +40,9 @@ test.apply("", "not array"); // error: expect array of args
 function test2(): number { return 0; }
 (test2.apply(): number);
 (test2.apply(""): number);
+
+// callable objects
+function test3(x: { (a: string, b: string): void }) {
+  x.apply(x, ['foo', 'bar']); // ok
+  x.apply(x, ['foo', 123]); // error, number !~> string
+}

@@ -11,6 +11,7 @@ var concat = docBuilders.concat;
 var hardline = docBuilders.hardline;
 var breakParent = docBuilders.breakParent;
 var indent = docBuilders.indent;
+var align = docBuilders.align;
 var lineSuffix = docBuilders.lineSuffix;
 var join = docBuilders.join;
 var util = require("./util");
@@ -197,7 +198,8 @@ function attach(comments, ast, text, options) {
         handlePropertyComments(enclosingNode, comment) ||
         handleExportNamedDeclarationComments(enclosingNode, comment) ||
         handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
-        handleClassMethodComments(enclosingNode, comment)
+        handleClassMethodComments(enclosingNode, comment) ||
+        handleVariableDeclaratorComments(enclosingNode, followingNode, comment)
       ) {
         // We're good
       } else if (precedingNode) {
@@ -675,6 +677,20 @@ function handleClassMethodComments(enclosingNode, comment) {
   return false;
 }
 
+function handleVariableDeclaratorComments(enclosingNode, followingNode, comment) {
+  if (
+    enclosingNode &&
+    enclosingNode.type === "VariableDeclarator" &&
+    followingNode && (
+      followingNode.type === "ObjectExpression" ||
+      followingNode.type === "ArrayExpression")
+  ) {
+    addLeadingComment(followingNode, comment);
+    return true;
+  }
+  return false;
+}
+
 function printComment(commentPath) {
   const comment = commentPath.getValue();
   comment.printed = true;
@@ -802,7 +818,7 @@ function printDanglingComments(path, options, sameIndent) {
   if (sameIndent) {
     return join(hardline, parts);
   }
-  return indent(options.tabWidth, concat([hardline, join(hardline, parts)]));
+  return indent(concat([hardline, join(hardline, parts)]));
 }
 
 function printComments(path, print, options) {
