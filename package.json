@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "diff": "3.2.0",
+    "eslint": "3.19.0",
     "jest": "19.0.1",
     "mkdirp": "^0.5.1",
     "rimraf": "^2.6.1",
@@ -36,11 +37,12 @@
     "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#bfb1506c48b625871ffeb67dbec7941d460f8941"
   },
   "scripts": {
-    "test": "jest",
+    "build:docs": "rollup -c docs/rollup.config.js",
+    "lint": "eslint --cache --ext .js,.jsx .",
     "format": "./bin/prettier.js --write",
-    "format:single": "npm run format -- src/printer.js",
     "format:all": "npm run format -- index.js src/*.js bin/*.js",
-    "build:docs": "rollup -c docs/rollup.config.js"
+    "format:single": "npm run format -- src/printer.js",
+    "test": "jest"
   },
   "jest": {
     "setupFiles": [
