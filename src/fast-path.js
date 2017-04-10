@@ -243,6 +243,9 @@ FPp.needsParens = function(assumeExpressionContext) {
 
   switch (node.type) {
     case "CallExpression":
+      if (parent.type === "NewExpression" && parent.callee === node) {
+        return true;
+      }
       return false;
 
     case "SpreadElement":
