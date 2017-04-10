@@ -36,7 +36,6 @@ const argv = minimist(process.argv.slice(2), {
   alias: { help: "h", version: "v", "list-different": "l" },
   unknown: param => {
     if (param.startsWith("-")) {
-      // eslint-disable-next-line no-console
       console.warn("Ignored unknown option: " + param + "\n");
       return false;
     }
@@ -44,7 +43,6 @@ const argv = minimist(process.argv.slice(2), {
 });
 
 if (argv["version"]) {
-  // eslint-disable-next-line no-console
   console.log(prettier.version);
   process.exit(0);
 }
@@ -63,7 +61,6 @@ function getParserOption() {
 
   // For backward compatibility. Deprecated in 0.0.10
   if (argv["flow-parser"]) {
-    // eslint-disable-next-line no-console
     console.warn("`--flow-parser` is deprecated. Use `--parser flow` instead.");
     return "flow";
   }
@@ -72,7 +69,6 @@ function getParserOption() {
     return value;
   }
 
-  // eslint-disable-next-line no-console
   console.warn(
     "Ignoring unknown --" +
       optionName +
@@ -95,7 +91,6 @@ function getIntOption(optionName) {
     return Number(value);
   }
 
-  // eslint-disable-next-line no-console
   console.error(
     "Invalid --" +
       optionName +
@@ -111,7 +106,6 @@ function getTrailingComma() {
     case "none":
       return "none";
     case "":
-      // eslint-disable-next-line no-console
       console.warn(
         "Warning: `--trailing-comma` was used without an argument. This is deprecated. " +
           'Specify "none", "es5", or "all".'
@@ -149,7 +143,6 @@ function format(input) {
       const diff = require(
         "diff"
       ).createTwoFilesPatch("", "", pp, pppp, "", "", { context: 2 });
-      // eslint-disable-next-line no-console
       console.error(diff);
     }
     return;
@@ -169,15 +162,12 @@ function handleError(filename, e) {
   // `util.inspect` of throws things that aren't `Error` objects. (The Flow
   // parser has mistakenly thrown arrays sometimes.)
   if (isParseError) {
-    // eslint-disable-next-line no-console
     console.error(filename + ": " + String(e));
   } else if (isValidationError) {
-    // eslint-disable-next-line no-console
     console.error(String(e));
     // If validation fails for one file, it will fail for all of them.
     process.exit(1);
   } else {
-    // eslint-disable-next-line no-console
     console.error(filename + ":", e);
   }
 
@@ -186,7 +176,6 @@ function handleError(filename, e) {
 }
 
 if (argv["help"] || (!filepatterns.length && !stdin)) {
-  // eslint-disable-next-line no-console
   console.log(
     "Usage: prettier [opts] [filename ...]\n\n" +
       "Available options:\n" +
@@ -235,7 +224,7 @@ if (stdin) {
     } catch(e) {
       // Add newline to split errors from filename line.
       process.stdout.write("\n");
-      // eslint-disable-next-line no-console
+
       console.error("Unable to read file: " + filename + "\n" + err);
       // Don't exit the process if one file failed
       process.exitCode = 2;
@@ -244,7 +233,6 @@ if (stdin) {
 
     if (argv["list-different"]) {
       if (!prettier.check(input, options)) {
-        // eslint-disable-next-line no-console
         console.log(filename);
         process.exitCode = 1;
       }
@@ -273,15 +261,12 @@ if (stdin) {
       // Don't write the file if it won't change in order not to invalidate
       // mtime based caches.
       if (output === input) {
-        // eslint-disable-next-line no-console
         console.log(chalk.grey("%s %dms"), filename, Date.now() - start);
       } else {
-        // eslint-disable-next-line no-console
         console.log("%s %dms", filename, Date.now() - start);
 
         fs.writeFile(filename, output, "utf8", err => {
           if (err) {
-            // eslint-disable-next-line no-console
             console.error("Unable to write file: " + filename + "\n" + err);
             // Don't exit the process if one file failed
             process.exitCode = 2;
@@ -291,7 +276,6 @@ if (stdin) {
     } else if (argv["debug-check"]) {
       process.stdout.write("\n");
       if (output) {
-        // eslint-disable-next-line no-console
         console.log(output);
       }
     } else {
@@ -305,7 +289,6 @@ function eachFilename(patterns, callback) {
   patterns.forEach(pattern => {
     glob(pattern, (err, filenames) => {
       if (err) {
-        // eslint-disable-next-line no-console
         console.error("Unable to expand glob pattern: " + pattern + "\n" + err);
         // Don't exit the process if one pattern failed
         process.exitCode = 2;
