@@ -194,7 +194,7 @@ function attach(comments, ast, text, options) {
         ) ||
         handleImportSpecifierComments(enclosingNode, comment) ||
         handleTemplateLiteralComments(enclosingNode, comment) ||
-        handleIfStatementComments(enclosingNode, followingNode, comment) ||
+        handleIfStatementComments(text, enclosingNode, followingNode, comment) ||
         handleClassComments(enclosingNode, comment) ||
         handleLabeledStatementComments(enclosingNode, comment) ||
         handleCallExpressionComments(precedingNode, enclosingNode, comment) ||
