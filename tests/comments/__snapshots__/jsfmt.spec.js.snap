@@ -246,6 +246,11 @@ else if (4) {
 // comment
 else {
 }
+
+if (1)
+{}
+else // comment
+{}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 if (1) {
   // comment
@@ -262,6 +267,11 @@ else if (3)
 else if (4) {
   // okay?
   // empty with existing comment
+} else {
+  // comment
+}
+
+if (1) {
 } else {
   // comment
 }
