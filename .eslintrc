@@ -7,7 +7,6 @@
     "sourceType": "module"
   },
   "rules": {
-    "no-console": 2,
     "no-debugger": 2,
     "no-unused-vars": 2
   }
