@@ -1568,6 +1568,7 @@ function genericPrintNoParens(path, options, print) {
       // declare function foo(a: B): void; OR
       // var A: (a: B) => void;
       var parent = path.getParentNode(0);
+      var parentParent = path.getParentNode(1);
       var isArrowFunctionTypeAnnotation = n.type === "TSFunctionType" || !((!getFlowVariance(parent, options) &&
         !parent.optional &&
         namedTypes.ObjectTypeProperty.check(parent)) ||
@@ -1577,6 +1578,14 @@ function genericPrintNoParens(path, options, print) {
       var needsColon = isArrowFunctionTypeAnnotation &&
         namedTypes.TypeAnnotation.check(parent);
 
+      // Sadly we can't put it inside of FastPath::needsColon because we are
+      // printing ":" as part of the expression and it would put parenthesis
+      // around :(
+      const needsParens = needsColon &&
+        isArrowFunctionTypeAnnotation &&
+        parent.type === "TypeAnnotation" &&
+        parentParent.type === "ArrowFunctionExpression";
+
       if (isObjectTypePropertyAFunction(parent)) {
         isArrowFunctionTypeAnnotation = true;
         needsColon = true;
@@ -1584,6 +1593,9 @@ function genericPrintNoParens(path, options, print) {
 
       if (needsColon) {
         parts.push(": ");
+      }
+      if (needsParens) {
+        parts.push("(");
       }
 
       parts.push(path.call(print, "typeParameters"));
@@ -1599,6 +1611,9 @@ function genericPrintNoParens(path, options, print) {
           path.call(print, "predicate"),
           path.call(print, "typeAnnotation")
         );
+      }
+      if (needsParens) {
+        parts.push(")");
       }
 
       return group(concat(parts));
