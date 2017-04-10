@@ -36,6 +36,9 @@ support for language features from [ES2017](https://github.com/tc39/proposals/bl
 all original styling and ensures that all outputted JavaScript
 conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
 
+If you are interested in the details, you can watch those two conference talks
+<a href="https://www.youtube.com/watch?v=hkfBvpEfWdA"><img width="298" src="https://cloud.githubusercontent.com/assets/197597/24886367/dda8a6f0-1e08-11e7-865b-22492450f10f.png"></a> <a href="https://www.youtube.com/watch?v=ziAShzxAVKY"><img width="298" src="https://cloud.githubusercontent.com/assets/197597/24886368/ddacd6f8-1e08-11e7-806a-9febd23cbf47.png"></a>
+
 *Warning*: This is a **beta**, and the format may change over time. If you
  aren't OK with the format changing, wait for a more stable version.
 
