@@ -603,6 +603,21 @@ function genericPrintNoParens(path, options, print) {
         }
       }
 
+      const hasDanglingComments =
+        n.comments &&
+        n.comments.some(comment => !comment.leading && !comment.trailing);
+
+      if (hasDanglingComments) {
+        parts.push(
+          " ",
+          comments.printDanglingComments(
+            path,
+            options,
+            /* sameIndent */ true
+          )
+        );
+      }
+
       parts.push(";");
 
       return concat(parts);
