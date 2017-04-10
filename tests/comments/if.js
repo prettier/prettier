@@ -19,3 +19,8 @@ else if (4) {
 // comment
 else {
 }
+
+if (1)
+{}
+else // comment
+{}
