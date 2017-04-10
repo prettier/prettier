@@ -72,6 +72,7 @@ function syncTests(syncDir) {
 
 function run(argv) {
   if (argv.length !== 1) {
+    // eslint-disable-next-line no-console
     console.error(
       [
         "You must provide the path to a flow tests directory to sync from!",
@@ -87,11 +88,13 @@ function run(argv) {
   try {
     skipped = syncTests(syncDir);
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error(`Failed to sync.\n${error}`);
     return 1;
   }
 
   if (skipped.length > 0) {
+    // eslint-disable-next-line no-console
     console.log(
       [
         "Some files were skipped due to syntax errors.",
@@ -104,7 +107,7 @@ function run(argv) {
         .join("\n")
     );
   }
-
+  // eslint-disable-next-line no-console
   console.log(
     [
       "Done syncing! Now you need to:",

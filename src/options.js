@@ -28,7 +28,7 @@ function normalize(options) {
     // Support a deprecated boolean type for the trailing comma config
     // for a few versions. This code can be removed later.
     normalized.trailingComma = "es5";
-
+    // eslint-disable-next-line no-console
     console.warn(
       "Warning: `trailingComma` without any argument is deprecated. " +
         'Specify "none", "es5", or "all".'
