@@ -525,6 +525,7 @@ function handleLastFunctionArgComments(
     enclosingNode &&
     (enclosingNode.type === "ArrowFunctionExpression" ||
       enclosingNode.type === "FunctionExpression" ||
+      enclosingNode.type === "FunctionDeclaration" ||
       enclosingNode.type === "ClassMethod") &&
     followingNode &&
     followingNode.type !== "Identifier"
