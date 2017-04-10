@@ -7,16 +7,7 @@
     "sourceType": "module"
   },
   "rules": {
-    "func-call-spacing": 2,
-    "guard-for-in": 2,
     "no-debugger": 2,
-    "no-dupe-args": 2,
-    "no-dupe-keys": 2,
-    "no-duplicate-case": 2,
-    "no-multi-spaces": 2,
-    "no-self-compare": 2,
-    "no-unused-vars": 2,
-    "space-before-function-paren": ["error", "never"],
-    "yoda": 2
+    "no-unused-vars": 2
   }
 }
