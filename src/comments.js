@@ -196,6 +196,7 @@ function attach(comments, ast, text, options) {
         handleTemplateLiteralComments(enclosingNode, comment) ||
         handleIfStatementComments(enclosingNode, followingNode, comment) ||
         handleClassComments(enclosingNode, comment) ||
+        handleLabeledStatementComments(enclosingNode, comment) ||
         handleCallExpressionComments(precedingNode, enclosingNode, comment) ||
         handlePropertyComments(enclosingNode, comment) ||
         handleExportNamedDeclarationComments(enclosingNode, comment) ||
@@ -572,6 +573,14 @@ function handleImportSpecifierComments(enclosingNode, comment) {
 
 function handleObjectPropertyComments(enclosingNode, comment) {
   if (enclosingNode && enclosingNode.type === "ObjectProperty") {
+    addLeadingComment(enclosingNode, comment);
+    return true;
+  }
+  return false;
+}
+
+function handleLabeledStatementComments(enclosingNode, comment) {
+  if (enclosingNode && enclosingNode.type === "LabeledStatement") {
     addLeadingComment(enclosingNode, comment);
     return true;
   }
