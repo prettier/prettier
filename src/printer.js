@@ -3174,7 +3174,8 @@ function printAssignment(printedLeft, operator, rightNode, printedRight, options
     (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) ||
     rightNode.type === "StringLiteral" ||
     (rightNode.type === "Literal" &&
-      typeof rightNode.value === "string")
+      typeof rightNode.value === "string") ||
+    isMemberExpressionChain(rightNode)
   ) {
     printed = indent(
       concat([line, printedRight])
@@ -3381,6 +3382,16 @@ function returnArgumentHasLeadingComment(options, argument) {
   }
 
   return false;
+}
+
+function isMemberExpressionChain(node) {
+  if (node.type !== "MemberExpression") {
+    return false;
+  }
+  if (node.object.type === "Identifier") {
+    return true;
+  }
+  return isMemberExpressionChain(node.object);
 }
 
 // Hack to differentiate between the following two which have the same ast

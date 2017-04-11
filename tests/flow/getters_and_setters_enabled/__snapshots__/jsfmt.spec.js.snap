@@ -384,7 +384,8 @@ var testSubtypingGetterAndSetter: number = obj.propWithSubtypingGetterAndSetter;
 obj.exampleOfOrderOfGetterAndSetter = new C(); // Error C ~> B
 
 // And this example shows the danger of using the setter's type.
-var testExampleOrOrderOfGetterAndSetterReordered: number = obj.exampleOfOrderOfGetterAndSetterReordered; // Error A ~> B
+var testExampleOrOrderOfGetterAndSetterReordered: number =
+  obj.exampleOfOrderOfGetterAndSetterReordered; // Error A ~> B
 "
 `;
 
@@ -480,7 +481,8 @@ function test(obj: T) {
 
   obj.goodSetterWithAnnotation = \\"hello\\"; // Error string ~> number
 
-  var testSubtypingGetterAndSetter: number = obj.propWithSubtypingGetterAndSetter; // Error ?number ~> number
+  var testSubtypingGetterAndSetter: number =
+    obj.propWithSubtypingGetterAndSetter; // Error ?number ~> number
 
   // When building this feature, it was tempting to flow the setter into the
   // getter and then use either the getter or setter as the type of the
@@ -488,7 +490,8 @@ function test(obj: T) {
   obj.exampleOfOrderOfGetterAndSetter = new C(); // Error C ~> B
 
   // And this example shows the danger of using the setter's type.
-  var testExampleOrOrderOfGetterAndSetterReordered: number = obj.exampleOfOrderOfGetterAndSetterReordered; // Error A ~> B
+  var testExampleOrOrderOfGetterAndSetterReordered: number =
+    obj.exampleOfOrderOfGetterAndSetterReordered; // Error A ~> B
 }
 "
 `;
