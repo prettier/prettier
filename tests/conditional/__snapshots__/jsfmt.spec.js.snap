@@ -89,3 +89,14 @@ const testConsole = new TestConsole(
 );
 "
 `;
+
+exports[`no-confusing-arrow.js 1`] = `
+"// no-confusing-arrow
+var x = a => 1 ? 2 : 3;
+var x = a <= 1 ? 2 : 3;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// no-confusing-arrow
+var x = a => (1 ? 2 : 3);
+var x = a <= 1 ? 2 : 3;
+"
+`;
