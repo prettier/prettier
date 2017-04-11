@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`styled-components.js 1`] = `
+"<style jsx>{\`
+  p {
+    color: red;
+  }
+\`}</style>;
+
+<style jsx>{tpl\`
+  p {
+    color: red;
+  }
+\`}</style>;
+
+<style jsx>
+  {\`p {
+     color: red;
+     }
+  \`}
+</style>;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<style jsx>{\`
+  p {
+    color: red;
+  }
+\`}</style>;
+
+<style jsx>{tpl\`
+  p {
+    color: red;
+  }
+\`}</style>;
+
+<style jsx>
+  {\`p {
+     color: red;
+     }
+  \`}
+</style>;
+"
+`;
