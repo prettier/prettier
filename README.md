@@ -241,7 +241,11 @@ prettier.format(source, {
   jsxBracketSameLine: false,
 
   // Which parser to use. Valid options are 'flow' and 'babylon'
-  parser: 'babylon'
+  parser: 'babylon',
+
+  // Whether to add a semicolon at the end of every line (semi: true),
+  // or only at the beginning of lines that may introduce ASI failures (semi: false)
+  semi: true
 });
 ```
 
