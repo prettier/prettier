@@ -73,7 +73,7 @@ true
     }),
     require(\\"postcss-url\\")({
       url: url =>
-        url.startsWith(\\"/\\") || /^[a-z]+:/.test(url) ? url : \`/static/\${url}\`
+        (url.startsWith(\\"/\\") || /^[a-z]+:/.test(url) ? url : \`/static/\${url}\`)
     })
   ]
 });
