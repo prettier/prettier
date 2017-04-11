@@ -342,6 +342,12 @@ FPp.needsParens = function(assumeExpressionContext) {
             return true;
           }
 
+          // Add parenthesis when working with binary operators
+          // It's not stricly needed but helps with code understanding
+          if (["|", "^", "&", ">>", "<<", ">>>"].indexOf(po) !== -1) {
+            return true;
+          }
+
         default:
           return false;
       }
