@@ -212,7 +212,8 @@ export default function theFunction(action$, store) {
     })
       .filter(data => theFilter(data))
       .map(({ theType, ...data }) => theMap(theType, data))
-      .retryWhen(errors => errors));
+      .retryWhen(errors => errors)
+  );
 }
 
 function f() {

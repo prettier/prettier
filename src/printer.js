@@ -50,13 +50,13 @@ function shouldPrintComma(options, level) {
   }
 }
 
-function genericPrint(path, options, printPath) {
+function genericPrint(path, options, printPath, args) {
   assert.ok(path instanceof FastPath);
 
   var node = path.getValue();
   var parts = [];
   var needsParens = false;
-  var linesWithoutParens = genericPrintNoParens(path, options, printPath);
+  var linesWithoutParens = genericPrintNoParens(path, options, printPath, args);
 
   if (!node || isEmpty(linesWithoutParens)) {
     return linesWithoutParens;
@@ -122,7 +122,7 @@ function genericPrint(path, options, printPath) {
   return concat(parts);
 }
 
-function genericPrintNoParens(path, options, print) {
+function genericPrintNoParens(path, options, print, args) {
   var n = path.getValue();
 
   if (!n) {
@@ -275,7 +275,7 @@ function genericPrintNoParens(path, options, print) {
     case "FunctionDeclaration":
     case "FunctionExpression":
       return printFunctionDeclaration(path, print, options)
-    case "ArrowFunctionExpression":
+    case "ArrowFunctionExpression": {
       if (n.async) parts.push("async ");
 
       if (n.typeParameters) {
@@ -325,12 +325,28 @@ function genericPrintNoParens(path, options, print) {
         return group(collapsed);
       }
 
+      // if the arrow function is expanded as last argument, we are adding a
+      // level of indentation and need to add a softline to align the closing )
+      // with the opening (.
+      const shouldAddSoftLine = args && args.expandLastArg;
+
       return group(
         concat([
           concat(parts),
-          group(indent(concat([line, body])))
+          group(
+            concat([
+              indent(concat([line, body])),
+              shouldAddSoftLine
+                ? concat([
+                    ifBreak(shouldPrintComma(options, "all") ? "," : ""),
+                    softline
+                  ])
+                : ''
+            ])
+          ),
         ])
       );
+    }
     case "MethodDefinition":
       if (n.static) {
         parts.push("static ");
@@ -2129,11 +2145,29 @@ function printArgumentsList(path, options, print) {
     const shouldBreak = shouldGroupFirst
       ? printed.slice(1).some(willBreak)
       : printed.slice(0, -1).some(willBreak);
+
+    let printedLastArgExpanded;
+    if (shouldGroupFirst) {
+      printedLastArgExpanded = printed;
+    } else {
+      // We want to print the last argument with a special flag
+      let i = 0;
+      path.each(function(argPath) {
+        if (i++ === args.length - 1) {
+          printedLastArgExpanded = printed
+            .slice(0, -1)
+            .concat(argPath.call(
+              p => print(p, { expandLastArg: true })
+            ));
+        }
+      }, "arguments");
+    }
+
     return concat([
       printed.some(willBreak) ? breakParent : "",
       conditionalGroup(
         [
-          concat(["(", join(concat([", "]), printed), ")"]),
+          concat(["(", join(concat([", "]), printedLastArgExpanded), ")"]),
           shouldGroupFirst
             ? concat([
                 "(",
@@ -2146,7 +2180,10 @@ function printArgumentsList(path, options, print) {
                 "(",
                 join(concat([",", line]), printed.slice(0, -1)),
                 printed.length > 1 ? ", " : "",
-                group(util.getLast(printed), { shouldBreak: true }),
+                group(
+                  util.getLast(printedLastArgExpanded),
+                  { shouldBreak: true }
+                ),
                 ")"
               ]),
           group(
@@ -3371,11 +3408,12 @@ function printArrayItems(path, options, printPath, print) {
   return concat(printedElements);
 }
 
+
 function printAstToDoc(ast, options) {
-  function printGenerically(path) {
+  function printGenerically(path, args) {
     return comments.printComments(
       path,
-      p => genericPrint(p, options, printGenerically),
+      p => genericPrint(p, options, printGenerically, args),
       options
     );
   }
