@@ -1,7 +1,7 @@
 var React = require('React');
 
 var C = React.createClass({
-  getInitialState: function() {
+  getInitialState: function(): { x: number } {
     return { x: 0 };
   },
 

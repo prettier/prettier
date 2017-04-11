@@ -77,7 +77,7 @@ var FooLegacy = React.createClass({
   },
 });
 
-FooLegacy.defaultProps = 0; // TODO: should be error
+FooLegacy.defaultProps = 0;
 var foo_legacy: $jsx<number> = <FooLegacy/>;
 
 FooLegacy.bar();

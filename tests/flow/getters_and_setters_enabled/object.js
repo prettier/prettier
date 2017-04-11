@@ -30,6 +30,9 @@ var obj = {
 
   set exampleOfOrderOfGetterAndSetterReordered(x: B) {},
   get exampleOfOrderOfGetterAndSetterReordered(): A { return new A(); },
+
+  set [z](x: string) {},
+  get [z](): string { return string; },
 };
 
 

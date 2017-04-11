@@ -33,3 +33,15 @@ switch (foo) {
   case "baz":
     doOtherThing();
 }
+
+switch (x) {
+  case y:
+    call();
+
+    break;
+
+  case z:
+    call();
+
+    break;
+}

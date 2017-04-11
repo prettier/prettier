@@ -3,6 +3,33 @@
 const MODE_BREAK = 1;
 const MODE_FLAT = 2;
 
+function rootIndent() {
+  return {
+    indent: 0,
+    align: {
+      spaces: 0,
+      tabs: 0
+    }
+  };
+}
+
+function makeIndent(ind) {
+  return {
+    indent: ind.indent + 1,
+    align: ind.align
+  };
+}
+
+function makeAlign(ind, n) {
+  return {
+    indent: ind.indent,
+    align: {
+      spaces: ind.align.spaces + n,
+      tabs: ind.align.tabs + (n ? 1 : 0)
+    }
+  };
+}
+
 function fits(next, restCommands, width) {
   let restIdx = restCommands.length;
   const cmds = [next];
@@ -36,11 +63,11 @@ function fits(next, restCommands, width) {
 
           break;
         case "indent":
-          cmds.push([ind + doc.n, mode, doc.contents, align]);
+          cmds.push([makeIndent(ind), mode, doc.contents]);
 
           break;
-        case "align-spaces":
-          cmds.push([ind, mode, doc.contents, align + doc.n]);
+        case "align":
+          cmds.push([makeAlign(ind, doc.n), mode, doc.contents]);
 
           break;
         case "group":
@@ -84,15 +111,12 @@ function fits(next, restCommands, width) {
 
 function printDocToString(doc, options) {
   let width = options.printWidth;
-  let tabWidth = options.tabWidth;
-  let useTabs = options.useTabs;
-  let indentStr = useTabs ? "\t" : " ".repeat(tabWidth);
   let newLine = options.newLine || "\n";
   let pos = 0;
   // cmds is basically a stack. We've turned a recursive call into a
   // while loop which is much faster. The while loop below adds new
   // cmds to the array instead of recursively calling `print`.
-  let cmds = [[0, MODE_BREAK, doc, 0]];
+  let cmds = [[rootIndent(), MODE_BREAK, doc]];
   let out = [];
   let shouldRemeasure = false;
   let lineSuffix = [];
@@ -117,12 +141,11 @@ function printDocToString(doc, options) {
 
           break;
         case "indent":
-          cmds.push([ind + doc.n, mode, doc.contents, align]);
+          cmds.push([makeIndent(ind), mode, doc.contents]);
 
           break;
-        case "align-spaces":
-          let nextAlign = align + (useTabs ? (doc.n ? 1 : 0) : doc.n);
-          cmds.push([ind, mode, doc.contents, nextAlign]);
+        case "align":
+          cmds.push([makeAlign(ind, doc.n), mode, doc.contents]);
 
           break;
         case "group":
@@ -254,15 +277,12 @@ function printDocToString(doc, options) {
                   );
                 }
 
-                let lineIndent = useTabs
-                  ? indentStr.repeat(ind + align)
-                  : indentStr.repeat(ind) + " ".repeat(align);
-                out.push(/*lineSuffix +*/ newLine + lineIndent);
-                pos = ind * tabWidth + align;
-/*
-                out.push(newLine + " ".repeat(ind));
-                pos = ind;
-*/
+                let length = ind.indent * options.tabWidth + ind.align.spaces;
+                let indentString = options.useTabs
+                  ? "\t".repeat(ind.indent + ind.align.tabs)
+                  : " ".repeat(length);
+                out.push(newLine + indentString);
+                pos = length;
               }
               break;
           }

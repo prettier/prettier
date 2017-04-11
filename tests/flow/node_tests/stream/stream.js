@@ -31,3 +31,7 @@ new MyReadStream()
   .pipe(new MyTransform())
   .pipe(new MyWriteStream());
 
+new MyReadStream()
+  .on('error', () => {})
+  .pipe(new MyDuplex())
+  .once('close', () => {});

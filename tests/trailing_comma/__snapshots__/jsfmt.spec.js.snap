@@ -847,15 +847,15 @@ o = {
 function supersupersupersuperLongF(
   supersupersupersuperLongA,
   supersupersupersuperLongB
-) // Comment
-{
+  // Comment
+) {
   a;
 }
 function supersupersupersuperLongF(
   supersupersupersuperLongA,
   supersupersupersuperLongB
-) // Comment
-{
+  // Comment
+) {
   a;
 }
 "
@@ -923,15 +923,15 @@ o = {
 function supersupersupersuperLongF(
   supersupersupersuperLongA,
   supersupersupersuperLongB,
-) // Comment
-{
+  // Comment
+) {
   a;
 }
 function supersupersupersuperLongF(
   supersupersupersuperLongA,
   supersupersupersuperLongB,
-) // Comment
-{
+  // Comment
+) {
   a;
 }
 "
@@ -999,15 +999,15 @@ o = {
 function supersupersupersuperLongF(
   supersupersupersuperLongA,
   supersupersupersuperLongB
-) // Comment
-{
+  // Comment
+) {
   a;
 }
 function supersupersupersuperLongF(
   supersupersupersuperLongA,
   supersupersupersuperLongB
-) // Comment
-{
+  // Comment
+) {
   a;
 }
 "
@@ -1075,15 +1075,15 @@ o = {
 function supersupersupersuperLongF(
   supersupersupersuperLongA,
   supersupersupersuperLongB
-) // Comment
-{
+  // Comment
+) {
   a;
 }
 function supersupersupersuperLongF(
   supersupersupersuperLongA,
   supersupersupersuperLongB
-) // Comment
-{
+  // Comment
+) {
   a;
 }
 "
@@ -1151,15 +1151,15 @@ o = {
 function supersupersupersuperLongF(
   supersupersupersuperLongA,
   supersupersupersuperLongB,
-) // Comment
-{
+  // Comment
+) {
   a;
 }
 function supersupersupersuperLongF(
   supersupersupersuperLongA,
   supersupersupersuperLongB,
-) // Comment
-{
+  // Comment
+) {
   a;
 }
 "

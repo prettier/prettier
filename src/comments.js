@@ -11,6 +11,7 @@ var concat = docBuilders.concat;
 var hardline = docBuilders.hardline;
 var breakParent = docBuilders.breakParent;
 var indent = docBuilders.indent;
+var align = docBuilders.align;
 var lineSuffix = docBuilders.lineSuffix;
 var join = docBuilders.join;
 var util = require("./util");
@@ -18,6 +19,7 @@ var comparePos = util.comparePos;
 var childNodesCacheKey = Symbol("child-nodes");
 var locStart = util.locStart;
 var locEnd = util.locEnd;
+var getNextNonSpaceNonCommentCharacter = util.getNextNonSpaceNonCommentCharacter;
 
 // TODO Move a non-caching implementation of this function into ast-types,
 // and implement a caching wrapper function here.
@@ -153,7 +155,7 @@ function attach(comments, ast, text, options) {
           comment
         ) ||
         handleMemberExpressionComments(enclosingNode, followingNode, comment) ||
-        handleIfStatementComments(enclosingNode, followingNode, comment) ||
+        handleIfStatementComments(text, enclosingNode, followingNode, comment) ||
         handleTryStatementComments(enclosingNode, followingNode, comment) ||
         handleClassComments(enclosingNode, comment) ||
         handleImportSpecifierComments(enclosingNode, comment) ||
@@ -192,12 +194,15 @@ function attach(comments, ast, text, options) {
         ) ||
         handleImportSpecifierComments(enclosingNode, comment) ||
         handleTemplateLiteralComments(enclosingNode, comment) ||
+        handleIfStatementComments(text, enclosingNode, followingNode, comment) ||
         handleClassComments(enclosingNode, comment) ||
+        handleLabeledStatementComments(enclosingNode, comment) ||
         handleCallExpressionComments(precedingNode, enclosingNode, comment) ||
         handlePropertyComments(enclosingNode, comment) ||
         handleExportNamedDeclarationComments(enclosingNode, comment) ||
         handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
-        handleClassMethodComments(enclosingNode, comment)
+        handleClassMethodComments(enclosingNode, comment) ||
+        handleVariableDeclaratorComments(enclosingNode, followingNode, comment)
       ) {
         // We're good
       } else if (precedingNode) {
@@ -214,7 +219,7 @@ function attach(comments, ast, text, options) {
       }
     } else {
       if (
-        handleIfStatementComments(enclosingNode, followingNode, comment) ||
+        handleIfStatementComments(text, enclosingNode, followingNode, comment) ||
         handleObjectPropertyAssignment(enclosingNode, precedingNode, comment) ||
         handleTemplateLiteralComments(enclosingNode, comment) ||
         handleCommentInEmptyParens(enclosingNode, comment) ||
@@ -360,10 +365,22 @@ function addBlockOrNotComment(node, comment) {
 //     // comment
 //     ...
 //   }
-function handleIfStatementComments(enclosingNode, followingNode, comment) {
+function handleIfStatementComments(text, enclosingNode, followingNode, comment) {
   if (
-    !enclosingNode || enclosingNode.type !== "IfStatement" || !followingNode
+    !enclosingNode ||
+    enclosingNode.type !== "IfStatement" ||
+    !followingNode
   ) {
+    return false;
+  }
+
+  // We unfortunately have no way using the AST or location of nodes to know
+  // if the comment is positioned before or after the condition parenthesis:
+  //   if (a /* comment */) {}
+  //   if (a) /* comment */ {}
+  // The only workaround I found is to look at the next character to see if
+  // it is a ).
+  if (getNextNonSpaceNonCommentCharacter(text, comment) === ")") {
     return false;
   }
 
@@ -523,6 +540,7 @@ function handleLastFunctionArgComments(
     enclosingNode &&
     (enclosingNode.type === "ArrowFunctionExpression" ||
       enclosingNode.type === "FunctionExpression" ||
+      enclosingNode.type === "FunctionDeclaration" ||
       enclosingNode.type === "ClassMethod") &&
     followingNode &&
     followingNode.type !== "Identifier"
@@ -555,6 +573,14 @@ function handleImportSpecifierComments(enclosingNode, comment) {
 
 function handleObjectPropertyComments(enclosingNode, comment) {
   if (enclosingNode && enclosingNode.type === "ObjectProperty") {
+    addLeadingComment(enclosingNode, comment);
+    return true;
+  }
+  return false;
+}
+
+function handleLabeledStatementComments(enclosingNode, comment) {
+  if (enclosingNode && enclosingNode.type === "LabeledStatement") {
     addLeadingComment(enclosingNode, comment);
     return true;
   }
@@ -670,6 +696,20 @@ function handleAssignmentPatternComments(enclosingNode, comment) {
 function handleClassMethodComments(enclosingNode, comment) {
   if (enclosingNode && enclosingNode.type === "ClassMethod") {
     addTrailingComment(enclosingNode, comment);
+    return true;
+  }
+  return false;
+}
+
+function handleVariableDeclaratorComments(enclosingNode, followingNode, comment) {
+  if (
+    enclosingNode &&
+    enclosingNode.type === "VariableDeclarator" &&
+    followingNode && (
+      followingNode.type === "ObjectExpression" ||
+      followingNode.type === "ArrayExpression")
+  ) {
+    addLeadingComment(followingNode, comment);
     return true;
   }
   return false;
@@ -802,7 +842,7 @@ function printDanglingComments(path, options, sameIndent) {
   if (sameIndent) {
     return join(hardline, parts);
   }
-  return indent(1, concat([hardline, join(hardline, parts)]));
+  return indent(concat([hardline, join(hardline, parts)]));
 }
 
 function printComments(path, print, options) {

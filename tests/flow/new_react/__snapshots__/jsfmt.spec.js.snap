@@ -294,7 +294,7 @@ var FooLegacy = React.createClass({
   },
 });
 
-FooLegacy.defaultProps = 0; // TODO: should be error
+FooLegacy.defaultProps = 0;
 var foo_legacy: $jsx<number> = <FooLegacy/>;
 
 FooLegacy.bar();
@@ -372,7 +372,7 @@ var FooLegacy = React.createClass({
   }
 });
 
-FooLegacy.defaultProps = 0; // TODO: should be error
+FooLegacy.defaultProps = 0;
 var foo_legacy: $jsx<number> = <FooLegacy />;
 
 FooLegacy.bar();
@@ -437,7 +437,7 @@ var C = React.createClass({
     getDefaultProps(): { z: number } {
         return { z: 0 };
     },
-    getInitialState() { return 4; },
+    getInitialState() { return null; },
     render() {
         var foo: string = this.state;
         var bar: string = this.props;
@@ -471,7 +471,7 @@ var C = React.createClass({
     return { z: 0 };
   },
   getInitialState() {
-    return 4;
+    return null;
   },
   render() {
     var foo: string = this.state;
@@ -956,7 +956,7 @@ exports[`state4.js 1`] = `
 "var React = require('React');
 
 var C = React.createClass({
-  getInitialState: function() {
+  getInitialState: function(): { x: number } {
     return { x: 0 };
   },
 
@@ -970,7 +970,7 @@ var C = React.createClass({
 var React = require(\\"React\\");
 
 var C = React.createClass({
-  getInitialState: function() {
+  getInitialState: function(): { x: number } {
     return { x: 0 };
   },
 

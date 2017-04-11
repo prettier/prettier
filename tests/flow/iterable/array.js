@@ -1,10 +1,8 @@
 /* @flow */
 
-var arrayTest1: Iterable<number> = ([1, 2]: Array<number>);
-var arrayTest2: Iterable<number | string> = [1,2,"hi"];
-var arrayTest3: Iterable<*> = [1,2,3];
+(([1, 2]: Array<number>): Iterable<number>);
+([1,2,"hi"]: Iterable<number | string>);
+([1,2,3]: Iterable<*>);
 
-// Error string ~> number
-var arrayTest4: Iterable<number> = ["hi"];
-// Error string ~> number
-var arrayTest5: Iterable<string> = ["hi", 1];
+(["hi"]: Iterable<number>); // Error string ~> number
+(["hi", 1]: Iterable<string>); // Error number ~> string

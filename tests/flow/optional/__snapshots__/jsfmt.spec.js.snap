@@ -37,6 +37,23 @@ class C {
 "
 `;
 
+exports[`loop.js 1`] = `
+"/* Regression test. Improper handling of OptionalT repositioning can cause
+ * reasons to grow \\"optional x\\" -> \\"optional optional x\\" -> \\"optional optional
+ * optional x\\", which thwarts reason-based caches that prevent nontermination.
+ */
+function f<T:*>(x:T,y?:T) { x = y }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* Regression test. Improper handling of OptionalT repositioning can cause
+ * reasons to grow \\"optional x\\" -> \\"optional optional x\\" -> \\"optional optional
+ * optional x\\", which thwarts reason-based caches that prevent nontermination.
+ */
+function f<T: *>(x: T, y?: T) {
+  x = y;
+}
+"
+`;
+
 exports[`maybe.js 1`] = `
 "function foo(x?: string): ?string {
     return x;
@@ -160,8 +177,9 @@ foo();
 
 function qux(x=\\"hello\\",...y):string { foo(x); return y[0]; }
 
-qux(0,0);
-qux(0,...[\\"\\",42]);
+qux(0,0); // Error, number ~> string
+qux(0,...[42, \\"\\"]); // Error, number ~> string
+qux(0,...[\\"\\",42]); // No error
 
 module.exports = qux;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -178,8 +196,9 @@ function qux(x = \\"hello\\", ...y): string {
   return y[0];
 }
 
-qux(0, 0);
-qux(0, ...[\\"\\", 42]);
+qux(0, 0); // Error, number ~> string
+qux(0, ...[42, \\"\\"]); // Error, number ~> string
+qux(0, ...[\\"\\", 42]); // No error
 
 module.exports = qux;
 "

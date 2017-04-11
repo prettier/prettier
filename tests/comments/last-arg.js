@@ -24,3 +24,10 @@ class X {
     // TODO this is a very very very very long comment that makes it go > 80 columns
   ) {}
 }
+
+function f(
+  a: number
+// some comment here
+): number {
+  return a + 1;
+}

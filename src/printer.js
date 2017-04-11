@@ -15,7 +15,7 @@ var softline = docBuilders.softline;
 var literalline = docBuilders.literalline;
 var group = docBuilders.group;
 var indent = docBuilders.indent;
-var alignSpaces = docBuilders.alignSpaces;
+var align = docBuilders.align;
 var conditionalGroup = docBuilders.conditionalGroup;
 var ifBreak = docBuilders.ifBreak;
 var breakParent = docBuilders.breakParent;
@@ -207,7 +207,7 @@ function genericPrintNoParens(path, options, print) {
           // level. The first item is guaranteed to be the first
           // left-most expression.
           parts.length > 0 ? parts[0] : "",
-          indent(1, rest)
+          indent(rest)
         ])
       );
     }
@@ -315,7 +315,7 @@ function genericPrintNoParens(path, options, print) {
       return group(
         concat([
           concat(parts),
-          group(indent(1, concat([line, body])))
+          group(indent(concat([line, body])))
         ])
       );
     case "MethodDefinition":
@@ -466,7 +466,6 @@ function genericPrintNoParens(path, options, print) {
               concat([
                 "{",
                 indent(
-                  1,
                   concat([
                     options.bracesSpacing ? line : softline,
                     join(concat([",", line]), grouped)
@@ -496,7 +495,7 @@ function genericPrintNoParens(path, options, print) {
       // we want and this break would take precedence instead.
       if (grouped.length === 0) {
         return group(
-          concat([concat(parts), indent(1, concat(fromParts))])
+          concat([concat(parts), indent(concat(fromParts))])
         );
       }
 
@@ -540,7 +539,6 @@ function genericPrintNoParens(path, options, print) {
           function(childPath) {
             parts.push(
               indent(
-                1,
                 concat([hardline, print(childPath), ";"])
               )
             );
@@ -550,7 +548,7 @@ function genericPrintNoParens(path, options, print) {
       }
 
       if (hasContent) {
-        parts.push(indent(1, concat([hardline, naked])));
+        parts.push(indent(concat([hardline, naked])));
       }
 
       parts.push(comments.printDanglingComments(path, options));
@@ -567,7 +565,6 @@ function genericPrintNoParens(path, options, print) {
             concat([
               " (",
               indent(
-                1,
                 concat([softline, path.call(print, "argument")])
               ),
               line,
@@ -582,7 +579,6 @@ function genericPrintNoParens(path, options, print) {
             group(concat([
               ifBreak(" (", " "),
               indent(
-                1,
                 concat([softline, path.call(print, "argument")])
               ),
               softline,
@@ -592,6 +588,21 @@ function genericPrintNoParens(path, options, print) {
         } else {
           parts.push(" ", path.call(print, "argument"));
         }
+      }
+
+      const hasDanglingComments =
+        n.comments &&
+        n.comments.some(comment => !comment.leading && !comment.trailing);
+
+      if (hasDanglingComments) {
+        parts.push(
+          " ",
+          comments.printDanglingComments(
+            path,
+            options,
+            /* sameIndent */ true
+          )
+        );
       }
 
       parts.push(";");
@@ -704,8 +715,7 @@ function genericPrintNoParens(path, options, print) {
           concat([
             leftBrace,
             indent(
-              1,
-              alignSpaces(
+              align(
                 parentIsUnionTypeAnnotation ? 2 : 0,
                 concat([
                   options.bracesSpacing ? line : softline,
@@ -716,7 +726,7 @@ function genericPrintNoParens(path, options, print) {
             ifBreak(
               canHaveTrailingComma && shouldPrintComma(options, "object") ? "," : ""
             ),
-            alignSpaces(
+            align(
               parentIsUnionTypeAnnotation ? 2 : 0,
               concat([options.bracesSpacing ? line : softline, rightBrace])
             ),
@@ -756,7 +766,7 @@ function genericPrintNoParens(path, options, print) {
             group(concat([
               ":",
               ifBreak(" (", " "),
-              indent(1, concat([softline, printedValue])),
+              indent(concat([softline, printedValue])),
               softline,
               ifBreak(")")
             ]))
@@ -832,7 +842,6 @@ function genericPrintNoParens(path, options, print) {
             concat([
               "[",
               indent(
-                1,
                 concat([
                   softline,
                   printArrayItems(path, options, "elements", print)
@@ -928,21 +937,20 @@ function genericPrintNoParens(path, options, print) {
         return group(
           subTernary
           ? concat(parts)
-          : indent(1, concat([softline].concat(parts)))
+          : indent(concat([softline].concat(parts)))
         );
       } else {
         return group(
           concat([
             path.call(print, "test"),
             indent(
-              1,
               concat([
                 line,
                 "? ",
-                alignSpaces(2, path.call(print, "consequent")),
+                align(2, path.call(print, "consequent")),
                 line,
                 ": ",
-                alignSpaces(2, path.call(print, "alternate"))
+                align(2, path.call(print, "alternate"))
               ])
             )
           ])
@@ -975,7 +983,6 @@ function genericPrintNoParens(path, options, print) {
         " ",
         printed[0],
         indent(
-          1,
           concat(printed.slice(1).map(p => concat([",", line, p])))
         )
       ];
@@ -1017,7 +1024,6 @@ function genericPrintNoParens(path, options, print) {
         "if (",
         group(concat([
           indent(
-            1,
             concat([softline, path.call(print, "test")])
           ),
           softline
@@ -1074,7 +1080,6 @@ function genericPrintNoParens(path, options, print) {
         group(
           concat([
             indent(
-              1,
               concat([
                 softline,
                 path.call(print, "init"),
@@ -1099,7 +1104,6 @@ function genericPrintNoParens(path, options, print) {
         group(
           concat([
             indent(
-              1,
               concat([softline, path.call(print, "test")])
             ),
             softline
@@ -1216,7 +1220,6 @@ function genericPrintNoParens(path, options, print) {
         ") {",
         n.cases.length > 0
           ? indent(
-              1,
               concat([hardline, join(hardline, path.map(print, "cases"))])
             )
           : "",
@@ -1235,12 +1238,16 @@ function genericPrintNoParens(path, options, print) {
 
       if (n.consequent.find(node => node.type !== "EmptyStatement")) {
         const cons = path.call(consequentPath => {
-          return join(hardline, consequentPath.map(print));
+          return join(hardline, consequentPath.map((p, i) => {
+            const shouldAddLine = i !== n.consequent.length - 1 &&
+              util.isNextLineEmpty(options.originalText, p.getValue());
+            return concat([print(p), shouldAddLine ? hardline : ""]);
+          }));
         }, "consequent");
         parts.push(
           isCurlyBracket(cons)
             ? concat([" ", cons])
-            : indent(1, concat([hardline, cons]))
+            : indent(concat([hardline, cons]))
         );
       }
 
@@ -1257,7 +1264,10 @@ function genericPrintNoParens(path, options, print) {
           (n.value.type === "StringLiteral" || n.value.type === "Literal") &&
           typeof n.value.value === "string"
         ) {
-          res = '"' + util.htmlEscapeInsideDoubleQuote(n.value.value) + '"';
+          const value = n.value.extra ? n.value.extra.raw : n.value.raw;
+          res = '"' +
+            value.slice(1, value.length - 1).replace(/"/g, "&quot;") +
+            '"';
         } else {
           res = path.call(print, "value");
         }
@@ -1302,7 +1312,6 @@ function genericPrintNoParens(path, options, print) {
         concat([
           "{",
           indent(
-            1,
             concat([softline, path.call(print, "expression")])
           ),
           softline,
@@ -1342,7 +1351,6 @@ function genericPrintNoParens(path, options, print) {
           path.call(print, "name"),
           concat([
             indent(
-              1,
               concat(
                 path.map(attr => concat([line, print(attr)]), "attributes")
               )
@@ -1385,7 +1393,6 @@ function genericPrintNoParens(path, options, print) {
         "{",
         n.body.length > 0
           ? indent(
-              1,
               concat([
                 hardline,
                 path.call(
@@ -1533,7 +1540,6 @@ function genericPrintNoParens(path, options, print) {
         concat([
           "[",
           indent(
-            1,
             concat([
               softline,
               printArrayItems(path, options, typesField, print)
@@ -1607,6 +1613,7 @@ function genericPrintNoParens(path, options, print) {
       // declare function foo(a: B): void; OR
       // var A: (a: B) => void;
       var parent = path.getParentNode(0);
+      var parentParent = path.getParentNode(1);
       var isArrowFunctionTypeAnnotation = n.type === "TSFunctionType" || !((!getFlowVariance(parent, options) &&
         !parent.optional &&
         namedTypes.ObjectTypeProperty.check(parent)) ||
@@ -1616,6 +1623,14 @@ function genericPrintNoParens(path, options, print) {
       var needsColon = isArrowFunctionTypeAnnotation &&
         namedTypes.TypeAnnotation.check(parent);
 
+      // Sadly we can't put it inside of FastPath::needsColon because we are
+      // printing ":" as part of the expression and it would put parenthesis
+      // around :(
+      const needsParens = needsColon &&
+        isArrowFunctionTypeAnnotation &&
+        parent.type === "TypeAnnotation" &&
+        parentParent.type === "ArrowFunctionExpression";
+
       if (isObjectTypePropertyAFunction(parent)) {
         isArrowFunctionTypeAnnotation = true;
         needsColon = true;
@@ -1623,6 +1638,9 @@ function genericPrintNoParens(path, options, print) {
 
       if (needsColon) {
         parts.push(": ");
+      }
+      if (needsParens) {
+        parts.push("(");
       }
 
       parts.push(path.call(print, "typeParameters"));
@@ -1638,6 +1656,9 @@ function genericPrintNoParens(path, options, print) {
           path.call(print, "predicate"),
           path.call(print, "typeAnnotation")
         );
+      }
+      if (needsParens) {
+        parts.push(")");
       }
 
       return group(concat(parts));
@@ -1672,7 +1693,6 @@ function genericPrintNoParens(path, options, print) {
         parts.push(
           group(
             indent(
-              1,
               concat([
                 line,
                 "extends ",
@@ -1701,16 +1721,14 @@ function genericPrintNoParens(path, options, print) {
         if (i === 0) {
           result.push(types[i]);
         } else if (
-          (n.types[i - 1].type === "ObjectTypeAnnotation" &&
-            n.types[i].type !== "ObjectTypeAnnotation") ||
-          (n.types[i - 1].type !== "ObjectTypeAnnotation" &&
-            n.types[i].type === "ObjectTypeAnnotation")
+          n.types[i - 1].type !== "ObjectTypeAnnotation" &&
+          n.types[i].type !== "ObjectTypeAnnotation"
         ) {
-          // If you go from object to non-object or vis-versa, then inline it
-          result.push(" & ", types[i]);
+          // If no object is involved, go to the next line if it breaks
+          result.push(indent(concat([" &", line, types[i]])));
         } else {
-          // Otherwise go to the next line and indent
-          result.push(indent(1, concat([" &", line, types[i]])));
+          // If you go from object to non-object or vis-versa, then inline it
+          result.push(" & ", i > 1 ? indent(types[i]) : types[i]);
         }
       }
       return group(concat(result));
@@ -1730,14 +1748,14 @@ function genericPrintNoParens(path, options, print) {
       const shouldIndent = !(parent.type === "TypeAlias" &&
         hasLeadingOwnLineComment(options.originalText, n));
 
+      //const token = isIntersection ? "&" : "|";
+      const code = concat([
+        ifBreak(concat([shouldIndent ? line : "", "| "])),
+        join(concat([line, "| "]), path.map(print, "types"))
+      ]);
+
       return group(
-        indent(
-          shouldIndent ? 1 : 0,
-          concat([
-            ifBreak(concat([shouldIndent ? line : "", "| "])),
-            join(concat([line, "| "]), path.map(print, "types"))
-          ])
-        )
+        shouldIndent ? indent(code) : code
       );
     }
     case "NullableTypeAnnotation":
@@ -1821,7 +1839,6 @@ function genericPrintNoParens(path, options, print) {
         " =",
         hasLeadingOwnLineComment(options.originalText, n.right)
           ? indent(
-              1,
               concat([hardline, path.call(print, "right")])
             )
           : concat([" ", path.call(print, "right")]),
@@ -1850,7 +1867,6 @@ function genericPrintNoParens(path, options, print) {
       return group(concat([
         "<",
         indent(
-          1,
           concat([
             softline,
             join(concat([",", line]), path.map(print, "params")),
@@ -2182,7 +2198,6 @@ function printArgumentsList(path, options, print) {
             concat([
               "(",
               indent(
-                1,
                 concat([line, join(concat([",", line]), printed)])
               ),
               shouldPrintComma(options, "arguments") ? "," : "",
@@ -2201,7 +2216,6 @@ function printArgumentsList(path, options, print) {
     concat([
       "(",
       indent(
-        1,
         concat([softline, join(concat([",", line]), printed)])
       ),
       ifBreak(shouldPrintComma(options, "arguments") ? "," : ""),
@@ -2293,7 +2307,6 @@ function printFunctionParams(path, print, options) {
   return concat([
     isFlowShorthandWithOneArg ? "" : "(",
     indent(
-      1,
       concat([softline, join(concat([",", line]), printed)])
     ),
     ifBreak(
@@ -2455,7 +2468,6 @@ function printExportDeclaration(path, options, print) {
               concat([
                 "{",
                 indent(
-                  1,
                   concat([
                     options.bracesSpacing ? line : softline,
                     join(concat([",", line]), specifiers)
@@ -2549,7 +2561,7 @@ function printClass(path, options, print) {
   }
 
   if (partsGroup.length > 0) {
-    parts.push(group(indent(1, concat(partsGroup))));
+    parts.push(group(indent(concat(partsGroup))));
   }
 
   parts.push(" ", path.call(print, "body"));
@@ -2567,7 +2579,7 @@ function printMemberLookup(path, options, print) {
           "[",
           group(
             concat([
-              indent(1, concat([softline, property])),
+              indent(concat([softline, property])),
               softline
             ])
           ),
@@ -2735,7 +2747,6 @@ function printMemberChain(path, options, print) {
 
   function printIndentedGroup(groups) {
     return indent(
-      1,
       group(concat([hardline, join(hardline, groups.map(printGroup))]))
     );
   }
@@ -2823,7 +2834,7 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
 
         if (/\S/.test(value)) {
           // treat each line of text as its own entity
-          value.split(/(\n\s*)/).forEach(line => {
+          value.split(/(\r?\n\s*)/).forEach(line => {
             const newlines = line.match(/\n/g);
             if (newlines) {
               children.push(hardline);
@@ -3003,7 +3014,6 @@ function printJSXElement(path, options, print) {
     concat([
       openingLines,
       indent(
-        1,
         group(concat(childrenGroupedByLine), { shouldBreak: true })
       ),
       hardline,
@@ -3041,7 +3051,7 @@ function maybeWrapJSXElementInParens(path, elem, options) {
   return group(
     concat([
       ifBreak("("),
-      indent(1, concat([softline, elem])),
+      indent(concat([softline, elem])),
       softline,
       ifBreak(")")
     ])
@@ -3138,12 +3148,15 @@ function printAssignment(printedLeft, operator, rightNode, printedRight, options
   let printed;
   if (hasLeadingOwnLineComment(options.originalText, rightNode)) {
     printed = indent(
-      1,
       concat([hardline, printedRight])
     );
-  } else if (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) {
+  } else if (
+    (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) ||
+    rightNode.type === "StringLiteral" ||
+    (rightNode.type === "Literal" &&
+      typeof rightNode.value === "string")
+  ) {
     printed = indent(
-      1,
       concat([line, printedRight])
     );
   } else {
@@ -3167,7 +3180,7 @@ function adjustClause(clause, options, forceSpace) {
     return concat([" ", clause]);
   }
 
-  return indent(1, concat([line, clause]));
+  return indent(concat([line, clause]));
 }
 
 function isCurlyBracket(doc) {

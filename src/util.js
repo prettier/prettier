@@ -217,16 +217,29 @@ function isPreviousLineEmpty(text, node) {
 function isNextLineEmpty(text, node) {
   let oldIdx = null;
   let idx = locEnd(node);
-  idx = skipToLineEnd(text, idx);
   while (idx !== oldIdx) {
     // We need to skip all the potential trailing inline comments
     oldIdx = idx;
+    idx = skipToLineEnd(text, idx);
     idx = skipInlineComment(text, idx);
     idx = skipSpaces(text, idx);
   }
   idx = skipTrailingComment(text, idx);
   idx = skipNewline(text, idx);
   return hasNewline(text, idx);
+}
+
+function getNextNonSpaceNonCommentCharacter(text, node) {
+  let oldIdx = null;
+  let idx = locEnd(node);
+  while (idx !== oldIdx) {
+    oldIdx = idx;
+    idx = skipSpaces(text, idx);
+    idx = skipInlineComment(text, idx);
+    idx = skipTrailingComment(text, idx);
+    idx = skipNewline(text, idx);
+  }
+  return text.charAt(idx);
 }
 
 function hasSpaces(text, index, opts) {
@@ -263,16 +276,6 @@ function setLocEnd(node, index) {
   } else {
     node.end = index;
   }
-}
-
-// http://stackoverflow.com/a/7124052
-function htmlEscapeInsideDoubleQuote(str) {
-  return str.replace(/&/g, "&amp;").replace(/"/g, "&quot;");
-  // Intentionally disable the following since it is safe inside of a
-  // double quote context
-  //    .replace(/'/g, '&#39;')
-  //    .replace(/</g, '&lt;')
-  //    .replace(/>/g, '&gt;');
 }
 
 // http://stackoverflow.com/a/7124052
@@ -316,6 +319,7 @@ module.exports = {
   getParentExportDeclaration,
   getPenultimate,
   getLast,
+  getNextNonSpaceNonCommentCharacter,
   skipWhitespace,
   skipSpaces,
   skipNewline,
@@ -328,6 +332,5 @@ module.exports = {
   locEnd,
   setLocStart,
   setLocEnd,
-  htmlEscapeInsideDoubleQuote,
   htmlEscapeInsideAngleBracket
 };

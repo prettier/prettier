@@ -1,0 +1,3 @@
+/* @flow */
+
+require('test2');

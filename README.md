@@ -45,6 +45,10 @@ support for language features from [ES2017](https://github.com/tc39/proposals/bl
 all original styling and ensures that all outputted JavaScript
 conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
 
+If you are interested in the details, you can watch those two conference talks:
+
+<a href="https://www.youtube.com/watch?v=hkfBvpEfWdA"><img width="298" src="https://cloud.githubusercontent.com/assets/197597/24886367/dda8a6f0-1e08-11e7-865b-22492450f10f.png"></a> <a href="https://www.youtube.com/watch?v=ziAShzxAVKY"><img width="298" src="https://cloud.githubusercontent.com/assets/197597/24886368/ddacd6f8-1e08-11e7-806a-9febd23cbf47.png"></a>
+
 *Warning*: This is a **beta**, and the format may change over time. If you
  aren't OK with the format changing, wait for a more stable version.
 
@@ -437,8 +441,8 @@ passes `prettier` output to `eslint --fix`
 uses `prettier` and `prettier-eslint` to format code with standard rules
 - [`prettier-standard-formatter`](https://github.com/dtinth/prettier-standard-formatter)
 passes `prettier` output to `standard --fix`
-- [`prettier-with-tabs`](https://github.com/arijs/prettier-with-tabs)
-allows you to configure prettier to use `tabs`
+- [`prettier-miscellaneous`](https://github.com/arijs/prettier-miscellaneous)
+`prettier` with a few minor extra options
 - [`neutrino-preset-prettier`](https://github.com/SpencerCDixon/neutrino-preset-prettier) allows you to use Prettier as a Neutrino preset
 
 
@@ -477,23 +481,30 @@ Show the world you're using *Prettier* → [![styled with prettier](https://img.
 
 ## Contributing
 
-We will work on better docs over time, but in the mean time, here are
-a few notes if you are interested in contributing:
+To get up and running, install the dependencies and run the tests:
 
-* You should be able to get up and running with just `yarn`.
-* This uses [Jest](https://facebook.github.io/jest/) snapshots for tests. The entire Flow test suite is
-  included here. You can make changes and run `jest -u`, and then
-  `git diff` to see the styles that changed. Always update the
-  snapshots if opening a PR.
-* If you can, look at [commands.md](commands.md) and check out
-  [Wadler's paper](http://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf)
-  to understand how this works. I will try to write a better explanation soon.
-* I haven't set up any automated tests yet, but for now as long as you
-  run `jest -u` to update the snapshots and I see them in the PR, that's fine.
-* You can run `AST_COMPARE=1 jest` for a more robust test run. That
-  formats each file, re-parses it, and compares the new AST with the
-  original one and makes sure they are semantically equivalent.
-* Each test folder has a `jsfmt.spec.js` that runs the tests.
-  Normally you can just put `run_spec(__dirname);` there but if you want to pass
-  specific options, you can add the options object as the 2nd parameter like:
-  `run_spec(__dirname, { parser: 'babylon' });`
+```
+yarn
+yarn test
+```
+
+Here's what you need to know about the tests:
+
+* The tests uses [Jest](https://facebook.github.io/jest/) snapshots.
+* You can make changes and run `jest -u` to update the snapshots. Then run `git
+  diff` to take a look at what changed. Always update the snapshots when opening
+  a PR.
+* You can run `AST_COMPARE=1 jest` for a more robust test run. That formats each
+  file, re-parses it, and compares the new AST with the original one and makes
+  sure they are semantically equivalent.
+* Each test folder has a `jsfmt.spec.js` that runs the tests. Normally you can
+  just put `run_spec(__dirname);` there. You can also pass options and
+  additional parsers, like this:
+  `run_spec(__dirname, { trailingComma: "es5" }, ["babylon"]);`
+* `tests/flow/` contains the Flow test suite, and is not supposed to be edited
+  by hand. To update it, clone the Flow repo next to the Prettier repo and run:
+  `node scripts/sync-flow-tests.js ../flow/tests/`.
+
+If you can, take look at [commands.md](commands.md) and check out [Wadler's
+paper](http://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf) to
+understand how Prettier works.

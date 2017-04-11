@@ -243,6 +243,9 @@ FPp.needsParens = function(assumeExpressionContext) {
 
   switch (node.type) {
     case "CallExpression":
+      if (parent.type === "NewExpression" && parent.callee === node) {
+        return true;
+      }
       return false;
 
     case "SpreadElement":
@@ -336,6 +339,12 @@ FPp.needsParens = function(assumeExpressionContext) {
 
           if (pp === np && name === "right") {
             assert.strictEqual(parent.right, node);
+            return true;
+          }
+
+          // Add parenthesis when working with binary operators
+          // It's not stricly needed but helps with code understanding
+          if (["|", "^", "&", ">>", "<<", ">>>"].indexOf(po) !== -1) {
             return true;
           }
 

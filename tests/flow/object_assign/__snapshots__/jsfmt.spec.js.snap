@@ -104,7 +104,6 @@ exports[`apply.js 1`] = `
 "// @flow
 
 (Object.assign.apply(null, [{}, {a: 1}, {b: 'foo'}]): {a: number, b: string});
-(Object.assign({}, ...[{a: 1}, {b: 'foo'}]): {a: number, b: string});
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
@@ -112,7 +111,6 @@ exports[`apply.js 1`] = `
   a: number,
   b: string
 });
-(Object.assign({}, ...[{ a: 1 }, { b: \\"foo\\" }]): { a: number, b: string });
 "
 `;
 
@@ -128,6 +126,41 @@ Object.assign({a: \\"foo\\"}, 123);
 Object.assign(\\"123\\", { a: \\"foo\\" });
 Object.assign(123, { a: \\"foo\\" });
 Object.assign({ a: \\"foo\\" }, 123);
+"
+`;
+
+exports[`spread.js 1`] = `
+"// @flow
+
+declare var arrOfObjs: Array<{ foo: string }>;
+declare var roArrOfObjs: $ReadOnlyArray<{foo: string}>;
+declare var tup: [{foo: string}, {bar: number}];
+
+(Object.assign({}, ...arrOfObjs): { foo: number}); // Error: string ~> number
+(Object.assign({}, ...roArrOfObjs): { foo: number}); // Error: string ~> number
+(Object.assign({}, ...tup): { foo: string, bar: boolean}); // Error: number ~> boolean
+
+(Object.assign(
+  {},
+  ...[{a: 1}, {b: 'foo'}],
+  ...[{c: true}],
+): {a: number, b: true, c: boolean}); // Error: 'foo' => true
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+
+declare var arrOfObjs: Array<{ foo: string }>;
+declare var roArrOfObjs: $ReadOnlyArray<{ foo: string }>;
+declare var tup: [{ foo: string }, { bar: number }];
+
+(Object.assign({}, ...arrOfObjs): { foo: number }); // Error: string ~> number
+(Object.assign({}, ...roArrOfObjs): { foo: number }); // Error: string ~> number
+(Object.assign({}, ...tup): { foo: string, bar: boolean }); // Error: number ~> boolean
+
+(Object.assign({}, ...[{ a: 1 }, { b: \\"foo\\" }], ...[{ c: true }]): {
+  a: number,
+  b: true,
+  c: boolean
+}); // Error: 'foo' => true
 "
 `;
 

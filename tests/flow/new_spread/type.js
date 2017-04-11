@@ -26,8 +26,8 @@ declare var o2: O2;
 ({p:y}: O2); // error: y ~> T
 ({p:x,q:y}: O2); // ok
 
-// can't make exact from inexact
-type O3 = {|...{p:T}|}; // error: spread result is not exact
+// can't make exact from inexact (TODO: force EvalT eagerly)
+type O3 = {|...{p:T}|}; ({p:x}: O3); // error: spread result is not exact
 
 // exact
 type O4 = {...{|p:T|}};
@@ -58,8 +58,8 @@ declare var o6: O6;
 ({p:y}: O6); // ok
 ({p:y,q:x}: O6); // ok
 
-// inexact p + exact p ~> exact
-type O7 = {|...{p:T},...{|p:U|}|}; // error: spread result is not exact
+// inexact p + exact p ~> exact (TODO: force EvalT eagerly)
+type O7 = {|...{p:T},...{|p:U|}|}; ({p:y}: O7);// error: spread result is not exact
 
 // exact p + inexact p
 type O8 = {...{|p:T|},...{p:U}};
@@ -89,3 +89,8 @@ declare var o11: O11;
 type O12 = {...{|p:T|},...{|q:U|}};
 declare var o12: O12;
 (o12: {p:T,q:U}); // ok
+
+// inline properties are exact
+type O13 = {...{p:T},p:U};
+declare var o13: O13;
+(o13: {p:U});

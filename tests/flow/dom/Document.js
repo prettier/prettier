@@ -7,5 +7,6 @@ let tests = [
     (document.createElement('link'): HTMLLinkElement);
     (document.createElement('option'): HTMLOptionElement);
     (document.createElement('select'): HTMLSelectElement);
+    (document.querySelector('select'): HTMLSelectElement | null);
   }
 ];
