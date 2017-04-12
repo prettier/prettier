@@ -75,24 +75,30 @@ function printDoc(doc) {
   }
 
   if (doc.type === "if-break") {
-    return "ifBreak(" +
+    return (
+      "ifBreak(" +
       printDoc(doc.breakContents) +
       (doc.flatContents ? ", " + printDoc(doc.flatContents) : "") +
-      ")";
+      ")"
+    );
   }
 
   if (doc.type === "group") {
     if (doc.expandedStates) {
-      return "conditionalGroup(" +
+      return (
+        "conditionalGroup(" +
         "[" +
         doc.expandedStates.map(printDoc).join(",") +
-        "])";
+        "])"
+      );
     }
 
-    return (doc.break ? "wrappedGroup" : "group") +
+    return (
+      (doc.break ? "wrappedGroup" : "group") +
       "(" +
       printDoc(doc.contents) +
-      ")";
+      ")"
+    );
   }
 
   if (doc.type === "line-suffix") {
