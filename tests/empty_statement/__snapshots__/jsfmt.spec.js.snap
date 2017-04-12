@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`body.js 1`] = `
-"with (a);
+with (a);
 if (1); else if (2); else;
 for (;;);
 while (1);
@@ -19,5 +19,5 @@ for (var i in o);
 for (var i of o);
 do;
 while (1);
-"
+
 `;

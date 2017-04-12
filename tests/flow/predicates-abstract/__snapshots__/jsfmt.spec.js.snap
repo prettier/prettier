@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`filter.js 1`] = `
-"// @flow
+// @flow
 
 // Filter the contents of an array
 
@@ -12,7 +12,7 @@ const barr = my_filter(arr, is_string);
 (barr: Array<string>);
 
 function is_string(x): %checks {
-  return typeof x === \\"string\\";
+  return typeof x === "string";
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
@@ -29,13 +29,13 @@ const barr = my_filter(arr, is_string);
 (barr: Array<string>);
 
 function is_string(x): %checks {
-  return typeof x === \\"string\\";
+  return typeof x === "string";
 }
-"
+
 `;
 
 exports[`filter-union.js 1`] = `
-"// @flow
+// @flow
 
 // Filter the contents of an array
 
@@ -62,24 +62,24 @@ declare function my_filter<T, P: $Pred<1>>(
   cb: P
 ): Array<$Refine<T, P, 1>>;
 
-type A = { kind: \\"A\\", u: number };
-type B = { kind: \\"B\\", v: string };
-type C = { kind: \\"C\\", y: boolean };
-type D = { kind: \\"D\\", x: boolean };
-type E = { kind: \\"E\\", y: boolean };
+type A = { kind: "A", u: number };
+type B = { kind: "B", v: string };
+type C = { kind: "C", y: boolean };
+type D = { kind: "D", x: boolean };
+type E = { kind: "E", y: boolean };
 
 declare var ab: Array<A | B | C>;
 
-(my_filter(ab, (x): %checks => x.kind === \\"A\\"): Array<A>); // OK
-(my_filter(ab, (x): %checks => x.kind !== \\"A\\"): Array<B | C>); // OK
-"
+(my_filter(ab, (x): %checks => x.kind === "A"): Array<A>); // OK
+(my_filter(ab, (x): %checks => x.kind !== "A"): Array<B | C>); // OK
+
 `;
 
 exports[`refine.js 1`] = `
-"// @flow
+// @flow
 
 /*
-  $Pred<N> is an \\"abstract predicate type\\", i.e. denotes a (function) type that
+  $Pred<N> is an "abstract predicate type", i.e. denotes a (function) type that
   refines N variables. So if \`cb\` is a function, then it should be refining
   exactly N argument. It is abstract in that we do not need to specify:
   (a) which variables are going to be refined (just the number), or (b) what
@@ -116,17 +116,17 @@ declare function refine2<T, P: $Pred<2>>(v: T, w: T, cb: P): $Refine<T,P,1>;
 // { if (cb(v, w)) { return w; } else { throw new Error(); } }
 
 function is_string(x): boolean %checks {
-  return typeof x === \\"string\\";
+  return typeof x === "string";
 }
 
 function is_string_and_number(x, y): %checks {
-  return typeof x === \\"string\\" && typeof y === \\"number\\";
+  return typeof x === "string" && typeof y === "number";
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
 /*
-  $Pred<N> is an \\"abstract predicate type\\", i.e. denotes a (function) type that
+  $Pred<N> is an "abstract predicate type", i.e. denotes a (function) type that
   refines N variables. So if \`cb\` is a function, then it should be refining
   exactly N argument. It is abstract in that we do not need to specify:
   (a) which variables are going to be refined (just the number), or (b) what
@@ -166,17 +166,17 @@ declare function refine2<T, P: $Pred<2>>(v: T, w: T, cb: P): $Refine<T, P, 1>;
 // { if (cb(v, w)) { return w; } else { throw new Error(); } }
 
 function is_string(x): boolean %checks {
-  return typeof x === \\"string\\";
+  return typeof x === "string";
 }
 
 function is_string_and_number(x, y): %checks {
-  return typeof x === \\"string\\" && typeof y === \\"number\\";
+  return typeof x === "string" && typeof y === "number";
 }
-"
+
 `;
 
 exports[`sanity-filter.js 1`] = `
-"// @flow
+// @flow
 
 declare function my_filter<T, P: $Pred<1>>(v: Array<T>, cb: P): Array<$Refine<T,P,1>>;
 
@@ -192,11 +192,11 @@ const d = my_filter(c, is_string_regular);
 (d: Array<string>);
 
 function is_string(x): boolean %checks {
-  return typeof x === \\"string\\";
+  return typeof x === "string";
 }
 
 function is_string_regular(x): boolean {
-  return typeof x === \\"string\\";
+  return typeof x === "string";
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
@@ -217,17 +217,17 @@ const d = my_filter(c, is_string_regular);
 (d: Array<string>);
 
 function is_string(x): boolean %checks {
-  return typeof x === \\"string\\";
+  return typeof x === "string";
 }
 
 function is_string_regular(x): boolean {
-  return typeof x === \\"string\\";
+  return typeof x === "string";
 }
-"
+
 `;
 
 exports[`sanity-filter-union.js 1`] = `
-"// @flow
+// @flow
 
 // Filter the contents of an array
 
@@ -254,21 +254,21 @@ declare function my_filter<T, P: $Pred<1>>(
   cb: P
 ): Array<$Refine<T, P, 1>>;
 
-type A = { kind: \\"A\\", u: number };
-type B = { kind: \\"B\\", v: string };
-type C = { kind: \\"C\\", y: boolean };
-type D = { kind: \\"D\\", x: boolean };
-type E = { kind: \\"E\\", y: boolean };
+type A = { kind: "A", u: number };
+type B = { kind: "B", v: string };
+type C = { kind: "C", y: boolean };
+type D = { kind: "D", x: boolean };
+type E = { kind: "E", y: boolean };
 
 declare var ab: Array<A | B | C>;
 
-(my_filter(ab, (x): %checks => x.kind === \\"A\\"): Array<B>); // ERROR
-(my_filter(ab, (x): %checks => x.kind !== \\"A\\"): Array<A | C>); // ERROR
-"
+(my_filter(ab, (x): %checks => x.kind === "A"): Array<B>); // ERROR
+(my_filter(ab, (x): %checks => x.kind !== "A"): Array<A | C>); // ERROR
+
 `;
 
 exports[`sanity-refine.js 1`] = `
-"// @flow
+// @flow
 
 // Sanity check A: the refinment position index is outside of the allowed range
 declare function refine<T, P: $Pred<1>>(v: T, cb: P): $Refine<T,P,2>;
@@ -290,7 +290,7 @@ var e = refine3(c, d, e, is_string_and_number);
 (e: string);
 
 function is_string_and_number(x, y): %checks {
-  return typeof x === \\"string\\" && typeof y === \\"number\\";
+  return typeof x === "string" && typeof y === "number";
 }
 
 
@@ -302,15 +302,15 @@ var e = refine(a, is_string_regular);   // ERROR: is_string_regular is not a
 ////////////////////////////////////////////////////////////////////////////////
 
 function is_string(x): %checks {
-  return typeof x === \\"string\\";
+  return typeof x === "string";
 }
 
 function is_string_regular(x)  {
-  return typeof x === \\"string\\";
+  return typeof x === "string";
 }
 
 function is_string_and_number(x, y): %checks {
-  return typeof x === \\"string\\" && typeof y === \\"number\\";
+  return typeof x === "string" && typeof y === "number";
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
@@ -339,7 +339,7 @@ var e = refine3(c, d, e, is_string_and_number);
 (e: string);
 
 function is_string_and_number(x, y): %checks {
-  return typeof x === \\"string\\" && typeof y === \\"number\\";
+  return typeof x === "string" && typeof y === "number";
 }
 
 // Sanity check C: expecting a predicate function but passed a non-predicate one
@@ -350,15 +350,15 @@ var e = refine(a, is_string_regular); // ERROR: is_string_regular is not a
 ////////////////////////////////////////////////////////////////////////////////
 
 function is_string(x): %checks {
-  return typeof x === \\"string\\";
+  return typeof x === "string";
 }
 
 function is_string_regular(x) {
-  return typeof x === \\"string\\";
+  return typeof x === "string";
 }
 
 function is_string_and_number(x, y): %checks {
-  return typeof x === \\"string\\" && typeof y === \\"number\\";
+  return typeof x === "string" && typeof y === "number";
 }
-"
+
 `;

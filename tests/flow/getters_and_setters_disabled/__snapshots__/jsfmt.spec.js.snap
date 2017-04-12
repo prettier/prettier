@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`getters_and_setters.js 1`] = `
-"/**
+/**
  * @flow
  */
 
@@ -45,10 +45,10 @@ var f = {
     this.c = x;
   },
   c: 10,
-  get [\\"d\\"]() {
-    return \\"foo\\";
+  get ["d"]() {
+    return "foo";
   },
-  set [\\"d\\"](x: number) {}
+  set ["d"](x: number) {}
 };
 
 type T = {
@@ -71,10 +71,10 @@ class Bar {
     this.c = x;
   }
   c: number;
-  get [\\"d\\"]() {
-    return \\"foo\\";
+  get ["d"]() {
+    return "foo";
   }
-  set [\\"d\\"](x: number) {}
+  set ["d"](x: number) {}
 }
-"
+
 `;

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`styled-components.js 1`] = `
-"<style jsx>{\`
+<style jsx>{\`
   p {
     color: red;
   }
@@ -38,5 +38,5 @@ exports[`styled-components.js 1`] = `
      }
   \`}
 </style>;
-"
+
 `;

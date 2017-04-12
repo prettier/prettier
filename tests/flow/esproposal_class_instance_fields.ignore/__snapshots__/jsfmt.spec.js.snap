@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test.js 1`] = `
-"/* @flow */
+/* @flow */
 
 class Foo {
   annotationOnly: string;
@@ -14,9 +14,9 @@ class Foo {
 
 class Foo {
   annotationOnly: string;
-  initOnly = \\"asdf\\";
-  initWithAnnotation: string = \\"asdf\\";
+  initOnly = "asdf";
+  initWithAnnotation: string = "asdf";
   [computed]: string;
 }
-"
+
 `;

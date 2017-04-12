@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`objmap.js 1`] = `
-"declare function promiseAllByKey<O>(o: O): Promise<$ObjMap<O,typeof $await>>;
+declare function promiseAllByKey<O>(o: O): Promise<$ObjMap<O,typeof $await>>;
 declare function keyMirror<O>(o: O): $ObjMapi<O, <K>(k:K) => K>;
 
 var o = keyMirror({
@@ -28,15 +28,15 @@ var o = keyMirror({
   BAR: null
 });
 
-(o.FOO: \\"FOO\\"); // ok
-(o.FOO: \\"BAR\\"); // error, 'FOO' incompatible with 'BAR'
+(o.FOO: "FOO"); // ok
+(o.FOO: "BAR"); // error, 'FOO' incompatible with 'BAR'
 
 promiseAllByKey({
   foo: Promise.resolve(0),
-  bar: \\"bar\\"
+  bar: "bar"
 }).then(o => {
   (o.foo: string); // error, number ~> string
-  (o.bar: \\"bar\\"); // ok
+  (o.bar: "bar"); // ok
 });
-"
+
 `;

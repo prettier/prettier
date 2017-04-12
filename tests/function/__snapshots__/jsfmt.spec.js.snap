@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`function_expression.js 1`] = `
-"(function() {}).length
+(function() {}).length
 typeof (function() {});
 export default (function() {})();
 (function() {})()\`\`;
@@ -24,5 +24,5 @@ a = function f() {} || b;
 (function() {} && a);
 a + function() {};
 new function() {}();
-"
+
 `;

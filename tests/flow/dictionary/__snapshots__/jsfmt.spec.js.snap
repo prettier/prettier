@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`any.js 1`] = `
-"/* @flow */
+/* @flow */
 
 const dict: {[key: string]: number} = {}
 const k: any = 'foo'
@@ -10,13 +10,13 @@ const val: string = dict[k] // error: number incompatible with string
 /* @flow */
 
 const dict: { [key: string]: number } = {};
-const k: any = \\"foo\\";
+const k: any = "foo";
 const val: string = dict[k]; // error: number incompatible with string
-"
+
 `;
 
 exports[`compatible.js 1`] = `
-"/* @flow */
+/* @flow */
 
 function foo0(x: Array<{[key: string]: mixed}>): Array<{[key: string]: mixed}> {
   // this adds a fooBar property to the param type, which should NOT cause
@@ -39,7 +39,7 @@ function foo0(
 ): Array<{ [key: string]: mixed }> {
   // this adds a fooBar property to the param type, which should NOT cause
   // an error in the return type because it is a dictionary.
-  x[0].fooBar = \\"foobar\\";
+  x[0].fooBar = "foobar";
   return x;
 }
 
@@ -49,11 +49,11 @@ function foo2(
   // x's prototype has a toString method
   return x;
 }
-"
+
 `;
 
 exports[`dictionary.js 1`] = `
-"/* Dictionary types are object types that include an indexer, which specifies a
+/* Dictionary types are object types that include an indexer, which specifies a
  * key type and a value type. The presence of an indexer makes the object type
  * unsealed, but all added properties must be consistent with the indexer
  * signature.
@@ -82,7 +82,7 @@ class Y {}
 function set_prop_to_string_key(
   o: {[k:string]:any},
 ) {
-  o.prop = \\"ok\\";
+  o.prop = "ok";
 }
 
 // **UNSOUND**
@@ -92,7 +92,7 @@ function unsound_dict_has_every_key(
   o: {[k:string]:X},
 ) {
   (o.p: X); // ok
-  (o[\\"p\\"]: X); // ok
+  (o["p"]: X); // ok
 }
 
 // As with any object type, we can assign subtypes to properties.
@@ -118,7 +118,7 @@ function get_prop_contravariant(
 function add_prop_to_nonstring_key_dot(
   o: {[k:number]:any},
 ) {
-  o.prop = \\"err\\"; // error: string ~> number
+  o.prop = "err"; // error: string ~> number
 }
 
 // Bracket notation can be used to add properties to dictionaries with
@@ -127,7 +127,7 @@ function add_prop_to_nonstring_key_dot(
 function add_prop_to_nonstring_key_bracket(
   o: {[k:number]:any},
 ) {
-  o[0] = \\"ok\\";
+  o[0] = "ok";
 }
 
 // Objects can be part dict, part not by mixing an indexer with declared props.
@@ -154,9 +154,9 @@ function object_prototype(
 // Because we support non-string props w/ bracket notation, it's possible to
 // write into a declared prop unsoundly.
 function unsound_string_conversion_alias_declared_prop(
-  o: {[k:number]:any, \\"0\\":X},
+  o: {[k:number]:any, "0":X},
 ) {
-  o[0] = \\"not-x\\"; // a[\\"0\\"] no longer X
+  o[0] = "not-x"; // a["0"] no longer X
 }
 
 function unification_dict_values_invariant(
@@ -401,7 +401,7 @@ class Y {}
 
 // Any property can be set on a dict with string keys.
 function set_prop_to_string_key(o: { [k: string]: any }) {
-  o.prop = \\"ok\\";
+  o.prop = "ok";
 }
 
 // **UNSOUND**
@@ -409,7 +409,7 @@ function set_prop_to_string_key(o: { [k: string]: any }) {
 // return type in a maybe.
 function unsound_dict_has_every_key(o: { [k: string]: X }) {
   (o.p: X); // ok
-  (o[\\"p\\"]: X); // ok
+  (o["p"]: X); // ok
 }
 
 // As with any object type, we can assign subtypes to properties.
@@ -429,14 +429,14 @@ function get_prop_contravariant(o: { [k: string]: B }) {
 // Dot-notation can not be used to add properties to dictionaries with
 // non-string keys, because keys are strings.
 function add_prop_to_nonstring_key_dot(o: { [k: number]: any }) {
-  o.prop = \\"err\\"; // error: string ~> number
+  o.prop = "err"; // error: string ~> number
 }
 
 // Bracket notation can be used to add properties to dictionaries with
 // non-string keys, even though all keys are strings. This is a convenient
 // affordance.
 function add_prop_to_nonstring_key_bracket(o: { [k: number]: any }) {
-  o[0] = \\"ok\\";
+  o[0] = "ok";
 }
 
 // Objects can be part dict, part not by mixing an indexer with declared props.
@@ -459,9 +459,9 @@ function object_prototype(
 // Because we support non-string props w/ bracket notation, it's possible to
 // write into a declared prop unsoundly.
 function unsound_string_conversion_alias_declared_prop(
-  o: { [k: number]: any, \\"0\\": X }
+  o: { [k: number]: any, "0": X }
 ) {
-  o[0] = \\"not-x\\"; // a[\\"0\\"] no longer X
+  o[0] = "not-x"; // a["0"] no longer X
 }
 
 function unification_dict_values_invariant(x: Array<{ [k: string]: B }>) {
@@ -649,11 +649,11 @@ function subtype_optional_c_to_dict(x: { p?: C }): { [k: string]: B } {
   // error: C ~> B
   return x;
 }
-"
+
 `;
 
 exports[`incompatible.js 1`] = `
-"/* @flow */
+/* @flow */
 
 var x : {[key: string]: string} = {};
 var y : {[key: string]: number} = x; // 2 errors, number !~> string & vice versa
@@ -772,11 +772,11 @@ function foo8(x: { [key: string]: number }) {
   (x.foo: string); // error
   (x.foo: number);
 }
-"
+
 `;
 
 exports[`issue-1745.js 1`] = `
-"/* @flow */
+/* @flow */
 
 class A {
   x: {[k:string]: number};
@@ -827,11 +827,11 @@ class B {
     this.x = { bar: 0 }; // no error
   }
 }
-"
+
 `;
 
 exports[`test.js 1`] = `
-"type Params = {count: number; [name: string]: string};
+type Params = {count: number; [name: string]: string};
 type QueryFunction = (params: Params) => string;
 
 var o: { foo: QueryFunction } = {
@@ -852,20 +852,20 @@ var o: { foo: QueryFunction } = {
 };
 
 module.exports = o;
-"
+
 `;
 
 exports[`test_client.js 1`] = `
-"var o = require('./test');
+var o = require('./test');
 
 o.foo = function (params) {
   return params.count; // error, number ~/~ string
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var o = require(\\"./test\\");
+var o = require("./test");
 
 o.foo = function(params) {
   return params.count; // error, number ~/~ string
 };
-"
+
 `;

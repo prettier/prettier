@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`binaryish.js 1`] = `
-"const computedDescriptionLines = (showConfirm &&
+const computedDescriptionLines = (showConfirm &&
   descriptionLinesConfirming) ||
   (focused && !loading && descriptionLinesFocused) ||
   descriptionLines;
@@ -18,5 +18,5 @@ const computedDescriptionLines =
 
 computedDescriptionLines =
   (focused && !loading && descriptionLinesFocused) || descriptionLines;
-"
+
 `;

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test.js 1`] = `
-"function foo(x: Array<Object>): Array<Object> {
+function foo(x: Array<Object>): Array<Object> {
     return x.sort((a, b) => a.foo - b.foo);
 }
 
@@ -18,5 +18,5 @@ function foo(x: Array<Object>): Array<Object> {
 function bar(x: Object): Array<string> {
   return Object.keys(x);
 }
-"
+
 `;

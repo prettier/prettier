@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`a.js 1`] = `
-"// @flow
+// @flow
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-"
+
 `;
 
 exports[`b.js 1`] = `
-"/**
+/**
  * @flow
  * @providesModule b
  */
@@ -18,17 +18,17 @@ require('./a');
  * @flow
  * @providesModule b
  */
-require(\\"./a\\");
-"
+require("./a");
+
 `;
 
 exports[`c.js 1`] = `
-"// @flow
+// @flow
 require('./a.js');
 require('b');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-require(\\"./a.js\\");
-require(\\"b\\");
-"
+require("./a.js");
+require("b");
+
 `;

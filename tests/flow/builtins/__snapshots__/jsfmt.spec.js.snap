@@ -1,25 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`array.js 1`] = `
-"var a = [\\"...\\"];
+var a = ["..."];
 var b = a.map (function (x) { return 0; });
 var c: string = b[0]; // error: number !~> string
 
 var array = [];
 function f() {
-    array = array.map (function () { return \\"...\\"; });
+    array = array.map (function () { return "..."; });
     var x:number = array[0]; // error: string !~> number
 }
 
 var Foo = require('./genericfoo');
 var foo = new Foo();
 function g() {
-    var foo1 = foo.map (function() { return \\"...\\"; });
+    var foo1 = foo.map (function() { return "..."; });
     var x:number = foo1.get(); // error: string !~> number
     foo = foo1;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var a = [\\"...\\"];
+var a = ["..."];
 var b = a.map(function(x) {
   return 0;
 });
@@ -28,25 +28,25 @@ var c: string = b[0]; // error: number !~> string
 var array = [];
 function f() {
   array = array.map(function() {
-    return \\"...\\";
+    return "...";
   });
   var x: number = array[0]; // error: string !~> number
 }
 
-var Foo = require(\\"./genericfoo\\");
+var Foo = require("./genericfoo");
 var foo = new Foo();
 function g() {
   var foo1 = foo.map(function() {
-    return \\"...\\";
+    return "...";
   });
   var x: number = foo1.get(); // error: string !~> number
   foo = foo1;
 }
-"
+
 `;
 
 exports[`genericfoo.js 1`] = `
-"class Foo<T> {
+class Foo<T> {
     x:T;
     self():Foo<T> { return this; }
     map<U>(callbackfn: () => U): Foo<U> { return new Foo(); }
@@ -71,5 +71,5 @@ class Foo<T> {
 }
 
 module.exports = Foo;
-"
+
 `;

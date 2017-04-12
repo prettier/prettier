@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`B2.js 1`] = `
-"/**
+/**
  * @providesModule B2
  * @flow
  */
@@ -13,6 +13,6 @@ require('B3');
  * @flow
  */
 
-require(\\"B3\\");
-"
+require("B3");
+
 `;

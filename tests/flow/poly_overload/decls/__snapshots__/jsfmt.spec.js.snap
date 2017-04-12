@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`typescript-deferred.js 1`] = `
-"interface Some<X> {}
+interface Some<X> {}
 interface Other<X> { x: X; }
 interface None<Y> {}
 interface Nada<Y> { y: Y }
@@ -34,5 +34,5 @@ interface B<X> extends A<X> {
   foo<Y>(s: Other<X>, e: None<Y>): B<Y>,
   foo<Y>(s: Other<X>, e: Nada<Y>): B<Y>
 }
-"
+
 `;

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`assignment-pattern.js 1`] = `
-"const { a /* comment */ = 1 } = b;
+const { a /* comment */ = 1 } = b;
 
 const { c = 1 /* comment */ } = d;
 
@@ -15,11 +15,11 @@ const { c = 1 /* comment */ } = d;
 let {
   a = b //comment
 } = c;
-"
+
 `;
 
 exports[`before-comma.js 1`] = `
-"const foo = {
+const foo = {
   a: 'a' /* comment for this line */,
 
   /* Section B */
@@ -27,16 +27,16 @@ exports[`before-comma.js 1`] = `
 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const foo = {
-  a: \\"a\\" /* comment for this line */,
+  a: "a" /* comment for this line */,
 
   /* Section B */
-  b: \\"b\\"
+  b: "b"
 };
-"
+
 `;
 
 exports[`blank.js 1`] = `
-"// This file only
+// This file only
 // has comments. This comment
 // should still exist
 //
@@ -79,11 +79,11 @@ exports[`blank.js 1`] = `
 // comment
 
 // comment
-"
+
 `;
 
 exports[`call_comment.js 1`] = `
-"render( // Warm any cache
+render( // Warm any cache
   <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
   container
 );
@@ -104,11 +104,11 @@ React.render(
   <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
   container
 );
-"
+
 `;
 
 exports[`dangling.js 1`] = `
-"var x = {/* dangling */};
+var x = {/* dangling */};
 var x = {
   // dangling
 };
@@ -135,11 +135,11 @@ declare class Foo extends Qux<string> {
   /* dangling */
 }
 export /* dangling */{};
-"
+
 `;
 
 exports[`dangling_array.js 1`] = `
-"expect(() => {}).toTriggerReadyStateChanges([
+expect(() => {}).toTriggerReadyStateChanges([
   // Nothing.
 ]);
 
@@ -152,11 +152,11 @@ expect(() => {}).toTriggerReadyStateChanges(
 );
 
 [1 /* first comment */, 2 /* second comment */, 3];
-"
+
 `;
 
 exports[`dangling_for.js 1`] = `
-"for // comment
+for // comment
 (;;);
 
 for /* comment */(;;);
@@ -166,37 +166,37 @@ for (;;);
 
 /* comment */
 for (;;);
-"
+
 `;
 
 exports[`export.js 1`] = `
-"export //comment
+export //comment
 {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //comment
 export {};
-"
+
 `;
 
 exports[`first-line.js 1`] = `
-"a // comment
+a // comment
 b
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 a; // comment
 b;
-"
+
 `;
 
 exports[`flow_union.js 1`] = `
-"type UploadState<E, EM, D>
+type UploadState<E, EM, D>
   // The upload hasnt begun yet
-  = {type: \\"Not_begun\\"}
+  = {type: "Not_begun"}
   // The upload timed out
-  | {type: \\"Timed_out\\"}
+  | {type: "Timed_out"}
   // Failed somewhere on the line
-  | {type: \\"Failed\\", error: E, errorMsg: EM}
+  | {type: "Failed", error: E, errorMsg: EM}
   // Uploading to aws3 and CreatePostMutation succeeded
-  | {type: \\"Success\\", data: D};
+  | {type: "Success", data: D};
 
 type UploadState<E, EM, D>
   // The upload hasnt begun yet
@@ -210,13 +210,13 @@ type UploadState<E, EM, D>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 type UploadState<E, EM, D> =
   // The upload hasnt begun yet
-  | { type: \\"Not_begun\\" }
+  | { type: "Not_begun" }
   // The upload timed out
-  | { type: \\"Timed_out\\" }
+  | { type: "Timed_out" }
   // Failed somewhere on the line
-  | { type: \\"Failed\\", error: E, errorMsg: EM }
+  | { type: "Failed", error: E, errorMsg: EM }
   // Uploading to aws3 and CreatePostMutation succeeded
-  | { type: \\"Success\\", data: D };
+  | { type: "Success", data: D };
 
 type UploadState<E, EM, D> =
   // The upload hasnt begun yet
@@ -227,22 +227,22 @@ type UploadState<E, EM, D> =
   | C
   // Uploading to aws3 and CreatePostMutation succeeded
   | D;
-"
+
 `;
 
 exports[`function-declaration.js 1`] = `
-"function a(/* comment */) {} // comment
+function a(/* comment */) {} // comment
 function b() {} // comment
 function c(/* comment */ argA, argB, argC) {} // comment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function a(/* comment */) {} // comment
 function b() {} // comment
 function c(/* comment */ argA, argB, argC) {} // comment
-"
+
 `;
 
 exports[`if.js 1`] = `
-"if (1)
+if (1)
 // comment
 {
   false
@@ -292,11 +292,11 @@ if (1) {
 } else {
   // comment
 }
-"
+
 `;
 
 exports[`issues.js 1`] = `
-"// Does not need to break as it fits in 80 columns
+// Does not need to break as it fits in 80 columns
 this.call(a, /* comment */ b);
 
 function f(
@@ -354,11 +354,11 @@ export type AsyncExecuteOptions = child_process$execFileOpts & {
 
 // optional trailing comma gets moved all the way to the beginning
 const regex = new RegExp(
-  '^\\\\\\\\s*' + // beginning of the line
-  'name\\\\\\\\s*=\\\\\\\\s*' + // name =
-  '[\\\\'\\"]' + // opening quotation mark
+  '^\\\\s*' + // beginning of the line
+  'name\\\\s*=\\\\s*' + // name =
+  '[\\'"]' + // opening quotation mark
   escapeStringRegExp(target.name) + // target name
-  '[\\\\'\\"]' + // closing quotation mark
+  '[\\'"]' + // closing quotation mark
   ',?$', // optional trailing comma
 );
 
@@ -425,30 +425,30 @@ throw new ProcessSystemError({
 export type BuckWebSocketMessage =
   | {
       // Not actually from Buck - this is to let the receiver know that the socket is connected.
-      type: \\"SocketConnected\\"
+      type: "SocketConnected"
     }
   | {
-      type: \\"BuildProgressUpdated\\",
+      type: "BuildProgressUpdated",
       progressValue: number
     }
   | {
-      type: \\"BuildFinished\\",
+      type: "BuildFinished",
       exitCode: number
     }
   | {
-      type: \\"BuildStarted\\"
+      type: "BuildStarted"
     }
   | {
-      type: \\"ParseStarted\\"
+      type: "ParseStarted"
     }
   | {
-      type: \\"ParseFinished\\"
+      type: "ParseFinished"
     }
   | {
-      type: \\"RunStarted\\"
+      type: "RunStarted"
     }
   | {
-      type: \\"RunComplete\\"
+      type: "RunComplete"
     };
 
 // Missing one level of indentation because of the comment
@@ -469,16 +469,16 @@ export type AsyncExecuteOptions = child_process$execFileOpts & {
 
 // optional trailing comma gets moved all the way to the beginning
 const regex = new RegExp(
-  \\"^\\\\\\\\s*\\" + // beginning of the line
-  \\"name\\\\\\\\s*=\\\\\\\\s*\\" + // name =
-  \\"['\\\\\\"]\\" + // opening quotation mark
+  "^\\\\s*" + // beginning of the line
+  "name\\\\s*=\\\\s*" + // name =
+  "['\\"]" + // opening quotation mark
   escapeStringRegExp(target.name) + // target name
-  \\"['\\\\\\"]\\" + // closing quotation mark
-    \\",?$\\" // optional trailing comma
+  "['\\"]" + // closing quotation mark
+    ",?$" // optional trailing comma
 );
 
 // The comment is moved and doesn't trigger the eslint rule anymore
-import path from \\"path\\"; // eslint-disable-line nuclide-internal/prefer-nuclide-uri
+import path from "path"; // eslint-disable-line nuclide-internal/prefer-nuclide-uri
 
 // Comments disappear in-between MemberExpressions
 Observable.of(process)
@@ -510,18 +510,18 @@ if (1) {
 }
 
 // The comment makes the line break in a weird way
-const result = asyncExecute(\\"non_existing_command\\", /* args */ []);
+const result = asyncExecute("non_existing_command", /* args */ []);
 
 // The closing paren is printed on the same line as the comment
 foo(
   {}
   // Hi
 );
-"
+
 `;
 
 exports[`jsx.js 1`] = `
-"<div>
+<div>
   {
     /* comment */
   }
@@ -655,11 +655,11 @@ exports[`jsx.js 1`] = `
 <div>
   {/*<div>  Some very v  ery very very long line to break line width limit </div>*/}
 </div>;
-"
+
 `;
 
 exports[`last-arg.js 1`] = `
-"type f = (
+type f = (
   currentRequest: {a: number},
   // TODO this is a very very very very long comment that makes it go > 80 columns
 ) => number;
@@ -726,11 +726,11 @@ function f(
 ): number {
   return a + 1;
 }
-"
+
 `;
 
 exports[`preserve-new-line-last.js 1`] = `
-"function f() {
+function f() {
   a
   /* eslint-disable */
 }
@@ -773,11 +773,11 @@ function name() {
   // comment3 why func3 commented
   // func3()
 }
-"
+
 `;
 
 exports[`return-statement.js 1`] = `
-"function jsx() {
+function jsx() {
   return (
     // Comment
     <div />
@@ -1026,17 +1026,17 @@ function taggedTemplate() {
 function inlineComment() {
   return /* hi */ 42 || 42;
 }
-"
+
 `;
 
 exports[`switch.js 1`] = `
-"switch (node && node.type) {
-  case \\"Property\\":
-  case \\"MethodDefinition\\":
+switch (node && node.type) {
+  case "Property":
+  case "MethodDefinition":
     prop = node.key;
     break;
 
-  case \\"MemberExpression\\":
+  case "MemberExpression":
     prop = node.property;
     break;
 
@@ -1044,38 +1044,38 @@ exports[`switch.js 1`] = `
 }
 
 switch (foo) {
-  case \\"bar\\":
+  case "bar":
     doThing()
 
   // no default
 }
 
 switch (foo) {
-  case \\"bar\\": //comment
+  case "bar": //comment
     doThing(); //comment
 
-  case \\"baz\\":
+  case "baz":
     doOtherThing(); //comment
 
 }
 
 switch (foo) {
-  case \\"bar\\": {
+  case "bar": {
     doThing();
   } //comment
 
-  case \\"baz\\": {
+  case "baz": {
     doThing();
   } //comment
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 switch (node && node.type) {
-  case \\"Property\\":
-  case \\"MethodDefinition\\":
+  case "Property":
+  case "MethodDefinition":
     prop = node.key;
     break;
 
-  case \\"MemberExpression\\":
+  case "MemberExpression":
     prop = node.property;
     break;
 
@@ -1083,34 +1083,34 @@ switch (node && node.type) {
 }
 
 switch (foo) {
-  case \\"bar\\":
+  case "bar":
     doThing();
 
   // no default
 }
 
 switch (foo) {
-  case \\"bar\\": //comment
+  case "bar": //comment
     doThing(); //comment
 
-  case \\"baz\\":
+  case "baz":
     doOtherThing(); //comment
 }
 
 switch (foo) {
-  case \\"bar\\": {
+  case "bar": {
     doThing();
   } //comment
 
-  case \\"baz\\": {
+  case "baz": {
     doThing();
   } //comment
 }
-"
+
 `;
 
 exports[`template-literal.js 1`] = `
-"\`
+\`
 \${a // comment
 }
 
@@ -1135,11 +1135,11 @@ a}
 /*comment*/
 d};
 \`;
-"
+
 `;
 
 exports[`try.js 1`] = `
-"// comment 1
+// comment 1
 try {
   // comment 2
 }
@@ -1163,11 +1163,11 @@ try {
   // comment 5
   // comment 7
 }
-"
+
 `;
 
 exports[`variable_declarator.js 1`] = `
-"let obj = // Comment
+let obj = // Comment
 {
   key: 'val'
 }
@@ -1208,41 +1208,41 @@ let obj = [
 let obj =
   // Comment
   {
-    key: \\"val\\"
+    key: "val"
   };
 
 let obj =
   // Comment
   {
-    key: \\"val\\"
+    key: "val"
   };
 
 let obj = {
   // Comment
-  key: \\"val\\"
+  key: "val"
 };
 
 let obj = {
   // Comment
-  key: \\"val\\"
+  key: "val"
 };
 
 let obj =
   // Comment
-  [\\"val\\"];
+  ["val"];
 
 let obj =
   // Comment
-  [\\"val\\"];
+  ["val"];
 
 let obj = [
   // Comment
-  \\"val\\"
+  "val"
 ];
 
 let obj = [
   // Comment
-  \\"val\\"
+  "val"
 ];
-"
+
 `;

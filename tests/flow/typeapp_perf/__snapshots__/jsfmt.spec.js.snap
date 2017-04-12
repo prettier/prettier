@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test1.js 1`] = `
-"/* This test ensures that the code below does not take a long time to check. If
+/* This test ensures that the code below does not take a long time to check. If
  * this test is taking a very long time to complete, there is a bug. */
 
 class A {}
@@ -42,11 +42,11 @@ type B<T> = A & {
 declare var b: B<any>;
 
 (b: B<any>);
-"
+
 `;
 
 exports[`test2.js 1`] = `
-"/* This test ensures that the code below does not take a long time to check. If
+/* This test ensures that the code below does not take a long time to check. If
  * this test is taking a very long time to complete, there is a bug. */
 
 class A {}
@@ -87,5 +87,5 @@ type B<T> = A & {
 declare var b: B<any>;
 
 (b: B<any>);
-"
+
 `;

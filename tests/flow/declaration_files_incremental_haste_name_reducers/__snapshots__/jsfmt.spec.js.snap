@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`A.js 1`] = `
-"/* @flow */
+/* @flow */
 
 class AImplementation {}
 export function foo(): AImplementation { return new AImplementation(); }
@@ -12,11 +12,11 @@ class AImplementation {}
 export function foo(): AImplementation {
   return new AImplementation();
 }
-"
+
 `;
 
 exports[`index.js 1`] = `
-"/* @flow */
+/* @flow */
 
 var A = require('A');
 (A.foo(): boolean); // Error: Either AImplementation ~> boolean or ADefinition ~> boolean
@@ -26,10 +26,10 @@ var test = require('test');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-var A = require(\\"A\\");
+var A = require("A");
 (A.foo(): boolean); // Error: Either AImplementation ~> boolean or ADefinition ~> boolean
 
-var test = require(\\"test\\");
+var test = require("test");
 (test.foo(): boolean); // Error: Either TestImplementation ~> boolean or TestDefinition ~> boolean
-"
+
 `;

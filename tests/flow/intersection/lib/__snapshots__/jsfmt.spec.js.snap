@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`lib.js 1`] = `
-"// @flow
+// @flow
 
 // defs used in tests, here to stress tvar machinery
 
@@ -70,5 +70,5 @@ type B = { a: string, b: string };
 
 type C = { [key: string]: number } & { [key: string]: number };
 type D = { [key: string]: number };
-"
+
 `;

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`require.js 1`] = `
-"const { one, two, thee, four, five, six, seven, eight, nine, ten } = require('./my-utils');
+const { one, two, thee, four, five, six, seven, eight, nine, ten } = require('./my-utils');
 const { one, two, thee, four, five, six, seven, eight, nine, ten, eleven } = require('./my-utils');
 
 const MyReallyExtrememlyLongModuleName = require('MyReallyExtrememlyLongModuleName');
@@ -17,7 +17,7 @@ const {
   eight,
   nine,
   ten
-} = require(\\"./my-utils\\");
+} = require("./my-utils");
 const {
   one,
   two,
@@ -30,8 +30,8 @@ const {
   nine,
   ten,
   eleven
-} = require(\\"./my-utils\\");
+} = require("./my-utils");
 
-const MyReallyExtrememlyLongModuleName = require(\\"MyReallyExtrememlyLongModuleName\\");
-"
+const MyReallyExtrememlyLongModuleName = require("MyReallyExtrememlyLongModuleName");
+
 `;
