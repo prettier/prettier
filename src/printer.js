@@ -2827,7 +2827,13 @@ function printMemberChain(path, options, print) {
     return group(expanded);
   }
 
-  return conditionalGroup([oneLine, expanded]);
+  return concat([
+    // We only need to check `oneLine` because if `expanded` is chosen
+    // that means that the parent group has already been broken
+    // naturally
+    willBreak(oneLine) ? breakParent : "",
+    conditionalGroup([oneLine, expanded])
+  ])
 }
 
 function isEmptyJSXElement(node) {
