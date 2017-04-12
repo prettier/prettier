@@ -567,7 +567,8 @@ function handleLastFunctionArgComments(
   // Real functions
   if (
     precedingNode &&
-    precedingNode.type === "Identifier" &&
+    (precedingNode.type === "Identifier" ||
+      precedingNode.type === "AssignmentPattern") &&
     enclosingNode &&
     (enclosingNode.type === "ArrowFunctionExpression" ||
       enclosingNode.type === "FunctionExpression" ||

@@ -41,3 +41,13 @@ var x = {
   ): $Enum<SectionMode> {
   }
 }
+
+class X {
+  getSectionMode(
+    pageMetaData: PageMetaData,
+    sectionMetaData: SectionMetaData = ['unknown']
+    /* $FlowFixMe This error was exposed while converting keyMirror
+     * to keyMirrorRecursive */
+  ): $Enum<SectionMode> {
+  }
+}
