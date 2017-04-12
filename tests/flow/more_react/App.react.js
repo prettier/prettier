@@ -33,7 +33,7 @@ var App = React.createClass({
     return (
       <div>
         {foo(x,y)}
-        {foo(z,x)} // error, since z: number
+        {foo(z,x) /* error, since z: number */}
       </div>
     );
   }
