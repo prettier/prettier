@@ -219,6 +219,7 @@ function attach(comments, ast, text, options) {
         handleExportNamedDeclarationComments(enclosingNode, comment) ||
         handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
         handleClassMethodComments(enclosingNode, comment) ||
+        handleTypeAliasComments(enclosingNode, followingNode, comment) ||
         handleVariableDeclaratorComments(enclosingNode, followingNode, comment)
       ) {
         // We're good
@@ -729,6 +730,14 @@ function handleAssignmentPatternComments(enclosingNode, comment) {
 function handleClassMethodComments(enclosingNode, comment) {
   if (enclosingNode && enclosingNode.type === "ClassMethod") {
     addTrailingComment(enclosingNode, comment);
+    return true;
+  }
+  return false;
+}
+
+function handleTypeAliasComments(enclosingNode, followingNode, comment) {
+  if (enclosingNode && enclosingNode.type === "TypeAlias") {
+    addLeadingComment(enclosingNode, comment);
     return true;
   }
   return false;
