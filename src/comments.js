@@ -152,6 +152,7 @@ function attach(comments, ast, text, options) {
       // We also need to check if it's the first line of the file.
       if (
         handleLastFunctionArgComments(
+          text,
           precedingNode,
           enclosingNode,
           followingNode,
@@ -544,6 +545,7 @@ function handleCommentInEmptyParens(enclosingNode, comment) {
 }
 
 function handleLastFunctionArgComments(
+  text,
   precedingNode,
   enclosingNode,
   followingNode,
@@ -571,8 +573,7 @@ function handleLastFunctionArgComments(
       enclosingNode.type === "FunctionExpression" ||
       enclosingNode.type === "FunctionDeclaration" ||
       enclosingNode.type === "ClassMethod") &&
-    followingNode &&
-    followingNode.type !== "Identifier"
+    getNextNonSpaceNonCommentCharacter(text, comment) === ")"
   ) {
     addTrailingComment(precedingNode, comment);
     return true;
