@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`else.js 1`] = `
-"// Both functions below should be formatted exactly the same
+// Both functions below should be formatted exactly the same
 
 function f() {
   if (position)
@@ -39,11 +39,11 @@ function f() {
       value: pair.substring(position + 1)
     };
 }
-"
+
 `;
 
 exports[`if_comments.js 1`] = `
-"async function f() {
+async function f() {
   if (untrackedChoice === 0) /* Cancel */ {
     return null;
   } else if (untrackedChoice === 1) /* Add */ {
@@ -113,26 +113,26 @@ async function f() {
     /* Allow Untracked */ allowUntracked = true;
   }
 }
-"
+
 `;
 
 exports[`trailing_comment.js 1`] = `
-"if (code === 92 /* '\\\\' */) {}
-if (code === 92 /* '\\\\' */ /* '\\\\' */) {}
+if (code === 92 /* '\\' */) {}
+if (code === 92 /* '\\' */ /* '\\' */) {}
 
-if (code === 92) /* '\\\\' */ {}
-if (code === 92) { /* '\\\\' */ }
+if (code === 92) /* '\\' */ {}
+if (code === 92) { /* '\\' */ }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-if (code === 92 /* '\\\\' */) {
+if (code === 92 /* '\\' */) {
 }
-if (code === 92 /* '\\\\' */ /* '\\\\' */) {
+if (code === 92 /* '\\' */ /* '\\' */) {
 }
 
 if (code === 92) {
-  /* '\\\\' */
+  /* '\\' */
 }
 if (code === 92) {
-  /* '\\\\' */
+  /* '\\' */
 }
-"
+
 `;

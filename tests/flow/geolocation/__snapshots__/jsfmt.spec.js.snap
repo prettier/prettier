@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`a.js 1`] = `
-"/* @flow */
+/* @flow */
 
 var geolocation = new Geolocation();
 var id = geolocation.watchPosition(
@@ -42,5 +42,5 @@ var id = geolocation.watchPosition(
   }
 );
 geolocation.clearWatch(id);
-"
+
 `;

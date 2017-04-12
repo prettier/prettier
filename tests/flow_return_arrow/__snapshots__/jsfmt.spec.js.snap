@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`parens.js 1`] = `
-"const f = (): (string => string) => {};
+const f = (): (string => string) => {};
 const f = (): (a | string => string) => {};
 const f = (): (a & string => string) => {};
 function f(): string => string {}
@@ -10,5 +10,5 @@ const f = (): (string => string) => {};
 const f = (): a | ((string) => string) => {};
 const f = (): a & ((string) => string) => {};
 function f(): string => string {}
-"
+
 `;

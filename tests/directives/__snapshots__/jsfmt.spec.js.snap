@@ -1,65 +1,65 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`last-line-0.js 1`] = `
-"'use strict';~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\\"use strict\\";
-"
+'use strict';~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"use strict";
+
 `;
 
 exports[`last-line-1.js 1`] = `
-"'use strict';
+'use strict';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\\"use strict\\";
-"
+"use strict";
+
 `;
 
 exports[`last-line-2.js 1`] = `
-"'use strict';
+'use strict';
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\\"use strict\\";
-"
+"use strict";
+
 `;
 
 exports[`newline.js 1`] = `
-"/* @flow */
+/* @flow */
 
-\\"use strict\\";
+"use strict";
 
-import a from \\"a\\";
+import a from "a";
 
 a();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-\\"use strict\\";
+"use strict";
 
-import a from \\"a\\";
+import a from "a";
 
 a();
-"
+
 `;
 
 exports[`no-newline.js 1`] = `
-"\\"use strict\\";
+"use strict";
 a
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\\"use strict\\";
+"use strict";
 a;
-"
+
 `;
 
 exports[`test.js 1`] = `
-"\\"use strict\\";
+"use strict";
 
 function fn() {
-  \\"use strict\\";
+  "use strict";
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\\"use strict\\";
+"use strict";
 
 function fn() {
-  \\"use strict\\";
+  "use strict";
 }
-"
+
 `;

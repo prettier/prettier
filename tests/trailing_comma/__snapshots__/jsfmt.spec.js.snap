@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`es5.js 1`] = `
-"function send_single_email(
+function send_single_email(
   app,
   email_id,
   email_address,
@@ -15,7 +15,7 @@ exports[`es5.js 1`] = `
   subject,
   html,
   reply_to);
-  return \\"nothing\\";
+  return "nothing";
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function send_single_email(
@@ -34,13 +34,13 @@ function send_single_email(
     html,
     reply_to
   );
-  return \\"nothing\\";
+  return "nothing";
 }
-"
+
 `;
 
 exports[`es5.js 2`] = `
-"function send_single_email(
+function send_single_email(
   app,
   email_id,
   email_address,
@@ -54,7 +54,7 @@ exports[`es5.js 2`] = `
   subject,
   html,
   reply_to);
-  return \\"nothing\\";
+  return "nothing";
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function send_single_email(
@@ -73,13 +73,13 @@ function send_single_email(
     html,
     reply_to,
   );
-  return \\"nothing\\";
+  return "nothing";
 }
-"
+
 `;
 
 exports[`es5.js 3`] = `
-"function send_single_email(
+function send_single_email(
   app,
   email_id,
   email_address,
@@ -93,7 +93,7 @@ exports[`es5.js 3`] = `
   subject,
   html,
   reply_to);
-  return \\"nothing\\";
+  return "nothing";
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function send_single_email(
@@ -112,13 +112,13 @@ function send_single_email(
     html,
     reply_to
   );
-  return \\"nothing\\";
+  return "nothing";
 }
-"
+
 `;
 
 exports[`function-calls.js 1`] = `
-"const a = (param1, param2, param3) => {}
+const a = (param1, param2, param3) => {}
 
 a('value', 'value2', 'value3');
 
@@ -132,24 +132,24 @@ a('value', 'value2', a('long-nested-value', 'long-nested-value2', 'long-nested-v
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const a = (param1, param2, param3) => {};
 
-a(\\"value\\", \\"value2\\", \\"value3\\");
+a("value", "value2", "value3");
 
 a(
-  \\"a-long-value\\",
-  \\"a-really-really-long-value\\",
-  \\"a-really-really-really-long-value\\"
+  "a-long-value",
+  "a-really-really-long-value",
+  "a-really-really-really-long-value"
 );
 
 a(
-  \\"value\\",
-  \\"value2\\",
-  a(\\"long-nested-value\\", \\"long-nested-value2\\", \\"long-nested-value3\\")
+  "value",
+  "value2",
+  a("long-nested-value", "long-nested-value2", "long-nested-value3")
 );
-"
+
 `;
 
 exports[`function-calls.js 2`] = `
-"const a = (param1, param2, param3) => {}
+const a = (param1, param2, param3) => {}
 
 a('value', 'value2', 'value3');
 
@@ -163,24 +163,24 @@ a('value', 'value2', a('long-nested-value', 'long-nested-value2', 'long-nested-v
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const a = (param1, param2, param3) => {};
 
-a(\\"value\\", \\"value2\\", \\"value3\\");
+a("value", "value2", "value3");
 
 a(
-  \\"a-long-value\\",
-  \\"a-really-really-long-value\\",
-  \\"a-really-really-really-long-value\\",
+  "a-long-value",
+  "a-really-really-long-value",
+  "a-really-really-really-long-value",
 );
 
 a(
-  \\"value\\",
-  \\"value2\\",
-  a(\\"long-nested-value\\", \\"long-nested-value2\\", \\"long-nested-value3\\"),
+  "value",
+  "value2",
+  a("long-nested-value", "long-nested-value2", "long-nested-value3"),
 );
-"
+
 `;
 
 exports[`function-calls.js 3`] = `
-"const a = (param1, param2, param3) => {}
+const a = (param1, param2, param3) => {}
 
 a('value', 'value2', 'value3');
 
@@ -194,24 +194,24 @@ a('value', 'value2', a('long-nested-value', 'long-nested-value2', 'long-nested-v
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const a = (param1, param2, param3) => {};
 
-a(\\"value\\", \\"value2\\", \\"value3\\");
+a("value", "value2", "value3");
 
 a(
-  \\"a-long-value\\",
-  \\"a-really-really-long-value\\",
-  \\"a-really-really-really-long-value\\"
+  "a-long-value",
+  "a-really-really-long-value",
+  "a-really-really-really-long-value"
 );
 
 a(
-  \\"value\\",
-  \\"value2\\",
-  a(\\"long-nested-value\\", \\"long-nested-value2\\", \\"long-nested-value3\\")
+  "value",
+  "value2",
+  a("long-nested-value", "long-nested-value2", "long-nested-value3")
 );
-"
+
 `;
 
 exports[`object.js 1`] = `
-"const a = {
+const a = {
   b: true,
   c: {
     c1: 'hello'
@@ -236,29 +236,29 @@ const aLong = {
 const a = {
   b: true,
   c: {
-    c1: \\"hello\\"
+    c1: "hello"
   },
   d: false
 };
 
 const aLong = {
-  bHasALongName: \\"a-long-value\\",
+  bHasALongName: "a-long-value",
   cHasALongName: {
-    c1: \\"a-really-long-value\\",
-    c2: \\"a-really-really-long-value\\"
+    c1: "a-really-long-value",
+    c2: "a-really-really-long-value"
   },
-  dHasALongName: \\"a-long-value-too\\"
+  dHasALongName: "a-long-value-too"
 };
 
 const aLong = {
-  dHasALongName: \\"a-long-value-too\\",
+  dHasALongName: "a-long-value-too",
   eHasABooleanExpression: a === a
 };
-"
+
 `;
 
 exports[`object.js 2`] = `
-"const a = {
+const a = {
   b: true,
   c: {
     c1: 'hello'
@@ -283,29 +283,29 @@ const aLong = {
 const a = {
   b: true,
   c: {
-    c1: \\"hello\\",
+    c1: "hello",
   },
   d: false,
 };
 
 const aLong = {
-  bHasALongName: \\"a-long-value\\",
+  bHasALongName: "a-long-value",
   cHasALongName: {
-    c1: \\"a-really-long-value\\",
-    c2: \\"a-really-really-long-value\\",
+    c1: "a-really-long-value",
+    c2: "a-really-really-long-value",
   },
-  dHasALongName: \\"a-long-value-too\\",
+  dHasALongName: "a-long-value-too",
 };
 
 const aLong = {
-  dHasALongName: \\"a-long-value-too\\",
+  dHasALongName: "a-long-value-too",
   eHasABooleanExpression: a === a,
 };
-"
+
 `;
 
 exports[`object.js 3`] = `
-"const a = {
+const a = {
   b: true,
   c: {
     c1: 'hello'
@@ -330,29 +330,29 @@ const aLong = {
 const a = {
   b: true,
   c: {
-    c1: \\"hello\\",
+    c1: "hello",
   },
   d: false,
 };
 
 const aLong = {
-  bHasALongName: \\"a-long-value\\",
+  bHasALongName: "a-long-value",
   cHasALongName: {
-    c1: \\"a-really-long-value\\",
-    c2: \\"a-really-really-long-value\\",
+    c1: "a-really-long-value",
+    c2: "a-really-really-long-value",
   },
-  dHasALongName: \\"a-long-value-too\\",
+  dHasALongName: "a-long-value-too",
 };
 
 const aLong = {
-  dHasALongName: \\"a-long-value-too\\",
+  dHasALongName: "a-long-value-too",
   eHasABooleanExpression: a === a,
 };
-"
+
 `;
 
 exports[`trailing_whitespace.js 1`] = `
-"let example = [
+let example = [
   'FOO',
   'BAR',
   // Comment
@@ -389,8 +389,8 @@ function supersupersupersuperLongF(
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let example = [
-  \\"FOO\\",
-  \\"BAR\\"
+  "FOO",
+  "BAR"
   // Comment
 ];
 
@@ -424,11 +424,11 @@ function supersupersupersuperLongF(
 ) {
   a;
 }
-"
+
 `;
 
 exports[`trailing_whitespace.js 2`] = `
-"let example = [
+let example = [
   'FOO',
   'BAR',
   // Comment
@@ -465,8 +465,8 @@ function supersupersupersuperLongF(
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let example = [
-  \\"FOO\\",
-  \\"BAR\\",
+  "FOO",
+  "BAR",
   // Comment
 ];
 
@@ -500,11 +500,11 @@ function supersupersupersuperLongF(
 ) {
   a;
 }
-"
+
 `;
 
 exports[`trailing_whitespace.js 3`] = `
-"let example = [
+let example = [
   'FOO',
   'BAR',
   // Comment
@@ -541,8 +541,8 @@ function supersupersupersuperLongF(
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let example = [
-  \\"FOO\\",
-  \\"BAR\\",
+  "FOO",
+  "BAR",
   // Comment
 ];
 
@@ -576,5 +576,5 @@ function supersupersupersuperLongF(
 ) {
   a;
 }
-"
+
 `;

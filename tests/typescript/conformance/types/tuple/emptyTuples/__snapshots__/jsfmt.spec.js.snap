@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`emptyTuplesTypeAssertion02.ts 1`] = `
-"// @declaration: true
+// @declaration: true
 
 let x = [] as [];
 let y = x[0];
@@ -10,5 +10,5 @@ let y = x[0];
 
 let x = [] as [];
 let y = x[0];
-"
+
 `;

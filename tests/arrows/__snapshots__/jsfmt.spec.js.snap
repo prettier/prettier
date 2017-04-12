@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`arrow_function_expression.js 1`] = `
-"(a => {}).length
+(a => {}).length
 typeof (() => {});
 export default (() => {})();
 (() => {})()\`\`;
@@ -54,7 +54,7 @@ a = () => ({} = 0);
 a = () => ({}, a);
 a => a instanceof {};
 a => ({}().b && 0);
-a => ({}::b()\`\`[\\"\\"].c++ && 0 ? 0 : 0);
+a => ({}::b()\`\`[""].c++ && 0 ? 0 : 0);
 a => ({}().c = 0);
 x => ({}()());
 x => ({}()\`\`);
@@ -63,18 +63,18 @@ x => ({}().b);
 a::(b => c);
 a = b => c;
 a = (b?) => c;
-"
+
 `;
 
 exports[`block_like.js 1`] = `
-"a = () => ({} = this);
+a = () => ({} = this);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 a = () => ({} = this);
-"
+
 `;
 
 exports[`call.js 1`] = `
-"Seq(typeDef.interface.groups).forEach(group =>
+Seq(typeDef.interface.groups).forEach(group =>
   Seq(group.members).forEach((member, memberName) =>
     markdownDoc(
       member.doc,
@@ -224,18 +224,18 @@ function render() {
 }
 
 jest.mock(
-  \\"../SearchSource\\",
+  "../SearchSource",
   () => class {
     findMatchingTests(pattern) {
       return { paths: [] };
     }
   }
 );
-"
+
 `;
 
 exports[`currying.js 1`] = `
-"const fn = b => c => d => {
+const fn = b => c => d => {
   return 3;
 };
 
@@ -258,37 +258,37 @@ const mw = store => next => action => {
 const middleware = options => (req, res, next) => {
   // ...
 };
-"
+
 `;
 
 exports[`long-call-no-args.js 1`] = `
-"veryLongCall(VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT, () => {})
+veryLongCall(VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT, () => {})
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 veryLongCall(
   VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT,
   () => {}
 );
-"
+
 `;
 
 exports[`long-contents.js 1`] = `
-"const foo = () => {
+const foo = () => {
   expect(arg1, arg2, arg3).toEqual({message: 'test', messageType: 'SMS', status: 'Unknown', created: '11/01/2017 13:36'});
 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const foo = () => {
   expect(arg1, arg2, arg3).toEqual({
-    message: \\"test\\",
-    messageType: \\"SMS\\",
-    status: \\"Unknown\\",
-    created: \\"11/01/2017 13:36\\"
+    message: "test",
+    messageType: "SMS",
+    status: "Unknown",
+    created: "11/01/2017 13:36"
   });
 };
-"
+
 `;
 
 exports[`short_body.js 1`] = `
-"const initializeSnapshotState = (
+const initializeSnapshotState = (
   testFile: Path,
   update: boolean,
   testPath: string,
@@ -301,5 +301,5 @@ const initializeSnapshotState = (
   testPath: string,
   expand: boolean
 ) => new SnapshotState(testFile, update, testPath, expand);
-"
+
 `;

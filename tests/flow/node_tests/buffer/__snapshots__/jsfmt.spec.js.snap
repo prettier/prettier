@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`buffer.js 1`] = `
-"/* @flow */
+/* @flow */
 
 let bool: boolean = false;
 let buffer: Buffer = new Buffer(0);
@@ -26,10 +26,10 @@ bool = buffer.every((element: number) => false, buffer);
 
 buffer = buffer.fill(1);
 buffer = buffer.fill(1, 0, 0);
-buffer = buffer.fill(\\"a\\");
-buffer = buffer.fill(\\"a\\", 0, 0);
-buffer = buffer.fill(\\"a\\", 0, 0, \\"utf8\\");
-buffer = buffer.fill(\\"a\\", \\"utf8\\");
+buffer = buffer.fill("a");
+buffer = buffer.fill("a", 0, 0);
+buffer = buffer.fill("a", 0, 0, "utf8");
+buffer = buffer.fill("a", "utf8");
 
 maybeNum = buffer.find((element: number, index: number, array:Uint8Array) => false);
 maybeNum = buffer.find((element: number, index: number, array:Uint8Array) => false, buffer);
@@ -51,7 +51,7 @@ buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]);
 const typedArray = new Uint8Array([0x34]);
 buffer = Buffer.from(typedArray.buffer, typedArray.byteOffset, typedArray.byteLength);
 buffer = Buffer.from(new Buffer(0));
-buffer = Buffer.from(\\"foo\\", \\"utf8\\");
+buffer = Buffer.from("foo", "utf8");
 
 // This call to from() does type check ok, but should not. Unfortunately, Buffer
 // extends Uint8Array but gets rid of this signature to .from(). Understandably,
@@ -84,10 +84,10 @@ bool = buffer.every((element: number) => false, buffer);
 
 buffer = buffer.fill(1);
 buffer = buffer.fill(1, 0, 0);
-buffer = buffer.fill(\\"a\\");
-buffer = buffer.fill(\\"a\\", 0, 0);
-buffer = buffer.fill(\\"a\\", 0, 0, \\"utf8\\");
-buffer = buffer.fill(\\"a\\", \\"utf8\\");
+buffer = buffer.fill("a");
+buffer = buffer.fill("a", 0, 0);
+buffer = buffer.fill("a", 0, 0, "utf8");
+buffer = buffer.fill("a", "utf8");
 
 maybeNum = buffer.find(
   (element: number, index: number, array: Uint8Array) => false
@@ -126,7 +126,7 @@ buffer = Buffer.from(
   typedArray.byteLength
 );
 buffer = Buffer.from(new Buffer(0));
-buffer = Buffer.from(\\"foo\\", \\"utf8\\");
+buffer = Buffer.from("foo", "utf8");
 
 // This call to from() does type check ok, but should not. Unfortunately, Buffer
 // extends Uint8Array but gets rid of this signature to .from(). Understandably,
@@ -137,5 +137,5 @@ buffer = Buffer.from(
   (a: number) => a + 1,
   {}
 ); // should error but doesn't
-"
+
 `;

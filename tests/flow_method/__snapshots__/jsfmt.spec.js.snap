@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`comment.js 1`] = `
-"type Foo = {
+type Foo = {
   method(
     arg: number, // I belong with baz
     qux: string
@@ -14,11 +14,11 @@ type Foo = {
     qux: string
   ): void
 };
-"
+
 `;
 
 exports[`method.js 1`] = `
-"type T = { method: () => void };
+type T = { method: () => void };
 type T = { method(): void };
 declare class X { method(): void }
 declare function f(): void;
@@ -29,5 +29,5 @@ type T = { method(): void };
 declare class X { method(): void }
 declare function f(): void;
 var f: () => void;
-"
+
 `;

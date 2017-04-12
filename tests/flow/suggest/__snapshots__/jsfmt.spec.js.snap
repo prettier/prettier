@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`lib.js 1`] = `
-"/* @flow */
+/* @flow */
 
 function bar(w: number): number { return w; }
 
@@ -14,32 +14,32 @@ function bar(w: number): number {
 }
 
 module.exports = bar;
-"
+
 `;
 
 exports[`suggest.js 1`] = `
-"/* @flow */
+/* @flow */
 
 var bar = require('./lib');
 
 function foo(z: number) { return bar(z); }
 
-var array = [\\"foo\\", \\"bar\\"];
+var array = ["foo", "bar"];
 array;
 
 module.exports = {foo:foo};
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-var bar = require(\\"./lib\\");
+var bar = require("./lib");
 
 function foo(z: number) {
   return bar(z);
 }
 
-var array = [\\"foo\\", \\"bar\\"];
+var array = ["foo", "bar"];
 array;
 
 module.exports = { foo: foo };
-"
+
 `;

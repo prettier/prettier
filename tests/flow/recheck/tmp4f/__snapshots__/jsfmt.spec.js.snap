@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`f1.js 1`] = `
-"// @flow
+// @flow
 
 type T = { x: number };
 type S = { x: string };
@@ -22,5 +22,5 @@ declare var b: S;
 declare var c: T;
 
 module.exports = { a, b, c: b };
-"
+
 `;

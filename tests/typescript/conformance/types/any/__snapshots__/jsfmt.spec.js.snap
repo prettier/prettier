@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`anyAsConstructor.ts 1`] = `
-"// any is considered an untyped function call
+// any is considered an untyped function call
 // can be called except with type arguments which is an error
 
 var x: any;
@@ -17,16 +17,16 @@ var d = new x<any>(x); // no error
 
 var x: any;
 var a = new x();
-var b = new x(\\"hello\\");
+var b = new x("hello");
 var c = new x(x);
 
 // grammar allows this for constructors
 var d = new x<any>(x); // no error
-"
+
 `;
 
 exports[`anyAsFunctionCall.ts 1`] = `
-"// any is considered an untyped function call
+// any is considered an untyped function call
 // can be called except with type arguments which is an error
 
 var x: any;
@@ -39,13 +39,13 @@ var c = x(x);
 
 var x: any;
 var a = x();
-var b = x(\\"hello\\");
+var b = x("hello");
 var c = x(x);
-"
+
 `;
 
 exports[`anyAsGenericFunctionCall.ts 1`] = `
-"// any is considered an untyped function call
+// any is considered an untyped function call
 // can be called except with type arguments which is an error
 
 var x: any;
@@ -62,19 +62,19 @@ var d = x<any>(x);
 
 var x: any;
 var a = x<number>();
-var b = x<string>(\\"hello\\");
-var c = x<object>(\\"hello\\");
+var b = x<string>("hello");
+var c = x<object>("hello");
 
 class C {
   foo: string;
 }
 var c = x<C>(x);
 var d = x<any>(x);
-"
+
 `;
 
 exports[`anyPropertyAccess.ts 1`] = `
-"var x: any;
+var x: any;
 var a = x.foo;
 var b = x['foo'];
 var c = x['fn']();
@@ -84,10 +84,10 @@ var f = x['0'].bar;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var x: any;
 var a = x.foo;
-var b = x[\\"foo\\"];
-var c = x[\\"fn\\"]();
+var b = x["foo"];
+var c = x["fn"]();
 var d = x.bar.baz;
 var e = x[0].foo;
-var f = x[\\"0\\"].bar;
-"
+var f = x["0"].bar;
+
 `;

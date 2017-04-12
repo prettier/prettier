@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`blowup.js 1`] = `
-"// @flow
+// @flow
 
 export type Select = {
   expression: ArithmeticExpression;
@@ -58,7 +58,7 @@ export class Query {
   select(expr: ArithmeticExpression): this {
     this._select.push({
       expression: expr,
-      alias: \\"\\"
+      alias: ""
     });
     return this;
   }
@@ -85,11 +85,11 @@ export class DivOp
 
 export class ModOp
   extends BinaryExpression<ArithmeticExpression, ArithmeticExpression> {}
-"
+
 `;
 
 exports[`fields.js 1`] = `
-"class C {
+class C {
     x: ?number|string;
     constructor() {
         this.x = null;
@@ -102,11 +102,11 @@ class C {
     this.x = null;
   }
 }
-"
+
 `;
 
 exports[`fields2.js 1`] = `
-"class C { }
+class C { }
 
 class D {
     content: string|C;
@@ -125,46 +125,46 @@ class D {
     return this.content;
   }
 }
-"
+
 `;
 
 exports[`issue-17.js 1`] = `
-"/* @flow */
+/* @flow */
 
 type T =
-    {type: \\"a\\"; a: number} |
-    {type: \\"b\\"; b: string};
+    {type: "a"; a: number} |
+    {type: "b"; b: string};
 
 var l: Array<T> = [
-    {type: \\"a\\", a: 1},
-    {type: \\"a\\", a: 2},
-    {type: \\"a\\", a: 3},
-    {type: \\"a\\", a: 4},
-    {type: \\"b\\", b: \\"monkey\\"},
-    {type: \\"b\\", b: \\"gorilla\\"},
-    {type: \\"b\\", b: \\"giraffe\\"},
-    {type: \\"b\\", b: \\"penguin\\"},
+    {type: "a", a: 1},
+    {type: "a", a: 2},
+    {type: "a", a: 3},
+    {type: "a", a: 4},
+    {type: "b", b: "monkey"},
+    {type: "b", b: "gorilla"},
+    {type: "b", b: "giraffe"},
+    {type: "b", b: "penguin"},
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-type T = { type: \\"a\\", a: number } | { type: \\"b\\", b: string };
+type T = { type: "a", a: number } | { type: "b", b: string };
 
 var l: Array<T> = [
-  { type: \\"a\\", a: 1 },
-  { type: \\"a\\", a: 2 },
-  { type: \\"a\\", a: 3 },
-  { type: \\"a\\", a: 4 },
-  { type: \\"b\\", b: \\"monkey\\" },
-  { type: \\"b\\", b: \\"gorilla\\" },
-  { type: \\"b\\", b: \\"giraffe\\" },
-  { type: \\"b\\", b: \\"penguin\\" }
+  { type: "a", a: 1 },
+  { type: "a", a: 2 },
+  { type: "a", a: 3 },
+  { type: "a", a: 4 },
+  { type: "b", b: "monkey" },
+  { type: "b", b: "gorilla" },
+  { type: "b", b: "giraffe" },
+  { type: "b", b: "penguin" }
 ];
-"
+
 `;
 
 exports[`issue-198.js 1`] = `
-"var p = new Promise(function(resolve, reject) {
+var p = new Promise(function(resolve, reject) {
     resolve(5);
 })
     .then(function(num) {
@@ -185,52 +185,52 @@ var p = new Promise(function(resolve, reject) {
     // This should fail because str is string, not number
     return str.toFixed();
   });
-"
+
 `;
 
 exports[`issue-256.js 1`] = `
-"declare class Myclass {
+declare class Myclass {
     myfun(myarray: Array<Function | string>): any;
 }
 declare var myclass: Myclass;
 
-myclass.myfun([\\"1\\", \\"2\\", \\"3\\", \\"4\\", \\"5\\", \\"6\\", function (ar) {}])
-myclass.myfun([\\"1\\", \\"2\\", \\"3\\", \\"4\\", \\"5\\", \\"6\\", \\"7\\", function (ar) {}])
+myclass.myfun(["1", "2", "3", "4", "5", "6", function (ar) {}])
+myclass.myfun(["1", "2", "3", "4", "5", "6", "7", function (ar) {}])
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare class Myclass {
   myfun(myarray: Array<Function | string>): any
 }
 declare var myclass: Myclass;
 
-myclass.myfun([\\"1\\", \\"2\\", \\"3\\", \\"4\\", \\"5\\", \\"6\\", function(ar) {}]);
-myclass.myfun([\\"1\\", \\"2\\", \\"3\\", \\"4\\", \\"5\\", \\"6\\", \\"7\\", function(ar) {}]);
-"
+myclass.myfun(["1", "2", "3", "4", "5", "6", function(ar) {}]);
+myclass.myfun(["1", "2", "3", "4", "5", "6", "7", function(ar) {}]);
+
 `;
 
 exports[`issue-323.js 1`] = `
-"var Foo = require(\\"./issue-323-lib\\");
+var Foo = require("./issue-323-lib");
 var foo = new Foo();
 var foostr: Foo | string = foo;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var Foo = require(\\"./issue-323-lib\\");
+var Foo = require("./issue-323-lib");
 var foo = new Foo();
 var foostr: Foo | string = foo;
-"
+
 `;
 
 exports[`issue-323-lib.js 1`] = `
-"/* @flow */
+/* @flow */
 class Foo {}
 module.exports = Foo;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 class Foo {}
 module.exports = Foo;
-"
+
 `;
 
 exports[`issue-324.js 1`] = `
-"/* @flow */
+/* @flow */
 class Foo{};
 class Bar{};
 
@@ -247,11 +247,11 @@ var foostr: Foo | string = new Foo();
 var barstr: Bar | string = new Bar();
 
 foostr = barstr;
-"
+
 `;
 
 exports[`issue-325.js 1`] = `
-"class Tag {
+class Tag {
     constructor() {
         var a1: Array<Tag|string> = [];
         var a2: Array<Tag|string> = a1;
@@ -280,24 +280,24 @@ class Tag_ {
     var a2: Array<Node> = a1;
   }
 }
-"
+
 `;
 
 exports[`issue-326.js 1`] = `
-"var numberAndStringArr:Array<number|string> = [1,2];
+var numberAndStringArr:Array<number|string> = [1,2];
 var stringArr:Array<string> = ['a','b'];
 
 var result = numberAndStringArr.concat(stringArr);  // no error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var numberAndStringArr: Array<number | string> = [1, 2];
-var stringArr: Array<string> = [\\"a\\", \\"b\\"];
+var stringArr: Array<string> = ["a", "b"];
 
 var result = numberAndStringArr.concat(stringArr); // no error
-"
+
 `;
 
 exports[`issue-582.js 1`] = `
-"/***
+/***
  * nested unions
  * @flow
  */
@@ -318,19 +318,19 @@ var nested2: FooBarBaz = 'baz';
  */
 
 // inline
-var nested1: (\\"foo\\" | \\"bar\\") | \\"baz\\" = \\"baz\\";
+var nested1: ("foo" | "bar") | "baz" = "baz";
 
 // through tvars
-type FooBar = \\"foo\\" | \\"bar\\";
-type Baz = \\"baz\\";
+type FooBar = "foo" | "bar";
+type Baz = "baz";
 type FooBarBaz = FooBar | Baz;
 
-var nested2: FooBarBaz = \\"baz\\";
-"
+var nested2: FooBarBaz = "baz";
+
 `;
 
 exports[`issue-963.js 1`] = `
-"/***
+/***
  * unions with embedded intersections
  * @flow
  */
@@ -399,11 +399,11 @@ const u3: union2 = {
   p1: 1,
   p2: 2
 };
-"
+
 `;
 
 exports[`test.js 1`] = `
-"var C = require('test-lib');
+var C = require('test-lib');
 
 // TODO: spurious error! (replacing C with number makes the error go away)
 // type Foo<X> = Array<C> | Array<?C>;
@@ -418,11 +418,11 @@ foo(y);
 // type Bar = (() => C) | (() => string);
 type Bar = () => (C | string); // workaround
 
-function f() { return \\"\\"; }
+function f() { return ""; }
 function bar(x:Bar) { }
 bar(f);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var C = require(\\"test-lib\\");
+var C = require("test-lib");
 
 // TODO: spurious error! (replacing C with number makes the error go away)
 // type Foo<X> = Array<C> | Array<?C>;
@@ -438,15 +438,15 @@ foo(y);
 type Bar = () => C | string; // workaround
 
 function f() {
-  return \\"\\";
+  return "";
 }
 function bar(x: Bar) {}
 bar(f);
-"
+
 `;
 
 exports[`test-lib.js 1`] = `
-"/* @providesModule test-lib */
+/* @providesModule test-lib */
 
 class C { }
 module.exports = C;
@@ -455,11 +455,11 @@ module.exports = C;
 
 class C {}
 module.exports = C;
-"
+
 `;
 
 exports[`type-app.js 1`] = `
-"/**
+/**
  * @flow
  */
 
@@ -488,11 +488,11 @@ var a: LocalClass<number> | number = 123;
 // introduces this test fixes this such that the speculative algorithm is
 // correctly delayed upon encountering a non-concrete TypeAppT
 var b: Iterator<number> | number = 123;
-"
+
 `;
 
 exports[`union.js 1`] = `
-"function bar(x: Document | string): void { }
+function bar(x: Document | string): void { }
 bar(0);
 
 class C { }
@@ -510,7 +510,7 @@ declare class F {
     foo(x: string):void;
 }
 function corge(b) {
-    var x = b ? \\"\\" : 0;
+    var x = b ? "" : 0;
     new F().foo(x);
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -532,14 +532,14 @@ declare class F {
   foo(x: string): void
 }
 function corge(b) {
-  var x = b ? \\"\\" : 0;
+  var x = b ? "" : 0;
   new F().foo(x);
 }
-"
+
 `;
 
 exports[`yuge.js 1`] = `
-"/**
+/**
  * great big union used as type annotation will be flowed into itself.
  * List.mem check avoids pathology, as long as singletons aren't converted.
  * This is a band-aid, though: see second case.
@@ -561,7 +561,7 @@ class SecurityCheckupTypedLogger {
   // something quick to get the union size off the Ocaml call stack,
   // but not sure it's worth doing that before the real solution.
   ohThatsNotSoGood() {
-    (\\"\\": ErrorCode);  // also, error pos omits this line completely
+    ("": ErrorCode);  // also, error pos omits this line completely
   }
 }
 
@@ -5577,13 +5577,13 @@ type Data = {
  * This is a band-aid, though: see second case.
  * @flow
  */
-\\"use strict\\";
+"use strict";
 
 class SecurityCheckupTypedLogger {
   _data: Data;
 
   setError(value: ErrorCode) {
-    this._data[\\"error\\"] = value;
+    this._data["error"] = value;
   }
 
   // Bug: right now, any incompatible type coming into a huge
@@ -5593,7 +5593,7 @@ class SecurityCheckupTypedLogger {
   // something quick to get the union size off the Ocaml call stack,
   // but not sure it's worth doing that before the real solution.
   ohThatsNotSoGood() {
-    (\\"\\": ErrorCode); // also, error pos omits this line completely
+    ("": ErrorCode); // also, error pos omits this line completely
   }
 }
 
@@ -10602,5 +10602,5 @@ type ErrorCode =
 type Data = {
   error?: ErrorCode
 };
-"
+
 `;

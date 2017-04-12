@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`in.js 1`] = `
-"// @flow
+// @flow
 
 let tests = [
   // objects on RHS
@@ -9,7 +9,7 @@ let tests = [
     ('foo' in {});
     ('foo' in { foo: null });
     (0 in {});
-    (0 in { \\"0\\": null });
+    (0 in { "0": null });
   },
 
   // arrays on RHS
@@ -61,31 +61,31 @@ let tests = [
 let tests = [
   // objects on RHS
   function() {
-    \\"foo\\" in {};
-    \\"foo\\" in { foo: null };
+    "foo" in {};
+    "foo" in { foo: null };
     0 in {};
-    0 in { \\"0\\": null };
+    0 in { "0": null };
   },
 
   // arrays on RHS
   function() {
-    \\"foo\\" in [];
+    "foo" in [];
     0 in [];
-    \\"length\\" in [];
+    "length" in [];
   },
 
   // primitive classes on RHS
   function() {
-    \\"foo\\" in new String(\\"bar\\");
-    \\"foo\\" in new Number(123);
+    "foo" in new String("bar");
+    "foo" in new Number(123);
   },
 
   // primitives on RHS
   function() {
-    \\"foo\\" in 123; // error
-    \\"foo\\" in \\"bar\\"; // error
-    \\"foo\\" in void 0; // error
-    \\"foo\\" in null; // error
+    "foo" in 123; // error
+    "foo" in "bar"; // error
+    "foo" in void 0; // error
+    "foo" in null; // error
   },
 
   // bogus stuff on LHS
@@ -99,19 +99,19 @@ let tests = [
 
   // in predicates
   function() {
-    if (\\"foo\\" in 123) {
+    if ("foo" in 123) {
     } // error
-    if (!\\"foo\\" in {}) {
+    if (!"foo" in {}) {
     } // error, !'foo' is a boolean
-    if (!(\\"foo\\" in {})) {
+    if (!("foo" in {})) {
     }
   },
 
   // annotations on RHS
   function(x: Object, y: mixed) {
-    \\"foo\\" in x; // ok
-    \\"foo\\" in y; // error
+    "foo" in x; // ok
+    "foo" in y; // error
   }
 ];
-"
+
 `;

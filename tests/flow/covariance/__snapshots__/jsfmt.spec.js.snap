@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test.js 1`] = `
-"type CovArrayVerbose<X,Y:X> = Array<Y>;
+type CovArrayVerbose<X,Y:X> = Array<Y>;
 var b: CovArrayVerbose<number,*> = [];
 var y: CovArrayVerbose<mixed,*> = b;
-y[0] = \\"\\"; // error
+y[0] = ""; // error
 
 class NVerbose<E,I:E> {
     x: CovArrayVerbose<E,I>;
@@ -24,12 +24,12 @@ var z: CovArray<string> = c; // error
 
 var d: CovArray<number> = [];
 var w: CovArray<mixed> = d;
-w[0] = \\"\\"; // error
+w[0] = ""; // error
 
 type P<X> = CovArray<X>;
 var p: P<mixed> = [];
 (p[0]: number); // not an error!
-p[0] = \\"\\"; // error
+p[0] = ""; // error
 
 class M {
     x: CovArray<number>;
@@ -54,7 +54,7 @@ n.x = [0];
 type CovArrayVerbose<X, Y: X> = Array<Y>;
 var b: CovArrayVerbose<number, *> = [];
 var y: CovArrayVerbose<mixed, *> = b;
-y[0] = \\"\\"; // error
+y[0] = ""; // error
 
 class NVerbose<E, I: E> {
   x: CovArrayVerbose<E, I>;
@@ -76,12 +76,12 @@ var z: CovArray<string> = c; // error
 
 var d: CovArray<number> = [];
 var w: CovArray<mixed> = d;
-w[0] = \\"\\"; // error
+w[0] = ""; // error
 
 type P<X> = CovArray<X>;
 var p: P<mixed> = [];
 (p[0]: number); // not an error!
-p[0] = \\"\\"; // error
+p[0] = ""; // error
 
 class M {
     x: CovArray<number>;
@@ -102,5 +102,5 @@ n.x = [0];
 (n.foo()[0]: string); // not an error!
 
 */
-"
+
 `;

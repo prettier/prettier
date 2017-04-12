@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`empty_paren_comment.js 1`] = `
-"let f = (/* ... */) => {}
+let f = (/* ... */) => {}
 (function (/* ... */) {})(/* ... */)
 function f(/* ... */) {}
 
@@ -52,5 +52,5 @@ f(/* ... */);
 f(a /* ... */);
 f(a, /* ... */ b);
 f(/* ... */ a, b);
-"
+
 `;

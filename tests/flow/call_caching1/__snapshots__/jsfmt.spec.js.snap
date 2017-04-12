@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test.js 1`] = `
-"// @flow
+// @flow
 
 const Immutable = require('immutable');
 
@@ -14,7 +14,7 @@ for (let [taskStatus, tasksMap] of tasksPerStatusMap) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-const Immutable = require(\\"immutable\\");
+const Immutable = require("immutable");
 
 const tasksPerStatusMap = new Map(
   [].map(taskStatus => [taskStatus, new Map()])
@@ -22,11 +22,11 @@ const tasksPerStatusMap = new Map(
 for (let [taskStatus, tasksMap] of tasksPerStatusMap) {
   tasksPerStatusMap.set(taskStatus, Immutable.Map(tasksMap));
 }
-"
+
 `;
 
 exports[`test2.js 1`] = `
-"/* @flow */
+/* @flow */
 
 declare class Bar<K> {
   update<K_>(updater: (value: this) => Bar<K_>): Bar<K_>;
@@ -60,11 +60,11 @@ declare var items: Bar<string>;
 declare var updater: (value: Bar<string>) => Bar<string>;
 
 foo(items, acc => acc.update(updater));
-"
+
 `;
 
 exports[`test3.js 1`] = `
-"// @flow
+// @flow
 
 declare class ImmBox<T> {
   static <U>(x: any): ImmBox<U>;
@@ -97,5 +97,5 @@ declare class Box<T> {
 const outer = new Box();
 const inner = outer.get();
 outer.set(ImmBox(inner));
-"
+
 `;

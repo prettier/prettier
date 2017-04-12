@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`arrow.js 1`] = `
-"// Error
+// Error
 const beep = (data/*: Object*/) => {}
 
 // OK
@@ -12,11 +12,11 @@ const beep = (data: Object) => {};
 
 // OK
 const beep = (data: Object, secondData: Object) => {};
-"
+
 `;
 
 exports[`arrow.js 2`] = `
-"// Error
+// Error
 const beep = (data/*: Object*/) => {}
 
 // OK
@@ -27,5 +27,5 @@ const beep = (data /*: Object*/) => {};
 
 // OK
 const beep = (data /*: Object*/, secondData /*: Object*/) => {};
-"
+
 `;

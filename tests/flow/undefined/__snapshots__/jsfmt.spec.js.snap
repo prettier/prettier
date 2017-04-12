@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`issue-518.js 1`] = `
-"function doSomethingAsync(): Promise<void> {
+function doSomethingAsync(): Promise<void> {
   return new Promise((resolve, reject) => {
     resolve(); // OK to leave out arg, same as resolve(undefined)
 
@@ -26,11 +26,11 @@ function doSomethingAsync(): Promise<void> {
 // simpler repro to show that too few args are fine when expecting void
 function foo(x: void) {}
 foo();
-"
+
 `;
 
 exports[`undefined.js 1`] = `
-"function foo() {
+function foo() {
     var x;
     x.foo();
 }
@@ -40,7 +40,7 @@ function bar() {
     if (x) x.bar();
 }
 
-function qux(x?: number, y:string = \\"\\", z) { }
+function qux(x?: number, y:string = "", z) { }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function foo() {
   var x;
@@ -52,12 +52,12 @@ function bar() {
   if (x) x.bar();
 }
 
-function qux(x?: number, y: string = \\"\\", z) {}
-"
+function qux(x?: number, y: string = "", z) {}
+
 `;
 
 exports[`undefined2.js 1`] = `
-"// @flow
+// @flow
 
 let tests = [
   function(x: number) {
@@ -94,15 +94,15 @@ let tests = [
 let tests = [
   function(x: number) {
     var id;
-    var name = id ? \\"John\\" : undefined;
+    var name = id ? "John" : undefined;
     (name: boolean); // error, string or void
 
-    const bar = [undefined, \\"bar\\"];
+    const bar = [undefined, "bar"];
     (bar[x]: boolean); // error, string or void
   },
 
   function(x: number) {
-    var undefined = \\"foo\\";
+    var undefined = "foo";
     (undefined: string); // ok
 
     var x;
@@ -110,9 +110,9 @@ let tests = [
       x[0]; // should error, could be void
     }
 
-    const bar = [undefined, \\"bar\\"];
+    const bar = [undefined, "bar"];
     (bar[x]: boolean); // error, string only
   }
 ];
-"
+
 `;

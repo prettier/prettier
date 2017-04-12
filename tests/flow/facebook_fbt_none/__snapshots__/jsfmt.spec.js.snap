@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`main.js 1`] = `
-"// @flow
+// @flow
 var React = require('react');
 (<fbt />: React.Element<*>);
 (<fbt />: number); // Error: ReactElement ~> number
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-var React = require(\\"react\\");
+var React = require("react");
 (<fbt />: React.Element<*>);
 (<fbt />: number); // Error: ReactElement ~> number
-"
+
 `;
