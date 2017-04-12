@@ -572,6 +572,7 @@ function handleLastFunctionArgComments(
     (enclosingNode.type === "ArrowFunctionExpression" ||
       enclosingNode.type === "FunctionExpression" ||
       enclosingNode.type === "FunctionDeclaration" ||
+      enclosingNode.type === "ObjectMethod" ||
       enclosingNode.type === "ClassMethod") &&
     getNextNonSpaceNonCommentCharacter(text, comment) === ")"
   ) {
