@@ -221,7 +221,7 @@ if (stdin) {
     let input;
     try {
       input = fs.readFileSync(filename, "utf8");
-    } catch(e) {
+    } catch (e) {
       // Add newline to split errors from filename line.
       process.stdout.write("\n");
 

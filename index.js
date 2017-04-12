@@ -20,9 +20,9 @@ function guessLineEnding(text) {
 function parse(text, opts) {
   let parseFunction;
 
-  if (opts.parser === 'flow') {
+  if (opts.parser === "flow") {
     parseFunction = parser.parseWithFlow;
-  } else if (opts.parser === 'typescript') {
+  } else if (opts.parser === "typescript") {
     parseFunction = parser.parseWithTypeScript;
   } else {
     parseFunction = parser.parseWithBabylon;
