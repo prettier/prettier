@@ -41,6 +41,7 @@ var defaults = {
   jsxBracketSameLine: false,
   noSpaceEmptyFn: false,
   parser: "babylon",
+  semi: true,
   __log: false
 };
 

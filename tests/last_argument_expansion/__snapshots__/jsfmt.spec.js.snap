@@ -32,7 +32,9 @@ export default function searchUsers(action$) {
               .getJSON(\`https://api.github.com/search/users?q=\${q}\`)
               .map(res => res.items)
               .map(receiveUsers)
-          )));
+          )
+        )
+    );
 }
 "
 `;
@@ -71,7 +73,7 @@ true
     }),
     require(\\"postcss-url\\")({
       url: url =>
-        url.startsWith(\\"/\\") || /^[a-z]+:/.test(url) ? url : \`/static/\${url}\`
+        (url.startsWith(\\"/\\") || /^[a-z]+:/.test(url) ? url : \`/static/\${url}\`)
     })
   ]
 });
