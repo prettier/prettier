@@ -536,7 +536,7 @@ function genericPrintNoParens(path, options, print, args) {
         return printStatementSequence(bodyPath, options, print);
       }, "body");
 
-      const hasContent = getFirstString(naked);
+      const hasContent = n.body.find(node => node.type !== "EmptyStatement");
       const hasDirectives = n.directives && n.directives.length > 0;
 
       var parent = path.getParentNode();
