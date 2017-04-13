@@ -228,7 +228,7 @@ if (stdin) {
       // Add newline to split errors from filename line.
       process.stdout.write("\n");
 
-      console.error("Unable to read file: " + filename + "\n" + err);
+      console.error("Unable to read file: " + filename + "\n" + e);
       // Don't exit the process if one file failed
       process.exitCode = 2;
       return;
