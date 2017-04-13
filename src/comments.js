@@ -161,6 +161,7 @@ function attach(comments, ast, text, options) {
         handleMemberExpressionComments(enclosingNode, followingNode, comment) ||
         handleIfStatementComments(
           text,
+          precedingNode,
           enclosingNode,
           followingNode,
           comment
@@ -209,6 +210,7 @@ function attach(comments, ast, text, options) {
         handleTemplateLiteralComments(enclosingNode, comment) ||
         handleIfStatementComments(
           text,
+          precedingNode,
           enclosingNode,
           followingNode,
           comment
@@ -240,6 +242,7 @@ function attach(comments, ast, text, options) {
       if (
         handleIfStatementComments(
           text,
+          precedingNode,
           enclosingNode,
           followingNode,
           comment
@@ -391,6 +394,7 @@ function addBlockOrNotComment(node, comment) {
 //   }
 function handleIfStatementComments(
   text,
+  precedingNode,
   enclosingNode,
   followingNode,
   comment
@@ -408,7 +412,8 @@ function handleIfStatementComments(
   // The only workaround I found is to look at the next character to see if
   // it is a ).
   if (getNextNonSpaceNonCommentCharacter(text, comment) === ")") {
-    return false;
+    addTrailingComment(precedingNode, comment);
+    return true;
   }
 
   if (followingNode.type === "BlockStatement") {
