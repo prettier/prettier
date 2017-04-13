@@ -15,6 +15,7 @@ const argv = minimist(process.argv.slice(2), {
     "write",
     "stdin",
     "use-tabs",
+    "semi",
     "single-quote",
     "bracket-spacing",
     "jsx-bracket-same-line",
@@ -121,6 +122,7 @@ function getTrailingComma() {
 
 const options = {
   useTabs: argv["use-tabs"],
+  semi: argv["semi"],
   printWidth: getIntOption("print-width"),
   tabWidth: getIntOption("tab-width"),
   bracketSpacing: argv["bracket-spacing"],
@@ -185,6 +187,7 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
       "  --print-width <int>      Specify the length of line that the printer will wrap on. Defaults to 80.\n" +
       "  --tab-width <int>        Specify the number of spaces per indentation-level. Defaults to 2.\n" +
       "  --use-tabs               Indent lines with tabs instead of spaces. Defaults to false.\n" +
+      "  --no-semi                Do not print semicolons, except at the beginning of lines which may need them. Defaults to false.\n" +
       "  --single-quote           Use single quotes instead of double.\n" +
       "  --bracket-spacing        Put spaces between brackets. Defaults to true.\n" +
       "  --jsx-bracket-same-line  Put > on the last line. Defaults to false.\n" +
