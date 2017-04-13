@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`expand.js 1`] = `
-"const Component1 = ({ props }) => (
+const Component1 = ({ props }) => (
   <Text>Test</Text>
 );
 
@@ -14,11 +14,11 @@ const Component2 = ({
 const Component1 = ({ props }) => <Text>Test</Text>;
 
 const Component2 = ({ props }) => <Text>Test</Text>;
-"
+
 `;
 
 exports[`expression.js 1`] = `
-"() => ({}\`\`);
+() => ({}\`\`);
 ({})\`\`;
 a = () => ({}).x;
 ({} && a, b);
@@ -33,47 +33,47 @@ a = () => ({}).x;
 a = () => ({}.x);
 ({} && a, b);
 ({}::b, 0);
-({}::b()\`\`[\\"\\"].c++ && 0 ? 0 : 0, 0);
+({}::b()\`\`[""].c++ && 0 ? 0 : 0, 0);
 ({}(), 0);
 ({} = 0);
 ({} = 0), 1;
-"
+
 `;
 
 exports[`method.js 1`] = `
-"a = { f() {} }
+a = { f() {} }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 a = { f() {} };
-"
+
 `;
 
 exports[`range.js 1`] = `
-"group(
+group(
   concat([
-    \\"(\\",
+    "(",
     indent(
       options.tabWidth,
-      concat([line, join(concat([\\",\\", line]), printed)])
+      concat([line, join(concat([",", line]), printed)])
     ),
-    options.trailingComma ? \\",\\" : \\"\\",
+    options.trailingComma ? "," : "",
     line,
-    \\")\\"
+    ")"
   ]),
   {shouldBreak: true}
 )
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 group(
   concat([
-    \\"(\\",
+    "(",
     indent(
       options.tabWidth,
-      concat([line, join(concat([\\",\\", line]), printed)])
+      concat([line, join(concat([",", line]), printed)])
     ),
-    options.trailingComma ? \\",\\" : \\"\\",
+    options.trailingComma ? "," : "",
     line,
-    \\")\\"
+    ")"
   ]),
   { shouldBreak: true }
 );
-"
+
 `;

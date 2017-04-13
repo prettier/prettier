@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`comment.js 1`] = `
-"{
+{
   inf_leave: // goto emulation
   for (;;) {}
 }
@@ -11,14 +11,14 @@ exports[`comment.js 1`] = `
   inf_leave: for (;;) {
   }
 }
-"
+
 `;
 
 exports[`empty_label.js 1`] = `
-"a:;
+a:;
 b
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 a:;
 b;
-"
+
 `;

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Fun.js 1`] = `
-"
+
 /* @providesModule Fun */
 
 function eq(x:number,y:number) { return true };
@@ -28,7 +28,7 @@ function mk_factorial() {
 
 
 var factorial = mk_factorial();
-factorial(\\"...\\");
+factorial("...");
 
 module.exports = {fn: fix};
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -66,14 +66,14 @@ function mk_factorial() {
 }
 
 var factorial = mk_factorial();
-factorial(\\"...\\");
+factorial("...");
 
 module.exports = { fn: fix };
-"
+
 `;
 
 exports[`Ycombinator.js 1`] = `
-"
+
 /* @providesModule Ycombinator */
 
 function Y(f) {
@@ -121,5 +121,5 @@ Y(func1);
 Y(func2);
 
 module.exports = Y;
-"
+
 `;

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`break.js 1`] = `
-"h(f(g(() => {
+h(f(g(() => {
   a
 })))
 
@@ -77,11 +77,11 @@ const mapChargeItems = fp.flow(
 expect(
   new LongLongLongLongLongRange([0, 0], [0, 0])
 ).toEqualAtomLongLongLongLongRange(new LongLongLongRange([0, 0], [0, 0]));
-"
+
 `;
 
 exports[`parent.js 1`] = `
-"runtimeAgent.getProperties(
+runtimeAgent.getProperties(
   objectId,
   false, // ownProperties
   false, // accessorPropertiesOnly
@@ -100,5 +100,5 @@ runtimeAgent.getProperties(
     return 1;
   }
 );
-"
+
 `;

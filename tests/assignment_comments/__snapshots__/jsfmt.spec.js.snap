@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`assignment_comments.js 1`] = `
-"fnString =
+fnString =
   // Comment
   'some' + 'long' + 'string';
 
@@ -58,52 +58,52 @@ let f = (
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 fnString =
   // Comment
-  \\"some\\" + \\"long\\" + \\"string\\";
+  "some" + "long" + "string";
 
 var fnString =
   // Comment
-  \\"some\\" + \\"long\\" + \\"string\\";
-
-var fnString =
-  // Comment
-
-  \\"some\\" + \\"long\\" + \\"string\\";
+  "some" + "long" + "string";
 
 var fnString =
   // Comment
 
-  \\"some\\" + \\"long\\" + \\"string\\";
+  "some" + "long" + "string";
+
+var fnString =
+  // Comment
+
+  "some" + "long" + "string";
 
 var fnString =
   /* comment */
-  \\"some\\" + \\"long\\" + \\"string\\";
+  "some" + "long" + "string";
 
 var fnString =
   /**
    * multi-line
    */
-  \\"some\\" + \\"long\\" + \\"string\\";
+  "some" + "long" + "string";
 
 var fnString =
-  /* inline */ \\"some\\" +
-  \\"long\\" +
-  \\"string\\" +
-  \\"some\\" +
-  \\"long\\" +
-  \\"string\\" +
-  \\"some\\" +
-  \\"long\\" +
-  \\"string\\" +
-  \\"some\\" +
-  \\"long\\" +
-  \\"string\\";
+  /* inline */ "some" +
+  "long" +
+  "string" +
+  "some" +
+  "long" +
+  "string" +
+  "some" +
+  "long" +
+  "string" +
+  "some" +
+  "long" +
+  "string";
 
 var fnString = // Comment
   // Comment
-  \\"some\\" + \\"long\\" + \\"string\\";
+  "some" + "long" + "string";
 
 var fnString = // Comment
-  \\"some\\" + \\"long\\" + \\"string\\";
+  "some" + "long" + "string";
 
 let f = (
   //comment
@@ -117,5 +117,5 @@ let f = (
 let f = (
   a = b //comment
 ) => {};
-"
+
 `;

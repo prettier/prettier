@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`comments.js 1`] = `
-"var inspect = 4 === util.inspect.length
+var inspect = 4 === util.inspect.length
   ? // node <= 0.8.x
     (function(v, colors) {
       return util.inspect(v, void 0, void 0, colors);
@@ -28,16 +28,16 @@ const extractTextPluginOptions = shouldUseRelativeAssetPaths
 
 const extractTextPluginOptions = shouldUseRelativeAssetPaths
   ? // Making sure that the publicPath goes back to to build folder.
-    { publicPath: Array(cssFilename.split(\\"/\\").length).join(\\"../\\") }
+    { publicPath: Array(cssFilename.split("/").length).join("../") }
   : {};
 
 const extractTextPluginOptions = shouldUseRelativeAssetPaths // Making sure that the publicPath goes back to to build folder.
-  ? { publicPath: Array(cssFilename.split(\\"/\\").length).join(\\"../\\") }
+  ? { publicPath: Array(cssFilename.split("/").length).join("../") }
   : {};
 
-const { configureStore } = process.env.NODE_ENV === \\"production\\"
-  ? require(\\"./configureProdStore\\") // a
-  : require(\\"./configureDevStore\\"); // b
+const { configureStore } = process.env.NODE_ENV === "production"
+  ? require("./configureProdStore") // a
+  : require("./configureDevStore"); // b
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var inspect = 4 === util.inspect.length
   ? // node <= 0.8.x
@@ -61,42 +61,42 @@ var inspect = 4 === util.inspect.length
 
 const extractTextPluginOptions = shouldUseRelativeAssetPaths
   ? // Making sure that the publicPath goes back to to build folder.
-    { publicPath: Array(cssFilename.split(\\"/\\").length).join(\\"../\\") }
+    { publicPath: Array(cssFilename.split("/").length).join("../") }
   : {};
 
 const extractTextPluginOptions = shouldUseRelativeAssetPaths
   ? // Making sure that the publicPath goes back to to build folder.
-    { publicPath: Array(cssFilename.split(\\"/\\").length).join(\\"../\\") }
+    { publicPath: Array(cssFilename.split("/").length).join("../") }
   : {};
 
 const extractTextPluginOptions = shouldUseRelativeAssetPaths // Making sure that the publicPath goes back to to build folder.
-  ? { publicPath: Array(cssFilename.split(\\"/\\").length).join(\\"../\\") }
+  ? { publicPath: Array(cssFilename.split("/").length).join("../") }
   : {};
 
-const { configureStore } = process.env.NODE_ENV === \\"production\\"
-  ? require(\\"./configureProdStore\\") // a
-  : require(\\"./configureDevStore\\"); // b
-"
+const { configureStore } = process.env.NODE_ENV === "production"
+  ? require("./configureProdStore") // a
+  : require("./configureDevStore"); // b
+
 `;
 
 exports[`new-expression.js 1`] = `
-"const testConsole = new TestConsole(
+const testConsole = new TestConsole(
   config.useStderr ? process.stderr : process.stdout
 );
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const testConsole = new TestConsole(
   config.useStderr ? process.stderr : process.stdout
 );
-"
+
 `;
 
 exports[`no-confusing-arrow.js 1`] = `
-"// no-confusing-arrow
+// no-confusing-arrow
 var x = a => 1 ? 2 : 3;
 var x = a <= 1 ? 2 : 3;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // no-confusing-arrow
 var x = a => (1 ? 2 : 3);
 var x = a <= 1 ? 2 : 3;
-"
+
 `;

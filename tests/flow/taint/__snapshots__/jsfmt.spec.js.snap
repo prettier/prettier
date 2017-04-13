@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`adder.js 1`] = `
-"// @flow
+// @flow
 
 function f(x : $Tainted<number>, y : $Tainted<number>) {
   var z : $Tainted<number> = x + y;
@@ -64,11 +64,11 @@ function f6(x: string, y: $Tainted<number>) {
 function f7(x: $Tainted<string>, y: $Tainted<number>) {
   var z: string = x + y;
 }
-"
+
 `;
 
 exports[`any_object.js 1`] = `
-"// @flow
+// @flow
 
 let tests = [
   // setting a property
@@ -106,7 +106,7 @@ let tests = [
 
   // getting a property
   function() {
-    let obj: Object = { foo: \\"foo\\" };
+    let obj: Object = { foo: "foo" };
     (obj.foo: $Tainted<string>); // ok
   },
 
@@ -119,11 +119,11 @@ let tests = [
     foo(x); // error, taint ~> any
   }
 ];
-"
+
 `;
 
 exports[`call-object-property.js 1`] = `
-"// @flow
+// @flow
 
 function foo(x : $Tainted<string>, o : Object) {
   // Error
@@ -174,11 +174,11 @@ function f_foo2(f1: Function, o: { t: $Tainted<string> }) {
 function f_foo3(f1: Function, o1: Object, o2: { t: $Tainted<string> }) {
   f1(o1)(o2.t);
 }
-"
+
 `;
 
 exports[`comparator.js 1`] = `
-"// @flow
+// @flow
 // Should cause an error.
 function f(x : $Tainted<string>, y : $Tainted<number>) {
   var z : $Tainted<bool> = x < y;
@@ -215,11 +215,11 @@ function f2(x: $Tainted<string>, y: number) {
 function f3(x: $Tainted<string>, y: string) {
   var z: boolean = x < y;
 }
-"
+
 `;
 
 exports[`function.js 1`] = `
-"// @flow
+// @flow
 
 let tests = [
   // flows any to each param
@@ -248,11 +248,11 @@ let tests = [
     z(y);
   }
 ];
-"
+
 `;
 
 exports[`globals.js 1`] = `
-"// @flow
+// @flow
 
 class A {
   f(x : $Tainted<FakeLocation>) {
@@ -277,11 +277,11 @@ class A {
     window.fakeLocation = x;
   }
 }
-"
+
 `;
 
 exports[`lib.js 1`] = `
-"declare class FakeLocation {
+declare class FakeLocation {
   assign(url: string): void;
 }
 
@@ -306,11 +306,11 @@ declare function doStuff(x: $Tainted<any>): void;
 
 declare var fakeDocument: FakeDocument;
 declare var fakeLocation: FakeLocation;
-"
+
 `;
 
 exports[`taint1.js 1`] = `
-"/*
+/*
  *
  * @flow
  */
@@ -331,11 +331,11 @@ class A {
     var also_tainted: $Tainted<string> = tainted;
   }
 }
-"
+
 `;
 
 exports[`taint2.js 1`] = `
-"/*
+/*
  *
  * @flow
  */
@@ -356,11 +356,11 @@ class A {
     fakeDocument.location.assign(tainted);
   }
 }
-"
+
 `;
 
 exports[`taint3.js 1`] = `
-"/*
+/*
  *
  * @flow
  */
@@ -385,16 +385,16 @@ class A {
     var loc: string = safe;
   }
 }
-"
+
 `;
 
 exports[`taint4.js 1`] = `
-"/*
+/*
  *
  * @flow
  */
 
-var safe : string = \\"safe\\";
+var safe : string = "safe";
 // This should be allowed.
 var tainted : $Tainted<string> = safe
 
@@ -408,7 +408,7 @@ function f(x : $Tainted<any>) {
  * @flow
  */
 
-var safe: string = \\"safe\\";
+var safe: string = "safe";
 // This should be allowed.
 var tainted: $Tainted<string> = safe;
 
@@ -416,11 +416,11 @@ function f(x: $Tainted<any>) {
   // Should cause error.
   var y: any = x;
 }
-"
+
 `;
 
 exports[`use-types.js 1`] = `
-"/*
+/*
  * @flow
  */
 
@@ -485,5 +485,5 @@ function foo5(a: $Tainted<Array<string>>) {
 function foo6(a: $Tainted<Array<string>>) {
   var trusted: $Tainted<string> = a[0];
 }
-"
+
 `;

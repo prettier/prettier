@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test.js 1`] = `
-"type Banana = {
+type Banana = {
   eat: string => boolean,
 };
 
@@ -64,5 +64,5 @@ type f = /* comment */ arg => void;
 type f = arg /* comment */ => void;
 
 type f = ?arg => void;
-"
+
 `;

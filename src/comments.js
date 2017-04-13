@@ -19,7 +19,8 @@ var comparePos = util.comparePos;
 var childNodesCacheKey = Symbol("child-nodes");
 var locStart = util.locStart;
 var locEnd = util.locEnd;
-var getNextNonSpaceNonCommentCharacter = util.getNextNonSpaceNonCommentCharacter;
+var getNextNonSpaceNonCommentCharacter =
+  util.getNextNonSpaceNonCommentCharacter;
 
 // TODO Move a non-caching implementation of this function into ast-types,
 // and implement a caching wrapper function here.
@@ -38,8 +39,10 @@ function getSortedChildNodes(node, text, resultArray) {
       // time because we almost always (maybe always?) append the
       // nodes in order anyway.
       for (var i = resultArray.length - 1; i >= 0; --i) {
-        if (locStart(resultArray[i]) <= locStart(node) &&
-            locEnd(resultArray[i]) <= locEnd(node)) {
+        if (
+          locStart(resultArray[i]) <= locStart(node) &&
+          locEnd(resultArray[i]) <= locEnd(node)
+        ) {
           break;
         }
       }
@@ -82,7 +85,7 @@ function decorateComment(node, comment, text) {
   // Time to dust off the old binary search robes and wizard hat.
   var left = 0, right = childNodes.length;
   while (left < right) {
-    var middle = left + right >> 1;
+    var middle = (left + right) >> 1;
     var child = childNodes[middle];
 
     if (
@@ -149,13 +152,20 @@ function attach(comments, ast, text, options) {
       // We also need to check if it's the first line of the file.
       if (
         handleLastFunctionArgComments(
+          text,
           precedingNode,
           enclosingNode,
           followingNode,
           comment
         ) ||
         handleMemberExpressionComments(enclosingNode, followingNode, comment) ||
-        handleIfStatementComments(text, enclosingNode, followingNode, comment) ||
+        handleIfStatementComments(
+          text,
+          precedingNode,
+          enclosingNode,
+          followingNode,
+          comment
+        ) ||
         handleTryStatementComments(enclosingNode, followingNode, comment) ||
         handleClassComments(enclosingNode, comment) ||
         handleImportSpecifierComments(enclosingNode, comment) ||
@@ -168,7 +178,11 @@ function attach(comments, ast, text, options) {
           comment
         ) ||
         handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
-        handleImportDeclarationComments(enclosingNode, precedingNode, comment) ||
+        handleImportDeclarationComments(
+          enclosingNode,
+          precedingNode,
+          comment
+        ) ||
         handleAssignmentPatternComments(enclosingNode, comment)
       ) {
         // We're good
@@ -194,7 +208,13 @@ function attach(comments, ast, text, options) {
         ) ||
         handleImportSpecifierComments(enclosingNode, comment) ||
         handleTemplateLiteralComments(enclosingNode, comment) ||
-        handleIfStatementComments(text, enclosingNode, followingNode, comment) ||
+        handleIfStatementComments(
+          text,
+          precedingNode,
+          enclosingNode,
+          followingNode,
+          comment
+        ) ||
         handleClassComments(enclosingNode, comment) ||
         handleLabeledStatementComments(enclosingNode, comment) ||
         handleCallExpressionComments(precedingNode, enclosingNode, comment) ||
@@ -202,6 +222,7 @@ function attach(comments, ast, text, options) {
         handleExportNamedDeclarationComments(enclosingNode, comment) ||
         handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
         handleClassMethodComments(enclosingNode, comment) ||
+        handleTypeAliasComments(enclosingNode, followingNode, comment) ||
         handleVariableDeclaratorComments(enclosingNode, followingNode, comment)
       ) {
         // We're good
@@ -219,7 +240,13 @@ function attach(comments, ast, text, options) {
       }
     } else {
       if (
-        handleIfStatementComments(text, enclosingNode, followingNode, comment) ||
+        handleIfStatementComments(
+          text,
+          precedingNode,
+          enclosingNode,
+          followingNode,
+          comment
+        ) ||
         handleObjectPropertyAssignment(enclosingNode, precedingNode, comment) ||
         handleTemplateLiteralComments(enclosingNode, comment) ||
         handleCommentInEmptyParens(enclosingNode, comment) ||
@@ -365,11 +392,15 @@ function addBlockOrNotComment(node, comment) {
 //     // comment
 //     ...
 //   }
-function handleIfStatementComments(text, enclosingNode, followingNode, comment) {
+function handleIfStatementComments(
+  text,
+  precedingNode,
+  enclosingNode,
+  followingNode,
+  comment
+) {
   if (
-    !enclosingNode ||
-    enclosingNode.type !== "IfStatement" ||
-    !followingNode
+    !enclosingNode || enclosingNode.type !== "IfStatement" || !followingNode
   ) {
     return false;
   }
@@ -381,7 +412,8 @@ function handleIfStatementComments(text, enclosingNode, followingNode, comment) 
   // The only workaround I found is to look at the next character to see if
   // it is a ).
   if (getNextNonSpaceNonCommentCharacter(text, comment) === ")") {
-    return false;
+    addTrailingComment(precedingNode, comment);
+    return true;
   }
 
   if (followingNode.type === "BlockStatement") {
@@ -444,7 +476,8 @@ function handleConditionalExpressionComments(
   comment,
   text
 ) {
-  const isSameLineAsPrecedingNode = precedingNode &&
+  const isSameLineAsPrecedingNode =
+    precedingNode &&
     !util.hasNewlineInRange(text, locEnd(precedingNode), locStart(comment));
 
   if (
@@ -498,16 +531,18 @@ function handleCommentInEmptyParens(enclosingNode, comment) {
       enclosingNode.type === "ArrowFunctionExpression" ||
       enclosingNode.type === "ClassMethod" ||
       enclosingNode.type === "ObjectMethod") &&
-    enclosingNode.params.length === 0) ||
-    (enclosingNode.type === "CallExpression" &&
-      enclosingNode.arguments.length === 0))
+      enclosingNode.params.length === 0) ||
+      (enclosingNode.type === "CallExpression" &&
+        enclosingNode.arguments.length === 0))
   ) {
     addDanglingComment(enclosingNode, comment);
     return true;
   }
-  if (enclosingNode &&
+  if (
+    enclosingNode &&
     (enclosingNode.type === "MethodDefinition" &&
-      enclosingNode.value.params.length === 0)) {
+      enclosingNode.value.params.length === 0)
+  ) {
     addDanglingComment(enclosingNode.value, comment);
     return true;
   }
@@ -515,6 +550,7 @@ function handleCommentInEmptyParens(enclosingNode, comment) {
 }
 
 function handleLastFunctionArgComments(
+  text,
   precedingNode,
   enclosingNode,
   followingNode,
@@ -536,14 +572,15 @@ function handleLastFunctionArgComments(
   // Real functions
   if (
     precedingNode &&
-    precedingNode.type === "Identifier" &&
+    (precedingNode.type === "Identifier" ||
+      precedingNode.type === "AssignmentPattern") &&
     enclosingNode &&
     (enclosingNode.type === "ArrowFunctionExpression" ||
       enclosingNode.type === "FunctionExpression" ||
       enclosingNode.type === "FunctionDeclaration" ||
+      enclosingNode.type === "ObjectMethod" ||
       enclosingNode.type === "ClassMethod") &&
-    followingNode &&
-    followingNode.type !== "Identifier"
+    getNextNonSpaceNonCommentCharacter(text, comment) === ")"
   ) {
     addTrailingComment(precedingNode, comment);
     return true;
@@ -607,10 +644,7 @@ function handleUnionTypeComments(
   followingNode,
   comment
 ) {
-  if (
-    enclosingNode &&
-    enclosingNode.type === "UnionTypeAnnotation"
-  ) {
+  if (enclosingNode && enclosingNode.type === "UnionTypeAnnotation") {
     addTrailingComment(precedingNode, comment);
     return true;
   }
@@ -619,10 +653,9 @@ function handleUnionTypeComments(
 
 function handlePropertyComments(enclosingNode, comment) {
   if (
-    enclosingNode && (
-      enclosingNode.type === "Property" ||
-      enclosingNode.type === "ObjectProperty"
-    )
+    enclosingNode &&
+    (enclosingNode.type === "Property" ||
+      enclosingNode.type === "ObjectProperty")
   ) {
     addLeadingComment(enclosingNode, comment);
     return true;
@@ -648,8 +681,10 @@ function handleOnlyComments(enclosingNode, ast, comment, isLastComment) {
     }
     return true;
   } else if (
-    enclosingNode && enclosingNode.type === 'Program' &&
-    enclosingNode.body.length === 0 && enclosingNode.directives &&
+    enclosingNode &&
+    enclosingNode.type === "Program" &&
+    enclosingNode.body.length === 0 &&
+    enclosingNode.directives &&
     enclosingNode.directives.length === 0
   ) {
     if (isLastComment) {
@@ -663,9 +698,10 @@ function handleOnlyComments(enclosingNode, ast, comment, isLastComment) {
 }
 
 function handleForComments(enclosingNode, precedingNode, comment) {
-  if (enclosingNode && (
-    enclosingNode.type === "ForInStatement" ||
-    enclosingNode.type === "ForOfStatement")
+  if (
+    enclosingNode &&
+    (enclosingNode.type === "ForInStatement" ||
+      enclosingNode.type === "ForOfStatement")
   ) {
     addLeadingComment(enclosingNode, comment);
     return true;
@@ -673,11 +709,17 @@ function handleForComments(enclosingNode, precedingNode, comment) {
   return false;
 }
 
-function handleImportDeclarationComments(enclosingNode, precedingNode, comment) {
+function handleImportDeclarationComments(
+  enclosingNode,
+  precedingNode,
+  comment
+) {
   if (
     precedingNode &&
-    enclosingNode && enclosingNode.type === "ImportDeclaration" &&
-    comment.type !== "CommentBlock" && comment.type !== "Block"
+    enclosingNode &&
+    enclosingNode.type === "ImportDeclaration" &&
+    comment.type !== "CommentBlock" &&
+    comment.type !== "Block"
   ) {
     addTrailingComment(precedingNode, comment);
     return true;
@@ -701,12 +743,24 @@ function handleClassMethodComments(enclosingNode, comment) {
   return false;
 }
 
-function handleVariableDeclaratorComments(enclosingNode, followingNode, comment) {
+function handleTypeAliasComments(enclosingNode, followingNode, comment) {
+  if (enclosingNode && enclosingNode.type === "TypeAlias") {
+    addLeadingComment(enclosingNode, comment);
+    return true;
+  }
+  return false;
+}
+
+function handleVariableDeclaratorComments(
+  enclosingNode,
+  followingNode,
+  comment
+) {
   if (
     enclosingNode &&
     enclosingNode.type === "VariableDeclarator" &&
-    followingNode && (
-      followingNode.type === "ObjectExpression" ||
+    followingNode &&
+    (followingNode.type === "ObjectExpression" ||
       followingNode.type === "ArrayExpression")
   ) {
     addLeadingComment(followingNode, comment);
@@ -825,15 +879,12 @@ function printDanglingComments(path, options, sameIndent) {
     return "";
   }
 
-  path.each(
-    commentPath => {
-      const comment = commentPath.getValue();
-      if (!comment.leading && !comment.trailing) {
-        parts.push(printComment(commentPath));
-      }
-    },
-    "comments"
-  );
+  path.each(commentPath => {
+    const comment = commentPath.getValue();
+    if (!comment.leading && !comment.trailing) {
+      parts.push(printComment(commentPath));
+    }
+  }, "comments");
 
   if (parts.length === 0) {
     return "";
@@ -858,29 +909,24 @@ function printComments(path, print, options) {
   var leadingParts = [];
   var trailingParts = [printed];
 
-  path.each(
-    function(commentPath) {
-      var comment = commentPath.getValue();
-      var leading = types.getFieldValue(comment, "leading");
-      var trailing = types.getFieldValue(comment, "trailing");
+  path.each(function(commentPath) {
+    var comment = commentPath.getValue();
+    var leading = types.getFieldValue(comment, "leading");
+    var trailing = types.getFieldValue(comment, "trailing");
 
-      if (leading) {
-        leadingParts.push(printLeadingComment(commentPath, print, options));
+    if (leading) {
+      leadingParts.push(printLeadingComment(commentPath, print, options));
 
-        const text = options.originalText;
-        if (
-          util.hasNewline(text, util.skipNewline(text, util.locEnd(comment)))
-        ) {
-          leadingParts.push(hardline);
-        }
-      } else if (trailing) {
-        trailingParts.push(
-          printTrailingComment(commentPath, print, options, parent)
-        );
+      const text = options.originalText;
+      if (util.hasNewline(text, util.skipNewline(text, util.locEnd(comment)))) {
+        leadingParts.push(hardline);
       }
-    },
-    "comments"
-  );
+    } else if (trailing) {
+      trailingParts.push(
+        printTrailingComment(commentPath, print, options, parent)
+      );
+    }
+  }, "comments");
 
   return concat(leadingParts.concat(trailingParts));
 }

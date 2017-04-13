@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`binary.js 1`] = `
-"(class {}) + 1;
+(class {}) + 1;
 (class a {}) + 1;
 (class extends b {}) + 1;
 (class a extends b {}) + 1;
@@ -10,11 +10,11 @@ exports[`binary.js 1`] = `
 (class a {} + 1);
 (class extends b {} + 1);
 (class a extends b {} + 1);
-"
+
 `;
 
 exports[`break.js 1`] = `
-"class MyContractSelectionWidget extends React.Component<void,  MyContractSelectionWidgetPropsType, void> implements SomethingLarge {
+class MyContractSelectionWidget extends React.Component<void,  MyContractSelectionWidgetPropsType, void> implements SomethingLarge {
   method() {}
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -23,18 +23,18 @@ class MyContractSelectionWidget
   implements SomethingLarge {
   method() {}
 }
-"
+
 `;
 
 exports[`call.js 1`] = `
-"(class {})(class {});
+(class {})(class {});
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 (class {}(class {}));
-"
+
 `;
 
 exports[`empty.js 1`] = `
-"class A {
+class A {
   // comment
 }
 
@@ -61,21 +61,21 @@ class A {}
 class A {
   m() {}
 }
-"
+
 `;
 
 exports[`member.js 1`] = `
-"(class {})[1];
+(class {})[1];
 (class {}).a;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 (class {}[1]);
 (class {}.a);
-"
+
 `;
 
 exports[`ternary.js 1`] = `
-"if (1) (class {}) ? 1 : 2;
+if (1) (class {}) ? 1 : 2;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 if (1) (class {} ? 1 : 2);
-"
+
 `;

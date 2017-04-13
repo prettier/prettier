@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`declares.js 1`] = `
-"declare module \\"CJS_Named\\" {
+declare module "CJS_Named" {
   declare var num1: number;
   declare var str1: string;
 }
 
-declare module \\"CJS_Clobbered\\" {
+declare module "CJS_Clobbered" {
   declare var num2: number;
   declare type numType = number;
   declare var exports: {
@@ -14,7 +14,7 @@ declare module \\"CJS_Clobbered\\" {
   };
 }
 
-declare module \\"ES\\" {
+declare module "ES" {
   declare var strHidden: string;
   declare export {strHidden as str3};
   declare export var num3: number;
@@ -23,18 +23,18 @@ declare module \\"ES\\" {
   declare var exports: number;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-declare module \\"CJS_Named\\" {
+declare module "CJS_Named" {
   declare var num1: number;
   declare var str1: string;
 }
-declare module \\"CJS_Clobbered\\" {
+declare module "CJS_Clobbered" {
   declare var num2: number;
   declare type numType = number;
   declare var exports: {
     numExport: number
   };
 }
-declare module \\"ES\\" {
+declare module "ES" {
   declare var strHidden: string;
   declare export { strHidden as str3 };
   declare export var num3: number;
@@ -42,5 +42,5 @@ declare module \\"ES\\" {
   declare export type T = number;
   declare var exports: number;
 }
-"
+
 `;

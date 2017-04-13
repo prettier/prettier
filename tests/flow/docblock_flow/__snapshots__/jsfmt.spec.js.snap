@@ -1,20 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`license_with_flow.js 1`] = `
-"/* Copyright example */
+/* Copyright example */
 /* @flow */
 
-(\\"\\": void); // error
+("": void); // error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* Copyright example */
 /* @flow */
 
-(\\"\\": void); // error
-"
+("": void); // error
+
 `;
 
 exports[`max_header_tokens.js 1`] = `
-"/* @flow */
+/* @flow */
 /* second token */
 /* third token */
 /**
@@ -31,20 +31,20 @@ exports[`max_header_tokens.js 1`] = `
  *
  * @flow
  */
-"
+
 `;
 
 exports[`multiple_flows_1.js 1`] = `
-"/* @flow */
+/* @flow */
 /* @flow */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 /* @flow */
-"
+
 `;
 
 exports[`multiple_flows_2.js 1`] = `
-"/**
+/**
  * @flow
  * @noflow
  */
@@ -53,11 +53,11 @@ exports[`multiple_flows_2.js 1`] = `
  * @flow
  * @noflow
  */
-"
+
 `;
 
 exports[`multiple_providesModule_1.js 1`] = `
-"/**
+/**
  * @providesModule Foo
  * @providesModule Bar
  * @flow
@@ -68,11 +68,11 @@ exports[`multiple_providesModule_1.js 1`] = `
  * @providesModule Bar
  * @flow
  */
-"
+
 `;
 
 exports[`multiple_providesModule_2.js 1`] = `
-"/**
+/**
  * @providesModule Foo
  * @flow
  */
@@ -87,40 +87,40 @@ exports[`multiple_providesModule_2.js 1`] = `
 /**
  * @providesModule Bar
  */
-"
+
 `;
 
 exports[`use_strict_with_flow.js 1`] = `
-"\\"use strict\\";
+"use strict";
 /* @flow */
 
-(\\"\\": void); // error
+("": void); // error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\\"use strict\\";
+"use strict";
 /* @flow */
 
-(\\"\\": void); // error
-"
+("": void); // error
+
 `;
 
 exports[`with_flow.js 1`] = `
-"/* @flow */
+/* @flow */
 
-(\\"\\": void); // error
+("": void); // error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-(\\"\\": void); // error
-"
+("": void); // error
+
 `;
 
 exports[`without_flow.js 1`] = `
-"/* some other comment */
+/* some other comment */
 
-(\\"\\": void); // no error
+("": void); // no error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* some other comment */
 
-(\\"\\": void); // no error
-"
+("": void); // no error
+
 `;

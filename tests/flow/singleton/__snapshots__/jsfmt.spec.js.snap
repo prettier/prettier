@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`boolean.js 1`] = `
-"/* @flow */
+/* @flow */
 
 function veryOptimistic(isThisAwesome: true): boolean {
   return isThisAwesome;
@@ -76,11 +76,11 @@ function alwaysFalsy(x: boolean): false {
     return x;
   }
 }
-"
+
 `;
 
 exports[`number.js 1`] = `
-"/* @flow */
+/* @flow */
 
 function highlander(howMany: 1): number {
   return howMany; // there can be only one!
@@ -126,24 +126,24 @@ bar(3); // error
 type ComparatorResult = -1 | 0 | 1;
 function sort(fn: (x: any, y: any) => ComparatorResult) {}
 sort((x, y) => -1);
-"
+
 `;
 
 exports[`string.js 1`] = `
-"/* @flow */
+/* @flow */
 
-type NoSpaces = \\"foobar\\"
-(\\"foobar\\": NoSpaces);
+type NoSpaces = "foobar"
+("foobar": NoSpaces);
 
-type HasSpaces = \\"foo bar\\"
-(\\"foo bar\\": HasSpaces);
+type HasSpaces = "foo bar"
+("foo bar": HasSpaces);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-type NoSpaces = \\"foobar\\";
-(\\"foobar\\": NoSpaces);
+type NoSpaces = "foobar";
+("foobar": NoSpaces);
 
-type HasSpaces = \\"foo bar\\";
-(\\"foo bar\\": HasSpaces);
-"
+type HasSpaces = "foo bar";
+("foo bar": HasSpaces);
+
 `;

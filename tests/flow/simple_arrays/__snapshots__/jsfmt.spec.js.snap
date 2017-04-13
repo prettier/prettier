@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`array.js 1`] = `
-"/* @flow */
+/* @flow */
 var a = [];
 for (var i = 0; i < 10; ++i) {
     if (i % 2 == 0) { a[i] = 0; }
@@ -28,7 +28,7 @@ for (var i = 0; i < 10; ++i) {
   if (i % 2 == 0) {
     a[i] = 0;
   } else {
-    a[i] = \\"\\";
+    a[i] = "";
   }
 }
 
@@ -51,11 +51,11 @@ bar(0);
 function baz(i: number): string {
   return a[i];
 }
-"
+
 `;
 
 exports[`array2.js 1`] = `
-"/* @flow */
+/* @flow */
 var a = [];
 for (var i = 0; i < 10; ++i) {
     if (i % 2 == 0) { a[i] = 0; }
@@ -70,12 +70,12 @@ for (var i = 0; i < 10; ++i) {
   if (i % 2 == 0) {
     a[i] = 0;
   } else {
-    a[i] = \\"\\";
+    a[i] = "";
   }
 }
 
 function foo(i: number): string {
   return a[i];
 }
-"
+
 `;

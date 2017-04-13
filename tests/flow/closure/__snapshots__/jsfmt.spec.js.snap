@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Closure.js 1`] = `
-"/***
+/***
  * Test tracking of variable types across closure calls.
  * @flow
  */
@@ -11,7 +11,7 @@ function takes_string(_:string) { }
 // global write from function
 //
 
-var global_x = \\"hello\\";
+var global_x = "hello";
 
 function global_f() { }
 function global_g() { global_x = 42; }
@@ -29,7 +29,7 @@ global_x = 42;  // shouldn't pollute linear refinement
 
 function local_func() {
 
-  var local_x = \\"hello\\";
+  var local_x = "hello";
 
   function local_f() { }
   function local_g() { local_x = 42; }
@@ -46,7 +46,7 @@ function local_func() {
 // global write from method
 //
 
-var global_y = \\"hello\\";
+var global_y = "hello";
 
 var global_o = {
   f: function() { },
@@ -66,7 +66,7 @@ global_y = 42;  // shouldn't pollute linear refinement
 
 function local_meth() {
 
-  var local_y = \\"hello\\";
+  var local_y = "hello";
 
   var local_o = {
     f: function() { },
@@ -92,7 +92,7 @@ function takes_string(_: string) {}
 // global write from function
 //
 
-var global_x = \\"hello\\";
+var global_x = "hello";
 
 function global_f() {}
 function global_g() {
@@ -111,7 +111,7 @@ global_x = 42; // shouldn't pollute linear refinement
 //
 
 function local_func() {
-  var local_x = \\"hello\\";
+  var local_x = "hello";
 
   function local_f() {}
   function local_g() {
@@ -130,7 +130,7 @@ function local_func() {
 // global write from method
 //
 
-var global_y = \\"hello\\";
+var global_y = "hello";
 
 var global_o = {
   f: function() {},
@@ -151,7 +151,7 @@ global_y = 42; // shouldn't pollute linear refinement
 //
 
 function local_meth() {
-  var local_y = \\"hello\\";
+  var local_y = "hello";
 
   var local_o = {
     f: function() {},
@@ -168,18 +168,18 @@ function local_meth() {
 
   local_y = 42; // shouldn't pollute linear refinement
 }
-"
+
 `;
 
 exports[`cond_havoc.js 1`] = `
-"// @flow
+// @flow
 
 // from sam, https://github.com/facebook/flow/issues/780
 // call to f() within if should properly havoc x.
 //
 function example(b: bool): number {
   var x = 0;
-  function f() { x = \\"\\" }
+  function f() { x = "" }
   if (b) {
     f();
   }
@@ -194,18 +194,18 @@ function example(b: bool): number {
 function example(b: boolean): number {
   var x = 0;
   function f() {
-    x = \\"\\";
+    x = "";
   }
   if (b) {
     f();
   }
   return x; // error, string ~/~> number (return type anno) TODO
 }
-"
+
 `;
 
 exports[`const.js 1`] = `
-"/***
+/***
  * consts retain refinements
  * @flow
  */
@@ -232,20 +232,20 @@ function g(x: ?number) {
 function h(x: number | string | boolean) {
 
   const const_x = x;
-  if (typeof(const_x) == \\"number\\") {
+  if (typeof(const_x) == "number") {
     call_me = () => { var y:number = const_x; };  // ok
-  } else if (typeof(const_x) == \\"string\\") {
+  } else if (typeof(const_x) == "string") {
     call_me = () => { var y:string = const_x; };  // ok
-  } else if (typeof(const_x) == \\"boolean\\") {
+  } else if (typeof(const_x) == "boolean") {
     call_me = () => { var y:boolean = const_x; };  // ok
   }
 
   var var_x = x;
-  if (typeof(var_x) == \\"number\\") {
+  if (typeof(var_x) == "number") {
     call_me = () => { var y:number = var_x; };  // error
-  } else if (typeof(var_x) == \\"string\\") {
+  } else if (typeof(var_x) == "string") {
     call_me = () => { var y:string = var_x; };  // error
-  } else if (typeof(var_x) == \\"boolean\\") {
+  } else if (typeof(var_x) == "boolean") {
     call_me = () => { var y:boolean = var_x; };  // error
   }
 }
@@ -282,30 +282,30 @@ function g(x: ?number) {
 
 function h(x: number | string | boolean) {
   const const_x = x;
-  if (typeof const_x == \\"number\\") {
+  if (typeof const_x == "number") {
     call_me = () => {
       var y: number = const_x;
     }; // ok
-  } else if (typeof const_x == \\"string\\") {
+  } else if (typeof const_x == "string") {
     call_me = () => {
       var y: string = const_x;
     }; // ok
-  } else if (typeof const_x == \\"boolean\\") {
+  } else if (typeof const_x == "boolean") {
     call_me = () => {
       var y: boolean = const_x;
     }; // ok
   }
 
   var var_x = x;
-  if (typeof var_x == \\"number\\") {
+  if (typeof var_x == "number") {
     call_me = () => {
       var y: number = var_x;
     }; // error
-  } else if (typeof var_x == \\"string\\") {
+  } else if (typeof var_x == "string") {
     call_me = () => {
       var y: string = var_x;
     }; // error
-  } else if (typeof var_x == \\"boolean\\") {
+  } else if (typeof var_x == "boolean") {
     call_me = () => {
       var y: boolean = var_x;
     }; // error
@@ -314,5 +314,5 @@ function h(x: number | string | boolean) {
 
 // in a galaxy far far away
 call_me();
-"
+
 `;

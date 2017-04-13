@@ -31,3 +31,23 @@ function f(
 ): number {
   return a + 1;
 }
+
+var x = {
+  getSectionMode(
+    pageMetaData: PageMetaData,
+    sectionMetaData: SectionMetaData
+    /* $FlowFixMe This error was exposed while converting keyMirror
+     * to keyMirrorRecursive */
+  ): $Enum<SectionMode> {
+  }
+}
+
+class X {
+  getSectionMode(
+    pageMetaData: PageMetaData,
+    sectionMetaData: SectionMetaData = ['unknown']
+    /* $FlowFixMe This error was exposed while converting keyMirror
+     * to keyMirrorRecursive */
+  ): $Enum<SectionMode> {
+  }
+}

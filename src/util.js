@@ -170,7 +170,12 @@ function skipNewline(text, index, opts) {
 
   const atIndex = text.charAt(index);
   if (backwards) {
-    if (atIndex === "\n" || atIndex === "\r" ||  atIndex === "\u2028" ||  atIndex === "\u2029") {
+    if (
+      atIndex === "\n" ||
+      atIndex === "\r" ||
+      atIndex === "\u2028" ||
+      atIndex === "\u2029"
+    ) {
       return index - 1;
     }
     if (text.charAt(index - 1) === "\r" && atIndex === "\n") {
@@ -180,7 +185,12 @@ function skipNewline(text, index, opts) {
     if (atIndex === "\r" && text.charAt(index + 1) === "\n") {
       return index + 2;
     }
-    if (atIndex === "\n" || atIndex === "\r" ||  atIndex === "\u2028" ||  atIndex === "\u2029") {
+    if (
+      atIndex === "\n" ||
+      atIndex === "\r" ||
+      atIndex === "\u2028" ||
+      atIndex === "\u2029"
+    ) {
       return index + 1;
     }
   }

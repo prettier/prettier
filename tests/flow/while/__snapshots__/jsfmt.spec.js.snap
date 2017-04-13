@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`abnormal.js 1`] = `
-"/* @flow */
+/* @flow */
 
 function foo(x: boolean) {
   var ii = 10;
@@ -42,11 +42,11 @@ function bar(x: boolean) {
   }
   //console.log('this is still reachable');
 }
-"
+
 `;
 
 exports[`test.js 1`] = `
-"class C {
+class C {
     m() { return new C; }
 }
 function blah() {}
@@ -71,5 +71,5 @@ while (node) {
   blah();
   node = parent.m();
 }
-"
+
 `;

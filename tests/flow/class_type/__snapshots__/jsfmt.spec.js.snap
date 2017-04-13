@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test.js 1`] = `
-"class A { }
+class A { }
 function foo(x: Class<A>): A {
   return new x(); // OK
 }
@@ -24,11 +24,11 @@ class B {
 function bar(x: Class<B>): B {
   return new x(); // error (too few args)
 }
-"
+
 `;
 
 exports[`test2.js 1`] = `
-"// A function to typecheck values against their types. Covariance of Class<.>
+// A function to typecheck values against their types. Covariance of Class<.>
 // makes it useless in such a function (when limited to classes and instances),
 // since everything can be trivially satisfied by going to \`mixed\`.
 declare function check<X>(cls: $Type<X>, inst: X): void;
@@ -57,5 +57,5 @@ check(A, new B());
 check(C, new A());
 check(C, new B());
 check(B, new C());
-"
+
 `;

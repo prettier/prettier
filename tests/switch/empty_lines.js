@@ -45,3 +45,9 @@ switch (x) {
 
     break;
 }
+
+switch (a) {
+  case b:
+    if (1) {};
+    c;
+}

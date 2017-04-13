@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Condition.js 1`] = `
-"/* @providesModule Condition */
+/* @providesModule Condition */
 
 function f(x:number) { }
-function g() { return (42 || \\"hello\\"); }
+function g() { return (42 || "hello"); }
 
 var x = g();
-if (typeof x === \\"string\\") {
+if (typeof x === "string") {
   x = 0;
 }
 f(x);
@@ -27,7 +27,7 @@ class C { qux() { } }
 
 function foo() {
 
-  var c = \\"...\\";
+  var c = "...";
   c = new C();
   if (bar()) {
     c.qux();
@@ -63,11 +63,11 @@ module.exports = true;
 
 function f(x: number) {}
 function g() {
-  return 42 || \\"hello\\";
+  return 42 || "hello";
 }
 
 var x = g();
-if (typeof x === \\"string\\") {
+if (typeof x === "string") {
   x = 0;
 }
 f(x);
@@ -92,7 +92,7 @@ class C {
 }
 
 function foo() {
-  var c = \\"...\\";
+  var c = "...";
   c = new C();
   if (bar()) {
     c.qux();
@@ -101,7 +101,7 @@ function foo() {
 
 function goofy() {
   var x = g();
-  if (typeof x == \\"function\\") {
+  if (typeof x == "function") {
     x();
   } else {
     // if (typeof x == 'number') {
@@ -111,11 +111,11 @@ function goofy() {
 
 function goofy2() {
   var o = { x: 0 };
-  if (typeof o.x == \\"function\\") {
+  if (typeof o.x == "function") {
     o.x();
   }
   var y = o.x;
-  if (typeof y == \\"function\\") {
+  if (typeof y == "function") {
     y();
   } else {
     //f(y);
@@ -123,18 +123,18 @@ function goofy2() {
 }
 
 module.exports = true;
-"
+
 `;
 
 exports[`FlowSA.js 1`] = `
-"
+
 /* @providesModule FlowSA */
 
 function check(x:string) { }
 
 function FlowSA() {
   var x = 0;
-  x = \\"...\\";
+  x = "...";
   check(x);
 }
 
@@ -146,16 +146,16 @@ function check(x: string) {}
 
 function FlowSA() {
   var x = 0;
-  x = \\"...\\";
+  x = "...";
   check(x);
 }
 
 module.exports = FlowSA;
-"
+
 `;
 
 exports[`Sigma.js 1`] = `
-"
+
 /* @providesModule Sigma */
 
 class A { a() {} }
@@ -194,7 +194,7 @@ function baz(x:D) {
   }
 }
 
-module.exports = \\"sigma\\";
+module.exports = "sigma";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule Sigma */
 
@@ -241,12 +241,12 @@ function baz(x: D) {
   }
 }
 
-module.exports = \\"sigma\\";
-"
+module.exports = "sigma";
+
 `;
 
 exports[`test.js 1`] = `
-"class BaseClass {
+class BaseClass {
   baseProp: string;
 }
 
@@ -275,5 +275,5 @@ function test(obj: BaseClass): string {
   }
   return obj.baseProp;
 }
-"
+
 `;

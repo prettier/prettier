@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`no-semi.js 1`] = `
-"
+
 // with preexisting semi
 
 x; [1, 2, 3].forEach(fn)
@@ -161,13 +161,13 @@ x;
 x;
 [a, b, ...c] = [1, 2];
 x;
-/r/i.test(\\"r\\");
+/r/i.test("r");
 x;
 +1;
 x;
 -1;
 x;
-(\\"h\\" + \\"i\\").repeat(10);
+("h" + "i").repeat(10);
 x;
 1, 2;
 x;
@@ -231,16 +231,16 @@ class A {
   *i() {}
 
   a = 1;
-  get [\\"y\\"]() {}
+  get ["y"]() {}
 
   a = 1;
-  static [\\"y\\"]() {}
+  static ["y"]() {}
 
   a = 1;
-  set [\\"z\\"](z) {}
+  set ["z"](z) {}
 
   a = 1;
-  async [\\"a\\"]() {}
+  async ["a"]() {}
 
   a = 1;
   async *g() {}
@@ -318,11 +318,11 @@ while (false)
 
 aReallyLongLine012345678901234567890123456789012345678901234567890123456789 *
   (b + c);
-"
+
 `;
 
 exports[`no-semi.js 2`] = `
-"
+
 // with preexisting semi
 
 x; [1, 2, 3].forEach(fn)
@@ -482,13 +482,13 @@ x
 x
 ;[a, b, ...c] = [1, 2]
 x
-;/r/i.test(\\"r\\")
+;/r/i.test("r")
 x
 ;+1
 x
 ;-1
 x
-;(\\"h\\" + \\"i\\").repeat(10)
+;("h" + "i").repeat(10)
 x
 1, 2
 x
@@ -552,16 +552,16 @@ class A {
   *i() {}
 
   a = 1
-  get [\\"y\\"]() {}
+  get ["y"]() {}
 
   a = 1
-  static [\\"y\\"]() {}
+  static ["y"]() {}
 
   a = 1
-  set [\\"z\\"](z) {}
+  set ["z"](z) {}
 
   a = 1
-  async [\\"a\\"]() {}
+  async ["a"]() {}
 
   a = 1
   async *g() {}
@@ -639,11 +639,11 @@ while (false)
 
 aReallyLongLine012345678901234567890123456789012345678901234567890123456789 *
   (b + c)
-"
+
 `;
 
 exports[`no-semi.js 3`] = `
-"
+
 // with preexisting semi
 
 x; [1, 2, 3].forEach(fn)
@@ -803,13 +803,13 @@ x
 x
 ;[a, b, ...c] = [1, 2]
 x
-;/r/i.test(\\"r\\")
+;/r/i.test("r")
 x
 ;+1
 x
 ;-1
 x
-;(\\"h\\" + \\"i\\").repeat(10)
+;("h" + "i").repeat(10)
 x
 1, 2
 x
@@ -874,16 +874,16 @@ class A {
   *i() {}
 
   a = 1
-  get [\\"y\\"]() {}
+  get ["y"]() {}
 
   a = 1
-  static [\\"y\\"]() {}
+  static ["y"]() {}
 
   a = 1
-  set [\\"z\\"](z) {}
+  set ["z"](z) {}
 
   a = 1
-  async [\\"a\\"]() {}
+  async ["a"]() {}
 
   a = 1
   async *g() {}
@@ -961,5 +961,5 @@ while (false)
 
 aReallyLongLine012345678901234567890123456789012345678901234567890123456789 *
   (b + c)
-"
+
 `;

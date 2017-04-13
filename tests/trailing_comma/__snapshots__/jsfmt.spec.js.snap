@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`es5.js 1`] = `
-"function send_single_email(
+function send_single_email(
   app,
   email_id,
   email_address,
@@ -15,7 +15,7 @@ exports[`es5.js 1`] = `
   subject,
   html,
   reply_to);
-  return \\"nothing\\";
+  return "nothing";
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function send_single_email(
@@ -34,13 +34,13 @@ function send_single_email(
     html,
     reply_to
   );
-  return \\"nothing\\";
+  return "nothing";
 }
-"
+
 `;
 
 exports[`es5.js 2`] = `
-"function send_single_email(
+function send_single_email(
   app,
   email_id,
   email_address,
@@ -54,7 +54,7 @@ exports[`es5.js 2`] = `
   subject,
   html,
   reply_to);
-  return \\"nothing\\";
+  return "nothing";
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function send_single_email(
@@ -73,13 +73,13 @@ function send_single_email(
     html,
     reply_to,
   );
-  return \\"nothing\\";
+  return "nothing";
 }
-"
+
 `;
 
 exports[`es5.js 3`] = `
-"function send_single_email(
+function send_single_email(
   app,
   email_id,
   email_address,
@@ -93,7 +93,7 @@ exports[`es5.js 3`] = `
   subject,
   html,
   reply_to);
-  return \\"nothing\\";
+  return "nothing";
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function send_single_email(
@@ -112,13 +112,13 @@ function send_single_email(
     html,
     reply_to
   );
-  return \\"nothing\\";
+  return "nothing";
 }
-"
+
 `;
 
 exports[`es5.js 4`] = `
-"function send_single_email(
+function send_single_email(
   app,
   email_id,
   email_address,
@@ -132,7 +132,7 @@ exports[`es5.js 4`] = `
   subject,
   html,
   reply_to);
-  return \\"nothing\\";
+  return "nothing";
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function send_single_email(
@@ -151,13 +151,13 @@ function send_single_email(
     html,
     reply_to
   );
-  return \\"nothing\\";
+  return "nothing";
 }
-"
+
 `;
 
 exports[`es5.js 5`] = `
-"function send_single_email(
+function send_single_email(
   app,
   email_id,
   email_address,
@@ -171,7 +171,7 @@ exports[`es5.js 5`] = `
   subject,
   html,
   reply_to);
-  return \\"nothing\\";
+  return "nothing";
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function send_single_email(
@@ -190,13 +190,13 @@ function send_single_email(
     html,
     reply_to,
   );
-  return \\"nothing\\";
+  return "nothing";
 }
-"
+
 `;
 
 exports[`export.js 1`] = `
-"export { value1, value2 as value2_renamed, value3, value4 as value4_renamed, value5 } from \\"exports\\";
+export { value1, value2 as value2_renamed, value3, value4 as value4_renamed, value5 } from "exports";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export {
   value1,
@@ -204,12 +204,12 @@ export {
   value3,
   value4 as value4_renamed,
   value5
-} from \\"exports\\";
-"
+} from "exports";
+
 `;
 
 exports[`export.js 2`] = `
-"export { value1, value2 as value2_renamed, value3, value4 as value4_renamed, value5 } from \\"exports\\";
+export { value1, value2 as value2_renamed, value3, value4 as value4_renamed, value5 } from "exports";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export {
   value1,
@@ -217,12 +217,12 @@ export {
   value3,
   value4 as value4_renamed,
   value5
-} from \\"exports\\";
-"
+} from "exports";
+
 `;
 
 exports[`export.js 3`] = `
-"export { value1, value2 as value2_renamed, value3, value4 as value4_renamed, value5 } from \\"exports\\";
+export { value1, value2 as value2_renamed, value3, value4 as value4_renamed, value5 } from "exports";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export {
   value1,
@@ -230,12 +230,12 @@ export {
   value3,
   value4 as value4_renamed,
   value5
-} from \\"exports\\";
-"
+} from "exports";
+
 `;
 
 exports[`export.js 4`] = `
-"export { value1, value2 as value2_renamed, value3, value4 as value4_renamed, value5 } from \\"exports\\";
+export { value1, value2 as value2_renamed, value3, value4 as value4_renamed, value5 } from "exports";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export {
   value1,
@@ -243,12 +243,12 @@ export {
   value3,
   value4 as value4_renamed,
   value5
-} from \\"exports\\";
-"
+} from "exports";
+
 `;
 
 exports[`export.js 5`] = `
-"export { value1, value2 as value2_renamed, value3, value4 as value4_renamed, value5 } from \\"exports\\";
+export { value1, value2 as value2_renamed, value3, value4 as value4_renamed, value5 } from "exports";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export {
   value1,
@@ -256,12 +256,12 @@ export {
   value3,
   value4 as value4_renamed,
   value5
-} from \\"exports\\";
-"
+} from "exports";
+
 `;
 
 exports[`function-calls.js 1`] = `
-"const a = (param1, param2, param3) => {}
+const a = (param1, param2, param3) => {}
 
 a('value', 'value2', 'value3');
 
@@ -275,24 +275,24 @@ a('value', 'value2', a('long-nested-value', 'long-nested-value2', 'long-nested-v
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const a = (param1, param2, param3) => {};
 
-a(\\"value\\", \\"value2\\", \\"value3\\");
+a("value", "value2", "value3");
 
 a(
-  \\"a-long-value\\",
-  \\"a-really-really-long-value\\",
-  \\"a-really-really-really-long-value\\"
+  "a-long-value",
+  "a-really-really-long-value",
+  "a-really-really-really-long-value"
 );
 
 a(
-  \\"value\\",
-  \\"value2\\",
-  a(\\"long-nested-value\\", \\"long-nested-value2\\", \\"long-nested-value3\\")
+  "value",
+  "value2",
+  a("long-nested-value", "long-nested-value2", "long-nested-value3")
 );
-"
+
 `;
 
 exports[`function-calls.js 2`] = `
-"const a = (param1, param2, param3) => {}
+const a = (param1, param2, param3) => {}
 
 a('value', 'value2', 'value3');
 
@@ -306,24 +306,24 @@ a('value', 'value2', a('long-nested-value', 'long-nested-value2', 'long-nested-v
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const a = (param1, param2, param3) => {};
 
-a(\\"value\\", \\"value2\\", \\"value3\\");
+a("value", "value2", "value3");
 
 a(
-  \\"a-long-value\\",
-  \\"a-really-really-long-value\\",
-  \\"a-really-really-really-long-value\\",
+  "a-long-value",
+  "a-really-really-long-value",
+  "a-really-really-really-long-value",
 );
 
 a(
-  \\"value\\",
-  \\"value2\\",
-  a(\\"long-nested-value\\", \\"long-nested-value2\\", \\"long-nested-value3\\"),
+  "value",
+  "value2",
+  a("long-nested-value", "long-nested-value2", "long-nested-value3"),
 );
-"
+
 `;
 
 exports[`function-calls.js 3`] = `
-"const a = (param1, param2, param3) => {}
+const a = (param1, param2, param3) => {}
 
 a('value', 'value2', 'value3');
 
@@ -337,24 +337,24 @@ a('value', 'value2', a('long-nested-value', 'long-nested-value2', 'long-nested-v
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const a = (param1, param2, param3) => {};
 
-a(\\"value\\", \\"value2\\", \\"value3\\");
+a("value", "value2", "value3");
 
 a(
-  \\"a-long-value\\",
-  \\"a-really-really-long-value\\",
-  \\"a-really-really-really-long-value\\"
+  "a-long-value",
+  "a-really-really-long-value",
+  "a-really-really-really-long-value"
 );
 
 a(
-  \\"value\\",
-  \\"value2\\",
-  a(\\"long-nested-value\\", \\"long-nested-value2\\", \\"long-nested-value3\\")
+  "value",
+  "value2",
+  a("long-nested-value", "long-nested-value2", "long-nested-value3")
 );
-"
+
 `;
 
 exports[`function-calls.js 4`] = `
-"const a = (param1, param2, param3) => {}
+const a = (param1, param2, param3) => {}
 
 a('value', 'value2', 'value3');
 
@@ -368,24 +368,24 @@ a('value', 'value2', a('long-nested-value', 'long-nested-value2', 'long-nested-v
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const a = (param1, param2, param3) => {};
 
-a(\\"value\\", \\"value2\\", \\"value3\\");
+a("value", "value2", "value3");
 
 a(
-  \\"a-long-value\\",
-  \\"a-really-really-long-value\\",
-  \\"a-really-really-really-long-value\\"
+  "a-long-value",
+  "a-really-really-long-value",
+  "a-really-really-really-long-value"
 );
 
 a(
-  \\"value\\",
-  \\"value2\\",
-  a(\\"long-nested-value\\", \\"long-nested-value2\\", \\"long-nested-value3\\")
+  "value",
+  "value2",
+  a("long-nested-value", "long-nested-value2", "long-nested-value3")
 );
-"
+
 `;
 
 exports[`function-calls.js 5`] = `
-"const a = (param1, param2, param3) => {}
+const a = (param1, param2, param3) => {}
 
 a('value', 'value2', 'value3');
 
@@ -399,24 +399,24 @@ a('value', 'value2', a('long-nested-value', 'long-nested-value2', 'long-nested-v
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const a = (param1, param2, param3) => {};
 
-a(\\"value\\", \\"value2\\", \\"value3\\");
+a("value", "value2", "value3");
 
 a(
-  \\"a-long-value\\",
-  \\"a-really-really-long-value\\",
-  \\"a-really-really-really-long-value\\",
+  "a-long-value",
+  "a-really-really-long-value",
+  "a-really-really-really-long-value",
 );
 
 a(
-  \\"value\\",
-  \\"value2\\",
-  a(\\"long-nested-value\\", \\"long-nested-value2\\", \\"long-nested-value3\\"),
+  "value",
+  "value2",
+  a("long-nested-value", "long-nested-value2", "long-nested-value3"),
 );
-"
+
 `;
 
 exports[`import.js 1`] = `
-"import {
+import {
   runTaskForChanged,
   description,
   someOtherLabel,
@@ -437,13 +437,13 @@ import {
   multiLine,
   andMore,
   soWeCanGetItTo80Columns
-} from \\".\\";
-import { fitsIn, oneLine } from \\".\\";
-"
+} from ".";
+import { fitsIn, oneLine } from ".";
+
 `;
 
 exports[`import.js 2`] = `
-"import {
+import {
   runTaskForChanged,
   description,
   someOtherLabel,
@@ -464,13 +464,13 @@ import {
   multiLine,
   andMore,
   soWeCanGetItTo80Columns,
-} from \\".\\";
-import { fitsIn, oneLine } from \\".\\";
-"
+} from ".";
+import { fitsIn, oneLine } from ".";
+
 `;
 
 exports[`import.js 3`] = `
-"import {
+import {
   runTaskForChanged,
   description,
   someOtherLabel,
@@ -491,13 +491,13 @@ import {
   multiLine,
   andMore,
   soWeCanGetItTo80Columns,
-} from \\".\\";
-import { fitsIn, oneLine } from \\".\\";
-"
+} from ".";
+import { fitsIn, oneLine } from ".";
+
 `;
 
 exports[`import.js 4`] = `
-"import {
+import {
   runTaskForChanged,
   description,
   someOtherLabel,
@@ -518,13 +518,13 @@ import {
   multiLine,
   andMore,
   soWeCanGetItTo80Columns,
-} from \\".\\";
-import { fitsIn, oneLine } from \\".\\";
-"
+} from ".";
+import { fitsIn, oneLine } from ".";
+
 `;
 
 exports[`import.js 5`] = `
-"import {
+import {
   runTaskForChanged,
   description,
   someOtherLabel,
@@ -545,13 +545,13 @@ import {
   multiLine,
   andMore,
   soWeCanGetItTo80Columns
-} from \\".\\";
-import { fitsIn, oneLine } from \\".\\";
-"
+} from ".";
+import { fitsIn, oneLine } from ".";
+
 `;
 
 exports[`object.js 1`] = `
-"const a = {
+const a = {
   b: true,
   c: {
     c1: 'hello'
@@ -576,29 +576,29 @@ const aLong = {
 const a = {
   b: true,
   c: {
-    c1: \\"hello\\"
+    c1: "hello"
   },
   d: false
 };
 
 const aLong = {
-  bHasALongName: \\"a-long-value\\",
+  bHasALongName: "a-long-value",
   cHasALongName: {
-    c1: \\"a-really-long-value\\",
-    c2: \\"a-really-really-long-value\\"
+    c1: "a-really-long-value",
+    c2: "a-really-really-long-value"
   },
-  dHasALongName: \\"a-long-value-too\\"
+  dHasALongName: "a-long-value-too"
 };
 
 const aLong = {
-  dHasALongName: \\"a-long-value-too\\",
+  dHasALongName: "a-long-value-too",
   eHasABooleanExpression: a === a
 };
-"
+
 `;
 
 exports[`object.js 2`] = `
-"const a = {
+const a = {
   b: true,
   c: {
     c1: 'hello'
@@ -623,29 +623,29 @@ const aLong = {
 const a = {
   b: true,
   c: {
-    c1: \\"hello\\",
+    c1: "hello",
   },
   d: false,
 };
 
 const aLong = {
-  bHasALongName: \\"a-long-value\\",
+  bHasALongName: "a-long-value",
   cHasALongName: {
-    c1: \\"a-really-long-value\\",
-    c2: \\"a-really-really-long-value\\",
+    c1: "a-really-long-value",
+    c2: "a-really-really-long-value",
   },
-  dHasALongName: \\"a-long-value-too\\",
+  dHasALongName: "a-long-value-too",
 };
 
 const aLong = {
-  dHasALongName: \\"a-long-value-too\\",
+  dHasALongName: "a-long-value-too",
   eHasABooleanExpression: a === a,
 };
-"
+
 `;
 
 exports[`object.js 3`] = `
-"const a = {
+const a = {
   b: true,
   c: {
     c1: 'hello'
@@ -670,29 +670,29 @@ const aLong = {
 const a = {
   b: true,
   c: {
-    c1: \\"hello\\",
+    c1: "hello",
   },
   d: false,
 };
 
 const aLong = {
-  bHasALongName: \\"a-long-value\\",
+  bHasALongName: "a-long-value",
   cHasALongName: {
-    c1: \\"a-really-long-value\\",
-    c2: \\"a-really-really-long-value\\",
+    c1: "a-really-long-value",
+    c2: "a-really-really-long-value",
   },
-  dHasALongName: \\"a-long-value-too\\",
+  dHasALongName: "a-long-value-too",
 };
 
 const aLong = {
-  dHasALongName: \\"a-long-value-too\\",
+  dHasALongName: "a-long-value-too",
   eHasABooleanExpression: a === a,
 };
-"
+
 `;
 
 exports[`object.js 4`] = `
-"const a = {
+const a = {
   b: true,
   c: {
     c1: 'hello'
@@ -717,29 +717,29 @@ const aLong = {
 const a = {
   b: true,
   c: {
-    c1: \\"hello\\"
+    c1: "hello"
   },
   d: false
 };
 
 const aLong = {
-  bHasALongName: \\"a-long-value\\",
+  bHasALongName: "a-long-value",
   cHasALongName: {
-    c1: \\"a-really-long-value\\",
-    c2: \\"a-really-really-long-value\\"
+    c1: "a-really-long-value",
+    c2: "a-really-really-long-value"
   },
-  dHasALongName: \\"a-long-value-too\\"
+  dHasALongName: "a-long-value-too"
 };
 
 const aLong = {
-  dHasALongName: \\"a-long-value-too\\",
+  dHasALongName: "a-long-value-too",
   eHasABooleanExpression: a === a
 };
-"
+
 `;
 
 exports[`object.js 5`] = `
-"const a = {
+const a = {
   b: true,
   c: {
     c1: 'hello'
@@ -764,29 +764,29 @@ const aLong = {
 const a = {
   b: true,
   c: {
-    c1: \\"hello\\",
+    c1: "hello",
   },
   d: false,
 };
 
 const aLong = {
-  bHasALongName: \\"a-long-value\\",
+  bHasALongName: "a-long-value",
   cHasALongName: {
-    c1: \\"a-really-long-value\\",
-    c2: \\"a-really-really-long-value\\",
+    c1: "a-really-long-value",
+    c2: "a-really-really-long-value",
   },
-  dHasALongName: \\"a-long-value-too\\",
+  dHasALongName: "a-long-value-too",
 };
 
 const aLong = {
-  dHasALongName: \\"a-long-value-too\\",
+  dHasALongName: "a-long-value-too",
   eHasABooleanExpression: a === a,
 };
-"
+
 `;
 
 exports[`trailing_whitespace.js 1`] = `
-"let example = [
+let example = [
   'FOO',
   'BAR',
   // Comment
@@ -821,10 +821,18 @@ function supersupersupersuperLongF(
 ) {
   a
 }
+
+this.getAttribute(function(s)
+  /*string*/ {
+  console.log()
+});
+this.getAttribute(function(s) /*string*/ {
+  console.log()
+});
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let example = [
-  \\"FOO\\",
-  \\"BAR\\"
+  "FOO",
+  "BAR"
   // Comment
 ];
 
@@ -858,11 +866,18 @@ function supersupersupersuperLongF(
 ) {
   a;
 }
-"
+
+this.getAttribute(function(s) /*string*/ {
+  console.log();
+});
+this.getAttribute(function(s) /*string*/ {
+  console.log();
+});
+
 `;
 
 exports[`trailing_whitespace.js 2`] = `
-"let example = [
+let example = [
   'FOO',
   'BAR',
   // Comment
@@ -897,10 +912,18 @@ function supersupersupersuperLongF(
 ) {
   a
 }
+
+this.getAttribute(function(s)
+  /*string*/ {
+  console.log()
+});
+this.getAttribute(function(s) /*string*/ {
+  console.log()
+});
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let example = [
-  \\"FOO\\",
-  \\"BAR\\",
+  "FOO",
+  "BAR",
   // Comment
 ];
 
@@ -934,11 +957,18 @@ function supersupersupersuperLongF(
 ) {
   a;
 }
-"
+
+this.getAttribute(function(s) /*string*/ {
+  console.log();
+});
+this.getAttribute(function(s) /*string*/ {
+  console.log();
+});
+
 `;
 
 exports[`trailing_whitespace.js 3`] = `
-"let example = [
+let example = [
   'FOO',
   'BAR',
   // Comment
@@ -973,10 +1003,18 @@ function supersupersupersuperLongF(
 ) {
   a
 }
+
+this.getAttribute(function(s)
+  /*string*/ {
+  console.log()
+});
+this.getAttribute(function(s) /*string*/ {
+  console.log()
+});
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let example = [
-  \\"FOO\\",
-  \\"BAR\\",
+  "FOO",
+  "BAR",
   // Comment
 ];
 
@@ -1010,11 +1048,18 @@ function supersupersupersuperLongF(
 ) {
   a;
 }
-"
+
+this.getAttribute(function(s) /*string*/ {
+  console.log();
+});
+this.getAttribute(function(s) /*string*/ {
+  console.log();
+});
+
 `;
 
 exports[`trailing_whitespace.js 4`] = `
-"let example = [
+let example = [
   'FOO',
   'BAR',
   // Comment
@@ -1049,10 +1094,18 @@ function supersupersupersuperLongF(
 ) {
   a
 }
+
+this.getAttribute(function(s)
+  /*string*/ {
+  console.log()
+});
+this.getAttribute(function(s) /*string*/ {
+  console.log()
+});
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let example = [
-  \\"FOO\\",
-  \\"BAR\\",
+  "FOO",
+  "BAR",
   // Comment
 ];
 
@@ -1086,11 +1139,18 @@ function supersupersupersuperLongF(
 ) {
   a;
 }
-"
+
+this.getAttribute(function(s) /*string*/ {
+  console.log();
+});
+this.getAttribute(function(s) /*string*/ {
+  console.log();
+});
+
 `;
 
 exports[`trailing_whitespace.js 5`] = `
-"let example = [
+let example = [
   'FOO',
   'BAR',
   // Comment
@@ -1125,10 +1185,18 @@ function supersupersupersuperLongF(
 ) {
   a
 }
+
+this.getAttribute(function(s)
+  /*string*/ {
+  console.log()
+});
+this.getAttribute(function(s) /*string*/ {
+  console.log()
+});
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let example = [
-  \\"FOO\\",
-  \\"BAR\\"
+  "FOO",
+  "BAR"
   // Comment
 ];
 
@@ -1162,5 +1230,12 @@ function supersupersupersuperLongF(
 ) {
   a;
 }
-"
+
+this.getAttribute(function(s) /*string*/ {
+  console.log();
+});
+this.getAttribute(function(s) /*string*/ {
+  console.log();
+});
+
 `;
