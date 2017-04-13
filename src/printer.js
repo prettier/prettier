@@ -1296,7 +1296,8 @@ function genericPrintNoParens(path, options, print, args) {
       if (
         n.attributes.length === 1 &&
         n.attributes[0].value &&
-        n.attributes[0].value.type === "Literal" &&
+        (n.attributes[0].value.type === "Literal" ||
+          n.attributes[0].value.type === "StringLiteral") &&
         typeof n.attributes[0].value.value === "string"
       ) {
         return group(
