@@ -1,5 +1,7 @@
 "use strict";
 
+const path = require('path');
+const fs = require('fs');
 const codeFrame = require("babel-code-frame");
 const comments = require("./src/comments");
 const version = require("./package.json").version;
@@ -92,6 +94,21 @@ function formatWithShebang(text, opts) {
   return shebang + newLine + format(programText, opts);
 }
 
+function init() {
+  const file = path.resolve(process.cwd(), "package.json");
+  const data = fs.readFileSync(file, "utf8");
+  try {
+    const pkg = JSON.parse(data);
+    if (!pkg.scripts || !pkg.scripts.prettier) {
+      pkg.scripts.prettier = "prettier --write \"{**/*.js}\"";
+    }
+    fs.writeFileSync(file, JSON.stringify(pkg, null, "  "));
+    return Promise.resolve(true);
+  } catch (err) {
+    return Promise.reject("Error trying to parse package.json");
+  }
+}
+
 module.exports = {
   format: function(text, opts) {
     return formatWithShebang(text, normalizeOptions(opts));
@@ -104,6 +121,7 @@ module.exports = {
       return false;
     }
   },
+  init: init,
   version: version,
   __debug: {
     formatAST: function(ast, opts) {
