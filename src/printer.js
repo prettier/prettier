@@ -24,7 +24,6 @@ var lineSuffixBoundary = docBuilders.lineSuffixBoundary;
 var docUtils = require("./doc-utils");
 var willBreak = docUtils.willBreak;
 var isLineNext = docUtils.isLineNext;
-var getFirstString = docUtils.getFirstString;
 var isEmpty = docUtils.isEmpty;
 
 var types = require("ast-types");
@@ -3199,16 +3198,6 @@ function adjustClause(node, clause, forceSpace) {
   }
 
   return indent(concat([line, clause]));
-}
-
-function isCurlyBracket(doc) {
-  const str = getFirstString(doc);
-  return str === "{" || str === "{}";
-}
-
-function isEmptyBlock(doc) {
-  const str = getFirstString(doc);
-  return str === "{}";
 }
 
 function shouldTypeScriptTypeAvoidColon(path) {
