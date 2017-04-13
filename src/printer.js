@@ -301,7 +301,12 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push(
           group(
             concat([
-              printFunctionParams(path, print, options),
+              printFunctionParams(
+                path,
+                print,
+                options,
+                args && (args.expandLastArg || args.expandFirstArg)
+              ),
               printReturnType(path, print)
             ])
           )
@@ -2132,35 +2137,38 @@ function printArgumentsList(path, options, print) {
   // conditional group for all function calls, but it's more expensive
   // so only do it for specific forms.
   const shouldGroupFirst = shouldGroupFirstArg(args);
-  if (shouldGroupFirst || shouldGroupLastArg(args)) {
+  const shouldGroupLast = shouldGroupLastArg(args);
+  if (shouldGroupFirst || shouldGroupLast) {
     const shouldBreak = shouldGroupFirst
       ? printed.slice(1).some(willBreak)
       : printed.slice(0, -1).some(willBreak);
 
-    let printedLastArgExpanded;
-    if (shouldGroupFirst) {
-      printedLastArgExpanded = printed;
-    } else {
-      // We want to print the last argument with a special flag
-      let i = 0;
-      path.each(function(argPath) {
-        if (i++ === args.length - 1) {
-          printedLastArgExpanded = printed
-            .slice(0, -1)
-            .concat(argPath.call(p => print(p, { expandLastArg: true })));
-        }
-      }, "arguments");
-    }
+    // We want to print the last argument with a special flag
+    let printedExpanded;
+    let i = 0;
+    path.each(function(argPath) {
+      if (shouldGroupFirst && i === 0) {
+        printedExpanded =
+          [argPath.call(p => print(p, { expandFirstArg: true }))]
+            .concat(printed.slice(1));
+      }
+      if (shouldGroupLast && i === args.length - 1) {
+        printedExpanded = printed
+          .slice(0, -1)
+          .concat(argPath.call(p => print(p, { expandLastArg: true })));
+      }
+      i++;
+    }, "arguments");
 
     return concat([
       printed.some(willBreak) ? breakParent : "",
       conditionalGroup(
         [
-          concat(["(", join(concat([", "]), printedLastArgExpanded), ")"]),
+          concat(["(", join(concat([", "]), printedExpanded), ")"]),
           shouldGroupFirst
             ? concat([
                 "(",
-                group(printed[0], { shouldBreak: true }),
+                group(printedExpanded[0], { shouldBreak: true }),
                 printed.length > 1 ? ", " : "",
                 join(concat([",", line]), printed.slice(1)),
                 ")"
@@ -2169,7 +2177,7 @@ function printArgumentsList(path, options, print) {
                 "(",
                 join(concat([",", line]), printed.slice(0, -1)),
                 printed.length > 1 ? ", " : "",
-                group(util.getLast(printedLastArgExpanded), {
+                group(util.getLast(printedExpanded), {
                   shouldBreak: true
                 }),
                 ")"
@@ -2202,7 +2210,7 @@ function printArgumentsList(path, options, print) {
   );
 }
 
-function printFunctionParams(path, print, options) {
+function printFunctionParams(path, print, options, expandArg) {
   var fun = path.getValue();
   // namedTypes.Function.assert(fun);
   var paramsField = fun.type === "TSFunctionType" ? "parameters" : "params";
@@ -2245,15 +2253,8 @@ function printFunctionParams(path, print, options) {
   //     }                     b,
   //   })                    ) => {
   //                         })
-  const parent = path.getParentNode();
-  if (
-    (parent.type === "CallExpression" || parent.type === "NewExpression") &&
-    ((util.getLast(parent.arguments) === path.getValue() &&
-      shouldGroupLastArg(parent.arguments)) ||
-      (parent.arguments[0] === path.getValue() &&
-        shouldGroupFirstArg(parent.arguments)))
-  ) {
-    return concat(["(", join(", ", printed), ")"]);
+  if (expandArg) {
+    return group(concat(["(", join(", ", printed), ")"]));
   }
 
   // Single object destructuring should hug
@@ -2275,6 +2276,7 @@ function printFunctionParams(path, print, options) {
     return concat(["(", join(", ", printed), ")"]);
   }
 
+  const parent = path.getParentNode();
   const isFlowShorthandWithOneArg =
     (isObjectTypePropertyAFunction(parent) ||
       isTypeAnnotationAFunction(parent) ||
