@@ -1,6 +1,6 @@
 "use strict";
 
-function traverseDoc(doc, onEnter, onExit) {
+function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
   var hasStopped = false;
   function traverseDocRec(doc) {
     if (onEnter) {
@@ -20,6 +20,12 @@ function traverseDoc(doc, onEnter, onExit) {
       }
       if (doc.flatContents) {
         traverseDocRec(doc.flatContents);
+      }
+    } else if (doc.type === "group" && doc.expandedStates) {
+      if (shouldTraverseConditionalGroups) {
+        doc.expandedStates.forEach(traverseDocRec);
+      } else {
+        traverseDocRec(doc.contents);
       }
     } else if (doc.contents) {
       traverseDocRec(doc.contents);
@@ -132,7 +138,8 @@ function propagateBreaks(doc) {
           breakParentGroup(groupStack);
         }
       }
-    }
+    },
+    /* shouldTraverseConditionalGroups */ true
   );
 }
 
