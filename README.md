@@ -138,7 +138,7 @@ Run Prettier through the CLI with this script. Run it without any
 arguments to see the options.
 
 To format a file in-place, use `--write`. You may want to consider
-commiting your code before doing that, just in case.
+committing your code before doing that, just in case.
 
 ```bash
 prettier [opts] [filename ...]
