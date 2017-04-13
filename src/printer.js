@@ -968,10 +968,10 @@ function genericPrintNoParens(path, options, print, args) {
         "with (",
         path.call(print, "object"),
         ")",
-        adjustClause(path.call(print, "body"), options)
+        adjustClause(n.body, path.call(print, "body"))
       ]);
     case "IfStatement":
-      const con = adjustClause(path.call(print, "consequent"), options);
+      const con = adjustClause(n.consequent, path.call(print, "consequent"));
       const opening = group(
         concat([
           "if (",
@@ -989,10 +989,7 @@ function genericPrintNoParens(path, options, print, args) {
       parts.push(opening);
 
       if (n.alternate) {
-        const hasBraces = isCurlyBracket(con);
-        const isEmpty = isEmptyBlock(con);
-
-        if (hasBraces && !isEmpty) {
+        if (n.consequent.type === "BlockStatement") {
           parts.push(" else");
         } else {
           parts.push(hardline, "else");
@@ -1001,8 +998,8 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push(
           group(
             adjustClause(
+              n.alternate,
               path.call(print, "alternate"),
-              options,
               n.alternate.type === "IfStatement"
             )
           )
@@ -1011,7 +1008,7 @@ function genericPrintNoParens(path, options, print, args) {
 
       return concat(parts);
     case "ForStatement": {
-      const body = adjustClause(path.call(print, "body"), options);
+      const body = adjustClause(n.body, path.call(print, "body"));
 
       // We want to keep dangling comments above the loop to stay consistent.
       // Any comment positioned between the for statement and the parentheses
@@ -1061,7 +1058,7 @@ function genericPrintNoParens(path, options, print, args) {
           ])
         ),
         ")",
-        adjustClause(path.call(print, "body"), options)
+        adjustClause(n.body, path.call(print, "body"))
       ]);
     case "ForInStatement":
       // Note: esprima can't actually parse "for each (".
@@ -1071,7 +1068,7 @@ function genericPrintNoParens(path, options, print, args) {
         " in ",
         path.call(print, "right"),
         ")",
-        adjustClause(path.call(print, "body"), options)
+        adjustClause(n.body, path.call(print, "body"))
       ]);
 
     case "ForOfStatement":
@@ -1089,17 +1086,20 @@ function genericPrintNoParens(path, options, print, args) {
         " of ",
         path.call(print, "right"),
         ")",
-        adjustClause(path.call(print, "body"), options)
+        adjustClause(n.body, path.call(print, "body"))
       ]);
 
     case "DoWhileStatement":
-      var clause = adjustClause(path.call(print, "body"), options);
+      var clause = adjustClause(n.body, path.call(print, "body"));
       var doBody = concat(["do", clause]);
       var parts = [doBody];
-      const hasBraces = isCurlyBracket(clause);
 
-      if (hasBraces) parts.push(" while");
-      else parts.push(concat([hardline, "while"]));
+      if (n.body.type === "BlockStatement") {
+        parts.push(" ");
+      } else {
+        parts.push(hardline);
+      }
+      parts.push("while");
 
       parts.push(" (", path.call(print, "test"), ")", semi);
 
@@ -1198,7 +1198,7 @@ function genericPrintNoParens(path, options, print, args) {
           );
         }, "consequent");
         parts.push(
-          isCurlyBracket(cons)
+          n.consequent.length === 1 && n.consequent[0].type === "BlockStatement"
             ? concat([" ", cons])
             : indent(concat([hardline, cons]))
         );
@@ -3177,12 +3177,12 @@ function printAssignment(
   return group(concat([printedLeft, " ", operator, printed]));
 }
 
-function adjustClause(clause, options, forceSpace) {
-  if (clause === "") {
+function adjustClause(node, clause, forceSpace) {
+  if (node.type === "EmptyStatement") {
     return ";";
   }
 
-  if (isCurlyBracket(clause) || forceSpace) {
+  if (node.type === "BlockStatement" || forceSpace) {
     return concat([" ", clause]);
   }
 
