@@ -706,8 +706,11 @@ function genericPrintNoParens(path, options, print, args) {
       });
 
       const lastElem = util.getLast(n[propertiesField]);
-      const canHaveTrailingComma = !(lastElem &&
-        lastElem.type === "RestProperty");
+
+      const canHaveTrailingComma = !(
+        lastElem &&
+        (lastElem.type === "RestProperty" || lastElem.type === "RestElement")
+      );
 
       const shouldBreak =
         n.type !== "ObjectPattern" &&
