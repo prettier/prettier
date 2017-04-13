@@ -7,8 +7,8 @@ const parser = require("../src/parser");
 
 const RUN_AST_TESTS = process.env["AST_COMPARE"];
 const VERIFY_ALL_PARSERS = process.env["VERIFY_ALL_PARSERS"] || false;
-const ALL_PASERS = process.env["ALL_PASERS"]
-  ? JSON.parse(process.env["ALL_PASERS"])
+const ALL_PARSERS = process.env["ALL_PARSERS"]
+  ? JSON.parse(process.env["ALL_PARSERS"])
   : ["flow", "babylon", "typescript"];
 
 // Ignoring empty statements that are added into the output removes a
@@ -143,7 +143,7 @@ function mergeDefaultOptions(parserConfig) {
 
 function getParsersToVerify(parser, additionalParsers) {
   if (VERIFY_ALL_PARSERS) {
-    return ALL_PASERS.splice(ALL_PASERS.indexOf(parent), 1);
+    return ALL_PARSERS.splice(ALL_PARSERS.indexOf(parent), 1);
   }
   return additionalParsers;
 }
