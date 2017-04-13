@@ -1189,12 +1189,17 @@ function genericPrintNoParens(path, options, print, args) {
         const cons = path.call(consequentPath => {
           return join(
             hardline,
-            consequentPath.map((p, i) => {
-              const shouldAddLine =
-                i !== n.consequent.length - 1 &&
-                util.isNextLineEmpty(options.originalText, p.getValue());
-              return concat([print(p), shouldAddLine ? hardline : ""]);
-            })
+            consequentPath
+              .map((p, i) => {
+                if (n.consequent[i].type === "EmptyStatement") {
+                  return null;
+                }
+                const shouldAddLine =
+                  i !== n.consequent.length - 1 &&
+                  util.isNextLineEmpty(options.originalText, p.getValue());
+                return concat([print(p), shouldAddLine ? hardline : ""]);
+              })
+              .filter(e => e !== null)
           );
         }, "consequent");
         parts.push(
