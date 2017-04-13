@@ -1,3 +1,9 @@
+# 1.0.0
+
+[link](https://github.com/jlongster/prettier/compare/0.22.0...1.0.0)
+
+* See announcement blog post: [http://jlongster.com/prettier-1.0](http://jlongster.com/prettier-1.0)
+
 # 0.22.0
 
 [link](https://github.com/jlongster/prettier/compare/0.21.0...0.22.0)
@@ -40,10 +46,10 @@
 * [JSX] Break before and after jsx whitespace (#836)
 * re-run snapshot tests
 * Run prettier 0.20.0 (#835)
-* [JSX] Don't wrap JSX Elements in parentheses in {} (#845) 
+* [JSX] Don't wrap JSX Elements in parentheses in {} (#845)
 * Fix comment after the last argument of a function (#856)
 * Fix travis build imag
-* Do not break require calls (#841) 
+* Do not break require calls (#841)
 * Stabilize import as comments (#855)
 * Fix jsx expression comment that break (#852)
 * Inline last arg function arguments (#847)
