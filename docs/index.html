@@ -88,6 +88,8 @@
     <label class="title"><a href="https://github.com/jlongster/prettier">prettier v<span class="version"></span></a></label>
     <label><input type="number" value="80" id="printWidth"></input> printWidth</label>
     <label><input type="number" value="2" id="tabWidth"></input> tabWidth</label>
+    <label><input type="checkbox" id="useTabs"></input> useTabs</label>
+    <label><input type="checkbox" id="semi" checked></input> semi</label>
     <label><input type="checkbox" id="singleQuote"></input> singleQuote</label>
     <label><input type="checkbox" id="bracketSpacing" checked></input> bracketSpacing</label>
     <label><input type="checkbox" id="jsxBracketSameLine"></input> jsxBracketSameLine</label>
@@ -111,7 +113,7 @@
 </div>
 
 <script id="code">
-var OPTIONS = ['printWidth', 'tabWidth', 'singleQuote', 'trailingComma', 'bracketSpacing', 'jsxBracketSameLine', 'parser', 'doc'];
+var OPTIONS = ['printWidth', 'tabWidth', 'singleQuote', 'trailingComma', 'bracketSpacing', 'jsxBracketSameLine', 'parser', 'semi', 'useTabs', 'doc'];
 function setOptions(options) {
   OPTIONS.forEach(function(option) {
     var elem = document.getElementById(option);
