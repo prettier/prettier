@@ -33,7 +33,7 @@ const argv = minimist(process.argv.slice(2), {
     "flow-parser"
   ],
   string: ["print-width", "tab-width", "parser", "trailing-comma"],
-  default: { color: true, "bracket-spacing": true, parser: "babylon" },
+  default: { semi: true, color: true, "bracket-spacing": true, parser: "babylon" },
   alias: { help: "h", version: "v", "list-different": "l" },
   unknown: param => {
     if (param.startsWith("-")) {
