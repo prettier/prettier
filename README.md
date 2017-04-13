@@ -470,6 +470,10 @@ Here's what you need to know about the tests:
 * `tests/flow/` contains the Flow test suite, and is not supposed to be edited
   by hand. To update it, clone the Flow repo next to the Prettier repo and run:
   `node scripts/sync-flow-tests.js ../flow/tests/`.
+* If you would like to debug prettier locally, you can either debug it in node
+  or the browser. The easiest way to debug it in the browser is to run the
+  interactive `docs` REPL locally. The easiest way to debug it in node, is to
+  create a local test file and run it in an editor like VS Code.
 
 If you can, take look at [commands.md](commands.md) and check out [Wadler's
 paper](http://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf) to
