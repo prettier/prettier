@@ -40,9 +40,6 @@ If you are interested in the details, you can watch those two conference talks:
 
 <a href="https://www.youtube.com/watch?v=hkfBvpEfWdA"><img width="298" src="https://cloud.githubusercontent.com/assets/197597/24886367/dda8a6f0-1e08-11e7-865b-22492450f10f.png"></a> <a href="https://www.youtube.com/watch?v=ziAShzxAVKY"><img width="298" src="https://cloud.githubusercontent.com/assets/197597/24886368/ddacd6f8-1e08-11e7-806a-9febd23cbf47.png"></a>
 
-*Warning*: This is a **beta**, and the format may change over time. If you
- aren't OK with the format changing, wait for a more stable version.
-
 This goes way beyond [ESLint](http://eslint.org/) and other projects
 [built on it](https://github.com/feross/standard). Unlike ESLint,
 there aren't a million configuration options and rules. But more
@@ -140,8 +137,8 @@ npm install [-g] prettier
 Run Prettier through the CLI with this script. Run it without any
 arguments to see the options.
 
-To format a file in-place, use `--write`. While this is in beta you
-should probably commit your code before doing that.
+To format a file in-place, use `--write`. You may want to consider
+commiting your code before doing that, just in case.
 
 ```bash
 prettier [opts] [filename ...]
