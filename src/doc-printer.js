@@ -267,6 +267,13 @@ function printDocToString(doc, options) {
               } else {
                 if (out.length > 0) {
                   // Trim whitespace at the end of line
+                  while (
+                    out.length > 0 &&
+                    out[out.length - 1].match(/^[^\S\n]*$/)
+                  ) {
+                    out.pop();
+                  }
+
                   out[out.length - 1] = out[out.length - 1].replace(
                     /[^\S\n]*$/,
                     ""
