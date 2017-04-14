@@ -15,7 +15,6 @@ var align = docBuilders.align;
 var lineSuffix = docBuilders.lineSuffix;
 var join = docBuilders.join;
 var util = require("./util");
-var comparePos = util.comparePos;
 var childNodesCacheKey = Symbol("child-nodes");
 var locStart = util.locStart;
 var locEnd = util.locEnd;
@@ -28,10 +27,6 @@ function getSortedChildNodes(node, text, resultArray) {
   if (!node) {
     return;
   }
-
-  // The loc checks below are sensitive to some of the problems that
-  // are fixed by this utility function.
-  util.fixFaultyLocations(node, text);
 
   if (resultArray) {
     if (n.Node.check(node) && node.type !== "EmptyStatement") {
