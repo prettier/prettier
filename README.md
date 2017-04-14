@@ -187,7 +187,7 @@ Alternately you can just save this script as `.git/hooks/pre-commit` and give it
 
 ```bash
 #!/bin/sh
-jsfiles=$(git diff --cached --name-only --diff-filter=ACM | grep '\.js$' | tr '\n' ' ')
+jsfiles=$(git diff --cached --name-only --diff-filter=ACM | grep '\.jsx\?$' | tr '\n' ' ')
 [ -z "$jsfiles" ] && exit 0
 
 diffs=$(node_modules/.bin/prettier -l $jsfiles)
