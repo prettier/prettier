@@ -1,16 +1,27 @@
-### Configure External Tool
+## Configure External Tool
 
-Go to *File | Settings | Tools | External Tools* for Windows and Linux or *WebStorm | Preferences | Tools | External Tools* for OS X and click **+** to add a new tool. Let’s name it **Prettify**.
+https://blog.jetbrains.com/webstorm/2016/08/using-external-tools/
 
-In **Program** set `prettier`
+Go to *File | Settings | Tools | External Tools* for Windows and Linux or *WebStorm | Preferences | Tools | External Tools* for OS X and click **+** to add a new tool. Let’s name it **Prettier**.
 
-In **Parameters** set `--write [other opts] $FilePathRelativeToProjectRoot$` 
+* **Program** set `prettier`
 
-In **Working directory** set `$ProjectFileDir$`
+> If on the other hand you have `prettier` installed locally, replace the **Program** with `./node_modules/.bin/prettier` (on OS X and Linux) or `.\node_modules\.bin\prettier.cmd` (on Windows).
+
+* **Parameters** set `--write [other opts] $FilePathRelativeToProjectRoot$` 
+* **Working directory** set `$ProjectFileDir$`
 
 ![Example](https://raw.githubusercontent.com/jlongster/prettier/master/editors/jetbrains/with-prettier.png)
 
-If on the other hand you have `prettier` installed locally, replace the **Program** with `./node_modules/.bin/prettier` (on OS X and Linux) or `.\node_modules\.bin\prettier.cmd` (on Windows).
+### Process directories
+
+* Clone the External tool and name it `Prettier Directories`
+* **Parameters** set `--write [other opts] $FilePathRelativeToProjectRoot$/**/(*.js|*.jsx)` 
+
+## Usage
+
+* Cmd-Shift-A on OS X or Ctrl+Shift+A on Windows and Linux
+* Type: 'prettier' and hit enter
 
 ### Configure Keymap
 
