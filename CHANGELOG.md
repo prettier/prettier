@@ -1,3 +1,23 @@
+# 1.1.0
+
+[link](https://github.com/jlongster/prettier/compare/1.0.0...1.1.0)
+
+* Prettier 1.0 is the stabler release we've been waiting for (#1242)
+* fix small typo (#1255)		
+* Fix : ReferenceError: err is not defined (#1254) 		
+* Document debugging strategies (#1253)		
+* Do not inline member expressions as part of assignments (#1256) 		
+* Fix flow union params (#1251)		
+* Use a whitelist instead of blacklist for member breaking (#1261)		
+* Remove trailing whitespace (#1259) 		
+* Get rid of fixFaultyLocations code (#1252) 		
+* Fixing n.comments check in printer (#1239)		
+* [WIP] no-semi comments (#1257)
+
+# 1.0.1
+
+* change semi default
+
 # 1.0.0
 
 [link](https://github.com/jlongster/prettier/compare/0.22.0...1.0.0)
