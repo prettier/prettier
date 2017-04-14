@@ -246,9 +246,9 @@ function genericPrintNoParens(path, options, print, args) {
       const shouldInline =
         firstNonMemberParent && (
           (firstNonMemberParent.type === "VariableDeclarator" &&
-            firstNonMemberParent.id.type === "ObjectPattern") ||
+            firstNonMemberParent.id.type !== "Identifier") ||
           (firstNonMemberParent.type === "AssignmentExpression" &&
-            firstNonMemberParent.left.type === "ObjectPattern")) ||
+            firstNonMemberParent.left.type !== "Identifier")) ||
         n.computed ||
         (n.object.type === "Identifier" &&
           n.property.type === "Identifier" &&
@@ -3214,10 +3214,10 @@ function printAssignment(
     printed = indent(concat([hardline, printedRight]));
   } else if (
     (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) ||
-    leftNode.type !== "ObjectPattern" && (
-      rightNode.type === "StringLiteral" ||
-      (rightNode.type === "Literal" && typeof rightNode.value === "string") ||
-      isMemberExpressionChain(rightNode))
+    (leftNode.type === "Identifier" || leftNode.type === "MemberExpression") &&
+      (rightNode.type === "StringLiteral" ||
+        (rightNode.type === "Literal" && typeof rightNode.value === "string") ||
+        isMemberExpressionChain(rightNode))
   ) {
     printed = indent(concat([line, printedRight]));
   } else {
