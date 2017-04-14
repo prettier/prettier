@@ -7,3 +7,14 @@ superSupersuperSupersuperSupersuperSupersuperSuperLong.exampleOfOrderOfGetterAnd
 expect(
   findDOMNode(component.instance()).getElementsByClassName(styles.inner)[0].style.paddingRight
 ).toBe('1000px');
+
+const { course, conflicts = [], index, scheduleId, studentId, something } = a.this.props;
+
+const { course, conflicts = [], index, scheduleId, studentId, something } = this.props;
+
+const {
+  updated,
+  author: { identifier: ownerId },
+  location,
+  category: categories,
+} = rawAd.entry;

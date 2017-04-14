@@ -185,6 +185,7 @@ function genericPrintNoParens(path, options, print, args) {
       return concat(["(", path.call(print, "expression"), ")"]);
     case "AssignmentExpression":
       return printAssignment(
+        n.left,
         path.call(print, "left"),
         n.operator,
         n.right,
@@ -232,7 +233,22 @@ function genericPrintNoParens(path, options, print, args) {
       ]);
     case "MemberExpression": {
       const parent = path.getParentNode();
+      let firstNonMemberParent;
+      let i = 0;
+      do {
+        firstNonMemberParent = path.getParentNode(i);
+        i++;
+      } while (
+        firstNonMemberParent &&
+        firstNonMemberParent.type === "MemberExpression"
+      );
+
       const shouldInline =
+        firstNonMemberParent && (
+          (firstNonMemberParent.type === "VariableDeclarator" &&
+            firstNonMemberParent.id.type === "ObjectPattern") ||
+          (firstNonMemberParent.type === "AssignmentExpression" &&
+            firstNonMemberParent.left.type === "ObjectPattern")) ||
         n.computed ||
         (n.object.type === "Identifier" &&
           n.property.type === "Identifier" &&
@@ -964,6 +980,7 @@ function genericPrintNoParens(path, options, print, args) {
       return group(concat(parts));
     case "VariableDeclarator":
       return printAssignment(
+        n.id,
         path.call(print, "id"),
         "=",
         n.init,
@@ -3161,6 +3178,7 @@ function printBinaryishExpressions(path, print, options, isNested) {
 }
 
 function printAssignment(
+  leftNode,
   printedLeft,
   operator,
   rightNode,
@@ -3176,9 +3194,10 @@ function printAssignment(
     printed = indent(concat([hardline, printedRight]));
   } else if (
     (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) ||
-    rightNode.type === "StringLiteral" ||
-    (rightNode.type === "Literal" && typeof rightNode.value === "string") ||
-    isMemberExpressionChain(rightNode)
+    leftNode.type !== "ObjectPattern" && (
+      rightNode.type === "StringLiteral" ||
+      (rightNode.type === "Literal" && typeof rightNode.value === "string") ||
+      isMemberExpressionChain(rightNode))
   ) {
     printed = indent(concat([line, printedRight]));
   } else {
