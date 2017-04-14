@@ -2006,10 +2006,20 @@ function printStatementSequence(path, options, print) {
 
     // in no-semi mode, prepend statement with semicolon if it might break ASI
     if (!options.semi && !isClass && stmtNeedsASIProtection(stmtPath)) {
-      parts.push(";");
+      if (
+        stmt.comments &&
+        stmt.comments.some(comment => comment.leading)
+      ) {
+        // Note: stmtNeedsASIProtection requires stmtPath to already be printed
+        // as it reads needsParens which is mutated on the instance
+        parts.push(print(stmtPath, { needsSemi: true }));
+      } else {
+        parts.push(";", stmtPrinted);
+      }
+    } else {
+      parts.push(stmtPrinted);
     }
 
-    parts.push(stmtPrinted);
 
     if (!options.semi && isClass) {
       if (classPropMayCauseASIProblems(stmtPath)) {
@@ -3572,7 +3582,8 @@ function printAstToDoc(ast, options) {
     return comments.printComments(
       path,
       p => genericPrint(p, options, printGenerically, args),
-      options
+      options,
+      args && args.needsSemi
     );
   }
 

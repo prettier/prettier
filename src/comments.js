@@ -891,7 +891,7 @@ function printDanglingComments(path, options, sameIndent) {
   return indent(concat([hardline, join(hardline, parts)]));
 }
 
-function printComments(path, print, options) {
+function printComments(path, print, options, needsSemi) {
   var value = path.getValue();
   var parent = path.getParentNode();
   var printed = print(path);
@@ -902,7 +902,7 @@ function printComments(path, print, options) {
   }
 
   var leadingParts = [];
-  var trailingParts = [printed];
+  var trailingParts = [needsSemi ? ";" : "", printed];
 
   path.each(function(commentPath) {
     var comment = commentPath.getValue();
