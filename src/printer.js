@@ -1,6 +1,7 @@
 "use strict";
 
 var assert = require("assert");
+var regexpTree = require('regexp-tree');
 var comments = require("./comments");
 var FastPath = require("./fast-path");
 var util = require("./util");
@@ -880,7 +881,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "NullLiteral":
       return "null"; // Babel 6 Literal split
     case "RegExpLiteral":
-      return n.extra.raw;
+      return regexpTree.optimize(n.extra.raw).toString();
     // Babel 6 Literal split
     case "NumericLiteral":
       return printNumber(n.extra.raw);
