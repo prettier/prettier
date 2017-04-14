@@ -2302,12 +2302,32 @@ function printFunctionParams(path, print, options, expandArg) {
   }
 
   const parent = path.getParentNode();
+
+  const flowTypeAnnotations = [
+    "AnyTypeAnnotation",
+    "NullLiteralTypeAnnotation",
+    "NullableTypeAnnotation",
+    "GenericTypeAnnotation",
+    "ThisTypeAnnotation",
+    "NumberTypeAnnotation",
+    "VoidTypeAnnotation",
+    "NullTypeAnnotation",
+    "EmptyTypeAnnotation",
+    "MixedTypeAnnotation",
+    "BooleanTypeAnnotation",
+    "BooleanLiteralTypeAnnotation",
+    "StringLiteralTypeAnnotation",
+    "StringTypeAnnotation"
+  ];
+
   const isFlowShorthandWithOneArg =
     (isObjectTypePropertyAFunction(parent) ||
       isTypeAnnotationAFunction(parent) ||
       parent.type === "TypeAlias") &&
     fun[paramsField].length === 1 &&
     fun[paramsField][0].name === null &&
+    fun[paramsField][0].typeAnnotation &&
+    flowTypeAnnotations.indexOf(fun[paramsField][0].typeAnnotation.type) !== -1 &&
     !fun.rest;
 
   return concat([
