@@ -15,8 +15,8 @@ Go to *File | Settings | Tools | External Tools* for Windows and Linux or *WebSt
 
 ### Process directories
 
-* Clone the External tool and name it `Prettier Directories`
-* **Parameters** set `--write [other opts] $FilePathRelativeToProjectRoot$/**/(*.js|*.jsx)` 
+* Clone the External tool created above and name it `Prettier Directories`
+* **Parameters** set `--write [other opts] $FileDirRelativeToProjectRoot$/**/(*.js|*.jsx)` 
 
 ## Usage
 
