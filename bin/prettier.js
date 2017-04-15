@@ -268,13 +268,13 @@ if (stdin) {
       } else {
         console.log("%s %dms", filename, Date.now() - start);
 
-        fs.writeFile(filename, output, "utf8", err => {
-          if (err) {
-            console.error("Unable to write file: " + filename + "\n" + err);
-            // Don't exit the process if one file failed
-            process.exitCode = 2;
-          }
-        });
+        try {
+          fs.writeFileSync(filename, output, "utf8");
+        } catch (e) {
+          console.error("Unable to write file: " + filename + "\n" + e);
+          // Don't exit the process if one file failed
+          process.exitCode = 2;
+        }
       }
     } else if (argv["debug-check"]) {
       process.stdout.write("\n");
