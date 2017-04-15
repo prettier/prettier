@@ -117,7 +117,7 @@ into account, wrapping code when necessary.
 Install:
 
 ```
-yarn add prettier
+yarn add prettier --dev
 ```
 
 You can install it globally if you like:
