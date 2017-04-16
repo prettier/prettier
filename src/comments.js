@@ -796,7 +796,7 @@ function findExpressionIndexForComment(expressions, comment) {
       break;
     }
 
-    if ((expressions[i].leadingComments || []).includes(comment)) {
+    if ((expressions[i].leadingComments || []).indexOf(comment) !== -1) {
       match = i;
       break;
     }
