@@ -505,7 +505,7 @@ function handleObjectPropertyAssignment(enclosingNode, precedingNode, comment) {
 function handleTemplateLiteralComments(enclosingNode, comment) {
   if (enclosingNode && enclosingNode.type === "TemplateLiteral") {
     const expressionIndex = findExpressionIndexForComment(
-      enclosingNode.expressions,
+      enclosingNode.quasis,
       comment
     );
     // Enforce all comments to be leading block comments.
@@ -780,27 +780,21 @@ function printComment(commentPath) {
   }
 }
 
-function findExpressionIndexForComment(expressions, comment) {
-  let match;
+function findExpressionIndexForComment(quasis, comment) {
   const startPos = locStart(comment) - 1;
-  const endPos = locEnd(comment) + 1;
 
-  for (let i = 0; i < expressions.length; ++i) {
-    const range = getExpressionRange(expressions[i]);
-
-    if (
-      (startPos >= range.start && startPos <= range.end) ||
-      (endPos >= range.start && endPos <= range.end)
-    ) {
-      match = i;
-      break;
+  for (let i = 1; i < quasis.length; ++i) {
+    if (startPos < getQuasiRange(quasis[i]).start) {
+      return i - 1;
     }
   }
 
-  return match;
+  // We haven't found it, it probably means that some of the locations are off.
+  // Let's just return the first one.
+  return 0;
 }
 
-function getExpressionRange(expr) {
+function getQuasiRange(expr) {
   if (expr.start !== undefined) {
     // Babylon
     return { start: expr.start, end: expr.end };
