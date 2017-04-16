@@ -142,6 +142,12 @@ function getOptions() {
   return options;
 }
 
+function omitNonFormatterOptions(options) {
+  var optionsClone = Object.assign({}, options);
+  delete optionsClone.doc;
+  return optionsClone;
+}
+
 function replaceHash(hash) {
   if (
     typeof URL === "function" &&
@@ -172,9 +178,10 @@ function format() {
     )
   );
   replaceHash(value);
+  var formatterOptions = omitNonFormatterOptions(options);
   var res;
   try {
-    res = prettier.format(inputEditor.getValue(), options);
+    res = prettier.format(inputEditor.getValue(), formatterOptions);
   } catch (e) {
     res = e.toString();
   }
@@ -183,8 +190,8 @@ function format() {
   if (options.doc) {
     var debug;
     try {
-      var doc = prettier.__debug.printToDoc(inputEditor.getValue(), options);
-      debug = prettier.__debug.formatDoc(doc, options);
+      var doc = prettier.__debug.printToDoc(inputEditor.getValue(), formatterOptions);
+      debug = prettier.__debug.formatDoc(doc, formatterOptions);
     } catch (e) {
       debug = e.toString();
     }
