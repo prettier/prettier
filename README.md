@@ -157,7 +157,7 @@ In the future we will have better support for formatting whole projects.
 
 #### Pre-commit hook for changed files
 
-[🚫💩 lint-staged](https://github.com/okonet/lint-staged) can re-format your files that are marked as "staged" via `git add`  before you commit.
+[lint-staged](https://github.com/okonet/lint-staged) can re-format your files that are marked as "staged" via `git add`  before you commit.
 
 Install it along with [husky](https://github.com/typicode/husky):
 
@@ -181,7 +181,7 @@ and add this config to your `package.json`:
 }
 ```
 
-See https://github.com/okonet/lint-staged#configuration for more details about how you can configure 🚫💩 lint-staged.
+See https://github.com/okonet/lint-staged#configuration for more details about how you can configure lint-staged.
 
 Alternately you can just save this script as `.git/hooks/pre-commit` and give it execute permission:
 
