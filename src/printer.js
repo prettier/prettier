@@ -33,8 +33,8 @@ var isObject = types.builtInTypes.object;
 
 // Resources for a multi-node ignore state.
 var shouldIgnore = false;
-var START_IGNORE_DIRECTIVE = "prettier-start-ignore";
-var END_IGNORE_DIRECTIVE = "prettier-end-ignore";
+var START_IGNORE_DIRECTIVE = "prettier-ignore-start";
+var END_IGNORE_DIRECTIVE = "prettier-ignore-end";
 var IGNORE_DIRECTIVE = "prettier-ignore";
 
 
