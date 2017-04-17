@@ -291,7 +291,8 @@ if (stdin) {
 function eachFilename(patterns, callback) {
   patterns.forEach(pattern => {
     if (!glob.hasMagic(pattern)) {
-      callback(pattern)
+      callback(pattern);
+      return;
     }
 
     glob(pattern, (err, filenames) => {
