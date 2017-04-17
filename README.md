@@ -237,8 +237,8 @@ prettier.format(source, {
   // the last line instead of being alone on the next line
   jsxBracketSameLine: false,
 
-  // Which parser to use. Valid options are 'flow' and 'babylon'
-  parser: 'babylon',
+  // Which parser to use. Valid options are "flow" and "babylon"
+  parser: "babylon",
 
   // Whether to add a semicolon at the end of every line (semi: true),
   // or only at the beginning of lines that may introduce ASI failures (semi: false)
