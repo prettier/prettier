@@ -290,6 +290,11 @@ if (stdin) {
 
 function eachFilename(patterns, callback) {
   patterns.forEach(pattern => {
+    if (!glob.hasMagic(pattern)) {
+      callback(pattern);
+      return;
+    }
+
     glob(pattern, (err, filenames) => {
       if (err) {
         console.error("Unable to expand glob pattern: " + pattern + "\n" + err);
