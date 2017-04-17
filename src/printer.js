@@ -31,6 +31,13 @@ var namedTypes = types.namedTypes;
 var isString = types.builtInTypes.string;
 var isObject = types.builtInTypes.object;
 
+// Resources for a multi-node ignore state.
+var shouldIgnore = false;
+var START_IGNORE_DIRECTIVE = "prettier-start-ignore";
+var END_IGNORE_DIRECTIVE = "prettier-end-ignore";
+var IGNORE_DIRECTIVE = "prettier-ignore";
+
+
 function shouldPrintComma(options, level) {
   level = level || "es5";
 
@@ -49,6 +56,10 @@ function shouldPrintComma(options, level) {
   }
 }
 
+function isCommentValue(node, value) {
+  return node.comments.some(comment => comment.value.trim() === value)
+}
+
 function genericPrint(path, options, printPath, args) {
   assert.ok(path instanceof FastPath);
 
@@ -64,10 +75,26 @@ function genericPrint(path, options, printPath, args) {
   // Escape hatch
   if (
     node.comments &&
-    node.comments.length > 0 &&
-    node.comments.some(comment => comment.value.trim() === "prettier-ignore")
+    node.comments.length > 0
   ) {
-    return options.originalText.slice(util.locStart(node), util.locEnd(node));
+
+    // Start multi-node ignore.
+    if (isCommentValue(node, START_IGNORE_DIRECTIVE)) {
+      shouldIgnore = true;
+    }
+
+    // End multi-node ignore.
+    if (isCommentValue(node, END_IGNORE_DIRECTIVE)) {
+      shouldIgnore = false;
+    }
+
+    // Return the original text if requested.
+    if (
+      shouldIgnore ||
+      isCommentValue(node, IGNORE_DIRECTIVE)
+    ) {
+      return options.originalText.slice(util.locStart(node), util.locEnd(node));
+    }
   }
 
   if (
