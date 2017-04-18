@@ -53,21 +53,23 @@ function genericPrint(path, options, printPath, args) {
   assert.ok(path instanceof FastPath);
 
   var node = path.getValue();
+
+  // Escape hatch
+  if (
+    node &&
+    node.comments &&
+    node.comments.length > 0 &&
+    node.comments.some(comment => comment.value.trim() === "prettier-ignore")
+  ) {
+    return options.originalText.slice(util.locStart(node), util.locEnd(node));
+  }
+
   var parts = [];
   var needsParens = false;
   var linesWithoutParens = genericPrintNoParens(path, options, printPath, args);
 
   if (!node || isEmpty(linesWithoutParens)) {
     return linesWithoutParens;
-  }
-
-  // Escape hatch
-  if (
-    node.comments &&
-    node.comments.length > 0 &&
-    node.comments.some(comment => comment.value.trim() === "prettier-ignore")
-  ) {
-    return options.originalText.slice(util.locStart(node), util.locEnd(node));
   }
 
   if (

@@ -56,6 +56,14 @@ function attachComments(text, ast, opts) {
 }
 
 function ensureAllCommentsPrinted(astComments) {
+  for (let i = 0; i < astComments.length; ++i) {
+    if (astComments[i].value.trim() === "prettier-ignore") {
+      // If there's a prettier-ignore, we're not printing that sub-tree so we
+      // don't know if the comments was printed or not.
+      return;
+    }
+  }
+
   astComments.forEach(comment => {
     if (!comment.printed) {
       throw new Error(
