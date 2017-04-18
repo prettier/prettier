@@ -2357,8 +2357,7 @@ function canPrintParamsWithoutParens(node) {
     !node.rest &&
     node.params[0].type === "Identifier" &&
     !node.params[0].typeAnnotation &&
-    !node.params[0].leadingComments &&
-    !node.params[0].trailingComments &&
+    !node.params[0].comments &&
     !node.params[0].optional &&
     !node.predicate &&
     !node.returnType
