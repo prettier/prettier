@@ -66,19 +66,27 @@ function getParserOption() {
     return "flow";
   }
 
-  if (value === "flow" || value === "babylon") {
+  const defaultParser = "babylon";
+  const supportedParsers = ["babylon", "flow"];
+  const experimentalParsers = ["typescript"];
+  if (supportedParsers.indexOf(value) >= 0) {
+    return value;
+  }
+  if(experimentalParsers.indexOf(value) >= 0) {
+    console.warn("WARNING: " + value + " parser is experimental!");
     return value;
   }
 
+  const allParsers = supportedParsers.concat(experimentalParsers);
   console.warn(
     "Ignoring unknown --" +
       optionName +
-      ' value, falling back to "babylon":\n' +
-      '  Expected "flow" or "babylon", but received: ' +
+      ' value, falling back to "' + defaultParser + '":\n' +
+      '  Expected one of [' + allParsers.join(", ") + '] but received: ' +
       JSON.stringify(value)
   );
 
-  return "babylon";
+  return defaultParser;
 }
 
 function getIntOption(optionName) {
