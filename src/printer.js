@@ -1953,6 +1953,8 @@ function genericPrintNoParens(path, options, print, args) {
       ]);
     case "TSFirstTypeNode":
       return concat([n.parameterName.name, " is ", path.call(print, "typeAnnotation")])
+    case "TSNeverKeyword":
+      return "never";
     // TODO
     case "ClassHeritage":
     // TODO
