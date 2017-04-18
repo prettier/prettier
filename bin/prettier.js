@@ -66,7 +66,7 @@ function getParserOption() {
     return "flow";
   }
 
-  if (value === "flow" || value === "babylon") {
+  if (value === "flow" || value === "babylon" || value === "typescript") {
     return value;
   }
 
