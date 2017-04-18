@@ -26,6 +26,7 @@ const argv = minimist(process.argv.slice(2), {
     "color",
     "list-different",
     "help",
+    "init",
     "version",
     "debug-print-doc",
     "debug-check",
@@ -177,7 +178,21 @@ function handleError(filename, e) {
   process.exitCode = 2;
 }
 
-if (argv["help"] || (!filepatterns.length && !stdin)) {
+let init = false;
+if (argv["init"]) {
+  init = true;
+  prettier.init()
+    .then(() => {
+      console.log('Successfully initialized prettier with npm script: `npm run prettier`.');
+      process.exit(0);
+    })
+    .catch(err => {
+      console.error(err);
+      process.exit(1);
+    });
+}
+
+if (argv["help"] || (!init && !filepatterns.length && !stdin)) {
   console.log(
     "Usage: prettier [opts] [filename ...]\n\n" +
       "Available options:\n" +
@@ -195,6 +210,7 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
       "                           Print trailing commas wherever possible. Defaults to none.\n" +
       "  --parser <flow|babylon>  Specify which parse to use. Defaults to babylon.\n" +
       "  --color                  Colorize error messages. Defaults to true.\n" +
+      "  --init                   Initialize prettier in the current working directory.\n" +
       "  --version or -v          Print prettier version.\n" +
       "\n" +
       "Boolean options can be turned off like this:\n" +
@@ -204,7 +220,7 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
   process.exit(argv["help"] ? 0 : 1);
 }
 
-if (stdin) {
+if (!init && stdin) {
   getStdin().then(input => {
     try {
       // Don't use `console.log` here since it adds an extra newline at the end.
@@ -214,7 +230,7 @@ if (stdin) {
       return;
     }
   });
-} else {
+} else if (!init) {
   eachFilename(filepatterns, filename => {
     if (write || argv["debug-check"]) {
       // Don't use `console.log` here since we need to replace this line.

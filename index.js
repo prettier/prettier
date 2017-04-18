@@ -1,5 +1,8 @@
 "use strict";
 
+const path = require('path');
+const fs = require('fs');
+const ini = require('ini');
 const codeFrame = require("babel-code-frame");
 const comments = require("./src/comments");
 const version = require("./package.json").version;
@@ -100,6 +103,52 @@ function formatWithShebang(text, opts) {
   return shebang + newLine + format(programText, opts);
 }
 
+function hasEditorConfig() {
+  const file = path.resolve(process.cwd(), ".editorconfig");
+  return fs.existsSync(file);
+}
+
+function getEditorConfig() {
+  const file = path.resolve(process.cwd(), ".editorconfig");
+  const ecData = fs.readFileSync(file, "utf8");
+  return ini.parse(ecData);
+}
+
+function init() {
+  const file = path.resolve(process.cwd(), "package.json");
+  const data = fs.readFileSync(file, "utf8");
+  try {
+    const opts = {};
+    const pkg = JSON.parse(data);
+
+    // parses editorconfig if available
+    if (hasEditorConfig()) {
+      const ec = getEditorConfig();
+
+      const matched = ec['*'];
+
+      if (matched) {
+        opts.tabWidth = matched.indent_size;
+        if (matched.indent_style) {
+          opts.useTabs = matched.indent_style === 'tab';
+        }
+      }
+    }
+
+    // parses the command
+    pkg.scripts.prettier = "prettier" + 
+    " --write" +
+    (opts.useTabs ? " --use-tabs" : "") +
+    (opts.tabWidth ? " --tab-width " + opts.tabWidth : "") +
+    " '{**/*.js}'";
+
+    fs.writeFileSync(file, JSON.stringify(pkg, null, "  "));
+    return Promise.resolve(true);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+}
+
 module.exports = {
   format: function(text, opts) {
     return formatWithShebang(text, normalizeOptions(opts));
@@ -112,6 +161,7 @@ module.exports = {
       return false;
     }
   },
+  init: init,
   version: version,
   __debug: {
     formatAST: function(ast, opts) {
