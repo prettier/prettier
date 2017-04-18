@@ -1955,6 +1955,8 @@ function genericPrintNoParens(path, options, print, args) {
       return concat([n.parameterName.name, " is ", path.call(print, "typeAnnotation")])
     case "TSNeverKeyword":
       return "never";
+    case "TSUndefinedKeyword":
+      return "undefined";
     // TODO
     case "ClassHeritage":
     // TODO
