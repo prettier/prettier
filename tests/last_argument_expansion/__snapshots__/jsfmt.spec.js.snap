@@ -39,6 +39,37 @@ export default function searchUsers(action$) {
 
 `;
 
+exports[`break.js 1`] = `
+export default class AddAssetHtmlPlugin {
+  apply(compiler: WebpackCompilerType) {
+    compiler.plugin('compilation', (compilation: WebpackCompilationType) => {
+      compilation.plugin('html-webpack-plugin-before-html', (callback: Callback<any>) => {
+        addAllAssetsToCompilation(this.assets, compilation, htmlPluginData, callback);
+      });
+    });
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export default class AddAssetHtmlPlugin {
+  apply(compiler: WebpackCompilerType) {
+    compiler.plugin("compilation", (compilation: WebpackCompilationType) => {
+      compilation.plugin(
+        "html-webpack-plugin-before-html",
+        (callback: Callback<any>) => {
+          addAllAssetsToCompilation(
+            this.assets,
+            compilation,
+            htmlPluginData,
+            callback
+          );
+        }
+      );
+    });
+  }
+}
+
+`;
+
 exports[`break-parent.js 1`] = `
 ({
   processors: [

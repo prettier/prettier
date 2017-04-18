@@ -1437,21 +1437,6 @@ function genericPrintNoParens(path, options, print, args) {
     case "TemplateLiteral":
       var expressions = path.map(print, "expressions");
 
-      function removeLines(doc) {
-        // Force this doc into flat mode by statically converting all
-        // lines into spaces (or soft lines into nothing). Hard lines
-        // should still output because there's too great of a chance
-        // of breaking existing assumptions otherwise.
-        return docUtils.mapDoc(doc, d => {
-          if (d.type === "line" && !d.hard) {
-            return d.soft ? "" : " ";
-          } else if (d.type === "if-break") {
-            return d.flatContents || "";
-          }
-          return d;
-        });
-      }
-
       parts.push("`");
 
       path.each(function(childPath) {
@@ -2291,7 +2276,7 @@ function printFunctionParams(path, print, options, expandArg) {
   //   })                    ) => {
   //                         })
   if (expandArg) {
-    return group(concat(["(", join(", ", printed), ")"]));
+    return group(concat(["(", join(", ", printed.map(removeLines)), ")"]));
   }
 
   // Single object destructuring should hug
@@ -3577,6 +3562,21 @@ function printArrayItems(path, options, printPath, print) {
   }, printPath);
 
   return concat(printedElements);
+}
+
+function removeLines(doc) {
+  // Force this doc into flat mode by statically converting all
+  // lines into spaces (or soft lines into nothing). Hard lines
+  // should still output because there's too great of a chance
+  // of breaking existing assumptions otherwise.
+  return docUtils.mapDoc(doc, d => {
+    if (d.type === "line" && !d.hard) {
+      return d.soft ? "" : " ";
+    } else if (d.type === "if-break") {
+      return d.flatContents || "";
+    }
+    return d;
+  });
 }
 
 function printAstToDoc(ast, options) {
