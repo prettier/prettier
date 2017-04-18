@@ -1957,6 +1957,8 @@ function genericPrintNoParens(path, options, print, args) {
       return "never";
     case "TSUndefinedKeyword":
       return "undefined";
+    case "TSSymbolKeyword":
+      return "symbol";
     // TODO
     case "ClassHeritage":
     // TODO
