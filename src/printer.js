@@ -1959,6 +1959,8 @@ function genericPrintNoParens(path, options, print, args) {
       return "undefined";
     case "TSSymbolKeyword":
       return "symbol";
+    case "TSNonNullExpression":
+      return concat([path.call(print, "expression"), "!"]);
     // TODO
     case "ClassHeritage":
     // TODO
