@@ -55,6 +55,30 @@ a ** (b * c);
 
 `;
 
+exports[`if.js 1`] = `
+if (this.hasPlugin("dynamicImports") && this.lookahead().type) {}
+
+if (this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft) {}
+
+if (this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft.right) {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+if (this.hasPlugin("dynamicImports") && this.lookahead().type) {
+}
+
+if (
+  this.hasPlugin("dynamicImports") &&
+  this.lookahead().type === tt.parenLeft
+) {
+}
+
+if (
+  this.hasPlugin("dynamicImports") &&
+  this.lookahead().type === tt.parenLeft.right
+) {
+}
+
+`;
+
 exports[`inline-object-array.js 1`] = `
 prevState = prevState || {
   catalogs: [],
