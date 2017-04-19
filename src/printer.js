@@ -3205,7 +3205,7 @@ function printBinaryishExpressions(path, print, options, isNested, isInsideParen
     // in order to avoid having a small right part like -1 be on its own line.
     const parent = path.getParentNode();
     const shouldGroup =
-      !isInsideParenthesis &&
+      !(isInsideParenthesis && node.type === "LogicalExpression") &&
       parent.type !== node.type &&
       node.left.type !== node.type &&
       node.right.type !== node.type;
