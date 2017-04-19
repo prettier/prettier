@@ -1,3 +1,9 @@
+# 1.2.1
+
+[link](https://github.com/jlongster/prettier/compare/1.2.0...1.2.1)
+
+* Fix duplicate comments in classes (#1349)
+
 # 1.2.0
 
 [link](https://github.com/jlongster/prettier/compare/1.1.0...1.2.0)
