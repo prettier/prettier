@@ -7,41 +7,11 @@ const getStdin = require("get-stdin");
 const glob = require("glob");
 const chalk = require("chalk");
 const minimist = require("minimist");
+const { minimistOpts } = require('../src/options')
 const readline = require("readline");
 const prettier = require("../index");
 
-const argv = minimist(process.argv.slice(2), {
-  boolean: [
-    "write",
-    "stdin",
-    "use-tabs",
-    "semi",
-    "single-quote",
-    "bracket-spacing",
-    "jsx-bracket-same-line",
-    // The supports-color package (a sub sub dependency) looks directly at
-    // `process.argv` for `--no-color` and such-like options. The reason it is
-    // listed here is to avoid "Ignored unknown option: --no-color" warnings.
-    // See https://github.com/chalk/supports-color/#info for more information.
-    "color",
-    "list-different",
-    "help",
-    "version",
-    "debug-print-doc",
-    "debug-check",
-    // Deprecated in 0.0.10
-    "flow-parser"
-  ],
-  string: ["print-width", "tab-width", "parser", "trailing-comma"],
-  default: { semi: true, color: true, "bracket-spacing": true, parser: "babylon" },
-  alias: { help: "h", version: "v", "list-different": "l" },
-  unknown: param => {
-    if (param.startsWith("-")) {
-      console.warn("Ignored unknown option: " + param + "\n");
-      return false;
-    }
-  }
-});
+const argv = minimist(process.argv.slice(2), minimistOpts);
 
 if (argv["version"]) {
   console.log(prettier.version);
