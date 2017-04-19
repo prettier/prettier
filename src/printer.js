@@ -1487,7 +1487,11 @@ function genericPrintNoParens(path, options, print, args) {
           !shouldTypeScriptTypeAvoidColon(path) &&
           // TypeScript should not have a colon before type parameter constraints
           !(path.getParentNode().type === "TypeParameter" &&
-            path.getParentNode().constraint)
+            path.getParentNode().constraint) && 
+          // TypeScript should not have a colon in TSFirstTypeNode nodes
+          // `a is number`
+          !(path.getParentNode().type === "TypeAnnotation" &&
+           path.getParentNode().typeAnnotation.type === 'TSFirstTypeNode')
         ) {
           parts.push(": ");
         }
@@ -1922,6 +1926,8 @@ function genericPrintNoParens(path, options, print, args) {
         "]: ",
         path.call(print, "typeAnnotation")
       ]);
+    case "TSFirstTypeNode":
+      return concat([n.parameterName.name, " is ", path.call(print, "typeAnnotation")])
     // TODO
     case "ClassHeritage":
     // TODO
