@@ -878,11 +878,13 @@ function genericPrintNoParens(path, options, print, args) {
     case "ThisExpression":
       return "this";
     case "Super":
-      return "super"; // Babel 6 Literal split
+      return "super";
+    // Babel 6 Literal split
     case "NullLiteral":
-      return "null"; // Babel 6 Literal split
+      return "null";
+    // Babel 6 Literal split
     case "RegExpLiteral":
-      return n.extra.raw;
+      return printRegex(n);
     // Babel 6 Literal split
     case "NumericLiteral":
       return printNumber(n.extra.raw);
@@ -892,6 +894,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "StringLiteral":
     case "Literal":
       if (typeof n.value === "number") return printNumber(n.raw);
+      if (n.regex) return printRegex(n.regex);
       if (typeof n.value !== "string") return "" + n.value;
 
       return nodeStr(n, options); // Babel 6
@@ -3333,6 +3336,11 @@ function makeString(rawContent, enclosingQuote) {
   });
 
   return enclosingQuote + newContent + enclosingQuote;
+}
+
+function printRegex(node) {
+  const flags = node.flags.split('').sort().join('');
+  return `/${node.pattern}/${flags}`;
 }
 
 function printNumber(rawNumber) {
