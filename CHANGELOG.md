@@ -1,3 +1,9 @@
+# 1.2.2
+
+[link](https://github.com/jlongster/prettier/compare/1.2.1...1.2.2)
+
+* Only break for conditionals (#1350)
+
 # 1.2.1
 
 [link](https://github.com/jlongster/prettier/compare/1.2.0...1.2.1)
