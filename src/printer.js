@@ -196,21 +196,43 @@ function genericPrintNoParens(path, options, print, args) {
       );
     case "BinaryExpression":
     case "LogicalExpression": {
-      const parts = printBinaryishExpressions(path, print, options);
       const parent = path.getParentNode();
+      const isInsideParenthesis =
+        n !== parent.body &&
+        (parent.type === "IfStatement" ||
+          parent.type === "WhileStatement" ||
+          parent.type === "DoStatement");
 
-      // Avoid indenting sub-expressions in if/etc statements.
+      const parts = printBinaryishExpressions(
+        path,
+        print,
+        options,
+        /* isNested */ false,
+        isInsideParenthesis
+      );
+
+      //   if (
+      //     this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft
+      //   ) {
+      //
+      // looks super weird, we want to break the children if the parent breaks
+      //
+      //   if (
+      //     this.hasPlugin("dynamicImports") &&
+      //     this.lookahead().type === tt.parenLeft
+      //   ) {
+      if (isInsideParenthesis) {
+        return concat(parts);
+      }
+
+      // Avoid indenting sub-expressions in assignment/return/etc statements.
       if (
         parent.type === "AssignmentExpression" ||
         parent.type === "VariableDeclarator" ||
         shouldInlineLogicalExpression(n) ||
         parent.type === "ReturnStatement" ||
-        (n !== parent.body &&
-          (parent.type === "IfStatement" ||
-            parent.type === "WhileStatement" ||
-            parent.type === "DoStatement" ||
-            parent.type === "ForStatement")) ||
-        (n === parent.body && parent.type === "ArrowFunctionExpression")
+        (n === parent.body && parent.type === "ArrowFunctionExpression") ||
+        (n !== parent.body && parent.type === "ForStatement")
       ) {
         return group(concat(parts));
       }
@@ -1490,7 +1512,7 @@ function genericPrintNoParens(path, options, print, args) {
           !shouldTypeScriptTypeAvoidColon(path) &&
           // TypeScript should not have a colon before type parameter constraints
           !(path.getParentNode().type === "TypeParameter" &&
-            path.getParentNode().constraint) && 
+            path.getParentNode().constraint) &&
           // TypeScript should not have a colon in TSFirstTypeNode nodes
           // `a is number`
           !(path.getParentNode().type === "TypeAnnotation" &&
@@ -3136,7 +3158,7 @@ function shouldInlineLogicalExpression(node) {
 // precedence level and the AST is structured based on precedence
 // level, things are naturally broken up correctly, i.e. `&&` is
 // broken before `+`.
-function printBinaryishExpressions(path, print, options, isNested) {
+function printBinaryishExpressions(path, print, options, isNested, isInsideParenthesis) {
   let parts = [];
   let node = path.getValue();
 
@@ -3163,7 +3185,8 @@ function printBinaryishExpressions(path, print, options, isNested) {
               left,
               print,
               options,
-              /* isNested */ true
+              /* isNested */ true,
+              isInsideParenthesis
             ),
           "left"
         )
@@ -3182,6 +3205,7 @@ function printBinaryishExpressions(path, print, options, isNested) {
     // in order to avoid having a small right part like -1 be on its own line.
     const parent = path.getParentNode();
     const shouldGroup =
+      !isInsideParenthesis &&
       parent.type !== node.type &&
       node.left.type !== node.type &&
       node.right.type !== node.type;
