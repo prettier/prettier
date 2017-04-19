@@ -182,24 +182,21 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
     "Usage: prettier [opts] [filename ...]\n\n" +
       "Available options:\n" +
       "  --write                  Edit the file in-place. (Beware!)\n" +
-      "  --list-different or -l   Print filenames of files that are different from prettier formatting\n" +
+      "  --list-different or -l   Print filenames of files that are different from Prettier formatting.\n" +
       "  --stdin                  Read input from stdin.\n" +
       "  --print-width <int>      Specify the length of line that the printer will wrap on. Defaults to 80.\n" +
       "  --tab-width <int>        Specify the number of spaces per indentation-level. Defaults to 2.\n" +
-      "  --use-tabs               Indent lines with tabs instead of spaces. Defaults to false.\n" +
-      "  --no-semi                Do not print semicolons, except at the beginning of lines which may need them. Defaults to false.\n" +
-      "  --single-quote           Use single quotes instead of double.\n" +
-      "  --bracket-spacing        Put spaces between brackets. Defaults to true.\n" +
-      "  --jsx-bracket-same-line  Put > on the last line. Defaults to false.\n" +
+      "  --use-tabs               Indent lines with tabs instead of spaces.\n" +
+      "  --no-semi                Do not print semicolons, except at the beginning of lines which may need them.\n" +
+      "  --single-quote           Use single quotes instead of double quotes.\n" +
+      "  --no-bracket-spacing     Do not print spaces between brackets.\n" +
+      "  --jsx-bracket-same-line  Put > on the last line instead of at a new line.\n" +
       "  --trailing-comma <none|es5|all>\n" +
       "                           Print trailing commas wherever possible. Defaults to none.\n" +
       "  --parser <flow|babylon>  Specify which parse to use. Defaults to babylon.\n" +
-      "  --color                  Colorize error messages. Defaults to true.\n" +
-      "  --version or -v          Print prettier version.\n" +
-      "\n" +
-      "Boolean options can be turned off like this:\n" +
-      "  --no-bracket-spacing\n" +
-      "  --bracket-spacing=false"
+      "  --no-color               Do not colorize error messages.\n" +
+      "  --version or -v          Print Prettier version.\n" +
+      "\n"
   );
   process.exit(argv["help"] ? 0 : 1);
 }
