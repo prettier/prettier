@@ -2119,7 +2119,11 @@ function printMethod(path, options, print) {
     group(
       concat([
         path.call(function(valuePath) {
-          return printFunctionParams(valuePath, print, options);
+          return comments.printComments(
+            path,
+            p => printFunctionParams(valuePath, print, options),
+            options
+          )
         }, "value"),
         path.call(p => printReturnType(p, print), "value")
       ])

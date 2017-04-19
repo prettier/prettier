@@ -244,7 +244,7 @@ function attach(comments, ast, text, options) {
         ) ||
         handleObjectPropertyAssignment(enclosingNode, precedingNode, comment) ||
         handleTemplateLiteralComments(enclosingNode, comment) ||
-        handleCommentInEmptyParens(enclosingNode, comment) ||
+        handleCommentInEmptyParens(text, enclosingNode, comment) ||
         handleOnlyComments(enclosingNode, ast, comment, isLastComment)
       ) {
         // We're good
@@ -516,7 +516,11 @@ function handleTemplateLiteralComments(enclosingNode, comment) {
   return false;
 }
 
-function handleCommentInEmptyParens(enclosingNode, comment) {
+function handleCommentInEmptyParens(text, enclosingNode, comment) {
+  if (getNextNonSpaceNonCommentCharacter(text, comment) !== ")") {
+    return false;
+  }
+
   // Only add dangling comments to fix the case when no params are present,
   // i.e. a function without any argument.
   if (
