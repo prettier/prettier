@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Arrays.js 1`] = `
-"
+
 /* @providesModule Arrays */
 
 function foo(x:string) { }
 
 var a = [];
 a[0] = 1;
-a[1] = \\"...\\";
+a[1] = "...";
 
 foo(a[1]);
 var y;
@@ -34,12 +34,12 @@ var abig2: Array<{x:number; y:number}> = [
   {x:0, y:0},
   {x:0, y:0},
   {x:0, y:0, a:true},
-  {x:0, y:0, b:\\"hey\\"},
+  {x:0, y:0, b:"hey"},
   {x:0, y:0, c:1},
-  {x:0, y:0, c:\\"hey\\"}
+  {x:0, y:0, c:"hey"}
 ];
 
-module.exports = \\"arrays\\";
+module.exports = "arrays";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule Arrays */
 
@@ -47,11 +47,11 @@ function foo(x: string) {}
 
 var a = [];
 a[0] = 1;
-a[1] = \\"...\\";
+a[1] = "...";
 
 foo(a[1]);
 var y;
-a.forEach(x => y = x);
+a.forEach(x => (y = x));
 
 // for literals, composite element type is union of individuals
 // note: test both tuple and non-tuple inferred literals
@@ -73,38 +73,17 @@ var abig2: Array<{ x: number, y: number }> = [
   { x: 0, y: 0 },
   { x: 0, y: 0 },
   { x: 0, y: 0, a: true },
-  { x: 0, y: 0, b: \\"hey\\" },
+  { x: 0, y: 0, b: "hey" },
   { x: 0, y: 0, c: 1 },
-  { x: 0, y: 0, c: \\"hey\\" }
+  { x: 0, y: 0, c: "hey" }
 ];
 
-module.exports = \\"arrays\\";
-"
-`;
+module.exports = "arrays";
 
-exports[`comments.js 1`] = `
-"export type FileMetaData = [
-  /* id */ string,
-  /* mtime */ number,
-  /* visited */ 0|1,
-  /* dependencies */ Array<string>,
-];
-
-export type ModuleMetaData = [Path, /* type */ number];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export type FileMetaData = [
-  /* id */ string,
-  /* mtime */ number,
-  /* visited */ 0 | 1,
-  /* dependencies */ Array<string>
-];
-
-export type ModuleMetaData = [Path, /* type */ number];
-"
 `;
 
 exports[`numeric_elem.js 1`] = `
-"var arr = [];
+var arr = [];
 var day = new Date;
 
 // Date instances are numeric (see Flow_js.numeric) and thus can index into
@@ -119,12 +98,5 @@ var day = new Date();
 // arrays.
 arr[day] = 0;
 (arr[day]: string); // error: number ~> string
-"
-`;
 
-exports[`union.js 1`] = `
-"let arr: (number|string)[] = [];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-let arr: (number | string)[] = [];
-"
 `;

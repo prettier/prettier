@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`e1.js 1`] = `
-"// @flow
+// @flow
 
 export type Action =
   | { type: 'QUX' }
@@ -12,14 +12,14 @@ export const LIFE = 0;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-export type Action = { type: \\"QUX\\" } | { type: \\"BAR\\" };
+export type Action = { type: "QUX" } | { type: "BAR" };
 
 export const LIFE = 0;
-"
+
 `;
 
 exports[`e2.js 1`] = `
-"// @flow
+// @flow
 
 import type { Action } from './e1';
 
@@ -33,14 +33,14 @@ import { LIFE } from './e1';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-import type { Action } from \\"./e1\\";
+import type { Action } from "./e1";
 
 const f = (): Action => {
-  return { type: \\"QUX\\" };
+  return { type: "QUX" };
 };
 
-import { LIFE } from \\"./e1\\";
+import { LIFE } from "./e1";
 
 (LIFE: 0);
-"
+
 `;

@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`annot.js 1`] = `
-"function foo(str:string, i:number):string {
+function foo(str:string, i:number):string {
   return str;
 }
 var bar: (str:number, i:number)=> string = foo;
 
 var qux = function(str:string, i:number):number { return foo(str,i); }
 
-var obj: {str:string; i:number; j:boolean} = {str: \\"...\\", i: \\"...\\", k: false};
+var obj: {str:string; i:number; j:boolean} = {str: "...", i: "...", k: false};
 
-var arr: Array<number> = [1,2,\\"...\\"];
+var arr: Array<number> = [1,2,"..."];
 
 // array sugar
-var array: number[] = [1,2,\\"...\\"];
+var array: number[] = [1,2,"..."];
 
 var matrix: number[][] = [[1,2],[3,4]];
 var matrix_parens: (number[])[] = matrix;
@@ -23,7 +23,7 @@ var nullable_array_parens: ?(number[]) = nullable_array;
 
 var array_of_nullable: (?number)[] = [null, 3];
 
-var array_of_tuple: [number, string][] = [[0, \\"foo\\"], [1, \\"bar\\"]];
+var array_of_tuple: [number, string][] = [[0, "foo"], [1, "bar"]];
 var array_of_tuple_parens: ([number, string])[] = array_of_tuple;
 
 type ObjType = { 'bar-foo': string; 'foo-bar': number; };
@@ -31,7 +31,7 @@ var test_obj: ObjType = { 'bar-foo': '23' };
 
 // param type annos are strict UBs like var type annos
 function param_anno(n:number):void {
-  n = \\"hey\\"; // error
+  n = "hey"; // error
 }
 
 // another error on param UB, more typical of www (mis)use-cases
@@ -61,36 +61,6 @@ var zer : null = null;
 
 function foobar(n : ?number) : number | null | void { return n; }
 function barfoo(n : number | null | void) : ?number { return n; }
-
-type Banana = {
-  eat: string => boolean,
-};
-
-type T = { method: (a) => void };
-
-type T = { method(a): void };
-
-declare class X { method(a): void }
-
-declare function f(a): void;
-
-var f: (a) => void;
-
-interface F { m(string): number }
-
-interface F { m: (string) => number }
-
-function f(o: { f: (string) => void }) {}
-
-function f(o: { f(string): void }) {}
-
-type f = (...arg) => void;
-
-type f = (/* comment */ arg) => void;
-
-type f = (arg /* comment */) => void;
-
-type f = (?arg) => void;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function foo(str: string, i: number): string {
   return str;
@@ -102,15 +72,15 @@ var qux = function(str: string, i: number): number {
 };
 
 var obj: { str: string, i: number, j: boolean } = {
-  str: \\"...\\",
-  i: \\"...\\",
+  str: "...",
+  i: "...",
   k: false
 };
 
-var arr: Array<number> = [1, 2, \\"...\\"];
+var arr: Array<number> = [1, 2, "..."];
 
 // array sugar
-var array: number[] = [1, 2, \\"...\\"];
+var array: number[] = [1, 2, "..."];
 
 var matrix: number[][] = [[1, 2], [3, 4]];
 var matrix_parens: number[][] = matrix;
@@ -120,15 +90,15 @@ var nullable_array_parens: ?(number[]) = nullable_array;
 
 var array_of_nullable: (?number)[] = [null, 3];
 
-var array_of_tuple: [number, string][] = [[0, \\"foo\\"], [1, \\"bar\\"]];
+var array_of_tuple: [number, string][] = [[0, "foo"], [1, "bar"]];
 var array_of_tuple_parens: [number, string][] = array_of_tuple;
 
-type ObjType = { \\"bar-foo\\": string, \\"foo-bar\\": number };
-var test_obj: ObjType = { \\"bar-foo\\": \\"23\\" };
+type ObjType = { "bar-foo": string, "foo-bar": number };
+var test_obj: ObjType = { "bar-foo": "23" };
 
 // param type annos are strict UBs like var type annos
 function param_anno(n: number): void {
-  n = \\"hey\\"; // error
+  n = "hey"; // error
 }
 
 // another error on param UB, more typical of www (mis)use-cases
@@ -162,40 +132,10 @@ function barfoo(n: number | null | void): ?number {
   return n;
 }
 
-type Banana = {
-  eat: string => boolean
-};
-
-type T = { method: a => void };
-
-type T = { method(a): void };
-
-declare class X { method(a): void }
-
-declare function f(a): void;
-
-var f: a => void;
-
-interface F { m(string): number }
-
-interface F { m: string => number }
-
-function f(o: { f: string => void }) {}
-
-function f(o: { f(string): void }) {}
-
-type f = (...arg) => void;
-
-type f = /* comment */ arg => void;
-
-type f = arg /* comment */ => void;
-
-type f = ?arg => void;
-"
 `;
 
 exports[`forward_ref.js 1`] = `
-"let myClassInstance: MyClass = null; // forward ref ok, null ~> class error
+let myClassInstance: MyClass = null; // forward ref ok, null ~> class error
 
 function bar(): MyClass {
   return null; // forward ref ok, null ~> class error
@@ -226,22 +166,22 @@ function foo() {
 
   class MyClass {} // looked up above
 }
-"
+
 `;
 
 exports[`issue-530.js 1`] = `
-"function foo(...args: any) { }
+function foo(...args: any) { }
 
 module.exports = foo;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function foo(...args: any) {}
 
 module.exports = foo;
-"
+
 `;
 
 exports[`leak.js 1`] = `
-"/** @flow */
+/** @flow */
 
 /* This test documents an example we ran into of a type annotation leaking.
  *
@@ -286,20 +226,20 @@ function foo(x: { [key: string]: mixed }) {
 function bar(y: MyObj): string {
   return y.foo;
 }
-"
+
 `;
 
 exports[`other.js 1`] = `
-"class C { }
+class C { }
 module.exports = (C: any);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class C {}
 module.exports = (C: any);
-"
+
 `;
 
 exports[`scope.js 1`] = `
-"type Merge<T> = (a: T, b: T) => T;
+type Merge<T> = (a: T, b: T) => T;
 
 // hypothetical immutable map
 declare class Map<K,V> {
@@ -352,14 +292,14 @@ class Foo<A> {
     };
   }
 }
-"
+
 `;
 
 exports[`test.js 1`] = `
-"var C = require('./other');
+var C = require('./other');
 ((0: C): string);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var C = require(\\"./other\\");
+var C = require("./other");
 ((0: C): string);
-"
+
 `;

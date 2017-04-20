@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`assignment.js 1`] = `
-"/* @flow */
+/* @flow */
 
 function foo(x : ?number) {
   var y;
@@ -68,11 +68,11 @@ function bar2(x: Bar) {
     y.doStuff();
   }
 }
-"
+
 `;
 
 exports[`ast_node.js 1`] = `
-"type Node1 = {
+type Node1 = {
   kind: 'Node1',
   prop1?: string
 };
@@ -85,21 +85,21 @@ type Node2 = {
 export type ASTNode = Node1 | Node2;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 type Node1 = {
-  kind: \\"Node1\\",
+  kind: "Node1",
   prop1?: string
 };
 
 type Node2 = {
-  kind: \\"Node2\\",
+  kind: "Node2",
   prop2?: string
 };
 
 export type ASTNode = Node1 | Node2;
-"
+
 `;
 
 exports[`bool.js 1`] = `
-"/* @flow */
+/* @flow */
 
 function foo(x: ?bool) {
   if (x === false) {
@@ -192,11 +192,11 @@ let tests = [
     return x.result; // error
   }
 ];
-"
+
 `;
 
 exports[`computed_string_literal.js 1`] = `
-"// @flow
+// @flow
 
 type A = {
   'b_c': ?string
@@ -219,7 +219,7 @@ function testLiteralProperty(a: A) {
 // @flow
 
 type A = {
-  \\"b_c\\": ?string
+  "b_c": ?string
 };
 
 function stuff(str: string) {}
@@ -231,15 +231,15 @@ function testProperty(a: A) {
 }
 
 function testLiteralProperty(a: A) {
-  if (a[\\"b_c\\"]) {
-    stuff(a[\\"b_c\\"]);
+  if (a["b_c"]) {
+    stuff(a["b_c"]);
   }
 }
-"
+
 `;
 
 exports[`cond_prop.js 1`] = `
-"/* @flow */
+/* @flow */
 
 type Type = Name | ListType | NonNullType;
 type Name = {kind: 'Name', value: string, type: void };
@@ -262,7 +262,7 @@ let tests = [
 
   function(x: { done: true, result: string } | { foo: string }) {
     if (x.done) {
-      return x.result; // error, consider { foo: \\"herp\\", done: \\"derp\\" }
+      return x.result; // error, consider { foo: "herp", done: "derp" }
     }
     return x.result; // error
   },
@@ -274,7 +274,7 @@ let tests = [
 
     function testAlwaysTruthyProp(t: T) {
       if (t.foo) {
-        (t.bar: string); // error, consider { baz: \\"x\\", quux: \\"y\\", foo: \\"boom\\" }
+        (t.bar: string); // error, consider { baz: "x", quux: "y", foo: "boom" }
       } else {
         (t.quux: string); // ok. since foo is an object (always truthy), the
                           // else case completely rules out the first branch of
@@ -284,9 +284,9 @@ let tests = [
 
     function testSometimesTruthyProp(t: T) {
       if (t.bar) {
-        (t.foo: Object); // error, consider { baz: \\"x\\", quux: \\"y\\", bar: \\"boom\\" }
+        (t.foo: Object); // error, consider { baz: "x", quux: "y", bar: "boom" }
       } else {
-        (t.quux: string); // error, consider { foo: {}, bar: \\"\\" }
+        (t.quux: string); // error, consider { foo: {}, bar: "" }
       }
     }
   },
@@ -295,13 +295,13 @@ let tests = [
 /* @flow */
 
 type Type = Name | ListType | NonNullType;
-type Name = { kind: \\"Name\\", value: string, type: void };
-type ListType = { kind: \\"ListType\\", type: Type };
-type NonNullType = { kind: \\"NonNullType\\", type: Name | ListType | BadType };
+type Name = { kind: "Name", value: string, type: void };
+type ListType = { kind: "ListType", type: Type };
+type NonNullType = { kind: "NonNullType", type: Name | ListType | BadType };
 type BadType = {};
 
 function getTypeASTName(typeAST: Type): string {
-  if (!typeAST.type) throw new Error(\\"Must be wrapping type\\"); // OK
+  if (!typeAST.type) throw new Error("Must be wrapping type"); // OK
   return getTypeASTName(typeAST.type); // error, BadType not a subtype of Type
 }
 
@@ -315,7 +315,7 @@ let tests = [
 
   function(x: { done: true, result: string } | { foo: string }) {
     if (x.done) {
-      return x.result; // error, consider { foo: \\"herp\\", done: \\"derp\\" }
+      return x.result; // error, consider { foo: "herp", done: "derp" }
     }
     return x.result; // error
   },
@@ -325,7 +325,7 @@ let tests = [
 
     function testAlwaysTruthyProp(t: T) {
       if (t.foo) {
-        (t.bar: string); // error, consider { baz: \\"x\\", quux: \\"y\\", foo: \\"boom\\" }
+        (t.bar: string); // error, consider { baz: "x", quux: "y", foo: "boom" }
       } else {
         (t.quux: string); // ok. since foo is an object (always truthy), the
         // else case completely rules out the first branch of
@@ -335,31 +335,31 @@ let tests = [
 
     function testSometimesTruthyProp(t: T) {
       if (t.bar) {
-        (t.foo: Object); // error, consider { baz: \\"x\\", quux: \\"y\\", bar: \\"boom\\" }
+        (t.foo: Object); // error, consider { baz: "x", quux: "y", bar: "boom" }
       } else {
-        (t.quux: string); // error, consider { foo: {}, bar: \\"\\" }
+        (t.quux: string); // error, consider { foo: {}, bar: "" }
       }
     }
   }
 ];
-"
+
 `;
 
 exports[`constants.js 1`] = `
-"/* @flow */
+/* @flow */
 
 export const SUCCESS: 'SUCCESS' = 'SUCCESS';
 export const ERROR: 'ERROR' = 'ERROR';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-export const SUCCESS: \\"SUCCESS\\" = \\"SUCCESS\\";
-export const ERROR: \\"ERROR\\" = \\"ERROR\\";
-"
+export const SUCCESS: "SUCCESS" = "SUCCESS";
+export const ERROR: "ERROR" = "ERROR";
+
 `;
 
 exports[`eq.js 1`] = `
-"/* @flow */
+/* @flow */
 
 let tests = [
   function(x: string, y: number) {
@@ -404,31 +404,31 @@ let tests = [
     } // ok
   },
 
-  function(x: { y: \\"foo\\" } | { y: \\"bar\\" }) {
+  function(x: { y: "foo" } | { y: "bar" }) {
     if (x.y == 123) {
     } // error
     if (x.y === 123) {
     } // ok
   }
 ];
-"
+
 `;
 
 exports[`exists.js 1`] = `
-"declare class Foo {
+declare class Foo {
   foo: string;
 }
 
 function foo0(x: ?string): string {
-  return x && x || \\"\\";
+  return x && x || "";
 }
 
 function foo1(x: ?Foo): string {
-  return x && x.foo || \\"\\";
+  return x && x.foo || "";
 }
 
 function foo2(x: ?Class<Foo>): string {
-  return x && new x().foo || \\"\\";
+  return x && new x().foo || "";
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare class Foo {
@@ -436,21 +436,21 @@ declare class Foo {
 }
 
 function foo0(x: ?string): string {
-  return (x && x) || \\"\\";
+  return (x && x) || "";
 }
 
 function foo1(x: ?Foo): string {
-  return (x && x.foo) || \\"\\";
+  return (x && x.foo) || "";
 }
 
 function foo2(x: ?Class<Foo>): string {
-  return (x && new x().foo) || \\"\\";
+  return (x && new x().foo) || "";
 }
-"
+
 `;
 
 exports[`func_call.js 1`] = `
-"// @flow
+// @flow
 
 let tests = [
   function(x: { y?: string }, z: () => string) {
@@ -475,11 +475,11 @@ let tests = [
     }
   }
 ];
-"
+
 `;
 
 exports[`hasOwnProperty.js 1`] = `
-"/* @flow */
+/* @flow */
 
 function foo(x:{y?:() => void}) {
   x.y(); // error: could be undefined
@@ -505,28 +505,28 @@ function bar(x:Object) {
 
 function foo(x: { y?: () => void }) {
   x.y(); // error: could be undefined
-  if (x.hasOwnProperty(\\"y\\")) {
+  if (x.hasOwnProperty("y")) {
     x.y(); // error: still could be undefined
   }
-  if (x.hasOwnProperty(\\"z\\")) {
+  if (x.hasOwnProperty("z")) {
     x.z(); // error: unreachable, but we don't help you here
   }
 }
 
 function bar(x: Object) {
   x.y(); // treated as \`any\`, so allowed
-  if (x.hasOwnProperty(\\"y\\")) {
+  if (x.hasOwnProperty("y")) {
     x.y(); // still treated as \`any\`, so allowed
   }
-  if (x.hasOwnProperty(\\"z\\")) {
+  if (x.hasOwnProperty("z")) {
     x.z(); // also treated as \`any\`, so allowed
   }
 }
-"
+
 `;
 
 exports[`heap_defassign.js 1`] = `
-"// @flow
+// @flow
 
 type Obj = { p: number | string }
 
@@ -625,13 +625,13 @@ function def_assign_function_havoc(obj: Obj) {
 
 function def_assign_setprop_havoc(obj: Obj, obj2: Obj) {
   obj.p = 10; // (obj.p : number)
-  obj2.p = \\"hey\\"; // clears refi
+  obj2.p = "hey"; // clears refi
   var x: number = obj.p; // error, obj.p : number | string
 }
 
 function def_assign_index_havoc(obj: Obj, obj2: Obj) {
   obj.p = 10; // (obj.p : number)
-  obj2[\\"p\\"] = \\"hey\\"; // clears refi
+  obj2["p"] = "hey"; // clears refi
   var x: number = obj.p; // error, obj.p : number | string
 }
 
@@ -663,10 +663,10 @@ function def_assign_within_try(b: boolean, obj: Obj) {
   obj.p = 10; // (obj.p : number)
   try {
     f(); // clears refi and might throw
-    obj.p = \\"hey\\";
+    obj.p = "hey";
   } catch (e) {
     f(); // clears refi and might throw
-    obj.p = \\"hey\\";
+    obj.p = "hey";
   } finally {
     // NOTE: the values understood to flow to obj.p at this point
     // include the number 42 written downstream;
@@ -692,25 +692,25 @@ type Obj2 = { q: number | string };
 
 function def_assign_setprop_nohavoc(obj: Obj, obj2: Obj2) {
   obj.p = 10; // (obj.p : number)
-  obj2.q = \\"hey\\"; // doesn't clear refi of .p
+  obj2.q = "hey"; // doesn't clear refi of .p
   var x: number = obj.p; // still ok
 }
-"
+
 `;
 
 exports[`lib.js 1`] = `
-"/* @flow */
+/* @flow */
 
 declare var BAZ: {stuff?: (x: number) => void} | void;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
 declare var BAZ: { stuff?: (x: number) => void } | void;
-"
+
 `;
 
 exports[`missing-property-cond.js 1`] = `
-"// @flow
+// @flow
 
 function foo1(o: { x: number }) {
   if (o.p1) { // OK, this is an idiomatic way of testing property existence
@@ -760,6 +760,18 @@ function foo8(o: { p: mixed }) {
   if (o.p && o.p.q) {} // this is ok because o.p is truthy, so o.p.q is safe
   if (o.p && o.p.q && o.p.q.r) {}
 }
+
+type Foo9Expected = {
+  foo: string,
+}
+
+function foo9() {
+  const actual = {};
+  if (actual.foo === undefined) {
+    actual.foo = 'foo';
+  }
+  (actual: Foo9Expected);
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
@@ -807,13 +819,13 @@ function foo6(o: mixed) {
 }
 
 function foo7(o: mixed) {
-  if (typeof o.bar === \\"string\\") {
+  if (typeof o.bar === "string") {
   } // error
-  if (o && typeof o.bar === \\"string\\") {
+  if (o && typeof o.bar === "string") {
   } // ok
-  if (o != null && typeof o.bar === \\"string\\") {
+  if (o != null && typeof o.bar === "string") {
   } // ok
-  if (o !== null && o !== undefined && typeof o.bar === \\"string\\") {
+  if (o !== null && o !== undefined && typeof o.bar === "string") {
   } // ok
 }
 
@@ -823,62 +835,74 @@ function foo8(o: { p: mixed }) {
   if (o.p && o.p.q && o.p.q.r) {
   }
 }
-"
+
+type Foo9Expected = {
+  foo: string
+};
+
+function foo9() {
+  const actual = {};
+  if (actual.foo === undefined) {
+    actual.foo = "foo";
+  }
+  (actual: Foo9Expected);
+}
+
 `;
 
 exports[`mixed.js 1`] = `
-"/* @flow */
+/* @flow */
 
 function takesNumber(x: number) {}
 function takesString(x: string) {}
 
 function num(x: mixed) {
-  if (typeof x === \\"number\\") {
+  if (typeof x === "number") {
     takesString(x); // error
     (!x: false); // error: we don't know the truthiness of x
   }
-  if (typeof x === \\"number\\" && x) {
+  if (typeof x === "number" && x) {
     (!x: false); // ok
   }
-  if (x && typeof x === \\"number\\") {
+  if (x && typeof x === "number") {
     (!x: false); // ok
   }
 }
 
 function str(x: mixed) {
-  if (typeof x === \\"string\\") {
+  if (typeof x === "string") {
     takesNumber(x); // error
     (!x: false); // error: we don't know the truthiness of x
   }
-  if (typeof x === \\"string\\" && x) {
+  if (typeof x === "string" && x) {
     (!x: false); // ok
   }
-  if (x && typeof x === \\"string\\") {
+  if (x && typeof x === "string") {
     (!x: false); // ok
   }
 }
 
 function bool(x: mixed) {
-  if (typeof x === \\"boolean\\") {
+  if (typeof x === "boolean") {
     takesString(x); // error
     (x: true); // error: we don't know the truthiness of x
   }
-  if (typeof x === \\"boolean\\" && x) {
+  if (typeof x === "boolean" && x) {
     (x: true); // ok
   }
-  if (x && typeof x === \\"boolean\\") {
+  if (x && typeof x === "boolean") {
     (x: true); // ok
   }
 }
 
 function fun(x: mixed) {
-  if (typeof x === \\"function\\") {
+  if (typeof x === "function") {
     takesString(x); // error
   }
 }
 
 function obj0(x: mixed) {
-  if (typeof x === \\"object\\") {
+  if (typeof x === "object") {
     takesString(x); // error
   }
 }
@@ -890,7 +914,7 @@ function obj1(x: mixed) {
 }
 
 function undef(x: mixed) {
-  if (typeof x === \\"undefined\\") {
+  if (typeof x === "undefined") {
     takesString(x); // error
   }
 }
@@ -920,7 +944,7 @@ function false_(x: mixed) {
 }
 
 function obj2(x: mixed) {
-  if (typeof x === \\"object\\") {
+  if (typeof x === "object") {
     (x: { [key: string]: mixed } | null);
     if (x !== null) {
       (x['foo']: string); // error, mixed
@@ -929,16 +953,16 @@ function obj2(x: mixed) {
 }
 
 function obj2(x: mixed) {
-  if (typeof x === \\"object\\" && x) {
+  if (typeof x === "object" && x) {
     (x: Object);
   }
-  if (x && typeof x === \\"object\\") {
+  if (x && typeof x === "object") {
     (x: Object);
   }
-  if (x != null && typeof x === \\"object\\") {
+  if (x != null && typeof x === "object") {
     (x: Object);
   }
-  if (x !== null && typeof x === \\"object\\") {
+  if (x !== null && typeof x === "object") {
     (x: Object);
   }
 }
@@ -955,52 +979,52 @@ function takesNumber(x: number) {}
 function takesString(x: string) {}
 
 function num(x: mixed) {
-  if (typeof x === \\"number\\") {
+  if (typeof x === "number") {
     takesString(x); // error
     (!x: false); // error: we don't know the truthiness of x
   }
-  if (typeof x === \\"number\\" && x) {
+  if (typeof x === "number" && x) {
     (!x: false); // ok
   }
-  if (x && typeof x === \\"number\\") {
+  if (x && typeof x === "number") {
     (!x: false); // ok
   }
 }
 
 function str(x: mixed) {
-  if (typeof x === \\"string\\") {
+  if (typeof x === "string") {
     takesNumber(x); // error
     (!x: false); // error: we don't know the truthiness of x
   }
-  if (typeof x === \\"string\\" && x) {
+  if (typeof x === "string" && x) {
     (!x: false); // ok
   }
-  if (x && typeof x === \\"string\\") {
+  if (x && typeof x === "string") {
     (!x: false); // ok
   }
 }
 
 function bool(x: mixed) {
-  if (typeof x === \\"boolean\\") {
+  if (typeof x === "boolean") {
     takesString(x); // error
     (x: true); // error: we don't know the truthiness of x
   }
-  if (typeof x === \\"boolean\\" && x) {
+  if (typeof x === "boolean" && x) {
     (x: true); // ok
   }
-  if (x && typeof x === \\"boolean\\") {
+  if (x && typeof x === "boolean") {
     (x: true); // ok
   }
 }
 
 function fun(x: mixed) {
-  if (typeof x === \\"function\\") {
+  if (typeof x === "function") {
     takesString(x); // error
   }
 }
 
 function obj0(x: mixed) {
-  if (typeof x === \\"object\\") {
+  if (typeof x === "object") {
     takesString(x); // error
   }
 }
@@ -1012,7 +1036,7 @@ function obj1(x: mixed) {
 }
 
 function undef(x: mixed) {
-  if (typeof x === \\"undefined\\") {
+  if (typeof x === "undefined") {
     takesString(x); // error
   }
 }
@@ -1042,25 +1066,25 @@ function false_(x: mixed) {
 }
 
 function obj2(x: mixed) {
-  if (typeof x === \\"object\\") {
+  if (typeof x === "object") {
     (x: { [key: string]: mixed } | null);
     if (x !== null) {
-      (x[\\"foo\\"]: string); // error, mixed
+      (x["foo"]: string); // error, mixed
     }
   }
 }
 
 function obj2(x: mixed) {
-  if (typeof x === \\"object\\" && x) {
+  if (typeof x === "object" && x) {
     (x: Object);
   }
-  if (x && typeof x === \\"object\\") {
+  if (x && typeof x === "object") {
     (x: Object);
   }
-  if (x != null && typeof x === \\"object\\") {
+  if (x != null && typeof x === "object") {
     (x: Object);
   }
-  if (x !== null && typeof x === \\"object\\") {
+  if (x !== null && typeof x === "object") {
     (x: Object);
   }
 }
@@ -1070,18 +1094,18 @@ function arr0(x: mixed) {
     takesString(x[0]); // error
   }
 }
-"
+
 `;
 
 exports[`node1.js 1`] = `
-"module.exports = 'Node1';
+module.exports = 'Node1';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-module.exports = \\"Node1\\";
-"
+module.exports = "Node1";
+
 `;
 
 exports[`not.js 1`] = `
-"/* @flow */
+/* @flow */
 
 function foo(x: ?bool) {
   if (!x) {
@@ -1186,11 +1210,11 @@ let tests = [
     (!x: false); // ok, classes are always truthy
   }
 ];
-"
+
 `;
 
 exports[`null.js 1`] = `
-"/* @flow */
+/* @flow */
 
 function null_bogus_comparison() {
   if (100 * null) {
@@ -1211,11 +1235,11 @@ function null_bogus_comparison() {
     return;
   }
 }
-"
+
 `;
 
 exports[`number.js 1`] = `
-"// @flow
+// @flow
 
 type Mode = 0 | 1 | 2;
 
@@ -1302,7 +1326,7 @@ let tests = [
 
   function(n: number): Mode {
     if (n !== 0 && n !== 1 && n !== 2) {
-      throw new Error(\\"Wrong number passed\\");
+      throw new Error("Wrong number passed");
     }
     return n;
   },
@@ -1424,7 +1448,7 @@ let tests = [
 
   function(n: number): Mode {
     if (n !== 0 && n !== 1 && n !== 2) {
-      throw new Error(\\"Wrong number passed\\");
+      throw new Error("Wrong number passed");
     }
     return n;
   },
@@ -1458,91 +1482,91 @@ let tests = [
     }
   }
 ];
-"
+
 `;
 
 exports[`property.js 1`] = `
-"/* @flow */
+/* @flow */
 
 function a(x: {[key: string]: ?string}, y: string): string {
   if (x[y]) {
     return x[y];
   }
-  return \\"\\";
+  return "";
 }
 
 function b(x: {y: {[key: string]: ?string}}, z: string): string {
   if (x.y[z]) {
     return x.y[z];
   }
-  return \\"\\";
+  return "";
 }
 
 function c(x: {[key: string]: ?string}, y: {z: string}): string {
   if (x[y.z]) {
     return x[y.z];
   }
-  return \\"\\";
+  return "";
 }
 
 function d(x: {y: {[key: string]: ?string}}, a: {b: string}): string {
   if (x.y[a.b]) {
     return x.y[a.b];
   }
-  return \\"\\";
+  return "";
 }
 
 function a_array(x: Array<?string>, y: number): string {
   if (x[y]) {
     return x[y];
   }
-  return \\"\\";
+  return "";
 }
 
 function b_array(x: {y: Array<?string>}, z: number): string {
   if (x.y[z]) {
     return x.y[z];
   }
-  return \\"\\";
+  return "";
 }
 
 function c_array(x: Array<?string>, y: {z: number}): string {
   if (x[y.z]) {
     return x[y.z];
   }
-  return \\"\\";
+  return "";
 }
 
 function d_array(x: {y: Array<?string>}, a: {b: number}): string {
   if (x.y[a.b]) {
     return x.y[a.b];
   }
-  return \\"\\";
+  return "";
 }
 
 function e_array(x: Array<?string>): string {
   if (x[0]) {
     return x[0];
   }
-  return \\"\\";
+  return "";
 }
 
 // --- name-sensitive havoc ---
 
 function c2(x: {[key: string]: ?string}, y: {z: string}): string {
   if (x[y.z]) {
-    y.z = \\"HEY\\";
+    y.z = "HEY";
     return x[y.z];  // error
   }
-  return \\"\\";
+  return "";
 }
 
 function c3(x: {[key: string]: ?string}, y: {z: string, a: string}): string {
   if (x[y.z]) {
-    y.a = \\"HEY\\";
+    y.a = "HEY";
     return x[y.z];  // ok
   }
-  return \\"\\";
+  return "";
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
@@ -1551,73 +1575,73 @@ function a(x: { [key: string]: ?string }, y: string): string {
   if (x[y]) {
     return x[y];
   }
-  return \\"\\";
+  return "";
 }
 
 function b(x: { y: { [key: string]: ?string } }, z: string): string {
   if (x.y[z]) {
     return x.y[z];
   }
-  return \\"\\";
+  return "";
 }
 
 function c(x: { [key: string]: ?string }, y: { z: string }): string {
   if (x[y.z]) {
     return x[y.z];
   }
-  return \\"\\";
+  return "";
 }
 
 function d(x: { y: { [key: string]: ?string } }, a: { b: string }): string {
   if (x.y[a.b]) {
     return x.y[a.b];
   }
-  return \\"\\";
+  return "";
 }
 
 function a_array(x: Array<?string>, y: number): string {
   if (x[y]) {
     return x[y];
   }
-  return \\"\\";
+  return "";
 }
 
 function b_array(x: { y: Array<?string> }, z: number): string {
   if (x.y[z]) {
     return x.y[z];
   }
-  return \\"\\";
+  return "";
 }
 
 function c_array(x: Array<?string>, y: { z: number }): string {
   if (x[y.z]) {
     return x[y.z];
   }
-  return \\"\\";
+  return "";
 }
 
 function d_array(x: { y: Array<?string> }, a: { b: number }): string {
   if (x.y[a.b]) {
     return x.y[a.b];
   }
-  return \\"\\";
+  return "";
 }
 
 function e_array(x: Array<?string>): string {
   if (x[0]) {
     return x[0];
   }
-  return \\"\\";
+  return "";
 }
 
 // --- name-sensitive havoc ---
 
 function c2(x: { [key: string]: ?string }, y: { z: string }): string {
   if (x[y.z]) {
-    y.z = \\"HEY\\";
+    y.z = "HEY";
     return x[y.z]; // error
   }
-  return \\"\\";
+  return "";
 }
 
 function c3(
@@ -1625,18 +1649,18 @@ function c3(
   y: { z: string, a: string }
 ): string {
   if (x[y.z]) {
-    y.a = \\"HEY\\";
+    y.a = "HEY";
     return x[y.z]; // ok
   }
-  return \\"\\";
+  return "";
 }
-"
+
 `;
 
 exports[`refinements.js 1`] = `
-"function foo(b) {
+function foo(b) {
     var x = b? 0 : null;
-    while (typeof x == \\"string\\" || typeof x == \\"number\\") {
+    while (typeof x == "string" || typeof x == "number") {
         var y:string = x;
         x = false;
     }
@@ -1657,10 +1681,10 @@ function qux() {
     var x = 0;
     try {
         maybe_throw();
-        x = \\"hello\\";
+        x = "hello";
     } catch (e) {
         maybe_throw();
-        x = \\"hello\\";
+        x = "hello";
     } finally {
         // NOTE: the values understood to flow to x at this point
         // include the number 42 written downstream;
@@ -1674,7 +1698,7 @@ function qux() {
 
 function corge(b) {
     for (var x = b? 0 : null;
-         typeof x == \\"string\\" || typeof x == \\"number\\";
+         typeof x == "string" || typeof x == "number";
          x = false) {
         var y:string = x;
     }
@@ -1715,7 +1739,7 @@ function global_in_conditional2(x: number) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function foo(b) {
   var x = b ? 0 : null;
-  while (typeof x == \\"string\\" || typeof x == \\"number\\") {
+  while (typeof x == "string" || typeof x == "number") {
     var y: string = x;
     x = false;
   }
@@ -1736,10 +1760,10 @@ function qux() {
   var x = 0;
   try {
     maybe_throw();
-    x = \\"hello\\";
+    x = "hello";
   } catch (e) {
     maybe_throw();
-    x = \\"hello\\";
+    x = "hello";
   } finally {
     // NOTE: the values understood to flow to x at this point
     // include the number 42 written downstream;
@@ -1754,7 +1778,7 @@ function qux() {
 function corge(b) {
   for (
     var x = b ? 0 : null;
-    typeof x == \\"string\\" || typeof x == \\"number\\";
+    typeof x == "string" || typeof x == "number";
     x = false
   ) {
     var y: string = x;
@@ -1793,13 +1817,13 @@ function global_in_conditional2(x: number) {
     }
   }
 }
-"
+
 `;
 
 exports[`string.js 1`] = `
-"// @flow
+// @flow
 
-type Mode = \\"a\\" | \\"b\\" | \\"c\\";
+type Mode = "a" | "b" | "c";
 
 let tests = [
   function(x: string) {
@@ -1884,38 +1908,38 @@ let tests = [
 
   function(str: string): Mode {
     var ch = str[0];
-    if (ch !== \\"a\\" && ch !== \\"b\\" && ch !== \\"c\\") {
-      throw new Error(\\"Wrong string passed\\");
+    if (ch !== "a" && ch !== "b" && ch !== "c") {
+      throw new Error("Wrong string passed");
     }
     return ch;
   },
 
   function(s: string): ?Mode {
-    if (s === \\"a\\") {
+    if (s === "a") {
       return s;
-    } else if (s === \\"d\\") {
+    } else if (s === "d") {
       return s; // error
     }
   },
 
   function(mode: Mode) {
     switch (mode) {
-      case \\"a\\":
-        (mode: \\"a\\");
+      case "a":
+        (mode: "a");
         break;
 
-      case \\"b\\":
-      case \\"c\\":
-        (mode: \\"b\\" | \\"c\\");
+      case "b":
+      case "c":
+        (mode: "b" | "c");
         break;
     }
   },
 
-  function(x: string): \\"\\" {
+  function(x: string): "" {
     if (x) {
       return x; // error
     } else {
-      return x; // no error, inferred to be \\"\\"
+      return x; // no error, inferred to be ""
     }
   },
 
@@ -1933,73 +1957,73 @@ let tests = [
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-type Mode = \\"a\\" | \\"b\\" | \\"c\\";
+type Mode = "a" | "b" | "c";
 
 let tests = [
   function(x: string) {
-    if (x === \\"foo\\") {
+    if (x === "foo") {
       (x: void); // error
     }
-    (x: \\"foo\\"); // error
+    (x: "foo"); // error
   },
 
   function(x: string) {
-    if (x !== \\"foo\\") {
-      (x: \\"foo\\"); // error
+    if (x !== "foo") {
+      (x: "foo"); // error
     }
     (x: void); // error
   },
 
-  function(x: \\"bar\\"): \\"foo\\" {
-    if (x === \\"foo\\") {
+  function(x: "bar"): "foo" {
+    if (x === "foo") {
       return x; // unreachable, no error
     }
-    return \\"foo\\";
+    return "foo";
   },
 
-  function(x: \\"foo\\"): string {
-    if (x === \\"bar\\") {
+  function(x: "foo"): string {
+    if (x === "bar") {
       return x;
     }
     return x;
   },
 
-  function(x: \\"foo\\") {
-    if (x !== \\"bar\\") {
-      (x: \\"foo\\");
+  function(x: "foo") {
+    if (x !== "bar") {
+      (x: "foo");
     }
-    (x: \\"foo\\");
+    (x: "foo");
   },
 
-  function(x: \\"foo\\"): string {
-    if (x === \\"foo\\") {
+  function(x: "foo"): string {
+    if (x === "foo") {
       return x;
     }
     return x;
   },
 
-  function(x: \\"foo\\" | \\"bar\\") {
-    if (x === \\"foo\\") {
-      (x: \\"foo\\");
+  function(x: "foo" | "bar") {
+    if (x === "foo") {
+      (x: "foo");
       (x: void); // error
     }
-    if (x === \\"bar\\") {
-      (x: \\"bar\\");
+    if (x === "bar") {
+      (x: "bar");
       (x: void); // error
     }
   },
 
-  function(x: { foo: string }): \\"foo\\" {
-    if (x.foo === \\"foo\\") {
+  function(x: { foo: string }): "foo" {
+    if (x.foo === "foo") {
       return x.foo;
     }
     return x.foo; // error
   },
 
   function(
-    x: { kind: \\"foo\\", foo: string } | { kind: \\"bar\\", bar: string }
+    x: { kind: "foo", foo: string } | { kind: "bar", bar: string }
   ): string {
-    if (x.kind === \\"foo\\") {
+    if (x.kind === "foo") {
       return x.foo;
     } else {
       return x.bar;
@@ -2020,62 +2044,62 @@ let tests = [
 
   function(str: string): Mode {
     var ch = str[0];
-    if (ch !== \\"a\\" && ch !== \\"b\\" && ch !== \\"c\\") {
-      throw new Error(\\"Wrong string passed\\");
+    if (ch !== "a" && ch !== "b" && ch !== "c") {
+      throw new Error("Wrong string passed");
     }
     return ch;
   },
 
   function(s: string): ?Mode {
-    if (s === \\"a\\") {
+    if (s === "a") {
       return s;
-    } else if (s === \\"d\\") {
+    } else if (s === "d") {
       return s; // error
     }
   },
 
   function(mode: Mode) {
     switch (mode) {
-      case \\"a\\":
-        (mode: \\"a\\");
+      case "a":
+        (mode: "a");
         break;
 
-      case \\"b\\":
-      case \\"c\\":
-        (mode: \\"b\\" | \\"c\\");
+      case "b":
+      case "c":
+        (mode: "b" | "c");
         break;
     }
   },
 
-  function(x: string): \\"\\" {
+  function(x: string): "" {
     if (x) {
       return x; // error
     } else {
-      return x; // no error, inferred to be \\"\\"
+      return x; // no error, inferred to be ""
     }
   },
 
   // Simple template literals are ok
-  function(x: string): \\"foo\\" {
+  function(x: string): "foo" {
     if (x === \`foo\`) {
       return x;
     }
     if (\`foo\` === x) {
       return x;
     }
-    return \\"foo\\";
+    return "foo";
   }
 ];
-"
+
 `;
 
 exports[`super_member.js 1`] = `
-"/* @flow */
+/* @flow */
 
 class A {
   prop: string;
   method(): string {
-    return \\"A\\";
+    return "A";
   }
 }
 
@@ -2084,7 +2108,7 @@ class B {
     if (super.prop) { // super.prop doesn't exist
       return super.prop; // error, unknown type passed to string expected
     }
-    return \\"B\\";
+    return "B";
   }
 }
 
@@ -2093,7 +2117,7 @@ class C extends A {
     if (super.prop) {
       return super.prop; // OK
     }
-    return \\"C\\";
+    return "C";
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2102,7 +2126,7 @@ class C extends A {
 class A {
   prop: string;
   method(): string {
-    return \\"A\\";
+    return "A";
   }
 }
 
@@ -2112,7 +2136,7 @@ class B {
       // super.prop doesn't exist
       return super.prop; // error, unknown type passed to string expected
     }
-    return \\"B\\";
+    return "B";
   }
 }
 
@@ -2121,14 +2145,14 @@ class C extends A {
     if (super.prop) {
       return super.prop; // OK
     }
-    return \\"C\\";
+    return "C";
   }
 }
-"
+
 `;
 
 exports[`switch.js 1`] = `
-"/* @flow */
+/* @flow */
 
 function foo(text: string | number): string {
   switch (typeof text) {
@@ -2188,57 +2212,57 @@ function corge(text: string | number | Array<string>): string {
 
 function foo(text: string | number): string {
   switch (typeof text) {
-    case \\"string\\":
+    case "string":
       return text;
-    case \\"number\\":
+    case "number":
       return text; // error, should return string
     default:
-      return \\"wat\\";
+      return "wat";
   }
 }
 function bar(text: string | number): string {
   switch (typeof text) {
-    case \\"string\\":
+    case "string":
       return text[0];
     default:
-      return text++ + \\"\\";
+      return text++ + "";
   }
 }
 function baz1(text: string | number): string {
   switch (typeof text) {
-    case \\"number\\":
-    case \\"string\\":
+    case "number":
+    case "string":
       return text[0];
     // error, [0] on number
     default:
-      return \\"wat\\";
+      return "wat";
   }
 }
 function baz2(text: string | number): string {
   switch (typeof text) {
-    case \\"string\\":
-    case \\"number\\":
+    case "string":
+    case "number":
       return text[0]; // error, [0] on number
     default:
-      return \\"wat\\";
+      return "wat";
   }
 }
 function corge(text: string | number | Array<string>): string {
   switch (typeof text) {
-    case \\"object\\":
+    case "object":
       return text[0];
-    case \\"string\\":
-    case \\"number\\": // using ++ since it isn't valid on arrays or strings. // should only error for string since Array was filtered out.
-      return text++ + \\"\\";
+    case "string":
+    case "number": // using ++ since it isn't valid on arrays or strings. // should only error for string since Array was filtered out.
+      return text++ + "";
     default:
-      return \\"wat\\";
+      return "wat";
   }
 }
-"
+
 `;
 
 exports[`tagged_union.js 1`] = `
-"// example 1
+// example 1
 
 type Type = Name | ListType;
 type Name = {kind: 'Name', value: string};
@@ -2254,7 +2278,7 @@ function getTypeASTName(typeAST: Type): string {
 
 // example 2
 import type {ASTNode} from './ast_node';
-var Node = require('./node1'); // Node = \\"Node1\\"
+var Node = require('./node1'); // Node = "Node1"
 function foo(x: ASTNode) {
   if (x.kind === Node) {
     return x.prop1.charAt(0); // typeAST: Node1, but x.prop1 may be undefined
@@ -2285,12 +2309,12 @@ function qux(x: Breakfast) {
 
 // example 4
 function list(n) {
-  if (n > 0) return { kind: \\"cons\\", next: list(n-1) };
-  return { kind: \\"nil\\" };
+  if (n > 0) return { kind: "cons", next: list(n-1) };
+  return { kind: "nil" };
 }
 function length(l) {
   switch (l.kind) {
-  case \\"cons\\": return 1 + length(l.next);
+  case "cons": return 1 + length(l.next);
   default: return 0;
   }
 }
@@ -2318,7 +2342,7 @@ kind({ kind: EnumKind.A, A: 1 });
 type Citizen = { citizen: true };
 type NonCitizen = { citizen: false, nationality: string }
 function nationality(x: Citizen | NonCitizen) {
-  if (x.citizen) return \\"Shire\\"
+  if (x.citizen) return "Shire"
   else return x.nationality;
 }
 
@@ -2468,17 +2492,53 @@ let tests = [
       x.y; // error: flow isn't smart enough to figure this out yet
       x.z; // error
     }
-  }
+  },
+
+  // null
+  function(x: { foo: null, y: string } | { foo: 'foo', z: string }) {
+    if (x.foo === null) {
+      (x.y: string);
+      x.z; // error
+    } else {
+      (x.z: string);
+      x.y; // error
+    }
+    if (x.foo === 'foo') {
+      (x.z: string);
+      x.y; // error
+    } else {
+      (x.y: string);
+      x.z; // error
+    }
+  },
+
+  // void
+  function(x: { foo: void, y: string } | { foo: 'foo', z: string }) {
+    if (x.foo === undefined) {
+      (x.y: string);
+      x.z; // error
+    } else {
+      (x.z: string);
+      x.y; // error
+    }
+    if (x.foo === 'foo') {
+      (x.z: string);
+      x.y; // error
+    } else {
+      (x.y: string);
+      x.z; // error
+    }
+  },
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // example 1
 
 type Type = Name | ListType;
-type Name = { kind: \\"Name\\", value: string };
-type ListType = { kind: \\"ListType\\", name: string };
+type Name = { kind: "Name", value: string };
+type ListType = { kind: "ListType", name: string };
 
 function getTypeASTName(typeAST: Type): string {
-  if (typeAST.kind === \\"Name\\") {
+  if (typeAST.kind === "Name") {
     return typeAST.value; // OK, since typeAST: Name
   } else {
     return typeAST.name; // OK, since typeAST: ListType
@@ -2486,8 +2546,8 @@ function getTypeASTName(typeAST: Type): string {
 }
 
 // example 2
-import type { ASTNode } from \\"./ast_node\\";
-var Node = require(\\"./node1\\"); // Node = \\"Node1\\"
+import type { ASTNode } from "./ast_node";
+var Node = require("./node1"); // Node = "Node1"
 function foo(x: ASTNode) {
   if (x.kind === Node) {
     return x.prop1.charAt(0); // typeAST: Node1, but x.prop1 may be undefined
@@ -2496,22 +2556,22 @@ function foo(x: ASTNode) {
 }
 
 // example 3
-type Apple = { kind: \\"Fruit\\", taste: \\"Bad\\" };
-type Orange = { kind: \\"Fruit\\", taste: \\"Good\\" };
-type Broccoli = { kind: \\"Veg\\", taste: \\"Bad\\", raw: \\"No\\" };
-type Carrot = { kind: \\"Veg\\", taste: \\"Good\\", raw: \\"Maybe\\" };
+type Apple = { kind: "Fruit", taste: "Bad" };
+type Orange = { kind: "Fruit", taste: "Good" };
+type Broccoli = { kind: "Veg", taste: "Bad", raw: "No" };
+type Carrot = { kind: "Veg", taste: "Good", raw: "Maybe" };
 
 type Breakfast = Apple | Orange | Broccoli | Carrot;
 
 function bar(x: Breakfast) {
-  if (x.kind === \\"Fruit\\") {
-    (x.taste: \\"Good\\");
-  } else (x.raw: \\"No\\"); // error, Apple.taste = Bad // error, Carrot.raw = Maybe
+  if (x.kind === "Fruit") {
+    (x.taste: "Good");
+  } else (x.raw: "No"); // error, Apple.taste = Bad // error, Carrot.raw = Maybe
 }
 
 function qux(x: Breakfast) {
-  if (x.taste === \\"Good\\") {
-    (x.raw: \\"Yes\\" | \\"No\\"); // 2 errors:
+  if (x.taste === "Good") {
+    (x.raw: "Yes" | "No"); // 2 errors:
     // Orange.raw doesn't exist
     // Carrot.raw is neither Yes nor No
   }
@@ -2519,12 +2579,12 @@ function qux(x: Breakfast) {
 
 // example 4
 function list(n) {
-  if (n > 0) return { kind: \\"cons\\", next: list(n - 1) };
-  return { kind: \\"nil\\" };
+  if (n > 0) return { kind: "cons", next: list(n - 1) };
+  return { kind: "nil" };
 }
 function length(l) {
   switch (l.kind) {
-    case \\"cons\\":
+    case "cons":
       return 1 + length(l.next);
     default:
       return 0;
@@ -2556,7 +2616,7 @@ kind({ kind: EnumKind.A, A: 1 });
 type Citizen = { citizen: true };
 type NonCitizen = { citizen: false, nationality: string };
 function nationality(x: Citizen | NonCitizen) {
-  if (x.citizen) return \\"Shire\\";
+  if (x.citizen) return "Shire";
   else return x.nationality;
 }
 
@@ -2643,8 +2703,8 @@ let tests = [
 
   // sentinel props become the RHS
   function(x: { str: string, num: number, bool: boolean }) {
-    if (x.str === \\"str\\") {
-      (x.str: \\"not str\\"); // error: 'str' !~> 'not str'
+    if (x.str === "str") {
+      (x.str: "not str"); // error: 'str' !~> 'not str'
     }
     if (x.num === 123) {
       (x.num: 456); // error: 123 !~> 456
@@ -2653,7 +2713,7 @@ let tests = [
       (x.bool: false); // error: true !~> false
     }
     // even if it doesn't exist...
-    if (x.badStr === \\"bad\\") {
+    if (x.badStr === "bad") {
       (x.badStr: empty); // error: 'bad' !~> empty
     }
     if (x.badNum === 123) {
@@ -2665,7 +2725,7 @@ let tests = [
   },
 
   // type mismatch
-  function(x: { foo: 123, y: string } | { foo: \\"foo\\", z: string }) {
+  function(x: { foo: 123, y: string } | { foo: "foo", z: string }) {
     if (x.foo === 123) {
       (x.y: string);
       x.z; // error
@@ -2673,7 +2733,7 @@ let tests = [
       (x.z: string);
       x.y; // error
     }
-    if (x.foo === \\"foo\\") {
+    if (x.foo === "foo") {
       (x.z: string);
       x.y; // error
     } else {
@@ -2683,7 +2743,7 @@ let tests = [
   },
 
   // type mismatch, but one is not a literal
-  function(x: { foo: number, y: string } | { foo: \\"foo\\", z: string }) {
+  function(x: { foo: number, y: string } | { foo: "foo", z: string }) {
     if (x.foo === 123) {
       (x.y: string); // ok, because 123 !== 'foo'
       x.z; // error
@@ -2692,7 +2752,7 @@ let tests = [
       x.z; // error: could still be either case (if foo was a different number)
     }
 
-    if (x.foo === \\"foo\\") {
+    if (x.foo === "foo") {
       (x.z: string);
       x.y; // error
     } else {
@@ -2711,7 +2771,7 @@ let tests = [
       x.z; // error: could still be either case (if foo was a different number)
     }
 
-    if (x.foo === \\"foo\\") {
+    if (x.foo === "foo") {
       (x.z: string);
       x.y; // error
     } else {
@@ -2729,13 +2789,49 @@ let tests = [
       x.y; // error: flow isn't smart enough to figure this out yet
       x.z; // error
     }
+  },
+
+  // null
+  function(x: { foo: null, y: string } | { foo: "foo", z: string }) {
+    if (x.foo === null) {
+      (x.y: string);
+      x.z; // error
+    } else {
+      (x.z: string);
+      x.y; // error
+    }
+    if (x.foo === "foo") {
+      (x.z: string);
+      x.y; // error
+    } else {
+      (x.y: string);
+      x.z; // error
+    }
+  },
+
+  // void
+  function(x: { foo: void, y: string } | { foo: "foo", z: string }) {
+    if (x.foo === undefined) {
+      (x.y: string);
+      x.z; // error
+    } else {
+      (x.z: string);
+      x.y; // error
+    }
+    if (x.foo === "foo") {
+      (x.z: string);
+      x.y; // error
+    } else {
+      (x.y: string);
+      x.z; // error
+    }
   }
 ];
-"
+
 `;
 
 exports[`tagged_union_import.js 1`] = `
-"/* @flow */
+/* @flow */
 
 import { SUCCESS, ERROR } from './constants'
 
@@ -2761,7 +2857,7 @@ function handleStatus(status: Success | Error) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-import { SUCCESS, ERROR } from \\"./constants\\";
+import { SUCCESS, ERROR } from "./constants";
 
 type Success = {
   type: typeof SUCCESS,
@@ -2782,21 +2878,21 @@ function handleStatus(status: Success | Error) {
       console.log(\`Errored: \${status.error}\`);
   }
 }
-"
+
 `;
 
 exports[`typeof.js 1`] = `
-"/* @flow */
+/* @flow */
 
 function foo(x: bool | number) {
-  if (typeof x === \\"boolean\\") {
+  if (typeof x === "boolean") {
     x[0]; // error for boolean, not number
   }
 }
 
 function bar(): number {
   var x = null;
-  if (typeof x === \\"object\\") {
+  if (typeof x === "object") {
     return x; // error, null
   }
   return 0;
@@ -2820,21 +2916,21 @@ function fn1() {
 }
 
 function anyfun(x: number | Function): number {
-  if (typeof x === \\"function\\") {
+  if (typeof x === "function") {
     return 0;
   }
   return x; // OK, x refined to \`number\`
 }
 
 function anyobj(x: number | Object): number {
-  if (typeof x === \\"object\\") {
+  if (typeof x === "object") {
     return 0;
   }
   return x; // OK, x refined to \`number\`
 }
 
 function testInvalidValue(x: mixed) {
-  if (typeof x === \\"foo\\") { // error
+  if (typeof x === "foo") { // error
     return 0;
   }
 }
@@ -2854,14 +2950,14 @@ function testInvalidTemplateLiteral(x: string | number) {
 /* @flow */
 
 function foo(x: boolean | number) {
-  if (typeof x === \\"boolean\\") {
+  if (typeof x === "boolean") {
     x[0]; // error for boolean, not number
   }
 }
 
 function bar(): number {
   var x = null;
-  if (typeof x === \\"object\\") {
+  if (typeof x === "object") {
     return x; // error, null
   }
   return 0;
@@ -2869,35 +2965,35 @@ function bar(): number {
 
 /* refining globals */
 function fn0() {
-  if (typeof BAZ !== \\"undefined\\" && typeof BAZ.stuff === \\"function\\") {
+  if (typeof BAZ !== "undefined" && typeof BAZ.stuff === "function") {
     BAZ.stuff(123);
   }
   BAZ.stuff(123); // error, refinement is gone
 }
 function fn1() {
   BAZ.stuff; // error, could be undefined
-  if (typeof BAZ !== \\"undefined\\" && typeof BAZ.stuff === \\"function\\") {
+  if (typeof BAZ !== "undefined" && typeof BAZ.stuff === "function") {
     BAZ.stuff(123); // ok
     BAZ.stuff(123); // error, refinement is gone
   }
 }
 
 function anyfun(x: number | Function): number {
-  if (typeof x === \\"function\\") {
+  if (typeof x === "function") {
     return 0;
   }
   return x; // OK, x refined to \`number\`
 }
 
 function anyobj(x: number | Object): number {
-  if (typeof x === \\"object\\") {
+  if (typeof x === "object") {
     return 0;
   }
   return x; // OK, x refined to \`number\`
 }
 
 function testInvalidValue(x: mixed) {
-  if (typeof x === \\"foo\\") {
+  if (typeof x === "foo") {
     // error
     return 0;
   }
@@ -2915,11 +3011,11 @@ function testInvalidTemplateLiteral(x: string | number) {
     return 0;
   }
 }
-"
+
 `;
 
 exports[`undef.js 1`] = `
-"/* @flow */
+/* @flow */
 
 function undef_var(x: ?number) {
   if (x !== null && x !== undefined) {
@@ -3080,11 +3176,11 @@ function undef_bogus_comparison() {
     return;
   }
 }
-"
+
 `;
 
 exports[`union.js 1`] = `
-"/* @flow */
+/* @flow */
 
 type thing = number | bool
 
@@ -3127,11 +3223,11 @@ function baz(x: ?thing) {
     x[0]; // error on number
   }
 }
-"
+
 `;
 
 exports[`void.js 1`] = `
-"/* @flow */
+/* @flow */
 
 function void_var(x: ?number) {
   if (x !== null && x !== void(0)) {
@@ -3221,7 +3317,7 @@ function void_bogus_comparison() {
 }
 
 function void_redefined_undefined(x: ?number) {
-  var undefined = \\"foo\\";
+  var undefined = "foo";
   if (x !== null && x !== void(0)) {
     var y = x * 1000;
   }
@@ -3317,10 +3413,10 @@ function void_bogus_comparison() {
 }
 
 function void_redefined_undefined(x: ?number) {
-  var undefined = \\"foo\\";
+  var undefined = "foo";
   if (x !== null && x !== void 0) {
     var y = x * 1000;
   }
 }
-"
+
 `;

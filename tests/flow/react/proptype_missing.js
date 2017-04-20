@@ -13,7 +13,8 @@
  * We may change this back to the empty object at some point and fix the
  * situations where it didn't used to error
  */
-var React = React.createClass({
+var React = require('react');
+var Foo = React.createClass({
   getID(): string {
     // So this would have been an error in 0.21.0 if we didn't make this.props
     // Object

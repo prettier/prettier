@@ -4,13 +4,15 @@ var validate = require("jest-validate").validate;
 var deprecatedConfig = require("./deprecated");
 
 var defaults = {
+  useTabs: false,
   tabWidth: 2,
   printWidth: 80,
   singleQuote: false,
   trailingComma: "none",
   bracketSpacing: true,
   jsxBracketSameLine: false,
-  parser: "babylon"
+  parser: "babylon",
+  semi: true
 };
 
 var exampleConfig = Object.assign({}, defaults, {

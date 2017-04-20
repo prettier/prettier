@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`functionImplementationErrors.ts 1`] = `
-"// @allowUnreachableCode: true
+// @allowUnreachableCode: true
 
 // FunctionExpression with no return type annotation with multiple return statements with unrelated types
 var f1 = function () {
@@ -80,22 +80,22 @@ var f13 = () => {
 
 // FunctionExpression with no return type annotation with multiple return statements with unrelated types
 var f1 = function() {
-  return \\"\\";
+  return "";
   return 3;
 };
 var f2 = function x() {
-  return \\"\\";
+  return "";
   return 3;
 };
 var f3 = () => {
-  return \\"\\";
+  return "";
   return 3;
 };
 
 // FunctionExpression with no return type annotation with return branch of number[] and other of string[]
 var f4 = function() {
   if (true) {
-    return [\\"\\"];
+    return [""];
   } else {
     return [1];
   }
@@ -157,11 +157,11 @@ var f13 = () => {
   return new Base();
   return new AnotherClass();
 };
-"
+
 `;
 
 exports[`functionImplementations.ts 1`] = `
-"// @allowUnreachableCode: true
+// @allowUnreachableCode: true
 
 // FunctionExpression with no return type annotation and no return statement returns void
 var v: void = function () { } ();
@@ -498,50 +498,50 @@ var f12: (x: number) => any = x => {
   return; // should be ignored
   return new AnotherClass();
 };
-"
+
 `;
 
 exports[`functionOverloadCompatibilityWithVoid01.ts 1`] = `
-"function f(x: string): number;
+function f(x: string): number;
 function f(x: string): void {
     return;
 } 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function f(x: string): number 
+function f(x: string): number
 function f(x: string): void {
   return;
 }
-"
+
 `;
 
 exports[`functionOverloadCompatibilityWithVoid02.ts 1`] = `
-"function f(x: string): void;
+function f(x: string): void;
 function f(x: string): number {
     return 0;
 } 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function f(x: string): void 
+function f(x: string): void
 function f(x: string): number {
   return 0;
 }
-"
+
 `;
 
 exports[`functionOverloadCompatibilityWithVoid03.ts 1`] = `
-"function f(x: string): void;
+function f(x: string): void;
 function f(x: string): void {
     return;
 } 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function f(x: string): void 
+function f(x: string): void
 function f(x: string): void {
   return;
 }
-"
+
 `;
 
 exports[`functionOverloadErrorsSyntax.ts 1`] = `
-"//Function overload signature with optional parameter followed by non-optional parameter
+//Function overload signature with optional parameter followed by non-optional parameter
 function fn4a(x?: number, y: string);
 function fn4a() { }
 
@@ -553,20 +553,20 @@ function fn5(x: string, ...y: any[], z: string);
 function fn5() { }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //Function overload signature with optional parameter followed by non-optional parameter
-function fn4a(x?: number, y: string) 
+function fn4a(x?: number, y: string)
 function fn4a() {}
 
-function fn4b(n: string, x?: number, y: string) 
+function fn4b(n: string, x?: number, y: string)
 function fn4b() {}
 
 //Function overload signature with rest param followed by non-optional parameter
-function fn5(x: string, ...y: any[], z: string) 
+function fn5(x: string, ...y: any[], z: string)
 function fn5() {}
-"
+
 `;
 
 exports[`parameterInitializersForwardReferencing.ts 1`] = `
-"function left(a, b = a, c = b) {
+function left(a, b = a, c = b) {
     a;
     b;
 }
@@ -662,5 +662,5 @@ function f(
   },
   c = b()
 ) {}
-"
+
 `;

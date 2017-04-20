@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`trailing.js 1`] = `
-"export type Result<T, V> = | { kind: \\"not-test-editor1\\" } | { kind: \\"not-test-editor2\\" };
+export type Result<T, V> = | { kind: "not-test-editor1" } | { kind: "not-test-editor2" };
 
 // Note: there are trailing whitespace in this file
 \`
@@ -13,8 +13,8 @@ exports[`trailing.js 1`] = `
 \`;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export type Result<T, V> =
-  | { kind: \\"not-test-editor1\\" }
-  | { kind: \\"not-test-editor2\\" };
+  | { kind: "not-test-editor1" }
+  | { kind: "not-test-editor2" };
 
 // Note: there are trailing whitespace in this file
 \`
@@ -25,5 +25,5 @@ export type Result<T, V> =
     
     
 \`;
-"
+
 `;

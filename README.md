@@ -4,14 +4,41 @@
 [![Build Status](https://travis-ci.org/prettier/prettier.svg?branch=master)](https://travis-ci.org/prettier/prettier)
 [![NPM version](https://img.shields.io/npm/v/prettier.svg)](https://www.npmjs.com/package/prettier)
 
+<!-- toc -->
+
+- [Usage](#usage)
+  * [CLI](#cli)
+    + [Pre-commit hook for changed files](#pre-commit-hook-for-changed-files)
+  * [API](#api)
+  * [Excluding code from formatting](#excluding-code-from-formatting)
+- [Editor Integration](#editor-integration)
+  * [Atom](#atom)
+  * [Emacs](#emacs)
+  * [Vim](#vim)
+    + [Vanilla approach](#vanilla-approach)
+    + [Neoformat approach](#neoformat-approach)
+    + [Customizing Prettier in Vim](#customizing-prettier-in-vim)
+  * [Visual Studio Code](#visual-studio-code)
+  * [Visual Studio](#visual-studio)
+  * [Sublime Text](#sublime-text)
+  * [JetBrains](#jetbrains)
+- [Language Support](#language-support)
+- [Related Projects](#related-projects)
+- [Technical Details](#technical-details)
+- [Badge](#badge)
+- [Contributing](#contributing)
+
+<!-- tocstop -->
+
 Prettier is an opinionated JavaScript formatter inspired by
 [refmt](https://facebook.github.io/reason/tools.html) with advanced
 support for language features from [ES2017](https://github.com/tc39/proposals/blob/master/finished-proposals.md), [JSX](https://facebook.github.io/jsx/), and [Flow](https://flow.org/). It removes
 all original styling and ensures that all outputted JavaScript
 conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
 
-*Warning*: This is a **beta**, and the format may change over time. If you
- aren't OK with the format changing, wait for a more stable version.
+If you are interested in the details, you can watch those two conference talks:
+
+<a href="https://www.youtube.com/watch?v=hkfBvpEfWdA"><img width="298" src="https://cloud.githubusercontent.com/assets/197597/24886367/dda8a6f0-1e08-11e7-865b-22492450f10f.png"></a> <a href="https://www.youtube.com/watch?v=0Q4kUNx85_4"><img width="298" src="https://cloud.githubusercontent.com/assets/197597/24886368/ddacd6f8-1e08-11e7-806a-9febd23cbf47.png"></a>
 
 This goes way beyond [ESLint](http://eslint.org/) and other projects
 [built on it](https://github.com/feross/standard). Unlike ESLint,
@@ -90,7 +117,7 @@ into account, wrapping code when necessary.
 Install:
 
 ```
-yarn add prettier
+yarn add prettier --dev
 ```
 
 You can install it globally if you like:
@@ -110,8 +137,8 @@ npm install [-g] prettier
 Run Prettier through the CLI with this script. Run it without any
 arguments to see the options.
 
-To format a file in-place, use `--write`. While this is in beta you
-should probably commit your code before doing that.
+To format a file in-place, use `--write`. You may want to consider
+committing your code before doing that, just in case.
 
 ```bash
 prettier [opts] [filename ...]
@@ -130,7 +157,7 @@ In the future we will have better support for formatting whole projects.
 
 #### Pre-commit hook for changed files
 
-[🚫💩 lint-staged](https://github.com/okonet/lint-staged) can re-format your files that are marked as "staged" via `git add`  before you commit.
+[lint-staged](https://github.com/okonet/lint-staged) can re-format your files that are marked as "staged" via `git add`  before you commit.
 
 Install it along with [husky](https://github.com/typicode/husky):
 
@@ -154,13 +181,13 @@ and add this config to your `package.json`:
 }
 ```
 
-See https://github.com/okonet/lint-staged#configuration for more details about how you can configure 🚫💩 lint-staged.
+See https://github.com/okonet/lint-staged#configuration for more details about how you can configure lint-staged.
 
 Alternately you can just save this script as `.git/hooks/pre-commit` and give it execute permission:
 
 ```bash
 #!/bin/sh
-jsfiles=$(git diff --cached --name-only --diff-filter=ACM | grep '\.js$' | tr '\n' ' ')
+jsfiles=$(git diff --cached --name-only --diff-filter=ACM | grep '\.jsx\?$' | tr '\n' ' ')
 [ -z "$jsfiles" ] && exit 0
 
 diffs=$(node_modules/.bin/prettier -l $jsfiles)
@@ -182,6 +209,9 @@ argument is optional, and all of the defaults are shown below:
 const prettier = require("prettier");
 
 prettier.format(source, {
+  // Indent lines with tabs
+  useTabs: false,
+
   // Fit code within this line limit
   printWidth: 80,
 
@@ -207,8 +237,12 @@ prettier.format(source, {
   // the last line instead of being alone on the next line
   jsxBracketSameLine: false,
 
-  // Which parser to use. Valid options are 'flow' and 'babylon'
-  parser: 'babylon'
+  // Which parser to use. Valid options are "flow" and "babylon"
+  parser: "babylon",
+
+  // Whether to add a semicolon at the end of every line (semi: true),
+  // or only at the beginning of lines that may introduce ASI failures (semi: false)
+  semi: true
 });
 ```
 
@@ -311,6 +345,21 @@ Then make Neoformat run on save:
 autocmd BufWritePre *.js Neoformat
 ```
 
+#### Other `autocmd` events
+
+You can also make Vim format your code more frequently, by setting an `autocmd` for other events. Here are a couple of useful ones:
+
+* `TextChanged`: after a change was made to the text in Normal mode
+* `InsertLeave`: when leaving Insert mode
+
+For example, you can format on both of the above events together with `BufWritePre` like this:
+
+```vim
+autocmd BufWritePre,TextChanged,InsertLeave *.js Neoformat
+```
+
+See `:help autocmd-events` in Vim for details.
+
 #### Customizing Prettier in Vim
 
 If your project requires settings other than the default Prettier settings, you can pass arguments to do so in your `.vimrc` or [vim project](http://vim.wikia.com/wiki/Project_specific_settings), you can do so:
@@ -373,9 +422,10 @@ passes `prettier` output to `eslint --fix`
 uses `prettier` and `prettier-eslint` to format code with standard rules
 - [`prettier-standard-formatter`](https://github.com/dtinth/prettier-standard-formatter)
 passes `prettier` output to `standard --fix`
-- [`prettier-with-tabs`](https://github.com/arijs/prettier-with-tabs)
-allows you to configure prettier to use `tabs`
+- [`prettier-miscellaneous`](https://github.com/arijs/prettier-miscellaneous)
+`prettier` with a few minor extra options
 - [`neutrino-preset-prettier`](https://github.com/SpencerCDixon/neutrino-preset-prettier) allows you to use Prettier as a Neutrino preset
+- [`prettier_d`](https://github.com/josephfrazier/prettier_d.js) runs Prettier as a server to avoid Node.js startup delay
 
 
 ## Technical Details
@@ -413,23 +463,34 @@ Show the world you're using *Prettier* → [![styled with prettier](https://img.
 
 ## Contributing
 
-We will work on better docs over time, but in the mean time, here are
-a few notes if you are interested in contributing:
+To get up and running, install the dependencies and run the tests:
 
-* You should be able to get up and running with just `yarn`.
-* This uses [Jest](https://facebook.github.io/jest/) snapshots for tests. The entire Flow test suite is
-  included here. You can make changes and run `jest -u`, and then
-  `git diff` to see the styles that changed. Always update the
-  snapshots if opening a PR.
-* If you can, look at [commands.md](commands.md) and check out
-  [Wadler's paper](http://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf)
-  to understand how this works. I will try to write a better explanation soon.
-* I haven't set up any automated tests yet, but for now as long as you
-  run `jest -u` to update the snapshots and I see them in the PR, that's fine.
-* You can run `AST_COMPARE=1 jest` for a more robust test run. That
-  formats each file, re-parses it, and compares the new AST with the
-  original one and makes sure they are semantically equivalent.
- * Each test folder has a `jsfmt.spec.js` that runs the tests.
-   Normally you can just put `run_spec(__dirname);` there but if you want to pass
-   specific options, you can add the options object as the 2nd parameter like:
-   `run_spec(__dirname, { parser: 'babylon' });`
+```
+yarn
+yarn test
+```
+
+Here's what you need to know about the tests:
+
+* The tests uses [Jest](https://facebook.github.io/jest/) snapshots.
+* You can make changes and run `jest -u` to update the snapshots. Then run `git
+  diff` to take a look at what changed. Always update the snapshots when opening
+  a PR.
+* You can run `AST_COMPARE=1 jest` for a more robust test run. That formats each
+  file, re-parses it, and compares the new AST with the original one and makes
+  sure they are semantically equivalent.
+* Each test folder has a `jsfmt.spec.js` that runs the tests. Normally you can
+  just put `run_spec(__dirname);` there. You can also pass options and
+  additional parsers, like this:
+  `run_spec(__dirname, { trailingComma: "es5" }, ["babylon"]);`
+* `tests/flow/` contains the Flow test suite, and is not supposed to be edited
+  by hand. To update it, clone the Flow repo next to the Prettier repo and run:
+  `node scripts/sync-flow-tests.js ../flow/tests/`.
+* If you would like to debug prettier locally, you can either debug it in node
+  or the browser. The easiest way to debug it in the browser is to run the
+  interactive `docs` REPL locally. The easiest way to debug it in node, is to
+  create a local test file and run it in an editor like VS Code.
+
+If you can, take look at [commands.md](commands.md) and check out [Wadler's
+paper](http://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf) to
+understand how Prettier works.

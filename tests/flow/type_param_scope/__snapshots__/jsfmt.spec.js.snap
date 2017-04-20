@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`class.js 1`] = `
-"class C<T> {
+class C<T> {
   a<A>(x:T, a:A) {
     this.b(x); // ok
     this.b(a); // error: A ~> incompatible instance of T
@@ -18,11 +18,11 @@ class C<T> {
 
   b(x: T) {}
 }
-"
+
 `;
 
 exports[`default_params.js 1`] = `
-"function f<T>(a:T) {
+function f<T>(a:T) {
   function g<U>(b:U, c:T = a) {
     function h(d:U = b) {}
     h(); // ok
@@ -47,11 +47,11 @@ function f<T>(a: T) {
   g(0, 0); // error: number ~> T
 }
 f(0); // ok
-"
+
 `;
 
 exports[`method_shadow.js 1`] = `
-"// Ensure method type params properly shadow outer type params. Subclass ensures
+// Ensure method type params properly shadow outer type params. Subclass ensures
 // the generated insttype has the correct tvars. Should behave the same for
 // classes, interfaces, and declared classes.
 
@@ -93,7 +93,7 @@ class G<T> {
 declare var g: G<number|string>;
 g.m(0); // ok
 g.m(true); // err, bool ~> number|string
-(g.m(\\"\\"): G<number>); // err, string ~> number
+(g.m(""): G<number>); // err, string ~> number
 
 
 // Shadow bounds incompatible with parent
@@ -156,7 +156,7 @@ class G<T> {
 declare var g: G<number | string>;
 g.m(0); // ok
 g.m(true); // err, bool ~> number|string
-(g.m(\\"\\"): G<number>); // err, string ~> number
+(g.m(""): G<number>); // err, string ~> number
 
 // Shadow bounds incompatible with parent
 
@@ -166,5 +166,5 @@ class H<T> {
     this.x = x; // err, m's T != H's T
   }
 }
-"
+
 `;

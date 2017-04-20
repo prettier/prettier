@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`brackets.js 1`] = `
-"import {
+import {
   runTaskForChanged,
   description,
   someOtherLabel,
@@ -22,13 +22,13 @@ import {
   multiLine,
   andMore,
   soWeCanGetItTo80Columns
-} from \\".\\";
-import { fitsIn, oneLine } from \\".\\";
-"
+} from ".";
+import { fitsIn, oneLine } from ".";
+
 `;
 
 exports[`brackets.js 2`] = `
-"import {
+import {
   runTaskForChanged,
   description,
   someOtherLabel,
@@ -49,34 +49,34 @@ import {
   multiLine,
   andMore,
   soWeCanGetItTo80Columns
-} from \\".\\";
-import {fitsIn, oneLine} from \\".\\";
-"
+} from ".";
+import {fitsIn, oneLine} from ".";
+
 `;
 
 exports[`comments.js 1`] = `
-"import { a //comment1
+import { a //comment1
 //comment2
 //comment3
-as b} from \\"\\";
+as b} from "";
 
 import {
   a as //comment1
   //comment2
   //comment3
   b
-} from \\"\\";
+} from "";
 
 import {
   a as //comment2 //comment1
   //comment3
   b
-} from \\"\\";
+} from "";
 
 import {
   a as //comment3 //comment2 //comment1
   b
-} from \\"\\";
+} from "";
 
 import {
   // comment 1
@@ -86,32 +86,32 @@ import {
   FN4 /* comment 4 */
   // FN4,
   // FN5
-} from \\"./module\\";
+} from "./module";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import {
   //comment1
   //comment2
   //comment3
   a as b
-} from \\"\\";
+} from "";
 
 import {
   //comment1
   //comment2
   //comment3
   a as b
-} from \\"\\";
+} from "";
 
 import {
   //comment2 //comment1
   //comment3
   a as b
-} from \\"\\";
+} from "";
 
 import {
   //comment3 //comment2 //comment1
   a as b
-} from \\"\\";
+} from "";
 
 import {
   // comment 1
@@ -121,33 +121,33 @@ import {
   FN4 /* comment 4 */
   // FN4,
   // FN5
-} from \\"./module\\";
-"
+} from "./module";
+
 `;
 
 exports[`comments.js 2`] = `
-"import { a //comment1
+import { a //comment1
 //comment2
 //comment3
-as b} from \\"\\";
+as b} from "";
 
 import {
   a as //comment1
   //comment2
   //comment3
   b
-} from \\"\\";
+} from "";
 
 import {
   a as //comment2 //comment1
   //comment3
   b
-} from \\"\\";
+} from "";
 
 import {
   a as //comment3 //comment2 //comment1
   b
-} from \\"\\";
+} from "";
 
 import {
   // comment 1
@@ -157,32 +157,32 @@ import {
   FN4 /* comment 4 */
   // FN4,
   // FN5
-} from \\"./module\\";
+} from "./module";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import {
   //comment1
   //comment2
   //comment3
   a as b
-} from \\"\\";
+} from "";
 
 import {
   //comment1
   //comment2
   //comment3
   a as b
-} from \\"\\";
+} from "";
 
 import {
   //comment2 //comment1
   //comment3
   a as b
-} from \\"\\";
+} from "";
 
 import {
   //comment3 //comment2 //comment1
   a as b
-} from \\"\\";
+} from "";
 
 import {
   // comment 1
@@ -192,36 +192,36 @@ import {
   FN4 /* comment 4 */
   // FN4,
   // FN5
-} from \\"./module\\";
-"
+} from "./module";
+
 `;
 
 exports[`long-line.js 1`] = `
-"import someCoolUtilWithARatherLongName from '../../../../utils/someCoolUtilWithARatherLongName';
+import someCoolUtilWithARatherLongName from '../../../../utils/someCoolUtilWithARatherLongName';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import someCoolUtilWithARatherLongName
-  from \\"../../../../utils/someCoolUtilWithARatherLongName\\";
-"
+  from "../../../../utils/someCoolUtilWithARatherLongName";
+
 `;
 
 exports[`long-line.js 2`] = `
-"import someCoolUtilWithARatherLongName from '../../../../utils/someCoolUtilWithARatherLongName';
+import someCoolUtilWithARatherLongName from '../../../../utils/someCoolUtilWithARatherLongName';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import someCoolUtilWithARatherLongName
-  from \\"../../../../utils/someCoolUtilWithARatherLongName\\";
-"
+  from "../../../../utils/someCoolUtilWithARatherLongName";
+
 `;
 
 exports[`multiple_standalones.js 1`] = `
-"import a, * as b from 'a';
+import a, * as b from 'a';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-import a, * as b from \\"a\\";
-"
+import a, * as b from "a";
+
 `;
 
 exports[`multiple_standalones.js 2`] = `
-"import a, * as b from 'a';
+import a, * as b from 'a';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-import a, * as b from \\"a\\";
-"
+import a, * as b from "a";
+
 `;

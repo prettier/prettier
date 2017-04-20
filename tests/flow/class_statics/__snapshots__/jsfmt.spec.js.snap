@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test.js 1`] = `
-"class A {
+class A {
   static x: number;
   static y: string;
   static foo(x: number) { }
@@ -14,9 +14,9 @@ class B extends A {
   static foo(x: string) { } // error?
   static main() {
     B.x = 0; // error
-    B.x = \\"\\";
+    B.x = "";
     B.foo(0); // error
-    B.foo(\\"\\");
+    B.foo("");
     B.y = 0; // error
     B.bar(0); // error
     B.qux(0); // error
@@ -76,9 +76,9 @@ class B extends A {
   static foo(x: string) {} // error?
   static main() {
     B.x = 0; // error
-    B.x = \\"\\";
+    B.x = "";
     B.foo(0); // error
-    B.foo(\\"\\");
+    B.foo("");
     B.y = 0; // error
     B.bar(0); // error
     B.qux(0); // error
@@ -128,5 +128,5 @@ module.exports = {
   D: D,
   E: E
 };
-"
+
 `;

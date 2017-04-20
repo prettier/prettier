@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test.js 1`] = `
+// @flow
+
+function Foo(items: ?Iterable<number>) {
+  Iterable(items || []).size;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+
+function Foo(items: ?Iterable<number>) {
+  Iterable(items || []).size;
+}
+
+`;

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`destructuring.js 1`] = `
-"// @flow
+// @flow
 
 let [x, y] = [1, 2];
 
@@ -40,19 +40,31 @@ export const X = {
     let [a, b] = this.returnsATuple();
   }
 };
-"
+
 `;
 
 exports[`function_expressions.js 1`] = `
-"// @flow
+// @flow
 
 // TODO: type-at-pos between the ()'s should be () => void
 // class X {
 //   foo(): void {}
 // }
 
-const y = {
+const a = {
   bar(): void {}
+};
+
+const b = {
+  bar: function (): void {}
+};
+
+const c = {
+  m<T>(x: T): T { return x; }
+};
+
+const d = {
+  m: function<T>(x: T): T { return x; }
 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
@@ -62,14 +74,30 @@ const y = {
 //   foo(): void {}
 // }
 
-const y = {
+const a = {
   bar(): void {}
 };
-"
+
+const b = {
+  bar: function(): void {}
+};
+
+const c = {
+  m<T>(x: T): T {
+    return x;
+  }
+};
+
+const d = {
+  m: function<T>(x: T): T {
+    return x;
+  }
+};
+
 `;
 
 exports[`generics.js 1`] = `
-"// @flow
+// @flow
 
 class C<X> { }
 var cn: C<number> = new C;
@@ -124,11 +152,11 @@ on;
 type Mono = C<void>;
 var mn: Mono<number> = new C(); // error: application of non-poly type
 mn;
-"
+
 `;
 
 exports[`import.js 1`] = `
-"// @flow
+// @flow
 var num = 42;
 function bar() { }
 bar();
@@ -139,11 +167,11 @@ var num = 42;
 function bar() {}
 bar();
 module.exports = num;
-"
+
 `;
 
 exports[`object_special_cases.js 1`] = `
-"/* @flow */
+/* @flow */
 
 let tests = [
   function() {
@@ -157,14 +185,14 @@ let tests = [
 let tests = [
   function() {
     let x = {};
-    Object.defineProperty(x, \\"foo\\", { value: \\"\\" });
+    Object.defineProperty(x, "foo", { value: "" });
   }
 ];
-"
+
 `;
 
 exports[`optional.js 1`] = `
-"// @flow
+// @flow
 
 function foo(x?: string) {
   return x;
@@ -195,11 +223,11 @@ function bar(obj: { x?: string }) {
 function qux(x?) {
   return x;
 }
-"
+
 `;
 
 exports[`predicates.js 1`] = `
-"/* @flow */
+/* @flow */
 
 let x = 0;
 if (x == null) {}
@@ -215,71 +243,71 @@ if (x == undefined) {
 }
 if (Array.isArray(x)) {
 }
-"
+
 `;
 
 exports[`react.js 1`] = `
-"import React from \\"react\\";
+import React from "react";
 React.createElement;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-import React from \\"react\\";
+import React from "react";
 React.createElement;
-"
+
 `;
 
 exports[`templates.js 1`] = `
-"/* @flow */
+/* @flow */
 \`foo bar\`;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 \`foo bar\`;
-"
+
 `;
 
 exports[`test.js 1`] = `
-"// @flow
+// @flow
 var str = require('./import');
 function foo() { }
 foo();
 str
 
 type Point = [number, string];
-const x:Point = [1, \\"foo\\"];
-type MyStr = \\"cool\\";
-const y:MyStr = \\"cool\\";
+const x:Point = [1, "foo"];
+type MyStr = "cool";
+const y:MyStr = "cool";
 type MyBool = true;
 const z:MyBool = true;
 type MyNum = 42;
 const w:MyNum = 42;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-var str = require(\\"./import\\");
+var str = require("./import");
 function foo() {}
 foo();
 str;
 
 type Point = [number, string];
-const x: Point = [1, \\"foo\\"];
-type MyStr = \\"cool\\";
-const y: MyStr = \\"cool\\";
+const x: Point = [1, "foo"];
+type MyStr = "cool";
+const y: MyStr = "cool";
 type MyBool = true;
 const z: MyBool = true;
 type MyNum = 42;
 const w: MyNum = 42;
-"
+
 `;
 
 exports[`trycatch.js 1`] = `
-"// @flow
+// @flow
 
 try {
-  throw \\"foo\\";
+  throw "foo";
 } catch (e) {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
 try {
-  throw \\"foo\\";
+  throw "foo";
 } catch (e) {}
-"
+
 `;

@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`index.js 1`] = `
+/* @flow */
+
+(require('Module1'): boolean);
+require('Module2');
+require('Module3');
+require('Module4');
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @flow */
+
+(require("Module1"): boolean);
+require("Module2");
+require("Module3");
+require("Module4");
+
+`;

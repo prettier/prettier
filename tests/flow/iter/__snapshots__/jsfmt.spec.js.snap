@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`iter.js 1`] = `
-"var a = [true,false];
+var a = [true,false];
 function foo(x) { }
 
 for (var i=0;i<3;i++) {
@@ -76,5 +76,5 @@ for (var y in this) {
   // regression test to make sure \`in this\` doesn't fatal. it's currently
   // allowed, even though we can't actually enumerate all the keys on \`this\`.
 }
-"
+
 `;

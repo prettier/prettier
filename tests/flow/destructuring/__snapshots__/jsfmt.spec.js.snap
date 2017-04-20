@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`array_rest.js 1`] = `
-"let xs = [0, \\"\\", true];
+let xs = [0, "", true];
 let [a, ...ys] = xs;
 let [b, ...zs] = ys;
 let c = zs[0]; // retain tuple info
@@ -14,7 +14,7 @@ let d = zs[1]; // run off the end
 
 let [...e] = 0;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-let xs = [0, \\"\\", true];
+let xs = [0, "", true];
 let [a, ...ys] = xs;
 let [b, ...zs] = ys;
 let c = zs[0]; // retain tuple info
@@ -26,36 +26,36 @@ let d = zs[1]; // run off the end
 (d: void); // error: number|string|boolean ~> void
 
 let [...e] = 0;
-"
+
 `;
 
 exports[`computed.js 1`] = `
-"var { [\\"key\\"]: val1 } = { key: \\"val\\" };
+var { ["key"]: val1 } = { key: "val" };
 (val1: void); // error: string ~> void
 
-var key: string = \\"key\\";
-var { [key]: val2 } = { key: \\"val\\" };
+var key: string = "key";
+var { [key]: val2 } = { key: "val" };
 (val2: void); // ok (gasp!) by existing StrT -> ElemT rule
 
-var { [\\"key\\"]: val3, ...spread } = { key: \\"val\\" };
+var { ["key"]: val3, ...spread } = { key: "val" };
 (spread.key: void); // error (gasp!) in general we don't know if a computed prop should be excluded from spread
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var { [\\"key\\"]: val1 } = { key: \\"val\\" };
+var { ["key"]: val1 } = { key: "val" };
 (val1: void); // error: string ~> void
 
-var key: string = \\"key\\";
-var { [key]: val2 } = { key: \\"val\\" };
+var key: string = "key";
+var { [key]: val2 } = { key: "val" };
 (val2: void); // ok (gasp!) by existing StrT -> ElemT rule
 
-var { [\\"key\\"]: val3, ...spread } = { key: \\"val\\" };
+var { ["key"]: val3, ...spread } = { key: "val" };
 (spread.key: void); // error (gasp!) in general we don't know if a computed prop should be excluded from spread
-"
+
 `;
 
 exports[`defaults.js 1`] = `
-"/* @flow */
+/* @flow */
 
-function obj_prop_fun({p:{q=0}={q:true}}={p:{q:\\"\\"}}) {
+function obj_prop_fun({p:{q=0}={q:true}}={p:{q:""}}) {
   // errors:
   // * number  ~> void, from default on _.p.q
   // * boolean ~> void, from default on _.p
@@ -68,7 +68,7 @@ obj_prop_fun({}); // ok
 obj_prop_fun({p:{}}); // ok
 obj_prop_fun({p:{q:null}}); // ok, provides add'l lower bound
 
-function obj_prop_var(o={p:{q:\\"\\"}}) {
+function obj_prop_var(o={p:{q:""}}) {
   var {p:{q=0}={q:true}} = o;
   // errors:
   // * number  ~> void, from default on o.p.q
@@ -82,7 +82,7 @@ obj_prop_var({}); // ok
 obj_prop_var({p:{}}); // ok
 obj_prop_var({p:{q:null}}); // ok, provides add'l lower bound
 
-function obj_rest({p:{q,...o}={q:0,r:0}}={p:{q:0,r:\\"\\"}}) {
+function obj_rest({p:{q,...o}={q:0,r:0}}={p:{q:0,r:""}}) {
   // errors:
   // * number  ~> void, from default on _.p
   // * string  ~> void, from default on _
@@ -138,7 +138,7 @@ function default_expr_scope({a, b = a}) {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-function obj_prop_fun({ p: { q = 0 } = { q: true } } = { p: { q: \\"\\" } }) {
+function obj_prop_fun({ p: { q = 0 } = { q: true } } = { p: { q: "" } }) {
   // errors:
   // * number  ~> void, from default on _.p.q
   // * boolean ~> void, from default on _.p
@@ -151,7 +151,7 @@ obj_prop_fun({}); // ok
 obj_prop_fun({ p: {} }); // ok
 obj_prop_fun({ p: { q: null } }); // ok, provides add'l lower bound
 
-function obj_prop_var(o = { p: { q: \\"\\" } }) {
+function obj_prop_var(o = { p: { q: "" } }) {
   var { p: { q = 0 } = { q: true } } = o;
   // errors:
   // * number  ~> void, from default on o.p.q
@@ -166,7 +166,7 @@ obj_prop_var({ p: {} }); // ok
 obj_prop_var({ p: { q: null } }); // ok, provides add'l lower bound
 
 function obj_rest(
-  { p: { q, ...o } = { q: 0, r: 0 } } = { p: { q: 0, r: \\"\\" } }
+  { p: { q, ...o } = { q: 0, r: 0 } } = { p: { q: 0, r: "" } }
 ) {
   // errors:
   // * number  ~> void, from default on _.p
@@ -222,11 +222,11 @@ function obj_prop_union({ p }: { p: number | string } = { p: true }) {}
 function obj_prop_union2({ p }: { p: number } | { p: string } = { p: true }) {}
 
 function default_expr_scope({ a, b = a }) {}
-"
+
 `;
 
 exports[`destructuring.js 1`] = `
-"declare var a:string;
+declare var a:string;
 declare var b:string;
 declare var c:string;
 [{a1:a, b},c] = [{a1:0, b:1},2];
@@ -250,17 +250,17 @@ foo({p:0, z:[1,2]});
 function bar({x, ...z}) {
     var o:{x: string; y: number;} = z;
 }
-bar({x:\\"\\",y:0});
+bar({x:"",y:0});
 
-var spread = {y:\\"\\"};
+var spread = {y:""};
 var extend: {x:number; y:string; z: boolean} = {x:0, ...spread};
 
 function qux(_: {a:number}) { }
-qux({a:\\"\\"});
+qux({a:""});
 function corge({b}: {b:string}) { }
 corge({b:0});
 
-var {n}:{n: number} = {n: \\"\\"}
+var {n}:{n: number} = {n: ""}
 
 function test() {
   var {foo} = {bar: 123}; // error on foo
@@ -308,7 +308,7 @@ var { m } = { m: 0 };
 
 var obj;
 ({ n: obj.x } = { n: 3 });
-[obj.x] = [\\"foo\\"];
+[obj.x] = ["foo"];
 
 function foo({ p, z: [r] }) {
   a = p;
@@ -322,17 +322,17 @@ foo({ p: 0, z: [1, 2] });
 function bar({ x, ...z }) {
   var o: { x: string, y: number } = z;
 }
-bar({ x: \\"\\", y: 0 });
+bar({ x: "", y: 0 });
 
-var spread = { y: \\"\\" };
+var spread = { y: "" };
 var extend: { x: number, y: string, z: boolean } = { x: 0, ...spread };
 
 function qux(_: { a: number }) {}
-qux({ a: \\"\\" });
+qux({ a: "" });
 function corge({ b }: { b: string }) {}
 corge({ b: 0 });
 
-var { n }: { n: number } = { n: \\"\\" };
+var { n }: { n: number } = { n: "" };
 
 function test() {
   var { foo } = { bar: 123 }; // error on foo
@@ -340,7 +340,7 @@ function test() {
 }
 
 function test() {
-  var x = { foo: \\"abc\\", bar: 123 };
+  var x = { foo: "abc", bar: 123 };
   var { foo, ...rest } = x;
   (x.baz: string); // error, baz doesn't exist
   (rest.baz: string); // no error, rest is unsealed
@@ -369,51 +369,20 @@ var cp1: number = childprop1;
 var cp1_err: string = childprop1; // Error: number ~> string
 var cp2: number = others.childprop1;
 var cp2_err: string = others.childprop2; // Error: number ~> string
-"
-`;
 
-exports[`destructuring_param.js 1`] = `
-"function f(a, { b }) {
-  return a + b;
-}
-
-// Doesn't parse right now
-
-// function g(a, { a }) {
-//   return a;
-// }
-
-// function h({ a, { b } }, { c }, { { d } }) {
-//   return a + b + c + d;
-// }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function f(a, { b }) {
-  return a + b;
-}
-
-// Doesn't parse right now
-
-// function g(a, { a }) {
-//   return a;
-// }
-
-// function h({ a, { b } }, { c }, { { d } }) {
-//   return a + b + c + d;
-// }
-"
 `;
 
 exports[`eager.js 1`] = `
-"var x;
+var x;
 ({x} = null); // error, property \`x\` can not be accessed on \`null\`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var x;
 ({ x } = null); // error, property \`x\` can not be accessed on \`null\`
-"
+
 `;
 
 exports[`poly.js 1`] = `
-"// @flow
+// @flow
 
 function obj_pattern<X>({ prop } : { prop: X }) {} // prop: X
 type Prop<X> = { prop: X };
@@ -427,7 +396,6 @@ function tup_pattern<X>([ proj ] : [X]) {} // proj: X
 type Proj<X> = [X];
 function tup_pattern2<X>([ proj ] : Proj<X>) {} // proj: X
 
-function rest_antipattern<T>(...t: T) {} // nonsense
 function rest_pattern<X>(...r: X[]) {} // r: X[]
 
 function obj_rest_pattern<X>({ _, ...o } : { _: any, x: X }) { // o: { x: X }
@@ -460,7 +428,6 @@ function tup_pattern<X>([proj]: [X]) {} // proj: X
 type Proj<X> = [X];
 function tup_pattern2<X>([proj]: Proj<X>) {} // proj: X
 
-function rest_antipattern<T>(...t: T) {} // nonsense
 function rest_pattern<X>(...r: X[]) {} // r: X[]
 
 function obj_rest_pattern<X>({ _, ...o }: { _: any, x: X }) {
@@ -482,11 +449,11 @@ function arr_rest_pattern<X>([_, ...a]: ArrRest<X>) {
   // a: [X]
   a[0];
 }
-"
+
 `;
 
 exports[`rec.js 1`] = `
-"// @flow
+// @flow
 
 // Make sure that destructuring doesn't cause infinite loops when combined with
 // funny doses of repositioning
@@ -527,29 +494,54 @@ foo = (i: number) => {
 
 declare var o;
 var { x: o } = o;
-"
+
+`;
+
+exports[`refinement_non_termination.js 1`] = `
+// @flow
+
+function _([argArray]: Array<Value>) {
+  if (argArray instanceof NullValue || argArray instanceof UndefinedValue) {
+  }
+};
+
+class Value { }
+class NullValue extends Value { }
+class UndefinedValue extends Value { }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+
+function _([argArray]: Array<Value>) {
+  if (argArray instanceof NullValue || argArray instanceof UndefinedValue) {
+  }
+}
+
+class Value {}
+class NullValue extends Value {}
+class UndefinedValue extends Value {}
+
 `;
 
 exports[`string_lit.js 1`] = `
-"var { \\"key\\": val } = { key: \\"val\\" };
+var { "key": val } = { key: "val" };
 (val: void); // error: string ~> void
 
-var { \\"with-dash\\": with_dash } = { \\"with-dash\\": \\"motivating example\\" };
-(with_dash: \\"motivating example\\"); // ok
+var { "with-dash": with_dash } = { "with-dash": "motivating example" };
+(with_dash: "motivating example"); // ok
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var { key: val } = { key: \\"val\\" };
+var { key: val } = { key: "val" };
 (val: void); // error: string ~> void
 
-var { \\"with-dash\\": with_dash } = { \\"with-dash\\": \\"motivating example\\" };
-(with_dash: \\"motivating example\\"); // ok
-"
+var { "with-dash": with_dash } = { "with-dash": "motivating example" };
+(with_dash: "motivating example"); // ok
+
 `;
 
 exports[`unannotated.js 1`] = `
-"// @flow
+// @flow
 
 var { x } = {
-  x: { foo: \\"foo\\" }
+  x: { foo: "foo" }
 };
 
 function bar() {
@@ -559,11 +551,11 @@ function bar() {
 // @flow
 
 var { x } = {
-  x: { foo: \\"foo\\" }
+  x: { foo: "foo" }
 };
 
 function bar() {
   x.bar;
 }
-"
+
 `;

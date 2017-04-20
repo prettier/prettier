@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`object.js 1`] = `
-"state = {
+state = {
   // students
   hoverColumn: -1
 };
@@ -10,11 +10,11 @@ state = {
   // students
   hoverColumn: -1
 };
-"
+
 `;
 
 exports[`series.js 1`] = `
-"1 + ++x;
+1 + ++x;
 1 + x++;
 
 + ++x;
@@ -49,5 +49,5 @@ x++ + 1;
 
 x-- - 1;
 --x - 1;
-"
+
 `;

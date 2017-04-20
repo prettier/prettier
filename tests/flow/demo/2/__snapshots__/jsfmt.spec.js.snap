@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`A.js 1`] = `
-"/* @providesModule Demo */
+/* @providesModule Demo */
 
 class A {
   x: number; // instance field declaration
@@ -46,16 +46,16 @@ var a = new A(42);
 a.onLoad(callback);
 
 module.exports = A;
-"
+
 `;
 
 exports[`B.js 1`] = `
-"var A = require('Demo');
+var A = require('Demo');
 
-var z = new A(\\"42\\").getX();
+var z = new A("42").getX();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var A = require(\\"Demo\\");
+var A = require("Demo");
 
-var z = new A(\\"42\\").getX();
-"
+var z = new A("42").getX();
+
 `;

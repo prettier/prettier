@@ -16,6 +16,8 @@ const argv = minimist(process.argv.slice(2), {
   boolean: [
     "write",
     "stdin",
+    "use-tabs",
+    "semi",
     "single-quote",
     "bracket-spacing",
     "jsx-bracket-same-line",
@@ -34,7 +36,7 @@ const argv = minimist(process.argv.slice(2), {
   ],
   string: ["print-width", "tab-width", "parser", "trailing-comma"],
   default: Object.assign(
-    { color: true, "bracket-spacing": true, parser: "babylon" },
+    { semi: true, color: true, "bracket-spacing": true, parser: "babylon" },
     dashifyConfig(pkgConf.sync("prettier", process.cwd()))
   ),
   alias: { help: "h", version: "v", "list-different": "l" },
@@ -69,7 +71,7 @@ function getParserOption() {
     return "flow";
   }
 
-  if (value === "flow" || value === "babylon") {
+  if (value === "flow" || value === "babylon" || value === "typescript") {
     return value;
   }
 
@@ -124,6 +126,8 @@ function getTrailingComma() {
 }
 
 const options = {
+  useTabs: argv["use-tabs"],
+  semi: argv["semi"],
   printWidth: getIntOption("print-width"),
   tabWidth: getIntOption("tab-width"),
   bracketSpacing: argv["bracket-spacing"],
@@ -183,22 +187,21 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
     "Usage: prettier [opts] [filename ...]\n\n" +
       "Available options:\n" +
       "  --write                  Edit the file in-place. (Beware!)\n" +
-      "  --list-different or -l   Print filenames of files that are different from prettier formatting\n" +
+      "  --list-different or -l   Print filenames of files that are different from Prettier formatting.\n" +
       "  --stdin                  Read input from stdin.\n" +
       "  --print-width <int>      Specify the length of line that the printer will wrap on. Defaults to 80.\n" +
       "  --tab-width <int>        Specify the number of spaces per indentation-level. Defaults to 2.\n" +
-      "  --single-quote           Use single quotes instead of double.\n" +
-      "  --bracket-spacing        Put spaces between brackets. Defaults to true.\n" +
-      "  --jsx-bracket-same-line  Put > on the last line. Defaults to false.\n" +
+      "  --use-tabs               Indent lines with tabs instead of spaces.\n" +
+      "  --no-semi                Do not print semicolons, except at the beginning of lines which may need them.\n" +
+      "  --single-quote           Use single quotes instead of double quotes.\n" +
+      "  --no-bracket-spacing     Do not print spaces between brackets.\n" +
+      "  --jsx-bracket-same-line  Put > on the last line instead of at a new line.\n" +
       "  --trailing-comma <none|es5|all>\n" +
       "                           Print trailing commas wherever possible. Defaults to none.\n" +
       "  --parser <flow|babylon>  Specify which parse to use. Defaults to babylon.\n" +
-      "  --color                  Colorize error messages. Defaults to true.\n" +
-      "  --version or -v          Print prettier version.\n" +
-      "\n" +
-      "Boolean options can be turned off like this:\n" +
-      "  --no-bracket-spacing\n" +
-      "  --bracket-spacing=false"
+      "  --no-color               Do not colorize error messages.\n" +
+      "  --version or -v          Print Prettier version.\n" +
+      "\n"
   );
   process.exit(argv["help"] ? 0 : 1);
 }
@@ -227,7 +230,7 @@ if (stdin) {
       // Add newline to split errors from filename line.
       process.stdout.write("\n");
 
-      console.error("Unable to read file: " + filename + "\n" + err);
+      console.error("Unable to read file: " + filename + "\n" + e);
       // Don't exit the process if one file failed
       process.exitCode = 2;
       return;
@@ -267,13 +270,13 @@ if (stdin) {
       } else {
         console.log("%s %dms", filename, Date.now() - start);
 
-        fs.writeFile(filename, output, "utf8", err => {
-          if (err) {
-            console.error("Unable to write file: " + filename + "\n" + err);
-            // Don't exit the process if one file failed
-            process.exitCode = 2;
-          }
-        });
+        try {
+          fs.writeFileSync(filename, output, "utf8");
+        } catch (err) {
+          console.error("Unable to write file: " + filename + "\n" + err);
+          // Don't exit the process if one file failed
+          process.exitCode = 2;
+        }
       }
     } else if (argv["debug-check"]) {
       process.stdout.write("\n");
@@ -298,6 +301,11 @@ function dashifyConfig(config = {}) {
 
 function eachFilename(patterns, callback) {
   patterns.forEach(pattern => {
+    if (!glob.hasMagic(pattern)) {
+      callback(pattern);
+      return;
+    }
+
     glob(pattern, (err, filenames) => {
       if (err) {
         console.error("Unable to expand glob pattern: " + pattern + "\n" + err);

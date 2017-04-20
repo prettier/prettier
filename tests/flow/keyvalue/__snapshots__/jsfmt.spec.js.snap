@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`keyvalue.js 1`] = `
-"// @flow
+// @flow
 
 let tests = [
   function(x: { [key: number]: string }) {
-    (x[\\"\\"]: number);
+    (x[""]: number);
   }
 ];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -13,8 +13,8 @@ let tests = [
 
 let tests = [
   function(x: { [key: number]: string }) {
-    (x[\\"\\"]: number);
+    (x[""]: number);
   }
 ];
-"
+
 `;

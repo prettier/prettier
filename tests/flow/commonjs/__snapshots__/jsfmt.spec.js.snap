@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Abs.js 1`] = `
-"
+
 function f(x:string) { }
 
 module.exports = f;
@@ -9,17 +9,17 @@ module.exports = f;
 function f(x: string) {}
 
 module.exports = f;
-"
+
 `;
 
 exports[`Rel.js 1`] = `
-"
+
 var f = require('./Abs');
 
 f(0);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var f = require(\\"./Abs\\");
+var f = require("./Abs");
 
 f(0);
-"
+
 `;

@@ -3,57 +3,6 @@
 var types = require("ast-types");
 var n = types.namedTypes;
 
-function comparePos(pos1, pos2) {
-  return pos1.line - pos2.line || pos1.column - pos2.column;
-}
-
-function expandLoc(parentNode, childNode) {
-  if (locStart(childNode) - locStart(parentNode) < 0) {
-    setLocStart(parentNode, locStart(childNode));
-  }
-
-  if (locEnd(parentNode) - locEnd(childNode) < 0) {
-    setLocEnd(parentNode, locEnd(childNode));
-  }
-}
-
-function fixFaultyLocations(node, text) {
-  if (node.decorators) {
-    // Expand the loc of the node responsible for printing the decorators
-    // (here, the decorated node) so that it includes node.decorators.
-    node.decorators.forEach(function(decorator) {
-      expandLoc(node, decorator);
-    });
-  } else if (node.declaration && isExportDeclaration(node)) {
-    // Expand the loc of the node responsible for printing the decorators
-    // (here, the export declaration) so that it includes node.decorators.
-    var decorators = node.declaration.decorators;
-    if (decorators) {
-      decorators.forEach(function(decorator) {
-        expandLoc(node, decorator);
-      });
-    }
-  } else if (
-    (n.MethodDefinition && n.MethodDefinition.check(node)) ||
-    (n.Property.check(node) && (node.method || node.shorthand))
-  ) {
-    if (n.FunctionExpression.check(node.value)) {
-      // FunctionExpression method values should be anonymous,
-      // because their .id fields are ignored anyway.
-      node.value.id = null;
-    }
-  } else if (node.type === "ObjectTypeProperty") {
-    var end = skipSpaces(text, locEnd(node), true);
-    if (end !== false && text.charAt(end) === ",") {
-      // Some parsers accidentally include trailing commas in the
-      // end information for ObjectTypeProperty nodes.
-      if ((end = skipSpaces(text, end - 1, true)) !== false) {
-        setLocEnd(node, end);
-      }
-    }
-  }
-}
-
 function isExportDeclaration(node) {
   if (node)
     switch (node.type) {
@@ -166,19 +115,32 @@ function skipNewline(text, index, opts) {
   const backwards = opts && opts.backwards;
   if (index === false) {
     return false;
-  } else if (backwards) {
-    if (text.charAt(index) === "\n") {
-      return index - 1;
-    }
-    if (text.charAt(index - 1) === "\r" && text.charAt(index) === "\n") {
+  }
+
+  const atIndex = text.charAt(index);
+  if (backwards) {
+    if (text.charAt(index - 1) === "\r" && atIndex === "\n") {
       return index - 2;
     }
-  } else {
-    if (text.charAt(index) === "\n") {
-      return index + 1;
+    if (
+      atIndex === "\n" ||
+      atIndex === "\r" ||
+      atIndex === "\u2028" ||
+      atIndex === "\u2029"
+    ) {
+      return index - 1;
     }
-    if (text.charAt(index) === "\r" && text.charAt(index + 1) === "\n") {
+  } else {
+    if (atIndex === "\r" && text.charAt(index + 1) === "\n") {
       return index + 2;
+    }
+    if (
+      atIndex === "\n" ||
+      atIndex === "\r" ||
+      atIndex === "\u2028" ||
+      atIndex === "\u2029"
+    ) {
+      return index + 1;
     }
   }
 
@@ -214,16 +176,29 @@ function isPreviousLineEmpty(text, node) {
 function isNextLineEmpty(text, node) {
   let oldIdx = null;
   let idx = locEnd(node);
-  idx = skipToLineEnd(text, idx);
   while (idx !== oldIdx) {
     // We need to skip all the potential trailing inline comments
     oldIdx = idx;
+    idx = skipToLineEnd(text, idx);
     idx = skipInlineComment(text, idx);
     idx = skipSpaces(text, idx);
   }
   idx = skipTrailingComment(text, idx);
   idx = skipNewline(text, idx);
   return hasNewline(text, idx);
+}
+
+function getNextNonSpaceNonCommentCharacter(text, node) {
+  let oldIdx = null;
+  let idx = locEnd(node);
+  while (idx !== oldIdx) {
+    oldIdx = idx;
+    idx = skipSpaces(text, idx);
+    idx = skipInlineComment(text, idx);
+    idx = skipTrailingComment(text, idx);
+    idx = skipNewline(text, idx);
+  }
+  return text.charAt(idx);
 }
 
 function hasSpaces(text, index, opts) {
@@ -263,16 +238,6 @@ function setLocEnd(node, index) {
 }
 
 // http://stackoverflow.com/a/7124052
-function htmlEscapeInsideDoubleQuote(str) {
-  return str.replace(/&/g, "&amp;").replace(/"/g, "&quot;");
-  // Intentionally disable the following since it is safe inside of a
-  // double quote context
-  //    .replace(/'/g, '&#39;')
-  //    .replace(/</g, '&lt;')
-  //    .replace(/>/g, '&gt;');
-}
-
-// http://stackoverflow.com/a/7124052
 function htmlEscapeInsideAngleBracket(str) {
   return str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
   // Intentionally disable the following since it is safe inside of a
@@ -306,13 +271,12 @@ function getPrecedence(op) {
 }
 
 module.exports = {
-  comparePos,
   getPrecedence,
-  fixFaultyLocations,
   isExportDeclaration,
   getParentExportDeclaration,
   getPenultimate,
   getLast,
+  getNextNonSpaceNonCommentCharacter,
   skipWhitespace,
   skipSpaces,
   skipNewline,
@@ -325,6 +289,5 @@ module.exports = {
   locEnd,
   setLocStart,
   setLocEnd,
-  htmlEscapeInsideDoubleQuote,
   htmlEscapeInsideAngleBracket
 };

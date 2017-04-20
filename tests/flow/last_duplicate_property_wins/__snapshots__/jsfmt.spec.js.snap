@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test.js 1`] = `
-"// @flow
+// @flow
 
 // Classes
 
 class C {
   foo(): number { return 0; }
-  foo(): string { return \\"hello\\" } // last wins
+  foo(): string { return "hello" } // last wins
   x: number;
   x: string; // last wins
   bar(): number { return 0; }
   bar: string; // field wins over method
   qux: number;
-  qux(): string { return \\"hello\\" } // method loses to field!
+  qux(): string { return "hello" } // method loses to field!
 }
 
 // check
@@ -27,13 +27,13 @@ class C {
 
 const o = {
   foo(): number { return 0; },
-  foo(): string { return \\"hello\\" }, // last wins
+  foo(): string { return "hello" }, // last wins
   x: 42,
-  x: \\"hello\\", // last wins
+  x: "hello", // last wins
   bar(): number { return 0; },
-  bar: \\"hello\\", // last wins
+  bar: "hello", // last wins
   qux: 42,
-  qux(): string { return \\"hello\\" }, // last wins
+  qux(): string { return "hello" }, // last wins
 };
 
 // check
@@ -52,7 +52,7 @@ class C {
     return 0;
   }
   foo(): string {
-    return \\"hello\\";
+    return "hello";
   } // last wins
   x: number;
   x: string; // last wins
@@ -62,7 +62,7 @@ class C {
   bar: string; // field wins over method
   qux: number;
   qux(): string {
-    return \\"hello\\";
+    return "hello";
   } // method loses to field!
 }
 
@@ -80,17 +80,17 @@ const o = {
     return 0;
   },
   foo(): string {
-    return \\"hello\\";
+    return "hello";
   }, // last wins
   x: 42,
-  x: \\"hello\\", // last wins
+  x: "hello", // last wins
   bar(): number {
     return 0;
   },
-  bar: \\"hello\\", // last wins
+  bar: "hello", // last wins
   qux: 42,
   qux(): string {
-    return \\"hello\\";
+    return "hello";
   } // last wins
 };
 
@@ -100,5 +100,5 @@ const o = {
 (o.x: boolean); // last wins
 (o.bar: boolean); // last wins
 (o.qux(): boolean); // last wins
-"
+
 `;

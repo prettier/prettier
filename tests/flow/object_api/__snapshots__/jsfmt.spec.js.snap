@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`a.js 1`] = `
-"/* @flow */
+/* @flow */
 
 module.exports = { a() {} };~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
 module.exports = { a() {} };
-"
+
 `;
 
 exports[`b.js 1`] = `
-"/* @flow */
+/* @flow */
 
 var a = require('./a');
 var b = Object.assign({ bar() {}, ...{} }, a);
@@ -20,29 +20,29 @@ module.exports = b;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-var a = require(\\"./a\\");
+var a = require("./a");
 var b = Object.assign({ bar() {}, ...{} }, a);
 b.a(); // works here
 module.exports = b;
-"
+
 `;
 
 exports[`c.js 1`] = `
-"/* @flow */
+/* @flow */
 
 var c = require('./b');
 c.a();
 c.foo();~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-var c = require(\\"./b\\");
+var c = require("./b");
 c.a();
 c.foo();
-"
+
 `;
 
 exports[`object_assign.js 1`] = `
-"/* @flow */
+/* @flow */
 
 var export_ = Object.assign({}, {
     foo: function(param) { return param; }
@@ -72,11 +72,11 @@ let anyObj: Object = {};
 Object.assign(anyObj, anyObj); // makes sure this terminates
 
 module.exports = export_;
-"
+
 `;
 
 exports[`object_create.js 1`] = `
-"/* @flow */
+/* @flow */
 
 class C { foo: string; }
 
@@ -87,7 +87,7 @@ class C { foo: string; }
 (Object.create(new C): C);
 
 // error, object literals don't structurally match instances
-({ foo: \\"foo\\" }: C);
+({ foo: "foo" }: C);
 
 // error, object types don't structurally match instances
 type O = { foo: string; }
@@ -107,17 +107,17 @@ class C {
 (Object.create(new C()): C);
 
 // error, object literals don't structurally match instances
-({ foo: \\"foo\\" }: C);
+({ foo: "foo" }: C);
 
 // error, object types don't structurally match instances
 type O = { foo: string };
 declare var o: O;
 (o: C);
-"
+
 `;
 
 exports[`object_getprototypeof.js 1`] = `
-"// @flow
+// @flow
 
 class Foo {}
 class Bar extends Foo {}
@@ -140,11 +140,11 @@ let tests = [
     (Object.getPrototypeOf(x): Foo);
   }
 ];
-"
+
 `;
 
 exports[`object_keys.js 1`] = `
-"/* @flow */
+/* @flow */
 
 var sealed = {one: 'one', two: 'two'};
 (Object.keys(sealed): Array<'one'|'two'>);
@@ -152,12 +152,12 @@ var sealed = {one: 'one', two: 'two'};
 
 var unsealed = {};
 Object.keys(unsealed).forEach(k => {
-  (k : number) // error: number ~> string
+  (k : number) // error: string ~> number
 });
 
 var dict: { [k: number]: string } = {};
 Object.keys(dict).forEach(k => {
-  (k : number) // error: number ~> string
+  (k : number) // error: string ~> number
 });
 
 var any: Object = {};
@@ -179,18 +179,18 @@ class Bar extends Foo {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-var sealed = { one: \\"one\\", two: \\"two\\" };
-(Object.keys(sealed): Array<\\"one\\" | \\"two\\">);
+var sealed = { one: "one", two: "two" };
+(Object.keys(sealed): Array<"one" | "two">);
 (Object.keys(sealed): void); // error, Array<string>
 
 var unsealed = {};
 Object.keys(unsealed).forEach(k => {
-  (k: number); // error: number ~> string
+  (k: number); // error: string ~> number
 });
 
 var dict: { [k: number]: string } = {};
 Object.keys(dict).forEach(k => {
-  (k: number); // error: number ~> string
+  (k: number); // error: string ~> number
 });
 
 var any: Object = {};
@@ -201,19 +201,19 @@ class Foo {
   foo() {}
 }
 // constructor and foo not enumerable
-(Object.keys(new Foo()): Array<\\"error\\">); // error: prop ~> error
+(Object.keys(new Foo()): Array<"error">); // error: prop ~> error
 
 class Bar extends Foo {
   bar_prop: string;
   bar() {}
 }
 // only own enumerable props
-(Object.keys(new Bar()): Array<\\"error\\">); // error: bar_prop ~> error
-"
+(Object.keys(new Bar()): Array<"error">); // error: bar_prop ~> error
+
 `;
 
 exports[`object_missing.js 1`] = `
-"// @flow
+// @flow
 
 let tests = [
   function() {
@@ -228,11 +228,11 @@ let tests = [
     Object.doesNotExist();
   }
 ];
-"
+
 `;
 
 exports[`object_prototype.js 1`] = `
-"/* @flow */
+/* @flow */
 
 function takesABool(x: boolean) {}
 function takesAString(x: string) {}
@@ -361,7 +361,7 @@ var yValueOf : number = y.valueOf; // error
 takesAnObject(y.valueOf());
 
 // ... on a literal
-var strValueOf : string = (\\"foo\\").valueOf();
+var strValueOf : string = ("foo").valueOf();
 var numValueOf : number = (123).valueOf();
 var boolValueOf : boolean = (true).valueOf();
 
@@ -406,15 +406,15 @@ function takesAnObject(x: Object) {}
 
 class Foo {}
 
-var a = { foo: \\"bar\\" };
-var b = { foo: \\"bar\\", ...{} };
+var a = { foo: "bar" };
+var b = { foo: "bar", ...{} };
 var c = {
-  foo: \\"bar\\",
+  foo: "bar",
   toString: function(): number {
     return 123;
   }
 };
-var d: { [key: string]: string } = { foo: \\"bar\\" };
+var d: { [key: string]: string } = { foo: "bar" };
 var x = new Date();
 var y = new Foo();
 
@@ -433,7 +433,7 @@ takesAString(aToString2());
 
 // set
 b.toString = function(): string {
-  return \\"foo\\";
+  return "foo";
 };
 c.toString = function(): number {
   return 123;
@@ -456,7 +456,7 @@ takesAString(y.toString());
 (123).toString;
 (123).toString = function() {}; // error
 (123).toString(2);
-(123).toString(\\"foo\\"); // error
+(123).toString("foo"); // error
 (123).toString(null); // error
 
 //
@@ -464,12 +464,12 @@ takesAString(y.toString());
 //
 
 // call
-takesABool(a.hasOwnProperty(\\"foo\\"));
+takesABool(a.hasOwnProperty("foo"));
 
 // get
 var aHasOwnProperty: (prop: string) => boolean = a.hasOwnProperty;
 var aHasOwnProperty2 = a.hasOwnProperty;
-takesABool(aHasOwnProperty2(\\"bar\\"));
+takesABool(aHasOwnProperty2("bar"));
 
 // set
 b.hasOwnProperty = function() {
@@ -479,23 +479,23 @@ b.hasOwnProperty = function() {
 // ... on a built-in instance
 var xHasOwnProperty: number = x.hasOwnProperty; // error
 var xHasOwnProperty2: (prop: string) => number = x.hasOwnProperty; // error
-takesABool(x.hasOwnProperty(\\"foo\\"));
+takesABool(x.hasOwnProperty("foo"));
 
 // ... on an instance
 var yHasOwnProperty: number = y.hasOwnProperty; // error
-takesABool(y.hasOwnProperty(\\"foo\\"));
+takesABool(y.hasOwnProperty("foo"));
 
 //
 // propertyIsEnumerable
 //
 
 // call
-takesABool(a.propertyIsEnumerable(\\"foo\\"));
+takesABool(a.propertyIsEnumerable("foo"));
 
 // get
 var aPropertyIsEnumerable: (prop: string) => boolean = a.propertyIsEnumerable;
 var aPropertyIsEnumerable2 = a.propertyIsEnumerable;
-takesABool(aPropertyIsEnumerable2(\\"bar\\"));
+takesABool(aPropertyIsEnumerable2("bar"));
 
 // set
 b.propertyIsEnumerable = function() {
@@ -505,11 +505,11 @@ b.propertyIsEnumerable = function() {
 // ... on a built-in instance
 var xPropertyIsEnumerable: number = x.propertyIsEnumerable; // error
 var xPropertyIsEnumerable2: (prop: string) => number = x.propertyIsEnumerable; // error
-takesABool(x.propertyIsEnumerable(\\"foo\\"));
+takesABool(x.propertyIsEnumerable("foo"));
 
 // ... on an instance
 var yPropertyIsEnumerable: number = y.propertyIsEnumerable; // error
-takesABool(y.propertyIsEnumerable(\\"foo\\"));
+takesABool(y.propertyIsEnumerable("foo"));
 
 //
 // valueOf
@@ -537,7 +537,7 @@ var yValueOf: number = y.valueOf; // error
 takesAnObject(y.valueOf());
 
 // ... on a literal
-var strValueOf: string = \\"foo\\".valueOf();
+var strValueOf: string = "foo".valueOf();
 var numValueOf: number = (123).valueOf();
 var boolValueOf: boolean = true.valueOf();
 
@@ -555,7 +555,7 @@ takesAString(aToLocaleString2());
 
 // set
 b.toLocaleString = function() {
-  return \\"derp\\";
+  return "derp";
 };
 
 // ... on a built-in instance
@@ -573,5 +573,5 @@ takesAString(y.toLocaleString());
 
 var k: Object = a.constructor;
 (123).constructor;
-"
+
 `;

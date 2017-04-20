@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test.js 1`] = `
+/* @flow */
+
+class Foo {
+  annotationOnly: string;
+  initOnly = 'asdf';
+  initWithAnnotation: string = 'asdf';
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @flow */
+
+class Foo {
+  annotationOnly: string;
+  initOnly = "asdf";
+  initWithAnnotation: string = "asdf";
+}
+
+`;

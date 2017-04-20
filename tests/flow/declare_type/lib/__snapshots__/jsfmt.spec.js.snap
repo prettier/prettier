@@ -1,36 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`declare_module_type_alias.js 1`] = `
-"/**
+exports[`DeclareModule_TypeAlias.js 1`] = `
+/**
  * @flow
  */
-
-// TODO: adding an empty line should not be dropped.
 
 declare module ModuleAliasFoo {
     declare type baz = number;
     declare type toz = string;
     declare function foo(bar : baz) : toz;
 }
-declare type Foo = string;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /**
  * @flow
  */
-
-// TODO: adding an empty line should not be dropped.
 
 declare module ModuleAliasFoo {
   declare type baz = number;
   declare type toz = string;
   declare function foo(bar: baz): toz;
 }
-declare type Foo = string;
-"
+
 `;
 
 exports[`declare_type_exports.js 1`] = `
-"/* @flow */
+/* @flow */
 
 declare module 'foo' {
     declare class A {
@@ -50,7 +44,7 @@ declare module 'foo' {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-declare module \\"foo\\" {
+declare module "foo" {
   declare class A {
     toz: number
   }
@@ -65,5 +59,5 @@ declare module \\"foo\\" {
     (a: number, b: number): number
   };
 }
-"
+
 `;

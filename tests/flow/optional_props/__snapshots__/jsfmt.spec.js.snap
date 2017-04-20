@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test.js 1`] = `
-"var x: { } = { foo: 0 };
+var x: { } = { foo: 0 };
 var y: { foo?: string } = x; // OK in TypeScript, not OK in Flow
 
-var z: string = y.foo || \\"\\";
+var z: string = y.foo || "";
 
 var o = { };
 y = o; // OK; we know that narrowing could not have happened
@@ -12,12 +12,12 @@ o.foo = 0; // future widening is constrained
 
 function bar(config: { foo?: number }) {}
 bar({});
-bar({foo: \\"\\"});
+bar({foo: ""});
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var x: {} = { foo: 0 };
 var y: { foo?: string } = x; // OK in TypeScript, not OK in Flow
 
-var z: string = y.foo || \\"\\";
+var z: string = y.foo || "";
 
 var o = {};
 y = o; // OK; we know that narrowing could not have happened
@@ -25,12 +25,12 @@ o.foo = 0; // future widening is constrained
 
 function bar(config: { foo?: number }) {}
 bar({});
-bar({ foo: \\"\\" });
-"
+bar({ foo: "" });
+
 `;
 
 exports[`test2.js 1`] = `
-"var a: { foo?: string } = {};
+var a: { foo?: string } = {};
 a.foo = undefined; // This is not an error
 a.foo = null; // But this is an error
 
@@ -57,11 +57,11 @@ var d: { foo?: string } = { foo: null }; // But this is an error
 
 var e: { foo?: ?string } = { foo: undefined }; // This is fine
 var f: { foo?: ?string } = { foo: null }; // Also fine
-"
+
 `;
 
 exports[`test3.js 1`] = `
-"// @flow
+// @flow
 
 /*
    object literals are sealed. this is simply a heuristic
@@ -171,14 +171,33 @@ class A {
     // annotation will be processed before the flow involving the
     // access. Here we lose the race and get an error on the write.
     this.x = { a: 123 };
-    this.x.b = \\"hello\\";
+    this.x.b = "hello";
   }
 }
-"
+
+`;
+
+exports[`test3_exact_annot.js 1`] = `
+/* The logic that allows ({}: {p?:T}), described in test3.js, should _not_ also
+   fire for exact annotations. */
+
+const a: {| a: number |} = { a: 1 };
+const b: { a: number, b?: number } = a; // error: property \`b\` not found
+b.b = 0; // because subsequent writes would widen the exact object
+(a.b: number); // error: property \`b\` not found
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* The logic that allows ({}: {p?:T}), described in test3.js, should _not_ also
+   fire for exact annotations. */
+
+const a: {| a: number |} = { a: 1 };
+const b: { a: number, b?: number } = a; // error: property \`b\` not found
+b.b = 0; // because subsequent writes would widen the exact object
+(a.b: number); // error: property \`b\` not found
+
 `;
 
 exports[`test3_failure.js 1`] = `
-"// generalization of failure in test3.js
+// generalization of failure in test3.js
 
 class A<O: {x: { a: number, b?: string}}> {
   o: O;
@@ -194,8 +213,8 @@ class A<O: { x: { a: number, b?: string } }> {
   o: O;
   foo() {
     this.o.x = { a: 123 };
-    this.o.x.b = \\"hello\\"; // this is a spurious error (see test3.js for details)
+    this.o.x.b = "hello"; // this is a spurious error (see test3.js for details)
   }
 }
-"
+
 `;

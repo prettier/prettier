@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test.js 1`] = `
-"declare class _C {
+declare class _C {
   foo(): number;
 }
 declare var _module: {
@@ -20,5 +20,5 @@ declare var _module: {
 declare class D extends _module.C {
   foo(): string
 }
-"
+
 `;

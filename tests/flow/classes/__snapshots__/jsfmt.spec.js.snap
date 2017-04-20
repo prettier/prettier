@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`A.js 1`] = `
-"class A {
+class A {
   foo(x:number):void { }
 }
 
@@ -12,11 +12,11 @@ class A {
 }
 
 module.exports = A;
-"
+
 `;
 
 exports[`B.js 1`] = `
-"var A = require('./A');
+var A = require('./A');
 
 class B extends A { }
 
@@ -25,7 +25,7 @@ let b = new B();
 
 module.exports = B;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var A = require(\\"./A\\");
+var A = require("./A");
 
 class B extends A {}
 
@@ -33,11 +33,11 @@ let b = new B();
 (b.foo: number); // error, number !~> function
 
 module.exports = B;
-"
+
 `;
 
 exports[`C.js 1`] = `
-"var B = require('./B');
+var B = require('./B');
 
 class C extends B {
   foo(x:string):void { }
@@ -48,7 +48,7 @@ let c = new C();
 
 module.exports = C;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var B = require(\\"./B\\");
+var B = require("./B");
 
 class C extends B {
   foo(x: string): void {}
@@ -58,22 +58,22 @@ let c = new C();
 (c.foo: number); // error, number !~> function
 
 module.exports = C;
-"
+
 `;
 
 exports[`D.js 1`] = `
-"class D { }
+class D { }
 class E { }
 new E().x
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class D {}
 class E {}
 new E().x;
-"
+
 `;
 
 exports[`class_shapes.js 1`] = `
-"/* @flow */
+/* @flow */
 
 type Foo = {
   a: string;    // exists in TestClass
@@ -144,11 +144,11 @@ class Test2Class extends Test2Superclass {
 
 var z = new Test2Class();
 var w: Foo = z;
-"
+
 `;
 
 exports[`expr.js 1`] = `
-"var Bar = class Foo {
+var Bar = class Foo {
   static factory(): Foo { // OK: Foo is a type in this scope
     return new Foo()      // OK: Foo is a runtime binding in this scope
   }
@@ -210,11 +210,26 @@ var _Alias = class Alias {
 };
 var alias1: Alias = new _Alias(); // error: bad pun
 var alias2: Alias = _Alias.factory(); // error: bad pun
-"
+
+`;
+
+exports[`extends_any.js 1`] = `
+const Base: any = class {}
+class Derived1 extends Base {}
+class Derived2 extends Derived1 {
+    m() {}
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const Base: any = class {};
+class Derived1 extends Base {}
+class Derived2 extends Derived1 {
+  m() {}
+}
+
 `;
 
 exports[`loc.js 1`] = `
-"/* @flow */
+/* @flow */
 
 type Foo = number
 
@@ -225,16 +240,16 @@ class Foo {} // error, shadows type Foo
 type Foo = number;
 
 class Foo {} // error, shadows type Foo
-"
+
 `;
 
 exports[`statics.js 1`] = `
-"/* @flow */
+/* @flow */
 
 class C {
   static p: string;
 }
-C.p = \\"hi\\";
+C.p = "hi";
 
 // Class static fields are compatible with object types
 (C: {p:string}); // ok
@@ -248,7 +263,7 @@ declare var o: {p:number};
 class C {
   static p: string;
 }
-C.p = \\"hi\\";
+C.p = "hi";
 
 // Class static fields are compatible with object types
 (C: { p: string }); // ok
@@ -256,5 +271,5 @@ C.p = \\"hi\\";
 
 declare var o: { p: number };
 (o: Class<C>); // error, object type incompatible with class type
-"
+
 `;

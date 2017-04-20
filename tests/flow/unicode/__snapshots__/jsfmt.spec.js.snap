@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`UnicodeUtils.js 1`] = `
-"/**
+/**
  * @flow
  */
 
@@ -22,11 +22,11 @@ function inSurrogateRange(codeUnit) {
  * representing non-BMP characters ([U+10000..U+10FFFF]).
  *
  * Examples:
- * - '\\\\u0020' => 1
- * - '\\\\u3020' => 1
- * - '\\\\uD835' => 2
- * - '\\\\uD835\\\\uDDEF' => 2
- * - '\\\\uDDEF' => 2
+ * - '\\u0020' => 1
+ * - '\\u3020' => 1
+ * - '\\uD835' => 2
+ * - '\\uD835\\uDDEF' => 2
+ * - '\\uDDEF' => 2
  *
  * @param {string} str  Non-empty string
  * @param {number} pos  Position in the string to look for one code unit
@@ -56,11 +56,11 @@ function inSurrogateRange(codeUnit) {
  * representing non-BMP characters ([U+10000..U+10FFFF]).
  *
  * Examples:
- * - '\\\\u0020' => 1
- * - '\\\\u3020' => 1
- * - '\\\\uD835' => 2
- * - '\\\\uD835\\\\uDDEF' => 2
- * - '\\\\uDDEF' => 2
+ * - '\\u0020' => 1
+ * - '\\u3020' => 1
+ * - '\\uD835' => 2
+ * - '\\uD835\\uDDEF' => 2
+ * - '\\uDDEF' => 2
  *
  * @param {string} str  Non-empty string
  * @param {number} pos  Position in the string to look for one code unit
@@ -69,12 +69,5 @@ function inSurrogateRange(codeUnit) {
 function utf16Length(str, pos) {
   return 1 + inSurrogateRange(str.charCodeAt(pos));
 }
-"
-`;
 
-exports[`keys.js 1`] = `
-"({'この事はつもり素晴らしいことさ': '35jL9V'})
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-({ \\"この事はつもり素晴らしいことさ\\": \\"35jL9V\\" });
-"
 `;

@@ -55,7 +55,7 @@ check_obj({ x: id("") });
 
 function check_arr(_: number[] | string[]) { }
 
-// ok
+// help! (unlike objects, array literals' element types are always open)
 check_arr([""]);
 
 // help!

@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`issue-1249.js 1`] = `
+type Bar = ( number | string ) => number;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type Bar = (number | string) => number;
+
+`;
+
+exports[`parens.js 1`] = `
+const f = (): (string => string) => {};
+const f = (): (a | string => string) => {};
+const f = (): (a & string => string) => {};
+function f(): string => string {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const f = (): (string => string) => {};
+const f = (): a | ((string) => string) => {};
+const f = (): a & ((string) => string) => {};
+function f(): string => string {}
+
+`;

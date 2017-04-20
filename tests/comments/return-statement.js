@@ -100,6 +100,12 @@ function sequenceExpression() {
   ), b
 }
 
+function sequenceExpressionInside() {
+  return ( // Reason for a
+    a, b
+  );
+}
+
 function taggedTemplate() {
   return (
     // Reason for a

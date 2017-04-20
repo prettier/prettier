@@ -1,22 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`scope.js 1`] = `
-"function foo<X, Y:X>(x:X, y:Y):void { }
-foo(0, \\"\\");
+function foo<X, Y:X>(x:X, y:Y):void { }
+foo(0, "");
 
 function bar<X:number, Y:X>(x:X, y:Y): number { return y*0; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function foo<X, Y: X>(x: X, y: Y): void {}
-foo(0, \\"\\");
+foo(0, "");
 
 function bar<X: number, Y: X>(x: X, y: Y): number {
   return y * 0;
 }
-"
+
 `;
 
 exports[`test.js 1`] = `
-"function foo<T: number>(x: T): T {
+function foo<T: number>(x: T): T {
     var _ = x * 1; // OK
     var y: string = x; // error
     return x; // OK
@@ -34,7 +34,7 @@ class C<T: number> {
 }
 
 function example<T: {x: number}>(o: T): T { o.x = 0; return o; }
-var obj1: {x: number; y: string} = example({x: 0, y: \\"\\"});
+var obj1: {x: number; y: string} = example({x: 0, y: ""});
 var obj2: {x: number} = example({x: 0});
 
 var c: C<string> = new C; // error, since T = string is incompatible with number
@@ -63,12 +63,12 @@ function example<T: { x: number }>(o: T): T {
   o.x = 0;
   return o;
 }
-var obj1: { x: number, y: string } = example({ x: 0, y: \\"\\" });
+var obj1: { x: number, y: string } = example({ x: 0, y: "" });
 var obj2: { x: number } = example({ x: 0 });
 
 var c: C<string> = new C(); // error, since T = string is incompatible with number
 var q: number = c.qux(0);
 /* 2 more errors, since argument U = number is incompatible with T = string, and
  * result T = string is incompatible with number */
-"
+
 `;

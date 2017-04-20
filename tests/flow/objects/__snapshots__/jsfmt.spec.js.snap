@@ -1,10 +1,73 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`compatibility.js 1`] = `
+let tests = [
+  function(x: { x: { foo: string } }, y: { x: { bar: number } }) {
+    x = y; // 2 errors: \`foo\` not found in y.x; \`bar\` not found in x.x
+  },
+
+  function(x: { foo: string }, y: { foo: number }) {
+    x = y; // 2 errors: string !~> number; number !~> string
+  },
+
+  function(x: { x: { foo: string } }, y: { x: { foo: number } }) {
+    x = y; // 2 errors: string !~> number; number !~> string
+  },
+
+  function(x: { +foo: string }, y: { +foo: number }) {
+    x = y; // 1 error: number !~> string
+  },
+
+  function(x: { x: { +foo: string } }, y: { x: { +foo: number } }) {
+    x = y; // 2 errors: string !~> number; number !~> string
+  },
+
+  function(x: { -foo: string }, y: { -foo: number }) {
+    x = y; // 1 error: string !~> number
+  },
+
+  function(x: { x: { -foo: string } }, y: { x: { -foo: number } }) {
+    x = y; // 2 errors: string !~> number; number !~> string
+  },
+];
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let tests = [
+  function(x: { x: { foo: string } }, y: { x: { bar: number } }) {
+    x = y; // 2 errors: \`foo\` not found in y.x; \`bar\` not found in x.x
+  },
+
+  function(x: { foo: string }, y: { foo: number }) {
+    x = y; // 2 errors: string !~> number; number !~> string
+  },
+
+  function(x: { x: { foo: string } }, y: { x: { foo: number } }) {
+    x = y; // 2 errors: string !~> number; number !~> string
+  },
+
+  function(x: { +foo: string }, y: { +foo: number }) {
+    x = y; // 1 error: number !~> string
+  },
+
+  function(x: { x: { +foo: string } }, y: { x: { +foo: number } }) {
+    x = y; // 2 errors: string !~> number; number !~> string
+  },
+
+  function(x: { -foo: string }, y: { -foo: number }) {
+    x = y; // 1 error: string !~> number
+  },
+
+  function(x: { x: { -foo: string } }, y: { x: { -foo: number } }) {
+    x = y; // 2 errors: string !~> number; number !~> string
+  }
+];
+
+`;
+
 exports[`conversion.js 1`] = `
-"/* @flow */
+/* @flow */
 
 (Object({foo: 'bar'}): {foo: string});
-(Object(\\"123\\"): String);
+(Object("123"): String);
 (Object(123): Number);
 (Object(true): Boolean);
 (Object(null): {});
@@ -13,9 +76,9 @@ exports[`conversion.js 1`] = `
 (Object(undefined): Number); // error
 
 var x = Object(null);
-x.foo = \\"bar\\";
+x.foo = "bar";
 
-var y = Object(\\"123\\");
+var y = Object("123");
 (y.charAt(0): string);
 
 var z = Object(123); // error (next line makes this not match any signatures)
@@ -23,8 +86,8 @@ var z = Object(123); // error (next line makes this not match any signatures)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-(Object({ foo: \\"bar\\" }): { foo: string });
-(Object(\\"123\\"): String);
+(Object({ foo: "bar" }): { foo: string });
+(Object("123"): String);
 (Object(123): Number);
 (Object(true): Boolean);
 (Object(null): {});
@@ -33,18 +96,18 @@ var z = Object(123); // error (next line makes this not match any signatures)
 (Object(undefined): Number); // error
 
 var x = Object(null);
-x.foo = \\"bar\\";
+x.foo = "bar";
 
-var y = Object(\\"123\\");
+var y = Object("123");
 (y.charAt(0): string);
 
 var z = Object(123); // error (next line makes this not match any signatures)
 (z.charAt(0): string);
-"
+
 `;
 
 exports[`objects.js 1`] = `
-"/* @flow */
+/* @flow */
 
 var x : {'123': string, bar: string} = {'123': 'val', bar: 'bar'};
 (x.foo : string);     // error, key doesn't exist
@@ -65,27 +128,27 @@ y['bar'] = 'abc'; // error, property not found
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-var x: { \\"123\\": string, bar: string } = { \\"123\\": \\"val\\", bar: \\"bar\\" };
+var x: { "123": string, bar: string } = { "123": "val", bar: "bar" };
 (x.foo: string); // error, key doesn't exist
-(x[\\"foo\\"]: string); // error, key doesn't exist
+(x["foo"]: string); // error, key doesn't exist
 (x[123]: boolean); // TODO: use the number's value to error here
 (x.bar: boolean); // error, string !~> boolean
-(x[\\"123\\"]: boolean); // error, string !~> boolean
-x[\\"123\\"] = false; // error, boolean !~> string
+(x["123"]: boolean); // error, string !~> boolean
+x["123"] = false; // error, boolean !~> string
 x[123] = false; // TODO: use the number's value to error here
-x[\\"foo\\" + \\"bar\\"] = \\"derp\\"; // ok since we can't tell
+x["foo" + "bar"] = "derp"; // ok since we can't tell
 (x[\`foo\`]: string); // error, key doesn't exist
 
-var y: { foo: string } = { foo: \\"bar\\" };
-y[\\"foo\\"] = 123; // error, number !~> string
-y[\\"bar\\"] = \\"abc\\"; // error, property not found
+var y: { foo: string } = { foo: "bar" };
+y["foo"] = 123; // error, number !~> string
+y["bar"] = "abc"; // error, property not found
 
-(y[\\"hasOwnProperty\\"]: string); // error, prototype method is not a string
-"
+(y["hasOwnProperty"]: string); // error, prototype method is not a string
+
 `;
 
 exports[`unaliased_assign.js 1`] = `
-"/**
+/**
  * test handling of unaliased value assignment.
  *
  * An unaliased object rvalue may be assigned to a supertype lvalue,
@@ -99,17 +162,17 @@ exports[`unaliased_assign.js 1`] = `
  * @flow
  */
 
-var glob: { x: string } = { x: \\"hey\\" };
+var glob: { x: string } = { x: "hey" };
 
 function assign_then_alias() {
   var obj: { x: string | number };
-  obj = { x: \\"hey\\" };
+  obj = { x: "hey" };
   glob = obj;    // error: subsequent assignment might make glob.x a number
 }
 
 function assign_then_widen() {
   var obj: { x: string | number };
-  obj = { x: \\"hey\\" };
+  obj = { x: "hey" };
   obj.x = 10;  // ok, by lvalue's given type
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -127,18 +190,18 @@ function assign_then_widen() {
  * @flow
  */
 
-var glob: { x: string } = { x: \\"hey\\" };
+var glob: { x: string } = { x: "hey" };
 
 function assign_then_alias() {
   var obj: { x: string | number };
-  obj = { x: \\"hey\\" };
+  obj = { x: "hey" };
   glob = obj; // error: subsequent assignment might make glob.x a number
 }
 
 function assign_then_widen() {
   var obj: { x: string | number };
-  obj = { x: \\"hey\\" };
+  obj = { x: "hey" };
   obj.x = 10; // ok, by lvalue's given type
 }
-"
+
 `;

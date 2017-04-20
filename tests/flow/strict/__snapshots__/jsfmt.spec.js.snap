@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`annot.js 1`] = `
-"var A = require('./unknown_class');
+var A = require('./unknown_class');
 
 class B extends A {
   foo(x:A):A { return x; }
@@ -11,7 +11,7 @@ class B extends A {
 
 module.exports = B;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var A = require(\\"./unknown_class\\");
+var A = require("./unknown_class");
 
 class B extends A {
   foo(x: A): A {
@@ -24,11 +24,11 @@ class B extends A {
 }
 
 module.exports = B;
-"
+
 `;
 
 exports[`fun.js 1`] = `
-"/**
+/**
  * @flow
  */
 
@@ -57,11 +57,11 @@ function f(x: number) {
 var x: string = f(0);
 
 module.exports = f;
-"
+
 `;
 
 exports[`obj.js 1`] = `
-"/**
+/**
  * @flow
  */
 
@@ -86,5 +86,5 @@ var o = { x: 0 };
 var x: string = o.x;
 
 module.exports = o;
-"
+
 `;

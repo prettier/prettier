@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`A.js 1`] = `
-"/**
+/**
  * @providesModule A
  * @flow
  */
 
 module.exports = {
   numberValueA: 1,
-  stringValueA: \\"someString\\"
+  stringValueA: "someString"
 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /**
@@ -18,20 +18,20 @@ module.exports = {
 
 module.exports = {
   numberValueA: 1,
-  stringValueA: \\"someString\\"
+  stringValueA: "someString"
 };
-"
+
 `;
 
 exports[`B.js 1`] = `
-"/**
+/**
  * @providesModule B
  * @flow
  */
 
 module.exports = {
   numberValueB: 1,
-  stringValueB: \\"someString\\"
+  stringValueB: "someString"
 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /**
@@ -41,13 +41,13 @@ module.exports = {
 
 module.exports = {
   numberValueB: 1,
-  stringValueB: \\"someString\\"
+  stringValueB: "someString"
 };
-"
+
 `;
 
 exports[`requireLazy.js 1`] = `
-"/**
+/**
  * @flow
  */
 
@@ -74,7 +74,7 @@ requireLazy(['A']); // Error: No calback expression
  * @flow
  */
 
-requireLazy([\\"A\\", \\"B\\"], function(A, B) {
+requireLazy(["A", "B"], function(A, B) {
   var num1: number = A.numberValueA;
   var str1: string = A.stringValueA;
   var num2: number = A.stringValueA; // Error: string ~> number
@@ -91,6 +91,6 @@ var notB: Object = B;
 
 requireLazy(); // Error: No args
 requireLazy([nope], function() {}); // Error: Non-stringliteral args
-requireLazy([\\"A\\"]); // Error: No calback expression
-"
+requireLazy(["A"]); // Error: No calback expression
+
 `;

@@ -12,7 +12,6 @@ function tup_pattern<X>([ proj ] : [X]) {} // proj: X
 type Proj<X> = [X];
 function tup_pattern2<X>([ proj ] : Proj<X>) {} // proj: X
 
-function rest_antipattern<T>(...t: T) {} // nonsense
 function rest_pattern<X>(...r: X[]) {} // r: X[]
 
 function obj_rest_pattern<X>({ _, ...o } : { _: any, x: X }) { // o: { x: X }

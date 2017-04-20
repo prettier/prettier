@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`break-continue.js 1`] = `
-"function foo() {
+function foo() {
     while(true) { break; }
 }
 
@@ -20,11 +20,11 @@ function bar() {
     continue L;
   } while (false);
 }
-"
+
 `;
 
 exports[`return.js 1`] = `
-"function bar(x:number) { }
+function bar(x:number) { }
 function foo() {
     var x = null;
     if (x == null) return;
@@ -37,5 +37,16 @@ function foo() {
   if (x == null) return;
   bar(x);
 }
-"
+
+`;
+
+exports[`toplevel_throw.js 1`] = `
+// @flow
+
+throw new Error('foo'); // no error
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+
+throw new Error("foo"); // no error
+
 `;

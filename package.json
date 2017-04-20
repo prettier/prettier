@@ -1,6 +1,6 @@
 {
   "name": "prettier",
-  "version": "0.22.0",
+  "version": "1.2.2",
   "description": "Prettier is an opinionated JavaScript formatter",
   "bin": {
     "prettier": "./bin/prettier.js"
@@ -26,6 +26,8 @@
   "devDependencies": {
     "diff": "3.2.0",
     "jest": "19.0.1",
+    "mkdirp": "^0.5.1",
+    "rimraf": "^2.6.1",
     "rollup": "0.41.1",
     "rollup-plugin-commonjs": "7.0.0",
     "rollup-plugin-json": "2.1.0",
@@ -45,6 +47,9 @@
   "jest": {
     "setupFiles": [
       "<rootDir>/tests_config/run_spec.js"
+    ],
+    "snapshotSerializers": [
+      "<rootDir>/tests_config/raw-serializer.js"
     ],
     "testRegex": "jsfmt\\.spec\\.js$",
     "testPathIgnorePatterns": [

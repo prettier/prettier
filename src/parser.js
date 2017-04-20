@@ -16,12 +16,8 @@ function parseWithFlow(text) {
       line: ast.errors[0].loc.start.line,
       column: ast.errors[0].loc.start.column
     };
-    const msg = ast.errors[0].message +
-      " (" +
-      loc.line +
-      ":" +
-      loc.column +
-      ")";
+    const msg =
+      ast.errors[0].message + " (" + loc.line + ":" + loc.column + ")";
     const error = new SyntaxError(msg);
     error.loc = loc;
     throw error;
@@ -58,16 +54,16 @@ function parseWithTypeScript(text) {
   // While we are working on typescript, we are putting it in devDependencies
   // so it shouldn't be picked up by static analysis
   const r = require;
-  const parser = r('typescript-eslint-parser')
+  const parser = r("typescript-eslint-parser");
   return parser.parse(text, {
     loc: true,
     range: true,
     tokens: true,
     attachComment: true,
     ecmaFeatures: {
-      jsx: true,
+      jsx: true
     }
-  })
+  });
 }
 
 module.exports = { parseWithFlow, parseWithBabylon, parseWithTypeScript };
