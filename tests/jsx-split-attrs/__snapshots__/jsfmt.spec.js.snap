@@ -122,8 +122,7 @@ long_open_long_children = (
         colour="blue"
         size="large"
         submitLabel="Sign in with Google"
-      />
-      d
+      />d
     </BaseForm>
     <BaseForm
       url="/auth/google"
@@ -179,6 +178,7 @@ leave_opening = (
     submitLabel="Sign in with Google"
   >
     {" "}
+
   </BaseForm>
 );
 

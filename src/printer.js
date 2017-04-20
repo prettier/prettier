@@ -17,6 +17,7 @@ var group = docBuilders.group;
 var indent = docBuilders.indent;
 var align = docBuilders.align;
 var conditionalGroup = docBuilders.conditionalGroup;
+var fill = docBuilders.fill;
 var ifBreak = docBuilders.ifBreak;
 var breakParent = docBuilders.breakParent;
 var lineSuffixBoundary = docBuilders.lineSuffixBoundary;
@@ -3436,8 +3437,8 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
 
       if (/\S/.test(value)) {
         // treat each line of text as its own entity
-        value.split(/(\r?\n\s*)/).forEach(line => {
-          const newlines = line.match(/\n/g);
+        value.split(/(\r?\n\s*)/).forEach(textLine => {
+          const newlines = textLine.match(/\n/g);
           if (newlines) {
             children.push(hardline);
 
@@ -3448,27 +3449,30 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
             return;
           }
 
-          const beginSpace = /^\s+/.test(line);
+          const beginSpace = /^\s+/.test(textLine);
           if (beginSpace) {
             children.push(jsxWhitespace);
-            children.push(softline);
           }
 
-          const stripped = line.replace(/^\s+|\s+$/g, "");
+          const stripped = textLine.replace(/^\s+|\s+$/g, "");
           if (stripped) {
-            children.push(stripped);
+
+            // Split text into words separated by "line"s.
+            stripped.split(/(\s+)/).forEach(word => {
+              const space = /\s+/.test(word);
+              if (space) {
+                children.push(line);
+              } else {
+                children.push(word);
+              }
+            });
           }
 
-          const endSpace = /\s+$/.test(line);
+          const endSpace = /\s+$/.test(textLine);
           if (endSpace) {
-            children.push(softline);
             children.push(jsxWhitespace);
           }
         });
-
-        if (!isLineNext(util.getLast(children))) {
-          children.push(softline);
-        }
       } else if (/\n/.test(value)) {
         children.push(hardline);
 
@@ -3481,15 +3485,19 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
         // eg; one or more spaces separating two elements
         for (let i = 0; i < value.length; ++i) {
           children.push(jsxWhitespace);
+          if (i + 1 < value.length) {
+            children.push('');
+          }
         }
-        children.push(softline);
       }
     } else {
       children.push(print(childPath));
 
-      // add a line unless it's followed by a JSX newline
+      // add a softline where we have two adjacent JSX elements without
+      // any text or whitespace between them.
       let next = n.children[i + 1];
-      if (!(next && /^\s*\n/.test(next.value))) {
+      const followedByJSXElement = next && next.type === 'JSXElement';
+      if (followedByJSXElement) {
         children.push(softline);
       }
     }
@@ -3547,8 +3555,8 @@ function printJSXElement(path, options, print) {
   let forcedBreak = willBreak(openingLines);
 
   const jsxWhitespace = options.singleQuote
-    ? ifBreak("{' '}", " ")
-    : ifBreak('{" "}', " ");
+    ? ifBreak(concat(["{' '}", softline]), " ")
+    : ifBreak(concat(['{" "}', softline]), " ");
   const children = printJSXChildren(path, options, print, jsxWhitespace);
 
   // Trim trailing lines, recording if there was a hardline
@@ -3619,7 +3627,7 @@ function printJSXElement(path, options, print) {
       groups.map(
         contents =>
           (Array.isArray(contents)
-            ? conditionalGroup([concat(contents)])
+            ? conditionalGroup([fill(contents)])
             : contents)
       )
     )
@@ -3639,7 +3647,7 @@ function printJSXElement(path, options, print) {
   }
 
   return conditionalGroup([
-    group(concat([openingLines, concat(children), closingLines])),
+    group(concat([openingLines, fill(children), closingLines])),
     multiLineElem
   ]);
 }

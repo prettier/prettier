@@ -54,6 +54,12 @@ function conditionalGroup(states, opts) {
   );
 }
 
+function fill(parts) {
+  parts.forEach(assertDoc);
+
+  return { type: "fill", parts };
+}
+
 function ifBreak(breakContents, flatContents) {
   if (breakContents) {
     assertDoc(breakContents);
@@ -103,6 +109,7 @@ module.exports = {
   literalline,
   group,
   conditionalGroup,
+  fill,
   lineSuffix,
   lineSuffixBoundary,
   breakParent,

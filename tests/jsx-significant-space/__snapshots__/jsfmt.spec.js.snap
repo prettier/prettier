@@ -90,8 +90,9 @@ before = (
 
 before_break1 = (
   <span>
-    <span barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar />
-    {" "}
+    <span
+      barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar
+    />{" "}
     foo
   </span>
 );
@@ -100,16 +101,14 @@ before_break2 = (
   <span>
     <span
       barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar
-    />
-    {" "}
+    />{" "}
     foo
   </span>
 );
 
 after_break = (
   <span>
-    foo
-    {" "}
+    foo{" "}
     <span barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar />
   </span>
 );
@@ -146,13 +145,15 @@ nest_plz = (
 
 regression_not_transformed_1 = (
   <span>
-    {" "}<Icon icon="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
+    {" "}
+    <Icon icon="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
   </span>
 );
 
 regression_not_transformed_2 = (
   <span>
     <Icon icon="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />{" "}
+
   </span>
 );
 
@@ -165,8 +166,8 @@ similar_1 = (
 
 similar_2 = (
   <span>
-    <Icon icon="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
-    {" "}
+    <Icon icon="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />{" "}
+
   </span>
 );
 
@@ -178,22 +179,15 @@ similar_3 = (
 
 not_broken_end = (
   <div>
-    long text long text long text long text long text long text long text long text
-    {" "}
-    <link>url</link>
-    {" "}
-    long text long text
+    long text long text long text long text long text long text long text long
+    text <link>url</link> long text long text
   </div>
 );
 
 not_broken_begin = (
   <div>
-    <br />
-    {" "}
-    long text long text long text long text long text long text long text long text
-    <link>url</link>
-    {" "}
-    long text long text
+    <br /> long text long text long text long text long text long text long text
+    long text<link>url</link> long text long text
   </div>
 );
 

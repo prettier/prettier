@@ -1,5 +1,12 @@
 "use strict";
 
+const docBuilders = require("./doc-builders");
+const concat = docBuilders.concat;
+const line = docBuilders.line;
+const softline = docBuilders.softline;
+const fill = docBuilders.fill;
+const ifBreak = docBuilders.ifBreak;
+
 const MODE_BREAK = 1;
 const MODE_FLAT = 2;
 
@@ -40,7 +47,7 @@ function makeAlign(ind, n) {
   };
 }
 
-function fits(next, restCommands, width) {
+function fits(next, restCommands, width, mustBeFlat) {
   let restIdx = restCommands.length;
   const cmds = [next];
   while (width >= 0) {
@@ -80,7 +87,16 @@ function fits(next, restCommands, width) {
 
           break;
         case "group":
+          if (mustBeFlat && doc.break) {
+            return false;
+          }
           cmds.push([ind, doc.break ? MODE_BREAK : mode, doc.contents]);
+
+          break;
+        case "fill":
+          for (var i = doc.parts.length - 1; i >= 0; i--) {
+            cmds.push([ind, mode, doc.parts[i]]);
+          }
 
           break;
         case "if-break":
@@ -220,6 +236,77 @@ function printDocToString(doc, options) {
               break;
           }
           break;
+
+        // Fills each line with as much code as possible before moving to a new
+        // line with the same indentation.
+        //
+        // Expects doc.parts to be an array of alternating code and
+        // whitespace. The whitespace contains the linebreaks.
+        //
+        // For example:
+        //   ["I", line, "love", line, "monkeys"]
+        // or
+        //   [{ type: group, ... }, softline, { type: group, ... }]
+        //
+        // It uses this parts structure to handle three main layout cases:
+        // * The first two non-whitespace items fit on the same line without
+        //   breaking -> output both items and the whitespace "flat".
+        // * Only the first item fits on the line without breaking -> output the
+        //   first item "flat" and the whitespace with "break".
+        // * Neither item fits on the line without breaking -> output the first
+        //   item and the whitespace with "break".
+        case "fill": {
+          let rem = width - pos;
+
+          const parts = doc.parts;
+          if (parts.length === 0) {
+            break;
+          }
+
+          const first = parts[0];
+          const firstCmd = [ind, MODE_FLAT, first];
+          if (parts.length === 1) {
+            if (fits(firstCmd, cmds, width - rem, true)) {
+              cmds.push(firstCmd);
+            } else {
+              cmds.push([ind, mode, first]);
+            }
+            break;
+          }
+
+          const split = parts[1];
+          if (parts.length === 2) {
+            if (fits(firstCmd, cmds, width - rem, true)) {
+              cmds.push([ind, MODE_FLAT, split]);
+              cmds.push(firstCmd);
+            } else {
+              cmds.push([ind, mode, split]);
+              cmds.push([ind, mode, first]);
+            }
+            break;
+          }
+
+          const second = parts[2];
+          const remaining = parts.slice(2);
+          const remainingCmd = [ind, MODE_BREAK, fill(remaining)];
+
+          const firstAndSecondCmd = [ind, MODE_FLAT, concat([first, split, second])];
+
+          if (fits(firstAndSecondCmd, cmds, rem, true)) {
+            cmds.push(remainingCmd)
+            cmds.push([ind, MODE_FLAT, split]);
+            cmds.push(firstCmd);
+          } else if (fits(firstCmd, cmds, width - rem, true)) {
+            cmds.push(remainingCmd)
+            cmds.push([ind, MODE_BREAK, split]);
+            cmds.push(firstCmd);
+          } else {
+            cmds.push(remainingCmd);
+            cmds.push([ind, MODE_BREAK, split]);
+            cmds.push([ind, MODE_BREAK, first]);
+          }
+          break;
+        }
         case "if-break":
           if (mode === MODE_BREAK) {
             if (doc.breakContents) {
