@@ -1152,7 +1152,9 @@ function genericPrintNoParens(path, options, print, args) {
       }
       parts.push("while");
 
-      parts.push(" (", path.call(print, "test"), ")", semi);
+      parts.push(" (", indent(softline));
+	  
+	  parts.push(path.call(print, "test"), softline, ")", semi);
 
       return concat(parts);
     case "DoExpression":
@@ -1953,16 +1955,6 @@ function genericPrintNoParens(path, options, print, args) {
       ]);
     case "TSFirstTypeNode":
       return concat([n.parameterName.name, " is ", path.call(print, "typeAnnotation")])
-    case "TSNeverKeyword":
-      return "never";
-    case "TSUndefinedKeyword":
-      return "undefined";
-    case "TSSymbolKeyword":
-      return "symbol";
-    case "TSNonNullExpression":
-      return concat([path.call(print, "expression"), "!"]);
-    case "TSThisType":
-      return "this";
     // TODO
     case "ClassHeritage":
     // TODO
