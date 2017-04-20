@@ -1153,7 +1153,7 @@ function genericPrintNoParens(path, options, print, args) {
       parts.push("while");
 
       parts.push(" (", indent(softline));
-	  
+
 	  parts.push(path.call(print, "test"), softline, ")", semi);
 
       return concat(parts);
@@ -1955,6 +1955,16 @@ function genericPrintNoParens(path, options, print, args) {
       ]);
     case "TSFirstTypeNode":
       return concat([n.parameterName.name, " is ", path.call(print, "typeAnnotation")])
+    case "TSNeverKeyword":
+      return "never";
+    case "TSUndefinedKeyword":
+      return "undefined";
+    case "TSSymbolKeyword":
+      return "symbol";
+    case "TSNonNullExpression":
+      return concat([path.call(print, "expression"), "!"]);
+    case "TSThisType":
+      return "this";
     // TODO
     case "ClassHeritage":
     // TODO
@@ -2295,8 +2305,6 @@ function printFunctionParams(path, print, options, expandArg) {
   }
 
   const lastParam = util.getLast(fun[paramsField]);
-  const canHaveTrailingComma =
-    !(lastParam && lastParam.type === "RestElement") && !fun.rest;
 
   // If the parent is a call with the first/last argument expansion and this is the
   // params of the first/last argument, we dont want the arguments to break and instead
@@ -2358,6 +2366,11 @@ function printFunctionParams(path, print, options, expandArg) {
     fun[paramsField][0].name === null &&
     fun[paramsField][0].typeAnnotation &&
     flowTypeAnnotations.indexOf(fun[paramsField][0].typeAnnotation.type) !== -1 &&
+    !fun.rest;
+
+  const canHaveTrailingComma =
+    !isFlowShorthandWithOneArg &&
+    !(lastParam && lastParam.type === "RestElement") &&
     !fun.rest;
 
   return concat([
