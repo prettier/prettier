@@ -2303,8 +2303,6 @@ function printFunctionParams(path, print, options, expandArg) {
   }
 
   const lastParam = util.getLast(fun[paramsField]);
-  const canHaveTrailingComma =
-    !(lastParam && lastParam.type === "RestElement") && !fun.rest;
 
   // If the parent is a call with the first/last argument expansion and this is the
   // params of the first/last argument, we dont want the arguments to break and instead
@@ -2366,6 +2364,11 @@ function printFunctionParams(path, print, options, expandArg) {
     fun[paramsField][0].name === null &&
     fun[paramsField][0].typeAnnotation &&
     flowTypeAnnotations.indexOf(fun[paramsField][0].typeAnnotation.type) !== -1 &&
+    !fun.rest;
+
+  const canHaveTrailingComma =
+    !isFlowShorthandWithOneArg &&
+    !(lastParam && lastParam.type === "RestElement") &&
     !fun.rest;
 
   return concat([
