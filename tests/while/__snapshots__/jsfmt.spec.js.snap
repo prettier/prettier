@@ -3,6 +3,8 @@
 exports[`indent.js 1`] = `
 if (someVeryLongStringA && someVeryLongStringB && someVeryLongStringC && someVeryLongStringD) {}
 while (someVeryLongStringA && someVeryLongStringB && someVeryLongStringC && someVeryLongStringD) {}
+do {}
+while (someVeryLongStringA && someVeryLongStringB && someVeryLongStringC && someVeryLongStringD);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 if (
   someVeryLongStringA &&
@@ -18,5 +20,12 @@ while (
   someVeryLongStringD
 ) {
 }
+do {
+} while (
+  someVeryLongStringA &&
+  someVeryLongStringB &&
+  someVeryLongStringC &&
+  someVeryLongStringD
+);
 
 `;
