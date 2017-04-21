@@ -1864,6 +1864,7 @@ function genericPrintNoParens(path, options, print, args) {
               join(concat([",", line]), path.map(print, "params"))
             ])
           ),
+          ifBreak(shouldPrintComma(options, "all") ? "," : ""),
           softline,
           ">"
         ])
