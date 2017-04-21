@@ -1150,9 +1150,14 @@ function genericPrintNoParens(path, options, print, args) {
       } else {
         parts.push(hardline);
       }
-      parts.push("while");
+      parts.push("while (");
 
-      parts.push(" (", path.call(print, "test"), ")", semi);
+      parts.push(group(
+          concat([
+            indent(softline), path.call(print, "test"),
+            softline
+          ])
+        ), ")", semi);
 
       return concat(parts);
     case "DoExpression":
@@ -1963,15 +1968,6 @@ function genericPrintNoParens(path, options, print, args) {
       return concat([path.call(print, "expression"), "!"]);
     case "TSThisType":
       return "this";
-    case "TSLastTypeNode":
-      return path.call(print, "literal")
-    case "TSIndexedAccessType":
-      return concat([
-        path.call(print, "objectType"),
-        "[",
-        path.call(print, "indexType"),
-        "]"
-      ])
     // TODO
     case "ClassHeritage":
     // TODO
