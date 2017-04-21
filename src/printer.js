@@ -1515,8 +1515,10 @@ function genericPrintNoParens(path, options, print, args) {
             path.getParentNode().constraint) &&
           // TypeScript should not have a colon in TSFirstTypeNode nodes
           // `a is number`
+          // or TSConstructorType nodes
           !(path.getParentNode().type === "TypeAnnotation" &&
-           path.getParentNode().typeAnnotation.type === 'TSFirstTypeNode')
+            (path.getParentNode().typeAnnotation.type === 'TSFirstTypeNode' ||
+              path.getParentNode().typeAnnotation.type === "TSConstructorType"))
         ) {
           parts.push(": ");
         }
@@ -1971,6 +1973,13 @@ function genericPrintNoParens(path, options, print, args) {
         "[",
         path.call(print, "indexType"),
         "]"
+      ])
+    case "TSConstructorType":
+      return concat([
+        "new(",
+        join(", ", path.map(print, "parameters")),
+        ") => ",
+        path.call(print, "typeAnnotation"),
       ])
     // TODO
     case "ClassHeritage":
