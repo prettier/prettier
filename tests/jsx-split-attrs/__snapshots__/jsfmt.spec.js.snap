@@ -178,7 +178,6 @@ leave_opening = (
     submitLabel="Sign in with Google"
   >
     {" "}
-
   </BaseForm>
 );
 

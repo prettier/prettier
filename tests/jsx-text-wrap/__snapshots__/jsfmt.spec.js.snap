@@ -38,7 +38,8 @@ x = (
 // Wrapping tags
 x = (
   <div>
-    <first>f</first> <first>f</first> <first>f</first> <first>f</first>{" "}
+    <first>f</first> <first>f</first> <first>f</first> <first>f</first>
+    {" "}
     <first>f</first> <first>f</first>
   </div>
 );
@@ -55,7 +56,8 @@ x = (
 x = (
   <div>
     <a /><b /><c />
-    <first>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</first>{" "}
+    <first>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</first>
+    {" "}
     <first>f</first>
   </div>
 );
@@ -63,7 +65,8 @@ x = (
 // Wrapping tags
 x = (
   <div>
-    <sadashdkjahsdkjhaskjdhaksjdhkashdkashdkasjhdkajshdkashdkashd />{" "}
+    <sadashdkjahsdkjhaskjdhaksjdhkashdkashdkasjhdkajshdkashdkashd />
+    {" "}
     <first>f</first>
   </div>
 );

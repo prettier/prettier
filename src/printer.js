@@ -3555,8 +3555,21 @@ function printJSXElement(path, options, print) {
   let forcedBreak = willBreak(openingLines);
 
   const jsxWhitespace = options.singleQuote
+    ? ifBreak(concat([softline, "{' '}", softline]), " ")
+    : ifBreak(concat([softline, '{" "}', softline]), " ");
+
+  const leadingJsxWhitespace = options.singleQuote
     ? ifBreak(concat(["{' '}", softline]), " ")
     : ifBreak(concat(['{" "}', softline]), " ");
+
+  const trailingJsxWhitespace = options.singleQuote
+    ? ifBreak(concat([softline, "{' '}"]), " ")
+    : ifBreak(concat([softline, '{" "}']), " ");
+
+  const solitaryJsxWhitespace = options.singleQuote
+    ? ifBreak(concat(["{' '}"]), " ")
+    : ifBreak(concat(['{" "}']), " ");
+
   const children = printJSXChildren(path, options, print, jsxWhitespace);
 
   // Trim trailing lines, recording if there was a hardline
@@ -3593,10 +3606,14 @@ function printJSXElement(path, options, print) {
     // leading and trailing JSX whitespace don't go into a group
     if (child === jsxWhitespace) {
       if (i === 0) {
-        groups.unshift(child);
+        if (children.length === 1) {
+          groups.push(solitaryJsxWhitespace);
+          return;
+        }
+        groups.unshift(leadingJsxWhitespace);
         return;
       } else if (i === children.length - 1) {
-        groups.push(child);
+        groups.push(trailingJsxWhitespace);
         return;
       }
     }
@@ -3617,6 +3634,16 @@ function printJSXElement(path, options, print) {
       if (willBreak(child)) forcedBreak = true;
     }
   });
+
+  if (children[0] === jsxWhitespace) {
+    children[0] = leadingJsxWhitespace;
+    if (children.length === 1) {
+      children[0] = solitaryJsxWhitespace;
+    }
+  }
+  if (children[children.length - 1] === jsxWhitespace) {
+    children[children.length - 1] = trailingJsxWhitespace;
+  }
 
   const childrenGroupedByLine = [
     hardline,
