@@ -1976,11 +1976,9 @@ function genericPrintNoParens(path, options, print, args) {
       ])
     case "TSConstructorType":
       return concat([
-        "new",
-        "(",
+        "new(",
         join(", ", path.map(print, "parameters")),
-        ")",
-        " => ",
+        ") => ",
         path.call(print, "typeAnnotation"),
       ])
     // TODO
