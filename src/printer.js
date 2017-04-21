@@ -1152,9 +1152,7 @@ function genericPrintNoParens(path, options, print, args) {
       }
       parts.push("while");
 
-      parts.push(" (", indent(softline));
-
-      parts.push(path.call(print, "test"), softline, ")", semi);
+      parts.push(" (", path.call(print, "test"), ")", semi);
 
       return concat(parts);
     case "DoExpression":
