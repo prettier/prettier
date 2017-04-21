@@ -21,33 +21,28 @@ const comp4 = <div style={styles} key="something">Create wrapping parens and ind
 
 const comp5 = <div>Keep it on one line.</div>;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const comp1 = (
+const comp1 =
   <div style={styles} key="something">
     Keep the wrapping parens.
-  </div>
-);
+  </div>;
 
-const comp2 = (
+const comp2 =
   <div style={styles} key="something">
     Create wrapping parens.
-  </div>
-);
+  </div>;
 
-comp2A = (
+comp2A =
   <div style={styles} key="something">
     Create wrapping parens.
-  </div>
-);
+  </div>;
 
-const comp3 = (
-  <div style={styles} key="something">Bump to next line without parens</div>
-);
+const comp3 =
+  <div style={styles} key="something">Bump to next line without parens</div>;
 
-const comp4 = (
+const comp4 =
   <div style={styles} key="something">
     Create wrapping parens and indent <strong>all the things</strong>.
-  </div>
-);
+  </div>;
 
 const comp5 = <div>Keep it on one line.</div>;
 

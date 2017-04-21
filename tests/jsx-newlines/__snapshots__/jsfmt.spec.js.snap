@@ -96,15 +96,14 @@ regression_extra_newline_2 = (
   </div>
 );
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-keep = (
+keep =
   <p>
     Welcome to the <strong>Universal React Starter-kyt</strong>.
     This starter kyt should serve as the base for an advanced,
     server-rendered React app.
-  </p>
-);
+  </p>;
 
-newlines_text = (
+newlines_text =
   <div>
     hi
     there
@@ -113,30 +112,27 @@ newlines_text = (
     are you
 
     are you fine today?
-  </div>
-);
+  </div>;
 
-newlines_text_spaced = (
+newlines_text_spaced =
   <div>
 
     space above
 
     space below
 
-  </div>
-);
+  </div>;
 
-newlines_elems_spaced = (
+newlines_elems_spaced =
   <div>
 
     <span>space above</span>
 
     <span>space below</span>
 
-  </div>
-);
+  </div>;
 
-newlines_mixed = (
+newlines_mixed =
   <div>
     hi
     <span>there</span>
@@ -146,10 +142,9 @@ newlines_mixed = (
     are <strong>you</strong>
 
     are you fine today?
-  </div>
-);
+  </div>;
 
-newlines_elems = (
+newlines_elems =
   <div>
     <div>
 
@@ -165,17 +160,15 @@ newlines_elems = (
 
     <Big />
 
-  </div>
-);
+  </div>;
 
-regression_extra_newline = (
+regression_extra_newline =
   <div>
     <span className="nuclide-console-new-messages-notification-icon icon icon-nuclicon-arrow-down" />
     New Messages
-  </div>
-);
+  </div>;
 
-regression_extra_newline_2 = (
+regression_extra_newline_2 =
   <div>
     (
     <FormattedMessage
@@ -183,8 +176,7 @@ regression_extra_newline_2 = (
       defaultMessage="some loooooooooooooooooooooooooooong default"
     />
     )
-  </div>
-);
+  </div>;
 
 `;
 
