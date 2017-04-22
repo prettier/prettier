@@ -21,6 +21,16 @@ function makeIndent(ind) {
 }
 
 function makeAlign(ind, n) {
+  if (n === -Infinity) {
+    return {
+      indent: 0,
+      align: {
+        spaces: 0,
+        tabs: 0
+      }
+    };
+  }
+
   return {
     indent: ind.indent,
     align: {
