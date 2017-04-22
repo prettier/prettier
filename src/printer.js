@@ -306,9 +306,15 @@ function genericPrintNoParens(path, options, print, args) {
     case "Path":
       return join(".", n.body);
     case "Identifier":
+      var parentNode = path.getParentNode()
+      var isFunctionDeclarationIdentifier = 
+        parentNode.type === 'DeclareFunction' &&
+        parentNode.id === n
+          
       return concat([
         n.name,
         n.optional ? "?" : "",
+        (n.typeAnnotation && !isFunctionDeclarationIdentifier) ? ": " : "",
         path.call(print, "typeAnnotation")
       ]);
     case "SpreadElement":
@@ -322,6 +328,7 @@ function genericPrintNoParens(path, options, print, args) {
       return concat([
         "...",
         path.call(print, "argument"),
+        n.typeAnnotation ? ": " : "",
         path.call(print, "typeAnnotation")
       ]);
     case "FunctionDeclaration":
@@ -788,6 +795,7 @@ function genericPrintNoParens(path, options, print, args) {
               parentIsUnionTypeAnnotation ? 2 : 0,
               concat([options.bracketSpacing ? line : softline, rightBrace])
             ),
+            n.typeAnnotation ? ": " : "",
             path.call(print, "typeAnnotation")
           ]),
           { shouldBreak }
@@ -892,7 +900,7 @@ function genericPrintNoParens(path, options, print, args) {
         );
       }
 
-      if (n.typeAnnotation) parts.push(path.call(print, "typeAnnotation"));
+      if (n.typeAnnotation) parts.push(": ", path.call(print, "typeAnnotation"));
 
       return concat(parts);
     case "SequenceExpression":
@@ -1452,7 +1460,7 @@ function genericPrintNoParens(path, options, print, args) {
 
       parts.push(key);
 
-      if (n.typeAnnotation) parts.push(path.call(print, "typeAnnotation"));
+      if (n.typeAnnotation) parts.push(": ", path.call(print, "typeAnnotation"));
 
       if (n.value) parts.push(" = ", path.call(print, "value"));
 
@@ -1512,25 +1520,7 @@ function genericPrintNoParens(path, options, print, args) {
     // transformed away before printing.
     case "TypeAnnotation":
       if (n.typeAnnotation) {
-        if (
-          n.typeAnnotation.type !== "FunctionTypeAnnotation" &&
-          !shouldTypeScriptTypeAvoidColon(path) &&
-          // TypeScript should not have a colon before type parameter constraints
-          !(path.getParentNode().type === "TypeParameter" &&
-            path.getParentNode().constraint) &&
-          // TypeScript should not have a colon in TSFirstTypeNode nodes
-          // `a is number`
-          // or TSConstructorType nodes
-          !(path.getParentNode().type === "TypeAnnotation" &&
-            (path.getParentNode().typeAnnotation.type === 'TSFirstTypeNode' ||
-              path.getParentNode().typeAnnotation.type === "TSConstructorType"))
-        ) {
-          parts.push(": ");
-        }
-
-        parts.push(path.call(print, "typeAnnotation"));
-
-        return concat(parts);
+        return path.call(print, 'typeAnnotation')
       }
 
       return "";
@@ -1595,6 +1585,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "DeclareModuleExports":
       return printFlowDeclaration(path, [
         "module.exports",
+        ": ",
         path.call(print, "typeAnnotation"),
         semi
       ]);
@@ -1637,9 +1628,6 @@ function genericPrintNoParens(path, options, print, args) {
         needsColon = true;
       }
 
-      if (needsColon) {
-        parts.push(": ");
-      }
       if (needsParens) {
         parts.push("(");
       }
@@ -1784,19 +1772,15 @@ function genericPrintNoParens(path, options, print, args) {
       var variance = getFlowVariance(n, options);
       // TODO: This is a bad hack and we need a better way to know
       // when to emit an arrow function or not.
-      var isFunction =
-        !variance && !n.optional && n.value.type === "FunctionTypeAnnotation";
-
-      if (isObjectTypePropertyAFunction(n)) {
-        isFunction = true;
-      }
+      var isFunctionNotation = util.locStart(n) === util.locStart(n.value)
+      var isGetterOrSetter = n.kind === "get" || n.kind === "set"
 
       return concat([
         n.static ? "static " : "",
         variance || "",
         path.call(print, "key"),
         n.optional ? "?" : "",
-        isFunction ? "" : ": ",
+        (isFunctionNotation && !isGetterOrSetter) ? "" : ": ",
         path.call(print, "value")
       ]);
     case "QualifiedTypeIdentifier":
@@ -1843,6 +1827,7 @@ function genericPrintNoParens(path, options, print, args) {
       return concat([
         "(",
         path.call(print, "expression"),
+        ": ",
         path.call(print, "typeAnnotation"),
         ")"
       ]);
@@ -1880,6 +1865,7 @@ function genericPrintNoParens(path, options, print, args) {
       parts.push(path.call(print, "name"));
 
       if (n.bound) {
+        parts.push(": ");
         parts.push(path.call(print, "bound"));
       }
 
@@ -1927,6 +1913,7 @@ function genericPrintNoParens(path, options, print, args) {
       return concat([path.call(print, "elementType"), "[]"]);
     case "TSPropertySignature":
       parts.push(path.call(print, "name"));
+      parts.push(": ")
       parts.push(path.call(print, "typeAnnotation"));
 
       return concat(parts);
@@ -2491,6 +2478,11 @@ function printObjectMethod(path, options, print) {
 function printReturnType(path, print) {
   const n = path.getValue();
   const parts = [path.call(print, "returnType")];
+
+  // prepend colon to TypeScript type annotation
+  if (n.returnType && n.returnType.typeAnnotation) {
+    parts.unshift(": ")
+  }
 
   if (n.predicate) {
     // The return type will already add the colon, but otherwise we
