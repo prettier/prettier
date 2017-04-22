@@ -954,7 +954,9 @@ function genericPrintNoParens(path, options, print, args) {
             concat([
               line,
               "? ",
+              n.consequent.type === "ConditionalExpression" ? ifBreak("", "(") : "",
               align(2, path.call(print, "consequent")),
+              n.consequent.type === "ConditionalExpression" ? ifBreak("", ")") : "",
               line,
               ": ",
               align(2, path.call(print, "alternate"))

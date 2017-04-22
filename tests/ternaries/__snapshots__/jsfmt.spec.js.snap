@@ -1,5 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`parenthesis.js 1`] = `
+debug ? this.state.isVisible ? "partially visible" : "hidden" : null;
+debug ? this.state.isVisible && somethingComplex ? "partially visible" : "hidden" : null;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+debug ? (this.state.isVisible ? "partially visible" : "hidden") : null;
+debug
+  ? this.state.isVisible && somethingComplex ? "partially visible" : "hidden"
+  : null;
+
+`;
+
+exports[`parenthesis.js 2`] = `
+debug ? this.state.isVisible ? "partially visible" : "hidden" : null;
+debug ? this.state.isVisible && somethingComplex ? "partially visible" : "hidden" : null;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+debug ? (this.state.isVisible ? "partially visible" : "hidden") : null;
+debug
+    ? this.state.isVisible && somethingComplex ? "partially visible" : "hidden"
+    : null;
+
+`;
+
 exports[`test.js 1`] = `
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing
 
