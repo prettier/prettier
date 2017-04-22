@@ -3410,19 +3410,10 @@ function isFirstStatement(path) {
   return body && body[0] === node;
 }
 
-function removeEmptyStatementsOnTail(stmts) {
-  let index = stmts.length - 1;
-  while (index >= 0 && stmts[index].type === "EmptyStatement") {
-    index--;
-  }
-
-  return stmts.slice(0, index + 1);
-}
-
 function isLastStatement(path) {
   const parent = path.getParentNode();
   const node = path.getValue();
-  const body = removeEmptyStatementsOnTail(parent.body);
+  const body = parent.body.filter(stmt => stmt.type !== "EmptyStatement");
   return body && body[body.length - 1] === node;
 }
 
