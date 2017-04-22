@@ -194,6 +194,13 @@ function attach(comments, ast, text, options) {
       }
     } else if (util.hasNewline(text, locEnd(comment))) {
       if (
+        handleLastFunctionArgComments(
+          text,
+          precedingNode,
+          enclosingNode,
+          followingNode,
+          comment
+        ) ||
         handleConditionalExpressionComments(
           enclosingNode,
           precedingNode,
