@@ -3428,7 +3428,7 @@ function isFirstStatement(path) {
 function isLastStatement(path) {
   const parent = path.getParentNode();
   const node = path.getValue();
-  const body = parent.body;
+  const body = parent.body.filter(stmt => stmt.type !== "EmptyStatement");
   return body && body[body.length - 1] === node;
 }
 
