@@ -3449,9 +3449,15 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
             return;
           }
 
+          if (textLine.length === 0) {
+            return;
+          }
+
           const beginSpace = /^\s+/.test(textLine);
           if (beginSpace) {
             children.push(jsxWhitespace);
+          } else {
+            children.push(softline);
           }
 
           const stripped = textLine.replace(/^\s+|\s+$/g, "");
@@ -3471,6 +3477,8 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
           const endSpace = /\s+$/.test(textLine);
           if (endSpace) {
             children.push(jsxWhitespace);
+          } else {
+            children.push(softline);
           }
         });
       } else if (/\n/.test(value)) {
@@ -3493,10 +3501,10 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
     } else {
       children.push(print(childPath));
 
-      // add a softline where we have two adjacent JSX elements without
-      // any text or whitespace between them.
+      // add a softline where we have two adjacent elements that are not
+      // literals
       let next = n.children[i + 1];
-      const followedByJSXElement = next && next.type === 'JSXElement';
+      const followedByJSXElement = next && !namedTypes.Literal.check(next);
       if (followedByJSXElement) {
         children.push(softline);
       }
