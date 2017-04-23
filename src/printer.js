@@ -1699,6 +1699,7 @@ function genericPrintNoParens(path, options, print, args) {
         path.call(print, "id"),
         path.call(print, "typeParameters")
       ]);
+    case "TSIntersectionType":
     case "IntersectionTypeAnnotation": {
       const types = path.map(print, "types");
       const result = [];
@@ -1989,8 +1990,6 @@ function genericPrintNoParens(path, options, print, args) {
         "keyof ",
         path.call(print, "typeAnnotation")
       ])
-    case "TSIntersectionType":
-      return join(concat([line, "& "]), path.map(print, "types"))
     // TODO
     case "ClassHeritage":
     // TODO
