@@ -1974,6 +1974,11 @@ function genericPrintNoParens(path, options, print, args) {
         ") => ",
         path.call(print, "typeAnnotation"),
       ])
+    case "TSTypeOperator":
+      return concat([
+        "keyof ",
+        path.call(print, "typeAnnotation")
+      ])
     // TODO
     case "ClassHeritage":
     // TODO
