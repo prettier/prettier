@@ -3423,7 +3423,7 @@ function isEmptyJSXElement(node) {
 //
 // For another, leading, trailing, and lone whitespace all need to
 // turn themselves into the rather ugly `{' '}` when breaking.
-function printJSXChildren(path, options, print, jsxWhitespace) {
+function printJSXChildren(path, options, print, innerJsxWhitespace) {
   const n = path.getValue();
   const children = [];
 
@@ -3455,7 +3455,7 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
 
           const beginSpace = /^\s+/.test(textLine);
           if (beginSpace) {
-            children.push(jsxWhitespace);
+            children.push(innerJsxWhitespace);
           } else {
             children.push(softline);
           }
@@ -3476,7 +3476,7 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
 
           const endSpace = /\s+$/.test(textLine);
           if (endSpace) {
-            children.push(jsxWhitespace);
+            children.push(innerJsxWhitespace);
           } else {
             children.push(softline);
           }
@@ -3492,7 +3492,7 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
         // whitespace(s)-only without newlines,
         // eg; one or more spaces separating two elements
         for (let i = 0; i < value.length; ++i) {
-          children.push(jsxWhitespace);
+          children.push(innerJsxWhitespace);
           if (i + 1 < value.length) {
             children.push('');
           }
@@ -3562,23 +3562,13 @@ function printJSXElement(path, options, print) {
   // Record any breaks. Should never go from true to false, only false to true.
   let forcedBreak = willBreak(openingLines);
 
-  const jsxWhitespace = options.singleQuote
-    ? ifBreak(concat([softline, "{' '}", softline]), " ")
-    : ifBreak(concat([softline, '{" "}', softline]), " ");
+  const jsxWhitespace = options.singleQuote ? "{' '}" : '{" "}';
+  const innerJsxWhitespace = ifBreak(concat([softline, jsxWhitespace, softline]), " ")
+  const leadingJsxWhitespace = ifBreak(concat([jsxWhitespace, softline]), " ");
+  const trailingJsxWhitespace = ifBreak(concat([softline, jsxWhitespace]), " ");
+  const solitaryJsxWhitespace = ifBreak(jsxWhitespace, " ");
 
-  const leadingJsxWhitespace = options.singleQuote
-    ? ifBreak(concat(["{' '}", softline]), " ")
-    : ifBreak(concat(['{" "}', softline]), " ");
-
-  const trailingJsxWhitespace = options.singleQuote
-    ? ifBreak(concat([softline, "{' '}"]), " ")
-    : ifBreak(concat([softline, '{" "}']), " ");
-
-  const solitaryJsxWhitespace = options.singleQuote
-    ? ifBreak(concat(["{' '}"]), " ")
-    : ifBreak(concat(['{" "}']), " ");
-
-  const children = printJSXChildren(path, options, print, jsxWhitespace);
+  const children = printJSXChildren(path, options, print, innerJsxWhitespace);
 
   // Trim trailing lines, recording if there was a hardline
   let numTrailingHard = 0;
@@ -3612,7 +3602,7 @@ function printJSXElement(path, options, print) {
   let groups = [[]]; // Initialize the first line's group
   children.forEach((child, i) => {
     // leading and trailing JSX whitespace don't go into a group
-    if (child === jsxWhitespace) {
+    if (child === innerJsxWhitespace) {
       if (i === 0) {
         if (children.length === 1) {
           groups.push(solitaryJsxWhitespace);
@@ -3643,13 +3633,13 @@ function printJSXElement(path, options, print) {
     }
   });
 
-  if (children[0] === jsxWhitespace) {
+  if (children[0] === innerJsxWhitespace) {
     children[0] = leadingJsxWhitespace;
     if (children.length === 1) {
       children[0] = solitaryJsxWhitespace;
     }
   }
-  if (children[children.length - 1] === jsxWhitespace) {
+  if (children[children.length - 1] === innerJsxWhitespace) {
     children[children.length - 1] = trailingJsxWhitespace;
   }
 
