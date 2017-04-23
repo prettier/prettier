@@ -565,6 +565,13 @@ function fn5() {}
 
 `;
 
+exports[`functionTypeTypeParameters.ts 1`] = `
+type FuncWithTypeParameter = <T, P>() => {};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type FuncWithTypeParameter = <T, P>() => {};
+
+`;
+
 exports[`parameterInitializersForwardReferencing.ts 1`] = `
 function left(a, b = a, c = b) {
     a;
