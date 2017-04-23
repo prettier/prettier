@@ -1989,6 +1989,8 @@ function genericPrintNoParens(path, options, print, args) {
         "keyof ",
         path.call(print, "typeAnnotation")
       ])
+    case "TSIntersectionType":
+      return join(concat([line, "& "]), path.map(print, "types"))
     // TODO
     case "ClassHeritage":
     // TODO
