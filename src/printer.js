@@ -1015,7 +1015,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "VariableDeclarator":
       return printAssignment(
         n.id,
-        path.call(print, "id"),
+        concat([path.call(print, "id"), path.call(print, "typeParameters")]),
         "=",
         n.init,
         n.init && path.call(print, "init"),
