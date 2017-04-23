@@ -1989,6 +1989,28 @@ function genericPrintNoParens(path, options, print, args) {
         "keyof ",
         path.call(print, "typeAnnotation")
       ])
+    case "TSMappedType":
+      return concat([
+        "{",
+        options.bracketSpacing ? line : softline,
+        "[",
+        path.call(print, "typeParameter"),
+        "]: ",
+        path.call(print, "typeAnnotation"),
+        options.bracketSpacing ? line : softline,
+        "}"
+      ])
+    case "TSTypeParameter":
+      parts.push(path.call(print, "name"))
+      
+      if (n.constraint) {
+        parts.push(
+          " in ",
+          path.call(print, "constraint")
+        )
+      }
+      
+      return concat(parts)
     // TODO
     case "ClassHeritage":
     // TODO
