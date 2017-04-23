@@ -240,7 +240,7 @@ function printDocToString(doc, options) {
         // Fills each line with as much code as possible before moving to a new
         // line with the same indentation.
         //
-        // Expects doc.parts to be an array of alternating code and
+        // Expects doc.parts to be an array of alternating content and
         // whitespace. The whitespace contains the linebreaks.
         //
         // For example:
@@ -249,12 +249,14 @@ function printDocToString(doc, options) {
         //   [{ type: group, ... }, softline, { type: group, ... }]
         //
         // It uses this parts structure to handle three main layout cases:
-        // * The first two non-whitespace items fit on the same line without
-        //   breaking -> output both items and the whitespace "flat".
-        // * Only the first item fits on the line without breaking -> output the
-        //   first item "flat" and the whitespace with "break".
-        // * Neither item fits on the line without breaking -> output the first
-        //   item and the whitespace with "break".
+        // * The first two content items fit on the same line without
+        //   breaking
+        //   -> output the first content item and the whitespace "flat".
+        // * Only the first content item fits on the line without breaking
+        //   -> output the first content item "flat" and the whitespace with
+        //   "break".
+        // * Neither content item fits on the line without breaking
+        //   -> output the first content item and the whitespace with "break".
         case "fill": {
           let rem = width - pos;
 
@@ -263,47 +265,54 @@ function printDocToString(doc, options) {
             break;
           }
 
-          const first = parts[0];
-          const firstCmd = [ind, MODE_FLAT, first];
+          const content = parts[0];
+          const contentFlatCmd = [ind, MODE_FLAT, content];
+          const contentBreakCmd = [ind, MODE_BREAK, content];
+          const contentFits = fits(contentFlatCmd, cmds, width - rem, true)
+
           if (parts.length === 1) {
-            if (fits(firstCmd, cmds, width - rem, true)) {
-              cmds.push(firstCmd);
+            if (contentFits) {
+              cmds.push(contentFlatCmd);
             } else {
-              cmds.push([ind, mode, first]);
+              cmds.push(contentBreakCmd);
             }
             break;
           }
 
-          const split = parts[1];
+          const whitespace = parts[1];
+          const whitespaceFlatCmd = [ind, MODE_FLAT, whitespace]
+          const whitespaceBreakCmd = [ind, MODE_BREAK, whitespace]
+
           if (parts.length === 2) {
-            if (fits(firstCmd, cmds, width - rem, true)) {
-              cmds.push([ind, MODE_FLAT, split]);
-              cmds.push(firstCmd);
+            if (contentFits) {
+              cmds.push(whitespaceFlatCmd);
+              cmds.push(contentFlatCmd);
             } else {
-              cmds.push([ind, mode, split]);
-              cmds.push([ind, mode, first]);
+              cmds.push(whitespaceBreakCmd);
+              cmds.push(contentBreakCmd);
             }
             break;
           }
 
-          const second = parts[2];
           const remaining = parts.slice(2);
-          const remainingCmd = [ind, MODE_BREAK, fill(remaining)];
+          const remainingCmd = [ind, mode, fill(remaining)];
 
-          const firstAndSecondCmd = [ind, MODE_FLAT, concat([first, split, second])];
+          const secondContent = parts[2];
+          const firstAndSecondContentFlatCmd = [ind, MODE_FLAT, concat([content, whitespace, secondContent])];
+          const firstAndSecondContentFits = fits(firstAndSecondContentFlatCmd, cmds, rem, true);
 
-          if (fits(firstAndSecondCmd, cmds, rem, true)) {
+          if (firstAndSecondContentFits) {
             cmds.push(remainingCmd)
-            cmds.push([ind, MODE_FLAT, split]);
-            cmds.push(firstCmd);
-          } else if (fits(firstCmd, cmds, width - rem, true)) {
+            cmds.push(whitespaceFlatCmd);
+            cmds.push(contentFlatCmd);
+          } else if (contentFits) {
             cmds.push(remainingCmd)
-            cmds.push([ind, MODE_BREAK, split]);
-            cmds.push(firstCmd);
+            cmds.push(whitespaceBreakCmd);
+            cmds.push(contentFlatCmd);
           } else {
             cmds.push(remainingCmd);
-            cmds.push([ind, MODE_BREAK, split]);
-            cmds.push([ind, MODE_BREAK, first]);
+            cmds.push(whitespaceBreakCmd);
+            cmds.push(contentBreakCmd);
           }
           break;
         }
