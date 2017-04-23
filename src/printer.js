@@ -1918,7 +1918,17 @@ function genericPrintNoParens(path, options, print, args) {
 
       return concat(parts);
     case "TSTypeReference":
-      return concat([path.call(print, "typeName")]);
+      parts.push(path.call(print, "typeName"))
+      
+      if (n.typeArguments) {
+        parts.push(
+          "<",
+          join(", ", path.map(print, "typeArguments")),
+          ">"
+        )
+      }
+      
+      return concat(parts);
     case "TSCallSignature":
       return concat([
         "(",
