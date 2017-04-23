@@ -1705,6 +1705,7 @@ function genericPrintNoParens(path, options, print, args) {
         path.call(print, "id"),
         path.call(print, "typeParameters")
       ]);
+    case "TSIntersectionType":
     case "IntersectionTypeAnnotation": {
       const types = path.map(print, "types");
       const result = [];
