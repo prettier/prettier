@@ -1631,8 +1631,14 @@ function genericPrintNoParens(path, options, print, args) {
       if (needsParens) {
         parts.push("(");
       }
-
-      parts.push(path.call(print, "typeParameters"));
+    
+      if (n.typeParameters && n.typeParameters.length) {
+        parts.push(
+          "<",
+          join(", ", path.map(print, "typeParameters")),
+          ">"
+        )
+      }
 
       parts.push(printFunctionParams(path, print, options));
 
