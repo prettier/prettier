@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`typeOperator.ts 1`] = `
+let a: (keyof T)[] = ["a", "b"];
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let a: (keyof T)[] = ["a", "b"];
+
+`;
