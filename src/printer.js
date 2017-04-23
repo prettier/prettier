@@ -1991,11 +1991,14 @@ function genericPrintNoParens(path, options, print, args) {
       ])
     case "TSMappedType":
       return concat([
-        "{ [",
+        "{",
+        options.bracketSpacing ? line : softline,
+        "[",
         path.call(print, "typeParameter"),
         "]: ",
         path.call(print, "typeAnnotation"),
-        " }"
+        options.bracketSpacing ? line : softline,
+        "}"
       ])
     case "TSTypeParameter":
       parts.push(path.call(print, "name"))
