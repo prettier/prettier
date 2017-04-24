@@ -3633,16 +3633,6 @@ function printJSXElement(path, options, print) {
     }
   });
 
-  if (children[0] === innerJsxWhitespace) {
-    children[0] = leadingJsxWhitespace;
-    if (children.length === 1) {
-      children[0] = solitaryJsxWhitespace;
-    }
-  }
-  if (children[children.length - 1] === innerJsxWhitespace) {
-    children[children.length - 1] = trailingJsxWhitespace;
-  }
-
   const childrenGroupedByLine = [
     hardline,
     // Conditional groups suppress break propagation; we want to output
