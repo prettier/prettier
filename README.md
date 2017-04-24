@@ -10,6 +10,7 @@
   * [CLI](#cli)
     + [Pre-commit hook for changed files](#pre-commit-hook-for-changed-files)
   * [API](#api)
+  * [Options](#options)
   * [Excluding code from formatting](#excluding-code-from-formatting)
 - [Editor Integration](#editor-integration)
   * [Atom](#atom)
@@ -135,7 +136,7 @@ npm install [-g] prettier
 ### CLI
 
 Run Prettier through the CLI with this script. Run it without any
-arguments to see the options.
+arguments to see the [options](#options).
 
 To format a file in-place, use `--write`. You may want to consider
 committing your code before doing that, just in case.
@@ -202,48 +203,13 @@ exit 1
 
 ### API
 
-The API has two functions, exported as `format` and `check`. The options
-argument is optional, and all of the defaults are shown below:
+The API has two functions, exported as `format` and `check`. `format` usage is as follows:
 
 ```js
 const prettier = require("prettier");
 
-prettier.format(source, {
-  // 
-  useTabs: false,
-
-  // Fit code within this line limit
-  printWidth: 80,
-
-  // Number of spaces it should use per tab
-  tabWidth: 2,
-
-  // If true, will use single instead of double quotes
-  singleQuote: false,
-
-  // Controls the printing of trailing commas wherever possible. Valid options:
-  // "none" - No trailing commas
-  // "es5"  - Trailing commas where valid in ES5 (objects, arrays, etc)
-  // "all"  - Trailing commas wherever possible (function arguments)
-  //
-  // NOTE: Above is only available in 0.19.0 and above. Previously this was
-  // a boolean argument.
-  trailingComma: "none",
-
-  // Controls the printing of spaces inside object literals
-  bracketSpacing: true,
-
-  // If true, puts the `>` of a multi-line jsx element at the end of
-  // the last line instead of being alone on the next line
-  jsxBracketSameLine: false,
-
-  // Which parser to use. Valid options are "flow" and "babylon"
-  parser: "babylon",
-
-  // Whether to add a semicolon at the end of every line (semi: true),
-  // or only at the beginning of lines that may introduce ASI failures (semi: false)
-  semi: true
-});
+const options = {} // optional
+prettier.format(source, options);
 ```
 
 `check` checks to see if the file has been formatted with Prettier given those options and returns a Boolean.
@@ -422,7 +388,7 @@ including non-standardized ones. By default it uses the
 [Babylon](https://github.com/babel/babylon) parser with all language
 features enabled, but you can also use the
 [Flow](https://github.com/facebook/flow) parser with the
-`parser` API or `--parser` CLI option.
+`parser` API or `--parser` CLI [option](#options).
 
 All of JSX and Flow syntax is supported. In fact, the test suite in
 `tests` *is* the entire Flow test suite and they all pass.
