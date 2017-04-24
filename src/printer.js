@@ -3603,11 +3603,11 @@ function printJSXElement(path, options, print) {
   children.forEach((child, i) => {
     // leading and trailing JSX whitespace don't go into a group
     if (child === innerJsxWhitespace) {
-      if (i === 0) {
-        if (children.length === 1) {
-          groups.push(solitaryJsxWhitespace);
-          return;
-        }
+      if (children.length === 1) {
+        groups.unshift(solitaryJsxWhitespace);
+        groups.pop();  // remove unnecessary empty group
+        return;
+      } else if (i === 0) {
         groups.unshift(leadingJsxWhitespace);
         return;
       } else if (i === children.length - 1) {
