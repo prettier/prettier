@@ -2401,7 +2401,6 @@ function printFunctionParams(path, print, options, expandArg) {
   const flowTypeAnnotations = [
     "AnyTypeAnnotation",
     "NullLiteralTypeAnnotation",
-    "NullableTypeAnnotation",
     "GenericTypeAnnotation",
     "ThisTypeAnnotation",
     "NumberTypeAnnotation",
@@ -2411,14 +2410,17 @@ function printFunctionParams(path, print, options, expandArg) {
     "MixedTypeAnnotation",
     "BooleanTypeAnnotation",
     "BooleanLiteralTypeAnnotation",
-    "StringLiteralTypeAnnotation",
     "StringTypeAnnotation"
   ];
 
   const isFlowShorthandWithOneArg =
     (isObjectTypePropertyAFunction(parent) ||
       isTypeAnnotationAFunction(parent) ||
-      parent.type === "TypeAlias") &&
+      parent.type === "TypeAlias" ||
+      parent.type === "UnionTypeAnnotation" ||
+      parent.type === "IntersectionTypeAnnotation" ||
+      (parent.type === "FunctionTypeAnnotation" &&
+        parent.returnType === fun)) &&
     fun[paramsField].length === 1 &&
     fun[paramsField][0].name === null &&
     fun[paramsField][0].typeAnnotation &&
