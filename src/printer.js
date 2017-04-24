@@ -1631,13 +1631,17 @@ function genericPrintNoParens(path, options, print, args) {
       if (needsParens) {
         parts.push("(");
       }
-    
-      if (n.typeParameters && n.typeParameters.length) {
+
+      // With TypeScript `typeParameters` is an array of `TSTypeParameter` and
+      // with flow they are one `TypeParameterDeclaration` node.
+      if (n.type === 'TSFunctionType' && n.typeParameters) {
         parts.push(
           "<",
           join(", ", path.map(print, "typeParameters")),
           ">"
         )
+      } else {
+        parts.push(path.call(print, "typeParameters"));
       }
 
       parts.push(printFunctionParams(path, print, options));
