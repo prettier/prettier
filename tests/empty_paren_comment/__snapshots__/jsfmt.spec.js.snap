@@ -1,7 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`class.js 1`] = `
+class x {
+  /**
+  * Set of default settings to be applied to model fetch calls in DAO layer.
+  */
+  static get defaultSettings() {
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class x {
+  /**
+  * Set of default settings to be applied to model fetch calls in DAO layer.
+  */
+  static get defaultSettings() {}
+}
+
+`;
+
 exports[`empty_paren_comment.js 1`] = `
-"let f = (/* ... */) => {}
+let f = (/* ... */) => {}
 (function (/* ... */) {})(/* ... */)
 function f(/* ... */) {}
 
@@ -14,12 +32,12 @@ const obj = {
 
 class Foo {
   f(/* ... */) {}
+  f() /* ... */ {}
   f = (/* ... */) => {};
   static f(/* ... */) {};
   static f = (/* ... */) => {};
   static f = function(/* ... */) {};
   static f = function f(/* ... */) {};
-  static f /* ... */() {};
 }
 
 f(/* ... */);
@@ -40,17 +58,18 @@ const obj = {
 
 class Foo {
   f(/* ... */) {}
+  f() /* ... */ {
+  }
   f = (/* ... */) => {};
   static f(/* ... */) {}
   static f = (/* ... */) => {};
   static f = function(/* ... */) {};
   static f = function f(/* ... */) {};
-  static f(/* ... */) {}
 }
 
 f(/* ... */);
 f(a /* ... */);
 f(a, /* ... */ b);
 f(/* ... */ a, b);
-"
+
 `;

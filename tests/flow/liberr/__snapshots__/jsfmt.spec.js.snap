@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`a.js 1`] = `
-"/**
+/**
  * @flow
  */
 // one error here, to verify lib errors sort to top.
@@ -12,5 +12,5 @@ var x: string = 0;
  */
 // one error here, to verify lib errors sort to top.
 var x: string = 0;
-"
+
 `;

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test.js 1`] = `
-"/* @noflow */
+/* @noflow */
 
 interface IFoo { foo: string }
 
@@ -68,5 +68,5 @@ interface IPoly<T> { x: T }
 class C8<T> implements IPoly<T> {
   x: T;
 }
-"
+
 `;

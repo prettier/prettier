@@ -1,7 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`comment.js 1`] = `
+\`
+(?:\${escapeChar}[\\\\S\\\\s]|(?:(?!\${// Using \`XRegExp.union\` safely rewrites backreferences in \`left\` and \`right\`.
+// Intentionally not passing \`basicFlags\` to \`XRegExp.union\` since any syntax
+// transformation resulting from those flags was already applied to \`left\` and
+// \`right\` when they were passed through the XRegExp constructor above.
+XRegExp.union([left, right], '', {conjunction: 'or'}).source})[^\${escapeChar}])+)+
+\`;
+
+\`a\${/* b */c/* d */}e\${// f
+g
+// h
+}\`;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\`
+(?:\${escapeChar}[\\\\S\\\\s]|(?:(?!\${/* Using \`XRegExp.union\` safely rewrites backreferences in \`left\` and \`right\`.*/
+// Intentionally not passing \`basicFlags\` to \`XRegExp.union\` since any syntax
+// transformation resulting from those flags was already applied to \`left\` and
+// \`right\` when they were passed through the XRegExp constructor above.
+XRegExp.union([left, right], "", {
+  conjunction: "or"
+}).source})[^\${escapeChar}])+)+
+\`;
+
+\`a\${/* b */ /* d */ c}e\${/* f*/
+g}// h
+\`;
+
+`;
+
 exports[`faulty-locations.js 1`] = `
-"var o = {
+var o = {
   [\`key\`]: () => {
     // Comment
   }
@@ -30,118 +60,118 @@ var x = {
     }
   \`
 };
-"
+
 `;
 
 exports[`parenthesis.js 1`] = `
-"// \\"ArrowFunctionExpression\\"
+// "ArrowFunctionExpression"
 (() => {})\`\`;
 
-// \\"AssignmentExpression\\"
+// "AssignmentExpression"
 (b = c)\`\`;
 
-// \\"AwaitExpression\\"
+// "AwaitExpression"
 async function f() {
   (await b)\`\`;
 }
 
-// \\"BinaryExpression\\"
+// "BinaryExpression"
 (b + c)\`\`;
 
-// \\"CallExpression\\"
+// "CallExpression"
 b()\`\`;
 
-// \\"ClassExpression\\"
+// "ClassExpression"
 (class {})\`\`;
 
-// \\"ConditionalExpression\\"
+// "ConditionalExpression"
 (b ? c : d)\`\`;
 
-// \\"FunctionExpression\\"
+// "FunctionExpression"
 (function() {})\`\`;
 
-// \\"LogicalExpression\\"
+// "LogicalExpression"
 (b || c)\`\`;
 
-// \\"MemberExpression\\"
+// "MemberExpression"
 b.c\`\`;
 
-// \\"NewExpression\\"
+// "NewExpression"
 (new B())\`\`;
 
-// \\"ObjectExpression\\"
+// "ObjectExpression"
 ({})\`\`;
 
-// \\"SequenceExpression\\"
+// "SequenceExpression"
 (b, c)\`\`;
 
-// \\"TaggedTemplateExpression\\"
+// "TaggedTemplateExpression"
 (\`\`)\`\`;
 
-// \\"UnaryExpression\\"
+// "UnaryExpression"
 (void b)\`\`;
 
-// \\"UpdateExpression\\"
+// "UpdateExpression"
 (++b)\`\`;
 
-// \\"YieldExpression\\"
+// "YieldExpression"
 function* f() {
   (yield 1)\`\`;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// \\"ArrowFunctionExpression\\"
+// "ArrowFunctionExpression"
 (() => {})\`\`;
 
-// \\"AssignmentExpression\\"
+// "AssignmentExpression"
 (b = c)\`\`;
 
-// \\"AwaitExpression\\"
+// "AwaitExpression"
 async function f() {
   (await b)\`\`;
 }
 
-// \\"BinaryExpression\\"
+// "BinaryExpression"
 (b + c)\`\`;
 
-// \\"CallExpression\\"
+// "CallExpression"
 b()\`\`;
 
-// \\"ClassExpression\\"
+// "ClassExpression"
 (class {}\`\`);
 
-// \\"ConditionalExpression\\"
+// "ConditionalExpression"
 (b ? c : d)\`\`;
 
-// \\"FunctionExpression\\"
+// "FunctionExpression"
 (function() {})\`\`;
 
-// \\"LogicalExpression\\"
+// "LogicalExpression"
 (b || c)\`\`;
 
-// \\"MemberExpression\\"
+// "MemberExpression"
 b.c\`\`;
 
-// \\"NewExpression\\"
+// "NewExpression"
 new B()\`\`;
 
-// \\"ObjectExpression\\"
+// "ObjectExpression"
 ({}\`\`);
 
-// \\"SequenceExpression\\"
+// "SequenceExpression"
 (b, c)\`\`;
 
-// \\"TaggedTemplateExpression\\"
+// "TaggedTemplateExpression"
 \`\`\`\`;
 
-// \\"UnaryExpression\\"
+// "UnaryExpression"
 (void b)\`\`;
 
-// \\"UpdateExpression\\"
+// "UpdateExpression"
 (++b)\`\`;
 
-// \\"YieldExpression\\"
+// "YieldExpression"
 function* f() {
   (yield 1)\`\`;
 }
-"
+
 `;

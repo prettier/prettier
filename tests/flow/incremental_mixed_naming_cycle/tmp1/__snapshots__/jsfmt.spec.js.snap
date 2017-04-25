@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`root.js 1`] = `
-"/**
+/**
  * @providesModule Root
  * @flow
  */
@@ -15,6 +15,6 @@ module.exports = 'Root';
  */
 
 // trivial edit (adding this comment)
-module.exports = \\"Root\\";
-"
+module.exports = "Root";
+
 `;

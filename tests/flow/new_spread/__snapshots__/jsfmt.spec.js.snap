@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`type.js 1`] = `
-"declare class T {}
+declare class T {}
 declare var x: T;
 
 declare class U {}
@@ -196,11 +196,11 @@ declare var o12: O12;
 type O13 = { ...{ p: T }, p: U };
 declare var o13: O13;
 (o13: { p: U });
-"
+
 `;
 
 exports[`type_any.js 1`] = `
-"type O1 = {...any};
+type O1 = {...any};
 var o1: O1 = (0: mixed); // ok
 (o1: empty); // ok
 
@@ -227,11 +227,11 @@ declare class Derived extends Base {}
 type O3 = { ...Derived };
 var o3: O3 = (0: mixed); // ok
 (o3: empty); // ok
-"
+
 `;
 
 exports[`type_contra.js 1`] = `
-"declare class T {};
+declare class T {};
 
 type O1 = {...{-p:T}};
 declare var o1: O1;
@@ -258,11 +258,11 @@ declare var o2: O2;
 (o2: { [string]: mixed }); // ok
 (o2: { [string]: T }); // error: unknown ~> T
 (o2.p: T); // errors: unknown ~> T
-"
+
 `;
 
 exports[`type_dict.js 1`] = `
-"declare class T {}
+declare class T {}
 declare class U {}
 
 declare var o1: {...{[string]:T},...{p:U}};
@@ -339,22 +339,22 @@ declare var o11: { ...{| p: T |}, ...{| [string]: U |} };
 
 declare var o12: { ...{| [string]: T |}, ...{| [string]: U |} };
 (o12: {| [string]: T | U |}); // ok
-"
+
 `;
 
 exports[`type_generic.js 1`] = `
-"declare function spread<A,B>(a: A, b: B): {...A, ...B};
+declare function spread<A,B>(a: A, b: B): {...A, ...B};
 (spread({p:0},{q:0}): {|+p:number,+q:number|}); // ok
 (spread({p:0},{q:0}): {|+p:empty,+q:empty|}); // number ~> empty (x2)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare function spread<A, B>(a: A, b: B): { ...A, ...B };
 (spread({ p: 0 }, { q: 0 }): {| +p: number, +q: number |}); // ok
 (spread({ p: 0 }, { q: 0 }): {| +p: empty, +q: empty |}); // number ~> empty (x2)
-"
+
 `;
 
 exports[`type_instance.js 1`] = `
-"class A {+p: string|number}
+class A {+p: string|number}
 class B extends A {p: number}
 
 type O1 = {...B};
@@ -381,11 +381,11 @@ declare class C { [string]: number }
 type O2 = { ...C };
 declare var o2: O2;
 (o2: { [string]: number }); // ok
-"
+
 `;
 
 exports[`type_intersection.js 1`] = `
-"declare class T {}
+declare class T {}
 declare class U {}
 
 declare class A {}
@@ -442,11 +442,11 @@ declare var o4: O4;
 type O5 = { ...{ [string]: A } & { [string]: B } };
 declare var o5: O5;
 (o5: { [string]: B }); // ok: A&B = B
-"
+
 `;
 
 exports[`type_intersection_optional.js 1`] = `
-"declare class T {}
+declare class T {}
 declare class U {}
 
 declare var o1: {...{p:T}&{p:U}};
@@ -577,11 +577,11 @@ declare var o20: { ...{ p?: T } & { q?: U } };
 
 declare var o21: { ...{| p: T |} & { q: U } };
 (o21: { p: T, q?: U }); // ok
-"
+
 `;
 
 exports[`type_optional.js 1`] = `
-"declare class T {}
+declare class T {}
 declare class U {}
 
 declare var a: {...{ p :T },...{ p :U }}; (a: { p?:T|U });
@@ -642,11 +642,11 @@ declare var o: { ...{| p: T |}, ...{| p?: U |} };
 (o: {| p: T | U |});
 declare var p: { ...{| p?: T |}, ...{| p?: U |} };
 (p: {| p?: T | U |});
-"
+
 `;
 
 exports[`type_union.js 1`] = `
-"declare class T {}
+declare class T {}
 declare var x: T;
 
 declare class U {}
@@ -665,5 +665,5 @@ declare var y: U;
 type O1 = { ...{ p: T } | { q: U } };
 declare var o1: O1;
 (o1: { p?: T } | { q?: U }); // ok
-"
+
 `;

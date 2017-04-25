@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`mobx.js 1`] = `
-"import {observable} from \\"mobx\\";
+import {observable} from "mobx";
 
 @observer class OrderLine {
   @observable price:number = 0;
@@ -20,7 +20,7 @@ exports[`mobx.js 1`] = `
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-import { observable } from \\"mobx\\";
+import { observable } from "mobx";
 
 @observer class OrderLine {
   @observable price: number = 0;
@@ -38,11 +38,11 @@ import { observable } from \\"mobx\\";
     this.price = price;
   }
 }
-"
+
 `;
 
 exports[`multiple.js 1`] = `
-"const dog = {
+const dog = {
   @readonly
   @nonenumerable
   @doubledValue
@@ -55,11 +55,11 @@ const dog = {
   @doubledValue
   legs: 4
 };
-"
+
 `;
 
 exports[`redux.js 1`] = `
-"@connect(mapStateToProps, mapDispatchToProps)
+@connect(mapStateToProps, mapDispatchToProps)
 export class MyApp extends React.Component {}
 
 @connect(state => ({ todos: state.todos }))
@@ -70,5 +70,5 @@ export class MyApp extends React.Component {}
 
 @connect(state => ({ todos: state.todos }))
 export class Home extends React.Component {}
-"
+
 `;

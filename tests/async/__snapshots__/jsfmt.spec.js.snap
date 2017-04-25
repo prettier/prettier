@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`await_parse.js 1`] = `
-"async function f() { (await f()).length }
+async function f() { (await f()).length }
 async function g() {
   invariant(
     (await driver.navigator.getUrl()).substr(-7)
@@ -26,26 +26,26 @@ function* f() {
 async function f() {
   a = !await f();
 }
-"
+
 `;
 
 exports[`conditional-expression.js 1`] = `
-"async function f() {
+async function f() {
   const result = typeof fn === 'function' ? await fn() : null;
 }
 
 (async function() {
   console.log(
-    await (true ? Promise.resolve(\\"A\\") : Promise.resolve(\\"B\\"))
+    await (true ? Promise.resolve("A") : Promise.resolve("B"))
   );
 })()
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 async function f() {
-  const result = typeof fn === \\"function\\" ? await fn() : null;
+  const result = typeof fn === "function" ? await fn() : null;
 }
 
 (async function() {
-  console.log(await (true ? Promise.resolve(\\"A\\") : Promise.resolve(\\"B\\")));
+  console.log(await (true ? Promise.resolve("A") : Promise.resolve("B")));
 })();
-"
+
 `;

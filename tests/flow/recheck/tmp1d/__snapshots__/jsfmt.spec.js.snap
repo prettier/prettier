@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`d1.js 1`] = `
-"// @flow
+// @flow
 
 export class A {}
 export class B {}
@@ -12,5 +12,5 @@ export var x = new B;
 export class A {}
 export class B {}
 export var x = new B();
-"
+
 `;

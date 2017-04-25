@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test.js 1`] = `
-"/**
+/**
  * Test nonstrict type param arity checking,
  * as enabled by
  *
@@ -35,7 +35,7 @@ class MyClass2<T, U = string> {
   }
 }
 
-var c2: MyClass2 = new MyClass2(0, \\"\\"); // no error
+var c2: MyClass2 = new MyClass2(0, ""); // no error
 
 // no arity error in type annotation using polymorphic type alias
 
@@ -108,7 +108,7 @@ class MyClass2<T, U=string> {
   }
 }
 
-var c2: MyClass2 = new MyClass2(0, \\"\\"); // no error
+var c2: MyClass2 = new MyClass2(0, ""); // no error
 
 // no arity error in type annotation using polymorphic type alias
 
@@ -150,5 +150,5 @@ function singleton<T>(x: T): Array<T> {
 }
 
 var num_array: Array<number> = singleton(0); // ok, type arg inferred
-"
+
 `;

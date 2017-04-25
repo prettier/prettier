@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`conditional.js 1`] = `
-"function* f() {
+function* f() {
   a = (yield) ? 1 : 1;
   a = yield 1 ? 1 : 1;
   a = (yield 1) ? 1 : 1;
@@ -40,5 +40,5 @@ async function f() {
   a = (await 1) ? 1 : 1;
   a = 1 ? await 1 : await 1;
 }
-"
+
 `;

@@ -235,34 +235,46 @@ FPp.needsParens = function(assumeExpressionContext) {
   }
 
   if (
-    parent.type === "ArrowFunctionExpression" && parent.body === node && startsWithNoLookaheadToken(node, /* forbidFunctionAndClass */ false)
-    || parent.type === "ExpressionStatement" && startsWithNoLookaheadToken(node, /* forbidFunctionAndClass */ true)
+    (parent.type === "ArrowFunctionExpression" &&
+      parent.body === node &&
+      startsWithNoLookaheadToken(node, /* forbidFunctionAndClass */ false)) ||
+    (parent.type === "ExpressionStatement" &&
+      startsWithNoLookaheadToken(node, /* forbidFunctionAndClass */ true))
   ) {
     return true;
   }
 
   switch (node.type) {
     case "CallExpression":
+      if (parent.type === "NewExpression" && parent.callee === node) {
+        return true;
+      }
       return false;
 
     case "SpreadElement":
     case "SpreadProperty":
-      return parent.type === "MemberExpression" &&
+      return (
+        parent.type === "MemberExpression" &&
         name === "object" &&
-        parent.object === node;
+        parent.object === node
+      );
 
     case "UpdateExpression":
       if (parent.type === "UnaryExpression") {
-        return node.prefix &&
+        return (
+          node.prefix &&
           ((node.operator === "++" && parent.operator === "+") ||
-              (node.operator === "--" && parent.operator === "-"));
+            (node.operator === "--" && parent.operator === "-"))
+        );
       }
-      // else fall through
+    // else fall through
     case "UnaryExpression":
       switch (parent.type) {
         case "UnaryExpression":
-          return node.operator === parent.operator &&
-            (node.operator === "+" || node.operator === "-");
+          return (
+            node.operator === parent.operator &&
+            (node.operator === "+" || node.operator === "-")
+          );
 
         case "MemberExpression":
           return name === "object" && parent.object === node;
@@ -299,7 +311,7 @@ FPp.needsParens = function(assumeExpressionContext) {
       if (node.operator === "in" && isLeftOfAForStatement(node)) {
         return true;
       }
-      // else fall through
+    // else fall through
     case "LogicalExpression":
       switch (parent.type) {
         case "CallExpression":
@@ -339,6 +351,12 @@ FPp.needsParens = function(assumeExpressionContext) {
             return true;
           }
 
+          // Add parenthesis when working with binary operators
+          // It's not stricly needed but helps with code understanding
+          if (["|", "^", "&", ">>", "<<", ">>>"].indexOf(po) !== -1) {
+            return true;
+          }
+
         default:
           return false;
       }
@@ -368,7 +386,7 @@ FPp.needsParens = function(assumeExpressionContext) {
       if (parent.type === "UnaryExpression") {
         return true;
       }
-      // else fall through
+    // else fall through
     case "AwaitExpression":
       switch (parent.type) {
         case "TaggedTemplateExpression":
@@ -395,28 +413,34 @@ FPp.needsParens = function(assumeExpressionContext) {
 
     case "IntersectionTypeAnnotation":
     case "UnionTypeAnnotation":
-      return parent.type === "ArrayTypeAnnotation" ||
+      return (
+        parent.type === "ArrayTypeAnnotation" ||
         parent.type === "NullableTypeAnnotation" ||
         parent.type === "IntersectionTypeAnnotation" ||
-        parent.type === "UnionTypeAnnotation";
+        parent.type === "UnionTypeAnnotation"
+      );
 
     case "NullableTypeAnnotation":
       return parent.type === "ArrayTypeAnnotation";
 
     case "FunctionTypeAnnotation":
-      return parent.type === "UnionTypeAnnotation" ||
-        parent.type === "IntersectionTypeAnnotation";
+      return (
+        parent.type === "UnionTypeAnnotation" ||
+        parent.type === "IntersectionTypeAnnotation"
+      );
 
     case "NumericLiteral":
     case "Literal":
-      return parent.type === "MemberExpression" &&
+      return (
+        parent.type === "MemberExpression" &&
         isNumber.check(node.value) &&
         name === "object" &&
-        parent.object === node;
+        parent.object === node
+      );
 
     case "AssignmentExpression":
       if (parent.type === "ArrowFunctionExpression" && parent.body === node) {
-        return node.left.type === "ObjectPattern";
+        return true;
       } else if (
         parent.type === "ForStatement" &&
         (parent.init === node || parent.update === node)
@@ -440,6 +464,7 @@ FPp.needsParens = function(assumeExpressionContext) {
         case "ExportDefaultDeclaration":
         case "AwaitExpression":
         case "JSXSpreadAttribute":
+        case "ArrowFunctionExpression":
           return true;
 
         case "NewExpression":
@@ -560,11 +585,20 @@ function startsWithNoLookaheadToken(node, forbidFunctionAndClass) {
     case "ConditionalExpression":
       return startsWithNoLookaheadToken(node.test, forbidFunctionAndClass);
     case "UpdateExpression":
-      return !node.prefix && startsWithNoLookaheadToken(node.argument, forbidFunctionAndClass);
+      return (
+        !node.prefix &&
+        startsWithNoLookaheadToken(node.argument, forbidFunctionAndClass)
+      );
     case "BindExpression":
-      return node.object && startsWithNoLookaheadToken(node.object, forbidFunctionAndClass);
+      return (
+        node.object &&
+        startsWithNoLookaheadToken(node.object, forbidFunctionAndClass)
+      );
     case "SequenceExpression":
-      return startsWithNoLookaheadToken(node.expressions[0], forbidFunctionAndClass)
+      return startsWithNoLookaheadToken(
+        node.expressions[0],
+        forbidFunctionAndClass
+      );
     default:
       return false;
   }

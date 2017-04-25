@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`last_line.js 1`] = `
-"<SomeHighlyConfiguredComponent
+<SomeHighlyConfiguredComponent
   onEnter={this.onEnter}
   onLeave={this.onLeave}
   onChange={this.onChange}
@@ -21,11 +21,11 @@ exports[`last_line.js 1`] = `
   <div>and the children go here</div>
   <div>and here too</div>
 </SomeHighlyConfiguredComponent>;
-"
+
 `;
 
 exports[`last_line.js 2`] = `
-"<SomeHighlyConfiguredComponent
+<SomeHighlyConfiguredComponent
   onEnter={this.onEnter}
   onLeave={this.onLeave}
   onChange={this.onChange}
@@ -46,5 +46,5 @@ exports[`last_line.js 2`] = `
   <div>and the children go here</div>
   <div>and here too</div>
 </SomeHighlyConfiguredComponent>;
-"
+
 `;

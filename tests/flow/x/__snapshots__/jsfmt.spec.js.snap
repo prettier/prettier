@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`XControllerURIBuilder.js 1`] = `
-"/**
+/**
  * @generated SignedSource<<13ca42bbc7fe91f15057861e18a77d88>>
  *
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -25,7 +25,7 @@ class XControllerURIBuilder {
   // ...
   getURI() {
     // ...
-    var tokenRegex = new RegExp(/^\\\\{(\\\\?)?(.+?)\\\\}$/);
+    var tokenRegex = new RegExp(/^\\{(\\?)?(.+?)\\}$/);
     // ...
   }
 }
@@ -55,11 +55,11 @@ class XControllerURIBuilder {
   // ...
   getURI() {
     // ...
-    var tokenRegex = new RegExp(/^\\\\{(\\\\?)?(.+?)\\\\}$/);
+    var tokenRegex = new RegExp(/^\\{(\\?)?(.+?)\\}$/);
     // ...
   }
 }
 
 module.exports = XControllerURIBuilder;
-"
+
 `;

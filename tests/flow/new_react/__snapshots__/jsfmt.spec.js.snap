@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FeedUFI.react.js 1`] = `
-"/**
+/**
  * Copyright 2004-present Facebook. All Rights Reserved.
  *
  * @providesModule FeedUFI.react
@@ -18,18 +18,18 @@ var FeedUFI = React.createClass({
       feedback: any
   ) {
     var props = {
-      className: \\"\\",
-      key: \\"\\",
+      className: "",
+      key: "",
       feedback: {feedback},
-      permalink: \\"\\",
+      permalink: "",
     };
     var ignored = <UFILikeCount {...props} />;
     return (
       <UFILikeCount
-        className=\\"\\"
-        key=\\"\\"
+        className=""
+        key=""
         feedback={feedback}
-        permalink=\\"\\"
+        permalink=""
       />
     );
   },
@@ -51,22 +51,22 @@ module.exports = FeedUFI;
  * @flow
  */
 
-\\"use strict\\";
+"use strict";
 
-var UFILikeCount = require(\\"UFILikeCount.react\\");
-var React = require(\\"react\\");
+var UFILikeCount = require("UFILikeCount.react");
+var React = require("react");
 
 var FeedUFI = React.createClass({
   _renderLikeCount: function(feedback: any) {
     var props = {
-      className: \\"\\",
-      key: \\"\\",
+      className: "",
+      key: "",
       feedback: { feedback },
-      permalink: \\"\\"
+      permalink: ""
     };
     var ignored = <UFILikeCount {...props} />;
     return (
-      <UFILikeCount className=\\"\\" key=\\"\\" feedback={feedback} permalink=\\"\\" />
+      <UFILikeCount className="" key="" feedback={feedback} permalink="" />
     );
   },
 
@@ -76,11 +76,11 @@ var FeedUFI = React.createClass({
 });
 
 module.exports = FeedUFI;
-"
+
 `;
 
 exports[`Mixin.js 1`] = `
-"/* @providesModule Mixin */
+/* @providesModule Mixin */
 module.exports = {
     success: function() { }
 };
@@ -89,11 +89,11 @@ module.exports = {
 module.exports = {
   success: function() {}
 };
-"
+
 `;
 
 exports[`UFILikeCount.react.js 1`] = `
-"/**
+/**
  * Copyright 2004-present Facebook. All Rights Reserved.
  *
  * @providesModule UFILikeCount.react
@@ -124,9 +124,9 @@ module.exports = UFILikeCount;
  * @flow
  */
 
-\\"use strict\\";
+"use strict";
 
-var React = require(\\"react\\");
+var React = require("react");
 
 var UFILikeCount = React.createClass({
   propTypes: {
@@ -140,11 +140,11 @@ var UFILikeCount = React.createClass({
 });
 
 module.exports = UFILikeCount;
-"
+
 `;
 
 exports[`bad_default_props.js 1`] = `
-"var React = require('React');
+var React = require('React');
 
 type T1 = { }
 type T2 = { x: number }
@@ -175,7 +175,7 @@ class C6 extends React.Component { // OK, recommended
   props: T3;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var React = require(\\"React\\");
+var React = require("React");
 
 type T1 = {};
 type T2 = { x: number };
@@ -211,11 +211,11 @@ class C6 extends React.Component {
   static defaultProps: T2;
   props: T3;
 }
-"
+
 `;
 
 exports[`classes.js 1`] = `
-"var React = require('React');
+var React = require('React');
 
 type DefaultProps = { };
 type Props = { x: number };
@@ -236,7 +236,7 @@ class Foo extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { y: \\"\\" };
+    this.state = { y: "" };
   }
 
   setState(o: { y_: string }): void { }
@@ -277,7 +277,7 @@ var FooLegacy = React.createClass({
   },
 
   getInitialState(): { y: string } {
-    return { y: \\"\\" };
+    return { y: "" };
   },
 
   setState(o: { y_: string }): void { },
@@ -299,7 +299,7 @@ var foo_legacy: $jsx<number> = <FooLegacy/>;
 
 FooLegacy.bar();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var React = require(\\"React\\");
+var React = require("React");
 
 type DefaultProps = {};
 type Props = { x: number };
@@ -320,7 +320,7 @@ class Foo extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { y: \\"\\" };
+    this.state = { y: "" };
   }
 
   setState(o: { y_: string }): void {}
@@ -358,7 +358,7 @@ var FooLegacy = React.createClass({
   },
 
   getInitialState(): { y: string } {
-    return { y: \\"\\" };
+    return { y: "" };
   },
 
   setState(o: { y_: string }): void {},
@@ -376,11 +376,11 @@ FooLegacy.defaultProps = 0;
 var foo_legacy: $jsx<number> = <FooLegacy />;
 
 FooLegacy.bar();
-"
+
 `;
 
 exports[`import-react.js 1`] = `
-"/* @flow */
+/* @flow */
 
 // Testing local binding of React in all kinds of ways. The only reason this
 // might even be an issue is that internally, the use of JSX triggers an
@@ -388,17 +388,17 @@ exports[`import-react.js 1`] = `
 // import (2) module re-export, as used to redirect the module name 'React' to
 // 'react' might show up here.
 
-import React from \\"react\\";
-//import React from \\"React\\";
-//var React = require(\\"react\\");
-//var React = require(\\"React\\");
+import React from "react";
+//import React from "React";
+//var React = require("react");
+//var React = require("React");
 
 class HelloMessage extends React.Component {
   props: { name: string };
 }
 
 <HelloMessage name={007} />; // number ~/~> string error
-<HelloMessage name=\\"Bond\\" />; // ok
+<HelloMessage name="Bond" />; // ok
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
@@ -408,22 +408,22 @@ class HelloMessage extends React.Component {
 // import (2) module re-export, as used to redirect the module name 'React' to
 // 'react' might show up here.
 
-import React from \\"react\\";
-//import React from \\"React\\";
-//var React = require(\\"react\\");
-//var React = require(\\"React\\");
+import React from "react";
+//import React from "React";
+//var React = require("react");
+//var React = require("React");
 
 class HelloMessage extends React.Component {
   props: { name: string };
 }
 
 <HelloMessage name={007} />; // number ~/~> string error
-<HelloMessage name=\\"Bond\\" />; // ok
-"
+<HelloMessage name="Bond" />; // ok
+
 `;
 
 exports[`new_react.js 1`] = `
-"var React = require('react');
+var React = require('react');
 var Mixin = require('Mixin');
 var C = React.createClass({
     mixins: [Mixin],
@@ -456,8 +456,8 @@ var element_ = <C/>;
 
 var x: number = C.displayName;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var React = require(\\"react\\");
-var Mixin = require(\\"Mixin\\");
+var React = require("react");
+var Mixin = require("Mixin");
 var C = React.createClass({
   mixins: [Mixin],
   propTypes: {
@@ -489,11 +489,11 @@ var element = <C x={0} />;
 var element_ = <C />;
 
 var x: number = C.displayName;
-"
+
 `;
 
 exports[`propTypes.js 1`] = `
-"var React = require('react');
+var React = require('react');
 var PropTypes = React.PropTypes;
 
 var C = React.createClass({
@@ -507,15 +507,15 @@ var C = React.createClass({
 
 <C statistics={[
   {},
-  {label:\\"\\",value:undefined},
+  {label:"",value:undefined},
 ]}/>; // error (label is required, value not required)
 
 var props: Array<{label: string, value?: number}> = [
   {},
-  {label:\\"\\",value:undefined},
+  {label:"",value:undefined},
 ]; // error (same as ^)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var React = require(\\"react\\");
+var React = require("react");
 var PropTypes = React.PropTypes;
 
 var C = React.createClass({
@@ -529,17 +529,17 @@ var C = React.createClass({
   }
 });
 
-<C statistics={[{}, { label: \\"\\", value: undefined }]} />; // error (label is required, value not required)
+<C statistics={[{}, { label: "", value: undefined }]} />; // error (label is required, value not required)
 
 var props: Array<{ label: string, value?: number }> = [
   {},
-  { label: \\"\\", value: undefined }
+  { label: "", value: undefined }
 ]; // error (same as ^)
-"
+
 `;
 
 exports[`props.js 1`] = `
-"var React = require('react');
+var React = require('react');
 var TestProps = React.createClass({
 
     propTypes: {
@@ -567,7 +567,7 @@ var FooProps = React.createClass({
 });
 (element: $jsx<FooProps>);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var React = require(\\"react\\");
+var React = require("react");
 var TestProps = React.createClass({
   propTypes: {
     x: React.PropTypes.string,
@@ -575,7 +575,7 @@ var TestProps = React.createClass({
   },
 
   getDefaultProps: function() {
-    return { x: \\"\\", y: 0 };
+    return { x: "", y: 0 };
   },
 
   test: function() {
@@ -593,11 +593,11 @@ var FooProps = React.createClass({
   propTypes: { w: React.PropTypes.string.isRequired }
 });
 (element: $jsx<FooProps>);
-"
+
 `;
 
 exports[`props2.js 1`] = `
-"var React = require('react');
+var React = require('react');
 var C = React.createClass({
     propTypes: {
         foo: React.PropTypes.string.isRequired,
@@ -615,7 +615,7 @@ var D = React.createClass({
     }
 });
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var React = require(\\"react\\");
+var React = require("react");
 var C = React.createClass({
   propTypes: {
     foo: React.PropTypes.string.isRequired,
@@ -632,11 +632,11 @@ var D = React.createClass({
     return <C {...this.state} foo={0} />;
   }
 });
-"
+
 `;
 
 exports[`props3.js 1`] = `
-"var React = require('react');
+var React = require('react');
 var TestProps = React.createClass({
     // Do something illegal inside of propTypes and make sure Flow notices
     propTypes: {
@@ -666,8 +666,8 @@ var TestProps = React.createClass({
       instanceOf_rec: React.PropTypes.instanceOf(Object).isRequired,
       objectOf: React.PropTypes.objectOf(React.PropTypes.string),
       objectOf_rec: React.PropTypes.objectOf(React.PropTypes.string).isRequired,
-      oneOf: React.PropTypes.oneOf([\\"yes\\", \\"no\\"]),
-      oneOf_rec: React.PropTypes.oneOf([\\"yes\\", \\"no\\"]).isRequired,
+      oneOf: React.PropTypes.oneOf(["yes", "no"]),
+      oneOf_rec: React.PropTypes.oneOf(["yes", "no"]).isRequired,
       oneOfType: React.PropTypes.oneOfType(
         [React.PropTypes.string, React.PropTypes.number]
       ),
@@ -689,7 +689,7 @@ var TestProps = React.createClass({
     },
 });
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var React = require(\\"react\\");
+var React = require("react");
 var TestProps = React.createClass({
   // Do something illegal inside of propTypes and make sure Flow notices
   propTypes: {
@@ -719,8 +719,8 @@ var TestProps = React.createClass({
     instanceOf_rec: React.PropTypes.instanceOf(Object).isRequired,
     objectOf: React.PropTypes.objectOf(React.PropTypes.string),
     objectOf_rec: React.PropTypes.objectOf(React.PropTypes.string).isRequired,
-    oneOf: React.PropTypes.oneOf([\\"yes\\", \\"no\\"]),
-    oneOf_rec: React.PropTypes.oneOf([\\"yes\\", \\"no\\"]).isRequired,
+    oneOf: React.PropTypes.oneOf(["yes", "no"]),
+    oneOf_rec: React.PropTypes.oneOf(["yes", "no"]).isRequired,
     oneOfType: React.PropTypes.oneOfType([
       React.PropTypes.string,
       React.PropTypes.number
@@ -743,13 +743,13 @@ var TestProps = React.createClass({
     bad_two: React.PropTypes.string.inRequired
   }
 });
-"
+
 `;
 
 exports[`props4.js 1`] = `
-"// @flow
+// @flow
 
-import React from \\"React\\";
+import React from "React";
 
 class JDiv extends React.Component {
   // static defaultProps: { };
@@ -770,13 +770,13 @@ class Example extends React.Component {
 }
 
 React.render(
-  <Example foo=\\"foo\\" />,
+  <Example foo="foo" />,
   document.body
 );
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-import React from \\"React\\";
+import React from "React";
 
 class JDiv extends React.Component {
   // static defaultProps: { };
@@ -796,12 +796,12 @@ class Example extends React.Component {
   }
 }
 
-React.render(<Example foo=\\"foo\\" />, document.body);
-"
+React.render(<Example foo="foo" />, document.body);
+
 `;
 
 exports[`props5.js 1`] = `
-"var React = require('React');
+var React = require('React');
 
 var C = React.createClass({
   getDefaultProps: function() {
@@ -811,7 +811,7 @@ var C = React.createClass({
 
 module.exports = C;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var React = require(\\"React\\");
+var React = require("React");
 
 var C = React.createClass({
   getDefaultProps: function() {
@@ -820,11 +820,11 @@ var C = React.createClass({
 });
 
 module.exports = C;
-"
+
 `;
 
 exports[`state.js 1`] = `
-"/* @flow */
+/* @flow */
 
 var React = require('react');
 
@@ -850,7 +850,7 @@ var ReactClass = React.createClass({
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-var React = require(\\"react\\");
+var React = require("react");
 
 type State = {
   bar: ?{ qux: string }
@@ -871,11 +871,11 @@ var ReactClass = React.createClass({
     );
   }
 });
-"
+
 `;
 
 exports[`state2.js 1`] = `
-"// @flow
+// @flow
 
 var React = require('react');
 
@@ -895,7 +895,7 @@ module.exports = Comp;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-var React = require(\\"react\\");
+var React = require("react");
 
 type FooState = {
   key: ?Object
@@ -910,11 +910,11 @@ var Comp = React.createClass({
 });
 
 module.exports = Comp;
-"
+
 `;
 
 exports[`state3.js 1`] = `
-"var React = require('react');
+var React = require('react');
 var TestState = React.createClass({
 
     getInitialState: function(): { x: string; } {
@@ -933,11 +933,11 @@ var TestState = React.createClass({
 
 });
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var React = require(\\"react\\");
+var React = require("react");
 var TestState = React.createClass({
   getInitialState: function(): { x: string } {
     return {
-      x: \\"\\"
+      x: ""
     };
   },
 
@@ -949,11 +949,11 @@ var TestState = React.createClass({
     });
   }
 });
-"
+
 `;
 
 exports[`state4.js 1`] = `
-"var React = require('React');
+var React = require('React');
 
 var C = React.createClass({
   getInitialState: function(): { x: number } {
@@ -967,7 +967,7 @@ var C = React.createClass({
 
 });
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var React = require(\\"React\\");
+var React = require("React");
 
 var C = React.createClass({
   getInitialState: function(): { x: number } {
@@ -979,11 +979,11 @@ var C = React.createClass({
     return <div>{this.state.z}</div>;
   }
 });
-"
+
 `;
 
 exports[`state5.js 1`] = `
-"var React = require('React');
+var React = require('React');
 
 class C extends React.Component {
   foo(): number {
@@ -991,12 +991,12 @@ class C extends React.Component {
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var React = require(\\"React\\");
+var React = require("React");
 
 class C extends React.Component {
   foo(): number {
     return this.state.x; // error: need to declare type of state
   }
 }
-"
+
 `;

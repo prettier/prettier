@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`annot.js 1`] = `
-"class A<X> { }
+class A<X> { }
 new A; // OK, implicitly inferred type args
 class B extends A { } // OK, same as above
 
@@ -26,11 +26,11 @@ function bar(): A<*> {
   // error, * can't be {} and {x: string} at the same time
   return (new A(): A<{}>) || (new A(): A<{ x: string }>);
 }
-"
+
 `;
 
 exports[`implicit_bounded_instantiation.js 1`] = `
-"// @flow
+// @flow
 
 class Base {}
 class Middle extends Base {}
@@ -71,11 +71,11 @@ a.meth(new Middle());
 a.meth(new Child());
 a.meth(42); // Error: number ~> Middle
 a.meth(new Base()); // Error: Base ~> Middle
-"
+
 `;
 
 exports[`issue-1029.js 1`] = `
-"// @flow
+// @flow
 
 // naive unification causes combinatorial explosion here,
 // effectively hangs
@@ -112,11 +112,11 @@ declare var bool: Box<boolean>;
 declare function unbox<A>(box: Box<A>): A;
 
 unbox(bool);
-"
+
 `;
 
 exports[`poly.js 1`] = `
-"class Foo<T> {
+class Foo<T> {
     x:T;
     constructor(x:T) { this.x = x; }
 }
@@ -133,7 +133,7 @@ declare var Q: {
 
 var foo = new Foo(0);
 var x:string = foo.x;
-var z:Foo<number> = Q.bar(foo,\\"\\");
+var z:Foo<number> = Q.bar(foo,"");
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class Foo<T> {
   x: T;
@@ -156,12 +156,12 @@ declare var Q: {
 
 var foo = new Foo(0);
 var x: string = foo.x;
-var z: Foo<number> = Q.bar(foo, \\"\\");
-"
+var z: Foo<number> = Q.bar(foo, "");
+
 `;
 
 exports[`test.js 1`] = `
-"class C {
+class C {
   foo<X>(x: X): X { return x; }
   foo_<X: number>(x: X): number { return x; }
   bar<X>(x: X): X { return x; }
@@ -202,5 +202,5 @@ class D extends C {
     return x;
   } // OK (generalization)
 }
-"
+
 `;

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`break-last-call.js 1`] = `
-"export default store => {
+export default store => {
   return callApi(endpoint, schema).then(
     response => next(actionWith({
       response,
@@ -50,77 +50,139 @@ export default store => {
       next(
         actionWith({
           type: failureType,
-          error: error.message || \\"Something bad happened\\"
+          error: error.message || "Something bad happened"
         })
       )
   );
 };
 
-it(\\"should group messages with same created time\\", () => {
+it("should group messages with same created time", () => {
   expect(groupMessages(messages).toJS()).toEqual({
-    \\"11/01/2017 13:36\\": [
+    "11/01/2017 13:36": [
       {
-        message: \\"test\\",
-        messageType: \\"SMS\\",
-        status: \\"Unknown\\",
-        created: \\"11/01/2017 13:36\\"
+        message: "test",
+        messageType: "SMS",
+        status: "Unknown",
+        created: "11/01/2017 13:36"
       },
       {
-        message: \\"test\\",
-        messageType: \\"Email\\",
-        status: \\"Unknown\\",
-        created: \\"11/01/2017 13:36\\"
+        message: "test",
+        messageType: "Email",
+        status: "Unknown",
+        created: "11/01/2017 13:36"
       }
     ],
-    \\"09/01/2017 17:25\\": [
+    "09/01/2017 17:25": [
       {
-        message: \\"te\\",
-        messageType: \\"SMS\\",
-        status: \\"Unknown\\",
-        created: \\"09/01/2017 17:25\\"
+        message: "te",
+        messageType: "SMS",
+        status: "Unknown",
+        created: "09/01/2017 17:25"
       },
       {
-        message: \\"te\\",
-        messageType: \\"Email\\",
-        status: \\"Unknown\\",
-        created: \\"09/01/2017 17:25\\"
+        message: "te",
+        messageType: "Email",
+        status: "Unknown",
+        created: "09/01/2017 17:25"
       }
     ],
-    \\"11/01/2017 13:33\\": [
+    "11/01/2017 13:33": [
       {
-        message: \\"test\\",
-        messageType: \\"SMS\\",
-        status: \\"Unknown\\",
-        created: \\"11/01/2017 13:33\\"
+        message: "test",
+        messageType: "SMS",
+        status: "Unknown",
+        created: "11/01/2017 13:33"
       },
       {
-        message: \\"test\\",
-        messageType: \\"Email\\",
-        status: \\"Unknown\\",
-        created: \\"11/01/2017 13:33\\"
+        message: "test",
+        messageType: "Email",
+        status: "Unknown",
+        created: "11/01/2017 13:33"
       }
     ],
-    \\"11/01/2017 13:37\\": [
+    "11/01/2017 13:37": [
       {
-        message: \\"test\\",
-        messageType: \\"SMS\\",
-        status: \\"Unknown\\",
-        created: \\"11/01/2017 13:37\\"
+        message: "test",
+        messageType: "SMS",
+        status: "Unknown",
+        created: "11/01/2017 13:37"
       },
       {
-        message: \\"test\\",
-        messageType: \\"Email\\",
-        status: \\"Unknown\\",
-        created: \\"11/01/2017 13:37\\"
+        message: "test",
+        messageType: "Email",
+        status: "Unknown",
+        created: "11/01/2017 13:37"
       }
     ]
   });
 });
-"
+
+`;
+
+exports[`break-last-member.js 1`] = `
+SomeVeryLongUpperCaseConstant.someVeryLongCallExpression().some_very_long_member_expression
+weNeedToReachTheEightyCharacterLimitXXXXXXXXXXXXXXXXX.someNode
+  .childrenInAnArray[0];
+superSupersuperSupersuperSupersuperSupersuperSuperLong.exampleOfOrderOfGetterAndSetterReordered;
+superSupersuperSupersuperSupersuperSupersuperSuperLong.exampleOfOrderOfGetterAndSetterReordered[0];
+
+expect(
+  findDOMNode(component.instance()).getElementsByClassName(styles.inner)[0].style.paddingRight
+).toBe('1000px');
+
+const { course, conflicts = [], index, scheduleId, studentId, something } = a.this.props;
+
+const { course, conflicts = [], index, scheduleId, studentId, something } = this.props;
+
+const {
+  updated,
+  author: { identifier: ownerId },
+  location,
+  category: categories,
+} = rawAd.entry;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+SomeVeryLongUpperCaseConstant.someVeryLongCallExpression()
+  .some_very_long_member_expression;
+weNeedToReachTheEightyCharacterLimitXXXXXXXXXXXXXXXXX.someNode
+  .childrenInAnArray[0];
+superSupersuperSupersuperSupersuperSupersuperSuperLong.exampleOfOrderOfGetterAndSetterReordered;
+superSupersuperSupersuperSupersuperSupersuperSuperLong
+  .exampleOfOrderOfGetterAndSetterReordered[0];
+
+expect(
+  findDOMNode(component.instance()).getElementsByClassName(styles.inner)[0]
+    .style.paddingRight
+).toBe("1000px");
+
+const {
+  course,
+  conflicts = [],
+  index,
+  scheduleId,
+  studentId,
+  something
+} = a.this.props;
+
+const {
+  course,
+  conflicts = [],
+  index,
+  scheduleId,
+  studentId,
+  something
+} = this.props;
+
+const {
+  updated,
+  author: { identifier: ownerId },
+  location,
+  category: categories
+} = rawAd.entry;
+
 `;
 
 exports[`comment.js 1`] = `
-"function f() {
+function f() {
   return observableFromSubscribeFunction()
     // Debounce manually rather than using editor.onDidStopChanging so that the debounce time is
     // configurable.
@@ -139,6 +201,11 @@ _.a(
 _.a(
   a
 ) /* very very very very very very very long such that it is longer than 80 columns */.a();
+
+Something
+  // $FlowFixMe(>=0.41.0)
+  .getInstance(this.props.dao)
+  .getters()
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function f() {
   return (
@@ -160,11 +227,16 @@ _.a(
 _.a(
   a
 ) /* very very very very very very very long such that it is longer than 80 columns */.a();
-"
+
+Something
+  // $FlowFixMe(>=0.41.0)
+  .getInstance(this.props.dao)
+  .getters();
+
 `;
 
 exports[`first_long.js 1`] = `
-"export default function theFunction(action$, store) {
+export default function theFunction(action$, store) {
   return action$.ofType(THE_ACTION).switchMap(action => Observable
     .webSocket({
       url: THE_URL,
@@ -212,7 +284,8 @@ export default function theFunction(action$, store) {
     })
       .filter(data => theFilter(data))
       .map(({ theType, ...data }) => theMap(theType, data))
-      .retryWhen(errors => errors));
+      .retryWhen(errors => errors)
+  );
 }
 
 function f() {
@@ -231,11 +304,11 @@ function f() {
     fileMetadata[H.DEPENDENCIES] = metadata.dependencies || [];
   });
 }
-"
+
 `;
 
 exports[`inline_merge.js 1`] = `
-"Object.keys(
+Object.keys(
   availableLocales({
     test: true
   })
@@ -251,92 +324,92 @@ Object.keys(
 ).forEach(locale => {
   // ...
 });
-"
+
 `;
 
 exports[`logical.js 1`] = `
-"(veryLongVeryLongVeryLong || e).map(tickets =>
+(veryLongVeryLongVeryLong || e).map(tickets =>
   TicketRecord.createFromSomeLongString());
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 (veryLongVeryLongVeryLong || e)
   .map(tickets => TicketRecord.createFromSomeLongString());
-"
+
 `;
 
 exports[`multiple-members.js 1`] = `
-"if (testConfig.ENABLE_ONLINE_TESTS === \\"true\\") {
-  describe(\\"POST /users/me/pet\\", function() {
-    it(\\"saves pet\\", function() {
+if (testConfig.ENABLE_ONLINE_TESTS === "true") {
+  describe("POST /users/me/pet", function() {
+    it("saves pet", function() {
       function assert(pet) {
-        expect(pet).to.have.property(\\"OwnerAddress\\").that.deep.equals({
-          AddressLine1: \\"Alexanderstrasse\\",
-          AddressLine2: \\"\\",
-          PostalCode: \\"10999\\",
-          Region: \\"Berlin\\",
-          City: \\"Berlin\\",
-          Country: \\"DE\\"
+        expect(pet).to.have.property("OwnerAddress").that.deep.equals({
+          AddressLine1: "Alexanderstrasse",
+          AddressLine2: "",
+          PostalCode: "10999",
+          Region: "Berlin",
+          City: "Berlin",
+          Country: "DE"
         });
       }
     });
   });
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-if (testConfig.ENABLE_ONLINE_TESTS === \\"true\\") {
-  describe(\\"POST /users/me/pet\\", function() {
-    it(\\"saves pet\\", function() {
+if (testConfig.ENABLE_ONLINE_TESTS === "true") {
+  describe("POST /users/me/pet", function() {
+    it("saves pet", function() {
       function assert(pet) {
-        expect(pet).to.have.property(\\"OwnerAddress\\").that.deep.equals({
-          AddressLine1: \\"Alexanderstrasse\\",
-          AddressLine2: \\"\\",
-          PostalCode: \\"10999\\",
-          Region: \\"Berlin\\",
-          City: \\"Berlin\\",
-          Country: \\"DE\\"
+        expect(pet).to.have.property("OwnerAddress").that.deep.equals({
+          AddressLine1: "Alexanderstrasse",
+          AddressLine2: "",
+          PostalCode: "10999",
+          Region: "Berlin",
+          City: "Berlin",
+          Country: "DE"
         });
       }
     });
   });
 }
-"
+
 `;
 
 exports[`square_0.js 1`] = `
-"const version = someLongString
+const version = someLongString
   .split('jest version =')
   .pop()
   .split(EOL)[0]
   .trim();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const version = someLongString
-  .split(\\"jest version =\\")
+  .split("jest version =")
   .pop()
   .split(EOL)[0]
   .trim();
-"
+
 `;
 
 exports[`test.js 1`] = `
-"method().then(x => x)
-  [\\"abc\\"](x => x)
+method().then(x => x)
+  ["abc"](x => x)
   [abc](x => x);
 
 ({}.a().b());
 ({}).a().b();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-method().then(x => x)[\\"abc\\"](x => x)[abc](x => x);
+method().then(x => x)["abc"](x => x)[abc](x => x);
 
 ({}.a().b());
 ({}.a().b());
-"
+
 `;
 
 exports[`this.js 1`] = `
-"const sel = this.connections
+const sel = this.connections
   .concat(this.activities.concat(this.operators))
   .filter(x => x.selected);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const sel = this.connections
   .concat(this.activities.concat(this.operators))
   .filter(x => x.selected);
-"
+
 `;

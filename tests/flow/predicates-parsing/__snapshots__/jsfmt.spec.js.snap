@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`fail-0.js 1`] = `
-"// @flow
+// @flow
 
 // Error: 'declare', 'checks' but missing predicate
 
@@ -12,11 +12,11 @@ declare function f2(x: mixed): boolean %checks;
 // Error: 'declare', 'checks' but missing predicate
 
 declare function f2(x: mixed): boolean %checks;
-"
+
 `;
 
 exports[`fail-1.js 1`] = `
-"// @flow
+// @flow
 
 // Error: no return statement
 
@@ -27,11 +27,11 @@ function f6(x: mixed): %checks (x !== null) {  }
 // Error: no return statement
 
 function f6(x: mixed): %checks(x !== null) {}
-"
+
 `;
 
 exports[`fail-2.js 1`] = `
-"// @flow
+// @flow
 
 var a2 = (x: mixed): %checks (x !== null) => {        // Error: body form
   var x = 1; return x;
@@ -44,11 +44,11 @@ var a2 = (x: mixed): %checks(x !== null) => {
   var x = 1;
   return x;
 };
-"
+
 `;
 
 exports[`fail-3.js 1`] = `
-"// @flow
+// @flow
 
 // Cannot declare predicate with a function body is present.
 
@@ -65,11 +65,11 @@ function f5(x: mixed): %checks(x !== null) {
 }
 
 var a2 = (x: mixed): %checks(x !== null) => x !== null;
-"
+
 `;
 
 exports[`pass.js 1`] = `
-"// @flow
+// @flow
 
 declare function f1(x: mixed): boolean;
 
@@ -126,5 +126,5 @@ type checks = any;
 
 declare function f(x: mixed): checks;
 typeof x === null;
-"
+
 `;

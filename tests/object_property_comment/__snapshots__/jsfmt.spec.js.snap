@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`after-key.js 1`] = `
-"let a = {
+let a = {
    a /* comment */: () => 1
 };
 
 let a = {
-   \\"a\\" /* comment */: () => 1
+   "a" /* comment */: () => 1
 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let a = {
@@ -16,11 +16,11 @@ let a = {
 let a = {
   \\"a\\" /* comment */: () => 1
 };
-"
+
 `;
 
 exports[`comment.js 1`] = `
-"o = {
+o = {
   name:
     // Comment A
     // Comment B
@@ -54,5 +54,5 @@ o = {
   // Comment B // Comment A
   name: (({ id: type }: any): CreativeConcept)
 };
-"
+
 `;

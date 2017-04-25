@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`maybe.js 1`] = `
-"// @flow
+// @flow
 
 // unwrapping nested maybes should work
 (('foo': ?(?string)): ?string); // ok
@@ -10,13 +10,13 @@ exports[`maybe.js 1`] = `
 // @flow
 
 // unwrapping nested maybes should work
-((\\"foo\\": ??string): ?string); // ok
+(("foo": ??string): ?string); // ok
 ((123: ??number): ?string); // error (only num ~> string)
-"
+
 `;
 
 exports[`nullable.js 1`] = `
-"function foo():string { return null; }
+function foo():string { return null; }
 
 function bar():?string { return null; }
 
@@ -60,11 +60,11 @@ if (x != null) {
 }
 
 var array_of_nullable: Array<?number> = [null, 3];
-"
+
 `;
 
 exports[`simple_nullable.js 1`] = `
-"function foo(x:?string) {}
+function foo(x:?string) {}
 function bar(x:?number) {}
 foo('hmm');
 bar('hmm');
@@ -74,10 +74,10 @@ fn({some: 'literal'});
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function foo(x: ?string) {}
 function bar(x: ?number) {}
-foo(\\"hmm\\");
-bar(\\"hmm\\");
+foo("hmm");
+bar("hmm");
 
 function fn(data: ?{}) {}
-fn({ some: \\"literal\\" });
-"
+fn({ some: "literal" });
+
 `;

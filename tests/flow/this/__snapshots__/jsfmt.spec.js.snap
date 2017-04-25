@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`This.js 1`] = `
-"/* @providesModule This */
+/* @providesModule This */
 
 function F() { this.x = 0; }
 F.prototype.m = function() { this.y = 0; }
@@ -9,17 +9,17 @@ F.prototype.m = function() { this.y = 0; }
 function foo(p:string) { }
 
 var o1 = new F(); // sets o1.x to 0
-o1.x = \\"\\";
+o1.x = "";
 foo(o1.x); // ok by definite assignment
 
 var o2 = new F();
 o1.y = 0;
-o2.y = \\"\\";
+o2.y = "";
 foo(o2.y); // setting o1.y to 0 has no effect on o2.y
 
 var o3 = new F();
 o3.m(); // sets o3.y to 0
-o3.y = \\"\\";
+o3.y = "";
 foo(o3.y); // ok by definite assignment
 foo(o2.y); // setting o3.y to 0 has no effect on o2.y
 
@@ -34,7 +34,7 @@ function f1() : number {
 
 var f1_1 = f1.bind({x: 0})();            // ok
 var f1_2 : string = f1.bind({x: 0})();   // error, number -> string
-var f1_3 = f1.bind({x: \\"\\"})();           // error, string -> number
+var f1_3 = f1.bind({x: ""})();           // error, string -> number
 // TODO make this error blame the call site, rather than the function body
 var f1_4 = f1();                         // error, (global object).x
 
@@ -54,7 +54,7 @@ function f2() : number {
 
 var f2_1 = f2.bind({x: 0})();            // ok
 var f2_2 : string = f2.bind({x: 0})();   // error, number -> string
-var f2_3 = f2.bind({x: \\"\\"})();           // error, string -> number
+var f2_3 = f2.bind({x: ""})();           // error, string -> number
 // TODO make this error blame the call site, rather than the function body
 var f2_4 = f2();                         // error, (global object).x
 
@@ -74,17 +74,17 @@ F.prototype.m = function() {
 function foo(p: string) {}
 
 var o1 = new F(); // sets o1.x to 0
-o1.x = \\"\\";
+o1.x = "";
 foo(o1.x); // ok by definite assignment
 
 var o2 = new F();
 o1.y = 0;
-o2.y = \\"\\";
+o2.y = "";
 foo(o2.y); // setting o1.y to 0 has no effect on o2.y
 
 var o3 = new F();
 o3.m(); // sets o3.y to 0
-o3.y = \\"\\";
+o3.y = "";
 foo(o3.y); // ok by definite assignment
 foo(o2.y); // setting o3.y to 0 has no effect on o2.y
 
@@ -99,7 +99,7 @@ function f1(): number {
 
 var f1_1 = f1.bind({ x: 0 })(); // ok
 var f1_2: string = f1.bind({ x: 0 })(); // error, number -> string
-var f1_3 = f1.bind({ x: \\"\\" })(); // error, string -> number
+var f1_3 = f1.bind({ x: "" })(); // error, string -> number
 // TODO make this error blame the call site, rather than the function body
 var f1_4 = f1(); // error, (global object).x
 
@@ -121,18 +121,18 @@ function f2(): number {
 
 var f2_1 = f2.bind({ x: 0 })(); // ok
 var f2_2: string = f2.bind({ x: 0 })(); // error, number -> string
-var f2_3 = f2.bind({ x: \\"\\" })(); // error, string -> number
+var f2_3 = f2.bind({ x: "" })(); // error, string -> number
 // TODO make this error blame the call site, rather than the function body
 var f2_4 = f2(); // error, (global object).x
 
 (this: void);
 
 module.exports = true;
-"
+
 `;
 
 exports[`arrows.js 1`] = `
-"class C {
+class C {
   foo() {
     return () => { return this.bar(); }; // OK, since this: C
   }
@@ -155,7 +155,7 @@ class E {
 class F extends E {
   foo() { // OK to override with generalization
     (() => {
-      super.foo(\\"\\"); // find super method, error due to incorrect arg
+      super.foo(""); // find super method, error due to incorrect arg
     })();
   }
 }
@@ -188,9 +188,9 @@ class F extends E {
   foo() {
     // OK to override with generalization
     (() => {
-      super.foo(\\"\\"); // find super method, error due to incorrect arg
+      super.foo(""); // find super method, error due to incorrect arg
     })();
   }
 }
-"
+
 `;

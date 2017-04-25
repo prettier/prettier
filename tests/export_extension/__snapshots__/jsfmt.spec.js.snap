@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`export.js 1`] = `
-"export * as ns from 'mod';
+export * as ns from 'mod';
 export v from 'mod';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export * as ns from \\"mod\\";
-export v from \\"mod\\";
-"
+export * as ns from "mod";
+export v from "mod";
+
 `;

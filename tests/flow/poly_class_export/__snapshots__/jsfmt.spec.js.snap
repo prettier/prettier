@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`A.js 1`] = `
-"// @flow
+// @flow
 
 class A<T> {
   x: T
@@ -16,11 +16,11 @@ class A<T> {
 }
 
 module.exports = A;
-"
+
 `;
 
 exports[`B.js 1`] = `
-"// @flow
+// @flow
 
 let A = require('./A');
 
@@ -34,7 +34,7 @@ module.exports = new B();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-let A = require(\\"./A\\");
+let A = require("./A");
 
 class B extends A<string> {
   constructor() {
@@ -43,11 +43,11 @@ class B extends A<string> {
 }
 
 module.exports = new B();
-"
+
 `;
 
 exports[`C.js 1`] = `
-"// @flow
+// @flow
 
 // This test exports a function whose return type is the class's \`this\` type.
 // It should be inferred (no annotation required).
@@ -76,5 +76,5 @@ class Foo {
 export function f(x: Foo) {
   return x.foo();
 }
-"
+
 `;

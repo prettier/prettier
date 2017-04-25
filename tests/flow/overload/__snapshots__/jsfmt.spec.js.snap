@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`overload.js 1`] = `
-"/**
+/**
  * tests of overload selection
  *
  * @flow
  */
 
-var x1: number = \\"\\".match(0)[0];
-var x2: number = \\"\\".match(/pattern/)[0];
-var x3: string = \\"\\".replace(/pattern/,\\"...\\");
-var x4: number = \\"\\".split(/pattern/)[0];
+var x1: number = "".match(0)[0];
+var x2: number = "".match(/pattern/)[0];
+var x3: string = "".replace(/pattern/,"...");
+var x4: number = "".split(/pattern/)[0];
 
 declare class C {
     foo(x:number): number;
@@ -23,11 +23,11 @@ declare class C {
 var a = new C();
 
 a.foo(0); // ok
-a.foo(\\"hey\\"); // ok
+a.foo("hey"); // ok
 a.foo(true); // error, function cannot be called on intersection type
 
 a.bar({ a: 0 }); // ok
-a.bar({ a: \\"hey\\" }); // ok
+a.bar({ a: "hey" }); // ok
 a.bar({ a: true }); // error, function cannot be called on intersection type
 
 declare var x: { a: boolean; } & { b: string };
@@ -49,7 +49,7 @@ var y:number = new Dummy().dumb(foo);
 function bar1(x:number):Array<string> { return []; }
 var z1:number = new Dummy().dumber(bar1);
 
-function bar2(x:number):string { return \\"...\\"; }
+function bar2(x:number):string { return "..."; }
 var z2:Array<string> = new Dummy().dumber(bar2);
 */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -59,10 +59,10 @@ var z2:Array<string> = new Dummy().dumber(bar2);
  * @flow
  */
 
-var x1: number = \\"\\".match(0)[0];
-var x2: number = \\"\\".match(/pattern/)[0];
-var x3: string = \\"\\".replace(/pattern/, \\"...\\");
-var x4: number = \\"\\".split(/pattern/)[0];
+var x1: number = "".match(0)[0];
+var x2: number = "".match(/pattern/)[0];
+var x3: string = "".replace(/pattern/, "...");
+var x4: number = "".split(/pattern/)[0];
 
 declare class C {
   foo(x: number): number,
@@ -75,11 +75,11 @@ declare class C {
 var a = new C();
 
 a.foo(0); // ok
-a.foo(\\"hey\\"); // ok
+a.foo("hey"); // ok
 a.foo(true); // error, function cannot be called on intersection type
 
 a.bar({ a: 0 }); // ok
-a.bar({ a: \\"hey\\" }); // ok
+a.bar({ a: "hey" }); // ok
 a.bar({ a: true }); // error, function cannot be called on intersection type
 
 declare var x: { a: boolean } & { b: string };
@@ -101,14 +101,14 @@ var y:number = new Dummy().dumb(foo);
 function bar1(x:number):Array<string> { return []; }
 var z1:number = new Dummy().dumber(bar1);
 
-function bar2(x:number):string { return \\"...\\"; }
+function bar2(x:number):string { return "..."; }
 var z2:Array<string> = new Dummy().dumber(bar2);
 */
-"
+
 `;
 
 exports[`test.js 1`] = `
-"function foo() {
+function foo() {
   var output = new FakeUint8Array();
   output.set(new FakeUint8Array(), 0); // matches one of the overloads of set
 }
@@ -117,11 +117,11 @@ function foo() {
   var output = new FakeUint8Array();
   output.set(new FakeUint8Array(), 0); // matches one of the overloads of set
 }
-"
+
 `;
 
 exports[`test2.js 1`] = `
-"declare class Foo {
+declare class Foo {
   bar(x: 'hmm'): number;
   bar(x: string): string;
 }
@@ -130,17 +130,17 @@ var foo = new Foo;
 (foo.bar('hmmm'): number); // error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare class Foo {
-  bar(x: \\"hmm\\"): number,
+  bar(x: "hmm"): number,
   bar(x: string): string
 }
 var foo = new Foo();
-(foo.bar(\\"hmm\\"): number); // OK
-(foo.bar(\\"hmmm\\"): number); // error
-"
+(foo.bar("hmm"): number); // OK
+(foo.bar("hmmm"): number); // error
+
 `;
 
 exports[`test3.js 1`] = `
-"// passing a union-like thing into an overload is ok
+// passing a union-like thing into an overload is ok
 // if overload handles each branch of union-like thing
 
 // unions
@@ -183,20 +183,20 @@ declare function h(x: void): void;
 declare function h(x: string): void;
 declare var x_h: { p?: string };
 h(x_h.p); // ok
-"
+
 `;
 
 exports[`union.js 1`] = `
-"function foo<U> (x: $Either<Array<U>,U>): Array<U> { return []; }
+function foo<U> (x: $Either<Array<U>,U>): Array<U> { return []; }
 
 var x1:number = foo(0)[0];
-var x2:string = foo([\\"\\"])[0];
+var x2:string = foo([""])[0];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function foo<U>(x: $Either<Array<U>, U>): Array<U> {
   return [];
 }
 
 var x1: number = foo(0)[0];
-var x2: string = foo([\\"\\"])[0];
-"
+var x2: string = foo([""])[0];
+
 `;

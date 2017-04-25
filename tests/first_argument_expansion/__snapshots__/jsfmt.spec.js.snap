@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test.js 1`] = `
-"setTimeout(function() {
+setTimeout(function() {
   thing();
 }, 500);
 
-[\\"a\\",\\"b\\",\\"c\\"].reduce(function(item, thing) {
-  return thing + \\" \\" + item;
-}, \\"letters:\\")
+["a","b","c"].reduce(function(item, thing) {
+  return thing + " " + item;
+}, "letters:")
 
 func(() => {
   thing();
@@ -66,7 +66,7 @@ func(() => {
 compose((a) => {
   return a.thing;
 }, b => {
-  return b + \\"\\";
+  return b + "";
 });
 
 compose((a) => {
@@ -93,9 +93,9 @@ setTimeout(function() {
   thing();
 }, 500);
 
-[\\"a\\", \\"b\\", \\"c\\"].reduce(function(item, thing) {
-  return thing + \\" \\" + item;
-}, \\"letters:\\");
+["a", "b", "c"].reduce(function(item, thing) {
+  return thing + " " + item;
+}, "letters:");
 
 func(() => {
   thing();
@@ -166,7 +166,7 @@ compose(
     return a.thing;
   },
   b => {
-    return b + \\"\\";
+    return b + "";
   }
 );
 
@@ -196,5 +196,5 @@ setTimeout(
   },
   500
 );
-"
+
 `;

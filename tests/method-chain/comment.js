@@ -17,3 +17,8 @@ _.a(
 _.a(
   a
 ) /* very very very very very very very long such that it is longer than 80 columns */.a();
+
+Something
+  // $FlowFixMe(>=0.41.0)
+  .getInstance(this.props.dao)
+  .getters()

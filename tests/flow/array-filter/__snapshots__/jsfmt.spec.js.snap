@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test.js 1`] = `
-"/* @flow */
+/* @flow */
 
 function filterOutVoids<T> (arr: Array<?T>): Array<T> {
   return arr.filter(Boolean)
@@ -20,11 +20,11 @@ function filterOutVoids<T>(arr: Array<?T>): Array<T> {
 function filterOutSmall(arr: Array<?number>): Array<?number> {
   return arr.filter(num => num && num > 10);
 }
-"
+
 `;
 
 exports[`test2.js 1`] = `
-"/* @flow */
+/* @flow */
 
 function filterItems(items: Array<string|number>): Array<string|number> {
   return items.map(item => {
@@ -45,7 +45,7 @@ console.log(filteredItems);
 function filterItems(items: Array<string | number>): Array<string | number> {
   return items
     .map(item => {
-      if (typeof item === \\"string\\") {
+      if (typeof item === "string") {
         return item.length > 2 ? item : null;
       } else {
         return item * 10;
@@ -54,8 +54,8 @@ function filterItems(items: Array<string | number>): Array<string | number> {
     .filter(Boolean);
 }
 
-const filteredItems = filterItems([\\"foo\\", \\"b\\", 1, 2]);
+const filteredItems = filterItems(["foo", "b", 1, 2]);
 
 console.log(filteredItems);
-"
+
 `;
