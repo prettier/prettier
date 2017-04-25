@@ -401,9 +401,13 @@ function genericPrintNoParens(path, options, print, args) {
         ])
       );
     }
+    case "TSAbstractMethodDefinition":
     case "MethodDefinition":
       if (n.static) {
         parts.push("static ");
+      }
+      if (n.type === "TSAbstractMethodDefinition") {
+        parts.push("abstract ");
       }
 
       parts.push(printMethod(path, options, print));
@@ -1467,6 +1471,11 @@ function genericPrintNoParens(path, options, print, args) {
       parts.push(semi);
 
       return concat(parts);
+    case "TSAbstractClassDeclaration":
+      return concat([
+        "abstract ",
+        ...printClass(path, options, print)
+      ]);
     case "ClassDeclaration":
     case "ClassExpression":
       return concat(printClass(path, options, print));
@@ -2164,6 +2173,7 @@ function printPropertyKey(path, options, print) {
 
 function printMethod(path, options, print) {
   var node = path.getNode();
+  var semi = options.semi ? ";" : "";
   var kind = node.kind;
   var parts = [];
 
@@ -2203,10 +2213,14 @@ function printMethod(path, options, print) {
         }, "value"),
         path.call(p => printReturnType(p, print), "value")
       ])
-    ),
-    " ",
-    path.call(print, "value", "body")
+    )
   );
+
+  if (node.type === "TSAbstractMethodDefinition") {
+    parts.push(semi);
+  } else {
+    parts.push(" ", path.call(print, "value", "body"));
+  }
 
   return concat(parts);
 }
@@ -3585,6 +3599,8 @@ function classChildNeedsASIProtection(node) {
       return node.computed;
     // flow
     case "MethodDefinition":
+    // typescript
+    case "TSAbstractMethodDefinition":
     // babylon
     case "ClassMethod": {
       const isAsync = node.value ? node.value.async : node.async;
