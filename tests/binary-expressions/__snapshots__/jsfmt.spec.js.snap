@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`arrow.js 1`] = `
-"function f() {
+function f() {
   const appEntitys = getAppEntitys(loadObject).filter(
     entity => entity && entity.isInstallAvailable() && !entity.isQueue() && entity.isDisabled()
   )
@@ -16,11 +16,11 @@ function f() {
       entity.isDisabled()
   );
 }
-"
+
 `;
 
 exports[`comment.js 1`] = `
-"a = (
+a = (
   // Commment 1
   (Math.random() * (yRange * (1 - minVerticalFraction)))
   + (minVerticalFraction * yRange)
@@ -31,11 +31,11 @@ a =
   Math.random() * (yRange * (1 - minVerticalFraction)) +
   minVerticalFraction * yRange -
   offset;
-"
+
 `;
 
 exports[`exp.js 1`] = `
-"a ** b ** c;
+a ** b ** c;
 (a ** b) ** c;
 a.b ** c;
 (-a) ** b;
@@ -52,11 +52,43 @@ a ** -b;
 -(a ** b);
 (a * b) ** c;
 a ** (b * c);
-"
+
+`;
+
+exports[`if.js 1`] = `
+if (this.hasPlugin("dynamicImports") && this.lookahead().type) {}
+
+if (this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft) {}
+
+if (this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft.right) {}
+
+if (VeryVeryVeryVeryVeryVeryVeryVeryLong === VeryVeryVeryVeryVeryVeryVeryVeryLong) {
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+if (this.hasPlugin("dynamicImports") && this.lookahead().type) {
+}
+
+if (
+  this.hasPlugin("dynamicImports") &&
+  this.lookahead().type === tt.parenLeft
+) {
+}
+
+if (
+  this.hasPlugin("dynamicImports") &&
+  this.lookahead().type === tt.parenLeft.right
+) {
+}
+
+if (
+  VeryVeryVeryVeryVeryVeryVeryVeryLong === VeryVeryVeryVeryVeryVeryVeryVeryLong
+) {
+}
+
 `;
 
 exports[`inline-object-array.js 1`] = `
-"prevState = prevState || {
+prevState = prevState || {
   catalogs: [],
   loadState: LOADED,
   opened: false,
@@ -75,21 +107,21 @@ prevState = prevState || {
   catalogs: [],
   loadState: LOADED,
   opened: false,
-  searchQuery: \\"\\",
+  searchQuery: "",
   selectedCatalog: null
 };
 
 this.steps = steps || [
   {
-    name: \\"mock-module\\",
-    path: \\"/nux/mock-module\\"
+    name: "mock-module",
+    path: "/nux/mock-module"
   }
 ];
-"
+
 `;
 
 exports[`short-right.js 1`] = `
-"this._cumulativeHeights &&
+this._cumulativeHeights &&
  Math.abs(
    this._cachedItemHeight(this._firstVisibleIndex + i) -
      this._provider.fastHeight(i + this._firstVisibleIndex),
@@ -120,16 +152,16 @@ foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo(
 ) + a;
 
 const isPartOfPackageJSON =
-  dependenciesArray.indexOf(dependencyWithOutRelativePath.split(\\"/\\")[0]) !== -1;
+  dependenciesArray.indexOf(dependencyWithOutRelativePath.split("/")[0]) !== -1;
 
 defaultContent.filter(defaultLocale => {
   // ...
 })[0] || null;
-"
+
 `;
 
 exports[`test.js 1`] = `
-"// It should always break the highest precedence operators first, and
+// It should always break the highest precedence operators first, and
 // break them all at the same time.
 
 const x = longVariable + longVariable + longVariable;
@@ -191,5 +223,5 @@ foo(
     ? number + 5
     : false
 );
-"
+
 `;

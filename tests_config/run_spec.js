@@ -1,4 +1,5 @@
 "use strict";
+
 const fs = require("fs");
 const prettier = require("../");
 const types = require("ast-types");
@@ -6,8 +7,8 @@ const parser = require("../src/parser");
 
 const RUN_AST_TESTS = process.env["AST_COMPARE"];
 const VERIFY_ALL_PARSERS = process.env["VERIFY_ALL_PARSERS"] || false;
-const ALL_PASERS = process.env["ALL_PASERS"]
-  ? JSON.parse(process.env["ALL_PASERS"])
+const ALL_PARSERS = process.env["ALL_PARSERS"]
+  ? JSON.parse(process.env["ALL_PARSERS"])
   : ["flow", "babylon", "typescript"];
 
 // Ignoring empty statements that are added into the output removes a
@@ -35,7 +36,7 @@ function run_spec(dirname, options, additionalParsers) {
         const mergedOptions = mergeDefaultOptions(options || {});
         const output = prettyprint(source, path, mergedOptions);
         test(`${mergedOptions.parser} - ${parser.parser}-verify`, () => {
-          expect(source + "~".repeat(80) + "\n" + output).toMatchSnapshot(
+          expect(raw(source + "~".repeat(80) + "\n" + output)).toMatchSnapshot(
             filename
           );
         });
@@ -117,6 +118,18 @@ function read(filename) {
   return fs.readFileSync(filename, "utf8");
 }
 
+/**
+ * Wraps a string in a marker object that is used by `./raw-serializer.js` to
+ * directly print that string in a snapshot without escaping all double quotes.
+ * Backticks will still be escaped.
+ */
+function raw(string) {
+  if (typeof string !== "string") {
+    throw new Error("Raw snapshots have to be strings.");
+  }
+  return { [Symbol.for("raw")]: string };
+}
+
 function mergeDefaultOptions(parserConfig) {
   return Object.assign(
     {
@@ -129,7 +142,7 @@ function mergeDefaultOptions(parserConfig) {
 
 function getParsersToVerify(parser, additionalParsers) {
   if (VERIFY_ALL_PARSERS) {
-    return ALL_PASERS.splice(ALL_PASERS.indexOf(parent), 1);
+    return ALL_PARSERS.splice(ALL_PARSERS.indexOf(parent), 1);
   }
   return additionalParsers;
 }

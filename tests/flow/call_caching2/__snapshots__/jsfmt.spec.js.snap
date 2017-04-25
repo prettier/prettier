@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test.js 1`] = `
-"// @flow
+// @flow
 
 function Foo(items: ?Iterable<number>) {
   Iterable(items || []).size;
@@ -12,5 +12,5 @@ function Foo(items: ?Iterable<number>) {
 function Foo(items: ?Iterable<number>) {
   Iterable(items || []).size;
 }
-"
+
 `;

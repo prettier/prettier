@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`a1.js 1`] = `
-"// @flow
+// @flow
 
 function foo(x: number): number { return 5; }
 
@@ -18,5 +18,5 @@ function foo(x: number): number {
 foo(0);
 
 module.exports = foo;
-"
+
 `;

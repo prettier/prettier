@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`example.js 1`] = `
-"/* @flow */
+/* @flow */
 
 var lib = require('./library');
 
@@ -19,7 +19,7 @@ lib.bar();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-var lib = require(\\"./library\\");
+var lib = require("./library");
 
 function add(a: number, b: number): number {
   return a + b;
@@ -32,38 +32,38 @@ add(lib.iTakeAString(42), 7);
 
 // D123456
 lib.bar();
-"
+
 `;
 
 exports[`imports.js 1`] = `
-"// @flow
+// @flow
 
-import thing from \\"./helpers/exports_default.js\\";
+import thing from "./helpers/exports_default.js";
 thing;
 
-import {foo, bar as baz} from \\"./helpers/exports_named.js\\";
+import {foo, bar as baz} from "./helpers/exports_named.js";
 foo;
 baz;
 
-import * as things from \\"./helpers/exports_named.js\\";
+import * as things from "./helpers/exports_named.js";
 things;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-import thing from \\"./helpers/exports_default.js\\";
+import thing from "./helpers/exports_default.js";
 thing;
 
-import { foo, bar as baz } from \\"./helpers/exports_named.js\\";
+import { foo, bar as baz } from "./helpers/exports_named.js";
 foo;
 baz;
 
-import * as things from \\"./helpers/exports_named.js\\";
+import * as things from "./helpers/exports_named.js";
 things;
-"
+
 `;
 
 exports[`library.js 1`] = `
-"/* @flow */
+/* @flow */
 
 module.exports = {
 
@@ -88,5 +88,5 @@ module.exports = {
     return 42;
   }
 };
-"
+
 `;

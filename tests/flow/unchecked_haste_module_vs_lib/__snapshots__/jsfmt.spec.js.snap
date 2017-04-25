@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`buffer.js 1`] = `
-"/**
+/**
  * @providesModule buffer
  *
  * Not in flow.
@@ -26,11 +26,11 @@ export var INSPECT_MAX_BYTES = 0;
  */
 
 export var INSPECT_MAX_BYTES = 0;
-"
+
 `;
 
 exports[`test.js 1`] = `
-"/**
+/**
  * Copyright 2004-present Facebook. All Rights Reserved.
  * @flow
  */
@@ -41,7 +41,7 @@ exports[`test.js 1`] = `
  * that follows will cause no errors, but if we resolve to the library
  * instead, we'll get the desired error.
  */
-var buffer = require(\\"buffer\\");
+var buffer = require("buffer");
 var x: string = buffer.INSPECT_MAX_BYTES; // error, number ~/> string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /**
@@ -55,7 +55,7 @@ var x: string = buffer.INSPECT_MAX_BYTES; // error, number ~/> string
  * that follows will cause no errors, but if we resolve to the library
  * instead, we'll get the desired error.
  */
-var buffer = require(\\"buffer\\");
+var buffer = require("buffer");
 var x: string = buffer.INSPECT_MAX_BYTES; // error, number ~/> string
-"
+
 `;

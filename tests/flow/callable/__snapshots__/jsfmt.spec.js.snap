@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`optional.js 1`] = `
-"type F = {
+type F = {
   (x: string): number;
   p?: string;
 }
@@ -22,11 +22,11 @@ function f(x) {
 }
 
 (f: F);
-"
+
 `;
 
 exports[`primitives.js 1`] = `
-"var x = Boolean(4);
+var x = Boolean(4);
 function foo(fn:(value:any)=>boolean) { }
 foo(Boolean);
 
@@ -69,5 +69,5 @@ type Callable = {
 declare var callable: Callable;
 callable(0); // error, number ~> string
 callable.call(null, 0); // error, number ~> string
-"
+
 `;

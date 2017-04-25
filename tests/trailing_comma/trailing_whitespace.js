@@ -33,3 +33,11 @@ function supersupersupersuperLongF(
 ) {
   a
 }
+
+this.getAttribute(function(s)
+  /*string*/ {
+  console.log()
+});
+this.getAttribute(function(s) /*string*/ {
+  console.log()
+});

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`arrow.js 1`] = `
-"// Error
+// Error
 const beep = (data/*: Object*/) => {}
 
 // OK
@@ -12,11 +12,11 @@ const beep = (data: Object) => {};
 
 // OK
 const beep = (data: Object, secondData: Object) => {};
-"
+
 `;
 
 exports[`arrow.js 2`] = `
-"// Error
+// Error
 const beep = (data/*: Object*/) => {}
 
 // OK
@@ -27,5 +27,69 @@ const beep = (data /*: Object*/) => {};
 
 // OK
 const beep = (data /*: Object*/, secondData /*: Object*/) => {};
-"
+
+`;
+
+exports[`object_type_annotation.js 1`] = `
+type Props = // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
+{
+  isPlaying: boolean,
+};
+
+type Props = { // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
+  isPlaying: boolean
+};
+
+type Props = {
+  // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
+  isPlaying: boolean
+};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
+type Props = {
+  isPlaying: boolean
+};
+
+type Props = {
+  // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
+  isPlaying: boolean
+};
+
+type Props = {
+  // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
+  isPlaying: boolean
+};
+
+`;
+
+exports[`object_type_annotation.js 2`] = `
+type Props = // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
+{
+  isPlaying: boolean,
+};
+
+type Props = { // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
+  isPlaying: boolean
+};
+
+type Props = {
+  // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
+  isPlaying: boolean
+};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
+type Props = {
+  isPlaying: boolean
+};
+
+type Props = {
+  // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
+  isPlaying: boolean
+};
+
+type Props = {
+  // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
+  isPlaying: boolean
+};
+
 `;

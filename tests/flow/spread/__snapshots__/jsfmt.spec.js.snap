@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test.js 1`] = `
-"function parseTimestamp(timestamp: string): number {
+function parseTimestamp(timestamp: string): number {
     return 0;
 }
 
@@ -58,17 +58,17 @@ function parseGroup(
 }
 
 function parseTimeframe(line: string): { begin: number, end: number } {
-  var timestamps = line.split(\\"-->\\");
+  var timestamps = line.split("-->");
   return {
     begin: parseTimestamp(timestamps[0].trim()),
     end: parseTimestamp(timestamps[1].trim())
   };
 }
-"
+
 `;
 
 exports[`test2.js 1`] = `
-"/**
+/**
  * @flow
  */
 
@@ -87,12 +87,12 @@ function foo(o) {
 }
 function bar(_: { foo: number }) {}
 foo({ foo: 42 });
-"
+
 `;
 
 exports[`test3.js 1`] = `
-"var p = { y: \\"\\" };
-var q = { z: \\"\\" };
+var p = { y: "" };
+var q = { z: "" };
 var o = {
   x: 5,
   ...p,
@@ -109,8 +109,8 @@ var s = {
 };
 var t: boolean = s.y; // error, string or number
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var p = { y: \\"\\" };
-var q = { z: \\"\\" };
+var p = { y: "" };
+var q = { z: "" };
 var o = {
   x: 5,
   ...p,
@@ -126,11 +126,11 @@ var s = {
   ...r
 };
 var t: boolean = s.y; // error, string or number
-"
+
 `;
 
 exports[`test4.js 1`] = `
-"/* @flow */
+/* @flow */
 function test(...nums: Array<number>) {}
 
 test(0, ...[1, 2, 3]);
@@ -139,11 +139,11 @@ test(0, ...[1, 2, 3]);
 function test(...nums: Array<number>) {}
 
 test(0, ...[1, 2, 3]);
-"
+
 `;
 
 exports[`test5.js 1`] = `
-"/* @flow */
+/* @flow */
 
 declare function map<Tv, TNext>(
   obj: {[key: string]: Tv},
@@ -194,11 +194,11 @@ function test(
     };
   });
 }
-"
+
 `;
 
 exports[`test6.js 1`] = `
-"var o = {
+var o = {
   foo: 'bar'
 };
 o = {...o};
@@ -220,30 +220,30 @@ for (var i = 0; i < 10; i++) {
 (q: {foo: string});
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var o = {
-  foo: \\"bar\\"
+  foo: "bar"
 };
 o = { ...o };
 (o: { foo: string });
 
 var p = {
-  foo: \\"bar\\"
+  foo: "bar"
 };
 (p: { foo: string, abc: string }); // error, p doesn't have \`abc\` yet
-p = { ...p, abc: \\"def\\" };
+p = { ...p, abc: "def" };
 (p: { foo: string, abc: string });
 
 var q = {
-  foo: \\"bar\\"
+  foo: "bar"
 };
 for (var i = 0; i < 10; i++) {
   q = { ...q };
 }
 (q: { foo: string });
-"
+
 `;
 
 exports[`test7.js 1`] = `
-"// @flow
+// @flow
 
 let tests = [
   function(x: Object) {
@@ -260,5 +260,5 @@ let tests = [
     ({ ...x }: void); // error, Object
   }
 ];
-"
+
 `;

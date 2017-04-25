@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`B.js 1`] = `
-"// @flow
+// @flow
 var A = require ('./A');
 import type C from './C';
 
@@ -9,9 +9,9 @@ import type C from './C';
 export type B = string;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
-var A = require(\\"./A\\");
-import type C from \\"./C\\";
+var A = require("./A");
+import type C from "./C";
 
 export type B = string;
-"
+
 `;

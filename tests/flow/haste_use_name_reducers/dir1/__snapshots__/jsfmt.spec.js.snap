@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Module1.js 1`] = `
-"/* @flow */
+/* @flow */
 
 require('test');
 
@@ -11,10 +11,10 @@ module.exports = new Impl();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-require(\\"test\\");
+require("test");
 
 class Impl {}
 
 module.exports = new Impl();
-"
+
 `;

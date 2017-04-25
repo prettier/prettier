@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test.js 1`] = `
-"/**
+/**
  * test handling of const params
  * - reassignment prohibited
  * - durable refinements
@@ -17,7 +17,7 @@ exports[`test.js 1`] = `
  */
 
 function cannot_reassign(x: string) {
-  x = \\"hey\\"; // error, const param cannot be reassigned
+  x = "hey"; // error, const param cannot be reassigned
 }
 
 // Note: const params use the same machinery as explicit
@@ -47,7 +47,7 @@ function durable_refi(x: ?number) {
  */
 
 function cannot_reassign(x: string) {
-  x = \\"hey\\"; // error, const param cannot be reassigned
+  x = "hey"; // error, const param cannot be reassigned
 }
 
 // Note: const params use the same machinery as explicit
@@ -62,5 +62,5 @@ function durable_refi(x: ?number) {
     };
   }
 }
-"
+
 `;

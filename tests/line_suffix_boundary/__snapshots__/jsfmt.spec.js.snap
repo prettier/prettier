@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`boundary.js 1`] = `
-"\`\${
+\`\${
 a +  // a
   a
 }
@@ -41,12 +41,12 @@ a}
 d}
 
 \${/* $FlowFixMe found when converting React.createClass to ES6*/
-ExampleStory.getFragment(\\"story\\")}
+ExampleStory.getFragment("story")}
 \`;
 
 <div>
-  {ExampleStory.getFragment(\\"story\\") // $FlowFixMe found when converting React.createClass to ES6
+  {ExampleStory.getFragment("story") // $FlowFixMe found when converting React.createClass to ES6
   }
 </div>;
-"
+
 `;

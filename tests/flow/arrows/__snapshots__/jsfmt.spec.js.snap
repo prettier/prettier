@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`advanced_arrows.js 1`] = `
-"/**
+/**
  * @flow
  */
 
@@ -11,7 +11,7 @@ var bad = (x: number): string => x; // Error!
 
 var ident = <T>(x: T): T => x;
 (ident(1): number);
-(ident(\\"hi\\"): number); // Error
+(ident("hi"): number); // Error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /**
  * @flow
@@ -23,18 +23,18 @@ var bad = (x: number): string => x; // Error!
 
 var ident = <T>(x: T): T => x;
 (ident(1): number);
-(ident(\\"hi\\"): number); // Error
-"
+(ident("hi"): number); // Error
+
 `;
 
 exports[`arrows.js 1`] = `
-"function selectBestEffortImageForWidth(
+function selectBestEffortImageForWidth(
     maxWidth: number,
     images: Array<Image>
 ): Image {
     var maxPixelWidth = maxWidth;
     //images = images.sort(function (a, b) { return a.width - b.width });
-    images = images.sort((a, b) => (a.width - b.width) + \\"\\");
+    images = images.sort((a, b) => (a.width - b.width) + "");
     return images.find(image => image.width >= maxPixelWidth) ||
         images[images.length - 1];
 }
@@ -45,11 +45,11 @@ function selectBestEffortImageForWidth(
 ): Image {
   var maxPixelWidth = maxWidth;
   //images = images.sort(function (a, b) { return a.width - b.width });
-  images = images.sort((a, b) => a.width - b.width + \\"\\");
+  images = images.sort((a, b) => a.width - b.width + "");
   return (
     images.find(image => image.width >= maxPixelWidth) ||
     images[images.length - 1]
   );
 }
-"
+
 `;

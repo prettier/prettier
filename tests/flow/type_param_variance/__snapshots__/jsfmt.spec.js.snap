@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`promise.js 1`] = `
-"/**
+/**
  * At the moment, all type params are invariant with
  * the exception of the single param to the Promise class,
  * which is covariant.
@@ -44,7 +44,7 @@ run()
 
 async function foo(x: boolean): Promise<?{ bar: string }> {
   if (x) {
-    return { bar: \\"baz\\" }; // OK, because of covariant type param
+    return { bar: "baz" }; // OK, because of covariant type param
   } else {
     return null;
   }
@@ -56,5 +56,5 @@ async function run() {
 }
 
 run();
-"
+
 `;

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`intersection.js 1`] = `
-"export type ReallyBigSocketServer = ReallyBigSocketServerInterface & ReallyBigSocketServerStatics;
+export type ReallyBigSocketServer = ReallyBigSocketServerInterface & ReallyBigSocketServerStatics;
 
 type Props = {
   focusedChildren?: React.Children,
@@ -10,6 +10,34 @@ type Props = {
   style?: Object,
   thumbnail: ImageSource,
 } & FooterProps;
+
+type DuplexStreamOptions = ReadableStreamOptions & {
+  allowHalfOpen?: boolean,
+  readableObjectMode?: boolean
+};
+
+type DuplexStreamOptions = {
+  allowHalfOpen?: boolean,
+  readableObjectMode?: boolean
+} & {
+  allowHalfOpen?: boolean,
+  readableObjectMode?: boolean
+};
+
+type DuplexStreamOptions = ReadableStreamOptions &
+  WritableStreamOptions & {
+    allowHalfOpen?: boolean,
+    readableObjectMode?: boolean
+  };
+
+type DuplexStreamOptions = ReadableStreamOptions &
+  WritableStreamOptions & {
+    allowHalfOpen?: boolean,
+    readableObjectMode?: boolean
+  } & {
+    allowHalfOpen?: boolean,
+    readableObjectMode?: boolean
+  };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export type ReallyBigSocketServer = ReallyBigSocketServerInterface &
   ReallyBigSocketServerStatics;
@@ -21,5 +49,33 @@ type Props = {
   style?: Object,
   thumbnail: ImageSource
 } & FooterProps;
-"
+
+type DuplexStreamOptions = ReadableStreamOptions & {
+  allowHalfOpen?: boolean,
+  readableObjectMode?: boolean
+};
+
+type DuplexStreamOptions = {
+  allowHalfOpen?: boolean,
+  readableObjectMode?: boolean
+} & {
+  allowHalfOpen?: boolean,
+  readableObjectMode?: boolean
+};
+
+type DuplexStreamOptions = ReadableStreamOptions &
+  WritableStreamOptions & {
+    allowHalfOpen?: boolean,
+    readableObjectMode?: boolean
+  };
+
+type DuplexStreamOptions = ReadableStreamOptions &
+  WritableStreamOptions & {
+    allowHalfOpen?: boolean,
+    readableObjectMode?: boolean
+  } & {
+    allowHalfOpen?: boolean,
+    readableObjectMode?: boolean
+  };
+
 `;

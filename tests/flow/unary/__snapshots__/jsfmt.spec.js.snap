@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`unary.js 1`] = `
-"/* @flow */
+/* @flow */
 
 function x0(y: string): number {
   return +y; // ok, + exists solely for coercion
@@ -40,11 +40,11 @@ function x4(y: string): boolean {
 }
 
 (-1: void); // error, number ~> void
-"
+
 `;
 
 exports[`update.js 1`] = `
-"// @flow
+// @flow
 
 let tests = [
   function(y: number) {
@@ -121,5 +121,5 @@ let tests = [
     y++; // ok
   }
 ];
-"
+
 `;

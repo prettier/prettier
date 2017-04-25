@@ -1,10 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`call.js 1`] = `
+new (factory())()
+new factory()()
+
+new (factory())(factory())
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+new (factory())();
+new factory()();
+
+new (factory())(factory());
+
+`;
+
 exports[`new_expression.js 1`] = `
-"new (memoize.Cache || MapCache)
-new (typeof this == \\"function\\" ? this : Dict())
+new (memoize.Cache || MapCache)
+new (typeof this == "function" ? this : Dict())
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 new (memoize.Cache || MapCache)();
-new (typeof this == \\"function\\" ? this : Dict())();
-"
+new (typeof this == "function" ? this : Dict())();
+
 `;
