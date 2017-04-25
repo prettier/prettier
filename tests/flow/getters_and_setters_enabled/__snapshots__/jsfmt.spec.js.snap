@@ -457,15 +457,20 @@ class C extends A {}
 type T = {
   goodGetterWithAnnotation: () => number,
   goodSetterWithAnnotation: (x: number) => void,
+
   propWithMatchingGetterAndSetter: () => number,
   propWithMatchingGetterAndSetter: (x: number) => void,
+
   // The getter and setter need not have the same type
   propWithSubtypingGetterAndSetter: () => ?number, // OK
   propWithSubtypingGetterAndSetter: (x: number) => void,
+
   propWithSubtypingGetterAndSetterReordered: (x: number) => void, // OK
   propWithSubtypingGetterAndSetterReordered: () => ?number,
+
   exampleOfOrderOfGetterAndSetter: () => A,
   exampleOfOrderOfGetterAndSetter: (x: B) => void,
+
   exampleOfOrderOfGetterAndSetterReordered: (x: B) => void,
   exampleOfOrderOfGetterAndSetterReordered: () => A
 };

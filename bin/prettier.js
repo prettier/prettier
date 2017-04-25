@@ -40,7 +40,7 @@ const argv = minimist(process.argv.slice(2), {
     "flow-parser"
   ],
   string: ["print-width", "tab-width", "parser", "trailing-comma"],
-  default: { color: true, "braces-spacing": true, parser: "babylon" },
+  default: { semi: true, color: true, "braces-spacing": true, parser: "babylon" },
   alias: { help: "h", version: "v", "list-different": "l" },
   unknown: param => {
     if (param.startsWith("-")) {
@@ -73,7 +73,7 @@ function getParserOption() {
     return "flow";
   }
 
-  if (value === "flow" || value === "babylon") {
+  if (value === "flow" || value === "babylon" || value === "typescript") {
     return value;
   }
 
@@ -156,13 +156,94 @@ function format(input) {
   }
 
   if (argv["debug-check"]) {
+    function massageAST(ast) {
+      if (Array.isArray(ast)) {
+        return ast.map(e => massageAST(e)).filter(e => e);
+      }
+      if (ast && typeof ast === "object") {
+        // We remove extra `;` and add them when needed
+        if (ast.type === "EmptyStatement") {
+          return undefined;
+        }
+
+        // We move text around, including whitespaces and add {" "}
+        if (ast.type === "JSXText") {
+          return undefined;
+        }
+        if (
+          ast.type === "JSXExpressionContainer" &&
+          ast.expression.type === "Literal" &&
+          ast.expression.value === " "
+        ) {
+          return undefined;
+        }
+
+        const newObj = {};
+        for (var key in ast) {
+          newObj[key] = massageAST(ast[key]);
+        }
+
+        [
+          "loc",
+          "range",
+          "raw",
+          "comments",
+          "start",
+          "end",
+          "tokens",
+          "flags"
+        ].forEach(name => {
+          delete newObj[name];
+        });
+
+        // We convert <div></div> to <div />
+        if (ast.type === "JSXOpeningElement") {
+          delete newObj.selfClosing;
+        }
+        if (ast.type === "JSXElement") {
+          delete newObj.closingElement;
+        }
+
+        // We change {'key': value} into {key: value}
+        if (
+          ast.type === "Property" &&
+          typeof ast.key === "object" &&
+          ast.key &&
+          (ast.key.type === "Literal" || ast.key.type === "Identifier")
+        ) {
+          delete newObj.key;
+        }
+
+        return newObj;
+      }
+      return ast;
+    }
+
+    function cleanAST(ast) {
+      return JSON.stringify(massageAST(ast), null, 2);
+    }
+
+    function diff(a, b) {
+      return require("diff")
+        .createTwoFilesPatch("", "", a, b, "", "", { context: 2 });
+    }
+
     const pp = prettier.format(input, options);
     const pppp = prettier.format(pp, options);
     if (pp !== pppp) {
-      const diff = require(
-        "diff"
-      ).createTwoFilesPatch("", "", pp, pppp, "", "", { context: 2 });
-      console.error(diff);
+      process.stdout.write("\n");
+      console.error('prettier(input) !== prettier(prettier(input))');
+      console.error(diff(pp, pppp));
+    } else {
+      const ast = cleanAST(prettier.__debug.parse(input, options));
+      const past = cleanAST(prettier.__debug.parse(pp, options));
+
+      if (ast !== past) {
+        process.stdout.write("\n");
+        console.error('ast(input) !== ast(prettier(input))');
+        console.error(diff(ast, past));
+        console.error(diff(input, pp));
+      }
     }
     return;
   }
@@ -199,33 +280,30 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
     "Usage: prettier [opts] [filename ...]\n\n" +
       "Available options:\n" +
       "  --write                  Edit the file in-place. (Beware!)\n" +
-      "  --list-different or -l   Print filenames of files that are different from prettier formatting\n" +
+      "  --list-different or -l   Print filenames of files that are different from Prettier formatting.\n" +
       "  --stdin                  Read input from stdin.\n" +
       "  --print-width <int>      Specify the length of line that the printer will wrap on. Defaults to 80.\n" +
       "  --tab-width <int>        Specify the number of spaces per indentation-level. Defaults to 2.\n" +
-      "  --use-tabs               Indent lines with tabs instead of spaces. Defaults to false.\n" +
-      "  --no-semi                Do not print semicolons, except at the beginning of lines which may need them. Defaults to false.\n" +
-      "  --single-quote           Use single quotes instead of double.\n" +
-      "  --bracket-spacing        Put spaces between [brackets]. Defaults to false.\n" +
-      "  --braces-spacing         Put spaces between {braces}. Defaults to true.\n" +
-      "  --break-property         Allow object properties to break lines. Defaults to false.\n" +
-      "  --arrow-parens           Always put parentheses on arrow function arguments. Defaults to false.\n" +
-      "  --array-expand           Expand arrays into one item per line. Defaults to false.\n" +
-      "  --flatten-ternaries      Format ternaries in a flat style. Defaults to false.\n" +
-      "  --break-before-else      Put `else` clause in a new line. Defaults to false.\n" +
-      "  --jsx-bracket-same-line  Put > on the last line. Defaults to false.\n" +
+      "  --use-tabs               Indent lines with tabs instead of spaces.\n" +
+      "  --no-semi                Do not print semicolons, except at the beginning of lines which may need them.\n" +
+      "  --single-quote           Use single quotes instead of double quotes.\n" +
+      "  --bracket-spacing        Print spaces between [brackets].\n" +
+      "  --no-braces-spacing      Do not print spaces between {braces}.\n" +
+      "  --break-property         Allow object properties to break lines.\n" +
+      "  --arrow-parens           Always put parentheses on arrow function arguments.\n" +
+      "  --array-expand           Expand arrays into one item per line.\n" +
+      "  --flatten-ternaries      Format ternaries in a flat style.\n" +
+      "  --break-before-else      Put `else` clause in a new line.\n" +
+      "  --jsx-bracket-same-line  Put > on the last line instead of at a new line.\n" +
       "  --trailing-comma <none|es5|all>\n" +
       "                           Print trailing commas wherever possible. Defaults to none.\n" +
       "                           You can customize with a comma separated list. 'all' is equivalent to:\n" +
       "                           'array,object,import,export,arguments'\n" +
       "  --no-space-empty-fn      Omit space before empty function body. Defaults to false.\n" +
       "  --parser <flow|babylon>  Specify which parse to use. Defaults to babylon.\n" +
-      "  --color                  Colorize error messages. Defaults to true.\n" +
-      "  --version or -v          Print prettier version.\n" +
-      "\n" +
-      "Boolean options can be turned off like this:\n" +
-      "  --no-bracket-spacing\n" +
-      "  --bracket-spacing=false"
+      "  --no-color               Do not colorize error messages.\n" +
+      "  --version or -v          Print Prettier version.\n" +
+      "\n"
   );
   process.exit(argv["help"] ? 0 : 1);
 }
@@ -254,7 +332,7 @@ if (stdin) {
       // Add newline to split errors from filename line.
       process.stdout.write("\n");
 
-      console.error("Unable to read file: " + filename + "\n" + err);
+      console.error("Unable to read file: " + filename + "\n" + e);
       // Don't exit the process if one file failed
       process.exitCode = 2;
       return;
@@ -294,13 +372,13 @@ if (stdin) {
       } else {
         console.log("%s %dms", filename, Date.now() - start);
 
-        fs.writeFile(filename, output, "utf8", err => {
-          if (err) {
-            console.error("Unable to write file: " + filename + "\n" + err);
-            // Don't exit the process if one file failed
-            process.exitCode = 2;
-          }
-        });
+        try {
+          fs.writeFileSync(filename, output, "utf8");
+        } catch (err) {
+          console.error("Unable to write file: " + filename + "\n" + err);
+          // Don't exit the process if one file failed
+          process.exitCode = 2;
+        }
       }
     } else if (argv["debug-check"]) {
       process.stdout.write("\n");
@@ -316,6 +394,11 @@ if (stdin) {
 
 function eachFilename(patterns, callback) {
   patterns.forEach(pattern => {
+    if (!glob.hasMagic(pattern)) {
+      callback(pattern);
+      return;
+    }
+
     glob(pattern, (err, filenames) => {
       if (err) {
         console.error("Unable to expand glob pattern: " + pattern + "\n" + err);

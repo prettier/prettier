@@ -39,6 +39,37 @@ export default function searchUsers(action$) {
 
 `;
 
+exports[`break.js 1`] = `
+export default class AddAssetHtmlPlugin {
+  apply(compiler: WebpackCompilerType) {
+    compiler.plugin('compilation', (compilation: WebpackCompilationType) => {
+      compilation.plugin('html-webpack-plugin-before-html', (callback: Callback<any>) => {
+        addAllAssetsToCompilation(this.assets, compilation, htmlPluginData, callback);
+      });
+    });
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export default class AddAssetHtmlPlugin {
+  apply(compiler: WebpackCompilerType) {
+    compiler.plugin("compilation", (compilation: WebpackCompilationType) => {
+      compilation.plugin(
+        "html-webpack-plugin-before-html",
+        (callback: Callback<any>) => {
+          addAllAssetsToCompilation(
+            this.assets,
+            compilation,
+            htmlPluginData,
+            callback
+          );
+        }
+      );
+    });
+  }
+}
+
+`;
+
 exports[`break-parent.js 1`] = `
 ({
   processors: [
@@ -91,6 +122,156 @@ true
       f={123412341234}
       g={123412341234}
     />;
+
+`;
+
+exports[`edge_case.js 1`] = `
+var listener = DOM.listen(
+  introCard,
+  'click',
+  sigil,
+  (event: JavelinEvent): void =>
+    BanzaiLogger.log(
+      config,
+      {...logData, ...DataStore.get(event.getNode(sigil))},
+    ),
+);
+
+a(
+  SomethingVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong,
+  [
+    {
+      SomethingVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong: 1
+    }
+  ]
+);
+
+exports.examples = [
+  {
+    render: withGraphQLQuery(
+      'node(1234567890){image{uri}}',
+      function(container, data) {
+        return (
+          <div>
+            <InlineBlock>
+              <img
+                src={data[1234567890].image.uri}
+                style={{position: 'absolute', top: '0', left: '0', zIndex:'-1'}}
+              />
+            </InlineBlock>
+          </div>
+        );
+      }
+    )
+  }
+];
+
+someReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReally.a([
+  [],
+  // comment
+  [],
+]);
+
+(function webpackUniversalModuleDefinition() {})(this, function(__WEBPACK_EXTERNAL_MODULE_85__, __WEBPACK_EXTERNAL_MODULE_115__) {
+return /******/ (function(modules) { // webpackBootstrap
+
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ function(module, exports, __webpack_require__) {
+
+/***/ },
+/* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+/***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
+/***/ }
+/******/ ])
+});
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var listener = DOM.listen(
+  introCard,
+  "click",
+  sigil,
+  (event: JavelinEvent): void =>
+    BanzaiLogger.log(config, {
+      ...logData,
+      ...DataStore.get(event.getNode(sigil))
+    })
+);
+
+a(
+  SomethingVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong,
+  [
+    {
+      SomethingVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong: 1
+    }
+  ]
+);
+
+exports.examples = [
+  {
+    render: withGraphQLQuery("node(1234567890){image{uri}}", function(
+      container,
+      data
+    ) {
+      return (
+        <div>
+          <InlineBlock>
+            <img
+              src={data[1234567890].image.uri}
+              style={{
+                position: "absolute",
+                top: "0",
+                left: "0",
+                zIndex: "-1"
+              }}
+            />
+          </InlineBlock>
+        </div>
+      );
+    })
+  }
+];
+
+someReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReally.a(
+  [
+    [],
+    // comment
+    []
+  ]
+);
+
+(function webpackUniversalModuleDefinition() {})(this, function(
+  __WEBPACK_EXTERNAL_MODULE_85__,
+  __WEBPACK_EXTERNAL_MODULE_115__
+) {
+  return /******/ (function(modules) {
+    // webpackBootstrap
+    /******/
+  })(
+    /************************************************************************/
+    /******/ [
+      /* 0 */
+      /***/ function(module, exports, __webpack_require__) {
+        /***/
+      },
+      /* 1 */
+      /***/ function(module, exports, __webpack_require__) {
+        /***/
+      },
+      /* 2 */
+      /***/ function(module, exports, __webpack_require__) {
+        /***/
+      }
+      /******/
+    ]
+  );
+});
 
 `;
 

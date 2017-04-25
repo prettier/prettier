@@ -1,11 +1,11 @@
 {
-  "name": "prettier-with-tabs",
-  "version": "0.22.0",
+  "name": "prettier-miscellaneous",
+  "version": "1.2.2",
   "description": "Prettier is an opinionated JavaScript formatter",
   "bin": {
     "prettier": "./bin/prettier.js"
   },
-  "repository": "arijs/prettier-with-tabs",
+  "repository": "arijs/prettier-miscellaneous",
   "author": "Rafael Hengles",
   "license": "MIT",
   "main": "./index.js",

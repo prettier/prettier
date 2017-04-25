@@ -440,7 +440,7 @@ FPp.needsParens = function(assumeExpressionContext) {
 
     case "AssignmentExpression":
       if (parent.type === "ArrowFunctionExpression" && parent.body === node) {
-        return node.left.type === "ObjectPattern";
+        return true;
       } else if (
         parent.type === "ForStatement" &&
         (parent.init === node || parent.update === node)

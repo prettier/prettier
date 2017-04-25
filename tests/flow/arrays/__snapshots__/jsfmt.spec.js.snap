@@ -51,7 +51,7 @@ a[1] = "...";
 
 foo(a[1]);
 var y;
-a.forEach(x => y = x);
+a.forEach(x => (y = x));
 
 // for literals, composite element type is union of individuals
 // note: test both tuple and non-tuple inferred literals

@@ -11,12 +11,12 @@ const obj = {
 
 class Foo {
   f(/* ... */) {}
+  f() /* ... */ {}
   f = (/* ... */) => {};
   static f(/* ... */) {};
   static f = (/* ... */) => {};
   static f = function(/* ... */) {};
   static f = function f(/* ... */) {};
-  static f /* ... */() {};
 }
 
 f(/* ... */);

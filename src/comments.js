@@ -15,7 +15,6 @@ var align = docBuilders.align;
 var lineSuffix = docBuilders.lineSuffix;
 var join = docBuilders.join;
 var util = require("./util");
-var comparePos = util.comparePos;
 var childNodesCacheKey = Symbol("child-nodes");
 var locStart = util.locStart;
 var locEnd = util.locEnd;
@@ -28,10 +27,6 @@ function getSortedChildNodes(node, text, resultArray) {
   if (!node) {
     return;
   }
-
-  // The loc checks below are sensitive to some of the problems that
-  // are fixed by this utility function.
-  util.fixFaultyLocations(node, text);
 
   if (resultArray) {
     if (n.Node.check(node) && node.type !== "EmptyStatement") {
@@ -249,7 +244,7 @@ function attach(comments, ast, text, options) {
         ) ||
         handleObjectPropertyAssignment(enclosingNode, precedingNode, comment) ||
         handleTemplateLiteralComments(enclosingNode, comment) ||
-        handleCommentInEmptyParens(enclosingNode, comment) ||
+        handleCommentInEmptyParens(text, enclosingNode, comment) ||
         handleOnlyComments(enclosingNode, ast, comment, isLastComment)
       ) {
         // We're good
@@ -510,7 +505,7 @@ function handleObjectPropertyAssignment(enclosingNode, precedingNode, comment) {
 function handleTemplateLiteralComments(enclosingNode, comment) {
   if (enclosingNode && enclosingNode.type === "TemplateLiteral") {
     const expressionIndex = findExpressionIndexForComment(
-      enclosingNode.expressions,
+      enclosingNode.quasis,
       comment
     );
     // Enforce all comments to be leading block comments.
@@ -521,7 +516,11 @@ function handleTemplateLiteralComments(enclosingNode, comment) {
   return false;
 }
 
-function handleCommentInEmptyParens(enclosingNode, comment) {
+function handleCommentInEmptyParens(text, enclosingNode, comment) {
+  if (getNextNonSpaceNonCommentCharacter(text, comment) !== ")") {
+    return false;
+  }
+
   // Only add dangling comments to fix the case when no params are present,
   // i.e. a function without any argument.
   if (
@@ -785,27 +784,21 @@ function printComment(commentPath) {
   }
 }
 
-function findExpressionIndexForComment(expressions, comment) {
-  let match;
+function findExpressionIndexForComment(quasis, comment) {
   const startPos = locStart(comment) - 1;
-  const endPos = locEnd(comment) + 1;
 
-  for (let i = 0; i < expressions.length; ++i) {
-    const range = getExpressionRange(expressions[i]);
-
-    if (
-      (startPos >= range.start && startPos <= range.end) ||
-      (endPos >= range.start && endPos <= range.end)
-    ) {
-      match = i;
-      break;
+  for (let i = 1; i < quasis.length; ++i) {
+    if (startPos < getQuasiRange(quasis[i]).start) {
+      return i - 1;
     }
   }
 
-  return match;
+  // We haven't found it, it probably means that some of the locations are off.
+  // Let's just return the first one.
+  return 0;
 }
 
-function getExpressionRange(expr) {
+function getQuasiRange(expr) {
   if (expr.start !== undefined) {
     // Babylon
     return { start: expr.start, end: expr.end };
@@ -896,7 +889,7 @@ function printDanglingComments(path, options, sameIndent) {
   return indent(concat([hardline, join(hardline, parts)]));
 }
 
-function printComments(path, print, options) {
+function printComments(path, print, options, needsSemi) {
   var value = path.getValue();
   var parent = path.getParentNode();
   var printed = print(path);
@@ -907,7 +900,7 @@ function printComments(path, print, options) {
   }
 
   var leadingParts = [];
-  var trailingParts = [printed];
+  var trailingParts = [needsSemi ? ";" : "", printed];
 
   path.each(function(commentPath) {
     var comment = commentPath.getValue();

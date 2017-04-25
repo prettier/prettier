@@ -47,10 +47,7 @@ conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Pre
 
 If you are interested in the details, you can watch those two conference talks:
 
-<a href="https://www.youtube.com/watch?v=hkfBvpEfWdA"><img width="298" src="https://cloud.githubusercontent.com/assets/197597/24886367/dda8a6f0-1e08-11e7-865b-22492450f10f.png"></a> <a href="https://www.youtube.com/watch?v=ziAShzxAVKY"><img width="298" src="https://cloud.githubusercontent.com/assets/197597/24886368/ddacd6f8-1e08-11e7-806a-9febd23cbf47.png"></a>
-
-*Warning*: This is a **beta**, and the format may change over time. If you
- aren't OK with the format changing, wait for a more stable version.
+<a href="https://www.youtube.com/watch?v=hkfBvpEfWdA"><img width="298" src="https://cloud.githubusercontent.com/assets/197597/24886367/dda8a6f0-1e08-11e7-865b-22492450f10f.png"></a> <a href="https://www.youtube.com/watch?v=0Q4kUNx85_4"><img width="298" src="https://cloud.githubusercontent.com/assets/197597/24886368/ddacd6f8-1e08-11e7-806a-9febd23cbf47.png"></a>
 
 This goes way beyond [ESLint](http://eslint.org/) and other projects
 [built on it](https://github.com/feross/standard). Unlike ESLint,
@@ -129,7 +126,9 @@ into account, wrapping code when necessary.
 Install:
 
 ```
-yarn add prettier-with-tabs
+yarn add prettier-with-tabs --dev
+=======
+yarn add prettier --dev
 ```
 
 You can install it globally if you like:
@@ -149,8 +148,8 @@ npm install [-g] prettier-with-tabs
 Run Prettier through the CLI with this script. Run it without any
 arguments to see the options.
 
-To format a file in-place, use `--write`. While this is in beta you
-should probably commit your code before doing that.
+To format a file in-place, use `--write`. You may want to consider
+committing your code before doing that, just in case.
 
 ```bash
 prettier [opts] [filename ...]
@@ -169,7 +168,7 @@ In the future we will have better support for formatting whole projects.
 
 #### Pre-commit hook for changed files
 
-[🚫💩 lint-staged](https://github.com/okonet/lint-staged) can re-format your files that are marked as "staged" via `git add`  before you commit.
+[lint-staged](https://github.com/okonet/lint-staged) can re-format your files that are marked as "staged" via `git add`  before you commit.
 
 Install it along with [husky](https://github.com/typicode/husky):
 
@@ -193,13 +192,13 @@ and add this config to your `package.json`:
 }
 ```
 
-See https://github.com/okonet/lint-staged#configuration for more details about how you can configure 🚫💩 lint-staged.
+See https://github.com/okonet/lint-staged#configuration for more details about how you can configure lint-staged.
 
 Alternately you can just save this script as `.git/hooks/pre-commit` and give it execute permission:
 
 ```bash
 #!/bin/sh
-jsfiles=$(git diff --cached --name-only --diff-filter=ACM | grep '\.js$' | tr '\n' ' ')
+jsfiles=$(git diff --cached --name-only --diff-filter=ACM | grep '\.jsx\?$' | tr '\n' ' ')
 [ -z "$jsfiles" ] && exit 0
 
 diffs=$(node_modules/.bin/prettier -l $jsfiles)
@@ -275,8 +274,8 @@ prettier.format(source, {
   // Omit space before empty anonymous function body
   noSpaceEmptyFn: false,
 
-  // Which parser to use. Valid options are 'flow' and 'babylon'
-  parser: 'babylon',
+  // Which parser to use. Valid options are "flow" and "babylon"
+  parser: "babylon",
 
   // Whether to add a semicolon at the end of every line (semi: true),
   // or only at the beginning of lines that may introduce ASI failures (semi: false)
@@ -383,6 +382,21 @@ Then make Neoformat run on save:
 autocmd BufWritePre *.js Neoformat
 ```
 
+#### Other `autocmd` events
+
+You can also make Vim format your code more frequently, by setting an `autocmd` for other events. Here are a couple of useful ones:
+
+* `TextChanged`: after a change was made to the text in Normal mode
+* `InsertLeave`: when leaving Insert mode
+
+For example, you can format on both of the above events together with `BufWritePre` like this:
+
+```vim
+autocmd BufWritePre,TextChanged,InsertLeave *.js Neoformat
+```
+
+See `:help autocmd-events` in Vim for details.
+
 #### Customizing Prettier in Vim
 
 If your project requires settings other than the default Prettier settings, you can pass arguments to do so in your `.vimrc` or [vim project](http://vim.wikia.com/wiki/Project_specific_settings), you can do so:
@@ -448,6 +462,7 @@ passes `prettier` output to `standard --fix`
 - [`prettier-miscellaneous`](https://github.com/arijs/prettier-miscellaneous)
 `prettier` with a few minor extra options
 - [`neutrino-preset-prettier`](https://github.com/SpencerCDixon/neutrino-preset-prettier) allows you to use Prettier as a Neutrino preset
+- [`prettier_d`](https://github.com/josephfrazier/prettier_d.js) runs Prettier as a server to avoid Node.js startup delay
 
 
 ## Technical Details
@@ -495,9 +510,9 @@ yarn test
 Here's what you need to know about the tests:
 
 * The tests uses [Jest](https://facebook.github.io/jest/) snapshots.
-* You can make changes and run `jest -u` to update the snapshots. Then run `git
-  diff` to take a look at what changed. Always update the snapshots when opening
-  a PR.
+* You can make changes and run `jest -u` (or `yarn test -- -u`) to update the
+  snapshots. Then run `git diff` to take a look at what changed. Always update
+  the snapshots when opening a PR.
 * You can run `AST_COMPARE=1 jest` for a more robust test run. That formats each
   file, re-parses it, and compares the new AST with the original one and makes
   sure they are semantically equivalent.
@@ -508,6 +523,10 @@ Here's what you need to know about the tests:
 * `tests/flow/` contains the Flow test suite, and is not supposed to be edited
   by hand. To update it, clone the Flow repo next to the Prettier repo and run:
   `node scripts/sync-flow-tests.js ../flow/tests/`.
+* If you would like to debug prettier locally, you can either debug it in node
+  or the browser. The easiest way to debug it in the browser is to run the
+  interactive `docs` REPL locally. The easiest way to debug it in node, is to
+  create a local test file and run it in an editor like VS Code.
 
 If you can, take look at [commands.md](commands.md) and check out [Wadler's
 paper](http://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf) to

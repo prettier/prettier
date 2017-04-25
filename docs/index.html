@@ -88,6 +88,8 @@
     <label class="title"><a href="https://github.com/jlongster/prettier">prettier v<span class="version"></span></a></label>
     <label><input type="number" value="80" id="printWidth"></input> printWidth</label>
     <label><input type="number" value="2" id="tabWidth"></input> tabWidth</label>
+    <label><input type="checkbox" id="useTabs"></input> useTabs</label>
+    <label><input type="checkbox" id="semi" checked></input> semi</label>
     <label><input type="checkbox" id="singleQuote"></input> singleQuote</label>
     <label><input type="checkbox" id="bracketSpacing" checked></input> bracketSpacing</label>
     <label><input type="checkbox" id="jsxBracketSameLine"></input> jsxBracketSameLine</label>
@@ -111,7 +113,7 @@
 </div>
 
 <script id="code">
-var OPTIONS = ['printWidth', 'tabWidth', 'singleQuote', 'trailingComma', 'bracketSpacing', 'jsxBracketSameLine', 'parser', 'doc'];
+var OPTIONS = ['printWidth', 'tabWidth', 'singleQuote', 'trailingComma', 'bracketSpacing', 'jsxBracketSameLine', 'parser', 'semi', 'useTabs', 'doc'];
 function setOptions(options) {
   OPTIONS.forEach(function(option) {
     var elem = document.getElementById(option);
@@ -138,6 +140,12 @@ function getOptions() {
     }
   });
   return options;
+}
+
+function omitNonFormatterOptions(options) {
+  var optionsClone = Object.assign({}, options);
+  delete optionsClone.doc;
+  return optionsClone;
 }
 
 function replaceHash(hash) {
@@ -170,9 +178,10 @@ function format() {
     )
   );
   replaceHash(value);
+  var formatterOptions = omitNonFormatterOptions(options);
   var res;
   try {
-    res = prettier.format(inputEditor.getValue(), options);
+    res = prettier.format(inputEditor.getValue(), formatterOptions);
   } catch (e) {
     res = e.toString();
   }
@@ -181,8 +190,8 @@ function format() {
   if (options.doc) {
     var debug;
     try {
-      var doc = prettier.__debug.printToDoc(inputEditor.getValue(), options);
-      debug = prettier.__debug.formatDoc(doc, options);
+      var doc = prettier.__debug.printToDoc(inputEditor.getValue(), formatterOptions);
+      debug = prettier.__debug.formatDoc(doc, formatterOptions);
     } catch (e) {
       debug = e.toString();
     }

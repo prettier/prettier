@@ -1,5 +1,86 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`comments.js 1`] = `
+let error = new Error(response.statusText);
+// comment
+(error: any).response = response
+
+x;
+
+/* comment */ (error: any).response = response
+
+x;
+
+(error: any).response = response; /* comment */
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let error = new Error(response.statusText);
+// comment
+(error: any).response = response;
+
+x;
+
+/* comment */ (error: any).response = response;
+
+x;
+
+(error: any).response = response; /* comment */
+
+`;
+
+exports[`comments.js 2`] = `
+let error = new Error(response.statusText);
+// comment
+(error: any).response = response
+
+x;
+
+/* comment */ (error: any).response = response
+
+x;
+
+(error: any).response = response; /* comment */
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let error = new Error(response.statusText)
+// comment
+;(error: any).response = response
+
+x
+
+/* comment */ ;(error: any).response = response
+
+x
+
+;(error: any).response = response /* comment */
+
+`;
+
+exports[`comments.js 3`] = `
+let error = new Error(response.statusText);
+// comment
+(error: any).response = response
+
+x;
+
+/* comment */ (error: any).response = response
+
+x;
+
+(error: any).response = response; /* comment */
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let error = new Error(response.statusText)
+// comment
+;(error: any).response = response
+
+x
+
+/* comment */ ;(error: any).response = response
+
+x
+
+;(error: any).response = response /* comment */
+
+`;
+
 exports[`no-semi.js 1`] = `
 
 // with preexisting semi
@@ -591,9 +672,9 @@ if (true) {
   ;(() => {})()
 }
 
-;// flow
+// flow
 
-(x: void)
+;(x: void)
 ;(y: void)
 
 // check statement clauses
@@ -913,9 +994,9 @@ if (true) {
   ;(() => {})()
 }
 
-;// flow
+// flow
 
-(x: void)
+;(x: void)
 ;(y: void)
 
 // check statement clauses
