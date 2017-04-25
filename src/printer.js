@@ -2969,7 +2969,7 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
     const isLiteral = namedTypes.Literal.check(child);
 
     if (isLiteral && typeof child.value === "string") {
-      const value = child.extra ? child.extra.raw : child.raw;
+      const value = child.raw || child.extra.raw;
 
       if (/\S/.test(value)) {
         // treat each line of text as its own entity
@@ -3014,9 +3014,11 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
           children.push(hardline);
         }
       } else if (/\s/.test(value)) {
-        // whitespace-only without newlines,
-        // eg; a single space separating two elements
-        children.push(jsxWhitespace);
+        // whitespace(s)-only without newlines,
+        // eg; one or more spaces separating two elements
+        for (let i = 0; i < value.length; ++i) {
+          children.push(jsxWhitespace);
+        }
         children.push(softline);
       }
     } else {
