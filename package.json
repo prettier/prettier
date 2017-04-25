@@ -23,7 +23,6 @@
   },
   "devDependencies": {
     "diff": "3.2.0",
-    "eslint": "3.19.0",
     "jest": "19.0.1",
     "mkdirp": "^0.5.1",
     "rimraf": "^2.6.1",
@@ -38,7 +37,6 @@
   },
   "scripts": {
     "build:docs": "rollup -c docs/rollup.config.js",
-    "lint": "eslint --cache --ext .js .",
     "format": "./bin/prettier.js --write",
     "format:all": "npm run format -- index.js src/*.js bin/*.js",
     "format:single": "npm run format -- src/printer.js",
