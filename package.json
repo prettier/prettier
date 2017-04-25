@@ -36,11 +36,11 @@
     "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#bfb1506c48b625871ffeb67dbec7941d460f8941"
   },
   "scripts": {
-    "build:docs": "rollup -c docs/rollup.config.js",
+    "test": "jest",
     "format": "./bin/prettier.js --write",
-    "format:all": "npm run format -- index.js src/*.js bin/*.js",
     "format:single": "npm run format -- src/printer.js",
-    "test": "jest"
+    "format:all": "npm run format -- index.js src/*.js bin/*.js",
+    "build:docs": "rollup -c docs/rollup.config.js"
   },
   "jest": {
     "setupFiles": [
