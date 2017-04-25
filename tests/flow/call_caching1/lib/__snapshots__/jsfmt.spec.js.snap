@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`core.js 1`] = `
-"declare class Array<T> {
+declare class Array<T> {
     @@iterator(): Iterator<T>;
     map<U>(callbackfn: (value: T, index: number, array: Array<T>) => U, thisArg?: any): Array<U>;
 }
@@ -55,11 +55,11 @@ declare class Map<K, V> {
   constructor(iterable: ?Iterable<[K, V]>): void,
   set(key: K, value: V): Map<K, V>
 }
-"
+
 `;
 
 exports[`immutable.js 1`] = `
-"declare module \\"immutable\\" {
+declare module "immutable" {
   declare class Map<K,V> {
     static <K,V>(iter: Iterator<[K,V]>): Map<K,V>;
     static <K:string,V>(object: {+[k:K]:V}): Map<K,V>;
@@ -68,7 +68,7 @@ exports[`immutable.js 1`] = `
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-declare module \\"immutable\\" {
+declare module "immutable" {
   declare class Map<K, V> {
     static <K, V>(iter: Iterator<[K, V]>): Map<K, V>,
     static <K: string, V>(object: { +[k: K]: V }): Map<K, V>,
@@ -76,5 +76,5 @@ declare module \\"immutable\\" {
     set(key: K, value: V): this
   }
 }
-"
+
 `;

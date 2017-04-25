@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`base_class.js 1`] = `
-"// @flow
+// @flow
 
 class Base {
   unannotatedField;
@@ -82,14 +82,14 @@ class Base {
   initializedField = 42;
   initializedFieldWithThis = this.initializedField;
   annotatedInitializedFieldValid: ?number = 42;
-  annotatedInitializedFieldInvalid: number = \\"asdf\\"; // Error: string ~> number
+  annotatedInitializedFieldInvalid: number = "asdf"; // Error: string ~> number
 
   static unannotatedField;
   static annotatedField: number;
-  static initializedField = \\"asdf\\";
+  static initializedField = "asdf";
   static initializedFieldWithThis = this.initializedField;
   static annotatedInitializedFieldValid: ?number = 42;
-  static annotatedInitializedFieldInvalid: number = \\"asdf\\"; // Error: string ~> number
+  static annotatedInitializedFieldInvalid: number = "asdf"; // Error: string ~> number
 }
 
 var o = new Base();
@@ -146,11 +146,11 @@ var o = new Base();
 (o.annotatedInitializedFieldInvalid: string); // Error: number ~> string
 (Base.annotatedInitializedFieldInvalid: number);
 (Base.annotatedInitializedFieldInvalid: string); // Error: number ~> string
-"
+
 `;
 
 exports[`derived_class.js 1`] = `
-"// @flow
+// @flow
 
 class Base {
   base_unannotatedField;
@@ -293,14 +293,14 @@ class Base {
   base_initializedField = 42;
   base_initializedFieldWithThis = this.base_initializedField;
   base_annotatedInitializedFieldValid: ?number = 42;
-  base_annotatedInitializedFieldInvalid: number = \\"asdf\\"; // Error: string ~> number
+  base_annotatedInitializedFieldInvalid: number = "asdf"; // Error: string ~> number
 
   static base_unannotatedField;
   static base_annotatedField: number;
-  static base_initializedField = \\"asdf\\";
+  static base_initializedField = "asdf";
   static base_initializedFieldWithThis = this.base_initializedField;
   static base_annotatedInitializedFieldValid: ?number = 42;
-  static base_annotatedInitializedFieldInvalid: number = \\"asdf\\"; // Error: string ~> number
+  static base_annotatedInitializedFieldInvalid: number = "asdf"; // Error: string ~> number
 
   inherited_initializer = 42;
   static inherited_initializer = 42;
@@ -312,14 +312,14 @@ class Child extends Base {
   child_initializedField = 42;
   child_initializedFieldWithThis = this.child_initializedField;
   child_annotatedInitializedFieldValid: ?number = 42;
-  child_annotatedInitializedFieldInvalid: number = \\"asdf\\"; // Error: string ~> number
+  child_annotatedInitializedFieldInvalid: number = "asdf"; // Error: string ~> number
 
   static child_unannotatedField;
   static child_annotatedField: number;
-  static child_initializedField = \\"asdf\\";
+  static child_initializedField = "asdf";
   static child_initializedFieldWithThis = this.child_initializedField;
   static child_annotatedInitializedFieldValid: ?number = 42;
-  static child_annotatedInitializedFieldInvalid: number = \\"asdf\\"; // Error: string ~> number
+  static child_annotatedInitializedFieldInvalid: number = "asdf"; // Error: string ~> number
 
   inherited_initializer;
   static inherited_initializer;
@@ -418,11 +418,11 @@ var o = new Child();
 (o.inherited_initializer: string); // Error: number ~> string
 (Child.inherited_initializer: number);
 (Child.inherited_initializer: string); // Error: number ~> string
-"
+
 `;
 
 exports[`generic_class.js 1`] = `
-"// @flow
+// @flow
 
 /**
  * Fields annotated with a generic should assume a type once the type param
@@ -484,11 +484,11 @@ class ClassGenericInitialized<T, U> {
   static invalid: T = 42; // Error: number ~> Generic<T>
   static valid: T = ((42: any): T);
 }
-"
+
 `;
 
 exports[`scoping.js 1`] = `
-"// @flow
+// @flow
 
 var someVar = 42;
 
@@ -543,7 +543,7 @@ class Foo {
   static selfTypedInit = new Foo();
 
   constructor() {
-    var someVar = \\"asdf\\";
+    var someVar = "asdf";
   }
 }
 
@@ -569,5 +569,5 @@ class Foo {
 (new Foo().selfTypedInit: number); // Error: Foo ~> number
 (Foo.selfTypedInit: Foo);
 (Foo.selfTypedInit: number); // Error: Foo ~> number
-"
+
 `;

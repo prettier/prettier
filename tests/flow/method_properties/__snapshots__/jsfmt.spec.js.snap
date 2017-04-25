@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`exports_optional_prop.js 1`] = `
-"// @flow
+// @flow
 
 declare class Foo {
   bar?: () => string
@@ -16,11 +16,11 @@ declare class Foo {
 }
 
 export { Foo };
-"
+
 `;
 
 exports[`test.js 1`] = `
-"class C {
+class C {
   C() { }
   foo() { }
   static bar() { }
@@ -51,7 +51,7 @@ C.x;
 new C().foo.x;
 C.bar.x;
 
-import { Foo } from \\"./exports_optional_prop\\";
+import { Foo } from "./exports_optional_prop";
 const foo = new Foo();
 (foo.bar(): string); // error, could be undefined
 
@@ -59,5 +59,5 @@ function f(x) {
   (x.bar(): string); // error. caused by \`f(foo)\`; annotate x to track it down.
 }
 f(foo);
-"
+
 `;

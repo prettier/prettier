@@ -1,25 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`A.js 1`] = `
-"/* @flow */
+/* @flow */
 module.exports = 0;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 module.exports = 0;
-"
+
 `;
 
 exports[`B.js 1`] = `
-"/* @flow */
-module.exports = { foo: \\"\\" }
+/* @flow */
+module.exports = { foo: "" }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-module.exports = { foo: \\"\\" };
-"
+module.exports = { foo: "" };
+
 `;
 
 exports[`C.js 1`] = `
-"/* @flow */
+/* @flow */
 var o = {
     A: require('./A'),
     ...require('./B'),
@@ -28,24 +28,24 @@ module.exports = o;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 var o = {
-  A: require(\\"./A\\"),
-  ...require(\\"./B\\")
+  A: require("./A"),
+  ...require("./B")
 };
 module.exports = o;
-"
+
 `;
 
 exports[`D.js 1`] = `
-"/* @flow */
+/* @flow */
 var C = require('./C');
 var x: number = C.foo;
 var y: string = C.A;
 C.A = false;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
-var C = require(\\"./C\\");
+var C = require("./C");
 var x: number = C.foo;
 var y: string = C.A;
 C.A = false;
-"
+
 `;

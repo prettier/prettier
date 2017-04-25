@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test.js 1`] = `
-"class A {
+class A {
   n: number;
   constructor(n: number) {
     this.n = n;
@@ -34,5 +34,5 @@ class A {
 var a1 = new A(1);
 var a2: A = new a1.constructor(2);
 var a3: A = a2.clone();
-"
+
 `;

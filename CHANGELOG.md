@@ -1,3 +1,71 @@
+# 1.2.2
+
+[link](https://github.com/jlongster/prettier/compare/1.2.1...1.2.2)
+
+* Only break for conditionals (#1350)
+
+# 1.2.1
+
+[link](https://github.com/jlongster/prettier/compare/1.2.0...1.2.1)
+
+* Fix duplicate comments in classes (#1349)
+
+# 1.2.0
+
+[link](https://github.com/jlongster/prettier/compare/1.1.0...1.2.0)
+
+* match jsx files in pre-commit hook (#1276)
+* Fix isPreviousLineEmpty on Windows (#1263)
+* Add --dev option to suggested install cmd (#1289)
+* Write out change CLI changes synchronously. Fixes #1287. (#1292)
+* Remove emoji part from lint-staged's name (#1302)
+* omit 'doc' key from options object before passing it to format() (#1299)
+* Skip globbing filenames with node-glob when the filename is not a glob (#1307)
+* FIX: more documentation for jetbrains (#1265)
+* Fix template literal comments (#1296)
+* Double quotes for option values in Readme file (#1314)
+* Do not print the sub-tree when using prettier-ignore (#1286)
+* Bail when traversing === groups (#1294)
+* Avoid breaking arguments for last arg expansion (#1305)
+* Add typescript as a valid parser value (#1318)
+* Add jestbrains filewatcher docs (#1310)
+* Add prettier_d to Related Projects (#1328)
+* Add parentheses for assignment as body of arrow (#1326)
+* Add information about Vim's other autocmd events (#1333)
+* add printer branch for TSFirstTypeNode (#1332)
+* Optimize `prettier --help` for humans (#1340)
+* Update link to @vjeux's React London presentation (#1330)
+* Improve regex printing (#1341)
+* Fix arrow function parenthesis with comments in flow (#1339)
+* Break if () if conditional inside breaks (#1344)
+* Don't inline paren at right of arguments (#1345)
+
+# 1.1.0
+
+[link](https://github.com/jlongster/prettier/compare/1.0.0...1.1.0)
+
+* Prettier 1.0 is the stabler release we've been waiting for (#1242)
+* fix small typo (#1255)
+* Fix : ReferenceError: err is not defined (#1254)
+* Document debugging strategies (#1253)
+* Do not inline member expressions as part of assignments (#1256)
+* Fix flow union params (#1251)
+* Use a whitelist instead of blacklist for member breaking (#1261)
+* Remove trailing whitespace (#1259)
+* Get rid of fixFaultyLocations code (#1252)
+* Fixing n.comments check in printer (#1239)
+* [WIP] no-semi comments (#1257)
+
+# 1.0.1
+
+* change semi default
+
+# 1.0.0
+
+[link](https://github.com/jlongster/prettier/compare/0.22.0...1.0.0)
+
+* See announcement blog post: [http://jlongster.com/prettier-1.0](http://jlongster.com/prettier-1.0)
+
 # 0.22.0
 
 [link](https://github.com/jlongster/prettier/compare/0.21.0...0.22.0)
@@ -40,10 +108,10 @@
 * [JSX] Break before and after jsx whitespace (#836)
 * re-run snapshot tests
 * Run prettier 0.20.0 (#835)
-* [JSX] Don't wrap JSX Elements in parentheses in {} (#845) 
+* [JSX] Don't wrap JSX Elements in parentheses in {} (#845)
 * Fix comment after the last argument of a function (#856)
 * Fix travis build imag
-* Do not break require calls (#841) 
+* Do not break require calls (#841)
 * Stabilize import as comments (#855)
 * Fix jsx expression comment that break (#852)
 * Inline last arg function arguments (#847)

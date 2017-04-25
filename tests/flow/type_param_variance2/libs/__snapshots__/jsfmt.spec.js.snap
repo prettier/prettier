@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Promise.js 1`] = `
-"// Copyright 2004-present Facebook. All Rights Reserved.
+// Copyright 2004-present Facebook. All Rights Reserved.
 
 // These annotations are copy/pasted from the built-in Flow definitions for
 // Native Promises (https://phabricator.fb.com/P19792689),
@@ -92,5 +92,5 @@ declare class Promise<R> {
     promisesByKey: T
   ): Promise<{ [key: $Keys<T>]: any }>
 }
-"
+
 `;

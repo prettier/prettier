@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`class_expr.js 1`] = `
-"/* @flow */
+/* @flow */
 // issue #1191
 
 const Thing = class Thing {
@@ -18,11 +18,11 @@ const Thing = class Thing {
     this.x = 123; // error: property not found (must be declared)
   }
 };
-"
+
 `;
 
 exports[`contra.js 1`] = `
-"// Counterexample with contravariant this type
+// Counterexample with contravariant this type
 
 class C {
   next: this; // error (see below for exploit): \`this\` should only appear in
@@ -139,11 +139,11 @@ class Misc {
   in_generator(_: Generator<this, this, this>) {}
   inout_generator: Generator<this, this, this>;
 }
-"
+
 `;
 
 exports[`export.js 1`] = `
-"export class A1 {
+export class A1 {
   foo(): this { return this; }
   bar(): this { return this; }
 }
@@ -178,11 +178,11 @@ export class A2<X> {
 }
 
 export class A3<X> extends A2<X> {}
-"
+
 `;
 
 exports[`generics.js 1`] = `
-"class Generic<X> {
+class Generic<X> {
   clone(): Generic<X> { return this; }
 }
 
@@ -206,11 +206,11 @@ class ImplicitNumber extends Implicit {
 }
 
 (new ImplicitNumber().val: string); // error: number ~> string
-"
+
 `;
 
 exports[`import.js 1`] = `
-"// Check that imports are handled properly with this types
+// Check that imports are handled properly with this types
 
 import { A1 } from './export';
 import type { A2 } from './export';
@@ -235,9 +235,9 @@ class B3<X> extends A3<X> {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Check that imports are handled properly with this types
 
-import { A1 } from \\"./export\\";
-import type { A2 } from \\"./export\\";
-import { A3 } from \\"./export\\";
+import { A1 } from "./export";
+import type { A2 } from "./export";
+import { A3 } from "./export";
 
 class B1 extends A1 {
   foo(): B1 {
@@ -259,11 +259,11 @@ class B3<X> extends A3<X> {
 (new B3().bar(): A2<*>); // OK
 ((new B3().bar(): B3<string>): A2<number>); // error
 ((new B3(): A2<number>).qux(0): string); // error
-"
+
 `;
 
 exports[`interface.js 1`] = `
-"interface I { xs: Array<this>; }
+interface I { xs: Array<this>; }
 interface J { f(): J; }
 class C {
   xs: Array<C>;
@@ -286,36 +286,36 @@ function foo(c: C): I {
 function bar(c: C): J {
   return c;
 }
-"
+
 `;
 
 exports[`lib_client.js 1`] = `
-"(new DoublyLinkedList().prev(): DoublyLinkedList);
+(new DoublyLinkedList().prev(): DoublyLinkedList);
 (new DoublyLinkedList().next(): DoublyLinkedList)
 
-var MiniImmutable = require(\\"mini-immutable\\");
+var MiniImmutable = require("mini-immutable");
 class C {
   map: MiniImmutable.OrderedMap<number,string>;
   update() {
-    this.map = this.map.set(0,\\"\\");
+    this.map = this.map.set(0,"");
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 (new DoublyLinkedList().prev(): DoublyLinkedList);
 (new DoublyLinkedList().next(): DoublyLinkedList);
 
-var MiniImmutable = require(\\"mini-immutable\\");
+var MiniImmutable = require("mini-immutable");
 class C {
   map: MiniImmutable.OrderedMap<number, string>;
   update() {
-    this.map = this.map.set(0, \\"\\");
+    this.map = this.map.set(0, "");
   }
 }
-"
+
 `;
 
 exports[`self.js 1`] = `
-"class A {
+class A {
   foo() { return this; } // return of foo is not annotated to get around
                          // substituting this below
   bar(): this { return new A().foo(); } // same as returning : A, so error
@@ -334,11 +334,11 @@ class A {
     return this.bar();
   } // OK (don't cascade errors)
 }
-"
+
 `;
 
 exports[`statics.js 1`] = `
-"// supporting \`this\` type in statics
+// supporting \`this\` type in statics
 
 class A {
   static make(): this { // factory method, whose return type \`this\` (still)
@@ -374,11 +374,11 @@ class B extends A {} // inherits statics method too, with \`this\` bound to the 
 (B.make(): B); // OK
 (B.make(): A); // OK
 (A.make(): B); // error
-"
+
 `;
 
 exports[`test.js 1`] = `
-"// Examples without \`this\` types (compare with examples below)
+// Examples without \`this\` types (compare with examples below)
 
 class Base {
   foo() { return this; }
@@ -547,5 +547,5 @@ class InheritOverride2 extends Override2 {}
 (new InheritOverride2().bar_caller(): InheritOverride2); // exploits error above
 
 (new Override2(): Base2).corge(new Base2()); // exploits error above
-"
+
 `;

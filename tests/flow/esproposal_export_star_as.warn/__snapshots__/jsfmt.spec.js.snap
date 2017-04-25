@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test.js 1`] = `
-"/* @flow */
+/* @flow */
 
-export * as foo from \\"./test\\";
+export * as foo from "./test";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-export * as foo from \\"./test\\";
-"
+export * as foo from "./test";
+
 `;

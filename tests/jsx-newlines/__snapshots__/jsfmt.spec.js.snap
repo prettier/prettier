@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test.js 1`] = `
-"keep = <p>
+keep = <p>
   Welcome to the <strong>Universal React Starter-kyt</strong>.
   This starter kyt should serve as the base for an advanced,
   server-rendered React app.
@@ -78,7 +78,7 @@ newlines_elems =
 regression_extra_newline = (
   <div>
     <span
-      className=\\"nuclide-console-new-messages-notification-icon icon icon-nuclicon-arrow-down\\"
+      className="nuclide-console-new-messages-notification-icon icon icon-nuclicon-arrow-down"
     />
     New Messages
   </div>
@@ -89,8 +89,8 @@ regression_extra_newline_2 = (
   <div>
     (
     <FormattedMessage
-      id=\\"some-id\\"
-      defaultMessage=\\"some loooooooooooooooooooooooooooong default\\"
+      id="some-id"
+      defaultMessage="some loooooooooooooooooooooooooooong default"
     />
     )
   </div>
@@ -170,7 +170,7 @@ newlines_elems = (
 
 regression_extra_newline = (
   <div>
-    <span className=\\"nuclide-console-new-messages-notification-icon icon icon-nuclicon-arrow-down\\" />
+    <span className="nuclide-console-new-messages-notification-icon icon icon-nuclicon-arrow-down" />
     New Messages
   </div>
 );
@@ -179,11 +179,22 @@ regression_extra_newline_2 = (
   <div>
     (
     <FormattedMessage
-      id=\\"some-id\\"
-      defaultMessage=\\"some loooooooooooooooooooooooooooong default\\"
+      id="some-id"
+      defaultMessage="some loooooooooooooooooooooooooooong default"
     />
     )
   </div>
 );
-"
+
+`;
+
+exports[`windows.js 1`] = `
+<div>
+Text
+</div>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div>
+  Text
+</div>;
+
 `;

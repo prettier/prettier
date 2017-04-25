@@ -177,9 +177,8 @@ function printDocToString(doc, options) {
                 // group has these, we need to manually go through
                 // these states and find the first one that fits.
                 if (doc.expandedStates) {
-                  const mostExpanded = doc.expandedStates[
-                    doc.expandedStates.length - 1
-                  ];
+                  const mostExpanded =
+                    doc.expandedStates[doc.expandedStates.length - 1];
 
                   if (doc.break) {
                     cmds.push([ind, MODE_BREAK, mostExpanded]);
@@ -268,6 +267,13 @@ function printDocToString(doc, options) {
               } else {
                 if (out.length > 0) {
                   // Trim whitespace at the end of line
+                  while (
+                    out.length > 0 &&
+                    out[out.length - 1].match(/^[^\S\n]*$/)
+                  ) {
+                    out.pop();
+                  }
+
                   out[out.length - 1] = out[out.length - 1].replace(
                     /[^\S\n]*$/,
                     ""

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`typecheck.js 1`] = `
-"/* @flow */
+/* @flow */
 
 function test1(): string {
   return bar();
@@ -48,14 +48,14 @@ function test2() {
     var y: string = n; // error, n is number (EmptyT would work)
   }
 }
-"
+
 `;
 
 exports[`unreachable.js 1`] = `
-"/* @flow */
+/* @flow */
 
 function foo(x, y) {
-  \\"use strict\\";
+  "use strict";
   return bar(x) + baz(y);
 
   // function declaration is hoisted, should not generate warning
@@ -83,7 +83,7 @@ foo(1, 2);
 /* @flow */
 
 function foo(x, y) {
-  \\"use strict\\";
+  "use strict";
   return bar(x) + baz(y);
 
   // function declaration is hoisted, should not generate warning
@@ -104,5 +104,5 @@ function foo(x, y) {
 }
 
 foo(1, 2);
-"
+
 `;

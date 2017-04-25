@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Module1.js 1`] = `
-"/* @flow */
+/* @flow */
 
 var test = require('test');
 
@@ -11,16 +11,16 @@ module.exports = test;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-var test = require(\\"test\\");
+var test = require("test");
 
 (test: boolean);
 
 module.exports = test;
-"
+
 `;
 
 exports[`index.js 1`] = `
-"/* @flow */
+/* @flow */
 
 (require('Module1'): boolean);
 (require('Module2').foo(): boolean);
@@ -28,8 +28,8 @@ require('Module3');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-(require(\\"Module1\\"): boolean);
-(require(\\"Module2\\").foo(): boolean);
-require(\\"Module3\\");
-"
+(require("Module1"): boolean);
+(require("Module2").foo(): boolean);
+require("Module3");
+
 `;

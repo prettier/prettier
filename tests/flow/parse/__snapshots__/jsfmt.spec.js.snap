@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`no_parse_error.js 1`] = `
-"/*
+/*
 @flow
 */
 
@@ -17,12 +17,12 @@ var z: {
 @flow
 */
 
-var x = \\"Test\\";
+var x = "Test";
 var y = 5 / x;
 
 var z: {
   type: number,
   y: string
-} = { type: 1, y: \\"hey\\" };
-"
+} = { type: 1, y: "hey" };
+
 `;

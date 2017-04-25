@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`comments.js 1`] = `
-"function a() {
+function a() {
   const a = 5; // comment
 
   return a;
@@ -58,5 +58,5 @@ function a() {
 
   return a;
 }
-"
+
 `;

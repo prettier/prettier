@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`break.js 1`] = `
-"export interface Environment1 extends GenericEnvironment<
+export interface Environment1 extends GenericEnvironment<
   SomeType,
   AnotherType,
   YetAnotherType,
@@ -24,16 +24,16 @@ export class Environment2
   extends GenericEnvironment<SomeType, AnotherType, YetAnotherType> {
   m() {}
 }
-"
+
 `;
 
 exports[`module.js 1`] = `
-"declare module X {
+declare module X {
   declare interface Y { x: number; }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare module X {
   declare interface Y { x: number }
 }
-"
+
 `;

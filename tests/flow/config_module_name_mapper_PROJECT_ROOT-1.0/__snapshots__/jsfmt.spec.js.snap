@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`main.js 1`] = `
-"// @flow
+// @flow
 
 import {test} from 'testmodule';
 
@@ -10,9 +10,9 @@ var b: string = test; // Error: number ~> string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-import { test } from \\"testmodule\\";
+import { test } from "testmodule";
 
 var a: number = test;
 var b: string = test; // Error: number ~> string
-"
+
 `;

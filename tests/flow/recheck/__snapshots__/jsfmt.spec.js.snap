@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`a1.js 1`] = `
-"// @flow
+// @flow
 
 function foo(x: number): string { return 5; }
 
@@ -18,26 +18,26 @@ function foo(x: number): string {
 foo(0);
 
 module.exports = foo;
-"
+
 `;
 
 exports[`a2.js 1`] = `
-"// @flow
+// @flow
 
 const foo = require('./a1');
 
-module.exports = foo(\\"\\");
+module.exports = foo("");
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-const foo = require(\\"./a1\\");
+const foo = require("./a1");
 
-module.exports = foo(\\"\\");
-"
+module.exports = foo("");
+
 `;
 
 exports[`a3.js 1`] = `
-"// @flow
+// @flow
 
 const five = require('./a2');
 
@@ -45,14 +45,14 @@ const five = require('./a2');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-const five = require(\\"./a2\\");
+const five = require("./a2");
 
 (five + five: string);
-"
+
 `;
 
 exports[`b0.js 1`] = `
-"// @flow
+// @flow
 
 class C { x: C; }
 class E { x: C; }
@@ -69,13 +69,13 @@ class E {
 }
 
 module.exports = { C, E };
-"
+
 `;
 
 exports[`b1.js 1`] = `
-"// @flow
+// @flow
 
-import { C, E } from \\"./b0\\";
+import { C, E } from "./b0";
 function foo() { return C; }
 function bar() { return E; }
 let X = foo();
@@ -85,7 +85,7 @@ module.exports = { C, D };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-import { C, E } from \\"./b0\\";
+import { C, E } from "./b0";
 function foo() {
   return C;
 }
@@ -96,50 +96,50 @@ let X = foo();
 class F extends X {}
 class D extends F {}
 module.exports = { C, D };
-"
+
 `;
 
 exports[`b2.js 1`] = `
-"// @flow
+// @flow
 
-module.exports = require(\\"./b1\\");
+module.exports = require("./b1");
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-module.exports = require(\\"./b1\\");
-"
+module.exports = require("./b1");
+
 `;
 
 exports[`b3.js 1`] = `
-"// @flow
+// @flow
 
-import { C, D } from \\"./b2\\";
+import { C, D } from "./b2";
 
 (new D: C);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-import { C, D } from \\"./b2\\";
+import { C, D } from "./b2";
 
 (new D(): C);
-"
+
 `;
 
 exports[`c1.js 1`] = `
-"// @flow
+// @flow
 
 export function foo(props: { x: number }) { }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
 export function foo(props: { x: number }) {}
-"
+
 `;
 
 exports[`c2.js 1`] = `
-"// @flow
+// @flow
 
-import { foo } from \\"./c1\\";
+import { foo } from "./c1";
 
 export function bar(props: { x: number }) {
   foo({ x: 0 });
@@ -147,31 +147,31 @@ export function bar(props: { x: number }) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-import { foo } from \\"./c1\\";
+import { foo } from "./c1";
 
 export function bar(props: { x: number }) {
   foo({ x: 0 });
 }
-"
+
 `;
 
 exports[`c3.js 1`] = `
-"// @flow
+// @flow
 
-import { bar } from \\"./c2\\";
+import { bar } from "./c2";
 
 bar({ x: 0 });
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-import { bar } from \\"./c2\\";
+import { bar } from "./c2";
 
 bar({ x: 0 });
-"
+
 `;
 
 exports[`d1.js 1`] = `
-"// @flow
+// @flow
 
 export class A {}
 export class B {}
@@ -182,24 +182,24 @@ export var x = new A;
 export class A {}
 export class B {}
 export var x = new A();
-"
+
 `;
 
 exports[`d2.js 1`] = `
-"// @flow
+// @flow
 
-import {A, x} from \\"./d1\\";
+import {A, x} from "./d1";
 export var y: A = x;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-import { A, x } from \\"./d1\\";
+import { A, x } from "./d1";
 export var y: A = x;
-"
+
 `;
 
 exports[`e1.js 1`] = `
-"// @flow
+// @flow
 
 export type Action =
   | { type: 'FOO' }
@@ -210,14 +210,14 @@ export const LIFE = 42;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-export type Action = { type: \\"FOO\\" } | { type: \\"BAR\\" };
+export type Action = { type: "FOO" } | { type: "BAR" };
 
 export const LIFE = 42;
-"
+
 `;
 
 exports[`e2.js 1`] = `
-"// @flow
+// @flow
 
 import type { Action } from './e1';
 
@@ -231,20 +231,20 @@ import { LIFE } from './e1';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-import type { Action } from \\"./e1\\";
+import type { Action } from "./e1";
 
 const f = (): Action => {
-  return { type: \\"FOO\\" };
+  return { type: "FOO" };
 };
 
-import { LIFE } from \\"./e1\\";
+import { LIFE } from "./e1";
 
 (LIFE: 42);
-"
+
 `;
 
 exports[`f1.js 1`] = `
-"// @flow
+// @flow
 
 type T = { x: number };
 type S = { x: string };
@@ -265,35 +265,35 @@ declare var b: S;
 declare var c: T;
 
 module.exports = { a, b, c };
-"
+
 `;
 
 exports[`f2.js 1`] = `
-"// @flow
+// @flow
 
 var { a, b, c } = require('./f1');
 (c: { x: number });
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-var { a, b, c } = require(\\"./f1\\");
+var { a, b, c } = require("./f1");
 (c: { x: number });
-"
+
 `;
 
 exports[`g1.js 1`] = `
-"// @flow
+// @flow
 
 export class C { }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
 export class C {}
-"
+
 `;
 
 exports[`g2.js 1`] = `
-"// @flow
+// @flow
 
 import { C } from './g1';
 
@@ -303,16 +303,16 @@ module.exports = { D };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-import { C } from \\"./g1\\";
+import { C } from "./g1";
 
 class D extends C {}
 
 module.exports = { D };
-"
+
 `;
 
 exports[`g3.js 1`] = `
-"// @flow
+// @flow
 
 import { C } from './g1';
 import { D } from './g2';
@@ -321,37 +321,37 @@ import { D } from './g2';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-import { C } from \\"./g1\\";
-import { D } from \\"./g2\\";
+import { C } from "./g1";
+import { D } from "./g2";
 
 (new D(): C);
-"
+
 `;
 
 exports[`h1.js 1`] = `
-"// @flow
+// @flow
 
 export type Foo = number;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
 export type Foo = number;
-"
+
 `;
 
 exports[`h2.js 1`] = `
-"// @flow
+// @flow
 
 import type { Foo } from './h1';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-import type { Foo } from \\"./h1\\";
-"
+import type { Foo } from "./h1";
+
 `;
 
 exports[`i1.js 1`] = `
-"// @flow
+// @flow
 
 const foo: { p: number } = { p: 0 };
 
@@ -362,11 +362,11 @@ module.exports = foo;
 const foo: { p: number } = { p: 0 };
 
 module.exports = foo;
-"
+
 `;
 
 exports[`i2.js 1`] = `
-"// @flow
+// @flow
 
 const foo = require('./i1');
 
@@ -374,14 +374,14 @@ foo.p = 0;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-const foo = require(\\"./i1\\");
+const foo = require("./i1");
 
 foo.p = 0;
-"
+
 `;
 
 exports[`j1.js 1`] = `
-"// @flow
+// @flow
 
 const foo: { [string]: number } = {};
 
@@ -392,11 +392,11 @@ module.exports = foo;
 const foo: { [string]: number } = {};
 
 module.exports = foo;
-"
+
 `;
 
 exports[`j2.js 1`] = `
-"// @flow
+// @flow
 
 const foo = require('./j1');
 
@@ -404,8 +404,8 @@ foo.p = 0;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-const foo = require(\\"./j1\\");
+const foo = require("./j1");
 
 foo.p = 0;
-"
+
 `;

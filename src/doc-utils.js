@@ -1,28 +1,35 @@
 "use strict";
 
-function traverseDoc(doc, onEnter, onExit) {
-  var hasStopped = false;
+function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
   function traverseDocRec(doc) {
+    var shouldRecurse = true;
     if (onEnter) {
-      hasStopped = hasStopped || onEnter(doc) === false;
-    }
-    if (hasStopped) {
-      return;
+      if (onEnter(doc) === false) {
+        shouldRecurse = false;
+      }
     }
 
-    if (doc.type === "concat") {
-      for (var i = 0; i < doc.parts.length; i++) {
-        traverseDocRec(doc.parts[i]);
+    if (shouldRecurse) {
+      if (doc.type === "concat") {
+        for (var i = 0; i < doc.parts.length; i++) {
+          traverseDocRec(doc.parts[i]);
+        }
+      } else if (doc.type === "if-break") {
+        if (doc.breakContents) {
+          traverseDocRec(doc.breakContents);
+        }
+        if (doc.flatContents) {
+          traverseDocRec(doc.flatContents);
+        }
+      } else if (doc.type === "group" && doc.expandedStates) {
+        if (shouldTraverseConditionalGroups) {
+          doc.expandedStates.forEach(traverseDocRec);
+        } else {
+          traverseDocRec(doc.contents);
+        }
+      } else if (doc.contents) {
+        traverseDocRec(doc.contents);
       }
-    } else if (doc.type === "if-break") {
-      if (doc.breakContents) {
-        traverseDocRec(doc.breakContents);
-      }
-      if (doc.flatContents) {
-        traverseDocRec(doc.flatContents);
-      }
-    } else if (doc.contents) {
-      traverseDocRec(doc.contents);
     }
 
     if (onExit) {
@@ -54,10 +61,14 @@ function mapDoc(doc, func) {
 
 function findInDoc(doc, fn, defaultValue) {
   var result = defaultValue;
+  var hasStopped = false;
   traverseDoc(doc, function(doc) {
     var maybeResult = fn(doc);
     if (maybeResult !== undefined) {
+      hasStopped = true;
       result = maybeResult;
+    }
+    if (hasStopped) {
       return false;
     }
   });
@@ -66,18 +77,6 @@ function findInDoc(doc, fn, defaultValue) {
 
 function isEmpty(n) {
   return typeof n === "string" && n.length === 0;
-}
-
-function getFirstString(doc) {
-  return findInDoc(
-    doc,
-    doc => {
-      if (typeof doc === "string" && doc.trim().length !== 0) {
-        return doc;
-      }
-    },
-    null
-  );
 }
 
 function isLineNext(doc) {
@@ -126,6 +125,7 @@ function breakParentGroup(groupStack) {
 }
 
 function propagateBreaks(doc) {
+  var alreadyVisited = new Map();
   const groupStack = [];
   traverseDoc(
     doc,
@@ -135,6 +135,10 @@ function propagateBreaks(doc) {
       }
       if (doc.type === "group") {
         groupStack.push(doc);
+        if (alreadyVisited.has(doc)) {
+          return false;
+        }
+        alreadyVisited.set(doc, true);
       }
     },
     doc => {
@@ -144,13 +148,13 @@ function propagateBreaks(doc) {
           breakParentGroup(groupStack);
         }
       }
-    }
+    },
+    /* shouldTraverseConditionalGroups */ true
   );
 }
 
 module.exports = {
   isEmpty,
-  getFirstString,
   willBreak,
   isLineNext,
   traverseDoc,

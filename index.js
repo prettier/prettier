@@ -20,9 +20,9 @@ function guessLineEnding(text) {
 function parse(text, opts) {
   let parseFunction;
 
-  if (opts.parser === 'flow') {
+  if (opts.parser === "flow") {
     parseFunction = parser.parseWithFlow;
-  } else if (opts.parser === 'typescript') {
+  } else if (opts.parser === "typescript") {
     parseFunction = parser.parseWithTypeScript;
   } else {
     parseFunction = parser.parseWithBabylon;
@@ -56,6 +56,14 @@ function attachComments(text, ast, opts) {
 }
 
 function ensureAllCommentsPrinted(astComments) {
+  for (let i = 0; i < astComments.length; ++i) {
+    if (astComments[i].value.trim() === "prettier-ignore") {
+      // If there's a prettier-ignore, we're not printing that sub-tree so we
+      // don't know if the comments was printed or not.
+      return;
+    }
+  }
+
   astComments.forEach(comment => {
     if (!comment.printed) {
       throw new Error(
@@ -106,6 +114,9 @@ module.exports = {
   },
   version: version,
   __debug: {
+    parse: function(text, opts) {
+      return parse(text, opts);
+    },
     formatAST: function(ast, opts) {
       opts = normalizeOptions(opts);
       const doc = printAstToDoc(ast, opts);

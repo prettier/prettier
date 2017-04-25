@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`encaps.js 1`] = `
-"class A { }
+class A { }
 var a = new A();
 var s1 = \`l\${a.x}r\`; // error: no prop x in A
 
@@ -12,7 +12,7 @@ function tag(strings,...values) {
 var s2 = tag \`l\${42}r\`;
 
 function tag2(strings,...values) {
-  return { foo: \\"\\" }; // ok: tagged templates can return whatever
+  return { foo: "" }; // ok: tagged templates can return whatever
 }
 
 var s3 = tag2 \`la la la\`;
@@ -29,10 +29,10 @@ function tag(strings, ...values) {
 var s2 = tag\`l\${42}r\`;
 
 function tag2(strings, ...values) {
-  return { foo: \\"\\" }; // ok: tagged templates can return whatever
+  return { foo: "" }; // ok: tagged templates can return whatever
 }
 
 var s3 = tag2\`la la la\`;
 (s3.foo: number); // error: string ~> number
-"
+
 `;

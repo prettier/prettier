@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test.js 1`] = `
-"function StatelessFunctionalComponent({
+function StatelessFunctionalComponent({
   isActive,
   onFiltersUpdated,
   onSelect,
@@ -122,5 +122,5 @@ type T = ({
   title: number,
   items: number
 }) => void;
-"
+
 `;
