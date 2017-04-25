@@ -168,7 +168,7 @@ type f = /* comment */ arg => void;
 
 type f = arg /* comment */ => void;
 
-type f = ?arg => void;
+type f = (?arg) => void;
 
 class X {
   constructor(
