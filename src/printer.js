@@ -3337,24 +3337,6 @@ function adjustClause(node, clause, forceSpace) {
   return indent(concat([line, clause]));
 }
 
-function shouldTypeScriptTypeAvoidColon(path) {
-  // As the special TS nodes isn't returned by the node helpers,
-  // we use the stack directly to get the parent node.
-  const parent = path.stack[path.stack.length - 3];
-
-  switch (parent.type) {
-    case "TSFunctionType":
-    case "TSIndexSignature":
-    case "TSParenthesizedType":
-    case "TSCallSignature":
-    case "TSConstructSignature":
-    case "TSAsExpression":
-      return true;
-    default:
-      return false;
-  }
-}
-
 function nodeStr(node, options) {
   const str = node.value;
   isString.assert(str);
@@ -3551,7 +3533,6 @@ function classPropMayCauseASIProblems(path) {
 function classChildNeedsASIProtection(node) {
   if (!node) return;
 
-  let isAsync, isGenerator;
   switch (node.type) {
     case "ClassProperty":
       return node.computed;

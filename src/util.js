@@ -1,8 +1,5 @@
 "use strict";
 
-var types = require("ast-types");
-var n = types.namedTypes;
-
 function isExportDeclaration(node) {
   if (node)
     switch (node.type) {
