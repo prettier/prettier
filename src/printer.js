@@ -1474,7 +1474,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "TSAbstractClassDeclaration":
       return concat([
         "abstract ",
-        ...printClass(path, options, print)
+        join("", printClass(path, options, print))
       ]);
     case "ClassDeclaration":
     case "ClassExpression":
