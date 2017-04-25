@@ -2021,6 +2021,13 @@ function genericPrintNoParens(path, options, print, args) {
       }
 
       return concat(parts)
+    case "TSMethodSignature":
+      return concat([
+        path.call(print, 'name'),
+        "(",
+        join(", ", path.map(print, "parameters")),
+        ")"
+      ])
     // TODO
     case "ClassHeritage":
     // TODO
