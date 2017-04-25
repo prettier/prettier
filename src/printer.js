@@ -1928,6 +1928,17 @@ function genericPrintNoParens(path, options, print, args) {
       parts.push(path.call(print, "typeAnnotation"));
 
       return concat(parts);
+    case "TSParameterProperty":
+      if (n.accessibility) {
+        parts.push(n.accessibility + " ");
+      }
+      if (n.isReadonly) {
+        parts.push("readonly ");
+      }
+
+      parts.push(path.call(print, "parameter"));
+
+      return concat(parts);
     case "TSTypeReference":
       parts.push(path.call(print, "typeName"))
       
