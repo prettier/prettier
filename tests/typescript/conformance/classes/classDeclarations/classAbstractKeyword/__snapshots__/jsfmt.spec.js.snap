@@ -133,7 +133,7 @@ class bar extends foo {
 }
 var x = new bar();~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 abstract class foo {
-  abstract test();
+  protected abstract test();
 }
 
 class bar extends foo {
@@ -676,13 +676,13 @@ abstract class A {
 abstract class A {
   abstract foo_a();
 
-  abstract foo_b();
-  abstract foo_c();
-  abstract foo_d();
+  public abstract foo_b();
+  protected abstract foo_c();
+  private abstract foo_d();
 
-  abstract foo_bb();
-  abstract foo_cc();
-  abstract foo_dd();
+  public abstract foo_bb();
+  protected abstract foo_cc();
+  private abstract foo_dd();
 
   static abstract foo_d();
 
@@ -816,9 +816,9 @@ abstract class A {
   m: () => void;
 
   abstract foo_x(): number;
-  abstract foo_y(): number;
-  abstract foo_z(): number;
-  abstract foo_w(): number;
+  public abstract foo_y(): number;
+  protected abstract foo_z(): number;
+  private abstract foo_w(): number;
 }
 
 `;

@@ -406,6 +406,9 @@ function genericPrintNoParens(path, options, print, args) {
       if (n.static) {
         parts.push("static ");
       }
+      if (n.accessibility) {
+        parts.push(n.accessibility + " ");
+      }
       if (n.type === "TSAbstractMethodDefinition") {
         parts.push("abstract ");
       }
