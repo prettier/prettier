@@ -1828,18 +1828,27 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push("declare ");
       }
 
+      const isBreakable = (
+        n.right.type === "StringLiteralTypeAnnotation"
+      );
+
+      const printed = printAssignmentRight(
+        n.right,
+        path.call(print, "right"),
+        isBreakable,
+        options
+      );
+
       parts.push(
         "type ",
         path.call(print, "id"),
         path.call(print, "typeParameters"),
         " =",
-        hasLeadingOwnLineComment(options.originalText, n.right)
-          ? indent(concat([hardline, path.call(print, "right")]))
-          : concat([" ", path.call(print, "right")]),
+        printed,
         semi
       );
 
-      return concat(parts);
+      return group(concat(parts));
     }
     case "TypeCastExpression":
       return concat([
@@ -3337,6 +3346,18 @@ function printBinaryishExpressions(path, print, options, isNested, isInsideParen
   return parts;
 }
 
+function printAssignmentRight(rightNode, printedRight, isBreakable, options) {
+  if (hasLeadingOwnLineComment(options.originalText, rightNode)) {
+    return indent(concat([hardline, printedRight]));
+  }
+
+  if (isBreakable) {
+    return indent(concat([line, printedRight]));
+  }
+
+  return concat([" ", printedRight]);
+}
+
 function printAssignment(
   leftNode,
   printedLeft,
@@ -3349,20 +3370,20 @@ function printAssignment(
     return printedLeft;
   }
 
-  let printed;
-  if (hasLeadingOwnLineComment(options.originalText, rightNode)) {
-    printed = indent(concat([hardline, printedRight]));
-  } else if (
+  const isBreakable = (
     (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) ||
     (leftNode.type === "Identifier" || leftNode.type === "MemberExpression") &&
       (rightNode.type === "StringLiteral" ||
         (rightNode.type === "Literal" && typeof rightNode.value === "string") ||
         isMemberExpressionChain(rightNode))
-  ) {
-    printed = indent(concat([line, printedRight]));
-  } else {
-    printed = concat([" ", printedRight]);
-  }
+  );
+
+  const printed = printAssignmentRight(
+    rightNode,
+    printedRight,
+    isBreakable,
+    options
+  );
 
   return group(concat([printedLeft, " ", operator, printed]));
 }
