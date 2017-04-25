@@ -1,8 +1,5 @@
 "use strict";
 
-const utils = require("./doc-utils");
-const willBreak = utils.willBreak;
-
 function assertDoc(val) {
   if (
     !(typeof val === "string" || (val != null && typeof val.type === "string"))

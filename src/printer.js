@@ -29,7 +29,6 @@ var isEmpty = docUtils.isEmpty;
 var types = require("ast-types");
 var namedTypes = types.namedTypes;
 var isString = types.builtInTypes.string;
-var isObject = types.builtInTypes.object;
 
 function shouldPrintComma(options, level) {
   level = level || "es5";
@@ -307,10 +306,10 @@ function genericPrintNoParens(path, options, print, args) {
       return join(".", n.body);
     case "Identifier":
       var parentNode = path.getParentNode()
-      var isFunctionDeclarationIdentifier = 
+      var isFunctionDeclarationIdentifier =
         parentNode.type === 'DeclareFunction' &&
         parentNode.id === n
-          
+
       return concat([
         n.name,
         n.optional ? "?" : "",
@@ -1930,7 +1929,7 @@ function genericPrintNoParens(path, options, print, args) {
       return concat(parts);
     case "TSTypeReference":
       parts.push(path.call(print, "typeName"))
-      
+
       if (n.typeArguments) {
         parts.push(
           "<",
@@ -1938,7 +1937,7 @@ function genericPrintNoParens(path, options, print, args) {
           ">"
         )
       }
-      
+
       return concat(parts);
     case "TSCallSignature":
       return concat([
@@ -2013,14 +2012,14 @@ function genericPrintNoParens(path, options, print, args) {
       ])
     case "TSTypeParameter":
       parts.push(path.call(print, "name"))
-      
+
       if (n.constraint) {
         parts.push(
           " in ",
           path.call(print, "constraint")
         )
       }
-      
+
       return concat(parts)
     // TODO
     case "ClassHeritage":
@@ -2061,7 +2060,6 @@ function genericPrintNoParens(path, options, print, args) {
     case "XMLComment":
     case "XMLProcessingInstruction":
     default:
-      debugger;
       throw new Error("unknown type: " + JSON.stringify(n.type));
   }
 }
@@ -2144,7 +2142,7 @@ function printPropertyKey(path, options, print) {
   ) {
     // 'a' -> a
     return path.call(
-      keyPath => comments.printComments(keyPath, p => key.value, options),
+      keyPath => comments.printComments(keyPath, () => key.value, options),
       "key"
     );
   }
@@ -2543,14 +2541,6 @@ function printReturnType(path, print) {
   return concat(parts);
 }
 
-function typeIsFunction(type) {
-  return (
-    type === "FunctionExpression" ||
-    type === "ArrowFunctionExpression" ||
-    type === "NewExpression"
-  );
-}
-
 function printExportDeclaration(path, options, print) {
   const decl = path.getValue();
   const semi = options.semi ? ";" : "";
@@ -2658,7 +2648,7 @@ function printFlowDeclaration(path, parts) {
   return concat(parts);
 }
 
-function getFlowVariance(path, options) {
+function getFlowVariance(path) {
   if (!path.variance) {
     return null;
   }
@@ -2760,7 +2750,7 @@ function printMemberChain(path, options, print) {
         node: node,
         printed: comments.printComments(
           path,
-          p => printArgumentsList(path, options, print),
+          () => printArgumentsList(path, options, print),
           options
         )
       });
@@ -2770,7 +2760,7 @@ function printMemberChain(path, options, print) {
         node: node,
         printed: comments.printComments(
           path,
-          p => printMemberLookup(path, options, print),
+          () => printMemberLookup(path, options, print),
           options
         )
       });
@@ -3190,7 +3180,7 @@ function printJSXElement(path, options, print) {
   ]);
 }
 
-function maybeWrapJSXElementInParens(path, elem, options) {
+function maybeWrapJSXElementInParens(path, elem) {
   const parent = path.getParentNode();
   if (!parent) return elem;
 
@@ -3295,7 +3285,7 @@ function printBinaryishExpressions(path, print, options, isNested, isInsideParen
     // the other ones since we don't call the normal print on BinaryExpression,
     // only for the left and right parts
     if (isNested && node.comments) {
-      parts = comments.printComments(path, p => concat(parts), options);
+      parts = comments.printComments(path, () => concat(parts), options);
     }
   } else {
     // Our stopping case. Simply print the node normally.
@@ -3345,24 +3335,6 @@ function adjustClause(node, clause, forceSpace) {
   }
 
   return indent(concat([line, clause]));
-}
-
-function shouldTypeScriptTypeAvoidColon(path) {
-  // As the special TS nodes isn't returned by the node helpers,
-  // we use the stack directly to get the parent node.
-  const parent = path.stack[path.stack.length - 3];
-
-  switch (parent.type) {
-    case "TSFunctionType":
-    case "TSIndexSignature":
-    case "TSParenthesizedType":
-    case "TSCallSignature":
-    case "TSConstructSignature":
-    case "TSAsExpression":
-      return true;
-    default:
-      return false;
-  }
 }
 
 function nodeStr(node, options) {
@@ -3458,13 +3430,6 @@ function printNumber(rawNumber) {
       // Remove trailing dot.
       .replace(/\.(?=e|$)/, "")
   );
-}
-
-function isFirstStatement(path) {
-  const parent = path.getParentNode();
-  const node = path.getValue();
-  const body = parent.body;
-  return body && body[0] === node;
 }
 
 function isLastStatement(path) {
@@ -3568,7 +3533,6 @@ function classPropMayCauseASIProblems(path) {
 function classChildNeedsASIProtection(node) {
   if (!node) return;
 
-  let isAsync, isGenerator;
   switch (node.type) {
     case "ClassProperty":
       return node.computed;
