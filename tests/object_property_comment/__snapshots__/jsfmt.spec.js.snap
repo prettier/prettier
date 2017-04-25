@@ -14,7 +14,7 @@ let a = {
 };
 
 let a = {
-  \\"a\\" /* comment */: () => 1
+  "a" /* comment */: () => 1
 };
 
 `;
