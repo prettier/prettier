@@ -2964,27 +2964,19 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
   const children = [];
 
   // using `map` instead of `each` because it provides `i`
-  path.map(
-    function(childPath, i) {
-      const child = childPath.getValue();
-      const isLiteral = namedTypes.Literal.check(child);
+  path.map(function(childPath, i) {
+    const child = childPath.getValue();
+    const isLiteral = namedTypes.Literal.check(child);
 
-      if (isLiteral && typeof child.value === "string") {
-        const value = child.extra ? child.extra.raw : child.raw;
+    if (isLiteral && typeof child.value === "string") {
+      const value = child.extra ? child.extra.raw : child.raw;
 
-        if (/\S/.test(value)) {
-          // treat each line of text as its own entity
-          value.split(/(\n\s*)/).forEach(line => {
-            const newlines = line.match(/\n/g);
-            if (newlines) {
-              children.push(hardline);
-
-              // allow one extra newline
-              if (newlines.length > 1) {
-                children.push(hardline);
-              }
-              return;
-            }
+      if (/\S/.test(value)) {
+        // treat each line of text as its own entity
+        value.split(/(\r?\n\s*)/).forEach(line => {
+          const newlines = line.match(/\n/g);
+          if (newlines) {
+            children.push(hardline);
 
             // allow one extra newline
             if (newlines.length > 1) {
