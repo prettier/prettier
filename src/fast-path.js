@@ -69,7 +69,7 @@ function getNodeHelper(path, count) {
   for (var i = s.length - 1; i >= 0; i -= 2) {
     var value = s[i];
     // Temp: This can be removed when `ast-types` knows that TSNodes are Nodes.
-    var isTsNode = value && value.type && value.type.indexOf('TS') === 0;
+    var isTsNode = value && value.type && value.type.startsWith('TS');
     if ((isTsNode || n.Node.check(value)) && --count < 0) {
       return value;
     }

@@ -401,8 +401,8 @@ function genericPrintNoParens(path, options, print, args) {
         ])
       );
     }
-    case "TSAbstractMethodDefinition":
     case "MethodDefinition":
+    case "TSAbstractMethodDefinition":
       if (n.static) {
         parts.push("static ");
       }
@@ -1471,13 +1471,9 @@ function genericPrintNoParens(path, options, print, args) {
       parts.push(semi);
 
       return concat(parts);
-    case "TSAbstractClassDeclaration":
-      return concat([
-        "abstract ",
-        join("", printClass(path, options, print))
-      ]);
     case "ClassDeclaration":
     case "ClassExpression":
+    case "TSAbstractClassDeclaration":
       return concat(printClass(path, options, print));
     case "TemplateElement":
       return join(literalline, n.value.raw.split("\n"));
@@ -2216,7 +2212,7 @@ function printMethod(path, options, print) {
     )
   );
 
-  if (node.type === "TSAbstractMethodDefinition") {
+  if (!node.value.body || node.value.body.length === 0) {
     parts.push(semi);
   } else {
     parts.push(" ", path.call(print, "value", "body"));
@@ -2707,7 +2703,16 @@ function getFlowVariance(path, options) {
 
 function printClass(path, options, print) {
   const n = path.getValue();
-  const parts = ["class"];
+  const parts = [];
+
+  if (n.accessibility) {
+    parts.push(n.accessibility + " ");
+  }
+  if (n.type === "TSAbstractClassDeclaration") {
+    parts.push("abstract ");
+  }
+
+  parts.push("class");
 
   if (n.id) {
     parts.push(" ", path.call(print, "id"), path.call(print, "typeParameters"));

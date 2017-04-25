@@ -11,9 +11,11 @@ abstract class A {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 abstract class A {
   abstract get a();
-  abstract get aa();
+  abstract get aa() {
+    return 1;
+  }
   abstract set b(x: string);
-  abstract set bb(x: string);
+  abstract set bb(x: string) {}
 }
 
 `;
@@ -546,7 +548,7 @@ abstract class G {
   abstract quz(x: number, y: string): boolean;
 
   abstract nom(): boolean;
-  nom(x: number): boolean
+  nom(x: number): boolean;
 }
 
 class H {
@@ -640,7 +642,7 @@ class A {
 }
 
 class B {
-  abstract foo();
+  abstract foo() {}
 }
 
 `;
@@ -650,7 +652,7 @@ abstract class A {
     abstract foo() {}
 }~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 abstract class A {
-  abstract foo();
+  abstract foo() {}
 }
 
 `;
@@ -720,15 +722,15 @@ abstract class A {
   abstract foo();
 
   abstract bar();
-  bar()
+  bar();
   abstract bar();
 
   abstract baz();
-  baz()
+  baz();
   abstract baz();
   baz() {}
 
-  qux()
+  qux();
 }
 
 abstract class B {

@@ -48,21 +48,21 @@ class E<T extends Date> {
     }
 }~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class C {
-  constructor(x)
+  constructor(x);
   constructor(x = 1) {
     var y = x;
   }
 }
 
 class D<T> {
-  constructor(x)
+  constructor(x);
   constructor(x: T = null) {
     var y = x;
   }
 }
 
 class E<T extends Date> {
-  constructor(x)
+  constructor(x);
   constructor(x: T = null) {
     var y = x;
   }
@@ -92,21 +92,21 @@ class E<T extends Date> {
     }
 }~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class C {
-  constructor(x)
+  constructor(x);
   constructor(public x: string = 1) {
     var y = x;
   }
 }
 
 class D<T, U> {
-  constructor(x: T, y: U)
+  constructor(x: T, y: U);
   constructor(x: T = 1, public y: U = x) {
     var z = x;
   }
 }
 
 class E<T extends Date> {
-  constructor(x)
+  constructor(x);
   constructor(x: T = new Date()) {
     var y = x;
   }
@@ -130,13 +130,13 @@ class D<T> {
 }~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class C {
   foo: string;
-  constructor(x = 1)
+  constructor(x = 1);
   constructor() {}
 }
 
 class D<T> {
   foo: string;
-  constructor(x = 1)
+  constructor(x = 1);
   constructor() {}
 }
 
@@ -158,13 +158,13 @@ class D<T> {
 }~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class C {
   foo: string;
-  constructor(x?, y?: any[])
+  constructor(x?, y?: any[]);
   constructor() {}
 }
 
 class D<T> {
   foo: string;
-  constructor(x?, y?: any[])
+  constructor(x?, y?: any[]);
   constructor() {}
 }
 
@@ -383,8 +383,8 @@ declare class C{
 	method(readonly x: number);
 }~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class C {
-  constructor(readonly x: number)
-  method(x: number)
+  constructor(readonly x: number);
+  method(x: number);
 }
 
 `;
