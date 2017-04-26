@@ -377,18 +377,6 @@ class E extends D {
 
 `;
 
-exports[`readonlyInAmbientClass.ts 1`] = `
-declare class C{
-	constructor(readonly x: number);
-	method(readonly x: number);
-}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-class C {
-  constructor(readonly x: number);
-  method(x: number);
-}
-
-`;
-
 exports[`readonlyInConstructorParameters.ts 1`] = `
 class C {
     constructor(readonly x: number) {}
