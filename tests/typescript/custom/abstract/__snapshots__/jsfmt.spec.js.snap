@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`abstractNewlineHandling.ts 1`] = `
+var
+abstract
+class X {}
+
+const
+abstract
+class Y {}
+
+export let
+abstract
+class Y {}
+
+let
+abstract
+export class Y {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var abstract;
+class X {}
+
+const abstract;
+class Y {}
+
+export let abstract;
+class Y {}
+
+let abstract;
+export class Y {}
+
+`;
