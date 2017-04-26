@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`foo.js 1`] = `
+/* @flow */
+
+// No error, this file is ignored
+var x: number = "string";
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @flow */
+
+// No error, this file is ignored
+var x: number = "string";
+
+`;

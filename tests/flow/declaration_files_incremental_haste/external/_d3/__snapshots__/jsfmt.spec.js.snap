@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`min.js 1`] = `
+class Implementation {}
+module.exports.fun = (): Implementation => new Implementation;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class Implementation {}
+module.exports.fun = (): Implementation => new Implementation();
+
+`;

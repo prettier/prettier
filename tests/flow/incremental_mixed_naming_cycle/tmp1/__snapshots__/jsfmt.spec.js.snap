@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`root.js 1`] = `
+/**
+ * @providesModule Root
+ * @flow
+ */
+
+// trivial edit (adding this comment)
+module.exports = 'Root';
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * @providesModule Root
+ * @flow
+ */
+
+// trivial edit (adding this comment)
+module.exports = "Root";
+
+`;

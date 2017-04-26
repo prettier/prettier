@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`libtest.js 1`] = `
+/* @flow */
+const dino : Dinosaur = "Stegosaurus"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @flow */
+const dino: Dinosaur = "Stegosaurus";
+
+`;

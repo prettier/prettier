@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`function.js 1`] = `
+/* @flow */
+
+function Bar(x: number) {
+  this.x = x;
+}
+Bar.prototype.getX = function() { return this.x; }
+Bar.prototype.getY = function(): string { return this.y; }
+
+module.exports = Bar;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @flow */
+
+function Bar(x: number) {
+  this.x = x;
+}
+Bar.prototype.getX = function() {
+  return this.x;
+};
+Bar.prototype.getY = function(): string {
+  return this.y;
+};
+
+module.exports = Bar;
+
+`;
+
+exports[`proto.js 1`] = `
+function Foo() { }
+var o = new Foo();
+var x:number = o.x;
+
+Foo.prototype.m = function() { return this.x; }
+
+var y:number = o.m();
+o.x = "...";
+
+Foo.prototype = { m: function() { return false; } }
+
+var export_o: { x:any; } = o; // awkward type cast
+
+module.exports = export_o;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function Foo() {}
+var o = new Foo();
+var x: number = o.x;
+
+Foo.prototype.m = function() {
+  return this.x;
+};
+
+var y: number = o.m();
+o.x = "...";
+
+Foo.prototype = {
+  m: function() {
+    return false;
+  }
+};
+
+var export_o: { x: any } = o; // awkward type cast
+
+module.exports = export_o;
+
+`;
+
+exports[`sealed.js 1`] = `
+var o = require('./proto');
+
+o.z = 0;
+var x:string = o.x;
+
+var Bar = require('./function');
+var a = new Bar(234);
+a.x = 123;
+a.y = 'abc'; // error, needs to be declared in Bar's constructor
+(a.getX(): number);
+(a.getY(): string);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var o = require("./proto");
+
+o.z = 0;
+var x: string = o.x;
+
+var Bar = require("./function");
+var a = new Bar(234);
+a.x = 123;
+a.y = "abc"; // error, needs to be declared in Bar's constructor
+(a.getX(): number);
+(a.getY(): string);
+
+`;

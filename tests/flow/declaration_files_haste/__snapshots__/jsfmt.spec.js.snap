@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExplicitProvidesModuleDifferentName.js 1`] = `
+/*
+ * @providesModule ExplicitProvidesModuleDifferentName
+ * @flow
+ */
+
+module.exports.fun = (): string => "hello there";
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
+ * @providesModule ExplicitProvidesModuleDifferentName
+ * @flow
+ */
+
+module.exports.fun = (): string => "hello there";
+
+`;
+
+exports[`ExplicitProvidesModuleSameName.js 1`] = `
+/*
+ * @providesModule ExplicitProvidesModuleSameName
+ * @flow
+ */
+
+module.exports.fun = (): string => "hello there";
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
+ * @providesModule ExplicitProvidesModuleSameName
+ * @flow
+ */
+
+module.exports.fun = (): string => "hello there";
+
+`;
+
+exports[`ImplicitProvidesModule.js 1`] = `
+/*
+ * @providesModule ImplicitProvidesModule
+ * @flow
+ */
+
+module.exports.fun = (): string => "hello there";
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
+ * @providesModule ImplicitProvidesModule
+ * @flow
+ */
+
+module.exports.fun = (): string => "hello there";
+
+`;
+
+exports[`md5.js 1`] = `
+/* @providesModule md5 */
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @providesModule md5 */
+
+`;
+
+exports[`test.js 1`] = `
+/* @flow */
+
+var Implicit = require('ImplicitProvidesModule');
+(Implicit.fun(): string);
+
+var ExplicitSameName = require('ExplicitProvidesModuleSameName');
+(ExplicitSameName.fun(): string);
+
+var ExplicitDifferentName = require('ExplicitProvidesModuleDifferentName');
+(ExplicitDifferentName.fun(): string);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @flow */
+
+var Implicit = require("ImplicitProvidesModule");
+(Implicit.fun(): string);
+
+var ExplicitSameName = require("ExplicitProvidesModuleSameName");
+(ExplicitSameName.fun(): string);
+
+var ExplicitDifferentName = require("ExplicitProvidesModuleDifferentName");
+(ExplicitDifferentName.fun(): string);
+
+`;

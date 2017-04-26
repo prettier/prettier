@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`windows.js 1`] = `
+const vscode = require("vscode");
+const {getDir, getActiveFile, uint8arrayToString} = require("./utils");
+
+let outChannel;
+let _commands;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const vscode = require("vscode");
+const { getDir, getActiveFile, uint8arrayToString } = require("./utils");
+
+let outChannel;
+let _commands;
+
+`;

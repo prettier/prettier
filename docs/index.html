@@ -1,0 +1,240 @@
+<meta charset="utf-8">
+<title>Prettier</title>
+
+<script>global = window;</script>
+<script>Buffer = {isBuffer: function() { return false; }};</script>
+<script src="prettier.min.js"></script>
+
+<link rel="stylesheet" href="https://codemirror.net/lib/codemirror.css">
+<link rel="stylesheet" href="https://codemirror.net/theme/base16-dark.css">
+<script src="https://codemirror.net/lib/codemirror.js"></script>
+<script src="https://codemirror.net/mode/javascript/javascript.js"></script>
+<script src="https://codemirror.net/addon/display/rulers.js"></script>
+<script src="https://codemirror.net/addon/search/searchcursor.js"></script>
+<script src="https://codemirror.net/addon/edit/matchbrackets.js"></script>
+<script src="https://codemirror.net/addon/edit/closebrackets.js"></script>
+<script src="https://codemirror.net/addon/comment/comment.js"></script>
+<script src="https://codemirror.net/addon/wrap/hardwrap.js"></script>
+<script src="https://codemirror.net/keymap/sublime.js"></script>
+
+<style type="text/css">
+  html, body {
+    font-family: "Helvetica Neue", "Open Sans", sans-serif;
+    font-size: 11.7px;
+    margin: 0;
+    padding: 0;
+    background-color: #444444;
+    color: #e2e1e1;
+  }
+  .title {
+    font-style: italic;
+    line-height: 19px;
+    margin-right: 10px;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .editors {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    margin: 5px;
+  }
+  .editor {
+    display: flex;
+    flex: 1;
+    position: relative;
+  }
+  .CodeMirror {
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    font-family: Menlo, monospace;
+    font-size: 11.05px;
+    line-height: 17.68px;
+  }
+  .editor {
+    margin-left: 5px;
+  }
+  .editor:first-child {
+    margin-left: 0;
+  }
+  .options {
+    display: flex;
+    margin: 5px;
+    margin-bottom: 0;
+  }
+  .title a {
+    color: #e2e1e1;
+  }
+  .title a:hover {
+    color: #fdfcfc;
+  }
+  label {
+    margin-right: 5px;
+  }
+  input[type="number"] {
+    max-width: 40px;
+  }
+</style>
+
+<div class="container">
+  <div class="options">
+    <label class="title"><a href="https://github.com/jlongster/prettier">prettier v<span class="version"></span></a></label>
+    <label><input type="number" value="80" id="printWidth"></input> printWidth</label>
+    <label><input type="number" value="2" id="tabWidth"></input> tabWidth</label>
+    <label><input type="checkbox" id="useTabs"></input> useTabs</label>
+    <label><input type="checkbox" id="semi" checked></input> semi</label>
+    <label><input type="checkbox" id="singleQuote"></input> singleQuote</label>
+    <label><input type="checkbox" id="bracketSpacing" checked></input> bracketSpacing</label>
+    <label><input type="checkbox" id="jsxBracketSameLine"></input> jsxBracketSameLine</label>
+    <label>trailingComma <select id="trailingComma"><option value="none">none</option><option value="es5">es5</option><option value="all">all</option></select></label>
+    <label>parser <select id="parser"><option value="babylon">babylon</option><option value="flow">flow</option></select></label>
+    <span style="flex: 1"></span>
+    <label><input type="checkbox" id="doc"></input> doc</label>
+  </div>
+
+  <div class="editors">
+    <div class="editor input">
+      <textarea id="input-editor"></textarea>
+    </div>
+    <div class="editor doc">
+      <textarea id="doc-editor"></textarea>
+    </div>
+    <div class="editor output">
+      <textarea id="output-editor"></textarea>
+    </div>
+  </div>
+</div>
+
+<script id="code">
+var OPTIONS = ['printWidth', 'tabWidth', 'singleQuote', 'trailingComma', 'bracketSpacing', 'jsxBracketSameLine', 'parser', 'semi', 'useTabs', 'doc'];
+function setOptions(options) {
+  OPTIONS.forEach(function(option) {
+    var elem = document.getElementById(option);
+    if (elem.tagName === 'SELECT') {
+      elem.value = options[option];
+    } else if (elem.type === 'number') {
+      elem.value = options[option];
+    } else {
+      elem.checked = options[option];
+    }
+  });
+}
+
+function getOptions() {
+  var options = {};
+  OPTIONS.forEach(function(option) {
+    var elem = document.getElementById(option);
+    if (elem.tagName === 'SELECT') {
+      options[option] = elem.value;
+    } else if (elem.type === 'number') {
+      options[option] = Number(elem.value);
+    } else {
+      options[option] = elem.checked;
+    }
+  });
+  return options;
+}
+
+function omitNonFormatterOptions(options) {
+  var optionsClone = Object.assign({}, options);
+  delete optionsClone.doc;
+  return optionsClone;
+}
+
+function replaceHash(hash) {
+  if (
+    typeof URL === "function" &&
+    typeof history === "object" &&
+    typeof history.replaceState === "function"
+  ) {
+    var url = new URL(location);
+    url.hash = hash;
+    history.replaceState(null, null, url);
+  } else {
+    location.hash = hash;
+  }
+}
+
+function format() {
+  var options = getOptions();
+  [docEditor, outputEditor].forEach(function(editor) {
+    editor.setOption(
+      'rulers',
+      [{column: options.printWidth, color: '#444444'}]
+    );
+  });
+  document.getElementsByClassName('doc')[0].style.display = options.doc ? 'flex' : 'none';
+
+  var value = encodeURIComponent(
+    JSON.stringify(
+      Object.assign({content: inputEditor.getValue(), options: options})
+    )
+  );
+  replaceHash(value);
+  var formatterOptions = omitNonFormatterOptions(options);
+  var res;
+  try {
+    res = prettier.format(inputEditor.getValue(), formatterOptions);
+  } catch (e) {
+    res = e.toString();
+  }
+  outputEditor.setValue(res);
+
+  if (options.doc) {
+    var debug;
+    try {
+      var doc = prettier.__debug.printToDoc(inputEditor.getValue(), formatterOptions);
+      debug = prettier.__debug.formatDoc(doc, formatterOptions);
+    } catch (e) {
+      debug = e.toString();
+    }
+    docEditor.setValue(debug);
+  }
+}
+
+document.getElementsByClassName('options')[0].onchange = format;
+
+var editorOptions = {
+  lineNumbers: true,
+  keyMap: "sublime",
+  autoCloseBrackets: true,
+  matchBrackets: true,
+  showCursorWhenSelecting: true,
+  theme: 'base16-dark',
+  tabWidth: 2
+};
+var inputEditor = CodeMirror.fromTextArea(
+  document.getElementById('input-editor'),
+  editorOptions
+);
+inputEditor.on('change', format);
+
+var docEditor = CodeMirror.fromTextArea(
+  document.getElementById('doc-editor'),
+  {readOnly: true, lineNumbers: true, theme: 'base16-dark'}
+);
+
+var outputEditor = CodeMirror.fromTextArea(
+  document.getElementById('output-editor'),
+  {readOnly: true, lineNumbers: true, theme: 'base16-dark'}
+);
+
+document.getElementsByClassName('version')[0].innerText = prettier.version;
+</script>
+
+<script>
+try {
+  var json = JSON.parse(decodeURIComponent(location.hash.slice(1)));
+  setOptions(json.options);
+  inputEditor.setValue(json.content);
+} catch (e) {
+  inputEditor.setValue(code.innerText.trim());
+}
+</script>

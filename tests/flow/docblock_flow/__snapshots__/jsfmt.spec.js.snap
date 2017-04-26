@@ -1,0 +1,126 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`license_with_flow.js 1`] = `
+/* Copyright example */
+/* @flow */
+
+("": void); // error
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* Copyright example */
+/* @flow */
+
+("": void); // error
+
+`;
+
+exports[`max_header_tokens.js 1`] = `
+/* @flow */
+/* second token */
+/* third token */
+/**
+ * After max_header_tokens (in .flowconfig), we no longer care:
+ *
+ * @flow
+ */
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @flow */
+/* second token */
+/* third token */
+/**
+ * After max_header_tokens (in .flowconfig), we no longer care:
+ *
+ * @flow
+ */
+
+`;
+
+exports[`multiple_flows_1.js 1`] = `
+/* @flow */
+/* @flow */
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @flow */
+/* @flow */
+
+`;
+
+exports[`multiple_flows_2.js 1`] = `
+/**
+ * @flow
+ * @noflow
+ */
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * @flow
+ * @noflow
+ */
+
+`;
+
+exports[`multiple_providesModule_1.js 1`] = `
+/**
+ * @providesModule Foo
+ * @providesModule Bar
+ * @flow
+ */
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * @providesModule Foo
+ * @providesModule Bar
+ * @flow
+ */
+
+`;
+
+exports[`multiple_providesModule_2.js 1`] = `
+/**
+ * @providesModule Foo
+ * @flow
+ */
+/**
+ * @providesModule Bar
+ */
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * @providesModule Foo
+ * @flow
+ */
+/**
+ * @providesModule Bar
+ */
+
+`;
+
+exports[`use_strict_with_flow.js 1`] = `
+"use strict";
+/* @flow */
+
+("": void); // error
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"use strict";
+/* @flow */
+
+("": void); // error
+
+`;
+
+exports[`with_flow.js 1`] = `
+/* @flow */
+
+("": void); // error
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @flow */
+
+("": void); // error
+
+`;
+
+exports[`without_flow.js 1`] = `
+/* some other comment */
+
+("": void); // no error
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* some other comment */
+
+("": void); // no error
+
+`;

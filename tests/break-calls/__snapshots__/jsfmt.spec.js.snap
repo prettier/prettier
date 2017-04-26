@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`break.js 1`] = `
+h(f(g(() => {
+  a
+})))
+
+deepCopyAndAsyncMapLeavesA(
+  { source: sourceValue, destination: destination[sourceKey] },
+  { valueMapper, overwriteExistingKeys }
+)
+
+deepCopyAndAsyncMapLeavesB(
+  1337,
+  { source: sourceValue, destination: destination[sourceKey] },
+  { valueMapper, overwriteExistingKeys }
+)
+
+deepCopyAndAsyncMapLeavesC(
+  { source: sourceValue, destination: destination[sourceKey] },
+  1337,
+  { valueMapper, overwriteExistingKeys }
+)
+
+function someFunction(url) {
+  return get(url)
+    .then(
+      json => dispatch(success(json)),
+      error => dispatch(failed(error))
+    );
+}
+
+const mapChargeItems = fp.flow(
+  l => l < 10 ? l: 1,
+  l => Immutable.Range(l).toMap()
+);
+
+expect(new LongLongLongLongLongRange([0, 0], [0, 0])).toEqualAtomLongLongLongLongRange(new LongLongLongRange([0, 0], [0, 0]));
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+h(
+  f(
+    g(() => {
+      a;
+    })
+  )
+);
+
+deepCopyAndAsyncMapLeavesA(
+  { source: sourceValue, destination: destination[sourceKey] },
+  { valueMapper, overwriteExistingKeys }
+);
+
+deepCopyAndAsyncMapLeavesB(
+  1337,
+  { source: sourceValue, destination: destination[sourceKey] },
+  { valueMapper, overwriteExistingKeys }
+);
+
+deepCopyAndAsyncMapLeavesC(
+  { source: sourceValue, destination: destination[sourceKey] },
+  1337,
+  { valueMapper, overwriteExistingKeys }
+);
+
+function someFunction(url) {
+  return get(url).then(
+    json => dispatch(success(json)),
+    error => dispatch(failed(error))
+  );
+}
+
+const mapChargeItems = fp.flow(
+  l => (l < 10 ? l : 1),
+  l => Immutable.Range(l).toMap()
+);
+
+expect(
+  new LongLongLongLongLongRange([0, 0], [0, 0])
+).toEqualAtomLongLongLongLongRange(new LongLongLongRange([0, 0], [0, 0]));
+
+`;
+
+exports[`parent.js 1`] = `
+runtimeAgent.getProperties(
+  objectId,
+  false, // ownProperties
+  false, // accessorPropertiesOnly
+  false, // generatePreview
+  (error, properties, internalProperties) => {
+    return 1
+  },
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+runtimeAgent.getProperties(
+  objectId,
+  false, // ownProperties
+  false, // accessorPropertiesOnly
+  false, // generatePreview
+  (error, properties, internalProperties) => {
+    return 1;
+  }
+);
+
+`;

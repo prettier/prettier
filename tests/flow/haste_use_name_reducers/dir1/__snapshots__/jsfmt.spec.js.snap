@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Module1.js 1`] = `
+/* @flow */
+
+require('test');
+
+class Impl {}
+
+module.exports = new Impl();
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @flow */
+
+require("test");
+
+class Impl {}
+
+module.exports = new Impl();
+
+`;

@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`A.js 1`] = `
+/* @providesModule Demo */
+
+class A {
+  x: number; // instance field declaration
+  constructor(x) { this.x = x; }
+
+  getX() { return this.x; }
+
+  onLoad(callback) {
+    return callback(this.getX());
+  }
+}
+
+function callback(x: string) { return x.length; }
+
+var a = new A(42);
+a.onLoad(callback);
+
+module.exports = A;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @providesModule Demo */
+
+class A {
+  x: number; // instance field declaration
+  constructor(x) {
+    this.x = x;
+  }
+
+  getX() {
+    return this.x;
+  }
+
+  onLoad(callback) {
+    return callback(this.getX());
+  }
+}
+
+function callback(x: string) {
+  return x.length;
+}
+
+var a = new A(42);
+a.onLoad(callback);
+
+module.exports = A;
+
+`;
+
+exports[`B.js 1`] = `
+var A = require('Demo');
+
+var z = new A("42").getX();
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var A = require("Demo");
+
+var z = new A("42").getX();
+
+`;

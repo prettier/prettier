@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`a.js 1`] = `
+/* @providesModule IncrModuleA */
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @providesModule IncrModuleA */
+
+`;
+
+exports[`b.js 1`] = `
+/* @providesModule IncrModuleB
+   @flow
+*/
+
+var A = require('IncrModuleA');
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @providesModule IncrModuleB
+   @flow
+*/
+
+var A = require("IncrModuleA");
+
+`;
+
+exports[`dup_a.js 1`] = `
+/* @providesModule IncrModuleA */
+
+var x:string = 0;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @providesModule IncrModuleA */
+
+var x: string = 0;
+
+`;

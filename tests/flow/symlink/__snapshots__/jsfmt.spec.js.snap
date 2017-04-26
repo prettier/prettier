@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bar.js 1`] = `
+export type Foo = { x: number; }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export type Foo = { x: number };
+
+`;
+
+exports[`foo.js 1`] = `
+export type Foo = { x: number; }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export type Foo = { x: number };
+
+`;
+
+exports[`qux.js 1`] = `
+import type { Foo } from './bar.js';
+({ x: "" }: Foo);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import type { Foo } from "./bar.js";
+({ x: "" }: Foo);
+
+`;

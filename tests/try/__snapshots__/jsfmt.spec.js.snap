@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`empty.js 1`] = `
+try {
+} catch (e) {
+}
+finally {
+}
+
+try {
+} catch (e) {
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+try {
+} catch (e) {
+} finally {
+}
+
+try {
+} catch (e) {}
+
+`;
+
+exports[`try.js 1`] = `
+try
+/* missing comment */
+{;}
+finally {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+try {
+  /* missing comment */
+} finally {
+}
+
+`;

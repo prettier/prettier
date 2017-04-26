@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`A.js 1`] = `
+var B = require('./B');
+
+class A extends B { }
+
+module.exports = A;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var B = require("./B");
+
+class A extends B {}
+
+module.exports = A;
+
+`;
+
+exports[`B.js 1`] = `
+var A = require('./A');
+
+//class B extends A { }
+
+module.exports = B;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var A = require("./A");
+
+//class B extends A { }
+
+module.exports = B;
+
+`;

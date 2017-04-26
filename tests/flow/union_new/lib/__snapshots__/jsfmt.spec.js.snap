@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test23_lib.js 1`] = `
+declare class SomeLibClass { }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+declare class SomeLibClass {}
+
+`;
+
+exports[`test25_lib.js 1`] = `
+declare class Set<T> {
+    add(): Set<T>;
+}
+
+declare class Row {
+    reduce_row(
+      callbackfn: (previousValue: number, currentValue: number) => number,
+      initialValue: void
+    ): number;
+    reduce_row<U>(
+      callbackfn: (previousValue: U, currentValue: number) => U,
+      initialValue: U
+    ): U;
+}
+
+declare class Rows {
+    reduce_rows<X>(
+      callbackfn: (previousValue: X, currentValue: Row) => X,
+      initialValue: X
+    ): X;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+declare class Set<T> {
+  add(): Set<T>
+}
+
+declare class Row {
+  reduce_row(
+    callbackfn: (previousValue: number, currentValue: number) => number,
+    initialValue: void
+  ): number,
+  reduce_row<U>(
+    callbackfn: (previousValue: U, currentValue: number) => U,
+    initialValue: U
+  ): U
+}
+
+declare class Rows {
+  reduce_rows<X>(
+    callbackfn: (previousValue: X, currentValue: Row) => X,
+    initialValue: X
+  ): X
+}
+
+`;
+
+exports[`test32_lib.js 1`] = `
+type Indirect<T> = Array<T>;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type Indirect<T> = Array<T>;
+
+`;

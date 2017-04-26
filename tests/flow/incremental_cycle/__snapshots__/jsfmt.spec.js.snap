@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`A.js 1`] = `
+// @flow
+
+class A {
+  b: number;
+  c: string;
+}
+
+module.exports = A;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+
+class A {
+  b: number;
+  c: string;
+}
+
+module.exports = A;
+
+`;
+
+exports[`B.js 1`] = `
+// @flow
+var A = require ('./A');
+import type C from './C';
+
+class B extends A {
+  c: C;
+}
+
+module.exports = B;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+var A = require("./A");
+import type C from "./C";
+
+class B extends A {
+  c: C;
+}
+
+module.exports = B;
+
+`;
+
+exports[`C.js 1`] = `
+// @flow
+var A = require ('./A');
+import type B from './B';
+
+class C extends A {
+  b: B;
+}
+
+module.exports = C;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+var A = require("./A");
+import type B from "./B";
+
+class C extends A {
+  b: B;
+}
+
+module.exports = C;
+
+`;

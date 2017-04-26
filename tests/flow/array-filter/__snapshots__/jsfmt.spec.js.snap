@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test.js 1`] = `
+/* @flow */
+
+function filterOutVoids<T> (arr: Array<?T>): Array<T> {
+  return arr.filter(Boolean)
+}
+
+function filterOutSmall (arr: Array<?number>): Array<?number> {
+  return arr.filter(num => num && num > 10)
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @flow */
+
+function filterOutVoids<T>(arr: Array<?T>): Array<T> {
+  return arr.filter(Boolean);
+}
+
+function filterOutSmall(arr: Array<?number>): Array<?number> {
+  return arr.filter(num => num && num > 10);
+}
+
+`;
+
+exports[`test2.js 1`] = `
+/* @flow */
+
+function filterItems(items: Array<string|number>): Array<string|number> {
+  return items.map(item => {
+    if (typeof item === 'string') {
+      return item.length > 2 ? item : null;
+    } else {
+      return item*10;
+    }
+  }).filter(Boolean);
+}
+
+const filteredItems = filterItems(['foo', 'b', 1, 2]);
+
+console.log(filteredItems);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @flow */
+
+function filterItems(items: Array<string | number>): Array<string | number> {
+  return items
+    .map(item => {
+      if (typeof item === "string") {
+        return item.length > 2 ? item : null;
+      } else {
+        return item * 10;
+      }
+    })
+    .filter(Boolean);
+}
+
+const filteredItems = filterItems(["foo", "b", 1, 2]);
+
+console.log(filteredItems);
+
+`;

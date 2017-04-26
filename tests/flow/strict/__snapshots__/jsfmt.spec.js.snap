@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`annot.js 1`] = `
+var A = require('./unknown_class');
+
+class B extends A {
+  foo(x:A):A { return x; }
+  bar(x) { }
+  qux<X,Y>(x:X,y:Y):X { return x;}
+}
+
+module.exports = B;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var A = require("./unknown_class");
+
+class B extends A {
+  foo(x: A): A {
+    return x;
+  }
+  bar(x) {}
+  qux<X, Y>(x: X, y: Y): X {
+    return x;
+  }
+}
+
+module.exports = B;
+
+`;
+
+exports[`fun.js 1`] = `
+/**
+ * @flow
+ */
+
+// progressively annotate:
+
+//function f(x) { return x; }
+function f(x:number) { return x; }
+//function f(x:number):string { return x; }
+
+var x:string = f(0);
+
+module.exports = f;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * @flow
+ */
+
+// progressively annotate:
+
+//function f(x) { return x; }
+function f(x: number) {
+  return x;
+}
+//function f(x:number):string { return x; }
+
+var x: string = f(0);
+
+module.exports = f;
+
+`;
+
+exports[`obj.js 1`] = `
+/**
+ * @flow
+ */
+
+// progressively annotate:
+
+var o = { x: 0 }
+//var o: {x: number;} = { x: 0 }
+
+var x:string = o.x;
+
+module.exports = o;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * @flow
+ */
+
+// progressively annotate:
+
+var o = { x: 0 };
+//var o: {x: number;} = { x: 0 }
+
+var x: string = o.x;
+
+module.exports = o;
+
+`;

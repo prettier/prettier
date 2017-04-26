@@ -1,0 +1,2 @@
+// @flow
+(require('b'): boolean);

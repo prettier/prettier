@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`indexedAccesType.ts 1`] = `
+const a: Foo['bar'] = {
+  baz: 'yawp'
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const a: Foo["bar"] = {
+  baz: "yawp"
+};
+
+`;

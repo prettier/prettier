@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`comment.js 1`] = `
+for (x
+/*a*/
+in //b
+y) //c
+;
+
+for (x in /*a*/ //b
+y); //c
+
+for (x /*a*/ in y); //b //c
+
+for (x
+//a
+in y);
+
+for(x in
+//a
+y);
+
+for (x
+/*a*/
+of //b
+y) //c
+;
+
+for (x of /*a*/ //b
+y); //c
+
+for (x /*a*/ of y); //b //c
+
+for (x
+//a
+of y);
+
+for(x of
+//a
+y);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*a*/
+for (x in y); //b //c
+
+for (x /*a*/ in y); //b //c
+
+for (x /*a*/ in y); //b //c
+
+//a
+for (x in y);
+
+//a
+for (x in y);
+
+/*a*/
+for (x of y); //b //c
+
+for (x /*a*/ of y); //b //c
+
+for (x /*a*/ of y); //b //c
+
+//a
+for (x of y);
+
+//a
+for (x of y);
+
+`;
+
+exports[`for.js 1`] = `
+for (;;) {}
+for (var i = 0; i < 10; ++i) {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+for (;;) {
+}
+for (var i = 0; i < 10; ++i) {
+}
+
+`;
+
+exports[`in.js 1`] = `
+for ((x in a);;) {}
+for (a=(a in b);;) {}
+for (let a = (b in c); ; );
+for (a && (b in c); ; );
+for (a => (b in c); ; );
+function* g() {
+  for (yield (a in b); ; );
+}
+async function f() {
+  for (await (a in b); ; );
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+for ((x in a); ; ) {
+}
+for (a = (a in b); ; ) {
+}
+for (let a = (b in c); ; );
+for (a && (b in c); ; );
+for (a => (b in c); ; );
+function* g() {
+  for (yield (a in b); ; );
+}
+async function f() {
+  for (await (a in b); ; );
+}
+
+`;
+
+exports[`var.js 1`] = `
+for (a in b) var c = {}; [];
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+for (a in b)
+  var c = {};
+[];
+
+`;

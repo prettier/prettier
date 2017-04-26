@@ -1,0 +1,149 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test.js 1`] = `
+var ColorId = {
+  RED: 'R',
+  GREEN: 'G',
+  BLUE: 'B',
+};
+
+var ColorNumber = {
+  RED: 'ff0000',
+  GREEN: '00ff00',
+  BLUE: '0000ff',
+};
+
+var ColorIdToNumber = {
+  [ColorId.RED]: ColorNumber.RED,
+  [ColorId.GREEN]: ColorNumber.GREEN,
+  [ColorId.BLUE]: ColorNumber.BLUE,
+};
+
+(ColorIdToNumber[ColorId.RED]: 'ffffff'); // oops
+
+ColorIdToNumber.XXX; // oops
+
+module.exports = { ColorId, ColorNumber };
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var ColorId = {
+  RED: "R",
+  GREEN: "G",
+  BLUE: "B"
+};
+
+var ColorNumber = {
+  RED: "ff0000",
+  GREEN: "00ff00",
+  BLUE: "0000ff"
+};
+
+var ColorIdToNumber = {
+  [ColorId.RED]: ColorNumber.RED,
+  [ColorId.GREEN]: ColorNumber.GREEN,
+  [ColorId.BLUE]: ColorNumber.BLUE
+};
+
+(ColorIdToNumber[ColorId.RED]: "ffffff"); // oops
+
+ColorIdToNumber.XXX; // oops
+
+module.exports = { ColorId, ColorNumber };
+
+`;
+
+exports[`test2.js 1`] = `
+var { ColorId, ColorNumber } = require('./test');
+var ColorIdToNumber = {
+  [ColorId.RED]: ColorNumber.RED,
+  [ColorId.GREEN]: ColorNumber.GREEN,
+  [ColorId.BLUE]: ColorNumber.BLUE,
+};
+
+(ColorIdToNumber[ColorId.GREEN]: 'ffffff'); // oops
+
+module.exports = ColorIdToNumber;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var { ColorId, ColorNumber } = require("./test");
+var ColorIdToNumber = {
+  [ColorId.RED]: ColorNumber.RED,
+  [ColorId.GREEN]: ColorNumber.GREEN,
+  [ColorId.BLUE]: ColorNumber.BLUE
+};
+
+(ColorIdToNumber[ColorId.GREEN]: "ffffff"); // oops
+
+module.exports = ColorIdToNumber;
+
+`;
+
+exports[`test3.js 1`] = `
+var { ColorId } = require('./test');
+var ColorIdToNumber = require('./test2');
+
+(ColorIdToNumber[ColorId.BLUE]: 'ffffff'); // oops
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var { ColorId } = require("./test");
+var ColorIdToNumber = require("./test2");
+
+(ColorIdToNumber[ColorId.BLUE]: "ffffff"); // oops
+
+`;
+
+exports[`test4.js 1`] = `
+module.exports = 'hello';
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+module.exports = "hello";
+
+`;
+
+exports[`test5.js 1`] = `
+var hello = require('./test4');
+var dummy = require('./test');
+module.exports = {
+  ...dummy,
+  [hello]: 'world',
+  ...dummy,
+};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var hello = require("./test4");
+var dummy = require("./test");
+module.exports = {
+  ...dummy,
+  [hello]: "world",
+  ...dummy
+};
+
+`;
+
+exports[`test6.js 1`] = `
+var o = require('./test5');
+(o.hello: 'nothing'); // oops
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var o = require("./test5");
+(o.hello: "nothing"); // oops
+
+`;
+
+exports[`test7.js 1`] = `
+var obj = {x: 0, m() { return this.x }}
+var x: string = obj['m'](); // error, number ~> string
+
+var arr = [function() { return this.length }];
+var y: string = arr[0](); // error: number ~> string
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var obj = {
+  x: 0,
+  m() {
+    return this.x;
+  }
+};
+var x: string = obj["m"](); // error, number ~> string
+
+var arr = [
+  function() {
+    return this.length;
+  }
+];
+var y: string = arr[0](); // error: number ~> string
+
+`;

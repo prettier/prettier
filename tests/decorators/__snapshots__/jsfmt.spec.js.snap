@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`mobx.js 1`] = `
+import {observable} from "mobx";
+
+@observer class OrderLine {
+  @observable price:number = 0;
+  @observable amount:number = 1;
+
+  constructor(price) {
+    this.price = price;
+  }
+
+  @computed get total() {
+    return this.price * this.amount;
+  }
+
+  @action.bound setPrice(price) {
+    this.price = price;
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import { observable } from "mobx";
+
+@observer class OrderLine {
+  @observable price: number = 0;
+  @observable amount: number = 1;
+
+  constructor(price) {
+    this.price = price;
+  }
+
+  @computed get total() {
+    return this.price * this.amount;
+  }
+
+  @action.bound setPrice(price) {
+    this.price = price;
+  }
+}
+
+`;
+
+exports[`multiple.js 1`] = `
+const dog = {
+  @readonly
+  @nonenumerable
+  @doubledValue
+  legs: 4
+};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const dog = {
+  @readonly
+  @nonenumerable
+  @doubledValue
+  legs: 4
+};
+
+`;
+
+exports[`redux.js 1`] = `
+@connect(mapStateToProps, mapDispatchToProps)
+export class MyApp extends React.Component {}
+
+@connect(state => ({ todos: state.todos }))
+export class Home extends React.Component {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@connect(mapStateToProps, mapDispatchToProps)
+export class MyApp extends React.Component {}
+
+@connect(state => ({ todos: state.todos }))
+export class Home extends React.Component {}
+
+`;

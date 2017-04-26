@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bar.js 1`] = `
+module.exports = "bar";
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+module.exports = "bar";
+
+`;
+
+exports[`foo.js 1`] = `
+var x = require('./bar'); // bar.js does not work
+console.log(x);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var x = require("./bar"); // bar.js does not work
+console.log(x);
+
+`;

@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`A.js 1`] = `
+/**
+ * @providesModule A
+ * @flow
+ */
+
+import type T from "T";
+
+export default class {
+  p: T;
+
+  constructor() {
+    this.p = 0;
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * @providesModule A
+ * @flow
+ */
+
+import type T from "T";
+
+export default class {
+  p: T;
+
+  constructor() {
+    this.p = 0;
+  }
+}
+
+`;
+
+exports[`B.js 1`] = `
+/**
+ * @flow
+ */
+
+import A from "A"
+
+class B extends A {
+  p: string; // OK, string ~> any
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * @flow
+ */
+
+import A from "A";
+
+class B extends A {
+  p: string; // OK, string ~> any
+}
+
+`;
+
+exports[`T.js 1`] = `
+/**
+ * @providesModule T
+ */
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * @providesModule T
+ */
+
+`;

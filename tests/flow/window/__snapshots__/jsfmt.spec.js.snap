@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`window1.js 1`] = `
+/*
+@providesModule Window1
+*/
+module.exports = window.history;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
+@providesModule Window1
+*/
+module.exports = window.history;
+
+`;
+
+exports[`window2.js 1`] = `
+/* @providesModule Window2 */
+
+module.exports = window.parent;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @providesModule Window2 */
+
+module.exports = window.parent;
+
+`;

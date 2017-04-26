@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`index.js 1`] = `
+// @flow
+
+export var name: "otherdir/testproj" = "otherdir/testproj";
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+
+export var name: "otherdir/testproj" = "otherdir/testproj";
+
+`;

@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`req.js 1`] = `
+module.exports = 0;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+module.exports = 0;
+
+`;
+
+exports[`test.js 1`] = `
+var x = require('./req');
+(x: string);
+
+import x from './req';
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var x = require("./req");
+(x: string);
+
+import x from "./req";
+
+`;

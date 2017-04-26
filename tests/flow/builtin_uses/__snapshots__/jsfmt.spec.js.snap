@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test.js 1`] = `
+var o = Object.freeze({ foo: 0 });
+(o.foo: string);
+module.exports = o;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var o = Object.freeze({ foo: 0 });
+(o.foo: string);
+module.exports = o;
+
+`;
+
+exports[`test2.js 1`] = `
+var o = require('./test');
+(o.foo: string);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var o = require("./test");
+(o.foo: string);
+
+`;

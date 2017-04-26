@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`export.js 1`] = `
+/* @flow */
+exports.x = 1;
+exports.y = "";
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @flow */
+exports.x = 1;
+exports.y = "";
+
+`;
+
+exports[`import.js 1`] = `
+/* @flow */
+var e = require('./export');
+var x: string = e.x;
+var y: number = e.y;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @flow */
+var e = require("./export");
+var x: string = e.x;
+var y: number = e.y;
+
+`;

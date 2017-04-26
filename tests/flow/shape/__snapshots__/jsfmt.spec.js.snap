@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`shadow.js 1`] = `
+var o = {};
+(o.p: string);
+(o: $Shape<{p:string}>);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var o = {};
+(o.p: string);
+(o: $Shape<{ p: string }>);
+
+`;
+
+exports[`test.js 1`] = `
+type Foo = {
+  field: number,
+}
+
+var x: {field?: number} = {};
+var y: $Shape<Foo> = x;
+(y.field: number)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type Foo = {
+  field: number
+};
+
+var x: { field?: number } = {};
+var y: $Shape<Foo> = x;
+(y.field: number);
+
+`;

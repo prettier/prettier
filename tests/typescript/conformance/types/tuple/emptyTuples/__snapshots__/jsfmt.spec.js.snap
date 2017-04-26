@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`emptyTuplesTypeAssertion02.ts 1`] = `
+// @declaration: true
+
+let x = [] as [];
+let y = x[0];
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @declaration: true
+
+let x = [] as [];
+let y = x[0];
+
+`;

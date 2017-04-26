@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`toplevel.js 1`] = `
+// @flow
+
+import {name} from "testproj";
+
+(name: "node_modules/testproj");
+(name: "custom_resolve_dir/testproj"); // Error: Resolve from node_modules first!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+
+import { name } from "testproj";
+
+(name: "node_modules/testproj");
+(name: "custom_resolve_dir/testproj"); // Error: Resolve from node_modules first!
+
+`;

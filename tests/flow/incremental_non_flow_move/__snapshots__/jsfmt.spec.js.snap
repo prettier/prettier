@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`foo.js 1`] = `
+/*
+ * @providesModule Foo
+ */
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
+ * @providesModule Foo
+ */
+
+`;
+
+exports[`test.js 1`] = `
+/**
+ * @flow
+ */
+
+require('Foo');
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * @flow
+ */
+
+require("Foo");
+
+`;

@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`jsx.js 1`] = `
+declare var $React: $Exports<'react'>; // fake import
+type $JSXIntrinsic<T> = Class<$React.Component<void,T,mixed>>;
+
+type $JSXIntrinsics = {
+  div: $JSXIntrinsic<{id: string}>,
+  span: $JSXIntrinsic<{id: string, class: string}>,
+};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+declare var $React: $Exports<"react">; // fake import
+type $JSXIntrinsic<T> = Class<$React.Component<void, T, mixed>>;
+
+type $JSXIntrinsics = {
+  div: $JSXIntrinsic<{ id: string }>,
+  span: $JSXIntrinsic<{ id: string, class: string }>
+};
+
+`;

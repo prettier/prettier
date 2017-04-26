@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`while.js 1`] = `
+var x = 1;
+while(typeof x == "number" || typeof x == "string") {
+    x = x + 1;
+    if (true) x = "";
+}
+var z:number = x;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var x = 1;
+while (typeof x == "number" || typeof x == "string") {
+  x = x + 1;
+  if (true) x = "";
+}
+var z: number = x;
+
+`;

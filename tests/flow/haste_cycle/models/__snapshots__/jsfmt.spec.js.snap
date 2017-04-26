@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OpenGraphAction.js 1`] = `
+// @flow
+
+var OpenGraphValueContainer = require('./OpenGraphValueContainer.js');
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+
+var OpenGraphValueContainer = require("./OpenGraphValueContainer.js");
+
+`;
+
+exports[`OpenGraphObject.js 1`] = `
+// @flow
+
+var OpenGraphValueContainer = require('./OpenGraphValueContainer.js');
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+
+var OpenGraphValueContainer = require("./OpenGraphValueContainer.js");
+
+`;
+
+exports[`OpenGraphValueContainer.js 1`] = `
+// @flow
+
+var OpenGraphObject = require('./OpenGraphObject.js');
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+
+var OpenGraphObject = require("./OpenGraphObject.js");
+
+`;

@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`e2.js 1`] = `
+// @flow
+
+import type { Action } from './e1';
+
+const f = (): Action => {
+  return { type: 'QUX' };
+}
+
+import { LIFE } from './e1';
+
+(LIFE: 42);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+
+import type { Action } from "./e1";
+
+const f = (): Action => {
+  return { type: "QUX" };
+};
+
+import { LIFE } from "./e1";
+
+(LIFE: 42);
+
+`;

@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test.js 1`] = `
+export type FileMetaData = [
+  /* id */ string,
+  /* mtime */ number,
+  /* visited */ 0|1,
+  /* dependencies */ Array<string>,
+];
+
+export type ModuleMetaData = [Path, /* type */ number];
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export type FileMetaData = [
+  /* id */ string,
+  /* mtime */ number,
+  /* visited */ 0 | 1,
+  /* dependencies */ Array<string>
+];
+
+export type ModuleMetaData = [Path, /* type */ number];
+
+`;

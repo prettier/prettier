@@ -1,0 +1,23 @@
+class A {
+  //comment
+  static a() {}
+}
+
+class A {
+  //comment
+  static a() {}
+}
+
+class A {
+  static a() {} //comment
+}
+
+class A {
+  //comment
+  static a() {}
+}
+
+class A {
+  //comment
+  static a() {}
+}

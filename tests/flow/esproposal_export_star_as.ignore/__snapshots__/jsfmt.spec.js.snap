@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`dest.js 1`] = `
+// @flow
+
+import {source} from "./test";
+
+var a: number = source.num;
+var b: string = source.num; // Error: num ~> string
+
+var c: string = source.str;
+var d: number = source.str; // Ignored error: num ~> string
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+
+import { source } from "./test";
+
+var a: number = source.num;
+var b: string = source.num; // Error: num ~> string
+
+var c: string = source.str;
+var d: number = source.str; // Ignored error: num ~> string
+
+`;
+
+exports[`source.js 1`] = `
+// @flow
+
+export var str = 'asdf';
+export var num = 42;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+
+export var str = "asdf";
+export var num = 42;
+
+`;
+
+exports[`test.js 1`] = `
+// @flow
+
+export * as source from "./source";
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+
+export * as source from "./source";
+
+`;

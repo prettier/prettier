@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`i1.js 1`] = `
+// @flow
+
+const foo: { +p: number } = { p: 0 };
+
+module.exports = foo;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+
+const foo: { +p: number } = { p: 0 };
+
+module.exports = foo;
+
+`;

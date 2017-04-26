@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`dino.js 1`] = `
+declare type Dinosaur = "T-Rex" | "Apatosaurus";
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+declare type Dinosaur = "T-Rex" | "Apatosaurus";
+
+`;

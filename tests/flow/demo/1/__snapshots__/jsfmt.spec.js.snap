@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`f.js 1`] = `
+/* demo */
+
+function f(x) { return 42/x; }
+
+var x = null;
+//...
+
+f(x);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* demo */
+
+function f(x) {
+  return 42 / x;
+}
+
+var x = null;
+//...
+
+f(x);
+
+`;

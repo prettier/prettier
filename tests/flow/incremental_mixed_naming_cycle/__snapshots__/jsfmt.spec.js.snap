@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`a.js 1`] = `
+/**
+ * @providesModule A
+ * @flow
+ */
+
+(require('./b'): void);
+(require('C'): void);
+
+module.exports = 'A';
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * @providesModule A
+ * @flow
+ */
+
+(require("./b"): void);
+(require("C"): void);
+
+module.exports = "A";
+
+`;
+
+exports[`b.js 1`] = `
+/**
+ * @providesModule B
+ * @flow
+ */
+
+(require('A'): void);
+(require('D'): void);
+
+module.exports = 'B';
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * @providesModule B
+ * @flow
+ */
+
+(require("A"): void);
+(require("D"): void);
+
+module.exports = "B";
+
+`;
+
+exports[`c.js 1`] = `
+/**
+ * @providesModule C
+ * @flow
+ */
+
+require('Root');
+(require('./b'): void);
+
+module.exports = 'C';
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * @providesModule C
+ * @flow
+ */
+
+require("Root");
+(require("./b"): void);
+
+module.exports = "C";
+
+`;
+
+exports[`d.js 1`] = `
+/**
+ * @providesModule D
+ * @flow
+ */
+
+(require('./b'): void);
+
+module.exports = 'D';
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * @providesModule D
+ * @flow
+ */
+
+(require("./b"): void);
+
+module.exports = "D";
+
+`;
+
+exports[`root.js 1`] = `
+/**
+ * @providesModule Root
+ * @flow
+ */
+
+module.exports = 'Root';
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * @providesModule Root
+ * @flow
+ */
+
+module.exports = "Root";
+
+`;

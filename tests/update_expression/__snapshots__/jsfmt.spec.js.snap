@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`update_expression.js 1`] = `
+(this.x++).toString()
+new (r++);
+(x++)();
+const uuid = String(this._uuidCounter++);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(this.x++).toString();
+new (r++)();
+(x++)();
+const uuid = String(this._uuidCounter++);
+
+`;
