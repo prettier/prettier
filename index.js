@@ -106,7 +106,7 @@ module.exports = {
   },
   check: function(text, opts) {
     try {
-      const formatted = formatWithShebang(text, opts);
+      const formatted = formatWithShebang(text, normalizeOptions(opts));
       return formatted === text;
     } catch (e) {
       return false;
