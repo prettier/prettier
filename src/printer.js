@@ -1844,7 +1844,9 @@ function genericPrintNoParens(path, options, print, args) {
     case "TypeParameterDeclaration":
     case "TypeParameterInstantiation": {
       const shouldInline =
-        n.params.length === 1 && n.params[0].type === "ObjectTypeAnnotation";
+        n.params.length === 1 &&
+        (n.params[0].type === "ObjectTypeAnnotation" ||
+          n.params[0].type === "NullableTypeAnnotation");
 
       if (shouldInline) {
         return concat(["<", join(", ", path.map(print, "params")), ">"]);
