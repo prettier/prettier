@@ -3556,6 +3556,7 @@ function exprNeedsASIProtection(node) {
     node.type === "TemplateLiteral" ||
     node.type === "TemplateElement" ||
     node.type === "JSXElement" ||
+    node.type === "BindExpression" ||
     node.type === "RegExpLiteral" ||
     (node.type === "Literal" && node.pattern) ||
     (node.type === "Literal" && node.regex);
