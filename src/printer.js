@@ -2761,14 +2761,24 @@ function printMemberLookup(path, options, print) {
   const property = path.call(print, "property");
   const n = path.getValue();
 
-  return concat(
-    n.computed
-      ? [
-          "[",
-          group(concat([indent(concat([softline, property])), softline])),
-          "]"
-        ]
-      : [".", property]
+  if (!n.computed) {
+    return concat([".", property]);
+  }
+
+  if (
+    (n.property.type === "Literal" && typeof n.property.value === "number") ||
+      n.property.type === "NumericLiteral"
+  ) {
+    return concat(["[", property, "]"]);
+  }
+
+  return group(
+    concat([
+      "[",
+      indent(concat([softline, property])),
+      softline,
+      "]"
+    ])
   );
 }
 
