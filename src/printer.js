@@ -1828,14 +1828,14 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push("declare ");
       }
 
-      const isBreakable = (
+      const canBreak = (
         n.right.type === "StringLiteralTypeAnnotation"
       );
 
       const printed = printAssignmentRight(
         n.right,
         path.call(print, "right"),
-        isBreakable,
+        canBreak,
         options
       );
 
@@ -3346,12 +3346,12 @@ function printBinaryishExpressions(path, print, options, isNested, isInsideParen
   return parts;
 }
 
-function printAssignmentRight(rightNode, printedRight, isBreakable, options) {
+function printAssignmentRight(rightNode, printedRight, canBreak, options) {
   if (hasLeadingOwnLineComment(options.originalText, rightNode)) {
     return indent(concat([hardline, printedRight]));
   }
 
-  if (isBreakable) {
+  if (canBreak) {
     return indent(concat([line, printedRight]));
   }
 
@@ -3370,7 +3370,7 @@ function printAssignment(
     return printedLeft;
   }
 
-  const isBreakable = (
+  const canBreak = (
     (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) ||
     (leftNode.type === "Identifier" || leftNode.type === "MemberExpression") &&
       (rightNode.type === "StringLiteral" ||
@@ -3381,7 +3381,7 @@ function printAssignment(
   const printed = printAssignmentRight(
     rightNode,
     printedRight,
-    isBreakable,
+    canBreak,
     options
   );
 
