@@ -50,17 +50,16 @@ long_string_with_extra_param =
 long_obj =
   <div style={{ i: 'dont', use: 'bootstrap', and: 'instead', use: 'massive', objects }}>hello world</div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-long_closed = (
+long_closed =
   <BaseForm
     url="/auth/google"
     method="GET"
     colour="blue"
     size="large"
     submitLabel="Sign in with Google"
-  />
-);
+  />;
 
-long_open = (
+long_open =
   <BaseForm
     url="/auth/google"
     method="GET"
@@ -69,10 +68,9 @@ long_open = (
     submitLabel="Sign in with Google"
   >
     hello
-  </BaseForm>
-);
+  </BaseForm>;
 
-long_open_long_children = (
+long_open_long_children =
   <BaseForm
     url="/auth/google"
     method="GET"
@@ -140,18 +138,16 @@ long_open_long_children = (
         submitLabel="Sign in with Google"
       />
     </BaseForm>
-  </BaseForm>
-);
+  </BaseForm>;
 
 short_closed = <BaseForm url="/auth/google" method="GET" />;
 
-short_open = (
+short_open =
   <BaseForm url="/auth/google" method="GET">
     hello
-  </BaseForm>
-);
+  </BaseForm>;
 
-make_self_closing = (
+make_self_closing =
   <div>
     <BaseForm
       url="/auth/google"
@@ -167,10 +163,9 @@ make_self_closing = (
       size="large"
       submitLabel="Sign in with Google"
     />
-  </div>
-);
+  </div>;
 
-leave_opening = (
+leave_opening =
   <BaseForm
     url="/auth/google"
     method="GET"
@@ -179,25 +174,22 @@ leave_opening = (
     submitLabel="Sign in with Google"
   >
     {" "}
-  </BaseForm>
-);
+  </BaseForm>;
 
-long_string = (
+long_string =
   <div className="i use bootstrap and just put loooaads of classnames in here all the time">
     hello world
-  </div>
-);
+  </div>;
 
-long_string_with_extra_param = (
+long_string_with_extra_param =
   <div
     className="i use bootstrap and just put loooaads of classnames in here all the time"
     blah="3"
   >
     hello world
-  </div>
-);
+  </div>;
 
-long_obj = (
+long_obj =
   <div
     style={{
       i: "dont",
@@ -208,7 +200,6 @@ long_obj = (
     }}
   >
     hello world
-  </div>
-);
+  </div>;
 
 `;

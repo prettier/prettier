@@ -76,117 +76,102 @@ not_broken_begin =
     <br /> long text long text long text long text long text long text long text long text<link>url</link> long text long text
   </div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-after = (
+after =
   <span>
     foo <span>bar</span>
-  </span>
-);
+  </span>;
 
-before = (
+before =
   <span>
     <span>bar</span> foo
-  </span>
-);
+  </span>;
 
-before_break1 = (
+before_break1 =
   <span>
     <span barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar />
     {" "}
     foo
-  </span>
-);
+  </span>;
 
-before_break2 = (
+before_break2 =
   <span>
     <span
       barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar
     />
     {" "}
     foo
-  </span>
-);
+  </span>;
 
-after_break = (
+after_break =
   <span>
     foo
     {" "}
     <span barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar />
-  </span>
-);
+  </span>;
 
-within = (
+within =
   <span>
     foo <span> bar </span>
-  </span>
-);
+  </span>;
 
-break_components = (
+break_components =
   <div>
     <Foo />
     <Bar>
       <p>foo<span>bar bar bar</span></p><h1><span><em>yep</em></span></h1>
     </Bar>
     <h2>nope</h2>
-  </div>
-);
+  </div>;
 
-var x = (
+var x =
   <div>
     hello <strong>hi</strong> <foo>sdkflsdfjk</foo>
-  </div>
-);
+  </div>;
 
-nest_plz = (
+nest_plz =
   <div>
     <div>
       <div />
     </div>
-  </div>
-);
+  </div>;
 
-regression_not_transformed_1 = (
+regression_not_transformed_1 =
   <span>
     {" "}<Icon icon="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
-  </span>
-);
+  </span>;
 
-regression_not_transformed_2 = (
+regression_not_transformed_2 =
   <span>
     <Icon icon="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />{" "}
-  </span>
-);
+  </span>;
 
-similar_1 = (
+similar_1 =
   <span>
     {" "}
     <Icon icon="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
-  </span>
-);
+  </span>;
 
-similar_2 = (
+similar_2 =
   <span>
     <Icon icon="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
     {" "}
-  </span>
-);
+  </span>;
 
-similar_3 = (
+similar_3 =
   <span>
     <Icon icon="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" /> <Icon icon="" />
-  </span>
-);
+  </span>;
 
-not_broken_end = (
+not_broken_end =
   <div>
     long text long text long text long text long text long text long text long text
     {" "}
     <link>url</link>
     {" "}
     long text long text
-  </div>
-);
+  </div>;
 
-not_broken_begin = (
+not_broken_begin =
   <div>
     <br />
     {" "}
@@ -194,7 +179,6 @@ not_broken_begin = (
     <link>url</link>
     {" "}
     long text long text
-  </div>
-);
+  </div>;
 
 `;

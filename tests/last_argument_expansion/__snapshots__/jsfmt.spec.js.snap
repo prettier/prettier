@@ -282,11 +282,11 @@ const els = items.map(item => (
   </div>
 ));
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const els = items.map(item => (
+const els = items.map(item =>
   <div className="whatever">
     <span>{children}</span>
   </div>
-));
+);
 
 `;
 

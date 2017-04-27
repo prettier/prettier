@@ -372,7 +372,6 @@ function genericPrintNoParens(path, options, print, args) {
       if (
         n.body.type === "ArrayExpression" ||
         n.body.type === "ObjectExpression" ||
-        n.body.type === "JSXElement" ||
         n.body.type === "BlockStatement" ||
         n.body.type === "TaggedTemplateExpression" ||
         n.body.type === "TemplateElement" ||
@@ -3236,13 +3235,17 @@ function maybeWrapJSXElementInParens(path, elem) {
 
   const NO_WRAP_PARENTS = {
     ArrayExpression: true,
+    ArrowFunctionExpression: true,
+    AssignmentExpression: true,
     JSXElement: true,
     JSXExpressionContainer: true,
     ExpressionStatement: true,
     CallExpression: true,
     ConditionalExpression: true,
-    LogicalExpression: true
+    LogicalExpression: true,
+    VariableDeclarator: true,
   };
+
   if (NO_WRAP_PARENTS[parent.type]) {
     return elem;
   }
@@ -3365,7 +3368,8 @@ function printAssignment(
     (leftNode.type === "Identifier" || leftNode.type === "MemberExpression") &&
       (rightNode.type === "StringLiteral" ||
         (rightNode.type === "Literal" && typeof rightNode.value === "string") ||
-        isMemberExpressionChain(rightNode))
+        isMemberExpressionChain(rightNode) ||
+        rightNode.type === "JSXElement")
   ) {
     printed = indent(concat([line, printedRight]));
   } else {
