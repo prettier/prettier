@@ -2180,10 +2180,7 @@ function printPropertyKey(path, options, print) {
     (key.type === "StringLiteral" ||
       (key.type === "Literal" && typeof key.value === "string")) &&
     isIdentifierName(key.value) &&
-    !node.computed &&
-    // There's a bug in the flow parser where it throws if there are
-    // unquoted unicode literals as keys. Let's quote them for now.
-    (options.parser !== "flow" || key.value.match(/[a-zA-Z0-9$_]/))
+    !node.computed
   ) {
     // 'a' -> a
     return path.call(
@@ -3411,13 +3408,6 @@ function adjustClause(node, clause, forceSpace) {
 function nodeStr(node, options) {
   const str = node.value;
   isString.assert(str);
-
-  // Workaround a bug in the Javascript version of the flow parser where
-  // astral unicode characters like \uD801\uDC28 are incorrectly parsed as
-  // a sequence of \uFFFD.
-  if (options.parser === "flow" && str.indexOf("\ufffd") !== -1) {
-    return node.raw;
-  }
 
   const raw = node.extra ? node.extra.raw : node.raw;
   // `rawContent` is the string exactly like it appeared in the input source
