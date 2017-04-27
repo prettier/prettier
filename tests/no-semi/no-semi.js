@@ -145,6 +145,10 @@ tag
 
 x; x => x
 
+x; (a || b).c++
+
+x; ++(a || b).c
+
 while (false)
   (function(){}())
 

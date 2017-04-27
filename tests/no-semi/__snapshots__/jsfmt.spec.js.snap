@@ -229,6 +229,10 @@ tag
 
 x; x => x
 
+x; (a || b).c++
+
+x; ++(a || b).c
+
 while (false)
   (function(){}())
 
@@ -394,6 +398,12 @@ tag\`string\`;
 x;
 x => x;
 
+x;
+(a || b).c++;
+
+x;
+++(a || b).c;
+
 while (false)
   (function() {})();
 
@@ -549,6 +559,10 @@ tag
 \`string\`
 
 x; x => x
+
+x; (a || b).c++
+
+x; ++(a || b).c
 
 while (false)
   (function(){}())
@@ -714,6 +728,12 @@ tag\`string\`
 
 x
 x => x
+
+x
+;(a || b).c++
+
+x
+++(a || b).c
 
 while (false)
   (function() {})()
@@ -871,6 +891,10 @@ tag
 
 x; x => x
 
+x; (a || b).c++
+
+x; ++(a || b).c
+
 while (false)
   (function(){}())
 
@@ -1036,6 +1060,12 @@ tag\`string\`
 
 x
 x => x
+
+x
+;(a || b).c++
+
+x
+++(a || b).c
 
 while (false)
   (function() {})()
