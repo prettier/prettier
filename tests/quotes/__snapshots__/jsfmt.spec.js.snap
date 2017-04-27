@@ -117,31 +117,44 @@ exports[`strings.js 1`] = `
 "\\0";
 
 // Emoji.
-"🐶"; // Empty string.
+"🐶";
+// Empty string.
 "";
-""; // Single double quote.
+"";
+// Single double quote.
 '"';
-'"'; // Single single quote.
+'"';
+// Single single quote.
 "'";
-"'"; // Unnecessary escapes.
 "'";
-'"'; // One of each.
+// Unnecessary escapes.
+"'";
+'"';
+// One of each.
 "\\"'";
-"\\"'"; // One of each with unnecessary escapes.
 "\\"'";
-"\\"'"; // More double quotes than single quotes.
+// One of each with unnecessary escapes.
+"\\"'";
+"\\"'";
+// More double quotes than single quotes.
 '"\\'"';
-'"\\'"'; // More single quotes than double quotes.
+'"\\'"';
+// More single quotes than double quotes.
 "\\"''";
-"\\"''"; // Two of each.
+"\\"''";
+// Two of each.
 "\\"\\"''";
-"\\"\\"''"; // Single backslash.
+"\\"\\"''";
+// Single backslash.
 "\\\\";
-"\\\\"; // Backslases.
+"\\\\";
+// Backslases.
 "\\"\\\\\\"\\\\\\\\\\" ''\\\\'\\\\'\\\\\\\\'";
-'\\'\\\\\\'\\\\\\\\\\' ""\\\\"\\\\"\\\\\\\\"'; // Somewhat more real-word example.
+'\\'\\\\\\'\\\\\\\\\\' ""\\\\"\\\\"\\\\\\\\"';
+// Somewhat more real-word example.
 "He's sayin': \\"How's it goin'?\\" Don't ask me why.";
-"He's sayin': \\"How's it goin'?\\" Don't ask me why."; // Somewhat more real-word example 2.
+"He's sayin': \\"How's it goin'?\\" Don't ask me why.";
+// Somewhat more real-word example 2.
 'var backslash = "\\\\", doubleQuote = \\'"\\';';
 'var backslash = "\\\\", doubleQuote = \\'"\\';';
 
@@ -234,31 +247,44 @@ exports[`strings.js 2`] = `
 '\\0';
 
 // Emoji.
-'🐶'; // Empty string.
+'🐶';
+// Empty string.
 '';
-''; // Single double quote.
+'';
+// Single double quote.
 '"';
-'"'; // Single single quote.
+'"';
+// Single single quote.
 "'";
-"'"; // Unnecessary escapes.
 "'";
-'"'; // One of each.
+// Unnecessary escapes.
+"'";
+'"';
+// One of each.
 '"\\'';
-'"\\''; // One of each with unnecessary escapes.
 '"\\'';
-'"\\''; // More double quotes than single quotes.
+// One of each with unnecessary escapes.
+'"\\'';
+'"\\'';
+// More double quotes than single quotes.
 '"\\'"';
-'"\\'"'; // More single quotes than double quotes.
+'"\\'"';
+// More single quotes than double quotes.
 "\\"''";
-"\\"''"; // Two of each.
+"\\"''";
+// Two of each.
 '""\\'\\'';
-'""\\'\\''; // Single backslash.
+'""\\'\\'';
+// Single backslash.
 '\\\\';
-'\\\\'; // Backslases.
+'\\\\';
+// Backslases.
 "\\"\\\\\\"\\\\\\\\\\" ''\\\\'\\\\'\\\\\\\\'";
-'\\'\\\\\\'\\\\\\\\\\' ""\\\\"\\\\"\\\\\\\\"'; // Somewhat more real-word example.
+'\\'\\\\\\'\\\\\\\\\\' ""\\\\"\\\\"\\\\\\\\"';
+// Somewhat more real-word example.
 "He's sayin': \\"How's it goin'?\\" Don't ask me why.";
-"He's sayin': \\"How's it goin'?\\" Don't ask me why."; // Somewhat more real-word example 2.
+"He's sayin': \\"How's it goin'?\\" Don't ask me why.";
+// Somewhat more real-word example 2.
 'var backslash = "\\\\", doubleQuote = \\'"\\';';
 'var backslash = "\\\\", doubleQuote = \\'"\\';';
 
