@@ -29,7 +29,6 @@ var isEmpty = docUtils.isEmpty;
 var types = require("ast-types");
 var namedTypes = types.namedTypes;
 var isString = types.builtInTypes.string;
-var isObject = types.builtInTypes.object;
 
 function shouldPrintComma(options, level) {
   level = level || "es5";
@@ -402,8 +401,15 @@ function genericPrintNoParens(path, options, print, args) {
       );
     }
     case "MethodDefinition":
+    case "TSAbstractMethodDefinition":
       if (n.static) {
         parts.push("static ");
+      }
+      if (n.accessibility) {
+        parts.push(n.accessibility + " ");
+      }
+      if (n.type === "TSAbstractMethodDefinition") {
+        parts.push("abstract ");
       }
 
       parts.push(printMethod(path, options, print));
@@ -1016,7 +1022,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "VariableDeclarator":
       return printAssignment(
         n.id,
-        path.call(print, "id"),
+        concat([path.call(print, "id"), path.call(print, "typeParameters")]),
         "=",
         n.init,
         n.init && path.call(print, "init"),
@@ -1466,6 +1472,7 @@ function genericPrintNoParens(path, options, print, args) {
       return concat(parts);
     case "ClassDeclaration":
     case "ClassExpression":
+    case "TSAbstractClassDeclaration":
       return concat(printClass(path, options, print));
     case "TemplateElement":
       return join(literalline, n.value.raw.split("\n"));
@@ -1842,7 +1849,9 @@ function genericPrintNoParens(path, options, print, args) {
     case "TypeParameterDeclaration":
     case "TypeParameterInstantiation": {
       const shouldInline =
-        n.params.length === 1 && n.params[0].type === "ObjectTypeAnnotation";
+        n.params.length === 1 &&
+        (n.params[0].type === "ObjectTypeAnnotation" ||
+          n.params[0].type === "NullableTypeAnnotation");
 
       if (shouldInline) {
         return concat(["<", join(", ", path.map(print, "params")), ">"]);
@@ -1923,6 +1932,17 @@ function genericPrintNoParens(path, options, print, args) {
       parts.push(path.call(print, "name"));
       parts.push(": ")
       parts.push(path.call(print, "typeAnnotation"));
+
+      return concat(parts);
+    case "TSParameterProperty":
+      if (n.accessibility) {
+        parts.push(n.accessibility + " ");
+      }
+      if (n.isReadonly) {
+        parts.push("readonly ");
+      }
+
+      parts.push(path.call(print, "parameter"));
 
       return concat(parts);
     case "TSTypeReference":
@@ -2019,6 +2039,13 @@ function genericPrintNoParens(path, options, print, args) {
       }
 
       return concat(parts)
+    case "TSMethodSignature":
+      return concat([
+        path.call(print, 'name'),
+        "(",
+        join(", ", path.map(print, "parameters")),
+        ")"
+      ])
     // TODO
     case "ClassHeritage":
     // TODO
@@ -2058,7 +2085,6 @@ function genericPrintNoParens(path, options, print, args) {
     case "XMLComment":
     case "XMLProcessingInstruction":
     default:
-      debugger;
       throw new Error("unknown type: " + JSON.stringify(n.type));
   }
 }
@@ -2141,7 +2167,7 @@ function printPropertyKey(path, options, print) {
   ) {
     // 'a' -> a
     return path.call(
-      keyPath => comments.printComments(keyPath, p => key.value, options),
+      keyPath => comments.printComments(keyPath, () => key.value, options),
       "key"
     );
   }
@@ -2150,6 +2176,7 @@ function printPropertyKey(path, options, print) {
 
 function printMethod(path, options, print) {
   var node = path.getNode();
+  var semi = options.semi ? ";" : "";
   var kind = node.kind;
   var parts = [];
 
@@ -2189,10 +2216,14 @@ function printMethod(path, options, print) {
         }, "value"),
         path.call(p => printReturnType(p, print), "value")
       ])
-    ),
-    " ",
-    path.call(print, "value", "body")
+    )
   );
+
+  if (!node.value.body || node.value.body.length === 0) {
+    parts.push(semi);
+  } else {
+    parts.push(" ", path.call(print, "value", "body"));
+  }
 
   return concat(parts);
 }
@@ -2540,14 +2571,6 @@ function printReturnType(path, print) {
   return concat(parts);
 }
 
-function typeIsFunction(type) {
-  return (
-    type === "FunctionExpression" ||
-    type === "ArrowFunctionExpression" ||
-    type === "NewExpression"
-  );
-}
-
 function printExportDeclaration(path, options, print) {
   const decl = path.getValue();
   const semi = options.semi ? ";" : "";
@@ -2655,7 +2678,7 @@ function printFlowDeclaration(path, parts) {
   return concat(parts);
 }
 
-function getFlowVariance(path, options) {
+function getFlowVariance(path) {
   if (!path.variance) {
     return null;
   }
@@ -2679,7 +2702,16 @@ function getFlowVariance(path, options) {
 
 function printClass(path, options, print) {
   const n = path.getValue();
-  const parts = ["class"];
+  const parts = [];
+
+  if (n.accessibility) {
+    parts.push(n.accessibility + " ");
+  }
+  if (n.type === "TSAbstractClassDeclaration") {
+    parts.push("abstract ");
+  }
+
+  parts.push("class");
 
   if (n.id) {
     parts.push(" ", path.call(print, "id"), path.call(print, "typeParameters"));
@@ -2757,7 +2789,7 @@ function printMemberChain(path, options, print) {
         node: node,
         printed: comments.printComments(
           path,
-          p => printArgumentsList(path, options, print),
+          () => printArgumentsList(path, options, print),
           options
         )
       });
@@ -2767,7 +2799,7 @@ function printMemberChain(path, options, print) {
         node: node,
         printed: comments.printComments(
           path,
-          p => printMemberLookup(path, options, print),
+          () => printMemberLookup(path, options, print),
           options
         )
       });
@@ -3181,7 +3213,7 @@ function printJSXElement(path, options, print) {
   ]);
 }
 
-function maybeWrapJSXElementInParens(path, elem, options) {
+function maybeWrapJSXElementInParens(path, elem) {
   const parent = path.getParentNode();
   if (!parent) return elem;
 
@@ -3286,7 +3318,7 @@ function printBinaryishExpressions(path, print, options, isNested, isInsideParen
     // the other ones since we don't call the normal print on BinaryExpression,
     // only for the left and right parts
     if (isNested && node.comments) {
-      parts = comments.printComments(path, p => concat(parts), options);
+      parts = comments.printComments(path, () => concat(parts), options);
     }
   } else {
     // Our stopping case. Simply print the node normally.
@@ -3336,24 +3368,6 @@ function adjustClause(node, clause, forceSpace) {
   }
 
   return indent(concat([line, clause]));
-}
-
-function shouldTypeScriptTypeAvoidColon(path) {
-  // As the special TS nodes isn't returned by the node helpers,
-  // we use the stack directly to get the parent node.
-  const parent = path.stack[path.stack.length - 3];
-
-  switch (parent.type) {
-    case "TSFunctionType":
-    case "TSIndexSignature":
-    case "TSParenthesizedType":
-    case "TSCallSignature":
-    case "TSConstructSignature":
-    case "TSAsExpression":
-      return true;
-    default:
-      return false;
-  }
 }
 
 function nodeStr(node, options) {
@@ -3449,13 +3463,6 @@ function printNumber(rawNumber) {
       // Remove trailing dot.
       .replace(/\.(?=e|$)/, "")
   );
-}
-
-function isFirstStatement(path) {
-  const parent = path.getParentNode();
-  const node = path.getValue();
-  const body = parent.body;
-  return body && body[0] === node;
 }
 
 function isLastStatement(path) {
@@ -3559,12 +3566,13 @@ function classPropMayCauseASIProblems(path) {
 function classChildNeedsASIProtection(node) {
   if (!node) return;
 
-  let isAsync, isGenerator;
   switch (node.type) {
     case "ClassProperty":
       return node.computed;
     // flow
     case "MethodDefinition":
+    // typescript
+    case "TSAbstractMethodDefinition":
     // babylon
     case "ClassMethod": {
       const isAsync = node.value ? node.value.async : node.async;

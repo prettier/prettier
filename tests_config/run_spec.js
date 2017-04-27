@@ -58,7 +58,6 @@ function run_spec(dirname, options, additionalParsers) {
       if (RUN_AST_TESTS) {
         const source = read(dirname + "/" + filename);
         const ast = removeEmptyStatements(parse(source));
-        let prettyprinted = false;
         let ppast;
         let pperr = null;
         try {

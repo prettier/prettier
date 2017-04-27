@@ -54,6 +54,52 @@ var X = {
 
 `;
 
+exports[`nullable.js 1`] = `
+function formatEntireFile(
+  fileVersion: FileVersion,
+  range: atom$Range,
+): Promise<?{
+  newCursor?: number,
+  formatted: string,
+}> {}
+
+function foo(): Promise<?boolean> {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function formatEntireFile(
+  fileVersion: FileVersion,
+  range: atom$Range
+): Promise<?{
+  newCursor?: number,
+  formatted: string
+}> {}
+
+function foo(): Promise<?boolean> {}
+
+`;
+
+exports[`nullable.js 2`] = `
+function formatEntireFile(
+  fileVersion: FileVersion,
+  range: atom$Range,
+): Promise<?{
+  newCursor?: number,
+  formatted: string,
+}> {}
+
+function foo(): Promise<?boolean> {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function formatEntireFile(
+  fileVersion: FileVersion,
+  range: atom$Range,
+): Promise<?{
+  newCursor?: number,
+  formatted: string,
+}> {}
+
+function foo(): Promise<?boolean> {}
+
+`;
+
 exports[`trailing.js 1`] = `
 type State = {
   errors: Immutable.Map<

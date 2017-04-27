@@ -6,12 +6,10 @@ var n = types.namedTypes;
 var isArray = types.builtInTypes.array;
 var isObject = types.builtInTypes.object;
 var docBuilders = require("./doc-builders");
-var fromString = docBuilders.fromString;
 var concat = docBuilders.concat;
 var hardline = docBuilders.hardline;
 var breakParent = docBuilders.breakParent;
 var indent = docBuilders.indent;
-var align = docBuilders.align;
 var lineSuffix = docBuilders.lineSuffix;
 var join = docBuilders.join;
 var util = require("./util");
@@ -126,7 +124,7 @@ function decorateComment(node, comment, text) {
   }
 }
 
-function attach(comments, ast, text, options) {
+function attach(comments, ast, text) {
   if (!isArray.check(comments)) {
     return;
   }
@@ -810,7 +808,6 @@ function getQuasiRange(expr) {
 function printLeadingComment(commentPath, print, options) {
   const comment = commentPath.getValue();
   const contents = printComment(commentPath);
-  const text = options.originalText;
   const isBlock = comment.type === "Block" || comment.type === "CommentBlock";
 
   // Leading block comments should see if they need to stay on the
@@ -825,7 +822,7 @@ function printLeadingComment(commentPath, print, options) {
   return concat([contents, hardline]);
 }
 
-function printTrailingComment(commentPath, print, options, parentNode) {
+function printTrailingComment(commentPath, print, options) {
   const comment = commentPath.getValue();
   const contents = printComment(commentPath);
   const isBlock = comment.type === "Block" || comment.type === "CommentBlock";
@@ -864,7 +861,6 @@ function printTrailingComment(commentPath, print, options, parentNode) {
 }
 
 function printDanglingComments(path, options, sameIndent) {
-  const text = options.originalText;
   const parts = [];
   const node = path.getValue();
 
