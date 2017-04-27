@@ -1487,7 +1487,7 @@ function genericPrintNoParens(path, options, print, args) {
       parts.push(concat(printClass(path, options, print)));
       return concat(parts);
     case "TemplateElement":
-      return join(literalline, n.value.raw.split("\n"));
+      return join(literalline, n.value.raw.split(/\r?\n/g));
     case "TemplateLiteral":
       var expressions = path.map(print, "expressions");
 
