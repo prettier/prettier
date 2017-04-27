@@ -168,7 +168,7 @@ var f: typeof numberAlias = 42; // Error: 'typeof <<type-alias>>' makes no sense
  * "type is incompatible"
  */
 
-var Map = { A: "this is A", B: "this is B", C: "this is C" };
+var Map = { "A": "this is A", "B": "this is B", "C": "this is C" };
 var keys: $Keys<Map> = "A"; // Error: ineligible value used in type anno
 
 `;

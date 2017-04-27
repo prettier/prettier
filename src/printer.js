@@ -831,7 +831,8 @@ function genericPrintNoParens(path, options, print, args) {
         if (n.computed) {
           parts.push("[", path.call(print, "key"), "]");
         } else {
-          parts.push(printPropertyKey(path, options, print));
+
+          parts.push(path.call(print, "key"));
         }
         parts.push(concat([": ", path.call(print, "value")]));
       }
@@ -1454,7 +1455,7 @@ function genericPrintNoParens(path, options, print, args) {
       if (n.computed) {
         key = concat(["[", path.call(print, "key"), "]"]);
       } else {
-        key = printPropertyKey(path, options, print);
+        key = path.call(print, "key");
 
         var variance = getFlowVariance(n, options);
 
@@ -2217,7 +2218,7 @@ function printMethod(path, options, print) {
     parts.push(kind, " ");
   }
 
-  var key = printPropertyKey(path, options, print);
+  var key = path.call(print, "key");
 
   if (node.computed) {
     key = concat(["[", key, "]"]);
@@ -2544,7 +2545,7 @@ function printObjectMethod(path, options, print) {
     return printMethod(path, options, print);
   }
 
-  var key = printPropertyKey(path, options, print);
+  var key = path.call(print, "key");
 
   if (objMethod.computed) {
     parts.push("[", key, "]");
