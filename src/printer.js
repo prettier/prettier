@@ -3528,7 +3528,8 @@ function hasNakedLeftSide(node) {
     node.type === "CallExpression" ||
     node.type === "MemberExpression" ||
     node.type === "SequenceExpression" ||
-    node.type === "TaggedTemplateExpression"
+    node.type === "TaggedTemplateExpression" ||
+    (node.type === "UpdateExpression" && !node.prefix)
   );
 }
 
@@ -3536,7 +3537,7 @@ function getLeftSide(node) {
   if (node.expressions) {
     return node.expressions[0];
   }
-  return node.left || node.test || node.callee || node.object || node.tag;
+  return node.left || node.test || node.callee || node.object || node.tag || node.argument;
 }
 
 function exprNeedsASIProtection(node) {
