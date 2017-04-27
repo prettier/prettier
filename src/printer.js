@@ -954,10 +954,23 @@ function genericPrintNoParens(path, options, print, args) {
       parts.push(n.operator);
 
       if (/[a-z]$/.test(n.operator)) parts.push(" ");
+	  
+	  var expression = path.call(print, "argument");
+	  var expParts = expression.parts;
+	  var multipleParams = ((expParts[0] === "(") && (expParts[expParts.length-1] === ")"));
+	  if (multipleParams){
+		 expParts.shift();
+		 expParts.unshift(indent(softline));
+		 expParts.unshift("(");
+		 expParts.pop();
+		 expParts.push(softline);
+		 expParts.push(")"); 
+	  }
+	  expression.parts = expParts;
 
-      parts.push(path.call(print, "argument"));
+      parts.push(group(expression));
 
-      return concat(parts);
+	 return concat(parts);
     case "UpdateExpression":
       parts.push(path.call(print, "argument"), n.operator);
 
