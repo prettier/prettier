@@ -332,7 +332,11 @@ function genericPrintNoParens(path, options, print, args) {
       ]);
     case "FunctionDeclaration":
     case "FunctionExpression":
-      return printFunctionDeclaration(path, print, options);
+      if (isNodeStartingWithDeclare(n, options)) {
+        parts.push("declare ");
+      }
+      parts.push(printFunctionDeclaration(path, print, options));
+      return concat(parts);
     case "ArrowFunctionExpression": {
       if (n.async) parts.push("async ");
 
@@ -996,6 +1000,7 @@ function genericPrintNoParens(path, options, print, args) {
       }, "declarations");
 
       parts = [
+        isNodeStartingWithDeclare(n, options) ? "declare " : "",
         n.kind,
         " ",
         printed[0],
@@ -1476,7 +1481,11 @@ function genericPrintNoParens(path, options, print, args) {
     case "ClassDeclaration":
     case "ClassExpression":
     case "TSAbstractClassDeclaration":
-      return concat(printClass(path, options, print));
+      if (isNodeStartingWithDeclare(n, options)) {
+        parts.push("declare ");
+      }
+      parts.push(concat(printClass(path, options, print)));
+      return concat(parts);
     case "TemplateElement":
       return join(literalline, n.value.raw.split("\n"));
     case "TemplateLiteral":
@@ -1684,7 +1693,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "InterfaceDeclaration": {
       if (
         n.type === "DeclareInterface" ||
-        isFlowNodeStartingWithDeclare(n, options)
+        isNodeStartingWithDeclare(n, options)
       ) {
         parts.push("declare ");
       }
@@ -1823,7 +1832,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "TypeAlias": {
       if (
         n.type === "DeclareTypeAlias" ||
-        isFlowNodeStartingWithDeclare(n, options)
+        isNodeStartingWithDeclare(n, options)
       ) {
         parts.push("declare ");
       }
@@ -1933,7 +1942,7 @@ function genericPrintNoParens(path, options, print, args) {
       return concat([path.call(print, "elementType"), "[]"]);
     case "TSPropertySignature":
       parts.push(path.call(print, "name"));
-      parts.push(": ")
+      parts.push(": ");
       parts.push(path.call(print, "typeAnnotation"));
 
       return concat(parts);
@@ -2132,7 +2141,6 @@ function printStatementSequence(path, options, print) {
     } else {
       parts.push(stmtPrinted);
     }
-
 
     if (!options.semi && isClass) {
       if (classPropMayCauseASIProblems(stmtPath)) {
@@ -2562,7 +2570,7 @@ function printReturnType(path, print) {
 
   // prepend colon to TypeScript type annotation
   if (n.returnType && n.returnType.typeAnnotation) {
-    parts.unshift(": ")
+    parts.unshift(": ");
   }
 
   if (n.predicate) {
@@ -3658,14 +3666,16 @@ function isTypeAnnotationAFunction(node) {
   );
 }
 
-function isFlowNodeStartingWithDeclare(node, options) {
-  if (options.parser !== "flow") {
+function isNodeStartingWithDeclare(node, options) {
+  if (!(options.parser === "flow" || options.parser === "typescript")) {
     return false;
   }
-
-  return options.originalText
-    .slice(0, util.locStart(node))
-    .match(/declare\s*$/);
+  return (
+    options.originalText.slice(0, util.locStart(node)).match(/declare\s*$/) ||
+    options.originalText
+      .slice(node.range[0], node.range[1])
+      .startsWith("declare ")
+  );
 }
 
 function printArrayItems(path, options, printPath, print) {
