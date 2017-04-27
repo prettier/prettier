@@ -666,11 +666,7 @@ function genericPrintNoParens(path, options, print, args) {
         }
       }
 
-      const hasDanglingComments =
-        n.comments &&
-        n.comments.some(comment => !comment.leading && !comment.trailing);
-
-      if (hasDanglingComments) {
+      if (hasDanglingComments(n)) {
         parts.push(
           " ",
           comments.printDanglingComments(path, options, /* sameIndent */ true)
@@ -777,6 +773,10 @@ function genericPrintNoParens(path, options, print, args) {
         );
 
       if (props.length === 0) {
+        if (!hasDanglingComments(n)) {
+          return concat([leftBrace, rightBrace]);
+        }
+
         return group(
           concat([
             leftBrace,
@@ -852,16 +852,20 @@ function genericPrintNoParens(path, options, print, args) {
     case "ArrayExpression":
     case "ArrayPattern":
       if (n.elements.length === 0) {
-        parts.push(
-          group(
-            concat([
-              "[",
-              comments.printDanglingComments(path, options),
-              softline,
-              "]"
-            ])
-          )
-        );
+        if (!hasDanglingComments(n)) {
+          parts.push("[]");
+        } else {
+          parts.push(
+            group(
+              concat([
+                "[",
+                comments.printDanglingComments(path, options),
+                softline,
+                "]"
+              ])
+            )
+          );
+        }
       } else {
         const lastElem = util.getLast(n.elements);
         const canHaveTrailingComma = !(lastElem &&
@@ -3696,6 +3700,11 @@ function printArrayItems(path, options, printPath, print) {
   }, printPath);
 
   return concat(printedElements);
+}
+
+function hasDanglingComments(node) {
+  return node.comments &&
+    node.comments.some(comment => !comment.leading && !comment.trailing);
 }
 
 function removeLines(doc) {
