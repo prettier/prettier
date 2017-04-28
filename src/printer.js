@@ -2058,6 +2058,16 @@ function genericPrintNoParens(path, options, print, args) {
         join(", ", path.map(print, "parameters")),
         ")"
       ])
+    case "TSNamespaceExportDeclaration":
+      parts.push(
+        "export as namespace ", 
+        path.call(print, "name")
+      )
+      
+      if (options.semi) {
+        parts.push(";")
+      }
+      return concat(parts)
     // TODO
     case "ClassHeritage":
     // TODO
