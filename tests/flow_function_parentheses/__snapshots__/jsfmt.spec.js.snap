@@ -1,5 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`single.js 1`] = `
+const selectorByPath:
+  Path
+ => SomethingSelector<
+  SomethingUEditorContextType,
+  SomethingUEditorContextType,
+  SomethingBulkValue<string>
+> = memoizeWithArgs(/* ... */)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const selectorByPath: Path => SomethingSelector<
+  SomethingUEditorContextType,
+  SomethingUEditorContextType,
+  SomethingBulkValue<string>
+> = memoizeWithArgs(/* ... */);
+
+`;
+
+exports[`single.js 2`] = `
+const selectorByPath:
+  Path
+ => SomethingSelector<
+  SomethingUEditorContextType,
+  SomethingUEditorContextType,
+  SomethingBulkValue<string>
+> = memoizeWithArgs(/* ... */)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const selectorByPath: Path => SomethingSelector<
+  SomethingUEditorContextType,
+  SomethingUEditorContextType,
+  SomethingBulkValue<string>,
+> = memoizeWithArgs(/* ... */);
+
+`;
+
 exports[`test.js 1`] = `
 type Banana = {
   eat: string => boolean,
@@ -79,16 +113,12 @@ type f = (?arg) => void;
 
 class X {
   constructor(
-    ideConnectionFactory:
-      child_process$ChildProcess
-     => FlowIDEConnection = defaultIDEConnectionFactory
+    ideConnectionFactory: child_process$ChildProcess => FlowIDEConnection = defaultIDEConnectionFactory
   ) {}
 }
 
 interface F {
-  ideConnectionFactoryLongLongLong:
-    child_process$ChildProcess
-   => FlowIDEConnection
+  ideConnectionFactoryLongLongLong: child_process$ChildProcess => FlowIDEConnection
 }
 
 `;
@@ -172,16 +202,12 @@ type f = (?arg) => void;
 
 class X {
   constructor(
-    ideConnectionFactory:
-      child_process$ChildProcess
-     => FlowIDEConnection = defaultIDEConnectionFactory,
+    ideConnectionFactory: child_process$ChildProcess => FlowIDEConnection = defaultIDEConnectionFactory,
   ) {}
 }
 
 interface F {
-  ideConnectionFactoryLongLongLong:
-    child_process$ChildProcess
-   => FlowIDEConnection,
+  ideConnectionFactoryLongLongLong: child_process$ChildProcess => FlowIDEConnection,
 }
 
 `;
