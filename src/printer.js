@@ -751,7 +751,7 @@ function genericPrintNoParens(path, options, print, args) {
       var rightBrace = n.exact ? "|}" : "}";
       var parent = path.getParentNode(0);
       var parentIsUnionTypeAnnotation = parent.type === "UnionTypeAnnotation";
-      var propertiesField = isTypeScriptType 
+      var propertiesField = isTypeScriptType
         ? "members"
         : "properties";
       var prefix = ""
@@ -759,7 +759,7 @@ function genericPrintNoParens(path, options, print, args) {
       if (isTypeAnnotation) {
         fields.push("indexers", "callProperties");
       }
-      
+
       if (isTypeScriptInterfaceDeclaration) {
         prefix = concat([
           "interface ",
@@ -770,22 +770,34 @@ function genericPrintNoParens(path, options, print, args) {
 
       fields.push(propertiesField);
 
-      var props = [];
-      let separatorParts = [];
-
+      // Unfortunately, things are grouped together in the ast can be
+      // interleaved in the source code. So we need to reorder them before
+      // printing them.
+      const propsAndLoc = [];
       fields.forEach(function(field) {
         path.each(function(childPath) {
-          props.push(concat(separatorParts));
-          props.push(group(print(childPath)));
+          const node = childPath.getValue();
+          propsAndLoc.push({
+            node: node,
+            printed: print(childPath),
+            loc: util.locStart(node)
+          });
+        }, field);
+      });
 
+      let separatorParts = [];
+      const props = propsAndLoc
+        .sort((a, b) => a.loc - b.loc)
+        .map(prop => {
+          const result = concat(separatorParts.concat(group(prop.printed)));
           separatorParts = [separator, line];
           if (
-            util.isNextLineEmpty(options.originalText, childPath.getValue())
+            util.isNextLineEmpty(options.originalText, prop.node)
           ) {
             separatorParts.push(hardline);
           }
-        }, field);
-      });
+          return result;
+        });
 
       const lastElem = util.getLast(n[propertiesField]);
 
@@ -1490,9 +1502,9 @@ function genericPrintNoParens(path, options, print, args) {
 
       var variance = getFlowVariance(n, options);
       if (variance) parts.push(variance);
-      
+
       if (n.accessibility) parts.push(n.accessibility + " ");
- 
+
       if (n.type === "TSAbstractClassProperty") parts.push("abstract ");
 
       if (n.computed) {
@@ -2139,7 +2151,7 @@ function genericPrintNoParens(path, options, print, args) {
         join(", ", path.map(print, "parameters")),
         ")"
       )
-      
+
       if (n.typeAnnotation) {
         parts.push(
           ": ",
@@ -2155,15 +2167,15 @@ function genericPrintNoParens(path, options, print, args) {
         )
       } else {
         parts.push(
-          "export as namespace ", 
+          "export as namespace ",
           path.call(print, "name")
         )
-        
+
         if (options.semi) {
           parts.push(";")
         }
       }
-      
+
       return concat(parts)
     case "TSEnumDeclaration":
       parts.push(
@@ -2171,7 +2183,7 @@ function genericPrintNoParens(path, options, print, args) {
         path.call(print, "name"),
         " "
       )
-      
+
       if (n.members.length === 0) {
         parts.push(
           group(
@@ -2218,11 +2230,11 @@ function genericPrintNoParens(path, options, print, args) {
         " = ",
         path.call(print, "moduleReference")
       )
-      
+
       if (options.semi) {
         parts.push(";")
       }
-      
+
       return concat(parts)
     case "TSExternalModuleReference":
       return concat([
@@ -2244,7 +2256,7 @@ function genericPrintNoParens(path, options, print, args) {
         path.call(print, "body"),
         "}"
       )
-      
+
       return concat(parts)
     case "TSDeclareKeyword":
       return "declare"
