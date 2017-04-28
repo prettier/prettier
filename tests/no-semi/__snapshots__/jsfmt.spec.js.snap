@@ -103,8 +103,6 @@ x; (x, y) => x
 
 class X {} [1, 2, 3].forEach(fn)
 
-// TODO: enable lang features
-// x; ::b.c
 // TODO: upgrade parser
 // class A {
 //   async; // The semicolon is *not* necessary
@@ -229,6 +227,10 @@ tag
 
 x; x => x
 
+x; (a || b).c++
+
+x; ++(a || b).c
+
 while (false)
   (function(){}())
 
@@ -269,8 +271,6 @@ x;
 class X {}
 [1, 2, 3].forEach(fn);
 
-// TODO: enable lang features
-// x; ::b.c
 // TODO: upgrade parser
 // class A {
 //   async; // The semicolon is *not* necessary
@@ -305,6 +305,7 @@ class A {
 
   // none of the semicolons above this comment can be omitted.
   // none of the semicolons below this comment are necessary.
+
   q() {}
   [h]() {}
 
@@ -394,6 +395,12 @@ tag\`string\`;
 x;
 x => x;
 
+x;
+(a || b).c++;
+
+x;
+++(a || b).c;
+
 while (false)
   (function() {})();
 
@@ -424,8 +431,6 @@ x; (x, y) => x
 
 class X {} [1, 2, 3].forEach(fn)
 
-// TODO: enable lang features
-// x; ::b.c
 // TODO: upgrade parser
 // class A {
 //   async; // The semicolon is *not* necessary
@@ -550,6 +555,10 @@ tag
 
 x; x => x
 
+x; (a || b).c++
+
+x; ++(a || b).c
+
 while (false)
   (function(){}())
 
@@ -590,8 +599,6 @@ x
 class X {}
 ;[1, 2, 3].forEach(fn)
 
-// TODO: enable lang features
-// x; ::b.c
 // TODO: upgrade parser
 // class A {
 //   async; // The semicolon is *not* necessary
@@ -626,6 +633,7 @@ class A {
 
   // none of the semicolons above this comment can be omitted.
   // none of the semicolons below this comment are necessary.
+
   q() {}
   [h]() {}
 
@@ -714,6 +722,12 @@ tag\`string\`
 
 x
 x => x
+
+x
+;(a || b).c++
+
+x
+++(a || b).c
 
 while (false)
   (function() {})()
@@ -745,8 +759,6 @@ x; (x, y) => x
 
 class X {} [1, 2, 3].forEach(fn)
 
-// TODO: enable lang features
-// x; ::b.c
 // TODO: upgrade parser
 // class A {
 //   async; // The semicolon is *not* necessary
@@ -871,6 +883,10 @@ tag
 
 x; x => x
 
+x; (a || b).c++
+
+x; ++(a || b).c
+
 while (false)
   (function(){}())
 
@@ -911,8 +927,6 @@ x
 class X {}
 ;[1, 2, 3].forEach(fn)
 
-// TODO: enable lang features
-// x; ::b.c
 // TODO: upgrade parser
 // class A {
 //   async; // The semicolon is *not* necessary
@@ -1036,6 +1050,12 @@ tag\`string\`
 
 x
 x => x
+
+x
+;(a || b).c++
+
+x
+++(a || b).c
 
 while (false)
   (function() {})()

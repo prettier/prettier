@@ -332,7 +332,11 @@ function genericPrintNoParens(path, options, print, args) {
       ]);
     case "FunctionDeclaration":
     case "FunctionExpression":
-      return printFunctionDeclaration(path, print, options);
+      if (isNodeStartingWithDeclare(n, options)) {
+        parts.push("declare ");
+      }
+      parts.push(printFunctionDeclaration(path, print, options));
+      return concat(parts);
     case "ArrowFunctionExpression": {
       if (n.async) parts.push("async ");
 
@@ -996,6 +1000,7 @@ function genericPrintNoParens(path, options, print, args) {
       }, "declarations");
 
       parts = [
+        isNodeStartingWithDeclare(n, options) ? "declare " : "",
         n.kind,
         " ",
         printed[0],
@@ -1473,7 +1478,11 @@ function genericPrintNoParens(path, options, print, args) {
     case "ClassDeclaration":
     case "ClassExpression":
     case "TSAbstractClassDeclaration":
-      return concat(printClass(path, options, print));
+      if (isNodeStartingWithDeclare(n, options)) {
+        parts.push("declare ");
+      }
+      parts.push(concat(printClass(path, options, print)));
+      return concat(parts);
     case "TemplateElement":
       return join(literalline, n.value.raw.split("\n"));
     case "TemplateLiteral":
@@ -1681,7 +1690,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "InterfaceDeclaration": {
       if (
         n.type === "DeclareInterface" ||
-        isFlowNodeStartingWithDeclare(n, options)
+        isNodeStartingWithDeclare(n, options)
       ) {
         parts.push("declare ");
       }
@@ -1820,23 +1829,32 @@ function genericPrintNoParens(path, options, print, args) {
     case "TypeAlias": {
       if (
         n.type === "DeclareTypeAlias" ||
-        isFlowNodeStartingWithDeclare(n, options)
+        isNodeStartingWithDeclare(n, options)
       ) {
         parts.push("declare ");
       }
+
+      const canBreak = (
+        n.right.type === "StringLiteralTypeAnnotation"
+      );
+
+      const printed = printAssignmentRight(
+        n.right,
+        path.call(print, "right"),
+        canBreak,
+        options
+      );
 
       parts.push(
         "type ",
         path.call(print, "id"),
         path.call(print, "typeParameters"),
         " =",
-        hasLeadingOwnLineComment(options.originalText, n.right)
-          ? indent(concat([hardline, path.call(print, "right")]))
-          : concat([" ", path.call(print, "right")]),
+        printed,
         semi
       );
 
-      return concat(parts);
+      return group(concat(parts));
     }
     case "TypeCastExpression":
       return concat([
@@ -1930,7 +1948,7 @@ function genericPrintNoParens(path, options, print, args) {
       return concat([path.call(print, "elementType"), "[]"]);
     case "TSPropertySignature":
       parts.push(path.call(print, "name"));
-      parts.push(": ")
+      parts.push(": ");
       parts.push(path.call(print, "typeAnnotation"));
 
       return concat(parts);
@@ -2130,7 +2148,6 @@ function printStatementSequence(path, options, print) {
       parts.push(stmtPrinted);
     }
 
-
     if (!options.semi && isClass) {
       if (classPropMayCauseASIProblems(stmtPath)) {
         parts.push(";");
@@ -2160,10 +2177,7 @@ function printPropertyKey(path, options, print) {
     (key.type === "StringLiteral" ||
       (key.type === "Literal" && typeof key.value === "string")) &&
     isIdentifierName(key.value) &&
-    !node.computed &&
-    // There's a bug in the flow parser where it throws if there are
-    // unquoted unicode literals as keys. Let's quote them for now.
-    (options.parser !== "flow" || key.value.match(/[a-zA-Z0-9$_]/))
+    !node.computed
   ) {
     // 'a' -> a
     return path.call(
@@ -2559,7 +2573,7 @@ function printReturnType(path, print) {
 
   // prepend colon to TypeScript type annotation
   if (n.returnType && n.returnType.typeAnnotation) {
-    parts.unshift(": ")
+    parts.unshift(": ");
   }
 
   if (n.predicate) {
@@ -3328,6 +3342,18 @@ function printBinaryishExpressions(path, print, options, isNested, isInsideParen
   return parts;
 }
 
+function printAssignmentRight(rightNode, printedRight, canBreak, options) {
+  if (hasLeadingOwnLineComment(options.originalText, rightNode)) {
+    return indent(concat([hardline, printedRight]));
+  }
+
+  if (canBreak) {
+    return indent(concat([line, printedRight]));
+  }
+
+  return concat([" ", printedRight]);
+}
+
 function printAssignment(
   leftNode,
   printedLeft,
@@ -3340,20 +3366,20 @@ function printAssignment(
     return printedLeft;
   }
 
-  let printed;
-  if (hasLeadingOwnLineComment(options.originalText, rightNode)) {
-    printed = indent(concat([hardline, printedRight]));
-  } else if (
+  const canBreak = (
     (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) ||
     (leftNode.type === "Identifier" || leftNode.type === "MemberExpression") &&
       (rightNode.type === "StringLiteral" ||
         (rightNode.type === "Literal" && typeof rightNode.value === "string") ||
         isMemberExpressionChain(rightNode))
-  ) {
-    printed = indent(concat([line, printedRight]));
-  } else {
-    printed = concat([" ", printedRight]);
-  }
+  );
+
+  const printed = printAssignmentRight(
+    rightNode,
+    printedRight,
+    canBreak,
+    options
+  );
 
   return group(concat([printedLeft, " ", operator, printed]));
 }
@@ -3373,13 +3399,6 @@ function adjustClause(node, clause, forceSpace) {
 function nodeStr(node, options) {
   const str = node.value;
   isString.assert(str);
-
-  // Workaround a bug in the Javascript version of the flow parser where
-  // astral unicode characters like \uD801\uDC28 are incorrectly parsed as
-  // a sequence of \uFFFD.
-  if (options.parser === "flow" && str.indexOf("\ufffd") !== -1) {
-    return node.raw;
-  }
 
   const raw = node.extra ? node.extra.raw : node.raw;
   // `rawContent` is the string exactly like it appeared in the input source
@@ -3490,7 +3509,8 @@ function hasNakedLeftSide(node) {
     node.type === "CallExpression" ||
     node.type === "MemberExpression" ||
     node.type === "SequenceExpression" ||
-    node.type === "TaggedTemplateExpression"
+    node.type === "TaggedTemplateExpression" ||
+    (node.type === "UpdateExpression" && !node.prefix)
   );
 }
 
@@ -3498,7 +3518,7 @@ function getLeftSide(node) {
   if (node.expressions) {
     return node.expressions[0];
   }
-  return node.left || node.test || node.callee || node.object || node.tag;
+  return node.left || node.test || node.callee || node.object || node.tag || node.argument;
 }
 
 function exprNeedsASIProtection(node) {
@@ -3518,6 +3538,7 @@ function exprNeedsASIProtection(node) {
     node.type === "TemplateLiteral" ||
     node.type === "TemplateElement" ||
     node.type === "JSXElement" ||
+    node.type === "BindExpression" ||
     node.type === "RegExpLiteral" ||
     (node.type === "Literal" && node.pattern) ||
     (node.type === "Literal" && node.regex);
@@ -3649,14 +3670,16 @@ function isTypeAnnotationAFunction(node) {
   );
 }
 
-function isFlowNodeStartingWithDeclare(node, options) {
-  if (options.parser !== "flow") {
+function isNodeStartingWithDeclare(node, options) {
+  if (!(options.parser === "flow" || options.parser === "typescript")) {
     return false;
   }
-
-  return options.originalText
-    .slice(0, util.locStart(node))
-    .match(/declare\s*$/);
+  return (
+    options.originalText.slice(0, util.locStart(node)).match(/declare\s*$/) ||
+    options.originalText
+      .slice(node.range[0], node.range[1])
+      .startsWith("declare ")
+  );
 }
 
 function printArrayItems(path, options, printPath, print) {
