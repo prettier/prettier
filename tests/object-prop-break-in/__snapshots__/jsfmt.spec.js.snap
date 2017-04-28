@@ -26,6 +26,11 @@ const b = classnames({
   "some-prop": this.state.longLongLongLongLongLongLongLongLongTooLongProp === true
 });
 
+const o = {
+  somethingThatsAReallyLongPropName:
+    this.props.cardType === AwesomizerCardEnum.SEEFIRST,
+};
+
 const c = classnames({
   "some-prop": [ "foo", "bar", "foo", "bar", "foo", "bar", "foo", "bar", "foo" ]
 });
@@ -51,9 +56,14 @@ const a = classnames({
 });
 
 const b = classnames({
-  "some-prop": this.state.longLongLongLongLongLongLongLongLongTooLongProp ===
-    true
+  "some-prop":
+    this.state.longLongLongLongLongLongLongLongLongTooLongProp === true
 });
+
+const o = {
+  somethingThatsAReallyLongPropName:
+    this.props.cardType === AwesomizerCardEnum.SEEFIRST
+};
 
 const c = classnames({
   "some-prop": ["foo", "bar", "foo", "bar", "foo", "bar", "foo", "bar", "foo"]
@@ -72,8 +82,8 @@ const f = classnames({
 });
 
 const g = classnames({
-  "some-prop": longLongLongLongLongLongLongLongLongLongLongLongLongTooLongVar ||
-    1337
+  "some-prop":
+    longLongLongLongLongLongLongLongLongLongLongLongLongTooLongVar || 1337
 });
 
 `;
