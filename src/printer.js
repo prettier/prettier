@@ -806,20 +806,13 @@ function genericPrintNoParens(path, options, print, args) {
         (lastElem.type === "RestProperty" || lastElem.type === "RestElement")
       );
 
-      const shouldBreak =
-        n.type !== "ObjectPattern" &&
-        util.hasNewlineInRange(
-          options.originalText,
-          util.locStart(n),
-          util.locEnd(n)
-        );
-
-      if (props.length === 0) {
+      let content;
+      if (props.length === 0 && !n.typeAnnotation) {
         if (!hasDanglingComments(n)) {
           return concat([leftBrace, rightBrace]);
         }
 
-        return group(
+        content = group(
           concat([
             prefix,
             leftBrace,
@@ -829,32 +822,51 @@ function genericPrintNoParens(path, options, print, args) {
           ])
         );
       } else {
-        return group(
-          concat([
-            prefix,
-            leftBrace,
-            indent(
-              align(
-                parentIsUnionTypeAnnotation ? 2 : 0,
-                concat([
-                  options.bracketSpacing ? line : softline,
-                  concat(props)
-                ])
-              )
-            ),
-            ifBreak(
-              canHaveTrailingComma && shouldPrintComma(options) ? "," : ""
-            ),
+        content = concat([
+          prefix,
+          leftBrace,
+          indent(
             align(
               parentIsUnionTypeAnnotation ? 2 : 0,
-              concat([options.bracketSpacing ? line : softline, rightBrace])
-            ),
-            n.typeAnnotation ? ": " : "",
-            path.call(print, "typeAnnotation")
-          ]),
-          { shouldBreak }
-        );
+              concat([
+                options.bracketSpacing ? line : softline,
+                concat(props)
+              ])
+            )
+          ),
+          ifBreak(
+            canHaveTrailingComma && shouldPrintComma(options) ? "," : ""
+          ),
+          align(
+            parentIsUnionTypeAnnotation ? 2 : 0,
+            concat([options.bracketSpacing ? line : softline, rightBrace])
+          ),
+          n.typeAnnotation ? ": " : "",
+          path.call(print, "typeAnnotation")
+        ]);
       }
+
+      // If we inline the object as first argument of the parent, we don't want
+      // to create another group so that the object breaks before the return
+      // type
+      if (
+        n.type === "ObjectPattern" &&
+        parent.params &&
+        parent.params.length === 1 &&
+        parent.params[0] === n
+      ) {
+        return content;
+      }
+
+      const shouldBreak =
+        n.type !== "ObjectPattern" &&
+        util.hasNewlineInRange(
+          options.originalText,
+          util.locStart(n),
+          util.locEnd(n)
+        );
+
+      return group(content, { shouldBreak });
 
     case "PropertyPattern":
       return concat([
