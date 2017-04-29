@@ -128,4 +128,13 @@ module.exports = function(fork) {
     .bases("Declaration")
     // needs more like `modefiers` and `decorators`
     .build("name");
+    
+  def("TSEnumDeclaration")
+    .bases("Declaration")
+    .build("name", "members")
+    .field("name", def("Identifier"))
+    
+  def("TSEnumMember")
+    .build("name")
+    .field("name", def("Identifier"))
 };

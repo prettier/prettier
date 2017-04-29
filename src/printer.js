@@ -2067,7 +2067,54 @@ function genericPrintNoParens(path, options, print, args) {
       if (options.semi) {
         parts.push(";")
       }
+      
       return concat(parts)
+    case "TSEnumDeclaration":
+      parts.push(
+        "enum ",
+        path.call(print, "name"),
+        " "
+      )
+      
+      if (n.members.length === 0) {
+        parts.push(
+          group(
+            concat([
+              "{",
+              comments.printDanglingComments(path, options),
+              softline,
+              "}"
+            ])
+          )
+        );
+      } else {
+        parts.push(
+          group(
+            concat([
+              "{",
+              options.bracketSpacing ? line : softline,
+              indent(
+                concat([
+                  softline,
+                  printArrayItems(path, options, "members", print)
+                ])
+              ),
+              comments.printDanglingComments(
+                path,
+                options,
+                /* sameIndent */ true
+              ),
+              softline,
+              options.bracketSpacing ? line : softline,
+              "}"
+            ])
+          )
+        );
+      }
+
+      return concat(parts);
+    case "TSEnumMember":
+      return path.call(print, "name")
     // TODO
     case "ClassHeritage":
     // TODO
