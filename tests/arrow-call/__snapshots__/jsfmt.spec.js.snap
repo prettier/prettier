@@ -38,6 +38,11 @@ func(
   veryLooooooooooooooooooooooooongName =>
     veryLoooooooooooooooongName.something()
 );
+
+const composition = (ViewComponent, ContainerComponent) =>
+  class extends React.Component {
+    static propTypes = {};
+  };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const testResults = results.testResults.map(testResult =>
   formatResult(testResult, formatter, reporter)
@@ -83,6 +88,11 @@ func(
     veryLoooooooooooooooongName.something()
 );
 
+const composition = (ViewComponent, ContainerComponent) =>
+  class extends React.Component {
+    static propTypes = {};
+  };
+
 `;
 
 exports[`arrow_call.js 2`] = `
@@ -123,6 +133,11 @@ func(
   veryLooooooooooooooooooooooooongName =>
     veryLoooooooooooooooongName.something()
 );
+
+const composition = (ViewComponent, ContainerComponent) =>
+  class extends React.Component {
+    static propTypes = {};
+  };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const testResults = results.testResults.map(testResult =>
   formatResult(testResult, formatter, reporter),
@@ -167,5 +182,10 @@ func(
   veryLooooooooooooooooooooooooongName =>
     veryLoooooooooooooooongName.something(),
 );
+
+const composition = (ViewComponent, ContainerComponent) =>
+  class extends React.Component {
+    static propTypes = {};
+  };
 
 `;
