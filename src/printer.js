@@ -26,7 +26,7 @@ var willBreak = docUtils.willBreak;
 var isLineNext = docUtils.isLineNext;
 var isEmpty = docUtils.isEmpty;
 
-var types = require("ast-types");
+var types = require("./ast-types");
 var namedTypes = types.namedTypes;
 var isString = types.builtInTypes.string;
 
