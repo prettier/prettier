@@ -33,7 +33,7 @@
     "rollup-plugin-node-globals": "1.1.0",
     "rollup-plugin-node-resolve": "2.0.0",
     "typescript": "2.3.2",
-    "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#7c00f16f364530eaeed76ec9ab6ecbfb881ed26c"
+    "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#a294afa8158c9c088521eed72b6745eed302361c"
   },
   "scripts": {
     "test": "jest",
