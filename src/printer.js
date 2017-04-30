@@ -1450,27 +1450,18 @@ function genericPrintNoParens(path, options, print, args) {
     case "TSAbstractClassProperty":
       if (n.static) parts.push("static ");
 
-      var key = [];
-
       var variance = getFlowVariance(n, options);
-
-      if (variance) {
-        key.push(variance);
-      } else if (n.accessibility) {
-        key.push(n.accessibility + " ");
-      }
-
-      if (n.type === "TSAbstractClassProperty") {
-        key.push("abstract ");
-      }
+      if (variance) parts.push(variance);
+      
+      if (n.accessibility) parts.push(n.accessibility + " ");
+ 
+      if (n.type === "TSAbstractClassProperty") parts.push("abstract ");
 
       if (n.computed) {
-        key.push(concat(["[", path.call(print, "key"), "]"]));
+        parts.push("[", path.call(print, "key"), "]");
       } else {
-        key.push(printPropertyKey(path, options, print));
+        parts.push(printPropertyKey(path, options, print));
       }
-
-      parts.push(concat(key));
 
       if (n.typeAnnotation) parts.push(": ", path.call(print, "typeAnnotation"));
 
