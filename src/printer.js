@@ -721,9 +721,12 @@ function genericPrintNoParens(path, options, print, args) {
     case "ObjectExpression":
     case "ObjectPattern":
     case "ObjectTypeAnnotation":
+    case "TSInterfaceDeclaration":
     case "TSTypeLiteral":
       var isTypeAnnotation = n.type === "ObjectTypeAnnotation";
       var isTypeScriptTypeAnnotaion = n.type === "TSTypeLiteral";
+      var isTypeScriptInterfaceDeclaration =  n.type === "TSInterfaceDeclaration";
+      var isTypeScriptType = isTypeScriptTypeAnnotaion || isTypeScriptInterfaceDeclaration;
       // Leave this here because we *might* want to make this
       // configurable later -- flow accepts ";" for type separators,
       // typescript accepts ";" and newlines
@@ -733,12 +736,21 @@ function genericPrintNoParens(path, options, print, args) {
       var rightBrace = n.exact ? "|}" : "}";
       var parent = path.getParentNode(0);
       var parentIsUnionTypeAnnotation = parent.type === "UnionTypeAnnotation";
-      var propertiesField = isTypeScriptTypeAnnotaion
+      var propertiesField = isTypeScriptType 
         ? "members"
         : "properties";
+      var prefix = ""
 
       if (isTypeAnnotation) {
         fields.push("indexers", "callProperties");
+      }
+      
+      if (isTypeScriptInterfaceDeclaration) {
+        prefix = concat([
+          "interface ",
+          path.call(print, "name"),
+          " "
+        ])
       }
 
       fields.push(propertiesField);
@@ -778,6 +790,7 @@ function genericPrintNoParens(path, options, print, args) {
       if (props.length === 0) {
         return group(
           concat([
+            prefix,
             leftBrace,
             comments.printDanglingComments(path, options),
             softline,
@@ -787,6 +800,7 @@ function genericPrintNoParens(path, options, print, args) {
       } else {
         return group(
           concat([
+            prefix,
             leftBrace,
             indent(
               align(
@@ -2052,12 +2066,20 @@ function genericPrintNoParens(path, options, print, args) {
 
       return concat(parts)
     case "TSMethodSignature":
-      return concat([
+      parts.push(
         path.call(print, 'name'),
         "(",
         join(", ", path.map(print, "parameters")),
         ")"
-      ])
+      )
+      
+      if (n.typeAnnotation) {
+        parts.push(
+          ": ",
+          path.call(print, "typeAnnotation")
+        )
+      }
+      return concat(parts)
     case "TSNamespaceExportDeclaration":
       parts.push(
         "export as namespace ", 

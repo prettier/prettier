@@ -144,4 +144,9 @@ module.exports = function(fork) {
   def("TSImportEqualsDeclaration")
     .build("expression")
     .field("expression", def("Literal"));
+
+  def("TSInterfaceDeclaration")
+    .build("name", "members")
+    .field("name", def("Identifier"))
+    .field("members", [def("TSMethodSignature")]);
 };
