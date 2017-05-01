@@ -149,4 +149,14 @@ module.exports = function(fork) {
     .build("name", "members")
     .field("name", def("Identifier"))
     .field("members", [def("TSMethodSignature")]);
+    
+  def("TSModuleDeclaration")
+    .build("modifiers", "name", "body")
+    .field("name", or(def("Identifier"), def("Literal")))
+  
+  def("TSDeclareKeyword")
+    .build()
+    
+  def("TSModuleBlock")
+    .build("body")
 };

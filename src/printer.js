@@ -2081,13 +2081,20 @@ function genericPrintNoParens(path, options, print, args) {
       }
       return concat(parts)
     case "TSNamespaceExportDeclaration":
-      parts.push(
-        "export as namespace ", 
-        path.call(print, "name")
-      )
-      
-      if (options.semi) {
-        parts.push(";")
+      if (n.declaration) {
+        parts.push(
+          "export ",
+          path.call(print, "declaration")
+        )
+      } else {
+        parts.push(
+          "export as namespace ", 
+          path.call(print, "name")
+        )
+        
+        if (options.semi) {
+          parts.push(";")
+        }
       }
       
       return concat(parts)
@@ -2156,6 +2163,26 @@ function genericPrintNoParens(path, options, print, args) {
         path.call(print, "expression"),
         ")"
       ])
+    case "TSModuleDeclaration":
+      if (n.modifiers) {
+        parts.push(
+          join(" ", path.map(print, "modifiers")),
+          " "
+        )
+      }
+      parts.push(
+        "module ",
+        path.call(print, "name"),
+        " {",
+        path.call(print, "body"),
+        "}"
+      )
+      
+      return concat(parts)
+    case "TSDeclareKeyword":
+      return "declare"
+    case "TSModuleBlock":
+      return concat(path.map(print, "body"))
     // TODO
     case "ClassHeritage":
     // TODO
