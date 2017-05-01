@@ -82,6 +82,45 @@ var x = {
 
 `;
 
+exports[`graphql.js 1`] = `
+module.exports = Relay.createContainer(
+  // ...
+  {
+    fragments: {
+      nodes: ({solution_type, time_frame}) => Relay.QL\`
+        fragment on RelatedNode @relay(plural: true) {
+          __typename
+          \${OptimalSolutionsSection
+            .getFragment(
+              'node',
+              {solution_type, time_frame},
+            )
+          }
+        }
+      \`,
+    },
+  },
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+module.exports = Relay.createContainer(
+  // ...
+  {
+    fragments: {
+      nodes: ({ solution_type, time_frame }) => Relay.QL\`
+        fragment on RelatedNode @relay(plural: true) {
+          __typename
+          \${OptimalSolutionsSection.getFragment("node", {
+            solution_type,
+            time_frame
+          })}
+        }
+      \`
+    }
+  }
+);
+
+`;
+
 exports[`parenthesis.js 1`] = `
 // "ArrowFunctionExpression"
 (() => {})\`\`;

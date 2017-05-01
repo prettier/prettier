@@ -1506,9 +1506,51 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push(print(childPath));
 
         if (i < expressions.length) {
+          // For a template literal of the following form:
+          //   `someQuery {
+          //     ${call({
+          //       a,
+          //       b,
+          //     })}
+          //   }`
+          // the expression is on its own line (there is a \n in the previous
+          // quasi literal), therefore we want to indent the JavaScript
+          // expression inside at the beginning of ${ instead of the beginning
+          // of the `.
+          let size = 0;
+          const value = childPath.getValue().value.raw;
+          const index = value.lastIndexOf('\n');
+          const tabWidth = options.tabWidth;
+          if (index !== -1) {
+            for (let i = index + 1; i < value.length; ++i) {
+              if (value[i] === '\t') {
+                // Tabs behave in a way that they are aligned to the nearest
+                // multiple of tabWidth:
+                // 0 -> 4, 1 -> 4, 2 -> 4, 3 -> 4
+                // 4 -> 8, 5 -> 8, 6 -> 8, 7 -> 8 ...
+                size = size + tabWidth - size % tabWidth;
+              } else {
+                size++;
+              }
+            }
+          }
+
+          let aligned = removeLines(expressions[i]);
+          if (size > 0) {
+            // Use indent to add tabs for all the levels of tabs we need
+            for (var i = 0; i < Math.floor(size / tabWidth); ++i) {
+              aligned = indent(aligned);
+            }
+            // Use align for all the spaces that are needed
+            aligned = align(size % tabWidth, aligned);
+            // size is absolute from 0 and not relative to the current
+            // indentation, so we use -Infinity to reset the indentation to 0
+            aligned = align(-Infinity, aligned);
+          }
+
           parts.push(
             "${",
-            removeLines(expressions[i]),
+            aligned,
             lineSuffixBoundary,
             "}"
           );
