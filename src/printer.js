@@ -2651,19 +2651,22 @@ function printFunctionParams(path, print, options, expandArg) {
     flowTypeAnnotations.indexOf(fun[paramsField][0].typeAnnotation.type) !== -1 &&
     !fun.rest;
 
+  if (isFlowShorthandWithOneArg) {
+    return concat(printed);
+  }
+
   const canHaveTrailingComma =
-    !isFlowShorthandWithOneArg &&
     !(lastParam && lastParam.type === "RestElement") &&
     !fun.rest;
 
   return concat([
-    isFlowShorthandWithOneArg ? "" : "(",
+    "(",
     indent(concat([softline, join(concat([",", line]), printed)])),
     ifBreak(
       canHaveTrailingComma && shouldPrintComma(options, "all") ? "," : ""
     ),
     softline,
-    isFlowShorthandWithOneArg ? "" : ")"
+    ")"
   ]);
 }
 
