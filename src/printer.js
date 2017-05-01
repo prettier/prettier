@@ -2115,6 +2115,25 @@ function genericPrintNoParens(path, options, print, args) {
       return concat(parts);
     case "TSEnumMember":
       return path.call(print, "name")
+    case "TSImportEqualsDeclaration":
+      parts.push(
+        "import ",
+        path.call(print, "name"),
+        " = ",
+        path.call(print, "moduleReference")
+      )
+      
+      if (options.semi) {
+        parts.push(";")
+      }
+      
+      return concat(parts)
+    case "TSExternalModuleReference":
+      return concat([
+        "require(",
+        path.call(print, "expression"),
+        ")"
+      ])
     // TODO
     case "ClassHeritage":
     // TODO
