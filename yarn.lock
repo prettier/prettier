@@ -1957,6 +1957,10 @@ sax@^1.2.1:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.3.0.tgz#9b2ce5d3de02d17c6012ad326aa6b4d0cf54f94f"
 
+semver@^4.3.6:
+  version "4.3.6"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-4.3.6.tgz#300bc6e0e86374f7ba61068b5b1ecd57fc6532da"
+
 set-blocking@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/set-blocking/-/set-blocking-2.0.0.tgz#045f9782d011ae9a6803ddd382b24392b3d890f7"
@@ -2130,16 +2134,17 @@ type-check@~0.3.2:
   dependencies:
     prelude-ls "~1.1.2"
 
-"typescript-eslint-parser@git://github.com/eslint/typescript-eslint-parser.git#bfb1506c48b625871ffeb67dbec7941d460f8941":
-  version "2.0.0"
-  resolved "git://github.com/eslint/typescript-eslint-parser.git#bfb1506c48b625871ffeb67dbec7941d460f8941"
+"typescript-eslint-parser@git://github.com/eslint/typescript-eslint-parser.git#a294afa8158c9c088521eed72b6745eed302361c":
+  version "2.1.0"
+  resolved "git://github.com/eslint/typescript-eslint-parser.git#a294afa8158c9c088521eed72b6745eed302361c"
   dependencies:
     lodash.unescape "4.0.0"
     object-assign "^4.0.1"
+    semver "^4.3.6"
 
-typescript@2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.2.1.tgz#4862b662b988a4c8ff691cc7969622d24db76ae9"
+typescript@2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.3.2.tgz#f0f045e196f69a72f06b25fd3bd39d01c3ce9984"
 
 uglify-js@^2.6:
   version "2.7.5"
