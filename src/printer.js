@@ -386,12 +386,29 @@ function genericPrintNoParens(path, options, print, args) {
       // with the opening (.
       const shouldAddSoftLine = args && args.expandLastArg;
 
+      // In order to avoid confusion between
+      // a => a ? a : a
+      // a <= a ? a : a
+      const shouldAddParens =
+        n.body.type === "ConditionalExpression" &&
+        !util.startsWithNoLookaheadToken(
+          n.body,
+          /* forbidFunctionAndClass */ false
+        );
+
       return group(
         concat([
           concat(parts),
           group(
             concat([
-              indent(concat([line, body])),
+              indent(
+                concat([
+                  line,
+                  shouldAddParens ? ifBreak("", "(") : "",
+                  body,
+                  shouldAddParens ? ifBreak("", ")") : ""
+                ])
+              ),
               shouldAddSoftLine
                 ? concat([
                     ifBreak(shouldPrintComma(options, "all") ? "," : ""),
