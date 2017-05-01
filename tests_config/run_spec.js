@@ -2,7 +2,7 @@
 
 const fs = require("fs");
 const prettier = require("../");
-const types = require("ast-types");
+const types = require("../src/ast-types");
 const parser = require("../src/parser");
 
 const RUN_AST_TESTS = process.env["AST_COMPARE"];

@@ -26,7 +26,7 @@ var willBreak = docUtils.willBreak;
 var isLineNext = docUtils.isLineNext;
 var isEmpty = docUtils.isEmpty;
 
-var types = require("ast-types");
+var types = require("./ast-types");
 var namedTypes = types.namedTypes;
 var isString = types.builtInTypes.string;
 
@@ -721,9 +721,12 @@ function genericPrintNoParens(path, options, print, args) {
     case "ObjectExpression":
     case "ObjectPattern":
     case "ObjectTypeAnnotation":
+    case "TSInterfaceDeclaration":
     case "TSTypeLiteral":
       var isTypeAnnotation = n.type === "ObjectTypeAnnotation";
       var isTypeScriptTypeAnnotaion = n.type === "TSTypeLiteral";
+      var isTypeScriptInterfaceDeclaration =  n.type === "TSInterfaceDeclaration";
+      var isTypeScriptType = isTypeScriptTypeAnnotaion || isTypeScriptInterfaceDeclaration;
       // Leave this here because we *might* want to make this
       // configurable later -- flow accepts ";" for type separators,
       // typescript accepts ";" and newlines
@@ -733,12 +736,21 @@ function genericPrintNoParens(path, options, print, args) {
       var rightBrace = n.exact ? "|}" : "}";
       var parent = path.getParentNode(0);
       var parentIsUnionTypeAnnotation = parent.type === "UnionTypeAnnotation";
-      var propertiesField = isTypeScriptTypeAnnotaion
+      var propertiesField = isTypeScriptType 
         ? "members"
         : "properties";
+      var prefix = ""
 
       if (isTypeAnnotation) {
         fields.push("indexers", "callProperties");
+      }
+      
+      if (isTypeScriptInterfaceDeclaration) {
+        prefix = concat([
+          "interface ",
+          path.call(print, "name"),
+          " "
+        ])
       }
 
       fields.push(propertiesField);
@@ -778,6 +790,7 @@ function genericPrintNoParens(path, options, print, args) {
       if (props.length === 0) {
         return group(
           concat([
+            prefix,
             leftBrace,
             comments.printDanglingComments(path, options),
             softline,
@@ -787,6 +800,7 @@ function genericPrintNoParens(path, options, print, args) {
       } else {
         return group(
           concat([
+            prefix,
             leftBrace,
             indent(
               align(
@@ -2052,12 +2066,123 @@ function genericPrintNoParens(path, options, print, args) {
 
       return concat(parts)
     case "TSMethodSignature":
-      return concat([
+      parts.push(
         path.call(print, 'name'),
         "(",
         join(", ", path.map(print, "parameters")),
         ")"
+      )
+      
+      if (n.typeAnnotation) {
+        parts.push(
+          ": ",
+          path.call(print, "typeAnnotation")
+        )
+      }
+      return concat(parts)
+    case "TSNamespaceExportDeclaration":
+      if (n.declaration) {
+        parts.push(
+          "export ",
+          path.call(print, "declaration")
+        )
+      } else {
+        parts.push(
+          "export as namespace ", 
+          path.call(print, "name")
+        )
+        
+        if (options.semi) {
+          parts.push(";")
+        }
+      }
+      
+      return concat(parts)
+    case "TSEnumDeclaration":
+      parts.push(
+        "enum ",
+        path.call(print, "name"),
+        " "
+      )
+      
+      if (n.members.length === 0) {
+        parts.push(
+          group(
+            concat([
+              "{",
+              comments.printDanglingComments(path, options),
+              softline,
+              "}"
+            ])
+          )
+        );
+      } else {
+        parts.push(
+          group(
+            concat([
+              "{",
+              options.bracketSpacing ? line : softline,
+              indent(
+                concat([
+                  softline,
+                  printArrayItems(path, options, "members", print)
+                ])
+              ),
+              comments.printDanglingComments(
+                path,
+                options,
+                /* sameIndent */ true
+              ),
+              softline,
+              options.bracketSpacing ? line : softline,
+              "}"
+            ])
+          )
+        );
+      }
+
+      return concat(parts);
+    case "TSEnumMember":
+      return path.call(print, "name")
+    case "TSImportEqualsDeclaration":
+      parts.push(
+        "import ",
+        path.call(print, "name"),
+        " = ",
+        path.call(print, "moduleReference")
+      )
+      
+      if (options.semi) {
+        parts.push(";")
+      }
+      
+      return concat(parts)
+    case "TSExternalModuleReference":
+      return concat([
+        "require(",
+        path.call(print, "expression"),
+        ")"
       ])
+    case "TSModuleDeclaration":
+      if (n.modifiers) {
+        parts.push(
+          join(" ", path.map(print, "modifiers")),
+          " "
+        )
+      }
+      parts.push(
+        "module ",
+        path.call(print, "name"),
+        " {",
+        path.call(print, "body"),
+        "}"
+      )
+      
+      return concat(parts)
+    case "TSDeclareKeyword":
+      return "declare"
+    case "TSModuleBlock":
+      return concat(path.map(print, "body"))
     // TODO
     case "ClassHeritage":
     // TODO

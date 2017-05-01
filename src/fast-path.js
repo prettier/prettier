@@ -1,7 +1,7 @@
 "use strict";
 
 var assert = require("assert");
-var types = require("ast-types");
+var types = require("./ast-types")
 var util = require("./util");
 var n = types.namedTypes;
 var isArray = types.builtInTypes.array;
@@ -67,9 +67,8 @@ function getNodeHelper(path, count) {
 
   for (var i = s.length - 1; i >= 0; i -= 2) {
     var value = s[i];
-    // Temp: This can be removed when `ast-types` knows that TSNodes are Nodes.
-    var isTsNode = value && value.type && value.type.startsWith('TS');
-    if ((isTsNode || n.Node.check(value)) && --count < 0) {
+
+    if ((n.Node.check(value)) && --count < 0) {
       return value;
     }
   }

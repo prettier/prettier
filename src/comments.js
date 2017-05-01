@@ -1,7 +1,7 @@
 "use strict";
 
 var assert = require("assert");
-var types = require("ast-types");
+var types = require("./ast-types")
 var n = types.namedTypes;
 var isArray = types.builtInTypes.array;
 var isObject = types.builtInTypes.object;
