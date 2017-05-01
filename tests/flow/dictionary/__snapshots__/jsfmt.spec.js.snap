@@ -764,7 +764,7 @@ function foo6(x: Array<{ foo: number }>): Array<{ [key: string]: number }> {
   return x;
 }
 
-function foo7(x: { [key: string]: number, bar: string }) {
+function foo7(x: { bar: string, [key: string]: number }) {
   (x.bar: string);
 }
 
@@ -842,7 +842,7 @@ var o: { foo: QueryFunction } = {
 
 module.exports = o;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-type Params = { [name: string]: string, count: number };
+type Params = { count: number, [name: string]: string };
 type QueryFunction = (params: Params) => string;
 
 var o: { foo: QueryFunction } = {
