@@ -1447,29 +1447,21 @@ function genericPrintNoParens(path, options, print, args) {
 
       return concat(parts);
     case "ClassProperty":
+    case "TSAbstractClassProperty":
       if (n.static) parts.push("static ");
 
-      var key;
+      var variance = getFlowVariance(n, options);
+      if (variance) parts.push(variance);
+      
+      if (n.accessibility) parts.push(n.accessibility + " ");
+ 
+      if (n.type === "TSAbstractClassProperty") parts.push("abstract ");
 
       if (n.computed) {
-        key = concat(["[", path.call(print, "key"), "]"]);
+        parts.push("[", path.call(print, "key"), "]");
       } else {
-        key = printPropertyKey(path, options, print);
-
-        var variance = getFlowVariance(n, options);
-
-        if (variance) {
-          key = concat([variance, key]);
-        } else if (n.accessibility === "public") {
-          key = concat(["public ", key]);
-        } else if (n.accessibility === "protected") {
-          key = concat(["protected ", key]);
-        } else if (n.accessibility === "private") {
-          key = concat(["private ", key]);
-        }
+        parts.push(printPropertyKey(path, options, print));
       }
-
-      parts.push(key);
 
       if (n.typeAnnotation) parts.push(": ", path.call(print, "typeAnnotation"));
 
@@ -3598,6 +3590,7 @@ function classChildNeedsASIProtection(node) {
 
   switch (node.type) {
     case "ClassProperty":
+    case "TSAbstractClassProperty":
       return node.computed;
     // flow
     case "MethodDefinition":

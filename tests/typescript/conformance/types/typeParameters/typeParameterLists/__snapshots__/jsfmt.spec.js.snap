@@ -104,7 +104,7 @@ class C2<T extends Date, U extends Date> {
 // no errors expected
 
 class C<T extends Date> {
-  g() {
+  g<T extends Number>() {
     var x: T;
     x.toFixed();
   }
@@ -116,7 +116,7 @@ class C<T extends Date> {
 }
 
 class C2<T extends Date, U extends Date> {
-  g() {
+  g<T extends Number, U extends Number>() {
     var x: U;
     x.toFixed();
   }
