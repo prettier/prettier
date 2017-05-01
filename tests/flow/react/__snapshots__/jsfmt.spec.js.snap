@@ -1118,7 +1118,7 @@ var PolyExample = React.createClass({
 <PolyExample x={(new Poly(): Poly<string>)} />; // OK
 <PolyExample x={(new Poly(): Poly<number>)} />; // OK
 
-class PolyDefault<T=string> {
+class PolyDefault<T = string> {
   x: T;
 }
 var PolyDefaultExample = React.createClass({

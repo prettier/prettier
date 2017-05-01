@@ -1903,7 +1903,7 @@ function genericPrintNoParens(path, options, print, args) {
       }
 
       if (n["default"]) {
-        parts.push("=", path.call(print, "default"));
+        parts.push(" = ", path.call(print, "default"));
       }
 
       return concat(parts);
