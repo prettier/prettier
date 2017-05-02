@@ -334,7 +334,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "FunctionExpression":
     case "TSNamespaceFunctionDeclaration":
       if (isNodeStartingWithDeclare(n, options)) {
-        parts.push(hardline, "declare ");
+        parts.push("declare ");
       }
       parts.push(printFunctionDeclaration(path, print, options));
       return concat(parts);
@@ -835,7 +835,7 @@ function genericPrintNoParens(path, options, print, args) {
       let content;
       if (props.length === 0 && !n.typeAnnotation) {
         if (!hasDanglingComments(n)) {
-          return concat([prefix, leftBrace, rightBrace]);
+          return concat([concat(prefix), leftBrace, rightBrace]);
         }
 
         content = group(
