@@ -755,26 +755,34 @@ function genericPrintNoParens(path, options, print, args) {
       var propertiesField = isTypeScriptType
         ? "members"
         : "properties";
-      var prefix = ""
+      var prefix = []
 
       if (isTypeAnnotation) {
         fields.push("indexers", "callProperties");
       }
 
       if (isTypeScriptInterfaceDeclaration) {
-        prefix = concat([
+        prefix.push(
+          printTypeScriptModifiers(path, options, print),
           "interface ",
           path.call(print, "name"),
           " "
-        ]);
+        );
+
+        if (n.typeParameters) {
+          prefix.push(
+            "<",
+            join(", ", path.map(print, "typeParameters")),
+            ">"
+          );
+        }
 
         if (n.heritageClauses) {
-          prefix = concat([
-            prefix,
+          prefix.push(
             "extends ",
             join(", ", path.map(print, "heritageClauses")),
             " "
-          ]);
+          );
         }
       }
 
@@ -824,7 +832,7 @@ function genericPrintNoParens(path, options, print, args) {
 
         content = group(
           concat([
-            prefix,
+            concat(prefix),
             leftBrace,
             comments.printDanglingComments(path, options),
             softline,
@@ -833,7 +841,7 @@ function genericPrintNoParens(path, options, print, args) {
         );
       } else {
         content = concat([
-          prefix,
+          concat(prefix),
           leftBrace,
           indent(
             align(

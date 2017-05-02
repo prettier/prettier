@@ -117,7 +117,7 @@ module A {
   export class Point {
     constructor(public x: number, public y: number) {}
   }export module B {
-    interface Id {
+    export interface Id {
       name: string
     }
   }
@@ -158,7 +158,7 @@ module K {
   export class L {
     constructor(public name: string) {}
   }export module L {
-    export var y = 12;interface Point {
+    export var y = 12;export interface Point {
       x: number,
       y: number
     }
@@ -241,7 +241,7 @@ class clodule {
 }
 
 module clodule {
-  interface Point {
+  export interface Point {
     x: number,
     y: number
   }var Point: Point = { x: 0, y: 0 };
@@ -257,7 +257,7 @@ function fundule() {
 }
 
 module fundule {
-  interface Point {
+  export interface Point {
     x: number,
     y: number
   }var Point: Point = { x: 0, y: 0 };
@@ -353,7 +353,7 @@ module Z {
 // all errors imported modules conflict with local variables
 
 module A {
-  export var Point = { x: 0, y: 0 };interface Point {
+  export var Point = { x: 0, y: 0 };export interface Point {
     x: number,
     y: number
   }
@@ -365,7 +365,7 @@ module B {
 
 module X {
   export module Y {
-    interface Point {
+    export interface Point {
       x: number,
       y: number
     }
