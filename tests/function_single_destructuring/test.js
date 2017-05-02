@@ -58,3 +58,8 @@ type T = ({
   title: number,
   items: number,
 }) => void;
+
+const X = (props: {
+  a: boolean,
+}) =>
+  <A />;

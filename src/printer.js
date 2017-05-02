@@ -737,7 +737,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "ObjectPattern":
     case "ObjectTypeAnnotation":
     case "TSInterfaceDeclaration":
-    case "TSTypeLiteral":
+    case "TSTypeLiteral": {
       var isTypeAnnotation = n.type === "ObjectTypeAnnotation";
       var isTypeScriptTypeAnnotaion = n.type === "TSTypeLiteral";
       var isTypeScriptInterfaceDeclaration =  n.type === "TSInterfaceDeclaration";
@@ -849,11 +849,16 @@ function genericPrintNoParens(path, options, print, args) {
       // If we inline the object as first argument of the parent, we don't want
       // to create another group so that the object breaks before the return
       // type
+      const parentParentParent = path.getParentNode(2);
       if (
-        n.type === "ObjectPattern" &&
-        parent.params &&
-        parent.params.length === 1 &&
-        parent.params[0] === n
+        (n.type === "ObjectPattern" &&
+          parent &&
+          shouldHugArguments(parent) &&
+          parent.params[0] === n) ||
+        (n.type === "ObjectTypeAnnotation" &&
+          parentParentParent &&
+          shouldHugArguments(parentParentParent) &&
+          parentParentParent.params[0].typeAnnotation.typeAnnotation === n)
       ) {
         return content;
       }
@@ -867,7 +872,7 @@ function genericPrintNoParens(path, options, print, args) {
         );
 
       return group(content, { shouldBreak });
-
+    }
     case "PropertyPattern":
       return concat([
         path.call(print, "key"),
@@ -2636,15 +2641,7 @@ function printFunctionParams(path, print, options, expandArg) {
   //   b,
   //   c
   // }) {}
-  if (
-    fun.params &&
-    fun.params.length === 1 &&
-    !fun.params[0].comments &&
-    (fun.params[0].type === "ObjectPattern" ||
-      (fun.params[0].type === "FunctionTypeParam" &&
-        fun.params[0].typeAnnotation.type === "ObjectTypeAnnotation")) &&
-    !fun.rest
-  ) {
+  if (shouldHugArguments(fun)) {
     return concat(["(", join(", ", printed), ")"]);
   }
 
@@ -3909,6 +3906,23 @@ function isNodeStartingWithDeclare(node, options) {
     options.originalText
       .slice(node.range[0], node.range[1])
       .startsWith("declare ")
+  );
+}
+
+function shouldHugArguments(fun) {
+  return (
+    fun &&
+    fun.params &&
+    fun.params.length === 1 &&
+    !fun.params[0].comments &&
+    (fun.params[0].type === "ObjectPattern" ||
+      (fun.params[0].type === "Identifier" &&
+        fun.params[0].typeAnnotation &&
+        fun.params[0].typeAnnotation.type === "TypeAnnotation" &&
+        fun.params[0].typeAnnotation.typeAnnotation.type === "ObjectTypeAnnotation") ||
+      fun.params[0].type === "FunctionTypeParam" &&
+        fun.params[0].typeAnnotation.type === "ObjectTypeAnnotation") &&
+    !fun.rest
   );
 }
 
