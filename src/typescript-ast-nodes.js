@@ -164,4 +164,9 @@ module.exports = function(fork) {
   def("TSAbstractClassProperty").build("key", "value").bases("Node");
 
   def("TSAbstractClassDeclaration").build().bases("Node");
+
+  def("TSDecorator")
+    .build("expression")
+    .field("expression", def("Identifier"))
+    .bases("Node");
 };
