@@ -809,7 +809,7 @@ function genericPrintNoParens(path, options, print, args) {
       let content;
       if (props.length === 0 && !n.typeAnnotation) {
         if (!hasDanglingComments(n)) {
-          return concat([leftBrace, rightBrace]);
+          return concat([prefix, leftBrace, rightBrace]);
         }
 
         content = group(
@@ -2053,8 +2053,11 @@ function genericPrintNoParens(path, options, print, args) {
       return concat([path.call(print, "elementType"), "[]"]);
     case "TSPropertySignature":
       parts.push(path.call(print, "name"));
-      parts.push(": ");
-      parts.push(path.call(print, "typeAnnotation"));
+      
+      if (n.typeAnnotation) {
+        parts.push(": ");
+        parts.push(path.call(print, "typeAnnotation"));
+      }
 
       return concat(parts);
     case "TSParameterProperty":

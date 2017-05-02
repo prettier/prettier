@@ -5,10 +5,22 @@ interface abstract {
     abstract(): void,
     concrete(): number
 }
+
+interface X {
+  x
+}
+
+interface nil {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 interface abstract {
   abstract(): void,
   concrete(): number
 }
+
+interface X {
+  x
+}
+
+interface nil {}
 
 `;
