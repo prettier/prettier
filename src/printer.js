@@ -332,8 +332,9 @@ function genericPrintNoParens(path, options, print, args) {
       ]);
     case "FunctionDeclaration":
     case "FunctionExpression":
+    case "TSNamespaceFunctionDeclaration":
       if (isNodeStartingWithDeclare(n, options)) {
-        parts.push("declare ");
+        parts.push(hardline, "declare ");
       }
       parts.push(printFunctionDeclaration(path, print, options));
       return concat(parts);
@@ -740,7 +741,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "TSTypeLiteral": {
       var isTypeAnnotation = n.type === "ObjectTypeAnnotation";
       var isTypeScriptTypeAnnotaion = n.type === "TSTypeLiteral";
-      var isTypeScriptInterfaceDeclaration =  n.type === "TSInterfaceDeclaration";
+      var isTypeScriptInterfaceDeclaration = n.type === "TSInterfaceDeclaration";
       var isTypeScriptType = isTypeScriptTypeAnnotaion || isTypeScriptInterfaceDeclaration;
       // Leave this here because we *might* want to make this
       // configurable later -- flow accepts ";" for type separators,
@@ -765,7 +766,16 @@ function genericPrintNoParens(path, options, print, args) {
           "interface ",
           path.call(print, "name"),
           " "
-        ])
+        ]);
+
+        if (n.heritageClauses) {
+          prefix = concat([
+            prefix,
+            "extends ",
+            join(", ", path.map(print, "heritageClauses")),
+            " "
+          ]);
+        }
       }
 
       fields.push(propertiesField);
@@ -1546,6 +1556,10 @@ function genericPrintNoParens(path, options, print, args) {
       }
       parts.push(concat(printClass(path, options, print)));
       return concat(parts);
+    case "TSHeritageClause":
+      return join(", ", path.map(print, "types"));
+    case "TSExpressionWithTypeArguments":
+      return path.call(print, "expression");
     case "TemplateElement":
       return join(literalline, n.value.raw.split(/\r?\n/g));
     case "TemplateLiteral":
@@ -2033,12 +2047,24 @@ function genericPrintNoParens(path, options, print, args) {
       return concat(["%checks(", path.call(print, "value"), ")"]);
     case "TSAnyKeyword":
       return "any";
+    case "TSAsyncKeyword":
+      return "async";
     case "TSBooleanKeyword":
       return "boolean";
+    case "TSExportKeyword":
+      return "export";
     case "TSNumberKeyword":
       return "number";
     case "TSObjectKeyword":
       return "object";
+    case "TSProtectedKeyword":
+      return "protected";
+    case "TSPrivateKeyword":
+      return "private";
+    case "TSPublicKeyword":
+      return "public";
+    case "TSStaticKeyword":
+      return "static";
     case "TSStringKeyword":
       return "string";
     case "TSVoidKeyword":
@@ -2197,8 +2223,12 @@ function genericPrintNoParens(path, options, print, args) {
         }
       }
 
-      return concat(parts)
+      return group(concat([softline, concat(parts)]));
     case "TSEnumDeclaration":
+      if (n.modifiers) {
+        parts.push(printTypeScriptModifiers(path, options, print));
+      }
+
       parts.push(
         "enum ",
         path.call(print, "name"),
@@ -2246,6 +2276,8 @@ function genericPrintNoParens(path, options, print, args) {
       return path.call(print, "name")
     case "TSImportEqualsDeclaration":
       parts.push(
+        softline,
+        printTypeScriptModifiers(path, options, print),
         "import ",
         path.call(print, "name"),
         " = ",
@@ -2256,7 +2288,7 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push(";")
       }
 
-      return concat(parts)
+      return group(concat(parts));
     case "TSExternalModuleReference":
       return concat([
         "require(",
@@ -2264,21 +2296,17 @@ function genericPrintNoParens(path, options, print, args) {
         ")"
       ])
     case "TSModuleDeclaration":
-      if (n.modifiers) {
-        parts.push(
-          join(" ", path.map(print, "modifiers")),
-          " "
-        )
-      }
       parts.push(
+        printTypeScriptModifiers(path, options, print),
         "module ",
         path.call(print, "name"),
         " {",
-        path.call(print, "body"),
+        indent(concat([line, group(path.call(print, "body"))])),
+        line,
         "}"
-      )
+      );
 
-      return concat(parts)
+      return concat(parts);
     case "TSDeclareKeyword":
       return "declare"
     case "TSModuleBlock":
@@ -2926,6 +2954,17 @@ function getFlowVariance(path) {
     default:
       return variance;
   }
+}
+
+function printTypeScriptModifiers(path, options, print) {
+  const n = path.getValue();
+  if (!n.modifiers || !n.modifiers.length) {
+    return "";
+  }
+  return concat([
+    join(" ", path.map(print, "modifiers")),
+    " "
+  ]);
 }
 
 function printClass(path, options, print) {
@@ -3716,6 +3755,7 @@ function printNumber(rawNumber) {
 
 function isLastStatement(path) {
   const parent = path.getParentNode();
+  if (!parent) return true;
   const node = path.getValue();
   const body = parent.body.filter(stmt => stmt.type !== "EmptyStatement");
   return body && body[body.length - 1] === node;

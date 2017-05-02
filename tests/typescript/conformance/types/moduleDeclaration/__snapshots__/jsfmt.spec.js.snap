@@ -11,8 +11,12 @@ declare module "B" {
     }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-module A {export class A {}}
+module A {
+  export class A {}
+}
 
-declare module "B" {export class B {}}
+declare module "B" {
+  export class B {}
+}
 
 `;
