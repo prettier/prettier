@@ -1,5 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`arrow.js 1`] = `
+() => a\`
+	a
+\`;
+
+() => \`
+	a
+\`;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+() => a\`
+	a
+\`;
+
+() => \`
+	a
+\`;
+
+`;
+
 exports[`call.js 1`] = `
 insertRule(\`*, *:before, *:after {
   box-sizing: inherit;

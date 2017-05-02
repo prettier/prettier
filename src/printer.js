@@ -375,7 +375,7 @@ function genericPrintNoParens(path, options, print, args) {
         n.body.type === "JSXElement" ||
         n.body.type === "BlockStatement" ||
         n.body.type === "TaggedTemplateExpression" ||
-        n.body.type === "TemplateElement" ||
+        n.body.type === "TemplateLiteral" ||
         n.body.type === "ArrowFunctionExpression"
       ) {
         return group(collapsed);
