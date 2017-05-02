@@ -95,9 +95,11 @@ function hasObjectMode_bad(options: DuplexStreamOptions): boolean {
 }
 
 function hasObjectMode_ok(options: DuplexStreamOptions): boolean {
-  return !!(options.objectMode ||
+  return !!(
+    options.objectMode ||
     options.readableObjectMode ||
-    options.writableObjectMode);
+    options.writableObjectMode
+  );
 }
 
 `;
