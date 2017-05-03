@@ -219,4 +219,13 @@ function."
      (delete-file bufferfile)
      (delete-file outputfile)))
 
+;;;###autoload
+(define-minor-mode prettier-mode
+  "Runs prettier on file save when this mode is turned on"
+  :lighter " prettier"
+  :global t
+  (if prettier-mode
+      (add-hook 'before-save-hook 'prettier-before-save)
+    (remove-hook 'before-save-hook 'prettier-before-save)))
+
 (provide 'prettier-js)
