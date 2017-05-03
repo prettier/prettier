@@ -5,7 +5,7 @@ declare class MyArray<T> extends Array<T> {
     sort(compareFn?: (a: T, b: T) => number): this;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-declare class MyArray<T> extends Array {
+declare class MyArray<T> extends Array<T> {
   sort(compareFn?: (a: T, b: T) => number): this;
 }
 

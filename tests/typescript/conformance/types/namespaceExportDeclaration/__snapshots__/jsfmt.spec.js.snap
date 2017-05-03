@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`exportAsNamespace.d.ts 1`] = `
+// issue: https://github.com/Microsoft/TypeScript/issues/11545
+
+export var X;
+export as namespace N
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// issue: https://github.com/Microsoft/TypeScript/issues/11545
+
+export var X;
+export as namespace N;
+
+`;

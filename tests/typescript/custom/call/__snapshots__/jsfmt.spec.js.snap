@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`callSignature.ts 1`] = `
+interface I {
+    ();
+    (): void;
+    <T, U>(arg: T);
+    <T, U>(arg: T): U;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+interface I {
+  (),
+  (): void,
+  <T, U>(arg: T),
+  <T, U>(arg: T): U
+}
+
+`;

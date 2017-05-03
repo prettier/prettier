@@ -257,6 +257,61 @@ function getPrecedence(op) {
   return PRECEDENCE[op];
 }
 
+
+// Tests if an expression starts with `{`, or (if forbidFunctionAndClass holds) `function` or `class`.
+// Will be overzealous if there's already necessary grouping parentheses.
+function startsWithNoLookaheadToken(node, forbidFunctionAndClass) {
+  node = getLeftMost(node);
+  switch (node.type) {
+    case "FunctionExpression":
+    case "ClassExpression":
+      return forbidFunctionAndClass;
+    case "ObjectExpression":
+      return true;
+    case "MemberExpression":
+      return startsWithNoLookaheadToken(node.object, forbidFunctionAndClass);
+    case "TaggedTemplateExpression":
+      if (node.tag.type === "FunctionExpression") {
+        // IIFEs are always already parenthesized
+        return false;
+      }
+      return startsWithNoLookaheadToken(node.tag, forbidFunctionAndClass);
+    case "CallExpression":
+      if (node.callee.type === "FunctionExpression") {
+        // IIFEs are always already parenthesized
+        return false;
+      }
+      return startsWithNoLookaheadToken(node.callee, forbidFunctionAndClass);
+    case "ConditionalExpression":
+      return startsWithNoLookaheadToken(node.test, forbidFunctionAndClass);
+    case "UpdateExpression":
+      return (
+        !node.prefix &&
+        startsWithNoLookaheadToken(node.argument, forbidFunctionAndClass)
+      );
+    case "BindExpression":
+      return (
+        node.object &&
+        startsWithNoLookaheadToken(node.object, forbidFunctionAndClass)
+      );
+    case "SequenceExpression":
+      return startsWithNoLookaheadToken(
+        node.expressions[0],
+        forbidFunctionAndClass
+      );
+    default:
+      return false;
+  }
+}
+
+function getLeftMost(node) {
+  if (node.left) {
+    return getLeftMost(node.left);
+  } else {
+    return node;
+  }
+}
+
 module.exports = {
   getPrecedence,
   isExportDeclaration,
@@ -275,5 +330,6 @@ module.exports = {
   locStart,
   locEnd,
   setLocStart,
-  setLocEnd
+  setLocEnd,
+  startsWithNoLookaheadToken
 };

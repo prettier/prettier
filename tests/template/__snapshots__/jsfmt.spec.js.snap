@@ -1,5 +1,43 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`arrow.js 1`] = `
+() => a\`
+	a
+\`;
+
+() => \`
+	a
+\`;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+() => a\`
+	a
+\`;
+
+() => \`
+	a
+\`;
+
+`;
+
+exports[`call.js 1`] = `
+insertRule(\`*, *:before, *:after {
+  box-sizing: inherit;
+}\`);
+
+insertRule\`*, *:before, *:after {
+  box-sizing: inherit;
+}\`;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+insertRule(\`*, *:before, *:after {
+  box-sizing: inherit;
+}\`);
+
+insertRule\`*, *:before, *:after {
+  box-sizing: inherit;
+}\`;
+
+`;
+
 exports[`comment.js 1`] = `
 \`
 (?:\${escapeChar}[\\\\S\\\\s]|(?:(?!\${// Using \`XRegExp.union\` safely rewrites backreferences in \`left\` and \`right\`.
@@ -60,6 +98,45 @@ var x = {
     }
   \`
 };
+
+`;
+
+exports[`graphql.js 1`] = `
+module.exports = Relay.createContainer(
+  // ...
+  {
+    fragments: {
+      nodes: ({solution_type, time_frame}) => Relay.QL\`
+        fragment on RelatedNode @relay(plural: true) {
+          __typename
+          \${OptimalSolutionsSection
+            .getFragment(
+              'node',
+              {solution_type, time_frame},
+            )
+          }
+        }
+      \`,
+    },
+  },
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+module.exports = Relay.createContainer(
+  // ...
+  {
+    fragments: {
+      nodes: ({ solution_type, time_frame }) => Relay.QL\`
+        fragment on RelatedNode @relay(plural: true) {
+          __typename
+          \${OptimalSolutionsSection.getFragment("node", {
+            solution_type,
+            time_frame
+          })}
+        }
+      \`
+    }
+  }
+);
 
 `;
 

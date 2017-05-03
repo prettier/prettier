@@ -1,6 +1,6 @@
 {
   "name": "prettier",
-  "version": "1.2.2",
+  "version": "1.3.0",
   "description": "Prettier is an opinionated JavaScript formatter",
   "bin": {
     "prettier": "./bin/prettier.js"
@@ -32,8 +32,8 @@
     "rollup-plugin-node-builtins": "2.0.0",
     "rollup-plugin-node-globals": "1.1.0",
     "rollup-plugin-node-resolve": "2.0.0",
-    "typescript": "2.2.1",
-    "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#bfb1506c48b625871ffeb67dbec7941d460f8941"
+    "typescript": "2.3.2",
+    "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#a294afa8158c9c088521eed72b6745eed302361c"
   },
   "scripts": {
     "test": "jest",
