@@ -3,6 +3,6 @@
 exports[`cunstructorType.ts 1`] = `
 var d: new(x: number) => void;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var d: new(x: number) => void;
+var d: new (x: number) => void;
 
 `;
