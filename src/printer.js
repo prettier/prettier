@@ -756,6 +756,7 @@ function genericPrintNoParens(path, options, print, args) {
       // typescript accepts ";" and newlines
       var separator = isTypeAnnotation ? "," : ",";
       var fields = [];
+      var prefix = [];
       var leftBrace = n.exact ? "{|" : "{";
       var rightBrace = n.exact ? "|}" : "}";
       var parent = path.getParentNode(0);
@@ -763,35 +764,25 @@ function genericPrintNoParens(path, options, print, args) {
       var propertiesField = isTypeScriptType
         ? "members"
         : "properties";
-      var prefix = []
 
       if (isTypeAnnotation) {
         fields.push("indexers", "callProperties");
       }
-
       if (isTypeScriptInterfaceDeclaration) {
         prefix.push(
           printTypeScriptModifiers(path, options, print),
           "interface ",
           path.call(print, "name"),
+          printTypeParameters(path, options, print, "typeParameters"),
+          " "
+        ); 
+      }
+      if (n.heritageClauses) {
+        prefix.push(
+          "extends ",
+          join(", ", path.map(print, "heritageClauses")),
           " "
         );
-
-        if (n.typeParameters) {
-          prefix.push(
-            "<",
-            join(", ", path.map(print, "typeParameters")),
-            ">"
-          );
-        }
-
-        if (n.heritageClauses) {
-          prefix.push(
-            "extends ",
-            join(", ", path.map(print, "heritageClauses")),
-            " "
-          );
-        }
       }
 
       fields.push(propertiesField);
@@ -1810,10 +1801,8 @@ function genericPrintNoParens(path, options, print, args) {
       // with flow they are one `TypeParameterDeclaration` node.
       if (n.type === 'TSFunctionType' && n.typeParameters) {
         parts.push(
-          "<",
-          join(", ", path.map(print, "typeParameters")),
-          ">"
-        )
+          printTypeParameters(path, options, print, "typeParameters")
+        );
       } else {
         parts.push(path.call(print, "typeParameters"));
       }
@@ -2026,31 +2015,8 @@ function genericPrintNoParens(path, options, print, args) {
         ")"
       ]);
     case "TypeParameterDeclaration":
-    case "TypeParameterInstantiation": {
-      const shouldInline =
-        n.params.length === 1 &&
-        (n.params[0].type === "ObjectTypeAnnotation" ||
-          n.params[0].type === "NullableTypeAnnotation");
-
-      if (shouldInline) {
-        return concat(["<", join(", ", path.map(print, "params")), ">"]);
-      }
-
-      return group(
-        concat([
-          "<",
-          indent(
-            concat([
-              softline,
-              join(concat([",", line]), path.map(print, "params"))
-            ])
-          ),
-          ifBreak(shouldPrintComma(options, "all") ? "," : ""),
-          softline,
-          ">"
-        ])
-      );
-    }
+    case "TypeParameterInstantiation":
+      return printTypeParameters(path, options, print, "params");
     case "TypeParameter":
       var variance = getFlowVariance(n, options);
 
@@ -2140,30 +2106,9 @@ function genericPrintNoParens(path, options, print, args) {
 
       return concat(parts);
     case "TSTypeReference":
-      parts.push(path.call(print, "typeName"))
-
-      if (n.typeArguments) {
-        parts.push(
-          "<",
-          join(", ", path.map(print, "typeArguments")),
-          ">"
-        )
-      }
-
-      return concat(parts);
-    case "TSCallSignature":
       return concat([
-        "(",
-        join(", ", path.map(print, "parameters")),
-        "): ",
-        path.call(print, "typeAnnotation")
-      ]);
-    case "TSConstructSignature":
-      return concat([
-        "new (",
-        join(", ", path.map(print, "parameters")),
-        "): ",
-        path.call(print, "typeAnnotation")
+        path.call(print, "typeName"),
+        printTypeParameters(path, options, print, "typeArguments")
       ]);
     case "TSTypeQuery":
       return concat(["typeof ", path.call(print, "exprName")]);
@@ -2199,13 +2144,26 @@ function genericPrintNoParens(path, options, print, args) {
         path.call(print, "indexType"),
         "]"
       ])
+    case "TSConstructSignature":
     case "TSConstructorType":
-      return concat([
-        "new(",
+    case "TSCallSignature":
+      if (n.type !== "TSCallSignature") {
+        parts.push("new ");
+      }
+      var isType = n.type === "TSConstructorType";      
+      parts.push(
+        printTypeParameters(path, options, print, "typeParameters"),
+        "(",
         join(", ", path.map(print, "parameters")),
-        ") => ",
-        path.call(print, "typeAnnotation"),
-      ])
+        ")"
+      );
+      if (n.typeAnnotation) {
+        parts.push(
+          isType ? " => " : ": ",
+          path.call(print, "typeAnnotation")
+        );
+      }
+      return concat(parts);
     case "TSTypeOperator":
       return concat([
         "keyof ",
@@ -2223,13 +2181,13 @@ function genericPrintNoParens(path, options, print, args) {
         "}"
       ])
     case "TSTypeParameter":
-      parts.push(path.call(print, "name"))
+      parts.push(path.call(print, "name"));
 
       if (n.constraint) {
         parts.push(
           " in ",
           path.call(print, "constraint")
-        )
+        );
       }
 
       return concat(parts)
@@ -3012,6 +2970,39 @@ function printTypeScriptModifiers(path, options, print) {
     join(" ", path.map(print, "modifiers")),
     " "
   ]);
+}
+
+function printTypeParameters(path, options, print, paramsKey) {
+    const n = path.getValue();
+
+    // In flow, Foo<> is acceptable. In TypeScript, it's a syntax error.
+    if (!n[paramsKey] || (n.type.startsWith("TS") && !n[paramsKey].length)) {
+      return "";
+    }
+
+    const shouldInline =
+      n[paramsKey].length === 1 &&
+      (n[paramsKey][0].type === "ObjectTypeAnnotation" ||
+        n[paramsKey][0].type === "NullableTypeAnnotation");
+
+    if (shouldInline) {
+      return concat(["<", join(", ", path.map(print, paramsKey)), ">"]);
+    }
+
+    return group(
+      concat([
+        "<",
+        indent(
+          concat([
+            softline,
+            join(concat([",", line]), path.map(print, paramsKey))
+          ])
+        ),
+        ifBreak(shouldPrintComma(options, "all") ? "," : ""),
+        softline,
+        ">"
+      ])
+    );
 }
 
 function printClass(path, options, print) {

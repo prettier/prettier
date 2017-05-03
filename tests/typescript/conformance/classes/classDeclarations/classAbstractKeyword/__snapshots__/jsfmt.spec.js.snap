@@ -45,7 +45,7 @@ AAA = A;
 AAA = "asdf";~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 abstract class A {}
 
-var AAA: new() => A;
+var AAA: new () => A;
 
 AAA = A;
 AAA = "asdf";
