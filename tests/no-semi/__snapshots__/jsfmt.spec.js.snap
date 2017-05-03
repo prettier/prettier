@@ -359,12 +359,10 @@ if (true) {
 
 // check statement clauses
 
-do
-  break;
+do break;
 while (false);
 if (true)
-  do
-    break;
+  do break;
   while (false);
 
 if (true) 1;
@@ -401,8 +399,7 @@ x;
 x;
 ++(a || b).c;
 
-while (false)
-  (function() {})();
+while (false) (function() {})();
 
 aReallyLongLine012345678901234567890123456789012345678901234567890123456789 *
   (b + c);
@@ -687,12 +684,10 @@ if (true) {
 
 // check statement clauses
 
-do
-  break
+do break
 while (false)
 if (true)
-  do
-    break
+  do break
   while (false)
 
 if (true) 1
@@ -729,8 +724,7 @@ x
 x
 ++(a || b).c
 
-while (false)
-  (function() {})()
+while (false) (function() {})()
 
 aReallyLongLine012345678901234567890123456789012345678901234567890123456789 *
   (b + c)
@@ -1015,12 +1009,10 @@ if (true) {
 
 // check statement clauses
 
-do
-  break
+do break
 while (false)
 if (true)
-  do
-    break
+  do break
   while (false)
 
 if (true) 1
@@ -1057,8 +1049,7 @@ x
 x
 ++(a || b).c
 
-while (false)
-  (function() {})()
+while (false) (function() {})()
 
 aReallyLongLine012345678901234567890123456789012345678901234567890123456789 *
   (b + c)

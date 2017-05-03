@@ -70,11 +70,17 @@ for (x of y);
 exports[`for.js 1`] = `
 for (;;) {}
 for (var i = 0; i < 10; ++i) {}
+
+for (;;) 0;
+for (var i = 0; i < 10; ++i) 0;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 for (;;) {
 }
 for (var i = 0; i < 10; ++i) {
 }
+
+for (;;) 0;
+for (var i = 0; i < 10; ++i) 0;
 
 `;
 
@@ -90,6 +96,7 @@ function* g() {
 async function f() {
   for (await (a in b); ; );
 }
+for (a in b) 0;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 for ((x in a); ; ) {
 }
@@ -104,14 +111,14 @@ function* g() {
 async function f() {
   for (await (a in b); ; );
 }
+for (a in b) 0;
 
 `;
 
 exports[`var.js 1`] = `
 for (a in b) var c = {}; [];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-for (a in b)
-  var c = {};
+for (a in b) var c = {};
 [];
 
 `;
