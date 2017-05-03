@@ -1130,12 +1130,12 @@ function genericPrintNoParens(path, options, print, args) {
         options
       );
     case "WithStatement":
-      return concat([
+      return group(concat([
         "with (",
         path.call(print, "object"),
         ")",
         adjustClause(n.body, path.call(print, "body"))
-      ]);
+      ]));
     case "IfStatement":
       const con = adjustClause(n.consequent, path.call(print, "consequent"));
       const opening = group(
@@ -1187,35 +1187,37 @@ function genericPrintNoParens(path, options, print, args) {
       const printedComments = dangling ? concat([dangling, softline]) : "";
 
       if (!n.init && !n.test && !n.update) {
-        return concat([printedComments, "for (;;)", body]);
+        return concat([printedComments, group(concat(["for (;;)", body]))]);
       }
 
       return concat([
         printedComments,
-        "for (",
-        group(
-          concat([
-            indent(
-              concat([
-                softline,
-                path.call(print, "init"),
-                ";",
-                line,
-                path.call(print, "test"),
-                ";",
-                line,
-                path.call(print, "update")
-              ])
-            ),
-            softline
-          ])
-        ),
-        ")",
-        body
+        group(concat([
+          "for (",
+          group(
+            concat([
+              indent(
+                concat([
+                  softline,
+                  path.call(print, "init"),
+                  ";",
+                  line,
+                  path.call(print, "test"),
+                  ";",
+                  line,
+                  path.call(print, "update")
+                ])
+              ),
+              softline
+            ])
+          ),
+          ")",
+          body
+        ]))
       ]);
     }
     case "WhileStatement":
-      return concat([
+      return group(concat([
         "while (",
         group(
           concat([
@@ -1225,17 +1227,17 @@ function genericPrintNoParens(path, options, print, args) {
         ),
         ")",
         adjustClause(n.body, path.call(print, "body"))
-      ]);
+      ]));
     case "ForInStatement":
       // Note: esprima can't actually parse "for each (".
-      return concat([
+      return group(concat([
         n.each ? "for each (" : "for (",
         path.call(print, "left"),
         " in ",
         path.call(print, "right"),
         ")",
         adjustClause(n.body, path.call(print, "body"))
-      ]);
+      ]));
 
     case "ForOfStatement":
     case "ForAwaitStatement":
@@ -1244,7 +1246,7 @@ function genericPrintNoParens(path, options, print, args) {
       // https://github.com/estree/estree/pull/138
       const isAwait = n.type === "ForAwaitStatement" || n.await;
 
-      return concat([
+      return group(concat([
         "for",
         isAwait ? " await" : "",
         " (",
@@ -1253,11 +1255,11 @@ function genericPrintNoParens(path, options, print, args) {
         path.call(print, "right"),
         ")",
         adjustClause(n.body, path.call(print, "body"))
-      ]);
+      ]));
 
     case "DoWhileStatement":
       var clause = adjustClause(n.body, path.call(print, "body"));
-      var doBody = concat(["do", clause]);
+      var doBody = group(concat(["do", clause]));
       var parts = [doBody];
 
       if (n.body.type === "BlockStatement") {
