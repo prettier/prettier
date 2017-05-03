@@ -157,7 +157,26 @@ In the future we will have better support for formatting whole projects.
 
 #### Pre-commit hook for changed files
 
-[lint-staged](https://github.com/okonet/lint-staged) can re-format your files that are marked as "staged" via `git add`  before you commit.
+You can use this with a pre-commit tool. This can re-format your files that are marked as "staged" via `git add`  before you commit.  
+
+##### [pre-commit](https://github.com/pre-commit/pre-commit)
+
+Just copy the following config in your pre-commit comfig yaml file
+
+```yaml
+
+    -   repo: https://github.com/awebdeveloper/pre-commit-prettier
+        sha: ''  # Use the sha or tag you want to point at
+        hooks:
+        -   id: prettier
+            additional_dependencies: ['prettier@1.1.0']
+        
+ ```
+ 
+Find more info from [here](https://github.com/awebdeveloper/pre-commit-prettier)
+
+
+##### [lint-staged](https://github.com/okonet/lint-staged) 
 
 Install it along with [husky](https://github.com/typicode/husky):
 
