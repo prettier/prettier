@@ -161,7 +161,7 @@ You can use this with a pre-commit tool. This can re-format your files that are 
 
 ##### [pre-commit](https://github.com/pre-commit/pre-commit)
 
-Just copy the following config in your pre-commit comfig yaml file
+Just copy the following config in your pre-commit config yaml file
 
 ```yaml
 
