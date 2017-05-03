@@ -2151,13 +2151,6 @@ function genericPrintNoParens(path, options, print, args) {
       }
 
       return concat(parts);
-    case "TSCallSignature":
-      return concat([
-        "(",
-        join(", ", path.map(print, "parameters")),
-        "): ",
-        path.call(print, "typeAnnotation")
-      ]);
     case "TSTypeQuery":
       return concat(["typeof ", path.call(print, "exprName")]);
     case "TSParenthesizedType":
@@ -2194,8 +2187,11 @@ function genericPrintNoParens(path, options, print, args) {
       ])
     case "TSConstructSignature":
     case "TSConstructorType":
-      parts.push("new ");
-      var isSignature = n.type === "TSConstructSignature";
+    case "TSCallSignature":
+      if (n.type !== "TSCallSignature") {
+        parts.push("new ");
+      }
+      var isType = n.type === "TSConstructorType";      
       if (n.typeParameters && n.typeParameters.length) {
         parts.push(
           "<",
@@ -2215,7 +2211,7 @@ function genericPrintNoParens(path, options, print, args) {
       );
       if (n.typeAnnotation) {
         parts.push(
-          isSignature ? ": " : " => ",
+          isType ? " => " : ": ",
           path.call(print, "typeAnnotation")
         );
       }
