@@ -1401,10 +1401,7 @@ function genericPrintNoParens(path, options, print, args) {
           typeof n.value.value === "string"
         ) {
           const value = n.value.extra ? n.value.extra.raw : n.value.raw;
-          res =
-            '"' +
-            value.slice(1, value.length - 1).replace(/"/g, "&quot;") +
-            '"';
+          res = '"' + value.slice(1, -1).replace(/"/g, "&quot;") + '"';
         } else {
           res = path.call(print, "value");
         }
@@ -3320,15 +3317,7 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
     const isLiteral = namedTypes.Literal.check(child);
 
     if (isLiteral && typeof child.value === "string") {
-      // There's a bug in the flow parser where it doesn't unescape the
-      // value field. To workaround this, we can use rawValue which is
-      // correctly escaped (since it parsed).
-      // We really want to use value and re-escape it ourself when possible
-      // though.
-      const partiallyEscapedValue = options.parser === "flow"
-        ? child.raw
-        : util.htmlEscapeInsideAngleBracket(child.value);
-      const value = partiallyEscapedValue.replace(/\u00a0/g, "&nbsp;");
+      const value = child.raw || child.extra.raw;
 
       if (/\S/.test(value)) {
         // treat each line of text as its own entity
@@ -3373,9 +3362,11 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
           children.push(hardline);
         }
       } else if (/\s/.test(value)) {
-        // whitespace-only without newlines,
-        // eg; a single space separating two elements
-        children.push(jsxWhitespace);
+        // whitespace(s)-only without newlines,
+        // eg; one or more spaces separating two elements
+        for (let i = 0; i < value.length; ++i) {
+          children.push(jsxWhitespace);
+        }
         children.push(softline);
       }
     } else {
