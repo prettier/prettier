@@ -1,3 +1,7 @@
+# 1.3.1
+
+* Respect template inline-ness (#1497)
+
 # 1.3.0
 
 [link](https://github.com/jlongster/prettier/compare/1.2.2...1.3.0)
