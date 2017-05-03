@@ -377,8 +377,7 @@ function genericPrintNoParens(path, options, print, args) {
         n.body.type === "ObjectExpression" ||
         n.body.type === "JSXElement" ||
         n.body.type === "BlockStatement" ||
-        n.body.type === "TaggedTemplateExpression" ||
-        n.body.type === "TemplateLiteral" ||
+        isTemplateOnItsOwnLine(n.body, options.originalText) ||
         n.body.type === "ArrowFunctionExpression"
       ) {
         return group(collapsed);
@@ -706,7 +705,8 @@ function genericPrintNoParens(path, options, print, args) {
         // We want to keep require calls as a unit
         (n.callee.type === "Identifier" && n.callee.name === "require") ||
         // Template literals as single arguments
-        n.arguments.length === 1 && n.arguments[0].type === "TemplateLiteral" ||
+        (n.arguments.length === 1 &&
+          isTemplateOnItsOwnLine(n.arguments[0], options.originalText)) ||
         // Keep test declarations on a single line
         // e.g. `it('long name', () => {`
         (n.callee.type === "Identifier" &&
@@ -2084,7 +2084,7 @@ function genericPrintNoParens(path, options, print, args) {
       return concat([path.call(print, "elementType"), "[]"]);
     case "TSPropertySignature":
       parts.push(path.call(print, "name"));
-      
+
       if (n.typeAnnotation) {
         parts.push(": ");
         parts.push(path.call(print, "typeAnnotation"));
@@ -4008,6 +4008,22 @@ function shouldHugArguments(fun) {
       fun.params[0].type === "FunctionTypeParam" &&
         fun.params[0].typeAnnotation.type === "ObjectTypeAnnotation") &&
     !fun.rest
+  );
+}
+
+function templateLiteralHasNewLines(template) {
+  return template.quasis.some(quasi => quasi.value.raw.includes('\n'));
+}
+
+function isTemplateOnItsOwnLine(n, text) {
+  return (
+    (n.type === "TemplateLiteral" && templateLiteralHasNewLines(n) ||
+    n.type === "TaggedTemplateExpression" && templateLiteralHasNewLines(n.quasi)) &&
+    !util.hasNewline(
+      text,
+      util.locStart(n),
+      {backwards: true}
+    )
   );
 }
 

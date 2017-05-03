@@ -140,6 +140,117 @@ module.exports = Relay.createContainer(
 
 `;
 
+exports[`inline.js 1`] = `
+this._pipe.write(\`\\n\\n Pattern matches \${total} \${pluralizeTest}\`);
+this._pipe.write(
+  \`\\n\\n Pattern matches \${total} \${pluralizeTest}\`
+);
+this._pipe
+  .write(
+    \`\\n\\n Pattern matches \${total} \${pluralizeTest}\`
+  );
+
+this._pipe.write(\`\\n\\n Pattern matches \${total} \${pluralizeTest} but that's long\`);
+
+this._pipe.write(
+  \`\\n\\n Pattern matches \${total} \${pluralizeTest} but that's long\`
+);
+
+this._pipe.write(\`
+  \\n\\n Pattern matches \${total} \${pluralizeTest} but that's long
+\`);
+
+
+() => \`
+  a
+\`;
+
+() =>
+  \`
+    a
+  \`;
+
+(): {
+  someLong: boolean,
+  t: boolean
+} => \`
+  a
+\`;
+
+(): {
+  someLong: boolean,
+  t: boolean
+} =>
+  \`
+    a
+  \`;
+
+(
+  someLong: boolean,
+  t: boolean
+) => \`
+    a
+  \`;
+
+(
+  someLong: boolean,
+  t: boolean
+) =>
+  \`
+    a
+  \`;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+this._pipe.write(\`\\n\\n Pattern matches \${total} \${pluralizeTest}\`);
+this._pipe.write(\`\\n\\n Pattern matches \${total} \${pluralizeTest}\`);
+this._pipe.write(\`\\n\\n Pattern matches \${total} \${pluralizeTest}\`);
+
+this._pipe.write(
+  \`\\n\\n Pattern matches \${total} \${pluralizeTest} but that's long\`
+);
+
+this._pipe.write(
+  \`\\n\\n Pattern matches \${total} \${pluralizeTest} but that's long\`
+);
+
+this._pipe.write(\`
+  \\n\\n Pattern matches \${total} \${pluralizeTest} but that's long
+\`);
+
+() => \`
+  a
+\`;
+
+() =>
+  \`
+    a
+  \`;
+
+(): {
+  someLong: boolean,
+  t: boolean
+} => \`
+  a
+\`;
+
+(): {
+  someLong: boolean,
+  t: boolean
+} =>
+  \`
+    a
+  \`;
+
+(someLong: boolean, t: boolean) => \`
+    a
+  \`;
+
+(someLong: boolean, t: boolean) =>
+  \`
+    a
+  \`;
+
+`;
+
 exports[`parenthesis.js 1`] = `
 // "ArrowFunctionExpression"
 (() => {})\`\`;
