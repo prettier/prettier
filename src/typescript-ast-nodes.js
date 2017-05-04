@@ -169,4 +169,7 @@ module.exports = function(fork) {
     .build("expression")
     .field("expression", def("Identifier"))
     .bases("Node");
+
+  def("TSParameterProperty")
+    .build("accessibility", "isReadonly", "parameters")
 };
