@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parameterProperty.ts 1`] = `
+class c3 {
+  constructor(public arg: number = 10) {
+    // fails because of comment
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class c3 {
+  constructor(public arg: number = 10) {
+    // fails because of comment
+  }
+}
+
+`;
