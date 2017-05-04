@@ -2310,6 +2310,8 @@ function genericPrintNoParens(path, options, print, args) {
       return "declare"
     case "TSModuleBlock":
       return concat(path.map(print, "body"))
+    case "TSConstKeyword":
+      return "const";
     // TODO
     case "ClassHeritage":
     // TODO
