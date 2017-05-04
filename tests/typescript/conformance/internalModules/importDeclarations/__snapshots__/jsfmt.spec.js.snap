@@ -24,6 +24,7 @@ var c = new B.a.C();
 
 module B {
   export import a = A;
+
   export class D extends a.C {
     id: number;
   }
@@ -33,7 +34,8 @@ module A {
 
   export class C {
     name: string;
-  }export import b = B;
+  }
+  export import b = B;
 }
 
 var c: { name: string };
@@ -114,9 +116,11 @@ var p: M.D.Point;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 module A {
   export var x = "hello world";
+
   export class Point {
     constructor(public x: number, public y: number) {}
-  }export module B {
+  }
+  export module B {
     export interface Id {
       name: string
     }
@@ -136,7 +140,8 @@ module X {
 
   export function Y() {
     return 42;
-  }export module Y {
+  }
+  export module Y {
 
     export class Point {
       constructor(public x: number, public y: number) {}
@@ -157,8 +162,10 @@ module K {
 
   export class L {
     constructor(public name: string) {}
-  }export module L {
-    export var y = 12;export interface Point {
+  }
+  export module L {
+    export var y = 12;
+    export interface Point {
       x: number,
       y: number
     }
@@ -244,7 +251,8 @@ module clodule {
   export interface Point {
     x: number,
     y: number
-  }var Point: Point = { x: 0, y: 0 };
+  }
+  var Point: Point = { x: 0, y: 0 };
 }
 
 import clolias = clodule;
@@ -260,7 +268,8 @@ module fundule {
   export interface Point {
     x: number,
     y: number
-  }var Point: Point = { x: 0, y: 0 };
+  }
+  var Point: Point = { x: 0, y: 0 };
 }
 
 import funlias = fundule;
@@ -353,14 +362,16 @@ module Z {
 // all errors imported modules conflict with local variables
 
 module A {
-  export var Point = { x: 0, y: 0 };export interface Point {
+  export var Point = { x: 0, y: 0 };
+  export interface Point {
     x: number,
     y: number
   }
 }
 
 module B {
-  var A = { x: 0, y: 0 };import Point = A;
+  var A = { x: 0, y: 0 };
+  import Point = A;
 }
 
 module X {
@@ -370,13 +381,15 @@ module X {
       y: number
     }
   }
+
   export class Y {
     name: string;
   }
 }
 
 module Z {
-  import Y = X.Y;var Y = 12;
+  import Y = X.Y;
+  var Y = 12;
 }
 
 `;

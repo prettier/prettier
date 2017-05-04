@@ -4,3 +4,5 @@ interface I {
     <T, U>(arg: T);
     <T, U>(arg: T): U;
 }
+
+Promise.all<void>([]);

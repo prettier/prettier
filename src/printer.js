@@ -343,10 +343,6 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push("async ");
       }
 
-      if (n.typeParameters) {
-        parts.push(path.call(print, "typeParameters"));
-      }
-
       if (canPrintParamsWithoutParens(n)) {
         parts.push(path.call(print, "params", 0));
       } else {
@@ -737,7 +733,6 @@ function genericPrintNoParens(path, options, print, args) {
 
       return concat([
         path.call(print, "callee"),
-        path.call(print, "typeParameters"),
         printArgumentsList(path, options, print)
       ]);
     }
@@ -1078,10 +1073,6 @@ function genericPrintNoParens(path, options, print, args) {
       );
     case "NewExpression":
       parts.push("new ", path.call(print, "callee"));
-
-      if (n.typeParameters) {
-        parts.push(path.call(print, "typeParameters"));
-      }
 
       var args = n.arguments;
 
@@ -1796,16 +1787,6 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push("(");
       }
 
-      // With TypeScript `typeParameters` is an array of `TSTypeParameter` and
-      // with flow they are one `TypeParameterDeclaration` node.
-      if (n.type === 'TSFunctionType' && n.typeParameters) {
-        parts.push(
-          printTypeParameters(path, options, print, "typeParameters")
-        );
-      } else {
-        parts.push(path.call(print, "typeParameters"));
-      }
-
       parts.push(printFunctionParams(path, print, options));
 
       // The returnType is not wrapped in a TypeAnnotation, so the colon
@@ -2272,7 +2253,11 @@ function genericPrintNoParens(path, options, print, args) {
 
       return concat(parts);
     case "TSEnumMember":
-      return path.call(print, "name")
+      parts.push(path.call(print, "name"));
+      if (n.initializer) {
+        parts.push(" = ", path.call(print, "initializer"));
+      }
+      return concat(parts);
     case "TSImportEqualsDeclaration":
       parts.push(
         softline,
@@ -2309,7 +2294,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "TSDeclareKeyword":
       return "declare"
     case "TSModuleBlock":
-      return concat(path.map(print, "body"))
+      return join(hardline, path.map(print, "body"));
     case "TSConstKeyword":
       return "const";
     case "TSAbstractKeyword":
@@ -2472,7 +2457,6 @@ function printMethod(path, options, print) {
 
   parts.push(
     key,
-    path.call(print, "value", "typeParameters"),
     group(
       concat([
         path.call(function(valuePath) {
@@ -2537,9 +2521,11 @@ function shouldGroupFirstArg(args) {
 
 function printArgumentsList(path, options, print) {
   var printed = path.map(print, "arguments");
-
+  var n = path.getValue();
+  var typeParams = n.typeParameters ? path.call(print, "typeParameters") : "";
   if (printed.length === 0) {
     return concat([
+      typeParams,
       "(",
       comments.printDanglingComments(path, options, /* sameIndent */ true),
       ")"
@@ -2578,9 +2564,10 @@ function printArgumentsList(path, options, print) {
       printed.some(willBreak) ? breakParent : "",
       conditionalGroup(
         [
-          concat(["(", join(concat([", "]), printedExpanded), ")"]),
+          concat([typeParams, "(", join(concat([", "]), printedExpanded), ")"]),
           shouldGroupFirst
             ? concat([
+                typeParams,
                 "(",
                 group(printedExpanded[0], { shouldBreak: true }),
                 printed.length > 1 ? ", " : "",
@@ -2588,6 +2575,7 @@ function printArgumentsList(path, options, print) {
                 ")"
               ])
             : concat([
+                typeParams,
                 "(",
                 join(concat([",", line]), printed.slice(0, -1)),
                 printed.length > 1 ? ", " : "",
@@ -2598,6 +2586,7 @@ function printArgumentsList(path, options, print) {
               ]),
           group(
             concat([
+              typeParams,
               "(",
               indent(concat([line, join(concat([",", line]), printed)])),
               shouldPrintComma(options, "all") ? "," : "",
@@ -2614,6 +2603,7 @@ function printArgumentsList(path, options, print) {
 
   return group(
     concat([
+      typeParams,
       "(",
       indent(concat([softline, join(concat([",", line]), printed)])),
       ifBreak(shouldPrintComma(options, "all") ? "," : ""),
@@ -2629,6 +2619,15 @@ function printFunctionParams(path, print, options, expandArg) {
   // namedTypes.Function.assert(fun);
   var paramsField = fun.type === "TSFunctionType" ? "parameters" : "params";
   var printed = path.map(print, paramsField);
+
+  var typeParams;
+  // With TypeScript `typeParameters` is an array of `TSTypeParameter` and
+  // with flow they are one `TypeParameterDeclaration` node.
+  if (fun.type === "TSFunctionType") {
+    typeParams = printTypeParameters(path, options, print, "typeParameters")
+  } else {
+    typeParams = path.call(print, "typeParameters");
+  }
 
   if (fun.defaults) {
     path.each(function(defExprPath) {
@@ -2647,6 +2646,7 @@ function printFunctionParams(path, print, options, expandArg) {
 
   if (printed.length === 0) {
     return concat([
+      typeParams,
       "(",
       comments.printDanglingComments(path, options, /* sameIndent */ true),
       ")"
@@ -2666,7 +2666,7 @@ function printFunctionParams(path, print, options, expandArg) {
   //   })                    ) => {
   //                         })
   if (expandArg) {
-    return group(concat(["(", join(", ", printed.map(removeLines)), ")"]));
+    return group(concat([typeParams, "(", join(", ", printed.map(removeLines)), ")"]));
   }
 
   // Single object destructuring should hug
@@ -2677,7 +2677,7 @@ function printFunctionParams(path, print, options, expandArg) {
   //   c
   // }) {}
   if (shouldHugArguments(fun)) {
-    return concat(["(", join(", ", printed), ")"]);
+    return concat([typeParams, "(", join(", ", printed), ")"]);
   }
 
   const parent = path.getParentNode();
@@ -2720,6 +2720,7 @@ function printFunctionParams(path, print, options, expandArg) {
     !fun.rest;
 
   return concat([
+    typeParams,
     "(",
     indent(concat([softline, join(concat([",", line]), printed)])),
     ifBreak(
@@ -2761,7 +2762,6 @@ function printFunctionDeclaration(path, print, options) {
   }
 
   parts.push(
-    path.call(print, "typeParameters"),
     group(
       concat([
         printFunctionParams(path, print, options),
@@ -2797,10 +2797,6 @@ function printObjectMethod(path, options, print) {
     parts.push("[", key, "]");
   } else {
     parts.push(key);
-  }
-
-  if (objMethod.typeParameters) {
-    parts.push(path.call(print, "typeParameters"));
   }
 
   parts.push(
