@@ -78,12 +78,26 @@ function genericPrint(path, options, printPath, args) {
     // responsible for printing node.decorators.
     !util.getParentExportDeclaration(path)
   ) {
-    const separator = node.decorators.length === 1 &&
-      (node.decorators[0].expression.type === "Identifier" ||
-        node.decorators[0].expression.type === "MemberExpression")
-      ? " "
-      : hardline;
+    let shouldBeInlined = false;
+    if (node.decorators.length === 1) {
+      let decorator = node.decorators[0];
+      if (node.decorators[0].expression) {
+        decorator = node.decorators[0].expression;
+      }
+      if (
+        decorator.type === "Identifier" ||
+        decorator.type === "MemberExpression"
+      ) {
+        shouldBeInlined = true;
+      }
+    }
+
+    const separator = shouldBeInlined ? " " : hardline;
     path.each(function(decoratorPath) {
+      const value = decoratorPath.getValue();
+      if (value.type !== "Decorator" && value.type !== "TSDecorator") {
+        parts.push("@");
+      }
       parts.push(printPath(decoratorPath), separator);
     }, "decorators");
   } else if (
@@ -775,7 +789,7 @@ function genericPrintNoParens(path, options, print, args) {
           path.call(print, "name"),
           printTypeParameters(path, options, print, "typeParameters"),
           " "
-        ); 
+        );
       }
       if (n.heritageClauses) {
         prefix.push(
@@ -2149,7 +2163,7 @@ function genericPrintNoParens(path, options, print, args) {
       if (n.type !== "TSCallSignature") {
         parts.push("new ");
       }
-      var isType = n.type === "TSConstructorType";      
+      var isType = n.type === "TSConstructorType";
       parts.push(
         printTypeParameters(path, options, print, "typeParameters"),
         "(",
