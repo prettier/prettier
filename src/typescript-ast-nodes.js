@@ -169,4 +169,8 @@ module.exports = function(fork) {
     .build("expression")
     .field("expression", def("Identifier"))
     .bases("Node");
+  
+  def("TSTypeParameter")
+    .build("name")
+    .field("name", def("Identifier"))
 };
