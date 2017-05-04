@@ -2312,6 +2312,8 @@ function genericPrintNoParens(path, options, print, args) {
       return concat(path.map(print, "body"))
     case "TSConstKeyword":
       return "const";
+    case "TSAbstractKeyword":
+      return "abstract";
     // TODO
     case "ClassHeritage":
     // TODO
