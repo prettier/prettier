@@ -284,10 +284,12 @@ function printDocToString(doc, options) {
                     out.pop();
                   }
 
-                  out[out.length - 1] = out[out.length - 1].replace(
-                    /[^\S\n]*$/,
-                    ""
-                  );
+                  if (out.length) {
+                    out[out.length - 1] = out[out.length - 1].replace(
+                      /[^\S\n]*$/,
+                      ""
+                    );                    
+                  }
                 }
 
                 let length = ind.indent * options.tabWidth + ind.align.spaces;
