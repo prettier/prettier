@@ -775,7 +775,7 @@ function genericPrintNoParens(path, options, print, args) {
           path.call(print, "name"),
           printTypeParameters(path, options, print, "typeParameters"),
           " "
-        ); 
+        );
       }
       if (n.heritageClauses) {
         prefix.push(
@@ -2149,7 +2149,7 @@ function genericPrintNoParens(path, options, print, args) {
       if (n.type !== "TSCallSignature") {
         parts.push("new ");
       }
-      var isType = n.type === "TSConstructorType";      
+      var isType = n.type === "TSConstructorType";
       parts.push(
         printTypeParameters(path, options, print, "typeParameters"),
         "(",
@@ -3063,6 +3063,7 @@ function printMemberLookup(path, options, print) {
   }
 
   if (
+    !n.property ||
     (n.property.type === "Literal" && typeof n.property.value === "number") ||
       n.property.type === "NumericLiteral"
   ) {
