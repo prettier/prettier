@@ -395,10 +395,12 @@ FPp.needsParens = function() {
         case "LogicalExpression":
         case "SpreadElement":
         case "SpreadProperty":
-        case "NewExpression":
-        case "MemberExpression":
           return true;
 
+        case "MemberExpression":
+          return parent.object === node;
+
+        case "NewExpression":
         case "CallExpression":
           return parent.callee === node;
 
