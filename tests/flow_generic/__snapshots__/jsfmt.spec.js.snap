@@ -137,3 +137,29 @@ type State = {
 };
 
 `;
+
+exports[`union.js 1`] = `
+type Foo = Promise<
+  { ok: true, bar: string, baz: SomeOtherLongType } | 
+  { ok: false, bar: SomeOtherLongType }
+>;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type Foo = Promise<
+  | { ok: true, bar: string, baz: SomeOtherLongType }
+  | { ok: false, bar: SomeOtherLongType }
+>;
+
+`;
+
+exports[`union.js 2`] = `
+type Foo = Promise<
+  { ok: true, bar: string, baz: SomeOtherLongType } | 
+  { ok: false, bar: SomeOtherLongType }
+>;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type Foo = Promise<
+  | { ok: true, bar: string, baz: SomeOtherLongType }
+  | { ok: false, bar: SomeOtherLongType },
+>;
+
+`;
