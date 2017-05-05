@@ -748,9 +748,9 @@ function genericPrintNoParens(path, options, print, args) {
     case "TSInterfaceDeclaration":
     case "TSTypeLiteral": {
       var isTypeAnnotation = n.type === "ObjectTypeAnnotation";
-      var isTypeScriptTypeAnnotaion = n.type === "TSTypeLiteral";
+      var isTypeScriptTypeAnnotation = n.type === "TSTypeLiteral";
       var isTypeScriptInterfaceDeclaration = n.type === "TSInterfaceDeclaration";
-      var isTypeScriptType = isTypeScriptTypeAnnotaion || isTypeScriptInterfaceDeclaration;
+      var isTypeScriptType = isTypeScriptTypeAnnotation || isTypeScriptInterfaceDeclaration;
       // Leave this here because we *might* want to make this
       // configurable later -- flow accepts ";" for type separators,
       // typescript accepts ";" and newlines
@@ -1903,8 +1903,11 @@ function genericPrintNoParens(path, options, print, args) {
 
       const parent = path.getParentNode();
       // If there's a leading comment, the parent is doing the indentation
-      const shouldIndent = !(parent.type === "TypeAlias" &&
-        hasLeadingOwnLineComment(options.originalText, n));
+      const shouldIndent = (
+        parent.type !== "TypeParameterInstantiation" &&
+        !(parent.type === "TypeAlias" &&
+          hasLeadingOwnLineComment(options.originalText, n))
+      );
 
       //const token = isIntersection ? "&" : "|";
       const code = concat([
