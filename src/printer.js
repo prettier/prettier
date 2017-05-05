@@ -2294,7 +2294,9 @@ function genericPrintNoParens(path, options, print, args) {
     case "TSDeclareKeyword":
       return "declare"
     case "TSModuleBlock":
-      return join(hardline, path.map(print, "body"));
+      return path.call(function(bodyPath) {
+        return printStatementSequence(bodyPath, options, print);
+      }, "body");
     case "TSConstKeyword":
       return "const";
     case "TSAbstractKeyword":

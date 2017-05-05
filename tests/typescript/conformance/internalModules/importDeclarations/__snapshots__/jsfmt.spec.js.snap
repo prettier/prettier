@@ -141,6 +141,7 @@ module X {
   export function Y() {
     return 42;
   }
+
   export module Y {
 
     export class Point {
@@ -163,6 +164,7 @@ module K {
   export class L {
     constructor(public name: string) {}
   }
+
   export module L {
     export var y = 12;
     export interface Point {
@@ -239,6 +241,7 @@ module moduleA {
 }
 
 import alias = moduleA;
+
 var p: alias.Point;
 var p: moduleA.Point;
 var p: { x: number, y: number };
@@ -256,6 +259,7 @@ module clodule {
 }
 
 import clolias = clodule;
+
 var p: clolias.Point;
 var p: clodule.Point;
 var p: { x: number, y: number };
@@ -273,6 +277,7 @@ module fundule {
 }
 
 import funlias = fundule;
+
 var p: funlias.Point;
 var p: fundule.Point;
 var p: { x: number, y: number };
@@ -309,14 +314,17 @@ import i = I;
 var V = 12;
 
 import v = V;
+
 class C {
   name: string;
 }
 
 import c = C;
+
 enum E { Red, Blue }
 
 import e = E;
+
 interface I {
   id: number
 }
@@ -382,6 +390,7 @@ module X {
     }
   }
 
+
   export class Y {
     name: string;
   }
@@ -389,6 +398,7 @@ module X {
 
 module Z {
   import Y = X.Y;
+
   var Y = 12;
 }
 

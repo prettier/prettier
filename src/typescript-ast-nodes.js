@@ -138,12 +138,11 @@ module.exports = function(fork) {
 
   def("TSImportEqualsDeclaration")
     .build("name", "moduleReference")
-    .field("name", def("Identifier"))
-    .field("moduleReference", def("TSExternalModuleReference"));
-
-  def("TSImportEqualsDeclaration")
     .build("expression")
-    .field("expression", def("Literal"));
+    .field("name", def("Identifier"))
+    .field("moduleReference", def("TSExternalModuleReference"))
+    .field("expression", def("Literal"))
+    .bases("Declaration");
 
   def("TSInterfaceDeclaration")
     .build("name", "members")
@@ -152,12 +151,12 @@ module.exports = function(fork) {
 
   def("TSModuleDeclaration")
     .build("modifiers", "name", "body")
-    .bases("Node")
+    .bases("Declaration")
     .field("name", or(def("Identifier"), def("Literal")));
 
   def("TSDeclareKeyword").build();
 
-  def("TSModuleBlock").build("body");
+  def("TSModuleBlock").build("body").bases("Node");
 
   def("TSAbstractMethodDefinition").build().bases("Node");
 
@@ -169,7 +168,7 @@ module.exports = function(fork) {
     .build("expression")
     .field("expression", def("Identifier"))
     .bases("Node");
-  
+
   def("TSTypeParameter")
     .build("name")
     .field("name", def("Identifier"))
