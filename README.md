@@ -285,7 +285,7 @@ For Vim users, there are two main approaches: one that leans on [sbdchd](https:/
 Vim users can add the following to their `.vimrc`:
 
 ```vim
-autocmd FileType javascript set formatprg=prettier\ --stdin
+autocmd FileType javascript setlocal formatprg=prettier\ --stdin
 ```
 
 If you use the [vim-jsx](https://github.com/mxw/vim-jsx) plugin without
@@ -346,7 +346,7 @@ See `:help autocmd-events` in Vim for details.
 If your project requires settings other than the default Prettier settings, you can pass arguments to do so in your `.vimrc` or [vim project](http://vim.wikia.com/wiki/Project_specific_settings), you can do so:
 
 ```vim
-autocmd FileType javascript set formatprg=prettier\ --stdin\ --parser\ flow\ --single-quote\ --trailing-comma\ es5
+autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --parser\ flow\ --single-quote\ --trailing-comma\ es5
 ```
 
 Each command needs to be escaped with `\`. If you are using Neoformat and you want it to recognize your formatprg settings you can also do that by adding the following to your `.vimrc`:
