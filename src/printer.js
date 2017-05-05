@@ -196,6 +196,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "BinaryExpression":
     case "LogicalExpression": {
       const parent = path.getParentNode();
+      const parentParent = path.getParentNode(1);
       const isInsideParenthesis =
         n !== parent.body &&
         (parent.type === "IfStatement" ||
@@ -230,6 +231,8 @@ function genericPrintNoParens(path, options, print, args) {
         parent.type === "VariableDeclarator" ||
         shouldInlineLogicalExpression(n) ||
         parent.type === "ReturnStatement" ||
+        (parent.type === "JSXExpressionContainer" &&
+          parentParent.type === "JSXAttribute") ||
         (n === parent.body && parent.type === "ArrowFunctionExpression") ||
         (n !== parent.body && parent.type === "ForStatement")
       ) {
