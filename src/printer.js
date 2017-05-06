@@ -1018,11 +1018,11 @@ function genericPrintNoParens(path, options, print, args) {
     // Babel 6 Literal split
     case "StringLiteral":
     case "Literal":
-      if (typeof n.value === "number") {
-        return printNumber(n.raw);
-      }
       if (n.regex) {
         return printRegex(n.regex);
+      }
+      if (typeof n.value === "number") {
+        return printNumber(n.raw);
       }
       if (typeof n.value !== "string") {
         return "" + n.value;
