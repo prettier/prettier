@@ -118,12 +118,12 @@ exports[`expression.js 1`] = `
   key={option}
   imageSource={
     this.props.veryBigItemImageSourceFunc &&
-      this.props.veryBigItemImageSourceFunc(option)
+    this.props.veryBigItemImageSourceFunc(option)
   }
   imageSize={this.props.veryBigItemImageSize}
   imageView={
     this.props.veryBigItemImageViewFunc &&
-      this.props.veryBigItemImageViewFunc(option)
+    this.props.veryBigItemImageViewFunc(option)
   }
   heading={this.props.displayTextFunc(option)}
   value={option}
