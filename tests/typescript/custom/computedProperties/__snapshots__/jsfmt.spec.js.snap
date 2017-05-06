@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`symbol.ts 1`] = `
+interface I {
+    [Symbol.toStringTag]: "I";
+}
+
+type T = {
+    [Symbol.toStringTag]: "T";
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+interface I {
+  [Symbol.toStringTag]: "I"
+}
+
+type T = {
+  [Symbol.toStringTag]: "T"
+};
+
+`;
