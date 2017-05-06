@@ -3493,6 +3493,9 @@ function printJSXChildren(path, options, print, innerJsxWhitespace) {
         // eg; one or more spaces separating two elements
         for (let i = 0; i < value.length; ++i) {
           children.push(innerJsxWhitespace);
+          // Because fill expects alternating content and whitespace parts
+          // we need to include an empty content part between each JSX
+          // whitespace.
           if (i + 1 < value.length) {
             children.push('');
           }
