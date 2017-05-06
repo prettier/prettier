@@ -2290,15 +2290,30 @@ function genericPrintNoParens(path, options, print, args) {
         ")"
       ])
     case "TSModuleDeclaration":
-      parts.push(
-        printTypeScriptModifiers(path, options, print),
-        "module ",
-        path.call(print, "name"),
-        " {",
-        indent(concat([line, group(path.call(print, "body"))])),
-        line,
-        "}"
-      );
+      var isExternalModule = namedTypes.Literal.check(n.name);
+      var parentIsDeclaration = path.getParentNode().type === "TSModuleDeclaration";
+      var bodyIsDeclaration = n.body.type === "TSModuleDeclaration";
+      if (parentIsDeclaration) {
+        parts.push(".");
+      } else {
+        parts.push(
+          printTypeScriptModifiers(path, options, print),
+          isExternalModule? "module " : "namespace "
+        );
+      }
+
+      parts.push(path.call(print, "name"));
+
+      if (bodyIsDeclaration) {
+        parts.push(path.call(print, "body"));
+      } else {
+        parts.push(
+          " {",
+          indent(concat([line, group(path.call(print, "body"))])),
+          line,
+          "}"
+        )
+      };
 
       return concat(parts);
     case "TSDeclareKeyword":
