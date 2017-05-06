@@ -159,23 +159,6 @@ In the future we will have better support for formatting whole projects.
 
 You can use this with a pre-commit tool. This can re-format your files that are marked as "staged" via `git add`  before you commit.  
 
-##### [pre-commit](https://github.com/pre-commit/pre-commit)
-
-Just copy the following config in your pre-commit config yaml file
-
-```yaml
-
-    -   repo: https://github.com/awebdeveloper/pre-commit-prettier
-        sha: ''  # Use the sha or tag you want to point at
-        hooks:
-        -   id: prettier
-            additional_dependencies: ['prettier@1.1.0']
-        
- ```
- 
-Find more info from [here](https://github.com/awebdeveloper/pre-commit-prettier)
-
-
 ##### [lint-staged](https://github.com/okonet/lint-staged) 
 
 Install it along with [husky](https://github.com/typicode/husky):
@@ -201,6 +184,25 @@ and add this config to your `package.json`:
 ```
 
 See https://github.com/okonet/lint-staged#configuration for more details about how you can configure lint-staged.
+
+
+##### [pre-commit](https://github.com/pre-commit/pre-commit)
+
+Just copy the following config in your pre-commit config yaml file
+
+```yaml
+
+    -   repo: https://github.com/awebdeveloper/pre-commit-prettier
+        sha: ''  # Use the sha or tag you want to point at
+        hooks:
+        -   id: prettier
+            additional_dependencies: ['prettier@1.1.0']
+        
+ ```
+ 
+Find more info from [here](https://github.com/awebdeveloper/pre-commit-prettier)
+
+##### bash script
 
 Alternately you can just save this script as `.git/hooks/pre-commit` and give it execute permission:
 
