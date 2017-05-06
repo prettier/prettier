@@ -7,17 +7,6 @@ var results = number[];
 
 `;
 
-exports[`commentsInterface.ts 1`] = `
-interface i2 {
-    foo: (/**param help*/b: number) => string;
-}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-interface i2 {
-  foo: (/**param help*/ b: number) => string
-}
-
-`;
-
 exports[`checkInfiniteExpansionTermination.ts 1`] = `
 // Regression test for #1002
 // Before fix this code would cause infinite loop
@@ -55,6 +44,17 @@ values = values2;
 
 `;
 
+exports[`commentsInterface.ts 1`] = `
+interface i2 {
+    foo: (/**param help*/b: number) => string;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+interface i2 {
+  foo: (/**param help*/ b: number) => string
+}
+
+`;
+
 exports[`functionOverloadsOnGenericArity1.ts 1`] = `
 // overloading on arity not allowed
 interface C {
@@ -78,6 +78,26 @@ interface C {
 
   new <T>(): string,
   new <T, U>(): string
+}
+
+`;
+
+exports[`indexSignatureWithInitializer.ts 1`] = `
+// These used to be indexers, now they are computed properties
+interface I {
+    [x = '']: string;
+}
+
+class C {
+    [x = 0]: string
+}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// These used to be indexers, now they are computed properties
+interface I {
+  [x = ""]: string
+}
+
+class C {
+  [x = 0]: string;
 }
 
 `;

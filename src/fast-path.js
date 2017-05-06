@@ -446,6 +446,14 @@ FPp.needsParens = function() {
       if (parent.type === "ArrowFunctionExpression" && parent.body === node) {
         return true;
       } else if (
+        parent.type === "ClassProperty" &&
+        parent.key === node &&
+        parent.computed
+      ) {
+        return false;
+      } else if (parent.type === "TSPropertySignature" && parent.name === node) {
+        return false;
+      } else if (
         parent.type === "ForStatement" &&
         (parent.init === node || parent.update === node)
       ) {
