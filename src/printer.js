@@ -1590,7 +1590,10 @@ function genericPrintNoParens(path, options, print, args) {
     case "TSHeritageClause":
       return join(", ", path.map(print, "types"));
     case "TSExpressionWithTypeArguments":
-      return path.call(print, "expression");
+      return concat([
+        path.call(print, "expression"),
+        printTypeParameters(path, options, print, "typeArguments")
+      ]);
     case "TemplateElement":
       return join(literalline, n.value.raw.split(/\r?\n/g));
     case "TemplateLiteral":
