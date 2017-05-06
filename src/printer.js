@@ -2065,6 +2065,8 @@ function genericPrintNoParens(path, options, print, args) {
       return "private";
     case "TSPublicKeyword":
       return "public";
+    case "TSReadonlyKeyword":
+      return "readonly";
     case "TSStaticKeyword":
       return "static";
     case "TSStringKeyword":
@@ -2080,7 +2082,10 @@ function genericPrintNoParens(path, options, print, args) {
     case "TSArrayType":
       return concat([path.call(print, "elementType"), "[]"]);
     case "TSPropertySignature":
-      parts.push(path.call(print, "name"));
+      parts.push(
+        printTypeScriptModifiers(path, options, print),
+        path.call(print, "name")
+      );
 
       if (n.typeAnnotation) {
         parts.push(": ");
@@ -2165,16 +2170,28 @@ function genericPrintNoParens(path, options, print, args) {
         path.call(print, "typeAnnotation")
       ])
     case "TSMappedType":
-      return concat([
-        "{",
-        options.bracketSpacing ? line : softline,
-        "[",
-        path.call(print, "typeParameter"),
-        "]: ",
-        path.call(print, "typeAnnotation"),
-        options.bracketSpacing ? line : softline,
-        "}"
-      ])
+      return group(
+        concat([
+          "{",
+          indent(
+            concat([
+              options.bracketSpacing ? line : softline,
+              printTypeScriptModifiers(path, options, print),
+              "[",
+              path.call(print, "typeParameter"),
+              "]: ",
+              path.call(print, "typeAnnotation")
+            ])
+          ),
+          comments.printDanglingComments(
+            path,
+            options,
+            /* sameIndent */ true
+          ),
+          options.bracketSpacing ? line : softline,
+          "}"
+        ])
+      );
     case "TSTypeParameter":
       parts.push(path.call(print, "name"));
 

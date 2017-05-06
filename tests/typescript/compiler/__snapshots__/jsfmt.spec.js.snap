@@ -34,6 +34,47 @@ interface C {
 
 `;
 
+exports[`mappedTypeWithCombinedTypeMappers.ts 1`] = `
+// Repro from #13351
+
+type Meta<T, A> = {
+    [P in keyof T]: {
+        value: T[P];
+        also: A;
+        readonly children: Meta<T[P], A>;
+    };
+}
+
+interface Input {
+    x: string;
+    y: number;
+}
+
+declare const output: Meta<Input, boolean>;
+
+const shouldFail: { important: boolean } = output.x.children;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Repro from #13351
+
+type Meta<T, A> = {
+  [P in keyof T]: {
+    value: T[P],
+    also: A,
+    readonly children: Meta<T[P], A>
+  }
+};
+
+interface Input {
+  x: string,
+  y: number
+}
+
+declare const output: Meta<Input, boolean>;
+
+const shouldFail: { important: boolean } = output.x.children;
+
+`;
+
 exports[`modifiersOnInterfaceIndexSignature1.ts 1`] = `
 interface I {
   public [a: string]: number;
