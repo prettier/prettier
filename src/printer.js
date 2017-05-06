@@ -2093,7 +2093,8 @@ function genericPrintNoParens(path, options, print, args) {
     case "TSArrayType":
       return concat([path.call(print, "elementType"), "[]"]);
     case "TSPropertySignature":
-      var computed = !namedTypes.Identifier.check(n.name);
+      var computed = !namedTypes.Identifier.check(n.name) &&
+        !namedTypes.Literal.check(n.name);
 
       parts.push(printTypeScriptModifiers(path, options, print));
 
