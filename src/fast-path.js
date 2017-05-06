@@ -313,6 +313,7 @@ FPp.needsParens = function() {
         return true;
       }
     // else fall through
+    case "TSAsExpression":
     case "LogicalExpression":
       switch (parent.type) {
         case "CallExpression":
