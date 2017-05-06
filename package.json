@@ -18,12 +18,12 @@
     "flow-parser": "0.45.0",
     "get-stdin": "5.0.1",
     "glob": "7.1.1",
-    "jest-validate": "19.0.0",
+    "jest-validate": "20.0.0",
     "minimist": "1.2.0"
   },
   "devDependencies": {
     "diff": "3.2.0",
-    "jest": "19.0.1",
+    "jest": "20.0.0",
     "mkdirp": "^0.5.1",
     "rimraf": "^2.6.1",
     "rollup": "0.41.1",
