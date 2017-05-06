@@ -735,6 +735,7 @@ function genericPrintNoParens(path, options, print, args) {
 
       return concat([
         path.call(print, "callee"),
+        printFunctionTypeParameters(path, options, print),
         printArgumentsList(path, options, print)
       ]);
     }
@@ -1074,11 +1075,13 @@ function genericPrintNoParens(path, options, print, args) {
         ])
       );
     case "NewExpression":
-      parts.push("new ", path.call(print, "callee"));
+      parts.push(
+        "new ",
+        path.call(print, "callee"),
+        printFunctionTypeParameters(path, options, print)
+      );
 
-      var args = n.arguments;
-
-      if (args) {
+      if (n.arguments) {
         parts.push(printArgumentsList(path, options, print));
       }
 
@@ -2528,10 +2531,8 @@ function shouldGroupFirstArg(args) {
 function printArgumentsList(path, options, print) {
   var printed = path.map(print, "arguments");
   var n = path.getValue();
-  var typeParams = n.typeParameters ? path.call(print, "typeParameters") : "";
   if (printed.length === 0) {
     return concat([
-      typeParams,
       "(",
       comments.printDanglingComments(path, options, /* sameIndent */ true),
       ")"
@@ -2570,10 +2571,9 @@ function printArgumentsList(path, options, print) {
       printed.some(willBreak) ? breakParent : "",
       conditionalGroup(
         [
-          concat([typeParams, "(", join(concat([", "]), printedExpanded), ")"]),
+          concat(["(", join(concat([", "]), printedExpanded), ")"]),
           shouldGroupFirst
             ? concat([
-                typeParams,
                 "(",
                 group(printedExpanded[0], { shouldBreak: true }),
                 printed.length > 1 ? ", " : "",
@@ -2581,7 +2581,6 @@ function printArgumentsList(path, options, print) {
                 ")"
               ])
             : concat([
-                typeParams,
                 "(",
                 join(concat([",", line]), printed.slice(0, -1)),
                 printed.length > 1 ? ", " : "",
@@ -2592,7 +2591,6 @@ function printArgumentsList(path, options, print) {
               ]),
           group(
             concat([
-              typeParams,
               "(",
               indent(concat([line, join(concat([",", line]), printed)])),
               shouldPrintComma(options, "all") ? "," : "",
@@ -2609,7 +2607,6 @@ function printArgumentsList(path, options, print) {
 
   return group(
     concat([
-      typeParams,
       "(",
       indent(concat([softline, join(concat([",", line]), printed)])),
       ifBreak(shouldPrintComma(options, "all") ? "," : ""),
@@ -3114,7 +3111,10 @@ function printMemberChain(path, options, print) {
         node: node,
         printed: comments.printComments(
           path,
-          () => printArgumentsList(path, options, print),
+          () => concat([
+              printFunctionTypeParameters(path, options, print),
+              printArgumentsList(path, options, print)
+          ]),
           options
         )
       });
@@ -3141,7 +3141,10 @@ function printMemberChain(path, options, print) {
   // if handled inside of the recursive call.
   printedNodes.unshift({
     node: path.getValue(),
-    printed: printArgumentsList(path, options, print)
+    printed: concat([
+        printFunctionTypeParameters(path, options, print),
+        printArgumentsList(path, options, print)
+    ])
   });
   path.call(callee => rec(callee), "callee");
 
