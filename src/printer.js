@@ -343,6 +343,8 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push("async ");
       }
 
+      parts.push(printFunctionTypeParameters(path, options, print));
+
       if (canPrintParamsWithoutParens(n)) {
         parts.push(path.call(print, "params", 0));
       } else {
@@ -1787,7 +1789,10 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push("(");
       }
 
-      parts.push(printFunctionParams(path, print, options));
+      parts.push(
+        printFunctionTypeParameters(path, options, print),
+        printFunctionParams(path, print, options)
+      );
 
       // The returnType is not wrapped in a TypeAnnotation, so the colon
       // needs to be added separately.
@@ -2459,14 +2464,13 @@ function printMethod(path, options, print) {
 
   parts.push(
     key,
-    group(
-      concat([
-        path.call(function(valuePath) {
-          return printFunctionParams(valuePath, print, options);
-        }, "value"),
-        path.call(p => printReturnType(p, print), "value")
-      ])
-    )
+    concat(path.call(valuePath => [
+      printFunctionTypeParameters(valuePath, options, print),
+      group(concat([
+        printFunctionParams(valuePath, print, options),
+        printReturnType(valuePath, print)
+      ]))
+    ], "value"))
   );
 
   if (!node.value.body || node.value.body.length === 0) {
@@ -2616,20 +2620,24 @@ function printArgumentsList(path, options, print) {
   );
 }
 
+function printFunctionTypeParameters(path, options, print) {
+  const fun = path.getValue();
+  // With TypeScript `typeParameters` is an array of `TSTypeParameter` and
+  // with flow they are one `TypeParameterDeclaration` node.
+  if (fun.type === "TSFunctionType") {
+    return printTypeParameters(path, options, print, "typeParameters")
+  } else if (fun.typeParameters) {
+    return path.call(print, "typeParameters");
+  } else {
+    return "";
+  }
+}
+
 function printFunctionParams(path, print, options, expandArg) {
   var fun = path.getValue();
   // namedTypes.Function.assert(fun);
   var paramsField = fun.type === "TSFunctionType" ? "parameters" : "params";
   var printed = path.map(print, paramsField);
-
-  var typeParams;
-  // With TypeScript `typeParameters` is an array of `TSTypeParameter` and
-  // with flow they are one `TypeParameterDeclaration` node.
-  if (fun.type === "TSFunctionType") {
-    typeParams = printTypeParameters(path, options, print, "typeParameters")
-  } else {
-    typeParams = path.call(print, "typeParameters");
-  }
 
   if (fun.defaults) {
     path.each(function(defExprPath) {
@@ -2648,7 +2656,6 @@ function printFunctionParams(path, print, options, expandArg) {
 
   if (printed.length === 0) {
     return concat([
-      typeParams,
       "(",
       comments.printDanglingComments(path, options, /* sameIndent */ true),
       ")"
@@ -2668,7 +2675,7 @@ function printFunctionParams(path, print, options, expandArg) {
   //   })                    ) => {
   //                         })
   if (expandArg) {
-    return group(concat([typeParams, "(", join(", ", printed.map(removeLines)), ")"]));
+    return group(concat(["(", join(", ", printed.map(removeLines)), ")"]));
   }
 
   // Single object destructuring should hug
@@ -2679,7 +2686,7 @@ function printFunctionParams(path, print, options, expandArg) {
   //   c
   // }) {}
   if (shouldHugArguments(fun)) {
-    return concat([typeParams, "(", join(", ", printed), ")"]);
+    return concat(["(", join(", ", printed), ")"]);
   }
 
   const parent = path.getParentNode();
@@ -2722,7 +2729,6 @@ function printFunctionParams(path, print, options, expandArg) {
     !fun.rest;
 
   return concat([
-    typeParams,
     "(",
     indent(concat([softline, join(concat([",", line]), printed)])),
     ifBreak(
@@ -2764,6 +2770,7 @@ function printFunctionDeclaration(path, print, options) {
   }
 
   parts.push(
+    printFunctionTypeParameters(path, options, print),
     group(
       concat([
         printFunctionParams(path, print, options),
@@ -2802,6 +2809,7 @@ function printObjectMethod(path, options, print) {
   }
 
   parts.push(
+    printFunctionTypeParameters(path, options, print),
     group(
       concat([
         printFunctionParams(path, print, options),
