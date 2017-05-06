@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`moduleNamespace.ts 1`] = `
+declare module "f" {}
+
+namespace f {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+declare module "f" {
+
+}
+
+namespace f {
+
+}
+
+`;
+
+exports[`nestedNamespace.ts 1`] = `
+namespace X {
+    export namespace Y {
+
+    }
+}
+
+namespace X.Y {
+
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+namespace X {
+  export namespace Y {  }
+}
+
+namespace X.Y {
+
+}
+
+`;
