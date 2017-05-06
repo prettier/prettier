@@ -139,7 +139,7 @@ x = (
   <div>
     before {stuff} after {stuff} after {stuff} after {stuff} after {stuff} after
     {" "}
-    {stuff} {stuff} {stuff} after {stuff} after
+    {stuff}  {stuff}  {stuff} after {stuff} after
   </div>
 );
 
