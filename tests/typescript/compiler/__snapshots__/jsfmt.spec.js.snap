@@ -7,6 +7,17 @@ var results = number[];
 
 `;
 
+exports[`commentsInterface.ts 1`] = `
+interface i2 {
+    foo: (/**param help*/b: number) => string;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+interface i2 {
+  foo: (/**param help*/ b: number) => string
+}
+
+`;
+
 exports[`functionOverloadsOnGenericArity1.ts 1`] = `
 // overloading on arity not allowed
 interface C {

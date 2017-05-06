@@ -62,7 +62,9 @@ module.exports = function(fork) {
   // Types
   def("TSConstructorType").bases("TSType");
 
-  def("TSFunctionType").bases("TSType");
+  def("TSFunctionType")
+    .bases("TSSignature")
+    .build("typeParameters", "parameters", "typeAnnotation");
 
   def("TSIntersectionType")
     .bases("TSType")
@@ -169,10 +171,7 @@ module.exports = function(fork) {
     .field("expression", def("Identifier"))
     .bases("Node");
 
-  def("TSTypeParameter")
-    .build("name")
-    .field("name", def("Identifier"))
+  def("TSTypeParameter").build("name").field("name", def("Identifier"));
 
-  def("TSParameterProperty")
-    .build("accessibility", "isReadonly", "parameters")
+  def("TSParameterProperty").build("accessibility", "isReadonly", "parameters");
 };
