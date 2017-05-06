@@ -1,5 +1,12 @@
 "use strict";
 
+function createError(message, line, column) {
+  // Construct an error similar to the ones thrown by Babylon.
+  const error = new SyntaxError(message + " (" + line + ":" + column + ")");
+  error.loc = { line, column };
+  return error;
+}
+
 function parseWithFlow(text) {
   // Inline the require to avoid loading all the JS if we don't use it
   const flowParser = require("flow-parser");
@@ -11,16 +18,11 @@ function parseWithFlow(text) {
   });
 
   if (ast.errors.length > 0) {
-    // Construct an error similar to the ones thrown by Babylon.
-    const loc = {
-      line: ast.errors[0].loc.start.line,
-      column: ast.errors[0].loc.start.column
-    };
-    const msg =
-      ast.errors[0].message + " (" + loc.line + ":" + loc.column + ")";
-    const error = new SyntaxError(msg);
-    error.loc = loc;
-    throw error;
+    throw createError(
+      ast.errors[0].message,
+      ast.errors[0].loc.start.line,
+      ast.errors[0].loc.start.column
+    );
   }
 
   return ast;
@@ -55,15 +57,23 @@ function parseWithTypeScript(text) {
   // so it shouldn't be picked up by static analysis
   const r = require;
   const parser = r("typescript-eslint-parser");
-  return parser.parse(text, {
-    loc: true,
-    range: true,
-    tokens: true,
-    attachComment: true,
-    ecmaFeatures: {
-      jsx: true
-    }
-  });
+  try {
+    return parser.parse(text, {
+      loc: true,
+      range: true,
+      tokens: true,
+      attachComment: true,
+      ecmaFeatures: {
+        jsx: true
+      }
+    });
+  } catch(e) {
+    throw createError(
+      e.message,
+      e.lineNumber,
+      e.column
+    );
+  }
 }
 
 module.exports = { parseWithFlow, parseWithBabylon, parseWithTypeScript };
