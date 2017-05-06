@@ -343,9 +343,7 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push("async ");
       }
 
-      if (n.typeParameters) {
-        parts.push(path.call(print, "typeParameters"));
-      }
+      parts.push(printFunctionTypeParameters(path, options, print));
 
       if (canPrintParamsWithoutParens(n)) {
         parts.push(path.call(print, "params", 0));
@@ -737,7 +735,7 @@ function genericPrintNoParens(path, options, print, args) {
 
       return concat([
         path.call(print, "callee"),
-        path.call(print, "typeParameters"),
+        printFunctionTypeParameters(path, options, print),
         printArgumentsList(path, options, print)
       ]);
     }
@@ -1077,15 +1075,13 @@ function genericPrintNoParens(path, options, print, args) {
         ])
       );
     case "NewExpression":
-      parts.push("new ", path.call(print, "callee"));
+      parts.push(
+        "new ",
+        path.call(print, "callee"),
+        printFunctionTypeParameters(path, options, print)
+      );
 
-      if (n.typeParameters) {
-        parts.push(path.call(print, "typeParameters"));
-      }
-
-      var args = n.arguments;
-
-      if (args) {
+      if (n.arguments) {
         parts.push(printArgumentsList(path, options, print));
       }
 
@@ -1796,17 +1792,10 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push("(");
       }
 
-      // With TypeScript `typeParameters` is an array of `TSTypeParameter` and
-      // with flow they are one `TypeParameterDeclaration` node.
-      if (n.type === 'TSFunctionType' && n.typeParameters) {
-        parts.push(
-          printTypeParameters(path, options, print, "typeParameters")
-        );
-      } else {
-        parts.push(path.call(print, "typeParameters"));
-      }
-
-      parts.push(printFunctionParams(path, print, options));
+      parts.push(
+        printFunctionTypeParameters(path, options, print),
+        printFunctionParams(path, print, options)
+      );
 
       // The returnType is not wrapped in a TypeAnnotation, so the colon
       // needs to be added separately.
@@ -2275,7 +2264,11 @@ function genericPrintNoParens(path, options, print, args) {
 
       return concat(parts);
     case "TSEnumMember":
-      return path.call(print, "name")
+      parts.push(path.call(print, "name"));
+      if (n.initializer) {
+        parts.push(" = ", path.call(print, "initializer"));
+      }
+      return concat(parts);
     case "TSImportEqualsDeclaration":
       parts.push(
         softline,
@@ -2312,7 +2305,9 @@ function genericPrintNoParens(path, options, print, args) {
     case "TSDeclareKeyword":
       return "declare"
     case "TSModuleBlock":
-      return concat(path.map(print, "body"))
+      return path.call(function(bodyPath) {
+        return printStatementSequence(bodyPath, options, print);
+      }, "body");
     case "TSConstKeyword":
       return "const";
     case "TSAbstractKeyword":
@@ -2475,15 +2470,13 @@ function printMethod(path, options, print) {
 
   parts.push(
     key,
-    path.call(print, "value", "typeParameters"),
-    group(
-      concat([
-        path.call(function(valuePath) {
-          return printFunctionParams(valuePath, print, options);
-        }, "value"),
-        path.call(p => printReturnType(p, print), "value")
-      ])
-    )
+    concat(path.call(valuePath => [
+      printFunctionTypeParameters(valuePath, options, print),
+      group(concat([
+        printFunctionParams(valuePath, print, options),
+        printReturnType(valuePath, print)
+      ]))
+    ], "value"))
   );
 
   if (!node.value.body || node.value.body.length === 0) {
@@ -2540,7 +2533,7 @@ function shouldGroupFirstArg(args) {
 
 function printArgumentsList(path, options, print) {
   var printed = path.map(print, "arguments");
-
+  var n = path.getValue();
   if (printed.length === 0) {
     return concat([
       "(",
@@ -2625,6 +2618,19 @@ function printArgumentsList(path, options, print) {
     ]),
     { shouldBreak: printed.some(willBreak) }
   );
+}
+
+function printFunctionTypeParameters(path, options, print) {
+  const fun = path.getValue();
+  // With TypeScript `typeParameters` is an array of `TSTypeParameter` and
+  // with flow they are one `TypeParameterDeclaration` node.
+  if (fun.type === "TSFunctionType") {
+    return printTypeParameters(path, options, print, "typeParameters")
+  } else if (fun.typeParameters) {
+    return path.call(print, "typeParameters");
+  } else {
+    return "";
+  }
 }
 
 function printFunctionParams(path, print, options, expandArg) {
@@ -2764,7 +2770,7 @@ function printFunctionDeclaration(path, print, options) {
   }
 
   parts.push(
-    path.call(print, "typeParameters"),
+    printFunctionTypeParameters(path, options, print),
     group(
       concat([
         printFunctionParams(path, print, options),
@@ -2802,11 +2808,8 @@ function printObjectMethod(path, options, print) {
     parts.push(key);
   }
 
-  if (objMethod.typeParameters) {
-    parts.push(path.call(print, "typeParameters"));
-  }
-
   parts.push(
+    printFunctionTypeParameters(path, options, print),
     group(
       concat([
         printFunctionParams(path, print, options),
@@ -3111,7 +3114,10 @@ function printMemberChain(path, options, print) {
         node: node,
         printed: comments.printComments(
           path,
-          () => printArgumentsList(path, options, print),
+          () => concat([
+              printFunctionTypeParameters(path, options, print),
+              printArgumentsList(path, options, print)
+          ]),
           options
         )
       });
@@ -3138,7 +3144,10 @@ function printMemberChain(path, options, print) {
   // if handled inside of the recursive call.
   printedNodes.unshift({
     node: path.getValue(),
-    printed: printArgumentsList(path, options, print)
+    printed: concat([
+        printFunctionTypeParameters(path, options, print),
+        printArgumentsList(path, options, print)
+    ])
   });
   path.call(callee => rec(callee), "callee");
 
