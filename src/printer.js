@@ -2185,9 +2185,8 @@ function genericPrintNoParens(path, options, print, args) {
     case "TSMethodSignature":
       parts.push(
         path.call(print, 'name'),
-        "(",
-        join(", ", path.map(print, "parameters")),
-        ")"
+        printTypeParameters(path, options, print, "typeParameters"),
+        printFunctionParams(path, print, options)
       )
 
       if (n.typeAnnotation) {
@@ -2636,7 +2635,11 @@ function printFunctionTypeParameters(path, options, print) {
 function printFunctionParams(path, print, options, expandArg) {
   var fun = path.getValue();
   // namedTypes.Function.assert(fun);
-  var paramsField = fun.type === "TSFunctionType" ? "parameters" : "params";
+  var paramsField = (fun.type === "TSFunctionType" ||
+    fun.type === "TSMethodSignature")
+      ? "parameters"
+      : "params";
+
   var printed = path.map(print, paramsField);
 
   if (fun.defaults) {
