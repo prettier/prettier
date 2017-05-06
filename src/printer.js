@@ -2058,14 +2058,22 @@ function genericPrintNoParens(path, options, print, args) {
     // supported by the pretty-printer.
     case "DeclaredPredicate":
       return concat(["%checks(", path.call(print, "value"), ")"]);
+    case "TSAbstractKeyword":
+      return "abstract";
     case "TSAnyKeyword":
       return "any";
     case "TSAsyncKeyword":
       return "async";
     case "TSBooleanKeyword":
       return "boolean";
+    case "TSConstKeyword":
+      return "const";
+    case "TSDeclareKeyword":
+      return "declare"
     case "TSExportKeyword":
       return "export";
+    case "TSNeverKeyword":
+      return "never";
     case "TSNumberKeyword":
       return "number";
     case "TSObjectKeyword":
@@ -2076,12 +2084,18 @@ function genericPrintNoParens(path, options, print, args) {
       return "private";
     case "TSPublicKeyword":
       return "public";
+    case "TSQuestionToken":
+      return "?";
     case "TSReadonlyKeyword":
       return "readonly";
+    case "TSSymbolKeyword":
+      return "symbol";
     case "TSStaticKeyword":
       return "static";
     case "TSStringKeyword":
       return "string";
+    case "TSUndefinedKeyword":
+      return "undefined";
     case "TSVoidKeyword":
       return "void";
     case "TSAsExpression":
@@ -2146,12 +2160,6 @@ function genericPrintNoParens(path, options, print, args) {
       ]);
     case "TSFirstTypeNode":
       return concat([n.parameterName.name, " is ", path.call(print, "typeAnnotation")])
-    case "TSNeverKeyword":
-      return "never";
-    case "TSUndefinedKeyword":
-      return "undefined";
-    case "TSSymbolKeyword":
-      return "symbol";
     case "TSNonNullExpression":
       return concat([path.call(print, "expression"), "!"]);
     case "TSThisType":
@@ -2197,10 +2205,15 @@ function genericPrintNoParens(path, options, print, args) {
           indent(
             concat([
               options.bracketSpacing ? line : softline,
+              n.readonlyToken
+                ? concat([path.call(print, "readonlyToken"), " "])
+                : "",
               printTypeScriptModifiers(path, options, print),
               "[",
               path.call(print, "typeParameter"),
-              "]: ",
+              "]",
+              n.questionToken ? path.call(print, "questionToken") : "",
+              ": ",
               path.call(print, "typeAnnotation")
             ])
           ),
@@ -2358,16 +2371,10 @@ function genericPrintNoParens(path, options, print, args) {
       };
 
       return concat(parts);
-    case "TSDeclareKeyword":
-      return "declare"
     case "TSModuleBlock":
       return path.call(function(bodyPath) {
         return printStatementSequence(bodyPath, options, print);
       }, "body");
-    case "TSConstKeyword":
-      return "const";
-    case "TSAbstractKeyword":
-      return "abstract";
     // TODO
     case "ClassHeritage":
     // TODO
