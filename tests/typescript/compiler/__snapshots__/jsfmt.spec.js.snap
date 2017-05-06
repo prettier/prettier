@@ -33,3 +33,13 @@ interface C {
 }
 
 `;
+
+exports[`modifiersOnInterfaceIndexSignature1.ts 1`] = `
+interface I {
+  public [a: string]: number;
+}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+interface I {
+  public [a: string]: number
+}
+
+`;

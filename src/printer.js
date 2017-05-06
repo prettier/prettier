@@ -2110,6 +2110,7 @@ function genericPrintNoParens(path, options, print, args) {
       return concat(["(", path.call(print, "typeAnnotation"), ")"]);
     case "TSIndexSignature":
       return concat([
+        printTypeScriptModifiers(path, options, print),
         "[",
         // This should only contain a single element, however TypeScript parses
         // it using parseDelimitedList that uses commas as delimiter.
