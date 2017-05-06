@@ -159,7 +159,7 @@ In the future we will have better support for formatting whole projects.
 
 You can use this with a pre-commit tool. This can re-format your files that are marked as "staged" via `git add`  before you commit.  
 
-##### [lint-staged](https://github.com/okonet/lint-staged) 
+##### 1. [lint-staged](https://github.com/okonet/lint-staged) 
 
 Install it along with [husky](https://github.com/typicode/husky):
 
@@ -186,7 +186,7 @@ and add this config to your `package.json`:
 See https://github.com/okonet/lint-staged#configuration for more details about how you can configure lint-staged.
 
 
-##### [pre-commit](https://github.com/pre-commit/pre-commit)
+##### 2. [pre-commit](https://github.com/pre-commit/pre-commit)
 
 Just copy the following config in your pre-commit config yaml file
 
@@ -202,7 +202,7 @@ Just copy the following config in your pre-commit config yaml file
  
 Find more info from [here](https://github.com/awebdeveloper/pre-commit-prettier)
 
-##### bash script
+##### 3. bash script
 
 Alternately you can just save this script as `.git/hooks/pre-commit` and give it execute permission:
 
