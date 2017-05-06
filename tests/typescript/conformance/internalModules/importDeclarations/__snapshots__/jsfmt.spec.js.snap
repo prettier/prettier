@@ -134,7 +134,7 @@ namespace C {
 var a: string = C.a.x;
 var b: { x: number, y: number } = new C.a.Point(0, 0);
 var c: { name: string };
-var c: undefined.Id;
+var c: C.a.B.Id;
 
 namespace X {
 
@@ -182,7 +182,7 @@ var o: { name: string };
 var o = new M.D("Hello");
 
 var p: { x: number, y: number };
-var p: undefined.Point;
+var p: M.D.Point;
 
 `;
 
