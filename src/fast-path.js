@@ -515,6 +515,7 @@ FPp.needsParens = function() {
         case "MemberExpression":
           return name === "object";
 
+        case "TSAsExpression":
         case "BindExpression":
         case "TaggedTemplateExpression":
         case "UnaryExpression":
