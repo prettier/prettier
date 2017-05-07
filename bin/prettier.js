@@ -189,7 +189,7 @@ function format(input) {
 
         // We change {'key': value} into {key: value}
         if (
-          ast.type === "Property" &&
+          (ast.type === "Property" || ast.type === "MethodDefinition") &&
           typeof ast.key === "object" &&
           ast.key &&
           (ast.key.type === "Literal" || ast.key.type === "Identifier")
