@@ -89,6 +89,13 @@ x =
       Third
     </div>
   </div>
+
+x =
+  <div>
+    First <div>
+      Second
+    </div> Third
+  </div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Wrapping text
 x = (
@@ -175,7 +182,8 @@ function DiffOverview(props) {
       <div className="alert alert-info">
         <p>
           This diff overview is computed against the current list of records in
-          this collection and the list it contained on <b>{humanDate(since)}</b>.
+          this collection and the list it contained on <b>{humanDate(since)}</b>
+          .
         </p>
         <p>
           <b>Note:</b> <code>last_modified</code> and <code>schema</code> record
@@ -218,6 +226,18 @@ x = (
     <div>
       Third
     </div>
+  </div>
+);
+
+x = (
+  <div>
+    First
+    {" "}
+    <div>
+      Second
+    </div>
+    {" "}
+    Third
   </div>
 );
 

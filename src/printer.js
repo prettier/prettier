@@ -3601,60 +3601,37 @@ function printJSXElement(path, options, print) {
     children.unshift(hardline);
   }
 
-  // Group by line, recording if there was a hardline.
-  let groups = [[]]; // Initialize the first line's group
+  // Tweak how we format children if outputting this element over multiple lines.
+  // Also detect whether we will force this element to output over multiple lines.
+  let multilineChildren = [];
   children.forEach((child, i) => {
-    // leading and trailing JSX whitespace don't go into a group
+
+    // Ensure that we display leading, trailing, and solitary whitespace as
+    // `{" "}` when outputting this element over multiple lines.
     if (child === innerJsxWhitespace) {
       if (children.length === 1) {
-        groups.unshift(solitaryJsxWhitespace);
-        groups.pop();  // remove unnecessary empty group
+        multilineChildren.push(jsxWhitespace);
         return;
       } else if (i === 0) {
-        groups.unshift(leadingJsxWhitespace);
+        multilineChildren.push(concat([jsxWhitespace, hardline]));
         return;
       } else if (i === children.length - 1) {
-        groups.push(trailingJsxWhitespace);
+        multilineChildren.push(concat([hardline, jsxWhitespace]));
         return;
       }
     }
 
-    let prev = children[i - 1];
-    if (prev && willBreak(prev)) {
+    multilineChildren.push(child);
+
+    if (willBreak(child)) {
       forcedBreak = true;
-
-      // On a new line, so create a new group and put this element in it.
-      groups.push([child]);
-    } else {
-      // Not on a newline, so add this element to the current group.
-      util.getLast(groups).push(child);
-    }
-
-    // Ensure we record hardline of last element.
-    if (!forcedBreak && i === children.length - 1) {
-      if (willBreak(child)) forcedBreak = true;
     }
   });
-
-  const childrenGroupedByLine = [
-    hardline,
-    // Conditional groups suppress break propagation; we want to output
-    // hard lines without breaking up the entire jsx element.
-    // Note that leading and trailing JSX Whitespace don't go into a group.
-    concat(
-      groups.map(
-        contents =>
-          (Array.isArray(contents)
-            ? conditionalGroup([fill(contents)])
-            : contents)
-      )
-    )
-  ];
 
   const multiLineElem = group(
     concat([
       openingLines,
-      indent(group(concat(childrenGroupedByLine), { shouldBreak: true })),
+      indent(concat([hardline, fill(multilineChildren)])),
       hardline,
       closingLines
     ])

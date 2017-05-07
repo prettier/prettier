@@ -86,3 +86,10 @@ x =
       Third
     </div>
   </div>
+
+x =
+  <div>
+    First <div>
+      Second
+    </div> Third
+  </div>
