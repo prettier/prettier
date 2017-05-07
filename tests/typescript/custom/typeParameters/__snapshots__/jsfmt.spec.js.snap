@@ -20,13 +20,13 @@ interface Interface {
     Voila,
     InViewHumbleVaudevillianVeteran,
     CastVicariouslyAsBothVictimAndVillainByTheVicissitudesOfFate
-  >(): V,
+  >(): V;
   new <
     ThisVisage,
     NoMereVeneerOfVanity,
     IsAVestigeOfTheVoxPopuliNowVacant,
     Vanished
-  >(): V
+  >(): V;
 }
 
 `;

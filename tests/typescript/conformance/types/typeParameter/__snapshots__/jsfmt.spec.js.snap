@@ -6,7 +6,7 @@ interface IObservable<T> {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 interface IObservable<T> {
-  n: IObservable<T[]> // fails because of comment
+  n: IObservable<T[]>; // fails because of comment
 }
 
 `;
