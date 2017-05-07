@@ -1,5 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`global.ts 1`] = `
+declare global {
+    interface Event {
+	    persist: Function
+  	}
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+declare global {
+  interface Event {
+    persist: Function
+  }
+}
+
+`;
+
 exports[`moduleNamespace.ts 1`] = `
 declare module "f" {}
 
