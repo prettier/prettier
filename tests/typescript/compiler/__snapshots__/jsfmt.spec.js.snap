@@ -68,6 +68,26 @@ interface i2 {
 
 `;
 
+exports[`emptyGenericParamList.ts 1`] = `
+class I<T> {}
+var x: I<>;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class I<T> {}
+var x: I<>;
+
+`;
+
+exports[`errorOnInitializerInInterfaceProperty.ts 1`] = `
+interface Foo {
+    bar: number = 5;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+interface Foo {
+  bar: number = 5
+}
+
+`;
+
 exports[`functionOverloadsOnGenericArity1.ts 1`] = `
 // overloading on arity not allowed
 interface C {
