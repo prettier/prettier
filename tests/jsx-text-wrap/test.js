@@ -69,3 +69,20 @@ function DiffOverview(props) {
 }
 
 x = <font size={-3}><i>Starting at minute {graphActivity.startTime}, running for {graphActivity.length} to minute {graphActivity.startTime + graphActivity.length}</i></font>
+
+x =
+  <div>
+    First second third
+    <div attr="a very long string attribute that will overflow because it is very long">Something</div>
+  </div>
+
+x =
+  <div>
+    <div>
+      First
+    </div>
+    Second
+    <div>
+      Third
+    </div>
+  </div>

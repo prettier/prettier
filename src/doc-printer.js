@@ -268,7 +268,7 @@ function printDocToString(doc, options) {
           const content = parts[0];
           const contentFlatCmd = [ind, MODE_FLAT, content];
           const contentBreakCmd = [ind, MODE_BREAK, content];
-          const contentFits = fits(contentFlatCmd, cmds, width - rem, true)
+          const contentFits = fits(contentFlatCmd, [], width - rem, true)
 
           if (parts.length === 1) {
             if (contentFits) {
@@ -299,7 +299,7 @@ function printDocToString(doc, options) {
 
           const secondContent = parts[2];
           const firstAndSecondContentFlatCmd = [ind, MODE_FLAT, concat([content, whitespace, secondContent])];
-          const firstAndSecondContentFits = fits(firstAndSecondContentFlatCmd, cmds, rem, true);
+          const firstAndSecondContentFits = fits(firstAndSecondContentFlatCmd, [], rem, true);
 
           if (firstAndSecondContentFits) {
             cmds.push(remainingCmd)
@@ -384,7 +384,7 @@ function printDocToString(doc, options) {
                     out[out.length - 1] = out[out.length - 1].replace(
                       /[^\S\n]*$/,
                       ""
-                    );                    
+                    );
                   }
                 }
 
