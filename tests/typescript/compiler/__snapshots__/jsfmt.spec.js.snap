@@ -20,6 +20,119 @@ var results = number[];
 
 `;
 
+exports[`castOfAwait.ts 1`] = `
+// @target: es6
+async function f() {
+    <number> await 0;
+    typeof await 0;
+    void await 0;
+    await void <string> typeof <number> void await 0;
+    await await 0;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @target: es6
+async function f() {
+  <number>await 0;
+  typeof await 0;
+  void await 0;
+  await void (<string>typeof (<number>void await 0));
+  await await 0;
+}
+
+`;
+
+exports[`castParentheses.ts 1`] = `
+﻿class a {
+    static b: any;
+}
+
+var b = (<any>a);
+var b = (<any>a).b;
+var b = (<any>a.b).c;
+var b = (<any>a.b()).c;
+var b = (<any>new a);
+var b = (<any>new a.b);
+var b = (<any>new a).b
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class a {
+  static b: any;
+}
+
+var b = <any>a;
+var b = (<any>a).b;
+var b = (<any>a.b).c;
+var b = (<any>a.b()).c;
+var b = <any>new a();
+var b = <any>new a.b();
+var b = (<any>new a()).b;
+
+`;
+
+exports[`castTest.ts 1`] = `
+
+var x : any = 0;
+var z = <number> x;
+var y = x + z;
+
+var a = <any>0;
+var b = <boolean>true;
+var s = <string>"";
+
+var ar = <any[]>null;
+
+var f = <(res : number) => void>null;
+
+declare class Point
+{
+    x: number;
+    y: number;
+    add(dx: number, dy: number): Point;
+    mult(p: Point): Point;
+    constructor(x: number, y: number);
+}
+
+var p_cast = <Point> ({
+    x: 0,
+    y: 0,
+    add: function(dx, dy) {
+        return new Point(this.x + dx, this.y + dy);
+    },
+    mult: function(p) { return p; }
+})
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var x: any = 0;
+var z = <number>x;
+var y = x + z;
+
+var a = <any>0;
+var b = <boolean>true;
+var s = <string>"";
+
+var ar = <any[]>null;
+
+var f = <(res: number) => void>null;
+
+declare class Point {
+  x: number;
+  y: number;
+  add(dx: number, dy: number): Point;
+  mult(p: Point): Point;
+  constructor(x: number, y: number);
+}
+
+var p_cast = <Point>{
+  x: 0,
+  y: 0,
+  add: function(dx, dy) {
+    return new Point(this.x + dx, this.y + dy);
+  },
+  mult: function(p) {
+    return p;
+  }
+};
+
+`;
+
 exports[`checkInfiniteExpansionTermination.ts 1`] = `
 // Regression test for #1002
 // Before fix this code would cause infinite loop

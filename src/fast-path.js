@@ -313,6 +313,7 @@ FPp.needsParens = function() {
         return true;
       }
     // else fall through
+    case "TSTypeAssertionExpression":
     case "TSAsExpression":
     case "LogicalExpression":
       switch (parent.type) {
@@ -320,6 +321,7 @@ FPp.needsParens = function() {
         case "NewExpression":
           return name === "callee" && parent.callee === node;
 
+        case "TSTypeAssertionExpression":
         case "TaggedTemplateExpression":
         case "UnaryExpression":
         case "SpreadElement":

@@ -257,6 +257,13 @@ function genericPrintNoParens(path, options, print, args) {
         " = ",
         path.call(print, "right")
       ]);
+    case "TSTypeAssertionExpression":
+      return concat([
+        "<",
+        path.call(print, "typeAnnotation"),
+        ">",
+        path.call(print, "expression")
+      ]);
     case "MemberExpression": {
       const parent = path.getParentNode();
       let firstNonMemberParent;
