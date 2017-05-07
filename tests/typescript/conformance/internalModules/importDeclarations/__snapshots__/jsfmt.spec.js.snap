@@ -24,14 +24,12 @@ var c = new B.a.C();
 
 namespace B {
   export import a = A;
-
   export class D extends a.C {
     id: number;
   }
 }
 
 namespace A {
-
   export class C {
     name: string;
   }
@@ -116,7 +114,6 @@ var p: M.D.Point;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 namespace A {
   export var x = "hello world";
-
   export class Point {
     constructor(public x: number, public y: number) {}
   }
@@ -137,13 +134,11 @@ var c: { name: string };
 var c: C.a.B.Id;
 
 namespace X {
-
   export function Y() {
     return 42;
   }
 
   export namespace Y {
-
     export class Point {
       constructor(public x: number, public y: number) {}
     }
@@ -160,7 +155,6 @@ var m: number = Z.y();
 var n: { x: number, y: number } = new Z.y.Point(0, 0);
 
 namespace K {
-
   export class L {
     constructor(public name: string) {}
   }
@@ -234,7 +228,6 @@ var p: funlias.Point;
 var p: fundule.Point;
 var p: { x: number; y: number; };~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 namespace moduleA {
-
   export class Point {
     constructor(public x: number, public y: number) {}
   }
@@ -389,7 +382,6 @@ namespace X {
       y: number
     }
   }
-
 
   export class Y {
     name: string;

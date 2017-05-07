@@ -2268,7 +2268,7 @@ function genericPrintNoParens(path, options, print, args) {
         }
       }
 
-      return group(concat([softline, concat(parts)]));
+      return group(concat(parts));
     case "TSEnumDeclaration":
       if (n.modifiers) {
         parts.push(printTypeScriptModifiers(path, options, print));
