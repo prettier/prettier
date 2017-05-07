@@ -57,6 +57,19 @@ values = values2;
 
 `;
 
+exports[`commentInNamespaceDeclarationWithIdentifierPathName.ts 1`] = `
+﻿namespace hello.hi.world
+{
+    function foo() {}
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+namespace hello.hi.world {
+  function foo() {
+  }
+}
+
+`;
+
 exports[`commentsInterface.ts 1`] = `
 interface i2 {
     foo: (/**param help*/b: number) => string;
