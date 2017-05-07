@@ -2084,8 +2084,6 @@ function genericPrintNoParens(path, options, print, args) {
       return "private";
     case "TSPublicKeyword":
       return "public";
-    case "TSQuestionToken":
-      return "?";
     case "TSReadonlyKeyword":
       return "readonly";
     case "TSSymbolKeyword":
@@ -2122,9 +2120,18 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push("]");
       }
 
+      if (n.questionToken && !n.name.optional) {
+        parts.push("?");
+      }
+
       if (n.typeAnnotation) {
         parts.push(": ");
         parts.push(path.call(print, "typeAnnotation"));
+      }
+
+      // This isn't valid semantically, but it's in the AST so we can print it.
+      if (n.initializer) {
+          parts.push(" = ", path.call(print, "initializer"));
       }
 
       return concat(parts);
@@ -2212,7 +2219,7 @@ function genericPrintNoParens(path, options, print, args) {
               "[",
               path.call(print, "typeParameter"),
               "]",
-              n.questionToken ? path.call(print, "questionToken") : "",
+              n.questionToken ? "?" : "",
               ": ",
               path.call(print, "typeAnnotation")
             ])
@@ -3051,8 +3058,7 @@ function printTypeScriptModifiers(path, options, print) {
 function printTypeParameters(path, options, print, paramsKey) {
     const n = path.getValue();
 
-    // In flow, Foo<> is acceptable. In TypeScript, it's a syntax error.
-    if (!n[paramsKey] || (n.type.startsWith("TS") && !n[paramsKey].length)) {
+    if (!n[paramsKey]) {
       return "";
     }
 
