@@ -64,7 +64,7 @@ function parseWithTypeScript(text) {
       tokens: true,
       attachComment: true,
       ecmaFeatures: {
-        jsx: true
+        jsx: isJsx(text)
       }
     });
   } catch(e) {
@@ -74,6 +74,18 @@ function parseWithTypeScript(text) {
       e.column
     );
   }
+}
+
+/**
+ * Use a naive regular expression until we address
+ * https://github.com/prettier/prettier/issues/1538
+ */
+function isJsx(text) {
+  return new RegExp([
+    "(</)", // Contains "</"
+    "|",
+    "(^[^/]{2}.*\/>)" // Contains "/>" on line not starting with "//"
+  ].join(""), "m").test(text);
 }
 
 module.exports = { parseWithFlow, parseWithBabylon, parseWithTypeScript };
