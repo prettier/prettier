@@ -146,6 +146,12 @@ module.exports = function(fork) {
     .field("expression", def("Literal"))
     .bases("Declaration");
 
+  def("TSNamespaceFunctionDeclaration")
+    .build("id", "body")
+    .field("id", def("Identifier"))
+    .field("body", def("BlockStatement"))
+    .bases("Declaration");
+
   def("TSInterfaceDeclaration")
     .build("name", "members")
     .field("name", def("Identifier"))
