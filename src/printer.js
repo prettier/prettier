@@ -2352,16 +2352,25 @@ function genericPrintNoParens(path, options, print, args) {
         ")"
       ])
     case "TSModuleDeclaration":
+      var parent = path.getParentNode();
       var isExternalModule = namedTypes.Literal.check(n.name);
-      var parentIsDeclaration = path.getParentNode().type === "TSModuleDeclaration";
+      var parentIsDeclaration = parent.type === "TSModuleDeclaration";
       var bodyIsDeclaration = n.body.type === "TSModuleDeclaration";
+
       if (parentIsDeclaration) {
         parts.push(".");
       } else {
-        parts.push(
-          printTypeScriptModifiers(path, options, print),
-          isExternalModule? "module " : "namespace "
-        );
+        parts.push(printTypeScriptModifiers(path, options, print));
+
+        // Global declaration looks like this:
+        // declare global { ... }
+        var isGlobalDeclaration = n.name.type === "Identifier" &&
+          n.name.name === "global" &&
+            n.modifiers.some(modifier => modifier.type === "TSDeclareKeyword");
+
+        if (!isGlobalDeclaration) {
+          parts.push(isExternalModule ? "module " : "namespace ");
+        }
       }
 
       parts.push(path.call(print, "name"));
@@ -2374,10 +2383,11 @@ function genericPrintNoParens(path, options, print, args) {
           indent(concat([line, group(path.call(print, "body"))])),
           line,
           "}"
-        )
-      };
+        );
+      }
 
       return concat(parts);
+
     case "TSModuleBlock":
       return path.call(function(bodyPath) {
         return printStatementSequence(bodyPath, options, print);
