@@ -756,6 +756,9 @@ function genericPrintNoParens(path, options, print, args) {
       // configurable later -- flow accepts ";" for type separators,
       // typescript accepts ";" and newlines
       var separator = isTypeAnnotation ? "," : ",";
+      if (isTypeScriptInterfaceDeclaration) {
+        separator = semi;
+      }
       var fields = [];
       var prefix = [];
       var leftBrace = n.exact ? "{|" : "{";
@@ -819,7 +822,7 @@ function genericPrintNoParens(path, options, print, args) {
 
       const lastElem = util.getLast(n[propertiesField]);
 
-      const canHaveTrailingComma = !(
+      const canHaveTrailingSeparator = !(
         lastElem &&
         (lastElem.type === "RestProperty" || lastElem.type === "RestElement")
       );
@@ -853,7 +856,10 @@ function genericPrintNoParens(path, options, print, args) {
             )
           ),
           ifBreak(
-            canHaveTrailingComma && shouldPrintComma(options) ? "," : ""
+            canHaveTrailingSeparator &&
+              (separator !== "," || shouldPrintComma(options))
+                ? separator
+                : ""
           ),
           align(
             parentIsUnionTypeAnnotation ? 2 : 0,
