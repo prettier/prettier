@@ -1,6 +1,5 @@
 "use strict";
 
-const codeFrame = require("babel-code-frame");
 const comments = require("./src/comments");
 const version = require("./package.json").version;
 const printAstToDoc = require("./src/printer").printAstToDoc;
