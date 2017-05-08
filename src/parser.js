@@ -7,6 +7,33 @@ function createError(message, line, column) {
   return error;
 }
 
+function parse(text, opts) {
+  let parseFunction;
+
+  if (opts.parser === "flow") {
+    parseFunction = parseWithFlow;
+  } else if (opts.parser === "typescript") {
+    parseFunction = parseWithTypeScript;
+  } else {
+    parseFunction = parseWithBabylon;
+  }
+
+  try {
+    return parseFunction(text);
+  } catch (error) {
+    const loc = error.loc;
+
+    if (loc) {
+      error.codeFrame = codeFrame(text, loc.line, loc.column + 1, {
+        highlightCode: true
+      });
+      error.message += "\n" + error.codeFrame;
+    }
+
+    throw error;
+  }
+}
+
 function parseWithFlow(text) {
   // Inline the require to avoid loading all the JS if we don't use it
   const flowParser = require("flow-parser");
@@ -166,4 +193,4 @@ function massageAST(ast) {
   return ast;
 }
 
-module.exports = { parseWithFlow, parseWithBabylon, parseWithTypeScript, cleanAST };
+module.exports = { parse, parseWithFlow, parseWithBabylon, parseWithTypeScript, cleanAST };
