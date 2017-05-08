@@ -160,6 +160,8 @@ function massageAST(ast) {
       "range",
       "raw",
       "comments",
+      "leadingComments",
+      "trailingComments",
       "start",
       "end",
       "tokens",
