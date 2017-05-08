@@ -91,6 +91,7 @@ module.exports = {
       return parser.parse(text, opts);
     },
     cleanAST: parser.cleanAST,
+    massageAST: parser.massageAST,
     formatAST: function(ast, opts) {
       opts = normalizeOptions(opts);
       const doc = printAstToDoc(ast, opts);

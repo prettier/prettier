@@ -196,4 +196,4 @@ function massageAST(ast) {
   return ast;
 }
 
-module.exports = { parse, parseWithFlow, parseWithBabylon, parseWithTypeScript, cleanAST };
+module.exports = { parse, parseWithFlow, parseWithBabylon, parseWithTypeScript, cleanAST, massageAST };
