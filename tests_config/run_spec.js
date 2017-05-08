@@ -44,12 +44,12 @@ function run_spec(dirname, options, additionalParsers) {
 
       if (RUN_AST_TESTS) {
         const source = read(dirname + "/" + filename);
-        const ast = parse(source);
+        const ast = parse(source, mergedOptions);
         const cleanAST = prettier.__debug.cleanAST(ast);
         let ppast;
         let pperr = null;
         try {
-          ppast = prettier.__debug.cleanAST(parse(prettyprint(source, path, mergedOptions)));
+          ppast = prettier.__debug.cleanAST(parse(prettyprint(source, path, mergedOptions), mergedOptions));
         } catch (e) {
           pperr = e.stack;
         }
@@ -57,7 +57,7 @@ function run_spec(dirname, options, additionalParsers) {
         test(path + " parse", () => {
           expect(pperr).toBe(null);
           expect(ppast).toBeDefined();
-          if (ast.errors.length === 0) {
+          if (!ast.errors || ast.errors.length === 0) {
             expect(cleanAST).toEqual(ppast);
           }
         });
@@ -86,8 +86,8 @@ function stripLocation(ast) {
   return ast;
 }
 
-function parse(string) {
-  return stripLocation(parser.parseWithFlow(string));
+function parse(string, opts) {
+  return stripLocation(parser.parse(string, opts));
 }
 
 function prettyprint(src, filename, options) {
