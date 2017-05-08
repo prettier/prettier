@@ -45,20 +45,21 @@ function run_spec(dirname, options, additionalParsers) {
       if (RUN_AST_TESTS) {
         const source = read(dirname + "/" + filename);
         const ast = parse(source, mergedOptions);
-        const cleanAST = prettier.__debug.cleanAST(ast);
-        let ppast;
+        const astClean = prettier.__debug.cleanAST(ast);
+        let ppastClean;
         let pperr = null;
         try {
-          ppast = prettier.__debug.cleanAST(parse(prettyprint(source, path, mergedOptions), mergedOptions));
+          const ppast = parse(prettyprint(source, path, mergedOptions), mergedOptions)
+          ppastClean = prettier.__debug.cleanAST(ppast);
         } catch (e) {
           pperr = e.stack;
         }
 
         test(path + " parse", () => {
           expect(pperr).toBe(null);
-          expect(ppast).toBeDefined();
+          expect(ppastClean).toBeDefined();
           if (!ast.errors || ast.errors.length === 0) {
-            expect(cleanAST).toEqual(ppast);
+            expect(astClean).toEqual(ppastClean);
           }
         });
       }
