@@ -12,18 +12,6 @@ const ALL_PARSERS = process.env["ALL_PARSERS"]
   ? JSON.parse(process.env["ALL_PARSERS"])
   : ["flow", "babylon", "typescript"];
 
-// Ignoring empty statements that are added into the output removes a
-// lot of noise from test failures and let's us focus on the real
-// failures when comparing asts
-function removeEmptyStatements(ast) {
-  return types.visit(ast, {
-    visitEmptyStatement: function(path) {
-      path.prune();
-      return false;
-    }
-  });
-}
-
 function run_spec(dirname, options, additionalParsers) {
   fs.readdirSync(dirname).forEach(filename => {
     const extension = extname(filename);
@@ -56,11 +44,12 @@ function run_spec(dirname, options, additionalParsers) {
 
       if (RUN_AST_TESTS) {
         const source = read(dirname + "/" + filename);
-        const ast = removeEmptyStatements(parse(source));
+        const ast = parse(source);
+        const cleanAST = prettier.__debug.cleanAST(ast);
         let ppast;
         let pperr = null;
         try {
-          ppast = removeEmptyStatements(parse(prettyprint(source, path, mergedOptions)));
+          ppast = prettier.__debug.cleanAST(parse(prettyprint(source, path, mergedOptions)));
         } catch (e) {
           pperr = e.stack;
         }
@@ -69,7 +58,7 @@ function run_spec(dirname, options, additionalParsers) {
           expect(pperr).toBe(null);
           expect(ppast).toBeDefined();
           if (ast.errors.length === 0) {
-            expect(ast).toEqual(ppast);
+            expect(cleanAST).toEqual(ppast);
           }
         });
       }
