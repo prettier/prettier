@@ -162,6 +162,7 @@ function massageAST(ast) {
       "comments",
       "leadingComments",
       "trailingComments",
+      "extra",
       "start",
       "end",
       "tokens",
