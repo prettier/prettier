@@ -141,7 +141,7 @@ function mergeDefaultOptions(parserConfig) {
 
 function getParsersToVerify(parser, additionalParsers) {
   if (VERIFY_ALL_PARSERS) {
-    return ALL_PARSERS.splice(ALL_PARSERS.indexOf(parent), 1);
+    return ALL_PARSERS.splice(ALL_PARSERS.indexOf(parser), 1);
   }
   return additionalParsers;
 }
