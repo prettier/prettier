@@ -139,75 +139,6 @@ function format(input) {
   }
 
   if (argv["debug-check"]) {
-    function massageAST(ast) {
-      if (Array.isArray(ast)) {
-        return ast.map(e => massageAST(e)).filter(e => e);
-      }
-      if (ast && typeof ast === "object") {
-        // We remove extra `;` and add them when needed
-        if (ast.type === "EmptyStatement") {
-          return undefined;
-        }
-
-        // We move text around, including whitespaces and add {" "}
-        if (ast.type === "JSXText") {
-          return undefined;
-        }
-        if (
-          ast.type === "JSXExpressionContainer" &&
-          ast.expression.type === "Literal" &&
-          ast.expression.value === " "
-        ) {
-          return undefined;
-        }
-
-        const newObj = {};
-        for (var key in ast) {
-          newObj[key] = massageAST(ast[key]);
-        }
-
-        [
-          "loc",
-          "range",
-          "raw",
-          "comments",
-          "start",
-          "end",
-          "tokens",
-          "flags"
-        ].forEach(name => {
-          delete newObj[name];
-        });
-
-        // We convert <div></div> to <div />
-        if (ast.type === "JSXOpeningElement") {
-          delete newObj.selfClosing;
-        }
-        if (ast.type === "JSXElement") {
-          delete newObj.closingElement;
-        }
-
-        // We change {'key': value} into {key: value}
-        if (
-          (ast.type === "Property" ||
-            ast.type === "MethodDefinition" ||
-              ast.type === "ClassProperty") &&
-          typeof ast.key === "object" &&
-          ast.key &&
-          (ast.key.type === "Literal" || ast.key.type === "Identifier")
-        ) {
-          delete newObj.key;
-        }
-
-        return newObj;
-      }
-      return ast;
-    }
-
-    function cleanAST(ast) {
-      return JSON.stringify(massageAST(ast), null, 2);
-    }
-
     function diff(a, b) {
       return require("diff")
         .createTwoFilesPatch("", "", a, b, "", "", { context: 2 });
@@ -220,8 +151,8 @@ function format(input) {
       console.error('prettier(input) !== prettier(prettier(input))');
       console.error(diff(pp, pppp));
     } else {
-      const ast = cleanAST(prettier.__debug.parse(input, options));
-      const past = cleanAST(prettier.__debug.parse(pp, options));
+      const ast = prettier.__debug.cleanAST(prettier.__debug.parse(input, options));
+      const past = prettier.__debug.cleanAST(prettier.__debug.parse(pp, options));
 
       if (ast !== past) {
         process.stdout.write("\n");
