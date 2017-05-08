@@ -53,20 +53,15 @@ function parseWithBabylon(text) {
 }
 
 function parseWithTypeScript(text) {
-  // While we are working on typescript, we are putting it in devDependencies
-  // so it shouldn't be picked up by static analysis
-  const r = require;
-  const parser = r("typescript-eslint-parser");
+  const jsx = isProbablyJsx(text);
   try {
-    return parser.parse(text, {
-      loc: true,
-      range: true,
-      tokens: true,
-      attachComment: true,
-      ecmaFeatures: {
-        jsx: isJsx(text)
-      }
-    });
+    try {
+      // Try passing with our best guess first.
+      return tryParseTypeScript(text, jsx);
+    } catch (e) {
+      // But if we get it wrong, try the opposite.
+      return tryParseTypeScript(text, !jsx);
+    }
   } catch(e) {
     throw createError(
       e.message,
@@ -76,13 +71,27 @@ function parseWithTypeScript(text) {
   }
 }
 
+function tryParseTypeScript(text, jsx) {
+  // While we are working on typescript, we are putting it in devDependencies
+  // so it shouldn't be picked up by static analysis
+  const r = require;
+  const parser = r("typescript-eslint-parser");
+  return parser.parse(text, {
+    loc: true,
+    range: true,
+    tokens: true,
+    attachComment: true,
+    ecmaFeatures: { jsx }
+  });
+}
+
 /**
  * Use a naive regular expression until we address
  * https://github.com/prettier/prettier/issues/1538
  */
-function isJsx(text) {
+function isProbablyJsx(text) {
   return new RegExp([
-    "(</)", // Contains "</"
+    "(^[^\"'`]*</)", // Contains "</" when probably not in a string
     "|",
     "(^[^/]{2}.*\/>)" // Contains "/>" on line not starting with "//"
   ].join(""), "m").test(text);

@@ -1,6 +1,7 @@
 "use strict";
 
 const fs = require("fs");
+const extname = require("path").extname;
 const prettier = require("../");
 const types = require("../src/ast-types");
 const parser = require("../src/parser");
@@ -25,10 +26,8 @@ function removeEmptyStatements(ast) {
 
 function run_spec(dirname, options, additionalParsers) {
   fs.readdirSync(dirname).forEach(filename => {
-    if (
-      (filename.endsWith(".js") || filename.endsWith(".ts")) &&
-      filename !== "jsfmt.spec.js"
-    ) {
+    const extension = extname(filename);
+    if (/^\.[jt]sx?$/.test(extension) && filename !== "jsfmt.spec.js") {
       const path = dirname + "/" + filename;
 
       if (!RUN_AST_TESTS) {
