@@ -56,7 +56,7 @@ class D extends C {
 // @target: ES6
 
 interface X {
-  foo(x: number, y: number, ...z: string[])
+  foo(x: number, y: number, ...z: string[]);
 }
 
 function foo(x: number, y: number, ...z: string[]) {}
