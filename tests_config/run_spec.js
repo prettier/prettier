@@ -29,10 +29,10 @@ function run_spec(dirname, options, additionalParsers) {
     const extension = extname(filename);
     if (/^\.[jt]sx?$/.test(extension) && filename !== "jsfmt.spec.js") {
       const path = dirname + "/" + filename;
+      const mergedOptions = mergeDefaultOptions(options || {});
 
       if (!RUN_AST_TESTS) {
         const source = read(path).replace(/\r\n/g, "\n");
-        const mergedOptions = mergeDefaultOptions(options || {});
         const output = prettyprint(source, path, mergedOptions);
         test(`${mergedOptions.parser} - ${parser.parser}-verify`, () => {
           expect(raw(source + "~".repeat(80) + "\n" + output)).toMatchSnapshot(
@@ -60,7 +60,7 @@ function run_spec(dirname, options, additionalParsers) {
         let ppast;
         let pperr = null;
         try {
-          ppast = removeEmptyStatements(parse(prettyprint(source, path)));
+          ppast = removeEmptyStatements(parse(prettyprint(source, path, mergedOptions)));
         } catch (e) {
           pperr = e.stack;
         }
