@@ -3831,6 +3831,7 @@ function nodeStr(node, options) {
   const alternate = preferred === single ? double : single;
 
   let shouldUseAlternateQuote = false;
+  let canChangeDirectiveQuotes = true;
 
   // If `rawContent` contains at least one of the quote preferred for enclosing
   // the string, we might want to enclose with the alternate quote instead, to
@@ -3840,6 +3841,8 @@ function nodeStr(node, options) {
     const numAlternateQuotes = (rawContent.match(alternate.regex) || []).length;
 
     shouldUseAlternateQuote = numPreferredQuotes > numAlternateQuotes;
+    canChangeDirectiveQuotes = numPreferredQuotes === 0 &&
+      numAlternateQuotes === 0;
   }
 
   const enclosingQuote = shouldUseAlternateQuote
@@ -3850,7 +3853,7 @@ function nodeStr(node, options) {
   // change the escape sequences they use.
   // See https://github.com/prettier/prettier/issues/1555
   // and https://tc39.github.io/ecma262/#directive-prologue
-  if (node.type === 'DirectiveLiteral') {
+  if (node.type === 'DirectiveLiteral' && !canChangeDirectiveQuotes) {
     return raw;
   }
 
