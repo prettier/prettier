@@ -3831,7 +3831,7 @@ function nodeStr(node, options) {
   const alternate = preferred === single ? double : single;
 
   let shouldUseAlternateQuote = false;
-  let canChangeDirectiveQuotes = true;
+  let canChangeDirectiveQuotes = !rawContent.includes('\\');
 
   // If `rawContent` contains at least one of the quote preferred for enclosing
   // the string, we might want to enclose with the alternate quote instead, to
@@ -3841,7 +3841,8 @@ function nodeStr(node, options) {
     const numAlternateQuotes = (rawContent.match(alternate.regex) || []).length;
 
     shouldUseAlternateQuote = numPreferredQuotes > numAlternateQuotes;
-    canChangeDirectiveQuotes = numPreferredQuotes === 0 &&
+    canChangeDirectiveQuotes = canChangeDirectiveQuotes &&
+      numPreferredQuotes === 0 &&
       numAlternateQuotes === 0;
   }
 
