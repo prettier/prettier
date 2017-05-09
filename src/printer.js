@@ -181,6 +181,20 @@ function genericPrintNoParens(path, options, print, args) {
     case "EmptyStatement":
       return "";
     case "ExpressionStatement":
+      // Detect Flow-parsed directives
+      if (n.directive) {
+        return concat([
+          nodeStr(
+            {
+              type: 'DirectiveLiteral',
+              value: n.expression.value,
+              raw: n.expression.raw
+            },
+            options,
+          ),
+          semi
+        ]);
+      }
       return concat([path.call(print, "expression"), semi]); // Babel extension.
     case "ParenthesizedExpression":
       return concat(["(", path.call(print, "expression"), ")"]);
