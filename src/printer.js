@@ -3846,6 +3846,14 @@ function nodeStr(node, options) {
     ? alternate.quote
     : preferred.quote;
 
+  // Directives are exact code unit sequences, which means that you can't
+  // change the escape sequences they use.
+  // See https://github.com/prettier/prettier/issues/1555
+  // and https://tc39.github.io/ecma262/#directive-prologue
+  if (node.type === 'DirectiveLiteral') {
+    return raw;
+  }
+
   // It might sound unnecessary to use `makeString` even if `node.raw` already
   // is enclosed with `enclosingQuote`, but it isn't. `node.raw` could contain
   // unnecessary escapes (such as in `"\'"`). Always using `makeString` makes
