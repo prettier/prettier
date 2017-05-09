@@ -181,6 +181,20 @@ function genericPrintNoParens(path, options, print, args) {
     case "EmptyStatement":
       return "";
     case "ExpressionStatement":
+      // Detect Flow-parsed directives
+      if (n.directive) {
+        return concat([
+          nodeStr(
+            {
+              type: 'DirectiveLiteral',
+              value: n.expression.value,
+              raw: n.expression.raw
+            },
+            options
+          ),
+          semi
+        ]);
+      }
       return concat([path.call(print, "expression"), semi]); // Babel extension.
     case "ParenthesizedExpression":
       return concat(["(", path.call(print, "expression"), ")"]);
@@ -3831,6 +3845,7 @@ function nodeStr(node, options) {
   const alternate = preferred === single ? double : single;
 
   let shouldUseAlternateQuote = false;
+  let canChangeDirectiveQuotes = !rawContent.includes('\\');
 
   // If `rawContent` contains at least one of the quote preferred for enclosing
   // the string, we might want to enclose with the alternate quote instead, to
@@ -3840,11 +3855,22 @@ function nodeStr(node, options) {
     const numAlternateQuotes = (rawContent.match(alternate.regex) || []).length;
 
     shouldUseAlternateQuote = numPreferredQuotes > numAlternateQuotes;
+    canChangeDirectiveQuotes = canChangeDirectiveQuotes &&
+      numPreferredQuotes === 0 &&
+      numAlternateQuotes === 0;
   }
 
   const enclosingQuote = shouldUseAlternateQuote
     ? alternate.quote
     : preferred.quote;
+
+  // Directives are exact code unit sequences, which means that you can't
+  // change the escape sequences they use.
+  // See https://github.com/prettier/prettier/issues/1555
+  // and https://tc39.github.io/ecma262/#directive-prologue
+  if (node.type === 'DirectiveLiteral' && !canChangeDirectiveQuotes) {
+    return raw;
+  }
 
   // It might sound unnecessary to use `makeString` even if `node.raw` already
   // is enclosed with `enclosingQuote`, but it isn't. `node.raw` could contain
