@@ -53,6 +53,11 @@ const filepatterns = argv["_"];
 const write = argv["write"];
 const stdin = argv["stdin"] || (!filepatterns.length && !process.stdin.isTTY);
 
+if (write && argv["debug-check"]) {
+  console.error("Cannot use --write and --debug-check together.");
+  process.exit(1);
+}
+
 function getParserOption() {
   const optionName = "parser";
   const value = argv[optionName];
