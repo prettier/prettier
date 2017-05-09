@@ -5,6 +5,7 @@ const extname = require("path").extname;
 const prettier = require("../");
 const types = require("../src/ast-types");
 const parser = require("../src/parser");
+const massageAST = require('../src/clean-ast.js').massageAST;
 
 const RUN_AST_TESTS = process.env["AST_COMPARE"];
 const VERIFY_ALL_PARSERS = process.env["VERIFY_ALL_PARSERS"] || false;
@@ -12,27 +13,15 @@ const ALL_PARSERS = process.env["ALL_PARSERS"]
   ? JSON.parse(process.env["ALL_PARSERS"])
   : ["flow", "babylon", "typescript"];
 
-// Ignoring empty statements that are added into the output removes a
-// lot of noise from test failures and let's us focus on the real
-// failures when comparing asts
-function removeEmptyStatements(ast) {
-  return types.visit(ast, {
-    visitEmptyStatement: function(path) {
-      path.prune();
-      return false;
-    }
-  });
-}
-
 function run_spec(dirname, options, additionalParsers) {
   fs.readdirSync(dirname).forEach(filename => {
     const extension = extname(filename);
     if (/^\.[jt]sx?$/.test(extension) && filename !== "jsfmt.spec.js") {
       const path = dirname + "/" + filename;
+      const mergedOptions = mergeDefaultOptions(options || {});
 
       if (!RUN_AST_TESTS) {
         const source = read(path).replace(/\r\n/g, "\n");
-        const mergedOptions = mergeDefaultOptions(options || {});
         const output = prettyprint(source, path, mergedOptions);
         test(`${mergedOptions.parser} - ${parser.parser}-verify`, () => {
           expect(raw(source + "~".repeat(80) + "\n" + output)).toMatchSnapshot(
@@ -56,20 +45,22 @@ function run_spec(dirname, options, additionalParsers) {
 
       if (RUN_AST_TESTS) {
         const source = read(dirname + "/" + filename);
-        const ast = removeEmptyStatements(parse(source));
-        let ppast;
+        const ast = parse(source, mergedOptions);
+        const astMassaged = massageAST(ast);
+        let ppastMassaged;
         let pperr = null;
         try {
-          ppast = removeEmptyStatements(parse(prettyprint(source, path)));
+          const ppast = parse(prettyprint(source, path, mergedOptions), mergedOptions)
+          ppastMassaged = massageAST(ppast);
         } catch (e) {
           pperr = e.stack;
         }
 
         test(path + " parse", () => {
           expect(pperr).toBe(null);
-          expect(ppast).toBeDefined();
-          if (ast.errors.length === 0) {
-            expect(ast).toEqual(ppast);
+          expect(ppastMassaged).toBeDefined();
+          if (!ast.errors || ast.errors.length === 0) {
+            expect(astMassaged).toEqual(ppastMassaged);
           }
         });
       }
@@ -97,8 +88,8 @@ function stripLocation(ast) {
   return ast;
 }
 
-function parse(string) {
-  return stripLocation(parser.parseWithFlow(string));
+function parse(string, opts) {
+  return stripLocation(parser.parse(string, opts));
 }
 
 function prettyprint(src, filename, options) {
