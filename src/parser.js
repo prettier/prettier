@@ -1,4 +1,5 @@
 "use strict";
+
 const codeFrame = require("babel-code-frame");
 
 function createError(message, line, column) {
