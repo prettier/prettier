@@ -1,7 +1,5 @@
 "use strict";
 
-const codeFrame = require("babel-code-frame");
-
 function createError(message, line, column) {
   // Construct an error similar to the ones thrown by Babylon.
   const error = new SyntaxError(message + " (" + line + ":" + column + ")");
@@ -26,6 +24,7 @@ function parse(text, opts) {
     const loc = error.loc;
 
     if (loc) {
+      const codeFrame = require("babel-code-frame");
       error.codeFrame = codeFrame(text, loc.line, loc.column + 1, {
         highlightCode: true
       });
