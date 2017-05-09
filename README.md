@@ -156,6 +156,10 @@ expands the globs rather than your shell, for cross-platform usage.)
 
 In the future we will have better support for formatting whole projects.
 
+If you're worried that Prettier will change the correctness of your code, add `--debug-check` to the command.
+This will cause Prettier to print an error message if it detects that code correctness might have changed.
+Note that `--write` cannot be used with `--debug-check`.
+
 #### Pre-commit hook for changed files
 
 You can use this with a pre-commit tool. This can re-format your files that are marked as "staged" via `git add`  before you commit.  
