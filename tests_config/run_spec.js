@@ -7,7 +7,7 @@ const types = require("../src/ast-types");
 const parser = require("../src/parser");
 const massageAST = require('../src/clean-ast.js').massageAST;
 
-const RUN_AST_TESTS = process.env["AST_COMPARE"];
+const AST_COMPARE = process.env["AST_COMPARE"];
 const VERIFY_ALL_PARSERS = process.env["VERIFY_ALL_PARSERS"] || false;
 const ALL_PARSERS = process.env["ALL_PARSERS"]
   ? JSON.parse(process.env["ALL_PARSERS"])
@@ -41,7 +41,7 @@ function run_spec(dirname, options, additionalParsers) {
         });
       });
 
-      if (RUN_AST_TESTS) {
+      if (AST_COMPARE) {
         const source = read(dirname + "/" + filename);
         const ast = parse(source, mergedOptions);
         const astMassaged = massageAST(ast);

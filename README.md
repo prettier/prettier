@@ -16,8 +16,7 @@
   * [Atom](#atom)
   * [Emacs](#emacs)
   * [Vim](#vim)
-    + [Vanilla approach](#vanilla-approach)
-    + [Neoformat approach](#neoformat-approach)
+    + [Other `autocmd` events](#other-autocmd-events)
     + [Customizing Prettier in Vim](#customizing-prettier-in-vim)
   * [Visual Studio Code](#visual-studio-code)
   * [Visual Studio](#visual-studio)
@@ -156,6 +155,10 @@ expands the globs rather than your shell, for cross-platform usage.)
 
 In the future we will have better support for formatting whole projects.
 
+If you're worried that Prettier will change the correctness of your code, add `--debug-check` to the command.
+This will cause Prettier to print an error message if it detects that code correctness might have changed.
+Note that `--write` cannot be used with `--debug-check`.
+
 #### Pre-commit hook for changed files
 
 You can use this with a pre-commit tool. This can re-format your files that are marked as "staged" via `git add`  before you commit.  
@@ -243,11 +246,12 @@ Prettier ships with a handful of customizable format options, usable in both the
 | Option | Default | CLI override | API override |
 | ------------- | ------------- | ------------- | ------------- |
 | **Tabs** - Indent lines with tabs instead of spaces. | `false` | `--use-tabs` | `useTabs: <bool>` |
-| **Print Width** - Specify the length of line that the printer will wrap on.  | `80` | `--print-width <int>`  | `printWidth: <int>`
+| **Print Width** - Specify the length of line that the printer will wrap on. | `80` | `--print-width <int>`  | `printWidth: <int>`
 | **Tab Width** - Specify the number of spaces per indentation-level. | `2` | `--tab-width <int>` | `tabWidth: <int>` |
-| **Quotes** -  Use single quotes instead of double quotes. | `false` | `--single-quote` | `singleQuote: <bool>` |
-| **Trailing Commas** -  Print trailing commas wherever possible. <br /><br /> Valid options: <br /> - `"none"` - no trailing commas <br /> - `"es5"`  - trailing commas where valid in ES5 (objects, arrays, etc) <br /> - `"all"`  - trailing commas wherever possible (function arguments) | `"none"` | <code>--trailing-comma <none&#124;es5&#124;all></code> | <code>trailingComma: "<none&#124;es5&#124;all>"</code> |
-| **Bracket Spacing** - Do not print spaces between brackets. <br /><br /> If true, puts the `>` of a multi-line jsx element at the end of the last line instead of being alone on the next line | `false` | `--jsx-bracket-same-line` | `jsxBracketSameLine: <bool>` |
+| **Quotes** - Use single quotes instead of double quotes. | `false` | `--single-quote` | `singleQuote: <bool>` |
+| **Trailing Commas** - Print trailing commas wherever possible. <br /><br /> Valid options: <br /> - `"none"` - no trailing commas <br /> - `"es5"`  - trailing commas where valid in ES5 (objects, arrays, etc) <br /> - `"all"`  - trailing commas wherever possible (function arguments) | `"none"` | <code>--trailing-comma <none&#124;es5&#124;all></code> | <code>trailingComma: "<none&#124;es5&#124;all>"</code> |
+| **Bracket Spacing** - Do not print spaces between brackets in object literals. | `true` | `--no-bracket-spacing` | `bracketSpacing: <bool>` |
+| **JSX Brackets on Same Line** - Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line | `false` | `--jsx-bracket-same-line` | `jsxBracketSameLine: <bool>` |
 | **Parser** - Specify which parse to use. | `babylon` | <code>--parser <flow&#124;babylon></code> | <code>parser: "<flow&#124;babylon>"</code> |
 | **Semicolons** - Do not print semicolons, except at the beginning of lines which may need them. <br /><br />Valid options:<br /> - `true` - add a semicolon at the end of every line <br />- `false` - only add semicolons at the beginning of lines that may introduce ASI failures | `true` | `--no-semi` | `semi: <bool>` |
 
@@ -299,42 +303,6 @@ for on-demand formatting.
 
 ### Vim
 
-For Vim users, there are two main approaches: one that leans on [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/neoformat), which has the advantage of leaving the cursor in the same position despite changes, or a vanilla approach which can only approximate the cursor location, but might be good enough for your needs.
-
-#### Vanilla approach
-
-Vim users can add the following to their `.vimrc`:
-
-```vim
-autocmd FileType javascript setlocal formatprg=prettier\ --stdin
-```
-
-If you use the [vim-jsx](https://github.com/mxw/vim-jsx) plugin without
-requiring the `.jsx` file extension (See https://github.com/mxw/vim-jsx#usage),
-the FileType needs to include `javascript.jsx`:
-
-```vim
-autocmd FileType javascript.jsx,javascript setlocal formatprg=prettier\ --stdin
-```
-
-This makes Prettier power the [`gq` command](http://vimdoc.sourceforge.net/htmldoc/change.html#gq)
-for automatic formatting without any plugins. You can also add the following to your
-`.vimrc` to run Prettier when `.js` files are saved:
-
-```vim
-autocmd BufWritePre *.js :normal gggqG
-```
-
-If you want to restore cursor position after formatting, try this
-(although it's not guaranteed that it will be restored to the same
-place in the code since it may have moved):
-
-```vim
-autocmd BufWritePre *.js exe "normal! gggqG\<C-o>\<C-o>"
-```
-
-#### Neoformat approach
-
 Add [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/neoformat) to your list based on the tool you use:
 
 ```vim
@@ -368,14 +336,11 @@ If your project requires settings other than the default Prettier settings, you 
 
 ```vim
 autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --parser\ flow\ --single-quote\ --trailing-comma\ es5
-```
-
-Each command needs to be escaped with `\`. If you are using Neoformat and you want it to recognize your formatprg settings you can also do that by adding the following to your `.vimrc`:
-
-```vim
 " Use formatprg when available
 let g:neoformat_try_formatprg = 1
 ```
+
+Each option needs to be escaped with `\`.
 
 ### Visual Studio Code
 
