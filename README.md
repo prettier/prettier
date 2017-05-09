@@ -247,7 +247,7 @@ Prettier ships with a handful of customizable format options, usable in both the
 | **Tab Width** - Specify the number of spaces per indentation-level. | `2` | `--tab-width <int>` | `tabWidth: <int>` |
 | **Quotes** - Use single quotes instead of double quotes. | `false` | `--single-quote` | `singleQuote: <bool>` |
 | **Trailing Commas** - Print trailing commas wherever possible. <br /><br /> Valid options: <br /> - `"none"` - no trailing commas <br /> - `"es5"`  - trailing commas where valid in ES5 (objects, arrays, etc) <br /> - `"all"`  - trailing commas wherever possible (function arguments) | `"none"` | <code>--trailing-comma <none&#124;es5&#124;all></code> | <code>trailingComma: "<none&#124;es5&#124;all>"</code> |
-| **Bracket Spacing** - Print spaces inside of object literals. | `true` | `--bracket-spacing` | `bracketSpacing: <bool>` |
+| **Bracket Spacing** - Do not print spaces between brackets in object literals. | `true` | `--no-bracket-spacing` | `bracketSpacing: <bool>` |
 | **JSX Brackets on Same Line** - Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line | `false` | `--jsx-bracket-same-line` | `jsxBracketSameLine: <bool>` |
 | **Parser** - Specify which parse to use. | `babylon` | <code>--parser <flow&#124;babylon></code> | <code>parser: "<flow&#124;babylon>"</code> |
 | **Semicolons** - Do not print semicolons, except at the beginning of lines which may need them. <br /><br />Valid options:<br /> - `true` - add a semicolon at the end of every line <br />- `false` - only add semicolons at the beginning of lines that may introduce ASI failures | `true` | `--no-semi` | `semi: <bool>` |
