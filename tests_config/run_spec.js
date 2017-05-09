@@ -20,28 +20,26 @@ function run_spec(dirname, options, additionalParsers) {
       const path = dirname + "/" + filename;
       const mergedOptions = mergeDefaultOptions(options || {});
 
-      if (!RUN_AST_TESTS) {
-        const source = read(path).replace(/\r\n/g, "\n");
-        const output = prettyprint(source, path, mergedOptions);
-        test(`${mergedOptions.parser} - ${parser.parser}-verify`, () => {
-          expect(raw(source + "~".repeat(80) + "\n" + output)).toMatchSnapshot(
-            filename
-          );
-        });
+      const source = read(path).replace(/\r\n/g, "\n");
+      const output = prettyprint(source, path, mergedOptions);
+      test(`${mergedOptions.parser} - ${parser.parser}-verify`, () => {
+        expect(raw(source + "~".repeat(80) + "\n" + output)).toMatchSnapshot(
+          filename
+        );
+      });
 
-        getParsersToVerify(
-          mergedOptions.parser,
-          additionalParsers || []
-        ).forEach(parserName => {
-          test(`${filename} - ${parserName}-verify`, () => {
-            const verifyOptions = Object.assign(mergedOptions, {
-              parser: parserName
-            });
-            const verifyOutput = prettyprint(source, path, verifyOptions);
-            expect(output).toEqual(verifyOutput);
+      getParsersToVerify(
+        mergedOptions.parser,
+        additionalParsers || []
+      ).forEach(parserName => {
+        test(`${filename} - ${parserName}-verify`, () => {
+          const verifyOptions = Object.assign(mergedOptions, {
+            parser: parserName
           });
+          const verifyOutput = prettyprint(source, path, verifyOptions);
+          expect(output).toEqual(verifyOutput);
         });
-      }
+      });
 
       if (RUN_AST_TESTS) {
         const source = read(dirname + "/" + filename);
