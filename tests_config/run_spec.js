@@ -5,6 +5,7 @@ const extname = require("path").extname;
 const prettier = require("../");
 const types = require("../src/ast-types");
 const parser = require("../src/parser");
+const { massageAST } = require("../src/clean-ast.js");
 
 const RUN_AST_TESTS = process.env["AST_COMPARE"];
 const VERIFY_ALL_PARSERS = process.env["VERIFY_ALL_PARSERS"] || false;
@@ -45,12 +46,12 @@ function run_spec(dirname, options, additionalParsers) {
       if (RUN_AST_TESTS) {
         const source = read(dirname + "/" + filename);
         const ast = parse(source, mergedOptions);
-        const astMassaged = prettier.__debug.massageAST(ast);
+        const astMassaged = massageAST(ast);
         let ppastMassaged;
         let pperr = null;
         try {
           const ppast = parse(prettyprint(source, path, mergedOptions), mergedOptions)
-          ppastMassaged = prettier.__debug.massageAST(ppast);
+          ppastMassaged = massageAST(ppast);
         } catch (e) {
           pperr = e.stack;
         }

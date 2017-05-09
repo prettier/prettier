@@ -9,6 +9,7 @@ const chalk = require("chalk");
 const minimist = require("minimist");
 const readline = require("readline");
 const prettier = require("../index");
+const { cleanAST } = require('../src/clean-ast.js');
 
 const argv = minimist(process.argv.slice(2), {
   boolean: [
@@ -151,8 +152,8 @@ function format(input) {
       console.error('prettier(input) !== prettier(prettier(input))');
       console.error(diff(pp, pppp));
     } else {
-      const ast = prettier.__debug.cleanAST(prettier.__debug.parse(input, options));
-      const past = prettier.__debug.cleanAST(prettier.__debug.parse(pp, options));
+      const ast = cleanAST(prettier.__debug.parse(input, options));
+      const past = cleanAST(prettier.__debug.parse(pp, options));
 
       if (ast !== past) {
         process.stdout.write("\n");
