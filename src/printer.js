@@ -3849,19 +3849,23 @@ function nodeStr(node, options) {
   let shouldUseAlternateQuote = false;
   const isDirectiveLiteral =
     options.isFlowDirectiveLiteral || node.type === "DirectiveLiteral";
-  let canChangeDirectiveQuotes = !rawContent.includes("\\");
+  let canChangeDirectiveQuotes = true;
 
   // If `rawContent` contains at least one of the quote preferred for enclosing
   // the string, we might want to enclose with the alternate quote instead, to
   // minimize the number of escaped quotes.
-  if (rawContent.includes(preferred.quote)) {
+  // Also check for the alternate quote, to determine if we're allowed to swap
+  // the quotes on a DirectiveLiteral.
+  if (
+    rawContent.includes(preferred.quote) ||
+    rawContent.includes(alternate.quote)
+  ) {
     const numPreferredQuotes = (rawContent.match(preferred.regex) || []).length;
     const numAlternateQuotes = (rawContent.match(alternate.regex) || []).length;
 
     shouldUseAlternateQuote = numPreferredQuotes > numAlternateQuotes;
-    canChangeDirectiveQuotes = canChangeDirectiveQuotes &&
-      numPreferredQuotes === 0 &&
-      numAlternateQuotes === 0;
+    canChangeDirectiveQuotes =
+      numPreferredQuotes === 0 && numAlternateQuotes === 0;
   }
 
   const enclosingQuote = shouldUseAlternateQuote
@@ -3873,7 +3877,11 @@ function nodeStr(node, options) {
   // See https://github.com/prettier/prettier/issues/1555
   // and https://tc39.github.io/ecma262/#directive-prologue
   if (isDirectiveLiteral && !canChangeDirectiveQuotes) {
-    return raw;
+    if (canChangeDirectiveQuotes) {
+      return enclosingQuote + rawContent + enclosingQuote;
+    } else {
+      return raw;
+    }
   }
 
   // It might sound unnecessary to use `makeString` even if `node.raw` already
