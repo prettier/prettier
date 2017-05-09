@@ -3849,7 +3849,7 @@ function nodeStr(node, options) {
   let shouldUseAlternateQuote = false;
   const isDirectiveLiteral =
     options.isFlowDirectiveLiteral || node.type === "DirectiveLiteral";
-  let canChangeDirectiveQuotes = true;
+  let canChangeDirectiveQuotes = false;
 
   // If `rawContent` contains at least one of the quote preferred for enclosing
   // the string, we might want to enclose with the alternate quote instead, to
@@ -3864,8 +3864,8 @@ function nodeStr(node, options) {
     const numAlternateQuotes = (rawContent.match(alternate.regex) || []).length;
 
     shouldUseAlternateQuote = numPreferredQuotes > numAlternateQuotes;
-    canChangeDirectiveQuotes =
-      numPreferredQuotes === 0 && numAlternateQuotes === 0;
+  } else {
+    canChangeDirectiveQuotes = true;
   }
 
   const enclosingQuote = shouldUseAlternateQuote
