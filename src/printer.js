@@ -3854,7 +3854,6 @@ function nodeStr(node, options) {
   // change the escape sequences they use.
   // See https://github.com/prettier/prettier/issues/1555
   // and https://tc39.github.io/ecma262/#directive-prologue
-  // TODO This doesn't work with Flow/Typescript, which have a different AST
   if (node.type === 'DirectiveLiteral' && !canChangeDirectiveQuotes) {
     return raw;
   }
