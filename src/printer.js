@@ -185,12 +185,10 @@ function genericPrintNoParens(path, options, print, args) {
       if (n.directive) {
         return concat([
           nodeStr(
-            {
-              type: 'DirectiveLiteral',
-              value: n.expression.value,
-              raw: n.expression.raw
-            },
-            options
+            n,
+            Object.assign({}, options, {
+              isFlowDirectiveLiteral: true
+            })
           ),
           semi
         ]);
@@ -3830,10 +3828,14 @@ function adjustClause(node, clause, forceSpace) {
 }
 
 function nodeStr(node, options) {
-  const str = node.value;
+  const str = options.isFlowDirectiveLiteral
+    ? node.expression.value
+    : node.value;
   isString.assert(str);
 
-  const raw = node.extra ? node.extra.raw : node.raw;
+  const raw = options.isFlowDirectiveLiteral
+    ? node.expression.raw
+    : node.extra ? node.extra.raw : node.raw;
   // `rawContent` is the string exactly like it appeared in the input source
   // code, with its enclosing quote.
   const rawContent = raw.slice(1, -1);
@@ -3845,7 +3847,9 @@ function nodeStr(node, options) {
   const alternate = preferred === single ? double : single;
 
   let shouldUseAlternateQuote = false;
-  let canChangeDirectiveQuotes = !rawContent.includes('\\');
+  const isDirectiveLiteral =
+    options.isFlowDirectiveLiteral || node.type === "DirectiveLiteral";
+  let canChangeDirectiveQuotes = !rawContent.includes("\\");
 
   // If `rawContent` contains at least one of the quote preferred for enclosing
   // the string, we might want to enclose with the alternate quote instead, to
@@ -3868,7 +3872,7 @@ function nodeStr(node, options) {
   // change the escape sequences they use.
   // See https://github.com/prettier/prettier/issues/1555
   // and https://tc39.github.io/ecma262/#directive-prologue
-  if (node.type === 'DirectiveLiteral' && !canChangeDirectiveQuotes) {
+  if (isDirectiveLiteral && !canChangeDirectiveQuotes) {
     return raw;
   }
 
