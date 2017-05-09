@@ -16,8 +16,7 @@
   * [Atom](#atom)
   * [Emacs](#emacs)
   * [Vim](#vim)
-    + [Neoformat approach](#neoformat-approach)
-    + [Vanilla approach](#vanilla-approach)
+    + [Other `autocmd` events](#other-autocmd-events)
     + [Customizing Prettier in Vim](#customizing-prettier-in-vim)
   * [Visual Studio Code](#visual-studio-code)
   * [Visual Studio](#visual-studio)
@@ -299,10 +298,6 @@ for on-demand formatting.
 
 ### Vim
 
-For Vim users, there are two main approaches: one that leans on [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/neoformat), which has the advantage of leaving the cursor in the same position despite changes, or a vanilla approach which can only approximate the cursor location, but might be good enough for your needs.
-
-#### Neoformat approach
-
 Add [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/neoformat) to your list based on the tool you use:
 
 ```vim
@@ -313,44 +308,6 @@ Then make Neoformat run on save:
 
 ```vim
 autocmd BufWritePre *.js Neoformat
-```
-
-#### Vanilla approach
-
-##### Warning: This approach can remove all the code from your files! Use this only if you're willing to deal with recovering code lost upon formatting after you accidentally write a syntax error. See these issues for more details: [#743], [#1191], [#1466]
-
-[#743]: https://github.com/prettier/prettier/issues/743
-[#1191]: https://github.com/prettier/prettier/issues/1191
-[#1466]: https://github.com/prettier/prettier/issues/1466
-
-Vim users can add the following to their `.vimrc`:
-
-```vim
-autocmd FileType javascript setlocal formatprg=prettier\ --stdin
-```
-
-If you use the [vim-jsx](https://github.com/mxw/vim-jsx) plugin without
-requiring the `.jsx` file extension (See https://github.com/mxw/vim-jsx#usage),
-the FileType needs to include `javascript.jsx`:
-
-```vim
-autocmd FileType javascript.jsx,javascript setlocal formatprg=prettier\ --stdin
-```
-
-This makes Prettier power the [`gq` command](http://vimdoc.sourceforge.net/htmldoc/change.html#gq)
-for automatic formatting without any plugins. You can also add the following to your
-`.vimrc` to run Prettier when `.js` files are saved:
-
-```vim
-autocmd BufWritePre *.js :normal gggqG
-```
-
-If you want to restore cursor position after formatting, try this
-(although it's not guaranteed that it will be restored to the same
-place in the code since it may have moved):
-
-```vim
-autocmd BufWritePre *.js exe "normal! gggqG\<C-o>\<C-o>"
 ```
 
 #### Other `autocmd` events
@@ -374,14 +331,11 @@ If your project requires settings other than the default Prettier settings, you 
 
 ```vim
 autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --parser\ flow\ --single-quote\ --trailing-comma\ es5
-```
-
-Each command needs to be escaped with `\`. If you are using Neoformat and you want it to recognize your formatprg settings you can also do that by adding the following to your `.vimrc`:
-
-```vim
 " Use formatprg when available
 let g:neoformat_try_formatprg = 1
 ```
+
+Each option needs to be escaped with `\`.
 
 ### Visual Studio Code
 
