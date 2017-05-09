@@ -1,7 +1,3 @@
-// Prevent strings from being parsed as directives
-// See https://github.com/prettier/prettier/pull/1560#issue-227225960
-0;
-
 // Every string will be changed to double quotes, unless we end up with fewer
 // escaped quotes by using single quotes. (Vice versa if the "singleQuote"
 // option is true).
