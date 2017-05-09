@@ -190,7 +190,7 @@ function genericPrintNoParens(path, options, print, args) {
               value: n.expression.value,
               raw: n.expression.raw
             },
-            options,
+            options
           ),
           semi
         ]);
