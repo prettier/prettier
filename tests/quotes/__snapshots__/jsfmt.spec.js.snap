@@ -31,6 +31,10 @@ function b(object, key) {
 `;
 
 exports[`strings.js 1`] = `
+// Prevent strings from being parsed as directives
+// See https://github.com/prettier/prettier/pull/1560#issue-227225960
+0;
+
 // Every string will be changed to double quotes, unless we end up with fewer
 // escaped quotes by using single quotes. (Vice versa if the "singleQuote"
 // option is true).
@@ -117,6 +121,10 @@ exports[`strings.js 1`] = `
 "var backslash = \\"\\\\\\", doubleQuote = '\\"';"
 'var backslash = "\\\\", doubleQuote = \\'"\\';'
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Prevent strings from being parsed as directives
+// See https://github.com/prettier/prettier/pull/1560#issue-227225960
+0;
+
 // Every string will be changed to double quotes, unless we end up with fewer
 // escaped quotes by using single quotes. (Vice versa if the "singleQuote"
 // option is true).
@@ -192,6 +200,10 @@ exports[`strings.js 1`] = `
 `;
 
 exports[`strings.js 2`] = `
+// Prevent strings from being parsed as directives
+// See https://github.com/prettier/prettier/pull/1560#issue-227225960
+0;
+
 // Every string will be changed to double quotes, unless we end up with fewer
 // escaped quotes by using single quotes. (Vice versa if the "singleQuote"
 // option is true).
@@ -278,6 +290,10 @@ exports[`strings.js 2`] = `
 "var backslash = \\"\\\\\\", doubleQuote = '\\"';"
 'var backslash = "\\\\", doubleQuote = \\'"\\';'
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Prevent strings from being parsed as directives
+// See https://github.com/prettier/prettier/pull/1560#issue-227225960
+0;
+
 // Every string will be changed to double quotes, unless we end up with fewer
 // escaped quotes by using single quotes. (Vice versa if the "singleQuote"
 // option is true).
