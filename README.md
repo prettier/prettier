@@ -16,8 +16,8 @@
   * [Atom](#atom)
   * [Emacs](#emacs)
   * [Vim](#vim)
-    + [Vanilla approach](#vanilla-approach)
     + [Neoformat approach](#neoformat-approach)
+    + [Vanilla approach](#vanilla-approach)
     + [Customizing Prettier in Vim](#customizing-prettier-in-vim)
   * [Visual Studio Code](#visual-studio-code)
   * [Visual Studio](#visual-studio)
@@ -301,6 +301,20 @@ for on-demand formatting.
 
 For Vim users, there are two main approaches: one that leans on [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/neoformat), which has the advantage of leaving the cursor in the same position despite changes, or a vanilla approach which can only approximate the cursor location, but might be good enough for your needs.
 
+#### Neoformat approach
+
+Add [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/neoformat) to your list based on the tool you use:
+
+```vim
+Plug 'sbdchd/neoformat'
+```
+
+Then make Neoformat run on save:
+
+```vim
+autocmd BufWritePre *.js Neoformat
+```
+
 #### Vanilla approach
 
 ##### Warning: This approach can remove all the code from your files! Use this only if you're willing to deal with recovering code lost upon formatting after you accidentally write a syntax error. See these issues for more details: [#743], [#1191], [#1466]
@@ -337,20 +351,6 @@ place in the code since it may have moved):
 
 ```vim
 autocmd BufWritePre *.js exe "normal! gggqG\<C-o>\<C-o>"
-```
-
-#### Neoformat approach
-
-Add [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/neoformat) to your list based on the tool you use:
-
-```vim
-Plug 'sbdchd/neoformat'
-```
-
-Then make Neoformat run on save:
-
-```vim
-autocmd BufWritePre *.js Neoformat
 ```
 
 #### Other `autocmd` events
