@@ -156,6 +156,7 @@ function format(input) {
       process.stdout.write("\n");
       console.error('prettier(input) !== prettier(prettier(input))');
       console.error(diff(pp, pppp));
+      process.exitCode = 2;
     } else {
       const ast = cleanAST(prettier.__debug.parse(input, options));
       const past = cleanAST(prettier.__debug.parse(pp, options));
@@ -165,6 +166,7 @@ function format(input) {
         console.error('ast(input) !== ast(prettier(input))');
         console.error(diff(ast, past));
         console.error(diff(input, pp));
+        process.exitCode = 2;
       }
     }
     return;
@@ -297,6 +299,8 @@ if (stdin) {
       process.stdout.write("\n");
       if (output) {
         console.log(output);
+      } else {
+        process.exitCode = 2;
       }
     } else {
       // Don't use `console.log` here since it adds an extra newline at the end.
