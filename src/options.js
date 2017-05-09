@@ -7,6 +7,7 @@ var defaults = {
   useTabs: false,
   tabWidth: 2,
   printWidth: 80,
+  keepIndentation: false,
   singleQuote: false,
   trailingComma: "none",
   bracketSpacing: true,

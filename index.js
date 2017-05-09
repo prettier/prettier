@@ -49,12 +49,26 @@ function ensureAllCommentsPrinted(astComments) {
 }
 
 function format(text, opts) {
+  let indentation = '';
+  if (opts.keepIndentation) {
+    indentation = text.match(/^([ \t]*)/)[1];
+    const tabSpaces = ' '.repeat(opts.tabWidth);
+    const indentationSpaces = indentation.replace(/\t/g, tabSpaces);
+    const indentationWidth = indentationSpaces.length;
+    opts.printWidth -= indentationWidth;
+  }
+
   const ast = parser.parse(text, opts);
   const astComments = attachComments(text, ast, opts);
   const doc = printAstToDoc(ast, opts);
   opts.newLine = guessLineEnding(text);
   const str = printDocToString(doc, opts);
   ensureAllCommentsPrinted(astComments);
+
+  if (opts.keepIndentation) {
+    return str.replace(/^/gm, indentation);
+  }
+
   return str;
 }
 
