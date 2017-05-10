@@ -3917,8 +3917,15 @@ function makeString(rawContent, enclosingQuote) {
       return "\\" + quote;
     }
 
-    // Otherwise return the escape or unescaped quote as-is.
-    return match;
+    if (quote) {
+      return quote;
+    }
+
+    // Unescape any unnecessarily escaped character.
+    // Adapted from https://github.com/eslint/eslint/blob/de0b4ad7bd820ade41b1f606008bea68683dc11a/lib/rules/no-useless-escape.js#L27
+    return /^[^\\nrvtbfux\r\n\u2028\u2029"'0-7]$/.test(escaped)
+      ? escaped
+      : "\\" + escaped;
   });
 
   return enclosingQuote + newContent + enclosingQuote;
