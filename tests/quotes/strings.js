@@ -37,6 +37,8 @@
 'hol\a'
 "multiple \a unnecessary \a escapes"
 'multiple \a unnecessary \a escapes'
+"unnecessarily escaped character preceded by escaped backslash \\\a"
+'unnecessarily escaped character preceded by escaped backslash \\\a'
 
 // Meaningful escapes
 "octal escapes \0 \1 \2 \3 \4 \5 \6 \7"
