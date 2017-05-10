@@ -3861,7 +3861,7 @@ function makeString(rawContent, enclosingQuote) {
 
   // Escape and unescape single and double quotes as needed to be able to
   // enclose `rawContent` with `enclosingQuote`.
-  const newContent = rawContent.replace(regex, (match, escaped, quote) => {
+  let newContent = rawContent.replace(regex, (match, escaped, quote) => {
     // If we matched an escape, and the escaped character is a quote of the
     // other type than we intend to enclose the string with, there's no need for
     // it to be escaped, so return it _without_ the backslash.
@@ -3884,15 +3884,12 @@ function makeString(rawContent, enclosingQuote) {
   // Adapted from https://github.com/eslint/eslint/blob/de0b4ad7bd820ade41b1f606008bea68683dc11a/lib/rules/no-useless-escape.js#L27
   const regexUnnecessaryStringEscapes = /((?:^|[^\\])(?:\\\\)*)\\([^\\nrvtbfux\r\n\u2028\u2029"'0-7])/g;
 
-  let minimallyEscapedContent = newContent;
-  let minimallyEscapedContentPrev;
-
   let maxIterations = newContent.length;
   let touched = true;
   while (touched && maxIterations > 0) {
     maxIterations--;
     touched = false;
-    minimallyEscapedContent = minimallyEscapedContent.replace(
+    newContent = newContent.replace(
       regexUnnecessaryStringEscapes,
       (match, prev, escaped) => {
         touched = true;
@@ -3901,7 +3898,7 @@ function makeString(rawContent, enclosingQuote) {
     );
   }
 
-  return enclosingQuote + minimallyEscapedContent + enclosingQuote;
+  return enclosingQuote + newContent + enclosingQuote;
 }
 
 function printRegex(node) {
