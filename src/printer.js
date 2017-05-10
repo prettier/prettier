@@ -17,6 +17,7 @@ var group = docBuilders.group;
 var indent = docBuilders.indent;
 var align = docBuilders.align;
 var conditionalGroup = docBuilders.conditionalGroup;
+var fill = docBuilders.fill;
 var ifBreak = docBuilders.ifBreak;
 var breakParent = docBuilders.breakParent;
 var lineSuffixBoundary = docBuilders.lineSuffixBoundary;
@@ -3455,8 +3456,8 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
 
       if (/\S/.test(value)) {
         // treat each line of text as its own entity
-        value.split(/(\r?\n\s*)/).forEach(line => {
-          const newlines = line.match(/\n/g);
+        value.split(/(\r?\n\s*)/).forEach(textLine => {
+          const newlines = textLine.match(/\n/g);
           if (newlines) {
             children.push(hardline);
 
@@ -3467,27 +3468,38 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
             return;
           }
 
-          const beginSpace = /^\s+/.test(line);
+          if (textLine.length === 0) {
+            return;
+          }
+
+          const beginSpace = /^\s+/.test(textLine);
           if (beginSpace) {
             children.push(jsxWhitespace);
+          } else {
             children.push(softline);
           }
 
-          const stripped = line.replace(/^\s+|\s+$/g, "");
+          const stripped = textLine.replace(/^\s+|\s+$/g, "");
           if (stripped) {
-            children.push(stripped);
+
+            // Split text into words separated by "line"s.
+            stripped.split(/(\s+)/).forEach(word => {
+              const space = /\s+/.test(word);
+              if (space) {
+                children.push(line);
+              } else {
+                children.push(word);
+              }
+            });
           }
 
-          const endSpace = /\s+$/.test(line);
+          const endSpace = /\s+$/.test(textLine);
           if (endSpace) {
-            children.push(softline);
             children.push(jsxWhitespace);
+          } else {
+            children.push(softline);
           }
         });
-
-        if (!isLineNext(util.getLast(children))) {
-          children.push(softline);
-        }
       } else if (/\n/.test(value)) {
         children.push(hardline);
 
@@ -3500,15 +3512,22 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
         // eg; one or more spaces separating two elements
         for (let i = 0; i < value.length; ++i) {
           children.push(jsxWhitespace);
+          // Because fill expects alternating content and whitespace parts
+          // we need to include an empty content part between each JSX
+          // whitespace.
+          if (i + 1 < value.length) {
+            children.push('');
+          }
         }
-        children.push(softline);
       }
     } else {
       children.push(print(childPath));
 
-      // add a line unless it's followed by a JSX newline
+      // add a softline where we have two adjacent elements that are not
+      // literals
       let next = n.children[i + 1];
-      if (!(next && /^\s*\n/.test(next.value))) {
+      const followedByJSXElement = next && !namedTypes.Literal.check(next);
+      if (followedByJSXElement) {
         children.push(softline);
       }
     }
@@ -3565,9 +3584,9 @@ function printJSXElement(path, options, print) {
   // Record any breaks. Should never go from true to false, only false to true.
   let forcedBreak = willBreak(openingLines);
 
-  const jsxWhitespace = options.singleQuote
-    ? ifBreak("{' '}", " ")
-    : ifBreak('{" "}', " ");
+  const rawJsxWhitespace = options.singleQuote ? "{' '}" : '{" "}';
+  const jsxWhitespace = ifBreak(concat([softline, rawJsxWhitespace, softline]), " ")
+
   const children = printJSXChildren(path, options, print, jsxWhitespace);
 
   // Trim trailing lines, recording if there was a hardline
@@ -3598,56 +3617,37 @@ function printJSXElement(path, options, print) {
     children.unshift(hardline);
   }
 
-  // Group by line, recording if there was a hardline.
-  let groups = [[]]; // Initialize the first line's group
+  // Tweak how we format children if outputting this element over multiple lines.
+  // Also detect whether we will force this element to output over multiple lines.
+  let multilineChildren = [];
   children.forEach((child, i) => {
-    // leading and trailing JSX whitespace don't go into a group
+
+    // Ensure that we display leading, trailing, and solitary whitespace as
+    // `{" "}` when outputting this element over multiple lines.
     if (child === jsxWhitespace) {
-      if (i === 0) {
-        groups.unshift(child);
+      if (children.length === 1) {
+        multilineChildren.push(rawJsxWhitespace);
+        return;
+      } else if (i === 0) {
+        multilineChildren.push(concat([rawJsxWhitespace, hardline]));
         return;
       } else if (i === children.length - 1) {
-        groups.push(child);
+        multilineChildren.push(concat([hardline, rawJsxWhitespace]));
         return;
       }
     }
 
-    let prev = children[i - 1];
-    if (prev && willBreak(prev)) {
+    multilineChildren.push(child);
+
+    if (willBreak(child)) {
       forcedBreak = true;
-
-      // On a new line, so create a new group and put this element in it.
-      groups.push([child]);
-    } else {
-      // Not on a newline, so add this element to the current group.
-      util.getLast(groups).push(child);
-    }
-
-    // Ensure we record hardline of last element.
-    if (!forcedBreak && i === children.length - 1) {
-      if (willBreak(child)) forcedBreak = true;
     }
   });
-
-  const childrenGroupedByLine = [
-    hardline,
-    // Conditional groups suppress break propagation; we want to output
-    // hard lines without breaking up the entire jsx element.
-    // Note that leading and trailing JSX Whitespace don't go into a group.
-    concat(
-      groups.map(
-        contents =>
-          (Array.isArray(contents)
-            ? conditionalGroup([concat(contents)])
-            : contents)
-      )
-    )
-  ];
 
   const multiLineElem = group(
     concat([
       openingLines,
-      indent(group(concat(childrenGroupedByLine), { shouldBreak: true })),
+      indent(concat([hardline, fill(multilineChildren)])),
       hardline,
       closingLines
     ])
@@ -3658,7 +3658,7 @@ function printJSXElement(path, options, print) {
   }
 
   return conditionalGroup([
-    group(concat([openingLines, concat(children), closingLines])),
+    group(concat([openingLines, fill(children), closingLines])),
     multiLineElem
   ]);
 }
