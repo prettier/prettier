@@ -181,6 +181,17 @@ function genericPrintNoParens(path, options, print, args) {
     case "EmptyStatement":
       return "";
     case "ExpressionStatement":
+      // Detect Flow-parsed directives
+      if (n.directive) {
+        return concat([
+          nodeStr(
+            n.expression,
+            options,
+            true
+          ),
+          semi
+        ]);
+      }
       return concat([path.call(print, "expression"), semi]); // Babel extension.
     case "ParenthesizedExpression":
       return concat(["(", path.call(print, "expression"), ")"]);
@@ -3815,7 +3826,7 @@ function adjustClause(node, clause, forceSpace) {
   return indent(concat([line, clause]));
 }
 
-function nodeStr(node, options) {
+function nodeStr(node, options, isFlowDirectiveLiteral) {
   const str = node.value;
   isString.assert(str);
 
@@ -3831,20 +3842,42 @@ function nodeStr(node, options) {
   const alternate = preferred === single ? double : single;
 
   let shouldUseAlternateQuote = false;
+  const isDirectiveLiteral =
+    isFlowDirectiveLiteral || node.type === "DirectiveLiteral";
+  let canChangeDirectiveQuotes = false;
 
   // If `rawContent` contains at least one of the quote preferred for enclosing
   // the string, we might want to enclose with the alternate quote instead, to
   // minimize the number of escaped quotes.
-  if (rawContent.includes(preferred.quote)) {
+  // Also check for the alternate quote, to determine if we're allowed to swap
+  // the quotes on a DirectiveLiteral.
+  if (
+    rawContent.includes(preferred.quote) ||
+    rawContent.includes(alternate.quote)
+  ) {
     const numPreferredQuotes = (rawContent.match(preferred.regex) || []).length;
     const numAlternateQuotes = (rawContent.match(alternate.regex) || []).length;
 
     shouldUseAlternateQuote = numPreferredQuotes > numAlternateQuotes;
+  } else {
+    canChangeDirectiveQuotes = true;
   }
 
   const enclosingQuote = shouldUseAlternateQuote
     ? alternate.quote
     : preferred.quote;
+
+  // Directives are exact code unit sequences, which means that you can't
+  // change the escape sequences they use.
+  // See https://github.com/prettier/prettier/issues/1555
+  // and https://tc39.github.io/ecma262/#directive-prologue
+  if (isDirectiveLiteral) {
+    if (canChangeDirectiveQuotes) {
+      return enclosingQuote + rawContent + enclosingQuote;
+    } else {
+      return raw;
+    }
+  }
 
   // It might sound unnecessary to use `makeString` even if `node.raw` already
   // is enclosed with `enclosingQuote`, but it isn't. `node.raw` could contain
