@@ -72,7 +72,6 @@
       "tests/typescript/conformance/classes/constructorDeclarations/constructorParameters/jsfmt.spec.js",
       "tests/typescript/custom/module/jsfmt.spec.js",
       "tests/function/jsfmt.spec.js",
-      "tests/typescript/conformance/types/interfaceDeclaration/jsfmt.spec.js",
       "tests/typescript/conformance/interfaces/interfaceDeclarations/jsfmt.spec.js"
     ]
   }
