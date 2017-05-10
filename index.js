@@ -66,7 +66,7 @@ function format(text, opts) {
   ensureAllCommentsPrinted(astComments);
 
   if (opts.keepIndentation) {
-    return str.replace(/^/gm, indentation);
+    return str.replace(/^(.)/gm, indentation + '$1');
   }
 
   return str;
