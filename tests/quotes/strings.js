@@ -31,6 +31,8 @@
 // Unnecessary escapes.
 "\'"
 '\"'
+"\a"
+'\a'
 
 // One of each.
 "\"'"

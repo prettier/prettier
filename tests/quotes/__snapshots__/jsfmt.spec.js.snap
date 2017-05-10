@@ -64,6 +64,8 @@ exports[`strings.js 1`] = `
 // Unnecessary escapes.
 "\\'"
 '\\"'
+"\\a"
+'\\a'
 
 // One of each.
 "\\"'"
@@ -130,6 +132,8 @@ exports[`strings.js 1`] = `
 // Unnecessary escapes.
 "'";
 '"';
+"a";
+"a";
 // One of each.
 "\\"'";
 "\\"'";
@@ -194,6 +198,8 @@ exports[`strings.js 2`] = `
 // Unnecessary escapes.
 "\\'"
 '\\"'
+"\\a"
+'\\a'
 
 // One of each.
 "\\"'"
@@ -260,6 +266,8 @@ exports[`strings.js 2`] = `
 // Unnecessary escapes.
 "'";
 '"';
+'a';
+'a';
 // One of each.
 '"\\'';
 '"\\'';
