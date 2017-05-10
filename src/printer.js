@@ -3861,7 +3861,7 @@ function makeString(rawContent, enclosingQuote) {
 
   // Matches any unnecessarily escaped character.
   // Adapted from https://github.com/eslint/eslint/blob/de0b4ad7bd820ade41b1f606008bea68683dc11a/lib/rules/no-useless-escape.js#L27
-  const regexUnnecessaryStringEscapes = /((?:\\\\)*)\\([^\\nrvtbfux\r\n\u2028\u2029"'0-7])/g;
+  const regexUnnecessaryStringEscapes = /((?:^|[^\\])(?:\\\\)*)\\([^\\nrvtbfux\r\n\u2028\u2029"'0-7])/g;
 
   // Escape and unescape single and double quotes as needed to be able to
   // enclose `rawContent` with `enclosingQuote`.
