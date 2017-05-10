@@ -49,10 +49,19 @@
 'unescaped character preceded by two escaped backslashes       \\\\a'
 "\a\a" // consecutive unnecessarily escaped characters
 '\a\a' // consecutive unnecessarily escaped characters
+'escaped \u2030 \‰ (should not stay escaped)'
 
 // Meaningful escapes
 "octal escapes \0 \1 \2 \3 \4 \5 \6 \7"
 'octal escapes \0 \1 \2 \3 \4 \5 \6 \7'
+"meaningfully escaped alphabetical characters \n \r \v \t \b \f \u2713 \x61"
+'meaningfully escaped alphabetical characters \n \r \v \t \b \f \u2713 \x61'
+'escaped newline \
+'
+'escaped carriage return \
+'
+'escaped \u2028 \ '
+'escaped \u2029 \ '
 
 // One of each.
 "\"'"
