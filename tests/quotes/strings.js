@@ -33,6 +33,8 @@
 '\"'
 "\a"
 '\a'
+"hol\a"
+'hol\a'
 
 // One of each.
 "\"'"
