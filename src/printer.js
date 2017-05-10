@@ -186,9 +186,8 @@ function genericPrintNoParens(path, options, print, args) {
         return concat([
           nodeStr(
             n,
-            Object.assign({}, options, {
-              isFlowDirectiveLiteral: true
-            })
+            options,
+            true
           ),
           semi
         ]);
@@ -3827,13 +3826,13 @@ function adjustClause(node, clause, forceSpace) {
   return indent(concat([line, clause]));
 }
 
-function nodeStr(node, options) {
-  const str = options.isFlowDirectiveLiteral
+function nodeStr(node, options, isFlowDirectiveLiteral) {
+  const str = isFlowDirectiveLiteral
     ? node.expression.value
     : node.value;
   isString.assert(str);
 
-  const raw = options.isFlowDirectiveLiteral
+  const raw = isFlowDirectiveLiteral
     ? node.expression.raw
     : node.extra ? node.extra.raw : node.raw;
   // `rawContent` is the string exactly like it appeared in the input source
@@ -3848,7 +3847,7 @@ function nodeStr(node, options) {
 
   let shouldUseAlternateQuote = false;
   const isDirectiveLiteral =
-    options.isFlowDirectiveLiteral || node.type === "DirectiveLiteral";
+    isFlowDirectiveLiteral || node.type === "DirectiveLiteral";
   let canChangeDirectiveQuotes = false;
 
   // If `rawContent` contains at least one of the quote preferred for enclosing
