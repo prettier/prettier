@@ -68,6 +68,8 @@ exports[`strings.js 1`] = `
 '\\a'
 "hol\\a"
 'hol\\a'
+"multiple \\a unnecessary \\a escapes"
+'multiple \\a unnecessary \\a escapes'
 
 // One of each.
 "\\"'"
@@ -138,6 +140,8 @@ exports[`strings.js 1`] = `
 "a";
 "hola";
 "hola";
+"multiple a unnecessary a escapes";
+"multiple a unnecessary a escapes";
 // One of each.
 "\\"'";
 "\\"'";
@@ -206,6 +210,8 @@ exports[`strings.js 2`] = `
 '\\a'
 "hol\\a"
 'hol\\a'
+"multiple \\a unnecessary \\a escapes"
+'multiple \\a unnecessary \\a escapes'
 
 // One of each.
 "\\"'"
@@ -276,6 +282,8 @@ exports[`strings.js 2`] = `
 'a';
 'hola';
 'hola';
+'multiple a unnecessary a escapes';
+'multiple a unnecessary a escapes';
 // One of each.
 '"\\'';
 '"\\'';

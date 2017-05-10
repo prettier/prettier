@@ -35,6 +35,8 @@
 '\a'
 "hol\a"
 'hol\a'
+"multiple \a unnecessary \a escapes"
+'multiple \a unnecessary \a escapes'
 
 // One of each.
 "\"'"
