@@ -33,7 +33,7 @@
     "rollup-plugin-node-globals": "1.1.0",
     "rollup-plugin-node-resolve": "2.0.0",
     "typescript": "2.3.2",
-    "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#a294afa8158c9c088521eed72b6745eed302361c"
+    "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#f5fcc879b493138eb97b9bdfb39afc4d210b1ddf"
   },
   "scripts": {
     "test": "jest",
@@ -52,7 +52,26 @@
     "testRegex": "jsfmt\\.spec\\.js$",
     "testPathIgnorePatterns": [
       "tests/new_react",
-      "tests/more_react"
+      "tests/more_react",
+      "tests/typescript_nosemi/jsfmt.spec.js",
+      "tests/typescript/conformance/types/abstractKeyword/jsfmt.spec.js",
+      "tests/typescript/conformance/classes/classDeclarations/classHeritageSpecification/jsfmt.spec.js",
+      "tests/typescript/compiler/jsfmt.spec.js",
+      "tests/typescript/conformance/types/typeReference/jsfmt.spec.js",
+      "tests/typescript/conformance/types/variableDeclarator/jsfmt.spec.js",
+      "tests/typescript/conformance/types/typeParameter/jsfmt.spec.js",
+      "tests/typescript/custom/computedProperties/jsfmt.spec.js",
+      "tests/typescript/conformance/types/functions/jsfmt.spec.js",
+      "tests/typescript/custom/new/jsfmt.spec.js",
+      "tests/typescript/custom/call/jsfmt.spec.js",
+      "tests/typescript/custom/typeParameters/jsfmt.spec.js",
+      "tests/typescript/conformance/internalModules/importDeclarations/jsfmt.spec.js",
+      "tests/typescript/conformance/expressions/functionCalls/jsfmt.spec.js",
+      "tests/typescript/conformance/es6/Symbols/jsfmt.spec.js",
+      "tests/typescript/conformance/classes/jsfmt.spec.js",
+      "tests/typescript/conformance/classes/constructorDeclarations/constructorParameters/jsfmt.spec.js",
+      "tests/typescript/custom/module/jsfmt.spec.js",
+      "tests/typescript/conformance/interfaces/interfaceDeclarations/jsfmt.spec.js"
     ]
   }
 }

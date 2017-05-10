@@ -1444,15 +1444,9 @@ locate-path@^2.0.0:
     p-locate "^2.0.0"
     path-exists "^3.0.0"
 
-lodash.tostring@^4.0.0:
-  version "4.1.4"
-  resolved "https://registry.yarnpkg.com/lodash.tostring/-/lodash.tostring-4.1.4.tgz#560c27d1f8eadde03c2cce198fef5c031d8298fb"
-
-lodash.unescape@4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/lodash.unescape/-/lodash.unescape-4.0.0.tgz#36debfc492b81478471ef974cd3783e202eb6cef"
-  dependencies:
-    lodash.tostring "^4.0.0"
+lodash.unescape@4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/lodash.unescape/-/lodash.unescape-4.0.1.tgz#bf2249886ce514cda112fae9218cdc065211fc9c"
 
 lodash@^4.14.0, lodash@^4.2.0:
   version "4.17.4"
@@ -1601,7 +1595,7 @@ oauth-sign@~0.8.1:
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/oauth-sign/-/oauth-sign-0.8.2.tgz#46a6ab7f0aead8deae9ec0565780b7d4efeb9d43"
 
-object-assign@^4.0.1, object-assign@^4.1.0:
+object-assign@^4.1.0:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
 
@@ -1979,13 +1973,9 @@ sax@^1.2.1:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.2.tgz#fd8631a23bc7826bef5d871bdb87378c95647828"
 
-"semver@2 || 3 || 4 || 5", semver@^5.3.0:
+"semver@2 || 3 || 4 || 5", semver@5.3.0, semver@^5.3.0:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.3.0.tgz#9b2ce5d3de02d17c6012ad326aa6b4d0cf54f94f"
-
-semver@^4.3.6:
-  version "4.3.6"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-4.3.6.tgz#300bc6e0e86374f7ba61068b5b1ecd57fc6532da"
 
 set-blocking@^2.0.0:
   version "2.0.0"
@@ -2166,13 +2156,12 @@ type-check@~0.3.2:
   dependencies:
     prelude-ls "~1.1.2"
 
-"typescript-eslint-parser@git://github.com/eslint/typescript-eslint-parser.git#a294afa8158c9c088521eed72b6745eed302361c":
+"typescript-eslint-parser@git://github.com/eslint/typescript-eslint-parser.git#f5fcc879b493138eb97b9bdfb39afc4d210b1ddf":
   version "2.1.0"
-  resolved "git://github.com/eslint/typescript-eslint-parser.git#a294afa8158c9c088521eed72b6745eed302361c"
+  resolved "git://github.com/eslint/typescript-eslint-parser.git#f5fcc879b493138eb97b9bdfb39afc4d210b1ddf"
   dependencies:
-    lodash.unescape "4.0.0"
-    object-assign "^4.0.1"
-    semver "^4.3.6"
+    lodash.unescape "4.0.1"
+    semver "5.3.0"
 
 typescript@2.3.2:
   version "2.3.2"

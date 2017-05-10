@@ -108,7 +108,7 @@ function tryParseTypeScript(text, jsx) {
     loc: true,
     range: true,
     tokens: true,
-    attachComment: true,
+    comment: true,
     ecmaFeatures: { jsx }
   });
 }

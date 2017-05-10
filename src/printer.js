@@ -760,21 +760,40 @@ function genericPrintNoParens(path, options, print, args) {
         printArgumentsList(path, options, print)
       ]);
     }
-
+    case "TSInterfaceDeclaration":
+      parts.push(
+        printTypeScriptModifiers(path, options, print),
+        "interface ",
+        path.call(print, "id"),
+        n.typeParameters ? path.call(print, "typeParameters") : "",
+        " "
+      );
+      
+      if (n.heritageClauses) {
+        prefix.push(
+          "extends ",
+          join(", ", path.map(print, "heritageClauses")),
+          " "
+        );
+      }
+      
+      parts.push(path.call(print, "body"));
+      
+      return concat(parts);
     case "ObjectExpression":
     case "ObjectPattern":
+    case "TSInterfaceBody":
     case "ObjectTypeAnnotation":
-    case "TSInterfaceDeclaration":
     case "TSTypeLiteral": {
       var isTypeAnnotation = n.type === "ObjectTypeAnnotation";
       var isTypeScriptTypeAnnotation = n.type === "TSTypeLiteral";
-      var isTypeScriptInterfaceDeclaration = n.type === "TSInterfaceDeclaration";
-      var isTypeScriptType = isTypeScriptTypeAnnotation || isTypeScriptInterfaceDeclaration;
+      var isTypeScriptInterfaceBody = n.type === "TSInterfaceBody";
+      var isTypeScriptType = isTypeScriptTypeAnnotation || isTypeScriptInterfaceBody;
       // Leave this here because we *might* want to make this
       // configurable later -- flow accepts ";" for type separators,
       // typescript accepts ";" and newlines
       var separator = isTypeAnnotation ? "," : ",";
-      if (isTypeScriptInterfaceDeclaration) {
+      if (isTypeScriptInterfaceBody) {
         separator = semi;
       }
       var fields = [];
@@ -783,30 +802,19 @@ function genericPrintNoParens(path, options, print, args) {
       var rightBrace = n.exact ? "|}" : "}";
       var parent = path.getParentNode(0);
       var parentIsUnionTypeAnnotation = parent.type === "UnionTypeAnnotation";
-      var propertiesField = isTypeScriptType
-        ? "members"
-        : "properties";
+      var propertiesField;
+      
+      if (n.type === 'TSTypeLiteral') {
+        propertiesField = "members";
+      } else if (n.type === "TSInterfaceBody") {
+        propertiesField = "body";
+      } else {
+        propertiesField = "properties";
+      }
 
       if (isTypeAnnotation) {
         fields.push("indexers", "callProperties");
       }
-      if (isTypeScriptInterfaceDeclaration) {
-        prefix.push(
-          printTypeScriptModifiers(path, options, print),
-          "interface ",
-          path.call(print, "name"),
-          printTypeParameters(path, options, print, "typeParameters"),
-          " "
-        );
-      }
-      if (n.heritageClauses) {
-        prefix.push(
-          "extends ",
-          join(", ", path.map(print, "heritageClauses")),
-          " "
-        );
-      }
-
       fields.push(propertiesField);
 
       // Unfortunately, things are grouped together in the ast can be
