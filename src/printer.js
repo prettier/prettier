@@ -3861,7 +3861,7 @@ function makeString(rawContent, enclosingQuote) {
 
   // Escape and unescape single and double quotes as needed to be able to
   // enclose `rawContent` with `enclosingQuote`.
-  let newContent = rawContent.replace(regex, (match, escaped, quote) => {
+  const newContent = rawContent.replace(regex, (match, escaped, quote) => {
     // If we matched an escape, and the escaped character is a quote of the
     // other type than we intend to enclose the string with, there's no need for
     // it to be escaped, so return it _without_ the backslash.
@@ -3880,25 +3880,29 @@ function makeString(rawContent, enclosingQuote) {
     return match;
   });
 
-  // Matches any unnecessarily escaped character.
+  const minimallyEscapedContent = minimizeEscapes(newContent)
+
+  return enclosingQuote + minimallyEscapedContent + enclosingQuote;
+}
+
+// Unescapes unnecessarily escaped characters in a string's content.
+function minimizeEscapes(rawContent) {
+  // Matches any unnecessarily escaped character in a reversed string.
   // Adapted from https://github.com/eslint/eslint/blob/de0b4ad7bd820ade41b1f606008bea68683dc11a/lib/rules/no-useless-escape.js#L27
-  const regexUnnecessaryStringEscapes = /((?:^|[^\\])(?:\\\\)*)\\([^\\nrvtbfux\r\n\u2028\u2029"'0-7])/g;
+  // This regex is "reversed" because we need to use lookbehind, but JS doesn't
+  // support lookbehind yet.
+  // Instead, we use the "Mimicking lookbehind through reversal" technique from
+  // http://blog.stevenlevithan.com/archives/mimic-lookbehind-javascript
+  const regexUnnecessaryStringEscapesReversed = /([^\\nrvtbfux\r\n\u2028\u2029"'0-7])\\(?=(?:\\\\)*(?:[^\\]|$))/g;
 
-  let maxIterations = newContent.length;
-  let touched = true;
-  while (touched && maxIterations > 0) {
-    maxIterations--;
-    touched = false;
-    newContent = newContent.replace(
-      regexUnnecessaryStringEscapes,
-      (match, prev, escaped) => {
-        touched = true;
-        return prev + escaped;
-      }
-    );
-  }
+  const rawContentReversed = rawContent.split("").reverse().join("");
+  const minimizedReversed = rawContentReversed.replace(
+    regexUnnecessaryStringEscapesReversed,
+    (match, escaped) => escaped
+  );
+  const minimized = minimizedReversed.split("").reverse().join("");
 
-  return enclosingQuote + newContent + enclosingQuote;
+  return minimized;
 }
 
 function printRegex(node) {
