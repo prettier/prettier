@@ -66,6 +66,8 @@ exports[`strings.js 1`] = `
 '\\"'
 "\\a"
 '\\a'
+"hol\\a"
+'hol\\a'
 
 // One of each.
 "\\"'"
@@ -134,6 +136,8 @@ exports[`strings.js 1`] = `
 '"';
 "a";
 "a";
+"hola";
+"hola";
 // One of each.
 "\\"'";
 "\\"'";
@@ -200,6 +204,8 @@ exports[`strings.js 2`] = `
 '\\"'
 "\\a"
 '\\a'
+"hol\\a"
+'hol\\a'
 
 // One of each.
 "\\"'"
@@ -268,6 +274,8 @@ exports[`strings.js 2`] = `
 '"';
 'a';
 'a';
+'hola';
+'hola';
 // One of each.
 '"\\'';
 '"\\'';
