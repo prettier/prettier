@@ -5,7 +5,6 @@ var comments = require("./comments");
 var FastPath = require("./fast-path");
 var util = require("./util");
 var isIdentifierName = require("esutils").keyword.isIdentifierNameES6;
-var jsesc = require('jsesc');
 
 var docBuilders = require("./doc-builders");
 var concat = docBuilders.concat;
@@ -3846,17 +3845,42 @@ function nodeStr(node, options) {
   const enclosingQuote = shouldUseAlternateQuote
     ? alternate.quote
     : preferred.quote;
-  const quoteType = enclosingQuote === '"' ? "double" : "single";
 
-  // It might sound unnecessary to use `jsesc` even if `node.raw` already
+  // It might sound unnecessary to use `makeString` even if `node.raw` already
   // is enclosed with `enclosingQuote`, but it isn't. `node.raw` could contain
-  // unnecessary escapes (such as in `"\'"`). Always using `jsesc` makes
+  // unnecessary escapes (such as in `"\'"`). Always using `makeString` makes
   // sure that we consistently output the minimum amount of escaped quotes.
-  return jsesc(str, {
-    quotes: quoteType,
-    wrap: true,
-    minimal: true
+  return makeString(rawContent, enclosingQuote);
+}
+
+function makeString(rawContent, enclosingQuote) {
+  const otherQuote = enclosingQuote === '"' ? "'" : '"';
+
+  // Matches _any_ escape and unescaped quotes (both single and double).
+  const regex = /\\([\s\S])|(['"])/g;
+
+  // Escape and unescape single and double quotes as needed to be able to
+  // enclose `rawContent` with `enclosingQuote`.
+  const newContent = rawContent.replace(regex, (match, escaped, quote) => {
+    // If we matched an escape, and the escaped character is a quote of the
+    // other type than we intend to enclose the string with, there's no need for
+    // it to be escaped, so return it _without_ the backslash.
+    if (escaped === otherQuote) {
+      return escaped;
+    }
+
+    // If we matched an unescaped quote and it is of the _same_ type as we
+    // intend to enclose the string with, it must be escaped, so return it with
+    // a backslash.
+    if (quote === enclosingQuote) {
+      return "\\" + quote;
+    }
+
+    // Otherwise return the escape or unescaped quote as-is.
+    return match;
   });
+
+  return enclosingQuote + newContent + enclosingQuote;
 }
 
 function printRegex(node) {

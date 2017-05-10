@@ -19,7 +19,6 @@
     "get-stdin": "5.0.1",
     "glob": "7.1.1",
     "jest-validate": "20.0.0",
-    "jsesc": "2.5.1",
     "minimist": "1.2.0"
   },
   "devDependencies": {
