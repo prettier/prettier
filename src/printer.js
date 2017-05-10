@@ -3876,33 +3876,18 @@ function makeString(rawContent, enclosingQuote) {
       return "\\" + quote;
     }
 
-    // Otherwise return the escape or unescaped quote as-is.
-    return match;
+    if (quote) {
+      return quote;
+    }
+
+    // Unescape any unnecessarily escaped character.
+    // Adapted from https://github.com/eslint/eslint/blob/de0b4ad7bd820ade41b1f606008bea68683dc11a/lib/rules/no-useless-escape.js#L27
+    return /^[^\\nrvtbfux\r\n\u2028\u2029"'0-7]$/.test(escaped)
+      ? escaped
+      : "\\" + escaped;
   });
 
-  const minimallyEscapedContent = minimizeEscapes(newContent)
-
-  return enclosingQuote + minimallyEscapedContent + enclosingQuote;
-}
-
-// Unescapes unnecessarily escaped characters in a string's content.
-function minimizeEscapes(rawContent) {
-  // Matches any unnecessarily escaped character in a reversed string.
-  // Adapted from https://github.com/eslint/eslint/blob/de0b4ad7bd820ade41b1f606008bea68683dc11a/lib/rules/no-useless-escape.js#L27
-  // This regex is "reversed" because we need to use lookbehind, but JS doesn't
-  // support lookbehind yet.
-  // Instead, we use the "Mimicking lookbehind through reversal" technique from
-  // http://blog.stevenlevithan.com/archives/mimic-lookbehind-javascript
-  const regexUnnecessaryStringEscapesReversed = /([^\\nrvtbfux\r\n\u2028\u2029"'0-7])\\(?=(?:\\\\)*(?:[^\\]|$))/g;
-
-  const rawContentReversed = rawContent.split("").reverse().join("");
-  const minimizedReversed = rawContentReversed.replace(
-    regexUnnecessaryStringEscapesReversed,
-    (match, escaped) => escaped
-  );
-  const minimized = minimizedReversed.split("").reverse().join("");
-
-  return minimized;
+  return enclosingQuote + newContent + enclosingQuote;
 }
 
 function printRegex(node) {
