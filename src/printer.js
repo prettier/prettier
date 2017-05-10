@@ -185,7 +185,7 @@ function genericPrintNoParens(path, options, print, args) {
       if (n.directive) {
         return concat([
           nodeStr(
-            n,
+            n.expression,
             options,
             true
           ),
@@ -3827,14 +3827,10 @@ function adjustClause(node, clause, forceSpace) {
 }
 
 function nodeStr(node, options, isFlowDirectiveLiteral) {
-  const str = isFlowDirectiveLiteral
-    ? node.expression.value
-    : node.value;
+  const str = node.value;
   isString.assert(str);
 
-  const raw = isFlowDirectiveLiteral
-    ? node.expression.raw
-    : node.extra ? node.extra.raw : node.raw;
+  const raw = node.extra ? node.extra.raw : node.raw;
   // `rawContent` is the string exactly like it appeared in the input source
   // code, with its enclosing quote.
   const rawContent = raw.slice(1, -1);
