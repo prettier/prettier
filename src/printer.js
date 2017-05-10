@@ -3887,8 +3887,10 @@ function makeString(rawContent, enclosingQuote) {
   let minimallyEscapedContent = newContent;
   let minimallyEscapedContentPrev;
 
+  let maxIterations = newContent.length;
   let touched = true;
-  while (touched) {
+  while (touched && maxIterations > 0) {
+    maxIterations--;
     touched = false;
     minimallyEscapedContent = minimallyEscapedContent.replace(
       regexUnnecessaryStringEscapes,
