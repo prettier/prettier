@@ -3887,12 +3887,15 @@ function makeString(rawContent, enclosingQuote) {
   let minimallyEscapedContent = newContent;
   let minimallyEscapedContentPrev;
 
-  while (minimallyEscapedContent !== minimallyEscapedContentPrev) {
-    minimallyEscapedContentPrev = minimallyEscapedContent;
-    // Unescape unnecessarily escaped characters.
-    minimallyEscapedContent = minimallyEscapedContentPrev.replace(
+  let touched = true;
+  while (touched) {
+    touched = false;
+    minimallyEscapedContent = minimallyEscapedContent.replace(
       regexUnnecessaryStringEscapes,
-      (match, prev, escaped) => prev + escaped
+      (match, prev, escaped) => {
+        touched = true;
+        return prev + escaped;
+      }
     );
   }
 
