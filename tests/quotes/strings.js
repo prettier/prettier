@@ -38,6 +38,10 @@
 "multiple \a unnecessary \a escapes"
 'multiple \a unnecessary \a escapes'
 
+// Meaningful escapes
+"octal escapes \0 \1 \2 \3 \4 \5 \6 \7"
+'octal escapes \0 \1 \2 \3 \4 \5 \6 \7'
+
 // One of each.
 "\"'"
 '"\''
