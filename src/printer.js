@@ -3859,6 +3859,10 @@ function makeString(rawContent, enclosingQuote) {
   // Matches _any_ escape and unescaped quotes (both single and double).
   const regex = /\\([\s\S])|(['"])/g;
 
+  // Matches any unnecessarily escaped character.
+  // Adapted from https://github.com/eslint/eslint/blob/de0b4ad7bd820ade41b1f606008bea68683dc11a/lib/rules/no-useless-escape.js#L27
+  const regexUnnecessaryStringEscapes = /(?:^|[^\\])\\([^\\nrvtbfux\r\n\u2028\u2029"'0])/;
+
   // Escape and unescape single and double quotes as needed to be able to
   // enclose `rawContent` with `enclosingQuote`.
   const newContent = rawContent.replace(regex, (match, escaped, quote) => {
@@ -3878,7 +3882,9 @@ function makeString(rawContent, enclosingQuote) {
 
     // Otherwise return the escape or unescaped quote as-is.
     return match;
-  });
+  })
+  // Unescape unnecessarily escaped characters.
+  .replace(regexUnnecessaryStringEscapes, (match, escaped) => escaped);
 
   return enclosingQuote + newContent + enclosingQuote;
 }
