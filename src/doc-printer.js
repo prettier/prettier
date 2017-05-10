@@ -288,7 +288,7 @@ function printDocToString(doc, options) {
                     out[out.length - 1] = out[out.length - 1].replace(
                       /[^\S\n]*$/,
                       ""
-                    );                    
+                    );
                   }
                 }
 

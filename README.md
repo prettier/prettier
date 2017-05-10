@@ -161,9 +161,9 @@ Note that `--write` cannot be used with `--debug-check`.
 
 #### Pre-commit hook for changed files
 
-You can use this with a pre-commit tool. This can re-format your files that are marked as "staged" via `git add`  before you commit.  
+You can use this with a pre-commit tool. This can re-format your files that are marked as "staged" via `git add`  before you commit.
 
-##### 1. [lint-staged](https://github.com/okonet/lint-staged) 
+##### 1. [lint-staged](https://github.com/okonet/lint-staged)
 
 Install it along with [husky](https://github.com/typicode/husky):
 
@@ -201,9 +201,9 @@ Just copy the following config in your pre-commit config yaml file
         hooks:
         -   id: prettier
             additional_dependencies: ['prettier@1.1.0']
-        
+
  ```
- 
+
 Find more info from [here](https://github.com/awebdeveloper/pre-commit-prettier)
 
 ##### 3. bash script
@@ -249,11 +249,11 @@ Prettier ships with a handful of customizable format options, usable in both the
 | **Print Width** - Specify the length of line that the printer will wrap on. | `80` | `--print-width <int>`  | `printWidth: <int>`
 | **Tab Width** - Specify the number of spaces per indentation-level. | `2` | `--tab-width <int>` | `tabWidth: <int>` |
 | **Quotes** - Use single quotes instead of double quotes. | `false` | `--single-quote` | `singleQuote: <bool>` |
-| **Trailing Commas** - Print trailing commas wherever possible. <br /><br /> Valid options: <br /> - `"none"` - no trailing commas <br /> - `"es5"`  - trailing commas where valid in ES5 (objects, arrays, etc) <br /> - `"all"`  - trailing commas wherever possible (function arguments) | `"none"` | <code>--trailing-comma <none&#124;es5&#124;all></code> | <code>trailingComma: "<none&#124;es5&#124;all>"</code> |
-| **Bracket Spacing** - Do not print spaces between brackets in object literals. | `true` | `--no-bracket-spacing` | `bracketSpacing: <bool>` |
+| **Trailing Commas** - Print trailing commas wherever possible.<br /><br />Valid options: <br /> - `"none"` - no trailing commas <br /> - `"es5"` - trailing commas where valid in ES5 (objects, arrays, etc) <br /> - `"all"`  - trailing commas wherever possible (function arguments) | `"none"` | <code>--trailing-comma <none&#124;es5&#124;all></code> | <code>trailingComma: "<none&#124;es5&#124;all>"</code> |
+| **Bracket Spacing** - Print spaces between brackets in object literals.<br /><br />Valid options: <br /> - `true` - Example: `{ foo: bar }` <br /> - `false` - Example: `{foo: bar}` | `true` | `--no-bracket-spacing` | `bracketSpacing: <bool>` |
 | **JSX Brackets on Same Line** - Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line | `false` | `--jsx-bracket-same-line` | `jsxBracketSameLine: <bool>` |
 | **Parser** - Specify which parse to use. | `babylon` | <code>--parser <flow&#124;babylon></code> | <code>parser: "<flow&#124;babylon>"</code> |
-| **Semicolons** - Do not print semicolons, except at the beginning of lines which may need them. <br /><br />Valid options:<br /> - `true` - add a semicolon at the end of every line <br />- `false` - only add semicolons at the beginning of lines that may introduce ASI failures | `true` | `--no-semi` | `semi: <bool>` |
+| **Semicolons** - Print semicolons at the ends of statements.<br /><br />Valid options: <br /> - `true` - add a semicolon at the end of every statement <br /> - `false` - only add semicolons at the beginning of lines that may introduce ASI failures | `true` | `--no-semi` | `semi: <bool>` |
 
 ### Excluding code from formatting
 
