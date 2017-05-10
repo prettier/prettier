@@ -68,6 +68,8 @@ exports[`strings.js 1`] = `
 '\\a'
 "hol\\a"
 'hol\\a'
+"hol\\\\a (the a is not escaped)"
+'hol\\\\a (the a is not escaped)'
 "multiple \\a unnecessary \\a escapes"
 'multiple \\a unnecessary \\a escapes'
 "unnecessarily escaped character preceded by escaped backslash \\\\\\a"
@@ -146,6 +148,8 @@ exports[`strings.js 1`] = `
 "a";
 "hola";
 "hola";
+"hol\\a (the a is not escaped)";
+"hol\\a (the a is not escaped)";
 "multiple a unnecessary a escapes";
 "multiple a unnecessary a escapes";
 "unnecessarily escaped character preceded by escaped backslash \\\\a";
@@ -221,6 +225,8 @@ exports[`strings.js 2`] = `
 '\\a'
 "hol\\a"
 'hol\\a'
+"hol\\\\a (the a is not escaped)"
+'hol\\\\a (the a is not escaped)'
 "multiple \\a unnecessary \\a escapes"
 'multiple \\a unnecessary \\a escapes'
 "unnecessarily escaped character preceded by escaped backslash \\\\\\a"
@@ -299,6 +305,8 @@ exports[`strings.js 2`] = `
 'a';
 'hola';
 'hola';
+'hol\\a (the a is not escaped)';
+'hol\\a (the a is not escaped)';
 'multiple a unnecessary a escapes';
 'multiple a unnecessary a escapes';
 'unnecessarily escaped character preceded by escaped backslash \\\\a';

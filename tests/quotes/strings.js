@@ -35,6 +35,8 @@
 '\a'
 "hol\a"
 'hol\a'
+"hol\\a (the a is not escaped)"
+'hol\\a (the a is not escaped)'
 "multiple \a unnecessary \a escapes"
 'multiple \a unnecessary \a escapes'
 "unnecessarily escaped character preceded by escaped backslash \\\a"
