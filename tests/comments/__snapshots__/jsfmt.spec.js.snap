@@ -1252,7 +1252,7 @@ a}
 
 \${/* comment */ /* comment */ c}
 
-\${/* comment */
+\${// comment
 /*comment */
 d};
 \`;

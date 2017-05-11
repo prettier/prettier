@@ -36,11 +36,11 @@ a}
 
 \${/* comment */ /* comment */ c}
 
-\${/* comment */
+\${// comment
 /*comment */
 d}
 
-\${/* $FlowFixMe found when converting React.createClass to ES6 */
+\${// $FlowFixMe found when converting React.createClass to ES6
 ExampleStory.getFragment("story")}
 \`;
 
