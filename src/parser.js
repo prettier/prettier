@@ -60,7 +60,7 @@ function parseWithBabylon(text) {
   // Inline the require to avoid loading all the JS if we don't use it
   const babylon = require("babylon");
 
-  return babylon.parse(text, {
+  const babylonOptions = {
     sourceType: "module",
     allowImportExportEverywhere: false,
     allowReturnOutsideFunction: false,
@@ -77,7 +77,18 @@ function parseWithBabylon(text) {
       "functionSent",
       "dynamicImport"
     ]
-  });
+  };
+
+  try {
+    return babylon.parse(text, babylonOptions);
+  } catch (originalError) {
+    babylonOptions.strictMode = false;
+    try {
+      return babylon.parse(text, babylonOptions);
+    } catch (nonStrictError) {
+      throw originalError;
+    }
+  }
 }
 
 function parseWithTypeScript(text) {
