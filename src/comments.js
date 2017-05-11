@@ -176,6 +176,7 @@ function attach(comments, ast, text) {
           precedingNode,
           comment
         ) ||
+        handleTemplateLiteralComments(enclosingNode, comment) ||
         handleAssignmentPatternComments(enclosingNode, comment)
       ) {
         // We're good
