@@ -4130,15 +4130,18 @@ function isObjectTypePropertyAFunction(node) {
   );
 }
 
+// TODO: This is a bad hack and we need a better way to distinguish between
+// arrow functions and otherwise
 function isFunctionNotation(node) {
-  // TODO: This is a bad hack and we need a better way to distinguish between
-  // arrow functions and otherwise
-  const sameLocStart = util.locStart(node) === util.locStart(node.value);
-  return isGetterOrSetter(node) || sameLocStart;
+  return isGetterOrSetter(node) || sameLocStart(node, node.value);
 }
 
 function isGetterOrSetter(node) {
   return node.kind === "get" || node.kind === "set";
+}
+
+function sameLocStart(nodeA, nodeB) {
+  return util.locStart(nodeA) === util.locStart(nodeB);
 }
 
 // Hack to differentiate between the following two which have the same ast
@@ -4149,7 +4152,7 @@ function isTypeAnnotationAFunction(node) {
     node.type === "TypeAnnotation" &&
     node.typeAnnotation.type === "FunctionTypeAnnotation" &&
     !node.static &&
-    util.locStart(node) !== util.locStart(node.typeAnnotation)
+    !sameLocStart(node, node.typeAnnotation)
   );
 }
 
