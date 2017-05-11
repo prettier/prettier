@@ -1982,18 +1982,14 @@ function genericPrintNoParens(path, options, print, args) {
       ]);
     case "ObjectTypeProperty":
       var variance = getFlowVariance(n, options);
-      // TODO: This is a bad hack and we need a better way to know
-      // when to emit an arrow function or not.
-      var isFunctionNotation = util.locStart(n) === util.locStart(n.value)
-      var isGetterOrSetter = n.kind === "get" || n.kind === "set"
 
       return concat([
         n.static ? "static " : "",
-        isGetterOrSetter ? n.kind + " " : "",
+        isGetterOrSetter(n) ? n.kind + " " : "",
         variance || "",
         path.call(print, "key"),
         n.optional ? "?" : "",
-        isFunctionNotation || isGetterOrSetter ? "" : ": ",
+        isFunctionNotation(n) ? "" : ": ",
         path.call(print, "value")
       ]);
     case "QualifiedTypeIdentifier":
@@ -4126,13 +4122,26 @@ function isMemberExpressionChain(node) {
 // type T = { method: () => void };
 // type T = { method(): void };
 function isObjectTypePropertyAFunction(node) {
-  const isGetterOrSetter = node.kind === 'get' || node.kind === 'set';
   return (
     node.type === "ObjectTypeProperty" &&
     node.value.type === "FunctionTypeAnnotation" &&
     !node.static &&
-    util.locStart(node.key) !== util.locStart(node.value) && !isGetterOrSetter
+    !isFunctionNotation(node)
   );
+}
+
+// TODO: This is a bad hack and we need a better way to distinguish between
+// arrow functions and otherwise
+function isFunctionNotation(node) {
+  return isGetterOrSetter(node) || sameLocStart(node, node.value);
+}
+
+function isGetterOrSetter(node) {
+  return node.kind === "get" || node.kind === "set";
+}
+
+function sameLocStart(nodeA, nodeB) {
+  return util.locStart(nodeA) === util.locStart(nodeB);
 }
 
 // Hack to differentiate between the following two which have the same ast
@@ -4143,7 +4152,7 @@ function isTypeAnnotationAFunction(node) {
     node.type === "TypeAnnotation" &&
     node.typeAnnotation.type === "FunctionTypeAnnotation" &&
     !node.static &&
-    util.locStart(node) !== util.locStart(node.typeAnnotation)
+    !sameLocStart(node, node.typeAnnotation)
   );
 }
 
