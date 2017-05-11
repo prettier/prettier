@@ -1982,11 +1982,10 @@ function genericPrintNoParens(path, options, print, args) {
       ]);
     case "ObjectTypeProperty":
       var variance = getFlowVariance(n, options);
-      var isGetterOrSetter = n.kind === "get" || n.kind === "set"
 
       return concat([
         n.static ? "static " : "",
-        isGetterOrSetter ? n.kind + " " : "",
+        isGetterOrSetter(n) ? n.kind + " " : "",
         variance || "",
         path.call(print, "key"),
         n.optional ? "?" : "",
@@ -4132,11 +4131,14 @@ function isObjectTypePropertyAFunction(node) {
 }
 
 function isFunctionNotation(node) {
-  const isGetterOrSetter = node.kind === "get" || node.kind === "set";
   // TODO: This is a bad hack and we need a better way to distinguish between
   // arrow functions and otherwise
   const sameLocStart = util.locStart(node) === util.locStart(node.value);
-  return isGetterOrSetter || sameLocStart;
+  return isGetterOrSetter(node) || sameLocStart;
+}
+
+function isGetterOrSetter(node) {
+  return node.kind === "get" || node.kind === "set";
 }
 
 // Hack to differentiate between the following two which have the same ast
