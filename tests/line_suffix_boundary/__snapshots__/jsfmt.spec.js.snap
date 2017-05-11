@@ -29,7 +29,7 @@ ExampleStory.getFragment('story')}
 \`\${a + a // a
 }
 
-\${/* comment */
+\${/* comment*/
 a}
 
 \${/* comment */ b}
@@ -37,7 +37,7 @@ a}
 \${/* comment */ /* comment */ c}
 
 \${// comment
-/*comment */
+/*comment*/
 d}
 
 \${// $FlowFixMe found when converting React.createClass to ES6

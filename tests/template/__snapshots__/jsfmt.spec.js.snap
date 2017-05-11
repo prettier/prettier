@@ -63,7 +63,7 @@ XRegExp.union([left, right], "", {
 \`;
 
 \`a\${/* b */ /* d */ c}e\${// f
-/* h */
+/* h*/
 g}\`;
 
 `;
