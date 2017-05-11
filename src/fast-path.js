@@ -326,6 +326,7 @@ FPp.needsParens = function() {
         case "UnaryExpression":
         case "SpreadElement":
         case "SpreadProperty":
+        case "AwaitExpression":
           return true;
 
         case "MemberExpression":
