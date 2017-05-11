@@ -1,3 +1,7 @@
+// Prevent strings from being parsed as directives
+// See https://github.com/prettier/prettier/pull/1560#issue-227225960
+0;
+
 // Every string will be changed to double quotes, unless we end up with fewer
 // escaped quotes by using single quotes. (Vice versa if the "singleQuote"
 // option is true).
@@ -31,6 +35,33 @@
 // Unnecessary escapes.
 "\'"
 '\"'
+"\a"
+'\a'
+"hol\a"
+'hol\a'
+"hol\\a (the a is not escaped)"
+'hol\\a (the a is not escaped)'
+"multiple \a unnecessary \a escapes"
+'multiple \a unnecessary \a escapes'
+"unnecessarily escaped character preceded by escaped backslash \\\a"
+'unnecessarily escaped character preceded by escaped backslash \\\a'
+"unescaped character preceded by two escaped backslashes       \\\\a"
+'unescaped character preceded by two escaped backslashes       \\\\a'
+"\a\a" // consecutive unnecessarily escaped characters
+'\a\a' // consecutive unnecessarily escaped characters
+'escaped \u2030 \‰ (should not stay escaped)'
+
+// Meaningful escapes
+"octal escapes \0 \1 \2 \3 \4 \5 \6 \7"
+'octal escapes \0 \1 \2 \3 \4 \5 \6 \7'
+"meaningfully escaped alphabetical characters \n \r \v \t \b \f \u2713 \x61"
+'meaningfully escaped alphabetical characters \n \r \v \t \b \f \u2713 \x61'
+'escaped newline \
+'
+'escaped carriage return \
+'
+'escaped \u2028 \ '
+'escaped \u2029 \ '
 
 // One of each.
 "\"'"

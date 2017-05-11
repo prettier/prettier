@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`typeReference.ts 1`] = `
+let n: Promise<number>
+let m: Map<number, string>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let n: Promise<number>;
+let m: Map<number, string>;
+
+`;

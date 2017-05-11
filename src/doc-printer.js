@@ -1,5 +1,12 @@
 "use strict";
 
+const docBuilders = require("./doc-builders");
+const concat = docBuilders.concat;
+const line = docBuilders.line;
+const softline = docBuilders.softline;
+const fill = docBuilders.fill;
+const ifBreak = docBuilders.ifBreak;
+
 const MODE_BREAK = 1;
 const MODE_FLAT = 2;
 
@@ -21,6 +28,16 @@ function makeIndent(ind) {
 }
 
 function makeAlign(ind, n) {
+  if (n === -Infinity) {
+    return {
+      indent: 0,
+      align: {
+        spaces: 0,
+        tabs: 0
+      }
+    };
+  }
+
   return {
     indent: ind.indent,
     align: {
@@ -30,7 +47,7 @@ function makeAlign(ind, n) {
   };
 }
 
-function fits(next, restCommands, width) {
+function fits(next, restCommands, width, mustBeFlat) {
   let restIdx = restCommands.length;
   const cmds = [next];
   while (width >= 0) {
@@ -70,7 +87,16 @@ function fits(next, restCommands, width) {
 
           break;
         case "group":
+          if (mustBeFlat && doc.break) {
+            return false;
+          }
           cmds.push([ind, doc.break ? MODE_BREAK : mode, doc.contents]);
+
+          break;
+        case "fill":
+          for (var i = doc.parts.length - 1; i >= 0; i--) {
+            cmds.push([ind, mode, doc.parts[i]]);
+          }
 
           break;
         case "if-break":
@@ -210,6 +236,86 @@ function printDocToString(doc, options) {
               break;
           }
           break;
+
+        // Fills each line with as much code as possible before moving to a new
+        // line with the same indentation.
+        //
+        // Expects doc.parts to be an array of alternating content and
+        // whitespace. The whitespace contains the linebreaks.
+        //
+        // For example:
+        //   ["I", line, "love", line, "monkeys"]
+        // or
+        //   [{ type: group, ... }, softline, { type: group, ... }]
+        //
+        // It uses this parts structure to handle three main layout cases:
+        // * The first two content items fit on the same line without
+        //   breaking
+        //   -> output the first content item and the whitespace "flat".
+        // * Only the first content item fits on the line without breaking
+        //   -> output the first content item "flat" and the whitespace with
+        //   "break".
+        // * Neither content item fits on the line without breaking
+        //   -> output the first content item and the whitespace with "break".
+        case "fill": {
+          let rem = width - pos;
+
+          const parts = doc.parts;
+          if (parts.length === 0) {
+            break;
+          }
+
+          const content = parts[0];
+          const contentFlatCmd = [ind, MODE_FLAT, content];
+          const contentBreakCmd = [ind, MODE_BREAK, content];
+          const contentFits = fits(contentFlatCmd, [], width - rem, true)
+
+          if (parts.length === 1) {
+            if (contentFits) {
+              cmds.push(contentFlatCmd);
+            } else {
+              cmds.push(contentBreakCmd);
+            }
+            break;
+          }
+
+          const whitespace = parts[1];
+          const whitespaceFlatCmd = [ind, MODE_FLAT, whitespace]
+          const whitespaceBreakCmd = [ind, MODE_BREAK, whitespace]
+
+          if (parts.length === 2) {
+            if (contentFits) {
+              cmds.push(whitespaceFlatCmd);
+              cmds.push(contentFlatCmd);
+            } else {
+              cmds.push(whitespaceBreakCmd);
+              cmds.push(contentBreakCmd);
+            }
+            break;
+          }
+
+          const remaining = parts.slice(2);
+          const remainingCmd = [ind, mode, fill(remaining)];
+
+          const secondContent = parts[2];
+          const firstAndSecondContentFlatCmd = [ind, MODE_FLAT, concat([content, whitespace, secondContent])];
+          const firstAndSecondContentFits = fits(firstAndSecondContentFlatCmd, [], rem, true);
+
+          if (firstAndSecondContentFits) {
+            cmds.push(remainingCmd)
+            cmds.push(whitespaceFlatCmd);
+            cmds.push(contentFlatCmd);
+          } else if (contentFits) {
+            cmds.push(remainingCmd)
+            cmds.push(whitespaceBreakCmd);
+            cmds.push(contentFlatCmd);
+          } else {
+            cmds.push(remainingCmd);
+            cmds.push(whitespaceBreakCmd);
+            cmds.push(contentBreakCmd);
+          }
+          break;
+        }
         case "if-break":
           if (mode === MODE_BREAK) {
             if (doc.breakContents) {
@@ -274,10 +380,12 @@ function printDocToString(doc, options) {
                     out.pop();
                   }
 
-                  out[out.length - 1] = out[out.length - 1].replace(
-                    /[^\S\n]*$/,
-                    ""
-                  );
+                  if (out.length) {
+                    out[out.length - 1] = out[out.length - 1].replace(
+                      /[^\S\n]*$/,
+                      ""
+                    );
+                  }
                 }
 
                 let length = ind.indent * options.tabWidth + ind.align.spaces;

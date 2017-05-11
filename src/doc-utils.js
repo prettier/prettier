@@ -10,7 +10,7 @@ function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
     }
 
     if (shouldRecurse) {
-      if (doc.type === "concat") {
+      if (doc.type === "concat" || doc.type === "fill") {
         for (var i = 0; i < doc.parts.length; i++) {
           traverseDocRec(doc.parts[i]);
         }
@@ -43,7 +43,7 @@ function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
 function mapDoc(doc, func) {
   doc = func(doc);
 
-  if (doc.type === "concat") {
+  if (doc.type === "concat" || doc.type === "fill") {
     return Object.assign({}, doc, {
       parts: doc.parts.map(d => mapDoc(d, func))
     });

@@ -99,7 +99,7 @@ var c: MyClass = new MyClass(0); // no error
 
 // no arity error in type annotation using polymorphic class with defaulting
 
-class MyClass2<T, U=string> {
+class MyClass2<T, U = string> {
   x: T;
   y: U;
   constructor(x: T, y: U) {

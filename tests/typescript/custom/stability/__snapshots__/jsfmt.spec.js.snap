@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`moduleBlock.ts 1`] = `
+module m2 {
+    function fn() {
+        return 1;
+    }
+    export function exports() {
+        return 1;
+    }
+    export function require() {
+        return "require";
+    }
+}
+
+module m2 {
+
+    export function exports() {
+        return 1;
+    }
+
+    export function require() {
+        return "require";
+    }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+namespace m2 {
+  function fn() {
+    return 1;
+  }
+  export function exports() {
+    return 1;
+  }
+  export function require() {
+    return "require";
+  }
+}
+
+namespace m2 {
+  export function exports() {
+    return 1;
+  }
+
+  export function require() {
+    return "require";
+  }
+}
+
+`;

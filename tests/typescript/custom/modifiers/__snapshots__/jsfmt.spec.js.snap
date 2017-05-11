@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`question.ts 1`] = `
+var x: {
+    [A in keyof B]?: any;
+};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var x: { [A in keyof B]?: any };
+
+`;
+
+exports[`readonly.ts 1`] = `
+var x: {
+    readonly [A in keyof B]: any;
+};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var x: { readonly [A in keyof B]: any };
+
+`;

@@ -1,3 +1,59 @@
+# 1.3.1
+
+* Respect template inline-ness (#1497)
+
+# 1.3.0
+
+[link](https://github.com/jlongster/prettier/compare/1.2.2...1.3.0)
+
+* add printer branches for some TypeScript nodes (#1331) 	
+* Skip trailing commas with FlowShorthandWithOneArg (#1364)
+* add TSLastTypeNode and TSIndexedAccessType (#1370)
+* add TSConstructorType (#1367) 	
+* fix do-while break (#1373) 	
+* Fix missing trailing commas on flow generics (#1381)
+* Add example of using yarn test with arguments (#1383) 	
+* Have --debug-check also run ast verification (#1337)
+* Fix empty line in block with EmptyStatement (#1375) 	
+* parent decides how to print type annotations (#1391)
+* add TSTypeOperator (#1396)
+* fix TSTypeReference not printing typeArguments (#1392)
+* add TSMappedType and TSTypeParameter (#1393) 	
+* fix TSFunctionType failing on TypeParameters (#1394)
+* add TSIntersectionType (#1395) 	
+* fix typeParameters printing TSFunctionType w/o breaking flow (#1397)
+* Fix optional flow parenthesis (#1357) 	
+* [experimental] Add linting step in test pipeline (#1172) 	
+* fix VariableDeclarator not printing type parameters (#1415)
+* add TSMethodSignature (#1416)
+* Add TSParameterProperty, TSAbstractClassDeclaration and TSAbstractMethodDefinition (#1410)
+* Inline nullable in flow generics (#1426)
+* fixed method 'check' error 'format' of undefined (#1424) 	
+* feat(typescript): add delcare modifier support for vars, classes and functions (#1436)
+* Allow flow declarations to break on StringLiteralTypeAnnotations (#1437) 	
+* Require '::a.b' to have a preceding ; in no-semi style (#1442)
+* Require '(a || b).c++' to have a preceding ; in no-semi style (#1443)
+* Upgrade flow parser to 0.45 (#1447) 	
+* Add supertype tests and add TSAbstractClassProperty (#1467) 	
+* Break class expression returned by arrow call (#1464)
+* update typescript snapshots to account for #1464 (#1470)
+* [WIP] add TSNamespaceExportDeclaration (#1459) 	
+* update yarn.lock (#1471) 	
+* [RFC] Do not indent calls with a single template literal argument (#873) 	
+* Proper indentation for template literals (#1385) 	
+* Add parenthesis for unusual nested ternaries (#1386) 	
+* Preserve inline comment as last argument (#1390) 	
+* Only add parenthesis on ternaries inside of arrow functions if doesn't break (#1450)
+* Fix windows line ending on template literals (#1439) 	
+* Add space around `=` for flow generics default arguments (#1476) 	
+* Don't break for unparenthesised single argument flow function (#1452) 	
+* Don't break on empty arrays and objects (#1440) 	
+* Do not break on [0] (#1441) 	
+* Reorder flow object props (#1451) 	
+* Break inline object first in function arguments (#1453) 	
+* Break inline object first in function arguments (#1453) (#1173) 	
+* Inline template literals as arrow body (#1485)
+
 # 1.2.2
 
 [link](https://github.com/jlongster/prettier/compare/1.2.1...1.2.2)
@@ -128,22 +184,22 @@
 
 [link](https://github.com/jlongster/prettier/compare/0.19.0...0.20.0)
 
-* Fix extra parens for update expressions (#796)    
-* Fix empty options (#803)    
-* Eagerly evaluate `ifBreak` when processing template literals (fixes #795    
-* Fix function declaration params comments (#802)   
-* Update flow to 0.40 (#808)    
-* Correct link for travis   
-* Fix function call args (#809)   
-* Properly support `do` (#811)    
-* Do not put parenthesis around not named default export (#819)   
-* Adds another preset to related projects (#820)    
-* Fix trailing commas in docs (#825)    
-* Put short body of arrow functions on the same line (#829)   
-* Preserve new lines for comments after `=` (#830)    
-* Fix indentation of a merged group (#828)    
-* Migrate class comments to the beginning (#831)    
-* Update list of related projects (#833)    
+* Fix extra parens for update expressions (#796)
+* Fix empty options (#803)
+* Eagerly evaluate `ifBreak` when processing template literals (fixes #795
+* Fix function declaration params comments (#802)
+* Update flow to 0.40 (#808)
+* Correct link for travis
+* Fix function call args (#809)
+* Properly support `do` (#811)
+* Do not put parenthesis around not named default export (#819)
+* Adds another preset to related projects (#820)
+* Fix trailing commas in docs (#825)
+* Put short body of arrow functions on the same line (#829)
+* Preserve new lines for comments after `=` (#830)
+* Fix indentation of a merged group (#828)
+* Migrate class comments to the beginning (#831)
+* Update list of related projects (#833)
 * Allow breaking for logical expressions in member chains (#827)
 
 # 0.19.0

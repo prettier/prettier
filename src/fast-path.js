@@ -1,12 +1,12 @@
 "use strict";
 
 var assert = require("assert");
-var types = require("ast-types");
+var types = require("./ast-types")
 var util = require("./util");
 var n = types.namedTypes;
-var Node = n.Node;
 var isArray = types.builtInTypes.array;
 var isNumber = types.builtInTypes.number;
+var startsWithNoLookaheadToken = util.startsWithNoLookaheadToken;
 
 function FastPath(value) {
   assert.ok(this instanceof FastPath);
@@ -68,7 +68,8 @@ function getNodeHelper(path, count) {
 
   for (var i = s.length - 1; i >= 0; i -= 2) {
     var value = s[i];
-    if (n.Node.check(value) && --count < 0) {
+
+    if ((n.Node.check(value)) && --count < 0) {
       return value;
     }
   }
@@ -181,7 +182,7 @@ FPp.map = function map(callback /*, name1, name2, ... */) {
 
 // Inspired by require("ast-types").NodePath.prototype.needsParens, but
 // more efficient because we're iterating backwards through a stack.
-FPp.needsParens = function(assumeExpressionContext) {
+FPp.needsParens = function() {
   var parent = this.getParentNode();
   if (!parent) {
     return false;
@@ -312,12 +313,15 @@ FPp.needsParens = function(assumeExpressionContext) {
         return true;
       }
     // else fall through
+    case "TSTypeAssertionExpression":
+    case "TSAsExpression":
     case "LogicalExpression":
       switch (parent.type) {
         case "CallExpression":
         case "NewExpression":
           return name === "callee" && parent.callee === node;
 
+        case "TSTypeAssertionExpression":
         case "TaggedTemplateExpression":
         case "UnaryExpression":
         case "SpreadElement":
@@ -394,10 +398,12 @@ FPp.needsParens = function(assumeExpressionContext) {
         case "LogicalExpression":
         case "SpreadElement":
         case "SpreadProperty":
-        case "NewExpression":
-        case "MemberExpression":
           return true;
 
+        case "MemberExpression":
+          return parent.object === node;
+
+        case "NewExpression":
         case "CallExpression":
           return parent.callee === node;
 
@@ -442,6 +448,14 @@ FPp.needsParens = function(assumeExpressionContext) {
       if (parent.type === "ArrowFunctionExpression" && parent.body === node) {
         return true;
       } else if (
+        parent.type === "ClassProperty" &&
+        parent.key === node &&
+        parent.computed
+      ) {
+        return false;
+      } else if (parent.type === "TSPropertySignature" && parent.name === node) {
+        return false;
+      } else if (
         parent.type === "ForStatement" &&
         (parent.init === node || parent.update === node)
       ) {
@@ -464,7 +478,6 @@ FPp.needsParens = function(assumeExpressionContext) {
         case "ExportDefaultDeclaration":
         case "AwaitExpression":
         case "JSXSpreadAttribute":
-        case "ArrowFunctionExpression":
           return true;
 
         case "NewExpression":
@@ -504,6 +517,7 @@ FPp.needsParens = function(assumeExpressionContext) {
         case "MemberExpression":
           return name === "object";
 
+        case "TSAsExpression":
         case "BindExpression":
         case "TaggedTemplateExpression":
         case "UnaryExpression":
@@ -536,10 +550,6 @@ FPp.needsParens = function(assumeExpressionContext) {
   return false;
 };
 
-function isBinary(node) {
-  return n.BinaryExpression.check(node) || n.LogicalExpression.check(node);
-}
-
 function containsCallExpression(node) {
   if (n.CallExpression.check(node)) {
     return true;
@@ -556,60 +566,6 @@ function containsCallExpression(node) {
   }
 
   return false;
-}
-
-// Tests if an expression starts with `{`, or (if forbidFunctionAndClass holds) `function` or `class`.
-// Will be overzealous if there's already necessary grouping parentheses.
-function startsWithNoLookaheadToken(node, forbidFunctionAndClass) {
-  node = getLeftMost(node);
-  switch (node.type) {
-    case "FunctionExpression":
-    case "ClassExpression":
-      return forbidFunctionAndClass;
-    case "ObjectExpression":
-      return true;
-    case "MemberExpression":
-      return startsWithNoLookaheadToken(node.object, forbidFunctionAndClass);
-    case "TaggedTemplateExpression":
-      if (node.tag.type === "FunctionExpression") {
-        // IIFEs are always already parenthesized
-        return false;
-      }
-      return startsWithNoLookaheadToken(node.tag, forbidFunctionAndClass);
-    case "CallExpression":
-      if (node.callee.type === "FunctionExpression") {
-        // IIFEs are always already parenthesized
-        return false;
-      }
-      return startsWithNoLookaheadToken(node.callee, forbidFunctionAndClass);
-    case "ConditionalExpression":
-      return startsWithNoLookaheadToken(node.test, forbidFunctionAndClass);
-    case "UpdateExpression":
-      return (
-        !node.prefix &&
-        startsWithNoLookaheadToken(node.argument, forbidFunctionAndClass)
-      );
-    case "BindExpression":
-      return (
-        node.object &&
-        startsWithNoLookaheadToken(node.object, forbidFunctionAndClass)
-      );
-    case "SequenceExpression":
-      return startsWithNoLookaheadToken(
-        node.expressions[0],
-        forbidFunctionAndClass
-      );
-    default:
-      return false;
-  }
-}
-
-function getLeftMost(node) {
-  if (node.left) {
-    return getLeftMost(node.left);
-  } else {
-    return node;
-  }
 }
 
 module.exports = FastPath;

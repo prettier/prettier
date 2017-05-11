@@ -26,3 +26,140 @@ var X = {
 };
 
 `;
+
+exports[`break.js 2`] = `
+var X = {
+  perform: function<    
+     A, B, C, D, E, F, G,     
+     T: (a: A, b: B, c: C, d: D, e: E, f: F) => G // eslint-disable-line space-before-function-paren
+   >(     
+     method: T, scope: any,     
+     a: A, b: B, c: C, d: D, e: E, f: F,    
+   ): G {
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var X = {
+  perform: function<
+    A,
+    B,
+    C,
+    D,
+    E,
+    F,
+    G,
+    T: (a: A, b: B, c: C, d: D, e: E, f: F) => G, // eslint-disable-line space-before-function-paren
+  >(method: T, scope: any, a: A, b: B, c: C, d: D, e: E, f: F): G {},
+};
+
+`;
+
+exports[`nullable.js 1`] = `
+function formatEntireFile(
+  fileVersion: FileVersion,
+  range: atom$Range,
+): Promise<?{
+  newCursor?: number,
+  formatted: string,
+}> {}
+
+function foo(): Promise<?boolean> {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function formatEntireFile(
+  fileVersion: FileVersion,
+  range: atom$Range
+): Promise<?{
+  newCursor?: number,
+  formatted: string
+}> {}
+
+function foo(): Promise<?boolean> {}
+
+`;
+
+exports[`nullable.js 2`] = `
+function formatEntireFile(
+  fileVersion: FileVersion,
+  range: atom$Range,
+): Promise<?{
+  newCursor?: number,
+  formatted: string,
+}> {}
+
+function foo(): Promise<?boolean> {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function formatEntireFile(
+  fileVersion: FileVersion,
+  range: atom$Range,
+): Promise<?{
+  newCursor?: number,
+  formatted: string,
+}> {}
+
+function foo(): Promise<?boolean> {}
+
+`;
+
+exports[`trailing.js 1`] = `
+type State = {
+  errors: Immutable.Map<
+    Ahohohhohohohohohohohohohohooh,
+    Fbt | Immutable.Map<ErrorIndex, Fbt>
+  >,
+  shouldValidate: boolean,
+};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type State = {
+  errors: Immutable.Map<
+    Ahohohhohohohohohohohohohohooh,
+    Fbt | Immutable.Map<ErrorIndex, Fbt>
+  >,
+  shouldValidate: boolean
+};
+
+`;
+
+exports[`trailing.js 2`] = `
+type State = {
+  errors: Immutable.Map<
+    Ahohohhohohohohohohohohohohooh,
+    Fbt | Immutable.Map<ErrorIndex, Fbt>
+  >,
+  shouldValidate: boolean,
+};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type State = {
+  errors: Immutable.Map<
+    Ahohohhohohohohohohohohohohooh,
+    Fbt | Immutable.Map<ErrorIndex, Fbt>,
+  >,
+  shouldValidate: boolean,
+};
+
+`;
+
+exports[`union.js 1`] = `
+type Foo = Promise<
+  { ok: true, bar: string, baz: SomeOtherLongType } | 
+  { ok: false, bar: SomeOtherLongType }
+>;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type Foo = Promise<
+  | { ok: true, bar: string, baz: SomeOtherLongType }
+  | { ok: false, bar: SomeOtherLongType }
+>;
+
+`;
+
+exports[`union.js 2`] = `
+type Foo = Promise<
+  { ok: true, bar: string, baz: SomeOtherLongType } | 
+  { ok: false, bar: SomeOtherLongType }
+>;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type Foo = Promise<
+  | { ok: true, bar: string, baz: SomeOtherLongType }
+  | { ok: false, bar: SomeOtherLongType },
+>;
+
+`;

@@ -29,3 +29,15 @@ type f = (/* comment */ arg) => void;
 type f = (arg /* comment */) => void;
 
 type f = (?arg) => void;
+
+class X {
+  constructor(
+    ideConnectionFactory: child_process$ChildProcess => FlowIDEConnection =
+        defaultIDEConnectionFactory,
+  ) {
+  }
+}
+
+interface F {
+  ideConnectionFactoryLongLongLong: (child_process$ChildProcess) => FlowIDEConnection
+}

@@ -10,13 +10,13 @@
   * [CLI](#cli)
     + [Pre-commit hook for changed files](#pre-commit-hook-for-changed-files)
   * [API](#api)
+  * [Options](#options)
   * [Excluding code from formatting](#excluding-code-from-formatting)
 - [Editor Integration](#editor-integration)
   * [Atom](#atom)
   * [Emacs](#emacs)
   * [Vim](#vim)
-    + [Vanilla approach](#vanilla-approach)
-    + [Neoformat approach](#neoformat-approach)
+    + [Other `autocmd` events](#other-autocmd-events)
     + [Customizing Prettier in Vim](#customizing-prettier-in-vim)
   * [Visual Studio Code](#visual-studio-code)
   * [Visual Studio](#visual-studio)
@@ -135,7 +135,7 @@ npm install [-g] prettier
 ### CLI
 
 Run Prettier through the CLI with this script. Run it without any
-arguments to see the options.
+arguments to see the [options](#options).
 
 To format a file in-place, use `--write`. You may want to consider
 committing your code before doing that, just in case.
@@ -155,9 +155,15 @@ expands the globs rather than your shell, for cross-platform usage.)
 
 In the future we will have better support for formatting whole projects.
 
+If you're worried that Prettier will change the correctness of your code, add `--debug-check` to the command.
+This will cause Prettier to print an error message if it detects that code correctness might have changed.
+Note that `--write` cannot be used with `--debug-check`.
+
 #### Pre-commit hook for changed files
 
-[lint-staged](https://github.com/okonet/lint-staged) can re-format your files that are marked as "staged" via `git add`  before you commit.
+You can use this with a pre-commit tool. This can re-format your files that are marked as "staged" via `git add`  before you commit.
+
+##### 1. [lint-staged](https://github.com/okonet/lint-staged)
 
 Install it along with [husky](https://github.com/typicode/husky):
 
@@ -183,6 +189,25 @@ and add this config to your `package.json`:
 
 See https://github.com/okonet/lint-staged#configuration for more details about how you can configure lint-staged.
 
+
+##### 2. [pre-commit](https://github.com/pre-commit/pre-commit)
+
+Just copy the following config in your pre-commit config yaml file
+
+```yaml
+
+    -   repo: https://github.com/awebdeveloper/pre-commit-prettier
+        sha: ''  # Use the sha or tag you want to point at
+        hooks:
+        -   id: prettier
+            additional_dependencies: ['prettier@1.1.0']
+
+ ```
+
+Find more info from [here](https://github.com/awebdeveloper/pre-commit-prettier)
+
+##### 3. bash script
+
 Alternately you can just save this script as `.git/hooks/pre-commit` and give it execute permission:
 
 ```bash
@@ -202,52 +227,33 @@ exit 1
 
 ### API
 
-The API has two functions, exported as `format` and `check`. The options
-argument is optional, and all of the defaults are shown below:
+The API has two functions, exported as `format` and `check`. `format` usage is as follows:
 
 ```js
 const prettier = require("prettier");
 
-prettier.format(source, {
-  // Indent lines with tabs
-  useTabs: false,
-
-  // Fit code within this line limit
-  printWidth: 80,
-
-  // Number of spaces it should use per tab
-  tabWidth: 2,
-
-  // If true, will use single instead of double quotes
-  singleQuote: false,
-
-  // Controls the printing of trailing commas wherever possible. Valid options:
-  // "none" - No trailing commas
-  // "es5"  - Trailing commas where valid in ES5 (objects, arrays, etc)
-  // "all"  - Trailing commas wherever possible (function arguments)
-  //
-  // NOTE: Above is only available in 0.19.0 and above. Previously this was
-  // a boolean argument.
-  trailingComma: "none",
-
-  // Controls the printing of spaces inside object literals
-  bracketSpacing: true,
-
-  // If true, puts the `>` of a multi-line jsx element at the end of
-  // the last line instead of being alone on the next line
-  jsxBracketSameLine: false,
-
-  // Which parser to use. Valid options are "flow" and "babylon"
-  parser: "babylon",
-
-  // Whether to add a semicolon at the end of every line (semi: true),
-  // or only at the beginning of lines that may introduce ASI failures (semi: false)
-  semi: true
-});
+const options = {} // optional
+prettier.format(source, options);
 ```
 
 `check` checks to see if the file has been formatted with Prettier given those options and returns a Boolean.
 This is similar to the `--list-different` parameter in the CLI and is useful for running Prettier in CI scenarios.
+
+### Options
+
+Prettier ships with a handful of customizable format options, usable in both the CLI and API.
+
+| Option | Default | CLI override | API override |
+| ------------- | ------------- | ------------- | ------------- |
+| **Tabs** - Indent lines with tabs instead of spaces. | `false` | `--use-tabs` | `useTabs: <bool>` |
+| **Print Width** - Specify the length of line that the printer will wrap on. | `80` | `--print-width <int>`  | `printWidth: <int>`
+| **Tab Width** - Specify the number of spaces per indentation-level. | `2` | `--tab-width <int>` | `tabWidth: <int>` |
+| **Quotes** - Use single quotes instead of double quotes. | `false` | `--single-quote` | `singleQuote: <bool>` |
+| **Trailing Commas** - Print trailing commas wherever possible.<br /><br />Valid options: <br /> - `"none"` - no trailing commas <br /> - `"es5"` - trailing commas where valid in ES5 (objects, arrays, etc) <br /> - `"all"`  - trailing commas wherever possible (function arguments) | `"none"` | <code>--trailing-comma <none&#124;es5&#124;all></code> | <code>trailingComma: "<none&#124;es5&#124;all>"</code> |
+| **Bracket Spacing** - Print spaces between brackets in object literals.<br /><br />Valid options: <br /> - `true` - Example: `{ foo: bar }` <br /> - `false` - Example: `{foo: bar}` | `true` | `--no-bracket-spacing` | `bracketSpacing: <bool>` |
+| **JSX Brackets on Same Line** - Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line | `false` | `--jsx-bracket-same-line` | `jsxBracketSameLine: <bool>` |
+| **Parser** - Specify which parse to use. | `babylon` | <code>--parser <flow&#124;babylon></code> | <code>parser: "<flow&#124;babylon>"</code> |
+| **Semicolons** - Print semicolons at the ends of statements.<br /><br />Valid options: <br /> - `true` - add a semicolon at the end of every statement <br /> - `false` - only add semicolons at the beginning of lines that may introduce ASI failures | `true` | `--no-semi` | `semi: <bool>` |
 
 ### Excluding code from formatting
 
@@ -297,42 +303,6 @@ for on-demand formatting.
 
 ### Vim
 
-For Vim users, there are two main approaches: one that leans on [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/neoformat), which has the advantage of leaving the cursor in the same position despite changes, or a vanilla approach which can only approximate the cursor location, but might be good enough for your needs.
-
-#### Vanilla approach
-
-Vim users can add the following to their `.vimrc`:
-
-```vim
-autocmd FileType javascript set formatprg=prettier\ --stdin
-```
-
-If you use the [vim-jsx](https://github.com/mxw/vim-jsx) plugin without
-requiring the `.jsx` file extension (See https://github.com/mxw/vim-jsx#usage),
-the FileType needs to include `javascript.jsx`:
-
-```vim
-autocmd FileType javascript.jsx,javascript setlocal formatprg=prettier\ --stdin
-```
-
-This makes Prettier power the [`gq` command](http://vimdoc.sourceforge.net/htmldoc/change.html#gq)
-for automatic formatting without any plugins. You can also add the following to your
-`.vimrc` to run Prettier when `.js` files are saved:
-
-```vim
-autocmd BufWritePre *.js :normal gggqG
-```
-
-If you want to restore cursor position after formatting, try this
-(although it's not guaranteed that it will be restored to the same
-place in the code since it may have moved):
-
-```vim
-autocmd BufWritePre *.js exe "normal! gggqG\<C-o>\<C-o>"
-```
-
-#### Neoformat approach
-
 Add [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/neoformat) to your list based on the tool you use:
 
 ```vim
@@ -365,15 +335,12 @@ See `:help autocmd-events` in Vim for details.
 If your project requires settings other than the default Prettier settings, you can pass arguments to do so in your `.vimrc` or [vim project](http://vim.wikia.com/wiki/Project_specific_settings), you can do so:
 
 ```vim
-autocmd FileType javascript set formatprg=prettier\ --stdin\ --parser\ flow\ --single-quote\ --trailing-comma\ es5
-```
-
-Each command needs to be escaped with `\`. If you are using Neoformat and you want it to recognize your formatprg settings you can also do that by adding the following to your `.vimrc`:
-
-```vim
+autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --parser\ flow\ --single-quote\ --trailing-comma\ es5
 " Use formatprg when available
 let g:neoformat_try_formatprg = 1
 ```
+
+Each option needs to be escaped with `\`.
 
 ### Visual Studio Code
 
@@ -407,14 +374,14 @@ including non-standardized ones. By default it uses the
 [Babylon](https://github.com/babel/babylon) parser with all language
 features enabled, but you can also use the
 [Flow](https://github.com/facebook/flow) parser with the
-`parser` API or `--parser` CLI option.
+`parser` API or `--parser` CLI [option](#options).
 
 All of JSX and Flow syntax is supported. In fact, the test suite in
 `tests` *is* the entire Flow test suite and they all pass.
 
 ## Related Projects
 
-- [`eslint-plugin-prettier`](https://github.com/not-an-aardvark/eslint-plugin-prettier) plugs Prettier into your ESLint workflow
+- [`eslint-plugin-prettier`](https://github.com/prettier/eslint-plugin-prettier) plugs Prettier into your ESLint workflow
 - [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier) turns off all ESLint rules that are unnecessary or might conflict with Prettier
 - [`prettier-eslint`](https://github.com/prettier/prettier-eslint)
 passes `prettier` output to `eslint --fix`
@@ -473,9 +440,9 @@ yarn test
 Here's what you need to know about the tests:
 
 * The tests uses [Jest](https://facebook.github.io/jest/) snapshots.
-* You can make changes and run `jest -u` to update the snapshots. Then run `git
-  diff` to take a look at what changed. Always update the snapshots when opening
-  a PR.
+* You can make changes and run `jest -u` (or `yarn test -- -u`) to update the
+  snapshots. Then run `git diff` to take a look at what changed. Always update
+  the snapshots when opening a PR.
 * You can run `AST_COMPARE=1 jest` for a more robust test run. That formats each
   file, re-parses it, and compares the new AST with the original one and makes
   sure they are semantically equivalent.

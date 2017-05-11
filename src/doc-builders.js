@@ -1,8 +1,5 @@
 "use strict";
 
-const utils = require("./doc-utils");
-const willBreak = utils.willBreak;
-
 function assertDoc(val) {
   if (
     !(typeof val === "string" || (val != null && typeof val.type === "string"))
@@ -57,6 +54,12 @@ function conditionalGroup(states, opts) {
   );
 }
 
+function fill(parts) {
+  parts.forEach(assertDoc);
+
+  return { type: "fill", parts };
+}
+
 function ifBreak(breakContents, flatContents) {
   if (breakContents) {
     assertDoc(breakContents);
@@ -106,6 +109,7 @@ module.exports = {
   literalline,
   group,
   conditionalGroup,
+  fill,
   lineSuffix,
   lineSuffixBoundary,
   breakParent,

@@ -101,6 +101,13 @@ function printDoc(doc) {
     );
   }
 
+  if (doc.type === "fill") {
+    return ("fill") +
+      "(" +
+      doc.parts.map(printDoc).join(", ") +
+      ")";
+  }
+
   if (doc.type === "line-suffix") {
     return "lineSuffix(" + printDoc(doc.contents) + ")";
   }

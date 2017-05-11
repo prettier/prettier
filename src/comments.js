@@ -1,17 +1,15 @@
 "use strict";
 
 var assert = require("assert");
-var types = require("ast-types");
+var types = require("./ast-types")
 var n = types.namedTypes;
 var isArray = types.builtInTypes.array;
 var isObject = types.builtInTypes.object;
 var docBuilders = require("./doc-builders");
-var fromString = docBuilders.fromString;
 var concat = docBuilders.concat;
 var hardline = docBuilders.hardline;
 var breakParent = docBuilders.breakParent;
 var indent = docBuilders.indent;
-var align = docBuilders.align;
 var lineSuffix = docBuilders.lineSuffix;
 var join = docBuilders.join;
 var util = require("./util");
@@ -126,7 +124,7 @@ function decorateComment(node, comment, text) {
   }
 }
 
-function attach(comments, ast, text, options) {
+function attach(comments, ast, text) {
   if (!isArray.check(comments)) {
     return;
   }
@@ -178,6 +176,7 @@ function attach(comments, ast, text, options) {
           precedingNode,
           comment
         ) ||
+        handleTemplateLiteralComments(enclosingNode, comment) ||
         handleAssignmentPatternComments(enclosingNode, comment)
       ) {
         // We're good
@@ -194,6 +193,13 @@ function attach(comments, ast, text, options) {
       }
     } else if (util.hasNewline(text, locEnd(comment))) {
       if (
+        handleLastFunctionArgComments(
+          text,
+          precedingNode,
+          enclosingNode,
+          followingNode,
+          comment
+        ) ||
         handleConditionalExpressionComments(
           enclosingNode,
           precedingNode,
@@ -504,6 +510,11 @@ function handleObjectPropertyAssignment(enclosingNode, precedingNode, comment) {
 
 function handleTemplateLiteralComments(enclosingNode, comment) {
   if (enclosingNode && enclosingNode.type === "TemplateLiteral") {
+    const followingNode = comment.followingNode;
+    if (followingNode && followingNode.type !== "TemplateElement") {
+      addLeadingComment(followingNode, comment);
+      return true;
+    }
     const expressionIndex = findExpressionIndexForComment(
       enclosingNode.quasis,
       comment
@@ -810,7 +821,6 @@ function getQuasiRange(expr) {
 function printLeadingComment(commentPath, print, options) {
   const comment = commentPath.getValue();
   const contents = printComment(commentPath);
-  const text = options.originalText;
   const isBlock = comment.type === "Block" || comment.type === "CommentBlock";
 
   // Leading block comments should see if they need to stay on the
@@ -825,7 +835,7 @@ function printLeadingComment(commentPath, print, options) {
   return concat([contents, hardline]);
 }
 
-function printTrailingComment(commentPath, print, options, parentNode) {
+function printTrailingComment(commentPath, print, options) {
   const comment = commentPath.getValue();
   const contents = printComment(commentPath);
   const isBlock = comment.type === "Block" || comment.type === "CommentBlock";
@@ -864,7 +874,6 @@ function printTrailingComment(commentPath, print, options, parentNode) {
 }
 
 function printDanglingComments(path, options, sameIndent) {
-  const text = options.originalText;
   const parts = [];
   const node = path.getValue();
 

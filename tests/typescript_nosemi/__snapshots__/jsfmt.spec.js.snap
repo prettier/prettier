@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`interface.ts 1`] = `
+interface Inline { x: string }
+
+interface MultiLine {
+    x: string;
+    y: string;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+interface Inline { x: string }
+
+interface MultiLine {
+  x: string
+  y: string
+}
+
+`;
