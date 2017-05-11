@@ -12,4 +12,7 @@ let x: { x?: number }
 type T = {
   get goodGetterWithAnnotation(): number,
   set goodSetterWithAnnotation(x: number): void,
+
+  get  getterWithMultipleSpacesPrecedingName(): number,
+  set  setterWithMultipleSpacesPrecedingName(x: number): void,
 }
