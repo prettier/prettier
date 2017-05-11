@@ -176,6 +176,7 @@ function attach(comments, ast, text) {
           precedingNode,
           comment
         ) ||
+        handleTemplateLiteralComments(enclosingNode, comment) ||
         handleAssignmentPatternComments(enclosingNode, comment)
       ) {
         // We're good
@@ -509,6 +510,11 @@ function handleObjectPropertyAssignment(enclosingNode, precedingNode, comment) {
 
 function handleTemplateLiteralComments(enclosingNode, comment) {
   if (enclosingNode && enclosingNode.type === "TemplateLiteral") {
+    const followingNode = comment.followingNode;
+    if (followingNode && followingNode.type !== "TemplateElement") {
+      addLeadingComment(followingNode, comment);
+      return true;
+    }
     const expressionIndex = findExpressionIndexForComment(
       enclosingNode.quasis,
       comment
