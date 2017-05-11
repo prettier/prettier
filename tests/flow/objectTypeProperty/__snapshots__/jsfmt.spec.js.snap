@@ -29,8 +29,8 @@ declare class Foo<T> {
 let x: { x?: number };
 
 type T = {
-  goodGetterWithAnnotation: () => number,
-  goodSetterWithAnnotation: (x: number) => void
+  get goodGetterWithAnnotation(): number,
+  set goodSetterWithAnnotation(x: number): void
 };
 
 `;

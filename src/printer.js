@@ -1989,10 +1989,11 @@ function genericPrintNoParens(path, options, print, args) {
 
       return concat([
         n.static ? "static " : "",
+        isGetterOrSetter ? n.kind + " " : "",
         variance || "",
         path.call(print, "key"),
         n.optional ? "?" : "",
-        (isFunctionNotation && !isGetterOrSetter) ? "" : ": ",
+        isFunctionNotation || isGetterOrSetter ? "" : ": ",
         path.call(print, "value")
       ]);
     case "QualifiedTypeIdentifier":
@@ -4125,11 +4126,14 @@ function isMemberExpressionChain(node) {
 // type T = { method: () => void };
 // type T = { method(): void };
 function isObjectTypePropertyAFunction(node) {
+  // This is fragile, as it assumes there's only one space between 'get'/'set'
+  // and the method name.
+  const kindOffset = node.kind === 'get' || node.kind === 'set' ? 4 : 0;
   return (
     node.type === "ObjectTypeProperty" &&
     node.value.type === "FunctionTypeAnnotation" &&
     !node.static &&
-    util.locStart(node.key) !== util.locStart(node.value)
+    util.locStart(node.key) - util.locStart(node.value) != kindOffset
   );
 }
 

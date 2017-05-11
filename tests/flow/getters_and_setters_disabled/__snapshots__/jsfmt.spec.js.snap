@@ -52,14 +52,14 @@ var f = {
 };
 
 type T = {
-  a: () => number,
-  b: (x: number) => void,
+  get a(): number,
+  set b(x: number): void,
   c: 10
 };
 
 declare class Foo {
-  a: () => number,
-  b: (x: number) => void,
+  get a(): number,
+  set b(x: number): void,
   c: 10
 }
 
