@@ -1982,10 +1982,7 @@ function genericPrintNoParens(path, options, print, args) {
       ]);
     case "ObjectTypeProperty":
       var variance = getFlowVariance(n, options);
-      // TODO: This is a bad hack and we need a better way to know
-      // when to emit an arrow function or not.
       var isGetterOrSetter = n.kind === "get" || n.kind === "set"
-      var isFunctionNotation = isGetterOrSetter || util.locStart(n) === util.locStart(n.value)
 
       return concat([
         n.static ? "static " : "",
@@ -1993,7 +1990,7 @@ function genericPrintNoParens(path, options, print, args) {
         variance || "",
         path.call(print, "key"),
         n.optional ? "?" : "",
-        isFunctionNotation ? "" : ": ",
+        isFunctionNotation(n) ? "" : ": ",
         path.call(print, "value")
       ]);
     case "QualifiedTypeIdentifier":
@@ -4126,13 +4123,20 @@ function isMemberExpressionChain(node) {
 // type T = { method: () => void };
 // type T = { method(): void };
 function isObjectTypePropertyAFunction(node) {
-  const isGetterOrSetter = node.kind === 'get' || node.kind === 'set';
   return (
     node.type === "ObjectTypeProperty" &&
     node.value.type === "FunctionTypeAnnotation" &&
     !node.static &&
-    util.locStart(node.key) !== util.locStart(node.value) && !isGetterOrSetter
+    !isFunctionNotation(node)
   );
+}
+
+function isFunctionNotation(node) {
+  const isGetterOrSetter = node.kind === "get" || node.kind === "set";
+  // TODO: This is a bad hack and we need a better way to distinguish between
+  // arrow functions and otherwise
+  const sameLocStart = util.locStart(node) === util.locStart(node.value);
+  return isGetterOrSetter || sameLocStart;
 }
 
 // Hack to differentiate between the following two which have the same ast
