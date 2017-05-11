@@ -1984,8 +1984,8 @@ function genericPrintNoParens(path, options, print, args) {
       var variance = getFlowVariance(n, options);
       // TODO: This is a bad hack and we need a better way to know
       // when to emit an arrow function or not.
-      var isFunctionNotation = util.locStart(n) === util.locStart(n.value)
       var isGetterOrSetter = n.kind === "get" || n.kind === "set"
+      var isFunctionNotation = isGetterOrSetter || util.locStart(n) === util.locStart(n.value)
 
       return concat([
         n.static ? "static " : "",
@@ -1993,7 +1993,7 @@ function genericPrintNoParens(path, options, print, args) {
         variance || "",
         path.call(print, "key"),
         n.optional ? "?" : "",
-        isFunctionNotation || isGetterOrSetter ? "" : ": ",
+        isFunctionNotation ? "" : ": ",
         path.call(print, "value")
       ]);
     case "QualifiedTypeIdentifier":
