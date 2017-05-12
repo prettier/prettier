@@ -14,11 +14,10 @@ interface Derived extends Base, Base2 {
     x: { b: string }
 }
 
-interface Derived2 extends Base, Base2 { // error
+interface Derived2 extends Base, Base2 {
     x: { a: number; b: string }
 }
 
 interface Derived3 extends Base, Base2 {
     x: { a: string; b: string }
 }
-

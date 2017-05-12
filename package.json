@@ -70,8 +70,7 @@
       "tests/typescript/conformance/es6/Symbols/jsfmt.spec.js",
       "tests/typescript/conformance/classes/jsfmt.spec.js",
       "tests/typescript/conformance/classes/constructorDeclarations/constructorParameters/jsfmt.spec.js",
-      "tests/typescript/custom/module/jsfmt.spec.js",
-      "tests/typescript/conformance/interfaces/interfaceDeclarations/jsfmt.spec.js"
+      "tests/typescript/custom/module/jsfmt.spec.js"
     ]
   }
 }

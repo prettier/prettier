@@ -770,10 +770,10 @@ function genericPrintNoParens(path, options, print, args) {
         " "
       );
       
-      if (n.heritageClauses) {
-        prefix.push(
+      if (n.heritage.length) {
+        parts.push(
           "extends ",
-          join(", ", path.map(print, "heritageClauses")),
+          join(", ", path.map(print, "heritage")),
           " "
         );
       }
@@ -857,12 +857,11 @@ function genericPrintNoParens(path, options, print, args) {
       let content;
       if (props.length === 0 && !n.typeAnnotation) {
         if (!hasDanglingComments(n)) {
-          return concat([concat(prefix), leftBrace, rightBrace]);
+          return concat([leftBrace, rightBrace]);
         }
 
         content = group(
           concat([
-            concat(prefix),
             leftBrace,
             comments.printDanglingComments(path, options),
             softline,
@@ -871,7 +870,6 @@ function genericPrintNoParens(path, options, print, args) {
         );
       } else {
         content = concat([
-          concat(prefix),
           leftBrace,
           indent(
             align(
@@ -1628,6 +1626,8 @@ function genericPrintNoParens(path, options, print, args) {
       }
       parts.push(concat(printClass(path, options, print)));
       return concat(parts);
+    case "TSInterfaceHeritage":
+      return path.call(print, "id");
     case "TSHeritageClause":
       return join(", ", path.map(print, "types"));
     case "TSExpressionWithTypeArguments":
