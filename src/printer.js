@@ -2223,7 +2223,7 @@ function genericPrintNoParens(path, options, print, args) {
       }
       const isType = n.type === "TSConstructorType";
       parts.push(
-        printTypeParameters(path, options, print, "typeParameters"),
+        path.call(print, "typeParameters"),
         "(",
         join(", ", path.map(print, "parameters")),
         ")"
