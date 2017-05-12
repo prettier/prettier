@@ -802,6 +802,11 @@ function findExpressionIndexForComment(quasis, comment) {
     if (startPos < getQuasiRange(quasis[i]).start) {
       return i - 1;
     }
+
+    if ((expressions[i].leadingComments || []).indexOf(comment) !== -1) {
+      match = i;
+      break;
+    }
   }
 
   // We haven't found it, it probably means that some of the locations are off.
