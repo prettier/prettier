@@ -388,7 +388,10 @@ FPp.needsParens = function() {
       }
 
     case "YieldExpression":
-      if (parent.type === "UnaryExpression") {
+      if (
+        parent.type === "UnaryExpression" ||
+        parent.type === "AwaitExpression"
+      ) {
         return true;
       }
     // else fall through
@@ -524,6 +527,7 @@ FPp.needsParens = function() {
         case "UnaryExpression":
         case "LogicalExpression":
         case "BinaryExpression":
+        case "AwaitExpression":
           return true;
 
         case "ConditionalExpression":
