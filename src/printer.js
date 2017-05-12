@@ -3694,11 +3694,19 @@ function isBinaryish(node) {
 }
 
 function shouldInlineLogicalExpression(node) {
-  return (
-    node.type === "LogicalExpression" &&
-    (node.right.type === "ObjectExpression" ||
-      node.right.type === "ArrayExpression")
-  );
+  if (node.type !== "LogicalExpression") {
+    return false;
+  }
+
+  if (node.right.type === "ObjectExpression" && node.right.properties.length !== 0) {
+    return true;
+  }
+
+  if (node.right.type === "ArrayExpression" && node.right.elements.length !== 0) {
+    return true;
+  }
+
+  return false;
 }
 
 // For binary expressions to be consistent, we need to group
