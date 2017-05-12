@@ -1,11 +1,15 @@
----
-language: node_js
-node_js:
-  - 4
-  - 6
-  - stable
+--
+addons:
+  sonarqube:
+    organization: "vilchik-elena-github" 
+    token:
+      secure: "" 
+jdk:
+  - oraclejdk8
+script:
+  - sonar-scanner
 cache:
-  yarn: true
   directories:
-  - node_modules
-script: npm test -- --runInBand
+    - '$HOME/.sonar/cache'
+      
+
