@@ -512,7 +512,7 @@ function handleTemplateLiteralComments(enclosingNode, comment) {
   if (enclosingNode && enclosingNode.type === "TemplateLiteral") {
     const followingNode = comment.followingNode;
     if (followingNode && followingNode.type !== "TemplateElement") {
-      addLeadingComment(followingNode, comment);
+      addTrailingComment(followingNode, comment);
       return true;
     }
     const expressionIndex = findExpressionIndexForComment(
@@ -521,7 +521,7 @@ function handleTemplateLiteralComments(enclosingNode, comment) {
     );
     // Enforce all comments to be leading block comments.
     comment.type = "CommentBlock";
-    addLeadingComment(enclosingNode.expressions[expressionIndex], comment);
+    addTrailingComment(enclosingNode.expressions[expressionIndex], comment);
     return true;
   }
   return false;
