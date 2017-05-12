@@ -448,7 +448,9 @@ FPp.needsParens = function() {
         parent.object === node
       );
 
-    case "AssignmentExpression":
+    case "AssignmentExpression": {
+      const grandParent = this.getParentNode(1)
+
       if (parent.type === "ArrowFunctionExpression" && parent.body === node) {
         return true;
       } else if (
@@ -468,10 +470,7 @@ FPp.needsParens = function() {
         return node.left.type === "ObjectPattern";
       } else if (parent.type === "AssignmentExpression") {
         return false;
-      }
-
-      const grandParent = this.getParentNode(1)
-      if (
+      } else if (
         parent.type === "SequenceExpression" &&
         grandParent &&
         grandParent.type === "ForStatement" &&
@@ -480,7 +479,7 @@ FPp.needsParens = function() {
         return false;
       }
       return true;
-
+    }
     case "ConditionalExpression":
       switch (parent.type) {
         case "TaggedTemplateExpression":
