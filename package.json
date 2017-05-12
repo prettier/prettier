@@ -57,16 +57,11 @@
       "tests/typescript/conformance/types/abstractKeyword/jsfmt.spec.js",
       "tests/typescript/conformance/classes/classDeclarations/classHeritageSpecification/jsfmt.spec.js",
       "tests/typescript/compiler/jsfmt.spec.js",
-      "tests/typescript/conformance/types/typeReference/jsfmt.spec.js",
       "tests/typescript/conformance/types/variableDeclarator/jsfmt.spec.js",
-      "tests/typescript/conformance/types/typeParameter/jsfmt.spec.js",
       "tests/typescript/custom/computedProperties/jsfmt.spec.js",
       "tests/typescript/conformance/internalModules/importDeclarations/jsfmt.spec.js",
-      "tests/typescript/conformance/expressions/functionCalls/jsfmt.spec.js",
       "tests/typescript/conformance/es6/Symbols/jsfmt.spec.js",
-      "tests/typescript/conformance/classes/jsfmt.spec.js",
-      "tests/typescript/conformance/classes/constructorDeclarations/constructorParameters/jsfmt.spec.js",
-      "tests/typescript/custom/module/jsfmt.spec.js"
+      "tests/typescript/conformance/classes/jsfmt.spec.js"
     ]
   }
 }

@@ -2184,7 +2184,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "TSTypeReference":
       return concat([
         path.call(print, "typeName"),
-        printTypeParameters(path, options, print, "typeArguments")
+        path.call(print, "typeParameters")
       ]);
     case "TSTypeQuery":
       return concat(["typeof ", path.call(print, "exprName")]);
