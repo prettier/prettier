@@ -82,9 +82,11 @@ function parseWithBabylon(text) {
   try {
     return babylon.parse(text, babylonOptions);
   } catch (originalError) {
-    babylonOptions.strictMode = false;
     try {
-      return babylon.parse(text, babylonOptions);
+      return babylon.parse(
+        text,
+        Object.assign({}, babylonOptions, { strictMode: false })
+      );
     } catch (nonStrictError) {
       throw originalError;
     }
