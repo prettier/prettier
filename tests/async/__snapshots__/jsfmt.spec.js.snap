@@ -67,3 +67,18 @@ async function f() {
 }
 
 `;
+
+exports[`parens.js 1`] = `
+async function *f(){ await (yield x); }
+
+async function f(){ await (() => {}); }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+async function* f() {
+  await (yield x);
+}
+
+async function f() {
+  await (() => {});
+}
+
+`;
