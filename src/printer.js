@@ -2732,11 +2732,8 @@ function printArgumentsList(path, options, print) {
 
 function printFunctionTypeParameters(path, options, print) {
   const fun = path.getValue();
-  // With TypeScript `typeParameters` is an array of `TSTypeParameter` and
-  // with flow they are one `TypeParameterDeclaration` node.
-  if (fun.type === "TSFunctionType") {
-    return printTypeParameters(path, options, print, "typeParameters")
-  } else if (fun.typeParameters) {
+  
+  if (fun.typeParameters) {
     return path.call(print, "typeParameters");
   } else {
     return "";
@@ -3096,35 +3093,35 @@ function printTypeScriptModifiers(path, options, print) {
 }
 
 function printTypeParameters(path, options, print, paramsKey) {
-    const n = path.getValue();
+  const n = path.getValue();
 
-    if (!n[paramsKey]) {
-      return "";
-    }
+  if (!n[paramsKey]) {
+    return "";
+  }
 
-    const shouldInline =
-      n[paramsKey].length === 1 &&
-      (n[paramsKey][0].type === "ObjectTypeAnnotation" ||
-        n[paramsKey][0].type === "NullableTypeAnnotation");
+  const shouldInline =
+    n[paramsKey].length === 1 &&
+    (n[paramsKey][0].type === "ObjectTypeAnnotation" ||
+      n[paramsKey][0].type === "NullableTypeAnnotation");
 
-    if (shouldInline) {
-      return concat(["<", join(", ", path.map(print, paramsKey)), ">"]);
-    }
+  if (shouldInline) {
+    return concat(["<", join(", ", path.map(print, paramsKey)), ">"]);
+  }
 
-    return group(
-      concat([
-        "<",
-        indent(
-          concat([
-            softline,
-            join(concat([",", line]), path.map(print, paramsKey))
-          ])
-        ),
-        ifBreak(shouldPrintComma(options, "all") ? "," : ""),
-        softline,
-        ">"
-      ])
-    );
+  return group(
+    concat([
+      "<",
+      indent(
+        concat([
+          softline,
+          join(concat([",", line]), path.map(print, paramsKey))
+        ])
+      ),
+      ifBreak(shouldPrintComma(options, "all") ? "," : ""),
+      softline,
+      ">"
+    ])
+  );
 }
 
 function printClass(path, options, print) {

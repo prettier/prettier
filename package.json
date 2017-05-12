@@ -61,7 +61,6 @@
       "tests/typescript/conformance/types/variableDeclarator/jsfmt.spec.js",
       "tests/typescript/conformance/types/typeParameter/jsfmt.spec.js",
       "tests/typescript/custom/computedProperties/jsfmt.spec.js",
-      "tests/typescript/conformance/types/functions/jsfmt.spec.js",
       "tests/typescript/custom/new/jsfmt.spec.js",
       "tests/typescript/custom/call/jsfmt.spec.js",
       "tests/typescript/custom/typeParameters/jsfmt.spec.js",
