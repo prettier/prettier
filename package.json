@@ -53,7 +53,8 @@
     "testPathIgnorePatterns": [
       "tests/new_react",
       "tests/more_react",
-      "tests/typescript_nosemi/jsfmt.spec.js",
+
+      "see https://github.com/eslint/typescript-eslint-parser/issues/269",
       "tests/typescript/conformance/types/abstractKeyword/jsfmt.spec.js",
       "tests/typescript/conformance/classes/classDeclarations/classHeritageSpecification/jsfmt.spec.js",
       "tests/typescript/compiler/jsfmt.spec.js",

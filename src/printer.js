@@ -1628,7 +1628,13 @@ function genericPrintNoParens(path, options, print, args) {
       parts.push(concat(printClass(path, options, print)));
       return concat(parts);
     case "TSInterfaceHeritage":
-      return path.call(print, "id");
+      parts.push(path.call(print, "id"));
+      
+      if (n.typeParameters) {
+        parts.push(path.call(print, "typeParameters"));
+      }
+      
+      return concat(parts);
     case "TSHeritageClause":
       return join(", ", path.map(print, "types"));
     case "TSExpressionWithTypeArguments":
@@ -2281,8 +2287,8 @@ function genericPrintNoParens(path, options, print, args) {
       return concat(parts)
     case "TSMethodSignature":
       parts.push(
-        path.call(print, 'name'),
-        printTypeParameters(path, options, print, "typeParameters"),
+        path.call(print, "name"),
+        path.call(print, "typeParameters"),
         printFunctionParams(path, print, options)
       )
 

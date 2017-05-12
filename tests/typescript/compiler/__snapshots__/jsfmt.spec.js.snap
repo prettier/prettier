@@ -154,8 +154,8 @@ values = values2;
 // Regression test for #1002
 // Before fix this code would cause infinite loop
 
-interface IObservable<T> {
-  n: IObservable<T[]>; // Needed, must be T[]
+interface IObservable<T> { // Needed, must be T[]
+  n: IObservable<T[]>;
 }
 
 // Needed
@@ -189,17 +189,9 @@ interface i2 {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 interface i2 {
-  foo: (/**param help*/ b: number) => string;
+  /**param help*/
+  foo: (b: number) => string;
 }
-
-`;
-
-exports[`emptyGenericParamList.ts 1`] = `
-class I<T> {}
-var x: I<>;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-class I<T> {}
-var x: I<>;
 
 `;
 
