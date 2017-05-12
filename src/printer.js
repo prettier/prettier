@@ -3678,14 +3678,16 @@ function isBinaryish(node) {
 }
 
 function shouldInlineLogicalExpression(node) {
-  if (node.type === "LogicalExpression" &&
-      node.right.type === "ObjectExpression") {
-    return node.right.properties.length !== 0;
+  if (node.type !== "LogicalExpression") {
+    return false;
   }
 
-  if (node.type === "LogicalExpression" &&
-      node.right.type === "ArrayExpression") {
-    return node.right.elements.length !== 0;
+  if (node.right.type === "ObjectExpression" && node.right.properties.length !== 0) {
+    return true;
+  }
+
+  if (node.right.type === "ArrayExpression" && node.right.elements.length !== 0) {
+    return true;
   }
 
   return false;
