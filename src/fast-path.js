@@ -469,6 +469,16 @@ FPp.needsParens = function() {
       } else if (parent.type === "AssignmentExpression") {
         return false;
       }
+
+      const grandParent = this.getParentNode(1)
+      if (
+        parent.type === "SequenceExpression" &&
+        grandParent &&
+        grandParent.type === "ForStatement" &&
+        (grandParent.init === parent || grandParent.update === parent)
+      ) {
+        return false;
+      }
       return true;
 
     case "ConditionalExpression":
