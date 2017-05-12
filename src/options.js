@@ -3,6 +3,39 @@
 var validate = require("jest-validate").validate;
 var deprecatedConfig = require("./deprecated");
 
+const minimistOpts = Object.freeze({
+  boolean: [
+    "write",
+    "stdin",
+    "use-tabs",
+    "semi",
+    "single-quote",
+    "bracket-spacing",
+    "jsx-bracket-same-line",
+    // The supports-color package (a sub sub dependency) looks directly at
+    // `process.argv` for `--no-color` and such-like options. The reason it is
+    // listed here is to avoid "Ignored unknown option: --no-color" warnings.
+    // See https://github.com/chalk/supports-color/#info for more information.
+    "color",
+    "list-different",
+    "help",
+    "version",
+    "debug-print-doc",
+    "debug-check",
+    // Deprecated in 0.0.10
+    "flow-parser"
+  ],
+  string: ["print-width", "tab-width", "parser", "trailing-comma"],
+  default: { semi: true, color: true, "bracket-spacing": true, parser: "babylon" },
+  alias: { help: "h", version: "v", "list-different": "l" },
+  unknown: param => {
+    if (param.startsWith("-")) {
+      console.warn("Ignored unknown option: " + param + "\n");
+      return false;
+    }
+  }
+})
+
 var defaults = {
   useTabs: false,
   tabWidth: 2,
@@ -53,4 +86,4 @@ function normalize(options) {
   return normalized;
 }
 
-module.exports = { normalize };
+module.exports = { minimistOpts, normalize };
