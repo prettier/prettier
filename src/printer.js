@@ -1542,9 +1542,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "JSXText":
       throw new Error("JSXTest should be handled by JSXElement");
     case "JSXEmptyExpression":
-      const requiresHardline = n.comments && n.comments.some(
-        comment => !util.isBlockComment(comment)
-      );
+      const requiresHardline = n.comments && !n.comments.every(util.isBlockComment);
 
       return concat([
         comments.printDanglingComments(
