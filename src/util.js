@@ -312,6 +312,10 @@ function getLeftMost(node) {
   }
 }
 
+function isBlockComment(comment) {
+  return comment.type === "Block" || comment.type === "CommentBlock";
+}
+
 module.exports = {
   getPrecedence,
   isExportDeclaration,
@@ -331,5 +335,6 @@ module.exports = {
   locEnd,
   setLocStart,
   setLocEnd,
-  startsWithNoLookaheadToken
+  startsWithNoLookaheadToken,
+  isBlockComment
 };

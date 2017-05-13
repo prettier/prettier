@@ -1543,7 +1543,7 @@ function genericPrintNoParens(path, options, print, args) {
       throw new Error("JSXTest should be handled by JSXElement");
     case "JSXEmptyExpression":
       const requiresHardline = n.comments && n.comments.some(
-        comment => comment.type === "Line" || comment.type === "CommentLine"
+        comment => !util.isBlockComment(comment)
       );
 
       return concat([
@@ -4232,10 +4232,7 @@ function hasDanglingComments(node) {
 }
 
 function hasBlockComments(node) {
-  return node.comments &&
-    node.comments.some(comment =>
-      comment.type === "Block" || comment.type === "CommentBlock"
-    );
+  return node.comments && node.comments.some(util.isBlockComment);
 }
 
 function removeLines(doc) {

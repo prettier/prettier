@@ -520,7 +520,7 @@ function handleTemplateLiteralComments(enclosingNode, comment) {
       comment
     );
     // Enforce all comments to be leading block comments.
-    if (comment.type !== "CommentBlock" && comment.type !== "Block") {
+    if (!util.isBlockComment(comment)) {
       comment.value += ' '
     }
     comment.type = "CommentBlock";
@@ -731,8 +731,7 @@ function handleImportDeclarationComments(
     precedingNode &&
     enclosingNode &&
     enclosingNode.type === "ImportDeclaration" &&
-    comment.type !== "CommentBlock" &&
-    comment.type !== "Block"
+    !util.isBlockComment(comment)
   ) {
     addTrailingComment(precedingNode, comment);
     return true;
@@ -824,7 +823,7 @@ function getQuasiRange(expr) {
 function printLeadingComment(commentPath, print, options) {
   const comment = commentPath.getValue();
   const contents = printComment(commentPath);
-  const isBlock = comment.type === "Block" || comment.type === "CommentBlock";
+  const isBlock = util.isBlockComment(comment);
 
   // Leading block comments should see if they need to stay on the
   // same line or not.
@@ -841,7 +840,7 @@ function printLeadingComment(commentPath, print, options) {
 function printTrailingComment(commentPath, print, options) {
   const comment = commentPath.getValue();
   const contents = printComment(commentPath);
-  const isBlock = comment.type === "Block" || comment.type === "CommentBlock";
+  const isBlock = util.isBlockComment(comment);
 
   if (
     util.hasNewline(options.originalText, locStart(comment), {
