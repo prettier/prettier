@@ -155,7 +155,12 @@ module.exports = function(fork) {
   def("TSInterfaceDeclaration")
     .build("name", "members")
     .field("name", def("Identifier"))
-    .field("members", [def("TSMethodSignature")]);
+    .field("members", [def("TSMethodSignature")])
+    .bases("Declaration");
+    
+  def("TSInterfaceBody")
+    .build("body")
+    .bases("Node");
 
   def("TSModuleDeclaration")
     .build("modifiers", "name", "body")
