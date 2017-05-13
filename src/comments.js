@@ -520,6 +520,9 @@ function handleTemplateLiteralComments(enclosingNode, comment) {
       comment
     );
     // Enforce all comments to be leading block comments.
+    if (comment.type !== "CommentBlock" && comment.type !== "Block") {
+      comment.value += ' '
+    }
     comment.type = "CommentBlock";
     addTrailingComment(enclosingNode.expressions[expressionIndex], comment);
     return true;
