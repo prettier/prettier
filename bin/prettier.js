@@ -153,20 +153,21 @@ function format(input) {
     const pp = prettier.format(input, options);
     const pppp = prettier.format(pp, options);
     if (pp !== pppp) {
-      process.stdout.write("\n");
-      console.error('prettier(input) !== prettier(prettier(input))');
-      console.error(diff(pp, pppp));
-      process.exitCode = 2;
+      throw "prettier(input) !== prettier(prettier(input))\n" + diff(pp, pppp);
     } else {
       const ast = cleanAST(prettier.__debug.parse(input, options));
       const past = cleanAST(prettier.__debug.parse(pp, options));
 
       if (ast !== past) {
-        process.stdout.write("\n");
-        console.error('ast(input) !== ast(prettier(input))');
-        console.error(diff(ast, past));
-        console.error(diff(input, pp));
-        process.exitCode = 2;
+        const MAX_AST_SIZE = 2097152; // 2MB
+        const astDiff = (ast.length > MAX_AST_SIZE || past.length > MAX_AST_SIZE)
+          ? "AST diff too large to render"
+          : diff(ast, past);
+        throw (
+          "ast(input) !== ast(prettier(input))\n" +
+          astDiff + "\n" +
+          diff(input, pp)
+        );
       }
     }
     return;
