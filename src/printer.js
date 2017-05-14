@@ -49,18 +49,22 @@ function shouldPrintComma(options, level) {
   }
 }
 
+function hasPrettierIgnoreComment(node) {
+  return (
+    node &&
+    node.comments &&
+    node.comments.length > 0 &&
+    node.comments.some(comment => comment.value.trim() === "prettier-ignore")
+  );
+}
+
 function genericPrint(path, options, printPath, args) {
   assert.ok(path instanceof FastPath);
 
   var node = path.getValue();
 
   // Escape hatch
-  if (
-    node &&
-    node.comments &&
-    node.comments.length > 0 &&
-    node.comments.some(comment => comment.value.trim() === "prettier-ignore")
-  ) {
+  if (hasPrettierIgnoreComment(node)) {
     return options.originalText.slice(util.locStart(node), util.locEnd(node));
   }
 
