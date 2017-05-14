@@ -1542,9 +1542,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "JSXText":
       throw new Error("JSXTest should be handled by JSXElement");
     case "JSXEmptyExpression":
-      const requiresHardline = n.comments && n.comments.some(
-        comment => comment.type === "Line" || comment.type === "CommentLine"
-      );
+      const requiresHardline = n.comments && !n.comments.every(util.isBlockComment);
 
       return concat([
         comments.printDanglingComments(
@@ -2856,7 +2854,7 @@ function canPrintParamsWithoutParens(node) {
     !node.rest &&
     node.params[0].type === "Identifier" &&
     !node.params[0].typeAnnotation &&
-    !hasBlockComments(node.params[0]) &&
+    !util.hasBlockComments(node.params[0]) &&
     !node.params[0].optional &&
     !node.predicate &&
     !node.returnType
@@ -4229,13 +4227,6 @@ function printArrayItems(path, options, printPath, print) {
 function hasDanglingComments(node) {
   return node.comments &&
     node.comments.some(comment => !comment.leading && !comment.trailing);
-}
-
-function hasBlockComments(node) {
-  return node.comments &&
-    node.comments.some(comment =>
-      comment.type === "Block" || comment.type === "CommentBlock"
-    );
 }
 
 function removeLines(doc) {
