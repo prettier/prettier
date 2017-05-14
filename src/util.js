@@ -312,6 +312,10 @@ function getLeftMost(node) {
   }
 }
 
+function hasBlockComments(node) {
+  return node.comments && node.comments.some(isBlockComment);
+}
+
 function isBlockComment(comment) {
   return comment.type === "Block" || comment.type === "CommentBlock";
 }
@@ -336,5 +340,6 @@ module.exports = {
   setLocStart,
   setLocEnd,
   startsWithNoLookaheadToken,
+  hasBlockComments,
   isBlockComment
 };

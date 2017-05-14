@@ -2854,7 +2854,7 @@ function canPrintParamsWithoutParens(node) {
     !node.rest &&
     node.params[0].type === "Identifier" &&
     !node.params[0].typeAnnotation &&
-    !hasBlockComments(node.params[0]) &&
+    !util.hasBlockComments(node.params[0]) &&
     !node.params[0].optional &&
     !node.predicate &&
     !node.returnType
@@ -4227,10 +4227,6 @@ function printArrayItems(path, options, printPath, print) {
 function hasDanglingComments(node) {
   return node.comments &&
     node.comments.some(comment => !comment.leading && !comment.trailing);
-}
-
-function hasBlockComments(node) {
-  return node.comments && node.comments.some(util.isBlockComment);
 }
 
 function removeLines(doc) {
