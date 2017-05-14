@@ -63,7 +63,7 @@ function parseWithBabylon(text) {
   const babylonOptions = {
     sourceType: "module",
     allowImportExportEverywhere: false,
-    allowReturnOutsideFunction: false,
+    allowReturnOutsideFunction: true,
     plugins: [
       "jsx",
       "flow",
