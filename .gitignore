@@ -1,4 +1,5 @@
 node_modules
 npm-debug.log
+/errors
 /test.js
 /.vscode
