@@ -520,18 +520,14 @@ function handleTemplateLiteralComments(enclosingNode, comment) {
       comment
     );
     // Enforce all comments to be leading block comments.
-    makeBlockComment(comment);
+    if (!util.isBlockComment(comment)) {
+      comment.value += ' '
+    }
+    comment.type = "CommentBlock";
     addTrailingComment(enclosingNode.expressions[expressionIndex], comment);
     return true;
   }
   return false;
-}
-
-function makeBlockComment(comment) {
-  if (!util.isBlockComment(comment)) {
-    comment.value += " ";
-  }
-  comment.type = "CommentBlock";
 }
 
 function handleCommentInEmptyParens(text, enclosingNode, comment) {
