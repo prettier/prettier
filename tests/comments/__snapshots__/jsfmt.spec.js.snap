@@ -1245,13 +1245,13 @@ d //comment
 \`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \`
-\${a /* comment */}
+\${a /* comment*/}
 
 \${b /* comment */}
 
 \${c /* comment */ /* comment */}
 
-\${d /*comment */ // comment
+\${d /*comment*/ // comment
 };
 \`;
 
