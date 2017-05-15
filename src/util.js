@@ -324,9 +324,6 @@ function isOutsideRange(node, rangeStart, rangeEnd) {
   if (!node) {
     return false;
   }
-  if (node.type === 'File' || node.type === 'Program') {
-    return false;
-  }
   const nodeStart = locStart(node);
   const nodeEnd = locEnd(node);
   const isOutside = nodeEnd < rangeStart || nodeStart > rangeEnd;
