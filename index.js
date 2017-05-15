@@ -48,7 +48,9 @@ function ensureAllCommentsPrinted(astComments) {
   });
 }
 
-function format(text, opts, addIndents = 0) {
+function format(text, opts, addIndents) {
+  addIndents = addIndents || 0;
+
   const rangeStart = opts.rangeStart;
   const rangeEnd = Math.min(opts.rangeEnd, text.length)
 

@@ -4248,7 +4248,9 @@ function removeLines(doc) {
   });
 }
 
-function printAstToDoc(ast, options, addIndents = 0) {
+function printAstToDoc(ast, options, addIndents) {
+  addIndents = addIndents || 0;
+
   function printGenerically(path, args) {
     return comments.printComments(
       path,
