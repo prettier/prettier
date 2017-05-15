@@ -320,16 +320,6 @@ function isBlockComment(comment) {
   return comment.type === "Block" || comment.type === "CommentBlock";
 }
 
-function isOutsideRange(node, rangeStart, rangeEnd) {
-  if (!node) {
-    return false;
-  }
-  const nodeStart = locStart(node);
-  const nodeEnd = locEnd(node);
-  const isOutside = nodeEnd < rangeStart || nodeStart >= rangeEnd;
-  return isOutside;
-}
-
 module.exports = {
   getPrecedence,
   isExportDeclaration,
@@ -351,6 +341,5 @@ module.exports = {
   setLocEnd,
   startsWithNoLookaheadToken,
   hasBlockComments,
-  isBlockComment,
-  isOutsideRange
+  isBlockComment
 };

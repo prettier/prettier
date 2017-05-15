@@ -64,10 +64,7 @@ function genericPrint(path, options, printPath, args) {
   var node = path.getValue();
 
   // Escape hatch
-  if (
-    hasPrettierIgnoreComment(node) ||
-    util.isOutsideRange(node, options.rangeStart, options.rangeEnd)
-  ) {
+  if (hasPrettierIgnoreComment(node)) {
     return options.originalText.slice(util.locStart(node), util.locEnd(node));
   }
 
@@ -4251,7 +4248,7 @@ function removeLines(doc) {
   });
 }
 
-function printAstToDoc(ast, options) {
+function printAstToDoc(ast, options, addIndents = 0) {
   function printGenerically(path, args) {
     return comments.printComments(
       path,
@@ -4263,7 +4260,14 @@ function printAstToDoc(ast, options) {
 
   const doc = printGenerically(FastPath.from(ast));
   docUtils.propagateBreaks(doc);
-  return doc;
+  return addIndentsToDoc(doc, addIndents);
+}
+
+function addIndentsToDoc(doc, numIndents) {
+  if (numIndents <= 0) {
+    return doc;
+  }
+  return addIndentsToDoc(indent(doc), numIndents - 1);
 }
 
 module.exports = { printAstToDoc };
