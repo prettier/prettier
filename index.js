@@ -73,9 +73,9 @@ function format(text, opts, addIndents) {
   opts.newLine = guessLineEnding(text);
   const str = printDocToString(doc, opts);
   ensureAllCommentsPrinted(astComments);
-  // Remove added indentation after last newline
+  // Remove extra leading newline as well as the added indentation after last newline
   if (addIndents > 0) {
-    return str.trimRight() + opts.newLine;
+    return str.slice(opts.newLine.length).trimRight() + opts.newLine;
   }
   return str;
 }
