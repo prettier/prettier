@@ -58,19 +58,6 @@ function hasPrettierIgnoreComment(node) {
   );
 }
 
-function isOutsideRange(node, rangeStart, rangeEnd) {
-  if (!node) {
-    return false;
-  }
-  if (node.type === 'File' || node.type === 'Program') {
-    return false;
-  }
-  const nodeStart = util.locStart(node);
-  const nodeEnd = util.locEnd(node);
-  const isOutside = nodeEnd < rangeStart || nodeStart > rangeEnd;
-  return isOutside;
-}
-
 function genericPrint(path, options, printPath, args) {
   assert.ok(path instanceof FastPath);
 
@@ -79,7 +66,7 @@ function genericPrint(path, options, printPath, args) {
   // Escape hatch
   if (
     hasPrettierIgnoreComment(node) ||
-    isOutsideRange(node, options.rangeStart, options.rangeEnd)
+    util.isOutsideRange(node, options.rangeStart, options.rangeEnd)
   ) {
     return options.originalText.slice(util.locStart(node), util.locEnd(node));
   }
