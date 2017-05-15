@@ -1,6 +1,7 @@
 "use strict";
 
 const comments = require("./src/comments");
+const util = require('./src/util');
 const version = require("./package.json").version;
 const printAstToDoc = require("./src/printer").printAstToDoc;
 const printDocToString = require("./src/doc-printer").printDocToString;
@@ -27,7 +28,7 @@ function attachComments(text, ast, opts) {
   return astComments;
 }
 
-function ensureAllCommentsPrinted(astComments) {
+function ensureAllCommentsPrinted(astComments, opts) {
   for (let i = 0; i < astComments.length; ++i) {
     if (astComments[i].value.trim() === "prettier-ignore") {
       // If there's a prettier-ignore, we're not printing that sub-tree so we
@@ -37,7 +38,10 @@ function ensureAllCommentsPrinted(astComments) {
   }
 
   astComments.forEach(comment => {
-    if (!comment.printed) {
+    if (
+      !comment.printed &&
+      !util.isOutsideRange(comment, opts.rangeStart, opts.rangeEnd)
+    ) {
       throw new Error(
         'Comment "' +
           comment.value.trim() +
@@ -54,7 +58,7 @@ function format(text, opts) {
   const doc = printAstToDoc(ast, opts);
   opts.newLine = guessLineEnding(text);
   const str = printDocToString(doc, opts);
-  ensureAllCommentsPrinted(astComments);
+  ensureAllCommentsPrinted(astComments, opts);
   return str;
 }
 
