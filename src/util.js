@@ -326,7 +326,7 @@ function isOutsideRange(node, rangeStart, rangeEnd) {
   }
   const nodeStart = locStart(node);
   const nodeEnd = locEnd(node);
-  const isOutside = nodeEnd < rangeStart || nodeStart > rangeEnd;
+  const isOutside = nodeEnd < rangeStart || nodeStart >= rangeEnd;
   return isOutside;
 }
 

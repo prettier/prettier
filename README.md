@@ -255,7 +255,7 @@ Prettier ships with a handful of customizable format options, usable in both the
 | **Parser** - Specify which parser to use. | `babylon` | <code>--parser <flow&#124;babylon></code> | <code>parser: "<flow&#124;babylon>"</code> |
 | **Semicolons** - Print semicolons at the ends of statements.<br /><br />Valid options: <br /> - `true` - add a semicolon at the end of every statement <br /> - `false` - only add semicolons at the beginning of lines that may introduce ASI failures | `true` | `--no-semi` | `semi: <bool>` |
 | **Range Start** - Format code starting at a given character offset. | `0` | `--range-start <int>` | `rangeStart: <int>` |
-| **Range End** - Format code ending at a given character offset. | `Infinity` | `--range-end <int>` | `rangeEnd: <int>` |
+| **Range End** - Format code ending at a given character offset (exclusive). | `Infinity` | `--range-end <int>` | `rangeEnd: <int>` |
 
 ### Excluding code from formatting
 

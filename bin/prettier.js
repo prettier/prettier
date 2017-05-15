@@ -220,7 +220,7 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
       "                           Print trailing commas wherever possible. Defaults to none.\n" +
       "  --parser <flow|babylon>  Specify which parse to use. Defaults to babylon.\n" +
       "  --range-start <int>      Format code starting at a given character offset. Defaults to 0.\n" +
-      "  --range-end <int>        Format code ending at a given character offset. Defaults to Infinity.\n" +
+      "  --range-end <int>        Format code ending at a given character offset (exclusive). Defaults to Infinity.\n" +
       "  --no-color               Do not colorize error messages.\n" +
       "  --version or -v          Print Prettier version.\n" +
       "\n"
