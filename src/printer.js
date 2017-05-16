@@ -1845,7 +1845,7 @@ function genericPrintNoParens(path, options, print, args) {
       if (needsParens) {
         parts.push("(");
       }
-      
+
       parts.push(
         printFunctionTypeParameters(path, options, print),
         printFunctionParams(path, print, options)

@@ -19,8 +19,6 @@ module.exports = function(fork) {
       defaults["null"]
     )
     .field("members", [def("TSSignature")]);
-  // .field("body", def("ObjectTypeAnnotation"))
-  // .field("extends", [def("InterfaceExtends")]);
 
   def("TSKeyword").bases("Node");
 
@@ -64,7 +62,7 @@ module.exports = function(fork) {
 
   def("TSFunctionType")
     .bases("TSSignature")
-    .build("typeParameters", "parameters", "typeAnnotation");
+    .build("parameters", "typeAnnotation", "typeParameters");
 
   def("TSIntersectionType")
     .bases("TSType")
@@ -118,11 +116,10 @@ module.exports = function(fork) {
     .field("name", def("Identifier"));
 
   def("TSPropertySignature")
-    .bases("TSSignature")
-    .build("name", "typeAnnotation", "initializer")
+    .build("modifiers", "name", "questionToken", "typeAnnotation")
     .field("name", def("Identifier"))
-    .field("typeAnnotation", def("TSType"))
-    .field("initializer", def("Expression"));
+    .field("typeAnnotation", def("TypeAnnotation"))
+    .bases("TSSignature")
 
   def("TSAsExpression").bases("Expression");
 
@@ -153,13 +150,15 @@ module.exports = function(fork) {
     .bases("Declaration");
 
   def("TSInterfaceDeclaration")
-    .build("name", "members")
-    .field("name", def("Identifier"))
-    .field("members", [def("TSMethodSignature")])
-    .bases("Declaration");
+    .build("body", "heritage", "id")
+    .field("body", def("TSInterfaceBody"))
+    .field("heritage", def("TSHeritageClause"))
+    .field("id", def("Identifier"))
+    .bases("Node");
     
   def("TSInterfaceBody")
     .build("body")
+    .field("body",[ def("TSPropertySignature")])
     .bases("Node");
 
   def("TSModuleDeclaration")
