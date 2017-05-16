@@ -49,6 +49,25 @@ function shouldPrintComma(options, level) {
   }
 }
 
+function getAlignmentSize(value, tabWidth, startIndex) {
+  startIndex = startIndex || 0;
+
+  let size = 0;
+  for (let i = startIndex; i < value.length; ++i) {
+    if (value[i] === '\t') {
+      // Tabs behave in a way that they are aligned to the nearest
+      // multiple of tabWidth:
+      // 0 -> 4, 1 -> 4, 2 -> 4, 3 -> 4
+      // 4 -> 8, 5 -> 8, 6 -> 8, 7 -> 8 ...
+      size = size + tabWidth - size % tabWidth;
+    } else {
+      size++;
+    }
+  }
+
+  return size;
+}
+
 function genericPrint(path, options, printPath, args) {
   assert.ok(path instanceof FastPath);
 
@@ -1662,17 +1681,7 @@ function genericPrintNoParens(path, options, print, args) {
           const index = value.lastIndexOf('\n');
           const tabWidth = options.tabWidth;
           if (index !== -1) {
-            for (let i = index + 1; i < value.length; ++i) {
-              if (value[i] === '\t') {
-                // Tabs behave in a way that they are aligned to the nearest
-                // multiple of tabWidth:
-                // 0 -> 4, 1 -> 4, 2 -> 4, 3 -> 4
-                // 4 -> 8, 5 -> 8, 6 -> 8, 7 -> 8 ...
-                size = size + tabWidth - size % tabWidth;
-              } else {
-                size++;
-              }
-            }
+            size = getAlignmentSize(value, tabWidth, index + 1);
           }
 
           let aligned = removeLines(expressions[i]);
@@ -4273,4 +4282,4 @@ function addIndentsToDoc(doc, numIndents) {
   return addIndentsToDoc(indent(doc), numIndents - 1);
 }
 
-module.exports = { printAstToDoc };
+module.exports = { printAstToDoc, getAlignmentSize };

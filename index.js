@@ -3,6 +3,7 @@
 const comments = require("./src/comments");
 const version = require("./package.json").version;
 const printAstToDoc = require("./src/printer").printAstToDoc;
+const getAlignmentSize = require("./src/printer").getAlignmentSize;
 const printDocToString = require("./src/doc-printer").printDocToString;
 const normalizeOptions = require("./src/options").normalize;
 const parser = require("./src/parser");
@@ -62,7 +63,7 @@ function format(text, opts, addIndents) {
   // so this is just to get the non-range tests passing for now.
   if (opts.rangeEnd !== Infinity && (0 < rangeStart || rangeEnd < text.length)) {
     const rangeString = text.substring(rangeStart, rangeEnd)
-    const numIndents = countIndents(rangeString, opts);
+    const numIndents = Math.floor(getAlignmentSize(rangeString.slice(0, rangeString.search(/[^ \t]/)), opts.tabWidth) / opts.tabWidth);
 
     const rangeFormatted = format(rangeString, Object.assign({}, opts, {
       rangeStart: 0,
@@ -84,13 +85,6 @@ function format(text, opts, addIndents) {
     return str.slice(opts.newLine.length).trimRight() + opts.newLine;
   }
   return str;
-}
-
-function countIndents(text, opts) {
-  const tabSpaces = ' '.repeat(opts.tabWidth);
-  const indentation = text.match(/^([ \t]*)/)[1].replace(/\t/g, tabSpaces);
-  const numIndents = Math.floor(indentation.length / opts.tabWidth);
-  return numIndents;
 }
 
 function formatWithShebang(text, opts) {
