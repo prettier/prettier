@@ -1845,7 +1845,7 @@ function genericPrintNoParens(path, options, print, args) {
       if (needsParens) {
         parts.push("(");
       }
-
+      
       parts.push(
         printFunctionTypeParameters(path, options, print),
         printFunctionParams(path, print, options)
@@ -2190,7 +2190,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "TSTypeReference":
       return concat([
         path.call(print, "typeName"),
-        path.call(print, "typeParameters")
+        printTypeParameters(path, options, print, "typeParameters")
       ]);
     case "TSTypeQuery":
       return concat(["typeof ", path.call(print, "exprName")]);
@@ -2228,8 +2228,12 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push("new ");
       }
       const isType = n.type === "TSConstructorType";
+
+      if (n.typeParameters) {
+        parts.push(printTypeParameters(path, options, print, "typeParameters"))
+      }
+
       parts.push(
-        path.call(print, "typeParameters"),
         "(",
         join(", ", path.map(print, "parameters")),
         ")"
@@ -2288,7 +2292,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "TSMethodSignature":
       parts.push(
         path.call(print, "name"),
-        path.call(print, "typeParameters"),
+        printFunctionTypeParameters(path, options, print),
         printFunctionParams(path, print, options)
       )
 
@@ -2743,9 +2747,20 @@ function printArgumentsList(path, options, print) {
 
 function printFunctionTypeParameters(path, options, print) {
   const fun = path.getValue();
+  const paramsFieldIsArray = Array.isArray(fun["typeParameters"])
   
   if (fun.typeParameters) {
-    return path.call(print, "typeParameters");
+    // for TSFunctionType typeParameters is an array
+    // for FunctionTypeAnnotation it's a single node
+    if (paramsFieldIsArray) {
+      return concat(
+        "<",
+        join(", ", path.map(print, "typeParameters")),
+        ">"
+      )
+    } else {
+      return path.call(print, "typeParameters");
+    }
   } else {
     return "";
   }
@@ -3108,6 +3123,11 @@ function printTypeParameters(path, options, print, paramsKey) {
 
   if (!n[paramsKey]) {
     return "";
+  }
+
+  // for TypeParameterDeclaration typeParameters is a single node
+  if (!Array.isArray(n[paramsKey])) {
+    return path.call(print, paramsKey)
   }
 
   const shouldInline =
