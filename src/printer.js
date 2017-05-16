@@ -4256,13 +4256,13 @@ function printAstToDoc(ast, options, addIndents) {
     );
   }
 
-  const doc = printGenerically(FastPath.from(ast));
-  docUtils.propagateBreaks(doc);
+  let doc = printGenerically(FastPath.from(ast));
   if (addIndents > 0) {
     // Add a hardline to make the indents take effect
     // It should be removed in index.js format()
-    return addIndentsToDoc(concat([hardline, doc]), addIndents);
+    doc = addIndentsToDoc(concat([hardline, doc]), addIndents);
   }
+  docUtils.propagateBreaks(doc);
   return doc;
 }
 
