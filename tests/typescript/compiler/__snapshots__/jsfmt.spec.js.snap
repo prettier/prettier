@@ -154,12 +154,16 @@ values = values2;
 // Regression test for #1002
 // Before fix this code would cause infinite loop
 
-interface IObservable<T> { // Needed, must be T[]
+interface IObservable<T> // Regression test for #1002 // Needed, must be T[]
+// Before fix this code would cause infinite loop
+
+{
   n: IObservable<T[]>;
 }
 
 // Needed
-interface ISubject<T> extends IObservable<T> {}
+interface ISubject<T> extends IObservable<T> // Needed
+{}
 
 interface Foo { x }
 interface Bar { y }
@@ -220,7 +224,8 @@ interface C {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // overloading on arity not allowed
-interface C {
+interface C // overloading on arity not allowed
+{
   f<T>(): string;
   f<T, U>(): string;
 
@@ -243,7 +248,8 @@ class C {
     [x = 0]: string
 }~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // These used to be indexers, now they are computed properties
-interface I {
+interface I // These used to be indexers, now they are computed properties
+{
   [x = ""]: string;
 }
 
