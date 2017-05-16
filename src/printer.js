@@ -395,7 +395,6 @@ function genericPrintNoParens(path, options, print, args) {
       if (
         n.body.type === "ArrayExpression" ||
         n.body.type === "ObjectExpression" ||
-        n.body.type === "JSXElement" ||
         n.body.type === "BlockStatement" ||
         isTemplateOnItsOwnLine(n.body, options.originalText) ||
         n.body.type === "ArrowFunctionExpression"
@@ -3663,6 +3662,7 @@ function maybeWrapJSXElementInParens(path, elem) {
 
   const NO_WRAP_PARENTS = {
     ArrayExpression: true,
+    ArrowFunctionExpression: true,
     JSXElement: true,
     JSXExpressionContainer: true,
     ExpressionStatement: true,
@@ -3670,6 +3670,7 @@ function maybeWrapJSXElementInParens(path, elem) {
     ConditionalExpression: true,
     LogicalExpression: true
   };
+
   if (NO_WRAP_PARENTS[parent.type]) {
     return elem;
   }
