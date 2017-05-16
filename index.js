@@ -52,16 +52,14 @@ function ensureAllCommentsPrinted(astComments) {
 function format(text, opts, addAlignmentSize) {
   addAlignmentSize = addAlignmentSize || 0;
 
-  const rangeStart = text.lastIndexOf('\n', opts.rangeStart) + 1;
+  // Use `Math.min` since `lastIndexOf` returns 0 when `rangeStart` is 0
+  const rangeStart = Math.min(opts.rangeStart, text.lastIndexOf('\n', opts.rangeStart) + 1);
   // Use `text.length - 1` as the maximum since `indexOf` returns -1 if `fromIndex >= text.length`
   const fromIndex = Math.min(opts.rangeEnd, text.length - 1)
   const nextNewLineIndex = text.indexOf('\n', fromIndex);
   const rangeEnd = (nextNewLineIndex < 0 ? fromIndex : nextNewLineIndex) + 1; // Add one to make rangeEnd exclusive
 
-  // XXX We shouldn't have to compare opts.rangeEnd with Infinity here,
-  // but there's something wrong with the above calculations,
-  // so this is just to get the non-range tests passing for now.
-  if (opts.rangeEnd !== Infinity && (0 < rangeStart || rangeEnd < text.length)) {
+  if (0 < rangeStart || rangeEnd < text.length) {
     const rangeString = text.substring(rangeStart, rangeEnd)
     const alignmentSize = getAlignmentSize(rangeString.slice(0, rangeString.search(/[^ \t]/)), opts.tabWidth);
 
