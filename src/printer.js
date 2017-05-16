@@ -1684,18 +1684,7 @@ function genericPrintNoParens(path, options, print, args) {
             size = getAlignmentSize(value, tabWidth, index + 1);
           }
 
-          let aligned = removeLines(expressions[i]);
-          if (size > 0) {
-            // Use indent to add tabs for all the levels of tabs we need
-            for (var i = 0; i < Math.floor(size / tabWidth); ++i) {
-              aligned = indent(aligned);
-            }
-            // Use align for all the spaces that are needed
-            aligned = align(size % tabWidth, aligned);
-            // size is absolute from 0 and not relative to the current
-            // indentation, so we use -Infinity to reset the indentation to 0
-            aligned = align(-Infinity, aligned);
-          }
+          let aligned = addAlignmentToDoc(expressions[i], size, tabWidth);
 
           parts.push(
             "${",
@@ -4253,8 +4242,8 @@ function removeLines(doc) {
   });
 }
 
-function printAstToDoc(ast, options, addIndents) {
-  addIndents = addIndents || 0;
+function printAstToDoc(ast, options, addAlignmentSize) {
+  addAlignmentSize = addAlignmentSize || 0;
 
   function printGenerically(path, args) {
     return comments.printComments(
@@ -4266,20 +4255,29 @@ function printAstToDoc(ast, options, addIndents) {
   }
 
   let doc = printGenerically(FastPath.from(ast));
-  if (addIndents > 0) {
+  if (addAlignmentSize > 0) {
     // Add a hardline to make the indents take effect
     // It should be removed in index.js format()
-    doc = addIndentsToDoc(concat([hardline, doc]), addIndents);
+    doc = addAlignmentToDoc(concat([hardline, doc]), addAlignmentSize, options.tabWidth);
   }
   docUtils.propagateBreaks(doc);
   return doc;
 }
 
-function addIndentsToDoc(doc, numIndents) {
-  if (numIndents <= 0) {
-    return doc;
+function addAlignmentToDoc(doc, size, tabWidth) {
+  let aligned = removeLines(doc);
+  if (size > 0) {
+    // Use indent to add tabs for all the levels of tabs we need
+    for (var i = 0; i < Math.floor(size / tabWidth); ++i) {
+      aligned = indent(aligned);
+    }
+    // Use align for all the spaces that are needed
+    aligned = align(size % tabWidth, aligned);
+    // size is absolute from 0 and not relative to the current
+    // indentation, so we use -Infinity to reset the indentation to 0
+    aligned = align(-Infinity, aligned);
   }
-  return addIndentsToDoc(indent(doc), numIndents - 1);
+  return aligned;
 }
 
 module.exports = { printAstToDoc, getAlignmentSize };

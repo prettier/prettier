@@ -49,8 +49,8 @@ function ensureAllCommentsPrinted(astComments) {
   });
 }
 
-function format(text, opts, addIndents) {
-  addIndents = addIndents || 0;
+function format(text, opts, addAlignmentSize) {
+  addAlignmentSize = addAlignmentSize || 0;
 
   const rangeStart = text.lastIndexOf('\n', opts.rangeStart) + 1;
   // Use `text.length - 1` as the maximum since `indexOf` returns -1 if `fromIndex >= text.length`
@@ -63,25 +63,25 @@ function format(text, opts, addIndents) {
   // so this is just to get the non-range tests passing for now.
   if (opts.rangeEnd !== Infinity && (0 < rangeStart || rangeEnd < text.length)) {
     const rangeString = text.substring(rangeStart, rangeEnd)
-    const numIndents = Math.floor(getAlignmentSize(rangeString.slice(0, rangeString.search(/[^ \t]/)), opts.tabWidth) / opts.tabWidth);
+    const alignmentSize = getAlignmentSize(rangeString.slice(0, rangeString.search(/[^ \t]/)), opts.tabWidth);
 
     const rangeFormatted = format(rangeString, Object.assign({}, opts, {
       rangeStart: 0,
       rangeEnd: Infinity,
-      printWidth: opts.printWidth - numIndents * opts.tabWidth
-    }), numIndents);
+      printWidth: opts.printWidth - alignmentSize
+    }), alignmentSize);
 
     return text.slice(0, rangeStart) + rangeFormatted + text.slice(rangeEnd)
   }
 
   const ast = parser.parse(text, opts);
   const astComments = attachComments(text, ast, opts);
-  const doc = printAstToDoc(ast, opts, addIndents)
+  const doc = printAstToDoc(ast, opts, addAlignmentSize)
   opts.newLine = guessLineEnding(text);
   const str = printDocToString(doc, opts);
   ensureAllCommentsPrinted(astComments);
   // Remove extra leading newline as well as the added indentation after last newline
-  if (addIndents > 0) {
+  if (addAlignmentSize > 0) {
     return str.slice(opts.newLine.length).trimRight() + opts.newLine;
   }
   return str;
