@@ -33,7 +33,7 @@
 Prettier is an opinionated JavaScript formatter inspired by
 [refmt](https://facebook.github.io/reason/tools.html) with advanced
 support for language features from [ES2017](https://github.com/tc39/proposals/blob/master/finished-proposals.md), [JSX](https://facebook.github.io/jsx/), and [Flow](https://flow.org/). It removes
-all original styling and ensures that all outputted JavaScript
+all original styling\* and ensures that all outputted JavaScript
 conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
 
 If you are interested in the details, you can watch those two conference talks:
@@ -49,7 +49,7 @@ formatted JavaScript as output.
 
 In technical terms: Prettier parses your JavaScript into an AST (Abstract Syntax Tree) and
 pretty-prints the AST, completely ignoring any of the original
-formatting. Say hello to completely consistent syntax!
+formatting\*. Say hello to completely consistent syntax!
 
 There's an extremely important piece missing from existing styling
 tools: **the maximum line length**. Sure, you can tell ESLint to warn
@@ -108,9 +108,15 @@ foo(
 )
 ```
 
-Prettier bans all custom styling by parsing it away and re-printing
+Prettier bans all custom styling\* by parsing it away and re-printing
 the parsed AST with its own rules that take the maximum line width
 into account, wrapping code when necessary.
+
+_\*Well actually, some original styling is preserved when practical—see
+[empty lines] and [multi-line objects]._
+
+[empty lines]:Rationale.md#empty-lines
+[multi-line objects]:Rationale.md#multi-line-objects
 
 ## Usage
 
