@@ -128,7 +128,7 @@ function genericPrint(path, options, printPath, args) {
   return concat(parts);
 }
 
-function getPropertyPadding(path, options) {
+function getPropertyPadding(options, path) {
   if (!options.alignObjectProperties) {
     return "";
   }
@@ -384,7 +384,7 @@ function genericPrintNoParens(path, options, print, args) {
         parentNode.id === n
 
       return concat([
-        n.name + getPropertyPadding(path, options),
+        n.name,
         n.optional ? "?" : "",
         (n.typeAnnotation && !isFunctionDeclarationIdentifier) ? ": " : "",
         path.call(print, "typeAnnotation")
@@ -992,7 +992,10 @@ function genericPrintNoParens(path, options, print, args) {
         if (n.computed) {
           parts.push("[", path.call(print, "key"), "]");
         } else {
-          parts.push(printPropertyKey(path, options, print));
+          parts.push(
+            printPropertyKey(path, options, print),
+            path.call(getPropertyPadding.bind(null, options), "key")
+          );
         }
         parts.push(concat([": ", path.call(print, "value")]));
       }
@@ -1095,7 +1098,7 @@ function genericPrintNoParens(path, options, print, args) {
       return printRegex(n);
     // Babel 6 Literal split
     case "NumericLiteral":
-      return printNumber(n.extra.raw) + getPropertyPadding(path, options);
+      return printNumber(n.extra.raw);
     // Babel 6 Literal split
     case "BooleanLiteral":
     // Babel 6 Literal split
@@ -1110,7 +1113,7 @@ function genericPrintNoParens(path, options, print, args) {
       if (typeof n.value !== "string") {
         return "" + n.value;
       }
-      return nodeStr(n, options) + getPropertyPadding(path, options); // Babel 6
+      return nodeStr(n, options); // Babel 6
     case "Directive":
       return path.call(print, "value"); // Babel 6
     case "DirectiveLiteral":
