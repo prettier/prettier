@@ -129,11 +129,11 @@ function genericPrint(path, options, printPath, args) {
 }
 
 function getPropertyPadding(path, options) {
-  var n = path.getValue();
-  var type = n.type;
+  const n = path.getValue();
+  const type = n.type;
 
-  var parentNode = path.getParentNode();
-  var isPropertyKey =
+  const parentNode = path.getParentNode();
+  const isPropertyKey =
     (parentNode.type === "Property" || parentNode.type === "ObjectProperty") &&
     parentNode.key === n;
 
@@ -141,8 +141,8 @@ function getPropertyPadding(path, options) {
     return "";
   }
 
-  var parentObject = path.getParentNode(1);
-  var shouldBreak = util.hasNewlineInRange(
+  const parentObject = path.getParentNode(1);
+  const shouldBreak = util.hasNewlineInRange(
     options.originalText,
     util.locStart(parentObject),
     util.locEnd(parentObject)
@@ -152,7 +152,7 @@ function getPropertyPadding(path, options) {
     return "";
   }
 
-  var nameLength = type === "Identifier"
+  const nameLength = type === "Identifier"
     ? n.name.length
     : type === "NumericLiteral"
         ? printNumber(n.extra.raw).length
@@ -162,12 +162,12 @@ function getPropertyPadding(path, options) {
     return "";
   }
 
-  var properties = parentObject.properties;
-  var keys = properties.map(p => p.key);
-  var lengths = keys.map(k => k.end - k.start);
-  var maxLength = Math.max.apply(null, lengths);
-  var padLength = maxLength - nameLength + 1;
-  var padding = " ".repeat(padLength);
+  const properties = parentObject.properties;
+  const keys = properties.map(p => p.key);
+  const lengths = keys.map(k => k.end - k.start);
+  const maxLength = Math.max.apply(null, lengths);
+  const padLength = maxLength - nameLength + 1;
+  const padding = " ".repeat(padLength);
 
   return padding;
 }
