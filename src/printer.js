@@ -167,9 +167,6 @@ function getPropertyPadding(options, path) {
   }
 
   const properties = parentObject.properties;
-  if (properties.some(p => p.computed)) {
-    return "";
-  }
   const keys = properties.map(p => p.key);
   const lengths = keys.map(k => k.end - k.start);
   const maxLength = Math.max.apply(null, lengths);
@@ -990,7 +987,12 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push(path.call(print, "value"));
       } else {
         if (n.computed) {
-          parts.push("[", path.call(print, "key"), "]");
+          parts.push(
+            "[",
+            path.call(print, "key"),
+            "]",
+            path.call(getPropertyPadding.bind(null, options), "key").slice(2)
+          );
         } else {
           parts.push(
             printPropertyKey(path, options, print),
