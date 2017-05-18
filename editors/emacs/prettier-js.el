@@ -223,9 +223,9 @@ function."
 (define-minor-mode prettier-mode
   "Runs prettier on file save when this mode is turned on"
   :lighter " prettier"
-  :global t
+  :global nil
   (if prettier-mode
-      (add-hook 'before-save-hook 'prettier-before-save)
-    (remove-hook 'before-save-hook 'prettier-before-save)))
+      (add-hook 'before-save-hook 'prettier nil 'local)
+    (remove-hook 'before-save-hook 'prettier 'local)))
 
 (provide 'prettier-js)
