@@ -129,6 +129,10 @@ function genericPrint(path, options, printPath, args) {
 }
 
 function getPropertyPadding(path, options) {
+  if (!options.alignObjectProperties) {
+    return "";
+  }
+
   const n = path.getValue();
   const type = n.type;
 

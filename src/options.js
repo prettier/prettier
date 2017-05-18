@@ -11,6 +11,7 @@ var defaults = {
   trailingComma: "none",
   bracketSpacing: true,
   jsxBracketSameLine: false,
+  alignObjectProperties: false,
   parser: "babylon",
   semi: true
 };
