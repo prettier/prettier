@@ -167,6 +167,9 @@ function getPropertyPadding(path, options) {
   }
 
   const properties = parentObject.properties;
+  if (properties.some(p => p.computed)) {
+    return "";
+  }
   const keys = properties.map(p => p.key);
   const lengths = keys.map(k => k.end - k.start);
   const maxLength = Math.max.apply(null, lengths);

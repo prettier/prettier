@@ -219,7 +219,7 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
       "  --trailing-comma <none|es5|all>\n" +
       "                           Print trailing commas wherever possible. Defaults to none.\n" +
       "  --align-object-properties\n" +
-      "                           Align colons in multiline object literals.\n" +
+      "                           Align colons in multiline object literals. Does nothing if object has computed property names.\n" +
       "  --parser <flow|babylon>  Specify which parse to use. Defaults to babylon.\n" +
       "  --no-color               Do not colorize error messages.\n" +
       "  --version or -v          Print Prettier version.\n" +
