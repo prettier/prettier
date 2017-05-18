@@ -1,22 +1,22 @@
 "use strict";
 
-var assert = require("assert");
-var types = require("./ast-types")
-var n = types.namedTypes;
-var isArray = types.builtInTypes.array;
-var isObject = types.builtInTypes.object;
-var docBuilders = require("./doc-builders");
-var concat = docBuilders.concat;
-var hardline = docBuilders.hardline;
-var breakParent = docBuilders.breakParent;
-var indent = docBuilders.indent;
-var lineSuffix = docBuilders.lineSuffix;
-var join = docBuilders.join;
-var util = require("./util");
-var childNodesCacheKey = Symbol("child-nodes");
-var locStart = util.locStart;
-var locEnd = util.locEnd;
-var getNextNonSpaceNonCommentCharacter =
+const assert = require("assert");
+const types = require("./ast-types");
+const n = types.namedTypes;
+const isArray = types.builtInTypes.array;
+const isObject = types.builtInTypes.object;
+const docBuilders = require("./doc-builders");
+const concat = docBuilders.concat;
+const hardline = docBuilders.hardline;
+const breakParent = docBuilders.breakParent;
+const indent = docBuilders.indent;
+const lineSuffix = docBuilders.lineSuffix;
+const join = docBuilders.join;
+const util = require("./util");
+const childNodesCacheKey = Symbol("child-nodes");
+const locStart = util.locStart;
+const locEnd = util.locEnd;
+const getNextNonSpaceNonCommentCharacter =
   util.getNextNonSpaceNonCommentCharacter;
 
 // TODO Move a non-caching implementation of this function into ast-types,
@@ -46,7 +46,7 @@ function getSortedChildNodes(node, text, resultArray) {
     return node[childNodesCacheKey];
   }
 
-  var names;
+  let names;
   if (isArray.check(node)) {
     names = Object.keys(node);
   } else if (isObject.check(node)) {
@@ -62,7 +62,7 @@ function getSortedChildNodes(node, text, resultArray) {
     });
   }
 
-  for (var i = 0, nameCount = names.length; i < nameCount; ++i) {
+  for (let i = 0, nameCount = names.length; i < nameCount; ++i) {
     getSortedChildNodes(node[names[i]], text, resultArray);
   }
 
@@ -73,13 +73,13 @@ function getSortedChildNodes(node, text, resultArray) {
 // .precedingNode, .enclosingNode, and/or .followingNode properties, at
 // least one of which is guaranteed to be defined.
 function decorateComment(node, comment, text) {
-  var childNodes = getSortedChildNodes(node, text);
-  var precedingNode, followingNode;
+  const childNodes = getSortedChildNodes(node, text);
+  let precedingNode, followingNode;
   // Time to dust off the old binary search robes and wizard hat.
-  var left = 0, right = childNodes.length;
+  let left = 0, right = childNodes.length;
   while (left < right) {
-    var middle = (left + right) >> 1;
-    var child = childNodes[middle];
+    const middle = (left + right) >> 1;
+    const child = childNodes[middle];
 
     if (
       locStart(child) - locStart(comment) <= 0 &&
@@ -129,7 +129,7 @@ function attach(comments, ast, text) {
     return;
   }
 
-  var tiesToBreak = [];
+  const tiesToBreak = [];
 
   comments.forEach((comment, i) => {
     decorateComment(ast, comment, text);
@@ -262,7 +262,7 @@ function attach(comments, ast, text) {
         // simply attach the right node;
         const tieCount = tiesToBreak.length;
         if (tieCount > 0) {
-          var lastTie = tiesToBreak[tieCount - 1];
+          const lastTie = tiesToBreak[tieCount - 1];
           if (lastTie.followingNode !== comment.followingNode) {
             breakTies(tiesToBreak, text);
           }
@@ -294,14 +294,14 @@ function attach(comments, ast, text) {
 }
 
 function breakTies(tiesToBreak, text) {
-  var tieCount = tiesToBreak.length;
+  const tieCount = tiesToBreak.length;
   if (tieCount === 0) {
     return;
   }
 
-  var precedingNode = tiesToBreak[0].precedingNode;
-  var followingNode = tiesToBreak[0].followingNode;
-  var gapEndPos = locStart(followingNode);
+  const precedingNode = tiesToBreak[0].precedingNode;
+  const followingNode = tiesToBreak[0].followingNode;
+  let gapEndPos = locStart(followingNode);
 
   // Iterate backwards through tiesToBreak, examining the gaps
   // between the tied comments. In order to qualify as leading, a
@@ -312,11 +312,11 @@ function breakTies(tiesToBreak, text) {
     indexOfFirstLeadingComment > 0;
     --indexOfFirstLeadingComment
   ) {
-    var comment = tiesToBreak[indexOfFirstLeadingComment - 1];
+    const comment = tiesToBreak[indexOfFirstLeadingComment - 1];
     assert.strictEqual(comment.precedingNode, precedingNode);
     assert.strictEqual(comment.followingNode, followingNode);
 
-    var gap = text.slice(locEnd(comment), gapEndPos);
+    const gap = text.slice(locEnd(comment), gapEndPos);
     if (/\S/.test(gap)) {
       // The gap string contained something other than whitespace.
       break;
@@ -337,7 +337,7 @@ function breakTies(tiesToBreak, text) {
 }
 
 function addCommentHelper(node, comment) {
-  var comments = node.comments || (node.comments = []);
+  const comments = node.comments || (node.comments = []);
   comments.push(comment);
   comment.printed = false;
 }
@@ -898,22 +898,22 @@ function printDanglingComments(path, options, sameIndent) {
 }
 
 function printComments(path, print, options, needsSemi) {
-  var value = path.getValue();
-  var parent = path.getParentNode();
-  var printed = print(path);
-  var comments = n.Node.check(value) && types.getFieldValue(value, "comments");
+  const value = path.getValue();
+  const parent = path.getParentNode();
+  const printed = print(path);
+  const comments = n.Node.check(value) && types.getFieldValue(value, "comments");
 
   if (!comments || comments.length === 0) {
     return printed;
   }
 
-  var leadingParts = [];
-  var trailingParts = [needsSemi ? ";" : "", printed];
+  const leadingParts = [];
+  const trailingParts = [needsSemi ? ";" : "", printed];
 
   path.each(function(commentPath) {
-    var comment = commentPath.getValue();
-    var leading = types.getFieldValue(comment, "leading");
-    var trailing = types.getFieldValue(comment, "trailing");
+    const comment = commentPath.getValue();
+    const leading = types.getFieldValue(comment, "leading");
+    const trailing = types.getFieldValue(comment, "trailing");
 
     if (leading) {
       leadingParts.push(printLeadingComment(commentPath, print, options));
