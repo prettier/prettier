@@ -38,7 +38,7 @@ FastPath.from = function(obj) {
 };
 
 FPp.copy = function copy() {
-  var copy = Object.create(FastPath.prototype);
+  const copy = Object.create(FastPath.prototype);
   copy.stack = this.stack.slice(0);
   return copy;
 };
@@ -131,13 +131,13 @@ FPp.each = function each(callback /*, name1, name2, ... */) {
   let value = s[origLen - 1];
   const argc = arguments.length;
 
-  for (var i = 1; i < argc; ++i) {
+  for (let i = 1; i < argc; ++i) {
     const name = arguments[i];
     value = value[name];
     s.push(name, value);
   }
 
-  for (var i = 0; i < value.length; ++i) {
+  for (let i = 0; i < value.length; ++i) {
     if (i in value) {
       s.push(i, value[i]);
       // If the callback needs to know the value of i, call
@@ -159,7 +159,7 @@ FPp.map = function map(callback /*, name1, name2, ... */) {
   let value = s[origLen - 1];
   const argc = arguments.length;
 
-  for (var i = 1; i < argc; ++i) {
+  for (let i = 1; i < argc; ++i) {
     const name = arguments[i];
     value = value[name];
     s.push(name, value);
@@ -167,7 +167,7 @@ FPp.map = function map(callback /*, name1, name2, ... */) {
 
   const result = new Array(value.length);
 
-  for (var i = 0; i < value.length; ++i) {
+  for (let i = 0; i < value.length; ++i) {
     if (i in value) {
       s.push(i, value[i]);
       result[i] = callback(this, i);

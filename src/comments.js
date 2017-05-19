@@ -31,7 +31,8 @@ function getSortedChildNodes(node, text, resultArray) {
       // This reverse insertion sort almost always takes constant
       // time because we almost always (maybe always?) append the
       // nodes in order anyway.
-      for (var i = resultArray.length - 1; i >= 0; --i) {
+      let i;
+      for (i = resultArray.length - 1; i >= 0; --i) {
         if (
           locStart(resultArray[i]) <= locStart(node) &&
           locEnd(resultArray[i]) <= locEnd(node)
@@ -307,8 +308,9 @@ function breakTies(tiesToBreak, text) {
   // between the tied comments. In order to qualify as leading, a
   // comment must be separated from followingNode by an unbroken series of
   // whitespace-only gaps (or other comments).
+  let indexOfFirstLeadingComment;
   for (
-    var indexOfFirstLeadingComment = tieCount;
+    indexOfFirstLeadingComment = tieCount;
     indexOfFirstLeadingComment > 0;
     --indexOfFirstLeadingComment
   ) {
