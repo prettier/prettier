@@ -23,10 +23,10 @@ o = {
 };
 
 o = {
-  [namelonglonglong]: "value",
-  2                : 3,
-  "k-2"            : 2,
-  keyasdf          : 3
+  [namelonglonglong] : "value",
+  2                  : 3,
+  "k-2"              : 2,
+  keyasdf            : 3
 };
 
 `;
