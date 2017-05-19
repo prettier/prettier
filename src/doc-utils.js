@@ -79,6 +79,18 @@ function isEmpty(n) {
   return typeof n === "string" && n.length === 0;
 }
 
+function getFirstString(doc) {
+  return findInDoc(
+    doc,
+    doc => {
+      if (typeof doc === "string" && doc.trim().length !== 0) {
+        return doc;
+      }
+    },
+    null
+  );
+}
+
 function isLineNext(doc) {
   return findInDoc(
     doc,
@@ -155,6 +167,7 @@ function propagateBreaks(doc) {
 
 module.exports = {
   isEmpty,
+  getFirstString,
   willBreak,
   isLineNext,
   traverseDoc,

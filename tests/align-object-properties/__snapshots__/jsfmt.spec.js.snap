@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`o.js 1`] = `
+o = {
+  [name]: 'value',
+  2:3,
+  "k-2":2,
+  keyasdf:3
+}
+
+o = {
+  [namelonglonglong]: 'value',
+  2:3,
+  "k-2":2,
+  keyasdf:3
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+o = {
+  [name]  : "value",
+  2       : 3,
+  "k-2"   : 2,
+  keyasdf : 3
+};
+
+o = {
+  [namelonglonglong] : "value",
+  2                  : 3,
+  "k-2"              : 2,
+  keyasdf            : 3
+};
+
+`;

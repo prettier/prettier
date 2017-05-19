@@ -1,5 +1,7 @@
 node_modules
 npm-debug.log
+/bin/prettier-with-tabs.js
+/bin/prettier-spaces.js
 /errors
 /test.js
 /.vscode
