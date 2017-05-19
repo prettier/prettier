@@ -1,12 +1,12 @@
 {
-  "name": "prettier",
+  "name": "prettier-miscellaneous",
   "version": "1.3.1",
   "description": "Prettier is an opinionated JavaScript formatter",
   "bin": {
     "prettier": "./bin/prettier.js"
   },
-  "repository": "prettier/prettier",
-  "author": "James Long",
+  "repository": "arijs/prettier-miscellaneous",
+  "author": "Rafael Hengles",
   "license": "MIT",
   "main": "./index.js",
   "dependencies": {
@@ -36,7 +36,10 @@
     "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#f5fcc879b493138eb97b9bdfb39afc4d210b1ddf"
   },
   "scripts": {
-    "test": "jest",
+    "jest": "jest",
+    "test": "npm run jest && npm run test-tabs && npm run test-tabs-inv",
+    "test-tabs": "node ./bin/prettier.js --use-tabs --bracket-spacing --trailing-comma=array,object -- ./bin/prettier.js > ./bin/prettier-with-tabs.js",
+    "test-tabs-inv": "node ./bin/prettier-with-tabs.js -- ./bin/prettier-with-tabs.js > ./bin/prettier-spaces.js",
     "format": "./bin/prettier.js --write",
     "format:single": "npm run format -- src/printer.js",
     "format:all": "npm run format -- index.js src/*.js bin/*.js",

@@ -1,8 +1,17 @@
-# Prettier
+# Prettier With Tabs
 
 [![Gitter](https://badges.gitter.im/gitterHQ/gitter.svg)](https://gitter.im/jlongster/prettier)
-[![Build Status](https://travis-ci.org/prettier/prettier.svg?branch=master)](https://travis-ci.org/prettier/prettier)
-[![NPM version](https://img.shields.io/npm/v/prettier.svg)](https://www.npmjs.com/package/prettier)
+[![Build Status](https://travis-ci.org/arijs/prettier-with-tabs.svg?branch=master)](https://travis-ci.org/arijs/prettier-with-tabs)
+[![CircleCI Status](https://circleci.com/gh/arijs/prettier-with-tabs.svg?style=shield&circle-token=83f2e43548ccf3827a3a1003a3ff0d5f46996fc2)](https://circleci.com/gh/arijs/prettier-with-tabs)
+[![NPM version](https://img.shields.io/npm/v/prettier-with-tabs.svg)](https://www.npmjs.com/package/prettier-with-tabs)
+
+> # CONFIGURATION WELCOME
+>
+> This is a fork of [prettier/prettier](https://github.com/prettier/prettier), with an option added to indent lines with tabs. If you have a simple option you want to add to Prettier With Tabs, send a PR!
+>
+> For example, I don't like javascript code without semicolons, but if you can send me a PR which add this ability with as little code as possible, I'll happily accept it! 😃
+>
+> ![Happyness](https://i.redd.it/p63sznfyu38y.jpg)
 
 <!-- toc -->
 
@@ -124,19 +133,21 @@ objects]._
 Install:
 
 ```
+yarn add prettier-with-tabs --dev
+=======
 yarn add prettier --dev
 ```
 
 You can install it globally if you like:
 
 ```
-yarn global add prettier
+yarn global add prettier-with-tabs
 ```
 
 *We're defaulting to `yarn` but you can use `npm` if you like:*
 
 ```
-npm install [-g] prettier
+npm install [-g] prettier-with-tabs
 ```
 
 ### CLI
@@ -237,7 +248,7 @@ exit 1
 The API has two functions, exported as `format` and `check`. `format` usage is as follows:
 
 ```js
-const prettier = require("prettier");
+const prettier = require("prettier-with-tabs");
 
 const options = {} // optional
 prettier.format(source, options);
@@ -257,9 +268,17 @@ Prettier ships with a handful of customizable format options, usable in both the
 | **Tab Width** - Specify the number of spaces per indentation-level. | `2` | `--tab-width <int>` | `tabWidth: <int>` |
 | **Quotes** - Use single quotes instead of double quotes. | `false` | `--single-quote` | `singleQuote: <bool>` |
 | **Trailing Commas** - Print trailing commas wherever possible.<br /><br />Valid options: <br /> - `"none"` - no trailing commas <br /> - `"es5"` - trailing commas where valid in ES5 (objects, arrays, etc) <br /> - `"all"`  - trailing commas wherever possible (function arguments) | `"none"` | <code>--trailing-comma <none&#124;es5&#124;all></code> | <code>trailingComma: "<none&#124;es5&#124;all>"</code> |
-| **Bracket Spacing** - Print spaces between brackets in object literals.<br /><br />Valid options: <br /> - `true` - Example: `{ foo: bar }` <br /> - `false` - Example: `{foo: bar}` | `true` | `--no-bracket-spacing` | `bracketSpacing: <bool>` |
+| **Trailing Commas (extended)** - You can also customize each place to use trailing commas:<br /><br />Valid options: <br /> - `"array"` <br/> - `"object"` <br /> - `"import"` <br /> - `"export"` <br /> - `"arguments"` | `"none"` | You can use a comma separated string list:<br /><br /><code>--trailing-comma "array,object,import,export,arguments"</code> | You can use a string list or an object:<br /><br /> <code>trailingComma: { array: true, object: true, import: true, export: true, arguments: false }</code> |
+| **Bracket Spacing** - Print spaces between brackets in array literals.<br /><br />Valid options: <br /> - `true` - Example: `[ foo: bar ]` <br /> - `false` - Example: `[foo: bar]` | `true` | `--no-bracket-spacing` | `bracketSpacing: <bool>` |
+| **Braces Spacing** - Print spaces between brackets in object literals.<br /><br />Valid options: <br /> - `true` - Example: `{ foo: bar }` <br /> - `false` - Example: `{foo: bar}` | `true` | `--no-braces-spacing` | `bracesSpacing: <bool>` |
+| **Break in Object Properties** - Allow object properties to break lines between the property name and its value.<br /><br />Valid options: <br /> - `true` <br /> - `false` | `false` | `--break-property` | `breakProperty: <bool>` |
+| **Arrow Function Parentheses** - Always put parentheses on arrow function arguments.<br /><br />Valid options: <br /> - `true` <br /> - `false` | `false` | `--arrow-parens` | `arrowParens: <bool>` |
+| **Array Expand** - Expand arrays into one item per line.<br /><br />Valid options: <br /> - `true` <br /> - `false` | `false` | `--array-expand` | `arrayExpand: <bool>` |
+| **Flatten Ternaries** - Format ternaries in a flat style.<br /><br />Valid options: <br /> - `true` <br /> - `false` | `false` | `--flatten-ternaries` | `flattenTernaries: <bool>` |
+| **Break Before Else** - Put `else` clause in a new line.<br /><br />Valid options: <br /> - `true` <br /> - `false` | `false` | `--break-before-else` | `breakBeforeElse: <bool>` |
 | **JSX Brackets on Same Line** - Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line | `false` | `--jsx-bracket-same-line` | `jsxBracketSameLine: <bool>` |
 | **Align Object Properties** - Align colons in multiline object literals. Does nothing if object has computed property names. | `false` | --align-object-properties | `alignObjectProperties: <bool>` |
+| **No Space in Empty Function** - Omit space before empty anonymous function body.<br /><br />Valid options: <br /> - `true` <br /> - `false` | `false` | `--no-space-empty-fn` | `noSpaceEmptyFn: <bool>` |
 | **Parser** - Specify which parser to use. | `babylon` | <code>--parser <flow&#124;babylon></code> | <code>parser: "<flow&#124;babylon>"</code> |
 | **Semicolons** - Print semicolons at the ends of statements.<br /><br />Valid options: <br /> - `true` - add a semicolon at the end of every statement <br /> - `false` - only add semicolons at the beginning of lines that may introduce ASI failures | `true` | `--no-semi` | `semi: <bool>` |
 
@@ -301,7 +320,7 @@ matrix(
 
 ### Atom
 
-Atom users can simply install the [prettier-atom](https://github.com/prettier/prettier-atom) package and use
+Atom users can simply install the [`prettier-atom-with-tabs`](https://atom.io/packages/prettier-atom-with-tabs) package and use
 `Ctrl+Alt+F` to format a file (or format on save if enabled).
 
 ### Emacs
@@ -354,9 +373,9 @@ Each option needs to be escaped with `\`.
 
 Can be installed using the extension sidebar. Search for `Prettier - JavaScript formatter`.
 
-Can also be installed using `ext install prettier-vscode`.
+Can also be installed using `ext install prettier-vscode-with-tabs`
 
-[Check its repository for configuration and shortcuts](https://github.com/esbenp/prettier-vscode)
+[Check its repository for configuration and shortcuts](https://marketplace.visualstudio.com/items?itemName=passionkind.prettier-vscode-with-tabs)
 
 ### Visual Studio
 

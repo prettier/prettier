@@ -70,7 +70,122 @@ x => (y += z);
 
 `;
 
+exports[`arrow_function_expression.js 2`] = `
+(a => {}).length
+typeof (() => {});
+export default (() => {})();
+(() => {})()\`\`;
+(() => {})\`\`;
+new (() => {});
+if ((() => {}) ? 1 : 0) {}
+let f = () => ({}())
+let a = () => ({} instanceof a);
+a = () => ({} && a);
+a = () => ({}() && a);
+a = () => ({} && a && b);
+a = () => ({} + a);
+a = () => ({}()() && a);
+a = () => ({}.b && a);
+a = () => ({}[b] && a);
+a = () => ({}\`\` && a);
+a = () => ({} = 0);
+a = () => ({}, a);
+a => a instanceof {};
+a => ({}().b && 0)
+a => ({}::b()\`\`[''].c++ && 0 ? 0 : 0)
+a => ({}().c = 0)
+x => ({}()())
+x => ({}()\`\`)
+x => ({}().b);
+(a => b)::c;
+a::(b => c);
+a = b => c;
+a = (b?) => c;
+x => (y = z);
+x => (y += z);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+((a) => {}).length;
+typeof (() => {});
+export default (() => {})();
+(() => {})()\`\`;
+(() => {})\`\`;
+new (() => {})();
+if ((() => {}) ? 1 : 0) {
+}
+let f = () => ({}());
+let a = () => ({} instanceof a);
+a = () => ({} && a);
+a = () => ({}() && a);
+a = () => ({} && a && b);
+a = () => ({} + a);
+a = () => ({}()() && a);
+a = () => ({}.b && a);
+a = () => ({}[b] && a);
+a = () => ({}\`\` && a);
+a = () => ({} = 0);
+a = () => ({}, a);
+(a) => a instanceof {};
+(a) => ({}().b && 0);
+(a) => ({}::b()\`\`[""].c++ && 0 ? 0 : 0);
+(a) => ({}().c = 0);
+(x) => ({}()());
+(x) => ({}()\`\`);
+(x) => ({}().b);
+((a) => b)::c;
+a::((b) => c);
+a = (b) => c;
+a = (b?) => c;
+(x) => (y = z);
+(x) => (y += z);
+
+`;
+
+exports[`arrow-parens.js 1`] = `
+() => {};
+(a) => { return a; };
+a => a;
+(a, b) => a * b;
+(a, b, c) => { return a * b + c; };
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+() => {};
+a => {
+  return a;
+};
+a => a;
+(a, b) => a * b;
+(a, b, c) => {
+  return a * b + c;
+};
+
+`;
+
+exports[`arrow-parens.js 2`] = `
+() => {};
+(a) => { return a; };
+a => a;
+(a, b) => a * b;
+(a, b, c) => { return a * b + c; };
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+() => {};
+(a) => {
+  return a;
+};
+(a) => a;
+(a, b) => a * b;
+(a, b, c) => {
+  return a * b + c;
+};
+
+`;
+
 exports[`block_like.js 1`] = `
+a = () => ({} = this);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a = () => ({} = this);
+
+`;
+
+exports[`block_like.js 2`] = `
 a = () => ({} = this);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 a = () => ({} = this);
@@ -239,6 +354,168 @@ jest.mock(
 
 `;
 
+exports[`call.js 2`] = `
+Seq(typeDef.interface.groups).forEach(group =>
+  Seq(group.members).forEach((member, memberName) =>
+    markdownDoc(
+      member.doc,
+      { typePath: typePath.concat(memberName.slice(1)),
+       signatures: member.signatures }
+    )
+  )
+)
+
+const promiseFromCallback = fn =>
+  new Promise((resolve, reject) =>
+    fn((err, result) => {
+      if (err) return reject(err);
+      return resolve(result);
+    })
+  );
+
+runtimeAgent.getProperties(
+  objectId,
+  false, // ownProperties
+  false, // accessorPropertiesOnly
+  false, // generatePreview
+  (error, properties, internalProperties) => {
+    return 1
+  },
+);
+
+function render() {
+  return (
+    <View>
+      <Image
+        onProgress={(e) => this.setState({progress: Math.round(100 * e.nativeEvent.loaded / e.nativeEvent.total)})}
+      />
+    </View>
+  );
+}
+
+function render() {
+  return (
+    <View>
+      <Image
+        onProgress={e =>
+          this.setState({
+            progress: Math.round(
+              100 * e.nativeEvent.loaded / e.nativeEvent.total,
+            ),
+          })}
+      />
+    </View>
+  );
+}
+
+function render() {
+  return (
+    <View>
+      <Image
+        onProgress={e =>
+          this.setState({
+            progress: Math.round(
+              100 * e.nativeEvent.loaded / e.nativeEvent.total,
+            ),
+          })}
+      />
+    </View>
+  );
+}
+
+jest.mock(
+  '../SearchSource',
+  () => class {
+    findMatchingTests(pattern) {
+      return {paths: []};
+    }
+  },
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Seq(typeDef.interface.groups).forEach((group) =>
+  Seq(group.members).forEach((member, memberName) =>
+    markdownDoc(member.doc, {
+      typePath: typePath.concat(memberName.slice(1)),
+      signatures: member.signatures
+    })
+  )
+);
+
+const promiseFromCallback = (fn) =>
+  new Promise((resolve, reject) =>
+    fn((err, result) => {
+      if (err) return reject(err);
+      return resolve(result);
+    })
+  );
+
+runtimeAgent.getProperties(
+  objectId,
+  false, // ownProperties
+  false, // accessorPropertiesOnly
+  false, // generatePreview
+  (error, properties, internalProperties) => {
+    return 1;
+  }
+);
+
+function render() {
+  return (
+    <View>
+      <Image
+        onProgress={(e) =>
+          this.setState({
+            progress: Math.round(
+              100 * e.nativeEvent.loaded / e.nativeEvent.total
+            )
+          })}
+      />
+    </View>
+  );
+}
+
+function render() {
+  return (
+    <View>
+      <Image
+        onProgress={(e) =>
+          this.setState({
+            progress: Math.round(
+              100 * e.nativeEvent.loaded / e.nativeEvent.total
+            )
+          })}
+      />
+    </View>
+  );
+}
+
+function render() {
+  return (
+    <View>
+      <Image
+        onProgress={(e) =>
+          this.setState({
+            progress: Math.round(
+              100 * e.nativeEvent.loaded / e.nativeEvent.total
+            )
+          })}
+      />
+    </View>
+  );
+}
+
+jest.mock(
+  "../SearchSource",
+  () =>
+    class {
+      findMatchingTests(pattern) {
+        return { paths: [] };
+      }
+    }
+);
+
+`;
+
 exports[`currying.js 1`] = `
 const fn = b => c => d => {
   return 3;
@@ -266,7 +543,44 @@ const middleware = options => (req, res, next) => {
 
 `;
 
+exports[`currying.js 2`] = `
+const fn = b => c => d => {
+  return 3;
+};
+
+const mw = store => next => action => {
+  return next(action)
+}
+
+const middleware = options => (req, res, next) => {
+  // ...
+};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const fn = (b) => (c) => (d) => {
+  return 3;
+};
+
+const mw = (store) => (next) => (action) => {
+  return next(action);
+};
+
+const middleware = (options) => (req, res, next) => {
+  // ...
+};
+
+`;
+
 exports[`long-call-no-args.js 1`] = `
+veryLongCall(VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT, () => {})
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+veryLongCall(
+  VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT,
+  () => {}
+);
+
+`;
+
+exports[`long-call-no-args.js 2`] = `
 veryLongCall(VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT, () => {})
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 veryLongCall(
@@ -292,7 +606,40 @@ const foo = () => {
 
 `;
 
+exports[`long-contents.js 2`] = `
+const foo = () => {
+  expect(arg1, arg2, arg3).toEqual({message: 'test', messageType: 'SMS', status: 'Unknown', created: '11/01/2017 13:36'});
+};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const foo = () => {
+  expect(arg1, arg2, arg3).toEqual({
+    message: "test",
+    messageType: "SMS",
+    status: "Unknown",
+    created: "11/01/2017 13:36"
+  });
+};
+
+`;
+
 exports[`short_body.js 1`] = `
+const initializeSnapshotState = (
+  testFile: Path,
+  update: boolean,
+  testPath: string,
+  expand: boolean,
+) => new SnapshotState(testFile, update, testPath, expand);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const initializeSnapshotState = (
+  testFile: Path,
+  update: boolean,
+  testPath: string,
+  expand: boolean
+) => new SnapshotState(testFile, update, testPath, expand);
+
+`;
+
+exports[`short_body.js 2`] = `
 const initializeSnapshotState = (
   testFile: Path,
   update: boolean,

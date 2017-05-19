@@ -19,8 +19,15 @@ const argv = minimist(process.argv.slice(2), {
     "semi",
     "single-quote",
     "bracket-spacing",
+    "braces-spacing",
+    "break-property",
+    "arrow-parens",
+    "array-expand",
+    "break-before-else",
+    "flatten-ternaries",
     "jsx-bracket-same-line",
     "align-object-properties",
+    "space-empty-fn",
     // The supports-color package (a sub sub dependency) looks directly at
     // `process.argv` for `--no-color` and such-like options. The reason it is
     // listed here is to avoid "Ignored unknown option: --no-color" warnings.
@@ -35,7 +42,7 @@ const argv = minimist(process.argv.slice(2), {
     "flow-parser"
   ],
   string: ["print-width", "tab-width", "parser", "trailing-comma"],
-  default: { semi: true, color: true, "bracket-spacing": true, parser: "babylon" },
+  default: { semi: true, color: true, "braces-spacing": true, "space-empty-fn": true, parser: "babylon" },
   alias: { help: "h", version: "v", "list-different": "l" },
   unknown: param => {
     if (param.startsWith("-")) {
@@ -123,7 +130,10 @@ function getTrailingComma() {
     case "all":
       return "all";
     default:
-      throw new Error("Invalid option for --trailing-comma");
+      // Allow user to customize each item separated with commas
+      // see src/options.js
+      return argv["trailing-comma"];
+      //throw new Error("Invalid option for --trailing-comma");
   }
 }
 
@@ -133,8 +143,15 @@ const options = {
   printWidth: getIntOption("print-width"),
   tabWidth: getIntOption("tab-width"),
   bracketSpacing: argv["bracket-spacing"],
+  bracesSpacing: argv["braces-spacing"],
+  breakProperty: argv["break-property"],
+  arrowParens: argv["arrow-parens"],
+  arrayExpand: argv["array-expand"],
+  flattenTernaries: argv["flatten-ternaries"],
+  breakBeforeElse: argv["break-before-else"],
   singleQuote: argv["single-quote"],
   jsxBracketSameLine: argv["jsx-bracket-same-line"],
+  noSpaceEmptyFn: !argv["space-empty-fn"],
   trailingComma: getTrailingComma(),
   alignObjectProperties: argv["align-object-properties"],
   parser: getParserOption()
@@ -214,12 +231,21 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
       "  --use-tabs               Indent lines with tabs instead of spaces.\n" +
       "  --no-semi                Do not print semicolons, except at the beginning of lines which may need them.\n" +
       "  --single-quote           Use single quotes instead of double quotes.\n" +
-      "  --no-bracket-spacing     Do not print spaces between brackets.\n" +
+      "  --bracket-spacing        Print spaces between [brackets].\n" +
+      "  --no-braces-spacing      Do not print spaces between {braces}.\n" +
+      "  --break-property         Allow object properties to break lines.\n" +
+      "  --arrow-parens           Always put parentheses on arrow function arguments.\n" +
+      "  --array-expand           Expand arrays into one item per line.\n" +
+      "  --flatten-ternaries      Format ternaries in a flat style.\n" +
+      "  --break-before-else      Put `else` clause in a new line.\n" +
       "  --jsx-bracket-same-line  Put > on the last line instead of at a new line.\n" +
       "  --trailing-comma <none|es5|all>\n" +
       "                           Print trailing commas wherever possible. Defaults to none.\n" +
+      "                           You can customize with a comma separated list. 'all' is equivalent to:\n" +
+      "                           'array,object,import,export,arguments'\n" +
       "  --align-object-properties\n" +
       "                           Align colons in multiline object literals. Does nothing if object has computed property names.\n" +
+      "  --no-space-empty-fn      Omit space before empty function body. Defaults to false.\n" +
       "  --parser <flow|babylon>  Specify which parse to use. Defaults to babylon.\n" +
       "  --no-color               Do not colorize error messages.\n" +
       "  --version or -v          Print Prettier version.\n" +

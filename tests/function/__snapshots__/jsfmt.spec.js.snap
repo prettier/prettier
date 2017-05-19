@@ -27,6 +27,33 @@ new function() {}();
 
 `;
 
+exports[`function_expression.js 2`] = `
+(function() {}).length
+typeof (function() {});
+export default (function() {})();
+(function() {})()\`\`;
+(function() {})\`\`;
+new (function() {});
+(function() {});
+a = function f() {} || b;
+(function() {} && a);
+a + function() {};
+new function() {};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(function(){}.length);
+typeof function(){};
+export default (function(){})();
+(function(){})()\`\`;
+(function(){})\`\`;
+new function(){}();
+(function(){});
+a = function f(){} || b;
+(function(){} && a);
+a + function(){};
+new function(){}();
+
+`;
+
 exports[`single_expand.js 1`] = `
 function onDidInsertSuggestion({
   editor,
@@ -47,6 +74,33 @@ function onDidInsertSuggestion({
   triggerPosition,
   re
 }): Promise<void> {}
+
+class X {
+  async onDidInsertSuggestion({
+    editor,
+    triggerPosition,
+    suggestion
+  }): Promise<void> {}
+}
+
+`;
+
+exports[`single_expand.js 2`] = `
+function onDidInsertSuggestion({
+  editor,
+  triggerPosition,
+  re
+}): Promise<void> {
+}
+
+class X {
+  async onDidInsertSuggestion({editor, triggerPosition, suggestion}): Promise<
+    void
+  > {
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function onDidInsertSuggestion({ editor, triggerPosition, re }): Promise<void>{}
 
 class X {
   async onDidInsertSuggestion({

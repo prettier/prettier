@@ -34,6 +34,12 @@ function align(n, contents) {
   return { type: "align", contents, n };
 }
 
+function alignSpaces(n, contents) {
+  assertDoc(contents);
+
+  return { type: "align-spaces", contents, n };
+}
+
 function group(contents, opts) {
   opts = opts || {};
 
