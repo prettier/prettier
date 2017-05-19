@@ -1,19 +1,19 @@
 "use strict";
 
-var assert = require("assert");
-var types = require("./ast-types")
-var util = require("./util");
-var n = types.namedTypes;
-var isArray = types.builtInTypes.array;
-var isNumber = types.builtInTypes.number;
-var startsWithNoLookaheadToken = util.startsWithNoLookaheadToken;
+const assert = require("assert");
+const types = require("./ast-types");
+const util = require("./util");
+const n = types.namedTypes;
+const isArray = types.builtInTypes.array;
+const isNumber = types.builtInTypes.number;
+const startsWithNoLookaheadToken = util.startsWithNoLookaheadToken;
 
 function FastPath(value) {
   assert.ok(this instanceof FastPath);
   this.stack = [value];
 }
 
-var FPp = FastPath.prototype;
+const FPp = FastPath.prototype;
 
 // Static convenience function for coercing a value to a FastPath.
 FastPath.from = function(obj) {
@@ -25,9 +25,9 @@ FastPath.from = function(obj) {
   if (obj instanceof types.NodePath) {
     // For backwards compatibility, unroll NodePath instances into
     // lightweight FastPath [..., name, value] stacks.
-    var copy = Object.create(FastPath.prototype);
-    var stack = [obj.value];
-    for (var pp; (pp = obj.parentPath); obj = pp)
+    const copy = Object.create(FastPath.prototype);
+    const stack = [obj.value];
+    for (let pp; (pp = obj.parentPath); obj = pp)
       stack.push(obj.name, pp.value);
     copy.stack = stack.reverse();
     return copy;
@@ -38,7 +38,7 @@ FastPath.from = function(obj) {
 };
 
 FPp.copy = function copy() {
-  var copy = Object.create(FastPath.prototype);
+  const copy = Object.create(FastPath.prototype);
   copy.stack = this.stack.slice(0);
   return copy;
 };
@@ -46,8 +46,8 @@ FPp.copy = function copy() {
 // The name of the current property is always the penultimate element of
 // this.stack, and always a String.
 FPp.getName = function getName() {
-  var s = this.stack;
-  var len = s.length;
+  const s = this.stack;
+  const len = s.length;
   if (len > 1) {
     return s[len - 2];
   }
@@ -59,15 +59,15 @@ FPp.getName = function getName() {
 // The value of the current property is always the final element of
 // this.stack.
 FPp.getValue = function getValue() {
-  var s = this.stack;
+  const s = this.stack;
   return s[s.length - 1];
 };
 
 function getNodeHelper(path, count) {
-  var s = path.stack;
+  const s = path.stack;
 
-  for (var i = s.length - 1; i >= 0; i -= 2) {
-    var value = s[i];
+  for (let i = s.length - 1; i >= 0; i -= 2) {
+    const value = s[i];
 
     if ((n.Node.check(value)) && --count < 0) {
       return value;
@@ -86,9 +86,9 @@ FPp.getParentNode = function getParentNode(count) {
 };
 
 FPp.isLast = function isLast() {
-  var s = this.stack;
+  const s = this.stack;
   if (this.getParentNode()) {
-    var idx = s[s.length - 2];
+    const idx = s[s.length - 2];
     // The name of this node should be an index
     assert.ok(typeof idx === "number");
 
@@ -107,16 +107,16 @@ FPp.isLast = function isLast() {
 // be restored to its original state after the callback is finished, so it
 // is probably a mistake to retain a reference to the path.
 FPp.call = function call(callback /*, name1, name2, ... */) {
-  var s = this.stack;
-  var origLen = s.length;
-  var value = s[origLen - 1];
-  var argc = arguments.length;
-  for (var i = 1; i < argc; ++i) {
-    var name = arguments[i];
+  const s = this.stack;
+  const origLen = s.length;
+  let value = s[origLen - 1];
+  const argc = arguments.length;
+  for (let i = 1; i < argc; ++i) {
+    const name = arguments[i];
     value = value[name];
     s.push(name, value);
   }
-  var result = callback(this);
+  const result = callback(this);
   s.length = origLen;
   return result;
 };
@@ -126,18 +126,18 @@ FPp.call = function call(callback /*, name1, name2, ... */) {
 // callback will be called with a reference to this path object for each
 // element of the array.
 FPp.each = function each(callback /*, name1, name2, ... */) {
-  var s = this.stack;
-  var origLen = s.length;
-  var value = s[origLen - 1];
-  var argc = arguments.length;
+  const s = this.stack;
+  const origLen = s.length;
+  let value = s[origLen - 1];
+  const argc = arguments.length;
 
-  for (var i = 1; i < argc; ++i) {
-    var name = arguments[i];
+  for (let i = 1; i < argc; ++i) {
+    const name = arguments[i];
     value = value[name];
     s.push(name, value);
   }
 
-  for (var i = 0; i < value.length; ++i) {
+  for (let i = 0; i < value.length; ++i) {
     if (i in value) {
       s.push(i, value[i]);
       // If the callback needs to know the value of i, call
@@ -154,20 +154,20 @@ FPp.each = function each(callback /*, name1, name2, ... */) {
 // callback function invocations are stored in an array and returned at
 // the end of the iteration.
 FPp.map = function map(callback /*, name1, name2, ... */) {
-  var s = this.stack;
-  var origLen = s.length;
-  var value = s[origLen - 1];
-  var argc = arguments.length;
+  const s = this.stack;
+  const origLen = s.length;
+  let value = s[origLen - 1];
+  const argc = arguments.length;
 
-  for (var i = 1; i < argc; ++i) {
-    var name = arguments[i];
+  for (let i = 1; i < argc; ++i) {
+    const name = arguments[i];
     value = value[name];
     s.push(name, value);
   }
 
-  var result = new Array(value.length);
+  const result = new Array(value.length);
 
-  for (var i = 0; i < value.length; ++i) {
+  for (let i = 0; i < value.length; ++i) {
     if (i in value) {
       s.push(i, value[i]);
       result[i] = callback(this, i);
@@ -183,13 +183,13 @@ FPp.map = function map(callback /*, name1, name2, ... */) {
 // Inspired by require("ast-types").NodePath.prototype.needsParens, but
 // more efficient because we're iterating backwards through a stack.
 FPp.needsParens = function() {
-  var parent = this.getParentNode();
+  const parent = this.getParentNode();
   if (!parent) {
     return false;
   }
 
-  var name = this.getName();
-  var node = this.getNode();
+  const name = this.getName();
+  const node = this.getNode();
 
   // If the value of this path is some child of a Node and not a Node
   // itself, then it doesn't need parentheses. Only Node objects (in
@@ -334,10 +334,10 @@ FPp.needsParens = function() {
 
         case "BinaryExpression":
         case "LogicalExpression":
-          var po = parent.operator;
-          var pp = util.getPrecedence(po);
-          var no = node.operator;
-          var np = util.getPrecedence(no);
+          const po = parent.operator;
+          const pp = util.getPrecedence(po);
+          const no = node.operator;
+          const np = util.getPrecedence(no);
 
           if (po === "||" && no === "&&") {
             return true;

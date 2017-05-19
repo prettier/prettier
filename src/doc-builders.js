@@ -87,9 +87,9 @@ const literalline = concat([
 ]);
 
 function join(sep, arr) {
-  var res = [];
+  const res = [];
 
-  for (var i = 0; i < arr.length; i++) {
+  for (let i = 0; i < arr.length; i++) {
     if (i !== 0) {
       res.push(sep);
     }
