@@ -310,7 +310,7 @@ if (stdin) {
       } else {
         process.exitCode = 2;
       }
-    } else if (!argv["list-different"]){
+    } else if (!argv["list-different"]) {
       // Don't use `console.log` here since it adds an extra newline at the end.
       process.stdout.write(output);
     }
