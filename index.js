@@ -3,6 +3,7 @@
 const comments = require("./src/comments");
 const version = require("./package.json").version;
 const printAstToDoc = require("./src/printer").printAstToDoc;
+const includesIgnoreComment = require("./src/printer").includesIgnoreComment;
 const printDocToString = require("./src/doc-printer").printDocToString;
 const normalizeOptions = require("./src/options").normalize;
 const parser = require("./src/parser");
@@ -28,12 +29,10 @@ function attachComments(text, ast, opts) {
 }
 
 function ensureAllCommentsPrinted(astComments) {
-  for (let i = 0; i < astComments.length; ++i) {
-    if (astComments[i].value.trim() === "prettier-ignore") {
-      // If there's a prettier-ignore, we're not printing that sub-tree so we
-      // don't know if the comments was printed or not.
-      return;
-    }
+  if (includesIgnoreComment(astComments)) {
+    // If there's a prettier-ignore, we're not printing that sub-tree so we
+    // don't know if the comments was printed or not.
+    return;
   }
 
   astComments.forEach(comment => {
