@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`declareModifier.d.ts 1`] = `
+
+declare function a();
+
+declare const b: string;
+
+declare var c: number;
+
+declare let d: any;
+
+declare class e {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+declare function a()
+
+declare const b: string;
+
+declare var c: number;
+
+declare let d: any;
+
+declare class e {}
+
+`;

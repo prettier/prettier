@@ -1,6 +1,5 @@
 "use strict";
 
-const codeFrame = require("babel-code-frame");
 const comments = require("./src/comments");
 const version = require("./package.json").version;
 const printAstToDoc = require("./src/printer").printAstToDoc;
@@ -15,33 +14,6 @@ function guessLineEnding(text) {
     return "\r\n";
   }
   return "\n";
-}
-
-function parse(text, opts) {
-  let parseFunction;
-
-  if (opts.parser === "flow") {
-    parseFunction = parser.parseWithFlow;
-  } else if (opts.parser === "typescript") {
-    parseFunction = parser.parseWithTypeScript;
-  } else {
-    parseFunction = parser.parseWithBabylon;
-  }
-
-  try {
-    return parseFunction(text);
-  } catch (error) {
-    const loc = error.loc;
-
-    if (loc) {
-      error.codeFrame = codeFrame(text, loc.line, loc.column + 1, {
-        highlightCode: true
-      });
-      error.message += "\n" + error.codeFrame;
-    }
-
-    throw error;
-  }
 }
 
 function attachComments(text, ast, opts) {
@@ -77,7 +49,7 @@ function ensureAllCommentsPrinted(astComments) {
 }
 
 function format(text, opts) {
-  const ast = parse(text, opts);
+  const ast = parser.parse(text, opts);
   const astComments = attachComments(text, ast, opts);
   const doc = printAstToDoc(ast, opts);
   opts.newLine = guessLineEnding(text);
@@ -106,7 +78,7 @@ module.exports = {
   },
   check: function(text, opts) {
     try {
-      const formatted = this.format(text, opts);
+      const formatted = formatWithShebang(text, normalizeOptions(opts));
       return formatted === text;
     } catch (e) {
       return false;
@@ -115,7 +87,7 @@ module.exports = {
   version: version,
   __debug: {
     parse: function(text, opts) {
-      return parse(text, opts);
+      return parser.parse(text, opts);
     },
     formatAST: function(ast, opts) {
       opts = normalizeOptions(opts);
@@ -132,7 +104,7 @@ module.exports = {
     },
     printToDoc: function(text, opts) {
       opts = normalizeOptions(opts);
-      const ast = parse(text, opts);
+      const ast = parser.parse(text, opts);
       attachComments(text, ast, opts);
       const doc = printAstToDoc(ast, opts);
       return doc;

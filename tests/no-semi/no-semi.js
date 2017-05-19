@@ -19,8 +19,6 @@ x; (x, y) => x
 
 class X {} [1, 2, 3].forEach(fn)
 
-// TODO: enable lang features
-// x; ::b.c
 // TODO: upgrade parser
 // class A {
 //   async; // The semicolon is *not* necessary
@@ -144,6 +142,10 @@ tag
 `string`
 
 x; x => x
+
+x; (a || b).c++
+
+x; ++(a || b).c
 
 while (false)
   (function(){}())

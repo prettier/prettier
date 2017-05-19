@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`callAndConstructSignatureLong.ts 1`] = `
+interface Interface {
+    <
+        Voila, 
+        InViewHumbleVaudevillianVeteran, 
+        CastVicariouslyAsBothVictimAndVillainByTheVicissitudesOfFate
+    >(): V;
+    new <
+        ThisVisage, 
+        NoMereVeneerOfVanity, 
+        IsAVestigeOfTheVoxPopuliNowVacant, 
+        Vanished
+    >(): V;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+interface Interface {
+  <
+    Voila,
+    InViewHumbleVaudevillianVeteran,
+    CastVicariouslyAsBothVictimAndVillainByTheVicissitudesOfFate
+  >(): V;
+  new <
+    ThisVisage,
+    NoMereVeneerOfVanity,
+    IsAVestigeOfTheVoxPopuliNowVacant,
+    Vanished
+  >(): V;
+}
+
+`;
+
+exports[`functionTypeLong.ts 1`] = `
+type AwkwardlyLongFunctionTypeDefinition = <
+    GenericTypeNumberOne,
+    GenericTypeNumberTwo,
+    GenericTypeNumberThree
+>(
+    arg1: GenericTypeNumberOne,
+    arg2: GenericTypeNumberTwo,
+    arg3: GenericTypeNumberThree
+) => (GenericTypeNumberOne | GenericTypeNumberTwo | GenericTypeNumberThree);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type AwkwardlyLongFunctionTypeDefinition = <
+  GenericTypeNumberOne,
+  GenericTypeNumberTwo,
+  GenericTypeNumberThree
+>(
+  arg1: GenericTypeNumberOne,
+  arg2: GenericTypeNumberTwo,
+  arg3: GenericTypeNumberThree
+) => (GenericTypeNumberOne | GenericTypeNumberTwo | GenericTypeNumberThree);
+
+`;
+
+exports[`interfaceParamsLong.ts 1`] = `
+interface ReallyReallyLongName<
+    TypeArgumentNumberOne, 
+    TypeArgumentNumberTwo,
+    TypeArgumentNumberThree
+> {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+interface ReallyReallyLongName<
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree
+> {}
+
+`;
+
+exports[`typeParametersLong.ts 1`] = `
+type ReallyReallyReallyLongName<
+    ReallyReallyReallyLongName1, ReallyReallyReallyLongName2
+> = any;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type ReallyReallyReallyLongName<
+  ReallyReallyReallyLongName1,
+  ReallyReallyReallyLongName2
+> = any;
+
+`;

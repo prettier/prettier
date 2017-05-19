@@ -19,13 +19,13 @@
   * [CLI](#cli)
     + [Pre-commit hook for changed files](#pre-commit-hook-for-changed-files)
   * [API](#api)
+  * [Options](#options)
   * [Excluding code from formatting](#excluding-code-from-formatting)
 - [Editor Integration](#editor-integration)
   * [Atom](#atom)
   * [Emacs](#emacs)
   * [Vim](#vim)
-    + [Vanilla approach](#vanilla-approach)
-    + [Neoformat approach](#neoformat-approach)
+    + [Other `autocmd` events](#other-autocmd-events)
     + [Customizing Prettier in Vim](#customizing-prettier-in-vim)
   * [Visual Studio Code](#visual-studio-code)
   * [Visual Studio](#visual-studio)
@@ -42,7 +42,7 @@
 Prettier is an opinionated JavaScript formatter inspired by
 [refmt](https://facebook.github.io/reason/tools.html) with advanced
 support for language features from [ES2017](https://github.com/tc39/proposals/blob/master/finished-proposals.md), [JSX](https://facebook.github.io/jsx/), and [Flow](https://flow.org/). It removes
-all original styling and ensures that all outputted JavaScript
+all original styling[\*](#styling-footnote) and ensures that all outputted JavaScript
 conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
 
 If you are interested in the details, you can watch those two conference talks:
@@ -58,7 +58,7 @@ formatted JavaScript as output.
 
 In technical terms: Prettier parses your JavaScript into an AST (Abstract Syntax Tree) and
 pretty-prints the AST, completely ignoring any of the original
-formatting. Say hello to completely consistent syntax!
+formatting[\*](#styling-footnote). Say hello to completely consistent syntax!
 
 There's an extremely important piece missing from existing styling
 tools: **the maximum line length**. Sure, you can tell ESLint to warn
@@ -117,9 +117,16 @@ foo(
 )
 ```
 
-Prettier bans all custom styling by parsing it away and re-printing
+Prettier bans all custom styling[\*](#styling-footnote) by parsing it away and re-printing
 the parsed AST with its own rules that take the maximum line width
 into account, wrapping code when necessary.
+
+<a href="#styling-footnote" name="styling-footnote">\*</a>_Well actually, some
+original styling is preserved when practical—see [empty lines] and [multi-line
+objects]._
+
+[empty lines]:Rationale.md#empty-lines
+[multi-line objects]:Rationale.md#multi-line-objects
 
 ## Usage
 
@@ -146,7 +153,7 @@ npm install [-g] prettier-with-tabs
 ### CLI
 
 Run Prettier through the CLI with this script. Run it without any
-arguments to see the options.
+arguments to see the [options](#options).
 
 To format a file in-place, use `--write`. You may want to consider
 committing your code before doing that, just in case.
@@ -166,9 +173,15 @@ expands the globs rather than your shell, for cross-platform usage.)
 
 In the future we will have better support for formatting whole projects.
 
+If you're worried that Prettier will change the correctness of your code, add `--debug-check` to the command.
+This will cause Prettier to print an error message if it detects that code correctness might have changed.
+Note that `--write` cannot be used with `--debug-check`.
+
 #### Pre-commit hook for changed files
 
-[lint-staged](https://github.com/okonet/lint-staged) can re-format your files that are marked as "staged" via `git add`  before you commit.
+You can use this with a pre-commit tool. This can re-format your files that are marked as "staged" via `git add`  before you commit.
+
+##### 1. [lint-staged](https://github.com/okonet/lint-staged)
 
 Install it along with [husky](https://github.com/typicode/husky):
 
@@ -194,6 +207,25 @@ and add this config to your `package.json`:
 
 See https://github.com/okonet/lint-staged#configuration for more details about how you can configure lint-staged.
 
+
+##### 2. [pre-commit](https://github.com/pre-commit/pre-commit)
+
+Just copy the following config in your pre-commit config yaml file
+
+```yaml
+
+    -   repo: https://github.com/awebdeveloper/pre-commit-prettier
+        sha: ''  # Use the sha or tag you want to point at
+        hooks:
+        -   id: prettier
+            additional_dependencies: ['prettier@1.1.0']
+
+ ```
+
+Find more info from [here](https://github.com/awebdeveloper/pre-commit-prettier)
+
+##### 3. bash script
+
 Alternately you can just save this script as `.git/hooks/pre-commit` and give it execute permission:
 
 ```bash
@@ -213,78 +245,41 @@ exit 1
 
 ### API
 
-The API has two functions, exported as `format` and `check`. The options
-argument is optional, and all of the defaults are shown below:
+The API has two functions, exported as `format` and `check`. `format` usage is as follows:
 
 ```js
 const prettier = require("prettier-with-tabs");
 
-prettier.format(source, {
-  // Indent lines with tabs
-  useTabs: false,
-
-  // Fit code within this line limit
-  printWidth: 80,
-
-  // Number of spaces it should use per tab
-  tabWidth: 2,
-
-  // If true, will use single instead of double quotes
-  singleQuote: false,
-
-  // Controls the printing of trailing commas wherever possible. Valid options:
-  // "none" - No trailing commas
-  // "es5"  - Trailing commas where valid in ES5 (objects, arrays, etc)
-  // "all"  - Trailing commas wherever possible (function arguments)
-  //
-  // You can also customize each place to use trailing commas with a object:
-  // { array: true, object: true, import: true, export: true, arguments: false }
-  // or with a comma separated string list:
-  // "array,object,import,export,arguments"
-  //
-  // NOTE: Above is only available in 0.19.0 and above. Previously this was
-  // a boolean argument.
-  trailingComma: "none",
-
-  // Controls the printing of spaces inside arrays
-  bracketSpacing: false,
-
-  // Controls the printing of spaces inside object literals
-  bracesSpacing: true,
-
-  // Allow object properties to break lines.
-  breakProperty: false,
-
-  // Always put parentheses on arrow function arguments.
-  arrowParens: false,
-
-  // Expand arrays into one item per line.
-  arrayExpand: false,
-
-  // Format ternaries in a flat style.
-  flattenTernaries: false,
-
-  // Put `else` clause in a new line.
-  breakBeforeElse: false,
-
-  // If true, puts the `>` of a multi-line jsx element at the end of
-  // the last line instead of being alone on the next line
-  jsxBracketSameLine: false,
-
-  // Omit space before empty anonymous function body
-  noSpaceEmptyFn: false,
-
-  // Which parser to use. Valid options are "flow" and "babylon"
-  parser: "babylon",
-
-  // Whether to add a semicolon at the end of every line (semi: true),
-  // or only at the beginning of lines that may introduce ASI failures (semi: false)
-  semi: true
-});
+const options = {} // optional
+prettier.format(source, options);
 ```
 
 `check` checks to see if the file has been formatted with Prettier given those options and returns a Boolean.
 This is similar to the `--list-different` parameter in the CLI and is useful for running Prettier in CI scenarios.
+
+### Options
+
+Prettier ships with a handful of customizable format options, usable in both the CLI and API.
+
+| Option | Default | CLI override | API override |
+| ------------- | ------------- | ------------- | ------------- |
+| **Tabs** - Indent lines with tabs instead of spaces. | `false` | `--use-tabs` | `useTabs: <bool>` |
+| **Print Width** - Specify the length of line that the printer will wrap on. | `80` | `--print-width <int>`  | `printWidth: <int>`
+| **Tab Width** - Specify the number of spaces per indentation-level. | `2` | `--tab-width <int>` | `tabWidth: <int>` |
+| **Quotes** - Use single quotes instead of double quotes. | `false` | `--single-quote` | `singleQuote: <bool>` |
+| **Trailing Commas** - Print trailing commas wherever possible.<br /><br />Valid options: <br /> - `"none"` - no trailing commas <br /> - `"es5"` - trailing commas where valid in ES5 (objects, arrays, etc) <br /> - `"all"`  - trailing commas wherever possible (function arguments) | `"none"` | <code>--trailing-comma <none&#124;es5&#124;all></code> | <code>trailingComma: "<none&#124;es5&#124;all>"</code> |
+| **Trailing Commas (extended)** - You can also customize each place to use trailing commas:<br /><br />Valid options: <br /> - `"array"` <br/> - `"object"` <br /> - `"import"` <br /> - `"export"` <br /> - `"arguments"` | `"none"` | You can use a comma separated string list:<br /><br /><code>--trailing-comma "array,object,import,export,arguments"</code> | You can use a string list or an object:<br /><br /> <code>trailingComma: { array: true, object: true, import: true, export: true, arguments: false }</code> |
+| **Bracket Spacing** - Print spaces between brackets in array literals.<br /><br />Valid options: <br /> - `true` - Example: `[ foo: bar ]` <br /> - `false` - Example: `[foo: bar]` | `true` | `--no-bracket-spacing` | `bracketSpacing: <bool>` |
+| **Braces Spacing** - Print spaces between brackets in object literals.<br /><br />Valid options: <br /> - `true` - Example: `{ foo: bar }` <br /> - `false` - Example: `{foo: bar}` | `true` | `--no-braces-spacing` | `bracesSpacing: <bool>` |
+| **Break in Object Properties** - Allow object properties to break lines between the property name and its value.<br /><br />Valid options: <br /> - `true` <br /> - `false` | `false` | `--break-property` | `breakProperty: <bool>` |
+| **Arrow Function Parentheses** - Always put parentheses on arrow function arguments.<br /><br />Valid options: <br /> - `true` <br /> - `false` | `false` | `--arrow-parens` | `arrowParens: <bool>` |
+| **Array Expand** - Expand arrays into one item per line.<br /><br />Valid options: <br /> - `true` <br /> - `false` | `false` | `--array-expand` | `arrayExpand: <bool>` |
+| **Flatten Ternaries** - Format ternaries in a flat style.<br /><br />Valid options: <br /> - `true` <br /> - `false` | `false` | `--flatten-ternaries` | `flattenTernaries: <bool>` |
+| **Break Before Else** - Put `else` clause in a new line.<br /><br />Valid options: <br /> - `true` <br /> - `false` | `false` | `--break-before-else` | `breakBeforeElse: <bool>` |
+| **JSX Brackets on Same Line** - Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line | `false` | `--jsx-bracket-same-line` | `jsxBracketSameLine: <bool>` |
+| **No Space in Empty Function** - Omit space before empty anonymous function body.<br /><br />Valid options: <br /> - `true` <br /> - `false` | `false` | `--no-space-empty-fn` | `noSpaceEmptyFn: <bool>` |
+| **Parser** - Specify which parser to use. | `babylon` | <code>--parser <flow&#124;babylon></code> | <code>parser: "<flow&#124;babylon>"</code> |
+| **Semicolons** - Print semicolons at the ends of statements.<br /><br />Valid options: <br /> - `true` - add a semicolon at the end of every statement <br /> - `false` - only add semicolons at the beginning of lines that may introduce ASI failures | `true` | `--no-semi` | `semi: <bool>` |
 
 ### Excluding code from formatting
 
@@ -334,42 +329,6 @@ for on-demand formatting.
 
 ### Vim
 
-For Vim users, there are two main approaches: one that leans on [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/neoformat), which has the advantage of leaving the cursor in the same position despite changes, or a vanilla approach which can only approximate the cursor location, but might be good enough for your needs.
-
-#### Vanilla approach
-
-Vim users can add the following to their `.vimrc`:
-
-```vim
-autocmd FileType javascript set formatprg=prettier\ --stdin
-```
-
-If you use the [vim-jsx](https://github.com/mxw/vim-jsx) plugin without
-requiring the `.jsx` file extension (See https://github.com/mxw/vim-jsx#usage),
-the FileType needs to include `javascript.jsx`:
-
-```vim
-autocmd FileType javascript.jsx,javascript setlocal formatprg=prettier\ --stdin
-```
-
-This makes Prettier power the [`gq` command](http://vimdoc.sourceforge.net/htmldoc/change.html#gq)
-for automatic formatting without any plugins. You can also add the following to your
-`.vimrc` to run Prettier when `.js` files are saved:
-
-```vim
-autocmd BufWritePre *.js :normal gggqG
-```
-
-If you want to restore cursor position after formatting, try this
-(although it's not guaranteed that it will be restored to the same
-place in the code since it may have moved):
-
-```vim
-autocmd BufWritePre *.js exe "normal! gggqG\<C-o>\<C-o>"
-```
-
-#### Neoformat approach
-
 Add [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/neoformat) to your list based on the tool you use:
 
 ```vim
@@ -402,15 +361,12 @@ See `:help autocmd-events` in Vim for details.
 If your project requires settings other than the default Prettier settings, you can pass arguments to do so in your `.vimrc` or [vim project](http://vim.wikia.com/wiki/Project_specific_settings), you can do so:
 
 ```vim
-autocmd FileType javascript set formatprg=prettier\ --stdin\ --parser\ flow\ --single-quote\ --trailing-comma\ es5
-```
-
-Each command needs to be escaped with `\`. If you are using Neoformat and you want it to recognize your formatprg settings you can also do that by adding the following to your `.vimrc`:
-
-```vim
+autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --parser\ flow\ --single-quote\ --trailing-comma\ es5
 " Use formatprg when available
 let g:neoformat_try_formatprg = 1
 ```
+
+Each option needs to be escaped with `\`.
 
 ### Visual Studio Code
 
@@ -444,14 +400,14 @@ including non-standardized ones. By default it uses the
 [Babylon](https://github.com/babel/babylon) parser with all language
 features enabled, but you can also use the
 [Flow](https://github.com/facebook/flow) parser with the
-`parser` API or `--parser` CLI option.
+`parser` API or `--parser` CLI [option](#options).
 
 All of JSX and Flow syntax is supported. In fact, the test suite in
 `tests` *is* the entire Flow test suite and they all pass.
 
 ## Related Projects
 
-- [`eslint-plugin-prettier`](https://github.com/not-an-aardvark/eslint-plugin-prettier) plugs Prettier into your ESLint workflow
+- [`eslint-plugin-prettier`](https://github.com/prettier/eslint-plugin-prettier) plugs Prettier into your ESLint workflow
 - [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier) turns off all ESLint rules that are unnecessary or might conflict with Prettier
 - [`prettier-eslint`](https://github.com/prettier/prettier-eslint)
 passes `prettier` output to `eslint --fix`

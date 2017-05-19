@@ -120,6 +120,37 @@ this.steps = steps || [
 
 `;
 
+exports[`jsx_parent.js 1`] = `
+<div
+  src={
+    !isJellyfishEnabled &&
+    diffUpdateMessageInput != null &&
+    this.state.isUpdateMessageEmpty
+  }
+/>;
+
+<div>
+  {!isJellyfishEnabled &&
+    diffUpdateMessageInput != null &&
+    this.state.isUpdateMessageEmpty}
+</div>;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div
+  src={
+    !isJellyfishEnabled &&
+    diffUpdateMessageInput != null &&
+    this.state.isUpdateMessageEmpty
+  }
+/>;
+
+<div>
+  {!isJellyfishEnabled &&
+    diffUpdateMessageInput != null &&
+    this.state.isUpdateMessageEmpty}
+</div>;
+
+`;
+
 exports[`short-right.js 1`] = `
 this._cumulativeHeights &&
  Math.abs(
@@ -171,6 +202,9 @@ const x = longVariable + longVariable * longVariable * longVariable / longVariab
 
 const x = longVariable && longVariable && longVariable && longVariable && longVariable && longVariable;
 const x = longVariable && longVariable || longVariable && longVariable || longVariable && longVariable;
+const x = firstItemWithAVeryLongNameThatKeepsGoing || firstItemWithAVeryLongNameThatKeepsGoing || {};
+const x = firstItemWithAVeryLongNameThatKeepsGoing || firstItemWithAVeryLongNameThatKeepsGoing || [];
+const x = call(firstItemWithAVeryLongNameThatKeepsGoing, firstItemWithAVeryLongNameThatKeepsGoing) || [];
 
 const x = longVariable * longint && longVariable >> 0 && longVariable + longVariable;
 
@@ -211,6 +245,19 @@ const x =
   (longVariable && longVariable) ||
   (longVariable && longVariable) ||
   (longVariable && longVariable);
+const x =
+  firstItemWithAVeryLongNameThatKeepsGoing ||
+  firstItemWithAVeryLongNameThatKeepsGoing ||
+  {};
+const x =
+  firstItemWithAVeryLongNameThatKeepsGoing ||
+  firstItemWithAVeryLongNameThatKeepsGoing ||
+  [];
+const x =
+  call(
+    firstItemWithAVeryLongNameThatKeepsGoing,
+    firstItemWithAVeryLongNameThatKeepsGoing
+  ) || [];
 
 const x =
   longVariable * longint && longVariable >> 0 && longVariable + longVariable;

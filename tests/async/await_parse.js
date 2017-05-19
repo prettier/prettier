@@ -10,3 +10,7 @@ function *f(){
 async function f() {
   a = !(await f());
 }
+async () => {
+  new A(await x);
+  obj[await x];
+}

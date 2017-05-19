@@ -48,9 +48,55 @@ var X = {
     E,
     F,
     G,
-    T: (a: A, b: B, c: C, d: D, e: E, f: F) => G // eslint-disable-line space-before-function-paren
+    T: (a: A, b: B, c: C, d: D, e: E, f: F) => G, // eslint-disable-line space-before-function-paren
   >(method: T, scope: any, a: A, b: B, c: C, d: D, e: E, f: F): G {},
 };
+
+`;
+
+exports[`nullable.js 1`] = `
+function formatEntireFile(
+  fileVersion: FileVersion,
+  range: atom$Range,
+): Promise<?{
+  newCursor?: number,
+  formatted: string,
+}> {}
+
+function foo(): Promise<?boolean> {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function formatEntireFile(
+  fileVersion: FileVersion,
+  range: atom$Range
+): Promise<?{
+  newCursor?: number,
+  formatted: string
+}> {}
+
+function foo(): Promise<?boolean> {}
+
+`;
+
+exports[`nullable.js 2`] = `
+function formatEntireFile(
+  fileVersion: FileVersion,
+  range: atom$Range,
+): Promise<?{
+  newCursor?: number,
+  formatted: string,
+}> {}
+
+function foo(): Promise<?boolean> {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function formatEntireFile(
+  fileVersion: FileVersion,
+  range: atom$Range,
+): Promise<?{
+  newCursor?: number,
+  formatted: string,
+}> {}
+
+function foo(): Promise<?boolean> {}
 
 `;
 
@@ -85,9 +131,35 @@ type State = {
 type State = {
   errors: Immutable.Map<
     Ahohohhohohohohohohohohohohooh,
-    Fbt | Immutable.Map<ErrorIndex, Fbt>
+    Fbt | Immutable.Map<ErrorIndex, Fbt>,
   >,
   shouldValidate: boolean,
 };
+
+`;
+
+exports[`union.js 1`] = `
+type Foo = Promise<
+  { ok: true, bar: string, baz: SomeOtherLongType } | 
+  { ok: false, bar: SomeOtherLongType }
+>;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type Foo = Promise<
+  | { ok: true, bar: string, baz: SomeOtherLongType }
+  | { ok: false, bar: SomeOtherLongType }
+>;
+
+`;
+
+exports[`union.js 2`] = `
+type Foo = Promise<
+  { ok: true, bar: string, baz: SomeOtherLongType } | 
+  { ok: false, bar: SomeOtherLongType }
+>;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type Foo = Promise<
+  | { ok: true, bar: string, baz: SomeOtherLongType }
+  | { ok: false, bar: SomeOtherLongType },
+>;
 
 `;

@@ -9,6 +9,7 @@ const chalk = require("chalk");
 const minimist = require("minimist");
 const readline = require("readline");
 const prettier = require("../index");
+const cleanAST = require('../src/clean-ast.js').cleanAST;
 
 const argv = minimist(process.argv.slice(2), {
   boolean: [
@@ -25,7 +26,7 @@ const argv = minimist(process.argv.slice(2), {
     "break-before-else",
     "flatten-ternaries",
     "jsx-bracket-same-line",
-    "no-space-empty-fn",
+    "space-empty-fn",
     // The supports-color package (a sub sub dependency) looks directly at
     // `process.argv` for `--no-color` and such-like options. The reason it is
     // listed here is to avoid "Ignored unknown option: --no-color" warnings.
@@ -40,7 +41,7 @@ const argv = minimist(process.argv.slice(2), {
     "flow-parser"
   ],
   string: ["print-width", "tab-width", "parser", "trailing-comma"],
-  default: { semi: true, color: true, "braces-spacing": true, parser: "babylon" },
+  default: { semi: true, color: true, "braces-spacing": true, "space-empty-fn": true, parser: "babylon" },
   alias: { help: "h", version: "v", "list-different": "l" },
   unknown: param => {
     if (param.startsWith("-")) {
@@ -58,6 +59,11 @@ if (argv["version"]) {
 const filepatterns = argv["_"];
 const write = argv["write"];
 const stdin = argv["stdin"] || (!filepatterns.length && !process.stdin.isTTY);
+
+if (write && argv["debug-check"]) {
+  console.error("Cannot use --write and --debug-check together.");
+  process.exit(1);
+}
 
 function getParserOption() {
   const optionName = "parser";
@@ -144,7 +150,7 @@ const options = {
   breakBeforeElse: argv["break-before-else"],
   singleQuote: argv["single-quote"],
   jsxBracketSameLine: argv["jsx-bracket-same-line"],
-  noSpaceEmptyFn: argv["no-space-empty-fn"],
+  noSpaceEmptyFn: !argv["space-empty-fn"],
   trailingComma: getTrailingComma(),
   parser: getParserOption()
 };
@@ -156,73 +162,6 @@ function format(input) {
   }
 
   if (argv["debug-check"]) {
-    function massageAST(ast) {
-      if (Array.isArray(ast)) {
-        return ast.map(e => massageAST(e)).filter(e => e);
-      }
-      if (ast && typeof ast === "object") {
-        // We remove extra `;` and add them when needed
-        if (ast.type === "EmptyStatement") {
-          return undefined;
-        }
-
-        // We move text around, including whitespaces and add {" "}
-        if (ast.type === "JSXText") {
-          return undefined;
-        }
-        if (
-          ast.type === "JSXExpressionContainer" &&
-          ast.expression.type === "Literal" &&
-          ast.expression.value === " "
-        ) {
-          return undefined;
-        }
-
-        const newObj = {};
-        for (var key in ast) {
-          newObj[key] = massageAST(ast[key]);
-        }
-
-        [
-          "loc",
-          "range",
-          "raw",
-          "comments",
-          "start",
-          "end",
-          "tokens",
-          "flags"
-        ].forEach(name => {
-          delete newObj[name];
-        });
-
-        // We convert <div></div> to <div />
-        if (ast.type === "JSXOpeningElement") {
-          delete newObj.selfClosing;
-        }
-        if (ast.type === "JSXElement") {
-          delete newObj.closingElement;
-        }
-
-        // We change {'key': value} into {key: value}
-        if (
-          ast.type === "Property" &&
-          typeof ast.key === "object" &&
-          ast.key &&
-          (ast.key.type === "Literal" || ast.key.type === "Identifier")
-        ) {
-          delete newObj.key;
-        }
-
-        return newObj;
-      }
-      return ast;
-    }
-
-    function cleanAST(ast) {
-      return JSON.stringify(massageAST(ast), null, 2);
-    }
-
     function diff(a, b) {
       return require("diff")
         .createTwoFilesPatch("", "", a, b, "", "", { context: 2 });
@@ -231,18 +170,21 @@ function format(input) {
     const pp = prettier.format(input, options);
     const pppp = prettier.format(pp, options);
     if (pp !== pppp) {
-      process.stdout.write("\n");
-      console.error('prettier(input) !== prettier(prettier(input))');
-      console.error(diff(pp, pppp));
+      throw "prettier(input) !== prettier(prettier(input))\n" + diff(pp, pppp);
     } else {
       const ast = cleanAST(prettier.__debug.parse(input, options));
       const past = cleanAST(prettier.__debug.parse(pp, options));
 
       if (ast !== past) {
-        process.stdout.write("\n");
-        console.error('ast(input) !== ast(prettier(input))');
-        console.error(diff(ast, past));
-        console.error(diff(input, pp));
+        const MAX_AST_SIZE = 2097152; // 2MB
+        const astDiff = (ast.length > MAX_AST_SIZE || past.length > MAX_AST_SIZE)
+          ? "AST diff too large to render"
+          : diff(ast, past);
+        throw (
+          "ast(input) !== ast(prettier(input))\n" +
+          astDiff + "\n" +
+          diff(input, pp)
+        );
       }
     }
     return;
@@ -384,6 +326,8 @@ if (stdin) {
       process.stdout.write("\n");
       if (output) {
         console.log(output);
+      } else {
+        process.exitCode = 2;
       }
     } else {
       // Don't use `console.log` here since it adds an extra newline at the end.

@@ -1,8 +1,5 @@
 "use strict";
 
-var types = require("ast-types");
-var n = types.namedTypes;
-
 function isExportDeclaration(node) {
   if (node)
     switch (node.type) {
@@ -237,16 +234,6 @@ function setLocEnd(node, index) {
   }
 }
 
-// http://stackoverflow.com/a/7124052
-function htmlEscapeInsideAngleBracket(str) {
-  return str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  // Intentionally disable the following since it is safe inside of a
-  // angle bracket context
-  //    .replace(/&/g, '&amp;')
-  //    .replace(/"/g, '&quot;')
-  //    .replace(/'/g, '&#39;')
-}
-
 var PRECEDENCE = {};
 [
   ["||"],
@@ -270,6 +257,69 @@ function getPrecedence(op) {
   return PRECEDENCE[op];
 }
 
+
+// Tests if an expression starts with `{`, or (if forbidFunctionAndClass holds) `function` or `class`.
+// Will be overzealous if there's already necessary grouping parentheses.
+function startsWithNoLookaheadToken(node, forbidFunctionAndClass) {
+  node = getLeftMost(node);
+  switch (node.type) {
+    case "FunctionExpression":
+    case "ClassExpression":
+      return forbidFunctionAndClass;
+    case "ObjectExpression":
+      return true;
+    case "MemberExpression":
+      return startsWithNoLookaheadToken(node.object, forbidFunctionAndClass);
+    case "TaggedTemplateExpression":
+      if (node.tag.type === "FunctionExpression") {
+        // IIFEs are always already parenthesized
+        return false;
+      }
+      return startsWithNoLookaheadToken(node.tag, forbidFunctionAndClass);
+    case "CallExpression":
+      if (node.callee.type === "FunctionExpression") {
+        // IIFEs are always already parenthesized
+        return false;
+      }
+      return startsWithNoLookaheadToken(node.callee, forbidFunctionAndClass);
+    case "ConditionalExpression":
+      return startsWithNoLookaheadToken(node.test, forbidFunctionAndClass);
+    case "UpdateExpression":
+      return (
+        !node.prefix &&
+        startsWithNoLookaheadToken(node.argument, forbidFunctionAndClass)
+      );
+    case "BindExpression":
+      return (
+        node.object &&
+        startsWithNoLookaheadToken(node.object, forbidFunctionAndClass)
+      );
+    case "SequenceExpression":
+      return startsWithNoLookaheadToken(
+        node.expressions[0],
+        forbidFunctionAndClass
+      );
+    default:
+      return false;
+  }
+}
+
+function getLeftMost(node) {
+  if (node.left) {
+    return getLeftMost(node.left);
+  } else {
+    return node;
+  }
+}
+
+function hasBlockComments(node) {
+  return node.comments && node.comments.some(isBlockComment);
+}
+
+function isBlockComment(comment) {
+  return comment.type === "Block" || comment.type === "CommentBlock";
+}
+
 module.exports = {
   getPrecedence,
   isExportDeclaration,
@@ -289,5 +339,7 @@ module.exports = {
   locEnd,
   setLocStart,
   setLocEnd,
-  htmlEscapeInsideAngleBracket
+  startsWithNoLookaheadToken,
+  hasBlockComments,
+  isBlockComment
 };

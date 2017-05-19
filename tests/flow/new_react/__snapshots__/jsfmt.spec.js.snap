@@ -341,6 +341,7 @@ Foo.bar();
 
 var FooLegacy = React.createClass({
   is_mounted: (undefined: ?boolean),
+
   propTypes: {
     x: React.PropTypes.number.isRequired
   },

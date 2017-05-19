@@ -18,6 +18,7 @@ exports[`nbsp.js 1`] = `
 many_nbsp = <div>&nbsp; &nbsp; </div>
 single_nbsp = <div>&nbsp;</div>
 many_raw_nbsp = <div>   </div>
+many_raw_spaces = <div>   </div>
 
 
 amp = <span>foo &amp; bar</span>
@@ -25,7 +26,9 @@ raw_amp = <span>foo & bar</span>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 many_nbsp = <div>&nbsp; &nbsp; </div>;
 single_nbsp = <div>&nbsp;</div>;
-many_raw_nbsp = <div>&nbsp;&nbsp;&nbsp;</div>;
+many_raw_nbsp = <div>   </div>;
+many_raw_spaces = <div>   </div>;
+
 amp = <span>foo &amp; bar</span>;
 raw_amp = <span>foo & bar</span>;
 
@@ -35,6 +38,7 @@ exports[`nbsp.js 2`] = `
 many_nbsp = <div>&nbsp; &nbsp; </div>
 single_nbsp = <div>&nbsp;</div>
 many_raw_nbsp = <div>   </div>
+many_raw_spaces = <div>   </div>
 
 
 amp = <span>foo &amp; bar</span>
@@ -42,9 +46,10 @@ raw_amp = <span>foo & bar</span>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 many_nbsp = <div>&nbsp; &nbsp; </div>;
 single_nbsp = <div>&nbsp;</div>;
-many_raw_nbsp = <div>&nbsp;&nbsp;&nbsp;</div>;
+many_raw_nbsp = <div>   </div>;
+many_raw_spaces = <div>   </div>;
 
-amp = <span>foo & bar</span>;
+amp = <span>foo &amp; bar</span>;
 raw_amp = <span>foo & bar</span>;
 
 `;

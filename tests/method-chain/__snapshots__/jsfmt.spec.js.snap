@@ -1,5 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`bracket_0.js 1`] = `
+function a() {
+  function b() {
+	queryThenMutateDOM(
+      () => {
+        title = SomeThing.call(root, 'someLongStringThatPushesThisTextReallyFar')[0];
+      }
+    );
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function a() {
+  function b() {
+    queryThenMutateDOM(() => {
+      title = SomeThing.call(
+        root,
+        "someLongStringThatPushesThisTextReallyFar"
+      )[0];
+    });
+  }
+}
+
+`;
+
 exports[`break-last-call.js 1`] = `
 export default store => {
   return callApi(endpoint, schema).then(

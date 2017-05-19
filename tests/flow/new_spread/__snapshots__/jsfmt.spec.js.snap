@@ -305,37 +305,37 @@ declare class T {}
 declare class U {}
 
 declare var o1: { ...{ [string]: T }, ...{ p: U } };
-(o1: { [string]: T, p?: T | U }); // ok
+(o1: { p?: T | U, [string]: T }); // ok
 
 declare var o2: { ...{ p: T }, ...{ [string]: U } };
-(o2: { [string]: U, p?: T | U }); // ok
+(o2: { p?: T | U, [string]: U }); // ok
 
 declare var o3: { ...{ [string]: T }, ...{ [string]: U } };
 (o3: { [string]: T | U }); // ok
 
 declare var o4: { ...{| [string]: T |}, ...{ p: U } };
-(o4: { [string]: T, p?: T | U }); // ok
+(o4: { p?: T | U, [string]: T }); // ok
 
 declare var o5: { ...{| p: T |}, ...{ [string]: U } };
-(o5: { [string]: U, p: T | U }); // ok
+(o5: { p: T | U, [string]: U }); // ok
 
 declare var o6: { ...{| [string]: T |}, ...{ [string]: U } };
 (o6: { [string]: T | U }); // ok
 
 declare var o7: { ...{ [string]: T }, ...{| p: U |} };
-(o7: { [string]: T, p: U }); // ok
+(o7: { p: U, [string]: T }); // ok
 
 declare var o8: { ...{ p: T }, ...{| [string]: U |} };
-(o8: { [string]: U, p?: T | U }); // ok
+(o8: { p?: T | U, [string]: U }); // ok
 
 declare var o9: { ...{ [string]: T }, ...{| [string]: U |} };
 (o9: { [string]: T | U }); // ok
 
 declare var o10: { ...{| [string]: T |}, ...{| p: U |} };
-(o10: {| [string]: T, p: U |}); // ok
+(o10: {| p: U, [string]: T |}); // ok
 
 declare var o11: { ...{| p: T |}, ...{| [string]: U |} };
-(o11: {| [string]: U, p: T | U |}); // ok
+(o11: {| p: T | U, [string]: U |}); // ok
 
 declare var o12: { ...{| [string]: T |}, ...{| [string]: U |} };
 (o12: {| [string]: T | U |}); // ok
@@ -432,12 +432,12 @@ declare var o2: O2;
 
 type O3 = { ...{ p: A } & { [string]: B } };
 declare var o3: O3;
-(o3: { [string]: B, p: B }); // ok: A&B = B
+(o3: { p: B, [string]: B }); // ok: A&B = B
 (o3.q: B); // ok
 
 type O4 = { ...{ [string]: A } & { p: B } };
 declare var o4: O4;
-(o4: { [string]: A, p: B }); // ok: A&B = B
+(o4: { p: B, [string]: A }); // ok: A&B = B
 
 type O5 = { ...{ [string]: A } & { [string]: B } };
 declare var o5: O5;

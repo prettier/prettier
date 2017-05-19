@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`interfaceDeclaration.ts 1`] = `
+interface abstract {
+    abstract(): void,
+    concrete(): number
+}
+
+interface X {
+  x
+}
+
+interface nil {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+interface abstract {
+  abstract(): void;
+  concrete(): number;
+}
+
+interface X {
+  x;
+}
+
+interface nil {}
+
+`;

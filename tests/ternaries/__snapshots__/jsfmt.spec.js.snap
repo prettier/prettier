@@ -79,6 +79,96 @@ const value =
 
 `;
 
+exports[`parenthesis.js 1`] = `
+debug ? this.state.isVisible ? "partially visible" : "hidden" : null;
+debug ? this.state.isVisible && somethingComplex ? "partially visible" : "hidden" : null;
+
+a => a ? () => {a} : () => {a}
+a => a ? a : a
+a => a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+debug ? (this.state.isVisible ? "partially visible" : "hidden") : null;
+debug
+  ? this.state.isVisible && somethingComplex ? "partially visible" : "hidden"
+  : null;
+
+a =>
+  a
+    ? () => {
+        a;
+      }
+    : () => {
+        a;
+      };
+a => (a ? a : a);
+a =>
+  a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
+
+`;
+
+exports[`parenthesis.js 2`] = `
+debug ? this.state.isVisible ? "partially visible" : "hidden" : null;
+debug ? this.state.isVisible && somethingComplex ? "partially visible" : "hidden" : null;
+
+a => a ? () => {a} : () => {a}
+a => a ? a : a
+a => a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+debug ? (this.state.isVisible ? "partially visible" : "hidden") : null;
+debug
+    ? this.state.isVisible && somethingComplex ? "partially visible" : "hidden"
+    : null;
+
+a =>
+    a
+        ? () => {
+              a;
+          }
+        : () => {
+              a;
+          };
+a => (a ? a : a);
+a =>
+    a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
+
+`;
+
+exports[`parenthesis.js 3`] = `
+debug ? this.state.isVisible ? "partially visible" : "hidden" : null;
+debug ? this.state.isVisible && somethingComplex ? "partially visible" : "hidden" : null;
+
+a => a ? () => {a} : () => {a}
+a => a ? a : a
+a => a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  debug ? this.state.isVisible ? "partially visible" :
+  "hidden" :
+  null;
+
+  debug ? this.state.isVisible && somethingComplex ? "partially visible" :
+  "hidden" :
+  null;
+
+a =>
+
+    a ? () => {
+      a;
+    } :
+    () => {
+      a;
+    };
+a =>
+
+    a ? a :
+    a;
+a =>
+
+    a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa :
+    a;
+
+`;
+
 exports[`test.js 1`] = `
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing
 

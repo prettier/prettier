@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`moduleDeclaration.ts 1`] = `
+module A {
+    export class A {
+    }
+}
+
+declare module "B" {
+    export class B {
+    }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+namespace A {
+  export class A {}
+}
+
+declare module "B" {
+  export class B {}
+}
+
+`;

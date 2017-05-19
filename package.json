@@ -1,6 +1,6 @@
 {
   "name": "prettier-miscellaneous",
-  "version": "1.2.2",
+  "version": "1.3.1",
   "description": "Prettier is an opinionated JavaScript formatter",
   "bin": {
     "prettier": "./bin/prettier.js"
@@ -15,15 +15,15 @@
     "babylon": "7.0.0-beta.8",
     "chalk": "1.1.3",
     "esutils": "2.0.2",
-    "flow-parser": "0.43.0",
+    "flow-parser": "0.45.0",
     "get-stdin": "5.0.1",
     "glob": "7.1.1",
-    "jest-validate": "19.0.0",
+    "jest-validate": "20.0.0",
     "minimist": "1.2.0"
   },
   "devDependencies": {
     "diff": "3.2.0",
-    "jest": "19.0.1",
+    "jest": "20.0.0",
     "mkdirp": "^0.5.1",
     "rimraf": "^2.6.1",
     "rollup": "0.41.1",
@@ -32,8 +32,8 @@
     "rollup-plugin-node-builtins": "2.0.0",
     "rollup-plugin-node-globals": "1.1.0",
     "rollup-plugin-node-resolve": "2.0.0",
-    "typescript": "2.2.1",
-    "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#bfb1506c48b625871ffeb67dbec7941d460f8941"
+    "typescript": "2.3.2",
+    "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#f5fcc879b493138eb97b9bdfb39afc4d210b1ddf"
   },
   "scripts": {
     "jest": "jest",
@@ -55,7 +55,24 @@
     "testRegex": "jsfmt\\.spec\\.js$",
     "testPathIgnorePatterns": [
       "tests/new_react",
-      "tests/more_react"
+      "tests/more_react",
+      "tests/typescript_nosemi/jsfmt.spec.js",
+      "tests/typescript/conformance/types/abstractKeyword/jsfmt.spec.js",
+      "tests/typescript/conformance/classes/classDeclarations/classHeritageSpecification/jsfmt.spec.js",
+      "tests/typescript/compiler/jsfmt.spec.js",
+      "tests/typescript/conformance/types/typeReference/jsfmt.spec.js",
+      "tests/typescript/conformance/types/variableDeclarator/jsfmt.spec.js",
+      "tests/typescript/conformance/types/typeParameter/jsfmt.spec.js",
+      "tests/typescript/custom/computedProperties/jsfmt.spec.js",
+      "tests/typescript/custom/new/jsfmt.spec.js",
+      "tests/typescript/custom/call/jsfmt.spec.js",
+      "tests/typescript/custom/typeParameters/jsfmt.spec.js",
+      "tests/typescript/conformance/internalModules/importDeclarations/jsfmt.spec.js",
+      "tests/typescript/conformance/expressions/functionCalls/jsfmt.spec.js",
+      "tests/typescript/conformance/es6/Symbols/jsfmt.spec.js",
+      "tests/typescript/conformance/classes/jsfmt.spec.js",
+      "tests/typescript/conformance/classes/constructorDeclarations/constructorParameters/jsfmt.spec.js",
+      "tests/typescript/custom/module/jsfmt.spec.js"
     ]
   }
 }
