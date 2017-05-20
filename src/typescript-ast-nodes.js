@@ -1,10 +1,10 @@
 module.exports = function(fork) {
   fork.use(require("ast-types/def/es7"));
 
-  var types = fork.use(require("ast-types/lib/types"));
-  var def = types.Type.def;
-  var or = types.Type.or;
-  var defaults = fork.use(require("ast-types/lib/shared")).defaults;
+  const types = fork.use(require("ast-types/lib/types"));
+  const def = types.Type.def;
+  const or = types.Type.or;
+  const defaults = fork.use(require("ast-types/lib/shared")).defaults;
 
   // Ambient
   def("TSAmbientVariableDefinition").bases("VariableDeclaration");

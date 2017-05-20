@@ -2,15 +2,13 @@ Add this to your init:
 
 ```elisp
 (require 'prettier-js)
-(prettier-mode)
 ```
 
-If you don't use `js-mode`, which is what Prettier targets by default, you'll need to first set your major-mode of choice:
-
+Then you can hook to your favorite javascript mode:
 ```elisp
-(require 'prettier-js)
-(setq prettier-target-mode "js2-mode")
-(prettier-mode)
+(add-hook 'js2-mode-hook 'prettier-mode)
+(add-hook 'web-mode-hook 'prettier-mode)
+...
 ```
 
 To adjust the CLI args used for the prettier command, you can customize the `prettier-args` variable:

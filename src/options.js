@@ -1,9 +1,9 @@
 "use strict";
 
-var validate = require("jest-validate").validate;
-var deprecatedConfig = require("./deprecated");
+const validate = require("jest-validate").validate;
+const deprecatedConfig = require("./deprecated");
 
-var defaults = {
+const defaults = {
   rangeStart: 0,
   rangeEnd: Infinity,
   useTabs: false,
@@ -17,7 +17,7 @@ var defaults = {
   semi: true
 };
 
-var exampleConfig = Object.assign({}, defaults, {
+const exampleConfig = Object.assign({}, defaults, {
   filename: "testFilename",
   printWidth: 80,
   originalText: "text"

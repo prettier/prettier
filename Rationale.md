@@ -44,6 +44,16 @@ Prettier outputs the minimum number of parentheses required to ensure that the b
 It turns out that empty lines are very hard to automatically generate. The approach that prettier takes is to preserve empty lines the way they were in the original source code. The only constraint is that prettier disallows several empty lines in a row. They are collapsed to a single one.
 
 
+### Multi-line objects
+
+It is tempting to collapse an object to a single line if it fits, but there are times when it is better for sibling/cousin keys to stay vertically aligned—see [object lists], [nested configs], [stylesheets], and [keyed methods]. To avoid unfavorable collapsing, prettier simply formats any object as multi-line if it appears as such in the original source code. This is the same strategy used by [elm-format] for multi-line records.
+
+[object lists]:https://github.com/prettier/prettier/issues/74#issue-199965534
+[nested configs]:https://github.com/prettier/prettier/issues/88#issuecomment-275448346
+[stylesheets]:https://github.com/prettier/prettier/issues/74#issuecomment-275262094
+[keyed methods]:https://github.com/prettier/prettier/pull/495#issuecomment-275745434
+[elm-format]:https://github.com/prettier/prettier/issues/74#issuecomment-275621526
+
 ## What prettier is _not_ concerned about
 
 Here are a few examples of things that are out of scope for prettier:
