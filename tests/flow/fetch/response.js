@@ -3,13 +3,10 @@ const a: Response = new Response(); // correct
 const b: Response = new Response(new Blob()); // correct
 const c: Response = new Response(new FormData()); // correct
 
-const d: Response = new Response(new FormData(), {
-    status: 404
-}); // correct
-
-const e: Response = new Response("responsebody", {
-    status: "404"
-}); // incorrect
+new Response("", { status: 404 }); // correct
+new Response(null, { status: 204 }); // correct
+new Response("", { status: "404" }); // incorrect
+new Response("", { status: null }); // incorrect
 
 const f: Response = new Response("responsebody", {
     status: 404,
@@ -38,6 +35,7 @@ const i: Response = new Response({
 }); // incorrect
 
 const ok: boolean = h.ok;
+const redirected: boolean = h.redirected;
 const status: number = h.status;
 
 h.text().then((t: string) => t); // correct

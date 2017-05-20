@@ -39,7 +39,7 @@ a.append('foo', 'bar'); // correct
 a.append('foo', {}); // incorrect
 a.append(2, 'bar'); // incorrect
 a.append('foo', 'bar', 'baz'); // incorrect
-a.append('foo', 'bar'); // incorrect
+a.append('foo', 'bar'); // correct
 a.append('bar', new File([], 'q')) // correct
 a.append('bar', new File([], 'q'), 'x') // correct
 a.append('bar', new File([], 'q'), 2) // incorrect

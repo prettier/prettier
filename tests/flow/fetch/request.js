@@ -7,6 +7,7 @@ const e: Request = new Request(b, c); // incorrect
 
 const f: Request = new Request({}) // incorrect
 const g: Request = new Request('http://example.org', {}) // correct
+new Request(new URL('http://example.org')); // correct
 
 const h: Request = new Request('http://example.org', {
   method: 'GET',
@@ -57,11 +58,6 @@ const l: Request = new Request('http://example.org', {
   cache: 'default'
 }) // incorrect - headers is string
 
-const m: Request = new Request('http://example.org', {
-  method: 'CONNECT',
-  headers: {
-    'Content-Type': 'image/jpeg'
-  },
-  mode: 'cors',
-  cache: 'default'
-}) // incorrect - CONNECT is forbidden
+new Request('/', { method: 'post' }); // correct
+new Request('/', { method: 'hello' }); // correct
+new Request('/', { method: null }); // incorrect
