@@ -180,7 +180,7 @@ function genericPrintNoParens(path, options, print, args) {
   }
 
   let parts = [];
-  switch (n.type) {
+  switch (n.type || n.kind) {
     case "File":
       return path.call(print, "program");
     case "Program":
@@ -844,7 +844,11 @@ function genericPrintNoParens(path, options, print, args) {
 
       let propertiesField;
 
+<<<<<<< HEAD
       if (n.type === "TSTypeLiteral") {
+=======
+      if (n.type === 'TSTypeLiteral') {
+>>>>>>> a8ae9b36... Initial GraphQL implementation
         propertiesField = "members";
       } else if (n.type === "TSInterfaceBody") {
         propertiesField = "body";
@@ -2565,9 +2569,409 @@ function genericPrintNoParens(path, options, print, args) {
       return path.call(bodyPath => {
         return printStatementSequence(bodyPath, options, print);
       }, "body");
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    // postcss
+    case "css-root": {
+      return concat([printNodeSequence(path, options, print), hardline]);
+    }
+    case "css-comment": {
+      if (n.raws.content) {
+        return n.raws.content;
+      }
+      const text = options.originalText.slice(util.locStart(n), util.locEnd(n));
+      const rawText = n.raws.text || n.text;
+      // Workaround a bug where the location is off.
+      // https://github.com/postcss/postcss-scss/issues/63
+      if (text.indexOf(rawText) === -1) {
+        if (n.raws.inline) {
+          return concat(["// ", rawText]);
+        }
+        return concat(["/* ", rawText, " */"]);
+      }
+      return text;
+    }
+    case "css-rule": {
+      return concat([
+        path.call(print, "selector"),
+        n.important ? " !important" : "",
+        n.nodes
+          ? concat([
+              " {",
+              n.nodes.length > 0
+                ? indent(
+                    concat([hardline, printNodeSequence(path, options, print)])
+                  )
+                : "",
+              hardline,
+              "}"
+            ])
+          : ";"
+      ]);
+    }
+    case "css-decl": {
+      return concat([
+        n.raws.before.replace(/[\s;]/g, ""),
+        n.prop,
+        ": ",
+        path.call(print, "value"),
+        n.important ? " !important" : "",
+        n.nodes
+          ? concat([
+              " {",
+              indent(
+                concat([softline, printNodeSequence(path, options, print)])
+              ),
+              softline,
+              "}"
+            ])
+          : ";"
+      ]);
+    }
+    case "css-atrule": {
+      const hasParams =
+        n.params &&
+        !(n.params.type === "media-query-list" && n.params.value === "");
+      return concat([
+        "@",
+        n.name,
+        hasParams ? concat([" ", path.call(print, "params")]) : "",
+        n.nodes
+          ? concat([
+              " {",
+              indent(
+                concat([
+                  n.nodes.length > 0 ? softline : "",
+                  printNodeSequence(path, options, print)
+                ])
+              ),
+              softline,
+              "}"
+            ])
+          : ";"
+      ]);
+    }
+    case "css-import": {
+      return concat([
+        "@",
+        n.name,
+        " ",
+        n.directives ? concat([n.directives, " "]) : "",
+        n.importPath,
+        ";"
+      ]);
+    }
+    // postcss-media-query-parser
+    case "media-query-list": {
+      const parts = [];
+      path.each(childPath => {
+        const node = childPath.getValue();
+        if (node.type === "media-query" && node.value === "") {
+          return;
+        }
+        parts.push(childPath.call(print));
+      }, "nodes");
+      return join(", ", parts);
+    }
+    case "media-query": {
+      return join(" ", path.map(print, "nodes"));
+    }
+    case "media-type": {
+      return n.value;
+    }
+    case "media-feature-expression": {
+      if (!n.nodes) {
+        return n.value;
+      }
+      return concat(["(", concat(path.map(print, "nodes")), ")"]);
+    }
+    case "media-feature": {
+      return n.value.replace(/ +/g, " ");
+    }
+    case "media-colon": {
+      return concat([n.value, " "]);
+    }
+    case "media-value": {
+      return n.value;
+    }
+    case "media-keyword": {
+      return n.value;
+    }
+    case "media-url": {
+      return n.value;
+    }
+    case "media-unknown": {
+      return n.value;
+    }
+    // postcss-selector-parser
+    case "selector-root": {
+      return group(join(concat([",", line]), path.map(print, "nodes")));
+    }
+    case "selector-comment": {
+      return n.value;
+    }
+    case "selector-string": {
+      return n.value;
+    }
+    case "selector-tag": {
+      return n.value;
+    }
+    case "selector-id": {
+      return concat(["#", n.value]);
+    }
+    case "selector-class": {
+      return concat([".", n.value]);
+    }
+    case "selector-attribute": {
+      return concat([
+        "[",
+        n.attribute,
+        n.operator ? n.operator : "",
+        n.value ? n.value : "",
+        n.insensitive ? " i" : "",
+        "]"
+      ]);
+    }
+    case "selector-combinator": {
+      if (n.value === "+" || n.value === ">" || n.value === "~") {
+        const parent = path.getParentNode();
+        const leading = parent.type === "selector-selector" &&
+          parent.nodes[0] === n
+          ? ""
+          : line;
+        return concat([leading, n.value, " "]);
+      }
+      return n.value;
+    }
+    case "selector-universal": {
+      return n.value;
+    }
+    case "selector-selector": {
+      return group(indent(concat(path.map(print, "nodes"))));
+    }
+    case "selector-pseudo": {
+      return concat([
+        n.value,
+        n.nodes && n.nodes.length > 0
+          ? concat(["(", join(", ", path.map(print, "nodes")), ")"])
+          : ""
+      ]);
+    }
+    case "selector-nesting": {
+      return printValue(n.value);
+    }
+    // postcss-values-parser
+    case "value-root": {
+      return path.call(print, "group");
+    }
+    case "value-comma_group": {
+      const printed = path.map(print, "groups");
+      const parts = [];
+      for (let i = 0; i < n.groups.length; ++i) {
+        parts.push(printed[i]);
+        if (
+          i !== n.groups.length - 1 &&
+          n.groups[i + 1].raws &&
+          n.groups[i + 1].raws.before !== ""
+        ) {
+          if (
+            n.groups[i + 1].type === "value-operator" &&
+            ["+", "-", "/", "*", "%"].indexOf(n.groups[i + 1].value) !== -1
+          ) {
+            parts.push(" ");
+          } else {
+            parts.push(line);
+          }
+        }
+      }
 
+      return group(indent(concat(parts)));
+    }
+    case "value-paren_group": {
+      const parent = path.getParentNode();
+      const isURLCall =
+        parent && parent.type === "value-func" && parent.value === "url";
+
+      if (
+        isURLCall &&
+        (n.groups.length === 1 ||
+          (n.groups.length > 0 &&
+            n.groups[0].type === "value-comma_group" &&
+            n.groups[0].groups.length > 0 &&
+            n.groups[0].groups[0].type === "value-word" &&
+            n.groups[0].groups[0].value === "data"))
+      ) {
+        return concat([
+          n.open ? path.call(print, "open") : "",
+          join(",", path.map(print, "groups")),
+          n.close ? path.call(print, "close") : ""
+        ]);
+      }
+
+      if (!n.open) {
+        return group(
+          indent(join(concat([",", line]), path.map(print, "groups")))
+        );
+      }
+
+      return group(
+        concat([
+          n.open ? path.call(print, "open") : "",
+          indent(
+            concat([
+              softline,
+              join(concat([",", line]), path.map(print, "groups"))
+            ])
+          ),
+          softline,
+          n.close ? path.call(print, "close") : ""
+        ])
+      );
+    }
+    case "value-value": {
+      return path.call(print, "group");
+    }
+    case "value-func": {
+      return concat([n.value, path.call(print, "group")]);
+    }
+    case "value-paren": {
+      if (n.raws.before !== "") {
+        return concat([line, n.value]);
+      }
+      return n.value;
+    }
+    case "value-number": {
+      return concat([n.value, n.unit]);
+    }
+    case "value-operator": {
+      return n.value;
+    }
+    case "value-word": {
+      return n.value;
+    }
+    case "value-colon": {
+      return n.value;
+    }
+    case "value-comma": {
+      return concat([n.value, " "]);
+    }
+    case "value-string": {
+      return concat([
+        n.quoted ? n.raws.quote : "",
+        n.value,
+        n.quoted ? n.raws.quote : ""
+      ]);
+    }
+    case "value-atword": {
+      return concat(["@", n.value]);
+    }
+>>>>>>> Initial GraphQL implementation
+
+=======
+
+    // GraphQL
+    case "Document": {
+      return concat([
+        join(hardline, path.map(print, "definitions")),
+        hardline
+      ]);
+    }
+    case "OperationDefinition": {
+      return path.call(print, "selectionSet");
+    }
+    case "SelectionSet": {
+      return concat([
+        "{",
+        indent(
+          concat([
+            hardline,
+            concat(path.map(print, "selections"))
+          ])
+        ),
+        hardline,
+        "}"
+      ]);
+    }
+    case "Field": {
+      return group(
+        concat([
+          path.call(print, "name"),
+          n.arguments.length > 0
+            ? group(
+                concat([
+                  "(",
+                  indent(
+                    concat([
+                      softline,
+                      join(concat([",", softline]), path.map(print, "arguments"))
+                    ])
+                  ),
+                  softline,
+                  ") ",
+                ])
+              )
+            : "",
+          path.call(print, "selectionSet")
+        ])
+      );
+    }
+    case "Name": {
+      return n.value;
+    }
+    case "StringValue": {
+      return concat(['"', n.value, '"']);
+    }
+    case "Argument": {
+      return concat([
+        path.call(print, "name"),
+        ": ",
+        path.call(print, "value")
+      ])
+    }
+
+
+    // TODO
+    case "ClassHeritage":
+    // TODO
+    case "ComprehensionBlock":
+    // TODO
+    case "ComprehensionExpression":
+    // TODO
+    case "Glob":
+    // TODO
+    case "GeneratorExpression":
+    // TODO
+    case "LetStatement":
+    // TODO
+    case "LetExpression":
+    // TODO
+    case "GraphExpression":
+    // TODO
+    // XML types that nobody cares about or needs to print.
+    case "GraphIndexExpression":
+    case "XMLDefaultDeclaration":
+    case "XMLAnyName":
+    case "XMLQualifiedIdentifier":
+    case "XMLFunctionQualifiedIdentifier":
+    case "XMLAttributeSelector":
+    case "XMLFilterExpression":
+    case "XML":
+    case "XMLElement":
+    case "XMLList":
+    case "XMLEscape":
+    case "XMLText":
+    case "XMLStartTag":
+    case "XMLEndTag":
+    case "XMLPointTag":
+    case "XMLName":
+    case "XMLAttribute":
+    case "XMLCdata":
+    case "XMLComment":
+    case "XMLProcessingInstruction":
+>>>>>>> a8ae9b36... Initial GraphQL implementation
     default:
-      throw new Error("unknown type: " + JSON.stringify(n.type));
+      throw new Error("unknown type: " + JSON.stringify(n.type || n.kind));
   }
 }
 
