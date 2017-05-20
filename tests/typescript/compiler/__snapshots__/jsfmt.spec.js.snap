@@ -194,15 +194,6 @@ interface i2 {
 
 `;
 
-exports[`emptyGenericParamList.ts 1`] = `
-class I<T> {}
-var x: I<>;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-class I<T> {}
-var x: I<>;
-
-`;
-
 exports[`errorOnInitializerInInterfaceProperty.ts 1`] = `
 interface Foo {
     bar: number = 5;

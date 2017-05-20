@@ -1628,7 +1628,13 @@ function genericPrintNoParens(path, options, print, args) {
       parts.push(concat(printClass(path, options, print)));
       return concat(parts);
     case "TSInterfaceHeritage":
-      return path.call(print, "id");
+      parts.push(path.call(print, "id"));
+      
+      if (n.typeParameters) {
+        parts.push(path.call(print, "typeParameters"));
+      }
+      
+      return concat(parts);
     case "TSHeritageClause":
       return join(", ", path.map(print, "types"));
     case "TSExpressionWithTypeArguments":
@@ -2184,7 +2190,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "TSTypeReference":
       return concat([
         path.call(print, "typeName"),
-        printTypeParameters(path, options, print, "typeArguments")
+        printTypeParameters(path, options, print, "typeParameters")
       ]);
     case "TSTypeQuery":
       return concat(["typeof ", path.call(print, "exprName")]);
@@ -2222,8 +2228,12 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push("new ");
       }
       const isType = n.type === "TSConstructorType";
+
+      if (n.typeParameters) {
+        parts.push(printTypeParameters(path, options, print, "typeParameters"))
+      }
+
       parts.push(
-        printTypeParameters(path, options, print, "typeParameters"),
         "(",
         join(", ", path.map(print, "parameters")),
         ")"
@@ -2281,8 +2291,8 @@ function genericPrintNoParens(path, options, print, args) {
       return concat(parts)
     case "TSMethodSignature":
       parts.push(
-        path.call(print, 'name'),
-        printTypeParameters(path, options, print, "typeParameters"),
+        path.call(print, "name"),
+        printFunctionTypeParameters(path, options, print),
         printFunctionParams(path, print, options)
       )
 
@@ -2737,9 +2747,20 @@ function printArgumentsList(path, options, print) {
 
 function printFunctionTypeParameters(path, options, print) {
   const fun = path.getValue();
+  const paramsFieldIsArray = Array.isArray(fun["typeParameters"])
   
   if (fun.typeParameters) {
-    return path.call(print, "typeParameters");
+    // for TSFunctionType typeParameters is an array
+    // for FunctionTypeAnnotation it's a single node
+    if (paramsFieldIsArray) {
+      return concat(
+        "<",
+        join(", ", path.map(print, "typeParameters")),
+        ">"
+      )
+    } else {
+      return path.call(print, "typeParameters");
+    }
   } else {
     return "";
   }
@@ -3102,6 +3123,11 @@ function printTypeParameters(path, options, print, paramsKey) {
 
   if (!n[paramsKey]) {
     return "";
+  }
+
+  // for TypeParameterDeclaration typeParameters is a single node
+  if (!Array.isArray(n[paramsKey])) {
+    return path.call(print, paramsKey)
   }
 
   const shouldInline =
