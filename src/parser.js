@@ -14,6 +14,8 @@ function parse(text, opts) {
     parseFunction = parseWithFlow;
   } else if (opts.parser === "typescript") {
     parseFunction = parseWithTypeScript;
+  } else if (opts.parser === "postcss") {
+    parseFunction = parseWithPostCSS;
   } else {
     parseFunction = parseWithBabylon;
   }
@@ -136,6 +138,172 @@ function isProbablyJsx(text) {
     ].join(""),
     "m"
   ).test(text);
+}
+
+function parseSelector(selector) {
+  const r = require;
+  const selectorParser = r("postcss-selector-parser");
+  let result;
+  selectorParser(result_ => {
+    result = result_;
+  }).process(selector);
+  return addTypePrefix(result, "selector-");
+}
+
+function parseValueNodes(nodes) {
+  let parenGroup = {
+    open: null,
+    close: null,
+    groups: [],
+    type: "paren_group"
+  };
+  const parenGroupStack = [parenGroup];
+  const rootParenGroup = parenGroup;
+  let commaGroup = {
+    groups: [],
+    type: "comma_group"
+  };
+  const commaGroupStack = [commaGroup];
+
+  for (let i = 0; i < nodes.length; ++i) {
+    if (nodes[i].type === "paren" && nodes[i].value === "(") {
+      parenGroup = {
+        open: nodes[i],
+        close: null,
+        groups: [],
+        type: "paren_group"
+      };
+      parenGroupStack.push(parenGroup);
+
+      commaGroup = {
+        groups: [],
+        type: "comma_group"
+      };
+      commaGroupStack.push(commaGroup);
+    } else if (nodes[i].type === "paren" && nodes[i].value === ")") {
+      if (commaGroup.groups.length) {
+        parenGroup.groups.push(commaGroup);
+      }
+      parenGroup.close = nodes[i];
+
+      if (commaGroupStack.length === 1) {
+        throw new Error("Unbalanced parenthesis");
+      }
+
+      commaGroupStack.pop();
+      commaGroup = commaGroupStack[commaGroupStack.length - 1];
+      commaGroup.groups.push(parenGroup);
+
+      parenGroupStack.pop();
+      parenGroup = parenGroupStack[parenGroupStack.length - 1];
+    } else if (nodes[i].type === "comma") {
+      parenGroup.groups.push(commaGroup);
+      commaGroup = {
+        groups: [],
+        type: "comma_group"
+      };
+      commaGroupStack[commaGroupStack.length - 1] = commaGroup;
+    } else {
+      commaGroup.groups.push(nodes[i]);
+    }
+  }
+  if (commaGroup.groups.length > 0) {
+    parenGroup.groups.push(commaGroup);
+  }
+  return rootParenGroup;
+}
+
+function addTypePrefix(node, prefix) {
+  if (node && typeof node === "object") {
+    delete node.parent;
+    for (const key in node) {
+      addTypePrefix(node[key], prefix);
+      if (key === "type" && typeof node[key] === "string") {
+        if (!node[key].startsWith(prefix)) {
+          node[key] = prefix + node[key];
+        }
+      }
+    }
+  }
+  return node;
+}
+
+function addMissingType(node) {
+  if (node && typeof node === "object") {
+    delete node.parent;
+    for (const key in node) {
+      addMissingType(node[key]);
+    }
+    if (!Array.isArray(node) && node.value && !node.type) {
+      node.type = "unknown";
+    }
+  }
+  return node;
+}
+
+function parseNestedValue(node) {
+  if (node && typeof node === "object") {
+    delete node.parent;
+    for (const key in node) {
+      parseNestedValue(node[key]);
+      if (key === "nodes") {
+        node.group = parseValueNodes(node[key]);
+        delete node[key];
+      }
+    }
+  }
+  return node;
+}
+
+function parseValue(value) {
+  const r = require;
+  const valueParser = r("postcss-values-parser");
+  const result = valueParser(value).parse();
+  const parsedResult = parseNestedValue(result);
+  return addTypePrefix(parsedResult, "value-");
+}
+
+function parseMediaQuery(value) {
+  const r = require;
+  const mediaParser = r("postcss-media-query-parser").default;
+  const result = addMissingType(mediaParser(value));
+  return addTypePrefix(result, "media-");
+}
+
+function parseNestedCSS(node) {
+  if (node && typeof node === "object") {
+    delete node.parent;
+    for (const key in node) {
+      parseNestedCSS(node[key]);
+    }
+    if (typeof node.selector === "string") {
+      node.selector = parseSelector(node.selector);
+    }
+    if (typeof node.value === "string") {
+      node.value = parseValue(node.value);
+    }
+    if (node.type === "css-atrule" && typeof node.params === "string") {
+      node.params = parseMediaQuery(node.params);
+    }
+  }
+  return node;
+}
+
+function parseWithPostCSS(text) {
+  const r = require;
+  const parser = r("postcss-less");
+  try {
+    const result = parser.parse(text);
+    const prefixedResult = addTypePrefix(result, "css-");
+    const parsedResult = parseNestedCSS(prefixedResult);
+    // console.log(JSON.stringify(parsedResult, null, 2));
+    return parsedResult;
+  } catch (e) {
+    if (typeof e.line !== "number") {
+      throw e;
+    }
+    throw createError(e.name + " " + e.reason, e.line, e.column);
+  }
 }
 
 module.exports = { parse };

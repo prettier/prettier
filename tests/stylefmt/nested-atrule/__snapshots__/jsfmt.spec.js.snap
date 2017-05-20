@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`nested-atrule.css 1`] = `
+@media (min-width: 992px){@media (max-width: 1200px) {
+.container
+
+{position: absolute
+    }}
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@media (min-width: 992px) {
+  @media (max-width: 1200px) {
+    .container {
+      position: absolute;
+    }
+  }
+}
+
+`;

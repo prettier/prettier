@@ -42,10 +42,24 @@ function massageAST(ast) {
       "start",
       "end",
       "tokens",
-      "flags"
+      "flags",
+      "raws",
+      "sourceIndex",
+      "id",
+      "source",
+      "before",
+      "after"
     ].forEach(name => {
       delete newObj[name];
     });
+
+    if (
+      ast.type === "media-query" ||
+      ast.type === "media-query-list" ||
+      ast.type === "media-feature-expression"
+    ) {
+      delete newObj.value;
+    }
 
     // We convert <div></div> to <div />
     if (ast.type === "JSXOpeningElement") {

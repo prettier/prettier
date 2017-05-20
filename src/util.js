@@ -208,14 +208,36 @@ function locStart(node) {
   if (node.range) {
     return node.range[0];
   }
-  return node.start;
+  if (typeof node.start === "number") {
+    return node.start;
+  }
+  if (node.source) {
+    return lineColumnToIndex(node.source.start, node.source.input.css) - 1;
+  }
 }
 
 function locEnd(node) {
   if (node.range) {
     return node.range[1];
   }
-  return node.end;
+  if (typeof node.end === "number") {
+    return node.end;
+  }
+  if (node.source) {
+    return lineColumnToIndex(node.source.end, node.source.input.css);
+  }
+}
+
+// Super inefficient, needs to be cached.
+function lineColumnToIndex(lineColumn, text) {
+  let index = 0;
+  for (let i = 0; i < lineColumn.line - 1; ++i) {
+    index = text.indexOf("\n", index) + 1;
+    if (index === -1) {
+      return -1;
+    }
+  }
+  return index + lineColumn.column;
 }
 
 function setLocStart(node, index) {

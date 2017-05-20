@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`at-apply.css 1`] = `
+.toolbar{@apply   --toolbar-theme   ;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.toolbar {
+  @apply --toolbar-theme;
+}
+
+`;

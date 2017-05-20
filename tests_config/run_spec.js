@@ -15,7 +15,7 @@ const ALL_PARSERS = process.env["ALL_PARSERS"]
 function run_spec(dirname, options, additionalParsers) {
   fs.readdirSync(dirname).forEach(filename => {
     const extension = extname(filename);
-    if (/^\.[jt]sx?$/.test(extension) && filename !== "jsfmt.spec.js") {
+    if (/^\.([jt]sx?|css)$/.test(extension) && filename !== "jsfmt.spec.js") {
       const path = dirname + "/" + filename;
       let rangeStart = 0;
       let rangeEnd = Infinity;

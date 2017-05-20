@@ -2411,38 +2411,243 @@ function genericPrintNoParens(path, options, print, args) {
       return path.call(bodyPath => {
         return printStatementSequence(bodyPath, options, print);
       }, "body");
-    case "ClassHeritage": // TODO
-    case "ComprehensionBlock": // TODO
-    case "ComprehensionExpression": // TODO
-    case "Glob": // TODO
-    case "GeneratorExpression": // TODO
-    case "LetStatement": // TODO
-    case "LetExpression": // TODO
-    case "GraphExpression": // TODO
-    // XML types that nobody cares about or needs to print. (fallthrough)
-    case "GraphIndexExpression":
-    case "XMLDefaultDeclaration":
-    case "XMLAnyName":
-    case "XMLQualifiedIdentifier":
-    case "XMLFunctionQualifiedIdentifier":
-    case "XMLAttributeSelector":
-    case "XMLFilterExpression":
-    case "XML":
-    case "XMLElement":
-    case "XMLList":
-    case "XMLEscape":
-    case "XMLText":
-    case "XMLStartTag":
-    case "XMLEndTag":
-    case "XMLPointTag":
-    case "XMLName":
-    case "XMLAttribute":
-    case "XMLCdata":
-    case "XMLComment":
-    case "XMLProcessingInstruction":
+    // postcss
+    case "css-root": {
+      return concat([printNodeSequence(path, options, print), hardline]);
+    }
+    case "css-comment": {
+      return n.raws.content;
+    }
+    case "css-rule": {
+      return concat([
+        path.call(print, "selector"),
+        n.nodes
+          ? concat([
+              " {",
+              n.nodes.length > 0
+                ? indent(
+                    concat([hardline, printNodeSequence(path, options, print)])
+                  )
+                : "",
+              hardline,
+              "}"
+            ])
+          : ";"
+      ]);
+    }
+    case "css-decl": {
+      return concat([
+        n.raws.before.trimLeft(),
+        n.prop,
+        ": ",
+        path.call(print, "value"),
+        n.important ? " !important" : "",
+        ";"
+      ]);
+    }
+    case "css-atrule": {
+      return concat([
+        "@",
+        n.name,
+        " ",
+        path.call(print, "params"),
+        n.nodes
+          ? concat([
+              " {",
+              indent(
+                concat([softline, printNodeSequence(path, options, print)])
+              ),
+              softline,
+              "}"
+            ])
+          : ";"
+      ]);
+    }
+    case "css-import": {
+      return concat(["@", n.name, " ", n.importPath, ";"]);
+    }
+    // postcss-media-query-parser
+    case "media-query-list": {
+      return join(", ", path.map(print, "nodes"));
+    }
+    case "media-query": {
+      return join(" ", path.map(print, "nodes"));
+    }
+    case "media-type": {
+      return n.value;
+    }
+    case "media-feature-expression": {
+      if (!n.nodes) {
+        return n.value;
+      }
+      return concat(["(", concat(path.map(print, "nodes")), ")"]);
+    }
+    case "media-feature": {
+      return n.value;
+    }
+    case "media-colon": {
+      return concat([n.value, " "]);
+    }
+    case "media-value": {
+      return n.value;
+    }
+    case "media-keyword": {
+      return concat([" ", n.value, " "]);
+    }
+    case "media-unknown": {
+      return n.value;
+    }
+    // postcss-selector-parser
+    case "selector-root": {
+      return group(join(concat([",", line]), path.map(print, "nodes")));
+    }
+    case "selector-tag": {
+      return n.value;
+    }
+    case "selector-id": {
+      return concat(["#", n.value]);
+    }
+    case "selector-class": {
+      return concat([".", n.value]);
+    }
+    case "selector-attribute": {
+      return concat([
+        "[",
+        n.attribute,
+        n.operator ? n.operator : "",
+        n.value ? n.value : "",
+        "]"
+      ]);
+    }
+    case "selector-combinator": {
+      if (n.value === "+" || n.value === ">") {
+        return concat([" ", n.value, " "]);
+      }
+      return n.value;
+    }
+    case "selector-universal": {
+      return n.value;
+    }
+    case "selector-selector": {
+      return concat(path.map(print, "nodes"));
+    }
+    case "selector-pseudo": {
+      return concat([
+        n.value,
+        n.nodes && n.nodes.length > 0
+          ? concat(["(", concat(path.map(print, "nodes")), ")"])
+          : ""
+      ]);
+    }
+    case "selector-nesting": {
+      return printValue(n.value);
+    }
+    // postcss-values-parser
+    case "value-root": {
+      return path.call(print, "group");
+    }
+    case "value-comma_group": {
+      const printed = path.map(print, "groups");
+      const parts = [];
+      for (let i = 0; i < n.groups.length; ++i) {
+        parts.push(printed[i]);
+        if (i === 0 && n.groups[i].type === "value-operator") {
+          continue;
+        }
+        if (i !== n.groups.length - 1) {
+          parts.push(line);
+        }
+      }
+
+      return group(concat(parts));
+    }
+    case "value-paren_group": {
+      if (!n.open) {
+        return join(concat([",", line]), path.map(print, "groups"));
+      }
+
+      return group(
+        concat([
+          n.open ? path.call(print, "open") : "",
+          indent(
+            concat([
+              softline,
+              join(concat([",", line]), path.map(print, "groups"))
+            ])
+          ),
+          softline,
+          n.close ? path.call(print, "close") : ""
+        ])
+      );
+    }
+    case "value-value": {
+      return path.call(print, "group");
+    }
+    case "value-func": {
+      return concat([n.value, path.call(print, "group")]);
+    }
+    case "value-paren": {
+      return n.value;
+    }
+    case "value-number": {
+      return concat([n.value, n.unit]);
+    }
+    case "value-operator": {
+      return n.value;
+    }
+    case "value-word": {
+      return n.value;
+    }
+    case "value-comma": {
+      return concat([n.value, " "]);
+    }
+    case "value-string": {
+      return concat([
+        n.quoted ? n.raws.quote : "",
+        n.value,
+        n.quoted ? n.raws.quote : ""
+      ]);
+    }
+    case "value-atword": {
+      return concat(["@", n.value]);
+    }
+
     default:
       throw new Error("unknown type: " + JSON.stringify(n.type));
   }
+}
+
+function printValue(value) {
+  return value;
+}
+
+function printNodeSequence(path, options, print) {
+  const node = path.getValue();
+  const parts = [];
+  let i = 0;
+  path.map(pathChild => {
+    parts.push(pathChild.call(print));
+    if (i !== node.nodes.length - 1) {
+      if (
+        node.nodes[i + 1].type === "css-comment" &&
+        !util.hasNewline(
+          options.originalText,
+          util.locStart(node.nodes[i + 1]),
+          { backwards: true }
+        )
+      ) {
+        parts.push(" ");
+      } else {
+        parts.push(hardline);
+        if (util.isNextLineEmpty(options.originalText, pathChild.getValue())) {
+          parts.push(hardline);
+        }
+      }
+    }
+    i++;
+  }, "nodes");
+
+  return concat(parts);
 }
 
 function printStatementSequence(path, options, print) {

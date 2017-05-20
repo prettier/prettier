@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`import.css 1`] = `
+        @import         "./settings"    ;
+
+
+@import      "./components" ;@import "./themes";
+.class{float: left;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@import "./settings";
+
+@import "./components";
+@import "./themes";
+.class {
+  float: left;
+}
+
+`;
