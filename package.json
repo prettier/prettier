@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "diff": "3.2.0",
+    "graphql": "^0.9.6",
     "jest": "20.0.0",
     "mkdirp": "^0.5.1",
     "rimraf": "^2.6.1",

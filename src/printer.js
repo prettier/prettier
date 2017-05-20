@@ -145,7 +145,7 @@ function genericPrintNoParens(path, options, print, args) {
   // namedTypes.Printable.assert(n);
 
   let parts = [];
-  switch (n.type) {
+  switch (n.type || n.kind) {
     case "File":
       return path.call(print, "program");
     case "Program":
@@ -770,7 +770,7 @@ function genericPrintNoParens(path, options, print, args) {
         n.typeParameters ? path.call(print, "typeParameters") : "",
         " "
       );
-      
+
       if (n.heritage.length) {
         parts.push(
           "extends ",
@@ -778,9 +778,9 @@ function genericPrintNoParens(path, options, print, args) {
           " "
         );
       }
-      
+
       parts.push(path.call(print, "body"));
-      
+
       return concat(parts);
     case "ObjectExpression":
     case "ObjectPattern":
@@ -805,7 +805,7 @@ function genericPrintNoParens(path, options, print, args) {
       const parent = path.getParentNode(0);
       const parentIsUnionTypeAnnotation = parent.type === "UnionTypeAnnotation";
       let propertiesField;
-      
+
       if (n.type === 'TSTypeLiteral') {
         propertiesField = "members";
       } else if (n.type === "TSInterfaceBody") {
@@ -2427,6 +2427,68 @@ function genericPrintNoParens(path, options, print, args) {
       return path.call(function(bodyPath) {
         return printStatementSequence(bodyPath, options, print);
       }, "body");
+
+    // GraphQL
+    case "Document": {
+      return concat([
+        join(hardline, path.map(print, "definitions")),
+        hardline
+      ]);
+    }
+    case "OperationDefinition": {
+      return path.call(print, "selectionSet");
+    }
+    case "SelectionSet": {
+      return concat([
+        "{",
+        indent(
+          concat([
+            hardline,
+            concat(path.map(print, "selections"))
+          ])
+        ),
+        hardline,
+        "}"
+      ]);
+    }
+    case "Field": {
+      return group(
+        concat([
+          path.call(print, "name"),
+          n.arguments.length > 0
+            ? group(
+                concat([
+                  "(",
+                  indent(
+                    concat([
+                      softline,
+                      join(concat([",", softline]), path.map(print, "arguments"))
+                    ])
+                  ),
+                  softline,
+                  ") ",
+                ])
+              )
+            : "",
+          path.call(print, "selectionSet")
+        ])
+      );
+    }
+    case "Name": {
+      return n.value;
+    }
+    case "StringValue": {
+      return concat(['"', n.value, '"']);
+    }
+    case "Argument": {
+      return concat([
+        path.call(print, "name"),
+        ": ",
+        path.call(print, "value")
+      ])
+    }
+
+
     // TODO
     case "ClassHeritage":
     // TODO
@@ -2466,7 +2528,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "XMLComment":
     case "XMLProcessingInstruction":
     default:
-      throw new Error("unknown type: " + JSON.stringify(n.type));
+      throw new Error("unknown type: " + JSON.stringify(n.type || n.kind));
   }
 }
 
@@ -2737,7 +2799,7 @@ function printArgumentsList(path, options, print) {
 
 function printFunctionTypeParameters(path, options, print) {
   const fun = path.getValue();
-  
+
   if (fun.typeParameters) {
     return path.call(print, "typeParameters");
   } else {

@@ -14,6 +14,8 @@ function parse(text, opts) {
     parseFunction = parseWithFlow;
   } else if (opts.parser === "typescript") {
     parseFunction = parseWithTypeScript;
+  } else if (opts.parser === "graphql") {
+    parseFunction = parseWithGraphQL;
   } else {
     parseFunction = parseWithBabylon;
   }
@@ -136,6 +138,13 @@ function isProbablyJsx(text) {
     "|",
     "(^[^/]{2}.*\/>)" // Contains "/>" on line not starting with "//"
   ].join(""), "m").test(text);
+}
+
+function parseWithGraphQL(text) {
+  const r = require;
+  const parser = r("graphql/language");
+  const result = parser.parse(text);
+  return result;
 }
 
 module.exports = { parse };

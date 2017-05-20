@@ -16,7 +16,7 @@ const ALL_PARSERS = process.env["ALL_PARSERS"]
 function run_spec(dirname, options, additionalParsers) {
   fs.readdirSync(dirname).forEach(filename => {
     const extension = extname(filename);
-    if (/^\.[jt]sx?$/.test(extension) && filename !== "jsfmt.spec.js") {
+    if (/^\.([jt]sx?|graphql)$/.test(extension) && filename !== "jsfmt.spec.js") {
       const path = dirname + "/" + filename;
       const mergedOptions = mergeDefaultOptions(options || {});
 
