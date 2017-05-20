@@ -81,7 +81,11 @@ for (let v of e.entries()) {
   const [i, j]: [string, string] = v; // correct
 }
 
-e.getAll('content-type').forEach((v: string) => {}); // correct
+e.getAll('content-type'); // incorrect
+e.forEach((val: string) => val); // correct
+e.forEach((val: string, key: string) => \`\${key}: \${val}\`); // correct
+e.forEach((val: string, key: string, o: Headers) => {}); // correct
+e.forEach(() => {}, {}); // correct
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
@@ -110,7 +114,11 @@ for (let v of e.entries()) {
   const [i, j]: [string, string] = v; // correct
 }
 
-e.getAll("content-type").forEach((v: string) => {}); // correct
+e.getAll("content-type"); // incorrect
+e.forEach((val: string) => val); // correct
+e.forEach((val: string, key: string) => \`\${key}: \${val}\`); // correct
+e.forEach((val: string, key: string, o: Headers) => {}); // correct
+e.forEach(() => {}, {}); // correct
 
 `;
 
@@ -124,6 +132,7 @@ const e: Request = new Request(b, c); // incorrect
 
 const f: Request = new Request({}) // incorrect
 const g: Request = new Request('http://example.org', {}) // correct
+new Request(new URL('http://example.org')); // correct
 
 const h: Request = new Request('http://example.org', {
   method: 'GET',
@@ -174,14 +183,9 @@ const l: Request = new Request('http://example.org', {
   cache: 'default'
 }) // incorrect - headers is string
 
-const m: Request = new Request('http://example.org', {
-  method: 'CONNECT',
-  headers: {
-    'Content-Type': 'image/jpeg'
-  },
-  mode: 'cors',
-  cache: 'default'
-}) // incorrect - CONNECT is forbidden
+new Request('/', { method: 'post' }); // correct
+new Request('/', { method: 'hello' }); // correct
+new Request('/', { method: null }); // incorrect
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 const a: Request = new Request(); // incorrect
@@ -192,6 +196,7 @@ const e: Request = new Request(b, c); // incorrect
 
 const f: Request = new Request({}); // incorrect
 const g: Request = new Request("http://example.org", {}); // correct
+new Request(new URL("http://example.org")); // correct
 
 const h: Request = new Request("http://example.org", {
   method: "GET",
@@ -242,14 +247,9 @@ const l: Request = new Request("http://example.org", {
   cache: "default"
 }); // incorrect - headers is string
 
-const m: Request = new Request("http://example.org", {
-  method: "CONNECT",
-  headers: {
-    "Content-Type": "image/jpeg"
-  },
-  mode: "cors",
-  cache: "default"
-}); // incorrect - CONNECT is forbidden
+new Request("/", { method: "post" }); // correct
+new Request("/", { method: "hello" }); // correct
+new Request("/", { method: null }); // incorrect
 
 `;
 
@@ -259,13 +259,10 @@ const a: Response = new Response(); // correct
 const b: Response = new Response(new Blob()); // correct
 const c: Response = new Response(new FormData()); // correct
 
-const d: Response = new Response(new FormData(), {
-    status: 404
-}); // correct
-
-const e: Response = new Response("responsebody", {
-    status: "404"
-}); // incorrect
+new Response("", { status: 404 }); // correct
+new Response(null, { status: 204 }); // correct
+new Response("", { status: "404" }); // incorrect
+new Response("", { status: null }); // incorrect
 
 const f: Response = new Response("responsebody", {
     status: 404,
@@ -294,6 +291,7 @@ const i: Response = new Response({
 }); // incorrect
 
 const ok: boolean = h.ok;
+const redirected: boolean = h.redirected;
 const status: number = h.status;
 
 h.text().then((t: string) => t); // correct
@@ -306,13 +304,10 @@ const a: Response = new Response(); // correct
 const b: Response = new Response(new Blob()); // correct
 const c: Response = new Response(new FormData()); // correct
 
-const d: Response = new Response(new FormData(), {
-  status: 404
-}); // correct
-
-const e: Response = new Response("responsebody", {
-  status: "404"
-}); // incorrect
+new Response("", { status: 404 }); // correct
+new Response(null, { status: 204 }); // correct
+new Response("", { status: "404" }); // incorrect
+new Response("", { status: null }); // incorrect
 
 const f: Response = new Response("responsebody", {
   status: 404,
@@ -341,6 +336,7 @@ const i: Response = new Response({
 }); // incorrect
 
 const ok: boolean = h.ok;
+const redirected: boolean = h.redirected;
 const status: number = h.status;
 
 h.text().then((t: string) => t); // correct
@@ -379,6 +375,11 @@ for (let v of e.entries()) {
 }
 
 e.getAll('key1').forEach((v: string) => {}); // correct
+
+e.forEach((val: string) => val); // correct
+e.forEach((val: string, key: string) => \`\${key}: \${val}\`); // correct
+e.forEach((val: string, key: string, o: URLSearchParams) => {}); // correct
+e.forEach(() => {}, {}); // correct
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
@@ -408,5 +409,10 @@ for (let v of e.entries()) {
 }
 
 e.getAll("key1").forEach((v: string) => {}); // correct
+
+e.forEach((val: string) => val); // correct
+e.forEach((val: string, key: string) => \`\${key}: \${val}\`); // correct
+e.forEach((val: string, key: string, o: URLSearchParams) => {}); // correct
+e.forEach(() => {}, {}); // correct
 
 `;

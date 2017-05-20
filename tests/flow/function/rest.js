@@ -59,3 +59,6 @@ function return_rest_param<Args:Array<mixed>>(
     return args; // Error: Array ~> number
   }
 }
+
+function requires_first_param(x: number, ...rest: Array<number>): void {}
+requires_first_param(); // Error: missing first arg

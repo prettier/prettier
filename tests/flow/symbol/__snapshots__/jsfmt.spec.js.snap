@@ -4,13 +4,11 @@ exports[`symbol.js 1`] = `
 var FOO = Symbol();
 var BAR = Symbol('bar');
 
-// TODO: Expected error
-var WAT = Symbol('foo', 'bar');
+var WAT = Symbol('foo', 'bar'); // Error - unused argument
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var FOO = Symbol();
 var BAR = Symbol("bar");
 
-// TODO: Expected error
-var WAT = Symbol("foo", "bar");
+var WAT = Symbol("foo", "bar"); // Error - unused argument
 
 `;

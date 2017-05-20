@@ -22,7 +22,5 @@ new Date(2015, 6, 18, '11');
 new Date(2015, 6, 18, 11, '55');
 new Date(2015, 6, 18, 11, 55, '42');
 new Date(2015, 6, 18, 11, 55, 42, '999');
-
-// invalid constructors that we incorrectly consider valid
-new Date('2015', 6);
 new Date(2015, 6, 18, 11, 55, 42, 999, 'hahaha');
+new Date('2015', 6);
