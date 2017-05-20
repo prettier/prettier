@@ -16,6 +16,7 @@ const argv = minimist(process.argv.slice(2), {
     "write",
     "stdin",
     "use-tabs",
+    "keep-indentation",
     "semi",
     "single-quote",
     "bracket-spacing",
@@ -131,6 +132,7 @@ const options = {
   semi: argv["semi"],
   printWidth: getIntOption("print-width"),
   tabWidth: getIntOption("tab-width"),
+  keepIndentation: argv["keep-indentation"],
   bracketSpacing: argv["bracket-spacing"],
   singleQuote: argv["single-quote"],
   jsxBracketSameLine: argv["jsx-bracket-same-line"],
@@ -210,6 +212,7 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
       "  --print-width <int>      Specify the length of line that the printer will wrap on. Defaults to 80.\n" +
       "  --tab-width <int>        Specify the number of spaces per indentation-level. Defaults to 2.\n" +
       "  --use-tabs               Indent lines with tabs instead of spaces.\n" +
+      "  --keep-indentation       Keep input indentation (read from first line).\n" +
       "  --no-semi                Do not print semicolons, except at the beginning of lines which may need them.\n" +
       "  --single-quote           Use single quotes instead of double quotes.\n" +
       "  --no-bracket-spacing     Do not print spaces between brackets.\n" +
