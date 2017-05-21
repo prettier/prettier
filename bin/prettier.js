@@ -232,8 +232,8 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
       "  --trailing-comma <none|es5|all>\n" +
       "                           Print trailing commas wherever possible. Defaults to none.\n" +
       "  --parser <flow|babylon>  Specify which parse to use. Defaults to babylon.\n" +
-      "  --range-start <int>      Format code starting at a given character offset. The range will extend backwards to the start of the line. Defaults to 0.\n" +
-      "  --range-end <int>        Format code ending at a given character offset (exclusive). The range will extend forwards to the end of the line. Defaults to Infinity.\n" +
+      "  --range-start <int>      Format code starting at a given character offset. The range will extend backwards to the start of the first line containing the node. Defaults to 0.\n" +
+      "  --range-end <int>        Format code ending at a given character offset (exclusive). The range will extend forwards to the end of the last line containing the node. Defaults to Infinity.\n" +
       "  --no-color               Do not colorize error messages.\n" +
       "  --version or -v          Print Prettier version.\n" +
       "\n"

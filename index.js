@@ -54,12 +54,13 @@ function ensureAllCommentsPrinted(astComments) {
 function format(text, opts, addAlignmentSize) {
   addAlignmentSize = addAlignmentSize || 0;
 
-  const formattedRangeOnly = formatRange(text, opts);
+  const ast = parser.parse(text, opts);
+
+  const formattedRangeOnly = formatRange(text, opts, ast);
   if (formattedRangeOnly) {
     return formattedRangeOnly;
   }
 
-  const ast = parser.parse(text, opts);
   const astComments = attachComments(text, ast, opts);
   const doc = printAstToDoc(ast, opts, addAlignmentSize);
   opts.newLine = guessLineEnding(text);
@@ -105,8 +106,9 @@ function nodeContainsOffset(node, offset) {
   return start <= offset && offset <= end;
 }
 
-function extendRangeStart(text, opts) {
-  const rangeStart = opts.rangeStart;
+function extendRangeStart(text, opts, ast) {
+  const startNode = findNodeByOffset(ast, opts.rangeStart, opts.parser)
+  const rangeStart = util.locStart(startNode)
   // Use `Math.min` since `lastIndexOf` returns 0 when `rangeStart` is 0
   return Math.min(
     rangeStart,
@@ -114,19 +116,20 @@ function extendRangeStart(text, opts) {
   );
 }
 
-function extendRangeEnd(text, opts) {
-  const rangeEnd = opts.rangeEnd;
+function extendRangeEnd(text, opts, ast) {
+  const endNode = findNodeByOffset(ast, opts.rangeEnd, opts.parser)
+  const rangeEnd = util.locEnd(endNode)
   // Use `text.length - 1` as the maximum since `indexOf` returns -1 if `fromIndex >= text.length`
   const fromIndex = Math.min(rangeEnd, text.length - 1);
   const nextNewLineIndex = text.indexOf("\n", fromIndex);
   return (nextNewLineIndex < 0 ? fromIndex : nextNewLineIndex) + 1; // Add one to make rangeEnd exclusive
 }
 
-function formatRange(text, opts) {
-  const rangeStart = extendRangeStart(text, opts);
-  const rangeEnd = extendRangeEnd(text, opts);
+function formatRange(text, opts, ast) {
+  if (0 < opts.rangeStart || opts.rangeEnd < text.length) {
+    const rangeStart = extendRangeStart(text, opts, ast);
+    const rangeEnd = extendRangeEnd(text, opts, ast);
 
-  if (0 < rangeStart || rangeEnd < text.length) {
     const rangeString = text.substring(rangeStart, rangeEnd);
     const alignmentSize = util.getAlignmentSize(
       rangeString.slice(0, rangeString.search(/[^ \t]/)),
