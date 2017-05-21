@@ -13,6 +13,26 @@ class C {
 
 `;
 
+exports[`anyIsAssignableToObject.ts 1`] = `
+interface P {
+    p: {};
+}
+
+interface Q extends P { // Check assignability here. Any is assignable to {}
+    p: any;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+interface P {
+  p: {};
+}
+
+interface Q extends P {
+  // Check assignability here. Any is assignable to {}
+  p: any;
+}
+
+`;
+
 exports[`badArrayIndex.ts 1`] = `
 var results = number[];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
