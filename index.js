@@ -118,17 +118,13 @@ function nodeContainsOffsetAndParses(node, offset, opts, text) {
 function extendRangeStart(text, opts, ast) {
   const startNode = findNodeByOffset(ast, opts.rangeStart, opts, text);
   const rangeStart = util.locStart(startNode);
-  // Use `Math.min` since `lastIndexOf` returns 0 when `rangeStart` is 0
-  return Math.min(rangeStart, text.lastIndexOf("\n", rangeStart) + 1);
+  return rangeStart;
 }
 
 function extendRangeEnd(text, opts, ast) {
   const endNode = findNodeByOffset(ast, opts.rangeEnd, opts, text);
   const rangeEnd = util.locEnd(endNode);
-  // Use `text.length - 1` as the maximum since `indexOf` returns -1 if `fromIndex >= text.length`
-  const fromIndex = Math.min(rangeEnd, text.length - 1);
-  const nextNewLineIndex = text.indexOf("\n", fromIndex);
-  return (nextNewLineIndex < 0 ? fromIndex : nextNewLineIndex) + 1; // Add one to make rangeEnd exclusive
+  return rangeEnd;
 }
 
 function formatRange(text, opts, ast) {
@@ -152,7 +148,11 @@ function formatRange(text, opts, ast) {
       alignmentSize
     );
 
-    return text.slice(0, rangeStart) + rangeFormatted + text.slice(rangeEnd);
+    const rangeTrimmed = rangeString.endsWith("\n")
+      ? rangeFormatted
+      : rangeFormatted.trimRight();
+
+    return text.slice(0, rangeStart) + rangeTrimmed + text.slice(rangeEnd);
   }
 }
 
