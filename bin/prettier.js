@@ -9,6 +9,8 @@ const chalk = require("chalk");
 const minimist = require("minimist");
 const readline = require("readline");
 const prettier = require("../index");
+const pkgConf = require("pkg-conf");
+const dashify = require("dashify");
 const cleanAST = require('../src/clean-ast.js').cleanAST;
 
 const argv = minimist(process.argv.slice(2), {
@@ -34,7 +36,10 @@ const argv = minimist(process.argv.slice(2), {
     "flow-parser"
   ],
   string: ["print-width", "tab-width", "parser", "trailing-comma"],
-  default: { semi: true, color: true, "bracket-spacing": true, parser: "babylon" },
+  default: Object.assign(
+    { semi: true, color: true, "bracket-spacing": true, parser: "babylon" },
+    dashifyConfig(pkgConf.sync("prettier", process.cwd()))
+  ),
   alias: { help: "h", version: "v", "list-different": "l" },
   unknown: param => {
     if (param.startsWith("-")) {
@@ -315,6 +320,15 @@ if (stdin) {
       process.stdout.write(output);
     }
   });
+}
+
+function dashifyConfig(config = {}) {
+  const result = {};
+
+  for (let name in config) {
+    result[dashify(name)] = config[name];
+  }
+  return result;
 }
 
 function eachFilename(patterns, callback) {
