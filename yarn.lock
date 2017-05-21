@@ -1529,11 +1529,7 @@ jest-diff@^20.0.0:
     jest-matcher-utils "^20.0.0"
     pretty-format "^20.0.0"
 
-jest-docblock@^20.0.0:
-  version "20.0.0"
-  resolved "https://registry.yarnpkg.com/jest-docblock/-/jest-docblock-20.0.0.tgz#5b647c4af36f52dae74df1949a8cb418d146ad3a"
-
-jest-docblock@^20.0.1:
+jest-docblock@^20.0.0, jest-docblock@^20.0.1:
   version "20.0.3"
   resolved "https://registry.yarnpkg.com/jest-docblock/-/jest-docblock-20.0.3.tgz#17bea984342cc33d83c50fbe1545ea0efaa44712"
 
