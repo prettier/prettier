@@ -49,18 +49,20 @@ function shouldPrintComma(options, level) {
   }
 }
 
+function includesIgnoreComment(comments) {
+  return (
+    comments &&
+    comments.some(comment => comment.value.trim() === "prettier-ignore")
+  );
+}
+
 function genericPrint(path, options, printPath, args) {
   assert.ok(path instanceof FastPath);
 
   const node = path.getValue();
 
   // Escape hatch
-  if (
-    node &&
-    node.comments &&
-    node.comments.length > 0 &&
-    node.comments.some(comment => comment.value.trim() === "prettier-ignore")
-  ) {
+  if (node && includesIgnoreComment(node.comments)) {
     return options.originalText.slice(util.locStart(node), util.locEnd(node));
   }
 
@@ -4296,4 +4298,4 @@ function printAstToDoc(ast, options) {
   return doc;
 }
 
-module.exports = { printAstToDoc };
+module.exports = { printAstToDoc, includesIgnoreComment };
