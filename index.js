@@ -70,16 +70,26 @@ function format(text, opts, addAlignmentSize) {
   return str;
 }
 
-function formatRange(text, opts) {
+function extendRangeStart(text, opts) {
+  const rangeStart = opts.rangeStart;
   // Use `Math.min` since `lastIndexOf` returns 0 when `rangeStart` is 0
-  const rangeStart = Math.min(
-    opts.rangeStart,
-    text.lastIndexOf("\n", opts.rangeStart) + 1
+  return Math.min(
+    rangeStart,
+    text.lastIndexOf("\n", rangeStart) + 1
   );
+}
+
+function extendRangeEnd(text, opts) {
+  const rangeEnd = opts.rangeEnd;
   // Use `text.length - 1` as the maximum since `indexOf` returns -1 if `fromIndex >= text.length`
-  const fromIndex = Math.min(opts.rangeEnd, text.length - 1);
+  const fromIndex = Math.min(rangeEnd, text.length - 1);
   const nextNewLineIndex = text.indexOf("\n", fromIndex);
-  const rangeEnd = (nextNewLineIndex < 0 ? fromIndex : nextNewLineIndex) + 1; // Add one to make rangeEnd exclusive
+  return (nextNewLineIndex < 0 ? fromIndex : nextNewLineIndex) + 1; // Add one to make rangeEnd exclusive
+}
+
+function formatRange(text, opts) {
+  const rangeStart = extendRangeStart(text, opts);
+  const rangeEnd = extendRangeEnd(text, opts);
 
   if (0 < rangeStart || rangeEnd < text.length) {
     const rangeString = text.substring(rangeStart, rangeEnd);
