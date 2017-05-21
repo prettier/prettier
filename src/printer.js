@@ -2414,7 +2414,8 @@ function genericPrintNoParens(path, options, print, args) {
         // declare global { ... }
         const isGlobalDeclaration = n.name.type === "Identifier" &&
           n.name.name === "global" &&
-            n.modifiers.some(modifier => modifier.type === "TSDeclareKeyword");
+            n.modifiers &&
+              n.modifiers.some(modifier => modifier.type === "TSDeclareKeyword");
 
         if (!isGlobalDeclaration) {
           parts.push(isExternalModule ? "module " : "namespace ");
