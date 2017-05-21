@@ -1,4 +1,4 @@
-;;; prettier-js.el --- utility functions to format reason code
+;;; prettier-js.el --- Emacs minor mode to format JS code on file save
 
 ;; Version: 0.1.0
 
