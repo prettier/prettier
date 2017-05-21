@@ -237,4 +237,4 @@ function."
 
 (provide 'prettier-js)
 
-;; prettier-js ends here
+;; prettier-js.el ends here
