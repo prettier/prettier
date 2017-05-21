@@ -1,3 +1,5 @@
+"use strict";
+
 const RAW = Symbol.for("raw");
 
 module.exports = {

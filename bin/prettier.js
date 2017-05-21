@@ -129,6 +129,7 @@ function getTrailingComma() {
         "Warning: `--trailing-comma` was used without an argument. This is deprecated. " +
           'Specify "none", "es5", or "all".'
       );
+      return "es5";
     case "es5":
       return "es5";
     case "all":

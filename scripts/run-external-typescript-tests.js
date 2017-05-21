@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * There's an issue with this script's assumption that each run of prettier
  * will result in one output to stderr or stdout.
@@ -18,7 +20,6 @@ const spawn = require("child_process").spawn;
 const rimraf = require("rimraf");
 
 const tsRoot = path.resolve(__dirname, "../../TypeScript");
-const packageJson = path.resolve(tsRoot, "package.json");
 const testsDir = path.relative(process.cwd(), path.join(tsRoot, "tests"));
 const errorsPath = "./errors/";
 const fileGlob = path.join(testsDir, "**/*.ts");
@@ -43,7 +44,7 @@ const cp = spawn("node", [
   fileGlob
 ]);
 
-cp.stdout.on("data", out => {
+cp.stdout.on("data", () => {
   good++;
   printStatus();
 });
@@ -60,7 +61,7 @@ cp.stderr.on("data", err => {
   printStatus();
 });
 
-cp.on("close", code => {
+cp.on("close", () => {
   const total = badFiles.length + good + skipped;
   const percentNoError = (100 * (good + skipped) / total).toFixed(0);
   console.log(

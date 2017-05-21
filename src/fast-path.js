@@ -268,7 +268,7 @@ FPp.needsParens = function() {
             (node.operator === "--" && parent.operator === "-"))
         );
       }
-    // else fall through
+    // else fallthrough
     case "UnaryExpression":
       switch (parent.type) {
         case "UnaryExpression":
@@ -294,11 +294,11 @@ FPp.needsParens = function() {
           return false;
       }
 
-    case "BinaryExpression":
+    case "BinaryExpression": {
       const isLeftOfAForStatement = node => {
         let i = 0;
         while (node) {
-          let parent = this.getParentNode(i++);
+          const parent = this.getParentNode(i++);
           if (!parent) {
             return false;
           }
@@ -312,7 +312,8 @@ FPp.needsParens = function() {
       if (node.operator === "in" && isLeftOfAForStatement(node)) {
         return true;
       }
-    // else fall through
+    }
+    // fallthrough
     case "TSTypeAssertionExpression":
     case "TSAsExpression":
     case "LogicalExpression":
@@ -333,7 +334,7 @@ FPp.needsParens = function() {
           return name === "object" && parent.object === node;
 
         case "BinaryExpression":
-        case "LogicalExpression":
+        case "LogicalExpression": {
           const po = parent.operator;
           const pp = util.getPrecedence(po);
           const no = node.operator;
@@ -361,6 +362,9 @@ FPp.needsParens = function() {
           if (["|", "^", "&", ">>", "<<", ">>>"].indexOf(po) !== -1) {
             return true;
           }
+
+          return false;
+        }
 
         default:
           return false;
@@ -394,7 +398,7 @@ FPp.needsParens = function() {
       ) {
         return true;
       }
-    // else fall through
+    // else fallthrough
     case "AwaitExpression":
       switch (parent.type) {
         case "TaggedTemplateExpression":
@@ -577,7 +581,7 @@ function containsCallExpression(node) {
   }
 
   if (n.Node.check(node)) {
-    return types.someField(node, function(name, child) {
+    return types.someField(node, (name, child) => {
       return containsCallExpression(child);
     });
   }

@@ -247,8 +247,8 @@ const PRECEDENCE = {};
   ["+", "-"],
   ["*", "/", "%"],
   ["**"]
-].forEach(function(tier, i) {
-  tier.forEach(function(op) {
+].forEach((tier, i) => {
+  tier.forEach(op => {
     PRECEDENCE[op] = i;
   });
 });

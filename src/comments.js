@@ -284,7 +284,7 @@ function attach(comments, ast, text) {
 
   breakTies(tiesToBreak, text);
 
-  comments.forEach(function(comment) {
+  comments.forEach(comment => {
     // These node references were useful for breaking ties, but we
     // don't need them anymore, and they create cycles in the AST that
     // may lead to infinite recursion if we don't delete them here.
@@ -327,7 +327,7 @@ function breakTies(tiesToBreak, text) {
     gapEndPos = locStart(comment);
   }
 
-  tiesToBreak.forEach(function(comment, i) {
+  tiesToBreak.forEach((comment, i) => {
     if (i < indexOfFirstLeadingComment) {
       addTrailingComment(precedingNode, comment);
     } else {
@@ -917,7 +917,7 @@ function printComments(path, print, options, needsSemi) {
   const leadingParts = [];
   const trailingParts = [needsSemi ? ";" : "", printed];
 
-  path.each(function(commentPath) {
+  path.each(commentPath => {
     const comment = commentPath.getValue();
     const leading = types.getFieldValue(comment, "leading");
     const trailing = types.getFieldValue(comment, "trailing");

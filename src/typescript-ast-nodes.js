@@ -1,3 +1,5 @@
+"use strict";
+
 module.exports = function(fork) {
   fork.use(require("ast-types/def/es7"));
 

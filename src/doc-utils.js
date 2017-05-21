@@ -62,7 +62,7 @@ function mapDoc(doc, func) {
 function findInDoc(doc, fn, defaultValue) {
   let result = defaultValue;
   let hasStopped = false;
-  traverseDoc(doc, function(doc) {
+  traverseDoc(doc, doc => {
     const maybeResult = fn(doc);
     if (maybeResult !== undefined) {
       hasStopped = true;

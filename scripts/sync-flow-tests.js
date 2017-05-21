@@ -1,3 +1,5 @@
+"use strict";
+
 const fs = require("fs");
 const flowParser = require("flow-parser");
 const glob = require("glob");

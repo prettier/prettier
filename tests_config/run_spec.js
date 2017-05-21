@@ -3,7 +3,6 @@
 const fs = require("fs");
 const extname = require("path").extname;
 const prettier = require("../");
-const types = require("../src/ast-types");
 const parser = require("../src/parser");
 const massageAST = require("../src/clean-ast.js").massageAST;
 
@@ -76,7 +75,7 @@ function stripLocation(ast) {
   }
   if (typeof ast === "object") {
     const newObj = {};
-    for (var key in ast) {
+    for (const key in ast) {
       if (
         key === "loc" ||
         key === "range" ||
