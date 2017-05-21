@@ -256,10 +256,11 @@ if (stdin) {
 
     if (argv["list-different"]) {
       if (!prettier.check(input, options)) {
-        console.log(filename);
+        if (!write) {
+          console.log(filename);
+        }
         process.exitCode = 1;
       }
-      return;
     }
 
     const start = Date.now();
@@ -284,9 +285,15 @@ if (stdin) {
       // Don't write the file if it won't change in order not to invalidate
       // mtime based caches.
       if (output === input) {
-        console.log(chalk.grey("%s %dms"), filename, Date.now() - start);
+        if (!argv["list-different"]) {
+          console.log(chalk.grey("%s %dms"), filename, Date.now() - start);
+        }
       } else {
-        console.log("%s %dms", filename, Date.now() - start);
+        if (argv["list-different"]) {
+          console.log(filename);
+        } else {
+          console.log("%s %dms", filename, Date.now() - start);
+        }
 
         try {
           fs.writeFileSync(filename, output, "utf8");
@@ -303,7 +310,7 @@ if (stdin) {
       } else {
         process.exitCode = 2;
       }
-    } else {
+    } else if (!argv["list-different"]) {
       // Don't use `console.log` here since it adds an extra newline at the end.
       process.stdout.write(output);
     }
