@@ -73,13 +73,13 @@ function format(text, opts, addAlignmentSize) {
   return str;
 }
 
-function findNodeByOffset(ast, offset, parser) {
+function findNodeByOffset(ast, offset, opts, text) {
   let resultNode;
-  if (parser === "babylon") {
+  if (opts.parser === "babylon") {
     traverse(ast, {
       enter: function(path) {
         const node = path.node;
-        if (nodeContainsOffset(node, offset)) {
+        if (nodeContainsOffsetAndParses(node, offset, opts, text)) {
           resultNode = node;
         } else {
           return path.skip();
@@ -89,7 +89,7 @@ function findNodeByOffset(ast, offset, parser) {
   } else {
     estraverse.traverse(ast, {
       enter: function(node) {
-        if (nodeContainsOffset(node, offset)) {
+        if (nodeContainsOffsetAndParses(node, offset, opts, text)) {
           resultNode = node;
         } else {
           return this.skip();
@@ -100,21 +100,30 @@ function findNodeByOffset(ast, offset, parser) {
   return resultNode;
 }
 
-function nodeContainsOffset(node, offset) {
+function nodeContainsOffsetAndParses(node, offset, opts, text) {
   const start = util.locStart(node);
   const end = util.locEnd(node);
-  return start <= offset && offset <= end;
+  if (start <= offset && offset <= end) {
+    try {
+      parser.parse(text.slice(start, end), opts);
+      return true;
+    } catch (err) {
+      return false;
+    }
+  } else {
+    return false;
+  }
 }
 
 function extendRangeStart(text, opts, ast) {
-  const startNode = findNodeByOffset(ast, opts.rangeStart, opts.parser);
+  const startNode = findNodeByOffset(ast, opts.rangeStart, opts, text);
   const rangeStart = util.locStart(startNode);
   // Use `Math.min` since `lastIndexOf` returns 0 when `rangeStart` is 0
   return Math.min(rangeStart, text.lastIndexOf("\n", rangeStart) + 1);
 }
 
 function extendRangeEnd(text, opts, ast) {
-  const endNode = findNodeByOffset(ast, opts.rangeEnd, opts.parser);
+  const endNode = findNodeByOffset(ast, opts.rangeEnd, opts, text);
   const rangeEnd = util.locEnd(endNode);
   // Use `text.length - 1` as the maximum since `indexOf` returns -1 if `fromIndex >= text.length`
   const fromIndex = Math.min(rangeEnd, text.length - 1);
