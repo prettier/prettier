@@ -5,7 +5,7 @@ const extname = require("path").extname;
 const prettier = require("../");
 const types = require("../src/ast-types");
 const parser = require("../src/parser");
-const massageAST = require('../src/clean-ast.js').massageAST;
+const massageAST = require("../src/clean-ast.js").massageAST;
 
 const AST_COMPARE = process.env["AST_COMPARE"];
 const VERIFY_ALL_PARSERS = process.env["VERIFY_ALL_PARSERS"] || false;
@@ -48,7 +48,10 @@ function run_spec(dirname, options, additionalParsers) {
         let ppastMassaged;
         let pperr = null;
         try {
-          const ppast = parse(prettyprint(source, path, mergedOptions), mergedOptions)
+          const ppast = parse(
+            prettyprint(source, path, mergedOptions),
+            mergedOptions
+          );
           ppastMassaged = massageAST(ppast);
         } catch (e) {
           pperr = e.stack;
@@ -75,7 +78,10 @@ function stripLocation(ast) {
     const newObj = {};
     for (var key in ast) {
       if (
-        key === "loc" || key === "range" || key === "raw" || key === "comments"
+        key === "loc" ||
+        key === "range" ||
+        key === "raw" ||
+        key === "comments"
       ) {
         continue;
       }

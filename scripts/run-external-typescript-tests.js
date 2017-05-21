@@ -83,13 +83,15 @@ function writeErrorsToFiles() {
   fs.mkdirSync(errorsPath);
   Object.keys(errorTypes).forEach(errorType => {
     const files = badFiles.filter(f => f.errorType === errorType);
-    const contents = files.map(({ file, error }) => {
-      // Trim file name from error.
-      if (error.startsWith(file)) {
-        error = error.substring(file.length);
-      }
-      return `\n\n${file}\n${error}\n${splitter}\n`;
-    }).join("\n");
+    const contents = files
+      .map(({ file, error }) => {
+        // Trim file name from error.
+        if (error.startsWith(file)) {
+          error = error.substring(file.length);
+        }
+        return `\n\n${file}\n${error}\n${splitter}\n`;
+      })
+      .join("\n");
     fs.writeFileSync(
       path.join(errorsPath, sanitize(errorType) + ".log"),
       contents
