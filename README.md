@@ -18,6 +18,7 @@
   * [Vim](#vim)
     + [Other `autocmd` events](#other-autocmd-events)
     + [Customizing Prettier in Vim](#customizing-prettier-in-vim)
+    + [Running Prettier manually in Vim](#running-prettier-manually-in-vim)
   * [Visual Studio Code](#visual-studio-code)
   * [Visual Studio](#visual-studio)
   * [Sublime Text](#sublime-text)
@@ -348,6 +349,16 @@ let g:neoformat_try_formatprg = 1
 ```
 
 Each option needs to be escaped with `\`.
+
+#### Running Prettier manually in Vim
+
+If you need a little more control over when prettier is run, you can create a
+custom key binding. In this example, `gp` (mnemonic: "get pretty") is used to
+run prettier (with options) in the currently active buffer:
+
+```vim
+nnoremap gp :silent %!prettier --stdin --trailing-comma all --single-quote<CR>
+```
 
 ### Visual Studio Code
 
