@@ -1,9 +1,11 @@
 "use strict";
 
+const traverse = require("babel-traverse").default;
+const estraverse = require("estraverse");
 const comments = require("./src/comments");
 const version = require("./package.json").version;
 const printAstToDoc = require("./src/printer").printAstToDoc;
-const getAlignmentSize = require("./src/util").getAlignmentSize;
+const util = require("./src/util");
 const printDocToString = require("./src/doc-printer").printDocToString;
 const normalizeOptions = require("./src/options").normalize;
 const parser = require("./src/parser");
@@ -70,6 +72,39 @@ function format(text, opts, addAlignmentSize) {
   return str;
 }
 
+function findNodeByOffset(ast, offset, parser) {
+  let resultNode;
+  if (parser === 'babylon') {
+    traverse(ast, {
+      enter: function(path) {
+        const node = path.node;
+        if (nodeContainsOffset(node, offset)) {
+          resultNode = node;
+        } else {
+          return path.skip();
+        }
+      }
+    });
+  } else {
+    estraverse.traverse(ast, {
+      enter: function(node) {
+        if (nodeContainsOffset(node, offset)) {
+          resultNode = node;
+        } else {
+          return this.skip();
+        }
+      }
+    });
+  }
+  return resultNode;
+}
+
+function nodeContainsOffset(node, offset) {
+  const start = util.locStart(node);
+  const end = util.locEnd(node);
+  return start <= offset && offset <= end;
+}
+
 function extendRangeStart(text, opts) {
   const rangeStart = opts.rangeStart;
   // Use `Math.min` since `lastIndexOf` returns 0 when `rangeStart` is 0
@@ -93,7 +128,7 @@ function formatRange(text, opts) {
 
   if (0 < rangeStart || rangeEnd < text.length) {
     const rangeString = text.substring(rangeStart, rangeEnd);
-    const alignmentSize = getAlignmentSize(
+    const alignmentSize = util.getAlignmentSize(
       rangeString.slice(0, rangeString.search(/[^ \t]/)),
       opts.tabWidth
     );
