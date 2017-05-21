@@ -36,7 +36,7 @@ function syncTests(syncDir) {
         "Couldn't find any files to copy.",
         `Please make sure that \`${syncDir}\` exists and contains the flow tests.`
       ].join("\n")
-    )
+    );
   }
 
   const specContents = specFiles.reduce((obj, specFile) => {
