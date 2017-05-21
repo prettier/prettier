@@ -1529,11 +1529,7 @@ jest-diff@^20.0.0:
     jest-matcher-utils "^20.0.0"
     pretty-format "^20.0.0"
 
-jest-docblock@^20.0.0:
-  version "20.0.0"
-  resolved "https://registry.yarnpkg.com/jest-docblock/-/jest-docblock-20.0.0.tgz#5b647c4af36f52dae74df1949a8cb418d146ad3a"
-
-jest-docblock@^20.0.1:
+jest-docblock@^20.0.0, jest-docblock@^20.0.1:
   version "20.0.3"
   resolved "https://registry.yarnpkg.com/jest-docblock/-/jest-docblock-20.0.3.tgz#17bea984342cc33d83c50fbe1545ea0efaa44712"
 
@@ -2692,9 +2688,9 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-"typescript-eslint-parser@git://github.com/eslint/typescript-eslint-parser.git#3f9f41c7d8bcdaa3fbd68767e390f07f05555c3a":
+"typescript-eslint-parser@git://github.com/eslint/typescript-eslint-parser.git#b7220fdbf5a923c64bb6e5bbbfc2ad689ec779eb":
   version "3.0.0"
-  resolved "git://github.com/eslint/typescript-eslint-parser.git#3f9f41c7d8bcdaa3fbd68767e390f07f05555c3a"
+  resolved "git://github.com/eslint/typescript-eslint-parser.git#b7220fdbf5a923c64bb6e5bbbfc2ad689ec779eb"
   dependencies:
     lodash.unescape "4.0.1"
     semver "5.3.0"
