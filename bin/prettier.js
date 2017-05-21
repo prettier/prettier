@@ -33,7 +33,7 @@ const argv = minimist(process.argv.slice(2), {
     // Deprecated in 0.0.10
     "flow-parser"
   ],
-  string: ["print-width", "tab-width", "parser", "trailing-comma"],
+  string: ["print-width", "tab-width", "parser", "trailing-comma", "range-start", "range-end"],
   default: { semi: true, color: true, "bracket-spacing": true, parser: "babylon" },
   alias: { help: "h", version: "v", "list-different": "l" },
   unknown: param => {
@@ -127,6 +127,8 @@ function getTrailingComma() {
 }
 
 const options = {
+  rangeStart: getIntOption("range-start"),
+  rangeEnd: getIntOption("range-end"),
   useTabs: argv["use-tabs"],
   semi: argv["semi"],
   printWidth: getIntOption("print-width"),
@@ -217,6 +219,8 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
       "  --trailing-comma <none|es5|all>\n" +
       "                           Print trailing commas wherever possible. Defaults to none.\n" +
       "  --parser <flow|babylon>  Specify which parse to use. Defaults to babylon.\n" +
+      "  --range-start <int>      Format code starting at a given character offset. The range will extend backwards to the start of the line. Defaults to 0.\n" +
+      "  --range-end <int>        Format code ending at a given character offset (exclusive). The range will extend forwards to the end of the line. Defaults to Infinity.\n" +
       "  --no-color               Do not colorize error messages.\n" +
       "  --version or -v          Print Prettier version.\n" +
       "\n"

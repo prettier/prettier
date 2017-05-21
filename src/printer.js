@@ -21,6 +21,7 @@ const fill = docBuilders.fill;
 const ifBreak = docBuilders.ifBreak;
 const breakParent = docBuilders.breakParent;
 const lineSuffixBoundary = docBuilders.lineSuffixBoundary;
+const addAlignmentToDoc = docBuilders.addAlignmentToDoc;
 
 const docUtils = require("./doc-utils");
 const willBreak = docUtils.willBreak;
@@ -1670,31 +1671,14 @@ function genericPrintNoParens(path, options, print, args) {
           const index = value.lastIndexOf('\n');
           const tabWidth = options.tabWidth;
           if (index !== -1) {
-            for (let i = index + 1; i < value.length; ++i) {
-              if (value[i] === '\t') {
-                // Tabs behave in a way that they are aligned to the nearest
-                // multiple of tabWidth:
-                // 0 -> 4, 1 -> 4, 2 -> 4, 3 -> 4
-                // 4 -> 8, 5 -> 8, 6 -> 8, 7 -> 8 ...
-                size = size + tabWidth - size % tabWidth;
-              } else {
-                size++;
-              }
-            }
+            size = util.getAlignmentSize(value, tabWidth, index + 1);
           }
 
-          let aligned = removeLines(expressions[i]);
-          if (size > 0) {
-            // Use indent to add tabs for all the levels of tabs we need
-            for (let i = 0; i < Math.floor(size / tabWidth); ++i) {
-              aligned = indent(aligned);
-            }
-            // Use align for all the spaces that are needed
-            aligned = align(size % tabWidth, aligned);
-            // size is absolute from 0 and not relative to the current
-            // indentation, so we use -Infinity to reset the indentation to 0
-            aligned = align(-Infinity, aligned);
-          }
+          let aligned = addAlignmentToDoc(
+            removeLines(expressions[i]),
+            size,
+            tabWidth
+          );
 
           parts.push(
             "${",
@@ -4281,7 +4265,9 @@ function removeLines(doc) {
   });
 }
 
-function printAstToDoc(ast, options) {
+function printAstToDoc(ast, options, addAlignmentSize) {
+  addAlignmentSize = addAlignmentSize || 0;
+
   function printGenerically(path, args) {
     return comments.printComments(
       path,
@@ -4291,7 +4277,16 @@ function printAstToDoc(ast, options) {
     );
   }
 
-  const doc = printGenerically(FastPath.from(ast));
+  let doc = printGenerically(FastPath.from(ast));
+  if (addAlignmentSize > 0) {
+    // Add a hardline to make the indents take effect
+    // It should be removed in index.js format()
+    doc = addAlignmentToDoc(
+      removeLines(concat([hardline, doc])),
+      addAlignmentSize,
+      options.tabWidth
+    );
+  }
   docUtils.propagateBreaks(doc);
   return doc;
 }
