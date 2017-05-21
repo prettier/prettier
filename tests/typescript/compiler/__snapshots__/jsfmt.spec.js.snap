@@ -194,6 +194,12 @@ interface i2 {
 
 `;
 
+exports[`downlevelLetConst1.ts 1`] = `
+const~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const;
+
+`;
+
 exports[`errorOnInitializerInInterfaceProperty.ts 1`] = `
 interface Foo {
     bar: number = 5;
