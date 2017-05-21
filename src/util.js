@@ -320,6 +320,25 @@ function isBlockComment(comment) {
   return comment.type === "Block" || comment.type === "CommentBlock";
 }
 
+function getAlignmentSize(value, tabWidth, startIndex) {
+  startIndex = startIndex || 0;
+
+  let size = 0;
+  for (let i = startIndex; i < value.length; ++i) {
+    if (value[i] === '\t') {
+      // Tabs behave in a way that they are aligned to the nearest
+      // multiple of tabWidth:
+      // 0 -> 4, 1 -> 4, 2 -> 4, 3 -> 4
+      // 4 -> 8, 5 -> 8, 6 -> 8, 7 -> 8 ...
+      size = size + tabWidth - size % tabWidth;
+    } else {
+      size++;
+    }
+  }
+
+  return size;
+}
+
 module.exports = {
   getPrecedence,
   isExportDeclaration,
@@ -341,5 +360,6 @@ module.exports = {
   setLocEnd,
   startsWithNoLookaheadToken,
   hasBlockComments,
-  isBlockComment
+  isBlockComment,
+  getAlignmentSize
 };
