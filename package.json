@@ -33,7 +33,7 @@
     "rollup-plugin-node-globals": "1.1.0",
     "rollup-plugin-node-resolve": "2.0.0",
     "typescript": "2.3.2",
-    "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#f5fcc879b493138eb97b9bdfb39afc4d210b1ddf"
+    "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#3f9f41c7d8bcdaa3fbd68767e390f07f05555c3a"
   },
   "scripts": {
     "test": "jest",
@@ -55,14 +55,7 @@
       "tests/more_react",
 
       "see https://github.com/eslint/typescript-eslint-parser/issues/269",
-      "tests/typescript/conformance/types/abstractKeyword/jsfmt.spec.js",
-      "tests/typescript/conformance/classes/classDeclarations/classHeritageSpecification/jsfmt.spec.js",
-      "tests/typescript/compiler/jsfmt.spec.js",
-      "tests/typescript/conformance/types/variableDeclarator/jsfmt.spec.js",
-      "tests/typescript/custom/computedProperties/jsfmt.spec.js",
-      "tests/typescript/conformance/internalModules/importDeclarations/jsfmt.spec.js",
-      "tests/typescript/conformance/es6/Symbols/jsfmt.spec.js",
-      "tests/typescript/conformance/classes/jsfmt.spec.js"
+      "tests/typescript/conformance/types/abstractKeyword/jsfmt.spec.js"
     ]
   }
 }

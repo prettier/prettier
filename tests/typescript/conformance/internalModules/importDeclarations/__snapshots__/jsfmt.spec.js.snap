@@ -180,6 +180,12 @@ var p: M.D.Point;
 
 `;
 
+exports[`exportInterface.ts 1`] = `
+export interface I {}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export interface I {}
+
+`;
+
 exports[`importAliasIdentifiers.ts 1`] = `
 module moduleA {
     export class Point {
