@@ -29,8 +29,15 @@
 ;; (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 ;; OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.)
 
+;; Author: James Long and contributors
+;; Created: 10 January 2017
+;; Url: https://github.com/prettier/prettier/blob/master/editors/emacs/prettier-js.el
+;; Keywords: convenience wp edit js
+
+;; This file is not part of GNU Emacs.
+
 ;;; Commentary:
-;;
+;; Formats your JavaScript code using 'prettier' on file save.
 
 ;;; Code:
 
@@ -229,3 +236,5 @@ function."
     (remove-hook 'before-save-hook 'prettier 'local)))
 
 (provide 'prettier-js)
+
+;; prettier-js.el ends here
