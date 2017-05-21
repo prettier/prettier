@@ -155,7 +155,7 @@ module.exports = function(fork) {
     .field("heritage", def("TSHeritageClause"))
     .field("id", def("Identifier"))
     .bases("Node");
-    
+
   def("TSInterfaceBody")
     .build("body")
     .field("body",[ def("TSPropertySignature")])
@@ -175,6 +175,11 @@ module.exports = function(fork) {
   def("TSAbstractClassProperty").build("key", "value").bases("Node");
 
   def("TSAbstractClassDeclaration").build().bases("Node");
+
+  def("TSInterfaceHeritage")
+    .build("id", "typeParameters")
+    .field("id", def("Identifier"))
+    .field("typeParameters", def("TSType"));
 
   def("TSDecorator")
     .build("expression")
