@@ -236,7 +236,6 @@ function printDocToString(doc, options) {
               break;
           }
           break;
-
         // Fills each line with as much code as possible before moving to a new
         // line with the same indentation.
         //
@@ -268,7 +267,7 @@ function printDocToString(doc, options) {
           const content = parts[0];
           const contentFlatCmd = [ind, MODE_FLAT, content];
           const contentBreakCmd = [ind, MODE_BREAK, content];
-          const contentFits = fits(contentFlatCmd, [], width - rem, true)
+          const contentFits = fits(contentFlatCmd, [], width - rem, true);
 
           if (parts.length === 1) {
             if (contentFits) {
@@ -280,8 +279,8 @@ function printDocToString(doc, options) {
           }
 
           const whitespace = parts[1];
-          const whitespaceFlatCmd = [ind, MODE_FLAT, whitespace]
-          const whitespaceBreakCmd = [ind, MODE_BREAK, whitespace]
+          const whitespaceFlatCmd = [ind, MODE_FLAT, whitespace];
+          const whitespaceBreakCmd = [ind, MODE_BREAK, whitespace];
 
           if (parts.length === 2) {
             if (contentFits) {
@@ -298,15 +297,24 @@ function printDocToString(doc, options) {
           const remainingCmd = [ind, mode, fill(remaining)];
 
           const secondContent = parts[2];
-          const firstAndSecondContentFlatCmd = [ind, MODE_FLAT, concat([content, whitespace, secondContent])];
-          const firstAndSecondContentFits = fits(firstAndSecondContentFlatCmd, [], rem, true);
+          const firstAndSecondContentFlatCmd = [
+            ind,
+            MODE_FLAT,
+            concat([content, whitespace, secondContent])
+          ];
+          const firstAndSecondContentFits = fits(
+            firstAndSecondContentFlatCmd,
+            [],
+            rem,
+            true
+          );
 
           if (firstAndSecondContentFits) {
-            cmds.push(remainingCmd)
+            cmds.push(remainingCmd);
             cmds.push(whitespaceFlatCmd);
             cmds.push(contentFlatCmd);
           } else if (contentFits) {
-            cmds.push(remainingCmd)
+            cmds.push(remainingCmd);
             cmds.push(whitespaceBreakCmd);
             cmds.push(contentFlatCmd);
           } else {

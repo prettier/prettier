@@ -119,7 +119,7 @@ module.exports = function(fork) {
     .build("modifiers", "name", "questionToken", "typeAnnotation")
     .field("name", def("Identifier"))
     .field("typeAnnotation", def("TypeAnnotation"))
-    .bases("TSSignature")
+    .bases("TSSignature");
 
   def("TSAsExpression").bases("Expression");
 
@@ -158,7 +158,7 @@ module.exports = function(fork) {
 
   def("TSInterfaceBody")
     .build("body")
-    .field("body",[ def("TSPropertySignature")])
+    .field("body", [def("TSPropertySignature")])
     .bases("Node");
 
   def("TSModuleDeclaration")

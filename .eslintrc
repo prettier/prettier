@@ -1,0 +1,11 @@
+{
+  "parserOptions": {
+    "ecmaVersion": "2015"
+  },
+  "plugins": [
+    "prettier"
+  ],
+  "rules": {
+    "prettier/prettier": "error"
+  }
+}
