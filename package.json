@@ -23,8 +23,11 @@
   },
   "devDependencies": {
     "diff": "3.2.0",
+    "eslint": "^3.19.0",
+    "eslint-plugin-prettier": "^2.1.1",
     "jest": "20.0.0",
     "mkdirp": "^0.5.1",
+    "prettier": "^1.3.1",
     "rimraf": "^2.6.1",
     "rollup": "0.41.1",
     "rollup-plugin-commonjs": "7.0.0",
@@ -39,7 +42,8 @@
     "test": "jest",
     "format": "./bin/prettier.js --write",
     "format:single": "npm run format -- src/printer.js",
-    "format:all": "npm run format -- index.js \"{src,bin,tests_config,scripts}/*.js\" \"tests/**/jsfmt.spec.js\"",
+    "format:all": "npm run lint -- --fix",
+    "lint": "eslint index.js \"{src,bin,tests_config,scripts}/*.js\" \"tests/**/jsfmt.spec.js\"",
     "build:docs": "rollup -c docs/rollup.config.js"
   },
   "jest": {
