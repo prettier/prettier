@@ -1456,6 +1456,8 @@ function genericPrintNoParens(path, options, print, args) {
         path.call(print, "object"),
         path.call(print, "property")
       ]);
+    case "TSQualifiedName":
+      return join(".", [path.call(print, "left"), path.call(print, "right")]);
     case "JSXSpreadAttribute":
       return concat(["{...", path.call(print, "argument"), "}"]);
     case "JSXExpressionContainer": {

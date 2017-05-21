@@ -118,6 +118,7 @@ function tryParseTypeScript(text, jsx) {
     range: true,
     tokens: true,
     comment: true,
+    useJSXTextNode: true,
     ecmaFeatures: { jsx }
   });
 }
