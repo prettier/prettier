@@ -16,7 +16,7 @@ function isExportDeclaration(node) {
 }
 
 function getParentExportDeclaration(path) {
-  var parentNode = path.getParentNode();
+  const parentNode = path.getParentNode();
   if (path.getName() === "declaration" && isExportDeclaration(parentNode)) {
     return parentNode;
   }
@@ -85,7 +85,7 @@ function skipInlineComment(text, index) {
   }
 
   if (text.charAt(index) === "/" && text.charAt(index + 1) === "*") {
-    for (var i = index + 2; i < text.length; ++i) {
+    for (let i = index + 2; i < text.length; ++i) {
       if (text.charAt(i) === "*" && text.charAt(i + 1) === "/") {
         return i + 2;
       }
@@ -152,7 +152,7 @@ function hasNewline(text, index, opts) {
 }
 
 function hasNewlineInRange(text, start, end) {
-  for (var i = start; i < end; ++i) {
+  for (let i = start; i < end; ++i) {
     if (text.charAt(i) === "\n") {
       return true;
     }
@@ -234,7 +234,7 @@ function setLocEnd(node, index) {
   }
 }
 
-var PRECEDENCE = {};
+const PRECEDENCE = {};
 [
   ["||"],
   ["&&"],

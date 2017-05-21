@@ -13,6 +13,26 @@ class C {
 
 `;
 
+exports[`anyIsAssignableToObject.ts 1`] = `
+interface P {
+    p: {};
+}
+
+interface Q extends P { // Check assignability here. Any is assignable to {}
+    p: any;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+interface P {
+  p: {};
+}
+
+interface Q extends P {
+  // Check assignability here. Any is assignable to {}
+  p: any;
+}
+
+`;
+
 exports[`badArrayIndex.ts 1`] = `
 var results = number[];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -194,12 +214,9 @@ interface i2 {
 
 `;
 
-exports[`emptyGenericParamList.ts 1`] = `
-class I<T> {}
-var x: I<>;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-class I<T> {}
-var x: I<>;
+exports[`downlevelLetConst1.ts 1`] = `
+const~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const;
 
 `;
 
@@ -238,6 +255,42 @@ interface C {
   new <T>(): string;
   new <T, U>(): string;
 }
+
+`;
+
+exports[`globalIsContextualKeyword.ts 1`] = `
+function a() {
+    let global = 1;
+}
+function b() {
+    class global {}
+}
+
+namespace global {
+}
+
+function foo(global: number) {
+}
+
+let obj = {
+    global: "123"
+}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function a() {
+  let global = 1;
+}
+function b() {
+  class global {}
+}
+
+namespace global {
+
+}
+
+function foo(global: number) {}
+
+let obj = {
+  global: "123"
+};
 
 `;
 

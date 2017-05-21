@@ -25,4 +25,8 @@ for (let v of e.entries()) {
   const [i, j]: [string, string] = v; // correct
 }
 
-e.getAll('content-type').forEach((v: string) => {}); // correct
+e.getAll('content-type'); // incorrect
+e.forEach((val: string) => val); // correct
+e.forEach((val: string, key: string) => `${key}: ${val}`); // correct
+e.forEach((val: string, key: string, o: Headers) => {}); // correct
+e.forEach(() => {}, {}); // correct

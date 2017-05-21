@@ -1,0 +1,3 @@
+type LibK = {
+  p: string;
+}

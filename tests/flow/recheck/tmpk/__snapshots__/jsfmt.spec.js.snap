@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`k.js 1`] = `
+/* @flow */
+
+declare var x: LibK;
+(x.p: string);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @flow */
+
+declare var x: LibK;
+(x.p: string);
+
+`;

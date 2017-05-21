@@ -217,12 +217,10 @@ Promise.reject(0)
     var b: number = str; // Error: string ~> number
   });
 
-// TODO: resolvedPromise<T> -> catch() -> then():T
+// resolvedPromise<T> -> catch() -> then():?T
 Promise.resolve(0)
   .catch(function(err) {})
   .then(function(num) {
-    var a: number = num;
-
-    // TODO
+    var a: ?number = num;
     var b: string = num; // Error: string ~> number
   });

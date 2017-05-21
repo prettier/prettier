@@ -73,7 +73,7 @@ function fits(next, restCommands, width, mustBeFlat) {
     } else {
       switch (doc.type) {
         case "concat":
-          for (var i = doc.parts.length - 1; i >= 0; i--) {
+          for (let i = doc.parts.length - 1; i >= 0; i--) {
             cmds.push([ind, mode, doc.parts[i]]);
           }
 
@@ -94,7 +94,7 @@ function fits(next, restCommands, width, mustBeFlat) {
 
           break;
         case "fill":
-          for (var i = doc.parts.length - 1; i >= 0; i--) {
+          for (let i = doc.parts.length - 1; i >= 0; i--) {
             cmds.push([ind, mode, doc.parts[i]]);
           }
 
@@ -159,7 +159,7 @@ function printDocToString(doc, options) {
     } else {
       switch (doc.type) {
         case "concat":
-          for (var i = doc.parts.length - 1; i >= 0; i--) {
+          for (let i = doc.parts.length - 1; i >= 0; i--) {
             cmds.push([ind, mode, doc.parts[i]]);
           }
 
@@ -211,7 +211,7 @@ function printDocToString(doc, options) {
 
                     break;
                   } else {
-                    for (var i = 1; i < doc.expandedStates.length + 1; i++) {
+                    for (let i = 1; i < doc.expandedStates.length + 1; i++) {
                       if (i >= doc.expandedStates.length) {
                         cmds.push([ind, MODE_BREAK, mostExpanded]);
 
