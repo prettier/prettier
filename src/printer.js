@@ -1129,8 +1129,7 @@ function genericPrintNoParens(path, options, print, args) {
       parts = [
         isNodeStartingWithDeclare(n, options) ? "declare " : "",
         n.kind,
-        " ",
-        printed[0],
+        printed.length ? concat([" ", printed[0]]) : "",
         indent(concat(printed.slice(1).map(p => concat([",", line, p]))))
       ];
 
@@ -2207,7 +2206,11 @@ function genericPrintNoParens(path, options, print, args) {
         path.call(print, "typeAnnotation")
       ]);
     case "TSFirstTypeNode":
-      return concat([n.parameterName.name, " is ", path.call(print, "typeAnnotation")])
+      return concat([
+        path.call(print, "parameterName"),
+        " is ",
+        path.call(print, "typeAnnotation")
+      ]);
     case "TSNonNullExpression":
       return concat([path.call(print, "expression"), "!"]);
     case "TSThisType":
