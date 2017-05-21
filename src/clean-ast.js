@@ -59,7 +59,7 @@ function massageAST(ast) {
     if (
       (ast.type === "Property" ||
         ast.type === "MethodDefinition" ||
-          ast.type === "ClassProperty") &&
+        ast.type === "ClassProperty") &&
       typeof ast.key === "object" &&
       ast.key &&
       (ast.key.type === "Literal" || ast.key.type === "Identifier")

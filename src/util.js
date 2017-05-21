@@ -257,7 +257,6 @@ function getPrecedence(op) {
   return PRECEDENCE[op];
 }
 
-
 // Tests if an expression starts with `{`, or (if forbidFunctionAndClass holds) `function` or `class`.
 // Will be overzealous if there's already necessary grouping parentheses.
 function startsWithNoLookaheadToken(node, forbidFunctionAndClass) {
@@ -325,7 +324,7 @@ function getAlignmentSize(value, tabWidth, startIndex) {
 
   let size = 0;
   for (let i = startIndex; i < value.length; ++i) {
-    if (value[i] === '\t') {
+    if (value[i] === "\t") {
       // Tabs behave in a way that they are aligned to the nearest
       // multiple of tabWidth:
       // 0 -> 4, 1 -> 4, 2 -> 4, 3 -> 4

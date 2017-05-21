@@ -69,7 +69,7 @@ function getNodeHelper(path, count) {
   for (let i = s.length - 1; i >= 0; i -= 2) {
     const value = s[i];
 
-    if ((n.Node.check(value)) && --count < 0) {
+    if (n.Node.check(value) && --count < 0) {
       return value;
     }
   }
@@ -449,7 +449,7 @@ FPp.needsParens = function() {
       );
 
     case "AssignmentExpression": {
-      const grandParent = this.getParentNode(1)
+      const grandParent = this.getParentNode(1);
 
       if (parent.type === "ArrowFunctionExpression" && parent.body === node) {
         return true;
@@ -459,7 +459,10 @@ FPp.needsParens = function() {
         parent.computed
       ) {
         return false;
-      } else if (parent.type === "TSPropertySignature" && parent.name === node) {
+      } else if (
+        parent.type === "TSPropertySignature" &&
+        parent.name === node
+      ) {
         return false;
       } else if (
         parent.type === "ForStatement" &&

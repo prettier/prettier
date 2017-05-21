@@ -103,12 +103,8 @@ function parseWithTypeScript(text) {
       // But if we get it wrong, try the opposite.
       return tryParseTypeScript(text, !jsx);
     }
-  } catch(e) {
-    throw createError(
-      e.message,
-      e.lineNumber,
-      e.column
-    );
+  } catch (e) {
+    throw createError(e.message, e.lineNumber, e.column);
   }
 }
 
@@ -131,11 +127,14 @@ function tryParseTypeScript(text, jsx) {
  * https://github.com/prettier/prettier/issues/1538
  */
 function isProbablyJsx(text) {
-  return new RegExp([
-    "(^[^\"'`]*</)", // Contains "</" when probably not in a string
-    "|",
-    "(^[^/]{2}.*\/>)" // Contains "/>" on line not starting with "//"
-  ].join(""), "m").test(text);
+  return new RegExp(
+    [
+      "(^[^\"'`]*</)", // Contains "</" when probably not in a string
+      "|",
+      "(^[^/]{2}.*\/>)" // Contains "/>" on line not starting with "//"
+    ].join(""),
+    "m"
+  ).test(text);
 }
 
 module.exports = { parse };

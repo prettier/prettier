@@ -403,7 +403,9 @@ function handleIfStatementComments(
   comment
 ) {
   if (
-    !enclosingNode || enclosingNode.type !== "IfStatement" || !followingNode
+    !enclosingNode ||
+    enclosingNode.type !== "IfStatement" ||
+    !followingNode
   ) {
     return false;
   }
@@ -435,7 +437,9 @@ function handleIfStatementComments(
 // Same as IfStatement but for TryStatement
 function handleTryStatementComments(enclosingNode, followingNode, comment) {
   if (
-    !enclosingNode || enclosingNode.type !== "TryStatement" || !followingNode
+    !enclosingNode ||
+    enclosingNode.type !== "TryStatement" ||
+    !followingNode
   ) {
     return false;
   }
@@ -903,7 +907,8 @@ function printComments(path, print, options, needsSemi) {
   const value = path.getValue();
   const parent = path.getParentNode();
   const printed = print(path);
-  const comments = n.Node.check(value) && types.getFieldValue(value, "comments");
+  const comments =
+    n.Node.check(value) && types.getFieldValue(value, "comments");
 
   if (!comments || comments.length === 0) {
     return printed;

@@ -9,7 +9,7 @@ const chalk = require("chalk");
 const minimist = require("minimist");
 const readline = require("readline");
 const prettier = require("../index");
-const cleanAST = require('../src/clean-ast.js').cleanAST;
+const cleanAST = require("../src/clean-ast.js").cleanAST;
 
 const argv = minimist(process.argv.slice(2), {
   boolean: [
@@ -33,8 +33,20 @@ const argv = minimist(process.argv.slice(2), {
     // Deprecated in 0.0.10
     "flow-parser"
   ],
-  string: ["print-width", "tab-width", "parser", "trailing-comma", "range-start", "range-end"],
-  default: { semi: true, color: true, "bracket-spacing": true, parser: "babylon" },
+  string: [
+    "print-width",
+    "tab-width",
+    "parser",
+    "trailing-comma",
+    "range-start",
+    "range-end"
+  ],
+  default: {
+    semi: true,
+    color: true,
+    "bracket-spacing": true,
+    parser: "babylon"
+  },
   alias: { help: "h", version: "v", "list-different": "l" },
   unknown: param => {
     if (param.startsWith("-")) {
@@ -148,8 +160,9 @@ function format(input) {
 
   if (argv["debug-check"]) {
     function diff(a, b) {
-      return require("diff")
-        .createTwoFilesPatch("", "", a, b, "", "", { context: 2 });
+      return require("diff").createTwoFilesPatch("", "", a, b, "", "", {
+        context: 2
+      });
     }
 
     const pp = prettier.format(input, options);
@@ -162,14 +175,13 @@ function format(input) {
 
       if (ast !== past) {
         const MAX_AST_SIZE = 2097152; // 2MB
-        const astDiff = (ast.length > MAX_AST_SIZE || past.length > MAX_AST_SIZE)
+        const astDiff = ast.length > MAX_AST_SIZE || past.length > MAX_AST_SIZE
           ? "AST diff too large to render"
           : diff(ast, past);
-        throw (
-          "ast(input) !== ast(prettier(input))\n" +
-          astDiff + "\n" +
-          diff(input, pp)
-        );
+        throw "ast(input) !== ast(prettier(input))\n" +
+          astDiff +
+          "\n" +
+          diff(input, pp);
       }
     }
     return;
