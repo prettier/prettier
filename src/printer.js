@@ -770,7 +770,7 @@ function genericPrintNoParens(path, options, print, args) {
         n.typeParameters ? path.call(print, "typeParameters") : "",
         " "
       );
-      
+
       if (n.heritage.length) {
         parts.push(
           "extends ",
@@ -778,9 +778,9 @@ function genericPrintNoParens(path, options, print, args) {
           " "
         );
       }
-      
+
       parts.push(path.call(print, "body"));
-      
+
       return concat(parts);
     case "ObjectExpression":
     case "ObjectPattern":
@@ -805,7 +805,7 @@ function genericPrintNoParens(path, options, print, args) {
       const parent = path.getParentNode(0);
       const parentIsUnionTypeAnnotation = parent.type === "UnionTypeAnnotation";
       let propertiesField;
-      
+
       if (n.type === 'TSTypeLiteral') {
         propertiesField = "members";
       } else if (n.type === "TSInterfaceBody") {
@@ -1629,11 +1629,11 @@ function genericPrintNoParens(path, options, print, args) {
       return concat(parts);
     case "TSInterfaceHeritage":
       parts.push(path.call(print, "id"));
-      
+
       if (n.typeParameters) {
         parts.push(path.call(print, "typeParameters"));
       }
-      
+
       return concat(parts);
     case "TSHeritageClause":
       return join(", ", path.map(print, "types"));
@@ -2411,7 +2411,8 @@ function genericPrintNoParens(path, options, print, args) {
         // declare global { ... }
         const isGlobalDeclaration = n.name.type === "Identifier" &&
           n.name.name === "global" &&
-            n.modifiers.some(modifier => modifier.type === "TSDeclareKeyword");
+            n.modifiers &&
+              n.modifiers.some(modifier => modifier.type === "TSDeclareKeyword");
 
         if (!isGlobalDeclaration) {
           parts.push(isExternalModule ? "module " : "namespace ");
@@ -2748,7 +2749,7 @@ function printArgumentsList(path, options, print) {
 function printFunctionTypeParameters(path, options, print) {
   const fun = path.getValue();
   const paramsFieldIsArray = Array.isArray(fun["typeParameters"])
-  
+
   if (fun.typeParameters) {
     // for TSFunctionType typeParameters is an array
     // for FunctionTypeAnnotation it's a single node
