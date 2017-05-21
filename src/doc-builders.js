@@ -100,6 +100,22 @@ function join(sep, arr) {
   return concat(res);
 }
 
+function addAlignmentToDoc(doc, size, tabWidth) {
+  let aligned = doc;
+  if (size > 0) {
+    // Use indent to add tabs for all the levels of tabs we need
+    for (let i = 0; i < Math.floor(size / tabWidth); ++i) {
+      aligned = indent(aligned);
+    }
+    // Use align for all the spaces that are needed
+    aligned = align(size % tabWidth, aligned);
+    // size is absolute from 0 and not relative to the current
+    // indentation, so we use -Infinity to reset the indentation to 0
+    aligned = align(-Infinity, aligned);
+  }
+  return aligned;
+}
+
 module.exports = {
   concat,
   join,
@@ -115,5 +131,6 @@ module.exports = {
   breakParent,
   ifBreak,
   indent,
-  align
+  align,
+  addAlignmentToDoc
 };

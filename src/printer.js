@@ -21,6 +21,7 @@ const fill = docBuilders.fill;
 const ifBreak = docBuilders.ifBreak;
 const breakParent = docBuilders.breakParent;
 const lineSuffixBoundary = docBuilders.lineSuffixBoundary;
+const addAlignmentToDoc = docBuilders.addAlignmentToDoc;
 
 const docUtils = require("./doc-utils");
 const willBreak = docUtils.willBreak;
@@ -1668,7 +1669,11 @@ function genericPrintNoParens(path, options, print, args) {
             size = util.getAlignmentSize(value, tabWidth, index + 1);
           }
 
-          let aligned = addAlignmentToDoc(expressions[i], size, tabWidth);
+          let aligned = addAlignmentToDoc(
+            removeLines(expressions[i]),
+            size,
+            tabWidth
+          );
 
           parts.push(
             "${",
@@ -4246,26 +4251,14 @@ function printAstToDoc(ast, options, addAlignmentSize) {
   if (addAlignmentSize > 0) {
     // Add a hardline to make the indents take effect
     // It should be removed in index.js format()
-    doc = addAlignmentToDoc(concat([hardline, doc]), addAlignmentSize, options.tabWidth);
+    doc = addAlignmentToDoc(
+      removeLines(concat([hardline, doc])),
+      addAlignmentSize,
+      options.tabWidth
+    );
   }
   docUtils.propagateBreaks(doc);
   return doc;
-}
-
-function addAlignmentToDoc(doc, size, tabWidth) {
-  let aligned = removeLines(doc);
-  if (size > 0) {
-    // Use indent to add tabs for all the levels of tabs we need
-    for (let i = 0; i < Math.floor(size / tabWidth); ++i) {
-      aligned = indent(aligned);
-    }
-    // Use align for all the spaces that are needed
-    aligned = align(size % tabWidth, aligned);
-    // size is absolute from 0 and not relative to the current
-    // indentation, so we use -Infinity to reset the indentation to 0
-    aligned = align(-Infinity, aligned);
-  }
-  return aligned;
 }
 
 module.exports = { printAstToDoc };
