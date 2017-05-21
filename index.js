@@ -75,7 +75,7 @@ function format(text, opts, addAlignmentSize) {
 
 function findNodeByOffset(ast, offset, parser) {
   let resultNode;
-  if (parser === 'babylon') {
+  if (parser === "babylon") {
     traverse(ast, {
       enter: function(path) {
         const node = path.node;
@@ -107,18 +107,15 @@ function nodeContainsOffset(node, offset) {
 }
 
 function extendRangeStart(text, opts, ast) {
-  const startNode = findNodeByOffset(ast, opts.rangeStart, opts.parser)
-  const rangeStart = util.locStart(startNode)
+  const startNode = findNodeByOffset(ast, opts.rangeStart, opts.parser);
+  const rangeStart = util.locStart(startNode);
   // Use `Math.min` since `lastIndexOf` returns 0 when `rangeStart` is 0
-  return Math.min(
-    rangeStart,
-    text.lastIndexOf("\n", rangeStart) + 1
-  );
+  return Math.min(rangeStart, text.lastIndexOf("\n", rangeStart) + 1);
 }
 
 function extendRangeEnd(text, opts, ast) {
-  const endNode = findNodeByOffset(ast, opts.rangeEnd, opts.parser)
-  const rangeEnd = util.locEnd(endNode)
+  const endNode = findNodeByOffset(ast, opts.rangeEnd, opts.parser);
+  const rangeEnd = util.locEnd(endNode);
   // Use `text.length - 1` as the maximum since `indexOf` returns -1 if `fromIndex >= text.length`
   const fromIndex = Math.min(rangeEnd, text.length - 1);
   const nextNewLineIndex = text.indexOf("\n", fromIndex);
