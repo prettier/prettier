@@ -2156,9 +2156,9 @@ type-check@~0.3.2:
   dependencies:
     prelude-ls "~1.1.2"
 
-"typescript-eslint-parser@git://github.com/eslint/typescript-eslint-parser.git#f5fcc879b493138eb97b9bdfb39afc4d210b1ddf":
-  version "2.1.0"
-  resolved "git://github.com/eslint/typescript-eslint-parser.git#f5fcc879b493138eb97b9bdfb39afc4d210b1ddf"
+"typescript-eslint-parser@git://github.com/eslint/typescript-eslint-parser.git#b06ac2d98db6928fb9ec2fae103a490a635647dd":
+  version "3.0.0"
+  resolved "git://github.com/eslint/typescript-eslint-parser.git#b06ac2d98db6928fb9ec2fae103a490a635647dd"
   dependencies:
     lodash.unescape "4.0.1"
     semver "5.3.0"

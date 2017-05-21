@@ -2180,7 +2180,7 @@ function genericPrintNoParens(path, options, print, args) {
       if (n.accessibility) {
         parts.push(n.accessibility + " ");
       }
-      if (n.isReadonly) {
+      if (n.readonly) {
         parts.push("readonly ");
       }
 

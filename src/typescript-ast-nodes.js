@@ -183,7 +183,7 @@ module.exports = function(fork) {
 
   def("TSTypeParameter").build("name").field("name", def("Identifier"));
 
-  def("TSParameterProperty").build("accessibility", "isReadonly", "parameters");
+  def("TSParameterProperty").build("accessibility", "readonly", "parameters");
 
   def("TSTypeAssertionExpression")
     .build("expression", "typeAnnotation")
