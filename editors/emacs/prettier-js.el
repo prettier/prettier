@@ -236,3 +236,5 @@ function."
     (remove-hook 'before-save-hook 'prettier 'local)))
 
 (provide 'prettier-js)
+
+;; prettier-js ends here
