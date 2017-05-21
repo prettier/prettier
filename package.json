@@ -57,7 +57,6 @@
       "see https://github.com/eslint/typescript-eslint-parser/issues/269",
       "tests/typescript/conformance/types/abstractKeyword/jsfmt.spec.js",
       "tests/typescript/conformance/classes/classDeclarations/classHeritageSpecification/jsfmt.spec.js",
-      "tests/typescript/compiler/jsfmt.spec.js",
       "tests/typescript/conformance/types/variableDeclarator/jsfmt.spec.js",
       "tests/typescript/custom/computedProperties/jsfmt.spec.js",
       "tests/typescript/conformance/internalModules/importDeclarations/jsfmt.spec.js",
