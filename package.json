@@ -40,10 +40,7 @@
   },
   "scripts": {
     "test": "jest",
-    "format": "./bin/prettier.js --write",
-    "format:single": "npm run format -- src/printer.js",
-    "format:all": "npm run lint -- --fix",
-    "lint": "eslint index.js \"{src,bin,tests_config,scripts}/*.js\" \"tests/**/jsfmt.spec.js\"",
+    "lint": "eslint .",
     "build:docs": "rollup -c docs/rollup.config.js"
   },
   "jest": {

@@ -454,6 +454,7 @@ To get up and running, install the dependencies and run the tests:
 
 ```
 yarn
+yarn lint
 yarn test
 ```
 
@@ -477,6 +478,8 @@ Here's what you need to know about the tests:
   or the browser. The easiest way to debug it in the browser is to run the
   interactive `docs` REPL locally. The easiest way to debug it in node, is to
   create a local test file and run it in an editor like VS Code.
+
+Run `yarn lint -- --fix` to automatically format files.
 
 If you can, take look at [commands.md](commands.md) and check out [Wadler's
 paper](http://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf) to
