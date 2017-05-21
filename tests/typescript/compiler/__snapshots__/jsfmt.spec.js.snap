@@ -214,6 +214,12 @@ interface i2 {
 
 `;
 
+exports[`downlevelLetConst1.ts 1`] = `
+const~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const;
+
+`;
+
 exports[`errorOnInitializerInInterfaceProperty.ts 1`] = `
 interface Foo {
     bar: number = 5;
@@ -249,6 +255,42 @@ interface C {
   new <T>(): string;
   new <T, U>(): string;
 }
+
+`;
+
+exports[`globalIsContextualKeyword.ts 1`] = `
+function a() {
+    let global = 1;
+}
+function b() {
+    class global {}
+}
+
+namespace global {
+}
+
+function foo(global: number) {
+}
+
+let obj = {
+    global: "123"
+}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function a() {
+  let global = 1;
+}
+function b() {
+  class global {}
+}
+
+namespace global {
+
+}
+
+function foo(global: number) {}
+
+let obj = {
+  global: "123"
+};
 
 `;
 
