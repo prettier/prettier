@@ -939,4 +939,9 @@ function printComments(path, print, options, needsSemi) {
   return concat(leadingParts.concat(trailingParts));
 }
 
-module.exports = { attach, printComments, printDanglingComments };
+module.exports = {
+  attach,
+  printComments,
+  printDanglingComments,
+  getSortedChildNodes
+};

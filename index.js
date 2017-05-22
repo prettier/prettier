@@ -1,7 +1,5 @@
 "use strict";
 
-const traverse = require("babel-traverse").default;
-const estraverse = require("estraverse");
 const comments = require("./src/comments");
 const version = require("./package.json").version;
 const printAstToDoc = require("./src/printer").printAstToDoc;
@@ -73,28 +71,16 @@ function format(text, opts, addAlignmentSize) {
   return str;
 }
 
-function findNodeByOffset(ast, offset, opts, text) {
-  let resultNode;
-  if (opts.parser === "babylon") {
-    traverse(ast, {
-      enter: function(path) {
-        return onEnter.call(path, path.node);
-      }
-    });
-  } else {
-    estraverse.traverse(ast, {
-      enter: onEnter
-    });
+function findNodeByOffset(node, offset, opts, text) {
+  if (!nodeContainsOffsetAndParses(node, offset, opts, text)) {
+    return;
   }
+  let resultNode = node;
+  const childNodes = comments.getSortedChildNodes(node);
+  childNodes.forEach(childNode => {
+    resultNode = findNodeByOffset(childNode, offset, opts, text) || resultNode;
+  });
   return resultNode;
-
-  function onEnter(node) {
-    if (nodeContainsOffsetAndParses(node, offset, opts, text)) {
-      resultNode = node;
-    } else {
-      return this.skip();
-    }
-  }
 }
 
 function nodeContainsOffsetAndParses(node, offset, opts, text) {
