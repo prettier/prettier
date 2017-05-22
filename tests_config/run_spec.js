@@ -55,7 +55,6 @@ function run_spec(dirname, options, additionalParsers) {
       });
 
       if (AST_COMPARE) {
-        const source = read(dirname + "/" + filename);
         const ast = parse(source, mergedOptions);
         const astMassaged = massageAST(ast);
         let ppastMassaged;
