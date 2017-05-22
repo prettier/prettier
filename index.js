@@ -121,8 +121,21 @@ function isSourceElement(node) {
 }
 
 function calculateRange(text, opts, ast) {
-  const startNode = findNodeByOffset(ast, opts.rangeStart);
-  const endNode = findNodeByOffset(ast, opts.rangeEnd);
+  // Contract the range so that it has non-whitespace characters at its endpoints.
+  // This ensures we can format a range that doesn't end on a node.
+  const rangeStringOrig = text.slice(opts.rangeStart, opts.rangeEnd);
+  const rangeStringOrigReversed = rangeStringOrig.split("").reverse().join("");
+  const startNonWhitespace = Math.max(
+    opts.rangeStart + rangeStringOrig.search(/\S/),
+    opts.rangeStart
+  );
+  const endNonWhitespace = Math.min(
+    opts.rangeEnd - rangeStringOrigReversed.search(/\S/),
+    opts.rangeEnd
+  );
+
+  const startNode = findNodeByOffset(ast, startNonWhitespace);
+  const endNode = findNodeByOffset(ast, endNonWhitespace);
   const rangeStart = Math.min(util.locStart(startNode), util.locStart(endNode));
   const rangeEnd = Math.max(util.locEnd(startNode), util.locEnd(endNode));
 
