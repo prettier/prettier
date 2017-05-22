@@ -3410,7 +3410,8 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
     if (isLiteral && typeof child.value === "string") {
       const value = child.raw || child.extra.raw;
 
-      if (/\S/.test(value)) {
+      // Contains a non-whitespace character
+      if (/[^ \n\r\t]/.test(value)) {
         // treat each line of text as its own entity
         value.split(/(\r?\n\s*)/).forEach(textLine => {
           const newlines = textLine.match(/\n/g);
@@ -3428,18 +3429,18 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
             return;
           }
 
-          const beginSpace = /^\s+/.test(textLine);
+          const beginSpace = /^[ \n\r\t]+/.test(textLine);
           if (beginSpace) {
             children.push(jsxWhitespace);
           } else {
             children.push(softline);
           }
 
-          const stripped = textLine.replace(/^\s+|\s+$/g, "");
+          const stripped = textLine.replace(/^[ \n\r\t]+|[ \n\r\t]+$/g, "");
           if (stripped) {
             // Split text into words separated by "line"s.
-            stripped.split(/(\s+)/).forEach(word => {
-              const space = /\s+/.test(word);
+            stripped.split(/([ \n\r\t]+)/).forEach(word => {
+              const space = /[ \n\r\t]+/.test(word);
               if (space) {
                 children.push(line);
               } else {
@@ -3448,7 +3449,7 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
             });
           }
 
-          const endSpace = /\s+$/.test(textLine);
+          const endSpace = /[ \n\r\t]+$/.test(textLine);
           if (endSpace) {
             children.push(jsxWhitespace);
           } else {
@@ -3462,7 +3463,7 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
         if (value.match(/\n/g).length > 1) {
           children.push(hardline);
         }
-      } else if (/\s/.test(value)) {
+      } else if (/[ \n\r\t]/.test(value)) {
         // whitespace(s)-only without newlines,
         // eg; one or more spaces separating two elements
         for (let i = 0; i < value.length; ++i) {
