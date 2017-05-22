@@ -170,7 +170,7 @@ Note that `--write` cannot be used with `--debug-check`.
 Another useful flag is `--list-different` (or `-l`) which prints the filenames of files that are different from Prettier formatting. If there are differences the script errors out, which is useful in a CI scenario.
 
 ```bash
-prettier -l './src/**/*.js'
+prettier --single-quote --list-different "src/**/*.js"
 ```
 
 #### Pre-commit hook for changed files
