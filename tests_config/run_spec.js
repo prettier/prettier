@@ -17,18 +17,23 @@ function run_spec(dirname, options, additionalParsers) {
     const extension = extname(filename);
     if (/^\.[jt]sx?$/.test(extension) && filename !== "jsfmt.spec.js") {
       const path = dirname + "/" + filename;
+      let rangeStart = 0;
+      let rangeEnd = Infinity;
       const source = read(path)
         .replace(/\r\n/g, "\n")
         .replace("<<<PRETTIER_RANGE_START>>>", (match, offset) => {
-          options = Object.assign({}, options, { rangeStart: offset });
+          rangeStart = offset;
           return "";
         })
         .replace("<<<PRETTIER_RANGE_END>>>", (match, offset) => {
-          options = Object.assign({}, options, { rangeEnd: offset });
+          rangeEnd = offset;
           return "";
         });
 
-      const mergedOptions = mergeDefaultOptions(options || {});
+      const mergedOptions = Object.assign(mergeDefaultOptions(options || {}), {
+        rangeStart: rangeStart,
+        rangeEnd: rangeEnd
+      });
       const output = prettyprint(source, path, mergedOptions);
       test(`${mergedOptions.parser} - ${parser.parser}-verify`, () => {
         expect(raw(source + "~".repeat(80) + "\n" + output)).toMatchSnapshot(
