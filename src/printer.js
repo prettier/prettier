@@ -3550,31 +3550,19 @@ function printJSXElement(path, options, print) {
   const children = printJSXChildren(path, options, print, jsxWhitespace);
 
   // Trim trailing lines, recording if there was a hardline
-  let numTrailingHard = 0;
   while (children.length && isLineNext(util.getLast(children))) {
-    if (willBreak(util.getLast(children))) {
-      ++numTrailingHard;
+    if (!forcedBreak && willBreak(util.getLast(children))) {
       forcedBreak = true;
     }
     children.pop();
   }
-  // allow one extra newline
-  if (numTrailingHard > 1) {
-    children.push(hardline);
-  }
 
   // Trim leading lines, recording if there was a hardline
-  let numLeadingHard = 0;
   while (children.length && isLineNext(children[0])) {
-    if (willBreak(children[0])) {
-      ++numLeadingHard;
+    if (!forcedBreak && willBreak(children[0])) {
       forcedBreak = true;
     }
     children.shift();
-  }
-  // allow one extra newline
-  if (numLeadingHard > 1) {
-    children.unshift(hardline);
   }
 
   // Tweak how we format children if outputting this element over multiple lines.

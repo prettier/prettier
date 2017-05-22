@@ -118,21 +118,17 @@ newlines_text = (
 
 newlines_text_spaced = (
   <div>
-
     space above
 
     space below
-
   </div>
 );
 
 newlines_elems_spaced = (
   <div>
-
     <span>space above</span>
 
     <span>space below</span>
-
   </div>
 );
 
@@ -152,9 +148,7 @@ newlines_mixed = (
 newlines_elems = (
   <div>
     <div>
-
       <div />
-
     </div>
 
     hi
@@ -164,7 +158,6 @@ newlines_elems = (
     <span />
 
     <Big />
-
   </div>
 );
 
