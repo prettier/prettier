@@ -83,12 +83,41 @@ function findNodeByOffset(node, offset, opts, text) {
     }
 
     try {
-      parser.parse(text.slice(start, end), opts);
-      return node;
+      if (isStatement(node)) {
+        return node;
+      }
     } catch (err) {
       return;
     }
   }
+}
+
+function isStatement(node) {
+  if (node == null) {
+    return false;
+  }
+  switch (node.type) {
+    case "BlockStatement":
+    case "BreakStatement":
+    case "ContinueStatement":
+    case "DebuggerStatement":
+    case "DoWhileStatement":
+    case "EmptyStatement":
+    case "ExpressionStatement":
+    case "ForInStatement":
+    case "ForStatement":
+    case "IfStatement":
+    case "LabeledStatement":
+    case "ReturnStatement":
+    case "SwitchStatement":
+    case "ThrowStatement":
+    case "TryStatement":
+    case "VariableDeclaration":
+    case "WhileStatement":
+    case "WithStatement":
+      return true;
+  }
+  return false;
 }
 
 function calculateRange(text, opts, ast) {
