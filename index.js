@@ -85,7 +85,9 @@ function findNodeByOffset(node, offset, opts, text) {
     try {
       parser.parse(text.slice(start, end), opts);
       return node;
-    } catch (err) {}
+    } catch (err) {
+      return;
+    }
   }
 }
 
