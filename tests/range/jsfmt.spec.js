@@ -8,3 +8,7 @@ run_file(__dirname, "nested.js", {
   rangeStart: 0,
   rangeEnd: 37
 });
+run_file(__dirname, "nested.js", {
+  rangeStart: 9,
+  rangeEnd: 37
+});

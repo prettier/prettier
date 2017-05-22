@@ -14,7 +14,7 @@ function ugly ( {a=1,     b     =   2     }      ) {
 function ugly ( {a=1,     b     =   2     }      ) {
   function ugly ( {a=1,     b     =   2     }      ) {
     function ugly ( {a=1,     b     =   2     }      ) {
-  	  	     \`multiline template string
+             \`multiline template string
               with too much indentation\`;
       // The [222, 225) range selects "too" above
     }
@@ -36,6 +36,23 @@ try {
     body;
   }
 } catch (err) {}
+
+`;
+
+exports[`nested.js 2`] = `
+try {
+  if (condition) {
+    body
+  }
+}
+catch (err) {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+try {
+  if (condition) {
+    body;
+  }
+}
+catch (err) {}
 
 `;
 
