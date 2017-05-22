@@ -71,12 +71,12 @@ function format(text, opts, addAlignmentSize) {
   return str;
 }
 
-function findNodeByOffset(node, offset, opts, text) {
+function findNodeByOffset(node, offset) {
   const start = util.locStart(node);
   const end = util.locEnd(node);
   if (start <= offset && offset <= end) {
     for (const childNode of comments.getSortedChildNodes(node)) {
-      const childResult = findNodeByOffset(childNode, offset, opts, text);
+      const childResult = findNodeByOffset(childNode, offset);
       if (childResult) {
         return childResult;
       }
@@ -121,8 +121,8 @@ function isSourceElement(node) {
 }
 
 function calculateRange(text, opts, ast) {
-  const startNode = findNodeByOffset(ast, opts.rangeStart, opts, text);
-  const endNode = findNodeByOffset(ast, opts.rangeEnd, opts, text);
+  const startNode = findNodeByOffset(ast, opts.rangeStart);
+  const endNode = findNodeByOffset(ast, opts.rangeEnd);
   const rangeStart = Math.min(util.locStart(startNode), util.locStart(endNode));
   const rangeEnd = Math.max(util.locEnd(startNode), util.locEnd(endNode));
 
