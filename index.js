@@ -72,29 +72,20 @@ function format(text, opts, addAlignmentSize) {
 }
 
 function findNodeByOffset(node, offset, opts, text) {
-  if (!nodeContainsOffsetAndParses(node, offset, opts, text)) {
-    return;
-  }
-  let resultNode = node;
-  const childNodes = comments.getSortedChildNodes(node);
-  childNodes.forEach(childNode => {
-    resultNode = findNodeByOffset(childNode, offset, opts, text) || resultNode;
-  });
-  return resultNode;
-}
-
-function nodeContainsOffsetAndParses(node, offset, opts, text) {
   const start = util.locStart(node);
   const end = util.locEnd(node);
   if (start <= offset && offset <= end) {
+    for (const childNode of comments.getSortedChildNodes(node)) {
+      const childResult = findNodeByOffset(childNode, offset, opts, text);
+      if (childResult) {
+        return childResult;
+      }
+    }
+
     try {
       parser.parse(text.slice(start, end), opts);
-      return true;
-    } catch (err) {
-      return false;
-    }
-  } else {
-    return false;
+      return node;
+    } catch (err) {}
   }
 }
 
