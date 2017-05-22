@@ -3585,6 +3585,11 @@ function printJSXElement(path, options, print) {
         multilineChildren.push(rawJsxWhitespace);
         return;
       } else if (i === 0) {
+        // Fill expects alternating content & whitespace parts
+        // always starting with content.
+        // So we add a dummy content element if we would otherwise start
+        // with whitespace.
+        multilineChildren.push("");
         multilineChildren.push(concat([rawJsxWhitespace, hardline]));
         return;
       } else if (i === children.length - 1) {
