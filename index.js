@@ -8,7 +8,6 @@ const printDocToString = require("./src/doc-printer").printDocToString;
 const normalizeOptions = require("./src/options").normalize;
 const parser = require("./src/parser");
 const printDocToDebug = require("./src/doc-debug").printDocToDebug;
-const cleanAST = require("./src/clean-ast").cleanAST;
 
 function guessLineEnding(text) {
   const index = text.indexOf("\n");
@@ -102,20 +101,18 @@ function calculateRange(text, opts, ast) {
 
   // Try to extend the range backwards to the beginning of the line.
   // This is so we can detect indentation correctly and restore it.
-  const rangeAst = parser.parse(rangeString, opts);
   // Use `Math.min` since `lastIndexOf` returns 0 when `rangeStart` is 0
   const rangeStart2 = Math.min(
     rangeStart,
     text.lastIndexOf("\n", rangeStart) + 1
   );
-  const rangeString2 = text.slice(rangeStart2, rangeEnd);
+  const indentString = text.slice(rangeStart2, rangeStart);
   try {
-    const rangeAst2 = parser.parse(rangeString2, opts);
-    if (cleanAST(rangeAst) === cleanAST(rangeAst2)) {
+    if (indentString.trim() == "") {
       return {
         rangeStart: rangeStart2,
         rangeEnd: rangeEnd,
-        rangeString: rangeString2
+        rangeString: text.slice(rangeStart2, rangeEnd)
       };
     }
   } catch (err) {
