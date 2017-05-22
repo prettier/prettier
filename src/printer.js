@@ -394,12 +394,13 @@ function genericPrintNoParens(path, options, print, args) {
       // We want to always keep these types of nodes on the same line
       // as the arrow.
       if (
-        n.body.type === "ArrayExpression" ||
-        n.body.type === "ObjectExpression" ||
-        n.body.type === "JSXElement" ||
-        n.body.type === "BlockStatement" ||
-        isTemplateOnItsOwnLine(n.body, options.originalText) ||
-        n.body.type === "ArrowFunctionExpression"
+        !hasLeadingOwnLineComment(options.originalText, n.body) &&
+        (n.body.type === "ArrayExpression" ||
+          n.body.type === "ObjectExpression" ||
+          n.body.type === "JSXElement" ||
+          n.body.type === "BlockStatement" ||
+          isTemplateOnItsOwnLine(n.body, options.originalText) ||
+          n.body.type === "ArrowFunctionExpression")
       ) {
         return group(collapsed);
       }
