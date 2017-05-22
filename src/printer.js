@@ -1672,11 +1672,7 @@ function genericPrintNoParens(path, options, print, args) {
             size = util.getAlignmentSize(value, tabWidth, index + 1);
           }
 
-          const aligned = addAlignmentToDoc(
-            removeLines(expressions[i]),
-            size,
-            tabWidth
-          );
+          const aligned = addAlignmentToDoc(expressions[i], size, tabWidth);
 
           parts.push("${", aligned, lineSuffixBoundary, "}");
         }
