@@ -82,12 +82,8 @@ function findNodeByOffset(node, offset, opts, text) {
       }
     }
 
-    try {
-      if (isSourceElement(node)) {
-        return node;
-      }
-    } catch (err) {
-      return;
+    if (isSourceElement(node)) {
+      return node;
     }
   }
 }
