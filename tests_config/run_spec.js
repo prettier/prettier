@@ -13,77 +13,70 @@ const ALL_PARSERS = process.env["ALL_PARSERS"]
   : ["flow", "babylon", "typescript"];
 
 function run_spec(dirname, options, additionalParsers) {
-  fs
-    .readdirSync(dirname)
-    .forEach(filename =>
-      run_file(dirname, filename, options, additionalParsers)
-    );
-}
-
-function run_file(dirname, filename, options, additionalParsers) {
-  const extension = extname(filename);
-  if (/^\.[jt]sx?$/.test(extension) && filename !== "jsfmt.spec.js") {
-    const path = dirname + "/" + filename;
-    const source = read(path)
-      .replace(/\r\n/g, "\n")
-      .replace("<<<PRETTIER_RANGE_START>>>", (match, offset) => {
-        options = Object.assign({}, options, { rangeStart: offset });
-        return "";
-      })
-      .replace("<<<PRETTIER_RANGE_END>>>", (match, offset) => {
-        options = Object.assign({}, options, { rangeEnd: offset });
-        return "";
-      });
-
-    const mergedOptions = mergeDefaultOptions(options || {});
-    const output = prettyprint(source, path, mergedOptions);
-    test(`${mergedOptions.parser} - ${parser.parser}-verify`, () => {
-      expect(raw(source + "~".repeat(80) + "\n" + output)).toMatchSnapshot(
-        filename
-      );
-    });
-
-    getParsersToVerify(
-      mergedOptions.parser,
-      additionalParsers || []
-    ).forEach(parserName => {
-      test(`${filename} - ${parserName}-verify`, () => {
-        const verifyOptions = Object.assign(mergedOptions, {
-          parser: parserName
+  fs.readdirSync(dirname).forEach(filename => {
+    const extension = extname(filename);
+    if (/^\.[jt]sx?$/.test(extension) && filename !== "jsfmt.spec.js") {
+      const path = dirname + "/" + filename;
+      const source = read(path)
+        .replace(/\r\n/g, "\n")
+        .replace("<<<PRETTIER_RANGE_START>>>", (match, offset) => {
+          options = Object.assign({}, options, { rangeStart: offset });
+          return "";
+        })
+        .replace("<<<PRETTIER_RANGE_END>>>", (match, offset) => {
+          options = Object.assign({}, options, { rangeEnd: offset });
+          return "";
         });
-        const verifyOutput = prettyprint(source, path, verifyOptions);
-        expect(output).toEqual(verifyOutput);
-      });
-    });
 
-    if (AST_COMPARE) {
-      const source = read(dirname + "/" + filename);
-      const ast = parse(source, mergedOptions);
-      const astMassaged = massageAST(ast);
-      let ppastMassaged;
-      let pperr = null;
-      try {
-        const ppast = parse(
-          prettyprint(source, path, mergedOptions),
-          mergedOptions
+      const mergedOptions = mergeDefaultOptions(options || {});
+      const output = prettyprint(source, path, mergedOptions);
+      test(`${mergedOptions.parser} - ${parser.parser}-verify`, () => {
+        expect(raw(source + "~".repeat(80) + "\n" + output)).toMatchSnapshot(
+          filename
         );
-        ppastMassaged = massageAST(ppast);
-      } catch (e) {
-        pperr = e.stack;
-      }
-
-      test(path + " parse", () => {
-        expect(pperr).toBe(null);
-        expect(ppastMassaged).toBeDefined();
-        if (!ast.errors || ast.errors.length === 0) {
-          expect(astMassaged).toEqual(ppastMassaged);
-        }
       });
+
+      getParsersToVerify(
+        mergedOptions.parser,
+        additionalParsers || []
+      ).forEach(parserName => {
+        test(`${filename} - ${parserName}-verify`, () => {
+          const verifyOptions = Object.assign(mergedOptions, {
+            parser: parserName
+          });
+          const verifyOutput = prettyprint(source, path, verifyOptions);
+          expect(output).toEqual(verifyOutput);
+        });
+      });
+
+      if (AST_COMPARE) {
+        const source = read(dirname + "/" + filename);
+        const ast = parse(source, mergedOptions);
+        const astMassaged = massageAST(ast);
+        let ppastMassaged;
+        let pperr = null;
+        try {
+          const ppast = parse(
+            prettyprint(source, path, mergedOptions),
+            mergedOptions
+          );
+          ppastMassaged = massageAST(ppast);
+        } catch (e) {
+          pperr = e.stack;
+        }
+
+        test(path + " parse", () => {
+          expect(pperr).toBe(null);
+          expect(ppastMassaged).toBeDefined();
+          if (!ast.errors || ast.errors.length === 0) {
+            expect(astMassaged).toEqual(ppastMassaged);
+          }
+        });
+      }
     }
-  }
+  });
 }
 global.run_spec = run_spec;
-global.run_file = run_file;
 
 function stripLocation(ast) {
   if (Array.isArray(ast)) {
