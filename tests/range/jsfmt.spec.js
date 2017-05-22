@@ -12,3 +12,7 @@ run_file(__dirname, "nested.js", {
   rangeStart: 9,
   rangeEnd: 37
 });
+run_file(__dirname, "function-declaration.js", {
+  rangeStart: 16,
+  rangeEnd: 43
+});
