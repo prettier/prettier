@@ -167,6 +167,12 @@ If you're worried that Prettier will change the correctness of your code, add `-
 This will cause Prettier to print an error message if it detects that code correctness might have changed.
 Note that `--write` cannot be used with `--debug-check`.
 
+Another useful flag is `--list-different` or `-l` which prints the files that are different from prettier formatting. If there are differences the scripts errors out, this can be useful for example in the CI to check if all the files have prettier formatting. Below is the example command that could be used to check the formatting in the `create-react-app`:
+
+```sh
+prettier --single-quote -l './src/*/**.js'
+```
+
 #### Pre-commit hook for changed files
 
 You can use this with a pre-commit tool. This can re-format your files that are marked as "staged" via `git add`  before you commit.
