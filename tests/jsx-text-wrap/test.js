@@ -93,3 +93,9 @@ x =
       Second
     </div> Third
   </div>
+
+leading_whitespace =
+  <div> First Second Third Fourth Fifth Sixth Seventh Eighth Ninth Tenth Eleventh Twelfth Thirteenth Fourteenth</div>
+
+no_leading_whitespace =
+  <div>First Second Third Fourth Fifth Sixth Seventh Eighth Ninth Tenth Eleventh Twelfth Thirteenth Fourteenth</div>
