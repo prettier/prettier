@@ -78,26 +78,23 @@ function findNodeByOffset(ast, offset, opts, text) {
   if (opts.parser === "babylon") {
     traverse(ast, {
       enter: function(path) {
-        const node = path.node;
-        if (nodeContainsOffsetAndParses(node, offset, opts, text)) {
-          resultNode = node;
-        } else {
-          return path.skip();
-        }
+        return onEnter.call(path, path.node);
       }
     });
   } else {
     estraverse.traverse(ast, {
-      enter: function(node) {
-        if (nodeContainsOffsetAndParses(node, offset, opts, text)) {
-          resultNode = node;
-        } else {
-          return this.skip();
-        }
-      }
+      enter: onEnter
     });
   }
   return resultNode;
+
+  function onEnter(node) {
+    if (nodeContainsOffsetAndParses(node, offset, opts, text)) {
+      resultNode = node;
+    } else {
+      return this.skip();
+    }
+  }
 }
 
 function nodeContainsOffsetAndParses(node, offset, opts, text) {
