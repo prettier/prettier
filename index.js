@@ -91,22 +91,15 @@ function findNodeByOffset(node, offset, opts, text) {
   }
 }
 
-function extendRangeStart(text, opts, ast) {
-  const startNode = findNodeByOffset(ast, opts.rangeStart, opts, text);
-  const rangeStart = util.locStart(startNode);
-  return rangeStart;
-}
-
-function extendRangeEnd(text, opts, ast) {
-  const endNode = findNodeByOffset(ast, opts.rangeEnd, opts, text);
-  const rangeEnd = util.locEnd(endNode);
-  return rangeEnd;
-}
-
 function formatRange(text, opts, ast) {
   if (0 < opts.rangeStart || opts.rangeEnd < text.length) {
-    const rangeStart = extendRangeStart(text, opts, ast);
-    const rangeEnd = extendRangeEnd(text, opts, ast);
+    const startNode = findNodeByOffset(ast, opts.rangeStart, opts, text);
+    const endNode = findNodeByOffset(ast, opts.rangeEnd, opts, text);
+    const rangeStart = Math.min(
+      util.locStart(startNode),
+      util.locStart(endNode)
+    );
+    const rangeEnd = Math.max(util.locEnd(startNode), util.locEnd(endNode));
 
     const rangeString = text.substring(rangeStart, rangeEnd);
     const alignmentSize = util.getAlignmentSize(
