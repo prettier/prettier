@@ -43,6 +43,10 @@ describe(`does something really long and complicated so I have to write a very l
   });
 });
 
+describe("does something really long and complicated so I have to write a very long name for the describe block", willResolve(() => {
+  console.log("hello!");
+}));
+
 // Should break
 
 it.only("does something really long and complicated so I have to write a very long name for the test", () => {
