@@ -83,7 +83,7 @@ function findNodeByOffset(node, offset, opts, text) {
     }
 
     try {
-      if (isStatement(node)) {
+      if (isSourceElement(node)) {
         return node;
       }
     } catch (err) {
@@ -92,11 +92,15 @@ function findNodeByOffset(node, offset, opts, text) {
   }
 }
 
-function isStatement(node) {
+// See https://www.ecma-international.org/ecma-262/5.1/#sec-A.5
+function isSourceElement(node) {
   if (node == null) {
     return false;
   }
   switch (node.type) {
+    case "FunctionDeclaration":
+      return true;
+    // Statements
     case "BlockStatement":
     case "BreakStatement":
     case "ContinueStatement":
