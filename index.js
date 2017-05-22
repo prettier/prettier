@@ -8,6 +8,7 @@ const printDocToString = require("./src/doc-printer").printDocToString;
 const normalizeOptions = require("./src/options").normalize;
 const parser = require("./src/parser");
 const printDocToDebug = require("./src/doc-debug").printDocToDebug;
+const cleanAST = require("./src/clean-ast").cleanAST;
 
 function guessLineEnding(text) {
   const index = text.indexOf("\n");
@@ -91,17 +92,50 @@ function findNodeByOffset(node, offset, opts, text) {
   }
 }
 
+function calculateRange(text, opts, ast) {
+  const startNode = findNodeByOffset(ast, opts.rangeStart, opts, text);
+  const endNode = findNodeByOffset(ast, opts.rangeEnd, opts, text);
+  const rangeStart = Math.min(util.locStart(startNode), util.locStart(endNode));
+  const rangeEnd = Math.max(util.locEnd(startNode), util.locEnd(endNode));
+
+  const rangeString = text.slice(rangeStart, rangeEnd);
+
+  // Try to extend the range backwards to the beginning of the line.
+  // This is so we can detect indentation correctly and restore it.
+  const rangeAst = parser.parse(rangeString, opts);
+  // Use `Math.min` since `lastIndexOf` returns 0 when `rangeStart` is 0
+  const rangeStart2 = Math.min(
+    rangeStart,
+    text.lastIndexOf("\n", rangeStart) + 1
+  );
+  const rangeString2 = text.slice(rangeStart2, rangeEnd);
+  try {
+    const rangeAst2 = parser.parse(rangeString2, opts);
+    if (cleanAST(rangeAst) === cleanAST(rangeAst2)) {
+      return {
+        rangeStart: rangeStart2,
+        rangeEnd: rangeEnd,
+        rangeString: rangeString2
+      };
+    }
+  } catch (err) {
+    // do nothing
+  }
+
+  return {
+    rangeStart: rangeStart,
+    rangeEnd: rangeEnd,
+    rangeString: rangeString
+  };
+}
+
 function formatRange(text, opts, ast) {
   if (0 < opts.rangeStart || opts.rangeEnd < text.length) {
-    const startNode = findNodeByOffset(ast, opts.rangeStart, opts, text);
-    const endNode = findNodeByOffset(ast, opts.rangeEnd, opts, text);
-    const rangeStart = Math.min(
-      util.locStart(startNode),
-      util.locStart(endNode)
-    );
-    const rangeEnd = Math.max(util.locEnd(startNode), util.locEnd(endNode));
+    const range = calculateRange(text, opts, ast);
+    const rangeStart = range.rangeStart;
+    const rangeEnd = range.rangeEnd;
+    const rangeString = range.rangeString;
 
-    const rangeString = text.substring(rangeStart, rangeEnd);
     const alignmentSize = util.getAlignmentSize(
       rangeString.slice(0, rangeString.search(/[^ \t]/)),
       opts.tabWidth
