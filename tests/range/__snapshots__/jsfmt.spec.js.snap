@@ -63,7 +63,7 @@ call(
 
 `;
 
-exports[`multiple-statements.js 2`] = `
+exports[`multiple-statements2.js 1`] = `
 call(
   1, 2,3
 );
@@ -110,7 +110,7 @@ try {
 
 `;
 
-exports[`nested.js 2`] = `
+exports[`nested2.js 1`] = `
 try {
   if (condition) {
     body
