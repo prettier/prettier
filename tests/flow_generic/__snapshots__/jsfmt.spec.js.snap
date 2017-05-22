@@ -54,6 +54,24 @@ var X = {
 
 `;
 
+exports[`generic.js 1`] = `
+const identity = <T>(t: T): T => t;
+const a = 1;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const identity = <T>(t: T): T => t;
+const a = 1;
+
+`;
+
+exports[`generic.js 2`] = `
+const identity = <T>(t: T): T => t;
+const a = 1;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const identity = <T>(t: T): T => t;
+const a = 1;
+
+`;
+
 exports[`nullable.js 1`] = `
 function formatEntireFile(
   fileVersion: FileVersion,

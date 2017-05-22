@@ -12,7 +12,7 @@
   "dependencies": {
     "ast-types": "0.9.8",
     "babel-code-frame": "6.22.0",
-    "babylon": "7.0.0-beta.8",
+    "babylon": "7.0.0-beta.10",
     "chalk": "1.1.3",
     "esutils": "2.0.2",
     "flow-parser": "0.45.0",
