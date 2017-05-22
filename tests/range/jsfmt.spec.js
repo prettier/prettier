@@ -16,3 +16,11 @@ run_file(__dirname, "function-declaration.js", {
   rangeStart: 16,
   rangeEnd: 43
 });
+run_file(__dirname, "multiple-statements.js", {
+  rangeStart: 30,
+  rangeEnd: 49
+});
+run_file(__dirname, "multiple-statements.js", {
+  rangeStart: 18,
+  rangeEnd: 57
+});
