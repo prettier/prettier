@@ -3353,6 +3353,9 @@ function printMemberChain(path, options, print) {
   }
 
   function printIndentedGroup(groups) {
+    if (groups.length === 0) {
+      return "";
+    }
     return indent(
       group(concat([hardline, join(hardline, groups.map(printGroup))]))
     );
@@ -3360,10 +3363,17 @@ function printMemberChain(path, options, print) {
 
   const printedGroups = groups.map(printGroup);
   const oneLine = concat(printedGroups);
+
+  const flatGroups = groups
+    .slice(0, shouldMerge ? 3 : 2)
+    .reduce((res, group) => {
+      res.push(...group);
+      return res;
+    }, []);
+
   const hasComment =
-    groups[0][groups[0].length - 1].node.comments ||
-    (groups.length >= 2 && groups[1][0].node.comments) ||
-    (groups.length >= 3 && groups[2][0].node.comments);
+    flatGroups.slice(1).some(node => hasLeadingComment(node.node)) ||
+    flatGroups.slice(0, -1).some(node => hasTrailingComment(node.node));
 
   // If we only have a single `.`, we shouldn't do anything fancy and just
   // render everything concatenated together.
@@ -3983,6 +3993,14 @@ function isLastStatement(path) {
   const node = path.getValue();
   const body = parent.body.filter(stmt => stmt.type !== "EmptyStatement");
   return body && body[body.length - 1] === node;
+}
+
+function hasLeadingComment(node) {
+  return node.comments && node.comments.some(comment => comment.leading);
+}
+
+function hasTrailingComment(node) {
+  return node.comments && node.comments.some(comment => comment.trailing);
 }
 
 function hasLeadingOwnLineComment(text, node) {

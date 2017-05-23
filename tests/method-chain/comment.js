@@ -36,3 +36,9 @@ measure() // Warm-up first
 
 const configModel = this.baseConfigurationService.getCache().consolidated		// global/default values (do NOT modify)
   .merge(this.cachedWorkspaceConfig);
+
+this.doWriteConfiguration(target, value, options) // queue up writes to prevent race conditions
+  .then(() => null,
+  error => {
+    return options.donotNotifyError ? TPromise.wrapError(error) : this.onError(error, target, value);
+  });

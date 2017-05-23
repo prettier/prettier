@@ -244,6 +244,12 @@ measure() // Warm-up first
 
 const configModel = this.baseConfigurationService.getCache().consolidated		// global/default values (do NOT modify)
   .merge(this.cachedWorkspaceConfig);
+
+this.doWriteConfiguration(target, value, options) // queue up writes to prevent race conditions
+  .then(() => null,
+  error => {
+    return options.donotNotifyError ? TPromise.wrapError(error) : this.onError(error, target, value);
+  });
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function f() {
   return (
@@ -260,11 +266,13 @@ _.a(a)
 
 _.a(
   a
-) /* very very very very very very very long such that it is longer than 80 columns */.a();
+) /* very very very very very very very long such that it is longer than 80 columns */
+  .a();
 
 _.a(
   a
-) /* very very very very very very very long such that it is longer than 80 columns */.a();
+) /* very very very very very very very long such that it is longer than 80 columns */
+  .a();
 
 Something
   // $FlowFixMe(>=0.41.0)
@@ -285,6 +293,16 @@ const configModel = this.baseConfigurationService
   .getCache()
   .consolidated // global/default values (do NOT modify)
   .merge(this.cachedWorkspaceConfig);
+
+this.doWriteConfiguration(target, value, options) // queue up writes to prevent race conditions
+  .then(
+    () => null,
+    error => {
+      return options.donotNotifyError
+        ? TPromise.wrapError(error)
+        : this.onError(error, target, value);
+    }
+  );
 
 `;
 
