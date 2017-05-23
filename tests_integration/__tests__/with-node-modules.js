@@ -3,10 +3,7 @@
 const runPrettier = require("../runPrettier");
 
 test("ignores node_modules by default", () => {
-  const result = runPrettier("cli/with-node-modules", [
-    "**/*.js",
-    "-l"
-  ]);
+  const result = runPrettier("cli/with-node-modules", ["**/*.js", "-l"]);
 
   expect(result.stdout).toMatchSnapshot();
 });
