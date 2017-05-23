@@ -295,6 +295,10 @@ FPp.needsParens = function() {
       }
 
     case "BinaryExpression": {
+      if (parent.type === "UpdateExpression") {
+        return true;
+      }
+
       const isLeftOfAForStatement = node => {
         let i = 0;
         while (node) {
