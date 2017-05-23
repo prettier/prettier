@@ -22,3 +22,14 @@ Something
   // $FlowFixMe(>=0.41.0)
   .getInstance(this.props.dao)
   .getters()
+
+// Warm-up first
+measure()
+  .then(() => {
+    SomethingLong();
+  });
+
+measure() // Warm-up first
+  .then(() => {
+    SomethingLong();
+  });
