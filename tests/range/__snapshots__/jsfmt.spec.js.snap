@@ -138,6 +138,23 @@ catch (err) {}
 
 `;
 
+exports[`nested3.js 1`] = `
+try {
+1;if (condition) {
+    body
+  }
+}
+catch (err) {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+try {
+1;if (condition) {
+  body;
+}
+}
+catch (err) {}
+
+`;
+
 exports[`range.js 1`] = `
 function ugly ( {a=1,     b     =   2     }      ) {
   function ugly ( {a=1,     b     =   2     }      ) {
