@@ -87,6 +87,14 @@ import {
   // FN4,
   // FN5
 } from "./module";
+
+import {
+  ExecutionResult,
+  DocumentNode,
+  /* tslint:disable */
+  SelectionSetNode,
+  /* tslint:enable */
+} from 'graphql';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import {
   //comment1
@@ -122,6 +130,14 @@ import {
   // FN4,
   // FN5
 } from "./module";
+
+import {
+  ExecutionResult,
+  DocumentNode,
+  /* tslint:disable */
+  SelectionSetNode
+  /* tslint:enable */
+} from "graphql";
 
 `;
 
@@ -158,6 +174,14 @@ import {
   // FN4,
   // FN5
 } from "./module";
+
+import {
+  ExecutionResult,
+  DocumentNode,
+  /* tslint:disable */
+  SelectionSetNode,
+  /* tslint:enable */
+} from 'graphql';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import {
   //comment1
@@ -193,6 +217,14 @@ import {
   // FN4,
   // FN5
 } from "./module";
+
+import {
+  ExecutionResult,
+  DocumentNode,
+  /* tslint:disable */
+  SelectionSetNode
+  /* tslint:enable */
+} from "graphql";
 
 `;
 

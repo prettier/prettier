@@ -30,3 +30,11 @@ import {
   // FN4,
   // FN5
 } from "./module";
+
+import {
+  ExecutionResult,
+  DocumentNode,
+  /* tslint:disable */
+  SelectionSetNode,
+  /* tslint:enable */
+} from 'graphql';
