@@ -7,11 +7,8 @@ test("ignores node_modules by default", () => {
     "**/*.js",
     "-l"
   ]);
-  const files = stdout.split("\n");
 
-  expect(files).not.toContain("node_modules/node-module.js");
-  expect(files).toContain("regular-module.js");
-  expect(files).toContain("not_node_modules/file.js");
+  expect(stdout).toMatchSnapshot();
   expect(status).toBe(1);
 });
 
@@ -21,37 +18,32 @@ test("doesn't ignore node_modules with --with-node-modules flag", () => {
     "-l",
     "--with-node-modules"
   ]);
-  const files = stdout.split("\n");
 
-  expect(files).toContain("node_modules/node-module.js");
-  expect(files).toContain("regular-module.js");
-  expect(files).toContain("not_node_modules/file.js");
+  expect(stdout).toMatchSnapshot();
   expect(status).toBe(1);
 });
 
 test("ignores node_modules by default for file list", () => {
   const { stdout, status } = runPrettier("cli/with-node-modules", [
     "node_modules/node-module.js",
+    "not_node_modules/file.js",
     "regular-module.js",
     "-l"
   ]);
-  const files = stdout.split("\n");
 
-  expect(files).not.toContain("node_modules/node-module.js");
-  expect(files).toContain("regular-module.js");
+  expect(stdout).toMatchSnapshot();
   expect(status).toBe(1);
 });
 
 test("doesn't ignore node_modules with --with-node-modules flag for file list", () => {
   const { stdout, status } = runPrettier("cli/with-node-modules", [
     "node_modules/node-module.js",
+    "not_node_modules/file.js",
     "regular-module.js",
     "-l",
     "--with-node-modules"
   ]);
-  const files = stdout.split("\n");
 
-  expect(files).toContain("node_modules/node-module.js");
-  expect(files).toContain("regular-module.js");
+  expect(stdout).toMatchSnapshot();
   expect(status).toBe(1);
 });
