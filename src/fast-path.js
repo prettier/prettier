@@ -502,6 +502,7 @@ FPp.needsParens = function() {
         case "ExportDefaultDeclaration":
         case "AwaitExpression":
         case "JSXSpreadAttribute":
+        case "TSTypeAssertionExpression":
           return true;
 
         case "NewExpression":

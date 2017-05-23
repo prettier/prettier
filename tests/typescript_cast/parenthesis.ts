@@ -1,0 +1,1 @@
+<DocumentHighlightKind>(a ? b : c)
