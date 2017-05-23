@@ -3,3 +3,4 @@
 /tests/**/*.js
 !/tests/**/jsfmt.spec.js
 !/**/.eslintrc.js
+/test.js
