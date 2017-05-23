@@ -95,8 +95,6 @@ function isSourceElement(node) {
   }
   switch (node.type) {
     case "FunctionDeclaration":
-      return true;
-    // Statements
     case "BlockStatement":
     case "BreakStatement":
     case "ContinueStatement":
