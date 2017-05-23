@@ -1423,8 +1423,13 @@ function genericPrintNoParens(path, options, print, args) {
               .filter(e => e !== null)
           );
         }, "consequent");
+
+        const consequent = n.consequent.filter(
+          node => node.type !== "EmptyStatement"
+        );
+
         parts.push(
-          n.consequent.length === 1 && n.consequent[0].type === "BlockStatement"
+          consequent.length === 1 && consequent[0].type === "BlockStatement"
             ? concat([" ", cons])
             : indent(concat([hardline, cons]))
         );

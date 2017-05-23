@@ -143,6 +143,24 @@ switch (a) {
 
 `;
 
+exports[`empty_statement.js 1`] = `
+switch (error.code) {
+	case ConfigurationEditingErrorCode.ERROR_INVALID_CONFIGURATION: {
+		nls.localize('errorInvalidConfiguration', "Unable to write into settings. Correct errors/warnings in the file and try again.");
+	};
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+switch (error.code) {
+  case ConfigurationEditingErrorCode.ERROR_INVALID_CONFIGURATION: {
+    nls.localize(
+      "errorInvalidConfiguration",
+      "Unable to write into settings. Correct errors/warnings in the file and try again."
+    );
+  }
+}
+
+`;
+
 exports[`empty_switch.js 1`] = `
 switch (1) { default:; }
 switch (1) {}
