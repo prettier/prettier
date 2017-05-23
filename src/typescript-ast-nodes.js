@@ -31,7 +31,10 @@ module.exports = function(fork) {
     .field("elementTypes", [def("TSType")])
     .bases("Node");
 
-  def("TSArrayType").bases("Node");
+  def("TSArrayType")
+    .build("elementType")
+    .field("elementType", def("TSType"))
+    .bases("Node");
 
   def("TypeElement").bases("Node");
 
