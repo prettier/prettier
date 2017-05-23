@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`decorators.js 1`] = `
+export class TestTextFileService {
+	constructor(
+		@ILifecycleService lifecycleService,
+	) {
+	}
+}
+
+@commonEditorContribution
+export class TabCompletionController {
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export class TestTextFileService {
+  constructor(@ILifecycleService lifecycleService) {}
+}
+
+@commonEditorContribution
+export class TabCompletionController {}
+
+`;
