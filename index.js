@@ -192,17 +192,13 @@ function calculateRange(text, opts, ast) {
     text.lastIndexOf("\n", rangeStart) + 1
   );
   const indentString = text.slice(rangeStart2, rangeStart);
-  try {
-    if (indentString.trim() == "") {
-      return {
-        rangeStart: rangeStart2,
-        rangeEnd: rangeEnd,
-        rangeString: text.slice(rangeStart2, rangeEnd),
-        indentString: indentString
-      };
-    }
-  } catch (err) {
-    // do nothing
+  if (indentString.trim() == "") {
+    return {
+      rangeStart: rangeStart2,
+      rangeEnd: rangeEnd,
+      rangeString: text.slice(rangeStart2, rangeEnd),
+      indentString: indentString
+    };
   }
 
   return {
