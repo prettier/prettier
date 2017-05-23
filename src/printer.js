@@ -3436,7 +3436,7 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
             // tags and text.
             // Unfortunately Facebook have a custom translation pipeline
             // (https://github.com/prettier/prettier/issues/1581#issuecomment-300975032)
-            // that uses the JSX syntax, but does not follow the JSX whitespace
+            // that uses the JSX syntax, but does not follow the React whitespace
             // rules.
             // Ensuring that we never have a break between tags and text in JSX
             // will allow Facebook to adopt Prettier without too much of an
@@ -3461,7 +3461,8 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
           if (endSpace) {
             children.push(jsxWhitespace);
           } else {
-            children.push(softline);
+            // As above this would ideally be a `softline`.
+            children.push("");
           }
         });
       } else if (/\n/.test(value)) {
