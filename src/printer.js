@@ -3432,7 +3432,16 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
           if (beginSpace) {
             children.push(jsxWhitespace);
           } else {
-            children.push(softline);
+            // Ideally this would be a `softline` to allow a break between
+            // tags and text.
+            // Unfortunately Facebook have a custom translation pipeline
+            // (https://github.com/prettier/prettier/issues/1581#issuecomment-300975032)
+            // that uses the JSX syntax, but does not follow the JSX whitespace
+            // rules.
+            // Ensuring that we never have a break between tags and text in JSX
+            // will allow Facebook to adopt Prettier without too much of an
+            // adverse effect on formatting algorithm.
+            children.push("");
           }
 
           const stripped = textLine.replace(/^[ \n\r\t]+|[ \n\r\t]+$/g, "");
@@ -3561,9 +3570,9 @@ function printJSXElement(path, options, print) {
     children.push(hardline);
   }
 
-  // Trim leading lines, recording if there was a hardline
+  // Trim leading lines (or empty strings), recording if there was a hardline
   let numLeadingHard = 0;
-  while (children.length && isLineNext(children[0])) {
+  while (children.length && (isLineNext(children[0]) || isEmpty(children[0]))) {
     if (willBreak(children[0])) {
       ++numLeadingHard;
       forcedBreak = true;
