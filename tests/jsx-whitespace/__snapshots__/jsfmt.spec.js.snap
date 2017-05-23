@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test.js 1`] = `
-// Should collapse
+// Treated as whitespace in JSX
 spaces = <div>]   [</div>
 tabs = <div>]      [</div>
 slash_n = <div>]
@@ -14,7 +14,7 @@ slash_r = <div>]
 [</div>
 
 
-// Should not collapse
+// Not treated as whitespace in JSX
 // NOTE: Some of the space characters here won't show up in an editor,
 // but they are there!
 slash_f = <div>][</div>
@@ -24,7 +24,7 @@ em_space = <div>]   [</div>
 hair_space = <div>]  [</div>
 zero_width_space = <div>]​​​[</div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Should collapse
+// Treated as whitespace in JSX
 spaces = <div>] [</div>;
 tabs = <div>] [</div>;
 slash_n = (
@@ -42,7 +42,7 @@ slash_r = (
   </div>
 );
 
-// Should not collapse
+// Not treated as whitespace in JSX
 // NOTE: Some of the space characters here won't show up in an editor,
 // but they are there!
 slash_f = <div>][</div>;

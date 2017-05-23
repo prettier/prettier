@@ -1,4 +1,4 @@
-// Should collapse
+// Treated as whitespace in JSX
 spaces = <div>]   [</div>
 tabs = <div>]      [</div>
 slash_n = <div>]
@@ -11,7 +11,7 @@ slash_r = <div>]
 [</div>
 
 
-// Should not collapse
+// Not treated as whitespace in JSX
 // NOTE: Some of the space characters here won't show up in an editor,
 // but they are there!
 slash_f = <div>][</div>
