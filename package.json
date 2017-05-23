@@ -36,12 +36,14 @@
     "rollup-plugin-node-globals": "1.1.0",
     "rollup-plugin-node-resolve": "2.0.0",
     "typescript": "2.3.2",
-    "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#b7220fdbf5a923c64bb6e5bbbfc2ad689ec779eb"
+    "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#b7220fdbf5a923c64bb6e5bbbfc2ad689ec779eb",
+    "webpack": "^2.5.1"
   },
   "scripts": {
     "test": "jest",
     "lint": "eslint .",
-    "build:docs": "rollup -c docs/rollup.config.js"
+    "build:docs": "rollup -c docs/rollup.config.js",
+    "build": "webpack --config scripts/build/webpack.config.js"
   },
   "jest": {
     "setupFiles": [
@@ -54,7 +56,6 @@
     "testPathIgnorePatterns": [
       "tests/new_react",
       "tests/more_react",
-
       "see https://github.com/eslint/typescript-eslint-parser/issues/269",
       "tests/typescript/conformance/types/abstractKeyword/jsfmt.spec.js"
     ]
