@@ -5,7 +5,7 @@
 "use strict";
 
 const path = require("path");
-const { sync: spawnSync } = require("cross-spawn");
+const spawnSync = require("cross-spawn").sync;
 
 const PRETTIER_PATH = path.resolve(__dirname, "../bin/prettier.js");
 
