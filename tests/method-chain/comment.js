@@ -33,3 +33,6 @@ measure() // Warm-up first
   .then(() => {
     SomethingLong();
   });
+
+const configModel = this.baseConfigurationService.getCache().consolidated		// global/default values (do NOT modify)
+  .merge(this.cachedWorkspaceConfig);
