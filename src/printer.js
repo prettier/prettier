@@ -3347,6 +3347,7 @@ function printMemberChain(path, options, print) {
   const printedGroups = groups.map(printGroup);
   const oneLine = concat(printedGroups);
   const hasComment =
+    groups[0][groups[0].length - 1].node.comments ||
     (groups.length >= 2 && groups[1][0].node.comments) ||
     (groups.length >= 3 && groups[2][0].node.comments);
 
