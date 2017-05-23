@@ -123,7 +123,10 @@ module.exports = function(fork) {
     .field("typeAnnotation", def("TypeAnnotation"))
     .bases("TSSignature");
 
-  def("TSAsExpression").bases("Expression");
+  def("TSAsExpression")
+    .build("expression")
+    .field("expression", def("Node"))
+    .bases("Expression");
 
   def("TSNamespaceExportDeclaration")
     .bases("Declaration")

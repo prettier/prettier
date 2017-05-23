@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`types.ts 1`] = `
+(() => {
+  // swallow error and fallback to using directory as path
+}) as string[];
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(() => {
+  // swallow error and fallback to using directory as path
+}) as string[];
+
+`;
