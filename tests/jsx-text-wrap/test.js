@@ -99,3 +99,18 @@ leading_whitespace =
 
 no_leading_whitespace =
   <div>First Second Third Fourth Fifth Sixth Seventh Eighth Ninth Tenth Eleventh Twelfth Thirteenth Fourteenth</div>
+
+facebook_translation_leave_text_around_tag =
+  <div>
+    <span>
+      First
+    </span>,
+    (<span>
+      Second
+    </span>)
+  </div>
+
+this_really_should_split_across_lines =
+  <div>
+    before{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after
+  </div>

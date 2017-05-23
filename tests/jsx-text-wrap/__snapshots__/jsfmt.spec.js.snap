@@ -102,6 +102,21 @@ leading_whitespace =
 
 no_leading_whitespace =
   <div>First Second Third Fourth Fifth Sixth Seventh Eighth Ninth Tenth Eleventh Twelfth Thirteenth Fourteenth</div>
+
+facebook_translation_leave_text_around_tag =
+  <div>
+    <span>
+      First
+    </span>,
+    (<span>
+      Second
+    </span>)
+  </div>
+
+this_really_should_split_across_lines =
+  <div>
+    before{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after
+  </div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Wrapping text
 x = (
@@ -149,12 +164,10 @@ x = (
 
 x = (
   <div>
-    before
-    <div>
+    before<div>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur at
       mollis lorem.
-    </div>
-    after
+    </div>after
   </div>
 );
 
@@ -188,8 +201,9 @@ function DiffOverview(props) {
       <div className="alert alert-info">
         <p>
           This diff overview is computed against the current list of records in
-          this collection and the list it contained on <b>{humanDate(since)}</b>
-          .
+          this collection and the list it contained on <b>
+            {humanDate(since)}
+          </b>.
         </p>
         <p>
           <b>Note:</b> <code>last_modified</code> and <code>schema</code> record
@@ -259,6 +273,23 @@ no_leading_whitespace = (
   <div>
     First Second Third Fourth Fifth Sixth Seventh Eighth Ninth Tenth Eleventh
     Twelfth Thirteenth Fourteenth
+  </div>
+);
+
+facebook_translation_leave_text_around_tag = (
+  <div>
+    <span>
+      First
+    </span>,
+    (<span>
+      Second
+    </span>)
+  </div>
+);
+
+this_really_should_split_across_lines = (
+  <div>
+    before{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after
   </div>
 );
 
