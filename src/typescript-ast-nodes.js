@@ -26,6 +26,13 @@ module.exports = function(fork) {
 
   def("TSType").bases("Node");
 
+  def("TSTupleType")
+    .build("elementTypes")
+    .field("elementTypes", [def("TSType")])
+    .bases("Node");
+
+  def("TSArrayType").bases("Node");
+
   def("TypeElement").bases("Node");
 
   def("TSSignature")
