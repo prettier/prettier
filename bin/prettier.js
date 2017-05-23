@@ -3,6 +3,7 @@
 "use strict";
 
 const fs = require("fs");
+const path = require("path");
 const getStdin = require("get-stdin");
 const glob = require("glob");
 const chalk = require("chalk");
@@ -30,6 +31,7 @@ const argv = minimist(process.argv.slice(2), {
     "version",
     "debug-print-doc",
     "debug-check",
+    "with-node-modules",
     // Deprecated in 0.0.10
     "flow-parser"
   ],
@@ -64,6 +66,10 @@ if (argv["version"]) {
 const filepatterns = argv["_"];
 const write = argv["write"];
 const stdin = argv["stdin"] || (!filepatterns.length && !process.stdin.isTTY);
+const ignoreNodeModules = argv["with-node-modules"] === false;
+const globOptions = {
+  ignore: ignoreNodeModules && "**/node_modules/**"
+};
 
 if (write && argv["debug-check"]) {
   console.error("Cannot use --write and --debug-check together.");
@@ -341,11 +347,14 @@ if (stdin) {
 function eachFilename(patterns, callback) {
   patterns.forEach(pattern => {
     if (!glob.hasMagic(pattern)) {
+      if (shouldIgnorePattern(pattern)) {
+        return;
+      }
       callback(pattern);
       return;
     }
 
-    glob(pattern, (err, filenames) => {
+    glob(pattern, globOptions, (err, filenames) => {
       if (err) {
         console.error("Unable to expand glob pattern: " + pattern + "\n" + err);
         // Don't exit the process if one pattern failed
@@ -358,4 +367,8 @@ function eachFilename(patterns, callback) {
       });
     });
   });
+}
+
+function shouldIgnorePattern(pattern) {
+  return ignoreNodeModules && path.resolve(pattern).includes("/node_modules/");
 }
