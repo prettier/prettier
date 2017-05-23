@@ -157,7 +157,8 @@ function calculateRange(text, opts, ast) {
       return {
         rangeStart: rangeStart2,
         rangeEnd: rangeEnd,
-        rangeString: text.slice(rangeStart2, rangeEnd)
+        rangeString: text.slice(rangeStart2, rangeEnd),
+        indentString: indentString
       };
     }
   } catch (err) {
@@ -167,7 +168,8 @@ function calculateRange(text, opts, ast) {
   return {
     rangeStart: rangeStart,
     rangeEnd: rangeEnd,
-    rangeString: rangeString
+    rangeString: rangeString,
+    indentString: ""
   };
 }
 
@@ -177,11 +179,9 @@ function formatRange(text, opts, ast) {
     const rangeStart = range.rangeStart;
     const rangeEnd = range.rangeEnd;
     const rangeString = range.rangeString;
+    const indentString = range.indentString;
 
-    const alignmentSize = util.getAlignmentSize(
-      rangeString.slice(0, rangeString.search(/[^ \t]/)),
-      opts.tabWidth
-    );
+    const alignmentSize = util.getAlignmentSize(indentString, opts.tabWidth);
 
     const rangeFormatted = format(
       rangeString,
