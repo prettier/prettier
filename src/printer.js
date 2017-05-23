@@ -1631,7 +1631,15 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push(": ", path.call(print, "typeAnnotation"));
       }
       if (n.value) {
-        parts.push(" = ", path.call(print, "value"));
+        parts.push(
+          " =",
+          printAssignmentRight(
+            n.value,
+            path.call(print, "value"),
+            false, // canBreak
+            options
+          )
+        );
       }
 
       parts.push(semi);
