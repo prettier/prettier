@@ -35,7 +35,7 @@ function ugly ( {a=1,     b     =   2     }      ) {
 function ugly ( {a=1,     b     =   2     }      ) {
   function ugly ( {a=1,     b     =   2     }      ) {
     function ugly ( {a=1,     b     =   2     }      ) {
-             \`multiline template string
+  	  	     \`multiline template string
               with too much indentation\`;
     }
   }
@@ -148,8 +148,8 @@ catch (err) {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 try {
 1;if (condition) {
-  body;
-}
+    body;
+  }
 }
 catch (err) {}
 

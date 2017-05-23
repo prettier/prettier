@@ -64,9 +64,9 @@ function format(text, opts, addAlignmentSize) {
   opts.newLine = guessLineEnding(text);
   const str = printDocToString(doc, opts);
   ensureAllCommentsPrinted(astComments);
-  // Remove extra leading newline as well as the added indentation after last newline
+  // Remove extra leading indentation as well as the added indentation after last newline
   if (addAlignmentSize > 0) {
-    return str.slice(opts.newLine.length).trimRight() + opts.newLine;
+    return str.trim() + opts.newLine;
   }
   return str;
 }
@@ -182,30 +182,9 @@ function calculateRange(text, opts, ast) {
   const rangeStart = Math.min(util.locStart(startNode), util.locStart(endNode));
   const rangeEnd = Math.max(util.locEnd(startNode), util.locEnd(endNode));
 
-  const rangeString = text.slice(rangeStart, rangeEnd);
-
-  // Try to extend the range backwards to the beginning of the line.
-  // This is so we can detect indentation correctly and restore it.
-  // Use `Math.min` since `lastIndexOf` returns 0 when `rangeStart` is 0
-  const rangeStart2 = Math.min(
-    rangeStart,
-    text.lastIndexOf("\n", rangeStart) + 1
-  );
-  const indentString = text.slice(rangeStart2, rangeStart);
-  if (indentString.trim() == "") {
-    return {
-      rangeStart: rangeStart2,
-      rangeEnd: rangeEnd,
-      rangeString: text.slice(rangeStart2, rangeEnd),
-      indentString: indentString
-    };
-  }
-
   return {
     rangeStart: rangeStart,
-    rangeEnd: rangeEnd,
-    rangeString: rangeString,
-    indentString: ""
+    rangeEnd: rangeEnd
   };
 }
 
@@ -214,8 +193,16 @@ function formatRange(text, opts, ast) {
     const range = calculateRange(text, opts, ast);
     const rangeStart = range.rangeStart;
     const rangeEnd = range.rangeEnd;
-    const rangeString = range.rangeString;
-    const indentString = range.indentString;
+    const rangeString = text.slice(rangeStart, rangeEnd);
+
+    // Try to extend the range backwards to the beginning of the line.
+    // This is so we can detect indentation correctly and restore it.
+    // Use `Math.min` since `lastIndexOf` returns 0 when `rangeStart` is 0
+    const rangeStart2 = Math.min(
+      rangeStart,
+      text.lastIndexOf("\n", rangeStart) + 1
+    );
+    const indentString = text.slice(rangeStart2, rangeStart);
 
     const alignmentSize = util.getAlignmentSize(indentString, opts.tabWidth);
 
