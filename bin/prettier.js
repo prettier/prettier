@@ -92,7 +92,7 @@ function getParserOption() {
     "Ignoring unknown --" +
       optionName +
       ' value, falling back to "babylon":\n' +
-      '  Expected "flow" or "babylon", but received: ' +
+      '  Expected "flow", "babylon" or "typescript", but received: ' +
       JSON.stringify(value)
   );
 
@@ -231,7 +231,8 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
       "  --jsx-bracket-same-line  Put > on the last line instead of at a new line.\n" +
       "  --trailing-comma <none|es5|all>\n" +
       "                           Print trailing commas wherever possible. Defaults to none.\n" +
-      "  --parser <flow|babylon>  Specify which parse to use. Defaults to babylon.\n" +
+      "  --parser <flow|babylon|typescript>\n" +
+      "                           Specify which parser to use. Defaults to babylon.\n" +
       "  --range-start <int>      Format code starting at a given character offset. The range will extend backwards to the start of the line. Defaults to 0.\n" +
       "  --range-end <int>        Format code ending at a given character offset (exclusive). The range will extend forwards to the end of the line. Defaults to Infinity.\n" +
       "  --no-color               Do not colorize error messages.\n" +
