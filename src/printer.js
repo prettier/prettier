@@ -3314,6 +3314,15 @@ function printMemberChain(path, options, print) {
       hasSeenCallExpression = true;
     }
     currentGroup.push(printedNodes[i]);
+
+    if (
+      printedNodes[i].node.comments &&
+      printedNodes[i].node.comments.some(comment => comment.trailing)
+    ) {
+      groups.push(currentGroup);
+      currentGroup = [];
+      hasSeenCallExpression = false;
+    }
   }
   if (currentGroup.length > 0) {
     groups.push(currentGroup);
