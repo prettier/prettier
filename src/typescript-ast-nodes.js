@@ -179,7 +179,7 @@ module.exports = function(fork) {
 
   def("TSAbstractClassProperty").build("key", "value").bases("Node");
 
-  def("TSAbstractClassDeclaration").build().bases("Node");
+  def("TSAbstractClassDeclaration").build().bases("ClassDeclaration");
 
   def("TSInterfaceHeritage")
     .build("id", "typeParameters")

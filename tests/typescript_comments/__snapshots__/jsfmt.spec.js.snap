@@ -1,5 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`abstract_class.ts 1`] = `
+abstract class AbstractRule {
+    /**
+     * @deprecated
+     * Failures will be filtered based on \`tslint:disable\` comments by tslint.
+     * This method now does nothing.
+     */
+    filterFailures() {}
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+abstract class AbstractRule {
+  /**
+     * @deprecated
+     * Failures will be filtered based on \`tslint:disable\` comments by tslint.
+     * This method now does nothing.
+     */
+  filterFailures() {}
+}
+
+`;
+
 exports[`types.ts 1`] = `
 (() => {
   // swallow error and fallback to using directory as path
