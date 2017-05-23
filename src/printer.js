@@ -2323,7 +2323,6 @@ function genericPrintNoParens(path, options, print, args) {
       return concat(parts);
     case "TSImportEqualsDeclaration":
       parts.push(
-        softline,
         printTypeScriptModifiers(path, options, print),
         "import ",
         path.call(print, "name"),
