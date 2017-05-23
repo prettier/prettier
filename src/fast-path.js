@@ -332,6 +332,7 @@ FPp.needsParens = function() {
         case "SpreadElement":
         case "SpreadProperty":
         case "AwaitExpression":
+        case "TSAsExpression":
           return true;
 
         case "MemberExpression":
