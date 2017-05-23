@@ -87,13 +87,24 @@ function genericPrint(path, options, printPath, args) {
     // responsible for printing node.decorators.
     !util.getParentExportDeclaration(path)
   ) {
-    const separator = node.decorators.length === 1 &&
-      (node.decorators[0].expression.type === "Identifier" ||
-        node.decorators[0].expression.type === "MemberExpression")
-      ? " "
-      : hardline;
+    let separator = hardline;
     path.each(decoratorPath => {
-      parts.push(printPath(decoratorPath), separator);
+      let prefix = "@";
+      let decorator = decoratorPath.getValue();
+      if (decorator.expression) {
+        decorator = decorator.expression;
+        prefix = "";
+      }
+
+      if (
+        node.decorators.length === 1 &&
+        (decorator.type === "Identifier" ||
+          decorator.type === "MemberExpression")
+      ) {
+        separator = " ";
+      }
+
+      parts.push(prefix, printPath(decoratorPath), separator);
     }, "decorators");
   } else if (
     util.isExportDeclaration(node) &&
@@ -104,7 +115,12 @@ function genericPrint(path, options, printPath, args) {
     // that logically apply to node.declaration.
     path.each(
       decoratorPath => {
-        parts.push(printPath(decoratorPath), line);
+        const decorator = decoratorPath.getValue();
+        const prefix = decorator.type === "Decorator" ||
+          decorator.type === "TSDecorator"
+          ? ""
+          : "@";
+        parts.push(prefix, printPath(decoratorPath), line);
       },
       "declaration",
       "decorators"
