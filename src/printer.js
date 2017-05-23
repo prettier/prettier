@@ -2868,7 +2868,7 @@ function printFunctionDeclaration(path, print, options) {
         printReturnType(path, print)
       ])
     ),
-    " ",
+    n.body ? " " : "",
     path.call(print, "body")
   );
 
