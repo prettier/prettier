@@ -193,9 +193,9 @@ function formatRange(text, opts, ast) {
       alignmentSize
     );
 
-    const rangeTrimmed = rangeString.endsWith("\n")
-      ? rangeFormatted
-      : rangeFormatted.trimRight();
+    // Since the range contracts to avoid trailing whitespace,
+    // we need to remove the newline that was inserted by the `format` call.
+    const rangeTrimmed = rangeFormatted.trimRight();
 
     return text.slice(0, rangeStart) + rangeTrimmed + text.slice(rangeEnd);
   }
