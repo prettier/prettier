@@ -32,3 +32,5 @@ function f() {
     }
   );
 }
+
+const result = aReallyLongMethodCall(withSomeParameters, andAnother).chained({ nothing });

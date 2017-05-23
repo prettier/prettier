@@ -323,6 +323,8 @@ function f() {
     }
   );
 }
+
+const result = aReallyLongMethodCall(withSomeParameters, andAnother).chained({ nothing });
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export default function theFunction(action$, store) {
   return action$.ofType(THE_ACTION).switchMap(action =>
@@ -357,6 +359,9 @@ function f() {
     fileMetadata[H.DEPENDENCIES] = metadata.dependencies || [];
   });
 }
+
+const result = aReallyLongMethodCall(withSomeParameters, andAnother)
+  .chained({ nothing });
 
 `;
 

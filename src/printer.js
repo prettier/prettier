@@ -3348,6 +3348,8 @@ function printMemberChain(path, options, print) {
       (groups[0][0].node.type === "Identifier" &&
         groups[0][0].node.name.match(/(^[A-Z])|^[_$]+$/)));
 
+  const firstIndentedGroupIndex = shouldMerge ? 2 : 1;
+
   function printGroup(printedGroup) {
     return concat(printedGroup.map(tuple => tuple.printed));
   }
@@ -3360,6 +3362,10 @@ function printMemberChain(path, options, print) {
 
   const printedGroups = groups.map(printGroup);
   const oneLine = concat(printedGroups);
+  const firstIndentedGroup = groups[firstIndentedGroupIndex];
+  const hasBreakInOneLine = (firstIndentedGroup &&
+    firstIndentedGroup[firstIndentedGroup.length - 1].node.loc.end.column > 80);
+
   const hasComment =
     groups[0][groups[0].length - 1].node.comments ||
     (groups.length >= 2 && groups[1][0].node.comments) ||
@@ -3368,8 +3374,9 @@ function printMemberChain(path, options, print) {
   // If we only have a single `.`, we shouldn't do anything fancy and just
   // render everything concatenated together.
   if (
-    groups.length <= (shouldMerge ? 3 : 2) &&
+    groups.length <= firstIndentedGroupIndex + 1 &&
     !hasComment &&
+    !hasBreakInOneLine &&
     // (a || b).map() should be break before .map() instead of ||
     groups[0][0].node.type !== "LogicalExpression"
   ) {
@@ -3379,7 +3386,7 @@ function printMemberChain(path, options, print) {
   const expanded = concat([
     printGroup(groups[0]),
     shouldMerge ? concat(groups.slice(1, 2).map(printGroup)) : "",
-    printIndentedGroup(groups.slice(shouldMerge ? 2 : 1))
+    printIndentedGroup(groups.slice(firstIndentedGroupIndex))
   ]);
 
   // If there's a comment, we don't want to print in one line.
