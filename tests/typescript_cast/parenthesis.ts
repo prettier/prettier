@@ -1,1 +1,2 @@
-<DocumentHighlightKind>(a ? b : c)
+<DocumentHighlightKind>(a ? b : c);
+<any>(() => {});

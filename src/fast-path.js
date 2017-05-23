@@ -550,6 +550,7 @@ FPp.needsParens = function() {
         case "LogicalExpression":
         case "BinaryExpression":
         case "AwaitExpression":
+        case "TSTypeAssertionExpression":
           return true;
 
         case "ConditionalExpression":
