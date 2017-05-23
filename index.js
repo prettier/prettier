@@ -71,19 +71,53 @@ function format(text, opts, addAlignmentSize) {
   return str;
 }
 
-function findNodeAtOffset(node, offset) {
+function findSiblingAncestors(startNodeAndParents, endNodeAndParents) {
+  let resultStartNode = startNodeAndParents.node;
+  let resultEndNode = endNodeAndParents.node;
+
+  for (const endParent of endNodeAndParents.parentNodes) {
+    if (util.locStart(endParent) >= util.locStart(startNodeAndParents.node)) {
+      resultEndNode = endParent;
+    } else {
+      break;
+    }
+  }
+
+  for (const startParent of startNodeAndParents.parentNodes) {
+    if (util.locEnd(startParent) <= util.locEnd(endNodeAndParents.node)) {
+      resultStartNode = startParent;
+    } else {
+      break;
+    }
+  }
+
+  return {
+    startNode: resultStartNode,
+    endNode: resultEndNode
+  };
+}
+
+function findNodeAtOffset(node, offset, parentNodes) {
+  parentNodes = parentNodes || [];
   const start = util.locStart(node);
   const end = util.locEnd(node);
   if (start <= offset && offset <= end) {
     for (const childNode of comments.getSortedChildNodes(node)) {
-      const childResult = findNodeAtOffset(childNode, offset);
+      const childResult = findNodeAtOffset(
+        childNode,
+        offset,
+        [node].concat(parentNodes)
+      );
       if (childResult) {
         return childResult;
       }
     }
 
     if (isSourceElement(node)) {
-      return node;
+      return {
+        node: node,
+        parentNodes: parentNodes
+      };
     }
   }
 }
@@ -137,8 +171,14 @@ function calculateRange(text, opts, ast) {
     }
   }
 
-  const startNode = findNodeAtOffset(ast, startNonWhitespace);
-  const endNode = findNodeAtOffset(ast, endNonWhitespace);
+  const startNodeAndParents = findNodeAtOffset(ast, startNonWhitespace);
+  const endNodeAndParents = findNodeAtOffset(ast, endNonWhitespace);
+  const siblingAncestors = findSiblingAncestors(
+    startNodeAndParents,
+    endNodeAndParents
+  );
+  const startNode = siblingAncestors.startNode;
+  const endNode = siblingAncestors.endNode;
   const rangeStart = Math.min(util.locStart(startNode), util.locStart(endNode));
   const rangeEnd = Math.max(util.locEnd(startNode), util.locEnd(endNode));
 
