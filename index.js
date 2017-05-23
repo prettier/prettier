@@ -122,15 +122,20 @@ function calculateRange(text, opts, ast) {
   // Contract the range so that it has non-whitespace characters at its endpoints.
   // This ensures we can format a range that doesn't end on a node.
   const rangeStringOrig = text.slice(opts.rangeStart, opts.rangeEnd);
-  const rangeStringOrigReversed = rangeStringOrig.split("").reverse().join("");
   const startNonWhitespace = Math.max(
     opts.rangeStart + rangeStringOrig.search(/\S/),
     opts.rangeStart
   );
-  const endNonWhitespace = Math.min(
-    opts.rangeEnd - rangeStringOrigReversed.search(/\S/),
-    opts.rangeEnd
-  );
+  let endNonWhitespace;
+  for (
+    endNonWhitespace = opts.rangeEnd;
+    endNonWhitespace > opts.rangeStart;
+    --endNonWhitespace
+  ) {
+    if (text[endNonWhitespace - 1].match(/\S/)) {
+      break;
+    }
+  }
 
   const startNode = findNodeByOffset(ast, startNonWhitespace);
   const endNode = findNodeByOffset(ast, endNonWhitespace);
