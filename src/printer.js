@@ -3102,8 +3102,10 @@ function printClass(path, options, print) {
   parts.push("class");
 
   if (n.id) {
-    parts.push(" ", path.call(print, "id"), path.call(print, "typeParameters"));
+    parts.push(" ", path.call(print, "id"));
   }
+
+  parts.push(path.call(print, "typeParameters"));
 
   const partsGroup = [];
   if (n.superClass) {
