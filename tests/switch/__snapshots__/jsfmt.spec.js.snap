@@ -1,5 +1,56 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`comments.js 1`] = `
+switch (true) {
+  case true:
+  // Good luck getting here
+
+  case false:
+}
+
+switch (true) {
+  case true:
+
+  // Good luck getting here
+  case false:
+}
+
+switch(x) {
+  case x: {
+  }
+
+  // other
+
+  case y: {
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+switch (true) {
+  case true:
+  // Good luck getting here
+
+  case false:
+}
+
+switch (true) {
+  case true:
+
+  // Good luck getting here
+  case false:
+}
+
+switch (x) {
+  case x: {
+  }
+
+  // other
+
+  case y: {
+  }
+}
+
+`;
+
 exports[`empty_lines.js 1`] = `
 switch (foo) {
   case "bar":
