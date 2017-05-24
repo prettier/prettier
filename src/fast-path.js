@@ -340,6 +340,10 @@ FPp.needsParens = function() {
 
         case "BinaryExpression":
         case "LogicalExpression": {
+          if (!node.operator) {
+            return true;
+          }
+
           const po = parent.operator;
           const pp = util.getPrecedence(po);
           const no = node.operator;
