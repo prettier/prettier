@@ -391,9 +391,8 @@ the [JsPrettier](https://packagecontrol.io/packages/JsPrettier) plug-in.
 
 ### WebStorm
 
-WebStorm users can configure `prettier` as an **External Tool**.
-See [this blog post](https://blog.jetbrains.com/webstorm/2016/08/using-external-tools/) or [this
-directory](https://github.com/jlongster/prettier/tree/master/editors/jetbrains) with examples.
+See the [WebStorm
+guide](https://github.com/jlongster/prettier/tree/master/editors/webstorm/README.md).
 
 More editors are coming soon.
 
