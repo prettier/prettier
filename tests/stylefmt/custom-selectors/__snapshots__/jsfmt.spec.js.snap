@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`custom-selectors.css 1`] = `
+@custom-selector  :--button     button,.button;
+@custom-selector       :--enter     :hover,:focus      ;
+
+:--button {display: inline-block;
+}:--button:--enter{
+  text-decoration:underline;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@custom-selector :--button button, .button;
+@custom-selector :--enter :hover, :focus;
+
+:--button {
+  display: inline-block;
+}
+:--button:--enter {
+  text-decoration: underline;
+}
+
+`;

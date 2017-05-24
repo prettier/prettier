@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`block.css 1`] = `
+// Animation definitions cannot cross the shadow boundary,
+// and thus need to be loaded directly into the atom-text-editor scope.
+/* Kikoo */
+/**
+ * Kikoo
+ */
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Animation definitions cannot cross the shadow boundary,
+// and thus need to be loaded directly into the atom-text-editor scope.
+/* Kikoo */
+/**
+ * Kikoo
+ */
+
+`;
+
+exports[`places.css 1`] = `
+div {
+  // a
+
+  margin-left: -@leftMargin; // b
+} // c
+
+// d
+div {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+div {
+  // a
+
+  margin-left: -@leftMargin; // b
+} // c
+
+// d
+div {
+}
+
+`;

@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`custom-media-queries.css 1`] = `
+@custom-media     --small-viewport ( max-width:30em   )
+
+
+;
+
+@media (      --small-viewport    ){
+.rule{color:blue;}
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@custom-media --small-viewport (max-width: 30em);
+
+@media (--small-viewport) {
+  .rule {
+    color: blue;
+  }
+}
+
+`;

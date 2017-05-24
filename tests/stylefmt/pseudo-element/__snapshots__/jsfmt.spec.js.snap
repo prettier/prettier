@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pseudo-element.css 1`] = `
+a:after  { content:"" }
+a::before  { content:"" }
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a:after {
+  content: "";
+}
+a::before {
+  content: "";
+}
+
+`;

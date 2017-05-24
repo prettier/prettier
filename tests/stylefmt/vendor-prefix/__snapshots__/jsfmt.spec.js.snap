@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`vendor-prefix.css 1`] = `
+.class
+{-webkit-box-sizing:border-box;box-sizing:border-box
+
+
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.class {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+`;
