@@ -1385,7 +1385,24 @@ function genericPrintNoParens(path, options, print, args) {
         path.call(print, "discriminant"),
         ") {",
         n.cases.length > 0
-          ? indent(concat([hardline, join(hardline, path.map(print, "cases"))]))
+          ? indent(
+              concat([
+                hardline,
+                join(
+                  hardline,
+                  path.map(casePath => {
+                    const caseNode = casePath.getValue();
+                    return concat([
+                      casePath.call(print),
+                      n.cases.indexOf(caseNode) !== n.cases.length - 1 &&
+                        util.isNextLineEmpty(options.originalText, caseNode)
+                        ? hardline
+                        : ""
+                    ]);
+                  }, "cases")
+                )
+              ])
+            )
           : "",
         hardline,
         "}"
@@ -1397,16 +1414,11 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push("default:");
       }
 
-      const isFirstCase = path.getNode() === path.getParentNode().cases[0];
+      const consequent = n.consequent.filter(
+        node => node.type !== "EmptyStatement"
+      );
 
-      if (
-        !isFirstCase &&
-        util.isPreviousLineEmpty(options.originalText, path.getValue())
-      ) {
-        parts.unshift(hardline);
-      }
-
-      if (n.consequent.find(node => node.type !== "EmptyStatement")) {
+      if (consequent.length > 0) {
         const cons = path.call(consequentPath => {
           return join(
             hardline,
@@ -1423,10 +1435,6 @@ function genericPrintNoParens(path, options, print, args) {
               .filter(e => e !== null)
           );
         }, "consequent");
-
-        const consequent = n.consequent.filter(
-          node => node.type !== "EmptyStatement"
-        );
 
         parts.push(
           consequent.length === 1 && consequent[0].type === "BlockStatement"
