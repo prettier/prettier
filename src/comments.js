@@ -802,8 +802,9 @@ function printComment(commentPath, options) {
     case "CommentLine":
     case "Line":
       // Don't print the shebang, it's taken care of in index.js
-      if (options.originalText.slice(util.locStart(comment)).startsWith("#!"))
+      if (options.originalText.slice(util.locStart(comment)).startsWith("#!")) {
         return "";
+      }
       return "//" + comment.value;
     default:
       throw new Error("Not a comment: " + JSON.stringify(comment));
