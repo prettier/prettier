@@ -1,7 +1,7 @@
 "use strict";
 
 function isExportDeclaration(node) {
-  if (node)
+  if (node) {
     switch (node.type) {
       case "ExportDeclaration":
       case "ExportDefaultDeclaration":
@@ -11,6 +11,7 @@ function isExportDeclaration(node) {
       case "ExportAllDeclaration":
         return true;
     }
+  }
 
   return false;
 }

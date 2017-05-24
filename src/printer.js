@@ -1369,9 +1369,10 @@ function genericPrintNoParens(path, options, print, args) {
     case "CatchClause":
       parts.push("catch (", path.call(print, "param"));
 
-      if (n.guard)
+      if (n.guard) {
         // Note: esprima does not recognize conditional catch clauses.
         parts.push(" if ", path.call(print, "guard"));
+      }
 
       parts.push(") ", path.call(print, "body"));
 
