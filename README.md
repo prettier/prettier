@@ -165,8 +165,6 @@ is used.
 
 Prettier CLI will ignore files located in `node_modules` directory. To opt-out from this behavior use `--with-node-modules` flag.
 
-In the future we will have better support for formatting whole projects.
-
 If you're worried that Prettier will change the correctness of your code, add `--debug-check` to the command.
 This will cause Prettier to print an error message if it detects that code correctness might have changed.
 Note that `--write` cannot be used with `--debug-check`.
@@ -394,8 +392,6 @@ the [JsPrettier](https://packagecontrol.io/packages/JsPrettier) plug-in.
 See the [WebStorm
 guide](https://github.com/jlongster/prettier/tree/master/editors/webstorm/README.md).
 
-More editors are coming soon.
-
 ## Language Support
 
 Prettier attempts to support all JavaScript language features,
@@ -447,7 +443,6 @@ parens. But if that doesn't fit on one line, the printer can break
 where `line` is specified.
 
 More (rough) details can be found in [commands.md](commands.md).
-Better docs will come soon.
 
 ## Badge
 
