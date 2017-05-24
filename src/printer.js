@@ -97,6 +97,7 @@ function genericPrint(path, options, printPath, args) {
       }
 
       if (
+        node.type !== "ClassDeclaration" &&
         node.decorators.length === 1 &&
         (decorator.type === "Identifier" ||
           decorator.type === "MemberExpression")
