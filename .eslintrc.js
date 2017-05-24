@@ -8,6 +8,7 @@ module.exports = {
   extends: ["eslint:recommended"],
   plugins: ["prettier"],
   rules: {
+    curly: "error",
     "no-console": "off",
     "no-inner-declarations": "off",
     "no-var": "error",

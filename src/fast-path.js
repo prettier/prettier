@@ -27,8 +27,9 @@ FastPath.from = function(obj) {
     // lightweight FastPath [..., name, value] stacks.
     const copy = Object.create(FastPath.prototype);
     const stack = [obj.value];
-    for (let pp; (pp = obj.parentPath); obj = pp)
+    for (let pp; (pp = obj.parentPath); obj = pp) {
       stack.push(obj.name, pp.value);
+    }
     copy.stack = stack.reverse();
     return copy;
   }
