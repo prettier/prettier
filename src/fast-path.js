@@ -504,6 +504,7 @@ FPp.needsParens = function() {
         case "AwaitExpression":
         case "JSXSpreadAttribute":
         case "TSTypeAssertionExpression":
+        case "TSAsExpression":
           return true;
 
         case "NewExpression":
