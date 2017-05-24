@@ -1515,7 +1515,11 @@ function genericPrintNoParens(path, options, print, args) {
       );
     }
     case "JSXElement": {
-      const elem = printJSXElement(path, options, print);
+      const elem = comments.printComments(
+        path,
+        () => printJSXElement(path, options, print),
+        options
+      );
       return maybeWrapJSXElementInParens(path, elem, options);
     }
     case "JSXOpeningElement": {
@@ -4011,6 +4015,10 @@ function hasTrailingComment(node) {
 }
 
 function hasLeadingOwnLineComment(text, node) {
+  if (node.type === "JSXElement") {
+    return false;
+  }
+
   const res =
     node.comments &&
     node.comments.some(
@@ -4306,6 +4314,12 @@ function printAstToDoc(ast, options, addAlignmentSize) {
   addAlignmentSize = addAlignmentSize || 0;
 
   function printGenerically(path, args) {
+    const node = path.getValue();
+    // We let JSXElement print its comments itself because it adds () around
+    if (node && node.type === "JSXElement") {
+      return genericPrint(path, options, printGenerically, args);
+    }
+
     return comments.printComments(
       path,
       p => genericPrint(p, options, printGenerically, args),
