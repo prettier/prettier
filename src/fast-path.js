@@ -326,6 +326,8 @@ FPp.needsParens = function() {
         case "NewExpression":
           return name === "callee" && parent.callee === node;
 
+        case "ClassDeclaration":
+          return name === "superClass" && parent.superClass === node;
         case "TSTypeAssertionExpression":
         case "TaggedTemplateExpression":
         case "UnaryExpression":
