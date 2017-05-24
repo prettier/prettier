@@ -139,6 +139,23 @@ exports[`expression.js 1`] = `
 
 `;
 
+exports[`flow_fix_me.js 1`] = `
+const aDiv = (
+  /* $FlowFixMe */
+  <div className="foo">
+    Foo bar
+  </div>
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const aDiv = (
+  /* $FlowFixMe */
+  <div className="foo">
+    Foo bar
+  </div>
+);
+
+`;
+
 exports[`html_escape.js 1`] = `
 export default () => <a href="https://foo.bar?q1=foo&q2=bar" />;
 
