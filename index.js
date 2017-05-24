@@ -52,7 +52,7 @@ function ensureAllCommentsPrinted(astComments) {
 function format(text, opts, addAlignmentSize) {
   addAlignmentSize = addAlignmentSize || 0;
 
-  const ast = parser.parse(text, opts);
+  const ast = opts.astTransform(parser.parse(text, opts));
 
   const formattedRangeOnly = formatRange(text, opts, ast);
   if (formattedRangeOnly) {
