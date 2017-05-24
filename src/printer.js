@@ -1698,7 +1698,11 @@ function genericPrintNoParens(path, options, print, args) {
           const index = value.lastIndexOf("\n");
           const tabWidth = options.tabWidth;
           if (index !== -1) {
-            size = util.getAlignmentSize(value, tabWidth, index + 1);
+            size = util.getAlignmentSize(
+              // All the leading whitespaces
+              value.slice(index + 1).match(/^[ \t]*/)[0],
+              tabWidth
+            );
           }
 
           const aligned = addAlignmentToDoc(expressions[i], size, tabWidth);

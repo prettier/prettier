@@ -242,17 +242,17 @@ pipe.write(
 // https://github.com/prettier/prettier/issues/1662#issue-230406820
 const content = \`
 const env = \${JSON.stringify(
-              {
-                assetsRootUrl: env.assetsRootUrl,
-                env: env.env,
-                role: "client",
-                adsfafa: "sdfsdff",
-                asdfasff: "wefwefw",
-                fefef: "sf sdfs fdsfdsf s dfsfds"
-              },
-              null,
-              "\\t"
-            )});
+  {
+    assetsRootUrl: env.assetsRootUrl,
+    env: env.env,
+    role: "client",
+    adsfafa: "sdfsdff",
+    asdfasff: "wefwefw",
+    fefef: "sf sdfs fdsfdsf s dfsfds"
+  },
+  null,
+  "\\t"
+)});
 \`;
 
 // https://github.com/prettier/prettier/issues/821#issue-210557749
@@ -287,9 +287,9 @@ const makeBody = (store, assets, html) =>
 // https://github.com/prettier/prettier/issues/1626#issue-229655106
 const Bar = styled.div\`
   color: \${props =>
-           props.highlight.length > 0
-             ? palette(["text", "dark", "tertiary"])(props)
-             : palette(["text", "dark", "primary"])(props)} !important;
+    props.highlight.length > 0
+      ? palette(["text", "dark", "tertiary"])(props)
+      : palette(["text", "dark", "primary"])(props)} !important;
 \`;
 
 `;
@@ -428,17 +428,17 @@ pipe.write(
 // https://github.com/prettier/prettier/issues/1662#issue-230406820
 const content = \`
 const env = \${JSON.stringify(
-              {
-                assetsRootUrl: env.assetsRootUrl,
-                env: env.env,
-                role: "client",
-                adsfafa: "sdfsdff",
-                asdfasff: "wefwefw",
-                fefef: "sf sdfs fdsfdsf s dfsfds",
-              },
-              null,
-              "\\t",
-            )});
+  {
+    assetsRootUrl: env.assetsRootUrl,
+    env: env.env,
+    role: "client",
+    adsfafa: "sdfsdff",
+    asdfasff: "wefwefw",
+    fefef: "sf sdfs fdsfdsf s dfsfds",
+  },
+  null,
+  "\\t",
+)});
 \`;
 
 // https://github.com/prettier/prettier/issues/821#issue-210557749
@@ -473,9 +473,9 @@ const makeBody = (store, assets, html) =>
 // https://github.com/prettier/prettier/issues/1626#issue-229655106
 const Bar = styled.div\`
   color: \${props =>
-           props.highlight.length > 0
-             ? palette(["text", "dark", "tertiary"])(props)
-             : palette(["text", "dark", "primary"])(props)} !important;
+    props.highlight.length > 0
+      ? palette(["text", "dark", "tertiary"])(props)
+      : palette(["text", "dark", "primary"])(props)} !important;
 \`;
 
 `;
