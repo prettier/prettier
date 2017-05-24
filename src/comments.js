@@ -791,7 +791,7 @@ function handleVariableDeclaratorComments(
   return false;
 }
 
-function printComment(commentPath) {
+function printComment(commentPath, options) {
   const comment = commentPath.getValue();
   comment.printed = true;
 
@@ -801,6 +801,9 @@ function printComment(commentPath) {
       return "/*" + comment.value + "*/";
     case "CommentLine":
     case "Line":
+      // Don't print the shebang, it's taken care of in index.js
+      if (options.originalText.slice(util.locStart(comment)).startsWith("#!"))
+        return "";
       return "//" + comment.value;
     default:
       throw new Error("Not a comment: " + JSON.stringify(comment));
@@ -832,7 +835,10 @@ function getQuasiRange(expr) {
 
 function printLeadingComment(commentPath, print, options) {
   const comment = commentPath.getValue();
-  const contents = printComment(commentPath);
+  const contents = printComment(commentPath, options);
+  if (!contents) {
+    return "";
+  }
   const isBlock = util.isBlockComment(comment);
 
   // Leading block comments should see if they need to stay on the
@@ -849,7 +855,10 @@ function printLeadingComment(commentPath, print, options) {
 
 function printTrailingComment(commentPath, print, options) {
   const comment = commentPath.getValue();
-  const contents = printComment(commentPath);
+  const contents = printComment(commentPath, options);
+  if (!contents) {
+    return "";
+  }
   const isBlock = util.isBlockComment(comment);
 
   if (
@@ -895,8 +904,8 @@ function printDanglingComments(path, options, sameIndent) {
 
   path.each(commentPath => {
     const comment = commentPath.getValue();
-    if (!comment.leading && !comment.trailing) {
-      parts.push(printComment(commentPath));
+    if (comment && !comment.leading && !comment.trailing) {
+      parts.push(printComment(commentPath, options));
     }
   }, "comments");
 
@@ -930,7 +939,11 @@ function printComments(path, print, options, needsSemi) {
     const trailing = types.getFieldValue(comment, "trailing");
 
     if (leading) {
-      leadingParts.push(printLeadingComment(commentPath, print, options));
+      const contents = printLeadingComment(commentPath, print, options);
+      if (!contents) {
+        return;
+      }
+      leadingParts.push(contents);
 
       const text = options.originalText;
       if (util.hasNewline(text, util.skipNewline(text, util.locEnd(comment)))) {
