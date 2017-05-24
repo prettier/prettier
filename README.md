@@ -161,6 +161,8 @@ prettier --single-quote --trailing-comma es5 --write "{app,__{tests,mocks}__}/**
 (Don't forget the quotes around the globs! The quotes make sure that Prettier
 expands the globs rather than your shell, for cross-platform usage.)
 
+Prettier CLI will ignore files located in `node_modules` directory. To opt-out from this behavior use `--with-node-modules` flag.
+
 In the future we will have better support for formatting whole projects.
 
 If you're worried that Prettier will change the correctness of your code, add `--debug-check` to the command.
