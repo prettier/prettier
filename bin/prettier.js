@@ -36,7 +36,7 @@ const argv = minimist(process.argv.slice(2), {
     "flow-parser"
   ],
   string: [
-    "ast-transform",
+    "transform",
     "print-width",
     "tab-width",
     "parser",
@@ -148,8 +148,8 @@ function getTrailingComma() {
 
 const r = require;
 const options = {
-  astTransform: argv["ast-transform"] &&
-    r(path.resolve(process.cwd(), argv["ast-transform"])),
+  transform: argv["transform"] &&
+    r(path.resolve(process.cwd(), argv["transform"])),
   rangeStart: getIntOption("range-start"),
   rangeEnd: getIntOption("range-end"),
   useTabs: argv["use-tabs"],
