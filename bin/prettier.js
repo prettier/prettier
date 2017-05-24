@@ -146,9 +146,10 @@ function getTrailingComma() {
   }
 }
 
+const r = require;
 const options = {
   astTransform: argv["ast-transform"] &&
-    require(path.resolve(process.cwd(), argv["ast-transform"])),
+    r(path.resolve(process.cwd(), argv["ast-transform"])),
   rangeStart: getIntOption("range-start"),
   rangeEnd: getIntOption("range-end"),
   useTabs: argv["use-tabs"],
