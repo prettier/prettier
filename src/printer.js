@@ -3366,10 +3366,7 @@ function printMemberChain(path, options, print) {
 
   const flatGroups = groups
     .slice(0, shouldMerge ? 3 : 2)
-    .reduce((res, group) => {
-      res.push(...group);
-      return res;
-    }, []);
+    .reduce((res, group) => res.concat(group), []);
 
   const hasComment =
     flatGroups.slice(1).some(node => hasLeadingComment(node.node)) ||
