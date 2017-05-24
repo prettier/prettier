@@ -8,6 +8,13 @@ module.exports = function(fork) {
   const or = types.Type.or;
   const defaults = fork.use(require("ast-types/lib/shared")).defaults;
 
+  // Putting it here while it's being merged upstream
+  // https://github.com/benjamn/ast-types/pull/221
+  def("ObjectTypeSpreadProperty")
+    .bases("Node")
+    .build("argument")
+    .field("argument", def("Type"));
+
   // Ambient
   def("TSAmbientVariableDefinition").bases("VariableDeclaration");
 
