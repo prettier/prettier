@@ -27,7 +27,11 @@ function getSortedChildNodes(node, text, resultArray) {
   }
 
   if (resultArray) {
-    if (n.Node.check(node) && node.type !== "EmptyStatement") {
+    if (
+      n.Node.check(node) &&
+      node.type !== "EmptyStatement" &&
+      node.type !== "TemplateElement"
+    ) {
       // This reverse insertion sort almost always takes constant
       // time because we almost always (maybe always?) append the
       // nodes in order anyway.
@@ -116,6 +120,29 @@ function decorateComment(node, comment, text) {
     throw new Error("Comment location overlaps with node location");
   }
 
+  // We don't want comments inside of different expressions inside of the same
+  // template literal to move to another expression.
+  if (
+    comment.enclosingNode &&
+    comment.enclosingNode.type === "TemplateLiteral"
+  ) {
+    const quasis = comment.enclosingNode.quasis;
+    const commentIndex = findExpressionIndexForComment(quasis, comment);
+
+    if (
+      precedingNode &&
+      findExpressionIndexForComment(quasis, precedingNode) !== commentIndex
+    ) {
+      precedingNode = null;
+    }
+    if (
+      followingNode &&
+      findExpressionIndexForComment(quasis, followingNode) !== commentIndex
+    ) {
+      followingNode = null;
+    }
+  }
+
   if (precedingNode) {
     comment.precedingNode = precedingNode;
   }
@@ -178,7 +205,6 @@ function attach(comments, ast, text) {
           precedingNode,
           comment
         ) ||
-        handleTemplateLiteralComments(enclosingNode, comment) ||
         handleAssignmentPatternComments(enclosingNode, comment)
       ) {
         // We're good
@@ -210,7 +236,6 @@ function attach(comments, ast, text) {
           text
         ) ||
         handleImportSpecifierComments(enclosingNode, comment) ||
-        handleTemplateLiteralComments(enclosingNode, comment) ||
         handleIfStatementComments(
           text,
           precedingNode,
@@ -251,7 +276,6 @@ function attach(comments, ast, text) {
           comment
         ) ||
         handleObjectPropertyAssignment(enclosingNode, precedingNode, comment) ||
-        handleTemplateLiteralComments(enclosingNode, comment) ||
         handleCommentInEmptyParens(text, enclosingNode, comment) ||
         handleOnlyComments(enclosingNode, ast, comment, isLastComment)
       ) {
@@ -510,25 +534,6 @@ function handleObjectPropertyAssignment(enclosingNode, precedingNode, comment) {
     enclosingNode.value.type === "AssignmentPattern"
   ) {
     addTrailingComment(enclosingNode.value.left, comment);
-    return true;
-  }
-  return false;
-}
-
-function handleTemplateLiteralComments(enclosingNode, comment) {
-  if (enclosingNode && enclosingNode.type === "TemplateLiteral") {
-    const followingNode = comment.followingNode;
-    if (followingNode && followingNode.type !== "TemplateElement") {
-      addTrailingComment(followingNode, comment);
-      return true;
-    }
-    const expressionIndex = findExpressionIndexForComment(
-      enclosingNode.quasis,
-      comment
-    );
-    // Enforce all comments to be leading block comments.
-    comment.type = "CommentBlock";
-    addTrailingComment(enclosingNode.expressions[expressionIndex], comment);
     return true;
   }
   return false;
