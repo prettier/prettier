@@ -22,7 +22,7 @@
   * [Visual Studio Code](#visual-studio-code)
   * [Visual Studio](#visual-studio)
   * [Sublime Text](#sublime-text)
-  * [JetBrains](#jetbrains)
+  * [WebStorm](#webstorm)
 - [Language Support](#language-support)
 - [Related Projects](#related-projects)
 - [Technical Details](#technical-details)
@@ -389,9 +389,9 @@ Install the [JavaScript Prettier extension](https://github.com/madskristensen/Ja
 Sublime Text support is available through Package Control and
 the [JsPrettier](https://packagecontrol.io/packages/JsPrettier) plug-in.
 
-### JetBrains
+### WebStorm
 
-JetBrains users can configure `prettier` as an **External Tool**.
+WebStorm users can configure `prettier` as an **External Tool**.
 See [this blog post](https://blog.jetbrains.com/webstorm/2016/08/using-external-tools/) or [this
 directory](https://github.com/jlongster/prettier/tree/master/editors/jetbrains) with examples.
 
