@@ -2370,7 +2370,7 @@ function genericPrintNoParens(path, options, print, args) {
       const parent = path.getParentNode();
       const isExternalModule = namedTypes.Literal.check(n.name);
       const parentIsDeclaration = parent.type === "TSModuleDeclaration";
-      const bodyIsDeclaration = n.body.type === "TSModuleDeclaration";
+      const bodyIsDeclaration = n.body && n.body.type === "TSModuleDeclaration";
 
       if (parentIsDeclaration) {
         parts.push(".");
@@ -2394,13 +2394,15 @@ function genericPrintNoParens(path, options, print, args) {
 
       if (bodyIsDeclaration) {
         parts.push(path.call(print, "body"));
-      } else {
+      } else if (n.body) {
         parts.push(
           " {",
           indent(concat([line, group(path.call(print, "body"))])),
           line,
           "}"
         );
+      } else {
+        parts.push(semi);
       }
 
       return concat(parts);
