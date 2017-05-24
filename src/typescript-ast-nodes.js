@@ -36,6 +36,12 @@ module.exports = function(fork) {
     .field("elementType", def("TSType"))
     .bases("Node");
 
+  def("TSQualifiedName")
+    .build("left", "right")
+    .field("left", def("TSType"))
+    .field("right", def("TSType"))
+    .bases("Node");
+
   def("TypeElement").bases("Node");
 
   def("TSSignature")
