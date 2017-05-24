@@ -2,7 +2,15 @@
 
 exports[`generics.ts 1`] = `
 class<T> implements Map<T> {}
+
+interface AudioBufferList {
+	mBuffers: interop.Reference<any /*AudioBuffer*/>;
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class<T> implements Map<T> {}
+
+interface AudioBufferList {
+  mBuffers: interop.Reference<any> /*AudioBuffer*/;
+}
 
 `;
