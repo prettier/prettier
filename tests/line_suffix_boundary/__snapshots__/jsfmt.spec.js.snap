@@ -29,17 +29,19 @@ ExampleStory.getFragment('story')}
 \`\${a + a // a
 }
 
-\${a /* comment*/}
+\${a // comment
+}
 
 \${b /* comment */}
 
-\${c /* comment */ /* comment */}
+\${/* comment */ c /* comment */}
 
-\${d /*comment*/ // comment
+\${// comment
+d //comment
 }
 
-\${ExampleStory.getFragment("story") // $FlowFixMe found when converting React.createClass to ES6
-}
+\${// $FlowFixMe found when converting React.createClass to ES6
+ExampleStory.getFragment("story")}
 \`;
 
 <div>
