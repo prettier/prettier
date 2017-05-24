@@ -943,7 +943,14 @@ function genericPrintNoParens(path, options, print, args) {
         } else {
           parts.push(printPropertyKey(path, options, print));
         }
-        parts.push(concat([": ", path.call(print, "value")]));
+
+        const canBreak = isBinaryish(n.value) && !shouldInlineLogicalExpression(n.value);
+        const printedValue = printObjectPropertyValue(
+          path.call(print, "value"),
+          canBreak
+        );
+
+        parts.push(concat([":", printedValue]));
       }
 
       return concat(parts); // Babel 6
@@ -4042,6 +4049,14 @@ function printBinaryishExpressions(
   }
 
   return parts;
+}
+
+function printObjectPropertyValue(printedValue, canBreak) {
+  if (canBreak) {
+    return indent(group(concat([line, printedValue])));
+  }
+
+  return concat([" ", printedValue]);
 }
 
 function printAssignmentRight(rightNode, printedRight, canBreak, options) {

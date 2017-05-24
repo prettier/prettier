@@ -6,6 +6,11 @@ const b = classnames({
   "some-prop": this.state.longLongLongLongLongLongLongLongLongTooLongProp === true
 });
 
+const o = {
+  somethingThatsAReallyLongPropName:
+    this.props.cardType === AwesomizerCardEnum.SEEFIRST,
+};
+
 const c = classnames({
   "some-prop": [ "foo", "bar", "foo", "bar", "foo", "bar", "foo", "bar", "foo" ]
 });
