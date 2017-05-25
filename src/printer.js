@@ -3399,21 +3399,20 @@ function printClass(path, options, print) {
 
   const partsGroup = [];
   if (n.superClass) {
-    partsGroup.push(
-      line,
-      "extends ",
+    parts.push(
+      " extends ",
       path.call(print, "superClass"),
       path.call(print, "superTypeParameters")
     );
   } else if (n.extends && n.extends.length > 0) {
-    partsGroup.push(line, "extends ", join(", ", path.map(print, "extends")));
+    parts.push(" extends ", join(", ", path.map(print, "extends")));
   }
 
   if (n["implements"] && n["implements"].length > 0) {
     partsGroup.push(
       line,
       "implements ",
-      join(", ", path.map(print, "implements"))
+      indent(join(concat([",", line]), path.map(print, "implements")))
     );
   }
 
