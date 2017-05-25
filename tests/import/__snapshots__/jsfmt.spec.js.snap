@@ -228,19 +228,49 @@ import {
 
 `;
 
+exports[`inline.js 1`] = `
+import somethingSuperLongsomethingSuperLong from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
+import {somethingSuperLongsomethingSuperLong} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
+import a, {somethingSuperLongsomethingSuperLong} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
+import {a, somethingSuperLongsomethingSuperLong} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import somethingSuperLongsomethingSuperLong from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
+import { somethingSuperLongsomethingSuperLong } from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
+import a, { somethingSuperLongsomethingSuperLong } from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
+import {
+  a,
+  somethingSuperLongsomethingSuperLong
+} from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
+
+`;
+
+exports[`inline.js 2`] = `
+import somethingSuperLongsomethingSuperLong from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
+import {somethingSuperLongsomethingSuperLong} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
+import a, {somethingSuperLongsomethingSuperLong} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
+import {a, somethingSuperLongsomethingSuperLong} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import somethingSuperLongsomethingSuperLong from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
+import {somethingSuperLongsomethingSuperLong} from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
+import a, {somethingSuperLongsomethingSuperLong} from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
+import {
+  a,
+  somethingSuperLongsomethingSuperLong
+} from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
+
+`;
+
 exports[`long-line.js 1`] = `
 import someCoolUtilWithARatherLongName from '../../../../utils/someCoolUtilWithARatherLongName';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-import someCoolUtilWithARatherLongName
-  from "../../../../utils/someCoolUtilWithARatherLongName";
+import someCoolUtilWithARatherLongName from "../../../../utils/someCoolUtilWithARatherLongName";
 
 `;
 
 exports[`long-line.js 2`] = `
 import someCoolUtilWithARatherLongName from '../../../../utils/someCoolUtilWithARatherLongName';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-import someCoolUtilWithARatherLongName
-  from "../../../../utils/someCoolUtilWithARatherLongName";
+import someCoolUtilWithARatherLongName from "../../../../utils/someCoolUtilWithARatherLongName";
 
 `;
 
