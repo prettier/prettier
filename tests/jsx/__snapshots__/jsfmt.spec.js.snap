@@ -89,19 +89,18 @@ exports[`expression.js 1`] = `
 />;
 
 <Something>
-  {() => (
+  {() =>
+    <SomethingElse>
+      <span />
+    </SomethingElse>}
+</Something>;
+
+<Something>
+  {items.map(item =>
     <SomethingElse>
       <span />
     </SomethingElse>
   )}
-</Something>;
-
-<Something>
-  {items.map(item => (
-    <SomethingElse>
-      <span />
-    </SomethingElse>
-  ))}
 </Something>;
 
 <Something>
@@ -205,28 +204,28 @@ exports[`hug.js 1`] = `
   {__DEV__
     ? this.renderDevApp()
     : <div>
-        {routes.map(route => (
+        {routes.map(route =>
           <MatchAsync
             key={\`\${route.to}-async\`}
             pattern={route.to}
             exactly={route.to === "/"}
             getComponent={routeES6Modules[route.value]}
           />
-        ))}
+        )}
       </div>}
 </div>;
 
 <div>
   {__DEV__ &&
     <div>
-      {routes.map(route => (
+      {routes.map(route =>
         <MatchAsync
           key={\`\${route.to}-async\`}
           pattern={route.to}
           exactly={route.to === "/"}
           getComponent={routeES6Modules[route.value]}
         />
-      ))}
+      )}
     </div>}
 </div>;
 
