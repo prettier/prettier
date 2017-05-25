@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`then.js 1`] = `
+const x = import('some-module').then(x => {
+  // ...
+});
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const x = import("some-module").then(x => {
+  // ...
+});
+
+`;
