@@ -254,6 +254,12 @@ function genericPrintNoParens(path, options, print, args) {
         return concat(parts);
       }
 
+      if (parent.type === "UnaryExpression") {
+        return group(
+          concat([indent(concat([softline, concat(parts)])), softline])
+        );
+      }
+
       // Avoid indenting sub-expressions in assignment/return/etc statements.
       if (
         parent.type === "AssignmentExpression" ||
