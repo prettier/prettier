@@ -1985,7 +1985,9 @@ function genericPrintNoParens(path, options, print, args) {
       // If there's a leading comment, the parent is doing the indentation
       const shouldIndent =
         parent.type !== "TypeParameterInstantiation" &&
-        !(parent.type === "TypeAlias" &&
+        parent.type !== "GenericTypeAnnotation" &&
+        !((parent.type === "TypeAlias" ||
+          parent.type === "VariableDeclarator") &&
           hasLeadingOwnLineComment(options.originalText, n));
 
       // {
@@ -3073,6 +3075,7 @@ function printFunctionParams(path, print, options, expandArg) {
       isTypeAnnotationAFunction(parent) ||
       parent.type === "TypeAlias" ||
       parent.type === "UnionTypeAnnotation" ||
+      parent.type === "TSUnionType" ||
       parent.type === "IntersectionTypeAnnotation" ||
       (parent.type === "FunctionTypeAnnotation" &&
         parent.returnType === fun)) &&
@@ -3357,6 +3360,8 @@ function printTypeParameters(path, options, print, paramsKey) {
   const shouldInline =
     n[paramsKey].length === 1 &&
     (shouldHugType(n[paramsKey][0]) ||
+      (n[paramsKey][0].type === "GenericTypeAnnotation" &&
+        shouldHugType(n[paramsKey][0].id)) ||
       n[paramsKey][0].type === "NullableTypeAnnotation");
 
   if (shouldInline) {
@@ -4499,11 +4504,13 @@ function shouldHugType(node) {
     return true;
   }
 
-  if (node.type === "UnionTypeAnnotation") {
+  if (node.type === "UnionTypeAnnotation" || node.type === "TSUnionType") {
     const count = node.types.filter(
       n =>
         n.type === "VoidTypeAnnotation" ||
-        n.type === "NullLiteralTypeAnnotation"
+        n.type === "TSVoidKeyword" ||
+        n.type === "NullLiteralTypeAnnotation" ||
+        (n.type === "Literal" && n.value === null)
     ).length;
 
     if (node.types.length - 1 === count) {
@@ -4595,7 +4602,9 @@ function printAstToDoc(ast, options, addAlignmentSize) {
     // UnionTypeAnnotation has to align the child without the comments
     if (
       (node && node.type === "JSXElement") ||
-      (parent && parent.type === "UnionTypeAnnotation")
+      (parent &&
+        (parent.type === "UnionTypeAnnotation" ||
+          parent.type === "TSUnionType"))
     ) {
       return genericPrint(path, options, printGenerically, args);
     }
