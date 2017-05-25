@@ -402,7 +402,7 @@ function genericPrintNoParens(path, options, print, args) {
 
       parts.push(" =>");
 
-      const body = path.call(print, "body");
+      const body = path.call(bodyPath => print(bodyPath, args), "body");
       const collapsed = concat([concat(parts), " ", body]);
 
       // We want to always keep these types of nodes on the same line

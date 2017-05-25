@@ -74,3 +74,7 @@ jest.mock(
     }
   },
 );
+
+fooooooooooooooooooooooooooooooooooooooooooooooooooo(action => next =>
+    dispatch(action),
+);
