@@ -51,8 +51,8 @@ const a = classnames({
 });
 
 const b = classnames({
-  "some-prop": this.state.longLongLongLongLongLongLongLongLongTooLongProp ===
-    true
+  "some-prop":
+    this.state.longLongLongLongLongLongLongLongLongTooLongProp === true
 });
 
 const c = classnames({
@@ -72,8 +72,8 @@ const f = classnames({
 });
 
 const g = classnames({
-  "some-prop": longLongLongLongLongLongLongLongLongLongLongLongLongTooLongVar ||
-    1337
+  "some-prop":
+    longLongLongLongLongLongLongLongLongLongLongLongLongTooLongVar || 1337
 });
 
 `;

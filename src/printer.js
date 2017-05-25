@@ -217,7 +217,7 @@ function genericPrintNoParens(path, options, print, args) {
       return printAssignment(
         n.left,
         path.call(print, "left"),
-        n.operator,
+        concat([" ", n.operator]),
         n.right,
         path.call(print, "right"),
         options
@@ -938,12 +938,22 @@ function genericPrintNoParens(path, options, print, args) {
       if (n.shorthand) {
         parts.push(path.call(print, "value"));
       } else {
+        let printedLeft;
         if (n.computed) {
-          parts.push("[", path.call(print, "key"), "]");
+          printedLeft = concat(["[", path.call(print, "key"), "]"]);
         } else {
-          parts.push(printPropertyKey(path, options, print));
+          printedLeft = printPropertyKey(path, options, print);
         }
-        parts.push(concat([": ", path.call(print, "value")]));
+        parts.push(
+          printAssignment(
+            n.key,
+            printedLeft,
+            ":",
+            n.value,
+            path.call(print, "value"),
+            options
+          )
+        );
       }
 
       return concat(parts); // Babel 6
@@ -1153,7 +1163,7 @@ function genericPrintNoParens(path, options, print, args) {
       return printAssignment(
         n.id,
         concat([path.call(print, "id"), path.call(print, "typeParameters")]),
-        "=",
+        " =",
         n.init,
         n.init && path.call(print, "init"),
         options
@@ -4082,7 +4092,7 @@ function printAssignment(
     options
   );
 
-  return group(concat([printedLeft, " ", operator, printed]));
+  return group(concat([printedLeft, operator, printed]));
 }
 
 function adjustClause(node, clause, forceSpace) {

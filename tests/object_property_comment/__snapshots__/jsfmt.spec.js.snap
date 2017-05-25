@@ -39,15 +39,17 @@ o = {
 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 o = {
-  name: // Comment A
-  // Comment B
-  (({ id: type }: any): CreativeConcept)
+  name:
+    // Comment A
+    // Comment B
+    (({ id: type }: any): CreativeConcept)
 };
 
 o = {
   // Comment A
-  name: // Comment B
-  (({ id: type }: any): CreativeConcept)
+  name:
+    // Comment B
+    (({ id: type }: any): CreativeConcept)
 };
 
 o = {
