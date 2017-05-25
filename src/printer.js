@@ -581,8 +581,6 @@ function genericPrintNoParens(path, options, print, args) {
     case "ImportDeclaration": {
       parts.push("import ");
 
-      const fromParts = [];
-
       if (n.importKind && n.importKind !== "value") {
         parts.push(n.importKind + " ");
       }
@@ -610,7 +608,21 @@ function genericPrintNoParens(path, options, print, args) {
           parts.push(", ");
         }
 
-        if (grouped.length > 0) {
+        if (
+          grouped.length === 1 &&
+          n.specifiers &&
+          !n.specifiers.some(node => node.comments)
+        ) {
+          parts.push(
+            concat([
+              "{",
+              options.bracketSpacing ? " " : "",
+              concat(grouped),
+              options.bracketSpacing ? " " : "",
+              "}"
+            ])
+          );
+        } else if (grouped.length >= 1) {
           parts.push(
             group(
               concat([
@@ -629,25 +641,14 @@ function genericPrintNoParens(path, options, print, args) {
           );
         }
 
-        fromParts.push(grouped.length === 0 ? line : " ", "from ");
+        parts.push(" ", "from ");
       } else if (n.importKind && n.importKind === "type") {
         parts.push("{} from ");
       }
 
-      fromParts.push(path.call(print, "source"), semi);
+      parts.push(path.call(print, "source"), semi);
 
-      // If there's a very long import, break the following way:
-      //
-      //   import veryLong
-      //     from 'verylong'
-      //
-      // In case there are grouped elements, they will already break the way
-      // we want and this break would take precedence instead.
-      if (grouped.length === 0) {
-        return group(concat([concat(parts), indent(concat(fromParts))]));
-      }
-
-      return concat([concat(parts), concat(fromParts)]);
+      return concat(parts);
     }
 
     case "Import":
