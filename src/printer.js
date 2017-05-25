@@ -811,7 +811,7 @@ function genericPrintNoParens(path, options, print, args) {
       const leftBrace = n.exact ? "{|" : "{";
       const rightBrace = n.exact ? "|}" : "}";
       const parent = path.getParentNode(0);
-      const parentIsUnionTypeAnnotation = parent.type === "UnionTypeAnnotation";
+
       let propertiesField;
 
       if (n.type === "TSTypeLiteral") {
@@ -875,10 +875,7 @@ function genericPrintNoParens(path, options, print, args) {
         content = concat([
           leftBrace,
           indent(
-            align(
-              parentIsUnionTypeAnnotation ? 2 : 0,
-              concat([options.bracketSpacing ? line : softline, concat(props)])
-            )
+            concat([options.bracketSpacing ? line : softline, concat(props)])
           ),
           ifBreak(
             canHaveTrailingSeparator &&
@@ -886,10 +883,7 @@ function genericPrintNoParens(path, options, print, args) {
               ? separator
               : ""
           ),
-          align(
-            parentIsUnionTypeAnnotation ? 2 : 0,
-            concat([options.bracketSpacing ? line : softline, rightBrace])
-          ),
+          concat([options.bracketSpacing ? line : softline, rightBrace]),
           n.typeAnnotation ? ": " : "",
           path.call(print, "typeAnnotation")
         ]);
@@ -904,7 +898,7 @@ function genericPrintNoParens(path, options, print, args) {
           parent &&
           shouldHugArguments(parent) &&
           parent.params[0] === n) ||
-        (n.type === "ObjectTypeAnnotation" &&
+        (shouldHugType(n) &&
           parentParentParent &&
           shouldHugArguments(parentParentParent) &&
           parentParentParent.params[0].typeAnnotation.typeAnnotation === n)
@@ -1980,10 +1974,31 @@ function genericPrintNoParens(path, options, print, args) {
         !(parent.type === "TypeAlias" &&
           hasLeadingOwnLineComment(options.originalText, n));
 
-      //const token = isIntersection ? "&" : "|";
+      // {
+      //   a: string
+      // } | null | void
+      // should be inlined and not be printed in the multi-line variant
+      const shouldHug = shouldHugType(n);
+
+      // We want to align the children but without its comment, so it looks like
+      // | child1
+      // // comment
+      // | child2
+      const printed = path.map(typePath => {
+        let printedType = typePath.call(print);
+        if (!shouldHug && shouldIndent) {
+          printedType = align(2, printedType);
+        }
+        return comments.printComments(typePath, () => printedType, options);
+      }, "types");
+
+      if (shouldHug) {
+        return join(" | ", printed);
+      }
+
       const code = concat([
         ifBreak(concat([shouldIndent ? line : "", "| "])),
-        join(concat([line, "| "]), path.map(print, "types"))
+        join(concat([line, "| "]), printed)
       ]);
 
       return group(shouldIndent ? indent(code) : code);
@@ -3327,7 +3342,7 @@ function printTypeParameters(path, options, print, paramsKey) {
 
   const shouldInline =
     n[paramsKey].length === 1 &&
-    (n[paramsKey][0].type === "ObjectTypeAnnotation" ||
+    (shouldHugType(n[paramsKey][0]) ||
       n[paramsKey][0].type === "NullableTypeAnnotation");
 
   if (shouldInline) {
@@ -4465,6 +4480,25 @@ function isNodeStartingWithDeclare(node, options) {
   );
 }
 
+function shouldHugType(node) {
+  if (node.type === "ObjectTypeAnnotation") {
+    return true;
+  }
+
+  if (node.type === "UnionTypeAnnotation") {
+    const count = node.types.filter(
+      n =>
+        n.type === "VoidTypeAnnotation" ||
+        n.type === "NullLiteralTypeAnnotation"
+    ).length;
+
+    if (node.types.length - 1 === count) {
+      return true;
+    }
+  }
+  return false;
+}
+
 function shouldHugArguments(fun) {
   return (
     fun &&
@@ -4475,10 +4509,9 @@ function shouldHugArguments(fun) {
       (fun.params[0].type === "Identifier" &&
         fun.params[0].typeAnnotation &&
         fun.params[0].typeAnnotation.type === "TypeAnnotation" &&
-        fun.params[0].typeAnnotation.typeAnnotation.type ===
-          "ObjectTypeAnnotation") ||
+        shouldHugType(fun.params[0].typeAnnotation.typeAnnotation)) ||
       (fun.params[0].type === "FunctionTypeParam" &&
-        fun.params[0].typeAnnotation.type === "ObjectTypeAnnotation")) &&
+        shouldHugType(fun.params[0].typeAnnotation))) &&
     !fun.rest
   );
 }
@@ -4543,8 +4576,13 @@ function printAstToDoc(ast, options, addAlignmentSize) {
 
   function printGenerically(path, args) {
     const node = path.getValue();
+    const parent = path.getParentNode(0);
     // We let JSXElement print its comments itself because it adds () around
-    if (node && node.type === "JSXElement") {
+    // UnionTypeAnnotation has to align the child without the comments
+    if (
+      (node && node.type === "JSXElement") ||
+      (parent && parent.type === "UnionTypeAnnotation")
+    ) {
       return genericPrint(path, options, printGenerically, args);
     }
 
