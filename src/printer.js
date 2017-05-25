@@ -1134,11 +1134,19 @@ function genericPrintNoParens(path, options, print, args) {
         return print(childPath);
       }, "declarations");
 
+      const hasValue = n.declarations.some(decl => decl.init);
+
       parts = [
         isNodeStartingWithDeclare(n, options) ? "declare " : "",
         n.kind,
         printed.length ? concat([" ", printed[0]]) : "",
-        indent(concat(printed.slice(1).map(p => concat([",", line, p]))))
+        indent(
+          concat(
+            printed
+              .slice(1)
+              .map(p => concat([",", hasValue ? hardline : line, p]))
+          )
+        )
       ];
 
       // We generally want to terminate all variable declarations with a
