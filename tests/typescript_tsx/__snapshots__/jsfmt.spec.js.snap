@@ -29,11 +29,10 @@ const MyCoolList = ({ things }) =>
 
 const MyCoolThing = ({ thingo }) => <li>{thingo}</li>;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const MyCoolList = ({ things }) => (
+const MyCoolList = ({ things }) =>
   <ul>
     {things.map(MyCoolThing)}
-  </ul>
-);
+  </ul>;
 
 const MyCoolThing = ({ thingo }) => <li>{thingo}</li>;
 

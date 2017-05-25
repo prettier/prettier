@@ -411,7 +411,6 @@ function genericPrintNoParens(path, options, print, args) {
         !hasLeadingOwnLineComment(options.originalText, n.body) &&
         (n.body.type === "ArrayExpression" ||
           n.body.type === "ObjectExpression" ||
-          n.body.type === "JSXElement" ||
           n.body.type === "BlockStatement" ||
           isTemplateOnItsOwnLine(n.body, options.originalText) ||
           n.body.type === "ArrowFunctionExpression")
@@ -3929,7 +3928,8 @@ function maybeWrapJSXElementInParens(path, elem) {
     ExpressionStatement: true,
     CallExpression: true,
     ConditionalExpression: true,
-    LogicalExpression: true
+    LogicalExpression: true,
+    ArrowFunctionExpression: true
   };
   if (NO_WRAP_PARENTS[parent.type]) {
     return elem;
