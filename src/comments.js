@@ -666,7 +666,11 @@ function handleUnionTypeComments(
   followingNode,
   comment
 ) {
-  if (enclosingNode && enclosingNode.type === "UnionTypeAnnotation") {
+  if (
+    enclosingNode &&
+    (enclosingNode.type === "UnionTypeAnnotation" ||
+      enclosingNode.type === "TSUnionType")
+  ) {
     addTrailingComment(precedingNode, comment);
     return true;
   }
