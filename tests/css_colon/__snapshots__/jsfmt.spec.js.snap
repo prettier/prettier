@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`colon.css 1`] = `
+div {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+div {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+
+`;
