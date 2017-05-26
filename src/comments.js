@@ -926,7 +926,6 @@ function printDanglingComments(path, options, sameIndent) {
 
 function printComments(path, print, options, needsSemi) {
   const value = path.getValue();
-  const parent = path.getParentNode();
   const printed = print(path);
   const comments = value && value.comments;
 
