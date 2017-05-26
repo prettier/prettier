@@ -305,11 +305,19 @@ function parseNestedCSS(node) {
       parseNestedCSS(node[key]);
     }
     if (typeof node.selector === "string") {
-      node.selector = parseSelector(
-        node.raws.selector
-          ? node.raws.selector.raw
-          : node.selector
-      );
+      try {
+        node.selector = parseSelector(
+          node.raws.selector
+            ? node.raws.selector.raw
+            : node.selector
+        );
+      } catch(e) {
+        throw createError(
+          e.toString(),
+          node.source.start.line,
+          node.source.start.column - 1
+        );
+      }
     }
     if (node.type && typeof node.value === "string") {
       try {
