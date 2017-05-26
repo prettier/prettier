@@ -2594,6 +2594,7 @@ function genericPrintNoParens(path, options, print, args) {
         n.attribute,
         n.operator ? n.operator : "",
         n.value ? n.value : "",
+        n.insensitive ? " i" : "",
         "]"
       ]);
     }
