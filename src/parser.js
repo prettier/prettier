@@ -341,7 +341,7 @@ function parseWithPostCSS(text) {
     return parsedResult;
   } catch (e) {
     if (typeof e.line !== "number") {
-      throw e;
+      throw e.stack;
     }
     throw createError(e.name + " " + e.reason, e.line, e.column);
   }
