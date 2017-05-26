@@ -1,9 +1,7 @@
 "use strict";
 
 const assert = require("assert");
-const types = require("./ast-types");
 const util = require("./util");
-const n = types.namedTypes;
 const startsWithNoLookaheadToken = util.startsWithNoLookaheadToken;
 
 function FastPath(value) {
@@ -149,7 +147,7 @@ FastPath.prototype.needsParens = function() {
   }
 
   // Only statements don't need parentheses.
-  if (n.Statement.check(node)) {
+  if (isStatement(node)) {
     return false;
   }
 
@@ -526,5 +524,57 @@ FastPath.prototype.needsParens = function() {
 
   return false;
 };
+
+function isStatement(node) {
+  return (
+    node &&
+    node.type === "BlockStatement" ||
+    node.type === "BreakStatement" ||
+    node.type === "ClassBody" ||
+    node.type === "ClassDeclaration" ||
+    node.type === "ClassMethod" ||
+    node.type === "ClassProperty" ||
+    node.type === "ContinueStatement" ||
+    node.type === "DebuggerStatement" ||
+    node.type === "DeclareClass" ||
+    node.type === "DeclareExportAllDeclaration" ||
+    node.type === "DeclareExportDeclaration" ||
+    node.type === "DeclareFunction" ||
+    node.type === "DeclareInterface" ||
+    node.type === "DeclareModule" ||
+    node.type === "DeclareModuleExports" ||
+    node.type === "DeclareVariable" ||
+    node.type === "DoWhileStatement" ||
+    node.type === "ExportAllDeclaration" ||
+    node.type === "ExportDefaultDeclaration" ||
+    node.type === "ExportNamedDeclaration" ||
+    node.type === "ExpressionStatement" ||
+    node.type === "ForAwaitStatement" ||
+    node.type === "ForInStatement" ||
+    node.type === "ForOfStatement" ||
+    node.type === "ForStatement" ||
+    node.type === "FunctionDeclaration" ||
+    node.type === "IfStatement" ||
+    node.type === "ImportDeclaration" ||
+    node.type === "InterfaceDeclaration" ||
+    node.type === "LabeledStatement" ||
+    node.type === "MethodDefinition" ||
+    node.type === "ReturnStatement" ||
+    node.type === "SwitchStatement" ||
+    node.type === "ThrowStatement" ||
+    node.type === "TryStatement" ||
+    node.type === "TSAbstractClassDeclaration" ||
+    node.type === "TSEnumDeclaration" ||
+    node.type === "TSImportEqualsDeclaration" ||
+    node.type === "TSInterfaceDeclaration" ||
+    node.type === "TSModuleDeclaration" ||
+    node.type === "TSNamespaceExportDeclaration" ||
+    node.type === "TSNamespaceFunctionDeclaration" ||
+    node.type === "TypeAlias" ||
+    node.type === "VariableDeclaration" ||
+    node.type === "WhileStatement" ||
+    node.type === "WithStatement"
+  );
+}
 
 module.exports = FastPath;
