@@ -2576,6 +2576,9 @@ function genericPrintNoParens(path, options, print, args) {
     case "selector-comment": {
       return n.value;
     }
+    case "selector-string": {
+      return n.value;
+    }
     case "selector-tag": {
       return n.value;
     }

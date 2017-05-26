@@ -322,8 +322,8 @@ function parseNestedCSS(node) {
       try {
         node.value = parseValue(node.value);
       } catch (e) {
-        const line = +e.toString().match(/line: ([0-9]+)/)[1];
-        const column = +e.toString().match(/column ([0-9]+)/)[1];
+        const line = +(e.toString().match(/line: ([0-9]+)/) || [1, 1])[1];
+        const column = +(e.toString().match(/column ([0-9]+)/) || [0, 0])[1];
         throw createError(
           e.toString(),
           node.source.start.line + line - 1,
