@@ -31,9 +31,10 @@ function parse(text, opts) {
         highlightCode: true
       });
       error.message += "\n" + error.codeFrame;
+      throw error;
     }
 
-    throw error;
+    throw error.stack;
   }
 }
 
@@ -326,7 +327,7 @@ function parseNestedCSS(node) {
         const line = +e.toString().match(/line: ([0-9]+)/)[1];
         const column = +e.toString().match(/column ([0-9]+)/)[1];
         throw createError(
-          e.name,
+          e.toString(),
           node.source.start.line + line - 1,
           node.source.start.column + column + node.prop.length
         );
