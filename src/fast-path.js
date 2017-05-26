@@ -4,8 +4,6 @@ const assert = require("assert");
 const types = require("./ast-types");
 const util = require("./util");
 const n = types.namedTypes;
-const isArray = types.builtInTypes.array;
-const isNumber = types.builtInTypes.number;
 const startsWithNoLookaheadToken = util.startsWithNoLookaheadToken;
 
 function FastPath(value) {
@@ -13,40 +11,9 @@ function FastPath(value) {
   this.stack = [value];
 }
 
-const FPp = FastPath.prototype;
-
-// Static convenience function for coercing a value to a FastPath.
-FastPath.from = function(obj) {
-  if (obj instanceof FastPath) {
-    // Return a defensive copy of any existing FastPath instances.
-    return obj.copy();
-  }
-
-  if (obj instanceof types.NodePath) {
-    // For backwards compatibility, unroll NodePath instances into
-    // lightweight FastPath [..., name, value] stacks.
-    const copy = Object.create(FastPath.prototype);
-    const stack = [obj.value];
-    for (let pp; (pp = obj.parentPath); obj = pp) {
-      stack.push(obj.name, pp.value);
-    }
-    copy.stack = stack.reverse();
-    return copy;
-  }
-
-  // Otherwise use obj as the value of the new FastPath instance.
-  return new FastPath(obj);
-};
-
-FPp.copy = function copy() {
-  const copy = Object.create(FastPath.prototype);
-  copy.stack = this.stack.slice(0);
-  return copy;
-};
-
 // The name of the current property is always the penultimate element of
 // this.stack, and always a String.
-FPp.getName = function getName() {
+FastPath.prototype.getName = function getName() {
   const s = this.stack;
   const len = s.length;
   if (len > 1) {
@@ -59,7 +26,7 @@ FPp.getName = function getName() {
 
 // The value of the current property is always the final element of
 // this.stack.
-FPp.getValue = function getValue() {
+FastPath.prototype.getValue = function getValue() {
   const s = this.stack;
   return s[s.length - 1];
 };
@@ -70,7 +37,7 @@ function getNodeHelper(path, count) {
   for (let i = s.length - 1; i >= 0; i -= 2) {
     const value = s[i];
 
-    if (n.Node.check(value) && --count < 0) {
+    if (value && !Array.isArray(value) && --count < 0) {
       return value;
     }
   }
@@ -78,28 +45,12 @@ function getNodeHelper(path, count) {
   return null;
 }
 
-FPp.getNode = function getNode(count) {
+FastPath.prototype.getNode = function getNode(count) {
   return getNodeHelper(this, ~~count);
 };
 
-FPp.getParentNode = function getParentNode(count) {
+FastPath.prototype.getParentNode = function getParentNode(count) {
   return getNodeHelper(this, ~~count + 1);
-};
-
-FPp.isLast = function isLast() {
-  const s = this.stack;
-  if (this.getParentNode()) {
-    const idx = s[s.length - 2];
-    // The name of this node should be an index
-    assert.ok(typeof idx === "number");
-
-    const arr = s[s.length - 3];
-    // We should have an array as a parent node
-    assert.ok(Array.isArray(arr));
-
-    return idx === arr.length - 1;
-  }
-  return false;
 };
 
 // Temporarily push properties named by string arguments given after the
@@ -107,7 +58,7 @@ FPp.isLast = function isLast() {
 // reference to this (modified) FastPath object. Note that the stack will
 // be restored to its original state after the callback is finished, so it
 // is probably a mistake to retain a reference to the path.
-FPp.call = function call(callback /*, name1, name2, ... */) {
+FastPath.prototype.call = function call(callback /*, name1, name2, ... */) {
   const s = this.stack;
   const origLen = s.length;
   let value = s[origLen - 1];
@@ -126,7 +77,7 @@ FPp.call = function call(callback /*, name1, name2, ... */) {
 // accessing this.getValue()[name1][name2]... should be array-like. The
 // callback will be called with a reference to this path object for each
 // element of the array.
-FPp.each = function each(callback /*, name1, name2, ... */) {
+FastPath.prototype.each = function each(callback /*, name1, name2, ... */) {
   const s = this.stack;
   const origLen = s.length;
   let value = s[origLen - 1];
@@ -154,7 +105,7 @@ FPp.each = function each(callback /*, name1, name2, ... */) {
 // Similar to FastPath.prototype.each, except that the results of the
 // callback function invocations are stored in an array and returned at
 // the end of the iteration.
-FPp.map = function map(callback /*, name1, name2, ... */) {
+FastPath.prototype.map = function map(callback /*, name1, name2, ... */) {
   const s = this.stack;
   const origLen = s.length;
   let value = s[origLen - 1];
@@ -183,7 +134,7 @@ FPp.map = function map(callback /*, name1, name2, ... */) {
 
 // Inspired by require("ast-types").NodePath.prototype.needsParens, but
 // more efficient because we're iterating backwards through a stack.
-FPp.needsParens = function() {
+FastPath.prototype.needsParens = function() {
   const parent = this.getParentNode();
   if (!parent) {
     return false;
@@ -459,7 +410,7 @@ FPp.needsParens = function() {
     case "Literal":
       return (
         parent.type === "MemberExpression" &&
-        isNumber.check(node.value) &&
+        typeof node.value === "number" &&
         name === "object" &&
         parent.object === node
       );
@@ -575,33 +526,7 @@ FPp.needsParens = function() {
       return parent.type === "ExpressionStatement"; // To avoid becoming a directive
   }
 
-  if (
-    parent.type === "NewExpression" &&
-    name === "callee" &&
-    parent.callee === node
-  ) {
-    return containsCallExpression(node);
-  }
-
   return false;
 };
-
-function containsCallExpression(node) {
-  if (n.CallExpression.check(node)) {
-    return true;
-  }
-
-  if (isArray.check(node)) {
-    return node.some(containsCallExpression);
-  }
-
-  if (n.Node.check(node)) {
-    return types.someField(node, (name, child) => {
-      return containsCallExpression(child);
-    });
-  }
-
-  return false;
-}
 
 module.exports = FastPath;
