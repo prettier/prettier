@@ -220,6 +220,34 @@ function parseValueNodes(nodes) {
   return rootParenGroup;
 }
 
+function flattenGroups(node) {
+  if (
+    node.type === "paren_group" &&
+    !node.open &&
+    !node.close &&
+    node.groups.length === 1
+  ) {
+    return flattenGroups(node.groups[0]);
+  }
+
+  if (
+    node.type === "comma_group" &&
+    node.groups.length === 1
+  ) {
+    return flattenGroups(node.groups[0]);
+  }
+
+  if (node.type === "paren_group" || node.type === "comma_group") {
+    return Object.assign(
+      {},
+      node,
+      {groups: node.groups.map(flattenGroups)}
+    );
+  }
+
+  return node;
+}
+
 function addTypePrefix(node, prefix) {
   if (node && typeof node === "object") {
     delete node.parent;
@@ -254,7 +282,7 @@ function parseNestedValue(node) {
     for (const key in node) {
       parseNestedValue(node[key]);
       if (key === "nodes") {
-        node.group = parseValueNodes(node[key]);
+        node.group = flattenGroups(parseValueNodes(node[key]));;
         delete node[key];
       }
     }
