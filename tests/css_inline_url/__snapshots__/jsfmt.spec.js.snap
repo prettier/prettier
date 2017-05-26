@@ -3,10 +3,12 @@
 exports[`inline_url.js 1`] = `
 .breadItem {
   background-image: url('/images/product/simple_product_manager/breadcrumb/chevron_right.png');
+  background-image: url(/images/product/simple_product_manager/breadcrumb/chevron_right.png);
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .breadItem {
   background-image: url('/images/product/simple_product_manager/breadcrumb/chevron_right.png');
+  background-image: url(/images/product/simple_product_manager/breadcrumb/chevron_right.png);
 }
 
 `;

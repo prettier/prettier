@@ -2644,7 +2644,8 @@ function genericPrintNoParens(path, options, print, args) {
         parent.type === "value-func" &&
         parent.value === "url" &&
         n.groups.length === 1 &&
-        n.groups[0].type === "value-string"
+        (n.groups[0].type === "value-string" ||
+          n.groups[0].type === "value-word")
       ) {
         return concat([
           n.open ? path.call(print, "open") : "",
