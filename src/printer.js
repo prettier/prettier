@@ -2651,8 +2651,7 @@ function genericPrintNoParens(path, options, print, args) {
           n.open ? path.call(print, "open") : "",
           join(", ", path.map(print, "groups")),
           n.close ? path.call(print, "close") : ""
-        ])
-
+        ]);
       }
 
       return group(
