@@ -954,9 +954,7 @@ function printComments(path, print, options, needsSemi) {
         leadingParts.push(hardline);
       }
     } else if (trailing) {
-      trailingParts.push(
-        printTrailingComment(commentPath, print, options, parent)
-      );
+      trailingParts.push(printTrailingComment(commentPath, print, options));
     }
   }, "comments");
 

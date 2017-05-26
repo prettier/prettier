@@ -1559,7 +1559,7 @@ function genericPrintNoParens(path, options, print, args) {
         () => printJSXElement(path, options, print),
         options
       );
-      return maybeWrapJSXElementInParens(path, elem, options);
+      return maybeWrapJSXElementInParens(path, elem);
     }
     case "JSXOpeningElement": {
       const n = path.getValue();
@@ -1658,7 +1658,7 @@ function genericPrintNoParens(path, options, print, args) {
       if (n.static) {
         parts.push("static ");
       }
-      const variance = getFlowVariance(n, options);
+      const variance = getFlowVariance(n);
       if (variance) {
         parts.push(variance);
       }
@@ -1870,7 +1870,7 @@ function genericPrintNoParens(path, options, print, args) {
       const parentParentParent = path.getParentNode(2);
       let isArrowFunctionTypeAnnotation =
         n.type === "TSFunctionType" ||
-        !((!getFlowVariance(parent, options) &&
+        !((!getFlowVariance(parent) &&
           !parent.optional &&
           parent.type === "ObjectTypeProperty") ||
           parent.type === "ObjectTypeCallProperty" ||
@@ -2052,7 +2052,7 @@ function genericPrintNoParens(path, options, print, args) {
 
       return concat(parts);
     case "ObjectTypeIndexer": {
-      const variance = getFlowVariance(n, options);
+      const variance = getFlowVariance(n);
       return concat([
         variance || "",
         "[",
@@ -2064,7 +2064,7 @@ function genericPrintNoParens(path, options, print, args) {
       ]);
     }
     case "ObjectTypeProperty": {
-      const variance = getFlowVariance(n, options);
+      const variance = getFlowVariance(n);
 
       return concat([
         n.static ? "static " : "",
@@ -2135,7 +2135,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "TypeParameterInstantiation":
       return printTypeParameters(path, options, print, "params");
     case "TypeParameter": {
-      const variance = getFlowVariance(n, options);
+      const variance = getFlowVariance(n);
 
       if (variance) {
         parts.push(variance);
