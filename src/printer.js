@@ -28,10 +28,6 @@ const willBreak = docUtils.willBreak;
 const isLineNext = docUtils.isLineNext;
 const isEmpty = docUtils.isEmpty;
 
-const types = require("./ast-types");
-const namedTypes = types.namedTypes;
-const isString = types.builtInTypes.string;
-
 function shouldPrintComma(options, level) {
   level = level || "es5";
 
@@ -593,8 +589,8 @@ function genericPrintNoParens(path, options, print, args) {
         path.each(specifierPath => {
           const value = specifierPath.getValue();
           if (
-            namedTypes.ImportDefaultSpecifier.check(value) ||
-            namedTypes.ImportNamespaceSpecifier.check(value)
+            value.type === "ImportDefaultSpecifier" ||
+            value.type === "ImportNamespaceSpecifier"
           ) {
             standalones.push(print(specifierPath));
           } else {
@@ -1151,12 +1147,10 @@ function genericPrintNoParens(path, options, print, args) {
       const parentNode = path.getParentNode();
 
       const isParentForLoop =
-        namedTypes.ForStatement.check(parentNode) ||
-        namedTypes.ForInStatement.check(parentNode) ||
-        (namedTypes.ForOfStatement &&
-          namedTypes.ForOfStatement.check(parentNode)) ||
-        (namedTypes.ForAwaitStatement &&
-          namedTypes.ForAwaitStatement.check(parentNode));
+        parentNode.type === "ForStatement" ||
+        parentNode.type === "ForInStatement" ||
+        parentNode.type === "ForOfStatement" ||
+        parentNode.type === "ForAwaitStatement";
 
       if (!(isParentForLoop && parentNode.body !== n)) {
         parts.push(semi);
@@ -1630,7 +1624,10 @@ function genericPrintNoParens(path, options, print, args) {
     case "ClassPropertyDefinition":
       parts.push("static ", path.call(print, "definition"));
 
-      if (!namedTypes.MethodDefinition.check(n.definition)) {
+      if (
+        n.definition.type !== "MethodDefinition" &&
+        n.definition.type !== "TSAbstractMethodDefinition"
+      ) {
         parts.push(semi);
       }
 
@@ -1849,17 +1846,18 @@ function genericPrintNoParens(path, options, print, args) {
       // var A: (a: B) => void;
       const parent = path.getParentNode(0);
       const parentParent = path.getParentNode(1);
+      const parentParentParent = path.getParentNode(2);
       let isArrowFunctionTypeAnnotation =
         n.type === "TSFunctionType" ||
         !((!getFlowVariance(parent, options) &&
           !parent.optional &&
-          namedTypes.ObjectTypeProperty.check(parent)) ||
-          namedTypes.ObjectTypeCallProperty.check(parent) ||
-          namedTypes.DeclareFunction.check(path.getParentNode(2)));
+          parent.type === "ObjectTypeProperty") ||
+          parent.type === "ObjectTypeCallProperty" ||
+          (parentParentParent &&
+            parentParentParent.type === "DeclareFunction"));
 
       let needsColon =
-        isArrowFunctionTypeAnnotation &&
-        namedTypes.TypeAnnotation.check(parent);
+        isArrowFunctionTypeAnnotation && parent.type === "TypeAnnotation";
 
       // Sadly we can't put it inside of FastPath::needsColon because we are
       // printing ":" as part of the expression and it would put parenthesis
@@ -2199,9 +2197,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "TSArrayType":
       return concat([path.call(print, "elementType"), "[]"]);
     case "TSPropertySignature": {
-      const computed =
-        !namedTypes.Identifier.check(n.name) &&
-        !namedTypes.Literal.check(n.name);
+      const computed = n.name.type !== "Identifier" && !isLiteral(n.name);
 
       parts.push(printTypeScriptModifiers(path, options, print));
 
@@ -2423,7 +2419,7 @@ function genericPrintNoParens(path, options, print, args) {
       return concat(["require(", path.call(print, "expression"), ")"]);
     case "TSModuleDeclaration": {
       const parent = path.getParentNode();
-      const isExternalModule = namedTypes.Literal.check(n.name);
+      const isExternalModule = isLiteral(n.name);
       const parentIsDeclaration = parent.type === "TSModuleDeclaration";
       const bodyIsDeclaration = n.body && n.body.type === "TSModuleDeclaration";
 
@@ -2791,8 +2787,6 @@ function printMethod(path, options, print) {
 
   if (node.type === "ObjectMethod" || node.type === "ClassMethod") {
     node.value = node;
-  } else {
-    namedTypes.FunctionExpression.assert(node.value);
   }
 
   if (node.value.async) {
@@ -2992,7 +2986,6 @@ function printFunctionTypeParameters(path, options, print) {
 
 function printFunctionParams(path, print, options, expandArg) {
   const fun = path.getValue();
-  // namedTypes.Function.assert(fun);
   const paramsField = fun.type === "TSFunctionType" ||
     fun.type === "TSMethodSignature"
     ? "parameters"
@@ -3209,8 +3202,6 @@ function printExportDeclaration(path, options, print) {
   const decl = path.getValue();
   const semi = options.semi ? ";" : "";
   const parts = ["export "];
-
-  namedTypes.Declaration.assert(decl);
 
   if (decl["default"] || decl.type === "ExportDefaultDeclaration") {
     parts.push("default ");
@@ -3715,9 +3706,7 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
   // using `map` instead of `each` because it provides `i`
   path.map((childPath, i) => {
     const child = childPath.getValue();
-    const isLiteral = namedTypes.Literal.check(child);
-
-    if (isLiteral && typeof child.value === "string") {
+    if (isLiteral(child) && typeof child.value === "string") {
       const value = child.raw || child.extra.raw;
 
       // Contains a non-whitespace character
@@ -3802,7 +3791,7 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
       // add a softline where we have two adjacent elements that are not
       // literals
       const next = n.children[i + 1];
-      const followedByJSXElement = next && !namedTypes.Literal.check(next);
+      const followedByJSXElement = next && !isLiteral(next);
       if (followedByJSXElement) {
         children.push(softline);
       }
@@ -4139,9 +4128,6 @@ function adjustClause(node, clause, forceSpace) {
 }
 
 function nodeStr(node, options, isFlowDirectiveLiteral) {
-  const str = node.value;
-  isString.assert(str);
-
   const raw = node.extra ? node.extra.raw : node.raw;
   // `rawContent` is the string exactly like it appeared in the input source
   // code, with its enclosing quote.
@@ -4571,6 +4557,21 @@ function hasDanglingComments(node) {
   return (
     node.comments &&
     node.comments.some(comment => !comment.leading && !comment.trailing)
+  );
+}
+
+function isLiteral(node) {
+  return (
+    node.type === "BooleanLiteral" ||
+    node.type === "DirectiveLiteral" ||
+    node.type === "Literal" ||
+    node.type === "NullLiteral" ||
+    node.type === "NumericLiteral" ||
+    node.type === "RegExpLiteral" ||
+    node.type === "StringLiteral" ||
+    node.type === "TemplateLiteral" ||
+    node.type === "TSTypeLiteral" ||
+    node.type === "JSXText"
   );
 }
 

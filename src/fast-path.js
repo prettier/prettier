@@ -132,8 +132,6 @@ FastPath.prototype.map = function map(callback /*, name1, name2, ... */) {
   return result;
 };
 
-// Inspired by require("ast-types").NodePath.prototype.needsParens, but
-// more efficient because we're iterating backwards through a stack.
 FastPath.prototype.needsParens = function() {
   const parent = this.getParentNode();
   if (!parent) {
