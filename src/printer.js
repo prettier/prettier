@@ -2632,6 +2632,12 @@ function genericPrintNoParens(path, options, print, args) {
         if (i === 0 && n.groups[i].type === "value-operator") {
           continue;
         }
+        if (
+          (i + 1 < n.groups.length && n.groups[i + 1].type === "value-colon") ||
+          n.groups[i].type === "value-colon"
+        ) {
+          continue;
+        }
         if (i !== n.groups.length - 1) {
           parts.push(line);
         }
@@ -2690,6 +2696,9 @@ function genericPrintNoParens(path, options, print, args) {
       return n.value;
     }
     case "value-word": {
+      return n.value;
+    }
+    case "value-colon": {
       return n.value;
     }
     case "value-comma": {
