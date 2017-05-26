@@ -305,10 +305,24 @@ function parseNestedCSS(node) {
       parseNestedCSS(node[key]);
     }
     if (typeof node.selector === "string") {
-      node.selector = parseSelector(node.selector);
+      node.selector = parseSelector(
+        node.raws.selector
+          ? node.raws.selector.raw
+          : node.selector
+      );
     }
-    if (typeof node.value === "string") {
-      node.value = parseValue(node.value);
+    if (node.type && typeof node.value === "string") {
+      try {
+        node.value = parseValue(node.value);
+      } catch(e) {
+        const line = +e.toString().match(/line: ([0-9]+)/)[1];
+        const column = +e.toString().match(/column ([0-9]+)/)[1];
+        throw createError(
+          e.name,
+          node.source.start.line + line - 1,
+          node.source.start.column + column + node.prop.length
+        );
+      }
     }
     if (node.type === "css-atrule" && typeof node.params === "string") {
       node.params = parseMediaQuery(node.params);
@@ -324,7 +338,6 @@ function parseWithPostCSS(text) {
     const result = parser.parse(text);
     const prefixedResult = addTypePrefix(result, "css-");
     const parsedResult = parseNestedCSS(prefixedResult);
-    // console.log(JSON.stringify(parsedResult, null, 2));
     return parsedResult;
   } catch (e) {
     if (typeof e.line !== "number") {

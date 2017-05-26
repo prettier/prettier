@@ -2573,6 +2573,9 @@ function genericPrintNoParens(path, options, print, args) {
     case "selector-root": {
       return group(join(concat([",", line]), path.map(print, "nodes")));
     }
+    case "selector-comment": {
+      return n.value;
+    }
     case "selector-tag": {
       return n.value;
     }
