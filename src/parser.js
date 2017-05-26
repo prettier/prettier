@@ -308,11 +308,9 @@ function parseNestedCSS(node) {
     if (typeof node.selector === "string") {
       try {
         node.selector = parseSelector(
-          node.raws.selector
-            ? node.raws.selector.raw
-            : node.selector
+          node.raws.selector ? node.raws.selector.raw : node.selector
         );
-      } catch(e) {
+      } catch (e) {
         throw createError(
           e.toString(),
           node.source.start.line,
@@ -323,7 +321,7 @@ function parseNestedCSS(node) {
     if (node.type && typeof node.value === "string") {
       try {
         node.value = parseValue(node.value);
-      } catch(e) {
+      } catch (e) {
         const line = +e.toString().match(/line: ([0-9]+)/)[1];
         const column = +e.toString().match(/column ([0-9]+)/)[1];
         throw createError(
