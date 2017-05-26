@@ -527,7 +527,6 @@ FastPath.prototype.needsParens = function() {
 
 function isStatement(node) {
   return (
-    node &&
     node.type === "BlockStatement" ||
     node.type === "BreakStatement" ||
     node.type === "ClassBody" ||
