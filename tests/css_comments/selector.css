@@ -1,0 +1,5 @@
+.powerPathNavigator .helm button.pressedButton, /* pressed buttons */
+.powerPathNavigator .helm button:active:not(.disabledButton),
+.powerPathNavigator table.powerPathInfo th:active,
+.powerPathNavigator table.powerPathInfo th:active + th:last-child {
+}
