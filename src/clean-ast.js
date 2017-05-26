@@ -61,6 +61,10 @@ function massageAST(ast) {
       delete newObj.value;
     }
 
+    if (ast.type === "css-rule") {
+      delete newObj.params;
+    }
+
     // We convert <div></div> to <div />
     if (ast.type === "JSXOpeningElement") {
       delete newObj.selfClosing;
