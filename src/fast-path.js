@@ -283,6 +283,7 @@ FastPath.prototype.needsParens = function() {
         case "SpreadProperty":
         case "AwaitExpression":
         case "TSAsExpression":
+        case "TSNonNullExpression":
           return true;
 
         case "MemberExpression":
@@ -459,6 +460,7 @@ FastPath.prototype.needsParens = function() {
         case "JSXSpreadAttribute":
         case "TSTypeAssertionExpression":
         case "TSAsExpression":
+        case "TSNonNullExpression":
           return true;
 
         case "NewExpression":
