@@ -411,6 +411,7 @@ function genericPrintNoParens(path, options, print, args) {
         (n.body.type === "ArrayExpression" ||
           n.body.type === "ObjectExpression" ||
           n.body.type === "BlockStatement" ||
+          n.body.type === "SequenceExpression" ||
           isTemplateOnItsOwnLine(n.body, options.originalText) ||
           n.body.type === "ArrowFunctionExpression")
       ) {
@@ -1033,8 +1034,28 @@ function genericPrintNoParens(path, options, print, args) {
       }
 
       return concat(parts);
-    case "SequenceExpression":
-      return join(", ", path.map(print, "expressions"));
+    case "SequenceExpression": {
+      const parent = path.getParentNode();
+      const shouldInline =
+        parent.type === "ReturnStatement" ||
+        parent.type === "ForStatement" ||
+        parent.type === "ExpressionStatement";
+
+      if (shouldInline) {
+        return join(", ", path.map(print, "expressions"));
+      }
+      return group(
+        concat([
+          indent(
+            concat([
+              softline,
+              join(concat([",", line]), path.map(print, "expressions"))
+            ])
+          ),
+          softline
+        ])
+      );
+    }
     case "ThisExpression":
       return "this";
     case "Super":
