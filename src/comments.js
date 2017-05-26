@@ -56,6 +56,10 @@ function getSortedChildNodes(node, text, resultArray) {
     names = Object.keys(node);
   } else if (isObject.check(node)) {
     names = types.getFieldNames(node);
+
+    if (node.decorators) {
+      names.push("decorators");
+    }
   } else {
     return;
   }
@@ -188,6 +192,7 @@ function attach(comments, ast, text) {
           comment
         ) ||
         handleTryStatementComments(enclosingNode, followingNode, comment) ||
+        handleDecoratorComments(enclosingNode, comment) ||
         handleClassComments(enclosingNode, comment) ||
         handleImportSpecifierComments(enclosingNode, comment) ||
         handleObjectPropertyComments(enclosingNode, comment) ||
@@ -608,6 +613,21 @@ function handleLastFunctionArgComments(
     return true;
   }
   return false;
+}
+
+function handleDecoratorComments(enclosingNode, comment) {
+  if (
+    enclosingNode &&
+    enclosingNode.type === "ClassDeclaration" &&
+    enclosingNode.decorators &&
+    enclosingNode.decorators.length
+  ) {
+    addTrailingComment(
+      enclosingNode.decorators[enclosingNode.decorators.length - 1],
+      comment
+    );
+    return true;
+  }
 }
 
 function handleClassComments(enclosingNode, comment) {
