@@ -2635,7 +2635,23 @@ function genericPrintNoParens(path, options, print, args) {
     }
     case "value-paren_group": {
       if (!n.open) {
-        return join(concat([",", line]), path.map(print, "groups"));
+        return group(join(concat([",", line]), path.map(print, "groups")));
+      }
+
+      const parent = path.getParentNode();
+      if (
+        parent &&
+        parent.type === "value-func" &&
+        parent.value === "url" &&
+        n.groups.length === 1 &&
+        n.groups[0].type === "value-string"
+      ) {
+        return concat([
+          n.open ? path.call(print, "open") : "",
+          join(", ", path.map(print, "groups")),
+          n.close ? path.call(print, "close") : ""
+        ])
+
       }
 
       return group(
