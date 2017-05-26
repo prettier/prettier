@@ -164,10 +164,6 @@ function genericPrintNoParens(path, options, print, args) {
     return n;
   }
 
-  // TODO: Investigate types that return not printable.
-  // This assert isn't very useful though.
-  // namedTypes.Printable.assert(n);
-
   let parts = [];
   switch (n.type) {
     case "File":
@@ -4618,7 +4614,7 @@ function printAstToDoc(ast, options, addAlignmentSize) {
     );
   }
 
-  let doc = printGenerically(FastPath.from(ast));
+  let doc = printGenerically(new FastPath(ast));
   if (addAlignmentSize > 0) {
     // Add a hardline to make the indents take effect
     // It should be removed in index.js format()
