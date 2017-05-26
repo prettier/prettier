@@ -363,6 +363,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "SpreadElement":
     case "SpreadElementPattern":
     case "RestProperty":
+    case "ExperimentalRestProperty":
     case "SpreadProperty":
     case "SpreadPropertyPattern":
     case "RestElement":
@@ -2264,7 +2265,7 @@ function genericPrintNoParens(path, options, print, args) {
         "]: ",
         path.call(print, "typeAnnotation")
       ]);
-    case "TSFirstTypeNode":
+    case "TSTypePredicate":
       return concat([
         path.call(print, "parameterName"),
         " is ",
