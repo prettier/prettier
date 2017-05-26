@@ -1,10 +1,6 @@
 "use strict";
 
 const assert = require("assert");
-const types = require("./ast-types");
-const n = types.namedTypes;
-const isArray = types.builtInTypes.array;
-const isObject = types.builtInTypes.object;
 const docBuilders = require("./doc-builders");
 const concat = docBuilders.concat;
 const hardline = docBuilders.hardline;
@@ -19,8 +15,6 @@ const locEnd = util.locEnd;
 const getNextNonSpaceNonCommentCharacter =
   util.getNextNonSpaceNonCommentCharacter;
 
-// TODO Move a non-caching implementation of this function into ast-types,
-// and implement a caching wrapper function here.
 function getSortedChildNodes(node, text, resultArray) {
   if (!node) {
     return;
@@ -28,7 +22,12 @@ function getSortedChildNodes(node, text, resultArray) {
 
   if (resultArray) {
     if (
-      n.Node.check(node) &&
+      node &&
+      node.type &&
+      node.type !== "CommentBlock" &&
+      node.type !== "CommentLine" &&
+      node.type !== "Line" &&
+      node.type !== "Block" &&
       node.type !== "EmptyStatement" &&
       node.type !== "TemplateElement"
     ) {
@@ -52,10 +51,11 @@ function getSortedChildNodes(node, text, resultArray) {
   }
 
   let names;
-  if (isArray.check(node)) {
-    names = Object.keys(node);
-  } else if (isObject.check(node)) {
-    names = types.getFieldNames(node);
+  if (node && typeof node === "object") {
+    names = Object.keys(node).filter(
+      n =>
+        n !== "enclosingNode" && n !== "precedingNode" && n !== "followingNode"
+    );
   } else {
     return;
   }
@@ -153,7 +153,7 @@ function decorateComment(node, comment, text) {
 }
 
 function attach(comments, ast, text) {
-  if (!isArray.check(comments)) {
+  if (!Array.isArray(comments)) {
     return;
   }
 
@@ -928,8 +928,7 @@ function printComments(path, print, options, needsSemi) {
   const value = path.getValue();
   const parent = path.getParentNode();
   const printed = print(path);
-  const comments =
-    n.Node.check(value) && types.getFieldValue(value, "comments");
+  const comments = value && value.comments;
 
   if (!comments || comments.length === 0) {
     return printed;
@@ -940,8 +939,8 @@ function printComments(path, print, options, needsSemi) {
 
   path.each(commentPath => {
     const comment = commentPath.getValue();
-    const leading = types.getFieldValue(comment, "leading");
-    const trailing = types.getFieldValue(comment, "trailing");
+    const leading = comment.leading;
+    const trailing = comment.trailing;
 
     if (leading) {
       const contents = printLeadingComment(commentPath, print, options);

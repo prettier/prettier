@@ -146,8 +146,7 @@ namespace X {
 }
 
 namespace Z {
-
-// 'y' should be a fundule here
+  // 'y' should be a fundule here
   export import y = X.Y;
 }
 

@@ -81,8 +81,9 @@ function parseWithBabylon(text) {
     ]
   };
 
+  let ast;
   try {
-    return babylon.parse(text, babylonOptions);
+    ast = babylon.parse(text, babylonOptions);
   } catch (originalError) {
     try {
       return babylon.parse(
@@ -93,21 +94,27 @@ function parseWithBabylon(text) {
       throw originalError;
     }
   }
+  delete ast.tokens;
+  return ast;
 }
 
 function parseWithTypeScript(text) {
   const jsx = isProbablyJsx(text);
+  let ast;
   try {
     try {
       // Try passing with our best guess first.
-      return tryParseTypeScript(text, jsx);
+      ast = tryParseTypeScript(text, jsx);
     } catch (e) {
       // But if we get it wrong, try the opposite.
-      return tryParseTypeScript(text, !jsx);
+      ast = tryParseTypeScript(text, !jsx);
     }
   } catch (e) {
     throw createError(e.message, e.lineNumber, e.column);
   }
+
+  delete ast.tokens;
+  return ast;
 }
 
 function tryParseTypeScript(text, jsx) {
