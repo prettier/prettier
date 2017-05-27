@@ -1,5 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`comments.js 1`] = `
+var x = 100
+
+@Hello({
+  a: 'a', // Comment is in the wrong place
+  // test
+  b: '2'
+})
+class X {
+
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var x = 100;
+
+@Hello({
+  a: "a", // Comment is in the wrong place
+  // test
+  b: "2"
+})
+class X {}
+
+`;
+
 exports[`mobx.js 1`] = `
 import {observable} from "mobx";
 
