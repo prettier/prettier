@@ -4292,6 +4292,8 @@ function printNumber(rawNumber) {
       .replace(/^([\d.]+)e[+-]?0+$/, "$1")
       // Make sure numbers always start with a digit.
       .replace(/^\./, "0.")
+      // Remove extraneous trailing decimal zeroes.
+      .replace(/(\.\d+?)0+(?=e|$)/, "$1")
       // Remove trailing dot.
       .replace(/\.(?=e|$)/, "")
   );
