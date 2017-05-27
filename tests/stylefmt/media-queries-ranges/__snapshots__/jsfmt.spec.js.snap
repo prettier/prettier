@@ -8,12 +8,12 @@ exports[`media-queries-ranges.css 1`] = `
 @media (       --only-medium-screen ){
   .rule{color:blue;}}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-@media (width >= 500px)  and  (width <= 1200px) {
+@media (width >= 500px) and (width <= 1200px) {
   .rule {
     color: red;
   }
 }
-@custom-media --only-medium-screen (width    >=500px)  and  (width<=    1200px);
+@custom-media --only-medium-screen (width    >=500px) and (width<=    1200px);
 @media (--only-medium-screen) {
   .rule {
     color: blue;

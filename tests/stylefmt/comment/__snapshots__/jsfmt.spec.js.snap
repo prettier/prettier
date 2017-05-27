@@ -51,7 +51,7 @@ exports[`comment.css 1`] = `
   at rule
  */
 
-@media  only  screen {
+@media only screen {
   /* inner at rule comment */
   .foo {
     display: none;
