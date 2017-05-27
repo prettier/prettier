@@ -2669,10 +2669,10 @@ function genericPrintNoParens(path, options, print, args) {
       if (
         isURLCall &&
         (n.groups.length === 1 ||
-          n.groups[0].type === "value-comma_group" &&
-          n.groups[0].groups.length > 0 &&
-          n.groups[0].groups[0].type === "value-word" &&
-          n.groups[0].groups[0].value === "data")
+          (n.groups[0].type === "value-comma_group" &&
+            n.groups[0].groups.length > 0 &&
+            n.groups[0].groups[0].type === "value-word" &&
+            n.groups[0].groups[0].value === "data"))
       ) {
         return concat([
           n.open ? path.call(print, "open") : "",

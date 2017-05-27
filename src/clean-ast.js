@@ -67,7 +67,7 @@ function massageAST(ast) {
     }
 
     if (ast.type === "media-feature") {
-      newObj.value = newObj.value.replace(/ /g, '');
+      newObj.value = newObj.value.replace(/ /g, "");
     }
 
     // (TypeScript) Ignore `static` in `constructor(static p) {}`
