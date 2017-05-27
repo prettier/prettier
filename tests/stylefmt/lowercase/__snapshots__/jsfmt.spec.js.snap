@@ -59,11 +59,11 @@ $myVar7: linear-gradient(to right, RGBA(0, 0, 0, 0.5), RGB(255, 255, 255));
   BACKGROUND: linear-gradient(to right, $myVar2, RGB(255, 255, 255));
   COLOR: RGB(0, 0, 0);
   TRANSFORM: TRANSLATE(0, 0)
-  TRANSLATEX(0)
-  TRANSLATEY(0)
-  TRANSLATEZ(0)
-  TRANSLATE3D(0, 0, 0)
-  MATRIX(1, 1, 1, 1);
+    TRANSLATEX(0)
+    TRANSLATEY(0)
+    TRANSLATEZ(0)
+    TRANSLATE3D(0, 0, 0)
+    MATRIX(1, 1, 1, 1);
   TRANSFORM: TRANSLATE(0, 0);
   TRANSFORM: TRANSLATEX(0);
   TRANSFORM: TRANSLATEY(0);
@@ -79,16 +79,16 @@ $myVar7: linear-gradient(to right, RGBA(0, 0, 0, 0.5), RGB(255, 255, 255));
   BACKGROUND: HSLA(120, 100%, 50%, 0.3);
   COLOR: RGBA(0, 0, 0, 0.5);
   TRANSFORM: ROTATE(1deg)
-  ROTATEX(1deg)
-  ROTATEY(1deg)
-  ROTATEZ(1deg)
-  ROTATE3D(0, 0, 1, 1deg)
-  SKEW(1deg)
-  SKEWX(1deg)
-  SKEWY(1deg)
-  SCALE(1, 1)
-  SCALEX(1)
-  SCALEY(1);
+    ROTATEX(1deg)
+    ROTATEY(1deg)
+    ROTATEZ(1deg)
+    ROTATE3D(0, 0, 1, 1deg)
+    SKEW(1deg)
+    SKEWX(1deg)
+    SKEWY(1deg)
+    SCALE(1, 1)
+    SCALEX(1)
+    SCALEY(1);
   TRANSFORM: ROTATE(1deg);
   TRANSFORM: ROTATEX(1deg);
   TRANSFORM: ROTATEY(1deg);
