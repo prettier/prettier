@@ -66,6 +66,10 @@ function massageAST(ast) {
       delete newObj.params;
     }
 
+    if (ast.type === "media-feature") {
+      newObj.value = newObj.value.replace(/ /g, '');
+    }
+
     // (TypeScript) Ignore `static` in `constructor(static p) {}`
     // and `export` in `constructor(export p) {}`
     if (
