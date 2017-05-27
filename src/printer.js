@@ -2568,7 +2568,7 @@ function genericPrintNoParens(path, options, print, args) {
       return concat(["(", concat(path.map(print, "nodes")), ")"]);
     }
     case "media-feature": {
-      return n.value;
+      return n.value.replace(/ +/g, ' ');
     }
     case "media-colon": {
       return concat([n.value, " "]);
