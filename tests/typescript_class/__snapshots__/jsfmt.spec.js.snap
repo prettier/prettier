@@ -14,3 +14,14 @@ interface AudioBufferList {
 }
 
 `;
+
+exports[`methods.ts 1`] = `
+class X {
+    optionalMethod?() {}
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class X {
+  optionalMethod?() {}
+}
+
+`;
