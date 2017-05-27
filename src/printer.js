@@ -2522,7 +2522,7 @@ function genericPrintNoParens(path, options, print, args) {
     }
     case "css-decl": {
       return concat([
-        n.raws.before.replace(/[\s;]/g, ''),
+        n.raws.before.replace(/[\s;]/g, ""),
         n.prop,
         ": ",
         path.call(print, "value"),
@@ -2568,7 +2568,7 @@ function genericPrintNoParens(path, options, print, args) {
       return concat(["(", concat(path.map(print, "nodes")), ")"]);
     }
     case "media-feature": {
-      return n.value.replace(/ +/g, ' ');
+      return n.value.replace(/ +/g, " ");
     }
     case "media-colon": {
       return concat([n.value, " "]);
