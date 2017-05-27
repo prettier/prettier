@@ -256,7 +256,6 @@ namespace M {
 
 namespace T.U {
   // This needs to be emitted
-
 }
 
 `;
@@ -811,13 +810,11 @@ declare module "anotherParseError" {
   namespace m2 {
     //declare module "abc" {
     //}
-
   }
 
   namespace m2 {
     //module "abc2" {
     //}
-
   }
   //module "abc3" {
   //}
