@@ -81,6 +81,24 @@ function massageAST(ast) {
       };
     }
 
+    // (TypeScript) ignore empty `specifiers` array
+    if (
+      ast.type === "TSNamespaceExportDeclaration" &&
+      ast.specifiers &&
+      ast.specifiers.length === 0
+    ) {
+      delete newObj.specifiers;
+    }
+
+    // (TypeScript) allow parenthesization of TSFunctionType
+    if (
+      ast.type === "TSParenthesizedType" &&
+      ast.typeAnnotation.type === "TypeAnnotation" &&
+      ast.typeAnnotation.typeAnnotation.type === "TSFunctionType"
+    ) {
+      return newObj.typeAnnotation.typeAnnotation;
+    }
+
     // We convert <div></div> to <div />
     if (ast.type === "JSXOpeningElement") {
       delete newObj.selfClosing;

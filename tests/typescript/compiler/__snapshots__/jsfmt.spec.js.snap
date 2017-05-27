@@ -214,6 +214,21 @@ interface i2 {
 
 `;
 
+exports[`contextualSignatureInstantiation2.ts 1`] = `
+// dot f g x = f(g(x))
+var dot: <T, S>(f: (_: T) => S) => <U>(g: (_: U) => T) => (_: U) => S;
+dot = <T, S>(f: (_: T) => S) => <U>(g: (_: U) => T): (r:U) => S => (x) => f(g(x));
+var id: <T>(x:T) => T;
+var r23 = dot(id)(id);~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// dot f g x = f(g(x))
+var dot: <T, S>(f: (_: T) => S) => <U>(g: (_: U) => T) => (_: U) => S;
+dot = <T, S>(f: (_: T) => S) => <U>(g: (_: U) => T): ((r: U) => S) => x =>
+  f(g(x));
+var id: <T>(x: T) => T;
+var r23 = dot(id)(id);
+
+`;
+
 exports[`decrementAndIncrementOperators.ts 1`] = `
 var x = 0;
 
@@ -306,6 +321,42 @@ interface Foo {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 interface Foo {
   bar: number = 5;
+}
+
+`;
+
+exports[`es5ExportDefaultClassDeclaration4.ts 1`] = `
+// @target: es5
+// @module: commonjs
+// @declaration: true
+
+declare module "foo" {
+    export var before: C;
+
+    export default class C {
+        method(): C;
+    }
+
+    export var after: C;
+
+    export var t: typeof C;
+}
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @target: es5
+// @module: commonjs
+// @declaration: true
+
+declare module "foo" {
+  export var before: C;
+
+  export class C {
+    method(): C;
+  }
+
+  export var after: C;
+
+  export var t: typeof C;
 }
 
 `;
