@@ -2577,7 +2577,7 @@ function genericPrintNoParens(path, options, print, args) {
       return n.value;
     }
     case "media-keyword": {
-      return concat([" ", n.value, " "]);
+      return n.value;
     }
     case "media-unknown": {
       return n.value;
