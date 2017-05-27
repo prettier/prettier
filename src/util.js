@@ -206,6 +206,9 @@ function hasSpaces(text, index, opts) {
 }
 
 function locStart(node) {
+  if (node.decorators && node.decorators.length > 0) {
+    return locStart(node.decorators[0]);
+  }
   if (node.range) {
     return node.range[0];
   }
