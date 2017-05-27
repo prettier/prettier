@@ -2472,15 +2472,17 @@ function genericPrintNoParens(path, options, print, args) {
       } else if (n.body) {
         parts.push(
           " {",
-          indent(concat([
-            line,
-            path.call(
-              bodyPath =>
-                comments.printDanglingComments(bodyPath, options, true),
-              "body"
-            ),
-            group(path.call(print, "body"))
-          ])),
+          indent(
+            concat([
+              line,
+              path.call(
+                bodyPath =>
+                  comments.printDanglingComments(bodyPath, options, true),
+                "body"
+              ),
+              group(path.call(print, "body"))
+            ])
+          ),
           line,
           "}"
         );
