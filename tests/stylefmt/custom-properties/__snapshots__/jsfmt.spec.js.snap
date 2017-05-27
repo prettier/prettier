@@ -8,7 +8,7 @@ a{color:var      (        --mainColor     )     ; }
   --mainColor: #123456;
 }
 a {
-  color: var (--mainColor);
+  color: var(--mainColor);
 }
 
 `;
