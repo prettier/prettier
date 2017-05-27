@@ -356,6 +356,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "SpreadElementPattern":
     case "RestProperty":
     case "ExperimentalRestProperty":
+    case "ExperimentalSpreadProperty":
     case "SpreadProperty":
     case "SpreadPropertyPattern":
     case "RestElement":
@@ -779,6 +780,7 @@ function genericPrintNoParens(path, options, print, args) {
     }
     case "TSInterfaceDeclaration":
       parts.push(
+        n.abstract ? "abstract " : "",
         printTypeScriptModifiers(path, options, print),
         "interface ",
         path.call(print, "id"),
@@ -2352,6 +2354,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "TSMethodSignature":
       parts.push(
         path.call(print, "name"),
+        n.questionToken ? "?" : "",
         printFunctionTypeParameters(path, options, print),
         printFunctionParams(path, print, options)
       );
