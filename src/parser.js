@@ -287,7 +287,7 @@ function parseNestedValue(node) {
 function parseValue(value) {
   const r = require;
   const valueParser = r("postcss-values-parser");
-  const result = valueParser(value).parse();
+  const result = valueParser(value, { loose: true }).parse();
   const parsedResult = parseNestedValue(result);
   return addTypePrefix(parsedResult, "value-");
 }

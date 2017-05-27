@@ -2633,16 +2633,11 @@ function genericPrintNoParens(path, options, print, args) {
       const parts = [];
       for (let i = 0; i < n.groups.length; ++i) {
         parts.push(printed[i]);
-        if (i === 0 && n.groups[i].type === "value-operator") {
-          continue;
-        }
         if (
-          (i + 1 < n.groups.length && n.groups[i + 1].type === "value-colon") ||
-          n.groups[i].type === "value-colon"
+          i !== n.groups.length - 1 &&
+          n.groups[i + 1].raws &&
+          n.groups[i + 1].raws.before !== ""
         ) {
-          continue;
-        }
-        if (i !== n.groups.length - 1) {
           parts.push(line);
         }
       }
@@ -2650,24 +2645,20 @@ function genericPrintNoParens(path, options, print, args) {
       return group(concat(parts));
     }
     case "value-paren_group": {
-      if (!n.open) {
-        return group(join(concat([",", line]), path.map(print, "groups")));
-      }
-
       const parent = path.getParentNode();
-      if (
-        parent &&
-        parent.type === "value-func" &&
-        parent.value === "url" &&
-        n.groups.length === 1 &&
-        (n.groups[0].type === "value-string" ||
-          n.groups[0].type === "value-word")
-      ) {
+      const isURLCall =
+        parent && parent.type === "value-func" && parent.value === "url";
+
+      if (isURLCall) {
         return concat([
           n.open ? path.call(print, "open") : "",
-          join(", ", path.map(print, "groups")),
+          join(",", path.map(print, "groups")),
           n.close ? path.call(print, "close") : ""
         ]);
+      }
+
+      if (!n.open) {
+        return group(join(concat([",", line]), path.map(print, "groups")));
       }
 
       return group(
