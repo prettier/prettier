@@ -2612,7 +2612,7 @@ function genericPrintNoParens(path, options, print, args) {
       ]);
     }
     case "selector-combinator": {
-      if (n.value === "+" || n.value === ">") {
+      if (n.value === "+" || n.value === ">" || n.value === "~") {
         return concat([" ", n.value, " "]);
       }
       return n.value;
