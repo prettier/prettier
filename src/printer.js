@@ -2652,7 +2652,7 @@ function genericPrintNoParens(path, options, print, args) {
         }
       }
 
-      return group(concat(parts));
+      return group(indent(concat(parts)));
     }
     case "value-paren_group": {
       const parent = path.getParentNode();
@@ -2668,7 +2668,9 @@ function genericPrintNoParens(path, options, print, args) {
       }
 
       if (!n.open) {
-        return group(join(concat([",", line]), path.map(print, "groups")));
+        return group(
+          indent(join(concat([",", line]), path.map(print, "groups")))
+        );
       }
 
       return group(
