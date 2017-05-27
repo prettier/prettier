@@ -2648,7 +2648,14 @@ function genericPrintNoParens(path, options, print, args) {
           n.groups[i + 1].raws &&
           n.groups[i + 1].raws.before !== ""
         ) {
-          parts.push(line);
+          if (
+            n.groups[i + 1].type === "value-operator" &&
+            ["+", "-", "/", "*", "%"].indexOf(n.groups[i + 1].value) !== -1
+          ) {
+            parts.push(" ");
+          } else {
+            parts.push(line);
+          }
         }
       }
 
