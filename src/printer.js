@@ -2354,7 +2354,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "TSMethodSignature":
       parts.push(
         path.call(print, "name"),
-        n.questionToken ? "?" : "",
+        n.questionToken && !n.name.optional ? "?" : "",
         printFunctionTypeParameters(path, options, print),
         printFunctionParams(path, print, options)
       );
