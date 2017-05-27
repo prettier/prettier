@@ -2522,7 +2522,7 @@ function genericPrintNoParens(path, options, print, args) {
     }
     case "css-decl": {
       return concat([
-        n.raws.before.trimLeft(),
+        n.raws.before.replace(/[\s;]/g, ''),
         n.prop,
         ": ",
         path.call(print, "value"),

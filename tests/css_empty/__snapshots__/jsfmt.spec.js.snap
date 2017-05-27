@@ -5,10 +5,20 @@ exports[`empty.css 1`] = `
 
 details[open] {
 }
+
+div {
+  box-sizing: border-box;;
+  color: red;
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .ui-syntax-color();
 
 details[open] {
+}
+
+div {
+  box-sizing: border-box;
+  color: red;
 }
 
 `;
