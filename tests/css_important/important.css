@@ -1,1 +1,7 @@
-max-height: none !important;
+div {
+  max-height: none !important;
+}
+
+.important {
+  .foo() !important;
+}

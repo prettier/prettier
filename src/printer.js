@@ -2539,6 +2539,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "css-rule": {
       return concat([
         path.call(print, "selector"),
+        n.important ? " !important" : "",
         n.nodes
           ? concat([
               " {",
@@ -2591,7 +2592,14 @@ function genericPrintNoParens(path, options, print, args) {
       ]);
     }
     case "css-import": {
-      return concat(["@", n.name, " ", n.importPath, ";"]);
+      return concat([
+        "@",
+        n.name,
+        " ",
+        n.directives ? concat([n.directives, " "]) : "",
+        n.importPath,
+        ";"
+      ]);
     }
     // postcss-media-query-parser
     case "media-query-list": {
@@ -2669,7 +2677,7 @@ function genericPrintNoParens(path, options, print, args) {
       return concat([
         n.value,
         n.nodes && n.nodes.length > 0
-          ? concat(["(", concat(path.map(print, "nodes")), ")"])
+          ? concat(["(", join(", ", path.map(print, "nodes")), ")"])
           : ""
       ]);
     }

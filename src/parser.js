@@ -310,18 +310,11 @@ function parseNestedCSS(node) {
         ? node.raws.selector.raw
         : node.selector;
 
-      if (selector.trim().endsWith(":")) {
+      try {
+        node.selector = parseSelector(selector);
+      } catch (e) {
+        // Fail silently. It's better to print it as is than to try and parse it
         node.selector = selector;
-      } else {
-        try {
-          node.selector = parseSelector(selector);
-        } catch (e) {
-          throw createError(
-            "(postcss-selector-parser) " + e.toString(),
-            node.source.start.line,
-            node.source.start.column - 1
-          );
-        }
       }
     }
     if (node.type && typeof node.value === "string") {
@@ -361,7 +354,7 @@ function parseWithPostCSSParser(parser, text) {
 
 function parseWithPostCSS(text) {
   const r = require;
-  const isLikelySCSS = text.match(/(\w\s*: [^}:]+|#){/);
+  const isLikelySCSS = !!text.match(/(\w\s*: [^}:]+|#){/);
   try {
     return parseWithPostCSSParser(
       r(isLikelySCSS ? "postcss-scss" : "postcss-less"),
