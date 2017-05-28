@@ -2199,6 +2199,12 @@ postcss-media-query-parser@^0.2.3:
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/postcss-media-query-parser/-/postcss-media-query-parser-0.2.3.tgz#27b39c6f4d94f81b1a73b8f76351c609e5cef244"
 
+postcss-scss@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/postcss-scss/-/postcss-scss-1.0.0.tgz#4957013097973dfd5bd9b1ad8a6dc13456a5d1ba"
+  dependencies:
+    postcss "^6.0.1"
+
 postcss-selector-parser@^2.2.3:
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/postcss-selector-parser/-/postcss-selector-parser-2.2.3.tgz#f9437788606c3c9acee16ffe8d8b16297f27bb90"
@@ -2811,13 +2817,6 @@ typedarray@^0.0.6:
 "typescript-eslint-parser@git://github.com/eslint/typescript-eslint-parser.git#2d09fb183e36a3b4089509c67cd256cd5f8871b0":
   version "3.0.0"
   resolved "git://github.com/eslint/typescript-eslint-parser.git#2d09fb183e36a3b4089509c67cd256cd5f8871b0"
-  dependencies:
-    lodash.unescape "4.0.1"
-    semver "5.3.0"
-
-"typescript-eslint-parser@git://github.com/eslint/typescript-eslint-parser.git#a3610632a8bd1ee9ad4179ed01a01b7739143bf5":
-  version "3.0.0"
-  resolved "git://github.com/eslint/typescript-eslint-parser.git#a3610632a8bd1ee9ad4179ed01a01b7739143bf5"
   dependencies:
     lodash.unescape "4.0.1"
     semver "5.3.0"

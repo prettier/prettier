@@ -306,16 +306,22 @@ function parseNestedCSS(node) {
       parseNestedCSS(node[key]);
     }
     if (typeof node.selector === "string") {
-      try {
-        node.selector = parseSelector(
-          node.raws.selector ? node.raws.selector.raw : node.selector
-        );
-      } catch (e) {
-        throw createError(
-          e.toString(),
-          node.source.start.line,
-          node.source.start.column - 1
-        );
+      const selector = node.raws.selector
+        ? node.raws.selector.raw
+        : node.selector;
+
+      if (selector.trim().endsWith(":")) {
+        node.selector = selector;
+      } else {
+        try {
+          node.selector = parseSelector(selector);
+        } catch (e) {
+          throw createError(
+            "(postcss-selector-parser) " + e.toString(),
+            node.source.start.line,
+            node.source.start.column - 1
+          );
+        }
       }
     }
     if (node.type && typeof node.value === "string") {
@@ -325,7 +331,7 @@ function parseNestedCSS(node) {
         const line = +(e.toString().match(/line: ([0-9]+)/) || [1, 1])[1];
         const column = +(e.toString().match(/column ([0-9]+)/) || [0, 0])[1];
         throw createError(
-          e.toString(),
+          "(postcss-values-parser) " + e.toString(),
           node.source.start.line + line - 1,
           node.source.start.column + column + node.prop.length
         );
@@ -338,19 +344,38 @@ function parseNestedCSS(node) {
   return node;
 }
 
-function parseWithPostCSS(text) {
-  const r = require;
-  const parser = r("postcss-less");
+function parseWithPostCSSParser(parser, text) {
+  let result;
   try {
-    const result = parser.parse(text);
-    const prefixedResult = addTypePrefix(result, "css-");
-    const parsedResult = parseNestedCSS(prefixedResult);
-    return parsedResult;
+    result = parser.parse(text);
   } catch (e) {
     if (typeof e.line !== "number") {
       throw e;
     }
-    throw createError(e.name + " " + e.reason, e.line, e.column);
+    throw createError("(postcss) " + e.name + " " + e.reason, e.line, e.column);
+  }
+  const prefixedResult = addTypePrefix(result, "css-");
+  const parsedResult = parseNestedCSS(prefixedResult);
+  return parsedResult;
+}
+
+function parseWithPostCSS(text) {
+  const r = require;
+  const isLikelySCSS = text.match(/(\w\s*: [^}:]+|#){/);
+  try {
+    return parseWithPostCSSParser(
+      r(isLikelySCSS ? "postcss-scss" : "postcss-less"),
+      text
+    );
+  } catch (e) {
+    try {
+      return parseWithPostCSSParser(
+        r(isLikelySCSS ? "postcss-less" : "postcss-scss"),
+        text
+      );
+    } catch (e2) {
+      throw e;
+    }
   }
 }
 

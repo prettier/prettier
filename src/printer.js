@@ -2532,7 +2532,9 @@ function genericPrintNoParens(path, options, print, args) {
       return concat([printNodeSequence(path, options, print), hardline]);
     }
     case "css-comment": {
-      return n.raws.content;
+      return n.raws.content
+        ? n.raws.content
+        : options.originalText.slice(util.locStart(n), util.locEnd(n));
     }
     case "css-rule": {
       return concat([
@@ -2558,7 +2560,16 @@ function genericPrintNoParens(path, options, print, args) {
         ": ",
         path.call(print, "value"),
         n.important ? " !important" : "",
-        ";"
+        n.nodes
+          ? concat([
+              " {",
+              indent(
+                concat([softline, printNodeSequence(path, options, print)])
+              ),
+              softline,
+              "}"
+            ])
+          : ";"
       ]);
     }
     case "css-atrule": {

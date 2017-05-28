@@ -28,7 +28,9 @@ function massageAST(ast) {
 
     const newObj = {};
     for (const key in ast) {
-      newObj[key] = massageAST(ast[key]);
+      if (typeof ast[key] !== "function") {
+        newObj[key] = massageAST(ast[key]);        
+      }
     }
 
     [
