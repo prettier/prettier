@@ -47,9 +47,17 @@ exports[`methods.ts 1`] = `
 class X {
     optionalMethod?() {}
 }
+
+interface Iterable<T> {
+  export [Symbol.iterator](): Iterator<T>;
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class X {
   optionalMethod?() {}
+}
+
+interface Iterable<T> {
+  export [Symbol.iterator](): Iterator<T>;
 }
 
 `;
