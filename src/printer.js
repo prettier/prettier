@@ -4173,7 +4173,9 @@ function printAssignment(
 
   const canBreak =
     (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) ||
-    ((leftNode.type === "Identifier" || leftNode.type === "MemberExpression") &&
+    ((leftNode.type === "Identifier" ||
+      leftNode.type === "Literal" ||
+      leftNode.type === "MemberExpression") &&
       (rightNode.type === "StringLiteral" ||
         (rightNode.type === "Literal" && typeof rightNode.value === "string") ||
         isMemberExpressionChain(rightNode)));
