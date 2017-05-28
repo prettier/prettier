@@ -219,7 +219,7 @@ function handleError(filename, e) {
     // If validation fails for one file, it will fail for all of them.
     process.exit(1);
   } else {
-    console.error(filename + ":", e.stack);
+    console.error(filename + ":", e.stack || e);
   }
 
   // Don't exit the process if one file failed
