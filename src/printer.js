@@ -2384,7 +2384,13 @@ function genericPrintNoParens(path, options, print, args) {
       return concat(parts);
     case "TSMethodSignature":
       parts.push(
+        n.accessibility ? concat([n.accessibility, " "]) : "",
+        n.export ? "export " : "",
+        n.static ? "static " : "",
+        n.readonly ? "readonly " : "",
+        n.computed ? "[" : "",
         path.call(print, "key"),
+        n.computed ? "]" : "",
         n.optional ? "?" : "",
         printFunctionTypeParameters(path, options, print),
         printFunctionParams(path, print, options)
