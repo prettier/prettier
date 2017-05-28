@@ -1,8 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`important.css 1`] = `
-max-height: none !important;
+div {
+  max-height: none !important;
+}
+
+.important {
+  .foo() !important;
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-max-height: none !important;
+div {
+  max-height: none !important;
+}
+
+.important {
+  .foo() !important;
+}
 
 `;
