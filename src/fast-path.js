@@ -435,6 +435,8 @@ FastPath.prototype.needsParens = function() {
         return false;
       } else if (parent.type === "ExpressionStatement") {
         return node.left.type === "ObjectPattern";
+      } else if (parent.type === "TSPropertySignature" && parent.key === node) {
+        return false;
       } else if (parent.type === "AssignmentExpression") {
         return false;
       } else if (

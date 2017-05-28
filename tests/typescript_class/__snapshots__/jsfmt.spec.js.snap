@@ -1,5 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`constructor.ts 1`] = `
+class foo {
+  constructor(static a: number) {}
+}
+
+class foo {
+  constructor(export a: number) {}
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class foo {
+  constructor(static a: number) {}
+}
+
+class foo {
+  constructor(export a: number) {}
+}
+
+`;
+
 exports[`dunder.ts 1`] = `
 // eslint/typescript-eslint-parser#296
 class F<__T> {}
@@ -31,6 +50,17 @@ class X {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class X {
   optionalMethod?() {}
+}
+
+`;
+
+exports[`optional.ts 1`] = `
+class X {
+  private foo? = undefined;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class X {
+  private foo? = undefined;
 }
 
 `;
