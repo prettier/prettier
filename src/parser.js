@@ -1,5 +1,7 @@
 "use strict";
 
+const path = require("path");
+
 function createError(message, line, column) {
   // Construct an error similar to the ones thrown by Babylon.
   const error = new SyntaxError(message + " (" + line + ":" + column + ")");
@@ -7,21 +9,37 @@ function createError(message, line, column) {
   return error;
 }
 
-function parse(text, opts) {
-  let parseFunction;
+const parsers = {
+  flow: parseWithFlow,
+  babylon: parseWithBabylon,
+  typescript: parseWithTypeScript,
+  postcss: parseWithPostCSS
+};
 
-  if (opts.parser === "flow") {
-    parseFunction = parseWithFlow;
-  } else if (opts.parser === "typescript") {
-    parseFunction = parseWithTypeScript;
-  } else if (opts.parser === "postcss") {
-    parseFunction = parseWithPostCSS;
-  } else {
-    parseFunction = parseWithBabylon;
+function resolveParseFunction(opts) {
+  if (typeof opts.parser === "function") {
+    return opts.parser;
   }
+  if (typeof opts.parser === "string") {
+    if (parsers[opts.parser]) {
+      return parsers[opts.parser];
+    } else {
+      const r = require;
+      try {
+        return r(path.resolve(process.cwd(), opts.parser));
+      } catch (err) {
+        throw new Error(`Couldn't resolve parser "${opts.parser}"`);
+      }
+    }
+  }
+  return parsers.babylon;
+}
+
+function parse(text, opts) {
+  const parseFunction = resolveParseFunction(opts);
 
   try {
-    return parseFunction(text);
+    return parseFunction(text, parsers);
   } catch (error) {
     const loc = error.loc;
 
