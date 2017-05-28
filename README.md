@@ -216,7 +216,7 @@ Just copy the following config in your pre-commit config yaml file
         sha: ''  # Use the sha or tag you want to point at
         hooks:
         -   id: prettier
-            additional_dependencies: ['prettier@1.1.0']
+            additional_dependencies: ['prettier@1.3.1']
 
  ```
 
