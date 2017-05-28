@@ -46,7 +46,7 @@ function normalize(options) {
 
   validate(normalized, { exampleConfig, deprecatedConfig });
 
-  // Restore the option back to a function.
+  // Restore the option back to a function;
   normalized.parser = parserBackup;
 
   // For backward compatibility. Deprecated in 0.0.10
