@@ -2220,21 +2220,30 @@ function genericPrintNoParens(path, options, print, args) {
     case "TSArrayType":
       return concat([path.call(print, "elementType"), "[]"]);
     case "TSPropertySignature": {
-      const computed = n.name.type !== "Identifier" && !isLiteral(n.name);
+      if (n.accessibility) {
+        parts.push(n.accessibility + " ");
+      }
+      if (n.export) {
+        parts.push("export ");
+      }
+      if (n.static) {
+        parts.push("static ");
+      }
+      if (n.readonly) {
+        parts.push("readonly ");
+      }
 
-      parts.push(printTypeScriptModifiers(path, options, print));
-
-      if (computed) {
+      if (n.computed) {
         parts.push("[");
       }
 
-      parts.push(path.call(print, "name"));
+      parts.push(path.call(print, "key"));
 
-      if (computed) {
+      if (n.computed) {
         parts.push("]");
       }
 
-      if (n.questionToken && !n.name.optional) {
+      if (n.optional) {
         parts.push("?");
       }
 
@@ -2254,6 +2263,12 @@ function genericPrintNoParens(path, options, print, args) {
       if (n.accessibility) {
         parts.push(n.accessibility + " ");
       }
+      if (n.export) {
+        parts.push("export ");
+      }
+      if (n.static) {
+        parts.push("static ");
+      }
       if (n.isReadonly) {
         parts.push("readonly ");
       }
@@ -2270,16 +2285,29 @@ function genericPrintNoParens(path, options, print, args) {
       return concat(["typeof ", path.call(print, "exprName")]);
     case "TSParenthesizedType":
       return concat(["(", path.call(print, "typeAnnotation"), ")"]);
-    case "TSIndexSignature":
+    case "TSIndexSignature": {
+      let printedParams = [];
+      if (n.params) {
+        printedParams = path.map(print, "params");
+      }
+      if (n.parameters) {
+        printedParams = path.map(print, "parameters");
+      }
+
       return concat([
-        printTypeScriptModifiers(path, options, print),
+        n.accessibility ? concat([n.accessibility, " "]) : "",
+        n.export ? "export " : "",
+        n.static ? "static " : "",
+        n.readonly ? "readonly " : "",
         "[",
+        path.call(print, "index"),
         // This should only contain a single element, however TypeScript parses
         // it using parseDelimitedList that uses commas as delimiter.
-        join(", ", path.map(print, "parameters")),
+        join(", ", printedParams),
         "]: ",
         path.call(print, "typeAnnotation")
       ]);
+    }
     case "TSTypePredicate":
       return concat([
         path.call(print, "parameterName"),
@@ -2311,7 +2339,10 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push(printTypeParameters(path, options, print, "typeParameters"));
       }
 
-      parts.push("(", join(", ", path.map(print, "parameters")), ")");
+      const params = n.params
+        ? path.map(print, "params")
+        : path.map(print, "parameters");
+      parts.push("(", join(", ", params), ")");
       if (n.typeAnnotation) {
         parts.push(isType ? " => " : ": ", path.call(print, "typeAnnotation"));
       }
@@ -2353,8 +2384,8 @@ function genericPrintNoParens(path, options, print, args) {
       return concat(parts);
     case "TSMethodSignature":
       parts.push(
-        path.call(print, "name"),
-        n.questionToken && !n.name.optional ? "?" : "",
+        path.call(print, "key"),
+        n.optional ? "?" : "",
         printFunctionTypeParameters(path, options, print),
         printFunctionParams(path, print, options)
       );
@@ -3059,12 +3090,12 @@ function printFunctionTypeParameters(path, options, print) {
 
 function printFunctionParams(path, print, options, expandArg) {
   const fun = path.getValue();
-  const paramsField = fun.type === "TSFunctionType" ||
-    fun.type === "TSMethodSignature"
-    ? "parameters"
-    : "params";
+  const paramsField = fun.parameters ? "parameters" : "params";
 
-  const printed = path.map(print, paramsField);
+  let printed = [];
+  if (fun[paramsField]) {
+    printed = path.map(print, paramsField);
+  }
 
   if (fun.defaults) {
     path.each(defExprPath => {
