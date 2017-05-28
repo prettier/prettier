@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`dunder.ts 1`] = `
+// eslint/typescript-eslint-parser#296
+class F<__T> {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// eslint/typescript-eslint-parser#296
+class F<__T> {}
+
+`;
+
 exports[`generics.ts 1`] = `
 class<T> implements Map<T> {}
 
