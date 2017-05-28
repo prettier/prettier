@@ -1,5 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`async-iteration.js 1`] = `
+
+async function * a() {
+    yield* b();
+}
+
+class X {
+    async * b() {
+        yield* a();
+    }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+async function* a() {
+  yield* b();
+}
+
+class X {
+  async *b() {
+    yield* a();
+  }
+}
+
+`;
+
 exports[`await_parse.js 1`] = `
 async function f() { (await f()).length }
 async function g() {
