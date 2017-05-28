@@ -30,6 +30,7 @@
     "postcss": "^6.0.1",
     "postcss-less": "^1.0.0",
     "postcss-media-query-parser": "^0.2.3",
+    "postcss-scss": "1.0.0",
     "postcss-selector-parser": "^2.2.3",
     "postcss-values-parser": "git://github.com/shellscape/postcss-values-parser.git#5e351360479116f3fe309602cdd15b0a233bc29f",
     "prettier": "^1.3.1",
