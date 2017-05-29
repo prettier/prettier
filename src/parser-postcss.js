@@ -1,0 +1,229 @@
+"use strict";
+
+const createError = require("./parser-create-error");
+
+function parseSelector(selector) {
+  const r = require;
+  const selectorParser = r("postcss-selector-parser");
+  let result;
+  selectorParser(result_ => {
+    result = result_;
+  }).process(selector);
+  return addTypePrefix(result, "selector-");
+}
+
+function parseValueNodes(nodes) {
+  let parenGroup = {
+    open: null,
+    close: null,
+    groups: [],
+    type: "paren_group"
+  };
+  const parenGroupStack = [parenGroup];
+  const rootParenGroup = parenGroup;
+  let commaGroup = {
+    groups: [],
+    type: "comma_group"
+  };
+  const commaGroupStack = [commaGroup];
+
+  for (let i = 0; i < nodes.length; ++i) {
+    if (nodes[i].type === "paren" && nodes[i].value === "(") {
+      parenGroup = {
+        open: nodes[i],
+        close: null,
+        groups: [],
+        type: "paren_group"
+      };
+      parenGroupStack.push(parenGroup);
+
+      commaGroup = {
+        groups: [],
+        type: "comma_group"
+      };
+      commaGroupStack.push(commaGroup);
+    } else if (nodes[i].type === "paren" && nodes[i].value === ")") {
+      if (commaGroup.groups.length) {
+        parenGroup.groups.push(commaGroup);
+      }
+      parenGroup.close = nodes[i];
+
+      if (commaGroupStack.length === 1) {
+        throw new Error("Unbalanced parenthesis");
+      }
+
+      commaGroupStack.pop();
+      commaGroup = commaGroupStack[commaGroupStack.length - 1];
+      commaGroup.groups.push(parenGroup);
+
+      parenGroupStack.pop();
+      parenGroup = parenGroupStack[parenGroupStack.length - 1];
+    } else if (nodes[i].type === "comma") {
+      parenGroup.groups.push(commaGroup);
+      commaGroup = {
+        groups: [],
+        type: "comma_group"
+      };
+      commaGroupStack[commaGroupStack.length - 1] = commaGroup;
+    } else {
+      commaGroup.groups.push(nodes[i]);
+    }
+  }
+  if (commaGroup.groups.length > 0) {
+    parenGroup.groups.push(commaGroup);
+  }
+  return rootParenGroup;
+}
+
+function flattenGroups(node) {
+  if (
+    node.type === "paren_group" &&
+    !node.open &&
+    !node.close &&
+    node.groups.length === 1
+  ) {
+    return flattenGroups(node.groups[0]);
+  }
+
+  if (node.type === "comma_group" && node.groups.length === 1) {
+    return flattenGroups(node.groups[0]);
+  }
+
+  if (node.type === "paren_group" || node.type === "comma_group") {
+    return Object.assign({}, node, { groups: node.groups.map(flattenGroups) });
+  }
+
+  return node;
+}
+
+function addTypePrefix(node, prefix) {
+  if (node && typeof node === "object") {
+    delete node.parent;
+    for (const key in node) {
+      addTypePrefix(node[key], prefix);
+      if (key === "type" && typeof node[key] === "string") {
+        if (!node[key].startsWith(prefix)) {
+          node[key] = prefix + node[key];
+        }
+      }
+    }
+  }
+  return node;
+}
+
+function addMissingType(node) {
+  if (node && typeof node === "object") {
+    delete node.parent;
+    for (const key in node) {
+      addMissingType(node[key]);
+    }
+    if (!Array.isArray(node) && node.value && !node.type) {
+      node.type = "unknown";
+    }
+  }
+  return node;
+}
+
+function parseNestedValue(node) {
+  if (node && typeof node === "object") {
+    delete node.parent;
+    for (const key in node) {
+      parseNestedValue(node[key]);
+      if (key === "nodes") {
+        node.group = flattenGroups(parseValueNodes(node[key]));
+        delete node[key];
+      }
+    }
+  }
+  return node;
+}
+
+function parseValue(value) {
+  const r = require;
+  const valueParser = r("postcss-values-parser");
+  const result = valueParser(value, { loose: true }).parse();
+  const parsedResult = parseNestedValue(result);
+  return addTypePrefix(parsedResult, "value-");
+}
+
+function parseMediaQuery(value) {
+  const r = require;
+  const mediaParser = r("postcss-media-query-parser").default;
+  const result = addMissingType(mediaParser(value));
+  return addTypePrefix(result, "media-");
+}
+
+function parseNestedCSS(node) {
+  if (node && typeof node === "object") {
+    delete node.parent;
+    for (const key in node) {
+      parseNestedCSS(node[key]);
+    }
+    if (typeof node.selector === "string") {
+      const selector = node.raws.selector
+        ? node.raws.selector.raw
+        : node.selector;
+
+      try {
+        node.selector = parseSelector(selector);
+      } catch (e) {
+        // Fail silently. It's better to print it as is than to try and parse it
+        node.selector = selector;
+      }
+    }
+    if (node.type && typeof node.value === "string") {
+      try {
+        node.value = parseValue(node.value);
+      } catch (e) {
+        const line = +(e.toString().match(/line: ([0-9]+)/) || [1, 1])[1];
+        const column = +(e.toString().match(/column ([0-9]+)/) || [0, 0])[1];
+        throw createError(
+          "(postcss-values-parser) " + e.toString(),
+          node.source.start.line + line - 1,
+          node.source.start.column + column + node.prop.length
+        );
+      }
+    }
+    if (node.type === "css-atrule" && typeof node.params === "string") {
+      node.params = parseMediaQuery(node.params);
+    }
+  }
+  return node;
+}
+
+function parseWithParser(parser, text) {
+  let result;
+  try {
+    result = parser.parse(text);
+  } catch (e) {
+    if (typeof e.line !== "number") {
+      throw e;
+    }
+    throw createError("(postcss) " + e.name + " " + e.reason, e.line, e.column);
+  }
+  const prefixedResult = addTypePrefix(result, "css-");
+  const parsedResult = parseNestedCSS(prefixedResult);
+  return parsedResult;
+}
+
+function parse(text) {
+  const r = require;
+  const isLikelySCSS = !!text.match(/(\w\s*: [^}:]+|#){/);
+  try {
+    return parseWithParser(
+      r(isLikelySCSS ? "postcss-scss" : "postcss-less"),
+      text
+    );
+  } catch (e) {
+    try {
+      return parseWithParser(
+        r(isLikelySCSS ? "postcss-less" : "postcss-scss"),
+        text
+      );
+    } catch (e2) {
+      throw e;
+    }
+  }
+}
+
+module.exports = parse;
