@@ -3229,6 +3229,8 @@ function printFunctionParams(path, print, options, expandArg) {
     fun[paramsField][0].typeAnnotation &&
     flowTypeAnnotations.indexOf(fun[paramsField][0].typeAnnotation.type) !==
       -1 &&
+    !(fun[paramsField][0].typeAnnotation.type === "GenericTypeAnnotation" &&
+      fun[paramsField][0].typeAnnotation.typeParameters) &&
     !fun.rest;
 
   if (isFlowShorthandWithOneArg) {
