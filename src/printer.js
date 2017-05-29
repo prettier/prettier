@@ -2537,13 +2537,14 @@ function genericPrintNoParens(path, options, print, args) {
         return n.raws.content;
       }
       const text = options.originalText.slice(util.locStart(n), util.locEnd(n));
+      const rawText = n.raws.text || n.text;
       // Workaround a bug where the location is off.
       // https://github.com/postcss/postcss-scss/issues/63
-      if (text.indexOf(n.text) === -1) {
+      if (text.indexOf(rawText) === -1) {
         if (n.raws.inline) {
-          return concat(["// ", n.text]);
+          return concat(["// ", rawText]);
         }
-        return concat(["/* ", n.text, " */"]);
+        return concat(["/* ", rawText, " */"]);
       }
       return text;
     }
