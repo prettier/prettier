@@ -6,7 +6,7 @@ const printAstToDoc = require("./src/printer").printAstToDoc;
 const util = require("./src/util");
 const printDocToString = require("./src/doc-printer").printDocToString;
 const normalizeOptions = require("./src/options").normalize;
-const parser = require("./src/parser");
+const parser = require("./parser");
 const printDocToDebug = require("./src/doc-debug").printDocToDebug;
 
 function guessLineEnding(text) {

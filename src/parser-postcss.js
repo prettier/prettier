@@ -3,8 +3,7 @@
 const createError = require("./parser-create-error");
 
 function parseSelector(selector) {
-  const r = require;
-  const selectorParser = r("postcss-selector-parser");
+  const selectorParser = require("postcss-selector-parser");
   let result;
   selectorParser(result_ => {
     result = result_;
@@ -139,16 +138,14 @@ function parseNestedValue(node) {
 }
 
 function parseValue(value) {
-  const r = require;
-  const valueParser = r("postcss-values-parser");
+  const valueParser = require("postcss-values-parser");
   const result = valueParser(value, { loose: true }).parse();
   const parsedResult = parseNestedValue(result);
   return addTypePrefix(parsedResult, "value-");
 }
 
 function parseMediaQuery(value) {
-  const r = require;
-  const mediaParser = r("postcss-media-query-parser").default;
+  const mediaParser = require("postcss-media-query-parser").default;
   const result = addMissingType(mediaParser(value));
   return addTypePrefix(result, "media-");
 }
@@ -206,20 +203,21 @@ function parseWithParser(parser, text) {
   return parsedResult;
 }
 
+function requireParser(isSCSS) {
+  if (isSCSS) {
+    return require("postcss-scss");
+  } else {
+    return require("postcss-less");
+  }
+}
+
 function parse(text) {
-  const r = require;
   const isLikelySCSS = !!text.match(/(\w\s*: [^}:]+|#){/);
   try {
-    return parseWithParser(
-      r(isLikelySCSS ? "postcss-scss" : "postcss-less"),
-      text
-    );
+    return parseWithParser(requireParser(isLikelySCSS), text);
   } catch (e) {
     try {
-      return parseWithParser(
-        r(isLikelySCSS ? "postcss-less" : "postcss-scss"),
-        text
-      );
+      return parseWithParser(requireParser(!isLikelySCSS), text);
     } catch (e2) {
       throw e;
     }
