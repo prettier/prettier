@@ -6,3 +6,12 @@ exports[`directives.css 1`] = `
 @import (multiple) "foo.less";
 
 `;
+
+exports[`url.css 1`] = `
+@import url('foo');
+$dir: 'fonts';
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@import url('foo');
+$dir: 'fonts';
+
+`;

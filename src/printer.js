@@ -2604,7 +2604,15 @@ function genericPrintNoParens(path, options, print, args) {
     }
     // postcss-media-query-parser
     case "media-query-list": {
-      return join(", ", path.map(print, "nodes"));
+      const parts = [];
+      path.each(childPath => {
+        const node = childPath.getValue();
+        if (node.type === "media-query" && node.value === "") {
+          return;
+        }
+        parts.push(childPath.call(print));
+      }, "nodes");
+      return join(", ", parts);
     }
     case "media-query": {
       return join(" ", path.map(print, "nodes"));
@@ -2628,6 +2636,9 @@ function genericPrintNoParens(path, options, print, args) {
       return n.value;
     }
     case "media-keyword": {
+      return n.value;
+    }
+    case "media-url": {
       return n.value;
     }
     case "media-unknown": {

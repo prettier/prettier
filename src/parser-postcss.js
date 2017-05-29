@@ -212,7 +212,7 @@ function requireParser(isSCSS) {
 }
 
 function parse(text) {
-  const isLikelySCSS = !!text.match(/(\w\s*: [^}:]+|#){/);
+  const isLikelySCSS = !!text.match(/(\w\s*: [^}:]+|#){|\@import url/);
   try {
     return parseWithParser(requireParser(isLikelySCSS), text);
   } catch (e) {
