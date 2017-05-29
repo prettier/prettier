@@ -2585,11 +2585,13 @@ function genericPrintNoParens(path, options, print, args) {
       ]);
     }
     case "css-atrule": {
+      const hasParams =
+        n.params &&
+        !(n.params.type === "media-query-list" && n.params.value === "");
       return concat([
         "@",
         n.name,
-        " ",
-        path.call(print, "params"),
+        hasParams ? concat([" ", path.call(print, "params")]) : "",
         n.nodes
           ? concat([
               " {",

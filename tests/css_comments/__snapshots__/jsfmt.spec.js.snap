@@ -31,7 +31,7 @@ exports[`bug.css 1`] = `
 .glyphicon {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-@font-face  {
+@font-face {
   src: url(if(
     $bootstrap-sass-asset-helper,
     twbs-font-path('#{$icon-font-path}#{$icon-font-name}.eot'),
