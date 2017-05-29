@@ -29,13 +29,13 @@ color:blue;}  &:nth-child(5n+1) {
   &:nth-child(-n + 3) {
     color: green;
   }
-   > li > a {
+  > li > a {
     color: red;
   }
-   > li > li {
+  > li > li {
     color: blue;
   }
-   > p + p {
+  > p + p {
     color: green;
   }
 }
