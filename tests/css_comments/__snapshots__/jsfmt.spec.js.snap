@@ -82,3 +82,17 @@ exports[`selector.css 1`] = `
 }
 
 `;
+
+exports[`trailing_star_slash.css 1`] = `
+@media (max-width: 1) {}
+a {
+  // element.style */
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@media (max-width: 1) {
+}
+a {
+  // element.style */
+}
+
+`;
