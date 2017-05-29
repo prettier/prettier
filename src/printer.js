@@ -2596,7 +2596,10 @@ function genericPrintNoParens(path, options, print, args) {
           ? concat([
               " {",
               indent(
-                concat([softline, printNodeSequence(path, options, print)])
+                concat([
+                  n.nodes.length > 0 ? softline : "",
+                  printNodeSequence(path, options, print)
+                ])
               ),
               softline,
               "}"

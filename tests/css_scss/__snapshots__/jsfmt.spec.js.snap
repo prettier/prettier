@@ -13,7 +13,6 @@ div {
 a { margin: 0 { left: 10px; } }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @media #{$g-breakpoint-tiny} {
-
 }
 .#{$fa-css-prefix}-glass:before {
   content: $fa-var-glass;
