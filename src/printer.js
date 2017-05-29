@@ -2690,7 +2690,9 @@ function genericPrintNoParens(path, options, print, args) {
     }
     case "selector-combinator": {
       if (n.value === "+" || n.value === ">" || n.value === "~") {
-        return concat([" ", n.value, " "]);
+        const parent = path.getParentNode();
+        const leading = parent.type === "selector-selector" && parent.nodes[0] === n ? "" : " ";
+        return concat([leading, n.value, " "]);
       }
       return n.value;
     }
