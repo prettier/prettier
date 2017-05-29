@@ -2533,9 +2533,19 @@ function genericPrintNoParens(path, options, print, args) {
       return concat([printNodeSequence(path, options, print), hardline]);
     }
     case "css-comment": {
-      return n.raws.content
-        ? n.raws.content
-        : options.originalText.slice(util.locStart(n), util.locEnd(n));
+      if (n.raws.content) {
+        return n.raws.content;
+      }
+      const text = options.originalText.slice(util.locStart(n), util.locEnd(n));
+      // Workaround a bug where the location is off.
+      // https://github.com/postcss/postcss-scss/issues/63
+      if (text.indexOf(n.text) === -1) {
+        if (n.raws.inline) {
+          return concat(['// ', n.text]);
+        }
+        return concat(['/* ', n.text, ' */']);
+      }
+      return text;
     }
     case "css-rule": {
       return concat([
