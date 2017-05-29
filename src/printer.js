@@ -1486,10 +1486,7 @@ function genericPrintNoParens(path, options, print, args) {
 
       if (n.value) {
         let res;
-        if (
-          (n.value.type === "StringLiteral" || n.value.type === "Literal") &&
-          typeof n.value.value === "string"
-        ) {
+        if (isStringLiteral(n.value)) {
           const value = n.value.extra ? n.value.extra.raw : n.value.raw;
           res = '"' + value.slice(1, -1).replace(/"/g, "&quot;") + '"';
         } else {
@@ -1570,9 +1567,7 @@ function genericPrintNoParens(path, options, print, args) {
       if (
         n.attributes.length === 1 &&
         n.attributes[0].value &&
-        (n.attributes[0].value.type === "Literal" ||
-          n.attributes[0].value.type === "StringLiteral") &&
-        typeof n.attributes[0].value.value === "string"
+        isStringLiteral(n.attributes[0].value)
       ) {
         return group(
           concat([
@@ -2893,12 +2888,7 @@ function printPropertyKey(path, options, print) {
   const node = path.getNode();
   const key = node.key;
 
-  if (
-    (key.type === "StringLiteral" ||
-      (key.type === "Literal" && typeof key.value === "string")) &&
-    isIdentifierName(key.value) &&
-    !node.computed
-  ) {
+  if (isStringLiteral(key) && isIdentifierName(key.value) && !node.computed) {
     // 'a' -> a
     return path.call(
       keyPath => comments.printComments(keyPath, () => key.value, options),
@@ -4229,10 +4219,10 @@ function printAssignment(
 
   const canBreak =
     (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) ||
-    ((leftNode.type === "Identifier" || leftNode.type === "MemberExpression") &&
-      (rightNode.type === "StringLiteral" ||
-        (rightNode.type === "Literal" && typeof rightNode.value === "string") ||
-        isMemberExpressionChain(rightNode)));
+    ((leftNode.type === "Identifier" ||
+      isStringLiteral(leftNode) ||
+      leftNode.type === "MemberExpression") &&
+      (isStringLiteral(rightNode) || isMemberExpressionChain(rightNode)));
 
   const printed = printAssignmentRight(
     rightNode,
@@ -4703,6 +4693,13 @@ function isLiteral(node) {
     node.type === "TemplateLiteral" ||
     node.type === "TSTypeLiteral" ||
     node.type === "JSXText"
+  );
+}
+
+function isStringLiteral(node) {
+  return (
+    node.type === "StringLiteral" ||
+    (node.type === "Literal" && typeof node.value === "string")
   );
 }
 

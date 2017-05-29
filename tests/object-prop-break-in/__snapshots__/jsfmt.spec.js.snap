@@ -17,6 +17,18 @@ function foo() {
 
 `;
 
+exports[`long-value.js 1`] = `
+const x = {
+  "ABC": "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
+};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const x = {
+  ABC:
+    "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
+};
+
+`;
+
 exports[`test.js 1`] = `
 const a = classnames({
   "some-prop": this.state.longLongLongLongLongLongLongLongLongTooLongProp
