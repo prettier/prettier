@@ -41,3 +41,5 @@ class X {
 interface F {
   ideConnectionFactoryLongLongLong: (child_process$ChildProcess) => FlowIDEConnection
 }
+
+type ExtractType = <A>(B<C>) => D
