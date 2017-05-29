@@ -2786,6 +2786,9 @@ function genericPrintNoParens(path, options, print, args) {
       return concat([n.value, path.call(print, "group")]);
     }
     case "value-paren": {
+      if (n.raws.before !== "") {
+        return concat([line, n.value]);
+      }
       return n.value;
     }
     case "value-number": {
