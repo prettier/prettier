@@ -2691,7 +2691,10 @@ function genericPrintNoParens(path, options, print, args) {
     case "selector-combinator": {
       if (n.value === "+" || n.value === ">" || n.value === "~") {
         const parent = path.getParentNode();
-        const leading = parent.type === "selector-selector" && parent.nodes[0] === n ? "" : " ";
+        const leading = parent.type === "selector-selector" &&
+          parent.nodes[0] === n
+          ? ""
+          : line;
         return concat([leading, n.value, " "]);
       }
       return n.value;
@@ -2700,7 +2703,7 @@ function genericPrintNoParens(path, options, print, args) {
       return n.value;
     }
     case "selector-selector": {
-      return concat(path.map(print, "nodes"));
+      return group(indent(concat(path.map(print, "nodes"))));
     }
     case "selector-pseudo": {
       return concat([
