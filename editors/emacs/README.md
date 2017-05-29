@@ -14,7 +14,7 @@ Then you can hook to your favorite javascript mode:
 To adjust the CLI args used for the prettier command, you can customize the `prettier-args` variable:
 
 ```elisp
-(setq prettier-args '(
+(setq prettier-js-args '(
   "--trailing-comma" "all"
   "--bracket-spacing" "false"
 ))
