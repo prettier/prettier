@@ -43,7 +43,7 @@
     "rollup-plugin-node-resolve": "2.0.0",
     "rollup-plugin-replace": "1.1.1",
     "typescript": "2.3.2",
-    "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#87445776fce9dbc67139890b18143e767ab19c7d",
+    "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#3dcba7d53f61f51069ed84b57e053802c014d703",
     "uglify-es": "mishoo/UglifyJS2#harmony"
   },
   "scripts": {
@@ -62,9 +62,7 @@
     "testRegex": "jsfmt\\.spec\\.js$|__tests__/.*\\.js$",
     "testPathIgnorePatterns": [
       "tests/new_react",
-      "tests/more_react",
-      "see https://github.com/eslint/typescript-eslint-parser/issues/269",
-      "tests/typescript/conformance/types/abstractKeyword/jsfmt.spec.js"
+      "tests/more_react"
     ]
   }
 }
