@@ -22,3 +22,20 @@ div {
 }
 
 `;
+
+exports[`selectors.css 1`] = `
+a {
+  ~ .Pagination-itemWrapper:not(.is-separator):not([data-priority^='#{$priority}'])
+    ~ .Pagination-itemWrapper.is-separator[data-priority^='#{$priority}'] {
+    display: flex;
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a {
+  ~ .Pagination-itemWrapper:not(.is-separator):not([data-priority^='#{$priority}'])
+    ~ .Pagination-itemWrapper.is-separator[data-priority^='#{$priority}'] {
+    display: flex;
+  }
+}
+
+`;
