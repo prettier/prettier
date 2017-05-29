@@ -2269,7 +2269,7 @@ function genericPrintNoParens(path, options, print, args) {
       if (n.static) {
         parts.push("static ");
       }
-      if (n.isReadonly) {
+      if (n.readonly) {
         parts.push("readonly ");
       }
 
