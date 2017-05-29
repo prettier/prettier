@@ -24,8 +24,7 @@ function parse(text) {
 function tryParseTypeScript(text, jsx) {
   // While we are working on typescript, we are putting it in devDependencies
   // so it shouldn't be picked up by static analysis
-  const r = require;
-  const parser = r("typescript-eslint-parser");
+  const parser = require("typescript-eslint-parser");
   return parser.parse(text, {
     loc: true,
     range: true,

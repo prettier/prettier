@@ -41,8 +41,10 @@
     "rollup-plugin-node-builtins": "2.0.0",
     "rollup-plugin-node-globals": "1.1.0",
     "rollup-plugin-node-resolve": "2.0.0",
+    "rollup-plugin-replace": "1.1.1",
     "typescript": "2.3.2",
-    "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#87445776fce9dbc67139890b18143e767ab19c7d"
+    "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#87445776fce9dbc67139890b18143e767ab19c7d",
+    "uglify-es": "mishoo/UglifyJS2#harmony"
   },
   "scripts": {
     "test": "jest",

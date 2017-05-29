@@ -541,6 +541,12 @@ combined-stream@^1.0.5, combined-stream@~1.0.5:
   dependencies:
     delayed-stream "~1.0.0"
 
+commander@~2.9.0:
+  version "2.9.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-2.9.0.tgz#9c99094176e12240cb22d6c5146098400fe0f7d4"
+  dependencies:
+    graceful-readlink ">= 1.0.0"
+
 concat-map@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
@@ -1150,6 +1156,10 @@ globby@^5.0.0:
 graceful-fs@^4.1.11, graceful-fs@^4.1.2:
   version "4.1.11"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.11.tgz#0e8bdfe4d1ddb8854d64e04ea7c00e2a026e5658"
+
+"graceful-readlink@>= 1.0.0":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/graceful-readlink/-/graceful-readlink-1.0.1.tgz#4cafad76bc62f02fa039b2f94e9a3dd3a391a725"
 
 growly@^1.3.0:
   version "1.3.0"
@@ -1894,6 +1904,12 @@ lru-cache@^4.0.1:
     pseudomap "^1.0.1"
     yallist "^2.0.0"
 
+magic-string@^0.15.2:
+  version "0.15.2"
+  resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.15.2.tgz#0681d7388741bbc3addaa65060992624c6c09e9c"
+  dependencies:
+    vlq "^0.2.1"
+
 magic-string@^0.16.0:
   version "0.16.0"
   resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.16.0.tgz#970ebb0da7193301285fb1aa650f39bdd81eb45a"
@@ -2522,7 +2538,15 @@ rollup-plugin-node-resolve@2.0.0:
     builtin-modules "^1.1.0"
     resolve "^1.1.6"
 
-rollup-pluginutils@^1.5.1, rollup-pluginutils@^1.5.2:
+rollup-plugin-replace@1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-replace/-/rollup-plugin-replace-1.1.1.tgz#396315ded050a6ce43b9518a886a3f60efb1ea33"
+  dependencies:
+    magic-string "^0.15.2"
+    minimatch "^3.0.2"
+    rollup-pluginutils "^1.5.0"
+
+rollup-pluginutils@^1.5.0, rollup-pluginutils@^1.5.1, rollup-pluginutils@^1.5.2:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/rollup-pluginutils/-/rollup-pluginutils-1.5.2.tgz#1e156e778f94b7255bfa1b3d0178be8f5c552408"
   dependencies:
@@ -2814,13 +2838,6 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-"typescript-eslint-parser@git://github.com/eslint/typescript-eslint-parser.git#2d09fb183e36a3b4089509c67cd256cd5f8871b0":
-  version "3.0.0"
-  resolved "git://github.com/eslint/typescript-eslint-parser.git#2d09fb183e36a3b4089509c67cd256cd5f8871b0"
-  dependencies:
-    lodash.unescape "4.0.1"
-    semver "5.3.0"
-
 "typescript-eslint-parser@git://github.com/eslint/typescript-eslint-parser.git#87445776fce9dbc67139890b18143e767ab19c7d":
   version "3.0.0"
   resolved "git://github.com/eslint/typescript-eslint-parser.git#87445776fce9dbc67139890b18143e767ab19c7d"
@@ -2831,6 +2848,13 @@ typedarray@^0.0.6:
 typescript@2.3.2:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.3.2.tgz#f0f045e196f69a72f06b25fd3bd39d01c3ce9984"
+
+uglify-es@mishoo/UglifyJS2#harmony:
+  version "3.0.12"
+  resolved "https://codeload.github.com/mishoo/UglifyJS2/tar.gz/e5e0ce0b42307fe7d535376c39caa02d5d823fe2"
+  dependencies:
+    commander "~2.9.0"
+    source-map "~0.5.1"
 
 uglify-js@^2.6:
   version "2.8.27"

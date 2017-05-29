@@ -9,7 +9,7 @@ const glob = require("glob");
 const chalk = require("chalk");
 const minimist = require("minimist");
 const readline = require("readline");
-const prettier = require("../index");
+const prettier = eval("require")("../index");
 const cleanAST = require("../src/clean-ast.js").cleanAST;
 
 const argv = minimist(process.argv.slice(2), {

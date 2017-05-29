@@ -2,8 +2,8 @@
 
 const fs = require("fs");
 const extname = require("path").extname;
-const prettier = require("../");
-const parser = require("../src/parser");
+const prettier = require("../"); // change to ../dist/ to "test in prod"
+const parser = require("../parser");
 const massageAST = require("../src/clean-ast.js").massageAST;
 
 const AST_COMPARE = process.env["AST_COMPARE"];
