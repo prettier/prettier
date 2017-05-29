@@ -2541,9 +2541,9 @@ function genericPrintNoParens(path, options, print, args) {
       // https://github.com/postcss/postcss-scss/issues/63
       if (text.indexOf(n.text) === -1) {
         if (n.raws.inline) {
-          return concat(['// ', n.text]);
+          return concat(["// ", n.text]);
         }
-        return concat(['/* ', n.text, ' */']);
+        return concat(["/* ", n.text, " */"]);
       }
       return text;
     }
