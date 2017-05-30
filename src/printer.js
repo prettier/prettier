@@ -3563,7 +3563,7 @@ function printClass(path, options, print) {
     partsGroup.push(
       line,
       "implements ",
-      indent(join(concat([",", line]), path.map(print, "implements")))
+      group(indent(join(concat([",", line]), path.map(print, "implements"))))
     );
   }
 
