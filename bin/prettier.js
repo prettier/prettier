@@ -40,6 +40,7 @@ const argv = minimist(process.argv.slice(2), {
     "tab-width",
     "parser",
     "trailing-comma",
+    "cursor-offset",
     "range-start",
     "range-end"
   ],
@@ -151,6 +152,7 @@ function getTrailingComma() {
 }
 
 const options = {
+  cursorOffset: getIntOption("cursor-offset"),
   rangeStart: getIntOption("range-start"),
   rangeEnd: getIntOption("range-end"),
   useTabs: argv["use-tabs"],
@@ -199,7 +201,7 @@ function format(input) {
     return;
   }
 
-  return prettier.format(input, options);
+  return prettier.formatWithCursor(input, options);
 }
 
 function handleError(filename, e) {
@@ -260,8 +262,7 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
 if (stdin) {
   getStdin().then(input => {
     try {
-      // Don't use `console.log` here since it adds an extra newline at the end.
-      process.stdout.write(format(input));
+      writeOutput(format(input));
     } catch (e) {
       handleError("stdin", e);
       return;
@@ -298,10 +299,12 @@ if (stdin) {
 
     const start = Date.now();
 
+    let result;
     let output;
 
     try {
-      output = format(input);
+      result = format(input);
+      output = result.formatted;
     } catch (e) {
       // Add newline to split errors from filename line.
       process.stdout.write("\n");
@@ -344,10 +347,18 @@ if (stdin) {
         process.exitCode = 2;
       }
     } else if (!argv["list-different"]) {
-      // Don't use `console.log` here since it adds an extra newline at the end.
-      process.stdout.write(output);
+      writeOutput(result);
     }
   });
+}
+
+function writeOutput(result) {
+  if (options.cursorOffset) {
+    console.log(result.cursorOffset);
+  } else {
+    // Don't use `console.log` here since it adds an extra newline at the end.
+    process.stdout.write(result.formatted);
+  }
 }
 
 function eachFilename(patterns, callback) {
