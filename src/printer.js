@@ -1114,28 +1114,26 @@ function genericPrintNoParens(path, options, print, args) {
       }
 
       return concat(parts);
-    case "ConditionalExpression":
+    case "ConditionalExpression": {
+      const parent = path.getParentNode();
+      const printed = concat([
+        line,
+        "? ",
+        n.consequent.type === "ConditionalExpression" ? ifBreak("", "(") : "",
+        align(2, path.call(print, "consequent")),
+        n.consequent.type === "ConditionalExpression" ? ifBreak("", ")") : "",
+        line,
+        ": ",
+        align(2, path.call(print, "alternate"))
+      ]);
+
       return group(
         concat([
           path.call(print, "test"),
-          indent(
-            concat([
-              line,
-              "? ",
-              n.consequent.type === "ConditionalExpression"
-                ? ifBreak("", "(")
-                : "",
-              align(2, path.call(print, "consequent")),
-              n.consequent.type === "ConditionalExpression"
-                ? ifBreak("", ")")
-                : "",
-              line,
-              ": ",
-              align(2, path.call(print, "alternate"))
-            ])
-          )
+          parent.type === "ConditionalExpression" ? printed : indent(printed)
         ])
       );
+    }
     case "NewExpression":
       parts.push(
         "new ",
