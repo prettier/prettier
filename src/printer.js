@@ -672,6 +672,9 @@ function genericPrintNoParens(path, options, print, args) {
           parent.type === "FunctionDeclaration" ||
           parent.type === "ObjectMethod" ||
           parent.type === "ClassMethod" ||
+          parent.type === "ForStatement" ||
+          parent.type === "WhileStatement" ||
+          parent.type === "DoWhileStatement" ||
           (parent.type === "CatchClause" && !parentParent.finalizer))
       ) {
         return "{}";

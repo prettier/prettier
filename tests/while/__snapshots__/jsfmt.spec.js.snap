@@ -23,10 +23,8 @@ while (
   someVeryLongStringB &&
   someVeryLongStringC &&
   someVeryLongStringD
-) {
-}
-do {
-} while (
+) {}
+do {} while (
   someVeryLongStringA &&
   someVeryLongStringB &&
   someVeryLongStringC &&
