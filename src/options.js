@@ -26,12 +26,16 @@ const exampleConfig = Object.assign({}, defaults, {
 // Copy options and fill in default values.
 function normalize(options) {
   const normalized = Object.assign({}, options || {});
+  const filepath = normalized.filepath;
 
   if (
-    "filepath" in normalized &&
-    /\.(css|less|scss)$/.test(normalized.filepath)
+    /\.(css|less|scss)$/.test(filepath)
   ) {
     normalized.parser = "postcss";
+  } else if (
+    /\.(ts|tsx)$/.test(filepath)
+  ) {
+    normalized.parser = "typescript";
   }
 
   if (typeof normalized.trailingComma === "boolean") {

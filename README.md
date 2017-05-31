@@ -271,7 +271,7 @@ Prettier ships with a handful of customizable format options, usable in both the
 | **JSX Brackets on Same Line** - Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line | `false` | `--jsx-bracket-same-line` | `jsxBracketSameLine: <bool>` |
 | **Range Start** - Format code starting at a given character offset. The range will extend backwards to the start of the first line containing the selected statement. | `0` | `--range-start <int>` | `rangeStart: <int>` |
 | **Range End** - Format code ending at a given character offset (exclusive). The range will extend forwards to the end of the selected statement. | `Infinity` | `--range-end <int>` | `rangeEnd: <int>` |
-| **Parser** - Specify which parser to use. Both parsers support the same set of JavaScript features (including Flow). You shouldn't have to change this setting. | `babylon` | <code>--parser <flow&#124;babylon></code> | <code>parser: "<flow&#124;babylon&#124;postcss>"</code> |
+| **Parser** - Specify which parser to use. Both parsers support the same set of JavaScript features (including Flow). You shouldn't have to change this setting. | `babylon` | <code>--parser <flow&#124;babylon></code> | <code>parser: "<flow&#124;babylon&#124;postcss&#124;typescript>"</code> |
 | **Filepath** - Specify the input filepath this will be used to do parser inference.<br /><br /> Example: <br />`cat foo \| prettier --stdin-filepath foo.css`<br /> will default to use `postcss` parser |  | `--stdin-filepath` | `filepath: <string>` |
 
 ### Excluding code from formatting
