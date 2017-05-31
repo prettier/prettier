@@ -129,3 +129,6 @@ unstable_after_first_run = (
       .crosstable.users[user.id]}`}</span>
   </div>
 );
+
+solitary_whitespace =
+  <div first="first" second="second" third="third" fourth="fourth" fifth="fifth" sixth="sixth"> </div>

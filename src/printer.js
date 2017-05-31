@@ -4049,11 +4049,16 @@ function printJSXElement(path, options, print) {
 
   // Trim leading lines (or empty strings), recording if there was a hardline
   let numLeadingHard = 0;
-  while (children.length && (isLineNext(children[0]) || isEmpty(children[0]))) {
-    if (willBreak(children[0])) {
+  while (
+    children.length &&
+    (isLineNext(children[0]) || isEmpty(children[0])) &&
+    (isLineNext(children[1]) || isEmpty(children[1]))
+  ) {
+    if (willBreak(children[0]) || willBreak(children[1])) {
       ++numLeadingHard;
       forcedBreak = true;
     }
+    children.shift();
     children.shift();
   }
   // allow one extra newline
@@ -4069,15 +4074,11 @@ function printJSXElement(path, options, print) {
     // Ensure that we display leading, trailing, and solitary whitespace as
     // `{" "}` when outputting this element over multiple lines.
     if (child === jsxWhitespace) {
-      if (children.length === 1) {
-        multilineChildren.push(rawJsxWhitespace);
-        return;
-      } else if (i === 0) {
-        // Fill expects alternating content & whitespace parts
-        // always starting with content.
-        // So we add back a dummy content element that would have been removed
-        // when trimming leading whitespace.
-        multilineChildren.push("");
+      if (i === 1 && children[i - 1] === "") {
+        if (children.length === 2) {
+          multilineChildren.push(rawJsxWhitespace);
+          return;
+        }
         multilineChildren.push(concat([rawJsxWhitespace, hardline]));
         return;
       } else if (i === children.length - 1) {
