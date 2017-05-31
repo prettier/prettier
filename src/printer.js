@@ -4018,10 +4018,7 @@ function printJSXElement(path, options, print) {
   let forcedBreak = willBreak(openingLines);
 
   const rawJsxWhitespace = options.singleQuote ? "{' '}" : '{" "}';
-  const jsxWhitespace = ifBreak(
-    concat([softline, rawJsxWhitespace, softline]),
-    " "
-  );
+  const jsxWhitespace = ifBreak(concat([softline, rawJsxWhitespace]), " ");
 
   const children = printJSXChildren(path, options, print, jsxWhitespace);
 
@@ -4079,14 +4076,17 @@ function printJSXElement(path, options, print) {
     // `{" "}` when outputting this element over multiple lines.
     if (child === jsxWhitespace) {
       if (i === 1 && children[i - 1] === "") {
-        if (children.length === 2) {
-          multilineChildren.push(rawJsxWhitespace);
-          return;
-        }
-        multilineChildren.push(concat([rawJsxWhitespace, hardline]));
+        multilineChildren.push(rawJsxWhitespace);
         return;
       } else if (i === children.length - 1) {
         multilineChildren.push(concat([hardline, rawJsxWhitespace]));
+        return;
+      } else if (willBreak(children[i - 1]) || willBreak(children[i + 1])) {
+        // If we come before or after a JSX element that is multiline
+        // ensure the JSX whitespace appears on a line by itself.
+        // NOTE: Currently this only detects elements that are already
+        // multiline before formatting!
+        multilineChildren.push(concat([hardline, rawJsxWhitespace, hardline]));
         return;
       }
     }
