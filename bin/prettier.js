@@ -41,7 +41,8 @@ const argv = minimist(process.argv.slice(2), {
     "parser",
     "trailing-comma",
     "range-start",
-    "range-end"
+    "range-end",
+    "stdin-filepath"
   ],
   default: {
     semi: true,
@@ -160,6 +161,7 @@ const options = {
   bracketSpacing: argv["bracket-spacing"],
   singleQuote: argv["single-quote"],
   jsxBracketSameLine: argv["jsx-bracket-same-line"],
+  filepath: argv["stdin-filepath"],
   trailingComma: getTrailingComma(),
   parser: getParserOption()
 };
@@ -233,6 +235,7 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
       "  --write                  Edit the file in-place. (Beware!)\n" +
       "  --list-different or -l   Print filenames of files that are different from Prettier formatting.\n" +
       "  --stdin                  Read input from stdin.\n" +
+      "  --stdin-filepath         Path to the file used to read from stdin.\n" +
       "  --print-width <int>      Specify the length of line that the printer will wrap on. Defaults to 80.\n" +
       "  --tab-width <int>        Specify the number of spaces per indentation-level. Defaults to 2.\n" +
       "  --use-tabs               Indent lines with tabs instead of spaces.\n" +
