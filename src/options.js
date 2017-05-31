@@ -28,13 +28,9 @@ function normalize(options) {
   const normalized = Object.assign({}, options || {});
   const filepath = normalized.filepath;
 
-  if (
-    /\.(css|less|scss)$/.test(filepath)
-  ) {
+  if (/\.(css|less|scss)$/.test(filepath)) {
     normalized.parser = "postcss";
-  } else if (
-    /\.(ts|tsx)$/.test(filepath)
-  ) {
+  } else if (/\.(ts|tsx)$/.test(filepath)) {
     normalized.parser = "typescript";
   }
 
