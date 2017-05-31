@@ -4,17 +4,21 @@ import builtins from 'rollup-plugin-node-builtins';
 import globals from 'rollup-plugin-node-globals';
 import json from 'rollup-plugin-json';
 
+const filepath = process.env.filepath;
+const filename = filepath.replace(/.+\//, '');
+const basename = filename.replace(/\..+/, '');
+
 export default {
-  entry: 'index.js',
-  dest: 'docs/prettier.min.js',
+  entry: 'dist/' + filepath,
+  dest: 'docs/' + filename,
   format: 'iife',
   plugins: [
     json(),
     resolve(),
     commonjs(),
     globals(),
-    builtins(),
   ],
   useStrict: false,
-  moduleName: 'prettier',
+  moduleName: basename.replace(/.+-/, ''),
+  external: ['assert', 'fs', 'module']
 };
