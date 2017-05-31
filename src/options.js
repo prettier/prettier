@@ -18,7 +18,7 @@ const defaults = {
 };
 
 const exampleConfig = Object.assign({}, defaults, {
-  filename: "testFilename",
+  filepath: "path/to/Filename",
   printWidth: 80,
   originalText: "text"
 });
@@ -26,6 +26,13 @@ const exampleConfig = Object.assign({}, defaults, {
 // Copy options and fill in default values.
 function normalize(options) {
   const normalized = Object.assign({}, options || {});
+
+  if (
+    "filepath" in normalized &&
+    /\.(css|less|scss)$/.test(normalized.filepath)
+  ) {
+    normalized.parser = "postcss";
+  }
 
   if (typeof normalized.trailingComma === "boolean") {
     // Support a deprecated boolean type for the trailing comma config
