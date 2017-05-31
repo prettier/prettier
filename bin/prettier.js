@@ -161,6 +161,7 @@ const options = {
   bracketSpacing: argv["bracket-spacing"],
   singleQuote: argv["single-quote"],
   jsxBracketSameLine: argv["jsx-bracket-same-line"],
+  filepath: argv["stdin-filepath"],
   trailingComma: getTrailingComma(),
   parser: getParserOption()
 };
