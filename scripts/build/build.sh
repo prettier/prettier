@@ -24,4 +24,9 @@ echo 'Bundling typescript...';
 node_modules/.bin/rollup -c scripts/build/rollup.parser.config.js --environment parser:typescript
 
 echo 'Bundling postcss...';
-node_modules/.bin/rollup -c scripts/build/rollup.parser.config.js --environment parser:postcss
+# PostCSS has dependency cycles and won't work correctly with rollup :(
+./node_modules/.bin/webpack src/parser-postcss.js dist/src/parser-postcss.js
+# Prepend module.exports =
+echo "module.exports =" > dist/src/parser-postcss.js.tmp
+cat dist/src/parser-postcss.js >> dist/src/parser-postcss.js.tmp
+mv dist/src/parser-postcss.js.tmp dist/src/parser-postcss.js
