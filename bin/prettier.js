@@ -166,9 +166,9 @@ const options = {
   parser: getParserOption()
 };
 
-function format(input) {
+function format(input, opt) {
   if (argv["debug-print-doc"]) {
-    const doc = prettier.__debug.printToDoc(input, options);
+    const doc = prettier.__debug.printToDoc(input, opt);
     return prettier.__debug.formatDoc(doc);
   }
 
@@ -179,13 +179,13 @@ function format(input) {
       });
     }
 
-    const pp = prettier.format(input, options);
-    const pppp = prettier.format(pp, options);
+    const pp = prettier.format(input, opt);
+    const pppp = prettier.format(pp, opt);
     if (pp !== pppp) {
       throw "prettier(input) !== prettier(prettier(input))\n" + diff(pp, pppp);
     } else {
-      const ast = cleanAST(prettier.__debug.parse(input, options));
-      const past = cleanAST(prettier.__debug.parse(pp, options));
+      const ast = cleanAST(prettier.__debug.parse(input, opt));
+      const past = cleanAST(prettier.__debug.parse(pp, opt));
 
       if (ast !== past) {
         const MAX_AST_SIZE = 2097152; // 2MB
@@ -201,7 +201,7 @@ function format(input) {
     return;
   }
 
-  return prettier.format(input, options);
+  return prettier.format(input, opt);
 }
 
 function handleError(filename, e) {
@@ -264,7 +264,7 @@ if (stdin) {
   getStdin().then(input => {
     try {
       // Don't use `console.log` here since it adds an extra newline at the end.
-      process.stdout.write(format(input));
+      process.stdout.write(format(input, options));
     } catch (e) {
       handleError("stdin", e);
       return;
@@ -304,7 +304,10 @@ if (stdin) {
     let output;
 
     try {
-      output = format(input);
+      output = format(
+        input,
+        Object.assign({}, options, { filepath: filename })
+      );
     } catch (e) {
       // Add newline to split errors from filename line.
       process.stdout.write("\n");
