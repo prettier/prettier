@@ -3523,7 +3523,11 @@ function printTypeParameters(path, options, print, paramsKey) {
           join(concat([",", line]), path.map(print, paramsKey))
         ])
       ),
-      ifBreak(shouldPrintComma(options, "all") ? "," : ""),
+      ifBreak(
+        options.parser !== "typescript" && shouldPrintComma(options, "all")
+          ? ","
+          : ""
+      ),
       softline,
       ">"
     ])
