@@ -1,9 +1,18 @@
 <meta charset="utf-8">
 <title>Prettier</title>
 
-<script>global = window;</script>
-<script>Buffer = {isBuffer: function() { return false; }};</script>
-<script src="prettier.min.js"></script>
+<script>
+// "Polyfills" in order for all the code to run
+global = window;
+Buffer = {isBuffer: function() { return false; }};
+fs = module$1 = module = path = os = crypto = {};
+process = {argv: [], env: {}}
+assert = {ok: function() {}};
+function require(path) { return window[path.replace(/.+-/, '')]; }
+</script>
+
+<script src="index.js"></script>
+<script>prettier = index;</script>
 
 <link rel="stylesheet" href="https://codemirror.net/lib/codemirror.css">
 <link rel="stylesheet" href="https://codemirror.net/theme/base16-dark.css">
@@ -94,7 +103,7 @@
     <label><input type="checkbox" id="bracketSpacing" checked></input> bracketSpacing</label>
     <label><input type="checkbox" id="jsxBracketSameLine"></input> jsxBracketSameLine</label>
     <label>trailingComma <select id="trailingComma"><option value="none">none</option><option value="es5">es5</option><option value="all">all</option></select></label>
-    <label>parser <select id="parser"><option value="babylon">babylon</option><option value="flow">flow</option></select></label>
+    <label>parser <select id="parser"><option value="babylon">babylon</option><option value="flow">flow</option><option value="typescript">typescript</option><option value="postcss">postcss</option></select></label>
     <span style="flex: 1"></span>
     <label><input type="checkbox" id="doc"></input> doc</label>
   </div>
@@ -113,6 +122,7 @@
 </div>
 
 <script id="code">
+(function () {
 var OPTIONS = ['printWidth', 'tabWidth', 'singleQuote', 'trailingComma', 'bracketSpacing', 'jsxBracketSameLine', 'parser', 'semi', 'useTabs', 'doc'];
 function setOptions(options) {
   OPTIONS.forEach(function(option) {
@@ -162,41 +172,58 @@ function replaceHash(hash) {
   }
 }
 
+function onceParserLoaded(parser, cb) {
+  if (window[parser]) {
+    cb();
+    return;
+  }
+
+  // We can't synchronously insert a script, so we first make sure that the
+  // parser is loaded before calling format that will require it
+  var s = document.createElement('script');
+  s.src = 'parser-' + parser + '.js';
+  s.type = "text/javascript";
+  s.onload = cb;
+  document.getElementsByTagName('head')[0].appendChild(s);
+}
+
 function format() {
   var options = getOptions();
-  [docEditor, outputEditor].forEach(function(editor) {
-    editor.setOption(
-      'rulers',
-      [{column: options.printWidth, color: '#444444'}]
+  onceParserLoaded(options.parser || 'babylon', function() {
+    [docEditor, outputEditor].forEach(function(editor) {
+      editor.setOption(
+        'rulers',
+        [{column: options.printWidth, color: '#444444'}]
+      );
+    });
+    document.getElementsByClassName('doc')[0].style.display = options.doc ? 'flex' : 'none';
+
+    var value = encodeURIComponent(
+      JSON.stringify(
+        Object.assign({content: inputEditor.getValue(), options: options})
+      )
     );
-  });
-  document.getElementsByClassName('doc')[0].style.display = options.doc ? 'flex' : 'none';
-
-  var value = encodeURIComponent(
-    JSON.stringify(
-      Object.assign({content: inputEditor.getValue(), options: options})
-    )
-  );
-  replaceHash(value);
-  var formatterOptions = omitNonFormatterOptions(options);
-  var res;
-  try {
-    res = prettier.format(inputEditor.getValue(), formatterOptions);
-  } catch (e) {
-    res = e.toString();
-  }
-  outputEditor.setValue(res);
-
-  if (options.doc) {
-    var debug;
+    replaceHash(value);
+    var formatterOptions = omitNonFormatterOptions(options);
+    var res;
     try {
-      var doc = prettier.__debug.printToDoc(inputEditor.getValue(), formatterOptions);
-      debug = prettier.__debug.formatDoc(doc, formatterOptions);
+      res = prettier.format(inputEditor.getValue(), formatterOptions);
     } catch (e) {
-      debug = e.toString();
+      res = e.toString();
     }
-    docEditor.setValue(debug);
-  }
+    outputEditor.setValue(res);
+
+    if (options.doc) {
+      var debug;
+      try {
+        var doc = prettier.__debug.printToDoc(inputEditor.getValue(), formatterOptions);
+        debug = prettier.__debug.formatDoc(doc, formatterOptions);
+      } catch (e) {
+        debug = e.toString();
+      }
+      docEditor.setValue(debug);
+    }
+  });
 }
 
 document.getElementsByClassName('options')[0].onchange = format;
@@ -227,14 +254,13 @@ var outputEditor = CodeMirror.fromTextArea(
 );
 
 document.getElementsByClassName('version')[0].innerText = prettier.version;
-</script>
 
-<script>
 try {
   var json = JSON.parse(decodeURIComponent(location.hash.slice(1)));
   setOptions(json.options);
   inputEditor.setValue(json.content);
 } catch (e) {
-  inputEditor.setValue(code.innerText.trim());
+  inputEditor.setValue('hello ( "world"\n)');
 }
+})();
 </script>
