@@ -117,6 +117,24 @@ this_really_should_split_across_lines =
   <div>
     before{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after
   </div>
+
+
+unstable_before =
+  <div className="yourScore">
+    Your score: <span className="score">{\`\${mini.crosstable.users[sessionUserId]} - \${mini.crosstable.users[user.id]}\`}</span>
+  </div>
+
+unstable_after_first_run = (
+  <div className="yourScore">
+    Your score:
+    {" "}
+    <span className="score">{\`\${mini.crosstable.users[sessionUserId]} - \${mini
+      .crosstable.users[user.id]}\`}</span>
+  </div>
+);
+
+solitary_whitespace =
+  <div first="first" second="second" third="third" fourth="fourth" fifth="fifth" sixth="sixth"> </div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Wrapping text
 x = (
@@ -290,6 +308,37 @@ facebook_translation_leave_text_around_tag = (
 this_really_should_split_across_lines = (
   <div>
     before{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after
+  </div>
+);
+
+unstable_before = (
+  <div className="yourScore">
+    Your score:
+    {" "}
+    <span className="score">{\`\${mini.crosstable.users[sessionUserId]} - \${mini
+      .crosstable.users[user.id]}\`}</span>
+  </div>
+);
+
+unstable_after_first_run = (
+  <div className="yourScore">
+    Your score:
+    {" "}
+    <span className="score">{\`\${mini.crosstable.users[sessionUserId]} - \${mini
+      .crosstable.users[user.id]}\`}</span>
+  </div>
+);
+
+solitary_whitespace = (
+  <div
+    first="first"
+    second="second"
+    third="third"
+    fourth="fourth"
+    fifth="fifth"
+    sixth="sixth"
+  >
+    {" "}
   </div>
 );
 
