@@ -673,6 +673,9 @@ function genericPrintNoParens(path, options, print, args) {
           parent.type === "FunctionDeclaration" ||
           parent.type === "ObjectMethod" ||
           parent.type === "ClassMethod" ||
+          parent.type === "ForStatement" ||
+          parent.type === "WhileStatement" ||
+          parent.type === "DoWhileStatement" ||
           (parent.type === "CatchClause" && !parentParent.finalizer))
       ) {
         return "{}";
@@ -1112,28 +1115,26 @@ function genericPrintNoParens(path, options, print, args) {
       }
 
       return concat(parts);
-    case "ConditionalExpression":
+    case "ConditionalExpression": {
+      const parent = path.getParentNode();
+      const printed = concat([
+        line,
+        "? ",
+        n.consequent.type === "ConditionalExpression" ? ifBreak("", "(") : "",
+        align(2, path.call(print, "consequent")),
+        n.consequent.type === "ConditionalExpression" ? ifBreak("", ")") : "",
+        line,
+        ": ",
+        align(2, path.call(print, "alternate"))
+      ]);
+
       return group(
         concat([
           path.call(print, "test"),
-          indent(
-            concat([
-              line,
-              "? ",
-              n.consequent.type === "ConditionalExpression"
-                ? ifBreak("", "(")
-                : "",
-              align(2, path.call(print, "consequent")),
-              n.consequent.type === "ConditionalExpression"
-                ? ifBreak("", ")")
-                : "",
-              line,
-              ": ",
-              align(2, path.call(print, "alternate"))
-            ])
-          )
+          parent.type === "ConditionalExpression" ? printed : indent(printed)
         ])
       );
+    }
     case "NewExpression":
       parts.push(
         "new ",
@@ -3523,7 +3524,11 @@ function printTypeParameters(path, options, print, paramsKey) {
           join(concat([",", line]), path.map(print, paramsKey))
         ])
       ),
-      ifBreak(shouldPrintComma(options, "all") ? "," : ""),
+      ifBreak(
+        options.parser !== "typescript" && shouldPrintComma(options, "all")
+          ? ","
+          : ""
+      ),
       softline,
       ">"
     ])
@@ -3564,7 +3569,7 @@ function printClass(path, options, print) {
     partsGroup.push(
       line,
       "implements ",
-      indent(join(concat([",", line]), path.map(print, "implements")))
+      group(indent(join(concat([",", line]), path.map(print, "implements"))))
     );
   }
 
@@ -3857,6 +3862,11 @@ function isEmptyJSXElement(node) {
 //
 // For another, leading, trailing, and lone whitespace all need to
 // turn themselves into the rather ugly `{' '}` when breaking.
+//
+// Finally we print JSX using the `fill` doc primitive.
+// This requires that we give it an array of alternating
+// content and whitespace elements.
+// To ensure this we add dummy `""` content elements as needed.
 function printJSXChildren(path, options, print, jsxWhitespace) {
   const n = path.getValue();
   const children = [];
@@ -3873,10 +3883,12 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
         value.split(/(\r?\n\s*)/).forEach(textLine => {
           const newlines = textLine.match(/\n/g);
           if (newlines) {
+            children.push("");
             children.push(hardline);
 
             // allow one extra newline
             if (newlines.length > 1) {
+              children.push("");
               children.push(hardline);
             }
             return;
@@ -3888,6 +3900,23 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
 
           const beginSpace = /^[ \n\r\t]+/.test(textLine);
           if (beginSpace) {
+            children.push("");
+            children.push(jsxWhitespace);
+          }
+
+          const stripped = textLine.replace(/^[ \n\r\t]+|[ \n\r\t]+$/g, "");
+          // Split text into words separated by "line"s.
+          stripped.split(/([ \n\r\t]+)/).forEach(word => {
+            const space = /[ \n\r\t]+/.test(word);
+            if (space) {
+              children.push(line);
+            } else {
+              children.push(word);
+            }
+          });
+
+          const endSpace = /[ \n\r\t]+$/.test(textLine);
+          if (endSpace) {
             children.push(jsxWhitespace);
           } else {
             // Ideally this would be a `softline` to allow a break between
@@ -3901,57 +3930,39 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
             // adverse effect on formatting algorithm.
             children.push("");
           }
-
-          const stripped = textLine.replace(/^[ \n\r\t]+|[ \n\r\t]+$/g, "");
-          if (stripped) {
-            // Split text into words separated by "line"s.
-            stripped.split(/([ \n\r\t]+)/).forEach(word => {
-              const space = /[ \n\r\t]+/.test(word);
-              if (space) {
-                children.push(line);
-              } else {
-                children.push(word);
-              }
-            });
-          }
-
-          const endSpace = /[ \n\r\t]+$/.test(textLine);
-          if (endSpace) {
-            children.push(jsxWhitespace);
-          } else {
-            // As above this would ideally be a `softline`.
-            children.push("");
-          }
         });
       } else if (/\n/.test(value)) {
+        children.push("");
         children.push(hardline);
 
         // allow one extra newline
         if (value.match(/\n/g).length > 1) {
+          children.push("");
           children.push(hardline);
         }
       } else if (/[ \n\r\t]/.test(value)) {
         // whitespace(s)-only without newlines,
         // eg; one or more spaces separating two elements
         for (let i = 0; i < value.length; ++i) {
-          children.push(jsxWhitespace);
           // Because fill expects alternating content and whitespace parts
-          // we need to include an empty content part between each JSX
+          // we need to include an empty content part before each JSX
           // whitespace.
-          if (i + 1 < value.length) {
-            children.push("");
-          }
+          children.push("");
+          children.push(jsxWhitespace);
         }
       }
     } else {
       children.push(print(childPath));
 
-      // add a softline where we have two adjacent elements that are not
-      // literals
       const next = n.children[i + 1];
       const followedByJSXElement = next && !isLiteral(next);
       if (followedByJSXElement) {
         children.push(softline);
+      } else {
+        // Ideally this would be a softline as well.
+        // See the comment above about the Facebook translation pipeline as
+        // to why this is an empty string.
+        children.push("");
       }
     }
   }, "children");
@@ -4008,16 +4019,24 @@ function printJSXElement(path, options, print) {
   let forcedBreak = willBreak(openingLines);
 
   const rawJsxWhitespace = options.singleQuote ? "{' '}" : '{" "}';
-  const jsxWhitespace = ifBreak(
-    concat([softline, rawJsxWhitespace, softline]),
-    " "
-  );
+  const jsxWhitespace = ifBreak(concat([softline, rawJsxWhitespace]), " ");
 
   const children = printJSXChildren(path, options, print, jsxWhitespace);
 
-  // Trim trailing lines, recording if there was a hardline
+  // Remove multiple filler empty strings
+  // These can occur when a text element is followed by a newline.
+  for (let i = children.length - 2; i >= 0; i--) {
+    if (children[i] === "" && children[i + 1] === "") {
+      children.splice(i, 2);
+    }
+  }
+
+  // Trim trailing lines (or empty strings), recording if there was a hardline
   let numTrailingHard = 0;
-  while (children.length && isLineNext(util.getLast(children))) {
+  while (
+    children.length &&
+    (isLineNext(util.getLast(children)) || isEmpty(util.getLast(children)))
+  ) {
     if (willBreak(util.getLast(children))) {
       ++numTrailingHard;
       forcedBreak = true;
@@ -4026,21 +4045,28 @@ function printJSXElement(path, options, print) {
   }
   // allow one extra newline
   if (numTrailingHard > 1) {
+    children.push("");
     children.push(hardline);
   }
 
   // Trim leading lines (or empty strings), recording if there was a hardline
   let numLeadingHard = 0;
-  while (children.length && (isLineNext(children[0]) || isEmpty(children[0]))) {
-    if (willBreak(children[0])) {
+  while (
+    children.length &&
+    (isLineNext(children[0]) || isEmpty(children[0])) &&
+    (isLineNext(children[1]) || isEmpty(children[1]))
+  ) {
+    if (willBreak(children[0]) || willBreak(children[1])) {
       ++numLeadingHard;
       forcedBreak = true;
     }
+    children.shift();
     children.shift();
   }
   // allow one extra newline
   if (numLeadingHard > 1) {
     children.unshift(hardline);
+    children.unshift("");
   }
 
   // Tweak how we format children if outputting this element over multiple lines.
@@ -4050,19 +4076,18 @@ function printJSXElement(path, options, print) {
     // Ensure that we display leading, trailing, and solitary whitespace as
     // `{" "}` when outputting this element over multiple lines.
     if (child === jsxWhitespace) {
-      if (children.length === 1) {
+      if (i === 1 && children[i - 1] === "") {
         multilineChildren.push(rawJsxWhitespace);
-        return;
-      } else if (i === 0) {
-        // Fill expects alternating content & whitespace parts
-        // always starting with content.
-        // So we add a dummy content element if we would otherwise start
-        // with whitespace.
-        multilineChildren.push("");
-        multilineChildren.push(concat([rawJsxWhitespace, hardline]));
         return;
       } else if (i === children.length - 1) {
         multilineChildren.push(concat([hardline, rawJsxWhitespace]));
+        return;
+      } else if (willBreak(children[i - 1]) || willBreak(children[i + 1])) {
+        // If we come before or after a JSX element that is multiline
+        // ensure the JSX whitespace appears on a line by itself.
+        // NOTE: Currently this only detects elements that are already
+        // multiline before formatting!
+        multilineChildren.push(concat([hardline, rawJsxWhitespace, hardline]));
         return;
       }
     }

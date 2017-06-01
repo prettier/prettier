@@ -16,7 +16,7 @@ function parse(text) {
     throw createError(
       ast.errors[0].message,
       ast.errors[0].loc.start.line,
-      ast.errors[0].loc.start.column
+      ast.errors[0].loc.start.column + 1
     );
   }
 

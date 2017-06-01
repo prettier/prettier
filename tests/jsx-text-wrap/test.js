@@ -97,7 +97,10 @@ x =
 leading_whitespace =
   <div> First Second Third Fourth Fifth Sixth Seventh Eighth Ninth Tenth Eleventh Twelfth Thirteenth Fourteenth</div>
 
-no_leading_whitespace =
+trailing_whitespace =
+  <div>First Second Third Fourth Fifth Sixth Seventh Eighth Ninth Tenth Eleventh Twelfth Thirteenth Fourteenth </div>
+
+no_leading_or_trailing_whitespace =
   <div>First Second Third Fourth Fifth Sixth Seventh Eighth Ninth Tenth Eleventh Twelfth Thirteenth Fourteenth</div>
 
 facebook_translation_leave_text_around_tag =
@@ -114,3 +117,46 @@ this_really_should_split_across_lines =
   <div>
     before{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after
   </div>
+
+unstable_before =
+  <div className="yourScore">
+    Your score: <span className="score">{`${mini.crosstable.users[sessionUserId]} - ${mini.crosstable.users[user.id]}`}</span>
+  </div>
+
+unstable_after_first_run = (
+  <div className="yourScore">
+    Your score:
+    {" "}
+    <span className="score">{`${mini.crosstable.users[sessionUserId]} - ${mini
+      .crosstable.users[user.id]}`}</span>
+  </div>
+);
+
+solitary_whitespace =
+  <div first="first" second="second" third="third" fourth="fourth" fifth="fifth" sixth="sixth"> </div>
+
+jsx_whitespace_on_newline =
+  <div>
+    <div>
+      First
+    </div> <div>
+      Second
+    </div> <div>
+      Third
+    </div>
+  </div>
+
+jsx_around_multiline_element =
+  <div>Before <div>{"Enough text to make this element wrap on to multiple lines when formatting"}</div> After</div>
+
+jsx_around_multiline_element_second_pass = (
+  <div>
+    Before
+    {" "}<div>
+      {
+        "Enough text to make this element wrap on to multiple lines when formatting"
+      }
+    </div>
+    {" "}After
+  </div>
+);

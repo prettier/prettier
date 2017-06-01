@@ -42,7 +42,8 @@ const argv = minimist(process.argv.slice(2), {
     "trailing-comma",
     "cursor-offset",
     "range-start",
-    "range-end"
+    "range-end",
+    "stdin-filepath"
   ],
   default: {
     semi: true,
@@ -69,7 +70,8 @@ const write = argv["write"];
 const stdin = argv["stdin"] || (!filepatterns.length && !process.stdin.isTTY);
 const ignoreNodeModules = argv["with-node-modules"] === false;
 const globOptions = {
-  ignore: ignoreNodeModules && "**/node_modules/**"
+  ignore: ignoreNodeModules && "**/node_modules/**",
+  dot: true
 };
 
 if (write && argv["debug-check"]) {
@@ -162,13 +164,14 @@ const options = {
   bracketSpacing: argv["bracket-spacing"],
   singleQuote: argv["single-quote"],
   jsxBracketSameLine: argv["jsx-bracket-same-line"],
+  filepath: argv["stdin-filepath"],
   trailingComma: getTrailingComma(),
   parser: getParserOption()
 };
 
-function format(input) {
+function format(input, opt) {
   if (argv["debug-print-doc"]) {
-    const doc = prettier.__debug.printToDoc(input, options);
+    const doc = prettier.__debug.printToDoc(input, opt);
     return prettier.__debug.formatDoc(doc);
   }
 
@@ -179,13 +182,13 @@ function format(input) {
       });
     }
 
-    const pp = prettier.format(input, options);
-    const pppp = prettier.format(pp, options);
+    const pp = prettier.format(input, opt);
+    const pppp = prettier.format(pp, opt);
     if (pp !== pppp) {
       throw "prettier(input) !== prettier(prettier(input))\n" + diff(pp, pppp);
     } else {
-      const ast = cleanAST(prettier.__debug.parse(input, options));
-      const past = cleanAST(prettier.__debug.parse(pp, options));
+      const ast = cleanAST(prettier.__debug.parse(input, opt));
+      const past = cleanAST(prettier.__debug.parse(pp, opt));
 
       if (ast !== past) {
         const MAX_AST_SIZE = 2097152; // 2MB
@@ -201,7 +204,7 @@ function format(input) {
     return;
   }
 
-  return prettier.formatWithCursor(input, options);
+  return prettier.formatWithCursor(input, opt);
 }
 
 function handleError(filename, e) {
@@ -235,6 +238,7 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
       "  --write                  Edit the file in-place. (Beware!)\n" +
       "  --list-different or -l   Print filenames of files that are different from Prettier formatting.\n" +
       "  --stdin                  Read input from stdin.\n" +
+      "  --stdin-filepath         Path to the file used to read from stdin.\n" +
       "  --print-width <int>      Specify the length of line that the printer will wrap on. Defaults to 80.\n" +
       "  --tab-width <int>        Specify the number of spaces per indentation-level. Defaults to 2.\n" +
       "  --use-tabs               Indent lines with tabs instead of spaces.\n" +
@@ -262,7 +266,7 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
 if (stdin) {
   getStdin().then(input => {
     try {
-      writeOutput(format(input));
+      writeOutput(format(input, options));
     } catch (e) {
       handleError("stdin", e);
       return;
@@ -303,7 +307,10 @@ if (stdin) {
     let output;
 
     try {
-      result = format(input);
+      result = format(
+        input,
+        Object.assign({}, options, { filepath: filename })
+      );
       output = result.formatted;
     } catch (e) {
       // Add newline to split errors from filename line.

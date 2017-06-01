@@ -1,5 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`indent.js 1`] = `
+aaaaaaaaaaaaaaa ? bbbbbbbbbbbbbbbbbb : ccccccccccccccc ? ddddddddddddddd : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+aaaaaaaaaaaaaaa
+  ? bbbbbbbbbbbbbbbbbb
+  : ccccccccccccccc
+    ? ddddddddddddddd
+    : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg;
+
+`;
+
+exports[`indent.js 2`] = `
+aaaaaaaaaaaaaaa ? bbbbbbbbbbbbbbbbbb : ccccccccccccccc ? ddddddddddddddd : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+aaaaaaaaaaaaaaa
+    ? bbbbbbbbbbbbbbbbbb
+    : ccccccccccccccc
+      ? ddddddddddddddd
+      : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg;
+
+`;
+
 exports[`parenthesis.js 1`] = `
 debug ? this.state.isVisible ? "partially visible" : "hidden" : null;
 debug ? this.state.isVisible && somethingComplex ? "partially visible" : "hidden" : null;

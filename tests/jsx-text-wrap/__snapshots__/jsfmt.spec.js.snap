@@ -100,7 +100,10 @@ x =
 leading_whitespace =
   <div> First Second Third Fourth Fifth Sixth Seventh Eighth Ninth Tenth Eleventh Twelfth Thirteenth Fourteenth</div>
 
-no_leading_whitespace =
+trailing_whitespace =
+  <div>First Second Third Fourth Fifth Sixth Seventh Eighth Ninth Tenth Eleventh Twelfth Thirteenth Fourteenth </div>
+
+no_leading_or_trailing_whitespace =
   <div>First Second Third Fourth Fifth Sixth Seventh Eighth Ninth Tenth Eleventh Twelfth Thirteenth Fourteenth</div>
 
 facebook_translation_leave_text_around_tag =
@@ -117,6 +120,49 @@ this_really_should_split_across_lines =
   <div>
     before{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after
   </div>
+
+unstable_before =
+  <div className="yourScore">
+    Your score: <span className="score">{\`\${mini.crosstable.users[sessionUserId]} - \${mini.crosstable.users[user.id]}\`}</span>
+  </div>
+
+unstable_after_first_run = (
+  <div className="yourScore">
+    Your score:
+    {" "}
+    <span className="score">{\`\${mini.crosstable.users[sessionUserId]} - \${mini
+      .crosstable.users[user.id]}\`}</span>
+  </div>
+);
+
+solitary_whitespace =
+  <div first="first" second="second" third="third" fourth="fourth" fifth="fifth" sixth="sixth"> </div>
+
+jsx_whitespace_on_newline =
+  <div>
+    <div>
+      First
+    </div> <div>
+      Second
+    </div> <div>
+      Third
+    </div>
+  </div>
+
+jsx_around_multiline_element =
+  <div>Before <div>{"Enough text to make this element wrap on to multiple lines when formatting"}</div> After</div>
+
+jsx_around_multiline_element_second_pass = (
+  <div>
+    Before
+    {" "}<div>
+      {
+        "Enough text to make this element wrap on to multiple lines when formatting"
+      }
+    </div>
+    {" "}After
+  </div>
+);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Wrapping text
 x = (
@@ -130,8 +176,7 @@ x = (
 x = (
   <div>
     <first>f</first> <first>f</first> <first>f</first> <first>f</first>
-    {" "}
-    <first>f</first> <first>f</first>
+    {" "}<first>f</first> <first>f</first>
   </div>
 );
 
@@ -148,8 +193,7 @@ x = (
   <div>
     <a /><b /><c />
     <first>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</first>
-    {" "}
-    <first>f</first>
+    {" "}<first>f</first>
   </div>
 );
 
@@ -157,8 +201,7 @@ x = (
 x = (
   <div>
     <sadashdkjahsdkjhaskjdhaksjdhkashdkashdkasjhdkajshdkashdkashd />
-    {" "}
-    <first>f</first>
+    {" "}<first>f</first>
   </div>
 );
 
@@ -181,16 +224,14 @@ x = (
 x = (
   <div>
     before {stuff} after {stuff} after {stuff} after {stuff} after {stuff} after
-    {" "}
-    {stuff}  {stuff}  {stuff} after {stuff} after
+    {" "}{stuff}  {stuff}  {stuff} after {stuff} after
   </div>
 );
 
 x = (
   <div>
     Please state your <b>name</b> and <b>occupation</b> for the board of
-    {" "}
-    <b>school</b> directors.
+    {" "}<b>school</b> directors.
   </div>
 );
 
@@ -220,10 +261,8 @@ x = (
   <font size={-3}>
     <i>
       Starting at minute {graphActivity.startTime}, running for
-      {" "}
-      {graphActivity.length} to minute
-      {" "}
-      {graphActivity.startTime + graphActivity.length}
+      {" "}{graphActivity.length} to minute
+      {" "}{graphActivity.startTime + graphActivity.length}
     </i>
   </font>
 );
@@ -263,13 +302,20 @@ x = (
 
 leading_whitespace = (
   <div>
-    {" "}
-    First Second Third Fourth Fifth Sixth Seventh Eighth Ninth Tenth Eleventh
-    Twelfth Thirteenth Fourteenth
+    {" "}First Second Third Fourth Fifth Sixth Seventh Eighth Ninth Tenth
+    Eleventh Twelfth Thirteenth Fourteenth
   </div>
 );
 
-no_leading_whitespace = (
+trailing_whitespace = (
+  <div>
+    First Second Third Fourth Fifth Sixth Seventh Eighth Ninth Tenth Eleventh
+    Twelfth Thirteenth Fourteenth
+    {" "}
+  </div>
+);
+
+no_leading_or_trailing_whitespace = (
   <div>
     First Second Third Fourth Fifth Sixth Seventh Eighth Ninth Tenth Eleventh
     Twelfth Thirteenth Fourteenth
@@ -290,6 +336,78 @@ facebook_translation_leave_text_around_tag = (
 this_really_should_split_across_lines = (
   <div>
     before{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after
+  </div>
+);
+
+unstable_before = (
+  <div className="yourScore">
+    Your score:
+    {" "}<span className="score">{\`\${mini.crosstable.users[
+      sessionUserId
+    ]} - \${mini.crosstable.users[user.id]}\`}</span>
+  </div>
+);
+
+unstable_after_first_run = (
+  <div className="yourScore">
+    Your score:
+    {" "}
+    <span className="score">{\`\${mini.crosstable.users[sessionUserId]} - \${mini
+      .crosstable.users[user.id]}\`}</span>
+  </div>
+);
+
+solitary_whitespace = (
+  <div
+    first="first"
+    second="second"
+    third="third"
+    fourth="fourth"
+    fifth="fifth"
+    sixth="sixth"
+  >
+    {" "}
+  </div>
+);
+
+jsx_whitespace_on_newline = (
+  <div>
+    <div>
+      First
+    </div>
+    {" "}
+    <div>
+      Second
+    </div>
+    {" "}
+    <div>
+      Third
+    </div>
+  </div>
+);
+
+jsx_around_multiline_element = (
+  <div>
+    Before
+    {" "}<div>
+      {
+        "Enough text to make this element wrap on to multiple lines when formatting"
+      }
+    </div>
+    {" "}After
+  </div>
+);
+
+jsx_around_multiline_element_second_pass = (
+  <div>
+    Before
+    {" "}
+    <div>
+      {
+        "Enough text to make this element wrap on to multiple lines when formatting"
+      }
+    </div>
+    {" "}After
   </div>
 );
 

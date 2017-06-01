@@ -591,8 +591,7 @@ var tests = [
   function() {
     let x: { foo: ?string } = { foo: null };
     if (!x.foo) {
-      while (false) {
-      }
+      while (false) {}
       x.foo = "foo";
     }
     (x.foo: string);
@@ -601,8 +600,7 @@ var tests = [
   function() {
     let x: { foo: ?string } = { foo: null };
     if (!x.foo) {
-      for (var i = 0; i < 0; i++) {
-      }
+      for (var i = 0; i < 0; i++) {}
       x.foo = "foo";
     }
     (x.foo: string);
