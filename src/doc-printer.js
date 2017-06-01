@@ -420,13 +420,15 @@ function printDocToString(doc, options) {
   const cursorPlaceholderIndex = out.indexOf(cursor.placeholder);
   if (cursorPlaceholderIndex !== -1) {
     const beforeCursor = out.slice(0, cursorPlaceholderIndex).join("");
-    options.cursorOffsetResult = beforeCursor.length;
     const afterCursor = out.slice(cursorPlaceholderIndex + 1).join("");
 
-    return beforeCursor + afterCursor;
+    return {
+      formatted: beforeCursor + afterCursor,
+      cursor: beforeCursor.length
+    };
   }
 
-  return out.join("");
+  return { formatted: out.join("") };
 }
 
 module.exports = { printDocToString };
