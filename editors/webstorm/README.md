@@ -11,7 +11,7 @@ Go to *File | Settings | Tools | External Tools* for Windows and Linux or *WebSt
 * **Parameters** set `--write [other opts] $FilePathRelativeToProjectRoot$`
 * **Working directory** set `$ProjectFileDir$`
 
-![Example](https://raw.githubusercontent.com/prettier/prettier/master/editors/jetbrains/with-prettier.png)
+![Example](https://raw.githubusercontent.com/prettier/prettier/master/editors/webstorm/with-prettier.png)
 
 ### Process directories
 
