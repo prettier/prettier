@@ -113,7 +113,7 @@ function prettyprint(src, filename, options) {
     src,
     Object.assign(
       {
-        filename
+        filepath: filename
       },
       options
     )
