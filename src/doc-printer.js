@@ -418,7 +418,7 @@ function printDocToString(doc, options) {
   }
 
   const cursorPlaceholderIndex = out.indexOf(cursor.placeholder);
-  if (cursorPlaceholderIndex >= 0) {
+  if (cursorPlaceholderIndex !== -1) {
     const beforeCursor = out.slice(0, cursorPlaceholderIndex).join("");
     options.cursorOffsetResult = beforeCursor.length;
     const afterCursor = out.slice(cursorPlaceholderIndex + 1).join("");
