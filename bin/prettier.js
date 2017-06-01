@@ -69,7 +69,8 @@ const write = argv["write"];
 const stdin = argv["stdin"] || (!filepatterns.length && !process.stdin.isTTY);
 const ignoreNodeModules = argv["with-node-modules"] === false;
 const globOptions = {
-  ignore: ignoreNodeModules && "**/node_modules/**"
+  ignore: ignoreNodeModules && "**/node_modules/**",
+  dot: true
 };
 
 if (write && argv["debug-check"]) {
