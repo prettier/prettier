@@ -249,7 +249,7 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
       "  --trailing-comma <none|es5|all>\n" +
       "                           Print trailing commas wherever possible. Defaults to none.\n" +
       "  --parser <flow|babylon>  Specify which parse to use. Defaults to babylon.\n" +
-      "  --cursor-offset <int>    Instead of formatting the code, print where a cursor at the given position would move to after formatting.\n" +
+      "  --cursor-offset <int>    Print (to stderr) where a cursor at the given position would move to after formatting.\n" +
       "                           This option cannot be used with --range-start and --range-end\n" +
       "  --range-start <int>      Format code starting at a given character offset.\n" +
       "                           The range will extend backwards to the start of the first line containing the selected statement.\n" +
@@ -364,11 +364,11 @@ if (stdin) {
 }
 
 function writeOutput(result) {
+  // Don't use `console.log` here since it adds an extra newline at the end.
+  process.stdout.write(result.formatted);
+
   if (options.cursorOffset) {
-    console.log(result.cursorOffset);
-  } else {
-    // Don't use `console.log` here since it adds an extra newline at the end.
-    process.stdout.write(result.formatted);
+    process.stderr.write(result.cursorOffset + "\n");
   }
 }
 
