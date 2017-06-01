@@ -249,11 +249,15 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
       "  --trailing-comma <none|es5|all>\n" +
       "                           Print trailing commas wherever possible. Defaults to none.\n" +
       "  --parser <flow|babylon>  Specify which parse to use. Defaults to babylon.\n" +
+      "  --cursor-offset <int>    Instead of formatting the code, print where a cursor at the given position would move to after formatting.\n" +
+      "                           This option cannot be used with --range-start and --range-end\n" +
       "  --range-start <int>      Format code starting at a given character offset.\n" +
       "                           The range will extend backwards to the start of the first line containing the selected statement.\n" +
+      "                           This option cannot be used with --cursor-offset.\n" +
       "                           Defaults to 0.\n" +
       "  --range-end <int>        Format code ending at a given character offset (exclusive).\n" +
       "                           The range will extend forwards to the end of the selected statement.\n" +
+      "                           This option cannot be used with --cursor-offset.\n" +
       "                           Defaults to Infinity.\n" +
       "  --no-color               Do not colorize error messages.\n" +
       "  --with-node-modules      Process files inside `node_modules` directory.\n" +
