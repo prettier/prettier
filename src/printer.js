@@ -22,7 +22,6 @@ const ifBreak = docBuilders.ifBreak;
 const breakParent = docBuilders.breakParent;
 const lineSuffixBoundary = docBuilders.lineSuffixBoundary;
 const addAlignmentToDoc = docBuilders.addAlignmentToDoc;
-const cursor = docBuilders.cursor;
 
 const docUtils = require("./doc-utils");
 const willBreak = docUtils.willBreak;
@@ -4799,18 +4798,12 @@ function printAstToDoc(ast, options, addAlignmentSize) {
       return genericPrint(path, options, printGenerically, args);
     }
 
-    const withComments = comments.printComments(
+    return comments.printComments(
       path,
       p => genericPrint(p, options, printGenerically, args),
       options,
       args && args.needsSemi
     );
-
-    if (path.getNode() === options.cursorNode) {
-      return concat([cursor, withComments]);
-    }
-
-    return withComments;
   }
 
   let doc = printGenerically(new FastPath(ast));

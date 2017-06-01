@@ -8,6 +8,7 @@ const breakParent = docBuilders.breakParent;
 const indent = docBuilders.indent;
 const lineSuffix = docBuilders.lineSuffix;
 const join = docBuilders.join;
+const cursor = docBuilders.cursor;
 const util = require("./util");
 const childNodesCacheKey = Symbol("child-nodes");
 const locStart = util.locStart;
@@ -924,13 +925,20 @@ function printDanglingComments(path, options, sameIndent) {
   return indent(concat([hardline, join(hardline, parts)]));
 }
 
+function prependCursorPlaceholder(path, options, printed) {
+  if (path.getNode() === options.cursorNode) {
+    return concat([cursor, printed]);
+  }
+  return printed;
+}
+
 function printComments(path, print, options, needsSemi) {
   const value = path.getValue();
   const printed = print(path);
   const comments = value && value.comments;
 
   if (!comments || comments.length === 0) {
-    return printed;
+    return prependCursorPlaceholder(path, options, printed);
   }
 
   const leadingParts = [];
@@ -957,7 +965,11 @@ function printComments(path, print, options, needsSemi) {
     }
   }, "comments");
 
-  return concat(leadingParts.concat(trailingParts));
+  return prependCursorPlaceholder(
+    path,
+    options,
+    concat(leadingParts.concat(trailingParts))
+  );
 }
 
 module.exports = {
