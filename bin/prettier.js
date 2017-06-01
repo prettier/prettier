@@ -32,6 +32,7 @@ const argv = minimist(process.argv.slice(2), {
     "debug-print-doc",
     "debug-check",
     "with-node-modules",
+    "include-dot-directories",
     // Deprecated in 0.0.10
     "flow-parser"
   ],
@@ -68,8 +69,10 @@ const filepatterns = argv["_"];
 const write = argv["write"];
 const stdin = argv["stdin"] || (!filepatterns.length && !process.stdin.isTTY);
 const ignoreNodeModules = argv["with-node-modules"] === false;
+const includeDotDirectories = argv["include-dot-directories"] === true;
 const globOptions = {
-  ignore: ignoreNodeModules && "**/node_modules/**"
+  ignore: ignoreNodeModules && "**/node_modules/**",
+  dot: includeDotDirectories
 };
 
 if (write && argv["debug-check"]) {
