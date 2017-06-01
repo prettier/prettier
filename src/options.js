@@ -4,6 +4,7 @@ const validate = require("jest-validate").validate;
 const deprecatedConfig = require("./deprecated");
 
 const defaults = {
+  cursorOffset: -1,
   rangeStart: 0,
   rangeEnd: Infinity,
   useTabs: false,

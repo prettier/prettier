@@ -3,6 +3,7 @@
 const docBuilders = require("./doc-builders");
 const concat = docBuilders.concat;
 const fill = docBuilders.fill;
+const cursor = docBuilders.cursor;
 
 const MODE_BREAK = 1;
 const MODE_FLAT = 2;
@@ -156,6 +157,10 @@ function printDocToString(doc, options) {
       pos += doc.length;
     } else {
       switch (doc.type) {
+        case "cursor":
+          out.push(cursor.placeholder);
+
+          break;
         case "concat":
           for (let i = doc.parts.length - 1; i >= 0; i--) {
             cmds.push([ind, mode, doc.parts[i]]);
@@ -411,7 +416,19 @@ function printDocToString(doc, options) {
       }
     }
   }
-  return out.join("");
+
+  const cursorPlaceholderIndex = out.indexOf(cursor.placeholder);
+  if (cursorPlaceholderIndex !== -1) {
+    const beforeCursor = out.slice(0, cursorPlaceholderIndex).join("");
+    const afterCursor = out.slice(cursorPlaceholderIndex + 1).join("");
+
+    return {
+      formatted: beforeCursor + afterCursor,
+      cursor: beforeCursor.length
+    };
+  }
+
+  return { formatted: out.join("") };
 }
 
 module.exports = { printDocToString };
