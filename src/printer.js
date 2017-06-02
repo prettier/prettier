@@ -92,10 +92,18 @@ function genericPrint(path, options, printPath, args) {
         prefix = "";
       }
 
+      // #1817
       if (
         node.decorators.length === 1 &&
+        node.type !== "ClassDeclaration" &&
+        node.type !== "MethodDefinition" &&
         (decorator.type === "Identifier" ||
-          decorator.type === "MemberExpression")
+          decorator.type === "MemberExpression" ||
+          (decorator.type === "CallExpression" &&
+            decorator.arguments.length === 1 &&
+            (isStringLiteral(decorator.arguments[0]) ||
+              decorator.arguments[0].type === "Identifier" ||
+              decorator.arguments[0].type === "MemberExpression")))
       ) {
         separator = " ";
       }

@@ -45,7 +45,8 @@ import {observable} from "mobx";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import { observable } from "mobx";
 
-@observer class OrderLine {
+@observer
+class OrderLine {
   @observable price: number = 0;
   @observable amount: number = 1;
 
