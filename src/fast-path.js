@@ -354,7 +354,8 @@ FastPath.prototype.needsParens = function() {
     case "YieldExpression":
       if (
         parent.type === "UnaryExpression" ||
-        parent.type === "AwaitExpression"
+        parent.type === "AwaitExpression" ||
+        parent.type === "TSAsExpression"
       ) {
         return true;
       }
@@ -366,6 +367,7 @@ FastPath.prototype.needsParens = function() {
         case "LogicalExpression":
         case "SpreadElement":
         case "SpreadProperty":
+        case "TSAsExpression":
           return true;
 
         case "MemberExpression":
