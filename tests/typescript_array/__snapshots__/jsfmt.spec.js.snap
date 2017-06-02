@@ -15,7 +15,7 @@ export class ViewTokensChangedEvent {
     /**
      * Start line number of range
      */
-    readonly fromLineNumber: number
+    readonly fromLineNumber: number;
   }[];
 }
 

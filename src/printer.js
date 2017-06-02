@@ -812,18 +812,14 @@ function genericPrintNoParens(path, options, print, args) {
       return concat(parts);
     case "ObjectExpression":
     case "ObjectPattern":
-    case "TSInterfaceBody":
     case "ObjectTypeAnnotation":
+    case "TSInterfaceBody":
     case "TSTypeLiteral": {
       const isTypeAnnotation = n.type === "ObjectTypeAnnotation";
-      const isTypeScriptInterfaceBody = n.type === "TSInterfaceBody";
-      // Leave this here because we *might* want to make this
-      // configurable later -- flow accepts ";" for type separators,
-      // typescript accepts ";" and newlines
-      let separator = isTypeAnnotation ? "," : ",";
-      if (isTypeScriptInterfaceBody) {
-        separator = semi;
-      }
+      const separator = n.type === "TSInterfaceBody" ||
+        n.type === "TSTypeLiteral"
+        ? semi
+        : ",";
       const fields = [];
       const leftBrace = n.exact ? "{|" : "{";
       const rightBrace = n.exact ? "|}" : "}";

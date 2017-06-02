@@ -499,9 +499,9 @@ const shouldFail: { important: boolean } = output.x.children;
 
 type Meta<T, A> = {
   [P in keyof T]: {
-    value: T[P],
-    also: A,
-    readonly children: Meta<T[P], A>
+    value: T[P];
+    also: A;
+    readonly children: Meta<T[P], A>;
   }
 };
 
