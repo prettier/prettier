@@ -15,7 +15,9 @@ function parse(text) {
       ast = tryParseTypeScript(text, !jsx);
     }
   } catch (e) {
-    throw createError(e.message, e.lineNumber, e.column + 1);
+    throw createError(e.message, {
+      start: { line: e.lineNumber, column: e.column + 1 }
+    });
   }
 
   delete ast.tokens;
