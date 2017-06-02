@@ -812,9 +812,9 @@ function printComment(commentPath, options) {
       return "/*" + comment.value + "*/";
     case "CommentLine":
     case "Line":
-      // Don't print the shebang, it's taken care of in index.js
+      // Print shebangs with the proper comment characters
       if (options.originalText.slice(util.locStart(comment)).startsWith("#!")) {
-        return "";
+        return "#!" + comment.value;
       }
       return "//" + comment.value;
     default:
