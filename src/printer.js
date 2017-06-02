@@ -4519,7 +4519,8 @@ function getLeftSide(node) {
     node.callee ||
     node.object ||
     node.tag ||
-    node.argument
+    node.argument ||
+    node.expression
   );
 }
 
