@@ -521,9 +521,6 @@ FastPath.prototype.needsParens = function() {
           return false;
       }
 
-    case "ObjectExpression":
-      return parent.type === "TSAsExpression";
-
     case "ClassExpression":
       return parent.type === "ExportDefaultDeclaration";
 
