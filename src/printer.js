@@ -3836,7 +3836,7 @@ function printMemberChain(path, options, print) {
     .reduce((res, group) => res.concat(group), []);
 
   const hasComment =
-    flatGroups.slice(1).some(node => hasLeadingComment(node.node)) ||
+    flatGroups.slice(1, -1).some(node => hasLeadingComment(node.node)) ||
     flatGroups.slice(0, -1).some(node => hasTrailingComment(node.node));
 
   // If we only have a single `.`, we shouldn't do anything fancy and just
