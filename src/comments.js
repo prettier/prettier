@@ -68,7 +68,12 @@ function getSortedChildNodes(node, text, resultArray) {
     });
   }
 
-  for (let i = 0, nameCount = names.length; i < nameCount; ++i) {
+  for (
+    let i = 0,
+      nameCount = names.length;
+    i < nameCount;
+    ++i
+  ) {
     getSortedChildNodes(node[names[i]], text, resultArray);
   }
 
@@ -82,7 +87,8 @@ function decorateComment(node, comment, text) {
   const childNodes = getSortedChildNodes(node, text);
   let precedingNode, followingNode;
   // Time to dust off the old binary search robes and wizard hat.
-  let left = 0, right = childNodes.length;
+  let left = 0,
+    right = childNodes.length;
   while (left < right) {
     const middle = (left + right) >> 1;
     const child = childNodes[middle];

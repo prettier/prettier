@@ -867,8 +867,10 @@ function genericPrintNoParens(path, options, print, args) {
 
       const lastElem = util.getLast(n[propertiesField]);
 
-      const canHaveTrailingSeparator = !(lastElem &&
-        (lastElem.type === "RestProperty" || lastElem.type === "RestElement"));
+      const canHaveTrailingSeparator = !(
+        lastElem &&
+        (lastElem.type === "RestProperty" || lastElem.type === "RestElement")
+      );
 
       let content;
       if (props.length === 0 && !n.typeAnnotation) {
@@ -996,8 +998,9 @@ function genericPrintNoParens(path, options, print, args) {
         }
       } else {
         const lastElem = util.getLast(n.elements);
-        const canHaveTrailingComma = !(lastElem &&
-          lastElem.type === "RestElement");
+        const canHaveTrailingComma = !(
+          lastElem && lastElem.type === "RestElement"
+        );
 
         // JavaScript allows you to have empty elements in an array which
         // changes its length based on the number of commas. The algorithm
@@ -1882,13 +1885,14 @@ function genericPrintNoParens(path, options, print, args) {
       const parentParentParent = path.getParentNode(2);
       let isArrowFunctionTypeAnnotation =
         n.type === "TSFunctionType" ||
-        !((parent.type === "ObjectTypeProperty" &&
-          !getFlowVariance(parent) &&
-          !parent.optional &&
-          util.locStart(parent) === util.locStart(n)) ||
+        !(
+          (parent.type === "ObjectTypeProperty" &&
+            !getFlowVariance(parent) &&
+            !parent.optional &&
+            util.locStart(parent) === util.locStart(n)) ||
           parent.type === "ObjectTypeCallProperty" ||
-          (parentParentParent &&
-            parentParentParent.type === "DeclareFunction"));
+          (parentParentParent && parentParentParent.type === "DeclareFunction")
+        );
 
       let needsColon =
         isArrowFunctionTypeAnnotation && parent.type === "TypeAnnotation";
@@ -2015,9 +2019,11 @@ function genericPrintNoParens(path, options, print, args) {
       const shouldIndent =
         parent.type !== "TypeParameterInstantiation" &&
         parent.type !== "GenericTypeAnnotation" &&
-        !((parent.type === "TypeAlias" ||
-          parent.type === "VariableDeclarator") &&
-          hasLeadingOwnLineComment(options.originalText, n));
+        !(
+          (parent.type === "TypeAlias" ||
+            parent.type === "VariableDeclarator") &&
+          hasLeadingOwnLineComment(options.originalText, n)
+        );
 
       // {
       //   a: string
@@ -3254,8 +3260,10 @@ function printFunctionParams(path, print, options, expandArg) {
     fun[paramsField][0].typeAnnotation &&
     flowTypeAnnotations.indexOf(fun[paramsField][0].typeAnnotation.type) !==
       -1 &&
-    !(fun[paramsField][0].typeAnnotation.type === "GenericTypeAnnotation" &&
-      fun[paramsField][0].typeAnnotation.typeParameters) &&
+    !(
+      fun[paramsField][0].typeAnnotation.type === "GenericTypeAnnotation" &&
+      fun[paramsField][0].typeAnnotation.typeParameters
+    ) &&
     !fun.rest;
 
   if (isFlowShorthandWithOneArg) {
@@ -4593,7 +4601,9 @@ function classChildNeedsASIProtection(node) {
 
   if (!node.computed) {
     const name = node.key && node.key.name;
-    if (name === "in" || name === "instanceof") return true;
+    if (name === "in" || name === "instanceof") {
+      return true;
+    }
   }
   switch (node.type) {
     case "ClassProperty":
