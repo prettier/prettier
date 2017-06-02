@@ -319,6 +319,17 @@ matrix(
 )
 ```
 
+If you'd like to ignore multiple nodes in the abstract syntax tree in a row, you can wrap them with a starting comment of `// prettier-ignore-start` and an ending comment of `//prettier-ignore-end`, like so:
+
+```js
+// prettier-ignore-start
+var n             = 1;
+var number        = 2;
+var anotherNumber = 3;
+// prettier-ignore-end
+```
+
+
 ## Editor Integration
 
 ### Atom
