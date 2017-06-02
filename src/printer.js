@@ -2414,7 +2414,15 @@ function genericPrintNoParens(path, options, print, args) {
       return concat(parts);
     case "TSNamespaceExportDeclaration":
       if (n.declaration) {
-        parts.push("export ", path.call(print, "declaration"));
+        // Temporary fix until https://github.com/eslint/typescript-eslint-parser/issues/263
+        const isDefault = options.originalText
+          .slice(util.locStart(n), util.locStart(n.declaration))
+          .match(/\bdefault\b/);
+        parts.push(
+          "export ",
+          isDefault ? "default " : "",
+          path.call(print, "declaration")
+        );
       } else {
         parts.push("export as namespace ", path.call(print, "name"));
 

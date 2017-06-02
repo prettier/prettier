@@ -381,7 +381,7 @@ declare module "foo" {
 declare module "foo" {
   export var before: C;
 
-  export class C {
+  export default class C {
     method(): C;
   }
 
