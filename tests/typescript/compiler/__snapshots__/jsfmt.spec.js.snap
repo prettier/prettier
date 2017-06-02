@@ -772,7 +772,7 @@ namespace glo_M1_public {
 }
 
 declare module "glo_M2_public" {
-  export function f1()
+  export function f1();
   export class c1 {}
   export var v1: { new (): c1 };
   export var v2: c1;

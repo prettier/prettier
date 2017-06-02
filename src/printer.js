@@ -383,6 +383,9 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push("declare ");
       }
       parts.push(printFunctionDeclaration(path, print, options));
+      if (n.type === "TSNamespaceFunctionDeclaration" && !n.body) {
+        parts.push(semi);
+      }
       return concat(parts);
     case "ArrowFunctionExpression": {
       if (n.async) {
