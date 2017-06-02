@@ -7,7 +7,7 @@ global = window;
 Buffer = {isBuffer: function() { return false; }};
 fs = module$1 = module = path = os = crypto = {};
 process = {argv: [], env: {}}
-assert = {ok: function() {}};
+assert = {ok: function() {}, strictEqual: function() {}};
 function require(path) { return window[path.replace(/.+-/, '')]; }
 </script>
 
