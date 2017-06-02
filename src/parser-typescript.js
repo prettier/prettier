@@ -1,6 +1,7 @@
 "use strict";
 
 const createError = require("./parser-create-error");
+const includeShebang = require("./parser-include-shebang");
 
 function parse(text) {
   const jsx = isProbablyJsx(text);
@@ -18,6 +19,7 @@ function parse(text) {
   }
 
   delete ast.tokens;
+  includeShebang(text, ast);
   return ast;
 }
 

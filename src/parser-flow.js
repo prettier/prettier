@@ -1,6 +1,7 @@
 "use strict";
 
 const createError = require("./parser-create-error");
+const includeShebang = require("./parser-include-shebang");
 
 function parse(text) {
   // Inline the require to avoid loading all the JS if we don't use it
@@ -20,7 +21,7 @@ function parse(text) {
     );
   }
 
+  includeShebang(text, ast);
   return ast;
 }
-
 module.exports = parse;
