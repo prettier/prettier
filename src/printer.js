@@ -1510,12 +1510,9 @@ function genericPrintNoParens(path, options, print, args) {
       return concat(parts);
     case "JSXIdentifier":
       // Can be removed when this is fixed:
-      // https://github.com/eslint/typescript-eslint-parser/issues/257
-      if (n.object && n.property) {
-        return join(".", [
-          path.call(print, "object"),
-          path.call(print, "property")
-        ]);
+      // https://github.com/eslint/typescript-eslint-parser/issues/307
+      if (!n.name) {
+        return "this";
       }
       return "" + n.name;
     case "JSXNamespacedName":
