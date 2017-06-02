@@ -1666,6 +1666,9 @@ function genericPrintNoParens(path, options, print, args) {
       if (n.type === "TSAbstractClassProperty") {
         parts.push("abstract ");
       }
+      if (n.readonly || hasReadonly(n, options)) {
+        parts.push("readonly ");
+      }
       if (n.computed) {
         parts.push("[", path.call(print, "key"), "]");
       } else {
@@ -2226,7 +2229,8 @@ function genericPrintNoParens(path, options, print, args) {
       if (n.static) {
         parts.push("static ");
       }
-      if (n.readonly) {
+
+      if (n.readonly || hasReadonly(n, options)) {
         parts.push("readonly ");
       }
 
@@ -4172,6 +4176,13 @@ function shouldInlineLogicalExpression(node) {
   }
 
   return false;
+}
+
+function hasReadonly(n, options) {
+  // Temp. Remove after https://github.com/eslint/typescript-eslint-parser/pull/303
+  return /\breadonly\b/.test(
+    options.originalText.slice(util.locStart(n), util.locEnd(n))
+  );
 }
 
 // For binary expressions to be consistent, we need to group
