@@ -40,8 +40,12 @@ function parse(text) {
         // so we need our custom error
         originalError.message
           .replace(/ \(.*\)/, ""),
-        originalError.loc.line,
-        originalError.loc.column + 1
+        {
+          start: {
+            line: originalError.loc.line,
+            column: originalError.loc.column + 1
+          }
+        }
       );
     }
   }

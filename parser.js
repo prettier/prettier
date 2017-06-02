@@ -20,7 +20,7 @@ function parse(text, opts) {
 
     if (loc) {
       const codeFrame = require("babel-code-frame");
-      error.codeFrame = codeFrame(text, loc.line, loc.column, {
+      error.codeFrame = codeFrame.codeFrameColumns(text, loc, {
         highlightCode: true
       });
       error.message += "\n" + error.codeFrame;

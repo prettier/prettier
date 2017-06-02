@@ -174,11 +174,12 @@ function parseNestedCSS(node) {
       } catch (e) {
         const line = +(e.toString().match(/line: ([0-9]+)/) || [1, 1])[1];
         const column = +(e.toString().match(/column ([0-9]+)/) || [0, 0])[1];
-        throw createError(
-          "(postcss-values-parser) " + e.toString(),
-          node.source.start.line + line - 1,
-          node.source.start.column + column + node.prop.length
-        );
+        throw createError("(postcss-values-parser) " + e.toString(), {
+          start: {
+            line: node.source.start.line + line - 1,
+            column: node.source.start.column + column + node.prop.length
+          }
+        });
       }
     }
     if (node.type === "css-atrule" && typeof node.params === "string") {
@@ -196,7 +197,7 @@ function parseWithParser(parser, text) {
     if (typeof e.line !== "number") {
       throw e;
     }
-    throw createError("(postcss) " + e.name + " " + e.reason, e.line, e.column);
+    throw createError("(postcss) " + e.name + " " + e.reason, { start: e });
   }
   const prefixedResult = addTypePrefix(result, "css-");
   const parsedResult = parseNestedCSS(prefixedResult);
