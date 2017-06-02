@@ -1868,9 +1868,10 @@ function genericPrintNoParens(path, options, print, args) {
       const parentParentParent = path.getParentNode(2);
       let isArrowFunctionTypeAnnotation =
         n.type === "TSFunctionType" ||
-        !((!getFlowVariance(parent) &&
+        !((parent.type === "ObjectTypeProperty" &&
+          !getFlowVariance(parent) &&
           !parent.optional &&
-          parent.type === "ObjectTypeProperty") ||
+          util.locStart(parent) === util.locStart(n)) ||
           parent.type === "ObjectTypeCallProperty" ||
           (parentParentParent &&
             parentParentParent.type === "DeclareFunction"));
