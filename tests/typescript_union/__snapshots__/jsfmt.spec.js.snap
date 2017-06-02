@@ -64,7 +64,7 @@ type UploadState<E, EM, D> =
   | D;
 
 type window = Window & {
-  __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: Function
+  __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: Function;
 };
 
 `;
