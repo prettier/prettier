@@ -1163,6 +1163,16 @@ function genericPrintNoParens(path, options, print, args) {
         return print(childPath);
       }, "declarations");
 
+      // We generally want to terminate all variable declarations with a
+      // semicolon, except when they in the () part of for loops.
+      const parentNode = path.getParentNode();
+
+      const isParentForLoop =
+        parentNode.type === "ForStatement" ||
+        parentNode.type === "ForInStatement" ||
+        parentNode.type === "ForOfStatement" ||
+        parentNode.type === "ForAwaitStatement";
+
       const hasValue = n.declarations.some(decl => decl.init);
 
       parts = [
@@ -1173,20 +1183,12 @@ function genericPrintNoParens(path, options, print, args) {
           concat(
             printed
               .slice(1)
-              .map(p => concat([",", hasValue ? hardline : line, p]))
+              .map(p =>
+                concat([",", hasValue && !isParentForLoop ? hardline : line, p])
+              )
           )
         )
       ];
-
-      // We generally want to terminate all variable declarations with a
-      // semicolon, except when they in the () part of for loops.
-      const parentNode = path.getParentNode();
-
-      const isParentForLoop =
-        parentNode.type === "ForStatement" ||
-        parentNode.type === "ForInStatement" ||
-        parentNode.type === "ForOfStatement" ||
-        parentNode.type === "ForAwaitStatement";
 
       if (!(isParentForLoop && parentNode.body !== n)) {
         parts.push(semi);

@@ -8,3 +8,5 @@ const eloBar     = require("elo-bar")
 var a, b, c;
 
 let superSuperSuperLong1, superSuperSuperLong2, superSuperSuperLong3, superSuperSuperLong4;
+
+for (var i = 0, len = arr.length; i < len; i++) {}
