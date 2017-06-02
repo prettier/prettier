@@ -14,7 +14,7 @@ interface I {
 }
 
 type T = {
-  "string": "T"
+  "string": "T";
 };
 
 `;
@@ -33,7 +33,7 @@ interface I {
 }
 
 type T = {
-  [Symbol.toStringTag]: "T"
+  [Symbol.toStringTag]: "T";
 };
 
 `;

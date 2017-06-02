@@ -23,8 +23,8 @@ export interface ShopQueryResult {
   openingDays: number[];
   closingDays: [
     {
-      from: string,
-      to: string
+      from: string;
+      to: string;
     } // <== this one
   ];
   shop: string;
