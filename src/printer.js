@@ -100,10 +100,11 @@ function genericPrint(path, options, printPath, args) {
         (decorator.type === "Identifier" ||
           decorator.type === "MemberExpression" ||
           (decorator.type === "CallExpression" &&
-            decorator.arguments.length === 1 &&
-            (isStringLiteral(decorator.arguments[0]) ||
-              decorator.arguments[0].type === "Identifier" ||
-              decorator.arguments[0].type === "MemberExpression")))
+            (decorator.arguments.length === 0 ||
+              (decorator.arguments.length === 1 &&
+                (isStringLiteral(decorator.arguments[0]) ||
+                  decorator.arguments[0].type === "Identifier" ||
+                  decorator.arguments[0].type === "MemberExpression")))))
       ) {
         separator = " ";
       }

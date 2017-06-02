@@ -11,6 +11,13 @@ export class TestTextFileService {
 @commonEditorContribution
 export class TabCompletionController {
 }
+
+@Component({
+  selector: 'angular-component',
+})
+class AngularComponent {
+  @Input() myInput: string;
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export class TestTextFileService {
   constructor(@ILifecycleService lifecycleService) {}
@@ -18,6 +25,13 @@ export class TestTextFileService {
 
 @commonEditorContribution
 export class TabCompletionController {}
+
+@Component({
+  selector: "angular-component"
+})
+class AngularComponent {
+  @Input() myInput: string;
+}
 
 `;
 
@@ -95,8 +109,7 @@ class Class3 {
   @d1 fieldA;
   @d2(foo) fieldB;
   @d3.bar fieldC;
-  @d4.baz()
-  fieldD;
+  @d4.baz() fieldD;
 
   constructor(
     @d1 private x: number,
