@@ -3206,9 +3206,9 @@ typescript@2.3.2:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.3.2.tgz#f0f045e196f69a72f06b25fd3bd39d01c3ce9984"
 
-uglify-es@mishoo/UglifyJS2#harmony:
-  version "3.0.12"
-  resolved "https://codeload.github.com/mishoo/UglifyJS2/tar.gz/e5e0ce0b42307fe7d535376c39caa02d5d823fe2"
+uglify-es@3.0.15:
+  version "3.0.15"
+  resolved "https://registry.yarnpkg.com/uglify-es/-/uglify-es-3.0.15.tgz#4a23d0e9cb5f25f7bb3f1f0bbe0bb364e600d047"
   dependencies:
     commander "~2.9.0"
     source-map "~0.5.1"
