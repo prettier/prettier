@@ -1,3 +1,9 @@
+# 1.4.1
+
+[link](https://github.com/jlongster/prettier/compare/1.4.0...1.4.1)
+
+* Lots of fixes for TypeScript and regressions from 1.4.0. If you are using 1.4.0, you should migrate to 1.4.1 asap ;)
+
 # 1.4.0
 
 [link](https://github.com/jlongster/prettier/compare/1.3.1...1.4.0)
