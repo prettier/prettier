@@ -2462,10 +2462,9 @@ function genericPrintNoParens(path, options, print, args) {
           group(
             concat([
               "{",
-              options.bracketSpacing ? line : softline,
               indent(
                 concat([
-                  softline,
+                  hardline,
                   printArrayItems(path, options, "members", print)
                 ])
               ),
@@ -2474,8 +2473,7 @@ function genericPrintNoParens(path, options, print, args) {
                 options,
                 /* sameIndent */ true
               ),
-              softline,
-              options.bracketSpacing ? line : softline,
+              hardline,
               "}"
             ])
           )
