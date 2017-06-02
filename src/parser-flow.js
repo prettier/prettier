@@ -1,6 +1,7 @@
 "use strict";
 
 const createError = require("./parser-create-error");
+const includeShebang = require("./parser-include-shebang");
 
 function parse(text) {
   // Inline the require to avoid loading all the JS if we don't use it
@@ -20,30 +21,7 @@ function parse(text) {
     );
   }
 
-  if (!text.startsWith("#!")) {
-    return ast;
-  }
-
-  const index = text.indexOf("\n");
-  const shebang = text.slice(2, index);
-  const comment = {
-    type: "Line",
-    loc: {
-      source: null,
-      start: {
-        line: 1,
-        column: 0
-      },
-      end: {
-        line: 1,
-        column: index
-      }
-    },
-    range: [0, index],
-    value: shebang
-  };
-  ast.comments = [comment].concat(ast.comments);
-
+  includeShebang(text, ast);
   return ast;
 }
 module.exports = parse;
