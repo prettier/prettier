@@ -381,7 +381,7 @@ declare module "foo" {
 declare module "foo" {
   export var before: C;
 
-  export class C {
+  export default class C {
     method(): C;
   }
 
@@ -499,9 +499,9 @@ const shouldFail: { important: boolean } = output.x.children;
 
 type Meta<T, A> = {
   [P in keyof T]: {
-    value: T[P],
-    also: A,
-    readonly children: Meta<T[P], A>
+    value: T[P];
+    also: A;
+    readonly children: Meta<T[P], A>;
   }
 };
 
@@ -772,7 +772,7 @@ namespace glo_M1_public {
 }
 
 declare module "glo_M2_public" {
-  export function f1()
+  export function f1();
   export class c1 {}
   export var v1: { new (): c1 };
   export var v2: c1;

@@ -42,3 +42,8 @@ this.doWriteConfiguration(target, value, options) // queue up writes to prevent 
   error => {
     return options.donotNotifyError ? TPromise.wrapError(error) : this.onError(error, target, value);
   });
+
+ret = __DEV__ ?
+  // $FlowFixMe: this type differs according to the env
+vm.runInContext(source, ctx)
+: a

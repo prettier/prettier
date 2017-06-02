@@ -40,6 +40,7 @@ const argv = minimist(process.argv.slice(2), {
     "tab-width",
     "parser",
     "trailing-comma",
+    "cursor-offset",
     "range-start",
     "range-end",
     "stdin-filepath"
@@ -69,7 +70,8 @@ const write = argv["write"];
 const stdin = argv["stdin"] || (!filepatterns.length && !process.stdin.isTTY);
 const ignoreNodeModules = argv["with-node-modules"] === false;
 const globOptions = {
-  ignore: ignoreNodeModules && "**/node_modules/**"
+  ignore: ignoreNodeModules && "**/node_modules/**",
+  dot: true
 };
 
 if (write && argv["debug-check"]) {
@@ -152,6 +154,7 @@ function getTrailingComma() {
 }
 
 const options = {
+  cursorOffset: getIntOption("cursor-offset"),
   rangeStart: getIntOption("range-start"),
   rangeEnd: getIntOption("range-end"),
   useTabs: argv["use-tabs"],
@@ -198,10 +201,10 @@ function format(input, opt) {
           diff(input, pp);
       }
     }
-    return;
+    return {};
   }
 
-  return prettier.format(input, opt);
+  return prettier.formatWithCursor(input, opt);
 }
 
 function handleError(filename, e) {
@@ -245,12 +248,17 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
       "  --jsx-bracket-same-line  Put > on the last line instead of at a new line.\n" +
       "  --trailing-comma <none|es5|all>\n" +
       "                           Print trailing commas wherever possible. Defaults to none.\n" +
-      "  --parser <flow|babylon>  Specify which parse to use. Defaults to babylon.\n" +
+      "  --parser <flow|babylon|typescript|postcss>\n" +
+      "                           Specify which parse to use. Defaults to babylon.\n" +
+      "  --cursor-offset <int>    Print (to stderr) where a cursor at the given position would move to after formatting.\n" +
+      "                           This option cannot be used with --range-start and --range-end\n" +
       "  --range-start <int>      Format code starting at a given character offset.\n" +
       "                           The range will extend backwards to the start of the first line containing the selected statement.\n" +
+      "                           This option cannot be used with --cursor-offset.\n" +
       "                           Defaults to 0.\n" +
       "  --range-end <int>        Format code ending at a given character offset (exclusive).\n" +
       "                           The range will extend forwards to the end of the selected statement.\n" +
+      "                           This option cannot be used with --cursor-offset.\n" +
       "                           Defaults to Infinity.\n" +
       "  --no-color               Do not colorize error messages.\n" +
       "  --with-node-modules      Process files inside `node_modules` directory.\n" +
@@ -263,8 +271,7 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
 if (stdin) {
   getStdin().then(input => {
     try {
-      // Don't use `console.log` here since it adds an extra newline at the end.
-      process.stdout.write(format(input, options));
+      writeOutput(format(input, options));
     } catch (e) {
       handleError("stdin", e);
       return;
@@ -301,13 +308,15 @@ if (stdin) {
 
     const start = Date.now();
 
+    let result;
     let output;
 
     try {
-      output = format(
+      result = format(
         input,
         Object.assign({}, options, { filepath: filename })
       );
+      output = result.formatted;
     } catch (e) {
       // Add newline to split errors from filename line.
       process.stdout.write("\n");
@@ -350,10 +359,18 @@ if (stdin) {
         process.exitCode = 2;
       }
     } else if (!argv["list-different"]) {
-      // Don't use `console.log` here since it adds an extra newline at the end.
-      process.stdout.write(output);
+      writeOutput(result);
     }
   });
+}
+
+function writeOutput(result) {
+  // Don't use `console.log` here since it adds an extra newline at the end.
+  process.stdout.write(result.formatted);
+
+  if (options.cursorOffset) {
+    process.stderr.write(result.cursorOffset + "\n");
+  }
 }
 
 function eachFilename(patterns, callback) {

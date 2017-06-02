@@ -27,9 +27,10 @@ function parseValueNodes(nodes) {
   const commaGroupStack = [commaGroup];
 
   for (let i = 0; i < nodes.length; ++i) {
-    if (nodes[i].type === "paren" && nodes[i].value === "(") {
+    const node = nodes[i];
+    if (node.type === "paren" && node.value === "(") {
       parenGroup = {
-        open: nodes[i],
+        open: node,
         close: null,
         groups: [],
         type: "paren_group"
@@ -41,11 +42,11 @@ function parseValueNodes(nodes) {
         type: "comma_group"
       };
       commaGroupStack.push(commaGroup);
-    } else if (nodes[i].type === "paren" && nodes[i].value === ")") {
+    } else if (node.type === "paren" && node.value === ")") {
       if (commaGroup.groups.length) {
         parenGroup.groups.push(commaGroup);
       }
-      parenGroup.close = nodes[i];
+      parenGroup.close = node;
 
       if (commaGroupStack.length === 1) {
         throw new Error("Unbalanced parenthesis");
@@ -57,7 +58,7 @@ function parseValueNodes(nodes) {
 
       parenGroupStack.pop();
       parenGroup = parenGroupStack[parenGroupStack.length - 1];
-    } else if (nodes[i].type === "comma") {
+    } else if (node.type === "comma") {
       parenGroup.groups.push(commaGroup);
       commaGroup = {
         groups: [],
@@ -65,7 +66,7 @@ function parseValueNodes(nodes) {
       };
       commaGroupStack[commaGroupStack.length - 1] = commaGroup;
     } else {
-      commaGroup.groups.push(nodes[i]);
+      commaGroup.groups.push(node);
     }
   }
   if (commaGroup.groups.length > 0) {
@@ -172,12 +173,9 @@ function parseNestedCSS(node) {
       try {
         node.value = parseValue(node.value);
       } catch (e) {
-        const line = +(e.toString().match(/line: ([0-9]+)/) || [1, 1])[1];
-        const column = +(e.toString().match(/column ([0-9]+)/) || [0, 0])[1];
         throw createError(
           "(postcss-values-parser) " + e.toString(),
-          node.source.start.line + line - 1,
-          node.source.start.column + column + node.prop.length
+          node.source
         );
       }
     }
@@ -196,7 +194,7 @@ function parseWithParser(parser, text) {
     if (typeof e.line !== "number") {
       throw e;
     }
-    throw createError("(postcss) " + e.name + " " + e.reason, e.line, e.column);
+    throw createError("(postcss) " + e.name + " " + e.reason, { start: e });
   }
   const prefixedResult = addTypePrefix(result, "css-");
   const parsedResult = parseNestedCSS(prefixedResult);

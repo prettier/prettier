@@ -92,10 +92,19 @@ function genericPrint(path, options, printPath, args) {
         prefix = "";
       }
 
+      // #1817
       if (
         node.decorators.length === 1 &&
+        node.type !== "ClassDeclaration" &&
+        node.type !== "MethodDefinition" &&
         (decorator.type === "Identifier" ||
-          decorator.type === "MemberExpression")
+          decorator.type === "MemberExpression" ||
+          (decorator.type === "CallExpression" &&
+            (decorator.arguments.length === 0 ||
+              (decorator.arguments.length === 1 &&
+                (isStringLiteral(decorator.arguments[0]) ||
+                  decorator.arguments[0].type === "Identifier" ||
+                  decorator.arguments[0].type === "MemberExpression")))))
       ) {
         separator = " ";
       }
@@ -374,6 +383,9 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push("declare ");
       }
       parts.push(printFunctionDeclaration(path, print, options));
+      if (n.type === "TSNamespaceFunctionDeclaration" && !n.body) {
+        parts.push(semi);
+      }
       return concat(parts);
     case "ArrowFunctionExpression": {
       if (n.async) {
@@ -460,11 +472,11 @@ function genericPrintNoParens(path, options, print, args) {
     }
     case "MethodDefinition":
     case "TSAbstractMethodDefinition":
-      if (n.static) {
-        parts.push("static ");
-      }
       if (n.accessibility) {
         parts.push(n.accessibility + " ");
+      }
+      if (n.static) {
+        parts.push("static ");
       }
       if (n.type === "TSAbstractMethodDefinition") {
         parts.push("abstract ");
@@ -800,18 +812,14 @@ function genericPrintNoParens(path, options, print, args) {
       return concat(parts);
     case "ObjectExpression":
     case "ObjectPattern":
-    case "TSInterfaceBody":
     case "ObjectTypeAnnotation":
+    case "TSInterfaceBody":
     case "TSTypeLiteral": {
       const isTypeAnnotation = n.type === "ObjectTypeAnnotation";
-      const isTypeScriptInterfaceBody = n.type === "TSInterfaceBody";
-      // Leave this here because we *might* want to make this
-      // configurable later -- flow accepts ";" for type separators,
-      // typescript accepts ";" and newlines
-      let separator = isTypeAnnotation ? "," : ",";
-      if (isTypeScriptInterfaceBody) {
-        separator = semi;
-      }
+      const separator = n.type === "TSInterfaceBody" ||
+        n.type === "TSTypeLiteral"
+        ? semi
+        : ",";
       const fields = [];
       const leftBrace = n.exact ? "{|" : "{";
       const rightBrace = n.exact ? "|}" : "}";
@@ -859,8 +867,10 @@ function genericPrintNoParens(path, options, print, args) {
 
       const lastElem = util.getLast(n[propertiesField]);
 
-      const canHaveTrailingSeparator = !(lastElem &&
-        (lastElem.type === "RestProperty" || lastElem.type === "RestElement"));
+      const canHaveTrailingSeparator = !(
+        lastElem &&
+        (lastElem.type === "RestProperty" || lastElem.type === "RestElement")
+      );
 
       let content;
       if (props.length === 0 && !n.typeAnnotation) {
@@ -988,8 +998,9 @@ function genericPrintNoParens(path, options, print, args) {
         }
       } else {
         const lastElem = util.getLast(n.elements);
-        const canHaveTrailingComma = !(lastElem &&
-          lastElem.type === "RestElement");
+        const canHaveTrailingComma = !(
+          lastElem && lastElem.type === "RestElement"
+        );
 
         // JavaScript allows you to have empty elements in an array which
         // changes its length based on the number of commas. The algorithm
@@ -1151,6 +1162,16 @@ function genericPrintNoParens(path, options, print, args) {
         return print(childPath);
       }, "declarations");
 
+      // We generally want to terminate all variable declarations with a
+      // semicolon, except when they in the () part of for loops.
+      const parentNode = path.getParentNode();
+
+      const isParentForLoop =
+        parentNode.type === "ForStatement" ||
+        parentNode.type === "ForInStatement" ||
+        parentNode.type === "ForOfStatement" ||
+        parentNode.type === "ForAwaitStatement";
+
       const hasValue = n.declarations.some(decl => decl.init);
 
       parts = [
@@ -1161,20 +1182,12 @@ function genericPrintNoParens(path, options, print, args) {
           concat(
             printed
               .slice(1)
-              .map(p => concat([",", hasValue ? hardline : line, p]))
+              .map(p =>
+                concat([",", hasValue && !isParentForLoop ? hardline : line, p])
+              )
           )
         )
       ];
-
-      // We generally want to terminate all variable declarations with a
-      // semicolon, except when they in the () part of for loops.
-      const parentNode = path.getParentNode();
-
-      const isParentForLoop =
-        parentNode.type === "ForStatement" ||
-        parentNode.type === "ForInStatement" ||
-        parentNode.type === "ForOfStatement" ||
-        parentNode.type === "ForAwaitStatement";
 
       if (!(isParentForLoop && parentNode.body !== n)) {
         parts.push(semi);
@@ -1499,12 +1512,9 @@ function genericPrintNoParens(path, options, print, args) {
       return concat(parts);
     case "JSXIdentifier":
       // Can be removed when this is fixed:
-      // https://github.com/eslint/typescript-eslint-parser/issues/257
-      if (n.object && n.property) {
-        return join(".", [
-          path.call(print, "object"),
-          path.call(print, "property")
-        ]);
+      // https://github.com/eslint/typescript-eslint-parser/issues/307
+      if (!n.name) {
+        return "this";
       }
       return "" + n.name;
     case "JSXNamespacedName":
@@ -1653,9 +1663,6 @@ function genericPrintNoParens(path, options, print, args) {
       return concat(parts);
     case "ClassProperty":
     case "TSAbstractClassProperty": {
-      if (n.static) {
-        parts.push("static ");
-      }
       const variance = getFlowVariance(n);
       if (variance) {
         parts.push(variance);
@@ -1663,8 +1670,14 @@ function genericPrintNoParens(path, options, print, args) {
       if (n.accessibility) {
         parts.push(n.accessibility + " ");
       }
+      if (n.static) {
+        parts.push("static ");
+      }
       if (n.type === "TSAbstractClassProperty") {
         parts.push("abstract ");
+      }
+      if (n.readonly) {
+        parts.push("readonly ");
       }
       if (n.computed) {
         parts.push("[", path.call(print, "key"), "]");
@@ -1798,7 +1811,10 @@ function genericPrintNoParens(path, options, print, args) {
               printArrayItems(path, options, typesField, print)
             ])
           ),
-          ifBreak(shouldPrintComma(options) ? "," : ""),
+          // TypeScript doesn't support trailing commas in tuple types
+          n.type === "TSTupleType"
+            ? ""
+            : ifBreak(shouldPrintComma(options) ? "," : ""),
           comments.printDanglingComments(path, options, /* sameIndent */ true),
           softline,
           "]"
@@ -1868,12 +1884,14 @@ function genericPrintNoParens(path, options, print, args) {
       const parentParentParent = path.getParentNode(2);
       let isArrowFunctionTypeAnnotation =
         n.type === "TSFunctionType" ||
-        !((!getFlowVariance(parent) &&
-          !parent.optional &&
-          parent.type === "ObjectTypeProperty") ||
+        !(
+          (parent.type === "ObjectTypeProperty" &&
+            !getFlowVariance(parent) &&
+            !parent.optional &&
+            util.locStart(parent) === util.locStart(n)) ||
           parent.type === "ObjectTypeCallProperty" ||
-          (parentParentParent &&
-            parentParentParent.type === "DeclareFunction"));
+          (parentParentParent && parentParentParent.type === "DeclareFunction")
+        );
 
       let needsColon =
         isArrowFunctionTypeAnnotation && parent.type === "TypeAnnotation";
@@ -1972,10 +1990,7 @@ function genericPrintNoParens(path, options, print, args) {
       for (let i = 0; i < types.length; ++i) {
         if (i === 0) {
           result.push(types[i]);
-        } else if (
-          n.types[i - 1].type !== "ObjectTypeAnnotation" &&
-          n.types[i].type !== "ObjectTypeAnnotation"
-        ) {
+        } else if (!isObjectType(n.types[i - 1]) && !isObjectType(n.types[i])) {
           // If no object is involved, go to the next line if it breaks
           result.push(indent(concat([" &", line, types[i]])));
         } else {
@@ -2000,9 +2015,11 @@ function genericPrintNoParens(path, options, print, args) {
       const shouldIndent =
         parent.type !== "TypeParameterInstantiation" &&
         parent.type !== "GenericTypeAnnotation" &&
-        !((parent.type === "TypeAlias" ||
-          parent.type === "VariableDeclarator") &&
-          hasLeadingOwnLineComment(options.originalText, n));
+        !(
+          (parent.type === "TypeAlias" ||
+            parent.type === "VariableDeclarator") &&
+          hasLeadingOwnLineComment(options.originalText, n)
+        );
 
       // {
       //   a: string
@@ -2225,6 +2242,7 @@ function genericPrintNoParens(path, options, print, args) {
       if (n.static) {
         parts.push("static ");
       }
+
       if (n.readonly) {
         parts.push("readonly ");
       }
@@ -2398,7 +2416,15 @@ function genericPrintNoParens(path, options, print, args) {
       return concat(parts);
     case "TSNamespaceExportDeclaration":
       if (n.declaration) {
-        parts.push("export ", path.call(print, "declaration"));
+        // Temporary fix until https://github.com/eslint/typescript-eslint-parser/issues/263
+        const isDefault = options.originalText
+          .slice(util.locStart(n), util.locStart(n.declaration))
+          .match(/\bdefault\b/);
+        parts.push(
+          "export ",
+          isDefault ? "default " : "",
+          path.call(print, "declaration")
+        );
       } else {
         parts.push("export as namespace ", path.call(print, "name"));
 
@@ -2431,10 +2457,9 @@ function genericPrintNoParens(path, options, print, args) {
           group(
             concat([
               "{",
-              options.bracketSpacing ? line : softline,
               indent(
                 concat([
-                  softline,
+                  hardline,
                   printArrayItems(path, options, "members", print)
                 ])
               ),
@@ -2443,8 +2468,7 @@ function genericPrintNoParens(path, options, print, args) {
                 options,
                 /* sameIndent */ true
               ),
-              softline,
-              options.bracketSpacing ? line : softline,
+              hardline,
               "}"
             ])
           )
@@ -3230,8 +3254,10 @@ function printFunctionParams(path, print, options, expandArg) {
     fun[paramsField][0].typeAnnotation &&
     flowTypeAnnotations.indexOf(fun[paramsField][0].typeAnnotation.type) !==
       -1 &&
-    !(fun[paramsField][0].typeAnnotation.type === "GenericTypeAnnotation" &&
-      fun[paramsField][0].typeAnnotation.typeParameters) &&
+    !(
+      fun[paramsField][0].typeAnnotation.type === "GenericTypeAnnotation" &&
+      fun[paramsField][0].typeAnnotation.typeParameters
+    ) &&
     !fun.rest;
 
   if (isFlowShorthandWithOneArg) {
@@ -3362,7 +3388,20 @@ function printExportDeclaration(path, options, print) {
   const parts = ["export "];
 
   if (decl["default"] || decl.type === "ExportDefaultDeclaration") {
-    parts.push("default ");
+    // Temp fix, delete after https://github.com/eslint/typescript-eslint-parser/issues/304
+    if (
+      decl.declaration &&
+      /=/.test(
+        options.originalText.slice(
+          util.locStart(decl),
+          util.locStart(decl.declaration)
+        )
+      )
+    ) {
+      parts.push("= ");
+    } else {
+      parts.push("default ");
+    }
   }
 
   parts.push(
@@ -3794,7 +3833,7 @@ function printMemberChain(path, options, print) {
     .reduce((res, group) => res.concat(group), []);
 
   const hasComment =
-    flatGroups.slice(1).some(node => hasLeadingComment(node.node)) ||
+    flatGroups.slice(1, -1).some(node => hasLeadingComment(node.node)) ||
     flatGroups.slice(0, -1).some(node => hasTrailingComment(node.node));
 
   // If we only have a single `.`, we shouldn't do anything fancy and just
@@ -4554,6 +4593,12 @@ function classChildNeedsASIProtection(node) {
     return;
   }
 
+  if (!node.computed) {
+    const name = node.key && node.key.name;
+    if (name === "in" || name === "instanceof") {
+      return true;
+    }
+  }
   switch (node.type) {
     case "ClassProperty":
     case "TSAbstractClassProperty":
@@ -4779,6 +4824,10 @@ function removeLines(doc) {
     }
     return d;
   });
+}
+
+function isObjectType(n) {
+  return n.type === "ObjectTypeAnnotation" || n.type === "TSTypeLiteral";
 }
 
 function printAstToDoc(ast, options, addAlignmentSize) {

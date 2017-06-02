@@ -1,6 +1,7 @@
 "use strict";
 
 const createError = require("./parser-create-error");
+const includeShebang = require("./parser-include-shebang");
 
 function parse(text) {
   const jsx = isProbablyJsx(text);
@@ -14,10 +15,13 @@ function parse(text) {
       ast = tryParseTypeScript(text, !jsx);
     }
   } catch (e) {
-    throw createError(e.message, e.lineNumber, e.column);
+    throw createError(e.message, {
+      start: { line: e.lineNumber, column: e.column + 1 }
+    });
   }
 
   delete ast.tokens;
+  includeShebang(text, ast);
   return ast;
 }
 
@@ -44,7 +48,7 @@ function isProbablyJsx(text) {
     [
       "(^[^\"'`]*</)", // Contains "</" when probably not in a string
       "|",
-      "(^[^/]{2}.*\/>)" // Contains "/>" on line not starting with "//"
+      "(^[^/]{2}.*/>)" // Contains "/>" on line not starting with "//"
     ].join(""),
     "m"
   ).test(text);

@@ -1,6 +1,7 @@
 "use strict";
 
 const createError = require("./parser-create-error");
+const includeShebang = require("./parser-include-shebang");
 
 function parse(text) {
   // Inline the require to avoid loading all the JS if we don't use it
@@ -13,14 +14,14 @@ function parse(text) {
   });
 
   if (ast.errors.length > 0) {
-    throw createError(
-      ast.errors[0].message,
-      ast.errors[0].loc.start.line,
-      ast.errors[0].loc.start.column
-    );
+    const loc = ast.errors[0].loc;
+    throw createError(ast.errors[0].message, {
+      start: { line: loc.start.line, column: loc.start.column + 1 },
+      end: { line: loc.end.line, column: loc.end.column + 1 }
+    });
   }
 
+  includeShebang(text, ast);
   return ast;
 }
-
 module.exports = parse;

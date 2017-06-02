@@ -1,5 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`semi.js 1`] = `
+declare module 'foo' {
+  function foo(namespace: string): void;
+  function bar(namespace: string): void;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+declare module "foo" {
+  function foo(namespace: string): void;
+  function bar(namespace: string): void;
+}
+
+`;
+
 exports[`type_literal_optional_method.ts 1`] = `
 var v: { e?(): number };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

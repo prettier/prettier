@@ -129,7 +129,7 @@ namespace C {
 }
 
 var a: string = C.a.x;
-var b: { x: number, y: number } = new C.a.Point(0, 0);
+var b: { x: number; y: number } = new C.a.Point(0, 0);
 var c: { name: string };
 var c: C.a.B.Id;
 
@@ -151,7 +151,7 @@ namespace Z {
 }
 
 var m: number = Z.y();
-var n: { x: number, y: number } = new Z.y.Point(0, 0);
+var n: { x: number; y: number } = new Z.y.Point(0, 0);
 
 namespace K {
   export class L {
@@ -174,7 +174,7 @@ namespace M {
 var o: { name: string };
 var o = new M.D("Hello");
 
-var p: { x: number, y: number };
+var p: { x: number; y: number };
 var p: M.D.Point;
 
 `;
@@ -242,7 +242,7 @@ import alias = moduleA;
 
 var p: alias.Point;
 var p: moduleA.Point;
-var p: { x: number, y: number };
+var p: { x: number; y: number };
 
 class clodule {
   name: string;
@@ -260,7 +260,7 @@ import clolias = clodule;
 
 var p: clolias.Point;
 var p: clodule.Point;
-var p: { x: number, y: number };
+var p: { x: number; y: number };
 
 function fundule() {
   return { x: 0, y: 0 };
@@ -278,7 +278,7 @@ import funlias = fundule;
 
 var p: funlias.Point;
 var p: fundule.Point;
-var p: { x: number, y: number };
+var p: { x: number; y: number };
 
 `;
 
@@ -319,7 +319,10 @@ class C {
 
 import c = C;
 
-enum E { Red, Blue }
+enum E {
+  Red,
+  Blue
+}
 
 import e = E;
 

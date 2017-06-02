@@ -52,7 +52,7 @@ declare class cls {
   static static(p): number;
   static q;
   private fn();
-  static private fns();
+  private static fns();
 }
 
 `;

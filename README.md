@@ -243,7 +243,7 @@ exit 1
 
 ### API
 
-The API has two functions, exported as `format` and `check`. `format` usage is as follows:
+The API has three functions, exported as `format`, `check`, and `formatWithCursor`. `format` usage is as follows:
 
 ```js
 const prettier = require("prettier");
@@ -255,6 +255,16 @@ prettier.format(source, options);
 `check` checks to see if the file has been formatted with Prettier given those options and returns a Boolean.
 This is similar to the `--list-different` parameter in the CLI and is useful for running Prettier in CI scenarios.
 
+`formatWithCursor` both formats the code, and translates a cursor position from unformatted code to formatted code.
+This is useful for editor integrations, to prevent the cursor from moving when code is formatted. For example:
+
+```js
+const prettier = require("prettier");
+
+prettier.formatWithCursor(" 1", { cursorOffset: 2 });
+// -> { formatted: '1;\n', cursorOffset: 1 }
+```
+
 ### Options
 
 Prettier ships with a handful of customizable format options, usable in both the CLI and API.
@@ -265,12 +275,13 @@ Prettier ships with a handful of customizable format options, usable in both the
 | **Tab Width** - Specify the number of spaces per indentation-level. | `2` | `--tab-width <int>` | `tabWidth: <int>` |
 | **Tabs** - Indent lines with tabs instead of spaces. | `false` | `--use-tabs` | `useTabs: <bool>` |
 | **Semicolons** - Print semicolons at the ends of statements.<br /><br />Valid options: <br /> - `true` - add a semicolon at the end of every statement <br /> - `false` - only add semicolons at the beginning of lines that may introduce ASI failures | `true` | `--no-semi` | `semi: <bool>` |
-| **Quotes** - Use single quotes instead of double quotes. | `false` | `--single-quote` | `singleQuote: <bool>` |
+| **Quotes** - Use single quotes instead of double quotes.<br /><br />Note: Quotes in JSX will always be double and ignore this setting. <br /> | `false` | `--single-quote` | `singleQuote: <bool>` |
 | **Trailing Commas** - Print trailing commas wherever possible.<br /><br />Valid options: <br /> - `"none"` - no trailing commas <br /> - `"es5"` - trailing commas where valid in ES5 (objects, arrays, etc) <br /> - `"all"`  - trailing commas wherever possible (function arguments). This requires node 8 or a [transform](https://babeljs.io/docs/plugins/syntax-trailing-function-commas/). | `"none"` | <code>--trailing-comma <none&#124;es5&#124;all></code> | <code>trailingComma: "<none&#124;es5&#124;all>"</code> |
 | **Bracket Spacing** - Print spaces between brackets in object literals.<br /><br />Valid options: <br /> - `true` - Example: `{ foo: bar }` <br /> - `false` - Example: `{foo: bar}` | `true` | `--no-bracket-spacing` | `bracketSpacing: <bool>` |
 | **JSX Brackets on Same Line** - Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line | `false` | `--jsx-bracket-same-line` | `jsxBracketSameLine: <bool>` |
-| **Range Start** - Format code starting at a given character offset. The range will extend backwards to the start of the first line containing the selected statement. | `0` | `--range-start <int>` | `rangeStart: <int>` |
-| **Range End** - Format code ending at a given character offset (exclusive). The range will extend forwards to the end of the selected statement. | `Infinity` | `--range-end <int>` | `rangeEnd: <int>` |
+| **Cursor Offset** - Specify where the cursor is. This option only works with `prettier.formatWithCursor`, and cannot be used with `rangeStart` and `rangeEnd`. | `-1` | `--cursor-offset <int>` | `cursorOffset: <int>` |
+| **Range Start** - Format code starting at a given character offset. The range will extend backwards to the start of the first line containing the selected statement. This option cannot be used with `cursorOffset`. | `0` | `--range-start <int>` | `rangeStart: <int>` |
+| **Range End** - Format code ending at a given character offset (exclusive). The range will extend forwards to the end of the selected statement. This option cannot be used with `cursorOffset`. | `Infinity` | `--range-end <int>` | `rangeEnd: <int>` |
 | **Parser** - Specify which parser to use. Both parsers support the same set of JavaScript features (including Flow). You shouldn't have to change this setting. | `babylon` | <code>--parser <flow&#124;babylon></code> | <code>parser: "<flow&#124;babylon&#124;postcss&#124;typescript>"</code> |
 | **Filepath** - Specify the input filepath this will be used to do parser inference.<br /><br /> Example: <br />`cat foo \| prettier --stdin-filepath foo.css`<br /> will default to use `postcss` parser |  | `--stdin-filepath` | `filepath: <string>` |
 

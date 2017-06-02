@@ -1,9 +1,11 @@
 "use strict";
 
-function createError(message, line, column) {
+function createError(message, loc) {
   // Construct an error similar to the ones thrown by Babylon.
-  const error = new SyntaxError(message + " (" + line + ":" + column + ")");
-  error.loc = { line, column };
+  const error = new SyntaxError(
+    message + " (" + loc.start.line + ":" + loc.start.column + ")"
+  );
+  error.loc = loc;
   return error;
 }
 

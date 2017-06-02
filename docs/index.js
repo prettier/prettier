@@ -89,6 +89,7 @@ const literalline = concat$1([
   { type: "line", hard: true, literal: true },
   breakParent$1
 ]);
+const cursor$1 = { type: "cursor", placeholder: Symbol() };
 
 function join$1(sep, arr) {
   const res = [];
@@ -132,6 +133,7 @@ var docBuilders$1 = {
   fill,
   lineSuffix: lineSuffix$1,
   lineSuffixBoundary,
+  cursor: cursor$1,
   breakParent: breakParent$1,
   ifBreak,
   indent: indent$1,
@@ -536,6 +538,7 @@ const breakParent = docBuilders.breakParent;
 const indent = docBuilders.indent;
 const lineSuffix = docBuilders.lineSuffix;
 const join = docBuilders.join;
+const cursor = docBuilders.cursor;
 const util$1 = util$2;
 const childNodesCacheKey = Symbol("child-nodes");
 const locStart = util$1.locStart;
@@ -1452,13 +1455,20 @@ function printDanglingComments(path, options, sameIndent) {
   return indent(concat([hardline, join(hardline, parts)]));
 }
 
+function prependCursorPlaceholder(path, options, printed) {
+  if (path.getNode() === options.cursorNode) {
+    return concat([cursor, printed]);
+  }
+  return printed;
+}
+
 function printComments(path, print, options, needsSemi) {
   const value = path.getValue();
   const printed = print(path);
   const comments = value && value.comments;
 
   if (!comments || comments.length === 0) {
-    return printed;
+    return prependCursorPlaceholder(path, options, printed);
   }
 
   const leadingParts = [];
@@ -1485,7 +1495,11 @@ function printComments(path, print, options, needsSemi) {
     }
   }, "comments");
 
-  return concat(leadingParts.concat(trailingParts));
+  return prependCursorPlaceholder(
+    path,
+    options,
+    concat(leadingParts.concat(trailingParts))
+  );
 }
 
 var comments$1 = {
@@ -1496,15 +1510,15 @@ var comments$1 = {
 };
 
 var name = "prettier";
-var version$1 = "1.4.0-beta";
+var version$1 = "1.4.0";
 var description = "Prettier is an opinionated JavaScript formatter";
 var bin = {"prettier":"./bin/prettier.js"};
 var repository = "prettier/prettier";
 var author = "James Long";
 var license = "MIT";
 var main = "./index.js";
-var dependencies = {"babel-code-frame":"6.22.0","babylon":"7.0.0-beta.10","chalk":"1.1.3","esutils":"2.0.2","flow-parser":"0.47.0","get-stdin":"5.0.1","glob":"7.1.1","jest-validate":"20.0.0","minimist":"1.2.0"};
-var devDependencies = {"cross-spawn":"^5.1.0","diff":"3.2.0","eslint":"^3.19.0","eslint-plugin-prettier":"^2.1.1","jest":"20.0.0","mkdirp":"^0.5.1","postcss":"^6.0.1","postcss-less":"^1.0.0","postcss-media-query-parser":"^0.2.3","postcss-scss":"1.0.0","postcss-selector-parser":"^2.2.3","postcss-values-parser":"git://github.com/shellscape/postcss-values-parser.git#5e351360479116f3fe309602cdd15b0a233bc29f","prettier":"^1.3.1","rimraf":"^2.6.1","rollup":"0.41.1","rollup-plugin-commonjs":"7.0.0","rollup-plugin-json":"2.1.0","rollup-plugin-node-builtins":"2.0.0","rollup-plugin-node-globals":"1.1.0","rollup-plugin-node-resolve":"2.0.0","rollup-plugin-replace":"1.1.1","typescript":"2.3.2","typescript-eslint-parser":"git://github.com/eslint/typescript-eslint-parser.git#3dcba7d53f61f51069ed84b57e053802c014d703","uglify-es":"mishoo/UglifyJS2#harmony","webpack":"^2.6.1"};
+var dependencies = {};
+var devDependencies = {"babel-code-frame":"6.22.0","babylon":"7.0.0-beta.10","chalk":"1.1.3","cross-spawn":"5.1.0","diff":"3.2.0","eslint":"3.19.0","eslint-plugin-prettier":"2.1.1","esutils":"2.0.2","flow-parser":"0.47.0","get-stdin":"5.0.1","glob":"7.1.2","jest":"20.0.0","jest-validate":"20.0.3","minimist":"1.2.0","mkdirp":"^0.5.1","postcss":"^6.0.1","postcss-less":"^1.0.0","postcss-media-query-parser":"0.2.3","postcss-scss":"1.0.0","postcss-selector-parser":"2.2.3","postcss-values-parser":"git://github.com/shellscape/postcss-values-parser.git#5e351360479116f3fe309602cdd15b0a233bc29f","prettier":"1.3.1","rimraf":"2.6.1","rollup":"0.41.1","rollup-plugin-commonjs":"7.0.0","rollup-plugin-json":"2.1.0","rollup-plugin-node-builtins":"2.0.0","rollup-plugin-node-globals":"1.1.0","rollup-plugin-node-resolve":"2.0.0","rollup-plugin-replace":"1.1.1","typescript":"2.3.2","typescript-eslint-parser":"git://github.com/eslint/typescript-eslint-parser.git#32634f10b8c9bc4622762867d9d00e79ea1092fe","uglify-es":"mishoo/UglifyJS2#harmony","webpack":"2.6.1"};
 var scripts = {"test":"jest","test-integration":"jest tests_integration","lint":"eslint .","build":"./scripts/build/build.sh","build:docs":"rollup -c docs/rollup.config.js"};
 var jest = {"setupFiles":["<rootDir>/tests_config/run_spec.js"],"snapshotSerializers":["<rootDir>/tests_config/raw-serializer.js"],"testRegex":"jsfmt\\.spec\\.js$|__tests__/.*\\.js$","testPathIgnorePatterns":["tests/new_react","tests/more_react"]};
 var _package = {
@@ -2056,6 +2070,9 @@ FastPath$1.prototype.needsParens = function() {
         default:
           return false;
       }
+
+    case "ObjectExpression":
+      return parent.type === "TSAsExpression";
 
     case "ClassExpression":
       return parent.type === "ExportDefaultDeclaration";
@@ -2867,10 +2884,18 @@ function genericPrint(path, options, printPath, args) {
         prefix = "";
       }
 
+      // #1817
       if (
         node.decorators.length === 1 &&
+        node.type !== "ClassDeclaration" &&
+        node.type !== "MethodDefinition" &&
         (decorator.type === "Identifier" ||
-          decorator.type === "MemberExpression")
+          decorator.type === "MemberExpression" ||
+          (decorator.type === "CallExpression" &&
+            decorator.arguments.length === 1 &&
+            (isStringLiteral(decorator.arguments[0]) ||
+              decorator.arguments[0].type === "Identifier" ||
+              decorator.arguments[0].type === "MemberExpression")))
       ) {
         separator = " ";
       }
@@ -3235,11 +3260,11 @@ function genericPrintNoParens(path, options, print, args) {
     }
     case "MethodDefinition":
     case "TSAbstractMethodDefinition":
-      if (n.static) {
-        parts.push("static ");
-      }
       if (n.accessibility) {
         parts.push(n.accessibility + " ");
+      }
+      if (n.static) {
+        parts.push("static ");
       }
       if (n.type === "TSAbstractMethodDefinition") {
         parts.push("abstract ");
@@ -4441,6 +4466,9 @@ function genericPrintNoParens(path, options, print, args) {
       if (n.type === "TSAbstractClassProperty") {
         parts.push("abstract ");
       }
+      if (n.readonly) {
+        parts.push("readonly ");
+      }
       if (n.computed) {
         parts.push("[", path.call(print, "key"), "]");
       } else {
@@ -4573,7 +4601,10 @@ function genericPrintNoParens(path, options, print, args) {
               printArrayItems(path, options, typesField, print)
             ])
           ),
-          ifBreak$1(shouldPrintComma(options) ? "," : ""),
+          // TypeScript doesn't support trailing commas in tuple types
+          n.type === "TSTupleType"
+            ? ""
+            : ifBreak$1(shouldPrintComma(options) ? "," : ""),
           comments$3.printDanglingComments(path, options, /* sameIndent */ true),
           softline$1,
           "]"
@@ -4643,9 +4674,10 @@ function genericPrintNoParens(path, options, print, args) {
       const parentParentParent = path.getParentNode(2);
       let isArrowFunctionTypeAnnotation =
         n.type === "TSFunctionType" ||
-        !((!getFlowVariance(parent) &&
+        !((parent.type === "ObjectTypeProperty" &&
+          !getFlowVariance(parent) &&
           !parent.optional &&
-          parent.type === "ObjectTypeProperty") ||
+          util$4.locStart(parent) === util$4.locStart(n)) ||
           parent.type === "ObjectTypeCallProperty" ||
           (parentParentParent &&
             parentParentParent.type === "DeclareFunction"));
@@ -5000,6 +5032,7 @@ function genericPrintNoParens(path, options, print, args) {
       if (n.static) {
         parts.push("static ");
       }
+
       if (n.readonly) {
         parts.push("readonly ");
       }
@@ -5173,7 +5206,15 @@ function genericPrintNoParens(path, options, print, args) {
       return concat$2(parts);
     case "TSNamespaceExportDeclaration":
       if (n.declaration) {
-        parts.push("export ", path.call(print, "declaration"));
+        // Temporary fix until https://github.com/eslint/typescript-eslint-parser/issues/263
+        const isDefault = options.originalText
+          .slice(util$4.locStart(n), util$4.locStart(n.declaration))
+          .match(/\bdefault\b/);
+        parts.push(
+          "export ",
+          isDefault ? "default " : "",
+          path.call(print, "declaration")
+        );
       } else {
         parts.push("export as namespace ", path.call(print, "name"));
 
@@ -6137,7 +6178,20 @@ function printExportDeclaration(path, options, print) {
   const parts = ["export "];
 
   if (decl["default"] || decl.type === "ExportDefaultDeclaration") {
-    parts.push("default ");
+    // Temp fix, delete after https://github.com/eslint/typescript-eslint-parser/issues/304
+    if (
+      decl.declaration &&
+      /=/.test(
+        options.originalText.slice(
+          util$4.locStart(decl),
+          util$4.locStart(decl.declaration)
+        )
+      )
+    ) {
+      parts.push("= ");
+    } else {
+      parts.push("default ");
+    }
   }
 
   parts.push(
@@ -7600,6 +7654,7 @@ var printer = { printAstToDoc: printAstToDoc$1 };
 const docBuilders$4 = docBuilders$1;
 const concat$3 = docBuilders$4.concat;
 const fill$2 = docBuilders$4.fill;
+const cursor$2 = docBuilders$4.cursor;
 
 const MODE_BREAK = 1;
 const MODE_FLAT = 2;
@@ -7753,6 +7808,10 @@ function printDocToString$1(doc, options) {
       pos += doc.length;
     } else {
       switch (doc.type) {
+        case "cursor":
+          out.push(cursor$2.placeholder);
+
+          break;
         case "concat":
           for (let i = doc.parts.length - 1; i >= 0; i--) {
             cmds.push([ind, mode, doc.parts[i]]);
@@ -8008,7 +8067,19 @@ function printDocToString$1(doc, options) {
       }
     }
   }
-  return out.join("");
+
+  const cursorPlaceholderIndex = out.indexOf(cursor$2.placeholder);
+  if (cursorPlaceholderIndex !== -1) {
+    const beforeCursor = out.slice(0, cursorPlaceholderIndex).join("");
+    const afterCursor = out.slice(cursorPlaceholderIndex + 1).join("");
+
+    return {
+      formatted: beforeCursor + afterCursor,
+      cursor: beforeCursor.length
+    };
+  }
+
+  return { formatted: out.join("") };
 }
 
 var docPrinter = { printDocToString: printDocToString$1 };
@@ -8276,7 +8347,7 @@ index$4.hasColor = hasColor;
 index$4.stripColor = stripColor;
 index$4.supportsColor = supportsColor_1;
 
-var index$24 = {
+var index$26 = {
 	"aliceblue": [240, 248, 255],
 	"antiquewhite": [250, 235, 215],
 	"aqua": [0, 255, 255],
@@ -8429,7 +8500,7 @@ var index$24 = {
 
 var conversions$1 = createCommonjsModule(function (module) {
 /* MIT license */
-var cssKeywords = index$24;
+var cssKeywords = index$26;
 
 // NOTE: conversions should only return primitive values (i.e. arrays, or
 //       values that give correct `typeof` results).
@@ -9466,11 +9537,11 @@ models.forEach(function (fromModel) {
 	});
 });
 
-var index$22 = convert;
+var index$24 = convert;
 
-var index$20 = createCommonjsModule(function (module) {
+var index$22 = createCommonjsModule(function (module) {
 'use strict';
-const colorConvert = index$22;
+const colorConvert = index$24;
 
 const wrapAnsi16 = (fn, offset) => function () {
 	const code = fn.apply(colorConvert, arguments);
@@ -9635,7 +9706,7 @@ colors) =>
 
 const test = object => object && object.$$typeof === asymmetricMatcher;
 
-var AsymmetricMatcher = { print: print$1, test };
+var AsymmetricMatcher$1 = { print: print$1, test };
 
 const ansiRegex$2 = index$12; /**
                                           * Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
@@ -9645,7 +9716,7 @@ const ansiRegex$2 = index$12; /**
                                           * of patent rights can be found in the PATENTS file in the same directory.
                                           *
                                           * 
-                                          */const toHumanReadableAnsi = text => {const style = index$20;return text.replace(ansiRegex$2(), (match, offset, string) => {switch (match) {case style.red.close:case style.green.close:case style.reset.open:
+                                          */const toHumanReadableAnsi = text => {const style = index$22;return text.replace(ansiRegex$2(), (match, offset, string) => {switch (match) {case style.red.close:case style.green.close:case style.reset.open:
       case style.reset.close:
         return '</>';
       case style.red.open:
@@ -9811,7 +9882,7 @@ colors) =>
   return result;
 };
 
-var HTMLElement = { print: print$3, test: test$2 };
+var HTMLElement$1 = { print: print$3, test: test$2 };
 
 var _slicedToArray = function () {function sliceIterator(arr, i) {var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"]) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}return function (arr, i) {if (Array.isArray(arr)) {return arr;} else if (Symbol.iterator in Object(arr)) {return sliceIterator(arr, i);} else {throw new TypeError("Invalid attempt to destructure non-iterable instance");}};}();
 
@@ -10090,7 +10161,7 @@ colors) =>
 
 const test$9 = object => object && object.$$typeof === reactElement;
 
-var ReactElement = { print: print$10, test: test$9 };
+var ReactElement$1 = { print: print$10, test: test$9 };
 
 const escapeHTML$3 = escapeHTML_1; /**
                                                  * Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
@@ -10194,7 +10265,7 @@ object && object.$$typeof === reactTestInstance;
 
 var ReactTestComponent = { print: print$11, test: test$10 };
 
-const style = index$20; /**
+const style = index$22; /**
                                        * Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
                                        *
                                        * This source code is licensed under the BSD-style license found in the
@@ -11041,7 +11112,7 @@ function createIndent(indent) {
   return new Array(indent + 1).join(' ');
 }
 
-function prettyFormat(val, initialOptions) {
+function prettyFormat$1(val, initialOptions) {
   let opts;
   if (!initialOptions) {
     opts = DEFAULTS;
@@ -11136,167 +11207,27 @@ function prettyFormat(val, initialOptions) {
 
 }
 
-prettyFormat.plugins = {
-  AsymmetricMatcher: AsymmetricMatcher,
+prettyFormat$1.plugins = {
+  AsymmetricMatcher: AsymmetricMatcher$1,
   ConvertAnsi: ConvertAnsi,
-  HTMLElement: HTMLElement,
+  HTMLElement: HTMLElement$1,
   Immutable: ImmutablePlugins,
-  ReactElement: ReactElement,
+  ReactElement: ReactElement$1,
   ReactTestComponent: ReactTestComponent };
 
 
-var index$18 = prettyFormat;
-
-/* eslint-disable no-nested-ternary */
-var arr = [];
-var charCodeCache = [];
-
-var index$26 = function (a, b) {
-	if (a === b) {
-		return 0;
-	}
-
-	var swap = a;
-
-	// Swapping the strings if `a` is longer than `b` so we know which one is the
-	// shortest & which one is the longest
-	if (a.length > b.length) {
-		a = b;
-		b = swap;
-	}
-
-	var aLen = a.length;
-	var bLen = b.length;
-
-	if (aLen === 0) {
-		return bLen;
-	}
-
-	if (bLen === 0) {
-		return aLen;
-	}
-
-	// Performing suffix trimming:
-	// We can linearly drop suffix common to both strings since they
-	// don't increase distance at all
-	// Note: `~-` is the bitwise way to perform a `- 1` operation
-	while (aLen > 0 && (a.charCodeAt(~-aLen) === b.charCodeAt(~-bLen))) {
-		aLen--;
-		bLen--;
-	}
-
-	if (aLen === 0) {
-		return bLen;
-	}
-
-	// Performing prefix trimming
-	// We can linearly drop prefix common to both strings since they
-	// don't increase distance at all
-	var start = 0;
-
-	while (start < aLen && (a.charCodeAt(start) === b.charCodeAt(start))) {
-		start++;
-	}
-
-	aLen -= start;
-	bLen -= start;
-
-	if (aLen === 0) {
-		return bLen;
-	}
-
-	var bCharCode;
-	var ret;
-	var tmp;
-	var tmp2;
-	var i = 0;
-	var j = 0;
-
-	while (i < aLen) {
-		charCodeCache[start + i] = a.charCodeAt(start + i);
-		arr[i] = ++i;
-	}
-
-	while (j < bLen) {
-		bCharCode = b.charCodeAt(start + j);
-		tmp = j++;
-		ret = j;
-
-		for (i = 0; i < aLen; i++) {
-			tmp2 = bCharCode === charCodeCache[start + i] ? tmp : tmp + 1;
-			tmp = arr[i];
-			ret = arr[i] = tmp > ret ? tmp2 > ret ? ret + 1 : tmp2 : tmp2 > tmp ? tmp + 1 : tmp2;
-		}
-	}
-
-	return ret;
-};
+var index$20 = prettyFormat$1;
 
 const chalk$1 = index$4;
-const BULLET = chalk$1.bold('\u25cf');
-const DEPRECATION = `${BULLET} Deprecation Warning`;
-const ERROR$1 = `${BULLET} Validation Error`;
-const WARNING = `${BULLET} Validation Warning`;
-
-const format$2 = value =>
-typeof value === 'function' ?
-value.toString() :
-index$18(value, { min: true });
-
-class ValidationError$1 extends Error {
-
-
-
-  constructor(name, message, comment) {
-    super();
-    comment = comment ? '\n\n' + comment : '\n';
-    this.name = '';
-    this.message = chalk$1.red(chalk$1.bold(name) + ':\n\n' + message + comment);
-    Error.captureStackTrace(this, () => {});
-  }}
-
-
-const logValidationWarning = (
-name,
-message,
-comment) =>
-{
-  comment = comment ? '\n\n' + comment : '\n';
-  console.warn(chalk$1.yellow(chalk$1.bold(name) + ':\n\n' + message + comment));
-};
-
-const createDidYouMeanMessage = (
-unrecognized,
-allowedOptions) =>
-{
-  const leven = index$26;
-  const suggestion = allowedOptions.find(option => {
-    const steps = leven(option, unrecognized);
-    return steps < 3;
-  });
-
-  return suggestion ? `Did you mean ${chalk$1.bold(format$2(suggestion))}?` : '';
-};
-
-var utils$2 = {
-  DEPRECATION,
-  ERROR: ERROR$1,
-  ValidationError: ValidationError$1,
-  WARNING,
-  createDidYouMeanMessage,
-  format: format$2,
-  logValidationWarning };
-
-const chalk$2 = index$4;
-const prettyFormat$1 = index$18;var _require$plugins =
+const prettyFormat = index$20;var _require$plugins =
 
 
 
 
 
-index$18.plugins;const AsymmetricMatcher$2 = _require$plugins.AsymmetricMatcher; const ReactElement$2 = _require$plugins.ReactElement; const HTMLElement$2 = _require$plugins.HTMLElement; const Immutable = _require$plugins.Immutable;
+index$20.plugins;const AsymmetricMatcher = _require$plugins.AsymmetricMatcher; const ReactElement = _require$plugins.ReactElement; const HTMLElement = _require$plugins.HTMLElement; const Immutable = _require$plugins.Immutable;
 
-const PLUGINS = [AsymmetricMatcher$2, ReactElement$2, HTMLElement$2].concat(
+const PLUGINS = [AsymmetricMatcher, ReactElement, HTMLElement].concat(
 Immutable);
 
 
@@ -11314,10 +11245,10 @@ Immutable);
 
 
 
-const EXPECTED_COLOR = chalk$2.green;
-const EXPECTED_BG = chalk$2.bgGreen;
-const RECEIVED_COLOR = chalk$2.red;
-const RECEIVED_BG = chalk$2.bgRed;
+const EXPECTED_COLOR = chalk$1.green;
+const EXPECTED_BG = chalk$1.bgGreen;
+const RECEIVED_COLOR = chalk$1.red;
+const RECEIVED_BG = chalk$1.bgRed;
 
 const NUMBERS = [
 'zero',
@@ -11375,13 +11306,13 @@ const stringify = function (object) {let maxDepth = arguments.length > 1 && argu
   let result;
 
   try {
-    result = prettyFormat$1(object, {
+    result = prettyFormat(object, {
       maxDepth,
       min: true,
       plugins: PLUGINS });
 
   } catch (e) {
-    result = prettyFormat$1(object, {
+    result = prettyFormat(object, {
       callToJSON: false,
       maxDepth,
       min: true,
@@ -11472,16 +11403,16 @@ matcherName)
   const secondArgument = options && options.secondArgument;
   const isDirectExpectCall = options && options.isDirectExpectCall;
   return (
-    chalk$2.dim('expect' + (isDirectExpectCall ? '' : '(')) +
+    chalk$1.dim('expect' + (isDirectExpectCall ? '' : '(')) +
     RECEIVED_COLOR(received) +
-    chalk$2.dim((isDirectExpectCall ? '' : ')') + matcherName + '(') +
+    chalk$1.dim((isDirectExpectCall ? '' : ')') + matcherName + '(') +
     EXPECTED_COLOR(expected) + (
     secondArgument ? `, ${EXPECTED_COLOR(secondArgument)}` : '') +
-    chalk$2.dim(')'));
+    chalk$1.dim(')'));
 
 };
 
-var index$28 = {
+var index$18 = {
   EXPECTED_BG,
   EXPECTED_COLOR,
   RECEIVED_BG,
@@ -11499,15 +11430,156 @@ var index$28 = {
   printWithType,
   stringify };
 
-const chalk = index$4;var _require =
-utils$2;const format$1 = _require.format; const ValidationError = _require.ValidationError; const ERROR = _require.ERROR;var _require2 =
-index$28;const getType = _require2.getType;
+/* eslint-disable no-nested-ternary */
+var arr = [];
+var charCodeCache = [];
 
-const errorMessage = (
-option,
-received,
-defaultValue,
-options) =>
+var index$28 = function (a, b) {
+	if (a === b) {
+		return 0;
+	}
+
+	var swap = a;
+
+	// Swapping the strings if `a` is longer than `b` so we know which one is the
+	// shortest & which one is the longest
+	if (a.length > b.length) {
+		a = b;
+		b = swap;
+	}
+
+	var aLen = a.length;
+	var bLen = b.length;
+
+	if (aLen === 0) {
+		return bLen;
+	}
+
+	if (bLen === 0) {
+		return aLen;
+	}
+
+	// Performing suffix trimming:
+	// We can linearly drop suffix common to both strings since they
+	// don't increase distance at all
+	// Note: `~-` is the bitwise way to perform a `- 1` operation
+	while (aLen > 0 && (a.charCodeAt(~-aLen) === b.charCodeAt(~-bLen))) {
+		aLen--;
+		bLen--;
+	}
+
+	if (aLen === 0) {
+		return bLen;
+	}
+
+	// Performing prefix trimming
+	// We can linearly drop prefix common to both strings since they
+	// don't increase distance at all
+	var start = 0;
+
+	while (start < aLen && (a.charCodeAt(start) === b.charCodeAt(start))) {
+		start++;
+	}
+
+	aLen -= start;
+	bLen -= start;
+
+	if (aLen === 0) {
+		return bLen;
+	}
+
+	var bCharCode;
+	var ret;
+	var tmp;
+	var tmp2;
+	var i = 0;
+	var j = 0;
+
+	while (i < aLen) {
+		charCodeCache[start + i] = a.charCodeAt(start + i);
+		arr[i] = ++i;
+	}
+
+	while (j < bLen) {
+		bCharCode = b.charCodeAt(start + j);
+		tmp = j++;
+		ret = j;
+
+		for (i = 0; i < aLen; i++) {
+			tmp2 = bCharCode === charCodeCache[start + i] ? tmp : tmp + 1;
+			tmp = arr[i];
+			ret = arr[i] = tmp > ret ? tmp2 > ret ? ret + 1 : tmp2 : tmp2 > tmp ? tmp + 1 : tmp2;
+		}
+	}
+
+	return ret;
+};
+
+const chalk$2 = index$4;
+const BULLET = chalk$2.bold('\u25cf');
+const DEPRECATION = `${BULLET} Deprecation Warning`;
+const ERROR$1 = `${BULLET} Validation Error`;
+const WARNING = `${BULLET} Validation Warning`;
+
+const format$2 = value =>
+typeof value === 'function' ?
+value.toString() :
+index$20(value, { min: true });
+
+class ValidationError$1 extends Error {
+
+
+
+  constructor(name, message, comment) {
+    super();
+    comment = comment ? '\n\n' + comment : '\n';
+    this.name = '';
+    this.stack = '';
+    this.message = chalk$2.red(chalk$2.bold(name) + ':\n\n' + message + comment);
+    Error.captureStackTrace(this, () => {});
+  }}
+
+
+const logValidationWarning = (
+name,
+message,
+comment) =>
+{
+  comment = comment ? '\n\n' + comment : '\n';
+  console.warn(chalk$2.yellow(chalk$2.bold(name) + ':\n\n' + message + comment));
+};
+
+const createDidYouMeanMessage = (
+unrecognized,
+allowedOptions) =>
+{
+  const leven = index$28;
+  const suggestion = allowedOptions.find(option => {
+    const steps = leven(option, unrecognized);
+    return steps < 3;
+  });
+
+  return suggestion ? `Did you mean ${chalk$2.bold(format$2(suggestion))}?` : '';
+};
+
+var utils$2 = {
+  DEPRECATION,
+  ERROR: ERROR$1,
+  ValidationError: ValidationError$1,
+  WARNING,
+  createDidYouMeanMessage,
+  format: format$2,
+  logValidationWarning };
+
+const chalk = index$4; /**
+                                 * Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
+                                 *
+                                 * This source code is licensed under the BSD-style license found in the
+                                 * LICENSE file in the root directory of this source tree. An additional grant
+                                 * of patent rights can be found in the PATENTS file in the same directory.
+                                 *
+                                 * 
+                                 */var _require = index$18;const getType = _require.getType;var _require2 = utils$2;const format$1 = _require2.format; const ValidationError = _require2.ValidationError; const ERROR = _require2.ERROR;const errorMessage = (option, received, defaultValue, options) =>
 {
   const message = `  Option ${chalk.bold(`"${option}"`)} must be of type:
     ${chalk.bold.green(getType(defaultValue))}
@@ -11533,15 +11605,23 @@ var _require$2 =
 
 
 
-utils$2;const logValidationWarning$1 = _require$2.logValidationWarning; const DEPRECATION$2 = _require$2.DEPRECATION;
 
-const deprecationMessage = (message, options) => {
-  const comment = options.comment;
-  const name = options.title && options.title.deprecation || DEPRECATION$2;
 
-  logValidationWarning$1(name, message, comment);
-};
 
+
+
+
+
+
+utils$2;const logValidationWarning$1 = _require$2.logValidationWarning; const DEPRECATION$2 = _require$2.DEPRECATION; /**
+                                                                                                                   * Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
+                                                                                                                   *
+                                                                                                                   * This source code is licensed under the BSD-style license found in the
+                                                                                                                   * LICENSE file in the root directory of this source tree. An additional grant
+                                                                                                                   * of patent rights can be found in the PATENTS file in the same directory.
+                                                                                                                   *
+                                                                                                                   * 
+                                                                                                                   */const deprecationMessage = (message, options) => {const comment = options.comment;const name = options.title && options.title.deprecation || DEPRECATION$2;logValidationWarning$1(name, message, comment);};
 const deprecationWarning$1 = (
 config,
 option,
@@ -11560,15 +11640,15 @@ options) =>
 var deprecated = {
   deprecationWarning: deprecationWarning$1 };
 
-const chalk$3 = index$4;var _require$3 =
-
-
-
-
-
-utils$2;const format$3 = _require$3.format; const logValidationWarning$2 = _require$3.logValidationWarning; const createDidYouMeanMessage$1 = _require$3.createDidYouMeanMessage; const WARNING$2 = _require$3.WARNING;
-
-const unknownOptionWarning$1 = (
+const chalk$3 = index$4; /**
+                                 * Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
+                                 *
+                                 * This source code is licensed under the BSD-style license found in the
+                                 * LICENSE file in the root directory of this source tree. An additional grant
+                                 * of patent rights can be found in the PATENTS file in the same directory.
+                                 *
+                                 * 
+                                 */var _require$3 = utils$2;const format$3 = _require$3.format; const logValidationWarning$2 = _require$3.logValidationWarning; const createDidYouMeanMessage$1 = _require$3.createDidYouMeanMessage; const WARNING$2 = _require$3.WARNING;const unknownOptionWarning$1 = (
 config,
 exampleConfig,
 option,
@@ -11578,12 +11658,10 @@ options) =>
   option,
   Object.keys(exampleConfig));
 
-  /* eslint-disable max-len */
   const message =
   `  Unknown option ${chalk$3.bold(`"${option}"`)} with value ${chalk$3.bold(format$3(config[option]))} was found.` + (
   didYouMean && ` ${didYouMean}`) +
   `\n  This is probably a typing mistake. Fixing it will remove this message.`;
-  /* eslint-enable max-len */
 
   const comment = options.comment;
   const name = options.title && options.title.warning || WARNING$2;
@@ -11593,16 +11671,6 @@ options) =>
 
 var warnings = {
   unknownOptionWarning: unknownOptionWarning$1 };
-
-/**
- * Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * 
- */
 
 const config = {
   comment: '  A comment',
@@ -11618,20 +11686,15 @@ const config = {
     error: 'Validation Error',
     warning: 'Validation Warning' },
 
-  unknown: (config, option, options) => {} };
-
-
-var exampleConfig$2 = config;
-
-/**
- * Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * 
- */
+  unknown: (config, option, options) => {} }; /**
+                                               * Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
+                                               *
+                                               * This source code is licensed under the BSD-style license found in the
+                                               * LICENSE file in the root directory of this source tree. An additional grant
+                                               * of patent rights can be found in the PATENTS file in the same directory.
+                                               *
+                                               * 
+                                               */var exampleConfig$2 = config;
 
 const toString$1 = Object.prototype.toString;
 
@@ -11649,15 +11712,23 @@ var _require$1 =
 
 
 
-deprecated;const deprecationWarning = _require$1.deprecationWarning;var _require2$1 =
-warnings;const unknownOptionWarning = _require2$1.unknownOptionWarning;var _require3 =
-errors;const errorMessage$1 = _require3.errorMessage;
-const exampleConfig$1 = exampleConfig$2;
-const validationCondition = condition;var _require4 =
-utils$2;const ERROR$2 = _require4.ERROR; const DEPRECATION$1 = _require4.DEPRECATION; const WARNING$1 = _require4.WARNING;
 
-var defaultConfig$1 = {
-  comment: '',
+
+
+
+
+
+
+
+deprecated;const deprecationWarning = _require$1.deprecationWarning; /**
+                                                                                 * Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
+                                                                                 *
+                                                                                 * This source code is licensed under the BSD-style license found in the
+                                                                                 * LICENSE file in the root directory of this source tree. An additional grant
+                                                                                 * of patent rights can be found in the PATENTS file in the same directory.
+                                                                                 *
+                                                                                 * 
+                                                                                 */var _require2$1 = warnings;const unknownOptionWarning = _require2$1.unknownOptionWarning;var _require3 = errors;const errorMessage$1 = _require3.errorMessage;const exampleConfig$1 = exampleConfig$2;const validationCondition = condition;var _require4 = utils$2;const ERROR$2 = _require4.ERROR; const DEPRECATION$1 = _require4.DEPRECATION; const WARNING$1 = _require4.WARNING;var defaultConfig$1 = { comment: '',
   condition: validationCondition,
   deprecate: deprecationWarning,
   deprecatedConfig: {},
@@ -11670,15 +11741,15 @@ var defaultConfig$1 = {
 
   unknown: unknownOptionWarning };
 
-const defaultConfig = defaultConfig$1;
-
-const _validate = (config, options) => {
-  let hasDeprecationWarnings = false;
-
-  for (const key in config) {
-    if (
-    options.deprecatedConfig &&
-    key in options.deprecatedConfig &&
+const defaultConfig = defaultConfig$1; /**
+                                                   * Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
+                                                   *
+                                                   * This source code is licensed under the BSD-style license found in the
+                                                   * LICENSE file in the root directory of this source tree. An additional grant
+                                                   * of patent rights can be found in the PATENTS file in the same directory.
+                                                   *
+                                                   * 
+                                                   */const _validate = (config, options) => {let hasDeprecationWarnings = false;for (const key in config) {if (options.deprecatedConfig && key in options.deprecatedConfig &&
     typeof options.deprecate === 'function')
     {
       const isDeprecatedKey = options.deprecate(
@@ -11749,6 +11820,7 @@ const validate = index$2.validate;
 const deprecatedConfig = deprecated_1;
 
 const defaults = {
+  cursorOffset: -1,
   rangeStart: 0,
   rangeEnd: Infinity,
   useTabs: false,
@@ -11999,7 +12071,7 @@ function parse(text, opts) {
 
     if (loc) {
       const codeFrame = index$30;
-      error.codeFrame = codeFrame(text, loc.line, loc.column + 1, {
+      error.codeFrame = codeFrame(text, loc.line, loc.column, {
         highlightCode: true
       });
       error.message += "\n" + error.codeFrame;
@@ -12134,10 +12206,10 @@ var docDebug = {
   }
 };
 
-var require$$1$12 = ( _package$1 && _package$1['default'] ) || _package$1;
+var require$$1$13 = ( _package$1 && _package$1['default'] ) || _package$1;
 
 const comments = comments$1;
-const version = require$$1$12.version;
+const version = require$$1$13.version;
 const printAstToDoc = printer.printAstToDoc;
 const util = util$2;
 const printDocToString = docPrinter.printDocToString;
@@ -12189,26 +12261,50 @@ function ensureAllCommentsPrinted(astComments) {
   });
 }
 
-function format(text, opts, addAlignmentSize) {
+function formatWithCursor(text, opts, addAlignmentSize) {
   addAlignmentSize = addAlignmentSize || 0;
 
   const ast = parser.parse(text, opts);
 
   const formattedRangeOnly = formatRange(text, opts, ast);
   if (formattedRangeOnly) {
-    return formattedRangeOnly;
+    return { formatted: formattedRangeOnly };
+  }
+
+  let cursorOffset;
+  if (opts.cursorOffset >= 0) {
+    const cursorNodeAndParents = findNodeAtOffset(ast, opts.cursorOffset);
+    const cursorNode = cursorNodeAndParents.node;
+    if (cursorNode) {
+      cursorOffset = opts.cursorOffset - util.locStart(cursorNode);
+      opts.cursorNode = cursorNode;
+    }
   }
 
   const astComments = attachComments(text, ast, opts);
   const doc = printAstToDoc(ast, opts, addAlignmentSize);
   opts.newLine = guessLineEnding(text);
-  const str = printDocToString(doc, opts);
+  const toStringResult = printDocToString(doc, opts);
+  const str = toStringResult.formatted;
+  const cursorOffsetResult = toStringResult.cursor;
   ensureAllCommentsPrinted(astComments);
   // Remove extra leading indentation as well as the added indentation after last newline
   if (addAlignmentSize > 0) {
-    return str.trim() + opts.newLine;
+    return { formatted: str.trim() + opts.newLine };
   }
-  return str;
+
+  if (cursorOffset !== undefined) {
+    return {
+      formatted: str,
+      cursorOffset: cursorOffsetResult + cursorOffset
+    };
+  }
+
+  return { formatted: str };
+}
+
+function format(text, opts, addAlignmentSize) {
+  return formatWithCursor(text, opts, addAlignmentSize).formatted;
 }
 
 function findSiblingAncestors(startNodeAndParents, endNodeAndParents) {
@@ -12378,6 +12474,9 @@ function formatWithShebang(text, opts) {
 }
 
 var index = {
+  formatWithCursor: function(text, opts) {
+    return formatWithCursor(text, normalizeOptions(opts));
+  },
   format: function(text, opts) {
     return formatWithShebang(text, normalizeOptions(opts));
   },

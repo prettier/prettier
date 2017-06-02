@@ -1,3 +1,9 @@
+# 1.4.0
+
+[link](https://github.com/jlongster/prettier/compare/1.3.1...1.4.0)
+
+* [Release Notes](https://github.com/prettier/prettier/releases/tag/1.4.0)
+
 # 1.3.1
 
 * Respect template inline-ness (#1497)

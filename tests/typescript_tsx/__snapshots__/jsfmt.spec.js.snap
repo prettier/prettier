@@ -37,3 +37,10 @@ const MyCoolList = ({ things }) =>
 const MyCoolThing = ({ thingo }) => <li>{thingo}</li>;
 
 `;
+
+exports[`this.tsx 1`] = `
+<this.state.Component />;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<this.state.Component />;
+
+`;

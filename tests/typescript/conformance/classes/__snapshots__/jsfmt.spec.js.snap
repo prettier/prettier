@@ -149,25 +149,25 @@ class Private2 {
 class Protected {
   constructor(...args: any[]) {}
   protected p: string;
-  static protected s: string;
+  protected static s: string;
 }
 
 class Protected2 {
   constructor(...args: any[]) {}
   protected p: string;
-  static protected s: string;
+  protected static s: string;
 }
 
 class Public {
   constructor(...args: any[]) {}
   public p: string;
-  static public s: string;
+  public static s: string;
 }
 
 class Public2 {
   constructor(...args: any[]) {}
   public p: string;
-  static public s: string;
+  public static s: string;
 }
 
 function f1(x: Private & Private2) {

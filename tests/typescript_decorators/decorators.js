@@ -8,3 +8,10 @@ export class TestTextFileService {
 @commonEditorContribution
 export class TabCompletionController {
 }
+
+@Component({
+  selector: 'angular-component',
+})
+class AngularComponent {
+  @Input() myInput: string;
+}
