@@ -4591,6 +4591,10 @@ function classChildNeedsASIProtection(node) {
     return;
   }
 
+  if (!node.computed) {
+    const name = node.key && node.key.name;
+    if (name === "in" || name === "instanceof") return true;
+  }
   switch (node.type) {
     case "ClassProperty":
     case "TSAbstractClassProperty":
