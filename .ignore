@@ -1,2 +1,6 @@
-docs/prettier.min.js
+docs/index.js
+docs/parser-babylon.js
+docs/parser-flow.js
+docs/parser-postcss.js
+docs/parser-typescript.js
 dist
