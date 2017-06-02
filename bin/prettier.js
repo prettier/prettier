@@ -201,7 +201,7 @@ function format(input, opt) {
           diff(input, pp);
       }
     }
-    return;
+    return {};
   }
 
   return prettier.formatWithCursor(input, opt);
