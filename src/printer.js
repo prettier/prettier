@@ -1990,10 +1990,7 @@ function genericPrintNoParens(path, options, print, args) {
       for (let i = 0; i < types.length; ++i) {
         if (i === 0) {
           result.push(types[i]);
-        } else if (
-          n.types[i - 1].type !== "ObjectTypeAnnotation" &&
-          n.types[i].type !== "ObjectTypeAnnotation"
-        ) {
+        } else if (!isObjectType(n.types[i - 1]) && !isObjectType(n.types[i])) {
           // If no object is involved, go to the next line if it breaks
           result.push(indent(concat([" &", line, types[i]])));
         } else {
@@ -4827,6 +4824,10 @@ function removeLines(doc) {
     }
     return d;
   });
+}
+
+function isObjectType(n) {
+  return n.type === "ObjectTypeAnnotation" || n.type === "TSTypeLiteral";
 }
 
 function printAstToDoc(ast, options, addAlignmentSize) {
