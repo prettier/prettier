@@ -252,9 +252,9 @@ function formatRange(text, opts, ast) {
   }
 }
 
-function formatWithShebang(text, opts) {
+function fixShebang(text, formatted) {
   if (!text.startsWith("#!")) {
-    return format(text, opts);
+    return formatted;
   }
 
   const index = text.indexOf("\n");
@@ -262,19 +262,23 @@ function formatWithShebang(text, opts) {
   const nextChar = text.charAt(index + 1);
   const newLine = nextChar === "\n" ? "\n" : nextChar === "\r" ? "\r\n" : "";
 
-  return shebang + newLine + format(text, opts);
+  return shebang + newLine + formatted;
 }
 
 module.exports = {
   formatWithCursor: function(text, opts) {
-    return formatWithCursor(text, normalizeOptions(opts));
+    const result = formatWithCursor(text, normalizeOptions(opts));
+    return {
+      formatted: fixShebang(text, result.formatted),
+      cursorOffset: result.cursorOffset
+    };
   },
   format: function(text, opts) {
-    return formatWithShebang(text, normalizeOptions(opts));
+    return fixShebang(text, format(text, normalizeOptions(opts)));
   },
   check: function(text, opts) {
     try {
-      const formatted = formatWithShebang(text, normalizeOptions(opts));
+      const formatted = fixShebang(text, format(text, normalizeOptions(opts)));
       return formatted === text;
     } catch (e) {
       return false;
