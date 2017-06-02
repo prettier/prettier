@@ -102,7 +102,7 @@ Increase the level of indentation.
 For an example, here's the implementation of the `ArrayExpression` node type:
 
 ```js
-return multilineGroup(concat([
+return group(concat([
   "[",
   indent(options.tabWidth,
          concat([
@@ -116,5 +116,5 @@ return multilineGroup(concat([
 ```
 
 This is a group with opening and closing brackets, and possibly
-indented contents. Because it's a `multilineGroup` it will always be
+indented contents. Because it's a `group` it will always be
 broken up if any of the sub-expressions are broken.
