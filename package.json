@@ -42,7 +42,7 @@
     "rollup-plugin-node-resolve": "2.0.0",
     "rollup-plugin-replace": "1.1.1",
     "typescript": "2.3.2",
-    "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#3dcba7d53f61f51069ed84b57e053802c014d703",
+    "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#32634f10b8c9bc4622762867d9d00e79ea1092fe",
     "uglify-es": "mishoo/UglifyJS2#harmony",
     "webpack": "2.6.1"
   },
