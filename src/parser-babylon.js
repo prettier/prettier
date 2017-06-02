@@ -38,7 +38,8 @@ function parse(text) {
       throw createError(
         // babel error prints (l:c) with cols that are zero indexed
         // so we need our custom error
-        originalError.message.replace(/ \(.*\)/, ""),
+        originalError.message
+          .replace(/ \(.*\)/, ""),
         originalError.loc.line,
         originalError.loc.column + 1
       );
