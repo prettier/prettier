@@ -50,3 +50,8 @@ node_modules/.bin/rollup -c scripts/build/rollup.docs.config.js --environment fi
 
 echo 'Bundling docs postcss...';
 node_modules/.bin/rollup -c scripts/build/rollup.docs.config.js --environment filepath:src/parser-postcss.js
+
+## --- Remove eval ---
+
+echo 'Remove eval'
+sed -i '' -e 's/eval("require")/require/g' dist/index.js dist/bin/prettier.js
