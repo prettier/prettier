@@ -1674,6 +1674,9 @@ function genericPrintNoParens(path, options, print, args) {
       if (n.type === "TSAbstractClassProperty") {
         parts.push("abstract ");
       }
+      if (n.readonly) {
+        parts.push("readonly ");
+      }
       if (n.computed) {
         parts.push("[", path.call(print, "key"), "]");
       } else {
@@ -2237,6 +2240,7 @@ function genericPrintNoParens(path, options, print, args) {
       if (n.static) {
         parts.push("static ");
       }
+
       if (n.readonly) {
         parts.push("readonly ");
       }
