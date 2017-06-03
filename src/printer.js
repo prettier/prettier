@@ -97,6 +97,7 @@ function genericPrint(path, options, printPath, args) {
         node.decorators.length === 1 &&
         node.type !== "ClassDeclaration" &&
         node.type !== "MethodDefinition" &&
+        node.type !== "ClassMethod" &&
         (decorator.type === "Identifier" ||
           decorator.type === "MemberExpression" ||
           (decorator.type === "CallExpression" &&
