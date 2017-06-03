@@ -90,7 +90,7 @@ actually the most troublesome. Individuals on teams will all format
 these differently according to their own rules and we lose the
 consistency we sought after.
 
-Even if we disregard line widths, it's too easy to sneak in various
+Even if we disregard line lengths, it's too easy to sneak in various
 styles of code in all other linters. The most strict linter I know
 happily lets all these styles happen:
 
@@ -110,7 +110,7 @@ foo(
 ```
 
 Prettier bans all custom styling[\*](#styling-footnote) by parsing it away and re-printing
-the parsed AST with its own rules that take the maximum line width
+the parsed AST with its own rules that take the maximum line length
 into account, wrapping code when necessary.
 
 <a href="#styling-footnote" name="styling-footnote">\*</a>_Well actually, some
