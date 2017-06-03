@@ -208,7 +208,7 @@ See https://github.com/okonet/lint-staged#configuration for more details about h
 
 ##### 2. [pre-commit](https://github.com/pre-commit/pre-commit)
 
-Just copy the following config in your pre-commit config yaml file:
+Copy the following config in your pre-commit config yaml file:
 
 ```yaml
 
@@ -224,7 +224,7 @@ Find more info from [here](https://github.com/awebdeveloper/pre-commit-prettier)
 
 ##### 3. bash script
 
-Alternately you can just save this script as `.git/hooks/pre-commit` and give it execute permission:
+Alternately you can save this script as `.git/hooks/pre-commit` and give it execute permission:
 
 ```bash
 #!/bin/sh
