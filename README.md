@@ -208,7 +208,7 @@ See https://github.com/okonet/lint-staged#configuration for more details about h
 
 ##### 2. [pre-commit](https://github.com/pre-commit/pre-commit)
 
-Just copy the following config in your pre-commit config yaml file
+Just copy the following config in your pre-commit config yaml file:
 
 ```yaml
 
@@ -220,7 +220,7 @@ Just copy the following config in your pre-commit config yaml file
 
  ```
 
-Find more info from [here](https://github.com/awebdeveloper/pre-commit-prettier)
+Find more info from [here](https://github.com/awebdeveloper/pre-commit-prettier).
 
 ##### 3. bash script
 
