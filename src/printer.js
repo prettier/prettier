@@ -2461,7 +2461,7 @@ function genericPrintNoParens(path, options, print, args) {
                 concat([
                   hardline,
                   printArrayItems(path, options, "members", print),
-                  shouldPrintComma(options, "all") ? "," : ""
+                  shouldPrintComma(options, "es5") ? "," : ""
                 ])
               ),
               comments.printDanglingComments(
