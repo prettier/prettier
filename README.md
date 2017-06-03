@@ -90,7 +90,7 @@ actually the most troublesome. Individuals on teams will all format
 these differently according to their own rules and we lose the
 consistency we sought after.
 
-Even if we disregard line widths, it's too easy to sneak in various
+Even if we disregard line lengths, it's too easy to sneak in various
 styles of code in all other linters. The most strict linter I know
 happily lets all these styles happen:
 
@@ -110,7 +110,7 @@ foo(
 ```
 
 Prettier bans all custom styling[\*](#styling-footnote) by parsing it away and re-printing
-the parsed AST with its own rules that take the maximum line width
+the parsed AST with its own rules that take the maximum line length
 into account, wrapping code when necessary.
 
 <a href="#styling-footnote" name="styling-footnote">\*</a>_Well actually, some
@@ -208,7 +208,7 @@ See https://github.com/okonet/lint-staged#configuration for more details about h
 
 ##### 2. [pre-commit](https://github.com/pre-commit/pre-commit)
 
-Just copy the following config in your pre-commit config yaml file
+Copy the following config in your pre-commit config yaml file:
 
 ```yaml
 
@@ -220,11 +220,11 @@ Just copy the following config in your pre-commit config yaml file
 
  ```
 
-Find more info from [here](https://github.com/awebdeveloper/pre-commit-prettier)
+Find more info from [here](https://github.com/awebdeveloper/pre-commit-prettier).
 
 ##### 3. bash script
 
-Alternately you can just save this script as `.git/hooks/pre-commit` and give it execute permission:
+Alternately you can save this script as `.git/hooks/pre-commit` and give it execute permission:
 
 ```bash
 #!/bin/sh
