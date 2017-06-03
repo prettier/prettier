@@ -11,6 +11,7 @@ function parse(text) {
     allowImportExportEverywhere: false,
     allowReturnOutsideFunction: true,
     plugins: [
+      "estree",
       "jsx",
       "flow",
       "doExpressions",

@@ -97,7 +97,6 @@ function genericPrint(path, options, printPath, args) {
         node.decorators.length === 1 &&
         node.type !== "ClassDeclaration" &&
         node.type !== "MethodDefinition" &&
-        node.type !== "ClassMethod" &&
         (decorator.type === "Identifier" ||
           decorator.type === "MemberExpression" ||
           (decorator.type === "CallExpression" &&
@@ -175,18 +174,6 @@ function genericPrintNoParens(path, options, print, args) {
     case "File":
       return path.call(print, "program");
     case "Program":
-      // Babel 6
-      if (n.directives) {
-        path.each(childPath => {
-          parts.push(print(childPath), semi, hardline);
-          if (
-            util.isNextLineEmpty(options.originalText, childPath.getValue())
-          ) {
-            parts.push(hardline);
-          }
-        }, "directives");
-      }
-
       parts.push(
         path.call(bodyPath => {
           return printStatementSequence(bodyPath, options, print);
@@ -208,12 +195,12 @@ function genericPrintNoParens(path, options, print, args) {
     case "EmptyStatement":
       return "";
     case "ExpressionStatement":
-      // Detect Flow-parsed directives
+      // Detect directives
       if (n.directive) {
         return concat([nodeStr(n.expression, options, true), semi]);
       }
       return concat([path.call(print, "expression"), semi]); // Babel extension.
-    case "ParenthesizedExpression":
+    case "ParenthesizedExpression": // typescript
       return concat(["(", path.call(print, "expression"), ")"]);
     case "AssignmentExpression":
       return printAssignment(
@@ -672,19 +659,15 @@ function genericPrintNoParens(path, options, print, args) {
       }, "body");
 
       const hasContent = n.body.find(node => node.type !== "EmptyStatement");
-      const hasDirectives = n.directives && n.directives.length > 0;
 
       const parent = path.getParentNode();
       const parentParent = path.getParentNode(1);
       if (
         !hasContent &&
-        !hasDirectives &&
         !n.comments &&
         (parent.type === "ArrowFunctionExpression" ||
           parent.type === "FunctionExpression" ||
           parent.type === "FunctionDeclaration" ||
-          parent.type === "ObjectMethod" ||
-          parent.type === "ClassMethod" ||
           parent.type === "ForStatement" ||
           parent.type === "WhileStatement" ||
           parent.type === "DoWhileStatement" ||
@@ -694,13 +677,6 @@ function genericPrintNoParens(path, options, print, args) {
       }
 
       parts.push("{");
-
-      // Babel 6
-      if (hasDirectives) {
-        path.each(childPath => {
-          parts.push(indent(concat([hardline, print(childPath), semi])));
-        }, "directives");
-      }
 
       if (hasContent) {
         parts.push(indent(concat([hardline, naked])));
@@ -767,8 +743,7 @@ function genericPrintNoParens(path, options, print, args) {
             n.callee.name === "test" ||
             n.callee.name === "describe") &&
           n.arguments.length === 2 &&
-          (n.arguments[0].type === "StringLiteral" ||
-            n.arguments[0].type === "TemplateLiteral" ||
+          (n.arguments[0].type === "TemplateLiteral" ||
             (n.arguments[0].type === "Literal" &&
               typeof n.arguments[0].value === "string")) &&
           (n.arguments[1].type === "FunctionExpression" ||
@@ -937,8 +912,6 @@ function genericPrintNoParens(path, options, print, args) {
         ": ",
         path.call(print, "pattern")
       ]);
-    // Babel 6
-    case "ObjectProperty": // Non-standard AST node type.
     case "Property":
       if (n.method || n.kind === "get" || n.kind === "set") {
         return printMethod(path, options, print);
@@ -965,17 +938,7 @@ function genericPrintNoParens(path, options, print, args) {
         );
       }
 
-      return concat(parts); // Babel 6
-    case "ClassMethod":
-      if (n.static) {
-        parts.push("static ");
-      }
-
-      parts = parts.concat(printObjectMethod(path, options, print));
-
-      return concat(parts); // Babel 6
-    case "ObjectMethod":
-      return printObjectMethod(path, options, print);
+      return concat(parts);
     case "TSDecorator":
     case "Decorator":
       return concat(["@", path.call(print, "expression")]);
@@ -1076,14 +1039,6 @@ function genericPrintNoParens(path, options, print, args) {
       return "this";
     case "Super":
       return "super";
-    case "NullLiteral": // Babel 6 Literal split
-      return "null";
-    case "RegExpLiteral": // Babel 6 Literal split
-      return printRegex(n);
-    case "NumericLiteral": // Babel 6 Literal split
-      return printNumber(n.extra.raw);
-    case "BooleanLiteral": // Babel 6 Literal split
-    case "StringLiteral": // Babel 6 Literal split
     case "Literal":
       if (n.regex) {
         return printRegex(n.regex);
@@ -1094,10 +1049,6 @@ function genericPrintNoParens(path, options, print, args) {
       if (typeof n.value !== "string") {
         return "" + n.value;
       }
-      return nodeStr(n, options); // Babel 6
-    case "Directive":
-      return path.call(print, "value"); // Babel 6
-    case "DirectiveLiteral":
       return nodeStr(n, options);
     case "ModuleSpecifier":
       if (n.local) {
@@ -1501,7 +1452,7 @@ function genericPrintNoParens(path, options, print, args) {
       if (n.value) {
         let res;
         if (isStringLiteral(n.value)) {
-          const value = n.value.extra ? n.value.extra.raw : n.value.raw;
+          const value = n.value.raw;
           res = '"' + value.slice(1, -1).replace(/"/g, "&quot;") + '"';
         } else {
           res = path.call(print, "value");
@@ -2102,11 +2053,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "NumberLiteralTypeAnnotation":
       assert.strictEqual(typeof n.value, "number");
 
-      if (n.extra != null) {
-        return printNumber(n.extra.raw);
-      } else {
-        return printNumber(n.raw);
-      }
+      return printNumber(n.raw);
     case "StringTypeAnnotation":
       return "string";
     case "DeclareTypeAlias":
@@ -2966,10 +2913,6 @@ function printMethod(path, options, print) {
   const kind = node.kind;
   const parts = [];
 
-  if (node.type === "ObjectMethod" || node.type === "ClassMethod") {
-    node.value = node;
-  }
-
   if (node.value.async) {
     parts.push("async ");
   }
@@ -3324,47 +3267,6 @@ function printFunctionDeclaration(path, print, options) {
   return concat(parts);
 }
 
-function printObjectMethod(path, options, print) {
-  const objMethod = path.getValue();
-  const parts = [];
-
-  if (objMethod.async) {
-    parts.push("async ");
-  }
-  if (objMethod.generator) {
-    parts.push("*");
-  }
-  if (
-    objMethod.method ||
-    objMethod.kind === "get" ||
-    objMethod.kind === "set"
-  ) {
-    return printMethod(path, options, print);
-  }
-
-  const key = printPropertyKey(path, options, print);
-
-  if (objMethod.computed) {
-    parts.push("[", key, "]");
-  } else {
-    parts.push(key);
-  }
-
-  parts.push(
-    printFunctionTypeParameters(path, options, print),
-    group(
-      concat([
-        printFunctionParams(path, print, options),
-        printReturnType(path, print)
-      ])
-    ),
-    " ",
-    path.call(print, "body")
-  );
-
-  return concat(parts);
-}
-
 function printReturnType(path, print) {
   const n = path.getValue();
   const parts = [path.call(print, "returnType")];
@@ -3632,8 +3534,7 @@ function printMemberLookup(path, options, print) {
 
   if (
     !n.property ||
-    (n.property.type === "Literal" && typeof n.property.value === "number") ||
-    n.property.type === "NumericLiteral"
+    (n.property.type === "Literal" && typeof n.property.value === "number")
   ) {
     return concat(["[", property, "]"]);
   }
@@ -3915,7 +3816,7 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
   path.map((childPath, i) => {
     const child = childPath.getValue();
     if (isLiteral(child) && typeof child.value === "string") {
-      const value = child.raw || child.extra.raw;
+      const value = child.raw;
 
       // Contains a non-whitespace character
       if (/[^ \n\r\t]/.test(value)) {
@@ -4350,8 +4251,8 @@ function adjustClause(node, clause, forceSpace) {
   return indent(concat([line, clause]));
 }
 
-function nodeStr(node, options, isFlowDirectiveLiteral) {
-  const raw = node.extra ? node.extra.raw : node.raw;
+function nodeStr(node, options, isDirectiveLiteral) {
+  const raw = node.raw;
   // `rawContent` is the string exactly like it appeared in the input source
   // code, with its enclosing quote.
   const rawContent = raw.slice(1, -1);
@@ -4363,8 +4264,6 @@ function nodeStr(node, options, isFlowDirectiveLiteral) {
   const alternate = preferred === single ? double : single;
 
   let shouldUseAlternateQuote = false;
-  const isDirectiveLiteral =
-    isFlowDirectiveLiteral || node.type === "DirectiveLiteral";
   let canChangeDirectiveQuotes = false;
 
   // If `rawContent` contains at least one of the quote preferred for enclosing
@@ -4544,7 +4443,6 @@ function exprNeedsASIProtection(node) {
     node.type === "TemplateElement" ||
     node.type === "JSXElement" ||
     node.type === "BindExpression" ||
-    node.type === "RegExpLiteral" ||
     (node.type === "Literal" && node.pattern) ||
     (node.type === "Literal" && node.regex);
 
@@ -4606,10 +4504,9 @@ function classChildNeedsASIProtection(node) {
     case "ClassProperty":
     case "TSAbstractClassProperty":
       return node.computed;
-    case "MethodDefinition": // Flow
-    case "TSAbstractMethodDefinition": // TypeScript
-    case "ClassMethod": {
-      // Babylon
+    case "MethodDefinition":
+    case "TSAbstractMethodDefinition": {
+      // TypeScript
       const isAsync = node.value ? node.value.async : node.async;
       const isGenerator = node.value ? node.value.generator : node.generator;
       if (
@@ -4794,13 +4691,7 @@ function hasDanglingComments(node) {
 
 function isLiteral(node) {
   return (
-    node.type === "BooleanLiteral" ||
-    node.type === "DirectiveLiteral" ||
     node.type === "Literal" ||
-    node.type === "NullLiteral" ||
-    node.type === "NumericLiteral" ||
-    node.type === "RegExpLiteral" ||
-    node.type === "StringLiteral" ||
     node.type === "TemplateLiteral" ||
     node.type === "TSTypeLiteral" ||
     node.type === "JSXText"
@@ -4808,10 +4699,7 @@ function isLiteral(node) {
 }
 
 function isStringLiteral(node) {
-  return (
-    node.type === "StringLiteral" ||
-    (node.type === "Literal" && typeof node.value === "string")
-  );
+  return node.type === "Literal" && typeof node.value === "string";
 }
 
 function removeLines(doc) {

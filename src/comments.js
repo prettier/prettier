@@ -197,7 +197,6 @@ function attach(comments, ast, text) {
         handleTryStatementComments(enclosingNode, followingNode, comment) ||
         handleClassComments(enclosingNode, comment) ||
         handleImportSpecifierComments(enclosingNode, comment) ||
-        handleObjectPropertyComments(enclosingNode, comment) ||
         handleForComments(enclosingNode, precedingNode, comment) ||
         handleUnionTypeComments(
           precedingNode,
@@ -256,7 +255,6 @@ function attach(comments, ast, text) {
         handlePropertyComments(enclosingNode, comment) ||
         handleExportNamedDeclarationComments(enclosingNode, comment) ||
         handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
-        handleClassMethodComments(enclosingNode, comment) ||
         handleTypeAliasComments(enclosingNode, followingNode, comment) ||
         handleVariableDeclaratorComments(enclosingNode, followingNode, comment)
       ) {
@@ -534,8 +532,7 @@ function handleConditionalExpressionComments(
 function handleObjectPropertyAssignment(enclosingNode, precedingNode, comment) {
   if (
     enclosingNode &&
-    (enclosingNode.type === "ObjectProperty" ||
-      enclosingNode.type === "Property") &&
+    enclosingNode.type === "Property" &&
     enclosingNode.shorthand &&
     enclosingNode.key === precedingNode &&
     enclosingNode.value.type === "AssignmentPattern"
@@ -557,9 +554,7 @@ function handleCommentInEmptyParens(text, enclosingNode, comment) {
     enclosingNode &&
     (((enclosingNode.type === "FunctionDeclaration" ||
       enclosingNode.type === "FunctionExpression" ||
-      enclosingNode.type === "ArrowFunctionExpression" ||
-      enclosingNode.type === "ClassMethod" ||
-      enclosingNode.type === "ObjectMethod") &&
+      enclosingNode.type === "ArrowFunctionExpression") &&
       enclosingNode.params.length === 0) ||
       (enclosingNode.type === "CallExpression" &&
         enclosingNode.arguments.length === 0))
@@ -606,9 +601,7 @@ function handleLastFunctionArgComments(
     enclosingNode &&
     (enclosingNode.type === "ArrowFunctionExpression" ||
       enclosingNode.type === "FunctionExpression" ||
-      enclosingNode.type === "FunctionDeclaration" ||
-      enclosingNode.type === "ObjectMethod" ||
-      enclosingNode.type === "ClassMethod") &&
+      enclosingNode.type === "FunctionDeclaration") &&
     getNextNonSpaceNonCommentCharacter(text, comment) === ")"
   ) {
     addTrailingComment(precedingNode, comment);
@@ -631,14 +624,6 @@ function handleClassComments(enclosingNode, comment) {
 
 function handleImportSpecifierComments(enclosingNode, comment) {
   if (enclosingNode && enclosingNode.type === "ImportSpecifier") {
-    addLeadingComment(enclosingNode, comment);
-    return true;
-  }
-  return false;
-}
-
-function handleObjectPropertyComments(enclosingNode, comment) {
-  if (enclosingNode && enclosingNode.type === "ObjectProperty") {
     addLeadingComment(enclosingNode, comment);
     return true;
   }
@@ -685,11 +670,7 @@ function handleUnionTypeComments(
 }
 
 function handlePropertyComments(enclosingNode, comment) {
-  if (
-    enclosingNode &&
-    (enclosingNode.type === "Property" ||
-      enclosingNode.type === "ObjectProperty")
-  ) {
+  if (enclosingNode && enclosingNode.type === "Property") {
     addLeadingComment(enclosingNode, comment);
     return true;
   }
@@ -716,9 +697,7 @@ function handleOnlyComments(enclosingNode, ast, comment, isLastComment) {
   } else if (
     enclosingNode &&
     enclosingNode.type === "Program" &&
-    enclosingNode.body.length === 0 &&
-    enclosingNode.directives &&
-    enclosingNode.directives.length === 0
+    enclosingNode.body.length === 0
   ) {
     if (isLastComment) {
       addDanglingComment(enclosingNode, comment);
@@ -763,14 +742,6 @@ function handleImportDeclarationComments(
 function handleAssignmentPatternComments(enclosingNode, comment) {
   if (enclosingNode && enclosingNode.type === "AssignmentPattern") {
     addLeadingComment(enclosingNode, comment);
-    return true;
-  }
-  return false;
-}
-
-function handleClassMethodComments(enclosingNode, comment) {
-  if (enclosingNode && enclosingNode.type === "ClassMethod") {
-    addTrailingComment(enclosingNode, comment);
     return true;
   }
   return false;

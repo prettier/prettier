@@ -405,7 +405,6 @@ FastPath.prototype.needsParens = function() {
         parent.type === "IntersectionTypeAnnotation"
       );
 
-    case "NumericLiteral":
     case "Literal":
       return (
         parent.type === "MemberExpression" &&
@@ -523,9 +522,6 @@ FastPath.prototype.needsParens = function() {
 
     case "ClassExpression":
       return parent.type === "ExportDefaultDeclaration";
-
-    case "StringLiteral":
-      return parent.type === "ExpressionStatement"; // To avoid becoming a directive
   }
 
   return false;
@@ -537,7 +533,6 @@ function isStatement(node) {
     node.type === "BreakStatement" ||
     node.type === "ClassBody" ||
     node.type === "ClassDeclaration" ||
-    node.type === "ClassMethod" ||
     node.type === "ClassProperty" ||
     node.type === "ContinueStatement" ||
     node.type === "DebuggerStatement" ||
