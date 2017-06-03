@@ -2460,7 +2460,8 @@ function genericPrintNoParens(path, options, print, args) {
               indent(
                 concat([
                   hardline,
-                  printArrayItems(path, options, "members", print)
+                  printArrayItems(path, options, "members", print),
+                  shouldPrintComma(options, "all") ? "," : ""
                 ])
               ),
               comments.printDanglingComments(
