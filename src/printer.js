@@ -816,9 +816,16 @@ function genericPrintNoParens(path, options, print, args) {
     case "TSInterfaceBody":
     case "TSTypeLiteral": {
       const isTypeAnnotation = n.type === "ObjectTypeAnnotation";
+      const shouldBreak =
+        n.type !== "ObjectPattern" &&
+        util.hasNewlineInRange(
+          options.originalText,
+          util.locStart(n),
+          util.locEnd(n)
+        );
       const separator = n.type === "TSInterfaceBody" ||
         n.type === "TSTypeLiteral"
-        ? semi
+        ? shouldBreak ? semi : ";"
         : ",";
       const fields = [];
       const leftBrace = n.exact ? "{|" : "{";
@@ -920,14 +927,6 @@ function genericPrintNoParens(path, options, print, args) {
       ) {
         return content;
       }
-
-      const shouldBreak =
-        n.type !== "ObjectPattern" &&
-        util.hasNewlineInRange(
-          options.originalText,
-          util.locStart(n),
-          util.locEnd(n)
-        );
 
       return group(content, { shouldBreak });
     }
