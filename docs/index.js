@@ -1521,7 +1521,7 @@ var comments$1 = {
 };
 
 var name = "prettier";
-var version$1 = "1.4.1";
+var version$1 = "1.4.2";
 var description = "Prettier is an opinionated JavaScript formatter";
 var bin = {"prettier":"./bin/prettier.js"};
 var repository = "prettier/prettier";
@@ -2899,6 +2899,7 @@ function genericPrint(path, options, printPath, args) {
         node.decorators.length === 1 &&
         node.type !== "ClassDeclaration" &&
         node.type !== "MethodDefinition" &&
+        node.type !== "ClassMethod" &&
         (decorator.type === "Identifier" ||
           decorator.type === "MemberExpression" ||
           (decorator.type === "CallExpression" &&
@@ -3618,9 +3619,16 @@ function genericPrintNoParens(path, options, print, args) {
     case "TSInterfaceBody":
     case "TSTypeLiteral": {
       const isTypeAnnotation = n.type === "ObjectTypeAnnotation";
+      const shouldBreak =
+        n.type !== "ObjectPattern" &&
+        util$4.hasNewlineInRange(
+          options.originalText,
+          util$4.locStart(n),
+          util$4.locEnd(n)
+        );
       const separator = n.type === "TSInterfaceBody" ||
         n.type === "TSTypeLiteral"
-        ? semi
+        ? shouldBreak ? semi : ";"
         : ",";
       const fields = [];
       const leftBrace = n.exact ? "{|" : "{";
@@ -3722,14 +3730,6 @@ function genericPrintNoParens(path, options, print, args) {
       ) {
         return content;
       }
-
-      const shouldBreak =
-        n.type !== "ObjectPattern" &&
-        util$4.hasNewlineInRange(
-          options.originalText,
-          util$4.locStart(n),
-          util$4.locEnd(n)
-        );
 
       return group$1(content, { shouldBreak });
     }
@@ -5262,7 +5262,8 @@ function genericPrintNoParens(path, options, print, args) {
               indent$2(
                 concat$2([
                   hardline$2,
-                  printArrayItems(path, options, "members", print)
+                  printArrayItems(path, options, "members", print),
+                  shouldPrintComma(options, "es5") ? "," : ""
                 ])
               ),
               comments$3.printDanglingComments(
@@ -6216,7 +6217,8 @@ function printExportDeclaration(path, options, print) {
     if (
       decl.type === "ExportDefaultDeclaration" &&
       (decl.declaration.type !== "ClassDeclaration" &&
-        decl.declaration.type !== "FunctionDeclaration")
+        decl.declaration.type !== "FunctionDeclaration" &&
+        decl.declaration.type !== "TSAbstractClassDeclaration")
     ) {
       parts.push(semi);
     }

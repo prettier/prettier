@@ -1,3 +1,12 @@
+# 1.4.2
+
+[link](https://github.com/jlongster/prettier/compare/1.4.1...1.4.2)
+
+* fix(decorators): do not inline methods with decorators with babylon (#1934)
+* fix(typescript): print semi with inline interfaces/types (#1936)
+* fix(typescript): no semi after export default abstract class, fixes (#1937)
+* TypeScript: fix trailing comma in enum (#1938)
+
 # 1.4.1
 
 [link](https://github.com/jlongster/prettier/compare/1.4.0...1.4.1)
