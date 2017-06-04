@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`styled-jsx.js 1`] = `
+<style jsx>{\`
+	/* a comment */
+	div :global(.react-select) {
+		color: red; display: none
+	}
+\`}</style>;
+
+<div>
+<style jsx>{\`
+/* a comment */
+div :global(.react-select) {
+color: red; display: none
+}\`}</style>
+</div>;
+
+<div>
+<style jsx>{\`div{color:red}\`}</style>
+</div>;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<style jsx>{\`
+  /* a comment */
+  div :global(.react-select) {
+    color: red;
+    display: none;
+  }
+\`}</style>;
+
+<div>
+  <style jsx>{\`
+    /* a comment */
+    div :global(.react-select) {
+      color: red;
+      display: none;
+    }
+  \`}</style>
+</div>;
+
+<div>
+  <style jsx>{\`
+    div {
+      color: red;
+    }
+  \`}</style>
+</div>;
+
+`;
