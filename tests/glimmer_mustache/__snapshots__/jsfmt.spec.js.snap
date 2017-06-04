@@ -105,7 +105,7 @@ exports[`nested-path.html 1`] = `
 
   <h2>
     By
-    {{author name}}
+    {{author.name}}
   </h2>
 
   <div class="body">

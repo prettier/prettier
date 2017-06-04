@@ -13,7 +13,7 @@ exports[`component.html 1`] = `
 ,
 {{@name}}
 !
-<button onclick="{{action next}}">
+<button onclick={{action next}}>
   Next
 </button>
 
