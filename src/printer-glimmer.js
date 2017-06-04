@@ -36,7 +36,9 @@ function genericPrint(path, options, print) {
         join(" ", path.map(print, "params")),
         n.hash.pairs.length ? " " : "",
         path.call(print, "hash"),
-        // TODO: Why isn't the "as |foo|" in the AST?
+        n.program.blockParams && n.program.blockParams.length
+          ? concat([" as |", n.program.blockParams.join(" "), "|"])
+          : "",
         "}}",
         indent(concat([hardline, path.call(print, "program")])),
         softline,
