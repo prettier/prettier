@@ -69,7 +69,11 @@ function genericPrint(path, options, print) {
       return concat([n.key, "=", path.call(print, "value")]);
     }
     case "MustacheStatement": {
-      return concat(["{{", path.call(print, "path"), "}}"]);
+      return concat([
+        n.escaped ? "{{" : "{{{",
+        path.call(print, "path"),
+        n.escaped ? "}}" : "}}}"
+      ]);
     }
     case "MustacheCommentStatement": {
       const dashes = n.value.indexOf("}}") > -1 ? "--" : "";
