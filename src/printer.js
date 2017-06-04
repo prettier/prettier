@@ -50,6 +50,8 @@ function shouldPrintComma(options, level) {
 
 function getPrintFunction(options) {
   switch (options.parser) {
+    case "glimmer":
+      return require("./printer-glimmer");
     case "graphql":
       return require("./printer-graphql");
     case "parse5":
