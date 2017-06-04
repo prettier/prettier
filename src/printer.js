@@ -1740,6 +1740,31 @@ function genericPrintNoParens(path, options, print, args) {
     case "TemplateElement":
       return join(literalline, n.value.raw.split(/\r?\n/g));
     case "TemplateLiteral": {
+      /* Subtree parsing PoC */
+      const parent = path.getParentNode();
+      const parentParent = path.getParentNode(1);
+      const isStyledJsx =
+        n.quasis &&
+        n.quasis.length === 1 &&
+        parent.type === "JSXExpressionContainer" &&
+        parentParent.type === "JSXElement" &&
+        parentParent.openingElement.attributes.some(
+          attribute => attribute.name.name === "jsx"
+        );
+
+      if (isStyledJsx) {
+        const parseCss = require("./parser-postcss");
+
+        const text = n.quasis[0].value.raw;
+        const ast = parseCss(text, options);
+        let subtree = printAstToDoc(ast, options);
+        //HACK remove ending hardline
+        subtree = subtree.parts[0].parts[0];
+        parts.push("`", indent(concat([line, subtree])), line, "`");
+        return concat(parts);
+      }
+      /* Subtree parsing PoC */
+
       const expressions = path.map(print, "expressions");
 
       parts.push("`");

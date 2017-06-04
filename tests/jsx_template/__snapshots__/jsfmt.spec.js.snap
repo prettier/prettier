@@ -33,9 +33,10 @@ exports[`styled-components.js 1`] = `
 \`}</style>;
 
 <style jsx>
-  {\`p {
-     color: red;
-     }
+  {\`
+    p {
+      color: red;
+    }
   \`}
 </style>;
 
