@@ -87,6 +87,46 @@ exports[`if.html 1`] = `
 {{/if}}
 `;
 
+exports[`if-else.html 1`] = `
+<h1>
+{{#if isAtWork}}
+  Ship that code!
+{{else if isReading}}
+  You can finish War and Peace eventually...
+{{/if}}
+</h1>
+
+<h2>
+{{#if a}}
+  A
+{{else}}
+  B
+{{/if}}
+</h2>
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<h1>
+
+  {{#if isAtWork}}
+    Ship that code!
+
+    {{else if isReading}}
+      You can finish War and Peace eventually...
+
+  {{/if}}
+</h1>
+
+<h2>
+
+  {{#if a}}
+    A
+  {{else}}
+    B
+  {{/if}}
+</h2>
+
+`;
+
 exports[`nested-path.html 1`] = `
 <div class="entry">
   <h1>{{title}}</h1>

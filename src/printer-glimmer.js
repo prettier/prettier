@@ -90,11 +90,23 @@ function genericPrint(path, options, print) {
       return String(n.value);
     }
     case "BlockStatement": {
+      const pp = path.getParentNode(1);
+      const isElseIf = pp && pp.inverse && pp.inverse.body[0] === n;
+      const hasElseIf =
+        n.inverse &&
+        n.inverse.body[0] &&
+        n.inverse.body[0].type === "BlockStatement";
       return concat([
-        printOpenBlock(path, print),
+        isElseIf
+          ? concat([softline, "{{else ", printPathParams(path, print), "}}"])
+          : printOpenBlock(path, print),
         indent(concat([hardline, path.call(print, "program")])),
-        softline,
-        printCloseBlock(path, print)
+        !n.inverse || hasElseIf ? "" : concat([softline, "{{else}}"]),
+        n.inverse
+          ? indent(concat([hardline, path.call(print, "inverse")]))
+          : "",
+        hardline,
+        isElseIf ? "" : printCloseBlock(path, print)
       ]);
     }
     case "PartialStatement": {
