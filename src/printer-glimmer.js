@@ -48,6 +48,9 @@ function genericPrint(path, options, print) {
     }
     case "AttrNode": {
       const quote = n.value.type === "TextNode" ? '"' : "";
+      if (n.value.chars === "") {
+        return n.name;
+      }
       return concat([n.name, "=", quote, path.call(print, "value"), quote]);
     }
     case "ConcatStatement": {
@@ -66,7 +69,7 @@ function genericPrint(path, options, print) {
       ]);
     }
     case "TextNode": {
-      return n.chars.trim();
+      return n.chars.replace(/^\s+/, "").replace(/\s+$/, "");
     }
     case "ElementModifierStatement":
     case "MustacheStatement": {
