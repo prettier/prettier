@@ -28,7 +28,7 @@ exports[`loop.html 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <ul>
 
-  {{#each speakers key="@index"}}
+  {{#each speakers key="@index" as |speaker|}}
 
     <li>
       {{speaker}}
