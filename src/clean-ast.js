@@ -74,6 +74,14 @@ function massageAST(ast) {
       newObj.value = newObj.value.replace(/ /g, "");
     }
 
+    // (Glimmer/HTML) ignore TextNode whitespace
+    if (ast.type === "TextNode") {
+      if (ast.chars.replace(/\s+/, "") === "") {
+        return undefined;
+      }
+      newObj.chars = ast.chars.replace(/^\s+/, "").replace(/\s+$/, "");
+    }
+
     // (TypeScript) Ignore `static` in `constructor(static p) {}`
     // and `export` in `constructor(export p) {}`
     if (

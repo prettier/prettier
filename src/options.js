@@ -35,7 +35,7 @@ function normalize(options) {
     normalized.parser = "parse5";
   } else if (/\.(ts|tsx)$/.test(filepath)) {
     normalized.parser = "typescript";
-  } else if (/\.(html|hbs|vue)$/.test(filepath)) {
+  } else if (/\.(html|hbs|vue|mo?ustache)$/.test(filepath)) {
     normalized.parser = "glimmer";
   }
 
