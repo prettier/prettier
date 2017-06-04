@@ -2300,6 +2300,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "TSParenthesizedType":
       return concat(["(", path.call(print, "typeAnnotation"), ")"]);
     case "TSIndexSignature": {
+      const parent = path.getParentNode();
       let printedParams = [];
       if (n.params) {
         printedParams = path.map(print, "params");
@@ -2319,7 +2320,8 @@ function genericPrintNoParens(path, options, print, args) {
         // it using parseDelimitedList that uses commas as delimiter.
         join(", ", printedParams),
         "]: ",
-        path.call(print, "typeAnnotation")
+        path.call(print, "typeAnnotation"),
+        parent.type === "ClassBody" ? semi : ""
       ]);
     }
     case "TSTypePredicate":
