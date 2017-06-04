@@ -110,8 +110,8 @@ exports[`if-else.html 1`] = `
   {{#if isAtWork}}
     Ship that code!
 
-    {{else if isReading}}
-      You can finish War and Peace eventually...
+  {{else if isReading}}
+    You can finish War and Peace eventually...
 
   {{/if}}
 </h1>

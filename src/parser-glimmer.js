@@ -3,11 +3,8 @@
 const createError = require("./parser-create-error");
 
 function parse(text) {
-  // Inline the require to avoid loading all the JS if we don't use it
-  const glimmer = require("@glimmer/syntax");
-
   try {
-    return glimmer.preprocess(text);
+    return require("@glimmer/syntax").preprocess(text);
   } catch (error) {
     const matches = error.message.match(/on line (\d+)/);
     if (matches) {

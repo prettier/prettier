@@ -10,6 +10,25 @@ const hardline = docBuilders.softline;
 // const group = docBuilders.group;
 const indent = docBuilders.indent;
 
+// http://w3c.github.io/html/single-page.html#void-elements
+const voidTags = [
+  "area",
+  "base",
+  "br",
+  "col",
+  "embed",
+  "hr",
+  "img",
+  "input",
+  "link",
+  "meta",
+  "param",
+  "source",
+  "track",
+  "wbr"
+];
+
+// Formatter based on @glimmerjs/syntax's built-in test formatter:
 // https://github.com/glimmerjs/glimmer-vm/blob/master/packages/%40glimmer/syntax/lib/generation/print.ts
 
 function genericPrint(path, options, print) {
@@ -28,6 +47,8 @@ function genericPrint(path, options, print) {
       return join(softline, path.map(print, "body"));
     }
     case "ElementNode": {
+      const selfClose = voidTags.indexOf(n.tag) > -1 ? ">" : " />";
+
       return concat([
         "<",
         n.tag,
@@ -40,7 +61,7 @@ function genericPrint(path, options, print) {
         n.comments.length ? " " : "",
         join(" ", path.map(print, "comments")),
 
-        n.children.length ? ">" : " />",
+        n.children.length ? ">" : selfClose,
 
         indent(concat([softline, join(softline, path.map(print, "children"))])),
         n.children.length ? concat([softline, "</", n.tag, ">"]) : ""
@@ -99,14 +120,15 @@ function genericPrint(path, options, print) {
         n.inverse &&
         n.inverse.body[0] &&
         n.inverse.body[0].type === "BlockStatement";
+      const indentElse = hasElseIf ? a => a : indent;
       return concat([
         isElseIf
-          ? concat([softline, "{{else ", printPathParams(path, print), "}}"])
+          ? concat([hardline, "{{else ", printPathParams(path, print), "}}"])
           : printOpenBlock(path, print),
         indent(concat([hardline, path.call(print, "program")])),
-        !n.inverse || hasElseIf ? "" : concat([softline, "{{else}}"]),
+        n.inverse && !hasElseIf ? concat([hardline, "{{else}}"]) : "",
         n.inverse
-          ? indent(concat([hardline, path.call(print, "inverse")]))
+          ? indentElse(concat([hardline, path.call(print, "inverse")]))
           : "",
         hardline,
         isElseIf ? "" : printCloseBlock(path, print)

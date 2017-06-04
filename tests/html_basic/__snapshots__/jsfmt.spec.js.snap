@@ -17,13 +17,13 @@ exports[`basic-html.html 1`] = `
 
   <head>
 
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
 
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
 
     <title>
@@ -55,5 +55,23 @@ exports[`more-html.html 1`] = `
 
 <div hidden class="foo" id="bar" />
 
+
+`;
+
+exports[`void-elements.html 1`] = `
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="code-guide.css">
+</head>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<head>
+
+  <meta charset="UTF-8">
+
+
+  <link rel="stylesheet" href="code-guide.css">
+
+
+</head>
 
 `;

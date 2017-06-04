@@ -31,8 +31,6 @@ function parse(text /*, parsers, opts*/) {
 }
 
 function tryParseTypeScript(text, jsx) {
-  // While we are working on typescript, we are putting it in devDependencies
-  // so it shouldn't be picked up by static analysis
   const parser = require("typescript-eslint-parser");
   return parser.parse(text, {
     loc: true,
@@ -48,8 +46,7 @@ function tryParseTypeScript(text, jsx) {
 }
 
 /**
- * Use a naive regular expression until we address
- * https://github.com/prettier/prettier/issues/1538
+ * Use a naive regular expression to detect JSX
  */
 function isProbablyJsx(text) {
   return new RegExp(
