@@ -74,6 +74,8 @@ function genericPrint(path, options, print) {
       return concat([
         n.escaped ? "{{" : "{{{",
         path.call(print, "path"),
+        n.params.length ? " " : "",
+        join(" ", path.map(print, "params")),
         n.escaped ? "}}" : "}}}"
       ]);
     }
