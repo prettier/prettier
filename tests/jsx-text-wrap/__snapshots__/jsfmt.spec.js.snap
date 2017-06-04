@@ -128,8 +128,7 @@ unstable_before =
 
 unstable_after_first_run = (
   <div className="yourScore">
-    Your score:
-    {" "}
+    Your score:{" "}
     <span className="score">{\`\${mini.crosstable.users[sessionUserId]} - \${mini
       .crosstable.users[user.id]}\`}</span>
   </div>
@@ -154,13 +153,13 @@ jsx_around_multiline_element =
 
 jsx_around_multiline_element_second_pass = (
   <div>
-    Before
-    {" "}<div>
+    Before{" "}
+    <div>
       {
         "Enough text to make this element wrap on to multiple lines when formatting"
       }
-    </div>
-    {" "}After
+    </div>{" "}
+    After
   </div>
 );
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -175,8 +174,8 @@ x = (
 // Wrapping tags
 x = (
   <div>
-    <first>f</first> <first>f</first> <first>f</first> <first>f</first>
-    {" "}<first>f</first> <first>f</first>
+    <first>f</first> <first>f</first> <first>f</first> <first>f</first>{" "}
+    <first>f</first> <first>f</first>
   </div>
 );
 
@@ -192,16 +191,16 @@ x = (
 x = (
   <div>
     <a /><b /><c />
-    <first>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</first>
-    {" "}<first>f</first>
+    <first>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</first>{" "}
+    <first>f</first>
   </div>
 );
 
 // Wrapping tags
 x = (
   <div>
-    <sadashdkjahsdkjhaskjdhaksjdhkashdkashdkasjhdkajshdkashdkashd />
-    {" "}<first>f</first>
+    <sadashdkjahsdkjhaskjdhaksjdhkashdkashdkasjhdkajshdkashdkashd />{" "}
+    <first>f</first>
   </div>
 );
 
@@ -223,15 +222,15 @@ x = (
 
 x = (
   <div>
-    before {stuff} after {stuff} after {stuff} after {stuff} after {stuff} after
-    {" "}{stuff}  {stuff}  {stuff} after {stuff} after
+    before {stuff} after {stuff} after {stuff} after {stuff} after {stuff} after{" "}
+    {stuff}  {stuff}  {stuff} after {stuff} after
   </div>
 );
 
 x = (
   <div>
-    Please state your <b>name</b> and <b>occupation</b> for the board of
-    {" "}<b>school</b> directors.
+    Please state your <b>name</b> and <b>occupation</b> for the board of{" "}
+    <b>school</b> directors.
   </div>
 );
 
@@ -260,9 +259,9 @@ function DiffOverview(props) {
 x = (
   <font size={-3}>
     <i>
-      Starting at minute {graphActivity.startTime}, running for
-      {" "}{graphActivity.length} to minute
-      {" "}{graphActivity.startTime + graphActivity.length}
+      Starting at minute {graphActivity.startTime}, running for{" "}
+      {graphActivity.length} to minute{" "}
+      {graphActivity.startTime + graphActivity.length}
     </i>
   </font>
 );
@@ -290,12 +289,10 @@ x = (
 
 x = (
   <div>
-    First
-    {" "}
+    First{" "}
     <div>
       Second
-    </div>
-    {" "}
+    </div>{" "}
     Third
   </div>
 );
@@ -310,8 +307,7 @@ leading_whitespace = (
 trailing_whitespace = (
   <div>
     First Second Third Fourth Fifth Sixth Seventh Eighth Ninth Tenth Eleventh
-    Twelfth Thirteenth Fourteenth
-    {" "}
+    Twelfth Thirteenth Fourteenth{" "}
   </div>
 );
 
@@ -341,17 +337,15 @@ this_really_should_split_across_lines = (
 
 unstable_before = (
   <div className="yourScore">
-    Your score:
-    {" "}<span className="score">{\`\${mini.crosstable.users[
-      sessionUserId
-    ]} - \${mini.crosstable.users[user.id]}\`}</span>
+    Your score:{" "}
+    <span className="score">{\`\${mini.crosstable.users[sessionUserId]} - \${mini
+      .crosstable.users[user.id]}\`}</span>
   </div>
 );
 
 unstable_after_first_run = (
   <div className="yourScore">
-    Your score:
-    {" "}
+    Your score:{" "}
     <span className="score">{\`\${mini.crosstable.users[sessionUserId]} - \${mini
       .crosstable.users[user.id]}\`}</span>
   </div>
@@ -374,12 +368,10 @@ jsx_whitespace_on_newline = (
   <div>
     <div>
       First
-    </div>
-    {" "}
+    </div>{" "}
     <div>
       Second
-    </div>
-    {" "}
+    </div>{" "}
     <div>
       Third
     </div>
@@ -388,26 +380,25 @@ jsx_whitespace_on_newline = (
 
 jsx_around_multiline_element = (
   <div>
-    Before
-    {" "}<div>
+    Before{" "}
+    <div>
       {
         "Enough text to make this element wrap on to multiple lines when formatting"
       }
-    </div>
-    {" "}After
+    </div>{" "}
+    After
   </div>
 );
 
 jsx_around_multiline_element_second_pass = (
   <div>
-    Before
-    {" "}
+    Before{" "}
     <div>
       {
         "Enough text to make this element wrap on to multiple lines when formatting"
       }
-    </div>
-    {" "}After
+    </div>{" "}
+    After
   </div>
 );
 

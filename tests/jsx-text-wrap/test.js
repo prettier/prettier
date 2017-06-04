@@ -125,8 +125,7 @@ unstable_before =
 
 unstable_after_first_run = (
   <div className="yourScore">
-    Your score:
-    {" "}
+    Your score:{" "}
     <span className="score">{`${mini.crosstable.users[sessionUserId]} - ${mini
       .crosstable.users[user.id]}`}</span>
   </div>
@@ -151,12 +150,12 @@ jsx_around_multiline_element =
 
 jsx_around_multiline_element_second_pass = (
   <div>
-    Before
-    {" "}<div>
+    Before{" "}
+    <div>
       {
         "Enough text to make this element wrap on to multiple lines when formatting"
       }
-    </div>
-    {" "}After
+    </div>{" "}
+    After
   </div>
 );
