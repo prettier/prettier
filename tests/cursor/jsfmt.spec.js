@@ -14,3 +14,11 @@ test("positions cursor relative to closest node, not SourceElement", () => {
     cursorOffset: 7
   });
 });
+
+test("keeps cursor inside formatted node", () => {
+  const code = "return         15";
+  expect(prettier.formatWithCursor(code, { cursorOffset: 14 })).toEqual({
+    formatted: "return 15;\n",
+    cursorOffset: 14 // TODO fix this
+  });
+});
