@@ -60,7 +60,10 @@ function mk_factorial() {
       if (eq(n, 1)) {
         return 1;
       }
-      return mul(factorial(sub(n, 1)), n);
+      return mul(
+        factorial(sub(n, 1)),
+        n
+      );
     };
   });
 }
