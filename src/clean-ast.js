@@ -125,6 +125,28 @@ function massageAST(ast) {
       delete newObj.key;
     }
 
+    // Remove raw and cooked values from TemplateElement when it's CSS
+    if (
+      ast.type === "JSXElement" &&
+      ast.openingElement.name.name === "style" &&
+      ast.openingElement.attributes.some(attr => attr.name.name === "jsx")
+    ) {
+      const templateLiterals = newObj.children
+        .filter(
+          child =>
+            child.type === "JSXExpressionContainer" &&
+            child.expression.type === "TemplateLiteral"
+        )
+        .map(container => container.expression);
+
+      const quasis = templateLiterals.reduce(
+        (quasis, templateLiteral) => quasis.concat(templateLiteral.quasis),
+        []
+      );
+
+      quasis.forEach(q => delete q.value);
+    }
+
     return newObj;
   }
   return ast;
