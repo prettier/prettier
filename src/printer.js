@@ -1738,7 +1738,6 @@ function genericPrintNoParens(path, options, print, args) {
     case "TemplateElement":
       return join(literalline, n.value.raw.split(/\r?\n/g));
     case "TemplateLiteral": {
-      /* Subtree parsing PoC */
       const parent = path.getParentNode();
       const parentParent = path.getParentNode(1);
       const isCSS =
@@ -1753,16 +1752,15 @@ function genericPrintNoParens(path, options, print, args) {
 
       if (isCSS) {
         const parseCss = eval("require")("./parser-postcss");
-
+        const newOptions = Object.assign({}, options, { parser: "postcss" });
         const text = n.quasis[0].value.raw;
-        const ast = parseCss(text, options);
-        let subtree = printAstToDoc(ast, options);
-        //HACK remove ending hardline
+        const ast = parseCss(text, newOptions);
+        let subtree = printAstToDoc(ast, newOptions);
+        // HACK remove ending hardline
         subtree = subtree.parts[0].parts[0];
         parts.push("`", indent(concat([line, subtree])), line, "`");
-        return concat(parts);
+        return group(concat(parts));
       }
-      /* Subtree parsing PoC */
 
       const expressions = path.map(print, "expressions");
 
