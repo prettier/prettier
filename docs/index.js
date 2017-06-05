@@ -12157,8 +12157,6 @@ function parse(text, opts) {
 
   if (opts.parser === "flow") {
     parseFunction = eval("require")("./src/parser-flow");
-  } else if (opts.parser === "graphql") {
-    parseFunction = eval("require")("./src/parser-graphql");
   } else if (opts.parser === "typescript") {
     parseFunction = eval("require")("./src/parser-typescript");
   } else if (opts.parser === "postcss") {

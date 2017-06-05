@@ -74,7 +74,7 @@ function genericPrint(path, options, print) {
     }
 
     default:
-      throw new Error("unknown graphql type: " + JSON.stringify(n.type));
+      throw new Error("unknown graphql type: " + JSON.stringify(n.kind));
   }
 }
 
