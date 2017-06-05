@@ -9,11 +9,13 @@ function parse(text) {
     const ast = parser.parse(text);
     return ast;
   } catch (error) {
-    const { GraphQLError } = require("graphql/error");
+    const GraphQLError = require("graphql/error").GraphQLError;
     if (error instanceof GraphQLError) {
-      const { message, locations: [{ line, column }] } = error;
-      throw createError(message, {
-        start: { line, column }
+      throw createError(error.message, {
+        start: {
+          line: error.locations[0].line,
+          column: error.locations[0].column
+        }
       });
     } else {
       throw error;
