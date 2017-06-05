@@ -3203,23 +3203,16 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-"typescript-eslint-parser@git://github.com/eslint/typescript-eslint-parser.git#32634f10b8c9bc4622762867d9d00e79ea1092fe":
+"typescript-eslint-parser@git://github.com/eslint/typescript-eslint-parser.git#806251524424e3ad91e750da0f76b8de25ed0b42":
   version "3.0.0"
-  resolved "git://github.com/eslint/typescript-eslint-parser.git#32634f10b8c9bc4622762867d9d00e79ea1092fe"
+  resolved "git://github.com/eslint/typescript-eslint-parser.git#806251524424e3ad91e750da0f76b8de25ed0b42"
   dependencies:
     lodash.unescape "4.0.1"
     semver "5.3.0"
 
-"typescript-eslint-parser@git://github.com/vjeux/typescript-eslint-parser.git#488ba4f273f52ee6ef8d951d7ae84d28231e2fe9":
-  version "3.0.0"
-  resolved "git://github.com/vjeux/typescript-eslint-parser.git#488ba4f273f52ee6ef8d951d7ae84d28231e2fe9"
-  dependencies:
-    lodash.unescape "4.0.1"
-    semver "5.3.0"
-
-typescript@2.3.2:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.3.2.tgz#f0f045e196f69a72f06b25fd3bd39d01c3ce9984"
+typescript@2.3.4:
+  version "2.3.4"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.3.4.tgz#3d38321828231e434f287514959c37a82b629f42"
 
 uglify-es@3.0.15:
   version "3.0.15"
