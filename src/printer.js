@@ -1761,7 +1761,7 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push("`", indent(concat([line, subtree])), line, "`");
         return group(concat(parts));
       }
-      
+
       const expressions = path.map(print, "expressions");
 
       parts.push("`");
