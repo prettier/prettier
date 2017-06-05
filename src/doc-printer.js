@@ -52,13 +52,12 @@ function fits(next, restCommands, width, mustBeFlat) {
     if (cmds.length === 0) {
       if (restIdx === 0) {
         return true;
-      } else {
-        cmds.push(restCommands[restIdx - 1]);
-
-        restIdx--;
-
-        continue;
       }
+      cmds.push(restCommands[restIdx - 1]);
+
+      restIdx--;
+
+      continue;
     }
 
     const x = cmds.pop();

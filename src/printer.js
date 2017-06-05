@@ -2115,9 +2115,9 @@ function genericPrintNoParens(path, options, print, args) {
 
       if (n.extra != null) {
         return printNumber(n.extra.raw);
-      } else {
-        return printNumber(n.raw);
       }
+      return printNumber(n.raw);
+
     case "StringTypeAnnotation":
       return "string";
     case "DeclareTypeAlias":
@@ -2843,12 +2843,10 @@ function printFunctionTypeParameters(path, options, print) {
     // for FunctionTypeAnnotation it's a single node
     if (paramsFieldIsArray) {
       return concat("<", join(", ", path.map(print, "typeParameters")), ">");
-    } else {
-      return path.call(print, "typeParameters");
     }
-  } else {
-    return "";
+    return path.call(print, "typeParameters");
   }
+  return "";
 }
 
 function printFunctionParams(path, print, options, expandArg) {
@@ -3573,9 +3571,8 @@ function isEmptyJSXElement(node) {
   const value = node.children[0].value;
   if (!/\S/.test(value) && /\n/.test(value)) {
     return true;
-  } else {
-    return false;
   }
+  return false;
 }
 
 // JSX Children are strange, mostly for two reasons:
@@ -4080,9 +4077,8 @@ function nodeStr(node, options, isFlowDirectiveLiteral) {
   if (isDirectiveLiteral) {
     if (canChangeDirectiveQuotes) {
       return enclosingQuote + rawContent + enclosingQuote;
-    } else {
-      return raw;
     }
+    return raw;
   }
 
   // It might sound unnecessary to use `makeString` even if `node.raw` already

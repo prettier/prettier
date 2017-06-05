@@ -337,9 +337,8 @@ function startsWithNoLookaheadToken(node, forbidFunctionAndClass) {
 function getLeftMost(node) {
   if (node.left) {
     return getLeftMost(node.left);
-  } else {
-    return node;
   }
+  return node;
 }
 
 function hasBlockComments(node) {

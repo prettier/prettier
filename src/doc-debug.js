@@ -35,9 +35,8 @@ function flattenDoc(doc) {
     });
   } else if (doc.contents) {
     return Object.assign({}, doc, { contents: flattenDoc(doc.contents) });
-  } else {
-    return doc;
   }
+  return doc;
 }
 
 function printDoc(doc) {
