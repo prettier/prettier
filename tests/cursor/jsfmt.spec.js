@@ -6,3 +6,11 @@ test("translates cursor correctly in basic case", () => {
     cursorOffset: 1
   });
 });
+
+test("keeps cursor inside formatted node", () => {
+  const code = "return         15";
+  expect(prettier.formatWithCursor(code, { cursorOffset: 15 })).toEqual({
+    formatted: "return 15;\n",
+    cursorOffset: 15
+  });
+});
