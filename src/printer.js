@@ -50,6 +50,8 @@ function shouldPrintComma(options, level) {
 
 function getPrintFunction(options) {
   switch (options.parser) {
+    case "graphql":
+      return require("./printer-graphql");
     case "postcss":
       return require("./printer-postcss");
     default:
@@ -180,7 +182,7 @@ function genericPrintNoParens(path, options, print, args) {
   }
 
   let parts = [];
-  switch (n.type || n.kind) {
+  switch (n.type) {
     case "File":
       return path.call(print, "program");
     case "Program":
@@ -2565,6 +2567,7 @@ function genericPrintNoParens(path, options, print, args) {
       return path.call(bodyPath => {
         return printStatementSequence(bodyPath, options, print);
       }, "body");
+<<<<<<< HEAD
     // postcss
     case "css-root": {
       return concat([printNodeSequence(path, options, print), hardline]);
@@ -2915,9 +2918,11 @@ function genericPrintNoParens(path, options, print, args) {
         path.call(print, "value")
       ]);
     }
+=======
+>>>>>>> Splitting out graphql printer
 
     default:
-      throw new Error("unknown type: " + JSON.stringify(n.type || n.kind));
+      throw new Error("unknown type: " + JSON.stringify(n.type));
   }
 }
 

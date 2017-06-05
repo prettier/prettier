@@ -30,7 +30,6 @@ function attachComments(text, ast, opts) {
 
 function ensureAllCommentsPrinted(astComments) {
   if (!astComments) {
-    // The GraphQL AST doesn't currently include comments
     return;
   }
 
