@@ -4001,7 +4001,7 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
       const followedByJSXWhitespace =
         next &&
         next.type === "JSXExpressionContainer" &&
-        next.expression.type === "Literal" &&
+        isLiteral(next.expression) &&
         next.expression.value === " ";
 
       if (followedByJSXElement && !followedByJSXWhitespace) {
