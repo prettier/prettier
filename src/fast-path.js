@@ -405,15 +405,49 @@ FastPath.prototype.needsParens = function() {
         parent.type === "IntersectionTypeAnnotation"
       );
 
-    case "NumericLiteral":
-    case "Literal":
+    case "Literal": {
+      const isDirectiveAllowed = (node, nodes) => {
+        let directiveAllowed = true;
+        nodes.some(parentNode => {
+          if (parentNode === node) {
+            return true;
+          }
+
+          // If we find a node which is not an ExpressionStatement with
+          // a string literal or it is but it is not a directive, we know
+          // that no directive can follow this statement
+          if (
+            parentNode.type !== "ExpressionStatement" ||
+            parentNode.expression.type !== "Literal" ||
+            typeof parentNode.expression.value !== "string" ||
+            typeof parentNode.directive !== "string"
+          ) {
+            directiveAllowed = false;
+            return true;
+          }
+        });
+
+        return directiveAllowed;
+      };
+
+      const grandParent = this.getParentNode(1);
+      if (
+        typeof node.value === "string" &&
+        parent.type === "ExpressionStatement" &&
+        (grandParent.type === "Program" ||
+          grandParent.type === "BlockStatement") &&
+        isDirectiveAllowed(parent, grandParent.body)
+      ) {
+        return true;
+      }
+
       return (
         parent.type === "MemberExpression" &&
         typeof node.value === "number" &&
         name === "object" &&
         parent.object === node
       );
-
+    }
     case "AssignmentExpression": {
       const grandParent = this.getParentNode(1);
 
@@ -523,9 +557,6 @@ FastPath.prototype.needsParens = function() {
 
     case "ClassExpression":
       return parent.type === "ExportDefaultDeclaration";
-
-    case "StringLiteral":
-      return parent.type === "ExpressionStatement"; // To avoid becoming a directive
   }
 
   return false;
@@ -537,7 +568,6 @@ function isStatement(node) {
     node.type === "BreakStatement" ||
     node.type === "ClassBody" ||
     node.type === "ClassDeclaration" ||
-    node.type === "ClassMethod" ||
     node.type === "ClassProperty" ||
     node.type === "ContinueStatement" ||
     node.type === "DebuggerStatement" ||
