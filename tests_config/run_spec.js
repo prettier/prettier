@@ -16,7 +16,7 @@ function run_spec(dirname, options, additionalParsers) {
   fs.readdirSync(dirname).forEach(filename => {
     const extension = extname(filename);
     if (
-      /^\.([jt]sx?|graphql)$/.test(extension) &&
+      /^\.([jt]sx?|css|graphql)$/.test(extension) &&
       filename !== "jsfmt.spec.js"
     ) {
       const path = dirname + "/" + filename;
