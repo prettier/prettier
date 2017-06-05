@@ -12,3 +12,9 @@ function*g() {
 async function g() {
   const test = (await 'foo') as number;
 }
+({}) as X;
+() => ({}) as X;
+const state = JSON.stringify({
+  next: window.location.href,
+  nonce,
+} as State);

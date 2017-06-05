@@ -324,6 +324,11 @@ function startsWithNoLookaheadToken(node, forbidFunctionAndClass) {
         node.expressions[0],
         forbidFunctionAndClass
       );
+    case "TSAsExpression":
+      return startsWithNoLookaheadToken(
+        node.expression,
+        forbidFunctionAndClass
+      );
     default:
       return false;
   }

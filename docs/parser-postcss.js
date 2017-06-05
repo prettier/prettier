@@ -1577,7 +1577,7 @@ exports.compareByGeneratedPositionsInflated = compareByGeneratedPositionsInflate
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 var escapeStringRegexp = __webpack_require__(90);
-var ansiStyles = __webpack_require__(88);
+var ansiStyles = __webpack_require__(87);
 var stripAnsi = __webpack_require__(152);
 var hasAnsi = __webpack_require__(91);
 var supportsColor = __webpack_require__(89);
@@ -2795,7 +2795,7 @@ exports.SourceNode = __webpack_require__(151).SourceNode;
 
 
 
-var base64 = __webpack_require__(87);
+var base64 = __webpack_require__(88);
 var ieee754 = __webpack_require__(92);
 var isArray = __webpack_require__(93);
 
@@ -14877,10 +14877,12 @@ module.exports = parser;
 "use strict";
 
 
-function createError(message, line, column) {
+function createError(message, loc) {
   // Construct an error similar to the ones thrown by Babylon.
-  const error = new SyntaxError(message + " (" + line + ":" + column + ")");
-  error.loc = { line, column };
+  const error = new SyntaxError(
+    message + " (" + loc.start.line + ":" + loc.start.column + ")"
+  );
+  error.loc = loc;
   return error;
 }
 
@@ -14889,6 +14891,79 @@ module.exports = createError;
 
 /***/ }),
 /* 87 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(module) {
+
+function assembleStyles () {
+	var styles = {
+		modifiers: {
+			reset: [0, 0],
+			bold: [1, 22], // 21 isn't widely supported and 22 does the same thing
+			dim: [2, 22],
+			italic: [3, 23],
+			underline: [4, 24],
+			inverse: [7, 27],
+			hidden: [8, 28],
+			strikethrough: [9, 29]
+		},
+		colors: {
+			black: [30, 39],
+			red: [31, 39],
+			green: [32, 39],
+			yellow: [33, 39],
+			blue: [34, 39],
+			magenta: [35, 39],
+			cyan: [36, 39],
+			white: [37, 39],
+			gray: [90, 39]
+		},
+		bgColors: {
+			bgBlack: [40, 49],
+			bgRed: [41, 49],
+			bgGreen: [42, 49],
+			bgYellow: [43, 49],
+			bgBlue: [44, 49],
+			bgMagenta: [45, 49],
+			bgCyan: [46, 49],
+			bgWhite: [47, 49]
+		}
+	};
+
+	// fix humans
+	styles.colors.grey = styles.colors.gray;
+
+	Object.keys(styles).forEach(function (groupName) {
+		var group = styles[groupName];
+
+		Object.keys(group).forEach(function (styleName) {
+			var style = group[styleName];
+
+			styles[styleName] = group[styleName] = {
+				open: '\u001b[' + style[0] + 'm',
+				close: '\u001b[' + style[1] + 'm'
+			};
+		});
+
+		Object.defineProperty(styles, groupName, {
+			value: group,
+			enumerable: false
+		});
+	});
+
+	return styles;
+}
+
+Object.defineProperty(module, 'exports', {
+	enumerable: true,
+	get: assembleStyles
+});
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(156)(module)));
+
+/***/ }),
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15007,79 +15082,6 @@ function fromByteArray (uint8) {
   return parts.join('')
 }
 
-
-/***/ }),
-/* 88 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(module) {
-
-function assembleStyles () {
-	var styles = {
-		modifiers: {
-			reset: [0, 0],
-			bold: [1, 22], // 21 isn't widely supported and 22 does the same thing
-			dim: [2, 22],
-			italic: [3, 23],
-			underline: [4, 24],
-			inverse: [7, 27],
-			hidden: [8, 28],
-			strikethrough: [9, 29]
-		},
-		colors: {
-			black: [30, 39],
-			red: [31, 39],
-			green: [32, 39],
-			yellow: [33, 39],
-			blue: [34, 39],
-			magenta: [35, 39],
-			cyan: [36, 39],
-			white: [37, 39],
-			gray: [90, 39]
-		},
-		bgColors: {
-			bgBlack: [40, 49],
-			bgRed: [41, 49],
-			bgGreen: [42, 49],
-			bgYellow: [43, 49],
-			bgBlue: [44, 49],
-			bgMagenta: [45, 49],
-			bgCyan: [46, 49],
-			bgWhite: [47, 49]
-		}
-	};
-
-	// fix humans
-	styles.colors.grey = styles.colors.gray;
-
-	Object.keys(styles).forEach(function (groupName) {
-		var group = styles[groupName];
-
-		Object.keys(group).forEach(function (styleName) {
-			var style = group[styleName];
-
-			styles[styleName] = group[styleName] = {
-				open: '\u001b[' + style[0] + 'm',
-				close: '\u001b[' + style[1] + 'm'
-			};
-		});
-
-		Object.defineProperty(styles, groupName, {
-			value: group,
-			enumerable: false
-		});
-	});
-
-	return styles;
-}
-
-Object.defineProperty(module, 'exports', {
-	enumerable: true,
-	get: assembleStyles
-});
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(156)(module)));
 
 /***/ }),
 /* 89 */
@@ -24910,9 +24912,10 @@ function parseValueNodes(nodes) {
   const commaGroupStack = [commaGroup];
 
   for (let i = 0; i < nodes.length; ++i) {
-    if (nodes[i].type === "paren" && nodes[i].value === "(") {
+    const node = nodes[i];
+    if (node.type === "paren" && node.value === "(") {
       parenGroup = {
-        open: nodes[i],
+        open: node,
         close: null,
         groups: [],
         type: "paren_group"
@@ -24924,11 +24927,11 @@ function parseValueNodes(nodes) {
         type: "comma_group"
       };
       commaGroupStack.push(commaGroup);
-    } else if (nodes[i].type === "paren" && nodes[i].value === ")") {
+    } else if (node.type === "paren" && node.value === ")") {
       if (commaGroup.groups.length) {
         parenGroup.groups.push(commaGroup);
       }
-      parenGroup.close = nodes[i];
+      parenGroup.close = node;
 
       if (commaGroupStack.length === 1) {
         throw new Error("Unbalanced parenthesis");
@@ -24940,7 +24943,7 @@ function parseValueNodes(nodes) {
 
       parenGroupStack.pop();
       parenGroup = parenGroupStack[parenGroupStack.length - 1];
-    } else if (nodes[i].type === "comma") {
+    } else if (node.type === "comma") {
       parenGroup.groups.push(commaGroup);
       commaGroup = {
         groups: [],
@@ -24948,7 +24951,7 @@ function parseValueNodes(nodes) {
       };
       commaGroupStack[commaGroupStack.length - 1] = commaGroup;
     } else {
-      commaGroup.groups.push(nodes[i]);
+      commaGroup.groups.push(node);
     }
   }
   if (commaGroup.groups.length > 0) {
@@ -25055,12 +25058,9 @@ function parseNestedCSS(node) {
       try {
         node.value = parseValue(node.value);
       } catch (e) {
-        const line = +(e.toString().match(/line: ([0-9]+)/) || [1, 1])[1];
-        const column = +(e.toString().match(/column ([0-9]+)/) || [0, 0])[1];
         throw createError(
           "(postcss-values-parser) " + e.toString(),
-          node.source.start.line + line - 1,
-          node.source.start.column + column + node.prop.length
+          node.source
         );
       }
     }
@@ -25079,7 +25079,7 @@ function parseWithParser(parser, text) {
     if (typeof e.line !== "number") {
       throw e;
     }
-    throw createError("(postcss) " + e.name + " " + e.reason, e.line, e.column);
+    throw createError("(postcss) " + e.name + " " + e.reason, { start: e });
   }
   const prefixedResult = addTypePrefix(result, "css-");
   const parsedResult = parseNestedCSS(prefixedResult);

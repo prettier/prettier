@@ -465,6 +465,11 @@ function startsWithNoLookaheadToken(node, forbidFunctionAndClass) {
         node.expressions[0],
         forbidFunctionAndClass
       );
+    case "TSAsExpression":
+      return startsWithNoLookaheadToken(
+        node.expression,
+        forbidFunctionAndClass
+      );
     default:
       return false;
   }
@@ -598,7 +603,12 @@ function getSortedChildNodes(node, text, resultArray) {
     });
   }
 
-  for (let i = 0, nameCount = names.length; i < nameCount; ++i) {
+  for (
+    let i = 0,
+      nameCount = names.length;
+    i < nameCount;
+    ++i
+  ) {
     getSortedChildNodes(node[names[i]], text, resultArray);
   }
 
@@ -612,7 +622,8 @@ function decorateComment(node, comment, text) {
   const childNodes = getSortedChildNodes(node, text);
   let precedingNode, followingNode;
   // Time to dust off the old binary search robes and wizard hat.
-  let left = 0, right = childNodes.length;
+  let left = 0,
+    right = childNodes.length;
   while (left < right) {
     const middle = (left + right) >> 1;
     const child = childNodes[middle];
@@ -1336,9 +1347,9 @@ function printComment(commentPath, options) {
       return "/*" + comment.value + "*/";
     case "CommentLine":
     case "Line":
-      // Don't print the shebang, it's taken care of in index.js
+      // Print shebangs with the proper comment characters
       if (options.originalText.slice(util$1.locStart(comment)).startsWith("#!")) {
-        return "";
+        return "#!" + comment.value;
       }
       return "//" + comment.value;
     default:
@@ -1510,7 +1521,7 @@ var comments$1 = {
 };
 
 var name = "prettier";
-var version$1 = "1.4.0";
+var version$1 = "1.4.2";
 var description = "Prettier is an opinionated JavaScript formatter";
 var bin = {"prettier":"./bin/prettier.js"};
 var repository = "prettier/prettier";
@@ -1518,7 +1529,7 @@ var author = "James Long";
 var license = "MIT";
 var main = "./index.js";
 var dependencies = {};
-var devDependencies = {"babel-code-frame":"6.22.0","babylon":"7.0.0-beta.10","chalk":"1.1.3","cross-spawn":"5.1.0","diff":"3.2.0","eslint":"3.19.0","eslint-plugin-prettier":"2.1.1","esutils":"2.0.2","flow-parser":"0.47.0","get-stdin":"5.0.1","glob":"7.1.2","jest":"20.0.0","jest-validate":"20.0.3","minimist":"1.2.0","mkdirp":"^0.5.1","postcss":"^6.0.1","postcss-less":"^1.0.0","postcss-media-query-parser":"0.2.3","postcss-scss":"1.0.0","postcss-selector-parser":"2.2.3","postcss-values-parser":"git://github.com/shellscape/postcss-values-parser.git#5e351360479116f3fe309602cdd15b0a233bc29f","prettier":"1.3.1","rimraf":"2.6.1","rollup":"0.41.1","rollup-plugin-commonjs":"7.0.0","rollup-plugin-json":"2.1.0","rollup-plugin-node-builtins":"2.0.0","rollup-plugin-node-globals":"1.1.0","rollup-plugin-node-resolve":"2.0.0","rollup-plugin-replace":"1.1.1","typescript":"2.3.2","typescript-eslint-parser":"git://github.com/eslint/typescript-eslint-parser.git#32634f10b8c9bc4622762867d9d00e79ea1092fe","uglify-es":"mishoo/UglifyJS2#harmony","webpack":"2.6.1"};
+var devDependencies = {"babel-code-frame":"7.0.0-alpha.12","babylon":"7.0.0-beta.10","chalk":"1.1.3","cross-spawn":"5.1.0","diff":"3.2.0","eslint":"3.19.0","eslint-plugin-prettier":"2.1.1","esutils":"2.0.2","flow-parser":"0.47.0","get-stdin":"5.0.1","glob":"7.1.2","jest":"20.0.0","jest-validate":"20.0.3","minimist":"1.2.0","mkdirp":"^0.5.1","postcss":"^6.0.1","postcss-less":"^1.0.0","postcss-media-query-parser":"0.2.3","postcss-scss":"1.0.0","postcss-selector-parser":"2.2.3","postcss-values-parser":"git://github.com/shellscape/postcss-values-parser.git#5e351360479116f3fe309602cdd15b0a233bc29f","prettier":"1.4.0","rimraf":"2.6.1","rollup":"0.41.1","rollup-plugin-commonjs":"7.0.0","rollup-plugin-json":"2.1.0","rollup-plugin-node-builtins":"2.0.0","rollup-plugin-node-globals":"1.1.0","rollup-plugin-node-resolve":"2.0.0","rollup-plugin-replace":"1.1.1","typescript":"2.3.2","typescript-eslint-parser":"git://github.com/vjeux/typescript-eslint-parser.git#488ba4f273f52ee6ef8d951d7ae84d28231e2fe9","uglify-es":"3.0.15","webpack":"2.6.1"};
 var scripts = {"test":"jest","test-integration":"jest tests_integration","lint":"eslint .","build":"./scripts/build/build.sh","build:docs":"rollup -c docs/rollup.config.js"};
 var jest = {"setupFiles":["<rootDir>/tests_config/run_spec.js"],"snapshotSerializers":["<rootDir>/tests_config/raw-serializer.js"],"testRegex":"jsfmt\\.spec\\.js$|__tests__/.*\\.js$","testPathIgnorePatterns":["tests/new_react","tests/more_react"]};
 var _package = {
@@ -1906,7 +1917,8 @@ FastPath$1.prototype.needsParens = function() {
     case "YieldExpression":
       if (
         parent.type === "UnaryExpression" ||
-        parent.type === "AwaitExpression"
+        parent.type === "AwaitExpression" ||
+        parent.type === "TSAsExpression"
       ) {
         return true;
       }
@@ -1918,6 +1930,7 @@ FastPath$1.prototype.needsParens = function() {
         case "LogicalExpression":
         case "SpreadElement":
         case "SpreadProperty":
+        case "TSAsExpression":
           return true;
 
         case "MemberExpression":
@@ -2070,9 +2083,6 @@ FastPath$1.prototype.needsParens = function() {
         default:
           return false;
       }
-
-    case "ObjectExpression":
-      return parent.type === "TSAsExpression";
 
     case "ClassExpression":
       return parent.type === "ExportDefaultDeclaration";
@@ -2889,13 +2899,15 @@ function genericPrint(path, options, printPath, args) {
         node.decorators.length === 1 &&
         node.type !== "ClassDeclaration" &&
         node.type !== "MethodDefinition" &&
+        node.type !== "ClassMethod" &&
         (decorator.type === "Identifier" ||
           decorator.type === "MemberExpression" ||
           (decorator.type === "CallExpression" &&
-            decorator.arguments.length === 1 &&
-            (isStringLiteral(decorator.arguments[0]) ||
-              decorator.arguments[0].type === "Identifier" ||
-              decorator.arguments[0].type === "MemberExpression")))
+            (decorator.arguments.length === 0 ||
+              (decorator.arguments.length === 1 &&
+                (isStringLiteral(decorator.arguments[0]) ||
+                  decorator.arguments[0].type === "Identifier" ||
+                  decorator.arguments[0].type === "MemberExpression")))))
       ) {
         separator = " ";
       }
@@ -3174,6 +3186,9 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push("declare ");
       }
       parts.push(printFunctionDeclaration(path, print, options));
+      if (n.type === "TSNamespaceFunctionDeclaration" && !n.body) {
+        parts.push(semi);
+      }
       return concat$2(parts);
     case "ArrowFunctionExpression": {
       if (n.async) {
@@ -3600,18 +3615,21 @@ function genericPrintNoParens(path, options, print, args) {
       return concat$2(parts);
     case "ObjectExpression":
     case "ObjectPattern":
-    case "TSInterfaceBody":
     case "ObjectTypeAnnotation":
+    case "TSInterfaceBody":
     case "TSTypeLiteral": {
       const isTypeAnnotation = n.type === "ObjectTypeAnnotation";
-      const isTypeScriptInterfaceBody = n.type === "TSInterfaceBody";
-      // Leave this here because we *might* want to make this
-      // configurable later -- flow accepts ";" for type separators,
-      // typescript accepts ";" and newlines
-      let separator = isTypeAnnotation ? "," : ",";
-      if (isTypeScriptInterfaceBody) {
-        separator = semi;
-      }
+      const shouldBreak =
+        n.type !== "ObjectPattern" &&
+        util$4.hasNewlineInRange(
+          options.originalText,
+          util$4.locStart(n),
+          util$4.locEnd(n)
+        );
+      const separator = n.type === "TSInterfaceBody" ||
+        n.type === "TSTypeLiteral"
+        ? shouldBreak ? semi : ";"
+        : ",";
       const fields = [];
       const leftBrace = n.exact ? "{|" : "{";
       const rightBrace = n.exact ? "|}" : "}";
@@ -3659,8 +3677,10 @@ function genericPrintNoParens(path, options, print, args) {
 
       const lastElem = util$4.getLast(n[propertiesField]);
 
-      const canHaveTrailingSeparator = !(lastElem &&
-        (lastElem.type === "RestProperty" || lastElem.type === "RestElement"));
+      const canHaveTrailingSeparator = !(
+        lastElem &&
+        (lastElem.type === "RestProperty" || lastElem.type === "RestElement")
+      );
 
       let content;
       if (props.length === 0 && !n.typeAnnotation) {
@@ -3710,14 +3730,6 @@ function genericPrintNoParens(path, options, print, args) {
       ) {
         return content;
       }
-
-      const shouldBreak =
-        n.type !== "ObjectPattern" &&
-        util$4.hasNewlineInRange(
-          options.originalText,
-          util$4.locStart(n),
-          util$4.locEnd(n)
-        );
 
       return group$1(content, { shouldBreak });
     }
@@ -3788,8 +3800,9 @@ function genericPrintNoParens(path, options, print, args) {
         }
       } else {
         const lastElem = util$4.getLast(n.elements);
-        const canHaveTrailingComma = !(lastElem &&
-          lastElem.type === "RestElement");
+        const canHaveTrailingComma = !(
+          lastElem && lastElem.type === "RestElement"
+        );
 
         // JavaScript allows you to have empty elements in an array which
         // changes its length based on the number of commas. The algorithm
@@ -3951,6 +3964,16 @@ function genericPrintNoParens(path, options, print, args) {
         return print(childPath);
       }, "declarations");
 
+      // We generally want to terminate all variable declarations with a
+      // semicolon, except when they in the () part of for loops.
+      const parentNode = path.getParentNode();
+
+      const isParentForLoop =
+        parentNode.type === "ForStatement" ||
+        parentNode.type === "ForInStatement" ||
+        parentNode.type === "ForOfStatement" ||
+        parentNode.type === "ForAwaitStatement";
+
       const hasValue = n.declarations.some(decl => decl.init);
 
       parts = [
@@ -3961,20 +3984,12 @@ function genericPrintNoParens(path, options, print, args) {
           concat$2(
             printed
               .slice(1)
-              .map(p => concat$2([",", hasValue ? hardline$2 : line$1, p]))
+              .map(p =>
+                concat$2([",", hasValue && !isParentForLoop ? hardline$2 : line$1, p])
+              )
           )
         )
       ];
-
-      // We generally want to terminate all variable declarations with a
-      // semicolon, except when they in the () part of for loops.
-      const parentNode = path.getParentNode();
-
-      const isParentForLoop =
-        parentNode.type === "ForStatement" ||
-        parentNode.type === "ForInStatement" ||
-        parentNode.type === "ForOfStatement" ||
-        parentNode.type === "ForAwaitStatement";
 
       if (!(isParentForLoop && parentNode.body !== n)) {
         parts.push(semi);
@@ -4299,12 +4314,9 @@ function genericPrintNoParens(path, options, print, args) {
       return concat$2(parts);
     case "JSXIdentifier":
       // Can be removed when this is fixed:
-      // https://github.com/eslint/typescript-eslint-parser/issues/257
-      if (n.object && n.property) {
-        return join$2(".", [
-          path.call(print, "object"),
-          path.call(print, "property")
-        ]);
+      // https://github.com/eslint/typescript-eslint-parser/issues/307
+      if (!n.name) {
+        return "this";
       }
       return "" + n.name;
     case "JSXNamespacedName":
@@ -4453,15 +4465,15 @@ function genericPrintNoParens(path, options, print, args) {
       return concat$2(parts);
     case "ClassProperty":
     case "TSAbstractClassProperty": {
-      if (n.static) {
-        parts.push("static ");
-      }
       const variance = getFlowVariance(n);
       if (variance) {
         parts.push(variance);
       }
       if (n.accessibility) {
         parts.push(n.accessibility + " ");
+      }
+      if (n.static) {
+        parts.push("static ");
       }
       if (n.type === "TSAbstractClassProperty") {
         parts.push("abstract ");
@@ -4674,13 +4686,14 @@ function genericPrintNoParens(path, options, print, args) {
       const parentParentParent = path.getParentNode(2);
       let isArrowFunctionTypeAnnotation =
         n.type === "TSFunctionType" ||
-        !((parent.type === "ObjectTypeProperty" &&
-          !getFlowVariance(parent) &&
-          !parent.optional &&
-          util$4.locStart(parent) === util$4.locStart(n)) ||
+        !(
+          (parent.type === "ObjectTypeProperty" &&
+            !getFlowVariance(parent) &&
+            !parent.optional &&
+            util$4.locStart(parent) === util$4.locStart(n)) ||
           parent.type === "ObjectTypeCallProperty" ||
-          (parentParentParent &&
-            parentParentParent.type === "DeclareFunction"));
+          (parentParentParent && parentParentParent.type === "DeclareFunction")
+        );
 
       let needsColon =
         isArrowFunctionTypeAnnotation && parent.type === "TypeAnnotation";
@@ -4779,10 +4792,7 @@ function genericPrintNoParens(path, options, print, args) {
       for (let i = 0; i < types.length; ++i) {
         if (i === 0) {
           result.push(types[i]);
-        } else if (
-          n.types[i - 1].type !== "ObjectTypeAnnotation" &&
-          n.types[i].type !== "ObjectTypeAnnotation"
-        ) {
+        } else if (!isObjectType(n.types[i - 1]) && !isObjectType(n.types[i])) {
           // If no object is involved, go to the next line if it breaks
           result.push(indent$2(concat$2([" &", line$1, types[i]])));
         } else {
@@ -4807,9 +4817,11 @@ function genericPrintNoParens(path, options, print, args) {
       const shouldIndent =
         parent.type !== "TypeParameterInstantiation" &&
         parent.type !== "GenericTypeAnnotation" &&
-        !((parent.type === "TypeAlias" ||
-          parent.type === "VariableDeclarator") &&
-          hasLeadingOwnLineComment(options.originalText, n));
+        !(
+          (parent.type === "TypeAlias" ||
+            parent.type === "VariableDeclarator") &&
+          hasLeadingOwnLineComment(options.originalText, n)
+        );
 
       // {
       //   a: string
@@ -5247,11 +5259,11 @@ function genericPrintNoParens(path, options, print, args) {
           group$1(
             concat$2([
               "{",
-              options.bracketSpacing ? line$1 : softline$1,
               indent$2(
                 concat$2([
-                  softline$1,
-                  printArrayItems(path, options, "members", print)
+                  hardline$2,
+                  printArrayItems(path, options, "members", print),
+                  shouldPrintComma(options, "es5") ? "," : ""
                 ])
               ),
               comments$3.printDanglingComments(
@@ -5259,8 +5271,7 @@ function genericPrintNoParens(path, options, print, args) {
                 options,
                 /* sameIndent */ true
               ),
-              softline$1,
-              options.bracketSpacing ? line$1 : softline$1,
+              hardline$2,
               "}"
             ])
           )
@@ -6046,8 +6057,10 @@ function printFunctionParams(path, print, options, expandArg) {
     fun[paramsField][0].typeAnnotation &&
     flowTypeAnnotations.indexOf(fun[paramsField][0].typeAnnotation.type) !==
       -1 &&
-    !(fun[paramsField][0].typeAnnotation.type === "GenericTypeAnnotation" &&
-      fun[paramsField][0].typeAnnotation.typeParameters) &&
+    !(
+      fun[paramsField][0].typeAnnotation.type === "GenericTypeAnnotation" &&
+      fun[paramsField][0].typeAnnotation.typeParameters
+    ) &&
     !fun.rest;
 
   if (isFlowShorthandWithOneArg) {
@@ -6204,7 +6217,8 @@ function printExportDeclaration(path, options, print) {
     if (
       decl.type === "ExportDefaultDeclaration" &&
       (decl.declaration.type !== "ClassDeclaration" &&
-        decl.declaration.type !== "FunctionDeclaration")
+        decl.declaration.type !== "FunctionDeclaration" &&
+        decl.declaration.type !== "TSAbstractClassDeclaration")
     ) {
       parts.push(semi);
     }
@@ -6623,7 +6637,7 @@ function printMemberChain(path, options, print) {
     .reduce((res, group) => res.concat(group), []);
 
   const hasComment =
-    flatGroups.slice(1).some(node => hasLeadingComment(node.node)) ||
+    flatGroups.slice(1, -1).some(node => hasLeadingComment(node.node)) ||
     flatGroups.slice(0, -1).some(node => hasTrailingComment(node.node));
 
   // If we only have a single `.`, we shouldn't do anything fancy and just
@@ -7309,7 +7323,8 @@ function getLeftSide(node) {
     node.callee ||
     node.object ||
     node.tag ||
-    node.argument
+    node.argument ||
+    node.expression
   );
 }
 
@@ -7383,6 +7398,12 @@ function classChildNeedsASIProtection(node) {
     return;
   }
 
+  if (!node.computed) {
+    const name = node.key && node.key.name;
+    if (name === "in" || name === "instanceof") {
+      return true;
+    }
+  }
   switch (node.type) {
     case "ClassProperty":
     case "TSAbstractClassProperty":
@@ -7608,6 +7629,10 @@ function removeLines(doc) {
     }
     return d;
   });
+}
+
+function isObjectType(n) {
+  return n.type === "ObjectTypeAnnotation" || n.type === "TSTypeLiteral";
 }
 
 function printAstToDoc$1(ast, options, addAlignmentSize) {
@@ -7840,7 +7865,6 @@ function printDocToString$1(doc, options) {
               }
             // fallthrough
 
-
             case MODE_BREAK: {
               shouldRemeasure = false;
 
@@ -8022,7 +8046,6 @@ function printDocToString$1(doc, options) {
                 shouldRemeasure = true;
               }
             // fallthrough
-
 
             case MODE_BREAK:
               if (lineSuffix.length) {
@@ -11911,58 +11934,29 @@ var index$30 = createCommonjsModule(function (module, exports) {
 "use strict";
 
 exports.__esModule = true;
+exports.codeFrameColumns = codeFrameColumns;
 
 exports.default = function (rawLines, lineNumber, colNumber) {
   var opts = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
 
+  if (!deprecationWarningShown) {
+    deprecationWarningShown = true;
+
+    var deprecationError = new Error("Passing lineNumber and colNumber is deprecated to babel-code-frame. Please use `codeFrameColumns`.");
+    deprecationError.name = "DeprecationWarning";
+
+    if (process.emitWarning) {
+      process.emitWarning(deprecationError);
+    } else {
+      console.warn(deprecationError);
+    }
+  }
+
   colNumber = Math.max(colNumber, 0);
 
-  var highlighted = opts.highlightCode && _chalk2.default.supportsColor || opts.forceColor;
-  var chalk = _chalk2.default;
-  if (opts.forceColor) {
-    chalk = new _chalk2.default.constructor({ enabled: true });
-  }
-  var maybeHighlight = function maybeHighlight(chalkFn, string) {
-    return highlighted ? chalkFn(string) : string;
-  };
-  var defs = getDefs(chalk);
-  if (highlighted) rawLines = highlight(defs, rawLines);
+  var location = { start: { column: colNumber, line: lineNumber } };
 
-  var linesAbove = opts.linesAbove || 2;
-  var linesBelow = opts.linesBelow || 3;
-
-  var lines = rawLines.split(NEWLINE);
-  var start = Math.max(lineNumber - (linesAbove + 1), 0);
-  var end = Math.min(lines.length, lineNumber + linesBelow);
-
-  if (!lineNumber && !colNumber) {
-    start = 0;
-    end = lines.length;
-  }
-
-  var numberMaxWidth = String(end).length;
-
-  var frame = lines.slice(start, end).map(function (line, index) {
-    var number = start + 1 + index;
-    var paddedNumber = (" " + number).slice(-numberMaxWidth);
-    var gutter = " " + paddedNumber + " | ";
-    if (number === lineNumber) {
-      var markerLine = "";
-      if (colNumber) {
-        var markerSpacing = line.slice(0, colNumber - 1).replace(/[^\t]/g, " ");
-        markerLine = ["\n ", maybeHighlight(defs.gutter, gutter.replace(/\d/g, " ")), markerSpacing, maybeHighlight(defs.marker, "^")].join("");
-      }
-      return [maybeHighlight(defs.marker, ">"), maybeHighlight(defs.gutter, gutter), line, markerLine].join("");
-    } else {
-      return " " + maybeHighlight(defs.gutter, gutter) + line;
-    }
-  }).join("\n");
-
-  if (highlighted) {
-    return chalk.reset(frame);
-  } else {
-    return frame;
-  }
+  return codeFrameColumns(rawLines, location, opts);
 };
 
 var _jsTokens = index$32;
@@ -11978,6 +11972,8 @@ var _chalk = index$4;
 var _chalk2 = _interopRequireDefault(_chalk);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var deprecationWarningShown = false;
 
 function getDefs(chalk) {
   return {
@@ -12048,7 +12044,112 @@ function highlight(defs, text) {
   });
 }
 
-module.exports = exports["default"];
+function getMarkerLines(loc, source, opts) {
+  var startLoc = Object.assign({}, { column: 0, line: -1 }, loc.start);
+  var endLoc = Object.assign({}, startLoc, loc.end);
+  var linesAbove = opts.linesAbove || 2;
+  var linesBelow = opts.linesBelow || 3;
+
+  var startLine = startLoc.line;
+  var startColumn = startLoc.column;
+  var endLine = endLoc.line;
+  var endColumn = endLoc.column;
+
+  var start = Math.max(startLine - (linesAbove + 1), 0);
+  var end = Math.min(source.length, endLine + linesBelow);
+
+  if (startLine === -1) {
+    start = 0;
+  }
+
+  if (endLine === -1) {
+    end = source.length;
+  }
+
+  var lineDiff = endLine - startLine;
+  var markerLines = {};
+
+  if (lineDiff) {
+    for (var i = 0; i <= lineDiff; i++) {
+      var lineNumber = i + startLine;
+
+      if (!startColumn) {
+        markerLines[lineNumber] = true;
+      } else if (i === 0) {
+        var sourceLength = source[lineNumber - 1].length;
+
+        markerLines[lineNumber] = [startColumn, sourceLength - startColumn];
+      } else if (i === lineDiff) {
+        markerLines[lineNumber] = [0, endColumn];
+      } else {
+        var _sourceLength = source[lineNumber - i].length;
+
+        markerLines[lineNumber] = [0, _sourceLength];
+      }
+    }
+  } else {
+    if (startColumn === endColumn) {
+      if (startColumn) {
+        markerLines[startLine] = [startColumn, 0];
+      } else {
+        markerLines[startLine] = true;
+      }
+    } else {
+      markerLines[startLine] = [startColumn, endColumn - startColumn];
+    }
+  }
+
+  return { start: start, end: end, markerLines: markerLines };
+}
+
+function codeFrameColumns(rawLines, loc) {
+  var opts = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+  var highlighted = opts.highlightCode && _chalk2.default.supportsColor || opts.forceColor;
+  var chalk = _chalk2.default;
+  if (opts.forceColor) {
+    chalk = new _chalk2.default.constructor({ enabled: true });
+  }
+  var maybeHighlight = function maybeHighlight(chalkFn, string) {
+    return highlighted ? chalkFn(string) : string;
+  };
+  var defs = getDefs(chalk);
+  if (highlighted) rawLines = highlight(defs, rawLines);
+
+  var lines = rawLines.split(NEWLINE);
+
+  var _getMarkerLines = getMarkerLines(loc, lines, opts),
+      start = _getMarkerLines.start,
+      end = _getMarkerLines.end,
+      markerLines = _getMarkerLines.markerLines;
+
+  var numberMaxWidth = String(end).length;
+
+  var frame = lines.slice(start, end).map(function (line, index) {
+    var number = start + 1 + index;
+    var paddedNumber = (" " + number).slice(-numberMaxWidth);
+    var gutter = " " + paddedNumber + " | ";
+    var hasMarker = markerLines[number];
+    if (hasMarker) {
+      var markerLine = "";
+      if (Array.isArray(hasMarker)) {
+        var markerSpacing = line.slice(0, Math.max(hasMarker[0] - 1, 0)).replace(/[^\t]/g, " ");
+        var numberOfMarkers = hasMarker[1] || 1;
+
+        markerLine = ["\n ", maybeHighlight(defs.gutter, gutter.replace(/\d/g, " ")), markerSpacing, maybeHighlight(defs.marker, "^").repeat(numberOfMarkers)].join("");
+      }
+      return [maybeHighlight(defs.marker, ">"), maybeHighlight(defs.gutter, gutter), line, markerLine].join("");
+    } else {
+      return " " + maybeHighlight(defs.gutter, gutter) + line;
+    }
+  }).join("\n");
+
+  if (highlighted) {
+    return chalk.reset(frame);
+  } else {
+    return frame;
+  }
+}
 });
 
 function parse(text, opts) {
@@ -12071,7 +12172,7 @@ function parse(text, opts) {
 
     if (loc) {
       const codeFrame = index$30;
-      error.codeFrame = codeFrame(text, loc.line, loc.column, {
+      error.codeFrame = codeFrame.codeFrameColumns(text, loc, {
         highlightCode: true
       });
       error.message += "\n" + error.codeFrame;
@@ -12460,29 +12561,16 @@ function formatRange(text, opts, ast) {
   }
 }
 
-function formatWithShebang(text, opts) {
-  if (!text.startsWith("#!")) {
-    return format(text, opts);
-  }
-
-  const index = text.indexOf("\n");
-  const shebang = text.slice(0, index + 1);
-  const nextChar = text.charAt(index + 1);
-  const newLine = nextChar === "\n" ? "\n" : nextChar === "\r" ? "\r\n" : "";
-
-  return shebang + newLine + format(text, opts);
-}
-
 var index = {
   formatWithCursor: function(text, opts) {
     return formatWithCursor(text, normalizeOptions(opts));
   },
   format: function(text, opts) {
-    return formatWithShebang(text, normalizeOptions(opts));
+    return format(text, normalizeOptions(opts));
   },
   check: function(text, opts) {
     try {
-      const formatted = formatWithShebang(text, normalizeOptions(opts));
+      const formatted = format(text, normalizeOptions(opts));
       return formatted === text;
     } catch (e) {
       return false;

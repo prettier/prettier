@@ -4,7 +4,7 @@ cd "$(dirname "$0")";
 cd ../..;
 
 rm -Rf dist/
-rm docs/*.js
+rm -f docs/*.js
 
 echo 'The warning about eval being strongly discouraged is normal.'
 
@@ -50,3 +50,11 @@ node_modules/.bin/rollup -c scripts/build/rollup.docs.config.js --environment fi
 
 echo 'Bundling docs postcss...';
 node_modules/.bin/rollup -c scripts/build/rollup.docs.config.js --environment filepath:src/parser-postcss.js
+
+## --- Misc ---
+
+echo 'Remove eval'
+sed -i '' -e 's/eval("require")/require/g' dist/index.js dist/bin/prettier.js
+
+echo 'Copy package.json'
+cp package.json dist/
