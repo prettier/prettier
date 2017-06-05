@@ -126,8 +126,8 @@ const render6 = ({ styles }) =>
         attr4
       >
         ddd d dd d d dddd dddd <strong>hello</strong>
-      </div>
-      {" "}<strong>hello</strong>
+      </div>{" "}
+      <strong>hello</strong>
     </div>
   </div>;
 
