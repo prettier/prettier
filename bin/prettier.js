@@ -97,7 +97,8 @@ function getParserOption() {
     value === "flow" ||
     value === "babylon" ||
     value === "typescript" ||
-    value === "postcss"
+    value === "postcss" ||
+    value === "graphql"
   ) {
     return value;
   }
