@@ -23,6 +23,9 @@ node_modules/.bin/rollup -c scripts/build/rollup.parser.config.js --environment 
 echo 'Bundling lib flow...';
 node_modules/.bin/rollup -c scripts/build/rollup.parser.config.js --environment parser:flow
 
+echo 'Bundling lib graphql...';
+node_modules/.bin/rollup -c scripts/build/rollup.parser.config.js --environment parser:graphql
+
 echo 'Bundling lib typescript...';
 node_modules/.bin/rollup -c scripts/build/rollup.parser.config.js --environment parser:typescript
 
