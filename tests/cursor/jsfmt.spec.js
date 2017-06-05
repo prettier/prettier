@@ -11,6 +11,6 @@ test("keeps cursor inside formatted node", () => {
   const code = "return         15";
   expect(prettier.formatWithCursor(code, { cursorOffset: 15 })).toEqual({
     formatted: "return 15;\n",
-    cursorOffset: 10
+    cursorOffset: 8
   });
 });

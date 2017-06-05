@@ -64,11 +64,13 @@ function formatWithCursor(text, opts, addAlignmentSize) {
   }
 
   let cursorOffset;
+  let cursorOffsetEnd;
   if (opts.cursorOffset >= 0) {
     const cursorNodeAndParents = findNodeAtOffset(ast, opts.cursorOffset);
     const cursorNode = cursorNodeAndParents.node;
     if (cursorNode) {
       cursorOffset = opts.cursorOffset - util.locStart(cursorNode);
+      cursorOffsetEnd = opts.cursorOffset - util.locEnd(cursorNode);
       opts.cursorNode = cursorNode;
     }
   }
@@ -87,10 +89,20 @@ function formatWithCursor(text, opts, addAlignmentSize) {
   }
 
   if (cursorOffset !== undefined) {
-    return {
-      formatted: str,
-      cursorOffset: Math.min(cursorOffsetResult + cursorOffset, cursorNodeEnd)
-    };
+    if (cursorOffsetResult + cursorOffset < cursorNodeEnd) {
+      return {
+        formatted: str,
+        cursorOffset: cursorOffsetResult + cursorOffset
+      };
+    } else {
+      return {
+        formatted: str,
+        cursorOffset: Math.max(
+          cursorNodeEnd + cursorOffsetEnd,
+          cursorOffsetResult
+        )
+      };
+    }
   }
 
   return { formatted: str };
