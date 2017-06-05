@@ -204,9 +204,8 @@ function parseWithParser(parser, text) {
 function requireParser(isSCSS) {
   if (isSCSS) {
     return require("postcss-scss");
-  } else {
-    return require("postcss-less");
   }
+  return require("postcss-less");
 }
 
 function parse(text) {

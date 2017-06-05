@@ -95,13 +95,12 @@ function splitFileAndError(err) {
         .replace(/(Comment )".*"/, '$1"<omitted>"')
         .trim()
     };
-  } else {
-    console.error("Could not process error:", err);
-    return {
-      file: "?",
-      errorType: err
-    };
   }
+  console.error("Could not process error:", err);
+  return {
+    file: "?",
+    errorType: err
+  };
 }
 
 function writeErrorsToFiles() {
