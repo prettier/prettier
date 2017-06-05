@@ -844,11 +844,7 @@ function genericPrintNoParens(path, options, print, args) {
 
       let propertiesField;
 
-<<<<<<< HEAD
       if (n.type === "TSTypeLiteral") {
-=======
-      if (n.type === 'TSTypeLiteral') {
->>>>>>> a8ae9b36... Initial GraphQL implementation
         propertiesField = "members";
       } else if (n.type === "TSInterfaceBody") {
         propertiesField = "body";
@@ -2569,9 +2565,6 @@ function genericPrintNoParens(path, options, print, args) {
       return path.call(bodyPath => {
         return printStatementSequence(bodyPath, options, print);
       }, "body");
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
     // postcss
     case "css-root": {
       return concat([printNodeSequence(path, options, print), hardline]);
@@ -2868,14 +2861,9 @@ function genericPrintNoParens(path, options, print, args) {
     }
 >>>>>>> Initial GraphQL implementation
 
-=======
-
     // GraphQL
     case "Document": {
-      return concat([
-        join(hardline, path.map(print, "definitions")),
-        hardline
-      ]);
+      return concat([join(hardline, path.map(print, "definitions")), hardline]);
     }
     case "OperationDefinition": {
       return path.call(print, "selectionSet");
@@ -2883,12 +2871,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "SelectionSet": {
       return concat([
         "{",
-        indent(
-          concat([
-            hardline,
-            concat(path.map(print, "selections"))
-          ])
-        ),
+        indent(concat([hardline, concat(path.map(print, "selections"))])),
         hardline,
         "}"
       ]);
@@ -2904,11 +2887,14 @@ function genericPrintNoParens(path, options, print, args) {
                   indent(
                     concat([
                       softline,
-                      join(concat([",", softline]), path.map(print, "arguments"))
+                      join(
+                        concat([",", softline]),
+                        path.map(print, "arguments")
+                      )
                     ])
                   ),
                   softline,
-                  ") ",
+                  ") "
                 ])
               )
             : "",
@@ -2927,49 +2913,9 @@ function genericPrintNoParens(path, options, print, args) {
         path.call(print, "name"),
         ": ",
         path.call(print, "value")
-      ])
+      ]);
     }
 
-
-    // TODO
-    case "ClassHeritage":
-    // TODO
-    case "ComprehensionBlock":
-    // TODO
-    case "ComprehensionExpression":
-    // TODO
-    case "Glob":
-    // TODO
-    case "GeneratorExpression":
-    // TODO
-    case "LetStatement":
-    // TODO
-    case "LetExpression":
-    // TODO
-    case "GraphExpression":
-    // TODO
-    // XML types that nobody cares about or needs to print.
-    case "GraphIndexExpression":
-    case "XMLDefaultDeclaration":
-    case "XMLAnyName":
-    case "XMLQualifiedIdentifier":
-    case "XMLFunctionQualifiedIdentifier":
-    case "XMLAttributeSelector":
-    case "XMLFilterExpression":
-    case "XML":
-    case "XMLElement":
-    case "XMLList":
-    case "XMLEscape":
-    case "XMLText":
-    case "XMLStartTag":
-    case "XMLEndTag":
-    case "XMLPointTag":
-    case "XMLName":
-    case "XMLAttribute":
-    case "XMLCdata":
-    case "XMLComment":
-    case "XMLProcessingInstruction":
->>>>>>> a8ae9b36... Initial GraphQL implementation
     default:
       throw new Error("unknown type: " + JSON.stringify(n.type || n.kind));
   }

@@ -45,6 +45,9 @@ node_modules/.bin/rollup -c scripts/build/rollup.docs.config.js --environment fi
 echo 'Bundling docs flow...';
 node_modules/.bin/rollup -c scripts/build/rollup.docs.config.js --environment filepath:src/parser-flow.js
 
+echo 'Bundling docs graphql...';
+node_modules/.bin/rollup -c scripts/build/rollup.docs.config.js --environment filepath:src/parser-graphql.js
+
 echo 'Bundling docs typescript...';
 node_modules/.bin/rollup -c scripts/build/rollup.docs.config.js --environment filepath:src/parser-typescript.js
 
