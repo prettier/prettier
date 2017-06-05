@@ -1732,17 +1732,18 @@ function genericPrintNoParens(path, options, print, args) {
       /* Subtree parsing PoC */
       const parent = path.getParentNode();
       const parentParent = path.getParentNode(1);
-      const isStyledJsx =
+      const isCSS =
         n.quasis &&
         n.quasis.length === 1 &&
         parent.type === "JSXExpressionContainer" &&
         parentParent.type === "JSXElement" &&
+        parentParent.openingElement.name.name === "style" &&
         parentParent.openingElement.attributes.some(
           attribute => attribute.name.name === "jsx"
         );
 
-      if (isStyledJsx) {
-        const parseCss = require("./parser-postcss");
+      if (isCSS) {
+        const parseCss = eval("require")("./parser-postcss");
 
         const text = n.quasis[0].value.raw;
         const ast = parseCss(text, options);
