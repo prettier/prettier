@@ -9,6 +9,7 @@ const indent = docBuilders.indent;
 const lineSuffix = docBuilders.lineSuffix;
 const join = docBuilders.join;
 const cursor = docBuilders.cursor;
+const cursorNodeEnd = docBuilders.cursorNodeEnd;
 const util = require("./util");
 const childNodesCacheKey = Symbol("child-nodes");
 const locStart = util.locStart;
@@ -931,9 +932,9 @@ function printDanglingComments(path, options, sameIndent) {
   return indent(concat([hardline, join(hardline, parts)]));
 }
 
-function prependCursorPlaceholder(path, options, printed) {
+function addCursorPlaceholders(path, options, printed) {
   if (path.getNode() === options.cursorNode) {
-    return concat([cursor, printed]);
+    return concat([cursor, printed, cursorNodeEnd]);
   }
   return printed;
 }
@@ -944,7 +945,7 @@ function printComments(path, print, options, needsSemi) {
   const comments = value && value.comments;
 
   if (!comments || comments.length === 0) {
-    return prependCursorPlaceholder(path, options, printed);
+    return addCursorPlaceholders(path, options, printed);
   }
 
   const leadingParts = [];
@@ -971,7 +972,7 @@ function printComments(path, print, options, needsSemi) {
     }
   }, "comments");
 
-  return prependCursorPlaceholder(
+  return addCursorPlaceholders(
     path,
     options,
     concat(leadingParts.concat(trailingParts))

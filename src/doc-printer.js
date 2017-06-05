@@ -4,6 +4,7 @@ const docBuilders = require("./doc-builders");
 const concat = docBuilders.concat;
 const fill = docBuilders.fill;
 const cursor = docBuilders.cursor;
+const cursorNodeEnd = docBuilders.cursorNodeEnd;
 
 const MODE_BREAK = 1;
 const MODE_FLAT = 2;
@@ -159,6 +160,10 @@ function printDocToString(doc, options) {
       switch (doc.type) {
         case "cursor":
           out.push(cursor.placeholder);
+
+          break;
+        case "cursorNodeEnd":
+          out.push(cursorNodeEnd.placeholder);
 
           break;
         case "concat":
@@ -387,12 +392,13 @@ function printDocToString(doc, options) {
                   // Trim whitespace at the end of line
                   while (
                     out.length > 0 &&
+                    out[out.length - 1].match &&
                     out[out.length - 1].match(/^[^\S\n]*$/)
                   ) {
                     out.pop();
                   }
 
-                  if (out.length) {
+                  if (out.length && out[out.length - 1].replace) {
                     out[out.length - 1] = out[out.length - 1].replace(
                       /[^\S\n]*$/,
                       ""
@@ -416,13 +422,18 @@ function printDocToString(doc, options) {
   }
 
   const cursorPlaceholderIndex = out.indexOf(cursor.placeholder);
+  const cursorNodeEndPlaceholderIndex = out.indexOf(cursorNodeEnd.placeholder);
   if (cursorPlaceholderIndex !== -1) {
     const beforeCursor = out.slice(0, cursorPlaceholderIndex).join("");
-    const afterCursor = out.slice(cursorPlaceholderIndex + 1).join("");
+    const cursorNode = out
+      .slice(cursorPlaceholderIndex + 1, cursorNodeEndPlaceholderIndex)
+      .join("");
+    const afterCursor = out.slice(cursorNodeEndPlaceholderIndex + 1).join("");
 
     return {
-      formatted: beforeCursor + afterCursor,
-      cursor: beforeCursor.length
+      formatted: beforeCursor + cursorNode + afterCursor,
+      cursor: beforeCursor.length,
+      cursorNodeEnd: beforeCursor.length + cursorNode.length
     };
   }
 

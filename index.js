@@ -79,6 +79,7 @@ function formatWithCursor(text, opts, addAlignmentSize) {
   const toStringResult = printDocToString(doc, opts);
   const str = toStringResult.formatted;
   const cursorOffsetResult = toStringResult.cursor;
+  const cursorNodeEnd = toStringResult.cursorNodeEnd;
   ensureAllCommentsPrinted(astComments);
   // Remove extra leading indentation as well as the added indentation after last newline
   if (addAlignmentSize > 0) {
@@ -88,7 +89,7 @@ function formatWithCursor(text, opts, addAlignmentSize) {
   if (cursorOffset !== undefined) {
     return {
       formatted: str,
-      cursorOffset: cursorOffsetResult + cursorOffset
+      cursorOffset: Math.min(cursorOffsetResult + cursorOffset, cursorNodeEnd)
     };
   }
 
