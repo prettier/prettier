@@ -25089,9 +25089,8 @@ function parseWithParser(parser, text) {
 function requireParser(isSCSS) {
   if (isSCSS) {
     return __webpack_require__(83);
-  } else {
-    return __webpack_require__(81);
   }
+  return __webpack_require__(81);
 }
 
 function parse(text) {

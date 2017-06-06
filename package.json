@@ -11,7 +11,9 @@
   "main": "./index.js",
   "dependencies": {},
   "devDependencies": {
+    "babel-cli": "6.24.1",
     "babel-code-frame": "7.0.0-alpha.12",
+    "babel-preset-es2015": "6.24.1",
     "babylon": "7.0.0-beta.10",
     "chalk": "1.1.3",
     "cross-spawn": "5.1.0",
@@ -51,8 +53,7 @@
     "test": "jest",
     "test-integration": "jest tests_integration",
     "lint": "eslint .",
-    "build": "./scripts/build/build.sh",
-    "build:docs": "rollup -c docs/rollup.config.js"
+    "build": "./scripts/build/build.sh"
   },
   "jest": {
     "setupFiles": [
