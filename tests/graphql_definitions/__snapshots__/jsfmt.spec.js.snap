@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fields.graphql 1`] = `
+query MyFirstQuery {
+  hello
+}
+
+mutation
+MyFirstMutation {
+  world
+}
+
+subscription, ThisIsASub, {
+  excellent
+}
+
+, query, ThisIsASub, {
+  excellent
+}
+
+query {
+  noName
+}
+
+{
+  noOperationType
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+query MyFirstQuery {
+  hello
+}
+
+mutation MyFirstMutation {
+  world
+}
+
+subscription ThisIsASub {
+  excellent
+}
+
+query ThisIsASub {
+  excellent
+}
+
+query {
+  noName
+}
+
+{
+  noOperationType
+}
+
+`;
