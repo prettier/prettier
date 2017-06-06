@@ -25,8 +25,8 @@ function genericPrint(path, options, print) {
     }
     case "OperationDefinition": {
       return concat([
-        n.name === null ? "" : concat([n.operation, " "]),
-        path.call(print, "name"),
+        n.name === null ? "" : n.operation,
+        n.name ? concat([" ", path.call(print, "name")]) : "",
         n.variableDefinitions && n.variableDefinitions.length
           ? group(
               concat([
@@ -41,10 +41,12 @@ function genericPrint(path, options, print) {
                   ])
                 ),
                 softline,
-                ") "
+                ")"
               ])
             )
-          : n.name ? " " : "",
+          : "",
+        printDirectives(path, print, n),
+        n.selectionSet ? (n.name === null ? "" : " ") : "",
         path.call(print, "selectionSet")
       ]);
     }
@@ -54,6 +56,7 @@ function genericPrint(path, options, print) {
         path.call(print, "name"),
         " on ",
         path.call(print, "typeCondition"),
+        printDirectives(path, print, n),
         " ",
         path.call(print, "selectionSet")
       ]);
@@ -90,6 +93,7 @@ function genericPrint(path, options, print) {
                 ])
               )
             : "",
+          printDirectives(path, print, n),
           n.selectionSet ? " " : "",
           path.call(print, "selectionSet")
         ])
@@ -159,6 +163,31 @@ function genericPrint(path, options, print) {
       ]);
     }
 
+    case "Directive": {
+      return concat([
+        "@",
+        path.call(print, "name"),
+        n.arguments.length > 0
+          ? group(
+              concat([
+                "(",
+                indent(
+                  concat([
+                    softline,
+                    join(
+                      concat([",", ifBreak("", " "), softline]),
+                      path.map(print, "arguments")
+                    )
+                  ])
+                ),
+                softline,
+                ")"
+              ])
+            )
+          : ""
+      ]);
+    }
+
     case "NamedType": {
       return path.call(print, "name");
     }
@@ -173,7 +202,11 @@ function genericPrint(path, options, print) {
     }
 
     case "FragmentSpread": {
-      return concat(["...", path.call(print, "name")]);
+      return concat([
+        "...",
+        path.call(print, "name"),
+        printDirectives(path, print, n)
+      ]);
     }
 
     case "InlineFragment": {
@@ -182,6 +215,7 @@ function genericPrint(path, options, print) {
         n.typeCondition
           ? concat([" on ", path.call(print, "typeCondition")])
           : "",
+        printDirectives(path, print, n),
         " ",
         path.call(print, "selectionSet")
       ]);
@@ -190,6 +224,27 @@ function genericPrint(path, options, print) {
     default:
       throw new Error("unknown graphql type: " + JSON.stringify(n.kind));
   }
+}
+
+function printDirectives(path, print, n) {
+  if (n.directives.length === 0) {
+    return "";
+  }
+
+  return concat([
+    " ",
+    group(
+      indent(
+        concat([
+          softline,
+          join(
+            concat([ifBreak("", " "), softline]),
+            path.map(print, "directives")
+          )
+        ])
+      )
+    )
+  ]);
 }
 
 module.exports = genericPrint;
