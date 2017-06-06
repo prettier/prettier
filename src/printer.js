@@ -1756,12 +1756,25 @@ function genericPrintNoParens(path, options, print, args) {
         const parseCss = eval("require")("./parser-postcss");
         const newOptions = Object.assign({}, options, { parser: "postcss" });
         const text = n.quasis[0].value.raw;
-        const ast = parseCss(text, newOptions);
-        let subtree = printAstToDoc(ast, newOptions);
-        // HACK remove ending hardline
-        subtree = subtree.parts[0].parts[0];
-        parts.push("`", indent(concat([line, subtree])), line, "`");
-        return group(concat(parts));
+        try {
+          const ast = parseCss(text, newOptions);
+          let subtree = printAstToDoc(ast, newOptions);
+
+          // HACK remove ending hardline
+          assert.ok(
+            subtree.type === "concat" &&
+              subtree.parts[0].type === "concat" &&
+              subtree.parts[0].parts.length === 2 &&
+              subtree.parts[0].parts[1] === hardline
+          );
+          subtree = subtree.parts[0].parts[0];
+
+          parts.push("`", indent(concat([line, subtree])), line, "`");
+          return group(concat(parts));
+        } catch (error) {
+          // If CSS parsing (or printing) failed
+          // we give up and just print the TemplateElement as usual
+        }
       }
 
       const expressions = path.map(print, "expressions");
