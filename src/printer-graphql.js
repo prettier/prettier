@@ -27,7 +27,24 @@ function genericPrint(path, options, print) {
       return concat([
         n.name === null ? "" : concat([n.operation, " "]),
         path.call(print, "name"),
-        n.name ? " " : "",
+        n.variableDefinitions && n.variableDefinitions.length
+          ? group(
+              concat([
+                "(",
+                indent(
+                  concat([
+                    softline,
+                    join(
+                      concat([",", ifBreak("", " "), softline]),
+                      path.map(print, "variableDefinitions")
+                    )
+                  ])
+                ),
+                softline,
+                ") "
+              ])
+            )
+          : n.name ? " " : "",
         path.call(print, "selectionSet")
       ]);
     }
@@ -74,10 +91,9 @@ function genericPrint(path, options, print) {
     case "StringValue": {
       return concat(['"', n.value, '"']);
     }
-    case "IntValue": {
-      return n.value;
-    }
-    case "FloatValue": {
+    case "IntValue":
+    case "FloatValue":
+    case "EnumValue": {
       return n.value;
     }
     case "BooleanValue": {
@@ -109,6 +125,19 @@ function genericPrint(path, options, print) {
         path.call(print, "name"),
         ": ",
         path.call(print, "value")
+      ]);
+    }
+
+    case "NamedType": {
+      return path.call(print, "name");
+    }
+
+    case "VariableDefinition": {
+      return concat([
+        path.call(print, "variable"),
+        ": ",
+        path.call(print, "type"),
+        n.defaultValue ? concat([" = ", path.call(print, "defaultValue")]) : ""
       ]);
     }
 

@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`variable_definitions.graphql 1`] = `
+query short($foo:ComplexType, $site   : Site =         MOBILE) {
+  hello
+}
+
+query long($foo: ComplexType, $site: Float = 124241.12312,
+$bar: String = "Long string here", $arg: String = "Hello world!",,,,) {
+  hello
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+query short($foo: ComplexType, $site: Site = MOBILE) {
+  hello
+}
+
+query long(
+  $foo: ComplexType,
+  $site: Float = 124241.12312,
+  $bar: String = "Long string here",
+  $arg: String = "Hello world!"
+) {
+  hello
+}
+`;
