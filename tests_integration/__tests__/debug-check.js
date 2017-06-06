@@ -8,5 +8,15 @@ test("doesn't crash when --debug-check is passed", () => {
     "--debug-check"
   ]);
 
+  expect(result.stdout).toEqual("issue1890.js\n");
+  expect(result.stderr).toEqual("");
+});
+
+test("checks stdin with --debug-check", () => {
+  const result = runPrettier("cli/with-shebang", ["--debug-check"], {
+    input: "0"
+  });
+
+  expect(result.stdout).toEqual("(stdin)\n");
   expect(result.stderr).toEqual("");
 });
