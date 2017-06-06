@@ -8,6 +8,7 @@ test("doesn't crash when --debug-check is passed", () => {
     "--debug-check"
   ]);
 
+  expect(result.stdout).toEqual("issue1890.js\n");
   expect(result.stderr).toEqual("");
 });
 
