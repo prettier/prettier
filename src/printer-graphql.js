@@ -81,10 +81,28 @@ function genericPrint(path, options, print) {
       return n.value;
     }
     case "BooleanValue": {
-      return n.value ? 'true' : 'false';
+      return n.value ? "true" : "false";
     }
     case "Variable": {
-      return concat(["$", path.call(print, "name")])
+      return concat(["$", path.call(print, "name")]);
+    }
+    case "ListValue": {
+      return group(
+        concat([
+          "[",
+          indent(
+            concat([
+              softline,
+              join(
+                concat([",", ifBreak("", " "), softline]),
+                path.map(print, "values")
+              )
+            ])
+          ),
+          softline,
+          "]"
+        ])
+      );
     }
     case "Argument": {
       return concat([
