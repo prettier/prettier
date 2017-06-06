@@ -53,7 +53,7 @@ function genericPrint(path, options, print) {
                     ])
                   ),
                   softline,
-                  ") "
+                  ")"
                 ])
               )
             : "",
