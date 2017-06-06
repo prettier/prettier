@@ -86,6 +86,7 @@ const literalline = concat([
   breakParent
 ]);
 const cursor = { type: "cursor", placeholder: Symbol() };
+const cursorNodeEnd = { type: "cursorNodeEnd", placeholder: Symbol() };
 
 function join(sep, arr) {
   const res = [];
@@ -130,6 +131,7 @@ module.exports = {
   lineSuffix,
   lineSuffixBoundary,
   cursor,
+  cursorNodeEnd,
   breakParent,
   ifBreak,
   indent,
