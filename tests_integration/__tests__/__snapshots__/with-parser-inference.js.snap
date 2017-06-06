@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`infers postcss parser 1`] = `
+"/* JavaScript */
+\\"use strict\\";
+/* Stylesheet */
+* {
+  outline: none;
+}
+"
+`;
+
+exports[`infers postcss parser with --list-different 1`] = `""`;
