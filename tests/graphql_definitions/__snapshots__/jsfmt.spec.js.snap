@@ -49,5 +49,4 @@ query {
 {
   noOperationType
 }
-
 `;
