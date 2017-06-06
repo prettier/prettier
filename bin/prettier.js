@@ -299,7 +299,12 @@ if (stdin) {
     }
 
     if (argv["list-different"]) {
-      if (!prettier.check(input, options)) {
+      if (
+        !prettier.check(
+          input,
+          Object.assign({}, options, { filepath: filename })
+        )
+      ) {
         if (!write) {
           console.log(filename);
         }
