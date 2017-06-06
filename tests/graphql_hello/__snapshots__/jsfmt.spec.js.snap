@@ -12,5 +12,4 @@ exports[`hello.graphql 1`] = `
     tagline
   }
 }
-
 `;

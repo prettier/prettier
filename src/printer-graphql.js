@@ -20,10 +20,15 @@ function genericPrint(path, options, print) {
 
   switch (n.kind) {
     case "Document": {
-      return concat([join(hardline, path.map(print, "definitions")), hardline]);
+      return join(concat([hardline, hardline]), path.map(print, "definitions"));
     }
     case "OperationDefinition": {
-      return path.call(print, "selectionSet");
+      return concat([
+        n.name === null ? "" : concat([n.operation, " "]),
+        path.call(print, "name"),
+        n.name ? " " : "",
+        path.call(print, "selectionSet")
+      ]);
     }
     case "SelectionSet": {
       return concat([

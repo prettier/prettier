@@ -1,0 +1,24 @@
+query MyFirstQuery {
+  hello
+}
+
+mutation
+MyFirstMutation {
+  world
+}
+
+subscription, ThisIsASub, {
+  excellent
+}
+
+, query, ThisIsASub, {
+  excellent
+}
+
+query {
+  noName
+}
+
+{
+  noOperationType
+}
