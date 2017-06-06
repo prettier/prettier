@@ -1478,28 +1478,7 @@ function genericPrintNoParens(path, options, print, args) {
 
       if (consequent.length > 0) {
         const cons = path.call(consequentPath => {
-          return join(
-            hardline,
-            consequentPath
-              .map((p, i) => {
-                if (n.consequent[i].type === "EmptyStatement") {
-                  return null;
-                }
-                const shouldAddLine =
-                  i !== n.consequent.length - 1 &&
-                  util.isNextLineEmpty(options.originalText, p.getValue());
-                const printed = concat([
-                  print(p),
-                  shouldAddLine ? hardline : ""
-                ]);
-                // in no-semi mode, prepend statement with semicolon if it might break ASI
-                if (!options.semi && stmtNeedsASIProtection(p)) {
-                  return concat([";", printed]);
-                }
-                return printed;
-              })
-              .filter(e => e !== null)
-          );
+          return printStatementSequence(consequentPath, options, print);
         }, "consequent");
 
         parts.push(
@@ -4198,7 +4177,8 @@ function isLastStatement(path) {
     return true;
   }
   const node = path.getValue();
-  const body = parent.body.filter(stmt => stmt.type !== "EmptyStatement");
+  const body = (parent.body || parent.consequent)
+    .filter(stmt => stmt.type !== "EmptyStatement");
   return body && body[body.length - 1] === node;
 }
 
