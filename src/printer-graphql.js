@@ -48,6 +48,16 @@ function genericPrint(path, options, print) {
         path.call(print, "selectionSet")
       ]);
     }
+    case "FragmentDefinition": {
+      return concat([
+        "fragment ",
+        path.call(print, "name"),
+        " on ",
+        path.call(print, "typeCondition"),
+        " ",
+        path.call(print, "selectionSet")
+      ]);
+    }
     case "SelectionSet": {
       return concat([
         "{",
@@ -138,6 +148,21 @@ function genericPrint(path, options, print) {
         ": ",
         path.call(print, "type"),
         n.defaultValue ? concat([" = ", path.call(print, "defaultValue")]) : ""
+      ]);
+    }
+
+    case "FragmentSpread": {
+      return concat(["...", path.call(print, "name")]);
+    }
+
+    case "InlineFragment": {
+      return concat([
+        "...",
+        n.typeCondition
+          ? concat([" on ", path.call(print, "typeCondition")])
+          : "",
+        " ",
+        path.call(print, "selectionSet")
       ]);
     }
 
