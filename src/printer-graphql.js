@@ -28,7 +28,9 @@ function genericPrint(path, options, print) {
     case "SelectionSet": {
       return concat([
         "{",
-        indent(concat([hardline, concat(path.map(print, "selections"))])),
+        indent(
+          concat([hardline, join(hardline, path.map(print, "selections"))])
+        ),
         hardline,
         "}"
       ]);
@@ -55,6 +57,7 @@ function genericPrint(path, options, print) {
                 ])
               )
             : "",
+          n.selectionSet ? " " : "",
           path.call(print, "selectionSet")
         ])
       );

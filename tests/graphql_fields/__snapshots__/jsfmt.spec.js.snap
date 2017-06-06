@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fields.graphql 1`] = `
+{
+  posts {, title, votes, author {,   firstName,   posts {, author { firstName } }
+    }}
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+  posts {
+    title
+    votes
+    author {
+      firstName
+      posts {
+        author {
+          firstName
+        }
+      }
+    }
+  }
+}
+
+`;
