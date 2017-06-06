@@ -1488,7 +1488,15 @@ function genericPrintNoParens(path, options, print, args) {
                 const shouldAddLine =
                   i !== n.consequent.length - 1 &&
                   util.isNextLineEmpty(options.originalText, p.getValue());
-                return concat([print(p), shouldAddLine ? hardline : ""]);
+                const printed = concat([
+                  print(p),
+                  shouldAddLine ? hardline : ""
+                ]);
+                // in no-semi mode, prepend statement with semicolon if it might break ASI
+                if (!options.semi && stmtNeedsASIProtection(p)) {
+                  return concat([";", printed]);
+                }
+                return printed;
               })
               .filter(e => e !== null)
           );
