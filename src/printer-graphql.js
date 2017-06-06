@@ -7,6 +7,7 @@ const hardline = docBuilders.hardline;
 const softline = docBuilders.softline;
 const group = docBuilders.group;
 const indent = docBuilders.indent;
+const ifBreak = docBuilders.ifBreak;
 
 function genericPrint(path, options, print) {
   const n = path.getValue();
@@ -45,7 +46,7 @@ function genericPrint(path, options, print) {
                     concat([
                       softline,
                       join(
-                        concat([",", softline]),
+                        concat([",", ifBreak("", " "), softline]),
                         path.map(print, "arguments")
                       )
                     ])
@@ -64,6 +65,18 @@ function genericPrint(path, options, print) {
     }
     case "StringValue": {
       return concat(['"', n.value, '"']);
+    }
+    case "IntValue": {
+      return n.value;
+    }
+    case "FloatValue": {
+      return n.value;
+    }
+    case "BooleanValue": {
+      return n.value ? 'true' : 'false';
+    }
+    case "Variable": {
+      return concat(["$", path.call(print, "name")])
     }
     case "Argument": {
       return concat([

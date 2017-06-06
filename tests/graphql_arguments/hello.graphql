@@ -1,0 +1,4 @@
+{
+  short(var: $var, int: 5, float: 5.6, bool: true, string: "hello world!")
+  long(var: $thisIsAReallyLongVariableNameRight, int: 52342342342, float: 5.6, bool: true, string: "hello world this is a very long string!")
+}
