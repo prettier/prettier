@@ -130,6 +130,27 @@ function genericPrint(path, options, print) {
         ])
       );
     }
+    case "ObjectValue": {
+      return group(
+        concat([
+          "{",
+          n.fields.length > 0 ? " " : "",
+          indent(
+            concat([
+              softline,
+              join(
+                concat([",", ifBreak("", " "), softline]),
+                path.map(print, "fields")
+              )
+            ])
+          ),
+          softline,
+          ifBreak("", n.fields.length > 0 ? " " : ""),
+          "}"
+        ])
+      );
+    }
+    case "ObjectField":
     case "Argument": {
       return concat([
         path.call(print, "name"),
