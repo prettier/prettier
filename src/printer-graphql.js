@@ -74,6 +74,7 @@ function genericPrint(path, options, print) {
     case "Field": {
       return group(
         concat([
+          n.alias ? concat([path.call(print, "alias"), ": "]) : "",
           path.call(print, "name"),
           n.arguments.length > 0
             ? group(
@@ -112,6 +113,9 @@ function genericPrint(path, options, print) {
     }
     case "BooleanValue": {
       return n.value ? "true" : "false";
+    }
+    case "NullValue": {
+      return "null";
     }
     case "Variable": {
       return concat(["$", path.call(print, "name")]);
