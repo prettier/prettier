@@ -202,7 +202,7 @@ function format(input, opt) {
           diff(input, pp);
       }
     }
-    return {};
+    return { formatted: opt.filepath || "(stdin)\n" };
   }
 
   return prettier.formatWithCursor(input, opt);
@@ -280,7 +280,7 @@ if (stdin) {
   });
 } else {
   eachFilename(filepatterns, filename => {
-    if (write || argv["debug-check"]) {
+    if (write) {
       // Don't use `console.log` here since we need to replace this line.
       process.stdout.write(filename);
     }
@@ -358,7 +358,6 @@ if (stdin) {
         }
       }
     } else if (argv["debug-check"]) {
-      process.stdout.write("\n");
       if (output) {
         console.log(output);
       } else {
