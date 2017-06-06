@@ -1068,20 +1068,24 @@ function genericPrintNoParens(path, options, print, args) {
         parent.type === "ForStatement" ||
         parent.type === "ExpressionStatement";
 
-      if (shouldInline) {
-        return join(", ", path.map(print, "expressions"));
-      }
-      return group(
-        concat([
-          indent(
+      const printed = shouldInline
+        ? join(", ", path.map(print, "expressions"))
+        : group(
             concat([
-              softline,
-              join(concat([",", line]), path.map(print, "expressions"))
+              indent(
+                concat([
+                  softline,
+                  join(concat([",", line]), path.map(print, "expressions"))
+                ])
+              ),
+              softline
             ])
-          ),
-          softline
-        ])
-      );
+          );
+      // in no-semi mode, prepend expression with semicolon if it might break ASI
+      if (!options.semi && exprNeedsASIProtection(n)) {
+        return concat([";", printed]);
+      }
+      return printed;
     }
     case "ThisExpression":
       return "this";
