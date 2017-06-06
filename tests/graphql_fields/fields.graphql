@@ -1,0 +1,4 @@
+{
+  posts {, title, votes, author {,   firstName,   posts {, author { firstName } }
+    }}
+}
