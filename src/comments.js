@@ -68,12 +68,7 @@ function getSortedChildNodes(node, text, resultArray) {
     });
   }
 
-  for (
-    let i = 0,
-      nameCount = names.length;
-    i < nameCount;
-    ++i
-  ) {
+  for (let i = 0, nameCount = names.length; i < nameCount; ++i) {
     getSortedChildNodes(node[names[i]], text, resultArray);
   }
 
