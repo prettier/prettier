@@ -206,9 +206,18 @@ function hasSpaces(text, index, opts) {
 }
 
 function locStart(node) {
+  // Handle nodes with decorators. They should start at the first decorator
+  if (
+    node.declaration &&
+    node.declaration.decorators &&
+    node.declaration.decorators.length > 0
+  ) {
+    return locStart(node.declaration.decorators[0]);
+  }
   if (node.decorators && node.decorators.length > 0) {
     return locStart(node.decorators[0]);
   }
+
   if (node.range) {
     return node.range[0];
   }
