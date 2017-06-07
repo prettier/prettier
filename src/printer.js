@@ -3541,18 +3541,20 @@ function printMemberChain(path, options, print) {
   const printedGroups = groups.map(printGroup);
   const oneLine = concat(printedGroups);
 
+  const cutoff = shouldMerge ? 3 : 2;
   const flatGroups = groups
-    .slice(0, shouldMerge ? 3 : 2)
+    .slice(0, cutoff)
     .reduce((res, group) => res.concat(group), []);
 
   const hasComment =
     flatGroups.slice(1, -1).some(node => hasLeadingComment(node.node)) ||
-    flatGroups.slice(0, -1).some(node => hasTrailingComment(node.node));
+    flatGroups.slice(0, -1).some(node => hasTrailingComment(node.node)) ||
+    (groups[cutoff] && hasLeadingComment(groups[cutoff][0].node));
 
   // If we only have a single `.`, we shouldn't do anything fancy and just
   // render everything concatenated together.
   if (
-    groups.length <= (shouldMerge ? 3 : 2) &&
+    groups.length <= cutoff &&
     !hasComment &&
     // (a || b).map() should be break before .map() instead of ||
     groups[0][0].node.type !== "LogicalExpression"
