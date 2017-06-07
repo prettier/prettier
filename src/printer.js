@@ -4421,12 +4421,12 @@ function isNodeStartingWithDeclare(node, options) {
 }
 
 function shouldHugType(node) {
-  if (node.type === "ObjectTypeAnnotation") {
+  if (node.type === "ObjectTypeAnnotation" || node.type === "TSTypeLiteral") {
     return true;
   }
 
   if (node.type === "UnionTypeAnnotation" || node.type === "TSUnionType") {
-    const count = node.types.filter(
+    const voidCount = node.types.filter(
       n =>
         n.type === "VoidTypeAnnotation" ||
         n.type === "TSVoidKeyword" ||
@@ -4434,7 +4434,16 @@ function shouldHugType(node) {
         (n.type === "Literal" && n.value === null)
     ).length;
 
-    if (node.types.length - 1 === count) {
+    const objectCount = node.types.filter(
+      n =>
+        n.type === "ObjectTypeAnnotation" ||
+        n.type === "TSTypeLiteral" ||
+        // This is a bit aggressive but captures Array<{x}>
+        n.type === "GenericTypeAnnotation" ||
+        n.type === "TSTypeReference"
+    ).length;
+
+    if (node.types.length - 1 === voidCount && objectCount > 0) {
       return true;
     }
   }
