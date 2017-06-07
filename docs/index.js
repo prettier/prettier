@@ -337,9 +337,14 @@ function hasSpaces(text, index, opts) {
 }
 
 function locStart$1(node) {
+  // Handle nodes with decorators. They should start at the first decorator
+  if (node.declaration && node.declaration.decorators && node.declaration.decorators.length > 0) {
+    return locStart$1(node.declaration.decorators[0]);
+  }
   if (node.decorators && node.decorators.length > 0) {
     return locStart$1(node.decorators[0]);
   }
+
   if (node.range) {
     return node.range[0];
   }
@@ -352,15 +357,19 @@ function locStart$1(node) {
 }
 
 function locEnd$1(node) {
+  var loc = void 0;
   if (node.range) {
-    return node.range[1];
+    loc = node.range[1];
+  } else if (typeof node.end === "number") {
+    loc = node.end;
+  } else if (node.source) {
+    loc = lineColumnToIndex(node.source.end, node.source.input.css);
   }
-  if (typeof node.end === "number") {
-    return node.end;
+
+  if (node.typeAnnotation) {
+    return Math.max(loc, locEnd$1(node.typeAnnotation));
   }
-  if (node.source) {
-    return lineColumnToIndex(node.source.end, node.source.input.css);
-  }
+  return loc;
 }
 
 // Super inefficient, needs to be cached.
@@ -762,6 +771,13 @@ function addCommentHelper(node, comment) {
   var comments = node.comments || (node.comments = []);
   comments.push(comment);
   comment.printed = false;
+
+  // For some reason, TypeScript parses `// x` inside of JSXText as a comment
+  // We already "print" it via the raw text, we don't need to re-print it as a
+  // comment
+  if (node.type === "JSXText") {
+    comment.printed = true;
+  }
 }
 
 function addLeadingComment(node, comment) {
@@ -1232,7 +1248,7 @@ var comments$1 = {
 };
 
 var name = "prettier";
-var version$1 = "1.4.2";
+var version$1 = "1.4.3";
 var description = "Prettier is an opinionated JavaScript formatter";
 var bin = { "prettier": "./bin/prettier.js" };
 var repository = "prettier/prettier";
@@ -1240,7 +1256,7 @@ var author = "James Long";
 var license = "MIT";
 var main = "./index.js";
 var dependencies = {};
-var devDependencies = { "babel-cli": "6.24.1", "babel-code-frame": "7.0.0-alpha.12", "babel-preset-es2015": "6.24.1", "babylon": "7.0.0-beta.10", "chalk": "1.1.3", "cross-spawn": "5.1.0", "diff": "3.2.0", "eslint": "3.19.0", "eslint-plugin-prettier": "2.1.1", "esutils": "2.0.2", "flow-parser": "0.47.0", "get-stdin": "5.0.1", "glob": "7.1.2", "graphql": "0.10.1", "jest": "20.0.0", "jest-validate": "20.0.3", "minimist": "1.2.0", "mkdirp": "^0.5.1", "postcss": "^6.0.1", "postcss-less": "^1.0.0", "postcss-media-query-parser": "0.2.3", "postcss-scss": "1.0.0", "postcss-selector-parser": "2.2.3", "postcss-values-parser": "git://github.com/shellscape/postcss-values-parser.git#5e351360479116f3fe309602cdd15b0a233bc29f", "prettier": "1.4.0", "rimraf": "2.6.1", "rollup": "0.41.1", "rollup-plugin-commonjs": "7.0.0", "rollup-plugin-json": "2.1.0", "rollup-plugin-node-builtins": "2.0.0", "rollup-plugin-node-globals": "1.1.0", "rollup-plugin-node-resolve": "2.0.0", "rollup-plugin-replace": "1.1.1", "typescript": "2.3.4", "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#806251524424e3ad91e750da0f76b8de25ed0b42", "uglify-es": "3.0.15", "webpack": "2.6.1" };
+var devDependencies = { "babel-cli": "6.24.1", "babel-code-frame": "7.0.0-alpha.12", "babel-preset-es2015": "6.24.1", "babylon": "7.0.0-beta.10", "chalk": "1.1.3", "cross-spawn": "5.1.0", "diff": "3.2.0", "eslint": "3.19.0", "eslint-plugin-prettier": "2.1.1", "esutils": "2.0.2", "flow-parser": "0.47.0", "get-stdin": "5.0.1", "glob": "7.1.2", "graphql": "0.10.1", "jest": "20.0.0", "jest-validate": "20.0.3", "minimist": "1.2.0", "mkdirp": "^0.5.1", "postcss": "^6.0.1", "postcss-less": "^1.0.0", "postcss-media-query-parser": "0.2.3", "postcss-scss": "1.0.0", "postcss-selector-parser": "2.2.3", "postcss-values-parser": "git://github.com/shellscape/postcss-values-parser.git#5e351360479116f3fe309602cdd15b0a233bc29f", "prettier": "1.4.2", "rimraf": "2.6.1", "rollup": "0.41.1", "rollup-plugin-commonjs": "7.0.0", "rollup-plugin-json": "2.1.0", "rollup-plugin-node-builtins": "2.0.0", "rollup-plugin-node-globals": "1.1.0", "rollup-plugin-node-resolve": "2.0.0", "rollup-plugin-replace": "1.1.1", "typescript": "2.3.4", "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#806251524424e3ad91e750da0f76b8de25ed0b42", "uglify-es": "3.0.15", "webpack": "2.6.1" };
 var scripts = { "test": "jest", "test-integration": "jest tests_integration", "lint": "eslint .", "build": "./scripts/build/build.sh" };
 var jest = { "setupFiles": ["<rootDir>/tests_config/run_spec.js"], "snapshotSerializers": ["<rootDir>/tests_config/raw-serializer.js"], "testRegex": "jsfmt\\.spec\\.js$|__tests__/.*\\.js$", "testPathIgnorePatterns": ["tests/new_react", "tests/more_react"] };
 var _package = {
@@ -1448,10 +1464,18 @@ FastPath$1.prototype.needsParens = function () {
 
   switch (node.type) {
     case "CallExpression":
-      if (parent.type === "NewExpression" && parent.callee === node) {
-        return true;
+      {
+        var firstParentNotMemberExpression = parent;
+        var i = 0;
+        while (firstParentNotMemberExpression && firstParentNotMemberExpression.type === "MemberExpression") {
+          firstParentNotMemberExpression = this.getParentNode(++i);
+        }
+
+        if (firstParentNotMemberExpression.type === "NewExpression" && firstParentNotMemberExpression.callee === this.getParentNode(i - 1)) {
+          return true;
+        }
+        return false;
       }
-      return false;
 
     case "SpreadElement":
     case "SpreadProperty":
@@ -2403,6 +2427,7 @@ var docBuilders$4 = docBuilders$1;
 var concat$3 = docBuilders$4.concat;
 var join$3 = docBuilders$4.join;
 var hardline$3 = docBuilders$4.hardline;
+var line$2 = docBuilders$4.line;
 var softline$2 = docBuilders$4.softline;
 var group$2 = docBuilders$4.group;
 var indent$3 = docBuilders$4.indent;
@@ -2425,7 +2450,11 @@ function genericPrint$1(path, options, print) {
       }
     case "OperationDefinition":
       {
-        return concat$3([n.name === null ? "" : concat$3([n.operation, " "]), path.call(print, "name"), n.variableDefinitions && n.variableDefinitions.length ? group$2(concat$3(["(", indent$3(concat$3([softline$2, join$3(concat$3([",", ifBreak$2("", " "), softline$2]), path.map(print, "variableDefinitions"))])), softline$2, ") "])) : n.name ? " " : "", path.call(print, "selectionSet")]);
+        return concat$3([n.name === null ? "" : n.operation, n.name ? concat$3([" ", path.call(print, "name")]) : "", n.variableDefinitions && n.variableDefinitions.length ? group$2(concat$3(["(", indent$3(concat$3([softline$2, join$3(concat$3([",", ifBreak$2("", " "), softline$2]), path.map(print, "variableDefinitions"))])), softline$2, ")"])) : "", printDirectives(path, print, n), n.selectionSet ? n.name === null ? "" : " " : "", path.call(print, "selectionSet")]);
+      }
+    case "FragmentDefinition":
+      {
+        return concat$3(["fragment ", path.call(print, "name"), " on ", path.call(print, "typeCondition"), printDirectives(path, print, n), " ", path.call(print, "selectionSet")]);
       }
     case "SelectionSet":
       {
@@ -2433,7 +2462,7 @@ function genericPrint$1(path, options, print) {
       }
     case "Field":
       {
-        return group$2(concat$3([path.call(print, "name"), n.arguments.length > 0 ? group$2(concat$3(["(", indent$3(concat$3([softline$2, join$3(concat$3([",", ifBreak$2("", " "), softline$2]), path.map(print, "arguments"))])), softline$2, ")"])) : "", n.selectionSet ? " " : "", path.call(print, "selectionSet")]));
+        return group$2(concat$3([n.alias ? concat$3([path.call(print, "alias"), ": "]) : "", path.call(print, "name"), n.arguments.length > 0 ? group$2(concat$3(["(", indent$3(concat$3([softline$2, join$3(concat$3([",", ifBreak$2("", " "), softline$2]), path.map(print, "arguments"))])), softline$2, ")"])) : "", printDirectives(path, print, n), n.selectionSet ? " " : "", path.call(print, "selectionSet")]));
       }
     case "Name":
       {
@@ -2453,6 +2482,10 @@ function genericPrint$1(path, options, print) {
       {
         return n.value ? "true" : "false";
       }
+    case "NullValue":
+      {
+        return "null";
+      }
     case "Variable":
       {
         return concat$3(["$", path.call(print, "name")]);
@@ -2461,9 +2494,19 @@ function genericPrint$1(path, options, print) {
       {
         return group$2(concat$3(["[", indent$3(concat$3([softline$2, join$3(concat$3([",", ifBreak$2("", " "), softline$2]), path.map(print, "values"))])), softline$2, "]"]));
       }
+    case "ObjectValue":
+      {
+        return group$2(concat$3(["{", n.fields.length > 0 ? " " : "", indent$3(concat$3([softline$2, join$3(concat$3([",", ifBreak$2("", " "), softline$2]), path.map(print, "fields"))])), softline$2, ifBreak$2("", n.fields.length > 0 ? " " : ""), "}"]));
+      }
+    case "ObjectField":
     case "Argument":
       {
         return concat$3([path.call(print, "name"), ": ", path.call(print, "value")]);
+      }
+
+    case "Directive":
+      {
+        return concat$3(["@", path.call(print, "name"), n.arguments.length > 0 ? group$2(concat$3(["(", indent$3(concat$3([softline$2, join$3(concat$3([",", ifBreak$2("", " "), softline$2]), path.map(print, "arguments"))])), softline$2, ")"])) : ""]);
       }
 
     case "NamedType":
@@ -2476,9 +2519,32 @@ function genericPrint$1(path, options, print) {
         return concat$3([path.call(print, "variable"), ": ", path.call(print, "type"), n.defaultValue ? concat$3([" = ", path.call(print, "defaultValue")]) : ""]);
       }
 
+    case "FragmentSpread":
+      {
+        return concat$3(["...", path.call(print, "name"), printDirectives(path, print, n)]);
+      }
+
+    case "InlineFragment":
+      {
+        return concat$3(["...", n.typeCondition ? concat$3([" on ", path.call(print, "typeCondition")]) : "", printDirectives(path, print, n), " ", path.call(print, "selectionSet")]);
+      }
+
+    case "UnionTypeDefinition":
+      {
+        return group$2(concat$3(["union ", path.call(print, "name"), " =", ifBreak$2("", " "), indent$3(concat$3([ifBreak$2(concat$3([line$2, "  "])), join$3(concat$3([line$2, "| "]), path.map(print, "types"))]))]));
+      }
+
     default:
       throw new Error("unknown graphql type: " + JSON.stringify(n.kind));
   }
+}
+
+function printDirectives(path, print, n) {
+  if (n.directives.length === 0) {
+    return "";
+  }
+
+  return concat$3([" ", group$2(indent$3(concat$3([softline$2, join$3(concat$3([ifBreak$2("", " "), softline$2]), path.map(print, "directives"))])))]);
 }
 
 var printerGraphql = genericPrint$1;
@@ -2487,7 +2553,7 @@ var util$6 = util$2;
 var docBuilders$5 = docBuilders$1;
 var concat$4 = docBuilders$5.concat;
 var join$4 = docBuilders$5.join;
-var line$2 = docBuilders$5.line;
+var line$3 = docBuilders$5.line;
 var hardline$4 = docBuilders$5.hardline;
 var softline$3 = docBuilders$5.softline;
 var group$3 = docBuilders$5.group;
@@ -2532,7 +2598,13 @@ function genericPrint$2(path, options, print) {
       }
     case "css-decl":
       {
-        return concat$4([n.raws.before.replace(/[\s;]/g, ""), n.prop, ": ", path.call(print, "value"), n.important ? " !important" : "", n.nodes ? concat$4([" {", indent$4(concat$4([softline$3, printNodeSequence(path, options, print)])), softline$3, "}"]) : ";"]);
+        // When the following less construct &:extend(.foo); is parsed with scss,
+        // it will put a space after `:` and break it. Ideally we should parse
+        // less files with less, but we can hardcode this to work with scss as
+        // well.
+        var isValueExtend = n.value.type === "value-root" && n.value.group.type === "value-value" && n.value.group.group.type === "value-func" && n.value.group.group.value === "extend";
+
+        return concat$4([n.raws.before.replace(/[\s;]/g, ""), n.prop, ":", isValueExtend ? "" : " ", path.call(print, "value"), n.important ? " !important" : "", n.nodes ? concat$4([" {", indent$4(concat$4([softline$3, printNodeSequence(path, options, print)])), softline$3, "}"]) : ";"]);
       }
     case "css-atrule":
       {
@@ -2598,7 +2670,7 @@ function genericPrint$2(path, options, print) {
     // postcss-selector-parser
     case "selector-root":
       {
-        return group$3(join$4(concat$4([",", line$2]), path.map(print, "nodes")));
+        return group$3(join$4(concat$4([",", line$3]), path.map(print, "nodes")));
       }
     case "selector-comment":
       {
@@ -2628,7 +2700,7 @@ function genericPrint$2(path, options, print) {
       {
         if (n.value === "+" || n.value === ">" || n.value === "~") {
           var parent = path.getParentNode();
-          var leading = parent.type === "selector-selector" && parent.nodes[0] === n ? "" : line$2;
+          var leading = parent.type === "selector-selector" && parent.nodes[0] === n ? "" : line$3;
           return concat$4([leading, n.value, " "]);
         }
         return n.value;
@@ -2664,7 +2736,7 @@ function genericPrint$2(path, options, print) {
             if (n.groups[i + 1].type === "value-operator" && ["+", "-", "/", "*", "%"].indexOf(n.groups[i + 1].value) !== -1) {
               _parts.push(" ");
             } else {
-              _parts.push(line$2);
+              _parts.push(line$3);
             }
           }
         }
@@ -2681,10 +2753,10 @@ function genericPrint$2(path, options, print) {
         }
 
         if (!n.open) {
-          return group$3(indent$4(join$4(concat$4([",", line$2]), path.map(print, "groups"))));
+          return group$3(indent$4(join$4(concat$4([",", line$3]), path.map(print, "groups"))));
         }
 
-        return group$3(concat$4([n.open ? path.call(print, "open") : "", indent$4(concat$4([softline$3, join$4(concat$4([",", line$2]), path.map(print, "groups"))])), softline$3, n.close ? path.call(print, "close") : ""]));
+        return group$3(concat$4([n.open ? path.call(print, "open") : "", indent$4(concat$4([softline$3, join$4(concat$4([",", line$3]), path.map(print, "groups"))])), softline$3, n.close ? path.call(print, "close") : ""]));
       }
     case "value-value":
       {
@@ -2697,7 +2769,7 @@ function genericPrint$2(path, options, print) {
     case "value-paren":
       {
         if (n.raws.before !== "") {
-          return concat$4([line$2, n.value]);
+          return concat$4([line$3, n.value]);
         }
         return n.value;
       }
@@ -2834,7 +2906,6 @@ function genericPrint(path, options, printPath, args) {
     return options.originalText.slice(util$4.locStart(node), util$4.locEnd(node));
   }
 
-  var parts = [];
   var needsParens = false;
   var linesWithoutParens = getPrintFunction(options)(path, options, printPath, args);
 
@@ -2842,6 +2913,7 @@ function genericPrint(path, options, printPath, args) {
     return linesWithoutParens;
   }
 
+  var decorators = [];
   if (node.decorators && node.decorators.length > 0 &&
   // If the parent node is an export declaration, it will be
   // responsible for printing node.decorators.
@@ -2855,12 +2927,11 @@ function genericPrint(path, options, printPath, args) {
         prefix = "";
       }
 
-      // #1817
       if (node.decorators.length === 1 && node.type !== "ClassDeclaration" && node.type !== "MethodDefinition" && node.type !== "ClassMethod" && (decorator.type === "Identifier" || decorator.type === "MemberExpression" || decorator.type === "CallExpression" && (decorator.arguments.length === 0 || decorator.arguments.length === 1 && (isStringLiteral(decorator.arguments[0]) || decorator.arguments[0].type === "Identifier" || decorator.arguments[0].type === "MemberExpression")))) {
-        separator = " ";
+        separator = line$1;
       }
 
-      parts.push(prefix, printPath(decoratorPath), separator);
+      decorators.push(prefix, printPath(decoratorPath), separator);
     }, "decorators");
   } else if (util$4.isExportDeclaration(node) && node.declaration && node.declaration.decorators) {
     // Export declarations are responsible for printing any decorators
@@ -2868,7 +2939,7 @@ function genericPrint(path, options, printPath, args) {
     path.each(function (decoratorPath) {
       var decorator = decoratorPath.getValue();
       var prefix = decorator.type === "Decorator" || decorator.type === "TSDecorator" ? "" : "@";
-      parts.push(prefix, printPath(decoratorPath), line$1);
+      decorators.push(prefix, printPath(decoratorPath), hardline$2);
     }, "declaration", "decorators");
   } else {
     // Nodes with decorators can't have parentheses, so we can avoid
@@ -2884,6 +2955,7 @@ function genericPrint(path, options, printPath, args) {
     node.needsParens = needsParens;
   }
 
+  var parts = [];
   if (needsParens) {
     parts.unshift("(");
   }
@@ -2894,6 +2966,9 @@ function genericPrint(path, options, printPath, args) {
     parts.push(")");
   }
 
+  if (decorators.length > 0) {
+    return group$1(concat$2(decorators.concat(parts)));
+  }
   return concat$2(parts);
 }
 
@@ -3045,7 +3120,7 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push("declare ");
       }
       parts.push(printFunctionDeclaration(path, print, options));
-      if (n.type === "TSNamespaceFunctionDeclaration" && !n.body) {
+      if (!n.body) {
         parts.push(semi);
       }
       return concat$2(parts);
@@ -3750,15 +3825,7 @@ function genericPrintNoParens(path, options, print, args) {
 
         if (consequent.length > 0) {
           var cons = path.call(function (consequentPath) {
-            return join$2(hardline$2, consequentPath.map(function (p, i) {
-              if (n.consequent[i].type === "EmptyStatement") {
-                return null;
-              }
-              var shouldAddLine = i !== n.consequent.length - 1 && util$4.isNextLineEmpty(options.originalText, p.getValue());
-              return concat$2([print(p), shouldAddLine ? hardline$2 : ""]);
-            }).filter(function (e) {
-              return e !== null;
-            }));
+            return printStatementSequence(consequentPath, options, print);
           }, "consequent");
 
           parts.push(consequent.length === 1 && consequent[0].type === "BlockStatement" ? concat$2([" ", cons]) : indent$2(concat$2([hardline$2, cons])));
@@ -4452,7 +4519,7 @@ function genericPrintNoParens(path, options, print, args) {
       if (n.typeAnnotation) {
         parts.push(": ", path.call(print, "typeAnnotation"));
       }
-      return concat$2(parts);
+      return group$1(concat$2(parts));
     case "TSNamespaceExportDeclaration":
       if (n.declaration) {
         // Temporary fix until https://github.com/eslint/typescript-eslint-parser/issues/263
@@ -5233,7 +5300,8 @@ function printMemberChain(path, options, print) {
   var printedGroups = groups.map(printGroup);
   var oneLine = concat$2(printedGroups);
 
-  var flatGroups = groups.slice(0, shouldMerge ? 3 : 2).reduce(function (res, group) {
+  var cutoff = shouldMerge ? 3 : 2;
+  var flatGroups = groups.slice(0, cutoff).reduce(function (res, group) {
     return res.concat(group);
   }, []);
 
@@ -5241,11 +5309,11 @@ function printMemberChain(path, options, print) {
     return hasLeadingComment(node.node);
   }) || flatGroups.slice(0, -1).some(function (node) {
     return hasTrailingComment(node.node);
-  });
+  }) || groups[cutoff] && hasLeadingComment(groups[cutoff][0].node);
 
   // If we only have a single `.`, we shouldn't do anything fancy and just
   // render everything concatenated together.
-  if (groups.length <= (shouldMerge ? 3 : 2) && !hasComment &&
+  if (groups.length <= cutoff && !hasComment &&
   // (a || b).map() should be break before .map() instead of ||
   groups[0][0].node.type !== "LogicalExpression") {
     return group$1(oneLine);
@@ -5770,7 +5838,7 @@ function isLastStatement(path) {
     return true;
   }
   var node = path.getValue();
-  var body = parent.body.filter(function (stmt) {
+  var body = (parent.body || parent.consequent).filter(function (stmt) {
     return stmt.type !== "EmptyStatement";
   });
   return body && body[body.length - 1] === node;
@@ -5853,7 +5921,7 @@ function classPropMayCauseASIProblems(path) {
 
   // this isn't actually possible yet with most parsers available today
   // so isn't properly tested yet.
-  if (name === "static" || name === "get" || name === "set") {
+  if ((name === "static" || name === "get" || name === "set") && !node.typeAnnotation) {
     return true;
   }
 }
@@ -5963,16 +6031,22 @@ function isNodeStartingWithDeclare(node, options) {
 }
 
 function shouldHugType(node) {
-  if (node.type === "ObjectTypeAnnotation") {
+  if (node.type === "ObjectTypeAnnotation" || node.type === "TSTypeLiteral") {
     return true;
   }
 
   if (node.type === "UnionTypeAnnotation" || node.type === "TSUnionType") {
-    var count = node.types.filter(function (n) {
+    var voidCount = node.types.filter(function (n) {
       return n.type === "VoidTypeAnnotation" || n.type === "TSVoidKeyword" || n.type === "NullLiteralTypeAnnotation" || n.type === "Literal" && n.value === null;
     }).length;
 
-    if (node.types.length - 1 === count) {
+    var objectCount = node.types.filter(function (n) {
+      return n.type === "ObjectTypeAnnotation" || n.type === "TSTypeLiteral" ||
+      // This is a bit aggressive but captures Array<{x}>
+      n.type === "GenericTypeAnnotation" || n.type === "TSTypeReference";
+    }).length;
+
+    if (node.types.length - 1 === voidCount && objectCount > 0) {
       return true;
     }
   }
@@ -9781,15 +9855,15 @@ function parse(text, opts) {
   var parseFunction = void 0;
 
   if (opts.parser === "flow") {
-    parseFunction = eval("require")("./src/parser-flow");
+    parseFunction = eval("require")("./parser-flow");
   } else if (opts.parser === "graphql") {
-    parseFunction = eval("require")("./src/parser-graphql");
+    parseFunction = eval("require")("./parser-graphql");
   } else if (opts.parser === "typescript") {
-    parseFunction = eval("require")("./src/parser-typescript");
+    parseFunction = eval("require")("./parser-typescript");
   } else if (opts.parser === "postcss") {
-    parseFunction = eval("require")("./src/parser-postcss");
+    parseFunction = eval("require")("./parser-postcss");
   } else {
-    parseFunction = eval("require")("./src/parser-babylon");
+    parseFunction = eval("require")("./parser-babylon");
   }
 
   try {

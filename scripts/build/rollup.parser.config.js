@@ -9,7 +9,7 @@ const parser = process.env.parser;
 
 export default Object.assign(baseConfig, {
   entry: 'src/parser-' + parser + '.js',
-  dest: 'dist/src/parser-' + parser + '.js',
+  dest: 'dist/parser-' + parser + '.js',
   format: 'cjs',
   plugins: [
     parser === 'typescript'

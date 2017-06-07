@@ -29,11 +29,11 @@ node_modules/.bin/rollup -c scripts/build/rollup.parser.config.js --environment 
 
 echo 'Bundling lib postcss...';
 # PostCSS has dependency cycles and won't work correctly with rollup :(
-./node_modules/.bin/webpack src/parser-postcss.js dist/src/parser-postcss.js
+./node_modules/.bin/webpack --hide-modules src/parser-postcss.js dist/parser-postcss.js
 # Prepend module.exports =
-echo "module.exports =" > dist/src/parser-postcss.js.tmp
-cat dist/src/parser-postcss.js >> dist/src/parser-postcss.js.tmp
-mv dist/src/parser-postcss.js.tmp dist/src/parser-postcss.js
+echo "module.exports =" > dist/parser-postcss.js.tmp
+cat dist/parser-postcss.js >> dist/parser-postcss.js.tmp
+mv dist/parser-postcss.js.tmp dist/parser-postcss.js
 
 echo;
 
@@ -44,20 +44,20 @@ cp dist/index.js docs/index.js
 node_modules/babel-cli/bin/babel.js dist/index.js --out-file docs/index.js --presets=es2015
 
 echo 'Bundling docs babylon...';
-node_modules/.bin/rollup -c scripts/build/rollup.docs.config.js --environment filepath:src/parser-babylon.js
+node_modules/.bin/rollup -c scripts/build/rollup.docs.config.js --environment filepath:parser-babylon.js
 node_modules/babel-cli/bin/babel.js docs/parser-babylon.js --out-file docs/parser-babylon.js --presets=es2015
 
 echo 'Bundling docs flow...';
-node_modules/.bin/rollup -c scripts/build/rollup.docs.config.js --environment filepath:src/parser-flow.js
+node_modules/.bin/rollup -c scripts/build/rollup.docs.config.js --environment filepath:parser-flow.js
 
 echo 'Bundling docs graphql...';
-node_modules/.bin/rollup -c scripts/build/rollup.docs.config.js --environment filepath:src/parser-graphql.js
+node_modules/.bin/rollup -c scripts/build/rollup.docs.config.js --environment filepath:parser-graphql.js
 
 echo 'Bundling docs typescript...';
-node_modules/.bin/rollup -c scripts/build/rollup.docs.config.js --environment filepath:src/parser-typescript.js
+node_modules/.bin/rollup -c scripts/build/rollup.docs.config.js --environment filepath:parser-typescript.js
 
 echo 'Bundling docs postcss...';
-node_modules/.bin/rollup -c scripts/build/rollup.docs.config.js --environment filepath:src/parser-postcss.js
+node_modules/.bin/rollup -c scripts/build/rollup.docs.config.js --environment filepath:parser-postcss.js
 
 echo;
 
@@ -68,3 +68,15 @@ sed -i '' -e 's/eval("require")/require/g' dist/index.js dist/bin/prettier.js
 
 echo 'Copy package.json'
 cp package.json dist/
+
+echo 'Done!'
+echo;
+echo 'How to test against dist:'
+echo '  1) Open tests_config/run_spec.js'
+echo '  2) add `dist/` to the require'
+echo '  3) yarn test'
+echo "  4) Don't forget to revert tests_config/run_spec.js"
+echo;
+echo 'How to publish:'
+echo '  1) IMPORTANT!!! Go to dist/'
+echo '  2) npm publish'
