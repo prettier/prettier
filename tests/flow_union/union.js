@@ -9,3 +9,5 @@ interface RelayProps {
     __id: string,
   } | null> | null | void,
 }
+
+export function aPrettyLongFunction(aRatherLongParamName: string | null): string {}
