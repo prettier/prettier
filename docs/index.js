@@ -1248,7 +1248,7 @@ var comments$1 = {
 };
 
 var name = "prettier";
-var version$1 = "1.4.3";
+var version$1 = "1.4.4";
 var description = "Prettier is an opinionated JavaScript formatter";
 var bin = { "prettier": "./bin/prettier.js" };
 var repository = "prettier/prettier";

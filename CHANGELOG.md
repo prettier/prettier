@@ -1,3 +1,7 @@
+# 1.4.4
+
+* Fix postcss, I forgot to re-run the build script :(
+
 # 1.4.3
 
 [link](https://github.com/jlongster/prettier/compare/1.4.2...1.4.3)
