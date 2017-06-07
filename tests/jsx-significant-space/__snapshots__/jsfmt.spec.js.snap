@@ -90,8 +90,10 @@ before = (
 
 before_break1 = (
   <span>
-    <span barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar />
-    {" "}foo
+    <span
+      barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar
+    />{" "}
+    foo
   </span>
 );
 
@@ -99,17 +101,15 @@ before_break2 = (
   <span>
     <span
       barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar
-    />
-    {" "}foo
+    />{" "}
+    foo
   </span>
 );
 
 after_break = (
   <span>
-    foo
-    {" "}<span
-      barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar
-    />
+    foo{" "}
+    <span barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar />
   </span>
 );
 
@@ -151,8 +151,7 @@ regression_not_transformed_1 = (
 
 regression_not_transformed_2 = (
   <span>
-    <Icon icon="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
-    {" "}
+    <Icon icon="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />{" "}
   </span>
 );
 
@@ -164,8 +163,7 @@ similar_1 = (
 
 similar_2 = (
   <span>
-    <Icon icon="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
-    {" "}
+    <Icon icon="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />{" "}
   </span>
 );
 

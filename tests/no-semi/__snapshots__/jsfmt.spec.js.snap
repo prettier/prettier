@@ -81,6 +81,69 @@ x
 
 `;
 
+exports[`issue2006.js 1`] = `
+switch (n) {
+  case 11:
+    var c = a.e;
+    (i.a += Ga(c.e)), F(i, c.i, 0);
+}
+
+var c = a.e;
+(i.a += Ga(c.e)), F(i, c.i, 0);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+switch (n) {
+  case 11:
+    var c = a.e;
+    (i.a += Ga(c.e)), F(i, c.i, 0);
+}
+
+var c = a.e;
+(i.a += Ga(c.e)), F(i, c.i, 0);
+
+`;
+
+exports[`issue2006.js 2`] = `
+switch (n) {
+  case 11:
+    var c = a.e;
+    (i.a += Ga(c.e)), F(i, c.i, 0);
+}
+
+var c = a.e;
+(i.a += Ga(c.e)), F(i, c.i, 0);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+switch (n) {
+  case 11:
+    var c = a.e
+    ;(i.a += Ga(c.e)), F(i, c.i, 0)
+}
+
+var c = a.e
+;(i.a += Ga(c.e)), F(i, c.i, 0)
+
+`;
+
+exports[`issue2006.js 3`] = `
+switch (n) {
+  case 11:
+    var c = a.e;
+    (i.a += Ga(c.e)), F(i, c.i, 0);
+}
+
+var c = a.e;
+(i.a += Ga(c.e)), F(i, c.i, 0);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+switch (n) {
+  case 11:
+    var c = a.e
+    ;(i.a += Ga(c.e)), F(i, c.i, 0)
+}
+
+var c = a.e
+;(i.a += Ga(c.e)), F(i, c.i, 0)
+
+`;
+
 exports[`no-semi.js 1`] = `
 
 // with preexisting semi

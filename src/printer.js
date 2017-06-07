@@ -50,6 +50,8 @@ function shouldPrintComma(options, level) {
 
 function getPrintFunction(options) {
   switch (options.parser) {
+    case "graphql":
+      return require("./printer-graphql");
     case "postcss":
       return require("./printer-postcss");
     default:
@@ -1476,20 +1478,7 @@ function genericPrintNoParens(path, options, print, args) {
 
       if (consequent.length > 0) {
         const cons = path.call(consequentPath => {
-          return join(
-            hardline,
-            consequentPath
-              .map((p, i) => {
-                if (n.consequent[i].type === "EmptyStatement") {
-                  return null;
-                }
-                const shouldAddLine =
-                  i !== n.consequent.length - 1 &&
-                  util.isNextLineEmpty(options.originalText, p.getValue());
-                return concat([print(p), shouldAddLine ? hardline : ""]);
-              })
-              .filter(e => e !== null)
-          );
+          return printStatementSequence(consequentPath, options, print);
         }, "consequent");
 
         parts.push(
@@ -1738,6 +1727,43 @@ function genericPrintNoParens(path, options, print, args) {
     case "TemplateElement":
       return join(literalline, n.value.raw.split(/\r?\n/g));
     case "TemplateLiteral": {
+      const parent = path.getParentNode();
+      const parentParent = path.getParentNode(1);
+      const isCSS =
+        n.quasis &&
+        n.quasis.length === 1 &&
+        parent.type === "JSXExpressionContainer" &&
+        parentParent.type === "JSXElement" &&
+        parentParent.openingElement.name.name === "style" &&
+        parentParent.openingElement.attributes.some(
+          attribute => attribute.name.name === "jsx"
+        );
+
+      if (isCSS) {
+        const parseCss = eval("require")("./parser-postcss");
+        const newOptions = Object.assign({}, options, { parser: "postcss" });
+        const text = n.quasis[0].value.raw;
+        try {
+          const ast = parseCss(text, newOptions);
+          let subtree = printAstToDoc(ast, newOptions);
+
+          // HACK remove ending hardline
+          assert.ok(
+            subtree.type === "concat" &&
+              subtree.parts[0].type === "concat" &&
+              subtree.parts[0].parts.length === 2 &&
+              subtree.parts[0].parts[1] === hardline
+          );
+          subtree = subtree.parts[0].parts[0];
+
+          parts.push("`", indent(concat([line, subtree])), line, "`");
+          return group(concat(parts));
+        } catch (error) {
+          // If CSS parsing (or printing) failed
+          // we give up and just print the TemplateElement as usual
+        }
+      }
+
       const expressions = path.map(print, "expressions");
 
       parts.push("`");
@@ -2113,9 +2139,9 @@ function genericPrintNoParens(path, options, print, args) {
 
       if (n.extra != null) {
         return printNumber(n.extra.raw);
-      } else {
-        return printNumber(n.raw);
       }
+      return printNumber(n.raw);
+
     case "StringTypeAnnotation":
       return "string";
     case "DeclareTypeAlias":
@@ -2841,12 +2867,10 @@ function printFunctionTypeParameters(path, options, print) {
     // for FunctionTypeAnnotation it's a single node
     if (paramsFieldIsArray) {
       return concat("<", join(", ", path.map(print, "typeParameters")), ">");
-    } else {
-      return path.call(print, "typeParameters");
     }
-  } else {
-    return "";
+    return path.call(print, "typeParameters");
   }
+  return "";
 }
 
 function printFunctionParams(path, print, options, expandArg) {
@@ -3571,9 +3595,8 @@ function isEmptyJSXElement(node) {
   const value = node.children[0].value;
   if (!/\S/.test(value) && /\n/.test(value)) {
     return true;
-  } else {
-    return false;
   }
+  return false;
 }
 
 // JSX Children are strange, mostly for two reasons:
@@ -3680,7 +3703,13 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
 
       const next = n.children[i + 1];
       const followedByJSXElement = next && !isLiteral(next);
-      if (followedByJSXElement) {
+      const followedByJSXWhitespace =
+        next &&
+        next.type === "JSXExpressionContainer" &&
+        isLiteral(next.expression) &&
+        next.expression.value === " ";
+
+      if (followedByJSXElement && !followedByJSXWhitespace) {
         children.push(softline);
       } else {
         // Ideally this would be a softline as well.
@@ -3743,7 +3772,7 @@ function printJSXElement(path, options, print) {
   let forcedBreak = willBreak(openingLines);
 
   const rawJsxWhitespace = options.singleQuote ? "{' '}" : '{" "}';
-  const jsxWhitespace = ifBreak(concat([softline, rawJsxWhitespace]), " ");
+  const jsxWhitespace = ifBreak(concat([rawJsxWhitespace, softline]), " ");
 
   const children = printJSXChildren(path, options, print, jsxWhitespace);
 
@@ -3804,14 +3833,7 @@ function printJSXElement(path, options, print) {
         multilineChildren.push(rawJsxWhitespace);
         return;
       } else if (i === children.length - 1) {
-        multilineChildren.push(concat([hardline, rawJsxWhitespace]));
-        return;
-      } else if (willBreak(children[i - 1]) || willBreak(children[i + 1])) {
-        // If we come before or after a JSX element that is multiline
-        // ensure the JSX whitespace appears on a line by itself.
-        // NOTE: Currently this only detects elements that are already
-        // multiline before formatting!
-        multilineChildren.push(concat([hardline, rawJsxWhitespace, hardline]));
+        multilineChildren.push(rawJsxWhitespace);
         return;
       }
     }
@@ -4079,9 +4101,8 @@ function nodeStr(node, options, isFlowDirectiveLiteral) {
   if (isDirectiveLiteral) {
     if (canChangeDirectiveQuotes) {
       return enclosingQuote + rawContent + enclosingQuote;
-    } else {
-      return raw;
     }
+    return raw;
   }
 
   // It might sound unnecessary to use `makeString` even if `node.raw` already
@@ -4156,7 +4177,8 @@ function isLastStatement(path) {
     return true;
   }
   const node = path.getValue();
-  const body = parent.body.filter(stmt => stmt.type !== "EmptyStatement");
+  const body = (parent.body || parent.consequent)
+    .filter(stmt => stmt.type !== "EmptyStatement");
   return body && body[body.length - 1] === node;
 }
 

@@ -405,8 +405,23 @@ FastPath.prototype.needsParens = function() {
         parent.type === "IntersectionTypeAnnotation"
       );
 
+    case "StringLiteral":
     case "NumericLiteral":
     case "Literal":
+      if (
+        typeof node.value === "string" &&
+        parent.type === "ExpressionStatement" &&
+        !parent.directive
+      ) {
+        // To avoid becoming a directive
+        const grandParent = this.getParentNode(1);
+
+        return (
+          grandParent.type === "Program" ||
+          grandParent.type === "BlockStatement"
+        );
+      }
+
       return (
         parent.type === "MemberExpression" &&
         typeof node.value === "number" &&
@@ -523,9 +538,6 @@ FastPath.prototype.needsParens = function() {
 
     case "ClassExpression":
       return parent.type === "ExportDefaultDeclaration";
-
-    case "StringLiteral":
-      return parent.type === "ExpressionStatement"; // To avoid becoming a directive
   }
 
   return false;

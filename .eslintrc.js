@@ -10,6 +10,7 @@ module.exports = {
   rules: {
     curly: "error",
     "no-console": "off",
+    "no-else-return": "error",
     "no-inner-declarations": "off",
     "no-var": "error",
     "prefer-arrow-callback": "error",
