@@ -4,7 +4,7 @@ exports[`comment.js 1`] = `
 export function match(): string /* the matching pattern */
 a
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export function match(): string /* the matching pattern */
+export function match(): string; /* the matching pattern */
 a;
 
 `;
