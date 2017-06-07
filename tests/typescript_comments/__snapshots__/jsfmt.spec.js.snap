@@ -21,6 +21,29 @@ abstract class AbstractRule {
 
 `;
 
+exports[`jsx.ts 1`] = `
+var example1 = <div>
+	https://test
+</div>;
+
+var example2 = <div>
+	/*test*/
+</div>;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var example1 = (
+  <div>
+    https://test
+  </div>
+);
+
+var example2 = (
+  <div>
+    /*test*/
+  </div>
+);
+
+`;
+
 exports[`types.ts 1`] = `
 (() => {
   // swallow error and fallback to using directory as path
