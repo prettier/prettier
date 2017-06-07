@@ -6,8 +6,6 @@ cd ../..;
 rm -Rf dist/
 rm -f docs/*.js
 
-echo 'The warning about eval being strongly discouraged is normal.'
-
 ## --- Lib ---
 
 echo 'Bundling lib index...';
@@ -37,13 +35,17 @@ echo "module.exports =" > dist/src/parser-postcss.js.tmp
 cat dist/src/parser-postcss.js >> dist/src/parser-postcss.js.tmp
 mv dist/src/parser-postcss.js.tmp dist/src/parser-postcss.js
 
+echo;
+
 ## --- Docs ---
 
 echo 'Bundling docs index...';
 cp dist/index.js docs/index.js
+node_modules/babel-cli/bin/babel.js dist/index.js --out-file docs/index.js --presets=es2015
 
 echo 'Bundling docs babylon...';
 node_modules/.bin/rollup -c scripts/build/rollup.docs.config.js --environment filepath:src/parser-babylon.js
+node_modules/babel-cli/bin/babel.js docs/parser-babylon.js --out-file docs/parser-babylon.js --presets=es2015
 
 echo 'Bundling docs flow...';
 node_modules/.bin/rollup -c scripts/build/rollup.docs.config.js --environment filepath:src/parser-flow.js
@@ -56,6 +58,8 @@ node_modules/.bin/rollup -c scripts/build/rollup.docs.config.js --environment fi
 
 echo 'Bundling docs postcss...';
 node_modules/.bin/rollup -c scripts/build/rollup.docs.config.js --environment filepath:src/parser-postcss.js
+
+echo;
 
 ## --- Misc ---
 
