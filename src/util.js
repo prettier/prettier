@@ -230,15 +230,19 @@ function locStart(node) {
 }
 
 function locEnd(node) {
+  let loc;
   if (node.range) {
-    return node.range[1];
+    loc = node.range[1];
+  } else if (typeof node.end === "number") {
+    loc = node.end;
+  } else if (node.source) {
+    loc = lineColumnToIndex(node.source.end, node.source.input.css);
   }
-  if (typeof node.end === "number") {
-    return node.end;
+
+  if (node.typeAnnotation) {
+    return Math.max(loc, locEnd(node.typeAnnotation));
   }
-  if (node.source) {
-    return lineColumnToIndex(node.source.end, node.source.input.css);
-  }
+  return loc;
 }
 
 // Super inefficient, needs to be cached.
