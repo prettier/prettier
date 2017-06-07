@@ -336,7 +336,7 @@ Atom users can simply install the [prettier-atom](https://github.com/prettier/pr
 
 ### Emacs
 
-Emacs users should see [this directory](https://github.com/prettier/prettier/tree/master/editors/emacs)
+Emacs users should see [this repository](https://github.com/prettier/prettier-emacs)
 for on-demand formatting.
 
 ### Vim
