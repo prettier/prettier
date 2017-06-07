@@ -47,3 +47,16 @@ ret = __DEV__ ?
   // $FlowFixMe: this type differs according to the env
 vm.runInContext(source, ctx)
 : a
+
+this.firebase.object(`/shops/${shopLocation.shop}`)
+  // keep distance info
+  .first((shop: ShopQueryResult, index: number, source: Observable<ShopQueryResult>): any => {
+      // add distance to result
+      const s = shop;
+      s.distance = shopLocation.distance;
+      return s;
+  });
+
+angular.module('AngularAppModule')
+  // Hello, I am comment.
+  .constant('API_URL', 'http://localhost:8080/api');
