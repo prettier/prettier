@@ -60,12 +60,14 @@ Include this anywhere to force all parent groups to break. See `group`
 for more info. Example:
 
 ```js
-group(concat([
-  " ",
-  expr,
-  " ",
-  breakParent
-]))
+group(
+  concat([
+    " ",
+    expr,
+    " ",
+    breakParent
+  ])
+)
 ```
 
 ### join
@@ -102,17 +104,23 @@ Increase the level of indentation.
 For an example, here's the implementation of the `ArrayExpression` node type:
 
 ```js
-return group(concat([
-  "[",
-  indent(options.tabWidth,
-         concat([
-           line,
-           join(concat([",", line]),
-                path.map(print, "elements"))
-         ])),
-  line,
-  "]"
-]));
+group(
+  concat([
+    "[",
+    indent(
+      options.tabWidth,
+      concat([
+        line,
+        join(
+          concat([",", line]),
+          path.map(print, "elements")
+        )
+      ])
+    ),
+    line,
+    "]"
+  ])
+)
 ```
 
 This is a group with opening and closing brackets, and possibly
