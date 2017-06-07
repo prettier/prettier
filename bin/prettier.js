@@ -21,6 +21,7 @@ const argv = minimist(process.argv.slice(2), {
     "single-quote",
     "bracket-spacing",
     "jsx-bracket-same-line",
+    "css-selector-list-same-line",
     // The supports-color package (a sub sub dependency) looks directly at
     // `process.argv` for `--no-color` and such-like options. The reason it is
     // listed here is to avoid "Ignored unknown option: --no-color" warnings.
@@ -247,6 +248,8 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
       "  --single-quote           Use single quotes instead of double quotes.\n" +
       "  --no-bracket-spacing     Do not print spaces between brackets.\n" +
       "  --jsx-bracket-same-line  Put > on the last line instead of at a new line.\n" +
+      "  --css-selector-list-same-line\n" +
+      "                           Do not place every selector in its own line.\n" +
       "  --trailing-comma <none|es5|all>\n" +
       "                           Print trailing commas wherever possible. Defaults to none.\n" +
       "  --parser <flow|babylon|typescript|postcss>\n" +

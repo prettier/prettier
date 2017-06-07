@@ -155,7 +155,12 @@ function genericPrint(path, options, print) {
     }
     // postcss-selector-parser
     case "selector-root": {
-      return group(join(concat([",", line]), path.map(print, "nodes")));
+      return group(
+        join(
+          concat([",", options.cssSelectorListSameLine ? line : hardline]),
+          path.map(print, "nodes")
+        )
+      );
     }
     case "selector-comment": {
       return n.value;
