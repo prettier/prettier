@@ -2450,7 +2450,7 @@ function genericPrintNoParens(path, options, print, args) {
       if (n.typeAnnotation) {
         parts.push(": ", path.call(print, "typeAnnotation"));
       }
-      return concat(parts);
+      return group(concat(parts));
     case "TSNamespaceExportDeclaration":
       if (n.declaration) {
         // Temporary fix until https://github.com/eslint/typescript-eslint-parser/issues/263
