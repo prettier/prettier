@@ -74,7 +74,6 @@ function genericPrint(path, options, printPath, args) {
     return options.originalText.slice(util.locStart(node), util.locEnd(node));
   }
 
-  const parts = [];
   let needsParens = false;
   const linesWithoutParens = getPrintFunction(options)(
     path,
@@ -87,6 +86,7 @@ function genericPrint(path, options, printPath, args) {
     return linesWithoutParens;
   }
 
+  const decorators = [];
   if (
     node.decorators &&
     node.decorators.length > 0 &&
@@ -103,7 +103,6 @@ function genericPrint(path, options, printPath, args) {
         prefix = "";
       }
 
-      // #1817
       if (
         node.decorators.length === 1 &&
         node.type !== "ClassDeclaration" &&
@@ -118,10 +117,10 @@ function genericPrint(path, options, printPath, args) {
                   decorator.arguments[0].type === "Identifier" ||
                   decorator.arguments[0].type === "MemberExpression")))))
       ) {
-        separator = " ";
+        separator = line;
       }
 
-      parts.push(prefix, printPath(decoratorPath), separator);
+      decorators.push(prefix, printPath(decoratorPath), separator);
     }, "decorators");
   } else if (
     util.isExportDeclaration(node) &&
@@ -137,7 +136,7 @@ function genericPrint(path, options, printPath, args) {
           decorator.type === "TSDecorator"
           ? ""
           : "@";
-        parts.push(prefix, printPath(decoratorPath), line);
+        decorators.push(prefix, printPath(decoratorPath), hardline);
       },
       "declaration",
       "decorators"
@@ -156,6 +155,7 @@ function genericPrint(path, options, printPath, args) {
     node.needsParens = needsParens;
   }
 
+  const parts = [];
   if (needsParens) {
     parts.unshift("(");
   }
@@ -166,6 +166,9 @@ function genericPrint(path, options, printPath, args) {
     parts.push(")");
   }
 
+  if (decorators.length > 0) {
+    return group(concat(decorators.concat(parts)));
+  }
   return concat(parts);
 }
 
