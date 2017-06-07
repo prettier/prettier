@@ -4292,7 +4292,10 @@ function classPropMayCauseASIProblems(path) {
 
   // this isn't actually possible yet with most parsers available today
   // so isn't properly tested yet.
-  if (name === "static" || name === "get" || name === "set") {
+  if (
+    (name === "static" || name === "get" || name === "set") &&
+    !node.typeAnnotation
+  ) {
     return true;
   }
 }
