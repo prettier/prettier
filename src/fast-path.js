@@ -194,11 +194,24 @@ FastPath.prototype.needsParens = function() {
   }
 
   switch (node.type) {
-    case "CallExpression":
-      if (parent.type === "NewExpression" && parent.callee === node) {
+    case "CallExpression": {
+      let firstParentNotMemberExpression = parent;
+      let i = 0;
+      while (
+        firstParentNotMemberExpression &&
+        firstParentNotMemberExpression.type === "MemberExpression"
+      ) {
+        firstParentNotMemberExpression = this.getParentNode(++i);
+      }
+
+      if (
+        firstParentNotMemberExpression.type === "NewExpression" &&
+        firstParentNotMemberExpression.callee === this.getParentNode(i - 1)
+      ) {
         return true;
       }
       return false;
+    }
 
     case "SpreadElement":
     case "SpreadProperty":
