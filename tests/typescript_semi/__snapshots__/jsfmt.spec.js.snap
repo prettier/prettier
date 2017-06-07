@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`no-semi.ts 1`] = `
+export class Mutation {
+  private set: NQuad[];
+  private delete: NQuad[];
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export class Mutation {
+  private set: NQuad[]
+  private delete: NQuad[]
+}
+
+`;
