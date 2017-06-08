@@ -7,3 +7,11 @@ $bar: String = "Long string here", $arg: String = "Hello world!",,,,,
 $nonNull: String!) {
   hello
 }
+
+query lists($foo: [Int  ], $bar:    [Int!], $arg: [ Int! ]!) {
+  ok
+}
+
+query listslong($foo: [String  ], $bar:    [String!], $arg: [ Int! ]!, $veryLongName: [ Int! ]) {
+  ok
+}
