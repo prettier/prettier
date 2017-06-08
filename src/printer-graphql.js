@@ -243,6 +243,13 @@ function genericPrint(path, options, print) {
       );
     }
 
+    case "NonNullType": {
+      return concat([
+        path.call(print, "type"),
+        "!"
+      ]);
+    }
+
     default:
       throw new Error("unknown graphql type: " + JSON.stringify(n.kind));
   }
