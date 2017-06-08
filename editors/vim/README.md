@@ -84,7 +84,7 @@ By default it will auto format **javascript**, **typescript**, **less**, **scss*
 
 ```vim
 " post install (yarn install | npm install) then load plugin only for editing supported files
-plug 'mitermayer/vim-prettier', { 
+Plug 'mitermayer/vim-prettier', { 
     \ 'do': 'npm install', 
     \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss'] } 
 ```
