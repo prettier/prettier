@@ -60,10 +60,21 @@ function genericPrint(path, options, print) {
       ]);
     }
     case "css-decl": {
+      // When the following less construct &:extend(.foo); is parsed with scss,
+      // it will put a space after `:` and break it. Ideally we should parse
+      // less files with less, but we can hardcode this to work with scss as
+      // well.
+      const isValueExtend =
+        n.value.type === "value-root" &&
+        n.value.group.type === "value-value" &&
+        n.value.group.group.type === "value-func" &&
+        n.value.group.group.value === "extend";
+
       return concat([
         n.raws.before.replace(/[\s;]/g, ""),
         n.prop,
-        ": ",
+        ":",
+        isValueExtend ? "" : " ",
         path.call(print, "value"),
         n.important ? " !important" : "",
         n.nodes
@@ -155,7 +166,7 @@ function genericPrint(path, options, print) {
     }
     // postcss-selector-parser
     case "selector-root": {
-      return group(join(concat([",", line]), path.map(print, "nodes")));
+      return group(join(concat([",", hardline]), path.map(print, "nodes")));
     }
     case "selector-comment": {
       return n.value;

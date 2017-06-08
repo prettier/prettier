@@ -9,6 +9,19 @@ abstract interface I {}
 
 `;
 
+exports[`comments.js 1`] = `
+interface ScreenObject {
+	// I make things weird.
+	at(point: Point): Screen | undefined;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+interface ScreenObject {
+  // I make things weird.
+  at(point: Point): Screen | undefined;
+}
+
+`;
+
 exports[`separator.ts 1`] = `
 declare module 'selenium-webdriver' {
   export const until: {

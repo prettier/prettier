@@ -43,3 +43,7 @@ class Class3 {
 class Bar {
     @decorated method() {}
 }
+
+class MyContainerComponent {
+  @ContentChildren(MyComponent) components: QueryListSomeBigName<MyComponentThat>;
+}

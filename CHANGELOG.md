@@ -1,3 +1,19 @@
+# 1.4.4
+
+* Fix postcss, I forgot to re-run the build script :(
+
+# 1.4.3
+
+[link](https://github.com/jlongster/prettier/compare/1.4.2...1.4.3)
+
+* Fix support for node 4 (#1988)
+* Fix website on iOS Safari (#1970)
+
+Formatting change:
+* Position JSX whitespace (`{" "}`) at the end of lines (#1964)
+
+Lots of small fixes, mainly for TypeScript.
+
 # 1.4.2
 
 [link](https://github.com/jlongster/prettier/compare/1.4.1...1.4.2)

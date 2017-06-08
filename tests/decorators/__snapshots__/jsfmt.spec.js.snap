@@ -11,6 +11,20 @@ var x = 100
 class X {
 
 }
+
+
+@NgModule({
+  // Imports.
+  imports: [
+    // Angular modules.
+    BrowserModule,
+
+    // App modules.
+    CoreModule,
+    SharedModule,
+  ],
+})
+export class AppModule {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var x = 100;
 
@@ -20,6 +34,19 @@ var x = 100;
   b: "2"
 })
 class X {}
+
+@NgModule({
+  // Imports.
+  imports: [
+    // Angular modules.
+    BrowserModule,
+
+    // App modules.
+    CoreModule,
+    SharedModule
+  ]
+})
+export class AppModule {}
 
 `;
 

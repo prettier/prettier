@@ -74,7 +74,6 @@ function genericPrint(path, options, printPath, args) {
     return options.originalText.slice(util.locStart(node), util.locEnd(node));
   }
 
-  const parts = [];
   let needsParens = false;
   const linesWithoutParens = getPrintFunction(options)(
     path,
@@ -87,6 +86,7 @@ function genericPrint(path, options, printPath, args) {
     return linesWithoutParens;
   }
 
+  const decorators = [];
   if (
     node.decorators &&
     node.decorators.length > 0 &&
@@ -103,7 +103,6 @@ function genericPrint(path, options, printPath, args) {
         prefix = "";
       }
 
-      // #1817
       if (
         node.decorators.length === 1 &&
         node.type !== "ClassDeclaration" &&
@@ -118,10 +117,10 @@ function genericPrint(path, options, printPath, args) {
                   decorator.arguments[0].type === "Identifier" ||
                   decorator.arguments[0].type === "MemberExpression")))))
       ) {
-        separator = " ";
+        separator = line;
       }
 
-      parts.push(prefix, printPath(decoratorPath), separator);
+      decorators.push(prefix, printPath(decoratorPath), separator);
     }, "decorators");
   } else if (
     util.isExportDeclaration(node) &&
@@ -137,7 +136,7 @@ function genericPrint(path, options, printPath, args) {
           decorator.type === "TSDecorator"
           ? ""
           : "@";
-        parts.push(prefix, printPath(decoratorPath), line);
+        decorators.push(prefix, printPath(decoratorPath), hardline);
       },
       "declaration",
       "decorators"
@@ -156,6 +155,7 @@ function genericPrint(path, options, printPath, args) {
     node.needsParens = needsParens;
   }
 
+  const parts = [];
   if (needsParens) {
     parts.unshift("(");
   }
@@ -166,6 +166,9 @@ function genericPrint(path, options, printPath, args) {
     parts.push(")");
   }
 
+  if (decorators.length > 0) {
+    return group(concat(decorators.concat(parts)));
+  }
   return concat(parts);
 }
 
@@ -395,7 +398,7 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push("declare ");
       }
       parts.push(printFunctionDeclaration(path, print, options));
-      if (n.type === "TSNamespaceFunctionDeclaration" && !n.body) {
+      if (!n.body) {
         parts.push(semi);
       }
       return concat(parts);
@@ -837,7 +840,7 @@ function genericPrintNoParens(path, options, print, args) {
         );
       const separator = n.type === "TSInterfaceBody" ||
         n.type === "TSTypeLiteral"
-        ? shouldBreak ? semi : ";"
+        ? ifBreak(semi, ";")
         : ",";
       const fields = [];
       const leftBrace = n.exact ? "{|" : "{";
@@ -1621,6 +1624,9 @@ function genericPrintNoParens(path, options, print, args) {
         ),
         requiresHardline ? hardline : ""
       ]);
+    }
+    case "Keyword": {
+      return n.name;
     }
     case "TypeAnnotatedIdentifier":
       return concat([
@@ -2450,7 +2456,7 @@ function genericPrintNoParens(path, options, print, args) {
       if (n.typeAnnotation) {
         parts.push(": ", path.call(print, "typeAnnotation"));
       }
-      return concat(parts);
+      return group(concat(parts));
     case "TSNamespaceExportDeclaration":
       if (n.declaration) {
         // Temporary fix until https://github.com/eslint/typescript-eslint-parser/issues/263
@@ -3538,18 +3544,20 @@ function printMemberChain(path, options, print) {
   const printedGroups = groups.map(printGroup);
   const oneLine = concat(printedGroups);
 
+  const cutoff = shouldMerge ? 3 : 2;
   const flatGroups = groups
-    .slice(0, shouldMerge ? 3 : 2)
+    .slice(0, cutoff)
     .reduce((res, group) => res.concat(group), []);
 
   const hasComment =
     flatGroups.slice(1, -1).some(node => hasLeadingComment(node.node)) ||
-    flatGroups.slice(0, -1).some(node => hasTrailingComment(node.node));
+    flatGroups.slice(0, -1).some(node => hasTrailingComment(node.node)) ||
+    (groups[cutoff] && hasLeadingComment(groups[cutoff][0].node));
 
   // If we only have a single `.`, we shouldn't do anything fancy and just
   // render everything concatenated together.
   if (
-    groups.length <= (shouldMerge ? 3 : 2) &&
+    groups.length <= cutoff &&
     !hasComment &&
     // (a || b).map() should be break before .map() instead of ||
     groups[0][0].node.type !== "LogicalExpression"
@@ -4292,7 +4300,10 @@ function classPropMayCauseASIProblems(path) {
 
   // this isn't actually possible yet with most parsers available today
   // so isn't properly tested yet.
-  if (name === "static" || name === "get" || name === "set") {
+  if (
+    (name === "static" || name === "get" || name === "set") &&
+    !node.typeAnnotation
+  ) {
     return true;
   }
 }
@@ -4421,12 +4432,12 @@ function isNodeStartingWithDeclare(node, options) {
 }
 
 function shouldHugType(node) {
-  if (node.type === "ObjectTypeAnnotation") {
+  if (node.type === "ObjectTypeAnnotation" || node.type === "TSTypeLiteral") {
     return true;
   }
 
   if (node.type === "UnionTypeAnnotation" || node.type === "TSUnionType") {
-    const count = node.types.filter(
+    const voidCount = node.types.filter(
       n =>
         n.type === "VoidTypeAnnotation" ||
         n.type === "TSVoidKeyword" ||
@@ -4434,7 +4445,16 @@ function shouldHugType(node) {
         (n.type === "Literal" && n.value === null)
     ).length;
 
-    if (node.types.length - 1 === count) {
+    const objectCount = node.types.filter(
+      n =>
+        n.type === "ObjectTypeAnnotation" ||
+        n.type === "TSTypeLiteral" ||
+        // This is a bit aggressive but captures Array<{x}>
+        n.type === "GenericTypeAnnotation" ||
+        n.type === "TSTypeReference"
+    ).length;
+
+    if (node.types.length - 1 === voidCount && objectCount > 0) {
       return true;
     }
   }

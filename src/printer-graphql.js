@@ -4,6 +4,7 @@ const docBuilders = require("./doc-builders");
 const concat = docBuilders.concat;
 const join = docBuilders.join;
 const hardline = docBuilders.hardline;
+const line = docBuilders.line;
 const softline = docBuilders.softline;
 const group = docBuilders.group;
 const indent = docBuilders.indent;
@@ -223,6 +224,31 @@ function genericPrint(path, options, print) {
         " ",
         path.call(print, "selectionSet")
       ]);
+    }
+
+    case "UnionTypeDefinition": {
+      return group(
+        concat([
+          "union ",
+          path.call(print, "name"),
+          " =",
+          ifBreak("", " "),
+          indent(
+            concat([
+              ifBreak(concat([line, "  "])),
+              join(concat([line, "| "]), path.map(print, "types"))
+            ])
+          )
+        ])
+      );
+    }
+
+    case "NonNullType": {
+      return concat([path.call(print, "type"), "!"]);
+    }
+
+    case "ListType": {
+      return concat(["[", path.call(print, "type"), "]"]);
     }
 
     default:

@@ -4,15 +4,15 @@ function parse(text, opts) {
   let parseFunction;
 
   if (opts.parser === "flow") {
-    parseFunction = eval("require")("./src/parser-flow");
+    parseFunction = eval("require")("./parser-flow");
   } else if (opts.parser === "graphql") {
-    parseFunction = eval("require")("./src/parser-graphql");
+    parseFunction = eval("require")("./parser-graphql");
   } else if (opts.parser === "typescript") {
-    parseFunction = eval("require")("./src/parser-typescript");
+    parseFunction = eval("require")("./parser-typescript");
   } else if (opts.parser === "postcss") {
-    parseFunction = eval("require")("./src/parser-postcss");
+    parseFunction = eval("require")("./parser-postcss");
   } else {
-    parseFunction = eval("require")("./src/parser-babylon");
+    parseFunction = eval("require")("./parser-babylon");
   }
 
   try {

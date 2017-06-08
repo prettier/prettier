@@ -1,0 +1,9 @@
+.a,.b,.c {}
+.r { &, &:hover {} }
+
+@media (min-width: 0px) {
+  .a,.b,:not(asdasldaskdhjkashdahsdkjahskdjhakj,asdasldaskdhjkashdahsdkjahskdjhakj) {color: red}
+}
+
+.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas,
+.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas {}
