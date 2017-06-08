@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`keyword.tsx 1`] = `
+<try />;
+<object />
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<try />;
+<object />;
+
+`;
+
 exports[`not-react.ts 1`] = `
 /// <reference types="node" />
 

@@ -1625,6 +1625,9 @@ function genericPrintNoParens(path, options, print, args) {
         requiresHardline ? hardline : ""
       ]);
     }
+    case "Keyword": {
+      return n.name;
+    }
     case "TypeAnnotatedIdentifier":
       return concat([
         path.call(print, "annotation"),
