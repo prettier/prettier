@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parserES5ForOfStatement2.ts 1`] = `
+//@target: ES5
+for (var of X) {
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//@target: ES5
+for (var of X) {
+}
+
+`;
+
+exports[`parserES5ForOfStatement21.ts 1`] = `
+//@target: ES5
+for (var of of) { }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//@target: ES5
+for (var of of) {
+}
+
+`;
+
+exports[`parserForInStatement2.ts 1`] = `
+for (var in X) {
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+for (var in X) {
+}
+
+`;

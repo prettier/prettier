@@ -50,8 +50,8 @@ buffer = Buffer.from(typedArray.buffer, typedArray.byteOffset, typedArray.byteLe
 buffer = Buffer.from(new Buffer(0));
 buffer = Buffer.from("foo", "utf8");
 
-// This call to from() does type check ok, but should not. Unfortunately, Buffer
+// This call to from() used to type check ok, but should not. Buffer
 // extends Uint8Array but gets rid of this signature to .from(). Understandably,
-// flow doesn't support a subclass hiding a superclass member, so this checks out as
-// ok, even though it is not correct.
-buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72], (a:number) => a + 1, {}); // should error but doesn't
+// flow didn't used to support a subclass hiding a superclass member, so this
+// used to check out as ok, even though it is not correct.
+buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72], (a:number) => a + 1, {}); // error

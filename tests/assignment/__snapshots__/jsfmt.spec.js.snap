@@ -20,3 +20,22 @@ computedDescriptionLines =
   (focused && !loading && descriptionLinesFocused) || descriptionLines;
 
 `;
+
+exports[`sequence.js 1`] = `
+for ((i = 0), (len = arr.length); i < len; i++) {
+  console.log(arr[i])
+}
+
+for (i = 0, len = arr.length; i < len; i++) {
+  console.log(arr[i])
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+for (i = 0, len = arr.length; i < len; i++) {
+  console.log(arr[i]);
+}
+
+for (i = 0, len = arr.length; i < len; i++) {
+  console.log(arr[i]);
+}
+
+`;

@@ -1,5 +1,75 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`comments.js 1`] = `
+var x = 100
+
+@Hello({
+  a: 'a', // Comment is in the wrong place
+  // test
+  b: '2'
+})
+class X {
+
+}
+
+
+@NgModule({
+  // Imports.
+  imports: [
+    // Angular modules.
+    BrowserModule,
+
+    // App modules.
+    CoreModule,
+    SharedModule,
+  ],
+})
+export class AppModule {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var x = 100;
+
+@Hello({
+  a: "a", // Comment is in the wrong place
+  // test
+  b: "2"
+})
+class X {}
+
+@NgModule({
+  // Imports.
+  imports: [
+    // Angular modules.
+    BrowserModule,
+
+    // App modules.
+    CoreModule,
+    SharedModule
+  ]
+})
+export class AppModule {}
+
+`;
+
+exports[`methods.js 1`] = `
+
+class Yo {
+  @foo("hello")
+  async plop() {}
+
+  @anotherDecoratorWithALongName("and a very long string as a first argument")
+  async plip() {}
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class Yo {
+  @foo("hello")
+  async plop() {}
+
+  @anotherDecoratorWithALongName("and a very long string as a first argument")
+  async plip() {}
+}
+
+`;
+
 exports[`mobx.js 1`] = `
 import {observable} from "mobx";
 
@@ -22,7 +92,8 @@ import {observable} from "mobx";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import { observable } from "mobx";
 
-@observer class OrderLine {
+@observer
+class OrderLine {
   @observable price: number = 0;
   @observable amount: number = 1;
 
@@ -30,11 +101,13 @@ import { observable } from "mobx";
     this.price = price;
   }
 
-  @computed get total() {
+  @computed
+  get total() {
     return this.price * this.amount;
   }
 
-  @action.bound setPrice(price) {
+  @action.bound
+  setPrice(price) {
     this.price = price;
   }
 }

@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`comment.js 1`] = `
+export class ViewTokensChangedEvent {
+  public readonly ranges: {
+    /**
+     * Start line number of range
+     */
+    readonly fromLineNumber: number;
+  }[];
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export class ViewTokensChangedEvent {
+  public readonly ranges: {
+    /**
+     * Start line number of range
+     */
+    readonly fromLineNumber: number;
+  }[];
+}
+
+`;

@@ -8,6 +8,9 @@ const x = longVariable + longVariable * longVariable * longVariable / longVariab
 
 const x = longVariable && longVariable && longVariable && longVariable && longVariable && longVariable;
 const x = longVariable && longVariable || longVariable && longVariable || longVariable && longVariable;
+const x = firstItemWithAVeryLongNameThatKeepsGoing || firstItemWithAVeryLongNameThatKeepsGoing || {};
+const x = firstItemWithAVeryLongNameThatKeepsGoing || firstItemWithAVeryLongNameThatKeepsGoing || [];
+const x = call(firstItemWithAVeryLongNameThatKeepsGoing, firstItemWithAVeryLongNameThatKeepsGoing) || [];
 
 const x = longVariable * longint && longVariable >> 0 && longVariable + longVariable;
 

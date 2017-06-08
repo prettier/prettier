@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`var-notation.css 1`] = `
+.foo {margin:var(     --n-gutterSize) 0 var(   --gutterSize ) var( --n-gutterSize );
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.foo {
+  margin: var(--n-gutterSize) 0 var(--gutterSize) var(--n-gutterSize);
+}
+
+`;

@@ -76,12 +76,12 @@ exports[`ProvidesModuleD.js 1`] = `
 exports[`not_builtin_require.js 1`] = `
 // @flow
 
-function require() {}
+function require(x: string) {}
 require("not a module name");
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-function require() {}
+function require(x: string) {}
 require("not a module name");
 
 `;

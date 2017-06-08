@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`order.js 1`] = `
+type Foo = {
+  // a
+  alpha: 'hello',
+
+  // b
+  [key: string]: void,
+  // c
+
+  beta: 10,
+
+  // d
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type Foo = {
+  // a
+  alpha: "hello",
+
+  // b
+  [key: string]: void,
+  // c
+
+  beta: 10
+
+  // d
+};
+
+`;
+
+exports[`order.js 2`] = `
+type Foo = {
+  // a
+  alpha: 'hello',
+
+  // b
+  [key: string]: void,
+  // c
+
+  beta: 10,
+
+  // d
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type Foo = {
+  // a
+  alpha: "hello",
+
+  // b
+  [key: string]: void,
+  // c
+
+  beta: 10,
+
+  // d
+};
+
+`;

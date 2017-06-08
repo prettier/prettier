@@ -21,3 +21,4 @@ let foo = require('./Parent').ParentFoo.foo;
 foo;
 
 import type {Foo} from './types';
+function takesFoo(foo: Foo) { }

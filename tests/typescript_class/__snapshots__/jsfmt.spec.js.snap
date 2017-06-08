@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`constructor.ts 1`] = `
+class foo {
+  constructor(static a: number) {}
+}
+
+class foo {
+  constructor(export a: number) {}
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class foo {
+  constructor(static a: number) {}
+}
+
+class foo {
+  constructor(export a: number) {}
+}
+
+`;
+
+exports[`dunder.ts 1`] = `
+// eslint/typescript-eslint-parser#296
+class F<__T> {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// eslint/typescript-eslint-parser#296
+class F<__T> {}
+
+`;
+
+exports[`generics.ts 1`] = `
+class<T> implements Map<T> {}
+
+interface AudioBufferList {
+	mBuffers: interop.Reference<any /*AudioBuffer*/>;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class<T> implements Map<T> {}
+
+interface AudioBufferList {
+  mBuffers: interop.Reference<any> /*AudioBuffer*/;
+}
+
+`;
+
+exports[`methods.ts 1`] = `
+class X {
+    optionalMethod?() {}
+}
+
+interface Iterable<T> {
+  export [Symbol.iterator](): Iterator<T>;
+}
+
+export class Check {
+  private static property = 'test';
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class X {
+  optionalMethod?() {}
+}
+
+interface Iterable<T> {
+  export [Symbol.iterator](): Iterator<T>;
+}
+
+export class Check {
+  private static property = "test";
+}
+
+`;
+
+exports[`optional.ts 1`] = `
+class X {
+  private foo? = undefined;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class X {
+  private foo? = undefined;
+}
+
+`;

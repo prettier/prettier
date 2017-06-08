@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`union.js 1`] = `
+interface RelayProps {
+  articles: Array<{
+    __id: string,
+  } | null> | null | void | 1,
+}
+
+interface RelayProps {
+  articles: Array<{
+    __id: string,
+  } | null> | null | void,
+}
+
+export function aPrettyLongFunction(aRatherLongParamName: string | null): string {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+interface RelayProps {
+  articles:
+    | Array<{
+        __id: string
+      } | null>
+    | null
+    | void
+    | 1
+}
+
+interface RelayProps {
+  articles: Array<{
+    __id: string
+  } | null> | null | void
+}
+
+export function aPrettyLongFunction(
+  aRatherLongParamName: string | null
+): string {}
+
+`;

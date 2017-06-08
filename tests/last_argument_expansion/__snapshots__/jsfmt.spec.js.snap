@@ -104,7 +104,7 @@ true
     }),
     require("postcss-url")({
       url: url =>
-        (url.startsWith("/") || /^[a-z]+:/.test(url) ? url : \`/static/\${url}\`)
+        url.startsWith("/") || /^[a-z]+:/.test(url) ? url : \`/static/\${url}\`
     })
   ]
 });
@@ -282,11 +282,11 @@ const els = items.map(item => (
   </div>
 ));
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const els = items.map(item => (
+const els = items.map(item =>
   <div className="whatever">
     <span>{children}</span>
   </div>
-));
+);
 
 `;
 

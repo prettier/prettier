@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`long.js 1`] = `
+export type AdamPlacementValidationSingleErrorKey =
+  'SOME_FANCY_TARGETS.GLOBAL_TARGET';
+
+export type SomeReallyLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey = true;
+
+export type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey = null;
+
+type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey = SomeReallyLongLongLongLongLongLongIdentifier;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export type AdamPlacementValidationSingleErrorKey =
+  "SOME_FANCY_TARGETS.GLOBAL_TARGET";
+
+export type SomeReallyLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey = true;
+
+export type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey = null;
+
+type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey = SomeReallyLongLongLongLongLongLongIdentifier;
+
+`;

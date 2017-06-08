@@ -1,3 +1,8 @@
-node_modules
+/node_modules
 npm-debug.log
+/errors
 /test.js
+/test.ts
+/test.css
+/.vscode
+/dist

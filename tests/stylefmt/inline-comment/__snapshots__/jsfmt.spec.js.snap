@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`inline-comment.css 1`] = `
+
+  // inline comments
+
+
+
+    .class {color: red;}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// inline comments
+
+.class {
+  color: red;
+}
+
+`;

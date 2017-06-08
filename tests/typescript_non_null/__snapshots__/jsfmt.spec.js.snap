@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parens.ts 1`] = `
+(a ? b : c) ![tokenKey];
+(a || b) ![tokenKey];
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(a ? b : c)![tokenKey];
+(a || b)![tokenKey];
+
+`;

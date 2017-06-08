@@ -1,0 +1,22 @@
+// Treated as whitespace in JSX
+spaces = <div>]   [</div>
+tabs = <div>]      [</div>
+slash_n = <div>]
+
+
+[</div>
+slash_r = <div>]
+
+
+[</div>
+
+
+// Not treated as whitespace in JSX
+// NOTE: Some of the space characters here won't show up in an editor,
+// but they are there!
+slash_f = <div>][</div>
+slash_v = <div>][</div>
+non_breaking_spaces = <div>]   [</div>
+em_space = <div>]   [</div>
+hair_space = <div>]  [</div>
+zero_width_space = <div>]​​​[</div>

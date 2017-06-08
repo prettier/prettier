@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`abstract.ts 1`] = `
+abstract interface I {
+
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+abstract interface I {}
+
+`;
+
+exports[`comments.js 1`] = `
+interface ScreenObject {
+	// I make things weird.
+	at(point: Point): Screen | undefined;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+interface ScreenObject {
+  // I make things weird.
+  at(point: Point): Screen | undefined;
+}
+
+`;
+
+exports[`separator.ts 1`] = `
+declare module 'selenium-webdriver' {
+  export const until: {
+    ableToSwitchToFrame(frame: number | WebElement | By): Condition<boolean>;
+    alertIsPresent(): Condition<Alert>;
+  };
+}
+
+export interface Edge {
+  cursor: {};
+  node: {
+    id: {};
+  };
+}
+
+interface Test { one: string, two: any[] }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+declare module "selenium-webdriver" {
+  export const until: {
+    ableToSwitchToFrame(frame: number | WebElement | By): Condition<boolean>;
+    alertIsPresent(): Condition<Alert>;
+  };
+}
+
+export interface Edge {
+  cursor: {};
+  node: {
+    id: {};
+  };
+}
+
+interface Test { one: string; two: any[] }
+
+`;

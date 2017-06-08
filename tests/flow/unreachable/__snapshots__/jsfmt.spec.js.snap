@@ -100,7 +100,10 @@ function foo(x, y) {
   var x, y, z;
 
   // assignments are not hoisted, should generate 2 warnings
-  var t, u = 5, v, w = 7;
+  var t,
+    u = 5,
+    v,
+    w = 7;
 }
 
 foo(1, 2);

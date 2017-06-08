@@ -8,4 +8,6 @@ cache:
   yarn: true
   directories:
   - node_modules
-script: npm test -- --runInBand
+script:
+  - yarn lint
+  - AST_COMPARE=1 yarn test -- --runInBand

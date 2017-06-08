@@ -1,0 +1,186 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`different-levels.js 1`] = `
+call(1,2,3)
+call(1,2,3)
+function f() {
+  call(1,2,3)
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+call(1,2,3)
+call(1, 2, 3);
+function f() {
+  call(1, 2, 3);
+}
+
+`;
+
+exports[`function-declaration.js 1`] = `
+function ugly ( {a=1,     b     =   2     }      ) {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function ugly({ a = 1, b = 2 }) {}
+
+`;
+
+exports[`ignore-indentation.js 1`] = `
+function ugly ( {a=1,     b     =   2     }      ) {
+  function ugly ( {a=1,     b     =   2     }      ) {
+    function ugly ( {a=1,     b     =   2     }      ) {
+  	  	     \`multiline template string
+              with too much indentation\`
+    }
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function ugly ( {a=1,     b     =   2     }      ) {
+  function ugly ( {a=1,     b     =   2     }      ) {
+    function ugly ( {a=1,     b     =   2     }      ) {
+  	  	     \`multiline template string
+              with too much indentation\`;
+    }
+  }
+}
+
+`;
+
+exports[`multiple-statements.js 1`] = `
+call(
+  1, 2,3
+);
+
+call(
+  1, 2,3
+);
+
+call(
+  1, 2,3
+);
+
+call(
+  1, 2,3
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+call(
+  1, 2,3
+);
+
+call(1, 2, 3);
+
+call(1, 2, 3);
+
+call(
+  1, 2,3
+);
+
+`;
+
+exports[`multiple-statements2.js 1`] = `
+call(
+  1, 2,3
+);
+
+call(
+  1, 2,3
+);
+
+call(
+  1, 2,3
+);
+
+call(
+  1, 2,3
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+call(
+  1, 2,3
+);
+
+call(1, 2, 3);
+
+call(1, 2, 3);
+
+call(
+  1, 2,3
+);
+
+`;
+
+exports[`nested.js 1`] = `
+try {
+  if (condition) {
+    body
+  }
+}
+catch (err) {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+try {
+  if (condition) {
+    body;
+  }
+} catch (err) {}
+
+`;
+
+exports[`nested2.js 1`] = `
+try {
+  if (condition) {
+    body
+  }
+}
+catch (err) {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+try {
+  if (condition) {
+    body;
+  }
+}
+catch (err) {}
+
+`;
+
+exports[`nested3.js 1`] = `
+try {
+1;if (condition) {
+    body
+  }
+}
+catch (err) {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+try {
+1;if (condition) {
+    body;
+  }
+}
+catch (err) {}
+
+`;
+
+exports[`range.js 1`] = `
+function ugly ( {a=1,     b     =   2     }      ) {
+  function ugly ( {a=1,     b     =   2     }      ) {
+    function ugly ( {a=1,     b     =   2     }      ) {
+             \`multiline template string
+              with too much indentation\`
+    }
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function ugly ( {a=1,     b     =   2     }      ) {
+  function ugly ( {a=1,     b     =   2     }      ) {
+    function ugly ( {a=1,     b     =   2     }      ) {
+             \`multiline template string
+              with too much indentation\`;
+    }
+  }
+}
+
+`;
+
+exports[`try-catch.js 1`] = `
+try {}
+catch (err) {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+try {
+} catch (err) {}
+
+`;

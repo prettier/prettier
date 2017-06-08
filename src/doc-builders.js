@@ -54,6 +54,12 @@ function conditionalGroup(states, opts) {
   );
 }
 
+function fill(parts) {
+  parts.forEach(assertDoc);
+
+  return { type: "fill", parts };
+}
+
 function ifBreak(breakContents, flatContents) {
   if (breakContents) {
     assertDoc(breakContents);
@@ -79,11 +85,12 @@ const literalline = concat([
   { type: "line", hard: true, literal: true },
   breakParent
 ]);
+const cursor = { type: "cursor", placeholder: Symbol() };
 
 function join(sep, arr) {
-  var res = [];
+  const res = [];
 
-  for (var i = 0; i < arr.length; i++) {
+  for (let i = 0; i < arr.length; i++) {
     if (i !== 0) {
       res.push(sep);
     }
@@ -92,6 +99,22 @@ function join(sep, arr) {
   }
 
   return concat(res);
+}
+
+function addAlignmentToDoc(doc, size, tabWidth) {
+  let aligned = doc;
+  if (size > 0) {
+    // Use indent to add tabs for all the levels of tabs we need
+    for (let i = 0; i < Math.floor(size / tabWidth); ++i) {
+      aligned = indent(aligned);
+    }
+    // Use align for all the spaces that are needed
+    aligned = align(size % tabWidth, aligned);
+    // size is absolute from 0 and not relative to the current
+    // indentation, so we use -Infinity to reset the indentation to 0
+    aligned = align(-Infinity, aligned);
+  }
+  return aligned;
 }
 
 module.exports = {
@@ -103,10 +126,13 @@ module.exports = {
   literalline,
   group,
   conditionalGroup,
+  fill,
   lineSuffix,
   lineSuffixBoundary,
+  cursor,
   breakParent,
   ifBreak,
   indent,
-  align
+  align,
+  addAlignmentToDoc
 };

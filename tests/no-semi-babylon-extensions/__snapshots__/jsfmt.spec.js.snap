@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`no-semi.js 1`] = `
+a
+;::b.c
+
+class A {
+  a = b;
+  in
+  c
+
+  a = b;
+  instanceof(){}
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a;
+::b.c;
+
+class A {
+  a = b;
+  in;
+  c;
+
+  a = b;
+  instanceof() {}
+}
+
+`;
+
+exports[`no-semi.js 2`] = `
+a
+;::b.c
+
+class A {
+  a = b;
+  in
+  c
+
+  a = b;
+  instanceof(){}
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a
+;::b.c
+
+class A {
+  a = b;
+  in
+  c
+
+  a = b;
+  instanceof() {}
+}
+
+`;

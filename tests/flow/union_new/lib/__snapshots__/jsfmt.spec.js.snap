@@ -9,7 +9,7 @@ declare class SomeLibClass {}
 
 exports[`test25_lib.js 1`] = `
 declare class Set<T> {
-    add(): Set<T>;
+    add(x: any): Set<T>;
 }
 
 declare class Row {
@@ -31,7 +31,7 @@ declare class Rows {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare class Set<T> {
-  add(): Set<T>
+  add(x: any): Set<T>
 }
 
 declare class Row {

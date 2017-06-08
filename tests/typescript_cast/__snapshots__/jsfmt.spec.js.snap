@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parenthesis.ts 1`] = `
+<DocumentHighlightKind>(a ? b : c);
+<any>(() => {});
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<DocumentHighlightKind>(a ? b : c);
+<any>(() => {});
+
+`;

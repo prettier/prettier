@@ -43,9 +43,9 @@ function foo0(
   return x;
 }
 
-function foo2(
-  x: { [key: string]: number }
-): { [key: string]: number, +toString: () => string } {
+function foo2(x: {
+  [key: string]: number
+}): { [key: string]: number, +toString: () => string } {
   // x's prototype has a toString method
   return x;
 }
@@ -448,9 +448,9 @@ function mix_with_declared_props(o: { [k: number]: X, p: Y }, x: X, y: Y) {
 }
 
 // Indeed, dict types are still Objects and have Object.prototype stuff
-function object_prototype(
-  o: { [k: string]: number }
-): { [k: string]: number, +toString: () => string } {
+function object_prototype(o: {
+  [k: string]: number
+}): { [k: string]: number, +toString: () => string } {
   (o.toString(): boolean); // error: string ~> boolean
   return o; // ok
 }
@@ -458,9 +458,10 @@ function object_prototype(
 // **UNSOUND**
 // Because we support non-string props w/ bracket notation, it's possible to
 // write into a declared prop unsoundly.
-function unsound_string_conversion_alias_declared_prop(
-  o: { [k: number]: any, "0": X }
-) {
+function unsound_string_conversion_alias_declared_prop(o: {
+  [k: number]: any,
+  "0": X
+}) {
   o[0] = "not-x"; // a["0"] no longer X
 }
 
@@ -748,9 +749,9 @@ function foo3(x: { [key: string]: number }): { foo: number } {
 }
 
 // error: foo can't exist in x
-function foo4(
-  x: { [key: string]: number }
-): { [key: string]: number, foo: string } {
+function foo4(x: {
+  [key: string]: number
+}): { [key: string]: number, foo: string } {
   return x;
 }
 
@@ -764,7 +765,7 @@ function foo6(x: Array<{ foo: number }>): Array<{ [key: string]: number }> {
   return x;
 }
 
-function foo7(x: { [key: string]: number, bar: string }) {
+function foo7(x: { bar: string, [key: string]: number }) {
   (x.bar: string);
 }
 
@@ -842,7 +843,7 @@ var o: { foo: QueryFunction } = {
 
 module.exports = o;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-type Params = { [name: string]: string, count: number };
+type Params = { count: number, [name: string]: string };
 type QueryFunction = (params: Params) => string;
 
 var o: { foo: QueryFunction } = {

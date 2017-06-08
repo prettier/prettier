@@ -1,5 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`async-iteration.js 1`] = `
+
+async function * a() {
+    yield* b();
+}
+
+class X {
+    async * b() {
+        yield* a();
+    }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+async function* a() {
+  yield* b();
+}
+
+class X {
+  async *b() {
+    yield* a();
+  }
+}
+
+`;
+
 exports[`await_parse.js 1`] = `
 async function f() { (await f()).length }
 async function g() {
@@ -12,6 +36,10 @@ function *f(){
 }
 async function f() {
   a = !(await f());
+}
+async () => {
+  new A(await x);
+  obj[await x];
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 async function f() {
@@ -26,6 +54,10 @@ function* f() {
 async function f() {
   a = !await f();
 }
+async () => {
+  new A(await x);
+  obj[await x];
+};
 
 `;
 
@@ -39,6 +71,11 @@ async function f() {
     await (true ? Promise.resolve("A") : Promise.resolve("B"))
   );
 })()
+
+async function f() {
+  await (spellcheck && spellcheck.setChecking(false));
+  await spellcheck && spellcheck.setChecking(false)
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 async function f() {
   const result = typeof fn === "function" ? await fn() : null;
@@ -47,5 +84,25 @@ async function f() {
 (async function() {
   console.log(await (true ? Promise.resolve("A") : Promise.resolve("B")));
 })();
+
+async function f() {
+  await (spellcheck && spellcheck.setChecking(false));
+  (await spellcheck) && spellcheck.setChecking(false);
+}
+
+`;
+
+exports[`parens.js 1`] = `
+async function *f(){ await (yield x); }
+
+async function f(){ await (() => {}); }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+async function* f() {
+  await (yield x);
+}
+
+async function f() {
+  await (() => {});
+}
 
 `;

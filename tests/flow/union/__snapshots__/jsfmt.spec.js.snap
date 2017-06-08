@@ -71,20 +71,30 @@ export class BinaryExpression<
 
 export type ArithmeticExpression = PlusOp | MinusOp | MulOp | DivOp | ModOp;
 
-export class PlusOp
-  extends BinaryExpression<ArithmeticExpression, ArithmeticExpression> {}
+export class PlusOp extends BinaryExpression<
+  ArithmeticExpression,
+  ArithmeticExpression
+> {}
 
-export class MinusOp
-  extends BinaryExpression<ArithmeticExpression, ArithmeticExpression> {}
+export class MinusOp extends BinaryExpression<
+  ArithmeticExpression,
+  ArithmeticExpression
+> {}
 
-export class MulOp
-  extends BinaryExpression<ArithmeticExpression, ArithmeticExpression> {}
+export class MulOp extends BinaryExpression<
+  ArithmeticExpression,
+  ArithmeticExpression
+> {}
 
-export class DivOp
-  extends BinaryExpression<ArithmeticExpression, ArithmeticExpression> {}
+export class DivOp extends BinaryExpression<
+  ArithmeticExpression,
+  ArithmeticExpression
+> {}
 
-export class ModOp
-  extends BinaryExpression<ArithmeticExpression, ArithmeticExpression> {}
+export class ModOp extends BinaryExpression<
+  ArithmeticExpression,
+  ArithmeticExpression
+> {}
 
 `;
 

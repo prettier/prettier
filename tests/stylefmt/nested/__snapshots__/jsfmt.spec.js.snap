@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`nested.css 1`] = `
+     .foo {font-size   :12px      ;
+
+
+  >.nested-1
+ 
+  {
+padding: 10px;   .nested-2-1{
+      color       :      red     ;
+    }
+           +      .nested-2-2      {
+  color:blue;  }}
+
+
+
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.foo {
+  font-size: 12px;
+
+  > .nested-1 {
+    padding: 10px;
+    .nested-2-1 {
+      color: red;
+    }
+    + .nested-2-2 {
+      color: blue;
+    }
+  }
+}
+
+`;

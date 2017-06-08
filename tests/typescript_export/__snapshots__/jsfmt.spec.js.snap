@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`comment.js 1`] = `
+export function match(): string /* the matching pattern */
+a
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export function match(): string; /* the matching pattern */
+a;
+
+`;
+
+exports[`export.ts 1`] = `
+declare module "hello" {
+    export default Hello;
+}
+
+declare module "hello" {
+    export = Hello;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+declare module "hello" {
+  export default Hello;
+}
+
+declare module "hello" {
+  export = Hello;
+}
+
+`;
+
+exports[`export-class.js 1`] = `
+export class A {}
+export default class B {}
+export abstract class C {}
+export default abstract class D {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export class A {}
+export default class B {}
+export abstract class C {}
+export default abstract class D {}
+
+`;

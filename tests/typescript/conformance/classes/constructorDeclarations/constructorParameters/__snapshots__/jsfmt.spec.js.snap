@@ -413,7 +413,7 @@ class C {
     constructor(readonly readonly y: number) {}
 }~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class C {
-  x: number;
+  readonly x: number;
   constructor(readonly y: number) {}
 }
 

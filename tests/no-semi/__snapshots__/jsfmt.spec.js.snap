@@ -81,6 +81,69 @@ x
 
 `;
 
+exports[`issue2006.js 1`] = `
+switch (n) {
+  case 11:
+    var c = a.e;
+    (i.a += Ga(c.e)), F(i, c.i, 0);
+}
+
+var c = a.e;
+(i.a += Ga(c.e)), F(i, c.i, 0);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+switch (n) {
+  case 11:
+    var c = a.e;
+    (i.a += Ga(c.e)), F(i, c.i, 0);
+}
+
+var c = a.e;
+(i.a += Ga(c.e)), F(i, c.i, 0);
+
+`;
+
+exports[`issue2006.js 2`] = `
+switch (n) {
+  case 11:
+    var c = a.e;
+    (i.a += Ga(c.e)), F(i, c.i, 0);
+}
+
+var c = a.e;
+(i.a += Ga(c.e)), F(i, c.i, 0);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+switch (n) {
+  case 11:
+    var c = a.e
+    ;(i.a += Ga(c.e)), F(i, c.i, 0)
+}
+
+var c = a.e
+;(i.a += Ga(c.e)), F(i, c.i, 0)
+
+`;
+
+exports[`issue2006.js 3`] = `
+switch (n) {
+  case 11:
+    var c = a.e;
+    (i.a += Ga(c.e)), F(i, c.i, 0);
+}
+
+var c = a.e;
+(i.a += Ga(c.e)), F(i, c.i, 0);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+switch (n) {
+  case 11:
+    var c = a.e
+    ;(i.a += Ga(c.e)), F(i, c.i, 0)
+}
+
+var c = a.e
+;(i.a += Ga(c.e)), F(i, c.i, 0)
+
+`;
+
 exports[`no-semi.js 1`] = `
 
 // with preexisting semi
@@ -103,8 +166,6 @@ x; (x, y) => x
 
 class X {} [1, 2, 3].forEach(fn)
 
-// TODO: enable lang features
-// x; ::b.c
 // TODO: upgrade parser
 // class A {
 //   async; // The semicolon is *not* necessary
@@ -229,6 +290,10 @@ tag
 
 x; x => x
 
+x; (a || b).c++
+
+x; ++(a || b).c
+
 while (false)
   (function(){}())
 
@@ -269,8 +334,6 @@ x;
 class X {}
 [1, 2, 3].forEach(fn);
 
-// TODO: enable lang features
-// x; ::b.c
 // TODO: upgrade parser
 // class A {
 //   async; // The semicolon is *not* necessary
@@ -305,6 +368,7 @@ class A {
 
   // none of the semicolons above this comment can be omitted.
   // none of the semicolons below this comment are necessary.
+
   q() {}
   [h]() {}
 
@@ -358,12 +422,10 @@ if (true) {
 
 // check statement clauses
 
-do
-  break;
+do break;
 while (false);
 if (true)
-  do
-    break;
+  do break;
   while (false);
 
 if (true) 1;
@@ -394,8 +456,13 @@ tag\`string\`;
 x;
 x => x;
 
-while (false)
-  (function() {})();
+x;
+(a || b).c++;
+
+x;
+++(a || b).c;
+
+while (false) (function() {})();
 
 aReallyLongLine012345678901234567890123456789012345678901234567890123456789 *
   (b + c);
@@ -424,8 +491,6 @@ x; (x, y) => x
 
 class X {} [1, 2, 3].forEach(fn)
 
-// TODO: enable lang features
-// x; ::b.c
 // TODO: upgrade parser
 // class A {
 //   async; // The semicolon is *not* necessary
@@ -550,6 +615,10 @@ tag
 
 x; x => x
 
+x; (a || b).c++
+
+x; ++(a || b).c
+
 while (false)
   (function(){}())
 
@@ -590,8 +659,6 @@ x
 class X {}
 ;[1, 2, 3].forEach(fn)
 
-// TODO: enable lang features
-// x; ::b.c
 // TODO: upgrade parser
 // class A {
 //   async; // The semicolon is *not* necessary
@@ -626,6 +693,7 @@ class A {
 
   // none of the semicolons above this comment can be omitted.
   // none of the semicolons below this comment are necessary.
+
   q() {}
   [h]() {}
 
@@ -679,12 +747,10 @@ if (true) {
 
 // check statement clauses
 
-do
-  break
+do break
 while (false)
 if (true)
-  do
-    break
+  do break
   while (false)
 
 if (true) 1
@@ -715,8 +781,13 @@ tag\`string\`
 x
 x => x
 
-while (false)
-  (function() {})()
+x
+;(a || b).c++
+
+x
+++(a || b).c
+
+while (false) (function() {})()
 
 aReallyLongLine012345678901234567890123456789012345678901234567890123456789 *
   (b + c)
@@ -745,8 +816,6 @@ x; (x, y) => x
 
 class X {} [1, 2, 3].forEach(fn)
 
-// TODO: enable lang features
-// x; ::b.c
 // TODO: upgrade parser
 // class A {
 //   async; // The semicolon is *not* necessary
@@ -871,6 +940,10 @@ tag
 
 x; x => x
 
+x; (a || b).c++
+
+x; ++(a || b).c
+
 while (false)
   (function(){}())
 
@@ -911,8 +984,6 @@ x
 class X {}
 ;[1, 2, 3].forEach(fn)
 
-// TODO: enable lang features
-// x; ::b.c
 // TODO: upgrade parser
 // class A {
 //   async; // The semicolon is *not* necessary
@@ -1001,12 +1072,10 @@ if (true) {
 
 // check statement clauses
 
-do
-  break
+do break
 while (false)
 if (true)
-  do
-    break
+  do break
   while (false)
 
 if (true) 1
@@ -1037,8 +1106,13 @@ tag\`string\`
 x
 x => x
 
-while (false)
-  (function() {})()
+x
+;(a || b).c++
+
+x
+++(a || b).c
+
+while (false) (function() {})()
 
 aReallyLongLine012345678901234567890123456789012345678901234567890123456789 *
   (b + c)

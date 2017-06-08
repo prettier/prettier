@@ -7,3 +7,8 @@ async function f() {
     await (true ? Promise.resolve("A") : Promise.resolve("B"))
   );
 })()
+
+async function f() {
+  await (spellcheck && spellcheck.setChecking(false));
+  await spellcheck && spellcheck.setChecking(false)
+}

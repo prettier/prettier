@@ -19,9 +19,11 @@ declare module bar {
 
 declare module foo {
 }
+
 declare module bar {
-  // TODO
 }
+
+// TODO
 
 `;
 
@@ -69,9 +71,12 @@ declare class qux {
 
 declare module foo {
 }
+
 declare module bar {
-  // TODO
 }
+
+// TODO
+
 declare class qux {}
 
 `;

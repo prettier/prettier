@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`not-react.ts 1`] = `
+/// <reference types="node" />
+
+type ul = any;
+const somethingElse = 1;
+const thing = <ul>somethingElse;
+const div = "<div></div>";
+const h1 = \`<h1>Hi</h1>\`;
+const footer = '<footer></footer>';
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/// <reference types="node" />
+
+type ul = any;
+const somethingElse = 1;
+const thing = <ul>somethingElse;
+const div = "<div></div>";
+const h1 = \`<h1>Hi</h1>\`;
+const footer = "<footer></footer>";
+
+`;
+
+exports[`react.tsx 1`] = `
+const MyCoolList = ({ things }) =>
+    <ul>
+        {things.map(MyCoolThing)}
+    </ul>;
+
+const MyCoolThing = ({ thingo }) => <li>{thingo}</li>;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const MyCoolList = ({ things }) =>
+  <ul>
+    {things.map(MyCoolThing)}
+  </ul>;
+
+const MyCoolThing = ({ thingo }) => <li>{thingo}</li>;
+
+`;
+
+exports[`this.tsx 1`] = `
+<this.state.Component />;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<this.state.Component />;
+
+`;

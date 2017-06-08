@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`index-signature.ts 1`] = `
+class LocalStorage implements Storage {
+  [index: number]: string;
+  [key: string]: any;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class LocalStorage implements Storage {
+  [index: number]: string
+  [key: string]: any
+}
+
+`;
+
+exports[`interface.ts 1`] = `
+interface Inline { x: string }
+
+interface MultiLine {
+    x: string;
+    y: string;
+}
+
+interface InlineMultiple { x: string; y: string }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+interface Inline { x: string }
+
+interface MultiLine {
+  x: string
+  y: string
+}
+
+interface InlineMultiple { x: string; y: string }
+
+`;
+
+exports[`type.js 1`] = `
+type A = {disabled?: boolean, error?: string}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type A = { disabled?: boolean; error?: string }
+
+`;

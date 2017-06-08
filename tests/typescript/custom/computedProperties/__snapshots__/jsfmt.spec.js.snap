@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`string.ts 1`] = `
+interface I {
+    "string": "I";
+}
+
+type T = {
+    "string": "T";
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+interface I {
+  "string": "I";
+}
+
+type T = {
+  "string": "T";
+};
+
+`;
+
+exports[`symbol.ts 1`] = `
+interface I {
+    [Symbol.toStringTag]: "I";
+}
+
+type T = {
+    [Symbol.toStringTag]: "T";
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+interface I {
+  [Symbol.toStringTag]: "I";
+}
+
+type T = {
+  [Symbol.toStringTag]: "T";
+};
+
+`;

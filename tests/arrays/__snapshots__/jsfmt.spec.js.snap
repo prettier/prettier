@@ -1,5 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`empty.js 1`] = `
+const a = someVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeLong.Expression || [];
+const a = someVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeLong.Expression || {};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const a =
+  someVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeLong.Expression || [];
+const a =
+  someVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeLong.Expression || {};
+
+`;
+
 exports[`last.js 1`] = `
 [,];
 [,,];

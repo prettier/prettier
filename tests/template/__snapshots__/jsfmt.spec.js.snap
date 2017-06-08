@@ -1,5 +1,43 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`arrow.js 1`] = `
+() => a\`
+	a
+\`;
+
+() => \`
+	a
+\`;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+() => a\`
+	a
+\`;
+
+() => \`
+	a
+\`;
+
+`;
+
+exports[`call.js 1`] = `
+insertRule(\`*, *:before, *:after {
+  box-sizing: inherit;
+}\`);
+
+insertRule\`*, *:before, *:after {
+  box-sizing: inherit;
+}\`;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+insertRule(\`*, *:before, *:after {
+  box-sizing: inherit;
+}\`);
+
+insertRule\`*, *:before, *:after {
+  box-sizing: inherit;
+}\`;
+
+`;
+
 exports[`comment.js 1`] = `
 \`
 (?:\${escapeChar}[\\\\S\\\\s]|(?:(?!\${// Using \`XRegExp.union\` safely rewrites backreferences in \`left\` and \`right\`.
@@ -15,18 +53,18 @@ g
 }\`;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \`
-(?:\${escapeChar}[\\\\S\\\\s]|(?:(?!\${/* Using \`XRegExp.union\` safely rewrites backreferences in \`left\` and \`right\`.*/
+(?:\${escapeChar}[\\\\S\\\\s]|(?:(?!\${// Using \`XRegExp.union\` safely rewrites backreferences in \`left\` and \`right\`.
 // Intentionally not passing \`basicFlags\` to \`XRegExp.union\` since any syntax
 // transformation resulting from those flags was already applied to \`left\` and
 // \`right\` when they were passed through the XRegExp constructor above.
-XRegExp.union([left, right], "", {
-  conjunction: "or"
-}).source})[^\${escapeChar}])+)+
+XRegExp.union([left, right], "", { conjunction: "or" })
+  .source})[^\${escapeChar}])+)+
 \`;
 
-\`a\${/* b */ /* d */ c}e\${/* f*/
-g}// h
-\`;
+\`a\${/* b */ c /* d */}e\${// f
+g
+// h
+}\`;
 
 `;
 
@@ -60,6 +98,156 @@ var x = {
     }
   \`
 };
+
+`;
+
+exports[`graphql.js 1`] = `
+module.exports = Relay.createContainer(
+  // ...
+  {
+    fragments: {
+      nodes: ({solution_type, time_frame}) => Relay.QL\`
+        fragment on RelatedNode @relay(plural: true) {
+          __typename
+          \${OptimalSolutionsSection
+            .getFragment(
+              'node',
+              {solution_type, time_frame},
+            )
+          }
+        }
+      \`,
+    },
+  },
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+module.exports = Relay.createContainer(
+  // ...
+  {
+    fragments: {
+      nodes: ({ solution_type, time_frame }) => Relay.QL\`
+        fragment on RelatedNode @relay(plural: true) {
+          __typename
+          \${OptimalSolutionsSection.getFragment("node", {
+            solution_type,
+            time_frame
+          })}
+        }
+      \`
+    }
+  }
+);
+
+`;
+
+exports[`inline.js 1`] = `
+this._pipe.write(\`\\n\\n Pattern matches \${total} \${pluralizeTest}\`);
+this._pipe.write(
+  \`\\n\\n Pattern matches \${total} \${pluralizeTest}\`
+);
+this._pipe
+  .write(
+    \`\\n\\n Pattern matches \${total} \${pluralizeTest}\`
+  );
+
+this._pipe.write(\`\\n\\n Pattern matches \${total} \${pluralizeTest} but that's long\`);
+
+this._pipe.write(
+  \`\\n\\n Pattern matches \${total} \${pluralizeTest} but that's long\`
+);
+
+this._pipe.write(\`
+  \\n\\n Pattern matches \${total} \${pluralizeTest} but that's long
+\`);
+
+
+() => \`
+  a
+\`;
+
+() =>
+  \`
+    a
+  \`;
+
+(): {
+  someLong: boolean,
+  t: boolean
+} => \`
+  a
+\`;
+
+(): {
+  someLong: boolean,
+  t: boolean
+} =>
+  \`
+    a
+  \`;
+
+(
+  someLong: boolean,
+  t: boolean
+) => \`
+    a
+  \`;
+
+(
+  someLong: boolean,
+  t: boolean
+) =>
+  \`
+    a
+  \`;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+this._pipe.write(\`\\n\\n Pattern matches \${total} \${pluralizeTest}\`);
+this._pipe.write(\`\\n\\n Pattern matches \${total} \${pluralizeTest}\`);
+this._pipe.write(\`\\n\\n Pattern matches \${total} \${pluralizeTest}\`);
+
+this._pipe.write(
+  \`\\n\\n Pattern matches \${total} \${pluralizeTest} but that's long\`
+);
+
+this._pipe.write(
+  \`\\n\\n Pattern matches \${total} \${pluralizeTest} but that's long\`
+);
+
+this._pipe.write(\`
+  \\n\\n Pattern matches \${total} \${pluralizeTest} but that's long
+\`);
+
+() => \`
+  a
+\`;
+
+() =>
+  \`
+    a
+  \`;
+
+(): {
+  someLong: boolean,
+  t: boolean
+} => \`
+  a
+\`;
+
+(): {
+  someLong: boolean,
+  t: boolean
+} =>
+  \`
+    a
+  \`;
+
+(someLong: boolean, t: boolean) => \`
+    a
+  \`;
+
+(someLong: boolean, t: boolean) =>
+  \`
+    a
+  \`;
 
 `;
 
