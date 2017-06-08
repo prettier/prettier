@@ -341,54 +341,7 @@ for on-demand formatting.
 
 ### Vim
 
-Add [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/neoformat) to your list based on the tool you use:
-
-```vim
-Plug 'sbdchd/neoformat'
-```
-
-Then make Neoformat run on save:
-
-```vim
-autocmd BufWritePre *.js Neoformat
-```
-
-#### Other `autocmd` events
-
-You can also make Vim format your code more frequently, by setting an `autocmd` for other events. Here are a couple of useful ones:
-
-* `TextChanged`: after a change was made to the text in Normal mode
-* `InsertLeave`: when leaving Insert mode
-
-For example, you can format on both of the above events together with `BufWritePre` like this:
-
-```vim
-autocmd BufWritePre,TextChanged,InsertLeave *.js Neoformat
-```
-
-See `:help autocmd-events` in Vim for details.
-
-#### Customizing Prettier in Vim
-
-If your project requires settings other than the default Prettier settings, you can pass arguments to do so in your `.vimrc` or [vim project](http://vim.wikia.com/wiki/Project_specific_settings), you can do so:
-
-```vim
-autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --parser\ flow\ --single-quote\ --trailing-comma\ es5
-" Use formatprg when available
-let g:neoformat_try_formatprg = 1
-```
-
-Each option needs to be escaped with `\`.
-
-#### Running Prettier manually in Vim
-
-If you need a little more control over when prettier is run, you can create a
-custom key binding. In this example, `gp` (mnemonic: "get pretty") is used to
-run prettier (with options) in the currently active buffer:
-
-```vim
-nnoremap gp :silent %!prettier --stdin --trailing-comma all --single-quote<CR>
-```
+Vim users can simply install either [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/neoformat) or [mitermayer](https://github.com/mitermayer)/[vim-prettier](https://github.com/mitermayer/vim-prettier), for more details see see [this directory](https://github.com/prettier/prettier/tree/master/editors/vim)
 
 ### Visual Studio Code
 
