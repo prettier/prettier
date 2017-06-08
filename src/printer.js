@@ -3520,10 +3520,14 @@ function printMemberChain(path, options, print) {
   const shouldMerge =
     groups.length >= 2 &&
     !groups[1][0].node.comments &&
-    groups[0].length === 1 &&
     (groups[0][0].node.type === "ThisExpression" ||
       (groups[0][0].node.type === "Identifier" &&
-        groups[0][0].node.name.match(/(^[A-Z])|^[_$]+$/)));
+        groups[0][0].node.name.match(/(^[A-Z])|^[_$]+$/))) &&
+    (groups[0].length === 1 ||
+      (groups[0].length > 1 &&
+        (groups[1][0].node.computed ||
+          (groups[1][0].node.property.type === "Identifier" &&
+            groups[1][0].node.property.name.match(/^[A-Z]/)))));
 
   function printGroup(printedGroup) {
     return concat(printedGroup.map(tuple => tuple.printed));
