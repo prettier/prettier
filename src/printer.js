@@ -840,7 +840,7 @@ function genericPrintNoParens(path, options, print, args) {
         );
       const separator = n.type === "TSInterfaceBody" ||
         n.type === "TSTypeLiteral"
-        ? shouldBreak ? semi : ";"
+        ? ifBreak(semi, ";")
         : ",";
       const fields = [];
       const leftBrace = n.exact ? "{|" : "{";
