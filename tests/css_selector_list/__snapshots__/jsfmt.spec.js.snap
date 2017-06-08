@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`selectors.css 1`] = `
+.a,.b,.c {}
+.r { &, &:hover {} }
+
+@media (min-width: 0px) {
+  .a,.b,:not(asdasldaskdhjkashdahsdkjahskdjhakj,asdasldaskdhjkashdahsdkjahskdjhakj) {color: red}
+}
+
+.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas,
+.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas {}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.a,
+.b,
+.c {
+}
+.r {
+  &,
+  &:hover {
+  }
+}
+
+@media (min-width: 0px) {
+  .a,
+  .b,
+  :not(asdasldaskdhjkashdahsdkjahskdjhakj, asdasldaskdhjkashdahsdkjahskdjhakj) {
+    color: red;
+  }
+}
+
+.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas,
+.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas {
+}
+
+`;
