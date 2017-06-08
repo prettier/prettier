@@ -250,6 +250,14 @@ function genericPrint(path, options, print) {
       ]);
     }
 
+    case "ListType": {
+      return concat([
+        "[",
+        path.call(print, "type"),
+        "]"
+      ])
+    }
+
     default:
       throw new Error("unknown graphql type: " + JSON.stringify(n.kind));
   }
