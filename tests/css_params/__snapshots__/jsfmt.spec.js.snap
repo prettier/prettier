@@ -6,7 +6,8 @@ exports[`params.css 1`] = `
   width: 220px;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.clusterPlannerDialog input[type="text"], .clusterPlannerDialog .uiTypeahead {
+.clusterPlannerDialog input[type="text"],
+.clusterPlannerDialog .uiTypeahead {
   width: 220px;
 }
 

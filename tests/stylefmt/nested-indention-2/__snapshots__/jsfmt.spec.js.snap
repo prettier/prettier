@@ -30,7 +30,10 @@ exports[`nested-indention-2.css 1`] = `
   align-items: stretch;
   justify-content: flex-start;
 
-  &__row, &__item, &__link, &__image {
+  &__row,
+  &__item,
+  &__link,
+  &__image {
     display: flex;
     width: 100%;
     margin: 0;
