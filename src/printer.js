@@ -785,9 +785,10 @@ function genericPrintNoParens(path, options, print, args) {
             n.arguments[0].type === "TemplateLiteral" ||
             (n.arguments[0].type === "Literal" &&
               typeof n.arguments[0].value === "string")) &&
-          (n.arguments[1].type === "FunctionExpression" ||
+          (((n.arguments[1].type === "FunctionExpression" ||
             n.arguments[1].type === "ArrowFunctionExpression") &&
-          n.arguments[1].params.length <= 1)
+            n.arguments[1].params.length <= 1) ||
+            n.arguments[1].type === "CallExpression"))
       ) {
         return concat([
           path.call(print, "callee"),
