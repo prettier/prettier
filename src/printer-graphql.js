@@ -244,18 +244,11 @@ function genericPrint(path, options, print) {
     }
 
     case "NonNullType": {
-      return concat([
-        path.call(print, "type"),
-        "!"
-      ]);
+      return concat([path.call(print, "type"), "!"]);
     }
 
     case "ListType": {
-      return concat([
-        "[",
-        path.call(print, "type"),
-        "]"
-      ])
+      return concat(["[", path.call(print, "type"), "]"]);
     }
 
     default:
