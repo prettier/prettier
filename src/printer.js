@@ -713,6 +713,11 @@ function genericPrintNoParens(path, options, print, args) {
       if (hasDirectives) {
         path.each(childPath => {
           parts.push(indent(concat([hardline, print(childPath), semi])));
+          if (
+            util.isNextLineEmpty(options.originalText, childPath.getValue())
+          ) {
+            parts.push(hardline);
+          }
         }, "directives");
       }
 
