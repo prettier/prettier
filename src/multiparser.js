@@ -21,7 +21,7 @@ function getSubtreeParser(path, options) {
   }
 }
 
-function fromBabylonFlowOrTypeScript(path, options) {
+function fromBabylonFlowOrTypeScript(path) {
   const node = path.getValue();
 
   switch (node.type) {
@@ -54,10 +54,7 @@ function fromBabylonFlowOrTypeScript(path, options) {
               indent(concat([softline, stripTrailingHardline(doc)])),
               softline
             ]),
-          text: options.originalText.slice(
-            util.locStart(node) + 1,
-            util.locEnd(node) - 1
-          )
+          text: parent.quasis[0].value.raw
         };
       }
 
@@ -82,10 +79,7 @@ function fromBabylonFlowOrTypeScript(path, options) {
               indent(concat([softline, stripTrailingHardline(doc)])),
               softline
             ]),
-          text: options.originalText.slice(
-            util.locStart(node) + 1,
-            util.locEnd(node) - 1
-          )
+          text: parent.quasis[0].value.raw
         };
       }
 
