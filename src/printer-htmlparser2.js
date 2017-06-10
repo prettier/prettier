@@ -48,6 +48,8 @@ function genericPrint(path, options, print) {
     case "text": {
       return n.data.replace(/\s+/g, " ").trim();
     }
+    case "script":
+    case "style":
     case "tag": {
       const selfClose = voidTags[n.name] ? ">" : " />";
 

@@ -7,7 +7,8 @@ function parse(text) {
   const parse5 = require("parse5");
   try {
     const ast = parse5.parse(text, {
-      treeAdapter: parse5.treeAdapters.htmlparser2
+      treeAdapter: parse5.treeAdapters.htmlparser2,
+      locationInfo: true
     });
     return ast;
   } catch (error) {
