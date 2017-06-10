@@ -2,7 +2,7 @@
 
 const fs = require("fs");
 const extname = require("path").extname;
-const prettier = require("../");
+const prettier = require("../"); // change to ../dist/ to "test in prod"
 const parser = require("../src/parser");
 const massageAST = require("../src/clean-ast.js").massageAST;
 
@@ -10,12 +10,15 @@ const AST_COMPARE = process.env["AST_COMPARE"];
 const VERIFY_ALL_PARSERS = process.env["VERIFY_ALL_PARSERS"] || false;
 const ALL_PARSERS = process.env["ALL_PARSERS"]
   ? JSON.parse(process.env["ALL_PARSERS"])
-  : ["flow", "babylon", "typescript"];
+  : ["flow", "graphql", "babylon", "typescript"];
 
 function run_spec(dirname, options, additionalParsers) {
   fs.readdirSync(dirname).forEach(filename => {
     const extension = extname(filename);
-    if (/^\.([jt]sx?|css)$/.test(extension) && filename !== "jsfmt.spec.js") {
+    if (
+      /^\.([jt]sx?|css|graphql|html)$/.test(extension) &&
+      filename !== "jsfmt.spec.js"
+    ) {
       const path = dirname + "/" + filename;
       let rangeStart = 0;
       let rangeEnd = Infinity;
@@ -93,7 +96,9 @@ function stripLocation(ast) {
         key === "loc" ||
         key === "range" ||
         key === "raw" ||
-        key === "comments"
+        key === "comments" ||
+        key === "parent" ||
+        key === "prev"
       ) {
         continue;
       }
@@ -113,7 +118,7 @@ function prettyprint(src, filename, options) {
     src,
     Object.assign(
       {
-        filename
+        filepath: filename
       },
       options
     )

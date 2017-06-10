@@ -4,7 +4,8 @@
 [![Build Status](https://travis-ci.org/prettier/prettier.svg?branch=master)](https://travis-ci.org/prettier/prettier)
 [![NPM version](https://img.shields.io/npm/v/prettier.svg)](https://www.npmjs.com/package/prettier)
 
-<!-- toc -->
+<details>
+<summary><strong>Table of Contents</strong></summary>
 
 - [Usage](#usage)
   * [CLI](#cli)
@@ -28,20 +29,27 @@
 - [Technical Details](#technical-details)
 - [Badge](#badge)
 - [Contributing](#contributing)
+</details>
 
-<!-- tocstop -->
+--------------------------------------------------------------------------------
 
-Prettier is an opinionated JavaScript formatter inspired by
+Prettier is an opinionated code formatter inspired by
 [refmt](https://facebook.github.io/reason/tools.html) with advanced
-support for language features from [ES2017](https://github.com/tc39/proposals/blob/master/finished-proposals.md), [JSX](https://facebook.github.io/jsx/), and [Flow](https://flow.org/). It removes
-all original styling[\*](#styling-footnote) and ensures that all outputted JavaScript
+support for language features from:
+* JavaScript, including [ES2017](https://github.com/tc39/proposals/blob/master/finished-proposals.md)
+* [JSX](https://facebook.github.io/jsx/)
+* [Flow](https://flow.org/)
+* [TypeScript](https://www.typescriptlang.org/)
+* CSS, [LESS](http://lesscss.org/), and [SCSS](http://sass-lang.com)
+
+It removes all original styling[\*](#styling-footnote) and ensures that all outputted code
 conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
 
 If you are interested in the details, you can watch those two conference talks:
 
 <a href="https://www.youtube.com/watch?v=hkfBvpEfWdA"><img width="298" src="https://cloud.githubusercontent.com/assets/197597/24886367/dda8a6f0-1e08-11e7-865b-22492450f10f.png"></a> <a href="https://www.youtube.com/watch?v=0Q4kUNx85_4"><img width="298" src="https://cloud.githubusercontent.com/assets/197597/24886368/ddacd6f8-1e08-11e7-806a-9febd23cbf47.png"></a>
 
-This goes way beyond [ESLint](http://eslint.org/) and other projects
+In the case of JavaScript, this goes way beyond [ESLint](http://eslint.org/) and other projects
 [built on it](https://github.com/feross/standard). Unlike ESLint,
 there aren't a million configuration options and rules. But more
 importantly: **everything is fixable**. This works because Prettier
@@ -90,7 +98,7 @@ actually the most troublesome. Individuals on teams will all format
 these differently according to their own rules and we lose the
 consistency we sought after.
 
-Even if we disregard line widths, it's too easy to sneak in various
+Even if we disregard line lengths, it's too easy to sneak in various
 styles of code in all other linters. The most strict linter I know
 happily lets all these styles happen:
 
@@ -110,7 +118,7 @@ foo(
 ```
 
 Prettier bans all custom styling[\*](#styling-footnote) by parsing it away and re-printing
-the parsed AST with its own rules that take the maximum line width
+the parsed AST with its own rules that take the maximum line length
 into account, wrapping code when necessary.
 
 <a href="#styling-footnote" name="styling-footnote">\*</a>_Well actually, some
@@ -208,7 +216,7 @@ See https://github.com/okonet/lint-staged#configuration for more details about h
 
 ##### 2. [pre-commit](https://github.com/pre-commit/pre-commit)
 
-Just copy the following config in your pre-commit config yaml file
+Copy the following config in your pre-commit config yaml file:
 
 ```yaml
 
@@ -216,15 +224,15 @@ Just copy the following config in your pre-commit config yaml file
         sha: ''  # Use the sha or tag you want to point at
         hooks:
         -   id: prettier
-            additional_dependencies: ['prettier@1.1.0']
+            additional_dependencies: ['prettier@1.4.2']
 
  ```
 
-Find more info from [here](https://github.com/awebdeveloper/pre-commit-prettier)
+Find more info from [here](https://github.com/awebdeveloper/pre-commit-prettier).
 
 ##### 3. bash script
 
-Alternately you can just save this script as `.git/hooks/pre-commit` and give it execute permission:
+Alternately you can save this script as `.git/hooks/pre-commit` and give it execute permission:
 
 ```bash
 #!/bin/sh
@@ -243,7 +251,7 @@ exit 1
 
 ### API
 
-The API has two functions, exported as `format` and `check`. `format` usage is as follows:
+The API has three functions, exported as `format`, `check`, and `formatWithCursor`. `format` usage is as follows:
 
 ```js
 const prettier = require("prettier");
@@ -255,6 +263,16 @@ prettier.format(source, options);
 `check` checks to see if the file has been formatted with Prettier given those options and returns a Boolean.
 This is similar to the `--list-different` parameter in the CLI and is useful for running Prettier in CI scenarios.
 
+`formatWithCursor` both formats the code, and translates a cursor position from unformatted code to formatted code.
+This is useful for editor integrations, to prevent the cursor from moving when code is formatted. For example:
+
+```js
+const prettier = require("prettier");
+
+prettier.formatWithCursor(" 1", { cursorOffset: 2 });
+// -> { formatted: '1;\n', cursorOffset: 1 }
+```
+
 ### Options
 
 Prettier ships with a handful of customizable format options, usable in both the CLI and API.
@@ -265,13 +283,15 @@ Prettier ships with a handful of customizable format options, usable in both the
 | **Tab Width** - Specify the number of spaces per indentation-level. | `2` | `--tab-width <int>` | `tabWidth: <int>` |
 | **Tabs** - Indent lines with tabs instead of spaces. | `false` | `--use-tabs` | `useTabs: <bool>` |
 | **Semicolons** - Print semicolons at the ends of statements.<br /><br />Valid options: <br /> - `true` - add a semicolon at the end of every statement <br /> - `false` - only add semicolons at the beginning of lines that may introduce ASI failures | `true` | `--no-semi` | `semi: <bool>` |
-| **Quotes** - Use single quotes instead of double quotes. | `false` | `--single-quote` | `singleQuote: <bool>` |
+| **Quotes** - Use single quotes instead of double quotes.<br /><br />Notes:<br /> - Quotes in JSX will always be double and ignore this setting. <br /> - If the number of quotes outweighs the other quote, the quote which is less used will be used to format the string - Example: `"I'm double quoted"` results in `"I'm double quoted"` and `"This \"example\" is single quoted"` results in `'This "example" is single quoted'`. | `false` | `--single-quote` | `singleQuote: <bool>` |
 | **Trailing Commas** - Print trailing commas wherever possible.<br /><br />Valid options: <br /> - `"none"` - no trailing commas <br /> - `"es5"` - trailing commas where valid in ES5 (objects, arrays, etc) <br /> - `"all"`  - trailing commas wherever possible (function arguments). This requires node 8 or a [transform](https://babeljs.io/docs/plugins/syntax-trailing-function-commas/). | `"none"` | <code>--trailing-comma <none&#124;es5&#124;all></code> | <code>trailingComma: "<none&#124;es5&#124;all>"</code> |
 | **Bracket Spacing** - Print spaces between brackets in object literals.<br /><br />Valid options: <br /> - `true` - Example: `{ foo: bar }` <br /> - `false` - Example: `{foo: bar}` | `true` | `--no-bracket-spacing` | `bracketSpacing: <bool>` |
 | **JSX Brackets on Same Line** - Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line | `false` | `--jsx-bracket-same-line` | `jsxBracketSameLine: <bool>` |
-| **Range Start** - Format code starting at a given character offset. The range will extend backwards to the start of the first line containing the selected statement. | `0` | `--range-start <int>` | `rangeStart: <int>` |
-| **Range End** - Format code ending at a given character offset (exclusive). The range will extend forwards to the end of the selected statement. | `Infinity` | `--range-end <int>` | `rangeEnd: <int>` |
-| **Parser** - Specify which parser to use. Both parsers support the same set of JavaScript features (including Flow). You shouldn't have to change this setting. | `babylon` | <code>--parser <flow&#124;babylon></code> | <code>parser: "<flow&#124;babylon>"</code> |
+| **Cursor Offset** - Specify where the cursor is. This option only works with `prettier.formatWithCursor`, and cannot be used with `rangeStart` and `rangeEnd`. | `-1` | `--cursor-offset <int>` | `cursorOffset: <int>` |
+| **Range Start** - Format code starting at a given character offset. The range will extend backwards to the start of the first line containing the selected statement. This option cannot be used with `cursorOffset`. | `0` | `--range-start <int>` | `rangeStart: <int>` |
+| **Range End** - Format code ending at a given character offset (exclusive). The range will extend forwards to the end of the selected statement. This option cannot be used with `cursorOffset`. | `Infinity` | `--range-end <int>` | `rangeEnd: <int>` |
+| **Parser** - Specify which parser to use. Both the `babylon` and `flow` parsers support the same set of JavaScript features (including Flow). Prettier automatically infers the parser from the input file path, so you shouldn't have to change this setting. | `babylon` | <code>--parser <flow&#124;babylon&#124;typescript&#124;postcss></code> | <code>parser: "<flow&#124;babylon&#124;typescript&#124;postcss>"</code> |
+| **Filepath** - Specify the input filepath this will be used to do parser inference.<br /><br /> Example: <br />`cat foo \| prettier --stdin-filepath foo.css`<br /> will default to use `postcss` parser |  | `--stdin-filepath` | `filepath: <string>` |
 
 ### Excluding code from formatting
 
@@ -316,59 +336,12 @@ Atom users can simply install the [prettier-atom](https://github.com/prettier/pr
 
 ### Emacs
 
-Emacs users should see [this directory](https://github.com/prettier/prettier/tree/master/editors/emacs)
+Emacs users should see [this repository](https://github.com/prettier/prettier-emacs)
 for on-demand formatting.
 
 ### Vim
 
-Add [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/neoformat) to your list based on the tool you use:
-
-```vim
-Plug 'sbdchd/neoformat'
-```
-
-Then make Neoformat run on save:
-
-```vim
-autocmd BufWritePre *.js Neoformat
-```
-
-#### Other `autocmd` events
-
-You can also make Vim format your code more frequently, by setting an `autocmd` for other events. Here are a couple of useful ones:
-
-* `TextChanged`: after a change was made to the text in Normal mode
-* `InsertLeave`: when leaving Insert mode
-
-For example, you can format on both of the above events together with `BufWritePre` like this:
-
-```vim
-autocmd BufWritePre,TextChanged,InsertLeave *.js Neoformat
-```
-
-See `:help autocmd-events` in Vim for details.
-
-#### Customizing Prettier in Vim
-
-If your project requires settings other than the default Prettier settings, you can pass arguments to do so in your `.vimrc` or [vim project](http://vim.wikia.com/wiki/Project_specific_settings), you can do so:
-
-```vim
-autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --parser\ flow\ --single-quote\ --trailing-comma\ es5
-" Use formatprg when available
-let g:neoformat_try_formatprg = 1
-```
-
-Each option needs to be escaped with `\`.
-
-#### Running Prettier manually in Vim
-
-If you need a little more control over when prettier is run, you can create a
-custom key binding. In this example, `gp` (mnemonic: "get pretty") is used to
-run prettier (with options) in the currently active buffer:
-
-```vim
-nnoremap gp :silent %!prettier --stdin --trailing-comma all --single-quote<CR>
-```
+Vim users can simply install either [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/neoformat) or [mitermayer](https://github.com/mitermayer)/[vim-prettier](https://github.com/mitermayer/vim-prettier), for more details see see [this directory](https://github.com/prettier/prettier/tree/master/editors/vim)
 
 ### Visual Studio Code
 
@@ -404,6 +377,10 @@ features enabled, but you can also use the
 All of JSX and Flow syntax is supported. In fact, the test suite in
 `tests` *is* the entire Flow test suite and they all pass.
 
+Prettier also supports [TypeScript](https://www.typescriptlang.org/), CSS, [LESS](http://lesscss.org/), and [SCSS](http://sass-lang.com).
+
+The minimum version of TypeScript supported is 2.1.3 as it introduces the ability to have leading `|` for type definitions which prettier outputs.
+
 ## Related Projects
 
 - [`eslint-plugin-prettier`](https://github.com/prettier/eslint-plugin-prettier) plugs Prettier into your ESLint workflow
@@ -418,7 +395,7 @@ passes `prettier` output to `standard --fix`
 `prettier` with a few minor extra options
 - [`neutrino-preset-prettier`](https://github.com/SpencerCDixon/neutrino-preset-prettier) allows you to use Prettier as a Neutrino preset
 - [`prettier_d`](https://github.com/josephfrazier/prettier_d.js) runs Prettier as a server to avoid Node.js startup delay
-
+- [`Prettier Bookmarklet`](https://prettier.glitch.me/) provides a bookmarklet and exposes a REST API for Prettier that allows to format CodeMirror editor in your browser
 
 ## Technical Details
 

@@ -130,11 +130,48 @@ exports[`test.js 1`] = `
 function fn() {
   "use strict";
 }
+
+function f() {
+  'ngInject';
+  Object.assign(this, { $log, $uibModal });
+}
+
+function f() {
+
+  'ngInject';
+
+  Object.assign(this, { $log, $uibModal });
+
+}
+
+function f() {
+  'ngInject';
+
+
+  Object.assign(this, { $log, $uibModal });
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "use strict";
 
 function fn() {
   "use strict";
+}
+
+function f() {
+  "ngInject";
+  Object.assign(this, { $log, $uibModal });
+}
+
+function f() {
+  "ngInject";
+
+  Object.assign(this, { $log, $uibModal });
+}
+
+function f() {
+  "ngInject";
+
+  Object.assign(this, { $log, $uibModal });
 }
 
 `;

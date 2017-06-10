@@ -26,3 +26,10 @@ class Foo extends Immutable.Record({
 }) {
   ipaddress: string;
 }
+
+export class VisTimelineComponent
+	implements AfterViewInit, OnChanges, OnDestroy {
+}
+export class VisTimelineComponent2
+	implements AfterViewInit, OnChanges, OnDestroy, AndSomethingReallyReallyLong {
+}

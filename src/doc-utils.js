@@ -54,9 +54,8 @@ function mapDoc(doc, func) {
     });
   } else if (doc.contents) {
     return Object.assign({}, doc, { contents: mapDoc(doc.contents, func) });
-  } else {
-    return doc;
   }
+  return doc;
 }
 
 function findInDoc(doc, fn, defaultValue) {

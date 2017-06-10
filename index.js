@@ -53,26 +53,50 @@ function ensureAllCommentsPrinted(astComments) {
   });
 }
 
-function format(text, opts, addAlignmentSize) {
+function formatWithCursor(text, opts, addAlignmentSize) {
   addAlignmentSize = addAlignmentSize || 0;
 
   const ast = parser.parse(text, opts);
 
   const formattedRangeOnly = formatRange(text, opts, ast);
   if (formattedRangeOnly) {
-    return formattedRangeOnly;
+    return { formatted: formattedRangeOnly };
+  }
+
+  let cursorOffset;
+  if (opts.cursorOffset >= 0) {
+    const cursorNodeAndParents = findNodeAtOffset(ast, opts.cursorOffset);
+    const cursorNode = cursorNodeAndParents.node;
+    if (cursorNode) {
+      cursorOffset = opts.cursorOffset - util.locStart(cursorNode);
+      opts.cursorNode = cursorNode;
+    }
   }
 
   const astComments = attachComments(text, ast, opts);
   const doc = printAstToDoc(ast, opts, addAlignmentSize);
   opts.newLine = guessLineEnding(text);
-  const str = printDocToString(doc, opts);
+  const toStringResult = printDocToString(doc, opts);
+  const str = toStringResult.formatted;
+  const cursorOffsetResult = toStringResult.cursor;
   ensureAllCommentsPrinted(astComments);
   // Remove extra leading indentation as well as the added indentation after last newline
   if (addAlignmentSize > 0) {
-    return str.trim() + opts.newLine;
+    return { formatted: str.trim() + opts.newLine };
   }
-  return str;
+
+  if (cursorOffset !== undefined) {
+    return {
+      formatted: str,
+      cursorOffset: cursorOffsetResult + cursorOffset
+    };
+  }
+
+  return { formatted: str };
+}
+
+function format(text, opts, addAlignmentSize) {
+  return formatWithCursor(text, opts, addAlignmentSize).formatted;
 }
 
 function findSiblingAncestors(startNodeAndParents, endNodeAndParents) {
@@ -101,7 +125,8 @@ function findSiblingAncestors(startNodeAndParents, endNodeAndParents) {
   };
 }
 
-function findNodeAtOffset(node, offset, parentNodes) {
+function findNodeAtOffset(node, offset, predicate, parentNodes) {
+  predicate = predicate || (() => true);
   parentNodes = parentNodes || [];
   const start = util.locStart(node);
   const end = util.locEnd(node);
@@ -110,6 +135,7 @@ function findNodeAtOffset(node, offset, parentNodes) {
       const childResult = findNodeAtOffset(
         childNode,
         offset,
+        predicate,
         [node].concat(parentNodes)
       );
       if (childResult) {
@@ -117,7 +143,7 @@ function findNodeAtOffset(node, offset, parentNodes) {
       }
     }
 
-    if (isSourceElement(node)) {
+    if (predicate(node)) {
       return {
         node: node,
         parentNodes: parentNodes
@@ -175,8 +201,16 @@ function calculateRange(text, opts, ast) {
     }
   }
 
-  const startNodeAndParents = findNodeAtOffset(ast, startNonWhitespace);
-  const endNodeAndParents = findNodeAtOffset(ast, endNonWhitespace);
+  const startNodeAndParents = findNodeAtOffset(
+    ast,
+    startNonWhitespace,
+    isSourceElement
+  );
+  const endNodeAndParents = findNodeAtOffset(
+    ast,
+    endNonWhitespace,
+    isSourceElement
+  );
   const siblingAncestors = findSiblingAncestors(
     startNodeAndParents,
     endNodeAndParents
@@ -228,26 +262,16 @@ function formatRange(text, opts, ast) {
   }
 }
 
-function formatWithShebang(text, opts) {
-  if (!text.startsWith("#!")) {
-    return format(text, opts);
-  }
-
-  const index = text.indexOf("\n");
-  const shebang = text.slice(0, index + 1);
-  const nextChar = text.charAt(index + 1);
-  const newLine = nextChar === "\n" ? "\n" : nextChar === "\r" ? "\r\n" : "";
-
-  return shebang + newLine + format(text, opts);
-}
-
 module.exports = {
+  formatWithCursor: function(text, opts) {
+    return formatWithCursor(text, normalizeOptions(opts));
+  },
   format: function(text, opts) {
-    return formatWithShebang(text, normalizeOptions(opts));
+    return format(text, normalizeOptions(opts));
   },
   check: function(text, opts) {
     try {
-      const formatted = formatWithShebang(text, normalizeOptions(opts));
+      const formatted = format(text, normalizeOptions(opts));
       return formatted === text;
     } catch (e) {
       return false;

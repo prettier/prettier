@@ -9,7 +9,7 @@ const glob = require("glob");
 const chalk = require("chalk");
 const minimist = require("minimist");
 const readline = require("readline");
-const prettier = require("../index");
+const prettier = eval("require")("../index");
 const cleanAST = require("../src/clean-ast.js").cleanAST;
 
 const argv = minimist(process.argv.slice(2), {
@@ -40,8 +40,10 @@ const argv = minimist(process.argv.slice(2), {
     "tab-width",
     "parser",
     "trailing-comma",
+    "cursor-offset",
     "range-start",
-    "range-end"
+    "range-end",
+    "stdin-filepath"
   ],
   default: {
     semi: true,
@@ -68,7 +70,8 @@ const write = argv["write"];
 const stdin = argv["stdin"] || (!filepatterns.length && !process.stdin.isTTY);
 const ignoreNodeModules = argv["with-node-modules"] === false;
 const globOptions = {
-  ignore: ignoreNodeModules && "**/node_modules/**"
+  ignore: ignoreNodeModules && "**/node_modules/**",
+  dot: true
 };
 
 if (write && argv["debug-check"]) {
@@ -134,6 +137,7 @@ function getTrailingComma() {
 }
 
 const options = {
+  cursorOffset: getIntOption("cursor-offset"),
   rangeStart: getIntOption("range-start"),
   rangeEnd: getIntOption("range-end"),
   useTabs: argv["use-tabs"],
@@ -143,13 +147,14 @@ const options = {
   bracketSpacing: argv["bracket-spacing"],
   singleQuote: argv["single-quote"],
   jsxBracketSameLine: argv["jsx-bracket-same-line"],
+  filepath: argv["stdin-filepath"],
   trailingComma: getTrailingComma(),
   parser: getParserOption()
 };
 
-function format(input) {
+function format(input, opt) {
   if (argv["debug-print-doc"]) {
-    const doc = prettier.__debug.printToDoc(input, options);
+    const doc = prettier.__debug.printToDoc(input, opt);
     return prettier.__debug.formatDoc(doc);
   }
 
@@ -160,13 +165,13 @@ function format(input) {
       });
     }
 
-    const pp = prettier.format(input, options);
-    const pppp = prettier.format(pp, options);
+    const pp = prettier.format(input, opt);
+    const pppp = prettier.format(pp, opt);
     if (pp !== pppp) {
       throw "prettier(input) !== prettier(prettier(input))\n" + diff(pp, pppp);
     } else {
-      const ast = cleanAST(prettier.__debug.parse(input, options));
-      const past = cleanAST(prettier.__debug.parse(pp, options));
+      const ast = cleanAST(prettier.__debug.parse(input, opt));
+      const past = cleanAST(prettier.__debug.parse(pp, opt));
 
       if (ast !== past) {
         const MAX_AST_SIZE = 2097152; // 2MB
@@ -179,10 +184,10 @@ function format(input) {
           diff(input, pp);
       }
     }
-    return;
+    return { formatted: opt.filepath || "(stdin)\n" };
   }
 
-  return prettier.format(input, options);
+  return prettier.formatWithCursor(input, opt);
 }
 
 function handleError(filename, e) {
@@ -202,7 +207,7 @@ function handleError(filename, e) {
     // If validation fails for one file, it will fail for all of them.
     process.exit(1);
   } else {
-    console.error(filename + ":", e);
+    console.error(filename + ":", e.stack || e);
   }
 
   // Don't exit the process if one file failed
@@ -216,6 +221,7 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
       "  --write                  Edit the file in-place. (Beware!)\n" +
       "  --list-different or -l   Print filenames of files that are different from Prettier formatting.\n" +
       "  --stdin                  Read input from stdin.\n" +
+      "  --stdin-filepath         Path to the file used to read from stdin.\n" +
       "  --print-width <int>      Specify the length of line that the printer will wrap on. Defaults to 80.\n" +
       "  --tab-width <int>        Specify the number of spaces per indentation-level. Defaults to 2.\n" +
       "  --use-tabs               Indent lines with tabs instead of spaces.\n" +
@@ -225,12 +231,17 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
       "  --jsx-bracket-same-line  Put > on the last line instead of at a new line.\n" +
       "  --trailing-comma <none|es5|all>\n" +
       "                           Print trailing commas wherever possible. Defaults to none.\n" +
-      "  --parser <flow|babylon>  Specify which parse to use. Defaults to babylon.\n" +
+      "  --parser <flow|babylon|typescript|postcss>\n" +
+      "                           Specify which parse to use. Defaults to babylon.\n" +
+      "  --cursor-offset <int>    Print (to stderr) where a cursor at the given position would move to after formatting.\n" +
+      "                           This option cannot be used with --range-start and --range-end\n" +
       "  --range-start <int>      Format code starting at a given character offset.\n" +
       "                           The range will extend backwards to the start of the first line containing the selected statement.\n" +
+      "                           This option cannot be used with --cursor-offset.\n" +
       "                           Defaults to 0.\n" +
       "  --range-end <int>        Format code ending at a given character offset (exclusive).\n" +
       "                           The range will extend forwards to the end of the selected statement.\n" +
+      "                           This option cannot be used with --cursor-offset.\n" +
       "                           Defaults to Infinity.\n" +
       "  --no-color               Do not colorize error messages.\n" +
       "  --with-node-modules      Process files inside `node_modules` directory.\n" +
@@ -243,8 +254,7 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
 if (stdin) {
   getStdin().then(input => {
     try {
-      // Don't use `console.log` here since it adds an extra newline at the end.
-      process.stdout.write(format(input));
+      writeOutput(format(input, options));
     } catch (e) {
       handleError("stdin", e);
       return;
@@ -252,7 +262,7 @@ if (stdin) {
   });
 } else {
   eachFilename(filepatterns, filename => {
-    if (write || argv["debug-check"]) {
+    if (write) {
       // Don't use `console.log` here since we need to replace this line.
       process.stdout.write(filename);
     }
@@ -271,7 +281,12 @@ if (stdin) {
     }
 
     if (argv["list-different"]) {
-      if (!prettier.check(input, options)) {
+      if (
+        !prettier.check(
+          input,
+          Object.assign({}, options, { filepath: filename })
+        )
+      ) {
         if (!write) {
           console.log(filename);
         }
@@ -281,10 +296,15 @@ if (stdin) {
 
     const start = Date.now();
 
+    let result;
     let output;
 
     try {
-      output = format(input);
+      result = format(
+        input,
+        Object.assign({}, options, { filepath: filename })
+      );
+      output = result.formatted;
     } catch (e) {
       // Add newline to split errors from filename line.
       process.stdout.write("\n");
@@ -320,17 +340,24 @@ if (stdin) {
         }
       }
     } else if (argv["debug-check"]) {
-      process.stdout.write("\n");
       if (output) {
         console.log(output);
       } else {
         process.exitCode = 2;
       }
     } else if (!argv["list-different"]) {
-      // Don't use `console.log` here since it adds an extra newline at the end.
-      process.stdout.write(output);
+      writeOutput(result);
     }
   });
+}
+
+function writeOutput(result) {
+  // Don't use `console.log` here since it adds an extra newline at the end.
+  process.stdout.write(result.formatted);
+
+  if (options.cursorOffset) {
+    process.stderr.write(result.cursorOffset + "\n");
+  }
 }
 
 function eachFilename(patterns, callback) {

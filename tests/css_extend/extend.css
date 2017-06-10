@@ -1,0 +1,11 @@
+.foobar {
+  &:extend(.foo);
+}
+
+.thing {
+  &:hover {
+    background-color: blue;
+    .thing-child {
+    }
+  }
+}

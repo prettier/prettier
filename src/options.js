@@ -4,6 +4,7 @@ const validate = require("jest-validate").validate;
 const deprecatedConfig = require("./deprecated");
 
 const defaults = {
+  cursorOffset: -1,
   rangeStart: 0,
   rangeEnd: Infinity,
   useTabs: false,
@@ -18,7 +19,7 @@ const defaults = {
 };
 
 const exampleConfig = Object.assign({}, defaults, {
-  filename: "testFilename",
+  filepath: "path/to/Filename",
   printWidth: 80,
   originalText: "text"
 });
@@ -26,6 +27,15 @@ const exampleConfig = Object.assign({}, defaults, {
 // Copy options and fill in default values.
 function normalize(options) {
   const normalized = Object.assign({}, options || {});
+  const filepath = normalized.filepath;
+
+  if (/\.(css|less|scss)$/.test(filepath)) {
+    normalized.parser = "postcss";
+  } else if (/\.html$/.test(filepath)) {
+    normalized.parser = "parse5";
+  } else if (/\.(ts|tsx)$/.test(filepath)) {
+    normalized.parser = "typescript";
+  }
 
   if (typeof normalized.trailingComma === "boolean") {
     // Support a deprecated boolean type for the trailing comma config

@@ -1,5 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`empty.css 1`] = `
+@font-face {
+  src: url();
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@font-face {
+  src: url();
+}
+
+`;
+
 exports[`inline_url.css 1`] = `
 .breadItem {
   background-image: url('/images/product/simple_product_manager/breadcrumb/chevron_right.png');

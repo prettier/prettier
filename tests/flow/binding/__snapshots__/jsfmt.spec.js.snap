@@ -629,14 +629,12 @@ function try_scope() {
 
 function for_scope_let() {
   let a: number = 0;
-  for (let a = "" /* ok: local to init */; ; ) {
-  }
+  for (let a = "" /* ok: local to init */; ; ) {}
 }
 
 function for_scope_var() {
   var a: number = 0;
-  for (var a = "" /* error: string ~> number */; ; ) {
-  }
+  for (var a = "" /* error: string ~> number */; ; ) {}
 }
 
 function for_in_scope_let(o: Object) {

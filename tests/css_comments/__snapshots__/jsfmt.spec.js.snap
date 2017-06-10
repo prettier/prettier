@@ -17,6 +17,34 @@ exports[`block.css 1`] = `
 
 `;
 
+exports[`bug.css 1`] = `
+@font-face  {
+  src: url(if(
+    $bootstrap-sass-asset-helper,
+    twbs-font-path('#{$icon-font-path}#{$icon-font-name}.eot'),
+    '#{$icon-font-path}#{$icon-font-name}.eot'
+  ));
+}
+
+// Catchall baseclass
+/* Catchall baseclass */
+.glyphicon {
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@font-face {
+  src: url(if(
+    $bootstrap-sass-asset-helper,
+    twbs-font-path('#{$icon-font-path}#{$icon-font-name}.eot'),
+    '#{$icon-font-path}#{$icon-font-name}.eot'
+  ));
+}
+// Catchall baseclass
+/* Catchall baseclass */
+.glyphicon {
+}
+
+`;
+
 exports[`places.css 1`] = `
 div {
   // a
@@ -51,6 +79,20 @@ exports[`selector.css 1`] = `
 .powerPathNavigator .helm button:active:not(.disabledButton),
 .powerPathNavigator table.powerPathInfo th:active,
 .powerPathNavigator table.powerPathInfo th:active + th:last-child {
+}
+
+`;
+
+exports[`trailing_star_slash.css 1`] = `
+@media (max-width: 1) {}
+a {
+  // element.style */
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@media (max-width: 1) {
+}
+a {
+  // element.style */
 }
 
 `;

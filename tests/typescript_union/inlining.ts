@@ -26,3 +26,7 @@ type UploadState<E, EM, D>
   | C
   // Uploading to aws3 and CreatePostMutation succeeded
   | D;
+
+type window = Window & {
+  __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: Function;
+};

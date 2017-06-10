@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`trailing.ts 1`] = `
+export class BaseSingleLevelProfileTargeting<
+	T extends ValidSingleLevelProfileNode,
+> {
+}
+
+enum Enum {
+	x = 1,
+	y = 2,
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export class BaseSingleLevelProfileTargeting<
+  T extends ValidSingleLevelProfileNode
+> {}
+
+enum Enum {
+  x = 1,
+  y = 2,
+}
+
+`;

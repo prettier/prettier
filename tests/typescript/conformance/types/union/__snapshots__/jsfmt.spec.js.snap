@@ -88,8 +88,8 @@ strOrBoolean = unionOfDifferentReturnType("hello"); // error
 unionOfDifferentReturnType1(true); // error in type of parameter
 
 var unionOfDifferentReturnType1:
-  | { (a: number): number, (a: string): string }
-  | { (a: number): Date, (a: string): boolean };
+  | { (a: number): number; (a: string): string }
+  | { (a: number): Date; (a: string): boolean };
 numOrDate = unionOfDifferentReturnType1(10);
 strOrBoolean = unionOfDifferentReturnType1("hello");
 unionOfDifferentReturnType1(true); // error in type of parameter
@@ -104,7 +104,7 @@ unionOfDifferentParameterTypes(); // error - no call signatures
 
 var unionOfDifferentNumberOfSignatures:
   | { (a: number): number }
-  | { (a: number): Date, (a: string): boolean };
+  | { (a: number): Date; (a: string): boolean };
 unionOfDifferentNumberOfSignatures(); // error - no call signatures
 unionOfDifferentNumberOfSignatures(10); // error - no call signatures
 unionOfDifferentNumberOfSignatures("hello"); // error - no call signatures
@@ -350,8 +350,8 @@ strOrBoolean = new unionOfDifferentReturnType("hello"); // error
 new unionOfDifferentReturnType1(true); // error in type of parameter
 
 var unionOfDifferentReturnType1:
-  | { new (a: number): number, new (a: string): string }
-  | { new (a: number): Date, new (a: string): boolean };
+  | { new (a: number): number; new (a: string): string }
+  | { new (a: number): Date; new (a: string): boolean };
 numOrDate = new unionOfDifferentReturnType1(10);
 strOrBoolean = new unionOfDifferentReturnType1("hello");
 new unionOfDifferentReturnType1(true); // error in type of parameter
@@ -366,7 +366,7 @@ new unionOfDifferentParameterTypes(); // error - no call signatures
 
 var unionOfDifferentNumberOfSignatures:
   | { new (a: number): number }
-  | { new (a: number): Date, new (a: string): boolean };
+  | { new (a: number): Date; new (a: string): boolean };
 new unionOfDifferentNumberOfSignatures(); // error - no call signatures
 new unionOfDifferentNumberOfSignatures(10); // error - no call signatures
 new unionOfDifferentNumberOfSignatures("hello"); // error - no call signatures
@@ -510,8 +510,8 @@ var arr3Tuple: [number, string] = [3, "three"]; // [number, string]
 var arr4Tuple: [number, string] = [3, "three", "hello"]; // [number, string, string]
 var arrEmpty = [];
 var arr5Tuple: {
-  0: string,
-  5: number
+  0: string;
+  5: number;
 } = ["hello", true, false, " hello", true, 10, "any"]; // Tuple
 class C {
   foo() {}
