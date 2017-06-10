@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fields.graphql 1`] = `
+query { # Some comment
+  someField # Some comment
+}
+
+query ($id: ID!) { # Some comment
+  someField(id: $id) # Some comment
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+query {
+  someField
+}
+
+query($id: ID!) {
+  someField(id: $id)
+}
+`;

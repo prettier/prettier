@@ -24,6 +24,7 @@ function getSortedChildNodes(node, text, resultArray) {
   if (resultArray) {
     if (
       node &&
+      (
       node.type &&
       node.type !== "CommentBlock" &&
       node.type !== "CommentLine" &&
@@ -31,6 +32,7 @@ function getSortedChildNodes(node, text, resultArray) {
       node.type !== "Block" &&
       node.type !== "EmptyStatement" &&
       node.type !== "TemplateElement"
+      ) || (node.kind && node.kind !== "Comment")
     ) {
       // This reverse insertion sort almost always takes constant
       // time because we almost always (maybe always?) append the
@@ -79,7 +81,8 @@ function getSortedChildNodes(node, text, resultArray) {
 // .precedingNode, .enclosingNode, and/or .followingNode properties, at
 // least one of which is guaranteed to be defined.
 function decorateComment(node, comment, text) {
-  const childNodes = getSortedChildNodes(node, text);
+  const childNodes = getSortedChildNodes(node, text)
+  .filter(node => node.kind !== '<SOF>' && node.kind !== '<EOF>')
   let precedingNode, followingNode;
   // Time to dust off the old binary search robes and wizard hat.
   let left = 0,
@@ -827,7 +830,9 @@ function printComment(commentPath, options) {
   const comment = commentPath.getValue();
   comment.printed = true;
 
-  switch (comment.type) {
+  switch (comment.type || comment.kind) {
+    case "Comment":
+      return "#" + comment.value;
     case "CommentBlock":
     case "Block":
       return "/*" + comment.value + "*/";
