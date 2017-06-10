@@ -96,7 +96,9 @@ function stripLocation(ast) {
         key === "loc" ||
         key === "range" ||
         key === "raw" ||
-        key === "comments"
+        key === "comments" ||
+        key === "parent" ||
+        key === "prev"
       ) {
         continue;
       }
