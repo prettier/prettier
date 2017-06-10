@@ -128,6 +128,7 @@ function massageAST(ast) {
     }
 
     // Remove raw and cooked values from TemplateElement when it's CSS
+    // styled-jsx
     if (
       ast.type === "JSXElement" &&
       ast.openingElement.name.name === "style" &&
@@ -147,6 +148,13 @@ function massageAST(ast) {
       );
 
       quasis.forEach(q => delete q.value);
+    }
+    // styled-components
+    if (
+      ast.type === "TaggedTemplateExpression" &&
+      ast.tag.type === "MemberExpression"
+    ) {
+      newObj.quasi.quasis.forEach(quasi => delete quasi.value);
     }
 
     return newObj;

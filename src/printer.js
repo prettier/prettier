@@ -3,6 +3,7 @@
 const assert = require("assert");
 const comments = require("./comments");
 const FastPath = require("./fast-path");
+const getSubtreeParser = require("./multiparser").getSubtreeParser;
 const util = require("./util");
 const isIdentifierName = require("esutils").keyword.isIdentifierNameES6;
 
@@ -74,6 +75,25 @@ function genericPrint(path, options, printPath, args) {
     node.comments.some(comment => comment.value.trim() === "prettier-ignore")
   ) {
     return options.originalText.slice(util.locStart(node), util.locEnd(node));
+  }
+
+  if (node) {
+    // Potentially switch to a different parser
+    const nextParser = getSubtreeParser(path, options);
+
+    if (nextParser && nextParser.parser !== options.parser) {
+      const nextOptions = Object.assign({}, options, {
+        parser: nextParser.parser
+      });
+      try {
+        const ast = require("./parser").parse(nextParser.text, nextOptions);
+        const nextDoc = printAstToDoc(ast, nextOptions);
+
+        return nextParser.wrap ? nextParser.wrap(nextDoc) : nextDoc;
+      } catch (error) {
+        // Continue with current parser
+      }
+    }
   }
 
   let needsParens = false;
@@ -1751,43 +1771,6 @@ function genericPrintNoParens(path, options, print, args) {
     case "TemplateElement":
       return join(literalline, n.value.raw.split(/\r?\n/g));
     case "TemplateLiteral": {
-      const parent = path.getParentNode();
-      const parentParent = path.getParentNode(1);
-      const isCSS =
-        n.quasis &&
-        n.quasis.length === 1 &&
-        parent.type === "JSXExpressionContainer" &&
-        parentParent.type === "JSXElement" &&
-        parentParent.openingElement.name.name === "style" &&
-        parentParent.openingElement.attributes.some(
-          attribute => attribute.name.name === "jsx"
-        );
-
-      if (isCSS) {
-        const parseCss = eval("require")("./parser-postcss");
-        const newOptions = Object.assign({}, options, { parser: "postcss" });
-        const text = n.quasis[0].value.raw;
-        try {
-          const ast = parseCss(text, newOptions);
-          let subtree = printAstToDoc(ast, newOptions);
-
-          // HACK remove ending hardline
-          assert.ok(
-            subtree.type === "concat" &&
-              subtree.parts[0].type === "concat" &&
-              subtree.parts[0].parts.length === 2 &&
-              subtree.parts[0].parts[1] === hardline
-          );
-          subtree = subtree.parts[0].parts[0];
-
-          parts.push("`", indent(concat([line, subtree])), line, "`");
-          return group(concat(parts));
-        } catch (error) {
-          // If CSS parsing (or printing) failed
-          // we give up and just print the TemplateElement as usual
-        }
-      }
-
       const expressions = path.map(print, "expressions");
 
       parts.push("`");
