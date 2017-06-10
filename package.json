@@ -66,6 +66,8 @@
     ],
     "testRegex": "jsfmt\\.spec\\.js$|__tests__/.*\\.js$",
     "testPathIgnorePatterns": [
+      "tests/html_glimmer",
+      "tests/html_handlebars",
       "tests/new_react",
       "tests/more_react"
     ]
