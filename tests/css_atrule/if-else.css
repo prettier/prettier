@@ -1,0 +1,7 @@
+@if $media == phonePortrait {
+    $k: .15625;
+} @else if $media == phoneLandscape {
+    $k: .08803;
+} @else if $media == tabletPortrait {
+    $k: .065106;
+}

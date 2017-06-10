@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`if-else.css 1`] = `
+@if $media == phonePortrait {
+    $k: .15625;
+} @else if $media == phoneLandscape {
+    $k: .08803;
+} @else if $media == tabletPortrait {
+    $k: .065106;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@if $media == phonePortrait {
+  $k: .15625;
+} @else if $media == phoneLandscape {
+  $k: .08803;
+} @else if $media == tabletPortrait {
+  $k: .065106;
+}
+
+`;
