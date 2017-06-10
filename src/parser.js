@@ -1,22 +1,25 @@
 "use strict";
 
-function parse(text, opts) {
-  let parseFunction;
-
-  if (opts.parser === "flow") {
-    parseFunction = eval("require")("./parser-flow");
-  } else if (opts.parser === "graphql") {
-    parseFunction = eval("require")("./parser-graphql");
-  } else if (opts.parser === "typescript") {
-    parseFunction = eval("require")("./parser-typescript");
-  } else if (opts.parser === "postcss") {
-    parseFunction = eval("require")("./parser-postcss");
-  } else {
-    parseFunction = eval("require")("./parser-babylon");
+function getParseFunction(opts) {
+  switch (opts.parser) {
+    case "flow":
+      return eval("require")("./parser-flow");
+    case "graphql":
+      return eval("require")("./parser-graphql");
+    case "parse5":
+      return eval("require")("./parser-parse5");
+    case "postcss":
+      return eval("require")("./parser-postcss");
+    case "typescript":
+      return eval("require")("./parser-typescript");
+    default:
+      return eval("require")("./parser-babylon");
   }
+}
 
+function parse(text, opts) {
   try {
-    return parseFunction(text);
+    return getParseFunction(opts)(text);
   } catch (error) {
     const loc = error.loc;
 

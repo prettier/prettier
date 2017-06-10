@@ -98,6 +98,7 @@ function getParserOption() {
     value === "babylon" ||
     value === "typescript" ||
     value === "postcss" ||
+    value === "parse5" ||
     value === "graphql"
   ) {
     return value;
