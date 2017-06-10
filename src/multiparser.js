@@ -83,6 +83,29 @@ function fromBabylonFlowOrTypeScript(path) {
         };
       }
 
+      /*
+       * react-relay and graphql-tag
+       * graphql`...`
+       * gql`...`
+       */
+      if (
+        parentParent &&
+        parentParent.type === "TaggedTemplateExpression" &&
+        parent.quasis.length === 1 &&
+        // ((parentParent.tag.type === "MemberExpression" &&
+        //   parentParent.tag.object.name === "Relay" &&
+        //   parentParent.tag.property.name === "QL") ||
+        (parentParent.tag.type === "Identifier" &&
+          (parentParent.tag.name === "gql" ||
+            parentParent.tag.name === "graphql"))
+      ) {
+        return {
+          parser: "graphql",
+          wrap: doc => concat([indent(concat([softline, doc])), softline]),
+          text: parent.quasis[0].value.raw
+        };
+      }
+
       break;
     }
   }
