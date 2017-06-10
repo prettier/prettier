@@ -3894,9 +3894,11 @@ function genericPrintNoParens(path, options, print, args) {
           return group$1(concat$2(["<", path.call(print, "name"), " ", concat$2(path.map(print, "attributes")), _n2.selfClosing ? " />" : ">"]));
         }
 
-        return group$1(concat$2(["<", path.call(print, "name"), concat$2([indent$2(concat$2(path.map(function (attr) {
+        var attributes = concat$2(path.map(function (attr) {
           return concat$2([line$1, print(attr)]);
-        }, "attributes"))), _n2.selfClosing ? line$1 : options.jsxBracketSameLine ? ">" : softline$1]), _n2.selfClosing ? "/>" : options.jsxBracketSameLine ? "" : ">"]));
+        }, "attributes"));
+
+        return group$1(concat$2(["<", path.call(print, "name"), concat$2([options.jsxAttributesIndent ? align$1(1, attributes) : indent$2(attributes), _n2.selfClosing ? line$1 : options.jsxBracketSameLine ? ">" : softline$1]), _n2.selfClosing ? "/>" : options.jsxBracketSameLine ? "" : ">"]));
       }
     case "JSXClosingElement":
       return concat$2(["</", path.call(print, "name"), ">"]);
@@ -9560,6 +9562,7 @@ var defaults = {
   trailingComma: "none",
   bracketSpacing: true,
   jsxBracketSameLine: false,
+  jsxAttributesIndent: false,
   parser: "babylon",
   semi: true
 };

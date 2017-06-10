@@ -102,6 +102,7 @@ function require(path) { return window[path.replace(/.+-/, '')]; }
     <label><input type="checkbox" id="singleQuote"></input> singleQuote</label>
     <label><input type="checkbox" id="bracketSpacing" checked></input> bracketSpacing</label>
     <label><input type="checkbox" id="jsxBracketSameLine"></input> jsxBracketSameLine</label>
+    <label><input type="checkbox" id="jsxAttributesIndent"></input> jsxAttributesIndent</label>
     <label>trailingComma <select id="trailingComma"><option value="none">none</option><option value="es5">es5</option><option value="all">all</option></select></label>
     <label>parser <select id="parser"><option value="babylon">babylon</option><option value="flow">flow</option><option value="typescript">typescript</option><option value="postcss">postcss</option></select></label>
     <span style="flex: 1"></span>
@@ -123,7 +124,7 @@ function require(path) { return window[path.replace(/.+-/, '')]; }
 
 <script id="code">
 (function () {
-var OPTIONS = ['printWidth', 'tabWidth', 'singleQuote', 'trailingComma', 'bracketSpacing', 'jsxBracketSameLine', 'parser', 'semi', 'useTabs', 'doc'];
+var OPTIONS = ['printWidth', 'tabWidth', 'singleQuote', 'trailingComma', 'bracketSpacing', 'jsxBracketSameLine', 'jsxAttributesIndent', 'parser', 'semi', 'useTabs', 'doc'];
 function setOptions(options) {
   OPTIONS.forEach(function(option) {
     var elem = document.getElementById(option);
