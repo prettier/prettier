@@ -31,6 +31,8 @@ function normalize(options) {
 
   if (/\.(css|less|scss)$/.test(filepath)) {
     normalized.parser = "postcss";
+  } else if (/\.html$/.test(filepath)) {
+    normalized.parser = "parse5";
   } else if (/\.(ts|tsx)$/.test(filepath)) {
     normalized.parser = "typescript";
   }

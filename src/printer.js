@@ -52,6 +52,8 @@ function getPrintFunction(options) {
   switch (options.parser) {
     case "graphql":
       return require("./printer-graphql");
+    case "parse5":
+      return require("./printer-htmlparser2");
     case "postcss":
       return require("./printer-postcss");
     default:
