@@ -23,16 +23,15 @@ function getSortedChildNodes(node, text, resultArray) {
 
   if (resultArray) {
     if (
-      node &&
-      (
-      node.type &&
-      node.type !== "CommentBlock" &&
-      node.type !== "CommentLine" &&
-      node.type !== "Line" &&
-      node.type !== "Block" &&
-      node.type !== "EmptyStatement" &&
-      node.type !== "TemplateElement"
-      ) || (node.kind && node.kind !== "Comment")
+      (node &&
+        (node.type &&
+          node.type !== "CommentBlock" &&
+          node.type !== "CommentLine" &&
+          node.type !== "Line" &&
+          node.type !== "Block" &&
+          node.type !== "EmptyStatement" &&
+          node.type !== "TemplateElement")) ||
+      (node.kind && node.kind !== "Comment")
     ) {
       // This reverse insertion sort almost always takes constant
       // time because we almost always (maybe always?) append the
@@ -70,7 +69,12 @@ function getSortedChildNodes(node, text, resultArray) {
     });
   }
 
-  for (let i = 0, nameCount = names.length; i < nameCount; ++i) {
+  for (
+    let i = 0,
+      nameCount = names.length;
+    i < nameCount;
+    ++i
+  ) {
     getSortedChildNodes(node[names[i]], text, resultArray);
   }
 
@@ -81,8 +85,9 @@ function getSortedChildNodes(node, text, resultArray) {
 // .precedingNode, .enclosingNode, and/or .followingNode properties, at
 // least one of which is guaranteed to be defined.
 function decorateComment(node, comment, text) {
-  const childNodes = getSortedChildNodes(node, text)
-  .filter(node => node.kind !== '<SOF>' && node.kind !== '<EOF>')
+  const childNodes = getSortedChildNodes(node, text).filter(
+    node => node.kind !== "<SOF>" && node.kind !== "<EOF>"
+  );
   let precedingNode, followingNode;
   // Time to dust off the old binary search robes and wizard hat.
   let left = 0,
