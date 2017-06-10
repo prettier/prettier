@@ -12,7 +12,6 @@ const indent = docBuilders.indent;
 
 function genericPrint(path, options, print) {
   const n = path.getValue();
-  const parent = path.getParentNode();
 
   if (!n) {
     return "";
@@ -20,19 +19,6 @@ function genericPrint(path, options, print) {
 
   if (typeof n === "string") {
     return n;
-  }
-
-  if (parent && parent.nodes) {
-    const index = parent.nodes.indexOf(n);
-    if (index > 0) {
-      const prevNode = parent.nodes[index - 1];
-      if (
-        prevNode.type === "css-comment" &&
-        prevNode.text.trim() === "prettier-ignore"
-      ) {
-        return options.originalText.slice(util.locStart(n), util.locEnd(n));
-      }
-    }
   }
 
   switch (n.type) {
@@ -209,6 +195,7 @@ function genericPrint(path, options, print) {
     }
     case "selector-combinator": {
       if (n.value === "+" || n.value === ">" || n.value === "~") {
+        const parent = path.getParentNode();
         const leading = parent.type === "selector-selector" &&
           parent.nodes[0] === n
           ? ""
@@ -262,6 +249,7 @@ function genericPrint(path, options, print) {
       return group(indent(concat(parts)));
     }
     case "value-paren_group": {
+      const parent = path.getParentNode();
       const isURLCall =
         parent && parent.type === "value-func" && parent.value === "url";
 
@@ -349,7 +337,23 @@ function printNodeSequence(path, options, print) {
   const parts = [];
   let i = 0;
   path.map(pathChild => {
-    parts.push(pathChild.call(print));
+    const prevNode = node.nodes[i - 1];
+    if (
+      prevNode &&
+      prevNode.type === "css-comment" &&
+      prevNode.text.trim() === "prettier-ignore"
+    ) {
+      const childNode = pathChild.getValue();
+      parts.push(
+        options.originalText.slice(
+          util.locStart(childNode),
+          util.locEnd(childNode)
+        )
+      );
+    } else {
+      parts.push(pathChild.call(print));
+    }
+
     if (i !== node.nodes.length - 1) {
       if (
         node.nodes[i + 1].type === "css-comment" &&
