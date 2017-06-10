@@ -340,12 +340,14 @@ function printNodeSequence(path, options, print) {
     parts.push(pathChild.call(print));
     if (i !== node.nodes.length - 1) {
       if (
-        node.nodes[i + 1].type === "css-comment" &&
-        !util.hasNewline(
-          options.originalText,
-          util.locStart(node.nodes[i + 1]),
-          { backwards: true }
-        )
+        (node.nodes[i + 1].type === "css-comment" &&
+          !util.hasNewline(
+            options.originalText,
+            util.locStart(node.nodes[i + 1]),
+            { backwards: true }
+          )) ||
+        (node.nodes[i + 1].type === "css-atrule" &&
+          node.nodes[i + 1].name === "else")
       ) {
         parts.push(" ");
       } else {
