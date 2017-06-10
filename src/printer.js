@@ -3498,7 +3498,10 @@ function printMemberChain(path, options, print) {
     ) {
       // [0] should be appended at the end of the group instead of the
       // beginning of the next one
-      if (printedNodes[i].node.computed) {
+      if (
+        printedNodes[i].node.computed &&
+        isLiteral(printedNodes[i].node.property)
+      ) {
         currentGroup.push(printedNodes[i]);
         continue;
       }

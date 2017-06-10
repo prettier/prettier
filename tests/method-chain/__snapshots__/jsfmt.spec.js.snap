@@ -350,6 +350,23 @@ angular
 
 `;
 
+exports[`computed.js 1`] = `
+nock(/test/)
+  .matchHeader('Accept', 'application/json')
+  [httpMethodNock(method)]('/foo')
+  .reply(200, {
+    foo: 'bar',
+  });
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+nock(/test/)
+  .matchHeader("Accept", "application/json")
+  [httpMethodNock(method)]("/foo")
+  .reply(200, {
+    foo: "bar"
+  });
+
+`;
+
 exports[`first_long.js 1`] = `
 export default function theFunction(action$, store) {
   return action$.ofType(THE_ACTION).switchMap(action => Observable
