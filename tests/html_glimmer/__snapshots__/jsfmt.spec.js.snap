@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`component.html 1`] = `
+exports[`component.hbs 1`] = `
 <user-greeting @name="Ricardo" @greeting="Olá" />
 {{@greeting}}, {{@name}}!
 
@@ -19,7 +19,7 @@ exports[`component.html 1`] = `
 
 `;
 
-exports[`loop.html 1`] = `
+exports[`loop.hbs 1`] = `
 <ul>
   {{#each speakers key="@index" as |speaker|}}
     <li>{{speaker}}</li>

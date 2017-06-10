@@ -4,6 +4,8 @@ function getParseFunction(opts) {
   switch (opts.parser) {
     case "flow":
       return eval("require")("./parser-flow");
+    case "glimmer":
+      return eval("require")("./parser-glimmer");
     case "graphql":
       return eval("require")("./parser-graphql");
     case "parse5":
