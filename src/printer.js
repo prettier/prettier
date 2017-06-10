@@ -826,7 +826,18 @@ function genericPrintNoParens(path, options, print, args) {
       );
 
       if (n.heritage.length) {
-        parts.push("extends ", join(", ", path.map(print, "heritage")), " ");
+        parts.push(
+          group(
+            indent(
+              concat([
+                softline,
+                "extends ",
+                indent(join(concat([",", line]), path.map(print, "heritage"))),
+                " "
+              ])
+            )
+          )
+        );
       }
 
       parts.push(path.call(print, "body"));
