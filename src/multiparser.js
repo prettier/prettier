@@ -1,7 +1,7 @@
 "use strict";
 
 const util = require("./util");
-const traverseDoc = require("./doc-utils").traverseDoc;
+const mapDoc = require("./doc-utils").mapDoc;
 const docBuilders = require("./doc-builders");
 const indent = docBuilders.indent;
 const hardline = docBuilders.hardline;
@@ -177,13 +177,13 @@ function fromHtmlParser2(path, options) {
 }
 
 function transformCssDoc(quasisDoc, expressionDocs) {
-  const allReplaced = replacePlaceholders(quasisDoc, expressionDocs);
-  if (!allReplaced) {
+  const newDoc = replacePlaceholders(quasisDoc, expressionDocs);
+  if (!newDoc) {
     throw new Error("Couldn't insert all the expressions");
   }
   return concat([
     "`",
-    indent(concat([softline, stripTrailingHardline(quasisDoc)])),
+    indent(concat([softline, stripTrailingHardline(newDoc)])),
     softline,
     "`"
   ]);
@@ -191,45 +191,51 @@ function transformCssDoc(quasisDoc, expressionDocs) {
 
 // Search all the placeholders in the quasisDoc tree
 // and replace them with the expression docs one by one
-// returns true if all the expressions were replaced, false otherwise
+// returns a new doc with all the placeholders replaced,
+// or null if it couldn't replace any expression
 function replacePlaceholders(quasisDoc, expressionDocs) {
   if (!expressionDocs || !expressionDocs.length) {
-    return true;
+    return quasisDoc;
   }
+
   const expressions = expressionDocs.slice();
-  traverseDoc(quasisDoc, doc => {
+  const newDoc = mapDoc(quasisDoc, doc => {
     if (!doc || !doc.parts || !doc.parts.length) {
-      // Recurse
-      return true;
+      return doc;
+    }
+    let parts = doc.parts;
+    if (
+      parts.length > 1 &&
+      parts[0] === "@" &&
+      typeof parts[1] === "string" &&
+      parts[1].startsWith("prettier-placeholder")
+    ) {
+      // If placeholder is split, join it
+      const at = parts[0];
+      const placeholder = parts[1];
+      const rest = parts.slice(2);
+      parts = [at + placeholder].concat(rest);
     }
     if (
-      doc.parts.length > 1 &&
-      doc.parts[0] === "@" &&
-      typeof doc.parts[1] === "string" &&
-      doc.parts[1].startsWith("prettier-placeholder")
+      typeof parts[0] === "string" &&
+      parts[0].startsWith("@prettier-placeholder")
     ) {
-      // If placeholder is splitted, join it
-      const [at, placeholder, ...rest] = doc.parts;
-      doc.parts = [at + placeholder, ...rest];
-    }
-    if (
-      typeof doc.parts[0] === "string" &&
-      doc.parts[0].startsWith("@prettier-placeholder")
-    ) {
-      const expression = expressions.shift();
-      const [placeholder, ...rest] = doc.parts;
+      const placeholder = parts[0];
+      const rest = parts.slice(1);
 
       // When the expression has a suffix appended, like:
       // animation: linear ${time}s ease-out;
       const suffix = placeholder.slice("@prettier-placeholder".length);
 
-      doc.parts = ["${", expression, "}" + suffix, ...rest];
-      const recurse = expressions.length > 0;
-      return recurse;
+      const expression = expressions.shift();
+      parts = ["${", expression, "}" + suffix].concat(rest);
     }
+    return Object.assign({}, doc, {
+      parts: parts
+    });
   });
 
-  return expressions.length === 0;
+  return expressions.length === 0 ? newDoc : null;
 }
 
 function getText(options, node) {
@@ -242,7 +248,11 @@ function stripTrailingHardline(doc) {
     doc.type === "concat" &&
     doc.parts[0].type === "concat" &&
     doc.parts[0].parts.length === 2 &&
-    doc.parts[0].parts[1] === hardline
+    // doc.parts[0].parts[1] === hardline :
+    doc.parts[0].parts[1].type === "concat" &&
+    doc.parts[0].parts[1].parts.length === 2 &&
+    doc.parts[0].parts[1].parts[0].hard &&
+    doc.parts[0].parts[1].parts[1].type === "break-parent"
   ) {
     return doc.parts[0].parts[0];
   }
