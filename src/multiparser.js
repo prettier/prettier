@@ -1,18 +1,19 @@
 "use strict";
 
 const util = require("./util");
+const { traverseDoc } = require("./doc-utils");
 const docBuilders = require("./doc-builders");
 const indent = docBuilders.indent;
 const hardline = docBuilders.hardline;
 const softline = docBuilders.softline;
 const concat = docBuilders.concat;
 
-function printSubtree(subtreeParser, options) {
+function printSubtree(subtreeParser, options, expressionDocs) {
   const next = Object.assign({}, { transformDoc: doc => doc }, subtreeParser);
   next.options = Object.assign({}, options, next.options);
   const ast = require("./parser").parse(next.text, next.options);
   const nextDoc = require("./printer").printAstToDoc(ast, next.options);
-  return next.transformDoc(nextDoc);
+  return next.transformDoc(nextDoc, expressionDocs);
 }
 
 /**
@@ -33,10 +34,9 @@ function fromBabylonFlowOrTypeScript(path) {
   const node = path.getValue();
 
   switch (node.type) {
-    case "TemplateElement": {
+    case "TemplateLiteral": {
       const parent = path.getParentNode();
       const parentParent = path.getParentNode(1);
-      const parentParentParent = path.getParentNode(2);
 
       /*
        * styled-jsx:
@@ -45,26 +45,29 @@ function fromBabylonFlowOrTypeScript(path) {
        * ```
        */
       if (
-        parentParentParent &&
-        parent.quasis &&
-        parent.quasis.length === 1 &&
-        parentParent.type === "JSXExpressionContainer" &&
-        parentParentParent.type === "JSXElement" &&
-        parentParentParent.openingElement.name.name === "style" &&
-        parentParentParent.openingElement.attributes.some(
+        parentParent &&
+        node.quasis &&
+        parent.type === "JSXExpressionContainer" &&
+        parentParent.type === "JSXElement" &&
+        parentParent.openingElement.name.name === "style" &&
+        parentParent.openingElement.attributes.some(
           attribute => attribute.name.name === "jsx"
         )
       ) {
+        // Get full template literal with expressions replaced by placeholders
+        const rawQuasis = node.quasis.map(q => q.value.raw);
+        const text = rawQuasis.join("@prettier-placeholder");
+
         return {
           options: { parser: "postcss" },
-          transformDoc: doc =>
-            concat([
-              indent(concat([softline, stripTrailingHardline(doc)])),
-              softline
-            ]),
-          text: parent.quasis[0].value.raw
+          transformDoc: transformCssDoc,
+          text: text
         };
       }
+    }
+    case "TemplateElement": {
+      const parent = path.getParentNode();
+      const parentParent = path.getParentNode(1);
 
       /*
        * styled-components:
@@ -170,6 +173,62 @@ function fromHtmlParser2(path, options) {
       break;
     }
   }
+}
+
+function transformCssDoc(quasisDoc, expressionDocs) {
+  const allReplaced = replacePlaceholders(quasisDoc, expressionDocs);
+  if (!allReplaced) {
+    throw new Error("Couldn't insert all the expressions");
+  }
+  return concat([
+    "`",
+    indent(concat([softline, stripTrailingHardline(quasisDoc)])),
+    softline,
+    "`"
+  ]);
+}
+
+// Search all the placeholders in the quasisDoc tree
+// and replace them with the expression docs one by one
+// returns true if all the expressions were replaced, false otherwise
+function replacePlaceholders(quasisDoc, expressionDocs) {
+  if (!expressionDocs || !expressionDocs.length) {
+    return true;
+  }
+  const expressions = expressionDocs.slice();
+  traverseDoc(quasisDoc, doc => {
+    if (!doc || !doc.parts || !doc.parts.length) {
+      // Recurse
+      return true;
+    }
+    if (
+      doc.parts.length > 1 &&
+      doc.parts[0] === "@" &&
+      typeof doc.parts[1] === "string" &&
+      doc.parts[1].startsWith("prettier-placeholder")
+    ) {
+      // If placeholder is splitted, join it
+      const [at, placeholder, ...rest] = doc.parts;
+      doc.parts = [at + placeholder, ...rest];
+    }
+    if (
+      typeof doc.parts[0] === "string" &&
+      doc.parts[0].startsWith("@prettier-placeholder")
+    ) {
+      const expression = expressions.shift();
+      const [placeholder, ...rest] = doc.parts;
+
+      // When the expression has a suffix appended, like:
+      // animation: linear ${time}s ease-out;
+      const suffix = placeholder.slice("@prettier-placeholder".length);
+
+      doc.parts = ["${", expression, "}" + suffix, ...rest];
+      const recurse = expressions.length > 0;
+      return recurse;
+    }
+  });
+
+  return expressions.length === 0;
 }
 
 function getText(options, node) {
