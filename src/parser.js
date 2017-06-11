@@ -2,20 +2,25 @@
 
 const path = require("path");
 
-function createError(message, line, column) {
-  // Construct an error similar to the ones thrown by Babylon.
-  const error = new SyntaxError(message + " (" + line + ":" + column + ")");
-  error.loc = { line, column };
-  return error;
-}
-
 const parsers = {
-  flow: () => eval("require")("./parser-flow"),
-  graphql: () => eval("require")("./parser-graphql"),
-  parse5: () => eval("require")("./parser-parse5"),
-  babylon: () => eval("require")("./parser-babylon"),
-  typescript: () => eval("require")("./parser-typescript"),
-  postcss: () => eval("require")("./parser-postcss")
+  get flow() {
+    return eval("require")("./parser-flow");
+  },
+  get graphql() {
+    return eval("require")("./parser-graphql");
+  },
+  get parse5() {
+    return eval("require")("./parser-parse5");
+  },
+  get babylon() {
+    return eval("require")("./parser-babylon");
+  },
+  get typescript() {
+    return eval("require")("./parser-typescript");
+  },
+  get postcss() {
+    return eval("require")("./parser-postcss");
+  }
 };
 
 function resolveParseFunction(opts) {
@@ -23,25 +28,23 @@ function resolveParseFunction(opts) {
     return opts.parser;
   }
   if (typeof opts.parser === "string") {
-    if (parsers[opts.parser]) {
-      return parsers[opts.parser]();
-    } else {
-      const r = require;
-      try {
-        return r(path.resolve(process.cwd(), opts.parser));
-      } catch (err) {
-        throw new Error(`Couldn't resolve parser "${opts.parser}"`);
-      }
+    if (parsers.hasOwnProperty(opts.parser)) {
+      return parsers[opts.parser];
+    }
+    try {
+      return eval("require")(path.resolve(process.cwd(), opts.parser));
+    } catch (err) {
+      throw new Error(`Couldn't resolve parser "${opts.parser}"`);
     }
   }
-  return parsers.babylon();
+  return parsers.babylon;
 }
 
 function parse(text, opts) {
   const parseFunction = resolveParseFunction(opts);
 
   try {
-    return parseFunction(text);
+    return parseFunction(text, parsers, opts);
   } catch (error) {
     const loc = error.loc;
 
