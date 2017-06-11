@@ -429,8 +429,6 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push("async ");
       }
 
-      parts.push(printFunctionTypeParameters(path, options, print));
-
       if (canPrintParamsWithoutParens(n)) {
         parts.push(path.call(print, "params", 0));
       } else {
@@ -441,7 +439,9 @@ function genericPrintNoParens(path, options, print, args) {
                 path,
                 print,
                 options,
-                args && (args.expandLastArg || args.expandFirstArg)
+                /* expandLast */ args &&
+                  (args.expandLastArg || args.expandFirstArg),
+                /* printTypeParams */ true
               ),
               printReturnType(path, print)
             ])
@@ -1966,8 +1966,13 @@ function genericPrintNoParens(path, options, print, args) {
       }
 
       parts.push(
-        printFunctionTypeParameters(path, options, print),
-        printFunctionParams(path, print, options)
+        printFunctionParams(
+          path,
+          print,
+          options,
+          /* expandArg */ false,
+          /* printTypeParams */ true
+        )
       );
 
       // The returnType is not wrapped in a TypeAnnotation, so the colon
@@ -2459,8 +2464,13 @@ function genericPrintNoParens(path, options, print, args) {
         path.call(print, "key"),
         n.computed ? "]" : "",
         n.optional ? "?" : "",
-        printFunctionTypeParameters(path, options, print),
-        printFunctionParams(path, print, options)
+        printFunctionParams(
+          path,
+          print,
+          options,
+          /* expandArg */ false,
+          /* printTypeParams */ true
+        )
       );
 
       if (n.typeAnnotation) {
@@ -2889,9 +2899,13 @@ function printFunctionTypeParameters(path, options, print) {
   return "";
 }
 
-function printFunctionParams(path, print, options, expandArg) {
+function printFunctionParams(path, print, options, expandArg, printTypeParams) {
   const fun = path.getValue();
   const paramsField = fun.parameters ? "parameters" : "params";
+
+  const typeParams = printTypeParams
+    ? printFunctionTypeParameters(path, options, print)
+    : "";
 
   let printed = [];
   if (fun[paramsField]) {
@@ -2915,6 +2929,7 @@ function printFunctionParams(path, print, options, expandArg) {
 
   if (printed.length === 0) {
     return concat([
+      typeParams,
       "(",
       comments.printDanglingComments(path, options, /* sameIndent */ true),
       ")"
@@ -2934,7 +2949,14 @@ function printFunctionParams(path, print, options, expandArg) {
   //   })                    ) => {
   //                         })
   if (expandArg) {
-    return group(concat(["(", join(", ", printed.map(removeLines)), ")"]));
+    return group(
+      concat([
+        removeLines(typeParams),
+        "(",
+        join(", ", printed.map(removeLines)),
+        ")"
+      ])
+    );
   }
 
   // Single object destructuring should hug
@@ -2945,7 +2967,7 @@ function printFunctionParams(path, print, options, expandArg) {
   //   c
   // }) {}
   if (shouldHugArguments(fun)) {
-    return concat(["(", join(", ", printed), ")"]);
+    return concat([typeParams, "(", join(", ", printed), ")"]);
   }
 
   const parent = path.getParentNode();
@@ -2993,6 +3015,7 @@ function printFunctionParams(path, print, options, expandArg) {
     !(lastParam && lastParam.type === "RestElement") && !fun.rest;
 
   return concat([
+    typeParams,
     "(",
     indent(concat([softline, join(concat([",", line]), printed)])),
     ifBreak(
