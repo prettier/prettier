@@ -2348,8 +2348,9 @@ function genericPrintNoParens(path, options, print, args) {
       ]);
     case "TSTypeQuery":
       return concat(["typeof ", path.call(print, "exprName")]);
-    case "TSParenthesizedType":
-      return concat(["(", path.call(print, "typeAnnotation"), ")"]);
+    case "TSParenthesizedType": {
+      return path.call(print, "typeAnnotation");
+    }
     case "TSIndexSignature": {
       const parent = path.getParentNode();
       let printedParams = [];

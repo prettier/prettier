@@ -343,6 +343,20 @@ FastPath.prototype.needsParens = function() {
           return false;
       }
 
+    case "TSParenthesizedType": {
+      // Union types don't need to be wrapped in parens in some cases
+      if (
+        (parent.type === "VariableDeclarator" ||
+          parent.type === "TypeAnnotation" ||
+          parent.type === "GenericTypeAnnotation") &&
+        node.typeAnnotation.type === "TypeAnnotation" &&
+        node.typeAnnotation.typeAnnotation.type === "TSUnionType"
+      ) {
+        return false;
+      }
+      return true;
+    }
+
     case "SequenceExpression":
       switch (parent.type) {
         case "ReturnStatement":

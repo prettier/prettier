@@ -98,11 +98,12 @@ function massageAST(ast) {
       delete newObj.specifiers;
     }
 
-    // (TypeScript) allow parenthesization of TSFunctionType
+    // (TypeScript) allow parenthesization of TSFunctionType/TSUnionType
     if (
       ast.type === "TSParenthesizedType" &&
       ast.typeAnnotation.type === "TypeAnnotation" &&
-      ast.typeAnnotation.typeAnnotation.type === "TSFunctionType"
+      (ast.typeAnnotation.typeAnnotation.type === "TSFunctionType" ||
+        ast.typeAnnotation.typeAnnotation.type === "TSUnionType")
     ) {
       return newObj.typeAnnotation.typeAnnotation;
     }

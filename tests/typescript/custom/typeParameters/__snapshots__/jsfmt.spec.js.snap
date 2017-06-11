@@ -50,7 +50,7 @@ type AwkwardlyLongFunctionTypeDefinition = <
   arg1: GenericTypeNumberOne,
   arg2: GenericTypeNumberTwo,
   arg3: GenericTypeNumberThree
-) => (GenericTypeNumberOne | GenericTypeNumberTwo | GenericTypeNumberThree);
+) => GenericTypeNumberOne | GenericTypeNumberTwo | GenericTypeNumberThree;
 
 `;
 
