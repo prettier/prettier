@@ -14,12 +14,12 @@ const ALL_PARSERS = process.env["ALL_PARSERS"]
 
 function run_spec(dirname, options, additionalParsers) {
   fs.readdirSync(dirname).forEach(filename => {
-    const extension = extname(filename);
+    const path = dirname + "/" + filename;
     if (
-      /^\.([jt]sx?|css|graphql|html)$/.test(extension) &&
+      extname(filename) !== ".snap" &&
+      fs.lstatSync(path).isFile() &&
       filename !== "jsfmt.spec.js"
     ) {
-      const path = dirname + "/" + filename;
       let rangeStart = 0;
       let rangeEnd = Infinity;
       const source = read(path)

@@ -15,14 +15,19 @@ exports[`html-with-css-style.html 1`] = `
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <!DOCTYPE html>
+
 <html lang="en">
-  <head>
-    <style>
-      blink {
-        display: none;
-      }
-    </style>
-  </head>
-  <body></body>
+
+<head>
+
+  <style>
+    blink {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+</body>
 </html>
 `;

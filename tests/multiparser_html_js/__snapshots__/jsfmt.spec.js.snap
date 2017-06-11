@@ -14,13 +14,18 @@ exports[`html-with-js-script.html 1`] = `
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <script type="text/javascript">
-      hello("world");
 
-    </script>
-  </head>
-  <body></body>
+<html lang="en">
+
+<head>
+
+  <script type="text/javascript">
+    hello("world");
+
+  </script>
+</head>
+
+<body>
+</body>
 </html>
 `;

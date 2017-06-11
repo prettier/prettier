@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`vue-component.vue 1`] = `
+<template >
+  <h1 >{{greeting}}     world</h1  >
+</template >
+
+<script>
+module  .  exports  =
+{data : function () {return {
+	greeting: "Hello"
+}}
+}
+</script>
+
+<style   scoped >
+p { font-size : 2em ; text-align : center ; }
+
+  </style >
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+<template>
+  <h1>{{greeting}} world</h1>
+</template>
+<script>
+  module.exports = {
+    data: function() {
+      return {
+        greeting: "Hello"
+      };
+    }
+  };
+
+</script>
+<style scoped>
+  p {
+    font-size: 2em;
+    text-align: center;
+  }
+</style>
+`;

@@ -6,7 +6,8 @@ function parse(text) {
   // Inline the require to avoid loading all the JS if we don't use it
   const parse5 = require("parse5");
   try {
-    const ast = parse5.parse(text, {
+    const isFragment = !/^\s*<(!doctype|html|head|body)/i.test(text);
+    const ast = (isFragment ? parse5.parseFragment : parse5.parse)(text, {
       treeAdapter: parse5.treeAdapters.htmlparser2,
       locationInfo: true
     });

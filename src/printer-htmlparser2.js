@@ -1,5 +1,6 @@
 "use strict";
 
+const util = require("./util");
 const docBuilders = require("./doc-builders");
 const concat = docBuilders.concat;
 const join = docBuilders.join;
@@ -62,15 +63,24 @@ function genericPrint(path, options, print) {
         children.push(childPath.call(print));
       }, "children");
 
+      const hasNewline = util.hasNewlineInRange(
+        options.originalText,
+        util.locStart(n),
+        util.locEnd(n)
+      );
+
       return group(
         concat([
+          hasNewline ? hardline : "",
           "<",
           n.name,
           printAttributes(n.attribs),
 
           n.children.length ? ">" : selfClose,
 
-          indent(concat(children)),
+          n.name.toLowerCase() === "html"
+            ? concat(children)
+            : indent(concat(children)),
           n.children.length ? concat([softline, "</", n.name, ">"]) : ""
         ])
       );
