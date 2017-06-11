@@ -2405,17 +2405,19 @@ function genericPrintNoParens(path, options, print, args) {
       if (n.type !== "TSCallSignature") {
         parts.push("new ");
       }
-      const isType = n.type === "TSConstructorType";
 
-      if (n.typeParameters) {
-        parts.push(printTypeParameters(path, options, print, "typeParameters"));
-      }
+      parts.push(
+        printFunctionParams(
+          path,
+          print,
+          options,
+          /* expandArg */ false,
+          /* printTypeParams */ true
+        )
+      );
 
-      const params = n.params
-        ? path.map(print, "params")
-        : path.map(print, "parameters");
-      parts.push("(", join(", ", params), ")");
       if (n.typeAnnotation) {
+        const isType = n.type === "TSConstructorType";
         parts.push(isType ? " => " : ": ", path.call(print, "typeAnnotation"));
       }
       return concat(parts);
