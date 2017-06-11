@@ -1226,10 +1226,18 @@ function genericPrintNoParens(path, options, print, args) {
 
       const hasValue = n.declarations.some(decl => decl.init);
 
+      let firstVariable;
+      if (printed.length === 1) {
+        firstVariable = printed[0];
+      } else if (printed.length > 1) {
+        // Indent first var to comply with eslint one-var rule
+        firstVariable = indent(printed[0]);
+      }
+
       parts = [
         isNodeStartingWithDeclare(n, options) ? "declare " : "",
         n.kind,
-        printed.length ? concat([" ", printed[0]]) : "",
+        firstVariable ? concat([" ", firstVariable]) : "",
         indent(
           concat(
             printed
