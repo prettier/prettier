@@ -64,6 +64,7 @@ function fromBabylonFlowOrTypeScript(path) {
           text: text
         };
       }
+      break;
     }
     case "TemplateElement": {
       const parent = path.getParentNode();
