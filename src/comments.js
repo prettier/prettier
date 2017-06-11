@@ -23,15 +23,15 @@ function getSortedChildNodes(node, text, resultArray) {
 
   if (resultArray) {
     if (
-      (node &&
-        (node.type &&
-          node.type !== "CommentBlock" &&
-          node.type !== "CommentLine" &&
-          node.type !== "Line" &&
-          node.type !== "Block" &&
-          node.type !== "EmptyStatement" &&
-          node.type !== "TemplateElement")) ||
-      (node.kind && node.kind !== "Comment")
+      node &&
+      ((node.type &&
+        node.type !== "CommentBlock" &&
+        node.type !== "CommentLine" &&
+        node.type !== "Line" &&
+        node.type !== "Block" &&
+        node.type !== "EmptyStatement" &&
+        node.type !== "TemplateElement") ||
+        (node.kind && node.kind !== "Comment"))
     ) {
       // This reverse insertion sort almost always takes constant
       // time because we almost always (maybe always?) append the
