@@ -971,9 +971,6 @@ function printComments(path, print, options, needsSemi) {
   const value = path.getValue();
   const printed = print(path);
   const comments = value && value.comments;
-  if (value) {
-    console.log('value', value, value.comments)
-  }
 
   if (!comments || comments.length === 0) {
     return prependCursorPlaceholder(path, options, printed);
