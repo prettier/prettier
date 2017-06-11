@@ -49,6 +49,21 @@ If you are interested in the details, you can watch those two conference talks:
 
 <a href="https://www.youtube.com/watch?v=hkfBvpEfWdA"><img width="298" src="https://cloud.githubusercontent.com/assets/197597/24886367/dda8a6f0-1e08-11e7-865b-22492450f10f.png"></a> <a href="https://www.youtube.com/watch?v=0Q4kUNx85_4"><img width="298" src="https://cloud.githubusercontent.com/assets/197597/24886368/ddacd6f8-1e08-11e7-806a-9febd23cbf47.png"></a>
 
+A few of the many projects using Prettier:
+
+<table>
+<tr>
+<td><p align="center"><a href="https://facebook.github.io/react/"><img src="images/react-200x100.png" alt="React" width="200" height="100"><br>React</a></p></td>
+<td><p align="center"><a href="https://facebook.github.io/jest/"><img src="images/jest-200x100.png" alt="Jest" width="200" height="100"><br>Jest</a></p></td>
+<td><p align="center"><a href="https://yarnpkg.com"><img src="images/yarn-200x100.png" alt="Yarn" width="200" height="100"><br>Yarn</a></p></td>
+</tr>
+<tr>
+<td><p align="center"><a href="https://babeljs.io/"><img src="images/babel-200x100.png" alt="Babel" width="200" height="100"><br>Babel</a></p></td>
+<td><p align="center"><a href="https://zeit.co/"><img src="images/zeit-200x100.png" alt="Zeit" width="200" height="100"><br>Zeit</a></p></td>
+<td><p align="center"><a href="https://webpack.js.org/api/cli/"><img src="images/webpack-200x100.png" alt="Webpack-cli" width="200" height="100"><br>Webpack-cli</a></p></td>
+</tr>
+</table>
+
 In the case of JavaScript, this goes way beyond [ESLint](http://eslint.org/) and other projects
 [built on it](https://github.com/feross/standard). Unlike ESLint,
 there aren't a million configuration options and rules. But more
