@@ -85,9 +85,7 @@ function getSortedChildNodes(node, text, resultArray) {
 // .precedingNode, .enclosingNode, and/or .followingNode properties, at
 // least one of which is guaranteed to be defined.
 function decorateComment(node, comment, text) {
-  const childNodes = getSortedChildNodes(node, text).filter(
-    node => node.kind !== "<SOF>" && node.kind !== "<EOF>"
-  );
+  const childNodes = getSortedChildNodes(node, text);
   let precedingNode, followingNode;
   // Time to dust off the old binary search robes and wizard hat.
   let left = 0,
@@ -973,6 +971,9 @@ function printComments(path, print, options, needsSemi) {
   const value = path.getValue();
   const printed = print(path);
   const comments = value && value.comments;
+  if (value) {
+    console.log('value', value, value.comments)
+  }
 
   if (!comments || comments.length === 0) {
     return prependCursorPlaceholder(path, options, printed);
