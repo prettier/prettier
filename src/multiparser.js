@@ -1,7 +1,7 @@
 "use strict";
 
 const util = require("./util");
-const { traverseDoc } = require("./doc-utils");
+const traverseDoc = require("./doc-utils").traverseDoc;
 const docBuilders = require("./doc-builders");
 const indent = docBuilders.indent;
 const hardline = docBuilders.hardline;
