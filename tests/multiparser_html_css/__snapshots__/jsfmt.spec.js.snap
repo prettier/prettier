@@ -21,9 +21,9 @@ exports[`html-with-css-style.html 1`] = `
 <head>
 
   <style>
-    blink {
-      display: none;
-    }
+  blink {
+    display: none;
+  }
   </style>
 </head>
 

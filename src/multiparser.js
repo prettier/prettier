@@ -6,6 +6,7 @@ const indent = docBuilders.indent;
 const hardline = docBuilders.hardline;
 const softline = docBuilders.softline;
 const concat = docBuilders.concat;
+const align = docBuilders.align;
 
 /**
  * @returns {{ parser: string, text: string, wrap?: Function } | void}
@@ -127,7 +128,7 @@ function fromHtmlParser2(path, options) {
         const parser = options.parser === "flow" ? "flow" : "babylon";
         return {
           parser,
-          wrap: doc => concat([hardline, doc]),
+          wrap: doc => deIndent(options, concat([hardline, doc])),
           text: getText(options, node)
         };
       }
@@ -140,7 +141,7 @@ function fromHtmlParser2(path, options) {
       ) {
         return {
           parser: "typescript",
-          wrap: doc => concat([hardline, doc]),
+          wrap: doc => deIndent(options, concat([hardline, doc])),
           text: getText(options, node)
         };
       }
@@ -149,7 +150,8 @@ function fromHtmlParser2(path, options) {
       if (parent.type === "style") {
         return {
           parser: "postcss",
-          wrap: doc => concat([hardline, stripTrailingHardline(doc)]),
+          wrap: doc =>
+            deIndent(options, concat([hardline, stripTrailingHardline(doc)])),
           text: getText(options, node)
         };
       }
@@ -161,6 +163,10 @@ function fromHtmlParser2(path, options) {
 
 function getText(options, node) {
   return options.originalText.slice(util.locStart(node), util.locEnd(node));
+}
+
+function deIndent(options, doc) {
+  return align(-options.tabWidth, doc);
 }
 
 function stripTrailingHardline(doc) {
