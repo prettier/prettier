@@ -49,7 +49,7 @@ If you are interested in the details, you can watch those two conference talks:
 
 <a href="https://www.youtube.com/watch?v=hkfBvpEfWdA"><img width="298" src="https://cloud.githubusercontent.com/assets/197597/24886367/dda8a6f0-1e08-11e7-865b-22492450f10f.png"></a> <a href="https://www.youtube.com/watch?v=0Q4kUNx85_4"><img width="298" src="https://cloud.githubusercontent.com/assets/197597/24886368/ddacd6f8-1e08-11e7-806a-9febd23cbf47.png"></a>
 
-A few of the [many projects](https://www.npmjs.com/browse/depended/prettier) using Prettier:
+A few of the [many projects](https://www.npmjs.com/browse/depended/prettier) using Prettier[\*\*](#using-footnote):
 
 <table>
 <tr>
@@ -139,6 +139,8 @@ into account, wrapping code when necessary.
 <a href="#styling-footnote" name="styling-footnote">\*</a>_Well actually, some
 original styling is preserved when practical—see [empty lines] and [multi-line
 objects]._
+
+<a href="#using-footnote" name="using-footnote">\*\*</a>_See Issue #1351 for discussion about how these projects using Prettier were chosen._
 
 [empty lines]:Rationale.md#empty-lines
 [multi-line objects]:Rationale.md#multi-line-objects
