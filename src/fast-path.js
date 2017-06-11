@@ -344,14 +344,15 @@ FastPath.prototype.needsParens = function() {
       }
 
     case "TSParenthesizedType": {
-      // Union types don't need to be wrapped in parens in some cases
       if (
-        (parent.type === "VariableDeclarator" ||
-          parent.type === "TypeAnnotation" ||
-          parent.type === "GenericTypeAnnotation") &&
-        node.typeAnnotation.type === "TypeAnnotation" &&
-        node.typeAnnotation.typeAnnotation.type === "TSUnionType"
+        parent.type === "VariableDeclarator" ||
+        parent.type === "TypeAnnotation" ||
+        parent.type === "GenericTypeAnnotation"
       ) {
+        return false;
+      }
+      // Delegate to inner TSParenthesizedType
+      if (node.typeAnnotation.type === "TSParenthesizedType") {
         return false;
       }
       return true;

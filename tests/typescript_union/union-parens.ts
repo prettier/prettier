@@ -22,6 +22,7 @@ export type Multi = (string | number)[];
 function f(): (string | number) {}
 
 var x: (string | number);
+var y: ((string | number));
 
 class Foo<T extends (string | number)> {}
 
