@@ -44,7 +44,7 @@ function fromBabylonFlowOrTypeScript(path) {
        * <style jsx>{`div{color:red}`}</style>
        * ```
        */
-      if (
+      const isStyledJsx =
         parentParent &&
         node.quasis &&
         parent.type === "JSXExpressionContainer" &&
@@ -52,8 +52,22 @@ function fromBabylonFlowOrTypeScript(path) {
         parentParent.openingElement.name.name === "style" &&
         parentParent.openingElement.attributes.some(
           attribute => attribute.name.name === "jsx"
-        )
-      ) {
+        );
+
+      /*
+       * styled-components:
+       * styled.button`color: red`
+       * Foo.extend`color: red`
+       */
+      const isStyledComponents =
+        parent &&
+        parent.type === "TaggedTemplateExpression" &&
+        parent.tag.type === "MemberExpression" &&
+        (parent.tag.object.name === "styled" ||
+          (/^[A-Z]/.test(parent.tag.object.name) &&
+            parent.tag.property.name === "extend"));
+
+      if (isStyledJsx || isStyledComponents) {
         // Get full template literal with expressions replaced by placeholders
         const rawQuasis = node.quasis.map(q => q.value.raw);
         const text = rawQuasis.join("@prettier-placeholder");
@@ -64,6 +78,7 @@ function fromBabylonFlowOrTypeScript(path) {
           text: text
         };
       }
+
       break;
     }
     case "TemplateElement": {
@@ -71,6 +86,7 @@ function fromBabylonFlowOrTypeScript(path) {
       const parentParent = path.getParentNode(1);
 
       /*
+<<<<<<< HEAD
        * styled-components:
        * styled.button`color: red`
        * Foo.extend`color: red`
@@ -96,6 +112,8 @@ function fromBabylonFlowOrTypeScript(path) {
       }
 
       /*
+=======
+>>>>>>> Add support for styled-components with expressions
        * react-relay and graphql-tag
        * graphql`...`
        * graphql.experimental`...`
