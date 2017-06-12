@@ -298,7 +298,7 @@ prettier.formatWithCursor(" 1", { cursorOffset: 2 });
 
 #### Custom Parser API
 
-If you need to make modifications to the AST (such as codemods), or you want to provide an alternate parser, you can do so setting the `parser` option to a function. The function signature of the parser function is:
+If you need to make modifications to the AST (such as codemods), or you want to provide an alternate parser, you can do so by setting the `parser` option to a function. The function signature of the parser function is:
 ```js
 (text: string, parsers: object, options: object) => AST;
 ```
