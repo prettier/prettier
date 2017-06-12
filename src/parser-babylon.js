@@ -30,7 +30,7 @@ function parse(text) {
     ast = babylon.parse(text, babylonOptions);
   } catch (originalError) {
     try {
-      return babylon.parse(
+      ast = babylon.parse(
         text,
         Object.assign({}, babylonOptions, { strictMode: false })
       );
