@@ -1,5 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`template-bind.vue 1`] = `
+<template>
+    <div v-bind:id=" 'list-'   +  id "></div>
+    <div v-bind:id="  rawId | formatId "></div>
+    <div v-bind:id=" ok ? 'YES' : 'NO' "></div>
+</template>
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+<template>
+  <div v-bind:id="'list-' + id" /><div v-bind:id="rawId | formatId" /><div v-bind:id="ok ? 'YES' : 'NO'" />
+</template>
+`;
+
+exports[`template-class.vue 1`] = `
+<template>
+  <h2
+    class="title"
+    :class="{ 'issue-realtime-pre-pulse': preAnimation,
+ 'issue-realtime-trigger-pulse': pulseAnimation}"
+    v-html="titleHtml"
+  >
+  </h2>
+</template>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+<template>
+
+  <h2 class="title" :class="{
+    'issue-realtime-pre-pulse': preAnimation,
+    'issue-realtime-trigger-pulse': pulseAnimation
+  }" v-html="titleHtml">
+  </h2>
+</template>
+`;
+
 exports[`vue-component.vue 1`] = `
 <template >
   <h1 >{{greeting}}     world</h1  >

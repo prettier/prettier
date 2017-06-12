@@ -1,7 +1,7 @@
 "use strict";
 
 const util = require("./util");
-const mapDoc = require("./doc-utils").mapDoc;
+const docUtils = require("./doc-utils");
 const docBuilders = require("./doc-builders");
 const indent = docBuilders.indent;
 const hardline = docBuilders.hardline;
@@ -132,6 +132,34 @@ function fromHtmlParser2(path, options) {
 
       break;
     }
+
+    case "attribute-value": {
+      /*
+       * Vue binding sytax: JS expressions
+       * :class="{ 'some-key': value }"
+       * v-bind:id="'list-' + id"
+       * v-if="foo && !bar"
+       */
+      if (/(^v-)|:/.test(node.name) && !/^\w+$/.test(node.value)) {
+        return {
+          options: {
+            parser: "babylon",
+            singleQuote: true
+          },
+          // Force parsing as an expression
+          text: `(${node.value})`,
+          // Extract expression from the declaration
+          transformAst: ast => ({
+            type: "File",
+            program: ast.program.body[0].expression
+          }),
+          transformDoc: doc =>
+            util.hasNewlineInRange(node.value, 0, node.value.length)
+              ? doc
+              : docUtils.removeLines(doc)
+        };
+      }
+    }
   }
 }
 
@@ -158,7 +186,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
   }
 
   const expressions = expressionDocs.slice();
-  const newDoc = mapDoc(quasisDoc, doc => {
+  const newDoc = docUtils.mapDoc(quasisDoc, doc => {
     if (!doc || !doc.parts || !doc.parts.length) {
       return doc;
     }

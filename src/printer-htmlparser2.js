@@ -74,7 +74,7 @@ function genericPrint(path, options, print) {
           hasNewline ? hardline : "",
           "<",
           n.name,
-          printAttributes(n.attribs),
+          printAttributes(path, print),
 
           n.children.length ? ">" : selfClose,
 
@@ -88,12 +88,20 @@ function genericPrint(path, options, print) {
     case "comment": {
       return concat(["<!-- ", n.data.trim(), " -->"]);
     }
+    // This is not actually a real AST node, but we'll treat it as such
+    // for extensibility
+    case "attribute-value": {
+      return n.value;
+    }
+
     default:
       throw new Error("unknown htmlparser2 type: " + n.type);
   }
 }
 
-function printAttributes(attribs) {
+function printAttributes(path, print) {
+  const node = path.getValue();
+  const attribs = node.attribs;
   const attributeKeys = Object.keys(attribs);
   return concat([
     attributeKeys.length ? " " : "",
@@ -103,7 +111,15 @@ function printAttributes(attribs) {
         if (attribs[name] === "") {
           return name;
         }
-        return concat([name, '="', attribs[name], '"']);
+
+        // FastPath requires the next node to be a property of the current one
+        node._currentAttribute = {
+          type: "attribute-value",
+          name,
+          value: attribs[name]
+        };
+
+        return concat([name, '="', path.call(print, "_currentAttribute"), '"']);
       })
     )
   ]);
