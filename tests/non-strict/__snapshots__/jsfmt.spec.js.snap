@@ -9,6 +9,27 @@ function f(a, a) {
 
 `;
 
+exports[`keywords.js 1`] = `
+var package = require('../package');
+
+/**
+ * My amazing comment
+ */
+function myFunction() {
+	return 'StringGainz';
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var package = require("../package");
+
+/**
+ * My amazing comment
+ */
+function myFunction() {
+  return "StringGainz";
+}
+
+`;
+
 exports[`octal-number.js 1`] = `
 0777
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
