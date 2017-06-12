@@ -343,6 +343,23 @@ FastPath.prototype.needsParens = function() {
           return false;
       }
 
+    case "TSParenthesizedType": {
+      if (
+        (parent.type === "VariableDeclarator" ||
+          parent.type === "TypeAnnotation" ||
+          parent.type === "GenericTypeAnnotation") &&
+        (node.typeAnnotation.type === "TypeAnnotation" &&
+          node.typeAnnotation.typeAnnotation.type !== "TSFunctionType")
+      ) {
+        return false;
+      }
+      // Delegate to inner TSParenthesizedType
+      if (node.typeAnnotation.type === "TSParenthesizedType") {
+        return false;
+      }
+      return true;
+    }
+
     case "SequenceExpression":
       switch (parent.type) {
         case "ReturnStatement":
