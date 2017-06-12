@@ -345,9 +345,11 @@ FastPath.prototype.needsParens = function() {
 
     case "TSParenthesizedType": {
       if (
-        parent.type === "VariableDeclarator" ||
-        parent.type === "TypeAnnotation" ||
-        parent.type === "GenericTypeAnnotation"
+        (parent.type === "VariableDeclarator" ||
+          parent.type === "TypeAnnotation" ||
+          parent.type === "GenericTypeAnnotation") &&
+        (node.typeAnnotation.type === "TypeAnnotation" &&
+          node.typeAnnotation.typeAnnotation.type !== "TSFunctionType")
       ) {
         return false;
       }
