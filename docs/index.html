@@ -15,7 +15,7 @@ function require(path) { return window[path.replace(/.+-/, '')]; }
 <script>prettier = index;</script>
 
 <link rel="stylesheet" href="https://codemirror.net/lib/codemirror.css">
-<link rel="stylesheet" href="https://codemirror.net/theme/base16-dark.css">
+<link rel="stylesheet" href="https://codemirror.net/theme/neat.css">
 <script src="https://codemirror.net/lib/codemirror.js"></script>
 <script src="https://codemirror.net/mode/javascript/javascript.js"></script>
 <script src="https://codemirror.net/addon/display/rulers.js"></script>
@@ -32,29 +32,60 @@ function require(path) { return window[path.replace(/.+-/, '')]; }
     font-size: 11.7px;
     margin: 0;
     padding: 0;
-    background-color: #444444;
-    color: #e2e1e1;
+    background-color: #FAFAFA;
+    color: #6A6A6A;
   }
-  .title {
-    font-style: italic;
-    line-height: 19px;
-    margin-right: 10px;
+  .options-summary {
+    font-size: 1.2em;
+    margin-top: 8px;
+    text-align: center;
   }
-  .container {
+  header {
+    height: 64px;
     display: flex;
-    flex-direction: column;
-    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1A2B34;
+    color: #e0e0e0;
+  }
+  @media (max-width: 500px) {
+    .tagline { display: none; }
+  }
+  header a, header a:visited {
+    color: #e0e0e0;
+  }
+  header a:focus, header a:active, header a:hover {
+    color: #70a0a0;
+  }
+  .logo {
+    height: 100px;
+  }
+  .tagline {
+    flex: 2;
+    font-weight: 200;
+  }
+  .links {
+    font-size: 1.3em;
+    margin-right: 30px;
+  }
+  .editors-container {
+    display: flex;
+    height: calc(100vh - 120px);
   }
   .editors {
     display: flex;
-    flex-direction: row;
+    flex-flow: row wrap;
     flex: 1;
-    margin: 5px;
   }
   .editor {
+    min-width: 300px;
     display: flex;
     flex: 1;
     position: relative;
+  }
+  .arrow {
+    align-self: center;
+    font-size: 1.2em;
   }
   .CodeMirror {
     height: auto;
@@ -67,59 +98,103 @@ function require(path) { return window[path.replace(/.+-/, '')]; }
     font-size: 11.05px;
     line-height: 17.68px;
   }
-  .editor {
-    margin-left: 5px;
-  }
-  .editor:first-child {
-    margin-left: 0;
-  }
-  .options {
+  .options-container {
     display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+  }
+
+  .options {
+    padding: 0 10px;
+    display: flex;
+    flex-flow: column wrap;
+    flex-grow: 1;
+    justify-content: space-around;
     margin: 5px;
     margin-bottom: 0;
+    min-width: 150px;
   }
-  .title a {
-    color: #e2e1e1;
-  }
-  .title a:hover {
-    color: #fdfcfc;
-  }
+
   label {
-    margin-right: 5px;
+    font-family: "Consolas", "Courier New", Courier, monospace;
+    margin: 0 10px;
   }
   input[type="number"] {
     max-width: 40px;
   }
+  footer {
+    text-align: center;
+  }
 </style>
 
-<div class="container">
-  <div class="options">
-    <label class="title"><a href="https://github.com/prettier/prettier">prettier v<span class="version"></span></a></label>
-    <label><input type="number" value="80" id="printWidth"></input> printWidth</label>
-    <label><input type="number" value="2" id="tabWidth"></input> tabWidth</label>
-    <label><input type="checkbox" id="useTabs"></input> useTabs</label>
-    <label><input type="checkbox" id="semi" checked></input> semi</label>
-    <label><input type="checkbox" id="singleQuote"></input> singleQuote</label>
-    <label><input type="checkbox" id="bracketSpacing" checked></input> bracketSpacing</label>
-    <label><input type="checkbox" id="jsxBracketSameLine"></input> jsxBracketSameLine</label>
-    <label>trailingComma <select id="trailingComma"><option value="none">none</option><option value="es5">es5</option><option value="all">all</option></select></label>
-    <label>parser <select id="parser"><option value="babylon">babylon</option><option value="flow">flow</option><option value="typescript">typescript</option><option value="postcss">postcss</option></select></label>
-    <span style="flex: 1"></span>
-    <label><input type="checkbox" id="doc"></input> doc</label>
-  </div>
+<header>
+  <a href=".">
+   <img class="logo" src="https://cloud.githubusercontent.com/assets/311752/24730511/e6690c38-1a18-11e7-95a9-2af91bb60440.png">
+  </a>
+  <h2 class="tagline"><em>Opinionated</em> code formatter</h2>
+  <span class="links">
+    <a
+      class="github-button"
+      href="https://github.com/prettier/prettier"
+      data-show-count="true"
+      aria-label="Star prettier on GitHub">
+      GitHub
+    </a>
+  </span>
+</header>
 
-  <div class="editors">
-    <div class="editor input">
-      <textarea id="input-editor"></textarea>
-    </div>
-    <div class="editor doc">
-      <textarea id="doc-editor"></textarea>
-    </div>
-    <div class="editor output">
-      <textarea id="output-editor"></textarea>
+<section>
+  <div class="editors-container">
+    <div class="editors">
+      <div class="editor input">
+        <textarea id="input-editor"></textarea>
+      </div>
+      <div class="editor doc">
+        <textarea id="doc-editor"></textarea>
+      </div>
+      <span class="arrow">&rarr;</span>
+      <div class="editor output">
+        <textarea id="output-editor"></textarea>
+      </div>
     </div>
   </div>
-</div>
+</section>
+
+<section>
+  <details>
+    <summary class="options-summary">Options</summary>
+
+    <div class="options-container">
+      <div class="options">
+        <label>--print-width <input type="number" value="80" id="printWidth"></input> </label>
+        <label>--tab-width <input type="number" value="2" id="tabWidth"></input> </label>
+      </div>
+      <div class="options">
+        <label><input type="checkbox" id="useTabs"></input> --use-tabs</label>
+        <label><input type="checkbox" data-inverted id="semi"></input> --no-semi</label>
+        <label><input type="checkbox" id="singleQuote"></input> --single-quote</label>
+        <label><input type="checkbox" data-inverted id="bracketSpacing"></input> --no-bracket-spacing</label>
+        <label><input type="checkbox" id="jsxBracketSameLine"></input> --jsx-bracket-same-line</label>
+      </div>
+      <div class="options">
+        <label>--trailing-comma <select id="trailingComma"><option value="none">none</option><option value="es5">es5</option><option value="all">all</option></select></label>
+        <label>--parser <select id="parser"><option value="babylon">babylon</option><option value="flow">flow</option><option value="typescript">typescript</option><option value="postcss">postcss</option></select></label>
+        <span style="flex: 0.3"></span>
+        <label><input type="checkbox" id="doc"></input> show doc (debug)</label>
+      </div>
+    </div>
+  </details>
+</section>
+
+<footer>
+  <p class="version-link">
+    <a href="https://github.com/prettier/prettier">
+      prettier version
+      <span class="version"></span>
+      (master)
+    </a>
+  </p>
+</footer>
 
 <script id="code">
 (function () {
@@ -132,7 +207,8 @@ function setOptions(options) {
     } else if (elem.type === 'number') {
       elem.value = options[option];
     } else {
-      elem.checked = options[option];
+      var isInverted = elem.hasAttribute("data-inverted");
+      elem.checked = isInverted ? !options[option] : options[option];
     }
   });
 }
@@ -146,7 +222,8 @@ function getOptions() {
     } else if (elem.type === 'number') {
       options[option] = Number(elem.value);
     } else {
-      options[option] = elem.checked;
+      var isInverted = elem.hasAttribute("data-inverted");
+      options[option] = isInverted ? !elem.checked : elem.checked;
     }
   });
   return options;
@@ -226,7 +303,7 @@ function format() {
   });
 }
 
-document.getElementsByClassName('options')[0].onchange = format;
+document.querySelector('.options-container').onchange = format;
 
 var editorOptions = {
   lineNumbers: true,
@@ -234,7 +311,7 @@ var editorOptions = {
   autoCloseBrackets: true,
   matchBrackets: true,
   showCursorWhenSelecting: true,
-  theme: 'base16-dark',
+  theme: 'neat',
   tabWidth: 2
 };
 var inputEditor = CodeMirror.fromTextArea(
@@ -245,12 +322,12 @@ inputEditor.on('change', format);
 
 var docEditor = CodeMirror.fromTextArea(
   document.getElementById('doc-editor'),
-  {readOnly: true, lineNumbers: true, theme: 'base16-dark'}
+  {readOnly: true, lineNumbers: false, theme: 'neat'}
 );
 
 var outputEditor = CodeMirror.fromTextArea(
   document.getElementById('output-editor'),
-  {readOnly: true, lineNumbers: true, theme: 'base16-dark'}
+  {readOnly: true, lineNumbers: true, theme: 'neat'}
 );
 
 document.getElementsByClassName('version')[0].innerText = prettier.version;
@@ -260,7 +337,16 @@ try {
   setOptions(json.options);
   inputEditor.setValue(json.content);
 } catch (e) {
-  inputEditor.setValue('hello ( "world"\n)');
+  inputEditor.setValue(
+    'hello ( "world"\n);\n\n' +
+    '[ "lorem", "ipsum", \'dolor\', sit("amet"), consectetur[ \'adipiscing\' ] + "elit" ].reduce(\n  (first, second) => first + second,\n  "")\n\n' +
+    'const Foo = ({ bar, baz, things }) => {\n' +
+    '  return <div style={{\ncolor: "papayawhip"}}>\n' +
+    '    <br/>{things.map(thing => reallyLongPleaseDontPutOnOneLine(thing) ? <p>{ok}</p> : <Quax bar={bar} baz={ baz } {...thing}></Quax>)\n' +
+    '  }</div>}'
+  );
 }
 })();
 </script>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
