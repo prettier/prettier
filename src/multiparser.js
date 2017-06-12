@@ -7,8 +7,16 @@ const hardline = docBuilders.hardline;
 const softline = docBuilders.softline;
 const concat = docBuilders.concat;
 
+function printSubtree(subtreeParser, options) {
+  const next = Object.assign({}, { transformDoc: doc => doc }, subtreeParser);
+  next.options = Object.assign({}, options, next.options);
+  const ast = require("./parser").parse(next.text, next.options);
+  const nextDoc = require("./printer").printAstToDoc(ast, next.options);
+  return next.transformDoc(nextDoc);
+}
+
 /**
- * @returns {{ parser: string, text: string, wrap?: Function } | void}
+ * @returns {{ text, options?, transformDoc? } | void}
  */
 function getSubtreeParser(path, options) {
   switch (options.parser) {
@@ -48,8 +56,8 @@ function fromBabylonFlowOrTypeScript(path) {
         )
       ) {
         return {
-          parser: "postcss",
-          wrap: doc =>
+          options: { parser: "postcss" },
+          transformDoc: doc =>
             concat([
               indent(concat([softline, stripTrailingHardline(doc)])),
               softline
@@ -73,8 +81,8 @@ function fromBabylonFlowOrTypeScript(path) {
             parentParent.tag.property.name === "extend"))
       ) {
         return {
-          parser: "postcss",
-          wrap: doc =>
+          options: { parser: "postcss" },
+          transformDoc: doc =>
             concat([
               indent(concat([softline, stripTrailingHardline(doc)])),
               softline
@@ -100,8 +108,9 @@ function fromBabylonFlowOrTypeScript(path) {
             parentParent.tag.name === "graphql"))
       ) {
         return {
-          parser: "graphql",
-          wrap: doc => concat([indent(concat([softline, doc])), softline]),
+          options: { parser: "graphql" },
+          transformDoc: doc =>
+            concat([indent(concat([softline, doc])), softline]),
           text: parent.quasis[0].value.raw
         };
       }
@@ -126,8 +135,8 @@ function fromHtmlParser2(path, options) {
       ) {
         const parser = options.parser === "flow" ? "flow" : "babylon";
         return {
-          parser,
-          wrap: doc => concat([hardline, doc]),
+          options: { parser },
+          transformDoc: doc => concat([hardline, doc]),
           text: getText(options, node)
         };
       }
@@ -139,8 +148,8 @@ function fromHtmlParser2(path, options) {
           parent.attribs.lang === "ts")
       ) {
         return {
-          parser: "typescript",
-          wrap: doc => concat([hardline, doc]),
+          options: { parser: "typescript" },
+          transformDoc: doc => concat([hardline, doc]),
           text: getText(options, node)
         };
       }
@@ -148,8 +157,8 @@ function fromHtmlParser2(path, options) {
       // Inline Styles
       if (parent.type === "style") {
         return {
-          parser: "postcss",
-          wrap: doc => concat([hardline, stripTrailingHardline(doc)]),
+          options: { parser: "postcss" },
+          transformDoc: doc => concat([hardline, stripTrailingHardline(doc)]),
           text: getText(options, node)
         };
       }
@@ -177,5 +186,6 @@ function stripTrailingHardline(doc) {
 }
 
 module.exports = {
-  getSubtreeParser
+  getSubtreeParser,
+  printSubtree
 };
