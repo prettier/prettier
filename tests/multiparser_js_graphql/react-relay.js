@@ -7,3 +7,11 @@ graphql`
   )
 { markReadNotification(data: $input ) { notification {seenState} } }
 `;
+
+graphql.experimental`
+ mutation     MarkReadNotificationMutation(
+    $input
+    : MarkReadNotificationData!
+  )
+{ markReadNotification(data: $input ) { notification {seenState} } }
+`;

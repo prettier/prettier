@@ -94,6 +94,7 @@ function fromBabylonFlowOrTypeScript(path) {
       /*
        * react-relay and graphql-tag
        * graphql`...`
+       * graphql.experimental`...`
        * gql`...`
        */
       if (
@@ -103,9 +104,12 @@ function fromBabylonFlowOrTypeScript(path) {
         // ((parentParent.tag.type === "MemberExpression" &&
         //   parentParent.tag.object.name === "Relay" &&
         //   parentParent.tag.property.name === "QL") ||
-        (parentParent.tag.type === "Identifier" &&
-          (parentParent.tag.name === "gql" ||
-            parentParent.tag.name === "graphql"))
+        ((parentParent.tag.type === "MemberExpression" &&
+          parentParent.tag.object.name === "graphql" &&
+          parentParent.tag.property.name === "experimental") ||
+          (parentParent.tag.type === "Identifier" &&
+            (parentParent.tag.name === "gql" ||
+              parentParent.tag.name === "graphql")))
       ) {
         return {
           options: { parser: "graphql" },
