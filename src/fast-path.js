@@ -130,7 +130,7 @@ FastPath.prototype.map = function map(callback /*, name1, name2, ... */) {
   return result;
 };
 
-FastPath.prototype.needsParens = function() {
+FastPath.prototype.needsParens = function(options) {
   const parent = this.getParentNode();
   if (!parent) {
     return false;
@@ -424,7 +424,11 @@ FastPath.prototype.needsParens = function() {
       if (
         typeof node.value === "string" &&
         parent.type === "ExpressionStatement" &&
-        !parent.directive
+        // TypeScript workaround for eslint/typescript-eslint-parser#267
+        // See corresponding workaround in printer.js case: "Literal"
+        ((options.parser !== "typescript" && !parent.directive) ||
+          (options.parser === "typescript" &&
+            options.originalText.substr(util.locStart(node) - 1, 1) === "("))
       ) {
         // To avoid becoming a directive
         const grandParent = this.getParentNode(1);
