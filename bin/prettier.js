@@ -93,26 +93,7 @@ function getParserOption() {
     return "flow";
   }
 
-  if (
-    value === "flow" ||
-    value === "babylon" ||
-    value === "typescript" ||
-    value === "postcss" ||
-    value === "parse5" ||
-    value === "graphql"
-  ) {
-    return value;
-  }
-
-  console.warn(
-    "Ignoring unknown --" +
-      optionName +
-      ' value, falling back to "babylon":\n' +
-      '  Expected "flow" or "babylon", but received: ' +
-      JSON.stringify(value)
-  );
-
-  return "babylon";
+  return value;
 }
 
 function getIntOption(optionName) {

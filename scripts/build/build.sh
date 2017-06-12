@@ -27,6 +27,9 @@ node_modules/.bin/rollup -c scripts/build/rollup.parser.config.js --environment 
 echo 'Bundling lib typescript...';
 node_modules/.bin/rollup -c scripts/build/rollup.parser.config.js --environment parser:typescript
 
+echo 'Bundling lib parse5...';
+node_modules/.bin/rollup -c scripts/build/rollup.parser.config.js --environment parser:parse5
+
 echo 'Bundling lib postcss...';
 # PostCSS has dependency cycles and won't work correctly with rollup :(
 ./node_modules/.bin/webpack --hide-modules src/parser-postcss.js dist/parser-postcss.js
@@ -59,6 +62,9 @@ node_modules/.bin/rollup -c scripts/build/rollup.docs.config.js --environment fi
 echo 'Bundling docs postcss...';
 node_modules/.bin/rollup -c scripts/build/rollup.docs.config.js --environment filepath:parser-postcss.js
 
+echo 'Bundling docs parse5...';
+node_modules/.bin/rollup -c scripts/build/rollup.docs.config.js --environment filepath:parser-parse5.js
+
 echo;
 
 ## --- Misc ---
@@ -72,10 +78,7 @@ cp package.json dist/
 echo 'Done!'
 echo;
 echo 'How to test against dist:'
-echo '  1) Open tests_config/run_spec.js'
-echo '  2) add `dist/` to the require'
-echo '  3) yarn test'
-echo "  4) Don't forget to revert tests_config/run_spec.js"
+echo '  1) yarn test --prod'
 echo;
 echo 'How to publish:'
 echo '  1) IMPORTANT!!! Go to dist/'
