@@ -3,7 +3,7 @@
 const assert = require("assert");
 const comments = require("./comments");
 const FastPath = require("./fast-path");
-const getSubtreeParser = require("./multiparser").getSubtreeParser;
+const multiparser = require("./multiparser");
 const util = require("./util");
 const isIdentifierName = require("esutils").keyword.isIdentifierNameES6;
 
@@ -79,18 +79,14 @@ function genericPrint(path, options, printPath, args) {
 
   if (node) {
     // Potentially switch to a different parser
-    const nextParser = getSubtreeParser(path, options);
-
-    if (nextParser && nextParser.parser !== options.parser) {
-      const nextOptions = Object.assign({}, options, {
-        parser: nextParser.parser
-      });
+    const next = multiparser.getSubtreeParser(path, options);
+    if (next) {
       try {
-        const ast = require("./parser").parse(nextParser.text, nextOptions);
-        const nextDoc = printAstToDoc(ast, nextOptions);
-
-        return nextParser.wrap ? nextParser.wrap(nextDoc) : nextDoc;
+        return multiparser.printSubtree(next, options);
       } catch (error) {
+        if (process.env.PRETTIER_DEBUG) {
+          console.error(error);
+        }
         // Continue with current parser
       }
     }
