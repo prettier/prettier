@@ -142,17 +142,13 @@ function fromHtmlParser2(path, options) {
        */
       if (/(^v-)|:/.test(node.name) && !/^\w+$/.test(node.value)) {
         return {
+          text: node.value,
           options: {
-            parser: "babylon",
+            parser: parseJavaScriptExpression,
+            // Use singleQuote since HTML attributes use double-quotes.
+            // TODO(azz): We still need to do an entity escape on the attribute.
             singleQuote: true
           },
-          // Force parsing as an expression
-          text: `(${node.value})`,
-          // Extract expression from the declaration
-          transformAst: ast => ({
-            type: "File",
-            program: ast.program.body[0].expression
-          }),
           transformDoc: doc =>
             util.hasNewlineInRange(node.value, 0, node.value.length)
               ? doc
@@ -223,6 +219,16 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
   });
 
   return expressions.length === 0 ? newDoc : null;
+}
+
+function parseJavaScriptExpression(text, parsers) {
+  // Force parsing as an expression
+  const ast = parsers.babylon(`(${text})`);
+  // Extract expression from the declaration
+  return {
+    type: "File",
+    program: ast.program.body[0].expression
+  };
 }
 
 function getText(options, node) {
