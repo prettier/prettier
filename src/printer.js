@@ -166,7 +166,7 @@ function genericPrint(path, options, printPath, args) {
   } else {
     // Nodes with decorators can't have parentheses, so we can avoid
     // computing path.needsParens() except in this case.
-    needsParens = path.needsParens();
+    needsParens = path.needsParens(options);
   }
 
   if (node.type) {
@@ -1137,7 +1137,7 @@ function genericPrintNoParens(path, options, print, args) {
       return printNumber(n.extra.raw);
     case "BooleanLiteral": // Babel 6 Literal split
     case "StringLiteral": // Babel 6 Literal split
-    case "Literal":
+    case "Literal": {
       if (n.regex) {
         return printRegex(n.regex);
       }
@@ -1147,7 +1147,18 @@ function genericPrintNoParens(path, options, print, args) {
       if (typeof n.value !== "string") {
         return "" + n.value;
       }
-      return nodeStr(n, options); // Babel 6
+      // TypeScript workaround for eslint/typescript-eslint-parser#267
+      // See corresponding workaround in fast-path.js needsParens()
+      const grandParent = path.getParentNode(1);
+      const isTypeScriptDirective =
+        options.parser === "typescript" &&
+        typeof n.value === "string" &&
+        grandParent &&
+        (grandParent.type === "Program" ||
+          grandParent.type === "BlockStatement");
+
+      return nodeStr(n, options, isTypeScriptDirective);
+    }
     case "Directive":
       return path.call(print, "value"); // Babel 6
     case "DirectiveLiteral":
@@ -4103,7 +4114,7 @@ function adjustClause(node, clause, forceSpace) {
   return indent(concat([line, clause]));
 }
 
-function nodeStr(node, options, isFlowDirectiveLiteral) {
+function nodeStr(node, options, isFlowOrTypeScriptDirectiveLiteral) {
   const raw = node.extra ? node.extra.raw : node.raw;
   // `rawContent` is the string exactly like it appeared in the input source
   // code, with its enclosing quote.
@@ -4117,7 +4128,8 @@ function nodeStr(node, options, isFlowDirectiveLiteral) {
 
   let shouldUseAlternateQuote = false;
   const isDirectiveLiteral =
-    isFlowDirectiveLiteral || node.type === "DirectiveLiteral";
+    isFlowOrTypeScriptDirectiveLiteral || node.type === "DirectiveLiteral";
+
   let canChangeDirectiveQuotes = false;
 
   // If `rawContent` contains at least one of the quote preferred for enclosing
