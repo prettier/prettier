@@ -1,8 +1,9 @@
 "use strict";
 
+const isProduction = process.env.NODE_ENV === "production";
 const fs = require("fs");
 const extname = require("path").extname;
-const prettier = require("../"); // change to ../dist/ to "test in prod"
+const prettier = require(isProduction ? "../dist/" : "../");
 const parser = require("../src/parser");
 const massageAST = require("../src/clean-ast.js").massageAST;
 
