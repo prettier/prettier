@@ -35,39 +35,9 @@ function fromBabylonFlowOrTypeScript(path) {
 
   switch (node.type) {
     case "TemplateLiteral": {
-      const parent = path.getParentNode();
-      const parentParent = path.getParentNode(1);
+      const isCss = [isStyledJsx, isStyledComponents].some(isIt => isIt(path));
 
-      /*
-       * styled-jsx:
-       * ```jsx
-       * <style jsx>{`div{color:red}`}</style>
-       * ```
-       */
-      const isStyledJsx =
-        parentParent &&
-        node.quasis &&
-        parent.type === "JSXExpressionContainer" &&
-        parentParent.type === "JSXElement" &&
-        parentParent.openingElement.name.name === "style" &&
-        parentParent.openingElement.attributes.some(
-          attribute => attribute.name.name === "jsx"
-        );
-
-      /*
-       * styled-components:
-       * styled.button`color: red`
-       * Foo.extend`color: red`
-       */
-      const isStyledComponents =
-        parent &&
-        parent.type === "TaggedTemplateExpression" &&
-        parent.tag.type === "MemberExpression" &&
-        (parent.tag.object.name === "styled" ||
-          (/^[A-Z]/.test(parent.tag.object.name) &&
-            parent.tag.property.name === "extend"));
-
-      if (isStyledJsx || isStyledComponents) {
+      if (isCss) {
         // Get full template literal with expressions replaced by placeholders
         const rawQuasis = node.quasis.map(q => q.value.raw);
         const text = rawQuasis.join("@prettier-placeholder");
@@ -246,6 +216,44 @@ function stripTrailingHardline(doc) {
     return doc.parts[0].parts[0];
   }
   return doc;
+}
+
+/**
+ * Template literal in this context:
+ * <style jsx>{`div{color:red}`}</style>
+ */
+function isStyledJsx(path) {
+  const node = path.getValue();
+  const parent = path.getParentNode();
+  const parentParent = path.getParentNode(1);
+  return (
+    parentParent &&
+    node.quasis &&
+    parent.type === "JSXExpressionContainer" &&
+    parentParent.type === "JSXElement" &&
+    parentParent.openingElement.name.name === "style" &&
+    parentParent.openingElement.attributes.some(
+      attribute => attribute.name.name === "jsx"
+    )
+  );
+}
+
+/**
+ * Template literal in this context:
+ * styled.button`color: red`
+ * or
+ * Foo.extend`color: red`
+ */
+function isStyledComponents(path) {
+  const parent = path.getParentNode();
+  return (
+    parent &&
+    parent.type === "TaggedTemplateExpression" &&
+    parent.tag.type === "MemberExpression" &&
+    (parent.tag.object.name === "styled" ||
+      (/^[A-Z]/.test(parent.tag.object.name) &&
+        parent.tag.property.name === "extend"))
+  );
 }
 
 module.exports = {
