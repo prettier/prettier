@@ -2806,6 +2806,10 @@ function shouldGroupFirstArg(args) {
   );
 }
 
+function shouldBreakArgs(args) {
+  return args.length > 1 && args.some(arg => arg.type === "CallExpression");
+}
+
 function printArgumentsList(path, options, print) {
   const printed = path.map(print, "arguments");
   if (printed.length === 0) {
@@ -2820,6 +2824,7 @@ function printArgumentsList(path, options, print) {
   // This is just an optimization; I think we could return the
   // conditional group for all function calls, but it's more expensive
   // so only do it for specific forms.
+
   const shouldGroupFirst = shouldGroupFirstArg(args);
   const shouldGroupLast = shouldGroupLastArg(args);
   if (shouldGroupFirst || shouldGroupLast) {
@@ -2882,16 +2887,18 @@ function printArgumentsList(path, options, print) {
     ]);
   }
 
-  return group(
-    concat([
-      "(",
-      indent(concat([softline, join(concat([",", line]), printed)])),
-      ifBreak(shouldPrintComma(options, "all") ? "," : ""),
-      softline,
-      ")"
-    ]),
-    { shouldBreak: printed.some(willBreak) }
-  );
+  const children = [
+    "(",
+    indent(concat([softline, join(concat([",", line]), printed)])),
+    ifBreak(shouldPrintComma(options, "all") ? "," : ""),
+    softline,
+    ")"
+  ];
+
+  if (shouldBreakArgs(args)) {
+    children.push(breakParent);
+  }
+  return group(concat(children), { shouldBreak: printed.some(willBreak) });
 }
 
 function printFunctionTypeParameters(path, options, print) {
