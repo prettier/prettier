@@ -82,7 +82,10 @@ function genericPrint(path, options, printPath, args) {
     const next = multiparser.getSubtreeParser(path, options);
     if (next) {
       try {
-        return multiparser.printSubtree(next, options);
+        const expressionDocs = node.expressions
+          ? path.map(printPath, "expressions")
+          : [];
+        return multiparser.printSubtree(next, options, expressionDocs);
       } catch (error) {
         if (process.env.PRETTIER_DEBUG) {
           console.error(error);
