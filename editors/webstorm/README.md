@@ -38,3 +38,4 @@ Go to *File | Settings | Tools | File Watchers* for Windows and Linux or *WebSto
 * **Program** set the full path to a `prettier` executable, such as `/Users/developer/repo/jest/node_modules/.bin/prettier` (on OS X and Linux) or `C:/\Users\developer\repo\jest\node_modules\.bin\prettier.cmd` (on Windows).
 * **Parameters** set `--write [other opts] $FilePath$`
 * **Working directory** set `$ProjectFileDir$`
+* **Immediate file synchronization**: Uncheck to reformat on Save only (otherwise code will jump around while you type)

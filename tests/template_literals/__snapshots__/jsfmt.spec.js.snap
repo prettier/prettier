@@ -1,5 +1,56 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`styled-components-with-expressions.js 1`] = `
+const Button = styled.a\`
+/* Comment */
+	display: \${props=>props.display};
+\`;
+
+styled.div\`
+	display: \${props=>props.display};
+	border: \${props=>props.border}px;
+	margin: 10px \${props=>props.border}px ;
+\`;
+
+const EqualDivider = styled.div\`
+margin: 0.5rem;
+		padding: 1rem;
+	background: papayawhip    ;
+
+	> * {
+	flex: 1;
+
+	&:not(:first-child) {
+			\${props => props.vertical ? 'margin-top' : 'margin-left'}: 1rem;
+		}
+	}
+\`;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const Button = styled.a\`
+  /* Comment */
+  display: \${props => props.display};
+\`;
+
+styled.div\`
+  display: \${props => props.display};
+  border: \${props => props.border}px;
+  margin: 10px \${props => props.border}px;
+\`;
+
+const EqualDivider = styled.div\`
+  margin: 0.5rem;
+  padding: 1rem;
+  background: papayawhip;
+  > * {
+    flex: 1;
+    &:not(:first-child) {
+      \${props => (props.vertical ? "margin-top" : "margin-left")}: 1rem;
+    }
+  }
+\`;
+
+`;
+
 exports[`styled-jsx.js 1`] = `
 <style jsx>{\`
 	/* a comment */
@@ -57,5 +108,99 @@ color: red; display: none
       Shouldn't fail.
             Shouldn't be formatted.\`}</style>
 </div>;
+
+`;
+
+exports[`styled-jsx-with-expressions.js 1`] = `
+<style jsx>{\`
+  div {
+  display: \${expr};
+    color: \${expr};
+    \${expr};
+    \${expr};
+    background: red;
+  animation: \${expr} 10s ease-out;
+  }
+  @media (\${expr}) {
+   div.\${expr} {
+    color: red;
+   }
+  \${expr} {
+    color: red;
+  }
+  }
+  @media (min-width: \${expr}) {
+   div.\${expr} {
+    color: red;
+   }
+  all\${expr} {
+    color: red;
+  }
+  }
+  @font-face {
+    \${expr}
+  }
+\`}</style>;
+
+<style jsx>{\`
+  div {
+  animation: linear \${seconds}s ease-out;
+  }
+\`}</style>;
+
+<style jsx>{\`
+  div {
+  animation: 3s ease-in 1s \${foo => foo.getIterations()} reverse both paused slidein;
+  }
+\`}</style>;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<style jsx>{\`
+  div {
+    display: \${expr};
+    color: \${expr};
+    \${expr};
+    \${expr};
+    background: red;
+    animation: \${expr} 10s ease-out;
+  }
+  @media (\${expr}) {
+    div.\${expr} {
+      color: red;
+    }
+    \${expr} {
+      color: red;
+    }
+  }
+  @media (min-width: \${expr}) {
+    div.\${expr} {
+      color: red;
+    }
+    all\${expr} {
+      color: red;
+    }
+  }
+  @font-face {
+    \${expr};
+  }
+\`}</style>;
+
+<style jsx>{\`
+  div {
+    animation: linear \${seconds}s ease-out;
+  }
+\`}</style>;
+
+<style jsx>{\`
+  div {
+    animation: 3s
+      ease-in
+      1s
+      \${foo => foo.getIterations()}
+      reverse
+      both
+      paused
+      slidein;
+  }
+\`}</style>;
 
 `;

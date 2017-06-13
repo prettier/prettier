@@ -30,7 +30,7 @@
     "postcss-selector-parser": "2.2.3",
     "postcss-values-parser": "git://github.com/shellscape/postcss-values-parser.git#5e351360479116f3fe309602cdd15b0a233bc29f",
     "rimraf": "2.6.1",
-    "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#806251524424e3ad91e750da0f76b8de25ed0b42"
+    "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#ts-2.4"
   },
   "devDependencies": {
     "babel-cli": "6.24.1",
@@ -47,7 +47,7 @@
     "rollup-plugin-node-globals": "1.1.0",
     "rollup-plugin-node-resolve": "2.0.0",
     "rollup-plugin-replace": "1.1.1",
-    "typescript": "2.3.4",
+    "typescript": "2.4.0",
     "uglify-es": "3.0.15",
     "webpack": "2.6.1"
   },

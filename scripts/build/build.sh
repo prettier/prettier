@@ -3,8 +3,8 @@ set -e
 cd "$(dirname "$0")";
 cd ../..;
 
-rm -Rf dist/
-rm -f docs/*.js
+rm -Rf dist/ docs/lib/
+mkdir -p docs/lib/
 
 ## --- Lib ---
 
@@ -43,12 +43,12 @@ echo;
 ## --- Docs ---
 
 echo 'Bundling docs index...';
-cp dist/index.js docs/index.js
-node_modules/babel-cli/bin/babel.js dist/index.js --out-file docs/index.js --presets=es2015
+cp dist/index.js docs/lib/index.js
+node_modules/babel-cli/bin/babel.js dist/index.js --out-file docs/lib/index.js --presets=es2015
 
 echo 'Bundling docs babylon...';
 node_modules/.bin/rollup -c scripts/build/rollup.docs.config.js --environment filepath:parser-babylon.js
-node_modules/babel-cli/bin/babel.js docs/parser-babylon.js --out-file docs/parser-babylon.js --presets=es2015
+node_modules/babel-cli/bin/babel.js docs/lib/parser-babylon.js --out-file docs/lib/parser-babylon.js --presets=es2015
 
 echo 'Bundling docs flow...';
 node_modules/.bin/rollup -c scripts/build/rollup.docs.config.js --environment filepath:parser-flow.js
@@ -71,6 +71,9 @@ echo;
 
 echo 'Remove eval'
 sed -i '' -e 's/eval("require")/require/g' dist/index.js dist/bin/prettier.js
+
+echo 'Create prettier-version.js'
+node -p '`prettierVersion = "${require(".").version}";`' > docs/lib/prettier-version.js
 
 echo 'Copy package.json'
 cp package.json dist/
