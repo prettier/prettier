@@ -606,6 +606,9 @@ function genericPrintNoParens(path, options, print, args) {
       }
 
       return path.call(print, "id");
+    case "TSExportAssigment": {
+      return concat(["export = ", path.call(print, "expression"), semi]);
+    }
     case "ExportDeclaration":
     case "ExportDefaultDeclaration":
     case "ExportNamedDeclaration":
@@ -1566,11 +1569,6 @@ function genericPrintNoParens(path, options, print, args) {
 
       return concat(parts);
     case "JSXIdentifier":
-      // Can be removed when this is fixed:
-      // https://github.com/eslint/typescript-eslint-parser/issues/307
-      if (!n.name) {
-        return "this";
-      }
       return "" + n.name;
     case "JSXNamespacedName":
       return join(":", [
@@ -2115,6 +2113,7 @@ function genericPrintNoParens(path, options, print, args) {
     }
     case "NullableTypeAnnotation":
       return concat(["?", path.call(print, "typeAnnotation")]);
+    case "TSNullKeyword":
     case "NullLiteralTypeAnnotation":
       return "null";
     case "ThisTypeAnnotation":
@@ -2489,13 +2488,9 @@ function genericPrintNoParens(path, options, print, args) {
       return group(concat(parts));
     case "TSNamespaceExportDeclaration":
       if (n.declaration) {
-        // Temporary fix until https://github.com/eslint/typescript-eslint-parser/issues/263
-        const isDefault = options.originalText
-          .slice(util.locStart(n), util.locStart(n.declaration))
-          .match(/\bdefault\b/);
         parts.push(
           "export ",
-          isDefault ? "default " : "",
+          n.default ? "default " : "",
           path.call(print, "declaration")
         );
       } else {
@@ -3146,20 +3141,7 @@ function printExportDeclaration(path, options, print) {
   const parts = ["export "];
 
   if (decl["default"] || decl.type === "ExportDefaultDeclaration") {
-    // Temp fix, delete after https://github.com/eslint/typescript-eslint-parser/issues/304
-    if (
-      decl.declaration &&
-      /=/.test(
-        options.originalText.slice(
-          util.locStart(decl),
-          util.locStart(decl.declaration)
-        )
-      )
-    ) {
-      parts.push("= ");
-    } else {
-      parts.push("default ");
-    }
+    parts.push("default ");
   }
 
   parts.push(
@@ -4489,7 +4471,7 @@ function shouldHugType(node) {
         n.type === "VoidTypeAnnotation" ||
         n.type === "TSVoidKeyword" ||
         n.type === "NullLiteralTypeAnnotation" ||
-        (n.type === "Literal" && n.value === null)
+        n.type === "TSNullKeyword"
     ).length;
 
     const objectCount = node.types.filter(
