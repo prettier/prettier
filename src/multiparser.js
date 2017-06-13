@@ -71,7 +71,6 @@ function fromBabylonFlowOrTypeScript(path) {
         // Get full template literal with expressions replaced by placeholders
         const rawQuasis = node.quasis.map(q => q.value.raw);
         const text = rawQuasis.join("@prettier-placeholder");
-
         return {
           options: { parser: "postcss" },
           transformDoc: transformCssDoc,
@@ -86,34 +85,6 @@ function fromBabylonFlowOrTypeScript(path) {
       const parentParent = path.getParentNode(1);
 
       /*
-<<<<<<< HEAD
-       * styled-components:
-       * styled.button`color: red`
-       * Foo.extend`color: red`
-       */
-      if (
-        parentParent &&
-        parentParent.type === "TaggedTemplateExpression" &&
-        parent.quasis.length === 1 &&
-        parentParent.tag.type === "MemberExpression" &&
-        (parentParent.tag.object.name === "styled" ||
-          (/^[A-Z]/.test(parentParent.tag.object.name) &&
-            parentParent.tag.property.name === "extend"))
-      ) {
-        return {
-          options: { parser: "postcss" },
-          transformDoc: doc =>
-            concat([
-              indent(concat([softline, stripTrailingHardline(doc)])),
-              softline
-            ]),
-          text: parent.quasis[0].value.raw
-        };
-      }
-
-      /*
-=======
->>>>>>> Add support for styled-components with expressions
        * react-relay and graphql-tag
        * graphql`...`
        * graphql.experimental`...`
