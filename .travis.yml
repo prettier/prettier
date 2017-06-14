@@ -10,4 +10,4 @@ cache:
   - node_modules
 script:
   - yarn lint
-  - AST_COMPARE=1 yarn test -- --runInBand
+  - AST_COMPARE=1 yarn test || AST_COMPARE yarn test -- --runInBand
