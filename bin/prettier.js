@@ -13,12 +13,17 @@ const prettier = eval("require")("../index");
 const cleanAST = require("../src/clean-ast.js").cleanAST;
 
 if (require.main === module) {
-  process.exitCode = cli(process.argv.slice(2));
+  process.exitCode = cli(
+    process.argv.slice(2),
+    process.stdin,
+    process.stdout,
+    process.stderr
+  );
 }
 
 module.exports = cli;
 
-function cli(processArgvSlice2) {
+function cli(processArgvSlice2, stdin, stdout, stderr) {
   let exitCode = 0;
 
   const argv = minimist(processArgvSlice2, {
@@ -76,7 +81,7 @@ function cli(processArgvSlice2) {
 
   const filepatterns = argv["_"];
   const write = argv["write"];
-  const stdin = argv["stdin"] || (!filepatterns.length && !process.stdin.isTTY);
+  const readStdin = argv["stdin"] || (!filepatterns.length && !stdin.isTTY);
   const ignoreNodeModules = argv["with-node-modules"] === false;
   const globOptions = {
     ignore: ignoreNodeModules && "**/node_modules/**",
@@ -227,7 +232,7 @@ function cli(processArgvSlice2) {
     exitCode = 2;
   }
 
-  if (argv["help"] || (!filepatterns.length && !stdin)) {
+  if (argv["help"] || (!filepatterns.length && !readStdin)) {
     console.log(
       "Usage: prettier [opts] [filename ...]\n\n" +
         "Available options:\n" +
@@ -264,8 +269,8 @@ function cli(processArgvSlice2) {
     return argv["help"] ? 0 : 1;
   }
 
-  if (stdin) {
-    getStream(process.stdin).then(input => {
+  if (readStdin) {
+    getStream(stdin).then(input => {
       try {
         writeOutput(format(input, options));
       } catch (e) {
@@ -277,7 +282,7 @@ function cli(processArgvSlice2) {
     eachFilename(filepatterns, filename => {
       if (write) {
         // Don't use `console.log` here since we need to replace this line.
-        process.stdout.write(filename);
+        stdout.write(filename);
       }
 
       let input;
@@ -285,7 +290,7 @@ function cli(processArgvSlice2) {
         input = fs.readFileSync(filename, "utf8");
       } catch (e) {
         // Add newline to split errors from filename line.
-        process.stdout.write("\n");
+        stdout.write("\n");
 
         console.error("Unable to read file: " + filename + "\n" + e);
         // Don't exit the process if one file failed
@@ -320,7 +325,7 @@ function cli(processArgvSlice2) {
         output = result.formatted;
       } catch (e) {
         // Add newline to split errors from filename line.
-        process.stdout.write("\n");
+        stdout.write("\n");
 
         handleError(filename, e);
         return;
@@ -328,8 +333,8 @@ function cli(processArgvSlice2) {
 
       if (write) {
         // Remove previously printed filename to log it with duration.
-        readline.clearLine(process.stdout, 0);
-        readline.cursorTo(process.stdout, 0, null);
+        readline.clearLine(stdout, 0);
+        readline.cursorTo(stdout, 0, null);
 
         // Don't write the file if it won't change in order not to invalidate
         // mtime based caches.
@@ -366,10 +371,10 @@ function cli(processArgvSlice2) {
 
   function writeOutput(result) {
     // Don't use `console.log` here since it adds an extra newline at the end.
-    process.stdout.write(result.formatted);
+    stdout.write(result.formatted);
 
     if (options.cursorOffset) {
-      process.stderr.write(result.cursorOffset + "\n");
+      stderr.write(result.cursorOffset + "\n");
     }
   }
 
