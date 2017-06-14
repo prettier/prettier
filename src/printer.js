@@ -694,7 +694,13 @@ function genericPrintNoParens(path, options, print, args) {
         }
 
         parts.push(" ", "from ");
-      } else if (n.importKind && n.importKind === "type") {
+      } else if (
+        (n.importKind && n.importKind === "type") ||
+        // import {} from 'x'
+        /{\s*}/.test(
+          options.originalText.slice(util.locStart(n), util.locStart(n.source))
+        )
+      ) {
         parts.push("{} from ");
       }
 
