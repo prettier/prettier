@@ -64,9 +64,6 @@ function fromBabylonFlowOrTypeScript(path) {
         parentParent &&
         parentParent.type === "TaggedTemplateExpression" &&
         parent.quasis.length === 1 &&
-        // ((parentParent.tag.type === "MemberExpression" &&
-        //   parentParent.tag.object.name === "Relay" &&
-        //   parentParent.tag.property.name === "QL") ||
         ((parentParent.tag.type === "MemberExpression" &&
           parentParent.tag.object.name === "graphql" &&
           parentParent.tag.property.name === "experimental") ||
@@ -133,14 +130,15 @@ function fromHtmlParser2(path, options) {
       break;
     }
 
-    case "attribute-value": {
+    case "attribute": {
       /*
        * Vue binding sytax: JS expressions
        * :class="{ 'some-key': value }"
        * v-bind:id="'list-' + id"
        * v-if="foo && !bar"
+       * @click="someFunction()"
        */
-      if (/(^v-)|:/.test(node.name) && !/^\w+$/.test(node.value)) {
+      if (/(^@)|(^v-)|:/.test(node.key) && !/^\w+$/.test(node.value)) {
         return {
           text: node.value,
           options: {
@@ -149,10 +147,16 @@ function fromHtmlParser2(path, options) {
             // TODO(azz): We still need to do an entity escape on the attribute.
             singleQuote: true
           },
-          transformDoc: doc =>
-            util.hasNewlineInRange(node.value, 0, node.value.length)
-              ? doc
-              : docUtils.removeLines(doc)
+          transformDoc: doc => {
+            return concat([
+              node.key,
+              '="',
+              util.hasNewlineInRange(node.value, 0, node.value.length)
+                ? doc
+                : docUtils.removeLines(doc),
+              '"'
+            ]);
+          }
         };
       }
     }

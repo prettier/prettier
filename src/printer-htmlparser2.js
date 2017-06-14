@@ -5,7 +5,7 @@ const docBuilders = require("./doc-builders");
 const concat = docBuilders.concat;
 const join = docBuilders.join;
 const hardline = docBuilders.hardline;
-// const line = docBuilders.line;
+const line = docBuilders.line;
 const softline = docBuilders.softline;
 const group = docBuilders.group;
 const indent = docBuilders.indent;
@@ -41,7 +41,7 @@ function genericPrint(path, options, print) {
 
   switch (n.type) {
     case "root": {
-      return concat(path.map(print, "children"));
+      return printChildren(path, print);
     }
     case "directive": {
       return concat(["<", n.data, ">", hardline]);
@@ -53,15 +53,7 @@ function genericPrint(path, options, print) {
     case "style":
     case "tag": {
       const selfClose = voidTags[n.name] ? ">" : " />";
-
-      const children = [];
-      path.each(childPath => {
-        const child = childPath.getValue();
-        if (child.type !== "text") {
-          children.push(softline);
-        }
-        children.push(childPath.call(print));
-      }, "children");
+      const children = printChildren(path, print);
 
       const hasNewline = util.hasNewlineInRange(
         options.originalText,
@@ -79,19 +71,20 @@ function genericPrint(path, options, print) {
           n.children.length ? ">" : selfClose,
 
           n.name.toLowerCase() === "html"
-            ? concat(children)
-            : indent(concat(children)),
-          n.children.length ? concat([softline, "</", n.name, ">"]) : ""
+            ? concat([hardline, children])
+            : indent(children),
+          n.children.length ? concat([softline, "</", n.name, ">"]) : hardline
         ])
       );
     }
     case "comment": {
       return concat(["<!-- ", n.data.trim(), " -->"]);
     }
-    // This is not actually a real AST node, but we'll treat it as such
-    // for extensibility
-    case "attribute-value": {
-      return n.value;
+    case "attribute": {
+      if (!n.value) {
+        return n.key;
+      }
+      return concat([n.key, '="', n.value, '"']);
     }
 
     default:
@@ -101,28 +94,23 @@ function genericPrint(path, options, print) {
 
 function printAttributes(path, print) {
   const node = path.getValue();
-  const attribs = node.attribs;
-  const attributeKeys = Object.keys(attribs);
+
   return concat([
-    attributeKeys.length ? " " : "",
-    join(
-      " ",
-      attributeKeys.map(name => {
-        if (attribs[name] === "") {
-          return name;
-        }
-
-        // FastPath requires the next node to be a property of the current one
-        node._currentAttribute = {
-          type: "attribute-value",
-          name,
-          value: attribs[name]
-        };
-
-        return concat([name, '="', path.call(print, "_currentAttribute"), '"']);
-      })
-    )
+    node.attributes.length ? " " : "",
+    indent(join(line, path.map(print, "attributes")))
   ]);
+}
+
+function printChildren(path, print) {
+  const children = [];
+  path.each(childPath => {
+    const child = childPath.getValue();
+    if (child.type !== "text") {
+      children.push(hardline);
+    }
+    children.push(childPath.call(print));
+  }, "children");
+  return concat(children);
 }
 
 module.exports = genericPrint;
