@@ -1,7 +1,7 @@
 "use strict";
 
 const util = require("./util");
-const mapDoc = require("./doc-utils").mapDoc;
+const docUtils = require("./doc-utils");
 const docBuilders = require("./doc-builders");
 const indent = docBuilders.indent;
 const hardline = docBuilders.hardline;
@@ -64,9 +64,6 @@ function fromBabylonFlowOrTypeScript(path) {
         parentParent &&
         parentParent.type === "TaggedTemplateExpression" &&
         parent.quasis.length === 1 &&
-        // ((parentParent.tag.type === "MemberExpression" &&
-        //   parentParent.tag.object.name === "Relay" &&
-        //   parentParent.tag.property.name === "QL") ||
         ((parentParent.tag.type === "MemberExpression" &&
           parentParent.tag.object.name === "graphql" &&
           parentParent.tag.property.name === "experimental") ||
@@ -132,6 +129,37 @@ function fromHtmlParser2(path, options) {
 
       break;
     }
+
+    case "attribute": {
+      /*
+       * Vue binding sytax: JS expressions
+       * :class="{ 'some-key': value }"
+       * v-bind:id="'list-' + id"
+       * v-if="foo && !bar"
+       * @click="someFunction()"
+       */
+      if (/(^@)|(^v-)|:/.test(node.key) && !/^\w+$/.test(node.value)) {
+        return {
+          text: node.value,
+          options: {
+            parser: parseJavaScriptExpression,
+            // Use singleQuote since HTML attributes use double-quotes.
+            // TODO(azz): We still need to do an entity escape on the attribute.
+            singleQuote: true
+          },
+          transformDoc: doc => {
+            return concat([
+              node.key,
+              '="',
+              util.hasNewlineInRange(node.value, 0, node.value.length)
+                ? doc
+                : docUtils.removeLines(doc),
+              '"'
+            ]);
+          }
+        };
+      }
+    }
   }
 }
 
@@ -158,7 +186,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
   }
 
   const expressions = expressionDocs.slice();
-  const newDoc = mapDoc(quasisDoc, doc => {
+  const newDoc = docUtils.mapDoc(quasisDoc, doc => {
     if (!doc || !doc.parts || !doc.parts.length) {
       return doc;
     }
@@ -195,6 +223,16 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
   });
 
   return expressions.length === 0 ? newDoc : null;
+}
+
+function parseJavaScriptExpression(text, parsers) {
+  // Force parsing as an expression
+  const ast = parsers.babylon(`(${text})`);
+  // Extract expression from the declaration
+  return {
+    type: "File",
+    program: ast.program.body[0].expression
+  };
 }
 
 function getText(options, node) {

@@ -2959,9 +2959,9 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
   if (expandArg) {
     return group(
       concat([
-        removeLines(typeParams),
+        docUtils.removeLines(typeParams),
         "(",
-        join(", ", printed.map(removeLines)),
+        join(", ", printed.map(docUtils.removeLines)),
         ")"
       ])
     );
@@ -4572,21 +4572,6 @@ function isStringLiteral(node) {
   );
 }
 
-function removeLines(doc) {
-  // Force this doc into flat mode by statically converting all
-  // lines into spaces (or soft lines into nothing). Hard lines
-  // should still output because there's too great of a chance
-  // of breaking existing assumptions otherwise.
-  return docUtils.mapDoc(doc, d => {
-    if (d.type === "line" && !d.hard) {
-      return d.soft ? "" : " ";
-    } else if (d.type === "if-break") {
-      return d.flatContents || "";
-    }
-    return d;
-  });
-}
-
 function isObjectType(n) {
   return n.type === "ObjectTypeAnnotation" || n.type === "TSTypeLiteral";
 }
@@ -4621,7 +4606,7 @@ function printAstToDoc(ast, options, addAlignmentSize) {
     // Add a hardline to make the indents take effect
     // It should be removed in index.js format()
     doc = addAlignmentToDoc(
-      removeLines(concat([hardline, doc])),
+      docUtils.removeLines(concat([hardline, doc])),
       addAlignmentSize,
       options.tabWidth
     );
