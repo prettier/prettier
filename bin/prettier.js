@@ -18,7 +18,7 @@ if (require.main === module) {
     process.stdin,
     process.stdout,
     process.stderr
-  );
+  ).exitCode;
 }
 
 module.exports = cli;
@@ -76,7 +76,7 @@ function cli(args, stdin, stdout, stderr) {
 
   if (argv["version"]) {
     console.log(prettier.version);
-    return 0;
+    return { exitCode: 0 };
   }
 
   const filepatterns = argv["_"];
@@ -90,7 +90,7 @@ function cli(args, stdin, stdout, stderr) {
 
   if (write && argv["debug-check"]) {
     console.error("Cannot use --write and --debug-check together.");
-    return 1;
+    return { exitCode: 1 };
   }
 
   function getParserOption() {
@@ -129,7 +129,7 @@ function cli(args, stdin, stdout, stderr) {
         " value. Expected an integer, but received: " +
         JSON.stringify(value)
     );
-    return 1;
+    return { exitCode: 1 };
   }
 
   function getTrailingComma() {
@@ -223,7 +223,7 @@ function cli(args, stdin, stdout, stderr) {
     } else if (isValidationError) {
       console.error(String(e));
       // If validation fails for one file, it will fail for all of them.
-      return 1;
+      return { exitCode: 1 };
     } else {
       console.error(filename + ":", e.stack || e);
     }
@@ -266,7 +266,7 @@ function cli(args, stdin, stdout, stderr) {
         "  --version or -v          Print Prettier version.\n" +
         "\n"
     );
-    return argv["help"] ? 0 : 1;
+    return { exitCode: argv["help"] ? 0 : 1 };
   }
 
   if (readStdin) {
@@ -411,5 +411,5 @@ function cli(args, stdin, stdout, stderr) {
     );
   }
 
-  return exitCode;
+  return { exitCode: exitCode };
 }
