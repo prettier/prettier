@@ -35,7 +35,10 @@ function tryParseTypeScript(text, jsx) {
     tokens: true,
     comment: true,
     useJSXTextNode: true,
-    ecmaFeatures: { jsx }
+    ecmaFeatures: { jsx },
+    // Override logger function with noop,
+    // to avoid unsupported version errors being logged
+    loggerFn: () => {}
   });
 }
 
