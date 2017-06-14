@@ -12,6 +12,7 @@ const readline = require("readline");
 const prettier = eval("require")("../index");
 const cleanAST = require("../src/clean-ast.js").cleanAST;
 
+// If invoked directly, pass-through CLI arguments and streams
 if (require.main === module) {
   process.exitCode = cli(
     process.argv.slice(2),
