@@ -6,6 +6,7 @@ test("infers postcss parser", () => {
   const result = runPrettier("cli/with-parser-inference", ["*"]);
 
   expect(result.stdout).toMatchSnapshot();
+  expect(result.status).toEqual(0);
 });
 
 test("infers postcss parser with --list-different", () => {
@@ -15,4 +16,5 @@ test("infers postcss parser with --list-different", () => {
   ]);
 
   expect(result.stdout).toMatchSnapshot();
+  expect(result.status).toEqual(0);
 });
