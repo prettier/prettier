@@ -2397,7 +2397,15 @@ function genericPrintNoParens(path, options, print, args) {
         path.call(print, "typeAnnotation")
       ]);
     case "TSNonNullExpression":
-      return concat([path.call(print, "expression"), "!"]);
+      if (n.expression.type === 'Identifier') {
+        return concat([path.call(print, "expression"), "!"]);
+      } else {
+        return concat([
+          "(",
+          path.call(print, "expression"),
+          ")!"
+        ])
+      }
     case "TSThisType":
       return "this";
     case "TSLastTypeNode":
