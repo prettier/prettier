@@ -23,10 +23,10 @@ if (require.main === module) {
 
 module.exports = cli;
 
-function cli(processArgvSlice2, stdin, stdout, stderr) {
+function cli(args, stdin, stdout, stderr) {
   let exitCode = 0;
 
-  const argv = minimist(processArgvSlice2, {
+  const argv = minimist(args, {
     boolean: [
       "write",
       "stdin",
