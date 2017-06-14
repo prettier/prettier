@@ -4,7 +4,7 @@
 
 const fs = require("fs");
 const path = require("path");
-const getStdin = require("get-stdin");
+const getStream = require("get-stream");
 const glob = require("glob");
 const chalk = require("chalk");
 const minimist = require("minimist");
@@ -252,7 +252,7 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
 }
 
 if (stdin) {
-  getStdin().then(input => {
+  getStream(process.stdin).then(input => {
     try {
       writeOutput(format(input, options));
     } catch (e) {
