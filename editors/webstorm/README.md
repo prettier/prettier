@@ -21,7 +21,7 @@ Go to *File | Settings | Tools | External Tools* for Windows and Linux or *WebSt
 ## Usage
 
 * Cmd-Shift-A on OS X or Ctrl+Shift+A on Windows and Linux
-* Type: 'prettier' and hit enter
+* Type: 'Prettify' and hit enter
 
 ### Configure Keymap
 
