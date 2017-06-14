@@ -13,12 +13,14 @@ const prettier = eval("require")("../index");
 const cleanAST = require("../src/clean-ast.js").cleanAST;
 
 if (require.main === module) {
-  cli(process.argv.slice(2));
+  process.exitCode = cli(process.argv.slice(2));
 }
 
 module.exports = cli;
 
 function cli(processArgvSlice2) {
+  let exitCode = 0;
+
   const argv = minimist(processArgvSlice2, {
     boolean: [
       "write",
@@ -69,7 +71,7 @@ function cli(processArgvSlice2) {
 
   if (argv["version"]) {
     console.log(prettier.version);
-    process.exit(0);
+    return 0;
   }
 
   const filepatterns = argv["_"];
@@ -83,7 +85,7 @@ function cli(processArgvSlice2) {
 
   if (write && argv["debug-check"]) {
     console.error("Cannot use --write and --debug-check together.");
-    process.exit(1);
+    return 1;
   }
 
   function getParserOption() {
@@ -122,7 +124,7 @@ function cli(processArgvSlice2) {
         " value. Expected an integer, but received: " +
         JSON.stringify(value)
     );
-    process.exit(1);
+    return 1;
   }
 
   function getTrailingComma() {
@@ -216,13 +218,13 @@ function cli(processArgvSlice2) {
     } else if (isValidationError) {
       console.error(String(e));
       // If validation fails for one file, it will fail for all of them.
-      process.exit(1);
+      return 1;
     } else {
       console.error(filename + ":", e.stack || e);
     }
 
     // Don't exit the process if one file failed
-    process.exitCode = 2;
+    exitCode = 2;
   }
 
   if (argv["help"] || (!filepatterns.length && !stdin)) {
@@ -259,7 +261,7 @@ function cli(processArgvSlice2) {
         "  --version or -v          Print Prettier version.\n" +
         "\n"
     );
-    process.exit(argv["help"] ? 0 : 1);
+    return argv["help"] ? 0 : 1;
   }
 
   if (stdin) {
@@ -287,7 +289,7 @@ function cli(processArgvSlice2) {
 
         console.error("Unable to read file: " + filename + "\n" + e);
         // Don't exit the process if one file failed
-        process.exitCode = 2;
+        exitCode = 2;
         return;
       }
 
@@ -301,7 +303,7 @@ function cli(processArgvSlice2) {
           if (!write) {
             console.log(filename);
           }
-          process.exitCode = 1;
+          exitCode = 1;
         }
       }
 
@@ -347,14 +349,14 @@ function cli(processArgvSlice2) {
           } catch (err) {
             console.error("Unable to write file: " + filename + "\n" + err);
             // Don't exit the process if one file failed
-            process.exitCode = 2;
+            exitCode = 2;
           }
         }
       } else if (argv["debug-check"]) {
         if (output) {
           console.log(output);
         } else {
-          process.exitCode = 2;
+          exitCode = 2;
         }
       } else if (!argv["list-different"]) {
         writeOutput(result);
@@ -387,7 +389,7 @@ function cli(processArgvSlice2) {
             "Unable to expand glob pattern: " + pattern + "\n" + err
           );
           // Don't exit the process if one pattern failed
-          process.exitCode = 2;
+          exitCode = 2;
           return;
         }
 
@@ -403,4 +405,6 @@ function cli(processArgvSlice2) {
       ignoreNodeModules && path.resolve(pattern).includes("/node_modules/")
     );
   }
+
+  return exitCode;
 }
