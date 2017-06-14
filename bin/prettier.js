@@ -21,7 +21,7 @@ if (require.main === module) {
   ).exitCode;
 }
 
-module.exports = cli;
+module.exports = { cli: cli };
 
 function cli(args, stdin, stdout, stderr) {
   let exitCode = 0;
