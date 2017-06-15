@@ -4,6 +4,7 @@
 
 const fs = require("fs");
 const path = require("path");
+const util = require("util");
 const getStream = require("get-stream");
 const glob = require("glob");
 const chalk = require("chalk");
@@ -70,14 +71,14 @@ function cli(args, stdin, stdout, stderr) {
     alias: { help: "h", version: "v", "list-different": "l" },
     unknown: param => {
       if (param.startsWith("-")) {
-        console.warn("Ignored unknown option: " + param + "\n");
+        stderr.write("Ignored unknown option: " + param + "\n\n");
         return false;
       }
     }
   });
 
   if (argv["version"]) {
-    console.log(prettier.version);
+    stdout.write(prettier.version + "\n");
     return { exitCode: 0 };
   }
 
@@ -91,7 +92,7 @@ function cli(args, stdin, stdout, stderr) {
   };
 
   if (write && argv["debug-check"]) {
-    console.error("Cannot use --write and --debug-check together.");
+    stderr.write("Cannot use --write and --debug-check together.\n");
     return { exitCode: 1 };
   }
 
@@ -105,8 +106,8 @@ function cli(args, stdin, stdout, stderr) {
 
     // For backward compatibility. Deprecated in 0.0.10
     if (argv["flow-parser"]) {
-      console.warn(
-        "`--flow-parser` is deprecated. Use `--parser flow` instead."
+      stderr.write(
+        "`--flow-parser` is deprecated. Use `--parser flow` instead.\n"
       );
       return "flow";
     }
@@ -125,11 +126,12 @@ function cli(args, stdin, stdout, stderr) {
       return Number(value);
     }
 
-    console.error(
+    stderr.write(
       "Invalid --" +
         optionName +
         " value. Expected an integer, but received: " +
-        JSON.stringify(value)
+        JSON.stringify(value) +
+        "\n"
     );
     throw { exitCode: 1 };
   }
@@ -140,9 +142,9 @@ function cli(args, stdin, stdout, stderr) {
       case "none":
         return "none";
       case "":
-        console.warn(
+        stderr.write(
           "Warning: `--trailing-comma` was used without an argument. This is deprecated. " +
-            'Specify "none", "es5", or "all".'
+            'Specify "none", "es5", or "all".\n'
         );
         return "es5";
       case "es5":
@@ -217,17 +219,17 @@ function cli(args, stdin, stdout, stderr) {
     // For parse errors and validation errors, we only want to show the error
     // message formatted in a nice way. `String(e)` takes care of that. Other
     // (unexpected) errors are passed as-is as a separate argument to
-    // `console.error`. That includes the stack trace (if any), and shows a nice
+    // `util.format`. That includes the stack trace (if any), and shows a nice
     // `util.inspect` of throws things that aren't `Error` objects. (The Flow
     // parser has mistakenly thrown arrays sometimes.)
     if (isParseError) {
-      console.error(filename + ": " + String(e));
+      stderr.write(filename + ": " + String(e) + "\n");
     } else if (isValidationError) {
-      console.error(String(e));
+      stderr.write(String(e) + "\n");
       // If validation fails for one file, it will fail for all of them.
       throw { exitCode: 1 };
     } else {
-      console.error(filename + ":", e.stack || e);
+      stderr.write(util.format(filename + ":", e.stack || e, "\n"));
     }
 
     // Don't exit the process if one file failed
@@ -235,7 +237,7 @@ function cli(args, stdin, stdout, stderr) {
   }
 
   if (argv["help"] || (!filepatterns.length && !readStdin)) {
-    console.log(
+    stdout.write(
       "Usage: prettier [opts] [filename ...]\n\n" +
         "Available options:\n" +
         "  --write                  Edit the file in-place. (Beware!)\n" +
@@ -266,7 +268,7 @@ function cli(args, stdin, stdout, stderr) {
         "  --no-color               Do not colorize error messages.\n" +
         "  --with-node-modules      Process files inside `node_modules` directory.\n" +
         "  --version or -v          Print Prettier version.\n" +
-        "\n"
+        "\n\n"
     );
     return { exitCode: argv["help"] ? 0 : 1 };
   }
@@ -291,7 +293,6 @@ function cli(args, stdin, stdout, stderr) {
 
   eachFilename(filepatterns, filename => {
     if (write) {
-      // Don't use `console.log` here since we need to replace this line.
       stdout.write(filename);
     }
 
@@ -302,7 +303,7 @@ function cli(args, stdin, stdout, stderr) {
       // Add newline to split errors from filename line.
       stdout.write("\n");
 
-      console.error("Unable to read file: " + filename + "\n" + e);
+      stderr.write("Unable to read file: " + filename + "\n" + e + "\n");
       // Don't exit the process if one file failed
       exitCode = 2;
       return;
@@ -316,7 +317,7 @@ function cli(args, stdin, stdout, stderr) {
         )
       ) {
         if (!write) {
-          console.log(filename);
+          stdout.write(filename + "\n");
         }
         exitCode = 1;
       }
@@ -350,26 +351,35 @@ function cli(args, stdin, stdout, stderr) {
       // mtime based caches.
       if (output === input) {
         if (!argv["list-different"]) {
-          console.log(chalk.grey("%s %dms"), filename, Date.now() - start);
+          stdout.write(
+            util.format(
+              chalk.grey("%s %dms"),
+              filename,
+              Date.now() - start,
+              "\n"
+            )
+          );
         }
       } else {
         if (argv["list-different"]) {
-          console.log(filename);
+          stdout.write(filename + "\n");
         } else {
-          console.log("%s %dms", filename, Date.now() - start);
+          stdout.write(
+            util.format("%s %dms", filename, Date.now() - start, "\n")
+          );
         }
 
         try {
           fs.writeFileSync(filename, output, "utf8");
         } catch (err) {
-          console.error("Unable to write file: " + filename + "\n" + err);
+          stderr.write("Unable to write file: " + filename + "\n" + err + "\n");
           // Don't exit the process if one file failed
           exitCode = 2;
         }
       }
     } else if (argv["debug-check"]) {
       if (output) {
-        console.log(output);
+        stdout.write(output + "\n");
       } else {
         exitCode = 2;
       }
@@ -380,7 +390,6 @@ function cli(args, stdin, stdout, stderr) {
   return Promise.resolve({ exitCode: exitCode });
 
   function writeOutput(result) {
-    // Don't use `console.log` here since it adds an extra newline at the end.
     stdout.write(result.formatted);
 
     if (options.cursorOffset) {
@@ -401,7 +410,9 @@ function cli(args, stdin, stdout, stderr) {
       try {
         glob.sync(pattern, globOptions).forEach(callback);
       } catch (err) {
-        console.error("Unable to expand glob pattern: " + pattern + "\n" + err);
+        stderr.write(
+          "Unable to expand glob pattern: " + pattern + "\n" + err + "\n"
+        );
         // Don't exit the process if one pattern failed
         exitCode = 2;
         return;
