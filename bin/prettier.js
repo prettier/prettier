@@ -14,12 +14,16 @@ const cleanAST = require("../src/clean-ast.js").cleanAST;
 
 // If invoked directly, pass-through CLI arguments and streams
 if (require.main === module) {
-  process.exitCode = cli(
-    process.argv.slice(2),
-    process.stdin,
-    process.stdout,
-    process.stderr
-  ).exitCode;
+  try {
+    process.exitCode = cli(
+      process.argv.slice(2),
+      process.stdin,
+      process.stdout,
+      process.stderr
+    ).exitCode;
+  } catch (err) {
+    process.exitCode = err.exitCode;
+  }
 }
 
 module.exports = { cli: cli };
@@ -130,7 +134,7 @@ function cli(args, stdin, stdout, stderr) {
         " value. Expected an integer, but received: " +
         JSON.stringify(value)
     );
-    return { exitCode: 1 };
+    throw { exitCode: 1 };
   }
 
   function getTrailingComma() {
@@ -224,7 +228,7 @@ function cli(args, stdin, stdout, stderr) {
     } else if (isValidationError) {
       console.error(String(e));
       // If validation fails for one file, it will fail for all of them.
-      return { exitCode: 1 };
+      throw { exitCode: 1 };
     } else {
       console.error(filename + ":", e.stack || e);
     }
@@ -271,14 +275,18 @@ function cli(args, stdin, stdout, stderr) {
   }
 
   if (readStdin) {
-    getStream(stdin).then(input => {
-      try {
-        writeOutput(format(input, options));
-      } catch (e) {
-        handleError("stdin", e);
-        return;
-      }
-    });
+    getStream(stdin)
+      .then(input => {
+        try {
+          writeOutput(format(input, options));
+        } catch (e) {
+          handleError("stdin", e);
+          return;
+        }
+      })
+      .catch(err => {
+        exitCode = err.exitCode;
+      });
   } else {
     eachFilename(filepatterns, filename => {
       if (write) {
