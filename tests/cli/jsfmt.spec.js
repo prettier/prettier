@@ -12,9 +12,6 @@ test("can pass arguments, stdin/stdout/stderr to CLI programmatically", done => 
     write: function(chunk, encoding, next) {
       output += chunk.toString();
       next();
-      if (output === "0;\n") {
-        done();
-      }
     }
   });
 
@@ -24,7 +21,9 @@ test("can pass arguments, stdin/stdout/stderr to CLI programmatically", done => 
     }
   });
 
-  const result = prettierCli.cli(["--stdin"], stdin, stdout, stderr);
-  expect(result.exitCode).toEqual(0);
-  // the formatted code is checked by the stdout stream's write method
+  prettierCli.cli(["--stdin"], stdin, stdout, stderr).then(result => {
+    expect(result.exitCode).toEqual(0);
+    expect(output).toEqual("0;\n");
+    done();
+  });
 });

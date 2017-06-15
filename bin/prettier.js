@@ -14,16 +14,13 @@ const cleanAST = require("../src/clean-ast.js").cleanAST;
 
 // If invoked directly, pass-through CLI arguments and streams
 if (require.main === module) {
-  try {
-    process.exitCode = cli(
-      process.argv.slice(2),
-      process.stdin,
-      process.stdout,
-      process.stderr
-    ).exitCode;
-  } catch (err) {
-    process.exitCode = err.exitCode;
-  }
+  cli(process.argv.slice(2), process.stdin, process.stdout, process.stderr)
+    .then(result => {
+      process.exitCode = result.exitCode;
+    })
+    .catch(err => {
+      process.exitCode = err.exitCode;
+    });
 }
 
 module.exports = { cli: cli };
@@ -275,7 +272,7 @@ function cli(args, stdin, stdout, stderr) {
   }
 
   if (readStdin) {
-    getStream(stdin)
+    return getStream(stdin)
       .then(input => {
         try {
           writeOutput(format(input, options));
@@ -286,97 +283,101 @@ function cli(args, stdin, stdout, stderr) {
       })
       .catch(err => {
         exitCode = err.exitCode;
+      })
+      .then(() => {
+        return { exitCode: exitCode };
       });
-  } else {
-    eachFilename(filepatterns, filename => {
-      if (write) {
-        // Don't use `console.log` here since we need to replace this line.
-        stdout.write(filename);
-      }
+  }
 
-      let input;
-      try {
-        input = fs.readFileSync(filename, "utf8");
-      } catch (e) {
-        // Add newline to split errors from filename line.
-        stdout.write("\n");
+  eachFilename(filepatterns, filename => {
+    if (write) {
+      // Don't use `console.log` here since we need to replace this line.
+      stdout.write(filename);
+    }
 
-        console.error("Unable to read file: " + filename + "\n" + e);
-        // Don't exit the process if one file failed
-        exitCode = 2;
-        return;
-      }
+    let input;
+    try {
+      input = fs.readFileSync(filename, "utf8");
+    } catch (e) {
+      // Add newline to split errors from filename line.
+      stdout.write("\n");
 
-      if (argv["list-different"]) {
-        if (
-          !prettier.check(
-            input,
-            Object.assign({}, options, { filepath: filename })
-          )
-        ) {
-          if (!write) {
-            console.log(filename);
-          }
-          exitCode = 1;
-        }
-      }
+      console.error("Unable to read file: " + filename + "\n" + e);
+      // Don't exit the process if one file failed
+      exitCode = 2;
+      return;
+    }
 
-      const start = Date.now();
-
-      let result;
-      let output;
-
-      try {
-        result = format(
+    if (argv["list-different"]) {
+      if (
+        !prettier.check(
           input,
           Object.assign({}, options, { filepath: filename })
-        );
-        output = result.formatted;
-      } catch (e) {
-        // Add newline to split errors from filename line.
-        stdout.write("\n");
-
-        handleError(filename, e);
-        return;
-      }
-
-      if (write) {
-        // Remove previously printed filename to log it with duration.
-        readline.clearLine(stdout, 0);
-        readline.cursorTo(stdout, 0, null);
-
-        // Don't write the file if it won't change in order not to invalidate
-        // mtime based caches.
-        if (output === input) {
-          if (!argv["list-different"]) {
-            console.log(chalk.grey("%s %dms"), filename, Date.now() - start);
-          }
-        } else {
-          if (argv["list-different"]) {
-            console.log(filename);
-          } else {
-            console.log("%s %dms", filename, Date.now() - start);
-          }
-
-          try {
-            fs.writeFileSync(filename, output, "utf8");
-          } catch (err) {
-            console.error("Unable to write file: " + filename + "\n" + err);
-            // Don't exit the process if one file failed
-            exitCode = 2;
-          }
+        )
+      ) {
+        if (!write) {
+          console.log(filename);
         }
-      } else if (argv["debug-check"]) {
-        if (output) {
-          console.log(output);
+        exitCode = 1;
+      }
+    }
+
+    const start = Date.now();
+
+    let result;
+    let output;
+
+    try {
+      result = format(
+        input,
+        Object.assign({}, options, { filepath: filename })
+      );
+      output = result.formatted;
+    } catch (e) {
+      // Add newline to split errors from filename line.
+      stdout.write("\n");
+
+      handleError(filename, e);
+      return;
+    }
+
+    if (write) {
+      // Remove previously printed filename to log it with duration.
+      readline.clearLine(stdout, 0);
+      readline.cursorTo(stdout, 0, null);
+
+      // Don't write the file if it won't change in order not to invalidate
+      // mtime based caches.
+      if (output === input) {
+        if (!argv["list-different"]) {
+          console.log(chalk.grey("%s %dms"), filename, Date.now() - start);
+        }
+      } else {
+        if (argv["list-different"]) {
+          console.log(filename);
         } else {
+          console.log("%s %dms", filename, Date.now() - start);
+        }
+
+        try {
+          fs.writeFileSync(filename, output, "utf8");
+        } catch (err) {
+          console.error("Unable to write file: " + filename + "\n" + err);
+          // Don't exit the process if one file failed
           exitCode = 2;
         }
-      } else if (!argv["list-different"]) {
-        writeOutput(result);
       }
-    });
-  }
+    } else if (argv["debug-check"]) {
+      if (output) {
+        console.log(output);
+      } else {
+        exitCode = 2;
+      }
+    } else if (!argv["list-different"]) {
+      writeOutput(result);
+    }
+  });
+  return Promise.resolve({ exitCode: exitCode });
 
   function writeOutput(result) {
     // Don't use `console.log` here since it adds an extra newline at the end.
@@ -413,6 +414,4 @@ function cli(args, stdin, stdout, stderr) {
       ignoreNodeModules && path.resolve(pattern).includes("/node_modules/")
     );
   }
-
-  return { exitCode: exitCode };
 }
