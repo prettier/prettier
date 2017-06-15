@@ -228,6 +228,20 @@ import {
 
 `;
 
+exports[`empty-import.js 1`] = `
+import { } from '@types/googlemaps';
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import {} from "@types/googlemaps";
+
+`;
+
+exports[`empty-import.js 2`] = `
+import { } from '@types/googlemaps';
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import {} from "@types/googlemaps";
+
+`;
+
 exports[`inline.js 1`] = `
 import somethingSuperLongsomethingSuperLong from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
 import {somethingSuperLongsomethingSuperLong} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
