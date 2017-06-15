@@ -879,12 +879,13 @@ function genericPrintNoParens(path, options, print, args) {
     case "TSTypeLiteral": {
       const isTypeAnnotation = n.type === "ObjectTypeAnnotation";
       const shouldBreak =
-        n.type !== "ObjectPattern" &&
-        util.hasNewlineInRange(
-          options.originalText,
-          util.locStart(n),
-          util.locEnd(n)
-        );
+        n.type === "TSInterfaceBody" ||
+        (n.type !== "ObjectPattern" &&
+          util.hasNewlineInRange(
+            options.originalText,
+            util.locStart(n),
+            util.locEnd(n)
+          ));
       const separator = n.type === "TSInterfaceBody" ||
         n.type === "TSTypeLiteral"
         ? ifBreak(semi, ";")

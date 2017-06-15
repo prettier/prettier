@@ -104,6 +104,9 @@ export interface Edge {
   };
 }
 
-interface Test { one: string; two: any[] }
+interface Test {
+  one: string;
+  two: any[];
+}
 
 `;
