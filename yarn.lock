@@ -3589,7 +3589,7 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-"typescript-eslint-parser@git://github.com/eslint/typescript-eslint-parser.git#ts-2.4":
+"typescript-eslint-parser@git://github.com/eslint/typescript-eslint-parser.git#6da23fd004ea60b84a5cfff469c89e93c0770b6f":
   version "3.0.0"
   resolved "git://github.com/eslint/typescript-eslint-parser.git#6da23fd004ea60b84a5cfff469c89e93c0770b6f"
   dependencies:
