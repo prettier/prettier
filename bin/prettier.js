@@ -397,20 +397,14 @@ function cli(args, stdin, stdout, stderr) {
         return;
       }
 
-      glob(pattern, globOptions, (err, filenames) => {
-        if (err) {
-          console.error(
-            "Unable to expand glob pattern: " + pattern + "\n" + err
-          );
-          // Don't exit the process if one pattern failed
-          exitCode = 2;
-          return;
-        }
-
-        filenames.forEach(filename => {
-          callback(filename);
-        });
-      });
+      try {
+        glob.sync(pattern, globOptions).forEach(callback);
+      } catch (err) {
+        console.error("Unable to expand glob pattern: " + pattern + "\n" + err);
+        // Don't exit the process if one pattern failed
+        exitCode = 2;
+        return;
+      }
     });
   }
 
