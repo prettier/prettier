@@ -1,27 +1,53 @@
 "use strict";
 
-function getParseFunction(opts) {
-  switch (opts.parser) {
-    case "flow":
-      return eval("require")("./parser-flow");
-    case "glimmer":
-      return eval("require")("./parser-glimmer");
-    case "graphql":
-      return eval("require")("./parser-graphql");
-    case "parse5":
-      return eval("require")("./parser-parse5");
-    case "postcss":
-      return eval("require")("./parser-postcss");
-    case "typescript":
-      return eval("require")("./parser-typescript");
-    default:
-      return eval("require")("./parser-babylon");
+const path = require("path");
+
+const parsers = {
+  get flow() {
+    return eval("require")("./parser-flow");
+  },
+  get glimmer() {
+    return eval("require")("./parser-gimmer");
+  },
+  get graphql() {
+    return eval("require")("./parser-graphql");
+  },
+  get parse5() {
+    return eval("require")("./parser-parse5");
+  },
+  get babylon() {
+    return eval("require")("./parser-babylon");
+  },
+  get typescript() {
+    return eval("require")("./parser-typescript");
+  },
+  get postcss() {
+    return eval("require")("./parser-postcss");
   }
+};
+
+function resolveParseFunction(opts) {
+  if (typeof opts.parser === "function") {
+    return opts.parser;
+  }
+  if (typeof opts.parser === "string") {
+    if (parsers.hasOwnProperty(opts.parser)) {
+      return parsers[opts.parser];
+    }
+    try {
+      return eval("require")(path.resolve(process.cwd(), opts.parser));
+    } catch (err) {
+      throw new Error(`Couldn't resolve parser "${opts.parser}"`);
+    }
+  }
+  return parsers.babylon;
 }
 
 function parse(text, opts) {
+  const parseFunction = resolveParseFunction(opts);
+
   try {
-    return getParseFunction(opts)(text);
+    return parseFunction(text, parsers, opts);
   } catch (error) {
     const loc = error.loc;
 

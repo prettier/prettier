@@ -152,11 +152,27 @@ function propagateBreaks(doc) {
   );
 }
 
+function removeLines(doc) {
+  // Force this doc into flat mode by statically converting all
+  // lines into spaces (or soft lines into nothing). Hard lines
+  // should still output because there's too great of a chance
+  // of breaking existing assumptions otherwise.
+  return mapDoc(doc, d => {
+    if (d.type === "line" && !d.hard) {
+      return d.soft ? "" : " ";
+    } else if (d.type === "if-break") {
+      return d.flatContents || "";
+    }
+    return d;
+  });
+}
+
 module.exports = {
   isEmpty,
   willBreak,
   isLineNext,
   traverseDoc,
   mapDoc,
-  propagateBreaks
+  propagateBreaks,
+  removeLines
 };

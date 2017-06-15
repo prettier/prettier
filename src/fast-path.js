@@ -130,7 +130,7 @@ FastPath.prototype.map = function map(callback /*, name1, name2, ... */) {
   return result;
 };
 
-FastPath.prototype.needsParens = function() {
+FastPath.prototype.needsParens = function(options) {
   const parent = this.getParentNode();
   if (!parent) {
     return false;
@@ -343,6 +343,23 @@ FastPath.prototype.needsParens = function() {
           return false;
       }
 
+    case "TSParenthesizedType": {
+      if (
+        (parent.type === "VariableDeclarator" ||
+          parent.type === "TypeAnnotation" ||
+          parent.type === "GenericTypeAnnotation") &&
+        (node.typeAnnotation.type === "TypeAnnotation" &&
+          node.typeAnnotation.typeAnnotation.type !== "TSFunctionType")
+      ) {
+        return false;
+      }
+      // Delegate to inner TSParenthesizedType
+      if (node.typeAnnotation.type === "TSParenthesizedType") {
+        return false;
+      }
+      return true;
+    }
+
     case "SequenceExpression":
       switch (parent.type) {
         case "ReturnStatement":
@@ -368,7 +385,8 @@ FastPath.prototype.needsParens = function() {
       if (
         parent.type === "UnaryExpression" ||
         parent.type === "AwaitExpression" ||
-        parent.type === "TSAsExpression"
+        parent.type === "TSAsExpression" ||
+        parent.type === "TSNonNullExpression"
       ) {
         return true;
       }
@@ -381,6 +399,7 @@ FastPath.prototype.needsParens = function() {
         case "SpreadElement":
         case "SpreadProperty":
         case "TSAsExpression":
+        case "TSNonNullExpression":
           return true;
 
         case "MemberExpression":
@@ -424,7 +443,11 @@ FastPath.prototype.needsParens = function() {
       if (
         typeof node.value === "string" &&
         parent.type === "ExpressionStatement" &&
-        !parent.directive
+        // TypeScript workaround for eslint/typescript-eslint-parser#267
+        // See corresponding workaround in printer.js case: "Literal"
+        ((options.parser !== "typescript" && !parent.directive) ||
+          (options.parser === "typescript" &&
+            options.originalText.substr(util.locStart(node) - 1, 1) === "("))
       ) {
         // To avoid becoming a directive
         const grandParent = this.getParentNode(1);

@@ -1,10 +1,11 @@
 "use strict";
 
+const util = require("./util");
 const docBuilders = require("./doc-builders");
 const concat = docBuilders.concat;
 const join = docBuilders.join;
 const hardline = docBuilders.hardline;
-// const line = docBuilders.line;
+const line = docBuilders.line;
 const softline = docBuilders.softline;
 const group = docBuilders.group;
 const indent = docBuilders.indent;
@@ -40,7 +41,7 @@ function genericPrint(path, options, print) {
 
   switch (n.type) {
     case "root": {
-      return concat(path.map(print, "children"));
+      return printChildren(path, print);
     }
     case "directive": {
       return concat(["<", n.data, ">", hardline]);
@@ -48,53 +49,68 @@ function genericPrint(path, options, print) {
     case "text": {
       return n.data.replace(/\s+/g, " ").trim();
     }
+    case "script":
+    case "style":
     case "tag": {
       const selfClose = voidTags[n.name] ? ">" : " />";
+      const children = printChildren(path, print);
 
-      const children = [];
-      path.each(childPath => {
-        const child = childPath.getValue();
-        if (child.type !== "text") {
-          children.push(softline);
-        }
-        children.push(childPath.call(print));
-      }, "children");
+      const hasNewline = util.hasNewlineInRange(
+        options.originalText,
+        util.locStart(n),
+        util.locEnd(n)
+      );
 
       return group(
         concat([
+          hasNewline ? hardline : "",
           "<",
           n.name,
-          printAttributes(n.attribs),
+          printAttributes(path, print),
 
           n.children.length ? ">" : selfClose,
 
-          indent(concat(children)),
-          n.children.length ? concat([softline, "</", n.name, ">"]) : ""
+          n.name.toLowerCase() === "html"
+            ? concat([hardline, children])
+            : indent(children),
+          n.children.length ? concat([softline, "</", n.name, ">"]) : hardline
         ])
       );
     }
     case "comment": {
       return concat(["<!-- ", n.data.trim(), " -->"]);
     }
+    case "attribute": {
+      if (!n.value) {
+        return n.key;
+      }
+      return concat([n.key, '="', n.value, '"']);
+    }
+
     default:
       throw new Error("unknown htmlparser2 type: " + n.type);
   }
 }
 
-function printAttributes(attribs) {
-  const attributeKeys = Object.keys(attribs);
+function printAttributes(path, print) {
+  const node = path.getValue();
+
   return concat([
-    attributeKeys.length ? " " : "",
-    join(
-      " ",
-      attributeKeys.map(name => {
-        if (attribs[name] === "") {
-          return name;
-        }
-        return concat([name, '="', attribs[name], '"']);
-      })
-    )
+    node.attributes.length ? " " : "",
+    indent(join(line, path.map(print, "attributes")))
   ]);
+}
+
+function printChildren(path, print) {
+  const children = [];
+  path.each(childPath => {
+    const child = childPath.getValue();
+    if (child.type !== "text") {
+      children.push(hardline);
+    }
+    children.push(childPath.call(print));
+  }, "children");
+  return concat(children);
 }
 
 module.exports = genericPrint;

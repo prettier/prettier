@@ -21,11 +21,11 @@ var babylon = function () {
 			var e = index,
 			    s = { sourceType: "module", allowImportExportEverywhere: !1, allowReturnOutsideFunction: !0, plugins: ["jsx", "flow", "doExpressions", "objectRestSpread", "decorators", "classProperties", "exportExtensions", "asyncGenerators", "functionBind", "functionSent", "dynamicImport"] };var i = void 0;try {
 				i = e.parse(t, s);
-			} catch (i) {
+			} catch (r) {
 				try {
-					return e.parse(t, Object.assign({}, s, { strictMode: !1 }));
+					i = e.parse(t, Object.assign({}, s, { strictMode: !1 }));
 				} catch (t) {
-					throw createError(i.message.replace(/ \(.*\)/, ""), { start: { line: i.loc.line, column: i.loc.column + 1 } });
+					throw createError(r.message.replace(/ \(.*\)/, ""), { start: { line: r.loc.line, column: r.loc.column + 1 } });
 				}
 			}return delete i.tokens, i;
 		}var parserCreateError = createError$1,

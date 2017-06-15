@@ -6,10 +6,12 @@ function parse(text) {
   // Inline the require to avoid loading all the JS if we don't use it
   const parse5 = require("parse5");
   try {
-    const ast = parse5.parse(text, {
-      treeAdapter: parse5.treeAdapters.htmlparser2
+    const isFragment = !/^\s*<(!doctype|html|head|body)/i.test(text);
+    const ast = (isFragment ? parse5.parseFragment : parse5.parse)(text, {
+      treeAdapter: parse5.treeAdapters.htmlparser2,
+      locationInfo: true
     });
-    return ast;
+    return extendAst(ast);
   } catch (error) {
     //   throw createError(error.message, {
     //     start: {
@@ -20,6 +22,29 @@ function parse(text) {
     throw error;
     // }
   }
+}
+
+function extendAst(ast) {
+  if (!ast || !ast.children) {
+    return ast;
+  }
+  for (const child of ast.children) {
+    extendAst(child);
+    if (child.attribs) {
+      child.attributes = convertAttribs(child.attribs);
+    }
+  }
+  return ast;
+}
+
+function convertAttribs(attribs) {
+  return Object.keys(attribs).map(attributeKey => {
+    return {
+      type: "attribute",
+      key: attributeKey,
+      value: attribs[attributeKey]
+    };
+  });
 }
 
 module.exports = parse;

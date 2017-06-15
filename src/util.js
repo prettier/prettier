@@ -218,6 +218,9 @@ function locStart(node) {
     return locStart(node.decorators[0]);
   }
 
+  if (node.__location) {
+    return node.__location.startOffset;
+  }
   if (node.range) {
     return node.range[0];
   }
@@ -239,6 +242,9 @@ function locEnd(node) {
     loc = lineColumnToIndex(node.source.end, node.source.input.css);
   }
 
+  if (node.__location) {
+    return node.__location.endOffset;
+  }
   if (node.typeAnnotation) {
     return Math.max(loc, locEnd(node.typeAnnotation));
   }
