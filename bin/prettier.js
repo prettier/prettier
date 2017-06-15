@@ -15,21 +15,33 @@ const cleanAST = require("../src/clean-ast.js").cleanAST;
 
 // If invoked directly, pass-through CLI arguments and streams
 if (require.main === module) {
-  cli(process.argv.slice(2), process.stdin, process.stdout, process.stderr)
+  cliWrapper(
+    process.argv.slice(2),
+    process.stdin,
+    process.stdout,
+    process.stderr
+  )
     .then(result => {
       process.exitCode = result.exitCode;
     })
     .catch(err => {
       if (typeof err === "string" || err instanceof Error) {
         console.error(err);
-        process.exitCode = 1;
-      } else {
-        process.exitCode = err.exitCode;
       }
+      process.exitCode = err.exitCode || 1;
     });
 }
 
-module.exports = { cli: cli };
+module.exports = { cli: cliWrapper };
+
+function cliWrapper(args, stdin, stdout, stderr) {
+  return cli(args, stdin, stdout, stderr).catch(err => {
+    if (!("exitCode" in err)) {
+      err.exitCode = 1;
+    }
+    throw err;
+  });
+}
 
 function cli(args, stdin, stdout, stderr) {
   let exitCode = 0;
