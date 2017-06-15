@@ -1,3 +1,5 @@
+"use strict";
+
 const stream = require("stream");
 const stringToStream = require("string-to-stream");
 const prettierCli = require("../../bin/prettier");
