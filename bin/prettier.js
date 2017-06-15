@@ -20,7 +20,12 @@ if (require.main === module) {
       process.exitCode = result.exitCode;
     })
     .catch(err => {
-      process.exitCode = err.exitCode;
+      if (typeof err === "string" || err instanceof Error) {
+        console.error(err);
+        process.exitCode = 1;
+      } else {
+        process.exitCode = err.exitCode;
+      }
     });
 }
 
