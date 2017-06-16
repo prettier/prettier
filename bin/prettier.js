@@ -20,14 +20,12 @@ if (require.main === module) {
     process.stdin,
     process.stdout,
     process.stderr
-  )
-    .catch(err => {
-      console.error(err.message);
-      return err;
-    })
-    .then(result => {
-      process.exitCode = result.exitCode;
-    });
+  ).then(result => {
+    process.exitCode = result.exitCode;
+    if (result.message) {
+      console.error(result.message);
+    }
+  });
 }
 
 module.exports = { cli: cliWrapper };
@@ -43,7 +41,7 @@ function cliWrapper(args, stdin, stdout, stderr) {
     if (!("exitCode" in err)) {
       err.exitCode = 1;
     }
-    return Promise.reject(err);
+    return Promise.resolve(err);
   }
 }
 
