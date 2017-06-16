@@ -345,7 +345,8 @@ FastPath.prototype.needsParens = function(options) {
 
     case "TSParenthesizedType": {
       if (
-        (parent.type === "VariableDeclarator" ||
+        (parent.type === "TypeParameter" ||
+          parent.type === "VariableDeclarator" ||
           parent.type === "TypeAnnotation" ||
           parent.type === "GenericTypeAnnotation") &&
         (node.typeAnnotation.type === "TypeAnnotation" &&
@@ -385,7 +386,8 @@ FastPath.prototype.needsParens = function(options) {
       if (
         parent.type === "UnaryExpression" ||
         parent.type === "AwaitExpression" ||
-        parent.type === "TSAsExpression"
+        parent.type === "TSAsExpression" ||
+        parent.type === "TSNonNullExpression"
       ) {
         return true;
       }
@@ -398,6 +400,7 @@ FastPath.prototype.needsParens = function(options) {
         case "SpreadElement":
         case "SpreadProperty":
         case "TSAsExpression":
+        case "TSNonNullExpression":
           return true;
 
         case "MemberExpression":

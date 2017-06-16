@@ -36,4 +36,5 @@ test("allows passing a string to resolve a parser", () => {
     "./custom-rename-parser"
   ]);
   expect(output.stdout).toMatchSnapshot();
+  expect(output.status).toEqual(0);
 });

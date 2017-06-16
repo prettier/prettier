@@ -694,7 +694,13 @@ function genericPrintNoParens(path, options, print, args) {
         }
 
         parts.push(" ", "from ");
-      } else if (n.importKind && n.importKind === "type") {
+      } else if (
+        (n.importKind && n.importKind === "type") ||
+        // import {} from 'x'
+        /{\s*}/.test(
+          options.originalText.slice(util.locStart(n), util.locStart(n.source))
+        )
+      ) {
         parts.push("{} from ");
       }
 
@@ -873,12 +879,13 @@ function genericPrintNoParens(path, options, print, args) {
     case "TSTypeLiteral": {
       const isTypeAnnotation = n.type === "ObjectTypeAnnotation";
       const shouldBreak =
-        n.type !== "ObjectPattern" &&
-        util.hasNewlineInRange(
-          options.originalText,
-          util.locStart(n),
-          util.locEnd(n)
-        );
+        n.type === "TSInterfaceBody" ||
+        (n.type !== "ObjectPattern" &&
+          util.hasNewlineInRange(
+            options.originalText,
+            util.locStart(n),
+            util.locEnd(n)
+          ));
       const separator = n.type === "TSInterfaceBody" ||
         n.type === "TSTypeLiteral"
         ? ifBreak(semi, ";")
@@ -2959,9 +2966,9 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
   if (expandArg) {
     return group(
       concat([
-        removeLines(typeParams),
+        docUtils.removeLines(typeParams),
         "(",
-        join(", ", printed.map(removeLines)),
+        join(", ", printed.map(docUtils.removeLines)),
         ")"
       ])
     );
@@ -3158,7 +3165,8 @@ function printExportDeclaration(path, options, print) {
       decl.type === "ExportDefaultDeclaration" &&
       (decl.declaration.type !== "ClassDeclaration" &&
         decl.declaration.type !== "FunctionDeclaration" &&
-        decl.declaration.type !== "TSAbstractClassDeclaration")
+        decl.declaration.type !== "TSAbstractClassDeclaration" &&
+        decl.declaration.type !== "TSNamespaceFunctionDeclaration")
     ) {
       parts.push(semi);
     }
@@ -4572,21 +4580,6 @@ function isStringLiteral(node) {
   );
 }
 
-function removeLines(doc) {
-  // Force this doc into flat mode by statically converting all
-  // lines into spaces (or soft lines into nothing). Hard lines
-  // should still output because there's too great of a chance
-  // of breaking existing assumptions otherwise.
-  return docUtils.mapDoc(doc, d => {
-    if (d.type === "line" && !d.hard) {
-      return d.soft ? "" : " ";
-    } else if (d.type === "if-break") {
-      return d.flatContents || "";
-    }
-    return d;
-  });
-}
-
 function isObjectType(n) {
   return n.type === "ObjectTypeAnnotation" || n.type === "TSTypeLiteral";
 }
@@ -4621,7 +4614,7 @@ function printAstToDoc(ast, options, addAlignmentSize) {
     // Add a hardline to make the indents take effect
     // It should be removed in index.js format()
     doc = addAlignmentToDoc(
-      removeLines(concat([hardline, doc])),
+      docUtils.removeLines(concat([hardline, doc])),
       addAlignmentSize,
       options.tabWidth
     );

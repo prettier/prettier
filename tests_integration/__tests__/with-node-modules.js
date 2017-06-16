@@ -6,6 +6,7 @@ test("ignores node_modules by default", () => {
   const result = runPrettier("cli/with-node-modules", ["**/*.js", "-l"]);
 
   expect(result.stdout).toMatchSnapshot();
+  expect(result.status).toEqual(1);
 });
 
 test("doesn't ignore node_modules with --with-node-modules flag", () => {
@@ -16,6 +17,7 @@ test("doesn't ignore node_modules with --with-node-modules flag", () => {
   ]);
 
   expect(result.stdout).toMatchSnapshot();
+  expect(result.status).toEqual(1);
 });
 
 test("ignores node_modules by default for file list", () => {
@@ -27,6 +29,7 @@ test("ignores node_modules by default for file list", () => {
   ]);
 
   expect(result.stdout).toMatchSnapshot();
+  expect(result.status).toEqual(1);
 });
 
 test("doesn't ignore node_modules with --with-node-modules flag for file list", () => {
@@ -39,4 +42,5 @@ test("doesn't ignore node_modules with --with-node-modules flag for file list", 
   ]);
 
   expect(result.stdout).toMatchSnapshot();
+  expect(result.status).toEqual(1);
 });

@@ -10,6 +10,7 @@ test("doesn't crash when --debug-check is passed", () => {
 
   expect(result.stdout).toEqual("issue1890.js\n");
   expect(result.stderr).toEqual("");
+  expect(result.status).toEqual(0);
 });
 
 test("checks stdin with --debug-check", () => {
@@ -19,4 +20,5 @@ test("checks stdin with --debug-check", () => {
 
   expect(result.stdout).toEqual("(stdin)\n");
   expect(result.stderr).toEqual("");
+  expect(result.status).toEqual(0);
 });

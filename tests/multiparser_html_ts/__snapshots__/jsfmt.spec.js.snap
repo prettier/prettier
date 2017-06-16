@@ -22,9 +22,12 @@ exports[`html-with-ts-script.html 1`] = `
 </html>
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 <!DOCTYPE html>
 
+
 <html lang="en">
+
 
 <head>
 

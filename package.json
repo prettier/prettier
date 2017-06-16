@@ -18,7 +18,7 @@
     "esutils": "2.0.2",
     "flow-parser": "0.47.0",
     "cross-spawn": "5.1.0",
-    "get-stdin": "5.0.1",
+    "get-stream": "3.0.0",
     "glob": "7.1.2",
     "graphql": "0.10.1",
     "mkdirp": "^0.5.1",
@@ -30,7 +30,7 @@
     "postcss-selector-parser": "2.2.3",
     "postcss-values-parser": "git://github.com/shellscape/postcss-values-parser.git#5e351360479116f3fe309602cdd15b0a233bc29f",
     "rimraf": "2.6.1",
-    "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#ts-2.4"
+    "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#479b592c0ad84a6ec5170fbe1821ed5ca90c4ee1"
   },
   "devDependencies": {
     "babel-cli": "6.24.1",
