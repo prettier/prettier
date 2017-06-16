@@ -33,12 +33,18 @@ if (require.main === module) {
 module.exports = { cli: cliWrapper };
 
 function cliWrapper(args, stdin, stdout, stderr) {
-  return cli(args, stdin, stdout, stderr).catch(err => {
+  try {
+    return cli(args, stdin, stdout, stderr).catch(errHandler);
+  } catch (err) {
+    return errHandler(err);
+  }
+
+  function errHandler(err) {
     if (!("exitCode" in err)) {
       err.exitCode = 1;
     }
-    throw err;
-  });
+    return Promise.reject(err);
+  }
 }
 
 function cli(args, stdin, stdout, stderr) {
@@ -94,7 +100,7 @@ function cli(args, stdin, stdout, stderr) {
 
   if (argv["version"]) {
     stdout.write(prettier.version + "\n");
-    return { exitCode: 0 };
+    return Promise.resolve({ exitCode: 0 });
   }
 
   const filepatterns = argv["_"];
@@ -284,7 +290,7 @@ function cli(args, stdin, stdout, stderr) {
         "  --version or -v          Print Prettier version.\n" +
         "\n\n"
     );
-    return { exitCode: argv["help"] ? 0 : 1 };
+    return Promise.resolve({ exitCode: argv["help"] ? 0 : 1 });
   }
 
   if (readStdin) {
