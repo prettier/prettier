@@ -181,8 +181,12 @@ interface IObservable<T> {
 // Needed
 interface ISubject<T> extends IObservable<T> {}
 
-interface Foo { x }
-interface Bar { y }
+interface Foo {
+  x;
+}
+interface Bar {
+  y;
+}
 
 var values: IObservable<Foo>;
 var values2: ISubject<Bar>;
