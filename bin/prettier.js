@@ -25,10 +25,8 @@ if (require.main === module) {
       process.exitCode = result.exitCode;
     })
     .catch(err => {
-      if (typeof err === "string" || err instanceof Error) {
-        console.error(err);
-      }
-      process.exitCode = err.exitCode || 1;
+      console.error(err.message);
+      process.exitCode = err.exitCode;
     });
 }
 
@@ -109,8 +107,7 @@ function cli(args, stdin, stdout, stderr) {
   };
 
   if (write && argv["debug-check"]) {
-    stderr.write("Cannot use --write and --debug-check together.\n");
-    return { exitCode: 1 };
+    throw new Error("Cannot use --write and --debug-check together.");
   }
 
   function getParserOption() {
@@ -143,14 +140,12 @@ function cli(args, stdin, stdout, stderr) {
       return Number(value);
     }
 
-    stderr.write(
+    throw new Error(
       "Invalid --" +
         optionName +
         " value. Expected an integer, but received: " +
-        JSON.stringify(value) +
-        "\n"
+        JSON.stringify(value)
     );
-    throw { exitCode: 1 };
   }
 
   function getTrailingComma() {
@@ -205,8 +200,9 @@ function cli(args, stdin, stdout, stderr) {
       const pp = prettier.format(input, opt);
       const pppp = prettier.format(pp, opt);
       if (pp !== pppp) {
-        throw "prettier(input) !== prettier(prettier(input))\n" +
-          diff(pp, pppp);
+        throw new Error(
+          "prettier(input) !== prettier(prettier(input))\n" + diff(pp, pppp)
+        );
       } else {
         const ast = cleanAST(prettier.__debug.parse(input, opt));
         const past = cleanAST(prettier.__debug.parse(pp, opt));
@@ -217,10 +213,12 @@ function cli(args, stdin, stdout, stderr) {
             past.length > MAX_AST_SIZE
             ? "AST diff too large to render"
             : diff(ast, past);
-          throw "ast(input) !== ast(prettier(input))\n" +
-            astDiff +
-            "\n" +
-            diff(input, pp);
+          throw new Error(
+            "ast(input) !== ast(prettier(input))\n" +
+              astDiff +
+              "\n" +
+              diff(input, pp)
+          );
         }
       }
       return { formatted: opt.filepath || "(stdin)\n" };
@@ -242,9 +240,8 @@ function cli(args, stdin, stdout, stderr) {
     if (isParseError) {
       stderr.write(filename + ": " + String(e) + "\n");
     } else if (isValidationError) {
-      stderr.write(String(e) + "\n");
       // If validation fails for one file, it will fail for all of them.
-      throw { exitCode: 1 };
+      throw new Error(String(e));
     } else {
       stderr.write(util.format(filename + ":", e.stack || e, "\n"));
     }
