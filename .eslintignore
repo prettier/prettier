@@ -1,5 +1,5 @@
 !/*.js
-/docs/
+/docs/lib/
 /tests/**/*.js
 !/tests/**/jsfmt.spec.js
 !/**/.eslintrc.js

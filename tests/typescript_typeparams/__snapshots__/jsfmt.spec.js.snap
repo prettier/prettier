@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`long-function-arg.ts 1`] = `
+export const forwardS = R.curry(
+  <V,T>(prop: string, reducer: ReducerFunction<V, T>, value: V, state: {[name: string]: T}) =>
+  R.assoc(prop, reducer(value, state[prop]), state)
+)
+
+export const forwardS = R.curry(
+  <VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV, TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT>(prop: string, reducer: ReducerFunction<V, T>, value: V, state: {[name: string]: T}) =>
+  R.assoc(prop, reducer(value, state[prop]), state)
+)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export const forwardS = R.curry(
+  <V, T>(
+    prop: string,
+    reducer: ReducerFunction<V, T>,
+    value: V,
+    state: { [name: string]: T }
+  ) => R.assoc(prop, reducer(value, state[prop]), state)
+);
+
+export const forwardS = R.curry(
+  <
+    VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV,
+    TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+  >(
+    prop: string,
+    reducer: ReducerFunction<V, T>,
+    value: V,
+    state: { [name: string]: T }
+  ) => R.assoc(prop, reducer(value, state[prop]), state)
+);
+
+`;

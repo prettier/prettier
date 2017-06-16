@@ -1,266 +1,230 @@
-<meta charset="utf-8">
-<title>Prettier</title>
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prettier</title>
 
-<script>
-// "Polyfills" in order for all the code to run
-global = window;
-Buffer = {isBuffer: function() { return false; }};
-fs = module$1 = module = path = os = crypto = {};
-process = {argv: [], env: {}}
-assert = {ok: function() {}, strictEqual: function() {}};
-function require(path) { return window[path.replace(/.+-/, '')]; }
-</script>
+  <!-- CodeMirror -->
+  <link rel="stylesheet" href="https://codemirror.net/lib/codemirror.css">
+  <link rel="stylesheet" href="https://codemirror.net/theme/neat.css">
+  <script src="https://codemirror.net/lib/codemirror.js"></script>
+  <script src="https://codemirror.net/mode/javascript/javascript.js"></script>
+  <script src="https://codemirror.net/addon/display/rulers.js"></script>
+  <script src="https://codemirror.net/addon/search/searchcursor.js"></script>
+  <script src="https://codemirror.net/addon/edit/matchbrackets.js"></script>
+  <script src="https://codemirror.net/addon/edit/closebrackets.js"></script>
+  <script src="https://codemirror.net/addon/comment/comment.js"></script>
+  <script src="https://codemirror.net/addon/wrap/hardwrap.js"></script>
+  <script src="https://codemirror.net/keymap/sublime.js"></script>
 
-<script src="index.js"></script>
-<script>prettier = index;</script>
-
-<link rel="stylesheet" href="https://codemirror.net/lib/codemirror.css">
-<link rel="stylesheet" href="https://codemirror.net/theme/base16-dark.css">
-<script src="https://codemirror.net/lib/codemirror.js"></script>
-<script src="https://codemirror.net/mode/javascript/javascript.js"></script>
-<script src="https://codemirror.net/addon/display/rulers.js"></script>
-<script src="https://codemirror.net/addon/search/searchcursor.js"></script>
-<script src="https://codemirror.net/addon/edit/matchbrackets.js"></script>
-<script src="https://codemirror.net/addon/edit/closebrackets.js"></script>
-<script src="https://codemirror.net/addon/comment/comment.js"></script>
-<script src="https://codemirror.net/addon/wrap/hardwrap.js"></script>
-<script src="https://codemirror.net/keymap/sublime.js"></script>
-
-<style type="text/css">
-  html, body {
-    font-family: "Helvetica Neue", "Open Sans", sans-serif;
-    font-size: 11.7px;
-    margin: 0;
-    padding: 0;
-    background-color: #444444;
-    color: #e2e1e1;
-  }
-  .title {
-    font-style: italic;
-    line-height: 19px;
-    margin-right: 10px;
-  }
-  .container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-  .editors {
-    display: flex;
-    flex-direction: row;
-    flex: 1;
-    margin: 5px;
-  }
-  .editor {
-    display: flex;
-    flex: 1;
-    position: relative;
-  }
-  .CodeMirror {
-    height: auto;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    font-family: Menlo, monospace;
-    font-size: 11.05px;
-    line-height: 17.68px;
-  }
-  .editor {
-    margin-left: 5px;
-  }
-  .editor:first-child {
-    margin-left: 0;
-  }
-  .options {
-    display: flex;
-    margin: 5px;
-    margin-bottom: 0;
-  }
-  .title a {
-    color: #e2e1e1;
-  }
-  .title a:hover {
-    color: #fdfcfc;
-  }
-  label {
-    margin-right: 5px;
-  }
-  input[type="number"] {
-    max-width: 40px;
-  }
-</style>
-
-<div class="container">
-  <div class="options">
-    <label class="title"><a href="https://github.com/prettier/prettier">prettier v<span class="version"></span></a></label>
-    <label><input type="number" value="80" id="printWidth"></input> printWidth</label>
-    <label><input type="number" value="2" id="tabWidth"></input> tabWidth</label>
-    <label><input type="checkbox" id="useTabs"></input> useTabs</label>
-    <label><input type="checkbox" id="semi" checked></input> semi</label>
-    <label><input type="checkbox" id="singleQuote"></input> singleQuote</label>
-    <label><input type="checkbox" id="bracketSpacing" checked></input> bracketSpacing</label>
-    <label><input type="checkbox" id="jsxBracketSameLine"></input> jsxBracketSameLine</label>
-    <label>trailingComma <select id="trailingComma"><option value="none">none</option><option value="es5">es5</option><option value="all">all</option></select></label>
-    <label>parser <select id="parser"><option value="babylon">babylon</option><option value="flow">flow</option><option value="typescript">typescript</option><option value="postcss">postcss</option></select></label>
-    <span style="flex: 1"></span>
-    <label><input type="checkbox" id="doc"></input> doc</label>
-  </div>
-
-  <div class="editors">
-    <div class="editor input">
-      <textarea id="input-editor"></textarea>
-    </div>
-    <div class="editor doc">
-      <textarea id="doc-editor"></textarea>
-    </div>
-    <div class="editor output">
-      <textarea id="output-editor"></textarea>
-    </div>
-  </div>
-</div>
-
-<script id="code">
-(function () {
-var OPTIONS = ['printWidth', 'tabWidth', 'singleQuote', 'trailingComma', 'bracketSpacing', 'jsxBracketSameLine', 'parser', 'semi', 'useTabs', 'doc'];
-function setOptions(options) {
-  OPTIONS.forEach(function(option) {
-    var elem = document.getElementById(option);
-    if (elem.tagName === 'SELECT') {
-      elem.value = options[option];
-    } else if (elem.type === 'number') {
-      elem.value = options[option];
-    } else {
-      elem.checked = options[option];
+  <style type="text/css">
+    html,
+    body {
+      font-family: "Helvetica Neue", "Open Sans", sans-serif;
+      font-size: 11.7px;
+      margin: 0;
+      padding: 0;
+      background-color: #FAFAFA;
+      color: #6A6A6A;
     }
-  });
-}
 
-function getOptions() {
-  var options = {};
-  OPTIONS.forEach(function(option) {
-    var elem = document.getElementById(option);
-    if (elem.tagName === 'SELECT') {
-      options[option] = elem.value;
-    } else if (elem.type === 'number') {
-      options[option] = Number(elem.value);
-    } else {
-      options[option] = elem.checked;
+    body {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
     }
-  });
-  return options;
-}
 
-function omitNonFormatterOptions(options) {
-  var optionsClone = Object.assign({}, options);
-  delete optionsClone.doc;
-  return optionsClone;
-}
-
-function replaceHash(hash) {
-  if (
-    typeof URL === "function" &&
-    typeof history === "object" &&
-    typeof history.replaceState === "function"
-  ) {
-    var url = new URL(location);
-    url.hash = hash;
-    history.replaceState(null, null, url);
-  } else {
-    location.hash = hash;
-  }
-}
-
-function onceParserLoaded(parser, cb) {
-  if (window[parser]) {
-    cb();
-    return;
-  }
-
-  // We can't synchronously insert a script, so we first make sure that the
-  // parser is loaded before calling format that will require it
-  var s = document.createElement('script');
-  s.src = 'parser-' + parser + '.js';
-  s.type = "text/javascript";
-  s.onload = cb;
-  document.getElementsByTagName('head')[0].appendChild(s);
-}
-
-function format() {
-  var options = getOptions();
-  onceParserLoaded(options.parser || 'babylon', function() {
-    [docEditor, outputEditor].forEach(function(editor) {
-      editor.setOption(
-        'rulers',
-        [{column: options.printWidth, color: '#444444'}]
-      );
-    });
-    document.getElementsByClassName('doc')[0].style.display = options.doc ? 'flex' : 'none';
-
-    var value = encodeURIComponent(
-      JSON.stringify(
-        Object.assign({content: inputEditor.getValue(), options: options})
-      )
-    );
-    replaceHash(value);
-    var formatterOptions = omitNonFormatterOptions(options);
-    var res;
-    try {
-      res = prettier.format(inputEditor.getValue(), formatterOptions);
-    } catch (e) {
-      res = e.toString();
+    .options-summary {
+      font-size: 1.2em;
+      margin-top: 8px;
+      text-align: center;
     }
-    outputEditor.setValue(res);
 
-    if (options.doc) {
-      var debug;
-      try {
-        var doc = prettier.__debug.printToDoc(inputEditor.getValue(), formatterOptions);
-        debug = prettier.__debug.formatDoc(doc, formatterOptions);
-      } catch (e) {
-        debug = e.toString();
+    header {
+      height: 64px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #1A2B34;
+      color: #e0e0e0;
+    }
+
+    @media (max-width: 500px) {
+      .tagline {
+        display: none;
       }
-      docEditor.setValue(debug);
     }
-  });
-}
 
-document.getElementsByClassName('options')[0].onchange = format;
+    header a,
+    header a:visited {
+      color: #e0e0e0;
+    }
 
-var editorOptions = {
-  lineNumbers: true,
-  keyMap: "sublime",
-  autoCloseBrackets: true,
-  matchBrackets: true,
-  showCursorWhenSelecting: true,
-  theme: 'base16-dark',
-  tabWidth: 2
-};
-var inputEditor = CodeMirror.fromTextArea(
-  document.getElementById('input-editor'),
-  editorOptions
-);
-inputEditor.on('change', format);
+    header a:focus,
+    header a:active,
+    header a:hover {
+      color: #70a0a0;
+    }
 
-var docEditor = CodeMirror.fromTextArea(
-  document.getElementById('doc-editor'),
-  {readOnly: true, lineNumbers: true, theme: 'base16-dark'}
-);
+    .logo {
+      height: 100px;
+    }
 
-var outputEditor = CodeMirror.fromTextArea(
-  document.getElementById('output-editor'),
-  {readOnly: true, lineNumbers: true, theme: 'base16-dark'}
-);
+    .tagline {
+      flex: 2;
+      font-weight: 200;
+    }
 
-document.getElementsByClassName('version')[0].innerText = prettier.version;
+    .links {
+      font-size: 1.3em;
+      margin-right: 30px;
+    }
 
-try {
-  var json = JSON.parse(decodeURIComponent(location.hash.slice(1)));
-  setOptions(json.options);
-  inputEditor.setValue(json.content);
-} catch (e) {
-  inputEditor.setValue('hello ( "world"\n)');
-}
-})();
-</script>
+    .editors-container {
+      display: flex;
+      flex-grow: 1;
+    }
+
+    .editors {
+      display: flex;
+      flex-flow: row wrap;
+      flex: 1;
+    }
+
+    .editor {
+      min-width: 400px;
+      display: flex;
+      flex: 1;
+      position: relative;
+      border-top: 1px solid #1A2B34;
+    }
+
+    .arrow {
+      align-self: center;
+      font-size: 1.2em;
+    }
+
+    .CodeMirror {
+      height: auto;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      font-family: Menlo, monospace;
+      font-size: 11.05px;
+      line-height: 17.68px;
+    }
+
+    .options-container {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-around;
+    }
+
+    .options {
+      padding: 0 10px;
+      display: flex;
+      flex-flow: column wrap;
+      flex-grow: 1;
+      justify-content: space-around;
+      margin: 5px;
+      margin-bottom: 0;
+      min-width: 150px;
+    }
+
+    label {
+      font-family: "Consolas", "Courier New", Courier, monospace;
+      margin: 0 10px;
+    }
+
+    @media (max-width: 400px) {
+      label {
+        padding: 8px;
+      }
+    }
+
+    input[type="number"] {
+      max-width: 40px;
+    }
+
+    footer {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <a href=".">
+      <img class="logo" src="https://cloud.githubusercontent.com/assets/311752/24730511/e6690c38-1a18-11e7-95a9-2af91bb60440.png">
+    </a>
+    <h2 class="tagline"><em>Opinionated</em> code formatter</h2>
+    <span class="links">
+      <a
+        class="github-button"
+        href="https://github.com/prettier/prettier"
+        data-show-count="true"
+        aria-label="Star prettier on GitHub">
+        GitHub
+      </a>
+    </span>
+  </header>
+
+  <section class="editors-container">
+    <div class="editors">
+      <div class="editor input">
+        <textarea id="input-editor"></textarea>
+      </div>
+      <div class="editor doc">
+        <textarea id="doc-editor"></textarea>
+      </div>
+      <div class="editor output">
+        <textarea id="output-editor"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <details>
+      <summary class="options-summary">Options</summary>
+
+      <div class="options-container">
+        <div class="options">
+          <label>--print-width <input type="number" value="80" min="0" id="printWidth"></input> </label>
+          <label>--tab-width <input type="number" min="0" value="2" id="tabWidth"></input> </label>
+        </div>
+        <div class="options">
+          <label><input type="checkbox" id="useTabs"></input> --use-tabs</label>
+          <label><input type="checkbox" data-inverted id="semi"></input> --no-semi</label>
+          <label><input type="checkbox" id="singleQuote"></input> --single-quote</label>
+          <label><input type="checkbox" data-inverted id="bracketSpacing"></input> --no-bracket-spacing</label>
+          <label><input type="checkbox" id="jsxBracketSameLine"></input> --jsx-bracket-same-line</label>
+        </div>
+        <div class="options">
+          <label>--trailing-comma <select id="trailingComma"><option value="none">none</option><option value="es5">es5</option><option value="all">all</option></select></label>
+          <label>--parser <select id="parser"><option value="babylon">babylon</option><option value="flow">flow</option><option value="typescript">typescript</option><option value="postcss">postcss</option></select></label>
+          <span style="flex: 0.3"></span>
+          <label><input type="checkbox" id="doc"></input> show doc (debug)</label>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <p class="version-link">
+      <a href="https://github.com/prettier/prettier">
+        prettier version
+        <span class="version"></span>
+        (master)
+      </a>
+    </p>
+  </footer>
+
+  <script src="lib/prettier-version.js"></script>
+  <script src="playground.js"></script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+</body>
+</html>

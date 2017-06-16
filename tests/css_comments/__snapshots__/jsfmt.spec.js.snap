@@ -67,6 +67,29 @@ div {
 
 `;
 
+exports[`prettier-ignore.css 1`] = `
+// prettier-ignore
+@blue:  blue;
+@black: darkgray;
+
+foo {
+  /* prettier-ignore */
+  thing:     foo;
+  -ms-thing: foo;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// prettier-ignore
+@blue:  blue;
+@black: darkgray;
+
+foo {
+  /* prettier-ignore */
+  thing:     foo;
+  -ms-thing: foo;
+}
+
+`;
+
 exports[`selector.css 1`] = `
 .powerPathNavigator .helm button.pressedButton, /* pressed buttons */
 .powerPathNavigator .helm button:active:not(.disabledButton),

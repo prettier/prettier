@@ -3,8 +3,24 @@
 exports[`parens.ts 1`] = `
 (a ? b : c) ![tokenKey];
 (a || b) ![tokenKey];
+
+async function f() {
+    return (await foo())!;
+}
+
+function* g() {
+    return (yield * foo())!;
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 (a ? b : c)![tokenKey];
 (a || b)![tokenKey];
+
+async function f() {
+  return (await foo())!;
+}
+
+function* g() {
+  return (yield* foo())!;
+}
 
 `;

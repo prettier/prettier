@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`graphql-tag.js 1`] = `
+import gql from "graphql-tag";
+
+const query = gql\`
+      {
+    user(   id :   5  )  {
+      firstName
+
+      lastName
+    }
+  }
+\`;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import gql from "graphql-tag";
+
+const query = gql\`
+  {
+    user(id: 5) {
+      firstName
+      lastName
+    }
+  }
+\`;
+
+`;
+
+exports[`react-relay.js 1`] = `
+const { graphql } = require("react-relay");
+
+graphql\`
+ mutation     MarkReadNotificationMutation(
+    $input
+    : MarkReadNotificationData!
+  )
+{ markReadNotification(data: $input ) { notification {seenState} } }
+\`;
+
+graphql.experimental\`
+ mutation     MarkReadNotificationMutation(
+    $input
+    : MarkReadNotificationData!
+  )
+{ markReadNotification(data: $input ) { notification {seenState} } }
+\`;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const { graphql } = require("react-relay");
+
+graphql\`
+  mutation MarkReadNotificationMutation($input: MarkReadNotificationData!) {
+    markReadNotification(data: $input) {
+      notification {
+        seenState
+      }
+    }
+  }
+\`;
+
+graphql.experimental\`
+  mutation MarkReadNotificationMutation($input: MarkReadNotificationData!) {
+    markReadNotification(data: $input) {
+      notification {
+        seenState
+      }
+    }
+  }
+\`;
+
+`;

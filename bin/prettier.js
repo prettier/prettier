@@ -4,7 +4,7 @@
 
 const fs = require("fs");
 const path = require("path");
-const getStdin = require("get-stdin");
+const getStream = require("get-stream");
 const glob = require("glob");
 const chalk = require("chalk");
 const minimist = require("minimist");
@@ -93,25 +93,7 @@ function getParserOption() {
     return "flow";
   }
 
-  if (
-    value === "flow" ||
-    value === "babylon" ||
-    value === "typescript" ||
-    value === "postcss" ||
-    value === "graphql"
-  ) {
-    return value;
-  }
-
-  console.warn(
-    "Ignoring unknown --" +
-      optionName +
-      ' value, falling back to "babylon":\n' +
-      '  Expected "flow" or "babylon", but received: ' +
-      JSON.stringify(value)
-  );
-
-  return "babylon";
+  return value;
 }
 
 function getIntOption(optionName) {
@@ -270,7 +252,7 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
 }
 
 if (stdin) {
-  getStdin().then(input => {
+  getStream(process.stdin).then(input => {
     try {
       writeOutput(format(input, options));
     } catch (e) {

@@ -22,6 +22,57 @@ interface ScreenObject {
 
 `;
 
+exports[`long-extends.ts 1`] = `
+export interface I extends A, B, C {
+  c: string;
+}
+
+export interface ThirdVeryLongAndBoringInterfaceName extends ALongAndBoringInterfaceName {
+  c: string;
+}
+
+export interface ThirdVeryLongAndBoringInterfaceName extends ALongAndBoringInterfaceName, AnotherLongAndBoringInterfaceName {
+  c: string;
+}
+
+export interface ThirdVeryLongAndBoringInterfaceName extends AVeryLongAndBoringInterfaceName, AnotherVeryLongAndBoringInterfaceName {
+  c: string;
+}
+
+export interface ThirdVeryLongAndBoringInterfaceName extends A_AVeryLongAndBoringInterfaceName, B_AVeryLongAndBoringInterfaceName, C_AVeryLongAndBoringInterfaceName  {
+  c: string;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export interface I extends A, B, C {
+  c: string;
+}
+
+export interface ThirdVeryLongAndBoringInterfaceName
+  extends ALongAndBoringInterfaceName {
+  c: string;
+}
+
+export interface ThirdVeryLongAndBoringInterfaceName
+  extends ALongAndBoringInterfaceName,
+    AnotherLongAndBoringInterfaceName {
+  c: string;
+}
+
+export interface ThirdVeryLongAndBoringInterfaceName
+  extends AVeryLongAndBoringInterfaceName,
+    AnotherVeryLongAndBoringInterfaceName {
+  c: string;
+}
+
+export interface ThirdVeryLongAndBoringInterfaceName
+  extends A_AVeryLongAndBoringInterfaceName,
+    B_AVeryLongAndBoringInterfaceName,
+    C_AVeryLongAndBoringInterfaceName {
+  c: string;
+}
+
+`;
+
 exports[`separator.ts 1`] = `
 declare module 'selenium-webdriver' {
   export const until: {
@@ -53,6 +104,9 @@ export interface Edge {
   };
 }
 
-interface Test { one: string; two: any[] }
+interface Test {
+  one: string;
+  two: any[];
+}
 
 `;

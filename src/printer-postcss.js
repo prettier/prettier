@@ -337,15 +337,33 @@ function printNodeSequence(path, options, print) {
   const parts = [];
   let i = 0;
   path.map(pathChild => {
-    parts.push(pathChild.call(print));
+    const prevNode = node.nodes[i - 1];
+    if (
+      prevNode &&
+      prevNode.type === "css-comment" &&
+      prevNode.text.trim() === "prettier-ignore"
+    ) {
+      const childNode = pathChild.getValue();
+      parts.push(
+        options.originalText.slice(
+          util.locStart(childNode),
+          util.locEnd(childNode)
+        )
+      );
+    } else {
+      parts.push(pathChild.call(print));
+    }
+
     if (i !== node.nodes.length - 1) {
       if (
-        node.nodes[i + 1].type === "css-comment" &&
-        !util.hasNewline(
-          options.originalText,
-          util.locStart(node.nodes[i + 1]),
-          { backwards: true }
-        )
+        (node.nodes[i + 1].type === "css-comment" &&
+          !util.hasNewline(
+            options.originalText,
+            util.locStart(node.nodes[i + 1]),
+            { backwards: true }
+          )) ||
+        (node.nodes[i + 1].type === "css-atrule" &&
+          node.nodes[i + 1].name === "else")
       ) {
         parts.push(" ");
       } else {

@@ -124,6 +124,13 @@ export type WrappedFormUtils = {
 
 `;
 
+exports[`type-parameters.ts 1`] = `
+functionName<A /* A comment */>();
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+functionName<A /* A comment */>();
+
+`;
+
 exports[`types.ts 1`] = `
 (() => {
   // swallow error and fallback to using directory as path
