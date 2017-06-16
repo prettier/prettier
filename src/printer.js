@@ -3165,7 +3165,8 @@ function printExportDeclaration(path, options, print) {
       decl.type === "ExportDefaultDeclaration" &&
       (decl.declaration.type !== "ClassDeclaration" &&
         decl.declaration.type !== "FunctionDeclaration" &&
-        decl.declaration.type !== "TSAbstractClassDeclaration")
+        decl.declaration.type !== "TSAbstractClassDeclaration" &&
+        decl.declaration.type !== "TSNamespaceFunctionDeclaration")
     ) {
       parts.push(semi);
     }
