@@ -30,6 +30,8 @@ if (require.main === module) {
 
 module.exports = { cli: cliWrapper };
 
+// The cli() function throws Errors in order to exit early,
+// so we need to convert those into resolved Promises.
 function cliWrapper(args, stdin, stdout, stderr) {
   try {
     return cli(args, stdin, stdout, stderr);
