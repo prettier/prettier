@@ -21,12 +21,12 @@ if (require.main === module) {
     process.stdout,
     process.stderr
   )
-    .then(result => {
-      process.exitCode = result.exitCode;
-    })
     .catch(err => {
       console.error(err.message);
-      process.exitCode = err.exitCode;
+      return err;
+    })
+    .then(result => {
+      process.exitCode = result.exitCode;
     });
 }
 
