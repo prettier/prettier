@@ -32,12 +32,8 @@ module.exports = { cli: cliWrapper };
 
 function cliWrapper(args, stdin, stdout, stderr) {
   try {
-    return cli(args, stdin, stdout, stderr).catch(errHandler);
+    return cli(args, stdin, stdout, stderr);
   } catch (err) {
-    return errHandler(err);
-  }
-
-  function errHandler(err) {
     if (!("exitCode" in err)) {
       err.exitCode = 1;
     }
