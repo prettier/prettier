@@ -76,7 +76,7 @@ echo 'Create prettier-version.js'
 node -p '`prettierVersion = "${require(".").version}";`' > docs/lib/prettier-version.js
 
 echo 'Copy package.json'
-cp package.json dist/
+node -p "pkg = require('./package.json'), delete pkg.dependencies, JSON.stringify(pkg, null, 2)" > dist/package.json
 
 echo 'Done!'
 echo;
