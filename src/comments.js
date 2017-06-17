@@ -279,6 +279,7 @@ function attach(comments, ast, text) {
         ) ||
         handleObjectPropertyAssignment(enclosingNode, precedingNode, comment) ||
         handleCommentInEmptyParens(text, enclosingNode, comment) ||
+        handleMethodNameComments(enclosingNode, precedingNode, comment) ||
         handleOnlyComments(enclosingNode, ast, comment, isLastComment)
       ) {
         // We're good
@@ -543,6 +544,24 @@ function handleObjectPropertyAssignment(enclosingNode, precedingNode, comment) {
     enclosingNode.value.type === "AssignmentPattern"
   ) {
     addTrailingComment(enclosingNode.value.left, comment);
+    return true;
+  }
+  return false;
+}
+
+function handleMethodNameComments(enclosingNode, precedingNode, comment) {
+  // This is only needed for estree parsers (flow, typescript) to attach
+  // after a method name:
+  // obj = { fn /*comment*/() {} };
+  if (
+    enclosingNode &&
+    precedingNode &&
+    (enclosingNode.type === "Property" ||
+      enclosingNode.type === "MethodDefinition") &&
+    precedingNode.type === "Identifier" &&
+    enclosingNode.key === precedingNode
+  ) {
+    addTrailingComment(precedingNode, comment);
     return true;
   }
   return false;
