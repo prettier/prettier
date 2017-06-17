@@ -48,6 +48,9 @@
     "rollup-plugin-node-globals": "1.1.0",
     "rollup-plugin-node-resolve": "2.0.0",
     "rollup-plugin-replace": "1.1.1",
+    "sw-toolbox": "3.6.0",
+    "typescript": "2.4.0",
+    "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#479b592c0ad84a6ec5170fbe1821ed5ca90c4ee1",
     "uglify-es": "3.0.15",
     "webpack": "2.6.1"
   },
