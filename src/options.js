@@ -36,7 +36,7 @@ function normalize(options) {
   } else if (/\.(ts|tsx)$/.test(filepath)) {
     normalized.parser = "typescript";
   } else if (/\.json$/.test(filepath)) {
-    normalized.parser = "json-to-ast";
+    normalized.parser = "json";
   }
 
   if (typeof normalized.trailingComma === "boolean") {
