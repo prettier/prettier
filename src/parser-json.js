@@ -65,10 +65,7 @@ function toBabylon(node) {
         require("./parser-babylon")(node.rawValue, {
           parseExpression: true
         }),
-        untypedResult,
-        {
-          __prettier__isJson: true
-        }
+        untypedResult
       );
   }
 }

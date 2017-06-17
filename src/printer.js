@@ -4142,7 +4142,7 @@ function nodeStr(node, options, isFlowOrTypeScriptDirectiveLiteral) {
     canChangeDirectiveQuotes = true;
   }
 
-  const enclosingQuote = node.__prettier__isJson
+  const enclosingQuote = options.parser === "json"
     ? double.quote
     : shouldUseAlternateQuote ? alternate.quote : preferred.quote;
 
