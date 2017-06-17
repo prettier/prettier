@@ -6,8 +6,7 @@ function parse(text) {
   const jsonToAst = require("json-to-ast");
   try {
     const ast = jsonToAst(text);
-    toBabylon(ast);
-    return ast;
+    return toBabylon(ast);
   } catch (err) {
     const firstNewlineIndex = err.message.indexOf("\n");
     const firstLine = err.message.slice(0, firstNewlineIndex);
@@ -26,9 +25,6 @@ function parse(text) {
 }
 
 function toBabylon(node) {
-  node.start = node.loc.start.offset;
-  node.end = node.loc.end.offset;
-
   const typeMap = {
     object: "ObjectExpression",
     property: "ObjectProperty",
@@ -37,23 +33,36 @@ function toBabylon(node) {
     literal: "json-literal"
   };
 
-  node.type = typeMap[node.type];
-  (node.children || []).forEach(toBabylon);
+  const result = {
+    type: typeMap[node.type],
+    start: node.loc.start.offset,
+    end: node.loc.end.offset,
+    loc: node.loc
+  };
 
   switch (node.type) {
-    case "ObjectExpression":
-      node.properties = node.children;
-      break;
-    case "ObjectProperty":
-      toBabylon(node.key);
-      toBabylon(node.value);
-      break;
-    case "ArrayExpression":
-      node.elements = node.children;
-      break;
+    case "object":
+      return Object.assign(result, {
+        properties: node.children.map(toBabylon)
+      });
+    case "property":
+      return Object.assign(result, {
+        key: toBabylon(node.key),
+        value: toBabylon(node.value)
+      });
+    case "identifier":
+      return Object.assign(result, {
+        value: node.value
+      });
+    case "array":
+      return Object.assign(result, {
+        elements: node.children.map(toBabylon)
+      });
+    case "literal":
+      return Object.assign(result, {
+        rawValue: node.rawValue
+      });
   }
-
-  delete node.children;
 }
 
 module.exports = parse;
