@@ -2424,12 +2424,14 @@ function genericPrintNoParens(path, options, print, args) {
       }
 
       parts.push(
-        printFunctionParams(
-          path,
-          print,
-          options,
-          /* expandArg */ false,
-          /* printTypeParams */ true
+        group(
+          printFunctionParams(
+            path,
+            print,
+            options,
+            /* expandArg */ false,
+            /* printTypeParams */ true
+          )
         )
       );
 
