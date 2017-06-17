@@ -2634,6 +2634,10 @@ function genericPrintNoParens(path, options, print, args) {
       return path.call(bodyPath => {
         return printStatementSequence(bodyPath, options, print);
       }, "body");
+    case "json-identifier":
+      return '"' + n.value + '"';
+    case "json-literal":
+      return n.rawValue;
 
     default:
       throw new Error("unknown type: " + JSON.stringify(n.type));

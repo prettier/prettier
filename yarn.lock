@@ -2316,6 +2316,10 @@ json-stringify-safe@~5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/json-stringify-safe/-/json-stringify-safe-5.0.1.tgz#1296a2d58fd45f19a0f6ce01d65701e2c735b6eb"
 
+json-to-ast@2.0.0-alpha1.2:
+  version "2.0.0-alpha1.2"
+  resolved "https://registry.yarnpkg.com/json-to-ast/-/json-to-ast-2.0.0-alpha1.2.tgz#fe27fd89eb639eca1e01f578e79d46ee36e238e8"
+
 json5@^0.5.0, json5@^0.5.1:
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/json5/-/json5-0.5.1.tgz#1eade7acc012034ad84e2396767ead9fa5495821"
