@@ -1,10 +1,28 @@
 "use strict";
 
+const createError = require("./parser-create-error");
+
 function parse(text) {
   const jsonToAst = require("json-to-ast");
-  const ast = jsonToAst(text);
-  toBabylon(ast);
-  return ast;
+  try {
+    const ast = jsonToAst(text);
+    toBabylon(ast);
+    return ast;
+  } catch (err) {
+    const firstNewlineIndex = err.message.indexOf("\n");
+    const firstLine = err.message.slice(0, firstNewlineIndex);
+    const lastSpaceIndex = firstLine.lastIndexOf(" ");
+    const message = firstLine.slice(0, lastSpaceIndex);
+    const locString = firstLine.slice(lastSpaceIndex + 1);
+    const lineCol = locString.split(":").map(Number);
+
+    throw createError("(json-to-ast) " + message, {
+      start: {
+        line: lineCol[0],
+        column: lineCol[1]
+      }
+    });
+  }
 }
 
 function toBabylon(node) {
