@@ -35,6 +35,8 @@ function normalize(options) {
     normalized.parser = "parse5";
   } else if (/\.(ts|tsx)$/.test(filepath)) {
     normalized.parser = "typescript";
+  } else if (/\.(hbs|handlebars|mo?ustache)$/.test(filepath)) {
+    normalized.parser = "glimmer";
   }
 
   if (typeof normalized.trailingComma === "boolean") {

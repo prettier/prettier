@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component.hbs 1`] = `
+<user-greeting @name="Ricardo" @greeting="Olá" />
+{{@greeting}}, {{@name}}!
+
+<button onclick={{action next}}>Next</button>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<user-greeting @name="Ricardo" @greeting="Olá" />
+
+
+{{@greeting}}
+,
+{{@name}}
+!
+<button onclick={{action next}}>
+  Next
+</button>
+
+`;
+
+exports[`loop.hbs 1`] = `
+<ul>
+  {{#each speakers key="@index" as |speaker|}}
+    <li>{{speaker}}</li>
+  {{/each}}
+</ul>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<ul>
+
+  {{#each speakers key="@index" as |speaker|}}
+
+    <li>
+      {{speaker}}
+    </li>
+
+  {{/each}}
+</ul>
+
+`;

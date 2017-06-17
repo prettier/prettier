@@ -6,6 +6,9 @@ const parsers = {
   get flow() {
     return eval("require")("./parser-flow");
   },
+  get glimmer() {
+    return eval("require")("./parser-gimmer");
+  },
   get graphql() {
     return eval("require")("./parser-graphql");
   },
