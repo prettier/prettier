@@ -8,6 +8,17 @@ cache:
   yarn: true
   directories:
   - node_modules
+env:
+  - NODE_ENV=development
+  - NODE_ENV=production
+matrix:
+  allow_failures:
+    - env: NODE_ENV=production
+  fast_finish: true
+install:
+  - yarn install --production=false
+before_script:
+  - if [ "${NODE_ENV}" = "production" ]; then yarn build; fi
 script:
   - yarn lint
   - AST_COMPARE=1 yarn test -- --runInBand
