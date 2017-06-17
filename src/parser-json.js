@@ -29,16 +29,18 @@ function toBabylon(node) {
     object: "ObjectExpression",
     property: "ObjectProperty",
     identifier: "json-identifier",
-    array: "ArrayExpression",
-    literal: "json-literal"
+    array: "ArrayExpression"
   };
 
-  const result = {
-    type: typeMap[node.type],
+  const untypedResult = {
     start: node.loc.start.offset,
     end: node.loc.end.offset,
     loc: node.loc
   };
+
+  const result = Object.assign({}, untypedResult, {
+    type: typeMap[node.type]
+  });
 
   switch (node.type) {
     case "object":
@@ -59,9 +61,15 @@ function toBabylon(node) {
         elements: node.children.map(toBabylon)
       });
     case "literal":
-      return Object.assign(result, {
-        rawValue: node.rawValue
-      });
+      return Object.assign(
+        require("./parser-babylon")(node.rawValue, {
+          parseExpression: true
+        }),
+        untypedResult,
+        {
+          __prettier__isJson: true
+        }
+      );
   }
 }
 
