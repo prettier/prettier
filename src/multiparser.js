@@ -226,12 +226,10 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
 }
 
 function parseJavaScriptExpression(text, parsers) {
-  // Force parsing as an expression
-  const ast = parsers.babylon(`(${text})`);
-  // Extract expression from the declaration
   return {
     type: "File",
-    program: ast.program.body[0].expression
+    // Force parsing as an expression
+    program: parsers.babylon(text, { parseExpression: true })
   };
 }
 
