@@ -49,6 +49,7 @@
     "rollup-plugin-node-globals": "1.1.0",
     "rollup-plugin-node-resolve": "2.0.0",
     "rollup-plugin-replace": "1.1.1",
+    "sw-toolbox": "3.6.0",
     "uglify-es": "3.0.15",
     "webpack": "2.6.1"
   },

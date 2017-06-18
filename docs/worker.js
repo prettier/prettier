@@ -22,27 +22,47 @@ var prettier = index; // eslint-disable-line
 var parsersLoaded = {};
 
 self.onmessage = function(message) {
-  lazyLoadParser(message.data.options.parser);
+  const options = message.data.options || {
+    parser: "babylon"
+  };
 
-  var formatted, doc;
+  delete options.ast;
+  delete options.doc;
+
+  lazyLoadParser(options.parser);
+
+  var formatted, doc, ast;
   try {
-    formatted = prettier.format(message.data.text, message.data.options);
+    formatted = prettier.format(message.data.text, options);
   } catch (e) {
     formatted = e.toString();
   }
 
+  if (message.data.ast) {
+    try {
+      ast = JSON.stringify(
+        prettier.__debug.parse(message.data.text, options),
+        null,
+        2
+      );
+    } catch (e) {
+      ast = e.toString();
+    }
+  }
+
   if (message.data.doc) {
+    lazyLoadParser("babylon");
     try {
       doc = prettier.__debug.formatDoc(
-        prettier.__debug.printToDoc(message.data.text, message.data.options),
-        {}
+        prettier.__debug.printToDoc(message.data.text, options),
+        { parser: "babylon" }
       );
     } catch (e) {
       doc = e.toString();
     }
   }
 
-  self.postMessage({ formatted: formatted, doc: doc });
+  self.postMessage({ formatted: formatted, doc: doc, ast: ast });
 };
 
 function lazyLoadParser(parser) {

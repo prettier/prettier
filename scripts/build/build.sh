@@ -55,6 +55,10 @@ sed --in-place='' -e 's/eval("require")/require/g' dist/index.js dist/bin/pretti
 echo 'Create prettier-version.js'
 node -p '`prettierVersion = "${require(".").version}";`' > docs/lib/prettier-version.js
 
+echo 'Copy sw-toolbox.js to docs'
+cp node_modules/sw-toolbox/sw-toolbox.js docs/lib/sw-toolbox.js
+cp node_modules/sw-toolbox/companion.js  docs/lib/sw-toolbox-companion.js
+
 echo 'Copy package.json'
 node -p "pkg = require('./package.json'), delete pkg.dependencies, JSON.stringify(pkg, null, 2)" > dist/package.json
 
