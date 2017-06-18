@@ -58,11 +58,23 @@ function toBabylon(node) {
         elements: node.children.map(toBabylon)
       });
     case "literal": {
-      const babylonExpression = require("./parser-babylon")(node.rawValue, {
-        parseExpression: true
-      });
-      return Object.assign(babylonExpression, result, {
-        type: babylonExpression.type
+      const constructorTypes = {
+        String: "StringLiteral",
+        Number: "NumericLiteral",
+        Object: "ObjectExpression",
+        Array: "ArrayExpression",
+        Boolean: "BooleanLiteral"
+      };
+
+      const value = JSON.parse(node.rawValue);
+      const type = value === null
+        ? "NullLiteral"
+        : constructorTypes[value.constructor.name];
+
+      return Object.assign(result, {
+        type: type,
+        value: value,
+        extra: { raw: node.rawValue }
       });
     }
   }
