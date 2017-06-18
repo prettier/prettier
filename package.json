@@ -30,7 +30,7 @@
     "postcss-selector-parser": "2.2.3",
     "postcss-values-parser": "git://github.com/shellscape/postcss-values-parser.git#5e351360479116f3fe309602cdd15b0a233bc29f",
     "typescript": "2.5.0-dev.20170617",
-    "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#479b592c0ad84a6ec5170fbe1821ed5ca90c4ee1"
+    "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#cfddbfe3ebf550530aef2f1c6c4ea1d9e738d9c1"
   },
   "devDependencies": {
     "babel-cli": "6.24.1",
