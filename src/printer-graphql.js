@@ -21,6 +21,9 @@ function genericPrint(path, options, print) {
   }
 
   switch (n.kind) {
+    case "Comment": {
+      return concat(["# ", n.value.trim()]);
+    }
     case "Document": {
       return join(concat([hardline, hardline]), path.map(print, "definitions"));
     }
