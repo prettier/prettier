@@ -61,8 +61,6 @@ function toBabylon(node) {
       const constructorTypes = {
         String: "StringLiteral",
         Number: "NumericLiteral",
-        Object: "ObjectExpression",
-        Array: "ArrayExpression",
         Boolean: "BooleanLiteral"
       };
 
