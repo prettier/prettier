@@ -8,6 +8,11 @@ function parseComments(ast) {
   let next = startToken.next;
   while (next.kind !== "<EOF>") {
     if (next.kind === "Comment") {
+      Object.assign(next, {
+        // The Comment token's column starts _after_ the `#`,
+        // but we need to make sure the node captures the `#`
+        column: next.column - 1
+      });
       comments.push(next);
     }
     next = next.next;

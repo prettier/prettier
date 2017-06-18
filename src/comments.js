@@ -254,11 +254,7 @@ function attach(comments, ast, text) {
         handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
         handleClassMethodComments(enclosingNode, comment) ||
         handleTypeAliasComments(enclosingNode, followingNode, comment) ||
-        handleVariableDeclaratorComments(
-          enclosingNode,
-          followingNode,
-          comment
-        )
+        handleVariableDeclaratorComments(enclosingNode, followingNode, comment)
       ) {
         // We're good
       } else if (precedingNode) {
