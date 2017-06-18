@@ -2636,8 +2636,6 @@ function genericPrintNoParens(path, options, print, args) {
       }, "body");
     case "json-identifier":
       return '"' + n.value + '"';
-    case "json-literal":
-      return n.rawValue;
 
     default:
       throw new Error("unknown type: " + JSON.stringify(n.type));
@@ -4144,9 +4142,9 @@ function nodeStr(node, options, isFlowOrTypeScriptDirectiveLiteral) {
     canChangeDirectiveQuotes = true;
   }
 
-  const enclosingQuote = shouldUseAlternateQuote
-    ? alternate.quote
-    : preferred.quote;
+  const enclosingQuote = options.parser === "json"
+    ? double.quote
+    : shouldUseAlternateQuote ? alternate.quote : preferred.quote;
 
   // Directives are exact code unit sequences, which means that you can't
   // change the escape sequences they use.

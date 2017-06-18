@@ -29,8 +29,7 @@ function toBabylon(node) {
     object: "ObjectExpression",
     property: "ObjectProperty",
     identifier: "json-identifier",
-    array: "ArrayExpression",
-    literal: "json-literal"
+    array: "ArrayExpression"
   };
 
   const result = {
@@ -58,10 +57,24 @@ function toBabylon(node) {
       return Object.assign(result, {
         elements: node.children.map(toBabylon)
       });
-    case "literal":
+    case "literal": {
+      const constructorTypes = {
+        String: "StringLiteral",
+        Number: "NumericLiteral",
+        Boolean: "BooleanLiteral"
+      };
+
+      const value = JSON.parse(node.rawValue);
+      const type = value === null
+        ? "NullLiteral"
+        : constructorTypes[value.constructor.name];
+
       return Object.assign(result, {
-        rawValue: node.rawValue
+        type: type,
+        value: value,
+        extra: { raw: node.rawValue }
       });
+    }
   }
 }
 
