@@ -1,4 +1,0 @@
-# query comment
-query { 
-  someField
-}

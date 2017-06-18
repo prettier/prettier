@@ -10,10 +10,8 @@ query (
  }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 query(
-  # Some variable comment
-  $string: String,
-  # Some comment
-  $bool: Boolean
+  $string: String, # Some variable comment
+  $bool: Boolean # Some comment
 ) {
   someField
 }
@@ -24,31 +22,9 @@ query {
   someField # Trailing comment
 }
 
-query { # Another trailing comment
-  someField
-}
-
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 query {
-  # Trailing comment
-  someField
-}
-
-query {
-  # Another trailing comment
-  someField
-}
-`;
-
-exports[`operation_comment.graphql 1`] = `
-# query comment
-query { 
-  someField
-}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# query comment
-query {
-  someField
+  someField # Trailing comment
 }
 `;
