@@ -224,26 +224,6 @@ function attach(comments, ast, text) {
       }
     } else if (util.hasNewline(text, locEnd(comment))) {
       if (
-        (precedingNode &&
-          precedingNode.kind &&
-          (precedingNode.kind === "Field" ||
-            precedingNode.kind === "VariableDefinition")) ||
-        (followingNode &&
-          followingNode.kind &&
-          (followingNode.kind === "Field" ||
-            followingNode.kind === "OperationDefinition"))
-      ) {
-        if (
-          precedingNode.kind === "Field" ||
-          precedingNode.kind === "VariableDefinition"
-        ) {
-          addLeadingComment(precedingNode, comment);
-          // return;
-        } else if (followingNode) {
-          addLeadingComment(followingNode, comment);
-          // return;
-        }
-      } else if (
         handleLastFunctionArgComments(
           text,
           precedingNode,
@@ -274,7 +254,13 @@ function attach(comments, ast, text) {
         handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
         handleClassMethodComments(enclosingNode, comment) ||
         handleTypeAliasComments(enclosingNode, followingNode, comment) ||
-        handleVariableDeclaratorComments(enclosingNode, followingNode, comment)
+        handleVariableDeclaratorComments(
+          enclosingNode,
+          followingNode,
+          comment
+        ) ||
+        handleTrailingGraphQLComments(precedingNode, comment) ||
+        handleLeadingGraphQLComments(followingNode, comment)
       ) {
         // We're good
       } else if (precedingNode) {
@@ -837,6 +823,32 @@ function handleVariableDeclaratorComments(
     followingNode &&
     (followingNode.type === "ObjectExpression" ||
       followingNode.type === "ArrayExpression")
+  ) {
+    addLeadingComment(followingNode, comment);
+    return true;
+  }
+  return false;
+}
+
+function handleTrailingGraphQLComments(precedingNode, comment) {
+  if (
+    precedingNode &&
+    precedingNode.kind &&
+    (precedingNode.kind === "Field" ||
+      precedingNode.kind === "VariableDefinition")
+  ) {
+    addLeadingComment(precedingNode, comment);
+    return true;
+  }
+  return false;
+}
+
+function handleLeadingGraphQLComments(followingNode, comment) {
+  if (
+    followingNode &&
+    followingNode.kind &&
+    (followingNode.kind === "Field" ||
+      followingNode.kind === "OperationDefinition")
   ) {
     addLeadingComment(followingNode, comment);
     return true;
