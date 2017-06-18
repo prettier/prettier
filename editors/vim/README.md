@@ -68,7 +68,7 @@ autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --parser\ flow
 let g:neoformat_try_formatprg = 1
 ```
 
-Each option needs to be escaped with `\`.
+Each space in prettier options should be escaped with `\`.
 
 --------------------------------------------------------------------------------
 
