@@ -9,11 +9,11 @@
     + [Neoformat - Usage](#neoformat---usage)
     + [Neoformat - Other autocmd events](#neoformat---other-autocmd-events)
     + [Neoformat - Customizing Prettier](#neoformat---customizing-prettier)
-  * [vim-pretier](#vim-prettier-1)
+  * [vim-prettier](#vim-prettier-1)
     + [vim-prettier - Installation](#vim-prettier---installation)
     + [vim-prettier - Usage](#vim-prettier---usage)
     + [vim-prettier - Configuration](#vim-prettier---configuration)
-  * [Running manualy](#running-manually)
+  * [Running manually](#running-manually)
     + [Running Prettier manually in Vim](#running-prettier-manually-in-vim)
 </details>
 
