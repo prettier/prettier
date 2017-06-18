@@ -69,13 +69,19 @@ function genericPrint(path, options, print) {
         n.value.group.type === "value-value" &&
         n.value.group.group.type === "value-func" &&
         n.value.group.group.value === "extend";
+      const isComposed =
+        n.value.type === "value-root" &&
+        n.value.group.type === "value-value" &&
+        n.prop === "composes";
 
       return concat([
         n.raws.before.replace(/[\s;]/g, ""),
         n.prop,
         ":",
         isValueExtend ? "" : " ",
-        path.call(print, "value"),
+        isComposed
+          ? n.value.group.group.groups.join("")
+          : path.call(print, "value"),
         n.important ? " !important" : "",
         n.nodes
           ? concat([
