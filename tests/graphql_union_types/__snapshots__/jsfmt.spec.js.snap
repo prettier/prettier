@@ -52,5 +52,7 @@ union longUnion =
   | K
   | L
 
+# comment
+# comment2
 union union = B | C | D
 `;

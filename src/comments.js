@@ -223,14 +223,25 @@ function attach(comments, ast, text) {
         addDanglingComment(ast, comment);
       }
     } else if (util.hasNewline(text, locEnd(comment))) {
-      if (precedingNode.kind) {
+      if (
+        (precedingNode &&
+          precedingNode.kind &&
+          (precedingNode.kind === "Field" ||
+            precedingNode.kind === "VariableDefinition")) ||
+        (followingNode &&
+          followingNode.kind &&
+          (followingNode.kind === "Field" ||
+            followingNode.kind === "OperationDefinition"))
+      ) {
         if (
           precedingNode.kind === "Field" ||
           precedingNode.kind === "VariableDefinition"
         ) {
           addLeadingComment(precedingNode, comment);
+          // return;
         } else if (followingNode) {
           addLeadingComment(followingNode, comment);
+          // return;
         }
       } else if (
         handleLastFunctionArgComments(

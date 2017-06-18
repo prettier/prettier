@@ -37,6 +37,8 @@ function normalize(options) {
     normalized.parser = "typescript";
   } else if (/\.json$/.test(filepath)) {
     normalized.parser = "json";
+  } else if (/\.graphql$/.test(filepath)) {
+    normalized.parser = "graphql";
   }
 
   if (typeof normalized.trailingComma === "boolean") {

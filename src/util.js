@@ -231,7 +231,7 @@ function locStart(node) {
     return lineColumnToIndex(node.source.start, node.source.input.css) - 1;
   }
   if (node.loc) {
-    return node.loc.start
+    return node.loc.start;
   }
 }
 
@@ -252,9 +252,10 @@ function locEnd(node) {
     return Math.max(loc, locEnd(node.typeAnnotation));
   }
 
-  if (node.loc) {
-    return node.loc.end
+  if (node.loc && !loc) {
+    return node.loc.end;
   }
+
   return loc;
 }
 
