@@ -25,3 +25,9 @@ exports[`ignores node_modules by default for file list 1`] = `
 regular-module.js
 "
 `;
+
+exports[`ignores node_modules by with ./**/*.js 1`] = `
+"./not_node_modules/file.js
+./regular-module.js
+"
+`;
