@@ -1,3 +1,9 @@
 query { 
-  someField # foo
+  someField # Trailing comment
 }
+
+query { # Another trailing comment
+  someField
+}
+
+

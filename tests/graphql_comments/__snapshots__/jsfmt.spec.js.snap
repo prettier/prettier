@@ -1,11 +1,54 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`argument_comment.graphql 1`] = `
+
+query (
+  $string: String, # Some variable comment
+  $bool: Boolean # Some comment
+ ) {
+   someField
+ }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+query(
+  # Some variable comment
+  $string: String,
+  # Some comment
+  $bool: Boolean
+) {
+  someField
+}
+`;
+
 exports[`fields.graphql 1`] = `
 query { 
-  someField # foo
+  someField # Trailing comment
 }
+
+query { # Another trailing comment
+  someField
+}
+
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 query {
-  someField # foo
+  # Trailing comment
+  someField
+}
+
+query {
+  # Another trailing comment
+  someField
+}
+`;
+
+exports[`operation_comment.graphql 1`] = `
+# query comment
+query { 
+  someField
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# query comment
+query {
+  someField
 }
 `;

@@ -1,0 +1,4 @@
+# query comment
+query { 
+  someField
+}

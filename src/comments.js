@@ -69,12 +69,7 @@ function getSortedChildNodes(node, text, resultArray) {
     });
   }
 
-  for (
-    let i = 0,
-      nameCount = names.length;
-    i < nameCount;
-    ++i
-  ) {
+  for (let i = 0, nameCount = names.length; i < nameCount; ++i) {
     getSortedChildNodes(node[names[i]], text, resultArray);
   }
 
@@ -228,7 +223,16 @@ function attach(comments, ast, text) {
         addDanglingComment(ast, comment);
       }
     } else if (util.hasNewline(text, locEnd(comment))) {
-      if (
+      if (precedingNode.kind) {
+        if (
+          precedingNode.kind === "Field" ||
+          precedingNode.kind === "VariableDefinition"
+        ) {
+          addLeadingComment(precedingNode, comment);
+        } else if (followingNode) {
+          addLeadingComment(followingNode, comment);
+        }
+      } else if (
         handleLastFunctionArgComments(
           text,
           precedingNode,
