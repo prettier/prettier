@@ -10,6 +10,9 @@ const softline = docBuilders.softline;
 const group = docBuilders.group;
 const indent = docBuilders.indent;
 
+const docUtils = require("./doc-utils");
+const removeLines = docUtils.removeLines;
+
 function genericPrint(path, options, print) {
   const n = path.getValue();
 
@@ -80,7 +83,7 @@ function genericPrint(path, options, print) {
         ":",
         isValueExtend ? "" : " ",
         isComposed
-          ? n.value.group.group.groups.join("")
+          ? removeLines(path.call(print, "value"))
           : path.call(print, "value"),
         n.important ? " !important" : "",
         n.nodes
