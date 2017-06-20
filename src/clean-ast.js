@@ -74,6 +74,10 @@ function massageAST(ast) {
       newObj.value = newObj.value.replace(/ /g, "");
     }
 
+    if (ast.type === "value-word" && ast.isColor && ast.isHex) {
+      newObj.value = newObj.value.toLowerCase();
+    }
+
     // (TypeScript) Ignore `static` in `constructor(static p) {}`
     // and `export` in `constructor(export p) {}`
     if (

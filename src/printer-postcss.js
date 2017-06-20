@@ -317,6 +317,9 @@ function genericPrint(path, options, print) {
       return n.value;
     }
     case "value-word": {
+      if (n.isColor && n.isHex) {
+        return n.value.toLowerCase();
+      }
       return n.value;
     }
     case "value-colon": {
