@@ -8,7 +8,7 @@ function parse(text) {
 
   const babylonOptions = {
     sourceType: "module",
-    allowImportExportEverywhere: false,
+    allowImportExportEverywhere: true,
     allowReturnOutsideFunction: true,
     plugins: [
       "jsx",
