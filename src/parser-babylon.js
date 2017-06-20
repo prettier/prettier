@@ -21,7 +21,8 @@ function parse(text) {
       "asyncGenerators",
       "functionBind",
       "functionSent",
-      "dynamicImport"
+      "dynamicImport",
+      "numericSeparator"
     ]
   };
 
