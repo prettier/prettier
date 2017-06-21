@@ -8,12 +8,12 @@ const hardline = docBuilders.hardline;
 const softline = docBuilders.softline;
 const concat = docBuilders.concat;
 
-function printSubtree(subtreeParser, options, expressionDocs) {
+function printSubtree(subtreeParser, path, print, options) {
   const next = Object.assign({}, { transformDoc: doc => doc }, subtreeParser);
   next.options = Object.assign({}, options, next.options);
   const ast = require("./parser").parse(next.text, next.options);
   const nextDoc = require("./printer").printAstToDoc(ast, next.options);
-  return next.transformDoc(nextDoc, expressionDocs);
+  return next.transformDoc(nextDoc, { path, print });
 }
 
 /**
@@ -163,7 +163,11 @@ function fromHtmlParser2(path, options) {
   }
 }
 
-function transformCssDoc(quasisDoc, expressionDocs) {
+function transformCssDoc(quasisDoc, parent) {
+  const parentNode = parent.path.getValue();
+  const expressionDocs = parentNode.expressions
+    ? parent.path.map(parent.print, "expressions")
+    : [];
   const newDoc = replacePlaceholders(quasisDoc, expressionDocs);
   if (!newDoc) {
     throw new Error("Couldn't insert all the expressions");
