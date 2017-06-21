@@ -4637,6 +4637,11 @@ function printAstToDoc(ast, options, addAlignmentSize) {
     );
   }
   docUtils.propagateBreaks(doc);
+
+  if (options.parser === "json") {
+    doc = concat([doc, hardline]);
+  }
+
   return doc;
 }
 
