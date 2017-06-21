@@ -141,7 +141,7 @@ function genericPrint(path, options, print) {
         }
         parts.push(childPath.call(print));
       }, "nodes");
-      return join(", ", parts);
+      return group(indent(join(concat([",", line]), parts)));
     }
     case "media-query": {
       return join(" ", path.map(print, "nodes"));
