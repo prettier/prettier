@@ -989,7 +989,7 @@ function genericPrintNoParens(path, options, print, args) {
         return content;
       }
 
-      return printJsonEnd(path, options, group(content, { shouldBreak }));
+      return group(content, { shouldBreak });
     }
     case "PropertyPattern":
       return concat([
@@ -1040,7 +1040,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "Decorator":
       return concat(["@", path.call(print, "expression")]);
     case "ArrayExpression":
-    case "ArrayPattern": {
+    case "ArrayPattern":
       if (n.elements.length === 0) {
         if (!hasDanglingComments(n)) {
           parts.push("[]");
@@ -1109,8 +1109,7 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push(": ", path.call(print, "typeAnnotation"));
       }
 
-      return printJsonEnd(path, options, concat(parts));
-    }
+      return concat(parts);
     case "SequenceExpression": {
       const parent = path.getParentNode();
       const shouldInline =
@@ -2639,12 +2638,6 @@ function genericPrintNoParens(path, options, print, args) {
     default:
       throw new Error("unknown type: " + JSON.stringify(n.type));
   }
-}
-
-function printJsonEnd(path, options, printed) {
-  const parent = path.getParentNode();
-  const isJsonRoot = options.parser === "json" && !parent;
-  return concat([printed, isJsonRoot ? hardline : ""]);
 }
 
 function printStatementSequence(path, options, print) {
@@ -4644,6 +4637,11 @@ function printAstToDoc(ast, options, addAlignmentSize) {
     );
   }
   docUtils.propagateBreaks(doc);
+
+  if (options.parser === "json") {
+    doc = concat([doc, hardline]);
+  }
+
   return doc;
 }
 
