@@ -42,7 +42,7 @@ foo(
 );
 ```
 
-Prettier enforces a consistent styling across your entire codebase because it disregards the original styling[\*](#styling-footnote) by parsing it away and re-printing the parsed AST with its own rules that take the maximum line length
+Prettier enforces a consistent code **style** (i.e. code formatting that won't affect the AST) across your entire codebase because it disregards the original styling[\*](#styling-footnote) by parsing it away and re-printing the parsed AST with its own rules that take the maximum line length
 into account, wrapping code when necessary.
 
 <a href="#styling-footnote" name="styling-footnote">\*</a>_Well actually, some
@@ -51,7 +51,6 @@ objects]._
 
 [empty lines]:Rationale.md#empty-lines
 [multi-line objects]:Rationale.md#multi-line-objects
-
 
 If you want to learn more, those two conference talks are a great introduction:
 
