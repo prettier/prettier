@@ -989,7 +989,11 @@ function genericPrintNoParens(path, options, print, args) {
         return content;
       }
 
-      return group(content, { shouldBreak });
+      const isJsonEnd = options.parser === "json" && !parent;
+      return concat([
+        group(content, { shouldBreak }),
+        isJsonEnd ? hardline : ""
+      ]);
     }
     case "PropertyPattern":
       return concat([
@@ -1040,7 +1044,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "Decorator":
       return concat(["@", path.call(print, "expression")]);
     case "ArrayExpression":
-    case "ArrayPattern":
+    case "ArrayPattern": {
       if (n.elements.length === 0) {
         if (!hasDanglingComments(n)) {
           parts.push("[]");
@@ -1109,7 +1113,14 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push(": ", path.call(print, "typeAnnotation"));
       }
 
+      const parent = path.getParentNode();
+      const isJsonEnd = options.parser === "json" && !parent;
+      if (isJsonEnd) {
+        parts.push(hardline);
+      }
+
       return concat(parts);
+    }
     case "SequenceExpression": {
       const parent = path.getParentNode();
       const shouldInline =
