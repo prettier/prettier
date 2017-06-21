@@ -803,16 +803,21 @@ function genericPrintNoParens(path, options, print, args) {
       parts.push(semi);
 
       return concat(parts);
+    case "NewExpression":
     case "CallExpression": {
+      const isNew = n.type === "NewExpression";
       if (
         // We want to keep require calls as a unit
-        (n.callee.type === "Identifier" && n.callee.name === "require") ||
+        (!isNew &&
+          n.callee.type === "Identifier" &&
+          n.callee.name === "require") ||
         // Template literals as single arguments
         (n.arguments.length === 1 &&
           isTemplateOnItsOwnLine(n.arguments[0], options.originalText)) ||
         // Keep test declarations on a single line
         // e.g. `it('long name', () => {`
-        (n.callee.type === "Identifier" &&
+        (!isNew &&
+          n.callee.type === "Identifier" &&
           (n.callee.name === "it" ||
             n.callee.name === "test" ||
             n.callee.name === "describe") &&
@@ -826,6 +831,7 @@ function genericPrintNoParens(path, options, print, args) {
           n.arguments[1].params.length <= 1)
       ) {
         return concat([
+          isNew ? "new " : "",
           path.call(print, "callee"),
           path.call(print, "typeParameters"),
           concat(["(", join(", ", path.map(print, "arguments")), ")"])
@@ -834,11 +840,12 @@ function genericPrintNoParens(path, options, print, args) {
 
       // We detect calls on member lookups and possibly print them in a
       // special chain format. See `printMemberChain` for more info.
-      if (n.callee.type === "MemberExpression") {
+      if (!isNew && n.callee.type === "MemberExpression") {
         return printMemberChain(path, options, print);
       }
 
       return concat([
+        isNew ? "new " : "",
         path.call(print, "callee"),
         printFunctionTypeParameters(path, options, print),
         printArgumentsList(path, options, print)
@@ -1218,18 +1225,6 @@ function genericPrintNoParens(path, options, print, args) {
         ])
       );
     }
-    case "NewExpression":
-      parts.push(
-        "new ",
-        path.call(print, "callee"),
-        printFunctionTypeParameters(path, options, print)
-      );
-
-      if (n.arguments) {
-        parts.push(printArgumentsList(path, options, print));
-      }
-
-      return concat(parts);
     case "VariableDeclaration": {
       const printed = path.map(childPath => {
         return print(childPath);
