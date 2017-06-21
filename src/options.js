@@ -37,6 +37,7 @@ function normalize(options) {
     normalized.parser = "typescript";
   } else if (/\.json$/.test(filepath)) {
     normalized.parser = "json";
+    normalized.trailingComma = "none";
   }
 
   if (typeof normalized.trailingComma === "boolean") {
