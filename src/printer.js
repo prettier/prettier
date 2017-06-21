@@ -28,6 +28,7 @@ const docUtils = require("./doc-utils");
 const willBreak = docUtils.willBreak;
 const isLineNext = docUtils.isLineNext;
 const isEmpty = docUtils.isEmpty;
+const rawText = docUtils.rawText;
 
 function shouldPrintComma(options, level) {
   level = level || "es5";
@@ -3639,12 +3640,27 @@ function isEmptyJSXElement(node) {
     return false;
   }
 
-  // if there is one child but it's just a newline, treat as empty
-  const value = node.children[0].value;
-  if (!/\S/.test(value) && /\n/.test(value)) {
-    return true;
-  }
-  return false;
+  // if there is one text child and does not contain any meaningful text
+  // we can treat the element as empty.
+  const child = node.children[0];
+  return isLiteral(child) && !isMeaningfulJSXText(child);
+}
+
+// Only space, newline, carriage return, and tab are treated as whitespace
+// inside JSX.
+const jsxWhitespaceChars = " \n\r\t";
+const containsNonJsxWhitespaceRegex = new RegExp(
+  "[^" + jsxWhitespaceChars + "]"
+);
+
+// Meaningful if it contains non-whitespace characters,
+// or it contains whitespace without a new line.
+function isMeaningfulJSXText(node) {
+  return (
+    isLiteral(node) &&
+    (containsNonJsxWhitespaceRegex.test(rawText(node)) ||
+      !/\n/.test(rawText(node)))
+  );
 }
 
 // JSX Children are strange, mostly for two reasons:
