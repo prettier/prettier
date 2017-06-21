@@ -213,7 +213,7 @@ yarn add --dev prettier eslint-plugin-prettier
 }
 ```
 
-We also recommend that you use [prettier-config-eslint](https://github.com/prettier/eslint-config-prettier) to disable all the existing formatting rules. It's a one liner that can be added on-top of any existing eslint configuration.
+We also recommend that you use [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) to disable all the existing formatting rules. It's a one liner that can be added on-top of any existing eslint configuration.
 
 ```js
 $ yarn add --dev eslint-config-prettier
