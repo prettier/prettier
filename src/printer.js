@@ -306,7 +306,8 @@ function genericPrintNoParens(path, options, print, args) {
         (n === parent.body && parent.type === "ArrowFunctionExpression") ||
         (n !== parent.body && parent.type === "ForStatement") ||
         parent.type === "ObjectProperty" ||
-        parent.type === "Property"
+        parent.type === "Property" ||
+        parent.type === "ConditionalExpression"
       ) {
         return group(concat(parts));
       }
@@ -4090,6 +4091,9 @@ function printAssignment(
 
   const canBreak =
     (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) ||
+    (rightNode.type === "ConditionalExpression" &&
+      isBinaryish(rightNode.test) &&
+      !shouldInlineLogicalExpression(rightNode.test)) ||
     ((leftNode.type === "Identifier" ||
       isStringLiteral(leftNode) ||
       leftNode.type === "MemberExpression") &&
