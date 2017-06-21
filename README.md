@@ -5,36 +5,7 @@
 [![NPM version](https://img.shields.io/npm/v/prettier.svg)](https://www.npmjs.com/package/prettier)
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
-<details>
-<summary><strong>Table of Contents</strong></summary>
-
-- [Usage](#usage)
-  * [CLI](#cli)
-    + [Pre-commit hook for changed files](#pre-commit-hook-for-changed-files)
-  * [Options](#options)
-  * [API](#api)
-    + [Custom Parser API](#custom-parser-api)
-  * [Excluding code from formatting](#excluding-code-from-formatting)
-- [Editor Integration](#editor-integration)
-  * [Atom](#atom)
-  * [Emacs](#emacs)
-  * [Vim](#vim)
-  * [Visual Studio Code](#visual-studio-code)
-  * [Visual Studio](#visual-studio)
-  * [Sublime Text](#sublime-text)
-  * [WebStorm](#webstorm)
-- [Language Support](#language-support)
-- [Related Projects](#related-projects)
-- [Technical Details](#technical-details)
-- [Badge](#badge)
-- [Contributing](#contributing)
-</details>
-
---------------------------------------------------------------------------------
-
-Prettier is an opinionated code formatter inspired by
-[refmt](https://facebook.github.io/reason/tools.html) with advanced
-support for language features from:
+Prettier is an opinionated code formatter with support for:
 * JavaScript, including [ES2017](https://github.com/tc39/proposals/blob/master/finished-proposals.md)
 * [JSX](https://facebook.github.io/jsx/)
 * [Flow](https://flow.org/)
@@ -44,11 +15,101 @@ support for language features from:
 It removes all original styling[\*](#styling-footnote) and ensures that all outputted code
 conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
 
-If you are interested in the details, you can watch those two conference talks:
+## What does prettier do?
+
+Prettier takes your code and reprints it from scratch by taking into account the line length.
+
+For example, take the following code:
+
+```js
+foo(arg1, arg2, arg3, arg4);
+```
+
+It fits in a single line so it's going to stay as is. However, we've all run into this situation:
+
+```js
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+```
+
+Suddenly our previous format for calling function breaks down because this is too long. Prettier is going to do the painstaking work of reprinting it like that for you:
+
+```js
+foo(
+  reallyLongArg(),
+  omgSoManyParameters(),
+  IShouldRefactorThis(),
+  isThereSeriouslyAnotherOne()
+);
+```
+
+Prettier enforces a consistent styling across your entire codebase because it disregards the original styling[\*](#styling-footnote) by parsing it away and re-printing the parsed AST with its own rules that take the maximum line length
+into account, wrapping code when necessary.
+
+<a href="#styling-footnote" name="styling-footnote">\*</a>_Well actually, some
+original styling is preserved when practical—see [empty lines] and [multi-line
+objects]._
+
+[empty lines]:Rationale.md#empty-lines
+[multi-line objects]:Rationale.md#multi-line-objects
+
+
+If you want to learn more, those two conference talks are a great introduction:
 
 <a href="https://www.youtube.com/watch?v=hkfBvpEfWdA"><img width="298" src="https://cloud.githubusercontent.com/assets/197597/24886367/dda8a6f0-1e08-11e7-865b-22492450f10f.png"></a> <a href="https://www.youtube.com/watch?v=0Q4kUNx85_4"><img width="298" src="https://cloud.githubusercontent.com/assets/197597/24886368/ddacd6f8-1e08-11e7-806a-9febd23cbf47.png"></a>
 
-A few of the [many projects](https://www.npmjs.com/browse/depended/prettier) using Prettier[\*\*](#using-footnote):
+
+## Why Prettier?
+
+### Building and enforcing a style guide
+
+By far the biggest reason for adopting prettier is to stop all the ongoing debates over styles. It is generally accepted that having a common style guide is valuable for a project & team but getting there is a very painful and unrewarding process. People get very emotional around particular ways of writing code and nobody likes spending time writing and receiving nits.
+- “We want to free mental threads and end discussions around style. While sometimes fruitful, these discussions are for the most part wasteful.”
+- “Literally had an engineer go through a huge effort of cleaning up all of our code because we were debating ternary style for the longest time and were inconsistent about it. It was dumb, but it was a weird on-going "great debate" that wasted lots of little back and forth bits. It's far easier for us all to agree now: just run prettier, and go with that style.”
+- “Getting tired telling people how to style their product code.”
+- “Our top reason was to stop wasting our time debating style nits.”
+- “Having a githook set up has reduced the amount of style issues in PRs that result in broken builds due to ESLint rules or things I have to nit-pick or clean up later.”
+- “I don't want anybody to nitpick any other person ever again.”
+- “It reminds me of how Steve Jobs used to wear the same clothes every day because he has a million decisions to make and he didn't want to be bothered to make trivial ones like picking out clothes. I think Prettier is like that.”
+
+### Helping Newcomers
+
+Prettier is usually introduced by people with experience in the current codebase and JavaScript but the people that disproportionally benefit from it are newcomers to the codebase. One may think that it's only useful for people with very limited programming experience, but we've seen it quicken the ramp up time from experienced engineers joining the company, as they likely used a different coding style before, and developers coming from a different programming language.
+- “My motivations for using Prettier are: appearing that I know how to write JavaScript well.”
+- “I always put spaces in the wrong place, now I don't have to worry about it anymore.”
+- “When you're a beginner you're making a lot of mistakes caused by the syntax. Thanks to Prettier, you can reduce these mistakes and save a lot of time to focus on what really matters.”
+- “As a teacher, I will also tell to my students to install Prettier to help them to learn the JS syntax and have readable files.”
+
+### Writing code
+
+What usually happens once people are using prettier is that they realize that they actually spend a lot of time and mental energy formatting their code. With prettier editor integration, you can just press that magic key binding and poof, the code is formatted. This is an eye opening experience if anything else.
+- “I want to write code. Not spend cycles on formatting.”
+- “It removed 5% that sucks in our daily life - aka formatting”
+- “We're in 2017 and it's still painful to break a call into multiple lines when you happen to add an argument that makes it go over the 80 columns limit :(“
+
+### Easy to adopt
+
+We've worked very hard to use the least controversial coding styles, went through many rounds of fixing all the edge cases and polished the getting started experience. When you're ready to push prettier into your codebase, not only should it be painless for you to do it technically but the newly formatted codebase should not generate major controversy and be accepted painlessly by your co-workers.
+- “It's low overhead. We were able to throw Prettier at very different kinds of repos without much work.”
+- “It's been mostly bug free. Had there been major styling issues during the course of implementation we would have been wary about throwing this at our JS codebase. I'm happy to say that's not the case.”
+- “Everyone runs it as part of their pre commit scripts, a couple of us use the editor on save extensions as well.”
+- “It's fast, against one of our larger JS codebases we were able to run Prettier in under 13 seconds.”
+- “The biggest benefit for prettier for us was being able to format the entire code base at once.”
+
+### Clean up an existing codebase
+
+Since coming up with a coding style and enforcing it is a big undertaking, it often slips through the cracks and you are left working on inconsistent codebases. Running prettier in this case is a quick win, the codebase is now uniform and easier to read without spending hardly any time.
+- “Take a look at the code :) I just need to restore sanity.”
+- “We inherited a ~2000 module ES6 code base, developed by 20 different developers over 18 months, in a global team. Felt like such a win without much research.
+
+### Ride the hype train
+
+Purely technical aspects of the projects aren't the only thing people look into when choosing to adopt prettier. Who built and uses it and how quickly it spreads through the community have a non trivial impact.
+- “The amazing thing, for me, is: 1) Announced 2 months ago. 2) Already adopted by, it seems, every major JS project. 3) 7000 stars, 100,000 npm downloads/mo”
+- “Was built by the same people as React & React Native.”
+- “I like to be part of the hot new things.”
+- “Because soon enough people are gonna ask for it.”
+
+A few of the [many projects](https://www.npmjs.com/browse/depended/prettier) using Prettier:
 
 <table>
 <tr>
@@ -63,86 +124,19 @@ A few of the [many projects](https://www.npmjs.com/browse/depended/prettier) usi
 </tr>
 </table>
 
-In the case of JavaScript, this goes way beyond [ESLint](http://eslint.org/) and other projects
-[built on it](https://github.com/feross/standard). Unlike ESLint,
-there aren't a million configuration options and rules. But more
-importantly: **everything is fixable**. This works because Prettier
-never "checks" anything; it takes JavaScript as input and delivers the
-formatted JavaScript as output.
 
-In technical terms: Prettier parses your JavaScript into an AST (Abstract Syntax Tree) and
-pretty-prints the AST, completely ignoring any of the original
-formatting[\*](#styling-footnote). Say hello to completely consistent syntax!
+## How does it compare to ESLint (or TSLint, stylelint...)?
 
-There's an extremely important piece missing from existing styling
-tools: **the maximum line length**. Sure, you can tell ESLint to warn
-you when you have a line that's too long, but that's an after-thought
-(ESLint *never* knows how to fix it). The maximum line length is a
-critical piece the formatter needs for laying out and wrapping code.
+Linters have two categories of rules:
 
-For example, take the following code:
+**Formatting rules**: eg: [max-len](http://eslint.org/docs/rules/max-len), [no-mixed-spaces-and-tabs](http://eslint.org/docs/rules/no-mixed-spaces-and-tabs), [keyword-spacing](http://eslint.org/docs/rules/keyword-spacing), [comma-style](http://eslint.org/docs/rules/comma-style)...
 
-```js
-foo(arg1, arg2, arg3, arg4);
-```
+Prettier makes this whole category of rules not needed anymore! Prettier is going to reprint the entire program from scratch in a consistent way, so it's not possible for the programmer to make a mistake there anymore :)
 
-That looks like the right way to format it. However, we've all run
-into this situation:
+**Code-quality rules**: eg [no-unused-vars](http://eslint.org/docs/rules/no-unused-vars), [no-extra-bind](http://eslint.org/docs/rules/no-extra-bind), [no-implicit-globals](http://eslint.org/docs/rules/no-implicit-globals), [prefer-promise-reject-errors](http://eslint.org/docs/rules/prefer-promise-reject-errors)...
 
-```js
-foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
-```
+Prettier does nothing to help with those kind of rules. They are also the most important ones provided by linters as they are likely to catch real bugs with your code!
 
-Suddenly our previous format for calling function breaks down because
-this is too long. What you would probably do is this instead:
-
-```js
-foo(
-  reallyLongArg(),
-  omgSoManyParameters(),
-  IShouldRefactorThis(),
-  isThereSeriouslyAnotherOne()
-);
-```
-
-This clearly shows that the maximum line length has a direct impact on
-the style of code we desire. The fact that current style tools ignore
-this means they can't really help with the situations that are
-actually the most troublesome. Individuals on teams will all format
-these differently according to their own rules and we lose the
-consistency we sought after.
-
-Even if we disregard line lengths, it's too easy to sneak in various
-styles of code in all other linters. The most strict linter I know
-happily lets all these styles happen:
-
-```js
-foo({ num: 3 },
-  1, 2)
-
-foo(
-  { num: 3 },
-  1, 2)
-
-foo(
-  { num: 3 },
-  1,
-  2
-)
-```
-
-Prettier bans all custom styling[\*](#styling-footnote) by parsing it away and re-printing
-the parsed AST with its own rules that take the maximum line length
-into account, wrapping code when necessary.
-
-<a href="#styling-footnote" name="styling-footnote">\*</a>_Well actually, some
-original styling is preserved when practical—see [empty lines] and [multi-line
-objects]._
-
-<a href="#using-footnote" name="using-footnote">\*\*</a>_See Issue #1351 for discussion about how these projects using Prettier were chosen._
-
-[empty lines]:Rationale.md#empty-lines
-[multi-line objects]:Rationale.md#multi-line-objects
 
 ## Usage
 
@@ -199,11 +193,45 @@ Another useful flag is `--list-different` (or `-l`) which prints the filenames o
 prettier --single-quote --list-different "src/**/*.js"
 ```
 
-#### Pre-commit hook for changed files
+### ESlint
 
-You can use this with a pre-commit tool. This can re-format your files that are marked as "staged" via `git add`  before you commit.
+If you are using ESLint, integrating prettier to your workflow is straightforward:
 
-##### 1. [lint-staged](https://github.com/okonet/lint-staged)
+Just add prettier as an eslint rule using [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier).
+
+```js
+yarn add --dev prettier eslint-plugin-prettier
+
+// .eslintrc
+{
+  "plugins": [
+    "prettier"
+  ],
+  "rules": {
+    "prettier/prettier": "error"
+  }
+}
+```
+
+We also recommend that you use [prettier-config-eslint](https://github.com/prettier/eslint-config-prettier) to disable all the existing formatting rules. It's a one liner that can be added on-top of any existing eslint configuration.
+
+```js
+$ yarn add --dev eslint-config-prettier
+
+// .eslintrc
+{
+  "extends": [
+    "prettier"
+  ]
+}
+```
+
+
+### Pre-commit Hook
+
+You can use prettier with a pre-commit tool. This can re-format your files that are marked as "staged" via `git add` before you commit.
+
+##### Option 1. [lint-staged](https://github.com/okonet/lint-staged)
 
 Install it along with [husky](https://github.com/typicode/husky):
 
@@ -230,7 +258,7 @@ and add this config to your `package.json`:
 See https://github.com/okonet/lint-staged#configuration for more details about how you can configure lint-staged.
 
 
-##### 2. [pre-commit](https://github.com/pre-commit/pre-commit)
+##### Option 2. [pre-commit](https://github.com/pre-commit/pre-commit)
 
 Copy the following config in your pre-commit config yaml file:
 
@@ -246,7 +274,7 @@ Copy the following config in your pre-commit config yaml file:
 
 Find more info from [here](https://github.com/awebdeveloper/pre-commit-prettier).
 
-##### 3. bash script
+##### Option 3. bash script
 
 Alternately you can save this script as `.git/hooks/pre-commit` and give it execute permission:
 
@@ -402,7 +430,7 @@ Install the [JavaScript Prettier extension](https://github.com/madskristensen/Ja
 Sublime Text support is available through Package Control and
 the [JsPrettier](https://packagecontrol.io/packages/JsPrettier) plug-in.
 
-### WebStorm
+### JetBrain's WebStorm, PHPStorm, PyCharm...
 
 See the [WebStorm
 guide](https://github.com/jlongster/prettier/tree/master/editors/webstorm/README.md).
