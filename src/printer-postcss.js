@@ -8,6 +8,7 @@ const line = docBuilders.line;
 const hardline = docBuilders.hardline;
 const softline = docBuilders.softline;
 const group = docBuilders.group;
+const fill = docBuilders.fill;
 const indent = docBuilders.indent;
 
 const docUtils = require("./doc-utils");
@@ -255,7 +256,7 @@ function genericPrint(path, options, print) {
         }
       }
 
-      return group(indent(concat(parts)));
+      return group(indent(fill(parts)));
     }
     case "value-paren_group": {
       const parent = path.getParentNode();
@@ -279,9 +280,16 @@ function genericPrint(path, options, print) {
       }
 
       if (!n.open) {
-        return group(
-          indent(join(concat([",", line]), path.map(print, "groups")))
-        );
+        const printed = path.map(print, "groups");
+        const res = [];
+
+        for (let i = 0; i < printed.length; i++) {
+          if (i !== 0) {
+            res.push(concat([",", line]));
+          }
+          res.push(printed[i]);
+        }
+        return group(indent(fill(res)));
       }
 
       return group(
