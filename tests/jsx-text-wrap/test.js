@@ -159,3 +159,88 @@ jsx_around_multiline_element_second_pass = (
     After
   </div>
 );
+
+convert_space_expressions =
+  <div>{" "}</div>
+
+x =
+  <div>
+    <first />
+    <second />
+    <third />
+    <fourth />
+    <fifth />
+    <sixth />
+  </div>
+
+const Abc = () => {
+  return (
+    <div>
+      Please state your
+      {" "}
+      <b>name</b>
+      {" "}
+      and
+      {" "}
+      <b>occupation</b>
+      {" "}
+      for the board of directors.
+    </div>
+  );
+};
+
+x = <div id="moo">Some stuff here</div>
+
+headers_and_paragraphs = (
+  <div>
+    <h2>First</h2>
+    <p>The first paragraph.</p>
+
+    <h2>Second</h2>
+    <p>The second paragraph.</p>
+  </div>
+);
+
+no_text_one_tag_per_line =
+  <div>
+    <first /><second />
+  </div>
+
+with_text_fill_line =
+  <div>
+    Text <first /><second />
+  </div>
+
+line_after_br =
+  <div>
+    Text<br />
+    More text <br />
+    And more<br />
+  </div>
+
+line_after_br_2 = <div>A<br />B<br />C</div>
+
+br_followed_by_whitespace = <div><br /> text</div>
+
+dont_preserve_blank_lines_when_jsx_contains_text =
+  <div>
+
+    <div>First</div>
+
+    Second
+
+  </div>
+
+multiple_expressions =
+  <div>
+    {header}
+    {body}
+    {footer}
+  </div>
+
+single_expression_child_tags =
+  <div>
+    You currently have <strong>{dashboardStr}</strong> and <strong>{userStr}</strong>
+  </div>
+
+

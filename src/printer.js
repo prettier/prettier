@@ -1565,7 +1565,7 @@ function genericPrintNoParens(path, options, print, args) {
       if (n.value) {
         let res;
         if (isStringLiteral(n.value)) {
-          const value = n.value.extra ? n.value.extra.raw : n.value.raw;
+          const value = rawText(n.value);
           res = '"' + value.slice(1, -1).replace(/"/g, "&quot;") + '"';
         } else {
           res = path.call(print, "value");
@@ -3650,6 +3650,7 @@ const jsxWhitespaceChars = " \n\r\t";
 const containsNonJsxWhitespaceRegex = new RegExp(
   "[^" + jsxWhitespaceChars + "]"
 );
+const matchJsxWhitespaceRegex = new RegExp("([" + jsxWhitespaceChars + "]+)");
 
 // Meaningful if it contains non-whitespace characters,
 // or it contains whitespace without a new line.
@@ -3661,18 +3662,24 @@ function isMeaningfulJSXText(node) {
   );
 }
 
+// Detect an expression node representing `{" "}`
+function isJSXWhitespaceExpression(node) {
+  return (
+    node.type === "JSXExpressionContainer" &&
+    isLiteral(node.expression) &&
+    node.expression.value === " "
+  );
+}
+
 // JSX Children are strange, mostly for two reasons:
 // 1. JSX reads newlines into string values, instead of skipping them like JS
 // 2. up to one whitespace between elements within a line is significant,
 //    but not between lines.
 //
-// So for one thing, '\n' needs to be parsed out of string literals
-// and turned into hardlines (with string boundaries otherwise using softline)
-//
-// For another, leading, trailing, and lone whitespace all need to
+// Leading, trailing, and lone whitespace all need to
 // turn themselves into the rather ugly `{' '}` when breaking.
 //
-// Finally we print JSX using the `fill` doc primitive.
+// We print JSX using the `fill` doc primitive.
 // This requires that we give it an array of alternating
 // content and whitespace elements.
 // To ensure this we add dummy `""` content elements as needed.
@@ -3683,101 +3690,103 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
   // using `map` instead of `each` because it provides `i`
   path.map((childPath, i) => {
     const child = childPath.getValue();
-    if (isLiteral(child) && typeof child.value === "string") {
-      const value = child.raw || child.extra.raw;
+    if (isLiteral(child)) {
+      const text = rawText(child);
 
       // Contains a non-whitespace character
-      if (/[^ \n\r\t]/.test(value)) {
-        // treat each line of text as its own entity
-        value.split(/(\r?\n\s*)/).forEach(textLine => {
-          const newlines = textLine.match(/\n/g);
-          if (newlines) {
-            children.push("");
-            children.push(hardline);
+      if (isMeaningfulJSXText(child)) {
+        const words = text.split(matchJsxWhitespaceRegex);
 
-            // allow one extra newline
-            if (newlines.length > 1) {
-              children.push("");
-              children.push(hardline);
-            }
-            return;
-          }
-
-          if (textLine.length === 0) {
-            return;
-          }
-
-          const beginSpace = /^[ \n\r\t]+/.test(textLine);
-          if (beginSpace) {
-            children.push("");
-            children.push(jsxWhitespace);
-          }
-
-          const stripped = textLine.replace(/^[ \n\r\t]+|[ \n\r\t]+$/g, "");
-          // Split text into words separated by "line"s.
-          stripped.split(/([ \n\r\t]+)/).forEach(word => {
-            const space = /[ \n\r\t]+/.test(word);
-            if (space) {
-              children.push(line);
-            } else {
-              children.push(word);
-            }
-          });
-
-          const endSpace = /[ \n\r\t]+$/.test(textLine);
-          if (endSpace) {
-            children.push(jsxWhitespace);
+        // Starts with whitespace
+        if (words[0] === "") {
+          children.push("");
+          words.shift();
+          if (/\n/.test(words[0])) {
+            children.push(softline);
           } else {
-            // Ideally this would be a `softline` to allow a break between
-            // tags and text.
-            // Unfortunately Facebook have a custom translation pipeline
-            // (https://github.com/prettier/prettier/issues/1581#issuecomment-300975032)
-            // that uses the JSX syntax, but does not follow the React whitespace
-            // rules.
-            // Ensuring that we never have a break between tags and text in JSX
-            // will allow Facebook to adopt Prettier without too much of an
-            // adverse effect on formatting algorithm.
-            children.push("");
+            children.push(jsxWhitespace);
+          }
+          words.shift();
+        }
+
+        let endWhitespace;
+        // Ends with whitespace
+        if (util.getLast(words) === "") {
+          words.pop();
+          endWhitespace = words.pop();
+        }
+
+        // This was whitespace only without a new line.
+        if (words.length === 0) {
+          return;
+        }
+
+        words.forEach((word, i) => {
+          if (i % 2 === 1) {
+            children.push(line);
+          } else {
+            children.push(word);
           }
         });
-      } else if (/\n/.test(value)) {
-        children.push("");
-        children.push(hardline);
 
-        // allow one extra newline
-        if (value.match(/\n/g).length > 1) {
+        if (endWhitespace !== undefined) {
+          if (/\n/.test(endWhitespace)) {
+            children.push(softline);
+          } else {
+            children.push(jsxWhitespace);
+          }
+        } else {
+          // Ideally this would be a `softline` to allow a break between
+          // tags and text.
+          // Unfortunately Facebook have a custom translation pipeline
+          // (https://github.com/prettier/prettier/issues/1581#issuecomment-300975032)
+          // that uses the JSX syntax, but does not follow the React whitespace
+          // rules.
+          // Ensuring that we never have a break between tags and text in JSX
+          // will allow Facebook to adopt Prettier without too much of an
+          // adverse effect on formatting algorithm.
+          children.push("");
+        }
+      } else if (/\n/.test(text)) {
+        // Keep (up to one) blank line between tags/expressions/text.
+        // Note: We don't keep blank lines between text elements.
+        if (text.match(/\n/g).length > 1) {
           children.push("");
           children.push(hardline);
         }
-      } else if (/[ \n\r\t]/.test(value)) {
-        // whitespace(s)-only without newlines,
-        // eg; one or more spaces separating two elements
-        for (let i = 0; i < value.length; ++i) {
-          // Because fill expects alternating content and whitespace parts
-          // we need to include an empty content part before each JSX
-          // whitespace.
-          children.push("");
-          children.push(jsxWhitespace);
-        }
+      } else {
+        children.push("");
+        children.push(jsxWhitespace);
       }
     } else {
-      children.push(print(childPath));
+      // Convert `{" "}` to jsxWhitespace so it can be printed as a standard
+      // space if needed.
+      if (isJSXWhitespaceExpression(child)) {
+        children.push("");
+        children.push(jsxWhitespace);
+        return;
+      }
+
+      const printedChild = print(childPath);
+      children.push(printedChild);
 
       const next = n.children[i + 1];
-      const followedByJSXElement = next && !isLiteral(next);
-      const followedByJSXWhitespace =
-        next &&
-        next.type === "JSXExpressionContainer" &&
-        isLiteral(next.expression) &&
-        next.expression.value === " ";
+      const followedByMeaningfulText = next && isMeaningfulJSXText(next);
+      const followedByJSXWhitespace = next && isJSXWhitespaceExpression(next);
 
-      if (followedByJSXElement && !followedByJSXWhitespace) {
-        children.push(softline);
-      } else {
-        // Ideally this would be a softline as well.
+      const isBrTag =
+        child.type === "JSXElement" && child.openingElement.name.name === "br";
+      if (isBrTag) {
+        // Forcing a hardline after a `<br />` tag gives much better text
+        // layout.
+        children.push(hardline);
+      } else if (followedByMeaningfulText || followedByJSXWhitespace) {
+        // Potentially this could be a softline as well.
         // See the comment above about the Facebook translation pipeline as
         // to why this is an empty string.
         children.push("");
+      } else {
+        children.push(softline);
       }
     }
   }, "children");
@@ -3830,8 +3839,20 @@ function printJSXElement(path, options, print) {
     assert.ok(!n.closingElement);
     return openingLines;
   }
+
+  const containsTag =
+    n.children.filter(child => child.type === "JSXElement").length > 0;
+  const containsMultipleExpressions =
+    n.children.filter(child => child.type === "JSXExpressionContainer").length >
+    1;
+  const containsMultipleAttributes = n.openingElement.attributes.length > 1;
+
   // Record any breaks. Should never go from true to false, only false to true.
-  let forcedBreak = willBreak(openingLines);
+  let forcedBreak =
+    willBreak(openingLines) ||
+    containsTag ||
+    containsMultipleAttributes ||
+    containsMultipleExpressions;
 
   const rawJsxWhitespace = options.singleQuote ? "{' '}" : '{" "}';
   const jsxWhitespace = ifBreak(concat([rawJsxWhitespace, softline]), " ");
@@ -3839,7 +3860,7 @@ function printJSXElement(path, options, print) {
   const children = printJSXChildren(path, options, print, jsxWhitespace);
 
   // Remove multiple filler empty strings
-  // These can occur when a text element is followed by a newline.
+  // These can occur between text and tag/expression nodes.
   for (let i = children.length - 2; i >= 0; i--) {
     if (children[i] === "" && children[i + 1] === "") {
       children.splice(i, 2);
@@ -3888,13 +3909,19 @@ function printJSXElement(path, options, print) {
   // Also detect whether we will force this element to output over multiple lines.
   const multilineChildren = [];
   children.forEach((child, i) => {
-    // Ensure that we display leading, trailing, and solitary whitespace as
-    // `{" "}` when outputting this element over multiple lines.
+    // There are a number of situations where we need to ensure we display
+    // whitespace as `{" "}` when outputting this element over multiple lines.
     if (child === jsxWhitespace) {
       if (i === 1 && children[i - 1] === "") {
+        // Leading whitespace
         multilineChildren.push(rawJsxWhitespace);
         return;
       } else if (i === children.length - 1) {
+        // Trailing whitespace
+        multilineChildren.push(rawJsxWhitespace);
+        return;
+      } else if (children[i - 1] === "" && children[i - 2] === hardline) {
+        // Whitespace after line break
         multilineChildren.push(rawJsxWhitespace);
         return;
       }
@@ -3907,10 +3934,20 @@ function printJSXElement(path, options, print) {
     }
   });
 
+  const containsText =
+    n.children.filter(child => isMeaningfulJSXText(child)).length > 0;
+
+  // If there is text we use `fill` to fit as much onto each line as possible.
+  // When there is no text (just tags and expressions) we use `group`
+  // to output each on a separate line.
+  const content = containsText
+    ? fill(multilineChildren)
+    : group(concat(multilineChildren), { shouldBreak: true });
+
   const multiLineElem = group(
     concat([
       openingLines,
-      indent(concat([hardline, fill(multilineChildren)])),
+      indent(concat([hardline, content])),
       hardline,
       closingLines
     ])
@@ -3921,7 +3958,7 @@ function printJSXElement(path, options, print) {
   }
 
   return conditionalGroup([
-    group(concat([openingLines, fill(children), closingLines])),
+    group(concat([openingLines, concat(children), closingLines])),
     multiLineElem
   ]);
 }
@@ -4122,7 +4159,7 @@ function adjustClause(node, clause, forceSpace) {
 }
 
 function nodeStr(node, options, isFlowOrTypeScriptDirectiveLiteral) {
-  const raw = node.extra ? node.extra.raw : node.raw;
+  const raw = rawText(node);
   // `rawContent` is the string exactly like it appeared in the input source
   // code, with its enclosing quote.
   const rawContent = raw.slice(1, -1);
