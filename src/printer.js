@@ -989,11 +989,7 @@ function genericPrintNoParens(path, options, print, args) {
         return content;
       }
 
-      const isJsonEnd = options.parser === "json" && !parent;
-      return concat([
-        group(content, { shouldBreak }),
-        isJsonEnd ? hardline : ""
-      ]);
+      return printJsonEnd(path, options, group(content, { shouldBreak }));
     }
     case "PropertyPattern":
       return concat([
@@ -1113,13 +1109,7 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push(": ", path.call(print, "typeAnnotation"));
       }
 
-      const parent = path.getParentNode();
-      const isJsonEnd = options.parser === "json" && !parent;
-      if (isJsonEnd) {
-        parts.push(hardline);
-      }
-
-      return concat(parts);
+      return printJsonEnd(path, options, concat(parts));
     }
     case "SequenceExpression": {
       const parent = path.getParentNode();
@@ -2649,6 +2639,12 @@ function genericPrintNoParens(path, options, print, args) {
     default:
       throw new Error("unknown type: " + JSON.stringify(n.type));
   }
+}
+
+function printJsonEnd(path, options, printed) {
+  const parent = path.getParentNode();
+  const isJsonRoot = options.parser === "json" && !parent;
+  return concat([printed, isJsonRoot ? hardline : ""]);
 }
 
 function printStatementSequence(path, options, print) {
