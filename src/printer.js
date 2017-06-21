@@ -304,7 +304,9 @@ function genericPrintNoParens(path, options, print, args) {
         (parent.type === "JSXExpressionContainer" &&
           parentParent.type === "JSXAttribute") ||
         (n === parent.body && parent.type === "ArrowFunctionExpression") ||
-        (n !== parent.body && parent.type === "ForStatement")
+        (n !== parent.body && parent.type === "ForStatement") ||
+        parent.type === "ObjectProperty" ||
+        parent.type === "Property"
       ) {
         return group(concat(parts));
       }

@@ -106,8 +106,8 @@ const blablah =
 const k = {
   blablah:
     "aldkfkladfskladklsfkladklfkaldfadfkdaf" +
-      "adlfasdklfkldsklfakldsfkladsfkadsfladsfa" +
-      "dflkadfkladsfklkadlfkladlfkadklfjadlfdfdaf"
+    "adlfasdklfkldsklfakldsfkladsfkadsfladsfa" +
+    "dflkadfkladsfklkadlfkladlfkadklfjadlfdfdaf"
 };
 
 somethingThatsAReallyLongPropName =
