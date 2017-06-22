@@ -40,7 +40,9 @@ comp2A = (
 );
 
 const comp3 = (
-  <div style={styles} key="something">Bump to next line without parens</div>
+  <div style={styles} key="something">
+    Bump to next line without parens
+  </div>
 );
 
 const comp4 = (
