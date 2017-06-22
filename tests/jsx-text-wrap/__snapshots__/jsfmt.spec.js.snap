@@ -228,6 +228,8 @@ br_followed_by_whitespace = <div><br /> text</div>
 dont_preserve_blank_lines_when_jsx_contains_text =
   <div>
 
+    <div>Zeroth</div>
+
     <div>First</div>
 
     Second
@@ -551,7 +553,7 @@ br_followed_by_whitespace = (
 
 dont_preserve_blank_lines_when_jsx_contains_text = (
   <div>
-    <div>First</div>Second
+    <div>Zeroth</div><div>First</div>Second
   </div>
 );
 

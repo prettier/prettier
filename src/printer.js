@@ -3861,17 +3861,26 @@ function printJSXElement(path, options, print) {
 
   const children = printJSXChildren(path, options, print, jsxWhitespace);
 
+  const containsText =
+    n.children.filter(child => isMeaningfulJSXText(child)).length > 0;
+
   // We can end up we multiple whitespace elements with empty string
   // content between them.
   // We need to remove empty whitespace and softlines before JSX whitespace
   // to get the correct output.
   for (let i = children.length - 2; i >= 0; i--) {
-    const pairOfEmptyString = children[i] === "" && children[i + 1] === "";
-    const softlineFollowedByJSXWhitespace =
+    const isPairOfEmptyStrings = children[i] === "" && children[i + 1] === "";
+    const isSoftlineFollowedByJSXWhitespace =
       children[i] === softline &&
       children[i + 1] === "" &&
       children[i + 2] === jsxWhitespace;
-    if (pairOfEmptyString || softlineFollowedByJSXWhitespace) {
+    const isEmptyFollowedByHardline =
+      children[i] === "" && children[i + 1] === hardline;
+    if (
+      isPairOfEmptyStrings ||
+      isSoftlineFollowedByJSXWhitespace ||
+      (isEmptyFollowedByHardline && containsText)
+    ) {
       children.splice(i, 2);
     }
   }
@@ -3942,9 +3951,6 @@ function printJSXElement(path, options, print) {
       forcedBreak = true;
     }
   });
-
-  const containsText =
-    n.children.filter(child => isMeaningfulJSXText(child)).length > 0;
 
   // If there is text we use `fill` to fit as much onto each line as possible.
   // When there is no text (just tags and expressions) we use `group`

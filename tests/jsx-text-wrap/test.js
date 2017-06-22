@@ -225,6 +225,8 @@ br_followed_by_whitespace = <div><br /> text</div>
 dont_preserve_blank_lines_when_jsx_contains_text =
   <div>
 
+    <div>Zeroth</div>
+
     <div>First</div>
 
     Second

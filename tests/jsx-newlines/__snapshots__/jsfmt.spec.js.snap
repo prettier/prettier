@@ -126,9 +126,7 @@ newlines_elems = (
     <div>
       <div />
     </div>
-    hi<div />
-    <span />
-    <Big />
+    hi<div /><span /><Big />
   </div>
 );
 
