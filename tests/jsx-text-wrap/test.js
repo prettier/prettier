@@ -249,3 +249,12 @@ expression_does_not_break =
 // FIXME
 br_triggers_expression_break =
   <div><br />text text text text text text text text text text text {this.props.type} </div>
+
+jsx_whitespace_after_tag =
+  <div>
+    <span a="a" b="b">
+      {variable}
+    </span>
+    {" "}
+    ({variable})
+  </div>

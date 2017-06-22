@@ -3770,17 +3770,19 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
       const printedChild = print(childPath);
       children.push(printedChild);
 
-      const next = n.children[i + 1];
-      const followedByMeaningfulText = next && isMeaningfulJSXText(next);
-      const followedByJSXWhitespace = next && isJSXWhitespaceExpression(next);
-
       const isBrTag =
         child.type === "JSXElement" && child.openingElement.name.name === "br";
       if (isBrTag) {
         // Forcing a hardline after a `<br />` tag gives much better text
         // layout.
         children.push(hardline);
-      } else if (followedByMeaningfulText || followedByJSXWhitespace) {
+        return;
+      }
+
+      const next = n.children[i + 1];
+      const followedByMeaningfulText = next && isMeaningfulJSXText(next);
+      const followedByJSXWhitespace = next && isJSXWhitespaceExpression(next);
+      if (followedByMeaningfulText || followedByJSXWhitespace) {
         // Potentially this could be a softline as well.
         // See the comment above about the Facebook translation pipeline as
         // to why this is an empty string.
@@ -3859,10 +3861,17 @@ function printJSXElement(path, options, print) {
 
   const children = printJSXChildren(path, options, print, jsxWhitespace);
 
-  // Remove multiple filler empty strings
-  // These can occur between text and tag/expression nodes.
+  // We can end up we multiple whitespace elements with empty string
+  // content between them.
+  // We need to remove empty whitespace and softlines before JSX whitespace
+  // to get the correct output.
   for (let i = children.length - 2; i >= 0; i--) {
-    if (children[i] === "" && children[i + 1] === "") {
+    const pairOfEmptyString = children[i] === "" && children[i + 1] === "";
+    const softlineFollowedByJSXWhitespace =
+      children[i] === softline &&
+      children[i + 1] === "" &&
+      children[i + 2] === jsxWhitespace;
+    if (pairOfEmptyString || softlineFollowedByJSXWhitespace) {
       children.splice(i, 2);
     }
   }
