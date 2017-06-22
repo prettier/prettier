@@ -15,6 +15,42 @@ Prettier is an opinionated code formatter with support for:
 It removes all original styling[\*](#styling-footnote) and ensures that all outputted code
 conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
 
+## Table of contents
+* [What does prettier do?](#what-does-prettier-do)
+* [Why Prettier?](#why-prettier)
+  + [Building and enforcing a style guide](#building-and-enforcing-a-style-guide)
+  + [Helping Newcomers](#helping-newcomers)
+  + [Writing code](#writing-code)
+  + [Easy to adopt](#easy-to-adopt)
+  + [Clean up an existing codebase](#clean-up-an-existing-codebase)
+  + [Ride the hype train](#ride-the-hype-train)
+* [How does it compare to ESLint (or TSLint, stylelint...)?](#how-does-it-compare-to-eslint-or-tslint-stylelint)
+* [Usage](#usage)
+  + [CLI](#cli)
+  + [ESlint](#eslint)
+  + [Pre-commit Hook](#pre-commit-hook)
+      * [Option 1. lint-staged](#option-1-lint-staged)
+      * [Option 2. pre-commit](#option-2-pre-commit)
+      * [Option 3. bash script](#option-3-bash-script)
+  + [Options](#options)
+  + [API](#api)
+    - [Custom Parser API](#custom-parser-api)
+      * [Example](#example)
+  + [Excluding code from formatting](#excluding-code-from-formatting)
+* [Editor Integration](#editor-integration)
+  + [Atom](#atom)
+  + [Emacs](#emacs)
+  + [Vim](#vim)
+  + [Visual Studio Code](#visual-studio-code)
+  + [Visual Studio](#visual-studio)
+  + [Sublime Text](#sublime-text)
+  + [JetBrain's WebStorm, PHPStorm, PyCharm...](#jetbrains-webstorm-phpstorm-pycharm)
+* [Language Support](#language-support)
+* [Related Projects](#related-projects)
+* [Technical Details](#technical-details)
+* [Badge](#badge)
+* [Contributing](#contributing)
+
 ## What does prettier do?
 
 Prettier takes your code and reprints it from scratch by taking into account the line length.
