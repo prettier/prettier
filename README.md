@@ -15,7 +15,9 @@ Prettier is an opinionated code formatter with support for:
 It removes all original styling[\*](#styling-footnote) and ensures that all outputted code
 conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
 
-## Table of contents
+<details>
+<summary><strong>Table of Contents</strong></summary>
+
 * [What does prettier do?](#what-does-prettier-do)
 * [Why Prettier?](#why-prettier)
   + [Building and enforcing a style guide](#building-and-enforcing-a-style-guide)
@@ -50,6 +52,9 @@ conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Pre
 * [Technical Details](#technical-details)
 * [Badge](#badge)
 * [Contributing](#contributing)
+</details>
+
+--------------------------------------------------------------------------------
 
 ## What does prettier do?
 
