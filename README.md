@@ -46,7 +46,7 @@ conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Pre
   + [Visual Studio Code](#visual-studio-code)
   + [Visual Studio](#visual-studio)
   + [Sublime Text](#sublime-text)
-  + [JetBrain's WebStorm, PHPStorm, PyCharm...](#jetbrains-webstorm-phpstorm-pycharm)
+  + [JetBrains WebStorm, PHPStorm, PyCharm...](#jetbrains-webstorm-phpstorm-pycharm)
 * [Language Support](#language-support)
 * [Related Projects](#related-projects)
 * [Technical Details](#technical-details)
@@ -470,7 +470,7 @@ Install the [JavaScript Prettier extension](https://github.com/madskristensen/Ja
 Sublime Text support is available through Package Control and
 the [JsPrettier](https://packagecontrol.io/packages/JsPrettier) plug-in.
 
-### JetBrain's WebStorm, PHPStorm, PyCharm...
+### JetBrains WebStorm, PHPStorm, PyCharm...
 
 See the [WebStorm
 guide](https://github.com/jlongster/prettier/tree/master/editors/webstorm/README.md).
