@@ -3,7 +3,7 @@
 
 "use strict";
 
-importScripts("lib/sw-toolbox.js");
+importScripts("sw-toolbox.js");
 
 toolbox.precache([
   // Scripts
@@ -15,8 +15,8 @@ toolbox.precache([
   "lib/parser-graphql.js",
   "lib/parser-json.js",
   "playground.js",
-  "lib/sw-toolbox.js",
-  "lib/sw-toolbox-companion.js",
+  "sw-toolbox.js",
+  "sw-toolbox-companion.js",
 
   // CodeMirror
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/codemirror.css",
@@ -32,7 +32,7 @@ toolbox.precache([
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/keymap/sublime.js",
 
   // Images
-  "prettier.png"
+  "/prettier/prettier.png"
 ]);
 
 toolbox.router.default = toolbox.fastest;

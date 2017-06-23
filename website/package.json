@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "doc-start": "docusaurus-start",
+    "doc-build": "docusaurus-build",
+    "doc-publish": "docusaurus-publish",
+    "doc-examples": "docusaurus-examples"
+  },
+  "devDependencies": {
+    "docusaurus": "^1.0.0-alpha.3"
+  }
+}
