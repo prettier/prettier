@@ -34,13 +34,25 @@ conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Pre
       * [Option 1. lint-staged](#option-1-lint-staged)
       * [Option 2. pre-commit](#option-2-pre-commit)
       * [Option 3. bash script](#option-3-bash-script)
-  + [Options](#options)
   + [API](#api)
     - [`prettier.format`](#prettierformatsource--options)
     - [`prettier.check`](#prettierchecksource--options)
     - [`prettier.formatWithCursor`](#prettierformatwithcursorsource--options)
     - [Custom Parser API](#custom-parser-api)
   + [Excluding code from formatting](#excluding-code-from-formatting)
+* [Options](#options)
+  + [Print Width](#print-width)
+  + [Tab Width](#tab-width)
+  + [Tabs](#tabs)
+  + [Semicolons](#semicolons)
+  + [Quotes](#quotes)
+  + [Trailing Commas](#trailing-commas)
+  + [Bracket Spacing](#bracket-spacing)
+  + [JSX Brackets on Same Line](#jsx-brackets-on-same-line)
+  + [Range Start](#range-start)
+  + [Range End](#range-end)
+  + [Parser](#parser)
+  + [Filepath](#filepath)
 * [Editor Integration](#editor-integration)
   + [Atom](#atom)
   + [Emacs](#emacs)
@@ -335,28 +347,6 @@ echo >&2 "node_modules/.bin/prettier --write "$diffs""
 exit 1
 ```
 
-
-### Options
-
-Prettier ships with a handful of customizable format options, usable in both the CLI and API.
-
-| Option | Default | Override |
-| ------ | ------- | -------- |
-| **Print Width** - Specify the length of line that the printer will wrap on.<br /><br /><strong>We strongly recommend against using more than 80 columns</strong>. Prettier works by cramming as much content as possible until it reaches the limit, which happens to work well for 80 columns but makes lines that are very crowded. When a bigger column count is used in styleguides, it usually means that code is allowed to go beyond 80 columns, but not to make every single line go there, like prettier would do.  | `80` | CLI: `--print-width <int>` <br />API: `printWidth: <int>`
-| **Tab Width** - Specify the number of spaces per indentation-level. | `2` | CLI: `--tab-width <int>` <br />API: `tabWidth: <int>` |
-| **Tabs** - Indent lines with tabs instead of spaces. | `false` | CLI: `--use-tabs` <br />API: `useTabs: <bool>` |
-| **Semicolons** - Print semicolons at the ends of statements.<br /><br />Valid options: <ul><li>`true` - add a semicolon at the end of every statement</li><li>`false` - only add semicolons at the beginning of lines that may introduce ASI failures</li></ul> | `true` | CLI: `--no-semi` <br />API: `semi: <bool>` |
-| **Quotes** - Use single quotes instead of double quotes.<br /><br />Notes:<ul><li>Quotes in JSX will always be double and ignore this setting.</li><li>If the number of quotes outweighs the other quote, the quote which is less used will be used to format the string - Example: `"I'm double quoted"` results in `"I'm double quoted"` and `"This \"example\" is single quoted"` results in `'This "example" is single quoted'`.</li></ul> | `false` | CLI: `--single-quote` <br />API: `singleQuote: <bool>` |
-| **Trailing Commas** - Print trailing commas wherever possible.<br /><br />Valid options: <ul><li>`"none"` - no trailing commas </li><li>`"es5"` - trailing commas where valid in ES5 (objects, arrays, etc.)</li><li>`"all"` - trailing commas wherever possible (function arguments). This requires node 8 or a [transform](https://babeljs.io/docs/plugins/syntax-trailing-function-commas/).</li></ul> | `"none"` | CLI: <code>--trailing-comma <none&#124;es5&#124;all></code> <br />API: <code>trailingComma: "<none&#124;es5&#124;all>"</code> |
-| **Bracket Spacing** - Print spaces between brackets in object literals.<br /><br />Valid options: <ul><li>`true` - Example: `{ foo: bar }`</li><li>`false` - Example: `{foo: bar}`</li> | `true` | CLI: `--no-bracket-spacing` <br />API: `bracketSpacing: <bool>` |
-| **JSX Brackets on Same Line** - Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line | `false` | CLI: `--jsx-bracket-same-line` <br />API: `jsxBracketSameLine: <bool>` |
-| **Cursor Offset** - Specify where the cursor is. This option only works with `prettier.formatWithCursor`, and cannot be used with `rangeStart` and `rangeEnd`. | `-1` | CLI: `--cursor-offset <int>` <br />API: `cursorOffset: <int>` |
-| **Range Start** - Format code starting at a given character offset. The range will extend backwards to the start of the first line containing the selected statement. This option cannot be used with `cursorOffset`. | `0` | CLI: `--range-start <int>` <br />API: `rangeStart: <int>` |
-| **Range End** - Format code ending at a given character offset (exclusive). The range will extend forwards to the end of the selected statement. This option cannot be used with `cursorOffset`. | `Infinity` | CLI: `--range-end <int>` <br />API: `rangeEnd: <int>` |
-| **Parser** - Specify which parser to use. Both the `babylon` and `flow` parsers support the same set of JavaScript features (including Flow). Prettier automatically infers the parser from the input file path, so you shouldn't have to change this setting. <br />Built-in parsers: <ul><li>`babylon`</li><li>`flow`</li><li>`typescript`</li><li>`postcss`</li><li>`json`</li></ul>[Custom parsers](#custom-parser-api) are also supported. | `babylon` | CLI: <br />`--parser <string>` <br />`--parser ./path/to/my-parser` <br />API: <br />`parser: "<string>"` <br />`parser: require("./my-parser")` |
-| **Filepath** - Specify the input filepath this will be used to do parser inference.<br /><br /> Example: <br />`cat foo \| prettier --stdin-filepath foo.css`<br /> will default to use `postcss` parser |  | CLI: `--stdin-filepath` <br />API: `filepath: "<string>"` |
-
-
 ### API
 
 The API has three functions:  `format`, `check`, and `formatWithCursor`. 
@@ -367,7 +357,7 @@ const prettier = require("prettier");
 
 #### `prettier.format(source [, options])`
 
-`format` is used to format text using prettier. Options may be provided to override the defaults listed above.
+`format` is used to format text using prettier. [Options](#options) may be provided to override the defaults.
 
 ```js
 prettier.format("foo ( );", { semi: false });
@@ -382,7 +372,9 @@ This is similar to the `--list-different` parameter in the CLI and is useful for
 #### `prettier.formatWithCursor(source [, options])`
 
 `formatWithCursor` both formats the code, and translates a cursor position from unformatted code to formatted code.
-This is useful for editor integrations, to prevent the cursor from moving when code is formatted. For example:
+This is useful for editor integrations, to prevent the cursor from moving when code is formatted. 
+
+The `cursorOffset` option should be provided, to specify where the cursor is. This option cannot be used with `rangeStart` and `rangeEnd`. 
 
 ```js
 prettier.formatWithCursor(" 1", { cursorOffset: 2 });
@@ -444,6 +436,130 @@ matrix(
   0, 0, 1
 )
 ```
+
+## Options
+Prettier ships with a handful of customizable format options, usable in both the CLI and API.
+
+### Print Width
+Specify the length of line that the printer will wrap on.
+
+**We strongly recommend against using more than 80 columns**.
+
+Prettier works by cramming as much content as possible until it reaches the limit, which happens to work well for 80 columns but makes lines that are very crowded. When a bigger column count is used in styleguides, it usually means that code is allowed to go beyond 80 columns, but not to make every single line go there, like prettier would do.
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`80` | `--print-width <int>` | `printWidth: <int>`
+
+### Tab Width
+Specify the number of spaces per indentation-level.
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+ `2` | `--tab-width <int>` | `tabWidth: <int>`
+
+### Tabs
+Indent lines with tabs instead of spaces
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`false` | `--use-tabs` | `useTabs: <bool>`
+
+### Semicolons
+Print semicolons at the ends of statements.
+
+Valid options: 
+
+ * `true` - add a semicolon at the end of every statement.
+ * `false` - only add semicolons at the beginning of lines that may introduce ASI failures.
+ 
+Default | CLI Override | API Override
+--------|--------------|-------------
+`true` | `--no-semi` | `semi: <bool>`
+
+### Quotes
+Use single quotes instead of double quotes.
+
+Notes:
+* Quotes in JSX will always be double and ignore this setting.
+* If the number of quotes outweighs the other quote, the quote which is less used will be used to format the string - Example: `"I'm double quoted"` results in `"I'm double quoted"` and `"This \"example\" is single quoted"` results in `'This "example" is single quoted'`.
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`false` |  `--single-quote` | `singleQuote: <bool>`
+
+
+### Trailing Commas
+Print trailing commas wherever possible.
+
+Valid options: 
+ * `"none"` - no trailing commas.
+ * `"es5"` - trailing commas where valid in ES5 (objects, arrays, etc.)
+ * `"all"` - trailing commas wherever possible (function arguments). This requires node 8 or a [transform](https://babeljs.io/docs/plugins/syntax-trailing-function-commas/).
+ 
+Default | CLI Override | API Override
+--------|--------------|-------------
+`"none"` | <code>--trailing-comma <none&#124;es5&#124;all></code> | <code>trailingComma: "<none&#124;es5&#124;all>"</code>
+
+### Bracket Spacing
+Print spaces between brackets in object literals.
+
+Valid options: 
+ * `true` - Example: `{ foo: bar }`.
+ * `false` - Example: `{foo: bar}`.
+ 
+Default | CLI Override | API Override
+--------|--------------|-------------
+`true` | `--no-bracket-spacing` | `bracketSpacing: <bool>`
+
+### JSX Brackets on Same Line
+Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line.
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`false` | `--jsx-bracket-same-line` | `jsxBracketSameLine: <bool>`
+
+### Range Start
+Format code starting at a given character offset. The range will extend backwards to the start of the first line containing the selected statement. This option cannot be used with `cursorOffset`.
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`0` | `--range-start <int>`| `rangeStart: <int>`
+
+### Range End
+Format code ending at a given character offset (exclusive). The range will extend forwards to the end of the selected statement. This option cannot be used with `cursorOffset`.
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`Infinity` | `--range-end <int>` | `rangeEnd: <int>`
+
+### Parser
+Specify which parser to use.
+
+Both the `babylon` and `flow` parsers support the same set of JavaScript features (including Flow). Prettier automatically infers the parser from the input file path, so you shouldn't have to change this setting. 
+
+Built-in parsers:
+ * `babylon`
+ * `flow`
+ * `typescript`
+ * `postcss`
+ * `json`
+
+[Custom parsers](#custom-parser-api) are also supported. 
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`babylon` | `--parser <string>`<br />`--parser ./path/to/my-parser` | `parser: "<string>"`<br />`parser: require("./my-parser")`
+
+### Filepath
+Specify the input filepath. This will be used to do parser inference.
+
+Example: `cat foo | prettier --stdin-filepath foo.css` will default to use `postcss` parser.
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+None | `--stdin-filepath` | `filepath: "<string>"`
+
 
 ## Editor Integration
 
