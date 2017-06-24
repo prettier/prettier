@@ -1,8 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`trailing.graphql 1`] = `
-fragment Visit on HighlightedVisit
-  @argumentDefinitions(
+query CityGuidesSocialUnitRendererQuery(
+  $pageID: ID!
+  $scale: Float
+  $SOCIAL_UNIT_PROFILE_PICTURE_SIZE: Int
+  $SOCIAL_UNIT_CARD_SIZE: Int
+) @argumentDefinitions(
     count: {type: "Int", defaultValue: 20, someSuperSuperSuperSuperLongType: 301}
     test: [{type: "Int", defaultValue: 20, someSuperSuperSuperSuperLongType: 301}]
   ) {
@@ -18,7 +22,12 @@ fragment Visit on HighlightedVisit
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-fragment Visit on HighlightedVisit
+query CityGuidesSocialUnitRendererQuery(
+  $pageID: ID!,
+  $scale: Float,
+  $SOCIAL_UNIT_PROFILE_PICTURE_SIZE: Int,
+  $SOCIAL_UNIT_CARD_SIZE: Int
+)
   @argumentDefinitions(
     count: {
       type: "Int",
@@ -43,8 +52,12 @@ fragment Visit on HighlightedVisit
 `;
 
 exports[`trailing.graphql 2`] = `
-fragment Visit on HighlightedVisit
-  @argumentDefinitions(
+query CityGuidesSocialUnitRendererQuery(
+  $pageID: ID!
+  $scale: Float
+  $SOCIAL_UNIT_PROFILE_PICTURE_SIZE: Int
+  $SOCIAL_UNIT_CARD_SIZE: Int
+) @argumentDefinitions(
     count: {type: "Int", defaultValue: 20, someSuperSuperSuperSuperLongType: 301}
     test: [{type: "Int", defaultValue: 20, someSuperSuperSuperSuperLongType: 301}]
   ) {
@@ -60,7 +73,12 @@ fragment Visit on HighlightedVisit
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-fragment Visit on HighlightedVisit
+query CityGuidesSocialUnitRendererQuery(
+  $pageID: ID!,
+  $scale: Float,
+  $SOCIAL_UNIT_PROFILE_PICTURE_SIZE: Int,
+  $SOCIAL_UNIT_CARD_SIZE: Int,
+)
   @argumentDefinitions(
     count: {
       type: "Int",
@@ -85,8 +103,12 @@ fragment Visit on HighlightedVisit
 `;
 
 exports[`trailing.graphql 3`] = `
-fragment Visit on HighlightedVisit
-  @argumentDefinitions(
+query CityGuidesSocialUnitRendererQuery(
+  $pageID: ID!
+  $scale: Float
+  $SOCIAL_UNIT_PROFILE_PICTURE_SIZE: Int
+  $SOCIAL_UNIT_CARD_SIZE: Int
+) @argumentDefinitions(
     count: {type: "Int", defaultValue: 20, someSuperSuperSuperSuperLongType: 301}
     test: [{type: "Int", defaultValue: 20, someSuperSuperSuperSuperLongType: 301}]
   ) {
@@ -102,7 +124,12 @@ fragment Visit on HighlightedVisit
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-fragment Visit on HighlightedVisit
+query CityGuidesSocialUnitRendererQuery(
+  $pageID: ID!,
+  $scale: Float,
+  $SOCIAL_UNIT_PROFILE_PICTURE_SIZE: Int,
+  $SOCIAL_UNIT_CARD_SIZE: Int,
+)
   @argumentDefinitions(
     count: {
       type: "Int",
