@@ -4657,7 +4657,7 @@ function isObjectType(n) {
 function printAstToDoc(ast, options, addAlignmentSize) {
   addAlignmentSize = addAlignmentSize || 0;
 
-  var cache = new Map();
+  const cache = new Map();
 
   function printGenerically(path, args) {
     const node = path.getValue();
