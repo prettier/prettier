@@ -90,6 +90,7 @@ function genericPrint(path, options, print) {
                       )
                     ])
                   ),
+                  options.trailingComma === "none" ? "" : ifBreak(","),
                   softline,
                   ")"
                 ])
@@ -134,6 +135,7 @@ function genericPrint(path, options, print) {
               )
             ])
           ),
+          options.trailingComma === "none" ? "" : ifBreak(","),
           softline,
           "]"
         ])
@@ -153,6 +155,7 @@ function genericPrint(path, options, print) {
               )
             ])
           ),
+          options.trailingComma === "none" ? "" : ifBreak(","),
           softline,
           ifBreak("", options.bracketSpacing && n.fields.length > 0 ? " " : ""),
           "}"
@@ -185,6 +188,7 @@ function genericPrint(path, options, print) {
                     )
                   ])
                 ),
+                options.trailingComma === "none" ? "" : ifBreak(","),
                 softline,
                 ")"
               ])
