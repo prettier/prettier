@@ -3,6 +3,7 @@
 const util = require("./util");
 const docUtils = require("./doc-utils");
 const docBuilders = require("./doc-builders");
+const comments = require("./comments");
 const indent = docBuilders.indent;
 const hardline = docBuilders.hardline;
 const softline = docBuilders.softline;
@@ -12,6 +13,9 @@ function printSubtree(subtreeParser, path, print, options) {
   const next = Object.assign({}, { transformDoc: doc => doc }, subtreeParser);
   next.options = Object.assign({}, options, next.options);
   const ast = require("./parser").parse(next.text, next.options);
+  const astComments = ast.comments;
+  delete ast.comments;
+  comments.attach(astComments, ast, next.text, next.options);
   const nextDoc = require("./printer").printAstToDoc(ast, next.options);
   return next.transformDoc(nextDoc, { path, print });
 }
