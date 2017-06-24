@@ -36,8 +36,10 @@ conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Pre
       * [Option 3. bash script](#option-3-bash-script)
   + [Options](#options)
   + [API](#api)
+    - [`prettier.format`](#prettierformatsource--options)
+    - [`prettier.check`](#prettierchecksource--options)
+    - [`prettier.formatWithCursor`](#prettierformatwithcursorsource--options)
     - [Custom Parser API](#custom-parser-api)
-      * [Example](#example)
   + [Excluding code from formatting](#excluding-code-from-formatting)
 * [Editor Integration](#editor-integration)
   + [Atom](#atom)
@@ -357,24 +359,32 @@ Prettier ships with a handful of customizable format options, usable in both the
 
 ### API
 
-The API has three functions, exported as `format`, `check`, and `formatWithCursor`. `format` usage is as follows:
+The API has three functions:  `format`, `check`, and `formatWithCursor`. 
 
 ```js
 const prettier = require("prettier");
-
-const options = {} // optional
-prettier.format(source, options);
 ```
 
-`check` checks to see if the file has been formatted with Prettier given those options and returns a Boolean.
+#### `prettier.format(source [, options])`
+
+`format` is used to format text using prettier. Options may be provided to override the defaults listed above.
+
+```js
+prettier.format("foo ( );", { semi: false });
+// -> "foo()"
+```
+
+#### `prettier.check(source [, options])`
+
+`check` checks to see if the file has been formatted with Prettier given those options and returns a `Boolean`.
 This is similar to the `--list-different` parameter in the CLI and is useful for running Prettier in CI scenarios.
+
+#### `prettier.formatWithCursor(source [, options])`
 
 `formatWithCursor` both formats the code, and translates a cursor position from unformatted code to formatted code.
 This is useful for editor integrations, to prevent the cursor from moving when code is formatted. For example:
 
 ```js
-const prettier = require("prettier");
-
 prettier.formatWithCursor(" 1", { cursorOffset: 2 });
 // -> { formatted: '1;\n', cursorOffset: 1 }
 ```
@@ -388,9 +398,6 @@ If you need to make modifications to the AST (such as codemods), or you want to 
 
 Prettier's built-in parsers are exposed as properties on the `parsers` argument.
 
-
-##### Example
-
 ```js
 prettier.format("lodash ( )", {
   parser(text, { babylon }) {
@@ -398,7 +405,8 @@ prettier.format("lodash ( )", {
     ast.program.body[0].expression.callee.name = "_";
     return ast;
   }
-}); // ==> "_();\n"
+}); 
+// -> "_();\n"
 ```
 
 The `--parser` CLI option may be a path to a node.js module exporting a parse function.
