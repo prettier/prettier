@@ -143,7 +143,7 @@ function genericPrint(path, options, print) {
       return group(
         concat([
           "{",
-          n.fields.length > 0 ? " " : "",
+          options.bracketSpacing && n.fields.length > 0 ? " " : "",
           indent(
             concat([
               softline,
@@ -154,7 +154,7 @@ function genericPrint(path, options, print) {
             ])
           ),
           softline,
-          ifBreak("", n.fields.length > 0 ? " " : ""),
+          ifBreak("", options.bracketSpacing && n.fields.length > 0 ? " " : ""),
           "}"
         ])
       );
