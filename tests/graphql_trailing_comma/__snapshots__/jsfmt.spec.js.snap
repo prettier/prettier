@@ -1,0 +1,127 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`trailing.graphql 1`] = `
+fragment Visit on HighlightedVisit
+  @argumentDefinitions(
+    count: {type: "Int", defaultValue: 20, someSuperSuperSuperSuperLongType: 301}
+    test: [{type: "Int", defaultValue: 20, someSuperSuperSuperSuperLongType: 301}]
+  ) {
+  cover_photo {
+    image(
+      width: $PROJECT_UNIT_CARD_SIZE,
+      height: $PROJECT_UNIT_CARD_SIZE,
+      sizing: "cover-fill",
+      scale: $scale,
+    ) {
+      uri
+    }
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fragment Visit on HighlightedVisit
+  @argumentDefinitions(
+    count: {
+      type: "Int",
+      defaultValue: 20,
+      someSuperSuperSuperSuperLongType: 301
+    },
+    test: [
+      { type: "Int", defaultValue: 20, someSuperSuperSuperSuperLongType: 301 }
+    ]
+  ) {
+  cover_photo {
+    image(
+      width: $PROJECT_UNIT_CARD_SIZE,
+      height: $PROJECT_UNIT_CARD_SIZE,
+      sizing: "cover-fill",
+      scale: $scale
+    ) {
+      uri
+    }
+  }
+}
+`;
+
+exports[`trailing.graphql 2`] = `
+fragment Visit on HighlightedVisit
+  @argumentDefinitions(
+    count: {type: "Int", defaultValue: 20, someSuperSuperSuperSuperLongType: 301}
+    test: [{type: "Int", defaultValue: 20, someSuperSuperSuperSuperLongType: 301}]
+  ) {
+  cover_photo {
+    image(
+      width: $PROJECT_UNIT_CARD_SIZE,
+      height: $PROJECT_UNIT_CARD_SIZE,
+      sizing: "cover-fill",
+      scale: $scale,
+    ) {
+      uri
+    }
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fragment Visit on HighlightedVisit
+  @argumentDefinitions(
+    count: {
+      type: "Int",
+      defaultValue: 20,
+      someSuperSuperSuperSuperLongType: 301,
+    },
+    test: [
+      { type: "Int", defaultValue: 20, someSuperSuperSuperSuperLongType: 301 },
+    ],
+  ) {
+  cover_photo {
+    image(
+      width: $PROJECT_UNIT_CARD_SIZE,
+      height: $PROJECT_UNIT_CARD_SIZE,
+      sizing: "cover-fill",
+      scale: $scale,
+    ) {
+      uri
+    }
+  }
+}
+`;
+
+exports[`trailing.graphql 3`] = `
+fragment Visit on HighlightedVisit
+  @argumentDefinitions(
+    count: {type: "Int", defaultValue: 20, someSuperSuperSuperSuperLongType: 301}
+    test: [{type: "Int", defaultValue: 20, someSuperSuperSuperSuperLongType: 301}]
+  ) {
+  cover_photo {
+    image(
+      width: $PROJECT_UNIT_CARD_SIZE,
+      height: $PROJECT_UNIT_CARD_SIZE,
+      sizing: "cover-fill",
+      scale: $scale,
+    ) {
+      uri
+    }
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fragment Visit on HighlightedVisit
+  @argumentDefinitions(
+    count: {
+      type: "Int",
+      defaultValue: 20,
+      someSuperSuperSuperSuperLongType: 301,
+    },
+    test: [
+      { type: "Int", defaultValue: 20, someSuperSuperSuperSuperLongType: 301 },
+    ],
+  ) {
+  cover_photo {
+    image(
+      width: $PROJECT_UNIT_CARD_SIZE,
+      height: $PROJECT_UNIT_CARD_SIZE,
+      sizing: "cover-fill",
+      scale: $scale,
+    ) {
+      uri
+    }
+  }
+}
+`;
