@@ -104,7 +104,11 @@ function findSiblingAncestors(startNodeAndParents, endNodeAndParents) {
   let resultEndNode = endNodeAndParents.node;
 
   for (const endParent of endNodeAndParents.parentNodes) {
-    if (util.locStart(endParent) >= util.locStart(startNodeAndParents.node)) {
+    if (
+      endParent.type !== "Program" &&
+      endParent.type !== "File" &&
+      util.locStart(endParent) >= util.locStart(startNodeAndParents.node)
+    ) {
       resultEndNode = endParent;
     } else {
       break;
@@ -112,7 +116,11 @@ function findSiblingAncestors(startNodeAndParents, endNodeAndParents) {
   }
 
   for (const startParent of startNodeAndParents.parentNodes) {
-    if (util.locEnd(startParent) <= util.locEnd(endNodeAndParents.node)) {
+    if (
+      startParent.type !== "Program" &&
+      startParent.type !== "File" &&
+      util.locEnd(startParent) <= util.locEnd(endNodeAndParents.node)
+    ) {
       resultStartNode = startParent;
     } else {
       break;

@@ -176,6 +176,46 @@ function ugly ( {a=1,     b     =   2     }      ) {
 
 `;
 
+exports[`range-end.js 1`] = `
+// Unchanged
+call(
+  1, 2,3
+);
+
+
+call(
+  1, 2,3
+);~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Unchanged
+call(
+  1, 2,3
+);
+
+
+call(1, 2, 3);
+`;
+
+exports[`range-start.js 1`] = `
+call(
+  1, 2,3
+);
+
+
+// Unchanged
+call(
+  1, 2,3
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+call(1, 2, 3);
+
+
+// Unchanged
+call(
+  1, 2,3
+);
+
+`;
+
 exports[`try-catch.js 1`] = `
 try {}
 catch (err) {}
