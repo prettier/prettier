@@ -41,6 +41,7 @@ function genericPrint(path, options, print) {
                     )
                   ])
                 ),
+                options.trailingComma === "none" ? "" : ifBreak(","),
                 softline,
                 ")"
               ])
