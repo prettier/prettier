@@ -219,6 +219,14 @@ function calculateRange(text, opts, ast) {
     endNonWhitespace,
     isSourceElement
   );
+
+  if (!startNodeAndParents || !endNodeAndParents) {
+    return {
+      rangeStart: 0,
+      rangeEnd: 0
+    };
+  }
+
   const siblingAncestors = findSiblingAncestors(
     startNodeAndParents,
     endNodeAndParents
