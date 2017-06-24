@@ -4657,26 +4657,41 @@ function isObjectType(n) {
 function printAstToDoc(ast, options, addAlignmentSize) {
   addAlignmentSize = addAlignmentSize || 0;
 
+  var cache = new Map();
+
   function printGenerically(path, args) {
     const node = path.getValue();
+
+    const shouldCache = node && typeof node === "object" && args === undefined;
+    if (shouldCache && cache.has(node)) {
+      return cache.get(node);
+    }
+
     const parent = path.getParentNode(0);
     // We let JSXElement print its comments itself because it adds () around
     // UnionTypeAnnotation has to align the child without the comments
+    let res;
     if (
       (node && node.type === "JSXElement") ||
       (parent &&
         (parent.type === "UnionTypeAnnotation" ||
           parent.type === "TSUnionType"))
     ) {
-      return genericPrint(path, options, printGenerically, args);
+      res = genericPrint(path, options, printGenerically, args);
+    } else {
+      res = comments.printComments(
+        path,
+        p => genericPrint(p, options, printGenerically, args),
+        options,
+        args && args.needsSemi
+      );
     }
 
-    return comments.printComments(
-      path,
-      p => genericPrint(p, options, printGenerically, args),
-      options,
-      args && args.needsSemi
-    );
+    if (shouldCache) {
+      cache.set(node, res);
+    }
+
+    return res;
   }
 
   let doc = printGenerically(new FastPath(ast));
