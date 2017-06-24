@@ -119,7 +119,8 @@ function findSiblingAncestors(startNodeAndParents, endNodeAndParents) {
     if (
       startParent.type !== "Program" &&
       startParent.type !== "File" &&
-      util.locEnd(startParent) <= util.locEnd(endNodeAndParents.node)) {
+      util.locEnd(startParent) <= util.locEnd(endNodeAndParents.node)
+    ) {
       resultStartNode = startParent;
     } else {
       break;
