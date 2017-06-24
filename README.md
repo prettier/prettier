@@ -499,7 +499,7 @@ Valid options:
  
 Default | CLI Override | API Override
 --------|--------------|-------------
-`"none"` | `--trailing-comma <none|es5|all>` | `trailingComma: "<none|es5|all>"`
+`"none"` | <code>--trailing-comma <none&#124;es5&#124;all></code> | <code>trailingComma: "<none&#124;es5&#124;all>"</code>
 
 ### Bracket Spacing
 Print spaces between brackets in object literals.
