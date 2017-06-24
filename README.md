@@ -45,7 +45,7 @@ conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Pre
   + [Tab Width](#tab-width)
   + [Tabs](#tabs)
   + [Semicolons](#semicolons)
-  + [Quoets](#quotes)
+  + [Quotes](#quotes)
   + [Trailing Commas](#trailing-commas)
   + [Bracket Spacing](#bracket-spacing)
   + [JSX Brackets on Same Line](#jsx-brackets-on-same-line)
@@ -471,7 +471,7 @@ Print semicolons at the ends of statements.
 Valid options: 
 
  * `true` - add a semicolon at the end of every statement.
- * `false` - only add semicolons at the beginning of lines that may introduce ASI failures
+ * `false` - only add semicolons at the beginning of lines that may introduce ASI failures.
  
 Default | CLI Override | API Override
 --------|--------------|-------------
@@ -554,7 +554,7 @@ Default | CLI Override | API Override
 ### Filepath
 Specify the input filepath. This will be used to do parser inference.
 
-Example: <br />`cat foo | prettier --stdin-filepath foo.css`<br /> will default to use `postcss` parser
+Example: `cat foo | prettier --stdin-filepath foo.css` will default to use `postcss` parser.
 
 Default | CLI Override | API Override
 --------|--------------|-------------
