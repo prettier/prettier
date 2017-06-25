@@ -11,6 +11,7 @@ Prettier is an opinionated code formatter with support for:
 * [Flow](https://flow.org/)
 * [TypeScript](https://www.typescriptlang.org/)
 * CSS, [LESS](http://lesscss.org/), and [SCSS](http://sass-lang.com)
+* [JSON](http://json.org/)
 * [GraphQL](http://graphql.org/)
 
 It removes all original styling[\*](#styling-footnote) and ensures that all outputted code
