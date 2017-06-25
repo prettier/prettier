@@ -1725,10 +1725,6 @@ function genericPrintNoParens(path, options, print, args) {
       return concat(parts);
     case "ClassProperty":
     case "TSAbstractClassProperty": {
-      const variance = getFlowVariance(n);
-      if (variance) {
-        parts.push(variance);
-      }
       if (n.accessibility) {
         parts.push(n.accessibility + " ");
       }
@@ -1740,6 +1736,10 @@ function genericPrintNoParens(path, options, print, args) {
       }
       if (n.readonly) {
         parts.push("readonly ");
+      }
+      const variance = getFlowVariance(n);
+      if (variance) {
+        parts.push(variance);
       }
       if (n.computed) {
         parts.push("[", path.call(print, "key"), "]");
