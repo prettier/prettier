@@ -48,9 +48,8 @@ conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Pre
   + [Quotes](#quotes)
   + [Trailing Commas](#trailing-commas)
   + [Bracket Spacing](#bracket-spacing)
-  + [JSX Brackets on Same Line](#jsx-brackets-on-same-line)
-  + [Range Start](#range-start)
-  + [Range End](#range-end)
+  + [JSX Brackets](#jsx-brackets)
+  + [Range](#range)
   + [Parser](#parser)
   + [Filepath](#filepath)
 * [Editor Integration](#editor-integration)
@@ -206,7 +205,7 @@ You can install it globally if you like:
 yarn global add prettier
 ```
 
-*We're using to `yarn` but you can use `npm` if you like:*
+*We're using `yarn` but you can use `npm` if you like:*
 
 ```
 npm install [--save-dev|--global] prettier
@@ -488,7 +487,6 @@ Default | CLI Override | API Override
 --------|--------------|-------------
 `false` |  `--single-quote` | `singleQuote: <bool>`
 
-
 ### Trailing Commas
 Print trailing commas wherever possible.
 
@@ -512,26 +510,26 @@ Default | CLI Override | API Override
 --------|--------------|-------------
 `true` | `--no-bracket-spacing` | `bracketSpacing: <bool>`
 
-### JSX Brackets on Same Line
+### JSX Brackets
 Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line.
 
 Default | CLI Override | API Override
 --------|--------------|-------------
 `false` | `--jsx-bracket-same-line` | `jsxBracketSameLine: <bool>`
 
-### Range Start
-Format code starting at a given character offset. The range will extend backwards to the start of the first line containing the selected statement. This option cannot be used with `cursorOffset`.
+### Range
+Format only a segment of a file.
+
+These two options can be used to format code starting and ending at a given character offset (inclusive and exclusive, respectively). The range will extend:
+* Backwards to the start of the first line containing the selected statement.
+* Forwards to the end of the selected statement.
+
+These options cannot be used with `cursorOffset`.
 
 Default | CLI Override | API Override
 --------|--------------|-------------
-`0` | `--range-start <int>`| `rangeStart: <int>`
-
-### Range End
-Format code ending at a given character offset (exclusive). The range will extend forwards to the end of the selected statement. This option cannot be used with `cursorOffset`.
-
-Default | CLI Override | API Override
---------|--------------|-------------
-`Infinity` | `--range-end <int>` | `rangeEnd: <int>`
+`0`        | `--range-start <int>`| `rangeStart: <int>`
+`Infinity` | `--range-end <int>`  | `rangeEnd: <int>`
 
 ### Parser
 Specify which parser to use.
