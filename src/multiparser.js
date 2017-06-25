@@ -11,7 +11,9 @@ const concat = docBuilders.concat;
 
 function printSubtree(subtreeParser, path, print, options) {
   const next = Object.assign({}, { transformDoc: doc => doc }, subtreeParser);
-  next.options = Object.assign({}, options, next.options);
+  next.options = Object.assign({}, options, next.options, {
+    originalText: next.text
+  });
   const ast = require("./parser").parse(next.text, next.options);
   const astComments = ast.comments;
   delete ast.comments;
