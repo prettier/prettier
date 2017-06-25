@@ -3,7 +3,7 @@
 [![Gitter](https://badges.gitter.im/gitterHQ/gitter.svg)](https://gitter.im/jlongster/prettier)
 [![Build Status](https://travis-ci.org/prettier/prettier.svg?branch=master)](https://travis-ci.org/prettier/prettier)
 [![NPM version](https://img.shields.io/npm/v/prettier.svg)](https://www.npmjs.com/package/prettier)
-[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](#badge)
 
 Prettier is an opinionated code formatter with support for:
 * JavaScript, including [ES2017](https://github.com/tc39/proposals/blob/master/finished-proposals.md)
@@ -206,10 +206,10 @@ You can install it globally if you like:
 yarn global add prettier
 ```
 
-*We're defaulting to `yarn` but you can use `npm` if you like:*
+*We're using to `yarn` but you can use `npm` if you like:*
 
 ```
-npm install [-g] prettier
+npm install [--save-dev|--global] prettier
 ```
 
 ### CLI
@@ -470,8 +470,8 @@ Print semicolons at the ends of statements.
 
 Valid options: 
 
- * `true` - add a semicolon at the end of every statement.
- * `false` - only add semicolons at the beginning of lines that may introduce ASI failures.
+ * `true` - Add a semicolon at the end of every statement.
+ * `false` - Only add semicolons at the beginning of lines that may introduce ASI failures.
  
 Default | CLI Override | API Override
 --------|--------------|-------------
@@ -493,9 +493,9 @@ Default | CLI Override | API Override
 Print trailing commas wherever possible.
 
 Valid options: 
- * `"none"` - no trailing commas.
- * `"es5"` - trailing commas where valid in ES5 (objects, arrays, etc.)
- * `"all"` - trailing commas wherever possible (function arguments). This requires node 8 or a [transform](https://babeljs.io/docs/plugins/syntax-trailing-function-commas/).
+ * `"none"` - No trailing commas.
+ * `"es5"` - Trailing commas where valid in ES5 (objects, arrays, etc.)
+ * `"all"` - Trailing commas wherever possible (function arguments). This requires node 8 or a [transform](https://babeljs.io/docs/plugins/syntax-trailing-function-commas/).
  
 Default | CLI Override | API Override
 --------|--------------|-------------
@@ -539,26 +539,30 @@ Specify which parser to use.
 Both the `babylon` and `flow` parsers support the same set of JavaScript features (including Flow). Prettier automatically infers the parser from the input file path, so you shouldn't have to change this setting. 
 
 Built-in parsers:
- * `babylon`
- * `flow`
- * `typescript`
- * `postcss`
- * `json`
+ * [`babylon`](https://github.com/babel/babylon/)
+ * [`flow`](https://github.com/facebook/flow/tree/master/src/parser)
+ * [`typescript`](https://github.com/eslint/typescript-eslint-parser)
+ * [`postcss`](https://github.com/postcss/postcss)
+ * [`json`](https://github.com/vtrushin/json-to-ast)
 
 [Custom parsers](#custom-parser-api) are also supported. 
 
 Default | CLI Override | API Override
 --------|--------------|-------------
-`babylon` | `--parser <string>`<br />`--parser ./path/to/my-parser` | `parser: "<string>"`<br />`parser: require("./my-parser")`
+`babylon` | `--parser <string>`<br />`--parser ./my-parser` | `parser: "<string>"`<br />`parser: require("./my-parser")`
 
 ### Filepath
 Specify the input filepath. This will be used to do parser inference.
 
-Example: `cat foo | prettier --stdin-filepath foo.css` will default to use `postcss` parser.
+For example, the following will use `postcss` parser:
+
+```bash
+cat foo | prettier --stdin-filepath foo.css
+```
 
 Default | CLI Override | API Override
 --------|--------------|-------------
-None | `--stdin-filepath` | `filepath: "<string>"`
+None | `--stdin-filepath <string>` | `filepath: "<string>"`
 
 
 ## Editor Integration
