@@ -1,1 +1,1 @@
-See http://github.com/jlongster/prettier-atom
+See https://github.com/prettier/prettier-atom
