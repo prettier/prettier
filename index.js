@@ -185,6 +185,16 @@ function isSourceElement(node) {
     case "VariableDeclaration":
     case "WhileStatement":
     case "WithStatement":
+    case "ClassDeclaration": // ES 2015
+    case "ImportDeclaration": // Module
+    case "ExportDefaultDeclaration": // Module
+    case "ExportNamedDeclaration": // Module
+    case "ExportAllDeclaration": // Module
+    case "TypeAlias": // Flow
+    case "InterfaceDeclaration": // Flow, Typescript
+    case "TypeAliasDeclaration": // Typescript
+    case "ExportAssignment": // Typescript
+    case "ExportDeclaration": // Typescript
       return true;
   }
   return false;
