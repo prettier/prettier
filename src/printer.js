@@ -2963,7 +2963,10 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
   //     }                     b,
   //   })                    ) => {
   //                         })
-  if (expandArg) {
+  if (
+    expandArg &&
+    !(fun[paramsField] && fun[paramsField].some(n => n.comments))
+  ) {
     return group(
       concat([
         docUtils.removeLines(typeParams),
@@ -3047,7 +3050,7 @@ function canPrintParamsWithoutParens(node) {
     !node.rest &&
     node.params[0].type === "Identifier" &&
     !node.params[0].typeAnnotation &&
-    !util.hasBlockComments(node.params[0]) &&
+    !node.params[0].comments &&
     !node.params[0].optional &&
     !node.predicate &&
     !node.returnType
