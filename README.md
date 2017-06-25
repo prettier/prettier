@@ -11,6 +11,7 @@ Prettier is an opinionated code formatter with support for:
 * [Flow](https://flow.org/)
 * [TypeScript](https://www.typescriptlang.org/)
 * CSS, [LESS](http://lesscss.org/), and [SCSS](http://sass-lang.com)
+* [GraphQL](http://graphql.org/)
 
 It removes all original styling[\*](#styling-footnote) and ensures that all outputted code
 conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
@@ -539,11 +540,12 @@ Both the `babylon` and `flow` parsers support the same set of JavaScript feature
 Built-in parsers:
  * [`babylon`](https://github.com/babel/babylon/)
  * [`flow`](https://github.com/facebook/flow/tree/master/src/parser)
- * [`typescript`](https://github.com/eslint/typescript-eslint-parser)
- * [`postcss`](https://github.com/postcss/postcss)
- * [`json`](https://github.com/vtrushin/json-to-ast)
+ * [`typescript`](https://github.com/eslint/typescript-eslint-parser) _Since v1.4.0_
+ * [`postcss`](https://github.com/postcss/postcss) _Since v1.4.0_
+ * [`json`](https://github.com/vtrushin/json-to-ast) _Since v1.5.0_
+ * [`graphql`](https://github.com/graphql/graphql-js/tree/master/src/language) _Since v1.5.0_
 
-[Custom parsers](#custom-parser-api) are also supported. 
+[Custom parsers](#custom-parser-api) are also supported.  _Since v1.5.0_
 
 Default | CLI Override | API Override
 --------|--------------|-------------
@@ -613,7 +615,7 @@ features enabled, but you can also use the
 All of JSX and Flow syntax is supported. In fact, the test suite in
 `tests` *is* the entire Flow test suite and they all pass.
 
-Prettier also supports [TypeScript](https://www.typescriptlang.org/), CSS, [LESS](http://lesscss.org/), and [SCSS](http://sass-lang.com).
+Prettier also supports [TypeScript](https://www.typescriptlang.org/), CSS, [LESS](http://lesscss.org/), [SCSS](http://sass-lang.com), [JSON](http://json.org/), and [GraphQL](http://graphql.org/).
 
 The minimum version of TypeScript supported is 2.1.3 as it introduces the ability to have leading `|` for type definitions which prettier outputs.
 
