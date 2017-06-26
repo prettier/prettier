@@ -3877,6 +3877,10 @@ function printJSXElement(path, options, print) {
       children[i] === softline &&
       children[i + 1] === "" &&
       children[i + 2] === jsxWhitespace;
+    const isJSXWhitespaceFollowedBySoftline =
+      children[i] === jsxWhitespace &&
+      children[i + 1] === "" &&
+      children[i + 2] === softline;
     const isEmptyFollowedByHardline =
       children[i] === "" && children[i + 1] === hardline;
     if (
@@ -3885,6 +3889,8 @@ function printJSXElement(path, options, print) {
       (isEmptyFollowedByHardline && containsText)
     ) {
       children.splice(i, 2);
+    } else if (isJSXWhitespaceFollowedBySoftline) {
+      children.splice(i + 1, 2);
     }
   }
 

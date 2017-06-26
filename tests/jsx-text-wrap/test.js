@@ -260,3 +260,11 @@ jsx_whitespace_after_tag =
     {" "}
     ({variable})
   </div>
+
+x =
+  <div>
+    ENDS IN <div>
+      text text text text text text text text text text text
+    </div>{" "}
+    HRS
+  </div>
