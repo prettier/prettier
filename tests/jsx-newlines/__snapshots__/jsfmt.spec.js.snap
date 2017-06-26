@@ -117,7 +117,10 @@ newlines_elems_spaced = (
 
 newlines_mixed = (
   <div>
-    hi<span>there</span>how are <strong>you</strong>are you fine today?
+    hi
+    <span>there</span>
+    how are <strong>you</strong>
+    are you fine today?
   </div>
 );
 
@@ -126,7 +129,10 @@ newlines_elems = (
     <div>
       <div />
     </div>
-    hi<div /><span /><Big />
+    hi
+    <div />
+    <span />
+    <Big />
   </div>
 );
 

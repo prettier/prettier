@@ -3705,7 +3705,7 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
           children.push("");
           words.shift();
           if (/\n/.test(words[0])) {
-            children.push(softline);
+            children.push(hardline);
           } else {
             children.push(jsxWhitespace);
           }
@@ -3734,7 +3734,7 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
 
         if (endWhitespace !== undefined) {
           if (/\n/.test(endWhitespace)) {
-            children.push(softline);
+            children.push(hardline);
           } else {
             children.push(jsxWhitespace);
           }
@@ -3773,25 +3773,17 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
       const printedChild = print(childPath);
       children.push(printedChild);
 
-      const isBrTag =
-        child.type === "JSXElement" && child.openingElement.name.name === "br";
-      if (isBrTag) {
-        // Forcing a hardline after a `<br />` tag gives much better text
-        // layout.
-        children.push(hardline);
-        return;
-      }
-
       const next = n.children[i + 1];
-      const followedByMeaningfulText = next && isMeaningfulJSXText(next);
+      const directlyFollowedByMeaningfulText =
+        next && isMeaningfulJSXText(next) && !/^[ \n\r\t]/.test(rawText(next));
       const followedByJSXWhitespace = next && isJSXWhitespaceExpression(next);
-      if (followedByMeaningfulText || followedByJSXWhitespace) {
+      if (directlyFollowedByMeaningfulText || followedByJSXWhitespace) {
         // Potentially this could be a softline as well.
         // See the comment above about the Facebook translation pipeline as
         // to why this is an empty string.
         children.push("");
       } else {
-        children.push(softline);
+        children.push(hardline);
       }
     }
   }, "children");
@@ -3873,63 +3865,46 @@ function printJSXElement(path, options, print) {
   // to get the correct output.
   for (let i = children.length - 2; i >= 0; i--) {
     const isPairOfEmptyStrings = children[i] === "" && children[i + 1] === "";
-    const isSoftlineFollowedByJSXWhitespace =
-      children[i] === softline &&
+    const isPairOfHardlines =
+      children[i] === hardline &&
+      children[i + 1] === "" &&
+      children[i + 2] === hardline;
+    const isLineFollowedByJSXWhitespace =
+      (children[i] === softline || children[i] === hardline) &&
       children[i + 1] === "" &&
       children[i + 2] === jsxWhitespace;
-    const isJSXWhitespaceFollowedBySoftline =
+    const isJSXWhitespaceFollowedByLine =
       children[i] === jsxWhitespace &&
       children[i + 1] === "" &&
-      children[i + 2] === softline;
-    const isEmptyFollowedByHardline =
-      children[i] === "" && children[i + 1] === hardline;
+      (children[i + 2] === softline || children[i + 2] === hardline);
+
     if (
+      (isPairOfHardlines && containsText) ||
       isPairOfEmptyStrings ||
-      isSoftlineFollowedByJSXWhitespace ||
-      (isEmptyFollowedByHardline && containsText)
+      isLineFollowedByJSXWhitespace
     ) {
       children.splice(i, 2);
-    } else if (isJSXWhitespaceFollowedBySoftline) {
+    } else if (isJSXWhitespaceFollowedByLine) {
       children.splice(i + 1, 2);
     }
   }
 
-  // Trim trailing lines (or empty strings), recording if there was a hardline
-  let numTrailingHard = 0;
+  // Trim trailing lines (or empty strings)
   while (
     children.length &&
     (isLineNext(util.getLast(children)) || isEmpty(util.getLast(children)))
   ) {
-    if (willBreak(util.getLast(children))) {
-      ++numTrailingHard;
-      forcedBreak = true;
-    }
     children.pop();
   }
-  // allow one extra newline
-  if (numTrailingHard > 1) {
-    children.push("");
-    children.push(hardline);
-  }
 
-  // Trim leading lines (or empty strings), recording if there was a hardline
-  let numLeadingHard = 0;
+  // Trim leading lines (or empty strings)
   while (
     children.length &&
     (isLineNext(children[0]) || isEmpty(children[0])) &&
     (isLineNext(children[1]) || isEmpty(children[1]))
   ) {
-    if (willBreak(children[0]) || willBreak(children[1])) {
-      ++numLeadingHard;
-      forcedBreak = true;
-    }
     children.shift();
     children.shift();
-  }
-  // allow one extra newline
-  if (numLeadingHard > 1) {
-    children.unshift(hardline);
-    children.unshift("");
   }
 
   // Tweak how we format children if outputting this element over multiple lines.

@@ -189,8 +189,7 @@ not_broken_end = (
 
 not_broken_begin = (
   <div>
-    <br />
-    {" "}long text long text long text long text long text long text long text
+    <br /> long text long text long text long text long text long text long text
     long text<link>url</link> long text long text
   </div>
 );
