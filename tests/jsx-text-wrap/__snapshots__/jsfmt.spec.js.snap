@@ -253,7 +253,8 @@ expression_does_not_break =
 
 // FIXME
 br_triggers_expression_break =
-  <div><br />text text text text text text text text text text text {this.props.type} </div>
+  <div><br />
+  text text text text text text text text text text text {this.props.type} </div>
 
 jsx_whitespace_after_tag =
   <div>
@@ -271,6 +272,33 @@ x =
     </div>{" "}
     HRS
   </div>
+
+x =
+  <div>
+    <h2>Message</h2>
+    Hello, I'm a simple message.
+  </div>
+
+x =
+  <div>
+    Hello, I'm a simple message.
+    <h2>Message</h2>
+  </div>
+
+x =
+  <div>
+    <div>
+      <div>
+        <div>
+          <div>
+            Line {startRange.row + 1}:{startRange.column + 1} - {endRange.row + 1}:{endRange.column + 1}{caller}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Wrapping text
 x = (
@@ -303,7 +331,9 @@ x = (
 // Wrapping tags
 x = (
   <div>
-    <a /><b /><c />
+    <a />
+    <b />
+    <c />
     <first>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</first>{" "}
     <first>f</first>
   </div>
@@ -329,7 +359,8 @@ x = (
 x = (
   <div>
     before{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}
-    {stuff}{stuff}after{stuff}after
+    {stuff}
+    {stuff}after{stuff}after
   </div>
 );
 
@@ -387,7 +418,9 @@ x = (
 
 x = (
   <div>
-    <div>First</div>Second<div>Third</div>
+    <div>First</div>
+    Second
+    <div>Third</div>
   </div>
 );
 
@@ -532,7 +565,8 @@ no_text_one_tag_per_line = (
 
 with_text_fill_line = (
   <div>
-    Text <first /><second />
+    Text <first />
+    <second />
   </div>
 );
 
@@ -546,22 +580,21 @@ line_after_br = (
 
 line_after_br_2 = (
   <div>
-    A<br />
-    B<br />
-    C
+    A<br />B<br />C
   </div>
 );
 
 br_followed_by_whitespace = (
   <div>
-    <br />
-    {" "}text
+    <br /> text
   </div>
 );
 
 dont_preserve_blank_lines_when_jsx_contains_text = (
   <div>
-    <div>Zeroth</div><div>First</div>Second
+    <div>Zeroth</div>
+    <div>First</div>
+    Second
   </div>
 );
 
@@ -612,6 +645,36 @@ x = (
       text text text text text text text text text text text
     </div>{" "}
     HRS
+  </div>
+);
+
+x = (
+  <div>
+    <h2>Message</h2>
+    Hello, I'm a simple message.
+  </div>
+);
+
+x = (
+  <div>
+    Hello, I'm a simple message.
+    <h2>Message</h2>
+  </div>
+);
+
+x = (
+  <div>
+    <div>
+      <div>
+        <div>
+          <div>
+            Line {startRange.row + 1}:{startRange.column + 1} -{" "}
+            {endRange.row + 1}:{endRange.column + 1}
+            {caller}
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 );
 

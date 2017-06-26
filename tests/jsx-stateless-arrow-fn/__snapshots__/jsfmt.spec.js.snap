@@ -135,8 +135,9 @@ const render6 = ({ styles }) =>
 
 const render7 = () =>
   <div>
-    <span /><span>Dont break each elem onto its own line.</span> <span /><div />{" "}
-    <div />
+    <span />
+    <span>Dont break each elem onto its own line.</span> <span />
+    <div /> <div />
   </div>;
 
 const render7A = () =>
