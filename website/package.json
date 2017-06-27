@@ -2,7 +2,7 @@
   "scripts": {
     "start": "docusaurus-start",
     "build": "docusaurus-build",
-    "publish": "docusaurus-publish",
+    "publish-gh-pages": "docusaurus-publish",
     "examples": "docusaurus-examples"
   },
   "devDependencies": {
