@@ -16,7 +16,7 @@ self.require = function require(path) {
   return self[path.replace(/.+-/, "")];
 };
 
-importScripts("index.js");
+importScripts("lib/index.js");
 var prettier = index; // eslint-disable-line
 
 var parsersLoaded = {};
@@ -76,7 +76,7 @@ function formatCode(text, options) {
 
 function lazyLoadParser(parser) {
   if (!parsersLoaded[parser]) {
-    importScripts("parser-" + parser + ".js");
+    importScripts("lib/parser-" + parser + ".js");
     parsersLoaded[parser] = true;
   }
 }

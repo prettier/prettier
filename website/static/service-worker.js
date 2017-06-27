@@ -3,7 +3,7 @@
 
 "use strict";
 
-importScripts("sw-toolbox.js");
+importScripts("lib/sw-toolbox.js");
 
 toolbox.precache([
   // Scripts
@@ -15,8 +15,8 @@ toolbox.precache([
   "lib/parser-graphql.js",
   "lib/parser-json.js",
   "playground.js",
-  "sw-toolbox.js",
-  "sw-toolbox-companion.js",
+  "lib/sw-toolbox.js",
+  "lib/sw-toolbox-companion.js",
 
   // CodeMirror
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/codemirror.css",
