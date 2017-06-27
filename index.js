@@ -179,6 +179,7 @@ function isSourceElement(opts, node) {
     case "NumericLiteral": // JSON
     case "BooleanLiteral": // JSON
     case "NullLiteral": // JSON
+    case "json-identifier": // JSON
       return opts.parser === "json";
     case "FunctionDeclaration":
     case "BlockStatement":
