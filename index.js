@@ -103,6 +103,13 @@ function findSiblingAncestors(startNodeAndParents, endNodeAndParents) {
   let resultStartNode = startNodeAndParents.node;
   let resultEndNode = endNodeAndParents.node;
 
+  if (resultStartNode === resultEndNode) {
+    return {
+      startNode: resultStartNode,
+      endNode: resultEndNode
+    };
+  }
+
   for (const endParent of endNodeAndParents.parentNodes) {
     if (
       endParent.type !== "Program" &&
