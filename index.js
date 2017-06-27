@@ -103,6 +103,13 @@ function findSiblingAncestors(startNodeAndParents, endNodeAndParents) {
   let resultStartNode = startNodeAndParents.node;
   let resultEndNode = endNodeAndParents.node;
 
+  if (resultStartNode === resultEndNode) {
+    return {
+      startNode: resultStartNode,
+      endNode: resultEndNode
+    };
+  }
+
   for (const endParent of endNodeAndParents.parentNodes) {
     if (
       endParent.type !== "Program" &&
@@ -161,11 +168,19 @@ function findNodeAtOffset(node, offset, predicate, parentNodes) {
 }
 
 // See https://www.ecma-international.org/ecma-262/5.1/#sec-A.5
-function isSourceElement(node) {
+function isSourceElement(opts, node) {
   if (node == null) {
     return false;
   }
   switch (node.type) {
+    case "ObjectExpression": // JSON
+    case "ArrayExpression": // JSON
+    case "StringLiteral": // JSON
+    case "NumericLiteral": // JSON
+    case "BooleanLiteral": // JSON
+    case "NullLiteral": // JSON
+    case "json-identifier": // JSON
+      return opts.parser === "json";
     case "FunctionDeclaration":
     case "BlockStatement":
     case "BreakStatement":
@@ -219,15 +234,11 @@ function calculateRange(text, opts, ast) {
     }
   }
 
-  const startNodeAndParents = findNodeAtOffset(
-    ast,
-    startNonWhitespace,
-    isSourceElement
+  const startNodeAndParents = findNodeAtOffset(ast, startNonWhitespace, node =>
+    isSourceElement(opts, node)
   );
-  const endNodeAndParents = findNodeAtOffset(
-    ast,
-    endNonWhitespace,
-    isSourceElement
+  const endNodeAndParents = findNodeAtOffset(ast, endNonWhitespace, node =>
+    isSourceElement(opts, node)
   );
 
   if (!startNodeAndParents || !endNodeAndParents) {
