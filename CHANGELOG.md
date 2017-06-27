@@ -1,3 +1,9 @@
+# 1.5.0
+
+[link](https://github.com/jlongster/prettier/compare/1.4.4...1.5.0)
+
+* [Release Notes](https://github.com/prettier/prettier/releases/tag/1.5.0)
+
 # 1.4.4
 
 * Fix postcss, I forgot to re-run the build script :(

@@ -50,7 +50,7 @@ echo;
 ## --- Misc ---
 
 echo 'Remove eval'
-sed --in-place='' -e 's/eval("require")/require/g' dist/index.js dist/bin/prettier.js
+perl -pi -e 's/eval\("require"\)/require/g' dist/index.js dist/bin/prettier.js
 
 echo 'Create prettier-version.js'
 node -p '`prettierVersion = "${require(".").version}";`' > docs/lib/prettier-version.js
@@ -61,6 +61,9 @@ cp node_modules/sw-toolbox/companion.js  docs/lib/sw-toolbox-companion.js
 
 echo 'Copy package.json'
 node -p "pkg = require('./package.json'), delete pkg.dependencies, JSON.stringify(pkg, null, 2)" > dist/package.json
+
+echo 'Copy README.md'
+cp README.md dist/README.md
 
 echo 'Done!'
 echo;

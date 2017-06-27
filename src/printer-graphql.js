@@ -22,7 +22,10 @@ function genericPrint(path, options, print) {
 
   switch (n.kind) {
     case "Document": {
-      return join(concat([hardline, hardline]), path.map(print, "definitions"));
+      return concat([
+        join(concat([hardline, hardline]), path.map(print, "definitions")),
+        hardline
+      ]);
     }
     case "OperationDefinition": {
       return concat([

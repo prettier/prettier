@@ -80,7 +80,10 @@ function fromBabylonFlowOrTypeScript(path) {
         return {
           options: { parser: "graphql" },
           transformDoc: doc =>
-            concat([indent(concat([softline, doc])), softline]),
+            concat([
+              indent(concat([softline, stripTrailingHardline(doc)])),
+              softline
+            ]),
           text: parent.quasis[0].value.raw
         };
       }

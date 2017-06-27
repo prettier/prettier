@@ -55,4 +55,5 @@ union longUnion =
 # comment
 # comment2
 union union = B | C | D
+
 `;

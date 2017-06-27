@@ -304,7 +304,10 @@ export const bem = block =>
 <FlatList
   renderItem={(
     info // $FlowExpectedError - bad widgetCount type 6, should be Object
-  ) => <span>{info.item.widget.missingProp}</span>}
+  ) =>
+    <span>
+      {info.item.widget.missingProp}
+    </span>}
   data={data}
 />;
 

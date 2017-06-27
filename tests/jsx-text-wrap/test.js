@@ -250,7 +250,8 @@ expression_does_not_break =
 
 // FIXME
 br_triggers_expression_break =
-  <div><br />text text text text text text text text text text text {this.props.type} </div>
+  <div><br />
+  text text text text text text text text text text text {this.props.type} </div>
 
 jsx_whitespace_after_tag =
   <div>
@@ -260,3 +261,38 @@ jsx_whitespace_after_tag =
     {" "}
     ({variable})
   </div>
+
+x =
+  <div>
+    ENDS IN <div>
+      text text text text text text text text text text text
+    </div>{" "}
+    HRS
+  </div>
+
+x =
+  <div>
+    <h2>Message</h2>
+    Hello, I'm a simple message.
+  </div>
+
+x =
+  <div>
+    Hello, I'm a simple message.
+    <h2>Message</h2>
+  </div>
+
+x =
+  <div>
+    <div>
+      <div>
+        <div>
+          <div>
+            Line {startRange.row + 1}:{startRange.column + 1} - {endRange.row + 1}:{endRange.column + 1}{caller}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+

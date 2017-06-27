@@ -3670,7 +3670,8 @@ function isJSXWhitespaceExpression(node) {
   return (
     node.type === "JSXExpressionContainer" &&
     isLiteral(node.expression) &&
-    node.expression.value === " "
+    node.expression.value === " " &&
+    !node.expression.comments
   );
 }
 
@@ -3705,7 +3706,7 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
           children.push("");
           words.shift();
           if (/\n/.test(words[0])) {
-            children.push(softline);
+            children.push(hardline);
           } else {
             children.push(jsxWhitespace);
           }
@@ -3734,12 +3735,12 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
 
         if (endWhitespace !== undefined) {
           if (/\n/.test(endWhitespace)) {
-            children.push(softline);
+            children.push(hardline);
           } else {
             children.push(jsxWhitespace);
           }
         } else {
-          // Ideally this would be a `softline` to allow a break between
+          // Ideally this would be a `hardline` to allow a break between
           // tags and text.
           // Unfortunately Facebook have a custom translation pipeline
           // (https://github.com/prettier/prettier/issues/1581#issuecomment-300975032)
@@ -3762,36 +3763,19 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
         children.push(jsxWhitespace);
       }
     } else {
-      // Convert `{" "}` to jsxWhitespace so it can be printed as a standard
-      // space if needed.
-      if (isJSXWhitespaceExpression(child)) {
-        children.push("");
-        children.push(jsxWhitespace);
-        return;
-      }
-
       const printedChild = print(childPath);
       children.push(printedChild);
 
-      const isBrTag =
-        child.type === "JSXElement" && child.openingElement.name.name === "br";
-      if (isBrTag) {
-        // Forcing a hardline after a `<br />` tag gives much better text
-        // layout.
-        children.push(hardline);
-        return;
-      }
-
       const next = n.children[i + 1];
-      const followedByMeaningfulText = next && isMeaningfulJSXText(next);
-      const followedByJSXWhitespace = next && isJSXWhitespaceExpression(next);
-      if (followedByMeaningfulText || followedByJSXWhitespace) {
-        // Potentially this could be a softline as well.
+      const directlyFollowedByMeaningfulText =
+        next && isMeaningfulJSXText(next) && !/^[ \n\r\t]/.test(rawText(next));
+      if (directlyFollowedByMeaningfulText) {
+        // Potentially this could be a hardline as well.
         // See the comment above about the Facebook translation pipeline as
         // to why this is an empty string.
         children.push("");
       } else {
-        children.push(softline);
+        children.push(hardline);
       }
     }
   }, "children");
@@ -3845,11 +3829,30 @@ function printJSXElement(path, options, print) {
     return openingLines;
   }
 
+  // Convert `{" "}` to text nodes containing a space.
+  // This makes it easy to turn them into `jsxWhitespace` which
+  // can then print as either a space or `{" "}` when breaking.
+  n.children = n.children.map(child => {
+    if (isJSXWhitespaceExpression(child)) {
+      return {
+        type: "JSXText",
+        value: " ",
+        raw: " "
+      };
+    }
+    return child;
+  });
+
+  const parent = path.getParentNode();
+  const parentContainsText =
+    parent.type === "JSXElement" &&
+    parent.children.filter(child => isMeaningfulJSXText(child)).length > 0;
+
   const containsTag =
     n.children.filter(child => child.type === "JSXElement").length > 0;
-  const containsMultipleExpressions =
-    n.children.filter(child => child.type === "JSXExpressionContainer").length >
-    1;
+  const numExpressions = n.children.filter(
+    child => child.type === "JSXExpressionContainer"
+  ).length;
   const containsMultipleAttributes = n.openingElement.attributes.length > 1;
 
   // Record any breaks. Should never go from true to false, only false to true.
@@ -3857,7 +3860,7 @@ function printJSXElement(path, options, print) {
     willBreak(openingLines) ||
     containsTag ||
     containsMultipleAttributes ||
-    containsMultipleExpressions;
+    (parentContainsText ? numExpressions > 1 : numExpressions > 0);
 
   const rawJsxWhitespace = options.singleQuote ? "{' '}" : '{" "}';
   const jsxWhitespace = ifBreak(concat([rawJsxWhitespace, softline]), " ");
@@ -3873,57 +3876,46 @@ function printJSXElement(path, options, print) {
   // to get the correct output.
   for (let i = children.length - 2; i >= 0; i--) {
     const isPairOfEmptyStrings = children[i] === "" && children[i + 1] === "";
-    const isSoftlineFollowedByJSXWhitespace =
-      children[i] === softline &&
+    const isPairOfHardlines =
+      children[i] === hardline &&
+      children[i + 1] === "" &&
+      children[i + 2] === hardline;
+    const isLineFollowedByJSXWhitespace =
+      (children[i] === softline || children[i] === hardline) &&
       children[i + 1] === "" &&
       children[i + 2] === jsxWhitespace;
-    const isEmptyFollowedByHardline =
-      children[i] === "" && children[i + 1] === hardline;
+    const isJSXWhitespaceFollowedByLine =
+      children[i] === jsxWhitespace &&
+      children[i + 1] === "" &&
+      (children[i + 2] === softline || children[i + 2] === hardline);
+
     if (
+      (isPairOfHardlines && containsText) ||
       isPairOfEmptyStrings ||
-      isSoftlineFollowedByJSXWhitespace ||
-      (isEmptyFollowedByHardline && containsText)
+      isLineFollowedByJSXWhitespace
     ) {
       children.splice(i, 2);
+    } else if (isJSXWhitespaceFollowedByLine) {
+      children.splice(i + 1, 2);
     }
   }
 
-  // Trim trailing lines (or empty strings), recording if there was a hardline
-  let numTrailingHard = 0;
+  // Trim trailing lines (or empty strings)
   while (
     children.length &&
     (isLineNext(util.getLast(children)) || isEmpty(util.getLast(children)))
   ) {
-    if (willBreak(util.getLast(children))) {
-      ++numTrailingHard;
-      forcedBreak = true;
-    }
     children.pop();
   }
-  // allow one extra newline
-  if (numTrailingHard > 1) {
-    children.push("");
-    children.push(hardline);
-  }
 
-  // Trim leading lines (or empty strings), recording if there was a hardline
-  let numLeadingHard = 0;
+  // Trim leading lines (or empty strings)
   while (
     children.length &&
     (isLineNext(children[0]) || isEmpty(children[0])) &&
     (isLineNext(children[1]) || isEmpty(children[1]))
   ) {
-    if (willBreak(children[0]) || willBreak(children[1])) {
-      ++numLeadingHard;
-      forcedBreak = true;
-    }
     children.shift();
     children.shift();
-  }
-  // allow one extra newline
-  if (numLeadingHard > 1) {
-    children.unshift(hardline);
-    children.unshift("");
   }
 
   // Tweak how we format children if outputting this element over multiple lines.

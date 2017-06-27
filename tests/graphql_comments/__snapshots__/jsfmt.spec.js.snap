@@ -15,6 +15,7 @@ query(
 ) {
   someField
 }
+
 `;
 
 exports[`fields.graphql 1`] = `
@@ -27,4 +28,5 @@ query {
 query {
   someField # Trailing comment
 }
+
 `;

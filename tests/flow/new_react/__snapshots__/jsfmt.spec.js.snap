@@ -793,7 +793,11 @@ class Example extends React.Component {
   props: { bar: string };
 
   render() {
-    return <div>{this.props.bar}</div>;
+    return (
+      <div>
+        {this.props.bar}
+      </div>
+    );
   }
 }
 
@@ -865,7 +869,11 @@ var ReactClass = React.createClass({
   render: function(): any {
     // Any state access here seems to make state any
     this.state;
-    return <div>{this.state.bar.qux}</div>;
+    return (
+      <div>
+        {this.state.bar.qux}
+      </div>
+    );
   }
 });
 
@@ -973,7 +981,11 @@ var C = React.createClass({
 
   render() {
     this.setState({ y: 0 });
-    return <div>{this.state.z}</div>;
+    return (
+      <div>
+        {this.state.z}
+      </div>
+    );
   }
 });
 
