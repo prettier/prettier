@@ -60,13 +60,6 @@ function ugly ( {a=1,     b     =   2     }      ) {
 
 `;
 
-exports[`issue2297.json 1`] = `
-{"a":1, "b":2}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-{"a":1, "b":2}
-
-`;
-
 exports[`module-export1.js 1`] = `
 import  def , {named}  from    'x'
 
