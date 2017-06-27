@@ -179,16 +179,10 @@ var babylon = function () {
 							var o = p(e);e.length > 0 && o.trailingComments && o.trailingComments[0].start >= t.end && (r = o.trailingComments, o.trailingComments = null);
 						}for (e.length > 0 && p(e).start >= t.start && (s = e.pop()); e.length > 0 && p(e).start >= t.start;) {
 							i = e.pop();
-						}if (!i && s && (i = s), s && this.state.leadingComments.length > 0) {
-							var h = p(this.state.leadingComments);if ("ObjectProperty" === s.type) {
-								if (h.start >= t.start && this.state.commentPreviousNode) {
-									for (n = 0; n < this.state.leadingComments.length; n++) {
-										this.state.leadingComments[n].end < this.state.commentPreviousNode.end && (this.state.leadingComments.splice(n, 1), n--);
-									}this.state.leadingComments.length > 0 && (s.trailingComments = this.state.leadingComments, this.state.leadingComments = []);
-								}
-							} else if ("CallExpression" === t.type && t.arguments && t.arguments.length) {
-								var c = p(t.arguments);c && h.start >= c.start && h.end <= t.end && this.state.commentPreviousNode && this.state.leadingComments.length > 0 && (c.trailingComments = this.state.leadingComments, this.state.leadingComments = []);
-							}
+						}if (!i && s && (i = s), s && ("ObjectProperty" === s.type || "CallExpression" === t.type) && this.state.leadingComments.length > 0 && p(this.state.leadingComments).start >= t.start && this.state.commentPreviousNode) {
+							for (n = 0; n < this.state.leadingComments.length; n++) {
+								this.state.leadingComments[n].end < this.state.commentPreviousNode.end && (this.state.leadingComments.splice(n, 1), n--);
+							}this.state.leadingComments.length > 0 && (s.trailingComments = this.state.leadingComments, this.state.leadingComments = []);
 						}if (i) {
 							if (i.leadingComments) if (i !== t && p(i.leadingComments).end <= t.start) t.leadingComments = i.leadingComments, i.leadingComments = null;else for (a = i.leadingComments.length - 2; a >= 0; --a) {
 								if (i.leadingComments[a].end <= t.start) {
@@ -200,7 +194,7 @@ var babylon = function () {
 								this.state.leadingComments[n].end < this.state.commentPreviousNode.end && (this.state.leadingComments.splice(n, 1), n--);
 							}this.state.leadingComments.length > 0 && (t.leadingComments = this.state.leadingComments, this.state.leadingComments = []);
 						} else {
-							for (a = 0; a < this.state.leadingComments.length && !(this.state.leadingComments[a].end > t.start); a++) {}var l = this.state.leadingComments.slice(0, a);t.leadingComments = 0 === l.length ? null : l, 0 === (r = this.state.leadingComments.slice(a)).length && (r = null);
+							for (a = 0; a < this.state.leadingComments.length && !(this.state.leadingComments[a].end > t.start); a++) {}var h = this.state.leadingComments.slice(0, a);t.leadingComments = 0 === h.length ? null : h, 0 === (r = this.state.leadingComments.slice(a)).length && (r = null);
 						}this.state.commentPreviousNode = t, r && (r.length && r[0].start >= t.start && p(r).end <= t.end ? t.innerComments = r : t.trailingComments = r), e.push(t);
 					}
 				}, e;
@@ -217,7 +211,7 @@ var babylon = function () {
 				function t() {
 					g(this, t);
 				}return t.prototype.init = function (t, e) {
-					this.strict = !1 !== t.strictMode && "module" === t.sourceType, this.input = e, this.potentialArrowAt = -1, this.inMethod = this.inFunction = this.inGenerator = this.inAsync = this.inPropertyName = this.inType = this.inClass = this.inClassProperty = this.noAnonFunctionType = !1, this.labels = [], this.decorators = [], this.tokens = [], this.comments = [], this.trailingComments = [], this.leadingComments = [], this.commentStack = [], this.commentPreviousNode = null, this.pos = this.lineStart = 0, this.curLine = t.startLine, this.type = C.eof, this.value = null, this.start = this.end = this.pos, this.startLoc = this.endLoc = this.curPosition(), this.lastTokEndLoc = this.lastTokStartLoc = null, this.lastTokStart = this.lastTokEnd = this.pos, this.context = [V.braceStatement], this.exprAllowed = !0, this.containsEsc = this.containsOctal = !1, this.octalPosition = null, this.invalidTemplateEscapePosition = null, this.exportedIdentifiers = [];
+					this.strict = !1 !== t.strictMode && "module" === t.sourceType, this.input = e, this.potentialArrowAt = -1, this.inMethod = this.inFunction = this.inGenerator = this.inAsync = this.inPropertyName = this.inType = this.inClass = this.inClassProperty = this.noAnonFunctionType = !1, this.labels = [], this.decorators = [], this.tokens = [], this.comments = [], this.trailingComments = [], this.leadingComments = [], this.commentStack = [], this.pos = this.lineStart = 0, this.curLine = t.startLine, this.type = C.eof, this.value = null, this.start = this.end = this.pos, this.startLoc = this.endLoc = this.curPosition(), this.lastTokEndLoc = this.lastTokStartLoc = null, this.lastTokStart = this.lastTokEnd = this.pos, this.context = [V.braceStatement], this.exprAllowed = !0, this.containsEsc = this.containsOctal = !1, this.octalPosition = null, this.invalidTemplateEscapePosition = null, this.exportedIdentifiers = [];
 				}, t.prototype.curPosition = function () {
 					return new U(this.curLine, this.pos - this.lineStart);
 				}, t.prototype.clone = function (e) {
@@ -258,7 +252,7 @@ var babylon = function () {
 				}, e;
 			}(function (t) {
 				function e(s, i) {
-					g(this, e);var r = P(this, t.call(this));return r.state = new W(), r.state.init(s, i), r.isLookahead = !1, r;
+					g(this, e);var r = P(this, t.call(this));return r.state = new W(), r.state.init(s, i), r;
 				}return w(e, t), e.prototype.next = function () {
 					this.isLookahead || this.state.tokens.push(new K(this.state)), this.state.lastTokEnd = this.state.end, this.state.lastTokStart = this.state.start, this.state.lastTokEndLoc = this.state.endLoc, this.state.lastTokStartLoc = this.state.startLoc, this.nextToken();
 				}, e.prototype.eat = function (t) {
@@ -268,7 +262,7 @@ var babylon = function () {
 				}, e.prototype.isKeyword = function (t) {
 					return L(t);
 				}, e.prototype.lookahead = function () {
-					var t = this.state;this.state = t.clone(!0), this.isLookahead = !0, this.next(), this.isLookahead = !1;var e = this.state;return this.state = t, e;
+					var t = this.state;this.state = t.clone(!0), this.isLookahead = !0, this.next(), this.isLookahead = !1;var e = this.state.clone(!0);return this.state = t, e;
 				}, e.prototype.setStrict = function (t) {
 					if (this.state.strict = t, this.match(C.num) || this.match(C.string)) {
 						for (this.state.pos = this.state.start; this.state.pos < this.state.lineStart;) {
@@ -292,10 +286,8 @@ var babylon = function () {
 						++this.state.curLine, this.state.lineStart = i.index + i[0].length;
 					}this.pushComment(!0, this.input.slice(e + 2, s), e, this.state.pos, t, this.state.curPosition());
 				}, e.prototype.skipLineComment = function (t) {
-					var e = this.state.pos,
-					    s = this.state.curPosition(),
-					    i = this.input.charCodeAt(this.state.pos += t);if (this.state.pos < this.input.length) for (; 10 !== i && 13 !== i && 8232 !== i && 8233 !== i && ++this.state.pos < this.input.length;) {
-						i = this.input.charCodeAt(this.state.pos);
+					for (var e = this.state.pos, s = this.state.curPosition(), i = this.input.charCodeAt(this.state.pos += t); this.state.pos < this.input.length && 10 !== i && 13 !== i && 8232 !== i && 8233 !== i;) {
+						++this.state.pos, i = this.input.charCodeAt(this.state.pos);
 					}this.pushComment(!1, this.input.slice(e + t, this.state.pos), e, this.state.pos, s, this.state.curPosition());
 				}, e.prototype.skipSpace = function () {
 					t: for (; this.state.pos < this.input.length;) {
@@ -768,27 +760,25 @@ var babylon = function () {
 					    i = this.state.potentialArrowAt,
 					    r = this.parseExprAtom(t);return "ArrowFunctionExpression" === r.type && r.start === i ? r : t && t.start ? r : this.parseSubscripts(r, e, s);
 				}, e.prototype.parseSubscripts = function (t, e, s, i) {
-					var r = { stop: !1 };do {
-						t = this.parseSubscript(t, e, s, i, r);
-					} while (!r.stop);return t;
-				}, e.prototype.parseSubscript = function (t, e, s, i, r) {
-					if (!i && this.eat(C.doubleColon)) {
-						var a = this.startNodeAt(e, s);return a.object = t, a.callee = this.parseNoCallExpr(), r.stop = !0, this.parseSubscripts(this.finishNode(a, "BindExpression"), e, s, i);
-					}if (this.match(C.questionDot)) {
-						if (this.hasPlugin("optionalChaining") || this.raise(e, "You can only use optional-chaining when the 'optionalChaining' plugin is enabled."), i && this.lookahead().type == C.parenL) return r.stop = !0, t;this.next();var n = this.startNodeAt(e, s);if (this.eat(C.bracketL)) return n.object = t, n.property = this.parseExpression(), n.computed = !0, n.optional = !0, this.expect(C.bracketR), this.finishNode(n, "MemberExpression");if (this.eat(C.parenL)) {
-							var o = this.state.potentialArrowAt === t.start && "Identifier" === t.type && "async" === t.name && !this.canInsertSemicolon();return n.callee = t, n.arguments = this.parseCallExpressionArguments(C.parenR, o), n.optional = !0, this.finishNode(n, "CallExpression");
-						}return n.object = t, n.property = this.parseIdentifier(!0), n.computed = !1, n.optional = !0, this.finishNode(n, "MemberExpression");
-					}if (this.eat(C.dot)) {
-						var h = this.startNodeAt(e, s);return h.object = t, h.property = this.hasPlugin("classPrivateProperties") ? this.parseMaybePrivateName() : this.parseIdentifier(!0), h.computed = !1, this.finishNode(h, "MemberExpression");
-					}if (this.eat(C.bracketL)) {
-						var p = this.startNodeAt(e, s);return p.object = t, p.property = this.parseExpression(), p.computed = !0, this.expect(C.bracketR), this.finishNode(p, "MemberExpression");
-					}if (!i && this.match(C.parenL)) {
-						var c = this.state.potentialArrowAt === t.start && "Identifier" === t.type && "async" === t.name && !this.canInsertSemicolon();this.next();var l = this.startNodeAt(e, s);if (l.callee = t, l.arguments = this.parseCallExpressionArguments(C.parenR, c), "Import" === l.callee.type) {
-							1 !== l.arguments.length && this.raise(l.start, "import() requires exactly one argument");var u = l.arguments[0];u && "SpreadElement" === u.type && this.raise(u.start, "... is not allowed in import()");
-						}return this.finishNode(l, "CallExpression"), c && this.shouldParseAsyncArrow() ? (r.stop = !0, this.parseAsyncArrowFromCallExpression(this.startNodeAt(e, s), l)) : (this.toReferencedList(l.arguments), l);
-					}if (this.match(C.backQuote)) {
-						var d = this.startNodeAt(e, s);return d.tag = t, d.quasi = this.parseTemplate(!0), this.finishNode(d, "TaggedTemplateExpression");
-					}return r.stop = !0, t;
+					for (;;) {
+						if (!i && this.eat(C.doubleColon)) {
+							var r = this.startNodeAt(e, s);return r.object = t, r.callee = this.parseNoCallExpr(), this.parseSubscripts(this.finishNode(r, "BindExpression"), e, s, i);
+						}if (this.match(C.questionDot)) {
+							if (this.hasPlugin("optionalChaining") || this.raise(e, "You can only use optional-chaining when the 'optionalChaining' plugin is enabled."), i && this.lookahead().type == C.parenL) return t;this.next();var a = this.startNodeAt(e, s);if (this.eat(C.bracketL)) a.object = t, a.property = this.parseExpression(), a.computed = !0, a.optional = !0, this.expect(C.bracketR), t = this.finishNode(a, "MemberExpression");else if (this.eat(C.parenL)) {
+								var n = this.state.potentialArrowAt === t.start && "Identifier" === t.type && "async" === t.name && !this.canInsertSemicolon();a.callee = t, a.arguments = this.parseCallExpressionArguments(C.parenR, n), a.optional = !0, t = this.finishNode(a, "CallExpression");
+							} else a.object = t, a.property = this.parseIdentifier(!0), a.computed = !1, a.optional = !0, t = this.finishNode(a, "MemberExpression");
+						} else if (this.eat(C.dot)) {
+							var o = this.startNodeAt(e, s);o.object = t, o.property = this.hasPlugin("classPrivateProperties") ? this.parseMaybePrivateName() : this.parseIdentifier(!0), o.computed = !1, t = this.finishNode(o, "MemberExpression");
+						} else if (this.eat(C.bracketL)) {
+							var h = this.startNodeAt(e, s);h.object = t, h.property = this.parseExpression(), h.computed = !0, this.expect(C.bracketR), t = this.finishNode(h, "MemberExpression");
+						} else if (!i && this.match(C.parenL)) {
+							var p = this.state.potentialArrowAt === t.start && "Identifier" === t.type && "async" === t.name && !this.canInsertSemicolon();this.next();var c = this.startNodeAt(e, s);if (c.callee = t, c.arguments = this.parseCallExpressionArguments(C.parenR, p), "Import" === c.callee.type) {
+								1 !== c.arguments.length && this.raise(c.start, "import() requires exactly one argument");var l = c.arguments[0];l && "SpreadElement" === l.type && this.raise(l.start, "... is not allowed in import()");
+							}if (t = this.finishNode(c, "CallExpression"), p && this.shouldParseAsyncArrow()) return this.parseAsyncArrowFromCallExpression(this.startNodeAt(e, s), c);this.toReferencedList(c.arguments);
+						} else {
+							if (!this.match(C.backQuote)) return t;var u = this.startNodeAt(e, s);u.tag = t, u.quasi = this.parseTemplate(!0), t = this.finishNode(u, "TaggedTemplateExpression");
+						}
+					}throw new Error("Unreachable");
 				}, e.prototype.parseCallExpressionArguments = function (t, e) {
 					for (var s = [], i = void 0, r = !0; !this.eat(t);) {
 						if (r) r = !1;else if (this.expect(C.comma), this.eat(t)) break;this.match(C.parenL) && !i && (i = this.state.start), s.push(this.parseExprListItem(!1, e ? { start: 0 } : void 0, e ? { start: 0 } : void 0));
@@ -1118,7 +1108,7 @@ var babylon = function () {
 							return a.directiveToStmt(t);
 						});e.body = n.concat(e.body), delete e.directives;
 					}, e.prototype.parseClassMethod = function (t, e, s, i) {
-						this.parseMethod(e, s, i), e.typeParameters && (e.value.typeParameters = e.typeParameters, delete e.typeParameters), t.body.push(this.finishNode(e, "MethodDefinition"));
+						this.parseMethod(e, s, i), t.body.push(this.finishNode(e, "MethodDefinition"));
 					}, e.prototype.parseExprAtom = function (e) {
 						switch (this.state.type) {case C.regexp:
 								return this.estreeParseRegExpLiteral(this.state.value);case C.num:case C.string:
@@ -1132,7 +1122,7 @@ var babylon = function () {
 					}, e.prototype.parseMethod = function (e, s, i) {
 						var r = this.startNode();return r.kind = e.kind, r = t.prototype.parseMethod.call(this, r, s, i), delete r.kind, e.value = this.finishNode(r, "FunctionExpression"), e;
 					}, e.prototype.parseObjectMethod = function (e, s, i, r) {
-						var a = t.prototype.parseObjectMethod.call(this, e, s, i, r);return a && (a.type = "Property", "method" === a.kind && (a.kind = "init"), a.shorthand = !1), a;
+						var a = t.prototype.parseObjectMethod.call(this, e, s, i, r);return a && ("method" === a.kind && (a.kind = "init"), a.type = "Property"), a;
 					}, e.prototype.parseObjectProperty = function (e, s, i, r, a) {
 						var n = t.prototype.parseObjectProperty.call(this, e, s, i, r, a);return n && (n.kind = "init", n.type = "Property"), n;
 					}, e.prototype.toAssignable = function (e, s, i) {
@@ -1332,7 +1322,7 @@ var babylon = function () {
 							t.types.push(this.flowParseIntersectionType());
 						}return 1 === t.types.length ? e : this.finishNode(t, "UnionTypeAnnotation");
 					}, e.prototype.flowParseType = function () {
-						var t = this.state.inType;this.state.inType = !0;var e = this.flowParseUnionType();return this.state.inType = t, this.state.exprAllowed = !1, e;
+						var t = this.state.inType;this.state.inType = !0;var e = this.flowParseUnionType();return this.state.inType = t, e;
 					}, e.prototype.flowParseTypeAnnotation = function () {
 						var t = this.startNode();return t.typeAnnotation = this.flowParseTypeInitialiser(), this.finishNode(t, "TypeAnnotation");
 					}, e.prototype.flowParseTypeAnnotatableIdentifier = function () {
