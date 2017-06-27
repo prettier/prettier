@@ -89,5 +89,3 @@ siteConfig["languages"] = enabledLanguages;
 /* INJECT LOCALIZED FILES END */
 
 module.exports = siteConfig;
-
-module.exports = siteConfig;
