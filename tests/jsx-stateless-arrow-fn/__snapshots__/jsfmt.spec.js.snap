@@ -160,9 +160,14 @@ const render7B = () =>
     </span>
   </div>;
 
-const render8 = props => <div>{props.text}</div>;
+const render8 = props =>
+  <div>
+    {props.text}
+  </div>;
 const render9 = props =>
-  <div>{props.looooooooooooooooooooooooooooooong_text}</div>;
+  <div>
+    {props.looooooooooooooooooooooooooooooong_text}
+  </div>;
 const render10 = props =>
   <div>
     {props.even_looooooooooooooooooooooooooooooooooooooooooonger_contents}

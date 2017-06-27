@@ -3739,7 +3739,7 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
             children.push(jsxWhitespace);
           }
         } else {
-          // Ideally this would be a `softline` to allow a break between
+          // Ideally this would be a `hardline` to allow a break between
           // tags and text.
           // Unfortunately Facebook have a custom translation pipeline
           // (https://github.com/prettier/prettier/issues/1581#issuecomment-300975032)
@@ -3762,23 +3762,14 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
         children.push(jsxWhitespace);
       }
     } else {
-      // Convert `{" "}` to jsxWhitespace so it can be printed as a standard
-      // space if needed.
-      if (isJSXWhitespaceExpression(child)) {
-        children.push("");
-        children.push(jsxWhitespace);
-        return;
-      }
-
       const printedChild = print(childPath);
       children.push(printedChild);
 
       const next = n.children[i + 1];
       const directlyFollowedByMeaningfulText =
         next && isMeaningfulJSXText(next) && !/^[ \n\r\t]/.test(rawText(next));
-      const followedByJSXWhitespace = next && isJSXWhitespaceExpression(next);
-      if (directlyFollowedByMeaningfulText || followedByJSXWhitespace) {
-        // Potentially this could be a softline as well.
+      if (directlyFollowedByMeaningfulText) {
+        // Potentially this could be a hardline as well.
         // See the comment above about the Facebook translation pipeline as
         // to why this is an empty string.
         children.push("");
@@ -3837,11 +3828,30 @@ function printJSXElement(path, options, print) {
     return openingLines;
   }
 
+  // Convert `{" "}` to text nodes containing a space.
+  // This makes it easy to turn them into `jsxWhitespace` which
+  // can then print as either a space or `{" "}` when breaking.
+  n.children = n.children.map(child => {
+    if (isJSXWhitespaceExpression(child)) {
+      return {
+        type: "JSXText",
+        value: " ",
+        raw: " "
+      };
+    }
+    return child;
+  });
+
+  const parent = path.getParentNode();
+  const parentContainsText =
+    parent.type === "JSXElement" &&
+    parent.children.filter(child => isMeaningfulJSXText(child)).length > 0;
+
   const containsTag =
     n.children.filter(child => child.type === "JSXElement").length > 0;
-  const containsMultipleExpressions =
-    n.children.filter(child => child.type === "JSXExpressionContainer").length >
-    1;
+  const numExpressions = n.children.filter(
+    child => child.type === "JSXExpressionContainer"
+  ).length;
   const containsMultipleAttributes = n.openingElement.attributes.length > 1;
 
   // Record any breaks. Should never go from true to false, only false to true.
@@ -3849,7 +3859,7 @@ function printJSXElement(path, options, print) {
     willBreak(openingLines) ||
     containsTag ||
     containsMultipleAttributes ||
-    containsMultipleExpressions;
+    (parentContainsText ? numExpressions > 1 : numExpressions > 0);
 
   const rawJsxWhitespace = options.singleQuote ? "{' '}" : '{" "}';
   const jsxWhitespace = ifBreak(concat([rawJsxWhitespace, softline]), " ");
