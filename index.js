@@ -236,12 +236,12 @@ function calculateRange(text, opts, ast) {
   const startNodeAndParents = findNodeAtOffset(
     ast,
     startNonWhitespace,
-    isSourceElement.bind(null, opts)
+    node => isSourceElement(opts, node)
   );
   const endNodeAndParents = findNodeAtOffset(
     ast,
     endNonWhitespace,
-    isSourceElement.bind(null, opts)
+    node => isSourceElement(opts, node)
   );
 
   if (!startNodeAndParents || !endNodeAndParents) {
