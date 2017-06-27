@@ -234,15 +234,11 @@ function calculateRange(text, opts, ast) {
     }
   }
 
-  const startNodeAndParents = findNodeAtOffset(
-    ast,
-    startNonWhitespace,
-    node => isSourceElement(opts, node)
+  const startNodeAndParents = findNodeAtOffset(ast, startNonWhitespace, node =>
+    isSourceElement(opts, node)
   );
-  const endNodeAndParents = findNodeAtOffset(
-    ast,
-    endNonWhitespace,
-    node => isSourceElement(opts, node)
+  const endNodeAndParents = findNodeAtOffset(ast, endNonWhitespace, node =>
+    isSourceElement(opts, node)
   );
 
   if (!startNodeAndParents || !endNodeAndParents) {
