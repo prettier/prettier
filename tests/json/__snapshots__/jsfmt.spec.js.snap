@@ -7,6 +7,50 @@ true
 
 `;
 
+exports[`json5.json 1`] = `
+{
+    foo: 'bar',
+    while: true,
+ 
+    this: 'is a \\
+multi-line string',
+ 
+    // this is an inline comment 
+    here: 'is another', // inline comment 
+ 
+    /* this is a block comment
+       that continues on another line */
+ 
+    hex: 0xDEADbeef,
+    half: .5,
+    delta: +10,
+    to: Infinity,   // and beyond! 
+ 
+    finally: 'a trailing comma',
+    oh: [
+        "we shouldn't forget",
+        'arrays can have',
+        'trailing commas too',
+    ],
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+  "foo": "bar",
+  "while": true,
+
+  "this": "is a multi-line string",
+  "here": "is another",
+  "hex": 3735928559,
+  "half": 0.5,
+  "delta": 10,
+  "to": null,
+
+  "finally": "a trailing comma",
+  "oh": ["we shouldn't forget", "arrays can have", "trailing commas too"]
+}
+
+`;
+
 exports[`multi-line.json 1`] = `
 {"key1":[true,false,null],"key2":{"key3":[1,2,"3",
 1e10,1e-3]}}
