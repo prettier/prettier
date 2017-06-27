@@ -3670,7 +3670,8 @@ function isJSXWhitespaceExpression(node) {
   return (
     node.type === "JSXExpressionContainer" &&
     isLiteral(node.expression) &&
-    node.expression.value === " "
+    node.expression.value === " " &&
+    !node.expression.comments
   );
 }
 
