@@ -49,4 +49,5 @@ query {
 {
   noOperationType
 }
+
 `;

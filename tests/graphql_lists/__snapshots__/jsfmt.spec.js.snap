@@ -16,4 +16,5 @@ exports[`lists.graphql 1`] = `
     ]
   )
 }
+
 `;
