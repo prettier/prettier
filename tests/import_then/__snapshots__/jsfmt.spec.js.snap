@@ -1,5 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`long.js 1`] = `
+import(
+  'myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename'
+);
+
+import(
+  'myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename'
+).then(exports => {
+});
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import("myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename");
+
+import("myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename").then(
+  exports => {}
+);
+
+`;
+
 exports[`then.js 1`] = `
 const x = import('some-module').then(x => {
   // ...
