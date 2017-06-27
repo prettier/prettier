@@ -168,11 +168,18 @@ function findNodeAtOffset(node, offset, predicate, parentNodes) {
 }
 
 // See https://www.ecma-international.org/ecma-262/5.1/#sec-A.5
-function isSourceElement(node) {
+function isSourceElement(opts, node) {
   if (node == null) {
     return false;
   }
   switch (node.type) {
+    case "ObjectExpression": // JSON
+    case "ArrayExpression": // JSON
+    case "StringLiteral": // JSON
+    case "NumericLiteral": // JSON
+    case "BooleanLiteral": // JSON
+    case "NullLiteral": // JSON
+      return opts.parser === "json";
     case "FunctionDeclaration":
     case "BlockStatement":
     case "BreakStatement":
@@ -202,12 +209,6 @@ function isSourceElement(node) {
     case "TypeAliasDeclaration": // Typescript
     case "ExportAssignment": // Typescript
     case "ExportDeclaration": // Typescript
-    case "ObjectExpression": // JSON
-    case "ArrayExpression": // JSON
-    case "StringLiteral": // JSON
-    case "NumericLiteral": // JSON
-    case "BooleanLiteral": // JSON
-    case "NullLiteral": // JSON
       return true;
   }
   return false;
@@ -235,12 +236,12 @@ function calculateRange(text, opts, ast) {
   const startNodeAndParents = findNodeAtOffset(
     ast,
     startNonWhitespace,
-    isSourceElement
+    isSourceElement.bind(null, opts)
   );
   const endNodeAndParents = findNodeAtOffset(
     ast,
     endNonWhitespace,
-    isSourceElement
+    isSourceElement.bind(null, opts)
   );
 
   if (!startNodeAndParents || !endNodeAndParents) {
