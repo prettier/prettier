@@ -62,6 +62,9 @@ cp node_modules/sw-toolbox/companion.js  docs/lib/sw-toolbox-companion.js
 echo 'Copy package.json'
 node -p "pkg = require('./package.json'), delete pkg.dependencies, JSON.stringify(pkg, null, 2)" > dist/package.json
 
+echo 'Copy README.md'
+cp README.md dist/README.md
+
 echo 'Done!'
 echo;
 echo 'How to test against dist:'
