@@ -22,4 +22,5 @@ exports[`objects.graphql 1`] = `
   )
   emptyObj(arg: {})
 }
+
 `;

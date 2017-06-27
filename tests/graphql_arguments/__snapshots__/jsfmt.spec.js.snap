@@ -16,4 +16,5 @@ exports[`hello.graphql 1`] = `
     string: "hello world this is a very long string!"
   )
 }
+
 `;

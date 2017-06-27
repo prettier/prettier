@@ -49,6 +49,7 @@ query CityGuidesSocialUnitRendererQuery(
     }
   }
 }
+
 `;
 
 exports[`trailing.graphql 2`] = `
@@ -100,6 +101,7 @@ query CityGuidesSocialUnitRendererQuery(
     }
   }
 }
+
 `;
 
 exports[`trailing.graphql 3`] = `
@@ -151,4 +153,5 @@ query CityGuidesSocialUnitRendererQuery(
     }
   }
 }
+
 `;
