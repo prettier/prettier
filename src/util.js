@@ -237,7 +237,7 @@ function locStart(node) {
 
 function locEnd(node) {
   const endNode = node.nodes && node.nodes.slice(-1)[0];
-  if (endNode) {
+  if (endNode && node.source && !node.source.end) {
     node = endNode;
   }
 
