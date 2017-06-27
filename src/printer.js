@@ -812,6 +812,7 @@ function genericPrintNoParens(path, options, print, args) {
         (!isNew &&
           n.callee.type === "Identifier" &&
           n.callee.name === "require") ||
+        n.callee.type === "Import" ||
         // Template literals as single arguments
         (n.arguments.length === 1 &&
           isTemplateOnItsOwnLine(n.arguments[0], options.originalText)) ||
@@ -3419,7 +3420,10 @@ function printMemberChain(path, options, print) {
 
   function rec(path) {
     const node = path.getValue();
-    if (node.type === "CallExpression") {
+    if (
+      node.type === "CallExpression" &&
+      node.callee.type === "MemberExpression"
+    ) {
       printedNodes.unshift({
         node: node,
         printed: comments.printComments(
