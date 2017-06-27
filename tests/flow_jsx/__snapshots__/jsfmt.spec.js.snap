@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`func_inside_attr.js 1`] = `
-<bar x={function (x): Array<string> {}} />
+exports[`return_type.js 1`] = `
+const fail = (): X => <x />;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<bar x={function(x): Array<string> {}} />;
+const fail = (): X => <x />;
 
 `;
