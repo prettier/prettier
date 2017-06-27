@@ -236,6 +236,11 @@ function locStart(node) {
 }
 
 function locEnd(node) {
+  const endNode = node.nodes && node.nodes.slice(-1)[0];
+  if (endNode) {
+    node = endNode;
+  }
+
   let loc;
   if (node.range) {
     loc = node.range[1];
