@@ -195,6 +195,12 @@ function isSourceElement(node) {
     case "TypeAliasDeclaration": // Typescript
     case "ExportAssignment": // Typescript
     case "ExportDeclaration": // Typescript
+    case "ObjectExpression": // JSON
+    case "ArrayExpression": // JSON
+    case "StringLiteral": // JSON
+    case "NumericLiteral": // JSON
+    case "BooleanLiteral": // JSON
+    case "NullLiteral": // JSON
       return true;
   }
   return false;
