@@ -1,3 +1,10 @@
+# 1.5.1
+
+[link](https://github.com/jlongster/prettier/compare/1.5.0...1.5.1)
+
+* Go back to babylon beta 13 (#2289)
+* Inline import('x') to avoid having trailing comma (#2288)
+
 # 1.5.0
 
 [link](https://github.com/jlongster/prettier/compare/1.4.4...1.5.0)
