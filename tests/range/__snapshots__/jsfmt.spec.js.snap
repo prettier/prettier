@@ -60,13 +60,6 @@ function ugly ( {a=1,     b     =   2     }      ) {
 
 `;
 
-exports[`issue2267.css 1`] = `
-.x{} 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.x{} 
-
-`;
-
 exports[`module-export1.js 1`] = `
 import  def , {named}  from    'x'
 
