@@ -214,12 +214,19 @@ function genericPrint(path, options, print) {
     }
 
     case "ObjectTypeDefinition": {
-      const parent = path.getParentNode();
       return concat([
         "type ",
         path.call(print, "name"),
+        n.interfaces && n.interfaces.length > 0
+          ? concat([" implements ", join(", ", path.map(print, "interfaces"))])
+          : "",
+        printDirectives(path, print, n),
         " {",
-        indent(concat([hardline, join(hardline, path.map(print, "fields"))])),
+        n.fields && n.fields.length > 0
+          ? indent(
+              concat([hardline, join(hardline, path.map(print, "fields"))])
+            )
+          : "",
         hardline,
         "}"
       ]);

@@ -11,6 +11,15 @@ extend type Feedback {
 
 `;
 
+exports[`implements.graphql 1`] = `
+type VRMConversation implements Node, Entity @foo {
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type VRMConversation implements Node, Entity @foo {
+}
+
+`;
+
 exports[`object_type_def.graphql 1`] = `
 type FeedHomeStories {
   debug_info: String
