@@ -214,6 +214,21 @@ function genericPrint(path, options, print) {
       ]);
     }
 
+    case "ObjectTypeDefinition": {
+      return concat([
+        "type ",
+        path.call(print, "name"),
+        " = {",
+        indent(concat([hardline, join(hardline, path.map(print, "fields"))])),
+        hardline,
+        "}"
+      ]);
+    }
+
+    case "FieldDefinition": {
+      return concat([path.call(print, "name"), ": ", path.call(print, "type")]);
+    }
+
     case "FragmentSpread": {
       return concat([
         "...",
