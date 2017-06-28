@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`a.js 1`] = `
+/* @noflow
+ * @providesModule A */
+
+(0: string);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* @noflow
+ * @providesModule A */
+
+(0: string);
+
+`;

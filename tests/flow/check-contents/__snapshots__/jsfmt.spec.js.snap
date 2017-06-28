@@ -1,8 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`bar.js 1`] = `
+// @flow
+(require('./foo'): number);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+(require("./foo"): number);
+
+`;
+
+exports[`foo.js 1`] = `
+// @flow
+require('./bar');
+module.exports = 0;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+require("./bar");
+module.exports = 0;
+
+`;
+
 exports[`not_flow.js 1`] = `
 1 * 'foo';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 1 * "foo";
+
+`;
+
+exports[`unsaved_foo.js 1`] = `
+// @flow
+require('./bar');
+module.exports = "hello";
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+require("./bar");
+module.exports = "hello";
 
 `;

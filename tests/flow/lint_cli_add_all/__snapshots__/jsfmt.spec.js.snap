@@ -1,0 +1,327 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cycle_A.js 1`] = `
+module.exports = null;
+
+var res = require("./cycle_C.js");
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+module.exports = null;
+
+var res = require("./cycle_C.js");
+
+`;
+
+exports[`cycle_B.js 1`] = `
+var a = require("./cycle_A.js");
+
+var b = {a: a, b: 0};
+
+module.exports = b;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var a = require("./cycle_A.js");
+
+var b = { a: a, b: 0 };
+
+module.exports = b;
+
+`;
+
+exports[`cycle_C.js 1`] = `
+var vars = require("./cycle_B.js")
+
+function f(x) {
+  if (x); /* sketchy because of uses */
+}
+
+var resNull = f(null);
+var resB = f(vars.b);
+
+module.exports = {resA: resNull, resB: resB};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var vars = require("./cycle_B.js");
+
+function f(x) {
+  if (x); /* sketchy because of uses */
+}
+
+var resNull = f(null);
+var resB = f(vars.b);
+
+module.exports = { resA: resNull, resB: resB };
+
+`;
+
+exports[`fully_across_A.js 1`] = `
+var maybe: ?string = "foo"
+
+module.exports = maybe;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var maybe: ?string = "foo";
+
+module.exports = maybe;
+
+`;
+
+exports[`fully_across_B.js 1`] = `
+var a = require("./fully_across_A");
+
+function f(x) {
+  if(x){ /* sketchy because of uses */ }
+}
+f(a);
+
+function g(x) {
+  if(x != null) { /* NOT sketchy */ }
+}
+g(a);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var a = require("./fully_across_A");
+
+function f(x) {
+  if (x) {
+    /* sketchy because of uses */
+  }
+}
+f(a);
+
+function g(x) {
+  if (x != null) {
+    /* NOT sketchy */
+  }
+}
+g(a);
+
+`;
+
+exports[`partial_across_A.js 1`] = `
+module.exports = null;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+module.exports = null;
+
+`;
+
+exports[`partial_across_B.js 1`] = `
+var a = require("./partial_across_A");
+
+function f(x) {
+  if(x){ /* sketchy because of uses */ }
+}
+
+f(a);
+f("");
+
+function g(x) {
+  if(x){ /* NOT sketchy because of uses */ }
+}
+
+g(a);
+g(7);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var a = require("./partial_across_A");
+
+function f(x) {
+  if (x) {
+    /* sketchy because of uses */
+  }
+}
+
+f(a);
+f("");
+
+function g(x) {
+  if (x) {
+    /* NOT sketchy because of uses */
+  }
+}
+
+g(a);
+g(7);
+
+`;
+
+exports[`simple_sketchies.js 1`] = `
+// ExistsP
+
+// maybe
+function f(x: ?number) {
+  if (x) {/* sketchy */}
+}
+
+// union
+function h(x: number|null) {
+  if (x) { /* sketchy */ }
+}
+
+// non-void, non-null
+function g(x: number) {
+  if (x) { /* NOT sketchy */ }
+}
+
+// non-falsey prim
+function k(x: null | 1) {
+  if (x) { /* NOT sketchy */ }
+}
+
+// open, multiple lowers
+function j(x) {
+  if (x) { /* NOT sketchy because of calls */ }
+}
+j(null);
+j("foo"); // non-falsey, non sketchy
+
+function r(x) {
+  if (x) { /* sketchy because of calls */ }
+}
+r(null);
+r(""); // definitely falsey, sketchy
+
+function s(x) {
+  if (x) { /* sketchy because of calls */ }
+}
+s(null);
+declare var unknown_str: string;
+s(unknown_str); // possibly falsey, sketchy
+
+// PropExistsP
+
+// optional prop
+function l(o: { p?: number }) {
+  if (o.p) {/* sketchy */}
+}
+
+// maybe prop
+function m(o: { p: ?number }) {
+  if (o.p) {/* sketchy */}
+}
+
+// union
+function n(o: { p: number|null|void }) {
+  if (o.p) { /* sketchy */ }
+}
+
+function q(o: { p: number }) {
+  if (o.p) { /* NOT sketchy */ }
+}
+
+// Assignment
+
+function z(x: ?string) {
+  var assignee;
+  if (assignee = x) { /* sketchy */ }
+}
+
+var value: ?number = 0;
+var defaultVal: number = 7;
+var valToUse = value || defaultVal; /* sketchy */
+
+var alwaysFalse = false && value; /* NOT sketchy */
+var alwaysTrue = true || value; /* NOT sketchy */
+
+var sketchyFalse = value && false; /* sketchy */
+var sketchyTrue = value || true; /* sketchy */
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ExistsP
+
+// maybe
+function f(x: ?number) {
+  if (x) {
+    /* sketchy */
+  }
+}
+
+// union
+function h(x: number | null) {
+  if (x) {
+    /* sketchy */
+  }
+}
+
+// non-void, non-null
+function g(x: number) {
+  if (x) {
+    /* NOT sketchy */
+  }
+}
+
+// non-falsey prim
+function k(x: null | 1) {
+  if (x) {
+    /* NOT sketchy */
+  }
+}
+
+// open, multiple lowers
+function j(x) {
+  if (x) {
+    /* NOT sketchy because of calls */
+  }
+}
+j(null);
+j("foo"); // non-falsey, non sketchy
+
+function r(x) {
+  if (x) {
+    /* sketchy because of calls */
+  }
+}
+r(null);
+r(""); // definitely falsey, sketchy
+
+function s(x) {
+  if (x) {
+    /* sketchy because of calls */
+  }
+}
+s(null);
+declare var unknown_str: string;
+s(unknown_str); // possibly falsey, sketchy
+
+// PropExistsP
+
+// optional prop
+function l(o: { p?: number }) {
+  if (o.p) {
+    /* sketchy */
+  }
+}
+
+// maybe prop
+function m(o: { p: ?number }) {
+  if (o.p) {
+    /* sketchy */
+  }
+}
+
+// union
+function n(o: { p: number | null | void }) {
+  if (o.p) {
+    /* sketchy */
+  }
+}
+
+function q(o: { p: number }) {
+  if (o.p) {
+    /* NOT sketchy */
+  }
+}
+
+// Assignment
+
+function z(x: ?string) {
+  var assignee;
+  if ((assignee = x)) {
+    /* sketchy */
+  }
+}
+
+var value: ?number = 0;
+var defaultVal: number = 7;
+var valToUse = value || defaultVal; /* sketchy */
+
+var alwaysFalse = false && value; /* NOT sketchy */
+var alwaysTrue = true || value; /* NOT sketchy */
+
+var sketchyFalse = value && false; /* sketchy */
+var sketchyTrue = value || true; /* sketchy */
+
+`;

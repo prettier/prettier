@@ -1,0 +1,331 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`any.js 1`] = `
+// @flow
+
+('yo': $Values<any>); // OK: \`any\` is a blackhole.
+(123: $Values<any>); // OK: \`any\` is a blackhole.
+(true: $Values<any>); // OK: \`any\` is a blackhole.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+
+("yo": $Values<any>); // OK: \`any\` is a blackhole.
+(123: $Values<any>); // OK: \`any\` is a blackhole.
+(true: $Values<any>); // OK: \`any\` is a blackhole.
+
+`;
+
+exports[`classes.js 1`] = `
+// @flow
+
+class NoProps {}
+
+class NoReadProps {
+  set a(value: number) {}
+}
+
+class OneProp {
+  a: number;
+
+  method() {}
+}
+
+class SomeProps {
+  a: number;
+  b: string;
+  c: string;
+
+  method() {}
+}
+
+class Parent { a: string; }
+class Child extends Parent { b: number; }
+
+('yo': $Values<NoProps>); // Error: There are no properties.
+(123: $Values<NoProps>); // Error: There are no properties.
+((() => {}): $Values<NoProps>); // Error: There are no properties.
+(true: $Values<NoProps>); // Error: There are no properties.
+
+('yo': $Values<NoReadProps>); // Error: There are no readable properties.
+(123: $Values<NoReadProps>); // Error: There are no readable properties.
+((() => {}): $Values<NoReadProps>); // Error: There are no readable properties.
+(true: $Values<NoReadProps>); // Error: There are no readable properties.
+
+('yo': $Values<OneProp>); // Error: There is no property with the type of
+                          // string.
+(123: $Values<OneProp>); // OK: There is a property with the type of number.
+((() => {}): $Values<OneProp>); // Error: Even though there is a method, methods
+                                // are on the prototype.
+(true: $Values<OneProp>); // Error: There is no property with the type of
+                          // boolean.
+
+('yo': $Values<SomeProps>); // OK: There is a property with the type of string.
+(123: $Values<SomeProps>); // Ok: There is a property with the type of number.
+((() => {}): $Values<SomeProps>); // Error: Even though there is a method,
+                                  // methods are on the prototype.
+(true: $Values<SomeProps>); // Error: There is no property with the type of
+                            // boolean.
+
+('yo': $Values<Child>); // TODO: This should be ok since there is a property
+                        // with the type of string on the parent.
+(123: $Values<Child>); // OK: There is a property with the type of number.
+((() => {}): $Values<Child>); // Error: There is no property with the type of
+                              // function.
+(true: $Values<Child>); // Error: There is no property with the type of boolean.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+
+class NoProps {}
+
+class NoReadProps {
+  set a(value: number) {}
+}
+
+class OneProp {
+  a: number;
+
+  method() {}
+}
+
+class SomeProps {
+  a: number;
+  b: string;
+  c: string;
+
+  method() {}
+}
+
+class Parent {
+  a: string;
+}
+class Child extends Parent {
+  b: number;
+}
+
+("yo": $Values<NoProps>); // Error: There are no properties.
+(123: $Values<NoProps>); // Error: There are no properties.
+(() => {}: $Values<NoProps>); // Error: There are no properties.
+(true: $Values<NoProps>); // Error: There are no properties.
+
+("yo": $Values<NoReadProps>); // Error: There are no readable properties.
+(123: $Values<NoReadProps>); // Error: There are no readable properties.
+(() => {}: $Values<NoReadProps>); // Error: There are no readable properties.
+(true: $Values<NoReadProps>); // Error: There are no readable properties.
+
+("yo": $Values<OneProp>); // Error: There is no property with the type of
+// string.
+(123: $Values<OneProp>); // OK: There is a property with the type of number.
+(() => {}: $Values<OneProp>); // Error: Even though there is a method, methods
+// are on the prototype.
+(true: $Values<OneProp>); // Error: There is no property with the type of
+// boolean.
+
+("yo": $Values<SomeProps>); // OK: There is a property with the type of string.
+(123: $Values<SomeProps>); // Ok: There is a property with the type of number.
+(() => {}: $Values<SomeProps>); // Error: Even though there is a method,
+// methods are on the prototype.
+(true: $Values<SomeProps>); // Error: There is no property with the type of
+// boolean.
+
+("yo": $Values<Child>); // TODO: This should be ok since there is a property
+// with the type of string on the parent.
+(123: $Values<Child>); // OK: There is a property with the type of number.
+(() => {}: $Values<Child>); // Error: There is no property with the type of
+// function.
+(true: $Values<Child>); // Error: There is no property with the type of boolean.
+
+`;
+
+exports[`non_object.js 1`] = `
+// @flow
+
+('yo': $Values<boolean>); // Error: \`boolean\` is not an object and so has no
+                          // properties.
+(123: $Values<boolean>); // Error: \`boolean\` is not an object and so has no
+                         // properties.
+(true: $Values<boolean>); // Error: \`boolean\` is not an object and so has no
+                          // properties.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+
+("yo": $Values<boolean>); // Error: \`boolean\` is not an object and so has no
+// properties.
+(123: $Values<boolean>); // Error: \`boolean\` is not an object and so has no
+// properties.
+(true: $Values<boolean>); // Error: \`boolean\` is not an object and so has no
+// properties.
+
+`;
+
+exports[`object_types.js 1`] = `
+// @flow
+
+type NoProps = $Values<{}>;
+const noReadProps = { set a(value: number) { /* noop */ } };
+type NoReadProps = $Values<typeof noReadProps>;
+(123: NoProps); // Error: There are no props.
+(345: NoReadProps); // Error: There are no props which can be read.
+
+type OneProp = $Values<{ a: string }>;
+('yo': OneProp); // OK: There is a property with the type of string.
+(123: OneProp); // Error: There is no property with the type of number.
+(true: OneProp); // Error: There is no property with the type of boolean.
+(((null: any): OneProp): string | number); // OK: The values are a subset.
+(((null: any): OneProp): number); // Error: There is no string in the final
+                                  // union.
+
+type ManyProps = $Values<{ a: string, b: string, c: number }>;
+('yo': ManyProps); // OK: There is a property with the type of string.
+(123: ManyProps); // OK: There is a property with the type of number.
+(true: ManyProps); // Error: There is no property with the type of boolean.
+(((null: any): ManyProps): string | number | boolean); // OK: The values are a
+                                                       // subset.
+(((null: any): ManyProps): string | boolean); // Error: There is no number in
+                                              // the final union.
+
+type DictProps = $Values<{ a: boolean, [key: string]: number }>;
+('yo': DictProps); // Error: There is no property with the type of string.
+(123: DictProps); // OK: There is a dictionary value with the type of number.
+(true: DictProps); // OK: There is a property with the type of boolean.
+(((null: any): DictProps): string | number | boolean); // OK: The values are a
+                                                       // subset.
+(((null: any): DictProps): string | boolean); // Error: There is no number in
+                                              // the final union.
+
+interface CallableProp { a: string; b: number; (): boolean }
+('yo': $Values<CallableProp>); // OK: There is a property with the type of
+                               // string.
+(123: $Values<CallableProp>); // OK: There is a property with the type of
+                              // number.
+(true: $Values<CallableProp>); // Error: There is no property with the type of
+                               // boolean even though the interface is callable
+                               // and may return a boolean.
+((() => true): $Values<CallableProp>); // Error: There is no property with a
+                                       // function of this signature even though
+                                       // the interface is callable with this
+                                       // signature.
+
+const Suite: {
+  DIAMONDS: 'Diamonds',
+  CLUBS: 'Clubs',
+  HEARTS: 'Hearts',
+  SPADES: 'Spades',
+} = {
+  DIAMONDS: 'Diamonds',
+  CLUBS: 'Clubs',
+  HEARTS: 'Hearts',
+  SPADES: 'Spades',
+};
+
+type SuiteEnum = $Values<typeof Suite>;
+
+const DIAMONDS: 'Diamonds' = 'Diamonds';
+
+function magicTrick(suite: SuiteEnum) {
+  // ...
+}
+
+('Diamonds': SuiteEnum); // OK: 'Diamonds' is a valid value.
+(DIAMONDS: SuiteEnum); // OK: The value of \`DIAMONDS\` is the valid value
+                       // 'Diamonds'.
+('DIAMONDS': SuiteEnum); // Error: 'DIAMONDS' is a key, but not a value.
+('Magic': SuiteEnum); // Error: 'Magic' is not a value.
+(('Diamonds': string): SuiteEnum); // Error: the \`string\` type is to general and
+                                   // not a value.
+
+magicTrick('Diamonds'); // OK: 'Diamonds' is a valid value.
+magicTrick(DIAMONDS); // OK: The value of \`DIAMONDS\` is the valid value
+                      // 'Diamonds'.
+magicTrick('DIAMONDS'); // Error: 'DIAMONDS' is a key, but not a value.
+magicTrick('Magic'); // Error: 'Magic' is not a value.
+magicTrick(('Diamonds': string)); // Error: the \`string\` type is to general and
+                                  // not a value.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+
+type NoProps = $Values<{}>;
+const noReadProps = {
+  set a(value: number) {
+    /* noop */
+  }
+};
+type NoReadProps = $Values<typeof noReadProps>;
+(123: NoProps); // Error: There are no props.
+(345: NoReadProps); // Error: There are no props which can be read.
+
+type OneProp = $Values<{ a: string }>;
+("yo": OneProp); // OK: There is a property with the type of string.
+(123: OneProp); // Error: There is no property with the type of number.
+(true: OneProp); // Error: There is no property with the type of boolean.
+(((null: any): OneProp): string | number); // OK: The values are a subset.
+(((null: any): OneProp): number); // Error: There is no string in the final
+// union.
+
+type ManyProps = $Values<{ a: string, b: string, c: number }>;
+("yo": ManyProps); // OK: There is a property with the type of string.
+(123: ManyProps); // OK: There is a property with the type of number.
+(true: ManyProps); // Error: There is no property with the type of boolean.
+(((null: any): ManyProps): string | number | boolean); // OK: The values are a
+// subset.
+(((null: any): ManyProps): string | boolean); // Error: There is no number in
+// the final union.
+
+type DictProps = $Values<{ a: boolean, [key: string]: number }>;
+("yo": DictProps); // Error: There is no property with the type of string.
+(123: DictProps); // OK: There is a dictionary value with the type of number.
+(true: DictProps); // OK: There is a property with the type of boolean.
+(((null: any): DictProps): string | number | boolean); // OK: The values are a
+// subset.
+(((null: any): DictProps): string | boolean); // Error: There is no number in
+// the final union.
+
+interface CallableProp { a: string, b: number, (): boolean }
+("yo": $Values<CallableProp>); // OK: There is a property with the type of
+// string.
+(123: $Values<CallableProp>); // OK: There is a property with the type of
+// number.
+(true: $Values<CallableProp>); // Error: There is no property with the type of
+// boolean even though the interface is callable
+// and may return a boolean.
+(() => true: $Values<CallableProp>); // Error: There is no property with a
+// function of this signature even though
+// the interface is callable with this
+// signature.
+
+const Suite: {
+  DIAMONDS: "Diamonds",
+  CLUBS: "Clubs",
+  HEARTS: "Hearts",
+  SPADES: "Spades"
+} = {
+  DIAMONDS: "Diamonds",
+  CLUBS: "Clubs",
+  HEARTS: "Hearts",
+  SPADES: "Spades"
+};
+
+type SuiteEnum = $Values<typeof Suite>;
+
+const DIAMONDS: "Diamonds" = "Diamonds";
+
+function magicTrick(suite: SuiteEnum) {
+  // ...
+}
+
+("Diamonds": SuiteEnum); // OK: 'Diamonds' is a valid value.
+(DIAMONDS: SuiteEnum); // OK: The value of \`DIAMONDS\` is the valid value
+// 'Diamonds'.
+("DIAMONDS": SuiteEnum); // Error: 'DIAMONDS' is a key, but not a value.
+("Magic": SuiteEnum); // Error: 'Magic' is not a value.
+(("Diamonds": string): SuiteEnum); // Error: the \`string\` type is to general and
+// not a value.
+
+magicTrick("Diamonds"); // OK: 'Diamonds' is a valid value.
+magicTrick(DIAMONDS); // OK: The value of \`DIAMONDS\` is the valid value
+// 'Diamonds'.
+magicTrick("DIAMONDS"); // Error: 'DIAMONDS' is a key, but not a value.
+magicTrick("Magic"); // Error: 'Magic' is not a value.
+magicTrick(("Diamonds": string)); // Error: the \`string\` type is to general and
+// not a value.
+
+`;

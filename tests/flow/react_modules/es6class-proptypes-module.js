@@ -1,5 +1,6 @@
 /* @flow */
 import React from 'react';
+import type {Node} from 'react';
 
 class Hello extends React.Component<void, {name: string}, void> {
   defaultProps = {};
@@ -7,7 +8,7 @@ class Hello extends React.Component<void, {name: string}, void> {
     name: React.PropTypes.string.isRequired,
   };
 
-  render(): React.Element<*> {
+  render(): Node {
     return <div>{this.props.name}</div>;
   }
 }
