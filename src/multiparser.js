@@ -290,13 +290,10 @@ function isStyledJsx(path) {
 }
 
 /**
- * Template literal in this context:
+ * Template literal in these contexts:
  * styled.button`color: red`
- * or
  * Foo.extend`color: red`
- * or
  * css`color: red`
- * or
  * keyframes`0% { opacity: 0; }`
  */
 function isStyledComponents(path) {
