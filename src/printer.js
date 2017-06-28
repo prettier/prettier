@@ -2588,12 +2588,13 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push(printTypeScriptModifiers(path, options, print));
 
         // Global declaration looks like this:
-        // declare global { ... }
+        // (declare)? global { ... }
         const isGlobalDeclaration =
           n.name.type === "Identifier" &&
           n.name.name === "global" &&
-          n.modifiers &&
-          n.modifiers.some(modifier => modifier.type === "TSDeclareKeyword");
+          !/namespace|module/.test(
+            options.originalText.slice(util.locStart(n), util.locStart(n.name))
+          );
 
         if (!isGlobalDeclaration) {
           parts.push(isExternalModule ? "module " : "namespace ");
