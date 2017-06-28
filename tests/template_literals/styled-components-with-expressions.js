@@ -22,3 +22,42 @@ margin: 0.5rem;
 		}
 	}
 `;
+
+const header = css`
+.top-bar {background:black;
+margin: 0;
+    position: fixed;
+	top: 0;left:0;
+	width: 100%;
+    text-align: center     ;
+	padding: 15px  0  0  1em;
+		z-index: 9999;
+}
+
+.top-bar .logo {
+  height: 30px;
+  margin: auto; 
+    position: absolute;
+	left: 0;right: 0;
+}
+`;
+
+const fadeIn = keyframes`
+  0% {
+opacity: 0;
+  }
+  100%    {
+       opacity: 1;
+  }
+`;
+
+injectGlobal`
+  @font-face {
+font-family: 'Operator Mono'  ;
+     src: url('../fonts/Operator-Mono.ttf');
+  }
+
+  body {
+    margin: 0;padding:0;
+  }
+`;

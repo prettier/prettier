@@ -290,20 +290,26 @@ function isStyledJsx(path) {
 }
 
 /**
- * Template literal in this context:
+ * Template literal in these contexts:
  * styled.button`color: red`
- * or
  * Foo.extend`color: red`
+ * css`color: red`
+ * keyframes`0% { opacity: 0; }`
+ * injectGlobal`body{ margin:0: }`
  */
 function isStyledComponents(path) {
   const parent = path.getParentNode();
   return (
     parent &&
     parent.type === "TaggedTemplateExpression" &&
-    parent.tag.type === "MemberExpression" &&
-    (parent.tag.object.name === "styled" ||
-      (/^[A-Z]/.test(parent.tag.object.name) &&
-        parent.tag.property.name === "extend"))
+    ((parent.tag.type === "MemberExpression" &&
+      (parent.tag.object.name === "styled" ||
+        (/^[A-Z]/.test(parent.tag.object.name) &&
+          parent.tag.property.name === "extend"))) ||
+      (parent.tag.type === "Identifier" &&
+        (parent.tag.name === "css" ||
+          parent.tag.name === "keyframes" ||
+          parent.tag.name === "injectGlobal")))
   );
 }
 
