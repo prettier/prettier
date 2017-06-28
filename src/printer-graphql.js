@@ -236,6 +236,43 @@ function genericPrint(path, options, print) {
       return concat([path.call(print, "name"), ": ", path.call(print, "type")]);
     }
 
+    case "DirectiveDefinition": {
+      return concat([
+        "directive ",
+        "@",
+        path.call(print, "name"),
+        n.arguments.length > 0
+          ? group(
+              concat([
+                "(",
+                indent(
+                  concat([
+                    softline,
+                    join(
+                      concat([ifBreak("", ", "), softline]),
+                      path.map(print, "arguments")
+                    )
+                  ])
+                ),
+                softline,
+                ")"
+              ])
+            )
+          : "",
+        concat([" on ", join(", ", path.map(print, "locations"))])
+      ]);
+    }
+
+    case "InputValueDefinition": {
+      return concat([
+        path.call(print, "name"),
+        ": ",
+        path.call(print, "type"),
+        n.defaultValue ? concat([" = ", path.call(print, "defaultValue")]) : "",
+        printDirectives(path, print, n)
+      ]);
+    }
+
     case "FragmentSpread": {
       return concat([
         "...",
