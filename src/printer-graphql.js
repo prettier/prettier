@@ -217,12 +217,12 @@ function genericPrint(path, options, print) {
       return concat([
         "type ",
         path.call(print, "name"),
-        n.interfaces && n.interfaces.length > 0
+        n.interfaces.length > 0
           ? concat([" implements ", join(", ", path.map(print, "interfaces"))])
           : "",
         printDirectives(path, print, n),
         " {",
-        n.fields && n.fields.length > 0
+        n.fields.length > 0
           ? indent(
               concat([hardline, join(hardline, path.map(print, "fields"))])
             )
@@ -260,6 +260,29 @@ function genericPrint(path, options, print) {
             )
           : "",
         concat([" on ", join(", ", path.map(print, "locations"))])
+      ]);
+    }
+
+    case "EnumTypeDefinition": {
+      return concat([
+        "enum ",
+        path.call(print, "name"),
+        printDirectives(path, print, n),
+        " {",
+        n.values.length > 0
+          ? indent(
+              concat([hardline, join(hardline, path.map(print, "values"))])
+            )
+          : "",
+        hardline,
+        "}"
+      ]);
+    }
+
+    case "EnumValueDefinition": {
+      return concat([
+        path.call(print, "name"),
+        printDirectives(path, print, n)
       ]);
     }
 
