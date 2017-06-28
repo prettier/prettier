@@ -67,8 +67,15 @@
   "scripts": {
     "test": "jest",
     "test-integration": "jest tests_integration",
+<<<<<<< HEAD
     "lint": "cross-env EFF_NO_LINK_RULES=true eslint . --format node_modules/eslint-friendly-formatter",
     "build": "./scripts/build/build.js"
+=======
+    "lint": "EFF_NO_LINK_RULES=true eslint . --format 'node_modules/eslint-friendly-formatter'",
+    "build": "./scripts/build/build.sh",
+    "build-babylon": "cd ./node_modules/babylon/ && yarn && yarn prepublish && cd ../../",
+    "postinstall": "yarn build-babylon"
+>>>>>>> Hacky initial evaluation of parsing TypeScript using Babylon
   },
   "jest": {
     "setupFiles": [
