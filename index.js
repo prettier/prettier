@@ -172,7 +172,7 @@ function isSourceElement(opts, node) {
   if (node == null) {
     return false;
   }
-  switch (node.type) {
+  switch (node.type || node.kind) {
     case "ObjectExpression": // JSON
     case "ArrayExpression": // JSON
     case "StringLiteral": // JSON
@@ -210,6 +210,8 @@ function isSourceElement(opts, node) {
     case "TypeAliasDeclaration": // Typescript
     case "ExportAssignment": // Typescript
     case "ExportDeclaration": // Typescript
+    case "OperationDefinition": // GraphQL
+    case "FragmentDefinition": // GraphQL
       return true;
   }
   return false;
