@@ -157,7 +157,10 @@ function massageAST(ast) {
       ast.type === "TaggedTemplateExpression" &&
       (ast.tag.type === "MemberExpression" ||
         (ast.tag.type === "Identifier" &&
-          (ast.tag.name === "gql" || ast.tag.name === "graphql")))
+          (ast.tag.name === "gql" ||
+            ast.tag.name === "graphql" ||
+            ast.tag.name === "css" ||
+            ast.tag.name === "keyframes")))
     ) {
       newObj.quasi.quasis.forEach(quasi => delete quasi.value);
     }
