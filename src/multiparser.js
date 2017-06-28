@@ -300,10 +300,11 @@ function isStyledComponents(path) {
   return (
     parent &&
     parent.type === "TaggedTemplateExpression" &&
-    parent.tag.type === "MemberExpression" &&
-    (parent.tag.object.name === "styled" ||
-      (/^[A-Z]/.test(parent.tag.object.name) &&
-        parent.tag.property.name === "extend"))
+    ((parent.tag.type === "MemberExpression" &&
+      (parent.tag.object.name === "styled" ||
+        (/^[A-Z]/.test(parent.tag.object.name) &&
+          parent.tag.property.name === "extend"))) ||
+      (parent.tag.type === "Identifier" && parent.tag.name === "css"))
   );
 }
 
