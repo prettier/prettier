@@ -645,6 +645,15 @@ declare var p: { ...{| p?: T |}, ...{| p?: U |} };
 
 `;
 
+exports[`type_string.js 1`] = `
+type O1 = {..."foo"}; // error
+("foo": O1);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type O1 = { ..."foo" }; // error
+("foo": O1);
+
+`;
+
 exports[`type_union.js 1`] = `
 declare class T {}
 declare var x: T;

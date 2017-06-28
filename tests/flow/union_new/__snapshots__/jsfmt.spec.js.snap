@@ -2075,7 +2075,7 @@ function foo(): ImmutableMap<string, boolean> {
 `;
 
 exports[`test32.js 1`] = `
-// @flow
+// @noflow
 
 // make sure that full resolution jobs don't cache improperly to signal success
 // when they have failed earlier
@@ -2085,7 +2085,7 @@ function foo(value: Indirect<string> | number): Indirect<string> | number {
   return castedValue;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// @flow
+// @noflow
 
 // make sure that full resolution jobs don't cache improperly to signal success
 // when they have failed earlier
@@ -2094,5 +2094,28 @@ function foo(value: Indirect<string> | number): Indirect<string> | number {
   const castedValue: number = typeof value === "number" ? value : 0;
   return castedValue;
 }
+
+`;
+
+exports[`test33.js 1`] = `
+// @noflow
+
+// speculation failure should leave unresolved tvars alone
+
+function foo(cb: (() => string) | (() => number)) {}
+function bar() { return 0 }
+foo(bar); // error: ambiguous speculation
+(bar(): string); // error: number ~> string
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @noflow
+
+// speculation failure should leave unresolved tvars alone
+
+function foo(cb: (() => string) | (() => number)) {}
+function bar() {
+  return 0;
+}
+foo(bar); // error: ambiguous speculation
+(bar(): string); // error: number ~> string
 
 `;

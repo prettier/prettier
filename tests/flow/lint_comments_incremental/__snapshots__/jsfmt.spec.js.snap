@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test.js 1`] = `
+//@flow
+
+var x: number = 0;
+
+if (x) { /* not sketchy */ }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//@flow
+
+var x: number = 0;
+
+if (x) {
+  /* not sketchy */
+}
+
+`;

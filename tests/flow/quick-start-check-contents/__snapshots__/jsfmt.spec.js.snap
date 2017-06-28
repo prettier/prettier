@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bar.js 1`] = `
+// @flow
+(require('./foo'): number);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+(require("./foo"): number);
+
+`;
+
+exports[`dependency.js 1`] = `
+// @flow
+module.exports = ("hello": number);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+module.exports = ("hello": number);
+
+`;
+
+exports[`foo.js 1`] = `
+// @flow
+require('./bar');
+module.exports = 0;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+require("./bar");
+module.exports = 0;
+
+`;
+
+exports[`test.js 1`] = `
+// @flow
+require('./unchecked-dependency');
+(require('./dependency'): string);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+require("./unchecked-dependency");
+(require("./dependency"): string);
+
+`;
+
+exports[`unchecked-dependency.js 1`] = `
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+`;
+
+exports[`unsaved_foo.js 1`] = `
+// @flow
+require('./bar');
+module.exports = "hello";
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @flow
+require("./bar");
+module.exports = "hello";
+
+`;

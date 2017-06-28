@@ -9,6 +9,7 @@
 
 var UFILikeCount = require('UFILikeCount.react');
 var React = require('react');
+import type {Node} from 'react';
 
 var FeedUFI = React.createClass({
   _renderLikeCount: function(
@@ -31,7 +32,7 @@ var FeedUFI = React.createClass({
     );
   },
 
-  render: function(): ?React.Element<any> {
+  render: function(): Node {
     return (
       <div/>
     );
