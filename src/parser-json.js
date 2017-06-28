@@ -2,11 +2,24 @@
 
 const createError = require("./parser-create-error");
 
-function parse(text) {
+function parseLoose(text) {
   const jsonToAst = require("json-to-ast");
+
+  let ast;
+
   try {
-    const ast = jsonToAst(text);
-    return toBabylon(ast);
+    ast = jsonToAst(text);
+  } catch (err) {
+    const json5 = require("json5");
+    ast = jsonToAst(JSON.stringify(json5.parse(text), null, 2));
+  }
+
+  return toBabylon(ast);
+}
+
+function parse(text) {
+  try {
+    return parseLoose(text);
   } catch (err) {
     const firstNewlineIndex = err.message.indexOf("\n");
     const firstLine = err.message.slice(0, firstNewlineIndex);
