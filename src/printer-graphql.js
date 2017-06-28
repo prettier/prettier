@@ -365,6 +365,14 @@ function genericPrint(path, options, print) {
       );
     }
 
+    case "ScalarTypeDefinition": {
+      return concat([
+        "scalar ",
+        path.call(print, "name"),
+        printDirectives(path, print, n)
+      ]);
+    }
+
     case "NonNullType": {
       return concat([path.call(print, "type"), "!"]);
     }
