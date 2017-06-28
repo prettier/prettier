@@ -304,7 +304,8 @@ function isStyledComponents(path) {
       (parent.tag.object.name === "styled" ||
         (/^[A-Z]/.test(parent.tag.object.name) &&
           parent.tag.property.name === "extend"))) ||
-      (parent.tag.type === "Identifier" && parent.tag.name === "css"))
+      (parent.tag.type === "Identifier" &&
+        (parent.tag.name === "css" || parent.tag.name === "keyframes")))
   );
 }
 
