@@ -364,6 +364,11 @@ function locStart$1(node) {
 }
 
 function locEnd$1(node) {
+  var endNode = node.nodes && getLast(node.nodes);
+  if (endNode && node.source && !node.source.end) {
+    node = endNode;
+  }
+
   var loc = void 0;
   if (node.range) {
     loc = node.range[1];
@@ -1279,7 +1284,7 @@ var comments$1 = {
 };
 
 var name = "prettier";
-var version$1 = "1.5.1";
+var version$1 = "1.5.2";
 var description = "Prettier is an opinionated JavaScript formatter";
 var bin = { "prettier": "./bin/prettier.js" };
 var repository = "prettier/prettier";
@@ -3350,7 +3355,7 @@ function genericPrint$1(path$$1, options, print) {
       }
     case "OperationDefinition":
       {
-        return concat$4([n.name === null ? "" : n.operation, n.name ? concat$4([" ", path$$1.call(print, "name")]) : "", n.variableDefinitions && n.variableDefinitions.length ? group$2(concat$4(["(", indent$4(concat$4([softline$3, join$3(concat$4([",", ifBreak$2("", " "), softline$3]), path$$1.map(print, "variableDefinitions"))])), options.trailingComma === "none" ? "" : ifBreak$2(","), softline$3, ")"])) : "", printDirectives(path$$1, print, n), n.selectionSet ? n.name === null ? "" : " " : "", path$$1.call(print, "selectionSet")]);
+        return concat$4([n.name === null ? "" : n.operation, n.name ? concat$4([" ", path$$1.call(print, "name")]) : "", n.variableDefinitions && n.variableDefinitions.length ? group$2(concat$4(["(", indent$4(concat$4([softline$3, join$3(concat$4([ifBreak$2("", ", "), softline$3]), path$$1.map(print, "variableDefinitions"))])), softline$3, ")"])) : "", printDirectives(path$$1, print, n), n.selectionSet ? n.name === null ? "" : " " : "", path$$1.call(print, "selectionSet")]);
       }
     case "FragmentDefinition":
       {
@@ -3362,7 +3367,7 @@ function genericPrint$1(path$$1, options, print) {
       }
     case "Field":
       {
-        return group$2(concat$4([n.alias ? concat$4([path$$1.call(print, "alias"), ": "]) : "", path$$1.call(print, "name"), n.arguments.length > 0 ? group$2(concat$4(["(", indent$4(concat$4([softline$3, join$3(concat$4([",", ifBreak$2("", " "), softline$3]), path$$1.map(print, "arguments"))])), options.trailingComma === "none" ? "" : ifBreak$2(","), softline$3, ")"])) : "", printDirectives(path$$1, print, n), n.selectionSet ? " " : "", path$$1.call(print, "selectionSet")]));
+        return group$2(concat$4([n.alias ? concat$4([path$$1.call(print, "alias"), ": "]) : "", path$$1.call(print, "name"), n.arguments.length > 0 ? group$2(concat$4(["(", indent$4(concat$4([softline$3, join$3(concat$4([ifBreak$2("", ", "), softline$3]), path$$1.map(print, "arguments"))])), softline$3, ")"])) : "", printDirectives(path$$1, print, n), n.selectionSet ? " " : "", path$$1.call(print, "selectionSet")]));
       }
     case "Name":
       {
@@ -3392,11 +3397,11 @@ function genericPrint$1(path$$1, options, print) {
       }
     case "ListValue":
       {
-        return group$2(concat$4(["[", indent$4(concat$4([softline$3, join$3(concat$4([",", ifBreak$2("", " "), softline$3]), path$$1.map(print, "values"))])), options.trailingComma === "none" ? "" : ifBreak$2(","), softline$3, "]"]));
+        return group$2(concat$4(["[", indent$4(concat$4([softline$3, join$3(concat$4([ifBreak$2("", ", "), softline$3]), path$$1.map(print, "values"))])), softline$3, "]"]));
       }
     case "ObjectValue":
       {
-        return group$2(concat$4(["{", options.bracketSpacing && n.fields.length > 0 ? " " : "", indent$4(concat$4([softline$3, join$3(concat$4([",", ifBreak$2("", " "), softline$3]), path$$1.map(print, "fields"))])), options.trailingComma === "none" ? "" : ifBreak$2(","), softline$3, ifBreak$2("", options.bracketSpacing && n.fields.length > 0 ? " " : ""), "}"]));
+        return group$2(concat$4(["{", options.bracketSpacing && n.fields.length > 0 ? " " : "", indent$4(concat$4([softline$3, join$3(concat$4([ifBreak$2("", ", "), softline$3]), path$$1.map(print, "fields"))])), softline$3, ifBreak$2("", options.bracketSpacing && n.fields.length > 0 ? " " : ""), "}"]));
       }
     case "ObjectField":
     case "Argument":
@@ -3406,7 +3411,7 @@ function genericPrint$1(path$$1, options, print) {
 
     case "Directive":
       {
-        return concat$4(["@", path$$1.call(print, "name"), n.arguments.length > 0 ? group$2(concat$4(["(", indent$4(concat$4([softline$3, join$3(concat$4([",", ifBreak$2("", " "), softline$3]), path$$1.map(print, "arguments"))])), options.trailingComma === "none" ? "" : ifBreak$2(","), softline$3, ")"])) : ""]);
+        return concat$4(["@", path$$1.call(print, "name"), n.arguments.length > 0 ? group$2(concat$4(["(", indent$4(concat$4([softline$3, join$3(concat$4([ifBreak$2("", ", "), softline$3]), path$$1.map(print, "arguments"))])), softline$3, ")"])) : ""]);
       }
 
     case "NamedType":
@@ -3417,6 +3422,61 @@ function genericPrint$1(path$$1, options, print) {
     case "VariableDefinition":
       {
         return concat$4([path$$1.call(print, "variable"), ": ", path$$1.call(print, "type"), n.defaultValue ? concat$4([" = ", path$$1.call(print, "defaultValue")]) : ""]);
+      }
+
+    case "TypeExtensionDefinition":
+      {
+        return concat$4(["extend ", path$$1.call(print, "definition")]);
+      }
+
+    case "ObjectTypeDefinition":
+      {
+        return concat$4(["type ", path$$1.call(print, "name"), n.interfaces.length > 0 ? concat$4([" implements ", join$3(", ", path$$1.map(print, "interfaces"))]) : "", printDirectives(path$$1, print, n), " {", n.fields.length > 0 ? indent$4(concat$4([hardline$4, join$3(hardline$4, path$$1.map(print, "fields"))])) : "", hardline$4, "}"]);
+      }
+
+    case "FieldDefinition":
+      {
+        return concat$4([path$$1.call(print, "name"), n.arguments.length > 0 ? group$2(concat$4(["(", indent$4(concat$4([softline$3, join$3(concat$4([ifBreak$2("", ", "), softline$3]), path$$1.map(print, "arguments"))])), softline$3, ")"])) : "", ": ", path$$1.call(print, "type"), printDirectives(path$$1, print, n)]);
+      }
+
+    case "DirectiveDefinition":
+      {
+        return concat$4(["directive ", "@", path$$1.call(print, "name"), n.arguments.length > 0 ? group$2(concat$4(["(", indent$4(concat$4([softline$3, join$3(concat$4([ifBreak$2("", ", "), softline$3]), path$$1.map(print, "arguments"))])), softline$3, ")"])) : "", concat$4([" on ", join$3(" | ", path$$1.map(print, "locations"))])]);
+      }
+
+    case "EnumTypeDefinition":
+      {
+        return concat$4(["enum ", path$$1.call(print, "name"), printDirectives(path$$1, print, n), " {", n.values.length > 0 ? indent$4(concat$4([hardline$4, join$3(hardline$4, path$$1.map(print, "values"))])) : "", hardline$4, "}"]);
+      }
+
+    case "EnumValueDefinition":
+      {
+        return concat$4([path$$1.call(print, "name"), printDirectives(path$$1, print, n)]);
+      }
+
+    case "InputValueDefinition":
+      {
+        return concat$4([path$$1.call(print, "name"), ": ", path$$1.call(print, "type"), n.defaultValue ? concat$4([" = ", path$$1.call(print, "defaultValue")]) : "", printDirectives(path$$1, print, n)]);
+      }
+
+    case "InputObjectTypeDefinition":
+      {
+        return concat$4(["input ", path$$1.call(print, "name"), printDirectives(path$$1, print, n), " {", n.fields.length > 0 ? indent$4(concat$4([hardline$4, join$3(hardline$4, path$$1.map(print, "fields"))])) : "", hardline$4, "}"]);
+      }
+
+    case "SchemaDefinition":
+      {
+        return concat$4(["schema", printDirectives(path$$1, print, n), " {", n.operationTypes.length > 0 ? indent$4(concat$4([hardline$4, join$3(hardline$4, path$$1.map(print, "operationTypes"))])) : "", hardline$4, "}"]);
+      }
+
+    case "OperationTypeDefinition":
+      {
+        return concat$4([path$$1.call(print, "operation"), ": ", path$$1.call(print, "type")]);
+      }
+
+    case "InterfaceTypeDefinition":
+      {
+        return concat$4(["interface ", path$$1.call(print, "name"), printDirectives(path$$1, print, n), " {", n.fields.length > 0 ? indent$4(concat$4([hardline$4, join$3(hardline$4, path$$1.map(print, "fields"))])) : "", hardline$4, "}"]);
       }
 
     case "FragmentSpread":
@@ -3432,6 +3492,11 @@ function genericPrint$1(path$$1, options, print) {
     case "UnionTypeDefinition":
       {
         return group$2(concat$4(["union ", path$$1.call(print, "name"), " =", ifBreak$2("", " "), indent$4(concat$4([ifBreak$2(concat$4([line$2, "  "])), join$3(concat$4([line$2, "| "]), path$$1.map(print, "types"))]))]));
+      }
+
+    case "ScalarTypeDefinition":
+      {
+        return concat$4(["scalar ", path$$1.call(print, "name"), printDirectives(path$$1, print, n)]);
       }
 
     case "NonNullType":
@@ -10675,6 +10740,13 @@ function findSiblingAncestors(startNodeAndParents, endNodeAndParents) {
   var resultStartNode = startNodeAndParents.node;
   var resultEndNode = endNodeAndParents.node;
 
+  if (resultStartNode === resultEndNode) {
+    return {
+      startNode: resultStartNode,
+      endNode: resultEndNode
+    };
+  }
+
   var _iteratorNormalCompletion2 = true;
   var _didIteratorError2 = false;
   var _iteratorError2 = undefined;
@@ -10785,11 +10857,20 @@ function findNodeAtOffset(node, offset, predicate, parentNodes) {
 }
 
 // See https://www.ecma-international.org/ecma-262/5.1/#sec-A.5
-function isSourceElement(node) {
+function isSourceElement(opts, node) {
   if (node == null) {
     return false;
   }
   switch (node.type) {
+    case "ObjectExpression": // JSON
+    case "ArrayExpression": // JSON
+    case "StringLiteral": // JSON
+    case "NumericLiteral": // JSON
+    case "BooleanLiteral": // JSON
+    case "NullLiteral": // JSON
+    case "json-identifier":
+      // JSON
+      return opts.parser === "json";
     case "FunctionDeclaration":
     case "BlockStatement":
     case "BreakStatement":
@@ -10837,8 +10918,12 @@ function calculateRange(text, opts, ast) {
     }
   }
 
-  var startNodeAndParents = findNodeAtOffset(ast, startNonWhitespace, isSourceElement);
-  var endNodeAndParents = findNodeAtOffset(ast, endNonWhitespace, isSourceElement);
+  var startNodeAndParents = findNodeAtOffset(ast, startNonWhitespace, function (node) {
+    return isSourceElement(opts, node);
+  });
+  var endNodeAndParents = findNodeAtOffset(ast, endNonWhitespace, function (node) {
+    return isSourceElement(opts, node);
+  });
 
   if (!startNodeAndParents || !endNodeAndParents) {
     return {

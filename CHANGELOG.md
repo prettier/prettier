@@ -1,3 +1,10 @@
+# 1.5.2
+
+[link](https://github.com/jlongster/prettier/compare/1.5.1...1.5.2)
+
+* Full printing support for GraphQL and various bug fixes
+* Fixes for range formatting for JSON and CSS (#2295, #2298)
+
 # 1.5.1
 
 [link](https://github.com/jlongster/prettier/compare/1.5.0...1.5.1)
