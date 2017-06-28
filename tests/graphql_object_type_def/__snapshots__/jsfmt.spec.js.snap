@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`object_type_def.graphql 1`] = `
+type FeedHomeStories {
+  debug_info: String
+  query_title: String
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type FeedHomeStories = {
+  debug_info: String
+  query_title: String
+}
+
+`;
