@@ -17,7 +17,7 @@ type FeedHomeStories {
   query_title: String
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-type FeedHomeStories = {
+type FeedHomeStories {
   debug_info: String
   query_title: String
 }

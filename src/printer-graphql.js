@@ -218,7 +218,6 @@ function genericPrint(path, options, print) {
       return concat([
         "type ",
         path.call(print, "name"),
-        parent.kind === "TypeExtensionDefinition" ? "" : " =",
         " {",
         indent(concat([hardline, join(hardline, path.map(print, "fields"))])),
         hardline,
