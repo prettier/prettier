@@ -21,12 +21,26 @@ function parseComments(ast) {
   return comments;
 }
 
+function removeTokens(node) {
+  if (node && typeof node === "object") {
+    delete node.startToken;
+    delete node.endToken;
+    delete node.prev;
+    delete node.next;
+    for (const key in node) {
+      removeTokens(node[key]);
+    }
+  }
+  return node;
+}
+
 function parse(text) {
   // Inline the require to avoid loading all the JS if we don't use it
   const parser = require("graphql/language");
   try {
     const ast = parser.parse(text);
     ast.comments = parseComments(ast);
+    removeTokens(ast);
     return ast;
   } catch (error) {
     const GraphQLError = require("graphql/error").GraphQLError;
