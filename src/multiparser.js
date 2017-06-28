@@ -294,6 +294,10 @@ function isStyledJsx(path) {
  * styled.button`color: red`
  * or
  * Foo.extend`color: red`
+ * or
+ * css`color: red`
+ * or
+ * keyframes`0% { opacity: 0; }`
  */
 function isStyledComponents(path) {
   const parent = path.getParentNode();
