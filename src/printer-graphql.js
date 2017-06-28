@@ -281,7 +281,7 @@ function genericPrint(path, options, print) {
               ])
             )
           : "",
-        concat([" on ", join(", ", path.map(print, "locations"))])
+        concat([" on ", join(" | ", path.map(print, "locations"))])
       ]);
     }
 
