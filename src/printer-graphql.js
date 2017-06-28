@@ -233,7 +233,29 @@ function genericPrint(path, options, print) {
     }
 
     case "FieldDefinition": {
-      return concat([path.call(print, "name"), ": ", path.call(print, "type")]);
+      return concat([
+        path.call(print, "name"),
+        n.arguments.length > 0
+          ? group(
+              concat([
+                "(",
+                indent(
+                  concat([
+                    softline,
+                    join(
+                      concat([ifBreak("", ", "), softline]),
+                      path.map(print, "arguments")
+                    )
+                  ])
+                ),
+                softline,
+                ")"
+              ])
+            )
+          : "",
+        ": ",
+        path.call(print, "type")
+      ]);
     }
 
     case "DirectiveDefinition": {

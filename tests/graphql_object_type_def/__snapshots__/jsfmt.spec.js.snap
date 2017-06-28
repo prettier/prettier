@@ -1,5 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`arguments.graphql 1`] = `
+type Video {
+  playable_url(quality: String, preferred: String): Url
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type Video {
+  playable_url(quality: String, preferred: String): Url
+}
+
+`;
+
 exports[`extend.graphql 1`] = `
 extend type Feedback {
   custom_int: Int
