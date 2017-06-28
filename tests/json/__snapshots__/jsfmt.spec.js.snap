@@ -355,7 +355,7 @@ exports[`trailingComma.notjson 2`] = `
 {
   "k1": "v1",
   "k2": "v2",
-  "k3": "v3",
+  "k3": "v3"
 }
 
 `;
