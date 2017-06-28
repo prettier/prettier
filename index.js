@@ -172,7 +172,7 @@ function isSourceElement(opts, node) {
   if (node == null) {
     return false;
   }
-  switch (node.type) {
+  switch (node.type || node.kind) {
     case "ObjectExpression": // JSON
     case "ArrayExpression": // JSON
     case "StringLiteral": // JSON
@@ -210,6 +210,22 @@ function isSourceElement(opts, node) {
     case "TypeAliasDeclaration": // Typescript
     case "ExportAssignment": // Typescript
     case "ExportDeclaration": // Typescript
+    case "OperationDefinition": // GraphQL
+    case "FragmentDefinition": // GraphQL
+    case "VariableDefinition": // GraphQL
+    case "TypeExtensionDefinition": // GraphQL
+    case "ObjectTypeDefinition": // GraphQL
+    case "FieldDefinition": // GraphQL
+    case "DirectiveDefinition": // GraphQL
+    case "EnumTypeDefinition": // GraphQL
+    case "EnumValueDefinition": // GraphQL
+    case "InputValueDefinition": // GraphQL
+    case "InputObjectTypeDefinition": // GraphQL
+    case "SchemaDefinition": // GraphQL
+    case "OperationTypeDefinition": // GraphQL
+    case "InterfaceTypeDefinition": // GraphQL
+    case "UnionTypeDefinition": // GraphQL
+    case "ScalarTypeDefinition": // GraphQL
       return true;
   }
   return false;
