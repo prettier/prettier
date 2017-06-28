@@ -20,6 +20,19 @@ type VRMConversation implements Node, Entity @foo {
 
 `;
 
+exports[`input.graphql 1`] = `
+input Params {
+  app_id: ID!
+  key_hash: String!
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+input Params {
+  app_id: ID!
+  key_hash: String!
+}
+
+`;
+
 exports[`object_type_def.graphql 1`] = `
 type FeedHomeStories {
   debug_info: String

@@ -296,6 +296,22 @@ function genericPrint(path, options, print) {
       ]);
     }
 
+    case "InputObjectTypeDefinition": {
+      return concat([
+        "input ",
+        path.call(print, "name"),
+        printDirectives(path, print, n),
+        " {",
+        n.fields.length > 0
+          ? indent(
+              concat([hardline, join(hardline, path.map(print, "fields"))])
+            )
+          : "",
+        hardline,
+        "}"
+      ]);
+    }
+
     case "FragmentSpread": {
       return concat([
         "...",
