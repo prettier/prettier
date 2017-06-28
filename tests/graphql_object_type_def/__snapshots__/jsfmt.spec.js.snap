@@ -11,6 +11,17 @@ type Video {
 
 `;
 
+exports[`directives.graphql 1`] = `
+type PokemonType {
+  pokemon_type: String @mock(value: "Electric")
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type PokemonType {
+  pokemon_type: String @mock(value: "Electric")
+}
+
+`;
+
 exports[`extend.graphql 1`] = `
 extend type Feedback {
   custom_int: Int

@@ -254,7 +254,8 @@ function genericPrint(path, options, print) {
             )
           : "",
         ": ",
-        path.call(print, "type")
+        path.call(print, "type"),
+        printDirectives(path, print, n)
       ]);
     }
 
