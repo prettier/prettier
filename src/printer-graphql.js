@@ -39,12 +39,11 @@ function genericPrint(path, options, print) {
                   concat([
                     softline,
                     join(
-                      concat([",", ifBreak("", " "), softline]),
+                      concat([ifBreak("", ", "), softline]),
                       path.map(print, "variableDefinitions")
                     )
                   ])
                 ),
-                options.trailingComma === "none" ? "" : ifBreak(","),
                 softline,
                 ")"
               ])
@@ -89,12 +88,11 @@ function genericPrint(path, options, print) {
                     concat([
                       softline,
                       join(
-                        concat([",", ifBreak("", " "), softline]),
+                        concat([ifBreak("", ", "), softline]),
                         path.map(print, "arguments")
                       )
                     ])
                   ),
-                  options.trailingComma === "none" ? "" : ifBreak(","),
                   softline,
                   ")"
                 ])
@@ -134,12 +132,11 @@ function genericPrint(path, options, print) {
             concat([
               softline,
               join(
-                concat([",", ifBreak("", " "), softline]),
+                concat([ifBreak("", ", "), softline]),
                 path.map(print, "values")
               )
             ])
           ),
-          options.trailingComma === "none" ? "" : ifBreak(","),
           softline,
           "]"
         ])
@@ -154,12 +151,11 @@ function genericPrint(path, options, print) {
             concat([
               softline,
               join(
-                concat([",", ifBreak("", " "), softline]),
+                concat([ifBreak("", ", "), softline]),
                 path.map(print, "fields")
               )
             ])
           ),
-          options.trailingComma === "none" ? "" : ifBreak(","),
           softline,
           ifBreak("", options.bracketSpacing && n.fields.length > 0 ? " " : ""),
           "}"
@@ -187,12 +183,11 @@ function genericPrint(path, options, print) {
                   concat([
                     softline,
                     join(
-                      concat([",", ifBreak("", " "), softline]),
+                      concat([ifBreak("", ", "), softline]),
                       path.map(print, "arguments")
                     )
                   ])
                 ),
-                options.trailingComma === "none" ? "" : ifBreak(","),
                 softline,
                 ")"
               ])

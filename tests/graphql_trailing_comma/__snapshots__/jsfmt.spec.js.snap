@@ -23,26 +23,26 @@ query Query(
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 query Query(
-  $pageID: ID!,
-  $scale: Float,
-  $PROJECT_UNIT_PROFILE_PICTURE_SIZE: Int,
+  $pageID: ID!
+  $scale: Float
+  $PROJECT_UNIT_PROFILE_PICTURE_SIZE: Int
   $PROJECT_UNIT_CARD_SIZE: Int
 )
   @argumentDefinitions(
     count: {
-      type: "Int",
-      defaultValue: 20,
+      type: "Int"
+      defaultValue: 20
       someSuperSuperSuperSuperLongType: 301
-    },
+    }
     test: [
       { type: "Int", defaultValue: 20, someSuperSuperSuperSuperLongType: 301 }
     ]
   ) {
   cover_photo {
     image(
-      width: $PROJECT_UNIT_CARD_SIZE,
-      height: $PROJECT_UNIT_CARD_SIZE,
-      sizing: "cover-fill",
+      width: $PROJECT_UNIT_CARD_SIZE
+      height: $PROJECT_UNIT_CARD_SIZE
+      sizing: "cover-fill"
       scale: $scale
     ) {
       uri
@@ -75,27 +75,27 @@ query Query(
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 query Query(
-  $pageID: ID!,
-  $scale: Float,
-  $PROJECT_UNIT_PROFILE_PICTURE_SIZE: Int,
-  $PROJECT_UNIT_CARD_SIZE: Int,
+  $pageID: ID!
+  $scale: Float
+  $PROJECT_UNIT_PROFILE_PICTURE_SIZE: Int
+  $PROJECT_UNIT_CARD_SIZE: Int
 )
   @argumentDefinitions(
     count: {
-      type: "Int",
-      defaultValue: 20,
-      someSuperSuperSuperSuperLongType: 301,
-    },
+      type: "Int"
+      defaultValue: 20
+      someSuperSuperSuperSuperLongType: 301
+    }
     test: [
-      { type: "Int", defaultValue: 20, someSuperSuperSuperSuperLongType: 301 },
-    ],
+      { type: "Int", defaultValue: 20, someSuperSuperSuperSuperLongType: 301 }
+    ]
   ) {
   cover_photo {
     image(
-      width: $PROJECT_UNIT_CARD_SIZE,
-      height: $PROJECT_UNIT_CARD_SIZE,
-      sizing: "cover-fill",
-      scale: $scale,
+      width: $PROJECT_UNIT_CARD_SIZE
+      height: $PROJECT_UNIT_CARD_SIZE
+      sizing: "cover-fill"
+      scale: $scale
     ) {
       uri
     }
@@ -127,27 +127,27 @@ query Query(
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 query Query(
-  $pageID: ID!,
-  $scale: Float,
-  $PROJECT_UNIT_PROFILE_PICTURE_SIZE: Int,
-  $PROJECT_UNIT_CARD_SIZE: Int,
+  $pageID: ID!
+  $scale: Float
+  $PROJECT_UNIT_PROFILE_PICTURE_SIZE: Int
+  $PROJECT_UNIT_CARD_SIZE: Int
 )
   @argumentDefinitions(
     count: {
-      type: "Int",
-      defaultValue: 20,
-      someSuperSuperSuperSuperLongType: 301,
-    },
+      type: "Int"
+      defaultValue: 20
+      someSuperSuperSuperSuperLongType: 301
+    }
     test: [
-      { type: "Int", defaultValue: 20, someSuperSuperSuperSuperLongType: 301 },
-    ],
+      { type: "Int", defaultValue: 20, someSuperSuperSuperSuperLongType: 301 }
+    ]
   ) {
   cover_photo {
     image(
-      width: $PROJECT_UNIT_CARD_SIZE,
-      height: $PROJECT_UNIT_CARD_SIZE,
-      sizing: "cover-fill",
-      scale: $scale,
+      width: $PROJECT_UNIT_CARD_SIZE
+      height: $PROJECT_UNIT_CARD_SIZE
+      sizing: "cover-fill"
+      scale: $scale
     ) {
       uri
     }
