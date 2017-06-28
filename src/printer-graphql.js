@@ -209,11 +209,17 @@ function genericPrint(path, options, print) {
       ]);
     }
 
+    case "TypeExtensionDefinition": {
+      return concat(["extend ", path.call(print, "definition")]);
+    }
+
     case "ObjectTypeDefinition": {
+      const parent = path.getParentNode();
       return concat([
         "type ",
         path.call(print, "name"),
-        " = {",
+        parent.kind === "TypeExtensionDefinition" ? "" : " =",
+        " {",
         indent(concat([hardline, join(hardline, path.map(print, "fields"))])),
         hardline,
         "}"
