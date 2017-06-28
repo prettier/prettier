@@ -295,6 +295,7 @@ function isStyledJsx(path) {
  * Foo.extend`color: red`
  * css`color: red`
  * keyframes`0% { opacity: 0; }`
+ * injectGlobal`body{ margin:0: }`
  */
 function isStyledComponents(path) {
   const parent = path.getParentNode();
@@ -306,7 +307,9 @@ function isStyledComponents(path) {
         (/^[A-Z]/.test(parent.tag.object.name) &&
           parent.tag.property.name === "extend"))) ||
       (parent.tag.type === "Identifier" &&
-        (parent.tag.name === "css" || parent.tag.name === "keyframes")))
+        (parent.tag.name === "css" ||
+          parent.tag.name === "keyframes" ||
+          parent.tag.name === "injectGlobal")))
   );
 }
 

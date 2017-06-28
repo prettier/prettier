@@ -50,3 +50,14 @@ opacity: 0;
        opacity: 1;
   }
 `;
+
+injectGlobal`
+  @font-face {
+font-family: 'Operator Mono'  ;
+     src: url('../fonts/Operator-Mono.ttf');
+  }
+
+  body {
+    margin: 0;padding:0;
+  }
+`;
