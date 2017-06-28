@@ -334,6 +334,32 @@ function genericPrint(path, options, print) {
       ]);
     }
 
+    case "SchemaDefinition": {
+      return concat([
+        "schema",
+        printDirectives(path, print, n),
+        " {",
+        n.operationTypes.length > 0
+          ? indent(
+              concat([
+                hardline,
+                join(hardline, path.map(print, "operationTypes"))
+              ])
+            )
+          : "",
+        hardline,
+        "}"
+      ]);
+    }
+
+    case "OperationTypeDefinition": {
+      return concat([
+        path.call(print, "operation"),
+        ": ",
+        path.call(print, "type")
+      ]);
+    }
+
     case "InterfaceTypeDefinition": {
       return concat([
         "interface ",
