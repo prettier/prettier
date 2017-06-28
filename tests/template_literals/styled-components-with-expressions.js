@@ -41,23 +41,3 @@ margin: 0;
 	left: 0;right: 0;
 }
 `;
-
-const fadeIn = keyframes`
-  0% {
-opacity: 0;
-  }
-  100%    {
-       opacity: 1;
-  }
-`;
-
-injectGlobal`
-  @font-face {
-font-family: 'Operator Mono'  ;
-     src: url('../fonts/Operator-Mono.ttf');
-  }
-
-  body {
-    margin: 0;padding:0;
-  }
-`;
