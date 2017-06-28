@@ -203,7 +203,7 @@ g:prettier#config#parser = 'flow'
 
 ### ALE
 
-### ALE - Installation
+#### ALE - Installation
 
 [ALE](https://github.com/w0rp/ale) is an asynchronous lint engine for Vim that
 also has the ability to run formatters over code, including Prettier. For ALE
@@ -219,7 +219,7 @@ Plug 'w0rp/ale'
 
 You can find further instructions on the [ALE repository](https://github.com/w0rp/ale#3-installation).
 
-### ALE - Usage
+#### ALE - Usage
 
 Once you've installed ALE you need to enable the Prettier fixer:
 
@@ -233,7 +233,7 @@ ALE will first use the Prettier installed locally (in
 
 You can then run `:ALEFix` in a JavaScript file to run Prettier.
 
-## ALE - Configuration
+#### ALE - Configuration
 
 To have ALE run `prettier` when you save a file you can tell ALE to run
 automatically:
