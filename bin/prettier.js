@@ -3,9 +3,8 @@
 "use strict";
 
 const fs = require("fs");
-const path = require("path");
 const getStream = require("get-stream");
-const glob = require("glob");
+const globby = require("globby");
 const chalk = require("chalk");
 const minimist = require("minimist");
 const readline = require("readline");
@@ -69,8 +68,8 @@ const filepatterns = argv["_"];
 const write = argv["write"];
 const stdin = argv["stdin"] || (!filepatterns.length && !process.stdin.isTTY);
 const ignoreNodeModules = argv["with-node-modules"] === false;
+const ignoreNodeModulesGlobs = ["!**/node_modules/**", "!./node_modules/**"];
 const globOptions = {
-  ignore: ignoreNodeModules && ["**/node_modules/**", "./node_modules/**"],
   dot: true
 };
 
@@ -361,30 +360,30 @@ function writeOutput(result) {
 }
 
 function eachFilename(patterns, callback) {
-  patterns.forEach(pattern => {
-    if (!glob.hasMagic(pattern)) {
-      if (shouldIgnorePattern(pattern)) {
-        return;
-      }
-      callback(pattern);
-      return;
-    }
+  if (ignoreNodeModules) {
+    patterns = patterns.concat(ignoreNodeModulesGlobs);
+  }
 
-    glob(pattern, globOptions, (err, filenames) => {
-      if (err) {
-        console.error("Unable to expand glob pattern: " + pattern + "\n" + err);
-        // Don't exit the process if one pattern failed
+  return globby(patterns, globOptions)
+    .then(filePaths => {
+      if (filePaths.length === 0) {
+        console.error(
+          "No matching files. Patterns tried: " + patterns.join(" ")
+        );
         process.exitCode = 2;
         return;
       }
 
-      filenames.forEach(filename => {
-        callback(filename);
+      filePaths.forEach(filePath => {
+        return callback(filePath);
       });
+    })
+    .catch(err => {
+      console.error(
+        "Unable to expand glob patterns: " + patterns.join(" ") + "\n" + err
+      );
+      // Don't exit the process if one pattern failed
+      process.exitCode = 2;
+      return;
     });
-  });
-}
-
-function shouldIgnorePattern(pattern) {
-  return ignoreNodeModules && path.resolve(pattern).includes("/node_modules/");
 }
