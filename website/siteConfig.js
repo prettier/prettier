@@ -1,3 +1,5 @@
+"use strict";
+
 const fs = require("fs");
 
 /* List of projects/orgs using your project for the users page */
@@ -12,7 +14,7 @@ const users = [
 
 const siteConfig = {
   title: "Prettier" /* title for your website */,
-  url: "https://prettier.github.io" /* your github url */,
+  url: "https://prettier.io" /* your github url */,
   baseUrl: "/prettier/" /* base url for your project */,
   repo: "prettier/prettier" /* repo for your project */,
   users,
@@ -64,7 +66,7 @@ const siteConfig = {
     prismColor:
       "rgba(26, 43, 52, 0.03)" /* primaryColor in rgba form, with 0.03 alpha */
   },
-  tagline: "Opinonated Code Formatting",
+  tagline: "Opinonated Code Formatting"
 };
 
 let languages;
@@ -83,7 +85,7 @@ if (fs.existsSync("./languages.js")) {
 
 const enabledLanguages = languages.filter(lang => lang.enabled);
 
-siteConfig["languages"] = enabledLanguages;
+siteConfig.languages = enabledLanguages;
 
 /* INJECT LOCALIZED FILES BEGIN */
 /* INJECT LOCALIZED FILES END */
