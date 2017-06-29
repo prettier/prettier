@@ -432,8 +432,9 @@ x = (
 
 leading_whitespace = (
   <div>
-    {" "}First Second Third Fourth Fifth Sixth Seventh Eighth Ninth Tenth
-    Eleventh Twelfth Thirteenth Fourteenth
+    {" "}
+    First Second Third Fourth Fifth Sixth Seventh Eighth Ninth Tenth Eleventh
+    Twelfth Thirteenth Fourteenth
   </div>
 );
 

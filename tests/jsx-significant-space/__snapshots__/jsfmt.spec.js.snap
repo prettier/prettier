@@ -171,7 +171,8 @@ nest_plz = (
 
 regression_not_transformed_1 = (
   <span>
-    {" "}<Icon icon="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
+    {" "}
+    <Icon icon="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
   </span>
 );
 
@@ -183,7 +184,8 @@ regression_not_transformed_2 = (
 
 similar_1 = (
   <span>
-    {" "}<Icon icon="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
+    {" "}
+    <Icon icon="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
   </span>
 );
 

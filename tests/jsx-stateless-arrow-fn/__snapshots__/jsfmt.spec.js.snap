@@ -150,7 +150,8 @@ const render7A = () =>
 const render7B = () =>
   <div>
     <span>
-      {" "}<span /> Dont break plz
+      {" "}
+      <span /> Dont break plz
     </span>
     <span>
       <span />Dont break plz

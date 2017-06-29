@@ -3931,8 +3931,13 @@ function printJSXElement(path, options, print) {
     // whitespace as `{" "}` when outputting this element over multiple lines.
     if (child === jsxWhitespace) {
       if (i === 1 && children[i - 1] === "") {
+        if (children.length === 2) {
+          // Solitary whitespace
+          multilineChildren.push(rawJsxWhitespace);
+          return;
+        }
         // Leading whitespace
-        multilineChildren.push(rawJsxWhitespace);
+        multilineChildren.push(concat([rawJsxWhitespace, hardline]));
         return;
       } else if (i === children.length - 1) {
         // Trailing whitespace
