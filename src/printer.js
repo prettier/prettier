@@ -265,7 +265,7 @@ function genericPrintNoParens(path, options, print, args) {
         n !== parent.body &&
         (parent.type === "IfStatement" ||
           parent.type === "WhileStatement" ||
-          parent.type === "DoStatement");
+          parent.type === "DoWhileStatement");
 
       const parts = printBinaryishExpressions(
         path,
@@ -1435,7 +1435,12 @@ function genericPrintNoParens(path, options, print, args) {
       parts.push("while (");
 
       parts.push(
-        group(concat([indent(softline), path.call(print, "test"), softline])),
+        group(
+          concat([
+            indent(concat([softline, path.call(print, "test")])),
+            softline
+          ])
+        ),
         ")",
         semi
       );
