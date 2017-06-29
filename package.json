@@ -36,9 +36,9 @@
     "babel-cli": "6.24.1",
     "babel-preset-es2015": "6.24.1",
     "cross-spawn": "5.1.0",
-    "eslint": "3.19.0",
+    "eslint": "4.1.1",
     "eslint-friendly-formatter": "3.0.0",
-    "eslint-plugin-prettier": "2.1.1",
+    "eslint-plugin-prettier": "2.1.2",
     "jest": "20.0.0",
     "mkdirp": "^0.5.1",
     "prettier": "1.4.2",
@@ -50,6 +50,7 @@
     "rollup-plugin-node-globals": "1.1.0",
     "rollup-plugin-node-resolve": "2.0.0",
     "rollup-plugin-replace": "1.1.1",
+    "shelljs": "0.7.8",
     "sw-toolbox": "3.6.0",
     "uglify-es": "3.0.15",
     "webpack": "2.6.1"
@@ -58,7 +59,7 @@
     "test": "jest",
     "test-integration": "jest tests_integration",
     "lint": "EFF_NO_LINK_RULES=true eslint . --format 'node_modules/eslint-friendly-formatter'",
-    "build": "./scripts/build/build.sh"
+    "build": "./scripts/build/build.js"
   },
   "jest": {
     "setupFiles": [

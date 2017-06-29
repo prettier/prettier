@@ -125,5 +125,5 @@ function writeErrorsToFiles() {
 }
 
 function sanitize(string) {
-  return string.replace(/[^A-Z0-9_.\(\) \-]/gi, "_").replace(/\.$/, "");
+  return string.replace(/[^A-Z0-9_.() -]/gi, "_").replace(/\.$/, "");
 }
