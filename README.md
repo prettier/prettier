@@ -158,7 +158,7 @@ Since coming up with a coding style and enforcing it is a big undertaking, it of
 
 ### Ride the hype train
 
-Purely technical aspects of the projects aren't the only thing people look into when choosing to adopt Prettier. Who built and uses it and how quickly it spreads through the community has a non trivial impact.
+Purely technical aspects of the projects aren't the only thing people look into when choosing to adopt Prettier. Who built and uses it and how quickly it spreads through the community has a non-trivial impact.
 - “The amazing thing, for me, is: 1) Announced 2 months ago. 2) Already adopted by, it seems, every major JS project. 3) 7000 stars, 100,000 npm downloads/mo”
 - “Was built by the same people as React & React Native.”
 - “I like to be part of the hot new things.”
