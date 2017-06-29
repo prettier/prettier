@@ -1,3 +1,5 @@
+"use strict";
+
 const React = require("react");
 
 const githubButton = (
@@ -16,7 +18,7 @@ const githubButton = (
 
 class Footer extends React.Component {
   render() {
-    const currentYear = new Date().getFullYear();
+    // const currentYear = new Date().getFullYear();
     return (
       <footer className="nav-footer" id="footer">
         <section className="sitemap">
@@ -73,11 +75,16 @@ class Footer extends React.Component {
             <a
               href="http://stackoverflow.com/questions/tagged/"
               target="_blank"
+              rel="noopener noreferrer"
             >
               Stack Overflow
             </a>
             <a href="https://discordapp.com/">Project Chat</a>
-            <a href="https://twitter.com/" target="_blank">
+            <a
+              href="https://twitter.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Twitter
             </a>
           </div>
@@ -92,5 +99,10 @@ class Footer extends React.Component {
     );
   }
 }
+
+Footer.propTypes = {
+  language: React.PropTypes.string,
+  config: React.PropTypes.object
+};
 
 module.exports = Footer;

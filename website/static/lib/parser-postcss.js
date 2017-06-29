@@ -8,8 +8,7 @@ function createCommonjsModule(fn, module) {
 }
 
 var parserPostcss = createCommonjsModule(function (module) {
-module.exports =
-/******/ (function(modules) { // webpackBootstrap
+module.exports = /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -25140,7 +25139,7 @@ function requireParser(isSCSS) {
 }
 
 function parse(text) {
-  const isLikelySCSS = !!text.match(/(\w\s*: [^}:]+|#){|\@import[^\n]+(url|,)/);
+  const isLikelySCSS = !!text.match(/(\w\s*: [^}:]+|#){|@import[^\n]+(url|,)/);
   try {
     return parseWithParser(requireParser(isLikelySCSS), text);
   } catch (e) {

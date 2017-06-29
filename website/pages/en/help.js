@@ -1,10 +1,12 @@
+"use strict";
+
 const React = require("react");
 
 const CompLibrary = require("../../core/CompLibrary.js");
 const Container = CompLibrary.Container;
 const GridBlock = CompLibrary.GridBlock;
 
-const siteConfig = require(process.cwd() + "/siteConfig.js");
+// const siteConfig = require(process.cwd() + "/siteConfig.js");
 
 class Help extends React.Component {
   render() {

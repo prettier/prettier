@@ -1,3 +1,5 @@
+"use strict";
+
 const React = require("react");
 
 const CompLibrary = require("../../core/CompLibrary.js");
@@ -21,6 +23,12 @@ class Button extends React.Component {
 
 Button.defaultProps = {
   target: "_self"
+};
+
+Button.propTypes = {
+  href: React.PropTypes.string,
+  target: React.PropTypes.string,
+  children: React.PropTypes.any
 };
 
 class HomeSplash extends React.Component {
@@ -70,6 +78,10 @@ class HomeSplash extends React.Component {
   }
 }
 
+HomeSplash.propTypes = {
+  language: React.PropTypes.string
+};
+
 class Index extends React.Component {
   render() {
     const language = this.props.language || "en";
@@ -77,9 +89,9 @@ class Index extends React.Component {
       .filter(user => {
         return user.pinned;
       })
-      .map(user => {
+      .map((user, i) => {
         return (
-          <a href={user.infoLink}>
+          <a key={i} href={user.infoLink}>
             <img src={user.image} title={user.caption} />
           </a>
         );
@@ -159,7 +171,7 @@ class Index extends React.Component {
           </Container>
 
           <div className="productShowcaseSection paddingBottom">
-            <h2>Who's Using This?</h2>
+            <h2>Who{"'"}s Using This?</h2>
             <p>This project is used by all these people</p>
             <div className="logos">
               {showcase}
@@ -179,5 +191,9 @@ class Index extends React.Component {
     );
   }
 }
+
+Index.propTypes = {
+  language: React.PropTypes.string
+};
 
 module.exports = Index;

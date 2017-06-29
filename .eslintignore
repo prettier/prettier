@@ -1,7 +1,8 @@
 !/*.js
-/docs/lib/
 /tests/**/*.js
 !/tests/**/jsfmt.spec.js
 !/**/.eslintrc.js
 /test.js
 /dist/
+**/node_modules/**
+/website/static/lib/
