@@ -11,6 +11,7 @@ toolbox.precache([
   "lib/index.js",
   "lib/parser-babylon.js",
   "lib/parser-typescript.js",
+  "lib/parser-postcss.js",
   "lib/parser-flow.js",
   "lib/parser-graphql.js",
   "lib/parser-json.js",

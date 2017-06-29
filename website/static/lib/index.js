@@ -3313,14 +3313,16 @@ function isStyledJsx(path$$1) {
 }
 
 /**
- * Template literal in this context:
+ * Template literal in these contexts:
  * styled.button`color: red`
- * or
  * Foo.extend`color: red`
+ * css`color: red`
+ * keyframes`0% { opacity: 0; }`
+ * injectGlobal`body{ margin:0: }`
  */
 function isStyledComponents(path$$1) {
   var parent = path$$1.getParentNode();
-  return parent && parent.type === "TaggedTemplateExpression" && parent.tag.type === "MemberExpression" && (parent.tag.object.name === "styled" || /^[A-Z]/.test(parent.tag.object.name) && parent.tag.property.name === "extend");
+  return parent && parent.type === "TaggedTemplateExpression" && (parent.tag.type === "MemberExpression" && (parent.tag.object.name === "styled" || /^[A-Z]/.test(parent.tag.object.name) && parent.tag.property.name === "extend") || parent.tag.type === "Identifier" && parent.tag.name === "css");
 }
 
 var multiparser$1 = {
@@ -5692,10 +5694,8 @@ function genericPrintNoParens(path$$1, options, print, args) {
           parts.push(printTypeScriptModifiers(path$$1, options, print));
 
           // Global declaration looks like this:
-          // declare global { ... }
-          var isGlobalDeclaration = n.name.type === "Identifier" && n.name.name === "global" && n.modifiers && n.modifiers.some(function (modifier) {
-            return modifier.type === "TSDeclareKeyword";
-          });
+          // (declare)? global { ... }
+          var isGlobalDeclaration = n.name.type === "Identifier" && n.name.name === "global" && !/namespace|module/.test(options.originalText.slice(util$4.locStart(n), util$4.locStart(n.name)));
 
           if (!isGlobalDeclaration) {
             parts.push(isExternalModule ? "module " : "namespace ");
@@ -10502,6 +10502,9 @@ function normalize(options) {
     normalized.parser = "graphql";
   } else if (/\.json$/.test(filepath)) {
     normalized.parser = "json";
+  }
+
+  if (normalized.parser === "json") {
     normalized.trailingComma = "none";
   }
 
@@ -10863,7 +10866,7 @@ function isSourceElement(opts, node) {
   if (node == null) {
     return false;
   }
-  switch (node.type) {
+  switch (node.type || node.kind) {
     case "ObjectExpression": // JSON
     case "ArrayExpression": // JSON
     case "StringLiteral": // JSON
@@ -10901,8 +10904,24 @@ function isSourceElement(opts, node) {
     case "InterfaceDeclaration": // Flow, Typescript
     case "TypeAliasDeclaration": // Typescript
     case "ExportAssignment": // Typescript
-    case "ExportDeclaration":
-      // Typescript
+    case "ExportDeclaration": // Typescript
+    case "OperationDefinition": // GraphQL
+    case "FragmentDefinition": // GraphQL
+    case "VariableDefinition": // GraphQL
+    case "TypeExtensionDefinition": // GraphQL
+    case "ObjectTypeDefinition": // GraphQL
+    case "FieldDefinition": // GraphQL
+    case "DirectiveDefinition": // GraphQL
+    case "EnumTypeDefinition": // GraphQL
+    case "EnumValueDefinition": // GraphQL
+    case "InputValueDefinition": // GraphQL
+    case "InputObjectTypeDefinition": // GraphQL
+    case "SchemaDefinition": // GraphQL
+    case "OperationTypeDefinition": // GraphQL
+    case "InterfaceTypeDefinition": // GraphQL
+    case "UnionTypeDefinition": // GraphQL
+    case "ScalarTypeDefinition":
+      // GraphQL
       return true;
   }
   return false;
