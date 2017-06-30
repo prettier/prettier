@@ -13,7 +13,7 @@ class Help extends React.Component {
     const supportLinks = [
       {
         content:
-          "Learn more using the [documentation on this site.](/prettier/docs/en/why-prettier.html)\n",
+          "Learn more using the [documentation on this site.](/docs/en/why-prettier.html)\n",
         title: "Browse Docs"
       },
       {

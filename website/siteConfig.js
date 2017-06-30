@@ -15,7 +15,8 @@ const users = [
 const siteConfig = {
   title: "Prettier" /* title for your website */,
   url: "https://prettier.io" /* your github url */,
-  baseUrl: "/prettier/" /* base url for your project */,
+  baseUrl: "/" /* base url for your project */,
+  projectName: "prettier",
   repo: "prettier/prettier" /* repo for your project */,
   users,
   /* base url for editing docs, usage example: editUrl + 'en/doc1.md' */
@@ -25,19 +26,19 @@ const siteConfig = {
   headerLinksInternal: [
     {
       section: "docs",
-      href: "/prettier/docs/LANGUAGE/why-prettier.html",
+      href: "/docs/LANGUAGE/why-prettier.html",
       text: "Docs"
     },
     {
       section: "api",
-      href: "/prettier/docs/LANGUAGE/why-prettier.html",
+      href: "/docs/LANGUAGE/why-prettier.html",
       text: "API"
     },
-    { section: "help", href: "/prettier/LANGUAGE/help.html", text: "Help" },
+    { section: "help", href: "/LANGUAGE/help.html", text: "Help" },
     // {section: 'blog', href: '/test-site/blog', text: 'Blog'},
     {
       section: "playground",
-      href: "/prettier/playground/",
+      href: "/playground/",
       text: "Playground"
     }
   ],
@@ -52,11 +53,11 @@ const siteConfig = {
   /* path to images for header/footer */
   headerIcon: "icon.png",
   footerIcon: "icon.png",
-  favicon: "/prettier/icon.png",
+  favicon: "icon.png",
   /* default link for docsSidebar */
   docsSidebarDefaults: {
     layout: "docs",
-    root: "/prettier/docs/en/why-prettier.html",
+    root: "/docs/en/why-prettier.html",
     title: "Docs"
   },
   /* colors for website */

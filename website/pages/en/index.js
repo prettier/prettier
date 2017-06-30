@@ -38,7 +38,7 @@ class HomeSplash extends React.Component {
         <div className="homeSplashFade">
           <div className="wrapper homeWrapper">
             <div className="projectLogo">
-              <img src="/prettier/icon.png" />
+              <img src="/icon.png" />
             </div>
             <div className="inner">
               <h2 className="projectTitle">
@@ -51,7 +51,7 @@ class HomeSplash extends React.Component {
                     <Button href="#try">Try It Out</Button>
                     <Button
                       href={
-                        "/prettier/docs/" +
+                        "/docs/" +
                         this.props.language +
                         "/why-prettier.html"
                       }
@@ -60,7 +60,7 @@ class HomeSplash extends React.Component {
                     </Button>
                     <Button
                       href={
-                        "/prettier/docs/" +
+                        "/docs/" +
                         this.props.language +
                         "/why-prettier.html"
                       }
@@ -108,13 +108,13 @@ class Index extends React.Component {
               contents={[
                 {
                   content: "This is the content of my feature",
-                  image: "/prettier/prettier.png",
+                  image: "/prettier.png",
                   imageAlign: "top",
                   title: "Feature One"
                 },
                 {
                   content: "The content of my second feature",
-                  image: "/prettier/prettier.png",
+                  image: "/prettier.png",
                   imageAlign: "top",
                   title: "Feature Two"
                 }
@@ -136,7 +136,7 @@ class Index extends React.Component {
               contents={[
                 {
                   content: "Talk about learning how to use this",
-                  image: "/prettier/prettier.png",
+                  image: "/prettier.png",
                   imageAlign: "right",
                   title: "Learn How"
                 }
@@ -149,7 +149,7 @@ class Index extends React.Component {
               contents={[
                 {
                   content: "Talk about trying this out",
-                  image: "/prettier/prettier.png",
+                  image: "/prettier.png",
                   imageAlign: "left",
                   title: "Try it Out"
                 }
@@ -163,7 +163,7 @@ class Index extends React.Component {
                 {
                   content:
                     "This is another description of how this project is useful",
-                  image: "/prettier/prettier.png",
+                  image: "/prettier.png",
                   imageAlign: "right",
                   title: "Description"
                 }

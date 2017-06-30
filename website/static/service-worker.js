@@ -33,7 +33,7 @@ toolbox.precache([
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/keymap/sublime.js",
 
   // Images
-  "/prettier/prettier.png"
+  "/prettier.png"
 ]);
 
 toolbox.router.default = toolbox.fastest;
