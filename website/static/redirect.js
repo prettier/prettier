@@ -3,5 +3,5 @@
 /* eslint-env browser */
 
 if (location.hash.substring(1).startsWith(encodeURIComponent("{"))) {
-  location.pathname = "/prettier/playground/";
+  location.pathname = "/playground/";
 }
