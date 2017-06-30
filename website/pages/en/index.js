@@ -51,18 +51,14 @@ class HomeSplash extends React.Component {
                     <Button href="#try">Try It Out</Button>
                     <Button
                       href={
-                        "/docs/" +
-                        this.props.language +
-                        "/why-prettier.html"
+                        "/docs/" + this.props.language + "/why-prettier.html"
                       }
                     >
                       Example Link
                     </Button>
                     <Button
                       href={
-                        "/docs/" +
-                        this.props.language +
-                        "/why-prettier.html"
+                        "/docs/" + this.props.language + "/why-prettier.html"
                       }
                     >
                       Example Link 2
