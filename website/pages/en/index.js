@@ -99,6 +99,7 @@ class Index extends React.Component {
 
     return (
       <div>
+        <script src="redirect.js" />
         <HomeSplash language={language} />
         <div className="mainContainer">
           <Container padding={["bottom", "top"]}>
