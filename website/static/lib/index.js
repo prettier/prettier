@@ -15,6 +15,20 @@ function _interopDefault(ex) {
 var require$$0 = _interopDefault(require('assert'));
 var path = _interopDefault(require('path'));
 
+var index$2 = function index$2(x) {
+  if (typeof x !== 'string') {
+    throw new TypeError('Expected a string, got ' + (typeof x === 'undefined' ? 'undefined' : _typeof(x)));
+  }
+
+  // Catches EFBBBF (UTF-8 BOM) because the buffer-to-string
+  // conversion translates it to FEFF (UTF-16 BOM)
+  if (x.charCodeAt(0) === 0xFEFF) {
+    return x.slice(1);
+  }
+
+  return x;
+};
+
 function assertDoc(val) {
   if (!(typeof val === "string" || val != null && typeof val.type === "string")) {
     throw new Error("Value " + JSON.stringify(val) + " is not a valid document");
@@ -54,6 +68,7 @@ function group(contents, opts) {
     type: "group",
     contents: contents,
     break: !!opts.shouldBreak,
+    addedLine: !!opts.addedLine,
     expandedStates: opts.expandedStates
   };
 }
@@ -1285,15 +1300,16 @@ var comments$1 = {
 
 var name = "prettier";
 var version$1 = "1.5.2";
-var description = "Prettier is an opinionated JavaScript formatter";
+var description = "Prettier is an opinionated code formatter";
 var bin = { "prettier": "./bin/prettier.js" };
 var repository = "prettier/prettier";
+var homepage = "https://prettier.io";
 var author = "James Long";
 var license = "MIT";
 var main = "./index.js";
-var dependencies = { "babel-code-frame": "7.0.0-alpha.12", "babylon": "7.0.0-beta.13", "chalk": "1.1.3", "diff": "3.2.0", "esutils": "2.0.2", "flow-parser": "0.47.0", "get-stream": "3.0.0", "glob": "7.1.2", "graphql": "0.10.1", "jest-validate": "20.0.3", "json-to-ast": "2.0.0-alpha1.2", "minimist": "1.2.0", "parse5": "3.0.2", "postcss": "^6.0.1", "postcss-less": "^1.0.0", "postcss-media-query-parser": "0.2.3", "postcss-scss": "1.0.0", "postcss-selector-parser": "2.2.3", "postcss-values-parser": "git://github.com/shellscape/postcss-values-parser.git#5e351360479116f3fe309602cdd15b0a233bc29f", "typescript": "2.5.0-dev.20170617", "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#cfddbfe3ebf550530aef2f1c6c4ea1d9e738d9c1" };
-var devDependencies = { "babel-cli": "6.24.1", "babel-preset-es2015": "6.24.1", "cross-spawn": "5.1.0", "eslint": "4.1.1", "eslint-friendly-formatter": "3.0.0", "eslint-plugin-prettier": "2.1.2", "jest": "20.0.0", "mkdirp": "^0.5.1", "prettier": "1.4.2", "rimraf": "2.6.1", "rollup": "0.41.1", "rollup-plugin-commonjs": "7.0.0", "rollup-plugin-json": "2.1.0", "rollup-plugin-node-builtins": "2.0.0", "rollup-plugin-node-globals": "1.1.0", "rollup-plugin-node-resolve": "2.0.0", "rollup-plugin-replace": "1.1.1", "shelljs": "0.7.8", "sw-toolbox": "3.6.0", "uglify-es": "3.0.15", "webpack": "2.6.1" };
-var scripts = { "test": "jest", "test-integration": "jest tests_integration", "lint": "EFF_NO_LINK_RULES=true eslint . --format 'node_modules/eslint-friendly-formatter'", "build": "./scripts/build/build.js" };
+var dependencies = { "babel-code-frame": "7.0.0-alpha.12", "babylon": "7.0.0-beta.13", "chalk": "1.1.3", "diff": "3.2.0", "esutils": "2.0.2", "flow-parser": "0.47.0", "get-stream": "3.0.0", "globby": "^6.1.0", "graphql": "0.10.1", "jest-validate": "20.0.3", "json-to-ast": "2.0.0-alpha1.2", "minimist": "1.2.0", "parse5": "3.0.2", "postcss": "^6.0.1", "postcss-less": "^1.0.0", "postcss-media-query-parser": "0.2.3", "postcss-scss": "1.0.0", "postcss-selector-parser": "2.2.3", "postcss-values-parser": "git://github.com/shellscape/postcss-values-parser.git#5e351360479116f3fe309602cdd15b0a233bc29f", "strip-bom": "3.0.0", "typescript": "2.5.0-dev.20170617", "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#cfddbfe3ebf550530aef2f1c6c4ea1d9e738d9c1" };
+var devDependencies = { "babel-cli": "6.24.1", "babel-preset-es2015": "6.24.1", "cross-env": "5.0.1", "cross-spawn": "5.1.0", "eslint": "4.1.1", "eslint-friendly-formatter": "3.0.0", "eslint-plugin-import": "2.6.1", "eslint-plugin-prettier": "2.1.2", "eslint-plugin-react": "7.1.0", "jest": "20.0.0", "mkdirp": "^0.5.1", "prettier": "1.4.2", "rimraf": "2.6.1", "rollup": "0.41.1", "rollup-plugin-commonjs": "7.0.0", "rollup-plugin-json": "2.1.0", "rollup-plugin-node-builtins": "2.0.0", "rollup-plugin-node-globals": "1.1.0", "rollup-plugin-node-resolve": "2.0.0", "rollup-plugin-replace": "1.1.1", "shelljs": "0.7.8", "sw-toolbox": "3.6.0", "uglify-es": "3.0.15", "webpack": "2.6.1" };
+var scripts = { "test": "jest", "test-integration": "jest tests_integration", "lint": "cross-env EFF_NO_LINK_RULES=true eslint . --format node_modules/eslint-friendly-formatter", "build": "./scripts/build/build.js" };
 var jest = { "setupFiles": ["<rootDir>/tests_config/run_spec.js"], "snapshotSerializers": ["<rootDir>/tests_config/raw-serializer.js"], "testRegex": "jsfmt\\.spec\\.js$|__tests__/.*\\.js$", "testPathIgnorePatterns": ["tests/new_react", "tests/more_react"] };
 var _package = {
   name: name,
@@ -1301,6 +1317,7 @@ var _package = {
   description: description,
   bin: bin,
   repository: repository,
+  homepage: homepage,
   author: author,
   license: license,
   main: main,
@@ -1316,6 +1333,7 @@ var _package$1 = Object.freeze({
   description: description,
   bin: bin,
   repository: repository,
+  homepage: homepage,
   author: author,
   license: license,
   main: main,
@@ -2007,7 +2025,7 @@ function createCommonjsModule(fn, module) {
   return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
 
-var index$4 = createCommonjsModule(function (module, exports) {
+var index$6 = createCommonjsModule(function (module, exports) {
   // Copyright 2014, 2015, 2016, 2017 Simon Lydell
   // License: MIT. (See LICENSE.)
 
@@ -2029,16 +2047,16 @@ var index$4 = createCommonjsModule(function (module, exports) {
 var ast = createCommonjsModule(function (module) {
   /*
     Copyright (C) 2013 Yusuke Suzuki <utatane.tea@gmail.com>
-
+  
     Redistribution and use in source and binary forms, with or without
     modification, are permitted provided that the following conditions are met:
-
+  
       * Redistributions of source code must retain the above copyright
         notice, this list of conditions and the following disclaimer.
       * Redistributions in binary form must reproduce the above copyright
         notice, this list of conditions and the following disclaimer in the
         documentation and/or other materials provided with the distribution.
-
+  
     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 'AS IS'
     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
     IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -2183,16 +2201,16 @@ var code = createCommonjsModule(function (module) {
   /*
     Copyright (C) 2013-2014 Yusuke Suzuki <utatane.tea@gmail.com>
     Copyright (C) 2014 Ivan Nikulin <ifaaan@gmail.com>
-
+  
     Redistribution and use in source and binary forms, with or without
     modification, are permitted provided that the following conditions are met:
-
+  
       * Redistributions of source code must retain the above copyright
         notice, this list of conditions and the following disclaimer.
       * Redistributions in binary form must reproduce the above copyright
         notice, this list of conditions and the following disclaimer in the
         documentation and/or other materials provided with the distribution.
-
+  
     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
     IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -2313,16 +2331,16 @@ var code = createCommonjsModule(function (module) {
 var keyword = createCommonjsModule(function (module) {
   /*
     Copyright (C) 2013 Yusuke Suzuki <utatane.tea@gmail.com>
-
+  
     Redistribution and use in source and binary forms, with or without
     modification, are permitted provided that the following conditions are met:
-
+  
       * Redistributions of source code must retain the above copyright
         notice, this list of conditions and the following disclaimer.
       * Redistributions in binary form must reproduce the above copyright
         notice, this list of conditions and the following disclaimer in the
         documentation and/or other materials provided with the distribution.
-
+  
     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
     IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -2483,16 +2501,16 @@ var keyword = createCommonjsModule(function (module) {
 var utils = createCommonjsModule(function (module, exports) {
   /*
     Copyright (C) 2013 Yusuke Suzuki <utatane.tea@gmail.com>
-
+  
     Redistribution and use in source and binary forms, with or without
     modification, are permitted provided that the following conditions are met:
-
+  
       * Redistributions of source code must retain the above copyright
         notice, this list of conditions and the following disclaimer.
       * Redistributions in binary form must reproduce the above copyright
         notice, this list of conditions and the following disclaimer in the
         documentation and/or other materials provided with the distribution.
-
+  
     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
     IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -2517,7 +2535,7 @@ var utils = createCommonjsModule(function (module, exports) {
 
 var matchOperatorsRe = /[|\\{}()[\]^$+*?.]/g;
 
-var index$8 = function index$8(str) {
+var index$10 = function index$10(str) {
   if (typeof str !== 'string') {
     throw new TypeError('Expected a string');
   }
@@ -2525,7 +2543,7 @@ var index$8 = function index$8(str) {
   return str.replace(matchOperatorsRe, '\\$&');
 };
 
-var index$10 = createCommonjsModule(function (module) {
+var index$12 = createCommonjsModule(function (module) {
   'use strict';
 
   function assembleStyles() {
@@ -2593,20 +2611,20 @@ var index$10 = createCommonjsModule(function (module) {
   });
 });
 
-var index$14 = function index$14() {
+var index$16 = function index$16() {
   return (/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-PRZcf-nqry=><]/g
   );
 };
 
-var ansiRegex = index$14();
+var ansiRegex = index$16();
 
-var index$12 = function index$12(str) {
+var index$14 = function index$14(str) {
   return typeof str === 'string' ? str.replace(ansiRegex, '') : str;
 };
 
-var ansiRegex$1 = index$14;
+var ansiRegex$1 = index$16;
 var re = new RegExp(ansiRegex$1().source); // remove the `g` flag
-var index$16 = re.test.bind(re);
+var index$18 = re.test.bind(re);
 
 var argv = process.argv;
 
@@ -2617,7 +2635,7 @@ var hasFlag = function hasFlag(flag) {
   return pos !== -1 && (terminator !== -1 ? pos < terminator : true);
 };
 
-var index$18 = function () {
+var index$20 = function () {
   if ('FORCE_COLOR' in process.env) {
     return true;
   }
@@ -2653,11 +2671,11 @@ var index$18 = function () {
   return false;
 }();
 
-var escapeStringRegexp = index$8;
-var ansiStyles = index$10;
-var stripAnsi = index$12;
-var hasAnsi = index$16;
-var supportsColor = index$18;
+var escapeStringRegexp = index$10;
+var ansiStyles = index$12;
+var stripAnsi = index$14;
+var hasAnsi = index$18;
+var supportsColor = index$20;
 var defineProps = Object.defineProperties;
 var isSimpleWindowsTerm = process.platform === 'win32' && !/^xterm/i.test(process.env.TERM);
 
@@ -2763,18 +2781,18 @@ function init() {
 
 defineProps(Chalk.prototype, init());
 
-var index$6 = new Chalk();
+var index$8 = new Chalk();
 var styles_1 = ansiStyles;
 var hasColor = hasAnsi;
 var stripColor = stripAnsi;
 var supportsColor_1 = supportsColor;
 
-index$6.styles = styles_1;
-index$6.hasColor = hasColor;
-index$6.stripColor = stripColor;
-index$6.supportsColor = supportsColor_1;
+index$8.styles = styles_1;
+index$8.hasColor = hasColor;
+index$8.stripColor = stripColor;
+index$8.supportsColor = supportsColor_1;
 
-var index$2 = createCommonjsModule(function (module, exports) {
+var index$4 = createCommonjsModule(function (module, exports) {
   "use strict";
 
   exports.__esModule = true;
@@ -2803,7 +2821,7 @@ var index$2 = createCommonjsModule(function (module, exports) {
     return codeFrameColumns(rawLines, location, opts);
   };
 
-  var _jsTokens = index$4;
+  var _jsTokens = index$6;
 
   var _jsTokens2 = _interopRequireDefault(_jsTokens);
 
@@ -2811,7 +2829,7 @@ var index$2 = createCommonjsModule(function (module, exports) {
 
   var _esutils2 = _interopRequireDefault(_esutils);
 
-  var _chalk = index$6;
+  var _chalk = index$8;
 
   var _chalk2 = _interopRequireDefault(_chalk);
 
@@ -3050,7 +3068,7 @@ function parse(text, opts) {
     var loc = error.loc;
 
     if (loc) {
-      var codeFrame = index$2;
+      var codeFrame = index$4;
       error.codeFrame = codeFrame.codeFrameColumns(text, loc, {
         highlightCode: true
       });
@@ -4000,6 +4018,8 @@ function getPrintFunction(options) {
 }
 
 function genericPrint(path$$1, options, printPath, args) {
+  var parenSpace = options.parenSpacing ? " " : "";
+
   assert$1.ok(path$$1 instanceof FastPath);
 
   var node = path$$1.getValue();
@@ -4019,7 +4039,7 @@ function genericPrint(path$$1, options, printPath, args) {
         return multiparser.printSubtree(next, path$$1, printPath, options);
       } catch (error) {
         if (process.env.PRETTIER_DEBUG) {
-          const e = new Error(error);
+          var e = new Error(error);
           e.parser = next.options.parser;
           throw e;
         }
@@ -4079,13 +4099,13 @@ function genericPrint(path$$1, options, printPath, args) {
 
   var parts = [];
   if (needsParens) {
-    parts.unshift("(");
+    parts.unshift("(", parenSpace);
   }
 
   parts.push(linesWithoutParens);
 
   if (needsParens) {
-    parts.push(")");
+    parts.push(parenSpace, ")");
   }
 
   if (decorators.length > 0) {
@@ -4097,6 +4117,8 @@ function genericPrint(path$$1, options, printPath, args) {
 function genericPrintNoParens(path$$1, options, print, args) {
   var n = path$$1.getValue();
   var semi = options.semi ? ";" : "";
+  var parenSpace = options.parenSpacing ? " " : "";
+  var parenLine = options.parenSpacing ? line$1 : softline$1;
 
   if (!n) {
     return "";
@@ -4144,7 +4166,7 @@ function genericPrintNoParens(path$$1, options, print, args) {
       }
       return concat$2([path$$1.call(print, "expression"), semi]); // Babel extension.
     case "ParenthesizedExpression":
-      return concat$2(["(", path$$1.call(print, "expression"), ")"]);
+      return concat$2(["(", parenSpace, path$$1.call(print, "expression"), parenSpace, ")"]);
     case "AssignmentExpression":
       return printAssignment(n.left, path$$1.call(print, "left"), concat$2([" ", n.operator]), n.right, path$$1.call(print, "right"), options);
     case "BinaryExpression":
@@ -4274,9 +4296,12 @@ function genericPrintNoParens(path$$1, options, print, args) {
         }
 
         // if the arrow function is expanded as last argument, we are adding a
-        // level of indentation and need to add a softline to align the closing )
+        // level of indentation and need to add a (soft) line to align the closing )
         // with the opening (.
-        var shouldAddSoftLine = args && args.expandLastArg;
+        // This means that the (soft) line is sometimes added, sometimes not. Add this fact as
+        // an `addedLine`opt to the returned `group`. It will be used by code that takes care
+        // of adding a space before the closing paren when the `paren-spacing` option is on.
+        var shouldAddLine = args && args.expandLastArg;
 
         // In order to avoid confusion between
         // a => a ? a : a
@@ -4284,7 +4309,7 @@ function genericPrintNoParens(path$$1, options, print, args) {
         var shouldAddParens = n.body.type === "ConditionalExpression" && !util$4.startsWithNoLookaheadToken(n.body,
         /* forbidFunctionAndClass */false);
 
-        return group$1(concat$2([concat$2(parts), group$1(concat$2([indent$2(concat$2([line$1, shouldAddParens ? ifBreak$1("", "(") : "", body, shouldAddParens ? ifBreak$1("", ")") : ""])), shouldAddSoftLine ? concat$2([ifBreak$1(shouldPrintComma(options, "all") ? "," : ""), softline$1]) : ""]))]));
+        return group$1(concat$2([concat$2(parts), group$1(concat$2([indent$2(concat$2([line$1, shouldAddParens ? ifBreak$1("", concat$2(["(", parenSpace])) : "", body, shouldAddParens ? ifBreak$1("", concat$2([parenSpace, ")"])) : ""])), shouldAddLine ? concat$2([ifBreak$1(shouldPrintComma(options, "all") ? "," : ""), parenLine]) : ""]))]), { addedLine: shouldAddLine });
       }
     case "MethodDefinition":
     case "TSAbstractMethodDefinition":
@@ -4530,7 +4555,7 @@ function genericPrintNoParens(path$$1, options, print, args) {
         // Keep test declarations on a single line
         // e.g. `it('long name', () => {`
         !isNew && n.callee.type === "Identifier" && (n.callee.name === "it" || n.callee.name === "test" || n.callee.name === "describe") && n.arguments.length === 2 && (n.arguments[0].type === "StringLiteral" || n.arguments[0].type === "TemplateLiteral" || n.arguments[0].type === "Literal" && typeof n.arguments[0].value === "string") && (n.arguments[1].type === "FunctionExpression" || n.arguments[1].type === "ArrowFunctionExpression") && n.arguments[1].params.length <= 1) {
-          return concat$2([isNew ? "new " : "", path$$1.call(print, "callee"), path$$1.call(print, "typeParameters"), concat$2(["(", join$2(", ", path$$1.map(print, "arguments")), ")"])]);
+          return concat$2([isNew ? "new " : "", path$$1.call(print, "callee"), path$$1.call(print, "typeParameters"), concat$2(["(", parenSpace, join$2(", ", path$$1.map(print, "arguments")), parenSpace, ")"])]);
         }
 
         // We detect calls on member lookups and possibly print them in a
@@ -4646,7 +4671,7 @@ function genericPrintNoParens(path$$1, options, print, args) {
       } else {
         var printedLeft = void 0;
         if (n.computed) {
-          printedLeft = concat$2(["[", path$$1.call(print, "key"), "]"]);
+          printedLeft = concat$2(["[", parenSpace, path$$1.call(print, "key"), parenSpace, "]"]);
         } else {
           printedLeft = printPropertyKey(path$$1, options, print);
         }
@@ -4691,8 +4716,8 @@ function genericPrintNoParens(path$$1, options, print, args) {
         // we already check for an empty array just above so we are safe
         var needsForcedTrailingComma = canHaveTrailingComma && _lastElem === null;
 
-        parts.push(group$1(concat$2(["[", indent$2(concat$2([softline$1, printArrayItems(path$$1, options, "elements", print)])), needsForcedTrailingComma ? "," : "", ifBreak$1(canHaveTrailingComma && !needsForcedTrailingComma && shouldPrintComma(options) ? "," : ""), comments$3.printDanglingComments(path$$1, options,
-        /* sameIndent */true), softline$1, "]"])));
+        parts.push(group$1(concat$2(["[", indent$2(concat$2([parenLine, printArrayItems(path$$1, options, "elements", print)])), needsForcedTrailingComma ? "," : "", ifBreak$1(canHaveTrailingComma && !needsForcedTrailingComma && shouldPrintComma(options) ? "," : ""), comments$3.printDanglingComments(path$$1, options,
+        /* sameIndent */true), parenLine, "]"])));
       }
 
       if (n.typeAnnotation) {
@@ -4758,7 +4783,7 @@ function genericPrintNoParens(path$$1, options, print, args) {
     case "UnaryExpression":
       parts.push(n.operator);
 
-      if (/[a-z]$/.test(n.operator)) {
+      if (/[a-z]$/.test(n.operator) || options.parenSpacing && n.operator === "!" && !(n.argument && n.argument.type === "UnaryExpression" && n.argument.operator === "!")) {
         parts.push(" ");
       }
 
@@ -4776,7 +4801,7 @@ function genericPrintNoParens(path$$1, options, print, args) {
     case "ConditionalExpression":
       {
         var _parent7 = path$$1.getParentNode();
-        var printed = concat$2([line$1, "? ", n.consequent.type === "ConditionalExpression" ? ifBreak$1("", "(") : "", align$1(2, path$$1.call(print, "consequent")), n.consequent.type === "ConditionalExpression" ? ifBreak$1("", ")") : "", line$1, ": ", align$1(2, path$$1.call(print, "alternate"))]);
+        var printed = concat$2([line$1, "? ", n.consequent.type === "ConditionalExpression" ? ifBreak$1("", concat$2(["(", parenSpace])) : "", align$1(2, path$$1.call(print, "consequent")), n.consequent.type === "ConditionalExpression" ? ifBreak$1("", concat$2([parenSpace, ")"])) : "", line$1, ": ", align$1(2, path$$1.call(print, "alternate"))]);
 
         return group$1(concat$2([path$$1.call(print, "test"), _parent7.type === "ConditionalExpression" ? printed : indent$2(printed)]));
       }
@@ -4817,11 +4842,11 @@ function genericPrintNoParens(path$$1, options, print, args) {
     case "VariableDeclarator":
       return printAssignment(n.id, concat$2([path$$1.call(print, "id"), path$$1.call(print, "typeParameters")]), " =", n.init, n.init && path$$1.call(print, "init"), options);
     case "WithStatement":
-      return group$1(concat$2(["with (", path$$1.call(print, "object"), ")", adjustClause(n.body, path$$1.call(print, "body"))]));
+      return group$1(concat$2(["with (", parenSpace, path$$1.call(print, "object"), parenSpace, ")", adjustClause(n.body, path$$1.call(print, "body"))]));
     case "IfStatement":
       {
         var con = adjustClause(n.consequent, path$$1.call(print, "consequent"));
-        var opening = group$1(concat$2(["if (", group$1(concat$2([indent$2(concat$2([softline$1, path$$1.call(print, "test")])), softline$1])), ")", con]));
+        var opening = group$1(concat$2(["if (", group$1(concat$2([indent$2(concat$2([parenLine, path$$1.call(print, "test")])), parenLine])), ")", con]));
 
         parts.push(opening);
 
@@ -4852,13 +4877,13 @@ function genericPrintNoParens(path$$1, options, print, args) {
           return concat$2([printedComments, group$1(concat$2(["for (;;)", _body]))]);
         }
 
-        return concat$2([printedComments, group$1(concat$2(["for (", group$1(concat$2([indent$2(concat$2([softline$1, path$$1.call(print, "init"), ";", line$1, path$$1.call(print, "test"), ";", line$1, path$$1.call(print, "update")])), softline$1])), ")", _body]))]);
+        return concat$2([printedComments, group$1(concat$2(["for (", group$1(concat$2([indent$2(concat$2([parenLine, path$$1.call(print, "init"), ";", line$1, path$$1.call(print, "test"), ";", line$1, path$$1.call(print, "update")])), parenLine])), ")", _body]))]);
       }
     case "WhileStatement":
-      return group$1(concat$2(["while (", group$1(concat$2([indent$2(concat$2([softline$1, path$$1.call(print, "test")])), softline$1])), ")", adjustClause(n.body, path$$1.call(print, "body"))]));
+      return group$1(concat$2(["while (", group$1(concat$2([indent$2(concat$2([parenLine, path$$1.call(print, "test")])), parenLine])), ")", adjustClause(n.body, path$$1.call(print, "body"))]));
     case "ForInStatement":
       // Note: esprima can't actually parse "for each (".
-      return group$1(concat$2([n.each ? "for each (" : "for (", path$$1.call(print, "left"), " in ", path$$1.call(print, "right"), ")", adjustClause(n.body, path$$1.call(print, "body"))]));
+      return group$1(concat$2([n.each ? "for each (" : "for (", parenSpace, path$$1.call(print, "left"), " in ", path$$1.call(print, "right"), parenSpace, ")", adjustClause(n.body, path$$1.call(print, "body"))]));
 
     case "ForOfStatement":
     case "ForAwaitStatement":
@@ -4868,7 +4893,7 @@ function genericPrintNoParens(path$$1, options, print, args) {
         // https://github.com/estree/estree/pull/138
         var isAwait = n.type === "ForAwaitStatement" || n.await;
 
-        return group$1(concat$2(["for", isAwait ? " await" : "", " (", path$$1.call(print, "left"), " of ", path$$1.call(print, "right"), ")", adjustClause(n.body, path$$1.call(print, "body"))]));
+        return group$1(concat$2(["for", isAwait ? " await" : "", " (", parenSpace, path$$1.call(print, "left"), " of ", path$$1.call(print, "right"), parenSpace, ")", adjustClause(n.body, path$$1.call(print, "body"))]));
       }
 
     case "DoWhileStatement":
@@ -4884,7 +4909,7 @@ function genericPrintNoParens(path$$1, options, print, args) {
         }
         parts.push("while (");
 
-        parts.push(group$1(concat$2([indent$2(concat$2([softline$1, path$$1.call(print, "test")])), softline$1])), ")", semi);
+        parts.push(group$1(concat$2([indent$2(concat$2([parenLine, path$$1.call(print, "test")])), parenLine])), ")", semi);
 
         return concat$2(parts);
       }
@@ -4933,21 +4958,21 @@ function genericPrintNoParens(path$$1, options, print, args) {
 
       return concat$2(parts);
     case "CatchClause":
-      parts.push("catch (", path$$1.call(print, "param"));
+      parts.push("catch (", parenSpace, path$$1.call(print, "param"));
 
       if (n.guard) {
         // Note: esprima does not recognize conditional catch clauses.
         parts.push(" if ", path$$1.call(print, "guard"));
       }
 
-      parts.push(") ", path$$1.call(print, "body"));
+      parts.push(parenSpace, ") ", path$$1.call(print, "body"));
 
       return concat$2(parts);
     case "ThrowStatement":
       return concat$2(["throw ", path$$1.call(print, "argument"), semi]);
     // Note: ignoring n.lexical because it has no printing consequences.
     case "SwitchStatement":
-      return concat$2(["switch (", path$$1.call(print, "discriminant"), ") {", n.cases.length > 0 ? indent$2(concat$2([hardline$2, join$2(hardline$2, path$$1.map(function (casePath) {
+      return concat$2(["switch (", parenSpace, path$$1.call(print, "discriminant"), parenSpace, ") {", n.cases.length > 0 ? indent$2(concat$2([hardline$2, join$2(hardline$2, path$$1.map(function (casePath) {
         var caseNode = casePath.getValue();
         return concat$2([casePath.call(print), n.cases.indexOf(caseNode) !== n.cases.length - 1 && util$4.isNextLineEmpty(options.originalText, caseNode) ? hardline$2 : ""]);
       }, "cases"))])) : "", hardline$2, "}"]);
@@ -5000,7 +5025,7 @@ function genericPrintNoParens(path$$1, options, print, args) {
     case "TSQualifiedName":
       return join$2(".", [path$$1.call(print, "left"), path$$1.call(print, "right")]);
     case "JSXSpreadAttribute":
-      return concat$2(["{...", path$$1.call(print, "argument"), "}"]);
+      return concat$2(["{", parenSpace, "...", path$$1.call(print, "argument"), parenSpace, "}"]);
     case "JSXExpressionContainer":
       {
         var _parent8 = path$$1.getParentNode(0);
@@ -5008,10 +5033,10 @@ function genericPrintNoParens(path$$1, options, print, args) {
         var _shouldInline2 = n.expression.type === "ArrayExpression" || n.expression.type === "ObjectExpression" || n.expression.type === "ArrowFunctionExpression" || n.expression.type === "CallExpression" || n.expression.type === "FunctionExpression" || n.expression.type === "JSXEmptyExpression" || n.expression.type === "TemplateLiteral" || n.expression.type === "TaggedTemplateExpression" || _parent8.type === "JSXElement" && (n.expression.type === "ConditionalExpression" || isBinaryish(n.expression));
 
         if (_shouldInline2) {
-          return group$1(concat$2(["{", path$$1.call(print, "expression"), lineSuffixBoundary$1, "}"]));
+          return group$1(concat$2(["{", parenSpace, path$$1.call(print, "expression"), lineSuffixBoundary$1, parenSpace, "}"]));
         }
 
-        return group$1(concat$2(["{", indent$2(concat$2([softline$1, path$$1.call(print, "expression")])), softline$1, lineSuffixBoundary$1, "}"]));
+        return group$1(concat$2(["{", indent$2(concat$2([parenLine, path$$1.call(print, "expression")])), parenLine, lineSuffixBoundary$1, "}"]));
       }
     case "JSXElement":
       {
@@ -5159,7 +5184,7 @@ function genericPrintNoParens(path$$1, options, print, args) {
 
             var aligned = addAlignmentToDoc$1(expressions[i], size, tabWidth);
 
-            parts.push("${", aligned, lineSuffixBoundary$1, "}");
+            parts.push("${", parenSpace, aligned, lineSuffixBoundary$1, parenSpace, "}");
           }
         }, "quasis");
 
@@ -5870,7 +5895,23 @@ function shouldGroupFirstArg(args) {
   return (!firstArg.comments || !firstArg.comments.length) && (firstArg.type === "FunctionExpression" || firstArg.type === "ArrowFunctionExpression" && firstArg.body.type === "BlockStatement") && !couldGroupArg(secondArg);
 }
 
+function hasAddedLine(arg) {
+  switch (arg.type) {
+    case "concat":
+      if (arg.parts.length > 0) {
+        return hasAddedLine(arg.parts[arg.parts.length - 1]);
+      }
+      return false;
+    case "group":
+      return arg.addedLine;
+    default:
+      return false;
+  }
+}
+
 function printArgumentsList(path$$1, options, print) {
+  var parenSpace = options.parenSpacing ? " " : "";
+  var parenLine = options.parenSpacing ? line$1 : softline$1;
   var printed = path$$1.map(print, "arguments");
   if (printed.length === 0) {
     return concat$2(["(", comments$3.printDanglingComments(path$$1, options, /* sameIndent */true), ")"]);
@@ -5887,6 +5928,7 @@ function printArgumentsList(path$$1, options, print) {
 
     // We want to print the last argument with a special flag
     var printedExpanded = void 0;
+    var lastArgAddedLine = false;
     var i = 0;
     path$$1.each(function (argPath) {
       if (shouldGroupFirst && i === 0) {
@@ -5895,19 +5937,21 @@ function printArgumentsList(path$$1, options, print) {
         })].concat(printed.slice(1));
       }
       if (shouldGroupLast && i === args.length - 1) {
-        printedExpanded = printed.slice(0, -1).concat(argPath.call(function (p) {
+        var printedLastArg = argPath.call(function (p) {
           return print(p, { expandLastArg: true });
-        }));
+        });
+        lastArgAddedLine = hasAddedLine(printedLastArg);
+        printedExpanded = printed.slice(0, -1).concat(printedLastArg);
       }
       i++;
     }, "arguments");
 
-    return concat$2([printed.some(willBreak) ? breakParent$2 : "", conditionalGroup$1([concat$2(["(", join$2(concat$2([", "]), printedExpanded), ")"]), shouldGroupFirst ? concat$2(["(", group$1(printedExpanded[0], { shouldBreak: true }), printed.length > 1 ? ", " : "", join$2(concat$2([",", line$1]), printed.slice(1)), ")"]) : concat$2(["(", join$2(concat$2([",", line$1]), printed.slice(0, -1)), printed.length > 1 ? ", " : "", group$1(util$4.getLast(printedExpanded), {
+    return concat$2([printed.some(willBreak) ? breakParent$2 : "", conditionalGroup$1([concat$2(["(", parenSpace, join$2(concat$2([", "]), printedExpanded), lastArgAddedLine ? "" : parenSpace, ")"]), shouldGroupFirst ? concat$2(["(", parenSpace, group$1(printedExpanded[0], { shouldBreak: true }), printed.length > 1 ? ", " : "", join$2(concat$2([",", line$1]), printed.slice(1)), parenSpace, ")"]) : concat$2(["(", parenSpace, join$2(concat$2([",", line$1]), printed.slice(0, -1)), printed.length > 1 ? ", " : "", group$1(util$4.getLast(printedExpanded), {
       shouldBreak: true
-    }), ")"]), group$1(concat$2(["(", indent$2(concat$2([line$1, join$2(concat$2([",", line$1]), printed)])), shouldPrintComma(options, "all") ? "," : "", line$1, ")"]), { shouldBreak: true })], { shouldBreak: shouldBreak })]);
+    }), lastArgAddedLine ? "" : parenSpace, ")"]), group$1(concat$2(["(", indent$2(concat$2([line$1, join$2(concat$2([",", line$1]), printed)])), shouldPrintComma(options, "all") ? "," : "", line$1, ")"]), { shouldBreak: true })], { shouldBreak: shouldBreak })]);
   }
 
-  return group$1(concat$2(["(", indent$2(concat$2([softline$1, join$2(concat$2([",", line$1]), printed)])), ifBreak$1(shouldPrintComma(options, "all") ? "," : ""), softline$1, ")"]), { shouldBreak: printed.some(willBreak) });
+  return group$1(concat$2(["(", indent$2(concat$2([parenLine, join$2(concat$2([",", line$1]), printed)])), ifBreak$1(shouldPrintComma(options, "all") ? "," : ""), parenLine, ")"]), { shouldBreak: printed.some(willBreak) });
 }
 
 function printFunctionTypeParameters(path$$1, options, print) {
@@ -5928,6 +5972,8 @@ function printFunctionTypeParameters(path$$1, options, print) {
 function printFunctionParams(path$$1, print, options, expandArg, printTypeParams) {
   var fun = path$$1.getValue();
   var paramsField = fun.parameters ? "parameters" : "params";
+  var parenSpace = options.parenSpacing ? " " : "";
+  var parenLine = options.parenSpacing ? line$1 : softline$1;
 
   var typeParams = printTypeParams ? printFunctionTypeParameters(path$$1, options, print) : "";
 
@@ -5970,7 +6016,7 @@ function printFunctionParams(path$$1, print, options, expandArg, printTypeParams
   if (expandArg && !(fun[paramsField] && fun[paramsField].some(function (n) {
     return n.comments;
   }))) {
-    return group$1(concat$2([docUtils.removeLines(typeParams), "(", join$2(", ", printed.map(docUtils.removeLines)), ")"]));
+    return group$1(concat$2([docUtils.removeLines(typeParams), "(", parenSpace, join$2(", ", printed.map(docUtils.removeLines)), parenSpace, ")"]));
   }
 
   // Single object destructuring should hug
@@ -5981,7 +6027,7 @@ function printFunctionParams(path$$1, print, options, expandArg, printTypeParams
   //   c
   // }) {}
   if (shouldHugArguments(fun)) {
-    return concat$2([typeParams, "(", join$2(", ", printed), ")"]);
+    return concat$2([typeParams, "(", parenSpace, join$2(", ", printed), parenSpace, ")"]);
   }
 
   var parent = path$$1.getParentNode();
@@ -5996,7 +6042,7 @@ function printFunctionParams(path$$1, print, options, expandArg, printTypeParams
 
   var canHaveTrailingComma = !(lastParam && lastParam.type === "RestElement") && !fun.rest;
 
-  return concat$2([typeParams, "(", indent$2(concat$2([softline$1, join$2(concat$2([",", line$1]), printed)])), ifBreak$1(canHaveTrailingComma && shouldPrintComma(options, "all") ? "," : ""), softline$1, ")"]);
+  return concat$2([typeParams, "(", indent$2(concat$2([parenLine, join$2(concat$2([",", line$1]), printed)])), ifBreak$1(canHaveTrailingComma && shouldPrintComma(options, "all") ? "," : ""), parenLine, ")"]);
 }
 
 function canPrintParamsWithoutParens(node) {
@@ -6232,6 +6278,8 @@ function printClass(path$$1, options, print) {
 }
 
 function printMemberLookup(path$$1, options, print) {
+  var parenSpace = options.parenSpacing ? " " : "";
+  var parenLine = options.parenSpacing ? line$1 : softline$1;
   var property = path$$1.call(print, "property");
   var n = path$$1.getValue();
 
@@ -6240,10 +6288,10 @@ function printMemberLookup(path$$1, options, print) {
   }
 
   if (!n.property || n.property.type === "Literal" && typeof n.property.value === "number" || n.property.type === "NumericLiteral") {
-    return concat$2(["[", property, "]"]);
+    return concat$2(["[", parenSpace, property, parenSpace, "]"]);
   }
 
-  return group$1(concat$2(["[", indent$2(concat$2([softline$1, property])), softline$1, "]"]));
+  return group$1(concat$2(["[", indent$2(concat$2([parenLine, property])), parenLine, "]"]));
 }
 
 // We detect calls on member expressions specially to format a
@@ -6704,8 +6752,13 @@ function printJSXElement(path$$1, options, print) {
     // whitespace as `{" "}` when outputting this element over multiple lines.
     if (child === jsxWhitespace) {
       if (i === 1 && children[i - 1] === "") {
+        if (children.length === 2) {
+          // Solitary whitespace
+          multilineChildren.push(rawJsxWhitespace);
+          return;
+        }
         // Leading whitespace
-        multilineChildren.push(rawJsxWhitespace);
+        multilineChildren.push(concat$2([rawJsxWhitespace, hardline$2]));
         return;
       } else if (i === children.length - 1) {
         // Trailing whitespace
@@ -6969,17 +7022,17 @@ function printRegex(node) {
 }
 
 function printNumber(rawNumber) {
-  return rawNumber.toLowerCase
+  return rawNumber.toLowerCase()
   // Remove unnecessary plus and zeroes from scientific notation.
-  ().replace(/^([\d.]+e)(?:\+|(-))?0*(\d)/, "$1$2$3"
+  .replace(/^([\d.]+e)(?:\+|(-))?0*(\d)/, "$1$2$3")
   // Remove unnecessary scientific notation (1e0).
-  ).replace(/^([\d.]+)e[+-]?0+$/, "$1"
+  .replace(/^([\d.]+)e[+-]?0+$/, "$1")
   // Make sure numbers always start with a digit.
-  ).replace(/^\./, "0."
+  .replace(/^\./, "0.")
   // Remove extraneous trailing decimal zeroes.
-  ).replace(/(\.\d+?)0+(?=e|$)/, "$1"
+  .replace(/(\.\d+?)0+(?=e|$)/, "$1")
   // Remove trailing dot.
-  ).replace(/\.(?=e|$)/, "");
+  .replace(/\.(?=e|$)/, "");
 }
 
 function isLastStatement(path$$1) {
@@ -7711,7 +7764,7 @@ function printDocToString$1(doc, options) {
 
 var docPrinter = { printDocToString: printDocToString$1 };
 
-var index$30 = {
+var index$32 = {
   "aliceblue": [240, 248, 255],
   "antiquewhite": [250, 235, 215],
   "aqua": [0, 255, 255],
@@ -7864,7 +7917,7 @@ var index$30 = {
 
 var conversions$1 = createCommonjsModule(function (module) {
   /* MIT license */
-  var cssKeywords = index$30;
+  var cssKeywords = index$32;
 
   // NOTE: conversions should only return primitive values (i.e. arrays, or
   //       values that give correct `typeof` results).
@@ -8882,12 +8935,12 @@ models.forEach(function (fromModel) {
   });
 });
 
-var index$28 = convert;
+var index$30 = convert;
 
-var index$26 = createCommonjsModule(function (module) {
+var index$28 = createCommonjsModule(function (module) {
   'use strict';
 
-  var colorConvert = index$28;
+  var colorConvert = index$30;
 
   var wrapAnsi16 = function wrapAnsi16(fn, offset) {
     return function () {
@@ -9067,7 +9120,7 @@ var asymmetricMatcher = Symbol.for('jest.asymmetricMatcher'); /**
                                                                * LICENSE file in the root directory of this source tree. An additional grant
                                                                * of patent rights can be found in the PATENTS file in the same directory.
                                                                *
-                                                               *
+                                                               * 
                                                                */var SPACE = ' ';
 var ArrayContaining = function (_Array) {
   _inherits(ArrayContaining, _Array);
@@ -9123,16 +9176,16 @@ var test = function test(object) {
 
 var AsymmetricMatcher$1 = { print: print$1, test: test };
 
-var ansiRegex$2 = index$14; /**
+var ansiRegex$2 = index$16; /**
                                         * Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
                                         *
                                         * This source code is licensed under the BSD-style license found in the
                                         * LICENSE file in the root directory of this source tree. An additional grant
                                         * of patent rights can be found in the PATENTS file in the same directory.
                                         *
-                                        *
+                                        * 
                                         */var toHumanReadableAnsi = function toHumanReadableAnsi(text) {
-  var style = index$26;return text.replace(ansiRegex$2(), function (match, offset, string) {
+  var style = index$28;return text.replace(ansiRegex$2(), function (match, offset, string) {
     switch (match) {case style.red.close:case style.green.close:case style.reset.open:
       case style.reset.close:
         return '</>';
@@ -9172,7 +9225,7 @@ var escapeHTML = escapeHTML_1; /**
                                                * LICENSE file in the root directory of this source tree. An additional grant
                                                * of patent rights can be found in the PATENTS file in the same directory.
                                                *
-                                               *
+                                               * 
                                                */
 
 var HTML_ELEMENT_REGEXP = /(HTML\w*?Element)|Text|Comment/;
@@ -9274,7 +9327,7 @@ var IMMUTABLE_NAMESPACE = 'Immutable.'; /**
                                          * LICENSE file in the root directory of this source tree. An additional grant
                                          * of patent rights can be found in the PATENTS file in the same directory.
                                          *
-                                         *
+                                         * 
                                          */var SPACE$1 = ' ';var addKey = function addKey(isMap, key) {
   return isMap ? key + ': ' : '';
 };var addFinalEdgeSpacing = function addFinalEdgeSpacing(length, edgeSpacing) {
@@ -9307,7 +9360,7 @@ var printImmutable = printImmutable_1; /**
                                                        * LICENSE file in the root directory of this source tree. An additional grant
                                                        * of patent rights can be found in the PATENTS file in the same directory.
                                                        *
-                                                       *
+                                                       * 
                                                        */var IS_LIST = '@@__IMMUTABLE_LIST__@@';var test$3 = function test$3(maybeList) {
   return !!(maybeList && maybeList[IS_LIST]);
 };var print$4 = function print$4(val, print, indent, opts, colors) {
@@ -9323,7 +9376,7 @@ var printImmutable$2 = printImmutable_1; /**
                                                        * LICENSE file in the root directory of this source tree. An additional grant
                                                        * of patent rights can be found in the PATENTS file in the same directory.
                                                        *
-                                                       *
+                                                       * 
                                                        */var IS_SET = '@@__IMMUTABLE_SET__@@';var IS_ORDERED = '@@__IMMUTABLE_ORDERED__@@';var test$4 = function test$4(maybeSet) {
   return !!(maybeSet && maybeSet[IS_SET] && !maybeSet[IS_ORDERED]);
 };var print$5 = function print$5(val, print, indent, opts, colors) {
@@ -9339,7 +9392,7 @@ var printImmutable$3 = printImmutable_1; /**
                                                        * LICENSE file in the root directory of this source tree. An additional grant
                                                        * of patent rights can be found in the PATENTS file in the same directory.
                                                        *
-                                                       *
+                                                       * 
                                                        */var IS_MAP = '@@__IMMUTABLE_MAP__@@';var IS_ORDERED$1 = '@@__IMMUTABLE_ORDERED__@@';var test$5 = function test$5(maybeMap) {
   return !!(maybeMap && maybeMap[IS_MAP] && !maybeMap[IS_ORDERED$1]);
 };var print$6 = function print$6(val, print, indent, opts, colors) {
@@ -9355,7 +9408,7 @@ var printImmutable$4 = printImmutable_1; /**
                                                        * LICENSE file in the root directory of this source tree. An additional grant
                                                        * of patent rights can be found in the PATENTS file in the same directory.
                                                        *
-                                                       *
+                                                       * 
                                                        */var IS_STACK = '@@__IMMUTABLE_STACK__@@';var test$6 = function test$6(maybeStack) {
   return !!(maybeStack && maybeStack[IS_STACK]);
 };var print$7 = function print$7(val, print, indent, opts, colors) {
@@ -9371,7 +9424,7 @@ var printImmutable$5 = printImmutable_1; /**
                                                        * LICENSE file in the root directory of this source tree. An additional grant
                                                        * of patent rights can be found in the PATENTS file in the same directory.
                                                        *
-                                                       *
+                                                       * 
                                                        */var IS_SET$1 = '@@__IMMUTABLE_SET__@@';var IS_ORDERED$2 = '@@__IMMUTABLE_ORDERED__@@';var test$7 = function test$7(maybeOrderedSet) {
   return maybeOrderedSet && maybeOrderedSet[IS_SET$1] && maybeOrderedSet[IS_ORDERED$2];
 };var print$8 = function print$8(val, print, indent, opts, colors) {
@@ -9387,7 +9440,7 @@ var printImmutable$6 = printImmutable_1; /**
                                                        * LICENSE file in the root directory of this source tree. An additional grant
                                                        * of patent rights can be found in the PATENTS file in the same directory.
                                                        *
-                                                       *
+                                                       * 
                                                        */var IS_MAP$1 = '@@__IMMUTABLE_MAP__@@';var IS_ORDERED$3 = '@@__IMMUTABLE_ORDERED__@@';var test$8 = function test$8(maybeOrderedMap) {
   return maybeOrderedMap && maybeOrderedMap[IS_MAP$1] && maybeOrderedMap[IS_ORDERED$3];
 };var print$9 = function print$9(val, print, indent, opts, colors) {
@@ -9405,7 +9458,7 @@ var escapeHTML$2 = escapeHTML_1; /**
                                                * LICENSE file in the root directory of this source tree. An additional grant
                                                * of patent rights can be found in the PATENTS file in the same directory.
                                                *
-                                               *
+                                               * 
                                                */var reactElement = Symbol.for('react.element');function traverseChildren(opaqueChildren, cb) {
   if (Array.isArray(opaqueChildren)) {
     opaqueChildren.forEach(function (child) {
@@ -9495,7 +9548,7 @@ var escapeHTML$3 = escapeHTML_1; /**
                                                * LICENSE file in the root directory of this source tree. An additional grant
                                                * of patent rights can be found in the PATENTS file in the same directory.
                                                *
-                                               *
+                                               * 
                                                */var reactTestInstance = Symbol.for('react.test.json');function printChildren$3(children, print, indent, colors, opts) {
   return children.map(function (child) {
     return printInstance(child, print, indent, colors, opts);
@@ -9555,14 +9608,14 @@ var test$10 = function test$10(object) {
 
 var ReactTestComponent = { print: print$11, test: test$10 };
 
-var style = index$26; /**
+var style = index$28; /**
                                      * Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
                                      *
                                      * This source code is licensed under the BSD-style license found in the
                                      * LICENSE file in the root directory of this source tree. An additional grant
                                      * of patent rights can be found in the PATENTS file in the same directory.
                                      *
-                                     *
+                                     * 
                                      */
 
 var toString = Object.prototype.toString;
@@ -10008,10 +10061,10 @@ prettyFormat$1.plugins = {
   ReactElement: ReactElement$1,
   ReactTestComponent: ReactTestComponent };
 
-var index$24 = prettyFormat$1;
+var index$26 = prettyFormat$1;
 
-var chalk$1 = index$6;
-var prettyFormat = index$24;var _require$plugins = index$24.plugins;var AsymmetricMatcher = _require$plugins.AsymmetricMatcher;var ReactElement = _require$plugins.ReactElement;var HTMLElement = _require$plugins.HTMLElement;var Immutable = _require$plugins.Immutable;
+var chalk$1 = index$8;
+var prettyFormat = index$26;var _require$plugins = index$26.plugins;var AsymmetricMatcher = _require$plugins.AsymmetricMatcher;var ReactElement = _require$plugins.ReactElement;var HTMLElement = _require$plugins.HTMLElement;var Immutable = _require$plugins.Immutable;
 
 var PLUGINS = [AsymmetricMatcher, ReactElement, HTMLElement].concat(Immutable);
 
@@ -10130,7 +10183,7 @@ var matcherHint = function matcherHint(matcherName) {
   return chalk$1.dim('expect' + (isDirectExpectCall ? '' : '(')) + RECEIVED_COLOR(received) + chalk$1.dim((isDirectExpectCall ? '' : ')') + matcherName + '(') + EXPECTED_COLOR(expected) + (secondArgument ? ', ' + EXPECTED_COLOR(secondArgument) : '') + chalk$1.dim(')');
 };
 
-var index$22 = {
+var index$24 = {
   EXPECTED_BG: EXPECTED_BG,
   EXPECTED_COLOR: EXPECTED_COLOR,
   RECEIVED_BG: RECEIVED_BG,
@@ -10152,7 +10205,7 @@ var index$22 = {
 var arr = [];
 var charCodeCache = [];
 
-var index$32 = function index$32(a, b) {
+var index$34 = function index$34(a, b) {
   if (a === b) {
     return 0;
   }
@@ -10233,14 +10286,14 @@ var index$32 = function index$32(a, b) {
   return ret;
 };
 
-var chalk$2 = index$6;
+var chalk$2 = index$8;
 var BULLET = chalk$2.bold('\u25CF');
 var DEPRECATION = BULLET + ' Deprecation Warning';
 var ERROR$1 = BULLET + ' Validation Error';
 var WARNING = BULLET + ' Validation Warning';
 
 var format$2 = function format$2(value) {
-  return typeof value === 'function' ? value.toString() : index$24(value, { min: true });
+  return typeof value === 'function' ? value.toString() : index$26(value, { min: true });
 };
 
 var ValidationError$1 = function (_Error) {
@@ -10268,7 +10321,7 @@ var logValidationWarning = function logValidationWarning(name, message, comment)
 };
 
 var createDidYouMeanMessage = function createDidYouMeanMessage(unrecognized, allowedOptions) {
-  var leven = index$32;
+  var leven = index$34;
   var suggestion = allowedOptions.find(function (option) {
     var steps = leven(option, unrecognized);
     return steps < 3;
@@ -10286,15 +10339,15 @@ var utils$2 = {
   format: format$2,
   logValidationWarning: logValidationWarning };
 
-var chalk = index$6; /**
+var chalk = index$8; /**
                                * Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
                                *
                                * This source code is licensed under the BSD-style license found in the
                                * LICENSE file in the root directory of this source tree. An additional grant
                                * of patent rights can be found in the PATENTS file in the same directory.
                                *
-                               *
-                               */var _require = index$22;var getType = _require.getType;var _require2 = utils$2;var format$1 = _require2.format;var ValidationError = _require2.ValidationError;var ERROR = _require2.ERROR;var errorMessage = function errorMessage(option, received, defaultValue, options) {
+                               * 
+                               */var _require = index$24;var getType = _require.getType;var _require2 = utils$2;var format$1 = _require2.format;var ValidationError = _require2.ValidationError;var ERROR = _require2.ERROR;var errorMessage = function errorMessage(option, received, defaultValue, options) {
   var message = '  Option ' + chalk.bold('"' + option + '"') + ' must be of type:\n    ' + chalk.bold.green(getType(defaultValue)) + '\n  but instead received:\n    ' + chalk.bold.red(getType(received)) + '\n\n  Example:\n  {\n    ' + chalk.bold('"' + option + '"') + ': ' + chalk.bold(format$1(defaultValue)) + '\n  }';
 
   var comment = options.comment;
@@ -10314,7 +10367,7 @@ var _require$2 = utils$2;var logValidationWarning$1 = _require$2.logValidationWa
                                                                                                                                   * LICENSE file in the root directory of this source tree. An additional grant
                                                                                                                                   * of patent rights can be found in the PATENTS file in the same directory.
                                                                                                                                   *
-                                                                                                                                  *
+                                                                                                                                  * 
                                                                                                                                   */var deprecationMessage = function deprecationMessage(message, options) {
   var comment = options.comment;var name = options.title && options.title.deprecation || DEPRECATION$2;logValidationWarning$1(name, message, comment);
 };
@@ -10331,14 +10384,14 @@ var deprecationWarning$1 = function deprecationWarning$1(config, option, depreca
 var deprecated = {
   deprecationWarning: deprecationWarning$1 };
 
-var chalk$3 = index$6; /**
+var chalk$3 = index$8; /**
                                * Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
                                *
                                * This source code is licensed under the BSD-style license found in the
                                * LICENSE file in the root directory of this source tree. An additional grant
                                * of patent rights can be found in the PATENTS file in the same directory.
                                *
-                               *
+                               * 
                                */var _require$3 = utils$2;var format$3 = _require$3.format;var logValidationWarning$2 = _require$3.logValidationWarning;var createDidYouMeanMessage$1 = _require$3.createDidYouMeanMessage;var WARNING$2 = _require$3.WARNING;var unknownOptionWarning$1 = function unknownOptionWarning$1(config, exampleConfig, option, options) {
   var didYouMean = createDidYouMeanMessage$1(option, Object.keys(exampleConfig));
 
@@ -10378,7 +10431,7 @@ var config = {
                                                             * LICENSE file in the root directory of this source tree. An additional grant
                                                             * of patent rights can be found in the PATENTS file in the same directory.
                                                             *
-                                                            *
+                                                            * 
                                                             */var exampleConfig$2 = config;
 
 var toString$1 = Object.prototype.toString;
@@ -10396,7 +10449,7 @@ var _require$1 = deprecated;var deprecationWarning = _require$1.deprecationWarni
                                                                                                 * LICENSE file in the root directory of this source tree. An additional grant
                                                                                                 * of patent rights can be found in the PATENTS file in the same directory.
                                                                                                 *
-                                                                                                *
+                                                                                                * 
                                                                                                 */var _require2$1 = warnings;var unknownOptionWarning = _require2$1.unknownOptionWarning;var _require3 = errors;var errorMessage$1 = _require3.errorMessage;var exampleConfig$1 = exampleConfig$2;var validationCondition = condition;var _require4 = utils$2;var ERROR$2 = _require4.ERROR;var DEPRECATION$1 = _require4.DEPRECATION;var WARNING$1 = _require4.WARNING;var defaultConfig$1 = { comment: '',
   condition: validationCondition,
   deprecate: deprecationWarning,
@@ -10417,7 +10470,7 @@ var defaultConfig = defaultConfig$1; /**
                                                  * LICENSE file in the root directory of this source tree. An additional grant
                                                  * of patent rights can be found in the PATENTS file in the same directory.
                                                  *
-                                                 *
+                                                 * 
                                                  */var _validate = function _validate(config, options) {
   var hasDeprecationWarnings = false;for (var key in config) {
     if (options.deprecatedConfig && key in options.deprecatedConfig && typeof options.deprecate === 'function') {
@@ -10448,7 +10501,7 @@ var validate$1 = function validate$1(config, options) {
 
 var validate_1 = validate$1;
 
-var index$20 = {
+var index$22 = {
   ValidationError: errors.ValidationError,
   createDidYouMeanMessage: utils$2.createDidYouMeanMessage,
   format: utils$2.format,
@@ -10463,19 +10516,20 @@ var deprecated$2 = {
 
 var deprecated_1 = deprecated$2;
 
-var validate = index$20.validate;
+var validate = index$22.validate;
 var deprecatedConfig = deprecated_1;
 
 var defaults = {
   cursorOffset: -1,
   rangeStart: 0,
   rangeEnd: Infinity,
-  useTabs: false,
+  useTabs: true,
   tabWidth: 2,
-  printWidth: 80,
-  singleQuote: false,
-  trailingComma: "none",
+  printWidth: 100,
+  singleQuote: true,
+  trailingComma: "all",
   bracketSpacing: true,
+  parenSpacing: true,
   jsxBracketSameLine: false,
   parser: "babylon",
   semi: true
@@ -10489,6 +10543,11 @@ var exampleConfig = Object.assign({}, defaults, {
 
 // Copy options and fill in default values.
 function normalize(options) {
+  // Calypso fork ignores all options and always uses the defaults. This is an escape hatch.
+  if (!options.unlockOptions) {
+    return Object.assign({}, defaults);
+  }
+
   var normalized = Object.assign({}, options || {});
   var filepath = normalized.filepath;
 
@@ -10620,7 +10679,7 @@ function printDoc(doc) {
       return "conditionalGroup(" + "[" + doc.expandedStates.map(printDoc).join(",") + "])";
     }
 
-    return (doc.break ? "wrappedGroup" : "group") + "(" + printDoc(doc.contents) + ")";
+    return (doc.break ? "wrappedGroup" : "group") + (doc.addedLine ? "WithTrailingLine" : "") + "(" + printDoc(doc.contents) + ")";
   }
 
   if (doc.type === "fill") {
@@ -10644,10 +10703,11 @@ var docDebug = {
   }
 };
 
-var require$$1$12 = _package$1 && _package$1['default'] || _package$1;
+var require$$2$9 = _package$1 && _package$1['default'] || _package$1;
 
+var stripBom = index$2;
 var comments = comments$1;
-var version = require$$1$12.version;
+var version = require$$2$9.version;
 var printAstToDoc = printer.printAstToDoc;
 var util = util$2;
 var _printDocToString = docPrinter.printDocToString;
@@ -10696,6 +10756,7 @@ function ensureAllCommentsPrinted(astComments) {
 }
 
 function _formatWithCursor(text, opts, addAlignmentSize) {
+  text = stripBom(text);
   addAlignmentSize = addAlignmentSize || 0;
 
   var ast = parser.parse(text, opts);
