@@ -43,7 +43,7 @@ Include your own top-level pages as React components in `pages/`. These componen
 
 All images and other static assets you wish to include should be placed inside the `static` folder. Any `.css` files provided in `static` will be concatenated to the standard styles provided by Docusaurus and used site-wide.
 
-Files placed in `static/` will be accessible in the following way: `static/img/image.png` will be accessible at `/prettier/img/image.png`.
+Files placed in `static/` will be accessible in the following way: `static/img/image.png` will be accessible at `img/image.png`.
 
 ## Using Docusaurus
 
