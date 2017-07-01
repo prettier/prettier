@@ -2029,16 +2029,16 @@ var index$4 = createCommonjsModule(function (module, exports) {
 var ast = createCommonjsModule(function (module) {
   /*
     Copyright (C) 2013 Yusuke Suzuki <utatane.tea@gmail.com>
-  
+
     Redistribution and use in source and binary forms, with or without
     modification, are permitted provided that the following conditions are met:
-  
+
       * Redistributions of source code must retain the above copyright
         notice, this list of conditions and the following disclaimer.
       * Redistributions in binary form must reproduce the above copyright
         notice, this list of conditions and the following disclaimer in the
         documentation and/or other materials provided with the distribution.
-  
+
     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 'AS IS'
     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
     IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -2183,16 +2183,16 @@ var code = createCommonjsModule(function (module) {
   /*
     Copyright (C) 2013-2014 Yusuke Suzuki <utatane.tea@gmail.com>
     Copyright (C) 2014 Ivan Nikulin <ifaaan@gmail.com>
-  
+
     Redistribution and use in source and binary forms, with or without
     modification, are permitted provided that the following conditions are met:
-  
+
       * Redistributions of source code must retain the above copyright
         notice, this list of conditions and the following disclaimer.
       * Redistributions in binary form must reproduce the above copyright
         notice, this list of conditions and the following disclaimer in the
         documentation and/or other materials provided with the distribution.
-  
+
     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
     IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -2313,16 +2313,16 @@ var code = createCommonjsModule(function (module) {
 var keyword = createCommonjsModule(function (module) {
   /*
     Copyright (C) 2013 Yusuke Suzuki <utatane.tea@gmail.com>
-  
+
     Redistribution and use in source and binary forms, with or without
     modification, are permitted provided that the following conditions are met:
-  
+
       * Redistributions of source code must retain the above copyright
         notice, this list of conditions and the following disclaimer.
       * Redistributions in binary form must reproduce the above copyright
         notice, this list of conditions and the following disclaimer in the
         documentation and/or other materials provided with the distribution.
-  
+
     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
     IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -2483,16 +2483,16 @@ var keyword = createCommonjsModule(function (module) {
 var utils = createCommonjsModule(function (module, exports) {
   /*
     Copyright (C) 2013 Yusuke Suzuki <utatane.tea@gmail.com>
-  
+
     Redistribution and use in source and binary forms, with or without
     modification, are permitted provided that the following conditions are met:
-  
+
       * Redistributions of source code must retain the above copyright
         notice, this list of conditions and the following disclaimer.
       * Redistributions in binary form must reproduce the above copyright
         notice, this list of conditions and the following disclaimer in the
         documentation and/or other materials provided with the distribution.
-  
+
     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
     IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -4017,7 +4017,9 @@ function genericPrint(path$$1, options, printPath, args) {
         return multiparser.printSubtree(next, path$$1, printPath, options);
       } catch (error) {
         if (process.env.PRETTIER_DEBUG) {
-          console.error(error);
+          const e = new Error(error);
+          e.parser = next.options.parser;
+          throw e;
         }
         // Continue with current parser
       }
@@ -9065,7 +9067,7 @@ var asymmetricMatcher = Symbol.for('jest.asymmetricMatcher'); /**
                                                                * LICENSE file in the root directory of this source tree. An additional grant
                                                                * of patent rights can be found in the PATENTS file in the same directory.
                                                                *
-                                                               * 
+                                                               *
                                                                */var SPACE = ' ';
 var ArrayContaining = function (_Array) {
   _inherits(ArrayContaining, _Array);
@@ -9128,7 +9130,7 @@ var ansiRegex$2 = index$14; /**
                                         * LICENSE file in the root directory of this source tree. An additional grant
                                         * of patent rights can be found in the PATENTS file in the same directory.
                                         *
-                                        * 
+                                        *
                                         */var toHumanReadableAnsi = function toHumanReadableAnsi(text) {
   var style = index$26;return text.replace(ansiRegex$2(), function (match, offset, string) {
     switch (match) {case style.red.close:case style.green.close:case style.reset.open:
@@ -9170,7 +9172,7 @@ var escapeHTML = escapeHTML_1; /**
                                                * LICENSE file in the root directory of this source tree. An additional grant
                                                * of patent rights can be found in the PATENTS file in the same directory.
                                                *
-                                               * 
+                                               *
                                                */
 
 var HTML_ELEMENT_REGEXP = /(HTML\w*?Element)|Text|Comment/;
@@ -9272,7 +9274,7 @@ var IMMUTABLE_NAMESPACE = 'Immutable.'; /**
                                          * LICENSE file in the root directory of this source tree. An additional grant
                                          * of patent rights can be found in the PATENTS file in the same directory.
                                          *
-                                         * 
+                                         *
                                          */var SPACE$1 = ' ';var addKey = function addKey(isMap, key) {
   return isMap ? key + ': ' : '';
 };var addFinalEdgeSpacing = function addFinalEdgeSpacing(length, edgeSpacing) {
@@ -9305,7 +9307,7 @@ var printImmutable = printImmutable_1; /**
                                                        * LICENSE file in the root directory of this source tree. An additional grant
                                                        * of patent rights can be found in the PATENTS file in the same directory.
                                                        *
-                                                       * 
+                                                       *
                                                        */var IS_LIST = '@@__IMMUTABLE_LIST__@@';var test$3 = function test$3(maybeList) {
   return !!(maybeList && maybeList[IS_LIST]);
 };var print$4 = function print$4(val, print, indent, opts, colors) {
@@ -9321,7 +9323,7 @@ var printImmutable$2 = printImmutable_1; /**
                                                        * LICENSE file in the root directory of this source tree. An additional grant
                                                        * of patent rights can be found in the PATENTS file in the same directory.
                                                        *
-                                                       * 
+                                                       *
                                                        */var IS_SET = '@@__IMMUTABLE_SET__@@';var IS_ORDERED = '@@__IMMUTABLE_ORDERED__@@';var test$4 = function test$4(maybeSet) {
   return !!(maybeSet && maybeSet[IS_SET] && !maybeSet[IS_ORDERED]);
 };var print$5 = function print$5(val, print, indent, opts, colors) {
@@ -9337,7 +9339,7 @@ var printImmutable$3 = printImmutable_1; /**
                                                        * LICENSE file in the root directory of this source tree. An additional grant
                                                        * of patent rights can be found in the PATENTS file in the same directory.
                                                        *
-                                                       * 
+                                                       *
                                                        */var IS_MAP = '@@__IMMUTABLE_MAP__@@';var IS_ORDERED$1 = '@@__IMMUTABLE_ORDERED__@@';var test$5 = function test$5(maybeMap) {
   return !!(maybeMap && maybeMap[IS_MAP] && !maybeMap[IS_ORDERED$1]);
 };var print$6 = function print$6(val, print, indent, opts, colors) {
@@ -9353,7 +9355,7 @@ var printImmutable$4 = printImmutable_1; /**
                                                        * LICENSE file in the root directory of this source tree. An additional grant
                                                        * of patent rights can be found in the PATENTS file in the same directory.
                                                        *
-                                                       * 
+                                                       *
                                                        */var IS_STACK = '@@__IMMUTABLE_STACK__@@';var test$6 = function test$6(maybeStack) {
   return !!(maybeStack && maybeStack[IS_STACK]);
 };var print$7 = function print$7(val, print, indent, opts, colors) {
@@ -9369,7 +9371,7 @@ var printImmutable$5 = printImmutable_1; /**
                                                        * LICENSE file in the root directory of this source tree. An additional grant
                                                        * of patent rights can be found in the PATENTS file in the same directory.
                                                        *
-                                                       * 
+                                                       *
                                                        */var IS_SET$1 = '@@__IMMUTABLE_SET__@@';var IS_ORDERED$2 = '@@__IMMUTABLE_ORDERED__@@';var test$7 = function test$7(maybeOrderedSet) {
   return maybeOrderedSet && maybeOrderedSet[IS_SET$1] && maybeOrderedSet[IS_ORDERED$2];
 };var print$8 = function print$8(val, print, indent, opts, colors) {
@@ -9385,7 +9387,7 @@ var printImmutable$6 = printImmutable_1; /**
                                                        * LICENSE file in the root directory of this source tree. An additional grant
                                                        * of patent rights can be found in the PATENTS file in the same directory.
                                                        *
-                                                       * 
+                                                       *
                                                        */var IS_MAP$1 = '@@__IMMUTABLE_MAP__@@';var IS_ORDERED$3 = '@@__IMMUTABLE_ORDERED__@@';var test$8 = function test$8(maybeOrderedMap) {
   return maybeOrderedMap && maybeOrderedMap[IS_MAP$1] && maybeOrderedMap[IS_ORDERED$3];
 };var print$9 = function print$9(val, print, indent, opts, colors) {
@@ -9403,7 +9405,7 @@ var escapeHTML$2 = escapeHTML_1; /**
                                                * LICENSE file in the root directory of this source tree. An additional grant
                                                * of patent rights can be found in the PATENTS file in the same directory.
                                                *
-                                               * 
+                                               *
                                                */var reactElement = Symbol.for('react.element');function traverseChildren(opaqueChildren, cb) {
   if (Array.isArray(opaqueChildren)) {
     opaqueChildren.forEach(function (child) {
@@ -9493,7 +9495,7 @@ var escapeHTML$3 = escapeHTML_1; /**
                                                * LICENSE file in the root directory of this source tree. An additional grant
                                                * of patent rights can be found in the PATENTS file in the same directory.
                                                *
-                                               * 
+                                               *
                                                */var reactTestInstance = Symbol.for('react.test.json');function printChildren$3(children, print, indent, colors, opts) {
   return children.map(function (child) {
     return printInstance(child, print, indent, colors, opts);
@@ -9560,7 +9562,7 @@ var style = index$26; /**
                                      * LICENSE file in the root directory of this source tree. An additional grant
                                      * of patent rights can be found in the PATENTS file in the same directory.
                                      *
-                                     * 
+                                     *
                                      */
 
 var toString = Object.prototype.toString;
@@ -10291,7 +10293,7 @@ var chalk = index$6; /**
                                * LICENSE file in the root directory of this source tree. An additional grant
                                * of patent rights can be found in the PATENTS file in the same directory.
                                *
-                               * 
+                               *
                                */var _require = index$22;var getType = _require.getType;var _require2 = utils$2;var format$1 = _require2.format;var ValidationError = _require2.ValidationError;var ERROR = _require2.ERROR;var errorMessage = function errorMessage(option, received, defaultValue, options) {
   var message = '  Option ' + chalk.bold('"' + option + '"') + ' must be of type:\n    ' + chalk.bold.green(getType(defaultValue)) + '\n  but instead received:\n    ' + chalk.bold.red(getType(received)) + '\n\n  Example:\n  {\n    ' + chalk.bold('"' + option + '"') + ': ' + chalk.bold(format$1(defaultValue)) + '\n  }';
 
@@ -10312,7 +10314,7 @@ var _require$2 = utils$2;var logValidationWarning$1 = _require$2.logValidationWa
                                                                                                                                   * LICENSE file in the root directory of this source tree. An additional grant
                                                                                                                                   * of patent rights can be found in the PATENTS file in the same directory.
                                                                                                                                   *
-                                                                                                                                  * 
+                                                                                                                                  *
                                                                                                                                   */var deprecationMessage = function deprecationMessage(message, options) {
   var comment = options.comment;var name = options.title && options.title.deprecation || DEPRECATION$2;logValidationWarning$1(name, message, comment);
 };
@@ -10336,7 +10338,7 @@ var chalk$3 = index$6; /**
                                * LICENSE file in the root directory of this source tree. An additional grant
                                * of patent rights can be found in the PATENTS file in the same directory.
                                *
-                               * 
+                               *
                                */var _require$3 = utils$2;var format$3 = _require$3.format;var logValidationWarning$2 = _require$3.logValidationWarning;var createDidYouMeanMessage$1 = _require$3.createDidYouMeanMessage;var WARNING$2 = _require$3.WARNING;var unknownOptionWarning$1 = function unknownOptionWarning$1(config, exampleConfig, option, options) {
   var didYouMean = createDidYouMeanMessage$1(option, Object.keys(exampleConfig));
 
@@ -10376,7 +10378,7 @@ var config = {
                                                             * LICENSE file in the root directory of this source tree. An additional grant
                                                             * of patent rights can be found in the PATENTS file in the same directory.
                                                             *
-                                                            * 
+                                                            *
                                                             */var exampleConfig$2 = config;
 
 var toString$1 = Object.prototype.toString;
@@ -10394,7 +10396,7 @@ var _require$1 = deprecated;var deprecationWarning = _require$1.deprecationWarni
                                                                                                 * LICENSE file in the root directory of this source tree. An additional grant
                                                                                                 * of patent rights can be found in the PATENTS file in the same directory.
                                                                                                 *
-                                                                                                * 
+                                                                                                *
                                                                                                 */var _require2$1 = warnings;var unknownOptionWarning = _require2$1.unknownOptionWarning;var _require3 = errors;var errorMessage$1 = _require3.errorMessage;var exampleConfig$1 = exampleConfig$2;var validationCondition = condition;var _require4 = utils$2;var ERROR$2 = _require4.ERROR;var DEPRECATION$1 = _require4.DEPRECATION;var WARNING$1 = _require4.WARNING;var defaultConfig$1 = { comment: '',
   condition: validationCondition,
   deprecate: deprecationWarning,
@@ -10415,7 +10417,7 @@ var defaultConfig = defaultConfig$1; /**
                                                  * LICENSE file in the root directory of this source tree. An additional grant
                                                  * of patent rights can be found in the PATENTS file in the same directory.
                                                  *
-                                                 * 
+                                                 *
                                                  */var _validate = function _validate(config, options) {
   var hasDeprecationWarnings = false;for (var key in config) {
     if (options.deprecatedConfig && key in options.deprecatedConfig && typeof options.deprecate === 'function') {
