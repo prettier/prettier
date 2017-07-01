@@ -86,7 +86,9 @@ function genericPrint(path, options, printPath, args) {
         return multiparser.printSubtree(next, path, printPath, options);
       } catch (error) {
         if (process.env.PRETTIER_DEBUG) {
-          console.error(error);
+          const e = new Error(error);
+          e.parser = next.options.parser;
+          throw e;
         }
         // Continue with current parser
       }
