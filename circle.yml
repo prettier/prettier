@@ -14,6 +14,11 @@ dependencies:
   cache_directories:
     - ~/.cache/yarn
 
+general:
+  branches:
+    only:
+      - master
+
 deployment:
   website:
     branch: master
