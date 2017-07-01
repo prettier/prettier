@@ -2,25 +2,59 @@
 
 const fs = require("fs");
 
+const PACKAGE = require("../package");
+const GITHUB_URL = `https://github.com/${PACKAGE.repository}`;
+
 /* List of projects/orgs using your project for the users page */
 const users = [
-  // {
-  //   caption: 'User1',
-  //   image: '/test-site/img/docusaurus.svg',
-  //   infoLink: 'https://www.example.com',
-  //   pinned: true,
-  // },
+  {
+    caption: "React",
+    image: `${GITHUB_URL}/raw/master/images/react-200x100.png`,
+    infoLink: "https://facebook.github.io/react/",
+    pinned: true
+  },
+  {
+    caption: "Jest",
+    image: `${GITHUB_URL}/raw/master/images/jest-200x100.png`,
+    infoLink: "https://facebook.github.io/jest/",
+    pinned: true
+  },
+  {
+    caption: "Yarn",
+    image: `${GITHUB_URL}/raw/master/images/yarn-200x100.png`,
+    infoLink: "https://yarnpkg.com",
+    pinned: true
+  },
+  {
+    caption: "Babel",
+    image: `${GITHUB_URL}/raw/master/images/babel-200x100.png`,
+    infoLink: "https://babeljs.jo",
+    pinned: true
+  },
+  {
+    caption: "Zeit",
+    image: `${GITHUB_URL}/raw/master/images/zeit-200x100.png`,
+    infoLink: "https://zeit.co/",
+    pinned: true
+  },
+  {
+    caption: "Webpack CLI",
+    image: `${GITHUB_URL}/raw/master/images/webpack-200x100.png`,
+    infoLink: "https://webpack.js.org/api/cli/",
+    pinned: true
+  }
 ];
 
 const siteConfig = {
-  title: "Prettier" /* title for your website */,
-  url: "https://prettier.io" /* your github url */,
-  baseUrl: "/" /* base url for your project */,
-  projectName: "prettier",
-  repo: "prettier/prettier" /* repo for your project */,
+  title: "Prettier",
+  githubUrl: GITHUB_URL,
+  url: PACKAGE.homepage,
+  baseUrl: "/",
+  projectName: PACKAGE.name,
+  repo: PACKAGE.repository,
   users,
   /* base url for editing docs, usage example: editUrl + 'en/doc1.md' */
-  editUrl: "https://github.com/prettier/prettier/edit/master/docs/",
+  editUrl: `${GITHUB_URL}/edit/master/docs/`,
   /* header links for links on this site, 'LANGUAGE' will be replaced by whatever
      language the page is for, ex: 'en' */
   headerLinksInternal: [
@@ -34,7 +68,7 @@ const siteConfig = {
       href: "/docs/LANGUAGE/why-prettier.html",
       text: "API"
     },
-    { section: "help", href: "/LANGUAGE/help.html", text: "Help" },
+    { section: "help", href: "/LANGUAGE/help/", text: "Help" },
     // {section: 'blog', href: '/test-site/blog', text: 'Blog'},
     {
       section: "playground",
@@ -46,7 +80,7 @@ const siteConfig = {
   headerLinksExternal: [
     {
       section: "github",
-      href: "https://github.com/prettier/prettier",
+      href: GITHUB_URL,
       text: "GitHub"
     }
   ],
@@ -67,7 +101,7 @@ const siteConfig = {
     prismColor:
       "rgba(26, 43, 52, 0.03)" /* primaryColor in rgba form, with 0.03 alpha */
   },
-  tagline: "Opinonated Code Formatting"
+  tagline: "Opinonated Code Formatter"
 };
 
 let languages;

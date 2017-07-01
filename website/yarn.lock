@@ -365,9 +365,9 @@ detect-indent@^4.0.0:
   dependencies:
     repeating "^2.0.0"
 
-docusaurus@^1.0.0-alpha.7:
-  version "1.0.0-alpha.7"
-  resolved "https://registry.yarnpkg.com/docusaurus/-/docusaurus-1.0.0-alpha.7.tgz#eac37f67c8acd30d9e3d6445dac917394dbbbdaf"
+docusaurus@^1.0.0-alpha.9:
+  version "1.0.0-alpha.10"
+  resolved "https://registry.yarnpkg.com/docusaurus/-/docusaurus-1.0.0-alpha.10.tgz#5f67f5c947bf6455d76c38f4f897f3679a08215d"
   dependencies:
     babel-preset-react "^6.24.1"
     babel-register "^6.24.1"

@@ -104,10 +104,6 @@ pipe(`prettierVersion = "${pkg.version}";`).to(`${docs}/prettier-version.js`);
 
 shell.echo("Copy sw-toolbox.js to docs");
 shell.cp("node_modules/sw-toolbox/sw-toolbox.js", `${docs}/sw-toolbox.js`);
-shell.cp(
-  "node_modules/sw-toolbox/companion.js",
-  `${docs}/sw-toolbox-companion.js`
-);
 
 shell.echo("Copy package.json");
 const pkgWithoutDependencies = Object.assign({}, pkg);

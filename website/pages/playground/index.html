@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <title>Prettier</title>
 
-  <link rel="manifest" href="manifest.json">
+  <link rel="manifest" href="/manifest.json">
 
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -60,8 +60,12 @@
     }
 
     header {
-      height: 64px;
+      height: 30px;
+      padding: 10px 10px;
       display: flex;
+      flex-flow: row nowrap;
+      position: relative;
+      text-align: left;
       justify-content: space-between;
       align-items: center;
       background-color: #1A2B34;
@@ -74,26 +78,36 @@
       }
     }
 
+    header a {
+      height: 34px;
+      display: flex;
+      text-decoration: none;
+    }
+
     header a,
     header a:visited {
-      color: #e0e0e0;
+      color: #fff;
     }
 
     header a:focus,
     header a:active,
     header a:hover {
-      color: #70a0a0;
+      color: #fff;
     }
 
     .logo {
-      height: 45px;
+      height: 100%;
       margin-left: 10px;
-      margin-right: 20px;
+      margin-right: 10px;
     }
 
-    .tagline {
-      flex: 2;
-      font-weight: 200;
+    header h2 {
+      display: block;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      font-weight: 400;
+      line-height: 8px;
+      position: relative;
+      z-index: 9999;
     }
 
     .links {
@@ -201,14 +215,15 @@
 
 <body>
   <header>
-    <a href=".">
-      <img class="logo" src="/prettier.png">
+    <a href="/">
+      <img class="logo" src="/icon.png">
+      <h2>Prettier</h2>
     </a>
-    <h2 class="tagline"><em>Opinionated</em> code formatter</h2>
+
     <span class="links">
       <a
         class="github-button"
-        href="https://github.com/prettier"
+        href="https://github.com/prettier/prettier"
         data-show-count="true"
         aria-label="Star prettier on GitHub">
         GitHub
@@ -262,7 +277,7 @@
 
   <footer>
     <p class="version-link">
-      <a href="https://github.com/prettier">
+      <a href="https://github.com/prettier/prettier">
         prettier version
         <span class="version"></span>
         (master)
@@ -270,7 +285,7 @@
     </p>
   </footer>
 
-  <script src="/lib/sw-toolbox-companion.js" data-service-worker="/service-worker.js"></script>
+  <script src="/install-service-worker.js"></script>
 
   <script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>

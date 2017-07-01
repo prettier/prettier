@@ -1,11 +1,12 @@
 {
   "name": "prettier",
   "version": "1.5.2",
-  "description": "Prettier is an opinionated JavaScript formatter",
+  "description": "Prettier is an opinionated code formatter",
   "bin": {
     "prettier": "./bin/prettier.js"
   },
   "repository": "prettier/prettier",
+  "homepage": "https://prettier.io",
   "author": "James Long",
   "license": "MIT",
   "main": "./index.js",

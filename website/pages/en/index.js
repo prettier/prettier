@@ -43,12 +43,12 @@ class HomeSplash extends React.Component {
             <div className="inner">
               <h2 className="projectTitle">
                 {siteConfig.title}
-                <small>Opinionated code formatting</small>
+                <small>{siteConfig.tagline}</small>
               </h2>
               <div className="section promoSection">
                 <div className="promoRow">
                   <div className="pluginRowBlock">
-                    <Button href="#try">Try It Out</Button>
+                    <Button href="/playground/">Try It Out</Button>
                     <Button
                       href={
                         "/docs/" + this.props.language + "/why-prettier.html"
@@ -140,19 +140,6 @@ class Index extends React.Component {
             />
           </Container>
 
-          <Container padding={["bottom", "top"]} id="try">
-            <GridBlock
-              contents={[
-                {
-                  content: "Talk about trying this out",
-                  image: "/prettier.png",
-                  imageAlign: "left",
-                  title: "Try it Out"
-                }
-              ]}
-            />
-          </Container>
-
           <Container padding={["bottom", "top"]} background="dark">
             <GridBlock
               contents={[
@@ -160,7 +147,7 @@ class Index extends React.Component {
                   content:
                     "This is another description of how this project is useful",
                   image: "/prettier.png",
-                  imageAlign: "right",
+                  imageAlign: "left",
                   title: "Description"
                 }
               ]}
@@ -168,15 +155,22 @@ class Index extends React.Component {
           </Container>
 
           <div className="productShowcaseSection paddingBottom">
-            <h2>Who{"'"}s Using This?</h2>
-            <p>This project is used by all these people</p>
+            <h2>Who{"'"}s Using Prettier?</h2>
+            <p>
+              A few of the
+              {" "}
+              <a href="https://www.npmjs.com/browse/depended/prettier">
+                many projects
+              </a>
+              {" "}using Prettier
+            </p>
             <div className="logos">
               {showcase}
             </div>
             <div className="more-users">
               <a
                 className="button"
-                href={siteConfig.baseUrl + "users.html"}
+                href={siteConfig.baseUrl + language + "/users/"}
                 target="_self"
               >
                 More Prettier Users

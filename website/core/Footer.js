@@ -2,19 +2,22 @@
 
 const React = require("react");
 
-const githubButton = (
+const GithubButton = props =>
   <a
     className="github-button"
-    href="https://github.com/prettier/prettier"
+    href={props.config.githubUrl}
     data-icon="octicon-star"
-    data-count-href="/prettier/prettier/stargazers"
-    data-count-api="/repos/prettier/prettier#stargazers_count"
+    data-count-href={`/${props.config.repo}/stargazers`}
+    data-count-api={`/repos/${props.config.repo}#stargazers_count`}
     data-count-aria-label="# stargazers on GitHub"
     aria-label="Star this project on GitHub"
   >
     Star
-  </a>
-);
+  </a>;
+
+GithubButton.propTypes = {
+  config: React.PropTypes.object
+};
 
 class Footer extends React.Component {
   render() {
@@ -26,8 +29,6 @@ class Footer extends React.Component {
             <img
               src={this.props.config.baseUrl + this.props.config.footerIcon}
               alt={this.props.config.title}
-              width="66"
-              height="58"
             />
           </a>
           <div>
@@ -66,9 +67,7 @@ class Footer extends React.Component {
           <div>
             <h5>Community</h5>
             <a
-              href={
-                this.props.config.baseUrl + this.props.language + "/users.html"
-              }
+              href={this.props.config.baseUrl + this.props.language + "/users/"}
             >
               User Showcase
             </a>
@@ -79,7 +78,7 @@ class Footer extends React.Component {
             >
               Stack Overflow
             </a>
-            <a href="https://discordapp.com/">Project Chat</a>
+            <a href="https://gitter.im/jlongster/prettier">Chat on Gitter</a>
             <a
               href="https://twitter.com/"
               target="_blank"
@@ -90,9 +89,9 @@ class Footer extends React.Component {
           </div>
           <div>
             <h5>More</h5>
-            <a href={this.props.config.baseUrl + "blog"}>Blog</a>
-            <a href="https://github.com/">GitHub</a>
-            {githubButton}
+            {/*<a href={this.props.config.baseUrl + "blog"}>Blog</a>*/}
+            <a href={this.props.config.githubUrl}>GitHub</a>
+            <GithubButton config={this.props.config} />
           </div>
         </section>
       </footer>
