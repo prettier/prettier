@@ -14,9 +14,9 @@
     + [vim-prettier - Usage](#vim-prettier---usage)
     + [vim-prettier - Configuration](#vim-prettier---configuration)
   * [ALE](#ale)
-    + [ALE - Installation](#ale--installation)
-    + [ALE - Usage](#ale--usage)
-    + [ALE - Configuration](#ale--configuration)
+    + [ALE - Installation](#ale---installation)
+    + [ALE - Usage](#ale---usage)
+    + [ALE - Configuration](#ale---configuration)
   * [Running manually](#running-manually)
     + [Running Prettier manually in Vim](#running-prettier-manually-in-vim)
 </details>
