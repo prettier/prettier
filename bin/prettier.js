@@ -20,6 +20,7 @@ const argv = minimist(process.argv.slice(2), {
     "semi",
     "single-quote",
     "bracket-spacing",
+    "paren-spacing",
     "jsx-bracket-same-line",
     // The supports-color package (a sub sub dependency) looks directly at
     // `process.argv` for `--no-color` and such-like options. The reason it is
@@ -145,6 +146,7 @@ const options = {
   printWidth: getIntOption("print-width"),
   tabWidth: getIntOption("tab-width"),
   bracketSpacing: argv["bracket-spacing"],
+  parenSpacing: argv["paren-spacing"],
   singleQuote: argv["single-quote"],
   jsxBracketSameLine: argv["jsx-bracket-same-line"],
   filepath: argv["stdin-filepath"],
@@ -228,6 +230,7 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
       "  --no-semi                Do not print semicolons, except at the beginning of lines which may need them.\n" +
       "  --single-quote           Use single quotes instead of double quotes.\n" +
       "  --no-bracket-spacing     Do not print spaces between brackets.\n" +
+      "  --paren-spacing          Put spaces between parens, WordPress style.\n" +
       "  --jsx-bracket-same-line  Put > on the last line instead of at a new line.\n" +
       "  --trailing-comma <none|es5|all>\n" +
       "                           Print trailing commas wherever possible. Defaults to none.\n" +
