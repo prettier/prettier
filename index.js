@@ -103,8 +103,19 @@ function findSiblingAncestors(startNodeAndParents, endNodeAndParents) {
   let resultStartNode = startNodeAndParents.node;
   let resultEndNode = endNodeAndParents.node;
 
+  if (resultStartNode === resultEndNode) {
+    return {
+      startNode: resultStartNode,
+      endNode: resultEndNode
+    };
+  }
+
   for (const endParent of endNodeAndParents.parentNodes) {
-    if (util.locStart(endParent) >= util.locStart(startNodeAndParents.node)) {
+    if (
+      endParent.type !== "Program" &&
+      endParent.type !== "File" &&
+      util.locStart(endParent) >= util.locStart(startNodeAndParents.node)
+    ) {
       resultEndNode = endParent;
     } else {
       break;
@@ -112,7 +123,11 @@ function findSiblingAncestors(startNodeAndParents, endNodeAndParents) {
   }
 
   for (const startParent of startNodeAndParents.parentNodes) {
-    if (util.locEnd(startParent) <= util.locEnd(endNodeAndParents.node)) {
+    if (
+      startParent.type !== "Program" &&
+      startParent.type !== "File" &&
+      util.locEnd(startParent) <= util.locEnd(endNodeAndParents.node)
+    ) {
       resultStartNode = startParent;
     } else {
       break;
@@ -153,11 +168,19 @@ function findNodeAtOffset(node, offset, predicate, parentNodes) {
 }
 
 // See https://www.ecma-international.org/ecma-262/5.1/#sec-A.5
-function isSourceElement(node) {
+function isSourceElement(opts, node) {
   if (node == null) {
     return false;
   }
-  switch (node.type) {
+  switch (node.type || node.kind) {
+    case "ObjectExpression": // JSON
+    case "ArrayExpression": // JSON
+    case "StringLiteral": // JSON
+    case "NumericLiteral": // JSON
+    case "BooleanLiteral": // JSON
+    case "NullLiteral": // JSON
+    case "json-identifier": // JSON
+      return opts.parser === "json";
     case "FunctionDeclaration":
     case "BlockStatement":
     case "BreakStatement":
@@ -177,6 +200,32 @@ function isSourceElement(node) {
     case "VariableDeclaration":
     case "WhileStatement":
     case "WithStatement":
+    case "ClassDeclaration": // ES 2015
+    case "ImportDeclaration": // Module
+    case "ExportDefaultDeclaration": // Module
+    case "ExportNamedDeclaration": // Module
+    case "ExportAllDeclaration": // Module
+    case "TypeAlias": // Flow
+    case "InterfaceDeclaration": // Flow, Typescript
+    case "TypeAliasDeclaration": // Typescript
+    case "ExportAssignment": // Typescript
+    case "ExportDeclaration": // Typescript
+    case "OperationDefinition": // GraphQL
+    case "FragmentDefinition": // GraphQL
+    case "VariableDefinition": // GraphQL
+    case "TypeExtensionDefinition": // GraphQL
+    case "ObjectTypeDefinition": // GraphQL
+    case "FieldDefinition": // GraphQL
+    case "DirectiveDefinition": // GraphQL
+    case "EnumTypeDefinition": // GraphQL
+    case "EnumValueDefinition": // GraphQL
+    case "InputValueDefinition": // GraphQL
+    case "InputObjectTypeDefinition": // GraphQL
+    case "SchemaDefinition": // GraphQL
+    case "OperationTypeDefinition": // GraphQL
+    case "InterfaceTypeDefinition": // GraphQL
+    case "UnionTypeDefinition": // GraphQL
+    case "ScalarTypeDefinition": // GraphQL
       return true;
   }
   return false;
@@ -201,16 +250,20 @@ function calculateRange(text, opts, ast) {
     }
   }
 
-  const startNodeAndParents = findNodeAtOffset(
-    ast,
-    startNonWhitespace,
-    isSourceElement
+  const startNodeAndParents = findNodeAtOffset(ast, startNonWhitespace, node =>
+    isSourceElement(opts, node)
   );
-  const endNodeAndParents = findNodeAtOffset(
-    ast,
-    endNonWhitespace,
-    isSourceElement
+  const endNodeAndParents = findNodeAtOffset(ast, endNonWhitespace, node =>
+    isSourceElement(opts, node)
   );
+
+  if (!startNodeAndParents || !endNodeAndParents) {
+    return {
+      rangeStart: 0,
+      rangeEnd: 0
+    };
+  }
+
   const siblingAncestors = findSiblingAncestors(
     startNodeAndParents,
     endNodeAndParents

@@ -1623,9 +1623,17 @@ var Example = React.createClass({
   },
   render() {
     if (typeof this.props.prop === "string") {
-      return <div>{this.props.prop}</div>;
+      return (
+        <div>
+          {this.props.prop}
+        </div>
+      );
     } else {
-      return <div>{this.props.prop.toFixed(2)}</div>;
+      return (
+        <div>
+          {this.props.prop.toFixed(2)}
+        </div>
+      );
     }
   }
 });

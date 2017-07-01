@@ -70,7 +70,7 @@ const write = argv["write"];
 const stdin = argv["stdin"] || (!filepatterns.length && !process.stdin.isTTY);
 const ignoreNodeModules = argv["with-node-modules"] === false;
 const globOptions = {
-  ignore: ignoreNodeModules && "**/node_modules/**",
+  ignore: ignoreNodeModules && ["**/node_modules/**", "./node_modules/**"],
   dot: true
 };
 
@@ -231,7 +231,7 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
       "  --jsx-bracket-same-line  Put > on the last line instead of at a new line.\n" +
       "  --trailing-comma <none|es5|all>\n" +
       "                           Print trailing commas wherever possible. Defaults to none.\n" +
-      "  --parser <flow|babylon|typescript|postcss>\n" +
+      "  --parser <flow|babylon|typescript|postcss|json>\n" +
       "                           Specify which parse to use. Defaults to babylon.\n" +
       "  --cursor-offset <int>    Print (to stderr) where a cursor at the given position would move to after formatting.\n" +
       "                           This option cannot be used with --range-start and --range-end\n" +

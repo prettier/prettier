@@ -793,7 +793,11 @@ class Example extends React.Component {
   props: { bar: string };
 
   render() {
-    return <div>{this.props.bar}</div>;
+    return (
+      <div>
+        {this.props.bar}
+      </div>
+    );
   }
 }
 
@@ -977,7 +981,11 @@ var C = React.createClass({
 
   render() {
     this.setState({ y: 0 });
-    return <div>{this.state.z}</div>;
+    return (
+      <div>
+        {this.state.z}
+      </div>
+    );
   }
 });
 

@@ -3,17 +3,23 @@
 const util = require("./util");
 const docUtils = require("./doc-utils");
 const docBuilders = require("./doc-builders");
+const comments = require("./comments");
 const indent = docBuilders.indent;
 const hardline = docBuilders.hardline;
 const softline = docBuilders.softline;
 const concat = docBuilders.concat;
 
-function printSubtree(subtreeParser, options, expressionDocs) {
+function printSubtree(subtreeParser, path, print, options) {
   const next = Object.assign({}, { transformDoc: doc => doc }, subtreeParser);
-  next.options = Object.assign({}, options, next.options);
+  next.options = Object.assign({}, options, next.options, {
+    originalText: next.text
+  });
   const ast = require("./parser").parse(next.text, next.options);
+  const astComments = ast.comments;
+  delete ast.comments;
+  comments.attach(astComments, ast, next.text, next.options);
   const nextDoc = require("./printer").printAstToDoc(ast, next.options);
-  return next.transformDoc(nextDoc, expressionDocs);
+  return next.transformDoc(nextDoc, { path, print });
 }
 
 /**
@@ -74,7 +80,10 @@ function fromBabylonFlowOrTypeScript(path) {
         return {
           options: { parser: "graphql" },
           transformDoc: doc =>
-            concat([indent(concat([softline, doc])), softline]),
+            concat([
+              indent(concat([softline, stripTrailingHardline(doc)])),
+              softline
+            ]),
           text: parent.quasis[0].value.raw
         };
       }
@@ -163,7 +172,11 @@ function fromHtmlParser2(path, options) {
   }
 }
 
-function transformCssDoc(quasisDoc, expressionDocs) {
+function transformCssDoc(quasisDoc, parent) {
+  const parentNode = parent.path.getValue();
+  const expressionDocs = parentNode.expressions
+    ? parent.path.map(parent.print, "expressions")
+    : [];
   const newDoc = replacePlaceholders(quasisDoc, expressionDocs);
   if (!newDoc) {
     throw new Error("Couldn't insert all the expressions");
@@ -277,20 +290,23 @@ function isStyledJsx(path) {
 }
 
 /**
- * Template literal in this context:
+ * Template literal in these contexts:
  * styled.button`color: red`
- * or
  * Foo.extend`color: red`
+ * css`color: red`
+ * keyframes`0% { opacity: 0; }`
+ * injectGlobal`body{ margin:0: }`
  */
 function isStyledComponents(path) {
   const parent = path.getParentNode();
   return (
     parent &&
     parent.type === "TaggedTemplateExpression" &&
-    parent.tag.type === "MemberExpression" &&
-    (parent.tag.object.name === "styled" ||
-      (/^[A-Z]/.test(parent.tag.object.name) &&
-        parent.tag.property.name === "extend"))
+    ((parent.tag.type === "MemberExpression" &&
+      (parent.tag.object.name === "styled" ||
+        (/^[A-Z]/.test(parent.tag.object.name) &&
+          parent.tag.property.name === "extend"))) ||
+      (parent.tag.type === "Identifier" && parent.tag.name === "css"))
   );
 }
 

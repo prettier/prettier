@@ -28,6 +28,7 @@ const docUtils = require("./doc-utils");
 const willBreak = docUtils.willBreak;
 const isLineNext = docUtils.isLineNext;
 const isEmpty = docUtils.isEmpty;
+const rawText = docUtils.rawText;
 
 function shouldPrintComma(options, level) {
   level = level || "es5";
@@ -82,10 +83,7 @@ function genericPrint(path, options, printPath, args) {
     const next = multiparser.getSubtreeParser(path, options);
     if (next) {
       try {
-        const expressionDocs = node.expressions
-          ? path.map(printPath, "expressions")
-          : [];
-        return multiparser.printSubtree(next, options, expressionDocs);
+        return multiparser.printSubtree(next, path, printPath, options);
       } catch (error) {
         if (process.env.PRETTIER_DEBUG) {
           console.error(error);
@@ -267,7 +265,7 @@ function genericPrintNoParens(path, options, print, args) {
         n !== parent.body &&
         (parent.type === "IfStatement" ||
           parent.type === "WhileStatement" ||
-          parent.type === "DoStatement");
+          parent.type === "DoWhileStatement");
 
       const parts = printBinaryishExpressions(
         path,
@@ -306,7 +304,10 @@ function genericPrintNoParens(path, options, print, args) {
         (parent.type === "JSXExpressionContainer" &&
           parentParent.type === "JSXAttribute") ||
         (n === parent.body && parent.type === "ArrowFunctionExpression") ||
-        (n !== parent.body && parent.type === "ForStatement")
+        (n !== parent.body && parent.type === "ForStatement") ||
+        parent.type === "ObjectProperty" ||
+        parent.type === "Property" ||
+        parent.type === "ConditionalExpression"
       ) {
         return group(concat(parts));
       }
@@ -803,16 +804,22 @@ function genericPrintNoParens(path, options, print, args) {
       parts.push(semi);
 
       return concat(parts);
+    case "NewExpression":
     case "CallExpression": {
+      const isNew = n.type === "NewExpression";
       if (
         // We want to keep require calls as a unit
-        (n.callee.type === "Identifier" && n.callee.name === "require") ||
+        (!isNew &&
+          n.callee.type === "Identifier" &&
+          n.callee.name === "require") ||
+        n.callee.type === "Import" ||
         // Template literals as single arguments
         (n.arguments.length === 1 &&
           isTemplateOnItsOwnLine(n.arguments[0], options.originalText)) ||
         // Keep test declarations on a single line
         // e.g. `it('long name', () => {`
-        (n.callee.type === "Identifier" &&
+        (!isNew &&
+          n.callee.type === "Identifier" &&
           (n.callee.name === "it" ||
             n.callee.name === "test" ||
             n.callee.name === "describe") &&
@@ -826,6 +833,7 @@ function genericPrintNoParens(path, options, print, args) {
           n.arguments[1].params.length <= 1)
       ) {
         return concat([
+          isNew ? "new " : "",
           path.call(print, "callee"),
           path.call(print, "typeParameters"),
           concat(["(", join(", ", path.map(print, "arguments")), ")"])
@@ -834,11 +842,12 @@ function genericPrintNoParens(path, options, print, args) {
 
       // We detect calls on member lookups and possibly print them in a
       // special chain format. See `printMemberChain` for more info.
-      if (n.callee.type === "MemberExpression") {
+      if (!isNew && n.callee.type === "MemberExpression") {
         return printMemberChain(path, options, print);
       }
 
       return concat([
+        isNew ? "new " : "",
         path.call(print, "callee"),
         printFunctionTypeParameters(path, options, print),
         printArgumentsList(path, options, print)
@@ -1218,18 +1227,6 @@ function genericPrintNoParens(path, options, print, args) {
         ])
       );
     }
-    case "NewExpression":
-      parts.push(
-        "new ",
-        path.call(print, "callee"),
-        printFunctionTypeParameters(path, options, print)
-      );
-
-      if (n.arguments) {
-        parts.push(printArgumentsList(path, options, print));
-      }
-
-      return concat(parts);
     case "VariableDeclaration": {
       const printed = path.map(childPath => {
         return print(childPath);
@@ -1438,7 +1435,12 @@ function genericPrintNoParens(path, options, print, args) {
       parts.push("while (");
 
       parts.push(
-        group(concat([indent(softline), path.call(print, "test"), softline])),
+        group(
+          concat([
+            indent(concat([softline, path.call(print, "test")])),
+            softline
+          ])
+        ),
         ")",
         semi
       );
@@ -1569,7 +1571,7 @@ function genericPrintNoParens(path, options, print, args) {
       if (n.value) {
         let res;
         if (isStringLiteral(n.value)) {
-          const value = n.value.extra ? n.value.extra.raw : n.value.raw;
+          const value = rawText(n.value);
           res = '"' + value.slice(1, -1).replace(/"/g, "&quot;") + '"';
         } else {
           res = path.call(print, "value");
@@ -1729,10 +1731,6 @@ function genericPrintNoParens(path, options, print, args) {
       return concat(parts);
     case "ClassProperty":
     case "TSAbstractClassProperty": {
-      const variance = getFlowVariance(n);
-      if (variance) {
-        parts.push(variance);
-      }
       if (n.accessibility) {
         parts.push(n.accessibility + " ");
       }
@@ -1744,6 +1742,10 @@ function genericPrintNoParens(path, options, print, args) {
       }
       if (n.readonly) {
         parts.push("readonly ");
+      }
+      const variance = getFlowVariance(n);
+      if (variance) {
+        parts.push(variance);
       }
       if (n.computed) {
         parts.push("[", path.call(print, "key"), "]");
@@ -2424,12 +2426,14 @@ function genericPrintNoParens(path, options, print, args) {
       }
 
       parts.push(
-        printFunctionParams(
-          path,
-          print,
-          options,
-          /* expandArg */ false,
-          /* printTypeParams */ true
+        group(
+          printFunctionParams(
+            path,
+            print,
+            options,
+            /* expandArg */ false,
+            /* printTypeParams */ true
+          )
         )
       );
 
@@ -2589,12 +2593,13 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push(printTypeScriptModifiers(path, options, print));
 
         // Global declaration looks like this:
-        // declare global { ... }
+        // (declare)? global { ... }
         const isGlobalDeclaration =
           n.name.type === "Identifier" &&
           n.name.name === "global" &&
-          n.modifiers &&
-          n.modifiers.some(modifier => modifier.type === "TSDeclareKeyword");
+          !/namespace|module/.test(
+            options.originalText.slice(util.locStart(n), util.locStart(n.name))
+          );
 
         if (!isGlobalDeclaration) {
           parts.push(isExternalModule ? "module " : "namespace ");
@@ -2632,6 +2637,8 @@ function genericPrintNoParens(path, options, print, args) {
       return path.call(bodyPath => {
         return printStatementSequence(bodyPath, options, print);
       }, "body");
+    case "json-identifier":
+      return '"' + n.value + '"';
 
     default:
       throw new Error("unknown type: " + JSON.stringify(n.type));
@@ -2963,7 +2970,10 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
   //     }                     b,
   //   })                    ) => {
   //                         })
-  if (expandArg) {
+  if (
+    expandArg &&
+    !(fun[paramsField] && fun[paramsField].some(n => n.comments))
+  ) {
     return group(
       concat([
         docUtils.removeLines(typeParams),
@@ -3047,7 +3057,7 @@ function canPrintParamsWithoutParens(node) {
     !node.rest &&
     node.params[0].type === "Identifier" &&
     !node.params[0].typeAnnotation &&
-    !util.hasBlockComments(node.params[0]) &&
+    !node.params[0].comments &&
     !node.params[0].optional &&
     !node.predicate &&
     !node.returnType
@@ -3165,7 +3175,8 @@ function printExportDeclaration(path, options, print) {
       decl.type === "ExportDefaultDeclaration" &&
       (decl.declaration.type !== "ClassDeclaration" &&
         decl.declaration.type !== "FunctionDeclaration" &&
-        decl.declaration.type !== "TSAbstractClassDeclaration")
+        decl.declaration.type !== "TSAbstractClassDeclaration" &&
+        decl.declaration.type !== "TSNamespaceFunctionDeclaration")
     ) {
       parts.push(semi);
     }
@@ -3415,7 +3426,10 @@ function printMemberChain(path, options, print) {
 
   function rec(path) {
     const node = path.getValue();
-    if (node.type === "CallExpression") {
+    if (
+      node.type === "CallExpression" &&
+      node.callee.type === "MemberExpression"
+    ) {
       printedNodes.unshift({
         node: node,
         printed: comments.printComments(
@@ -3637,12 +3651,38 @@ function isEmptyJSXElement(node) {
     return false;
   }
 
-  // if there is one child but it's just a newline, treat as empty
-  const value = node.children[0].value;
-  if (!/\S/.test(value) && /\n/.test(value)) {
-    return true;
-  }
-  return false;
+  // if there is one text child and does not contain any meaningful text
+  // we can treat the element as empty.
+  const child = node.children[0];
+  return isLiteral(child) && !isMeaningfulJSXText(child);
+}
+
+// Only space, newline, carriage return, and tab are treated as whitespace
+// inside JSX.
+const jsxWhitespaceChars = " \n\r\t";
+const containsNonJsxWhitespaceRegex = new RegExp(
+  "[^" + jsxWhitespaceChars + "]"
+);
+const matchJsxWhitespaceRegex = new RegExp("([" + jsxWhitespaceChars + "]+)");
+
+// Meaningful if it contains non-whitespace characters,
+// or it contains whitespace without a new line.
+function isMeaningfulJSXText(node) {
+  return (
+    isLiteral(node) &&
+    (containsNonJsxWhitespaceRegex.test(rawText(node)) ||
+      !/\n/.test(rawText(node)))
+  );
+}
+
+// Detect an expression node representing `{" "}`
+function isJSXWhitespaceExpression(node) {
+  return (
+    node.type === "JSXExpressionContainer" &&
+    isLiteral(node.expression) &&
+    node.expression.value === " " &&
+    !node.expression.comments
+  );
 }
 
 // JSX Children are strange, mostly for two reasons:
@@ -3650,13 +3690,10 @@ function isEmptyJSXElement(node) {
 // 2. up to one whitespace between elements within a line is significant,
 //    but not between lines.
 //
-// So for one thing, '\n' needs to be parsed out of string literals
-// and turned into hardlines (with string boundaries otherwise using softline)
-//
-// For another, leading, trailing, and lone whitespace all need to
+// Leading, trailing, and lone whitespace all need to
 // turn themselves into the rather ugly `{' '}` when breaking.
 //
-// Finally we print JSX using the `fill` doc primitive.
+// We print JSX using the `fill` doc primitive.
 // This requires that we give it an array of alternating
 // content and whitespace elements.
 // To ensure this we add dummy `""` content elements as needed.
@@ -3667,101 +3704,88 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
   // using `map` instead of `each` because it provides `i`
   path.map((childPath, i) => {
     const child = childPath.getValue();
-    if (isLiteral(child) && typeof child.value === "string") {
-      const value = child.raw || child.extra.raw;
+    if (isLiteral(child)) {
+      const text = rawText(child);
 
       // Contains a non-whitespace character
-      if (/[^ \n\r\t]/.test(value)) {
-        // treat each line of text as its own entity
-        value.split(/(\r?\n\s*)/).forEach(textLine => {
-          const newlines = textLine.match(/\n/g);
-          if (newlines) {
-            children.push("");
+      if (isMeaningfulJSXText(child)) {
+        const words = text.split(matchJsxWhitespaceRegex);
+
+        // Starts with whitespace
+        if (words[0] === "") {
+          children.push("");
+          words.shift();
+          if (/\n/.test(words[0])) {
             children.push(hardline);
-
-            // allow one extra newline
-            if (newlines.length > 1) {
-              children.push("");
-              children.push(hardline);
-            }
-            return;
-          }
-
-          if (textLine.length === 0) {
-            return;
-          }
-
-          const beginSpace = /^[ \n\r\t]+/.test(textLine);
-          if (beginSpace) {
-            children.push("");
-            children.push(jsxWhitespace);
-          }
-
-          const stripped = textLine.replace(/^[ \n\r\t]+|[ \n\r\t]+$/g, "");
-          // Split text into words separated by "line"s.
-          stripped.split(/([ \n\r\t]+)/).forEach(word => {
-            const space = /[ \n\r\t]+/.test(word);
-            if (space) {
-              children.push(line);
-            } else {
-              children.push(word);
-            }
-          });
-
-          const endSpace = /[ \n\r\t]+$/.test(textLine);
-          if (endSpace) {
-            children.push(jsxWhitespace);
           } else {
-            // Ideally this would be a `softline` to allow a break between
-            // tags and text.
-            // Unfortunately Facebook have a custom translation pipeline
-            // (https://github.com/prettier/prettier/issues/1581#issuecomment-300975032)
-            // that uses the JSX syntax, but does not follow the React whitespace
-            // rules.
-            // Ensuring that we never have a break between tags and text in JSX
-            // will allow Facebook to adopt Prettier without too much of an
-            // adverse effect on formatting algorithm.
-            children.push("");
+            children.push(jsxWhitespace);
+          }
+          words.shift();
+        }
+
+        let endWhitespace;
+        // Ends with whitespace
+        if (util.getLast(words) === "") {
+          words.pop();
+          endWhitespace = words.pop();
+        }
+
+        // This was whitespace only without a new line.
+        if (words.length === 0) {
+          return;
+        }
+
+        words.forEach((word, i) => {
+          if (i % 2 === 1) {
+            children.push(line);
+          } else {
+            children.push(word);
           }
         });
-      } else if (/\n/.test(value)) {
-        children.push("");
-        children.push(hardline);
 
-        // allow one extra newline
-        if (value.match(/\n/g).length > 1) {
+        if (endWhitespace !== undefined) {
+          if (/\n/.test(endWhitespace)) {
+            children.push(hardline);
+          } else {
+            children.push(jsxWhitespace);
+          }
+        } else {
+          // Ideally this would be a `hardline` to allow a break between
+          // tags and text.
+          // Unfortunately Facebook have a custom translation pipeline
+          // (https://github.com/prettier/prettier/issues/1581#issuecomment-300975032)
+          // that uses the JSX syntax, but does not follow the React whitespace
+          // rules.
+          // Ensuring that we never have a break between tags and text in JSX
+          // will allow Facebook to adopt Prettier without too much of an
+          // adverse effect on formatting algorithm.
+          children.push("");
+        }
+      } else if (/\n/.test(text)) {
+        // Keep (up to one) blank line between tags/expressions/text.
+        // Note: We don't keep blank lines between text elements.
+        if (text.match(/\n/g).length > 1) {
           children.push("");
           children.push(hardline);
         }
-      } else if (/[ \n\r\t]/.test(value)) {
-        // whitespace(s)-only without newlines,
-        // eg; one or more spaces separating two elements
-        for (let i = 0; i < value.length; ++i) {
-          // Because fill expects alternating content and whitespace parts
-          // we need to include an empty content part before each JSX
-          // whitespace.
-          children.push("");
-          children.push(jsxWhitespace);
-        }
+      } else {
+        children.push("");
+        children.push(jsxWhitespace);
       }
     } else {
-      children.push(print(childPath));
+      const printedChild = print(childPath);
+      children.push(printedChild);
 
       const next = n.children[i + 1];
-      const followedByJSXElement = next && !isLiteral(next);
-      const followedByJSXWhitespace =
-        next &&
-        next.type === "JSXExpressionContainer" &&
-        isLiteral(next.expression) &&
-        next.expression.value === " ";
-
-      if (followedByJSXElement && !followedByJSXWhitespace) {
-        children.push(softline);
-      } else {
-        // Ideally this would be a softline as well.
+      const directlyFollowedByMeaningfulText =
+        next && isMeaningfulJSXText(next) && !/^[ \n\r\t]/.test(rawText(next));
+      if (directlyFollowedByMeaningfulText) {
+        // Potentially this could be a hardline as well.
         // See the comment above about the Facebook translation pipeline as
         // to why this is an empty string.
         children.push("");
+      } else {
+        children.push(hardline);
       }
     }
   }, "children");
@@ -3814,71 +3838,113 @@ function printJSXElement(path, options, print) {
     assert.ok(!n.closingElement);
     return openingLines;
   }
+
+  // Convert `{" "}` to text nodes containing a space.
+  // This makes it easy to turn them into `jsxWhitespace` which
+  // can then print as either a space or `{" "}` when breaking.
+  n.children = n.children.map(child => {
+    if (isJSXWhitespaceExpression(child)) {
+      return {
+        type: "JSXText",
+        value: " ",
+        raw: " "
+      };
+    }
+    return child;
+  });
+
+  const parent = path.getParentNode();
+  const parentContainsText =
+    parent.type === "JSXElement" &&
+    parent.children.filter(child => isMeaningfulJSXText(child)).length > 0;
+
+  const containsTag =
+    n.children.filter(child => child.type === "JSXElement").length > 0;
+  const numExpressions = n.children.filter(
+    child => child.type === "JSXExpressionContainer"
+  ).length;
+  const containsMultipleAttributes = n.openingElement.attributes.length > 1;
+
   // Record any breaks. Should never go from true to false, only false to true.
-  let forcedBreak = willBreak(openingLines);
+  let forcedBreak =
+    willBreak(openingLines) ||
+    containsTag ||
+    containsMultipleAttributes ||
+    (parentContainsText ? numExpressions > 1 : numExpressions > 0);
 
   const rawJsxWhitespace = options.singleQuote ? "{' '}" : '{" "}';
   const jsxWhitespace = ifBreak(concat([rawJsxWhitespace, softline]), " ");
 
   const children = printJSXChildren(path, options, print, jsxWhitespace);
 
-  // Remove multiple filler empty strings
-  // These can occur when a text element is followed by a newline.
+  const containsText =
+    n.children.filter(child => isMeaningfulJSXText(child)).length > 0;
+
+  // We can end up we multiple whitespace elements with empty string
+  // content between them.
+  // We need to remove empty whitespace and softlines before JSX whitespace
+  // to get the correct output.
   for (let i = children.length - 2; i >= 0; i--) {
-    if (children[i] === "" && children[i + 1] === "") {
+    const isPairOfEmptyStrings = children[i] === "" && children[i + 1] === "";
+    const isPairOfHardlines =
+      children[i] === hardline &&
+      children[i + 1] === "" &&
+      children[i + 2] === hardline;
+    const isLineFollowedByJSXWhitespace =
+      (children[i] === softline || children[i] === hardline) &&
+      children[i + 1] === "" &&
+      children[i + 2] === jsxWhitespace;
+    const isJSXWhitespaceFollowedByLine =
+      children[i] === jsxWhitespace &&
+      children[i + 1] === "" &&
+      (children[i + 2] === softline || children[i + 2] === hardline);
+
+    if (
+      (isPairOfHardlines && containsText) ||
+      isPairOfEmptyStrings ||
+      isLineFollowedByJSXWhitespace
+    ) {
       children.splice(i, 2);
+    } else if (isJSXWhitespaceFollowedByLine) {
+      children.splice(i + 1, 2);
     }
   }
 
-  // Trim trailing lines (or empty strings), recording if there was a hardline
-  let numTrailingHard = 0;
+  // Trim trailing lines (or empty strings)
   while (
     children.length &&
     (isLineNext(util.getLast(children)) || isEmpty(util.getLast(children)))
   ) {
-    if (willBreak(util.getLast(children))) {
-      ++numTrailingHard;
-      forcedBreak = true;
-    }
     children.pop();
   }
-  // allow one extra newline
-  if (numTrailingHard > 1) {
-    children.push("");
-    children.push(hardline);
-  }
 
-  // Trim leading lines (or empty strings), recording if there was a hardline
-  let numLeadingHard = 0;
+  // Trim leading lines (or empty strings)
   while (
     children.length &&
     (isLineNext(children[0]) || isEmpty(children[0])) &&
     (isLineNext(children[1]) || isEmpty(children[1]))
   ) {
-    if (willBreak(children[0]) || willBreak(children[1])) {
-      ++numLeadingHard;
-      forcedBreak = true;
-    }
     children.shift();
     children.shift();
-  }
-  // allow one extra newline
-  if (numLeadingHard > 1) {
-    children.unshift(hardline);
-    children.unshift("");
   }
 
   // Tweak how we format children if outputting this element over multiple lines.
   // Also detect whether we will force this element to output over multiple lines.
   const multilineChildren = [];
   children.forEach((child, i) => {
-    // Ensure that we display leading, trailing, and solitary whitespace as
-    // `{" "}` when outputting this element over multiple lines.
+    // There are a number of situations where we need to ensure we display
+    // whitespace as `{" "}` when outputting this element over multiple lines.
     if (child === jsxWhitespace) {
       if (i === 1 && children[i - 1] === "") {
+        // Leading whitespace
         multilineChildren.push(rawJsxWhitespace);
         return;
       } else if (i === children.length - 1) {
+        // Trailing whitespace
+        multilineChildren.push(rawJsxWhitespace);
+        return;
+      } else if (children[i - 1] === "" && children[i - 2] === hardline) {
+        // Whitespace after line break
         multilineChildren.push(rawJsxWhitespace);
         return;
       }
@@ -3891,10 +3957,17 @@ function printJSXElement(path, options, print) {
     }
   });
 
+  // If there is text we use `fill` to fit as much onto each line as possible.
+  // When there is no text (just tags and expressions) we use `group`
+  // to output each on a separate line.
+  const content = containsText
+    ? fill(multilineChildren)
+    : group(concat(multilineChildren), { shouldBreak: true });
+
   const multiLineElem = group(
     concat([
       openingLines,
-      indent(concat([hardline, fill(multilineChildren)])),
+      indent(concat([hardline, content])),
       hardline,
       closingLines
     ])
@@ -3905,7 +3978,7 @@ function printJSXElement(path, options, print) {
   }
 
   return conditionalGroup([
-    group(concat([openingLines, fill(children), closingLines])),
+    group(concat([openingLines, concat(children), closingLines])),
     multiLineElem
   ]);
 }
@@ -4075,6 +4148,9 @@ function printAssignment(
 
   const canBreak =
     (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) ||
+    (rightNode.type === "ConditionalExpression" &&
+      isBinaryish(rightNode.test) &&
+      !shouldInlineLogicalExpression(rightNode.test)) ||
     ((leftNode.type === "Identifier" ||
       isStringLiteral(leftNode) ||
       leftNode.type === "MemberExpression") &&
@@ -4103,7 +4179,7 @@ function adjustClause(node, clause, forceSpace) {
 }
 
 function nodeStr(node, options, isFlowOrTypeScriptDirectiveLiteral) {
-  const raw = node.extra ? node.extra.raw : node.raw;
+  const raw = rawText(node);
   // `rawContent` is the string exactly like it appeared in the input source
   // code, with its enclosing quote.
   const rawContent = raw.slice(1, -1);
@@ -4137,9 +4213,9 @@ function nodeStr(node, options, isFlowOrTypeScriptDirectiveLiteral) {
     canChangeDirectiveQuotes = true;
   }
 
-  const enclosingQuote = shouldUseAlternateQuote
-    ? alternate.quote
-    : preferred.quote;
+  const enclosingQuote = options.parser === "json"
+    ? double.quote
+    : shouldUseAlternateQuote ? alternate.quote : preferred.quote;
 
   // Directives are exact code unit sequences, which means that you can't
   // change the escape sequences they use.
@@ -4586,26 +4662,41 @@ function isObjectType(n) {
 function printAstToDoc(ast, options, addAlignmentSize) {
   addAlignmentSize = addAlignmentSize || 0;
 
+  const cache = new Map();
+
   function printGenerically(path, args) {
     const node = path.getValue();
+
+    const shouldCache = node && typeof node === "object" && args === undefined;
+    if (shouldCache && cache.has(node)) {
+      return cache.get(node);
+    }
+
     const parent = path.getParentNode(0);
     // We let JSXElement print its comments itself because it adds () around
     // UnionTypeAnnotation has to align the child without the comments
+    let res;
     if (
       (node && node.type === "JSXElement") ||
       (parent &&
         (parent.type === "UnionTypeAnnotation" ||
           parent.type === "TSUnionType"))
     ) {
-      return genericPrint(path, options, printGenerically, args);
+      res = genericPrint(path, options, printGenerically, args);
+    } else {
+      res = comments.printComments(
+        path,
+        p => genericPrint(p, options, printGenerically, args),
+        options,
+        args && args.needsSemi
+      );
     }
 
-    return comments.printComments(
-      path,
-      p => genericPrint(p, options, printGenerically, args),
-      options,
-      args && args.needsSemi
-    );
+    if (shouldCache) {
+      cache.set(node, res);
+    }
+
+    return res;
   }
 
   let doc = printGenerically(new FastPath(ast));
@@ -4619,6 +4710,11 @@ function printAstToDoc(ast, options, addAlignmentSize) {
     );
   }
   docUtils.propagateBreaks(doc);
+
+  if (options.parser === "json") {
+    doc = concat([doc, hardline]);
+  }
+
   return doc;
 }
 

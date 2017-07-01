@@ -19,7 +19,7 @@ var babylon = function () {
 			return e = { exports: {} }, t(e, e.exports), e.exports;
 		}function parse(t) {
 			var e = index,
-			    s = { sourceType: "module", allowImportExportEverywhere: !1, allowReturnOutsideFunction: !0, plugins: ["jsx", "flow", "doExpressions", "objectRestSpread", "decorators", "classProperties", "exportExtensions", "asyncGenerators", "functionBind", "functionSent", "dynamicImport"] };var i = void 0;try {
+			    s = { sourceType: "module", allowImportExportEverywhere: !0, allowReturnOutsideFunction: !0, plugins: ["jsx", "flow", "doExpressions", "objectRestSpread", "decorators", "classProperties", "exportExtensions", "asyncGenerators", "functionBind", "functionSent", "dynamicImport", "numericSeparator"] };var i = void 0;try {
 				i = e.parse(t, s);
 			} catch (r) {
 				try {
@@ -75,7 +75,7 @@ var babylon = function () {
 			}function y(t, e) {
 				var s = x(e, t);return s.options.strictMode && (s.state.strict = !0), s.getExpression();
 			}function x(t, e) {
-				return new (t && t.plugins ? v(t.plugins) : tt)(t, e);
+				return new (t && t.plugins ? v(t.plugins) : et)(t, e);
 			}function v(t) {
 				var e = t.filter(function (t) {
 					return "estree" === t || "flow" === t || "jsx" === t;
@@ -84,14 +84,14 @@ var babylon = function () {
 				})).push("flow"), e.indexOf("estree") >= 0 && (e = e.filter(function (t) {
 					return "estree" !== t;
 				})).unshift("estree");var s = e.join("/"),
-				    i = pt[s];if (!i) {
-					i = tt;for (var r = e, a = Array.isArray(r), n = 0, r = a ? r : r[Symbol.iterator]();;) {
+				    i = ct[s];if (!i) {
+					i = et;for (var r = e, a = Array.isArray(r), n = 0, r = a ? r : r[Symbol.iterator]();;) {
 						var o;if (a) {
 							if (n >= r.length) break;o = r[n++];
 						} else {
 							if ((n = r.next()).done) break;o = n.value;
-						}i = Z[o](i);
-					}pt[s] = i;
+						}i = tt[o](i);
+					}ct[s] = i;
 				}return i;
 			}Object.defineProperty(e, "__esModule", { value: !0 });var b = { sourceType: "script", sourceFilename: void 0, startLine: 1, allowReturnOutsideFunction: !1, allowImportExportEverywhere: !1, allowSuperOutsideMethod: !1, plugins: [], strictMode: null, ranges: !1 },
 			    g = function g(t, e) {
@@ -117,7 +117,7 @@ var babylon = function () {
 					return g(this, e), P(this, t.call(this, s, { beforeExpr: A, binop: i }));
 				}return w(e, t), e;
 			}(k),
-			    C = { num: new k("num", { startsExpr: !0 }), regexp: new k("regexp", { startsExpr: !0 }), string: new k("string", { startsExpr: !0 }), name: new k("name", { startsExpr: !0 }), eof: new k("eof"), bracketL: new k("[", { beforeExpr: A, startsExpr: !0 }), bracketR: new k("]"), braceL: new k("{", { beforeExpr: A, startsExpr: !0 }), braceBarL: new k("{|", { beforeExpr: A, startsExpr: !0 }), braceR: new k("}"), braceBarR: new k("|}"), parenL: new k("(", { beforeExpr: A, startsExpr: !0 }), parenR: new k(")"), comma: new k(",", { beforeExpr: A }), semi: new k(";", { beforeExpr: A }), colon: new k(":", { beforeExpr: A }), doubleColon: new k("::", { beforeExpr: A }), dot: new k("."), question: new k("?", { beforeExpr: A }), arrow: new k("=>", { beforeExpr: A }), template: new k("template"), ellipsis: new k("...", { beforeExpr: A }), backQuote: new k("`", { startsExpr: !0 }), dollarBraceL: new k("${", { beforeExpr: A, startsExpr: !0 }), at: new k("@"), hash: new k("#"), eq: new k("=", { beforeExpr: A, isAssign: !0 }), assign: new k("_=", { beforeExpr: A, isAssign: !0 }), incDec: new k("++/--", { prefix: !0, postfix: !0, startsExpr: !0 }), prefix: new k("prefix", { beforeExpr: A, prefix: !0, startsExpr: !0 }), logicalOR: new T("||", 1), logicalAND: new T("&&", 2), bitwiseOR: new T("|", 3), bitwiseXOR: new T("^", 4), bitwiseAND: new T("&", 5), equality: new T("==/!=", 6), relational: new T("</>", 7), bitShift: new T("<</>>", 8), plusMin: new k("+/-", { beforeExpr: A, binop: 9, prefix: !0, startsExpr: !0 }), modulo: new T("%", 10), star: new T("*", 10), slash: new T("/", 10), exponent: new k("**", { beforeExpr: A, binop: 11, rightAssociative: !0 }) },
+			    C = { num: new k("num", { startsExpr: !0 }), regexp: new k("regexp", { startsExpr: !0 }), string: new k("string", { startsExpr: !0 }), name: new k("name", { startsExpr: !0 }), eof: new k("eof"), bracketL: new k("[", { beforeExpr: A, startsExpr: !0 }), bracketR: new k("]"), braceL: new k("{", { beforeExpr: A, startsExpr: !0 }), braceBarL: new k("{|", { beforeExpr: A, startsExpr: !0 }), braceR: new k("}"), braceBarR: new k("|}"), parenL: new k("(", { beforeExpr: A, startsExpr: !0 }), parenR: new k(")"), comma: new k(",", { beforeExpr: A }), semi: new k(";", { beforeExpr: A }), colon: new k(":", { beforeExpr: A }), doubleColon: new k("::", { beforeExpr: A }), dot: new k("."), question: new k("?", { beforeExpr: A }), questionDot: new k("?."), arrow: new k("=>", { beforeExpr: A }), template: new k("template"), ellipsis: new k("...", { beforeExpr: A }), backQuote: new k("`", { startsExpr: !0 }), dollarBraceL: new k("${", { beforeExpr: A, startsExpr: !0 }), at: new k("@"), hash: new k("#"), eq: new k("=", { beforeExpr: A, isAssign: !0 }), assign: new k("_=", { beforeExpr: A, isAssign: !0 }), incDec: new k("++/--", { prefix: !0, postfix: !0, startsExpr: !0 }), prefix: new k("prefix", { beforeExpr: A, prefix: !0, startsExpr: !0 }), logicalOR: new T("||", 1), logicalAND: new T("&&", 2), bitwiseOR: new T("|", 3), bitwiseXOR: new T("^", 4), bitwiseAND: new T("&", 5), equality: new T("==/!=", 6), relational: new T("</>", 7), bitShift: new T("<</>>", 8), plusMin: new k("+/-", { beforeExpr: A, binop: 9, prefix: !0, startsExpr: !0 }), modulo: new T("%", 10), star: new T("*", 10), slash: new T("/", 10), exponent: new k("**", { beforeExpr: A, binop: 11, rightAssociative: !0 }) },
 			    N = { break: new E("break"), case: new E("case", { beforeExpr: A }), catch: new E("catch"), continue: new E("continue"), debugger: new E("debugger"), default: new E("default", { beforeExpr: A }), do: new E("do", { isLoop: !0, beforeExpr: A }), else: new E("else", { beforeExpr: A }), finally: new E("finally"), for: new E("for", { isLoop: !0 }), function: new E("function", { startsExpr: !0 }), if: new E("if"), return: new E("return", { beforeExpr: A }), switch: new E("switch"), throw: new E("throw", { beforeExpr: A }), try: new E("try"), var: new E("var"), let: new E("let"), const: new E("const"), while: new E("while", { isLoop: !0 }), with: new E("with"), new: new E("new", { beforeExpr: A, startsExpr: !0 }), this: new E("this", { startsExpr: !0 }), super: new E("super", { startsExpr: !0 }), class: new E("class"), extends: new E("extends", { beforeExpr: A }), export: new E("export"), import: new E("import", { startsExpr: !0 }), yield: new E("yield", { beforeExpr: A, startsExpr: !0 }), null: new E("null", { startsExpr: !0 }), true: new E("true", { startsExpr: !0 }), false: new E("false", { startsExpr: !0 }), in: new E("in", { beforeExpr: A, binop: 7 }), instanceof: new E("instanceof", { beforeExpr: A, binop: 7 }), typeof: new E("typeof", { beforeExpr: A, prefix: !0, startsExpr: !0 }), void: new E("void", { beforeExpr: A, prefix: !0, startsExpr: !0 }), delete: new E("delete", { beforeExpr: A, prefix: !0, startsExpr: !0 }) };Object.keys(N).forEach(function (t) {
 				C["_" + t] = N[t];
 			});var S = { 6: i("enum await"), strict: i("implements interface let package private protected public static yield"), strictBind: i("eval arguments") },
@@ -220,10 +220,11 @@ var babylon = function () {
 					}return s;
 				}, t;
 			}(),
-			    G = function t(e) {
+			    G = { decBinOct: [46, 66, 69, 79, 95, 98, 101, 111], hex: [46, 88, 95, 120] },
+			    K = function t(e) {
 				g(this, t), this.type = e.type, this.value = e.value, this.start = e.start, this.end = e.end, this.loc = new X(e.startLoc, e.endLoc);
 			},
-			    K = function (t) {
+			    z = function (t) {
 				function e() {
 					return g(this, e), P(this, t.apply(this, arguments));
 				}return w(e, t), e.prototype.addExtra = function (t, e, s) {
@@ -253,7 +254,7 @@ var babylon = function () {
 				function e(s, i) {
 					g(this, e);var r = P(this, t.call(this));return r.state = new W(), r.state.init(s, i), r;
 				}return w(e, t), e.prototype.next = function () {
-					this.isLookahead || this.state.tokens.push(new G(this.state)), this.state.lastTokEnd = this.state.end, this.state.lastTokStart = this.state.start, this.state.lastTokEndLoc = this.state.endLoc, this.state.lastTokStartLoc = this.state.startLoc, this.nextToken();
+					this.isLookahead || this.state.tokens.push(new K(this.state)), this.state.lastTokEnd = this.state.end, this.state.lastTokStart = this.state.start, this.state.lastTokEndLoc = this.state.endLoc, this.state.lastTokStartLoc = this.state.startLoc, this.nextToken();
 				}, e.prototype.eat = function (t) {
 					return !!this.match(t) && (this.next(), !0);
 				}, e.prototype.match = function (t) {
@@ -321,6 +322,9 @@ var babylon = function () {
 					    s = 1;return e === t ? (s = 62 === t && 62 === this.input.charCodeAt(this.state.pos + 2) ? 3 : 2, 61 === this.input.charCodeAt(this.state.pos + s) ? this.finishOp(C.assign, s + 1) : this.finishOp(C.bitShift, s)) : 33 === e && 60 === t && 45 === this.input.charCodeAt(this.state.pos + 2) && 45 === this.input.charCodeAt(this.state.pos + 3) ? (this.inModule && this.unexpected(), this.skipLineComment(4), this.skipSpace(), this.nextToken()) : (61 === e && (s = 2), this.finishOp(C.relational, s));
 				}, e.prototype.readToken_eq_excl = function (t) {
 					var e = this.input.charCodeAt(this.state.pos + 1);return 61 === e ? this.finishOp(C.equality, 61 === this.input.charCodeAt(this.state.pos + 2) ? 3 : 2) : 61 === t && 62 === e ? (this.state.pos += 2, this.finishToken(C.arrow)) : this.finishOp(61 === t ? C.eq : C.prefix, 1);
+				}, e.prototype.readToken_question = function () {
+					var t = this.input.charCodeAt(this.state.pos + 1),
+					    e = this.input.charCodeAt(this.state.pos + 2);return 46 !== t || e >= 48 && e <= 57 ? (++this.state.pos, this.finishToken(C.question)) : (this.state.pos += 2, this.finishToken(C.questionDot));
 				}, e.prototype.getTokenFromCode = function (t) {
 					switch (t) {case 35:
 							if (this.hasPlugin("classPrivateProperties") && this.state.inClass) return ++this.state.pos, this.finishToken(C.hash);this.raise(this.state.pos, "Unexpected character '" + c(t) + "'");case 46:
@@ -334,7 +338,7 @@ var babylon = function () {
 							return this.hasPlugin("flow") && 124 === this.input.charCodeAt(this.state.pos + 1) ? this.finishOp(C.braceBarL, 2) : (++this.state.pos, this.finishToken(C.braceL));case 125:
 							return ++this.state.pos, this.finishToken(C.braceR);case 58:
 							return this.hasPlugin("functionBind") && 58 === this.input.charCodeAt(this.state.pos + 1) ? this.finishOp(C.doubleColon, 2) : (++this.state.pos, this.finishToken(C.colon));case 63:
-							return ++this.state.pos, this.finishToken(C.question);case 64:
+							return this.readToken_question();case 64:
 							return ++this.state.pos, this.finishToken(C.at);case 96:
 							return ++this.state.pos, this.finishToken(C.backQuote);case 48:
 							var e = this.input.charCodeAt(this.state.pos + 1);if (120 === e || 88 === e) return this.readRadixNumber(16);if (111 === e || 79 === e) return this.readRadixNumber(8);if (98 === e || 66 === e) return this.readRadixNumber(2);case 49:case 50:case 51:case 52:case 53:case 54:case 55:case 56:case 57:
@@ -357,16 +361,21 @@ var babylon = function () {
 						}++this.state.pos;
 					}var r = this.input.slice(t, this.state.pos);++this.state.pos;var a = this.readWord1();return a && (/^[gmsiyu]*$/.test(a) || this.raise(t, "Invalid regular expression flag")), this.finishToken(C.regexp, { pattern: r, flags: a });
 				}, e.prototype.readInt = function (t, e) {
-					for (var s = this.state.pos, i = 0, r = 0, a = null == e ? 1 / 0 : e; r < a; ++r) {
-						var n = this.input.charCodeAt(this.state.pos),
-						    o = void 0;if ((o = n >= 97 ? n - 97 + 10 : n >= 65 ? n - 65 + 10 : n >= 48 && n <= 57 ? n - 48 : 1 / 0) >= t) break;++this.state.pos, i = i * t + o;
-					}return this.state.pos === s || null != e && this.state.pos - s !== e ? null : i;
+					for (var s = this.state.pos, i = 16 === t ? G.hex : G.decBinOct, r = 0, a = 0, n = null == e ? 1 / 0 : e; a < n; ++a) {
+						var o = this.input.charCodeAt(this.state.pos),
+						    h = void 0;if (this.hasPlugin("numericSeparator")) {
+							var p = this.input.charCodeAt(this.state.pos - 1),
+							    c = this.input.charCodeAt(this.state.pos + 1);if (95 === o) {
+								(i.indexOf(p) > -1 || i.indexOf(c) > -1 || Number.isNaN(c)) && this.raise(this.state.pos, "Invalid NumericLiteralSeparator"), ++this.state.pos;continue;
+							}
+						}if ((h = o >= 97 ? o - 97 + 10 : o >= 65 ? o - 65 + 10 : o >= 48 && o <= 57 ? o - 48 : 1 / 0) >= t) break;++this.state.pos, r = r * t + h;
+					}return this.state.pos === s || null != e && this.state.pos - s !== e ? null : r;
 				}, e.prototype.readRadixNumber = function (t) {
 					this.state.pos += 2;var e = this.readInt(t);return null == e && this.raise(this.state.start + 2, "Expected number in radix " + t), a(this.fullCharCodeAtPos()) && this.raise(this.state.pos, "Identifier directly after number"), this.finishToken(C.num, e);
 				}, e.prototype.readNumber = function (t) {
 					var e = this.state.pos,
 					    s = 48 === this.input.charCodeAt(e),
-					    i = !1;t || null !== this.readInt(10) || this.raise(e, "Invalid number"), s && this.state.pos == e + 1 && (s = !1);var r = this.input.charCodeAt(this.state.pos);46 !== r || s || (++this.state.pos, this.readInt(10), i = !0, r = this.input.charCodeAt(this.state.pos)), 69 !== r && 101 !== r || s || (43 !== (r = this.input.charCodeAt(++this.state.pos)) && 45 !== r || ++this.state.pos, null === this.readInt(10) && this.raise(e, "Invalid number"), i = !0), a(this.fullCharCodeAtPos()) && this.raise(this.state.pos, "Identifier directly after number");var n = this.input.slice(e, this.state.pos),
+					    i = !1;t || null !== this.readInt(10) || this.raise(e, "Invalid number"), s && this.state.pos == e + 1 && (s = !1);var r = this.input.charCodeAt(this.state.pos);46 !== r || s || (++this.state.pos, this.readInt(10), i = !0, r = this.input.charCodeAt(this.state.pos)), 69 !== r && 101 !== r || s || (43 !== (r = this.input.charCodeAt(++this.state.pos)) && 45 !== r || ++this.state.pos, null === this.readInt(10) && this.raise(e, "Invalid number"), i = !0), a(this.fullCharCodeAtPos()) && this.raise(this.state.pos, "Identifier directly after number");var n = this.input.slice(e, this.state.pos).replace(/_/g, ""),
 					    o = void 0;return i ? o = parseFloat(n) : s && 1 !== n.length ? this.state.strict ? this.raise(e, "Invalid number") : o = /[89]/.test(n) ? parseInt(n, 10) : parseInt(n, 8) : o = parseInt(n, 10), this.finishToken(C.num, o);
 				}, e.prototype.readCodePoint = function (t) {
 					var e = void 0;if (123 === this.input.charCodeAt(this.state.pos)) {
@@ -427,24 +436,24 @@ var babylon = function () {
 					}return t === C._return ? M.test(this.input.slice(this.state.lastTokEnd, this.state.start)) : t === C._else || t === C.semi || t === C.eof || t === C.parenR || (t === C.braceL ? this.curContext() === V.braceStatement : !this.state.exprAllowed);
 				}, e.prototype.updateContext = function (t) {
 					var e = this.state.type,
-					    s = void 0;e.keyword && t === C.dot ? this.state.exprAllowed = !1 : (s = e.updateContext) ? s.call(this, t) : this.state.exprAllowed = e.beforeExpr;
+					    s = void 0;!e.keyword || t !== C.dot && t !== C.questionDot ? (s = e.updateContext) ? s.call(this, t) : this.state.exprAllowed = e.beforeExpr : this.state.exprAllowed = !1;
 				}, e;
 			}(J)),
-			    z = ["leadingComments", "trailingComments", "innerComments"],
-			    Q = function () {
+			    Q = ["leadingComments", "trailingComments", "innerComments"],
+			    Y = function () {
 				function t(e, s, i) {
 					g(this, t), this.type = "", this.start = s, this.end = 0, this.loc = new X(i), e && e.options.ranges && (this.range = [s, 0]), e && e.filename && (this.loc.filename = e.filename);
 				}return t.prototype.__clone = function () {
 					var e = new t();for (var s in this) {
-						z.indexOf(s) < 0 && (e[s] = this[s]);
+						Q.indexOf(s) < 0 && (e[s] = this[s]);
 					}return e;
 				}, t;
 			}(),
-			    Y = [],
-			    H = { kind: "loop" },
-			    $ = { kind: "switch" },
-			    Z = {},
-			    tt = function (t) {
+			    H = [],
+			    $ = { kind: "loop" },
+			    Z = { kind: "switch" },
+			    tt = {},
+			    et = function (t) {
 				function e(i, r) {
 					g(this, e), i = s(i);var a = P(this, t.call(this, i, r));return a.options = i, a.inModule = "module" === a.options.sourceType, a.input = r, a.plugins = l(a.options.plugins), a.filename = i.sourceFilename, 0 === a.state.pos && "#" === a.input[0] && "!" === a.input[1] && a.skipLineComment(2), a;
 				}return w(e, t), e.prototype.parse = function () {
@@ -482,7 +491,7 @@ var babylon = function () {
 							return this.parseWithStatement(i);case C.braceL:
 							return this.parseBlock();case C.semi:
 							return this.parseEmptyStatement(i);case C._export:case C._import:
-							if (this.hasPlugin("dynamicImport") && this.lookahead().type === C.parenL) break;return this.options.allowImportExportEverywhere || (e || this.raise(this.state.start, "'import' and 'export' may only appear at the top level"), this.inModule || this.raise(this.state.start, "'import' and 'export' may appear only with 'sourceType: module'")), s === C._import ? this.parseImport(i) : this.parseExport(i);case C.name:
+							if (this.hasPlugin("dynamicImport") && this.lookahead().type === C.parenL || this.hasPlugin("importMeta") && this.lookahead().type === C.dot) break;return this.options.allowImportExportEverywhere || (e || this.raise(this.state.start, "'import' and 'export' may only appear at the top level"), this.inModule || this.raise(this.state.start, "'import' and 'export' may appear only with 'sourceType: module'")), s === C._import ? this.parseImport(i) : this.parseExport(i);case C.name:
 							if ("async" === this.state.value) {
 								var r = this.state.clone();if (this.next(), this.match(C._function) && !this.canInsertSemicolon()) return this.expect(C._function), this.parseFunction(i, !0, !1, !0);this.state = r;
 							}}var a = this.state.value,
@@ -504,9 +513,9 @@ var babylon = function () {
 				}, e.prototype.parseDebuggerStatement = function (t) {
 					return this.next(), this.semicolon(), this.finishNode(t, "DebuggerStatement");
 				}, e.prototype.parseDoStatement = function (t) {
-					return this.next(), this.state.labels.push(H), t.body = this.parseStatement(!1), this.state.labels.pop(), this.expect(C._while), t.test = this.parseParenExpression(), this.eat(C.semi), this.finishNode(t, "DoWhileStatement");
+					return this.next(), this.state.labels.push($), t.body = this.parseStatement(!1), this.state.labels.pop(), this.expect(C._while), t.test = this.parseParenExpression(), this.eat(C.semi), this.finishNode(t, "DoWhileStatement");
 				}, e.prototype.parseForStatement = function (t) {
-					this.next(), this.state.labels.push(H);var e = !1;if (this.hasPlugin("asyncGenerators") && this.state.inAsync && this.isContextual("await") && (e = !0, this.next()), this.expect(C.parenL), this.match(C.semi)) return e && this.unexpected(), this.parseFor(t, null);if (this.match(C._var) || this.match(C._let) || this.match(C._const)) {
+					this.next(), this.state.labels.push($);var e = !1;if (this.hasPlugin("asyncGenerators") && this.state.inAsync && this.isContextual("await") && (e = !0, this.next()), this.expect(C.parenL), this.match(C.semi)) return e && this.unexpected(), this.parseFor(t, null);if (this.match(C._var) || this.match(C._let) || this.match(C._const)) {
 						var s = this.startNode(),
 						    i = this.state.type;return this.next(), this.parseVar(s, !0, i), this.finishNode(s, "VariableDeclaration"), !this.match(C._in) && !this.isContextual("of") || 1 !== s.declarations.length || s.declarations[0].init ? (e && this.unexpected(), this.parseFor(t, s)) : this.parseForIn(t, s, e);
 					}var r = { start: 0 },
@@ -520,7 +529,7 @@ var babylon = function () {
 				}, e.prototype.parseReturnStatement = function (t) {
 					return this.state.inFunction || this.options.allowReturnOutsideFunction || this.raise(this.state.start, "'return' outside of function"), this.next(), this.isLineTerminator() ? t.argument = null : (t.argument = this.parseExpression(), this.semicolon()), this.finishNode(t, "ReturnStatement");
 				}, e.prototype.parseSwitchStatement = function (t) {
-					this.next(), t.discriminant = this.parseParenExpression();var e = t.cases = [];this.expect(C.braceL), this.state.labels.push($);for (var s, i = void 0; !this.match(C.braceR);) {
+					this.next(), t.discriminant = this.parseParenExpression();var e = t.cases = [];this.expect(C.braceL), this.state.labels.push(Z);for (var s, i = void 0; !this.match(C.braceR);) {
 						if (this.match(C._case) || this.match(C._default)) {
 							var r = this.match(C._case);i && this.finishNode(i, "SwitchCase"), e.push(i = this.startNode()), i.consequent = [], this.next(), r ? i.test = this.parseExpression() : (s && this.raise(this.state.lastTokStart, "Multiple default clauses"), s = !0, i.test = null), this.expect(C.colon);
 						} else i ? i.consequent.push(this.parseStatement(!0)) : this.unexpected();
@@ -530,11 +539,11 @@ var babylon = function () {
 				}, e.prototype.parseTryStatement = function (t) {
 					if (this.next(), t.block = this.parseBlock(), t.handler = null, this.match(C._catch)) {
 						var e = this.startNode();this.next(), this.expect(C.parenL), e.param = this.parseBindingAtom(), this.checkLVal(e.param, !0, Object.create(null), "catch clause"), this.expect(C.parenR), e.body = this.parseBlock(), t.handler = this.finishNode(e, "CatchClause");
-					}return t.guardedHandlers = Y, t.finalizer = this.eat(C._finally) ? this.parseBlock() : null, t.handler || t.finalizer || this.raise(t.start, "Missing catch or finally clause"), this.finishNode(t, "TryStatement");
+					}return t.guardedHandlers = H, t.finalizer = this.eat(C._finally) ? this.parseBlock() : null, t.handler || t.finalizer || this.raise(t.start, "Missing catch or finally clause"), this.finishNode(t, "TryStatement");
 				}, e.prototype.parseVarStatement = function (t, e) {
 					return this.next(), this.parseVar(t, !1, e), this.semicolon(), this.finishNode(t, "VariableDeclaration");
 				}, e.prototype.parseWhileStatement = function (t) {
-					return this.next(), t.test = this.parseParenExpression(), this.state.labels.push(H), t.body = this.parseStatement(!1), this.state.labels.pop(), this.finishNode(t, "WhileStatement");
+					return this.next(), t.test = this.parseParenExpression(), this.state.labels.push($), t.body = this.parseStatement(!1), this.state.labels.pop(), this.finishNode(t, "WhileStatement");
 				}, e.prototype.parseWithStatement = function (t) {
 					return this.state.strict && this.raise(this.state.start, "'with' in strict mode"), this.next(), t.object = this.parseParenExpression(), t.body = this.parseStatement(!1), this.finishNode(t, "WithStatement");
 				}, e.prototype.parseEmptyStatement = function (t) {
@@ -584,26 +593,25 @@ var babylon = function () {
 				}, e.prototype.isNonstaticConstructor = function (t) {
 					return !(t.computed || t.static || "constructor" !== t.key.name && "constructor" !== t.key.value);
 				}, e.prototype.parseClassBody = function (t) {
-					var e = this.state.strict;this.state.strict = !0, this.state.inClass = !0;var s = !1,
+					var e = this.state.strict;this.state.strict = !0, this.state.inClass = !0;var s = { hadConstructor: !1 },
 					    i = [],
 					    r = this.startNode();for (r.body = [], this.expect(C.braceL); !this.eat(C.braceR);) {
 						if (this.eat(C.semi)) i.length > 0 && this.raise(this.state.lastTokEnd, "Decorators must not be followed by a semicolon");else if (this.match(C.at)) i.push(this.parseDecorator());else {
-							var a = this.startNode();if (i.length && (a.decorators = i, i = []), this.hasPlugin("classPrivateProperties") && this.match(C.hash)) this.next(), this.parsePropertyName(a), r.body.push(this.parsePrivateClassProperty(a));else {
-								if (a.static = !1, this.match(C.name) && "static" === this.state.value) {
-									var n = this.parseIdentifier(!0);if (this.isClassMethod()) {
-										a.kind = "method", a.computed = !1, a.key = n, this.parseClassMethod(r, a, !1, !1);continue;
-									}if (this.isClassProperty()) {
-										a.computed = !1, a.key = n, r.body.push(this.parseClassProperty(a));continue;
-									}a.static = !0;
-								}if (this.eat(C.star)) a.kind = "method", this.parsePropertyName(a), this.isNonstaticConstructor(a) && this.raise(a.key.start, "Constructor can't be a generator"), a.computed || !a.static || "prototype" !== a.key.name && "prototype" !== a.key.value || this.raise(a.key.start, "Classes may not have static property named prototype"), this.parseClassMethod(r, a, !0, !1);else {
-									var o = this.match(C.name),
-									    h = this.parsePropertyName(a);if (a.computed || !a.static || "prototype" !== a.key.name && "prototype" !== a.key.value || this.raise(a.key.start, "Classes may not have static property named prototype"), this.isClassMethod()) this.isNonstaticConstructor(a) ? (s ? this.raise(h.start, "Duplicate constructor in the same class") : a.decorators && this.raise(a.start, "You can't attach decorators to a class constructor"), s = !0, a.kind = "constructor") : a.kind = "method", this.parseClassMethod(r, a, !1, !1);else if (this.isClassProperty()) this.isNonstaticConstructor(a) && this.raise(a.key.start, "Classes may not have a non-static field named 'constructor'"), r.body.push(this.parseClassProperty(a));else if (o && "async" === h.name && !this.isLineTerminator()) {
-										var p = this.hasPlugin("asyncGenerators") && this.eat(C.star);a.kind = "method", this.parsePropertyName(a), this.isNonstaticConstructor(a) && this.raise(a.key.start, "Constructor can't be an async function"), this.parseClassMethod(r, a, p, !0);
-									} else !o || "get" !== h.name && "set" !== h.name || this.isLineTerminator() && this.match(C.star) ? this.isLineTerminator() ? (this.isNonstaticConstructor(a) && this.raise(a.key.start, "Classes may not have a non-static field named 'constructor'"), r.body.push(this.parseClassProperty(a))) : this.unexpected() : (a.kind = h.name, this.parsePropertyName(a), this.isNonstaticConstructor(a) && this.raise(a.key.start, "Constructor can't have get/set modifier"), this.parseClassMethod(r, a, !1, !1), this.checkGetterSetterParamCount(a));
-								}
-							}
+							var a = this.startNode();i.length && (a.decorators = i, i = []), this.parseClassMember(r, a, s);
 						}
 					}i.length && this.raise(this.state.start, "You have trailing decorators with no method"), t.body = this.finishNode(r, "ClassBody"), this.state.inClass = !1, this.state.strict = e;
+				}, e.prototype.parseClassMember = function (t, e, s) {
+					var i = e,
+					    r = i,
+					    a = i,
+					    n = i;if (this.hasPlugin("classPrivateProperties") && this.match(C.hash)) {
+						this.next();var o = i;return o.key = this.parseIdentifier(!0), void t.body.push(this.parsePrivateClassProperty(o));
+					}if (r.static = !1, this.match(C.name) && "static" === this.state.value) {
+						var h = this.parseIdentifier(!0);if (this.isClassMethod()) return a.kind = "method", a.computed = !1, a.key = h, void this.parseClassMethod(t, a, !1, !1);if (this.isClassProperty()) return n.computed = !1, n.key = h, void t.body.push(this.parseClassProperty(n));r.static = !0;
+					}if (this.eat(C.star)) return a.kind = "method", this.parsePropertyName(a), this.isNonstaticConstructor(a) && this.raise(a.key.start, "Constructor can't be a generator"), a.computed || !a.static || "prototype" !== a.key.name && "prototype" !== a.key.value || this.raise(a.key.start, "Classes may not have static property named prototype"), void this.parseClassMethod(t, a, !0, !1);var p = this.match(C.name),
+					    c = this.parsePropertyName(r);if (r.computed || !r.static || "prototype" !== r.key.name && "prototype" !== r.key.value || this.raise(r.key.start, "Classes may not have static property named prototype"), this.isClassMethod()) this.isNonstaticConstructor(a) ? (s.hadConstructor ? this.raise(c.start, "Duplicate constructor in the same class") : a.decorators && this.raise(a.start, "You can't attach decorators to a class constructor"), s.hadConstructor = !0, a.kind = "constructor") : a.kind = "method", this.parseClassMethod(t, a, !1, !1);else if (this.isClassProperty()) this.isNonstaticConstructor(n) && this.raise(n.key.start, "Classes may not have a non-static field named 'constructor'"), t.body.push(this.parseClassProperty(n));else if (p && "async" === c.name && !this.isLineTerminator()) {
+						var l = this.hasPlugin("asyncGenerators") && this.eat(C.star);a.kind = "method", this.parsePropertyName(a), this.isNonstaticConstructor(a) && this.raise(a.key.start, "Constructor can't be an async function"), this.parseClassMethod(t, a, l, !0);
+					} else !p || "get" !== c.name && "set" !== c.name || this.isLineTerminator() && this.match(C.star) ? this.isLineTerminator() ? (this.isNonstaticConstructor(n) && this.raise(n.key.start, "Classes may not have a non-static field named 'constructor'"), t.body.push(this.parseClassProperty(n))) : this.unexpected() : (a.kind = c.name, this.parsePropertyName(a), this.isNonstaticConstructor(a) && this.raise(a.key.start, "Constructor can't have get/set modifier"), this.parseClassMethod(t, a, !1, !1), this.checkGetterSetterParamCount(a));
 				}, e.prototype.parsePrivateClassProperty = function (t) {
 					return this.state.inClassProperty = !0, this.match(C.eq) ? (this.next(), t.value = this.parseMaybeAssign()) : t.value = null, this.semicolon(), this.state.inClassProperty = !1, this.finishNode(t, "ClassPrivateProperty");
 				}, e.prototype.parseClassProperty = function (t) {
@@ -724,9 +732,9 @@ var babylon = function () {
 					var i = this.state.start,
 					    r = this.state.startLoc,
 					    a = this.parseExprOps(t, e);return e && e.start ? a : this.parseConditional(a, t, i, r, s);
-				}, e.prototype.parseConditional = function (t, e, s, i) {
+				}, e.prototype.parseConditional = function (t, e, s, i, r) {
 					if (this.eat(C.question)) {
-						var r = this.startNodeAt(s, i);return r.test = t, r.consequent = this.parseMaybeAssign(), this.expect(C.colon), r.alternate = this.parseMaybeAssign(e), this.finishNode(r, "ConditionalExpression");
+						var a = this.startNodeAt(s, i);return a.test = t, a.consequent = this.parseMaybeAssign(), this.expect(C.colon), a.alternate = this.parseMaybeAssign(e), this.finishNode(a, "ConditionalExpression");
 					}return t;
 				}, e.prototype.parseExprOps = function (t, e) {
 					var s = this.state.start,
@@ -755,16 +763,20 @@ var babylon = function () {
 					for (;;) {
 						if (!i && this.eat(C.doubleColon)) {
 							var r = this.startNodeAt(e, s);return r.object = t, r.callee = this.parseNoCallExpr(), this.parseSubscripts(this.finishNode(r, "BindExpression"), e, s, i);
-						}if (this.eat(C.dot)) {
-							var a = this.startNodeAt(e, s);a.object = t, a.property = this.hasPlugin("classPrivateProperties") ? this.parseMaybePrivateName() : this.parseIdentifier(!0), a.computed = !1, t = this.finishNode(a, "MemberExpression");
+						}if (this.match(C.questionDot)) {
+							if (this.hasPlugin("optionalChaining") || this.raise(e, "You can only use optional-chaining when the 'optionalChaining' plugin is enabled."), i && this.lookahead().type == C.parenL) return t;this.next();var a = this.startNodeAt(e, s);if (this.eat(C.bracketL)) a.object = t, a.property = this.parseExpression(), a.computed = !0, a.optional = !0, this.expect(C.bracketR), t = this.finishNode(a, "MemberExpression");else if (this.eat(C.parenL)) {
+								var n = this.state.potentialArrowAt === t.start && "Identifier" === t.type && "async" === t.name && !this.canInsertSemicolon();a.callee = t, a.arguments = this.parseCallExpressionArguments(C.parenR, n), a.optional = !0, t = this.finishNode(a, "CallExpression");
+							} else a.object = t, a.property = this.parseIdentifier(!0), a.computed = !1, a.optional = !0, t = this.finishNode(a, "MemberExpression");
+						} else if (this.eat(C.dot)) {
+							var o = this.startNodeAt(e, s);o.object = t, o.property = this.hasPlugin("classPrivateProperties") ? this.parseMaybePrivateName() : this.parseIdentifier(!0), o.computed = !1, t = this.finishNode(o, "MemberExpression");
 						} else if (this.eat(C.bracketL)) {
-							var n = this.startNodeAt(e, s);n.object = t, n.property = this.parseExpression(), n.computed = !0, this.expect(C.bracketR), t = this.finishNode(n, "MemberExpression");
+							var h = this.startNodeAt(e, s);h.object = t, h.property = this.parseExpression(), h.computed = !0, this.expect(C.bracketR), t = this.finishNode(h, "MemberExpression");
 						} else if (!i && this.match(C.parenL)) {
-							var o = this.state.potentialArrowAt === t.start && "Identifier" === t.type && "async" === t.name && !this.canInsertSemicolon();this.next();var h = this.startNodeAt(e, s);if (h.callee = t, h.arguments = this.parseCallExpressionArguments(C.parenR, o), "Import" === h.callee.type) {
-								1 !== h.arguments.length && this.raise(h.start, "import() requires exactly one argument");var p = h.arguments[0];p && "SpreadElement" === p.type && this.raise(p.start, "... is not allowed in import()");
-							}if (t = this.finishNode(h, "CallExpression"), o && this.shouldParseAsyncArrow()) return this.parseAsyncArrowFromCallExpression(this.startNodeAt(e, s), h);this.toReferencedList(h.arguments);
+							var p = this.state.potentialArrowAt === t.start && "Identifier" === t.type && "async" === t.name && !this.canInsertSemicolon();this.next();var c = this.startNodeAt(e, s);if (c.callee = t, c.arguments = this.parseCallExpressionArguments(C.parenR, p), "Import" === c.callee.type) {
+								1 !== c.arguments.length && this.raise(c.start, "import() requires exactly one argument");var l = c.arguments[0];l && "SpreadElement" === l.type && this.raise(l.start, "... is not allowed in import()");
+							}if (t = this.finishNode(c, "CallExpression"), p && this.shouldParseAsyncArrow()) return this.parseAsyncArrowFromCallExpression(this.startNodeAt(e, s), c);this.toReferencedList(c.arguments);
 						} else {
-							if (!this.match(C.backQuote)) return t;var c = this.startNodeAt(e, s);c.tag = t, c.quasi = this.parseTemplate(!0), t = this.finishNode(c, "TaggedTemplateExpression");
+							if (!this.match(C.backQuote)) return t;var u = this.startNodeAt(e, s);u.tag = t, u.quasi = this.parseTemplate(!0), t = this.finishNode(u, "TaggedTemplateExpression");
 						}
 					}throw new Error("Unreachable");
 				}, e.prototype.parseCallExpressionArguments = function (t, e) {
@@ -782,7 +794,7 @@ var babylon = function () {
 					var e = this.state.potentialArrowAt === this.state.start,
 					    s = void 0;switch (this.state.type) {case C._super:
 							return this.state.inMethod || this.state.inClassProperty || this.options.allowSuperOutsideMethod || this.raise(this.state.start, "'super' outside of function or class"), s = this.startNode(), this.next(), this.match(C.parenL) || this.match(C.bracketL) || this.match(C.dot) || this.unexpected(), this.match(C.parenL) && "constructor" !== this.state.inMethod && !this.options.allowSuperOutsideMethod && this.raise(s.start, "super() is only valid inside a class constructor. Make sure the method name is spelled exactly as 'constructor'."), this.finishNode(s, "Super");case C._import:
-							return this.hasPlugin("dynamicImport") || this.unexpected(), s = this.startNode(), this.next(), this.match(C.parenL) || this.unexpected(null, C.parenL), this.finishNode(s, "Import");case C._this:
+							return this.hasPlugin("importMeta") && this.lookahead().type === C.dot ? this.parseImportMetaProperty() : (this.hasPlugin("dynamicImport") || this.unexpected(), s = this.startNode(), this.next(), this.match(C.parenL) || this.unexpected(null, C.parenL), this.finishNode(s, "Import"));case C._this:
 							return s = this.startNode(), this.next(), this.finishNode(s, "ThisExpression");case C._yield:
 							this.state.inGenerator && this.unexpected();case C.name:
 							s = this.startNode();var i = "await" === this.state.value && this.state.inAsync,
@@ -796,7 +808,7 @@ var babylon = function () {
 							}return e && !this.canInsertSemicolon() && this.eat(C.arrow) ? this.parseArrowExpression(s, [a]) : a;case C._do:
 							if (this.hasPlugin("doExpressions")) {
 								var o = this.startNode();this.next();var h = this.state.inFunction,
-								    p = this.state.labels;return this.state.labels = [], this.state.inFunction = !1, o.body = this.parseBlock(!1, !0), this.state.inFunction = h, this.state.labels = p, this.finishNode(o, "DoExpression");
+								    p = this.state.labels;return this.state.labels = [], this.state.inFunction = !1, o.body = this.parseBlock(!1), this.state.inFunction = h, this.state.labels = p, this.finishNode(o, "DoExpression");
 							}case C.regexp:
 							var c = this.state.value;return s = this.parseLiteral(c.value, "RegExpLiteral"), s.pattern = c.pattern, s.flags = c.flags, s;case C.num:
 							return this.parseLiteral(this.state.value, "NumericLiteral");case C.string:
@@ -809,7 +821,7 @@ var babylon = function () {
 							return this.parseFunctionExpression();case C.at:
 							this.parseDecorators();case C._class:
 							return s = this.startNode(), this.takeDecorators(s), this.parseClass(s, !1);case C.hash:
-							if (this.hasPlugin("classPrivateProperties")) return this.parseMaybePrivateName();this.unexpected();case C._new:
+							if (this.hasPlugin("classPrivateProperties")) return this.parseMaybePrivateName();throw this.unexpected();case C._new:
 							return this.parseNew();case C.backQuote:
 							return this.parseTemplate(!1);case C.doubleColon:
 							s = this.startNode(), this.next(), s.object = null;var l = s.callee = this.parseNoCallExpr();if ("MemberExpression" === l.type) return this.finishNode(s, "BindExpression");throw this.raise(l.start, "Binding should be performed on object property.");default:
@@ -822,7 +834,10 @@ var babylon = function () {
 					var t = this.startNode(),
 					    e = this.parseIdentifier(!0);return this.state.inGenerator && this.eat(C.dot) && this.hasPlugin("functionSent") ? this.parseMetaProperty(t, e, "sent") : this.parseFunction(t, !1);
 				}, e.prototype.parseMetaProperty = function (t, e, s) {
-					return t.meta = e, t.property = this.parseIdentifier(!0), t.property.name !== s && this.raise(t.property.start, "The only valid meta property for new is " + e.name + "." + s), this.finishNode(t, "MetaProperty");
+					return t.meta = e, t.property = this.parseIdentifier(!0), t.property.name !== s && this.raise(t.property.start, "The only valid meta property for " + e.name + " is " + e.name + "." + s), this.finishNode(t, "MetaProperty");
+				}, e.prototype.parseImportMetaProperty = function () {
+					var t = this.startNode(),
+					    e = this.parseIdentifier(!0);return this.expect(C.dot), this.inModule || this.raise(e.start, "import.meta may appear only with 'sourceType: module'"), this.parseMetaProperty(t, e, "meta");
 				}, e.prototype.parseLiteral = function (t, e, s, i) {
 					s = s || this.state.start, i = i || this.state.startLoc;var r = this.startNodeAt(s, i);return this.addExtra(r, "rawValue", t), this.addExtra(r, "raw", this.input.slice(s, this.state.end)), r.value = t, this.next(), this.finishNode(r, e);
 				}, e.prototype.parseParenExpression = function () {
@@ -857,9 +872,9 @@ var babylon = function () {
 					var t = this.startNode(),
 					    e = this.parseIdentifier(!0);if (this.eat(C.dot)) {
 						var s = this.parseMetaProperty(t, e, "target");return this.state.inFunction || this.raise(s.property.start, "new.target can only be used in functions"), s;
-					}return t.callee = this.parseNoCallExpr(), this.eat(C.parenL) ? (t.arguments = this.parseExprList(C.parenR), this.toReferencedList(t.arguments)) : t.arguments = [], this.finishNode(t, "NewExpression");
+					}t.callee = this.parseNoCallExpr();var i = this.eat(C.questionDot);return this.eat(C.parenL) ? (t.arguments = this.parseExprList(C.parenR), this.toReferencedList(t.arguments)) : t.arguments = [], i && (t.optional = !0), this.finishNode(t, "NewExpression");
 				}, e.prototype.parseTemplateElement = function (t) {
-					var e = this.startNode();return null === this.state.value && (t ? this.state.invalidTemplateEscapePosition = null : this.raise(this.state.invalidTemplateEscapePosition, "Invalid escape sequence in template")), e.value = { raw: this.input.slice(this.state.start, this.state.end).replace(/\r\n?/g, "\n"), cooked: this.state.value }, this.next(), e.tail = this.match(C.backQuote), this.finishNode(e, "TemplateElement");
+					var e = this.startNode();return null === this.state.value && (t ? this.state.invalidTemplateEscapePosition = null : this.raise(this.state.invalidTemplateEscapePosition || 0, "Invalid escape sequence in template")), e.value = { raw: this.input.slice(this.state.start, this.state.end).replace(/\r\n?/g, "\n"), cooked: this.state.value }, this.next(), e.tail = this.match(C.backQuote), this.finishNode(e, "TemplateElement");
 				}, e.prototype.parseTemplate = function (t) {
 					var e = this.startNode();this.next(), e.expressions = [];var s = this.parseTemplateElement(t);for (e.quasis = [s]; !s.tail;) {
 						this.expect(C.dollarBraceL), e.expressions.push(this.parseExpression()), this.expect(C.braceR), e.quasis.push(s = this.parseTemplateElement(t));
@@ -1032,9 +1047,9 @@ var babylon = function () {
 				function e() {
 					return g(this, e), P(this, t.apply(this, arguments));
 				}return w(e, t), e.prototype.startNode = function () {
-					return new Q(this, this.state.start, this.state.startLoc);
+					return new Y(this, this.state.start, this.state.startLoc);
 				}, e.prototype.startNodeAt = function (t, e) {
-					return new Q(this, t, e);
+					return new Y(this, t, e);
 				}, e.prototype.finishNode = function (t, e) {
 					return this.finishNodeAt(t, e, this.state.lastTokEnd, this.state.lastTokEndLoc);
 				}, e.prototype.finishNodeAt = function (t, e, s, i) {
@@ -1042,8 +1057,8 @@ var babylon = function () {
 				}, e.prototype.resetStartLocationFromNode = function (t, e) {
 					t.start = e.start, t.loc.start = e.loc.start, this.options.ranges && (t.range[0] = e.range[0]);
 				}, e;
-			}(K))))),
-			    et = function et(t) {
+			}(z))))),
+			    st = function st(t) {
 				return function (t) {
 					function e() {
 						return g(this, e), P(this, t.apply(this, arguments));
@@ -1065,15 +1080,12 @@ var babylon = function () {
 						var e = "get" === t.kind ? 0 : 1;if (t.value.params.length !== e) {
 							var s = t.start;"get" === t.kind ? this.raise(s, "getter should have no params") : this.raise(s, "setter should have exactly one param");
 						}
-					}, e.prototype.checkLVal = function (e, s, i) {
-						var r,
-						    a = this;switch (e.type) {case "ObjectPattern":
+					}, e.prototype.checkLVal = function (e, s, i, r) {
+						var a = this;switch (e.type) {case "ObjectPattern":
 								e.properties.forEach(function (t) {
 									a.checkLVal("Property" === t.type ? t.value : t, s, i, "object destructuring pattern");
 								});break;default:
-								for (var n = arguments.length, o = Array(n > 3 ? n - 3 : 0), h = 3; h < n; h++) {
-									o[h - 3] = arguments[h];
-								}(r = t.prototype.checkLVal).call.apply(r, [this, e, s, i].concat(o));}
+								t.prototype.checkLVal.call(this, e, s, i, r);}
 					}, e.prototype.checkPropClash = function (t, e) {
 						if (!t.computed && u(t)) {
 							var s = t.key;"__proto__" === ("Identifier" === s.type ? s.name : String(s.value)) && (e.proto && this.raise(s.start, "Redefinition of __proto__ property"), e.proto = !0);
@@ -1088,61 +1100,47 @@ var babylon = function () {
 						}return !1;
 					}, e.prototype.isValidDirective = function (t) {
 						return !("ExpressionStatement" !== t.type || "Literal" !== t.expression.type || "string" != typeof t.expression.value || t.expression.extra && t.expression.extra.parenthesized);
-					}, e.prototype.parseBlockBody = function (e) {
-						for (var s, i = this, r = arguments.length, a = Array(r > 1 ? r - 1 : 0), n = 1; n < r; n++) {
-							a[n - 1] = arguments[n];
-						}(s = t.prototype.parseBlockBody).call.apply(s, [this, e].concat(a));var o = e.directives.map(function (t) {
-							return i.directiveToStmt(t);
-						});e.body = o.concat(e.body), delete e.directives;
-					}, e.prototype.parseClassMethod = function (e) {
-						for (var s, i = arguments.length, r = Array(i > 1 ? i - 1 : 0), a = 1; a < i; a++) {
-							r[a - 1] = arguments[a];
-						}(s = t.prototype.parseClassMethod).call.apply(s, [this, e].concat(r));var n = e.body;n[n.length - 1].type = "MethodDefinition";
-					}, e.prototype.parseExprAtom = function () {
-						var e;switch (this.state.type) {case C.regexp:
+					}, e.prototype.stmtToDirective = function (e) {
+						var s = t.prototype.stmtToDirective.call(this, e),
+						    i = e.expression.value;return s.value.value = i, s;
+					}, e.prototype.parseBlockBody = function (e, s, i, r) {
+						var a = this;t.prototype.parseBlockBody.call(this, e, s, i, r);var n = e.directives.map(function (t) {
+							return a.directiveToStmt(t);
+						});e.body = n.concat(e.body), delete e.directives;
+					}, e.prototype.parseClassMethod = function (t, e, s, i) {
+						this.parseMethod(e, s, i), t.body.push(this.finishNode(e, "MethodDefinition"));
+					}, e.prototype.parseExprAtom = function (e) {
+						switch (this.state.type) {case C.regexp:
 								return this.estreeParseRegExpLiteral(this.state.value);case C.num:case C.string:
 								return this.estreeParseLiteral(this.state.value);case C._null:
 								return this.estreeParseLiteral(null);case C._true:
 								return this.estreeParseLiteral(!0);case C._false:
 								return this.estreeParseLiteral(!1);default:
-								for (var s = arguments.length, i = Array(s), r = 0; r < s; r++) {
-									i[r] = arguments[r];
-								}return (e = t.prototype.parseExprAtom).call.apply(e, [this].concat(i));}
-					}, e.prototype.parseLiteral = function () {
-						for (var e, s = arguments.length, i = Array(s), r = 0; r < s; r++) {
-							i[r] = arguments[r];
-						}var a = (e = t.prototype.parseLiteral).call.apply(e, [this].concat(i));return a.raw = a.extra.raw, delete a.extra, a;
-					}, e.prototype.parseMethod = function (e) {
-						var s,
-						    i = this.startNode();i.kind = e.kind;for (var r = arguments.length, a = Array(r > 1 ? r - 1 : 0), n = 1; n < r; n++) {
-							a[n - 1] = arguments[n];
-						}return i = (s = t.prototype.parseMethod).call.apply(s, [this, i].concat(a)), delete i.kind, e.value = this.finishNode(i, "FunctionExpression"), e;
-					}, e.prototype.parseObjectMethod = function () {
-						for (var e, s = arguments.length, i = Array(s), r = 0; r < s; r++) {
-							i[r] = arguments[r];
-						}var a = (e = t.prototype.parseObjectMethod).call.apply(e, [this].concat(i));return a && ("method" === a.kind && (a.kind = "init"), a.type = "Property"), a;
-					}, e.prototype.parseObjectProperty = function () {
-						for (var e, s = arguments.length, i = Array(s), r = 0; r < s; r++) {
-							i[r] = arguments[r];
-						}var a = (e = t.prototype.parseObjectProperty).call.apply(e, [this].concat(i));return a && (a.kind = "init", a.type = "Property"), a;
-					}, e.prototype.toAssignable = function (e, s) {
-						for (var i, r = arguments.length, a = Array(r > 2 ? r - 2 : 0), n = 2; n < r; n++) {
-							a[n - 2] = arguments[n];
-						}if (u(e)) return this.toAssignable.apply(this, [e.value, s].concat(a)), e;if ("ObjectExpression" === e.type) {
-							e.type = "ObjectPattern";for (var o = e.properties, h = Array.isArray(o), p = 0, o = h ? o : o[Symbol.iterator]();;) {
-								var c;if (h) {
-									if (p >= o.length) break;c = o[p++];
+								return t.prototype.parseExprAtom.call(this, e);}
+					}, e.prototype.parseLiteral = function (e, s, i, r) {
+						var a = t.prototype.parseLiteral.call(this, e, s, i, r);return a.raw = a.extra.raw, delete a.extra, a;
+					}, e.prototype.parseMethod = function (e, s, i) {
+						var r = this.startNode();return r.kind = e.kind, r = t.prototype.parseMethod.call(this, r, s, i), delete r.kind, e.value = this.finishNode(r, "FunctionExpression"), e;
+					}, e.prototype.parseObjectMethod = function (e, s, i, r) {
+						var a = t.prototype.parseObjectMethod.call(this, e, s, i, r);return a && ("method" === a.kind && (a.kind = "init"), a.type = "Property"), a;
+					}, e.prototype.parseObjectProperty = function (e, s, i, r, a) {
+						var n = t.prototype.parseObjectProperty.call(this, e, s, i, r, a);return n && (n.kind = "init", n.type = "Property"), n;
+					}, e.prototype.toAssignable = function (e, s, i) {
+						if (u(e)) return this.toAssignable(e.value, s, i), e;if ("ObjectExpression" === e.type) {
+							e.type = "ObjectPattern";for (var r = e.properties, a = Array.isArray(r), n = 0, r = a ? r : r[Symbol.iterator]();;) {
+								var o;if (a) {
+									if (n >= r.length) break;o = r[n++];
 								} else {
-									if ((p = o.next()).done) break;c = p.value;
-								}var l = c;"get" === l.kind || "set" === l.kind ? this.raise(l.key.start, "Object pattern can't contain getter or setter") : l.method ? this.raise(l.key.start, "Object pattern can't contain methods") : this.toAssignable(l, s, "object destructuring pattern");
+									if ((n = r.next()).done) break;o = n.value;
+								}var h = o;"get" === h.kind || "set" === h.kind ? this.raise(h.key.start, "Object pattern can't contain getter or setter") : h.method ? this.raise(h.key.start, "Object pattern can't contain methods") : this.toAssignable(h, s, "object destructuring pattern");
 							}return e;
-						}return (i = t.prototype.toAssignable).call.apply(i, [this, e, s].concat(a));
+						}return t.prototype.toAssignable.call(this, e, s, i);
 					}, e;
 				}(t);
 			},
-			    st = ["any", "mixed", "empty", "bool", "boolean", "number", "string", "void", "null"],
-			    it = { const: "declare export var", let: "declare export var", type: "export type", interface: "export interface" },
-			    rt = function rt(t) {
+			    it = ["any", "mixed", "empty", "bool", "boolean", "number", "string", "void", "null"],
+			    rt = { const: "declare export var", let: "declare export var", type: "export type", interface: "export interface" },
+			    at = function at(t) {
 				return function (t) {
 					function e() {
 						return g(this, e), P(this, t.apply(this, arguments));
@@ -1179,7 +1177,7 @@ var babylon = function () {
 					}, e.prototype.flowParseDeclareExportDeclaration = function (t, e) {
 						if (this.expect(C._export), this.eat(C._default)) return this.match(C._function) || this.match(C._class) ? t.declaration = this.flowParseDeclare(this.startNode()) : (t.declaration = this.flowParseType(), this.semicolon()), t.default = !0, this.finishNode(t, "DeclareExportDeclaration");if (this.match(C._const) || this.match(C._let) || (this.isContextual("type") || this.isContextual("interface")) && !e) {
 							var s = this.state.value,
-							    i = it[s];this.unexpected(this.state.start, "`declare export " + s + "` is not supported. Use `" + i + "` instead");
+							    i = rt[s];this.unexpected(this.state.start, "`declare export " + s + "` is not supported. Use `" + i + "` instead");
 						}if (this.match(C._var) || this.match(C._function) || this.match(C._class)) return t.declaration = this.flowParseDeclare(this.startNode()), t.default = !1, this.finishNode(t, "DeclareExportDeclaration");if (this.match(C.star) || this.match(C.braceL) || this.isContextual("interface") || this.isContextual("type")) return "ExportNamedDeclaration" === (t = this.parseExport(t)).type && (t.type = "ExportDeclaration", t.default = !1, delete t.exportKind), t.type = "Declare" + t.type, t;throw this.unexpected();
 					}, e.prototype.flowParseDeclareModuleExports = function (t) {
 						return this.expectContextual("module"), this.expect(C.dot), this.expectContextual("exports"), t.typeAnnotation = this.flowParseTypeAnnotation(), this.semicolon(), this.finishNode(t, "DeclareModuleExports");
@@ -1200,7 +1198,7 @@ var babylon = function () {
 					}, e.prototype.flowParseInterface = function (t) {
 						return this.flowParseInterfaceish(t), this.finishNode(t, "InterfaceDeclaration");
 					}, e.prototype.flowParseRestrictedIdentifier = function (t) {
-						return st.indexOf(this.state.value) > -1 && this.raise(this.state.start, "Cannot overwrite primitive type " + this.state.value), this.parseIdentifier(t);
+						return it.indexOf(this.state.value) > -1 && this.raise(this.state.start, "Cannot overwrite primitive type " + this.state.value), this.parseIdentifier(t);
 					}, e.prototype.flowParseTypeAlias = function (t) {
 						return t.id = this.flowParseRestrictedIdentifier(), this.isRelational("<") ? t.typeParameters = this.flowParseTypeParameterDeclaration() : t.typeParameters = null, t.right = this.flowParseTypeInitialiser(C.eq), this.semicolon(), this.finishNode(t, "TypeAlias");
 					}, e.prototype.flowParseTypeParameter = function () {
@@ -1264,7 +1262,7 @@ var babylon = function () {
 						    i = this.startNode(),
 						    r = this.lookahead();return r.type === C.colon || r.type === C.question ? (t = this.parseIdentifier(), this.eat(C.question) && (e = !0), s = this.flowParseTypeInitialiser()) : s = this.flowParseType(), i.name = t, i.optional = e, i.typeAnnotation = s, this.finishNode(i, "FunctionTypeParam");
 					}, e.prototype.reinterpretTypeAsFunctionTypeParam = function (t) {
-						var e = this.startNodeAt(t.start, t.loc);return e.name = null, e.optional = !1, e.typeAnnotation = t, this.finishNode(e, "FunctionTypeParam");
+						var e = this.startNodeAt(t.start, t.loc.start);return e.name = null, e.optional = !1, e.typeAnnotation = t, this.finishNode(e, "FunctionTypeParam");
 					}, e.prototype.flowParseFunctionTypeParams = function () {
 						for (var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : [], e = null; !this.match(C.parenR) && !this.match(C.ellipsis);) {
 							t.push(this.flowParseFunctionTypeParam()), this.match(C.parenR) || this.expect(C.comma);
@@ -1313,7 +1311,7 @@ var babylon = function () {
 						var t = this.startNode();return this.eat(C.question) ? (t.typeAnnotation = this.flowParsePrefixType(), this.finishNode(t, "NullableTypeAnnotation")) : this.flowParsePostfixType();
 					}, e.prototype.flowParseAnonFunctionWithoutParens = function () {
 						var t = this.flowParsePrefixType();if (!this.state.noAnonFunctionType && this.eat(C.arrow)) {
-							var e = this.startNodeAt(t.start, t.loc);return e.params = [this.reinterpretTypeAsFunctionTypeParam(t)], e.rest = null, e.returnType = this.flowParseType(), e.typeParameters = null, this.finishNode(e, "FunctionTypeAnnotation");
+							var e = this.startNodeAt(t.start, t.loc.start);return e.params = [this.reinterpretTypeAsFunctionTypeParam(t)], e.rest = null, e.returnType = this.flowParseType(), e.typeParameters = null, this.finishNode(e, "FunctionTypeAnnotation");
 						}return t;
 					}, e.prototype.flowParseIntersectionType = function () {
 						var t = this.startNode();this.eat(C.bitwiseAND);var e = this.flowParseAnonFunctionWithoutParens();for (t.types = [e]; this.eat(C.bitwiseAND);) {
@@ -1372,10 +1370,8 @@ var babylon = function () {
 						}if (this.isContextual("interface")) {
 							e.exportKind = "type";var i = this.startNode();return this.next(), this.flowParseInterface(i);
 						}return t.prototype.parseExportDeclaration.call(this, e);
-					}, e.prototype.parseClassId = function (e) {
-						for (var s, i = arguments.length, r = Array(i > 1 ? i - 1 : 0), a = 1; a < i; a++) {
-							r[a - 1] = arguments[a];
-						}(s = t.prototype.parseClassId).call.apply(s, [this, e].concat(r)), this.isRelational("<") && (e.typeParameters = this.flowParseTypeParameterDeclaration());
+					}, e.prototype.parseClassId = function (e, s, i) {
+						t.prototype.parseClassId.call(this, e, s, i), this.isRelational("<") && (e.typeParameters = this.flowParseTypeParameterDeclaration());
 					}, e.prototype.isKeyword = function (e) {
 						return (!this.state.inType || "void" !== e) && t.prototype.isKeyword.call(this, e);
 					}, e.prototype.readToken = function (e) {
@@ -1390,16 +1386,11 @@ var babylon = function () {
 						for (var e = 0; e < t.length; e++) {
 							var s = t[e];s && s._exprListItem && "TypeCastExpression" === s.type && this.raise(s.start, "Unexpected type cast");
 						}return t;
-					}, e.prototype.parseExprListItem = function () {
-						for (var e, s = this.startNode(), i = arguments.length, r = Array(i), a = 0; a < i; a++) {
-							r[a] = arguments[a];
-						}var n = (e = t.prototype.parseExprListItem).call.apply(e, [this].concat(r));return this.match(C.colon) ? (s._exprListItem = !0, s.expression = n, s.typeAnnotation = this.flowParseTypeAnnotation(), this.finishNode(s, "TypeCastExpression")) : n;
-					}, e.prototype.checkLVal = function (e) {
-						if ("TypeCastExpression" !== e.type) {
-							for (var s, i = arguments.length, r = Array(i > 1 ? i - 1 : 0), a = 1; a < i; a++) {
-								r[a - 1] = arguments[a];
-							}return (s = t.prototype.checkLVal).call.apply(s, [this, e].concat(r));
-						}
+					}, e.prototype.parseExprListItem = function (e, s, i) {
+						var r = this.startNode(),
+						    a = t.prototype.parseExprListItem.call(this, e, s, i);return this.match(C.colon) ? (r._exprListItem = !0, r.expression = a, r.typeAnnotation = this.flowParseTypeAnnotation(), this.finishNode(r, "TypeCastExpression")) : a;
+					}, e.prototype.checkLVal = function (e, s, i, r) {
+						if ("TypeCastExpression" !== e.type) return t.prototype.checkLVal.call(this, e, s, i, r);
 					}, e.prototype.parseClassProperty = function (e) {
 						return this.match(C.colon) && (e.typeAnnotation = this.flowParseTypeAnnotation()), t.prototype.parseClassProperty.call(this, e);
 					}, e.prototype.isClassMethod = function () {
@@ -1408,29 +1399,23 @@ var babylon = function () {
 						return this.match(C.colon) || t.prototype.isClassProperty.call(this);
 					}, e.prototype.isNonstaticConstructor = function (e) {
 						return !this.match(C.colon) && t.prototype.isNonstaticConstructor.call(this, e);
-					}, e.prototype.parseClassMethod = function (e, s) {
-						var i;s.variance && this.unexpected(s.variance.start), delete s.variance, this.isRelational("<") && (s.typeParameters = this.flowParseTypeParameterDeclaration());for (var r = arguments.length, a = Array(r > 2 ? r - 2 : 0), n = 2; n < r; n++) {
-							a[n - 2] = arguments[n];
-						}(i = t.prototype.parseClassMethod).call.apply(i, [this, e, s].concat(a));
-					}, e.prototype.parseClassSuper = function (e, s) {
-						if (t.prototype.parseClassSuper.call(this, e, s), e.superClass && this.isRelational("<") && (e.superTypeParameters = this.flowParseTypeParameterInstantiation()), this.isContextual("implements")) {
-							this.next();var i = e.implements = [];do {
-								var r = this.startNode();r.id = this.parseIdentifier(), this.isRelational("<") ? r.typeParameters = this.flowParseTypeParameterInstantiation() : r.typeParameters = null, i.push(this.finishNode(r, "ClassImplements"));
+					}, e.prototype.parseClassMethod = function (e, s, i, r) {
+						s.variance && this.unexpected(s.variance.start), delete s.variance, this.isRelational("<") && (s.typeParameters = this.flowParseTypeParameterDeclaration()), t.prototype.parseClassMethod.call(this, e, s, i, r);
+					}, e.prototype.parseClassSuper = function (e) {
+						if (t.prototype.parseClassSuper.call(this, e), e.superClass && this.isRelational("<") && (e.superTypeParameters = this.flowParseTypeParameterInstantiation()), this.isContextual("implements")) {
+							this.next();var s = e.implements = [];do {
+								var i = this.startNode();i.id = this.parseIdentifier(), this.isRelational("<") ? i.typeParameters = this.flowParseTypeParameterInstantiation() : i.typeParameters = null, s.push(this.finishNode(i, "ClassImplements"));
 							} while (this.eat(C.comma));
 						}
 					}, e.prototype.parsePropertyName = function (e) {
 						var s = this.flowParseVariance(),
 						    i = t.prototype.parsePropertyName.call(this, e);return e.variance = s, i;
-					}, e.prototype.parseObjPropValue = function (e) {
-						var s;e.variance && this.unexpected(e.variance.start), delete e.variance;var i = void 0;this.isRelational("<") && (i = this.flowParseTypeParameterDeclaration(), this.match(C.parenL) || this.unexpected());for (var r = arguments.length, a = Array(r > 1 ? r - 1 : 0), n = 1; n < r; n++) {
-							a[n - 1] = arguments[n];
-						}(s = t.prototype.parseObjPropValue).call.apply(s, [this, e].concat(a)), i && ((e.value || e).typeParameters = i);
+					}, e.prototype.parseObjPropValue = function (e, s, i, r, a, n, o) {
+						e.variance && this.unexpected(e.variance.start), delete e.variance;var h = void 0;this.isRelational("<") && (h = this.flowParseTypeParameterDeclaration(), this.match(C.parenL) || this.unexpected()), t.prototype.parseObjPropValue.call(this, e, s, i, r, a, n, o), h && ((e.value || e).typeParameters = h);
 					}, e.prototype.parseAssignableListItemTypes = function (t) {
 						return this.eat(C.question) && (t.optional = !0), this.match(C.colon) && (t.typeAnnotation = this.flowParseTypeAnnotation()), this.finishNode(t, t.type), t;
-					}, e.prototype.parseMaybeDefault = function () {
-						for (var e, s = arguments.length, i = Array(s), r = 0; r < s; r++) {
-							i[r] = arguments[r];
-						}var a = (e = t.prototype.parseMaybeDefault).call.apply(e, [this].concat(i));return "AssignmentPattern" === a.type && a.typeAnnotation && a.right.start < a.typeAnnotation.start && this.raise(a.typeAnnotation.start, "Type annotations must come before default assignments, e.g. instead of `age = 25: number` use `age: number = 25`"), a;
+					}, e.prototype.parseMaybeDefault = function (e, s, i) {
+						var r = t.prototype.parseMaybeDefault.call(this, e, s, i);return "AssignmentPattern" === r.type && r.typeAnnotation && r.right.start < r.typeAnnotation.start && this.raise(r.typeAnnotation.start, "Type annotations must come before default assignments, e.g. instead of `age = 25: number` use `age: number = 25`"), r;
 					}, e.prototype.parseImportSpecifiers = function (e) {
 						e.importKind = "value";var s = null;if (this.match(C._typeof) ? s = "typeof" : this.isContextual("type") && (s = "type"), s) {
 							var i = this.lookahead();(i.type === C.name && "from" !== i.value || i.type === C.braceL || i.type === C.star) && (this.next(), e.importKind = s);
@@ -1452,23 +1437,21 @@ var babylon = function () {
 						}return t.prototype.parseAsyncArrowFromCallExpression.call(this, e, s);
 					}, e.prototype.shouldParseAsyncArrow = function () {
 						return this.match(C.colon) || t.prototype.shouldParseAsyncArrow.call(this);
-					}, e.prototype.parseMaybeAssign = function () {
-						for (var e, s = null, i = arguments.length, r = Array(i), a = 0; a < i; a++) {
-							r[a] = arguments[a];
-						}if (C.jsxTagStart && this.match(C.jsxTagStart)) {
+					}, e.prototype.parseMaybeAssign = function (e, s, i, r) {
+						var a = null;if (C.jsxTagStart && this.match(C.jsxTagStart)) {
 							var n = this.state.clone();try {
-								var o;return (o = t.prototype.parseMaybeAssign).call.apply(o, [this].concat(r));
+								return t.prototype.parseMaybeAssign.call(this, e, s, i, r);
 							} catch (t) {
-								if (!(t instanceof SyntaxError)) throw t;this.state = n, this.state.context.length -= 2, s = t;
+								if (!(t instanceof SyntaxError)) throw t;this.state = n, this.state.context.length -= 2, a = t;
 							}
-						}if (null != s || this.isRelational("<")) {
-							var h = void 0,
-							    p = void 0;try {
-								var c;p = this.flowParseTypeParameterDeclaration(), (h = (c = t.prototype.parseMaybeAssign).call.apply(c, [this].concat(r))).typeParameters = p, this.resetStartLocationFromNode(h, p);
+						}if (null != a || this.isRelational("<")) {
+							var o = void 0,
+							    h = void 0;try {
+								h = this.flowParseTypeParameterDeclaration(), (o = t.prototype.parseMaybeAssign.call(this, e, s, i, r)).typeParameters = h, this.resetStartLocationFromNode(o, h);
 							} catch (t) {
-								throw s || t;
-							}if ("ArrowFunctionExpression" === h.type) return h;if (null != s) throw s;this.raise(p.start, "Expected an arrow function after this type parameter declaration");
-						}return (e = t.prototype.parseMaybeAssign).call.apply(e, [this].concat(r));
+								throw a || t;
+							}if ("ArrowFunctionExpression" === o.type) return o;if (null != a) throw a;this.raise(h.start, "Expected an arrow function after this type parameter declaration");
+						}return t.prototype.parseMaybeAssign.call(this, e, s, i, r);
 					}, e.prototype.parseArrow = function (e) {
 						if (this.match(C.colon)) {
 							var s = this.state.clone();try {
@@ -1483,13 +1466,13 @@ var babylon = function () {
 					}, e;
 				}(t);
 			},
-			    at = { quot: '"', amp: "&", apos: "'", lt: "<", gt: ">", nbsp: " ", iexcl: "¡", cent: "¢", pound: "£", curren: "¤", yen: "¥", brvbar: "¦", sect: "§", uml: "¨", copy: "©", ordf: "ª", laquo: "«", not: "¬", shy: "­", reg: "®", macr: "¯", deg: "°", plusmn: "±", sup2: "²", sup3: "³", acute: "´", micro: "µ", para: "¶", middot: "·", cedil: "¸", sup1: "¹", ordm: "º", raquo: "»", frac14: "¼", frac12: "½", frac34: "¾", iquest: "¿", Agrave: "À", Aacute: "Á", Acirc: "Â", Atilde: "Ã", Auml: "Ä", Aring: "Å", AElig: "Æ", Ccedil: "Ç", Egrave: "È", Eacute: "É", Ecirc: "Ê", Euml: "Ë", Igrave: "Ì", Iacute: "Í", Icirc: "Î", Iuml: "Ï", ETH: "Ð", Ntilde: "Ñ", Ograve: "Ò", Oacute: "Ó", Ocirc: "Ô", Otilde: "Õ", Ouml: "Ö", times: "×", Oslash: "Ø", Ugrave: "Ù", Uacute: "Ú", Ucirc: "Û", Uuml: "Ü", Yacute: "Ý", THORN: "Þ", szlig: "ß", agrave: "à", aacute: "á", acirc: "â", atilde: "ã", auml: "ä", aring: "å", aelig: "æ", ccedil: "ç", egrave: "è", eacute: "é", ecirc: "ê", euml: "ë", igrave: "ì", iacute: "í", icirc: "î", iuml: "ï", eth: "ð", ntilde: "ñ", ograve: "ò", oacute: "ó", ocirc: "ô", otilde: "õ", ouml: "ö", divide: "÷", oslash: "ø", ugrave: "ù", uacute: "ú", ucirc: "û", uuml: "ü", yacute: "ý", thorn: "þ", yuml: "ÿ", OElig: "Œ", oelig: "œ", Scaron: "Š", scaron: "š", Yuml: "Ÿ", fnof: "ƒ", circ: "ˆ", tilde: "˜", Alpha: "Α", Beta: "Β", Gamma: "Γ", Delta: "Δ", Epsilon: "Ε", Zeta: "Ζ", Eta: "Η", Theta: "Θ", Iota: "Ι", Kappa: "Κ", Lambda: "Λ", Mu: "Μ", Nu: "Ν", Xi: "Ξ", Omicron: "Ο", Pi: "Π", Rho: "Ρ", Sigma: "Σ", Tau: "Τ", Upsilon: "Υ", Phi: "Φ", Chi: "Χ", Psi: "Ψ", Omega: "Ω", alpha: "α", beta: "β", gamma: "γ", delta: "δ", epsilon: "ε", zeta: "ζ", eta: "η", theta: "θ", iota: "ι", kappa: "κ", lambda: "λ", mu: "μ", nu: "ν", xi: "ξ", omicron: "ο", pi: "π", rho: "ρ", sigmaf: "ς", sigma: "σ", tau: "τ", upsilon: "υ", phi: "φ", chi: "χ", psi: "ψ", omega: "ω", thetasym: "ϑ", upsih: "ϒ", piv: "ϖ", ensp: " ", emsp: " ", thinsp: " ", zwnj: "‌", zwj: "‍", lrm: "‎", rlm: "‏", ndash: "–", mdash: "—", lsquo: "‘", rsquo: "’", sbquo: "‚", ldquo: "“", rdquo: "”", bdquo: "„", dagger: "†", Dagger: "‡", bull: "•", hellip: "…", permil: "‰", prime: "′", Prime: "″", lsaquo: "‹", rsaquo: "›", oline: "‾", frasl: "⁄", euro: "€", image: "ℑ", weierp: "℘", real: "ℜ", trade: "™", alefsym: "ℵ", larr: "←", uarr: "↑", rarr: "→", darr: "↓", harr: "↔", crarr: "↵", lArr: "⇐", uArr: "⇑", rArr: "⇒", dArr: "⇓", hArr: "⇔", forall: "∀", part: "∂", exist: "∃", empty: "∅", nabla: "∇", isin: "∈", notin: "∉", ni: "∋", prod: "∏", sum: "∑", minus: "−", lowast: "∗", radic: "√", prop: "∝", infin: "∞", ang: "∠", and: "∧", or: "∨", cap: "∩", cup: "∪", int: "∫", there4: "∴", sim: "∼", cong: "≅", asymp: "≈", ne: "≠", equiv: "≡", le: "≤", ge: "≥", sub: "⊂", sup: "⊃", nsub: "⊄", sube: "⊆", supe: "⊇", oplus: "⊕", otimes: "⊗", perp: "⊥", sdot: "⋅", lceil: "⌈", rceil: "⌉", lfloor: "⌊", rfloor: "⌋", lang: "〈", rang: "〉", loz: "◊", spades: "♠", clubs: "♣", hearts: "♥", diams: "♦" },
-			    nt = /^[\da-fA-F]+$/,
-			    ot = /^\d+$/;V.j_oTag = new q("<tag", !1), V.j_cTag = new q("</tag", !1), V.j_expr = new q("<tag>...</tag>", !0, !0), C.jsxName = new k("jsxName"), C.jsxText = new k("jsxText", { beforeExpr: !0 }), C.jsxTagStart = new k("jsxTagStart", { startsExpr: !0 }), C.jsxTagEnd = new k("jsxTagEnd"), C.jsxTagStart.updateContext = function () {
+			    nt = { quot: '"', amp: "&", apos: "'", lt: "<", gt: ">", nbsp: " ", iexcl: "¡", cent: "¢", pound: "£", curren: "¤", yen: "¥", brvbar: "¦", sect: "§", uml: "¨", copy: "©", ordf: "ª", laquo: "«", not: "¬", shy: "­", reg: "®", macr: "¯", deg: "°", plusmn: "±", sup2: "²", sup3: "³", acute: "´", micro: "µ", para: "¶", middot: "·", cedil: "¸", sup1: "¹", ordm: "º", raquo: "»", frac14: "¼", frac12: "½", frac34: "¾", iquest: "¿", Agrave: "À", Aacute: "Á", Acirc: "Â", Atilde: "Ã", Auml: "Ä", Aring: "Å", AElig: "Æ", Ccedil: "Ç", Egrave: "È", Eacute: "É", Ecirc: "Ê", Euml: "Ë", Igrave: "Ì", Iacute: "Í", Icirc: "Î", Iuml: "Ï", ETH: "Ð", Ntilde: "Ñ", Ograve: "Ò", Oacute: "Ó", Ocirc: "Ô", Otilde: "Õ", Ouml: "Ö", times: "×", Oslash: "Ø", Ugrave: "Ù", Uacute: "Ú", Ucirc: "Û", Uuml: "Ü", Yacute: "Ý", THORN: "Þ", szlig: "ß", agrave: "à", aacute: "á", acirc: "â", atilde: "ã", auml: "ä", aring: "å", aelig: "æ", ccedil: "ç", egrave: "è", eacute: "é", ecirc: "ê", euml: "ë", igrave: "ì", iacute: "í", icirc: "î", iuml: "ï", eth: "ð", ntilde: "ñ", ograve: "ò", oacute: "ó", ocirc: "ô", otilde: "õ", ouml: "ö", divide: "÷", oslash: "ø", ugrave: "ù", uacute: "ú", ucirc: "û", uuml: "ü", yacute: "ý", thorn: "þ", yuml: "ÿ", OElig: "Œ", oelig: "œ", Scaron: "Š", scaron: "š", Yuml: "Ÿ", fnof: "ƒ", circ: "ˆ", tilde: "˜", Alpha: "Α", Beta: "Β", Gamma: "Γ", Delta: "Δ", Epsilon: "Ε", Zeta: "Ζ", Eta: "Η", Theta: "Θ", Iota: "Ι", Kappa: "Κ", Lambda: "Λ", Mu: "Μ", Nu: "Ν", Xi: "Ξ", Omicron: "Ο", Pi: "Π", Rho: "Ρ", Sigma: "Σ", Tau: "Τ", Upsilon: "Υ", Phi: "Φ", Chi: "Χ", Psi: "Ψ", Omega: "Ω", alpha: "α", beta: "β", gamma: "γ", delta: "δ", epsilon: "ε", zeta: "ζ", eta: "η", theta: "θ", iota: "ι", kappa: "κ", lambda: "λ", mu: "μ", nu: "ν", xi: "ξ", omicron: "ο", pi: "π", rho: "ρ", sigmaf: "ς", sigma: "σ", tau: "τ", upsilon: "υ", phi: "φ", chi: "χ", psi: "ψ", omega: "ω", thetasym: "ϑ", upsih: "ϒ", piv: "ϖ", ensp: " ", emsp: " ", thinsp: " ", zwnj: "‌", zwj: "‍", lrm: "‎", rlm: "‏", ndash: "–", mdash: "—", lsquo: "‘", rsquo: "’", sbquo: "‚", ldquo: "“", rdquo: "”", bdquo: "„", dagger: "†", Dagger: "‡", bull: "•", hellip: "…", permil: "‰", prime: "′", Prime: "″", lsaquo: "‹", rsaquo: "›", oline: "‾", frasl: "⁄", euro: "€", image: "ℑ", weierp: "℘", real: "ℜ", trade: "™", alefsym: "ℵ", larr: "←", uarr: "↑", rarr: "→", darr: "↓", harr: "↔", crarr: "↵", lArr: "⇐", uArr: "⇑", rArr: "⇒", dArr: "⇓", hArr: "⇔", forall: "∀", part: "∂", exist: "∃", empty: "∅", nabla: "∇", isin: "∈", notin: "∉", ni: "∋", prod: "∏", sum: "∑", minus: "−", lowast: "∗", radic: "√", prop: "∝", infin: "∞", ang: "∠", and: "∧", or: "∨", cap: "∩", cup: "∪", int: "∫", there4: "∴", sim: "∼", cong: "≅", asymp: "≈", ne: "≠", equiv: "≡", le: "≤", ge: "≥", sub: "⊂", sup: "⊃", nsub: "⊄", sube: "⊆", supe: "⊇", oplus: "⊕", otimes: "⊗", perp: "⊥", sdot: "⋅", lceil: "⌈", rceil: "⌉", lfloor: "⌊", rfloor: "⌋", lang: "〈", rang: "〉", loz: "◊", spades: "♠", clubs: "♣", hearts: "♥", diams: "♦" },
+			    ot = /^[\da-fA-F]+$/,
+			    ht = /^\d+$/;V.j_oTag = new q("<tag", !1), V.j_cTag = new q("</tag", !1), V.j_expr = new q("<tag>...</tag>", !0, !0), C.jsxName = new k("jsxName"), C.jsxText = new k("jsxText", { beforeExpr: !0 }), C.jsxTagStart = new k("jsxTagStart", { startsExpr: !0 }), C.jsxTagEnd = new k("jsxTagEnd"), C.jsxTagStart.updateContext = function () {
 				this.state.context.push(V.j_expr), this.state.context.push(V.j_oTag), this.state.exprAllowed = !1;
 			}, C.jsxTagEnd.updateContext = function (t) {
 				var e = this.state.context.pop();e === V.j_oTag && t === C.slash || e === V.j_cTag ? (this.state.context.pop(), this.state.exprAllowed = this.curContext() === V.j_expr) : this.state.exprAllowed = !0;
-			};var ht = function ht(t) {
+			};var pt = function pt(t) {
 				return function (t) {
 					function e() {
 						return g(this, e), P(this, t.apply(this, arguments));
@@ -1510,7 +1493,7 @@ var babylon = function () {
 					}, e.prototype.jsxReadEntity = function () {
 						for (var t = "", e = 0, s = void 0, i = this.input[this.state.pos], r = ++this.state.pos; this.state.pos < this.input.length && e++ < 10;) {
 							if (";" === (i = this.input[this.state.pos++])) {
-								"#" === t[0] ? "x" === t[1] ? (t = t.substr(2), nt.test(t) && (s = String.fromCodePoint(parseInt(t, 16)))) : (t = t.substr(1), ot.test(t) && (s = String.fromCodePoint(parseInt(t, 10)))) : s = at[t];break;
+								"#" === t[0] ? "x" === t[1] ? (t = t.substr(2), ot.test(t) && (s = String.fromCodePoint(parseInt(t, 16)))) : (t = t.substr(1), ht.test(t) && (s = String.fromCodePoint(parseInt(t, 10)))) : s = nt[t];break;
 							}t += i;
 						}return s || (this.state.pos = r, "&");
 					}, e.prototype.jsxReadWord = function () {
@@ -1579,7 +1562,7 @@ var babylon = function () {
 						}
 					}, e;
 				}(t);
-			};Z.estree = et, Z.flow = rt, Z.jsx = ht;var pt = {};e.parse = m, e.parseExpression = y, e.tokTypes = C;
+			};tt.estree = st, tt.flow = at, tt.jsx = pt;var ct = {};e.parse = m, e.parseExpression = y, e.tokTypes = C;
 		});var createError = parserCreateError;var parserBabylon = parse;module.exports = parserBabylon;
 	});
 

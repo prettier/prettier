@@ -2,7 +2,28 @@
 /* eslint no-var: off, strict: off, prefer-arrow-callback: off */
 /* global CodeMirror prettierVersion */
 
-(function() {
+var state = (function loadState(hash) {
+  try {
+    return JSON.parse(hash);
+  } catch (error) {
+    return {
+      options: undefined,
+      content:
+        'hello ( "world"\n);\n\n' +
+          '[ "lorem", "ipsum", \'dolor\', sit("amet"), consectetur[ \'adipiscing\' ] + "elit" ].reduce(\n  (first, second) => first + second,\n  "")\n\n' +
+          "const Foo = ({ bar, baz, things }) => {\n" +
+          '  return <div style={{\ncolor: "papayawhip"}}>\n' +
+          "    <br/>{things.map(thing => reallyLongPleaseDontPutOnOneLine(thing) ? <p>{ok}</p> : <Quax bar={bar} baz={ baz } {...thing}></Quax>)\n" +
+          "  }</div>}"
+    };
+  }
+})(decodeURIComponent(location.hash.slice(1)));
+
+var worker = new Worker("./worker.js");
+// Warm up the worker (load the current parser while CodeMirror loads)
+worker.postMessage({ text: "", options: state.options });
+
+window.onload = function() {
   var OPTIONS = [
     "printWidth",
     "tabWidth",
@@ -13,8 +34,11 @@
     "parser",
     "semi",
     "useTabs",
-    "doc"
+    "doc",
+    "ast"
   ];
+  state.options && setOptions(state.options);
+
   function setOptions(options) {
     OPTIONS.forEach(function(option) {
       var elem = document.getElementById(option);
@@ -45,12 +69,6 @@
     return options;
   }
 
-  function omitNonFormatterOptions(options) {
-    var optionsClone = Object.assign({}, options);
-    delete optionsClone.doc;
-    return optionsClone;
-  }
-
   function replaceHash(hash) {
     if (
       typeof URL === "function" &&
@@ -68,12 +86,13 @@
   function formatAsync() {
     var options = getOptions();
 
-    [docEditor, outputEditor].forEach(function(editor) {
-      editor.setOption("rulers", [
-        { column: options.printWidth, color: "#444444" }
-      ]);
-    });
-    document.getElementsByClassName("doc")[0].style.display = options.doc
+    outputEditor.setOption("rulers", [
+      { column: options.printWidth, color: "#444444" }
+    ]);
+    document.querySelector(".ast").style.display = options.ast
+      ? "flex"
+      : "none";
+    document.querySelector(".doc").style.display = options.doc
       ? "flex"
       : "none";
 
@@ -83,15 +102,13 @@
       )
     );
     replaceHash(value);
-    var formatterOptions = omitNonFormatterOptions(options);
     worker.postMessage({
       text: inputEditor.getValue(),
-      options: formatterOptions,
+      options: options,
+      ast: options.ast,
       doc: options.doc
     });
   }
-
-  document.querySelector(".options-container").onchange = formatAsync;
 
   var editorOptions = {
     lineNumbers: true,
@@ -112,32 +129,26 @@
     document.getElementById("doc-editor"),
     { readOnly: true, lineNumbers: false, theme: "neat" }
   );
-
+  var astEditor = CodeMirror.fromTextArea(
+    document.getElementById("ast-editor"),
+    { readOnly: true, lineNumbers: false, theme: "neat" }
+  );
   var outputEditor = CodeMirror.fromTextArea(
     document.getElementById("output-editor"),
     { readOnly: true, lineNumbers: true, theme: "neat" }
   );
 
-  var worker = new Worker("./worker.js");
+  Array.from(document.querySelectorAll("textarea")).forEach(function(element) {
+    element.classList.remove("loading");
+  });
+
   worker.onmessage = function(message) {
     outputEditor.setValue(message.data.formatted);
     docEditor.setValue(message.data.doc || "");
+    astEditor.setValue(message.data.ast || "");
   };
 
-  document.getElementsByClassName("version")[0].innerText = prettierVersion;
-
-  try {
-    var json = JSON.parse(decodeURIComponent(location.hash.slice(1)));
-    setOptions(json.options);
-    inputEditor.setValue(json.content);
-  } catch (e) {
-    inputEditor.setValue(
-      'hello ( "world"\n);\n\n' +
-        '[ "lorem", "ipsum", \'dolor\', sit("amet"), consectetur[ \'adipiscing\' ] + "elit" ].reduce(\n  (first, second) => first + second,\n  "")\n\n' +
-        "const Foo = ({ bar, baz, things }) => {\n" +
-        '  return <div style={{\ncolor: "papayawhip"}}>\n' +
-        "    <br/>{things.map(thing => reallyLongPleaseDontPutOnOneLine(thing) ? <p>{ok}</p> : <Quax bar={bar} baz={ baz } {...thing}></Quax>)\n" +
-        "  }</div>}"
-    );
-  }
-})();
+  inputEditor.setValue(state.content);
+  document.querySelector(".options-container").onchange = formatAsync;
+  document.querySelector(".version").innerText = prettierVersion;
+};

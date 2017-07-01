@@ -4,7 +4,7 @@ exports[`color-hex-lowercase.css 1`] = `
 .foo{color:#ABCDEF}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .foo {
-  color: #ABCDEF;
+  color: #abcdef;
 }
 
 `;

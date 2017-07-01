@@ -98,41 +98,20 @@ regression_extra_newline_2 = (
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 keep = (
   <p>
-    Welcome to the <strong>Universal React Starter-kyt</strong>.
-    This starter kyt should serve as the base for an advanced,
-    server-rendered React app.
+    Welcome to the <strong>Universal React Starter-kyt</strong>. This starter
+    kyt should serve as the base for an advanced, server-rendered React app.
   </p>
 );
 
-newlines_text = (
-  <div>
-    hi
-    there
-    how
+newlines_text = <div>hi there how are you are you fine today?</div>;
 
-    are you
-
-    are you fine today?
-  </div>
-);
-
-newlines_text_spaced = (
-  <div>
-
-    space above
-
-    space below
-
-  </div>
-);
+newlines_text_spaced = <div>space above space below</div>;
 
 newlines_elems_spaced = (
   <div>
-
     <span>space above</span>
 
     <span>space below</span>
-
   </div>
 );
 
@@ -140,11 +119,7 @@ newlines_mixed = (
   <div>
     hi
     <span>there</span>
-
-    how
-
-    are <strong>you</strong>
-
+    how are <strong>you</strong>
     are you fine today?
   </div>
 );
@@ -152,19 +127,12 @@ newlines_mixed = (
 newlines_elems = (
   <div>
     <div>
-
       <div />
-
     </div>
-
     hi
-
     <div />
-
     <span />
-
     <Big />
-
   </div>
 );
 
@@ -193,8 +161,6 @@ exports[`windows.js 1`] = `
 Text
 </div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<div>
-  Text
-</div>;
+<div>Text</div>;
 
 `;

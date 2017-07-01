@@ -128,13 +128,7 @@ exports[`expression.js 1`] = `
   value={option}
 />;
 
-<ParentComponent
-  prop={
-    <Child>
-      test
-    </Child>
-  }
-/>;
+<ParentComponent prop={<Child>test</Child>} />;
 
 `;
 
@@ -148,9 +142,7 @@ const aDiv = (
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const aDiv = (
   /* $FlowFixMe */
-  <div className="foo">
-    Foo bar
-  </div>
+  <div className="foo">Foo bar</div>
 );
 
 `;
@@ -283,7 +275,8 @@ onClick={() => {
     a;
   }}
 >
-  {header}{showSort}
+  {header}
+  {showSort}
 </td>;
 
 <td
@@ -359,23 +352,11 @@ const Labels = {
 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const Labels = {
-  label1: (
-    <fbt>
-      Label 1
-    </fbt>
-  ),
+  label1: <fbt>Label 1</fbt>,
 
-  label2: (
-    <fbt>
-      Label 2
-    </fbt>
-  ),
+  label2: <fbt>Label 2</fbt>,
 
-  label3: (
-    <fbt>
-      Label 3
-    </fbt>
-  )
+  label3: <fbt>Label 3</fbt>
 };
 
 `;

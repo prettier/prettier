@@ -35,6 +35,14 @@ function normalize(options) {
     normalized.parser = "parse5";
   } else if (/\.(ts|tsx)$/.test(filepath)) {
     normalized.parser = "typescript";
+  } else if (/\.(graphql|gql)$/.test(filepath)) {
+    normalized.parser = "graphql";
+  } else if (/\.json$/.test(filepath)) {
+    normalized.parser = "json";
+  }
+
+  if (normalized.parser === "json") {
+    normalized.trailingComma = "none";
   }
 
   if (typeof normalized.trailingComma === "boolean") {

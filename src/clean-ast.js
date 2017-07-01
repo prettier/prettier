@@ -74,6 +74,10 @@ function massageAST(ast) {
       newObj.value = newObj.value.replace(/ /g, "");
     }
 
+    if (ast.type === "value-word" && ast.isColor && ast.isHex) {
+      newObj.value = newObj.value.toLowerCase();
+    }
+
     // (TypeScript) Ignore `static` in `constructor(static p) {}`
     // and `export` in `constructor(export p) {}`
     if (
@@ -153,7 +157,9 @@ function massageAST(ast) {
       ast.type === "TaggedTemplateExpression" &&
       (ast.tag.type === "MemberExpression" ||
         (ast.tag.type === "Identifier" &&
-          (ast.tag.name === "gql" || ast.tag.name === "graphql")))
+          (ast.tag.name === "gql" ||
+            ast.tag.name === "graphql" ||
+            ast.tag.name === "css")))
     ) {
       newObj.quasi.quasis.forEach(quasi => delete quasi.value);
     }

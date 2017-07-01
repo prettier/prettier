@@ -24,13 +24,14 @@ function getSortedChildNodes(node, text, resultArray) {
   if (resultArray) {
     if (
       node &&
-      node.type &&
-      node.type !== "CommentBlock" &&
-      node.type !== "CommentLine" &&
-      node.type !== "Line" &&
-      node.type !== "Block" &&
-      node.type !== "EmptyStatement" &&
-      node.type !== "TemplateElement"
+      ((node.type &&
+        node.type !== "CommentBlock" &&
+        node.type !== "CommentLine" &&
+        node.type !== "Line" &&
+        node.type !== "Block" &&
+        node.type !== "EmptyStatement" &&
+        node.type !== "TemplateElement") ||
+        (node.kind && node.kind !== "Comment"))
     ) {
       // This reverse insertion sort almost always takes constant
       // time because we almost always (maybe always?) append the
@@ -279,6 +280,7 @@ function attach(comments, ast, text) {
         ) ||
         handleObjectPropertyAssignment(enclosingNode, precedingNode, comment) ||
         handleCommentInEmptyParens(text, enclosingNode, comment) ||
+        handleMethodNameComments(enclosingNode, precedingNode, comment) ||
         handleOnlyComments(enclosingNode, ast, comment, isLastComment)
       ) {
         // We're good
@@ -548,6 +550,24 @@ function handleObjectPropertyAssignment(enclosingNode, precedingNode, comment) {
   return false;
 }
 
+function handleMethodNameComments(enclosingNode, precedingNode, comment) {
+  // This is only needed for estree parsers (flow, typescript) to attach
+  // after a method name:
+  // obj = { fn /*comment*/() {} };
+  if (
+    enclosingNode &&
+    precedingNode &&
+    (enclosingNode.type === "Property" ||
+      enclosingNode.type === "MethodDefinition") &&
+    precedingNode.type === "Identifier" &&
+    enclosingNode.key === precedingNode
+  ) {
+    addTrailingComment(precedingNode, comment);
+    return true;
+  }
+  return false;
+}
+
 function handleCommentInEmptyParens(text, enclosingNode, comment) {
   if (getNextNonSpaceNonCommentCharacter(text, comment) !== ")") {
     return false;
@@ -808,7 +828,9 @@ function printComment(commentPath, options) {
   const comment = commentPath.getValue();
   comment.printed = true;
 
-  switch (comment.type) {
+  switch (comment.type || comment.kind) {
+    case "Comment":
+      return "#" + comment.value;
     case "CommentBlock":
     case "Block":
       return "/*" + comment.value + "*/";

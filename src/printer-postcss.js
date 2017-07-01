@@ -8,7 +8,11 @@ const line = docBuilders.line;
 const hardline = docBuilders.hardline;
 const softline = docBuilders.softline;
 const group = docBuilders.group;
+const fill = docBuilders.fill;
 const indent = docBuilders.indent;
+
+const docUtils = require("./doc-utils");
+const removeLines = docUtils.removeLines;
 
 function genericPrint(path, options, print) {
   const n = path.getValue();
@@ -69,13 +73,19 @@ function genericPrint(path, options, print) {
         n.value.group.type === "value-value" &&
         n.value.group.group.type === "value-func" &&
         n.value.group.group.value === "extend";
+      const isComposed =
+        n.value.type === "value-root" &&
+        n.value.group.type === "value-value" &&
+        n.prop === "composes";
 
       return concat([
         n.raws.before.replace(/[\s;]/g, ""),
         n.prop,
         ":",
         isValueExtend ? "" : " ",
-        path.call(print, "value"),
+        isComposed
+          ? removeLines(path.call(print, "value"))
+          : path.call(print, "value"),
         n.important ? " !important" : "",
         n.nodes
           ? concat([
@@ -132,7 +142,7 @@ function genericPrint(path, options, print) {
         }
         parts.push(childPath.call(print));
       }, "nodes");
-      return join(", ", parts);
+      return group(indent(join(concat([",", line]), parts)));
     }
     case "media-query": {
       return join(" ", path.map(print, "nodes"));
@@ -246,7 +256,7 @@ function genericPrint(path, options, print) {
         }
       }
 
-      return group(indent(concat(parts)));
+      return group(indent(fill(parts)));
     }
     case "value-paren_group": {
       const parent = path.getParentNode();
@@ -270,9 +280,16 @@ function genericPrint(path, options, print) {
       }
 
       if (!n.open) {
-        return group(
-          indent(join(concat([",", line]), path.map(print, "groups")))
-        );
+        const printed = path.map(print, "groups");
+        const res = [];
+
+        for (let i = 0; i < printed.length; i++) {
+          if (i !== 0) {
+            res.push(concat([",", line]));
+          }
+          res.push(printed[i]);
+        }
+        return group(indent(fill(res)));
       }
 
       return group(
@@ -308,6 +325,9 @@ function genericPrint(path, options, print) {
       return n.value;
     }
     case "value-word": {
+      if (n.isColor && n.isHex) {
+        return n.value.toLowerCase();
+      }
       return n.value;
     }
     case "value-colon": {

@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`composes.css 1`] = `
+.reference {
+  composes: selector from "a/long/file/path/exceeding/the/maximum/length/forcing/a/line-wrap/file.css";
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.reference {
+  composes: selector from "a/long/file/path/exceeding/the/maximum/length/forcing/a/line-wrap/file.css";
+}
+
+`;

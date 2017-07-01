@@ -2444,8 +2444,40 @@ var Container = function (_Node) {
             nodes = cleanSource(parse(nodes).nodes);
         } else if (Array.isArray(nodes)) {
             nodes = nodes.slice(0);
+            for (var _iterator9 = nodes, _isArray9 = Array.isArray(_iterator9), _i9 = 0, _iterator9 = _isArray9 ? _iterator9 : _iterator9[Symbol.iterator]();;) {
+                var _ref9;
+
+                if (_isArray9) {
+                    if (_i9 >= _iterator9.length) break;
+                    _ref9 = _iterator9[_i9++];
+                } else {
+                    _i9 = _iterator9.next();
+                    if (_i9.done) break;
+                    _ref9 = _i9.value;
+                }
+
+                var i = _ref9;
+
+                if (i.parent) i.parent.removeChild(i, 'ignore');
+            }
         } else if (nodes.type === 'root') {
             nodes = nodes.nodes.slice(0);
+            for (var _iterator10 = nodes, _isArray10 = Array.isArray(_iterator10), _i11 = 0, _iterator10 = _isArray10 ? _iterator10 : _iterator10[Symbol.iterator]();;) {
+                var _ref10;
+
+                if (_isArray10) {
+                    if (_i11 >= _iterator10.length) break;
+                    _ref10 = _iterator10[_i11++];
+                } else {
+                    _i11 = _iterator10.next();
+                    if (_i11.done) break;
+                    _ref10 = _i11.value;
+                }
+
+                var _i10 = _ref10;
+
+                if (_i10.parent) _i10.parent.removeChild(_i10, 'ignore');
+            }
         } else if (nodes.type) {
             nodes = [nodes];
         } else if (nodes.prop) {
@@ -13392,11 +13424,11 @@ var Root = function (_Container) {
         return _this;
     }
 
-    Root.prototype.removeChild = function removeChild(child) {
-        child = this.index(child);
+    Root.prototype.removeChild = function removeChild(child, ignore) {
+        var index = this.index(child);
 
-        if (child === 0 && this.nodes.length > 1) {
-            this.nodes[1].raws.before = this.nodes[child].raws.before;
+        if (!ignore && index === 0 && this.nodes.length > 1) {
+            this.nodes[1].raws.before = this.nodes[index].raws.before;
         }
 
         return _Container.prototype.removeChild.call(this, child);
@@ -15662,17 +15694,31 @@ var LessParser = function (_Parser) {
           this.end(tokn);
           break;
         } else if (tokn[0] === 'brackets') {
-          directives.push(tokn);
+          if (node.urlFunc) {
+            node.importPath = tokn[1].replace(/[()]/g, '');
+          } else {
+            directives.push(tokn);
+          }
         } else if (tokn[0] === 'space') {
           if (directives.length) {
             node.raws.between = tokn[1];
+          } else if (node.urlFunc) {
+            node.raws.beforeUrl = tokn[1];
           } else if (node.importPath) {
-            node.raws.after = tokn[1];
+            if (node.urlFunc) {
+              node.raws.afterUrl = tokn[1];
+            } else {
+              node.raws.after = tokn[1];
+            }
           } else {
             node.raws.afterName = tokn[1];
           }
+        } else if (tokn[0] === 'word' && tokn[1] === 'url') {
+          node.urlFunc = true;
         } else {
-          node.importPath = tokn[1];
+          if (tokn[0] !== '(' && tokn[0] !== ')') {
+            node.importPath = tokn[1];
+          }
         }
 
         if (this.pos === this.tokens.length) {
@@ -15917,7 +15963,7 @@ var LessStringifier = function (_Stringifier) {
     key: 'import',
     value: function _import(node) {
       this.builder('@' + node.name);
-      this.builder((node.raws.afterName || '') + (node.directives || '') + (node.raws.between || '') + (node.importPath || '') + (node.raws.after || ''));
+      this.builder((node.raws.afterName || '') + (node.directives || '') + (node.raws.between || '') + (node.urlFunc ? 'url(' : '') + (node.raws.beforeUrl || '') + (node.importPath || '') + (node.raws.afterUrl || '') + (node.urlFunc ? ')' : '') + (node.raws.after || ''));
 
       if (node.raws.semicolon) {
         this.builder(';');
@@ -21649,11 +21695,11 @@ var Processor = function () {
      * @member {string} - Current PostCSS version.
      *
      * @example
-     * if ( result.processor.version.split('.')[0] !== '5' ) {
-     *   throw new Error('This plugin works only with PostCSS 5');
+     * if ( result.processor.version.split('.')[0] !== '6' ) {
+     *   throw new Error('This plugin works only with PostCSS 6');
      * }
      */
-    this.version = '6.0.1';
+    this.version = '6.0.2';
     /**
      * @member {pluginFunction[]} - Plugins added to this processor.
      *
@@ -25094,7 +25140,7 @@ function requireParser(isSCSS) {
 }
 
 function parse(text) {
-  const isLikelySCSS = !!text.match(/(\w\s*: [^}:]+|#){|\@import url/);
+  const isLikelySCSS = !!text.match(/(\w\s*: [^}:]+|#){|\@import[^\n]+(url|,)/);
   try {
     return parseWithParser(requireParser(isLikelySCSS), text);
   } catch (e) {

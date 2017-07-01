@@ -20,6 +20,9 @@ const parsers = {
   },
   get postcss() {
     return eval("require")("./parser-postcss");
+  },
+  get json() {
+    return eval("require")("./parser-json");
   }
 };
 
