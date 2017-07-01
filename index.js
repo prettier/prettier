@@ -1,5 +1,6 @@
 "use strict";
 
+const stripBom = require("strip-bom");
 const comments = require("./src/comments");
 const version = require("./package.json").version;
 const printAstToDoc = require("./src/printer").printAstToDoc;
@@ -54,6 +55,7 @@ function ensureAllCommentsPrinted(astComments) {
 }
 
 function formatWithCursor(text, opts, addAlignmentSize) {
+  text = stripBom(text);
   addAlignmentSize = addAlignmentSize || 0;
 
   const ast = parser.parse(text, opts);
