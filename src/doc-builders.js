@@ -43,6 +43,7 @@ function group(contents, opts) {
     type: "group",
     contents: contents,
     break: !!opts.shouldBreak,
+    addedLine: !!opts.addedLine,
     expandedStates: opts.expandedStates
   };
 }

@@ -30,6 +30,7 @@ window.onload = function() {
     "singleQuote",
     "trailingComma",
     "bracketSpacing",
+    "parenSpacing",
     "jsxBracketSameLine",
     "parser",
     "semi",
