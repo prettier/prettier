@@ -10,4 +10,8 @@ git config --global user.name "Prettier Bot"
 echo "machine github.com login prettier-bot password $GITHUB_TOKEN" > ~/.netrc
 
 cd website
-yarn --pure-lockfile && GIT_USER=prettier-bot yarn run publish-gh-pages
+export GIT_USER=prettier-bot
+export CIRCLE_BRANCH=$TRAVIS_BRANCH
+export CIRCLE_PROJECT_USERNAME=prettier
+export CIRCLE_PROJECT_REPONAME=prettier
+yarn --pure-lockfile && yarn run publish-gh-pages
