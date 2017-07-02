@@ -1,11 +1,12 @@
 {
   "name": "prettier",
   "version": "1.5.2",
-  "description": "Prettier is an opinionated JavaScript formatter",
+  "description": "Prettier is an opinionated code formatter",
   "bin": {
     "prettier": "./bin/prettier.js"
   },
   "repository": "prettier/prettier",
+  "homepage": "https://prettier.io",
   "author": "James Long",
   "license": "MIT",
   "main": "./index.js",
@@ -39,6 +40,7 @@
     "eslint": "4.1.1",
     "eslint-friendly-formatter": "3.0.0",
     "eslint-plugin-prettier": "2.1.2",
+    "eslint-plugin-react": "7.1.0",
     "jest": "20.0.0",
     "mkdirp": "^0.5.1",
     "prettier": "1.4.2",

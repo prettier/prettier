@@ -21,3 +21,9 @@ before_script:
 script:
   - yarn lint
   - AST_COMPARE=1 yarn test -- --runInBand
+deploy:
+  provider: script
+  script: website/deploy.sh
+  skip_cleanup: true
+  on:
+    branch: master

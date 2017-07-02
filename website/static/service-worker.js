@@ -11,6 +11,7 @@ toolbox.precache([
   "lib/index.js",
   "lib/parser-babylon.js",
   "lib/parser-typescript.js",
+  "lib/parser-postcss.js",
   "lib/parser-flow.js",
   "lib/parser-graphql.js",
   "lib/parser-json.js",
@@ -32,7 +33,12 @@ toolbox.precache([
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/keymap/sublime.js",
 
   // Images
-  "prettier.png"
+  "/prettier.png"
 ]);
 
-toolbox.router.default = toolbox.fastest;
+// Default to hit the cache only if there's a network error
+toolbox.router.default = toolbox.networkFirst;
+
+// For scripts, stylesheets and images, we can use the "fastest" strategy
+// This means you need to reload twice to get new changes
+toolbox.router.get(/\.(js|css|png|svg)$/, toolbox.fastest);

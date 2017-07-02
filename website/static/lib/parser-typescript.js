@@ -232,9 +232,9 @@ var process = {
   uptime: uptime
 };
 
-var __dirname = '/Users/vjeux/random/prettier/dist';
+var __dirname = '/Users/azz/code/prettier/dist';
 
-var __filename = '/Users/vjeux/random/prettier/dist/parser-typescript.js';
+var __filename = '/Users/azz/code/prettier/dist/parser-typescript.js';
 
 var browser$1 = true;
 

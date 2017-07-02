@@ -7,6 +7,7 @@ const shell = require("shelljs");
 const pkg = require("../../package.json");
 
 const rootDir = path.join(__dirname, "..", "..");
+const docs = path.join(rootDir, "website/static/lib");
 const parsers = [
   "babylon",
   "flow",
@@ -26,8 +27,8 @@ function pipe(string) {
 shell.set("-e");
 shell.cd(rootDir);
 
-shell.rm("-Rf", "dist/", "docs/lib/");
-shell.mkdir("-p", "docs/lib/");
+shell.rm("-Rf", "dist/", docs);
+shell.mkdir("-p", docs);
 
 // --- Lib ---
 
@@ -62,9 +63,9 @@ shell.echo();
 // --- Docs ---
 
 shell.echo("Bundling docs index...");
-shell.cp("dist/index.js", "docs/lib/index.js");
+shell.cp("dist/index.js", `${docs}/index.js`);
 shell.exec(
-  "node_modules/babel-cli/bin/babel.js dist/index.js --out-file docs/lib/index.js --presets=es2015"
+  `node_modules/babel-cli/bin/babel.js dist/index.js --out-file ${docs}/index.js --presets=es2015`
 );
 
 shell.echo("Bundling docs babylon...");
@@ -72,7 +73,7 @@ shell.exec(
   "rollup -c scripts/build/rollup.docs.config.js --environment filepath:parser-babylon.js"
 );
 shell.exec(
-  "node_modules/babel-cli/bin/babel.js docs/lib/parser-babylon.js --out-file docs/lib/parser-babylon.js --presets=es2015"
+  `node_modules/babel-cli/bin/babel.js ${docs}/parser-babylon.js --out-file ${docs}/parser-babylon.js --presets=es2015`
 );
 
 for (const parser of parsers) {
@@ -99,14 +100,10 @@ shell.sed(
 );
 
 shell.echo("Create prettier-version.js");
-pipe(`prettierVersion = "${pkg.version}";`).to("docs/lib/prettier-version.js");
+pipe(`prettierVersion = "${pkg.version}";`).to(`${docs}/prettier-version.js`);
 
 shell.echo("Copy sw-toolbox.js to docs");
-shell.cp("node_modules/sw-toolbox/sw-toolbox.js", "docs/lib/sw-toolbox.js");
-shell.cp(
-  "node_modules/sw-toolbox/companion.js",
-  "docs/lib/sw-toolbox-companion.js"
-);
+shell.cp("node_modules/sw-toolbox/sw-toolbox.js", `${docs}/sw-toolbox.js`);
 
 shell.echo("Copy package.json");
 const pkgWithoutDependencies = Object.assign({}, pkg);

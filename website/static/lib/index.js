@@ -1292,8 +1292,8 @@ var author = "James Long";
 var license = "MIT";
 var main = "./index.js";
 var dependencies = { "babel-code-frame": "7.0.0-alpha.12", "babylon": "7.0.0-beta.13", "chalk": "1.1.3", "diff": "3.2.0", "esutils": "2.0.2", "flow-parser": "0.47.0", "get-stream": "3.0.0", "glob": "7.1.2", "graphql": "0.10.1", "jest-validate": "20.0.3", "json-to-ast": "2.0.0-alpha1.2", "minimist": "1.2.0", "parse5": "3.0.2", "postcss": "^6.0.1", "postcss-less": "^1.0.0", "postcss-media-query-parser": "0.2.3", "postcss-scss": "1.0.0", "postcss-selector-parser": "2.2.3", "postcss-values-parser": "git://github.com/shellscape/postcss-values-parser.git#5e351360479116f3fe309602cdd15b0a233bc29f", "typescript": "2.5.0-dev.20170617", "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#cfddbfe3ebf550530aef2f1c6c4ea1d9e738d9c1" };
-var devDependencies = { "babel-cli": "6.24.1", "babel-preset-es2015": "6.24.1", "cross-spawn": "5.1.0", "eslint": "3.19.0", "eslint-friendly-formatter": "3.0.0", "eslint-plugin-prettier": "2.1.1", "jest": "20.0.0", "mkdirp": "^0.5.1", "prettier": "1.4.2", "rimraf": "2.6.1", "rollup": "0.41.1", "rollup-plugin-commonjs": "7.0.0", "rollup-plugin-json": "2.1.0", "rollup-plugin-node-builtins": "2.0.0", "rollup-plugin-node-globals": "1.1.0", "rollup-plugin-node-resolve": "2.0.0", "rollup-plugin-replace": "1.1.1", "sw-toolbox": "3.6.0", "uglify-es": "3.0.15", "webpack": "2.6.1" };
-var scripts = { "test": "jest", "test-integration": "jest tests_integration", "lint": "EFF_NO_LINK_RULES=true eslint . --format 'node_modules/eslint-friendly-formatter'", "build": "./scripts/build/build.sh" };
+var devDependencies = { "babel-cli": "6.24.1", "babel-preset-es2015": "6.24.1", "cross-spawn": "5.1.0", "eslint": "4.1.1", "eslint-friendly-formatter": "3.0.0", "eslint-plugin-prettier": "2.1.2", "jest": "20.0.0", "mkdirp": "^0.5.1", "prettier": "1.4.2", "rimraf": "2.6.1", "rollup": "0.41.1", "rollup-plugin-commonjs": "7.0.0", "rollup-plugin-json": "2.1.0", "rollup-plugin-node-builtins": "2.0.0", "rollup-plugin-node-globals": "1.1.0", "rollup-plugin-node-resolve": "2.0.0", "rollup-plugin-replace": "1.1.1", "shelljs": "0.7.8", "sw-toolbox": "3.6.0", "uglify-es": "3.0.15", "webpack": "2.6.1" };
+var scripts = { "test": "jest", "test-integration": "jest tests_integration", "lint": "EFF_NO_LINK_RULES=true eslint . --format 'node_modules/eslint-friendly-formatter'", "build": "./scripts/build/build.js" };
 var jest = { "setupFiles": ["<rootDir>/tests_config/run_spec.js"], "snapshotSerializers": ["<rootDir>/tests_config/raw-serializer.js"], "testRegex": "jsfmt\\.spec\\.js$|__tests__/.*\\.js$", "testPathIgnorePatterns": ["tests/new_react", "tests/more_react"] };
 var _package = {
   name: name,
@@ -3313,14 +3313,16 @@ function isStyledJsx(path$$1) {
 }
 
 /**
- * Template literal in this context:
+ * Template literal in these contexts:
  * styled.button`color: red`
- * or
  * Foo.extend`color: red`
+ * css`color: red`
+ * keyframes`0% { opacity: 0; }`
+ * injectGlobal`body{ margin:0: }`
  */
 function isStyledComponents(path$$1) {
   var parent = path$$1.getParentNode();
-  return parent && parent.type === "TaggedTemplateExpression" && parent.tag.type === "MemberExpression" && (parent.tag.object.name === "styled" || /^[A-Z]/.test(parent.tag.object.name) && parent.tag.property.name === "extend");
+  return parent && parent.type === "TaggedTemplateExpression" && (parent.tag.type === "MemberExpression" && (parent.tag.object.name === "styled" || /^[A-Z]/.test(parent.tag.object.name) && parent.tag.property.name === "extend") || parent.tag.type === "Identifier" && parent.tag.name === "css");
 }
 
 var multiparser$1 = {
@@ -4150,7 +4152,7 @@ function genericPrintNoParens(path$$1, options, print, args) {
       {
         var parent = path$$1.getParentNode();
         var parentParent = path$$1.getParentNode(1);
-        var isInsideParenthesis = n !== parent.body && (parent.type === "IfStatement" || parent.type === "WhileStatement" || parent.type === "DoStatement");
+        var isInsideParenthesis = n !== parent.body && (parent.type === "IfStatement" || parent.type === "WhileStatement" || parent.type === "DoWhileStatement");
 
         var _parts2 = printBinaryishExpressions(path$$1, print, options,
         /* isNested */false, isInsideParenthesis);
@@ -4882,7 +4884,7 @@ function genericPrintNoParens(path$$1, options, print, args) {
         }
         parts.push("while (");
 
-        parts.push(group$1(concat$2([indent$2(softline$1), path$$1.call(print, "test"), softline$1])), ")", semi);
+        parts.push(group$1(concat$2([indent$2(concat$2([softline$1, path$$1.call(print, "test")])), softline$1])), ")", semi);
 
         return concat$2(parts);
       }
@@ -5692,10 +5694,8 @@ function genericPrintNoParens(path$$1, options, print, args) {
           parts.push(printTypeScriptModifiers(path$$1, options, print));
 
           // Global declaration looks like this:
-          // declare global { ... }
-          var isGlobalDeclaration = n.name.type === "Identifier" && n.name.name === "global" && n.modifiers && n.modifiers.some(function (modifier) {
-            return modifier.type === "TSDeclareKeyword";
-          });
+          // (declare)? global { ... }
+          var isGlobalDeclaration = n.name.type === "Identifier" && n.name.name === "global" && !/namespace|module/.test(options.originalText.slice(util$4.locStart(n), util$4.locStart(n.name)));
 
           if (!isGlobalDeclaration) {
             parts.push(isExternalModule ? "module " : "namespace ");
@@ -10498,10 +10498,13 @@ function normalize(options) {
     normalized.parser = "parse5";
   } else if (/\.(ts|tsx)$/.test(filepath)) {
     normalized.parser = "typescript";
-  } else if (/\.graphql$/.test(filepath)) {
+  } else if (/\.(graphql|gql)$/.test(filepath)) {
     normalized.parser = "graphql";
   } else if (/\.json$/.test(filepath)) {
     normalized.parser = "json";
+  }
+
+  if (normalized.parser === "json") {
     normalized.trailingComma = "none";
   }
 
@@ -10863,7 +10866,7 @@ function isSourceElement(opts, node) {
   if (node == null) {
     return false;
   }
-  switch (node.type) {
+  switch (node.type || node.kind) {
     case "ObjectExpression": // JSON
     case "ArrayExpression": // JSON
     case "StringLiteral": // JSON
@@ -10901,8 +10904,24 @@ function isSourceElement(opts, node) {
     case "InterfaceDeclaration": // Flow, Typescript
     case "TypeAliasDeclaration": // Typescript
     case "ExportAssignment": // Typescript
-    case "ExportDeclaration":
-      // Typescript
+    case "ExportDeclaration": // Typescript
+    case "OperationDefinition": // GraphQL
+    case "FragmentDefinition": // GraphQL
+    case "VariableDefinition": // GraphQL
+    case "TypeExtensionDefinition": // GraphQL
+    case "ObjectTypeDefinition": // GraphQL
+    case "FieldDefinition": // GraphQL
+    case "DirectiveDefinition": // GraphQL
+    case "EnumTypeDefinition": // GraphQL
+    case "EnumValueDefinition": // GraphQL
+    case "InputValueDefinition": // GraphQL
+    case "InputObjectTypeDefinition": // GraphQL
+    case "SchemaDefinition": // GraphQL
+    case "OperationTypeDefinition": // GraphQL
+    case "InterfaceTypeDefinition": // GraphQL
+    case "UnionTypeDefinition": // GraphQL
+    case "ScalarTypeDefinition":
+      // GraphQL
       return true;
   }
   return false;

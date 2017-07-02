@@ -19,7 +19,7 @@ var state = (function loadState(hash) {
   }
 })(decodeURIComponent(location.hash.slice(1)));
 
-var worker = new Worker("./worker.js");
+var worker = new Worker("/worker.js");
 // Warm up the worker (load the current parser while CodeMirror loads)
 worker.postMessage({ text: "", options: state.options });
 
