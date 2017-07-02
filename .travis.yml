@@ -24,6 +24,7 @@ script:
 deploy:
   provider: script
   script: website/deploy.sh
-  skip_cleanup: true
+  skip_cleanup: true  
   on:
     branch: master
+    node: stable
