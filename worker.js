@@ -10,7 +10,7 @@ self.Buffer = {
 };
 // eslint-disable-next-line
 fs = module$1 = module = path = os = crypto = {};
-self.process = { argv: [], env: {} };
+self.process = { argv: [], env: { PRETTIER_DEBUG: true } };
 self.assert = { ok: function() {}, strictEqual: function() {} };
 self.require = function require(path) {
   return self[path.replace(/.+-/, "")];
@@ -29,14 +29,8 @@ self.onmessage = function(message) {
   delete options.ast;
   delete options.doc;
 
-  lazyLoadParser(options.parser);
-
-  var formatted, doc, ast;
-  try {
-    formatted = prettier.format(message.data.text, options);
-  } catch (e) {
-    formatted = e.toString();
-  }
+  var formatted = formatCode(message.data.text, options);
+  var doc, ast;
 
   if (message.data.ast) {
     try {
@@ -64,6 +58,21 @@ self.onmessage = function(message) {
 
   self.postMessage({ formatted: formatted, doc: doc, ast: ast });
 };
+
+function formatCode(text, options) {
+  lazyLoadParser(options.parser);
+  try {
+    return prettier.format(text, options);
+  } catch (e) {
+    // Multiparser may throw if we haven't loaded the right parser
+    // Load it lazily and retry!
+    if (e.parser && !parsersLoaded[e.parser]) {
+      lazyLoadParser(e.parser);
+      return formatCode(text, options);
+    }
+    return e.toString();
+  }
+}
 
 function lazyLoadParser(parser) {
   if (!parsersLoaded[parser]) {

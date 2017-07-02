@@ -1,0 +1,292 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <title>Prettier</title>
+
+  <link rel="manifest" href="/manifest.json">
+
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Prettier">
+  <meta name="apple-mobile-web-app-title" content="Prettier">
+  <meta name="theme-color" content="#1A2B34">
+  <meta name="msapplication-navbutton-color" content="#1A2B34">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="msapplication-starturl" content="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="icon" href="/icon.png">
+  <link rel="apple-touch-icon" href="/icon.png">
+
+  <link rel="stylesheet" crossorigin  href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/codemirror.css">
+  <link rel="stylesheet" crossorigin  href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/theme/neat.css">
+
+  <script src="/lib/prettier-version.js"></script>
+  <script src="/playground.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/codemirror.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/mode/javascript/javascript.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/addon/display/rulers.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/addon/search/searchcursor.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/addon/edit/matchbrackets.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/addon/edit/closebrackets.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/addon/comment/comment.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/addon/wrap/hardwrap.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/keymap/sublime.js"></script>
+
+  <style type="text/css">
+    html,
+    body {
+      font-family: "Helvetica Neue", "Open Sans", sans-serif;
+      font-size: 11.7px;
+      margin: 0;
+      padding: 0;
+      background-color: #FAFAFA;
+      color: #6A6A6A;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .options-summary {
+      font-size: 1.4em;
+      margin-top: 8px;
+      text-align: center;
+    }
+
+    header {
+      height: 30px;
+      padding: 10px 10px;
+      display: flex;
+      flex-flow: row nowrap;
+      position: relative;
+      text-align: left;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #1A2B34;
+      color: #e0e0e0;
+    }
+
+    @media (max-width: 500px) {
+      .tagline {
+        display: none;
+      }
+    }
+
+    header a {
+      height: 34px;
+      display: flex;
+      text-decoration: none;
+    }
+
+    header a,
+    header a:visited {
+      color: #fff;
+    }
+
+    header a:focus,
+    header a:active,
+    header a:hover {
+      color: #fff;
+    }
+
+    .logo {
+      height: 100%;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+
+    header h2 {
+      display: block;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      font-weight: 400;
+      line-height: 8px;
+      position: relative;
+      z-index: 9999;
+    }
+
+    .links {
+      font-size: 1.3em;
+      margin-right: 30px;
+    }
+
+    textarea.loading {
+      opacity: 0;
+    }
+
+    .editors-container {
+      display: flex;
+      flex-grow: 1;
+    }
+
+    .editors {
+      display: flex;
+      flex-flow: row wrap;
+      flex: 1;
+    }
+
+    .editor {
+      display: flex;
+      flex: 1;
+      flex-basis: 100%;
+      position: relative;
+      border-top: 1px solid #1A2B34;
+    }
+
+    /* display as 2x2 grid */
+    @media (min-width: 800px) {
+      .editor {
+        flex-basis: 50%;
+      }
+    }
+
+    /* display as four columns */
+    @media (min-width: 1200px) {
+      .editor {
+        flex-basis: 25%;
+      }
+    }
+
+    .arrow {
+      align-self: center;
+      font-size: 1.2em;
+    }
+
+    .CodeMirror {
+      height: auto;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      font-family: Menlo, monospace;
+      font-size: 11.05px;
+      line-height: 17.68px;
+    }
+
+    .options-container {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-around;
+    }
+
+    .options {
+      padding: 0 10px;
+      display: flex;
+      flex-flow: column wrap;
+      flex-grow: 1;
+      justify-content: space-around;
+      margin: 5px;
+      margin-bottom: 0;
+      min-width: 150px;
+    }
+
+    label {
+      font-family: "Consolas", "Courier New", Courier, monospace;
+      margin: 0 10px;
+    }
+
+    @media (max-width: 408px) {
+      label {
+        padding: 8px;
+      }
+      .options-container {
+        flex-direction: column-reverse;
+      }
+      .options.last {
+        flex-direction: column-reverse;
+      }
+    }
+
+    input[type="number"] {
+      max-width: 40px;
+    }
+
+    footer {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <a href="/">
+      <img class="logo" src="/icon.png">
+      <h2>Prettier</h2>
+    </a>
+
+    <span class="links">
+      <a
+        class="github-button"
+        href="https://github.com/prettier/prettier"
+        data-show-count="true"
+        aria-label="Star prettier on GitHub">
+        GitHub
+      </a>
+    </span>
+  </header>
+
+  <section class="editors-container">
+    <div class="editors">
+      <div class="editor input">
+        <textarea class="loading" id="input-editor"></textarea>
+      </div>
+      <div class="editor ast">
+        <textarea class="loading" id="ast-editor"></textarea>
+      </div>
+      <div class="editor doc">
+        <textarea class="loading" id="doc-editor"></textarea>
+      </div>
+      <div class="editor output">
+        <textarea class="loading" id="output-editor"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <details>
+      <summary class="options-summary">Options</summary>
+
+      <div class="options-container">
+        <div class="options">
+          <label>--print-width <input type="number" value="80" min="0" id="printWidth"></input> </label>
+          <label>--tab-width <input type="number" min="0" value="2" id="tabWidth"></input> </label>
+        </div>
+        <div class="options">
+          <label><input type="checkbox" id="useTabs"></input> --use-tabs</label>
+          <label><input type="checkbox" data-inverted id="semi"></input> --no-semi</label>
+          <label><input type="checkbox" id="singleQuote"></input> --single-quote</label>
+          <label><input type="checkbox" data-inverted id="bracketSpacing"></input> --no-bracket-spacing</label>
+          <label><input type="checkbox" id="jsxBracketSameLine"></input> --jsx-bracket-same-line</label>
+        </div>
+        <div class="options last">
+          <label>--trailing-comma <select id="trailingComma"><option value="none">none</option><option value="es5">es5</option><option value="all">all</option></select></label>
+          <label>--parser <select id="parser"><option value="babylon">babylon</option><option value="flow">flow</option><option value="typescript">typescript</option><option value="postcss">postcss</option><option value="json">json</option><option value="graphql">graphql</option></select></label>
+          <span style="flex: 0.3"></span>
+          <label><input type="checkbox" id="ast"></input> show AST (debug)</label>
+          <label><input type="checkbox" id="doc"></input> show doc (debug)</label>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <p class="version-link">
+      <a href="https://github.com/prettier/prettier">
+        prettier version
+        <span class="version"></span>
+        (master)
+      </a>
+    </p>
+  </footer>
+
+  <script src="/install-service-worker.js"></script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+</body>
+</html>
