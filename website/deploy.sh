@@ -14,4 +14,5 @@ export GIT_USER=prettier-bot
 export CIRCLE_BRANCH=$TRAVIS_BRANCH
 export CIRCLE_PROJECT_USERNAME=prettier
 export CIRCLE_PROJECT_REPONAME=prettier
+export CI_PULL_REQUEST=$TRAVIS_PULL_REQUEST_BRANCH
 yarn --pure-lockfile && yarn run publish-gh-pages
