@@ -445,15 +445,17 @@ matrix(
 Prettier ships with a handful of customizable format options, usable in both the CLI and API.
 
 ### Print Width
-Specify the length of line that the printer will wrap on.
-
-**We strongly recommend against using more than 80 columns.**
-
-Prettier works by cramming as much content as possible until it reaches the limit, which happens to work well for 80 columns but makes lines that are very crowded. When a bigger column count is used in styleguides, it usually means that code is allowed to go beyond 80 columns, but not to make every single line go there, like Prettier would do.
+Specify the line length that the printer will wrap on.
 
 Default | CLI Override | API Override
 --------|--------------|-------------
 `80` | `--print-width <int>` | `printWidth: <int>`
+
+> **We strongly recommend against using more than 80 columns:**
+ 
+> Normally when specifying a line length of 120 in a styleguide this means the maximum amount of characters on a line. On average the length of line will be around 80 characters for readibility and doesn't often meet this maximum.
+
+> Prettier will put as much code as it can in one line, so every line will be at around 110 - 120 characters. This is harder to read than around 80 characters.
 
 ### Tab Width
 Specify the number of spaces per indentation-level.
