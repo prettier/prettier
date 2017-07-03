@@ -63,12 +63,7 @@ const siteConfig = {
       href: "/docs/LANGUAGE/why-prettier.html",
       text: "Docs"
     },
-    {
-      section: "api",
-      href: "/docs/LANGUAGE/why-prettier.html",
-      text: "API"
-    },
-    { section: "help", href: "/LANGUAGE/help/", text: "Help" },
+    // { section: "help", href: "/LANGUAGE/help/", text: "Help" },
     // {section: 'blog', href: '/test-site/blog', text: 'Blog'},
     {
       section: "playground",

@@ -50,18 +50,14 @@ class HomeSplash extends React.Component {
                   <div className="pluginRowBlock">
                     <Button href="/playground/">Try It Out</Button>
                     <Button
-                      href={
-                        "/docs/" + this.props.language + "/why-prettier.html"
-                      }
+                      href={"/docs/" + this.props.language + "/usage.html"}
                     >
-                      Example Link
+                      Get Started
                     </Button>
                     <Button
-                      href={
-                        "/docs/" + this.props.language + "/why-prettier.html"
-                      }
+                      href={"/docs/" + this.props.language + "/options.html"}
                     >
-                      Example Link 2
+                      Options
                     </Button>
                   </div>
                 </div>
@@ -89,58 +85,109 @@ class Index extends React.Component {
         return (
           <a key={i} href={user.infoLink}>
             <img src={user.image} title={user.caption} />
+            <br />
+            {user.caption}
           </a>
         );
       });
+    const editors = [
+      { slug: "atom", name: "Atom" },
+      { slug: "emacs", name: "Emacs" },
+      { slug: "vim", name: "vim" },
+      { slug: "vscode", name: "Visual Studio Code" },
+      { slug: "visualstudio", name: "Visual Studio" },
+      { slug: "sublimetext", name: "Sublime Text" },
+      { slug: "webstorm", name: "WebStorm" }
+    ];
 
     return (
       <div>
         <script src="redirect.js" />
         <HomeSplash language={language} />
         <div className="mainContainer">
-          <Container padding={["bottom", "top"]}>
-            <GridBlock
-              align="center"
-              contents={[
-                {
-                  content: "This is the content of my feature",
-                  image: "/prettier.png",
-                  imageAlign: "top",
-                  title: "Feature One"
-                },
-                {
-                  content: "The content of my second feature",
-                  image: "/prettier.png",
-                  imageAlign: "top",
-                  title: "Feature Two"
-                }
-              ]}
-              layout="fourColumn"
-            />
-          </Container>
-
           <div
+            className="productShowcaseSection lightBackground paddingTop paddingBottom"
+            style={{ textAlign: "center" }}
+          >
+            <h2 style={{ margin: 0 }}>Language Support</h2>
+            <Container>
+              <GridBlock
+                align="center"
+                contents={[
+                  {
+                    title: "JavaScript",
+                    image: "/images/js-128px.png",
+                    imageAlign: "top",
+                    content: `
+[ES2017](https://github.com/tc39/proposals/blob/master/finished-proposals.md)
+
+[JSX](https://facebook.github.io/jsx/)
+
+[Flow](https://flow.org/)
+
+[TypeScript](https://www.typescriptlang.org/)
+
+[JSON](http://json.org/)
+`
+                  },
+                  {
+                    title: "CSS",
+                    image: "/images/css-128px.png",
+                    imageAlign: "top",
+                    content: `
+CSS3+
+
+[LESS](http://lesscss.org/)
+
+[SCSS](http://sass-lang.com)
+
+[styled-components 💅](http://styled-components.com)
+
+[styled-jsx](http://npmjs.com/styled-jsx)
+
+`
+                  },
+                  {
+                    title: "GraphQL",
+                    image: "/images/graphql-128px.png",
+                    imageAlign: "top",
+                    content: `
+[GraphQL](http://graphql.org/)
+
+[GraphQL Schemas](http://graphql.org/learn/schema/)
+
+`
+                  }
+                ]}
+                layout="fourColumn"
+              />
+            </Container>
+          </div>
+
+          {/*<div
             className="productShowcaseSection paddingBottom"
             style={{ textAlign: "center" }}
           >
             <h2>Feature Callout</h2>
             <Marked>These are features of this project</Marked>
+          </div>*/}
+
+          <div className="productShowcaseSection paddingBottom">
+            <h2>Editor Integration</h2>
+            <Container>
+              <GridBlock
+                contents={editors.map(editor => ({
+                  content: "",
+                  image: `/images/${editor.slug}-128px.png`,
+                  imageAlign: "bottom",
+                  title: editor.name
+                }))}
+                layout="fourColumn"
+              />
+            </Container>
           </div>
 
-          <Container padding={["bottom", "top"]} background="light">
-            <GridBlock
-              contents={[
-                {
-                  content: "Talk about learning how to use this",
-                  image: "/prettier.png",
-                  imageAlign: "right",
-                  title: "Learn How"
-                }
-              ]}
-            />
-          </Container>
-
-          <Container padding={["bottom", "top"]} background="dark">
+          {/*<Container padding={["bottom", "top"]} background="dark">
             <GridBlock
               contents={[
                 {
@@ -152,9 +199,9 @@ class Index extends React.Component {
                 }
               ]}
             />
-          </Container>
+          </Container>*/}
 
-          <div className="productShowcaseSection paddingBottom">
+          <div className="productShowcaseSection paddingTop paddingBottom lightBackground">
             <h2>Who{"'"}s Using Prettier?</h2>
             <p>
               A few of the
