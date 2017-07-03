@@ -62,7 +62,7 @@ const siteConfig = {
     prismColor:
       "rgba(26, 43, 52, 0.03)" /* primaryColor in rgba form, with 0.03 alpha */
   },
-  tagline: "Opinonated Code Formatter"
+  tagline: "Opinionated Code Formatter"
 };
 
 let languages;
