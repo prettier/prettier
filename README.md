@@ -453,9 +453,9 @@ Default | CLI Override | API Override
 
 > **We strongly recommend against using more than 80 columns:**
  
-> Normally when specifying a line length of 120 in a styleguide this means the maximum amount of characters on a line. On average the length of line will be around 80 characters for readibility and doesn't often meet this maximum.
+> Normally when specifying a line length of 120 in a styleguide this means the maximum amount of characters on a line. On average the line length will be around 80 characters for readibility and doesn't meet this maximum.
 
-> Prettier will put as much code as it can in one line, so every line will be at around 110 - 120 characters. This is harder to read than around 80 characters.
+> Prettier will put as much code as it can in one line, so every line will have around 110 - 120 characters. This is harder to read than around 80 characters.
 
 ### Tab Width
 Specify the number of spaces per indentation-level.
