@@ -341,14 +341,13 @@ Alternately you can save this script as `.git/hooks/pre-commit` and give it exec
 jsfiles=$(git diff --cached --name-only --diff-filter=ACM | grep '\.jsx\?$' | tr '\n' ' ')
 [ -z "$jsfiles" ] && exit 0
 
-diffs=$(node_modules/.bin/prettier -l $jsfiles)
-[ -z "$diffs" ] && exit 0
+# Prettify all staged .js files
+echo "jsfiles" | xargs ./node_modules/.bin/prettier --write
 
-echo "here"
-echo >&2 "Javascript files must be formatted with Prettier. Please run:"
-echo >&2 "node_modules/.bin/prettier --write "$diffs""
+# Add back the modified/prettified files to staging
+echo "jsfiles" | xargs git add
 
-exit 1
+exit 0
 ```
 
 ### API
