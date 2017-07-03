@@ -21,6 +21,10 @@ before_script:
 script:
   - yarn lint
   - AST_COMPARE=1 yarn test -- --runInBand
+  # A basic test to ensure prettier runs without devDependencies
+  - rm -rf node_modules
+  - yarn install --production=true
+  - ./bin/prettier.js ./bin/prettier.js >/dev/null
 #deploy:
 #  provider: script
 #  script: website/deploy.sh
