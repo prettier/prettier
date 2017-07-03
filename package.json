@@ -30,6 +30,7 @@
     "postcss-scss": "1.0.0",
     "postcss-selector-parser": "2.2.3",
     "postcss-values-parser": "git://github.com/shellscape/postcss-values-parser.git#5e351360479116f3fe309602cdd15b0a233bc29f",
+    "strip-bom": "3.0.0",
     "typescript": "2.5.0-dev.20170617",
     "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#cfddbfe3ebf550530aef2f1c6c4ea1d9e738d9c1"
   },
@@ -54,7 +55,6 @@
     "rollup-plugin-node-resolve": "2.0.0",
     "rollup-plugin-replace": "1.1.1",
     "shelljs": "0.7.8",
-    "strip-bom": "3.0.0",
     "sw-toolbox": "3.6.0",
     "uglify-es": "3.0.15",
     "webpack": "2.6.1"
