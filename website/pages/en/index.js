@@ -90,15 +90,6 @@ class Index extends React.Component {
           </a>
         );
       });
-    const editors = [
-      { slug: "atom", name: "Atom" },
-      { slug: "emacs", name: "Emacs" },
-      { slug: "vim", name: "vim" },
-      { slug: "vscode", name: "Visual Studio Code" },
-      { slug: "visualstudio", name: "Visual Studio" },
-      { slug: "sublimetext", name: "Sublime Text" },
-      { slug: "webstorm", name: "WebStorm" }
-    ];
 
     return (
       <div>
@@ -113,52 +104,12 @@ class Index extends React.Component {
             <Container>
               <GridBlock
                 align="center"
-                contents={[
-                  {
-                    title: "JavaScript",
-                    image: "/images/js-128px.png",
-                    imageAlign: "top",
-                    content: `
-[ES2017](https://github.com/tc39/proposals/blob/master/finished-proposals.md)
-
-[JSX](https://facebook.github.io/jsx/)
-
-[Flow](https://flow.org/)
-
-[TypeScript](https://www.typescriptlang.org/)
-
-[JSON](http://json.org/)
-`
-                  },
-                  {
-                    title: "CSS",
-                    image: "/images/css-128px.png",
-                    imageAlign: "top",
-                    content: `
-CSS3+
-
-[LESS](http://lesscss.org/)
-
-[SCSS](http://sass-lang.com)
-
-[styled-components 💅](http://styled-components.com)
-
-[styled-jsx](http://npmjs.com/styled-jsx)
-
-`
-                  },
-                  {
-                    title: "GraphQL",
-                    image: "/images/graphql-128px.png",
-                    imageAlign: "top",
-                    content: `
-[GraphQL](http://graphql.org/)
-
-[GraphQL Schemas](http://graphql.org/learn/schema/)
-
-`
-                  }
-                ]}
+                contents={siteConfig.supportedLanguages.map(language => ({
+                  title: language.name,
+                  image: language.image,
+                  imageAlign: "top",
+                  content: language.variants.join("\n\n")
+                }))}
                 layout="fourColumn"
               />
             </Container>
@@ -176,15 +127,24 @@ CSS3+
             <h2>Editor Integration</h2>
             <Container>
               <GridBlock
-                contents={editors.map(editor => ({
-                  content: "",
-                  image: `/images/${editor.slug}-128px.png`,
+                align="center"
+                contents={siteConfig.editors.map(editor => ({
+                  content: editor.content || "",
+                  image: editor.image,
                   imageAlign: "bottom",
                   title: editor.name
                 }))}
                 layout="fourColumn"
               />
             </Container>
+
+            <p>Developed an integration?</p>
+            <a
+              href={`${siteConfig.githubUrl}/edit/master/website/editors.json`}
+              className="button"
+            >
+              Add it here
+            </a>
           </div>
 
           {/*<Container padding={["bottom", "top"]} background="dark">

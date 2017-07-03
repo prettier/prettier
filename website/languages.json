@@ -1,0 +1,32 @@
+[
+    {
+        "name": "JavaScript",
+        "image": "/images/js-128px.png",
+        "variants": [
+            "[ES2017](https://github.com/tc39/proposals/blob/master/finished-proposals.md)",
+            "[JSX](https://facebook.github.io/jsx/)",
+            "[Flow](https://flow.org/)",
+            "[TypeScript](https://www.typescriptlang.org/)",
+            "[JSON](http://json.org/)"
+        ]
+    },
+    {
+        "name": "CSS",
+        "image": "/images/css-128px.png",
+        "variants": [
+            "CSS3+",
+            "[LESS](http://lesscss.org/)",
+            "[SCSS](http://sass-lang.com)",
+            "[styled-components](http://styled-components.com) 💅",
+            "[styled-jsx](http://npmjs.com/styled-jsx)"
+        ]
+    },
+    {
+        "name": "GraphQL",
+        "image": "/images/graphql-128px.png",
+        "variants": [
+            "[GraphQL](http://graphql.org/)",
+            "[GraphQL Schemas](http://graphql.org/learn/schema/)"
+        ]
+    }
+]
