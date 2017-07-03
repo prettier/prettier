@@ -6,9 +6,13 @@ module.exports = {
     node: true
   },
   extends: ["eslint:recommended", "plugin:react/recommended"],
-  plugins: ["prettier", "react"],
+  plugins: ["prettier", "react", "import"],
   rules: {
     curly: "error",
+    "import/no-extraneous-dependencies": [
+      "error",
+      { devDependencies: ["tests*/**", "scripts/**"] }
+    ],
     "no-console": "off",
     "no-else-return": "error",
     "no-inner-declarations": "off",

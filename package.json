@@ -41,6 +41,7 @@
     "cross-spawn": "5.1.0",
     "eslint": "4.1.1",
     "eslint-friendly-formatter": "3.0.0",
+    "eslint-plugin-import": "2.6.1",
     "eslint-plugin-prettier": "2.1.2",
     "eslint-plugin-react": "7.1.0",
     "jest": "20.0.0",
