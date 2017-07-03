@@ -51,6 +51,7 @@ Default | CLI Override | API Override
 Use single quotes instead of double quotes.
 
 Notes:
+
 * Quotes in JSX will always be double and ignore this setting.
 * If the number of quotes outweighs the other quote, the quote which is less used will be used to format the string - Example: `"I'm double quoted"` results in `"I'm double quoted"` and `"This \"example\" is single quoted"` results in `'This "example" is single quoted'`.
 
@@ -62,13 +63,14 @@ Default | CLI Override | API Override
 Print trailing commas wherever possible.
 
 Valid options:
+
  * `"none"` - No trailing commas.
  * `"es5"` - Trailing commas where valid in ES5 (objects, arrays, etc.)
  * `"all"` - Trailing commas wherever possible (function arguments). This requires node 8 or a [transform](https://babeljs.io/docs/plugins/syntax-trailing-function-commas/).
 
 Default | CLI Override | API Override
 --------|--------------|-------------
-`"none"` | <code>--trailing-comma <none&#124;es5&#124;all></code> | <code>trailingComma: "<none&#124;es5&#124;all>"</code>
+`"none"` | `--trailing-comma <none,es5,all>` | `trailingComma: "<none,es5,all>"`
 
 ## Bracket Spacing
 Print spaces between brackets in object literals.
@@ -92,6 +94,7 @@ Default | CLI Override | API Override
 Format only a segment of a file.
 
 These two options can be used to format code starting and ending at a given character offset (inclusive and exclusive, respectively). The range will extend:
+
 * Backwards to the start of the first line containing the selected statement.
 * Forwards to the end of the selected statement.
 
@@ -108,6 +111,7 @@ Specify which parser to use.
 Both the `babylon` and `flow` parsers support the same set of JavaScript features (including Flow). Prettier automatically infers the parser from the input file path, so you shouldn't have to change this setting.
 
 Built-in parsers:
+
  * [`babylon`](https://github.com/babel/babylon/)
  * [`flow`](https://github.com/facebook/flow/tree/master/src/parser)
  * [`typescript`](https://github.com/eslint/typescript-eslint-parser) _Since v1.4.0_
@@ -119,7 +123,7 @@ Built-in parsers:
 
 Default | CLI Override | API Override
 --------|--------------|-------------
-`babylon` | `--parser <string>`<br />`--parser ./my-parser` | `parser: "<string>"`<br />`parser: require("./my-parser")`
+`babylon` | `--parser <string>` or `--parser ./my-parser` | `parser: "<string>"` or `parser: require("./my-parser")`
 
 ## Filepath
 Specify the input filepath. This will be used to do parser inference.
