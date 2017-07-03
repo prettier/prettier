@@ -1,0 +1,38 @@
+[
+  {
+    "caption": "React",
+    "image": "/images/react-200x100.png",
+    "infoLink": "https://facebook.github.io/react/",
+    "pinned": true
+  },
+  {
+    "caption": "Jest",
+    "image": "/images/jest-200x100.png",
+    "infoLink": "https://facebook.github.io/jest/",
+    "pinned": true
+  },
+  {
+    "caption": "Yarn",
+    "image": "/images/yarn-200x100.png",
+    "infoLink": "https://yarnpkg.com",
+    "pinned": true
+  },
+  {
+    "caption": "Babel",
+    "image": "/images/babel-200x100.png",
+    "infoLink": "https://babeljs.jo",
+    "pinned": true
+  },
+  {
+    "caption": "Zeit",
+    "image": "/images/zeit-200x100.png",
+    "infoLink": "https://zeit.co/",
+    "pinned": true
+  },
+  {
+    "caption": "Webpack CLI",
+    "image": "/images/webpack-200x100.png",
+    "infoLink": "https://webpack.js.org/api/cli/",
+    "pinned": true
+  }
+]

@@ -38,7 +38,7 @@ class Users extends React.Component {
               </div>
               <p>Are you using this project?</p>
               <a
-                href={`${siteConfig.githubUrl}/edit/master/website/siteConfig.js`}
+                href={`${siteConfig.githubUrl}/edit/master/website/users.json`}
                 className="button"
               >
                 Add your company

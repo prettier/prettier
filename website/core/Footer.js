@@ -20,6 +20,10 @@ GithubButton.propTypes = {
 };
 
 class Footer extends React.Component {
+  url(path) {
+    return this.props.config.baseUrl + "docs/" + this.props.language + path;
+  }
+
   render() {
     // const currentYear = new Date().getFullYear();
     return (
@@ -33,59 +37,39 @@ class Footer extends React.Component {
           </a>
           <div>
             <h5>Docs</h5>
-            <a
-              href={
-                this.props.config.baseUrl +
-                "docs/" +
-                this.props.language +
-                "/why-prettier.html"
-              }
-            >
-              Getting Started (or other categories)
+            <a href={this.url("/why-prettier.html")}>
+              Why Prettier?
             </a>
-            <a
-              href={
-                this.props.config.baseUrl +
-                "docs/" +
-                this.props.language +
-                "/why-prettier.html"
-              }
-            >
-              Guides (or other categories)
+            <a href={this.url("/usage.html")}>
+              Usage
             </a>
-            <a
-              href={
-                this.props.config.baseUrl +
-                "docs/" +
-                this.props.language +
-                "/why-prettier.html"
-              }
-            >
-              API Reference (or other categories)
+            <a href={this.url("/options.html")}>
+              Options
+            </a>
+            <a href={this.url("/editors.html")}>
+              Editor Integeration
             </a>
           </div>
           <div>
             <h5>Community</h5>
-            <a
-              href={this.props.config.baseUrl + this.props.language + "/users/"}
-            >
+            <a href={this.url("/users/")}>
               User Showcase
             </a>
             <a
-              href="http://stackoverflow.com/questions/tagged/"
+              href="http://stackoverflow.com/questions/tagged/prettier"
               target="_blank"
               rel="noopener noreferrer"
             >
               Stack Overflow
             </a>
             <a href="https://gitter.im/jlongster/prettier">Chat on Gitter</a>
-            <a
+            {/*<a
               href="https://twitter.com/"
               target="_blank"
               rel="noopener noreferrer"
             >
               Twitter
-            </a>
+            </a>*/}
           </div>
           <div>
             <h5>More</h5>

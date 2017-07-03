@@ -3,7 +3,7 @@
 const React = require("react");
 
 const CompLibrary = require("../../core/CompLibrary.js");
-const Marked = CompLibrary.Marked; /* Used to read markdown */
+// const Marked = CompLibrary.Marked; /* Used to read markdown */
 const Container = CompLibrary.Container;
 const GridBlock = CompLibrary.GridBlock;
 
@@ -50,18 +50,14 @@ class HomeSplash extends React.Component {
                   <div className="pluginRowBlock">
                     <Button href="/playground/">Try It Out</Button>
                     <Button
-                      href={
-                        "/docs/" + this.props.language + "/why-prettier.html"
-                      }
+                      href={"/docs/" + this.props.language + "/usage.html"}
                     >
-                      Example Link
+                      Get Started
                     </Button>
                     <Button
-                      href={
-                        "/docs/" + this.props.language + "/why-prettier.html"
-                      }
+                      href={"/docs/" + this.props.language + "/options.html"}
                     >
-                      Example Link 2
+                      Options
                     </Button>
                   </div>
                 </div>
@@ -89,6 +85,8 @@ class Index extends React.Component {
         return (
           <a key={i} href={user.infoLink}>
             <img src={user.image} title={user.caption} />
+            <br />
+            {user.caption}
           </a>
         );
       });
@@ -98,49 +96,58 @@ class Index extends React.Component {
         <script src="redirect.js" />
         <HomeSplash language={language} />
         <div className="mainContainer">
-          <Container padding={["bottom", "top"]}>
-            <GridBlock
-              align="center"
-              contents={[
-                {
-                  content: "This is the content of my feature",
-                  image: "/prettier.png",
-                  imageAlign: "top",
-                  title: "Feature One"
-                },
-                {
-                  content: "The content of my second feature",
-                  image: "/prettier.png",
-                  imageAlign: "top",
-                  title: "Feature Two"
-                }
-              ]}
-              layout="fourColumn"
-            />
-          </Container>
-
           <div
+            className="productShowcaseSection lightBackground paddingTop paddingBottom"
+            style={{ textAlign: "center" }}
+          >
+            <h2 style={{ margin: 0 }}>Language Support</h2>
+            <Container>
+              <GridBlock
+                align="center"
+                contents={siteConfig.supportedLanguages.map(language => ({
+                  title: language.name,
+                  image: language.image,
+                  imageAlign: "top",
+                  content: language.variants.join("\n\n")
+                }))}
+                layout="fourColumn"
+              />
+            </Container>
+          </div>
+
+          {/*<div
             className="productShowcaseSection paddingBottom"
             style={{ textAlign: "center" }}
           >
             <h2>Feature Callout</h2>
             <Marked>These are features of this project</Marked>
+          </div>*/}
+
+          <div className="productShowcaseSection paddingBottom">
+            <h2>Editor Integration</h2>
+            <Container>
+              <GridBlock
+                align="center"
+                contents={siteConfig.editors.map(editor => ({
+                  content: editor.content || "",
+                  image: editor.image,
+                  imageAlign: "bottom",
+                  title: editor.name
+                }))}
+                layout="fourColumn"
+              />
+            </Container>
+
+            <p>Developed an integration?</p>
+            <a
+              href={`${siteConfig.githubUrl}/edit/master/website/editors.json`}
+              className="button"
+            >
+              Add it here
+            </a>
           </div>
 
-          <Container padding={["bottom", "top"]} background="light">
-            <GridBlock
-              contents={[
-                {
-                  content: "Talk about learning how to use this",
-                  image: "/prettier.png",
-                  imageAlign: "right",
-                  title: "Learn How"
-                }
-              ]}
-            />
-          </Container>
-
-          <Container padding={["bottom", "top"]} background="dark">
+          {/*<Container padding={["bottom", "top"]} background="dark">
             <GridBlock
               contents={[
                 {
@@ -152,9 +159,9 @@ class Index extends React.Component {
                 }
               ]}
             />
-          </Container>
+          </Container>*/}
 
-          <div className="productShowcaseSection paddingBottom">
+          <div className="productShowcaseSection paddingTop paddingBottom lightBackground">
             <h2>Who{"'"}s Using Prettier?</h2>
             <p>
               A few of the

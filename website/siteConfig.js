@@ -5,45 +5,9 @@ const fs = require("fs");
 const PACKAGE = require("../package");
 const GITHUB_URL = `https://github.com/${PACKAGE.repository}`;
 
-/* List of projects/orgs using your project for the users page */
-const users = [
-  {
-    caption: "React",
-    image: `${GITHUB_URL}/raw/master/images/react-200x100.png`,
-    infoLink: "https://facebook.github.io/react/",
-    pinned: true
-  },
-  {
-    caption: "Jest",
-    image: `${GITHUB_URL}/raw/master/images/jest-200x100.png`,
-    infoLink: "https://facebook.github.io/jest/",
-    pinned: true
-  },
-  {
-    caption: "Yarn",
-    image: `${GITHUB_URL}/raw/master/images/yarn-200x100.png`,
-    infoLink: "https://yarnpkg.com",
-    pinned: true
-  },
-  {
-    caption: "Babel",
-    image: `${GITHUB_URL}/raw/master/images/babel-200x100.png`,
-    infoLink: "https://babeljs.jo",
-    pinned: true
-  },
-  {
-    caption: "Zeit",
-    image: `${GITHUB_URL}/raw/master/images/zeit-200x100.png`,
-    infoLink: "https://zeit.co/",
-    pinned: true
-  },
-  {
-    caption: "Webpack CLI",
-    image: `${GITHUB_URL}/raw/master/images/webpack-200x100.png`,
-    infoLink: "https://webpack.js.org/api/cli/",
-    pinned: true
-  }
-];
+const users = require("./users");
+const editors = require("./editors");
+const supportedLanguages = require("./languages");
 
 const siteConfig = {
   title: "Prettier",
@@ -53,6 +17,8 @@ const siteConfig = {
   projectName: PACKAGE.name,
   repo: PACKAGE.repository,
   users,
+  editors,
+  supportedLanguages,
   /* base url for editing docs, usage example: editUrl + 'en/doc1.md' */
   editUrl: `${GITHUB_URL}/edit/master/docs/`,
   /* header links for links on this site, 'LANGUAGE' will be replaced by whatever
@@ -63,12 +29,7 @@ const siteConfig = {
       href: "/docs/LANGUAGE/why-prettier.html",
       text: "Docs"
     },
-    {
-      section: "api",
-      href: "/docs/LANGUAGE/why-prettier.html",
-      text: "API"
-    },
-    { section: "help", href: "/LANGUAGE/help/", text: "Help" },
+    // { section: "help", href: "/LANGUAGE/help/", text: "Help" },
     // {section: 'blog', href: '/test-site/blog', text: 'Blog'},
     {
       section: "playground",

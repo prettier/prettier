@@ -36,6 +36,7 @@
   "devDependencies": {
     "babel-cli": "6.24.1",
     "babel-preset-es2015": "6.24.1",
+    "cross-env": "5.0.1",
     "cross-spawn": "5.1.0",
     "eslint": "4.1.1",
     "eslint-friendly-formatter": "3.0.0",
@@ -61,7 +62,7 @@
   "scripts": {
     "test": "jest",
     "test-integration": "jest tests_integration",
-    "lint": "EFF_NO_LINK_RULES=true eslint . --format 'node_modules/eslint-friendly-formatter'",
+    "lint": "cross-env EFF_NO_LINK_RULES=true eslint . --format node_modules/eslint-friendly-formatter",
     "build": "./scripts/build/build.js"
   },
   "jest": {
