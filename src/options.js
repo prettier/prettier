@@ -7,13 +7,13 @@ const defaults = {
   cursorOffset: -1,
   rangeStart: 0,
   rangeEnd: Infinity,
-  useTabs: false,
+  useTabs: true,
   tabWidth: 2,
-  printWidth: 80,
-  singleQuote: false,
-  trailingComma: "none",
+  printWidth: 100,
+  singleQuote: true,
+  trailingComma: "all",
   bracketSpacing: true,
-  parenSpacing: false,
+  parenSpacing: true,
   jsxBracketSameLine: false,
   parser: "babylon",
   semi: true
@@ -27,6 +27,11 @@ const exampleConfig = Object.assign({}, defaults, {
 
 // Copy options and fill in default values.
 function normalize(options) {
+  // Calypso fork ignores all options and always uses the defaults. This is an escape hatch.
+  if (!options.unlockOptions) {
+    return Object.assign({}, defaults);
+  }
+
   const normalized = Object.assign({}, options || {});
   const filepath = normalized.filepath;
 
