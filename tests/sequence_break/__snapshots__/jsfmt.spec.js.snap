@@ -20,9 +20,17 @@ const f = (argument1, argument2, argument3) => (
   argument1
 );
 (function() {
-  return aLongIdentifierName, aLongIdentifierName, aLongIdentifierName, aLongIdentifierName;
+  return (
+    aLongIdentifierName,
+    aLongIdentifierName,
+    aLongIdentifierName,
+    aLongIdentifierName
+  );
 });
-aLongIdentifierName, aLongIdentifierName, aLongIdentifierName, aLongIdentifierName;
+aLongIdentifierName,
+  aLongIdentifierName,
+  aLongIdentifierName,
+  aLongIdentifierName;
 a.then(
   () => (
     aLongIdentifierName,
@@ -32,7 +40,10 @@ a.then(
   )
 );
 for (
-  aLongIdentifierName = 0, aLongIdentifierName = 0, aLongIdentifierName = 0, aLongIdentifierName = 0;
+  aLongIdentifierName = 0,
+    aLongIdentifierName = 0,
+    aLongIdentifierName = 0,
+    aLongIdentifierName = 0;
   test;
   update
 ) {}
@@ -40,22 +51,26 @@ for (
   ? c
   : function() {
       return 0;
-    }), (a = b
-  ? c
-  : function() {
-      return 0;
-    }), (a = b
-  ? c
-  : function() {
-      return 0;
-    }), (a = b
-  ? c
-  : function() {
-      return 0;
-    }), (a = b
-  ? c
-  : function() {
-      return 0;
-    });
+    }),
+  (a = b
+    ? c
+    : function() {
+        return 0;
+      }),
+  (a = b
+    ? c
+    : function() {
+        return 0;
+      }),
+  (a = b
+    ? c
+    : function() {
+        return 0;
+      }),
+  (a = b
+    ? c
+    : function() {
+        return 0;
+      });
 
 `;

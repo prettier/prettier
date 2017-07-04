@@ -186,6 +186,7 @@ FastPath.prototype.needsParens = function(options) {
   if (
     (parent.type === "ArrowFunctionExpression" &&
       parent.body === node &&
+      node.type !== "SequenceExpression" && // these have parens added anyway
       startsWithNoLookaheadToken(node, /* forbidFunctionAndClass */ false)) ||
     (parent.type === "ExpressionStatement" &&
       startsWithNoLookaheadToken(node, /* forbidFunctionAndClass */ true))
@@ -375,6 +376,11 @@ FastPath.prototype.needsParens = function(options) {
 
         case "ExpressionStatement":
           return name !== "expression";
+
+        case "ArrowFunctionExpression":
+          // We do need parentheses, but SequenceExpressions are handled
+          // specially when printing bodies of arrow functions.
+          return name !== "body";
 
         default:
           // Otherwise err on the side of overparenthesization, adding
