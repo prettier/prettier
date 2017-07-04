@@ -252,6 +252,23 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
 
 if (stdin) {
   getStream(process.stdin).then(input => {
+    const filename = "(stdin)";
+
+    if (argv["list-different"]) {
+      if (
+        !prettier.check(
+          input,
+          Object.assign({}, options, { filepath: filename })
+        )
+      ) {
+        if (!write) {
+          console.log(filename);
+        }
+        process.exitCode = 1;
+      }
+      return;
+    }
+
     try {
       writeOutput(format(input, options));
     } catch (e) {
