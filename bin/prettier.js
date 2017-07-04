@@ -343,17 +343,20 @@ if (stdin) {
 }
 
 function listDifferent(input, options, filename) {
-  if (argv["list-different"]) {
-    if (
-      !prettier.check(input, Object.assign({}, options, { filepath: filename }))
-    ) {
-      if (!write) {
-        console.log(filename);
-      }
-      process.exitCode = 1;
-    }
-    return true;
+  if (!argv["list-different"]) {
+    return;
   }
+
+  if (
+    !prettier.check(input, Object.assign({}, options, { filepath: filename }))
+  ) {
+    if (!write) {
+      console.log(filename);
+    }
+    process.exitCode = 1;
+  }
+
+  return true;
 }
 
 function writeOutput(result) {
