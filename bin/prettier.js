@@ -252,20 +252,7 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
 
 if (stdin) {
   getStream(process.stdin).then(input => {
-    const filename = "(stdin)";
-
-    if (argv["list-different"]) {
-      if (
-        !prettier.check(
-          input,
-          Object.assign({}, options, { filepath: filename })
-        )
-      ) {
-        if (!write) {
-          console.log(filename);
-        }
-        process.exitCode = 1;
-      }
+    if (listDifferent(input, options, "(stdin)")) {
       return;
     }
 
@@ -296,19 +283,7 @@ if (stdin) {
       return;
     }
 
-    if (argv["list-different"]) {
-      if (
-        !prettier.check(
-          input,
-          Object.assign({}, options, { filepath: filename })
-        )
-      ) {
-        if (!write) {
-          console.log(filename);
-        }
-        process.exitCode = 1;
-      }
-    }
+    listDifferent(input, options, filename);
 
     const start = Date.now();
 
@@ -365,6 +340,20 @@ if (stdin) {
       writeOutput(result);
     }
   });
+}
+
+function listDifferent(input, options, filename) {
+  if (argv["list-different"]) {
+    if (
+      !prettier.check(input, Object.assign({}, options, { filepath: filename }))
+    ) {
+      if (!write) {
+        console.log(filename);
+      }
+      process.exitCode = 1;
+    }
+    return true;
+  }
 }
 
 function writeOutput(result) {
