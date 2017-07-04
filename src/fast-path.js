@@ -185,8 +185,8 @@ FastPath.prototype.needsParens = function(options) {
 
   if (
     (parent.type === "ArrowFunctionExpression" &&
-      parent.body === node &&
-      node.type !== "SequenceExpression" && // these have parens added anyway
+    parent.body === node &&
+    node.type !== "SequenceExpression" && // these have parens added anyway
       startsWithNoLookaheadToken(node, /* forbidFunctionAndClass */ false)) ||
     (parent.type === "ExpressionStatement" &&
       startsWithNoLookaheadToken(node, /* forbidFunctionAndClass */ true))
