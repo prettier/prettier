@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`multiple patterns 1`] = `
+"directory/file.js
+directory/nested-directory/nested-directory-file.js
+other-directory/file.js
+other-directory/nested-directory/nested-directory-file.js
+"
+`;
+
+exports[`multiple patterns by with ignore pattern, doesn't ignore node_modules with --with-node-modules flag 1`] = `
+"node_modules/node-module.js
+other-directory/file.js
+other-directory/nested-directory/nested-directory-file.js
+other-regular-modules.js
+regular-module.js
+"
+`;
+
+exports[`multiple patterns by with ignore pattern, ignores node_modules by default 1`] = `
+"other-directory/file.js
+other-directory/nested-directory/nested-directory-file.js
+other-regular-modules.js
+regular-module.js
+"
+`;
+
+exports[`multiple patterns by with ignore pattern, ignores node_modules by with ./**/*.js 1`] = `
+"./other-directory/file.js
+./other-directory/nested-directory/nested-directory-file.js
+./other-regular-modules.js
+./regular-module.js
+"
+`;
+
+exports[`multiple patterns with ignore nested directories pattern 1`] = `
+"directory/file.js
+other-directory/file.js
+other-regular-modules.js
+regular-module.js
+"
+`;
+
+exports[`multiple patterns with non exists pattern 1`] = `
+"directory/file.js
+directory/nested-directory/nested-directory-file.js
+"
+`;
+
+exports[`multiple patterns, throw error and exit with non zero code on non existing files 1`] = `
+"No matching files. Patterns tried: non-existent.js other-non-existent.js !**/node_modules/** !./node_modules/**
+"
+`;
