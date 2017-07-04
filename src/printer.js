@@ -454,7 +454,6 @@ function genericPrintNoParens(path, options, print, args) {
       parts.push(" =>");
 
       const body = path.call(bodyPath => print(bodyPath, args), "body");
-      const collapsed = concat([concat(parts), " ", body]);
 
       // We want to always keep these types of nodes on the same line
       // as the arrow.
@@ -463,11 +462,23 @@ function genericPrintNoParens(path, options, print, args) {
         (n.body.type === "ArrayExpression" ||
           n.body.type === "ObjectExpression" ||
           n.body.type === "BlockStatement" ||
-          n.body.type === "SequenceExpression" ||
           isTemplateOnItsOwnLine(n.body, options.originalText) ||
           n.body.type === "ArrowFunctionExpression")
       ) {
-        return group(collapsed);
+        return group(concat([concat(parts), " ", body]));
+      }
+
+      // We handle sequence expressions as the body of arrows specially,
+      // so that the required parentheses end up on their own lines.
+      if (n.body.type === "SequenceExpression") {
+        return group(
+          concat([
+            concat(parts),
+            group(
+              concat([" (", indent(concat([softline, body])), softline, ")"])
+            )
+          ])
+        );
       }
 
       // if the arrow function is expanded as last argument, we are adding a
@@ -779,7 +790,8 @@ function genericPrintNoParens(path, options, print, args) {
           );
         } else if (
           n.argument.type === "LogicalExpression" ||
-          n.argument.type === "BinaryExpression"
+          n.argument.type === "BinaryExpression" ||
+          n.argument.type === "SequenceExpression"
         ) {
           parts.push(
             group(
@@ -1124,25 +1136,26 @@ function genericPrintNoParens(path, options, print, args) {
 
       return concat(parts);
     case "SequenceExpression": {
-      const parent = path.getParentNode();
-      const shouldInline =
-        parent.type === "ReturnStatement" ||
-        parent.type === "ForStatement" ||
-        parent.type === "ExpressionStatement";
-
-      if (shouldInline) {
-        return join(", ", path.map(print, "expressions"));
+      const parent = path.getParentNode(0);
+      if (
+        parent.type === "ExpressionStatement" ||
+        parent.type === "ForStatement"
+      ) {
+        // For ExpressionStatements and for-loop heads, which are among
+        // the few placesa SequenceExpression appears unparenthesized, we want
+        // to indent expressions after the first.
+        const parts = [];
+        path.each(p => {
+          if (p.getName() === 0) {
+            parts.push(print(p));
+          } else {
+            parts.push(",", indent(concat([line, print(p)])));
+          }
+        }, "expressions");
+        return group(concat(parts));
       }
       return group(
-        concat([
-          indent(
-            concat([
-              softline,
-              join(concat([",", line]), path.map(print, "expressions"))
-            ])
-          ),
-          softline
-        ])
+        concat([join(concat([",", line]), path.map(print, "expressions"))])
       );
     }
     case "ThisExpression":

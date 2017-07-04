@@ -376,6 +376,11 @@ FastPath.prototype.needsParens = function(options) {
         case "ExpressionStatement":
           return name !== "expression";
 
+        case "ArrowFunctionExpression":
+          // We do need parentheses, but SequenceExpressions are handled
+          // specially when printing bodies of arrow functions.
+          return name !== "body";
+
         default:
           // Otherwise err on the side of overparenthesization, adding
           // explicit exceptions above if this proves overzealous.
