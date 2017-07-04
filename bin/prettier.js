@@ -347,9 +347,9 @@ function listDifferent(input, options, filename) {
     return;
   }
 
-  if (
-    !prettier.check(input, Object.assign({}, options, { filepath: filename }))
-  ) {
+  options = Object.assign({}, options, { filepath: filename });
+
+  if (!prettier.check(input, options)) {
     if (!write) {
       console.log(filename);
     }
