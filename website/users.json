@@ -34,5 +34,10 @@
     "image": "/images/webpack-200x100.png",
     "infoLink": "https://webpack.js.org/api/cli/",
     "pinned": true
+  },
+  {
+    "caption": "PayPal",
+    "image": "/images/paypal-200x100.png",
+    "infoLink": "https://github.com/paypal"
   }
 ]
