@@ -282,7 +282,7 @@ function calculateRange(text, opts, ast) {
 }
 
 function formatRange(text, opts, ast) {
-  if (0 < opts.rangeStart || opts.rangeEnd < text.length) {
+  if (opts.rangeStart > 0 || opts.rangeEnd < text.length) {
     const range = calculateRange(text, opts, ast);
     const rangeStart = range.rangeStart;
     const rangeEnd = range.rangeEnd;
