@@ -154,7 +154,7 @@ const options = {
 function format(input, opt) {
   if (argv["debug-print-doc"]) {
     const doc = prettier.__debug.printToDoc(input, opt);
-    return prettier.__debug.formatDoc(doc);
+    return { formatted: prettier.__debug.formatDoc(doc) };
   }
 
   if (argv["debug-check"]) {
