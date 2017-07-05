@@ -462,6 +462,7 @@ function genericPrintNoParens(path, options, print, args) {
         (n.body.type === "ArrayExpression" ||
           n.body.type === "ObjectExpression" ||
           n.body.type === "BlockStatement" ||
+          n.body.type === "JSXElement" ||
           isTemplateOnItsOwnLine(n.body, options.originalText) ||
           n.body.type === "ArrowFunctionExpression")
       ) {
@@ -1224,21 +1225,81 @@ function genericPrintNoParens(path, options, print, args) {
       return concat(parts);
     case "ConditionalExpression": {
       const parent = path.getParentNode();
-      const printed = concat([
-        line,
-        "? ",
-        n.consequent.type === "ConditionalExpression" ? ifBreak("", "(") : "",
-        align(2, path.call(print, "consequent")),
-        n.consequent.type === "ConditionalExpression" ? ifBreak("", ")") : "",
-        line,
-        ": ",
-        align(2, path.call(print, "alternate"))
-      ]);
+      let forceNoIndent = false;
+      let firstNonConditionalParent;
+      let i = 0;
+      do {
+        firstNonConditionalParent = path.getParentNode(i);
+        i++;
+      } while (
+        firstNonConditionalParent &&
+        firstNonConditionalParent.type === "ConditionalExpression"
+      );
+
+      // Conditional expressions are intentionally formatted differently when
+      // they appear within JSX or contain JSX. Instead of:
+      //
+      //   test
+      //     ? consequent
+      //     : alternate;
+      //
+      // They look like:
+      //
+      //   test ? (
+      //     consequent
+      //   ) : (
+      //     alternate
+      //   )
+      //
+      if (
+        n.consequent.type === "JSXElement" ||
+        n.alternate.type === "JSXElement" ||
+        parent.type === "JSXExpressionContainer" ||
+        firstNonConditionalParent.type === "JSXExpressionContainer"
+      ) {
+        forceNoIndent = true;
+
+        // Even though they don't need parens, we wrap (almost) everything in
+        // parens when using ?: within JSX, because the parens are analagous to
+        // curly braces in an if statement.
+        const wrap = node =>
+          concat(["(", indent(concat([hardline, node])), hardline, ")"]);
+
+        const NO_WRAP_TYPES = {
+          ConditionalExpression: true,
+          // JSXElements are always wrapped when they're the child of a ConditionalExpression.
+          JSXElement: true
+        };
+
+        parts.push(
+          " ? ",
+          NO_WRAP_TYPES[n.consequent.type]
+            ? path.call(print, "consequent")
+            : wrap(path.call(print, "consequent")),
+          " : ",
+          NO_WRAP_TYPES[n.alternate.type]
+            ? path.call(print, "alternate")
+            : wrap(path.call(print, "alternate"))
+        );
+      } else {
+        parts.push(
+          line,
+          "? ",
+          n.consequent.type === "ConditionalExpression" ? ifBreak("", "(") : "",
+          align(2, path.call(print, "consequent")),
+          n.consequent.type === "ConditionalExpression" ? ifBreak("", ")") : "",
+          line,
+          ": ",
+          align(2, path.call(print, "alternate"))
+        );
+      }
 
       return group(
         concat([
           path.call(print, "test"),
-          parent.type === "ConditionalExpression" ? printed : indent(printed)
+          parent.type === "ConditionalExpression" || forceNoIndent
+            ? concat(parts)
+            : indent(concat(parts))
         ])
       );
     }
@@ -4018,13 +4079,18 @@ function maybeWrapJSXElementInParens(path, elem) {
     JSXElement: true,
     JSXExpressionContainer: true,
     ExpressionStatement: true,
-    CallExpression: true,
-    ConditionalExpression: true,
-    LogicalExpression: true,
-    ArrowFunctionExpression: true
+    CallExpression: true
   };
   if (NO_WRAP_PARENTS[parent.type]) {
     return elem;
+  }
+
+  const ALWAYS_WRAP_PARENTS = {
+    LogicalExpression: true,
+    ConditionalExpression: true
+  };
+  if (ALWAYS_WRAP_PARENTS[parent.type]) {
+    return concat(["(", indent(concat([hardline, elem])), hardline, ")"]);
   }
 
   return group(
@@ -4057,6 +4123,10 @@ function shouldInlineLogicalExpression(node) {
     node.right.type === "ArrayExpression" &&
     node.right.elements.length !== 0
   ) {
+    return true;
+  }
+
+  if (node.right.type === "JSXElement") {
     return true;
   }
 
