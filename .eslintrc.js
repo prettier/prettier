@@ -15,13 +15,17 @@ module.exports = {
     ],
     "no-console": "off",
     "no-else-return": "error",
-    "no-inner-declarations": "off",
+    "no-inner-declarations": "error",
+    "no-unneeded-ternary": "error",
+    "no-useless-return": "error",
     "no-var": "error",
+    "one-var": ["error", "never"],
     "prefer-arrow-callback": "error",
     "prefer-const": "error",
     "prettier/prettier": "error",
     "react/no-deprecated": "off",
-    strict: "error"
+    strict: "error",
+    "symbol-description": "error"
   },
   parserOptions: {
     ecmaFeatures: {

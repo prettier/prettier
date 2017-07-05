@@ -151,6 +151,12 @@ const options = {
   parser: getParserOption()
 };
 
+function diff(a, b) {
+  return require("diff").createTwoFilesPatch("", "", a, b, "", "", {
+    context: 2
+  });
+}
+
 function format(input, opt) {
   if (argv["debug-print-doc"]) {
     const doc = prettier.__debug.printToDoc(input, opt);
@@ -158,12 +164,6 @@ function format(input, opt) {
   }
 
   if (argv["debug-check"]) {
-    function diff(a, b) {
-      return require("diff").createTwoFilesPatch("", "", a, b, "", "", {
-        context: 2
-      });
-    }
-
     const pp = prettier.format(input, opt);
     const pppp = prettier.format(pp, opt);
     if (pp !== pppp) {
@@ -260,7 +260,6 @@ if (stdin) {
       writeOutput(format(input, options));
     } catch (e) {
       handleError("stdin", e);
-      return;
     }
   });
 } else {
@@ -393,6 +392,5 @@ function eachFilename(patterns, callback) {
       );
       // Don't exit the process if one pattern failed
       process.exitCode = 2;
-      return;
     });
 }
