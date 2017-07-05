@@ -25,8 +25,7 @@ module.exports = {
     "prettier/prettier": "error",
     "react/no-deprecated": "off",
     strict: "error",
-    "symbol-description": "error",
-    yoda: "error"
+    "symbol-description": "error"
   },
   parserOptions: {
     ecmaFeatures: {
