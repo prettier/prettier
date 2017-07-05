@@ -260,7 +260,6 @@ if (stdin) {
       writeOutput(format(input, options));
     } catch (e) {
       handleError("stdin", e);
-      return;
     }
   });
 } else {
@@ -393,6 +392,5 @@ function eachFilename(patterns, callback) {
       );
       // Don't exit the process if one pattern failed
       process.exitCode = 2;
-      return;
     });
 }

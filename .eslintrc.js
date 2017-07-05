@@ -16,6 +16,7 @@ module.exports = {
     "no-console": "off",
     "no-else-return": "error",
     "no-inner-declarations": "off",
+    "no-useless-return": "error",
     "no-var": "error",
     "prefer-arrow-callback": "error",
     "prefer-const": "error",
