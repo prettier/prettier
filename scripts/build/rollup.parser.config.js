@@ -41,5 +41,5 @@ export default Object.assign(baseConfig, {
     "os",
     "crypto"
   ],
-  useStrict: parser === "flow" ? false : true
+  useStrict: parser !== "flow"
 });
