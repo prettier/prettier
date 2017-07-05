@@ -3207,7 +3207,7 @@ function printExportDeclaration(path, options, print) {
         const defaultSpecifiers = [];
         const namespaceSpecifiers = [];
 
-        path.map(specifierPath => {
+        path.each(specifierPath => {
           const specifierType = path.getValue().type;
           if (specifierType === "ExportSpecifier") {
             specifiers.push(print(specifierPath));
