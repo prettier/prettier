@@ -24,7 +24,8 @@ module.exports = {
     "prefer-const": "error",
     "prettier/prettier": "error",
     "react/no-deprecated": "off",
-    strict: "error"
+    strict: "error",
+    "symbol-description": "error"
   },
   parserOptions: {
     ecmaFeatures: {
