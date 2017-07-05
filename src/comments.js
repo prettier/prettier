@@ -81,10 +81,11 @@ function getSortedChildNodes(node, text, resultArray) {
 // least one of which is guaranteed to be defined.
 function decorateComment(node, comment, text) {
   const childNodes = getSortedChildNodes(node, text);
-  let precedingNode, followingNode;
+  let precedingNode;
+  let followingNode;
   // Time to dust off the old binary search robes and wizard hat.
-  let left = 0,
-    right = childNodes.length;
+  let left = 0;
+  let right = childNodes.length;
   while (left < right) {
     const middle = (left + right) >> 1;
     const child = childNodes[middle];

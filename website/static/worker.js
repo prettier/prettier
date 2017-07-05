@@ -30,7 +30,8 @@ self.onmessage = function(message) {
   delete options.doc;
 
   var formatted = formatCode(message.data.text, options);
-  var doc, ast;
+  var doc;
+  var ast;
 
   if (message.data.ast) {
     try {
