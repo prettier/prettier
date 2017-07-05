@@ -151,6 +151,12 @@ const options = {
   parser: getParserOption()
 };
 
+function diff(a, b) {
+  return require("diff").createTwoFilesPatch("", "", a, b, "", "", {
+    context: 2
+  });
+}
+
 function format(input, opt) {
   if (argv["debug-print-doc"]) {
     const doc = prettier.__debug.printToDoc(input, opt);
@@ -158,12 +164,6 @@ function format(input, opt) {
   }
 
   if (argv["debug-check"]) {
-    function diff(a, b) {
-      return require("diff").createTwoFilesPatch("", "", a, b, "", "", {
-        context: 2
-      });
-    }
-
     const pp = prettier.format(input, opt);
     const pppp = prettier.format(pp, opt);
     if (pp !== pppp) {

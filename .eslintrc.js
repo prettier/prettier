@@ -15,7 +15,7 @@ module.exports = {
     ],
     "no-console": "off",
     "no-else-return": "error",
-    "no-inner-declarations": "off",
+    "no-inner-declarations": "error",
     "no-unneeded-ternary": "error",
     "no-useless-return": "error",
     "no-var": "error",
