@@ -3039,6 +3039,7 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
     fun[paramsField].length === 1 &&
     fun[paramsField][0].name === null &&
     fun[paramsField][0].typeAnnotation &&
+    fun.typeParameters === null &&
     flowTypeAnnotations.indexOf(fun[paramsField][0].typeAnnotation.type) !==
       -1 &&
     !(

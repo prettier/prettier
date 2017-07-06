@@ -156,6 +156,24 @@ type State = {
 
 `;
 
+exports[`type.js 1`] = `
+type F = <T>(T) => T;
+type G = (<A, B>(A) => B);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type F = <T>(T) => T;
+type G = <A, B>(A) => B;
+
+`;
+
+exports[`type.js 2`] = `
+type F = <T>(T) => T;
+type G = (<A, B>(A) => B);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type F = <T>(T) => T;
+type G = <A, B>(A) => B;
+
+`;
+
 exports[`union.js 1`] = `
 type Foo = Promise<
   { ok: true, bar: string, baz: SomeOtherLongType } | 
