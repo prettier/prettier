@@ -318,19 +318,18 @@ See https://github.com/okonet/lint-staged#configuration for more details about h
 
 ##### Option 2. [pre-commit](https://github.com/pre-commit/pre-commit)
 
-Copy the following config in your pre-commit config yaml file:
+Copy the following config into your `.pre-commit-config.yaml` file:
 
 ```yaml
 
-    -   repo: https://github.com/awebdeveloper/pre-commit-prettier
+    -   repo: https://github.com/prettier/prettier
         sha: ''  # Use the sha or tag you want to point at
         hooks:
         -   id: prettier
-            additional_dependencies: ['prettier@1.4.2']
 
- ```
+```
 
-Find more info from [here](https://github.com/awebdeveloper/pre-commit-prettier).
+Find more info from [here](http://pre-commit.com).
 
 ##### Option 3. bash script
 
