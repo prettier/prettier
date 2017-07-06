@@ -1,0 +1,5 @@
+-   id: prettier
+    name: prettier
+    entry: prettier --write
+    language: node
+    types: [javascript]
