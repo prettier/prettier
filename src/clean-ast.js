@@ -70,6 +70,10 @@ function massageAST(ast) {
       delete newObj.params;
     }
 
+    if (ast.type === "selector-combinator") {
+      newObj.value = newObj.value.replace(/\s+/g, " ");
+    }
+
     if (ast.type === "media-feature") {
       newObj.value = newObj.value.replace(/ /g, "");
     }
