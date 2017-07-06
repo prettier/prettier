@@ -22,6 +22,7 @@
     "get-stream": "3.0.0",
     "globby": "^6.1.0",
     "graphql": "0.10.1",
+    "ignore": "^3.3.3",
     "jest-validate": "20.0.3",
     "json-to-ast": "2.0.0-alpha1.2",
     "minimatch": "3.0.4",
