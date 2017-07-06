@@ -212,7 +212,7 @@ function genericPrint(path, options, print) {
           : line;
         return concat([leading, n.value, " "]);
       }
-      return n.value;
+      return n.value.trim() || line;
     }
     case "selector-universal": {
       return n.value;
