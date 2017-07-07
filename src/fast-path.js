@@ -322,12 +322,12 @@ FastPath.prototype.needsParens = function(options) {
             return true;
           }
 
-          if (no === "**" && po === "**") {
-            return name === "left";
-          }
-
           if (pp === np && name === "right") {
             assert.strictEqual(parent.right, node);
+            return true;
+          }
+
+          if (pp === np && !util.shouldFlatten(po, no)) {
             return true;
           }
 
