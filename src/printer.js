@@ -4089,11 +4089,7 @@ function printBinaryishExpressions(
     // precedence level and should be treated as a separate group, so
     // print them normally. (This doesn't hold for the `**` operator,
     // which is unique in that it is right-associative.)
-    if (
-      util.getPrecedence(node.left.operator) ===
-        util.getPrecedence(node.operator) &&
-      node.operator !== "**"
-    ) {
+    if (util.shouldFlatten(node.operator, node.left.operator)) {
       // Flatten them out by recursively calling this function.
       parts = parts.concat(
         path.call(
