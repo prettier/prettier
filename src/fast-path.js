@@ -305,7 +305,7 @@ FastPath.prototype.needsParens = function(options) {
 
         case "BinaryExpression":
         case "LogicalExpression": {
-          if (!node.operator) {
+          if (!node.operator && node.type !== "TSTypeAssertionExpression") {
             return true;
           }
 
