@@ -33,7 +33,7 @@ x => (y += z);
 f(a => ({})) + 1;
 (a => ({})) || 0;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-(a => {}).length;
+((a) => {}).length;
 typeof (() => {});
 export default (() => {})();
 (() => {})()\`\`;
@@ -326,11 +326,11 @@ const middleware = options => (req, res, next) => {
   // ...
 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const fn = b => c => d => {
+const fn = b => c => (d) => {
   return 3;
 };
 
-const mw = store => next => action => {
+const mw = store => next => (action) => {
   return next(action);
 };
 

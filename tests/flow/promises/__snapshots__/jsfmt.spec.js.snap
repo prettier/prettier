@@ -50,7 +50,7 @@ Promise.all([
   pstr,
   pnum,
   true // non-Promise values passed through
-]).then(xs => {
+]).then((xs) => {
   // tuple information is preserved
   let [a, b, c] = xs;
   (a: number); // Error: string ~> number
@@ -58,7 +58,7 @@ Promise.all([
   (c: string); // Error: boolean ~> string
 
   // array element type is (string | number | boolean)
-  xs.forEach(x => {
+  xs.forEach((x) => {
     (x: void); // Errors: string ~> void, number ~> void, boolean ~> void
   });
 });

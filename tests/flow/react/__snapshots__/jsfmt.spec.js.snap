@@ -1009,7 +1009,7 @@ var Example = React.createClass({
 });
 
 var ok_void = <Example func={() => {}} />;
-var ok_args = <Example func={x => {}} />;
+var ok_args = <Example func={(x) => {}} />;
 var ok_retval = <Example func={() => 1} />;
 
 var fail_mistyped = <Example func={2} />;
