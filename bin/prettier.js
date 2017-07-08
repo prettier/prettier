@@ -2,24 +2,40 @@
 
 "use strict";
 
+const chalk = require("chalk");
+const cosmiconfig = require("cosmiconfig")("prettier");
+const dashify = require("dashify");
 const fs = require("fs");
 const getStream = require("get-stream");
 const globby = require("globby");
-const chalk = require("chalk");
 const minimist = require("minimist");
 const readline = require("readline");
+
 const prettier = eval("require")("../index");
 const cleanAST = require("../src/clean-ast.js").cleanAST;
 
-const argv = minimist(process.argv.slice(2), {
+const args = process.argv.slice(2);
+
+const booleanOptionNames = [
+  "use-tabs",
+  "semi",
+  "single-quote",
+  "bracket-spacing",
+  "jsx-bracket-same-line",
+  // Deprecated in 0.0.10
+  "flow-parser"
+];
+const stringOptionNames = [
+  "print-width",
+  "tab-width",
+  "parser",
+  "trailing-comma"
+];
+
+const argv = minimist(args, {
   boolean: [
     "write",
     "stdin",
-    "use-tabs",
-    "semi",
-    "single-quote",
-    "bracket-spacing",
-    "jsx-bracket-same-line",
     // The supports-color package (a sub sub dependency) looks directly at
     // `process.argv` for `--no-color` and such-like options. The reason it is
     // listed here is to avoid "Ignored unknown option: --no-color" warnings.
@@ -30,29 +46,16 @@ const argv = minimist(process.argv.slice(2), {
     "version",
     "debug-print-doc",
     "debug-check",
-    "with-node-modules",
-    // Deprecated in 0.0.10
-    "flow-parser"
+    "with-node-modules"
   ],
-  string: [
-    "print-width",
-    "tab-width",
-    "parser",
-    "trailing-comma",
-    "cursor-offset",
-    "range-start",
-    "range-end",
-    "stdin-filepath"
-  ],
-  default: {
-    semi: true,
-    color: true,
-    "bracket-spacing": true,
-    parser: "babylon"
-  },
+  string: ["cursor-offset", "range-start", "range-end", "stdin-filepath"],
   alias: { help: "h", version: "v", "list-different": "l" },
   unknown: param => {
-    if (param.startsWith("-")) {
+    if (
+      param.startsWith("-") &&
+      booleanOptionNames.indexOf(param) === -1 &&
+      stringOptionNames.indexOf(param) === -1
+    ) {
       console.warn("Ignored unknown option: " + param + "\n");
       return false;
     }
@@ -78,9 +81,48 @@ if (write && argv["debug-check"]) {
   process.exit(1);
 }
 
-function getParserOption() {
-  const optionName = "parser";
-  const value = argv[optionName];
+function getOptionsForFile(filePath) {
+  return cosmiconfig.load(filePath).then(result => {
+    const resolvedOptions = result ? dashifyObject(result.config) : {};
+
+    const parsedArgs = minimist(args, {
+      boolean: booleanOptionNames,
+      string: stringOptionNames,
+      default: Object.assign(
+        {
+          semi: true,
+          color: true,
+          "bracket-spacing": true,
+          parser: "babylon"
+        },
+        resolvedOptions
+      )
+    });
+
+    return getOptions(Object.assign({}, argv, parsedArgs));
+  });
+}
+
+function getOptions(argv) {
+  return {
+    cursorOffset: getIntOption(argv, "cursor-offset"),
+    rangeStart: getIntOption(argv, "range-start"),
+    rangeEnd: getIntOption(argv, "range-end"),
+    useTabs: argv["use-tabs"],
+    semi: argv["semi"],
+    printWidth: getIntOption(argv, "print-width"),
+    tabWidth: getIntOption(argv, "tab-width"),
+    bracketSpacing: argv["bracket-spacing"],
+    singleQuote: argv["single-quote"],
+    jsxBracketSameLine: argv["jsx-bracket-same-line"],
+    filepath: argv["stdin-filepath"],
+    trailingComma: getTrailingComma(argv),
+    parser: getParserOption(argv)
+  };
+}
+
+function getParserOption(argv) {
+  const value = argv.parser;
 
   if (value === undefined) {
     return value;
@@ -95,7 +137,7 @@ function getParserOption() {
   return value;
 }
 
-function getIntOption(optionName) {
+function getIntOption(argv, optionName) {
   const value = argv[optionName];
 
   if (value === undefined) {
@@ -115,7 +157,7 @@ function getIntOption(optionName) {
   process.exit(1);
 }
 
-function getTrailingComma() {
+function getTrailingComma(argv) {
   switch (argv["trailing-comma"]) {
     case undefined:
     case "none":
@@ -135,21 +177,12 @@ function getTrailingComma() {
   }
 }
 
-const options = {
-  cursorOffset: getIntOption("cursor-offset"),
-  rangeStart: getIntOption("range-start"),
-  rangeEnd: getIntOption("range-end"),
-  useTabs: argv["use-tabs"],
-  semi: argv["semi"],
-  printWidth: getIntOption("print-width"),
-  tabWidth: getIntOption("tab-width"),
-  bracketSpacing: argv["bracket-spacing"],
-  singleQuote: argv["single-quote"],
-  jsxBracketSameLine: argv["jsx-bracket-same-line"],
-  filepath: argv["stdin-filepath"],
-  trailingComma: getTrailingComma(),
-  parser: getParserOption()
-};
+function dashifyObject(object) {
+  return Object.keys(object || {}).reduce((output, key) => {
+    output[dashify(key)] = object[key];
+    return output;
+  }, {});
+}
 
 function diff(a, b) {
   return require("diff").createTwoFilesPatch("", "", a, b, "", "", {
@@ -253,18 +286,20 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
 
 if (stdin) {
   getStream(process.stdin).then(input => {
-    if (listDifferent(input, options, "(stdin)")) {
-      return;
-    }
+    getOptionsForFile(process.cwd()).then(options => {
+      if (listDifferent(input, options, "(stdin)")) {
+        return;
+      }
 
-    try {
-      writeOutput(format(input, options));
-    } catch (e) {
-      handleError("stdin", e);
-    }
+      try {
+        writeOutput(format(input, options), options);
+      } catch (e) {
+        handleError("stdin", e);
+      }
+    });
   });
 } else {
-  eachFilename(filepatterns, filename => {
+  eachFilename(filepatterns, (filename, options) => {
     if (write) {
       // Don't use `console.log` here since we need to replace this line.
       process.stdout.write(filename);
@@ -337,7 +372,7 @@ if (stdin) {
         process.exitCode = 2;
       }
     } else if (!argv["list-different"]) {
-      writeOutput(result);
+      writeOutput(result, options);
     }
   });
 }
@@ -359,7 +394,7 @@ function listDifferent(input, options, filename) {
   return true;
 }
 
-function writeOutput(result) {
+function writeOutput(result, options) {
   // Don't use `console.log` here since it adds an extra newline at the end.
   process.stdout.write(result.formatted);
 
@@ -382,9 +417,11 @@ function eachFilename(patterns, callback) {
         process.exitCode = 2;
         return;
       }
-
-      filePaths.forEach(filePath => {
-        return callback(filePath);
+      // Use map series to ensure idempotency
+      mapSeries(filePaths, filePath => {
+        return getOptionsForFile(filePath).then(options =>
+          callback(filePath, options)
+        );
       });
     })
     .catch(err => {
@@ -394,4 +431,17 @@ function eachFilename(patterns, callback) {
       // Don't exit the process if one pattern failed
       process.exitCode = 2;
     });
+}
+
+function mapSeries(array, iteratee) {
+  let current = Promise.resolve();
+
+  const promises = array.map((item, i) => {
+    current = current.then(() => {
+      return iteratee(item, i, array);
+    });
+    return current;
+  });
+
+  return Promise.all(promises);
 }

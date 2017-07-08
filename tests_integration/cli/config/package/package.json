@@ -1,0 +1,7 @@
+{
+  "name": "my-package",
+  "version": "9000",
+  "prettier": {
+    "tabWidth": 3
+  }
+}
