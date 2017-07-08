@@ -360,7 +360,12 @@ function shouldFlatten(parentOp, nodeOp) {
   }
 
   // x << y << z --> (x << y) << z
-  if (bitwiseOperators[parentOp] && bitwiseOperators[nodeOp]) {
+  if (
+    bitwiseOperators[parentOp] &&
+    bitwiseOperators[nodeOp] &&
+    // Flatten x | y | z
+    (nodeOp !== "|" || parentOp !== "|")
+  ) {
     return false;
   }
 
