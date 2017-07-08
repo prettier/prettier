@@ -282,39 +282,41 @@ function calculateRange(text, opts, ast) {
 }
 
 function formatRange(text, opts, ast) {
-  if (0 < opts.rangeStart || opts.rangeEnd < text.length) {
-    const range = calculateRange(text, opts, ast);
-    const rangeStart = range.rangeStart;
-    const rangeEnd = range.rangeEnd;
-    const rangeString = text.slice(rangeStart, rangeEnd);
-
-    // Try to extend the range backwards to the beginning of the line.
-    // This is so we can detect indentation correctly and restore it.
-    // Use `Math.min` since `lastIndexOf` returns 0 when `rangeStart` is 0
-    const rangeStart2 = Math.min(
-      rangeStart,
-      text.lastIndexOf("\n", rangeStart) + 1
-    );
-    const indentString = text.slice(rangeStart2, rangeStart);
-
-    const alignmentSize = util.getAlignmentSize(indentString, opts.tabWidth);
-
-    const rangeFormatted = format(
-      rangeString,
-      Object.assign({}, opts, {
-        rangeStart: 0,
-        rangeEnd: Infinity,
-        printWidth: opts.printWidth - alignmentSize
-      }),
-      alignmentSize
-    );
-
-    // Since the range contracts to avoid trailing whitespace,
-    // we need to remove the newline that was inserted by the `format` call.
-    const rangeTrimmed = rangeFormatted.trimRight();
-
-    return text.slice(0, rangeStart) + rangeTrimmed + text.slice(rangeEnd);
+  if (opts.rangeStart <= 0 && text.length <= opts.rangeEnd) {
+    return;
   }
+
+  const range = calculateRange(text, opts, ast);
+  const rangeStart = range.rangeStart;
+  const rangeEnd = range.rangeEnd;
+  const rangeString = text.slice(rangeStart, rangeEnd);
+
+  // Try to extend the range backwards to the beginning of the line.
+  // This is so we can detect indentation correctly and restore it.
+  // Use `Math.min` since `lastIndexOf` returns 0 when `rangeStart` is 0
+  const rangeStart2 = Math.min(
+    rangeStart,
+    text.lastIndexOf("\n", rangeStart) + 1
+  );
+  const indentString = text.slice(rangeStart2, rangeStart);
+
+  const alignmentSize = util.getAlignmentSize(indentString, opts.tabWidth);
+
+  const rangeFormatted = format(
+    rangeString,
+    Object.assign({}, opts, {
+      rangeStart: 0,
+      rangeEnd: Infinity,
+      printWidth: opts.printWidth - alignmentSize
+    }),
+    alignmentSize
+  );
+
+  // Since the range contracts to avoid trailing whitespace,
+  // we need to remove the newline that was inserted by the `format` call.
+  const rangeTrimmed = rangeFormatted.trimRight();
+
+  return text.slice(0, rangeStart) + rangeTrimmed + text.slice(rangeEnd);
 }
 
 module.exports = {
