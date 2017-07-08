@@ -19,6 +19,21 @@ function f() {
 
 `;
 
+exports[`bitwise-flags.js 1`] = `
+const FLAG_A = 1 << 0;
+const FLAG_B = 1 << 1;
+const FLAG_C = 1 << 2;
+
+const all = FLAG_A | FLAG_B | FLAG_C;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const FLAG_A = 1 << 0;
+const FLAG_B = 1 << 1;
+const FLAG_C = 1 << 2;
+
+const all = FLAG_A | FLAG_B | FLAG_C;
+
+`;
+
 exports[`comment.js 1`] = `
 a = (
   // Commment 1
@@ -184,6 +199,19 @@ x % y * z;
 x % y / z;
 
 x % y % z;
+
+x << y >> z;
+x >>> y << z;
+x >>> y >>> z;
+x + y >> z;
+
+x | y & z;
+x & y | z;
+x ^ y ^ z;
+x & y & z;
+x | y | z;
+x & y >> z;
+x << y | z;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 x + y / z;
 x / y + z;
@@ -194,6 +222,19 @@ x / y + z;
 (x % y) / z;
 
 (x % y) % z;
+
+(x << y) >> z;
+(x >>> y) << z;
+(x >>> y) >>> z;
+(x + y) >> z;
+
+x | (y & z);
+(x & y) | z;
+(x ^ y) ^ z;
+(x & y) & z;
+x | y | z;
+x & (y >> z);
+(x << y) | z;
 
 `;
 
