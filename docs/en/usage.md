@@ -132,16 +132,14 @@ See https://github.com/okonet/lint-staged#configuration for more details about h
 
 #### Option 2. [pre-commit](https://github.com/pre-commit/pre-commit)
 
-Copy the following config in your pre-commit config yaml file:
+Copy the following config into your `.pre-commit-config.yaml` file:
 
 ```yaml
 
-    -   repo: https://github.com/awebdeveloper/pre-commit-prettier
+    -   repo: https://github.com/prettier/prettier
         sha: ''  # Use the sha or tag you want to point at
         hooks:
         -   id: prettier
-            additional_dependencies: ['prettier@1.4.2']
-
  ```
 
 Find more info from [here](https://github.com/awebdeveloper/pre-commit-prettier).
@@ -151,18 +149,17 @@ Find more info from [here](https://github.com/awebdeveloper/pre-commit-prettier)
 Alternately you can save this script as `.git/hooks/pre-commit` and give it execute permission:
 
 ```bash
-!/bin/sh
+#!/bin/sh
 jsfiles=$(git diff --cached --name-only --diff-filter=ACM | grep '\.jsx\?$' | tr '\n' ' ')
 [ -z "$jsfiles" ] && exit 0
 
-diffs=$(node_modules/.bin/prettier -l $jsfiles)
-[ -z "$diffs" ] && exit 0
+# Prettify all staged .js files
+echo "jsfiles" | xargs ./node_modules/.bin/prettier --write
 
-echo "here"
-echo >&2 "Javascript files must be formatted with Prettier. Please run:"
-echo >&2 "node_modules/.bin/prettier --write "$diffs""
+# Add back the modified/prettified files to staging
+echo "jsfiles" | xargs git add
 
-exit 1
+exit 0
 ```
 
 ## API
