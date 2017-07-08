@@ -10,11 +10,11 @@ var state = (function loadState(hash) {
       options: undefined,
       content:
         'hello ( "world"\n);\n\n' +
-          '[ "lorem", "ipsum", \'dolor\', sit("amet"), consectetur[ \'adipiscing\' ] + "elit" ].reduce(\n  (first, second) => first + second,\n  "")\n\n' +
-          "const Foo = ({ bar, baz, things }) => {\n" +
-          '  return <div style={{\ncolor: "papayawhip"}}>\n' +
-          "    <br/>{things.map(thing => reallyLongPleaseDontPutOnOneLine(thing) ? <p>{ok}</p> : <Quax bar={bar} baz={ baz } {...thing}></Quax>)\n" +
-          "  }</div>}"
+        '[ "lorem", "ipsum", \'dolor\', sit("amet"), consectetur[ \'adipiscing\' ] + "elit" ].reduce(\n  (first, second) => first + second,\n  "")\n\n' +
+        "const Foo = ({ bar, baz, things }) => {\n" +
+        '  return <div style={{\ncolor: "papayawhip"}}>\n' +
+        "    <br/>{things.map(thing => reallyLongPleaseDontPutOnOneLine(thing) ? <p>{ok}</p> : <Quax bar={bar} baz={ baz } {...thing}></Quax>)\n" +
+        "  }</div>}"
     };
   }
 })(decodeURIComponent(location.hash.slice(1)));
