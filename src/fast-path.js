@@ -314,11 +314,11 @@ FastPath.prototype.needsParens = function(options) {
           const no = node.operator;
           const np = util.getPrecedence(no);
 
-          if (po === "||" && no === "&&") {
+          if (pp > np) {
             return true;
           }
 
-          if (pp > np) {
+          if (po === "||" && no === "&&") {
             return true;
           }
 
@@ -333,7 +333,7 @@ FastPath.prototype.needsParens = function(options) {
 
           // Add parenthesis when working with binary operators
           // It's not stricly needed but helps with code understanding
-          if (["|", "^", "&", ">>", "<<", ">>>"].indexOf(po) !== -1) {
+          if (util.isBitwiseOperator(po)) {
             return true;
           }
 
