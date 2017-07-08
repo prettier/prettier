@@ -206,10 +206,10 @@ function genericPrint(path, options, print) {
     case "selector-combinator": {
       if (n.value === "+" || n.value === ">" || n.value === "~") {
         const parent = path.getParentNode();
-        const leading = parent.type === "selector-selector" &&
-          parent.nodes[0] === n
-          ? ""
-          : line;
+        const leading =
+          parent.type === "selector-selector" && parent.nodes[0] === n
+            ? ""
+            : line;
         return concat([leading, n.value, " "]);
       }
       return n.value.trim() || line;

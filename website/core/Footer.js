@@ -37,24 +37,14 @@ class Footer extends React.Component {
           </a>
           <div>
             <h5>Docs</h5>
-            <a href={this.url("/why-prettier.html")}>
-              Why Prettier?
-            </a>
-            <a href={this.url("/usage.html")}>
-              Usage
-            </a>
-            <a href={this.url("/options.html")}>
-              Options
-            </a>
-            <a href={this.url("/editors.html")}>
-              Editor Integeration
-            </a>
+            <a href={this.url("/why-prettier.html")}>Why Prettier?</a>
+            <a href={this.url("/usage.html")}>Usage</a>
+            <a href={this.url("/options.html")}>Options</a>
+            <a href={this.url("/editors.html")}>Editor Integeration</a>
           </div>
           <div>
             <h5>Community</h5>
-            <a href={this.url("/users/")}>
-              User Showcase
-            </a>
+            <a href={this.url("/users/")}>User Showcase</a>
             <a
               href="http://stackoverflow.com/questions/tagged/prettier"
               target="_blank"
