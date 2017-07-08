@@ -153,10 +153,10 @@ function genericPrint(path, options, printPath, args) {
     path.each(
       decoratorPath => {
         const decorator = decoratorPath.getValue();
-        const prefix = decorator.type === "Decorator" ||
-          decorator.type === "TSDecorator"
-          ? ""
-          : "@";
+        const prefix =
+          decorator.type === "Decorator" || decorator.type === "TSDecorator"
+            ? ""
+            : "@";
         decorators.push(prefix, printPath(decoratorPath), hardline);
       },
       "declaration",
@@ -909,10 +909,10 @@ function genericPrintNoParens(path, options, print, args) {
             util.locStart(n),
             util.locEnd(n)
           ));
-      const separator = n.type === "TSInterfaceBody" ||
-        n.type === "TSTypeLiteral"
-        ? ifBreak(semi, ";")
-        : ",";
+      const separator =
+        n.type === "TSInterfaceBody" || n.type === "TSTypeLiteral"
+          ? ifBreak(semi, ";")
+          : ",";
       const fields = [];
       const leftBrace = n.exact ? "{|" : "{";
       const rightBrace = n.exact ? "|}" : "}";
@@ -987,7 +987,7 @@ function genericPrintNoParens(path, options, print, args) {
           ),
           ifBreak(
             canHaveTrailingSeparator &&
-              (separator !== "," || shouldPrintComma(options))
+            (separator !== "," || shouldPrintComma(options))
               ? separator
               : ""
           ),
@@ -1113,8 +1113,8 @@ function genericPrintNoParens(path, options, print, args) {
               needsForcedTrailingComma ? "," : "",
               ifBreak(
                 canHaveTrailingComma &&
-                  !needsForcedTrailingComma &&
-                  shouldPrintComma(options)
+                !needsForcedTrailingComma &&
+                shouldPrintComma(options)
                   ? ","
                   : ""
               ),
@@ -1540,7 +1540,7 @@ function genericPrintNoParens(path, options, print, args) {
                     return concat([
                       casePath.call(print),
                       n.cases.indexOf(caseNode) !== n.cases.length - 1 &&
-                        util.isNextLineEmpty(options.originalText, caseNode)
+                      util.isNextLineEmpty(options.originalText, caseNode)
                         ? hardline
                         : ""
                     ]);
@@ -4230,9 +4230,10 @@ function nodeStr(node, options, isFlowOrTypeScriptDirectiveLiteral) {
     canChangeDirectiveQuotes = true;
   }
 
-  const enclosingQuote = options.parser === "json"
-    ? double.quote
-    : shouldUseAlternateQuote ? alternate.quote : preferred.quote;
+  const enclosingQuote =
+    options.parser === "json"
+      ? double.quote
+      : shouldUseAlternateQuote ? alternate.quote : preferred.quote;
 
   // Directives are exact code unit sequences, which means that you can't
   // change the escape sequences they use.

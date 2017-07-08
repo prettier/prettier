@@ -65,9 +65,10 @@ function toBabylon(node) {
       };
 
       const value = JSON.parse(node.rawValue);
-      const type = value === null
-        ? "NullLiteral"
-        : constructorTypes[value.constructor.name];
+      const type =
+        value === null
+          ? "NullLiteral"
+          : constructorTypes[value.constructor.name];
 
       return Object.assign(result, {
         type: type,

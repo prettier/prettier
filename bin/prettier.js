@@ -174,9 +174,10 @@ function format(input, opt) {
 
       if (ast !== past) {
         const MAX_AST_SIZE = 2097152; // 2MB
-        const astDiff = ast.length > MAX_AST_SIZE || past.length > MAX_AST_SIZE
-          ? "AST diff too large to render"
-          : diff(ast, past);
+        const astDiff =
+          ast.length > MAX_AST_SIZE || past.length > MAX_AST_SIZE
+            ? "AST diff too large to render"
+            : diff(ast, past);
         throw "ast(input) !== ast(prettier(input))\n" +
           astDiff +
           "\n" +

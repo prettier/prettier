@@ -23,14 +23,15 @@ class Users extends React.Component {
           <Container padding={["bottom", "top"]}>
             <div className="showcaseSection">
               <div className="prose">
-                <h1>Who{"'"}s Using This?</h1>
+                <h1>
+                  Who{"'"}s Using This?
+                </h1>
                 <p>
-                  A few of the
-                  {" "}
+                  A few of the{" "}
                   <a href="https://www.npmjs.com/browse/depended/prettier">
                     many projects
-                  </a>
-                  {" "}using Prettier
+                  </a>{" "}
+                  using Prettier
                 </p>
               </div>
               <div className="logos">
