@@ -74,3 +74,13 @@ function f() {
 }
 "
 `;
+
+exports[`resolves configuration from external files and overrides by extname 1`] = `
+"function g() {
+  console.log(\\"should have semicolons because it has a .ts extension\\");
+}
+function g() {
+     console.log(\\"should have tab width 5 because it has .ts extension\\");
+}
+"
+`;

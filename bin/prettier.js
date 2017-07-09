@@ -3,7 +3,6 @@
 "use strict";
 
 const chalk = require("chalk");
-const cosmiconfig = require("cosmiconfig")("prettier");
 const dashify = require("dashify");
 const fs = require("fs");
 const getStream = require("get-stream");
@@ -12,7 +11,8 @@ const minimist = require("minimist");
 const readline = require("readline");
 
 const prettier = eval("require")("../index");
-const cleanAST = require("../src/clean-ast.js").cleanAST;
+const cleanAST = require("../src/clean-ast").cleanAST;
+const resolveOptions = require("../src/resolve-options");
 
 const args = process.argv.slice(2);
 
@@ -82,25 +82,28 @@ if (write && argv["debug-check"]) {
 }
 
 function getOptionsForFile(filePath) {
-  return cosmiconfig.load(filePath).then(result => {
-    const resolvedOptions = result ? dashifyObject(result.config) : {};
+  return resolveOptions(filePath)
+    .then(options => {
+      const parsedArgs = minimist(args, {
+        boolean: booleanOptionNames,
+        string: stringOptionNames,
+        default: Object.assign(
+          {
+            semi: true,
+            color: true,
+            "bracket-spacing": true,
+            parser: "babylon"
+          },
+          dashifyObject(options)
+        )
+      });
 
-    const parsedArgs = minimist(args, {
-      boolean: booleanOptionNames,
-      string: stringOptionNames,
-      default: Object.assign(
-        {
-          semi: true,
-          color: true,
-          "bracket-spacing": true,
-          parser: "babylon"
-        },
-        resolvedOptions
-      )
+      return getOptions(Object.assign({}, argv, parsedArgs));
+    })
+    .catch(error => {
+      console.error("Invalid configuration file:", error.toString());
+      process.exit(2);
     });
-
-    return getOptions(Object.assign({}, argv, parsedArgs));
-  });
 }
 
 function getOptions(argv) {

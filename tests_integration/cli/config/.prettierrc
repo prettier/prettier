@@ -1,1 +1,4 @@
 semi: false
+
+.ts:
+  semi: true
