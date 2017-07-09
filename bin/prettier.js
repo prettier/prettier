@@ -66,13 +66,15 @@ const argv = minimist(args, {
     "list-different": "l"
   },
   unknown: param => {
-    if (
-      param.startsWith("-") &&
-      booleanOptionNames.indexOf(param) === -1 &&
-      stringOptionNames.indexOf(param) === -1
-    ) {
-      console.warn("Ignored unknown option: " + param + "\n");
-      return false;
+    if (param.startsWith("-")) {
+      const paramName = param.substring(2);
+      if (
+        booleanOptionNames.indexOf(paramName) === -1 &&
+        stringOptionNames.indexOf(paramName) === -1
+      ) {
+        console.warn("Ignored unknown option: " + param + "\n");
+        return false;
+      }
     }
   }
 });
