@@ -17,32 +17,57 @@ test("resolves configuration from external files and overrides by extname", () =
   expect(output.status).toEqual(0);
 });
 
+test("accepts configuration from --config", () => {
+  const output = runPrettier("cli/config/", [
+    "--config",
+    ".prettierrc",
+    "./js/file.js"
+  ]);
+  expect(output.stdout).toMatchSnapshot();
+  expect(output.status).toEqual(0);
+});
+
+test("resolves configuration file with --resolve-config file", () => {
+  const output = runPrettier("cli/config/", [
+    "--resolve-config",
+    "no-config/file.js"
+  ]);
+  expect(output.stdout).toMatchSnapshot();
+  expect(output.status).toEqual(0);
+});
+
+test("prints nothing when no file found with --resolve-config", () => {
+  const output = runPrettier("cli/config/", ["--resolve-config", ".."]);
+  expect(output.stdout).toEqual("");
+  expect(output.status).toEqual(1);
+});
+
 test("CLI overrides take precedence", () => {
   const output = runPrettier("cli/config/", ["--print-width", "1", "**/*.js"]);
   expect(output.stdout).toMatchSnapshot();
   expect(output.status).toEqual(0);
 });
 
-test("API resolveOptions with no args", () => {
-  return prettier.resolveOptions().then(result => {
+test("API resolveConfig with no args", () => {
+  return prettier.resolveConfig().then(result => {
     expect(result).toMatchObject({});
   });
 });
 
-test("API resolveOptions with file arg", () => {
+test("API resolveConfig with file arg", () => {
   const file = path.resolve(path.join(__dirname, "../cli/config/js/file.js"));
-  return prettier.resolveOptions(file).then(result => {
+  return prettier.resolveConfig(file).then(result => {
     expect(result).toMatchObject({
       tabWidth: 8
     });
   });
 });
 
-test("API resolveOptions with file arg and extension override", () => {
+test("API resolveConfig with file arg and extension override", () => {
   const file = path.resolve(
     path.join(__dirname, "../cli/config/no-config/file.ts")
   );
-  return prettier.resolveOptions(file).then(result => {
+  return prettier.resolveConfig(file).then(result => {
     expect(result).toMatchObject({
       semi: true
     });

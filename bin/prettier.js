@@ -8,11 +8,12 @@ const fs = require("fs");
 const getStream = require("get-stream");
 const globby = require("globby");
 const minimist = require("minimist");
+const path = require("path");
 const readline = require("readline");
 
 const prettier = eval("require")("../index");
 const cleanAST = require("../src/clean-ast").cleanAST;
-const resolveOptions = require("../src/resolve-options");
+const resolver = require("../src/resolve-config");
 
 const args = process.argv.slice(2);
 
@@ -48,7 +49,14 @@ const argv = minimist(args, {
     "debug-check",
     "with-node-modules"
   ],
-  string: ["cursor-offset", "range-start", "range-end", "stdin-filepath"],
+  string: [
+    "cursor-offset",
+    "range-start",
+    "range-end",
+    "stdin-filepath",
+    "config",
+    "resolve-config"
+  ],
   alias: { help: "h", version: "v", "list-different": "l" },
   unknown: param => {
     if (
@@ -81,8 +89,14 @@ if (write && argv["debug-check"]) {
   process.exit(1);
 }
 
+if (argv["resolve-config"] && filepatterns.length) {
+  console.error("Cannot use --resolve-config with multiple files");
+  process.exit(1);
+}
+
 function getOptionsForFile(filePath) {
-  return resolveOptions(filePath)
+  return resolver
+    .resolveConfig(filePath, { configFile: argv["config"] })
     .then(options => {
       const parsedArgs = minimist(args, {
         boolean: booleanOptionNames,
@@ -250,12 +264,17 @@ function handleError(filename, e) {
   process.exitCode = 2;
 }
 
-if (argv["help"] || (!filepatterns.length && !stdin)) {
+if (
+  argv["help"] ||
+  (!filepatterns.length && !stdin && !argv["resolve-config"])
+) {
   console.log(
     "Usage: prettier [opts] [filename ...]\n\n" +
       "Available options:\n" +
       "  --write                  Edit the file in-place. (Beware!)\n" +
       "  --list-different or -l   Print filenames of files that are different from Prettier formatting.\n" +
+      "  --config                 Path to a prettier configuration file (.prettierrc, package.json, prettier.config.js).\n" +
+      "  --resolve-config <path>  Resolve the path to a configuration file for a given input file.\n" +
       "  --stdin                  Read input from stdin.\n" +
       "  --stdin-filepath         Path to the file used to read from stdin.\n" +
       "  --print-width <int>      Specify the length of line that the printer will wrap on. Defaults to 80.\n" +
@@ -287,7 +306,9 @@ if (argv["help"] || (!filepatterns.length && !stdin)) {
   process.exit(argv["help"] ? 0 : 1);
 }
 
-if (stdin) {
+if (argv["resolve-config"]) {
+  resolveConfig(argv["resolve-config"]);
+} else if (stdin) {
   getStream(process.stdin).then(input => {
     getOptionsForFile(process.cwd()).then(options => {
       if (listDifferent(input, options, "(stdin)")) {
@@ -395,6 +416,16 @@ function listDifferent(input, options, filename) {
   }
 
   return true;
+}
+
+function resolveConfig(filePath) {
+  resolver.resolveConfigFile(filePath).then(configFile => {
+    if (configFile) {
+      console.log(path.relative(process.cwd(), configFile));
+    } else {
+      process.exitCode = 1;
+    }
+  });
 }
 
 function writeOutput(result, options) {

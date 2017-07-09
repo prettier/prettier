@@ -42,6 +42,20 @@ function f() {
 "
 `;
 
+exports[`accepts configuration from --config 1`] = `
+"/* eslint-disable */
+
+function f() {
+  console.log(\\"should have tab width 8\\")
+}
+"
+`;
+
+exports[`resolves configuration file with --resolve-config file 1`] = `
+".prettierrc
+"
+`;
+
 exports[`resolves configuration from external files 1`] = `
 "/* eslint-disable */
 
