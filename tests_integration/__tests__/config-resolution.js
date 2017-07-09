@@ -50,7 +50,7 @@ test("CLI overrides take precedence", () => {
 
 test("API resolveConfig with no args", () => {
   return prettier.resolveConfig().then(result => {
-    expect(result).toMatchObject({});
+    expect(result).toBeNull();
   });
 });
 

@@ -8,14 +8,15 @@ const noCache = cosmiconfig("prettier", { cache: false });
 
 function resolveConfig(filePath, opts) {
   const useCache = !(opts && opts.useCache === false);
+  const fileDir = filePath ? path.dirname(filePath) : undefined;
 
   return (
     (useCache ? withCache : noCache)
       // https://github.com/davidtheclark/cosmiconfig/pull/68
-      .load(filePath, opts && opts.configFile)
+      .load(fileDir, opts && opts.configFile)
       .then(result => {
         if (!result) {
-          return {};
+          return null;
         }
 
         const options = Object.keys(result.config || {}).reduce((opts, key) => {
