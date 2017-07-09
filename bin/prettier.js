@@ -57,7 +57,14 @@ const argv = minimist(args, {
     "config",
     "resolve-config"
   ],
-  alias: { help: "h", version: "v", "list-different": "l" },
+  default: {
+    color: true
+  },
+  alias: {
+    help: "h",
+    version: "v",
+    "list-different": "l"
+  },
   unknown: param => {
     if (
       param.startsWith("-") &&
@@ -104,7 +111,6 @@ function getOptionsForFile(filePath) {
         default: Object.assign(
           {
             semi: true,
-            color: true,
             "bracket-spacing": true,
             parser: "babylon"
           },
