@@ -2,6 +2,18 @@
 
 exports[`CLI overrides take precedence 1`] = `
 "/* eslint-disable */
+console.log(
+  \\"should have semi\\"
+);
+/* eslint-disable */
+console.log(
+  \\"should not have semi\\"
+)
+/* eslint-disable */
+console.log(
+  \\"should have semi\\"
+);
+/* eslint-disable */
 
 function f() {
         console.log(
@@ -58,6 +70,12 @@ exports[`resolves configuration file with --resolve-config file 1`] = `
 
 exports[`resolves configuration from external files 1`] = `
 "/* eslint-disable */
+console.log(\\"should have semi\\");
+/* eslint-disable */
+console.log(\\"should not have semi\\")
+/* eslint-disable */
+console.log(\\"should have semi\\");
+/* eslint-disable */
 
 function f() {
         console.log(\\"should have tab width 8\\");
