@@ -19,9 +19,7 @@ const funnelSnapshotCard =
   (report === COMPANY_OVERVIEW &&
     !ReportGK.xar_metrics_active_capitol_v2_company_metrics) ? (
     <ReportMetricsFunnelSnapshotCard metrics={metrics} />
-  ) : (
-    null
-  );
+  ) : null;
 
 room = room.map((row, rowIndex) =>
   row.map(
@@ -56,9 +54,7 @@ const funnelSnapshotCard =
     (report === COMPANY_OVERVIEW &&
         !ReportGK.xar_metrics_active_capitol_v2_company_metrics) ? (
         <ReportMetricsFunnelSnapshotCard metrics={metrics} />
-    ) : (
-        null
-    );
+    ) : null;
 
 room = room.map((row, rowIndex) =>
     row.map(

@@ -227,12 +227,8 @@ const renderTernary = props => (
       >
         Hello world
       </BaseForm>
-    ) : (
-      null
-    )}
-    {props.showTheThing ? (
-      null
-    ) : (
+    ) : null}
+    {props.showTheThing ? null : (
       <BaseForm
         url="/auth/google"
         method="GET"
@@ -243,16 +239,8 @@ const renderTernary = props => (
         Hello world
       </BaseForm>
     )}
-    {props.showTheOtherThing ? (
-      <div>I am here</div>
-    ) : (
-      <div attr="blah" />
-    )}
-    {props.showTheOtherThing ? (
-      <div>I am here!!</div>
-    ) : (
-      null
-    )}
+    {props.showTheOtherThing ? <div>I am here</div> : <div attr="blah" />}
+    {props.showTheOtherThing ? <div>I am here!!</div> : null}
   </BaseForm>
 );
 
