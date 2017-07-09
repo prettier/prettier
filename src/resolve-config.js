@@ -1,6 +1,7 @@
 "use strict";
 
 const cosmiconfig = require("cosmiconfig");
+const minimatch = require("minimatch");
 const path = require("path");
 
 const withCache = cosmiconfig("prettier");
@@ -19,19 +20,11 @@ function resolveConfig(filePath, opts) {
           return null;
         }
 
-        const options = Object.keys(result.config || {}).reduce((opts, key) => {
-          if (key.charAt(0) !== ".") {
-            opts[key] = result.config[key];
-          }
-          return opts;
-        }, {});
-
         if (filePath) {
-          const extname = path.extname(filePath);
-          Object.assign(options, result.config[extname]);
+          return mergeOverrides(result.config, filePath);
         }
 
-        return options;
+        return result.config;
       })
   );
 }
@@ -43,6 +36,37 @@ function resolveConfigFile(filePath) {
     }
     return null;
   });
+}
+
+function mergeOverrides(config, filePath) {
+  if (!config) {
+    config = {};
+  }
+
+  const options = Object.assign({}, config);
+  if (config.overrides) {
+    for (const override of config.overrides) {
+      if (pathMatchesGlobs(filePath, override.files, override.excludeFiles)) {
+        Object.assign(options, override.options);
+      }
+    }
+  }
+
+  return options;
+}
+
+// Based on eslint: https://github.com/eslint/eslint/blob/master/lib/config/config-ops.js
+function pathMatchesGlobs(filePath, patterns, excludedPatterns) {
+  const patternList = [].concat(patterns);
+  const excludedPatternList = [].concat(excludedPatterns || []);
+  const opts = { matchBase: true };
+
+  return (
+    patternList.some(pattern => minimatch(filePath, pattern, opts)) &&
+    !excludedPatternList.some(excludedPattern =>
+      minimatch(filePath, excludedPattern, opts)
+    )
+  );
 }
 
 module.exports = {
