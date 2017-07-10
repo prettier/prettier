@@ -9,6 +9,7 @@ const printDocToString = require("./src/doc-printer").printDocToString;
 const normalizeOptions = require("./src/options").normalize;
 const parser = require("./src/parser");
 const printDocToDebug = require("./src/doc-debug").printDocToDebug;
+const resolveConfig = require("./src/resolve-config").resolveConfig;
 
 function guessLineEnding(text) {
   const index = text.indexOf("\n");
@@ -323,9 +324,11 @@ module.exports = {
   formatWithCursor: function(text, opts) {
     return formatWithCursor(text, normalizeOptions(opts));
   },
+
   format: function(text, opts) {
     return format(text, normalizeOptions(opts));
   },
+
   check: function(text, opts) {
     try {
       const formatted = format(text, normalizeOptions(opts));
@@ -334,7 +337,11 @@ module.exports = {
       return false;
     }
   },
-  version: version,
+
+  resolveConfig,
+
+  version,
+
   __debug: {
     parse: function(text, opts) {
       return parser.parse(text, opts);

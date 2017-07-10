@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CLI overrides take precedence 1`] = `
+"/* eslint-disable */
+console.log(
+  \\"should have semi\\"
+);
+/* eslint-disable */
+console.log(
+  \\"should not have semi\\"
+)
+/* eslint-disable */
+console.log(
+  \\"should have semi\\"
+);
+/* eslint-disable */
+
+function f() {
+        console.log(
+                \\"should have tab width 8\\"
+        );
+}
+\\"use strict\\";
+
+module.exports = {
+        tabWidth: 8
+};
+/* eslint-disable */
+
+function f() {
+  console.log(
+    \\"should have no semicolons\\"
+  )
+}
+/* eslint-disable */
+
+function f() {
+   console.log(
+      \\"should have tab width 3\\"
+   );
+}
+/* eslint-disable */
+
+function f() {
+  console.log.apply(
+    null,
+    [
+      'this file',
+      'should have trailing comma',
+      'and single quotes',
+    ],
+  );
+}
+"
+`;
+
+exports[`accepts configuration from --config 1`] = `
+"/* eslint-disable */
+
+function f() {
+  console.log(\\"should have tab width 8\\")
+}
+"
+`;
+
+exports[`resolves configuration file with --resolve-config file 1`] = `
+".prettierrc
+"
+`;
+
+exports[`resolves configuration from external files 1`] = `
+"/* eslint-disable */
+console.log(\\"should have semi\\");
+/* eslint-disable */
+console.log(\\"should not have semi\\")
+/* eslint-disable */
+console.log(\\"should have semi\\");
+/* eslint-disable */
+
+function f() {
+        console.log(\\"should have tab width 8\\");
+}
+\\"use strict\\";
+
+module.exports = {
+        tabWidth: 8
+};
+/* eslint-disable */
+
+function f() {
+  console.log(\\"should have no semicolons\\")
+}
+/* eslint-disable */
+
+function f() {
+   console.log(\\"should have tab width 3\\");
+}
+/* eslint-disable */
+
+function f() {
+  console.log.apply(null, [
+    'this file',
+    'should have trailing comma',
+    'and single quotes',
+  ]);
+}
+"
+`;
+
+exports[`resolves configuration from external files and overrides by extname 1`] = `
+"function g() {
+  console.log(\\"should have semicolons because it has a .ts extension\\");
+}
+function g() {
+     console.log(\\"should have tab width 5 because it has .ts extension\\");
+}
+"
+`;
