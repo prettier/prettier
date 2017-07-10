@@ -2794,6 +2794,8 @@ function couldGroupArg(arg) {
   return (
     (arg.type === "ObjectExpression" && arg.properties.length > 0) ||
     (arg.type === "ArrayExpression" && arg.elements.length > 0) ||
+    arg.type === "TSTypeAssertionExpression" ||
+    arg.type === "TSAsExpression" ||
     arg.type === "FunctionExpression" ||
     (arg.type === "ArrowFunctionExpression" &&
       (arg.body.type === "BlockStatement" ||
@@ -2844,6 +2846,7 @@ function printArgumentsList(path, options, print) {
   }
 
   const args = path.getValue().arguments;
+
   // This is just an optimization; I think we could return the
   // conditional group for all function calls, but it's more expensive
   // so only do it for specific forms.
