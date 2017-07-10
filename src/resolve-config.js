@@ -20,11 +20,7 @@ function resolveConfig(filePath, opts) {
           return null;
         }
 
-        if (filePath) {
-          return mergeOverrides(result.config, filePath);
-        }
-
-        return result.config;
+        return mergeOverrides(result.config, filePath);
       })
   );
 }
@@ -39,19 +35,16 @@ function resolveConfigFile(filePath) {
 }
 
 function mergeOverrides(config, filePath) {
-  if (!config) {
-    config = {};
-  }
-
   const options = Object.assign({}, config);
-  if (config.overrides) {
-    for (const override of config.overrides) {
+  if (filePath && options.overrides) {
+    for (const override of options.overrides) {
       if (pathMatchesGlobs(filePath, override.files, override.excludeFiles)) {
         Object.assign(options, override.options);
       }
     }
   }
 
+  delete options.overrides;
   return options;
 }
 
