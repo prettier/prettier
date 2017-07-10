@@ -741,11 +741,7 @@ class Bar extends React.Component {
     test: number
   };
   render() {
-    return (
-      <div>
-        {this.props.test}
-      </div>
-    );
+    return <div>{this.props.test}</div>;
   }
 }
 
@@ -1623,17 +1619,9 @@ var Example = React.createClass({
   },
   render() {
     if (typeof this.props.prop === "string") {
-      return (
-        <div>
-          {this.props.prop}
-        </div>
-      );
+      return <div>{this.props.prop}</div>;
     } else {
-      return (
-        <div>
-          {this.props.prop.toFixed(2)}
-        </div>
-      );
+      return <div>{this.props.prop.toFixed(2)}</div>;
     }
   }
 });

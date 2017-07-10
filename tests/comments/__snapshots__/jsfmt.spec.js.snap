@@ -497,9 +497,7 @@ Observable.of(process)
   .takeUntil(exit);
 
 // Comments disappear inside of JSX
-<div>
-  {/* Some comment */}
-</div>;
+<div>{/* Some comment */}</div>;
 
 // Comments in JSX tag are placed in a non optimal way
 <div
@@ -598,23 +596,15 @@ exports[`jsx.js 1`] = `
 
 <div>{/*<div>  Some very v  ery very very long line to break line width limit </div>*/}</div>;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<div>
-  {/* comment */}
-</div>;
+<div>{/* comment */}</div>;
 
-<div>
-  {/* comment */}
-</div>;
+<div>{/* comment */}</div>;
 
-<div>
-  {/* comment
-*/}
-</div>;
+<div>{/* comment
+*/}</div>;
 
-<div>
-  {a /* comment
-*/}
-</div>;
+<div>{a /* comment
+*/}</div>;
 
 <div>
   {
@@ -624,13 +614,9 @@ exports[`jsx.js 1`] = `
   }
 </div>;
 
-<div>
-  {/* comment */}
-</div>;
+<div>{/* comment */}</div>;
 
-<div>
-  {/* comment */}
-</div>;
+<div>{/* comment */}</div>;
 
 <div>
   {
