@@ -449,11 +449,9 @@ Specify the line length that the printer will wrap on.
 
 > **For readability we recommend against using more than 80 characters:**
 >
->In code styleguides, maximum line length rules are often set to 100 or 120.
->
->This is not the amount of characters that will always be on a line. For readability a developer will use whitespace to break up long lines so the average amount of characters will be 80 characters on a line.
->
->Prettier will put the maximum amount of characters on a line. With the print width set to 120 every line would have around 110 - 120 characters. This is harder to read than the recommended 80 characters.
+>In code styleguides, maximum line length rules are often set to 100 or 120. However, when humans write code, they don't strive to reach the maximum number of columns on every line. Developers often use whitespace to break up long lines for readability. In practice, the average line length often ends up well below the maximum.
+> 
+> Prettier, on the other hand, strives to fit the most code into every line. With the print width set to 120, prettier may produce overly compact, or otherwise undesirable code.
 
 Default | CLI Override | API Override
 --------|--------------|-------------
