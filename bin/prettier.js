@@ -10,6 +10,7 @@ const globby = require("globby");
 const minimist = require("minimist");
 const path = require("path");
 const readline = require("readline");
+const ignore = require("ignore");
 
 const prettier = eval("require")("../index");
 const cleanAST = require("../src/clean-ast").cleanAST;
@@ -55,10 +56,12 @@ const argv = minimist(args, {
     "range-end",
     "stdin-filepath",
     "config",
-    "resolve-config"
+    "resolve-config",
+    "ignore-path"
   ],
   default: {
-    color: true
+    color: true,
+    "ignore-path": ".prettierignore"
   },
   alias: {
     help: "h",
@@ -89,6 +92,7 @@ const write = argv["write"];
 const stdin = argv["stdin"] || (!filepatterns.length && !process.stdin.isTTY);
 const ignoreNodeModules = argv["with-node-modules"] === false;
 const ignoreNodeModulesGlobs = ["!**/node_modules/**", "!./node_modules/**"];
+const ignorePath = argv["ignore-path"];
 const globOptions = {
   dot: true
 };
@@ -283,6 +287,8 @@ if (
       "  --list-different or -l   Print filenames of files that are different from Prettier formatting.\n" +
       "  --config                 Path to a prettier configuration file (.prettierrc, package.json, prettier.config.js).\n" +
       "  --resolve-config <path>  Resolve the path to a configuration file for a given input file.\n" +
+      "  --ignore-path <path>     Path to a file containing patterns that describe files to ignore.\n" +
+      "                           Defaults to ./.prettierignore.\n" +
       "  --stdin                  Read input from stdin.\n" +
       "  --stdin-filepath         Path to the file used to read from stdin.\n" +
       "  --print-width <int>      Specify the length of line that the printer will wrap on. Defaults to 80.\n" +
@@ -446,6 +452,26 @@ function writeOutput(result, options) {
 }
 
 function eachFilename(patterns, callback) {
+  // The ignorer will be used to filter file paths after the glob is checked,
+  // before any files are actually read
+  const ignoreFilePath = path.resolve(ignorePath);
+  let ignoreText = "";
+
+  try {
+    ignoreText = fs.readFileSync(ignoreFilePath, "utf8");
+  } catch (readError) {
+    if (readError.code !== "ENOENT") {
+      console.error(`Unable to read ${ignoreFilePath}:`, readError);
+      process.exit(2);
+    }
+  }
+
+  const ignorer = ignore();
+
+  if (ignoreText.trim()) {
+    ignorer.add(ignoreText.split(/\r?\n/));
+  }
+
   if (ignoreNodeModules) {
     patterns = patterns.concat(ignoreNodeModulesGlobs);
   }
@@ -460,7 +486,7 @@ function eachFilename(patterns, callback) {
         return;
       }
       // Use map series to ensure idempotency
-      mapSeries(filePaths, filePath => {
+      mapSeries(ignorer.filter(filePaths), filePath => {
         return getOptionsForFile(filePath).then(options =>
           callback(filePath, options)
         );

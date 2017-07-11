@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ignore path 1`] = `
+"regular-module.js
+"
+`;
+
+exports[`support .prettierignore 1`] = `
+"other-regular-modules.js
+"
+`;
