@@ -468,11 +468,7 @@ function eachFilename(patterns, callback) {
     }
   }
 
-  const ignorer = ignore();
-
-  if (ignoreText.trim()) {
-    ignorer.add(ignoreText.split(/\r?\n/));
-  }
+  const ignorer = ignore().add(ignoreText);
 
   if (ignoreNodeModules) {
     patterns = patterns.concat(ignoreNodeModulesGlobs);
