@@ -4556,7 +4556,13 @@ function isTypeAnnotationAFunction(node) {
 }
 
 function isNodeStartingWithDeclare(node, options) {
-  if (!(options.parser === "flow" || options.parser === "typescript")) {
+  if (
+    !(
+      options.parser === "flow" ||
+      options.parser === "typescript" ||
+      options.parser === "typescriptBabylon"
+    )
+  ) {
     return false;
   }
   return (

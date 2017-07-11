@@ -32,6 +32,7 @@ function getSubtreeParser(path, options) {
     case "babylon":
     case "flow":
     case "typescript":
+    case "typescriptBabylon":
       return fromBabylonFlowOrTypeScript(path, options);
   }
 }
