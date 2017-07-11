@@ -244,14 +244,14 @@ Another useful flag is `--list-different` (or `-l`) which prints the filenames o
 prettier --single-quote --list-different "src/**/*.js"
 ```
 
-#### `--resolve-config` and `--config`
+#### `--find-config-path` and `--config`
 
 If you are repeatedly formatting individual files with `prettier`, you will incur a small performance cost
 when prettier attempts to look up a [configuration file](#configuration-file). In order to skip this, you may
 ask prettier to find the config file once, and re-use it later on.
 
 ```bash
-prettier --resolve-config ./my/file.js
+prettier --find-config-path ./my/file.js
 ./my/.prettierrc
 ```
 

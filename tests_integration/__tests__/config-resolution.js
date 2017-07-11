@@ -27,17 +27,17 @@ test("accepts configuration from --config", () => {
   expect(output.status).toEqual(0);
 });
 
-test("resolves configuration file with --resolve-config file", () => {
+test("resolves configuration file with --find-config-path file", () => {
   const output = runPrettier("cli/config/", [
-    "--resolve-config",
+    "--find-config-path",
     "no-config/file.js"
   ]);
   expect(output.stdout).toMatchSnapshot();
   expect(output.status).toEqual(0);
 });
 
-test("prints nothing when no file found with --resolve-config", () => {
-  const output = runPrettier("cli/config/", ["--resolve-config", ".."]);
+test("prints nothing when no file found with --find-config-path", () => {
+  const output = runPrettier("cli/config/", ["--find-config-path", ".."]);
   expect(output.stdout).toEqual("");
   expect(output.status).toEqual(1);
 });

@@ -56,7 +56,7 @@ const argv = minimist(args, {
     "range-end",
     "stdin-filepath",
     "config",
-    "resolve-config",
+    "find-config-path",
     "ignore-path"
   ],
   default: {
@@ -102,8 +102,8 @@ if (write && argv["debug-check"]) {
   process.exit(1);
 }
 
-if (argv["resolve-config"] && filepatterns.length) {
-  console.error("Cannot use --resolve-config with multiple files");
+if (argv["find-config-path"] && filepatterns.length) {
+  console.error("Cannot use --find-config-path with multiple files");
   process.exit(1);
 }
 
@@ -278,7 +278,7 @@ function handleError(filename, e) {
 
 if (
   argv["help"] ||
-  (!filepatterns.length && !stdin && !argv["resolve-config"])
+  (!filepatterns.length && !stdin && !argv["find-config-path"])
 ) {
   console.log(
     "Usage: prettier [opts] [filename ...]\n\n" +
@@ -286,7 +286,9 @@ if (
       "  --write                  Edit the file in-place. (Beware!)\n" +
       "  --list-different or -l   Print filenames of files that are different from Prettier formatting.\n" +
       "  --config                 Path to a prettier configuration file (.prettierrc, package.json, prettier.config.js).\n" +
-      "  --resolve-config <path>  Resolve the path to a configuration file for a given input file.\n" +
+      "  --no-config              Do not look for a configuration file.\n" +
+      "  --find-config-path <path>\n" +
+      "                           Finds and prints the path to a configuration file for a given input file.\n" +
       "  --ignore-path <path>     Path to a file containing patterns that describe files to ignore.\n" +
       "                           Defaults to ./.prettierignore.\n" +
       "  --stdin                  Read input from stdin.\n" +
@@ -320,8 +322,8 @@ if (
   process.exit(argv["help"] ? 0 : 1);
 }
 
-if (argv["resolve-config"]) {
-  resolveConfig(argv["resolve-config"]);
+if (argv["find-config-path"]) {
+  resolveConfig(argv["find-config-path"]);
 } else if (stdin) {
   getStream(process.stdin).then(input => {
     getOptionsForFile(process.cwd()).then(options => {
