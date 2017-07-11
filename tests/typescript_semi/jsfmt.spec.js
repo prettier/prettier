@@ -1,1 +1,3 @@
-run_spec(__dirname, { parser: "typescript", semi: false });
+run_spec(__dirname, { parser: "typescript", semi: false }, [
+  "typescriptBabylon"
+]);

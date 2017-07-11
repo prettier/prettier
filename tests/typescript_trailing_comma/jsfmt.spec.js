@@ -1,1 +1,3 @@
-run_spec(__dirname, { parser: "typescript", trailingComma: "all" });
+run_spec(__dirname, { parser: "typescript", trailingComma: "all" }, [
+  "typescriptBabylon"
+]);
