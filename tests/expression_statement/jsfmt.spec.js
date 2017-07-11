@@ -1,1 +1,5 @@
-run_spec(__dirname, { parser: "babylon" }, ["flow", "typescript"]);
+run_spec(__dirname, { parser: "babylon" }, [
+  "flow",
+  "typescript",
+  "typescriptBabylon"
+]);
