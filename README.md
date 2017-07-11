@@ -248,10 +248,11 @@ prettier --single-quote --list-different "src/**/*.js"
 
 If you are repeatedly formatting individual files with `prettier`, you will incur a small performance cost
 when prettier attempts to look up a [configuration file](#configuration-file). In order to skip this, you may
-use:
+ask prettier to find the config file once, and re-use it later on.
 
 ```bash
 prettier --resolve-config ./my/file.js
+./my/.prettierrc
 ```
 
 This will provide you with a path to the configuration file, which you can pass to `--config`:
@@ -262,6 +263,9 @@ prettier --config ./my/.prettierrc --write ./my/file.js
 
 You can also use `--config` if your configuration file lives somewhere where prettier cannot find it,
 such as a `config/` directory.
+
+If you don't have a configuration file, or want to ignore it if it does exist,
+you can pass `--no-config` instead.
 
 #### `--debug-check`
 
