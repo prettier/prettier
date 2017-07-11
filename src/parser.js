@@ -18,6 +18,9 @@ const parsers = {
   get typescript() {
     return eval("require")("./parser-typescript");
   },
+  get typescriptBabylon() {
+    return eval("require")("./parser-typescript-babylon");
+  },
   get postcss() {
     return eval("require")("./parser-postcss");
   },

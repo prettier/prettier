@@ -12,7 +12,7 @@
   "main": "./index.js",
   "dependencies": {
     "babel-code-frame": "7.0.0-alpha.12",
-    "babylon": "7.0.0-beta.13",
+    "babylon": "7.0.0-beta.16",
     "chalk": "2.0.1",
     "cosmiconfig": "2.1.3",
     "dashify": "0.2.2",
@@ -67,15 +67,8 @@
   "scripts": {
     "test": "jest",
     "test-integration": "jest tests_integration",
-<<<<<<< HEAD
     "lint": "cross-env EFF_NO_LINK_RULES=true eslint . --format node_modules/eslint-friendly-formatter",
     "build": "./scripts/build/build.js"
-=======
-    "lint": "EFF_NO_LINK_RULES=true eslint . --format 'node_modules/eslint-friendly-formatter'",
-    "build": "./scripts/build/build.sh",
-    "build-babylon": "cd ./node_modules/babylon/ && yarn && yarn prepublish && cd ../../",
-    "postinstall": "yarn build-babylon"
->>>>>>> Hacky initial evaluation of parsing TypeScript using Babylon
   },
   "jest": {
     "setupFiles": [
