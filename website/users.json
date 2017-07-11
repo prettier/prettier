@@ -39,5 +39,10 @@
     "caption": "PayPal",
     "image": "/images/paypal-200x100.png",
     "infoLink": "https://github.com/paypal"
+  },
+  {
+    "caption": "Hudl",
+    "image": "/images/hudl-200x100.png",
+    "infoLink": "http://hudl.github.io/"
   }
 ]
