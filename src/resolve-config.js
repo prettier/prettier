@@ -25,6 +25,10 @@ function resolveConfig(filePath, opts) {
   );
 }
 
+function clearCache() {
+  withCache.clearCaches();
+}
+
 function resolveConfigFile(filePath) {
   return noCache.load(filePath).then(result => {
     if (result) {
@@ -64,5 +68,6 @@ function pathMatchesGlobs(filePath, patterns, excludedPatterns) {
 
 module.exports = {
   resolveConfig,
-  resolveConfigFile
+  resolveConfigFile,
+  clearCache
 };

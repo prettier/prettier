@@ -9,7 +9,7 @@ const printDocToString = require("./src/doc-printer").printDocToString;
 const normalizeOptions = require("./src/options").normalize;
 const parser = require("./src/parser");
 const printDocToDebug = require("./src/doc-debug").printDocToDebug;
-const resolveConfig = require("./src/resolve-config").resolveConfig;
+const config = require("./src/resolve-config");
 
 function guessLineEnding(text) {
   const index = text.indexOf("\n");
@@ -338,7 +338,8 @@ module.exports = {
     }
   },
 
-  resolveConfig,
+  resolveConfig: config.resolveConfig,
+  clearConfigCache: config.clearCache,
 
   version,
 
