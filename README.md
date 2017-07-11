@@ -33,14 +33,7 @@ conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Pre
   + [CLI](#cli)
   + [ESLint](#eslint)
   + [Pre-commit Hook](#pre-commit-hook)
-      * [Option 1. lint-staged](#option-1-lint-staged)
-      * [Option 2. pre-commit](#option-2-pre-commit)
-      * [Option 3. bash script](#option-3-bash-script)
   + [API](#api)
-    - [`prettier.format`](#prettierformatsource--options)
-    - [`prettier.check`](#prettierchecksource--options)
-    - [`prettier.formatWithCursor`](#prettierformatwithcursorsource--options)
-    - [Custom Parser API](#custom-parser-api)
   + [Excluding code from formatting](#excluding-code-from-formatting)
 * [Options](#options)
   + [Print Width](#print-width)
@@ -54,6 +47,9 @@ conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Pre
   + [Range](#range)
   + [Parser](#parser)
   + [Filepath](#filepath)
+* [Configuration File](#configuration-file)
+  + [Basic Configuration](#basic-configuration)
+  + [Configuration Overrides](#configuration-overrides)
 * [Editor Integration](#editor-integration)
   + [Atom](#atom)
   + [Emacs](#emacs)
@@ -351,8 +347,6 @@ exit 0
 
 ### API
 
-The API has three functions:  `format`, `check`, and `formatWithCursor`.
-
 ```js
 const prettier = require("prettier");
 ```
@@ -382,6 +376,31 @@ The `cursorOffset` option should be provided, to specify where the cursor is. Th
 prettier.formatWithCursor(" 1", { cursorOffset: 2 });
 // -> { formatted: '1;\n', cursorOffset: 1 }
 ```
+
+#### `prettier.resolveConfig([filePath] [, options])`
+
+`resolveConfig` can be used to resolve configuration for a given source file.
+The function optionally accepts an input file path as an argument, which defaults to the current working directory.
+A promise is returned which will resolve to:
+* An options object, providing a [config file](#configuration-file) was found.
+* `null`, if no file was found.
+
+The promise will be rejected if there was an error parsing the configuration file.
+
+If `options.withCache` is `false`, all caching will be bypassed.
+
+```js
+const text = fs.readFileSync(filePath, "utf8");
+prettier.resolveConfig(filePath).then(options => {
+  const formatted = prettier.format(text, options);
+})
+```
+
+#### `prettier.clearConfigCache()`
+
+As you repeatedly call `resolveConfig`, the file system structure will be cached for performance.
+This function will clear the cache. Generally this is only needed for editor integrations that
+know that the file system has changed since the last format took place.
 
 #### Custom Parser API
 
@@ -448,7 +467,7 @@ Specify the line length that the printer will wrap on.
 > **For readability we recommend against using more than 80 characters:**
 >
 >In code styleguides, maximum line length rules are often set to 100 or 120. However, when humans write code, they don't strive to reach the maximum number of columns on every line. Developers often use whitespace to break up long lines for readability. In practice, the average line length often ends up well below the maximum.
-> 
+>
 > Prettier, on the other hand, strives to fit the most code into every line. With the print width set to 120, prettier may produce overly compact, or otherwise undesirable code.
 
 Default | CLI Override | API Override
@@ -568,6 +587,83 @@ Default | CLI Override | API Override
 --------|--------------|-------------
 None | `--stdin-filepath <string>` | `filepath: "<string>"`
 
+
+## Configuration File
+
+Prettier uses [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) for configuration file support.
+This means you can configure prettier via:
+
+* A `.prettierrc` file, written in YAML or JSON.
+* A `prettier.config.js` file that exports an object.
+* A `"prettier"` key in your `package.json` file.
+
+The configuration file will be resolved starting from the location of the file being formatted,
+and searching up the file tree until a config file is (or isn't) found.
+
+The options to the configuration file are the same the [API options](#options).
+
+### Basic Configuration
+
+JSON:
+
+```json
+// .prettierrc
+{
+  "printWidth": 100,
+  "parser": "flow"
+}
+```
+
+YAML:
+
+```yaml
+# .prettierrc
+printWidth: 100
+parser: flow
+```
+
+### Configuration Overrides
+
+Prettier borrows eslint's [override format](http://eslint.org/docs/user-guide/configuring#example-configuration).
+This allows you to apply configuration to specific files.
+
+JSON:
+
+```json
+{
+  "semi": false,
+  "overrides": [{
+    "files": "*.test.js",
+    "options": {
+      "semi": true
+    }
+  }]
+}
+```
+
+YAML:
+
+```yaml
+semi: false
+overrides:
+- files: "*.test.js"
+  options:
+    semi: true
+```
+
+`files` is required for each override, and may be a string or array of strings.
+`excludeFiles` may be optionally provided to exclude files for a given rule, and may also be a string or array of strings.
+
+To get prettier to format its own `.prettierrc` file, you can do:
+
+```json
+{
+  "overrides": [{
+    "files": ".prettierrc",
+    "options": { "parser": "json" }
+  }]
+}
+```
 
 ## Editor Integration
 
