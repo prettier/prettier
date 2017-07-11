@@ -232,17 +232,42 @@ expands the globs rather than your shell, for cross-platform usage.
 The [glob syntax from the glob module](https://github.com/isaacs/node-glob/blob/master/README.md#glob-primer)
 is used.
 
+#### `--with-node-modules`
+
 Prettier CLI will ignore files located in `node_modules` directory. To opt-out from this behavior use `--with-node-modules` flag.
 
-If you're worried that Prettier will change the correctness of your code, add `--debug-check` to the command.
-This will cause Prettier to print an error message if it detects that code correctness might have changed.
-Note that `--write` cannot be used with `--debug-check`.
+#### `--list-different`
 
 Another useful flag is `--list-different` (or `-l`) which prints the filenames of files that are different from Prettier formatting. If there are differences the script errors out, which is useful in a CI scenario.
 
 ```bash
 prettier --single-quote --list-different "src/**/*.js"
 ```
+
+#### `--resolve-config` and `--config`
+
+If you are repeatedly formatting individual files with `prettier`, you will incur a small performance cost
+when prettier attempts to look up a [configuration file](#configuration-file). In order to skip this, you may
+use:
+
+```bash
+prettier --resolve-config ./my/file.js
+```
+
+This will provide you with a path to the configuration file, which you can pass to `--config`:
+
+```bash
+prettier --config ./my/.prettierrc --write ./my/file.js
+```
+
+You can also use `--config` if your configuration file lives somewhere where prettier cannot find it,
+such as a `config/` directory.
+
+#### `--debug-check`
+
+If you're worried that Prettier will change the correctness of your code, add `--debug-check` to the command.
+This will cause Prettier to print an error message if it detects that code correctness might have changed.
+Note that `--write` cannot be used with `--debug-check`.
 
 ### ESLint
 
@@ -664,6 +689,8 @@ To get prettier to format its own `.prettierrc` file, you can do:
   }]
 }
 ```
+
+For more information on how to use the CLI to locate a file, see the [CLI](#cli) section.
 
 ## Editor Integration
 
