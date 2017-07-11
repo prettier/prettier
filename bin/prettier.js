@@ -67,7 +67,7 @@ const argv = minimist(args, {
   },
   unknown: param => {
     if (param.startsWith("-")) {
-      const paramName = param.substring(2);
+      const paramName = param.replace(/--(no-)?/, "");
       if (
         booleanOptionNames.indexOf(paramName) === -1 &&
         stringOptionNames.indexOf(paramName) === -1
