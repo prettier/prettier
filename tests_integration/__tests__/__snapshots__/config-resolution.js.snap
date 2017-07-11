@@ -63,7 +63,7 @@ function f() {
 "
 `;
 
-exports[`resolves configuration file with --resolve-config file 1`] = `
+exports[`resolves configuration file with --find-config-path file 1`] = `
 ".prettierrc
 "
 `;
