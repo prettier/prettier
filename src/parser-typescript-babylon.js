@@ -10,6 +10,7 @@ function parse(text) {
     sourceType: "module",
     allowImportExportEverywhere: true,
     allowReturnOutsideFunction: true,
+    ranges: true,
     plugins: [
       "jsx",
       "typescript",
