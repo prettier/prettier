@@ -50,6 +50,7 @@ conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Pre
 * [Configuration File](#configuration-file)
   + [Basic Configuration](#basic-configuration)
   + [Configuration Overrides](#configuration-overrides)
+  + [Configuration Schema](#configuration-schema)
 * [Editor Integration](#editor-integration)
   + [Atom](#atom)
   + [Emacs](#emacs)
@@ -695,6 +696,10 @@ To get prettier to format its own `.prettierrc` file, you can do:
 ```
 
 For more information on how to use the CLI to locate a file, see the [CLI](#cli) section.
+
+### Configuration Schema
+
+If you'd like a JSON schema to validate your configuration, one is available here: http://json.schemastore.org/prettierrc.
 
 ## Editor Integration
 
