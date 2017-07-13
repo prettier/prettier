@@ -1,6 +1,6 @@
 export class Point {
 /**
- * Does something. 
+ * Does something.
  */
   foo() {}
 

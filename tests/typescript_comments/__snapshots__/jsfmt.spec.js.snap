@@ -119,7 +119,7 @@ export type WrappedFormUtils = {
 exports[`methods.ts 1`] = `
 export class Point {
 /**
- * Does something. 
+ * Does something.
  */
   foo() {}
 
@@ -131,7 +131,7 @@ export class Point {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export class Point {
   /**
-   * Does something. 
+   * Does something.
    */
   foo() {}
 
