@@ -849,14 +849,14 @@ let tests = [
     document.createNodeIterator(
       document.body,
       -1,
-      node => NodeFilter.FILTER_ACCEPT
+      (node) => NodeFilter.FILTER_ACCEPT
     ); // valid
-    document.createNodeIterator(document.body, -1, node => "accept"); // invalid
+    document.createNodeIterator(document.body, -1, (node) => "accept"); // invalid
     document.createNodeIterator(document.body, -1, {
-      acceptNode: node => NodeFilter.FILTER_ACCEPT
+      acceptNode: (node) => NodeFilter.FILTER_ACCEPT
     }); // valid
     document.createNodeIterator(document.body, -1, {
-      acceptNode: node => "accept"
+      acceptNode: (node) => "accept"
     }); // invalid
     document.createNodeIterator(document.body, -1, {}); // invalid
   },
@@ -864,14 +864,14 @@ let tests = [
     document.createTreeWalker(
       document.body,
       -1,
-      node => NodeFilter.FILTER_ACCEPT
+      (node) => NodeFilter.FILTER_ACCEPT
     ); // valid
-    document.createTreeWalker(document.body, -1, node => "accept"); // invalid
+    document.createTreeWalker(document.body, -1, (node) => "accept"); // invalid
     document.createTreeWalker(document.body, -1, {
-      acceptNode: node => NodeFilter.FILTER_ACCEPT
+      acceptNode: (node) => NodeFilter.FILTER_ACCEPT
     }); // valid
     document.createTreeWalker(document.body, -1, {
-      acceptNode: node => "accept"
+      acceptNode: (node) => "accept"
     }); // invalid
     document.createTreeWalker(document.body, -1, {}); // invalid
   }

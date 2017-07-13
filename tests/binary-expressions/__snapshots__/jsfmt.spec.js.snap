@@ -9,7 +9,7 @@ function f() {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function f() {
   const appEntitys = getAppEntitys(loadObject).filter(
-    entity =>
+    (entity) =>
       entity &&
       entity.isInstallAvailable() &&
       !entity.isQueue() &&
@@ -272,7 +272,7 @@ foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo(
 const isPartOfPackageJSON =
   dependenciesArray.indexOf(dependencyWithOutRelativePath.split("/")[0]) !== -1;
 
-defaultContent.filter(defaultLocale => {
+defaultContent.filter((defaultLocale) => {
   // ...
 })[0] || null;
 

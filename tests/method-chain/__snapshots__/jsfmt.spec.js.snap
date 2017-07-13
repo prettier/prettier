@@ -61,16 +61,16 @@ it('should group messages with same created time', () => {
   });
 });
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export default store => {
+export default (store) => {
   return callApi(endpoint, schema).then(
-    response =>
+    (response) =>
       next(
         actionWith({
           response,
           type: successType
         })
       ),
-    error =>
+    (error) =>
       next(
         actionWith({
           type: failureType,
@@ -315,7 +315,7 @@ const configModel = this.baseConfigurationService
 this.doWriteConfiguration(target, value, options) // queue up writes to prevent race conditions
   .then(
     () => null,
-    error => {
+    (error) => {
       return options.donotNotifyError
         ? TPromise.wrapError(error)
         : this.onError(error, target, value);
@@ -404,7 +404,7 @@ function f() {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export default function theFunction(action$, store) {
-  return action$.ofType(THE_ACTION).switchMap(action =>
+  return action$.ofType(THE_ACTION).switchMap((action) =>
     Observable.webSocket({
       url: THE_URL,
       more: stuff(),
@@ -414,9 +414,9 @@ export default function theFunction(action$, store) {
         value3: false
       })
     })
-      .filter(data => theFilter(data))
+      .filter((data) => theFilter(data))
       .map(({ theType, ...data }) => theMap(theType, data))
-      .retryWhen(errors => errors)
+      .retryWhen((errors) => errors)
   );
 }
 
@@ -424,7 +424,7 @@ function f() {
   return this._getWorker(workerOptions)({
     filePath,
     hasteImplModulePath: this._options.hasteImplModulePath
-  }).then(metadata => {
+  }).then((metadata) => {
     // \`1\` for truthy values instead of \`true\` to save cache space.
     fileMetadata[H.VISITED] = 1;
     const metadataId = metadata.id;
@@ -453,7 +453,7 @@ Object.keys(
   availableLocales({
     test: true
   })
-).forEach(locale => {
+).forEach((locale) => {
   // ...
 });
 
@@ -464,7 +464,7 @@ exports[`logical.js 1`] = `
   TicketRecord.createFromSomeLongString());
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 (veryLongVeryLongVeryLong || e)
-  .map(tickets => TicketRecord.createFromSomeLongString());
+  .map((tickets) => TicketRecord.createFromSomeLongString());
 
 `;
 
@@ -528,7 +528,7 @@ method().then(x => x)
 ({}.a().b());
 ({}).a().b();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-method().then(x => x)["abc"](x => x)[abc](x => x);
+method().then((x) => x)["abc"]((x) => x)[abc]((x) => x);
 
 ({}.a().b());
 ({}.a().b());
@@ -542,6 +542,6 @@ const sel = this.connections
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const sel = this.connections
   .concat(this.activities.concat(this.operators))
-  .filter(x => x.selected);
+  .filter((x) => x.selected);
 
 `;

@@ -29,10 +29,10 @@ foo('bar', cb => {
   console.log('stuff')
 })`;
   expect(prettier.formatWithCursor(code, { cursorOffset: 24 })).toEqual({
-    formatted: `foo("bar", cb => {
+    formatted: `foo("bar", (cb) => {
   console.log("stuff");
 });
 `,
-    cursorOffset: 23
+    cursorOffset: 25
   });
 });

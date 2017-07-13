@@ -20,9 +20,9 @@ export default function searchUsers(action$) {
 export default function searchUsers(action$) {
   return action$
     .ofType(ActionTypes.SEARCHED_USERS)
-    .map(action => action.payload.query)
-    .filter(q => !!q)
-    .switchMap(q =>
+    .map((action) => action.payload.query)
+    .filter((q) => !!q)
+    .switchMap((q) =>
       Observable.timer(800) // debounce
         .takeUntil(action$.ofType(ActionTypes.CLEARED_SEARCH_RESULTS))
         .mergeMap(() =>
@@ -30,7 +30,7 @@ export default function searchUsers(action$) {
             Observable.of(replace(\`?q=\${q}\`)),
             ajax
               .getJSON(\`https://api.github.com/search/users?q=\${q}\`)
-              .map(res => res.items)
+              .map((res) => res.items)
               .map(receiveUsers)
           )
         )
@@ -103,7 +103,7 @@ true
       browsers: ["> 1%", "last 2 versions", "ie >= 11", "Firefox ESR"]
     }),
     require("postcss-url")({
-      url: url =>
+      url: (url) =>
         url.startsWith("/") || /^[a-z]+:/.test(url) ? url : \`/static/\${url}\`
     })
   ]
@@ -282,7 +282,7 @@ const els = items.map(item => (
   </div>
 ));
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const els = items.map(item =>
+const els = items.map((item) =>
   <div className="whatever">
     <span>{children}</span>
   </div>
@@ -322,12 +322,12 @@ const formatData = pipe(
   values
 );
 
-export const setProp = y => ({
+export const setProp = (y) => ({
   ...y,
   a: "very, very, very long very, very long text"
 });
 
-export const log = y => {
+export const log = (y) => {
   console.log("very, very, very long very, very long text");
 };
 

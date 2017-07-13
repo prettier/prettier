@@ -285,7 +285,7 @@ export function emitExpression(node: TypedNode): t.Expression {
         false
       );
 
-      const args = node.parameters.map(n => emitExpression(n));
+      const args = node.parameters.map((n) => emitExpression(n));
 
       return b.callExpression(callee, args);
     }

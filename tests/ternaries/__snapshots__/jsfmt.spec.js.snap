@@ -105,7 +105,7 @@ debug
   ? this.state.isVisible && somethingComplex ? "partially visible" : "hidden"
   : null;
 
-a =>
+(a) =>
   a
     ? () => {
         a;
@@ -113,8 +113,8 @@ a =>
     : () => {
         a;
       };
-a => (a ? a : a);
-a =>
+(a) => (a ? a : a);
+(a) =>
   a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
 
 `;
@@ -132,7 +132,7 @@ debug
     ? this.state.isVisible && somethingComplex ? "partially visible" : "hidden"
     : null;
 
-a =>
+(a) =>
     a
         ? () => {
               a;
@@ -140,8 +140,8 @@ a =>
         : () => {
               a;
           };
-a => (a ? a : a);
-a =>
+(a) => (a ? a : a);
+(a) =>
     a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
 
 `;
