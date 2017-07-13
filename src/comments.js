@@ -836,7 +836,28 @@ function printComment(commentPath, options) {
     case "Block":
       // TODO: This is probably where we need to remove the extra spacing from the comment so we can re-indent.
       // See [#648](https://github.com/prettier/prettier/issues/648) for more details.
-      return "/*" + comment.value + "*/";
+      if (comment.value.indexOf("\n") === -1) {
+        return "/*" + comment.value + "*/";
+      }
+      const parentNode = commentPath.getParentNode();
+      const indentLevel = parentNode.loc.start.column;
+
+      let spaces = "";
+      for (let i = 0; i <= indentLevel; i++) {
+        spaces += " ";
+      }
+
+      const formattedValue = comment.value
+        .split("\n")
+        .map(line => line.replace(/^[ ]+|[ ]+$/g, ""))
+        .map((line, index) => {
+          if (index === 0) {
+            return line;
+          }
+          return spaces + line;
+        })
+        .join("\n");
+      return "/*" + formattedValue + "*/";
     case "CommentLine":
     case "Line":
       // Print shebangs with the proper comment characters
