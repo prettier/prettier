@@ -116,6 +116,33 @@ export type WrappedFormUtils = {
 
 `;
 
+exports[`methods.ts 1`] = `
+export class Point {
+/**
+ * Does something. 
+ */
+  foo() {}
+
+    /**
+     * Does something else.
+     */
+  bar() {}
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export class Point {
+  /**
+   * Does something. 
+   */
+  foo() {}
+
+  /**
+   * Does something else.
+   */
+  bar() {}
+}
+
+`;
+
 exports[`type-parameters.ts 1`] = `
 functionName<A /* A comment */>();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
