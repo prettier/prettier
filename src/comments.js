@@ -852,7 +852,7 @@ function printComment(commentPath, options) {
       }
 
       const formattedValue = lines
-        .map(line => line.replace(/^[ ]+|[ ]+$/g, ""))
+        .map(line => line.replace(/^[ ]+/g, ""))
         .map((line, index) => {
           if (index === 0) {
             return line;
