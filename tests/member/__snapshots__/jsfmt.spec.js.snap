@@ -27,7 +27,7 @@ const veryVeryVeryVeryVeryVeryVeryLong =
 const small = doc.expandedStates[doc.expandedStates.length - 1];
 
 const promises = [
-  promise.resolve().then(console.log).catch(err => {
+  promise.resolve().then(console.log).catch((err) => {
     console.log(err);
     return null;
   }),
@@ -41,7 +41,7 @@ const promises = [
     .veryLongFunctionCall()
     .veryLongFunctionCall()
     .then(console.log)
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
       return null;
     }),

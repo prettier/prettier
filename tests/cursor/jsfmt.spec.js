@@ -25,11 +25,11 @@ test("keeps cursor inside formatted node", () => {
 
 test("doesn't insert second placeholder for nonexistent TypeAnnotation", () => {
   const code = `
-foo('bar', cb => {
+foo('bar', (cb) => {
   console.log('stuff')
 })`;
   expect(prettier.formatWithCursor(code, { cursorOffset: 24 })).toEqual({
-    formatted: `foo("bar", cb => {
+    formatted: `foo("bar", (cb) => {
   console.log("stuff");
 });
 `,

@@ -327,7 +327,7 @@ export const setProp = y => ({
   a: "very, very, very long very, very long text"
 });
 
-export const log = y => {
+export const log = (y) => {
   console.log("very, very, very long very, very long text");
 };
 
