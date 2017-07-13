@@ -3872,16 +3872,11 @@ function printJSXElement(path, options, print) {
     return child;
   });
 
-  const parent = path.getParentNode();
-  const parentContainsText =
-    parent.type === "JSXElement" &&
-    parent.children.filter(child => isMeaningfulJSXText(child)).length > 0;
-
   const containsTag =
     n.children.filter(child => child.type === "JSXElement").length > 0;
-  const numExpressions = n.children.filter(
-    child => child.type === "JSXExpressionContainer"
-  ).length;
+  const containsMultipleExpressions =
+    n.children.filter(child => child.type === "JSXExpressionContainer").length >
+    1;
   const containsMultipleAttributes = n.openingElement.attributes.length > 1;
 
   // Record any breaks. Should never go from true to false, only false to true.
@@ -3889,7 +3884,7 @@ function printJSXElement(path, options, print) {
     willBreak(openingLines) ||
     containsTag ||
     containsMultipleAttributes ||
-    (parentContainsText ? numExpressions > 1 : numExpressions > 0);
+    containsMultipleExpressions;
 
   const rawJsxWhitespace = options.singleQuote ? "{' '}" : '{" "}';
   const jsxWhitespace = ifBreak(concat([rawJsxWhitespace, softline]), " ");

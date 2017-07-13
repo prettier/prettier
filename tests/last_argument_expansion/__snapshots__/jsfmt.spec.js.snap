@@ -284,9 +284,7 @@ const els = items.map(item => (
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const els = items.map(item =>
   <div className="whatever">
-    <span>
-      {children}
-    </span>
+    <span>{children}</span>
   </div>
 );
 
