@@ -46,7 +46,9 @@ const MyCoolThing = ({ thingo }) => <li>{thingo}</li>;
 
 exports[`this.tsx 1`] = `
 <this.state.Component />;
+<this.Component />;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <this.state.Component />;
+<this.Component />;
 
 `;
