@@ -17,7 +17,7 @@ for (let [taskStatus, tasksMap] of tasksPerStatusMap) {
 const Immutable = require("immutable");
 
 const tasksPerStatusMap = new Map(
-  [].map(taskStatus => [taskStatus, new Map()])
+  [].map((taskStatus) => [taskStatus, new Map()])
 );
 for (let [taskStatus, tasksMap] of tasksPerStatusMap) {
   tasksPerStatusMap.set(taskStatus, Immutable.Map(tasksMap));
@@ -59,7 +59,7 @@ declare function foo<U>(
 declare var items: Bar<string>;
 declare var updater: (value: Bar<string>) => Bar<string>;
 
-foo(items, acc => acc.update(updater));
+foo(items, (acc) => acc.update(updater));
 
 `;
 

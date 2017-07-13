@@ -44,7 +44,7 @@ const composition = (ViewComponent, ContainerComponent) =>
     static propTypes = {};
   };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const testResults = results.testResults.map(testResult =>
+const testResults = results.testResults.map((testResult) =>
   formatResult(testResult, formatter, reporter)
 );
 
@@ -75,16 +75,16 @@ expect(() =>
 ).not.toThrowError();
 
 const a = Observable.fromPromise(axiosInstance.post("/carts/mine")).map(
-  response => response.data
+  (response) => response.data
 );
 
 const b = Observable.fromPromise(axiosInstance.get(url)).map(
-  response => response.data
+  (response) => response.data
 );
 
 func(
   veryLoooooooooooooooooooooooongName,
-  veryLooooooooooooooooooooooooongName =>
+  (veryLooooooooooooooooooooooooongName) =>
     veryLoooooooooooooooongName.something()
 );
 
@@ -139,7 +139,7 @@ const composition = (ViewComponent, ContainerComponent) =>
     static propTypes = {};
   };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const testResults = results.testResults.map(testResult =>
+const testResults = results.testResults.map((testResult) =>
   formatResult(testResult, formatter, reporter),
 );
 
@@ -170,16 +170,16 @@ expect(() =>
 ).not.toThrowError();
 
 const a = Observable.fromPromise(axiosInstance.post("/carts/mine")).map(
-  response => response.data,
+  (response) => response.data,
 );
 
 const b = Observable.fromPromise(axiosInstance.get(url)).map(
-  response => response.data,
+  (response) => response.data,
 );
 
 func(
   veryLoooooooooooooooooooooooongName,
-  veryLooooooooooooooooooooooooongName =>
+  (veryLooooooooooooooooooooooooongName) =>
     veryLoooooooooooooooongName.something(),
 );
 

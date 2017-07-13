@@ -33,7 +33,7 @@ x => (y += z);
 f(a => ({})) + 1;
 (a => ({})) || 0;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-(a => {}).length;
+((a) => {}).length;
 typeof (() => {});
 export default (() => {})();
 (() => {})()\`\`;
@@ -53,18 +53,18 @@ a = () => ({}[b] && a);
 a = () => ({}\`\` && a);
 a = () => ({} = 0);
 a = () => ({}, a);
-a => a instanceof {};
-a => ({}().b && 0);
-a => ({}().c = 0);
-x => ({}()());
-x => ({}()\`\`);
-x => ({}().b);
-a = b => c;
+(a) => a instanceof {};
+(a) => ({}().b && 0);
+(a) => ({}().c = 0);
+(x) => ({}()());
+(x) => ({}()\`\`);
+(x) => ({}().b);
+a = (b) => c;
 a = (b?) => c;
-x => (y = z);
-x => (y += z);
-f(a => ({})) + 1;
-(a => ({})) || 0;
+(x) => (y = z);
+(x) => (y += z);
+f((a) => ({})) + 1;
+((a) => ({})) || 0;
 
 `;
 
@@ -157,7 +157,7 @@ fooooooooooooooooooooooooooooooooooooooooooooooooooo(action => next =>
     dispatch(action),
 );
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Seq(typeDef.interface.groups).forEach(group =>
+Seq(typeDef.interface.groups).forEach((group) =>
   Seq(group.members).forEach((member, memberName) =>
     markdownDoc(member.doc, {
       typePath: typePath.concat(memberName.slice(1)),
@@ -166,7 +166,7 @@ Seq(typeDef.interface.groups).forEach(group =>
   )
 );
 
-const promiseFromCallback = fn =>
+const promiseFromCallback = (fn) =>
   new Promise((resolve, reject) =>
     fn((err, result) => {
       if (err) return reject(err);
@@ -188,7 +188,7 @@ function render() {
   return (
     <View>
       <Image
-        onProgress={e =>
+        onProgress={(e) =>
           this.setState({
             progress: Math.round(
               100 * e.nativeEvent.loaded / e.nativeEvent.total
@@ -203,7 +203,7 @@ function render() {
   return (
     <View>
       <Image
-        onProgress={e =>
+        onProgress={(e) =>
           this.setState({
             progress: Math.round(
               100 * e.nativeEvent.loaded / e.nativeEvent.total
@@ -218,7 +218,7 @@ function render() {
   return (
     <View>
       <Image
-        onProgress={e =>
+        onProgress={(e) =>
           this.setState({
             progress: Math.round(
               100 * e.nativeEvent.loaded / e.nativeEvent.total
@@ -239,7 +239,7 @@ jest.mock(
     }
 );
 
-fooooooooooooooooooooooooooooooooooooooooooooooooooo(action => next =>
+fooooooooooooooooooooooooooooooooooooooooooooooooooo((action) => (next) =>
   dispatch(action)
 );
 
@@ -283,17 +283,17 @@ export const bem = block =>
  * @param {String} block - the BEM Block you'd like to select.
  * @returns {Function}
  */
-export const bem = block =>
+export const bem = (block) =>
   /**
    * @param {String} [element] - the BEM Element within that block; if undefined, selects the block itself.
    * @returns {Function}
    */
-  element =>
+  (element) =>
     /**
      * @param {?String} [modifier] - the BEM Modifier for the Block or Element; if undefined, selects the Block or Element unmodified.
      * @returns {String}
      */
-    modifier =>
+    (modifier) =>
       [
         ".",
         css(block),
@@ -323,15 +323,15 @@ const middleware = options => (req, res, next) => {
   // ...
 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const fn = b => c => d => {
+const fn = (b) => (c) => (d) => {
   return 3;
 };
 
-const mw = store => next => action => {
+const mw = (store) => (next) => (action) => {
   return next(action);
 };
 
-const middleware = options => (req, res, next) => {
+const middleware = (options) => (req, res, next) => {
   // ...
 };
 

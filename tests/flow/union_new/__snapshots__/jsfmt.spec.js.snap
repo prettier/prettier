@@ -744,7 +744,7 @@ type B2 = string;
 
 function fun(a: ((x: number) => void) | ((x: string) => void)) {}
 
-fun((x => {}: A1));
+fun(((x) => {}: A1));
 
 type A1 = (x: B1) => void;
 
@@ -814,7 +814,7 @@ type B2 = string;
 
 function fun(a: ((x: number) => void) | ((x: string) => void)) {}
 
-const a1 = (x => {}: A1);
+const a1 = ((x) => {}: A1);
 fun(a1);
 
 function fun_call(x: string) {
@@ -1233,7 +1233,7 @@ check_inst(id(new C()));
 function check_fun(_: ((_: number) => number) | ((_: string) => string)) {}
 
 // help!
-check_fun(x => x);
+check_fun((x) => x);
 
 //////////////////////
 // object annotations
@@ -1427,7 +1427,7 @@ bar(() => { });
 // functions as objects
 
 function foo<X>(target: EventTarget) {
-  target.addEventListener("click", e => {});
+  target.addEventListener("click", (e) => {});
 }
 
 declare class EventTarget {

@@ -96,7 +96,7 @@ exports[`expression.js 1`] = `
 </Something>;
 
 <Something>
-  {items.map(item =>
+  {items.map((item) =>
     <SomethingElse>
       <span />
     </SomethingElse>
@@ -196,7 +196,7 @@ exports[`hug.js 1`] = `
   {__DEV__
     ? this.renderDevApp()
     : <div>
-        {routes.map(route =>
+        {routes.map((route) =>
           <MatchAsync
             key={\`\${route.to}-async\`}
             pattern={route.to}
@@ -210,7 +210,7 @@ exports[`hug.js 1`] = `
 <div>
   {__DEV__ &&
     <div>
-      {routes.map(route =>
+      {routes.map((route) =>
         <MatchAsync
           key={\`\${route.to}-async\`}
           pattern={route.to}

@@ -120,7 +120,7 @@ const insert_a_really_big_predicated_arrow_function_name_here = (x): %checks =>
 
 declare var x;
 x;
-checks => 123;
+(checks) => 123;
 
 type checks = any;
 
