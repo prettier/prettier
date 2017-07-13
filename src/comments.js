@@ -834,6 +834,8 @@ function printComment(commentPath, options) {
       return "#" + comment.value;
     case "CommentBlock":
     case "Block":
+      // TODO: This is probably where we need to remove the extra spacing from the comment so we can re-indent.
+      // See [#648](https://github.com/prettier/prettier/issues/648) for more details.
       return "/*" + comment.value + "*/";
     case "CommentLine":
     case "Line":
