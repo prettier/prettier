@@ -2,7 +2,7 @@
 
 const createError = require("./parser-create-error");
 
-function parse(text /*, parsers, opts */) {
+function parse(text, parsers, opts) {
   // Inline the require to avoid loading all the JS if we don't use it
   const babylon = require("babylon");
 
@@ -26,12 +26,15 @@ function parse(text /*, parsers, opts */) {
     ]
   };
 
+  const parseMethod =
+    opts && opts.parser === "json" ? "parseExpression" : "parse";
+
   let ast;
   try {
-    ast = babylon.parse(text, babylonOptions);
+    ast = babylon[parseMethod](text, babylonOptions);
   } catch (originalError) {
     try {
-      ast = babylon.parse(
+      ast = babylon[parseMethod](
         text,
         Object.assign({}, babylonOptions, { strictMode: false })
       );
