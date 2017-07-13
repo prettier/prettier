@@ -19,4 +19,10 @@ export class Point {
                  * rest.
                  */
   baz() {}
+
+      /**
+       * Buzz-Fizz.
+       * Note: This is indented too far.
+       */
+      fizzBuzz() {}
 }
