@@ -3,7 +3,7 @@
 const createError = require("./parser-create-error");
 const includeShebang = require("./parser-include-shebang");
 
-function parse(text) {
+function parse(text /*, parsers, opts*/) {
   // Fixes Node 4 issue (#1986)
   "use strict"; // eslint-disable-line
   // Inline the require to avoid loading all the JS if we don't use it
