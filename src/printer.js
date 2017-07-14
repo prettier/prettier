@@ -462,6 +462,7 @@ function genericPrintNoParens(path, options, print, args) {
         (n.body.type === "ArrayExpression" ||
           n.body.type === "ObjectExpression" ||
           n.body.type === "BlockStatement" ||
+          n.body.type === "JSXElement" ||
           isTemplateOnItsOwnLine(n.body, options.originalText) ||
           n.body.type === "ArrowFunctionExpression")
       ) {
@@ -1223,22 +1224,92 @@ function genericPrintNoParens(path, options, print, args) {
 
       return concat(parts);
     case "ConditionalExpression": {
+      // We print a ConditionalExpression in either "JSX mode" or "normal mode".
+      // See tests/jsx/conditional-expression.js for more info.
+      let jsxMode = false;
       const parent = path.getParentNode();
-      const printed = concat([
-        line,
-        "? ",
-        n.consequent.type === "ConditionalExpression" ? ifBreak("", "(") : "",
-        align(2, path.call(print, "consequent")),
-        n.consequent.type === "ConditionalExpression" ? ifBreak("", ")") : "",
-        line,
-        ": ",
-        align(2, path.call(print, "alternate"))
-      ]);
+      let forceNoIndent = parent.type === "ConditionalExpression";
 
-      return group(
+      // Find the outermost non-ConditionalExpression parent, and the outermost
+      // ConditionalExpression parent. We'll use these to determine if we should
+      // print in JSX mode.
+      let currentParent;
+      let previousParent;
+      let i = 0;
+      do {
+        previousParent = currentParent || n;
+        currentParent = path.getParentNode(i);
+        i++;
+      } while (currentParent && currentParent.type === "ConditionalExpression");
+      const firstNonConditionalParent = currentParent || parent;
+      const lastConditionalParent = previousParent;
+
+      if (
+        n.test.type === "JSXElement" ||
+        n.consequent.type === "JSXElement" ||
+        n.alternate.type === "JSXElement" ||
+        parent.type === "JSXExpressionContainer" ||
+        firstNonConditionalParent.type === "JSXExpressionContainer" ||
+        conditionalExpressionChainContainsJSX(lastConditionalParent)
+      ) {
+        jsxMode = true;
+        forceNoIndent = true;
+
+        // Even though they don't need parens, we wrap (almost) everything in
+        // parens when using ?: within JSX, because the parens are analagous to
+        // curly braces in an if statement.
+        const wrap = doc =>
+          concat([
+            ifBreak("(", ""),
+            indent(concat([softline, doc])),
+            softline,
+            ifBreak(")", "")
+          ]);
+
+        // The only things we don't wrap are:
+        // * Nested conditional expressions
+        // * null
+        const shouldNotWrap = node =>
+          node.type === "ConditionalExpression" ||
+          node.type === "NullLiteral" ||
+          (node.type === "Literal" && node.value === null);
+
+        parts.push(
+          " ? ",
+          shouldNotWrap(n.consequent)
+            ? path.call(print, "consequent")
+            : wrap(path.call(print, "consequent")),
+          " : ",
+          shouldNotWrap(n.alternate)
+            ? path.call(print, "alternate")
+            : wrap(path.call(print, "alternate"))
+        );
+      } else {
+        // normal mode
+        parts.push(
+          line,
+          "? ",
+          n.consequent.type === "ConditionalExpression" ? ifBreak("", "(") : "",
+          align(2, path.call(print, "consequent")),
+          n.consequent.type === "ConditionalExpression" ? ifBreak("", ")") : "",
+          line,
+          ": ",
+          align(2, path.call(print, "alternate"))
+        );
+      }
+
+      // In JSX mode, we want a whole chain of ConditionalExpressions to all
+      // break if any of them break. That means we should only group around the
+      // outer-most ConditionalExpression.
+      const maybeGroup = doc =>
+        jsxMode
+          ? parent === firstNonConditionalParent ? group(doc) : doc
+          : group(doc); // Always group in normal mode.
+
+      return maybeGroup(
         concat([
           path.call(print, "test"),
-          parent.type === "ConditionalExpression" ? printed : indent(printed)
+          forceNoIndent ? concat(parts) : indent(concat(parts))
         ])
       );
     }
@@ -3428,7 +3499,7 @@ function printMemberLookup(path, options, print) {
 }
 
 // We detect calls on member expressions specially to format a
-// comman pattern better. The pattern we are looking for is this:
+// common pattern better. The pattern we are looking for is this:
 //
 // arr
 //   .map(x => x + 1)
@@ -3697,6 +3768,103 @@ function isMeaningfulJSXText(node) {
     (containsNonJsxWhitespaceRegex.test(rawText(node)) ||
       !/\n/.test(rawText(node)))
   );
+}
+
+function conditionalExpressionChainContainsJSX(node) {
+  return Boolean(
+    getConditionalChainContents(node).find(child => child.type === "JSXElement")
+  );
+}
+
+// If we have nested conditional expressions, we want to print them in JSX mode
+// if there's at least one JSXElement somewhere in the tree.
+//
+// A conditional expression chain like this should be printed in normal mode,
+// because there aren't JSXElements anywhere in it:
+//
+// isA ? "A" : isB ? "B" : isC ? "C" : "Unknown";
+//
+// But a conditional expression chain like this should be printed in JSX mode,
+// because there is a JSXElement in the last ConditionalExpression:
+//
+// isA ? "A" : isB ? "B" : isC ? "C" : <span className="warning">Unknown</span>;
+//
+// This type of ConditionalExpression chain is structured like this in the AST:
+//
+// ConditionalExpression {
+//   test: ...,
+//   consequent: ...,
+//   alternate: ConditionalExpression {
+//     test: ...,
+//     consequent: ...,
+//     alternate: ConditionalExpression {
+//       test: ...,
+//       consequent: ...,
+//       alternate: ...,
+//     }
+//   }
+// }
+//
+// We want to traverse over that shape and convert it into a flat structure so
+// that we can find if there's a JSXElement somewhere inside.
+function getConditionalChainContents(node) {
+  // Given this code:
+  //
+  // // Using a ConditionalExpression as the consequent is uncommon, but should
+  // // be handled.
+  // A ? B : C ? D : E ? F ? G : H : I
+  //
+  // which has this AST:
+  //
+  // ConditionalExpression {
+  //   test: Identifier(A),
+  //   consequent: Identifier(B),
+  //   alternate: ConditionalExpression {
+  //     test: Identifier(C),
+  //     consequent: Identifier(D),
+  //     alternate: ConditionalExpression {
+  //       test: Identifier(E),
+  //       consequent: ConditionalExpression {
+  //         test: Identifier(F),
+  //         consequent: Identifier(G),
+  //         alternate: Identifier(H),
+  //       },
+  //       alternate: Identifier(I),
+  //     }
+  //   }
+  // }
+  //
+  // we should return this Array:
+  //
+  // [
+  //   Identifier(A),
+  //   Identifier(B),
+  //   Identifier(C),
+  //   Identifier(D),
+  //   Identifier(E),
+  //   Identifier(F),
+  //   Identifier(G),
+  //   Identifier(H),
+  //   Identifier(I)
+  // ];
+  //
+  // This loses the information about whether each node was the test,
+  // consequent, or alternate, but we don't care about that here- we are only
+  // flattening this structure to find if there's any JSXElements inside.
+  const nonConditionalExpressions = [];
+
+  function recurse(node) {
+    if (node.type === "ConditionalExpression") {
+      recurse(node.test);
+      recurse(node.consequent);
+      recurse(node.alternate);
+    } else {
+      nonConditionalExpressions.push(node);
+    }
+  }
+  recurse(node);
+
+  return nonConditionalExpressions;
 }
 
 // Detect an expression node representing `{" "}`
@@ -4019,9 +4187,7 @@ function maybeWrapJSXElementInParens(path, elem) {
     JSXExpressionContainer: true,
     ExpressionStatement: true,
     CallExpression: true,
-    ConditionalExpression: true,
-    LogicalExpression: true,
-    ArrowFunctionExpression: true
+    ConditionalExpression: true
   };
   if (NO_WRAP_PARENTS[parent.type]) {
     return elem;
@@ -4057,6 +4223,10 @@ function shouldInlineLogicalExpression(node) {
     node.right.type === "ArrayExpression" &&
     node.right.elements.length !== 0
   ) {
+    return true;
+  }
+
+  if (node.right.type === "JSXElement") {
     return true;
   }
 
