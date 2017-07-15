@@ -101,9 +101,12 @@ func(() => {
   thing();
 }, identifier);
 
-func(function() {
-  thing();
-}, this.props.timeout * 1000);
+func(
+  function() {
+    thing();
+  },
+  this.props.timeout * 1000
+);
 
 func(that => {
   thing();
