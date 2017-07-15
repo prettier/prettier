@@ -27,6 +27,25 @@ new function() {}();
 
 `;
 
+exports[`logical_argument.js 1`] = `
+array.filter((element, index) =>
+  element.field.some(someVeryLongPredicateFunction)
+);
+
+array.filter(
+  (el, index) => somePredicate(index) && el.field.some(someLongPredicate)
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+array.filter((element, index) =>
+  element.field.some(someVeryLongPredicateFunction)
+);
+
+array.filter((el, index) =>
+  somePredicate(index) && el.field.some(someLongPredicate)
+);
+
+`;
+
 exports[`single_expand.js 1`] = `
 function onDidInsertSuggestion({
   editor,

@@ -2879,7 +2879,8 @@ function couldGroupArg(arg) {
         arg.body.type === "ObjectExpression" ||
         arg.body.type === "ArrayExpression" ||
         arg.body.type === "CallExpression" ||
-        arg.body.type === "JSXElement"))
+        arg.body.type === "JSXElement" ||
+        isBinaryish(arg.body)))
   );
 }
 

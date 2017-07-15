@@ -164,8 +164,8 @@ tap.test("RecordImport.advance", t => {
     RecordImport.find({}, "", {}, (err, batches) => {
       callback(
         null,
-        batches.filter(
-          batch => batch.state !== "error" && batch.state !== "completed"
+        batches.filter(batch =>
+          batch.state !== "error" && batch.state !== "completed"
         )
       );
     });

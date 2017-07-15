@@ -125,9 +125,12 @@ func(() => {
   thing();
 }, /regex.*?/);
 
-compose(a => {
-  return a.thing;
-}, b => b * b);
+compose(
+  a => {
+    return a.thing;
+  },
+  b => b * b
+);
 
 somthing.reduce(function(item, thing) {
   return (thing.blah = item);
