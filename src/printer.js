@@ -63,6 +63,35 @@ function getPrintFunction(options) {
   }
 }
 
+function hasJsxIgnoreComment(path) {
+  const node = path.getValue();
+  const parent = path.getParentNode();
+  if (!parent || node.type !== "JSXElement" || parent.type !== "JSXElement") {
+    return false;
+  }
+
+  // Lookup the previous sibling, ignoring any empty JSXText elements
+  const index = parent.children.indexOf(node);
+  let prevSibling = null;
+  for (let i = index; i > 0; i--) {
+    const candidate = parent.children[i - 1];
+    if (candidate.type === "JSXText" && !isMeaningfulJSXText(candidate)) {
+      continue;
+    }
+    prevSibling = candidate;
+    break;
+  }
+
+  return (
+    prevSibling &&
+    prevSibling.type === "JSXExpressionContainer" &&
+    prevSibling.expression.type === "JSXEmptyExpression" &&
+    prevSibling.expression.comments.find(
+      comment => comment.value.trim() === "prettier-ignore"
+    )
+  );
+}
+
 function genericPrint(path, options, printPath, args) {
   assert.ok(path instanceof FastPath);
 
@@ -71,9 +100,12 @@ function genericPrint(path, options, printPath, args) {
   // Escape hatch
   if (
     node &&
-    node.comments &&
-    node.comments.length > 0 &&
-    node.comments.some(comment => comment.value.trim() === "prettier-ignore")
+    ((node.comments &&
+      node.comments.length > 0 &&
+      node.comments.some(
+        comment => comment.value.trim() === "prettier-ignore"
+      )) ||
+      hasJsxIgnoreComment(path))
   ) {
     return options.originalText.slice(util.locStart(node), util.locEnd(node));
   }
