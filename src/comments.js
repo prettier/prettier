@@ -281,7 +281,7 @@ function attach(comments, ast, text) {
         ) ||
         handleObjectPropertyAssignment(enclosingNode, precedingNode, comment) ||
         handleCommentInEmptyParens(text, enclosingNode, comment) ||
-        handleMethodNameComments(enclosingNode, precedingNode, comment) ||
+        handleMethodNameComments(text, enclosingNode, precedingNode, comment) ||
         handleOnlyComments(enclosingNode, ast, comment, isLastComment)
       ) {
         // We're good
@@ -337,7 +337,8 @@ function breakTies(tiesToBreak, text) {
   // Iterate backwards through tiesToBreak, examining the gaps
   // between the tied comments. In order to qualify as leading, a
   // comment must be separated from followingNode by an unbroken series of
-  // whitespace-only gaps (or other comments).
+  // gaps (or other comments). Gaps should only contain whitespace or open
+  // parentheses.
   let indexOfFirstLeadingComment;
   for (
     indexOfFirstLeadingComment = tieCount;
@@ -348,13 +349,14 @@ function breakTies(tiesToBreak, text) {
     assert.strictEqual(comment.precedingNode, precedingNode);
     assert.strictEqual(comment.followingNode, followingNode);
 
-    const gap = text.slice(locEnd(comment), gapEndPos);
-    if (/\S/.test(gap)) {
-      // The gap string contained something other than whitespace.
+    const gap = text.slice(locEnd(comment), gapEndPos).trim();
+    if (gap === "" || /^\(+$/.test(gap)) {
+      gapEndPos = locStart(comment);
+    } else {
+      // The gap string contained something other than whitespace or open
+      // parentheses.
       break;
     }
-
-    gapEndPos = locStart(comment);
   }
 
   tiesToBreak.forEach((comment, i) => {
@@ -551,7 +553,7 @@ function handleObjectPropertyAssignment(enclosingNode, precedingNode, comment) {
   return false;
 }
 
-function handleMethodNameComments(enclosingNode, precedingNode, comment) {
+function handleMethodNameComments(text, enclosingNode, precedingNode, comment) {
   // This is only needed for estree parsers (flow, typescript) to attach
   // after a method name:
   // obj = { fn /*comment*/() {} };
@@ -561,7 +563,10 @@ function handleMethodNameComments(enclosingNode, precedingNode, comment) {
     (enclosingNode.type === "Property" ||
       enclosingNode.type === "MethodDefinition") &&
     precedingNode.type === "Identifier" &&
-    enclosingNode.key === precedingNode
+    enclosingNode.key === precedingNode &&
+    // special Property case: { key: /*comment*/(value) };
+    // comment should be attached to value instead of key
+    getNextNonSpaceNonCommentCharacter(text, precedingNode) !== ":"
   ) {
     addTrailingComment(precedingNode, comment);
     return true;
@@ -990,6 +995,12 @@ function printComments(path, print, options, needsSemi) {
       const text = options.originalText;
       if (util.hasNewline(text, util.skipNewline(text, util.locEnd(comment)))) {
         leadingParts.push(hardline);
+      } else if (util.isClosureCompilerTypeCastComment(text, comment)) {
+        // Closure compiler requires that type casted expressions to be
+        // surrounded by parentheses.
+        // https://github.com/google/closure-compiler/wiki/Annotating-Types#type-casts
+        leadingParts.push("(");
+        trailingParts.push(")");
       }
     } else if (trailing) {
       trailingParts.push(printTrailingComment(commentPath, print, options));
