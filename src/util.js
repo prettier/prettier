@@ -326,13 +326,10 @@ const multiplicativeOperators = {
   "/": true,
   "%": true
 };
-const bitwiseOperators = {
+const bitshiftOperators = {
   ">>": true,
   ">>>": true,
-  "<<": true,
-  "|": true,
-  "^": true,
-  "&": true
+  "<<": true
 };
 
 function shouldFlatten(parentOp, nodeOp) {
@@ -360,12 +357,7 @@ function shouldFlatten(parentOp, nodeOp) {
   }
 
   // x << y << z --> (x << y) << z
-  if (
-    bitwiseOperators[parentOp] &&
-    bitwiseOperators[nodeOp] &&
-    // Flatten x | y | z
-    (nodeOp !== "|" || parentOp !== "|")
-  ) {
+  if (bitshiftOperators[parentOp] && bitshiftOperators[nodeOp]) {
     return false;
   }
 
@@ -373,7 +365,12 @@ function shouldFlatten(parentOp, nodeOp) {
 }
 
 function isBitwiseOperator(operator) {
-  return !!bitwiseOperators[operator];
+  return (
+    !!bitshiftOperators[operator] ||
+    operator === "|" ||
+    operator === "^" ||
+    operator === "&"
+  );
 }
 
 // Tests if an expression starts with `{`, or (if forbidFunctionAndClass holds) `function` or `class`.
