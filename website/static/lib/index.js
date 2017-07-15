@@ -3020,7 +3020,7 @@ var parsers = {
     return eval("require")("./parser-postcss");
   },
   get json() {
-    return eval("require")("./parser-json");
+    return eval("require")("./parser-babylon");
   }
 };
 
