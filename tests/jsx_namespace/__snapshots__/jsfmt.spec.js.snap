@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`jsx_namespaced_name.js 1`] = `
+<jsx:namespacedname />;
+
+<jsx:namespacedname>1</jsx:namespacedname>;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<jsx:namespacedname />;
+
+<jsx:namespacedname>1</jsx:namespacedname>;
+
+`;
