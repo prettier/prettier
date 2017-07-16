@@ -1249,6 +1249,21 @@ d //comment
 
 `;
 
+exports[`trailing_space.js 1`] = `
+#!/there/is-space-here->         
+
+// Do not trim trailing whitespace from this source file!
+
+// There is some space here ->                        
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#!/there/is-space-here->
+
+// Do not trim trailing whitespace from this source file!
+
+// There is some space here ->
+
+`;
+
 exports[`try.js 1`] = `
 // comment 1
 try {
