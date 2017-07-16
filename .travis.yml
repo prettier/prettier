@@ -21,7 +21,7 @@ before_script:
 script:
   - yarn lint
   - AST_COMPARE=1 yarn test -- --runInBand
-  - if [ "${NODE_ENV}" = "development" ]; then yarn coverage; fi
+  - if [ "${NODE_ENV}" = "development" ]; then yarn codecov; fi
 deploy:
   provider: script
   script: website/deploy.sh
