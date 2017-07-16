@@ -4567,6 +4567,7 @@ function hasNakedLeftSide(node) {
     node.type === "MemberExpression" ||
     node.type === "SequenceExpression" ||
     node.type === "TaggedTemplateExpression" ||
+    (node.type === "BindExpression" && !node.object) ||
     (node.type === "UpdateExpression" && !node.prefix)
   );
 }
