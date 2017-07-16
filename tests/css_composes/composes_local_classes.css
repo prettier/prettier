@@ -1,0 +1,7 @@
+.reference0 {
+  composes: class1 class2 class3 class4 longClassNameLongClassNameLongClassNameLongClassName class5;
+}
+
+.reference1 {
+  composes: class;
+}
