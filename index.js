@@ -343,6 +343,7 @@ module.exports = {
 
   version,
 
+  /* istanbul ignore next */
   __debug: {
     parse: function(text, opts) {
       return parser.parse(text, opts);

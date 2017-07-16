@@ -117,6 +117,7 @@ function genericPrint(path, options, printPath, args) {
       try {
         return multiparser.printSubtree(next, path, printPath, options);
       } catch (error) {
+        /* istanbul ignore if */
         if (process.env.PRETTIER_DEBUG) {
           const e = new Error(error);
           e.parser = next.options.parser;
@@ -1230,6 +1231,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "DirectiveLiteral":
       return nodeStr(n, options);
     case "ModuleSpecifier":
+      /* istanbul ignore if */
       if (n.local) {
         throw new Error("The ESTree ModuleSpecifier type should be abstract");
       }
@@ -1798,6 +1800,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "JSXClosingElement":
       return concat(["</", path.call(print, "name"), ">"]);
     case "JSXText":
+      /* istanbul ignore next */
       throw new Error("JSXTest should be handled by JSXElement");
     case "JSXEmptyExpression": {
       const requiresHardline =
@@ -1981,6 +1984,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "Comment":
     case "MemberTypeAnnotation": // Flow
     case "Type":
+      /* istanbul ignore next */
       throw new Error("unprintable type: " + JSON.stringify(n.type));
     // Type Annotations for Facebook Flow, typically stripped out or
     // transformed away before printing.
@@ -2764,6 +2768,7 @@ function genericPrintNoParens(path, options, print, args) {
       return '"' + n.value + '"';
 
     default:
+      /* istanbul ignore next */
       throw new Error("unknown type: " + JSON.stringify(n.type));
   }
 }

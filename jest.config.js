@@ -8,9 +8,10 @@ module.exports = {
   testRegex: "jsfmt\\.spec\\.js$|__tests__/.*\\.js$",
   testPathIgnorePatterns: ["tests/new_react", "tests/more_react"],
   collectCoverage: ENABLE_COVERAGE,
-  collectCoverageFrom: ["src/**/*.js"],
+  collectCoverageFrom: ["src/**/*.js", "index.js"],
   coveragePathIgnorePatterns: [
     "<rootDir>/src/doc-debug.js",
-    "<rootDir>/src/clean-ast.js"
+    "<rootDir>/src/clean-ast.js",
+    "<rootDir>/src/deprecated.js"
   ]
 };
