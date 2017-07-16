@@ -995,12 +995,6 @@ function printComments(path, print, options, needsSemi) {
       const text = options.originalText;
       if (util.hasNewline(text, util.skipNewline(text, util.locEnd(comment)))) {
         leadingParts.push(hardline);
-      } else if (util.isClosureCompilerTypeCastComment(text, comment)) {
-        // Closure compiler requires that type casted expressions to be
-        // surrounded by parentheses.
-        // https://github.com/google/closure-compiler/wiki/Annotating-Types#type-casts
-        leadingParts.push("(");
-        trailingParts.push(")");
       }
     } else if (trailing) {
       trailingParts.push(printTrailingComment(commentPath, print, options));

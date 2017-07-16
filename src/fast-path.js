@@ -151,6 +151,12 @@ FastPath.prototype.needsParens = function(options) {
     return false;
   }
 
+  // Closure compiler requires that type casted expressions to be surrounded by
+  // parentheses.
+  if (util.hasClosureCompilerTypeCastComment(options.originalText, node)) {
+    return true;
+  }
+
   // Identifiers never need parentheses.
   if (node.type === "Identifier") {
     return false;
