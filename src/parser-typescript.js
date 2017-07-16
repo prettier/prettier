@@ -15,6 +15,10 @@ function parse(text) {
       ast = tryParseTypeScript(text, !jsx);
     }
   } catch (e) {
+    if (typeof e.lineNumber === "undefined") {
+      throw e;
+    }
+
     throw createError(e.message, {
       start: { line: e.lineNumber, column: e.column + 1 }
     });
