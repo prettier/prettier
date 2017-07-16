@@ -4779,7 +4779,7 @@ function isNodeStartingWithDeclare(node, options) {
 }
 
 function shouldHugType(node) {
-  if (node.type === "ObjectTypeAnnotation" || node.type === "TSTypeLiteral") {
+  if (isObjectType(node)) {
     return true;
   }
 
@@ -4805,6 +4805,7 @@ function shouldHugType(node) {
       return true;
     }
   }
+
   return false;
 }
 
@@ -4818,9 +4819,9 @@ function shouldHugArguments(fun) {
       (fun.params[0].type === "Identifier" &&
         fun.params[0].typeAnnotation &&
         fun.params[0].typeAnnotation.type === "TypeAnnotation" &&
-        shouldHugType(fun.params[0].typeAnnotation.typeAnnotation)) ||
+        isObjectType(fun.params[0].typeAnnotation.typeAnnotation)) ||
       (fun.params[0].type === "FunctionTypeParam" &&
-        shouldHugType(fun.params[0].typeAnnotation))) &&
+        isObjectType(fun.params[0].typeAnnotation))) &&
     !fun.rest
   );
 }
