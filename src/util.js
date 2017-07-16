@@ -446,8 +446,9 @@ function hasClosureCompilerTypeCastComment(text, node) {
   // Syntax example: var x = /** @type {string} */ (fruit);
   return (
     node.comments &&
-    node.comments.every(
+    node.comments.some(
       comment =>
+        comment.leading &&
         isBlockComment(comment) &&
         comment.value.match(/^\*\s*@type\s*{[^}]+}\s*$/) &&
         getNextNonSpaceNonCommentCharacter(text, comment) === "("
