@@ -3,7 +3,6 @@
 function isExportDeclaration(node) {
   if (node) {
     switch (node.type) {
-      case "ExportDeclaration":
       case "ExportDefaultDeclaration":
       case "ExportDefaultSpecifier":
       case "DeclareExportDeclaration":
