@@ -186,10 +186,7 @@ function genericPrint(path, options, printPath, args) {
     path.each(
       decoratorPath => {
         const decorator = decoratorPath.getValue();
-        const prefix =
-          decorator.type === "Decorator"
-            ? ""
-            : "@";
+        const prefix = decorator.type === "Decorator" ? "" : "@";
         decorators.push(prefix, printPath(decoratorPath), hardline);
       },
       "declaration",
