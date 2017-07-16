@@ -186,10 +186,7 @@ function genericPrint(path, options, printPath, args) {
     path.each(
       decoratorPath => {
         const decorator = decoratorPath.getValue();
-        const prefix =
-          decorator.type === "Decorator" || decorator.type === "TSDecorator"
-            ? ""
-            : "@";
+        const prefix = decorator.type === "Decorator" ? "" : "@";
         decorators.push(prefix, printPath(decoratorPath), hardline);
       },
       "declaration",
@@ -272,7 +269,6 @@ function genericPrintNoParens(path, options, print, args) {
 
       return concat(parts);
     // Babel extension.
-    case "Noop":
     case "EmptyStatement":
       return "";
     case "ExpressionStatement":
@@ -419,8 +415,6 @@ function genericPrintNoParens(path, options, print, args) {
       parts.push(printBindExpressionCallee(path, options, print));
 
       return concat(parts);
-    case "Path":
-      return join(".", n.body);
     case "Identifier": {
       const parentNode = path.getParentNode();
       const isFunctionDeclarationIdentifier =
@@ -591,18 +585,6 @@ function genericPrintNoParens(path, options, print, args) {
       }
 
       return concat(parts);
-    case "ModuleDeclaration":
-      parts.push("module", path.call(print, "id"));
-
-      if (n.source) {
-        assert.ok(!n.body);
-
-        parts.push("from", path.call(print, "source"));
-      } else {
-        parts.push(path.call(print, "body"));
-      }
-
-      return join(" ", parts);
     case "ImportSpecifier":
       if (n.imported) {
         if (n.importKind) {
@@ -639,8 +621,6 @@ function genericPrintNoParens(path, options, print, args) {
       }
 
       return concat(parts);
-    case "ExportBatchSpecifier":
-      return "*";
     case "ImportNamespaceSpecifier":
       parts.push("* as ");
 
@@ -660,7 +640,6 @@ function genericPrintNoParens(path, options, print, args) {
     case "TSExportAssigment": {
       return concat(["export = ", path.call(print, "expression"), semi]);
     }
-    case "ExportDeclaration":
     case "ExportDefaultDeclaration":
     case "ExportNamedDeclaration":
       return printExportDeclaration(path, options, print);
@@ -1010,7 +989,8 @@ function genericPrintNoParens(path, options, print, args) {
             leftBrace,
             comments.printDanglingComments(path, options),
             softline,
-            rightBrace
+            rightBrace,
+            n.optional ? "?" : ""
           ])
         );
       } else {
@@ -1026,6 +1006,7 @@ function genericPrintNoParens(path, options, print, args) {
               : ""
           ),
           concat([options.bracketSpacing ? line : softline, rightBrace]),
+          n.optional ? "?" : "",
           n.typeAnnotation ? ": " : "",
           path.call(print, "typeAnnotation")
         ]);
@@ -1050,12 +1031,6 @@ function genericPrintNoParens(path, options, print, args) {
 
       return group(content, { shouldBreak });
     }
-    case "PropertyPattern":
-      return concat([
-        path.call(print, "key"),
-        ": ",
-        path.call(print, "pattern")
-      ]);
     // Babel 6
     case "ObjectProperty": // Non-standard AST node type.
     case "Property":
@@ -1095,7 +1070,6 @@ function genericPrintNoParens(path, options, print, args) {
       return concat(parts); // Babel 6
     case "ObjectMethod":
       return printObjectMethod(path, options, print);
-    case "TSDecorator":
     case "Decorator":
       return concat(["@", path.call(print, "expression")]);
     case "ArrayExpression":
@@ -1164,6 +1138,10 @@ function genericPrintNoParens(path, options, print, args) {
         );
       }
 
+      if (n.optional) {
+        parts.push("?");
+      }
+
       if (n.typeAnnotation) {
         parts.push(": ", path.call(print, "typeAnnotation"));
       }
@@ -1229,15 +1207,6 @@ function genericPrintNoParens(path, options, print, args) {
     case "Directive":
       return path.call(print, "value"); // Babel 6
     case "DirectiveLiteral":
-      return nodeStr(n, options);
-    case "ModuleSpecifier":
-      /* istanbul ignore if */
-      if (n.local) {
-        throw new Error("The ESTree ModuleSpecifier type should be abstract");
-      }
-
-      // The Esprima ModuleSpecifier type is just a string-valued
-      // Literal identifying the imported-from module.
       return nodeStr(n, options);
     case "UnaryExpression":
       parts.push(n.operator);
@@ -1815,15 +1784,6 @@ function genericPrintNoParens(path, options, print, args) {
         requiresHardline ? hardline : ""
       ]);
     }
-    case "Keyword": {
-      return n.name;
-    }
-    case "TypeAnnotatedIdentifier":
-      return concat([
-        path.call(print, "annotation"),
-        " ",
-        path.call(print, "identifier")
-      ]);
     case "ClassBody":
       if (!n.comments && n.body.length === 0) {
         return "{}";
@@ -1844,17 +1804,6 @@ function genericPrintNoParens(path, options, print, args) {
         hardline,
         "}"
       ]);
-    case "ClassPropertyDefinition":
-      parts.push("static ", path.call(print, "definition"));
-
-      if (
-        n.definition.type !== "MethodDefinition" &&
-        n.definition.type !== "TSAbstractMethodDefinition"
-      ) {
-        parts.push(semi);
-      }
-
-      return concat(parts);
     case "ClassProperty":
     case "TSAbstractClassProperty": {
       if (n.accessibility) {
@@ -1913,13 +1862,6 @@ function genericPrintNoParens(path, options, print, args) {
       }
 
       return concat(parts);
-    case "TSHeritageClause":
-      return join(", ", path.map(print, "types"));
-    case "TSExpressionWithTypeArguments":
-      return concat([
-        path.call(print, "expression"),
-        printTypeParameters(path, options, print, "typeArguments")
-      ]);
     case "TemplateElement":
       return join(literalline, n.value.raw.split(/\r?\n/g));
     case "TemplateLiteral": {
@@ -2378,8 +2320,6 @@ function genericPrintNoParens(path, options, print, args) {
       return concat(["typeof ", path.call(print, "argument")]);
     case "VoidTypeAnnotation":
       return "void";
-    case "NullTypeAnnotation":
-      return "null";
     case "InferredPredicate":
       return "%checks";
     // Unhandled types below. If encountered, nodes of these types should
@@ -3135,7 +3075,6 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
     "ThisTypeAnnotation",
     "NumberTypeAnnotation",
     "VoidTypeAnnotation",
-    "NullTypeAnnotation",
     "EmptyTypeAnnotation",
     "MixedTypeAnnotation",
     "BooleanTypeAnnotation",
@@ -3314,57 +3253,49 @@ function printExportDeclaration(path, options, print) {
     }
   } else {
     if (decl.specifiers && decl.specifiers.length > 0) {
-      if (
-        decl.specifiers.length === 1 &&
-        decl.specifiers[0].type === "ExportBatchSpecifier"
-      ) {
-        parts.push("*");
-      } else {
-        const specifiers = [];
-        const defaultSpecifiers = [];
-        const namespaceSpecifiers = [];
+      const specifiers = [];
+      const defaultSpecifiers = [];
+      const namespaceSpecifiers = [];
+      path.each(specifierPath => {
+        const specifierType = path.getValue().type;
+        if (specifierType === "ExportSpecifier") {
+          specifiers.push(print(specifierPath));
+        } else if (specifierType === "ExportDefaultSpecifier") {
+          defaultSpecifiers.push(print(specifierPath));
+        } else if (specifierType === "ExportNamespaceSpecifier") {
+          namespaceSpecifiers.push(concat(["* as ", print(specifierPath)]));
+        }
+      }, "specifiers");
 
-        path.each(specifierPath => {
-          const specifierType = path.getValue().type;
-          if (specifierType === "ExportSpecifier") {
-            specifiers.push(print(specifierPath));
-          } else if (specifierType === "ExportDefaultSpecifier") {
-            defaultSpecifiers.push(print(specifierPath));
-          } else if (specifierType === "ExportNamespaceSpecifier") {
-            namespaceSpecifiers.push(concat(["* as ", print(specifierPath)]));
-          }
-        }, "specifiers");
+      const isNamespaceFollowed =
+        namespaceSpecifiers.length !== 0 &&
+        (specifiers.length !== 0 || defaultSpecifiers.length !== 0);
+      const isDefaultFollowed =
+        defaultSpecifiers.length !== 0 && specifiers.length !== 0;
 
-        const isNamespaceFollowed =
-          namespaceSpecifiers.length !== 0 &&
-          (specifiers.length !== 0 || defaultSpecifiers.length !== 0);
-        const isDefaultFollowed =
-          defaultSpecifiers.length !== 0 && specifiers.length !== 0;
-
-        parts.push(
-          decl.exportKind === "type" ? "type " : "",
-          concat(namespaceSpecifiers),
-          concat([isNamespaceFollowed ? ", " : ""]),
-          concat(defaultSpecifiers),
-          concat([isDefaultFollowed ? ", " : ""]),
-          specifiers.length !== 0
-            ? group(
-                concat([
-                  "{",
-                  indent(
-                    concat([
-                      options.bracketSpacing ? line : softline,
-                      join(concat([",", line]), specifiers)
-                    ])
-                  ),
-                  ifBreak(shouldPrintComma(options) ? "," : ""),
-                  options.bracketSpacing ? line : softline,
-                  "}"
-                ])
-              )
-            : ""
-        );
-      }
+      parts.push(
+        decl.exportKind === "type" ? "type " : "",
+        concat(namespaceSpecifiers),
+        concat([isNamespaceFollowed ? ", " : ""]),
+        concat(defaultSpecifiers),
+        concat([isDefaultFollowed ? ", " : ""]),
+        specifiers.length !== 0
+          ? group(
+              concat([
+                "{",
+                indent(
+                  concat([
+                    options.bracketSpacing ? line : softline,
+                    join(concat([",", line]), specifiers)
+                  ])
+                ),
+                ifBreak(shouldPrintComma(options) ? "," : ""),
+                options.bracketSpacing ? line : softline,
+                "}"
+              ])
+            )
+          : ""
+      );
     } else {
       parts.push("{}");
     }
