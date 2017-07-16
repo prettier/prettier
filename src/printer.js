@@ -989,7 +989,8 @@ function genericPrintNoParens(path, options, print, args) {
             leftBrace,
             comments.printDanglingComments(path, options),
             softline,
-            rightBrace
+            rightBrace,
+            n.optional ? "?" : ""
           ])
         );
       } else {
@@ -1005,6 +1006,7 @@ function genericPrintNoParens(path, options, print, args) {
               : ""
           ),
           concat([options.bracketSpacing ? line : softline, rightBrace]),
+          n.optional ? "?" : "",
           n.typeAnnotation ? ": " : "",
           path.call(print, "typeAnnotation")
         ]);
@@ -1134,6 +1136,10 @@ function genericPrintNoParens(path, options, print, args) {
             ])
           )
         );
+      }
+
+      if (n.optional) {
+        parts.push("?");
       }
 
       if (n.typeAnnotation) {
@@ -2321,8 +2327,12 @@ function genericPrintNoParens(path, options, print, args) {
     // supported by the pretty-printer.
     case "DeclaredPredicate":
       return concat(["%checks(", path.call(print, "value"), ")"]);
+    case "TSAbstractKeyword":
+      return "abstract";
     case "TSAnyKeyword":
       return "any";
+    case "TSAsyncKeyword":
+      return "async";
     case "TSBooleanKeyword":
       return "boolean";
     case "TSConstKeyword":
@@ -2337,10 +2347,18 @@ function genericPrintNoParens(path, options, print, args) {
       return "number";
     case "TSObjectKeyword":
       return "object";
+    case "TSProtectedKeyword":
+      return "protected";
+    case "TSPrivateKeyword":
+      return "private";
+    case "TSPublicKeyword":
+      return "public";
     case "TSReadonlyKeyword":
       return "readonly";
     case "TSSymbolKeyword":
       return "symbol";
+    case "TSStaticKeyword":
+      return "static";
     case "TSStringKeyword":
       return "string";
     case "TSUndefinedKeyword":
