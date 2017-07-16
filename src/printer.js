@@ -415,7 +415,7 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push(path.call(print, "object"));
       }
 
-      parts.push("::", path.call(print, "callee"));
+      parts.push(printBindExpressionCallee(path, options, print));
 
       return concat(parts);
     case "Path":
@@ -889,7 +889,7 @@ function genericPrintNoParens(path, options, print, args) {
 
       // We detect calls on member lookups and possibly print them in a
       // special chain format. See `printMemberChain` for more info.
-      if (!isNew && n.callee.type === "MemberExpression") {
+      if (!isNew && isMemberish(n.callee)) {
         return printMemberChain(path, options, print);
       }
 
@@ -3530,6 +3530,10 @@ function printMemberLookup(path, options, print) {
   );
 }
 
+function printBindExpressionCallee(path, options, print) {
+  return concat(["::", path.call(print, "callee")]);
+}
+
 // We detect calls on member expressions specially to format a
 // common pattern better. The pattern we are looking for is this:
 //
@@ -3553,10 +3557,7 @@ function printMemberChain(path, options, print) {
 
   function rec(path) {
     const node = path.getValue();
-    if (
-      node.type === "CallExpression" &&
-      node.callee.type === "MemberExpression"
-    ) {
+    if (node.type === "CallExpression" && isMemberish(node.callee)) {
       printedNodes.unshift({
         node: node,
         printed: comments.printComments(
@@ -3570,12 +3571,15 @@ function printMemberChain(path, options, print) {
         )
       });
       path.call(callee => rec(callee), "callee");
-    } else if (node.type === "MemberExpression") {
+    } else if (isMemberish(node)) {
       printedNodes.unshift({
         node: node,
         printed: comments.printComments(
           path,
-          () => printMemberLookup(path, options, print),
+          () =>
+            node.type === "MemberExpression"
+              ? printMemberLookup(path, options, print)
+              : printBindExpressionCallee(path, options, print),
           options
         )
       });
@@ -3633,8 +3637,8 @@ function printMemberChain(path, options, print) {
   }
   for (; i + 1 < printedNodes.length; ++i) {
     if (
-      printedNodes[i].node.type === "MemberExpression" &&
-      printedNodes[i + 1].node.type === "MemberExpression"
+      isMemberish(printedNodes[i].node) &&
+      isMemberish(printedNodes[i + 1].node)
     ) {
       currentGroup.push(printedNodes[i]);
     } else {
@@ -3650,10 +3654,7 @@ function printMemberChain(path, options, print) {
   // MemberExpression
   let hasSeenCallExpression = false;
   for (; i < printedNodes.length; ++i) {
-    if (
-      hasSeenCallExpression &&
-      printedNodes[i].node.type === "MemberExpression"
-    ) {
+    if (hasSeenCallExpression && isMemberish(printedNodes[i].node)) {
       // [0] should be appended at the end of the group instead of the
       // beginning of the next one
       if (
@@ -4237,6 +4238,13 @@ function maybeWrapJSXElementInParens(path, elem) {
 
 function isBinaryish(node) {
   return node.type === "BinaryExpression" || node.type === "LogicalExpression";
+}
+
+function isMemberish(node) {
+  return (
+    node.type === "MemberExpression" ||
+    (node.type === "BindExpression" && node.object)
+  );
 }
 
 function shouldInlineLogicalExpression(node) {
