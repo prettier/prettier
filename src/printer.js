@@ -3187,6 +3187,7 @@ function canPrintParamsWithoutParens(node) {
   return (
     node.params.length === 1 &&
     !node.rest &&
+    !node.typeParameters &&
     node.params[0].type === "Identifier" &&
     !node.params[0].typeAnnotation &&
     !node.params[0].comments &&
