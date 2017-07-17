@@ -575,49 +575,24 @@ function genericPrintNoParens(path, options, print, args) {
 
       return concat(parts);
     case "AwaitExpression":
-      parts.push("await");
-
-      if (n.all) {
-        parts.push("*");
-      }
-      if (n.argument) {
-        parts.push(" ", path.call(print, "argument"));
-      }
-
-      return concat(parts);
+      return concat(["await ", path.call(print, "argument")]);
     case "ImportSpecifier":
-      if (n.imported) {
-        if (n.importKind) {
-          parts.push(path.call(print, "importKind"), " ");
-        }
+      if (n.importKind) {
+        parts.push(path.call(print, "importKind"), " ");
+      }
 
-        parts.push(path.call(print, "imported"));
+      parts.push(path.call(print, "imported"));
 
-        if (n.local && n.local.name !== n.imported.name) {
-          parts.push(" as ", path.call(print, "local"));
-        }
-      } else if (n.id) {
-        parts.push(path.call(print, "id"));
-
-        if (n.name) {
-          parts.push(" as ", path.call(print, "name"));
-        }
+      if (n.local && n.local.name !== n.imported.name) {
+        parts.push(" as ", path.call(print, "local"));
       }
 
       return concat(parts);
     case "ExportSpecifier":
-      if (n.local) {
-        parts.push(path.call(print, "local"));
+      parts.push(path.call(print, "local"));
 
-        if (n.exported && n.exported.name !== n.local.name) {
-          parts.push(" as ", path.call(print, "exported"));
-        }
-      } else if (n.id) {
-        parts.push(path.call(print, "id"));
-
-        if (n.name) {
-          parts.push(" as ", path.call(print, "name"));
-        }
+      if (n.exported && n.exported.name !== n.local.name) {
+        parts.push(" as ", path.call(print, "exported"));
       }
 
       return concat(parts);
@@ -637,22 +612,13 @@ function genericPrintNoParens(path, options, print, args) {
       }
 
       return path.call(print, "id");
-    case "TSExportAssigment": {
+    case "TSExportAssigment":
       return concat(["export = ", path.call(print, "expression"), semi]);
-    }
     case "ExportDefaultDeclaration":
     case "ExportNamedDeclaration":
       return printExportDeclaration(path, options, print);
     case "ExportAllDeclaration":
-      parts.push("export *");
-
-      if (n.exported) {
-        parts.push(" as ", path.call(print, "exported"));
-      }
-
-      parts.push(" from ", path.call(print, "source"), semi);
-
-      return concat(parts);
+      return concat(["export * from ", path.call(print, "source"), semi]);
     case "ExportNamespaceSpecifier":
     case "ExportDefaultSpecifier":
       return path.call(print, "exported");

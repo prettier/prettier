@@ -27,3 +27,14 @@ declare global {
 }
 
 `;
+
+exports[`namespace_function.ts 1`] = `
+namespace X {
+    declare function f();
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+namespace X {
+  declare function f();
+}
+
+`;
