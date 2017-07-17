@@ -686,7 +686,7 @@ function genericPrintNoParens(path, options, print, args) {
           );
         }
 
-        parts.push(" ", "from ");
+        parts.push(" from ");
       } else if (
         (n.importKind && n.importKind === "type") ||
         // import {} from 'x'
@@ -1535,32 +1535,19 @@ function genericPrintNoParens(path, options, print, args) {
         path.call(print, "body")
       ]);
     case "TryStatement":
-      parts.push("try ", path.call(print, "block"));
-
-      if (n.handler) {
-        parts.push(" ", path.call(print, "handler"));
-      } else if (n.handlers) {
-        path.each(handlerPath => {
-          parts.push(" ", print(handlerPath));
-        }, "handlers");
-      }
-
-      if (n.finalizer) {
-        parts.push(" finally ", path.call(print, "finalizer"));
-      }
-
-      return concat(parts);
+      return concat([
+        "try ",
+        path.call(print, "block"),
+        n.handler ? concat([" ", path.call(print, "handler")]) : "",
+        n.finalizer ? concat([" finally ", path.call(print, "finalizer")]) : ""
+      ]);
     case "CatchClause":
-      parts.push("catch (", path.call(print, "param"));
-
-      if (n.guard) {
-        // Note: esprima does not recognize conditional catch clauses.
-        parts.push(" if ", path.call(print, "guard"));
-      }
-
-      parts.push(") ", path.call(print, "body"));
-
-      return concat(parts);
+      return concat([
+        "catch (",
+        path.call(print, "param"),
+        ") ",
+        path.call(print, "body")
+      ]);
     case "ThrowStatement":
       return concat(["throw ", path.call(print, "argument"), semi]);
     // Note: ignoring n.lexical because it has no printing consequences.
@@ -1901,6 +1888,7 @@ function genericPrintNoParens(path, options, print, args) {
         return path.call(print, "typeAnnotation");
       }
 
+      /* istanbul ignore next */
       return "";
     case "TSTupleType":
     case "TupleTypeAnnotation": {
@@ -2340,20 +2328,18 @@ function genericPrintNoParens(path, options, print, args) {
     case "TSArrayType":
       return concat([path.call(print, "elementType"), "[]"]);
     case "TSPropertySignature": {
-      if (n.accessibility) {
-        parts.push(n.accessibility + " ");
-      }
       if (n.export) {
         parts.push("export ");
+      }
+      if (n.accessibility) {
+        parts.push(n.accessibility + " ");
       }
       if (n.static) {
         parts.push("static ");
       }
-
       if (n.readonly) {
         parts.push("readonly ");
       }
-
       if (n.computed) {
         parts.push("[");
       }
@@ -2363,11 +2349,9 @@ function genericPrintNoParens(path, options, print, args) {
       if (n.computed) {
         parts.push("]");
       }
-
       if (n.optional) {
         parts.push("?");
       }
-
       if (n.typeAnnotation) {
         parts.push(": ");
         parts.push(path.call(print, "typeAnnotation"));
@@ -2409,24 +2393,14 @@ function genericPrintNoParens(path, options, print, args) {
     }
     case "TSIndexSignature": {
       const parent = path.getParentNode();
-      let printedParams = [];
-      if (n.params) {
-        printedParams = path.map(print, "params");
-      }
-      if (n.parameters) {
-        printedParams = path.map(print, "parameters");
-      }
 
       return concat([
-        n.accessibility ? concat([n.accessibility, " "]) : "",
         n.export ? "export " : "",
+        n.accessibility ? concat([n.accessibility, " "]) : "",
         n.static ? "static " : "",
         n.readonly ? "readonly " : "",
         "[",
         path.call(print, "index"),
-        // This should only contain a single element, however TypeScript parses
-        // it using parseDelimitedList that uses commas as delimiter.
-        join(", ", printedParams),
         "]: ",
         path.call(print, "typeAnnotation"),
         parent.type === "ClassBody" ? semi : ""
@@ -2534,18 +2508,10 @@ function genericPrintNoParens(path, options, print, args) {
       }
       return group(concat(parts));
     case "TSNamespaceExportDeclaration":
-      if (n.declaration) {
-        parts.push(
-          "export ",
-          n.default ? "default " : "",
-          path.call(print, "declaration")
-        );
-      } else {
-        parts.push("export as namespace ", path.call(print, "name"));
+      parts.push("export as namespace ", path.call(print, "name"));
 
-        if (options.semi) {
-          parts.push(";");
-        }
+      if (options.semi) {
+        parts.push(";");
       }
 
       return group(concat(parts));
@@ -2690,6 +2656,7 @@ function printStatementSequence(path, options, print) {
 
     // Just in case the AST has been modified to contain falsy
     // "statements," it's safer simply to skip them.
+    /* istanbul ignore if */
     if (!stmt) {
       return;
     }
@@ -2945,14 +2912,7 @@ function printArgumentsList(path, options, print) {
 
 function printFunctionTypeParameters(path, options, print) {
   const fun = path.getValue();
-  const paramsFieldIsArray = Array.isArray(fun["typeParameters"]);
-
   if (fun.typeParameters) {
-    // for TSFunctionType typeParameters is an array
-    // for FunctionTypeAnnotation it's a single node
-    if (paramsFieldIsArray) {
-      return concat("<", join(", ", path.map(print, "typeParameters")), ">");
-    }
     return path.call(print, "typeParameters");
   }
   return "";
@@ -2969,17 +2929,6 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
   let printed = [];
   if (fun[paramsField]) {
     printed = path.map(print, paramsField);
-  }
-
-  if (fun.defaults) {
-    path.each(defExprPath => {
-      const i = defExprPath.getName();
-      const p = printed[i];
-
-      if (p && defExprPath.getValue()) {
-        printed[i] = concat([p, " = ", print(defExprPath)]);
-      }
-    }, "defaults");
   }
 
   if (fun.rest) {
@@ -3304,11 +3253,10 @@ function getFlowVariance(path) {
   switch (variance) {
     case "plus":
       return "+";
-
     case "minus":
       return "-";
-
     default:
+      /* istanbul ignore next */
       return variance;
   }
 }
@@ -3368,9 +3316,6 @@ function printClass(path, options, print) {
   const n = path.getValue();
   const parts = [];
 
-  if (n.accessibility) {
-    parts.push(n.accessibility + " ");
-  }
   if (n.type === "TSAbstractClassDeclaration") {
     parts.push("abstract ");
   }
@@ -4523,9 +4468,6 @@ function exprNeedsASIProtection(node) {
 }
 
 function stmtNeedsASIProtection(path) {
-  if (!path) {
-    return false;
-  }
   const node = path.getNode();
 
   if (node.type !== "ExpressionStatement") {
@@ -4543,9 +4485,6 @@ function classPropMayCauseASIProblems(path) {
   }
 
   const name = node.key && node.key.name;
-  if (!name) {
-    return false;
-  }
 
   // this isn't actually possible yet with most parsers available today
   // so isn't properly tested yet.
@@ -4593,6 +4532,7 @@ function classChildNeedsASIProtection(node) {
     }
 
     default:
+      /* istanbul ignore next */
       return false;
   }
 }

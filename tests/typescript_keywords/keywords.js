@@ -6,7 +6,11 @@ module Y3 {
     }
 
     // Apparently this parses :P
-    export private public protected static readonly async enum X { }
+    export private public protected static readonly abstract async enum X { }
+
+    interface x {
+        export private static readonly [x: any]: any;
+    }
 }
 
 module Y4 {
