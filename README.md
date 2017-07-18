@@ -48,10 +48,12 @@ conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Pre
   + [Range](#range)
   + [Parser](#parser)
   + [Filepath](#filepath)
+<!-- 
 * [Configuration File](#configuration-file)
   + [Basic Configuration](#basic-configuration)
   + [Configuration Overrides](#configuration-overrides)
   + [Configuration Schema](#configuration-schema)
+-->
 * [Editor Integration](#editor-integration)
   + [Atom](#atom)
   + [Emacs](#emacs)
@@ -245,7 +247,7 @@ Another useful flag is `--list-different` (or `-l`) which prints the filenames o
 ```bash
 prettier --single-quote --list-different "src/**/*.js"
 ```
-
+<!--
 #### `--find-config-path` and `--config`
 
 If you are repeatedly formatting individual files with `prettier`, you will incur a small performance cost
@@ -268,6 +270,7 @@ such as a `config/` directory.
 
 If you don't have a configuration file, or want to ignore it if it does exist,
 you can pass `--no-config` instead.
+-->
 
 #### `--debug-check`
 
@@ -408,6 +411,7 @@ prettier.formatWithCursor(" 1", { cursorOffset: 2 });
 // -> { formatted: '1;\n', cursorOffset: 1 }
 ```
 
+<!--
 #### `prettier.resolveConfig([filePath] [, options])`
 
 `resolveConfig` can be used to resolve configuration for a given source file.
@@ -432,6 +436,7 @@ prettier.resolveConfig(filePath).then(options => {
 As you repeatedly call `resolveConfig`, the file system structure will be cached for performance.
 This function will clear the cache. Generally this is only needed for editor integrations that
 know that the file system has changed since the last format took place.
+-->
 
 #### Custom Parser API
 
@@ -618,7 +623,7 @@ Default | CLI Override | API Override
 --------|--------------|-------------
 None | `--stdin-filepath <string>` | `filepath: "<string>"`
 
-
+<!--
 ## Configuration File
 
 Prettier uses [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) for configuration file support.
@@ -701,6 +706,7 @@ For more information on how to use the CLI to locate a file, see the [CLI](#cli)
 ### Configuration Schema
 
 If you'd like a JSON schema to validate your configuration, one is available here: http://json.schemastore.org/prettierrc.
+-->
 
 ## Editor Integration
 
