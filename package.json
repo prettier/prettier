@@ -36,7 +36,7 @@
     "postcss-values-parser": "git://github.com/shellscape/postcss-values-parser.git#5e351360479116f3fe309602cdd15b0a233bc29f",
     "strip-bom": "3.0.0",
     "typescript": "2.5.0-dev.20170617",
-    "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#7c38401aa1452e6cc493151b8ab3a591e4d5e74a"
+    "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#e1db075b938bf74acfe16c6f3e63dc4dc12c0e58"
   },
   "devDependencies": {
     "babel-cli": "6.24.1",
