@@ -3287,6 +3287,8 @@ function printTypeParameters(path, options, print, paramsKey) {
     (shouldHugType(n[paramsKey][0]) ||
       (n[paramsKey][0].type === "GenericTypeAnnotation" &&
         shouldHugType(n[paramsKey][0].id)) ||
+      (n[paramsKey][0].type === "TSTypeReference" &&
+        shouldHugType(n[paramsKey][0].typeName)) ||
       n[paramsKey][0].type === "NullableTypeAnnotation");
 
   if (shouldInline) {
