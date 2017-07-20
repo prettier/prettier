@@ -44,7 +44,11 @@ class Footer extends React.Component {
           </div>
           <div>
             <h5>Community</h5>
-            <a href={this.props.config.baseUrl + this.props.language + "/users/"}>User Showcase</a>
+            <a
+              href={this.props.config.baseUrl + this.props.language + "/users/"}
+            >
+              User Showcase
+            </a>
             <a
               href="http://stackoverflow.com/questions/tagged/prettier"
               target="_blank"
