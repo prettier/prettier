@@ -12,7 +12,7 @@
     {
         "image": "/images/vim-128px.png",
         "name": "vim",
-        "content": "[`neoformat`](https://github.com/sbdchd/neoformat), [`ale`](https://github.com/w0rp/ale), [`vim-prettier`](https://github.com/mitermayer/vim-prettier)"
+        "content": "[`neoformat`](https://github.com/sbdchd/neoformat), [`ale`](https://github.com/w0rp/ale), [`vim-prettier`](https://github.com/prettier/vim-prettier)"
     },
     {
         "image": "/images/vscode-128px.png",

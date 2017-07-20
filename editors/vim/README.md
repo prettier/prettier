@@ -25,7 +25,7 @@
 
 ## Vim and Prettier integration
 
-Vim users can simply install either [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/neoformat), [w0rp](https://github.com/w0rp)/[ale](https://github.com/w0rp/ale), or [mitermayer](https://github.com/mitermayer)/[vim-prettier](https://github.com/mitermayer/vim-prettier).
+Vim users can simply install either [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/neoformat), [w0rp](https://github.com/w0rp)/[ale](https://github.com/w0rp/ale), or [prettier](https://github.com/prettier)/[vim-prettier](https://github.com/prettier/vim-prettier).
 
 --------------------------------------------------------------------------------
 
@@ -78,7 +78,7 @@ Each space in prettier options should be escaped with `\`.
 
 ### vim-prettier
 
-![vim-prettier](https://raw.githubusercontent.com/mitermayer/vim-prettier/master/media/vim-prettier.gif?raw=true "vim-prettier")
+![vim-prettier](https://raw.githubusercontent.com/prettier/vim-prettier/master/media/vim-prettier.gif?raw=true "vim-prettier")
  
 #### vim-prettier - Installation
 
@@ -88,7 +88,7 @@ By default it will auto format **javascript**, **typescript**, **less**, **scss*
 
 ```vim
 " post install (yarn install | npm install) then load plugin only for editing supported files
-Plug 'mitermayer/vim-prettier', { 
+Plug 'prettier/vim-prettier', { 
     \ 'do': 'npm install', 
     \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss'] } 
 ```
