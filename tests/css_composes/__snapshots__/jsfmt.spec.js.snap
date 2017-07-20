@@ -10,3 +10,43 @@ exports[`composes.css 1`] = `
 }
 
 `;
+
+exports[`composes_global_classes.css 1`] = `
+.reference0 {
+  composes: global(class1) global(class2) global(class3) global(class4) global(longClassNameLongClassNameLongClassNameLongClassName) global(class5);
+}
+
+.reference1 {
+  composes: global(class);
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.reference0 {
+  composes: global(class1) global(class2) global(class3) global(class4)
+    global(longClassNameLongClassNameLongClassNameLongClassName) global(class5);
+}
+
+.reference1 {
+  composes: global(class);
+}
+
+`;
+
+exports[`composes_local_classes.css 1`] = `
+.reference0 {
+  composes: class1 class2 class3 class4 longClassNameLongClassNameLongClassNameLongClassName class5;
+}
+
+.reference1 {
+  composes: class;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.reference0 {
+  composes: class1 class2 class3 class4
+    longClassNameLongClassNameLongClassNameLongClassName class5;
+}
+
+.reference1 {
+  composes: class;
+}
+
+`;

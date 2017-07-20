@@ -1,0 +1,7 @@
+.reference0 {
+  composes: global(class1) global(class2) global(class3) global(class4) global(longClassNameLongClassNameLongClassNameLongClassName) global(class5);
+}
+
+.reference1 {
+  composes: global(class);
+}
