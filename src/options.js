@@ -11,7 +11,7 @@ const defaults = {
   tabWidth: 2,
   printWidth: 100,
   singleQuote: true,
-  trailingComma: "all",
+  trailingComma: "es5",
   bracketSpacing: true,
   parenSpacing: true,
   jsxBracketSameLine: false,
