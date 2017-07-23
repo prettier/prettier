@@ -12,9 +12,14 @@ function parse(text /*, parsers, opts*/) {
       ast = tryParseTypeScript(text, jsx);
     } catch (e) {
       // But if we get it wrong, try the opposite.
+      /* istanbul ignore next */
       ast = tryParseTypeScript(text, !jsx);
     }
-  } catch (e) {
+  } catch (e) /* istanbul ignore next */ {
+    if (typeof e.lineNumber === "undefined") {
+      throw e;
+    }
+
     throw createError(e.message, {
       start: { line: e.lineNumber, column: e.column + 1 }
     });

@@ -831,7 +831,7 @@ function printComment(commentPath, options) {
 
   switch (comment.type || comment.kind) {
     case "Comment":
-      return "#" + comment.value;
+      return "#" + comment.value.trimRight();
     case "CommentBlock":
     case "Block":
       return "/*" + comment.value + "*/";
@@ -839,9 +839,9 @@ function printComment(commentPath, options) {
     case "Line":
       // Print shebangs with the proper comment characters
       if (options.originalText.slice(util.locStart(comment)).startsWith("#!")) {
-        return "#!" + comment.value;
+        return "#!" + comment.value.trimRight();
       }
-      return "//" + comment.value;
+      return "//" + comment.value.trimRight();
     default:
       throw new Error("Not a comment: " + JSON.stringify(comment));
   }

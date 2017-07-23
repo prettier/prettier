@@ -21,10 +21,11 @@ before_script:
 script:
   - yarn lint
   - AST_COMPARE=1 yarn test -- --runInBand
+  - if [ "${NODE_ENV}" = "development" ]; then yarn codecov; fi
 deploy:
   provider: script
   script: website/deploy.sh
-  skip_cleanup: true  
+  skip_cleanup: true
   on:
     branch: master
     node: stable

@@ -10,8 +10,7 @@
  * If you have any ideas on how to fix this, please send a PR!
  */
 if (process.platform !== "win32") {
-  console.error("Error: this script currently only works on windows.");
-  process.exit(1);
+  console.log("Warning: this script may not work on macOS.");
 }
 
 const fs = require("fs");

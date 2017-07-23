@@ -295,6 +295,7 @@ FastPath.prototype.needsParens = function(options) {
         case "UnaryExpression":
         case "SpreadElement":
         case "SpreadProperty":
+        case "BindExpression":
         case "AwaitExpression":
         case "TSAsExpression":
         case "TSNonNullExpression":
@@ -302,6 +303,13 @@ FastPath.prototype.needsParens = function(options) {
 
         case "MemberExpression":
           return name === "object" && parent.object === node;
+
+        case "AssignmentExpression":
+          return (
+            parent.left === node &&
+            (node.type === "TSTypeAssertionExpression" ||
+              node.type === "TSAsExpression")
+          );
 
         case "BinaryExpression":
         case "LogicalExpression": {
@@ -345,13 +353,16 @@ FastPath.prototype.needsParens = function(options) {
       }
 
     case "TSParenthesizedType": {
+      const grandParent = this.getParentNode(1);
       if (
         (parent.type === "TypeParameter" ||
           parent.type === "VariableDeclarator" ||
           parent.type === "TypeAnnotation" ||
-          parent.type === "GenericTypeAnnotation") &&
+          parent.type === "GenericTypeAnnotation" ||
+          parent.type === "TSTypeReference") &&
         (node.typeAnnotation.type === "TypeAnnotation" &&
-          node.typeAnnotation.typeAnnotation.type !== "TSFunctionType")
+          node.typeAnnotation.typeAnnotation.type !== "TSFunctionType" &&
+          grandParent.type !== "TSTypeOperator")
       ) {
         return false;
       }

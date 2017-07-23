@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bind_parens.js 1`] = `
+(a || b)::c;
+a || (b::c);
+::obj.prop;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(a || b)::c;
+a || b::c;
+::obj.prop;
+
+`;
+
+exports[`bind_parens.js 2`] = `
+(a || b)::c;
+a || (b::c);
+::obj.prop;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;(a || b)::c
+a || b::c
+;::obj.prop
+
+`;
+
+exports[`method_chain.js 1`] = `
+import {interval} from 'rxjs/observable/interval';
+import {filter} from 'rxjs/operator/filter';
+import {take} from 'rxjs/operator/take';
+import {map} from 'rxjs/operator/map';
+import {throttle} from 'rxjs/operator/throttle';
+import {takeUntil} from 'rxjs/operator/takeUntil';
+
+function test(observable) {
+    return observable
+        ::filter(data => data.someTest)
+        ::throttle(() =>
+            interval(10)
+                ::take(1)
+                ::takeUntil(observable::filter(data => someOtherTest))
+        )
+        ::map(someFunction);
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import { interval } from "rxjs/observable/interval";
+import { filter } from "rxjs/operator/filter";
+import { take } from "rxjs/operator/take";
+import { map } from "rxjs/operator/map";
+import { throttle } from "rxjs/operator/throttle";
+import { takeUntil } from "rxjs/operator/takeUntil";
+
+function test(observable) {
+  return observable
+    ::filter(data => data.someTest)
+    ::throttle(() =>
+      interval(10)
+        ::take(1)
+        ::takeUntil(observable::filter(data => someOtherTest))
+    )
+    ::map(someFunction);
+}
+
+`;
+
+exports[`method_chain.js 2`] = `
+import {interval} from 'rxjs/observable/interval';
+import {filter} from 'rxjs/operator/filter';
+import {take} from 'rxjs/operator/take';
+import {map} from 'rxjs/operator/map';
+import {throttle} from 'rxjs/operator/throttle';
+import {takeUntil} from 'rxjs/operator/takeUntil';
+
+function test(observable) {
+    return observable
+        ::filter(data => data.someTest)
+        ::throttle(() =>
+            interval(10)
+                ::take(1)
+                ::takeUntil(observable::filter(data => someOtherTest))
+        )
+        ::map(someFunction);
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import { interval } from "rxjs/observable/interval"
+import { filter } from "rxjs/operator/filter"
+import { take } from "rxjs/operator/take"
+import { map } from "rxjs/operator/map"
+import { throttle } from "rxjs/operator/throttle"
+import { takeUntil } from "rxjs/operator/takeUntil"
+
+function test(observable) {
+  return observable
+    ::filter(data => data.someTest)
+    ::throttle(() =>
+      interval(10)
+        ::take(1)
+        ::takeUntil(observable::filter(data => someOtherTest))
+    )
+    ::map(someFunction)
+}
+
+`;
