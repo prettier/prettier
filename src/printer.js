@@ -2636,8 +2636,6 @@ function genericPrintNoParens(path, options, print, args) {
       return path.call(bodyPath => {
         return printStatementSequence(bodyPath, options, print);
       }, "body");
-    case "json-identifier":
-      return '"' + n.value + '"';
 
     default:
       /* istanbul ignore next */
@@ -2709,7 +2707,12 @@ function printPropertyKey(path, options, print) {
   const node = path.getNode();
   const key = node.key;
 
-  if (isStringLiteral(key) && isIdentifierName(key.value) && !node.computed) {
+  if (
+    isStringLiteral(key) &&
+    isIdentifierName(key.value) &&
+    !node.computed &&
+    options.parser !== "json"
+  ) {
     // 'a' -> a
     return path.call(
       keyPath => comments.printComments(keyPath, () => key.value, options),

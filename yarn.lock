@@ -664,9 +664,9 @@ babel-types@^6.18.0, babel-types@^6.19.0, babel-types@^6.24.1, babel-types@^6.25
     lodash "^4.2.0"
     to-fast-properties "^1.0.1"
 
-babylon@7.0.0-beta.13:
-  version "7.0.0-beta.13"
-  resolved "https://registry.yarnpkg.com/babylon/-/babylon-7.0.0-beta.13.tgz#12425c1bfd9498be419021ed36b43fe4f0289c0a"
+babylon@7.0.0-beta.17:
+  version "7.0.0-beta.17"
+  resolved "https://registry.yarnpkg.com/babylon/-/babylon-7.0.0-beta.17.tgz#2aad4d6764f409dfb3ac216d855dc93d70d37911"
 
 babylon@^6.13.0, babylon@^6.17.2:
   version "6.17.3"
@@ -2420,10 +2420,6 @@ json-stable-stringify@^1.0.1:
 json-stringify-safe@~5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/json-stringify-safe/-/json-stringify-safe-5.0.1.tgz#1296a2d58fd45f19a0f6ce01d65701e2c735b6eb"
-
-json-to-ast@2.0.0-alpha1.2:
-  version "2.0.0-alpha1.2"
-  resolved "https://registry.yarnpkg.com/json-to-ast/-/json-to-ast-2.0.0-alpha1.2.tgz#fe27fd89eb639eca1e01f578e79d46ee36e238e8"
 
 json5@^0.5.0, json5@^0.5.1:
   version "0.5.1"

@@ -3,7 +3,7 @@
 const createError = require("./parser-create-error");
 const includeShebang = require("./parser-include-shebang");
 
-function parse(text) {
+function parse(text /*, parsers, opts*/) {
   const jsx = isProbablyJsx(text);
   let ast;
   try {
