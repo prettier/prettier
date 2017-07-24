@@ -1935,7 +1935,8 @@ function genericPrintNoParens(path, options, print, args) {
       if (n.params) {
         return concat([
           "declare ",
-          printFunctionDeclaration(path, print, options)
+          printFunctionDeclaration(path, print, options),
+          semi
         ]);
       }
       return printFlowDeclaration(path, [
