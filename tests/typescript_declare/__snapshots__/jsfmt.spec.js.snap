@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`declare_function.ts 1`] = `
+declare function x();
+declare function y(): void;
+
+declare namespace A {
+    function x();
+    function y(): void;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+declare function x();
+declare function y(): void;
+
+declare namespace A {
+  function x();
+  function y(): void;
+}
+
+`;

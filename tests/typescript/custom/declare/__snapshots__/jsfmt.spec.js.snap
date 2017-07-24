@@ -12,7 +12,7 @@ declare let d: any;
 
 declare class e {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-declare function a()
+declare function a();
 
 declare const b: string;
 
