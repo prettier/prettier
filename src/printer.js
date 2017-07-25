@@ -618,7 +618,16 @@ function genericPrintNoParens(path, options, print, args) {
     case "ExportNamedDeclaration":
       return printExportDeclaration(path, options, print);
     case "ExportAllDeclaration":
-      return concat(["export * from ", path.call(print, "source"), semi]);
+      parts.push("export ");
+
+      if (n.exportKind === "type") {
+        parts.push("type ");
+      }
+
+      parts.push("* from ", path.call(print, "source"), semi);
+
+      return concat(parts);
+
     case "ExportNamespaceSpecifier":
     case "ExportDefaultSpecifier":
       return path.call(print, "exported");
