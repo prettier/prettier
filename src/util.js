@@ -441,6 +441,21 @@ function isBlockComment(comment) {
   return comment.type === "Block" || comment.type === "CommentBlock";
 }
 
+function hasClosureCompilerTypeCastComment(text, node) {
+  // https://github.com/google/closure-compiler/wiki/Annotating-Types#type-casts
+  // Syntax example: var x = /** @type {string} */ (fruit);
+  return (
+    node.comments &&
+    node.comments.some(
+      comment =>
+        comment.leading &&
+        isBlockComment(comment) &&
+        comment.value.match(/^\*\s*@type\s*{[^}]+}\s*$/) &&
+        getNextNonSpaceNonCommentCharacter(text, comment) === "("
+    )
+  );
+}
+
 function getAlignmentSize(value, tabWidth, startIndex) {
   startIndex = startIndex || 0;
 
@@ -484,5 +499,6 @@ module.exports = {
   startsWithNoLookaheadToken,
   hasBlockComments,
   isBlockComment,
+  hasClosureCompilerTypeCastComment,
   getAlignmentSize
 };
