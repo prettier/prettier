@@ -1966,6 +1966,31 @@ function genericPrintNoParens(path, options, print, args) {
       return concat(["declare export * from ", path.call(print, "source")]);
     case "DeclareExportDeclaration":
       return concat(["declare ", printExportDeclaration(path, options, print)]);
+    case "DeclareOpaqueType":
+    case "OpaqueType": {
+      parts.push(
+        "opaque type ",
+        path.call(print, "id"),
+        path.call(print, "typeParameters")
+      );
+
+      if (n.supertype) {
+        parts.push(": ", path.call(print, "supertype"));
+      }
+
+      if (n.impltype) {
+        parts.push(" = ", path.call(print, "impltype"));
+      }
+
+      parts.push(semi);
+
+      if (n.type === "DeclareOpaqueType") {
+        return printFlowDeclaration(path, parts);
+      }
+
+      return concat(parts);
+    }
+
     case "FunctionTypeAnnotation":
     case "TSFunctionType": {
       // FunctionTypeAnnotation is ambiguous:
