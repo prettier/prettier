@@ -3,6 +3,7 @@ language: node_js
 node_js:
   - 4
   - stable
+dist: precise
 cache:
   yarn: true
   directories:
