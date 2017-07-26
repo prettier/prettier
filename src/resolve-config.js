@@ -8,26 +8,16 @@ const withCache = cosmiconfig("prettier");
 const noCache = cosmiconfig("prettier", { cache: false });
 
 function resolveConfig(filePath, opts) {
-  if (opts && opts.configFile === false) {
-    // do not look for a config file
-    return Promise.resolve(null);
-  }
-
   const useCache = !(opts && opts.useCache === false);
   const fileDir = filePath ? path.dirname(filePath) : undefined;
 
-  return (
-    (useCache ? withCache : noCache)
-      // https://github.com/davidtheclark/cosmiconfig/pull/68
-      .load(fileDir, opts && opts.configFile)
-      .then(result => {
-        if (!result) {
-          return null;
-        }
+  return (useCache ? withCache : noCache).load(fileDir).then(result => {
+    if (!result) {
+      return null;
+    }
 
-        return mergeOverrides(result.config, filePath);
-      })
-  );
+    return mergeOverrides(result.config, filePath);
+  });
 }
 
 function clearCache() {
