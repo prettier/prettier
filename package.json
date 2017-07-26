@@ -18,7 +18,7 @@
     "dashify": "0.2.2",
     "diff": "3.2.0",
     "esutils": "2.0.2",
-    "flow-parser": "0.47.0",
+    "flow-parser": "0.51.0",
     "get-stream": "3.0.0",
     "globby": "^6.1.0",
     "graphql": "0.10.1",
