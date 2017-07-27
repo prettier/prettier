@@ -108,8 +108,12 @@ if (argv["find-config-path"] && filepatterns.length) {
 }
 
 function getOptionsForFile(filePath) {
-  return resolver
-    .resolveConfig(filePath, { configFile: argv["config"] })
+  const optionsPromise =
+    argv["config"] === false
+      ? Promise.resolve(null)
+      : resolver.resolveConfig(filePath);
+
+  return optionsPromise
     .then(options => {
       const parsedArgs = minimist(args, {
         boolean: booleanOptionNames,
