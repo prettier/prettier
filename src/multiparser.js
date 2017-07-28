@@ -292,6 +292,7 @@ function isStyledJsx(path) {
 /**
  * Template literal in these contexts:
  * styled.button`color: red`
+ * styled(Component)`color: red`
  * Foo.extend`color: red`
  * css`color: red`
  * keyframes`0% { opacity: 0; }`
@@ -306,6 +307,9 @@ function isStyledComponents(path) {
       (parent.tag.object.name === "styled" ||
         (/^[A-Z]/.test(parent.tag.object.name) &&
           parent.tag.property.name === "extend"))) ||
+      (parent.tag.type === "CallExpression" &&
+        parent.tag.callee.type === "Identifier" &&
+        parent.tag.callee.name === "styled") ||
       (parent.tag.type === "Identifier" && parent.tag.name === "css"))
   );
 }
