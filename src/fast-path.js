@@ -458,7 +458,8 @@ FastPath.prototype.needsParens = function(options) {
     case "FunctionTypeAnnotation":
       return (
         parent.type === "UnionTypeAnnotation" ||
-        parent.type === "IntersectionTypeAnnotation"
+        parent.type === "IntersectionTypeAnnotation" ||
+        parent.type === "ArrayTypeAnnotation"
       );
 
     case "StringLiteral":
