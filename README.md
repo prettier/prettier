@@ -346,6 +346,7 @@ There is a limitation where if you use the [Github Desktop](https://desktop.gith
 
 See https://github.com/okonet/lint-staged#configuration for more details about how you can configure lint-staged.
 
+
 ##### Option 2. [pre-commit](https://github.com/pre-commit/pre-commit)
 
 Copy the following config into your `.pre-commit-config.yaml` file:
