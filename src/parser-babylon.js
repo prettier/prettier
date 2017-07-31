@@ -23,7 +23,8 @@ function parse(text, parsers, opts) {
       "functionSent",
       "dynamicImport",
       "numericSeparator",
-      "importMeta"
+      "importMeta",
+      "optionalCatchBinding"
     ]
   };
 
