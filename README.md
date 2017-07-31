@@ -342,7 +342,7 @@ and add this config to your `package.json`:
   }
 }
 ```
-There is a limitation where if you use the [Github Desktop](https://desktop.github.com/) app to commit specific lines, this approach will stage the whole file after regardless. See this [issue](https://github.com/okonet/lint-staged/issues/62) for more info.
+There is a limitation where if you stage specific lines this approach will stage the whole file after regardless. See this [issue](https://github.com/okonet/lint-staged/issues/62) for more info.
 
 See https://github.com/okonet/lint-staged#configuration for more details about how you can configure lint-staged.
 
