@@ -757,7 +757,7 @@ features enabled, but you can also use the
 `parser` API or `--parser` CLI [option](#options).
 
 All of JSX and Flow syntax is supported. In fact, the test suite in
-`tests` *is* the entire Flow test suite and they all pass.
+`tests/flow` *is* the entire Flow test suite and they all pass.
 
 Prettier also supports [TypeScript](https://www.typescriptlang.org/), CSS, [LESS](http://lesscss.org/), [SCSS](http://sass-lang.com), [JSON](http://json.org/), and [GraphQL](http://graphql.org/).
 
