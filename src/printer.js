@@ -422,7 +422,7 @@ function genericPrintNoParens(path, options, print, args) {
 
       return concat([
         n.name,
-        n.optional ? "?" : "",
+        printOptionalToken(path),
         n.typeAnnotation && !isFunctionDeclarationIdentifier ? ": " : "",
         path.call(print, "typeAnnotation")
       ]);
@@ -809,7 +809,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "NewExpression":
     case "CallExpression": {
       const isNew = n.type === "NewExpression";
-      const optional = n.optional ? "?." : "";
+      const optional = printOptionalToken(path);
       if (
         // We want to keep require calls as a unit
         (!isNew &&
@@ -968,7 +968,7 @@ function genericPrintNoParens(path, options, print, args) {
             comments.printDanglingComments(path, options),
             softline,
             rightBrace,
-            n.optional ? "?" : ""
+            printOptionalToken(path)
           ])
         );
       } else {
@@ -984,7 +984,7 @@ function genericPrintNoParens(path, options, print, args) {
               : ""
           ),
           concat([options.bracketSpacing ? line : softline, rightBrace]),
-          n.optional ? "?" : "",
+          printOptionalToken(path),
           n.typeAnnotation ? ": " : "",
           path.call(print, "typeAnnotation")
         ]);
@@ -1116,9 +1116,7 @@ function genericPrintNoParens(path, options, print, args) {
         );
       }
 
-      if (n.optional) {
-        parts.push("?");
-      }
+      parts.push(printOptionalToken(path));
 
       if (n.typeAnnotation) {
         parts.push(": ", path.call(print, "typeAnnotation"));
@@ -2071,7 +2069,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "FunctionTypeParam":
       return concat([
         path.call(print, "name"),
-        n.optional ? "?" : "",
+        printOptionalToken(path),
         n.name ? ": " : "",
         path.call(print, "typeAnnotation")
       ]);
@@ -2220,7 +2218,7 @@ function genericPrintNoParens(path, options, print, args) {
         isGetterOrSetter(n) ? n.kind + " " : "",
         variance || "",
         path.call(print, "key"),
-        n.optional ? "?" : "",
+        printOptionalToken(path),
         isFunctionNotation(n) ? "" : ": ",
         path.call(print, "value")
       ]);
@@ -2386,9 +2384,9 @@ function genericPrintNoParens(path, options, print, args) {
       if (n.computed) {
         parts.push("]");
       }
-      if (n.optional) {
-        parts.push("?");
-      }
+
+      parts.push(printOptionalToken(path));
+
       if (n.typeAnnotation) {
         parts.push(": ");
         parts.push(path.call(print, "typeAnnotation"));
@@ -2530,7 +2528,7 @@ function genericPrintNoParens(path, options, print, args) {
         n.computed ? "[" : "",
         path.call(print, "key"),
         n.computed ? "]" : "",
-        n.optional ? "?" : "",
+        printOptionalToken(path),
         printFunctionParams(
           path,
           print,
@@ -3399,15 +3397,28 @@ function printClass(path, options, print) {
   return parts;
 }
 
+function printOptionalToken(path) {
+  const node = path.getValue();
+  if (!node.optional) {
+    return "";
+  }
+  if (
+    node.type === "CallExpression" ||
+    (node.type === "MemberExpression" && node.computed)
+  ) {
+    return "?.";
+  }
+  return "?";
+}
+
 function printMemberLookup(path, options, print) {
   const property = path.call(print, "property");
   const n = path.getValue();
+  const optional = printOptionalToken(path);
 
   if (!n.computed) {
-    return concat([n.optional ? "?." : ".", property]);
+    return concat([optional, ".", property]);
   }
-
-  const optional = n.optional ? "?." : "";
 
   if (
     !n.property ||
@@ -3456,7 +3467,7 @@ function printMemberChain(path, options, print) {
           path,
           () =>
             concat([
-              node.optional ? "?." : "",
+              printOptionalToken(path),
               printFunctionTypeParameters(path, options, print),
               printArgumentsList(path, options, print)
             ]),
@@ -3491,7 +3502,7 @@ function printMemberChain(path, options, print) {
   printedNodes.unshift({
     node,
     printed: concat([
-      node.optional ? "?." : "",
+      printOptionalToken(path),
       printFunctionTypeParameters(path, options, print),
       printArgumentsList(path, options, print)
     ])
