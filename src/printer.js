@@ -856,6 +856,10 @@ function genericPrintNoParens(path, options, print, args) {
       ]);
     }
     case "TSInterfaceDeclaration":
+      if (isNodeStartingWithDeclare(n, options)) {
+        parts.push("declare ");
+      }
+
       parts.push(
         n.abstract ? "abstract " : "",
         printTypeScriptModifiers(path, options, print),
