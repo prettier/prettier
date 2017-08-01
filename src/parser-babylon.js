@@ -24,7 +24,8 @@ function parse(text, parsers, opts) {
       "dynamicImport",
       "numericSeparator",
       "importMeta",
-      "optionalCatchBinding"
+      "optionalCatchBinding",
+      "optionalChaining"
     ]
   };
 

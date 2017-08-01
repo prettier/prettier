@@ -220,6 +220,14 @@ FastPath.prototype.needsParens = function(options) {
       return false;
     }
 
+    case "MemberExpression": {
+      return (
+        parent.type === "MemberExpression" &&
+        parent.object === node &&
+        node.optional
+      );
+    }
+
     case "SpreadElement":
     case "SpreadProperty":
       return (

@@ -809,6 +809,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "NewExpression":
     case "CallExpression": {
       const isNew = n.type === "NewExpression";
+      const optional = n.optional ? "?." : "";
       if (
         // We want to keep require calls as a unit
         (!isNew &&
@@ -837,6 +838,7 @@ function genericPrintNoParens(path, options, print, args) {
         return concat([
           isNew ? "new " : "",
           path.call(print, "callee"),
+          optional,
           path.call(print, "typeParameters"),
           concat(["(", join(", ", path.map(print, "arguments")), ")"])
         ]);
@@ -851,6 +853,7 @@ function genericPrintNoParens(path, options, print, args) {
       return concat([
         isNew ? "new " : "",
         path.call(print, "callee"),
+        optional,
         printFunctionTypeParameters(path, options, print),
         printArgumentsList(path, options, print)
       ]);
@@ -3401,19 +3404,21 @@ function printMemberLookup(path, options, print) {
   const n = path.getValue();
 
   if (!n.computed) {
-    return concat([".", property]);
+    return concat([n.optional ? "?." : ".", property]);
   }
+
+  const optional = n.optional ? "?." : "";
 
   if (
     !n.property ||
     (n.property.type === "Literal" && typeof n.property.value === "number") ||
     n.property.type === "NumericLiteral"
   ) {
-    return concat(["[", property, "]"]);
+    return concat([optional, "[", property, "]"]);
   }
 
   return group(
-    concat(["[", indent(concat([softline, property])), softline, "]"])
+    concat([optional, "[", indent(concat([softline, property])), softline, "]"])
   );
 }
 
@@ -3451,6 +3456,7 @@ function printMemberChain(path, options, print) {
           path,
           () =>
             concat([
+              node.optional ? "?." : "",
               printFunctionTypeParameters(path, options, print),
               printArgumentsList(path, options, print)
             ]),
@@ -3481,9 +3487,11 @@ function printMemberChain(path, options, print) {
   // Note: the comments of the root node have already been printed, so we
   // need to extract this first call without printing them as they would
   // if handled inside of the recursive call.
+  const node = path.getValue();
   printedNodes.unshift({
-    node: path.getValue(),
+    node,
     printed: concat([
+      node.optional ? "?." : "",
       printFunctionTypeParameters(path, options, print),
       printArgumentsList(path, options, print)
     ])
