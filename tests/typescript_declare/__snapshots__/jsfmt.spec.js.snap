@@ -18,3 +18,14 @@ declare namespace A {
 }
 
 `;
+
+exports[`declare_interface.ts 1`] = `
+declare interface Dictionary<T> {
+  [index: string]: T
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+declare interface Dictionary<T> {
+  [index: string]: T;
+}
+
+`;
