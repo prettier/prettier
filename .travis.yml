@@ -1,6 +1,3 @@
-dist: trusty
-sudo: required
-
 addons:
   sonarqube:
     organization: "vilchik-elena-github" 
