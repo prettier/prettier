@@ -731,7 +731,7 @@ Can be installed using the extension sidebar. Search for `Prettier - JavaScript 
 
 Can also be installed using `ext install prettier-vscode`.
 
-[Check its repository for configuration and shortcuts](https://github.com/esbenp/prettier-vscode)
+[Check its repository for configuration and shortcuts](https://github.com/prettier/prettier-vscode)
 
 ### Visual Studio
 
