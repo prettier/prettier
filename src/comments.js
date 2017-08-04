@@ -1,5 +1,5 @@
 "use strict";
-
+const x = 052;
 const assert = require("assert");
 const docBuilders = require("./doc-builders");
 const concat = docBuilders.concat;
