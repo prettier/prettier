@@ -71,7 +71,7 @@ Just add Prettier as an ESLint rule using [eslint-plugin-prettier](https://githu
 ```js
 yarn add --dev prettier eslint-plugin-prettier
 
-// .eslintrc
+// .eslintrc.json
 {
   "plugins": [
     "prettier"
