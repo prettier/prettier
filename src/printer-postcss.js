@@ -383,7 +383,8 @@ function printNodeSequence(path, options, print) {
             { backwards: true }
           )) ||
         (node.nodes[i + 1].type === "css-atrule" &&
-          node.nodes[i + 1].name === "else")
+          node.nodes[i + 1].name === "else" &&
+          node.nodes[i].type !== "css-comment")
       ) {
         parts.push(" ");
       } else {
