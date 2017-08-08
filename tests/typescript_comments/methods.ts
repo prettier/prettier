@@ -25,4 +25,10 @@ export class Point {
        * Note: This is indented too far.
        */
       fizzBuzz() {}
+
+      /**
+       * Turns the given string into pig-latin.
+       */
+              pigLatinize(value: string) {}
+
 }
