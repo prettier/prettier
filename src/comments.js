@@ -838,7 +838,7 @@ function printComment(commentPath, options) {
     case "Comment":
       return "#" + comment.value.trimRight();
     case "CommentBlock":
-    case "Block":
+    case "Block": {
       const lines = comment.value.split("\n");
       const isJsDocComment =
         lines.length > 1 &&
@@ -866,6 +866,7 @@ function printComment(commentPath, options) {
       });
 
       return docBuilders.concat(["/*", ...parts, "*/"]);
+    }
     case "CommentLine":
     case "Line":
       // Print shebangs with the proper comment characters
