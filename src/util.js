@@ -464,6 +464,19 @@ function getAlignmentSize(value, tabWidth, startIndex) {
   return size;
 }
 
+function getIndentSize(value, tabWidth) {
+  const lastNewlineIndex = value.lastIndexOf("\n");
+  if (lastNewlineIndex === -1) {
+    return 0;
+  }
+
+  return getAlignmentSize(
+    // All the leading whitespaces
+    value.slice(lastNewlineIndex + 1).match(/^[ \t]*/)[0],
+    tabWidth
+  );
+}
+
 module.exports = {
   getPrecedence,
   shouldFlatten,
@@ -488,5 +501,6 @@ module.exports = {
   startsWithNoLookaheadToken,
   hasBlockComments,
   isBlockComment,
-  getAlignmentSize
+  getAlignmentSize,
+  getIndentSize
 };

@@ -842,16 +842,8 @@ function printComment(commentPath, options) {
         return "/*" + comment.value + "*/";
       }
 
-      let size = 0;
-      const lastNewlineIndex = comment.value.lastIndexOf("\n");
       const tabWidth = options.tabWidth;
-      if (lastNewlineIndex !== -1) {
-        size = util.getAlignmentSize(
-          // All the leading whitespaces
-          comment.value.slice(lastNewlineIndex + 1).match(/^[ \t]*/)[0],
-          tabWidth
-        );
-      }
+      const indentSize = util.getIndentSize(comment.value, tabWidth);
 
       const parts = [];
 
@@ -859,7 +851,7 @@ function printComment(commentPath, options) {
         parts.push(
           docBuilders.addAlignmentToDoc(
             line.replace(/^[ \t]+/, " "),
-            size,
+            indentSize,
             tabWidth
           )
         );
