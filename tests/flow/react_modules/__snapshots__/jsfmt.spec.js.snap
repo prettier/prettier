@@ -38,11 +38,7 @@ var HelloLocal = React.createClass({
   },
 
   render: function(): React.Element<*> {
-    return (
-      <div>
-        {this.props.name}
-      </div>
-    );
+    return <div>{this.props.name}</div>;
   }
 });
 
@@ -86,11 +82,7 @@ var Hello = React.createClass({
   },
 
   render: function(): React.Element<*> {
-    return (
-      <div>
-        {this.props.name}
-      </div>
-    );
+    return <div>{this.props.name}</div>;
   }
 });
 
@@ -136,11 +128,7 @@ class HelloLocal extends React.Component<void, { name: string }, void> {
     name: React.PropTypes.string.isRequired
   };
   render(): React.Element<*> {
-    return (
-      <div>
-        {this.props.name}
-      </div>
-    );
+    return <div>{this.props.name}</div>;
   }
 }
 
@@ -186,11 +174,7 @@ class Hello extends React.Component<void, { name: string }, void> {
   };
 
   render(): React.Element<*> {
-    return (
-      <div>
-        {this.props.name}
-      </div>
-    );
+    return <div>{this.props.name}</div>;
   }
 }
 
@@ -236,11 +220,7 @@ class HelloLocal extends React.Component<void, Props, void> {
   props: Props;
 
   render(): React.Element<*> {
-    return (
-      <div>
-        {this.props.name}
-      </div>
-    );
+    return <div>{this.props.name}</div>;
   }
 }
 
@@ -286,11 +266,7 @@ class Hello extends React.Component<{}, Props, void> {
   static defaultProps: {};
 
   render(): React.Element<*> {
-    return (
-      <div>
-        {this.props.name}
-      </div>
-    );
+    return <div>{this.props.name}</div>;
   }
 }
 

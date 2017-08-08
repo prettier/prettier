@@ -108,8 +108,12 @@ if (argv["find-config-path"] && filepatterns.length) {
 }
 
 function getOptionsForFile(filePath) {
-  return resolver
-    .resolveConfig(filePath, { configFile: argv["config"] })
+  const optionsPromise =
+    argv["config"] === false
+      ? Promise.resolve(null)
+      : resolver.resolveConfig(filePath);
+
+  return optionsPromise
     .then(options => {
       const parsedArgs = minimist(args, {
         boolean: booleanOptionNames,
@@ -302,7 +306,7 @@ if (
       "  --jsx-bracket-same-line  Put > on the last line instead of at a new line.\n" +
       "  --trailing-comma <none|es5|all>\n" +
       "                           Print trailing commas wherever possible. Defaults to none.\n" +
-      "  --parser <flow|babylon|typescript|postcss|json>\n" +
+      "  --parser <flow|babylon|typescript|postcss|json|graphql>\n" +
       "                           Specify which parse to use. Defaults to babylon.\n" +
       "  --cursor-offset <int>    Print (to stderr) where a cursor at the given position would move to after formatting.\n" +
       "                           This option cannot be used with --range-start and --range-end\n" +

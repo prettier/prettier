@@ -3,7 +3,6 @@
 function isExportDeclaration(node) {
   if (node) {
     switch (node.type) {
-      case "ExportDeclaration":
       case "ExportDefaultDeclaration":
       case "ExportDefaultSpecifier":
       case "DeclareExportDeclaration":
@@ -326,13 +325,10 @@ const multiplicativeOperators = {
   "/": true,
   "%": true
 };
-const bitwiseOperators = {
+const bitshiftOperators = {
   ">>": true,
   ">>>": true,
-  "<<": true,
-  "|": true,
-  "^": true,
-  "&": true
+  "<<": true
 };
 
 function shouldFlatten(parentOp, nodeOp) {
@@ -360,12 +356,7 @@ function shouldFlatten(parentOp, nodeOp) {
   }
 
   // x << y << z --> (x << y) << z
-  if (
-    bitwiseOperators[parentOp] &&
-    bitwiseOperators[nodeOp] &&
-    // Flatten x | y | z
-    (nodeOp !== "|" || parentOp !== "|")
-  ) {
+  if (bitshiftOperators[parentOp] && bitshiftOperators[nodeOp]) {
     return false;
   }
 
@@ -373,7 +364,12 @@ function shouldFlatten(parentOp, nodeOp) {
 }
 
 function isBitwiseOperator(operator) {
-  return !!bitwiseOperators[operator];
+  return (
+    !!bitshiftOperators[operator] ||
+    operator === "|" ||
+    operator === "^" ||
+    operator === "&"
+  );
 }
 
 // Tests if an expression starts with `{`, or (if forbidFunctionAndClass holds) `function` or `class`.
@@ -445,6 +441,21 @@ function isBlockComment(comment) {
   return comment.type === "Block" || comment.type === "CommentBlock";
 }
 
+function hasClosureCompilerTypeCastComment(text, node) {
+  // https://github.com/google/closure-compiler/wiki/Annotating-Types#type-casts
+  // Syntax example: var x = /** @type {string} */ (fruit);
+  return (
+    node.comments &&
+    node.comments.some(
+      comment =>
+        comment.leading &&
+        isBlockComment(comment) &&
+        comment.value.match(/^\*\s*@type\s*{[^}]+}\s*$/) &&
+        getNextNonSpaceNonCommentCharacter(text, comment) === "("
+    )
+  );
+}
+
 function getAlignmentSize(value, tabWidth, startIndex) {
   startIndex = startIndex || 0;
 
@@ -501,6 +512,7 @@ module.exports = {
   startsWithNoLookaheadToken,
   hasBlockComments,
   isBlockComment,
+  hasClosureCompilerTypeCastComment,
   getAlignmentSize,
   getIndentSize
 };

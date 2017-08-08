@@ -2,6 +2,7 @@
 
 [![Gitter](https://badges.gitter.im/gitterHQ/gitter.svg)](https://gitter.im/jlongster/prettier)
 [![Build Status](https://travis-ci.org/prettier/prettier.svg?branch=master)](https://travis-ci.org/prettier/prettier)
+[![Codecov](https://img.shields.io/codecov/c/github/prettier/prettier.svg)](https://codecov.io/gh/prettier/prettier)
 [![NPM version](https://img.shields.io/npm/v/prettier.svg)](https://www.npmjs.com/package/prettier)
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](#badge)
 
@@ -47,10 +48,12 @@ conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Pre
   + [Range](#range)
   + [Parser](#parser)
   + [Filepath](#filepath)
+<!-- 
 * [Configuration File](#configuration-file)
   + [Basic Configuration](#basic-configuration)
   + [Configuration Overrides](#configuration-overrides)
   + [Configuration Schema](#configuration-schema)
+-->
 * [Editor Integration](#editor-integration)
   + [Atom](#atom)
   + [Emacs](#emacs)
@@ -244,7 +247,7 @@ Another useful flag is `--list-different` (or `-l`) which prints the filenames o
 ```bash
 prettier --single-quote --list-different "src/**/*.js"
 ```
-
+<!--
 #### `--find-config-path` and `--config`
 
 If you are repeatedly formatting individual files with `prettier`, you will incur a small performance cost
@@ -267,6 +270,7 @@ such as a `config/` directory.
 
 If you don't have a configuration file, or want to ignore it if it does exist,
 you can pass `--no-config` instead.
+-->
 
 #### `--debug-check`
 
@@ -283,7 +287,7 @@ Just add Prettier as an ESLint rule using [eslint-plugin-prettier](https://githu
 ```js
 yarn add --dev prettier eslint-plugin-prettier
 
-// .eslintrc
+// .eslintrc.json
 {
   "plugins": [
     "prettier"
@@ -338,6 +342,7 @@ and add this config to your `package.json`:
   }
 }
 ```
+There is a limitation where if you stage specific lines this approach will stage the whole file after regardless. See this [issue](https://github.com/okonet/lint-staged/issues/62) for more info.
 
 See https://github.com/okonet/lint-staged#configuration for more details about how you can configure lint-staged.
 
@@ -407,6 +412,7 @@ prettier.formatWithCursor(" 1", { cursorOffset: 2 });
 // -> { formatted: '1;\n', cursorOffset: 1 }
 ```
 
+<!--
 #### `prettier.resolveConfig([filePath] [, options])`
 
 `resolveConfig` can be used to resolve configuration for a given source file.
@@ -431,6 +437,7 @@ prettier.resolveConfig(filePath).then(options => {
 As you repeatedly call `resolveConfig`, the file system structure will be cached for performance.
 This function will clear the cache. Generally this is only needed for editor integrations that
 know that the file system has changed since the last format took place.
+-->
 
 #### Custom Parser API
 
@@ -595,7 +602,7 @@ Built-in parsers:
  * [`flow`](https://github.com/facebook/flow/tree/master/src/parser)
  * [`typescript`](https://github.com/eslint/typescript-eslint-parser) _Since v1.4.0_
  * [`postcss`](https://github.com/postcss/postcss) _Since v1.4.0_
- * [`json`](https://github.com/vtrushin/json-to-ast) _Since v1.5.0_
+ * [`json`](https://github.com/babel/babylon/tree/f09eb3200f57ea94d51c2a5b1facf2149fb406bf#babylonparseexpressioncode-options) _Since v1.5.0_
  * [`graphql`](https://github.com/graphql/graphql-js/tree/master/src/language) _Since v1.5.0_
 
 [Custom parsers](#custom-parser-api) are also supported.  _Since v1.5.0_
@@ -617,7 +624,7 @@ Default | CLI Override | API Override
 --------|--------------|-------------
 None | `--stdin-filepath <string>` | `filepath: "<string>"`
 
-
+<!--
 ## Configuration File
 
 Prettier uses [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) for configuration file support.
@@ -700,6 +707,7 @@ For more information on how to use the CLI to locate a file, see the [CLI](#cli)
 ### Configuration Schema
 
 If you'd like a JSON schema to validate your configuration, one is available here: http://json.schemastore.org/prettierrc.
+-->
 
 ## Editor Integration
 
@@ -715,7 +723,7 @@ for on-demand formatting.
 
 ### Vim
 
-Vim users can simply install either [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/neoformat), [w0rp](https://github.com/w0rp)/[ale](https://github.com/w0rp/ale), or [mitermayer](https://github.com/mitermayer)/[vim-prettier](https://github.com/mitermayer/vim-prettier), for more details see [this directory](https://github.com/prettier/prettier/tree/master/editors/vim).
+Vim users can simply install either [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/neoformat), [w0rp](https://github.com/w0rp)/[ale](https://github.com/w0rp/ale), or [prettier](https://github.com/prettier)/[vim-prettier](https://github.com/prettier/vim-prettier), for more details see [this directory](https://github.com/prettier/prettier/tree/master/editors/vim).
 
 ### Visual Studio Code
 
@@ -723,7 +731,7 @@ Can be installed using the extension sidebar. Search for `Prettier - JavaScript 
 
 Can also be installed using `ext install prettier-vscode`.
 
-[Check its repository for configuration and shortcuts](https://github.com/esbenp/prettier-vscode)
+[Check its repository for configuration and shortcuts](https://github.com/prettier/prettier-vscode)
 
 ### Visual Studio
 
@@ -749,7 +757,7 @@ features enabled, but you can also use the
 `parser` API or `--parser` CLI [option](#options).
 
 All of JSX and Flow syntax is supported. In fact, the test suite in
-`tests` *is* the entire Flow test suite and they all pass.
+`tests/flow` *is* the entire Flow test suite and they all pass.
 
 Prettier also supports [TypeScript](https://www.typescriptlang.org/), CSS, [LESS](http://lesscss.org/), [SCSS](http://sass-lang.com), [JSON](http://json.org/), and [GraphQL](http://graphql.org/).
 

@@ -14,7 +14,6 @@ toolbox.precache([
   "lib/parser-postcss.js",
   "lib/parser-flow.js",
   "lib/parser-graphql.js",
-  "lib/parser-json.js",
   "playground.js",
   "lib/sw-toolbox.js",
   "lib/sw-toolbox-companion.js",

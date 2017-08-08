@@ -1,5 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`block-comment.json 1`] = `
+{/*comment*/"K":"V"}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{ /*comment*/ "K": "V" }
+
+`;
+
+exports[`block-comment.json 2`] = `
+{/*comment*/"K":"V"}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{ /*comment*/ "K": "V" }
+
+`;
+
 exports[`boolean.json 1`] = `
 true
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -11,6 +25,32 @@ exports[`boolean.json 2`] = `
 true
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 true
+
+`;
+
+exports[`line-comment.json 1`] = `
+{
+  //comment
+  "K":"V"
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+  //comment
+  "K": "V"
+}
+
+`;
+
+exports[`line-comment.json 2`] = `
+{
+  //comment
+  "K":"V"
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+  //comment
+  "K": "V"
+}
 
 `;
 
@@ -168,7 +208,8 @@ exports[`pass1.json 1`] = `
     "compact": [1, 2, 3, 4, 5, 6, 7],
     "jsontext": "{\\"object with 1 member\\":[\\"array with 1 element\\"]}",
     "quotes": "&#34; \\u0022 %22 0x22 034 &#x22;",
-    "\\/\\\\\\"\\uCAFE\\uBABE\\uAB98\\uFCDE\\ubcda\\uef4A\\b\\f\\n\\r\\t\`1~!@#$%^&*()_+-=[]{}|;:',./<>?": "A key can be any string"
+    "/\\\\\\"\\uCAFE\\uBABE\\uAB98\\uFCDE\\ubcda\\uef4A\\b\\f\\n\\r\\t\`1~!@#$%^&*()_+-=[]{}|;:',./<>?":
+      "A key can be any string"
   },
   0.5,
   98.6,
@@ -285,7 +326,8 @@ exports[`pass1.json 2`] = `
     "compact": [1, 2, 3, 4, 5, 6, 7],
     "jsontext": "{\\"object with 1 member\\":[\\"array with 1 element\\"]}",
     "quotes": "&#34; \\u0022 %22 0x22 034 &#x22;",
-    "\\/\\\\\\"\\uCAFE\\uBABE\\uAB98\\uFCDE\\ubcda\\uef4A\\b\\f\\n\\r\\t\`1~!@#$%^&*()_+-=[]{}|;:',./<>?": "A key can be any string"
+    "/\\\\\\"\\uCAFE\\uBABE\\uAB98\\uFCDE\\ubcda\\uef4A\\b\\f\\n\\r\\t\`1~!@#$%^&*()_+-=[]{}|;:',./<>?":
+      "A key can be any string"
   },
   0.5,
   98.6,

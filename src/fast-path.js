@@ -151,6 +151,12 @@ FastPath.prototype.needsParens = function(options) {
     return false;
   }
 
+  // Closure compiler requires that type casted expressions to be surrounded by
+  // parentheses.
+  if (util.hasClosureCompilerTypeCastComment(options.originalText, node)) {
+    return true;
+  }
+
   // Identifiers never need parentheses.
   if (node.type === "Identifier") {
     return false;
@@ -212,6 +218,14 @@ FastPath.prototype.needsParens = function(options) {
         return true;
       }
       return false;
+    }
+
+    case "MemberExpression": {
+      return (
+        parent.type === "MemberExpression" &&
+        parent.object === node &&
+        node.optional
+      );
     }
 
     case "SpreadElement":
@@ -295,6 +309,7 @@ FastPath.prototype.needsParens = function(options) {
         case "UnaryExpression":
         case "SpreadElement":
         case "SpreadProperty":
+        case "BindExpression":
         case "AwaitExpression":
         case "TSAsExpression":
         case "TSNonNullExpression":
@@ -302,6 +317,13 @@ FastPath.prototype.needsParens = function(options) {
 
         case "MemberExpression":
           return name === "object" && parent.object === node;
+
+        case "AssignmentExpression":
+          return (
+            parent.left === node &&
+            (node.type === "TSTypeAssertionExpression" ||
+              node.type === "TSAsExpression")
+          );
 
         case "BinaryExpression":
         case "LogicalExpression": {
@@ -345,13 +367,16 @@ FastPath.prototype.needsParens = function(options) {
       }
 
     case "TSParenthesizedType": {
+      const grandParent = this.getParentNode(1);
       if (
         (parent.type === "TypeParameter" ||
           parent.type === "VariableDeclarator" ||
           parent.type === "TypeAnnotation" ||
-          parent.type === "GenericTypeAnnotation") &&
+          parent.type === "GenericTypeAnnotation" ||
+          parent.type === "TSTypeReference") &&
         (node.typeAnnotation.type === "TypeAnnotation" &&
-          node.typeAnnotation.typeAnnotation.type !== "TSFunctionType")
+          node.typeAnnotation.typeAnnotation.type !== "TSFunctionType" &&
+          grandParent.type !== "TSTypeOperator")
       ) {
         return false;
       }
@@ -441,7 +466,8 @@ FastPath.prototype.needsParens = function(options) {
     case "FunctionTypeAnnotation":
       return (
         parent.type === "UnionTypeAnnotation" ||
-        parent.type === "IntersectionTypeAnnotation"
+        parent.type === "IntersectionTypeAnnotation" ||
+        parent.type === "ArrayTypeAnnotation"
       );
 
     case "StringLiteral":

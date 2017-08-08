@@ -182,8 +182,6 @@ function isSourceElement(opts, node) {
     case "NumericLiteral": // JSON
     case "BooleanLiteral": // JSON
     case "NullLiteral": // JSON
-    case "json-identifier": // JSON
-      return opts.parser === "json";
     case "FunctionDeclaration":
     case "BlockStatement":
     case "BreakStatement":
@@ -343,6 +341,7 @@ module.exports = {
 
   version,
 
+  /* istanbul ignore next */
   __debug: {
     parse: function(text, opts) {
       return parser.parse(text, opts);

@@ -107,6 +107,45 @@ React.render(
 
 `;
 
+exports[`closure-compiler-type-cast.js 1`] = `
+// test to make sure comments are attached correctly
+let inlineComment = /* some comment */ (
+  someReallyLongFunctionCall(withLots, ofArguments));
+
+let object = {
+  key: /* some comment */ (someReallyLongFunctionCall(withLots, ofArguments))
+};
+
+// preserve parens only for type casts
+let assignment = /** @type {string} */ (getValue());
+
+functionCall(1 + /** @type {string} */ (value), /** @type {!Foo} */ ({}));
+
+function returnValue() {
+  return /** @type {!Array.<string>} */ (['hello', 'you']);
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// test to make sure comments are attached correctly
+let inlineComment = /* some comment */ someReallyLongFunctionCall(
+  withLots,
+  ofArguments
+);
+
+let object = {
+  key: /* some comment */ someReallyLongFunctionCall(withLots, ofArguments)
+};
+
+// preserve parens only for type casts
+let assignment = /** @type {string} */ (getValue());
+
+functionCall(1 + /** @type {string} */ (value), /** @type {!Foo} */ ({}));
+
+function returnValue() {
+  return /** @type {!Array.<string>} */ (["hello", "you"]);
+}
+
+`;
+
 exports[`dangling.js 1`] = `
 var x = {/* dangling */};
 var x = {
@@ -497,9 +536,7 @@ Observable.of(process)
   .takeUntil(exit);
 
 // Comments disappear inside of JSX
-<div>
-  {/* Some comment */}
-</div>;
+<div>{/* Some comment */}</div>;
 
 // Comments in JSX tag are placed in a non optimal way
 <div
@@ -598,23 +635,15 @@ exports[`jsx.js 1`] = `
 
 <div>{/*<div>  Some very v  ery very very long line to break line width limit </div>*/}</div>;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<div>
-  {/* comment */}
-</div>;
+<div>{/* comment */}</div>;
 
-<div>
-  {/* comment */}
-</div>;
+<div>{/* comment */}</div>;
 
-<div>
-  {/* comment
-*/}
-</div>;
+<div>{/* comment
+*/}</div>;
 
-<div>
-  {a /* comment
-*/}
-</div>;
+<div>{a /* comment
+*/}</div>;
 
 <div>
   {
@@ -624,13 +653,9 @@ exports[`jsx.js 1`] = `
   }
 </div>;
 
-<div>
-  {/* comment */}
-</div>;
+<div>{/* comment */}</div>;
 
-<div>
-  {/* comment */}
-</div>;
+<div>{/* comment */}</div>;
 
 <div>
   {
@@ -1260,6 +1285,21 @@ d //comment
 d //comment
 };
 \`;
+
+`;
+
+exports[`trailing_space.js 1`] = `
+#!/there/is-space-here->         
+
+// Do not trim trailing whitespace from this source file!
+
+// There is some space here ->                        
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#!/there/is-space-here->
+
+// Do not trim trailing whitespace from this source file!
+
+// There is some space here ->
 
 `;
 

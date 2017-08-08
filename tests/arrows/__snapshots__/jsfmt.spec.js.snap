@@ -304,10 +304,7 @@ export const bem = block =>
 <FlatList
   renderItem={(
     info // $FlowExpectedError - bad widgetCount type 6, should be Object
-  ) =>
-    <span>
-      {info.item.widget.missingProp}
-    </span>}
+  ) => <span>{info.item.widget.missingProp}</span>}
   data={data}
 />;
 
@@ -380,5 +377,12 @@ const initializeSnapshotState = (
   testPath: string,
   expand: boolean
 ) => new SnapshotState(testFile, update, testPath, expand);
+
+`;
+
+exports[`type_params.js 1`] = `
+<T>(a) => { }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<T>(a) => {};
 
 `;
