@@ -842,25 +842,33 @@ function printComment(commentPath, options) {
         return "/*" + comment.value + "*/";
       }
 
-      // Determine the indentation level of the parent node.
-      const parentNode = commentPath.getParentNode();
-      const indentLevel = parentNode.loc.start.column;
-
-      let spaces = "";
-      for (let i = 0; i <= indentLevel; i++) {
-        spaces += " ";
+      let size = 0;
+      const lastNewlineIndex = comment.value.lastIndexOf("\n");
+      const tabWidth = options.tabWidth;
+      if (lastNewlineIndex !== -1) {
+        size = util.getAlignmentSize(
+          // All the leading whitespaces
+          comment.value.slice(lastNewlineIndex + 1).match(/^[ \t]*/)[0],
+          tabWidth
+        );
       }
 
-      const formattedValue = lines
-        .map(line => line.replace(/^[ ]+/g, ""))
-        .map((line, index) => {
-          if (index === 0) {
-            return line;
-          }
-          return spaces + line;
-        })
-        .join("\n");
-      return "/*" + formattedValue + "*/";
+      const parts = [];
+
+      lines.forEach((line, index) => {
+        parts.push(
+          docBuilders.addAlignmentToDoc(
+            line.replace(/^[ \t]+/, " "),
+            size,
+            tabWidth
+          )
+        );
+        if (index < lines.length - 1) {
+          parts.push(docBuilders.hardline);
+        }
+      });
+
+      return docBuilders.concat(["/*", ...parts, "*/"]);
     case "CommentLine":
     case "Line":
       // Print shebangs with the proper comment characters
