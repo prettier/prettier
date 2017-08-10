@@ -16,7 +16,7 @@ const siteConfig = {
   baseUrl: "/",
   projectName: PACKAGE.name,
   repo: PACKAGE.repository,
-  cname: "prettier.io"
+  cname: "prettier.io",
   users,
   editors,
   supportedLanguages,
