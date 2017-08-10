@@ -1,11 +1,6 @@
 ---
 id: usage
 title: Usage
-layout: docs
-category: Prettier
-permalink: docs/en/usage.html
-previous: why-prettier
-next: options
 ---
 
 
