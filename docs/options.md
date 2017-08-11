@@ -1,11 +1,6 @@
 ---
 id: options
 title: Options
-layout: docs
-category: Prettier
-permalink: docs/en/options.html
-previous: usage
-next: editors
 ---
 
 Prettier ships with a handful of customizable format options, usable in both the CLI and API.

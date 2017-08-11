@@ -1,10 +1,6 @@
 ---
 id: editors
 title: Editor Integration
-layout: docs
-category: Prettier
-permalink: docs/en/editors.html
-previous: options
 ---
 
 

@@ -5,6 +5,6 @@
     "publish-gh-pages": "docusaurus-publish"
   },
   "devDependencies": {
-    "docusaurus": "^1.0.0-alpha.9"
+    "docusaurus": "^1.0.0-alpha.35"
   }
 }

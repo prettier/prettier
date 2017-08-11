@@ -1,10 +1,6 @@
 ---
 id: why-prettier
 title: Why Prettier?
-layout: docs
-category: Prettier
-permalink: docs/en/why-prettier.html
-next: usage
 ---
 
 ## Building and enforcing a style guide
