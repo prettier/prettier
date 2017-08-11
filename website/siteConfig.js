@@ -1,7 +1,5 @@
 "use strict";
 
-const fs = require("fs");
-
 const PACKAGE = require("../package");
 const GITHUB_URL = `https://github.com/${PACKAGE.repository}`;
 
