@@ -779,6 +779,7 @@ passes `prettier` output to `standard --fix`
 - [`prettier_d`](https://github.com/josephfrazier/prettier_d.js) runs Prettier as a server to avoid Node.js startup delay. It also supports configuration via `.prettierrc`, `package.json`, and `.editorconfig`.
 - [`Prettier Bookmarklet`](https://prettier.glitch.me/) provides a bookmarklet and exposes a REST API for Prettier that allows to format CodeMirror editor in your browser
 - [`prettier-github`](https://github.com/jgierer12/prettier-github) formats code in GitHub comments
+- [`rollup-plugin-prettier`](https://github.com/mjeanroy/rollup-plugin-prettier) allows you to use Prettier with Rollup
 
 ## Technical Details
 
