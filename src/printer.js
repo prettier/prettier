@@ -4676,7 +4676,9 @@ function isNodeStartingWithDeclare(node, options) {
     return false;
   }
   return (
-    options.originalText.slice(0, util.locStart(node)).match(/declare\s*$/) ||
+    options.originalText
+      .slice(0, util.locStart(node))
+      .match(/declare[ \t]*$/) ||
     options.originalText
       .slice(node.range[0], node.range[1])
       .startsWith("declare ")
