@@ -17,6 +17,10 @@ border-color : tomato
 
 styled(ExistingComponent)\`
        color : papayawhip ; background-color: firebrick\`;
+
+
+styled.button.attr({})\`
+border : rebeccapurple\`;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const Button = styled.button\`
   color: palevioletred;
@@ -33,6 +37,10 @@ const TomatoButton = Button.extend\`
 styled(ExistingComponent)\`
   color: papayawhip;
   background-color: firebrick;
+\`;
+
+styled.button.attr({})\`
+  border: rebeccapurple;
 \`;
 
 `;
