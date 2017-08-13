@@ -164,7 +164,7 @@ function massageAST(ast) {
           (ast.tag.name === "gql" ||
             ast.tag.name === "graphql" ||
             ast.tag.name === "css")) ||
-        (ast.tag.type === "CallExpression" && ast.tag.callee.name === "styled"))
+        ast.tag.type === "CallExpression")
     ) {
       newObj.quasi.quasis.forEach(quasi => delete quasi.value);
     }
