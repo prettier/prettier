@@ -22,9 +22,8 @@ var prettier = index; // eslint-disable-line
 var parsersLoaded = {};
 
 self.onmessage = function(message) {
-  const options = message.data.options || {
-    parser: "babylon"
-  };
+  var options = message.data.options || {};
+  options.parser = options.parser || "babylon";
 
   delete options.ast;
   delete options.doc;
@@ -76,8 +75,11 @@ function formatCode(text, options) {
 }
 
 function lazyLoadParser(parser) {
+  var script =
+    parser === "json" ? "parser-babylon.js" : "parser-" + parser + ".js";
+
   if (!parsersLoaded[parser]) {
-    importScripts("lib/parser-" + parser + ".js");
+    importScripts("lib/" + script);
     parsersLoaded[parser] = true;
   }
 }
