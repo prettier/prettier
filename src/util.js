@@ -475,6 +475,98 @@ function getAlignmentSize(value, tabWidth, startIndex) {
   return size;
 }
 
+function printString(raw, options, isDirectiveLiteral) {
+  // `rawContent` is the string exactly like it appeared in the input source
+  // code, without its enclosing quotes.
+  const rawContent = raw.slice(1, -1);
+
+  const double = { quote: '"', regex: /"/g };
+  const single = { quote: "'", regex: /'/g };
+
+  const preferred = options.singleQuote ? single : double;
+  const alternate = preferred === single ? double : single;
+
+  let shouldUseAlternateQuote = false;
+  let canChangeDirectiveQuotes = false;
+
+  // If `rawContent` contains at least one of the quote preferred for enclosing
+  // the string, we might want to enclose with the alternate quote instead, to
+  // minimize the number of escaped quotes.
+  // Also check for the alternate quote, to determine if we're allowed to swap
+  // the quotes on a DirectiveLiteral.
+  if (
+    rawContent.includes(preferred.quote) ||
+    rawContent.includes(alternate.quote)
+  ) {
+    const numPreferredQuotes = (rawContent.match(preferred.regex) || []).length;
+    const numAlternateQuotes = (rawContent.match(alternate.regex) || []).length;
+
+    shouldUseAlternateQuote = numPreferredQuotes > numAlternateQuotes;
+  } else {
+    canChangeDirectiveQuotes = true;
+  }
+
+  const enclosingQuote =
+    options.parser === "json"
+      ? double.quote
+      : shouldUseAlternateQuote ? alternate.quote : preferred.quote;
+
+  // Directives are exact code unit sequences, which means that you can't
+  // change the escape sequences they use.
+  // See https://github.com/prettier/prettier/issues/1555
+  // and https://tc39.github.io/ecma262/#directive-prologue
+  if (isDirectiveLiteral) {
+    if (canChangeDirectiveQuotes) {
+      return enclosingQuote + rawContent + enclosingQuote;
+    }
+    return raw;
+  }
+
+  // It might sound unnecessary to use `makeString` even if the string already
+  // is enclosed with `enclosingQuote`, but it isn't. The string could contain
+  // unnecessary escapes (such as in `"\'"`). Always using `makeString` makes
+  // sure that we consistently output the minimum amount of escaped quotes.
+  return makeString(rawContent, enclosingQuote, options.parser !== "postcss");
+}
+
+function makeString(rawContent, enclosingQuote, unescapeUnnecessaryEscapes) {
+  const otherQuote = enclosingQuote === '"' ? "'" : '"';
+
+  // Matches _any_ escape and unescaped quotes (both single and double).
+  const regex = /\\([\s\S])|(['"])/g;
+
+  // Escape and unescape single and double quotes as needed to be able to
+  // enclose `rawContent` with `enclosingQuote`.
+  const newContent = rawContent.replace(regex, (match, escaped, quote) => {
+    // If we matched an escape, and the escaped character is a quote of the
+    // other type than we intend to enclose the string with, there's no need for
+    // it to be escaped, so return it _without_ the backslash.
+    if (escaped === otherQuote) {
+      return escaped;
+    }
+
+    // If we matched an unescaped quote and it is of the _same_ type as we
+    // intend to enclose the string with, it must be escaped, so return it with
+    // a backslash.
+    if (quote === enclosingQuote) {
+      return "\\" + quote;
+    }
+
+    if (quote) {
+      return quote;
+    }
+
+    // Unescape any unnecessarily escaped character.
+    // Adapted from https://github.com/eslint/eslint/blob/de0b4ad7bd820ade41b1f606008bea68683dc11a/lib/rules/no-useless-escape.js#L27
+    return unescapeUnnecessaryEscapes &&
+    /^[^\\nrvtbfux\r\n\u2028\u2029"'0-7]$/.test(escaped)
+      ? escaped
+      : "\\" + escaped;
+  });
+
+  return enclosingQuote + newContent + enclosingQuote;
+}
+
 module.exports = {
   getPrecedence,
   shouldFlatten,
@@ -500,5 +592,6 @@ module.exports = {
   hasBlockComments,
   isBlockComment,
   hasClosureCompilerTypeCastComment,
-  getAlignmentSize
+  getAlignmentSize,
+  printString
 };

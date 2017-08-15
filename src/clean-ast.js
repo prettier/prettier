@@ -82,6 +82,17 @@ function massageAST(ast) {
       newObj.value = newObj.value.toLowerCase();
     }
 
+    if (
+      (ast.type === "media-value" ||
+        ast.type === "selector-attribute" ||
+        ast.type === "value-string") &&
+      newObj.value
+    ) {
+      newObj.value = newObj.value
+        .replace(/'/g, '"')
+        .replace(/\\([^a-fA-F\d])/g, "$1");
+    }
+
     // (TypeScript) Ignore `static` in `constructor(static p) {}`
     // and `export` in `constructor(export p) {}`
     if (

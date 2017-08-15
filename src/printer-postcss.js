@@ -163,7 +163,7 @@ function genericPrint(path, options, print) {
       return concat([n.value, " "]);
     }
     case "media-value": {
-      return n.value;
+      return adjustStrings(n.value, options);
     }
     case "media-keyword": {
       return n.value;
@@ -198,7 +198,7 @@ function genericPrint(path, options, print) {
         "[",
         n.attribute,
         n.operator ? n.operator : "",
-        n.value ? n.value : "",
+        n.value ? adjustStrings(n.value, options) : "",
         n.insensitive ? " i" : "",
         "]"
       ]);
@@ -337,11 +337,7 @@ function genericPrint(path, options, print) {
       return concat([n.value, " "]);
     }
     case "value-string": {
-      return concat([
-        n.quoted ? n.raws.quote : "",
-        n.value,
-        n.quoted ? n.raws.quote : ""
-      ]);
+      return util.printString(n.raws.quote + n.value + n.raws.quote, options);
     }
     case "value-atword": {
       return concat(["@", n.value]);
@@ -402,6 +398,12 @@ function printNodeSequence(path, options, print) {
 
 function printValue(value) {
   return value;
+}
+
+const STRING_REGEX = /(['"])(?:(?!\1)[^\\]|\\[\s\S])*\1/g;
+
+function adjustStrings(value, options) {
+  return value.replace(STRING_REGEX, match => util.printString(match, options));
 }
 
 module.exports = genericPrint;
