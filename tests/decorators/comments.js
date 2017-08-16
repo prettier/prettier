@@ -8,17 +8,3 @@ var x = 100
 class X {
 
 }
-
-
-@NgModule({
-  // Imports.
-  imports: [
-    // Angular modules.
-    BrowserModule,
-
-    // App modules.
-    CoreModule,
-    SharedModule,
-  ],
-})
-export class AppModule {}

@@ -15,7 +15,7 @@ function parse(text, parsers, opts) {
       "flow",
       "doExpressions",
       "objectRestSpread",
-      "decorators",
+      "decorators2",
       "classProperties",
       "exportExtensions",
       "asyncGenerators",
