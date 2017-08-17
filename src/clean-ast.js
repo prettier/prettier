@@ -83,14 +83,20 @@ function massageAST(ast) {
     }
 
     if (
-      (ast.type === "media-value" ||
+      (ast.type === "media-feature" ||
+        ast.type === "media-type" ||
+        ast.type === "media-unknown" ||
+        ast.type === "media-value" ||
         ast.type === "selector-attribute" ||
+        ast.type === "selector-string" ||
         ast.type === "value-string") &&
       newObj.value
     ) {
-      newObj.value = newObj.value
-        .replace(/'/g, '"')
-        .replace(/\\([^a-fA-F\d])/g, "$1");
+      newObj.value = cleanCSSStrings(newObj.value);
+    }
+
+    if (ast.type === "css-import" && newObj.importPath) {
+      newObj.importPath = cleanCSSStrings(newObj.importPath);
     }
 
     // (TypeScript) Ignore `static` in `constructor(static p) {}`
@@ -183,6 +189,10 @@ function massageAST(ast) {
     return newObj;
   }
   return ast;
+}
+
+function cleanCSSStrings(value) {
+  return value.replace(/'/g, '"').replace(/\\([^a-fA-F\d])/g, "$1");
 }
 
 module.exports = { cleanAST, massageAST };

@@ -128,7 +128,7 @@ function genericPrint(path, options, print) {
         n.name,
         " ",
         n.directives ? concat([n.directives, " "]) : "",
-        n.importPath,
+        adjustStrings(n.importPath, options),
         ";"
       ]);
     }
@@ -148,7 +148,14 @@ function genericPrint(path, options, print) {
       return join(" ", path.map(print, "nodes"));
     }
     case "media-type": {
-      return n.value;
+      const parent = path.getParentNode(2);
+      if (
+        parent.type === "css-atrule" &&
+        parent.name.toLowerCase() === "charset"
+      ) {
+        return n.value;
+      }
+      return adjustStrings(n.value, options);
     }
     case "media-feature-expression": {
       if (!n.nodes) {
@@ -157,7 +164,7 @@ function genericPrint(path, options, print) {
       return concat(["(", concat(path.map(print, "nodes")), ")"]);
     }
     case "media-feature": {
-      return n.value.replace(/ +/g, " ");
+      return adjustStrings(n.value.replace(/ +/g, " "), options);
     }
     case "media-colon": {
       return concat([n.value, " "]);
@@ -172,7 +179,7 @@ function genericPrint(path, options, print) {
       return n.value;
     }
     case "media-unknown": {
-      return n.value;
+      return adjustStrings(n.value, options);
     }
     // postcss-selector-parser
     case "selector-root": {
@@ -182,7 +189,7 @@ function genericPrint(path, options, print) {
       return n.value;
     }
     case "selector-string": {
-      return n.value;
+      return adjustStrings(n.value, options);
     }
     case "selector-tag": {
       return n.value;
