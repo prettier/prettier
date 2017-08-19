@@ -3808,9 +3808,9 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-"typescript-eslint-parser@git://github.com/eslint/typescript-eslint-parser.git#e1db075b938bf74acfe16c6f3e63dc4dc12c0e58":
-  version "4.0.0"
-  resolved "git://github.com/eslint/typescript-eslint-parser.git#e1db075b938bf74acfe16c6f3e63dc4dc12c0e58"
+"typescript-eslint-parser@git://github.com/eslint/typescript-eslint-parser.git#65b019ba9a10475af30e664ce38e550c21acdedd":
+  version "6.0.1"
+  resolved "git://github.com/eslint/typescript-eslint-parser.git#65b019ba9a10475af30e664ce38e550c21acdedd"
   dependencies:
     lodash.unescape "4.0.1"
     semver "5.3.0"
