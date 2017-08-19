@@ -2558,8 +2558,11 @@ function genericPrintNoParens(path, options, print, args) {
       if (n.modifiers) {
         parts.push(printTypeScriptModifiers(path, options, print));
       }
+      if (n.const) {
+        parts.push("const ");
+      }
 
-      parts.push("enum ", path.call(print, "name"), " ");
+      parts.push("enum ", path.call(print, "id"), " ");
 
       if (n.members.length === 0) {
         parts.push(
@@ -2598,7 +2601,7 @@ function genericPrintNoParens(path, options, print, args) {
 
       return concat(parts);
     case "TSEnumMember":
-      parts.push(path.call(print, "name"));
+      parts.push(path.call(print, "id"));
       if (n.initializer) {
         parts.push(" = ", path.call(print, "initializer"));
       }
