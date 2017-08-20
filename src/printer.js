@@ -2221,7 +2221,7 @@ function genericPrintNoParens(path, options, print, args) {
         n.static ? "static " : "",
         isGetterOrSetter(n) ? n.kind + " " : "",
         variance || "",
-        path.call(print, "key"),
+        printPropertyKey(path, options, print),
         printOptionalToken(path),
         isFunctionNotation(n) ? "" : ": ",
         path.call(print, "value")
@@ -2383,7 +2383,7 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push("[");
       }
 
-      parts.push(path.call(print, "key"));
+      parts.push(printPropertyKey(path, options, print));
 
       if (n.computed) {
         parts.push("]");

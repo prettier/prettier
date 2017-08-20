@@ -26,6 +26,8 @@ var array_of_tuple_parens: ([number, string])[] = array_of_tuple;
 type ObjType = { 'bar-foo': string; 'foo-bar': number; };
 var test_obj: ObjType = { 'bar-foo': '23' };
 
+type AlternativeObjType = { 'foo': string, "bar": number };
+
 // param type annos are strict UBs like var type annos
 function param_anno(n:number):void {
   n = "hey"; // error
