@@ -7,6 +7,23 @@ exports[`directives.css 1`] = `
 
 `;
 
+exports[`nodes.css 1`] = `
+@import "test.less" {}
+
+@import "test.less" {
+  a: b;
+  c: d;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@import "test.less";
+
+@import "test.less" {
+  a: b;
+  c: d;
+}
+
+`;
+
 exports[`url.css 1`] = `
 @import url('foo');
 $dir: 'fonts';
