@@ -129,7 +129,16 @@ function genericPrint(path, options, print) {
         " ",
         n.directives ? concat([n.directives, " "]) : "",
         adjustStrings(n.importPath, options),
-        ";"
+        n.nodes.length > 0
+          ? concat([
+              " {",
+              indent(
+                concat([softline, printNodeSequence(path, options, print)])
+              ),
+              softline,
+              "}"
+            ])
+          : ";"
       ]);
     }
     // postcss-media-query-parser
