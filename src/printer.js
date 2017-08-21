@@ -612,7 +612,7 @@ function genericPrintNoParens(path, options, print, args) {
       }
 
       return path.call(print, "id");
-    case "TSExportAssigment":
+    case "TSExportAssignment":
       return concat(["export = ", path.call(print, "expression"), semi]);
     case "ExportDefaultDeclaration":
     case "ExportNamedDeclaration":
@@ -2624,22 +2624,25 @@ function genericPrintNoParens(path, options, print, args) {
       return concat(["require(", path.call(print, "expression"), ")"]);
     case "TSModuleDeclaration": {
       const parent = path.getParentNode();
-      const isExternalModule = isLiteral(n.name);
+      const isExternalModule = isLiteral(n.id);
       const parentIsDeclaration = parent.type === "TSModuleDeclaration";
       const bodyIsDeclaration = n.body && n.body.type === "TSModuleDeclaration";
 
       if (parentIsDeclaration) {
         parts.push(".");
       } else {
+        if (n.declare === true) {
+          parts.push("declare ");
+        }
         parts.push(printTypeScriptModifiers(path, options, print));
 
         // Global declaration looks like this:
         // (declare)? global { ... }
         const isGlobalDeclaration =
-          n.name.type === "Identifier" &&
-          n.name.name === "global" &&
+          n.id.type === "Identifier" &&
+          n.id.name === "global" &&
           !/namespace|module/.test(
-            options.originalText.slice(util.locStart(n), util.locStart(n.name))
+            options.originalText.slice(util.locStart(n), util.locStart(n.id))
           );
 
         if (!isGlobalDeclaration) {
@@ -2647,7 +2650,7 @@ function genericPrintNoParens(path, options, print, args) {
         }
       }
 
-      parts.push(path.call(print, "name"));
+      parts.push(path.call(print, "id"));
 
       if (bodyIsDeclaration) {
         parts.push(path.call(print, "body"));
