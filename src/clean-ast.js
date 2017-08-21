@@ -145,8 +145,7 @@ function massageAST(ast) {
         ast.type === "MethodDefinition" ||
         ast.type === "ClassProperty" ||
         ast.type === 'TSPropertySignature' ||
-        ast.type === 'ObjectTypeProperty'
-      ) &&
+        ast.type === 'ObjectTypeProperty') &&
       typeof ast.key === "object" &&
       ast.key &&
       (ast.key.type === "Literal" || ast.key.type === "Identifier")
