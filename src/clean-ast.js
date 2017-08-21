@@ -93,6 +93,11 @@ function massageAST(ast) {
         .replace(/\\([^a-fA-F\d])/g, "$1");
     }
 
+    if (ast.type === "selector-attribute" && newObj.value) {
+      newObj.value = newObj.value.replace(/^['"]|['"]$/g, "");
+      delete newObj.quoted;
+    }
+
     // (TypeScript) Ignore `static` in `constructor(static p) {}`
     // and `export` in `constructor(export p) {}`
     if (

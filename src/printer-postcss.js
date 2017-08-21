@@ -198,7 +198,9 @@ function genericPrint(path, options, print) {
         "[",
         n.attribute,
         n.operator ? n.operator : "",
-        n.value ? adjustStrings(n.value, options) : "",
+        n.value
+          ? quoteAttributeValue(adjustStrings(n.value, options), options)
+          : "",
         n.insensitive ? " i" : "",
         "]"
       ]);
@@ -404,6 +406,13 @@ const STRING_REGEX = /(['"])(?:(?!\1)[^\\]|\\[\s\S])*\1/g;
 
 function adjustStrings(value, options) {
   return value.replace(STRING_REGEX, match => util.printString(match, options));
+}
+
+function quoteAttributeValue(value, options) {
+  const quote = options.singleQuote ? "'" : '"';
+  return value.includes('"') || value.includes("'")
+    ? value
+    : quote + value + quote;
 }
 
 module.exports = genericPrint;
