@@ -100,7 +100,7 @@ table {
   filter: blur(4px);
 }
 .sepia {
-  filter: sepia(.8);
+  filter: sepia(0.8);
 }
 
 `;

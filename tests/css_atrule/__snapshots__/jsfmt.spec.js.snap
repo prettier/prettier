@@ -10,11 +10,11 @@ exports[`if-else.css 1`] = `
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @if $media == phonePortrait {
-  $k: .15625;
+  $k: 0.15625;
 } @else if $media == phoneLandscape {
-  $k: .08803;
+  $k: 0.08803;
 } @else if $media == tabletPortrait {
-  $k: .065106;
+  $k: 0.065106;
 }
 
 `;

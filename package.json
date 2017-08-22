@@ -32,7 +32,7 @@
     "postcss-media-query-parser": "0.2.3",
     "postcss-scss": "1.0.0",
     "postcss-selector-parser": "2.2.3",
-    "postcss-values-parser": "git://github.com/shellscape/postcss-values-parser.git#5e351360479116f3fe309602cdd15b0a233bc29f",
+    "postcss-values-parser": "git://github.com/lydell/postcss-values-parser.git#af2c80b2bb558a6e7d61540d97f068f9fa162b38",
     "strip-bom": "3.0.0",
     "typescript": "2.5.0-dev.20170617",
     "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#01c34f44e7bb3b8a1ec3d28433a6e0c9b2901d3c"

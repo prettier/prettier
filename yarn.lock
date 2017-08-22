@@ -2998,9 +2998,9 @@ postcss-selector-parser@2.2.3:
     indexes-of "^1.0.1"
     uniq "^1.0.1"
 
-"postcss-values-parser@git://github.com/shellscape/postcss-values-parser.git#5e351360479116f3fe309602cdd15b0a233bc29f":
-  version "1.2.2"
-  resolved "git://github.com/shellscape/postcss-values-parser.git#5e351360479116f3fe309602cdd15b0a233bc29f"
+"postcss-values-parser@git://github.com/lydell/postcss-values-parser.git#af2c80b2bb558a6e7d61540d97f068f9fa162b38":
+  version "1.3.0"
+  resolved "git://github.com/lydell/postcss-values-parser.git#af2c80b2bb558a6e7d61540d97f068f9fa162b38"
   dependencies:
     flatten "^1.0.2"
     indexes-of "^1.0.1"

@@ -1159,7 +1159,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "RegExpLiteral": // Babel 6 Literal split
       return printRegex(n);
     case "NumericLiteral": // Babel 6 Literal split
-      return printNumber(n.extra.raw);
+      return util.printNumber(n.extra.raw);
     case "BooleanLiteral": // Babel 6 Literal split
     case "StringLiteral": // Babel 6 Literal split
     case "Literal": {
@@ -1167,7 +1167,7 @@ function genericPrintNoParens(path, options, print, args) {
         return printRegex(n.regex);
       }
       if (typeof n.value === "number") {
-        return printNumber(n.raw);
+        return util.printNumber(n.raw);
       }
       if (typeof n.value !== "string") {
         return "" + n.value;
@@ -2239,9 +2239,9 @@ function genericPrintNoParens(path, options, print, args) {
       assert.strictEqual(typeof n.value, "number");
 
       if (n.extra != null) {
-        return printNumber(n.extra.raw);
+        return util.printNumber(n.extra.raw);
       }
-      return printNumber(n.raw);
+      return util.printNumber(n.raw);
 
     case "StringTypeAnnotation":
       return "string";
@@ -4334,23 +4334,6 @@ function nodeStr(node, options, isFlowOrTypeScriptDirectiveLiteral) {
 function printRegex(node) {
   const flags = node.flags.split("").sort().join("");
   return `/${node.pattern}/${flags}`;
-}
-
-function printNumber(rawNumber) {
-  return (
-    rawNumber
-      .toLowerCase()
-      // Remove unnecessary plus and zeroes from scientific notation.
-      .replace(/^([\d.]+e)(?:\+|(-))?0*(\d)/, "$1$2$3")
-      // Remove unnecessary scientific notation (1e0).
-      .replace(/^([\d.]+)e[+-]?0+$/, "$1")
-      // Make sure numbers always start with a digit.
-      .replace(/^\./, "0.")
-      // Remove extraneous trailing decimal zeroes.
-      .replace(/(\.\d+?)0+(?=e|$)/, "$1")
-      // Remove trailing dot.
-      .replace(/\.(?=e|$)/, "")
-  );
 }
 
 function isLastStatement(path) {
