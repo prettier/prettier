@@ -1627,7 +1627,8 @@ function genericPrintNoParens(path, options, print, args) {
         let res;
         if (isStringLiteral(n.value)) {
           const value = rawText(n.value);
-          res = '"' + value.slice(1, -1).replace(/"/g, "&quot;") + '"';
+          const quote = options.singleQuote ? "'" : '"';
+          res = quote + value.slice(1, -1).replace(/"/g, "&quot;").replace(/'/g, "&apos;") + quote;
         } else {
           res = path.call(print, "value");
         }
