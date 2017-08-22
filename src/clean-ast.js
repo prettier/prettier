@@ -99,6 +99,11 @@ function massageAST(ast) {
       newObj.importPath = cleanCSSStrings(newObj.importPath);
     }
 
+    if (ast.type === "selector-attribute" && newObj.value) {
+      newObj.value = newObj.value.replace(/^['"]|['"]$/g, "");
+      delete newObj.quoted;
+    }
+
     // (TypeScript) Ignore `static` in `constructor(static p) {}`
     // and `export` in `constructor(export p) {}`
     if (
