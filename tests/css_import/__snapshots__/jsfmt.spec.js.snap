@@ -7,6 +7,17 @@ exports[`directives.css 1`] = `
 
 `;
 
+exports[`multiple.css 1`] = `
+/* This isn't valid CSS, SCSS or Less, but we should be lenient and make sure
+/* that nothing is lost when printing. */
+@import "one" two "three";
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* This isn't valid CSS, SCSS or Less, but we should be lenient and make sure
+/* that nothing is lost when printing. */
+@import "one" two "three";
+
+`;
+
 exports[`nodes.css 1`] = `
 @import "test.less" {}
 
@@ -15,7 +26,8 @@ exports[`nodes.css 1`] = `
   c: d;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-@import "test.less";
+@import "test.less" {
+}
 
 @import "test.less" {
   a: b;
