@@ -549,12 +549,13 @@ Default | CLI Override | API Override
 `false` |  `--single-quote` | `singleQuote: <bool>`
 
 ### Trailing Commas
-Print trailing commas wherever possible.
+Print trailing commas wherever possible when multi-line. (A single-line array,
+for example, never gets trailing commas.)
 
 Valid options:
  * `"none"` - No trailing commas.
  * `"es5"` - Trailing commas where valid in ES5 (objects, arrays, etc.)
- * `"all"` - Trailing commas wherever possible (function arguments). This requires node 8 or a [transform](https://babeljs.io/docs/plugins/syntax-trailing-function-commas/).
+ * `"all"` - Trailing commas wherever possible (including function arguments). This requires node 8 or a [transform](https://babeljs.io/docs/plugins/syntax-trailing-function-commas/).
 
 Default | CLI Override | API Override
 --------|--------------|-------------
