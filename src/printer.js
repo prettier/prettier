@@ -3381,10 +3381,23 @@ function printClass(path, options, print) {
 
   const partsGroup = [];
   if (n.superClass) {
-    parts.push(
-      " extends ",
+    if (hasLeadingOwnLineComment(options.originalText, n.superClass)) {
+      parts.push(hardline);
+    } else {
+      parts.push(" ");
+    }
+
+    const printed = concat([
+      "extends ",
       path.call(print, "superClass"),
       path.call(print, "superTypeParameters")
+    ]);
+    parts.push(
+      path.call(
+        superClass =>
+          comments.printComments(superClass, () => printed, options),
+        "superClass"
+      )
     );
   } else if (n.extends && n.extends.length > 0) {
     parts.push(" extends ", join(", ", path.map(print, "extends")));
@@ -3402,7 +3415,16 @@ function printClass(path, options, print) {
     parts.push(group(indent(concat(partsGroup))));
   }
 
-  parts.push(" ", path.call(print, "body"));
+  if (
+    n.body &&
+    n.body.comments &&
+    hasLeadingOwnLineComment(options.originalText, n.body)
+  ) {
+    parts.push(hardline);
+  } else {
+    parts.push(" ");
+  }
+  parts.push(path.call(print, "body"));
 
   return parts;
 }
@@ -4721,7 +4743,10 @@ function printAstToDoc(ast, options, addAlignmentSize) {
       (node && node.type === "JSXElement") ||
       (parent &&
         (parent.type === "UnionTypeAnnotation" ||
-          parent.type === "TSUnionType"))
+          parent.type === "TSUnionType" ||
+          ((parent.type === "ClassDeclaration" ||
+            parent.type === "ClassExpression") &&
+            parent.superClass === node)))
     ) {
       res = genericPrint(path, options, printGenerically, args);
     } else {
