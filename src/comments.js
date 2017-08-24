@@ -192,6 +192,12 @@ function attach(comments, ast, text) {
           comment
         ) ||
         handleTryStatementComments(enclosingNode, followingNode, comment) ||
+        handleClassComments(
+          enclosingNode,
+          precedingNode,
+          followingNode,
+          comment
+        ) ||
         handleImportSpecifierComments(enclosingNode, comment) ||
         handleObjectPropertyComments(enclosingNode, comment) ||
         handleForComments(enclosingNode, precedingNode, comment) ||
@@ -243,6 +249,12 @@ function attach(comments, ast, text) {
           text,
           precedingNode,
           enclosingNode,
+          followingNode,
+          comment
+        ) ||
+        handleClassComments(
+          enclosingNode,
+          precedingNode,
           followingNode,
           comment
         ) ||
@@ -546,6 +558,32 @@ function handleObjectPropertyAssignment(enclosingNode, precedingNode, comment) {
     enclosingNode.value.type === "AssignmentPattern"
   ) {
     addTrailingComment(enclosingNode.value.left, comment);
+    return true;
+  }
+  return false;
+}
+
+function handleClassComments(
+  enclosingNode,
+  precedingNode,
+  followingNode,
+  comment
+) {
+  if (
+    enclosingNode &&
+    (enclosingNode.type === "ClassDeclaration" ||
+      enclosingNode.type === "ClassExpression") &&
+    (enclosingNode.decorators && enclosingNode.decorators.length > 0) &&
+    !(followingNode && followingNode.type === "Decorator")
+  ) {
+    if (!enclosingNode.decorators || enclosingNode.decorators.length === 0) {
+      addLeadingComment(enclosingNode, comment);
+    } else {
+      addTrailingComment(
+        enclosingNode.decorators[enclosingNode.decorators.length - 1],
+        comment
+      );
+    }
     return true;
   }
   return false;
