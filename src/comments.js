@@ -192,7 +192,6 @@ function attach(comments, ast, text) {
           comment
         ) ||
         handleTryStatementComments(enclosingNode, followingNode, comment) ||
-        handleClassComments(enclosingNode, comment) ||
         handleImportSpecifierComments(enclosingNode, comment) ||
         handleObjectPropertyComments(enclosingNode, comment) ||
         handleForComments(enclosingNode, precedingNode, comment) ||
@@ -247,7 +246,6 @@ function attach(comments, ast, text) {
           followingNode,
           comment
         ) ||
-        handleClassComments(enclosingNode, comment) ||
         handleLabeledStatementComments(enclosingNode, comment) ||
         handleCallExpressionComments(precedingNode, enclosingNode, comment) ||
         handlePropertyComments(enclosingNode, comment) ||
@@ -640,18 +638,6 @@ function handleLastFunctionArgComments(
     getNextNonSpaceNonCommentCharacter(text, comment) === ")"
   ) {
     addTrailingComment(precedingNode, comment);
-    return true;
-  }
-  return false;
-}
-
-function handleClassComments(enclosingNode, comment) {
-  if (
-    enclosingNode &&
-    (enclosingNode.type === "ClassDeclaration" ||
-      enclosingNode.type === "ClassExpression")
-  ) {
-    addLeadingComment(enclosingNode, comment);
     return true;
   }
   return false;
