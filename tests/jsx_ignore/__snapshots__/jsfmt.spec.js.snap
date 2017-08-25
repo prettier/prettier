@@ -48,6 +48,14 @@ push(
   <td> :)
   </td>,
 );
+
+function f() {
+  return (
+    // prettier-ignore
+    /* $FlowFixMe(>=0.53.0) */
+    <JSX />
+  );
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // this should remain as-is
 <div>
@@ -92,5 +100,13 @@ push(
   <td> :)
   </td>
 );
+
+function f() {
+  return (
+    // prettier-ignore
+    /* $FlowFixMe(>=0.53.0) */
+    <JSX />
+  );
+}
 
 `;

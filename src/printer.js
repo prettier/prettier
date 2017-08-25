@@ -65,21 +65,27 @@ function getPrintFunction(options) {
 
 function hasIgnoreComment(path) {
   const node = path.getValue();
+  return hasNodeIgnoreComment(node) || hasJsxIgnoreComment(path);
+}
+
+function hasNodeIgnoreComment(node) {
   return (
     node &&
-    ((node.comments &&
-      node.comments.length > 0 &&
-      node.comments.some(
-        comment => comment.value.trim() === "prettier-ignore"
-      )) ||
-      hasJsxIgnoreComment(path))
+    node.comments &&
+    node.comments.length > 0 &&
+    node.comments.some(comment => comment.value.trim() === "prettier-ignore")
   );
 }
 
 function hasJsxIgnoreComment(path) {
   const node = path.getValue();
   const parent = path.getParentNode();
-  if (!parent || node.type !== "JSXElement" || parent.type !== "JSXElement") {
+  if (
+    !parent ||
+    !node ||
+    node.type !== "JSXElement" ||
+    parent.type !== "JSXElement"
+  ) {
     return false;
   }
 
@@ -4385,7 +4391,7 @@ function hasTrailingComment(node) {
 
 function hasLeadingOwnLineComment(text, node) {
   if (node.type === "JSXElement") {
-    return false;
+    return hasNodeIgnoreComment(node);
   }
 
   const res =
