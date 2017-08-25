@@ -40,3 +40,8 @@ f(
 }
 </div>;
 
+push(
+  // prettier-ignore
+  <td> :)
+  </td>,
+);

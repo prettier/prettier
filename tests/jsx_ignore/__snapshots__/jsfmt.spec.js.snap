@@ -43,6 +43,11 @@ f(
 }
 </div>;
 
+push(
+  // prettier-ignore
+  <td> :)
+  </td>,
+);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // this should remain as-is
 <div>
@@ -81,5 +86,11 @@ f(
   {/* prettier-ignore */
   x     ?   <Y/> : <Z/>}
 </div>;
+
+push(
+  // prettier-ignore
+  <td> :)
+  </td>
+);
 
 `;
