@@ -198,6 +198,18 @@ function getNextNonSpaceNonCommentCharacter(text, node) {
   return text.charAt(idx);
 }
 
+function getPreviousNonSpaceCharacter(text, node) {
+  var oldIdx = null;
+  var idx = locStart(node) - 1;
+  var traversalOptions = {backwards: true}
+  while (idx !== oldIdx) {
+    oldIdx = idx;
+    idx = skipSpaces(text, idx, traversalOptions);
+    idx = skipNewline(text, idx, traversalOptions);
+  }
+  return text.charAt(idx);
+}
+
 function hasSpaces(text, index, opts) {
   opts = opts || {};
   const idx = skipSpaces(text, opts.backwards ? index - 1 : index, opts);
@@ -593,6 +605,7 @@ module.exports = {
   getPenultimate,
   getLast,
   getNextNonSpaceNonCommentCharacter,
+  getPreviousNonSpaceCharacter,
   skipWhitespace,
   skipSpaces,
   skipNewline,

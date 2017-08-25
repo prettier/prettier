@@ -15,6 +15,7 @@ const locStart = util.locStart;
 const locEnd = util.locEnd;
 const getNextNonSpaceNonCommentCharacter =
   util.getNextNonSpaceNonCommentCharacter;
+const getPreviousNonSpaceCharacter = util.getPreviousNonSpaceCharacter;
 
 function getSortedChildNodes(node, text, resultArray) {
   if (!node) {
@@ -462,7 +463,6 @@ function handleIfStatementComments(
   // We unfortunately have no way using the AST or location of nodes to know
   // if the comment is positioned before or after the condition parenthesis:
   //   if (a /* comment */) {}
-  //   if (a) /* comment */ {}
   // The only workaround I found is to look at the next character to see if
   // it is a ).
   if (getNextNonSpaceNonCommentCharacter(text, comment) === ")") {
@@ -477,6 +477,13 @@ function handleIfStatementComments(
 
   if (followingNode.type === "IfStatement") {
     addBlockOrNotComment(followingNode.consequent, comment);
+    return true;
+  }
+
+  // For `if (a) /* comment */ {}`,
+  // we look at the previous character to see if it is a ).
+  if (getPreviousNonSpaceCharacter(text, comment) === ")") {
+    addLeadingComment(followingNode, comment);
     return true;
   }
 
