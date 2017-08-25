@@ -45,3 +45,11 @@ push(
   <td> :)
   </td>,
 );
+
+function f() {
+  return (
+    // prettier-ignore
+    /* $FlowFixMe(>=0.53.0) */
+    <JSX />
+  );
+}
