@@ -367,6 +367,35 @@ nock(/test/)
 
 `;
 
+exports[`computed-merge.js 1`] = `
+[].forEach(key => {
+  data[key]('foo')
+    .then(() => console.log('bar'))
+    .catch(() => console.log('baz'));
+});
+
+[].forEach(key => {
+  data('foo')
+    [key]('bar')
+    .then(() => console.log('bar'))
+    .catch(() => console.log('baz'));
+});
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[].forEach(key => {
+  data[key]("foo")
+    .then(() => console.log("bar"))
+    .catch(() => console.log("baz"));
+});
+
+[].forEach(key => {
+  data("foo")
+    [key]("bar")
+    .then(() => console.log("bar"))
+    .catch(() => console.log("baz"));
+});
+
+`;
+
 exports[`first_long.js 1`] = `
 export default function theFunction(action$, store) {
   return action$.ofType(THE_ACTION).switchMap(action => Observable
