@@ -192,7 +192,12 @@ function attach(comments, ast, text) {
           comment
         ) ||
         handleTryStatementComments(enclosingNode, followingNode, comment) ||
-        handleClassComments(enclosingNode, comment) ||
+        handleClassComments(
+          enclosingNode,
+          precedingNode,
+          followingNode,
+          comment
+        ) ||
         handleImportSpecifierComments(enclosingNode, comment) ||
         handleObjectPropertyComments(enclosingNode, comment) ||
         handleForComments(enclosingNode, precedingNode, comment) ||
@@ -247,7 +252,12 @@ function attach(comments, ast, text) {
           followingNode,
           comment
         ) ||
-        handleClassComments(enclosingNode, comment) ||
+        handleClassComments(
+          enclosingNode,
+          precedingNode,
+          followingNode,
+          comment
+        ) ||
         handleLabeledStatementComments(enclosingNode, comment) ||
         handleCallExpressionComments(precedingNode, enclosingNode, comment) ||
         handlePropertyComments(enclosingNode, comment) ||
@@ -553,6 +563,32 @@ function handleObjectPropertyAssignment(enclosingNode, precedingNode, comment) {
   return false;
 }
 
+function handleClassComments(
+  enclosingNode,
+  precedingNode,
+  followingNode,
+  comment
+) {
+  if (
+    enclosingNode &&
+    (enclosingNode.type === "ClassDeclaration" ||
+      enclosingNode.type === "ClassExpression") &&
+    (enclosingNode.decorators && enclosingNode.decorators.length > 0) &&
+    !(followingNode && followingNode.type === "Decorator")
+  ) {
+    if (!enclosingNode.decorators || enclosingNode.decorators.length === 0) {
+      addLeadingComment(enclosingNode, comment);
+    } else {
+      addTrailingComment(
+        enclosingNode.decorators[enclosingNode.decorators.length - 1],
+        comment
+      );
+    }
+    return true;
+  }
+  return false;
+}
+
 function handleMethodNameComments(text, enclosingNode, precedingNode, comment) {
   // This is only needed for estree parsers (flow, typescript) to attach
   // after a method name:
@@ -640,18 +676,6 @@ function handleLastFunctionArgComments(
     getNextNonSpaceNonCommentCharacter(text, comment) === ")"
   ) {
     addTrailingComment(precedingNode, comment);
-    return true;
-  }
-  return false;
-}
-
-function handleClassComments(enclosingNode, comment) {
-  if (
-    enclosingNode &&
-    (enclosingNode.type === "ClassDeclaration" ||
-      enclosingNode.type === "ClassExpression")
-  ) {
-    addLeadingComment(enclosingNode, comment);
     return true;
   }
   return false;

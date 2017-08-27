@@ -83,14 +83,35 @@ function massageAST(ast) {
     }
 
     if (
-      (ast.type === "media-value" ||
+      (ast.type === "media-feature" ||
+        ast.type === "media-type" ||
+        ast.type === "media-unknown" ||
+        ast.type === "media-value" ||
         ast.type === "selector-attribute" ||
+        ast.type === "selector-string" ||
         ast.type === "value-string") &&
       newObj.value
     ) {
-      newObj.value = newObj.value
-        .replace(/'/g, '"')
-        .replace(/\\([^a-fA-F\d])/g, "$1");
+      newObj.value = cleanCSSStrings(newObj.value);
+    }
+
+    if (ast.type === "css-import" && newObj.importPath) {
+      newObj.importPath = cleanCSSStrings(newObj.importPath);
+    }
+
+    if (ast.type === "selector-attribute" && newObj.value) {
+      newObj.value = newObj.value.replace(/^['"]|['"]$/g, "");
+      delete newObj.quoted;
+    }
+
+    if (
+      (ast.type === "media-value" || ast.type === "value-number") &&
+      newObj.value
+    ) {
+      newObj.value = newObj.value.replace(/[\d.eE+-]+/g, match => {
+        const num = Number(match);
+        return isNaN(num) ? match : num;
+      });
     }
 
     // (TypeScript) Ignore `static` in `constructor(static p) {}`
@@ -137,7 +158,9 @@ function massageAST(ast) {
     if (
       (ast.type === "Property" ||
         ast.type === "MethodDefinition" ||
-        ast.type === "ClassProperty") &&
+        ast.type === "ClassProperty" ||
+        ast.type === "TSPropertySignature" ||
+        ast.type === "ObjectTypeProperty") &&
       typeof ast.key === "object" &&
       ast.key &&
       (ast.key.type === "Literal" || ast.key.type === "Identifier")
@@ -183,6 +206,10 @@ function massageAST(ast) {
     return newObj;
   }
   return ast;
+}
+
+function cleanCSSStrings(value) {
+  return value.replace(/'/g, '"').replace(/\\([^a-fA-F\d])/g, "$1");
 }
 
 module.exports = { cleanAST, massageAST };

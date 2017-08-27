@@ -8,3 +8,24 @@ var x = 100
 class X {
 
 }
+
+
+@NgModule({
+  // Imports.
+  imports: [
+    // Angular modules.
+    BrowserModule,
+
+    // App modules.
+    CoreModule,
+    SharedModule,
+  ],
+})
+export class AppModule {}
+
+// A
+@Foo()
+// B
+@Bar()
+// C
+export class Bar{}

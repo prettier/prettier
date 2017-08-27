@@ -128,8 +128,17 @@ function genericPrint(path, options, print) {
         n.name,
         " ",
         n.directives ? concat([n.directives, " "]) : "",
-        n.importPath,
-        ";"
+        adjustStrings(n.importPath, options),
+        n.nodes.length > 0
+          ? concat([
+              " {",
+              indent(
+                concat([softline, printNodeSequence(path, options, print)])
+              ),
+              softline,
+              "}"
+            ])
+          : ";"
       ]);
     }
     // postcss-media-query-parser
@@ -148,7 +157,14 @@ function genericPrint(path, options, print) {
       return join(" ", path.map(print, "nodes"));
     }
     case "media-type": {
-      return n.value;
+      const parent = path.getParentNode(2);
+      if (
+        parent.type === "css-atrule" &&
+        parent.name.toLowerCase() === "charset"
+      ) {
+        return n.value;
+      }
+      return adjustStrings(n.value, options);
     }
     case "media-feature-expression": {
       if (!n.nodes) {
@@ -157,13 +173,13 @@ function genericPrint(path, options, print) {
       return concat(["(", concat(path.map(print, "nodes")), ")"]);
     }
     case "media-feature": {
-      return n.value.replace(/ +/g, " ");
+      return adjustStrings(n.value.replace(/ +/g, " "), options);
     }
     case "media-colon": {
       return concat([n.value, " "]);
     }
     case "media-value": {
-      return adjustStrings(n.value, options);
+      return adjustNumbers(adjustStrings(n.value, options));
     }
     case "media-keyword": {
       return n.value;
@@ -172,7 +188,7 @@ function genericPrint(path, options, print) {
       return n.value;
     }
     case "media-unknown": {
-      return n.value;
+      return adjustStrings(n.value, options);
     }
     // postcss-selector-parser
     case "selector-root": {
@@ -182,7 +198,7 @@ function genericPrint(path, options, print) {
       return n.value;
     }
     case "selector-string": {
-      return n.value;
+      return adjustStrings(n.value, options);
     }
     case "selector-tag": {
       return n.value;
@@ -198,7 +214,9 @@ function genericPrint(path, options, print) {
         "[",
         n.attribute,
         n.operator ? n.operator : "",
-        n.value ? adjustStrings(n.value, options) : "",
+        n.value
+          ? quoteAttributeValue(adjustStrings(n.value, options), options)
+          : "",
         n.insensitive ? " i" : "",
         "]"
       ]);
@@ -319,7 +337,7 @@ function genericPrint(path, options, print) {
       return n.value;
     }
     case "value-number": {
-      return concat([n.value, n.unit]);
+      return concat([printNumber(n.value), n.unit]);
     }
     case "value-operator": {
       return n.value;
@@ -401,9 +419,37 @@ function printValue(value) {
 }
 
 const STRING_REGEX = /(['"])(?:(?!\1)[^\\]|\\[\s\S])*\1/g;
+const NUMBER_REGEX = /(?:\d*\.\d+|\d+\.?)(?:[eE][+-]?\d+)?/g;
+const STRING_OR_NUMBER_REGEX = RegExp(
+  `${STRING_REGEX.source}|(${NUMBER_REGEX.source})`,
+  "g"
+);
 
 function adjustStrings(value, options) {
   return value.replace(STRING_REGEX, match => util.printString(match, options));
+}
+
+function quoteAttributeValue(value, options) {
+  const quote = options.singleQuote ? "'" : '"';
+  return value.includes('"') || value.includes("'")
+    ? value
+    : quote + value + quote;
+}
+
+function adjustNumbers(value) {
+  return value.replace(
+    STRING_OR_NUMBER_REGEX,
+    (match, quote, number) => (number ? printNumber(number) : match)
+  );
+}
+
+function printNumber(rawNumber) {
+  return (
+    util
+      .printNumber(rawNumber)
+      // Remove trailing `.0`.
+      .replace(/\.0(?=$|e)/, "")
+  );
 }
 
 module.exports = genericPrint;

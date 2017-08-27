@@ -66,3 +66,8 @@
 </div>;
 
 <div>{/*<div>  Some very v  ery very very long line to break line width limit </div>*/}</div>;
+
+<Wrapper>
+  {}
+  <Component />
+</Wrapper>

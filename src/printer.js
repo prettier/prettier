@@ -63,10 +63,29 @@ function getPrintFunction(options) {
   }
 }
 
+function hasIgnoreComment(path) {
+  const node = path.getValue();
+  return hasNodeIgnoreComment(node) || hasJsxIgnoreComment(path);
+}
+
+function hasNodeIgnoreComment(node) {
+  return (
+    node &&
+    node.comments &&
+    node.comments.length > 0 &&
+    node.comments.some(comment => comment.value.trim() === "prettier-ignore")
+  );
+}
+
 function hasJsxIgnoreComment(path) {
   const node = path.getValue();
   const parent = path.getParentNode();
-  if (!parent || node.type !== "JSXElement" || parent.type !== "JSXElement") {
+  if (
+    !parent ||
+    !node ||
+    node.type !== "JSXElement" ||
+    parent.type !== "JSXElement"
+  ) {
     return false;
   }
 
@@ -86,6 +105,7 @@ function hasJsxIgnoreComment(path) {
     prevSibling &&
     prevSibling.type === "JSXExpressionContainer" &&
     prevSibling.expression.type === "JSXEmptyExpression" &&
+    prevSibling.expression.comments &&
     prevSibling.expression.comments.find(
       comment => comment.value.trim() === "prettier-ignore"
     )
@@ -98,15 +118,7 @@ function genericPrint(path, options, printPath, args) {
   const node = path.getValue();
 
   // Escape hatch
-  if (
-    node &&
-    ((node.comments &&
-      node.comments.length > 0 &&
-      node.comments.some(
-        comment => comment.value.trim() === "prettier-ignore"
-      )) ||
-      hasJsxIgnoreComment(path))
-  ) {
+  if (hasIgnoreComment(path)) {
     return options.originalText.slice(util.locStart(node), util.locEnd(node));
   }
 
@@ -615,7 +627,7 @@ function genericPrintNoParens(path, options, print, args) {
       }
 
       return path.call(print, "id");
-    case "TSExportAssigment":
+    case "TSExportAssignment":
       return concat(["export = ", path.call(print, "expression"), semi]);
     case "ExportDefaultDeclaration":
     case "ExportNamedDeclaration":
@@ -1162,7 +1174,7 @@ function genericPrintNoParens(path, options, print, args) {
     case "RegExpLiteral": // Babel 6 Literal split
       return printRegex(n);
     case "NumericLiteral": // Babel 6 Literal split
-      return printNumber(n.extra.raw);
+      return util.printNumber(n.extra.raw);
     case "BooleanLiteral": // Babel 6 Literal split
     case "StringLiteral": // Babel 6 Literal split
     case "Literal": {
@@ -1170,7 +1182,7 @@ function genericPrintNoParens(path, options, print, args) {
         return printRegex(n.regex);
       }
       if (typeof n.value === "number") {
-        return printNumber(n.raw);
+        return util.printNumber(n.raw);
       }
       if (typeof n.value !== "string") {
         return "" + n.value;
@@ -2224,7 +2236,7 @@ function genericPrintNoParens(path, options, print, args) {
         n.static ? "static " : "",
         isGetterOrSetter(n) ? n.kind + " " : "",
         variance || "",
-        path.call(print, "key"),
+        printPropertyKey(path, options, print),
         printOptionalToken(path),
         isFunctionNotation(n) ? "" : ": ",
         path.call(print, "value")
@@ -2242,9 +2254,9 @@ function genericPrintNoParens(path, options, print, args) {
       assert.strictEqual(typeof n.value, "number");
 
       if (n.extra != null) {
-        return printNumber(n.extra.raw);
+        return util.printNumber(n.extra.raw);
       }
-      return printNumber(n.raw);
+      return util.printNumber(n.raw);
 
     case "StringTypeAnnotation":
       return "string";
@@ -2386,7 +2398,7 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push("[");
       }
 
-      parts.push(path.call(print, "key"));
+      parts.push(printPropertyKey(path, options, print));
 
       if (n.computed) {
         parts.push("]");
@@ -2561,8 +2573,11 @@ function genericPrintNoParens(path, options, print, args) {
       if (n.modifiers) {
         parts.push(printTypeScriptModifiers(path, options, print));
       }
+      if (n.const) {
+        parts.push("const ");
+      }
 
-      parts.push("enum ", path.call(print, "name"), " ");
+      parts.push("enum ", path.call(print, "id"), " ");
 
       if (n.members.length === 0) {
         parts.push(
@@ -2601,7 +2616,7 @@ function genericPrintNoParens(path, options, print, args) {
 
       return concat(parts);
     case "TSEnumMember":
-      parts.push(path.call(print, "name"));
+      parts.push(path.call(print, "id"));
       if (n.initializer) {
         parts.push(" = ", path.call(print, "initializer"));
       }
@@ -2624,22 +2639,25 @@ function genericPrintNoParens(path, options, print, args) {
       return concat(["require(", path.call(print, "expression"), ")"]);
     case "TSModuleDeclaration": {
       const parent = path.getParentNode();
-      const isExternalModule = isLiteral(n.name);
+      const isExternalModule = isLiteral(n.id);
       const parentIsDeclaration = parent.type === "TSModuleDeclaration";
       const bodyIsDeclaration = n.body && n.body.type === "TSModuleDeclaration";
 
       if (parentIsDeclaration) {
         parts.push(".");
       } else {
+        if (n.declare === true) {
+          parts.push("declare ");
+        }
         parts.push(printTypeScriptModifiers(path, options, print));
 
         // Global declaration looks like this:
         // (declare)? global { ... }
         const isGlobalDeclaration =
-          n.name.type === "Identifier" &&
-          n.name.name === "global" &&
+          n.id.type === "Identifier" &&
+          n.id.name === "global" &&
           !/namespace|module/.test(
-            options.originalText.slice(util.locStart(n), util.locStart(n.name))
+            options.originalText.slice(util.locStart(n), util.locStart(n.id))
           );
 
         if (!isGlobalDeclaration) {
@@ -2647,7 +2665,7 @@ function genericPrintNoParens(path, options, print, args) {
         }
       }
 
-      parts.push(path.call(print, "name"));
+      parts.push(path.call(print, "id"));
 
       if (bodyIsDeclaration) {
         parts.push(path.call(print, "body"));
@@ -3378,10 +3396,23 @@ function printClass(path, options, print) {
 
   const partsGroup = [];
   if (n.superClass) {
-    parts.push(
-      " extends ",
+    if (hasLeadingOwnLineComment(options.originalText, n.superClass)) {
+      parts.push(hardline);
+    } else {
+      parts.push(" ");
+    }
+
+    const printed = concat([
+      "extends ",
       path.call(print, "superClass"),
       path.call(print, "superTypeParameters")
+    ]);
+    parts.push(
+      path.call(
+        superClass =>
+          comments.printComments(superClass, () => printed, options),
+        "superClass"
+      )
     );
   } else if (n.extends && n.extends.length > 0) {
     parts.push(" extends ", join(", ", path.map(print, "extends")));
@@ -3399,7 +3430,16 @@ function printClass(path, options, print) {
     parts.push(group(indent(concat(partsGroup))));
   }
 
-  parts.push(" ", path.call(print, "body"));
+  if (
+    n.body &&
+    n.body.comments &&
+    hasLeadingOwnLineComment(options.originalText, n.body)
+  ) {
+    parts.push(hardline);
+  } else {
+    parts.push(" ");
+  }
+  parts.push(path.call(print, "body"));
 
   return parts;
 }
@@ -3619,7 +3659,8 @@ function printMemberChain(path, options, print) {
     groups[0].length === 1 &&
     (groups[0][0].node.type === "ThisExpression" ||
       (groups[0][0].node.type === "Identifier" &&
-        groups[0][0].node.name.match(/(^[A-Z])|^[_$]+$/)));
+        (groups[0][0].node.name.match(/(^[A-Z])|^[_$]+$/) ||
+          (groups[1].length && groups[1][0].node.computed))));
 
   function printGroup(printedGroup) {
     return concat(printedGroup.map(tuple => tuple.printed));
@@ -4333,23 +4374,6 @@ function printRegex(node) {
   return `/${node.pattern}/${flags}`;
 }
 
-function printNumber(rawNumber) {
-  return (
-    rawNumber
-      .toLowerCase()
-      // Remove unnecessary plus and zeroes from scientific notation.
-      .replace(/^([\d.]+e)(?:\+|(-))?0*(\d)/, "$1$2$3")
-      // Remove unnecessary scientific notation (1e0).
-      .replace(/^([\d.]+)e[+-]?0+$/, "$1")
-      // Make sure numbers always start with a digit.
-      .replace(/^\./, "0.")
-      // Remove extraneous trailing decimal zeroes.
-      .replace(/(\.\d+?)0+(?=e|$)/, "$1")
-      // Remove trailing dot.
-      .replace(/\.(?=e|$)/, "")
-  );
-}
-
 function isLastStatement(path) {
   const parent = path.getParentNode();
   if (!parent) {
@@ -4371,7 +4395,7 @@ function hasTrailingComment(node) {
 
 function hasLeadingOwnLineComment(text, node) {
   if (node.type === "JSXElement") {
-    return false;
+    return hasNodeIgnoreComment(node);
   }
 
   const res =
@@ -4732,10 +4756,14 @@ function printAstToDoc(ast, options, addAlignmentSize) {
     // UnionTypeAnnotation has to align the child without the comments
     let res;
     if (
-      (node && node.type === "JSXElement") ||
-      (parent &&
-        (parent.type === "UnionTypeAnnotation" ||
-          parent.type === "TSUnionType"))
+      ((node && node.type === "JSXElement") ||
+        (parent &&
+          (parent.type === "UnionTypeAnnotation" ||
+            parent.type === "TSUnionType" ||
+            ((parent.type === "ClassDeclaration" ||
+              parent.type === "ClassExpression") &&
+              parent.superClass === node)))) &&
+      !hasIgnoreComment(path)
     ) {
       res = genericPrint(path, options, printGenerically, args);
     } else {

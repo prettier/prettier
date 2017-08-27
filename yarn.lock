@@ -2998,9 +2998,9 @@ postcss-selector-parser@2.2.3:
     indexes-of "^1.0.1"
     uniq "^1.0.1"
 
-"postcss-values-parser@git://github.com/shellscape/postcss-values-parser.git#5e351360479116f3fe309602cdd15b0a233bc29f":
-  version "1.2.2"
-  resolved "git://github.com/shellscape/postcss-values-parser.git#5e351360479116f3fe309602cdd15b0a233bc29f"
+"postcss-values-parser@git://github.com/lydell/postcss-values-parser.git#af2c80b2bb558a6e7d61540d97f068f9fa162b38":
+  version "1.3.0"
+  resolved "git://github.com/lydell/postcss-values-parser.git#af2c80b2bb558a6e7d61540d97f068f9fa162b38"
   dependencies:
     flatten "^1.0.2"
     indexes-of "^1.0.1"
@@ -3808,16 +3808,16 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-"typescript-eslint-parser@git://github.com/eslint/typescript-eslint-parser.git#e1db075b938bf74acfe16c6f3e63dc4dc12c0e58":
-  version "4.0.0"
-  resolved "git://github.com/eslint/typescript-eslint-parser.git#e1db075b938bf74acfe16c6f3e63dc4dc12c0e58"
+"typescript-eslint-parser@git://github.com/eslint/typescript-eslint-parser.git#801d65585af6995a223136862944095b48f5c567":
+  version "6.0.1"
+  resolved "git://github.com/eslint/typescript-eslint-parser.git#801d65585af6995a223136862944095b48f5c567"
   dependencies:
     lodash.unescape "4.0.1"
     semver "5.3.0"
 
-typescript@2.5.0-dev.20170617:
-  version "2.5.0-dev.20170617"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.5.0-dev.20170617.tgz#5c72d3d4ea278f8db662f513c6911cd31378f024"
+typescript@2.5.1:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.5.1.tgz#ce7cc93ada3de19475cc9d17e3adea7aee1832aa"
 
 uglify-es@3.0.15:
   version "3.0.15"

@@ -205,6 +205,17 @@ function requireParser(isSCSS) {
   if (isSCSS) {
     return require("postcss-scss");
   }
+
+  // TODO: Remove this hack when this issue is fixed:
+  // https://github.com/shellscape/postcss-less/issues/88
+  const LessParser = require("postcss-less/dist/less-parser");
+  LessParser.prototype.atrule = function() {
+    return Object.getPrototypeOf(LessParser.prototype).atrule.apply(
+      this,
+      arguments
+    );
+  };
+
   return require("postcss-less");
 }
 
