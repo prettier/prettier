@@ -3464,11 +3464,7 @@ function printMemberLookup(path, options, print) {
     return concat([optional, ".", property]);
   }
 
-  if (
-    !n.property ||
-    (n.property.type === "Literal" && typeof n.property.value === "number") ||
-    n.property.type === "NumericLiteral"
-  ) {
+  if (!n.property || isNumericLiteral(n.property)) {
     return concat([optional, "[", property, "]"]);
   }
 
@@ -3585,14 +3581,16 @@ function printMemberChain(path, options, print) {
       break;
     }
   }
-  for (; i + 1 < printedNodes.length; ++i) {
-    if (
-      isMemberish(printedNodes[i].node) &&
-      isMemberish(printedNodes[i + 1].node)
-    ) {
-      currentGroup.push(printedNodes[i]);
-    } else {
-      break;
+  if (printedNodes[0].node.type !== "CallExpression") {
+    for (; i + 1 < printedNodes.length; ++i) {
+      if (
+        isMemberish(printedNodes[i].node) &&
+        isMemberish(printedNodes[i + 1].node)
+      ) {
+        currentGroup.push(printedNodes[i]);
+      } else {
+        break;
+      }
     }
   }
   groups.push(currentGroup);
@@ -3609,7 +3607,7 @@ function printMemberChain(path, options, print) {
       // beginning of the next one
       if (
         printedNodes[i].node.computed &&
-        isLiteral(printedNodes[i].node.property)
+        isNumericLiteral(printedNodes[i].node.property)
       ) {
         currentGroup.push(printedNodes[i]);
         continue;
@@ -3702,14 +3700,20 @@ function printMemberChain(path, options, print) {
     printIndentedGroup(groups.slice(shouldMerge ? 2 : 1))
   ]);
 
-  // If there's a comment, we don't want to print in one line.
-  if (hasComment) {
-    return group(expanded);
-  }
+  const callExpressionCount = printedNodes.filter(
+    tuple => tuple.node.type === "CallExpression"
+  ).length;
 
-  // If any group but the last one has a hard line, we want to force expand
-  // it. If the last group is a function it's okay to inline if it fits.
-  if (printedGroups.slice(0, -1).some(willBreak)) {
+  // We don't want to print in one line if there's:
+  //  * A comment.
+  //  * 3 or more chained calls.
+  //  * Any group but the last one has a hard line.
+  // If the last group is a function it's okay to inline if it fits.
+  if (
+    hasComment ||
+    callExpressionCount >= 3 ||
+    printedGroups.slice(0, -1).some(willBreak)
+  ) {
     return group(expanded);
   }
 
@@ -4721,6 +4725,13 @@ function isLiteral(node) {
     node.type === "TemplateLiteral" ||
     node.type === "TSTypeLiteral" ||
     node.type === "JSXText"
+  );
+}
+
+function isNumericLiteral(node) {
+  return (
+    node.type === "NumericLiteral" ||
+    (node.type === "Literal" && typeof node.value === "number")
   );
 }
 
