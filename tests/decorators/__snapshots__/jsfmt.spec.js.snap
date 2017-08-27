@@ -84,6 +84,26 @@ var x = 100;
 })
 class X {}
 
+export @NgModule({
+  // Imports.
+  imports: [
+    // Angular modules.
+    BrowserModule,
+
+    // App modules.
+    CoreModule,
+    SharedModule
+  ]
+})
+class AppModule {}
+
+// A
+export @Foo()
+// B
+@Bar()
+// C
+class Bar {}
+
 `;
 
 exports[`export.js 1`] = `
@@ -91,13 +111,6 @@ export default
 @bar class Foo { }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export default @bar class Foo {};
-
-// A
-@Foo()
-// B
-@Bar()
-// C
-export class Bar {}
 
 `;
 
