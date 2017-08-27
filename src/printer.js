@@ -210,14 +210,6 @@ function genericPrint(path, options, printPath, args) {
     needsParens = path.needsParens(options);
   }
 
-  if (node.type) {
-    // HACK: ASI prevention in no-semi mode relies on knowledge of whether
-    // or not a paren has been inserted (see `exprNeedsASIProtection()`).
-    // For now, we're just passing that information by mutating the AST here,
-    // but it would be nice to find a cleaner way to do this.
-    node.needsParens = needsParens;
-  }
-
   const parts = [];
   if (needsParens) {
     parts.unshift("(");
@@ -388,7 +380,8 @@ function genericPrintNoParens(path, options, print, args) {
         firstNonMemberParent = path.getParentNode(i);
         i++;
       } while (
-        firstNonMemberParent && firstNonMemberParent.type === "MemberExpression"
+        firstNonMemberParent &&
+        firstNonMemberParent.type === "MemberExpression"
       );
 
       const shouldInline =
@@ -470,7 +463,7 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push("async ");
       }
 
-      if (canPrintParamsWithoutParens(n)) {
+      if (shouldPrintParamsWithoutParens(path, options)) {
         parts.push(path.call(print, "params", 0));
       } else {
         parts.push(
@@ -2727,10 +2720,12 @@ function printStatementSequence(path, options, print) {
     const parts = [];
 
     // in no-semi mode, prepend statement with semicolon if it might break ASI
-    if (!options.semi && !isClass && stmtNeedsASIProtection(stmtPath)) {
+    if (
+      !options.semi &&
+      !isClass &&
+      stmtNeedsASIProtection(stmtPath, options)
+    ) {
       if (stmt.comments && stmt.comments.some(comment => comment.leading)) {
-        // Note: stmtNeedsASIProtection requires stmtPath to already be printed
-        // as it reads needsParens which is mutated on the instance
         parts.push(print(stmtPath, { needsSemi: true }));
       } else {
         parts.push(";", stmtPrinted);
@@ -3095,6 +3090,33 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
     softline,
     ")"
   ]);
+}
+
+function shouldPrintParamsWithoutParens(path, options) {
+  if (options.arrowFnParens === "always") return false;
+
+  const node = path.getValue();
+  if (options.arrowFnParens === "avoid") {
+    return canPrintParamsWithoutParens(node);
+  }
+
+  // "functional" mode; omit parens only when:
+  // - currying (eg; fn = a => b => c)
+  // - used as a simple callback (eg; arr.map(x => x + 1))
+  if (options.arrowFnParens === "functional") {
+    const parentNode = path.getParentNode();
+    if (
+      (parentNode.type === "CallExpression" &&
+        parentNode.arguments.length === 1 &&
+        node.expression === true) ||
+      (parentNode.type === "ArrowFunctionExpression" &&
+        parentNode.expression === true) ||
+      (node.expression === true && node.body.type === "ArrowFunctionExpression")
+    ) {
+      return canPrintParamsWithoutParens(node);
+    }
+  }
+  return false;
 }
 
 function canPrintParamsWithoutParens(node) {
@@ -4437,15 +4459,26 @@ function getLeftSide(node) {
   );
 }
 
-function exprNeedsASIProtection(node) {
-  // HACK: node.needsParens is added in `genericPrint()` for the sole purpose
-  // of being used here. It'd be preferable to find a cleaner way to do this.
+function getLeftSidePathName(path, node) {
+  if (node.expressions) return ["expressions", 0];
+  if (node.left) return ["left"];
+  if (node.test) return ["test"];
+  if (node.callee) return ["callee"];
+  if (node.object) return ["object"];
+  if (node.tag) return ["tag"];
+  if (node.argument) return ["argument"];
+  if (node.expression) return ["expression"];
+  throw new Error("Unexpected node has no left side", node);
+}
+
+function exprNeedsASIProtection(path, options) {
+  const node = path.getValue();
   const maybeASIProblem =
-    node.needsParens ||
+    path.needsParens(options) ||
     node.type === "ParenthesizedExpression" ||
     node.type === "TypeCastExpression" ||
     (node.type === "ArrowFunctionExpression" &&
-      !canPrintParamsWithoutParens(node)) ||
+      !shouldPrintParamsWithoutParens(path, options)) ||
     node.type === "ArrayExpression" ||
     node.type === "ArrayPattern" ||
     (node.type === "UnaryExpression" &&
@@ -4467,17 +4500,23 @@ function exprNeedsASIProtection(node) {
     return false;
   }
 
-  return exprNeedsASIProtection(getLeftSide(node));
+  return path.call(
+    childPath => exprNeedsASIProtection(childPath, options),
+    ...getLeftSidePathName(path, node)
+  );
 }
 
-function stmtNeedsASIProtection(path) {
+function stmtNeedsASIProtection(path, options) {
   const node = path.getNode();
 
   if (node.type !== "ExpressionStatement") {
     return false;
   }
 
-  return exprNeedsASIProtection(node.expression);
+  return path.call(
+    childPath => exprNeedsASIProtection(childPath, options),
+    "expression"
+  );
 }
 
 function classPropMayCauseASIProblems(path) {
