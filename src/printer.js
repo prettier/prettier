@@ -3103,11 +3103,14 @@ function shouldPrintParamsWithoutParens(path, options) {
   // "functional" mode; omit parens only when:
   // - currying (eg; fn = a => b => c)
   // - used as a simple callback (eg; arr.map(x => x + 1))
+  // - used in template literals (eg; `color: ${props => props.color}`) for styled-components et al
   if (options.arrowFnParens === "functional") {
     const parentNode = path.getParentNode();
     if (
       (parentNode.type === "CallExpression" &&
         parentNode.arguments.length === 1 &&
+        node.expression === true) ||
+      (parentNode.type === "TemplateLiteral" &&
         node.expression === true) ||
       (parentNode.type === "ArrowFunctionExpression" &&
         parentNode.expression === true) ||
