@@ -216,7 +216,7 @@ function getNextNonSpaceNonCommentCharacter(text, node) {
   return text.charAt(idx);
 }
 
-function getPreviousNonSpaceCharacter(text, node) {
+function getPreviousNonSpaceNonCommentCharacter(text, node) {
   let oldIdx = null;
   let idx = locStart(node) - 1;
   const traversalOptions = { backwards: true };
@@ -624,7 +624,7 @@ module.exports = {
   getPenultimate,
   getLast,
   getNextNonSpaceNonCommentCharacter,
-  getPreviousNonSpaceCharacter,
+  getPreviousNonSpaceNonCommentCharacter,
   skipWhitespace,
   skipSpaces,
   skipNewline,
