@@ -16,7 +16,7 @@ const defaults = {
   jsxBracketSameLine: false,
   parser: "babylon",
   semi: true,
-  arrowFnParens: "avoid"
+  arrowFnParens: "functional"
 };
 
 const trailingCommaEnum = ["none", "es5", "all"];

@@ -59,7 +59,7 @@ declare function foo<U>(
 declare var items: Bar<string>;
 declare var updater: (value: Bar<string>) => Bar<string>;
 
-foo(items, acc => acc.update(updater));
+foo(items, (acc) => acc.update(updater));
 
 `;
 

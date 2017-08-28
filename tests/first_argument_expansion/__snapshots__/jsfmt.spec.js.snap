@@ -105,7 +105,7 @@ func(function() {
   thing();
 }, this.props.timeout * 1000);
 
-func(that => {
+func((that) => {
   thing();
 }, this.props.getTimeout());
 
@@ -125,9 +125,9 @@ func(() => {
   thing();
 }, /regex.*?/);
 
-compose(a => {
+compose((a) => {
   return a.thing;
-}, b => b * b);
+}, (b) => b * b);
 
 somthing.reduce(function(item, thing) {
   return (thing.blah = item);
@@ -162,23 +162,23 @@ func(
 );
 
 compose(
-  a => {
+  (a) => {
     return a.thing;
   },
-  b => {
+  (b) => {
     return b + "";
   }
 );
 
 compose(
-  a => {
+  (a) => {
     return a.thing;
   },
-  b => [1, 2, 3, 4, 5]
+  (b) => [1, 2, 3, 4, 5]
 );
 
 renderThing(
-  a => <div>Content. So much to say. Oh my. Are we done yet?</div>,
+  (a) => <div>Content. So much to say. Oh my. Are we done yet?</div>,
   args
 );
 

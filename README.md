@@ -594,7 +594,7 @@ Valid options:
 
 Default | CLI Override | API Override
 --------|--------------|-------------
-`"avoid"` | `--arrow-fn-parens <avoid,functional,always>` | `arrowFnParens: "<avoid,functional,always>"`
+`"functional"` | `--arrow-fn-parens <avoid,functional,always>` | `arrowFnParens: "<avoid,functional,always>"`
 
 ### Range
 Format only a segment of a file.

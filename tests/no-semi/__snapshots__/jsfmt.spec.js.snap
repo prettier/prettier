@@ -454,7 +454,7 @@ fn(x);
 tag\`string\`;
 
 x;
-x => x;
+(x) => x;
 
 x;
 (a || b).c++;
@@ -779,7 +779,7 @@ fn(x)
 tag\`string\`
 
 x
-x => x
+;(x) => x
 
 x
 ;(a || b).c++

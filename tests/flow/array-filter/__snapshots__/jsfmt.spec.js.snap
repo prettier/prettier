@@ -44,7 +44,7 @@ console.log(filteredItems);
 
 function filterItems(items: Array<string | number>): Array<string | number> {
   return items
-    .map(item => {
+    .map((item) => {
       if (typeof item === "string") {
         return item.length > 2 ? item : null;
       } else {
