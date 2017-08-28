@@ -388,7 +388,8 @@ function genericPrintNoParens(path, options, print, args) {
         firstNonMemberParent = path.getParentNode(i);
         i++;
       } while (
-        firstNonMemberParent && firstNonMemberParent.type === "MemberExpression"
+        firstNonMemberParent &&
+        firstNonMemberParent.type === "MemberExpression"
       );
 
       const shouldInline =
@@ -4371,7 +4372,10 @@ function nodeStr(node, options, isFlowOrTypeScriptDirectiveLiteral) {
 }
 
 function printRegex(node) {
-  const flags = node.flags.split("").sort().join("");
+  const flags = node.flags
+    .split("")
+    .sort()
+    .join("");
   return `/${node.pattern}/${flags}`;
 }
 
