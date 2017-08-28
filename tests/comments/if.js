@@ -46,5 +46,7 @@ else if (7) /* comment */
 true
 else if (8) // comment /* comment */ // comment
 true
+else if (9) /* comment */ /* comment */ // comment
+true
 else /* comment */
 {true}

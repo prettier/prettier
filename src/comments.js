@@ -15,7 +15,8 @@ const locStart = util.locStart;
 const locEnd = util.locEnd;
 const getNextNonSpaceNonCommentCharacter =
   util.getNextNonSpaceNonCommentCharacter;
-const getPreviousNonSpaceNonCommentCharacter = util.getPreviousNonSpaceNonCommentCharacter;
+const getPreviousNonSpaceNonCommentCharacter =
+  util.getPreviousNonSpaceNonCommentCharacter;
 
 function getSortedChildNodes(node, text, resultArray) {
   if (!node) {
