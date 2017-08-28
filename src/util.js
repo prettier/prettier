@@ -201,7 +201,7 @@ function getNextNonSpaceNonCommentCharacter(text, node) {
 function getPreviousNonSpaceCharacter(text, node) {
   let oldIdx = null;
   let idx = locStart(node) - 1;
-  const traversalOptions = {backwards: true}
+  const traversalOptions = { backwards: true };
   while (idx !== oldIdx) {
     oldIdx = idx;
     idx = skipSpaces(text, idx, traversalOptions);
