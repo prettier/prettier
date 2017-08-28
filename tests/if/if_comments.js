@@ -10,6 +10,15 @@ async function f() {
 }
 
 async function f() {
+  if (untrackedChoice === 0) /* Cancel */
+    null;
+  else if (untrackedChoice === 1) /* Add */
+    shouldAmend = true;
+  else if (untrackedChoice === 2) /* Allow Untracked */
+    allowUntracked = true;
+}
+
+async function f() {
   if (untrackedChoice === 0)
     /* Cancel */ {
       return null;

@@ -20,7 +20,22 @@ else if (4) {
 else {
 }
 
-if (1)
-{}
+if (5) // comment
+true
+
+if (6) // comment
+{true}
+else if (7) // comment
+true
 else // comment
-{}
+{true}
+
+if (8) // comment
+// comment
+{true}
+else if (9) // comment
+// comment
+true
+else // comment
+// comment
+{true}
