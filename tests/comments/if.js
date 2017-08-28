@@ -39,3 +39,10 @@ true
 else // comment
 // comment
 {true}
+
+if (6) /* comment */ // comment
+{true}
+else if (7) /* comment */
+true
+else /* comment */     
+{true}
