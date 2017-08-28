@@ -12,7 +12,7 @@
   "main": "./index.js",
   "dependencies": {
     "babel-code-frame": "7.0.0-alpha.12",
-    "babylon": "7.0.0-beta.17",
+    "babylon": "7.0.0-beta.22",
     "chalk": "2.0.1",
     "cosmiconfig": "2.2.2",
     "dashify": "0.2.2",
