@@ -150,6 +150,7 @@ function getOptions(argv) {
     jsxBracketSameLine: argv["jsx-bracket-same-line"],
     filepath: argv["stdin-filepath"],
     trailingComma: getTrailingComma(argv),
+    arrowFnParens: getArrowFnParens(argv),
     parser: getParserOption(argv)
   };
 }
@@ -207,6 +208,22 @@ function getTrailingComma(argv) {
       return "all";
     default:
       throw new Error("Invalid option for --trailing-comma");
+  }
+}
+
+function getArrowFnParens(argv) {
+  switch (argv["arrow-fn-parens"]) {
+    case "avoid":
+      return "avoid";
+    case "always":
+      return "always";
+    case "functional":
+      return "functional";
+    case undefined:
+      // default will be chosen in options.js
+      return undefined;
+    default:
+      throw new Error("Invalid option for --arrow-fn-parens");
   }
 }
 

@@ -45,6 +45,7 @@ conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Pre
   + [Trailing Commas](#trailing-commas)
   + [Bracket Spacing](#bracket-spacing)
   + [JSX Brackets](#jsx-brackets)
+  + [Arrow Function Parens](#arrow-function-parens)
   + [Range](#range)
   + [Parser](#parser)
   + [Filepath](#filepath)
@@ -578,6 +579,22 @@ Put the `>` of a multi-line JSX element at the end of the last line instead of b
 Default | CLI Override | API Override
 --------|--------------|-------------
 `false` | `--jsx-bracket-same-line` | `jsxBracketSameLine: <bool>`
+
+## Arrow Function Parens
+Use parens around a sole parameter of an arrow function, when possible:
+
+- `const fn = a => a.id;`
+- `arr.map(x => x.id)`
+
+Valid options:
+
+ * `"avoid"` - Always prefer `x => x` when syntax allows.
+ * `"functional"` - Prefer `(x) => x`, except in curried chains (`f = a => b => (a + b)`) and simple callbacks (`a.map(x => x.id)`).
+ * `"always"` - Always prefer `(x) => x`.
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`"avoid"` | `--arrow-fn-parens <avoid,functional,always>` | `arrowFnParens: "<avoid,functional,always>"`
 
 ### Range
 Format only a segment of a file.
