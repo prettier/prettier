@@ -2,7 +2,7 @@
 
 const React = require("react");
 
-const GithubButton = props =>
+const GithubButton = props => (
   <a
     className="github-button"
     href={props.config.githubUrl}
@@ -13,7 +13,8 @@ const GithubButton = props =>
     aria-label="Star this project on GitHub"
   >
     Star
-  </a>;
+  </a>
+);
 
 GithubButton.propTypes = {
   config: React.PropTypes.object
