@@ -1220,12 +1220,12 @@ promise.then(
 );
 
 foo(a => b);
-foo((a) => {
+foo(a => {
   return b;
 });
 foo(c, (a) => b);
 foo(c, (a) => b, d);
-foo((a) => b, d);
+foo(a => b, d);
 
 `;
 

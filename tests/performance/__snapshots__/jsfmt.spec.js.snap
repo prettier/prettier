@@ -171,7 +171,7 @@ tap.test("RecordImport.advance", (t) => {
     });
   };
 
-  mockFS((callback) => {
+  mockFS(callback => {
     batch.setResults([fs.createReadStream(dataFile)], (err) => {
       t.error(err, "Error should be empty.");
       t.equal(batch.results.length, 6, "Check number of results");
@@ -184,26 +184,26 @@ tap.test("RecordImport.advance", (t) => {
       getBatches((err, batches) => {
         checkStates(batches, ["started"]);
 
-        RecordImport.advance((err) => {
+        RecordImport.advance(err => {
           t.error(err, "Error should be empty.");
 
           getBatches((err, batches) => {
             checkStates(batches, ["process.completed"]);
 
             // Need to manually move to the next step
-            batch.importRecords((err) => {
+            batch.importRecords(err => {
               t.error(err, "Error should be empty.");
 
               getBatches((err, batches) => {
                 checkStates(batches, ["import.completed"]);
 
-                RecordImport.advance((err) => {
+                RecordImport.advance(err => {
                   t.error(err, "Error should be empty.");
 
                   getBatches((err, batches) => {
                     checkStates(batches, ["similarity.sync.completed"]);
 
-                    RecordImport.advance((err) => {
+                    RecordImport.advance(err => {
                       t.error(err, "Error should be empty.");
 
                       t.ok(batch.getCurState().name(i18n));

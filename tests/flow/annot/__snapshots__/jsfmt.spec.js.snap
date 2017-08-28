@@ -111,7 +111,7 @@ function param_anno2(
   // just assign result to new var instead of reassigning to param.
 
   // Transform the requests to the format the Graph API expects.
-  batchRequests = batchRequests.map((request) => {
+  batchRequests = batchRequests.map(request => {
     return {
       method: request.method,
       params: request.params,

@@ -30,7 +30,7 @@ const promises = [
   promise
     .resolve()
     .then(console.log)
-    .catch((err) => {
+    .catch(err => {
       console.log(err);
       return null;
     }),
@@ -44,7 +44,7 @@ const promises = [
     .veryLongFunctionCall()
     .veryLongFunctionCall()
     .then(console.log)
-    .catch((err) => {
+    .catch(err => {
       console.log(err);
       return null;
     }),

@@ -105,7 +105,7 @@ func(function() {
   thing();
 }, this.props.timeout * 1000);
 
-func((that) => {
+func(that => {
   thing();
 }, this.props.getTimeout());
 
@@ -178,7 +178,7 @@ compose(
 );
 
 renderThing(
-  (a) => <div>Content. So much to say. Oh my. Are we done yet?</div>,
+  a => <div>Content. So much to say. Oh my. Are we done yet?</div>,
   args
 );
 

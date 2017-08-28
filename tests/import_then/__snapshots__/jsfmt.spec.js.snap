@@ -13,7 +13,7 @@ import(
 import("myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename");
 
 import("myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename").then(
-  (exports) => {}
+  exports => {}
 );
 
 `;
@@ -23,7 +23,7 @@ const x = import('some-module').then(x => {
   // ...
 });
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const x = import("some-module").then((x) => {
+const x = import("some-module").then(x => {
   // ...
 });
 

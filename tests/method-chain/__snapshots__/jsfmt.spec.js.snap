@@ -401,13 +401,13 @@ exports[`computed-merge.js 1`] = `
     .catch(() => console.log('baz'));
 });
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[].forEach((key) => {
+[].forEach(key => {
   data[key]("foo")
     .then(() => console.log("bar"))
     .catch(() => console.log("baz"));
 });
 
-[].forEach((key) => {
+[].forEach(key => {
   data("foo")
     [key]("bar")
     .then(() => console.log("bar"))
@@ -473,7 +473,7 @@ function f() {
   return this._getWorker(workerOptions)({
     filePath,
     hasteImplModulePath: this._options.hasteImplModulePath
-  }).then((metadata) => {
+  }).then(metadata => {
     // \`1\` for truthy values instead of \`true\` to save cache space.
     fileMetadata[H.VISITED] = 1;
     const metadataId = metadata.id;
@@ -502,7 +502,7 @@ Object.keys(
   availableLocales({
     test: true
   })
-).forEach((locale) => {
+).forEach(locale => {
   // ...
 });
 
