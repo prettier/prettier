@@ -1025,9 +1025,10 @@ function printComments(path, print, options, needsSemi) {
 
       const text = options.originalText;
       if (
-        util.hasNewline(text, util.skipNewline(
-          text, util.skipSpaces(text, util.locEnd(comment))
-        ))
+        util.hasNewline(
+          text,
+          util.skipNewline(text, util.skipSpaces(text, util.locEnd(comment)))
+        )
       ) {
         leadingParts.push(hardline);
       }

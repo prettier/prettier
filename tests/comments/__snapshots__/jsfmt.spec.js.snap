@@ -335,7 +335,9 @@ if (6) /* comment */ // comment
 {true}
 else if (7) /* comment */
 true
-else /* comment */     
+else if (8) // comment /* comment */ // comment
+true
+else /* comment */
 {true}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 if (1) {
@@ -391,6 +393,9 @@ if (6) {
   true;
 } else if (7)
   /* comment */
+  true;
+else if (8)
+  // comment /* comment */ // comment
   true;
 else {
   /* comment */
