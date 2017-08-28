@@ -275,7 +275,7 @@ FastPath.prototype.needsParens = function(options) {
         return true;
       }
 
-      const isLeftOfAForStatement = (node) => {
+      const isLeftOfAForStatement = node => {
         let i = 0;
         while (node) {
           const parent = this.getParentNode(i++);

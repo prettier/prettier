@@ -380,8 +380,7 @@ function genericPrintNoParens(path, options, print, args) {
         firstNonMemberParent = path.getParentNode(i);
         i++;
       } while (
-        firstNonMemberParent &&
-        firstNonMemberParent.type === "MemberExpression"
+        firstNonMemberParent && firstNonMemberParent.type === "MemberExpression"
       );
 
       const shouldInline =
@@ -1234,7 +1233,7 @@ function genericPrintNoParens(path, options, print, args) {
         // Even though they don't need parens, we wrap (almost) everything in
         // parens when using ?: within JSX, because the parens are analagous to
         // curly braces in an if statement.
-        const wrap = (doc) =>
+        const wrap = doc =>
           concat([
             ifBreak("(", ""),
             indent(concat([softline, doc])),
@@ -1245,7 +1244,7 @@ function genericPrintNoParens(path, options, print, args) {
         // The only things we don't wrap are:
         // * Nested conditional expressions
         // * null
-        const shouldNotWrap = (node) =>
+        const shouldNotWrap = node =>
           node.type === "ConditionalExpression" ||
           node.type === "NullLiteral" ||
           (node.type === "Literal" && node.value === null);
@@ -1277,7 +1276,7 @@ function genericPrintNoParens(path, options, print, args) {
       // In JSX mode, we want a whole chain of ConditionalExpressions to all
       // break if any of them break. That means we should only group around the
       // outer-most ConditionalExpression.
-      const maybeGroup = (doc) =>
+      const maybeGroup = doc =>
         jsxMode
           ? parent === firstNonConditionalParent ? group(doc) : doc
           : group(doc); // Always group in normal mode.
@@ -3086,7 +3085,9 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
 }
 
 function shouldPrintParamsWithoutParens(path, options) {
-  if (options.arrowFnParens === "always") return false;
+  if (options.arrowFnParens === "always") {
+    return false;
+  }
 
   const node = path.getValue();
   if (options.arrowFnParens === "avoid") {
@@ -4458,14 +4459,30 @@ function getLeftSide(node) {
 }
 
 function getLeftSidePathName(path, node) {
-  if (node.expressions) return ["expressions", 0];
-  if (node.left) return ["left"];
-  if (node.test) return ["test"];
-  if (node.callee) return ["callee"];
-  if (node.object) return ["object"];
-  if (node.tag) return ["tag"];
-  if (node.argument) return ["argument"];
-  if (node.expression) return ["expression"];
+  if (node.expressions) {
+    return ["expressions", 0];
+  }
+  if (node.left) {
+    return ["left"];
+  }
+  if (node.test) {
+    return ["test"];
+  }
+  if (node.callee) {
+    return ["callee"];
+  }
+  if (node.object) {
+    return ["object"];
+  }
+  if (node.tag) {
+    return ["tag"];
+  }
+  if (node.argument) {
+    return ["argument"];
+  }
+  if (node.expression) {
+    return ["expression"];
+  }
   throw new Error("Unexpected node has no left side", node);
 }
 
@@ -4832,7 +4849,7 @@ function printAstToDoc(ast, options, addAlignmentSize) {
     } else {
       res = comments.printComments(
         path,
-        (p) => genericPrint(p, options, printGenerically, args),
+        p => genericPrint(p, options, printGenerically, args),
         options,
         args && args.needsSemi
       );

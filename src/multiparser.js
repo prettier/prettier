@@ -10,7 +10,7 @@ const softline = docBuilders.softline;
 const concat = docBuilders.concat;
 
 function printSubtree(subtreeParser, path, print, options) {
-  const next = Object.assign({}, { transformDoc: (doc) => doc }, subtreeParser);
+  const next = Object.assign({}, { transformDoc: doc => doc }, subtreeParser);
   next.options = Object.assign({}, options, next.options, {
     originalText: next.text
   });
@@ -79,7 +79,7 @@ function fromBabylonFlowOrTypeScript(path) {
       ) {
         return {
           options: { parser: "graphql" },
-          transformDoc: (doc) =>
+          transformDoc: doc =>
             concat([
               indent(concat([softline, stripTrailingHardline(doc)])),
               softline
@@ -109,7 +109,7 @@ function fromHtmlParser2(path, options) {
         const parser = options.parser === "flow" ? "flow" : "babylon";
         return {
           options: { parser },
-          transformDoc: (doc) => concat([hardline, doc]),
+          transformDoc: doc => concat([hardline, doc]),
           text: getText(options, node)
         };
       }
@@ -122,7 +122,7 @@ function fromHtmlParser2(path, options) {
       ) {
         return {
           options: { parser: "typescript" },
-          transformDoc: (doc) => concat([hardline, doc]),
+          transformDoc: doc => concat([hardline, doc]),
           text: getText(options, node)
         };
       }
@@ -131,7 +131,7 @@ function fromHtmlParser2(path, options) {
       if (parent.type === "style") {
         return {
           options: { parser: "postcss" },
-          transformDoc: (doc) => concat([hardline, stripTrailingHardline(doc)]),
+          transformDoc: doc => concat([hardline, stripTrailingHardline(doc)]),
           text: getText(options, node)
         };
       }
@@ -156,7 +156,7 @@ function fromHtmlParser2(path, options) {
             // TODO(azz): We still need to do an entity escape on the attribute.
             singleQuote: true
           },
-          transformDoc: (doc) => {
+          transformDoc: doc => {
             return concat([
               node.key,
               '="',
@@ -199,7 +199,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
   }
 
   const expressions = expressionDocs.slice();
-  const newDoc = docUtils.mapDoc(quasisDoc, (doc) => {
+  const newDoc = docUtils.mapDoc(quasisDoc, doc => {
     if (!doc || !doc.parts || !doc.parts.length) {
       return doc;
     }

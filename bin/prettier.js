@@ -68,7 +68,7 @@ const argv = minimist(args, {
     version: "v",
     "list-different": "l"
   },
-  unknown: (param) => {
+  unknown: param => {
     if (param.startsWith("-")) {
       const paramName = param.replace(/--(no-)?/, "");
       if (
@@ -505,7 +505,7 @@ function eachFilename(patterns, callback) {
         return;
       }
       // Use map series to ensure idempotency
-      mapSeries(ignorer.filter(filePaths), (filePath) => {
+      mapSeries(ignorer.filter(filePaths), filePath => {
         return getOptionsForFile(filePath).then(options =>
           callback(filePath, options)
         );
