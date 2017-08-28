@@ -274,7 +274,7 @@ const b = Observable.fromPromise(axiosInstance.get(url)).map(
 
 func(
   veryLoooooooooooooooooooooooongName,
-  veryLooooooooooooooooooooooooongName =>
+  (veryLooooooooooooooooooooooooongName) =>
     veryLoooooooooooooooongName.something()
 );
 

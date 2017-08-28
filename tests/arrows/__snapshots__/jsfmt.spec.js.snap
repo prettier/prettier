@@ -113,7 +113,7 @@ a = b => {
   return c
 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-(a => {}).length;
+((a) => {}).length;
 typeof (() => {});
 export default (() => {})();
 (() => {})()\`\`;
@@ -133,20 +133,20 @@ a = () => ({}[b] && a);
 a = () => ({}\`\` && a);
 a = () => ({} = 0);
 a = () => ({}, a);
-a => a instanceof {};
-a => ({}().b && 0);
-a => ({}().c = 0);
-x => ({}()());
-x => ({}()\`\`);
-x => ({}().b);
-a = b => c;
+(a) => a instanceof {};
+(a) => ({}().b && 0);
+(a) => ({}().c = 0);
+(x) => ({}()());
+(x) => ({}()\`\`);
+(x) => ({}().b);
+a = (b) => c;
 a = (b?) => c;
-x => (y = z);
-x => (y += z);
+(x) => (y = z);
+(x) => (y += z);
 f(a => ({})) + 1;
-(a => ({})) || 0;
-a = b => c;
-a = b => {
+((a) => ({})) || 0;
+a = (b) => c;
+a = (b) => {
   return c;
 };
 
@@ -510,7 +510,7 @@ Seq(typeDef.interface.groups).forEach(group =>
   )
 );
 
-const promiseFromCallback = fn =>
+const promiseFromCallback = (fn) =>
   new Promise((resolve, reject) =>
     fn((err, result) => {
       if (err) return reject(err);
@@ -532,7 +532,7 @@ function render() {
   return (
     <View>
       <Image
-        onProgress={e =>
+        onProgress={(e) =>
           this.setState({
             progress: Math.round(
               100 * e.nativeEvent.loaded / e.nativeEvent.total
@@ -547,7 +547,7 @@ function render() {
   return (
     <View>
       <Image
-        onProgress={e =>
+        onProgress={(e) =>
           this.setState({
             progress: Math.round(
               100 * e.nativeEvent.loaded / e.nativeEvent.total
@@ -562,7 +562,7 @@ function render() {
   return (
     <View>
       <Image
-        onProgress={e =>
+        onProgress={(e) =>
           this.setState({
             progress: Math.round(
               100 * e.nativeEvent.loaded / e.nativeEvent.total
@@ -1206,26 +1206,26 @@ foo(c, a => b)
 foo(c, a => b, d)
 foo(a => b, d)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-promise.then(result => result, err => err);
+promise.then((result) => result, (err) => err);
 
 promise.then(
-  result => {
+  (result) => {
     f();
     return result;
   },
-  err => {
+  (err) => {
     f();
     return err;
   }
 );
 
 foo(a => b);
-foo(a => {
+foo((a) => {
   return b;
 });
-foo(c, a => b);
-foo(c, a => b, d);
-foo(a => b, d);
+foo(c, (a) => b);
+foo(c, (a) => b, d);
+foo((a) => b, d);
 
 `;
 
