@@ -61,7 +61,7 @@ function mapDoc(doc, func) {
 function findInDoc(doc, fn, defaultValue) {
   let result = defaultValue;
   let hasStopped = false;
-  traverseDoc(doc, doc => {
+  traverseDoc(doc, (doc) => {
     const maybeResult = fn(doc);
     if (maybeResult !== undefined) {
       hasStopped = true;
@@ -81,7 +81,7 @@ function isEmpty(n) {
 function isLineNext(doc) {
   return findInDoc(
     doc,
-    doc => {
+    (doc) => {
       if (typeof doc === "string") {
         return false;
       }
@@ -96,7 +96,7 @@ function isLineNext(doc) {
 function willBreak(doc) {
   return findInDoc(
     doc,
-    doc => {
+    (doc) => {
       if (doc.type === "group" && doc.break) {
         return true;
       }
@@ -128,7 +128,7 @@ function propagateBreaks(doc) {
   const groupStack = [];
   traverseDoc(
     doc,
-    doc => {
+    (doc) => {
       if (doc.type === "break-parent") {
         breakParentGroup(groupStack);
       }
@@ -140,7 +140,7 @@ function propagateBreaks(doc) {
         alreadyVisited.set(doc, true);
       }
     },
-    doc => {
+    (doc) => {
       if (doc.type === "group") {
         const group = groupStack.pop();
         if (group.break) {
@@ -157,7 +157,7 @@ function removeLines(doc) {
   // lines into spaces (or soft lines into nothing). Hard lines
   // should still output because there's too great of a chance
   // of breaking existing assumptions otherwise.
-  return mapDoc(doc, d => {
+  return mapDoc(doc, (d) => {
     if (d.type === "line" && !d.hard) {
       return d.soft ? "" : " ";
     } else if (d.type === "if-break") {

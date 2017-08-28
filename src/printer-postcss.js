@@ -426,7 +426,9 @@ const STRING_OR_NUMBER_REGEX = RegExp(
 );
 
 function adjustStrings(value, options) {
-  return value.replace(STRING_REGEX, match => util.printString(match, options));
+  return value.replace(STRING_REGEX, (match) =>
+    util.printString(match, options)
+  );
 }
 
 function quoteAttributeValue(value, options) {

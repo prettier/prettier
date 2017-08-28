@@ -94,7 +94,7 @@ Use parens around a sole parameter of an arrow function, when possible:
 Valid options:
 
  * `"avoid"` - Always prefer `x => x` when syntax allows.
- * `"functional"` - Prefer `(x) => x`, except in curried chains (`f = a => b => (a + b)`) and simple callbacks (`a.map(x => x.id)`).
+ * `"functional"` - Prefer `(x) => x`, except in curried chains (`f = a => b => (a + b)`) and callbacks (`a.map(x => x.id)`).
  * `"always"` - Always prefer `(x) => x`.
 
 Default | CLI Override | API Override

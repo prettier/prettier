@@ -108,7 +108,7 @@ function massageAST(ast) {
       (ast.type === "media-value" || ast.type === "value-number") &&
       newObj.value
     ) {
-      newObj.value = newObj.value.replace(/[\d.eE+-]+/g, match => {
+      newObj.value = newObj.value.replace(/[\d.eE+-]+/g, (match) => {
         const num = Number(match);
         return isNaN(num) ? match : num;
       });
