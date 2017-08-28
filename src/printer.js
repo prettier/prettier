@@ -826,19 +826,7 @@ function genericPrintNoParens(path, options, print, args) {
           isTemplateOnItsOwnLine(n.arguments[0], options.originalText)) ||
         // Keep test declarations on a single line
         // e.g. `it('long name', () => {`
-        (!isNew &&
-          n.callee.type === "Identifier" &&
-          (n.callee.name === "it" ||
-            n.callee.name === "test" ||
-            n.callee.name === "describe") &&
-          n.arguments.length === 2 &&
-          (n.arguments[0].type === "StringLiteral" ||
-            n.arguments[0].type === "TemplateLiteral" ||
-            (n.arguments[0].type === "Literal" &&
-              typeof n.arguments[0].value === "string")) &&
-          (n.arguments[1].type === "FunctionExpression" ||
-            n.arguments[1].type === "ArrowFunctionExpression") &&
-          n.arguments[1].params.length <= 1)
+        (!isNew && isTestCall(n))
       ) {
         return concat([
           isNew ? "new " : "",
@@ -3038,6 +3026,11 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
 
   const parent = path.getParentNode();
 
+  // don't break in specs, eg; `it("should maintain parens around done even when long", (done) => {})`
+  if (parent.type === "CallExpression" && isTestCall(parent)) {
+    return concat([typeParams, "(", join(", ", printed), ")"]);
+  }
+
   const flowTypeAnnotations = [
     "AnyTypeAnnotation",
     "NullLiteralTypeAnnotation",
@@ -4725,6 +4718,24 @@ function isTemplateOnItsOwnLine(n, text) {
       (n.type === "TaggedTemplateExpression" &&
         templateLiteralHasNewLines(n.quasi))) &&
     !util.hasNewline(text, util.locStart(n), { backwards: true })
+  );
+}
+
+// eg; `describe("some string", (done) => {})`
+function isTestCall(n) {
+  return (
+    n.callee.type === "Identifier" &&
+    (n.callee.name === "it" ||
+      n.callee.name === "test" ||
+      n.callee.name === "describe") &&
+    n.arguments.length === 2 &&
+    (n.arguments[0].type === "StringLiteral" ||
+      n.arguments[0].type === "TemplateLiteral" ||
+      (n.arguments[0].type === "Literal" &&
+        typeof n.arguments[0].value === "string")) &&
+    (n.arguments[1].type === "FunctionExpression" ||
+      n.arguments[1].type === "ArrowFunctionExpression") &&
+    n.arguments[1].params.length <= 1
   );
 }
 
