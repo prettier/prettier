@@ -419,7 +419,7 @@ A promise is returned which will resolve to:
 
 The promise will be rejected if there was an error parsing the configuration file.
 
-If `options.withCache` is `false`, all caching will be bypassed.
+If `options.useCache` is `false`, all caching will be bypassed.
 
 ```js
 const text = fs.readFileSync(filePath, "utf8");
