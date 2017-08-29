@@ -1026,12 +1026,7 @@ function printComments(path, print, options, needsSemi) {
       leadingParts.push(contents);
 
       const text = options.originalText;
-      if (
-        util.hasNewline(
-          text,
-          util.skipNewline(text, util.skipSpaces(text, util.locEnd(comment)))
-        )
-      ) {
+      if (util.hasNewline(text, util.skipNewline(text, util.locEnd(comment)))) {
         leadingParts.push(hardline);
       }
     } else if (trailing) {

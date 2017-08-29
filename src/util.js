@@ -109,7 +109,7 @@ function skipInlineComment(text, index, opts) {
     }
   }
 
-  return i;
+  return index;
 }
 
 function skipTrailingComment(text, index) {
