@@ -4,5 +4,6 @@
 !/**/.eslintrc.js
 /test.js
 /dist/
+/foobar/
 **/node_modules/**
 /website/static/lib/

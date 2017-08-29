@@ -1,32 +1,12 @@
----
-language: node_js
-node_js:
-  - 4
-  - stable
-dist: precise
-cache:
-  yarn: true
-  directories:
-  - node_modules
-env:
-  - NODE_ENV=development
-  - NODE_ENV=production
-matrix:
-  allow_failures:
-    - env: NODE_ENV=production
-  fast_finish: true
-install:
-  - yarn --production=false
-before_script:
-  - if [ "${NODE_ENV}" = "production" ]; then yarn build; fi
+addons:
+  sonarqube:
+    organization: "vilchik-elena-github" 
+    token:
+      secure: "it55GoEMZd91ElS+uqphzy5y/3QNt9jpjCtVc/Spzkl9J0AGMgMaTemiDHZWo/o8LGWgGgoMTpFuPGuZG6uwoZqobIdYHE7b4wb9GAfyqQRvtxAB98uasQGw3B/COPohgRVfHlJeJCKqjT6YNp5fUjyJ9r/VXVskPWnBlVzggNIhCkRYjH1g+iq2btEbRAvQwkovbHuv5dAMyYPHiNvDPtGr6pQMrJRZb2W7NUOvpzd3+WZlQEzV/tVL+Zsg5XvzL1p2z1koBfQ0+0xCKei2gqiFbzc5EOMBqPGGFFzWgYjOw+Y0cc16IAQTVJl9r+VkK5+s0Ec00stz9bCReKACn5XiOBwzCq71kCCH4LSF1z7HinfyNLCYMioCGWZW5WfnK6vcukskLP3Rxg1p9BBrJJddkkfdqTERs7cKr8qJfEB49OfQgwa6f1fJA2qngK88RHD/FFVBMADgk0IiGfokX3kNkOGO6eY7gqaqVOMP4mxPZTjaA+s1uC/LuBVkezX+h4O4El4GwR64SyRwmtpSDe2NLjWFII/IyQ0lr6Jdf/7NykNOgs5DB5efK8Smt4K5SOJspIDy8OB+PjeLpKKOlzs9MHp1UX5rB3S4PbIBq8e8J/EVyMYi2mXdXNt6REpdh6yH3qoGQNanAqd6YHc4y6Q+XLiixzruKPtS44lbWQQ=" 
+jdk:
+  - oraclejdk8
 script:
-  - yarn lint
-  - AST_COMPARE=1 yarn test -- --runInBand
-  - if [ "${NODE_ENV}" = "development" ]; then yarn codecov; fi
-deploy:
-  provider: script
-  script: website/deploy.sh
-  skip_cleanup: true
-  on:
-    branch: master
-    node: stable
+  - sonar-scanner
+cache:
+  directories:
+    - '$HOME/.sonar/cache'
