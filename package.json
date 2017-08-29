@@ -49,6 +49,7 @@
     "eslint-plugin-prettier": "2.1.2",
     "eslint-plugin-react": "7.1.0",
     "jest": "20.0.0",
+    "markdown-toc": "1.1.0",
     "mkdirp": "^0.5.1",
     "prettier": "1.6.0",
     "rimraf": "2.6.1",
@@ -68,6 +69,7 @@
     "test": "jest",
     "test-integration": "jest tests_integration",
     "lint": "cross-env EFF_NO_LINK_RULES=true eslint . --format node_modules/eslint-friendly-formatter",
-    "build": "./scripts/build/build.js"
+    "build": "node ./scripts/build/build.js",
+    "toc": "node ./scripts/table-of-contents.js"
   }
 }
