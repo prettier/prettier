@@ -2,16 +2,14 @@
 
 const cosmiconfig = require("cosmiconfig");
 const minimatch = require("minimatch");
-const path = require("path");
 
 const withCache = cosmiconfig("prettier");
 const noCache = cosmiconfig("prettier", { cache: false });
 
 function resolveConfig(filePath, opts) {
   const useCache = !(opts && opts.useCache === false);
-  const fileDir = filePath ? path.dirname(filePath) : undefined;
 
-  return (useCache ? withCache : noCache).load(fileDir).then(result => {
+  return (useCache ? withCache : noCache).load(filePath).then(result => {
     if (!result) {
       return null;
     }
