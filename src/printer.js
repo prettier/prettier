@@ -2163,6 +2163,7 @@ function genericPrintNoParens(path, options, print, args) {
       const shouldIndent =
         parent.type !== "TypeParameterInstantiation" &&
         parent.type !== "GenericTypeAnnotation" &&
+        parent.type !== "TSTypeReference" &&
         !(
           (parent.type === "TypeAlias" ||
             parent.type === "VariableDeclarator") &&
