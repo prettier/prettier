@@ -409,7 +409,7 @@ prettier.formatWithCursor(" 1", { cursorOffset: 2 });
 // -> { formatted: '1;\n', cursorOffset: 1 }
 ```
 
-#### `prettier.resolveConfig([filePath] [, options])`
+#### `prettier.resolveConfig([filePath [, options]])`
 
 `resolveConfig` can be used to resolve configuration for a given source file.
 The function optionally accepts an input file path as an argument, which defaults to the current working directory.
@@ -419,7 +419,7 @@ A promise is returned which will resolve to:
 
 The promise will be rejected if there was an error parsing the configuration file.
 
-If `options.withCache` is `false`, all caching will be bypassed.
+If `options.useCache` is `false`, all caching will be bypassed.
 
 ```js
 const text = fs.readFileSync(filePath, "utf8");
