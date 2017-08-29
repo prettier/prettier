@@ -2,9 +2,11 @@
 
 "use strict";
 
+const fs = require("fs");
 const path = require("path");
-const shell = require("shelljs");
 const pkg = require("../../package.json");
+const shell = require("shelljs");
+const toc = require("markdown-toc");
 
 const rootDir = path.join(__dirname, "..", "..");
 const docs = path.join(rootDir, "website/static/lib");
@@ -60,6 +62,12 @@ pipe(`module.exports = ${content}`).to("dist/parser-postcss.js");
 shell.echo();
 
 // --- Docs ---
+
+shell.echo("Updating readme toc...");
+const readmeFilename = path.resolve(__dirname, "../../README.md");
+const oldReadme = fs.readFileSync(readmeFilename, "utf8");
+const newReadme = toc.insert(oldReadme, { maxdepth: 3, bullets: ["*", "+"] });
+fs.writeFileSync(readmeFilename, newReadme);
 
 shell.echo("Bundling docs index...");
 shell.cp("dist/index.js", `${docs}/index.js`);

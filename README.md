@@ -21,6 +21,10 @@ conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Pre
 <details>
 <summary><strong>Table of Contents</strong></summary>
 
+<!-- Do not edit TOC, it is generated during the build -->
+
+<!-- toc -->
+
 * [What does Prettier do?](#what-does-prettier-do)
 * [Why Prettier?](#why-prettier)
   + [Building and enforcing a style guide](#building-and-enforcing-a-style-guide)
@@ -65,6 +69,9 @@ conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Pre
 * [Technical Details](#technical-details)
 * [Badge](#badge)
 * [Contributing](#contributing)
+
+<!-- tocstop -->
+
 </details>
 
 --------------------------------------------------------------------------------
