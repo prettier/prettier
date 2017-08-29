@@ -21,7 +21,7 @@ conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Pre
 <details>
 <summary><strong>Table of Contents</strong></summary>
 
-<!-- Do not edit TOC, it is generated during the build -->
+<!-- Do not edit TOC, regenerate with `yarn toc` -->
 
 <!-- toc -->
 
