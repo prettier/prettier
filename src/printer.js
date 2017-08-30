@@ -4515,9 +4515,11 @@ function exprNeedsASIProtection(path, options) {
     return false;
   }
 
-  return path.call(
-    childPath => exprNeedsASIProtection(childPath, options),
-    ...getLeftSidePathName(path, node)
+  return path.call.apply(
+    path,
+    [childPath => exprNeedsASIProtection(childPath, options)].concat(
+      getLeftSidePathName(path, node)
+    )
   );
 }
 
