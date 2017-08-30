@@ -44,5 +44,10 @@
     "caption": "Hudl",
     "image": "/images/hudl-200x100.png",
     "infoLink": "http://hudl.github.io/"
+  },
+  {
+    "caption": "Transloadit",
+    "image": "/images/transloadit-200x100.png",
+    "infoLink": "https://transloadit.com/"
   }
 ]
