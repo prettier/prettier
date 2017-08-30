@@ -217,8 +217,8 @@ function getArrowFnParens(argv) {
       return "avoid";
     case "always":
       return "always";
-    case "functional":
-      return "functional";
+    case "default":
+      return "default";
     case undefined:
       // default will be chosen in options.js
       return undefined;

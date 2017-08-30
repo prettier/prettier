@@ -3094,11 +3094,11 @@ function shouldPrintParamsWithoutParens(path, options) {
     return canPrintParamsWithoutParens(node);
   }
 
-  // "functional" mode; omit parens only when:
+  // "default" mode; omit parens only when:
   // - currying (eg; fn = a => b => c)
   // - used as a sole callback (eg; arr.map(x => x + 1))
   // - used in template literals (eg; `color: ${props => props.color}`) for styled-components et al
-  if (options.arrowFnParens === "functional") {
+  if (options.arrowFnParens === "default") {
     const parentNode = path.getParentNode();
     if (
       (parentNode.type === "CallExpression" &&

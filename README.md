@@ -589,12 +589,12 @@ Use parens around a sole parameter of an arrow function, when possible:
 Valid options:
 
  * `"avoid"` - Always prefer `x => x` when syntax allows.
- * `"functional"` - Prefer `(x) => x`, except in curried chains (`f = a => b => (a + b)`) and callbacks (`a.map(x => x.id)`).
+ * `"default"` - Prefer `(x) => x`, except in curried chains (`f = a => b => (a + b)`) and callbacks (`a.map(x => x.id)`).
  * `"always"` - Always prefer `(x) => x`.
 
 Default | CLI Override | API Override
 --------|--------------|-------------
-`"functional"` | `--arrow-fn-parens <avoid,functional,always>` | `arrowFnParens: "<avoid,functional,always>"`
+`"default"` | `--arrow-fn-parens <avoid,default,always>` | `arrowFnParens: "<avoid,default,always>"`
 
 ### Range
 Format only a segment of a file.
