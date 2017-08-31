@@ -448,13 +448,11 @@ prettier.resolveConfig(filePath).then(options => {
 })
 ```
 
-#### `prettier.clearConfigCache([opts])`
+#### `prettier.clearConfigCache()`
 
 As you repeatedly call `resolveConfig`, the file system structure will be cached for performance.
 This function will clear the cache. Generally this is only needed for editor integrations that
 know that the file system has changed since the last format took place.
-
-If `options.sync` is `true`, caches from sync resolution will be cleared, otherwise clear async's.
 
 #### Custom Parser API
 

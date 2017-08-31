@@ -23,13 +23,9 @@ function resolveConfig(filePath, opts) {
     });
 }
 
-function clearCache(opts) {
-  const sync = opts && opts.sync === true;
-  if (sync) {
-    syncWithCache.clearCaches();
-  } else {
-    asyncWithCache.clearCaches();
-  }
+function clearCache() {
+  syncWithCache.clearCaches();
+  asyncWithCache.clearCaches();
 }
 
 function resolveConfigFile(filePath, opts) {
