@@ -166,7 +166,15 @@ function parseNestedCSS(node) {
         node.selector = parseSelector(selector);
       } catch (e) {
         // Fail silently. It's better to print it as is than to try and parse it
-        node.selector = selector;
+        // Note: A common failure is for SCSS nested properties. `background:
+        // none { color: red; }` is parsed as a NestedDeclaration by
+        // postcss-scss, while `background: { color: red; }` is parsed as a Rule
+        // with a selector ending with a colon. See:
+        // https://github.com/postcss/postcss-scss/issues/39
+        node.selector = {
+          type: "selector-root-invalid",
+          value: selector
+        };
       }
     }
     if (node.type && typeof node.value === "string") {
