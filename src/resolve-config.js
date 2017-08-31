@@ -3,31 +3,43 @@
 const cosmiconfig = require("cosmiconfig");
 const minimatch = require("minimatch");
 
-const withCache = cosmiconfig("prettier");
-const noCache = cosmiconfig("prettier", { cache: false });
+const asyncWithCache = cosmiconfig("prettier");
+const asyncNoCache = cosmiconfig("prettier", { cache: false });
+const syncWithCache = cosmiconfig("prettier", { sync: true });
+const syncNoCache = cosmiconfig("prettier", { cache: false, sync: true });
 
 function resolveConfig(filePath, opts) {
+  const sync = opts && opts.sync === true;
   const useCache = !(opts && opts.useCache === false);
 
-  return (useCache ? withCache : noCache).load(filePath).then(result => {
-    if (!result) {
-      return null;
-    }
-
-    return mergeOverrides(result.config, filePath);
-  });
+  if (sync) {
+    const result = (useCache ? syncWithCache : syncNoCache).load(filePath);
+    return !result ? null : mergeOverrides(result.config, filePath);
+  }
+  return (useCache ? asyncWithCache : asyncNoCache)
+    .load(filePath)
+    .then(result => {
+      return !result ? null : mergeOverrides(result.config, filePath);
+    });
 }
 
-function clearCache() {
-  withCache.clearCaches();
+function clearCache(opts) {
+  const sync = opts && opts.sync === true;
+  if (sync) {
+    syncWithCache.clearCaches();
+  } else {
+    asyncWithCache.clearCaches();
+  }
 }
 
-function resolveConfigFile(filePath) {
-  return noCache.load(filePath).then(result => {
-    if (result) {
-      return result.filepath;
-    }
-    return null;
+function resolveConfigFile(filePath, opts) {
+  const sync = opts && opts.sync === true;
+  if (sync) {
+    const result = syncNoCache.load(filePath);
+    return result ? result.filepath : null;
+  }
+  return asyncNoCache.load(filePath).then(result => {
+    return result ? result.filepath : null;
   });
 }
 
