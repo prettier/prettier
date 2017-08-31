@@ -49,5 +49,10 @@
     "caption": "Transloadit",
     "image": "/images/transloadit-200x100.png",
     "infoLink": "https://transloadit.com/"
+  },
+  {
+    "caption": "Tradeshift",
+    "image": "/images/tradeshift-200x100.png",
+    "infoLink": "https://tradeshift.com/"
   }
 ]
