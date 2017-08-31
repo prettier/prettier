@@ -439,6 +439,7 @@ A promise is returned which will resolve to:
 The promise will be rejected if there was an error parsing the configuration file.
 
 If `options.useCache` is `false`, all caching will be bypassed.
+If `options.sync` is `true`, result will be returned directly.
 
 ```js
 const text = fs.readFileSync(filePath, "utf8");
@@ -447,11 +448,13 @@ prettier.resolveConfig(filePath).then(options => {
 })
 ```
 
-#### `prettier.clearConfigCache()`
+#### `prettier.clearConfigCache([opts])`
 
 As you repeatedly call `resolveConfig`, the file system structure will be cached for performance.
 This function will clear the cache. Generally this is only needed for editor integrations that
 know that the file system has changed since the last format took place.
+
+If `options.sync` is `true`, caches from sync resolution will be cleared, otherwise clear async's.
 
 #### Custom Parser API
 
