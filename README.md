@@ -447,6 +447,8 @@ prettier.resolveConfig(filePath).then(options => {
 })
 ```
 
+Use `prettier.resolveConfig.sync([filePath [, options]])` if you'd like to use sync version.
+
 #### `prettier.clearConfigCache()`
 
 As you repeatedly call `resolveConfig`, the file system structure will be cached for performance.
