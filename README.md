@@ -439,7 +439,6 @@ A promise is returned which will resolve to:
 The promise will be rejected if there was an error parsing the configuration file.
 
 If `options.useCache` is `false`, all caching will be bypassed.
-If `options.sync` is `true`, result will be returned directly.
 
 ```js
 const text = fs.readFileSync(filePath, "utf8");
@@ -447,6 +446,8 @@ prettier.resolveConfig(filePath).then(options => {
   const formatted = prettier.format(text, options);
 })
 ```
+
+Use `prettier.resolveConfig.sync([filePath [, options]])` if you'd like to use sync version.
 
 #### `prettier.clearConfigCache()`
 
