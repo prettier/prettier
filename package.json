@@ -14,7 +14,7 @@
     "babel-code-frame": "7.0.0-alpha.12",
     "babylon": "7.0.0-beta.22",
     "chalk": "2.0.1",
-    "cosmiconfig": "git://github.com/davidtheclark/cosmiconfig.git#da48c813df616d8c8eb7f4bc3c2e4cb2f37d05a3",
+    "cosmiconfig": "davidtheclark/cosmiconfig#3.0",
     "dashify": "0.2.2",
     "diff": "3.2.0",
     "esutils": "2.0.2",
