@@ -54,8 +54,8 @@ test("API resolveConfig with no args", () => {
   });
 });
 
-test("API resolveConfig sync with no args", () => {
-  expect(prettier.resolveConfig(undefined, { sync: true })).toBeNull();
+test("API resolveConfig.sync with no args", () => {
+  expect(prettier.resolveConfig.sync()).toBeNull();
 });
 
 test("API resolveConfig with file arg", () => {
@@ -67,9 +67,9 @@ test("API resolveConfig with file arg", () => {
   });
 });
 
-test("API resolveConfig sync with file arg", () => {
+test("API resolveConfig.sync with file arg", () => {
   const file = path.resolve(path.join(__dirname, "../cli/config/js/file.js"));
-  expect(prettier.resolveConfig(file, { sync: true })).toMatchObject({
+  expect(prettier.resolveConfig.sync(file)).toMatchObject({
     tabWidth: 8
   });
 });
@@ -85,11 +85,11 @@ test("API resolveConfig with file arg and extension override", () => {
   });
 });
 
-test("API resolveConfig sync with file arg and extension override", () => {
+test("API resolveConfig.sync with file arg and extension override", () => {
   const file = path.resolve(
     path.join(__dirname, "../cli/config/no-config/file.ts")
   );
-  expect(prettier.resolveConfig(file, { sync: true })).toMatchObject({
+  expect(prettier.resolveConfig.sync(file)).toMatchObject({
     semi: true
   });
 });
