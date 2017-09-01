@@ -433,13 +433,12 @@ function listDifferent(input, options, filename) {
 }
 
 function resolveConfig(filePath) {
-  resolver.resolveConfigFile(filePath).then(configFile => {
-    if (configFile) {
-      console.log(path.relative(process.cwd(), configFile));
-    } else {
-      process.exitCode = 1;
-    }
-  });
+  const configFile = resolver.resolveConfigFile.sync(filePath);
+  if (configFile) {
+    console.log(path.relative(process.cwd(), configFile));
+  } else {
+    process.exitCode = 1;
+  }
 }
 
 function writeOutput(result, options) {
