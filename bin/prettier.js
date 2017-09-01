@@ -102,32 +102,27 @@ if (argv["find-config-path"] && filepatterns.length) {
 }
 
 function getOptionsForFile(filePath) {
-  const optionsPromise =
-    argv["config"] === false
-      ? Promise.resolve(null)
-      : resolver.resolveConfig(filePath);
+  const options =
+    argv["config"] === false ? null : resolver.resolveConfig.sync(filePath);
 
-  return optionsPromise
-    .then(options => {
-      const parsedArgs = minimist(args, {
-        boolean: booleanOptionNames,
-        string: stringOptionNames,
-        default: Object.assign(
-          {
-            semi: true,
-            "bracket-spacing": true,
-            parser: "babylon"
-          },
-          dashifyObject(options)
-        )
-      });
-
-      return getOptions(Object.assign({}, argv, parsedArgs));
-    })
-    .catch(error => {
-      console.error("Invalid configuration file:", error.toString());
-      process.exit(2);
+  try {
+    const parsedArgs = minimist(args, {
+      boolean: booleanOptionNames,
+      string: stringOptionNames,
+      default: Object.assign(
+        {
+          semi: true,
+          "bracket-spacing": true,
+          parser: "babylon"
+        },
+        dashifyObject(options)
+      )
     });
+    return getOptions(Object.assign({}, argv, parsedArgs));
+  } catch (error) {
+    console.error("Invalid configuration file:", error.toString());
+    process.exit(2);
+  }
 }
 
 function getOptions(argv) {
@@ -324,17 +319,17 @@ if (argv["find-config-path"]) {
   resolveConfig(argv["find-config-path"]);
 } else if (stdin) {
   getStream(process.stdin).then(input => {
-    getOptionsForFile(process.cwd()).then(options => {
-      if (listDifferent(input, options, "(stdin)")) {
-        return;
-      }
+    const options = getOptionsForFile(process.cwd());
 
-      try {
-        writeOutput(format(input, options), options);
-      } catch (e) {
-        handleError("stdin", e);
-      }
-    });
+    if (listDifferent(input, options, "(stdin)")) {
+      return;
+    }
+
+    try {
+      writeOutput(format(input, options), options);
+    } catch (e) {
+      handleError("stdin", e);
+    }
   });
 } else {
   eachFilename(filepatterns, (filename, options) => {
@@ -482,9 +477,8 @@ function eachFilename(patterns, callback) {
       }
       // Use map series to ensure idempotency
       mapSeries(ignorer.filter(filePaths), filePath => {
-        return getOptionsForFile(filePath).then(options =>
-          callback(filePath, options)
-        );
+        const options = getOptionsForFile(filePath);
+        callback(filePath, options);
       });
     })
     .catch(err => {
