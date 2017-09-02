@@ -24,16 +24,14 @@ function run(args) {
   }
 
   const filepatterns = argv["_"];
-  const write = argv["write"];
   const stdin = argv["stdin"] || (!filepatterns.length && !process.stdin.isTTY);
   const ignoreNodeModules = argv["with-node-modules"] === false;
   const ignoreNodeModulesGlobs = ["!**/node_modules/**", "!./node_modules/**"];
-  const ignorePath = argv["ignore-path"];
   const globOptions = {
     dot: true
   };
 
-  if (write && argv["debug-check"]) {
+  if (argv["write"] && argv["debug-check"]) {
     console.error("Cannot use --write and --debug-check together.");
     process.exit(1);
   }
@@ -77,7 +75,7 @@ function run(args) {
 
   function formatFiles() {
     eachFilename(filepatterns, (filename, options) => {
-      if (write) {
+      if (argv["write"]) {
         // Don't use `console.log` here since we need to replace this line.
         process.stdout.write(filename);
       }
@@ -116,7 +114,7 @@ function run(args) {
         return;
       }
 
-      if (write) {
+      if (argv["write"]) {
         // Remove previously printed filename to log it with duration.
         readline.clearLine(process.stdout, 0);
         readline.cursorTo(process.stdout, 0, null);
@@ -220,7 +218,7 @@ function run(args) {
     options = Object.assign({}, options, { filepath: filename });
 
     if (!prettier.check(input, options)) {
-      if (!write) {
+      if (!argv["write"]) {
         console.log(filename);
       }
       process.exitCode = 1;
@@ -232,7 +230,7 @@ function run(args) {
   function eachFilename(patterns, callback) {
     // The ignorer will be used to filter file paths after the glob is checked,
     // before any files are actually read
-    const ignoreFilePath = path.resolve(ignorePath);
+    const ignoreFilePath = path.resolve(argv["ignore-path"]);
     let ignoreText = "";
 
     try {
