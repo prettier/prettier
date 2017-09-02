@@ -10,7 +10,6 @@ const readline = require("readline");
 const ignore = require("ignore");
 
 const prettier = eval("require")("../index");
-const cleanAST = require("./clean-ast").cleanAST;
 const resolver = require("./resolve-config");
 const constant = require("./cli-constant");
 const util = require("./cli-util");
@@ -61,7 +60,7 @@ function run(args) {
       }
 
       try {
-        util.writeOutput(format(input, options), options);
+        util.writeOutput(util.format(argv, input, options), options);
       } catch (e) {
         util.handleError("stdin", e);
       }
@@ -96,7 +95,8 @@ function run(args) {
       let output;
 
       try {
-        result = format(
+        result = util.format(
+          argv,
           input,
           Object.assign({}, options, { filepath: filename })
         );
@@ -169,40 +169,6 @@ function run(args) {
       console.error("Invalid configuration file:", error.toString());
       process.exit(2);
     }
-  }
-
-  function format(input, opt) {
-    if (argv["debug-print-doc"]) {
-      const doc = prettier.__debug.printToDoc(input, opt);
-      return { formatted: prettier.__debug.formatDoc(doc) };
-    }
-
-    if (argv["debug-check"]) {
-      const pp = prettier.format(input, opt);
-      const pppp = prettier.format(pp, opt);
-      if (pp !== pppp) {
-        throw "prettier(input) !== prettier(prettier(input))\n" +
-          util.diff(pp, pppp);
-      } else {
-        const ast = cleanAST(prettier.__debug.parse(input, opt));
-        const past = cleanAST(prettier.__debug.parse(pp, opt));
-
-        if (ast !== past) {
-          const MAX_AST_SIZE = 2097152; // 2MB
-          const astDiff =
-            ast.length > MAX_AST_SIZE || past.length > MAX_AST_SIZE
-              ? "AST diff too large to render"
-              : util.diff(ast, past);
-          throw "ast(input) !== ast(prettier(input))\n" +
-            astDiff +
-            "\n" +
-            util.diff(input, pp);
-        }
-      }
-      return { formatted: opt.filepath || "(stdin)\n" };
-    }
-
-    return prettier.formatWithCursor(input, opt);
   }
 
   function eachFilename(patterns, callback) {

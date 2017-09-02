@@ -4,6 +4,7 @@ const path = require("path");
 const dashify = require("dashify");
 const prettier = eval("require")("../index");
 
+const cleanAST = require("./clean-ast").cleanAST;
 const resolver = require("./resolve-config");
 
 function getOptions(argv) {
@@ -152,12 +153,45 @@ function listDifferent(argv, input, options, filename) {
   return true;
 }
 
+function format(argv, input, opt) {
+  if (argv["debug-print-doc"]) {
+    const doc = prettier.__debug.printToDoc(input, opt);
+    return { formatted: prettier.__debug.formatDoc(doc) };
+  }
+
+  if (argv["debug-check"]) {
+    const pp = prettier.format(input, opt);
+    const pppp = prettier.format(pp, opt);
+    if (pp !== pppp) {
+      throw "prettier(input) !== prettier(prettier(input))\n" + diff(pp, pppp);
+    } else {
+      const ast = cleanAST(prettier.__debug.parse(input, opt));
+      const past = cleanAST(prettier.__debug.parse(pp, opt));
+
+      if (ast !== past) {
+        const MAX_AST_SIZE = 2097152; // 2MB
+        const astDiff =
+          ast.length > MAX_AST_SIZE || past.length > MAX_AST_SIZE
+            ? "AST diff too large to render"
+            : diff(ast, past);
+        throw "ast(input) !== ast(prettier(input))\n" +
+          astDiff +
+          "\n" +
+          diff(input, pp);
+      }
+    }
+    return { formatted: opt.filepath || "(stdin)\n" };
+  }
+
+  return prettier.formatWithCursor(input, opt);
+}
+
 module.exports = {
-  diff,
   dashifyObject,
   getOptions,
   resolveConfig,
   writeOutput,
   handleError,
-  listDifferent
+  listDifferent,
+  format
 };
