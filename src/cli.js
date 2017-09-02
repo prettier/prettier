@@ -166,7 +166,7 @@ function run(args) {
       });
       return util.getOptions(Object.assign({}, argv, parsedArgs));
     } catch (error) {
-      console.error("Invalid configuration file:", error.toString());
+      console.error("Invalid configuration:", error.toString());
       process.exit(2);
     }
   }
