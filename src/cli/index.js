@@ -43,64 +43,6 @@ function run(args) {
     process.exit(1);
   }
 
-  function getOptionsForFile(filePath) {
-    const options =
-      argv["config"] === false ? null : resolver.resolveConfig.sync(filePath);
-
-    try {
-      const parsedArgs = minimist(args, {
-        boolean: constant.booleanOptionNames,
-        string: constant.stringOptionNames,
-        default: Object.assign(
-          {
-            semi: true,
-            "bracket-spacing": true,
-            parser: "babylon"
-          },
-          util.dashifyObject(options)
-        )
-      });
-      return util.getOptions(Object.assign({}, argv, parsedArgs));
-    } catch (error) {
-      console.error("Invalid configuration file:", error.toString());
-      process.exit(2);
-    }
-  }
-
-  function format(input, opt) {
-    if (argv["debug-print-doc"]) {
-      const doc = prettier.__debug.printToDoc(input, opt);
-      return { formatted: prettier.__debug.formatDoc(doc) };
-    }
-
-    if (argv["debug-check"]) {
-      const pp = prettier.format(input, opt);
-      const pppp = prettier.format(pp, opt);
-      if (pp !== pppp) {
-        throw "prettier(input) !== prettier(prettier(input))\n" +
-          util.diff(pp, pppp);
-      } else {
-        const ast = cleanAST(prettier.__debug.parse(input, opt));
-        const past = cleanAST(prettier.__debug.parse(pp, opt));
-
-        if (ast !== past) {
-          const MAX_AST_SIZE = 2097152; // 2MB
-          const astDiff =
-            ast.length > MAX_AST_SIZE || past.length > MAX_AST_SIZE
-              ? "AST diff too large to render"
-              : util.diff(ast, past);
-          throw "ast(input) !== ast(prettier(input))\n" +
-            astDiff +
-            "\n" +
-            util.diff(input, pp);
-        }
-      }
-      return { formatted: opt.filepath || "(stdin)\n" };
-    }
-
-    return prettier.formatWithCursor(input, opt);
-  }
-
   if (
     argv["help"] ||
     (!filepatterns.length && !stdin && !argv["find-config-path"])
@@ -202,6 +144,64 @@ function run(args) {
         util.writeOutput(result, options);
       }
     });
+  }
+
+  function getOptionsForFile(filePath) {
+    const options =
+      argv["config"] === false ? null : resolver.resolveConfig.sync(filePath);
+
+    try {
+      const parsedArgs = minimist(args, {
+        boolean: constant.booleanOptionNames,
+        string: constant.stringOptionNames,
+        default: Object.assign(
+          {
+            semi: true,
+            "bracket-spacing": true,
+            parser: "babylon"
+          },
+          util.dashifyObject(options)
+        )
+      });
+      return util.getOptions(Object.assign({}, argv, parsedArgs));
+    } catch (error) {
+      console.error("Invalid configuration file:", error.toString());
+      process.exit(2);
+    }
+  }
+
+  function format(input, opt) {
+    if (argv["debug-print-doc"]) {
+      const doc = prettier.__debug.printToDoc(input, opt);
+      return { formatted: prettier.__debug.formatDoc(doc) };
+    }
+
+    if (argv["debug-check"]) {
+      const pp = prettier.format(input, opt);
+      const pppp = prettier.format(pp, opt);
+      if (pp !== pppp) {
+        throw "prettier(input) !== prettier(prettier(input))\n" +
+          util.diff(pp, pppp);
+      } else {
+        const ast = cleanAST(prettier.__debug.parse(input, opt));
+        const past = cleanAST(prettier.__debug.parse(pp, opt));
+
+        if (ast !== past) {
+          const MAX_AST_SIZE = 2097152; // 2MB
+          const astDiff =
+            ast.length > MAX_AST_SIZE || past.length > MAX_AST_SIZE
+              ? "AST diff too large to render"
+              : util.diff(ast, past);
+          throw "ast(input) !== ast(prettier(input))\n" +
+            astDiff +
+            "\n" +
+            util.diff(input, pp);
+        }
+      }
+      return { formatted: opt.filepath || "(stdin)\n" };
+    }
+
+    return prettier.formatWithCursor(input, opt);
   }
 
   function listDifferent(input, options, filename) {
