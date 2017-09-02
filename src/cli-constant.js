@@ -53,50 +53,52 @@ const options = {
   },
   unknown: param => {
     if (param.startsWith("-")) {
-      console.warn("Ignored unknown option: " + param + "\n");
+      console.warn(`Ignored unknown option: ${param}\n`);
       return false;
     }
   }
 };
 
-const usage =
-  "Usage: prettier [opts] [filename ...]\n\n" +
-  "Available options:\n" +
-  "  --write                  Edit the file in-place. (Beware!)\n" +
-  "  --list-different or -l   Print filenames of files that are different from Prettier formatting.\n" +
-  "  --config                 Path to a prettier configuration file (.prettierrc, package.json, prettier.config.js).\n" +
-  "  --no-config              Do not look for a configuration file.\n" +
-  "  --find-config-path <path>\n" +
-  "                           Finds and prints the path to a configuration file for a given input file.\n" +
-  "  --ignore-path <path>     Path to a file containing patterns that describe files to ignore.\n" +
-  "                           Defaults to ./.prettierignore.\n" +
-  "  --stdin                  Read input from stdin.\n" +
-  "  --stdin-filepath         Path to the file used to read from stdin.\n" +
-  "  --print-width <int>      Specify the length of line that the printer will wrap on. Defaults to 80.\n" +
-  "  --tab-width <int>        Specify the number of spaces per indentation-level. Defaults to 2.\n" +
-  "  --use-tabs               Indent lines with tabs instead of spaces.\n" +
-  "  --no-semi                Do not print semicolons, except at the beginning of lines which may need them.\n" +
-  "  --single-quote           Use single quotes instead of double quotes.\n" +
-  "  --no-bracket-spacing     Do not print spaces between brackets.\n" +
-  "  --jsx-bracket-same-line  Put > on the last line instead of at a new line.\n" +
-  "  --trailing-comma <none|es5|all>\n" +
-  "                           Print trailing commas wherever possible when multi-line. Defaults to none.\n" +
-  "  --parser <flow|babylon|typescript|postcss|json|graphql>\n" +
-  "                           Specify which parse to use. Defaults to babylon.\n" +
-  "  --cursor-offset <int>    Print (to stderr) where a cursor at the given position would move to after formatting.\n" +
-  "                           This option cannot be used with --range-start and --range-end\n" +
-  "  --range-start <int>      Format code starting at a given character offset.\n" +
-  "                           The range will extend backwards to the start of the first line containing the selected statement.\n" +
-  "                           This option cannot be used with --cursor-offset.\n" +
-  "                           Defaults to 0.\n" +
-  "  --range-end <int>        Format code ending at a given character offset (exclusive).\n" +
-  "                           The range will extend forwards to the end of the selected statement.\n" +
-  "                           This option cannot be used with --cursor-offset.\n" +
-  "                           Defaults to Infinity.\n" +
-  "  --no-color               Do not colorize error messages.\n" +
-  "  --with-node-modules      Process files inside `node_modules` directory.\n" +
-  "  --version or -v          Print Prettier version.\n" +
-  "\n";
+const usage = `
+Usage: prettier [opts] [filename ...]
+
+Available options:
+  --write                  Edit the file in-place. (Beware!)
+  --list-different or -l   Print filenames of files that are different from Prettier formatting.
+  --config                 Path to a prettier configuration file (.prettierrc, package.json, prettier.config.js).
+  --no-config              Do not look for a configuration file.
+  --find-config-path <path>
+                           Finds and prints the path to a configuration file for a given input file.
+  --ignore-path <path>     Path to a file containing patterns that describe files to ignore.
+                           Defaults to ./.prettierignore.
+  --stdin                  Read input from stdin.
+  --stdin-filepath         Path to the file used to read from stdin.
+  --print-width <int>      Specify the length of line that the printer will wrap on. Defaults to 80.
+  --tab-width <int>        Specify the number of spaces per indentation-level. Defaults to 2.
+  --use-tabs               Indent lines with tabs instead of spaces.
+  --no-semi                Do not print semicolons, except at the beginning of lines which may need them.
+  --single-quote           Use single quotes instead of double quotes.
+  --no-bracket-spacing     Do not print spaces between brackets.
+  --jsx-bracket-same-line  Put > on the last line instead of at a new line.
+  --trailing-comma <none|es5|all>
+                           Print trailing commas wherever possible when multi-line. Defaults to none.
+  --parser <flow|babylon|typescript|postcss|json|graphql>
+                           Specify which parse to use. Defaults to babylon.
+  --cursor-offset <int>    Print (to stderr) where a cursor at the given position would move to after formatting.
+                           This option cannot be used with --range-start and --range-end
+  --range-start <int>      Format code starting at a given character offset.
+                           The range will extend backwards to the start of the first line containing the selected statement.
+                           This option cannot be used with --cursor-offset.
+                           Defaults to 0.
+  --range-end <int>        Format code ending at a given character offset (exclusive).
+                           The range will extend forwards to the end of the selected statement.
+                           This option cannot be used with --cursor-offset.
+                           Defaults to Infinity.
+  --no-color               Do not colorize error messages.
+  --with-node-modules      Process files inside 'node_modules' directory.
+  --version or -v          Print Prettier version.
+
+`.slice(1); // remove leading line break
 
 module.exports = {
   booleanOptionNames,

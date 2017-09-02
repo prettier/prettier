@@ -103,7 +103,7 @@ function handleError(filename, e) {
   // `util.inspect` of throws things that aren't `Error` objects. (The Flow
   // parser has mistakenly thrown arrays sometimes.)
   if (isParseError) {
-    console.error(filename + ": " + String(e));
+    console.error(`${filename}: ${String(e)}`);
   } else if (isValidationError) {
     console.error(String(e));
     // If validation fails for one file, it will fail for all of them.

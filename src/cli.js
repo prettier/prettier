@@ -87,7 +87,7 @@ function run(args) {
         // Add newline to split errors from filename line.
         process.stdout.write("\n");
 
-        console.error("Unable to read file: " + filename + "\n" + e);
+        console.error(`Unable to read file: ${filename}\n${e}`);
         // Don't exit the process if one file failed
         process.exitCode = 2;
         return;
@@ -135,7 +135,7 @@ function run(args) {
           try {
             fs.writeFileSync(filename, output, "utf8");
           } catch (err) {
-            console.error("Unable to write file: " + filename + "\n" + err);
+            console.error(`Unable to write file: ${filename}\n${err}`);
             // Don't exit the process if one file failed
             process.exitCode = 2;
           }
@@ -252,7 +252,7 @@ function run(args) {
       .then(filePaths => {
         if (filePaths.length === 0) {
           console.error(
-            "No matching files. Patterns tried: " + patterns.join(" ")
+            `No matching files. Patterns tried: ${patterns.join(" ")}`
           );
           process.exitCode = 2;
           return;
@@ -263,7 +263,7 @@ function run(args) {
       })
       .catch(err => {
         console.error(
-          "Unable to expand glob patterns: " + patterns.join(" ") + "\n" + err
+          `Unable to expand glob patterns: ${patterns.join(" ")}\n${err}`
         );
         // Don't exit the process if one pattern failed
         process.exitCode = 2;
