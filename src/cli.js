@@ -2,7 +2,6 @@
 
 const chalk = require("chalk");
 const fs = require("fs");
-const getStream = require("get-stream");
 const globby = require("globby");
 const minimist = require("minimist");
 const path = require("path");
@@ -46,25 +45,9 @@ function run(args) {
   if (argv["find-config-path"]) {
     util.resolveConfig(argv["find-config-path"]);
   } else if (stdin) {
-    formatStdin();
+    util.formatStdin(argv);
   } else {
     formatFiles();
-  }
-
-  function formatStdin() {
-    getStream(process.stdin).then(input => {
-      const options = util.getOptionsForFile(argv, process.cwd());
-
-      if (util.listDifferent(argv, input, options, "(stdin)")) {
-        return;
-      }
-
-      try {
-        util.writeOutput(util.format(argv, input, options), options);
-      } catch (e) {
-        util.handleError("stdin", e);
-      }
-    });
   }
 
   function formatFiles() {

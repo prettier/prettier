@@ -3,6 +3,7 @@
 const path = require("path");
 const dashify = require("dashify");
 const minimist = require("minimist");
+const getStream = require("get-stream");
 
 const prettier = eval("require")("../index");
 const cleanAST = require("./clean-ast").cleanAST;
@@ -212,11 +213,28 @@ function getOptionsForFile(argv, filePath) {
   }
 }
 
+function formatStdin(argv) {
+  getStream(process.stdin).then(input => {
+    const options = getOptionsForFile(argv, process.cwd());
+
+    if (listDifferent(argv, input, options, "(stdin)")) {
+      return;
+    }
+
+    try {
+      writeOutput(format(argv, input, options), options);
+    } catch (e) {
+      handleError("stdin", e);
+    }
+  });
+}
+
 module.exports = {
   resolveConfig,
   writeOutput,
   handleError,
   listDifferent,
   format,
-  getOptionsForFile
+  getOptionsForFile,
+  formatStdin
 };
