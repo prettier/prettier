@@ -7,6 +7,8 @@ const getStream = require("get-stream");
 const fs = require("fs");
 const globby = require("globby");
 const ignore = require("ignore");
+const chalk = require("chalk");
+const readline = require("readline");
 
 const prettier = eval("require")("../index");
 const cleanAST = require("./clean-ast").cleanAST;
@@ -278,6 +280,86 @@ function eachFilename(argv, patterns, callback) {
     });
 }
 
+function formatFiles(argv, filepatterns) {
+  eachFilename(argv, filepatterns, (filename, options) => {
+    if (argv["write"]) {
+      // Don't use `console.log` here since we need to replace this line.
+      process.stdout.write(filename);
+    }
+
+    let input;
+    try {
+      input = fs.readFileSync(filename, "utf8");
+    } catch (e) {
+      // Add newline to split errors from filename line.
+      process.stdout.write("\n");
+
+      console.error(`Unable to read file: ${filename}\n${e}`);
+      // Don't exit the process if one file failed
+      process.exitCode = 2;
+      return;
+    }
+
+    listDifferent(argv, input, options, filename);
+
+    const start = Date.now();
+
+    let result;
+    let output;
+
+    try {
+      result = format(
+        argv,
+        input,
+        Object.assign({}, options, { filepath: filename })
+      );
+      output = result.formatted;
+    } catch (e) {
+      // Add newline to split errors from filename line.
+      process.stdout.write("\n");
+
+      handleError(filename, e);
+      return;
+    }
+
+    if (argv["write"]) {
+      // Remove previously printed filename to log it with duration.
+      readline.clearLine(process.stdout, 0);
+      readline.cursorTo(process.stdout, 0, null);
+
+      // Don't write the file if it won't change in order not to invalidate
+      // mtime based caches.
+      if (output === input) {
+        if (!argv["list-different"]) {
+          console.log(chalk.grey("%s %dms"), filename, Date.now() - start);
+        }
+      } else {
+        if (argv["list-different"]) {
+          console.log(filename);
+        } else {
+          console.log("%s %dms", filename, Date.now() - start);
+        }
+
+        try {
+          fs.writeFileSync(filename, output, "utf8");
+        } catch (err) {
+          console.error(`Unable to write file: ${filename}\n${err}`);
+          // Don't exit the process if one file failed
+          process.exitCode = 2;
+        }
+      }
+    } else if (argv["debug-check"]) {
+      if (output) {
+        console.log(output);
+      } else {
+        process.exitCode = 2;
+      }
+    } else if (!argv["list-different"]) {
+      writeOutput(result, options);
+    }
+  });
+}
+
 module.exports = {
   resolveConfig,
   writeOutput,
@@ -286,5 +368,6 @@ module.exports = {
   format,
   getOptionsForFile,
   formatStdin,
-  eachFilename
+  eachFilename,
+  formatFiles
 };
