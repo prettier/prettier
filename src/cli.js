@@ -10,7 +10,6 @@ const readline = require("readline");
 const ignore = require("ignore");
 
 const prettier = eval("require")("../index");
-const resolver = require("./resolve-config");
 const constant = require("./cli-constant");
 const util = require("./cli-util");
 
@@ -54,7 +53,7 @@ function run(args) {
 
   function formatStdin() {
     getStream(process.stdin).then(input => {
-      const options = getOptionsForFile(process.cwd());
+      const options = util.getOptionsForFile(argv, process.cwd());
 
       if (util.listDifferent(argv, input, options, "(stdin)")) {
         return;
@@ -148,30 +147,6 @@ function run(args) {
     });
   }
 
-  function getOptionsForFile(filePath) {
-    const options =
-      argv["config"] === false ? null : resolver.resolveConfig.sync(filePath);
-
-    try {
-      const parsedArgs = minimist(argv.__args, {
-        boolean: constant.booleanOptionNames,
-        string: constant.stringOptionNames,
-        default: Object.assign(
-          {
-            semi: true,
-            "bracket-spacing": true,
-            parser: "babylon"
-          },
-          util.dashifyObject(options)
-        )
-      });
-      return util.getOptions(Object.assign({}, argv, parsedArgs));
-    } catch (error) {
-      console.error("Invalid configuration:", error.toString());
-      process.exit(2);
-    }
-  }
-
   function eachFilename(patterns, callback) {
     const ignoreNodeModules = argv["with-node-modules"] === false;
     // The ignorer will be used to filter file paths after the glob is checked,
@@ -205,7 +180,9 @@ function run(args) {
         }
         ignorer
           .filter(filePaths)
-          .forEach(filePath => callback(filePath, getOptionsForFile(filePath)));
+          .forEach(filePath =>
+            callback(filePath, util.getOptionsForFile(argv, filePath))
+          );
       })
       .catch(err => {
         console.error(

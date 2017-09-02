@@ -2,10 +2,12 @@
 
 const path = require("path");
 const dashify = require("dashify");
-const prettier = eval("require")("../index");
+const minimist = require("minimist");
 
+const prettier = eval("require")("../index");
 const cleanAST = require("./clean-ast").cleanAST;
 const resolver = require("./resolve-config");
+const constant = require("./cli-constant");
 
 function getOptions(argv) {
   return {
@@ -186,12 +188,35 @@ function format(argv, input, opt) {
   return prettier.formatWithCursor(input, opt);
 }
 
+function getOptionsForFile(argv, filePath) {
+  const options =
+    argv["config"] === false ? null : resolver.resolveConfig.sync(filePath);
+
+  try {
+    const parsedArgs = minimist(argv.__args, {
+      boolean: constant.booleanOptionNames,
+      string: constant.stringOptionNames,
+      default: Object.assign(
+        {
+          semi: true,
+          "bracket-spacing": true,
+          parser: "babylon"
+        },
+        dashifyObject(options)
+      )
+    });
+    return getOptions(Object.assign({}, argv, parsedArgs));
+  } catch (error) {
+    console.error("Invalid configuration:", error.toString());
+    process.exit(2);
+  }
+}
+
 module.exports = {
-  dashifyObject,
-  getOptions,
   resolveConfig,
   writeOutput,
   handleError,
   listDifferent,
-  format
+  format,
+  getOptionsForFile
 };
