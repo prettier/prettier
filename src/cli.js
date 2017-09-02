@@ -2,11 +2,8 @@
 
 const chalk = require("chalk");
 const fs = require("fs");
-const globby = require("globby");
 const minimist = require("minimist");
-const path = require("path");
 const readline = require("readline");
-const ignore = require("ignore");
 
 const prettier = eval("require")("../index");
 const constant = require("./cli-constant");
@@ -51,7 +48,7 @@ function run(args) {
   }
 
   function formatFiles() {
-    eachFilename(filepatterns, (filename, options) => {
+    util.eachFilename(argv, filepatterns, (filename, options) => {
       if (argv["write"]) {
         // Don't use `console.log` here since we need to replace this line.
         process.stdout.write(filename);
@@ -128,52 +125,6 @@ function run(args) {
         util.writeOutput(result, options);
       }
     });
-  }
-
-  function eachFilename(patterns, callback) {
-    const ignoreNodeModules = argv["with-node-modules"] === false;
-    // The ignorer will be used to filter file paths after the glob is checked,
-    // before any files are actually read
-    const ignoreFilePath = path.resolve(argv["ignore-path"]);
-    let ignoreText = "";
-
-    try {
-      ignoreText = fs.readFileSync(ignoreFilePath, "utf8");
-    } catch (readError) {
-      if (readError.code !== "ENOENT") {
-        console.error(`Unable to read ${ignoreFilePath}:`, readError);
-        process.exit(2);
-      }
-    }
-
-    const ignorer = ignore().add(ignoreText);
-
-    if (ignoreNodeModules) {
-      patterns = patterns.concat(["!**/node_modules/**", "!./node_modules/**"]);
-    }
-
-    return globby(patterns, { dot: true })
-      .then(filePaths => {
-        if (filePaths.length === 0) {
-          console.error(
-            `No matching files. Patterns tried: ${patterns.join(" ")}`
-          );
-          process.exitCode = 2;
-          return;
-        }
-        ignorer
-          .filter(filePaths)
-          .forEach(filePath =>
-            callback(filePath, util.getOptionsForFile(argv, filePath))
-          );
-      })
-      .catch(err => {
-        console.error(
-          `Unable to expand glob patterns: ${patterns.join(" ")}\n${err}`
-        );
-        // Don't exit the process if one pattern failed
-        process.exitCode = 2;
-      });
   }
 }
 

@@ -4,6 +4,9 @@ const path = require("path");
 const dashify = require("dashify");
 const minimist = require("minimist");
 const getStream = require("get-stream");
+const fs = require("fs");
+const globby = require("globby");
+const ignore = require("ignore");
 
 const prettier = eval("require")("../index");
 const cleanAST = require("./clean-ast").cleanAST;
@@ -229,6 +232,52 @@ function formatStdin(argv) {
   });
 }
 
+function eachFilename(argv, patterns, callback) {
+  const ignoreNodeModules = argv["with-node-modules"] === false;
+  // The ignorer will be used to filter file paths after the glob is checked,
+  // before any files are actually read
+  const ignoreFilePath = path.resolve(argv["ignore-path"]);
+  let ignoreText = "";
+
+  try {
+    ignoreText = fs.readFileSync(ignoreFilePath, "utf8");
+  } catch (readError) {
+    if (readError.code !== "ENOENT") {
+      console.error(`Unable to read ${ignoreFilePath}:`, readError);
+      process.exit(2);
+    }
+  }
+
+  const ignorer = ignore().add(ignoreText);
+
+  if (ignoreNodeModules) {
+    patterns = patterns.concat(["!**/node_modules/**", "!./node_modules/**"]);
+  }
+
+  return globby(patterns, { dot: true })
+    .then(filePaths => {
+      if (filePaths.length === 0) {
+        console.error(
+          `No matching files. Patterns tried: ${patterns.join(" ")}`
+        );
+        process.exitCode = 2;
+        return;
+      }
+      ignorer
+        .filter(filePaths)
+        .forEach(filePath =>
+          callback(filePath, getOptionsForFile(argv, filePath))
+        );
+    })
+    .catch(err => {
+      console.error(
+        `Unable to expand glob patterns: ${patterns.join(" ")}\n${err}`
+      );
+      // Don't exit the process if one pattern failed
+      process.exitCode = 2;
+    });
+}
+
 module.exports = {
   resolveConfig,
   writeOutput,
@@ -236,5 +285,6 @@ module.exports = {
   listDifferent,
   format,
   getOptionsForFile,
-  formatStdin
+  formatStdin,
+  eachFilename
 };
