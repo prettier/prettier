@@ -56,7 +56,7 @@ function run(args) {
     getStream(process.stdin).then(input => {
       const options = getOptionsForFile(process.cwd());
 
-      if (listDifferent(input, options, "(stdin)")) {
+      if (util.listDifferent(argv, input, options, "(stdin)")) {
         return;
       }
 
@@ -88,7 +88,7 @@ function run(args) {
         return;
       }
 
-      listDifferent(input, options, filename);
+      util.listDifferent(argv, input, options, filename);
 
       const start = Date.now();
 
@@ -203,23 +203,6 @@ function run(args) {
     }
 
     return prettier.formatWithCursor(input, opt);
-  }
-
-  function listDifferent(input, options, filename) {
-    if (!argv["list-different"]) {
-      return;
-    }
-
-    options = Object.assign({}, options, { filepath: filename });
-
-    if (!prettier.check(input, options)) {
-      if (!argv["write"]) {
-        console.log(filename);
-      }
-      process.exitCode = 1;
-    }
-
-    return true;
   }
 
   function eachFilename(patterns, callback) {

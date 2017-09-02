@@ -2,6 +2,7 @@
 
 const path = require("path");
 const dashify = require("dashify");
+const prettier = eval("require")("../index");
 
 const resolver = require("./resolve-config");
 
@@ -134,11 +135,29 @@ function writeOutput(result, options) {
   }
 }
 
+function listDifferent(argv, input, options, filename) {
+  if (!argv["list-different"]) {
+    return;
+  }
+
+  options = Object.assign({}, options, { filepath: filename });
+
+  if (!prettier.check(input, options)) {
+    if (!argv["write"]) {
+      console.log(filename);
+    }
+    process.exitCode = 1;
+  }
+
+  return true;
+}
+
 module.exports = {
   diff,
   dashifyObject,
   getOptions,
   resolveConfig,
   writeOutput,
-  handleError
+  handleError,
+  listDifferent
 };
