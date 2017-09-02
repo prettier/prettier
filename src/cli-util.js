@@ -3,7 +3,7 @@
 const path = require("path");
 const dashify = require("dashify");
 
-const resolver = require("../resolve-config");
+const resolver = require("./resolve-config");
 
 function getOptions(argv) {
   return {

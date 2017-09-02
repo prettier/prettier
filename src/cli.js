@@ -9,11 +9,11 @@ const path = require("path");
 const readline = require("readline");
 const ignore = require("ignore");
 
-const prettier = eval("require")("../../index");
-const cleanAST = require("../clean-ast").cleanAST;
-const resolver = require("../resolve-config");
-const constant = require("./constant");
-const util = require("./util");
+const prettier = eval("require")("../index");
+const cleanAST = require("./clean-ast").cleanAST;
+const resolver = require("./resolve-config");
+const constant = require("./cli-constant");
+const util = require("./cli-util");
 
 function run(args) {
   const argv = minimist(args, constant.options);
