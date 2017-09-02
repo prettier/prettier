@@ -16,6 +16,7 @@ const util = require("./cli-util");
 
 function run(args) {
   const argv = minimist(args, constant.options);
+  argv.__args = args;
 
   if (argv["version"]) {
     console.log(prettier.version);
@@ -152,7 +153,7 @@ function run(args) {
       argv["config"] === false ? null : resolver.resolveConfig.sync(filePath);
 
     try {
-      const parsedArgs = minimist(args, {
+      const parsedArgs = minimist(argv.__args, {
         boolean: constant.booleanOptionNames,
         string: constant.stringOptionNames,
         default: Object.assign(
