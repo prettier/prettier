@@ -475,11 +475,9 @@ function eachFilename(patterns, callback) {
         process.exitCode = 2;
         return;
       }
-      // Use map series to ensure idempotency
-      mapSeries(ignorer.filter(filePaths), filePath => {
-        const options = getOptionsForFile(filePath);
-        callback(filePath, options);
-      });
+      ignorer
+        .filter(filePaths)
+        .forEach(filePath => callback(filePath, getOptionsForFile(filePath)));
     })
     .catch(err => {
       console.error(
@@ -488,17 +486,4 @@ function eachFilename(patterns, callback) {
       // Don't exit the process if one pattern failed
       process.exitCode = 2;
     });
-}
-
-function mapSeries(array, iteratee) {
-  let current = Promise.resolve();
-
-  const promises = array.map((item, i) => {
-    current = current.then(() => {
-      return iteratee(item, i, array);
-    });
-    return current;
-  });
-
-  return Promise.all(promises);
 }
