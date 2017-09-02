@@ -54,6 +54,12 @@ function run(args) {
   if (argv["find-config-path"]) {
     util.resolveConfig(argv["find-config-path"]);
   } else if (stdin) {
+    formatStdin();
+  } else {
+    formatFiles();
+  }
+
+  function formatStdin() {
     getStream(process.stdin).then(input => {
       const options = getOptionsForFile(process.cwd());
 
@@ -67,7 +73,9 @@ function run(args) {
         util.handleError("stdin", e);
       }
     });
-  } else {
+  }
+
+  function formatFiles() {
     eachFilename(filepatterns, (filename, options) => {
       if (write) {
         // Don't use `console.log` here since we need to replace this line.
