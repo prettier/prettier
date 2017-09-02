@@ -362,12 +362,6 @@ function formatFiles(argv, filepatterns) {
 
 module.exports = {
   resolveConfig,
-  writeOutput,
-  handleError,
-  listDifferent,
-  format,
-  getOptionsForFile,
   formatStdin,
-  eachFilename,
   formatFiles
 };
