@@ -25,11 +25,6 @@ function run(args) {
 
   const filepatterns = argv["_"];
   const stdin = argv["stdin"] || (!filepatterns.length && !process.stdin.isTTY);
-  const ignoreNodeModules = argv["with-node-modules"] === false;
-  const ignoreNodeModulesGlobs = ["!**/node_modules/**", "!./node_modules/**"];
-  const globOptions = {
-    dot: true
-  };
 
   if (argv["write"] && argv["debug-check"]) {
     console.error("Cannot use --write and --debug-check together.");
@@ -228,6 +223,7 @@ function run(args) {
   }
 
   function eachFilename(patterns, callback) {
+    const ignoreNodeModules = argv["with-node-modules"] === false;
     // The ignorer will be used to filter file paths after the glob is checked,
     // before any files are actually read
     const ignoreFilePath = path.resolve(argv["ignore-path"]);
@@ -245,10 +241,10 @@ function run(args) {
     const ignorer = ignore().add(ignoreText);
 
     if (ignoreNodeModules) {
-      patterns = patterns.concat(ignoreNodeModulesGlobs);
+      patterns = patterns.concat(["!**/node_modules/**", "!./node_modules/**"]);
     }
 
-    return globby(patterns, globOptions)
+    return globby(patterns, { dot: true })
       .then(filePaths => {
         if (filePaths.length === 0) {
           console.error(
