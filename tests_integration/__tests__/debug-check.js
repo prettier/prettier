@@ -3,7 +3,7 @@
 const runPrettier = require("../runPrettier");
 
 test("doesn't crash when --debug-check is passed", () => {
-  const result = runPrettier.sync("cli/with-shebang", [
+  const result = runPrettier("cli/with-shebang", [
     "issue1890.js",
     "--debug-check"
   ]);
@@ -14,7 +14,7 @@ test("doesn't crash when --debug-check is passed", () => {
 });
 
 test("checks stdin with --debug-check", () => {
-  const result = runPrettier.sync("cli/with-shebang", ["--debug-check"], {
+  const result = runPrettier("cli/with-shebang", ["--debug-check"], {
     input: "0"
   });
 

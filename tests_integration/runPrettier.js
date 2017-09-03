@@ -1,31 +1,8 @@
-/*
- * runPrettier – spawns `prettier` process.
- * Adopted from Jest's integration tests suite.
- */
 "use strict";
 
 const path = require("path");
-const spawnSync = require("cross-spawn").sync;
 
-const PRETTIER_PATH = path.resolve(__dirname, "../bin/prettier.js");
-
-// return the result of the spawned process:
-//  [ 'status', 'signal', 'output', 'pid', 'stdout', 'stderr',
-//    'envPairs', 'options', 'args', 'file' ]
 function runPrettier(dir, args, options) {
-  const result = spawnSync(
-    PRETTIER_PATH,
-    args || [],
-    Object.assign({}, options, { cwd: normalizeDir(dir) })
-  );
-
-  result.stdout = result.stdout && result.stdout.toString();
-  result.stderr = result.stderr && result.stderr.toString();
-
-  return result;
-}
-
-runPrettier.sync = function(dir, args, options) {
   let status;
   let stdout = "";
   let stderr = "";
@@ -101,7 +78,7 @@ runPrettier.sync = function(dir, args, options) {
   spiedConsoleError.mockRestore();
 
   return { status, stdout, stderr };
-};
+}
 
 function normalizeDir(dir) {
   const isRelative = dir[0] !== "/";

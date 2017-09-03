@@ -3,7 +3,7 @@
 const runPrettier = require("../runPrettier");
 
 test("prints doc with --debug-print-doc", () => {
-  const result = runPrettier.sync("cli/with-shebang", ["--debug-print-doc"], {
+  const result = runPrettier("cli/with-shebang", ["--debug-print-doc"], {
     input: "0"
   });
 
