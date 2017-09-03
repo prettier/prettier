@@ -2,8 +2,8 @@
 
 exports[`do not write file with --write + invalid file 1`] = `
 "invalid.js: SyntaxError: Unexpected token, expected ; (1:6)
-[0m[31m[1m>[22m[39m[90m 1 | [39m[36mthis[39m is invalid[33m![39m
- [90m   | [39m     [31m[1m^[22m[39m[0m
+> 1 | this is invalid!
+    |      ^
 "
 `;
 

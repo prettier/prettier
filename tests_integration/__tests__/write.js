@@ -17,7 +17,11 @@ test("do not write file with --write + formated file", () => {
 });
 
 test("do not write file with --write + invalid file", () => {
-  const result = runPrettier("cli/write", ["--write", "invalid.js"]);
+  const result = runPrettier("cli/write", [
+    "--write",
+    "invalid.js",
+    "--no-color"
+  ]);
 
   expect(result.stderr).toMatchSnapshot();
   expect(result.write).toHaveLength(0);
