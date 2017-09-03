@@ -1,128 +1,89 @@
 "use strict";
 
-/**
- * There's an issue with this script's assumption that each run of prettier
- * will result in one output to stderr or stdout.
- *
- * On Mac this seems not to hold for stderr, where multiple errors are buffered
- * into one emit on the stderr stream.
- *
- * If you have any ideas on how to fix this, please send a PR!
- */
-if (process.platform !== "win32") {
-  console.log("Warning: this script may not work on macOS.");
-}
-
 const fs = require("fs");
+const globby = require("globby");
 const path = require("path");
-const spawn = require("child_process").spawn;
-const rimraf = require("rimraf");
+const format = require("../src/cli-util").format;
 
-const tsRoot = path.resolve(__dirname, "../../TypeScript");
-const testsDir = path.relative(process.cwd(), path.join(tsRoot, "tests"));
-const errorsPath = "./errors/";
-const fileGlob = path.join(testsDir, "**/*.ts");
-
-if (!fs.existsSync(tsRoot) || !fs.existsSync(testsDir)) {
-  console.error(`Error: TypeScript is not cloned at ../TypeScript`);
-  process.exit(1);
+function tryFormat(content) {
+  try {
+    format({ "debug-check": true }, content, { parser: "typescript" });
+  } catch (error) {
+    return error;
+  }
+  return null;
 }
 
-const badFiles = [];
-const errorTypes = {};
-let good = 0;
-let skipped = 0;
+function runExternalTests(testsDir) {
+  const testFiles = globby.sync(path.join(testsDir, "**/*.ts"));
 
-rimraf.sync(errorsPath);
-
-const cp = spawn("node", [
-  "./bin/prettier.js",
-  "--parser",
-  "typescript",
-  "--debug-check",
-  fileGlob
-]);
-
-cp.stdout.on("data", () => {
-  good++;
-  printStatus();
-});
-
-cp.stderr.on("data", err => {
-  const error = err.toString();
-  const { file, errorType } = splitFileAndError(error);
-  if (errorType.startsWith("SyntaxError:")) {
-    skipped++;
-  } else {
-    badFiles.push({ file, errorType, error });
-    errorTypes[errorType] = (errorTypes[errorType] || 0) + 1;
+  if (testFiles.length === 0) {
+    throw new Error(
+      [
+        "Couldn't find any test files.",
+        `Please make sure that \`${testsDir}\` exists and contains the TypeScript tests.`
+      ].join("\n")
+    );
   }
-  printStatus();
-});
 
-cp.on("close", () => {
-  const total = badFiles.length + good + skipped;
-  const percentNoError = (100 * (good + skipped) / total).toFixed(0);
-  console.log(
-    `\n${percentNoError}% of ${total} files processed without errors.\n`
-  );
-  Object.keys(errorTypes)
-    .sort((a, b) => errorTypes[b] - errorTypes[a])
-    .forEach(errorType => {
-      console.log(`${errorTypes[errorType]}\t${errorType}`);
-    });
-
-  console.log(`\nWriting errors to '${errorsPath}' directory`);
-  writeErrorsToFiles();
-});
-
-function printStatus() {
-  process.stdout.write(
-    `\r${good} good, ${skipped} skipped, ${badFiles.length} bad`
-  );
-}
-
-function splitFileAndError(err) {
-  const lines = err.split("\n");
-  const [file, ...rest] = lines[0].split(":");
-  if (rest.length) {
-    return {
-      file,
-      errorType: rest
-        .join(":")
-        .replace(/\(\d+:\d+\)/, "")
-        .replace(/(Comment )".*"/, '$1"<omitted>"')
-        .trim()
-    };
-  }
-  console.error("Could not process error:", err);
-  return {
-    file: "?",
-    errorType: err
+  const results = {
+    good: [],
+    skipped: [],
+    bad: []
   };
-}
 
-function writeErrorsToFiles() {
-  const splitter = "@".repeat(80);
-  fs.mkdirSync(errorsPath);
-  Object.keys(errorTypes).forEach(errorType => {
-    const files = badFiles.filter(f => f.errorType === errorType);
-    const contents = files
-      .map(({ file, error }) => {
-        // Trim file name from error.
-        if (error.startsWith(file)) {
-          error = error.substring(file.length);
-        }
-        return `\n\n${file}\n${error}\n${splitter}\n`;
-      })
-      .join("\n");
-    fs.writeFileSync(
-      path.join(errorsPath, sanitize(errorType) + ".log"),
-      contents
+  testFiles.forEach(file => {
+    const content = fs.readFileSync(file, "utf8");
+
+    const error = tryFormat(content);
+
+    if (error instanceof SyntaxError) {
+      results.skipped.push({ file, error });
+    } else if (error) {
+      results.bad.push({ file, error });
+    } else {
+      results.good.push({ file });
+    }
+
+    process.stderr.write(
+      `\r${results.good.length} good, ${results.skipped
+        .length} skipped, ${results.bad.length} bad`
     );
   });
+
+  return results;
 }
 
-function sanitize(string) {
-  return string.replace(/[^A-Z0-9_.() -]/gi, "_").replace(/\.$/, "");
+function run(argv) {
+  if (argv.length !== 1) {
+    console.error(
+      [
+        "You must provide the path to a TypeScript tests directory!",
+        "Example: node scripts/run-external-typescript-tests.js ../TypeScript/tests/"
+      ].join("\n")
+    );
+    return 1;
+  }
+
+  const testsDir = argv[0];
+  let results = null;
+
+  try {
+    results = runExternalTests(testsDir);
+  } catch (error) {
+    console.error(`Failed to run external tests.\n${error}`);
+    return 1;
+  }
+
+  console.log("");
+  console.log(
+    results.bad.map(data => `${data.file}\n${data.error}`).join("\n\n\n")
+  );
+
+  return 0;
+}
+
+if (require.main === module) {
+  const exitCode = run(process.argv.slice(2));
+  process.exit(exitCode);
 }
