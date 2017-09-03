@@ -2883,7 +2883,7 @@ function shouldGroupFirstArg(args) {
     (firstArg.type === "FunctionExpression" ||
       (firstArg.type === "ArrowFunctionExpression" &&
         firstArg.body.type === "BlockStatement")) &&
-    !couldGroupArg(secondArg)
+    (!couldGroupArg(secondArg) && !isBinaryish(secondArg))
   );
 }
 
