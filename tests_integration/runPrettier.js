@@ -7,7 +7,6 @@
 const path = require("path");
 const spawnSync = require("cross-spawn").sync;
 
-const prettierCli = require("../src/cli");
 const PRETTIER_PATH = path.resolve(__dirname, "../bin/prettier.js");
 
 // return the result of the spawned process:
@@ -75,16 +74,20 @@ runPrettier.sync = function(dir, args) {
 
   const originalCwd = process.cwd();
   const originalIsTTY = process.stdin.isTTY;
+  const originalArgv = process.argv;
 
   process.chdir(normalizeDir(dir));
-
   process.stdin.isTTY = false;
-  prettierCli.run(args || []);
+  process.argv = ["path/to/node", "path/to/prettier/bin"].concat(args || []);
+
+  jest.resetModules();
+  require("../bin/prettier");
 
   status = status || process.exitCode || 0;
 
   process.exitCode = 0;
   process.stdin.isTTY = originalIsTTY;
+  process.argv = originalArgv;
   process.chdir(originalCwd);
 
   spiedProcessExit.mockRestore();
