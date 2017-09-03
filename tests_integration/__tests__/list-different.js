@@ -3,7 +3,7 @@
 const runPrettier = require("../runPrettier");
 
 test("checks stdin with --list-different", () => {
-  const result = runPrettier("cli/with-shebang", ["--list-different"], {
+  const result = runPrettier.sync("cli/with-shebang", ["--list-different"], {
     input: "0"
   });
 

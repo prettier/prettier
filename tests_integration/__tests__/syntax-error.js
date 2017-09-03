@@ -3,7 +3,7 @@
 const runPrettier = require("../runPrettier");
 
 test("exits with non-zero code when input has a syntax error", () => {
-  const result = runPrettier("cli/with-shebang", ["--stdin"], {
+  const result = runPrettier.sync("cli/with-shebang", ["--stdin"], {
     input: "a.2"
   });
 

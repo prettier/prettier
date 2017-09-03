@@ -25,7 +25,7 @@ function runPrettier(dir, args, options) {
   return result;
 }
 
-runPrettier.sync = function(dir, args) {
+runPrettier.sync = function(dir, args, options) {
   let status;
   let stdout = "";
   let stderr = "";
@@ -81,6 +81,9 @@ runPrettier.sync = function(dir, args) {
   process.argv = ["path/to/node", "path/to/prettier/bin"].concat(args || []);
 
   jest.resetModules();
+  jest.setMock("get-stream", () => ({
+    then: handler => handler((options && options.input) || "")
+  }));
   require("../bin/prettier");
 
   status = status || process.exitCode || 0;
