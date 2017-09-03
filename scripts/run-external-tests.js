@@ -2,28 +2,29 @@
 
 const fs = require("fs");
 const globby = require("globby");
-const path = require("path");
 const format = require("../src/cli-util").format;
 
-function tryFormat(content) {
+function tryFormat(file) {
+  const content = fs.readFileSync(file, "utf8");
+
   try {
-    format({ "debug-check": true }, content, { parser: "typescript" });
+    format({ "debug-check": true }, content, {
+      // Allow specifying the parser via an environment variable:
+      parser: process.env.PARSER,
+      // Use file extension detection otherwise:
+      filepath: file
+    });
   } catch (error) {
     return error;
   }
   return null;
 }
 
-function runExternalTests(testsDir) {
-  const testFiles = globby.sync(path.join(testsDir, "**/*.ts"));
+function runExternalTests(patterns) {
+  const testFiles = globby.sync(patterns);
 
   if (testFiles.length === 0) {
-    throw new Error(
-      [
-        "Couldn't find any test files.",
-        `Please make sure that \`${testsDir}\` exists and contains the TypeScript tests.`
-      ].join("\n")
-    );
+    throw new Error(`No matching files. Patterns tried: ${patterns.join(" ")}`);
   }
 
   const results = {
@@ -33,9 +34,7 @@ function runExternalTests(testsDir) {
   };
 
   testFiles.forEach(file => {
-    const content = fs.readFileSync(file, "utf8");
-
-    const error = tryFormat(content);
+    const error = tryFormat(file);
 
     if (error instanceof SyntaxError) {
       results.skipped.push({ file, error });
@@ -55,21 +54,23 @@ function runExternalTests(testsDir) {
 }
 
 function run(argv) {
-  if (argv.length !== 1) {
+  if (argv.length === 0) {
     console.error(
       [
-        "You must provide the path to a TypeScript tests directory!",
-        "Example: node scripts/run-external-typescript-tests.js ../TypeScript/tests/"
+        "You must provide at least one file or glob for test files!",
+        "Examples:",
+        '  node scripts/run-external-tests.js "../TypeScript/tests/**/*.ts"',
+        '  node scripts/run-external-tests.js "../flow/tests/**/*.js"',
+        '  PARSER=flow node scripts/run-external-tests.js "../flow/tests/**/*.js"'
       ].join("\n")
     );
     return 1;
   }
 
-  const testsDir = argv[0];
   let results = null;
 
   try {
-    results = runExternalTests(testsDir);
+    results = runExternalTests(argv);
   } catch (error) {
     console.error(`Failed to run external tests.\n${error}`);
     return 1;
