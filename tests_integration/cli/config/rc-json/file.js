@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 function f() {
   console.log.apply(null, [
     "this file",

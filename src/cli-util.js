@@ -256,8 +256,8 @@ function eachFilename(argv, patterns, callback) {
     patterns = patterns.concat(["!**/node_modules/**", "!./node_modules/**"]);
   }
 
-  const filePaths = globby.sync(patterns, { dot: true });
   try {
+    const filePaths = globby.sync(patterns, { dot: true });
     if (filePaths.length === 0) {
       console.error(`No matching files. Patterns tried: ${patterns.join(" ")}`);
       process.exitCode = 2;

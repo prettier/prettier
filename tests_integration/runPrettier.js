@@ -1,6 +1,7 @@
 "use strict";
 
 const path = require("path");
+const fs = require("fs");
 
 function runPrettier(dir, args, options) {
   let status;
@@ -49,6 +50,13 @@ function runPrettier(dir, args, options) {
     }
   });
 
+  const write = [];
+
+  const spiedFsWriteFileSync = jest.spyOn(fs, "writeFileSync");
+  spiedFsWriteFileSync.mockImplementation((filename, content) => {
+    write.push({ filename, content });
+  });
+
   const originalCwd = process.cwd();
   const originalIsTTY = process.stdin.isTTY;
   const originalArgv = process.argv;
@@ -81,9 +89,10 @@ function runPrettier(dir, args, options) {
     spiedConsoleLog.mockRestore();
     spiedConsoleWarn.mockRestore();
     spiedConsoleError.mockRestore();
+    spiedFsWriteFileSync.mockRestore();
   }
 
-  return { status, stdout, stderr };
+  return { status, stdout, stderr, write };
 }
 
 function normalizeDir(dir) {
