@@ -61,21 +61,26 @@ function runPrettier(dir, args, options) {
   jest.setMock("get-stream", () => ({
     then: handler => handler((options && options.input) || "")
   }));
-  require("../bin/prettier");
 
-  status = status || process.exitCode || 0;
+  try {
+    require("../bin/prettier");
+    status = status || process.exitCode || 0;
+  } catch (error) {
+    stderr += error.message;
+    status = 1;
+  } finally {
+    process.exitCode = 0;
+    process.stdin.isTTY = originalIsTTY;
+    process.argv = originalArgv;
+    process.chdir(originalCwd);
 
-  process.exitCode = 0;
-  process.stdin.isTTY = originalIsTTY;
-  process.argv = originalArgv;
-  process.chdir(originalCwd);
-
-  spiedProcessExit.mockRestore();
-  spiedStdoutWrite.mockRestore();
-  spiedStderrWrite.mockRestore();
-  spiedConsoleLog.mockRestore();
-  spiedConsoleWarn.mockRestore();
-  spiedConsoleError.mockRestore();
+    spiedProcessExit.mockRestore();
+    spiedStdoutWrite.mockRestore();
+    spiedStderrWrite.mockRestore();
+    spiedConsoleLog.mockRestore();
+    spiedConsoleWarn.mockRestore();
+    spiedConsoleError.mockRestore();
+  }
 
   return { status, stdout, stderr };
 }
