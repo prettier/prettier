@@ -19,6 +19,7 @@ FastPath.prototype.getName = function getName() {
   }
   // Since the name is always a string, null is a safe sentinel value to
   // return if we do not know the name of the (root) value.
+  /* istanbul ignore next */
   return null;
 };
 

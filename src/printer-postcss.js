@@ -17,6 +17,7 @@ const removeLines = docUtils.removeLines;
 function genericPrint(path, options, print) {
   const n = path.getValue();
 
+  /* istanbul ignore if */
   if (!n) {
     return "";
   }
@@ -362,6 +363,7 @@ function genericPrint(path, options, print) {
     }
 
     default:
+      /* istanbul ignore next */
       throw new Error("unknown postcss type: " + JSON.stringify(n.type));
   }
 }
