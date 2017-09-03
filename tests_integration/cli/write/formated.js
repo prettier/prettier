@@ -1,1 +1,1 @@
-var x = 1; // eslint-disable-line
+var x = 1;

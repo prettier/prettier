@@ -10,7 +10,7 @@ exports[`do not write file with --write + invalid file 1`] = `
 exports[`write file with --write + unformated file 1`] = `
 Array [
   Object {
-    "content": "var x = 1; // eslint-disable-line
+    "content": "var x = 1;
 ",
     "filename": "unformated.js",
   },
