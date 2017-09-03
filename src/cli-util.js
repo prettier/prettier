@@ -359,6 +359,7 @@ function formatFiles(argv, filepatterns) {
 
 module.exports = {
   resolveConfig,
+  format,
   formatStdin,
   formatFiles
 };
