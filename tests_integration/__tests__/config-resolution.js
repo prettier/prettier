@@ -93,3 +93,27 @@ test("API resolveConfig.sync with file arg and extension override", () => {
     semi: true
   });
 });
+
+test("API resolveConfig with file arg and .editorconfig", () => {
+  const file = path.resolve(
+    path.join(__dirname, "../cli/config/editorconfig/file.js")
+  );
+  return prettier.resolveConfig(file).then(result => {
+    expect(result).toMatchObject({
+      useTabs: true,
+      tabWidth: 8,
+      printWidth: 100
+    });
+  });
+});
+
+test("API resolveConfig.sync with file arg and .editorconfig", () => {
+  const file = path.resolve(
+    path.join(__dirname, "../cli/config/editorconfig/file.js")
+  );
+  expect(prettier.resolveConfig.sync(file)).toMatchObject({
+    useTabs: true,
+    tabWidth: 8,
+    printWidth: 100
+  });
+});

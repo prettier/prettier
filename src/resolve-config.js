@@ -1,6 +1,7 @@
 "use strict";
 
 const cosmiconfig = require("cosmiconfig");
+const editorconfig = require("editorconfig");
 const minimatch = require("minimatch");
 
 const asyncWithCache = cosmiconfig("prettier");
@@ -8,19 +9,45 @@ const asyncNoCache = cosmiconfig("prettier", { cache: false });
 const syncWithCache = cosmiconfig("prettier", { sync: true });
 const syncNoCache = cosmiconfig("prettier", { cache: false, sync: true });
 
+function editorConfigToPrettier(filePath) {
+  const editorConfig = editorconfig.parseSync(filePath);
+  const result = {};
+  result.useTabs = editorConfig.indent_style === "tab" || result.useTabs;
+  result.tabWidth = editorConfig.tab_width || result.tabWidth;
+  result.printWidth = editorConfig.max_line_length || result.printWidth;
+  return result;
+}
+
 function resolveConfig(filePath, opts) {
   const useCache = !(opts && opts.useCache === false);
   return (useCache ? asyncWithCache : asyncNoCache)
     .load(filePath)
     .then(result => {
-      return !result ? null : mergeOverrides(result.config, filePath);
+      if (!result) {
+        return null;
+      }
+
+      return Object.assign(
+        {},
+        editorConfigToPrettier(filePath),
+        mergeOverrides(result.config, filePath)
+      );
     });
 }
 
 resolveConfig.sync = (filePath, opts) => {
   const useCache = !(opts && opts.useCache === false);
   const result = (useCache ? syncWithCache : syncNoCache).load(filePath);
-  return !result ? null : mergeOverrides(result.config, filePath);
+
+  if (!result) {
+    return null;
+  }
+
+  return Object.assign(
+    {},
+    editorConfigToPrettier(filePath),
+    mergeOverrides(result.config, filePath)
+  );
 };
 
 function clearCache() {
