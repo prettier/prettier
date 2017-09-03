@@ -52,6 +52,7 @@ function runPrettier(dir, args, options) {
   const originalCwd = process.cwd();
   const originalIsTTY = process.stdin.isTTY;
   const originalArgv = process.argv;
+  const originalExitCode = process.exitCode;
 
   process.chdir(normalizeDir(dir));
   process.stdin.isTTY = false;
@@ -69,7 +70,7 @@ function runPrettier(dir, args, options) {
     stderr += error.message;
     status = 1;
   } finally {
-    process.exitCode = 0;
+    process.exitCode = originalExitCode;
     process.stdin.isTTY = originalIsTTY;
     process.argv = originalArgv;
     process.chdir(originalCwd);
