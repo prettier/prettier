@@ -6,19 +6,19 @@ const runPrettier = require("../runPrettier");
 const prettier = require("../../");
 
 test("resolves configuration from external files", () => {
-  const output = runPrettier("cli/config/", ["**/*.js"]);
+  const output = runPrettier.sync("cli/config/", ["**/*.js"]);
   expect(output.stdout).toMatchSnapshot();
   expect(output.status).toEqual(0);
 });
 
 test("resolves configuration from external files and overrides by extname", () => {
-  const output = runPrettier("cli/config/", ["**/*.ts"]);
+  const output = runPrettier.sync("cli/config/", ["**/*.ts"]);
   expect(output.stdout).toMatchSnapshot();
   expect(output.status).toEqual(0);
 });
 
 test("accepts configuration from --config", () => {
-  const output = runPrettier("cli/config/", [
+  const output = runPrettier.sync("cli/config/", [
     "--config",
     ".prettierrc",
     "./js/file.js"
@@ -28,7 +28,7 @@ test("accepts configuration from --config", () => {
 });
 
 test("resolves configuration file with --find-config-path file", () => {
-  const output = runPrettier("cli/config/", [
+  const output = runPrettier.sync("cli/config/", [
     "--find-config-path",
     "no-config/file.js"
   ]);
@@ -37,13 +37,13 @@ test("resolves configuration file with --find-config-path file", () => {
 });
 
 test("prints nothing when no file found with --find-config-path", () => {
-  const output = runPrettier("cli/config/", ["--find-config-path", ".."]);
+  const output = runPrettier.sync("cli/config/", ["--find-config-path", ".."]);
   expect(output.stdout).toEqual("");
   expect(output.status).toEqual(1);
 });
 
 test("CLI overrides take precedence", () => {
-  const output = runPrettier("cli/config/", ["--print-width", "1", "**/*.js"]);
+  const output = runPrettier.sync("cli/config/", ["--print-width", "1", "**/*.js"]);
   expect(output.stdout).toMatchSnapshot();
   expect(output.status).toEqual(0);
 });

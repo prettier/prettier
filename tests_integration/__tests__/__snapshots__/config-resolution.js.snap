@@ -58,7 +58,7 @@ exports[`accepts configuration from --config 1`] = `
 "/* eslint-disable */
 
 function f() {
-  console.log(\\"should have tab width 8\\")
+        console.log(\\"should have tab width 8\\");
 }
 "
 `;

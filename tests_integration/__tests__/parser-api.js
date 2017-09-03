@@ -30,7 +30,7 @@ test("allows usage of prettier's supported parsers", () => {
 });
 
 test("allows passing a string to resolve a parser", () => {
-  const output = runPrettier("./custom-parsers/", [
+  const output = runPrettier.sync("./custom-parsers/", [
     "./custom-rename-input.js",
     "--parser",
     "./custom-rename-parser"

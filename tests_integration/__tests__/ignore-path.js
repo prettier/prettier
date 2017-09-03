@@ -3,7 +3,7 @@
 const runPrettier = require("../runPrettier");
 
 test("ignore path", () => {
-  const result = runPrettier("cli/ignore-path", [
+  const result = runPrettier.sync("cli/ignore-path", [
     "**/*.js",
     "--ignore-path",
     ".gitignore",
@@ -15,7 +15,7 @@ test("ignore path", () => {
 });
 
 test("support .prettierignore", () => {
-  const result = runPrettier("cli/ignore-path", ["**/*.js", "-l"]);
+  const result = runPrettier.sync("cli/ignore-path", ["**/*.js", "-l"]);
 
   expect(result.stdout).toMatchSnapshot();
   expect(result.status).toEqual(1);
