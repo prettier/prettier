@@ -66,8 +66,8 @@
     "webpack": "2.6.1"
   },
   "scripts": {
-    "test": "jest",
-    "test-integration": "jest tests_integration",
+    "test": "jest --forceExit",
+    "test-integration": "npm run test -- tests_integration",
     "lint": "cross-env EFF_NO_LINK_RULES=true eslint . --format node_modules/eslint-friendly-formatter",
     "build": "node ./scripts/build/build.js",
     "toc": "node ./scripts/table-of-contents.js"
