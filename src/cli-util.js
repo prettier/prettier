@@ -256,28 +256,25 @@ function eachFilename(argv, patterns, callback) {
     patterns = patterns.concat(["!**/node_modules/**", "!./node_modules/**"]);
   }
 
-  return globby(patterns, { dot: true })
-    .then(filePaths => {
-      if (filePaths.length === 0) {
-        console.error(
-          `No matching files. Patterns tried: ${patterns.join(" ")}`
-        );
-        process.exitCode = 2;
-        return;
-      }
-      ignorer
-        .filter(filePaths)
-        .forEach(filePath =>
-          callback(filePath, getOptionsForFile(argv, filePath))
-        );
-    })
-    .catch(err => {
-      console.error(
-        `Unable to expand glob patterns: ${patterns.join(" ")}\n${err}`
-      );
-      // Don't exit the process if one pattern failed
+  const filePaths = globby.sync(patterns, { dot: true });
+  try {
+    if (filePaths.length === 0) {
+      console.error(`No matching files. Patterns tried: ${patterns.join(" ")}`);
       process.exitCode = 2;
-    });
+      return;
+    }
+    ignorer
+      .filter(filePaths)
+      .forEach(filePath =>
+        callback(filePath, getOptionsForFile(argv, filePath))
+      );
+  } catch (err) {
+    console.error(
+      `Unable to expand glob patterns: ${patterns.join(" ")}\n${err}`
+    );
+    // Don't exit the process if one pattern failed
+    process.exitCode = 2;
+  }
 }
 
 function formatFiles(argv, filepatterns) {
