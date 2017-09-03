@@ -45,6 +45,7 @@ function normalize(options) {
     normalized.trailingComma = "none";
   }
 
+  /* istanbul ignore if */
   if (typeof normalized.trailingComma === "boolean") {
     // Support a deprecated boolean type for the trailing comma config
     // for a few versions. This code can be removed later.
@@ -68,6 +69,7 @@ function normalize(options) {
   normalized.parser = parserBackup;
 
   // For backward compatibility. Deprecated in 0.0.10
+  /* istanbul ignore if */
   if ("useFlowParser" in normalized) {
     normalized.parser = normalized.useFlowParser ? "flow" : "babylon";
     delete normalized.useFlowParser;
