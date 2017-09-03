@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`throw error with invalid config format 1`] = `"Failed to parse \\"<cwd>/tests_integration/cli/config/invalid/file/.prettierrc\\" as JSON, JS, or YAML."`;
+
+exports[`throw error with invalid config option (int) 1`] = `
+"Invalid --tab-width value. Expected an integer, but received: 0.5
+"
+`;
+
+exports[`throw error with invalid config option (trailingComma) 1`] = `
+"Invalid configuration:
+"
+`;
+
+exports[`throw error with invalid config target (directory) 1`] = `"EISDIR: illegal operation on a directory, read"`;

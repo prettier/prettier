@@ -1,0 +1,6 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`throw error with invalid ignore 1`] = `
+"Unable to read <cwd>/tests_integration/cli/invalid-ignore/.prettierignore:
+"
+`;
