@@ -43,7 +43,11 @@ test("prints nothing when no file found with --find-config-path", () => {
 });
 
 test("CLI overrides take precedence", () => {
-  const output = runPrettier.sync("cli/config/", ["--print-width", "1", "**/*.js"]);
+  const output = runPrettier.sync("cli/config/", [
+    "--print-width",
+    "1",
+    "**/*.js"
+  ]);
   expect(output.stdout).toMatchSnapshot();
   expect(output.status).toEqual(0);
 });
