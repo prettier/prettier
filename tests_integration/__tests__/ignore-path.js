@@ -20,3 +20,17 @@ test("support .prettierignore", () => {
   expect(result.stdout).toMatchSnapshot();
   expect(result.status).toEqual(1);
 });
+
+test("support multiple ignore-paths", () => {
+  const result = runPrettier("cli/ignore-path", [
+    "**/*.js",
+    "--ignore-path",
+    ".gitignore",
+    "--ignore-path",
+    ".prettierignore",
+    "-l"
+  ]);
+
+  expect(result.stdout).toMatchSnapshot();
+  expect(result.status).toEqual(1);
+});

@@ -448,15 +448,18 @@ function writeOutput(result, options) {
 function eachFilename(patterns, callback) {
   // The ignorer will be used to filter file paths after the glob is checked,
   // before any files are actually read
-  const ignoreFilePath = path.resolve(ignorePath);
-  let ignoreText = "";
+  const ignorePaths = [].concat(ignorePath);
 
-  try {
-    ignoreText = fs.readFileSync(ignoreFilePath, "utf8");
-  } catch (readError) {
-    if (readError.code !== "ENOENT") {
-      console.error(`Unable to read ${ignoreFilePath}:`, readError);
-      process.exit(2);
+  let ignoreText = "";
+  for (let i = 0; i < ignorePaths.length; i++) {
+    const ignoreFilePath = path.resolve(ignorePaths[i]);
+    try {
+      ignoreText += "\n" + fs.readFileSync(ignoreFilePath, "utf8");
+    } catch (readError) {
+      if (readError.code !== "ENOENT") {
+        console.error(`Unable to read ${ignoreFilePath}:`, readError);
+        process.exit(2);
+      }
     }
   }
 
