@@ -1092,7 +1092,7 @@ cross-env@5.0.1:
     cross-spawn "^5.1.0"
     is-windows "^1.0.0"
 
-cross-spawn@5.1.0, cross-spawn@^5.1.0:
+cross-spawn@^5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-5.1.0.tgz#e8bd0efee58fcff6f8f94510a0a554bbfa235449"
   dependencies:
