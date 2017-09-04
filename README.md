@@ -302,6 +302,8 @@ Config file take precedence over CLI options
 
 If a config file is found will evaluate it and ignore other CLI options. If no config file is found CLI options will evaluate as normal.
 
+This option adds support to editor integrations where users define their default configuration but want to respect project specific configuration.
+
 #### `--with-node-modules`
 
 Prettier CLI will ignore files located in `node_modules` directory. To opt-out from this behavior use `--with-node-modules` flag.
