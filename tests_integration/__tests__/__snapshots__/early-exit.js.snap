@@ -13,6 +13,7 @@ Available options:
                            file-override | default config => CLI overrides => config file
                            prefer-file   | default config => config file (if file config is found) or
                                            default config => CLI overrides (if no file config is found)
+                           Defaults to cli-override
   --no-config              Do not look for a configuration file.
   --find-config-path <path>
                            Finds and prints the path to a configuration file for a given input file.
