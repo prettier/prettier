@@ -12,4 +12,9 @@ exports[`throw error with invalid config option (trailingComma) 1`] = `
 "
 `;
 
+exports[`throw error with invalid config precedence option (configPrecedence) 1`] = `
+"Invalid configuration:
+"
+`;
+
 exports[`throw error with invalid config target (directory) 1`] = `"EISDIR: illegal operation on a directory, read"`;

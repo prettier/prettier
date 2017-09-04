@@ -200,6 +200,7 @@ function getOptionsForFile(argv, filePath) {
     argv["config"] === false ? null : resolver.resolveConfig.sync(filePath);
 
   try {
+    const dashifiedConfig = dashifyObject(options);
     const parsedArgs = minimist(argv.__args, {
       boolean: constant.booleanOptionNames,
       string: constant.stringOptionNames,
@@ -207,12 +208,26 @@ function getOptionsForFile(argv, filePath) {
         {
           semi: true,
           "bracket-spacing": true,
+          "config-precedence": "cli-override",
           parser: "babylon"
         },
-        dashifyObject(options)
+        dashifiedConfig
       )
     });
-    return getOptions(Object.assign({}, argv, parsedArgs));
+
+    switch (parsedArgs["config-precedence"]) {
+      case "cli-override":
+        return getOptions(parsedArgs);
+      case "file-override":
+        return getOptions(Object.assign({}, parsedArgs, dashifiedConfig));
+      case "prefer-file":
+        if (!options) {
+          return getOptions(parsedArgs);
+        }
+        return getOptions(dashifiedConfig);
+      default:
+        throw new Error("Invalid option for --config-precedence");
+    }
   } catch (error) {
     console.error("Invalid configuration:", error.toString());
     process.exit(2);

@@ -286,6 +286,24 @@ prettier --single-quote --list-different "src/**/*.js"
 
 Do not look for a configuration file.  The default settings will be used.
 
+#### `--config-precedence`
+
+Defines how config file should be evaluated in combination of CLI options. 
+
+**cli-override (default)**
+
+CLI options take precedence over config file
+
+**file-override**
+
+Config file take precedence over CLI options
+
+**prefer-file**
+
+If a config file is found will evaluate it and ignore other CLI options. If no config file is found CLI options will evaluate as normal.
+
+This option adds support to editor integrations where users define their default configuration but want to respect project specific configuration.
+
 #### `--with-node-modules`
 
 Prettier CLI will ignore files located in `node_modules` directory. To opt-out from this behavior use `--with-node-modules` flag.

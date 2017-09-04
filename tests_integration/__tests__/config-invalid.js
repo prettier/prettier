@@ -36,3 +36,12 @@ test("throw error with invalid config option (trailingComma)", () => {
   expect(output.stderr).toMatchSnapshot();
   expect(output.status).not.toBe(0);
 });
+
+test("throw error with invalid config precedence option (configPrecedence)", () => {
+  const output = runPrettier("cli/config/invalid", [
+    "--config-precedence",
+    "option/configPrecedence"
+  ]);
+  expect(output.stderr).toMatchSnapshot();
+  expect(output.status).not.toBe(0);
+});
