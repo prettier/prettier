@@ -201,16 +201,18 @@ function getOptionsForFile(argv, filePath) {
 
   try {
     const dashifiedConfig = dashifyObject(options);
-    const defaultConfig = {
-      semi: true,
-      "bracket-spacing": true,
-      "config-precedence": "cli-override",
-      parser: "babylon"
-    };
     const parsedArgs = minimist(argv.__args, {
       boolean: constant.booleanOptionNames,
       string: constant.stringOptionNames,
-      default: Object.assign(defaultConfig, dashifiedConfig)
+      default: Object.assign(
+        {
+          semi: true,
+          "bracket-spacing": true,
+          "config-precedence": "cli-override",
+          parser: "babylon"
+        },
+        dashifiedConfig
+      )
     });
 
     switch (parsedArgs["config-precedence"]) {

@@ -8,11 +8,11 @@ Available options:
   --list-different or -l   Print filenames of files that are different from Prettier formatting.
   --config                 Path to a prettier configuration file (.prettierrc, package.json, prettier.config.js).
   --config-precedence <cli-override|file-override|prefer-file>
-                           Defines how config should be evaluated in combination of CLI arguments
+                           Defines how config file should be evaluated in combination of CLI arguments
                            cli-override  | default config => config file => CLI overrides
                            file-override | default config => CLI overrides => config file
-                           prefer-file   | default config => config file (if file config is found) or
-                                           default config => CLI overrides (if no file config is found)
+                           prefer-file   | default config => config file (if config file is found) or
+                                           default config => CLI overrides (if no config file is found)
                            Defaults to cli-override
   --no-config              Do not look for a configuration file.
   --find-config-path <path>
