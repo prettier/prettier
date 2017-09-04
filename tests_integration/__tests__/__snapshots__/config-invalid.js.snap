@@ -12,7 +12,7 @@ exports[`throw error with invalid config option (trailingComma) 1`] = `
 "
 `;
 
-exports[`throw error with invalid config precedence option (string) 1`] = `
+exports[`throw error with invalid config precedence option (configPrecedence) 1`] = `
 "Invalid configuration:
 "
 `;
