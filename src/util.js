@@ -86,6 +86,7 @@ function skipInlineComment(text, index, opts) {
 
   const backwards = opts && opts.backwards;
 
+  // Check if there is an inline comment opening or closing.
   if (
     text.charAt(index) !== "/" ||
     text.charAt(backwards ? index - 1 : index + 1) !== "*"
@@ -95,6 +96,8 @@ function skipInlineComment(text, index, opts) {
 
   let i = backwards ? index - 2 : index + 2;
 
+  // Loop forward or backward to find the inline comment opening
+  // or closing index
   if (backwards) {
     for (; i > 0; --i) {
       if (text.charAt(i) === "*" && text.charAt(i - 1) === "/") {
@@ -216,6 +219,8 @@ function getNextNonSpaceNonCommentCharacter(text, node) {
   return text.charAt(idx);
 }
 
+// This function doesn't ignore trailing comments unlike
+// getNextNonSpaceNonCommentCharacter.
 function getPreviousNonSpaceNonCommentCharacter(text, node) {
   let oldIdx = null;
   let idx = locStart(node) - 1;
