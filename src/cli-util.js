@@ -61,32 +61,35 @@ function getIntOption(argv, optionName) {
     return Number(value);
   }
 
-  console.error(
+  throw new Error(
     "Invalid --" +
       optionName +
-      " value. Expected an integer, but received: " +
+      " value.\nExpected an integer, but received: " +
       JSON.stringify(value)
   );
-  process.exit(1);
 }
 
 function getTrailingComma(argv) {
-  switch (argv["trailing-comma"]) {
-    case undefined:
-    case "none":
-      return "none";
+  const value = argv["trailing-comma"];
+
+  switch (value) {
     case "":
       console.warn(
         "Warning: `--trailing-comma` was used without an argument. This is deprecated. " +
           'Specify "none", "es5", or "all".'
       );
       return "es5";
+    case undefined:
+      return "none";
+    case "none":
     case "es5":
-      return "es5";
     case "all":
-      return "all";
+      return value;
     default:
-      throw new Error("Invalid option for --trailing-comma");
+      throw new Error(
+        "Invalid option for --trailing-comma.\n" +
+          `Expected "none", "es5" or "all", but received: "${value}"`
+      );
   }
 }
 
@@ -195,41 +198,57 @@ function format(argv, input, opt) {
   return prettier.formatWithCursor(input, opt);
 }
 
-function getOptionsForFile(argv, filePath) {
-  const options =
-    argv["config"] === false ? null : resolver.resolveConfig.sync(filePath);
-
+function getOptionsOrDie(argv, filePath) {
   try {
-    const dashifiedConfig = dashifyObject(options);
-    const parsedArgs = minimist(argv.__args, {
+    return argv["config"] === false
+      ? null
+      : resolver.resolveConfig.sync(filePath);
+  } catch (error) {
+    console.error("Error: Invalid configuration file.");
+    console.error(error.message);
+    process.exit(2);
+  }
+}
+
+function getOptionsForFile(argv, filePath) {
+  const options = getOptionsOrDie(argv, filePath);
+  const configPrecedence = argv["config-precedence"];
+  return applyConfigPrecedence(argv.__args, options, configPrecedence);
+}
+
+function parseArgsToOptions(args, defaults) {
+  return getOptions(
+    minimist(args, {
       boolean: constant.booleanOptionNames,
       string: constant.stringOptionNames,
       default: Object.assign(
-        {
-          semi: true,
-          "bracket-spacing": true,
-          "config-precedence": "cli-override",
-          parser: "babylon"
-        },
-        dashifiedConfig
+        {},
+        constant.defaultOptions,
+        dashifyObject(defaults)
       )
-    });
+    })
+  );
+}
 
-    switch (parsedArgs["config-precedence"]) {
+function applyConfigPrecedence(args, options, configPrecedence) {
+  try {
+    switch (configPrecedence) {
       case "cli-override":
-        return getOptions(parsedArgs);
+        return parseArgsToOptions(args, options);
       case "file-override":
-        return getOptions(Object.assign({}, parsedArgs, dashifiedConfig));
+        return Object.assign({}, parseArgsToOptions(args), options);
       case "prefer-file":
-        if (!options) {
-          return getOptions(parsedArgs);
-        }
-        return getOptions(dashifiedConfig);
+        return options || parseArgsToOptions(args);
+
       default:
-        throw new Error("Invalid option for --config-precedence");
+        throw new Error(
+          "Invalid option for --config-precedence.\n" +
+            'Expected "cli-override", "file-override" or "prefer-file", ' +
+            `but received: "${configPrecedence}"`
+        );
     }
   } catch (error) {
-    console.error("Invalid configuration:", error.toString());
+    console.error(error.toString());
     process.exit(2);
   }
 }
