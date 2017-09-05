@@ -1,6 +1,2 @@
-semi: false
-
-overrides:
-- files: "*.ts"
-  options:
-    semi: true
+trailingComma: all
+singleQuote: true

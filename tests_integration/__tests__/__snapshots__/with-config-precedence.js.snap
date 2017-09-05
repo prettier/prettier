@@ -1,24 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CLI overrides are still applied when no config is found with --config-precedence file-override 1`] = `
-"function f() {
-      console.log(\\"should have no semicolons\\")
+"function noConfigJs() {
+      console.log(\\"no-config/file.js should have no semicolons\\")
 }
 "
 `;
 
 exports[`CLI overrides gets applied when no config exists with --config-precedence prefer-file 1`] = `
-"function f() {
+"function noConfigJs() {
        console.log(
-              \\"should have no semicolons\\"
+              \\"no-config/file.js should have no semicolons\\"
        );
 }
 "
 `;
 
 exports[`CLI overrides gets ignored when config exists with --config-precedence prefer-file 1`] = `
-"function f() {
-        console.log(\\"should have tab width 8\\");
+"function js() {
+        console.log(\\"js/file.js should have tab width 8\\");
 }
 \\"use strict\\";
 
@@ -29,8 +29,8 @@ module.exports = {
 `;
 
 exports[`CLI overrides take lower precedence with --config-precedence file-override 1`] = `
-"function f() {
-        console.log(\\"should have tab width 8\\");
+"function js() {
+        console.log(\\"js/file.js should have tab width 8\\");
 }
 \\"use strict\\";
 
@@ -42,17 +42,17 @@ module.exports = {
 
 exports[`CLI overrides take precedence with --config-precedence cli-override 1`] = `
 "console.log(
-  \\"should have semi\\"
+  \\"jest/__best-tests__/file.js should have semi\\"
 );
 console.log(
-  \\"should not have semi\\"
+  \\"jest/Component.js should not have semi\\"
 )
 console.log(
-  \\"should have semi\\"
+  \\"jest/Component.test.js should have semi\\"
 );
-function f() {
+function js() {
         console.log(
-                \\"should have tab width 8\\"
+                \\"js/file.js should have tab width 8\\"
         );
 }
 \\"use strict\\";
@@ -60,21 +60,31 @@ function f() {
 module.exports = {
         tabWidth: 8
 };
-function f() {
+function noConfigJs() {
   console.log(
-    \\"should have no semicolons\\"
+    \\"no-config/file.js should have no semicolons\\"
   )
 }
-function f() {
+function packageJs() {
    console.log(
-      \\"should have tab width 3\\"
+      \\"package/file.js should have tab width 3\\"
    );
 }
-function f() {
+function rcJson() {
   console.log.apply(
     null,
     [
-      'this file',
+      'rc-json/file.js',
+      'should have trailing comma',
+      'and single quotes',
+    ],
+  );
+}
+function rcYaml() {
+  console.log.apply(
+    null,
+    [
+      'rc-yaml/file.js',
       'should have trailing comma',
       'and single quotes',
     ],
@@ -85,17 +95,17 @@ function f() {
 
 exports[`CLI overrides take precedence without --config-precedence 1`] = `
 "console.log(
-  \\"should have semi\\"
+  \\"jest/__best-tests__/file.js should have semi\\"
 );
 console.log(
-  \\"should not have semi\\"
+  \\"jest/Component.js should not have semi\\"
 )
 console.log(
-  \\"should have semi\\"
+  \\"jest/Component.test.js should have semi\\"
 );
-function f() {
+function js() {
         console.log(
-                \\"should have tab width 8\\"
+                \\"js/file.js should have tab width 8\\"
         );
 }
 \\"use strict\\";
@@ -103,21 +113,31 @@ function f() {
 module.exports = {
         tabWidth: 8
 };
-function f() {
+function noConfigJs() {
   console.log(
-    \\"should have no semicolons\\"
+    \\"no-config/file.js should have no semicolons\\"
   )
 }
-function f() {
+function packageJs() {
    console.log(
-      \\"should have tab width 3\\"
+      \\"package/file.js should have tab width 3\\"
    );
 }
-function f() {
+function rcJson() {
   console.log.apply(
     null,
     [
-      'this file',
+      'rc-json/file.js',
+      'should have trailing comma',
+      'and single quotes',
+    ],
+  );
+}
+function rcYaml() {
+  console.log.apply(
+    null,
+    [
+      'rc-yaml/file.js',
       'should have trailing comma',
       'and single quotes',
     ],

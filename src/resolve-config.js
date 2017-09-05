@@ -7,11 +7,11 @@ const cosmiconfigBaseOptions = {
   rcExtensions: true
 };
 
-function getCosmiconfigWithOptions(options = {}) {
+function getCosmiconfigWithOptions(options) {
   const cosmiconfigOptionsWithBase = Object.assign(
     {},
     cosmiconfigBaseOptions,
-    options
+    options || {}
   );
   return cosmiconfig("prettier", cosmiconfigOptionsWithBase);
 }

@@ -1,7 +1,7 @@
-function f() {
+function rcYaml() {
   console.log.apply(null, [
-    "this file",
+    "rc-yaml/file.js",
     "should have trailing comma",
-    "and single quotes",
+    "and single quotes"
   ]);
 }
