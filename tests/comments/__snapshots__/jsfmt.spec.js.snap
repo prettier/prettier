@@ -184,11 +184,9 @@ expect(() => {}).toTriggerReadyStateChanges([
 
 [1 /* first comment */, 2 /* second comment */, 3];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-expect(() => {}).toTriggerReadyStateChanges(
-  [
-    // Nothing.
-  ]
-);
+expect(() => {}).toTriggerReadyStateChanges([
+  // Nothing.
+]);
 
 [1 /* first comment */, 2 /* second comment */, 3];
 
@@ -205,6 +203,25 @@ for (;;);
 
 /* comment */
 for (;;);
+
+`;
+
+exports[`dynamic_imports.js 1`] = `
+import(/* Hello */ 'something')
+
+import('something' /* Hello */)
+
+import(/* Hello */ 'something' /* Hello */)
+
+import('something' /* Hello */ + 'else')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import(/* Hello */ "something");
+
+import("something" /* Hello */);
+
+import(/* Hello */ "something" /* Hello */);
+
+import("something" /* Hello */ + "else");
 
 `;
 

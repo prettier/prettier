@@ -3578,9 +3578,13 @@ sax@^1.2.1:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.2.tgz#fd8631a23bc7826bef5d871bdb87378c95647828"
 
-"semver@2 || 3 || 4 || 5", semver@5.3.0, semver@^5.3.0:
+"semver@2 || 3 || 4 || 5", semver@^5.3.0:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.3.0.tgz#9b2ce5d3de02d17c6012ad326aa6b4d0cf54f94f"
+
+semver@5.4.1:
+  version "5.4.1"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-5.4.1.tgz#e059c09d8571f0540823733433505d3a2f00b18e"
 
 serviceworker-cache-polyfill@^4.0.0:
   version "4.0.0"
@@ -3949,12 +3953,12 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-"typescript-eslint-parser@git://github.com/eslint/typescript-eslint-parser.git#801d65585af6995a223136862944095b48f5c567":
-  version "6.0.1"
-  resolved "git://github.com/eslint/typescript-eslint-parser.git#801d65585af6995a223136862944095b48f5c567"
+"typescript-eslint-parser@git://github.com/eslint/typescript-eslint-parser.git#5576fb48c89165967557e867b9462d43431dcb10":
+  version "8.0.0"
+  resolved "git://github.com/eslint/typescript-eslint-parser.git#5576fb48c89165967557e867b9462d43431dcb10"
   dependencies:
     lodash.unescape "4.0.1"
-    semver "5.3.0"
+    semver "5.4.1"
 
 typescript@2.5.1:
   version "2.5.1"
