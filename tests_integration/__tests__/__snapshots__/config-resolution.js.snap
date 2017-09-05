@@ -92,3 +92,13 @@ function g() {
 }
 "
 `;
+
+exports[`resolves json configuration file with --find-config-path file 1`] = `
+"rc-json/.prettierrc.json
+"
+`;
+
+exports[`resolves yaml configuration file with --find-config-path file 1`] = `
+"rc-yaml/.prettierrc.yaml
+"
+`;

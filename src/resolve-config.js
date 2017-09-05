@@ -3,10 +3,23 @@
 const cosmiconfig = require("cosmiconfig");
 const minimatch = require("minimatch");
 
-const asyncWithCache = cosmiconfig("prettier");
-const asyncNoCache = cosmiconfig("prettier", { cache: false });
-const syncWithCache = cosmiconfig("prettier", { sync: true });
-const syncNoCache = cosmiconfig("prettier", { cache: false, sync: true });
+const cosmiconfigBaseOptions = {
+  rcExtensions: true
+};
+
+function getCosmiconfigWithOptions(options = {}) {
+  const cosmiconfigOptionsWithBase = Object.assign(
+    {},
+    cosmiconfigBaseOptions,
+    options
+  );
+  return cosmiconfig("prettier", cosmiconfigOptionsWithBase);
+}
+
+const asyncWithCache = getCosmiconfigWithOptions();
+const asyncNoCache = getCosmiconfigWithOptions({ cache: false });
+const syncWithCache = getCosmiconfigWithOptions({ sync: true });
+const syncNoCache = getCosmiconfigWithOptions({ cache: false, sync: true });
 
 function resolveConfig(filePath, opts) {
   const useCache = !(opts && opts.useCache === false);

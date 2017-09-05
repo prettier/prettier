@@ -36,6 +36,24 @@ test("resolves configuration file with --find-config-path file", () => {
   expect(output.status).toEqual(0);
 });
 
+test("resolves json configuration file with --find-config-path file", () => {
+  const output = runPrettier("cli/config/", [
+    "--find-config-path",
+    "rc-json/file.js"
+  ]);
+  expect(output.stdout).toMatchSnapshot();
+  expect(output.status).toEqual(0);
+});
+
+test("resolves yaml configuration file with --find-config-path file", () => {
+  const output = runPrettier("cli/config/", [
+    "--find-config-path",
+    "rc-yaml/file.js"
+  ]);
+  expect(output.stdout).toMatchSnapshot();
+  expect(output.status).toEqual(0);
+});
+
 test("prints nothing when no file found with --find-config-path", () => {
   const output = runPrettier("cli/config/", ["--find-config-path", ".."]);
   expect(output.stdout).toEqual("");
