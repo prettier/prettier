@@ -208,6 +208,25 @@ for (;;);
 
 `;
 
+exports[`dynamic_imports.js 1`] = `
+import(/* Hello */ 'something')
+
+import('something' /* Hello */)
+
+import(/* Hello */ 'something' /* Hello */)
+
+import('something' /* Hello */ + 'else')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import(/* Hello */ "something");
+
+import("something" /* Hello */);
+
+import(/* Hello */ "something" /* Hello */);
+
+import("something" /* Hello */ + "else");
+
+`;
+
 exports[`export.js 1`] = `
 export //comment
 {}

@@ -30,7 +30,9 @@ function getSortedChildNodes(node, text, resultArray) {
         node.type !== "Line" &&
         node.type !== "Block" &&
         node.type !== "EmptyStatement" &&
-        node.type !== "TemplateElement") ||
+        node.type !== "TemplateElement" &&
+        node.type !== "Import" &&
+        !(node.callee && node.callee.type === "Import")) ||
         (node.kind && node.kind !== "Comment"))
     ) {
       // This reverse insertion sort almost always takes constant
