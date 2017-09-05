@@ -178,6 +178,7 @@ function transformCssDoc(quasisDoc, parent) {
     ? parent.path.map(parent.print, "expressions")
     : [];
   const newDoc = replacePlaceholders(quasisDoc, expressionDocs);
+  /* istanbul ignore if */
   if (!newDoc) {
     throw new Error("Couldn't insert all the expressions");
   }

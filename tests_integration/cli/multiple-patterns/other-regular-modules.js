@@ -1,2 +1,1 @@
-/* eslint-disable */
 'use strict';

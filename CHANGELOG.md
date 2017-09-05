@@ -1,3 +1,18 @@
+# 1.6.1
+
+[link](https://github.com/jlongster/prettier/compare/1.6.0...1.6.1)
+
+* Fix CLI option parsing with no arguments (#2684)
+* Fix config file finding when using stdin (#2692)
+* Fix union type with type params regression (#2688)
+* Fix flow parenthesis regression (#2687)
+
+# 1.6.0
+
+[link](https://github.com/jlongster/prettier/compare/1.5.3...1.6.0)
+
+* [Release Notes](https://github.com/prettier/prettier/releases/tag/1.6.0)
+
 # 1.5.3
 
 [link](https://github.com/jlongster/prettier/compare/1.5.2...1.5.3)

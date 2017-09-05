@@ -71,7 +71,6 @@ test("multiple patterns by with ignore pattern, doesn't ignore node_modules with
 
 test("no errors on empty patterns", () => {
   const result = runPrettier("cli/multiple-patterns");
-
   expect(result.status).toEqual(0);
 });
 

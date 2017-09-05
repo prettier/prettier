@@ -63,10 +63,29 @@ function getPrintFunction(options) {
   }
 }
 
+function hasIgnoreComment(path) {
+  const node = path.getValue();
+  return hasNodeIgnoreComment(node) || hasJsxIgnoreComment(path);
+}
+
+function hasNodeIgnoreComment(node) {
+  return (
+    node &&
+    node.comments &&
+    node.comments.length > 0 &&
+    node.comments.some(comment => comment.value.trim() === "prettier-ignore")
+  );
+}
+
 function hasJsxIgnoreComment(path) {
   const node = path.getValue();
   const parent = path.getParentNode();
-  if (!parent || node.type !== "JSXElement" || parent.type !== "JSXElement") {
+  if (
+    !parent ||
+    !node ||
+    node.type !== "JSXElement" ||
+    parent.type !== "JSXElement"
+  ) {
     return false;
   }
 
@@ -86,6 +105,7 @@ function hasJsxIgnoreComment(path) {
     prevSibling &&
     prevSibling.type === "JSXExpressionContainer" &&
     prevSibling.expression.type === "JSXEmptyExpression" &&
+    prevSibling.expression.comments &&
     prevSibling.expression.comments.find(
       comment => comment.value.trim() === "prettier-ignore"
     )
@@ -98,15 +118,7 @@ function genericPrint(path, options, printPath, args) {
   const node = path.getValue();
 
   // Escape hatch
-  if (
-    node &&
-    ((node.comments &&
-      node.comments.length > 0 &&
-      node.comments.some(
-        comment => comment.value.trim() === "prettier-ignore"
-      )) ||
-      hasJsxIgnoreComment(path))
-  ) {
+  if (hasIgnoreComment(path)) {
     return options.originalText.slice(util.locStart(node), util.locEnd(node));
   }
 
@@ -376,7 +388,8 @@ function genericPrintNoParens(path, options, print, args) {
         firstNonMemberParent = path.getParentNode(i);
         i++;
       } while (
-        firstNonMemberParent && firstNonMemberParent.type === "MemberExpression"
+        firstNonMemberParent &&
+        firstNonMemberParent.type === "MemberExpression"
       );
 
       const shouldInline =
@@ -2150,6 +2163,7 @@ function genericPrintNoParens(path, options, print, args) {
       const shouldIndent =
         parent.type !== "TypeParameterInstantiation" &&
         parent.type !== "GenericTypeAnnotation" &&
+        parent.type !== "TSTypeReference" &&
         !(
           (parent.type === "TypeAlias" ||
             parent.type === "VariableDeclarator") &&
@@ -2555,6 +2569,10 @@ function genericPrintNoParens(path, options, print, args) {
 
       return group(concat(parts));
     case "TSEnumDeclaration":
+      if (isNodeStartingWithDeclare(n, options)) {
+        parts.push("declare ");
+      }
+
       if (n.modifiers) {
         parts.push(printTypeScriptModifiers(path, options, print));
       }
@@ -3452,11 +3470,7 @@ function printMemberLookup(path, options, print) {
     return concat([optional, ".", property]);
   }
 
-  if (
-    !n.property ||
-    (n.property.type === "Literal" && typeof n.property.value === "number") ||
-    n.property.type === "NumericLiteral"
-  ) {
+  if (!n.property || isNumericLiteral(n.property)) {
     return concat([optional, "[", property, "]"]);
   }
 
@@ -3573,14 +3587,16 @@ function printMemberChain(path, options, print) {
       break;
     }
   }
-  for (; i + 1 < printedNodes.length; ++i) {
-    if (
-      isMemberish(printedNodes[i].node) &&
-      isMemberish(printedNodes[i + 1].node)
-    ) {
-      currentGroup.push(printedNodes[i]);
-    } else {
-      break;
+  if (printedNodes[0].node.type !== "CallExpression") {
+    for (; i + 1 < printedNodes.length; ++i) {
+      if (
+        isMemberish(printedNodes[i].node) &&
+        isMemberish(printedNodes[i + 1].node)
+      ) {
+        currentGroup.push(printedNodes[i]);
+      } else {
+        break;
+      }
     }
   }
   groups.push(currentGroup);
@@ -3597,7 +3613,7 @@ function printMemberChain(path, options, print) {
       // beginning of the next one
       if (
         printedNodes[i].node.computed &&
-        isLiteral(printedNodes[i].node.property)
+        isNumericLiteral(printedNodes[i].node.property)
       ) {
         currentGroup.push(printedNodes[i]);
         continue;
@@ -3644,7 +3660,8 @@ function printMemberChain(path, options, print) {
     groups[0].length === 1 &&
     (groups[0][0].node.type === "ThisExpression" ||
       (groups[0][0].node.type === "Identifier" &&
-        groups[0][0].node.name.match(/(^[A-Z])|^[_$]+$/)));
+        (groups[0][0].node.name.match(/(^[A-Z])|^[_$]+$/) ||
+          (groups[1].length && groups[1][0].node.computed))));
 
   function printGroup(printedGroup) {
     return concat(printedGroup.map(tuple => tuple.printed));
@@ -3689,14 +3706,20 @@ function printMemberChain(path, options, print) {
     printIndentedGroup(groups.slice(shouldMerge ? 2 : 1))
   ]);
 
-  // If there's a comment, we don't want to print in one line.
-  if (hasComment) {
-    return group(expanded);
-  }
+  const callExpressionCount = printedNodes.filter(
+    tuple => tuple.node.type === "CallExpression"
+  ).length;
 
-  // If any group but the last one has a hard line, we want to force expand
-  // it. If the last group is a function it's okay to inline if it fits.
-  if (printedGroups.slice(0, -1).some(willBreak)) {
+  // We don't want to print in one line if there's:
+  //  * A comment.
+  //  * 3 or more chained calls.
+  //  * Any group but the last one has a hard line.
+  // If the last group is a function it's okay to inline if it fits.
+  if (
+    hasComment ||
+    callExpressionCount >= 3 ||
+    printedGroups.slice(0, -1).some(willBreak)
+  ) {
     return group(expanded);
   }
 
@@ -4354,7 +4377,10 @@ function nodeStr(node, options, isFlowOrTypeScriptDirectiveLiteral) {
 }
 
 function printRegex(node) {
-  const flags = node.flags.split("").sort().join("");
+  const flags = node.flags
+    .split("")
+    .sort()
+    .join("");
   return `/${node.pattern}/${flags}`;
 }
 
@@ -4379,7 +4405,7 @@ function hasTrailingComment(node) {
 
 function hasLeadingOwnLineComment(text, node) {
   if (node.type === "JSXElement") {
-    return false;
+    return hasNodeIgnoreComment(node);
   }
 
   const res =
@@ -4711,6 +4737,13 @@ function isLiteral(node) {
   );
 }
 
+function isNumericLiteral(node) {
+  return (
+    node.type === "NumericLiteral" ||
+    (node.type === "Literal" && typeof node.value === "number")
+  );
+}
+
 function isStringLiteral(node) {
   return (
     node.type === "StringLiteral" ||
@@ -4740,13 +4773,14 @@ function printAstToDoc(ast, options, addAlignmentSize) {
     // UnionTypeAnnotation has to align the child without the comments
     let res;
     if (
-      (node && node.type === "JSXElement") ||
-      (parent &&
-        (parent.type === "UnionTypeAnnotation" ||
-          parent.type === "TSUnionType" ||
-          ((parent.type === "ClassDeclaration" ||
-            parent.type === "ClassExpression") &&
-            parent.superClass === node)))
+      ((node && node.type === "JSXElement") ||
+        (parent &&
+          (parent.type === "UnionTypeAnnotation" ||
+            parent.type === "TSUnionType" ||
+            ((parent.type === "ClassDeclaration" ||
+              parent.type === "ClassExpression") &&
+              parent.superClass === node)))) &&
+      !hasIgnoreComment(path)
     ) {
       res = genericPrint(path, options, printGenerically, args);
     } else {

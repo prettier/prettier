@@ -3,8 +3,8 @@
 "use strict";
 
 const path = require("path");
-const shell = require("shelljs");
 const pkg = require("../../package.json");
+const shell = require("shelljs");
 
 const rootDir = path.join(__dirname, "..", "..");
 const docs = path.join(rootDir, "website/static/lib");

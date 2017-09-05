@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`do not write file with --write + invalid file 1`] = `
+"invalid.js: SyntaxError: Unexpected token, expected ; (1:6)
+> 1 | this is invalid!
+    |      ^
+"
+`;
+
+exports[`write file with --write + unformated file 1`] = `
+Array [
+  Object {
+    "content": "var x = 1;
+",
+    "filename": "unformated.js",
+  },
+]
+`;

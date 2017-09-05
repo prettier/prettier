@@ -21,6 +21,10 @@ conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Pre
 <details>
 <summary><strong>Table of Contents</strong></summary>
 
+<!-- Do not edit TOC, regenerate with `yarn toc` -->
+
+<!-- toc -->
+
 * [What does Prettier do?](#what-does-prettier-do)
 * [Why Prettier?](#why-prettier)
   + [Building and enforcing a style guide](#building-and-enforcing-a-style-guide)
@@ -48,12 +52,10 @@ conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Pre
   + [Range](#range)
   + [Parser](#parser)
   + [Filepath](#filepath)
-<!-- 
 * [Configuration File](#configuration-file)
   + [Basic Configuration](#basic-configuration)
   + [Configuration Overrides](#configuration-overrides)
   + [Configuration Schema](#configuration-schema)
--->
 * [Editor Integration](#editor-integration)
   + [Atom](#atom)
   + [Emacs](#emacs)
@@ -67,6 +69,9 @@ conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Pre
 * [Technical Details](#technical-details)
 * [Badge](#badge)
 * [Contributing](#contributing)
+
+<!-- tocstop -->
+
 </details>
 
 --------------------------------------------------------------------------------
@@ -236,18 +241,12 @@ expands the globs rather than your shell, for cross-platform usage.
 The [glob syntax from the glob module](https://github.com/isaacs/node-glob/blob/master/README.md#glob-primer)
 is used.
 
-#### `--with-node-modules`
+#### `--debug-check`
 
-Prettier CLI will ignore files located in `node_modules` directory. To opt-out from this behavior use `--with-node-modules` flag.
+If you're worried that Prettier will change the correctness of your code, add `--debug-check` to the command.
+This will cause Prettier to print an error message if it detects that code correctness might have changed.
+Note that `--write` cannot be used with `--debug-check`.
 
-#### `--list-different`
-
-Another useful flag is `--list-different` (or `-l`) which prints the filenames of files that are different from Prettier formatting. If there are differences the script errors out, which is useful in a CI scenario.
-
-```bash
-prettier --single-quote --list-different "src/**/*.js"
-```
-<!--
 #### `--find-config-path` and `--config`
 
 If you are repeatedly formatting individual files with `prettier`, you will incur a small performance cost
@@ -270,13 +269,48 @@ such as a `config/` directory.
 
 If you don't have a configuration file, or want to ignore it if it does exist,
 you can pass `--no-config` instead.
--->
 
-#### `--debug-check`
+#### `--ignore-path`
 
-If you're worried that Prettier will change the correctness of your code, add `--debug-check` to the command.
-This will cause Prettier to print an error message if it detects that code correctness might have changed.
-Note that `--write` cannot be used with `--debug-check`.
+Path to a file containing patterns that describe files to ignore.  By default, prettier looks for `./.prettierignore`.
+
+#### `--list-different`
+
+Another useful flag is `--list-different` (or `-l`) which prints the filenames of files that are different from Prettier formatting. If there are differences the script errors out, which is useful in a CI scenario.
+
+```bash
+prettier --single-quote --list-different "src/**/*.js"
+```
+
+#### `--no-config`
+
+Do not look for a configuration file.  The default settings will be used.
+
+#### `--config-precedence`
+
+Defines how config file should be evaluated in combination of CLI options. 
+
+**cli-override (default)**
+
+CLI options take precedence over config file
+
+**file-override**
+
+Config file take precedence over CLI options
+
+**prefer-file**
+
+If a config file is found will evaluate it and ignore other CLI options. If no config file is found CLI options will evaluate as normal.
+
+This option adds support to editor integrations where users define their default configuration but want to respect project specific configuration.
+
+#### `--with-node-modules`
+
+Prettier CLI will ignore files located in `node_modules` directory. To opt-out from this behavior use `--with-node-modules` flag.
+
+#### `--write`
+
+This rewrites all processed files in place.  This is comparable to the `eslint --fix` workflow.
 
 ### ESLint
 
@@ -335,7 +369,7 @@ and add this config to your `package.json`:
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "*.js": [
+    "*.{js,json,css}": [
       "prettier --write",
       "git add"
     ]
@@ -412,8 +446,7 @@ prettier.formatWithCursor(" 1", { cursorOffset: 2 });
 // -> { formatted: '1;\n', cursorOffset: 1 }
 ```
 
-<!--
-#### `prettier.resolveConfig([filePath] [, options])`
+#### `prettier.resolveConfig([filePath [, options]])`
 
 `resolveConfig` can be used to resolve configuration for a given source file.
 The function optionally accepts an input file path as an argument, which defaults to the current working directory.
@@ -423,7 +456,7 @@ A promise is returned which will resolve to:
 
 The promise will be rejected if there was an error parsing the configuration file.
 
-If `options.withCache` is `false`, all caching will be bypassed.
+If `options.useCache` is `false`, all caching will be bypassed.
 
 ```js
 const text = fs.readFileSync(filePath, "utf8");
@@ -432,12 +465,13 @@ prettier.resolveConfig(filePath).then(options => {
 })
 ```
 
+Use `prettier.resolveConfig.sync([filePath [, options]])` if you'd like to use sync version.
+
 #### `prettier.clearConfigCache()`
 
 As you repeatedly call `resolveConfig`, the file system structure will be cached for performance.
 This function will clear the cache. Generally this is only needed for editor integrations that
 know that the file system has changed since the last format took place.
--->
 
 #### Custom Parser API
 
@@ -573,7 +607,7 @@ Default | CLI Override | API Override
 `true` | `--no-bracket-spacing` | `bracketSpacing: <bool>`
 
 ### JSX Brackets
-Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line.
+Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line (does not apply to self closing elements).
 
 Default | CLI Override | API Override
 --------|--------------|-------------
@@ -625,7 +659,6 @@ Default | CLI Override | API Override
 --------|--------------|-------------
 None | `--stdin-filepath <string>` | `filepath: "<string>"`
 
-<!--
 ## Configuration File
 
 Prettier uses [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) for configuration file support.
@@ -708,7 +741,6 @@ For more information on how to use the CLI to locate a file, see the [CLI](#cli)
 ### Configuration Schema
 
 If you'd like a JSON schema to validate your configuration, one is available here: http://json.schemastore.org/prettierrc.
--->
 
 ## Editor Integration
 
@@ -782,6 +814,8 @@ passes `prettier` output to `standard --fix`
 - [`prettier-github`](https://github.com/jgierer12/prettier-github) formats code in GitHub comments
 - [`rollup-plugin-prettier`](https://github.com/mjeanroy/rollup-plugin-prettier) allows you to use Prettier with Rollup
 - [`markdown-magic-prettier`](https://github.com/camacho/markdown-magic-prettier) allows you to use Prettier to format JS [codeblocks](https://help.github.com/articles/creating-and-highlighting-code-blocks/) in Markdown files via [Markdown Magic](https://github.com/DavidWells/markdown-magic)
+- [`tslint-plugin-prettier`](https://github.com/ikatyang/tslint-plugin-prettier) runs Prettier as a TSLint rule and reports differences as individual TSLint issues
+- [`tslint-config-prettier`](https://github.com/alexjoverm/tslint-config-prettier) use TSLint with Prettier without any conflict
 
 ## Technical Details
 

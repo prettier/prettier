@@ -205,6 +205,26 @@ const {
 
 `;
 
+exports[`break-multiple.js 1`] = `
+object.foo().bar().baz();
+
+foo().bar().baz();
+
+foo().bar.baz();
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+object
+  .foo()
+  .bar()
+  .baz();
+
+foo()
+  .bar()
+  .baz();
+
+foo().bar.baz();
+
+`;
+
 exports[`comment.js 1`] = `
 function f() {
   return observableFromSubscribeFunction()
@@ -367,6 +387,35 @@ nock(/test/)
 
 `;
 
+exports[`computed-merge.js 1`] = `
+[].forEach(key => {
+  data[key]('foo')
+    .then(() => console.log('bar'))
+    .catch(() => console.log('baz'));
+});
+
+[].forEach(key => {
+  data('foo')
+    [key]('bar')
+    .then(() => console.log('bar'))
+    .catch(() => console.log('baz'));
+});
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[].forEach(key => {
+  data[key]("foo")
+    .then(() => console.log("bar"))
+    .catch(() => console.log("baz"));
+});
+
+[].forEach(key => {
+  data("foo")
+    [key]("bar")
+    .then(() => console.log("bar"))
+    .catch(() => console.log("baz"));
+});
+
+`;
+
 exports[`first_long.js 1`] = `
 export default function theFunction(action$, store) {
   return action$.ofType(THE_ACTION).switchMap(action => Observable
@@ -490,14 +539,16 @@ if (testConfig.ENABLE_ONLINE_TESTS === "true") {
   describe("POST /users/me/pet", function() {
     it("saves pet", function() {
       function assert(pet) {
-        expect(pet).to.have.property("OwnerAddress").that.deep.equals({
-          AddressLine1: "Alexanderstrasse",
-          AddressLine2: "",
-          PostalCode: "10999",
-          Region: "Berlin",
-          City: "Berlin",
-          Country: "DE"
-        });
+        expect(pet)
+          .to.have.property("OwnerAddress")
+          .that.deep.equals({
+            AddressLine1: "Alexanderstrasse",
+            AddressLine2: "",
+            PostalCode: "10999",
+            Region: "Berlin",
+            City: "Berlin",
+            Country: "DE"
+          });
       }
     });
   });
@@ -528,7 +579,10 @@ method().then(x => x)
 ({}.a().b());
 ({}).a().b();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-method().then(x => x)["abc"](x => x)[abc](x => x);
+method()
+  .then(x => x)
+  ["abc"](x => x)
+  [abc](x => x);
 
 ({}.a().b());
 ({}.a().b());

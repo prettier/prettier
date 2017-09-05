@@ -43,9 +43,7 @@ class HomeSplash extends React.Component {
             <div className="inner">
               <h2 className="projectTitle">
                 {siteConfig.title}
-                <small>
-                  {siteConfig.tagline}
-                </small>
+                <small>{siteConfig.tagline}</small>
               </h2>
               <div className="section promoSection">
                 <div className="promoRow">
@@ -164,9 +162,7 @@ class Index extends React.Component {
           </Container>*/}
 
           <div className="productShowcaseSection paddingTop paddingBottom lightBackground">
-            <h2>
-              Who{"'"}s Using Prettier?
-            </h2>
+            <h2>Who{"'"}s Using Prettier?</h2>
             <p>
               A few of the{" "}
               <a href="https://www.npmjs.com/browse/depended/prettier">
@@ -174,9 +170,7 @@ class Index extends React.Component {
               </a>{" "}
               using Prettier
             </p>
-            <div className="logos">
-              {showcase}
-            </div>
+            <div className="logos">{showcase}</div>
             <div className="more-users">
               <a
                 className="button"

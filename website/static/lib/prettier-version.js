@@ -1,1 +1,1 @@
-prettierVersion = "1.5.3";
+prettierVersion = "1.6.1";
