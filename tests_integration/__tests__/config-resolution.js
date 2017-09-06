@@ -117,3 +117,27 @@ test("API resolveConfig.sync with file arg and .editorconfig", () => {
     printWidth: 100
   });
 });
+
+test("API resolveConfig with nested file arg and .editorconfig", () => {
+  const file = path.resolve(
+    path.join(__dirname, "../cli/config/editorconfig/lib/file.js")
+  );
+  return prettier.resolveConfig(file).then(result => {
+    expect(result).toMatchObject({
+      useTabs: false,
+      tabWidth: 2,
+      printWidth: 100
+    });
+  });
+});
+
+test("API resolveConfig.sync with nested file arg and .editorconfig", () => {
+  const file = path.resolve(
+    path.join(__dirname, "../cli/config/editorconfig/lib/file.js")
+  );
+  expect(prettier.resolveConfig.sync(file)).toMatchObject({
+    useTabs: false,
+    tabWidth: 2,
+    printWidth: 100
+  });
+});
