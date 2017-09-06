@@ -3018,14 +3018,11 @@ function printArgumentsList(path, options, print) {
         return result.concat(printedArg);
       }
 
-      const emptyLineCommands = hasEmptyLineAfterArgs[index]
-        ? [breakParent, line]
-        : [];
-
-      return result.concat(
-        printedArg,
-        concat([",", line, ...emptyLineCommands])
+      const emptyLineParts = concat(
+        hasEmptyLineAfterArgs[index] ? [breakParent, line] : []
       );
+
+      return result.concat(printedArg, concat([",", line, emptyLineParts]));
     }, [])
   );
 
