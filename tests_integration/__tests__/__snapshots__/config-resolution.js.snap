@@ -1,7 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CLI overrides take precedence 1`] = `
-"console.log(
+"/* eslint-disable */
+
+function f() {
+	console.log(
+		\\"should have tab width 8\\"
+	)
+}
+/* eslint-disable */
+
+function f() {
+  console.log(
+    \\"should have space width 2\\"
+  )
+}
+console.log(
   \\"should have semi\\"
 );
 console.log(
@@ -56,7 +70,17 @@ exports[`resolves configuration file with --find-config-path file 1`] = `
 `;
 
 exports[`resolves configuration from external files 1`] = `
-"console.log(\\"should have semi\\");
+"/* eslint-disable */
+
+function f() {
+	console.log(\\"should have tab width 8\\")
+}
+/* eslint-disable */
+
+function f() {
+  console.log(\\"should have space width 2\\")
+}
+console.log(\\"should have semi\\");
 console.log(\\"should not have semi\\")
 console.log(\\"should have semi\\");
 function f() {
