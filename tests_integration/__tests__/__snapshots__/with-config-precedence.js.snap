@@ -41,7 +41,21 @@ module.exports = {
 `;
 
 exports[`CLI overrides take precedence with --config-precedence cli-override 1`] = `
-"console.log(
+"/* eslint-disable */
+
+function f() {
+	console.log(
+		\\"should have tab width 8\\"
+	)
+}
+/* eslint-disable */
+
+function f() {
+  console.log(
+    \\"should have space width 2\\"
+  )
+}
+console.log(
   \\"should have semi\\"
 );
 console.log(
@@ -84,7 +98,21 @@ function f() {
 `;
 
 exports[`CLI overrides take precedence without --config-precedence 1`] = `
-"console.log(
+"/* eslint-disable */
+
+function f() {
+	console.log(
+		\\"should have tab width 8\\"
+	)
+}
+/* eslint-disable */
+
+function f() {
+  console.log(
+    \\"should have space width 2\\"
+  )
+}
+console.log(
   \\"should have semi\\"
 );
 console.log(
