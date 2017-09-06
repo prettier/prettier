@@ -1,20 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CLI overrides take precedence 1`] = `
-"/* eslint-disable */
-console.log(
+"console.log(
   \\"should have semi\\"
 );
-/* eslint-disable */
 console.log(
   \\"should not have semi\\"
 )
-/* eslint-disable */
 console.log(
   \\"should have semi\\"
 );
-/* eslint-disable */
-
 function f() {
         console.log(
                 \\"should have tab width 8\\"
@@ -25,22 +20,16 @@ function f() {
 module.exports = {
         tabWidth: 8
 };
-/* eslint-disable */
-
 function f() {
   console.log(
     \\"should have no semicolons\\"
   )
 }
-/* eslint-disable */
-
 function f() {
    console.log(
       \\"should have tab width 3\\"
    );
 }
-/* eslint-disable */
-
 function f() {
   console.log.apply(
     null,
@@ -55,9 +44,7 @@ function f() {
 `;
 
 exports[`accepts configuration from --config 1`] = `
-"/* eslint-disable */
-
-function f() {
+"function f() {
   console.log(\\"should have tab width 8\\")
 }
 "
@@ -69,14 +56,9 @@ exports[`resolves configuration file with --find-config-path file 1`] = `
 `;
 
 exports[`resolves configuration from external files 1`] = `
-"/* eslint-disable */
-console.log(\\"should have semi\\");
-/* eslint-disable */
+"console.log(\\"should have semi\\");
 console.log(\\"should not have semi\\")
-/* eslint-disable */
 console.log(\\"should have semi\\");
-/* eslint-disable */
-
 function f() {
         console.log(\\"should have tab width 8\\");
 }
@@ -85,18 +67,12 @@ function f() {
 module.exports = {
         tabWidth: 8
 };
-/* eslint-disable */
-
 function f() {
   console.log(\\"should have no semicolons\\")
 }
-/* eslint-disable */
-
 function f() {
    console.log(\\"should have tab width 3\\");
 }
-/* eslint-disable */
-
 function f() {
   console.log.apply(null, [
     'this file',

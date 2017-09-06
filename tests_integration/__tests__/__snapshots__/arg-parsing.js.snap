@@ -1,27 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`boolean flags do not swallow the next argument 1`] = `
-"/* eslint-disable */
-
-console.log('could be single quote and without semi');
+"console.log('could be single quote and without semi');
 "
 `;
 
 exports[`boolean flags do not swallow the next argument 2`] = `""`;
 
 exports[`negated options work 1`] = `
-"/* eslint-disable */
-
-console.log(\\"could be single quote and without semi\\")
+"console.log(\\"could be single quote and without semi\\")
 "
 `;
 
 exports[`negated options work 2`] = `""`;
 
 exports[`unknown negated options are warned 1`] = `
-"/* eslint-disable */
-
-console.log(\\"could be single quote and without semi\\");
+"console.log(\\"could be single quote and without semi\\");
 "
 `;
 
@@ -32,9 +26,7 @@ exports[`unknown negated options are warned 2`] = `
 `;
 
 exports[`unknown options are warned 1`] = `
-"/* eslint-disable */
-
-console.log(\\"could be single quote and without semi\\");
+"console.log(\\"could be single quote and without semi\\");
 "
 `;
 

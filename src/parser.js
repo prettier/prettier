@@ -37,9 +37,11 @@ function resolveParseFunction(opts) {
     try {
       return eval("require")(path.resolve(process.cwd(), opts.parser));
     } catch (err) {
+      /* istanbul ignore next */
       throw new Error(`Couldn't resolve parser "${opts.parser}"`);
     }
   }
+  /* istanbul ignore next */
   return parsers.babylon;
 }
 
@@ -60,6 +62,7 @@ function parse(text, opts) {
       throw error;
     }
 
+    /* istanbul ignore next */
     throw error.stack;
   }
 }
