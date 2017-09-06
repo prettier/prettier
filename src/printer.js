@@ -2919,19 +2919,19 @@ function printArgumentsList(path, options, print) {
         );
 
   const emptyLineCommands = [line, breakParent];
-  const afterOpeningParenCommands = hasEmptyLineAfterOpeningParen
-    ? emptyLineCommands
-    : [];
-  const beforeClosingParenCommands = hasEmptyLineBeforeClosingParen
-    ? emptyLineCommands
-    : [];
+  const afterOpeningParenParts = concat(
+    hasEmptyLineAfterOpeningParen ? emptyLineCommands : []
+  );
+  const beforeClosingParenParts = concat(
+    hasEmptyLineBeforeClosingParen ? emptyLineCommands : []
+  );
 
   if (printed.length === 0) {
     return concat([
       "(",
-      ...afterOpeningParenCommands,
+      afterOpeningParenParts,
       comments.printDanglingComments(path, options, /* sameIndent */ true),
-      ...beforeClosingParenCommands,
+      beforeClosingParenParts,
       ")"
     ]);
   }
@@ -3032,11 +3032,11 @@ function printArgumentsList(path, options, print) {
   return group(
     concat([
       "(",
-      ...afterOpeningParenCommands,
+      afterOpeningParenParts,
       indent(concat([softline, printedArgumentList])),
       ifBreak(shouldPrintComma(options, "all") ? "," : ""),
       softline,
-      ...beforeClosingParenCommands,
+      beforeClosingParenParts,
       ")"
     ]),
     { shouldBreak: printed.some(willBreak) }
