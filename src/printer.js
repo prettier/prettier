@@ -2892,22 +2892,67 @@ function shouldGroupFirstArg(args) {
 
 function printArgumentsList(path, options, print) {
   const printed = path.map(print, "arguments");
+  const args = path.getValue().arguments;
+  const lastArgIndex = args.length - 1;
+
+  const firstArgComments = args.length === 0 ? [] : args[0].comments;
+  const hasEmptyLineAfterOpeningParen =
+    args.length === 0
+      ? false
+      : util.isPreviousLineEmpty(
+          options.originalText,
+          firstArgComments && firstArgComments[0].leading
+            ? firstArgComments[0]
+            : args[0]
+        );
+
+  const lastArgComments = args.length === 0 ? [] : args[lastArgIndex].comments;
+  const hasEmptyLineBeforeClosingParen =
+    args.length === 0
+      ? false
+      : util.isNextLineEmpty(
+          options.originalText,
+          lastArgComments &&
+          lastArgComments[lastArgComments.length - 1].trailing
+            ? lastArgComments[lastArgComments.length - 1]
+            : args[lastArgIndex]
+        );
+
+  const emptyLineCommands = [line, breakParent];
+  const afterOpeningParenCommands = hasEmptyLineAfterOpeningParen
+    ? emptyLineCommands
+    : [];
+  const beforeClosingParenCommands = hasEmptyLineBeforeClosingParen
+    ? emptyLineCommands
+    : [];
+
   if (printed.length === 0) {
     return concat([
       "(",
+      ...afterOpeningParenCommands,
       comments.printDanglingComments(path, options, /* sameIndent */ true),
+      ...beforeClosingParenCommands,
       ")"
     ]);
   }
 
-  const args = path.getValue().arguments;
+  const hasEmptyLineAfterArgs = args.map(arg =>
+    util.isNextLineEmpty(options.originalText, arg)
+  );
 
   // This is just an optimization; I think we could return the
   // conditional group for all function calls, but it's more expensive
   // so only do it for specific forms.
   const shouldGroupFirst = shouldGroupFirstArg(args);
   const shouldGroupLast = shouldGroupLastArg(args);
-  if (shouldGroupFirst || shouldGroupLast) {
+  if (
+    !hasEmptyLineAfterOpeningParen &&
+    !hasEmptyLineBeforeClosingParen &&
+    hasEmptyLineAfterArgs.every(
+      hasEmptyLineAfterArg => !hasEmptyLineAfterArg
+    ) &&
+    (shouldGroupFirst || shouldGroupLast)
+  ) {
     const shouldBreak = shouldGroupFirst
       ? printed.slice(1).some(willBreak)
       : printed.slice(0, -1).some(willBreak);
@@ -2967,12 +3012,31 @@ function printArgumentsList(path, options, print) {
     ]);
   }
 
+  const printedArgumentList = concat(
+    printed.reduce((result, printedArg, index) => {
+      if (index === lastArgIndex) {
+        return result.concat(printedArg);
+      }
+
+      const emptyLineCommands = hasEmptyLineAfterArgs[index]
+        ? [breakParent, line]
+        : [];
+
+      return result.concat(
+        printedArg,
+        concat([",", line, ...emptyLineCommands])
+      );
+    }, [])
+  );
+
   return group(
     concat([
       "(",
-      indent(concat([softline, join(concat([",", line]), printed)])),
+      ...afterOpeningParenCommands,
+      indent(concat([softline, printedArgumentList])),
       ifBreak(shouldPrintComma(options, "all") ? "," : ""),
       softline,
+      ...beforeClosingParenCommands,
       ")"
     ]),
     { shouldBreak: printed.some(willBreak) }
