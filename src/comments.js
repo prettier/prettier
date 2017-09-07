@@ -491,10 +491,10 @@ function handleIfStatementComments(
   // if (a) /* comment */ {} or if (a) /* comment */ true,
   // we look at the next character to see if it is a { or if the following node
   // is the consequent for the if statement
-  // if (nextCharacter === "{" || enclosingNode.consequent === followingNode) {
-  //   addLeadingComment(followingNode, comment);
-  //   return true;
-  // }
+  if (nextCharacter === "{" || enclosingNode.consequent === followingNode) {
+    addLeadingComment(followingNode, comment);
+    return true;
+  }
 
   return false;
 }
