@@ -339,18 +339,22 @@ function genericPrintNoParens(path, options, print, args) {
       }
 
       // Avoid indenting sub-expressions in assignment/return/etc statements.
-      if (
-        parent.type === "AssignmentExpression" ||
-        parent.type === "VariableDeclarator" ||
-        shouldInlineLogicalExpression(n) ||
+      const willBreakRegardless =
         parent.type === "ReturnStatement" ||
         (parent.type === "JSXExpressionContainer" &&
           parentParent.type === "JSXAttribute") ||
         (n === parent.body && parent.type === "ArrowFunctionExpression") ||
         (n !== parent.body && parent.type === "ForStatement") ||
-        parent.type === "ObjectProperty" ||
-        parent.type === "Property" ||
-        parent.type === "ConditionalExpression"
+        parent.type === "ConditionalExpression";
+
+      if (
+        willBreakRegardless ||
+        (shouldInlineLogicalExpression(n) && n.left.type !== n.type) ||
+        (!shouldInlineLogicalExpression(n) &&
+          (parent.type === "AssignmentExpression" ||
+            parent.type === "VariableDeclarator" ||
+            parent.type === "ObjectProperty" ||
+            parent.type === "Property"))
       ) {
         return group(concat(parts));
       }

@@ -6,6 +6,14 @@ function f() {
     entity => entity && entity.isInstallAvailable() && !entity.isQueue() && entity.isDisabled()
   )
 }
+
+function f() {
+  const appEntitys = getAppEntitys(loadObject).map(
+    entity => entity && entity.isInstallAvailable() && !entity.isQueue() && entity.isDisabled() && {
+      id: entity.id
+    }
+  )
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function f() {
   const appEntitys = getAppEntitys(loadObject).filter(
@@ -14,6 +22,18 @@ function f() {
       entity.isInstallAvailable() &&
       !entity.isQueue() &&
       entity.isDisabled()
+  );
+}
+
+function f() {
+  const appEntitys = getAppEntitys(loadObject).map(
+    entity =>
+      entity &&
+      entity.isInstallAvailable() &&
+      !entity.isQueue() &&
+      entity.isDisabled() && {
+        id: entity.id
+      }
   );
 }
 
@@ -134,12 +154,42 @@ prevState = prevState || {
   selectedCatalog: null,
 };
 
+prevState = prevState ||
+  defaultState || {
+    catalogs: [],
+    loadState: LOADED,
+    opened: false,
+    searchQuery: '',
+    selectedCatalog: null,
+  };
+
 this.steps = steps || [
   {
     name: 'mock-module',
     path: '/nux/mock-module',
   },
 ];
+
+const create = () => {
+  const result = doSomething();
+  return (
+    shouldReturn &&
+    result.ok && {
+      status: "ok",
+      createdAt: result.createdAt,
+      updatedAt: result.updatedAt
+    }
+  );
+}
+
+const obj = {
+  state: shouldHaveState &&
+    stateIsOK && {
+      loadState: LOADED,
+      opened: false
+    },
+  loaded: true
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 prevState = prevState || {
   catalogs: [],
@@ -149,12 +199,42 @@ prevState = prevState || {
   selectedCatalog: null
 };
 
+prevState = prevState ||
+  defaultState || {
+    catalogs: [],
+    loadState: LOADED,
+    opened: false,
+    searchQuery: "",
+    selectedCatalog: null
+  };
+
 this.steps = steps || [
   {
     name: "mock-module",
     path: "/nux/mock-module"
   }
 ];
+
+const create = () => {
+  const result = doSomething();
+  return (
+    shouldReturn &&
+    result.ok && {
+      status: "ok",
+      createdAt: result.createdAt,
+      updatedAt: result.updatedAt
+    }
+  );
+};
+
+const obj = {
+  state: shouldHaveState &&
+    stateIsOK && {
+      loadState: LOADED,
+      opened: false
+    },
+  loaded: true
+};
 
 `;
 
@@ -172,6 +252,21 @@ exports[`jsx_parent.js 1`] = `
     diffUpdateMessageInput != null &&
     this.state.isUpdateMessageEmpty}
 </div>;
+
+<div
+  style={
+    !isJellyfishEnabled &&
+    diffUpdateMessageInput && {
+      fontSize: 14,
+      color: '#fff'
+    }
+  }
+/>;
+
+<div>
+  {!isJellyfishEnabled &&
+    diffUpdateMessageInput != null && <div><span>Text</span></div>}
+</div>;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div
   src={
@@ -185,6 +280,25 @@ exports[`jsx_parent.js 1`] = `
   {!isJellyfishEnabled &&
     diffUpdateMessageInput != null &&
     this.state.isUpdateMessageEmpty}
+</div>;
+
+<div
+  style={
+    !isJellyfishEnabled &&
+    diffUpdateMessageInput && {
+      fontSize: 14,
+      color: "#fff"
+    }
+  }
+/>;
+
+<div>
+  {!isJellyfishEnabled &&
+    diffUpdateMessageInput != null && (
+      <div>
+        <span>Text</span>
+      </div>
+    )}
 </div>;
 
 `;
