@@ -237,17 +237,17 @@ Available options:
 ${indent(
   optionArray
     .filter(option => !option.isHidden)
-    .map(option => createOptionUsage(option.name, option))
+    .map(createOptionUsage)
     .join("\n"),
   2
 )}
 
 `.slice(1); // remove leading line break
 
-function createOptionUsage(name, option) {
+function createOptionUsage(option) {
   const threshold = 25;
 
-  let header = `--${name}`;
+  let header = `--${option.name}`;
 
   if (option.alias) {
     header += ` or -${option.alias}`;
