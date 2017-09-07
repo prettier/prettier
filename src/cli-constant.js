@@ -1,11 +1,9 @@
 "use strict";
 
 const _options = {
-  write: {
-    type: "boolean"
-  },
-  stdin: {
-    type: "boolean"
+  "bracket-spacing": {
+    type: "boolean",
+    isFormatOption: true
   },
   color: {
     // The supports-color package (a sub sub dependency) looks directly at
@@ -15,47 +13,6 @@ const _options = {
     type: "boolean",
     default: true
   },
-  "list-different": {
-    type: "boolean",
-    alias: "l"
-  },
-  help: {
-    type: "boolean",
-    alias: "h"
-  },
-  version: {
-    type: "boolean",
-    alias: "v"
-  },
-  "debug-print-doc": {
-    type: "boolean"
-  },
-  "debug-check": {
-    type: "boolean"
-  },
-  "with-node-modules": {
-    type: "boolean"
-  },
-  "flow-parser": {
-    // Deprecated in 0.0.10
-    type: "boolean",
-    isFormatOption: true
-  },
-  "cursor-offset": {
-    type: "int",
-    isFormatOption: true
-  },
-  "range-start": {
-    type: "int",
-    isFormatOption: true
-  },
-  "range-end": {
-    type: "int",
-    isFormatOption: true
-  },
-  "stdin-filepath": {
-    type: "string"
-  },
   config: {
     type: "string"
   },
@@ -64,15 +21,55 @@ const _options = {
     default: "cli-override",
     choices: ["cli-override", "file-override", "prefer-file"]
   },
+  "cursor-offset": {
+    type: "int",
+    isFormatOption: true
+  },
+  "debug-check": {
+    type: "boolean"
+  },
+  "debug-print-doc": {
+    type: "boolean"
+  },
   "find-config-path": {
     type: "string"
+  },
+  "flow-parser": {
+    // Deprecated in 0.0.10
+    type: "boolean",
+    isFormatOption: true
+  },
+  help: {
+    type: "boolean",
+    alias: "h"
   },
   "ignore-path": {
     type: "string",
     default: ".prettierignore"
   },
-  "use-tabs": {
+  "jsx-bracket-same-line": {
     type: "boolean",
+    isFormatOption: true
+  },
+  "list-different": {
+    type: "boolean",
+    alias: "l"
+  },
+  parser: {
+    type: "choice",
+    isFormatOption: true,
+    choices: ["flow", "babylon", "typescript", "postcss", "json", "graphql"]
+  },
+  "print-width": {
+    type: "int",
+    isFormatOption: true
+  },
+  "range-end": {
+    type: "int",
+    isFormatOption: true
+  },
+  "range-start": {
+    type: "int",
     isFormatOption: true
   },
   semi: {
@@ -83,31 +80,34 @@ const _options = {
     type: "boolean",
     isFormatOption: true
   },
-  "bracket-spacing": {
-    type: "boolean",
-    isFormatOption: true
+  stdin: {
+    type: "boolean"
   },
-  "jsx-bracket-same-line": {
-    type: "boolean",
-    isFormatOption: true
-  },
-  "print-width": {
-    type: "int",
-    isFormatOption: true
+  "stdin-filepath": {
+    type: "string"
   },
   "tab-width": {
     type: "int",
     isFormatOption: true
   },
-  parser: {
-    type: "choice",
-    isFormatOption: true,
-    choices: ["flow", "babylon", "typescript", "postcss", "json", "graphql"]
-  },
   "trailing-comma": {
     type: "choice",
     isFormatOption: true,
     choices: ["none", "es5", "all"]
+  },
+  "use-tabs": {
+    type: "boolean",
+    isFormatOption: true
+  },
+  version: {
+    type: "boolean",
+    alias: "v"
+  },
+  "with-node-modules": {
+    type: "boolean"
+  },
+  write: {
+    type: "boolean"
   }
 };
 
