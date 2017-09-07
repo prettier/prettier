@@ -17,6 +17,12 @@ const stringOptionNames = [
   "trailing-comma"
 ];
 
+const defaultOptions = {
+  "bracket-spacing": true,
+  semi: true,
+  parser: "babylon"
+};
+
 const options = {
   boolean: [
     "write",
@@ -45,7 +51,8 @@ const options = {
   ].concat(stringOptionNames),
   default: {
     color: true,
-    "ignore-path": ".prettierignore"
+    "ignore-path": ".prettierignore",
+    "config-precedence": "cli-override"
   },
   alias: {
     help: "h",
@@ -111,6 +118,7 @@ Available options:
 module.exports = {
   booleanOptionNames,
   stringOptionNames,
+  defaultOptions,
   options,
   usage
 };
