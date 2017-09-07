@@ -284,9 +284,9 @@ function eachFilename(argv, patterns, callback) {
       .forEach(filePath =>
         callback(filePath, getOptionsForFile(argv, filePath))
       );
-  } catch (err) {
+  } catch (error) {
     console.error(
-      `Unable to expand glob patterns: ${patterns.join(" ")}\n${err}`
+      `Unable to expand glob patterns: ${patterns.join(" ")}\n${error}`
     );
     // Don't exit the process if one pattern failed
     process.exitCode = 2;
@@ -355,8 +355,8 @@ function formatFiles(argv) {
 
         try {
           fs.writeFileSync(filename, output, "utf8");
-        } catch (err) {
-          console.error(`Unable to write file: ${filename}\n${err}`);
+        } catch (error) {
+          console.error(`Unable to write file: ${filename}\n${error}`);
           // Don't exit the process if one file failed
           process.exitCode = 2;
         }
