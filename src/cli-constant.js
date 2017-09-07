@@ -1,6 +1,6 @@
 "use strict";
 
-const options = {
+const options = sortAndAddNameKey({
   "bracket-spacing": {
     type: "boolean",
     isFormatOption: true,
@@ -186,14 +186,12 @@ const options = {
     type: "boolean",
     description: "Edit the file in-place. (Beware!)"
   }
-};
+});
 
-const optionArray = Object.keys(options)
-  .sort()
-  .reduce(
-    (current, name) => current.concat(Object.assign({ name }, options[name])),
-    []
-  );
+const optionArray = Object.keys(options).reduce(
+  (current, name) => current.concat(options[name]),
+  []
+);
 
 const booleanOptionNames = optionArray
   .filter(option => option.isFormatOption && option.type === "boolean")
@@ -293,10 +291,21 @@ function dedent(str) {
   return str.replace(new RegExp(`^ {${spaces}}`, "gm"), "").trim();
 }
 
+function sortAndAddNameKey(obj) {
+  return Object.keys(obj)
+    .sort()
+    .reduce(
+      (current, name) =>
+        Object.assign(current, { [name]: Object.assign({ name }, obj[name]) }),
+      {}
+    );
+}
+
 module.exports = {
   booleanOptionNames,
   stringOptionNames,
   defaultOptions,
   minimistOptions,
+  options,
   usage
 };

@@ -14,6 +14,7 @@ const prettier = eval("require")("../index");
 const cleanAST = require("./clean-ast").cleanAST;
 const resolver = require("./resolve-config");
 const constant = require("./cli-constant");
+const validator = require("./cli-validator");
 
 function getOptions(argv) {
   return {
@@ -53,20 +54,11 @@ function getParserOption(argv) {
 function getIntOption(argv, optionName) {
   const value = argv[optionName];
 
-  if (value === undefined) {
-    return value;
-  }
+  validator.validateIntOption(value, constant.options[optionName], {
+    exceptions: [undefined]
+  });
 
-  if (/^\d+$/.test(value)) {
-    return Number(value);
-  }
-
-  throw new Error(
-    "Invalid --" +
-      optionName +
-      " value.\nExpected an integer, but received: " +
-      JSON.stringify(value)
-  );
+  return value === undefined ? value : Number(value);
 }
 
 function getTrailingComma(argv) {
@@ -81,15 +73,9 @@ function getTrailingComma(argv) {
       return "es5";
     case undefined:
       return "none";
-    case "none":
-    case "es5":
-    case "all":
-      return value;
     default:
-      throw new Error(
-        "Invalid option for --trailing-comma.\n" +
-          `Expected "none", "es5" or "all", but received: "${value}"`
-      );
+      validator.validateChoiceOption(value, constant.options["trailing-comma"]);
+      return value;
   }
 }
 
@@ -232,6 +218,11 @@ function parseArgsToOptions(args, defaults) {
 
 function applyConfigPrecedence(args, options, configPrecedence) {
   try {
+    validator.validateChoiceOption(
+      configPrecedence,
+      constant.options["config-precedence"]
+    );
+
     switch (configPrecedence) {
       case "cli-override":
         return parseArgsToOptions(args, options);
@@ -239,13 +230,6 @@ function applyConfigPrecedence(args, options, configPrecedence) {
         return Object.assign({}, parseArgsToOptions(args), options);
       case "prefer-file":
         return options || parseArgsToOptions(args);
-
-      default:
-        throw new Error(
-          "Invalid option for --config-precedence.\n" +
-            'Expected "cli-override", "file-override" or "prefer-file", ' +
-            `but received: "${configPrecedence}"`
-        );
     }
   } catch (error) {
     console.error(error.toString());
