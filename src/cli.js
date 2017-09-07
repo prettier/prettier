@@ -8,7 +8,7 @@ const util = require("./cli-util");
 const validator = require("./cli-validator");
 
 function run(args) {
-  const argv = minimist(args, constant.options);
+  const argv = minimist(args, constant.minimistOptions);
   argv.__args = args;
   argv.__filePatterns = argv["_"];
 

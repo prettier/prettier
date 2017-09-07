@@ -1,6 +1,6 @@
 "use strict";
 
-const _options = {
+const options = {
   "bracket-spacing": {
     type: "boolean",
     isFormatOption: true
@@ -111,16 +111,16 @@ const _options = {
   }
 };
 
-const _optionArray = Object.keys(_options).reduce(
-  (current, name) => current.concat(Object.assign({ name }, _options[name])),
+const optionArray = Object.keys(options).reduce(
+  (current, name) => current.concat(Object.assign({ name }, options[name])),
   []
 );
 
-const booleanOptionNames = _optionArray
+const booleanOptionNames = optionArray
   .filter(option => option.isFormatOption && option.type === "boolean")
   .map(option => option.name);
 
-const stringOptionNames = _optionArray
+const stringOptionNames = optionArray
   .filter(option => option.isFormatOption && option.type !== "boolean")
   .map(option => option.name);
 
@@ -130,21 +130,21 @@ const defaultOptions = {
   parser: "babylon"
 };
 
-const options = {
-  boolean: _optionArray
+const minimistOptions = {
+  boolean: optionArray
     .filter(option => option.type === "boolean")
     .map(option => option.name),
-  string: _optionArray
+  string: optionArray
     .filter(option => option.type !== "boolean")
     .map(option => option.name),
-  default: _optionArray
+  default: optionArray
     .filter(option => option.default !== undefined)
     .reduce(
       (current, option) =>
         Object.assign({ [option.name]: option.default }, current),
       {}
     ),
-  alias: _optionArray
+  alias: optionArray
     .filter(option => option.alias !== undefined)
     .reduce(
       (current, option) =>
@@ -211,6 +211,6 @@ module.exports = {
   booleanOptionNames,
   stringOptionNames,
   defaultOptions,
-  options,
+  minimistOptions,
   usage
 };
