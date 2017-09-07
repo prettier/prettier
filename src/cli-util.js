@@ -130,12 +130,12 @@ function handleError(filename, e) {
   process.exitCode = 2;
 }
 
-function resolveConfig(filePath) {
+function logResolvedConfigPathOrDie(filePath) {
   const configFile = resolver.resolveConfigFile.sync(filePath);
   if (configFile) {
     console.log(path.relative(process.cwd(), configFile));
   } else {
-    process.exitCode = 1;
+    process.exit(1);
   }
 }
 
@@ -393,7 +393,7 @@ function formatFiles(argv) {
 }
 
 module.exports = {
-  resolveConfig,
+  logResolvedConfigPathOrDie,
   format,
   formatStdin,
   formatFiles

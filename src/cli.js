@@ -28,7 +28,7 @@ function run(args) {
   const useStdin = argv["stdin"] || (!hasFilePatterns && !process.stdin.isTTY);
 
   if (argv["find-config-path"]) {
-    util.resolveConfig(argv["find-config-path"]);
+    util.logResolvedConfigPathOrDie(argv["find-config-path"]);
   } else if (useStdin) {
     util.formatStdin(argv);
   } else if (hasFilePatterns) {
