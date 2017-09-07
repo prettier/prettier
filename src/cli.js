@@ -5,43 +5,37 @@ const minimist = require("minimist");
 const prettier = eval("require")("../index");
 const constant = require("./cli-constant");
 const util = require("./cli-util");
+const validator = require("./cli-validator");
 
 function run(args) {
   const argv = minimist(args, constant.options);
   argv.__args = args;
+  argv.__filePatterns = argv["_"];
+
+  validator.validateArgv(argv);
 
   if (argv["version"]) {
     console.log(prettier.version);
     process.exit(0);
   }
 
-  const filepatterns = argv["_"];
-  const stdin = argv["stdin"] || (!filepatterns.length && !process.stdin.isTTY);
-
-  if (argv["write"] && argv["debug-check"]) {
-    console.error("Cannot use --write and --debug-check together.");
-    process.exit(1);
-  }
-
-  if (argv["find-config-path"] && filepatterns.length) {
-    console.error("Cannot use --find-config-path with multiple files");
-    process.exit(1);
-  }
-
-  if (
-    argv["help"] ||
-    (!filepatterns.length && !stdin && !argv["find-config-path"])
-  ) {
+  if (argv["help"]) {
     console.log(constant.usage);
-    process.exit(argv["help"] ? 0 : 1);
+    process.exit(0);
   }
+
+  const hasFilePatterns = argv.__filePatterns.length !== 0;
+  const useStdin = argv["stdin"] || (!hasFilePatterns && !process.stdin.isTTY);
 
   if (argv["find-config-path"]) {
     util.resolveConfig(argv["find-config-path"]);
-  } else if (stdin) {
+  } else if (useStdin) {
     util.formatStdin(argv);
+  } else if (hasFilePatterns) {
+    util.formatFiles(argv);
   } else {
-    util.formatFiles(argv, filepatterns);
+    console.log(constant.usage);
+    process.exit(1);
   }
 }
 

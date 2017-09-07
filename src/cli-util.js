@@ -312,8 +312,8 @@ function eachFilename(argv, patterns, callback) {
   }
 }
 
-function formatFiles(argv, filepatterns) {
-  eachFilename(argv, filepatterns, (filename, options) => {
+function formatFiles(argv) {
+  eachFilename(argv, argv.__filePatterns, (filename, options) => {
     if (argv["write"]) {
       // Don't use `console.log` here since we need to replace this line.
       process.stdout.write(filename);
