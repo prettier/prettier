@@ -1244,8 +1244,6 @@ function genericPrintNoParens(path, options, print, args) {
         n.test.type === "JSXElement" ||
         n.consequent.type === "JSXElement" ||
         n.alternate.type === "JSXElement" ||
-        parent.type === "JSXExpressionContainer" ||
-        firstNonConditionalParent.type === "JSXExpressionContainer" ||
         conditionalExpressionChainContainsJSX(lastConditionalParent)
       ) {
         jsxMode = true;
@@ -1263,20 +1261,19 @@ function genericPrintNoParens(path, options, print, args) {
           ]);
 
         // The only things we don't wrap are:
-        // * Nested conditional expressions
+        // * Nested conditional expressions in alternates
         // * null
-        const shouldNotWrap = node =>
-          node.type === "ConditionalExpression" ||
+        const isNull = node =>
           node.type === "NullLiteral" ||
           (node.type === "Literal" && node.value === null);
 
         parts.push(
           " ? ",
-          shouldNotWrap(n.consequent)
+          isNull(n.consequent)
             ? path.call(print, "consequent")
             : wrap(path.call(print, "consequent")),
           " : ",
-          shouldNotWrap(n.alternate)
+          n.alternate.type === "ConditionalExpression" || isNull(n.alternate)
             ? path.call(print, "alternate")
             : wrap(path.call(print, "alternate"))
         );
