@@ -1,21 +1,128 @@
 "use strict";
 
-const booleanOptionNames = [
-  "use-tabs",
-  "semi",
-  "single-quote",
-  "bracket-spacing",
-  "jsx-bracket-same-line",
-  // Deprecated in 0.0.10
-  "flow-parser"
-];
+const _options = {
+  write: {
+    type: "boolean"
+  },
+  stdin: {
+    type: "boolean"
+  },
+  color: {
+    // The supports-color package (a sub sub dependency) looks directly at
+    // `process.argv` for `--no-color` and such-like options. The reason it is
+    // listed here is to avoid "Ignored unknown option: --no-color" warnings.
+    // See https://github.com/chalk/supports-color/#info for more information.
+    type: "boolean",
+    default: true
+  },
+  "list-different": {
+    type: "boolean",
+    alias: "l"
+  },
+  help: {
+    type: "boolean",
+    alias: "h"
+  },
+  version: {
+    type: "boolean",
+    alias: "v"
+  },
+  "debug-print-doc": {
+    type: "boolean"
+  },
+  "debug-check": {
+    type: "boolean"
+  },
+  "with-node-modules": {
+    type: "boolean"
+  },
+  "flow-parser": {
+    // Deprecated in 0.0.10
+    type: "boolean",
+    isFormatOption: true
+  },
+  "cursor-offset": {
+    type: "int",
+    isFormatOption: true
+  },
+  "range-start": {
+    type: "int",
+    isFormatOption: true
+  },
+  "range-end": {
+    type: "int",
+    isFormatOption: true
+  },
+  "stdin-filepath": {
+    type: "string"
+  },
+  config: {
+    type: "string"
+  },
+  "config-precedence": {
+    type: "choice",
+    default: "cli-override",
+    choices: ["cli-override", "file-override", "prefer-file"]
+  },
+  "find-config-path": {
+    type: "string"
+  },
+  "ignore-path": {
+    type: "string",
+    default: ".prettierignore"
+  },
+  "use-tabs": {
+    type: "boolean",
+    isFormatOption: true
+  },
+  semi: {
+    type: "boolean",
+    isFormatOption: true
+  },
+  "single-quote": {
+    type: "boolean",
+    isFormatOption: true
+  },
+  "bracket-spacing": {
+    type: "boolean",
+    isFormatOption: true
+  },
+  "jsx-bracket-same-line": {
+    type: "boolean",
+    isFormatOption: true
+  },
+  "print-width": {
+    type: "int",
+    isFormatOption: true
+  },
+  "tab-width": {
+    type: "int",
+    isFormatOption: true
+  },
+  parser: {
+    type: "choice",
+    isFormatOption: true,
+    choices: ["flow", "babylon", "typescript", "postcss", "json", "graphql"]
+  },
+  "trailing-comma": {
+    type: "choice",
+    isFormatOption: true,
+    choices: ["none", "es5", "all"]
+  }
+};
 
-const stringOptionNames = [
-  "print-width",
-  "tab-width",
-  "parser",
-  "trailing-comma"
-];
+const _optionArray = Object.keys(_options).reduce(
+  (current, name) => current.concat(Object.assign({ name }, _options[name])),
+  []
+);
+
+const booleanOptionNames = _optionArray
+  .filter(option => option.isFormatOption && option.type === "boolean")
+  .map(option => option.name);
+
+const stringOptionNames = _optionArray
+  .filter(option => option.isFormatOption && option.type !== "boolean")
+  .map(option => option.name);
 
 const defaultOptions = {
   "bracket-spacing": true,
@@ -24,41 +131,26 @@ const defaultOptions = {
 };
 
 const options = {
-  boolean: [
-    "write",
-    "stdin",
-    // The supports-color package (a sub sub dependency) looks directly at
-    // `process.argv` for `--no-color` and such-like options. The reason it is
-    // listed here is to avoid "Ignored unknown option: --no-color" warnings.
-    // See https://github.com/chalk/supports-color/#info for more information.
-    "color",
-    "list-different",
-    "help",
-    "version",
-    "debug-print-doc",
-    "debug-check",
-    "with-node-modules"
-  ].concat(booleanOptionNames),
-  string: [
-    "cursor-offset",
-    "range-start",
-    "range-end",
-    "stdin-filepath",
-    "config",
-    "config-precedence",
-    "find-config-path",
-    "ignore-path"
-  ].concat(stringOptionNames),
-  default: {
-    color: true,
-    "ignore-path": ".prettierignore",
-    "config-precedence": "cli-override"
-  },
-  alias: {
-    help: "h",
-    version: "v",
-    "list-different": "l"
-  },
+  boolean: _optionArray
+    .filter(option => option.type === "boolean")
+    .map(option => option.name),
+  string: _optionArray
+    .filter(option => option.type !== "boolean")
+    .map(option => option.name),
+  default: _optionArray
+    .filter(option => option.default !== undefined)
+    .reduce(
+      (current, option) =>
+        Object.assign({ [option.name]: option.default }, current),
+      {}
+    ),
+  alias: _optionArray
+    .filter(option => option.alias !== undefined)
+    .reduce(
+      (current, option) =>
+        Object.assign({ [option.name]: option.alias }, current),
+      {}
+    ),
   unknown: param => {
     if (param.startsWith("-")) {
       console.warn(`Ignored unknown option: ${param}\n`);
