@@ -15,6 +15,7 @@ const cleanAST = require("./clean-ast").cleanAST;
 const resolver = require("./resolve-config");
 const constant = require("./cli-constant");
 const validator = require("./cli-validator");
+const apiDefaultOptions = require("./options").defaults;
 
 function getOptions(argv) {
   return {
@@ -54,11 +55,15 @@ function getParserOption(argv) {
 function getIntOption(argv, optionName) {
   const value = argv[optionName];
 
+  if (value === undefined) {
+    return value;
+  }
+
   validator.validateIntOption(value, constant.options[optionName], {
-    exceptions: [undefined]
+    exceptions: [apiDefaultOptions[kebabToCamel(optionName)]]
   });
 
-  return value === undefined ? value : Number(value);
+  return Number(value);
 }
 
 function getTrailingComma(argv) {
@@ -72,7 +77,7 @@ function getTrailingComma(argv) {
       );
       return "es5";
     case undefined:
-      return "none";
+      return value;
     default:
       validator.validateChoiceOption(value, constant.options["trailing-comma"]);
       return value;
@@ -129,7 +134,7 @@ function writeOutput(result, options) {
   // Don't use `console.log` here since it adds an extra newline at the end.
   process.stdout.write(result.formatted);
 
-  if (options.cursorOffset) {
+  if (options.cursorOffset >= 0) {
     process.stderr.write(result.cursorOffset + "\n");
   }
 }
@@ -202,15 +207,15 @@ function getOptionsForFile(argv, filePath) {
   return applyConfigPrecedence(argv.__args, options, configPrecedence);
 }
 
-function parseArgsToOptions(args, defaults) {
+function parseArgsToOptions(args, overrideDefaults) {
   return getOptions(
     minimist(args, {
       boolean: constant.booleanOptionNames,
       string: constant.stringOptionNames,
       default: Object.assign(
         {},
-        constant.defaultOptions,
-        dashifyObject(defaults)
+        dashifyObject(apiDefaultOptions),
+        dashifyObject(overrideDefaults)
       )
     })
   );
@@ -374,6 +379,10 @@ function formatFiles(argv) {
       writeOutput(result, options);
     }
   });
+}
+
+function kebabToCamel(str) {
+  return str.replace(/-([a-z])/g, (_, char) => char.toUpperCase());
 }
 
 module.exports = {

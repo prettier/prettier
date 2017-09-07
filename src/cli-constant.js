@@ -201,12 +201,6 @@ const stringOptionNames = optionArray
   .filter(option => option.isFormatOption && option.type !== "boolean")
   .map(option => option.name);
 
-const defaultOptions = {
-  "bracket-spacing": true,
-  semi: true,
-  parser: "babylon"
-};
-
 const minimistOptions = {
   boolean: optionArray
     .filter(option => !option.isDocsOnly && option.type === "boolean")
@@ -304,7 +298,6 @@ function sortAndAddNameKey(obj) {
 module.exports = {
   booleanOptionNames,
   stringOptionNames,
-  defaultOptions,
   minimistOptions,
   options,
   usage

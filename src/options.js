@@ -84,4 +84,4 @@ function normalize(options) {
   return normalized;
 }
 
-module.exports = { normalize };
+module.exports = { normalize, defaults };
