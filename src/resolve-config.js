@@ -12,10 +12,20 @@ const syncNoCache = cosmiconfig("prettier", { cache: false, sync: true });
 function editorConfigToPrettier(filePath) {
   const editorConfig = editorconfig.parseSync(filePath);
   const result = {};
-  result.useTabs = editorConfig.indent_style === "tab";
-  result.tabWidth =
-    editorConfig.indent_size || editorConfig.tab_width || result.tabWidth;
-  result.printWidth = editorConfig.max_line_length || result.printWidth;
+
+  if (editorConfig.indent_style) {
+    result.useTabs = editorConfig.indent_style === "tab";
+  }
+
+  const tabWidth = editorConfig.indent_size || editorConfig.tab_width;
+  if (tabWidth) {
+    result.tabWidth = tabWidth;
+  }
+
+  if (editorConfig.max_line_length) {
+    result.printWidth = editorConfig.max_line_length;
+  }
+
   return result;
 }
 
