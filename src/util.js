@@ -79,39 +79,18 @@ const skipSpaces = skip(" \t");
 const skipToLineEnd = skip(",; \t");
 const skipEverythingButNewLine = skip(/[^\r\n]/);
 
-function skipInlineComment(text, index, opts) {
+function skipInlineComment(text, index) {
   if (index === false) {
     return false;
   }
 
-  const backwards = opts && opts.backwards;
-
-  // Check if there is an inline comment opening or closing.
-  if (
-    text.charAt(index) !== "/" ||
-    text.charAt(backwards ? index - 1 : index + 1) !== "*"
-  ) {
-    return index;
-  }
-
-  let i = backwards ? index - 2 : index + 2;
-
-  // Loop forward or backward to find the inline comment opening
-  // or closing index
-  if (backwards) {
-    for (; i > 0; --i) {
-      if (text.charAt(i) === "*" && text.charAt(i - 1) === "/") {
-        return i - 2;
-      }
-    }
-  } else {
-    for (; i < text.length; ++i) {
+  if (text.charAt(index) === "/" && text.charAt(index + 1) === "*") {
+    for (let i = index + 2; i < text.length; ++i) {
       if (text.charAt(i) === "*" && text.charAt(i + 1) === "/") {
         return i + 2;
       }
     }
   }
-
   return index;
 }
 
@@ -215,21 +194,6 @@ function getNextNonSpaceNonCommentCharacter(text, node) {
     idx = skipInlineComment(text, idx);
     idx = skipTrailingComment(text, idx);
     idx = skipNewline(text, idx);
-  }
-  return text.charAt(idx);
-}
-
-// This function doesn't ignore trailing comments unlike
-// getNextNonSpaceNonCommentCharacter.
-function getPreviousNonSpaceNonCommentCharacter(text, node) {
-  let oldIdx = null;
-  let idx = locStart(node) - 1;
-  const traversalOptions = { backwards: true };
-  while (idx !== oldIdx) {
-    oldIdx = idx;
-    idx = skipSpaces(text, idx, traversalOptions);
-    idx = skipInlineComment(text, idx, traversalOptions);
-    idx = skipNewline(text, idx, traversalOptions);
   }
   return text.charAt(idx);
 }
@@ -629,7 +593,6 @@ module.exports = {
   getPenultimate,
   getLast,
   getNextNonSpaceNonCommentCharacter,
-  getPreviousNonSpaceNonCommentCharacter,
   skipWhitespace,
   skipSpaces,
   skipNewline,

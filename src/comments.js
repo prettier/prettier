@@ -15,8 +15,6 @@ const locStart = util.locStart;
 const locEnd = util.locEnd;
 const getNextNonSpaceNonCommentCharacter =
   util.getNextNonSpaceNonCommentCharacter;
-const getPreviousNonSpaceNonCommentCharacter =
-  util.getPreviousNonSpaceNonCommentCharacter;
 
 function getSortedChildNodes(node, text, resultArray) {
   if (!node) {
@@ -472,7 +470,8 @@ function handleIfStatementComments(
   //   if (a /* comment */) {}
   // The only workaround I found is to look at the next character to see if
   // it is a ).
-  if (getNextNonSpaceNonCommentCharacter(text, comment) === ")") {
+  const nextCharacter = getNextNonSpaceNonCommentCharacter(text, comment)
+  if (nextCharacter === ")") {
     addTrailingComment(precedingNode, comment);
     return true;
   }
@@ -490,7 +489,11 @@ function handleIfStatementComments(
   // For comments positioned after the condition parenthesis in an if statement
   // with or without brackets on the consequent, we look at the previous
   // character to see if it is a ).
-  if (getPreviousNonSpaceNonCommentCharacter(text, comment) === ")") {
+  if (
+    nextCharacter === "{" ||
+    (followingNode.type === "ExpressionStatement" &&
+    enclosingNode.consequent === followingNode)
+  ) {
     addLeadingComment(followingNode, comment);
     return true;
   }

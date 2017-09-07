@@ -40,13 +40,22 @@ else // comment
 // comment
 {true}
 
-if (6) /* comment */ // comment
+if (10) /* comment */ // comment
 {true}
-else if (7) /* comment */
+else if (11) /* comment */
 true
-else if (8) // comment /* comment */ // comment
+else if (12) // comment /* comment */ // comment
 true
-else if (9) /* comment */ /* comment */ // comment
+else if (13) /* comment */ /* comment */ // comment
 true
 else /* comment */
 {true}
+
+if (14) // comment
+/* comment */
+// comment
+{true}
+else if (15) // comment
+/* comment */
+/* comment */ // comment
+true
