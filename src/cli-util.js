@@ -36,12 +36,6 @@ function getOptions(argv) {
 }
 
 function getParserOption(argv) {
-  const value = argv.parser;
-
-  if (value === undefined) {
-    return value;
-  }
-
   // For backward compatibility. Deprecated in 0.0.10
   /* istanbul ignore if */
   if (argv["flow-parser"]) {
@@ -49,17 +43,14 @@ function getParserOption(argv) {
     return "flow";
   }
 
-  return value;
+  return argv["parser"];
 }
 
 function getIntOption(argv, optionName) {
   const value = argv[optionName];
 
-  if (value === undefined) {
-    return value;
-  }
-
   validator.validateIntOption(value, constant.options[optionName], {
+    // cursorOffset defaults to -1 and rangeEnd defaults to Infinity, which is not considered an integer.
     exceptions: [apiDefaultOptions[kebabToCamel(optionName)]]
   });
 
@@ -76,10 +67,12 @@ function getTrailingComma(argv) {
           'Specify "none", "es5", or "all".'
       );
       return "es5";
-    case undefined:
-      return value;
     default:
-      validator.validateChoiceOption(value, constant.options["trailing-comma"]);
+      validator.validateChoiceOption(
+        value,
+        constant.options["trailing-comma"],
+        { exceptions: [undefined] }
+      );
       return value;
   }
 }
