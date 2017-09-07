@@ -188,10 +188,7 @@ const options = sortAndAddNameKey({
   }
 });
 
-const optionArray = Object.keys(options).reduce(
-  (current, name) => current.concat(options[name]),
-  []
-);
+const optionArray = Object.keys(options).map(name => options[name]);
 
 const booleanOptionNames = optionArray
   .filter(option => option.isFormatOption && option.type === "boolean")
