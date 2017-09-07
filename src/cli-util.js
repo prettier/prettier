@@ -60,21 +60,20 @@ function getIntOption(argv, optionName) {
 function getTrailingComma(argv) {
   const value = argv["trailing-comma"];
 
-  switch (value) {
-    case "":
-      console.warn(
-        "Warning: `--trailing-comma` was used without an argument. This is deprecated. " +
-          'Specify "none", "es5", or "all".'
-      );
-      return "es5";
-    default:
-      validator.validateChoiceOption(
-        value,
-        constant.options["trailing-comma"],
-        { exceptions: [undefined] }
-      );
-      return value;
+  /* istanbul ignore if */
+  if (value === "") {
+    console.warn(
+      "Warning: `--trailing-comma` was used without an argument. This is deprecated. " +
+        'Specify "none", "es5", or "all".'
+    );
+    return "es5";
   }
+
+  validator.validateChoiceOption(value, constant.options["trailing-comma"], {
+    exceptions: [undefined]
+  });
+
+  return value;
 }
 
 function dashifyObject(object) {
