@@ -188,10 +188,12 @@ const options = {
   }
 };
 
-const optionArray = Object.keys(options).reduce(
-  (current, name) => current.concat(Object.assign({ name }, options[name])),
-  []
-);
+const optionArray = Object.keys(options)
+  .sort()
+  .reduce(
+    (current, name) => current.concat(Object.assign({ name }, options[name])),
+    []
+  );
 
 const booleanOptionNames = optionArray
   .filter(option => option.isFormatOption && option.type === "boolean")
@@ -241,33 +243,9 @@ Usage: prettier [opts] [filename ...]
 
 Available options:
 ${indent(
-  [
-    "write",
-    "list-different",
-    "config",
-    "config-precedence",
-    "no-config",
-    "find-config-path",
-    "ignore-path",
-    "stdin",
-    "stdin-filepath",
-    "print-width",
-    "tab-width",
-    "use-tabs",
-    "no-semi",
-    "single-quote",
-    "no-bracket-spacing",
-    "jsx-bracket-same-line",
-    "trailing-comma",
-    "parser",
-    "cursor-offset",
-    "range-start",
-    "range-end",
-    "no-color",
-    "with-node-modules",
-    "version"
-  ]
-    .map(name => createOptionUsage(name, options[name]))
+  optionArray
+    .filter(option => !option.isHidden)
+    .map(option => createOptionUsage(option.name, option))
     .join("\n"),
   2
 )}
