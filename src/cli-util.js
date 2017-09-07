@@ -106,24 +106,24 @@ function diff(a, b) {
   });
 }
 
-function handleError(filename, e) {
-  const isParseError = Boolean(e && e.loc);
-  const isValidationError = /Validation Error/.test(e && e.message);
+function handleError(filename, error) {
+  const isParseError = Boolean(error && error.loc);
+  const isValidationError = /Validation Error/.test(error && error.message);
 
   // For parse errors and validation errors, we only want to show the error
-  // message formatted in a nice way. `String(e)` takes care of that. Other
+  // message formatted in a nice way. `String(error)` takes care of that. Other
   // (unexpected) errors are passed as-is as a separate argument to
   // `console.error`. That includes the stack trace (if any), and shows a nice
   // `util.inspect` of throws things that aren't `Error` objects. (The Flow
   // parser has mistakenly thrown arrays sometimes.)
   if (isParseError) {
-    console.error(`${filename}: ${String(e)}`);
+    console.error(`${filename}: ${String(error)}`);
   } else if (isValidationError) {
-    console.error(String(e));
+    console.error(String(error));
     // If validation fails for one file, it will fail for all of them.
     process.exit(1);
   } else {
-    console.error(filename + ":", e.stack || e);
+    console.error(filename + ":", error.stack || error);
   }
 
   // Don't exit the process if one file failed
@@ -263,8 +263,8 @@ function formatStdin(argv) {
 
     try {
       writeOutput(format(argv, input, options), options);
-    } catch (e) {
-      handleError("stdin", e);
+    } catch (error) {
+      handleError("stdin", error);
     }
   });
 }
@@ -322,11 +322,11 @@ function formatFiles(argv) {
     let input;
     try {
       input = fs.readFileSync(filename, "utf8");
-    } catch (e) {
+    } catch (error) {
       // Add newline to split errors from filename line.
       process.stdout.write("\n");
 
-      console.error(`Unable to read file: ${filename}\n${e}`);
+      console.error(`Unable to read file: ${filename}\n${error}`);
       // Don't exit the process if one file failed
       process.exitCode = 2;
       return;
@@ -346,11 +346,11 @@ function formatFiles(argv) {
         Object.assign({}, options, { filepath: filename })
       );
       output = result.formatted;
-    } catch (e) {
+    } catch (error) {
       // Add newline to split errors from filename line.
       process.stdout.write("\n");
 
-      handleError(filename, e);
+      handleError(filename, error);
       return;
     }
 
