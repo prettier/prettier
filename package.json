@@ -23,6 +23,7 @@
     "globby": "^6.1.0",
     "graphql": "0.10.1",
     "ignore": "^3.3.3",
+    "jest-docblock": "^21.0.2",
     "jest-validate": "20.0.3",
     "minimatch": "3.0.4",
     "minimist": "1.2.0",

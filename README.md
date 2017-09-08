@@ -276,7 +276,14 @@ Path to a file containing patterns that describe files to ignore.  By default, p
 
 #### `--require-pragma`
 
-Require a special comment, called a pragma, to be present in the file's first comment in order for prettier to format it.
+Require a special comment, called a pragma, to be present in the file's first docblock comment in order for prettier to format it.
+```js
+/**
+ * @prettier
+ */
+```
+
+Valid pragmas are `@prettier` and `@format`.
 
 #### `--list-different`
 
