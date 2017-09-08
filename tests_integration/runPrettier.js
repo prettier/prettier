@@ -53,7 +53,7 @@ function runPrettier(dir, args, options) {
 
   try {
     require("../bin/prettier");
-    status = status || process.exitCode || 0;
+    status = (status === undefined ? process.exitCode : status) || 0;
   } catch (error) {
     status = 1;
     stderr += error.message;
