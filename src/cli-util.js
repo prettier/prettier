@@ -169,7 +169,7 @@ function parseArgsToOptions(argv, overrideDefaults) {
           dashifyObject(overrideDefaults)
         )
       }),
-      constant.options
+      constant.detailOptions
     )
   );
 }

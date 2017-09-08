@@ -2,7 +2,7 @@
 
 const normalizer = require("./cli-normalizer");
 
-const options = normalizer.normalizeDetailOptions({
+const detailOptions = normalizer.normalizeDetailOptions({
   "bracket-spacing": {
     type: "boolean",
     category: "format",
@@ -200,29 +200,29 @@ const options = normalizer.normalizeDetailOptions({
   }
 });
 
-const booleanOptionNames = options
+const booleanOptionNames = detailOptions
   .filter(option => option.category === "format" && option.type === "boolean")
   .map(option => option.name);
 
-const stringOptionNames = options
+const stringOptionNames = detailOptions
   .filter(option => option.category === "format" && option.type !== "boolean")
   .map(option => option.name);
 
 const minimistOptions = {
-  boolean: options
+  boolean: detailOptions
     .filter(option => !option.isDocsOnly && option.type === "boolean")
     .map(option => option.name),
-  string: options
+  string: detailOptions
     .filter(option => !option.isDocsOnly && option.type !== "boolean")
     .map(option => option.name),
-  default: options
+  default: detailOptions
     .filter(option => option.default !== undefined)
     .reduce(
       (current, option) =>
         Object.assign({ [option.name]: option.default }, current),
       {}
     ),
-  alias: options
+  alias: detailOptions
     .filter(option => option.alias !== undefined)
     .reduce(
       (current, option) =>
@@ -246,5 +246,5 @@ module.exports = {
   booleanOptionNames,
   stringOptionNames,
   minimistOptions,
-  options
+  detailOptions
 };

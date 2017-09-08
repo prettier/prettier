@@ -12,7 +12,7 @@ const usage = require("./cli-usage");
 function run(args) {
   const argv = normalizer.normalizeArgv(
     minimist(args, constant.minimistOptions),
-    constant.options
+    constant.detailOptions
   );
 
   argv.__args = args;
@@ -26,7 +26,7 @@ function run(args) {
   }
 
   if (argv["help"]) {
-    console.log(usage.create(constant.options));
+    console.log(usage.create(constant.detailOptions));
     process.exit(0);
   }
 
@@ -40,7 +40,7 @@ function run(args) {
   } else if (hasFilePatterns) {
     util.formatFiles(argv);
   } else {
-    console.log(usage.create(constant.options));
+    console.log(usage.create(constant.detailOptions));
     process.exit(1);
   }
 }
