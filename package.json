@@ -10,6 +10,9 @@
   "author": "James Long",
   "license": "MIT",
   "main": "./index.js",
+  "engines": {
+    "node": ">=4"
+  },
   "dependencies": {
     "babel-code-frame": "7.0.0-alpha.12",
     "babylon": "7.0.0-beta.22",
