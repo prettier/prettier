@@ -3,7 +3,8 @@
 exports[`show usage with --help 1`] = `
 "Usage: prettier [opts] [filename ...]
 
-Available options:
+Config options:
+
   --config <path>          Path to a prettier configuration file (.prettierrc, package.json, prettier.config.js).
   --config-precedence <cli-override|file-override|prefer-file>
                            Defines how config file should be evaluated in combination of CLI options
@@ -12,18 +13,17 @@ Available options:
                            prefer-file   | default config => config file (if config file is found) or
                                            default config => CLI options (if no config file is found)
                            Defaults to cli-override
-  --cursor-offset <int>    Print (to stderr) where a cursor at the given position would move to after formatting.
-                           This option cannot be used with --range-start and --range-end
   --find-config-path <path>
                            Finds and prints the path to a configuration file for a given input file.
-  --help or -h             Show help.
   --ignore-path <path>     Path to a file containing patterns that describe files to ignore.
                            Defaults to ./.prettierignore.
-  --jsx-bracket-same-line  Put > on the last line instead of at a new line.
-  --list-different or -l   Print filenames of files that are different from Prettier formatting.
-  --no-bracket-spacing     Do not print spaces between brackets.
-  --no-color               Do not colorize error messages.
   --no-config              Do not look for a configuration file.
+  --with-node-modules      Process files inside 'node_modules' directory.
+
+Format options:
+
+  --jsx-bracket-same-line  Put > on the last line instead of at a new line.
+  --no-bracket-spacing     Do not print spaces between brackets.
   --no-semi                Do not print semicolons, except at the beginning of lines which may need them.
   --parser <flow|babylon|typescript|postcss|json|graphql>
                            Specify which parse to use. Defaults to babylon.
@@ -37,14 +37,21 @@ Available options:
                            This option cannot be used with --cursor-offset.
                            Defaults to 0.
   --single-quote           Use single quotes instead of double quotes.
-  --stdin                  Read input from stdin.
-  --stdin-filepath <path>  Path to the file used to read from stdin.
   --tab-width <int>        Specify the number of spaces per indentation-level. Defaults to 2.
   --trailing-comma <none|es5|all>
                            Print trailing commas wherever possible when multi-line. Defaults to none.
   --use-tabs               Indent lines with tabs instead of spaces.
+
+Uncategorized options:
+
+  --cursor-offset <int>    Print (to stderr) where a cursor at the given position would move to after formatting.
+                           This option cannot be used with --range-start and --range-end
+  --help or -h             Show help.
+  --list-different or -l   Print filenames of files that are different from Prettier formatting.
+  --no-color               Do not colorize error messages.
+  --stdin                  Read input from stdin.
+  --stdin-filepath <path>  Path to the file used to read from stdin.
   --version or -v          Print Prettier version.
-  --with-node-modules      Process files inside 'node_modules' directory.
   --write                  Edit the file in-place. (Beware!)
 
 

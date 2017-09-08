@@ -19,11 +19,13 @@ const detailOptions = normalizer.normalizeDetailOptions({
   },
   config: {
     type: "path",
+    category: "config",
     description:
       "Path to a prettier configuration file (.prettierrc, package.json, prettier.config.js)."
   },
   "config-precedence": {
     type: "choice",
+    category: "config",
     default: "cli-override",
     choices: ["cli-override", "file-override", "prefer-file"],
     description: dedent(`
@@ -38,7 +40,6 @@ const detailOptions = normalizer.normalizeDetailOptions({
   "cursor-offset": {
     type: "int",
     exception: -1,
-    category: "format",
     description: dedent(`
       Print (to stderr) where a cursor at the given position would move to after formatting.
       This option cannot be used with --range-start and --range-end
@@ -54,14 +55,15 @@ const detailOptions = normalizer.normalizeDetailOptions({
   },
   "find-config-path": {
     type: "path",
+    category: "config",
     description:
       "Finds and prints the path to a configuration file for a given input file."
   },
   "flow-parser": {
     // Deprecated in 0.0.10
     type: "boolean",
-    hidden: true,
     category: "format",
+    hidden: true,
     deprecated: "Use `--parser flow` instead."
   },
   help: {
@@ -71,6 +73,7 @@ const detailOptions = normalizer.normalizeDetailOptions({
   },
   "ignore-path": {
     type: "path",
+    category: "config",
     default: ".prettierignore",
     description: dedent(`
       Path to a file containing patterns that describe files to ignore.
@@ -90,6 +93,7 @@ const detailOptions = normalizer.normalizeDetailOptions({
   },
   "no-bracket-spacing": {
     type: "boolean",
+    category: "format",
     description: "Do not print spaces between brackets."
   },
   "no-color": {
@@ -98,17 +102,19 @@ const detailOptions = normalizer.normalizeDetailOptions({
   },
   "no-config": {
     type: "boolean",
+    category: "config",
     description: "Do not look for a configuration file."
   },
   "no-semi": {
     type: "boolean",
+    category: "format",
     description:
       "Do not print semicolons, except at the beginning of lines which may need them."
   },
   parser: {
     type: "choice",
-    exception: value => typeof value === "string",
     category: "format",
+    exception: value => typeof value === "string",
     choices: ["flow", "babylon", "typescript", "postcss", "json", "graphql"],
     description: "Specify which parse to use. Defaults to babylon.",
     getter: (value, argv) => (argv["flow-parser"] ? "flow" : value)
@@ -121,8 +127,8 @@ const detailOptions = normalizer.normalizeDetailOptions({
   },
   "range-end": {
     type: "int",
-    exception: Infinity,
     category: "format",
+    exception: Infinity,
     description: dedent(`
       Format code ending at a given character offset (exclusive).
       The range will extend forwards to the end of the selected statement.
@@ -188,6 +194,7 @@ const detailOptions = normalizer.normalizeDetailOptions({
   },
   "with-node-modules": {
     type: "boolean",
+    category: "config",
     description: "Process files inside 'node_modules' directory."
   },
   write: {

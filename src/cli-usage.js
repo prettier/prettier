@@ -1,19 +1,28 @@
 "use strict";
 
 function create(detailOptions) {
-  return `
-Usage: prettier [opts] [filename ...]
+  const options = detailOptions.filter(option => !option.hidden);
 
-Available options:
-${indent(
-    detailOptions
-      .filter(option => !option.hidden)
-      .map(createOptionUsage)
-      .join("\n"),
-    2
-  )}
+  const groupedUsages = options.reduce((current, option) => {
+    const category = capitalize(option.category || "uncategorized");
+    const group = (current[category] = current[category] || []);
+    group.push(createOptionUsage(option));
+    return current;
+  }, {});
 
-`.slice(1); // remove leading line break
+  let usage = "Usage: prettier [opts] [filename ...]\n\n";
+
+  usage += Object.keys(groupedUsages)
+    .sort()
+    .map(category => {
+      return `${category} options:\n\n${indent(
+        groupedUsages[category].join("\n"),
+        2
+      )}`;
+    })
+    .join("\n\n");
+
+  return usage + "\n\n";
 }
 
 function createOptionUsage(option) {
@@ -49,6 +58,10 @@ function createOptionUsage(option) {
   return (
     header + option.description.replace(/\n/g, "\n" + " ".repeat(threshold))
   );
+}
+
+function capitalize(str) {
+  return str.replace(/^[a-z]/, char => char.toUpperCase());
 }
 
 function indent(str, spaces) {
