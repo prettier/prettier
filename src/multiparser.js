@@ -41,7 +41,7 @@ function fromBabylonFlowOrTypeScript(path) {
 
   switch (node.type) {
     case "TemplateLiteral": {
-      const isCss = [isStyledJsx, isStyledComponents].some(isIt => isIt(path));
+      const isCss = [isStyledJsx, isScopedStyle, isStyledComponents].some(isIt => isIt(path));
 
       if (isCss) {
         // Get full template literal with expressions replaced by placeholders
@@ -286,6 +286,26 @@ function isStyledJsx(path) {
     parentParent.openingElement.name.name === "style" &&
     parentParent.openingElement.attributes.some(
       attribute => attribute.name.name === "jsx"
+    )
+  );
+}
+
+/**
+ * Template literal in this context:
+ * <style scoped>{`div{color:red}`}</style>
+ */
+function isScopedStyle(path) {
+  const node = path.getValue();
+  const parent = path.getParentNode();
+  const parentParent = path.getParentNode(1);
+  return (
+    parentParent &&
+    node.quasis &&
+    parent.type === "JSXExpressionContainer" &&
+    parentParent.type === "JSXElement" &&
+    parentParent.openingElement.name.name === "style" &&
+    parentParent.openingElement.attributes.some(
+      attribute => attribute.name.name === "scoped"
     )
   );
 }
