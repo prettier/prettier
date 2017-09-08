@@ -19,28 +19,20 @@ const apiDefaultOptions = require("./options").defaults;
 
 function getOptions(argv) {
   return {
-    cursorOffset: getIntOption(argv, "cursor-offset"),
-    rangeStart: getIntOption(argv, "range-start"),
-    rangeEnd: getIntOption(argv, "range-end"),
+    cursorOffset: argv["cursor-offset"],
+    rangeStart: argv["range-start"],
+    rangeEnd: argv["range-end"],
     useTabs: argv["use-tabs"],
     semi: argv["semi"],
-    printWidth: getIntOption(argv, "print-width"),
-    tabWidth: getIntOption(argv, "tab-width"),
+    printWidth: argv["print-width"],
+    tabWidth: argv["tab-width"],
     bracketSpacing: argv["bracket-spacing"],
     singleQuote: argv["single-quote"],
     jsxBracketSameLine: argv["jsx-bracket-same-line"],
     filepath: argv["stdin-filepath"],
-    trailingComma: getTrailingComma(argv),
+    trailingComma: argv["trailing-comma"],
     parser: argv["parser"]
   };
-}
-
-function getIntOption(argv, optionName) {
-  return argv[optionName];
-}
-
-function getTrailingComma(argv) {
-  return argv["trailing-comma"];
 }
 
 function dashifyObject(object) {
@@ -335,10 +327,6 @@ function formatFiles(argv) {
       writeOutput(result, options);
     }
   });
-}
-
-function kebabToCamel(str) {
-  return str.replace(/-([a-z])/g, (_, char) => char.toUpperCase());
 }
 
 module.exports = {
