@@ -26,7 +26,7 @@ function run(args) {
   }
 
   if (argv["help"]) {
-    console.log(usage);
+    console.log(usage.create(constant.options));
     process.exit(0);
   }
 
@@ -40,7 +40,7 @@ function run(args) {
   } else if (hasFilePatterns) {
     util.formatFiles(argv);
   } else {
-    console.log(usage);
+    console.log(usage.create(constant.options));
     process.exit(1);
   }
 }

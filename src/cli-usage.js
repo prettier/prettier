@@ -1,20 +1,20 @@
 "use strict";
 
-const constant = require("./cli-constant");
-
-const usage = `
+function create(detailOptions) {
+  return `
 Usage: prettier [opts] [filename ...]
 
 Available options:
 ${indent(
-  constant.options
-    .filter(option => !option.isHidden)
-    .map(createOptionUsage)
-    .join("\n"),
-  2
-)}
+    detailOptions
+      .filter(option => !option.isHidden)
+      .map(createOptionUsage)
+      .join("\n"),
+    2
+  )}
 
 `.slice(1); // remove leading line break
+}
 
 function createOptionUsage(option) {
   const threshold = 25;
@@ -55,4 +55,6 @@ function indent(str, spaces) {
   return str.replace(/^/gm, " ".repeat(spaces));
 }
 
-module.exports = usage;
+module.exports = {
+  create
+};
