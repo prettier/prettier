@@ -11,6 +11,8 @@ const parser = require("./src/parser");
 const printDocToDebug = require("./src/doc-debug").printDocToDebug;
 const config = require("./src/resolve-config");
 
+const PRAGMA_RE = /@\bprettier|format\b/;
+
 function guessLineEnding(text) {
   const index = text.indexOf("\n");
   if (index >= 0 && text.charAt(index - 1) === "\r") {
@@ -30,20 +32,9 @@ function attachComments(text, ast, opts) {
   return astComments;
 }
 
-// Cache compiled regexps in the likely case the same pragma is used for many
-// files.
-const reForPragma = {};
-function hasPragma(astComments, pragma) {
-  let re;
-  if (reForPragma[pragma] != null) {
-    re = reForPragma[pragma];
-  } else {
-    // @pragma surrounded by any amount of whitespace on either or both sides
-    re = reForPragma[pragma] = new RegExp(`\\s*@${pragma}\\s*`);
-  }
-
+function hasPragma(astComments) {
   const firstComment = astComments[0];
-  return Boolean(firstComment != null && firstComment.value.match(re));
+  return Boolean(firstComment != null && firstComment.value.match(PRAGMA_RE));
 }
 
 function ensureAllCommentsPrinted(astComments) {
@@ -93,10 +84,7 @@ function formatWithCursor(text, opts, addAlignmentSize) {
   }
 
   const astComments = attachComments(text, ast, opts);
-  if (
-    opts.requirePragma !== "none" &&
-    !hasPragma(astComments, opts.requirePragma)
-  ) {
+  if (opts.requirePragma && !hasPragma(astComments)) {
     return { formatted: text };
   }
 

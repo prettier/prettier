@@ -15,7 +15,7 @@ const defaults = {
   bracketSpacing: true,
   jsxBracketSameLine: false,
   parser: "babylon",
-  requirePragma: "none",
+  requirePragma: false,
   semi: true
 };
 
