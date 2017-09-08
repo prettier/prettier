@@ -12,11 +12,7 @@ function validateArgv(argv) {
   }
 }
 
-function validateIntOption(value, option, opts) {
-  if (opts && opts.exceptions && opts.exceptions.indexOf(value) !== -1) {
-    return;
-  }
-
+function validateIntOption(value, option) {
   if (!/^\d+$/.test(value)) {
     throw new Error(
       `Invalid --${option.name} value.\nExpected an integer, but received: ${value}`

@@ -14,7 +14,6 @@ const prettier = eval("require")("../index");
 const cleanAST = require("./clean-ast").cleanAST;
 const resolver = require("./resolve-config");
 const constant = require("./cli-constant");
-const validator = require("./cli-validator");
 const normalizer = require("./cli-normalizer");
 const apiDefaultOptions = require("./options").defaults;
 
@@ -37,24 +36,11 @@ function getOptions(argv) {
 }
 
 function getIntOption(argv, optionName) {
-  const value = argv[optionName];
-
-  validator.validateIntOption(value, constant.options[optionName], {
-    // cursorOffset defaults to -1 and rangeEnd defaults to Infinity, which is not considered an integer.
-    exceptions: [apiDefaultOptions[kebabToCamel(optionName)]]
-  });
-
-  return Number(value);
+  return Number(argv[optionName]);
 }
 
 function getTrailingComma(argv) {
-  const value = argv["trailing-comma"];
-
-  validator.validateChoiceOption(value, constant.options["trailing-comma"], {
-    exceptions: [undefined]
-  });
-
-  return value;
+  return argv["trailing-comma"];
 }
 
 function dashifyObject(object) {
@@ -198,11 +184,6 @@ function parseArgsToOptions(argv, overrideDefaults) {
 
 function applyConfigPrecedence(argv, options) {
   try {
-    validator.validateChoiceOption(
-      argv["config-precedence"],
-      constant.options["config-precedence"]
-    );
-
     switch (argv["config-precedence"]) {
       case "cli-override":
         return parseArgsToOptions(argv, options);

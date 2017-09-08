@@ -37,6 +37,7 @@ const options = normalizer.normalizeDetailOptions({
   },
   "cursor-offset": {
     type: "int",
+    exception: -1,
     isFormatOption: true,
     description: dedent(`
       Print (to stderr) where a cursor at the given position would move to after formatting.
@@ -110,6 +111,7 @@ const options = normalizer.normalizeDetailOptions({
   },
   parser: {
     type: "choice",
+    exception: value => typeof value === "string",
     isFormatOption: true,
     choices: ["flow", "babylon", "typescript", "postcss", "json", "graphql"],
     description: "Specify which parse to use. Defaults to babylon.",
@@ -123,6 +125,7 @@ const options = normalizer.normalizeDetailOptions({
   },
   "range-end": {
     type: "int",
+    exception: Infinity,
     isFormatOption: true,
     description: dedent(`
       Format code ending at a given character offset (exclusive).
