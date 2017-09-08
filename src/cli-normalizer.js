@@ -36,7 +36,7 @@ function normalizeDetailOptions(detailOptions) {
         switch (option.type) {
           case "int":
             validator.validateIntOption(normalizedValue, normalizedOption);
-            break;
+            return Number(normalizedValue);
           case "choice":
             validator.validateChoiceOption(normalizedValue, normalizedOption);
             break;

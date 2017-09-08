@@ -36,7 +36,7 @@ function getOptions(argv) {
 }
 
 function getIntOption(argv, optionName) {
-  return Number(argv[optionName]);
+  return argv[optionName];
 }
 
 function getTrailingComma(argv) {
