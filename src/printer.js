@@ -2925,20 +2925,17 @@ function printArgumentsList(path, options, print) {
   const beforeClosingParenParts = concat(
     hasEmptyLineBeforeClosingParen ? emptyLineCommands : []
   );
+  const hasEmptyLineAfterArgs = args.map(arg =>
+    util.isNextLineEmpty(options.originalText, arg)
+  );
 
   if (printed.length === 0) {
     return concat([
       "(",
-      afterOpeningParenParts,
       comments.printDanglingComments(path, options, /* sameIndent */ true),
-      beforeClosingParenParts,
       ")"
     ]);
   }
-
-  const hasEmptyLineAfterArgs = args.map(arg =>
-    util.isNextLineEmpty(options.originalText, arg)
-  );
 
   // This is just an optimization; I think we could return the
   // conditional group for all function calls, but it's more expensive
