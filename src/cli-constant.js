@@ -90,22 +90,18 @@ const detailOptions = normalizer.normalizeDetailOptions({
   },
   "no-bracket-spacing": {
     type: "boolean",
-    isDocsOnly: true,
     description: "Do not print spaces between brackets."
   },
   "no-color": {
     type: "boolean",
-    isDocsOnly: true,
     description: "Do not colorize error messages."
   },
   "no-config": {
     type: "boolean",
-    isDocsOnly: true,
     description: "Do not look for a configuration file."
   },
   "no-semi": {
     type: "boolean",
-    isDocsOnly: true,
     description:
       "Do not print semicolons, except at the beginning of lines which may need them."
   },
@@ -202,10 +198,14 @@ const detailOptions = normalizer.normalizeDetailOptions({
 
 const minimistOptions = {
   boolean: detailOptions
-    .filter(option => !option.isDocsOnly && option.type === "boolean")
+    .filter(
+      option => !option.name.startsWith("no-") && option.type === "boolean"
+    )
     .map(option => option.name),
   string: detailOptions
-    .filter(option => !option.isDocsOnly && option.type !== "boolean")
+    .filter(
+      option => !option.name.startsWith("no-") && option.type !== "boolean"
+    )
     .map(option => option.name),
   default: detailOptions
     .filter(option => option.default !== undefined)
