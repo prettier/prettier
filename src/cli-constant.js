@@ -5,7 +5,7 @@ const normalizer = require("./cli-normalizer");
 const options = normalizer.normalizeDetailOptions({
   "bracket-spacing": {
     type: "boolean",
-    isFormatOption: true,
+    category: "format",
     isHidden: true
   },
   color: {
@@ -38,7 +38,7 @@ const options = normalizer.normalizeDetailOptions({
   "cursor-offset": {
     type: "int",
     exception: -1,
-    isFormatOption: true,
+    category: "format",
     description: dedent(`
       Print (to stderr) where a cursor at the given position would move to after formatting.
       This option cannot be used with --range-start and --range-end
@@ -61,7 +61,7 @@ const options = normalizer.normalizeDetailOptions({
     // Deprecated in 0.0.10
     type: "boolean",
     isHidden: true,
-    isFormatOption: true,
+    category: "format",
     deprecated: "Use `--parser flow` instead."
   },
   help: {
@@ -79,7 +79,7 @@ const options = normalizer.normalizeDetailOptions({
   },
   "jsx-bracket-same-line": {
     type: "boolean",
-    isFormatOption: true,
+    category: "format",
     description: "Put > on the last line instead of at a new line."
   },
   "list-different": {
@@ -112,21 +112,21 @@ const options = normalizer.normalizeDetailOptions({
   parser: {
     type: "choice",
     exception: value => typeof value === "string",
-    isFormatOption: true,
+    category: "format",
     choices: ["flow", "babylon", "typescript", "postcss", "json", "graphql"],
     description: "Specify which parse to use. Defaults to babylon.",
     getter: (value, argv) => (argv["flow-parser"] ? "flow" : value)
   },
   "print-width": {
     type: "int",
-    isFormatOption: true,
+    category: "format",
     description:
       "Specify the length of line that the printer will wrap on. Defaults to 80."
   },
   "range-end": {
     type: "int",
     exception: Infinity,
-    isFormatOption: true,
+    category: "format",
     description: dedent(`
       Format code ending at a given character offset (exclusive).
       The range will extend forwards to the end of the selected statement.
@@ -136,7 +136,7 @@ const options = normalizer.normalizeDetailOptions({
   },
   "range-start": {
     type: "int",
-    isFormatOption: true,
+    category: "format",
     description: dedent(`
       Format code starting at a given character offset.
       The range will extend backwards to the start of the first line containing the selected statement.
@@ -146,12 +146,12 @@ const options = normalizer.normalizeDetailOptions({
   },
   semi: {
     type: "boolean",
-    isFormatOption: true,
+    category: "format",
     isHidden: true
   },
   "single-quote": {
     type: "boolean",
-    isFormatOption: true,
+    category: "format",
     description: "Use single quotes instead of double quotes."
   },
   stdin: {
@@ -164,13 +164,13 @@ const options = normalizer.normalizeDetailOptions({
   },
   "tab-width": {
     type: "int",
-    isFormatOption: true,
+    category: "format",
     description:
       "Specify the number of spaces per indentation-level. Defaults to 2."
   },
   "trailing-comma": {
     type: "choice",
-    isFormatOption: true,
+    category: "format",
     choices: [
       "none",
       "es5",
@@ -182,7 +182,7 @@ const options = normalizer.normalizeDetailOptions({
   },
   "use-tabs": {
     type: "boolean",
-    isFormatOption: true,
+    category: "format",
     description: "Indent lines with tabs instead of spaces."
   },
   version: {
@@ -201,11 +201,11 @@ const options = normalizer.normalizeDetailOptions({
 });
 
 const booleanOptionNames = options
-  .filter(option => option.isFormatOption && option.type === "boolean")
+  .filter(option => option.category === "format" && option.type === "boolean")
   .map(option => option.name);
 
 const stringOptionNames = options
-  .filter(option => option.isFormatOption && option.type !== "boolean")
+  .filter(option => option.category === "format" && option.type !== "boolean")
   .map(option => option.name);
 
 const minimistOptions = {
