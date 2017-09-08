@@ -2896,7 +2896,7 @@ function printArgumentsList(path, options, print) {
   const lastArgIndex = args.length - 1;
 
   const firstArgComments = args.length === 0 ? [] : args[0].comments;
-  const hasEmptyLineAfterOpeningParen =
+  const shouldHaveEmptyLineAfterOpeningParen =
     args.length === 0
       ? false
       : util.isPreviousLineEmpty(
@@ -2907,7 +2907,7 @@ function printArgumentsList(path, options, print) {
         );
 
   const lastArgComments = args.length === 0 ? [] : args[lastArgIndex].comments;
-  const hasEmptyLineBeforeClosingParen =
+  const shouldHaveEmptyLineBeforeClosingParen =
     args.length === 0
       ? false
       : util.isNextLineEmpty(
@@ -2920,10 +2920,10 @@ function printArgumentsList(path, options, print) {
 
   const emptyLineCommands = [line, breakParent];
   const afterOpeningParenParts = concat(
-    hasEmptyLineAfterOpeningParen ? emptyLineCommands : []
+    shouldHaveEmptyLineAfterOpeningParen ? emptyLineCommands : []
   );
   const beforeClosingParenParts = concat(
-    hasEmptyLineBeforeClosingParen ? emptyLineCommands : []
+    shouldHaveEmptyLineBeforeClosingParen ? emptyLineCommands : []
   );
   const hasEmptyLineAfterArgs = args.map(arg =>
     util.isNextLineEmpty(options.originalText, arg)
@@ -2943,8 +2943,8 @@ function printArgumentsList(path, options, print) {
   const shouldGroupFirst = shouldGroupFirstArg(args);
   const shouldGroupLast = shouldGroupLastArg(args);
   if (
-    !hasEmptyLineAfterOpeningParen &&
-    !hasEmptyLineBeforeClosingParen &&
+    !shouldHaveEmptyLineAfterOpeningParen &&
+    !shouldHaveEmptyLineBeforeClosingParen &&
     hasEmptyLineAfterArgs.every(
       hasEmptyLineAfterArg => !hasEmptyLineAfterArg
     ) &&
