@@ -6,7 +6,7 @@ const detailOptions = normalizer.normalizeDetailOptions({
   "bracket-spacing": {
     type: "boolean",
     category: "format",
-    isHidden: true
+    hidden: true
   },
   color: {
     // The supports-color package (a sub sub dependency) looks directly at
@@ -15,7 +15,7 @@ const detailOptions = normalizer.normalizeDetailOptions({
     // See https://github.com/chalk/supports-color/#info for more information.
     type: "boolean",
     default: true,
-    isHidden: true
+    hidden: true
   },
   config: {
     type: "path",
@@ -46,11 +46,11 @@ const detailOptions = normalizer.normalizeDetailOptions({
   },
   "debug-check": {
     type: "boolean",
-    isHidden: true
+    hidden: true
   },
   "debug-print-doc": {
     type: "boolean",
-    isHidden: true
+    hidden: true
   },
   "find-config-path": {
     type: "path",
@@ -60,7 +60,7 @@ const detailOptions = normalizer.normalizeDetailOptions({
   "flow-parser": {
     // Deprecated in 0.0.10
     type: "boolean",
-    isHidden: true,
+    hidden: true,
     category: "format",
     deprecated: "Use `--parser flow` instead."
   },
@@ -143,7 +143,7 @@ const detailOptions = normalizer.normalizeDetailOptions({
   semi: {
     type: "boolean",
     category: "format",
-    isHidden: true
+    hidden: true
   },
   "single-quote": {
     type: "boolean",

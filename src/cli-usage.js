@@ -7,7 +7,7 @@ Usage: prettier [opts] [filename ...]
 Available options:
 ${indent(
     detailOptions
-      .filter(option => !option.isHidden)
+      .filter(option => !option.hidden)
       .map(createOptionUsage)
       .join("\n"),
     2
