@@ -176,14 +176,13 @@ function getOptionsOrDie(argv, filePath) {
 
 function getOptionsForFile(argv, filePath) {
   const options = getOptionsOrDie(argv, filePath);
-  const configPrecedence = argv["config-precedence"];
-  return applyConfigPrecedence(argv.__args, options, configPrecedence);
+  return applyConfigPrecedence(argv, options);
 }
 
-function parseArgsToOptions(args, overrideDefaults) {
+function parseArgsToOptions(argv, overrideDefaults) {
   return getOptions(
     normalizer.normalizeArgv(
-      minimist(args, {
+      minimist(argv.__args, {
         boolean: constant.booleanOptionNames,
         string: constant.stringOptionNames,
         default: Object.assign(
@@ -197,20 +196,20 @@ function parseArgsToOptions(args, overrideDefaults) {
   );
 }
 
-function applyConfigPrecedence(args, options, configPrecedence) {
+function applyConfigPrecedence(argv, options) {
   try {
     validator.validateChoiceOption(
-      configPrecedence,
+      argv["config-precedence"],
       constant.options["config-precedence"]
     );
 
-    switch (configPrecedence) {
+    switch (argv["config-precedence"]) {
       case "cli-override":
-        return parseArgsToOptions(args, options);
+        return parseArgsToOptions(argv, options);
       case "file-override":
-        return Object.assign({}, parseArgsToOptions(args), options);
+        return Object.assign({}, parseArgsToOptions(argv), options);
       case "prefer-file":
-        return options || parseArgsToOptions(args);
+        return options || parseArgsToOptions(argv);
     }
   } catch (error) {
     console.error(error.toString());
