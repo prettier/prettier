@@ -200,14 +200,6 @@ const detailOptions = normalizer.normalizeDetailOptions({
   }
 });
 
-const booleanOptionNames = detailOptions
-  .filter(option => option.category === "format" && option.type === "boolean")
-  .map(option => option.name);
-
-const stringOptionNames = detailOptions
-  .filter(option => option.category === "format" && option.type !== "boolean")
-  .map(option => option.name);
-
 const minimistOptions = {
   boolean: detailOptions
     .filter(option => !option.isDocsOnly && option.type === "boolean")
@@ -243,8 +235,6 @@ function dedent(str) {
 }
 
 module.exports = {
-  booleanOptionNames,
-  stringOptionNames,
   minimistOptions,
   detailOptions
 };

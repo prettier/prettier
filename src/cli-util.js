@@ -160,15 +160,18 @@ function getOptionsForFile(argv, filePath) {
 function parseArgsToOptions(argv, overrideDefaults) {
   return getOptions(
     normalizer.normalizeArgv(
-      minimist(argv.__args, {
-        boolean: constant.booleanOptionNames,
-        string: constant.stringOptionNames,
-        default: Object.assign(
-          {},
-          dashifyObject(apiDefaultOptions),
-          dashifyObject(overrideDefaults)
-        )
-      }),
+      minimist(
+        argv.__args,
+        Object.assign({
+          string: constant.minimistOptions.string,
+          boolean: constant.minimistOptions.boolean,
+          default: Object.assign(
+            {},
+            dashifyObject(apiDefaultOptions),
+            dashifyObject(overrideDefaults)
+          )
+        })
+      ),
       constant.detailOptions
     )
   );
