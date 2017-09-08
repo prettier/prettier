@@ -31,58 +31,6 @@ normalModeBreaking
   ? johnJacobJingleHeimerSchmidtHisNameIsMyNameTooWheneverWeGoOutThePeopleAlwaysShoutThereGoesJohnJacobJingleHeimerSchmidtYaDaDaDaDaDaDa
   : "c";
 
-// This ConditionalExpression prints in normal mode even though its parent is a
-// JSXExpressionContainer. The line does not break, so it does not contain
-// parens.
-<div>
-  {a ? "b" : "c"}
-</div>;
-
-// This ConditionalExpression prints in normal mode even though its parent is a
-// JSXExpressionContainer. Because the consequent is very long, they are broken in
-// multiple lines but no parens are added.
-<div>
-  {a
-    ? johnJacobJingleHeimerSchmidtHisNameIsMyNameTooWheneverWeGoOutThePeopleAlwaysShoutThereGoesJohnJacobJingleHeimerSchmidtYaDaDaDaDaDaDa
-    : "c"}
-</div>;
-
-// This ConditionalExpression prints in normal mode even though its parent is a
-// JSXExpressionContainer. Because the consequent is very long, they are broken in
-// multiple lines but no parens are added.
-<div>
-  {a
-    ? johnJacobJingleHeimerSchmidtHisNameIsMyNameTooWheneverWeGoOutThePeopleAlwaysShoutThereGoesJohnJacobJingleHeimerSchmidtYaDaDaDaDaDaDa
-    : null}
-</div>;
-
-// This ConditionalExpression prints in normal mode even though its parent is a
-// JSXExpressionContainer. Because the alternate is very long, they are broken in
-// multiple lines but no parens are added.
-<div>
-  {a
-    ? "b"
-    : johnJacobJingleHeimerSchmidtHisNameIsMyNameTooWheneverWeGoOutThePeopleAlwaysShoutThereGoesJohnJacobJingleHeimerSchmidtYaDaDaDaDaDaDa}
-</div>;
-
-// This ConditionalExpression prints in normal mode even though its parent is a
-// JSXExpressionContainer. Because the alternate is very long, they are broken in
-// multiple lines but no parens are added.
-<div>
-  {a
-    ? null
-    : johnJacobJingleHeimerSchmidtHisNameIsMyNameTooWheneverWeGoOutThePeopleAlwaysShoutThereGoesJohnJacobJingleHeimerSchmidtYaDaDaDaDaDaDa}
-</div>;
-
-// This ConditionalExpression prints in normal mode even though its parent is a
-// JSXExpressionContainer. Because the test is very long, they are broken in
-// multiple lines but no parens are added.
-<div>
-  {johnJacobJingleHeimerSchmidtHisNameIsMyNameTooWheneverWeGoOutThePeopleAlwaysShoutThereGoesJohnJacobJingleHeimerSchmidtYaDaDaDaDaDaDa
-    ? "b"
-    : "c"}
-</div>;
-
 // This ConditionalExpression prints in JSX mode because its test is a
 // JSXElement. It is non-breaking.
 // Note: I have never, ever seen someone use a JSXElement as the test in a
@@ -134,16 +82,6 @@ jsxModeFromElementBreaking ? (
 // non-breaking.
 <div>
   {a ? "a" : b ? "b" : "c"}
-</div>;
-
-// This chain of ConditionalExpressions prints in normal mode even though its parent is a
-// JSXExpressionContainer. It is breaking.
-<div>
-  {a
-    ? "a"
-    : b
-      ? "b"
-      : thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo}
 </div>;
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
