@@ -7,6 +7,16 @@ exports[`boolean flags do not swallow the next argument 1`] = `
 
 exports[`boolean flags do not swallow the next argument 2`] = `""`;
 
+exports[`deprecated options are warned 1`] = `
+"console.log(\\"could be single quote and without semi\\");
+"
+`;
+
+exports[`deprecated options are warned 2`] = `
+"\`--flow-parser\` is deprecated. Use \`--parser flow\` instead.
+"
+`;
+
 exports[`negated options work 1`] = `
 "console.log(\\"could be single quote and without semi\\")
 "
