@@ -1,6 +1,8 @@
 "use strict";
 
-const options = sortAndAddNameKey({
+const normalizer = require("./cli-normalizer");
+
+const options = normalizer.normalizeDetailOptions({
   "bracket-spacing": {
     type: "boolean",
     isFormatOption: true,
@@ -188,31 +190,29 @@ const options = sortAndAddNameKey({
   }
 });
 
-const optionArray = Object.keys(options).map(name => options[name]);
-
-const booleanOptionNames = optionArray
+const booleanOptionNames = options
   .filter(option => option.isFormatOption && option.type === "boolean")
   .map(option => option.name);
 
-const stringOptionNames = optionArray
+const stringOptionNames = options
   .filter(option => option.isFormatOption && option.type !== "boolean")
   .map(option => option.name);
 
 const minimistOptions = {
-  boolean: optionArray
+  boolean: options
     .filter(option => !option.isDocsOnly && option.type === "boolean")
     .map(option => option.name),
-  string: optionArray
+  string: options
     .filter(option => !option.isDocsOnly && option.type !== "boolean")
     .map(option => option.name),
-  default: optionArray
+  default: options
     .filter(option => option.default !== undefined)
     .reduce(
       (current, option) =>
         Object.assign({ [option.name]: option.default }, current),
       {}
     ),
-  alias: optionArray
+  alias: options
     .filter(option => option.alias !== undefined)
     .reduce(
       (current, option) =>
@@ -232,7 +232,7 @@ Usage: prettier [opts] [filename ...]
 
 Available options:
 ${indent(
-  optionArray
+  options
     .filter(option => !option.isHidden)
     .map(createOptionUsage)
     .join("\n"),
@@ -280,16 +280,6 @@ function indent(str, spaces) {
 function dedent(str) {
   const spaces = str.match(/\n^( +)/m)[1].length;
   return str.replace(new RegExp(`^ {${spaces}}`, "gm"), "").trim();
-}
-
-function sortAndAddNameKey(obj) {
-  return Object.keys(obj)
-    .sort()
-    .reduce(
-      (current, name) =>
-        Object.assign(current, { [name]: Object.assign({ name }, obj[name]) }),
-      {}
-    );
 }
 
 module.exports = {
