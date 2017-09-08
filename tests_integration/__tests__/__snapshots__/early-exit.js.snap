@@ -16,7 +16,7 @@ Available options:
                            This option cannot be used with --range-start and --range-end
   --find-config-path <path>
                            Finds and prints the path to a configuration file for a given input file.
-  --help or -h             Show help
+  --help or -h             Show help.
   --ignore-path <path>     Path to a file containing patterns that describe files to ignore.
                            Defaults to ./.prettierignore.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.

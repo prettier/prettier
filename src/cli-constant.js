@@ -63,7 +63,7 @@ const options = sortAndAddNameKey({
   help: {
     type: "boolean",
     alias: "h",
-    description: "Show help"
+    description: "Show help."
   },
   "ignore-path": {
     type: "path",
