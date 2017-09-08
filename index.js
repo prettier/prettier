@@ -43,7 +43,7 @@ function hasPragma(astComments, pragma) {
   }
 
   const firstComment = astComments[0];
-  return firstComment != null && firstComment.value.match(re);
+  return Boolean(firstComment != null && firstComment.value.match(re));
 }
 
 function ensureAllCommentsPrinted(astComments) {

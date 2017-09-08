@@ -6,14 +6,8 @@ exports[`requiring a pragma of @format formatting files with the pragma 1`] = `
  * @format
  */
 
-function      foo(bar)
-
-
-{
-
-  return bar +
-    3 +
-  4;
+function foo(bar) {
+  return bar + 3 + 4;
 }
 "
 `;
