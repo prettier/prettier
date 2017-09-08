@@ -114,7 +114,7 @@ const detailOptions = normalizer.normalizeDetailOptions({
   parser: {
     type: "choice",
     category: "format",
-    exception: value => typeof value === "string",
+    exception: value => typeof value === "string", // allow path to a parser module
     choices: ["flow", "babylon", "typescript", "postcss", "json", "graphql"],
     description: "Specify which parse to use. Defaults to babylon.",
     getter: (value, argv) => (argv["flow-parser"] ? "flow" : value)
