@@ -60,7 +60,8 @@ const options = normalizer.normalizeDetailOptions({
     // Deprecated in 0.0.10
     type: "boolean",
     isHidden: true,
-    isFormatOption: true
+    isFormatOption: true,
+    deprecated: "Use `--parser flow` instead."
   },
   help: {
     type: "boolean",
@@ -111,7 +112,8 @@ const options = normalizer.normalizeDetailOptions({
     type: "choice",
     isFormatOption: true,
     choices: ["flow", "babylon", "typescript", "postcss", "json", "graphql"],
-    description: "Specify which parse to use. Defaults to babylon."
+    description: "Specify which parse to use. Defaults to babylon.",
+    getter: (value, argv) => (argv["flow-parser"] ? "flow" : value)
   },
   "print-width": {
     type: "int",

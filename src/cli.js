@@ -6,9 +6,14 @@ const prettier = eval("require")("../index");
 const constant = require("./cli-constant");
 const util = require("./cli-util");
 const validator = require("./cli-validator");
+const normalizer = require("./cli-normalizer");
 
 function run(args) {
-  const argv = minimist(args, constant.minimistOptions);
+  const argv = normalizer.normalizeArgv(
+    minimist(args, constant.minimistOptions),
+    constant.options
+  );
+
   argv.__args = args;
   argv.__filePatterns = argv["_"];
 

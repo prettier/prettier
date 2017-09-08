@@ -15,6 +15,7 @@ const cleanAST = require("./clean-ast").cleanAST;
 const resolver = require("./resolve-config");
 const constant = require("./cli-constant");
 const validator = require("./cli-validator");
+const normalizer = require("./cli-normalizer");
 const apiDefaultOptions = require("./options").defaults;
 
 function getOptions(argv) {
@@ -31,19 +32,8 @@ function getOptions(argv) {
     jsxBracketSameLine: argv["jsx-bracket-same-line"],
     filepath: argv["stdin-filepath"],
     trailingComma: getTrailingComma(argv),
-    parser: getParserOption(argv)
+    parser: argv["parser"]
   };
-}
-
-function getParserOption(argv) {
-  // For backward compatibility. Deprecated in 0.0.10
-  /* istanbul ignore if */
-  if (argv["flow-parser"]) {
-    console.warn("`--flow-parser` is deprecated. Use `--parser flow` instead.");
-    return "flow";
-  }
-
-  return argv["parser"];
 }
 
 function getIntOption(argv, optionName) {
@@ -201,15 +191,18 @@ function getOptionsForFile(argv, filePath) {
 
 function parseArgsToOptions(args, overrideDefaults) {
   return getOptions(
-    minimist(args, {
-      boolean: constant.booleanOptionNames,
-      string: constant.stringOptionNames,
-      default: Object.assign(
-        {},
-        dashifyObject(apiDefaultOptions),
-        dashifyObject(overrideDefaults)
-      )
-    })
+    normalizer.normalizeArgv(
+      minimist(args, {
+        boolean: constant.booleanOptionNames,
+        string: constant.stringOptionNames,
+        default: Object.assign(
+          {},
+          dashifyObject(apiDefaultOptions),
+          dashifyObject(overrideDefaults)
+        )
+      }),
+      constant.options
+    )
   );
 }
 
