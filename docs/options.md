@@ -133,3 +133,26 @@ Default | CLI Override | API Override
 --------|--------------|-------------
 None | `--stdin-filepath <string>` | `filepath: "<string>"`
 
+## Require pragma
+Prettier can restrict itself to only format files that contain a special comment, called a pragma, at the top of the file. This is very useful
+when gradually transitioning large, unformatted codebases to prettier.
+
+For example, a file with the following as its first comment will be formatted when `--require-pragma="format"` is supplied:
+
+```js
+/**
+ * @format
+ */
+```
+
+or
+
+```js
+// @format
+```
+
+If a pragma value other than `none` is supplied, files not containing it in their first comment will not be formatted by prettier.
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`none` | `--require-pragma` | `requirePragma`

@@ -25,12 +25,28 @@ function getOptions(argv) {
     printWidth: getIntOption(argv, "print-width"),
     tabWidth: getIntOption(argv, "tab-width"),
     bracketSpacing: argv["bracket-spacing"],
+    requirePragma: getRequirePragmaOption(argv),
     singleQuote: argv["single-quote"],
     jsxBracketSameLine: argv["jsx-bracket-same-line"],
     filepath: argv["stdin-filepath"],
     trailingComma: getTrailingComma(argv),
     parser: getParserOption(argv)
   };
+}
+
+function getRequirePragmaOption(argv) {
+  const value = argv["require-pragma"];
+
+  if (value === undefined) {
+    return value;
+  }
+
+  // if the user provided a value with `@` in the beginning anyway, strip it off.
+  if (value.startsWith("@")) {
+    return value.substr(1);
+  }
+
+  return value;
 }
 
 function getParserOption(argv) {

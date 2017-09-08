@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`requiring a pragma of @format formatting files with the pragma 1`] = `
+"/**
+ * @flow
+ * @format
+ */
+
+function      foo(bar)
+
+
+{
+
+  return bar +
+    3 +
+  4;
+}
+"
+`;
+
+exports[`requiring a pragma of @format skipping over files without the pragma 1`] = `
+"/**
+ * @flow
+ */
+
+function      foo(bar)
+
+
+{
+
+  return bar +
+    3 +
+  4;
+}
+"
+`;

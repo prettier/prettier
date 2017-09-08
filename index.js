@@ -30,6 +30,22 @@ function attachComments(text, ast, opts) {
   return astComments;
 }
 
+// Cache compiled regexps in the likely case the same pragma is used for many
+// files.
+const reForPragma = {};
+function hasPragma(astComments, pragma) {
+  let re;
+  if (reForPragma[pragma] != null) {
+    re = reForPragma[pragma];
+  } else {
+    // @pragma surrounded by any amount of whitespace on either or both sides
+    re = reForPragma[pragma] = new RegExp(`\\s*@${pragma}\\s*`);
+  }
+
+  const firstComment = astComments[0];
+  return firstComment != null && firstComment.value.match(re);
+}
+
 function ensureAllCommentsPrinted(astComments) {
   if (!astComments) {
     return;
@@ -77,6 +93,13 @@ function formatWithCursor(text, opts, addAlignmentSize) {
   }
 
   const astComments = attachComments(text, ast, opts);
+  if (
+    opts.requirePragma !== "none" &&
+    !hasPragma(astComments, opts.requirePragma)
+  ) {
+    return { formatted: text };
+  }
+
   const doc = printAstToDoc(ast, opts, addAlignmentSize);
   opts.newLine = guessLineEnding(text);
   const toStringResult = printDocToString(doc, opts);

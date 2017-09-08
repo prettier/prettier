@@ -32,6 +32,8 @@ Available options:
                            Print trailing commas wherever possible when multi-line. Defaults to none.
   --parser <flow|babylon|typescript|postcss|json|graphql>
                            Specify which parse to use. Defaults to babylon.
+  --require-pragma <none|format|prettier>
+                           Require the supplied string, preceeded by '@', to be present in the file's leading docblock comment in order for it to be formatted.
   --cursor-offset <int>    Print (to stderr) where a cursor at the given position would move to after formatting.
                            This option cannot be used with --range-start and --range-end
   --range-start <int>      Format code starting at a given character offset.
