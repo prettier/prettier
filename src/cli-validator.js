@@ -25,14 +25,16 @@ function validateIntOption(value, option, opts) {
 }
 
 function validateChoiceOption(value, option) {
-  if (option.choices.indexOf(value) === -1) {
+  if (!option.choices.some(choice => choice.value === value)) {
     throw new Error(
       `Invalid option for --${option.name}.\nExpected ${getJoinedChoices()}, but received: "${value}"`
     );
   }
 
   function getJoinedChoices() {
-    const choices = option.choices.map(choice => `"${choice}"`);
+    const choices = option.choices
+      .filter(choice => !choice.deprecated)
+      .map(choice => `"${choice.value}"`);
     const head = choices.slice(0, -2);
     const tail = choices.slice(-2);
     return head.concat(tail.join(" or ")).join(", ");

@@ -50,15 +50,6 @@ function getIntOption(argv, optionName) {
 function getTrailingComma(argv) {
   const value = argv["trailing-comma"];
 
-  /* istanbul ignore if */
-  if (value === "") {
-    console.warn(
-      "Warning: `--trailing-comma` was used without an argument. This is deprecated. " +
-        'Specify "none", "es5", or "all".'
-    );
-    return "es5";
-  }
-
   validator.validateChoiceOption(value, constant.options["trailing-comma"], {
     exceptions: [undefined]
   });

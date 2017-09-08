@@ -168,7 +168,12 @@ const options = normalizer.normalizeDetailOptions({
   "trailing-comma": {
     type: "choice",
     isFormatOption: true,
-    choices: ["none", "es5", "all"],
+    choices: [
+      "none",
+      "es5",
+      "all",
+      { value: "", deprecated: true, redirect: "es5" }
+    ],
     description:
       "Print trailing commas wherever possible when multi-line. Defaults to none."
   },
@@ -257,7 +262,10 @@ function createOptionUsage(option) {
       // do nothing
       break;
     case "choice":
-      header += ` <${option.choices.join("|")}>`;
+      header += ` <${option.choices
+        .filter(choice => !choice.deprecated)
+        .map(choice => choice.value)
+        .join("|")}>`;
       break;
     default:
       header += ` <${option.type}>`;

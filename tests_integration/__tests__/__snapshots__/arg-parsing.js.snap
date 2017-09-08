@@ -13,7 +13,7 @@ exports[`deprecated option values are warned 1`] = `
 `;
 
 exports[`deprecated option values are warned 2`] = `
-"Warning: \`--trailing-comma\` was used without an argument. This is deprecated. Specify \\"none\\", \\"es5\\", or \\"all\\".
+"\`--trailing-comma\` without an argument is deprecated. Automatically redirect to \`--trailing-comma=es5\`.
 "
 `;
 
