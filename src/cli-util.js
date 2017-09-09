@@ -14,7 +14,7 @@ const prettier = eval("require")("../index");
 const cleanAST = require("./clean-ast").cleanAST;
 const resolver = require("./resolve-config");
 const constant = require("./cli-constant");
-const normalizer = require("./cli-normalizer");
+const validator = require("./cli-validator");
 const apiDefaultOptions = require("./options").defaults;
 
 function getOptions(argv) {
@@ -159,7 +159,7 @@ function getOptionsForFile(argv, filePath) {
 
 function parseArgsToOptions(argv, overrideDefaults) {
   return getOptions(
-    normalizer.normalizeArgv(
+    normalizeArgv(
       minimist(
         argv.__args,
         Object.assign({
@@ -172,7 +172,7 @@ function parseArgsToOptions(argv, overrideDefaults) {
           )
         })
       ),
-      constant.detailOptions
+      { warning: false }
     )
   );
 }
@@ -398,10 +398,99 @@ function indent(str, spaces) {
   return str.replace(/^/gm, " ".repeat(spaces));
 }
 
+function normalizeArgv(rawArgv, options) {
+  options = options || {};
+
+  const consoleWarn = options.warning === false ? () => {} : console.warn;
+
+  const normalized = {};
+
+  Object.keys(rawArgv).forEach(key => {
+    const rawValue = rawArgv[key];
+
+    if (key === "_") {
+      normalized[key] = rawValue;
+      return;
+    }
+
+    if (key.length === 1) {
+      // do nothing with alias
+      return;
+    }
+
+    const option = constant.detailOptions[key];
+
+    if (option === undefined) {
+      // unknown option
+      return;
+    }
+
+    const value = getValue(rawValue, option);
+
+    if (option.exception !== undefined) {
+      if (typeof option.exception === "function") {
+        if (option.exception(value)) {
+          normalized[key] = value;
+          return;
+        }
+      } else {
+        if (value === option.exception) {
+          normalized[key] = value;
+          return;
+        }
+      }
+    }
+
+    switch (option.type) {
+      case "int":
+        validator.validateIntOption(value, option);
+        normalized[key] = Number(value);
+        break;
+      case "choice":
+        validator.validateChoiceOption(value, option);
+      // eslint-disable-next-line no-fallthrough
+      default:
+        normalized[key] = value;
+        break;
+    }
+  });
+
+  return normalized;
+
+  function getValue(rawValue, option) {
+    if (rawValue && option.deprecated) {
+      let warning = `\`--${option.name}\` is deprecated.`;
+      if (typeof option.deprecated === "string") {
+        warning += ` ${option.deprecated}`;
+      }
+      consoleWarn(warning);
+    }
+
+    const value = option.getter(rawValue, rawArgv);
+
+    if (option.type === "choice") {
+      const choice = option.choices.find(choice => choice.value === rawValue);
+      if (choice !== undefined && choice.deprecated) {
+        const warningDescription =
+          rawValue === ""
+            ? "without an argument"
+            : `with value \`${rawValue}\``;
+        consoleWarn(
+          `\`--${option.name}\` ${warningDescription} is deprecated. Automatically redirect to \`--${option.name}=${choice.redirect}\`.`
+        );
+        return choice.redirect;
+      }
+    }
+
+    return value;
+  }
+}
+
 module.exports = {
   logResolvedConfigPathOrDie,
   format,
   formatStdin,
   formatFiles,
-  createUsage
+  createUsage,
+  normalizeArgv
 };

@@ -19,9 +19,8 @@ Expected \\"none\\", \\"es5\\" or \\"all\\", but received: \\"wow\\"
 `;
 
 exports[`throw error with invalid config precedence option (configPrecedence) 1`] = `
-"Error: Invalid option for --config-precedence.
-Expected \\"cli-override\\", \\"file-override\\" or \\"prefer-file\\", but received: \\"option/configPrecedence\\"
-"
+"Invalid option for --config-precedence.
+Expected \\"cli-override\\", \\"file-override\\" or \\"prefer-file\\", but received: \\"option/configPrecedence\\""
 `;
 
 exports[`throw error with invalid config target (directory) 1`] = `

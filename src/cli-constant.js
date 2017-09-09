@@ -1,8 +1,6 @@
 "use strict";
 
-const normalizer = require("./cli-normalizer");
-
-const detailOptions = normalizer.normalizeDetailOptions({
+const detailOptions = normalizeDetailOptions({
   "bracket-spacing": {
     type: "boolean",
     category: "format",
@@ -239,6 +237,29 @@ const minimistOptions = {
 function dedent(str) {
   const spaces = str.match(/\n^( +)/m)[1].length;
   return str.replace(new RegExp(`^ {${spaces}}`, "gm"), "").trim();
+}
+
+function normalizeDetailOptions(rawDetailOptions) {
+  const names = Object.keys(rawDetailOptions).sort();
+
+  const normaliezd = names.map(name => {
+    const option = rawDetailOptions[name];
+    return Object.assign({}, option, {
+      name,
+      choices:
+        option.choices &&
+        option.choices.map(
+          choice => (typeof choice === "object" ? choice : { value: choice })
+        ),
+      getter: option.getter || (value => value)
+    });
+  });
+
+  normaliezd.forEach(normalizedOption => {
+    normaliezd[normalizedOption.name] = normalizedOption;
+  });
+
+  return normaliezd;
 }
 
 module.exports = {
