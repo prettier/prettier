@@ -242,7 +242,7 @@ function dedent(str) {
 function normalizeDetailOptions(rawDetailOptions) {
   const names = Object.keys(rawDetailOptions).sort();
 
-  const normaliezd = names.map(name => {
+  const normalized = names.map(name => {
     const option = rawDetailOptions[name];
     return Object.assign({}, option, {
       name,
@@ -255,11 +255,11 @@ function normalizeDetailOptions(rawDetailOptions) {
     });
   });
 
-  normaliezd.forEach(normalizedOption => {
-    normaliezd[normalizedOption.name] = normalizedOption;
+  normalized.forEach(normalizedOption => {
+    normalized[normalizedOption.name] = normalizedOption;
   });
 
-  return normaliezd;
+  return normalized;
 }
 
 module.exports = {
