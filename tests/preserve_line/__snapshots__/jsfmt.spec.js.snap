@@ -116,7 +116,6 @@ evenMoreArgTypes(
 )
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 longArgNamesWithComments(
-
   // Hello World
 
   longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong1,
@@ -127,11 +126,9 @@ longArgNamesWithComments(
 
   /* Hello World */
   longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong3
-
 );
 
 shortArgNames(
-
   short,
 
   short2,
@@ -139,7 +136,6 @@ shortArgNames(
 );
 
 comments(
-
   // Comment
 
   /* Some comments */
@@ -157,21 +153,13 @@ comments(
 
   short3
   // More comments
-
 );
 
-differentArgTypes(
-
-  () => {
-    return true;
-  },
-
-  isTrue ? doSomething() : 12
-
-);
+differentArgTypes(() => {
+  return true;
+}, isTrue ? doSomething() : 12);
 
 moreArgTypes(
-
   [1, 2, 3],
 
   {
@@ -180,7 +168,6 @@ moreArgTypes(
   },
 
   doSomething(
-
     // Hello world
 
     // Hello world again
@@ -189,9 +176,7 @@ moreArgTypes(
     oneThing + anotherThing
 
     // Comment
-
   )
-
 );
 
 evenMoreArgTypes(
@@ -199,7 +184,6 @@ evenMoreArgTypes(
     { name: "Hello World", age: 34 },
 
     true
-
   ),
 
   14,
@@ -207,7 +191,6 @@ evenMoreArgTypes(
   1 + 2 - 90 / 80,
 
   !98 * 60 - 90
-
 );
 
 `;
