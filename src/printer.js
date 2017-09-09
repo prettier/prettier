@@ -338,19 +338,28 @@ function genericPrintNoParens(path, options, print, args) {
         );
       }
 
-      // Avoid indenting sub-expressions in assignment/return/etc statements.
-      if (
-        parent.type === "AssignmentExpression" ||
-        parent.type === "VariableDeclarator" ||
-        shouldInlineLogicalExpression(n) ||
+      // Avoid indenting sub-expressions in some cases where the first sub-expression is already
+      // idented accordingly. We should ident sub-expressions where the first case isn't idented.
+      const shouldNotIdent =
         parent.type === "ReturnStatement" ||
         (parent.type === "JSXExpressionContainer" &&
           parentParent.type === "JSXAttribute") ||
         (n === parent.body && parent.type === "ArrowFunctionExpression") ||
         (n !== parent.body && parent.type === "ForStatement") ||
+        parent.type === "ConditionalExpression";
+
+      const shouldIdentIfInlining =
+        parent.type === "AssignmentExpression" ||
+        parent.type === "VariableDeclarator" ||
         parent.type === "ObjectProperty" ||
-        parent.type === "Property" ||
-        parent.type === "ConditionalExpression"
+        parent.type === "Property";
+
+      const logicalSubExpression = n.left.type === "LogicalExpression";
+
+      if (
+        shouldNotIdent ||
+        (shouldInlineLogicalExpression(n) && !logicalSubExpression) ||
+        (!shouldInlineLogicalExpression(n) && shouldIdentIfInlining)
       ) {
         return group(concat(parts));
       }
@@ -1244,8 +1253,6 @@ function genericPrintNoParens(path, options, print, args) {
         n.test.type === "JSXElement" ||
         n.consequent.type === "JSXElement" ||
         n.alternate.type === "JSXElement" ||
-        parent.type === "JSXExpressionContainer" ||
-        firstNonConditionalParent.type === "JSXExpressionContainer" ||
         conditionalExpressionChainContainsJSX(lastConditionalParent)
       ) {
         jsxMode = true;
@@ -1263,20 +1270,19 @@ function genericPrintNoParens(path, options, print, args) {
           ]);
 
         // The only things we don't wrap are:
-        // * Nested conditional expressions
+        // * Nested conditional expressions in alternates
         // * null
-        const shouldNotWrap = node =>
-          node.type === "ConditionalExpression" ||
+        const isNull = node =>
           node.type === "NullLiteral" ||
           (node.type === "Literal" && node.value === null);
 
         parts.push(
           " ? ",
-          shouldNotWrap(n.consequent)
+          isNull(n.consequent)
             ? path.call(print, "consequent")
             : wrap(path.call(print, "consequent")),
           " : ",
-          shouldNotWrap(n.alternate)
+          n.alternate.type === "ConditionalExpression" || isNull(n.alternate)
             ? path.call(print, "alternate")
             : wrap(path.call(print, "alternate"))
         );
