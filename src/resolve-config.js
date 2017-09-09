@@ -34,22 +34,17 @@ function resolveConfig(filePath, opts) {
   return (useCache ? asyncWithCache : asyncNoCache)
     .load(filePath)
     .then(result => {
-      if (!result) {
-        return null;
-      }
-
-      return Object.assign(
-        {},
-        editorConfigToPrettier(filePath),
-        mergeOverrides(result.config, filePath)
-      );
+      return helper(result, filePath);
     });
 }
 
 resolveConfig.sync = (filePath, opts) => {
   const useCache = !(opts && opts.useCache === false);
   const result = (useCache ? syncWithCache : syncNoCache).load(filePath);
+  return helper(result, filePath);
+};
 
+function helper (result, filePath) {
   if (!result) {
     return null;
   }
@@ -59,7 +54,7 @@ resolveConfig.sync = (filePath, opts) => {
     editorConfigToPrettier(filePath),
     mergeOverrides(result.config, filePath)
   );
-};
+}
 
 function clearCache() {
   syncWithCache.clearCaches();
