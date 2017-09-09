@@ -7,7 +7,6 @@ const constant = require("./cli-constant");
 const util = require("./cli-util");
 const validator = require("./cli-validator");
 const normalizer = require("./cli-normalizer");
-const usage = require("./cli-usage");
 
 function run(args) {
   const argv = normalizer.normalizeArgv(
@@ -26,7 +25,7 @@ function run(args) {
   }
 
   if (argv["help"]) {
-    console.log(usage.create(constant.detailOptions));
+    console.log(util.createUsage());
     process.exit(0);
   }
 
@@ -40,7 +39,7 @@ function run(args) {
   } else if (hasFilePatterns) {
     util.formatFiles(argv);
   } else {
-    console.log(usage.create(constant.detailOptions));
+    console.log(util.createUsage());
     process.exit(1);
   }
 }
