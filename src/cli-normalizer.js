@@ -18,11 +18,7 @@ function normalizeDetailOptions(detailOptions) {
         const normalizedValue = getValue(value, argv);
 
         if (option.exception !== undefined) {
-          if (Array.isArray(option.exception)) {
-            if (option.exception.indexOf(normalizedValue) !== -1) {
-              return normalizedValue;
-            }
-          } else if (typeof option.exception === "function") {
+          if (typeof option.exception === "function") {
             if (option.exception(normalizedValue)) {
               return normalizedValue;
             }
