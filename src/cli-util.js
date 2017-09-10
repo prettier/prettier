@@ -468,7 +468,7 @@ function normalizeArgv(rawArgv, options) {
             ? "without an argument"
             : `with value \`${rawValue}\``;
         consoleWarn(
-          `\`--${option.name}\` ${warningDescription} is deprecated. Automatically redirect to \`--${option.name}=${choice.redirect}\`.`
+          `\`--${option.name}\` ${warningDescription} is deprecated. Prettier now treats it as: \`--${option.name}=${choice.redirect}\`.`
         );
         return choice.redirect;
       }

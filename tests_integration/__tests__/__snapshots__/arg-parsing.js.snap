@@ -13,7 +13,7 @@ exports[`deprecated option values are warned 1`] = `
 `;
 
 exports[`deprecated option values are warned 2`] = `
-"\`--trailing-comma\` without an argument is deprecated. Automatically redirect to \`--trailing-comma=es5\`.
+"\`--trailing-comma\` without an argument is deprecated. Prettier now treats it as: \`--trailing-comma=es5\`.
 "
 `;
 
