@@ -367,13 +367,22 @@ function genericPrintNoParens(path, options, print, args) {
 
       const rest = concat(parts.slice(1));
 
+      // Break the closing paren to keep the chain right after it:
+      // (a &&
+      //   b &&
+      //   c
+      // ).call()
+      const breakClosingParen =
+        parent.type === "MemberExpression" && !parent.computed;
+
       return group(
         concat([
           // Don't include the initial expression in the indentation
           // level. The first item is guaranteed to be the first
           // left-most expression.
           parts.length > 0 ? parts[0] : "",
-          indent(rest)
+          indent(rest),
+          breakClosingParen ? softline : ""
         ])
       );
     }
@@ -1321,7 +1330,7 @@ function genericPrintNoParens(path, options, print, args) {
         concat([
           path.call(print, "test"),
           forceNoIndent ? concat(parts) : indent(concat(parts)),
-          breakClosingParen ? ifBreak(softline, "") : ""
+          breakClosingParen ? softline : ""
         ])
       );
     }
@@ -3712,9 +3721,7 @@ function printMemberChain(path, options, print) {
   // render everything concatenated together.
   if (
     groups.length <= cutoff &&
-    !hasComment &&
-    // (a || b).map() should be break before .map() instead of ||
-    groups[0][0].node.type !== "LogicalExpression"
+    !hasComment
   ) {
     return group(oneLine);
   }

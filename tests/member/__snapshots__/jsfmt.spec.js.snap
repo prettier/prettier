@@ -66,3 +66,17 @@ const promises = [
 ];
 
 `;
+
+exports[`logical.js 1`] = `
+(veryLongVeryLongVeryLong || e).prop;
+
+(veryLongVeryLongVeryLong || anotherVeryLongVeryLongVeryLong || veryVeryVeryLongError).prop;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(veryLongVeryLongVeryLong || e).prop;
+
+(veryLongVeryLongVeryLong ||
+  anotherVeryLongVeryLongVeryLong ||
+  veryVeryVeryLongError
+).prop;
+
+`;

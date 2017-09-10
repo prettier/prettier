@@ -572,9 +572,35 @@ Object.keys(
 exports[`logical.js 1`] = `
 (veryLongVeryLongVeryLong || e).map(tickets =>
   TicketRecord.createFromSomeLongString());
+
+(veryLongVeryLongVeryLong || e).map(tickets =>
+  TicketRecord.createFromSomeLongString()).filter(obj => !!obj);
+
+(veryLongVeryLongVeryLong || anotherVeryLongVeryLongVeryLong || veryVeryVeryLongError).map(tickets =>
+  TicketRecord.createFromSomeLongString());
+
+(veryLongVeryLongVeryLong || anotherVeryLongVeryLongVeryLong || veryVeryVeryLongError).map(tickets =>
+  TicketRecord.createFromSomeLongString()).filter(obj => !!obj);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(veryLongVeryLongVeryLong || e).map(tickets =>
+  TicketRecord.createFromSomeLongString()
+);
+
 (veryLongVeryLongVeryLong || e)
-  .map(tickets => TicketRecord.createFromSomeLongString());
+  .map(tickets => TicketRecord.createFromSomeLongString())
+  .filter(obj => !!obj);
+
+(veryLongVeryLongVeryLong ||
+  anotherVeryLongVeryLongVeryLong ||
+  veryVeryVeryLongError
+).map(tickets => TicketRecord.createFromSomeLongString());
+
+(veryLongVeryLongVeryLong ||
+  anotherVeryLongVeryLongVeryLong ||
+  veryVeryVeryLongError
+)
+  .map(tickets => TicketRecord.createFromSomeLongString())
+  .filter(obj => !!obj);
 
 `;
 
