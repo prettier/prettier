@@ -354,7 +354,6 @@ function createUsage() {
           Object.assign({}, option, {
             name: `no-${option.name}`,
             type: "boolean",
-            hidden: false,
             description: option.oppositeDescription
           })
         );
@@ -366,7 +365,7 @@ function createUsage() {
     .map(category => {
       return `${category} options:\n\n${indent(
         groupedOptions[category]
-          .filter(option => !option.hidden)
+          .filter(option => option.description)
           .map(option => createOptionUsage(option, 25))
           .join("\n"),
         2

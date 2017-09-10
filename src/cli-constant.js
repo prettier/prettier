@@ -14,9 +14,6 @@
  *     // alias name to be passed in minimist option `alias`
  *     alias?: string;
  * 
- *     // not to be displayed in usage
- *     hidden?: boolean;
- * 
  *     // for categorizing option in usage
  *     category?: string; 
  *     
@@ -50,8 +47,7 @@ const detailOptions = normalizeDetailOptions({
     type: "boolean",
     category: "format",
     forwardToApi: true,
-    oppositeDescription: "Do not print spaces between brackets.",
-    hidden: true
+    oppositeDescription: "Do not print spaces between brackets."
   },
   color: {
     // The supports-color package (a sub sub dependency) looks directly at
@@ -60,7 +56,6 @@ const detailOptions = normalizeDetailOptions({
     // See https://github.com/chalk/supports-color/#info for more information.
     type: "boolean",
     default: true,
-    hidden: true,
     oppositeDescription: "Do not colorize error messages."
   },
   config: {
@@ -94,12 +89,10 @@ const detailOptions = normalizeDetailOptions({
     `)
   },
   "debug-check": {
-    type: "boolean",
-    hidden: true
+    type: "boolean"
   },
   "debug-print-doc": {
-    type: "boolean",
-    hidden: true
+    type: "boolean"
   },
   "find-config-path": {
     type: "path",
@@ -111,7 +104,6 @@ const detailOptions = normalizeDetailOptions({
     // Deprecated in 0.0.10
     type: "boolean",
     category: "format",
-    hidden: true,
     deprecated: "Use `--parser flow` instead."
   },
   help: {
@@ -185,7 +177,6 @@ const detailOptions = normalizeDetailOptions({
     type: "boolean",
     category: "format",
     forwardToApi: true,
-    hidden: true,
     oppositeDescription:
       "Do not print semicolons, except at the beginning of lines which may need them."
   },
