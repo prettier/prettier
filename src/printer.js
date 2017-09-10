@@ -346,7 +346,8 @@ function genericPrintNoParens(path, options, print, args) {
           parentParent.type === "JSXAttribute") ||
         (n === parent.body && parent.type === "ArrowFunctionExpression") ||
         (n !== parent.body && parent.type === "ForStatement") ||
-        parent.type === "ConditionalExpression";
+        (parent.type === "ConditionalExpression" &&
+          parentParent.type !== "ReturnStatement");
 
       const shouldIdentIfInlining =
         parent.type === "AssignmentExpression" ||

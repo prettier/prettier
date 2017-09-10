@@ -352,6 +352,46 @@ x & (y >> z);
 
 `;
 
+exports[`return.js 1`] = `
+function foo() {
+  return this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft.right;
+}
+
+function foo() {
+  return this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft.right
+    ? true
+    : false;
+}
+
+function foo() {
+  return this.calculate().compute().first.numberOfThings > this.calculate().compute().last.numberOfThings
+    ? true
+    : false;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function foo() {
+  return (
+    this.hasPlugin("dynamicImports") &&
+    this.lookahead().type === tt.parenLeft.right
+  );
+}
+
+function foo() {
+  return this.hasPlugin("dynamicImports") &&
+    this.lookahead().type === tt.parenLeft.right
+    ? true
+    : false;
+}
+
+function foo() {
+  return this.calculate().compute().first.numberOfThings >
+    this.calculate().compute().last.numberOfThings
+    ? true
+    : false;
+}
+
+`;
+
 exports[`short-right.js 1`] = `
 this._cumulativeHeights &&
  Math.abs(
