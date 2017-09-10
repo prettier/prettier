@@ -327,10 +327,10 @@ function formatFiles(argv) {
 function createUsage() {
   const options = constant.detailOptions.filter(option => !option.hidden);
 
-  const groupedUsages = options.reduce((current, option) => {
+  const groupedOptions = options.reduce((current, option) => {
     const category = capitalize(option.category);
     const group = (current[category] = current[category] || []);
-    group.push(createOptionUsage(option, 25));
+    group.push(option);
     return current;
   }, {});
 
@@ -338,17 +338,32 @@ function createUsage() {
 
   const categoryOrder = ["Command", "Format", "Config", "Other"];
 
-  Object.keys(groupedUsages).forEach(category => {
+  Object.keys(groupedOptions).forEach(category => {
     if (categoryOrder.indexOf(category) === -1) {
       // put unordered category before 'Other'
       categoryOrder.splice(-1, 0, category);
     }
+
+    groupedOptions[category].sort((a, b) => {
+      const isNoA = a.name.startsWith("no-");
+      const originalA = isNoA ? a.name.slice(3) : a.name;
+      const isNoB = b.name.startsWith("no-");
+      const originalB = isNoB ? b.name.slice(3) : b.name;
+
+      return originalA === originalB
+        ? // put `no-option` after `option`
+          isNoA - isNoB
+        : // treat `no-option` as `option`
+          originalA.localeCompare(originalB);
+    });
   });
 
   usage += categoryOrder
     .map(category => {
       return `${category} options:\n\n${indent(
-        groupedUsages[category].join("\n"),
+        groupedOptions[category]
+          .map(option => createOptionUsage(option, 25))
+          .join("\n"),
         2
       )}`;
     })
