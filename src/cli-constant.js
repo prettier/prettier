@@ -306,7 +306,12 @@ function normalizeDetailOptions(rawDetailOptions) {
   return normalized;
 }
 
+function getDetailOption(name) {
+  return detailOptions[name];
+}
+
 module.exports = {
   minimistOptions,
-  detailOptions
+  detailOptions,
+  getDetailOption
 };

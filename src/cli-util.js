@@ -437,7 +437,7 @@ function normalizeArgv(rawArgv, options) {
       return;
     }
 
-    const option = constant.detailOptions[key];
+    const option = constant.getDetailOption(key);
 
     if (option === undefined) {
       // unknown option
