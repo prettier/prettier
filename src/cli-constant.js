@@ -4,7 +4,7 @@ const detailOptions = normalizeDetailOptions({
   "bracket-spacing": {
     type: "boolean",
     category: "format",
-    formatOption: true,
+    forwardToApi: true,
     hidden: true
   },
   color: {
@@ -39,7 +39,7 @@ const detailOptions = normalizeDetailOptions({
   "cursor-offset": {
     type: "int",
     exception: -1,
-    formatOption: true,
+    forwardToApi: true,
     description: dedent(`
       Print (to stderr) where a cursor at the given position would move to after formatting.
       This option cannot be used with --range-start and --range-end
@@ -83,7 +83,7 @@ const detailOptions = normalizeDetailOptions({
   "jsx-bracket-same-line": {
     type: "boolean",
     category: "format",
-    formatOption: true,
+    forwardToApi: true,
     description: "Put > on the last line instead of at a new line."
   },
   "list-different": {
@@ -115,7 +115,7 @@ const detailOptions = normalizeDetailOptions({
   parser: {
     type: "choice",
     category: "format",
-    formatOption: true,
+    forwardToApi: true,
     exception: value => typeof value === "string", // allow path to a parser module
     choices: ["flow", "babylon", "typescript", "postcss", "json", "graphql"],
     description: "Specify which parse to use. Defaults to babylon.",
@@ -124,14 +124,14 @@ const detailOptions = normalizeDetailOptions({
   "print-width": {
     type: "int",
     category: "format",
-    formatOption: true,
+    forwardToApi: true,
     description:
       "Specify the length of line that the printer will wrap on. Defaults to 80."
   },
   "range-end": {
     type: "int",
     category: "format",
-    formatOption: true,
+    forwardToApi: true,
     exception: Infinity,
     description: dedent(`
       Format code ending at a given character offset (exclusive).
@@ -143,7 +143,7 @@ const detailOptions = normalizeDetailOptions({
   "range-start": {
     type: "int",
     category: "format",
-    formatOption: true,
+    forwardToApi: true,
     description: dedent(`
       Format code starting at a given character offset.
       The range will extend backwards to the start of the first line containing the selected statement.
@@ -154,13 +154,13 @@ const detailOptions = normalizeDetailOptions({
   semi: {
     type: "boolean",
     category: "format",
-    formatOption: true,
+    forwardToApi: true,
     hidden: true
   },
   "single-quote": {
     type: "boolean",
     category: "format",
-    formatOption: true,
+    forwardToApi: true,
     description: "Use single quotes instead of double quotes."
   },
   stdin: {
@@ -169,20 +169,20 @@ const detailOptions = normalizeDetailOptions({
   },
   "stdin-filepath": {
     type: "path",
-    formatOption: "filepath",
+    forwardToApi: "filepath",
     description: "Path to the file used to read from stdin."
   },
   "tab-width": {
     type: "int",
     category: "format",
-    formatOption: true,
+    forwardToApi: true,
     description:
       "Specify the number of spaces per indentation-level. Defaults to 2."
   },
   "trailing-comma": {
     type: "choice",
     category: "format",
-    formatOption: true,
+    forwardToApi: true,
     choices: [
       "none",
       "es5",
@@ -195,7 +195,7 @@ const detailOptions = normalizeDetailOptions({
   "use-tabs": {
     type: "boolean",
     category: "format",
-    formatOption: true,
+    forwardToApi: true,
     description: "Indent lines with tabs instead of spaces."
   },
   version: {
@@ -263,10 +263,10 @@ function normalizeDetailOptions(rawDetailOptions) {
     const option = rawDetailOptions[name];
     return Object.assign({}, option, {
       name,
-      formatOption:
-        option.formatOption &&
-        (typeof option.formatOption === "string"
-          ? option.formatOption
+      forwardToApi:
+        option.forwardToApi &&
+        (typeof option.forwardToApi === "string"
+          ? option.forwardToApi
           : kebabToCamel(name)),
       choices:
         option.choices &&

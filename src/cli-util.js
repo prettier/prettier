@@ -19,10 +19,10 @@ const apiDefaultOptions = require("./options").defaults;
 
 function getOptions(argv) {
   return constant.detailOptions
-    .filter(option => option.formatOption)
+    .filter(option => option.forwardToApi)
     .reduce(
       (current, option) =>
-        Object.assign(current, { [option.formatOption]: argv[option.name] }),
+        Object.assign(current, { [option.forwardToApi]: argv[option.name] }),
       {}
     );
 }
