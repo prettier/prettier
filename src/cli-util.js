@@ -325,7 +325,7 @@ function formatFiles(argv) {
 }
 
 function createUsage() {
-  const options = constant.detailOptions.filter(option => !option.hidden);
+  const options = constant.detailOptions;
 
   const groupedOptions = options.reduce((current, option) => {
     const category = capitalize(option.category);
@@ -344,24 +344,29 @@ function createUsage() {
       categoryOrder.splice(-1, 0, category);
     }
 
-    groupedOptions[category].sort((a, b) => {
-      const isNoA = a.name.startsWith("no-");
-      const originalA = isNoA ? a.name.slice(3) : a.name;
-      const isNoB = b.name.startsWith("no-");
-      const originalB = isNoB ? b.name.slice(3) : b.name;
+    for (let i = groupedOptions[category].length - 1; i >= 0; i--) {
+      const option = groupedOptions[category][i];
 
-      return originalA === originalB
-        ? // put `no-option` after `option`
-          isNoA - isNoB
-        : // treat `no-option` as `option`
-          originalA.localeCompare(originalB);
-    });
+      if (option.oppositeDescription) {
+        groupedOptions[category].splice(
+          i + 1, // put `no-option` after `option`
+          0,
+          Object.assign({}, option, {
+            name: `no-${option.name}`,
+            type: "boolean",
+            hidden: false,
+            description: option.oppositeDescription
+          })
+        );
+      }
+    }
   });
 
   usage += categoryOrder
     .map(category => {
       return `${category} options:\n\n${indent(
         groupedOptions[category]
+          .filter(option => !option.hidden)
           .map(option => createOptionUsage(option, 25))
           .join("\n"),
         2

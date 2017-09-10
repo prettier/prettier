@@ -22,6 +22,9 @@
  *     
  *     // description to be displayed in usage
  *     description?: string;
+ * 
+ *     // description for its no-option (`no-${name}`) to be displayed in usage
+ *     oppositeDescription?: string;
  *     
  *     // indicate if this option is also used for api
  *     // true: use camelified name as api key
@@ -47,6 +50,7 @@ const detailOptions = normalizeDetailOptions({
     type: "boolean",
     category: "format",
     forwardToApi: true,
+    oppositeDescription: "Do not print spaces between brackets.",
     hidden: true
   },
   color: {
@@ -56,13 +60,15 @@ const detailOptions = normalizeDetailOptions({
     // See https://github.com/chalk/supports-color/#info for more information.
     type: "boolean",
     default: true,
-    hidden: true
+    hidden: true,
+    oppositeDescription: "Do not colorize error messages."
   },
   config: {
     type: "path",
     category: "config",
     description:
-      "Path to a prettier configuration file (.prettierrc, package.json, prettier.config.js)."
+      "Path to a prettier configuration file (.prettierrc, package.json, prettier.config.js).",
+    oppositeDescription: "Do not look for a configuration file."
   },
   "config-precedence": {
     type: "choice",
@@ -136,26 +142,6 @@ const detailOptions = normalizeDetailOptions({
     description:
       "Print filenames of files that are different from Prettier formatting."
   },
-  "no-bracket-spacing": {
-    type: "boolean",
-    category: "format",
-    description: "Do not print spaces between brackets."
-  },
-  "no-color": {
-    type: "boolean",
-    description: "Do not colorize error messages."
-  },
-  "no-config": {
-    type: "boolean",
-    category: "config",
-    description: "Do not look for a configuration file."
-  },
-  "no-semi": {
-    type: "boolean",
-    category: "format",
-    description:
-      "Do not print semicolons, except at the beginning of lines which may need them."
-  },
   parser: {
     type: "choice",
     category: "format",
@@ -199,7 +185,9 @@ const detailOptions = normalizeDetailOptions({
     type: "boolean",
     category: "format",
     forwardToApi: true,
-    hidden: true
+    hidden: true,
+    oppositeDescription:
+      "Do not print semicolons, except at the beginning of lines which may need them."
   },
   "single-quote": {
     type: "boolean",
@@ -262,14 +250,10 @@ const detailOptions = normalizeDetailOptions({
 
 const minimistOptions = {
   boolean: detailOptions
-    .filter(
-      option => !option.name.startsWith("no-") && option.type === "boolean"
-    )
+    .filter(option => option.type === "boolean")
     .map(option => option.name),
   string: detailOptions
-    .filter(
-      option => !option.name.startsWith("no-") && option.type !== "boolean"
-    )
+    .filter(option => option.type !== "boolean")
     .map(option => option.name),
   default: detailOptions
     .filter(option => option.default !== undefined)
