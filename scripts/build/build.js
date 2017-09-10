@@ -101,8 +101,8 @@ shell.sed(
 shell.echo("Update ISSUE_TEMPLATE.md");
 shell.sed(
   "-i",
-  /(?:Prettier Version.+?)\d+\.\d+\.\d+/,
-  pkg.version,
+  /(Prettier Version.+?)\d+\.\d+\.\d+/,
+  `$1${pkg.version}`,
   ".github/ISSUE_TEMPLATE.md"
 );
 
