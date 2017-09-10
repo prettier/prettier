@@ -131,6 +131,8 @@ function doSomething() { return true; });
 
 doSomething.apply(null,
 
+// Comment
+
 [
   'Hello world 1',
   'Hello world 2',
@@ -175,6 +177,8 @@ doSomething(
    { tomorrow: maybe, today: never[always] },
 
    1337,
+
+   /* Comment */
 
    // This is important
    { helloWorld, someImportantStuff }

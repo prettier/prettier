@@ -2903,7 +2903,7 @@ function printArgumentsList(path, options, print) {
 
   const lastArgIndex = args.length - 1;
   let anyArgEmptyLine = false;
-  let hasFirstArgEmptyLine = false;
+  let hasEmptyLineFollowingFirstArg = false;
   const printedArguments = path.map((argPath, index) => {
     const arg = argPath.getNode();
     const printedArg = print(argPath);
@@ -2914,7 +2914,7 @@ function printArgumentsList(path, options, print) {
 
     if (util.isNextLineEmpty(options.originalText, arg)) {
       if (index === 0) {
-        hasFirstArgEmptyLine = true;
+        hasEmptyLineFollowingFirstArg = true;
       }
 
       anyArgEmptyLine = true;
@@ -2944,8 +2944,8 @@ function printArgumentsList(path, options, print) {
           concat([
             argPath.call(p => print(p, { expandFirstArg: true })),
             printedArguments.length > 1 ? "," : "",
-            hasFirstArgEmptyLine ? hardline : line,
-            hasFirstArgEmptyLine ? hardline : ""
+            hasEmptyLineFollowingFirstArg ? hardline : line,
+            hasEmptyLineFollowingFirstArg ? hardline : ""
           ])
         ].concat(printedArguments.slice(1));
       }
@@ -3001,7 +3001,7 @@ function printArgumentsList(path, options, print) {
       softline,
       ")"
     ]),
-    { shouldBreak: printedArguments.some(willBreak) || anyArgEmptyLine }
+    { shouldBreak: printedArguments.some(willBreak) }
   );
 }
 
