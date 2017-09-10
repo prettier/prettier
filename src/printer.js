@@ -1309,10 +1309,19 @@ function genericPrintNoParens(path, options, print, args) {
           ? parent === firstNonConditionalParent ? group(doc) : doc
           : group(doc); // Always group in normal mode.
 
+      // Break the closing paren to keep the chain right after it:
+      // (a
+      //   ? b
+      //   : c
+      // ).call()
+      const breakClosingParen =
+        !jsxMode && parent.type === "MemberExpression" && !parent.computed;
+
       return maybeGroup(
         concat([
           path.call(print, "test"),
-          forceNoIndent ? concat(parts) : indent(concat(parts))
+          forceNoIndent ? concat(parts) : indent(concat(parts)),
+          breakClosingParen ? ifBreak(softline, "") : ""
         ])
       );
     }
@@ -3705,9 +3714,7 @@ function printMemberChain(path, options, print) {
     groups.length <= cutoff &&
     !hasComment &&
     // (a || b).map() should be break before .map() instead of ||
-    groups[0][0].node.type !== "LogicalExpression" &&
-    // (a ? b : c).map() should be break before .map() instead of ?
-    groups[0][0].node.type !== "ConditionalExpression"
+    groups[0][0].node.type !== "LogicalExpression"
   ) {
     return group(oneLine);
   }
