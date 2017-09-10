@@ -2915,7 +2915,7 @@ function printArgumentsList(path, options, print) {
   const printedArguments = path.map((argPath, index) => {
     const printedArg = print(argPath);
     if (hasEmptyLineAfterArgs[index]) {
-      return concat([printedArg, ",", line, hardline]);
+      return concat([printedArg, ",", hardline, hardline]);
     }
 
     if (lastArgIndex === index) {
@@ -2931,11 +2931,10 @@ function printArgumentsList(path, options, print) {
   const shouldGroupFirst = shouldGroupFirstArg(args); // 2 args only
   const shouldGroupLast = shouldGroupLastArg(args);
   if (shouldGroupFirst || shouldGroupLast) {
-    const printedArguments = path.map(print, "arguments");
     const shouldBreak =
-      shouldGroupFirst || anyArgEmptyLine
+      (shouldGroupFirst
         ? printedArguments.slice(1).some(willBreak)
-        : printedArguments.slice(0, -1).some(willBreak);
+        : printedArguments.slice(0, -1).some(willBreak)) || anyArgEmptyLine;
 
     // We want to print the last argument with a special flag
     let printedExpanded;
@@ -2943,7 +2942,12 @@ function printArgumentsList(path, options, print) {
     path.each(argPath => {
       if (shouldGroupFirst && i === 0) {
         printedExpanded = [
-          argPath.call(p => print(p, { expandFirstArg: true }))
+          concat([
+            argPath.call(p => print(p, { expandFirstArg: true })),
+            printedArguments.length > 1 ? "," : "",
+            hasEmptyLineAfterArgs[0] ? hardline : line,
+            hasEmptyLineAfterArgs[0] ? hardline : ""
+          ])
         ].concat(printedArguments.slice(1));
       }
       if (shouldGroupLast && i === args.length - 1) {
@@ -2958,19 +2962,17 @@ function printArgumentsList(path, options, print) {
       printedArguments.some(willBreak) ? breakParent : "",
       conditionalGroup(
         [
-          concat(["(", join(concat([", "]), printedExpanded), ")"]), // good here
+          concat(["(", concat(printedExpanded), ")"]),
           shouldGroupFirst
             ? concat([
                 "(",
-                group(printedExpanded[0], { shouldBreak: true }), // good here
-                printedArguments.length > 1 ? ", " : "",
-                join(concat([",", line]), printedArguments.slice(1)),
+                group(printedExpanded[0], { shouldBreak: true }),
+                concat(printedExpanded.slice(1)),
                 ")"
               ])
             : concat([
                 "(",
-                join(concat([",", line]), printedArguments.slice(0, -1)), // good here
-                printedArguments.length > 1 ? ", " : "",
+                concat(printedArguments.slice(0, -1)),
                 group(util.getLast(printedExpanded), {
                   shouldBreak: true
                 }),
@@ -2979,9 +2981,7 @@ function printArgumentsList(path, options, print) {
           group(
             concat([
               "(",
-              indent(
-                concat([line, join(concat([",", line]), printedArguments)])
-              ), // good here
+              indent(concat([line, concat(printedArguments)])),
               shouldPrintComma(options, "all") ? "," : "",
               line,
               ")"
