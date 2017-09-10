@@ -463,7 +463,7 @@ function normalizeArgv(rawArgv, options) {
         break;
       case "choice":
         validator.validateChoiceOption(value, option);
-      // eslint-disable-next-line no-fallthrough
+      // fall through
       default:
         normalized[key] = value;
         break;
