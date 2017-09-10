@@ -2892,17 +2892,6 @@ function shouldGroupFirstArg(args) {
 
 function printArgumentsList(path, options, print) {
   const args = path.getValue().arguments;
-  const lastArgIndex = args.length - 1;
-  const hasEmptyLineAfterArgs = args.map((arg, index) => {
-    if (index === lastArgIndex) {
-      return false;
-    }
-
-    return util.isNextLineEmpty(options.originalText, arg);
-  });
-  const anyArgEmptyLine = hasEmptyLineAfterArgs.some(
-    hasEmptyLineAfterArg => hasEmptyLineAfterArg
-  );
 
   if (args.length === 0) {
     return concat([
@@ -2912,14 +2901,23 @@ function printArgumentsList(path, options, print) {
     ]);
   }
 
+  const lastArgIndex = args.length - 1;
+  let anyArgEmptyLine = false;
+  let hasFirstArgEmptyLine = false;
   const printedArguments = path.map((argPath, index) => {
+    const arg = argPath.getNode();
     const printedArg = print(argPath);
 
     if (index === lastArgIndex) {
       return concat([printedArg]);
     }
 
-    if (hasEmptyLineAfterArgs[index]) {
+    if (util.isNextLineEmpty(options.originalText, arg)) {
+      if (index === 0) {
+        hasFirstArgEmptyLine = true;
+      }
+
+      anyArgEmptyLine = true
       return concat([printedArg, ",", hardline, hardline]);
     }
 
@@ -2946,8 +2944,8 @@ function printArgumentsList(path, options, print) {
           concat([
             argPath.call(p => print(p, { expandFirstArg: true })),
             printedArguments.length > 1 ? "," : "",
-            hasEmptyLineAfterArgs[0] ? hardline : line,
-            hasEmptyLineAfterArgs[0] ? hardline : ""
+            hasFirstArgEmptyLine ? hardline : line,
+            hasFirstArgEmptyLine ? hardline : ""
           ])
         ].concat(printedArguments.slice(1));
       }
