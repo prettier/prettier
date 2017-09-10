@@ -18,21 +18,13 @@ const validator = require("./cli-validator");
 const apiDefaultOptions = require("./options").defaults;
 
 function getOptions(argv) {
-  return {
-    cursorOffset: argv["cursor-offset"],
-    rangeStart: argv["range-start"],
-    rangeEnd: argv["range-end"],
-    useTabs: argv["use-tabs"],
-    semi: argv["semi"],
-    printWidth: argv["print-width"],
-    tabWidth: argv["tab-width"],
-    bracketSpacing: argv["bracket-spacing"],
-    singleQuote: argv["single-quote"],
-    jsxBracketSameLine: argv["jsx-bracket-same-line"],
-    filepath: argv["stdin-filepath"],
-    trailingComma: argv["trailing-comma"],
-    parser: argv["parser"]
-  };
+  return constant.detailOptions
+    .filter(option => option.formatOption)
+    .reduce(
+      (current, option) =>
+        Object.assign(current, { [option.formatOption]: argv[option.name] }),
+      {}
+    );
 }
 
 function dashifyObject(object) {
