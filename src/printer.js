@@ -3705,7 +3705,9 @@ function printMemberChain(path, options, print) {
     groups.length <= cutoff &&
     !hasComment &&
     // (a || b).map() should be break before .map() instead of ||
-    groups[0][0].node.type !== "LogicalExpression"
+    groups[0][0].node.type !== "LogicalExpression" &&
+    // (a ? b : c).map() should be break before .map() instead of ?
+    groups[0][0].node.type !== "ConditionalExpression"
   ) {
     return group(oneLine);
   }

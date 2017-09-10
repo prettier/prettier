@@ -416,6 +416,27 @@ exports[`computed-merge.js 1`] = `
 
 `;
 
+exports[`conditional.js 1`] = `
+(valid
+  ? helper.responseBody(this.currentUser)
+  : helper.response(401))
+.map(res => res.json());
+
+(valid
+  ? helper.responseBody(this.currentUser)
+  : helper.responseBody(defaultUser))
+.map(res => res.json());
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(valid ? helper.responseBody(this.currentUser) : helper.response(401))
+  .map(res => res.json());
+
+(valid
+  ? helper.responseBody(this.currentUser)
+  : helper.responseBody(defaultUser))
+  .map(res => res.json());
+
+`;
+
 exports[`first_long.js 1`] = `
 export default function theFunction(action$, store) {
   return action$.ofType(THE_ACTION).switchMap(action => Observable
