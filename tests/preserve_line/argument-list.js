@@ -171,10 +171,13 @@ func(
 );
 
 doSomething(
+
    { tomorrow: maybe, today: never[always] },
 
    1337,
 
    // This is important
    { helloWorld, someImportantStuff }
+
+
 );
