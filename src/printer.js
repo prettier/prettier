@@ -3719,10 +3719,7 @@ function printMemberChain(path, options, print) {
 
   // If we only have a single `.`, we shouldn't do anything fancy and just
   // render everything concatenated together.
-  if (
-    groups.length <= cutoff &&
-    !hasComment
-  ) {
+  if (groups.length <= cutoff && !hasComment) {
     return group(oneLine);
   }
 
