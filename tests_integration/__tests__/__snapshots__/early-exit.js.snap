@@ -3,6 +3,15 @@
 exports[`show usage with --help 1`] = `
 "Usage: prettier [opts] [filename ...]
 
+Command options:
+
+  --find-config-path <path>
+                           Finds and prints the path to a configuration file for a given input file.
+  --help or -h             Show help.
+  --list-different or -l   Print filenames of files that are different from Prettier formatting.
+  --version or -v          Print Prettier version.
+  --write                  Edit the file in-place. (Beware!)
+
 Config options:
 
   --config <path>          Path to a prettier configuration file (.prettierrc, package.json, prettier.config.js).
@@ -13,8 +22,6 @@ Config options:
                            prefer-file   | default config => config file (if config file is found) or
                                            default config => CLI options (if no config file is found)
                            Defaults to cli-override
-  --find-config-path <path>
-                           Finds and prints the path to a configuration file for a given input file.
   --ignore-path <path>     Path to a file containing patterns that describe files to ignore.
                            Defaults to ./.prettierignore.
   --no-config              Do not look for a configuration file.
@@ -42,17 +49,13 @@ Format options:
                            Print trailing commas wherever possible when multi-line. Defaults to none.
   --use-tabs               Indent lines with tabs instead of spaces.
 
-Uncategorized options:
+Other options:
 
   --cursor-offset <int>    Print (to stderr) where a cursor at the given position would move to after formatting.
                            This option cannot be used with --range-start and --range-end
-  --help or -h             Show help.
-  --list-different or -l   Print filenames of files that are different from Prettier formatting.
   --no-color               Do not colorize error messages.
   --stdin                  Read input from stdin.
   --stdin-filepath <path>  Path to the file used to read from stdin.
-  --version or -v          Print Prettier version.
-  --write                  Edit the file in-place. (Beware!)
 
 
 "
@@ -61,6 +64,15 @@ Uncategorized options:
 exports[`throw error and show usage with something unexpected 1`] = `
 "Usage: prettier [opts] [filename ...]
 
+Command options:
+
+  --find-config-path <path>
+                           Finds and prints the path to a configuration file for a given input file.
+  --help or -h             Show help.
+  --list-different or -l   Print filenames of files that are different from Prettier formatting.
+  --version or -v          Print Prettier version.
+  --write                  Edit the file in-place. (Beware!)
+
 Config options:
 
   --config <path>          Path to a prettier configuration file (.prettierrc, package.json, prettier.config.js).
@@ -71,8 +83,6 @@ Config options:
                            prefer-file   | default config => config file (if config file is found) or
                                            default config => CLI options (if no config file is found)
                            Defaults to cli-override
-  --find-config-path <path>
-                           Finds and prints the path to a configuration file for a given input file.
   --ignore-path <path>     Path to a file containing patterns that describe files to ignore.
                            Defaults to ./.prettierignore.
   --no-config              Do not look for a configuration file.
@@ -100,17 +110,13 @@ Format options:
                            Print trailing commas wherever possible when multi-line. Defaults to none.
   --use-tabs               Indent lines with tabs instead of spaces.
 
-Uncategorized options:
+Other options:
 
   --cursor-offset <int>    Print (to stderr) where a cursor at the given position would move to after formatting.
                            This option cannot be used with --range-start and --range-end
-  --help or -h             Show help.
-  --list-different or -l   Print filenames of files that are different from Prettier formatting.
   --no-color               Do not colorize error messages.
   --stdin                  Read input from stdin.
   --stdin-filepath <path>  Path to the file used to read from stdin.
-  --version or -v          Print Prettier version.
-  --write                  Edit the file in-place. (Beware!)
 
 
 "

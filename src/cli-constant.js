@@ -97,7 +97,7 @@ const detailOptions = normalizeDetailOptions({
   },
   "find-config-path": {
     type: "path",
-    category: "config",
+    category: "command",
     description:
       "Finds and prints the path to a configuration file for a given input file."
   },
@@ -110,6 +110,7 @@ const detailOptions = normalizeDetailOptions({
   },
   help: {
     type: "boolean",
+    category: "command",
     alias: "h",
     description: "Show help."
   },
@@ -130,6 +131,7 @@ const detailOptions = normalizeDetailOptions({
   },
   "list-different": {
     type: "boolean",
+    category: "command",
     alias: "l",
     description:
       "Print filenames of files that are different from Prettier formatting."
@@ -242,6 +244,7 @@ const detailOptions = normalizeDetailOptions({
   },
   version: {
     type: "boolean",
+    category: "command",
     alias: "v",
     description: "Print Prettier version."
   },
@@ -252,6 +255,7 @@ const detailOptions = normalizeDetailOptions({
   },
   write: {
     type: "boolean",
+    category: "command",
     description: "Edit the file in-place. (Beware!)"
   }
 });
@@ -305,6 +309,7 @@ function normalizeDetailOptions(rawDetailOptions) {
     const option = rawDetailOptions[name];
     return Object.assign({}, option, {
       name,
+      category: option.category || "other",
       forwardToApi:
         option.forwardToApi &&
         (typeof option.forwardToApi === "string"

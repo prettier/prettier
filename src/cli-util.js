@@ -328,7 +328,7 @@ function createUsage() {
   const options = constant.detailOptions.filter(option => !option.hidden);
 
   const groupedUsages = options.reduce((current, option) => {
-    const category = capitalize(option.category || "uncategorized");
+    const category = capitalize(option.category);
     const group = (current[category] = current[category] || []);
     group.push(createOptionUsage(option, 25));
     return current;
