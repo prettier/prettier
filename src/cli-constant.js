@@ -4,7 +4,7 @@
  * {
  *   [name]: {
  *     // non-boolean will be treated as string to be passed in minimist
- *     // and also be displayed in usage as `--option <type>` expect `choice`
+ *     // and also be displayed in usage as `--option <type>` except `choice`
  *     // there is also additional check for 'choice' (see `choices`) and 'int'
  *     type: 'boolean' | 'choice' | 'int' | string;
  *     
