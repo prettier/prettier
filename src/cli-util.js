@@ -336,8 +336,16 @@ function createUsage() {
 
   let usage = "Usage: prettier [opts] [filename ...]\n\n";
 
-  usage += Object.keys(groupedUsages)
-    .sort()
+  const categoryOrder = ["Command", "Format", "Config", "Other"];
+
+  Object.keys(groupedUsages).forEach(category => {
+    if (categoryOrder.indexOf(category) === -1) {
+      // put unordered category before 'Other'
+      categoryOrder.splice(-1, 0, category);
+    }
+  });
+
+  usage += categoryOrder
     .map(category => {
       return `${category} options:\n\n${indent(
         groupedUsages[category].join("\n"),
