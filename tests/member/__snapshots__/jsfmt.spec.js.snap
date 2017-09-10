@@ -8,7 +8,8 @@ exports[`conditional.js 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 (valid
   ? helper.responseBody(this.currentUser)
-  : helper.responseBody(this.defaultUser)).prop;
+  : helper.responseBody(this.defaultUser)
+).prop;
 
 `;
 
