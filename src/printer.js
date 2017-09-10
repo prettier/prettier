@@ -3001,7 +3001,7 @@ function printArgumentsList(path, options, print) {
       softline,
       ")"
     ]),
-    { shouldBreak: printedArguments.some(willBreak) }
+    { shouldBreak: printedArguments.some(willBreak) || anyArgEmptyLine }
   );
 }
 
