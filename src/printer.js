@@ -2917,7 +2917,7 @@ function printArgumentsList(path, options, print) {
         hasFirstArgEmptyLine = true;
       }
 
-      anyArgEmptyLine = true
+      anyArgEmptyLine = true;
       return concat([printedArg, ",", hardline, hardline]);
     }
 
