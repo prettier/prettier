@@ -1,6 +1,6 @@
 /* eslint-env browser */
 /* eslint no-var: off, strict: off, prefer-arrow-callback: off */
-/* global CodeMirror prettierVersion */
+/* global Clipboard CodeMirror prettierVersion */
 
 var state = (function loadState(hash) {
   try {
@@ -69,6 +69,36 @@ window.onload = function() {
     return options;
   }
 
+  function getCLIOptions() {
+    return OPTIONS.sort()
+      .map(function(option) {
+        var elem = document.getElementById(option);
+        var match = elem.parentNode.textContent.match(/--\S+/);
+        if (!match) {
+          return null;
+        }
+        var name = match[0];
+        if (elem.tagName === "SELECT") {
+          if (elem.value === elem.options[0].value) {
+            return null;
+          }
+          return [name, elem.value];
+        } else if (elem.type === "number") {
+          if (elem.value === elem.getAttribute("value")) {
+            return null;
+          }
+          return [name, elem.value];
+        } else if (elem.type === "checkbox") {
+          if (!elem.checked) {
+            return null;
+          }
+          return [name, true];
+        }
+        return null;
+      })
+      .filter(Boolean);
+  }
+
   function replaceHash(hash) {
     if (
       typeof URL === "function" &&
@@ -108,6 +138,32 @@ window.onload = function() {
       ast: options.ast,
       doc: options.doc
     });
+  }
+
+  function createMarkdown() {
+    var input = inputEditor.getValue();
+    var output = outputEditor.getValue();
+    var options = getOptions();
+    var cliOptions = getCLIOptions();
+    var markdown = util.formatMarkdown(
+      input,
+      output,
+      prettierVersion,
+      window.location.href,
+      options,
+      cliOptions
+    );
+    return markdown;
+  }
+
+  function showTooltip(elem, text) {
+    var tooltip = document.createElement("span");
+    tooltip.className = "tooltip";
+    tooltip.textContent = text;
+    elem.appendChild(tooltip);
+    window.setTimeout(function() {
+      elem.removeChild(tooltip);
+    }, 2000);
   }
 
   var editorOptions = {
@@ -151,4 +207,81 @@ window.onload = function() {
   inputEditor.setValue(state.content);
   document.querySelector(".options-container").onchange = formatAsync;
   document.querySelector(".version").innerText = prettierVersion;
+
+  var clipboard = new Clipboard(".copy-markdown", {
+    text: function() {
+      return createMarkdown();
+    }
+  });
+  clipboard.on("success", function(e) {
+    showTooltip(e.trigger, "Copied!");
+  });
+  clipboard.on("error", function(e) {
+    showTooltip(e.trigger, "Press ctrl+c to copy");
+  });
 };
+
+var util = (function() {
+  function formatMarkdown(input, output, version, url, options, cliOptions) {
+    var syntax = getMarkdownSyntax(options);
+    var optionsString = formatCLIOptions(cliOptions);
+
+    return [
+      "**Prettier " + version + " / master**",
+      "[Playground link](" + url + ")",
+      optionsString === "" ? null : codeBlock(optionsString),
+      "",
+      "**Input:**",
+      codeBlock(input, syntax),
+      "",
+      "**Output:**",
+      codeBlock(output, syntax)
+    ]
+      .filter(function(part) {
+        return part != null;
+      })
+      .join("\n");
+  }
+
+  function getMarkdownSyntax(options) {
+    switch (options.parser) {
+      case "babylon":
+      case "flow":
+        return "jsx";
+      case "typescript":
+        return "tsx";
+      case "postcss":
+        return "scss";
+      default:
+        return options.parser;
+    }
+  }
+
+  function formatCLIOptions(cliOptions) {
+    return cliOptions
+      .map(function(option) {
+        var name = option[0];
+        var value = option[1];
+        return value === true ? name : name + " " + value;
+      })
+      .join("\n");
+  }
+
+  function codeBlock(content, syntax) {
+    var backtickSequences = content.match(/`+/g) || [];
+    var longestBacktickSequenceLength = Math.max.apply(
+      null,
+      backtickSequences.map(function(backticks) {
+        return backticks.length;
+      })
+    );
+    var fenceLength = Math.max(3, longestBacktickSequenceLength + 1);
+    var fence = Array(fenceLength + 1).join("`");
+    return [fence + (syntax || ""), content, fence].join("\n");
+  }
+
+  return {
+    formatMarkdown: formatMarkdown,
+    getMarkdownSyntax: getMarkdownSyntax
+  };
+})();
