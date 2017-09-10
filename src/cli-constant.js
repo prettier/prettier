@@ -299,19 +299,16 @@ function normalizeDetailOptions(rawDetailOptions) {
     });
   });
 
-  normalized.forEach(normalizedOption => {
-    normalized[normalizedOption.name] = normalizedOption;
-  });
-
   return normalized;
 }
 
-function getDetailOption(name) {
-  return detailOptions[name];
-}
+const detailOptionMap = detailOptions.reduce(
+  (current, option) => Object.assign(current, { [option.name]: option }),
+  {}
+);
 
 module.exports = {
   minimistOptions,
   detailOptions,
-  getDetailOption
+  detailOptionMap
 };
