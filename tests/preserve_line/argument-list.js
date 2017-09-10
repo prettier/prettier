@@ -111,3 +111,70 @@ evenMoreArgTypes(
 
 
 )
+
+foo.apply(null,
+
+// Array here
+[1, 2]);
+
+
+bar.on("readable",
+
+() => {
+  doStuff()
+});
+
+foo(['A, B'],
+
+/* function here */
+function doSomething() { return true; });
+
+doSomething.apply(null,
+
+[
+  'Hello world 1',
+  'Hello world 2',
+  'Hello world 3',
+]);
+
+
+doAnotherThing("node",
+
+{
+  solution_type,
+  time_frame
+});
+
+stuff.doThing(someStuff,
+
+  -1, {
+  accept: node => doSomething(node)
+});
+
+doThing(
+
+  someOtherStuff,
+
+  // This is important
+  true, {
+  decline: creditCard => takeMoney(creditCard)
+}
+
+);
+
+func(
+  () => {
+   thing();
+  },
+
+  { yes: true, no: 5 }
+);
+
+doSomething(
+   { tomorrow: maybe, today: never[always] },
+
+   1337,
+
+   // This is important
+   { helloWorld, someImportantStuff }
+);

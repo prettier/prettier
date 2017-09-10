@@ -2914,12 +2914,13 @@ function printArgumentsList(path, options, print) {
 
   const printedArguments = path.map((argPath, index) => {
     const printedArg = print(argPath);
-    if (hasEmptyLineAfterArgs[index]) {
-      return concat([printedArg, ",", hardline, hardline]);
+
+    if (index === lastArgIndex) {
+      return concat([printedArg]);
     }
 
-    if (lastArgIndex === index) {
-      return concat([printedArg]);
+    if (hasEmptyLineAfterArgs[index]) {
+      return concat([printedArg, ",", hardline, hardline]);
     }
 
     return concat([printedArg, ",", line]);
@@ -2928,7 +2929,7 @@ function printArgumentsList(path, options, print) {
   // This is just an optimization; I think we could return the
   // conditional group for all function calls, but it's more expensive
   // so only do it for specific forms.
-  const shouldGroupFirst = shouldGroupFirstArg(args); // 2 args only
+  const shouldGroupFirst = shouldGroupFirstArg(args);
   const shouldGroupLast = shouldGroupLastArg(args);
   if (shouldGroupFirst || shouldGroupLast) {
     const shouldBreak =
