@@ -68,14 +68,17 @@ function fromBabylonFlowOrTypeScript(path) {
        */
       if (
         parentParent &&
-        parentParent.type === "TaggedTemplateExpression" &&
-        parent.quasis.length === 1 &&
-        ((parentParent.tag.type === "MemberExpression" &&
-          parentParent.tag.object.name === "graphql" &&
-          parentParent.tag.property.name === "experimental") ||
-          (parentParent.tag.type === "Identifier" &&
-            (parentParent.tag.name === "gql" ||
-              parentParent.tag.name === "graphql")))
+        ((parentParent.type === "TaggedTemplateExpression" &&
+          parent.quasis.length === 1 &&
+          ((parentParent.tag.type === "MemberExpression" &&
+            parentParent.tag.object.name === "graphql" &&
+            parentParent.tag.property.name === "experimental") ||
+            (parentParent.tag.type === "Identifier" &&
+              (parentParent.tag.name === "gql" ||
+                parentParent.tag.name === "graphql")))) ||
+          (parentParent.type === "CallExpression" &&
+            parentParent.callee.type === "Identifier" &&
+            parentParent.callee.name === "graphql"))
       ) {
         return {
           options: { parser: "graphql" },
