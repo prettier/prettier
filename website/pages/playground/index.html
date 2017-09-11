@@ -278,7 +278,7 @@
 <body>
   <header>
     <a href="/">
-      <img class="logo" src="/icon.png">
+      <img class="logo" src="/icon.png" alt="">
       <h2>Prettier</h2>
     </a>
 
@@ -296,7 +296,7 @@
     </span>
   </header>
 
-  <section class="editors-container">
+  <div class="editors-container">
     <div class="editors">
       <div class="editor input">
         <textarea class="loading" id="input-editor"></textarea>
@@ -311,34 +311,34 @@
         <textarea class="loading" id="output-editor"></textarea>
       </div>
     </div>
-  </section>
+  </div>
 
-  <section>
+  <div>
     <details>
       <summary class="options-summary">Options</summary>
 
       <div class="options-container">
         <div class="options">
-          <label>--print-width <input type="number" value="80" min="0" id="printWidth"></input> </label>
-          <label>--tab-width <input type="number" min="0" value="2" id="tabWidth"></input> </label>
+          <label>--print-width <input type="number" value="80" min="0" id="printWidth"></label>
+          <label>--tab-width <input type="number" min="0" value="2" id="tabWidth"></label>
         </div>
         <div class="options">
-          <label><input type="checkbox" id="useTabs"></input> --use-tabs</label>
-          <label><input type="checkbox" data-inverted id="semi"></input> --no-semi</label>
-          <label><input type="checkbox" id="singleQuote"></input> --single-quote</label>
-          <label><input type="checkbox" data-inverted id="bracketSpacing"></input> --no-bracket-spacing</label>
-          <label><input type="checkbox" id="jsxBracketSameLine"></input> --jsx-bracket-same-line</label>
+          <label><input type="checkbox" id="useTabs"> --use-tabs</label>
+          <label><input type="checkbox" data-inverted id="semi"> --no-semi</label>
+          <label><input type="checkbox" id="singleQuote"> --single-quote</label>
+          <label><input type="checkbox" data-inverted id="bracketSpacing"> --no-bracket-spacing</label>
+          <label><input type="checkbox" id="jsxBracketSameLine"> --jsx-bracket-same-line</label>
         </div>
         <div class="options last">
           <label>--trailing-comma <select id="trailingComma"><option value="none">none</option><option value="es5">es5</option><option value="all">all</option></select></label>
           <label>--parser <select id="parser"><option value="babylon">babylon</option><option value="flow">flow</option><option value="typescript">typescript</option><option value="postcss">postcss</option><option value="json">json</option><option value="graphql">graphql</option></select></label>
           <span style="flex: 0.3"></span>
-          <label><input type="checkbox" id="ast"></input> show AST (debug)</label>
-          <label><input type="checkbox" id="doc"></input> show doc (debug)</label>
+          <label><input type="checkbox" id="ast"> show AST (debug)</label>
+          <label><input type="checkbox" id="doc"> show doc (debug)</label>
         </div>
       </div>
     </details>
-  </section>
+  </div>
 
   <footer>
     <p class="version-link">
