@@ -1,15 +1,24 @@
-<!-- BUGS: Please use this template. -->
+<!-- BUGGY OR UGLY? Please use this template.
+
+Tip! Don't write this stuff manually.
+
+1. Go to https://prettier.io/playground/
+2. Paste your code and set options
+3. Press the "Copy as markdown" button in the upper right
+
+-->
 
 **Prettier Version:** 1.6.1 / master
+([Playground link](https://prettier.io/playground/#.....))
 
-**Code**
+**Input:**
+```js
+// code snippet
+```
 
-([playground](https://prettier.io/playground/#.....))
-
+**Output:**
 ```js
 // code snippet
 ```
 
 **Expected behavior:**
-
-**Actual behavior:**
