@@ -2901,27 +2901,27 @@ function printArgumentsList(path, options, print) {
     ]);
   }
 
-  const lastArgIndex = args.length - 1;
   let anyArgEmptyLine = false;
   let hasEmptyLineFollowingFirstArg = false;
+  const lastArgIndex = args.length - 1;
   const printedArguments = path.map((argPath, index) => {
     const arg = argPath.getNode();
-    const printedArg = print(argPath);
+    const parts = [print(argPath)];
 
     if (index === lastArgIndex) {
-      return concat([printedArg]);
-    }
-
-    if (util.isNextLineEmpty(options.originalText, arg)) {
+      // do nothing
+    } else if (util.isNextLineEmpty(options.originalText, arg)) {
       if (index === 0) {
         hasEmptyLineFollowingFirstArg = true;
       }
 
       anyArgEmptyLine = true;
-      return concat([printedArg, ",", hardline, hardline]);
+      parts.push(",", hardline, hardline);
+    } else {
+      parts.push(",", line);
     }
 
-    return concat([printedArg, ",", line]);
+    return concat(parts);
   }, "arguments");
 
   // This is just an optimization; I think we could return the
