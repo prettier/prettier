@@ -116,6 +116,12 @@ window.onload = function() {
   function formatAsync() {
     var options = getOptions();
 
+    var mode = util.getCodemirrorMode(options);
+    inputEditor.setOption("mode", mode);
+    outputEditor.setOption("mode", mode);
+    CodeMirror.autoLoadMode(inputEditor, mode);
+    CodeMirror.autoLoadMode(outputEditor, mode);
+
     outputEditor.setOption("rulers", [
       { column: options.printWidth, color: "#444444" }
     ]);
@@ -165,6 +171,9 @@ window.onload = function() {
       elem.removeChild(tooltip);
     }, 2000);
   }
+
+  CodeMirror.modeURL =
+    "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/mode/%N/%N.js";
 
   var editorOptions = {
     lineNumbers: true,
@@ -257,6 +266,15 @@ var util = (function() {
     }
   }
 
+  function getCodemirrorMode(options) {
+    switch (options.parser) {
+      case "postcss":
+        return "css";
+      default:
+        return "javascript";
+    }
+  }
+
   function formatCLIOptions(cliOptions) {
     return cliOptions
       .map(function(option) {
@@ -282,6 +300,7 @@ var util = (function() {
 
   return {
     formatMarkdown: formatMarkdown,
-    getMarkdownSyntax: getMarkdownSyntax
+    getMarkdownSyntax: getMarkdownSyntax,
+    getCodemirrorMode: getCodemirrorMode
   };
 })();
