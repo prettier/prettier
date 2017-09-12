@@ -42,8 +42,8 @@ function resolveConfig(filePath, opts) {
   return Promise.all([
     (useCache ? asyncWithCache : asyncNoCache).load(filePath),
     (useCache ? editorconfigAsyncWithCache : editorconfigAsyncNoCache)(filePath)
-  ]).then(([result, editorConfigged]) =>
-    helper(result, filePath, editorConfigged)
+  ]).then((arr /* [result, editorConfigged] */) =>
+    helper(arr[0], filePath, arr[1])
   );
 }
 
