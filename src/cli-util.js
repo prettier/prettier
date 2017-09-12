@@ -342,12 +342,7 @@ function createUsage() {
     .apply([], optionsWithOpposites)
     .filter(Boolean);
 
-  const groupedOptions = flattenedOptions.reduce((current, option) => {
-    const category = option.category;
-    const group = (current[category] = current[category] || []);
-    group.push(option);
-    return current;
-  }, {});
+  const groupedOptions = groupBy(flattenedOptions, option => option.category);
 
   const usageSummary = "Usage: prettier [opts] [filename ...]";
 
@@ -411,6 +406,14 @@ function createOptionUsage(option, threshold) {
 
 function indent(str, spaces) {
   return str.replace(/^/gm, " ".repeat(spaces));
+}
+
+function groupBy(array, getKey) {
+  return array.reduce((obj, item) => {
+    const key = getKey(item);
+    const previousItems = key in obj ? obj[key] : [];
+    return Object.assign({}, obj, { [key]: previousItems.concat(item) });
+  }, Object.create(null));
 }
 
 function normalizeArgv(rawArgv, options) {
