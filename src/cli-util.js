@@ -338,16 +338,18 @@ function createUsage() {
 
   const usageSummary = "Usage: prettier [opts] [filename ...]";
 
-  const categoryOrder = ["Command", "Format", "Config", "Other"];
+  const firstCategories = ["Command", "Format", "Config"];
+  const lastCategories = ["Other"];
+  const allCategories = firstCategories.concat(
+    Object.keys(groupedOptions).filter(
+      category =>
+        firstCategories.indexOf(category) === -1 &&
+        lastCategories.indexOf(category) === -1
+    ),
+    lastCategories
+  );
 
-  Object.keys(groupedOptions).forEach(category => {
-    if (categoryOrder.indexOf(category) === -1) {
-      // put unordered category before 'Other'
-      categoryOrder.splice(-1, 0, category);
-    }
-  });
-
-  const optionsUsage = categoryOrder.map(category => {
+  const optionsUsage = allCategories.map(category => {
     const categoryOptions = [].concat
       .apply(
         [],
