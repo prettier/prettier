@@ -461,7 +461,8 @@ function normalizeArgv(rawArgv, options) {
         break;
       case "choice":
         validator.validateChoiceOption(value, option);
-      // fall through
+        normalized[key] = value;
+        break;
       default:
         normalized[key] = value;
         break;
