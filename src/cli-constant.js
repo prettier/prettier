@@ -61,7 +61,7 @@ const CATEGORY_OTHER = "Other";
  *
  * Note: The options below are sorted alphabetically.
  */
-const detailOptions = normalizeDetailOptions({
+const detailedOptions = normalizeDetailedOptions({
   "bracket-spacing": {
     type: "boolean",
     category: CATEGORY_FORMAT,
@@ -259,20 +259,20 @@ const detailOptions = normalizeDetailOptions({
 });
 
 const minimistOptions = {
-  boolean: detailOptions
+  boolean: detailedOptions
     .filter(option => option.type === "boolean")
     .map(option => option.name),
-  string: detailOptions
+  string: detailedOptions
     .filter(option => option.type !== "boolean")
     .map(option => option.name),
-  default: detailOptions
+  default: detailedOptions
     .filter(option => option.default !== undefined)
     .reduce(
       (current, option) =>
         Object.assign({ [option.name]: option.default }, current),
       {}
     ),
-  alias: detailOptions
+  alias: detailedOptions
     .filter(option => option.alias !== undefined)
     .reduce(
       (current, option) =>
@@ -296,11 +296,11 @@ function kebabToCamel(str) {
   return str.replace(/-([a-z])/g, (_, char) => char.toUpperCase());
 }
 
-function normalizeDetailOptions(rawDetailOptions) {
-  const names = Object.keys(rawDetailOptions).sort();
+function normalizeDetailedOptions(rawDetailedOptions) {
+  const names = Object.keys(rawDetailedOptions).sort();
 
   const normalized = names.map(name => {
-    const option = rawDetailOptions[name];
+    const option = rawDetailedOptions[name];
     return Object.assign({}, option, {
       name,
       category: option.category || CATEGORY_OTHER,
@@ -321,7 +321,7 @@ function normalizeDetailOptions(rawDetailOptions) {
   return normalized;
 }
 
-const detailOptionMap = detailOptions.reduce(
+const detailedOptionMap = detailedOptions.reduce(
   (current, option) => Object.assign(current, { [option.name]: option }),
   {}
 );
@@ -332,6 +332,6 @@ module.exports = {
   CATEGORY_FORMAT,
   CATEGORY_OTHER,
   minimistOptions,
-  detailOptions,
-  detailOptionMap
+  detailedOptions,
+  detailedOptionMap
 };

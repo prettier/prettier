@@ -20,7 +20,7 @@ const apiDefaultOptions = require("./options").defaults;
 const OPTION_USAGE_THRESHOLD = 25;
 
 function getOptions(argv) {
-  return constant.detailOptions
+  return constant.detailedOptions
     .filter(option => option.forwardToApi)
     .reduce(
       (current, option) =>
@@ -327,7 +327,7 @@ function formatFiles(argv) {
 }
 
 function createUsage() {
-  const options = constant.detailOptions;
+  const options = constant.detailedOptions;
   // Add --no-foo after --foo.
   const optionsWithOpposites = options.map(option => [
     option.description ? option : null,
@@ -435,7 +435,7 @@ function normalizeArgv(rawArgv, options) {
       return;
     }
 
-    const option = constant.detailOptionMap[key];
+    const option = constant.detailedOptionMap[key];
 
     if (option === undefined) {
       // unknown option
