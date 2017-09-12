@@ -328,8 +328,21 @@ function formatFiles(argv) {
 
 function createUsage() {
   const options = constant.detailOptions;
+  const optionsWithOpposites = options.map(option => [
+    option.description ? option : null,
+    option.oppositeDescription
+      ? Object.assign({}, option, {
+          name: `no-${option.name}`,
+          type: "boolean",
+          description: option.oppositeDescription
+        })
+      : null
+  ]);
+  const flattenedOptions = [].concat
+    .apply([], optionsWithOpposites)
+    .filter(Boolean);
 
-  const groupedOptions = options.reduce((current, option) => {
+  const groupedOptions = flattenedOptions.reduce((current, option) => {
     const category = capitalize(option.category);
     const group = (current[category] = current[category] || []);
     group.push(option);
@@ -350,24 +363,8 @@ function createUsage() {
   );
 
   const optionsUsage = allCategories.map(category => {
-    const categoryOptions = [].concat
-      .apply(
-        [],
-        groupedOptions[category].map(option => [
-          option.description &&
-            createOptionUsage(option, OPTION_USAGE_THRESHOLD),
-          option.oppositeDescription &&
-            createOptionUsage(
-              Object.assign({}, option, {
-                name: `no-${option.name}`,
-                type: "boolean",
-                description: option.oppositeDescription
-              }),
-              OPTION_USAGE_THRESHOLD
-            )
-        ])
-      )
-      .filter(Boolean)
+    const categoryOptions = groupedOptions[category]
+      .map(option => createOptionUsage(option, OPTION_USAGE_THRESHOLD))
       .join("\n");
     return `${category} options:\n\n${indent(categoryOptions, 2)}`;
   });
