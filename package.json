@@ -10,6 +10,7 @@
   "author": "James Long",
   "license": "MIT",
   "main": "./index.js",
+  "typings": "./index.d.ts",
   "dependencies": {
     "babel-code-frame": "7.0.0-alpha.12",
     "babylon": "7.0.0-beta.22",
