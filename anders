@@ -1,0 +1,2 @@
+git remote add origin https://github.com/m1ckm/anders.git
+git push -u origin master
