@@ -9,8 +9,7 @@ const asyncNoCache = cosmiconfig("prettier", { cache: false });
 const syncWithCache = cosmiconfig("prettier", { sync: true });
 const syncNoCache = cosmiconfig("prettier", { cache: false, sync: true });
 
-function editorConfigToPrettier(filePath) {
-  const editorConfig = editorconfig.parseSync(filePath);
+function editorConfigToPrettier(editorConfig) {
   const result = {};
 
   if (editorConfig.indent_style) {
@@ -34,24 +33,28 @@ function resolveConfig(filePath, opts) {
   return (useCache ? asyncWithCache : asyncNoCache)
     .load(filePath)
     .then(result => {
-      return helper(result, filePath);
+      const editorConfigged =
+        filePath && editorConfigToPrettier(editorconfig.parseSync(filePath));
+      return helper(result, filePath, editorConfigged);
     });
 }
 
 resolveConfig.sync = (filePath, opts) => {
   const useCache = !(opts && opts.useCache === false);
   const result = (useCache ? syncWithCache : syncNoCache).load(filePath);
-  return helper(result, filePath);
+  const editorConfigged =
+    filePath && editorConfigToPrettier(editorconfig.parseSync(filePath));
+  return helper(result, filePath, editorConfigged);
 };
 
-function helper (result, filePath) {
+function helper(result, filePath, editorConfigged) {
   if (!result) {
     return null;
   }
 
   return Object.assign(
     {},
-    editorConfigToPrettier(filePath),
+    editorConfigged,
     mergeOverrides(result.config, filePath)
   );
 }
