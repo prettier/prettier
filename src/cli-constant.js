@@ -159,7 +159,7 @@ const detailOptions = normalizeDetailOptions({
     forwardToApi: true,
     exception: value => typeof value === "string", // allow path to a parser module
     choices: ["flow", "babylon", "typescript", "postcss", "json", "graphql"],
-    description: "Specify which parse to use. Defaults to babylon.",
+    description: "Specify which parser to use. Defaults to babylon.",
     getter: (value, argv) => (argv["flow-parser"] ? "flow" : value)
   },
   "print-width": {
