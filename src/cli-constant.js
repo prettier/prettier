@@ -81,7 +81,7 @@ const detailedOptions = normalizeDetailedOptions({
     type: "path",
     category: CATEGORY_CONFIG,
     description:
-      "Path to a prettier configuration file (.prettierrc, package.json, prettier.config.js).",
+      "Path to a Prettier configuration file (.prettierrc, package.json, prettier.config.js).",
     oppositeDescription: "Do not look for a configuration file."
   },
   "config-precedence": {
@@ -90,12 +90,12 @@ const detailedOptions = normalizeDetailedOptions({
     default: "cli-override",
     choices: ["cli-override", "file-override", "prefer-file"],
     description: dedent(`
-      Defines how config file should be evaluated in combination of CLI options
+      Define in which order config files and CLI options should be evaluated
       cli-override  | default config => config file => CLI options
       file-override | default config => CLI options => config file
       prefer-file   | default config => config file (if config file is found) or
                       default config => CLI options (if no config file is found)
-      Defaults to cli-override
+      Defaults to cli-override.
     `)
   },
   "cursor-offset": {
@@ -104,7 +104,7 @@ const detailedOptions = normalizeDetailedOptions({
     forwardToApi: true,
     description: dedent(`
       Print (to stderr) where a cursor at the given position would move to after formatting.
-      This option cannot be used with --range-start and --range-end
+      This option cannot be used with --range-start and --range-end.
     `)
   },
   "debug-check": {
@@ -117,7 +117,7 @@ const detailedOptions = normalizeDetailedOptions({
     type: "path",
     category: CATEGORY_COMMAND,
     description:
-      "Finds and prints the path to a configuration file for a given input file."
+      "Find and print the path to a configuration file for the given input file."
   },
   "flow-parser": {
     // Deprecated in 0.0.10
@@ -136,7 +136,7 @@ const detailedOptions = normalizeDetailedOptions({
     category: CATEGORY_CONFIG,
     default: ".prettierignore",
     description: dedent(`
-      Path to a file containing patterns that describe files to ignore.
+      Path to a file with patterns describing files to ignore.
       Defaults to ./.prettierignore.
     `)
   },
@@ -151,23 +151,22 @@ const detailedOptions = normalizeDetailedOptions({
     category: CATEGORY_COMMAND,
     alias: "l",
     description:
-      "Print filenames of files that are different from Prettier formatting."
+      "Print the names of files that are different from Prettier's formatting."
   },
   parser: {
     type: "choice",
     category: CATEGORY_FORMAT,
     forwardToApi: true,
-    exception: value => typeof value === "string", // allow path to a parser module
+    exception: value => typeof value === "string", // Allow path to a parser module.
     choices: ["flow", "babylon", "typescript", "postcss", "json", "graphql"],
-    description: "Specify which parser to use. Defaults to babylon.",
+    description: "Which parser to use. Defaults to babylon.",
     getter: (value, argv) => (argv["flow-parser"] ? "flow" : value)
   },
   "print-width": {
     type: "int",
     category: CATEGORY_FORMAT,
     forwardToApi: true,
-    description:
-      "Specify the length of line that the printer will wrap on. Defaults to 80."
+    description: "The line length where Prettier will try wrap. Defaults to 80."
   },
   "range-end": {
     type: "int",
@@ -212,14 +211,13 @@ const detailedOptions = normalizeDetailedOptions({
   "stdin-filepath": {
     type: "path",
     forwardToApi: "filepath",
-    description: "Path to the file used to read from stdin."
+    description: "Path to the file to pretend that stdin comes from."
   },
   "tab-width": {
     type: "int",
     category: CATEGORY_FORMAT,
     forwardToApi: true,
-    description:
-      "Specify the number of spaces per indentation-level. Defaults to 2."
+    description: "Number of spaces per indentation level. Defaults to 2."
   },
   "trailing-comma": {
     type: "choice",
@@ -238,7 +236,7 @@ const detailedOptions = normalizeDetailedOptions({
     type: "boolean",
     category: CATEGORY_FORMAT,
     forwardToApi: true,
-    description: "Indent lines with tabs instead of spaces."
+    description: "Indent with tabs instead of spaces."
   },
   version: {
     type: "boolean",
@@ -254,7 +252,7 @@ const detailedOptions = normalizeDetailedOptions({
   write: {
     type: "boolean",
     category: CATEGORY_COMMAND,
-    description: "Edit the file in-place. (Beware!)"
+    description: "Edit files in-place. (Beware!)"
   }
 });
 
