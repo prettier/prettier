@@ -288,7 +288,7 @@ Do not look for a configuration file.  The default settings will be used.
 
 #### `--config-precedence`
 
-Defines how config file should be evaluated in combination of CLI options. 
+Defines how config file should be evaluated in combination of CLI options.
 
 **cli-override (default)**
 
