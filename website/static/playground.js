@@ -113,24 +113,23 @@ window.onload = function() {
     }
   }
 
+  function setCodemirrorMode(editor, mode) {
+    editor.setOption("mode", mode);
+    CodeMirror.autoLoadMode(editor, mode);
+  }
+
   function formatAsync() {
     var options = getOptions();
 
     var mode = util.getCodemirrorMode(options);
-    inputEditor.setOption("mode", mode);
-    outputEditor.setOption("mode", mode);
-    CodeMirror.autoLoadMode(inputEditor, mode);
-    CodeMirror.autoLoadMode(outputEditor, mode);
+    setCodemirrorMode(inputEditor, mode);
+    setCodemirrorMode(outputEditor, mode);
 
     outputEditor.setOption("rulers", [
       { column: options.printWidth, color: "#444444" }
     ]);
-    document.querySelector(".ast").style.display = options.ast
-      ? "flex"
-      : "none";
-    document.querySelector(".doc").style.display = options.doc
-      ? "flex"
-      : "none";
+    document.querySelector(".ast").style.display = options.ast ? "" : "none";
+    document.querySelector(".doc").style.display = options.doc ? "" : "none";
 
     var value = encodeURIComponent(
       JSON.stringify(
@@ -175,13 +174,14 @@ window.onload = function() {
   CodeMirror.modeURL =
     "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/mode/%N/%N.js";
 
+  var theme = "neat";
   var editorOptions = {
     lineNumbers: true,
     keyMap: "sublime",
     autoCloseBrackets: true,
     matchBrackets: true,
     showCursorWhenSelecting: true,
-    theme: "neat",
+    theme: theme,
     tabWidth: 2
   };
   var inputEditor = CodeMirror.fromTextArea(
@@ -192,16 +192,19 @@ window.onload = function() {
 
   var docEditor = CodeMirror.fromTextArea(
     document.getElementById("doc-editor"),
-    { readOnly: true, lineNumbers: false, theme: "neat" }
+    { readOnly: true, lineNumbers: false, theme: theme }
   );
   var astEditor = CodeMirror.fromTextArea(
     document.getElementById("ast-editor"),
-    { readOnly: true, lineNumbers: false, theme: "neat" }
+    { readOnly: true, lineNumbers: false, theme: theme }
   );
   var outputEditor = CodeMirror.fromTextArea(
     document.getElementById("output-editor"),
-    { readOnly: true, lineNumbers: true, theme: "neat" }
+    { readOnly: true, lineNumbers: true, theme: theme }
   );
+
+  setCodemirrorMode(docEditor, "javascript");
+  setCodemirrorMode(astEditor, "javascript");
 
   Array.from(document.querySelectorAll("textarea")).forEach(function(element) {
     element.classList.remove("loading");

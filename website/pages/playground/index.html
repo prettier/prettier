@@ -136,17 +136,20 @@
     }
 
     .editor {
+      box-sizing: border-box;
       display: flex;
       flex: 1;
       flex-basis: 100%;
       position: relative;
-      border-top: 1px solid #1A2B34;
+      border-bottom: 1px solid #ddd;
     }
 
     /* display as 2x2 grid */
     @media (min-width: 800px) {
       .editor {
         flex-basis: 50%;
+        border-left: 1px solid #ddd;
+        margin-left: -1px;
       }
     }
 
