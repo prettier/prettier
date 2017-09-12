@@ -7,7 +7,6 @@ importScripts("lib/sw-toolbox.js");
 
 toolbox.precache([
   // Scripts
-  "lib/prettier-version.js",
   "lib/index.js",
   "lib/parser-babylon.js",
   "lib/parser-typescript.js",

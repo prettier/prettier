@@ -106,9 +106,6 @@ shell.sed(
   ".github/ISSUE_TEMPLATE.md"
 );
 
-shell.echo("Create prettier-version.js");
-pipe(`prettierVersion = "${pkg.version}";\n`).to(`${docs}/prettier-version.js`);
-
 shell.echo("Copy sw-toolbox.js to docs");
 shell.cp("node_modules/sw-toolbox/sw-toolbox.js", `${docs}/sw-toolbox.js`);
 

@@ -1,6 +1,12 @@
 /* eslint-env browser */
 /* eslint no-var: off, strict: off, prefer-arrow-callback: off */
-/* global Clipboard CodeMirror prettierVersion */
+/* global Clipboard CodeMirror */
+
+var prettierVersion = "?";
+var inputEditor;
+var docEditor;
+var astEditor;
+var outputEditor;
 
 var state = (function loadState(hash) {
   try {
@@ -20,6 +26,19 @@ var state = (function loadState(hash) {
 })(decodeURIComponent(location.hash.slice(1)));
 
 var worker = new Worker("/worker.js");
+
+worker.onmessage = function(message) {
+  if (prettierVersion === "?") {
+    prettierVersion = message.data.version;
+    document.querySelector(".version").textContent = prettierVersion;
+  }
+  if (outputEditor && docEditor && astEditor) {
+    outputEditor.setValue(message.data.formatted);
+    docEditor.setValue(message.data.doc || "");
+    astEditor.setValue(message.data.ast || "");
+  }
+};
+
 // Warm up the worker (load the current parser while CodeMirror loads)
 worker.postMessage({ text: "", options: state.options });
 
@@ -184,21 +203,23 @@ window.onload = function() {
     theme: theme,
     tabWidth: 2
   };
-  var inputEditor = CodeMirror.fromTextArea(
+  inputEditor = CodeMirror.fromTextArea(
     document.getElementById("input-editor"),
     editorOptions
   );
   inputEditor.on("change", formatAsync);
 
-  var docEditor = CodeMirror.fromTextArea(
-    document.getElementById("doc-editor"),
-    { readOnly: true, lineNumbers: false, theme: theme }
-  );
-  var astEditor = CodeMirror.fromTextArea(
-    document.getElementById("ast-editor"),
-    { readOnly: true, lineNumbers: false, theme: theme }
-  );
-  var outputEditor = CodeMirror.fromTextArea(
+  docEditor = CodeMirror.fromTextArea(document.getElementById("doc-editor"), {
+    readOnly: true,
+    lineNumbers: false,
+    theme: theme
+  });
+  astEditor = CodeMirror.fromTextArea(document.getElementById("ast-editor"), {
+    readOnly: true,
+    lineNumbers: false,
+    theme: theme
+  });
+  outputEditor = CodeMirror.fromTextArea(
     document.getElementById("output-editor"),
     { readOnly: true, lineNumbers: true, theme: theme }
   );
@@ -210,15 +231,8 @@ window.onload = function() {
     element.classList.remove("loading");
   });
 
-  worker.onmessage = function(message) {
-    outputEditor.setValue(message.data.formatted);
-    docEditor.setValue(message.data.doc || "");
-    astEditor.setValue(message.data.ast || "");
-  };
-
   inputEditor.setValue(state.content);
   document.querySelector(".options-container").onchange = formatAsync;
-  document.querySelector(".version").innerText = prettierVersion;
 
   var clipboard = new Clipboard(".copy-markdown", {
     text: function() {
@@ -239,7 +253,7 @@ var util = (function() {
     var optionsString = formatCLIOptions(cliOptions);
 
     return [
-      "**Prettier " + version + " / master**",
+      "**Prettier " + version,
       "[Playground link](" + url + ")",
       optionsString === "" ? null : codeBlock(optionsString),
       "",

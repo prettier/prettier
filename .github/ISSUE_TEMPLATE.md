@@ -8,7 +8,7 @@ Tip! Don't write this stuff manually.
 
 -->
 
-**Prettier Version:** 1.6.1 / master
+**Prettier Version:** 1.6.1
 ([Playground link](https://prettier.io/playground/#.....))
 
 **Input:**

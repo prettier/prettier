@@ -63,7 +63,12 @@ self.onmessage = function(message) {
     }
   }
 
-  self.postMessage({ formatted: formatted, doc: doc, ast: ast });
+  self.postMessage({
+    formatted: formatted,
+    doc: doc,
+    ast: ast,
+    version: prettier.version
+  });
 };
 
 function formatCode(text, options) {
