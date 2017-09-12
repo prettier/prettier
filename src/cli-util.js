@@ -17,6 +17,8 @@ const constant = require("./cli-constant");
 const validator = require("./cli-validator");
 const apiDefaultOptions = require("./options").defaults;
 
+const OPTION_USAGE_THRESHOLD = 25;
+
 function getOptions(argv) {
   return constant.detailOptions
     .filter(option => option.forwardToApi)
@@ -343,32 +345,29 @@ function createUsage() {
       // put unordered category before 'Other'
       categoryOrder.splice(-1, 0, category);
     }
-
-    for (let i = groupedOptions[category].length - 1; i >= 0; i--) {
-      const option = groupedOptions[category][i];
-
-      if (option.oppositeDescription) {
-        groupedOptions[category].splice(
-          i + 1, // put `no-option` after `option`
-          0,
-          Object.assign({}, option, {
-            name: `no-${option.name}`,
-            type: "boolean",
-            description: option.oppositeDescription
-          })
-        );
-      }
-    }
   });
 
   const optionsUsage = categoryOrder.map(category => {
-    return `${category} options:\n\n${indent(
-      groupedOptions[category]
-        .filter(option => option.description)
-        .map(option => createOptionUsage(option, 25))
-        .join("\n"),
-      2
-    )}`;
+    const categoryOptions = [].concat
+      .apply(
+        [],
+        groupedOptions[category].map(option => [
+          option.description &&
+            createOptionUsage(option, OPTION_USAGE_THRESHOLD),
+          option.oppositeDescription &&
+            createOptionUsage(
+              Object.assign({}, option, {
+                name: `no-${option.name}`,
+                type: "boolean",
+                description: option.oppositeDescription
+              }),
+              OPTION_USAGE_THRESHOLD
+            )
+        ])
+      )
+      .filter(Boolean)
+      .join("\n");
+    return `${category} options:\n\n${indent(categoryOptions, 2)}`;
   });
 
   return [usageSummary].concat(optionsUsage, [""]).join("\n\n");
