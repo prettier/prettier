@@ -57,15 +57,9 @@ resolveConfig.sync = (filePath, opts) => {
 };
 
 function helper(result, filePath, editorConfigged) {
-  if (!result) {
-    return null;
-  }
+  const config = result && result.config;
 
-  return Object.assign(
-    {},
-    editorConfigged,
-    mergeOverrides(result.config, filePath)
-  );
+  return Object.assign({}, editorConfigged, mergeOverrides(config, filePath));
 }
 
 function clearCache() {
