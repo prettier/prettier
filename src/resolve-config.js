@@ -30,13 +30,12 @@ function editorConfigToPrettier(editorConfig) {
 
 function resolveConfig(filePath, opts) {
   const useCache = !(opts && opts.useCache === false);
-  return (useCache ? asyncWithCache : asyncNoCache)
-    .load(filePath)
-    .then(result => {
-      return Promise.resolve(
-        filePath && editorconfig.parse(filePath).then(editorConfigToPrettier)
-      ).then(editorConfigged => helper(result, filePath, editorConfigged));
-    });
+  return Promise.all([
+    (useCache ? asyncWithCache : asyncNoCache).load(filePath),
+    filePath && editorconfig.parse(filePath).then(editorConfigToPrettier)
+  ]).then(([result, editorConfigged]) =>
+    helper(result, filePath, editorConfigged)
+  );
 }
 
 resolveConfig.sync = (filePath, opts) => {
