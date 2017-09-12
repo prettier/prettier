@@ -10,9 +10,8 @@ const asyncNoCache = cosmiconfig("prettier", { cache: false });
 const syncWithCache = cosmiconfig("prettier", { sync: true });
 const syncNoCache = cosmiconfig("prettier", { cache: false, sync: true });
 
-const editorconfigAsyncNoCache = filePath => {
-  return filePath && editorconfig.parse(filePath).then(editorConfigToPrettier);
-};
+const editorconfigAsyncNoCache = filePath =>
+  filePath && editorconfig.parse(filePath).then(editorConfigToPrettier);
 const editorconfigAsyncWithCache = mem(editorconfigAsyncNoCache);
 const editorconfigSyncNoCache = filePath =>
   filePath && editorConfigToPrettier(editorconfig.parseSync(filePath));
