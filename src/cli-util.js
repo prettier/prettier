@@ -343,7 +343,7 @@ function createUsage() {
     .filter(Boolean);
 
   const groupedOptions = flattenedOptions.reduce((current, option) => {
-    const category = capitalize(option.category);
+    const category = option.category;
     const group = (current[category] = current[category] || []);
     group.push(option);
     return current;
@@ -351,8 +351,12 @@ function createUsage() {
 
   const usageSummary = "Usage: prettier [opts] [filename ...]";
 
-  const firstCategories = ["Command", "Format", "Config"];
-  const lastCategories = ["Other"];
+  const firstCategories = [
+    constant.CATEGORY_COMMAND,
+    constant.CATEGORY_FORMAT,
+    constant.CATEGORY_CONFIG
+  ];
+  const lastCategories = [constant.CATEGORY_OTHER];
   const allCategories = firstCategories.concat(
     Object.keys(groupedOptions).filter(
       category =>
@@ -403,10 +407,6 @@ function createOptionUsage(option, threshold) {
   return (
     header + option.description.replace(/\n/g, "\n" + " ".repeat(threshold))
   );
-}
-
-function capitalize(str) {
-  return str.replace(/^[a-z]/, char => char.toUpperCase());
 }
 
 function indent(str, spaces) {

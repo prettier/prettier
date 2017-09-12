@@ -1,5 +1,10 @@
 "use strict";
 
+const CATEGORY_COMMAND = "Command";
+const CATEGORY_CONFIG = "Config";
+const CATEGORY_FORMAT = "Format";
+const CATEGORY_OTHER = "Other";
+
 /**
  * {
  *   [name]: {
@@ -45,7 +50,7 @@
 const detailOptions = normalizeDetailOptions({
   "bracket-spacing": {
     type: "boolean",
-    category: "format",
+    category: CATEGORY_FORMAT,
     forwardToApi: true,
     oppositeDescription: "Do not print spaces between brackets."
   },
@@ -60,14 +65,14 @@ const detailOptions = normalizeDetailOptions({
   },
   config: {
     type: "path",
-    category: "config",
+    category: CATEGORY_CONFIG,
     description:
       "Path to a prettier configuration file (.prettierrc, package.json, prettier.config.js).",
     oppositeDescription: "Do not look for a configuration file."
   },
   "config-precedence": {
     type: "choice",
-    category: "config",
+    category: CATEGORY_CONFIG,
     default: "cli-override",
     choices: ["cli-override", "file-override", "prefer-file"],
     description: dedent(`
@@ -96,25 +101,25 @@ const detailOptions = normalizeDetailOptions({
   },
   "find-config-path": {
     type: "path",
-    category: "command",
+    category: CATEGORY_COMMAND,
     description:
       "Finds and prints the path to a configuration file for a given input file."
   },
   "flow-parser": {
     // Deprecated in 0.0.10
     type: "boolean",
-    category: "format",
+    category: CATEGORY_FORMAT,
     deprecated: "Use `--parser flow` instead."
   },
   help: {
     type: "boolean",
-    category: "command",
+    category: CATEGORY_COMMAND,
     alias: "h",
     description: "Show help."
   },
   "ignore-path": {
     type: "path",
-    category: "config",
+    category: CATEGORY_CONFIG,
     default: ".prettierignore",
     description: dedent(`
       Path to a file containing patterns that describe files to ignore.
@@ -123,20 +128,20 @@ const detailOptions = normalizeDetailOptions({
   },
   "jsx-bracket-same-line": {
     type: "boolean",
-    category: "format",
+    category: CATEGORY_FORMAT,
     forwardToApi: true,
     description: "Put > on the last line instead of at a new line."
   },
   "list-different": {
     type: "boolean",
-    category: "command",
+    category: CATEGORY_COMMAND,
     alias: "l",
     description:
       "Print filenames of files that are different from Prettier formatting."
   },
   parser: {
     type: "choice",
-    category: "format",
+    category: CATEGORY_FORMAT,
     forwardToApi: true,
     exception: value => typeof value === "string", // allow path to a parser module
     choices: ["flow", "babylon", "typescript", "postcss", "json", "graphql"],
@@ -145,14 +150,14 @@ const detailOptions = normalizeDetailOptions({
   },
   "print-width": {
     type: "int",
-    category: "format",
+    category: CATEGORY_FORMAT,
     forwardToApi: true,
     description:
       "Specify the length of line that the printer will wrap on. Defaults to 80."
   },
   "range-end": {
     type: "int",
-    category: "format",
+    category: CATEGORY_FORMAT,
     forwardToApi: true,
     exception: Infinity,
     description: dedent(`
@@ -164,7 +169,7 @@ const detailOptions = normalizeDetailOptions({
   },
   "range-start": {
     type: "int",
-    category: "format",
+    category: CATEGORY_FORMAT,
     forwardToApi: true,
     description: dedent(`
       Format code starting at a given character offset.
@@ -175,14 +180,14 @@ const detailOptions = normalizeDetailOptions({
   },
   semi: {
     type: "boolean",
-    category: "format",
+    category: CATEGORY_FORMAT,
     forwardToApi: true,
     oppositeDescription:
       "Do not print semicolons, except at the beginning of lines which may need them."
   },
   "single-quote": {
     type: "boolean",
-    category: "format",
+    category: CATEGORY_FORMAT,
     forwardToApi: true,
     description: "Use single quotes instead of double quotes."
   },
@@ -197,14 +202,14 @@ const detailOptions = normalizeDetailOptions({
   },
   "tab-width": {
     type: "int",
-    category: "format",
+    category: CATEGORY_FORMAT,
     forwardToApi: true,
     description:
       "Specify the number of spaces per indentation-level. Defaults to 2."
   },
   "trailing-comma": {
     type: "choice",
-    category: "format",
+    category: CATEGORY_FORMAT,
     forwardToApi: true,
     choices: [
       "none",
@@ -217,24 +222,24 @@ const detailOptions = normalizeDetailOptions({
   },
   "use-tabs": {
     type: "boolean",
-    category: "format",
+    category: CATEGORY_FORMAT,
     forwardToApi: true,
     description: "Indent lines with tabs instead of spaces."
   },
   version: {
     type: "boolean",
-    category: "command",
+    category: CATEGORY_COMMAND,
     alias: "v",
     description: "Print Prettier version."
   },
   "with-node-modules": {
     type: "boolean",
-    category: "config",
+    category: CATEGORY_CONFIG,
     description: "Process files inside 'node_modules' directory."
   },
   write: {
     type: "boolean",
-    category: "command",
+    category: CATEGORY_COMMAND,
     description: "Edit the file in-place. (Beware!)"
   }
 });
@@ -284,7 +289,7 @@ function normalizeDetailOptions(rawDetailOptions) {
     const option = rawDetailOptions[name];
     return Object.assign({}, option, {
       name,
-      category: option.category || "other",
+      category: option.category || CATEGORY_OTHER,
       forwardToApi:
         option.forwardToApi &&
         (typeof option.forwardToApi === "string"
@@ -308,6 +313,10 @@ const detailOptionMap = detailOptions.reduce(
 );
 
 module.exports = {
+  CATEGORY_COMMAND,
+  CATEGORY_CONFIG,
+  CATEGORY_FORMAT,
+  CATEGORY_OTHER,
   minimistOptions,
   detailOptions,
   detailOptionMap
