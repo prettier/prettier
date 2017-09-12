@@ -56,6 +56,10 @@ resolveConfig.sync = (filePath, opts) => {
 };
 
 function helper(result, filePath, editorConfigged) {
+  if (!filePath) {
+    return null;
+  }
+
   const config = result && result.config;
 
   return Object.assign({}, editorConfigged, mergeOverrides(config, filePath));
