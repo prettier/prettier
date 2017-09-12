@@ -346,7 +346,8 @@ function genericPrintNoParens(path, options, print, args) {
           parentParent.type === "JSXAttribute") ||
         (n === parent.body && parent.type === "ArrowFunctionExpression") ||
         (n !== parent.body && parent.type === "ForStatement") ||
-        parent.type === "ConditionalExpression";
+        (parent.type === "ConditionalExpression" &&
+          parentParent.type !== "ReturnStatement");
 
       const shouldIdentIfInlining =
         parent.type === "AssignmentExpression" ||
@@ -366,13 +367,22 @@ function genericPrintNoParens(path, options, print, args) {
 
       const rest = concat(parts.slice(1));
 
+      // Break the closing paren to keep the chain right after it:
+      // (a &&
+      //   b &&
+      //   c
+      // ).call()
+      const breakClosingParen =
+        parent.type === "MemberExpression" && !parent.computed;
+
       return group(
         concat([
           // Don't include the initial expression in the indentation
           // level. The first item is guaranteed to be the first
           // left-most expression.
           parts.length > 0 ? parts[0] : "",
-          indent(rest)
+          indent(rest),
+          breakClosingParen ? softline : ""
         ])
       );
     }
@@ -1308,10 +1318,19 @@ function genericPrintNoParens(path, options, print, args) {
           ? parent === firstNonConditionalParent ? group(doc) : doc
           : group(doc); // Always group in normal mode.
 
+      // Break the closing paren to keep the chain right after it:
+      // (a
+      //   ? b
+      //   : c
+      // ).call()
+      const breakClosingParen =
+        !jsxMode && parent.type === "MemberExpression" && !parent.computed;
+
       return maybeGroup(
         concat([
           path.call(print, "test"),
-          forceNoIndent ? concat(parts) : indent(concat(parts))
+          forceNoIndent ? concat(parts) : indent(concat(parts)),
+          breakClosingParen ? softline : ""
         ])
       );
     }
@@ -3700,12 +3719,7 @@ function printMemberChain(path, options, print) {
 
   // If we only have a single `.`, we shouldn't do anything fancy and just
   // render everything concatenated together.
-  if (
-    groups.length <= cutoff &&
-    !hasComment &&
-    // (a || b).map() should be break before .map() instead of ||
-    groups[0][0].node.type !== "LogicalExpression"
-  ) {
+  if (groups.length <= cutoff && !hasComment) {
     return group(oneLine);
   }
 
