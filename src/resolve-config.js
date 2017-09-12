@@ -33,9 +33,9 @@ function resolveConfig(filePath, opts) {
   return (useCache ? asyncWithCache : asyncNoCache)
     .load(filePath)
     .then(result => {
-      const editorConfigged =
-        filePath && editorConfigToPrettier(editorconfig.parseSync(filePath));
-      return helper(result, filePath, editorConfigged);
+      return Promise.resolve(
+        filePath && editorconfig.parse(filePath).then(editorConfigToPrettier)
+      ).then(editorConfigged => helper(result, filePath, editorConfigged));
     });
 }
 
