@@ -7,35 +7,35 @@
  *     // and also be displayed in usage as `--option <type>` except `choice`
  *     // there is also additional check for 'choice' (see `choices`) and 'int'
  *     type: 'boolean' | 'choice' | 'int' | string;
- *     
+ *
  *     // default value to be passed in minimist option `default`
  *     default?: any;
- *  
+ *
  *     // alias name to be passed in minimist option `alias`
  *     alias?: string;
- * 
+ *
  *     // for categorizing option in usage
- *     category?: string; 
- *     
+ *     category?: string;
+ *
  *     // description to be displayed in usage
  *     description?: string;
- * 
+ *
  *     // description for its no-option (`no-${name}`) to be displayed in usage
  *     oppositeDescription?: string;
- *     
+ *
  *     // indicate if this option is also used for api
  *     // true: use camelified name as api key
  *     // string: use this value as api key
  *     forwardToApi?: boolean | string;
- *     
+ *
  *     // specify available choices, and will be also displayed in usage as <a|b|c>
  *     // use object choice if it's a deprecated value and should be treated as `redirect`
  *     choices?: Array<string | { value: string, deprecated: boolean, redirect: string }>;
- *     
+ *
  *     // an exception value or function to indicate if the value is an exception
  *     // exception value will not be checked regardless of any constraint
  *     exception?: any | ((value: any) => boolean);
- *     
+ *
  *     // function to get its value, usually use for deprecated option
  *     // `--parser` for example: (value, argv) => argv["flow-parser"] ? "flow" : value
  *     getter?: (value: any, argv: any) => any;
