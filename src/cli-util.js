@@ -334,7 +334,7 @@ function createUsage() {
     return current;
   }, {});
 
-  let usage = "Usage: prettier [opts] [filename ...]\n\n";
+  const usageSummary = "Usage: prettier [opts] [filename ...]";
 
   const categoryOrder = ["Command", "Format", "Config", "Other"];
 
@@ -361,19 +361,17 @@ function createUsage() {
     }
   });
 
-  usage += categoryOrder
-    .map(category => {
-      return `${category} options:\n\n${indent(
-        groupedOptions[category]
-          .filter(option => option.description)
-          .map(option => createOptionUsage(option, 25))
-          .join("\n"),
-        2
-      )}`;
-    })
-    .join("\n\n");
+  const optionsUsage = categoryOrder.map(category => {
+    return `${category} options:\n\n${indent(
+      groupedOptions[category]
+        .filter(option => option.description)
+        .map(option => createOptionUsage(option, 25))
+        .join("\n"),
+      2
+    )}`;
+  });
 
-  return usage + "\n\n";
+  return [usageSummary].concat(optionsUsage, [""]).join("\n\n");
 }
 
 function createOptionUsage(option, threshold) {
