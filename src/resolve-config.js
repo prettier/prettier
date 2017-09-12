@@ -2,12 +2,21 @@
 
 const cosmiconfig = require("cosmiconfig");
 const editorconfig = require("editorconfig");
+const mem = require("mem");
 const minimatch = require("minimatch");
 
 const asyncWithCache = cosmiconfig("prettier");
 const asyncNoCache = cosmiconfig("prettier", { cache: false });
 const syncWithCache = cosmiconfig("prettier", { sync: true });
 const syncNoCache = cosmiconfig("prettier", { cache: false, sync: true });
+
+const editorconfigAsyncNoCache = filePath => {
+  return filePath && editorconfig.parse(filePath).then(editorConfigToPrettier);
+};
+const editorconfigAsyncWithCache = mem(editorconfigAsyncNoCache);
+const editorconfigSyncNoCache = filePath =>
+  filePath && editorConfigToPrettier(editorconfig.parseSync(filePath));
+const editorconfigSyncWithCache = mem(editorconfigSyncNoCache);
 
 function editorConfigToPrettier(editorConfig) {
   const result = {};
@@ -32,7 +41,7 @@ function resolveConfig(filePath, opts) {
   const useCache = !(opts && opts.useCache === false);
   return Promise.all([
     (useCache ? asyncWithCache : asyncNoCache).load(filePath),
-    filePath && editorconfig.parse(filePath).then(editorConfigToPrettier)
+    (useCache ? editorconfigAsyncWithCache : editorconfigAsyncNoCache)(filePath)
   ]).then(([result, editorConfigged]) =>
     helper(result, filePath, editorConfigged)
   );
@@ -41,8 +50,9 @@ function resolveConfig(filePath, opts) {
 resolveConfig.sync = (filePath, opts) => {
   const useCache = !(opts && opts.useCache === false);
   const result = (useCache ? syncWithCache : syncNoCache).load(filePath);
-  const editorConfigged =
-    filePath && editorConfigToPrettier(editorconfig.parseSync(filePath));
+  const editorConfigged = (useCache
+    ? editorconfigSyncWithCache
+    : editorconfigSyncNoCache)(filePath);
   return helper(result, filePath, editorConfigged);
 };
 
@@ -61,6 +71,9 @@ function helper(result, filePath, editorConfigged) {
 function clearCache() {
   syncWithCache.clearCaches();
   asyncWithCache.clearCaches();
+
+  editorconfigSyncWithCache.clear();
+  editorconfigAsyncWithCache.clear();
 }
 
 function resolveConfigFile(filePath) {
