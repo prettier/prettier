@@ -367,36 +367,36 @@ function createUsage() {
 }
 
 function createOptionUsage(option, threshold) {
-  let header = `--${option.name}`;
+  const name = `--${option.name}`;
+  const alias = option.alias ? `or -${option.alias}` : null;
+  const type = createOptionUsageType(option);
+  const header = [name, alias, type].filter(Boolean).join(" ");
 
-  if (option.alias) {
-    header += ` or -${option.alias}`;
-  }
+  const separator =
+    header.length >= threshold
+      ? `\n${" ".repeat(threshold)}`
+      : " ".repeat(threshold - header.length);
 
+  const description = option.description.replace(
+    /\n/g,
+    `\n${" ".repeat(threshold)}`
+  );
+
+  return `${header}${separator}${description}`;
+}
+
+function createOptionUsageType(option) {
   switch (option.type) {
     case "boolean":
-      // do nothing
-      break;
+      return null;
     case "choice":
-      header += ` <${option.choices
+      return `<${option.choices
         .filter(choice => !choice.deprecated)
         .map(choice => choice.value)
         .join("|")}>`;
-      break;
     default:
-      header += ` <${option.type}>`;
-      break;
+      return `<${option.type}>`;
   }
-
-  if (header.length >= threshold) {
-    header += "\n" + " ".repeat(threshold);
-  } else {
-    header += " ".repeat(threshold - header.length);
-  }
-
-  return (
-    header + option.description.replace(/\n/g, "\n" + " ".repeat(threshold))
-  );
 }
 
 function indent(str, spaces) {
