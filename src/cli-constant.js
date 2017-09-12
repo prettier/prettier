@@ -7,45 +7,59 @@ const CATEGORY_OTHER = "Other";
 
 /**
  * {
- *   [name]: {
- *     // non-boolean will be treated as string to be passed in minimist
- *     // and also be displayed in usage as `--option <type>` except `choice`
- *     // there is also additional check for 'choice' (see `choices`) and 'int'
- *     type: 'boolean' | 'choice' | 'int' | string;
+ *   [optionName]: {
+ *     // The type of the option. For 'choice', see also `choices` below.
+ *     // When passing a type other than the ones listed below, the option is
+ *     // treated as taking any string as argument, and `--option <${type}>` will
+ *     // be displayed in --help.
+ *     type: "boolean" | "choice" | "int" | string;
  *
- *     // default value to be passed in minimist option `default`
+ *     // Default value to be passed to the minimist option `default`.
  *     default?: any;
  *
- *     // alias name to be passed in minimist option `alias`
+ *     // Alias name to be passed to the minimist option `alias`.
  *     alias?: string;
  *
- *     // for categorizing option in usage
+ *     // For grouping options by category in --help.
  *     category?: string;
  *
- *     // description to be displayed in usage
+ *     // Description to be displayed in --help. If omitted, the option won't be
+ *     // shown at all in --help (but see also `oppositeDescription` below).
  *     description?: string;
  *
- *     // description for its no-option (`no-${name}`) to be displayed in usage
+ *     // Description for `--no-${name}` to be displayed in --help. If omitted,
+ *     // `--no-${name}` won't be shown.
  *     oppositeDescription?: string;
  *
- *     // indicate if this option is also used for api
- *     // true: use camelified name as api key
- *     // string: use this value as api key
+ *     // Indicate if this option is simply passed to the API.
+ *     // true: use camelified name as the API option name.
+ *     // string: use this value as the API option name.
  *     forwardToApi?: boolean | string;
  *
- *     // specify available choices, and will be also displayed in usage as <a|b|c>
- *     // use object choice if it's a deprecated value and should be treated as `redirect`
+ *     // Specify available choices for validation. They will also be displayed
+ *     // in --help as <a|b|c>.
+ *     // Use an object instead of a string if a choice is deprecated and should
+ *     // be treated as `redirect` instead.
  *     choices?: Array<string | { value: string, deprecated: boolean, redirect: string }>;
  *
- *     // an exception value or function to indicate if the value is an exception
- *     // exception value will not be checked regardless of any constraint
+ *     // If the option has a value that is an exception to the regular value
+ *     // constraints, indicate that value here (or use a function for more
+ *     // flexibility).
  *     exception?: any | ((value: any) => boolean);
  *
- *     // function to get its value, usually use for deprecated option
- *     // `--parser` for example: (value, argv) => argv["flow-parser"] ? "flow" : value
+ *     // Indicate that the option is deprecated. Use a string to add an extra
+ *     // message to --help for the option, for example to suggest a replacement
+ *     // option.
+ *     deprecated?: true | string;
+ *
+ *     // Custom function to get the value for the option. Useful for handling
+ *     // deprecated options.
+ *     // --parser example: (value, argv) => argv["flow-parser"] ? "flow" : value
  *     getter?: (value: any, argv: any) => any;
  *   }
  * }
+ *
+ * Note: The options below are sorted alphabetically.
  */
 const detailOptions = normalizeDetailOptions({
   "bracket-spacing": {
