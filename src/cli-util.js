@@ -328,6 +328,7 @@ function formatFiles(argv) {
 
 function createUsage() {
   const options = constant.detailOptions;
+  // Add --no-foo after --foo.
   const optionsWithOpposites = options.map(option => [
     option.description ? option : null,
     option.oppositeDescription
@@ -352,14 +353,12 @@ function createUsage() {
     constant.CATEGORY_CONFIG
   ];
   const lastCategories = [constant.CATEGORY_OTHER];
-  const allCategories = firstCategories.concat(
-    Object.keys(groupedOptions).filter(
-      category =>
-        firstCategories.indexOf(category) === -1 &&
-        lastCategories.indexOf(category) === -1
-    ),
-    lastCategories
+  const restCategories = Object.keys(groupedOptions).filter(
+    category =>
+      firstCategories.indexOf(category) === -1 &&
+      lastCategories.indexOf(category) === -1
   );
+  const allCategories = firstCategories.concat(restCategories, lastCategories);
 
   const optionsUsage = allCategories.map(category => {
     const categoryOptions = groupedOptions[category]
