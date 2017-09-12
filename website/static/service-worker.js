@@ -22,7 +22,9 @@ toolbox.precache([
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/codemirror.css",
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/theme/neat.css",
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/codemirror.js",
+  "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/addon/mode/loadmode.js",
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/mode/javascript/javascript.js",
+  "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/mode/css/css.js",
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/addon/display/rulers.js",
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/addon/search/searchcursor.js",
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/addon/edit/matchbrackets.js",
@@ -30,6 +32,7 @@ toolbox.precache([
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/addon/comment/comment.js",
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/addon/wrap/hardwrap.js",
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/keymap/sublime.js",
+  "https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js",
 
   // Images
   "/prettier.png"
