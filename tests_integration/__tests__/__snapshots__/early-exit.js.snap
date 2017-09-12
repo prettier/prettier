@@ -3,15 +3,6 @@
 exports[`show usage with --help 1`] = `
 "Usage: prettier [opts] [filename ...]
 
-Command options:
-
-  --find-config-path <path>
-                           Find and print the path to a configuration file for the given input file.
-  --help or -h             Show help.
-  --list-different or -l   Print the names of files that are different from Prettier's formatting.
-  --version or -v          Print Prettier version.
-  --write                  Edit files in-place. (Beware!)
-
 Format options:
 
   --no-bracket-spacing     Do not print spaces between brackets.
@@ -19,14 +10,6 @@ Format options:
   --parser <flow|babylon|typescript|postcss|json|graphql>
                            Which parser to use. Defaults to babylon.
   --print-width <int>      The line length where Prettier will try wrap. Defaults to 80.
-  --range-end <int>        Format code ending at a given character offset (exclusive).
-                           The range will extend forwards to the end of the selected statement.
-                           This option cannot be used with --cursor-offset.
-                           Defaults to Infinity.
-  --range-start <int>      Format code starting at a given character offset.
-                           The range will extend backwards to the start of the first line containing the selected statement.
-                           This option cannot be used with --cursor-offset.
-                           Defaults to 0.
   --no-semi                Do not print semicolons, except at the beginning of lines which may need them.
   --single-quote           Use single quotes instead of double quotes.
   --tab-width <int>        Number of spaces per indentation level. Defaults to 2.
@@ -45,6 +28,8 @@ Config options:
                            prefer-file   | default config => config file (if config file is found) or
                                            default config => CLI options (if no config file is found)
                            Defaults to cli-override.
+  --find-config-path <path>
+                           Find and print the path to a configuration file for the given input file.
   --ignore-path <path>     Path to a file with patterns describing files to ignore.
                            Defaults to ./.prettierignore.
   --with-node-modules      Process files inside 'node_modules' directory.
@@ -54,8 +39,20 @@ Other options:
   --no-color               Do not colorize error messages.
   --cursor-offset <int>    Print (to stderr) where a cursor at the given position would move to after formatting.
                            This option cannot be used with --range-start and --range-end.
+  --help or -h             Show help.
+  --list-different or -l   Print the names of files that are different from Prettier's formatting.
+  --range-end <int>        Format code ending at a given character offset (exclusive).
+                           The range will extend forwards to the end of the selected statement.
+                           This option cannot be used with --cursor-offset.
+                           Defaults to Infinity.
+  --range-start <int>      Format code starting at a given character offset.
+                           The range will extend backwards to the start of the first line containing the selected statement.
+                           This option cannot be used with --cursor-offset.
+                           Defaults to 0.
   --stdin                  Read input from stdin.
   --stdin-filepath <path>  Path to the file to pretend that stdin comes from.
+  --version or -v          Print Prettier version.
+  --write                  Edit files in-place. (Beware!)
 
 
 "
@@ -64,15 +61,6 @@ Other options:
 exports[`throw error and show usage with something unexpected 1`] = `
 "Usage: prettier [opts] [filename ...]
 
-Command options:
-
-  --find-config-path <path>
-                           Find and print the path to a configuration file for the given input file.
-  --help or -h             Show help.
-  --list-different or -l   Print the names of files that are different from Prettier's formatting.
-  --version or -v          Print Prettier version.
-  --write                  Edit files in-place. (Beware!)
-
 Format options:
 
   --no-bracket-spacing     Do not print spaces between brackets.
@@ -80,14 +68,6 @@ Format options:
   --parser <flow|babylon|typescript|postcss|json|graphql>
                            Which parser to use. Defaults to babylon.
   --print-width <int>      The line length where Prettier will try wrap. Defaults to 80.
-  --range-end <int>        Format code ending at a given character offset (exclusive).
-                           The range will extend forwards to the end of the selected statement.
-                           This option cannot be used with --cursor-offset.
-                           Defaults to Infinity.
-  --range-start <int>      Format code starting at a given character offset.
-                           The range will extend backwards to the start of the first line containing the selected statement.
-                           This option cannot be used with --cursor-offset.
-                           Defaults to 0.
   --no-semi                Do not print semicolons, except at the beginning of lines which may need them.
   --single-quote           Use single quotes instead of double quotes.
   --tab-width <int>        Number of spaces per indentation level. Defaults to 2.
@@ -106,6 +86,8 @@ Config options:
                            prefer-file   | default config => config file (if config file is found) or
                                            default config => CLI options (if no config file is found)
                            Defaults to cli-override.
+  --find-config-path <path>
+                           Find and print the path to a configuration file for the given input file.
   --ignore-path <path>     Path to a file with patterns describing files to ignore.
                            Defaults to ./.prettierignore.
   --with-node-modules      Process files inside 'node_modules' directory.
@@ -115,8 +97,20 @@ Other options:
   --no-color               Do not colorize error messages.
   --cursor-offset <int>    Print (to stderr) where a cursor at the given position would move to after formatting.
                            This option cannot be used with --range-start and --range-end.
+  --help or -h             Show help.
+  --list-different or -l   Print the names of files that are different from Prettier's formatting.
+  --range-end <int>        Format code ending at a given character offset (exclusive).
+                           The range will extend forwards to the end of the selected statement.
+                           This option cannot be used with --cursor-offset.
+                           Defaults to Infinity.
+  --range-start <int>      Format code starting at a given character offset.
+                           The range will extend backwards to the start of the first line containing the selected statement.
+                           This option cannot be used with --cursor-offset.
+                           Defaults to 0.
   --stdin                  Read input from stdin.
   --stdin-filepath <path>  Path to the file to pretend that stdin comes from.
+  --version or -v          Print Prettier version.
+  --write                  Edit files in-place. (Beware!)
 
 
 "

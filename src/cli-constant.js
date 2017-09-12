@@ -1,6 +1,5 @@
 "use strict";
 
-const CATEGORY_COMMAND = "Command";
 const CATEGORY_CONFIG = "Config";
 const CATEGORY_FORMAT = "Format";
 const CATEGORY_OTHER = "Other";
@@ -115,7 +114,7 @@ const detailedOptions = normalizeDetailedOptions({
   },
   "find-config-path": {
     type: "path",
-    category: CATEGORY_COMMAND,
+    category: CATEGORY_CONFIG,
     description:
       "Find and print the path to a configuration file for the given input file."
   },
@@ -127,7 +126,6 @@ const detailedOptions = normalizeDetailedOptions({
   },
   help: {
     type: "boolean",
-    category: CATEGORY_COMMAND,
     alias: "h",
     description: "Show help."
   },
@@ -148,7 +146,6 @@ const detailedOptions = normalizeDetailedOptions({
   },
   "list-different": {
     type: "boolean",
-    category: CATEGORY_COMMAND,
     alias: "l",
     description:
       "Print the names of files that are different from Prettier's formatting."
@@ -170,7 +167,6 @@ const detailedOptions = normalizeDetailedOptions({
   },
   "range-end": {
     type: "int",
-    category: CATEGORY_FORMAT,
     forwardToApi: true,
     exception: Infinity,
     description: dedent(`
@@ -182,7 +178,6 @@ const detailedOptions = normalizeDetailedOptions({
   },
   "range-start": {
     type: "int",
-    category: CATEGORY_FORMAT,
     forwardToApi: true,
     description: dedent(`
       Format code starting at a given character offset.
@@ -240,7 +235,6 @@ const detailedOptions = normalizeDetailedOptions({
   },
   version: {
     type: "boolean",
-    category: CATEGORY_COMMAND,
     alias: "v",
     description: "Print Prettier version."
   },
@@ -251,7 +245,6 @@ const detailedOptions = normalizeDetailedOptions({
   },
   write: {
     type: "boolean",
-    category: CATEGORY_COMMAND,
     description: "Edit files in-place. (Beware!)"
   }
 });
@@ -325,7 +318,6 @@ const detailedOptionMap = detailedOptions.reduce(
 );
 
 module.exports = {
-  CATEGORY_COMMAND,
   CATEGORY_CONFIG,
   CATEGORY_FORMAT,
   CATEGORY_OTHER,

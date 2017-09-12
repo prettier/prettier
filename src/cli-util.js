@@ -347,11 +347,7 @@ function createUsage() {
 
   const usageSummary = "Usage: prettier [opts] [filename ...]";
 
-  const firstCategories = [
-    constant.CATEGORY_COMMAND,
-    constant.CATEGORY_FORMAT,
-    constant.CATEGORY_CONFIG
-  ];
+  const firstCategories = [constant.CATEGORY_FORMAT, constant.CATEGORY_CONFIG];
   const lastCategories = [constant.CATEGORY_OTHER];
   const restCategories = Object.keys(groupedOptions).filter(
     category =>
