@@ -32,13 +32,29 @@ var state = (function loadState(hash) {
   } catch (error) {
     return {
       options: undefined,
-      content:
-        'hello ( "world"\n);\n\n' +
-        '[ "lorem", "ipsum", \'dolor\', sit("amet"), consectetur[ \'adipiscing\' ] + "elit" ].reduce(\n  (first, second) => first + second,\n  "")\n\n' +
-        "const Foo = ({ bar, baz, things }) => {\n" +
-        '  return <div style={{\ncolor: "papayawhip"}}>\n' +
-        "    <br/>{things.map(thing => reallyLongPleaseDontPutOnOneLine(thing) ? <p>{ok}</p> : <Quax bar={bar} baz={ baz } {...thing}></Quax>)\n" +
-        "  }</div>}"
+      content: [
+        'function HelloWorld({greeting = "hello", greeted = \'"World"\', silent = false, onMouseOver,}) {',
+        "",
+        "  if(!greeting){return null};",
+        "",
+        "     // TODO: Don't use random in render",
+        '  let num = Math.floor (Math.random() * 1E+7).toString().replace(/\\.\\d+/ig, "")',
+        "",
+        "  return <div className='HelloWorld' title={`You are visitor number ${ num }`} onMouseOver={onMouseOver}>",
+        "",
+        "    <strong>{ greeting.slice( 0, 1 ).toUpperCase() + greeting.slice(1).toLowerCase() }</strong>",
+        '    {greeting.endsWith(",") ? " " : <span style={{color: \'\\grey\'}}>", "</span> }',
+        "    <em>",
+        "\t{ greeted }",
+        "\t</em>",
+        "    { (silent)",
+        '      ? "."',
+        '      : "!"}',
+        "",
+        "    </div>;",
+        "",
+        "}"
+      ].join("\n")
     };
   }
 })(decodeURIComponent(location.hash.slice(1)));
