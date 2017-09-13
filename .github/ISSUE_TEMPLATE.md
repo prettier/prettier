@@ -2,22 +2,26 @@
 
 Tip! Don't write this stuff manually.
 
-1. Go to https://prettier.io/playground/
+1. Go to https://prettier.io/playground
 2. Paste your code and set options
-3. Press the "Copy as markdown" button in the upper right
+3. Press the "Report issue" button in the lower right
 
 -->
 
-**Prettier Version:** 1.6.1
-([Playground link](https://prettier.io/playground/#.....))
+**Prettier 1.6.1**
+[Playground link](https://prettier.io/playground/#.....)
+```
+# Options (if any):
+--single-quote
+```
 
 **Input:**
-```js
+```jsx
 // code snippet
 ```
 
 **Output:**
-```js
+```jsx
 // code snippet
 ```
 

@@ -1,6 +1,6 @@
 /* eslint-env browser */
 /* eslint no-var: off, strict: off, prefer-arrow-callback: off */
-/* global Clipboard CodeMirror */
+/* global Clipboard CodeMirror formatMarkdown */
 
 var prettierVersion = "?";
 var inputEditor;
@@ -62,7 +62,7 @@ worker.onmessage = function(message) {
           : message.data.formatted2 || ""
     );
     document.getElementById("button-report-issue").search =
-      "body=" + encodeURIComponent(createIssueTemplate());
+      "body=" + encodeURIComponent(createMarkdown(true));
   }
 };
 
@@ -224,10 +224,19 @@ function setCodemirrorMode(editor, mode) {
   CodeMirror.autoLoadMode(editor, mode);
 }
 
+function getCodemirrorMode(options) {
+  switch (options.parser) {
+    case "postcss":
+      return "css";
+    default:
+      return "javascript";
+  }
+}
+
 function formatAsync() {
   var options = getOptions();
 
-  var mode = util.getCodemirrorMode(options);
+  var mode = getCodemirrorMode(options);
   setCodemirrorMode(inputEditor, mode);
   setCodemirrorMode(outputEditor, mode);
   setCodemirrorMode(output2Editor, mode);
@@ -258,26 +267,23 @@ function formatAsync() {
   });
 }
 
-function createMarkdown() {
+function createMarkdown(full) {
   var input = inputEditor.getValue();
   var output = outputEditor.getValue();
   var output2 = output2Editor.getValue();
   var options = getOptions();
   var cliOptions = getCLIOptions();
-  var markdown = util.formatMarkdown(
+  var markdown = formatMarkdown(
     input,
     output,
-    output2,
+    output2 === IDEMPOTENT_MESSAGE ? "" : output2,
     prettierVersion,
     window.location.href,
     options,
-    cliOptions
+    cliOptions,
+    full
   );
   return markdown;
-}
-
-function createIssueTemplate() {
-  return [createMarkdown(), "", "**Expected behavior:**", ""].join("\n");
 }
 
 function showTooltip(elem, text) {
@@ -289,93 +295,3 @@ function showTooltip(elem, text) {
     elem.removeChild(tooltip);
   }, 2000);
 }
-
-var util = (function() {
-  function formatMarkdown(
-    input,
-    output,
-    output2,
-    version,
-    url,
-    options,
-    cliOptions
-  ) {
-    var syntax = getMarkdownSyntax(options);
-    var optionsString = formatCLIOptions(cliOptions);
-    var isIdempotent =
-      output2 === "" || output2 === IDEMPOTENT_MESSAGE || output === output2;
-
-    return [
-      "**Prettier " + version + "**",
-      "[Playground link](" + url + ")",
-      optionsString === "" ? null : codeBlock(optionsString),
-      "",
-      "**Input:**",
-      codeBlock(input, syntax),
-      "",
-      "**Output:**",
-      codeBlock(output, syntax)
-    ]
-      .concat(
-        isIdempotent
-          ? []
-          : ["", "**Second Output:**", codeBlock(output2, syntax)]
-      )
-      .filter(function(part) {
-        return part != null;
-      })
-      .join("\n");
-  }
-
-  function getMarkdownSyntax(options) {
-    switch (options.parser) {
-      case "babylon":
-      case "flow":
-        return "jsx";
-      case "typescript":
-        return "tsx";
-      case "postcss":
-        return "scss";
-      default:
-        return options.parser;
-    }
-  }
-
-  function getCodemirrorMode(options) {
-    switch (options.parser) {
-      case "postcss":
-        return "css";
-      default:
-        return "javascript";
-    }
-  }
-
-  function formatCLIOptions(cliOptions) {
-    return cliOptions
-      .map(function(option) {
-        var name = option[0];
-        var value = option[1];
-        return value === true ? name : name + " " + value;
-      })
-      .join("\n");
-  }
-
-  function codeBlock(content, syntax) {
-    var backtickSequences = content.match(/`+/g) || [];
-    var longestBacktickSequenceLength = Math.max.apply(
-      null,
-      backtickSequences.map(function(backticks) {
-        return backticks.length;
-      })
-    );
-    var fenceLength = Math.max(3, longestBacktickSequenceLength + 1);
-    var fence = Array(fenceLength + 1).join("`");
-    return [fence + (syntax || ""), content, fence].join("\n");
-  }
-
-  return {
-    formatMarkdown: formatMarkdown,
-    getMarkdownSyntax: getMarkdownSyntax,
-    getCodemirrorMode: getCodemirrorMode
-  };
-})();
