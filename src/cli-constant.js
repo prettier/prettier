@@ -1,8 +1,10 @@
 "use strict";
 
 const CATEGORY_CONFIG = "Config";
+const CATEGORY_EDITOR = "Editor";
 const CATEGORY_FORMAT = "Format";
 const CATEGORY_OTHER = "Other";
+const CATEGORY_OUTPUT = "Output";
 
 /**
  * {
@@ -99,6 +101,7 @@ const detailedOptions = normalizeDetailedOptions({
   },
   "cursor-offset": {
     type: "int",
+    category: CATEGORY_EDITOR,
     exception: -1,
     forwardToApi: true,
     description: dedent(`
@@ -146,6 +149,7 @@ const detailedOptions = normalizeDetailedOptions({
   },
   "list-different": {
     type: "boolean",
+    category: CATEGORY_OUTPUT,
     alias: "l",
     description:
       "Print the names of files that are different from Prettier's formatting."
@@ -167,6 +171,7 @@ const detailedOptions = normalizeDetailedOptions({
   },
   "range-end": {
     type: "int",
+    category: CATEGORY_EDITOR,
     forwardToApi: true,
     exception: Infinity,
     description: dedent(`
@@ -178,6 +183,7 @@ const detailedOptions = normalizeDetailedOptions({
   },
   "range-start": {
     type: "int",
+    category: CATEGORY_EDITOR,
     forwardToApi: true,
     description: dedent(`
       Format code starting at a given character offset.
@@ -201,7 +207,7 @@ const detailedOptions = normalizeDetailedOptions({
   },
   stdin: {
     type: "boolean",
-    description: "Read input from stdin."
+    description: "Force reading input from stdin."
   },
   "stdin-filepath": {
     type: "path",
@@ -245,6 +251,7 @@ const detailedOptions = normalizeDetailedOptions({
   },
   write: {
     type: "boolean",
+    category: CATEGORY_OUTPUT,
     description: "Edit files in-place. (Beware!)"
   }
 });
@@ -277,6 +284,13 @@ const minimistOptions = {
     }
   }
 };
+
+const usageSummary = `
+Usage: prettier [optionss] [path ...]
+
+By default, output is written to stdout.
+Stdin is read if it is piped to Prettier and no paths are given.
+`.trim();
 
 function dedent(str) {
   const spaces = str.match(/\n^( +)/m)[1].length;
@@ -319,9 +333,12 @@ const detailedOptionMap = detailedOptions.reduce(
 
 module.exports = {
   CATEGORY_CONFIG,
+  CATEGORY_EDITOR,
   CATEGORY_FORMAT,
   CATEGORY_OTHER,
+  CATEGORY_OUTPUT,
   minimistOptions,
   detailedOptions,
-  detailedOptionMap
+  detailedOptionMap,
+  usageSummary
 };

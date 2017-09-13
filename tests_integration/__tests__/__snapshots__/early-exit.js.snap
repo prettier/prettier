@@ -1,7 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`show usage with --help 1`] = `
-"Usage: prettier [opts] [filename ...]
+"Usage: prettier [optionss] [path ...]
+
+By default, output is written to stdout.
+Stdin is read if it is piped to Prettier and no paths are given.
+
+Output options:
+
+  --list-different or -l   Print the names of files that are different from Prettier's formatting.
+  --write                  Edit files in-place. (Beware!)
 
 Format options:
 
@@ -34,13 +42,10 @@ Config options:
                            Defaults to ./.prettierignore.
   --with-node-modules      Process files inside 'node_modules' directory.
 
-Other options:
+Editor options:
 
-  --no-color               Do not colorize error messages.
   --cursor-offset <int>    Print (to stderr) where a cursor at the given position would move to after formatting.
                            This option cannot be used with --range-start and --range-end.
-  --help or -h             Show help.
-  --list-different or -l   Print the names of files that are different from Prettier's formatting.
   --range-end <int>        Format code ending at a given character offset (exclusive).
                            The range will extend forwards to the end of the selected statement.
                            This option cannot be used with --cursor-offset.
@@ -49,17 +54,29 @@ Other options:
                            The range will extend backwards to the start of the first line containing the selected statement.
                            This option cannot be used with --cursor-offset.
                            Defaults to 0.
-  --stdin                  Read input from stdin.
+
+Other options:
+
+  --no-color               Do not colorize error messages.
+  --help or -h             Show help.
+  --stdin                  Force reading input from stdin.
   --stdin-filepath <path>  Path to the file to pretend that stdin comes from.
   --version or -v          Print Prettier version.
-  --write                  Edit files in-place. (Beware!)
 
 
 "
 `;
 
 exports[`throw error and show usage with something unexpected 1`] = `
-"Usage: prettier [opts] [filename ...]
+"Usage: prettier [optionss] [path ...]
+
+By default, output is written to stdout.
+Stdin is read if it is piped to Prettier and no paths are given.
+
+Output options:
+
+  --list-different or -l   Print the names of files that are different from Prettier's formatting.
+  --write                  Edit files in-place. (Beware!)
 
 Format options:
 
@@ -92,13 +109,10 @@ Config options:
                            Defaults to ./.prettierignore.
   --with-node-modules      Process files inside 'node_modules' directory.
 
-Other options:
+Editor options:
 
-  --no-color               Do not colorize error messages.
   --cursor-offset <int>    Print (to stderr) where a cursor at the given position would move to after formatting.
                            This option cannot be used with --range-start and --range-end.
-  --help or -h             Show help.
-  --list-different or -l   Print the names of files that are different from Prettier's formatting.
   --range-end <int>        Format code ending at a given character offset (exclusive).
                            The range will extend forwards to the end of the selected statement.
                            This option cannot be used with --cursor-offset.
@@ -107,10 +121,14 @@ Other options:
                            The range will extend backwards to the start of the first line containing the selected statement.
                            This option cannot be used with --cursor-offset.
                            Defaults to 0.
-  --stdin                  Read input from stdin.
+
+Other options:
+
+  --no-color               Do not colorize error messages.
+  --help or -h             Show help.
+  --stdin                  Force reading input from stdin.
   --stdin-filepath <path>  Path to the file to pretend that stdin comes from.
   --version or -v          Print Prettier version.
-  --write                  Edit files in-place. (Beware!)
 
 
 "
