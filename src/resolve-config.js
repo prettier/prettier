@@ -41,9 +41,11 @@ function resolveConfig(filePath, opts) {
   return Promise.all([
     (useCache ? asyncWithCache : asyncNoCache).load(filePath),
     (useCache ? editorconfigAsyncWithCache : editorconfigAsyncNoCache)(filePath)
-  ]).then((arr /* [result, editorConfigged] */) =>
-    mergeEditorConfig(filePath, arr[0], arr[1])
-  );
+  ]).then(arr => {
+    const result = arr[0];
+    const editorConfigged = arr[1];
+    return mergeEditorConfig(filePath, result, editorConfigged);
+  });
 }
 
 resolveConfig.sync = (filePath, opts) => {
