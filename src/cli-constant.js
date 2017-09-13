@@ -286,10 +286,10 @@ const minimistOptions = {
 };
 
 const usageSummary = `
-Usage: prettier [optionss] [path ...]
+Usage: prettier [options] [file/glob ...]
 
 By default, output is written to stdout.
-Stdin is read if it is piped to Prettier and no paths are given.
+Stdin is read if it is piped to Prettier and no files are given.
 `.trim();
 
 function dedent(str) {

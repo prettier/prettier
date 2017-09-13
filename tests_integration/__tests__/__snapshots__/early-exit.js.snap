@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`show usage with --help 1`] = `
-"Usage: prettier [optionss] [path ...]
+"Usage: prettier [options] [file/glob ...]
 
 By default, output is written to stdout.
-Stdin is read if it is piped to Prettier and no paths are given.
+Stdin is read if it is piped to Prettier and no files are given.
 
 Output options:
 
@@ -68,10 +68,10 @@ Other options:
 `;
 
 exports[`throw error and show usage with something unexpected 1`] = `
-"Usage: prettier [optionss] [path ...]
+"Usage: prettier [options] [file/glob ...]
 
 By default, output is written to stdout.
-Stdin is read if it is piped to Prettier and no paths are given.
+Stdin is read if it is piped to Prettier and no files are given.
 
 Output options:
 
