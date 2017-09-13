@@ -69,8 +69,8 @@ function clearCache() {
   syncWithCache.clearCaches();
   asyncWithCache.clearCaches();
 
-  editorconfigSyncWithCache.clear();
-  editorconfigAsyncWithCache.clear();
+  mem.clear(editorconfigSyncWithCache);
+  mem.clear(editorconfigAsyncWithCache);
 }
 
 function resolveConfigFile(filePath) {
