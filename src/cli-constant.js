@@ -7,7 +7,8 @@ const booleanOptionNames = [
   "bracket-spacing",
   "jsx-bracket-same-line",
   // Deprecated in 0.0.10
-  "flow-parser"
+  "flow-parser",
+  "require-pragma"
 ];
 
 const stringOptionNames = [
@@ -86,6 +87,8 @@ Available options:
                            Finds and prints the path to a configuration file for a given input file.
   --ignore-path <path>     Path to a file containing patterns that describe files to ignore.
                            Defaults to ./.prettierignore.
+  --require-pragma
+                           Require either '@prettier' or '@format' to be present in the file's first docblock comment in order for it to be formatted.
   --stdin                  Read input from stdin.
   --stdin-filepath         Path to the file used to read from stdin.
   --print-width <int>      Specify the length of line that the printer will wrap on. Defaults to 80.
