@@ -25,6 +25,7 @@ function getOptions(argv) {
     printWidth: getIntOption(argv, "print-width"),
     tabWidth: getIntOption(argv, "tab-width"),
     bracketSpacing: argv["bracket-spacing"],
+    requirePragma: argv["require-pragma"],
     singleQuote: argv["single-quote"],
     jsxBracketSameLine: argv["jsx-bracket-same-line"],
     filepath: argv["stdin-filepath"],
@@ -292,7 +293,14 @@ function eachFilename(argv, patterns, callback) {
   }
 
   try {
-    const filePaths = globby.sync(patterns, { dot: true });
+    const filePaths = globby
+      .sync(patterns, { dot: true })
+      .map(
+        filePath =>
+          path.isAbsolute(filePath)
+            ? path.relative(process.cwd(), filePath)
+            : filePath
+      );
     if (filePaths.length === 0) {
       console.error(`No matching files. Patterns tried: ${patterns.join(" ")}`);
       process.exitCode = 2;

@@ -274,6 +274,17 @@ you can pass `--no-config` instead.
 
 Path to a file containing patterns that describe files to ignore.  By default, prettier looks for `./.prettierignore`.
 
+#### `--require-pragma`
+
+Require a special comment, called a pragma, to be present in the file's first docblock comment in order for prettier to format it.
+```js
+/**
+ * @prettier
+ */
+```
+
+Valid pragmas are `@prettier` and `@format`.
+
 #### `--list-different`
 
 Another useful flag is `--list-different` (or `-l`) which prints the filenames of files that are different from Prettier formatting. If there are differences the script errors out, which is useful in a CI scenario.
@@ -288,7 +299,7 @@ Do not look for a configuration file.  The default settings will be used.
 
 #### `--config-precedence`
 
-Defines how config file should be evaluated in combination of CLI options. 
+Defines how config file should be evaluated in combination of CLI options.
 
 **cli-override (default)**
 
