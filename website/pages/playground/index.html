@@ -61,6 +61,8 @@
       padding: 10px 27px;
       background-color: #1a2b34;
       color: #e0e0e0;
+      position: relative;
+      z-index: 20;
     }
 
     @media (max-width: 400px) {
@@ -102,10 +104,6 @@
       margin-left: 15px;
     }
 
-    textarea.loading {
-      opacity: 0;
-    }
-
     .editors-container {
       display: flex;
       flex: 1;
@@ -141,6 +139,10 @@
       }
     }
 
+    .editor.loading {
+      opacity: 0;
+    }
+
     .CodeMirror {
       height: auto;
       position: absolute;
@@ -149,6 +151,40 @@
       right: 0;
       bottom: 0;
       line-height: 1.6;
+    }
+
+    .bottom-bar {
+      position: relative;
+    }
+
+    .bottom-bar-buttons {
+      position: absolute;
+      z-index: 10;
+      top: 0;
+      left: 0;
+      padding: 9px;
+      display: flex;
+    }
+
+    .bottom-bar-buttons-right {
+      left: auto;
+      right: 0;
+    }
+
+    .bottom-bar-buttons > * + * {
+      margin-left: 9px;
+    }
+
+    @media (max-width: 799px) {
+      .bottom-bar-buttons {
+        top: auto;
+        bottom: 100%;
+        padding: 2px;
+      }
+
+      .bottom-bar-buttons > * + * {
+        margin-left: 2px;
+      }
     }
 
     .options-details {
@@ -204,7 +240,6 @@
       display: inline-block;
       height: 18px;
       padding: 0 5px;
-      margin: 0;
       border: 1px solid #d1d2d3;
       border-radius: 0.25em;
       background-image: linear-gradient(to bottom, #fafbfc, #e4ebf0);
@@ -212,6 +247,8 @@
       line-height: 18px;
       font-weight: 600;
       font-family: inherit;
+      color: inherit;
+      text-decoration: none;
       cursor: pointer;
       outline: none;
       position: relative;
@@ -234,7 +271,7 @@
     .tooltip {
       position: absolute;
       z-index: 1;
-      top: 100%;
+      bottom: 100%;
       left: 50%;
       transform: translateX(-50%);
       margin-top: 4px;
@@ -247,12 +284,12 @@
     .tooltip::before {
       content: "";
       position: absolute;
-      bottom: 100%;
+      top: 100%;
       left: 50%;
       transform: translateX(-50%);
       border: 6px solid transparent;
-      border-top: none;
-      border-bottom-color: black;
+      border-bottom: none;
+      border-top-color: black;
     }
   </style>
 </head>
@@ -261,13 +298,10 @@
   <header>
     <a href="/" class="logo-wrapper">
       <img class="logo" src="/icon.png" alt="">
-      <h1>Prettier <span class="version"></span></h1>
+      <h1>Prettier <span id="version"></span></h1>
     </a>
 
     <span class="links">
-      <button type="button" class="btn copy-markdown">
-        Copy as markdown
-      </button>
       <a
         class="github-button"
         href="https://github.com/prettier/prettier"
@@ -280,22 +314,28 @@
 
   <div class="editors-container">
     <div class="editors">
-      <div class="editor input">
-        <textarea class="loading" id="input-editor"></textarea>
+      <div class="editor loading input">
+        <textarea id="input-editor"></textarea>
       </div>
-      <div class="editor ast" style="display: none;">
-        <textarea class="loading" id="ast-editor"></textarea>
+      <div class="editor loading ast">
+        <textarea id="ast-editor"></textarea>
       </div>
-      <div class="editor doc" style="display: none;">
-        <textarea class="loading" id="doc-editor"></textarea>
+      <div class="editor loading doc">
+        <textarea id="doc-editor"></textarea>
       </div>
-      <div class="editor output">
-        <textarea class="loading" id="output-editor"></textarea>
+      <div class="editor loading output">
+        <textarea id="output-editor"></textarea>
       </div>
     </div>
   </div>
 
-  <div>
+  <div class="bottom-bar">
+    <div class="bottom-bar-buttons">
+      <button type="button" class="btn" id="button-clear">
+        Clear
+      </button>
+    </div>
+
     <details class="options-details">
       <summary class="options-summary">Options</summary>
 
@@ -320,6 +360,20 @@
         </div>
       </div>
     </details>
+
+    <div class="bottom-bar-buttons bottom-bar-buttons-right">
+      <button type="button" class="btn" id="button-copy-link">
+        Copy link
+      </button>
+      <button type="button" class="btn" id="button-copy-markdown">
+        Copy markdown
+      </button>
+      <a href="https://github.com/prettier/prettier/issues/new"
+        target="_blank" rel="noopener"
+        class="btn" id="button-report-issue">
+        Report issue
+      </a>
+    </div>
   </div>
 
   <script src="/install-service-worker.js"></script>
