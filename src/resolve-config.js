@@ -42,7 +42,7 @@ function resolveConfig(filePath, opts) {
     (useCache ? asyncWithCache : asyncNoCache).load(filePath),
     (useCache ? editorconfigAsyncWithCache : editorconfigAsyncNoCache)(filePath)
   ]).then((arr /* [result, editorConfigged] */) =>
-    mergeEditorConfig(arr[0], filePath, arr[1])
+    mergeEditorConfig(filePath, arr[0], arr[1])
   );
 }
 
@@ -52,10 +52,10 @@ resolveConfig.sync = (filePath, opts) => {
   const editorConfigged = (useCache
     ? editorconfigSyncWithCache
     : editorconfigSyncNoCache)(filePath);
-  return mergeEditorConfig(result, filePath, editorConfigged);
+  return mergeEditorConfig(filePath, result, editorConfigged);
 };
 
-function mergeEditorConfig(result, filePath, editorConfigged) {
+function mergeEditorConfig(filePath, result, editorConfigged) {
   if (!filePath) {
     return null;
   }
