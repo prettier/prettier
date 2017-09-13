@@ -141,3 +141,7 @@ test("API resolveConfig.sync with nested file arg and .editorconfig", () => {
     printWidth: 100
   });
 });
+
+test("API clearConfigCache", () => {
+  expect(() => prettier.clearConfigCache()).not.toThrowError();
+});
