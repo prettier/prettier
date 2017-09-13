@@ -33,7 +33,7 @@ function attachComments(text, ast, opts) {
 
 function hasPragma(text) {
   const pragmas = Object.keys(docblock.parse(docblock.extract(text)));
-  return pragmas.includes("prettier") || pragmas.includes("format");
+  return pragmas.indexOf("prettier") !== -1 || pragmas.indexOf("format") !== -1;
 }
 
 function ensureAllCommentsPrinted(astComments) {
