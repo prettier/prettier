@@ -7,6 +7,7 @@ var inputEditor;
 var docEditor;
 var astEditor;
 var outputEditor;
+var output2Editor;
 
 var OPTIONS = [
   "printWidth",
@@ -19,8 +20,11 @@ var OPTIONS = [
   "semi",
   "useTabs",
   "doc",
-  "ast"
+  "ast",
+  "output2"
 ];
+
+var IDEMPOTENT_MESSAGE = "✓ Second format is unchanged.";
 
 var state = (function loadState(hash) {
   try {
@@ -50,6 +54,13 @@ worker.onmessage = function(message) {
     outputEditor.setValue(message.data.formatted);
     docEditor.setValue(message.data.doc || "");
     astEditor.setValue(message.data.ast || "");
+    output2Editor.setValue(
+      message.data.formatted === ""
+        ? ""
+        : message.data.formatted2 === message.data.formatted
+          ? IDEMPOTENT_MESSAGE
+          : message.data.formatted2 || ""
+    );
     document.getElementById("button-report-issue").search =
       "body=" + encodeURIComponent(createIssueTemplate());
   }
@@ -92,6 +103,10 @@ window.onload = function() {
   });
   outputEditor = CodeMirror.fromTextArea(
     document.getElementById("output-editor"),
+    { readOnly: true, lineNumbers: true, theme: theme }
+  );
+  output2Editor = CodeMirror.fromTextArea(
+    document.getElementById("output2-editor"),
     { readOnly: true, lineNumbers: true, theme: theme }
   );
 
@@ -215,12 +230,18 @@ function formatAsync() {
   var mode = util.getCodemirrorMode(options);
   setCodemirrorMode(inputEditor, mode);
   setCodemirrorMode(outputEditor, mode);
+  setCodemirrorMode(output2Editor, mode);
 
-  outputEditor.setOption("rulers", [
-    { column: options.printWidth, color: "#444444" }
-  ]);
+  [outputEditor, output2Editor].forEach(function(editor) {
+    editor.setOption("rulers", [
+      { column: options.printWidth, color: "#444444" }
+    ]);
+  });
   document.querySelector(".ast").style.display = options.ast ? "" : "none";
   document.querySelector(".doc").style.display = options.doc ? "" : "none";
+  document.querySelector(".output2").style.display = options.output2
+    ? ""
+    : "none";
 
   var value = encodeURIComponent(
     JSON.stringify(
@@ -232,18 +253,21 @@ function formatAsync() {
     text: inputEditor.getValue(),
     options: options,
     ast: options.ast,
-    doc: options.doc
+    doc: options.doc,
+    formatted2: options.output2
   });
 }
 
 function createMarkdown() {
   var input = inputEditor.getValue();
   var output = outputEditor.getValue();
+  var output2 = output2Editor.getValue();
   var options = getOptions();
   var cliOptions = getCLIOptions();
   var markdown = util.formatMarkdown(
     input,
     output,
+    output2,
     prettierVersion,
     window.location.href,
     options,
@@ -267,9 +291,19 @@ function showTooltip(elem, text) {
 }
 
 var util = (function() {
-  function formatMarkdown(input, output, version, url, options, cliOptions) {
+  function formatMarkdown(
+    input,
+    output,
+    output2,
+    version,
+    url,
+    options,
+    cliOptions
+  ) {
     var syntax = getMarkdownSyntax(options);
     var optionsString = formatCLIOptions(cliOptions);
+    var isIdempotent =
+      output2 === "" || output2 === IDEMPOTENT_MESSAGE || output === output2;
 
     return [
       "**Prettier " + version + "**",
@@ -282,6 +316,11 @@ var util = (function() {
       "**Output:**",
       codeBlock(output, syntax)
     ]
+      .concat(
+        isIdempotent
+          ? []
+          : ["", "**Second Output:**", codeBlock(output2, syntax)]
+      )
       .filter(function(part) {
         return part != null;
       })

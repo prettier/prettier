@@ -27,10 +27,12 @@ self.onmessage = function(message) {
 
   delete options.ast;
   delete options.doc;
+  delete options.output2;
 
   var formatted = formatCode(message.data.text, options);
   var doc;
   var ast;
+  var formatted2;
 
   if (message.data.ast) {
     var actualAst;
@@ -63,10 +65,15 @@ self.onmessage = function(message) {
     }
   }
 
+  if (message.data.formatted2) {
+    formatted2 = formatCode(formatted, options);
+  }
+
   self.postMessage({
     formatted: formatted,
     doc: doc,
     ast: ast,
+    formatted2: formatted2,
     version: prettier.version
   });
 };
