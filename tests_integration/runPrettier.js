@@ -4,6 +4,9 @@ const fs = require("fs");
 const path = require("path");
 
 function runPrettier(dir, args, options) {
+  args = args || [];
+  options = options || {};
+
   let status;
   let stdout = "";
   let stderr = "";
@@ -43,17 +46,17 @@ function runPrettier(dir, args, options) {
   const originalStdinIsTTY = process.stdin.isTTY;
 
   process.chdir(normalizeDir(dir));
-  process.stdin.isTTY = false;
-  process.argv = ["path/to/node", "path/to/prettier/bin"].concat(args || []);
+  process.stdin.isTTY = !!options.isTTY;
+  process.argv = ["path/to/node", "path/to/prettier/bin"].concat(args);
 
   jest.resetModules();
   jest.setMock("get-stream", () => ({
-    then: handler => handler((options && options.input) || "")
+    then: handler => handler(options.input || "")
   }));
 
   try {
     require("../bin/prettier");
-    status = status || process.exitCode || 0;
+    status = (status === undefined ? process.exitCode : status) || 0;
   } catch (error) {
     status = 1;
     stderr += error.message;

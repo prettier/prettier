@@ -14,84 +14,19 @@ const prettier = eval("require")("../index");
 const cleanAST = require("./clean-ast").cleanAST;
 const resolver = require("./resolve-config");
 const constant = require("./cli-constant");
+const validator = require("./cli-validator");
+const apiDefaultOptions = require("./options").defaults;
+
+const OPTION_USAGE_THRESHOLD = 25;
 
 function getOptions(argv) {
-  return {
-    cursorOffset: getIntOption(argv, "cursor-offset"),
-    rangeStart: getIntOption(argv, "range-start"),
-    rangeEnd: getIntOption(argv, "range-end"),
-    useTabs: argv["use-tabs"],
-    semi: argv["semi"],
-    printWidth: getIntOption(argv, "print-width"),
-    tabWidth: getIntOption(argv, "tab-width"),
-    bracketSpacing: argv["bracket-spacing"],
-    requirePragma: argv["require-pragma"],
-    singleQuote: argv["single-quote"],
-    jsxBracketSameLine: argv["jsx-bracket-same-line"],
-    filepath: argv["stdin-filepath"],
-    trailingComma: getTrailingComma(argv),
-    parser: getParserOption(argv)
-  };
-}
-
-function getParserOption(argv) {
-  const value = argv.parser;
-
-  if (value === undefined) {
-    return value;
-  }
-
-  // For backward compatibility. Deprecated in 0.0.10
-  /* istanbul ignore if */
-  if (argv["flow-parser"]) {
-    console.warn("`--flow-parser` is deprecated. Use `--parser flow` instead.");
-    return "flow";
-  }
-
-  return value;
-}
-
-function getIntOption(argv, optionName) {
-  const value = argv[optionName];
-
-  if (value === undefined) {
-    return value;
-  }
-
-  if (/^\d+$/.test(value)) {
-    return Number(value);
-  }
-
-  throw new Error(
-    "Invalid --" +
-      optionName +
-      " value.\nExpected an integer, but received: " +
-      JSON.stringify(value)
-  );
-}
-
-function getTrailingComma(argv) {
-  const value = argv["trailing-comma"];
-
-  switch (value) {
-    case "":
-      console.warn(
-        "Warning: `--trailing-comma` was used without an argument. This is deprecated. " +
-          'Specify "none", "es5", or "all".'
-      );
-      return "es5";
-    case undefined:
-      return "none";
-    case "none":
-    case "es5":
-    case "all":
-      return value;
-    default:
-      throw new Error(
-        "Invalid option for --trailing-comma.\n" +
-          `Expected "none", "es5" or "all", but received: "${value}"`
-      );
-  }
+  return constant.detailedOptions
+    .filter(option => option.forwardToApi)
+    .reduce(
+      (current, option) =>
+        Object.assign(current, { [option.forwardToApi]: argv[option.name] }),
+      {}
+    );
 }
 
 function dashifyObject(object) {
@@ -107,36 +42,36 @@ function diff(a, b) {
   });
 }
 
-function handleError(filename, e) {
-  const isParseError = Boolean(e && e.loc);
-  const isValidationError = /Validation Error/.test(e && e.message);
+function handleError(filename, error) {
+  const isParseError = Boolean(error && error.loc);
+  const isValidationError = /Validation Error/.test(error && error.message);
 
   // For parse errors and validation errors, we only want to show the error
-  // message formatted in a nice way. `String(e)` takes care of that. Other
+  // message formatted in a nice way. `String(error)` takes care of that. Other
   // (unexpected) errors are passed as-is as a separate argument to
   // `console.error`. That includes the stack trace (if any), and shows a nice
   // `util.inspect` of throws things that aren't `Error` objects. (The Flow
   // parser has mistakenly thrown arrays sometimes.)
   if (isParseError) {
-    console.error(`${filename}: ${String(e)}`);
+    console.error(`${filename}: ${String(error)}`);
   } else if (isValidationError) {
-    console.error(String(e));
+    console.error(String(error));
     // If validation fails for one file, it will fail for all of them.
     process.exit(1);
   } else {
-    console.error(filename + ":", e.stack || e);
+    console.error(filename + ":", error.stack || error);
   }
 
   // Don't exit the process if one file failed
   process.exitCode = 2;
 }
 
-function resolveConfig(filePath) {
+function logResolvedConfigPathOrDie(filePath) {
   const configFile = resolver.resolveConfigFile.sync(filePath);
   if (configFile) {
     console.log(path.relative(process.cwd(), configFile));
   } else {
-    process.exitCode = 1;
+    process.exit(1);
   }
 }
 
@@ -144,7 +79,7 @@ function writeOutput(result, options) {
   // Don't use `console.log` here since it adds an extra newline at the end.
   process.stdout.write(result.formatted);
 
-  if (options.cursorOffset) {
+  if (options.cursorOffset >= 0) {
     process.stderr.write(result.cursorOffset + "\n");
   }
 }
@@ -213,40 +148,38 @@ function getOptionsOrDie(argv, filePath) {
 
 function getOptionsForFile(argv, filePath) {
   const options = getOptionsOrDie(argv, filePath);
-  const configPrecedence = argv["config-precedence"];
-  return applyConfigPrecedence(argv.__args, options, configPrecedence);
+  return applyConfigPrecedence(argv, options);
 }
 
-function parseArgsToOptions(args, defaults) {
+function parseArgsToOptions(argv, overrideDefaults) {
   return getOptions(
-    minimist(args, {
-      boolean: constant.booleanOptionNames,
-      string: constant.stringOptionNames,
-      default: Object.assign(
-        {},
-        constant.defaultOptions,
-        dashifyObject(defaults)
-      )
-    })
+    normalizeArgv(
+      minimist(
+        argv.__args,
+        Object.assign({
+          string: constant.minimistOptions.string,
+          boolean: constant.minimistOptions.boolean,
+          default: Object.assign(
+            {},
+            dashifyObject(apiDefaultOptions),
+            dashifyObject(overrideDefaults)
+          )
+        })
+      ),
+      { warning: false }
+    )
   );
 }
 
-function applyConfigPrecedence(args, options, configPrecedence) {
+function applyConfigPrecedence(argv, options) {
   try {
-    switch (configPrecedence) {
+    switch (argv["config-precedence"]) {
       case "cli-override":
-        return parseArgsToOptions(args, options);
+        return parseArgsToOptions(argv, options);
       case "file-override":
-        return Object.assign({}, parseArgsToOptions(args), options);
+        return Object.assign({}, parseArgsToOptions(argv), options);
       case "prefer-file":
-        return options || parseArgsToOptions(args);
-
-      default:
-        throw new Error(
-          "Invalid option for --config-precedence.\n" +
-            'Expected "cli-override", "file-override" or "prefer-file", ' +
-            `but received: "${configPrecedence}"`
-        );
+        return options || parseArgsToOptions(argv);
     }
   } catch (error) {
     console.error(error.toString());
@@ -264,8 +197,8 @@ function formatStdin(argv) {
 
     try {
       writeOutput(format(argv, input, options), options);
-    } catch (e) {
-      handleError("stdin", e);
+    } catch (error) {
+      handleError("stdin", error);
     }
   });
 }
@@ -311,17 +244,17 @@ function eachFilename(argv, patterns, callback) {
       .forEach(filePath =>
         callback(filePath, getOptionsForFile(argv, filePath))
       );
-  } catch (err) {
+  } catch (error) {
     console.error(
-      `Unable to expand glob patterns: ${patterns.join(" ")}\n${err}`
+      `Unable to expand glob patterns: ${patterns.join(" ")}\n${error}`
     );
     // Don't exit the process if one pattern failed
     process.exitCode = 2;
   }
 }
 
-function formatFiles(argv, filepatterns) {
-  eachFilename(argv, filepatterns, (filename, options) => {
+function formatFiles(argv) {
+  eachFilename(argv, argv.__filePatterns, (filename, options) => {
     if (argv["write"]) {
       // Don't use `console.log` here since we need to replace this line.
       process.stdout.write(filename);
@@ -330,11 +263,11 @@ function formatFiles(argv, filepatterns) {
     let input;
     try {
       input = fs.readFileSync(filename, "utf8");
-    } catch (e) {
+    } catch (error) {
       // Add newline to split errors from filename line.
       process.stdout.write("\n");
 
-      console.error(`Unable to read file: ${filename}\n${e}`);
+      console.error(`Unable to read file: ${filename}\n${error}`);
       // Don't exit the process if one file failed
       process.exitCode = 2;
       return;
@@ -354,11 +287,11 @@ function formatFiles(argv, filepatterns) {
         Object.assign({}, options, { filepath: filename })
       );
       output = result.formatted;
-    } catch (e) {
+    } catch (error) {
       // Add newline to split errors from filename line.
       process.stdout.write("\n");
 
-      handleError(filename, e);
+      handleError(filename, error);
       return;
     }
 
@@ -382,8 +315,8 @@ function formatFiles(argv, filepatterns) {
 
         try {
           fs.writeFileSync(filename, output, "utf8");
-        } catch (err) {
-          console.error(`Unable to write file: ${filename}\n${err}`);
+        } catch (error) {
+          console.error(`Unable to write file: ${filename}\n${error}`);
           // Don't exit the process if one file failed
           process.exitCode = 2;
         }
@@ -400,9 +333,183 @@ function formatFiles(argv, filepatterns) {
   });
 }
 
+function createUsage() {
+  const options = constant.detailedOptions;
+  // Add --no-foo after --foo.
+  const optionsWithOpposites = options.map(option => [
+    option.description ? option : null,
+    option.oppositeDescription
+      ? Object.assign({}, option, {
+          name: `no-${option.name}`,
+          type: "boolean",
+          description: option.oppositeDescription
+        })
+      : null
+  ]);
+  const flattenedOptions = [].concat
+    .apply([], optionsWithOpposites)
+    .filter(Boolean);
+
+  const groupedOptions = groupBy(flattenedOptions, option => option.category);
+
+  const firstCategories = constant.categoryOrder.slice(0, -1);
+  const lastCategories = constant.categoryOrder.slice(-1);
+  const restCategories = Object.keys(groupedOptions).filter(
+    category =>
+      firstCategories.indexOf(category) === -1 &&
+      lastCategories.indexOf(category) === -1
+  );
+  const allCategories = firstCategories.concat(restCategories, lastCategories);
+
+  const optionsUsage = allCategories.map(category => {
+    const categoryOptions = groupedOptions[category]
+      .map(option => createOptionUsage(option, OPTION_USAGE_THRESHOLD))
+      .join("\n");
+    return `${category} options:\n\n${indent(categoryOptions, 2)}`;
+  });
+
+  return [constant.usageSummary].concat(optionsUsage, [""]).join("\n\n");
+}
+
+function createOptionUsage(option, threshold) {
+  const name = `--${option.name}`;
+  const alias = option.alias ? `or -${option.alias}` : null;
+  const type = createOptionUsageType(option);
+  const header = [name, alias, type].filter(Boolean).join(" ");
+
+  const separator =
+    header.length >= threshold
+      ? `\n${" ".repeat(threshold)}`
+      : " ".repeat(threshold - header.length);
+
+  const description = option.description.replace(
+    /\n/g,
+    `\n${" ".repeat(threshold)}`
+  );
+
+  return `${header}${separator}${description}`;
+}
+
+function createOptionUsageType(option) {
+  switch (option.type) {
+    case "boolean":
+      return null;
+    case "choice":
+      return `<${option.choices
+        .filter(choice => !choice.deprecated)
+        .map(choice => choice.value)
+        .join("|")}>`;
+    default:
+      return `<${option.type}>`;
+  }
+}
+
+function indent(str, spaces) {
+  return str.replace(/^/gm, " ".repeat(spaces));
+}
+
+function groupBy(array, getKey) {
+  return array.reduce((obj, item) => {
+    const key = getKey(item);
+    const previousItems = key in obj ? obj[key] : [];
+    return Object.assign({}, obj, { [key]: previousItems.concat(item) });
+  }, Object.create(null));
+}
+
+function normalizeArgv(rawArgv, options) {
+  options = options || {};
+
+  const consoleWarn = options.warning === false ? () => {} : console.warn;
+
+  const normalized = {};
+
+  Object.keys(rawArgv).forEach(key => {
+    const rawValue = rawArgv[key];
+
+    if (key === "_") {
+      normalized[key] = rawValue;
+      return;
+    }
+
+    if (key.length === 1) {
+      // do nothing with alias
+      return;
+    }
+
+    const option = constant.detailedOptionMap[key];
+
+    if (option === undefined) {
+      // unknown option
+      return;
+    }
+
+    const value = getValue(rawValue, option);
+
+    if (option.exception !== undefined) {
+      if (typeof option.exception === "function") {
+        if (option.exception(value)) {
+          normalized[key] = value;
+          return;
+        }
+      } else {
+        if (value === option.exception) {
+          normalized[key] = value;
+          return;
+        }
+      }
+    }
+
+    switch (option.type) {
+      case "int":
+        validator.validateIntOption(value, option);
+        normalized[key] = Number(value);
+        break;
+      case "choice":
+        validator.validateChoiceOption(value, option);
+        normalized[key] = value;
+        break;
+      default:
+        normalized[key] = value;
+        break;
+    }
+  });
+
+  return normalized;
+
+  function getValue(rawValue, option) {
+    if (rawValue && option.deprecated) {
+      let warning = `\`--${option.name}\` is deprecated.`;
+      if (typeof option.deprecated === "string") {
+        warning += ` ${option.deprecated}`;
+      }
+      consoleWarn(warning);
+    }
+
+    const value = option.getter(rawValue, rawArgv);
+
+    if (option.type === "choice") {
+      const choice = option.choices.find(choice => choice.value === rawValue);
+      if (choice !== undefined && choice.deprecated) {
+        const warningDescription =
+          rawValue === ""
+            ? "without an argument"
+            : `with value \`${rawValue}\``;
+        consoleWarn(
+          `\`--${option.name}\` ${warningDescription} is deprecated. Prettier now treats it as: \`--${option.name}=${choice.redirect}\`.`
+        );
+        return choice.redirect;
+      }
+    }
+
+    return value;
+  }
+}
+
 module.exports = {
-  resolveConfig,
+  logResolvedConfigPathOrDie,
   format,
   formatStdin,
-  formatFiles
+  formatFiles,
+  createUsage,
+  normalizeArgv
 };
