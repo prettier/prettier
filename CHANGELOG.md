@@ -1,3 +1,21 @@
+# 1.6.2
+
+* Fix comments after if statement test without brackets (#2675)
+* Fix missing parens around LogicalExpression inside ExperimentalSpreadProperty (#2710)
+* Fix printing declare modifier for TypeScript enum (#2711)
+* Handle +/- before numbers in CSS (#2713)
+*	Add CLI option '--config-precedence' (#2733)
+* Normalize CSS case (#2736)
+* Fix dynamic imports with Webpack magic comment (#2748)
+* Fix handling never type with TypeScript (#2756)
+* Fix empty object with a comment (#2758)
+* Change how ternaries are printed when they do not contain JSX elements (#2768)
+* Fix chained logical expressions with objects/array/etc inlined (#2770)
+* Add option to require @prettier or @format pragma (#2772)
+* Fix break on conditional expressions inside return (#2779)
+*	Fix formatting second argument in graphql calls (#2781)
+* Keep conditional expressions in one line on method chains (#2784)
+
 # 1.6.1
 
 [link](https://github.com/jlongster/prettier/compare/1.6.0...1.6.1)
@@ -6,6 +24,7 @@
 * Fix config file finding when using stdin (#2692)
 * Fix union type with type params regression (#2688)
 * Fix flow parenthesis regression (#2687)
+* Break closing paren of ConditionalExpression in member chains (#2786)
 
 # 1.6.0
 
