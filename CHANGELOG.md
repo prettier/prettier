@@ -1,3 +1,9 @@
+# 1.7.0
+
+[link](https://github.com/jlongster/prettier/compare/1.6.1...1.7.0)
+
+* [Release Notes](https://github.com/prettier/prettier/releases/tag/1.7.0)
+
 # 1.6.1
 
 [link](https://github.com/jlongster/prettier/compare/1.6.0...1.6.1)
