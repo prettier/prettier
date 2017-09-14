@@ -1,5 +1,7 @@
 # 1.6.2
 
+[link](https://github.com/prettier/prettier/compare/1.6.1...1.6.2)
+
 * Fix comments after if statement test without brackets (#2675)
 * Fix missing parens around LogicalExpression inside ExperimentalSpreadProperty (#2710)
 * Fix printing declare modifier for TypeScript enum (#2711)
