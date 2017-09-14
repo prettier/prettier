@@ -33,6 +33,9 @@ a[HREF=KeepAttrValue]:HOVER::FIRST-letter,
   }
 }
 
+@custom-media --KeepCustomMedia screen and (width >= 768px);
+@media (--KeepCustomMedia) {}
+
 @FUNCTION KeepFuncName() {
     @RETURN 12;
 }
