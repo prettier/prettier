@@ -25,6 +25,7 @@ function getOptions(argv) {
     printWidth: getIntOption(argv, "print-width"),
     tabWidth: getIntOption(argv, "tab-width"),
     bracketSpacing: argv["bracket-spacing"],
+    requirePragma: argv["require-pragma"],
     singleQuote: argv["single-quote"],
     jsxBracketSameLine: argv["jsx-bracket-same-line"],
     filepath: argv["stdin-filepath"],

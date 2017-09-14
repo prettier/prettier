@@ -40,7 +40,7 @@ exports[`url.css 1`] = `
 @import url('foo');
 $dir: 'fonts';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-@import url('foo');
+@import url("foo");
 $dir: "fonts";
 
 `;

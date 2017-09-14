@@ -62,15 +62,7 @@ function runPrettier(dir, args, options) {
     process.argv = originalArgv;
     process.exitCode = originalExitCode;
     process.stdin.isTTY = originalStdinIsTTY;
-
-    // TODO: use `jest.restoreAllMocks()` once facebook/jest#4436 fixed
-    spiedProcessExit.mockRestore();
-    spiedStdoutWrite.mockRestore();
-    spiedStderrWrite.mockRestore();
-    spiedConsoleLog.mockRestore();
-    spiedConsoleWarn.mockRestore();
-    spiedConsoleError.mockRestore();
-    spiedFsWriteFileSync.mockRestore();
+    jest.restoreAllMocks();
   }
 
   return { status, stdout, stderr, write };

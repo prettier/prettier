@@ -194,10 +194,10 @@ function genericPrint(path, options, print) {
       return adjustNumbers(adjustStrings(n.value, options));
     }
     case "media-keyword": {
-      return n.value;
+      return adjustStrings(n.value, options);
     }
     case "media-url": {
-      return n.value;
+      return adjustStrings(n.value, options);
     }
     case "media-unknown": {
       return adjustStrings(n.value, options);

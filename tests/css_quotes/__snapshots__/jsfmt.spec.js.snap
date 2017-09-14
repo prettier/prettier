@@ -76,6 +76,13 @@ exports[`quotes.css 1`] = `
 }
 
 @import "file.css";
+@import 'file.css';
+
+@import url("foo.css");
+@import url('foo.css');
+
+@import "foo.css" screen and (orientation: landscape);
+@import 'foo.css' screen and (orientation: landscape);
 
 @foo "one";
 @foo 'one';
@@ -162,6 +169,13 @@ one 'two' three {}
 }
 
 @import "file.css";
+@import "file.css";
+
+@import url("foo.css");
+@import url("foo.css");
+
+@import "foo.css" screen and (orientation: landscape);
+@import "foo.css" screen and (orientation: landscape);
 
 @foo "one";
 @foo "one";
@@ -253,6 +267,13 @@ exports[`quotes.css 2`] = `
 }
 
 @import "file.css";
+@import 'file.css';
+
+@import url("foo.css");
+@import url('foo.css');
+
+@import "foo.css" screen and (orientation: landscape);
+@import 'foo.css' screen and (orientation: landscape);
 
 @foo "one";
 @foo 'one';
@@ -339,6 +360,13 @@ one 'two' three {}
 }
 
 @import 'file.css';
+@import 'file.css';
+
+@import url('foo.css');
+@import url('foo.css');
+
+@import 'foo.css' screen and (orientation: landscape);
+@import 'foo.css' screen and (orientation: landscape);
 
 @foo 'one';
 @foo 'one';

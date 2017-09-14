@@ -1,15 +1,28 @@
-<!-- BUGS: Please use this template. -->
+<!-- BUGGY OR UGLY? Please use this template.
 
-**Prettier Version:** 1.6.1 / master
+Tip! Don't write this stuff manually.
 
-**Code**
+1. Go to https://prettier.io/playground
+2. Paste your code and set options
+3. Press the "Report issue" button in the lower right
 
-([playground](https://prettier.io/playground/#.....))
+-->
 
-```js
+**Prettier 1.6.1**
+[Playground link](https://prettier.io/playground/#.....)
+```sh
+# Options (if any):
+--single-quote
+```
+
+**Input:**
+```jsx
+// code snippet
+```
+
+**Output:**
+```jsx
 // code snippet
 ```
 
 **Expected behavior:**
-
-**Actual behavior:**
