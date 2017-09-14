@@ -13,7 +13,7 @@
 * Fix chained logical expressions with objects/array/etc inlined (#2770)
 * Add option to require @prettier or @format pragma (#2772)
 * Fix break on conditional expressions inside return (#2779)
-*	Fix formatting second argument in graphql calls (#2781)
+* Fix formatting second argument in graphql calls (#2781)
 * Keep conditional expressions in one line on method chains (#2784)
 * Break closing paren of ConditionalExpression in member chains (#2786)
 
