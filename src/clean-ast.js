@@ -102,8 +102,10 @@ function massageAST(ast, parent) {
 
     if (
       (ast.type === "media-feature" ||
+        ast.type === "media-keyword" ||
         ast.type === "media-type" ||
         ast.type === "media-unknown" ||
+        ast.type === "media-url" ||
         ast.type === "media-value" ||
         ast.type === "selector-root-invalid" ||
         ast.type === "selector-attribute" ||
