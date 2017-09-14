@@ -10,7 +10,7 @@ self.Buffer = {
 };
 // eslint-disable-next-line
 fs = module$1 = module = path = os = crypto = {};
-self.process = { argv: [], env: { PRETTIER_DEBUG: true } };
+self.process = { argv: [], env: { PRETTIER_DEBUG: true }, version: "v8.5.0" };
 self.assert = { ok: function() {}, strictEqual: function() {} };
 self.require = function require(path) {
   return self[path.replace(/.+-/, "")];
