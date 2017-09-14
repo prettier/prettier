@@ -6,6 +6,14 @@ const CATEGORY_FORMAT = "Format";
 const CATEGORY_OTHER = "Other";
 const CATEGORY_OUTPUT = "Output";
 
+const categoryOrder = [
+  CATEGORY_OUTPUT,
+  CATEGORY_FORMAT,
+  CATEGORY_CONFIG,
+  CATEGORY_EDITOR,
+  CATEGORY_OTHER
+];
+
 /**
  * {
  *   [optionName]: {
@@ -332,11 +340,7 @@ const detailedOptionMap = detailedOptions.reduce(
 );
 
 module.exports = {
-  CATEGORY_CONFIG,
-  CATEGORY_EDITOR,
-  CATEGORY_FORMAT,
-  CATEGORY_OTHER,
-  CATEGORY_OUTPUT,
+  categoryOrder,
   minimistOptions,
   detailedOptions,
   detailedOptionMap,

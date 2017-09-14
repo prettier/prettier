@@ -345,13 +345,8 @@ function createUsage() {
 
   const groupedOptions = groupBy(flattenedOptions, option => option.category);
 
-  const firstCategories = [
-    constant.CATEGORY_OUTPUT,
-    constant.CATEGORY_FORMAT,
-    constant.CATEGORY_CONFIG,
-    constant.CATEGORY_EDITOR
-  ];
-  const lastCategories = [constant.CATEGORY_OTHER];
+  const firstCategories = constant.categoryOrder.slice(0, -1);
+  const lastCategories = constant.categoryOrder.slice(-1);
   const restCategories = Object.keys(groupedOptions).filter(
     category =>
       firstCategories.indexOf(category) === -1 &&
