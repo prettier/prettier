@@ -88,18 +88,14 @@ worker.postMessage({ text: "", options: state.options });
 window.onload = function() {
   state.options && setOptions(state.options);
 
-  CodeMirror.modeURL =
-    "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/mode/%N/%N.js";
-
-  var theme = "neat";
   var editorOptions = {
     lineNumbers: true,
     keyMap: "sublime",
     autoCloseBrackets: true,
     matchBrackets: true,
     showCursorWhenSelecting: true,
-    theme: theme,
-    tabWidth: 2
+    tabWidth: 2,
+    mode: "jsx"
   };
   inputEditor = CodeMirror.fromTextArea(
     document.getElementById("input-editor"),
@@ -110,24 +106,29 @@ window.onload = function() {
   docEditor = CodeMirror.fromTextArea(document.getElementById("doc-editor"), {
     readOnly: true,
     lineNumbers: false,
-    theme: theme
+    mode: "jsx"
   });
   astEditor = CodeMirror.fromTextArea(document.getElementById("ast-editor"), {
     readOnly: true,
     lineNumbers: false,
-    theme: theme
+    mode: "jsx"
   });
   outputEditor = CodeMirror.fromTextArea(
     document.getElementById("output-editor"),
-    { readOnly: true, lineNumbers: true, theme: theme }
+    {
+      readOnly: true,
+      lineNumbers: true,
+      mode: "jsx"
+    }
   );
   output2Editor = CodeMirror.fromTextArea(
     document.getElementById("output2-editor"),
-    { readOnly: true, lineNumbers: true, theme: theme }
+    {
+      readOnly: true,
+      lineNumbers: true,
+      mode: "jsx"
+    }
   );
-
-  setCodemirrorMode(docEditor, "javascript");
-  setCodemirrorMode(astEditor, "javascript");
 
   var editors = document.querySelectorAll(".editor");
   for (var i = 0; i < editors.length; i++) {
@@ -235,17 +236,12 @@ function replaceHash(hash) {
   }
 }
 
-function setCodemirrorMode(editor, mode) {
-  editor.setOption("mode", mode);
-  CodeMirror.autoLoadMode(editor, mode);
-}
-
 function getCodemirrorMode(options) {
   switch (options.parser) {
     case "postcss":
       return "css";
     default:
-      return "javascript";
+      return "jsx";
   }
 }
 
@@ -253,9 +249,9 @@ function formatAsync() {
   var options = getOptions();
 
   var mode = getCodemirrorMode(options);
-  setCodemirrorMode(inputEditor, mode);
-  setCodemirrorMode(outputEditor, mode);
-  setCodemirrorMode(output2Editor, mode);
+  inputEditor.setOption("mode", mode);
+  outputEditor.setOption("mode", mode);
+  output2Editor.setOption("mode", mode);
 
   [outputEditor, output2Editor].forEach(function(editor) {
     editor.setOption("rulers", [

@@ -20,10 +20,10 @@ toolbox.precache([
 
   // CodeMirror
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/codemirror.css",
-  "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/theme/neat.css",
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/codemirror.js",
-  "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/addon/mode/loadmode.js",
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/mode/javascript/javascript.js",
+  "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/mode/xml/xml.js",
+  "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/mode/jsx/jsx.js",
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/mode/css/css.js",
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/addon/display/rulers.js",
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/addon/search/searchcursor.js",
