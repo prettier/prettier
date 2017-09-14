@@ -81,7 +81,7 @@ function genericPrint(path, options, print) {
 
       return concat([
         n.raws.before.replace(/[\s;]/g, ""),
-        n.prop.startsWith("--") ? n.prop : maybeToLowerCase(n.prop),
+        maybeToLowerCase(n.prop),
         ":",
         isValueExtend ? "" : " ",
         isComposed
@@ -482,7 +482,10 @@ function printNumber(rawNumber) {
 }
 
 function maybeToLowerCase(value) {
-  return value.includes("$") || value.includes("@") || value.includes("#")
+  return value.includes("$") ||
+  value.includes("@") ||
+  value.includes("#") ||
+  value.startsWith("--")
     ? value
     : value.toLowerCase();
 }

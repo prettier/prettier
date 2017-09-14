@@ -35,6 +35,9 @@ a[HREF=KeepAttrValue]:HOVER::FIRST-letter,
   }
 }
 
+@custom-media --KeepCustomMedia screen and (width >= 768px);
+@media (--KeepCustomMedia) {}
+
 @KeepDetachedRuleset: /*:*/ {
   BACKGROUND: RED;
 }
@@ -102,6 +105,10 @@ a[href="KeepAttrValue"]:hover::first-letter,
   to {
     prop: val;
   }
+}
+
+@custom-media --KeepCustomMedia screen and (width >= 768px);
+@media (--KeepCustomMedia) {
 }
 
 @KeepDetachedRuleset: {
@@ -184,6 +191,9 @@ a[HREF=KeepAttrValue]:HOVER::FIRST-letter,
   }
 }
 
+@custom-media --KeepCustomMedia screen and (width >= 768px);
+@media (--KeepCustomMedia) {}
+
 @FUNCTION KeepFuncName() {
     @RETURN 12;
 }
@@ -254,6 +264,10 @@ a[href="KeepAttrValue"]:hover::first-letter,
   to {
     prop: val;
   }
+}
+
+@custom-media --KeepCustomMedia screen and (width >= 768px);
+@media (--KeepCustomMedia) {
 }
 
 @function KeepFuncName() {
