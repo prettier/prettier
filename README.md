@@ -274,6 +274,17 @@ you can pass `--no-config` instead.
 
 Path to a file containing patterns that describe files to ignore.  By default, prettier looks for `./.prettierignore`.
 
+#### `--require-pragma`
+
+Require a special comment, called a pragma, to be present in the file's first docblock comment in order for prettier to format it.
+```js
+/**
+ * @prettier
+ */
+```
+
+Valid pragmas are `@prettier` and `@format`.
+
 #### `--list-different`
 
 Another useful flag is `--list-different` (or `-l`) which prints the filenames of files that are different from Prettier formatting. If there are differences the script errors out, which is useful in a CI scenario.
@@ -288,7 +299,7 @@ Do not look for a configuration file.  The default settings will be used.
 
 #### `--config-precedence`
 
-Defines how config file should be evaluated in combination of CLI options. 
+Defines how config file should be evaluated in combination of CLI options.
 
 **cli-override (default)**
 
@@ -658,6 +669,30 @@ cat foo | prettier --stdin-filepath foo.css
 Default | CLI Override | API Override
 --------|--------------|-------------
 None | `--stdin-filepath <string>` | `filepath: "<string>"`
+
+### Require pragma
+Prettier can restrict itself to only format files that contain a special comment, called a pragma, at the top of the file. This is very useful
+when gradually transitioning large, unformatted codebases to prettier.
+
+For example, a file with the following as its first comment will be formatted when `--require-pragma` is supplied:
+
+```js
+/**
+ * @prettier
+ */
+```
+
+or
+
+```js
+/**
+ * @format
+ */
+```
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`false` | `--require-pragma` | `requirePragma`
 
 ## Configuration File
 

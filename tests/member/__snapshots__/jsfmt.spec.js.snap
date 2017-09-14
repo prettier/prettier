@@ -1,5 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`conditional.js 1`] = `
+(valid
+  ? helper.responseBody(this.currentUser)
+  : helper.responseBody(this.defaultUser))
+.prop;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(valid
+  ? helper.responseBody(this.currentUser)
+  : helper.responseBody(this.defaultUser)
+).prop;
+
+`;
+
 exports[`expand.js 1`] = `
 const veryVeryVeryVeryVeryVeryVeryLong = doc.expandedStates[doc.expandedStates.length - 1];
 const small = doc.expandedStates[doc.expandedStates.length - 1];
@@ -51,5 +64,19 @@ const promises = [
   redis.fetch(),
   other.fetch()
 ];
+
+`;
+
+exports[`logical.js 1`] = `
+(veryLongVeryLongVeryLong || e).prop;
+
+(veryLongVeryLongVeryLong || anotherVeryLongVeryLongVeryLong || veryVeryVeryLongError).prop;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(veryLongVeryLongVeryLong || e).prop;
+
+(veryLongVeryLongVeryLong ||
+  anotherVeryLongVeryLongVeryLong ||
+  veryVeryVeryLongError
+).prop;
 
 `;

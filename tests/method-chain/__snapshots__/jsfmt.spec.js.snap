@@ -416,6 +416,67 @@ exports[`computed-merge.js 1`] = `
 
 `;
 
+exports[`conditional.js 1`] = `
+(a ? b : c).d();
+
+(a ? b : c).d().e();
+
+(a ? b : c).d().e().f();
+
+(valid
+  ? helper.responseBody(this.currentUser)
+  : helper.responseBody(this.defaultUser))
+.map();
+
+(valid
+  ? helper.responseBody(this.currentUser)
+  : helper.responseBody(this.defaultUser))
+.map().filter();
+
+(valid
+  ? helper.responseBody(this.currentUser)
+  : helper.responseBody(defaultUser))
+.map();
+
+object[valid
+  ? helper.responseBody(this.currentUser)
+  : helper.responseBody(defaultUser)]
+.map();
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(a ? b : c).d();
+
+(a ? b : c).d().e();
+
+(a ? b : c)
+  .d()
+  .e()
+  .f();
+
+(valid
+  ? helper.responseBody(this.currentUser)
+  : helper.responseBody(this.defaultUser)
+).map();
+
+(valid
+  ? helper.responseBody(this.currentUser)
+  : helper.responseBody(this.defaultUser)
+)
+  .map()
+  .filter();
+
+(valid
+  ? helper.responseBody(this.currentUser)
+  : helper.responseBody(defaultUser)
+).map();
+
+object[
+  valid
+    ? helper.responseBody(this.currentUser)
+    : helper.responseBody(defaultUser)
+].map();
+
+`;
+
 exports[`first_long.js 1`] = `
 export default function theFunction(action$, store) {
   return action$.ofType(THE_ACTION).switchMap(action => Observable
@@ -511,9 +572,35 @@ Object.keys(
 exports[`logical.js 1`] = `
 (veryLongVeryLongVeryLong || e).map(tickets =>
   TicketRecord.createFromSomeLongString());
+
+(veryLongVeryLongVeryLong || e).map(tickets =>
+  TicketRecord.createFromSomeLongString()).filter(obj => !!obj);
+
+(veryLongVeryLongVeryLong || anotherVeryLongVeryLongVeryLong || veryVeryVeryLongError).map(tickets =>
+  TicketRecord.createFromSomeLongString());
+
+(veryLongVeryLongVeryLong || anotherVeryLongVeryLongVeryLong || veryVeryVeryLongError).map(tickets =>
+  TicketRecord.createFromSomeLongString()).filter(obj => !!obj);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(veryLongVeryLongVeryLong || e).map(tickets =>
+  TicketRecord.createFromSomeLongString()
+);
+
 (veryLongVeryLongVeryLong || e)
-  .map(tickets => TicketRecord.createFromSomeLongString());
+  .map(tickets => TicketRecord.createFromSomeLongString())
+  .filter(obj => !!obj);
+
+(veryLongVeryLongVeryLong ||
+  anotherVeryLongVeryLongVeryLong ||
+  veryVeryVeryLongError
+).map(tickets => TicketRecord.createFromSomeLongString());
+
+(veryLongVeryLongVeryLong ||
+  anotherVeryLongVeryLongVeryLong ||
+  veryVeryVeryLongError
+)
+  .map(tickets => TicketRecord.createFromSomeLongString())
+  .filter(obj => !!obj);
 
 `;
 

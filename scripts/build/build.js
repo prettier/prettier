@@ -98,6 +98,14 @@ shell.sed(
   "dist/bin/prettier.js"
 );
 
+shell.echo("Update ISSUE_TEMPLATE.md");
+shell.sed(
+  "-i",
+  /(Prettier Version.+?)\d+\.\d+\.\d+/,
+  `$1${pkg.version}`,
+  ".github/ISSUE_TEMPLATE.md"
+);
+
 shell.echo("Create prettier-version.js");
 pipe(`prettierVersion = "${pkg.version}";\n`).to(`${docs}/prettier-version.js`);
 

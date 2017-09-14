@@ -10,6 +10,7 @@ const normalizeOptions = require("./src/options").normalize;
 const parser = require("./src/parser");
 const printDocToDebug = require("./src/doc-debug").printDocToDebug;
 const config = require("./src/resolve-config");
+const docblock = require("jest-docblock");
 
 function guessLineEnding(text) {
   const index = text.indexOf("\n");
@@ -28,6 +29,11 @@ function attachComments(text, ast, opts) {
   ast.tokens = [];
   opts.originalText = text.trimRight();
   return astComments;
+}
+
+function hasPragma(text) {
+  const pragmas = Object.keys(docblock.parse(docblock.extract(text)));
+  return pragmas.indexOf("prettier") !== -1 || pragmas.indexOf("format") !== -1;
 }
 
 function ensureAllCommentsPrinted(astComments) {
@@ -56,6 +62,10 @@ function ensureAllCommentsPrinted(astComments) {
 }
 
 function formatWithCursor(text, opts, addAlignmentSize) {
+  if (opts.requirePragma && !hasPragma(text)) {
+    return { formatted: text };
+  }
+
   text = stripBom(text);
   addAlignmentSize = addAlignmentSize || 0;
 

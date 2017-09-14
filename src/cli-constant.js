@@ -200,6 +200,14 @@ const detailedOptions = normalizeDetailedOptions({
       Defaults to 0.
     `)
   },
+  "require-pragma": {
+    type: "boolean",
+    forwardToApi: true,
+    description: dedent(`
+      Require either '@prettier' or '@format' to be present in the file's first docblock comment
+      in order for it to be formatted.
+    `)
+  },
   semi: {
     type: "boolean",
     category: CATEGORY_FORMAT,
