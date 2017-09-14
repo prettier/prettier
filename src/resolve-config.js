@@ -10,11 +10,15 @@ const asyncNoCache = cosmiconfig("prettier", { cache: false });
 const syncWithCache = cosmiconfig("prettier", { sync: true });
 const syncNoCache = cosmiconfig("prettier", { cache: false, sync: true });
 
-const editorconfigAsyncNoCache = filePath =>
-  filePath && editorconfig.parse(filePath).then(editorConfigToPrettier);
+const editorconfigAsyncNoCache = (filePath, opts) =>
+  filePath &&
+  !opts.config &&
+  editorconfig.parse(filePath).then(editorConfigToPrettier);
 const editorconfigAsyncWithCache = mem(editorconfigAsyncNoCache);
-const editorconfigSyncNoCache = filePath =>
-  filePath && editorConfigToPrettier(editorconfig.parseSync(filePath));
+const editorconfigSyncNoCache = (filePath, opts) =>
+  filePath &&
+  !opts.config &&
+  editorConfigToPrettier(editorconfig.parseSync(filePath));
 const editorconfigSyncWithCache = mem(editorconfigSyncNoCache);
 
 function editorConfigToPrettier(editorConfig) {
@@ -37,10 +41,14 @@ function editorConfigToPrettier(editorConfig) {
 }
 
 function resolveConfig(filePath, opts) {
+  opts = opts || {};
   const useCache = !(opts && opts.useCache === false);
   return Promise.all([
     (useCache ? asyncWithCache : asyncNoCache).load(filePath),
-    (useCache ? editorconfigAsyncWithCache : editorconfigAsyncNoCache)(filePath)
+    (useCache ? editorconfigAsyncWithCache : editorconfigAsyncNoCache)(
+      filePath,
+      opts
+    )
   ]).then(arr => {
     const result = arr[0];
     const editorConfigged = arr[1];
@@ -49,11 +57,12 @@ function resolveConfig(filePath, opts) {
 }
 
 resolveConfig.sync = (filePath, opts) => {
+  opts = opts || {};
   const useCache = !(opts && opts.useCache === false);
   const result = (useCache ? syncWithCache : syncNoCache).load(filePath);
   const editorConfigged = (useCache
     ? editorconfigSyncWithCache
-    : editorconfigSyncNoCache)(filePath);
+    : editorconfigSyncNoCache)(filePath, opts);
   return mergeEditorConfig(filePath, result, editorConfigged);
 };
 
