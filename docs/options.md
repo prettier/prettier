@@ -155,4 +155,4 @@ or
 
 Default | CLI Override | API Override
 --------|--------------|-------------
-`false` | `--require-pragma` | `requirePragma`
+`false` | `--require-pragma` | `requirePragma: <bool>`
