@@ -22,7 +22,7 @@
     return [
       "**Prettier " + version + "**",
       "[Playground link](" + url + ")",
-      optionsString === "" ? null : codeBlock(optionsString),
+      optionsString === "" ? null : codeBlock(optionsString, "sh"),
       "",
       "**Input:**",
       codeBlock(input, syntax),
