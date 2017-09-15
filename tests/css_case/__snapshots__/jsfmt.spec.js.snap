@@ -50,6 +50,10 @@ a[HREF=KeepAttrValue]:HOVER::FIRST-letter,
       prop: val;
     }
 
+    &Keep & NoKeep {
+      prop: val;
+    }
+
     @KeepDetachedRuleset();
     @KeepDetachedRuleset ( /* comment */  );
 
@@ -120,6 +124,10 @@ a[href="KeepAttrValue"]:hover::first-letter,
   @{KeepInterpolationVar}: val;
 
   @{Keep}[@{Keep}][@{Keep}^=@{Keep-1A}]:@{Keep} {
+    prop: val;
+  }
+
+  &Keep & nokeep {
     prop: val;
   }
 
@@ -208,6 +216,10 @@ a[HREF=KeepAttrValue]:HOVER::FIRST-letter,
       prop: val;
     }
 
+    &Keep & NoKeep {
+      prop: val;
+    }
+
     BACKGROUND: {
       COLOR: RED;
     }
@@ -281,6 +293,10 @@ a[href="KeepAttrValue"]:hover::first-letter,
   #{$Keep + $Keep15PX}: val;
 
   #{$Keep}[#{$Keep}][#{Keep}^="#{Keep-1A}"]:#{$Keep} {
+    prop: val;
+  }
+
+  &Keep & nokeep {
     prop: val;
   }
 
