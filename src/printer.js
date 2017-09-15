@@ -1809,7 +1809,8 @@ function genericPrintNoParens(path, options, print, args) {
         "}"
       ]);
     case "ClassProperty":
-    case "TSAbstractClassProperty": {
+    case "TSAbstractClassProperty":
+    case "ClassPrivateProperty": {
       if (n.accessibility) {
         parts.push(n.accessibility + " ");
       }
@@ -2724,6 +2725,9 @@ function genericPrintNoParens(path, options, print, args) {
       return path.call(bodyPath => {
         return printStatementSequence(bodyPath, options, print);
       }, "body");
+
+    case "PrivateName":
+      return concat(["#", path.call(print, "id")]);
 
     default:
       /* istanbul ignore next */
