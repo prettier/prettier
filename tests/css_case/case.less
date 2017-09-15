@@ -39,9 +39,13 @@ a[HREF=KeepAttrValue]:HOVER::FIRST-letter,
   BACKGROUND: RED;
 }
 
+@KeepTopLevelVar: val;
+$KeepScssVar: val;
+
 .Keep(@Keep: 12e03PX) WHEN (@Keep=Case) /*:*/ {
     @KeepVar: KeepName; /*:*/
     @{KeepInterpolationVar}: val;
+    $KeepScssVar: val;
 
     @{Keep}[@{Keep}][@{Keep}^=@{Keep-1A}]:@{Keep} {
       prop: val;
