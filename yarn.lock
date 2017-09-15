@@ -698,9 +698,9 @@ babel-types@^6.18.0, babel-types@^6.19.0, babel-types@^6.24.1, babel-types@^6.25
     lodash "^4.2.0"
     to-fast-properties "^1.0.1"
 
-babylon@7.0.0-beta.22:
-  version "7.0.0-beta.22"
-  resolved "https://registry.yarnpkg.com/babylon/-/babylon-7.0.0-beta.22.tgz#74f0ad82ed7c7c3cfeab74cf684f815104161b65"
+babylon@7.0.0-beta.23:
+  version "7.0.0-beta.23"
+  resolved "https://registry.yarnpkg.com/babylon/-/babylon-7.0.0-beta.23.tgz#c7e8e7a389b6f6c6212ceac1a3905c7e73d7e45a"
 
 babylon@^6.13.0, babylon@^6.17.2:
   version "6.17.3"
