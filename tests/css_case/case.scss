@@ -40,11 +40,15 @@ a[HREF=KeepAttrValue]:HOVER::FIRST-letter,
     @RETURN 12;
 }
 
+$KeepTopLevelVar: val;
+@KeepLessVar: val;
+
 @MIXIN KeepMixinName($Keep: 15IN, $Keep: $Keep15IN, $Keep: Keep-1E-2Em) {
     $KeepVar: KeepFuncName();
     #{$KeepInterpolationVar}: val;
     #{$Keep + 15PX}: val;
     #{$Keep + $Keep15PX}: val;
+    @KeepLessVar: val;
 
     #{$Keep}[#{$Keep}][#{Keep}^=#{Keep-1A}]:#{$Keep} {
       prop: val;

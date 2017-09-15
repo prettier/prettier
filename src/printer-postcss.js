@@ -110,7 +110,12 @@ function genericPrint(path, options, print) {
         /^\(\s*\)$/.test(n.params.value);
       return concat([
         "@",
-        isDetachedRulesetCall ? n.name : maybeToLowerCase(n.name),
+        // If a Less file ends up being parsed with the SCSS parser, Less
+        // variable declarations will be parsed as atrules with names ending
+        // with a colon, so keep the original case then.
+        isDetachedRulesetCall || n.name.endsWith(":")
+          ? n.name
+          : maybeToLowerCase(n.name),
         hasParams
           ? concat([
               isDetachedRulesetCall ? "" : " ",
