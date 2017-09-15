@@ -50,6 +50,10 @@ a[HREF=KeepAttrValue]:HOVER::FIRST-letter,
       prop: val;
     }
 
+    &Keep & NoKeep {
+      prop: val;
+    }
+
     BACKGROUND: {
       COLOR: RED;
     }

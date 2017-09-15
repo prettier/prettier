@@ -217,7 +217,12 @@ function genericPrint(path, options, print) {
       return adjustStrings(n.value, options);
     }
     case "selector-tag": {
-      return maybeToLowerCase(n.value);
+      const parent = path.getParentNode();
+      const index = parent.nodes.indexOf(n);
+      const previous = index > 0 ? parent.nodes[index - 1] : null;
+      return previous && previous.type === "selector-nesting"
+        ? n.value
+        : maybeToLowerCase(n.value);
     }
     case "selector-id": {
       return concat(["#", n.value]);
