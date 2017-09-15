@@ -51,7 +51,7 @@
     "jest": "21.1.0",
     "markdown-toc": "1.1.0",
     "mkdirp": "^0.5.1",
-    "prettier": "1.6.0",
+    "prettier": "1.7.0",
     "rimraf": "2.6.1",
     "rollup": "0.41.1",
     "rollup-plugin-commonjs": "7.0.0",
