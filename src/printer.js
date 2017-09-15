@@ -355,11 +355,12 @@ function genericPrintNoParens(path, options, print, args) {
         parent.type === "ObjectProperty" ||
         parent.type === "Property";
 
-      const logicalSubExpression = n.left.type === "LogicalExpression";
+      const samePrecedenceSubExpression =
+        isBinaryish(n.left) && util.shouldFlatten(n.operator, n.left.operator);
 
       if (
         shouldNotIdent ||
-        (shouldInlineLogicalExpression(n) && !logicalSubExpression) ||
+        (shouldInlineLogicalExpression(n) && !samePrecedenceSubExpression) ||
         (!shouldInlineLogicalExpression(n) && shouldIdentIfInlining)
       ) {
         return group(concat(parts));
