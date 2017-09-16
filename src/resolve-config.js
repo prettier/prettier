@@ -16,7 +16,7 @@ function getLoadFunction(opts) {
 }
 
 function resolveConfig(filePath, opts) {
-  opts = opts || {};
+  opts = Object.assign({ useCache: true }, opts);
   const load = getLoadFunction({ cache: !!opts.useCache, sync: false });
   return load(filePath, opts.config).then(result => {
     return !result ? null : mergeOverrides(result.config, filePath);
@@ -24,7 +24,7 @@ function resolveConfig(filePath, opts) {
 }
 
 resolveConfig.sync = (filePath, opts) => {
-  opts = opts || {};
+  opts = Object.assign({ useCache: true }, opts);
   const load = getLoadFunction({ cache: !!opts.useCache, sync: true });
   const result = load(filePath, opts.config);
   return !result ? null : mergeOverrides(result.config, filePath);
