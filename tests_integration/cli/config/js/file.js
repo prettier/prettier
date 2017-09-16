@@ -1,3 +1,3 @@
-function f() {
-  console.log("should have tab width 8");
+function js() {
+  console.log("js/file.js should have tab width 8");
 }

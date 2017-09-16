@@ -1,3 +1,3 @@
-function f() {
-  console.log("should have no semicolons");
+function noConfigJs() {
+  console.log("no-config/file.js should have no semicolons");
 }

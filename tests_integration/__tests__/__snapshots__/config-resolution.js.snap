@@ -2,17 +2,17 @@
 
 exports[`CLI overrides take precedence 1`] = `
 "console.log(
-  \\"should have semi\\"
+  \\"jest/__best-tests__/file.js should have semi\\"
 );
 console.log(
-  \\"should not have semi\\"
+  \\"jest/Component.js should not have semi\\"
 )
 console.log(
-  \\"should have semi\\"
+  \\"jest/Component.test.js should have semi\\"
 );
-function f() {
+function js() {
         console.log(
-                \\"should have tab width 8\\"
+                \\"js/file.js should have tab width 8\\"
         );
 }
 \\"use strict\\";
@@ -20,21 +20,31 @@ function f() {
 module.exports = {
         tabWidth: 8
 };
-function f() {
+function noConfigJs() {
   console.log(
-    \\"should have no semicolons\\"
+    \\"no-config/file.js should have no semicolons\\"
   )
 }
-function f() {
+function packageJs() {
    console.log(
-      \\"should have tab width 3\\"
+      \\"package/file.js should have tab width 3\\"
    );
 }
-function f() {
+function rcJson() {
   console.log.apply(
     null,
     [
-      'this file',
+      'rc-json/file.js',
+      'should have trailing comma',
+      'and single quotes',
+    ],
+  );
+}
+function rcYaml() {
+  console.log.apply(
+    null,
+    [
+      'rc-yaml/file.js',
       'should have trailing comma',
       'and single quotes',
     ],
@@ -44,8 +54,8 @@ function f() {
 `;
 
 exports[`accepts configuration from --config 1`] = `
-"function f() {
-  console.log(\\"should have tab width 8\\")
+"function js() {
+  console.log(\\"js/file.js should have tab width 8\\")
 }
 "
 `;
@@ -56,26 +66,33 @@ exports[`resolves configuration file with --find-config-path file 1`] = `
 `;
 
 exports[`resolves configuration from external files 1`] = `
-"console.log(\\"should have semi\\");
-console.log(\\"should not have semi\\")
-console.log(\\"should have semi\\");
-function f() {
-        console.log(\\"should have tab width 8\\");
+"console.log(\\"jest/__best-tests__/file.js should have semi\\");
+console.log(\\"jest/Component.js should not have semi\\")
+console.log(\\"jest/Component.test.js should have semi\\");
+function js() {
+        console.log(\\"js/file.js should have tab width 8\\");
 }
 \\"use strict\\";
 
 module.exports = {
         tabWidth: 8
 };
-function f() {
-  console.log(\\"should have no semicolons\\")
+function noConfigJs() {
+  console.log(\\"no-config/file.js should have no semicolons\\")
 }
-function f() {
-   console.log(\\"should have tab width 3\\");
+function packageJs() {
+   console.log(\\"package/file.js should have tab width 3\\");
 }
-function f() {
+function rcJson() {
   console.log.apply(null, [
-    'this file',
+    'rc-json/file.js',
+    'should have trailing comma',
+    'and single quotes',
+  ]);
+}
+function rcYaml() {
+  console.log.apply(null, [
+    'rc-yaml/file.js',
     'should have trailing comma',
     'and single quotes',
   ]);
@@ -84,11 +101,25 @@ function f() {
 `;
 
 exports[`resolves configuration from external files and overrides by extname 1`] = `
-"function g() {
-  console.log(\\"should have semicolons because it has a .ts extension\\");
+"function noConfigTs() {
+  console.log(
+    \\"no-config/file.ts should have semicolons because it has a .ts extension\\"
+  );
 }
-function g() {
-     console.log(\\"should have tab width 5 because it has .ts extension\\");
+function packageTs() {
+     console.log(
+          \\"package/file.ts should have tab width 5 because it has .ts extension\\"
+     );
 }
+"
+`;
+
+exports[`resolves json configuration file with --find-config-path file 1`] = `
+"rc-json/.prettierrc.json
+"
+`;
+
+exports[`resolves yaml configuration file with --find-config-path file 1`] = `
+"rc-yaml/.prettierrc.yaml
 "
 `;

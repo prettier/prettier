@@ -1,6 +1,6 @@
-function rcJson() {
+function rcYaml() {
   console.log.apply(null, [
-    "rc-json/file.js",
+    "rc-yaml/file.js",
     "should have trailing comma",
     "and single quotes"
   ]);
