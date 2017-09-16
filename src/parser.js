@@ -21,6 +21,12 @@ const parsers = {
   get postcss() {
     return eval("require")("./parser-postcss");
   },
+  get "postcss-less"() {
+    return eval("require")("./parser-postcss");
+  },
+  get "postcss-scss"() {
+    return eval("require")("./parser-postcss");
+  },
   get json() {
     return eval("require")("./parser-babylon");
   }

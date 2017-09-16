@@ -30,8 +30,12 @@ function normalize(options) {
   const normalized = Object.assign({}, options || {});
   const filepath = normalized.filepath;
 
-  if (/\.(css|less|scss)$/.test(filepath)) {
+  if (/\.css$/.test(filepath)) {
     normalized.parser = "postcss";
+  } else if (/\.less$/.test(filepath)) {
+    normalized.parser = "postcss-less";
+  } else if (/\.scss$/.test(filepath)) {
+    normalized.parser = "postcss-scss";
   } else if (/\.html$/.test(filepath)) {
     normalized.parser = "parse5";
   } else if (/\.(ts|tsx)$/.test(filepath)) {

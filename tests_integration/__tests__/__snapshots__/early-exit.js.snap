@@ -15,7 +15,7 @@ Format options:
 
   --no-bracket-spacing     Do not print spaces between brackets.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
-  --parser <flow|babylon|typescript|postcss|json|graphql>
+  --parser <flow|babylon|typescript|postcss|postcss-less|postcss-scss|json|graphql>
                            Which parser to use. Defaults to babylon.
   --print-width <int>      The line length where Prettier will try wrap. Defaults to 80.
   --no-semi                Do not print semicolons, except at the beginning of lines which may need them.
@@ -84,7 +84,7 @@ Format options:
 
   --no-bracket-spacing     Do not print spaces between brackets.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
-  --parser <flow|babylon|typescript|postcss|json|graphql>
+  --parser <flow|babylon|typescript|postcss|postcss-less|postcss-scss|json|graphql>
                            Which parser to use. Defaults to babylon.
   --print-width <int>      The line length where Prettier will try wrap. Defaults to 80.
   --no-semi                Do not print semicolons, except at the beginning of lines which may need them.
