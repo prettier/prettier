@@ -40,7 +40,7 @@
     "postcss-selector-parser": "2.2.3",
     "postcss-values-parser": "git://github.com/lydell/postcss-values-parser.git#af2c80b2bb558a6e7d61540d97f068f9fa162b38",
     "strip-bom": "3.0.0",
-    "typescript": "2.5.1",
+    "typescript": "2.5.3",
     "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#9c71a627da36e97da52ed2731d58509c952b67ae"
   },
   "devDependencies": {
