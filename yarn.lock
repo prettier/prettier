@@ -1056,17 +1056,13 @@ core-util-is@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
 
-"cosmiconfig@git://github.com/davidtheclark/cosmiconfig.git#6eb3cc85d3a435e6b9e252b341e601960312f410":
-  version "2.2.2"
-  resolved "git://github.com/davidtheclark/cosmiconfig.git#6eb3cc85d3a435e6b9e252b341e601960312f410"
+cosmiconfig@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/cosmiconfig/-/cosmiconfig-3.0.0.tgz#9c465e02f5a7cc6e8f7e5975fce4a1b712d7d936"
   dependencies:
     is-directory "^0.3.1"
-    is-promise "^2.1.0"
     js-yaml "^3.9.0"
-    minimist "^1.2.0"
-    os-homedir "^1.0.1"
     parse-json "^2.2.0"
-    please-upgrade-node "^3.0.1"
     require-from-string "^1.1.0"
 
 create-ecdh@^4.0.0:
@@ -2980,7 +2976,7 @@ os-browserify@^0.2.0:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/os-browserify/-/os-browserify-0.2.1.tgz#63fc4ccee5d2d7763d26bbf8601078e6c2e0044f"
 
-os-homedir@^1.0.0, os-homedir@^1.0.1:
+os-homedir@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/os-homedir/-/os-homedir-1.0.2.tgz#ffbc4988336e0e833de0c168c7ef152121aa7fb3"
 
@@ -3161,10 +3157,6 @@ pkg-dir@^1.0.0:
   resolved "https://registry.yarnpkg.com/pkg-dir/-/pkg-dir-1.0.0.tgz#7a4b508a8d5bb2d629d447056ff4e9c9314cf3d4"
   dependencies:
     find-up "^1.0.0"
-
-please-upgrade-node@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/please-upgrade-node/-/please-upgrade-node-3.0.1.tgz#0a681f2c18915e5433a5ca2cd94e0b8206a782db"
 
 pluralize@^4.0.0:
   version "4.0.0"
