@@ -30,3 +30,11 @@ test("throw error with --find-config-path + multiple files", () => {
   expect(result.stderr).toMatchSnapshot();
   expect(result.status).toEqual(1);
 });
+
+test("throw error and show usage with something unexpected", () => {
+  const result = runPrettier("cli", [], { isTTY: true });
+
+  expect(result.stdout).toMatchSnapshot();
+  expect(result.stderr).toMatchSnapshot();
+  expect(result.status).not.toEqual(0);
+});

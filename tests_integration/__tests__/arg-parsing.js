@@ -33,3 +33,22 @@ test("unknown negated options are warned", () => {
   expect(result.stderr).toMatchSnapshot();
   expect(result.status).toEqual(0);
 });
+
+test("deprecated options are warned", () => {
+  const result = runPrettier("cli/arg-parsing", ["file.js", "--flow-parser"]);
+
+  expect(result.stdout).toMatchSnapshot();
+  expect(result.stderr).toMatchSnapshot();
+  expect(result.status).toEqual(0);
+});
+
+test("deprecated option values are warned", () => {
+  const result = runPrettier("cli/arg-parsing", [
+    "file.js",
+    "--trailing-comma"
+  ]);
+
+  expect(result.stdout).toMatchSnapshot();
+  expect(result.stderr).toMatchSnapshot();
+  expect(result.status).toEqual(0);
+});

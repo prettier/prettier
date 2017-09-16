@@ -35,15 +35,26 @@ a[HREF=KeepAttrValue]:HOVER::FIRST-letter,
   }
 }
 
+@custom-media --KeepCustomMedia screen and (width >= 768px);
+@media (--KeepCustomMedia) {}
+
 @KeepDetachedRuleset: /*:*/ {
   BACKGROUND: RED;
 }
 
+@KeepTopLevelVar: val;
+$KeepScssVar: val;
+
 .Keep(@Keep: 12e03PX) WHEN (@Keep=Case) /*:*/ {
     @KeepVar: KeepName; /*:*/
     @{KeepInterpolationVar}: val;
+    $KeepScssVar: val;
 
     @{Keep}[@{Keep}][@{Keep}^=@{Keep-1A}]:@{Keep} {
+      prop: val;
+    }
+
+    &Keep & NoKeep {
       prop: val;
     }
 
@@ -104,15 +115,27 @@ a[href="KeepAttrValue"]:hover::first-letter,
   }
 }
 
+@custom-media --KeepCustomMedia screen and (width >= 768px);
+@media (--KeepCustomMedia) {
+}
+
 @KeepDetachedRuleset: {
   background: RED;
 }
 
+@KeepTopLevelVar: val;
+$KeepScssVar: val;
+
 .Keep(@Keep: 12e3px) when (@Keep=Case) {
   @KeepVar: KeepName; /*:*/
   @{KeepInterpolationVar}: val;
+  $KeepScssVar: val;
 
   @{Keep}[@{Keep}][@{Keep}^=@{Keep-1A}]:@{Keep} {
+    prop: val;
+  }
+
+  &Keep & nokeep {
     prop: val;
   }
 
@@ -184,17 +207,28 @@ a[HREF=KeepAttrValue]:HOVER::FIRST-letter,
   }
 }
 
+@custom-media --KeepCustomMedia screen and (width >= 768px);
+@media (--KeepCustomMedia) {}
+
 @FUNCTION KeepFuncName() {
     @RETURN 12;
 }
+
+$KeepTopLevelVar: val;
+@KeepLessVar: val;
 
 @MIXIN KeepMixinName($Keep: 15IN, $Keep: $Keep15IN, $Keep: Keep-1E-2Em) {
     $KeepVar: KeepFuncName();
     #{$KeepInterpolationVar}: val;
     #{$Keep + 15PX}: val;
     #{$Keep + $Keep15PX}: val;
+    @KeepLessVar: val;
 
     #{$Keep}[#{$Keep}][#{Keep}^=#{Keep-1A}]:#{$Keep} {
+      prop: val;
+    }
+
+    &Keep & NoKeep {
       prop: val;
     }
 
@@ -256,17 +290,29 @@ a[href="KeepAttrValue"]:hover::first-letter,
   }
 }
 
+@custom-media --KeepCustomMedia screen and (width >= 768px);
+@media (--KeepCustomMedia) {
+}
+
 @function KeepFuncName() {
   @return 12;
 }
+
+$KeepTopLevelVar: val;
+@KeepLessVar: val;
 
 @mixin KeepMixinName($Keep: 15in, $Keep: $Keep15IN, $Keep: Keep-1E-2Em) {
   $KeepVar: KeepFuncName();
   #{$KeepInterpolationVar}: val;
   #{$Keep + 15PX}: val;
   #{$Keep + $Keep15PX}: val;
+  @KeepLessVar: val;
 
   #{$Keep}[#{$Keep}][#{Keep}^="#{Keep-1A}"]:#{$Keep} {
+    prop: val;
+  }
+
+  &Keep & nokeep {
     prop: val;
   }
 

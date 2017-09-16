@@ -466,12 +466,12 @@ function handleIfStatementComments(
   }
 
   // We unfortunately have no way using the AST or location of nodes to know
-  // if the comment is positioned before or after the condition parenthesis:
+  // if the comment is positioned before the condition parenthesis:
   //   if (a /* comment */) {}
-  //   if (a) /* comment */ {}
   // The only workaround I found is to look at the next character to see if
   // it is a ).
-  if (getNextNonSpaceNonCommentCharacter(text, comment) === ")") {
+  const nextCharacter = getNextNonSpaceNonCommentCharacter(text, comment);
+  if (nextCharacter === ")") {
     addTrailingComment(precedingNode, comment);
     return true;
   }
@@ -483,6 +483,16 @@ function handleIfStatementComments(
 
   if (followingNode.type === "IfStatement") {
     addBlockOrNotComment(followingNode.consequent, comment);
+    return true;
+  }
+
+  // For comments positioned after the condition parenthesis in an if statement
+  // before the consequent with or without brackets on, such as
+  // if (a) /* comment */ {} or if (a) /* comment */ true,
+  // we look at the next character to see if it is a { or if the following node
+  // is the consequent for the if statement
+  if (nextCharacter === "{" || enclosingNode.consequent === followingNode) {
+    addLeadingComment(followingNode, comment);
     return true;
   }
 

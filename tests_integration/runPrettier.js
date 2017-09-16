@@ -1,9 +1,12 @@
 "use strict";
 
-const path = require("path");
 const fs = require("fs");
+const path = require("path");
 
 function runPrettier(dir, args, options) {
+  args = args || [];
+  options = options || {};
+
   let status;
   let stdout = "";
   let stderr = "";
@@ -16,39 +19,19 @@ function runPrettier(dir, args, options) {
   });
 
   const spiedStdoutWrite = jest.spyOn(process.stdout, "write");
-  spiedStdoutWrite.mockImplementation(text => {
-    if (status === undefined) {
-      stdout += text;
-    }
-  });
+  spiedStdoutWrite.mockImplementation(text => appendStdout(text));
 
   const spiedStderrWrite = jest.spyOn(process.stderr, "write");
-  spiedStderrWrite.mockImplementation(text => {
-    if (status === undefined) {
-      stderr += text;
-    }
-  });
+  spiedStderrWrite.mockImplementation(text => appendStderr(text));
 
   const spiedConsoleLog = jest.spyOn(console, "log");
-  spiedConsoleLog.mockImplementation(text => {
-    if (status === undefined) {
-      stdout += text + "\n";
-    }
-  });
+  spiedConsoleLog.mockImplementation(text => appendStdout(text + "\n"));
 
   const spiedConsoleWarn = jest.spyOn(console, "warn");
-  spiedConsoleWarn.mockImplementation(text => {
-    if (status === undefined) {
-      stderr += text + "\n";
-    }
-  });
+  spiedConsoleWarn.mockImplementation(text => appendStderr(text + "\n"));
 
   const spiedConsoleError = jest.spyOn(console, "error");
-  spiedConsoleError.mockImplementation(text => {
-    if (status === undefined) {
-      stderr += text + "\n";
-    }
-  });
+  spiedConsoleError.mockImplementation(text => appendStderr(text + "\n"));
 
   const write = [];
 
@@ -58,41 +41,45 @@ function runPrettier(dir, args, options) {
   });
 
   const originalCwd = process.cwd();
-  const originalIsTTY = process.stdin.isTTY;
   const originalArgv = process.argv;
   const originalExitCode = process.exitCode;
+  const originalStdinIsTTY = process.stdin.isTTY;
 
   process.chdir(normalizeDir(dir));
-  process.stdin.isTTY = false;
-  process.argv = ["path/to/node", "path/to/prettier/bin"].concat(args || []);
+  process.stdin.isTTY = !!options.isTTY;
+  process.argv = ["path/to/node", "path/to/prettier/bin"].concat(args);
 
   jest.resetModules();
   jest.setMock("get-stream", () => ({
-    then: handler => handler((options && options.input) || "")
+    then: handler => handler(options.input || "")
   }));
 
   try {
     require("../bin/prettier");
-    status = status || process.exitCode || 0;
+    status = (status === undefined ? process.exitCode : status) || 0;
   } catch (error) {
-    stderr += error.message;
     status = 1;
+    stderr += error.message;
   } finally {
-    process.exitCode = originalExitCode;
-    process.stdin.isTTY = originalIsTTY;
-    process.argv = originalArgv;
     process.chdir(originalCwd);
-
-    spiedProcessExit.mockRestore();
-    spiedStdoutWrite.mockRestore();
-    spiedStderrWrite.mockRestore();
-    spiedConsoleLog.mockRestore();
-    spiedConsoleWarn.mockRestore();
-    spiedConsoleError.mockRestore();
-    spiedFsWriteFileSync.mockRestore();
+    process.argv = originalArgv;
+    process.exitCode = originalExitCode;
+    process.stdin.isTTY = originalStdinIsTTY;
+    jest.restoreAllMocks();
   }
 
   return { status, stdout, stderr, write };
+
+  function appendStdout(text) {
+    if (status === undefined) {
+      stdout += text;
+    }
+  }
+  function appendStderr(text) {
+    if (status === undefined) {
+      stderr += text;
+    }
+  }
 }
 
 function normalizeDir(dir) {

@@ -4,6 +4,7 @@
 
 const path = require("path");
 const pkg = require("../../package.json");
+const formatMarkdown = require("../../website/static/markdown");
 const shell = require("shelljs");
 
 const rootDir = path.join(__dirname, "..", "..");
@@ -98,8 +99,23 @@ shell.sed(
   "dist/bin/prettier.js"
 );
 
-shell.echo("Create prettier-version.js");
-pipe(`prettierVersion = "${pkg.version}";\n`).to(`${docs}/prettier-version.js`);
+shell.echo("Update ISSUE_TEMPLATE.md");
+const issueTemplate = shell.cat(".github/ISSUE_TEMPLATE.md").stdout;
+const newIssueTemplate = issueTemplate.replace(
+  /-->[^]*$/,
+  "-->\n\n" +
+    formatMarkdown(
+      "// code snippet",
+      "// code snippet",
+      "",
+      pkg.version,
+      "https://prettier.io/playground/#.....",
+      { parser: "babylon" },
+      [["# Options (if any):", true], ["--single-quote", true]],
+      true
+    )
+);
+pipe(newIssueTemplate).to(".github/ISSUE_TEMPLATE.md");
 
 shell.echo("Copy sw-toolbox.js to docs");
 shell.cp("node_modules/sw-toolbox/sw-toolbox.js", `${docs}/sw-toolbox.js`);
@@ -115,7 +131,7 @@ shell.cp("README.md", "dist/README.md");
 shell.echo("Done!");
 shell.echo();
 shell.echo("How to test against dist:");
-shell.echo("  1) yarn test --prod");
+shell.echo("  1) NODE_ENV=production yarn test");
 shell.echo();
 shell.echo("How to publish:");
 shell.echo("  1) IMPORTANT!!! Go to dist/");

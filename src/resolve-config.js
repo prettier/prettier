@@ -2,53 +2,52 @@
 
 const cosmiconfig = require("cosmiconfig");
 const minimatch = require("minimatch");
+const mem = require("mem");
 
-const cosmiconfigBaseOptions = {
-  rcExtensions: true
-};
+const getExplorerMemoized = mem(opts =>
+  cosmiconfig("prettier", {
+    sync: opts.sync,
+    cache: opts.cache,
+    rcExtensions: true
+  })
+);
 
-function getCosmiconfigWithOptions(options) {
-  const cosmiconfigOptionsWithBase = Object.assign(
-    {},
-    cosmiconfigBaseOptions,
-    options || {}
-  );
-  return cosmiconfig("prettier", cosmiconfigOptionsWithBase);
+/** @param {{ cache: boolean, sync: boolean }} opts */
+function getLoadFunction(opts) {
+  // Normalize opts before passing to a memoized function
+  opts = Object.assign({ sync: false, cache: false }, opts);
+  return getExplorerMemoized(opts).load;
 }
 
-const asyncWithCache = getCosmiconfigWithOptions();
-const asyncNoCache = getCosmiconfigWithOptions({ cache: false });
-const syncWithCache = getCosmiconfigWithOptions({ sync: true });
-const syncNoCache = getCosmiconfigWithOptions({ cache: false, sync: true });
-
 function resolveConfig(filePath, opts) {
-  const useCache = !(opts && opts.useCache === false);
-  return (useCache ? asyncWithCache : asyncNoCache)
-    .load(filePath)
-    .then(result => {
-      return !result ? null : mergeOverrides(result.config, filePath);
-    });
+  opts = Object.assign({ useCache: true }, opts);
+  const load = getLoadFunction({ cache: !!opts.useCache, sync: false });
+  return load(filePath, opts.config).then(result => {
+    return !result ? null : mergeOverrides(result.config, filePath);
+  });
 }
 
 resolveConfig.sync = (filePath, opts) => {
-  const useCache = !(opts && opts.useCache === false);
-  const result = (useCache ? syncWithCache : syncNoCache).load(filePath);
+  opts = Object.assign({ useCache: true }, opts);
+  const load = getLoadFunction({ cache: !!opts.useCache, sync: true });
+  const result = load(filePath, opts.config);
   return !result ? null : mergeOverrides(result.config, filePath);
 };
 
 function clearCache() {
-  syncWithCache.clearCaches();
-  asyncWithCache.clearCaches();
+  mem.clear(getExplorerMemoized);
 }
 
 function resolveConfigFile(filePath) {
-  return asyncNoCache.load(filePath).then(result => {
+  const load = getLoadFunction({ sync: false });
+  return load(filePath).then(result => {
     return result ? result.filepath : null;
   });
 }
 
 resolveConfigFile.sync = filePath => {
-  const result = syncNoCache.load(filePath);
+  const load = getLoadFunction({ sync: true });
+  const result = load(filePath);
   return result ? result.filepath : null;
 };
 

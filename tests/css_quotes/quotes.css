@@ -73,6 +73,13 @@
 }
 
 @import "file.css";
+@import 'file.css';
+
+@import url("foo.css");
+@import url('foo.css');
+
+@import "foo.css" screen and (orientation: landscape);
+@import 'foo.css' screen and (orientation: landscape);
 
 @foo "one";
 @foo 'one';

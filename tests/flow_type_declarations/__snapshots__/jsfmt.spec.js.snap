@@ -7,6 +7,13 @@ declare type A = string;
 
 `;
 
+exports[`declare_var.js 1`] = `
+declare var bool: React$PropType$Primitive<boolean>;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+declare var bool: React$PropType$Primitive<boolean>;
+
+`;
+
 exports[`long.js 1`] = `
 export type AdamPlacementValidationSingleErrorKey =
   'SOME_FANCY_TARGETS.GLOBAL_TARGET';

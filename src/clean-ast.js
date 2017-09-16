@@ -4,9 +4,9 @@ function cleanAST(ast) {
   return JSON.stringify(massageAST(ast), null, 2);
 }
 
-function massageAST(ast) {
+function massageAST(ast, parent) {
   if (Array.isArray(ast)) {
-    return ast.map(e => massageAST(e)).filter(e => e);
+    return ast.map(e => massageAST(e, parent)).filter(e => e);
   }
   if (ast && typeof ast === "object") {
     // We remove extra `;` and add them when needed
@@ -29,7 +29,7 @@ function massageAST(ast) {
     const newObj = {};
     for (const key in ast) {
       if (typeof ast[key] !== "function") {
-        newObj[key] = massageAST(ast[key]);
+        newObj[key] = massageAST(ast[key], ast);
       }
     }
 
@@ -102,8 +102,10 @@ function massageAST(ast) {
 
     if (
       (ast.type === "media-feature" ||
+        ast.type === "media-keyword" ||
         ast.type === "media-type" ||
         ast.type === "media-unknown" ||
+        ast.type === "media-url" ||
         ast.type === "media-value" ||
         ast.type === "selector-root-invalid" ||
         ast.type === "selector-attribute" ||
@@ -219,6 +221,7 @@ function massageAST(ast) {
 
       quasis.forEach(q => delete q.value);
     }
+
     // styled-components and graphql
     if (
       ast.type === "TaggedTemplateExpression" &&
@@ -230,6 +233,13 @@ function massageAST(ast) {
         ast.tag.type === "CallExpression")
     ) {
       newObj.quasi.quasis.forEach(quasi => delete quasi.value);
+    }
+    if (
+      ast.type === "TemplateLiteral" &&
+      parent.type === "CallExpression" &&
+      parent.callee.name === "graphql"
+    ) {
+      newObj.quasis.forEach(quasi => delete quasi.value);
     }
 
     return newObj;

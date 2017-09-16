@@ -338,24 +338,42 @@ function genericPrintNoParens(path, options, print, args) {
         );
       }
 
-      // Avoid indenting sub-expressions in assignment/return/etc statements.
-      if (
-        parent.type === "AssignmentExpression" ||
-        parent.type === "VariableDeclarator" ||
-        shouldInlineLogicalExpression(n) ||
+      // Avoid indenting sub-expressions in some cases where the first sub-expression is already
+      // idented accordingly. We should ident sub-expressions where the first case isn't idented.
+      const shouldNotIdent =
         parent.type === "ReturnStatement" ||
         (parent.type === "JSXExpressionContainer" &&
           parentParent.type === "JSXAttribute") ||
         (n === parent.body && parent.type === "ArrowFunctionExpression") ||
         (n !== parent.body && parent.type === "ForStatement") ||
+        (parent.type === "ConditionalExpression" &&
+          parentParent.type !== "ReturnStatement");
+
+      const shouldIdentIfInlining =
+        parent.type === "AssignmentExpression" ||
+        parent.type === "VariableDeclarator" ||
         parent.type === "ObjectProperty" ||
-        parent.type === "Property" ||
-        parent.type === "ConditionalExpression"
+        parent.type === "Property";
+
+      const logicalSubExpression = n.left.type === "LogicalExpression";
+
+      if (
+        shouldNotIdent ||
+        (shouldInlineLogicalExpression(n) && !logicalSubExpression) ||
+        (!shouldInlineLogicalExpression(n) && shouldIdentIfInlining)
       ) {
         return group(concat(parts));
       }
 
       const rest = concat(parts.slice(1));
+
+      // Break the closing paren to keep the chain right after it:
+      // (a &&
+      //   b &&
+      //   c
+      // ).call()
+      const breakClosingParen =
+        parent.type === "MemberExpression" && !parent.computed;
 
       return group(
         concat([
@@ -363,7 +381,8 @@ function genericPrintNoParens(path, options, print, args) {
           // level. The first item is guaranteed to be the first
           // left-most expression.
           parts.length > 0 ? parts[0] : "",
-          indent(rest)
+          indent(rest),
+          breakClosingParen ? softline : ""
         ])
       );
     }
@@ -1244,8 +1263,6 @@ function genericPrintNoParens(path, options, print, args) {
         n.test.type === "JSXElement" ||
         n.consequent.type === "JSXElement" ||
         n.alternate.type === "JSXElement" ||
-        parent.type === "JSXExpressionContainer" ||
-        firstNonConditionalParent.type === "JSXExpressionContainer" ||
         conditionalExpressionChainContainsJSX(lastConditionalParent)
       ) {
         jsxMode = true;
@@ -1263,20 +1280,19 @@ function genericPrintNoParens(path, options, print, args) {
           ]);
 
         // The only things we don't wrap are:
-        // * Nested conditional expressions
+        // * Nested conditional expressions in alternates
         // * null
-        const shouldNotWrap = node =>
-          node.type === "ConditionalExpression" ||
+        const isNull = node =>
           node.type === "NullLiteral" ||
           (node.type === "Literal" && node.value === null);
 
         parts.push(
           " ? ",
-          shouldNotWrap(n.consequent)
+          isNull(n.consequent)
             ? path.call(print, "consequent")
             : wrap(path.call(print, "consequent")),
           " : ",
-          shouldNotWrap(n.alternate)
+          n.alternate.type === "ConditionalExpression" || isNull(n.alternate)
             ? path.call(print, "alternate")
             : wrap(path.call(print, "alternate"))
         );
@@ -1302,10 +1318,19 @@ function genericPrintNoParens(path, options, print, args) {
           ? parent === firstNonConditionalParent ? group(doc) : doc
           : group(doc); // Always group in normal mode.
 
+      // Break the closing paren to keep the chain right after it:
+      // (a
+      //   ? b
+      //   : c
+      // ).call()
+      const breakClosingParen =
+        !jsxMode && parent.type === "MemberExpression" && !parent.computed;
+
       return maybeGroup(
         concat([
           path.call(print, "test"),
-          forceNoIndent ? concat(parts) : indent(concat(parts))
+          forceNoIndent ? concat(parts) : indent(concat(parts)),
+          breakClosingParen ? softline : ""
         ])
       );
     }
@@ -2844,8 +2869,10 @@ function printMethod(path, options, print) {
 
 function couldGroupArg(arg) {
   return (
-    (arg.type === "ObjectExpression" && arg.properties.length > 0) ||
-    (arg.type === "ArrayExpression" && arg.elements.length > 0) ||
+    (arg.type === "ObjectExpression" &&
+      (arg.properties.length > 0 || arg.comments)) ||
+    (arg.type === "ArrayExpression" &&
+      (arg.elements.length > 0 || arg.comments)) ||
     arg.type === "TSTypeAssertionExpression" ||
     arg.type === "TSAsExpression" ||
     arg.type === "FunctionExpression" ||
@@ -2863,7 +2890,8 @@ function shouldGroupLastArg(args) {
   const lastArg = util.getLast(args);
   const penultimateArg = util.getPenultimate(args);
   return (
-    (!lastArg.comments || !lastArg.comments.length) &&
+    !hasLeadingComment(lastArg) &&
+    !hasTrailingComment(lastArg) &&
     couldGroupArg(lastArg) &&
     // If the last two arguments are of the same type,
     // disable last element expansion.
@@ -3691,12 +3719,7 @@ function printMemberChain(path, options, print) {
 
   // If we only have a single `.`, we shouldn't do anything fancy and just
   // render everything concatenated together.
-  if (
-    groups.length <= cutoff &&
-    !hasComment &&
-    // (a || b).map() should be break before .map() instead of ||
-    groups[0][0].node.type !== "LogicalExpression"
-  ) {
+  if (groups.length <= cutoff && !hasComment) {
     return group(oneLine);
   }
 
@@ -4390,8 +4413,9 @@ function isLastStatement(path) {
     return true;
   }
   const node = path.getValue();
-  const body = (parent.body || parent.consequent)
-    .filter(stmt => stmt.type !== "EmptyStatement");
+  const body = (parent.body || parent.consequent).filter(
+    stmt => stmt.type !== "EmptyStatement"
+  );
   return body && body[body.length - 1] === node;
 }
 

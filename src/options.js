@@ -15,6 +15,7 @@ const defaults = {
   bracketSpacing: true,
   jsxBracketSameLine: false,
   parser: "babylon",
+  requirePragma: false,
   semi: true
 };
 
@@ -84,4 +85,4 @@ function normalize(options) {
   return normalized;
 }
 
-module.exports = { normalize };
+module.exports = { normalize, defaults };
