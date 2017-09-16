@@ -138,7 +138,7 @@ function getOptionsOrDie(argv, filePath) {
   try {
     return argv["config"] === false
       ? null
-      : resolver.resolveConfig.sync(filePath);
+      : resolver.resolveConfig.sync(filePath, { config: argv["config"] });
   } catch (error) {
     console.error("Error: Invalid configuration file.");
     console.error(error.message);
