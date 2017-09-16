@@ -2714,7 +2714,7 @@ markdown-toc@1.1.0:
     repeat-string "^1.6.1"
     strip-color "^0.1.0"
 
-mem@^1.1.0:
+mem@1.1.0, mem@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/mem/-/mem-1.1.0.tgz#5edd52b485ca1d900fe64895505399a0dfa45f76"
   dependencies:
