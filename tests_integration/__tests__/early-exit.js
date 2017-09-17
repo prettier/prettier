@@ -45,6 +45,13 @@ test("show detailed usage with --help parser", () => {
   expect(result.status).toEqual(0);
 });
 
+test("show detailed usage with --help no-option", () => {
+  const result = runPrettier("cli", ["--help", "no-semi"]);
+
+  expect(result.stdout).toMatchSnapshot();
+  expect(result.status).toEqual(0);
+});
+
 test("throw error with --help not-found", () => {
   const result = runPrettier("cli", ["--help", "not-found"]);
 

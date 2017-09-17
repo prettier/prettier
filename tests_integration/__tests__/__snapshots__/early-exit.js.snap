@@ -31,6 +31,13 @@ Default: -1
 "
 `;
 
+exports[`show detailed usage with --help no-option 1`] = `
+"No Semi (--no-semi)
+
+  Do not print semicolons, except at the beginning of lines which may need them.
+"
+`;
+
 exports[`show detailed usage with --help parser 1`] = `
 "Parser (--parser <flow|babylon|typescript|postcss|json|graphql>)
 

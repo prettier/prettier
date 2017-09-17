@@ -334,8 +334,7 @@ function formatFiles(argv) {
   });
 }
 
-function createUsage() {
-  const options = constant.detailedOptions;
+function getOptionsWithOpposites(options) {
   // Add --no-foo after --foo.
   const optionsWithOpposites = options.map(option => [
     option.description ? option : null,
@@ -347,11 +346,13 @@ function createUsage() {
         })
       : null
   ]);
-  const flattenedOptions = [].concat
-    .apply([], optionsWithOpposites)
-    .filter(Boolean);
+  return [].concat.apply([], optionsWithOpposites).filter(Boolean);
+}
 
-  const groupedOptions = groupBy(flattenedOptions, option => option.category);
+function createUsage() {
+  const options = getOptionsWithOpposites(constant.detailedOptions);
+
+  const groupedOptions = groupBy(options, option => option.category);
 
   const firstCategories = constant.categoryOrder.slice(0, -1);
   const lastCategories = constant.categoryOrder.slice(-1);
@@ -373,11 +374,15 @@ function createUsage() {
 }
 
 function createOptionUsage(option, threshold) {
+  const header = createOptionUsageHeader(option);
+  return createOptionUsageRow(header, option.description, threshold);
+}
+
+function createOptionUsageHeader(option) {
   const name = `--${option.name}`;
   const alias = option.alias ? `-${option.alias},` : null;
   const type = createOptionUsageType(option);
-  const header = [alias, name, type].filter(Boolean).join(" ");
-  return createOptionUsageRow(header, option.description, threshold);
+  return [alias, name, type].filter(Boolean).join(" ");
 }
 
 function createOptionUsageRow(header, content, threshold) {
@@ -406,31 +411,34 @@ function createOptionUsageType(option) {
 }
 
 function createDetailedUsage(optionName) {
-  const optionNames = Object.keys(constant.detailedOptionMap);
+  const options = getOptionsWithOpposites(constant.detailedOptions);
+  const optionNames = options.map(option => option.name);
 
-  if (optionNames.indexOf(optionName) === -1) {
-    const suggestion = optionNames.find(
-      option => leven(option, optionName) < 3
+  let optionIndex = optionNames.indexOf(optionName);
+
+  if (optionIndex === -1) {
+    const suggestionOptionIndex = optionNames.findIndex(
+      currentOptionName => leven(currentOptionName, optionName) < 3
     );
 
-    if (suggestion) {
+    if (suggestionOptionIndex !== -1) {
+      const suggestionOptionName = options[suggestionOptionIndex].name;
       console.warn(
-        `Unexpected option name "${optionName}", did you mean "${suggestion}"?\n`
+        `Unexpected option name "${optionName}", did you mean "${suggestionOptionName}"?\n`
       );
-      optionName = suggestion;
+      optionName = suggestionOptionName;
+      optionIndex = suggestionOptionIndex;
     } else {
       throw new Error(`Unexpected option name "${optionName}"`);
     }
   }
 
-  const option = constant.detailedOptionMap[optionName];
+  const option = options[optionIndex];
 
   const optionTitleName = kebabToTitle(optionName);
   const optionCamelName = kebabToCamel(optionName);
 
-  const optionType = createOptionUsageType(option);
-
-  const header = `${optionTitleName} (--${optionName} ${optionType})`;
+  const header = `${optionTitleName} (${createOptionUsageHeader(option)})`;
 
   const description = `\n\n${indent(option.description, 2)}`;
 
