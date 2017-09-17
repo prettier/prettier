@@ -49,7 +49,7 @@ const categoryOrder = [
  *     // in --help as <a|b|c>.
  *     // Use an object instead of a string if a choice is deprecated and should
  *     // be treated as `redirect` instead.
- *     choices?: Array<string | { value: string, deprecated: boolean, redirect: string, description }>;
+ *     choices?: Array<string | { value: string, deprecated: boolean, redirect: string, description: string }>;
  *
  *     // If the option has a value that is an exception to the regular value
  *     // constraints, indicate that value here (or use a function for more
