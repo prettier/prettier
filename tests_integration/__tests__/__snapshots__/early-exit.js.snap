@@ -73,7 +73,7 @@ Stdin is read if it is piped to Prettier and no files are given.
 
 Output options:
 
-  --list-different or -l   Print the names of files that are different from Prettier's formatting.
+  -l, --list-different     Print the names of files that are different from Prettier's formatting.
   --write                  Edit files in-place. (Beware!)
 
 Format options:
@@ -123,13 +123,12 @@ Editor options:
 Other options:
 
   --no-color               Do not colorize error messages.
-  --help or -h <option-name>
-                           Show CLI usages, or detailed option usage if option name present.
+  -h, --help <option-name> Show CLI usages, or detailed option usage if option name present.
   --require-pragma         Require either '@prettier' or '@format' to be present in the file's first docblock comment
                            in order for it to be formatted.
   --stdin                  Force reading input from stdin.
   --stdin-filepath <path>  Path to the file to pretend that stdin comes from.
-  --version or -v          Print Prettier version.
+  -v, --version            Print Prettier version.
 
 
 "
@@ -167,7 +166,7 @@ Stdin is read if it is piped to Prettier and no files are given.
 
 Output options:
 
-  --list-different or -l   Print the names of files that are different from Prettier's formatting.
+  -l, --list-different     Print the names of files that are different from Prettier's formatting.
   --write                  Edit files in-place. (Beware!)
 
 Format options:
@@ -217,13 +216,12 @@ Editor options:
 Other options:
 
   --no-color               Do not colorize error messages.
-  --help or -h <option-name>
-                           Show CLI usages, or detailed option usage if option name present.
+  -h, --help <option-name> Show CLI usages, or detailed option usage if option name present.
   --require-pragma         Require either '@prettier' or '@format' to be present in the file's first docblock comment
                            in order for it to be formatted.
   --stdin                  Force reading input from stdin.
   --stdin-filepath <path>  Path to the file to pretend that stdin comes from.
-  --version or -v          Print Prettier version.
+  -v, --version            Print Prettier version.
 
 
 "

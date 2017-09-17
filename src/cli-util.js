@@ -374,9 +374,9 @@ function createUsage() {
 
 function createOptionUsage(option, threshold) {
   const name = `--${option.name}`;
-  const alias = option.alias ? `or -${option.alias}` : null;
+  const alias = option.alias ? `-${option.alias},` : null;
   const type = createOptionUsageType(option);
-  const header = [name, alias, type].filter(Boolean).join(" ");
+  const header = [alias, name, type].filter(Boolean).join(" ");
   return createOptionUsageRow(header, option.description, threshold);
 }
 
