@@ -9,6 +9,7 @@ const globby = require("globby");
 const ignore = require("ignore");
 const chalk = require("chalk");
 const readline = require("readline");
+const leven = require("leven");
 
 const prettier = eval("require")("../index");
 const cleanAST = require("./clean-ast").cleanAST;
@@ -376,16 +377,16 @@ function createOptionUsage(option, threshold) {
   const alias = option.alias ? `or -${option.alias}` : null;
   const type = createOptionUsageType(option);
   const header = [name, alias, type].filter(Boolean).join(" ");
+  return createOptionUsageRow(header, option.description, threshold);
+}
 
+function createOptionUsageRow(header, content, threshold) {
   const separator =
     header.length >= threshold
       ? `\n${" ".repeat(threshold)}`
       : " ".repeat(threshold - header.length);
 
-  const description = option.description.replace(
-    /\n/g,
-    `\n${" ".repeat(threshold)}`
-  );
+  const description = content.replace(/\n/g, `\n${" ".repeat(threshold)}`);
 
   return `${header}${separator}${description}`;
 }
@@ -402,6 +403,74 @@ function createOptionUsageType(option) {
     default:
       return `<${option.type}>`;
   }
+}
+
+function createDetailedUsage(optionName) {
+  const optionNames = Object.keys(constant.detailedOptionMap);
+
+  if (optionNames.indexOf(optionName) === -1) {
+    const suggestion = optionNames.find(
+      option => leven(option, optionName) < 3
+    );
+
+    if (suggestion) {
+      console.warn(
+        `Unexpected option name "${optionName}", did you mean "${suggestion}"?\n`
+      );
+      optionName = suggestion;
+    } else {
+      throw new Error(`Unexpected option name "${optionName}"`);
+    }
+  }
+
+  const option = constant.detailedOptionMap[optionName];
+
+  const optionTitleName = kebabToTitle(optionName);
+  const optionCamelName = kebabToCamel(optionName);
+
+  const optionType = createOptionUsageType(option);
+
+  const header = `${optionTitleName} (--${optionName} ${optionType})`;
+
+  const description = `\n\n${indent(option.description, 2)}`;
+
+  const choices =
+    option.type !== "choice"
+      ? ""
+      : (() => {
+          const choices = option.choices.filter(choice => !choice.deprecated);
+          const threshold =
+            choices
+              .map(choice => choice.value.length)
+              .reduce((current, length) => Math.max(current, length), 0) + 3;
+          const choiceUsages = choices.map(choice =>
+            indent(
+              createOptionUsageRow(choice.value, choice.description, threshold),
+              2
+            )
+          );
+          return `\n\nValid options:\n\n${choiceUsages.join("\n")}`;
+        })();
+
+  const defaults =
+    option.default !== undefined
+      ? `\n\nDefault: ${option.default}`
+      : optionCamelName in apiDefaultOptions
+        ? `\n\nDefault: ${apiDefaultOptions[optionCamelName]}`
+        : "";
+
+  return `${header}${description}${choices}${defaults}`;
+}
+
+function kebabToCamel(str) {
+  return str.replace(/-([a-z])/g, (_, char) => char.toUpperCase());
+}
+
+function kebabToTitle(str) {
+  return str.replace(
+    /(^|-)([a-z])/g,
+    (_, prefix, char) => " ".repeat(prefix.length) + char.toUpperCase()
+  );
 }
 
 function indent(str, spaces) {
@@ -511,5 +580,6 @@ module.exports = {
   formatStdin,
   formatFiles,
   createUsage,
+  createDetailedUsage,
   normalizeArgv
 };

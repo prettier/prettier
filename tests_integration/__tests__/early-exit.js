@@ -17,6 +17,50 @@ test("show usage with --help", () => {
   expect(result.status).toEqual(0);
 });
 
+test("show detailed usage with --help trailing-comma", () => {
+  const result = runPrettier("cli", ["--help", "trailing-comma"]);
+
+  expect(result.stdout).toMatchSnapshot();
+  expect(result.status).toEqual(0);
+});
+
+test("show detailed usage with --help config-precedence", () => {
+  const result = runPrettier("cli", ["--help", "config-precedence"]);
+
+  expect(result.stdout).toMatchSnapshot();
+  expect(result.status).toEqual(0);
+});
+
+test("show detailed usage with --help cursor-offset", () => {
+  const result = runPrettier("cli", ["--help", "cursor-offset"]);
+
+  expect(result.stdout).toMatchSnapshot();
+  expect(result.status).toEqual(0);
+});
+
+test("show detailed usage with --help parser", () => {
+  const result = runPrettier("cli", ["--help", "parser"]);
+
+  expect(result.stdout).toMatchSnapshot();
+  expect(result.status).toEqual(0);
+});
+
+test("throw error with --help not-found", () => {
+  const result = runPrettier("cli", ["--help", "not-found"]);
+
+  expect(result.stdout).toMatchSnapshot();
+  expect(result.stderr).toMatchSnapshot();
+  expect(result.status).not.toEqual(0);
+});
+
+test("show warning with --help not-found (typo)", () => {
+  const result = runPrettier("cli", ["--help", "parserr"]);
+
+  expect(result.stdout).toMatchSnapshot();
+  expect(result.stderr).toMatchSnapshot();
+  expect(result.status).toEqual(0);
+});
+
 test("throw error with --write + --debug-check", () => {
   const result = runPrettier("cli", ["--write", "--debug-check"]);
 

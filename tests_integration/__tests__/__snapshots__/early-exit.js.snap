@@ -1,5 +1,70 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`show detailed usage with --help config-precedence 1`] = `
+"Config Precedence (--config-precedence <cli-override|file-override|prefer-file>)
+
+  Define in which order config files and CLI options should be evaluated
+  cli-override  | default config => config file => CLI options
+  file-override | default config => CLI options => config file
+  prefer-file   | default config => config file (if config file is found) or
+                  default config => CLI options (if no config file is found)
+  Defaults to cli-override.
+
+Valid options:
+
+  cli-override    CLI options take precedence over config file
+  file-override   Config file take precedence over CLI options
+  prefer-file     If a config file is found will evaluate it and ignore other CLI options.
+                  If no config file is found CLI options will evaluate as normal.
+
+Default: cli-override
+"
+`;
+
+exports[`show detailed usage with --help cursor-offset 1`] = `
+"Cursor Offset (--cursor-offset <int>)
+
+  Print (to stderr) where a cursor at the given position would move to after formatting.
+  This option cannot be used with --range-start and --range-end.
+
+Default: -1
+"
+`;
+
+exports[`show detailed usage with --help parser 1`] = `
+"Parser (--parser <flow|babylon|typescript|postcss|json|graphql>)
+
+  Which parser to use. Defaults to babylon.
+
+Valid options:
+
+  flow         undocumented
+  babylon      undocumented
+  typescript   undocumented
+  postcss      undocumented
+  json         undocumented
+  graphql      undocumented
+
+Default: babylon
+"
+`;
+
+exports[`show detailed usage with --help trailing-comma 1`] = `
+"Trailing Comma (--trailing-comma <none|es5|all>)
+
+  Print trailing commas wherever possible when multi-line. Defaults to none.
+
+Valid options:
+
+  none   No trailing commas.
+  es5    Trailing commas where valid in ES5 (objects, arrays, etc.)
+  all    Trailing commas wherever possible (including function arguments).
+         This requires node 8 or a transform.
+
+Default: none
+"
+`;
+
 exports[`show usage with --help 1`] = `
 "Usage: prettier [options] [file/glob ...]
 
@@ -58,13 +123,38 @@ Editor options:
 Other options:
 
   --no-color               Do not colorize error messages.
-  --help or -h             Show help.
+  --help or -h <option-name>
+                           Show CLI usages, or detailed option usage if option name present.
   --require-pragma         Require either '@prettier' or '@format' to be present in the file's first docblock comment
                            in order for it to be formatted.
   --stdin                  Force reading input from stdin.
   --stdin-filepath <path>  Path to the file to pretend that stdin comes from.
   --version or -v          Print Prettier version.
 
+
+"
+`;
+
+exports[`show warning with --help not-found (typo) 1`] = `
+"Parser (--parser <flow|babylon|typescript|postcss|json|graphql>)
+
+  Which parser to use. Defaults to babylon.
+
+Valid options:
+
+  flow         undocumented
+  babylon      undocumented
+  typescript   undocumented
+  postcss      undocumented
+  json         undocumented
+  graphql      undocumented
+
+Default: babylon
+"
+`;
+
+exports[`show warning with --help not-found (typo) 2`] = `
+"Unexpected option name \\"parserr\\", did you mean \\"parser\\"?
 
 "
 `;
@@ -127,7 +217,8 @@ Editor options:
 Other options:
 
   --no-color               Do not colorize error messages.
-  --help or -h             Show help.
+  --help or -h <option-name>
+                           Show CLI usages, or detailed option usage if option name present.
   --require-pragma         Require either '@prettier' or '@format' to be present in the file's first docblock comment
                            in order for it to be formatted.
   --stdin                  Force reading input from stdin.
@@ -144,6 +235,10 @@ exports[`throw error with --find-config-path + multiple files 1`] = `
 "Cannot use --find-config-path with multiple files
 "
 `;
+
+exports[`throw error with --help not-found 1`] = `""`;
+
+exports[`throw error with --help not-found 2`] = `"Unexpected option name \\"not-found\\""`;
 
 exports[`throw error with --write + --debug-check 1`] = `
 "Cannot use --write and --debug-check together.

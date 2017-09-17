@@ -49,7 +49,7 @@ const categoryOrder = [
  *     // in --help as <a|b|c>.
  *     // Use an object instead of a string if a choice is deprecated and should
  *     // be treated as `redirect` instead.
- *     choices?: Array<string | { value: string, deprecated: boolean, redirect: string }>;
+ *     choices?: Array<string | { value: string, deprecated: boolean, redirect: string, description }>;
  *
  *     // If the option has a value that is an exception to the regular value
  *     // constraints, indicate that value here (or use a function for more
@@ -97,7 +97,23 @@ const detailedOptions = normalizeDetailedOptions({
     type: "choice",
     category: CATEGORY_CONFIG,
     default: "cli-override",
-    choices: ["cli-override", "file-override", "prefer-file"],
+    choices: [
+      {
+        value: "cli-override",
+        description: "CLI options take precedence over config file"
+      },
+      {
+        value: "file-override",
+        description: "Config file take precedence over CLI options"
+      },
+      {
+        value: "prefer-file",
+        description: dedent(`
+          If a config file is found will evaluate it and ignore other CLI options.
+          If no config file is found CLI options will evaluate as normal.
+        `)
+      }
+    ],
     description: dedent(`
       Define in which order config files and CLI options should be evaluated
       cli-override  | default config => config file => CLI options
@@ -136,9 +152,10 @@ const detailedOptions = normalizeDetailedOptions({
     deprecated: "Use `--parser flow` instead."
   },
   help: {
-    type: "boolean",
+    type: "option-name",
     alias: "h",
-    description: "Show help."
+    description:
+      "Show CLI usages, or detailed option usage if option name present."
   },
   "ignore-path": {
     type: "path",
@@ -241,9 +258,19 @@ const detailedOptions = normalizeDetailedOptions({
     category: CATEGORY_FORMAT,
     forwardToApi: true,
     choices: [
-      "none",
-      "es5",
-      "all",
+      { value: "none", description: "No trailing commas." },
+      {
+        value: "es5",
+        description:
+          "Trailing commas where valid in ES5 (objects, arrays, etc.)"
+      },
+      {
+        value: "all",
+        description: dedent(`
+          Trailing commas wherever possible (including function arguments).
+          This requires node 8 or a transform.
+        `)
+      },
       { value: "", deprecated: true, redirect: "es5" }
     ],
     description:
@@ -332,8 +359,11 @@ function normalizeDetailedOptions(rawDetailedOptions) {
           : kebabToCamel(name)),
       choices:
         option.choices &&
-        option.choices.map(
-          choice => (typeof choice === "object" ? choice : { value: choice })
+        option.choices.map(choice =>
+          Object.assign(
+            { description: "undocumented", deprecated: false },
+            typeof choice === "object" ? choice : { value: choice }
+          )
         ),
       getter: option.getter || (value => value)
     });
