@@ -66,7 +66,6 @@ Valid options:
   none   No trailing commas.
   es5    Trailing commas where valid in ES5 (objects, arrays, etc.)
   all    Trailing commas wherever possible (including function arguments).
-         This requires node 8 or a transform.
 
 Default: none
 "

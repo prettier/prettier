@@ -266,10 +266,8 @@ const detailedOptions = normalizeDetailedOptions({
       },
       {
         value: "all",
-        description: dedent(`
-          Trailing commas wherever possible (including function arguments).
-          This requires node 8 or a transform.
-        `)
+        description:
+          "Trailing commas wherever possible (including function arguments)."
       },
       { value: "", deprecated: true, redirect: "es5" }
     ],
