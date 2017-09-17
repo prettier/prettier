@@ -115,11 +115,7 @@ const detailedOptions = normalizeDetailedOptions({
       }
     ],
     description: dedent(`
-      Define in which order config files and CLI options should be evaluated
-      cli-override  | default config => config file => CLI options
-      file-override | default config => CLI options => config file
-      prefer-file   | default config => config file (if config file is found) or
-                      default config => CLI options (if no config file is found)
+      Define in which order config files and CLI options should be evaluated.
       Defaults to cli-override.
     `)
   },

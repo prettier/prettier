@@ -3,11 +3,7 @@
 exports[`show detailed usage with --help config-precedence 1`] = `
 "Config Precedence (--config-precedence <cli-override|file-override|prefer-file>)
 
-  Define in which order config files and CLI options should be evaluated
-  cli-override  | default config => config file => CLI options
-  file-override | default config => CLI options => config file
-  prefer-file   | default config => config file (if config file is found) or
-                  default config => CLI options (if no config file is found)
+  Define in which order config files and CLI options should be evaluated.
   Defaults to cli-override.
 
 Valid options:
@@ -101,11 +97,7 @@ Config options:
   --config <path>          Path to a Prettier configuration file (.prettierrc, package.json, prettier.config.js).
   --no-config              Do not look for a configuration file.
   --config-precedence <cli-override|file-override|prefer-file>
-                           Define in which order config files and CLI options should be evaluated
-                           cli-override  | default config => config file => CLI options
-                           file-override | default config => CLI options => config file
-                           prefer-file   | default config => config file (if config file is found) or
-                                           default config => CLI options (if no config file is found)
+                           Define in which order config files and CLI options should be evaluated.
                            Defaults to cli-override.
   --find-config-path <path>
                            Find and print the path to a configuration file for the given input file.
@@ -194,11 +186,7 @@ Config options:
   --config <path>          Path to a Prettier configuration file (.prettierrc, package.json, prettier.config.js).
   --no-config              Do not look for a configuration file.
   --config-precedence <cli-override|file-override|prefer-file>
-                           Define in which order config files and CLI options should be evaluated
-                           cli-override  | default config => config file => CLI options
-                           file-override | default config => CLI options => config file
-                           prefer-file   | default config => config file (if config file is found) or
-                                           default config => CLI options (if no config file is found)
+                           Define in which order config files and CLI options should be evaluated.
                            Defaults to cli-override.
   --find-config-path <path>
                            Find and print the path to a configuration file for the given input file.
