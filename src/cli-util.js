@@ -424,12 +424,12 @@ function createDetailedUsage(optionName) {
     if (suggestionOptionIndex !== -1) {
       const suggestionOptionName = options[suggestionOptionIndex].name;
       console.warn(
-        `Unexpected option name "${optionName}", did you mean "${suggestionOptionName}"?\n`
+        `Unknown option name "${optionName}", did you mean "${suggestionOptionName}"?\n`
       );
       optionName = suggestionOptionName;
       optionIndex = suggestionOptionIndex;
     } else {
-      throw new Error(`Unexpected option name "${optionName}"`);
+      throw new Error(`Unknown option name "${optionName}"`);
     }
   }
 

@@ -151,7 +151,7 @@ Default: babylon
 `;
 
 exports[`show warning with --help not-found (typo) 2`] = `
-"Unexpected option name \\"parserr\\", did you mean \\"parser\\"?
+"Unknown option name \\"parserr\\", did you mean \\"parser\\"?
 
 "
 `;
@@ -230,7 +230,7 @@ exports[`throw error with --find-config-path + multiple files 1`] = `
 
 exports[`throw error with --help not-found 1`] = `""`;
 
-exports[`throw error with --help not-found 2`] = `"Unexpected option name \\"not-found\\""`;
+exports[`throw error with --help not-found 2`] = `"Unknown option name \\"not-found\\""`;
 
 exports[`throw error with --write + --debug-check 1`] = `
 "Cannot use --write and --debug-check together.
