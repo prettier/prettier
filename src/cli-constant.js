@@ -48,8 +48,12 @@ const categoryOrder = [
  *     // Specify available choices for validation. They will also be displayed
  *     // in --help as <a|b|c>.
  *     // Use an object instead of a string if a choice is deprecated and should
- *     // be treated as `redirect` instead.
- *     choices?: Array<string | { value: string, deprecated: boolean, redirect: string, description: string }>;
+ *     // be treated as `redirect` instead, or if you'd like to add description for
+ *     // the choice.
+ *     choices?: Array<
+ *       | string
+ *       | { value: string, description?: string, deprecated?: boolean, redirect?: string }
+ *     >;
  *
  *     // If the option has a value that is an exception to the regular value
  *     // constraints, indicate that value here (or use a function for more
