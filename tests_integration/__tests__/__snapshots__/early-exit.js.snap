@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`show detailed usage with --help config-precedence 1`] = `
-"Config Precedence (--config-precedence <cli-override|file-override|prefer-file>)
+"--config-precedence <cli-override|file-override|prefer-file>
 
   Define in which order config files and CLI options should be evaluated.
 
@@ -17,7 +17,7 @@ Default: cli-override
 `;
 
 exports[`show detailed usage with --help cursor-offset 1`] = `
-"Cursor Offset (--cursor-offset <int>)
+"--cursor-offset <int>
 
   Print (to stderr) where a cursor at the given position would move to after formatting.
   This option cannot be used with --range-start and --range-end.
@@ -27,14 +27,14 @@ Default: -1
 `;
 
 exports[`show detailed usage with --help no-option 1`] = `
-"No Semi (--no-semi)
+"--no-semi
 
   Do not print semicolons, except at the beginning of lines which may need them.
 "
 `;
 
 exports[`show detailed usage with --help parser 1`] = `
-"Parser (--parser <flow|babylon|typescript|postcss|json|graphql>)
+"--parser <flow|babylon|typescript|postcss|json|graphql>
 
   Which parser to use.
 
@@ -52,7 +52,7 @@ Default: babylon
 `;
 
 exports[`show detailed usage with --help trailing-comma 1`] = `
-"Trailing Comma (--trailing-comma <none|es5|all>)
+"--trailing-comma <none|es5|all>
 
   Print trailing commas wherever possible when multi-line.
 
@@ -141,7 +141,7 @@ Other options:
 `;
 
 exports[`show warning with --help not-found (typo) 1`] = `
-"Parser (--parser <flow|babylon|typescript|postcss|json|graphql>)
+"--parser <flow|babylon|typescript|postcss|json|graphql>
 
   Which parser to use.
 

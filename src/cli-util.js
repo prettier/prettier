@@ -463,10 +463,7 @@ function createDetailedUsage(optionName) {
     optionName
   );
 
-  const optionTitleName = kebabToTitle(option.name);
-
-  const header = `${optionTitleName} (${createOptionUsageHeader(option)})`;
-
+  const header = createOptionUsageHeader(option);
   const description = `\n\n${indent(option.description, 2)}`;
 
   const choices =
@@ -509,13 +506,6 @@ function getOptionDefaultValue(optionName) {
 
 function kebabToCamel(str) {
   return str.replace(/-([a-z])/g, (_, char) => char.toUpperCase());
-}
-
-function kebabToTitle(str) {
-  return str.replace(
-    /(^|-)([a-z])/g,
-    (_, prefix, char) => " ".repeat(prefix.length) + char.toUpperCase()
-  );
 }
 
 function indent(str, spaces) {
