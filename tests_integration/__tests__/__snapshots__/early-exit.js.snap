@@ -41,12 +41,12 @@ exports[`show detailed usage with --help parser 1`] = `
 
 Valid options:
 
-  flow         undocumented
-  babylon      undocumented
-  typescript   undocumented
-  postcss      undocumented
-  json         undocumented
-  graphql      undocumented
+  flow         
+  babylon      
+  typescript   
+  postcss      
+  json         
+  graphql      
 
 Default: babylon
 "
@@ -139,12 +139,12 @@ exports[`show warning with --help not-found (typo) 1`] = `
 
 Valid options:
 
-  flow         undocumented
-  babylon      undocumented
-  typescript   undocumented
-  postcss      undocumented
-  json         undocumented
-  graphql      undocumented
+  flow         
+  babylon      
+  typescript   
+  postcss      
+  json         
+  graphql      
 
 Default: babylon
 "

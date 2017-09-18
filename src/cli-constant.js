@@ -358,7 +358,7 @@ function normalizeDetailedOptions(rawDetailedOptions) {
         option.choices &&
         option.choices.map(choice =>
           Object.assign(
-            { description: "undocumented", deprecated: false },
+            { description: "", deprecated: false },
             typeof choice === "object" ? choice : { value: choice }
           )
         ),
