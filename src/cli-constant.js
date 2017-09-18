@@ -118,10 +118,8 @@ const detailedOptions = normalizeDetailedOptions({
         `)
       }
     ],
-    description: dedent(`
-      Define in which order config files and CLI options should be evaluated.
-      Defaults to cli-override.
-    `)
+    description:
+      "Define in which order config files and CLI options should be evaluated."
   },
   "cursor-offset": {
     type: "int",
@@ -160,10 +158,7 @@ const detailedOptions = normalizeDetailedOptions({
     type: "path",
     category: CATEGORY_CONFIG,
     default: ".prettierignore",
-    description: dedent(`
-      Path to a file with patterns describing files to ignore.
-      Defaults to ./.prettierignore.
-    `)
+    description: "Path to a file with patterns describing files to ignore."
   },
   "jsx-bracket-same-line": {
     type: "boolean",
@@ -184,14 +179,14 @@ const detailedOptions = normalizeDetailedOptions({
     forwardToApi: true,
     exception: value => typeof value === "string", // Allow path to a parser module.
     choices: ["flow", "babylon", "typescript", "postcss", "json", "graphql"],
-    description: "Which parser to use. Defaults to babylon.",
+    description: "Which parser to use.",
     getter: (value, argv) => (argv["flow-parser"] ? "flow" : value)
   },
   "print-width": {
     type: "int",
     category: CATEGORY_FORMAT,
     forwardToApi: true,
-    description: "The line length where Prettier will try wrap. Defaults to 80."
+    description: "The line length where Prettier will try wrap."
   },
   "range-end": {
     type: "int",
@@ -202,7 +197,6 @@ const detailedOptions = normalizeDetailedOptions({
       Format code ending at a given character offset (exclusive).
       The range will extend forwards to the end of the selected statement.
       This option cannot be used with --cursor-offset.
-      Defaults to Infinity.
     `)
   },
   "range-start": {
@@ -213,7 +207,6 @@ const detailedOptions = normalizeDetailedOptions({
       Format code starting at a given character offset.
       The range will extend backwards to the start of the first line containing the selected statement.
       This option cannot be used with --cursor-offset.
-      Defaults to 0.
     `)
   },
   "require-pragma": {
@@ -250,7 +243,7 @@ const detailedOptions = normalizeDetailedOptions({
     type: "int",
     category: CATEGORY_FORMAT,
     forwardToApi: true,
-    description: "Number of spaces per indentation level. Defaults to 2."
+    description: "Number of spaces per indentation level."
   },
   "trailing-comma": {
     type: "choice",
@@ -270,8 +263,7 @@ const detailedOptions = normalizeDetailedOptions({
       },
       { value: "", deprecated: true, redirect: "es5" }
     ],
-    description:
-      "Print trailing commas wherever possible when multi-line. Defaults to none."
+    description: "Print trailing commas wherever possible when multi-line."
   },
   "use-tabs": {
     type: "boolean",

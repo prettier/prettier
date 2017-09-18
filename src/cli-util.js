@@ -375,7 +375,14 @@ function createUsage() {
 
 function createOptionUsage(option, threshold) {
   const header = createOptionUsageHeader(option);
-  return createOptionUsageRow(header, option.description, threshold);
+  const optionDefaultValue = getOptionDefaultValue(option.name);
+  return createOptionUsageRow(
+    header,
+    `${option.description}${optionDefaultValue === undefined
+      ? ""
+      : `\nDefaults to ${optionDefaultValue}.`}`,
+    threshold
+  );
 }
 
 function createOptionUsageHeader(option) {

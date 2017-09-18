@@ -4,7 +4,6 @@ exports[`show detailed usage with --help config-precedence 1`] = `
 "Config Precedence (--config-precedence <cli-override|file-override|prefer-file>)
 
   Define in which order config files and CLI options should be evaluated.
-  Defaults to cli-override.
 
 Valid options:
 
@@ -37,7 +36,7 @@ exports[`show detailed usage with --help no-option 1`] = `
 exports[`show detailed usage with --help parser 1`] = `
 "Parser (--parser <flow|babylon|typescript|postcss|json|graphql>)
 
-  Which parser to use. Defaults to babylon.
+  Which parser to use.
 
 Valid options:
 
@@ -55,7 +54,7 @@ Default: babylon
 exports[`show detailed usage with --help trailing-comma 1`] = `
 "Trailing Comma (--trailing-comma <none|es5|all>)
 
-  Print trailing commas wherever possible when multi-line. Defaults to none.
+  Print trailing commas wherever possible when multi-line.
 
 Valid options:
 
@@ -82,15 +81,22 @@ Format options:
 
   --no-bracket-spacing     Do not print spaces between brackets.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
+                           Defaults to false.
   --parser <flow|babylon|typescript|postcss|json|graphql>
-                           Which parser to use. Defaults to babylon.
-  --print-width <int>      The line length where Prettier will try wrap. Defaults to 80.
+                           Which parser to use.
+                           Defaults to babylon.
+  --print-width <int>      The line length where Prettier will try wrap.
+                           Defaults to 80.
   --no-semi                Do not print semicolons, except at the beginning of lines which may need them.
   --single-quote           Use single quotes instead of double quotes.
-  --tab-width <int>        Number of spaces per indentation level. Defaults to 2.
+                           Defaults to false.
+  --tab-width <int>        Number of spaces per indentation level.
+                           Defaults to 2.
   --trailing-comma <none|es5|all>
-                           Print trailing commas wherever possible when multi-line. Defaults to none.
+                           Print trailing commas wherever possible when multi-line.
+                           Defaults to none.
   --use-tabs               Indent with tabs instead of spaces.
+                           Defaults to false.
 
 Config options:
 
@@ -102,13 +108,14 @@ Config options:
   --find-config-path <path>
                            Find and print the path to a configuration file for the given input file.
   --ignore-path <path>     Path to a file with patterns describing files to ignore.
-                           Defaults to ./.prettierignore.
+                           Defaults to .prettierignore.
   --with-node-modules      Process files inside 'node_modules' directory.
 
 Editor options:
 
   --cursor-offset <int>    Print (to stderr) where a cursor at the given position would move to after formatting.
                            This option cannot be used with --range-start and --range-end.
+                           Defaults to -1.
   --range-end <int>        Format code ending at a given character offset (exclusive).
                            The range will extend forwards to the end of the selected statement.
                            This option cannot be used with --cursor-offset.
@@ -124,6 +131,7 @@ Other options:
   -h, --help <flag>        Show CLI usage, or details about the given flag.
   --require-pragma         Require either '@prettier' or '@format' to be present in the file's first docblock comment
                            in order for it to be formatted.
+                           Defaults to false.
   --stdin                  Force reading input from stdin.
   --stdin-filepath <path>  Path to the file to pretend that stdin comes from.
   -v, --version            Print Prettier version.
@@ -135,7 +143,7 @@ Other options:
 exports[`show warning with --help not-found (typo) 1`] = `
 "Parser (--parser <flow|babylon|typescript|postcss|json|graphql>)
 
-  Which parser to use. Defaults to babylon.
+  Which parser to use.
 
 Valid options:
 
@@ -171,15 +179,22 @@ Format options:
 
   --no-bracket-spacing     Do not print spaces between brackets.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
+                           Defaults to false.
   --parser <flow|babylon|typescript|postcss|json|graphql>
-                           Which parser to use. Defaults to babylon.
-  --print-width <int>      The line length where Prettier will try wrap. Defaults to 80.
+                           Which parser to use.
+                           Defaults to babylon.
+  --print-width <int>      The line length where Prettier will try wrap.
+                           Defaults to 80.
   --no-semi                Do not print semicolons, except at the beginning of lines which may need them.
   --single-quote           Use single quotes instead of double quotes.
-  --tab-width <int>        Number of spaces per indentation level. Defaults to 2.
+                           Defaults to false.
+  --tab-width <int>        Number of spaces per indentation level.
+                           Defaults to 2.
   --trailing-comma <none|es5|all>
-                           Print trailing commas wherever possible when multi-line. Defaults to none.
+                           Print trailing commas wherever possible when multi-line.
+                           Defaults to none.
   --use-tabs               Indent with tabs instead of spaces.
+                           Defaults to false.
 
 Config options:
 
@@ -191,13 +206,14 @@ Config options:
   --find-config-path <path>
                            Find and print the path to a configuration file for the given input file.
   --ignore-path <path>     Path to a file with patterns describing files to ignore.
-                           Defaults to ./.prettierignore.
+                           Defaults to .prettierignore.
   --with-node-modules      Process files inside 'node_modules' directory.
 
 Editor options:
 
   --cursor-offset <int>    Print (to stderr) where a cursor at the given position would move to after formatting.
                            This option cannot be used with --range-start and --range-end.
+                           Defaults to -1.
   --range-end <int>        Format code ending at a given character offset (exclusive).
                            The range will extend forwards to the end of the selected statement.
                            This option cannot be used with --cursor-offset.
@@ -213,6 +229,7 @@ Other options:
   -h, --help <flag>        Show CLI usage, or details about the given flag.
   --require-pragma         Require either '@prettier' or '@format' to be present in the file's first docblock comment
                            in order for it to be formatted.
+                           Defaults to false.
   --stdin                  Force reading input from stdin.
   --stdin-filepath <path>  Path to the file to pretend that stdin comes from.
   -v, --version            Print Prettier version.
