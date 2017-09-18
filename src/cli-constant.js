@@ -154,8 +154,7 @@ const detailedOptions = normalizeDetailedOptions({
   help: {
     type: "flag",
     alias: "h",
-    description:
-      "Show CLI usages, or detailed option usage if flag name present."
+    description: "Show CLI usage, or details about the given flag."
   },
   "ignore-path": {
     type: "path",

@@ -121,7 +121,7 @@ Editor options:
 Other options:
 
   --no-color               Do not colorize error messages.
-  -h, --help <flag>        Show CLI usages, or detailed option usage if flag name present.
+  -h, --help <flag>        Show CLI usage, or details about the given flag.
   --require-pragma         Require either '@prettier' or '@format' to be present in the file's first docblock comment
                            in order for it to be formatted.
   --stdin                  Force reading input from stdin.
@@ -210,7 +210,7 @@ Editor options:
 Other options:
 
   --no-color               Do not colorize error messages.
-  -h, --help <flag>        Show CLI usages, or detailed option usage if flag name present.
+  -h, --help <flag>        Show CLI usage, or details about the given flag.
   --require-pragma         Require either '@prettier' or '@format' to be present in the file's first docblock comment
                            in order for it to be formatted.
   --stdin                  Force reading input from stdin.
