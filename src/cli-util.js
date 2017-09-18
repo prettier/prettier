@@ -436,7 +436,6 @@ function createDetailedUsage(optionName) {
   const option = options[optionIndex];
 
   const optionTitleName = kebabToTitle(optionName);
-  const optionCamelName = kebabToCamel(optionName);
 
   const header = `${optionTitleName} (${createOptionUsageHeader(option)})`;
 
@@ -460,14 +459,33 @@ function createDetailedUsage(optionName) {
           return `\n\nValid options:\n\n${choiceUsages.join("\n")}`;
         })();
 
+  const optionDefaultValue = getOptionDefaultValue(optionName);
   const defaults =
-    option.default !== undefined
-      ? `\n\nDefault: ${option.default}`
-      : optionCamelName in apiDefaultOptions
-        ? `\n\nDefault: ${apiDefaultOptions[optionCamelName]}`
-        : "";
+    optionDefaultValue !== undefined
+      ? `\n\nDefault: ${optionDefaultValue}`
+      : "";
 
   return `${header}${description}${choices}${defaults}`;
+}
+
+function getOptionDefaultValue(optionName) {
+  // --no-option
+  if (!(optionName in constant.detailedOptionMap)) {
+    return undefined;
+  }
+
+  const option = constant.detailedOptionMap[optionName];
+
+  if (option.default !== undefined) {
+    return option.default;
+  }
+
+  const optionCamelName = kebabToCamel(optionName);
+  if (optionCamelName in apiDefaultOptions) {
+    return apiDefaultOptions[optionCamelName];
+  }
+
+  return undefined;
 }
 
 function kebabToCamel(str) {
