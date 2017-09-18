@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`show detailed usage with --help config 1`] = `
+"--config <path>
+
+  Path to a Prettier configuration file (.prettierrc, package.json, prettier.config.js).
+"
+`;
+
 exports[`show detailed usage with --help config-precedence 1`] = `
 "--config-precedence <cli-override|file-override|prefer-file>
 
@@ -26,7 +33,67 @@ Default: -1
 "
 `;
 
-exports[`show detailed usage with --help no-option 1`] = `
+exports[`show detailed usage with --help find-config-path 1`] = `
+"--find-config-path <path>
+
+  Find and print the path to a configuration file for the given input file.
+"
+`;
+
+exports[`show detailed usage with --help help 1`] = `
+"-h, --help <flag>
+
+  Show CLI usage, or details about the given flag.
+"
+`;
+
+exports[`show detailed usage with --help ignore-path 1`] = `
+"--ignore-path <path>
+
+  Path to a file with patterns describing files to ignore.
+
+Default: .prettierignore
+"
+`;
+
+exports[`show detailed usage with --help jsx-bracket-same-line 1`] = `
+"--jsx-bracket-same-line
+
+  Put > on the last line instead of at a new line.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help list-different 1`] = `
+"-l, --list-different
+
+  Print the names of files that are different from Prettier's formatting.
+"
+`;
+
+exports[`show detailed usage with --help no-bracket-spacing 1`] = `
+"--no-bracket-spacing
+
+  Do not print spaces between brackets.
+"
+`;
+
+exports[`show detailed usage with --help no-color 1`] = `
+"--no-color
+
+  Do not colorize error messages.
+"
+`;
+
+exports[`show detailed usage with --help no-config 1`] = `
+"--no-config
+
+  Do not look for a configuration file.
+"
+`;
+
+exports[`show detailed usage with --help no-semi 1`] = `
 "--no-semi
 
   Do not print semicolons, except at the beginning of lines which may need them.
@@ -51,6 +118,79 @@ Default: babylon
 "
 `;
 
+exports[`show detailed usage with --help print-width 1`] = `
+"--print-width <int>
+
+  The line length where Prettier will try wrap.
+
+Default: 80
+"
+`;
+
+exports[`show detailed usage with --help range-end 1`] = `
+"--range-end <int>
+
+  Format code ending at a given character offset (exclusive).
+  The range will extend forwards to the end of the selected statement.
+  This option cannot be used with --cursor-offset.
+
+Default: Infinity
+"
+`;
+
+exports[`show detailed usage with --help range-start 1`] = `
+"--range-start <int>
+
+  Format code starting at a given character offset.
+  The range will extend backwards to the start of the first line containing the selected statement.
+  This option cannot be used with --cursor-offset.
+
+Default: 0
+"
+`;
+
+exports[`show detailed usage with --help require-pragma 1`] = `
+"--require-pragma
+
+  Require either '@prettier' or '@format' to be present in the file's first docblock comment
+  in order for it to be formatted.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help single-quote 1`] = `
+"--single-quote
+
+  Use single quotes instead of double quotes.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help stdin 1`] = `
+"--stdin
+
+  Force reading input from stdin.
+"
+`;
+
+exports[`show detailed usage with --help stdin-filepath 1`] = `
+"--stdin-filepath <path>
+
+  Path to the file to pretend that stdin comes from.
+"
+`;
+
+exports[`show detailed usage with --help tab-width 1`] = `
+"--tab-width <int>
+
+  Number of spaces per indentation level.
+
+Default: 2
+"
+`;
+
 exports[`show detailed usage with --help trailing-comma 1`] = `
 "--trailing-comma <none|es5|all>
 
@@ -63,6 +203,36 @@ Valid options:
   all    Trailing commas wherever possible (including function arguments).
 
 Default: none
+"
+`;
+
+exports[`show detailed usage with --help use-tabs 1`] = `
+"--use-tabs
+
+  Indent with tabs instead of spaces.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help version 1`] = `
+"-v, --version
+
+  Print Prettier version.
+"
+`;
+
+exports[`show detailed usage with --help with-node-modules 1`] = `
+"--with-node-modules
+
+  Process files inside 'node_modules' directory.
+"
+`;
+
+exports[`show detailed usage with --help write 1`] = `
+"--write
+
+  Edit files in-place. (Beware!)
 "
 `;
 
