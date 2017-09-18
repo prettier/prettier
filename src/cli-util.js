@@ -19,6 +19,8 @@ const validator = require("./cli-validator");
 const apiDefaultOptions = require("./options").defaults;
 
 const OPTION_USAGE_THRESHOLD = 25;
+const CHOICE_USAGE_MARGIN = 3;
+const CHOICE_USAGE_INDENTATION = 2;
 
 function getOptions(argv) {
   return constant.detailedOptions
@@ -441,6 +443,20 @@ function getOptionWithLevenSuggestion(options, optionName) {
   throw new Error(`Unknown option name "${optionName}"`);
 }
 
+function createChoiceUsages(choices, margin, indentation) {
+  const activeChoices = choices.filter(choice => !choice.deprecated);
+  const threshold =
+    activeChoices
+      .map(choice => choice.value.length)
+      .reduce((current, length) => Math.max(current, length), 0) + margin;
+  return activeChoices.map(choice =>
+    indent(
+      createOptionUsageRow(choice.value, choice.description, threshold),
+      indentation
+    )
+  );
+}
+
 function createDetailedUsage(optionName) {
   const option = getOptionWithLevenSuggestion(
     getOptionsWithOpposites(constant.detailedOptions),
@@ -456,20 +472,11 @@ function createDetailedUsage(optionName) {
   const choices =
     option.type !== "choice"
       ? ""
-      : (() => {
-          const choices = option.choices.filter(choice => !choice.deprecated);
-          const threshold =
-            choices
-              .map(choice => choice.value.length)
-              .reduce((current, length) => Math.max(current, length), 0) + 3;
-          const choiceUsages = choices.map(choice =>
-            indent(
-              createOptionUsageRow(choice.value, choice.description, threshold),
-              2
-            )
-          );
-          return `\n\nValid options:\n\n${choiceUsages.join("\n")}`;
-        })();
+      : `\n\nValid options:\n\n${createChoiceUsages(
+          option.choices,
+          CHOICE_USAGE_MARGIN,
+          CHOICE_USAGE_INDENTATION
+        ).join("\n")}`;
 
   const optionDefaultValue = getOptionDefaultValue(option.name);
   const defaults =
