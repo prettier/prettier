@@ -148,10 +148,10 @@ const detailedOptions = normalizeDetailedOptions({
     deprecated: "Use `--parser flow` instead."
   },
   help: {
-    type: "option-name",
+    type: "flag",
     alias: "h",
     description:
-      "Show CLI usages, or detailed option usage if option name present."
+      "Show CLI usages, or detailed option usage if flag name present."
   },
   "ignore-path": {
     type: "path",
