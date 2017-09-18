@@ -417,32 +417,37 @@ function createOptionUsageType(option) {
   }
 }
 
-function createDetailedUsage(optionName) {
-  const options = getOptionsWithOpposites(constant.detailedOptions);
+function getOptionWithLevenSuggestion(options, optionName) {
   const optionNames = options.map(option => option.name);
+  const optionIndex = optionNames.indexOf(optionName);
 
-  let optionIndex = optionNames.indexOf(optionName);
-
-  if (optionIndex === -1) {
-    const suggestionOptionIndex = optionNames.findIndex(
-      currentOptionName => leven(currentOptionName, optionName) < 3
-    );
-
-    if (suggestionOptionIndex !== -1) {
-      const suggestionOptionName = options[suggestionOptionIndex].name;
-      console.warn(
-        `Unknown option name "${optionName}", did you mean "${suggestionOptionName}"?\n`
-      );
-      optionName = suggestionOptionName;
-      optionIndex = suggestionOptionIndex;
-    } else {
-      throw new Error(`Unknown option name "${optionName}"`);
-    }
+  if (optionIndex !== -1) {
+    return options[optionIndex];
   }
 
-  const option = options[optionIndex];
+  const suggestionOptionIndex = optionNames.findIndex(
+    currentOptionName => leven(currentOptionName, optionName) < 3
+  );
 
-  const optionTitleName = kebabToTitle(optionName);
+  if (suggestionOptionIndex !== -1) {
+    const suggestionOptionName = options[suggestionOptionIndex].name;
+    console.warn(
+      `Unknown option name "${optionName}", did you mean "${suggestionOptionName}"?\n`
+    );
+
+    return options[suggestionOptionIndex];
+  }
+
+  throw new Error(`Unknown option name "${optionName}"`);
+}
+
+function createDetailedUsage(optionName) {
+  const option = getOptionWithLevenSuggestion(
+    getOptionsWithOpposites(constant.detailedOptions),
+    optionName
+  );
+
+  const optionTitleName = kebabToTitle(option.name);
 
   const header = `${optionTitleName} (${createOptionUsageHeader(option)})`;
 
@@ -466,7 +471,7 @@ function createDetailedUsage(optionName) {
           return `\n\nValid options:\n\n${choiceUsages.join("\n")}`;
         })();
 
-  const optionDefaultValue = getOptionDefaultValue(optionName);
+  const optionDefaultValue = getOptionDefaultValue(option.name);
   const defaults =
     optionDefaultValue !== undefined
       ? `\n\nDefault: ${optionDefaultValue}`
