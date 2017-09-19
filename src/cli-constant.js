@@ -152,7 +152,10 @@ const detailedOptions = normalizeDetailedOptions({
   help: {
     type: "flag",
     alias: "h",
-    description: "Show CLI usage, or details about the given flag."
+    description: dedent(`
+      Show CLI usage, or details about the given flag.
+      Example: --help write
+    `)
   },
   "ignore-path": {
     type: "path",

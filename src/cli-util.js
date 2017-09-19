@@ -453,7 +453,8 @@ function getOptionWithLevenSuggestion(options, optionName) {
     return options[suggestedOptionNameContainer.index];
   }
 
-  throw new Error(`Unknown option name "${optionName}"`);
+  console.warn(`Unknown option name "${optionName}"\n`);
+  return options.find(option => option.name === "help");
 }
 
 function createChoiceUsages(choices, margin, indentation) {

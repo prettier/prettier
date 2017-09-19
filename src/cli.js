@@ -22,11 +22,9 @@ function run(args) {
 
   if (argv["help"] !== undefined) {
     console.log(
-      argv["help"] === ""
-        ? util.createUsage()
-        : Array.isArray(argv["help"]) // ["--help", "--help"] -> argv: { help: ["", ""] }
-          ? util.createDetailedUsage("--help")
-          : util.createDetailedUsage(argv["help"])
+      typeof argv["help"] === "string" && argv["help"] !== ""
+        ? util.createDetailedUsage(argv["help"])
+        : util.createUsage()
     );
     process.exit(0);
   }

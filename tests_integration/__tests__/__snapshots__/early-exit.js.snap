@@ -44,6 +44,7 @@ exports[`show detailed usage with --help help 1`] = `
 "-h, --help <flag>
 
   Show CLI usage, or details about the given flag.
+  Example: --help write
 "
 `;
 
@@ -306,6 +307,7 @@ Other options:
 
   --no-color               Do not colorize error messages.
   -h, --help <flag>        Show CLI usage, or details about the given flag.
+                           Example: --help write
   --require-pragma         Require either '@prettier' or '@format' to be present in the file's first docblock comment
                            in order for it to be formatted.
                            Defaults to false.
@@ -313,19 +315,6 @@ Other options:
   --stdin-filepath <path>  Path to the file to pretend that stdin comes from.
   -v, --version            Print Prettier version.
 
-
-"
-`;
-
-exports[`show warning with --help --help 1`] = `
-"-h, --help <flag>
-
-  Show CLI usage, or details about the given flag.
-"
-`;
-
-exports[`show warning with --help --help 2`] = `
-"Unknown option name \\"--help\\", did you mean \\"help\\"?
 
 "
 `;
@@ -350,6 +339,20 @@ Default: babylon
 
 exports[`show warning with --help not-found (typo) 2`] = `
 "Unknown option name \\"parserr\\", did you mean \\"parser\\"?
+
+"
+`;
+
+exports[`show warning with --help not-found 1`] = `
+"-h, --help <flag>
+
+  Show CLI usage, or details about the given flag.
+  Example: --help write
+"
+`;
+
+exports[`show warning with --help not-found 2`] = `
+"Unknown option name \\"not-found\\"
 
 "
 `;
@@ -417,6 +420,7 @@ Other options:
 
   --no-color               Do not colorize error messages.
   -h, --help <flag>        Show CLI usage, or details about the given flag.
+                           Example: --help write
   --require-pragma         Require either '@prettier' or '@format' to be present in the file's first docblock comment
                            in order for it to be formatted.
                            Defaults to false.
@@ -434,10 +438,6 @@ exports[`throw error with --find-config-path + multiple files 1`] = `
 "Cannot use --find-config-path with multiple files
 "
 `;
-
-exports[`throw error with --help not-found 1`] = `""`;
-
-exports[`throw error with --help not-found 2`] = `"Unknown option name \\"not-found\\""`;
 
 exports[`throw error with --write + --debug-check 1`] = `
 "Cannot use --write and --debug-check together.

@@ -18,14 +18,6 @@ test("show usage with --help", () => {
   expect(result.status).toEqual(0);
 });
 
-test("show warning with --help --help", () => {
-  const result = runPrettier("cli", ["--help", "--help"]);
-
-  expect(result.stdout).toMatchSnapshot();
-  expect(result.stderr).toMatchSnapshot();
-  expect(result.status).toEqual(0);
-});
-
 test(`show detailed usage with --help l (alias)`, () => {
   const result = runPrettier("cli", ["--help", "l"]);
   expect(result.stdout).toMatchSnapshot();
@@ -47,12 +39,12 @@ constant.detailedOptions.forEach(option => {
   });
 });
 
-test("throw error with --help not-found", () => {
+test("show warning with --help not-found", () => {
   const result = runPrettier("cli", ["--help", "not-found"]);
 
   expect(result.stdout).toMatchSnapshot();
   expect(result.stderr).toMatchSnapshot();
-  expect(result.status).not.toEqual(0);
+  expect(result.status).toEqual(0);
 });
 
 test("show warning with --help not-found (typo)", () => {
