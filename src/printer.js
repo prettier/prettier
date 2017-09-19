@@ -153,12 +153,14 @@ function genericPrint(path, options, printPath, args) {
   }
 
   const decorators = [];
+  const isTypeScriptParser = options.parser === "typescript";
+
   if (
     node.decorators &&
     node.decorators.length > 0 &&
-    // If the parent node is an export declaration, it will be
+    // For TypeScript, if the parent node is an export declaration it is
     // responsible for printing node.decorators.
-    !util.getParentExportDeclaration(path)
+    (!isTypeScriptParser || !util.getParentExportDeclaration(path))
   ) {
     let separator = hardline;
     path.each(decoratorPath => {
@@ -189,12 +191,13 @@ function genericPrint(path, options, printPath, args) {
       decorators.push(prefix, printPath(decoratorPath), separator);
     }, "decorators");
   } else if (
+    // For TypeScript, export declarations are responsible for printing any
+    // decorators that logically apply to node.declaration.
+    isTypeScriptParser &&
     util.isExportDeclaration(node) &&
     node.declaration &&
     node.declaration.decorators
   ) {
-    // Export declarations are responsible for printing any decorators
-    // that logically apply to node.declaration.
     path.each(
       decoratorPath => {
         const decorator = decoratorPath.getValue();
