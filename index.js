@@ -68,6 +68,22 @@ function formatWithCursor(text, opts, addAlignmentSize) {
   }
 
   text = stripBom(text);
+
+  if (
+    opts.insertPragma &&
+    !hasPragma(text) &&
+    opts.rangeStart === 0 &&
+    opts.rangeEnd === Infinity
+  ) {
+    const parsedDocblock = docblock.parseWithComments(docblock.extract(text));
+    const pragmas = Object.assign({}, { format: "" }, parsedDocblock.pragmas);
+    const newDocblock = docblock.print({
+      pragmas,
+      comments: parsedDocblock.comments
+    });
+    text = `${newDocblock}\n${docblock.strip(text)}`;
+  }
+
   addAlignmentSize = addAlignmentSize || 0;
 
   const ast = parser.parse(text, opts);
