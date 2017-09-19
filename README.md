@@ -837,6 +837,8 @@ The minimum version of TypeScript supported is 2.1.3 as it introduces the abilit
 - [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier) turns off all ESLint rules that are unnecessary or might conflict with Prettier
 - [`prettier-eslint`](https://github.com/prettier/prettier-eslint)
 passes `prettier` output to `eslint --fix`
+- [`prettier-stylelint`](https://github.com/hugomrdias/prettier-stylelint)
+passes `prettier` output to `stylelint --fix` 
 - [`prettier-standard`](https://github.com/sheerun/prettier-standard)
 uses `prettier` and `prettier-eslint` to format code with standard rules
 - [`prettier-standard-formatter`](https://github.com/dtinth/prettier-standard-formatter)
