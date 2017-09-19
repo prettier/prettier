@@ -26,6 +26,12 @@ test("show warning with --help --help", () => {
   expect(result.status).toEqual(0);
 });
 
+test(`show detailed usage with --help l (alias)`, () => {
+  const result = runPrettier("cli", ["--help", "l"]);
+  expect(result.stdout).toMatchSnapshot();
+  expect(result.status).toEqual(0);
+});
+
 constant.detailedOptions.forEach(option => {
   const optionNames = [
     option.description ? option.name : null,

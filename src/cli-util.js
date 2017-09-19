@@ -419,25 +419,38 @@ function createOptionUsageType(option) {
   }
 }
 
+function flattenArray(array) {
+  return [].concat.apply([], array);
+}
+
 function getOptionWithLevenSuggestion(options, optionName) {
-  const optionNames = options.map(option => option.name);
-  const optionIndex = optionNames.indexOf(optionName);
+  // support aliases
+  const optionNameContainers = flattenArray(
+    options.map((option, index) => [
+      { value: option.name, index },
+      option.alias ? { value: option.alias, index } : null
+    ])
+  ).filter(Boolean);
 
-  if (optionIndex !== -1) {
-    return options[optionIndex];
-  }
-
-  const suggestionOptionIndex = optionNames.findIndex(
-    currentOptionName => leven(currentOptionName, optionName) < 3
+  const optionNameContainer = optionNameContainers.find(
+    optionNameContainer => optionNameContainer.value === optionName
   );
 
-  if (suggestionOptionIndex !== -1) {
-    const suggestionOptionName = options[suggestionOptionIndex].name;
+  if (optionNameContainer !== undefined) {
+    return options[optionNameContainer.index];
+  }
+
+  const suggestedOptionNameContainer = optionNameContainers.find(
+    optionNameContainer => leven(optionNameContainer.value, optionName) < 3
+  );
+
+  if (suggestedOptionNameContainer !== undefined) {
+    const suggestedOptionName = suggestedOptionNameContainer.value;
     console.warn(
-      `Unknown option name "${optionName}", did you mean "${suggestionOptionName}"?\n`
+      `Unknown option name "${optionName}", did you mean "${suggestedOptionName}"?\n`
     );
 
-    return options[suggestionOptionIndex];
+    return options[suggestedOptionNameContainer.index];
   }
 
   throw new Error(`Unknown option name "${optionName}"`);

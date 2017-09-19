@@ -65,6 +65,13 @@ Default: false
 "
 `;
 
+exports[`show detailed usage with --help l (alias) 1`] = `
+"-l, --list-different
+
+  Print the names of files that are different from Prettier's formatting.
+"
+`;
+
 exports[`show detailed usage with --help list-different 1`] = `
 "-l, --list-different
 
