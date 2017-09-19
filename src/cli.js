@@ -24,7 +24,9 @@ function run(args) {
     console.log(
       argv["help"] === ""
         ? util.createUsage()
-        : util.createDetailedUsage(argv["help"])
+        : Array.isArray(argv["help"]) // ["--help", "--help"] -> argv: { help: ["", ""] }
+          ? util.createDetailedUsage("--help")
+          : util.createDetailedUsage(argv["help"])
     );
     process.exit(0);
   }

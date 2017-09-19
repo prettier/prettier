@@ -310,6 +310,19 @@ Other options:
 "
 `;
 
+exports[`show warning with --help --help 1`] = `
+"-h, --help <flag>
+
+  Show CLI usage, or details about the given flag.
+"
+`;
+
+exports[`show warning with --help --help 2`] = `
+"Unknown option name \\"--help\\", did you mean \\"help\\"?
+
+"
+`;
+
 exports[`show warning with --help not-found (typo) 1`] = `
 "--parser <flow|babylon|typescript|postcss|json|graphql>
 
