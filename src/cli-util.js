@@ -348,7 +348,7 @@ function getOptionsWithOpposites(options) {
         })
       : null
   ]);
-  return [].concat.apply([], optionsWithOpposites).filter(Boolean);
+  return flattenArray(optionsWithOpposites).filter(Boolean);
 }
 
 function createUsage() {
