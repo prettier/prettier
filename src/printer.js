@@ -569,12 +569,7 @@ function genericPrintNoParens(path, options, print, args) {
                   shouldAddParens ? ifBreak("", ")") : ""
                 ])
               ),
-              shouldAddSoftLine
-                ? concat([
-                    ifBreak(shouldPrintComma(options, "all") ? "," : ""),
-                    softline
-                  ])
-                : ""
+              shouldAddSoftLine ? softline : ""
             ])
           )
         ])
