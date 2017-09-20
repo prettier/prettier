@@ -79,6 +79,7 @@ const detailedOptions = normalizeDetailedOptions({
     type: "boolean",
     category: CATEGORY_FORMAT,
     forwardToApi: true,
+    description: "Print spaces between brackets.",
     oppositeDescription: "Do not print spaces between brackets."
   },
   color: {
@@ -88,6 +89,7 @@ const detailedOptions = normalizeDetailedOptions({
     // See https://github.com/chalk/supports-color/#info for more information.
     type: "boolean",
     default: true,
+    description: "Colorize error messages.",
     oppositeDescription: "Do not colorize error messages."
   },
   config: {
@@ -224,6 +226,7 @@ const detailedOptions = normalizeDetailedOptions({
     type: "boolean",
     category: CATEGORY_FORMAT,
     forwardToApi: true,
+    description: "Print semicolons.",
     oppositeDescription:
       "Do not print semicolons, except at the beginning of lines which may need them."
   },

@@ -1,5 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`show detailed usage with --help bracket-spacing 1`] = `
+"--bracket-spacing
+
+  Print spaces between brackets.
+
+Default: true
+"
+`;
+
+exports[`show detailed usage with --help color 1`] = `
+"--color
+
+  Colorize error messages.
+
+Default: true
+"
+`;
+
 exports[`show detailed usage with --help config 1`] = `
 "--config <path>
 
@@ -167,6 +185,15 @@ Default: false
 "
 `;
 
+exports[`show detailed usage with --help semi 1`] = `
+"--semi
+
+  Print semicolons.
+
+Default: true
+"
+`;
+
 exports[`show detailed usage with --help single-quote 1`] = `
 "--single-quote
 
@@ -257,6 +284,8 @@ Output options:
 
 Format options:
 
+  --bracket-spacing        Print spaces between brackets.
+                           Defaults to true.
   --no-bracket-spacing     Do not print spaces between brackets.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                            Defaults to false.
@@ -265,6 +294,8 @@ Format options:
                            Defaults to babylon.
   --print-width <int>      The line length where Prettier will try wrap.
                            Defaults to 80.
+  --semi                   Print semicolons.
+                           Defaults to true.
   --no-semi                Do not print semicolons, except at the beginning of lines which may need them.
   --single-quote           Use single quotes instead of double quotes.
                            Defaults to false.
@@ -305,6 +336,8 @@ Editor options:
 
 Other options:
 
+  --color                  Colorize error messages.
+                           Defaults to true.
   --no-color               Do not colorize error messages.
   -h, --help <flag>        Show CLI usage, or details about the given flag.
                            Example: --help write
@@ -370,6 +403,8 @@ Output options:
 
 Format options:
 
+  --bracket-spacing        Print spaces between brackets.
+                           Defaults to true.
   --no-bracket-spacing     Do not print spaces between brackets.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                            Defaults to false.
@@ -378,6 +413,8 @@ Format options:
                            Defaults to babylon.
   --print-width <int>      The line length where Prettier will try wrap.
                            Defaults to 80.
+  --semi                   Print semicolons.
+                           Defaults to true.
   --no-semi                Do not print semicolons, except at the beginning of lines which may need them.
   --single-quote           Use single quotes instead of double quotes.
                            Defaults to false.
@@ -418,6 +455,8 @@ Editor options:
 
 Other options:
 
+  --color                  Colorize error messages.
+                           Defaults to true.
   --no-color               Do not colorize error messages.
   -h, --help <flag>        Show CLI usage, or details about the given flag.
                            Example: --help write
