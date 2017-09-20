@@ -352,7 +352,15 @@ function getOptionsWithOpposites(options) {
 }
 
 function createUsage() {
-  const options = getOptionsWithOpposites(constant.detailedOptions);
+  const options = getOptionsWithOpposites(constant.detailedOptions).filter(
+    // remove unnecessary option (e.g. `semi`, `color`, etc.), which is only used for --help <flag>
+    option =>
+      !(
+        option.type === "boolean" &&
+        option.oppositeDescription &&
+        !option.name.startsWith("no-")
+      )
+  );
 
   const groupedOptions = groupBy(options, option => option.category);
 
