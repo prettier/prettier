@@ -26,3 +26,8 @@
   {!isJellyfishEnabled &&
     diffUpdateMessageInput != null && <div><span>Text</span></div>}
 </div>;
+
+<div>
+  {!isJellyfishEnabled &&
+    diffUpdateMessageInput != null && child || <div><span>Text</span></div>}
+</div>;
