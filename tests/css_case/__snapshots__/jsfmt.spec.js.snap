@@ -42,6 +42,10 @@ a[HREF=KeepAttrValue]:HOVER::FIRST-letter,
   BACKGROUND: RED;
 }
 
+%KeepScssPlaceholderSelector {
+  prop: val;
+}
+
 @KeepTopLevelVar: val;
 $KeepScssVar: val;
 
@@ -49,6 +53,7 @@ $KeepScssVar: val;
     @KeepVar: KeepName; /*:*/
     @{KeepInterpolationVar}: val;
     $KeepScssVar: val;
+    @extend %KeepScssPlaceholderSelector;
 
     @{Keep}[@{Keep}][@{Keep}^=@{Keep-1A}]:@{Keep} {
       prop: val;
@@ -123,6 +128,10 @@ a[href="KeepAttrValue"]:hover::first-letter,
   background: RED;
 }
 
+%KeepScssPlaceholderSelector {
+  prop: val;
+}
+
 @KeepTopLevelVar: val;
 $KeepScssVar: val;
 
@@ -130,6 +139,7 @@ $KeepScssVar: val;
   @KeepVar: KeepName; /*:*/
   @{KeepInterpolationVar}: val;
   $KeepScssVar: val;
+  @extend %KeepScssPlaceholderSelector;
 
   @{Keep}[@{Keep}][@{Keep}^=@{Keep-1A}]:@{Keep} {
     prop: val;
@@ -214,6 +224,10 @@ a[HREF=KeepAttrValue]:HOVER::FIRST-letter,
     @RETURN 12;
 }
 
+%KeepPlaceholderSelector {
+  prop: val;
+}
+
 $KeepTopLevelVar: val;
 @KeepLessVar: val;
 
@@ -223,6 +237,7 @@ $KeepTopLevelVar: val;
     #{$Keep + 15PX}: val;
     #{$Keep + $Keep15PX}: val;
     @KeepLessVar: val;
+    @extend %KeepPlaceholderSelector;
 
     #{$Keep}[#{$Keep}][#{Keep}^=#{Keep-1A}]:#{$Keep} {
       prop: val;
@@ -298,6 +313,10 @@ a[href="KeepAttrValue"]:hover::first-letter,
   @return 12;
 }
 
+%KeepPlaceholderSelector {
+  prop: val;
+}
+
 $KeepTopLevelVar: val;
 @KeepLessVar: val;
 
@@ -307,6 +326,7 @@ $KeepTopLevelVar: val;
   #{$Keep + 15PX}: val;
   #{$Keep + $Keep15PX}: val;
   @KeepLessVar: val;
+  @extend %KeepPlaceholderSelector;
 
   #{$Keep}[#{$Keep}][#{Keep}^="#{Keep-1A}"]:#{$Keep} {
     prop: val;
