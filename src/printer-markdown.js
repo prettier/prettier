@@ -44,6 +44,8 @@ function genericPrint(path, options, print) {
       return line;
     case "emphasis":
       return concat(["*", printChildren(path, options, print), "*"]);
+    case "strong":
+      return concat(["**", printChildren(path, options, print), "**"]);
     default:
       throw new Error(`Unknown markdown type ${JSON.stringify(node.type)}`);
   }
