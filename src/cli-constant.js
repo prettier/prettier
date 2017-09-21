@@ -183,7 +183,15 @@ const detailedOptions = normalizeDetailedOptions({
     category: CATEGORY_FORMAT,
     forwardToApi: true,
     exception: value => typeof value === "string", // Allow path to a parser module.
-    choices: ["flow", "babylon", "typescript", "postcss", "json", "graphql"],
+    choices: [
+      "flow",
+      "babylon",
+      "typescript",
+      "postcss",
+      "json",
+      "graphql",
+      "markdown"
+    ],
     description: "Which parser to use.",
     getter: (value, argv) => (argv["flow-parser"] ? "flow" : value)
   },

@@ -23,6 +23,9 @@ const parsers = {
   },
   get json() {
     return eval("require")("./parser-babylon");
+  },
+  get markdown() {
+    return eval("require")("./parser-markdown");
   }
 };
 

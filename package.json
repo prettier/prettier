@@ -39,9 +39,12 @@
     "postcss-scss": "1.0.0",
     "postcss-selector-parser": "2.2.3",
     "postcss-values-parser": "git://github.com/lydell/postcss-values-parser.git#af2c80b2bb558a6e7d61540d97f068f9fa162b38",
+    "remark-parse": "4.0.0",
     "strip-bom": "3.0.0",
     "typescript": "2.5.1",
-    "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#5576fb48c89165967557e867b9462d43431dcb10"
+    "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#5576fb48c89165967557e867b9462d43431dcb10",
+    "unified": "6.1.5",
+    "unist-util-map": "1.0.3"
   },
   "devDependencies": {
     "babel-cli": "6.24.1",
