@@ -59,6 +59,15 @@ function genericPrint(path, options, print) {
         node.title ? ` "${node.title}"` : "",
         ")"
       ]);
+    case "image":
+      return concat([
+        "![",
+        node.alt || "",
+        "](",
+        node.url,
+        node.title ? ` "${node.title}"` : "",
+        ")"
+      ]);
     default:
       throw new Error(`Unknown markdown type ${JSON.stringify(node.type)}`);
   }
