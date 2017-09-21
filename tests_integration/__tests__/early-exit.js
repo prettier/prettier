@@ -2,6 +2,7 @@
 
 const prettier = require("../..");
 const runPrettier = require("../runPrettier");
+const constant = require("../../src/cli-constant");
 
 test("show version with --version", () => {
   const result = runPrettier("cli/with-shebang", ["--version"]);
@@ -14,6 +15,43 @@ test("show usage with --help", () => {
   const result = runPrettier("cli", ["--help"]);
 
   expect(result.stdout).toMatchSnapshot();
+  expect(result.status).toEqual(0);
+});
+
+test(`show detailed usage with --help l (alias)`, () => {
+  const result = runPrettier("cli", ["--help", "l"]);
+  expect(result.stdout).toMatchSnapshot();
+  expect(result.status).toEqual(0);
+});
+
+constant.detailedOptions.forEach(option => {
+  const optionNames = [
+    option.description ? option.name : null,
+    option.oppositeDescription ? `no-${option.name}` : null
+  ].filter(Boolean);
+
+  optionNames.forEach(optionName => {
+    test(`show detailed usage with --help ${optionName}`, () => {
+      const result = runPrettier("cli", ["--help", optionName]);
+      expect(result.stdout).toMatchSnapshot();
+      expect(result.status).toEqual(0);
+    });
+  });
+});
+
+test("show warning with --help not-found", () => {
+  const result = runPrettier("cli", ["--help", "not-found"]);
+
+  expect(result.stdout).toMatchSnapshot();
+  expect(result.stderr).toMatchSnapshot();
+  expect(result.status).toEqual(0);
+});
+
+test("show warning with --help not-found (typo)", () => {
+  const result = runPrettier("cli", ["--help", "parserr"]);
+
+  expect(result.stdout).toMatchSnapshot();
+  expect(result.stderr).toMatchSnapshot();
   expect(result.status).toEqual(0);
 });
 

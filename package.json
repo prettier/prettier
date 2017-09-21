@@ -28,6 +28,7 @@
     "ignore": "^3.3.3",
     "jest-docblock": "21.1.0",
     "jest-validate": "21.1.0",
+    "leven": "2.1.0",
     "mem": "1.1.0",
     "minimatch": "3.0.4",
     "minimist": "1.2.0",
