@@ -21,27 +21,30 @@ function genericPrint(path, options, print) {
     case "paragraph":
       return concat([printChildren(path, options, print)]);
     case "sentence":
-      return printChildren(
-        path,
-        options,
-        print,
-        (parts, childPath, index) => {
-          const childNode = childPath.getValue();
-          if (
-            !(
-              childNode.type === "whitespace" &&
-              index === node.children.length - 1
-            )
-          ) {
-            parts.push(childPath.call(print));
-          }
-        },
-        fill
-      );
+      return concat([
+        printBlockquotePrefix(path),
+        printChildren(
+          path,
+          options,
+          print,
+          (parts, childPath, index) => {
+            const childNode = childPath.getValue();
+            if (
+              !(
+                childNode.type === "whitespace" &&
+                index === node.children.length - 1
+              )
+            ) {
+              parts.push(childPath.call(print));
+            }
+          },
+          fill
+        )
+      ]);
     case "word":
       return node.value;
     case "whitespace":
-      return line;
+      return concat([line, ifBreak(printBlockquotePrefix(path))]);
     case "emphasis":
       return concat(["*", printChildren(path, options, print), "*"]);
     case "strong":
@@ -68,9 +71,25 @@ function genericPrint(path, options, print) {
         node.title ? ` "${node.title}"` : "",
         ")"
       ]);
+    case "blockquote":
+      return printChildren(path, options, print);
     default:
       throw new Error(`Unknown markdown type ${JSON.stringify(node.type)}`);
   }
+}
+
+function printBlockquotePrefix(path) {
+  let blockquoteLevel = 0;
+  let counter = 0;
+  let parentNode;
+
+  while ((parentNode = path.getParentNode(counter++))) {
+    if (parentNode.type === "blockquote") {
+      blockquoteLevel++;
+    }
+  }
+
+  return blockquoteLevel ? ">".repeat(blockquoteLevel) + " " : "";
 }
 
 function printChildren(path, options, print, iterator, command) {
