@@ -357,11 +357,12 @@ function genericPrintNoParens(path, options, print, args) {
         parent.type === "ObjectProperty" ||
         parent.type === "Property";
 
-      const logicalSubExpression = n.left.type === "LogicalExpression";
+      const samePrecedenceSubExpression =
+        isBinaryish(n.left) && util.shouldFlatten(n.operator, n.left.operator);
 
       if (
         shouldNotIdent ||
-        (shouldInlineLogicalExpression(n) && !logicalSubExpression) ||
+        (shouldInlineLogicalExpression(n) && !samePrecedenceSubExpression) ||
         (!shouldInlineLogicalExpression(n) && shouldIdentIfInlining)
       ) {
         return group(concat(parts));
@@ -1811,7 +1812,8 @@ function genericPrintNoParens(path, options, print, args) {
         "}"
       ]);
     case "ClassProperty":
-    case "TSAbstractClassProperty": {
+    case "TSAbstractClassProperty":
+    case "ClassPrivateProperty": {
       if (n.accessibility) {
         parts.push(n.accessibility + " ");
       }
@@ -2726,6 +2728,9 @@ function genericPrintNoParens(path, options, print, args) {
       return path.call(bodyPath => {
         return printStatementSequence(bodyPath, options, print);
       }, "body");
+
+    case "PrivateName":
+      return concat(["#", path.call(print, "id")]);
 
     default:
       /* istanbul ignore next */

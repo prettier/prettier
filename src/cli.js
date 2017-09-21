@@ -20,8 +20,12 @@ function run(args) {
     process.exit(0);
   }
 
-  if (argv["help"]) {
-    console.log(util.createUsage());
+  if (argv["help"] !== undefined) {
+    console.log(
+      typeof argv["help"] === "string" && argv["help"] !== ""
+        ? util.createDetailedUsage(argv["help"])
+        : util.createUsage()
+    );
     process.exit(0);
   }
 

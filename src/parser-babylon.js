@@ -25,7 +25,8 @@ function parse(text, parsers, opts) {
       "numericSeparator",
       "importMeta",
       "optionalCatchBinding",
-      "optionalChaining"
+      "optionalChaining",
+      "classPrivateProperties"
     ]
   };
 

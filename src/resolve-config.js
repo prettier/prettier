@@ -5,7 +5,11 @@ const minimatch = require("minimatch");
 const mem = require("mem");
 
 const getExplorerMemoized = mem(opts =>
-  cosmiconfig("prettier", { sync: opts.sync, cache: opts.cache })
+  cosmiconfig("prettier", {
+    sync: opts.sync,
+    cache: opts.cache,
+    rcExtensions: true
+  })
 );
 
 /** @param {{ cache: boolean, sync: boolean }} opts */

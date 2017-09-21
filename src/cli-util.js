@@ -9,6 +9,7 @@ const globby = require("globby");
 const ignore = require("ignore");
 const chalk = require("chalk");
 const readline = require("readline");
+const leven = require("leven");
 
 const prettier = eval("require")("../index");
 const cleanAST = require("./clean-ast").cleanAST;
@@ -18,6 +19,8 @@ const validator = require("./cli-validator");
 const apiDefaultOptions = require("./options").defaults;
 
 const OPTION_USAGE_THRESHOLD = 25;
+const CHOICE_USAGE_MARGIN = 3;
+const CHOICE_USAGE_INDENTATION = 2;
 
 function getOptions(argv) {
   return constant.detailedOptions
@@ -333,8 +336,7 @@ function formatFiles(argv) {
   });
 }
 
-function createUsage() {
-  const options = constant.detailedOptions;
+function getOptionsWithOpposites(options) {
   // Add --no-foo after --foo.
   const optionsWithOpposites = options.map(option => [
     option.description ? option : null,
@@ -346,11 +348,21 @@ function createUsage() {
         })
       : null
   ]);
-  const flattenedOptions = [].concat
-    .apply([], optionsWithOpposites)
-    .filter(Boolean);
+  return flattenArray(optionsWithOpposites).filter(Boolean);
+}
 
-  const groupedOptions = groupBy(flattenedOptions, option => option.category);
+function createUsage() {
+  const options = getOptionsWithOpposites(constant.detailedOptions).filter(
+    // remove unnecessary option (e.g. `semi`, `color`, etc.), which is only used for --help <flag>
+    option =>
+      !(
+        option.type === "boolean" &&
+        option.oppositeDescription &&
+        !option.name.startsWith("no-")
+      )
+  );
+
+  const groupedOptions = groupBy(options, option => option.category);
 
   const firstCategories = constant.categoryOrder.slice(0, -1);
   const lastCategories = constant.categoryOrder.slice(-1);
@@ -372,20 +384,31 @@ function createUsage() {
 }
 
 function createOptionUsage(option, threshold) {
-  const name = `--${option.name}`;
-  const alias = option.alias ? `or -${option.alias}` : null;
-  const type = createOptionUsageType(option);
-  const header = [name, alias, type].filter(Boolean).join(" ");
+  const header = createOptionUsageHeader(option);
+  const optionDefaultValue = getOptionDefaultValue(option.name);
+  return createOptionUsageRow(
+    header,
+    `${option.description}${optionDefaultValue === undefined
+      ? ""
+      : `\nDefaults to ${optionDefaultValue}.`}`,
+    threshold
+  );
+}
 
+function createOptionUsageHeader(option) {
+  const name = `--${option.name}`;
+  const alias = option.alias ? `-${option.alias},` : null;
+  const type = createOptionUsageType(option);
+  return [alias, name, type].filter(Boolean).join(" ");
+}
+
+function createOptionUsageRow(header, content, threshold) {
   const separator =
     header.length >= threshold
       ? `\n${" ".repeat(threshold)}`
       : " ".repeat(threshold - header.length);
 
-  const description = option.description.replace(
-    /\n/g,
-    `\n${" ".repeat(threshold)}`
-  );
+  const description = content.replace(/\n/g, `\n${" ".repeat(threshold)}`);
 
   return `${header}${separator}${description}`;
 }
@@ -402,6 +425,109 @@ function createOptionUsageType(option) {
     default:
       return `<${option.type}>`;
   }
+}
+
+function flattenArray(array) {
+  return [].concat.apply([], array);
+}
+
+function getOptionWithLevenSuggestion(options, optionName) {
+  // support aliases
+  const optionNameContainers = flattenArray(
+    options.map((option, index) => [
+      { value: option.name, index },
+      option.alias ? { value: option.alias, index } : null
+    ])
+  ).filter(Boolean);
+
+  const optionNameContainer = optionNameContainers.find(
+    optionNameContainer => optionNameContainer.value === optionName
+  );
+
+  if (optionNameContainer !== undefined) {
+    return options[optionNameContainer.index];
+  }
+
+  const suggestedOptionNameContainer = optionNameContainers.find(
+    optionNameContainer => leven(optionNameContainer.value, optionName) < 3
+  );
+
+  if (suggestedOptionNameContainer !== undefined) {
+    const suggestedOptionName = suggestedOptionNameContainer.value;
+    console.warn(
+      `Unknown option name "${optionName}", did you mean "${suggestedOptionName}"?\n`
+    );
+
+    return options[suggestedOptionNameContainer.index];
+  }
+
+  console.warn(`Unknown option name "${optionName}"\n`);
+  return options.find(option => option.name === "help");
+}
+
+function createChoiceUsages(choices, margin, indentation) {
+  const activeChoices = choices.filter(choice => !choice.deprecated);
+  const threshold =
+    activeChoices
+      .map(choice => choice.value.length)
+      .reduce((current, length) => Math.max(current, length), 0) + margin;
+  return activeChoices.map(choice =>
+    indent(
+      createOptionUsageRow(choice.value, choice.description, threshold),
+      indentation
+    )
+  );
+}
+
+function createDetailedUsage(optionName) {
+  const option = getOptionWithLevenSuggestion(
+    getOptionsWithOpposites(constant.detailedOptions),
+    optionName
+  );
+
+  const header = createOptionUsageHeader(option);
+  const description = `\n\n${indent(option.description, 2)}`;
+
+  const choices =
+    option.type !== "choice"
+      ? ""
+      : `\n\nValid options:\n\n${createChoiceUsages(
+          option.choices,
+          CHOICE_USAGE_MARGIN,
+          CHOICE_USAGE_INDENTATION
+        ).join("\n")}`;
+
+  const optionDefaultValue = getOptionDefaultValue(option.name);
+  const defaults =
+    optionDefaultValue !== undefined
+      ? `\n\nDefault: ${optionDefaultValue}`
+      : "";
+
+  return `${header}${description}${choices}${defaults}`;
+}
+
+function getOptionDefaultValue(optionName) {
+  // --no-option
+  if (!(optionName in constant.detailedOptionMap)) {
+    return undefined;
+  }
+
+  const option = constant.detailedOptionMap[optionName];
+
+  if (option.default !== undefined) {
+    return option.default;
+  }
+
+  const optionCamelName = kebabToCamel(optionName);
+  if (optionCamelName in apiDefaultOptions) {
+    return apiDefaultOptions[optionCamelName];
+  }
+
+  return undefined;
+}
+
+function kebabToCamel(str) {
+  return str.replace(/-([a-z])/g, (_, char) => char.toUpperCase());
 }
 
 function indent(str, spaces) {
@@ -511,5 +637,6 @@ module.exports = {
   formatStdin,
   formatFiles,
   createUsage,
+  createDetailedUsage,
   normalizeArgv
 };

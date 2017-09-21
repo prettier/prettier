@@ -145,6 +145,37 @@ if (
 
 `;
 
+exports[`inline-jsx.js 1`] = `
+const user = renderedUser || <div><User name={this.state.user.name} age={this.state.user.age} /></div>;
+
+const user = renderedUser || shouldRenderUser && <div><User name={this.state.user.name} age={this.state.user.age} /></div>;
+
+const avatar = hasAvatar && <Gravatar user={author} size={size} />;
+
+const avatar = (hasAvatar || showPlaceholder) && <Gravatar user={author} size={size} />;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const user = renderedUser || (
+  <div>
+    <User name={this.state.user.name} age={this.state.user.age} />
+  </div>
+);
+
+const user =
+  renderedUser ||
+  (shouldRenderUser && (
+    <div>
+      <User name={this.state.user.name} age={this.state.user.age} />
+    </div>
+  ));
+
+const avatar = hasAvatar && <Gravatar user={author} size={size} />;
+
+const avatar = (hasAvatar || showPlaceholder) && (
+  <Gravatar user={author} size={size} />
+);
+
+`;
+
 exports[`inline-object-array.js 1`] = `
 prevState = prevState || {
   catalogs: [],
@@ -163,7 +194,38 @@ prevState = prevState ||
     selectedCatalog: null,
   };
 
+prevState = prevState ||
+  defaultState && {
+    catalogs: [],
+    loadState: LOADED,
+    opened: false,
+    searchQuery: '',
+    selectedCatalog: null,
+  };
+
+prevState = prevState || useDefault && defaultState || {
+    catalogs: [],
+    loadState: LOADED,
+    opened: false,
+    searchQuery: '',
+    selectedCatalog: null,
+  };
+
 this.steps = steps || [
+  {
+    name: 'mock-module',
+    path: '/nux/mock-module',
+  },
+];
+
+this.steps = steps || checkStep && [
+  {
+    name: 'mock-module',
+    path: '/nux/mock-module',
+  },
+];
+
+this.steps = steps && checkStep || [
   {
     name: 'mock-module',
     path: '/nux/mock-module',
@@ -182,11 +244,25 @@ const create = () => {
   );
 }
 
+const create = () => {
+  const result = doSomething();
+  return (
+    shouldReturn && result.ok && result || {
+      status: "ok",
+      createdAt: result.createdAt,
+      updatedAt: result.updatedAt
+    }
+  );
+}
+
 const obj = {
   state: shouldHaveState &&
     stateIsOK && {
       loadState: LOADED,
       opened: false
+    },
+  loadNext: stateIsOK && hasNext || {
+      skipNext: true
     },
   loaded: true
 }
@@ -208,7 +284,42 @@ prevState = prevState ||
     selectedCatalog: null
   };
 
+prevState =
+  prevState ||
+  (defaultState && {
+    catalogs: [],
+    loadState: LOADED,
+    opened: false,
+    searchQuery: "",
+    selectedCatalog: null
+  });
+
+prevState = prevState ||
+  (useDefault && defaultState) || {
+    catalogs: [],
+    loadState: LOADED,
+    opened: false,
+    searchQuery: "",
+    selectedCatalog: null
+  };
+
 this.steps = steps || [
+  {
+    name: "mock-module",
+    path: "/nux/mock-module"
+  }
+];
+
+this.steps =
+  steps ||
+  (checkStep && [
+    {
+      name: "mock-module",
+      path: "/nux/mock-module"
+    }
+  ]);
+
+this.steps = (steps && checkStep) || [
   {
     name: "mock-module",
     path: "/nux/mock-module"
@@ -227,12 +338,26 @@ const create = () => {
   );
 };
 
+const create = () => {
+  const result = doSomething();
+  return (
+    (shouldReturn && result.ok && result) || {
+      status: "ok",
+      createdAt: result.createdAt,
+      updatedAt: result.updatedAt
+    }
+  );
+};
+
 const obj = {
   state: shouldHaveState &&
     stateIsOK && {
       loadState: LOADED,
       opened: false
     },
+  loadNext: (stateIsOK && hasNext) || {
+    skipNext: true
+  },
   loaded: true
 };
 
@@ -267,6 +392,11 @@ exports[`jsx_parent.js 1`] = `
   {!isJellyfishEnabled &&
     diffUpdateMessageInput != null && <div><span>Text</span></div>}
 </div>;
+
+<div>
+  {!isJellyfishEnabled &&
+    diffUpdateMessageInput != null && child || <div><span>Text</span></div>}
+</div>;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div
   src={
@@ -299,6 +429,14 @@ exports[`jsx_parent.js 1`] = `
         <span>Text</span>
       </div>
     )}
+</div>;
+
+<div>
+  {(!isJellyfishEnabled && diffUpdateMessageInput != null && child) || (
+    <div>
+      <span>Text</span>
+    </div>
+  )}
 </div>;
 
 `;

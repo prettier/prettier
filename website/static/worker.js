@@ -10,6 +10,10 @@ self.Buffer = {
 };
 // eslint-disable-next-line
 fs = module$1 = module = path = os = crypto = {};
+// eslint-disable-next-line no-undef
+os.homedir = function() {
+  return "/home/prettier";
+};
 self.process = { argv: [], env: { PRETTIER_DEBUG: true }, version: "v8.5.0" };
 self.assert = { ok: function() {}, strictEqual: function() {} };
 self.require = function require(path) {
