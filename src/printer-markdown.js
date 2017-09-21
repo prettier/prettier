@@ -46,6 +46,8 @@ function genericPrint(path, options, print) {
       return concat(["*", printChildren(path, options, print), "*"]);
     case "strong":
       return concat(["**", printChildren(path, options, print), "**"]);
+    case "inlineCode":
+      return concat(["`", node.value, "`"]);
     default:
       throw new Error(`Unknown markdown type ${JSON.stringify(node.type)}`);
   }
