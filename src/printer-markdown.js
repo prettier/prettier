@@ -62,7 +62,7 @@ function printChildren(path, options, print, iterator, command) {
       : (parts, childPath, index) => {
           parts.push(childPath.call(print));
           if (index !== node.children.length - 1) {
-            parts.push(iterator);
+            parts.push(iterator || "");
           }
         };
 
