@@ -177,6 +177,8 @@ function genericPrint(path, options, print) {
         node.title === null ? "" : ` "${node.title}"`,
         hardline
       ]);
+    case "footnote":
+      return concat(["[^", printChildren(path, options, print), "]"]);
     case "table":
       return printTable(path, options, print);
     case "tableCell":

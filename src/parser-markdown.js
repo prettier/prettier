@@ -27,7 +27,7 @@ function splitText() {
 
 function parse(text /*, parsers, opts*/) {
   const processor = unified()
-    .use(remarkParse, { position: false })
+    .use(remarkParse, { position: false, footnotes: true })
     .use(remarkFrontmatter, ["yaml"])
     .use(splitText);
   return processor.runSync(processor.parse(text));
