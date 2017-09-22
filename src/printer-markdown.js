@@ -155,6 +155,19 @@ function genericPrint(path, options, print) {
             hardline
           ]);
       }
+    case "imageReference":
+      switch (node.referenceType) {
+        case "full":
+          return concat(["![", node.alt, "][", node.identifier, "]", hardline]);
+        default:
+          return concat([
+            "![",
+            node.identifier,
+            "]",
+            node.referenceType === "collapsed" ? "[]" : "",
+            hardline
+          ]);
+      }
     case "table":
       return printTable(path, options, print);
     case "tableCell":
