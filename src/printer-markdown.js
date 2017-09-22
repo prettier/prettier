@@ -44,7 +44,11 @@ function genericPrint(path, options, print) {
     case "word":
       return node.value;
     case "whitespace":
-      return concat([line, ifBreak(printBlockquotePrefix(path))]);
+      return concat([
+        // heading does not allow multi-line content
+        hasParentType(path, "heading") ? " " : line,
+        ifBreak(printBlockquotePrefix(path))
+      ]);
     case "emphasis":
       return concat(["*", printChildren(path, options, print), "*"]);
     case "strong":
@@ -73,9 +77,29 @@ function genericPrint(path, options, print) {
       ]);
     case "blockquote":
       return printChildren(path, options, print);
+    case "heading":
+      return concat([
+        "#".repeat(node.depth) + " ",
+        printChildren(path, options, print),
+        hardline,
+        hardline
+      ]);
     default:
       throw new Error(`Unknown markdown type ${JSON.stringify(node.type)}`);
   }
+}
+
+function hasParentType(path, type) {
+  let counter = 0;
+  let parentNode;
+
+  while ((parentNode = path.getParentNode(counter++))) {
+    if (parentNode.type === type) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 function printBlockquotePrefix(path) {
