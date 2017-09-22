@@ -12,6 +12,8 @@ const fill = docBuilders.fill;
 const indent = docBuilders.indent;
 const ifBreak = docBuilders.ifBreak;
 const align = docBuilders.align;
+const docPrinter = require("./doc-printer");
+const printDocToString = docPrinter.printDocToString;
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -46,8 +48,8 @@ function genericPrint(path, options, print) {
       return node.value;
     case "whitespace":
       return concat([
-        // heading does not allow multi-line content
-        hasParentType(path, "heading") ? " " : line,
+        // parent types that disallow multi-line content
+        hasParentType(path, ["heading", "table"]) ? " " : line,
         ifBreak(printBlockquotePrefix(path))
       ]);
     case "emphasis":
@@ -133,22 +135,119 @@ function genericPrint(path, options, print) {
     }
     case "thematicBreak":
       return concat(["---", hardline]);
+    case "table":
+      return printTable(path, options, print);
+    case "tableCell":
+      return printChildren(path, options, print);
+    case "tableRow": // handled in "table"
     default:
       throw new Error(`Unknown markdown type ${JSON.stringify(node.type)}`);
   }
 }
 
-function hasParentType(path, type) {
+function hasParentType(path, typeOrTypes) {
+  const types = [].concat(typeOrTypes);
+
   let counter = 0;
   let parentNode;
 
   while ((parentNode = path.getParentNode(counter++))) {
-    if (parentNode.type === type) {
+    if (types.indexOf(parentNode.type) !== -1) {
       return true;
     }
   }
 
   return false;
+}
+
+function printTable(path, options, print) {
+  const node = path.getValue();
+  const contents = []; // { [rowIndex: number]: { [columnIndex: number]: string } }
+
+  path.map(rowPath => {
+    const rowContents = [];
+
+    rowPath.map(cellPath => {
+      rowContents.push(
+        printDocToString(cellPath.call(print), options).formatted
+      );
+    }, "children");
+
+    contents.push(rowContents);
+  }, "children");
+
+  const columnMaxWidths = contents.reduce(
+    (currentWidths, rowContents) =>
+      currentWidths.map((width, columnIndex) =>
+        Math.max(width, rowContents[columnIndex].length)
+      ),
+    contents[0].map(() => 3) // minimum width = 3 (---, :--, :-:, --:)
+  );
+
+  return concat([
+    concat(contents.slice(0, 1).map(printRow)),
+    printSeparator(),
+    concat(contents.slice(1).map(printRow))
+  ]);
+
+  function printSeparator() {
+    return concat([
+      "| ",
+      join(
+        " | ",
+        columnMaxWidths.map((width, index) => {
+          switch (node.align[index]) {
+            case "left":
+              return ":" + "-".repeat(width - 1);
+            case "right":
+              return "-".repeat(width - 1) + ":";
+            case "center":
+              return ":" + "-".repeat(width - 2) + ":";
+            default:
+              return "-".repeat(width);
+          }
+        })
+      ),
+      " |",
+      hardline
+    ]);
+  }
+
+  function printRow(rowContents) {
+    return concat([
+      "| ",
+      join(
+        " | ",
+        rowContents.map((rowContent, columnIndex) => {
+          switch (node.align[columnIndex]) {
+            case "right":
+              return alignRight(rowContent, columnMaxWidths[columnIndex]);
+            case "center":
+              return alignCenter(rowContent, columnMaxWidths[columnIndex]);
+            default:
+              return alignLeft(rowContent, columnMaxWidths[columnIndex]);
+          }
+        })
+      ),
+      " |",
+      hardline
+    ]);
+  }
+
+  function alignLeft(text, width) {
+    return concat([text, " ".repeat(width - text.length)]);
+  }
+
+  function alignRight(text, width) {
+    return concat([" ".repeat(width - text.length), text]);
+  }
+
+  function alignCenter(text, width) {
+    const spaces = width - text.length;
+    const left = Math.floor(spaces / 2);
+    const right = spaces - left;
+    return concat([" ".repeat(left), text, " ".repeat(right)]);
+  }
 }
 
 function printBlockquotePrefix(path) {

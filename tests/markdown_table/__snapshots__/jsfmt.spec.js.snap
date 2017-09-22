@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`align.md 1`] = `
+|a|b|c|
+|:--|:-:|--:|
+|d|e|f|
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+| a   |  b  |   c |
+| :-- | :-: | --: |
+| d   |  e  |   f |
+
+
+`;
+
+exports[`simple.md 1`] = `
+| Title A | Title B | Title C |
+|---|---|---|
+| content A | content B | content C |
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+| Title A   | Title B   | Title C   |
+| --------- | --------- | --------- |
+| content A | content B | content C |
+
+
+`;
