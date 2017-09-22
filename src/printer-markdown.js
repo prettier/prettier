@@ -179,6 +179,8 @@ function genericPrint(path, options, print) {
       ]);
     case "footnote":
       return concat(["[^", printChildren(path, options, print), "]"]);
+    case "footnoteReference":
+      return concat(["[^", node.identifier, "]"]);
     case "table":
       return printTable(path, options, print);
     case "tableCell":
