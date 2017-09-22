@@ -39,6 +39,7 @@
     "postcss-scss": "1.0.0",
     "postcss-selector-parser": "2.2.3",
     "postcss-values-parser": "git://github.com/lydell/postcss-values-parser.git#af2c80b2bb558a6e7d61540d97f068f9fa162b38",
+    "remark-frontmatter": "1.1.0",
     "remark-parse": "4.0.0",
     "strip-bom": "3.0.0",
     "typescript": "2.5.1",

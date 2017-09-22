@@ -1,6 +1,7 @@
 "use strict";
 
 const map = require("unist-util-map");
+const remarkFrontmatter = require("remark-frontmatter");
 const remarkParse = require("remark-parse");
 const unified = require("unified");
 
@@ -26,7 +27,8 @@ function splitText() {
 
 function parse(text /*, parsers, opts*/) {
   const processor = unified()
-    .use(remarkParse)
+    .use(remarkParse, { position: false })
+    .use(remarkFrontmatter, ["yaml"])
     .use(splitText);
   return processor.runSync(processor.parse(text));
 }
