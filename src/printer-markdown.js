@@ -131,6 +131,8 @@ function genericPrint(path, options, print) {
         )
       ]);
     }
+    case "thematicBreak":
+      return concat(["---", hardline]);
     default:
       throw new Error(`Unknown markdown type ${JSON.stringify(node.type)}`);
   }
