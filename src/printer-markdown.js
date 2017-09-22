@@ -168,6 +168,15 @@ function genericPrint(path, options, print) {
             hardline
           ]);
       }
+    case "definition":
+      return concat([
+        "[",
+        node.identifier,
+        "]: ",
+        node.url,
+        node.title === null ? "" : ` "${node.title}"`,
+        hardline
+      ]);
     case "table":
       return printTable(path, options, print);
     case "tableCell":
