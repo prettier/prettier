@@ -49,7 +49,9 @@ function genericPrint(path, options, print) {
     case "whitespace":
       return concat([
         // parent types that disallow multi-line content
-        hasParentType(path, ["heading", "table"]) ? " " : line,
+        hasParentType(path, ["heading", "table", "footnoteDefinition"])
+          ? " "
+          : line,
         ifBreak(printBlockquotePrefix(path))
       ]);
     case "emphasis":
@@ -181,6 +183,14 @@ function genericPrint(path, options, print) {
       return concat(["[^", printChildren(path, options, print), "]"]);
     case "footnoteReference":
       return concat(["[^", node.identifier, "]"]);
+    case "footnoteDefinition":
+      return concat([
+        "[^",
+        node.identifier,
+        "]: ",
+        printChildren(path, options, print),
+        hardline
+      ]);
     case "table":
       return printTable(path, options, print);
     case "tableCell":
