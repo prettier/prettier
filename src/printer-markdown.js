@@ -84,6 +84,16 @@ function genericPrint(path, options, print) {
         hardline,
         hardline
       ]);
+    case "code":
+      return concat([
+        "```",
+        node.lang || "",
+        hardline,
+        node.value,
+        hardline,
+        "```",
+        hardline
+      ]);
     default:
       throw new Error(`Unknown markdown type ${JSON.stringify(node.type)}`);
   }
