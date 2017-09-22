@@ -135,6 +135,26 @@ function genericPrint(path, options, print) {
     }
     case "thematicBreak":
       return concat(["---", hardline]);
+    case "linkReference":
+      switch (node.referenceType) {
+        case "full":
+          return concat([
+            "[",
+            printChildren(path, options, print),
+            "][",
+            node.identifier,
+            "]",
+            hardline
+          ]);
+        default:
+          return concat([
+            "[",
+            node.identifier,
+            "]",
+            node.referenceType === "collapsed" ? "[]" : "",
+            hardline
+          ]);
+      }
     case "table":
       return printTable(path, options, print);
     case "tableCell":
