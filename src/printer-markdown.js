@@ -96,6 +96,8 @@ function genericPrint(path, options, print) {
       ]);
     case "yaml":
       return concat(["---", hardline, node.value, hardline, "---", hardline]);
+    case "html":
+      return node.value;
     default:
       throw new Error(`Unknown markdown type ${JSON.stringify(node.type)}`);
   }
