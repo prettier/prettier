@@ -11,6 +11,7 @@ const group = docBuilders.group;
 const fill = docBuilders.fill;
 const indent = docBuilders.indent;
 const ifBreak = docBuilders.ifBreak;
+const align = docBuilders.align;
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -98,6 +99,38 @@ function genericPrint(path, options, print) {
       return concat(["---", hardline, node.value, hardline, "---", hardline]);
     case "html":
       return node.value;
+    case "list":
+      return concat([
+        printChildren(path, options, print, (parts, childPath, index) => {
+          const prefix = node.ordered ? `${node.start + index}. ` : "- ";
+          parts.push(
+            prefix,
+            align(prefix.length, childPath.call(print)),
+            hardline
+          );
+        }),
+        hardline
+      ]);
+    case "listItem": {
+      const prefix =
+        node.checked === null ? "" : node.checked ? "[x] " : "[ ] ";
+      return concat([
+        prefix,
+        align(
+          prefix.length,
+          printChildren(path, options, print, (parts, childPath, index) => {
+            const childNode = childPath.getValue();
+            parts.push(childPath.call(print));
+            if (
+              index !== node.children.length - 1 &&
+              childNode.type === "paragraph"
+            ) {
+              parts.push(hardline);
+            }
+          })
+        )
+      ]);
+    }
     default:
       throw new Error(`Unknown markdown type ${JSON.stringify(node.type)}`);
   }
