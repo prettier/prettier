@@ -38,7 +38,7 @@ function resolveParseFunction(opts) {
       return eval("require")(path.resolve(process.cwd(), opts.parser));
     } catch (err) {
       /* istanbul ignore next */
-      throw new Error(`Couldn't resolve parser "${opts.parser}"`);
+      throw `Couldn't resolve parser "${opts.parser}"`;
     }
   }
   /* istanbul ignore next */
