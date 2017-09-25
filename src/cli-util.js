@@ -17,6 +17,7 @@ const resolver = require("./resolve-config");
 const constant = require("./cli-constant");
 const validator = require("./cli-validator");
 const apiDefaultOptions = require("./options").defaults;
+const ConfigError = require("./errors").ConfigError;
 
 const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;
@@ -57,7 +58,7 @@ function handleError(filename, error) {
   // parser has mistakenly thrown arrays sometimes.)
   if (isParseError) {
     console.error(`${filename}: ${String(error)}`);
-  } else if (isValidationError) {
+  } else if (isValidationError || error instanceof ConfigError) {
     console.error(String(error));
     // If validation fails for one file, it will fail for all of them.
     process.exit(1);

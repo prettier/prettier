@@ -1,6 +1,7 @@
 "use strict";
 
 const path = require("path");
+const ConfigError = require("./errors").ConfigError;
 
 const parsers = {
   get flow() {
@@ -38,7 +39,7 @@ function resolveParseFunction(opts) {
       return eval("require")(path.resolve(process.cwd(), opts.parser));
     } catch (err) {
       /* istanbul ignore next */
-      throw new Error(`Couldn't resolve parser "${opts.parser}"`);
+      throw new ConfigError(`Couldn't resolve parser "${opts.parser}"`);
     }
   }
   /* istanbul ignore next */
