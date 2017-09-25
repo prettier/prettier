@@ -72,3 +72,30 @@ test("CLI overrides gets applied when no config exists with --config-precedence 
   expect(output.stdout).toMatchSnapshot();
   expect(output.status).toEqual(0);
 });
+
+test("CLI validate options with --config-precedence cli-override", () => {
+  const output = runPrettier("cli/config-precedence", [
+    "--config-precedence",
+    "cli-override"
+  ]);
+  expect(output.stderr).toMatchSnapshot();
+  expect(output.status).not.toEqual(0);
+});
+
+test("CLI validate options with --config-precedence file-override", () => {
+  const output = runPrettier("cli/config-precedence", [
+    "--config-precedence",
+    "file-override"
+  ]);
+  expect(output.stderr).toMatchSnapshot();
+  expect(output.status).not.toEqual(0);
+});
+
+test("CLI validate options with --config-precedence prefer-file", () => {
+  const output = runPrettier("cli/config-precedence", [
+    "--config-precedence",
+    "prefer-file"
+  ]);
+  expect(output.stderr).toMatchSnapshot();
+  expect(output.status).not.toEqual(0);
+});

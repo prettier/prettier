@@ -1,5 +1,7 @@
 "use strict";
 
+const camelCase = require("camelcase");
+
 function validateArgv(argv) {
   if (argv["write"] && argv["debug-check"]) {
     console.error("Cannot use --write and --debug-check together.");
@@ -12,18 +14,26 @@ function validateArgv(argv) {
   }
 }
 
-function validateIntOption(value, option) {
-  if (!/^\d+$/.test(value)) {
+function getOptionName(type, option) {
+  return type === "cli" ? `--${option.name}` : camelCase(option.name);
+}
+
+function validateIntOption(type, value, option) {
+  if (!/^\d+$/.test(value) || (type === "api" && typeof value !== "number")) {
+    const optionName = getOptionName(type, option);
     throw new Error(
-      `Invalid --${option.name} value.\nExpected an integer, but received: ${value}`
+      `Invalid ${optionName} value.\n` +
+        `Expected an integer, but received: ${JSON.stringify(value)}`
     );
   }
 }
 
-function validateChoiceOption(value, option) {
+function validateChoiceOption(type, value, option) {
   if (!option.choices.some(choice => choice.value === value)) {
+    const optionName = getOptionName(type, option);
     throw new Error(
-      `Invalid option for --${option.name}.\nExpected ${getJoinedChoices()}, but received: "${value}"`
+      `Invalid option for ${optionName}.\n` +
+        `Expected ${getJoinedChoices()}, but received: ${JSON.stringify(value)}`
     );
   }
 
