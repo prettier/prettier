@@ -18,7 +18,7 @@ const resolver = require("./resolve-config");
 const constant = require("./cli-constant");
 const validator = require("./cli-validator");
 const apiDefaultOptions = require("./options").defaults;
-const ConfigError = require("./errors").ConfigError;
+const errors = require("./errors");
 
 const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;
@@ -59,7 +59,11 @@ function handleError(filename, error) {
   // parser has mistakenly thrown arrays sometimes.)
   if (isParseError) {
     console.error(`${filename}: ${String(error)}`);
-  } else if (isValidationError || error instanceof ConfigError) {
+  } else if (
+    isValidationError ||
+    error instanceof errors.ConfigError ||
+    error instanceof errors.DebugError
+  ) {
     console.error(String(error));
     // If validation fails for one file, it will fail for all of them.
     process.exit(1);
@@ -116,7 +120,9 @@ function format(argv, input, opt) {
     const pp = prettier.format(input, opt);
     const pppp = prettier.format(pp, opt);
     if (pp !== pppp) {
-      throw "prettier(input) !== prettier(prettier(input))\n" + diff(pp, pppp);
+      throw new errors.DebugError(
+        "prettier(input) !== prettier(prettier(input))\n" + diff(pp, pppp)
+      );
     } else {
       const ast = cleanAST(prettier.__debug.parse(input, opt));
       const past = cleanAST(prettier.__debug.parse(pp, opt));
@@ -127,10 +133,12 @@ function format(argv, input, opt) {
           ast.length > MAX_AST_SIZE || past.length > MAX_AST_SIZE
             ? "AST diff too large to render"
             : diff(ast, past);
-        throw "ast(input) !== ast(prettier(input))\n" +
-          astDiff +
-          "\n" +
-          diff(input, pp);
+        throw new errors.DebugError(
+          "ast(input) !== ast(prettier(input))\n" +
+            astDiff +
+            "\n" +
+            diff(input, pp)
+        );
       }
     }
     return { formatted: opt.filepath || "(stdin)\n" };
