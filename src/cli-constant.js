@@ -188,8 +188,8 @@ const detailedOptions = normalizeDetailedOptions({
       "babylon",
       "typescript",
       "postcss",
-      "postcss-less",
-      "postcss-scss",
+      "less",
+      "scss",
       "json",
       "graphql"
     ],

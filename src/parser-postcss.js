@@ -231,10 +231,10 @@ const IS_POSSIBLY_SCSS = /(\w\s*: [^}:]+|#){|@import[^\n]+(url|,)/;
 
 function parse(text, parsers, opts) {
   const hasExplicitParserChoice =
-    opts.parser === "postcss-less" || opts.parser === "postcss-scss";
+    opts.parser === "less" || opts.parser === "scss";
 
   const isSCSS = hasExplicitParserChoice
-    ? opts.parser === "postcss-scss"
+    ? opts.parser === "scss"
     : IS_POSSIBLY_SCSS.test(text);
 
   try {

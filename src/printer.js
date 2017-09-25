@@ -57,8 +57,8 @@ function getPrintFunction(options) {
     case "parse5":
       return require("./printer-htmlparser2");
     case "postcss":
-    case "postcss-less":
-    case "postcss-scss":
+    case "less":
+    case "scss":
       return require("./printer-postcss");
     default:
       return genericPrintNoParens;

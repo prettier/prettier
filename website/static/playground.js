@@ -239,8 +239,8 @@ function replaceHash(hash) {
 function getCodemirrorMode(options) {
   switch (options.parser) {
     case "postcss":
-    case "postcss-less":
-    case "postcss-scss":
+    case "less":
+    case "scss":
       return "css";
     default:
       return "jsx";

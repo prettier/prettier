@@ -51,10 +51,6 @@
         return "tsx";
       case "postcss":
         return "css";
-      case "postcss-less":
-        return "less";
-      case "postcss-scss":
-        return "scss";
       default:
         return options.parser;
     }

@@ -101,7 +101,9 @@ function lazyLoadParser(parser) {
   var actualParser =
     parser === "json"
       ? "babylon"
-      : parser.startsWith("postcss") ? "postcss" : parser;
+      : parser === "postcss" || parser === "less" || parser === "scss"
+        ? "postcss"
+        : parser;
   var script = "parser-" + actualParser + ".js";
 
   if (!parsersLoaded[actualParser]) {
