@@ -15,6 +15,8 @@ const align = docBuilders.align;
 const docPrinter = require("./doc-printer");
 const printDocToString = docPrinter.printDocToString;
 
+const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "footnoteDefinition"];
+
 function genericPrint(path, options, print) {
   const node = path.getValue();
 
@@ -48,10 +50,7 @@ function genericPrint(path, options, print) {
       return node.value;
     case "whitespace":
       return concat([
-        // parent types that disallow multi-line content
-        hasParentType(path, ["heading", "table", "footnoteDefinition"])
-          ? " "
-          : line,
+        hasParentType(path, SINGLE_LINE_NODE_TYPES) ? " " : line,
         ifBreak(printBlockquotePrefix(path))
       ]);
     case "emphasis":
