@@ -28,23 +28,16 @@ function genericPrint(path, options, print) {
     case "sentence":
       return concat([
         printBlockquotePrefix(path),
-        printChildren(
-          path,
-          options,
-          print,
-          (parts, childPath, index) => {
+        printChildren(path, options, print, {
+          processor: (childPath, index) => {
             const childNode = childPath.getValue();
-            if (
-              !(
-                childNode.type === "whitespace" &&
-                index === node.children.length - 1
-              )
-            ) {
-              parts.push(childPath.call(print));
-            }
+            return index === node.children.length - 1 &&
+              childNode.type === "whitespace"
+              ? false
+              : childPath.call(print);
           },
-          fill
-        )
+          postprocessor: fill
+        })
       ]);
     case "word":
       return node.value;
@@ -104,13 +97,15 @@ function genericPrint(path, options, print) {
       return node.value;
     case "list":
       return concat([
-        printChildren(path, options, print, (parts, childPath, index) => {
-          const prefix = node.ordered ? `${node.start + index}. ` : "- ";
-          parts.push(
-            prefix,
-            align(prefix.length, childPath.call(print)),
-            hardline
-          );
+        printChildren(path, options, print, {
+          processor: (childPath, index) => {
+            const prefix = node.ordered ? `${node.start + index}. ` : "- ";
+            return concat([
+              prefix,
+              align(prefix.length, childPath.call(print)),
+              hardline
+            ]);
+          }
         }),
         hardline
       ]);
@@ -121,14 +116,16 @@ function genericPrint(path, options, print) {
         prefix,
         align(
           prefix.length,
-          printChildren(path, options, print, (parts, childPath, index) => {
-            const childNode = childPath.getValue();
-            parts.push(childPath.call(print));
-            if (
-              index !== node.children.length - 1 &&
-              childNode.type === "paragraph"
-            ) {
-              parts.push(hardline);
+          printChildren(path, options, print, {
+            processor: (childPath, index) => {
+              const childNode = childPath.getValue();
+              const parts = [childPath.call(print)];
+              return concat(
+                index !== node.children.length - 1 &&
+                childNode.type === "paragraph"
+                  ? parts.concat(hardline)
+                  : parts
+              );
             }
           })
         )
@@ -319,29 +316,22 @@ function printBlockquotePrefix(path) {
   return blockquoteLevel ? ">".repeat(blockquoteLevel) + " " : "";
 }
 
-function printChildren(path, options, print, iterator, command) {
-  command = command || concat;
+function printChildren(path, options, print, events) {
+  events = events || {};
 
-  const node = path.getValue();
-
-  const callback =
-    typeof iterator === "function"
-      ? iterator
-      : (parts, childPath, index) => {
-          parts.push(childPath.call(print));
-          if (index !== node.children.length - 1) {
-            parts.push(iterator || "");
-          }
-        };
+  const postprocessor = events.postprocessor || concat;
+  const processor = events.processor || (childPath => childPath.call(print));
 
   const parts = [];
 
   path.map((childPath, index) => {
-    // TODO: prettier-ignore
-    callback(parts, childPath, index);
+    const result = processor(childPath, index);
+    if (result !== false) {
+      parts.push(result);
+    }
   }, "children");
 
-  return command(parts);
+  return postprocessor(parts);
 }
 
 module.exports = genericPrint;
