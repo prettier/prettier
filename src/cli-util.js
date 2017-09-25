@@ -152,7 +152,10 @@ function getOptionsOrDie(argv, filePath) {
 
 function getOptionsForFile(argv, filePath) {
   const options = getOptionsOrDie(argv, filePath);
-  return applyConfigPrecedence(argv, options);
+  return applyConfigPrecedence(
+    argv,
+    options && normalizeConfigs("api", options, constant.detailedOptionMap)
+  );
 }
 
 function parseArgsToOptions(argv, overrideDefaults) {
@@ -180,21 +183,11 @@ function applyConfigPrecedence(argv, options) {
   try {
     switch (argv["config-precedence"]) {
       case "cli-override":
-        return parseArgsToOptions(
-          argv,
-          normalizeConfigs("api", options, constant.detailedOptionMap)
-        );
+        return parseArgsToOptions(argv, options);
       case "file-override":
-        return Object.assign(
-          {},
-          parseArgsToOptions(argv),
-          normalizeConfigs("api", options, constant.detailedOptionMap)
-        );
+        return Object.assign({}, parseArgsToOptions(argv), options);
       case "prefer-file":
-        return (
-          normalizeConfigs("api", options, constant.detailedOptionMap) ||
-          parseArgsToOptions(argv)
-        );
+        return options || parseArgsToOptions(argv);
     }
   } catch (error) {
     console.error(error.toString());
