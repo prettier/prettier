@@ -1,5 +1,7 @@
 "use strict";
 
+const camelCase = require("camelcase");
+
 function validateArgv(argv) {
   if (argv["write"] && argv["debug-check"]) {
     console.error("Cannot use --write and --debug-check together.");
@@ -13,11 +15,7 @@ function validateArgv(argv) {
 }
 
 function getOptionName(type, option) {
-  return type === "cli" ? `--${option.name}` : kebabToCamel(option.name);
-}
-
-function kebabToCamel(str) {
-  return str.replace(/-([a-z])/g, (_, char) => char.toUpperCase());
+  return type === "cli" ? `--${option.name}` : camelCase(option.name);
 }
 
 function validateIntOption(type, value, option) {

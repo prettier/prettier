@@ -1,6 +1,7 @@
 "use strict";
 
 const path = require("path");
+const camelCase = require("camelcase");
 const dashify = require("dashify");
 const minimist = require("minimist");
 const getStream = require("get-stream");
@@ -529,16 +530,12 @@ function getOptionDefaultValue(optionName) {
     return option.default;
   }
 
-  const optionCamelName = kebabToCamel(optionName);
+  const optionCamelName = camelCase(optionName);
   if (optionCamelName in apiDefaultOptions) {
     return apiDefaultOptions[optionCamelName];
   }
 
   return undefined;
-}
-
-function kebabToCamel(str) {
-  return str.replace(/-([a-z])/g, (_, char) => char.toUpperCase());
 }
 
 function indent(str, spaces) {
@@ -621,13 +618,13 @@ function normalizeConfigs(type, rawConfigs, options) {
   return normalized;
 
   function getOptionName(option) {
-    return type === "cli" ? `--${option.name}` : kebabToCamel(option.name);
+    return type === "cli" ? `--${option.name}` : camelCase(option.name);
   }
 
   function getRedirectName(option, choice) {
     return type === "cli"
       ? `--${option.name}=${choice.redirect}`
-      : `{ ${kebabToCamel(option.name)}: ${JSON.stringify(choice.redirect)} }`;
+      : `{ ${camelCase(option.name)}: ${JSON.stringify(choice.redirect)} }`;
   }
 
   function getValue(rawValue, option) {
