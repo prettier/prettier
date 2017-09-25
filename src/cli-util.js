@@ -544,8 +544,8 @@ function groupBy(array, getKey) {
 }
 
 /** @param {'api' | 'cli'} type */
-function normalizeConfig(type, rawConfigs, options) {
-  if (type === "api" && rawConfigs === null) {
+function normalizeConfig(type, rawConfig, options) {
+  if (type === "api" && rawConfig === null) {
     return null;
   }
 
@@ -555,8 +555,8 @@ function normalizeConfig(type, rawConfigs, options) {
 
   const normalized = {};
 
-  Object.keys(rawConfigs).forEach(rawKey => {
-    const rawValue = rawConfigs[rawKey];
+  Object.keys(rawConfig).forEach(rawKey => {
+    const rawValue = rawConfig[rawKey];
 
     const key = type === "cli" ? rawKey : dashify(rawKey);
 
@@ -630,7 +630,7 @@ function normalizeConfig(type, rawConfigs, options) {
       consoleWarn(warning);
     }
 
-    const value = option.getter(rawValue, rawConfigs);
+    const value = option.getter(rawValue, rawConfig);
 
     if (option.type === "choice") {
       const choice = option.choices.find(choice => choice.value === rawValue);
