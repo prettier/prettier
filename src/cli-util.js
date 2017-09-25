@@ -156,7 +156,8 @@ function getOptionsForFile(argv, filePath) {
 
 function parseArgsToOptions(argv, overrideDefaults) {
   return getOptions(
-    normalizeArgv(
+    normalizeConfigs(
+      "cli",
       minimist(
         argv.__args,
         Object.assign({
@@ -178,11 +179,21 @@ function applyConfigPrecedence(argv, options) {
   try {
     switch (argv["config-precedence"]) {
       case "cli-override":
-        return parseArgsToOptions(argv, options);
+        return parseArgsToOptions(
+          argv,
+          normalizeConfigs("api", options, constant.detailedOptionMap)
+        );
       case "file-override":
-        return Object.assign({}, parseArgsToOptions(argv), options);
+        return Object.assign(
+          {},
+          parseArgsToOptions(argv),
+          normalizeConfigs("api", options, constant.detailedOptionMap)
+        );
       case "prefer-file":
-        return options || parseArgsToOptions(argv);
+        return (
+          normalizeConfigs("api", options, constant.detailedOptionMap) ||
+          parseArgsToOptions(argv)
+        );
     }
   } catch (error) {
     console.error(error.toString());
@@ -542,29 +553,36 @@ function groupBy(array, getKey) {
   }, Object.create(null));
 }
 
-function normalizeArgv(rawArgv, options) {
+/** @param {'api' | 'cli'} type */
+function normalizeConfigs(type, rawConfigs, options) {
+  if (type === "api" && rawConfigs === null) {
+    return null;
+  }
+
   options = options || {};
 
   const consoleWarn = options.warning === false ? () => {} : console.warn;
 
   const normalized = {};
 
-  Object.keys(rawArgv).forEach(key => {
-    const rawValue = rawArgv[key];
+  Object.keys(rawConfigs).forEach(rawKey => {
+    const rawValue = rawConfigs[rawKey];
 
-    if (key === "_") {
-      normalized[key] = rawValue;
+    const key = type === "cli" ? rawKey : dashify(rawKey);
+
+    if (type === "cli" && key === "_") {
+      normalized[rawKey] = rawValue;
       return;
     }
 
-    if (key.length === 1) {
+    if (type === "cli" && key.length === 1) {
       // do nothing with alias
       return;
     }
 
     const option = constant.detailedOptionMap[key];
 
-    if (option === undefined) {
+    if (type === "cli" && option === undefined) {
       // unknown option
       return;
     }
@@ -574,12 +592,12 @@ function normalizeArgv(rawArgv, options) {
     if (option.exception !== undefined) {
       if (typeof option.exception === "function") {
         if (option.exception(value)) {
-          normalized[key] = value;
+          normalized[rawKey] = value;
           return;
         }
       } else {
         if (value === option.exception) {
-          normalized[key] = value;
+          normalized[rawKey] = value;
           return;
         }
       }
@@ -587,31 +605,42 @@ function normalizeArgv(rawArgv, options) {
 
     switch (option.type) {
       case "int":
-        validator.validateIntOption(value, option);
-        normalized[key] = Number(value);
+        validator.validateIntOption(type, value, option);
+        normalized[rawKey] = Number(value);
         break;
       case "choice":
-        validator.validateChoiceOption(value, option);
-        normalized[key] = value;
+        validator.validateChoiceOption(type, value, option);
+        normalized[rawKey] = value;
         break;
       default:
-        normalized[key] = value;
+        normalized[rawKey] = value;
         break;
     }
   });
 
   return normalized;
 
+  function getOptionName(option) {
+    return type === "cli" ? `--${option.name}` : kebabToCamel(option.name);
+  }
+
+  function getRedirectName(option, choice) {
+    return type === "cli"
+      ? `--${option.name}=${choice.redirect}`
+      : `{ ${kebabToCamel(option.name)}: ${JSON.stringify(choice.redirect)} }`;
+  }
+
   function getValue(rawValue, option) {
+    const optionName = getOptionName(option);
     if (rawValue && option.deprecated) {
-      let warning = `\`--${option.name}\` is deprecated.`;
+      let warning = `\`${optionName}\` is deprecated.`;
       if (typeof option.deprecated === "string") {
         warning += ` ${option.deprecated}`;
       }
       consoleWarn(warning);
     }
 
-    const value = option.getter(rawValue, rawArgv);
+    const value = option.getter(rawValue, rawConfigs);
 
     if (option.type === "choice") {
       const choice = option.choices.find(choice => choice.value === rawValue);
@@ -620,8 +649,9 @@ function normalizeArgv(rawArgv, options) {
           rawValue === ""
             ? "without an argument"
             : `with value \`${rawValue}\``;
+        const redirectName = getRedirectName(option, choice);
         consoleWarn(
-          `\`--${option.name}\` ${warningDescription} is deprecated. Prettier now treats it as: \`--${option.name}=${choice.redirect}\`.`
+          `\`${optionName}\` ${warningDescription} is deprecated. Prettier now treats it as: \`${redirectName}\`.`
         );
         return choice.redirect;
       }
@@ -638,5 +668,5 @@ module.exports = {
   formatFiles,
   createUsage,
   createDetailedUsage,
-  normalizeArgv
+  normalizeConfigs
 };

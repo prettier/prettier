@@ -7,13 +7,13 @@ Failed to parse \\"<cwd>/tests_integration/cli/config/invalid/file/.prettierrc\\
 `;
 
 exports[`throw error with invalid config option (int) 1`] = `
-"Error: Invalid --tab-width value.
+"Error: Invalid tabWidth value.
 Expected an integer, but received: 0.5
 "
 `;
 
 exports[`throw error with invalid config option (trailingComma) 1`] = `
-"Error: Invalid option for --trailing-comma.
+"Error: Invalid option for trailingComma.
 Expected \\"none\\", \\"es5\\" or \\"all\\", but received: \\"wow\\"
 "
 `;

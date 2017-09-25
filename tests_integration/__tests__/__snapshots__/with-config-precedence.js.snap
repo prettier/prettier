@@ -145,3 +145,21 @@ function rcYaml() {
 }
 "
 `;
+
+exports[`CLI validate options with --config-precedence cli-override 1`] = `
+"Error: Invalid printWidth value.
+Expected an integer, but received: 0.5
+"
+`;
+
+exports[`CLI validate options with --config-precedence file-override 1`] = `
+"Error: Invalid printWidth value.
+Expected an integer, but received: 0.5
+"
+`;
+
+exports[`CLI validate options with --config-precedence prefer-file 1`] = `
+"Error: Invalid printWidth value.
+Expected an integer, but received: 0.5
+"
+`;
