@@ -41,13 +41,13 @@ exports.Foo = Foo;
 
 // so you want to type Foo, by declaring it as a class
 interface IFooPrototype {
-  m: () => number
+  m: () => number;
 }
 interface IFoo extends IFooPrototype {
-  x: boolean, // error, should have declared x: number instead
-  static (): void,
-  static y: boolean, // error, should have declared static y: number instead
-  constructor(): void
+  x: boolean; // error, should have declared x: number instead
+  static (): void;
+  static y: boolean; // error, should have declared static y: number instead
+  constructor(): void;
 }
 exports.Foo2 = (Foo: Class<IFoo>);
 

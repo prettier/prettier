@@ -937,14 +937,22 @@ function genericPrintNoParens(path, options, print, args) {
             util.locStart(n),
             util.locEnd(n)
           ));
-      const separator =
-        n.type === "TSInterfaceBody" || n.type === "TSTypeLiteral"
+      const parent = path.getParentNode(0);
+      const isFlowInterfaceLikeBody =
+        isTypeAnnotation &&
+        parent &&
+        (parent.type === "InterfaceDeclaration" ||
+          parent.type === "DeclareInterface" ||
+          parent.type === "DeclareClass") &&
+        path.getName() === "body";
+      const separator = isFlowInterfaceLikeBody
+        ? ";"
+        : n.type === "TSInterfaceBody" || n.type === "TSTypeLiteral"
           ? ifBreak(semi, ";")
           : ",";
       const fields = [];
       const leftBrace = n.exact ? "{|" : "{";
       const rightBrace = n.exact ? "|}" : "}";
-      const parent = path.getParentNode(0);
 
       let propertiesField;
 

@@ -268,8 +268,8 @@ type Merge<T> = (a: T, b: T) => T;
 
 // hypothetical immutable map
 declare class Map<K, V> {
-  (): Map<K, V>,
-  insertWith(fn: Merge<V>, k: K, v: V): Map<K, V>
+  (): Map<K, V>;
+  insertWith(fn: Merge<V>, k: K, v: V): Map<K, V>;
 }
 
 declare function foldr<A, B>(fn: (a: A, b: B) => B, b: B, as: A[]): B;
