@@ -8,7 +8,7 @@ const util = require("./cli-util");
 const validator = require("./cli-validator");
 
 function run(args) {
-  const argv = util.normalizeConfigs(
+  const argv = util.normalizeConfig(
     "cli",
     minimist(args, constant.minimistOptions)
   );

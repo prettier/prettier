@@ -154,13 +154,13 @@ function getOptionsForFile(argv, filePath) {
   const options = getOptionsOrDie(argv, filePath);
   return applyConfigPrecedence(
     argv,
-    options && normalizeConfigs("api", options, constant.detailedOptionMap)
+    options && normalizeConfig("api", options, constant.detailedOptionMap)
   );
 }
 
 function parseArgsToOptions(argv, overrideDefaults) {
   return getOptions(
-    normalizeConfigs(
+    normalizeConfig(
       "cli",
       minimist(
         argv.__args,
@@ -544,7 +544,7 @@ function groupBy(array, getKey) {
 }
 
 /** @param {'api' | 'cli'} type */
-function normalizeConfigs(type, rawConfigs, options) {
+function normalizeConfig(type, rawConfigs, options) {
   if (type === "api" && rawConfigs === null) {
     return null;
   }
@@ -658,5 +658,5 @@ module.exports = {
   formatFiles,
   createUsage,
   createDetailedUsage,
-  normalizeConfigs
+  normalizeConfig
 };
