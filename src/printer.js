@@ -56,7 +56,7 @@ function getPrintFunction(options) {
       return require("./printer-graphql");
     case "parse5":
       return require("./printer-htmlparser2");
-    case "postcss":
+    case "css":
     case "less":
     case "scss":
       return require("./printer-postcss");

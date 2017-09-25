@@ -48,7 +48,7 @@ function fromBabylonFlowOrTypeScript(path) {
         const rawQuasis = node.quasis.map(q => q.value.raw);
         const text = rawQuasis.join("@prettier-placeholder");
         return {
-          options: { parser: "postcss" },
+          options: { parser: "css" },
           transformDoc: transformCssDoc,
           text: text
         };
@@ -133,7 +133,7 @@ function fromHtmlParser2(path, options) {
       // Inline Styles
       if (parent.type === "style") {
         return {
-          options: { parser: "postcss" },
+          options: { parser: "css" },
           transformDoc: doc => concat([hardline, stripTrailingHardline(doc)]),
           text: getText(options, node)
         };

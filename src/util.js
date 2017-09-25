@@ -530,7 +530,7 @@ function printString(raw, options, isDirectiveLiteral) {
     rawContent,
     enclosingQuote,
     !(
-      options.parser === "postcss" ||
+      options.parser === "css" ||
       options.parser === "less" ||
       options.parser === "scss"
     )
