@@ -844,6 +844,8 @@ function genericPrintNoParens(path, options, print, args) {
     case "NewExpression":
     case "CallExpression": {
       const isNew = n.type === "NewExpression";
+      const unitTestRe = /^(f|x)?(it|describe|test)$/;
+
       const optional = printOptionalToken(path);
       if (
         // We want to keep require calls as a unit
@@ -857,10 +859,13 @@ function genericPrintNoParens(path, options, print, args) {
         // Keep test declarations on a single line
         // e.g. `it('long name', () => {`
         (!isNew &&
-          n.callee.type === "Identifier" &&
-          (n.callee.name === "it" ||
-            n.callee.name === "test" ||
-            n.callee.name === "describe") &&
+          ((n.callee.type === "Identifier" && unitTestRe.test(n.callee.name)) ||
+            (n.callee.type === "MemberExpression" &&
+              n.callee.object.type === "Identifier" &&
+              n.callee.property.type === "Identifier" &&
+              unitTestRe.test(n.callee.object.name) &&
+              (n.callee.property.name === "only" ||
+                n.callee.property.name === "skip"))) &&
           n.arguments.length === 2 &&
           (n.arguments[0].type === "StringLiteral" ||
             n.arguments[0].type === "TemplateLiteral" ||
