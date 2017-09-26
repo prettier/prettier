@@ -43,7 +43,17 @@ describe(`does something really long and complicated so I have to write a very l
   });
 });
 
-// Should break
+xdescribe("does something really long and complicated so I have to write a very long name for the describe block", () => {});
+
+fdescribe("does something really long and complicated so I have to write a very long name for the describe block", () => {});
+
+describe.only(`does something really long and complicated so I have to write a very long name for the test`, () => {});
+
+describe.skip(`does something really long and complicated so I have to write a very long name for the test`, () => {});
+
+fit("does something really long and complicated so I have to write a very long name for the describe block", () => {});
+
+xit("does something really long and complicated so I have to write a very long name for the describe block", () => {});
 
 it.only("does something really long and complicated so I have to write a very long name for the test", () => {
   console.log("hello!");
@@ -52,6 +62,18 @@ it.only("does something really long and complicated so I have to write a very lo
 it.only(`does something really long and complicated so I have to write a very long name for the test`, () => {
   console.log("hello!");
 });
+
+it.skip(`does something really long and complicated so I have to write a very long name for the test`, () => {});
+
+test.only(`does something really long and complicated so I have to write a very long name for the test`, () => {});
+
+test.skip(`does something really long and complicated so I have to write a very long name for the test`, () => {});
+
+ftest("does something really long and complicated so I have to write a very long name for the describe block", () => {});
+
+xtest("does something really long and complicated so I have to write a very long name for the describe block", () => {});
+
+// Should break
 
 it.only("does something really long and complicated so I have to write a very long name for the test", 10, () => {
   console.log("hello!");
