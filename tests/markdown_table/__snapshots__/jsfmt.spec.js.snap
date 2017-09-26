@@ -9,7 +9,6 @@ exports[`align.md 1`] = `
 | :-- | :-: | --: |
 | d   |  e  |   f |
 
-
 `;
 
 exports[`simple.md 1`] = `
@@ -20,6 +19,5 @@ exports[`simple.md 1`] = `
 | Title A   | Title B   | Title C   |
 | --------- | --------- | --------- |
 | content A | content B | content C |
-
 
 `;

@@ -17,35 +17,54 @@ const printDocToString = docPrinter.printDocToString;
 
 const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "footnoteDefinition"];
 
+const SIBLING_NODE_TYPES = [
+  "image",
+  "listItem",
+  "html",
+  "definition",
+  "footnoteDefinition"
+];
+
+const INLINE_NODE_TYPES = [
+  "inlineCode",
+  "emphasis",
+  "strong",
+  "delete",
+  "link",
+  "sentence",
+  "whitespace",
+  "word"
+];
+
+const debug = x => {
+  // console.log(JSON.stringify(x, null, 2));
+  return x;
+};
+
 function genericPrint(path, options, print) {
   const node = path.getValue();
 
   switch (node.type) {
     case "root":
-      return concat([printChildren(path, options, print), hardline]);
+      debug(node);
+      return debug(
+        normalizeDoc(concat([printChildren(path, options, print), hardline]))
+      );
     case "paragraph":
-      return concat([printChildren(path, options, print)]);
+      return printChildren(path, options, print, {
+        postprocessor: fill
+      });
     case "sentence":
       return concat([
+        // TODO: rewrite blockquote printer
         printBlockquotePrefix(path),
-        printChildren(path, options, print, {
-          processor: (childPath, index) => {
-            const childNode = childPath.getValue();
-            return index === node.children.length - 1 &&
-              childNode.type === "whitespace"
-              ? false
-              : childPath.call(print);
-          },
-          postprocessor: fill
-        })
+        printChildren(path, options, print)
       ]);
     case "word":
       return node.value;
-    case "whitespace":
-      return concat([
-        hasParentType(path, SINGLE_LINE_NODE_TYPES) ? " " : line,
-        ifBreak(printBlockquotePrefix(path))
-      ]);
+    case "whitespace": {
+      return concat([hasParentType(path, SINGLE_LINE_NODE_TYPES) ? " " : line]);
+    }
     case "emphasis":
       return concat(["*", printChildren(path, options, print), "*"]);
     case "strong":
@@ -77,9 +96,7 @@ function genericPrint(path, options, print) {
     case "heading":
       return concat([
         "#".repeat(node.depth) + " ",
-        printChildren(path, options, print),
-        hardline,
-        hardline
+        printChildren(path, options, print)
       ]);
     case "code":
       return concat([
@@ -88,51 +105,29 @@ function genericPrint(path, options, print) {
         hardline,
         node.value,
         hardline,
-        "```",
-        hardline
+        "```"
       ]);
     case "yaml":
-      return concat(["---", hardline, node.value, hardline, "---", hardline]);
+      return concat(["---", hardline, node.value, hardline, "---"]);
     case "html":
       return node.value;
     case "list":
-      return concat([
-        printChildren(path, options, print, {
-          processor: (childPath, index) => {
-            const prefix = node.ordered ? `${node.start + index}. ` : "- ";
-            return concat([
-              prefix,
-              align(prefix.length, childPath.call(print)),
-              hardline
-            ]);
-          }
-        }),
-        hardline
-      ]);
+      return printChildren(path, options, print, {
+        processor: (childPath, index) => {
+          const prefix = node.ordered ? `${node.start + index}. ` : "- ";
+          return concat([prefix, align(prefix.length, childPath.call(print))]);
+        }
+      });
     case "listItem": {
       const prefix =
         node.checked === null ? "" : node.checked ? "[x] " : "[ ] ";
       return concat([
         prefix,
-        align(
-          prefix.length,
-          printChildren(path, options, print, {
-            processor: (childPath, index) => {
-              const childNode = childPath.getValue();
-              const parts = [childPath.call(print)];
-              return concat(
-                index !== node.children.length - 1 &&
-                childNode.type === "paragraph"
-                  ? parts.concat(hardline)
-                  : parts
-              );
-            }
-          })
-        )
+        align(prefix.length, printChildren(path, options, print))
       ]);
     }
     case "thematicBreak":
-      return concat(["---", hardline]);
+      return concat(["---"]);
     case "linkReference":
       switch (node.referenceType) {
         case "full":
@@ -141,29 +136,26 @@ function genericPrint(path, options, print) {
             printChildren(path, options, print),
             "][",
             node.identifier,
-            "]",
-            hardline
+            "]"
           ]);
         default:
           return concat([
             "[",
             node.identifier,
             "]",
-            node.referenceType === "collapsed" ? "[]" : "",
-            hardline
+            node.referenceType === "collapsed" ? "[]" : ""
           ]);
       }
     case "imageReference":
       switch (node.referenceType) {
         case "full":
-          return concat(["![", node.alt, "][", node.identifier, "]", hardline]);
+          return concat(["![", node.alt, "][", node.identifier, "]"]);
         default:
           return concat([
             "![",
             node.identifier,
             "]",
-            node.referenceType === "collapsed" ? "[]" : "",
-            hardline
+            node.referenceType === "collapsed" ? "[]" : ""
           ]);
       }
     case "definition":
@@ -172,8 +164,7 @@ function genericPrint(path, options, print) {
         node.identifier,
         "]: ",
         node.url,
-        node.title === null ? "" : ` "${node.title}"`,
-        hardline
+        node.title === null ? "" : ` "${node.title}"`
       ]);
     case "footnote":
       return concat(["[^", printChildren(path, options, print), "]"]);
@@ -184,8 +175,7 @@ function genericPrint(path, options, print) {
         "[^",
         node.identifier,
         "]: ",
-        printChildren(path, options, print),
-        hardline
+        printChildren(path, options, print)
       ]);
     case "table":
       return printTable(path, options, print);
@@ -236,10 +226,10 @@ function printTable(path, options, print) {
     contents[0].map(() => 3) // minimum width = 3 (---, :--, :-:, --:)
   );
 
-  return concat([
-    concat(contents.slice(0, 1).map(printRow)),
+  return join(hardline, [
+    printRow(contents[0]),
     printSeparator(),
-    concat(contents.slice(1).map(printRow))
+    join(hardline, contents.slice(1).map(printRow))
   ]);
 
   function printSeparator() {
@@ -260,8 +250,7 @@ function printTable(path, options, print) {
           }
         })
       ),
-      " |",
-      hardline
+      " |"
     ]);
   }
 
@@ -281,8 +270,7 @@ function printTable(path, options, print) {
           }
         })
       ),
-      " |",
-      hardline
+      " |"
     ]);
   }
 
@@ -324,14 +312,101 @@ function printChildren(path, options, print, events) {
 
   const parts = [];
 
+  let counter = 0;
+  let lastChildPath;
+
   path.map((childPath, index) => {
     const result = processor(childPath, index);
+
     if (result !== false) {
+      const data = {
+        parts,
+        index: counter++,
+        prevPath: lastChildPath,
+        parentPath: path
+      };
+
+      if (!shouldNotPrintHardline(childPath, data)) {
+        parts.push(hardline);
+
+        if (shouldPrintDoubleHardline(childPath, data)) {
+          parts.push(hardline);
+        }
+      }
+
       parts.push(result);
+      lastChildPath = childPath;
     }
   }, "children");
 
   return postprocessor(parts);
+}
+
+function shouldNotPrintHardline(path, data) {
+  const node = path.getValue();
+  const prevNode = data.prevPath && data.prevPath.getValue();
+
+  const isFirstNode = data.parts.length === 0;
+  const isInlineNode = INLINE_NODE_TYPES.indexOf(node.type) !== -1;
+
+  const isSequence = (prevNode && prevNode.type) === node.type;
+  const isIsolatedHTML = node.type === "html" && !isSequence;
+
+  return isFirstNode || isInlineNode || isIsolatedHTML;
+}
+
+function shouldPrintDoubleHardline(path, data) {
+  const node = path.getValue();
+  const prevNode = data.prevPath && data.prevPath.getValue();
+  const parentNode = data.parentPath && data.parentPath.getValue();
+
+  const isSequence = (prevNode && prevNode.type) === node.type;
+  const isSiblingNode =
+    isSequence && SIBLING_NODE_TYPES.indexOf(node.type) !== -1;
+
+  const isList = node.type === "list";
+  const hasListParent = parentNode && parentNode.type === "list";
+  const isSimpleNestedList = isList && hasListParent && data.index < 2;
+
+  return !(isSiblingNode || isSimpleNestedList);
+}
+
+function normalizeDoc(doc) {
+  return mapDoc(doc, currentDoc => {
+    if (!currentDoc.parts) {
+      return currentDoc;
+    }
+
+    if (currentDoc.type === "concat" && currentDoc.parts.length === 1) {
+      return currentDoc.parts[0];
+    }
+
+    const parts = [];
+
+    currentDoc.parts.forEach(part => {
+      if (part.type === "concat") {
+        parts.push.apply(parts, part.parts);
+      } else if (part !== "") {
+        parts.push(part);
+      }
+    });
+
+    return Object.assign({}, currentDoc, { parts });
+  });
+}
+
+function mapDoc(doc, callback) {
+  if (doc.parts) {
+    const parts = doc.parts.map(part => mapDoc(part, callback));
+    return callback(Object.assign({}, doc, { parts }));
+  }
+
+  if (doc.contents) {
+    const contents = mapDoc(doc.contents, callback);
+    return callback(Object.assign({}, doc, { contents }));
+  }
+
+  return callback(doc);
 }
 
 module.exports = genericPrint;

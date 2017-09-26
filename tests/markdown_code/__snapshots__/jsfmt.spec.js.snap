@@ -9,7 +9,6 @@ console.log("hello world");
 console.log("hello world");
 \`\`\`
 
-
 `;
 
 exports[`simple.md 1`] = `
@@ -20,6 +19,5 @@ hello world
 \`\`\`
 hello world
 \`\`\`
-
 
 `;

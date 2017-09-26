@@ -5,13 +5,11 @@ exports[`simple.md 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [alpha]: http://example.com
 
-
 `;
 
 exports[`title.md 1`] = `
 [alpha]: http://example.com "title"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [alpha]: http://example.com "title"
-
 
 `;

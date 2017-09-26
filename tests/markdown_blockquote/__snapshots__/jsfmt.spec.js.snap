@@ -11,9 +11,7 @@ exports[`paragraph.md 1`] = `
 > This is a long long long long long long long long long long long long long long long paragraph.
 > This is a long long long long long long long long long long long long long long long paragraph.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> This is a long long long long long long long long long long long long long
-> long long paragraph. This is a long long long long long long long long long
-> long long long long long long paragraph.
+> This is a long long long long long long long long long long long long long long long paragraph. This is a long long long long long long long long long long long long long long long paragraph.
 
 `;
 

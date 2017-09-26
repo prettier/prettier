@@ -9,15 +9,11 @@ exports[`atx.md 1`] = `
 
 ## h2
 
-
-
 `;
 
 exports[`long-heading.md 1`] = `
 # this is a long long long long long long long long long long long long long long heading.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # this is a long long long long long long long long long long long long long long heading.
-
-
 
 `;
 
@@ -31,7 +27,5 @@ h2
 # h1
 
 ## h2
-
-
 
 `;

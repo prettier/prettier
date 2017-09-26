@@ -9,8 +9,6 @@ exports[`checkbox.md 1`] = `
 - [x] this is a long long long long long long long long long long long long long
       long paragraph.
 
-
-
 `;
 
 exports[`long-paragraph.md 1`] = `
@@ -18,8 +16,6 @@ exports[`long-paragraph.md 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - This is a long long long long long long long long long long long long long
   long paragraph.
-
-
 
 `;
 
@@ -29,8 +25,6 @@ exports[`multiline.md 1`] = `
   789
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - 123 456 789
-
-
 
 `;
 
@@ -43,12 +37,6 @@ exports[`nested.md 1`] = `
   - Level 2
     - Level 3
 
-
-
-
-
-
-
 `;
 
 exports[`ordered.md 1`] = `
@@ -60,8 +48,6 @@ exports[`ordered.md 1`] = `
 2. 456
 3. 789
 
-
-
 `;
 
 exports[`simple.md 1`] = `
@@ -72,7 +58,5 @@ exports[`simple.md 1`] = `
 - 123
 - 456
 - 789
-
-
 
 `;
