@@ -58,9 +58,9 @@ type T = {
 };
 
 declare class Foo {
-  get a(): number,
-  set b(x: number): void,
-  c: 10
+  get a(): number;
+  set b(x: number): void;
+  c: 10;
 }
 
 class Bar {

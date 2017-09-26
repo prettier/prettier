@@ -183,8 +183,8 @@ function bar2(x: mixed) {
 // @flow
 
 declare class C {
-  bar(n1: number, n2: number): number,
-  bar(s1: string, s2: string): string
+  bar(n1: number, n2: number): number;
+  bar(s1: string, s2: string): string;
 }
 
 function foo(c: C, x: any): string {
