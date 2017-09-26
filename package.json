@@ -42,7 +42,7 @@
     "postcss-values-parser": "git://github.com/lydell/postcss-values-parser.git#af2c80b2bb558a6e7d61540d97f068f9fa162b38",
     "strip-bom": "3.0.0",
     "typescript": "2.5.1",
-    "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#5576fb48c89165967557e867b9462d43431dcb10"
+    "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#9c71a627da36e97da52ed2731d58509c952b67ae"
   },
   "devDependencies": {
     "babel-cli": "6.24.1",
