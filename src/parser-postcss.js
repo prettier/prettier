@@ -227,15 +227,27 @@ function requireParser(isSCSS) {
   return require("postcss-less");
 }
 
-function parse(text /*, parsers, opts*/) {
-  const isLikelySCSS = !!text.match(/(\w\s*: [^}:]+|#){|@import[^\n]+(url|,)/);
+const IS_POSSIBLY_SCSS = /(\w\s*: [^}:]+|#){|@import[^\n]+(url|,)/;
+
+function parse(text, parsers, opts) {
+  const hasExplicitParserChoice =
+    opts.parser === "less" || opts.parser === "scss";
+
+  const isSCSS = hasExplicitParserChoice
+    ? opts.parser === "scss"
+    : IS_POSSIBLY_SCSS.test(text);
+
   try {
-    return parseWithParser(requireParser(isLikelySCSS), text);
-  } catch (e) {
+    return parseWithParser(requireParser(isSCSS), text);
+  } catch (originalError) {
+    if (hasExplicitParserChoice) {
+      throw originalError;
+    }
+
     try {
-      return parseWithParser(requireParser(!isLikelySCSS), text);
-    } catch (e2) {
-      throw e;
+      return parseWithParser(requireParser(!isSCSS), text);
+    } catch (_secondError) {
+      throw originalError;
     }
   }
 }

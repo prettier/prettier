@@ -19,7 +19,13 @@ const parsers = {
   get typescript() {
     return eval("require")("./parser-typescript");
   },
-  get postcss() {
+  get css() {
+    return eval("require")("./parser-postcss");
+  },
+  get less() {
+    return eval("require")("./parser-postcss");
+  },
+  get scss() {
     return eval("require")("./parser-postcss");
   },
   get json() {

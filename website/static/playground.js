@@ -238,7 +238,11 @@ function replaceHash(hash) {
 
 function getCodemirrorMode(options) {
   switch (options.parser) {
+    // TODO: Remove the "postcss" case when prettier@>1.7.0 is released.
+    case "css":
     case "postcss":
+    case "less":
+    case "scss":
       return "css";
     default:
       return "jsx";

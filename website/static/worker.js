@@ -98,11 +98,20 @@ function formatCode(text, options) {
 }
 
 function lazyLoadParser(parser) {
-  var script =
-    parser === "json" ? "parser-babylon.js" : "parser-" + parser + ".js";
+  var actualParser =
+    parser === "json"
+      ? "babylon"
+      : parser === "css" ||
+        // TODO: Remove "postcss" when prettier@>1.7.0 is released.
+        parser === "postcss" ||
+        parser === "less" ||
+        parser === "scss"
+        ? "css"
+        : parser;
+  var script = "parser-" + actualParser + ".js";
 
-  if (!parsersLoaded[parser]) {
+  if (!parsersLoaded[actualParser]) {
     importScripts("lib/" + script);
-    parsersLoaded[parser] = true;
+    parsersLoaded[actualParser] = true;
   }
 }
