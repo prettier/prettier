@@ -845,23 +845,6 @@ function genericPrintNoParens(path, options, print, args) {
     case "CallExpression": {
       const isNew = n.type === "NewExpression";
       const unitTestRe = /^(f|x)?(it|describe|test)$/;
-      const isTestDeclaration =
-        !isNew &&
-        ((n.callee.type === "Identifier" && unitTestRe.test(n.callee.name)) ||
-          (n.callee.type === "MemberExpression" &&
-            n.callee.object.type === "Identifier" &&
-            n.callee.property.type === "Identifier" &&
-            unitTestRe.test(n.callee.object.name) &&
-            (n.callee.property.name === "only" ||
-              n.callee.property.name === "skip"))) &&
-        n.arguments.length === 2 &&
-        (n.arguments[0].type === "StringLiteral" ||
-          n.arguments[0].type === "TemplateLiteral" ||
-          (n.arguments[0].type === "Literal" &&
-            typeof n.arguments[0].value === "string")) &&
-        (n.arguments[1].type === "FunctionExpression" ||
-          n.arguments[1].type === "ArrowFunctionExpression") &&
-        n.arguments[1].params.length <= 1;
 
       const optional = printOptionalToken(path);
       if (
@@ -875,18 +858,29 @@ function genericPrintNoParens(path, options, print, args) {
           isTemplateOnItsOwnLine(n.arguments[0], options.originalText)) ||
         // Keep test declarations on a single line
         // e.g. `it('long name', () => {`
-        isTestDeclaration
+        (!isNew &&
+          ((n.callee.type === "Identifier" && unitTestRe.test(n.callee.name)) ||
+            (n.callee.type === "MemberExpression" &&
+              n.callee.object.type === "Identifier" &&
+              n.callee.property.type === "Identifier" &&
+              unitTestRe.test(n.callee.object.name) &&
+              (n.callee.property.name === "only" ||
+                n.callee.property.name === "skip"))) &&
+          n.arguments.length === 2 &&
+          (n.arguments[0].type === "StringLiteral" ||
+            n.arguments[0].type === "TemplateLiteral" ||
+            (n.arguments[0].type === "Literal" &&
+              typeof n.arguments[0].value === "string")) &&
+          (n.arguments[1].type === "FunctionExpression" ||
+            n.arguments[1].type === "ArrowFunctionExpression") &&
+          n.arguments[1].params.length <= 1)
       ) {
-        let printedArgs = path.map(print, "arguments");
-        if (isTestDeclaration) {
-          printedArgs = printedArgs.map(docUtils.removeLines);
-        }
         return concat([
           isNew ? "new " : "",
           path.call(print, "callee"),
           optional,
           path.call(print, "typeParameters"),
-          concat(["(", join(", ", printedArgs), ")"])
+          concat(["(", join(", ", path.map(print, "arguments")), ")"])
         ]);
       }
 
