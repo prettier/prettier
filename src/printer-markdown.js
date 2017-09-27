@@ -36,34 +36,24 @@ const INLINE_NODE_TYPES = [
   "word"
 ];
 
-const debug = x => {
-  // console.log(JSON.stringify(x, null, 2));
-  return x;
-};
-
 function genericPrint(path, options, print) {
   const node = path.getValue();
 
   switch (node.type) {
     case "root":
-      debug(node);
-      return debug(
-        normalizeDoc(concat([printChildren(path, options, print), hardline]))
+      return normalizeDoc(
+        concat([printChildren(path, options, print), hardline])
       );
     case "paragraph":
       return printChildren(path, options, print, {
         postprocessor: fill
       });
     case "sentence":
-      return concat([
-        // TODO: rewrite blockquote printer
-        printBlockquotePrefix(path),
-        printChildren(path, options, print)
-      ]);
+      return printChildren(path, options, print);
     case "word":
       return node.value;
     case "whitespace": {
-      return concat([hasParentType(path, SINGLE_LINE_NODE_TYPES) ? " " : line]);
+      return hasParentType(path, SINGLE_LINE_NODE_TYPES) ? " " : line;
     }
     case "emphasis":
       return concat(["*", printChildren(path, options, print), "*"]);
@@ -92,7 +82,7 @@ function genericPrint(path, options, print) {
         ")"
       ]);
     case "blockquote":
-      return printChildren(path, options, print);
+      return concat(["> ", align("> ", printChildren(path, options, print))]);
     case "heading":
       return concat([
         "#".repeat(node.depth) + " ",
@@ -288,20 +278,6 @@ function printTable(path, options, print) {
     const right = spaces - left;
     return concat([" ".repeat(left), text, " ".repeat(right)]);
   }
-}
-
-function printBlockquotePrefix(path) {
-  let blockquoteLevel = 0;
-  let counter = 0;
-  let parentNode;
-
-  while ((parentNode = path.getParentNode(counter++))) {
-    if (parentNode.type === "blockquote") {
-      blockquoteLevel++;
-    }
-  }
-
-  return blockquoteLevel ? ">".repeat(blockquoteLevel) + " " : "";
 }
 
 function printChildren(path, options, print, events) {
