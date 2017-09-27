@@ -18,7 +18,6 @@ const printDocToString = docPrinter.printDocToString;
 const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "footnoteDefinition"];
 
 const SIBLING_NODE_TYPES = [
-  "image",
   "listItem",
   "html",
   "definition",
@@ -31,6 +30,11 @@ const INLINE_NODE_TYPES = [
   "strong",
   "delete",
   "link",
+  "linkReference",
+  "image",
+  "imageReference",
+  "footnote",
+  "footnoteReference",
   "sentence",
   "whitespace",
   "word"
