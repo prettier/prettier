@@ -4053,9 +4053,9 @@ typedarray@^0.0.6:
     lodash.unescape "4.0.1"
     semver "5.4.1"
 
-typescript@2.5.1:
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.5.1.tgz#ce7cc93ada3de19475cc9d17e3adea7aee1832aa"
+typescript@2.5.3:
+  version "2.5.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.5.3.tgz#df3dcdc38f3beb800d4bc322646b04a3f6ca7f0d"
 
 uglify-es@3.0.15:
   version "3.0.15"
