@@ -217,7 +217,8 @@ function attach(comments, ast, text) {
           precedingNode,
           comment
         ) ||
-        handleAssignmentPatternComments(enclosingNode, comment)
+        handleAssignmentPatternComments(enclosingNode, comment) ||
+        handleMethodNameComments(text, enclosingNode, precedingNode, comment)
       ) {
         // We're good
       } else if (followingNode) {
@@ -623,6 +624,20 @@ function handleMethodNameComments(text, enclosingNode, precedingNode, comment) {
     addTrailingComment(precedingNode, comment);
     return true;
   }
+
+  // Print comments between decorators and class methods as a trailing comment
+  // on the decorator node instead of the method node
+  if (
+    precedingNode &&
+    enclosingNode &&
+    precedingNode.type === "Decorator" &&
+    (enclosingNode.type === "ClassMethod" ||
+      enclosingNode.type === "MethodDefinition")
+  ) {
+    addTrailingComment(precedingNode, comment);
+    return true;
+  }
+
   return false;
 }
 
