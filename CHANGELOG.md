@@ -1,3 +1,32 @@
+# 1.7.1
+
+[link](https://github.com/jlongster/prettier/compare/1.7.0...1.7.1)
+
+* Enable cosmiconfig rcExtensions (#2749 by elektronik2k5)
+* Keep original empty lines in argument list (#2763 by jackyho112)
+* Upgrade prettier dependency to 1.7.0, fix lint (#2821 by josephfrazier)
+* Fix different precedence binary expression when inlining (#2827 by duailibe)
+* Bump Babylon (#2831 by existentialism)
+* Don't lowercase Less variables when parsed with SCSS parser (#2833 by lydell)
+* Don't lowercase `&class` in SCSS/Less selectors (#2834 by lydell)
+* Add support for ClassPrivateProperty (#2837 by existentialism)
+* Upgrade cosmiconfig to v3, remove hardcoded combinatoric problem (#2843 by azz)
+* Split Less and SCSS parsing into different parsers (#2844 by lydell)
+* feat: support detailed `--help` (#2847 by ikatyang)
+* Update cosmiconfig to 3.0.1 to avoid memory leak (#2848 by danez)
+* chore: add prettier-stylelint to the related projects (#2859 by hugomrdias)
+* Don't lowercase SCSS placeholder selectors (#2876 by lydell)
+* Fix line break in test declarations with 2nd argument as a function (#2877 by duailibe)
+* Use semicolons in Flow interface-like bodies (#2593) (#2888 by motiz88)
+* We do not need to have a reference to the toolbox-companion since we (#2892 by mitermayer)
+* fix(cli): validate options for every `config-precedence` (#2894 by ikatyang)
+* fix: do not print stack trace for invalid option (#2895 by ikatyang)
+* refactor: use custom error (#2896 by ikatyang)
+* fix(typescript): allow symbol type (#2899 by ikatyang)
+* Support fit(), xit(), it.only(), etc (#2900 by azz)
+* Fix editor styling on empty editors (#2904 by jakegavin)
+* Fix printing of comments between decorators and method names (#2906 by azz)
+
 # 1.7.0
 
 [link](https://github.com/jlongster/prettier/compare/1.6.1...1.7.0)

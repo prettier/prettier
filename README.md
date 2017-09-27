@@ -699,8 +699,7 @@ Default | CLI Override | API Override
 Prettier uses [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) for configuration file support.
 This means you can configure prettier via:
 
-<!-- TODO: Uncomment on the next line when Prettier >1.7.0 has been released. -->
-* A `.prettierrc` file, written in YAML or JSON<!--, with optional extensions: `.yaml/.yml/.json/.js`-->.
+* A `.prettierrc` file, written in YAML or JSON, with optional extensions: `.yaml/.yml/.json/.js`.
 * A `prettier.config.js` file that exports an object.
 * A `"prettier"` key in your `package.json` file.
 
@@ -839,7 +838,7 @@ The minimum version of TypeScript supported is 2.1.3 as it introduces the abilit
 - [`prettier-eslint`](https://github.com/prettier/prettier-eslint)
 passes `prettier` output to `eslint --fix`
 - [`prettier-stylelint`](https://github.com/hugomrdias/prettier-stylelint)
-passes `prettier` output to `stylelint --fix` 
+passes `prettier` output to `stylelint --fix`
 - [`prettier-standard`](https://github.com/sheerun/prettier-standard)
 uses `prettier` and `prettier-eslint` to format code with standard rules
 - [`prettier-standard-formatter`](https://github.com/dtinth/prettier-standard-formatter)
