@@ -101,12 +101,8 @@ function lazyLoadParser(parser) {
   var actualParser =
     parser === "json"
       ? "babylon"
-      : parser === "css" ||
-        // TODO: Remove "postcss" when prettier@>1.7.0 is released.
-        parser === "postcss" ||
-        parser === "less" ||
-        parser === "scss"
-        ? "css"
+      : parser === "css" || parser === "less" || parser === "scss"
+        ? "postcss"
         : parser;
   var script = "parser-" + actualParser + ".js";
 

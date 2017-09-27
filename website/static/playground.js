@@ -27,8 +27,9 @@ var OPTIONS = [
 var IDEMPOTENT_MESSAGE = "✓ Second format is unchanged.";
 
 var state = (function loadState(hash) {
+  var parsed;
   try {
-    return JSON.parse(hash);
+    parsed = JSON.parse(hash);
   } catch (error) {
     return {
       options: undefined,
@@ -57,6 +58,11 @@ var state = (function loadState(hash) {
       ].join("\n")
     };
   }
+  // Support old links with the deprecated "postcss" value for the parser option.
+  if (parsed && parsed.options && parsed.options.parser === "postcss") {
+    parsed.options.parser = "css";
+  }
+  return parsed;
 })(decodeURIComponent(location.hash.slice(1)));
 
 var worker = new Worker("/worker.js");
@@ -239,9 +245,7 @@ function replaceHash(hash) {
 
 function getCodemirrorMode(options) {
   switch (options.parser) {
-    // TODO: Remove the "postcss" case when prettier@>1.7.0 is released.
     case "css":
-    case "postcss":
     case "less":
     case "scss":
       return "css";

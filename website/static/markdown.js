@@ -49,9 +49,6 @@
         return "jsx";
       case "typescript":
         return "tsx";
-      // TODO: Remove the "postcss" case when prettier@>1.7.0 is released.
-      case "postcss":
-        return "css";
       default:
         return options.parser;
     }
