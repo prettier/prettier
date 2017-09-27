@@ -8,17 +8,6 @@ it("does something really long and complicated so I have to write a very long na
   console.log("hello!");
 });
 
-it("does something really long and complicated so I have to write a very long name for the test", function(done) {
-  console.log("hello!");
-});
-
-it(`handles
-  some
-    newlines
-  does something really long and complicated so I have to write a very long name for the test`, function(done) {
-  console.log("hello!");
-});
-
 it(`does something really long and complicated so I have to write a very long name for the test`, function() {
   console.log("hello!");
 });
