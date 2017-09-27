@@ -44,9 +44,11 @@ function runPrettier(dir, args, options) {
   const originalArgv = process.argv;
   const originalExitCode = process.exitCode;
   const originalStdinIsTTY = process.stdin.isTTY;
+  const originalStdoutIsTTY = process.stdout.isTTY;
 
   process.chdir(normalizeDir(dir));
   process.stdin.isTTY = !!options.isTTY;
+  process.stdout.isTTY = !!options.stdoutIsTTY;
   process.argv = ["path/to/node", "path/to/prettier/bin"].concat(args);
 
   jest.resetModules();
@@ -65,6 +67,7 @@ function runPrettier(dir, args, options) {
     process.argv = originalArgv;
     process.exitCode = originalExitCode;
     process.stdin.isTTY = originalStdinIsTTY;
+    process.stdout.isTTY = originalStdoutIsTTY;
     jest.restoreAllMocks();
   }
 
