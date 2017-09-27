@@ -135,6 +135,7 @@ window.onload = function() {
     editors[i].classList.remove("loading");
   }
 
+  setEditorStyles();
   inputEditor.setValue(state.content);
   document.querySelector(".options-container").onchange = formatAsync;
 
@@ -251,6 +252,25 @@ function getCodemirrorMode(options) {
 
 function formatAsync() {
   var options = getOptions();
+  setEditorStyles();
+
+  var value = encodeURIComponent(
+    JSON.stringify(
+      Object.assign({ content: inputEditor.getValue(), options: options })
+    )
+  );
+  replaceHash(value);
+  worker.postMessage({
+    text: inputEditor.getValue(),
+    options: options,
+    ast: options.ast,
+    doc: options.doc,
+    formatted2: options.output2
+  });
+}
+
+function setEditorStyles() {
+  var options = getOptions();
 
   var mode = getCodemirrorMode(options);
   inputEditor.setOption("mode", mode);
@@ -267,20 +287,6 @@ function formatAsync() {
   document.querySelector(".output2").style.display = options.output2
     ? ""
     : "none";
-
-  var value = encodeURIComponent(
-    JSON.stringify(
-      Object.assign({ content: inputEditor.getValue(), options: options })
-    )
-  );
-  replaceHash(value);
-  worker.postMessage({
-    text: inputEditor.getValue(),
-    options: options,
-    ast: options.ast,
-    doc: options.doc,
-    formatted2: options.output2
-  });
 }
 
 function createMarkdown(full) {
