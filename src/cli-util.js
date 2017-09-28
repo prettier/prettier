@@ -581,8 +581,13 @@ function normalizeConfig(type, rawConfig, options) {
 
     const option = constant.detailedOptionMap[key];
 
-    if (type === "cli" && option === undefined) {
-      // unknown option
+    // unknown option
+    if (option === undefined) {
+      // no need to warn for CLI since it's already warned in minimist
+      if (type === "api") {
+        console.warn(`Ignored unknown option: ${rawKey}`);
+      }
+
       return;
     }
 
