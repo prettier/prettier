@@ -22,6 +22,17 @@ exports[`escape.md 1`] = `
 
 `;
 
+exports[`html.md 1`] = `
+Default | CLI Override | API Override
+--------|--------------|-------------
+\`"none"\` | <code>--trailing-comma <none&#124;es5&#124;all></code> | <code>trailingComma: "<none&#124;es5&#124;all>"</code>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+| Default  | CLI Override                                   | API Override                                   |
+| -------- | ---------------------------------------------- | ---------------------------------------------- |
+| \`"none"\` | <code>--trailing-comma <none\\|es5\\|all></code> | <code>trailingComma: "<none\\|es5\\|all>"</code> |
+
+`;
+
 exports[`simple.md 1`] = `
 | Title A | Title B | Title C |
 |---|---|---|

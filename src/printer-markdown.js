@@ -294,62 +294,57 @@ function printChildren(path, options, print, events) {
   const postprocessor = events.postprocessor || concat;
   const processor = events.processor || (childPath => childPath.call(print));
 
+  const node = path.getValue();
   const parts = [];
 
   let counter = 0;
-  let lastChildPath;
+  let lastChildNode;
 
   path.map((childPath, index) => {
+    const childNode = childPath.getValue();
     const result = processor(childPath, index);
 
     if (result !== false) {
       const data = {
         parts,
         index: counter++,
-        prevPath: lastChildPath,
-        parentPath: path
+        prevNode: lastChildNode,
+        parentNode: node
       };
 
-      if (!shouldNotPrintHardline(childPath, data)) {
+      if (!shouldNotPrintHardline(childNode, data)) {
         parts.push(hardline);
 
-        if (shouldPrintDoubleHardline(childPath, data)) {
+        if (shouldPrintDoubleHardline(childNode, data)) {
           parts.push(hardline);
         }
       }
 
       parts.push(result);
-      lastChildPath = childPath;
+      lastChildNode = childNode;
     }
   }, "children");
 
   return postprocessor(parts);
 }
 
-function shouldNotPrintHardline(path, data) {
-  const node = path.getValue();
-  const prevNode = data.prevPath && data.prevPath.getValue();
-
+function shouldNotPrintHardline(node, data) {
   const isFirstNode = data.parts.length === 0;
   const isInlineNode = INLINE_NODE_TYPES.indexOf(node.type) !== -1;
 
-  const isSequence = (prevNode && prevNode.type) === node.type;
+  const isSequence = (data.prevNode && data.prevNode.type) === node.type;
   const isIsolatedHTML = node.type === "html" && !isSequence;
 
   return isFirstNode || isInlineNode || isIsolatedHTML;
 }
 
-function shouldPrintDoubleHardline(path, data) {
-  const node = path.getValue();
-  const prevNode = data.prevPath && data.prevPath.getValue();
-  const parentNode = data.parentPath && data.parentPath.getValue();
-
-  const isSequence = (prevNode && prevNode.type) === node.type;
+function shouldPrintDoubleHardline(node, data) {
+  const isSequence = (data.prevNode && data.prevNode.type) === node.type;
   const isSiblingNode =
     isSequence && SIBLING_NODE_TYPES.indexOf(node.type) !== -1;
 
   const isList = node.type === "list";
-  const hasListParent = parentNode && parentNode.type === "list";
+  const hasListParent = data.parentNode.type === "list";
   const isSimpleNestedList = isList && hasListParent && data.index < 2;
 
   return !(isSiblingNode || isSimpleNestedList);
