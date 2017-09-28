@@ -1,3 +1,9 @@
+# 1.7.2
+
+[link](https://github.com/jlongster/prettier/compare/1.7.1...1.7.2)
+
+* Revert "Fix line break in test declarations with a single argument function declaration" (#2912)
+
 # 1.7.1
 
 [link](https://github.com/jlongster/prettier/compare/1.7.0...1.7.1)
