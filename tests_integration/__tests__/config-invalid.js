@@ -2,7 +2,7 @@
 
 const runPrettier = require("../runPrettier");
 
-expect.addSnapshotSerializer(require("../cwd-serializer"));
+expect.addSnapshotSerializer(require("../path-serializer"));
 
 test("throw error with invalid config format", () => {
   const output = runPrettier("cli/config/invalid", [
