@@ -5,6 +5,69 @@ title: Options
 
 Prettier ships with a handful of customizable format options, usable in both the CLI and API.
 
+<!-- AUTO-GENERATED-CONTENT:START (renderOptions:headingLevel=2) -->
+## bracket-spacing
+Print spaces between brackets.
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`true` | `--bracket-spacing` | `bracketSpacing`
+## flow-parser
+
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`undefined` | `--flow-parser` | `flowParser`
+## jsx-bracket-same-line
+Put > on the last line instead of at a new line.
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`false` | `--jsx-bracket-same-line` | `jsxBracketSameLine`
+## parser
+Which parser to use.
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`"babylon"` | `--parser` | `parser`
+## print-width
+The line length where Prettier will try wrap.
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`80` | `--print-width` | `printWidth`
+## semi
+Print semicolons.
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`true` | `--semi` | `semi`
+## single-quote
+Use single quotes instead of double quotes.
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`false` | `--single-quote` | `singleQuote`
+## tab-width
+Number of spaces per indentation level.
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`2` | `--tab-width` | `tabWidth`
+## trailing-comma
+Print trailing commas wherever possible when multi-line.
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`"none"` | `--trailing-comma` | `trailingComma`
+## use-tabs
+Indent with tabs instead of spaces.
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`false` | `--use-tabs` | `useTabs`
+<!-- AUTO-GENERATED-CONTENT:END -->
+
 ## Print Width
 Specify the length of line that the printer will wrap on.
 

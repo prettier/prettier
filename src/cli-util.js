@@ -667,5 +667,6 @@ module.exports = {
   formatFiles,
   createUsage,
   createDetailedUsage,
+  getOptionDefaultValue,
   normalizeConfig
 };
