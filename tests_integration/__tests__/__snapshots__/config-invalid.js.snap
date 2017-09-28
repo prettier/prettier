@@ -1,5 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`show warning with unknown option 1`] = `
+"Ignored unknown option: hello
+"
+`;
+
 exports[`throw error with invalid config format 1`] = `
 "Error: Invalid configuration file.
 Failed to parse \\"<cwd>/tests_integration/cli/config/invalid/file/.prettierrc\\" as JSON, JS, or YAML.

@@ -45,3 +45,12 @@ test("throw error with invalid config precedence option (configPrecedence)", () 
   expect(output.stderr).toMatchSnapshot();
   expect(output.status).not.toBe(0);
 });
+
+test("show warning with unknown option", () => {
+  const output = runPrettier("cli/config/invalid", [
+    "--config",
+    "option/unknown"
+  ]);
+  expect(output.stderr).toMatchSnapshot();
+  expect(output.status).toBe(0);
+});
