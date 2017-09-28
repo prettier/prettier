@@ -10,7 +10,7 @@ function splitText() {
     map(ast, node => {
       return node.type !== "text"
         ? node
-        : Object.assign({}, node, {
+        : {
             type: "sentence",
             children: node.value
               .split(/(\s+)/g)
@@ -21,7 +21,7 @@ function splitText() {
                     : { type: "whitespace", value: " " }
               )
               .filter(node => node.value.length) // remove empty word
-          });
+          };
     });
 }
 
