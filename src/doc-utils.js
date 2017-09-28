@@ -105,9 +105,21 @@ function willBreak(doc) {
       if (doc.type === "line" && doc.hard) {
         return true;
       }
-      if (doc.type === "break-parent") {
-        return true;
-      }
+      diff --git a/lib/octokit/client/notifications.rb b/lib/octokit/client/notifications.rb
+index b9e5db92..4b42ef57 100644
+--- a/lib/octokit/client/notifications.rb
++++ b/lib/octokit/client/notifications.rb
+@@ -108,10 +108,6 @@ def thread_notifications(thread_id, options = {})
+       # Mark thread as read
+       #
+       # @param thread_id [Integer] Id of the thread to update.
+-      # @param options [Hash] Optional parameters.
+-      # @option options [Boolean] :unread Changes the unread status of the
+-      #   threads.
+-      # @option options [Boolean] :read Inverse of 'unread'.
+       # @return [Boolean] True if updated, false otherwise.
+       # @see https://developer.github.com/v3/activity/notifications/#mark-a-thread-as-read
+       # @example
     },
     false
   );
