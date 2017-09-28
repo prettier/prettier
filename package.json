@@ -20,6 +20,7 @@
     "cosmiconfig": "3.0.1",
     "dashify": "0.2.2",
     "diff": "3.2.0",
+    "escape-string-regexp": "1.0.5",
     "esutils": "2.0.2",
     "flow-parser": "0.51.0",
     "get-stream": "3.0.0",

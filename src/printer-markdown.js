@@ -14,6 +14,7 @@ const ifBreak = docBuilders.ifBreak;
 const align = docBuilders.align;
 const docPrinter = require("./doc-printer");
 const printDocToString = docPrinter.printDocToString;
+const escapeStringRegexp = require("escape-string-regexp");
 
 const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "footnoteDefinition"];
 
@@ -205,7 +206,10 @@ function printTable(path, options, print) {
 
     rowPath.map(cellPath => {
       rowContents.push(
-        printDocToString(cellPath.call(print), options).formatted
+        escapeString(
+          printDocToString(cellPath.call(print), options).formatted,
+          ["|"]
+        )
       );
     }, "children");
 
@@ -389,6 +393,19 @@ function normalizeParts(parts) {
 
     return current;
   }, []);
+}
+
+function escapeString(str, chars) {
+  let escaped = str;
+
+  chars.forEach(char => {
+    escaped = str.replace(
+      new RegExp(escapeStringRegexp(char), "g"),
+      `\\${char}`
+    );
+  });
+
+  return escaped;
 }
 
 function mapDoc(doc, callback) {
