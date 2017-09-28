@@ -371,8 +371,24 @@ function normalizeDoc(doc) {
       }
     });
 
-    return Object.assign({}, currentDoc, { parts });
+    return Object.assign({}, currentDoc, {
+      parts: normalizeParts(parts)
+    });
   });
+}
+
+function normalizeParts(parts) {
+  return parts.reduce((current, part) => {
+    const lastPart = current[current.length - 1];
+
+    if (typeof lastPart === "string" && typeof part === "string") {
+      current.splice(-1, 1, lastPart + part);
+    } else {
+      current.push(part);
+    }
+
+    return current;
+  }, []);
 }
 
 function mapDoc(doc, callback) {
