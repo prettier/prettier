@@ -3181,9 +3181,9 @@ postcss-selector-parser@2.2.3:
     indexes-of "^1.0.1"
     uniq "^1.0.1"
 
-"postcss-values-parser@git://github.com/lydell/postcss-values-parser.git#af2c80b2bb558a6e7d61540d97f068f9fa162b38":
-  version "1.3.0"
-  resolved "git://github.com/lydell/postcss-values-parser.git#af2c80b2bb558a6e7d61540d97f068f9fa162b38"
+postcss-values-parser@1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/postcss-values-parser/-/postcss-values-parser-1.3.1.tgz#2a6ceb39cecbbacd1d060f3b16f4c52dd6720c96"
   dependencies:
     flatten "^1.0.2"
     indexes-of "^1.0.1"
