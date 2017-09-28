@@ -203,7 +203,7 @@ Prettier does nothing to help with those kind of rules. They are also the most i
 Install:
 
 ```
-yarn add prettier --dev -E
+yarn add prettier --dev --exact
 ```
 
 You can install it globally if you like:
@@ -215,10 +215,12 @@ yarn global add prettier
 *We're using `yarn` but you can use `npm` if you like:*
 
 ```
-npm install [--save-dev|--global] -E prettier
+npm install --save-dev --save-exact prettier
+# or globally
+npm install --global prettier
 ```
 
-> We recommend pinning an exact (`-E`) version of prettier in your `package.json`
+> We recommend pinning an exact version of prettier in your `package.json`
 > as we introduce stylistic changes in patch releases.
 
 ### CLI
