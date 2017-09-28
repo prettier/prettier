@@ -312,15 +312,20 @@ function printChildren(path, options, print, events) {
         parentNode: node
       };
 
-      if (!shouldNotPrintHardline(childNode, data)) {
+      if (!shouldNotPrePrintHardline(childNode, data)) {
         parts.push(hardline);
 
-        if (shouldPrintDoubleHardline(childNode, data)) {
+        if (shouldPrePrintDoubleHardline(childNode, data)) {
           parts.push(hardline);
         }
       }
 
       parts.push(result);
+
+      if (shouldPostPrintHardline(childNode, data)) {
+        parts.push(hardline);
+      }
+
       lastChildNode = childNode;
     }
   }, "children");
@@ -328,7 +333,7 @@ function printChildren(path, options, print, events) {
   return postprocessor(parts);
 }
 
-function shouldNotPrintHardline(node, data) {
+function shouldNotPrePrintHardline(node, data) {
   const isFirstNode = data.parts.length === 0;
   const isInlineNode = INLINE_NODE_TYPES.indexOf(node.type) !== -1;
 
@@ -338,16 +343,26 @@ function shouldNotPrintHardline(node, data) {
   return isFirstNode || isInlineNode || isIsolatedHTML;
 }
 
-function shouldPrintDoubleHardline(node, data) {
+function shouldPrePrintDoubleHardline(node, data) {
   const isSequence = (data.prevNode && data.prevNode.type) === node.type;
   const isSiblingNode =
     isSequence && SIBLING_NODE_TYPES.indexOf(node.type) !== -1;
 
-  const isList = node.type === "list";
-  const hasListParent = data.parentNode.type === "list";
-  const isSimpleNestedList = isList && hasListParent && data.index < 2;
+  const isSecondNodeInListItem =
+    data.parentNode.type === "listItem" && data.index === 1;
 
-  return !(isSiblingNode || isSimpleNestedList);
+  return !(isSiblingNode || isSecondNodeInListItem);
+}
+
+function shouldPostPrintHardline(node, data) {
+  const isFirstNodeInLooseListItem =
+    data.parentNode.type === "listItem" &&
+    data.parentNode.loose &&
+    data.index === 0;
+
+  const isLooseListItem = node.type === "listItem" && node.loose;
+
+  return isLooseListItem || isFirstNodeInLooseListItem;
 }
 
 function normalizeDoc(doc) {
