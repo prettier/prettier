@@ -2,16 +2,16 @@
 
 const runPrettier = require("../runPrettier");
 
-test("output with --list-different + unformated differs when piped", () => {
+test("output with --list-different + unformatted differs when piped", () => {
   const result0 = runPrettier(
     "cli/write",
-    ["--write", "--list-different", "unformated.js"],
+    ["--write", "--list-different", "--no-color", "unformated.js"],
     { stdoutIsTTY: true }
   );
 
   const result1 = runPrettier(
     "cli/write",
-    ["--write", "--list-different", "unformated.js"],
+    ["--write", "--list-different", "--no-color", "unformated.js"],
     { stdoutIsTTY: false }
   );
 
@@ -26,15 +26,15 @@ test("output with --list-different + unformated differs when piped", () => {
   expect(result0.write).toEqual(result1.write);
 });
 
-test("no file diffs with --list-different + formated file", () => {
+test("no file diffs with --list-different + formatted file", () => {
   const result0 = runPrettier(
     "cli/write",
-    ["--write", "--list-different", "formated.js"],
+    ["--write", "--list-different", "--no-color", "formated.js"],
     { stdoutIsTTY: true }
   );
   const result1 = runPrettier(
     "cli/write",
-    ["--write", "--list-different", "formated.js"],
+    ["--write", "--list-different", "--no-color", "formated.js"],
     { stdoutIsTTY: false }
   );
 
