@@ -5,3 +5,73 @@
 [![Codecov](https://img.shields.io/codecov/c/github/prettier/prettier.svg)](https://codecov.io/gh/prettier/prettier)
 [![NPM version](https://img.shields.io/npm/v/prettier.svg)](https://www.npmjs.com/package/prettier)
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](#badge)
+
+Prettier is an opinionated code formatter with support for:
+* JavaScript, including [ES2017](https://github.com/tc39/proposals/blob/master/finished-proposals.md)
+* [JSX](https://facebook.github.io/jsx/)
+* [Flow](https://flow.org/)
+* [TypeScript](https://www.typescriptlang.org/)
+* CSS, [LESS](http://lesscss.org/), and [SCSS](http://sass-lang.com)
+* [JSON](http://json.org/)
+* [GraphQL](http://graphql.org/)
+
+It removes all original styling[\*](#styling-footnote) and ensures that all outputted code
+conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
+
+<details>
+<summary><strong>Table of Contents</strong></summary>
+
+<!-- Do not edit TOC, regenerate with `yarn toc` -->
+
+<!-- toc -->
+
+* [What does Prettier do?](#what-does-prettier-do)
+* [Why Prettier?](#why-prettier)
+  + [Building and enforcing a style guide](#building-and-enforcing-a-style-guide)
+  + [Helping Newcomers](#helping-newcomers)
+  + [Writing code](#writing-code)
+  + [Easy to adopt](#easy-to-adopt)
+  + [Clean up an existing codebase](#clean-up-an-existing-codebase)
+  + [Ride the hype train](#ride-the-hype-train)
+* [How does it compare to ESLint (or TSLint, stylelint...)?](#how-does-it-compare-to-eslint-or-tslint-stylelint)
+* [Usage](#usage)
+  + [CLI](#cli)
+  + [ESLint](#eslint)
+  + [Pre-commit Hook](#pre-commit-hook)
+  + [API](#api)
+  + [Excluding code from formatting](#excluding-code-from-formatting)
+* [Options](#options)
+  + [Print Width](#print-width)
+  + [Tab Width](#tab-width)
+  + [Tabs](#tabs)
+  + [Semicolons](#semicolons)
+  + [Quotes](#quotes)
+  + [Trailing Commas](#trailing-commas)
+  + [Bracket Spacing](#bracket-spacing)
+  + [JSX Brackets](#jsx-brackets)
+  + [Range](#range)
+  + [Parser](#parser)
+  + [Filepath](#filepath)
+* [Configuration File](#configuration-file)
+  + [Basic Configuration](#basic-configuration)
+  + [Configuration Overrides](#configuration-overrides)
+  + [Configuration Schema](#configuration-schema)
+* [Editor Integration](#editor-integration)
+  + [Atom](#atom)
+  + [Emacs](#emacs)
+  + [Vim](#vim)
+  + [Visual Studio Code](#visual-studio-code)
+  + [Visual Studio](#visual-studio)
+  + [Sublime Text](#sublime-text)
+  + [JetBrains WebStorm, PHPStorm, PyCharm...](#jetbrains-webstorm-phpstorm-pycharm)
+* [Language Support](#language-support)
+* [Related Projects](#related-projects)
+* [Technical Details](#technical-details)
+* [Badge](#badge)
+* [Contributing](#contributing)
+
+<!-- tocstop -->
+
+</details>
+
+--------------------------------------------------------------------------------

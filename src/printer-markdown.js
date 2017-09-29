@@ -18,12 +18,7 @@ const escapeStringRegexp = require("escape-string-regexp");
 
 const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "footnoteDefinition"];
 
-const SIBLING_NODE_TYPES = [
-  "listItem",
-  "html",
-  "definition",
-  "footnoteDefinition"
-];
+const SIBLING_NODE_TYPES = ["listItem", "definition", "footnoteDefinition"];
 
 const INLINE_NODE_TYPES = [
   "inlineCode",
@@ -40,6 +35,11 @@ const INLINE_NODE_TYPES = [
   "whitespace",
   "word"
 ];
+
+const INLINE_NODE_WRAPPER_TYPES = INLINE_NODE_TYPES.concat([
+  "tableCell",
+  "paragraph"
+]);
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -337,10 +337,11 @@ function shouldNotPrePrintHardline(node, data) {
   const isFirstNode = data.parts.length === 0;
   const isInlineNode = INLINE_NODE_TYPES.indexOf(node.type) !== -1;
 
-  const isSequence = (data.prevNode && data.prevNode.type) === node.type;
-  const isIsolatedHTML = node.type === "html" && !isSequence;
+  const isInlineHTML =
+    node.type === "html" &&
+    INLINE_NODE_WRAPPER_TYPES.indexOf(data.parentNode.type) !== -1;
 
-  return isFirstNode || isInlineNode || isIsolatedHTML;
+  return isFirstNode || isInlineNode || isInlineHTML;
 }
 
 function shouldPrePrintDoubleHardline(node, data) {
