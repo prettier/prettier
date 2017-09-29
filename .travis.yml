@@ -16,7 +16,7 @@ matrix:
     - env: NODE_ENV=production
   fast_finish: true
 install:
-  - yarn --production=false
+  - yarn install --production=false
 before_script:
   - if [ "${NODE_ENV}" = "production" ]; then yarn build; fi
 script:
