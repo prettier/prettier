@@ -2,6 +2,7 @@
 
 const fs = require("fs");
 const path = require("path");
+const stream = require("stream");
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -45,16 +46,14 @@ function runPrettier(dir, args, options) {
   const originalCwd = process.cwd();
   const originalArgv = process.argv;
   const originalExitCode = process.exitCode;
-  const originalStdinIsTTY = process.stdin.isTTY;
+  const originalStdin = process.stdin;
 
   process.chdir(normalizeDir(dir));
+  process.stdin = new SimpleReadableStream(options.input || "");
   process.stdin.isTTY = !!options.isTTY;
   process.argv = ["path/to/node", "path/to/prettier/bin"].concat(args);
 
   jest.resetModules();
-  jest.setMock("get-stream", () => ({
-    then: handler => handler(options.input || "")
-  }));
 
   try {
     require(isProduction ? "../dist/bin/prettier" : "../bin/prettier");
@@ -66,7 +65,7 @@ function runPrettier(dir, args, options) {
     process.chdir(originalCwd);
     process.argv = originalArgv;
     process.exitCode = originalExitCode;
-    process.stdin.isTTY = originalStdinIsTTY;
+    process.stdin = originalStdin;
     jest.restoreAllMocks();
   }
 
@@ -87,6 +86,20 @@ function runPrettier(dir, args, options) {
 function normalizeDir(dir) {
   const isRelative = dir[0] !== "/";
   return isRelative ? path.resolve(__dirname, dir) : dir;
+}
+
+class SimpleReadableStream extends stream.Readable {
+  constructor(input) {
+    super();
+    this._input = Buffer.from(input);
+  }
+
+  _read() {
+    setImmediate(() => {
+      this.push(this._input);
+      this._input = null;
+    });
+  }
 }
 
 module.exports = runPrettier;
