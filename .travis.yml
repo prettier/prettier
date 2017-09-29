@@ -12,8 +12,6 @@ env:
   - NODE_ENV=development
   - NODE_ENV=production
 matrix:
-  allow_failures:
-    - env: NODE_ENV=production
   fast_finish: true
 install:
   - NODE_ENV=development yarn install
