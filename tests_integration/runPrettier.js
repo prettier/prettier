@@ -3,6 +3,8 @@
 const fs = require("fs");
 const path = require("path");
 
+const isProduction = process.env.NODE_ENV === "production";
+
 function runPrettier(dir, args, options) {
   args = args || [];
   options = options || {};
@@ -55,7 +57,7 @@ function runPrettier(dir, args, options) {
   }));
 
   try {
-    require("../bin/prettier");
+    require(isProduction ? "../dist/bin/prettier" : "../bin/prettier");
     status = (status === undefined ? process.exitCode : status) || 0;
   } catch (error) {
     status = 1;
