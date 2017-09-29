@@ -159,7 +159,7 @@ We've worked very hard to use the least controversial coding styles, went throug
 
 Since coming up with a coding style and enforcing it is a big undertaking, it often slips through the cracks and you are left working on inconsistent codebases. Running Prettier in this case is a quick win, the codebase is now uniform and easier to read without spending hardly any time.
 - “Take a look at the code :) I just need to restore sanity.”
-- “We inherited a ~2000 module ES6 code base, developed by 20 different developers over 18 months, in a global team. Felt like such a win without much research.
+- “We inherited a ~2000 module ES6 code base, developed by 20 different developers over 18 months, in a global team. Felt like such a win without much research."
 
 ### Ride the hype train
 
