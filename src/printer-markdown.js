@@ -1,16 +1,11 @@
 "use strict";
 
-const util = require("./util");
 const docBuilders = require("./doc-builders");
 const concat = docBuilders.concat;
 const join = docBuilders.join;
 const line = docBuilders.line;
 const hardline = docBuilders.hardline;
-const softline = docBuilders.softline;
-const group = docBuilders.group;
 const fill = docBuilders.fill;
-const indent = docBuilders.indent;
-const ifBreak = docBuilders.ifBreak;
 const align = docBuilders.align;
 const docPrinter = require("./doc-printer");
 const printDocToString = docPrinter.printDocToString;
