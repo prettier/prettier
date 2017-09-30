@@ -160,3 +160,24 @@ exports[`CLI validate options with --config-precedence prefer-file 1`] = `
 "Invalid printWidth value.
 Expected an integer, but received: 0.5"
 `;
+
+exports[`with --config-precedence cli-override and --stdin 1`] = `
+".t {
+  background: red;
+}
+"
+`;
+
+exports[`with --config-precedence file-override and --stdin 1`] = `
+".t {
+  background: red;
+}
+"
+`;
+
+exports[`with --config-precedence prefer-file and --stdin 1`] = `
+".t {
+  background: red;
+}
+"
+`;

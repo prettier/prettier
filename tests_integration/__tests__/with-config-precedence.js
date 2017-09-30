@@ -58,6 +58,52 @@ test("CLI overrides gets ignored when config exists with --config-precedence pre
   expect(output.status).toEqual(0);
 });
 
+test("with --config-precedence cli-override and --stdin", () => {
+  const output = runPrettier("cli/config", [
+    "--parser",
+    "css",
+    "--config-precedence",
+    "cli-override",
+    "--stdin"
+    ], {
+      input: ".t { background: red; }"
+  });
+
+  expect(output.stdout).toMatchSnapshot();
+  expect(output.status).toEqual(0);
+});
+
+test("with --config-precedence file-override and --stdin", () => {
+  const output = runPrettier("cli/config", [
+    "--parser",
+    "css",
+    "--config-precedence",
+    "file-override",
+    "--stdin"
+    ], {
+      input: ".t { background: red; }"
+  });
+
+  expect(output.stdout).toMatchSnapshot();
+  expect(output.status).toEqual(0);
+});
+
+test("with --config-precedence prefer-file and --stdin", () => {
+  const output = runPrettier("cli/config", [
+    "--parser",
+    "css",
+    "--config-precedence",
+    "prefer-file",
+    "--stdin"
+    ], {
+      input: ".t { background: red; }"
+  });
+
+  expect(output.stdout).toMatchSnapshot();
+  expect(output.status).toEqual(0);
+});
+
+
 test("CLI overrides gets applied when no config exists with --config-precedence prefer-file", () => {
   const output = runPrettier("cli/config/no-config/", [
     "--print-width",
