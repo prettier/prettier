@@ -58,11 +58,16 @@ conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Pre
   * [Excluding code from formatting](#excluding-code-from-formatting)
 - [Options](#options)
   * [Bracket spacing](#bracket-spacing)
+  * [Cursor offset](#cursor-offset)
   * [Jsx bracket same line](#jsx-bracket-same-line)
   * [Parser](#parser)
   * [Print width](#print-width)
+  * [Range end](#range-end)
+  * [Range start](#range-start)
+  * [Require pragma](#require-pragma)
   * [Semi](#semi)
   * [Single quote](#single-quote)
+  * [Stdin filepath](#stdin-filepath)
   * [Tab width](#tab-width)
   * [Trailing comma](#trailing-comma)
   * [Use tabs](#use-tabs)
@@ -571,6 +576,16 @@ Default | CLI Override | API Override
 --------|--------------|-------------
 `true` | `--bracket-spacing` | `bracketSpacing: <bool>`
 
+### Cursor offset
+
+Print (to stderr) where a cursor at the given position would move to after formatting.
+This option cannot be used with --range-start and --range-end.
+
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`-1` | `--cursor-offset <int>` | `cursorOffset: <int>`
+
 ### Jsx bracket same line
 
 Put > on the last line instead of at a new line.
@@ -627,6 +642,58 @@ Default | CLI Override | API Override
 --------|--------------|-------------
 `80` | `--print-width <int>` | `printWidth: <int>`
 
+### Range end
+
+Format code ending at a given character offset (exclusive).
+The range will extend forwards to the end of the selected statement.
+This option cannot be used with --cursor-offset.
+
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`Infinity` | `--range-end <int>` | `rangeEnd: <int>`
+
+### Range start
+
+Format code starting at a given character offset.
+The range will extend backwards to the start of the first line containing the selected statement.
+This option cannot be used with --cursor-offset.
+
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`0` | `--range-start <int>` | `rangeStart: <int>`
+
+### Require pragma
+
+Require either '@prettier' or '@format' to be present in the file's first docblock comment
+in order for it to be formatted.
+
+Prettier can restrict itself to only format files that contain a special comment, called a pragma, at the top of the file. This is very useful
+when gradually transitioning large, unformatted codebases to prettier.
+
+For example, a file with the following as its first comment will be formatted when `--require-pragma` is supplied:
+
+```js
+/**
+ * @prettier
+ */
+```
+
+or
+
+```js
+/**
+ * @format
+ */
+```
+
+
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`false` | `--require-pragma` | `requirePragma: <bool>`
+
 ### Semi
 
 Print semicolons.
@@ -649,6 +716,15 @@ Notes:
 Default | CLI Override | API Override
 --------|--------------|-------------
 `false` | `--single-quote` | `singleQuote: <bool>`
+
+### Stdin filepath
+
+Path to the file to pretend that stdin comes from.
+
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+N/A | `--stdin-filepath <path>` | `stdinFilepath: <path>`
 
 ### Tab width
 

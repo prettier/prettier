@@ -13,7 +13,7 @@ const optionDocs = yaml.safeLoad(
 
 module.exports = (_, options) => {
   return detailedOptions
-    .filter(option => option.category === "Format")
+    .filter(option => option.forwardToApi)
     .filter(option => !option.deprecated)
     .map(detailedOption =>
       formatOption(
@@ -50,10 +50,10 @@ function formatOption(detailedOption, headingLevel) {
     "--------|--------------|-------------"
   ].join("\n");
 
+  const defaultValue = cliUtil.getOptionDefaultValue(detailedOption.name);
+
   const tableRow = [
-    backtick(
-      JSON.stringify(cliUtil.getOptionDefaultValue(detailedOption.name))
-    ),
+    serialize(defaultValue),
     backtick(
       cliUtil.getOptionName(detailedOption, "cli") +
         (usageType ? ` ${usageType}` : "")
@@ -78,4 +78,15 @@ function backtick(string) {
       .replace(/\|/g, "&#124;")}</code>`;
   }
   return `\`${string}\``;
+}
+
+function serialize(thing) {
+  switch (typeof thing) {
+    case "undefined":
+      return "N/A";
+    case "number":
+      return backtick(thing.toString());
+    default:
+      return backtick(JSON.stringify(thing));
+  }
 }

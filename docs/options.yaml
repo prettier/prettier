@@ -37,14 +37,14 @@ require-pragma: |
 
   ```js
   /**
-  * @prettier
-  */
+   * @prettier
+   */
   ```
 
   or
 
   ```js
   /**
-  * @format
-  */
+   * @format
+   */
   ```
