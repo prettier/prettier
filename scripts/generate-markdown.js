@@ -76,9 +76,9 @@ function formatOption(detailedOption, headingLevel) {
     )
   ].join(" | ");
 
-  return [header, description, choices, tableHeader, tableRow]
+  return [header, description, choices, [tableHeader, tableRow].join("\n")]
     .filter(Boolean)
-    .join("\n");
+    .join("\n\n");
 }
 
 // https://github.com/chjj/marked/issues/285
