@@ -2,9 +2,10 @@
 
 const fs = require("fs");
 const path = require("path");
-const stream = require("stream");
 
 const isProduction = process.env.NODE_ENV === "production";
+const prettierApi = isProduction ? "../dist/index" : "../index";
+const prettierCli = isProduction ? "../dist/bin/prettier" : "../bin/prettier";
 
 function runPrettier(dir, args, options) {
   args = args || [];
@@ -46,17 +47,21 @@ function runPrettier(dir, args, options) {
   const originalCwd = process.cwd();
   const originalArgv = process.argv;
   const originalExitCode = process.exitCode;
-  const originalStdin = process.stdin;
+  const originalStdinIsTTY = process.stdin.isTTY;
 
   process.chdir(normalizeDir(dir));
-  process.stdin = new SimpleReadableStream(options.input || "");
   process.stdin.isTTY = !!options.isTTY;
   process.argv = ["path/to/node", "path/to/prettier/bin"].concat(args);
 
   jest.resetModules();
+  jest
+    .spyOn(require(prettierApi).__debug, "getStream")
+    .mockImplementation(() => ({
+      then: handler => handler(options.input || "")
+    }));
 
   try {
-    require(isProduction ? "../dist/bin/prettier" : "../bin/prettier");
+    require(prettierCli);
     status = (status === undefined ? process.exitCode : status) || 0;
   } catch (error) {
     status = 1;
@@ -65,7 +70,7 @@ function runPrettier(dir, args, options) {
     process.chdir(originalCwd);
     process.argv = originalArgv;
     process.exitCode = originalExitCode;
-    process.stdin = originalStdin;
+    process.stdin.isTTY = originalStdinIsTTY;
     jest.restoreAllMocks();
   }
 
@@ -86,20 +91,6 @@ function runPrettier(dir, args, options) {
 function normalizeDir(dir) {
   const isRelative = dir[0] !== "/";
   return isRelative ? path.resolve(__dirname, dir) : dir;
-}
-
-class SimpleReadableStream extends stream.Readable {
-  constructor(input) {
-    super();
-    this._input = Buffer.from(input);
-  }
-
-  _read() {
-    setImmediate(() => {
-      this.push(this._input);
-      this._input = null;
-    });
-  }
 }
 
 module.exports = runPrettier;
