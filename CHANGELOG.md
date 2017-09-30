@@ -1,12 +1,20 @@
+# 1.7.3
+
+[link](https://github.com/prettier/prettier/compare/1.7.2...1.7.3)
+
+* Fix cosmiconfig in the built version of Prettier (#2930 by lydell)
+* Fix: ignore and show warning for unknown option from config file (#2929 by ikatyang)
+* Don't use parens with optional chaining meber expressions (#2921 by azz)
+
 # 1.7.2
 
-[link](https://github.com/jlongster/prettier/compare/1.7.1...1.7.2)
+[link](https://github.com/prettier/prettier/compare/1.7.1...1.7.2)
 
 * Revert "Fix line break in test declarations with a single argument function declaration" (#2912)
 
 # 1.7.1
 
-[link](https://github.com/jlongster/prettier/compare/1.7.0...1.7.1)
+[link](https://github.com/prettier/prettier/compare/1.7.0...1.7.1)
 
 * Enable cosmiconfig rcExtensions (#2749 by elektronik2k5)
 * Keep original empty lines in argument list (#2763 by jackyho112)
@@ -35,13 +43,13 @@
 
 # 1.7.0
 
-[link](https://github.com/jlongster/prettier/compare/1.6.1...1.7.0)
+[link](https://github.com/prettier/prettier/compare/1.6.1...1.7.0)
 
 * [Release Notes](https://github.com/prettier/prettier/releases/tag/1.7.0)
 
 # 1.6.1
 
-[link](https://github.com/jlongster/prettier/compare/1.6.0...1.6.1)
+[link](https://github.com/prettier/prettier/compare/1.6.0...1.6.1)
 
 * Fix CLI option parsing with no arguments (#2684)
 * Fix config file finding when using stdin (#2692)
@@ -50,33 +58,33 @@
 
 # 1.6.0
 
-[link](https://github.com/jlongster/prettier/compare/1.5.3...1.6.0)
+[link](https://github.com/prettier/prettier/compare/1.5.3...1.6.0)
 
 * [Release Notes](https://github.com/prettier/prettier/releases/tag/1.6.0)
 
 # 1.5.3
 
-[link](https://github.com/jlongster/prettier/compare/1.5.2...1.5.3)
+[link](https://github.com/prettier/prettier/compare/1.5.2...1.5.3)
 
 * Force trailingComma option to "none" when parser is JSON (#2335)
 
 # 1.5.2
 
-[link](https://github.com/jlongster/prettier/compare/1.5.1...1.5.2)
+[link](https://github.com/prettier/prettier/compare/1.5.1...1.5.2)
 
 * Full printing support for GraphQL and various bug fixes
 * Fixes for range formatting for JSON and CSS (#2295, #2298)
 
 # 1.5.1
 
-[link](https://github.com/jlongster/prettier/compare/1.5.0...1.5.1)
+[link](https://github.com/prettier/prettier/compare/1.5.0...1.5.1)
 
 * Go back to babylon beta 13 (#2289)
 * Inline import('x') to avoid having trailing comma (#2288)
 
 # 1.5.0
 
-[link](https://github.com/jlongster/prettier/compare/1.4.4...1.5.0)
+[link](https://github.com/prettier/prettier/compare/1.4.4...1.5.0)
 
 * [Release Notes](https://github.com/prettier/prettier/releases/tag/1.5.0)
 
@@ -86,7 +94,7 @@
 
 # 1.4.3
 
-[link](https://github.com/jlongster/prettier/compare/1.4.2...1.4.3)
+[link](https://github.com/prettier/prettier/compare/1.4.2...1.4.3)
 
 * Fix support for node 4 (#1988)
 * Fix website on iOS Safari (#1970)
@@ -98,7 +106,7 @@ Lots of small fixes, mainly for TypeScript.
 
 # 1.4.2
 
-[link](https://github.com/jlongster/prettier/compare/1.4.1...1.4.2)
+[link](https://github.com/prettier/prettier/compare/1.4.1...1.4.2)
 
 * fix(decorators): do not inline methods with decorators with babylon (#1934)
 * fix(typescript): print semi with inline interfaces/types (#1936)
@@ -107,13 +115,13 @@ Lots of small fixes, mainly for TypeScript.
 
 # 1.4.1
 
-[link](https://github.com/jlongster/prettier/compare/1.4.0...1.4.1)
+[link](https://github.com/prettier/prettier/compare/1.4.0...1.4.1)
 
 * Lots of fixes for TypeScript and regressions from 1.4.0. If you are using 1.4.0, you should migrate to 1.4.1 asap ;)
 
 # 1.4.0
 
-[link](https://github.com/jlongster/prettier/compare/1.3.1...1.4.0)
+[link](https://github.com/prettier/prettier/compare/1.3.1...1.4.0)
 
 * [Release Notes](https://github.com/prettier/prettier/releases/tag/1.4.0)
 
@@ -123,7 +131,7 @@ Lots of small fixes, mainly for TypeScript.
 
 # 1.3.0
 
-[link](https://github.com/jlongster/prettier/compare/1.2.2...1.3.0)
+[link](https://github.com/prettier/prettier/compare/1.2.2...1.3.0)
 
 * add printer branches for some TypeScript nodes (#1331)
 * Skip trailing commas with FlowShorthandWithOneArg (#1364)
@@ -175,19 +183,19 @@ Lots of small fixes, mainly for TypeScript.
 
 # 1.2.2
 
-[link](https://github.com/jlongster/prettier/compare/1.2.1...1.2.2)
+[link](https://github.com/prettier/prettier/compare/1.2.1...1.2.2)
 
 * Only break for conditionals (#1350)
 
 # 1.2.1
 
-[link](https://github.com/jlongster/prettier/compare/1.2.0...1.2.1)
+[link](https://github.com/prettier/prettier/compare/1.2.0...1.2.1)
 
 * Fix duplicate comments in classes (#1349)
 
 # 1.2.0
 
-[link](https://github.com/jlongster/prettier/compare/1.1.0...1.2.0)
+[link](https://github.com/prettier/prettier/compare/1.1.0...1.2.0)
 
 * match jsx files in pre-commit hook (#1276)
 * Fix isPreviousLineEmpty on Windows (#1263)
@@ -217,7 +225,7 @@ Lots of small fixes, mainly for TypeScript.
 
 # 1.1.0
 
-[link](https://github.com/jlongster/prettier/compare/1.0.0...1.1.0)
+[link](https://github.com/prettier/prettier/compare/1.0.0...1.1.0)
 
 * Prettier 1.0 is the stabler release we've been waiting for (#1242)
 * fix small typo (#1255)
@@ -237,13 +245,13 @@ Lots of small fixes, mainly for TypeScript.
 
 # 1.0.0
 
-[link](https://github.com/jlongster/prettier/compare/0.22.0...1.0.0)
+[link](https://github.com/prettier/prettier/compare/0.22.0...1.0.0)
 
 * See announcement blog post: [http://jlongster.com/prettier-1.0](http://jlongster.com/prettier-1.0)
 
 # 0.22.0
 
-[link](https://github.com/jlongster/prettier/compare/0.21.0...0.22.0)
+[link](https://github.com/prettier/prettier/compare/0.21.0...0.22.0)
 
 * Run 0.21.0 (#876)
 * Fix paren removal on UnionTypeAnnotation (#878)
@@ -278,7 +286,7 @@ Lots of small fixes, mainly for TypeScript.
 
 # 0.21.0
 
-[link](https://github.com/jlongster/prettier/compare/0.20.0...0.21.0)
+[link](https://github.com/prettier/prettier/compare/0.20.0...0.21.0)
 
 * [JSX] Break before and after jsx whitespace (#836)
 * re-run snapshot tests
@@ -301,7 +309,7 @@ Lots of small fixes, mainly for TypeScript.
 
 # 0.20.0
 
-[link](https://github.com/jlongster/prettier/compare/0.19.0...0.20.0)
+[link](https://github.com/prettier/prettier/compare/0.19.0...0.20.0)
 
 * Fix extra parens for update expressions (#796)
 * Fix empty options (#803)
@@ -323,7 +331,7 @@ Lots of small fixes, mainly for TypeScript.
 
 # 0.19.0
 
-[link](https://github.com/jlongster/prettier/compare/0.18.0...0.19.0)
+[link](https://github.com/prettier/prettier/compare/0.18.0...0.19.0)
 
 * docs(README): use yarn add for consistency (#734)
 * Make trailing-comma option support 2 different modes (#641)
@@ -357,7 +365,7 @@ Lots of small fixes, mainly for TypeScript.
 
 # 0.18.0
 
-[link](https://github.com/jlongster/prettier/compare/0.17.0...0.18.0)
+[link](https://github.com/prettier/prettier/compare/0.17.0...0.18.0)
 
 * fix --debug-check
 * [JSX] Don't add newline following newline (#690)
@@ -380,7 +388,7 @@ Lots of small fixes, mainly for TypeScript.
 
 # 0.17.0
 
-[link](https://github.com/jlongster/prettier/compare/0.16.0...0.17.0)
+[link](https://github.com/prettier/prettier/compare/0.16.0...0.17.0)
 
 * [JSX] Fix spurious newline (fixes #614) (#628)
 * Add --debug-check cli option (#627)
@@ -415,7 +423,7 @@ Lots of small fixes, mainly for TypeScript.
 
 # 0.16.0
 
-[link](https://github.com/jlongster/prettier/compare/0.15.0...0.16.0)
+[link](https://github.com/prettier/prettier/compare/0.15.0...0.16.0)
 
 * Revert "Print \x and \u escapes in strings and regexes lowercase (#522)
 * Fix ternary indent bug (#577)
@@ -440,7 +448,7 @@ Lots of small fixes, mainly for TypeScript.
 
 # 0.15.0
 
-[link](https://github.com/jlongster/prettier/compare/0.14.1...0.15.0)
+[link](https://github.com/prettier/prettier/compare/0.14.1...0.15.0)
 
 * Fix syntax error in empty object with dangling comment (#533)
 * Fix closing call expression commented out (#530)
@@ -461,14 +469,14 @@ Lots of small fixes, mainly for TypeScript.
 
 # 0.14.1
 
-[link](https://github.com/jlongster/prettier/compare/0.14.0...0.14.1)
+[link](https://github.com/prettier/prettier/compare/0.14.0...0.14.1)
 
 * Fix range for object newline detection (#520)
   * a bugfix for "Keep expanded objects expanded" (#495)
 
 # 0.14.0
 
-[link](https://github.com/jlongster/prettier/compare/0.13.0...0.14.0)
+[link](https://github.com/prettier/prettier/compare/0.13.0...0.14.0)
 
 * Only write to files if the change (#511)
 * Remove extra group when printing object values (#502)
@@ -481,7 +489,7 @@ Lots of small fixes, mainly for TypeScript.
 
 # 0.13.0
 
-[link](https://github.com/jlongster/prettier/compare/0.12.0...0.13.0)
+[link](https://github.com/prettier/prettier/compare/0.12.0...0.13.0)
 
 * Simplify arrow functions that use blocks (#496)
 * Properly print comments for BinaryExpression (#494)
@@ -491,7 +499,7 @@ Lots of small fixes, mainly for TypeScript.
 
 # 0.12.0
 
-[link](https://github.com/jlongster/prettier/compare/0.11.0...0.12.0)
+[link](https://github.com/prettier/prettier/compare/0.11.0...0.12.0)
 
 * [WIP] Add rationale document (#372)
 * Proper parenthesis for yield and await in conditional (#436)
@@ -532,7 +540,7 @@ Lots of small fixes, mainly for TypeScript.
 
 # 0.11.0
 
-[link](https://github.com/jlongster/prettier/compare/0.0.10...0.11.0)
+[link](https://github.com/prettier/prettier/compare/0.0.10...0.11.0)
 
 Now using minor versions instead of patch versions for the releases.
 
@@ -583,7 +591,7 @@ Now using minor versions instead of patch versions for the releases.
 
 # 0.0.10
 
-[link](https://github.com/jlongster/prettier/compare/0.0.9...0.0.10)
+[link](https://github.com/prettier/prettier/compare/0.0.9...0.0.10)
 
 * Add description to package.json (#320)
 * Fix crash for single rest on class declaration (#315)
@@ -609,7 +617,7 @@ Now using minor versions instead of patch versions for the releases.
 
 # 0.0.9
 
-[link](https://github.com/jlongster/prettier/compare/0.0.8...0.0.9)
+[link](https://github.com/prettier/prettier/compare/0.0.8...0.0.9)
 
 * Workaround flow bug parsing astral unicode characters (#277)
 * Allow specifying the major mode that `defun-before-save` will use. (#276
@@ -639,7 +647,7 @@ Now using minor versions instead of patch versions for the releases.
 
 # 0.0.8
 
-[link](https://github.com/jlongster/prettier/compare/e447971...0192d58)
+[link](https://github.com/prettier/prettier/compare/e447971...0192d58)
 
 * Fix await parenthesis (#185)
 * Add note about Sublime Test github issue in readme
@@ -670,7 +678,7 @@ Now using minor versions instead of patch versions for the releases.
 
 # 0.0.7
 
-[link](https://github.com/jlongster/prettier/compare/7e31610...6f5df0e2b6b7db252e28ce80ebc54814fdc61497)
+[link](https://github.com/prettier/prettier/compare/7e31610...6f5df0e2b6b7db252e28ce80ebc54814fdc61497)
 
 * Update live editor to 0.0.6
 * Adds various prettier-browser changes (#175)
@@ -685,7 +693,7 @@ Now using minor versions instead of patch versions for the releases.
 
 # 0.0.6
 
-[link](https://github.com/jlongster/prettier/compare/faed09ceea32fcdd58b525aa09b880afb9fa55b7...3af7da5748d64efaed781104ec198924c8c369f9)
+[link](https://github.com/prettier/prettier/compare/faed09ceea32fcdd58b525aa09b880afb9fa55b7...3af7da5748d64efaed781104ec198924c8c369f9)
 
 * Format property names consistently
 * remove node 0.10 from travis config, add travis badge to readme
