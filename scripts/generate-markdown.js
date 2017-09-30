@@ -39,15 +39,30 @@ function formatOption(detailedOption, headingLevel) {
     "",
     "Default | CLI Override | API Override",
     "--------|--------------|-------------",
-    "`" +
-      JSON.stringify(cliUtil.getOptionDefaultValue(detailedOption.name)) +
-      "` | `" +
-      cliUtil.getOptionName(detailedOption, "cli") +
-      (usageType ? ` ${usageType}` : "") +
-      "` | `" +
-      cliUtil.getOptionName(detailedOption, "api") +
-      `: ${usageType ? usageType : "<bool>"}` +
-      "`",
+    [
+      backtick(
+        JSON.stringify(cliUtil.getOptionDefaultValue(detailedOption.name))
+      ),
+      backtick(
+        cliUtil.getOptionName(detailedOption, "cli") +
+          (usageType ? ` ${usageType}` : "")
+      ),
+      backtick(
+        cliUtil.getOptionName(detailedOption, "api") +
+          `: ${usageType ? usageType : "<bool>"}`
+      )
+    ].join(" | "),
     ""
   ].join("\n");
+}
+
+// https://github.com/chjj/marked/issues/285
+function backtick(string) {
+  if (string.indexOf("|") > -1) {
+    return `<code>${string
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/\|/g, "&#124;")}</code>`;
+  }
+  return `\`${string}\``;
 }

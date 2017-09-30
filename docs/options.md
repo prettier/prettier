@@ -25,7 +25,7 @@ Which parser to use.
 
 Default | CLI Override | API Override
 --------|--------------|-------------
-`"babylon"` | `--parser <flow|babylon|typescript|css|less|scss|json|graphql>` | `parser: <flow|babylon|typescript|css|less|scss|json|graphql>`
+`"babylon"` | <code>--parser &lt;flow&#124;babylon&#124;typescript&#124;css&#124;less&#124;scss&#124;json&#124;graphql&gt;</code> | <code>parser: &lt;flow&#124;babylon&#124;typescript&#124;css&#124;less&#124;scss&#124;json&#124;graphql&gt;</code>
 
 ## print-width
 The line length where Prettier will try wrap.
@@ -60,7 +60,7 @@ Print trailing commas wherever possible when multi-line.
 
 Default | CLI Override | API Override
 --------|--------------|-------------
-`"none"` | `--trailing-comma <none|es5|all>` | `trailingComma: <none|es5|all>`
+`"none"` | <code>--trailing-comma &lt;none&#124;es5&#124;all&gt;</code> | <code>trailingComma: &lt;none&#124;es5&#124;all&gt;</code>
 
 ## use-tabs
 Indent with tabs instead of spaces.
