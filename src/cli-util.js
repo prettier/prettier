@@ -410,7 +410,7 @@ function createOptionUsage(option, threshold) {
 }
 
 function createOptionUsageHeader(option) {
-  const name = `--${option.name}`;
+  const name = getOptionName(option, "cli");
   const alias = option.alias ? `-${option.alias},` : null;
   const type = createOptionUsageType(option);
   return [alias, name, type].filter(Boolean).join(" ");
@@ -552,6 +552,10 @@ function groupBy(array, getKey) {
   }, Object.create(null));
 }
 
+function getOptionName(option, type) {
+  return type === "cli" ? `--${option.name}` : camelCase(option.name);
+}
+
 /** @param {'api' | 'cli'} type */
 function normalizeConfig(type, rawConfig, options) {
   if (type === "api" && rawConfig === null) {
@@ -619,10 +623,6 @@ function normalizeConfig(type, rawConfig, options) {
 
   return normalized;
 
-  function getOptionName(option) {
-    return type === "cli" ? `--${option.name}` : camelCase(option.name);
-  }
-
   function getRedirectName(option, choice) {
     return type === "cli"
       ? `--${option.name}=${choice.redirect}`
@@ -630,7 +630,7 @@ function normalizeConfig(type, rawConfig, options) {
   }
 
   function getValue(rawValue, option) {
-    const optionName = getOptionName(option);
+    const optionName = getOptionName(option, type);
     if (rawValue && option.deprecated) {
       let warning = `\`${optionName}\` is deprecated.`;
       if (typeof option.deprecated === "string") {
@@ -667,6 +667,8 @@ module.exports = {
   formatFiles,
   createUsage,
   createDetailedUsage,
+  getOptionName,
+  createOptionUsageType,
   getOptionDefaultValue,
   normalizeConfig
 };

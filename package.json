@@ -55,7 +55,6 @@
     "eslint-plugin-react": "7.1.0",
     "jest": "21.1.0",
     "markdown-magic": "^0.1.19",
-    "markdown-toc": "1.1.0",
     "mkdirp": "^0.5.1",
     "prettier": "1.7.0",
     "rimraf": "2.6.1",
@@ -76,6 +75,6 @@
     "test-integration": "jest tests_integration",
     "lint": "cross-env EFF_NO_LINK_RULES=true eslint . --format node_modules/eslint-friendly-formatter",
     "build": "node ./scripts/build/build.js",
-    "toc": "node ./scripts/table-of-contents.js"
+    "generate-markdown": "node ./scripts/generate-markdown.js"
   }
 }

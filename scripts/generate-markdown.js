@@ -4,29 +4,35 @@
 
 const markdownMagic = require("markdown-magic");
 const path = require("path");
-const camelCase = require("camelcase");
-const getOptionDefaultValue = require("../src/cli-util").getOptionDefaultValue;
+const cliUtil = require("../src/cli-util");
 const detailedOptions = require("../src/cli-constant").detailedOptions;
 
-const optionsFilePath = path.resolve(__dirname, "../docs/options.md");
+const files = ["../docs/options.md", "../README.md"].map(x =>
+  path.resolve(__dirname, x)
+);
 
 const config = {
   transforms: {
-    renderOptions(_, options) {
+    PRETTIER_OPTIONS(_, options) {
       return detailedOptions
         .filter(option => option.category === "Format")
-        .map(detailedOption => {
-          return formatOption(detailedOption, +options.headingLevel);
-        })
+        .filter(option => !option.deprecated)
+        .map(detailedOption =>
+          formatOption(
+            detailedOption,
+            options.headingLevel ? +options.headingLevel : 1
+          )
+        )
         .join("\n");
     }
   }
 };
 
-markdownMagic([optionsFilePath], config, () => {});
+markdownMagic(files, config);
 
 function formatOption(detailedOption, headingLevel) {
   const header = "#".repeat(headingLevel) + ` ${detailedOption.name}`;
+  const usageType = cliUtil.createOptionUsageType(detailedOption);
   return [
     header,
     detailedOption.description,
@@ -34,18 +40,14 @@ function formatOption(detailedOption, headingLevel) {
     "Default | CLI Override | API Override",
     "--------|--------------|-------------",
     "`" +
-      JSON.stringify(getOptionDefaultValue(detailedOption.name)) +
-      "` | `--" +
-      detailedOption.name +
+      JSON.stringify(cliUtil.getOptionDefaultValue(detailedOption.name)) +
       "` | `" +
-      camelCase(detailedOption.name) +
-      "`"
+      cliUtil.getOptionName(detailedOption, "cli") +
+      (usageType ? ` ${usageType}` : "") +
+      "` | `" +
+      cliUtil.getOptionName(detailedOption, "api") +
+      `: ${usageType ? usageType : "<bool>"}` +
+      "`",
+    ""
   ].join("\n");
-
-  // ## Tab Width
-  // Specify the number of spaces per indentation-level.
-
-  // Default | CLI Override | API Override
-  // --------|--------------|-------------
-  //  `2` | `--tab-width <int>` | `tabWidth: <int>`
 }

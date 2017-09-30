@@ -2743,23 +2743,6 @@ markdown-magic@^0.1.19:
     markdown-toc "^1.0.2"
     sync-request "^3.0.1"
 
-markdown-toc@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/markdown-toc/-/markdown-toc-1.1.0.tgz#18e47237d89549e9447121e69e2ca853ca2d752a"
-  dependencies:
-    concat-stream "^1.5.2"
-    diacritics-map "^0.1.0"
-    gray-matter "^2.1.0"
-    lazy-cache "^2.0.2"
-    list-item "^1.1.1"
-    markdown-link "^0.1.1"
-    minimist "^1.2.0"
-    mixin-deep "^1.1.3"
-    object.pick "^1.2.0"
-    remarkable "^1.7.1"
-    repeat-string "^1.6.1"
-    strip-color "^0.1.0"
-
 markdown-toc@^1.0.2:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/markdown-toc/-/markdown-toc-1.2.0.tgz#44a15606844490314afc0444483f9e7b1122c339"
