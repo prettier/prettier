@@ -159,7 +159,7 @@ We've worked very hard to use the least controversial coding styles, went throug
 
 Since coming up with a coding style and enforcing it is a big undertaking, it often slips through the cracks and you are left working on inconsistent codebases. Running Prettier in this case is a quick win, the codebase is now uniform and easier to read without spending hardly any time.
 - “Take a look at the code :) I just need to restore sanity.”
-- “We inherited a ~2000 module ES6 code base, developed by 20 different developers over 18 months, in a global team. Felt like such a win without much research.
+- “We inherited a ~2000 module ES6 code base, developed by 20 different developers over 18 months, in a global team. Felt like such a win without much research.”
 
 ### Ride the hype train
 
@@ -203,7 +203,7 @@ Prettier does nothing to help with those kind of rules. They are also the most i
 Install:
 
 ```
-yarn add prettier --dev
+yarn add prettier --dev --exact
 ```
 
 You can install it globally if you like:
@@ -215,8 +215,13 @@ yarn global add prettier
 *We're using `yarn` but you can use `npm` if you like:*
 
 ```
-npm install [--save-dev|--global] prettier
+npm install --save-dev --save-exact prettier
+# or globally
+npm install --global prettier
 ```
+
+> We recommend pinning an exact version of prettier in your `package.json`
+> as we introduce stylistic changes in patch releases.
 
 ### CLI
 
@@ -699,8 +704,7 @@ Default | CLI Override | API Override
 Prettier uses [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) for configuration file support.
 This means you can configure prettier via:
 
-<!-- TODO: Uncomment on the next line when Prettier >1.7.0 has been released. -->
-* A `.prettierrc` file, written in YAML or JSON<!--, with optional extensions: `.yaml/.yml/.json/.js`-->.
+* A `.prettierrc` file, written in YAML or JSON, with optional extensions: `.yaml/.yml/.json/.js`.
 * A `prettier.config.js` file that exports an object.
 * A `"prettier"` key in your `package.json` file.
 
@@ -839,7 +843,7 @@ The minimum version of TypeScript supported is 2.1.3 as it introduces the abilit
 - [`prettier-eslint`](https://github.com/prettier/prettier-eslint)
 passes `prettier` output to `eslint --fix`
 - [`prettier-stylelint`](https://github.com/hugomrdias/prettier-stylelint)
-passes `prettier` output to `stylelint --fix` 
+passes `prettier` output to `stylelint --fix`
 - [`prettier-standard`](https://github.com/sheerun/prettier-standard)
 uses `prettier` and `prettier-eslint` to format code with standard rules
 - [`prettier-standard-formatter`](https://github.com/dtinth/prettier-standard-formatter)

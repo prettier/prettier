@@ -10,11 +10,11 @@ interface CArrays<T> extends C<Array<T>> {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 interface C<T> {
-  foo(): CArrays<T>,
-  bar(): C<any>
+  foo(): CArrays<T>;
+  bar(): C<any>;
 }
 interface CArrays<T> extends C<Array<T>> {
-  bar(): C<any>
+  bar(): C<any>;
 }
 
 `;

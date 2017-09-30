@@ -1,6 +1,7 @@
 "use strict";
 
 const path = require("path");
+const ConfigError = require("./errors").ConfigError;
 
 const parsers = {
   get flow() {
@@ -18,7 +19,13 @@ const parsers = {
   get typescript() {
     return eval("require")("./parser-typescript");
   },
-  get postcss() {
+  get css() {
+    return eval("require")("./parser-postcss");
+  },
+  get less() {
+    return eval("require")("./parser-postcss");
+  },
+  get scss() {
     return eval("require")("./parser-postcss");
   },
   get json() {
@@ -41,7 +48,7 @@ function resolveParseFunction(opts) {
       return eval("require")(path.resolve(process.cwd(), opts.parser));
     } catch (err) {
       /* istanbul ignore next */
-      throw new Error(`Couldn't resolve parser "${opts.parser}"`);
+      throw new ConfigError(`Couldn't resolve parser "${opts.parser}"`);
     }
   }
   /* istanbul ignore next */

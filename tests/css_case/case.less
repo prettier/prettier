@@ -39,6 +39,10 @@ a[HREF=KeepAttrValue]:HOVER::FIRST-letter,
   BACKGROUND: RED;
 }
 
+%KeepScssPlaceholderSelector {
+  prop: val;
+}
+
 @KeepTopLevelVar: val;
 $KeepScssVar: val;
 
@@ -46,6 +50,7 @@ $KeepScssVar: val;
     @KeepVar: KeepName; /*:*/
     @{KeepInterpolationVar}: val;
     $KeepScssVar: val;
+    @extend %KeepScssPlaceholderSelector;
 
     @{Keep}[@{Keep}][@{Keep}^=@{Keep-1A}]:@{Keep} {
       prop: val;

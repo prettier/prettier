@@ -1,5 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`show warning with unknown option 1`] = `
+"Ignored unknown option: hello
+"
+`;
+
 exports[`throw error with invalid config format 1`] = `
 "Error: Invalid configuration file.
 Failed to parse \\"<cwd>/tests_integration/cli/config/invalid/file/.prettierrc\\" as JSON, JS, or YAML.
@@ -7,15 +12,13 @@ Failed to parse \\"<cwd>/tests_integration/cli/config/invalid/file/.prettierrc\\
 `;
 
 exports[`throw error with invalid config option (int) 1`] = `
-"Error: Invalid --tab-width value.
-Expected an integer, but received: 0.5
-"
+"Invalid tabWidth value.
+Expected an integer, but received: 0.5"
 `;
 
 exports[`throw error with invalid config option (trailingComma) 1`] = `
-"Error: Invalid option for --trailing-comma.
-Expected \\"none\\", \\"es5\\" or \\"all\\", but received: \\"wow\\"
-"
+"Invalid option for trailingComma.
+Expected \\"none\\", \\"es5\\" or \\"all\\", but received: \\"wow\\""
 `;
 
 exports[`throw error with invalid config precedence option (configPrecedence) 1`] = `

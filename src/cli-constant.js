@@ -1,5 +1,7 @@
 "use strict";
 
+const camelCase = require("camelcase");
+
 const CATEGORY_CONFIG = "Config";
 const CATEGORY_EDITOR = "Editor";
 const CATEGORY_FORMAT = "Format";
@@ -187,7 +189,10 @@ const detailedOptions = normalizeDetailedOptions({
       "flow",
       "babylon",
       "typescript",
-      "postcss",
+      "css",
+      { value: "postcss", deprecated: true, redirect: "css" },
+      "less",
+      "scss",
       "json",
       "graphql",
       "markdown"
@@ -343,10 +348,6 @@ function dedent(str) {
   return str.replace(new RegExp(`^ {${spaces}}`, "gm"), "").trim();
 }
 
-function kebabToCamel(str) {
-  return str.replace(/-([a-z])/g, (_, char) => char.toUpperCase());
-}
-
 function normalizeDetailedOptions(rawDetailedOptions) {
   const names = Object.keys(rawDetailedOptions).sort();
 
@@ -359,7 +360,7 @@ function normalizeDetailedOptions(rawDetailedOptions) {
         option.forwardToApi &&
         (typeof option.forwardToApi === "string"
           ? option.forwardToApi
-          : kebabToCamel(name)),
+          : camelCase(name)),
       choices:
         option.choices &&
         option.choices.map(choice =>

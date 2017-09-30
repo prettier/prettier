@@ -11,7 +11,14 @@ export default Object.assign(baseConfig, {
   banner: "#!/usr/bin/env node",
   plugins: [
     replace({
-      "#!/usr/bin/env node": ""
+      "#!/usr/bin/env node": "",
+      // The require-from-string module (a dependency of cosmiconfig) assumes
+      // that `module.parent` exists, but it only does for `require`:ed modules.
+      // Usually, require-from-string is _always_ `require`:ed, but when bundled
+      // with rollup the module is turned into a plain function located directly
+      // in bin/prettier.js so `module.parent` does not exist. Defaulting to
+      // `module` instead seems to work.
+      "module.parent": "(module.parent || module)"
     }),
     json(),
     resolve({ preferBuiltins: true }),

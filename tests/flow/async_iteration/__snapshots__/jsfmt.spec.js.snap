@@ -85,9 +85,9 @@ async function f() {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare interface File {
-  readLine(): Promise<string>,
-  close(): void,
-  EOF: boolean
+  readLine(): Promise<string>;
+  close(): void;
+  EOF: boolean;
 }
 
 declare function fileOpen(path: string): Promise<File>;

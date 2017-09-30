@@ -35,6 +35,59 @@ class AngularComponent {
 
 `;
 
+exports[`decorators-comments.js 1`] = `
+
+class Foo1 {
+    @foo
+    // comment
+    async method() {}
+}
+
+class Foo2 {
+    @foo
+    // comment
+    private method() {}
+}
+
+class Foo3 {
+    @foo
+    // comment
+    *method() {}
+}
+
+class Foo4 {
+    @foo
+    // comment
+    async *method() {}
+}
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class Foo1 {
+  @foo
+  // comment
+  async method() {}
+}
+
+class Foo2 {
+  @foo
+  // comment
+  private method() {}
+}
+
+class Foo3 {
+  @foo
+  // comment
+  *method() {}
+}
+
+class Foo4 {
+  @foo
+  // comment
+  async *method() {}
+}
+
+`;
+
 exports[`inline-decorators.ts 1`] = `
 
 @d1

@@ -2,7 +2,7 @@
 
 const runPrettier = require("../runPrettier");
 
-expect.addSnapshotSerializer(require("../cwd-serializer"));
+expect.addSnapshotSerializer(require("../path-serializer"));
 
 test("throw error with invalid ignore", () => {
   const result = runPrettier("cli/invalid-ignore", ["something.js"]);

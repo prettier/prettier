@@ -40,6 +40,10 @@ a[HREF=KeepAttrValue]:HOVER::FIRST-letter,
     @RETURN 12;
 }
 
+%KeepPlaceholderSelector {
+  prop: val;
+}
+
 $KeepTopLevelVar: val;
 @KeepLessVar: val;
 
@@ -49,6 +53,7 @@ $KeepTopLevelVar: val;
     #{$Keep + 15PX}: val;
     #{$Keep + $Keep15PX}: val;
     @KeepLessVar: val;
+    @extend %KeepPlaceholderSelector;
 
     #{$Keep}[#{$Keep}][#{Keep}^=#{Keep-1A}]:#{$Keep} {
       prop: val;

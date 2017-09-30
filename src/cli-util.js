@@ -1,6 +1,7 @@
 "use strict";
 
 const path = require("path");
+const camelCase = require("camelcase");
 const dashify = require("dashify");
 const minimist = require("minimist");
 const getStream = require("get-stream");
@@ -17,6 +18,7 @@ const resolver = require("./resolve-config");
 const constant = require("./cli-constant");
 const validator = require("./cli-validator");
 const apiDefaultOptions = require("./options").defaults;
+const errors = require("./errors");
 
 const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;
@@ -57,7 +59,11 @@ function handleError(filename, error) {
   // parser has mistakenly thrown arrays sometimes.)
   if (isParseError) {
     console.error(`${filename}: ${String(error)}`);
-  } else if (isValidationError) {
+  } else if (
+    isValidationError ||
+    error instanceof errors.ConfigError ||
+    error instanceof errors.DebugError
+  ) {
     console.error(String(error));
     // If validation fails for one file, it will fail for all of them.
     process.exit(1);
@@ -114,7 +120,9 @@ function format(argv, input, opt) {
     const pp = prettier.format(input, opt);
     const pppp = prettier.format(pp, opt);
     if (pp !== pppp) {
-      throw "prettier(input) !== prettier(prettier(input))\n" + diff(pp, pppp);
+      throw new errors.DebugError(
+        "prettier(input) !== prettier(prettier(input))\n" + diff(pp, pppp)
+      );
     } else {
       const ast = cleanAST(prettier.__debug.parse(input, opt));
       const past = cleanAST(prettier.__debug.parse(pp, opt));
@@ -125,10 +133,12 @@ function format(argv, input, opt) {
           ast.length > MAX_AST_SIZE || past.length > MAX_AST_SIZE
             ? "AST diff too large to render"
             : diff(ast, past);
-        throw "ast(input) !== ast(prettier(input))\n" +
-          astDiff +
-          "\n" +
-          diff(input, pp);
+        throw new errors.DebugError(
+          "ast(input) !== ast(prettier(input))\n" +
+            astDiff +
+            "\n" +
+            diff(input, pp)
+        );
       }
     }
     return { formatted: opt.filepath || "(stdin)\n" };
@@ -151,12 +161,16 @@ function getOptionsOrDie(argv, filePath) {
 
 function getOptionsForFile(argv, filePath) {
   const options = getOptionsOrDie(argv, filePath);
-  return applyConfigPrecedence(argv, options);
+  return applyConfigPrecedence(
+    argv,
+    options && normalizeConfig("api", options, constant.detailedOptionMap)
+  );
 }
 
 function parseArgsToOptions(argv, overrideDefaults) {
   return getOptions(
-    normalizeArgv(
+    normalizeConfig(
+      "cli",
       minimist(
         argv.__args,
         Object.assign({
@@ -518,16 +532,12 @@ function getOptionDefaultValue(optionName) {
     return option.default;
   }
 
-  const optionCamelName = kebabToCamel(optionName);
+  const optionCamelName = camelCase(optionName);
   if (optionCamelName in apiDefaultOptions) {
     return apiDefaultOptions[optionCamelName];
   }
 
   return undefined;
-}
-
-function kebabToCamel(str) {
-  return str.replace(/-([a-z])/g, (_, char) => char.toUpperCase());
 }
 
 function indent(str, spaces) {
@@ -542,30 +552,42 @@ function groupBy(array, getKey) {
   }, Object.create(null));
 }
 
-function normalizeArgv(rawArgv, options) {
+/** @param {'api' | 'cli'} type */
+function normalizeConfig(type, rawConfig, options) {
+  if (type === "api" && rawConfig === null) {
+    return null;
+  }
+
   options = options || {};
 
   const consoleWarn = options.warning === false ? () => {} : console.warn;
 
   const normalized = {};
 
-  Object.keys(rawArgv).forEach(key => {
-    const rawValue = rawArgv[key];
+  Object.keys(rawConfig).forEach(rawKey => {
+    const rawValue = rawConfig[rawKey];
 
-    if (key === "_") {
-      normalized[key] = rawValue;
+    const key = type === "cli" ? rawKey : dashify(rawKey);
+
+    if (type === "cli" && key === "_") {
+      normalized[rawKey] = rawValue;
       return;
     }
 
-    if (key.length === 1) {
+    if (type === "cli" && key.length === 1) {
       // do nothing with alias
       return;
     }
 
     const option = constant.detailedOptionMap[key];
 
+    // unknown option
     if (option === undefined) {
-      // unknown option
+      // no need to warn for CLI since it's already warned in minimist
+      if (type === "api") {
+        console.warn(`Ignored unknown option: ${rawKey}`);
+      }
+
       return;
     }
 
@@ -574,12 +596,12 @@ function normalizeArgv(rawArgv, options) {
     if (option.exception !== undefined) {
       if (typeof option.exception === "function") {
         if (option.exception(value)) {
-          normalized[key] = value;
+          normalized[rawKey] = value;
           return;
         }
       } else {
         if (value === option.exception) {
-          normalized[key] = value;
+          normalized[rawKey] = value;
           return;
         }
       }
@@ -587,31 +609,42 @@ function normalizeArgv(rawArgv, options) {
 
     switch (option.type) {
       case "int":
-        validator.validateIntOption(value, option);
-        normalized[key] = Number(value);
+        validator.validateIntOption(type, value, option);
+        normalized[rawKey] = Number(value);
         break;
       case "choice":
-        validator.validateChoiceOption(value, option);
-        normalized[key] = value;
+        validator.validateChoiceOption(type, value, option);
+        normalized[rawKey] = value;
         break;
       default:
-        normalized[key] = value;
+        normalized[rawKey] = value;
         break;
     }
   });
 
   return normalized;
 
+  function getOptionName(option) {
+    return type === "cli" ? `--${option.name}` : camelCase(option.name);
+  }
+
+  function getRedirectName(option, choice) {
+    return type === "cli"
+      ? `--${option.name}=${choice.redirect}`
+      : `{ ${camelCase(option.name)}: ${JSON.stringify(choice.redirect)} }`;
+  }
+
   function getValue(rawValue, option) {
+    const optionName = getOptionName(option);
     if (rawValue && option.deprecated) {
-      let warning = `\`--${option.name}\` is deprecated.`;
+      let warning = `\`${optionName}\` is deprecated.`;
       if (typeof option.deprecated === "string") {
         warning += ` ${option.deprecated}`;
       }
       consoleWarn(warning);
     }
 
-    const value = option.getter(rawValue, rawArgv);
+    const value = option.getter(rawValue, rawConfig);
 
     if (option.type === "choice") {
       const choice = option.choices.find(choice => choice.value === rawValue);
@@ -620,8 +653,9 @@ function normalizeArgv(rawArgv, options) {
           rawValue === ""
             ? "without an argument"
             : `with value \`${rawValue}\``;
+        const redirectName = getRedirectName(option, choice);
         consoleWarn(
-          `\`--${option.name}\` ${warningDescription} is deprecated. Prettier now treats it as: \`--${option.name}=${choice.redirect}\`.`
+          `\`${optionName}\` ${warningDescription} is deprecated. Prettier now treats it as: \`${redirectName}\`.`
         );
         return choice.redirect;
       }
@@ -638,5 +672,5 @@ module.exports = {
   formatFiles,
   createUsage,
   createDetailedUsage,
-  normalizeArgv
+  normalizeConfig
 };

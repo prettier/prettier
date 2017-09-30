@@ -125,12 +125,12 @@ type MySubobject = { y: number } & MyObject; // no error
 // arity error in interface extends
 
 interface MyInterface<T> {
-  x: T
+  x: T;
 }
 
 interface MySubinterface extends MyInterface {
   // no error
-  y: number
+  y: number;
 }
 
 // no arity error in extends of polymorphic class

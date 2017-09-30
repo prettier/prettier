@@ -526,7 +526,15 @@ function printString(raw, options, isDirectiveLiteral) {
   // is enclosed with `enclosingQuote`, but it isn't. The string could contain
   // unnecessary escapes (such as in `"\'"`). Always using `makeString` makes
   // sure that we consistently output the minimum amount of escaped quotes.
-  return makeString(rawContent, enclosingQuote, options.parser !== "postcss");
+  return makeString(
+    rawContent,
+    enclosingQuote,
+    !(
+      options.parser === "css" ||
+      options.parser === "less" ||
+      options.parser === "scss"
+    )
+  );
 }
 
 function makeString(rawContent, enclosingQuote, unescapeUnnecessaryEscapes) {

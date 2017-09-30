@@ -27,8 +27,9 @@ var OPTIONS = [
 var IDEMPOTENT_MESSAGE = "✓ Second format is unchanged.";
 
 var state = (function loadState(hash) {
+  var parsed;
   try {
-    return JSON.parse(hash);
+    parsed = JSON.parse(hash);
   } catch (error) {
     return {
       options: undefined,
@@ -57,6 +58,11 @@ var state = (function loadState(hash) {
       ].join("\n")
     };
   }
+  // Support old links with the deprecated "postcss" value for the parser option.
+  if (parsed && parsed.options && parsed.options.parser === "postcss") {
+    parsed.options.parser = "css";
+  }
+  return parsed;
 })(decodeURIComponent(location.hash.slice(1)));
 
 var worker = new Worker("/worker.js");
@@ -135,6 +141,7 @@ window.onload = function() {
     editors[i].classList.remove("loading");
   }
 
+  setEditorStyles();
   inputEditor.setValue(state.content);
   document.querySelector(".options-container").onchange = formatAsync;
 
@@ -238,7 +245,9 @@ function replaceHash(hash) {
 
 function getCodemirrorMode(options) {
   switch (options.parser) {
-    case "postcss":
+    case "css":
+    case "less":
+    case "scss":
       return "css";
     default:
       return "jsx";
@@ -246,6 +255,25 @@ function getCodemirrorMode(options) {
 }
 
 function formatAsync() {
+  var options = getOptions();
+  setEditorStyles();
+
+  var value = encodeURIComponent(
+    JSON.stringify(
+      Object.assign({ content: inputEditor.getValue(), options: options })
+    )
+  );
+  replaceHash(value);
+  worker.postMessage({
+    text: inputEditor.getValue(),
+    options: options,
+    ast: options.ast,
+    doc: options.doc,
+    formatted2: options.output2
+  });
+}
+
+function setEditorStyles() {
   var options = getOptions();
 
   var mode = getCodemirrorMode(options);
@@ -263,20 +291,6 @@ function formatAsync() {
   document.querySelector(".output2").style.display = options.output2
     ? ""
     : "none";
-
-  var value = encodeURIComponent(
-    JSON.stringify(
-      Object.assign({ content: inputEditor.getValue(), options: options })
-    )
-  );
-  replaceHash(value);
-  worker.postMessage({
-    text: inputEditor.getValue(),
-    options: options,
-    ast: options.ast,
-    doc: options.doc,
-    formatted2: options.output2
-  });
 }
 
 function createMarkdown(full) {

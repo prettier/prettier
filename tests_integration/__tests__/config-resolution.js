@@ -5,6 +5,8 @@ const path = require("path");
 const runPrettier = require("../runPrettier");
 const prettier = require("../../");
 
+expect.addSnapshotSerializer(require("../path-serializer"));
+
 test("resolves configuration from external files", () => {
   const output = runPrettier("cli/config/", ["**/*.js"]);
   expect(output.stdout).toMatchSnapshot();

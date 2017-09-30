@@ -16,7 +16,6 @@ toolbox.precache([
   "markdown.js",
   "playground.js",
   "lib/sw-toolbox.js",
-  "lib/sw-toolbox-companion.js",
 
   // CodeMirror
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/codemirror.css",
