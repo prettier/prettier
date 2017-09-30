@@ -15,32 +15,35 @@ function runPrettier(dir, args, options) {
   let stdout = "";
   let stderr = "";
 
-  const spiedProcessExit = jest.spyOn(process, "exit");
-  spiedProcessExit.mockImplementation(exitCode => {
+  jest.spyOn(process, "exit").mockImplementation(exitCode => {
     if (status === undefined) {
       status = exitCode || 0;
     }
   });
 
-  const spiedStdoutWrite = jest.spyOn(process.stdout, "write");
-  spiedStdoutWrite.mockImplementation(text => appendStdout(text));
+  jest
+    .spyOn(process.stdout, "write")
+    .mockImplementation(text => appendStdout(text));
 
-  const spiedStderrWrite = jest.spyOn(process.stderr, "write");
-  spiedStderrWrite.mockImplementation(text => appendStderr(text));
+  jest
+    .spyOn(process.stderr, "write")
+    .mockImplementation(text => appendStderr(text));
 
-  const spiedConsoleLog = jest.spyOn(console, "log");
-  spiedConsoleLog.mockImplementation(text => appendStdout(text + "\n"));
+  jest
+    .spyOn(console, "log")
+    .mockImplementation(text => appendStdout(text + "\n"));
 
-  const spiedConsoleWarn = jest.spyOn(console, "warn");
-  spiedConsoleWarn.mockImplementation(text => appendStderr(text + "\n"));
+  jest
+    .spyOn(console, "warn")
+    .mockImplementation(text => appendStderr(text + "\n"));
 
-  const spiedConsoleError = jest.spyOn(console, "error");
-  spiedConsoleError.mockImplementation(text => appendStderr(text + "\n"));
+  jest
+    .spyOn(console, "error")
+    .mockImplementation(text => appendStderr(text + "\n"));
 
   const write = [];
 
-  const spiedFsWriteFileSync = jest.spyOn(fs, "writeFileSync");
-  spiedFsWriteFileSync.mockImplementation((filename, content) => {
+  jest.spyOn(fs, "writeFileSync").mockImplementation((filename, content) => {
     write.push({ filename, content });
   });
 
