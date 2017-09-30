@@ -11,6 +11,7 @@ const parser = require("./src/parser");
 const printDocToDebug = require("./src/doc-debug").printDocToDebug;
 const config = require("./src/resolve-config");
 const docblock = require("jest-docblock");
+const getStream = require("get-stream");
 
 function guessLineEnding(text) {
   const index = text.indexOf("\n");
@@ -353,6 +354,7 @@ module.exports = {
 
   /* istanbul ignore next */
   __debug: {
+    getStream,
     parse: function(text, opts) {
       return parser.parse(text, opts);
     },
