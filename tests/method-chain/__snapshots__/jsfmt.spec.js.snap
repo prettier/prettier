@@ -590,12 +590,14 @@ exports[`logical.js 1`] = `
   .map(tickets => TicketRecord.createFromSomeLongString())
   .filter(obj => !!obj);
 
-(veryLongVeryLongVeryLong ||
+(
+  veryLongVeryLongVeryLong ||
   anotherVeryLongVeryLongVeryLong ||
   veryVeryVeryLongError
 ).map(tickets => TicketRecord.createFromSomeLongString());
 
-(veryLongVeryLongVeryLong ||
+(
+  veryLongVeryLongVeryLong ||
   anotherVeryLongVeryLongVeryLong ||
   veryVeryVeryLongError
 )
