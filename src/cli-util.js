@@ -24,6 +24,10 @@ const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;
 const CHOICE_USAGE_INDENTATION = 2;
 
+const mockable = {
+  getStream
+};
+
 function getOptions(argv) {
   return constant.detailedOptions
     .filter(option => option.forwardToApi)
@@ -205,7 +209,7 @@ function applyConfigPrecedence(argv, options) {
 }
 
 function formatStdin(argv) {
-  getStream(process.stdin).then(input => {
+  mockable.getStream(process.stdin).then(input => {
     const options = getOptionsForFile(argv, process.cwd());
 
     if (listDifferent(argv, input, options, "(stdin)")) {
@@ -672,5 +676,6 @@ module.exports = {
   formatFiles,
   createUsage,
   createDetailedUsage,
-  normalizeConfig
+  normalizeConfig,
+  mockable
 };

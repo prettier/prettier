@@ -1,10 +1,9 @@
 "use strict";
 
+const isProduction = process.env.NODE_ENV === "production";
 const fs = require("fs");
 const path = require("path");
-const stream = require("stream");
-
-const isProduction = process.env.NODE_ENV === "production";
+const bin = require(isProduction ? "../dist/bin/prettier" : "../bin/prettier");
 
 function runPrettier(dir, args, options) {
   args = args || [];
@@ -36,6 +35,11 @@ function runPrettier(dir, args, options) {
   const spiedConsoleError = jest.spyOn(console, "error");
   spiedConsoleError.mockImplementation(text => appendStderr(text + "\n"));
 
+  const spiedGetStream = jest.spyOn(bin.mockable, "getStream");
+  spiedGetStream.mockImplementation(() => ({
+    then: handler => handler(options.input || "")
+  }));
+
   const write = [];
 
   const spiedFsWriteFileSync = jest.spyOn(fs, "writeFileSync");
@@ -46,21 +50,16 @@ function runPrettier(dir, args, options) {
   const originalCwd = process.cwd();
   const originalArgv = process.argv;
   const originalExitCode = process.exitCode;
-  const originalStdin = Object.getOwnPropertyDescriptor(process, "stdin");
+  const originalStdinIsTTY = process.stdin.isTTY;
 
   process.chdir(normalizeDir(dir));
+  process.stdin.isTTY = !!options.isTTY;
   process.argv = ["path/to/node", "path/to/prettier/bin"].concat(args);
-
-  // `process.stdin` isn’t `writable` so we need to use `Object.defineProperty`
-  // instead.
-  const stdin = new SimpleReadableStream(options.input || "");
-  stdin.isTTY = !!options.isTTY;
-  Object.defineProperty(process, "stdin", { value: stdin });
 
   jest.resetModules();
 
   try {
-    require(isProduction ? "../dist/bin/prettier" : "../bin/prettier");
+    bin.run();
     status = (status === undefined ? process.exitCode : status) || 0;
   } catch (error) {
     status = 1;
@@ -69,7 +68,7 @@ function runPrettier(dir, args, options) {
     process.chdir(originalCwd);
     process.argv = originalArgv;
     process.exitCode = originalExitCode;
-    Object.defineProperty(process, "stdin", originalStdin);
+    process.stdin.isTTY = originalStdinIsTTY;
     jest.restoreAllMocks();
   }
 
@@ -90,20 +89,6 @@ function runPrettier(dir, args, options) {
 function normalizeDir(dir) {
   const isRelative = dir[0] !== "/";
   return isRelative ? path.resolve(__dirname, dir) : dir;
-}
-
-class SimpleReadableStream extends stream.Readable {
-  constructor(input) {
-    super();
-    this._input = Buffer.from(input);
-  }
-
-  _read() {
-    setImmediate(() => {
-      this.push(this._input);
-      this._input = null;
-    });
-  }
 }
 
 module.exports = runPrettier;
