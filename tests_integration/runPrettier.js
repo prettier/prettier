@@ -57,6 +57,10 @@ function runPrettier(dir, args, options) {
   process.argv = ["path/to/node", "path/to/prettier/bin"].concat(args);
 
   jest.resetModules();
+
+  // We cannot use `jest.setMock("get-stream", impl)` here, because in the
+  // production build everything is bundled into one file so there is no
+  // "get-stream" module to mock.
   jest
     .spyOn(require(prettierApi).__debug, "getStream")
     .mockImplementation(() => ({
