@@ -53,6 +53,7 @@
     "eslint-plugin-import": "2.6.1",
     "eslint-plugin-prettier": "2.1.2",
     "eslint-plugin-react": "7.1.0",
+    "humanize-string": "^1.0.1",
     "jest": "21.1.0",
     "js-yaml": "^3.10.0",
     "markdown-magic": "^0.1.19",
