@@ -133,14 +133,14 @@ exports[`show detailed usage with --help parser 1`] = `
 
 Valid options:
 
-  flow         
-  babylon      
-  typescript   
-  css          
-  less         
-  scss         
-  json         
-  graphql      
+  flow         https://github.com/facebook/flow
+  babylon      https://github.com/babel/babylon
+  typescript   https://github.com/eslint/typescript-eslint-parser
+  css          https://github.com/postcss/postcss
+  less         https://github.com/shellscape/postcss-less
+  scss         https://github.com/postcss/postcss-scss
+  json         https://github.com/babel/babylon
+  graphql      https://github.com/graphql/graphql-js
 
 Default: babylon
 "
@@ -355,14 +355,14 @@ exports[`show warning with --help not-found (typo) 1`] = `
 
 Valid options:
 
-  flow         
-  babylon      
-  typescript   
-  css          
-  less         
-  scss         
-  json         
-  graphql      
+  flow         https://github.com/facebook/flow
+  babylon      https://github.com/babel/babylon
+  typescript   https://github.com/eslint/typescript-eslint-parser
+  css          https://github.com/postcss/postcss
+  less         https://github.com/shellscape/postcss-less
+  scss         https://github.com/postcss/postcss-scss
+  json         https://github.com/babel/babylon
+  graphql      https://github.com/graphql/graphql-js
 
 Default: babylon
 "

@@ -585,14 +585,14 @@ input file path, so you shouldn't have to change this setting.
 
 Valid options:
 
-* `flow`        https://github.com/facebook/flow/
-* `babylon`     https://github.com/babel/babylon/
+* `flow`        https://github.com/facebook/flow
+* `babylon`     https://github.com/babel/babylon
 * `typescript`  https://github.com/eslint/typescript-eslint-parser
 * `css`         https://github.com/postcss/postcss
 * `less`        https://github.com/shellscape/postcss-less
 * `scss`        https://github.com/postcss/postcss-scss
-* `json`        https://github.com/babel/babylon/
-* `graphql`     https://github.com/graphql/graphql-js/
+* `json`        https://github.com/babel/babylon
+* `graphql`     https://github.com/graphql/graphql-js
 
 Default | CLI Override | API Override
 --------|--------------|-------------
