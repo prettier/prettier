@@ -52,16 +52,20 @@ function formatOption(detailedOption, headingLevel) {
 
   const defaultValue = cliUtil.getOptionDefaultValue(detailedOption.name);
 
+  const name = {
+    cli: cliUtil.getOptionName(detailedOption, "cli"),
+    api: cliUtil.getOptionName(detailedOption, "api")
+  };
+
   const tableRow = [
     serialize(defaultValue),
+    // CLI Override
     backtick(
-      cliUtil.getOptionName(detailedOption, "cli") +
+      (defaultValue === true ? name.cli.replace("--", "--no-") : name.cli) +
         (usageType ? ` ${usageType}` : "")
     ),
-    backtick(
-      cliUtil.getOptionName(detailedOption, "api") +
-        `: ${usageType ? usageType : "<bool>"}`
-    )
+    // API Override
+    backtick(name.api + `: ${usageType ? usageType : "<bool>"}`)
   ].join(" | ");
 
   return [header, description, choices, [tableHeader, tableRow].join("\n")]

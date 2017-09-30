@@ -13,7 +13,7 @@ Print spaces between brackets.
 
 Default | CLI Override | API Override
 --------|--------------|-------------
-`true` | `--bracket-spacing` | `bracketSpacing: <bool>`
+`true` | `--no-bracket-spacing` | `bracketSpacing: <bool>`
 
 ## Cursor offset
 
@@ -140,7 +140,7 @@ Print semicolons.
 
 Default | CLI Override | API Override
 --------|--------------|-------------
-`true` | `--semi` | `semi: <bool>`
+`true` | `--no-semi` | `semi: <bool>`
 
 ## Single quote
 
