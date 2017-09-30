@@ -41,7 +41,7 @@ Which parser to use.
 Both the `babylon` and `flow` parsers support the same set of JavaScript
 features (including Flow). Prettier automatically infers the parser from the
 input file path, so you shouldn't have to change this setting.
-
+   
 
 Valid options:
 
@@ -74,7 +74,7 @@ The line length where Prettier will try wrap.
 > Prettier, on the other hand, strives to fit the most code into every line.
 > With the print width set to 120, prettier may produce overly compact, or
 > otherwise undesirable code.
-
+   
 
 
 Default | CLI Override | API Override
@@ -108,25 +108,23 @@ Default | CLI Override | API Override
 Require either '@prettier' or '@format' to be present in the file's first docblock comment
 in order for it to be formatted.
 
-Prettier can restrict itself to only format files that contain a special comment, called a pragma, at the top of the file. This is very useful
+Prettier can restrict itself to only format files that contain a special
+comment, called a pragma, at the top of the file. This is very useful
 when gradually transitioning large, unformatted codebases to prettier.
-
-For example, a file with the following as its first comment will be formatted when `--require-pragma` is supplied:
-
+For example, a file with the following as its first comment will be
+formatted when `--require-pragma` is supplied:
 ```js
 /**
  * @prettier
  */
-```
-
-or
-
+````
+    or
 ```js
 /**
  * @format
  */
 ```
-
+   
 
 
 Default | CLI Override | API Override
@@ -147,9 +145,13 @@ Default | CLI Override | API Override
 Use single quotes instead of double quotes.
 
 Notes:
-* Quotes in JSX will always be double and ignore this setting.
-* If the number of quotes outweighs the other quote, the quote which is less used will be used to format the string - Example: `"I'm double quoted"` results in `"I'm double quoted"` and `"This \"example\" is single quoted"` results in `'This "example" is single quoted'`.
-
+- Quotes in JSX will always be double and ignore this setting.
+- If the number of quotes outweighs the other quote, the quote which is
+  less used will be used to format the string -
+  Example: `"I'm double quoted"` results in `"I'm double quoted"` and
+  `"This \"example\" is single quoted"` results in `'This "example" is
+  single quoted'`.
+   
 
 
 Default | CLI Override | API Override
@@ -159,6 +161,12 @@ Default | CLI Override | API Override
 ## Stdin filepath
 
 Path to the file to pretend that stdin comes from.
+
+For example, the following will use `postcss` parser:
+```bash
+cat foo | prettier --stdin-filepath foo.css
+```
+   
 
 
 Default | CLI Override | API Override

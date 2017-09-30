@@ -18,6 +18,7 @@ const resolver = require("./resolve-config");
 const constant = require("./cli-constant");
 const validator = require("./cli-validator");
 const apiDefaultOptions = require("./options").defaults;
+const categoryOrder = require("./options-categories").categoryOrder;
 const errors = require("./errors");
 
 const OPTION_USAGE_THRESHOLD = 25;
@@ -378,8 +379,8 @@ function createUsage() {
 
   const groupedOptions = groupBy(options, option => option.category);
 
-  const firstCategories = constant.categoryOrder.slice(0, -1);
-  const lastCategories = constant.categoryOrder.slice(-1);
+  const firstCategories = categoryOrder.slice(0, -1);
+  const lastCategories = categoryOrder.slice(-1);
   const restCategories = Object.keys(groupedOptions).filter(
     category =>
       firstCategories.indexOf(category) === -1 &&

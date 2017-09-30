@@ -1,14 +1,14 @@
 "use strict";
 
 const humanize = require("humanize-string");
-const yaml = require("js-yaml");
+const babylon = require("babylon");
 const path = require("path");
 const fs = require("fs");
 
 const cliUtil = require("../src/cli-util");
 const detailedOptions = require("../src/cli-constant").detailedOptions;
-const optionDocs = yaml.safeLoad(
-  fs.readFileSync(path.resolve(__dirname, "../docs/options.yaml"))
+const optionDocs = extractDocumentationFromFile(
+  path.resolve(__dirname, "../src/options-definitions.js")
 );
 
 module.exports = (_, options) => {
@@ -93,4 +93,30 @@ function serialize(thing) {
     default:
       return backtick(JSON.stringify(thing));
   }
+}
+
+function extractDocumentationFromFile(fsPath) {
+  const definitions = babylon.parse(fs.readFileSync(fsPath, "utf8"));
+
+  const statement = definitions.program.body.find(
+    item =>
+      item.type === "ExpressionStatement" &&
+      item.expression.type === "AssignmentExpression" &&
+      item.expression.left.type === "MemberExpression" &&
+      item.expression.left.object.name === "module"
+  );
+
+  return statement.expression.right.properties.reduce((obj, property) => {
+    if (
+      property.leadingComments &&
+      property.leadingComments[0].type === "CommentBlock"
+    ) {
+      obj[
+        property.key.value || property.key.name
+      ] = property.leadingComments[0].value
+        .replace(/\\\//g, "/")
+        .replace(/^\s*\*\s/gm, "");
+    }
+    return obj;
+  }, {});
 }
