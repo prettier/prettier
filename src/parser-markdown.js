@@ -1,9 +1,42 @@
 "use strict";
 
-const map = require("unist-util-map");
 const remarkFrontmatter = require("remark-frontmatter");
 const remarkParse = require("remark-parse");
 const unified = require("unified");
+
+function map(ast, handler) {
+  return (function preorder(node, index, parent) {
+    const newNode = Object.assign({}, handler(node, index, parent));
+    if (newNode.children) {
+      newNode.children = newNode.children.map((child, index) => {
+        return preorder(child, index, newNode);
+      });
+    }
+    return newNode;
+  })(ast, null, null);
+}
+
+function mergeContinuousTexts() {
+  return ast =>
+    map(ast, node => {
+      if (!node.children) {
+        return node;
+      }
+      const children = node.children.reduce((current, child) => {
+        const lastChild = current[current.length - 1];
+        if (lastChild && lastChild.type === "text" && child.type === "text") {
+          current.splice(-1, 1, {
+            type: "text",
+            value: lastChild.value + child.value
+          });
+        } else {
+          current.push(child);
+        }
+        return current;
+      }, []);
+      return Object.assign({}, node, { children });
+    });
+}
 
 function splitText() {
   return ast =>
@@ -29,6 +62,7 @@ function parse(text /*, parsers, opts*/) {
   const processor = unified()
     .use(remarkParse, { position: false, footnotes: true })
     .use(remarkFrontmatter, ["yaml"])
+    .use(mergeContinuousTexts)
     .use(splitText);
   return processor.runSync(processor.parse(text));
 }
