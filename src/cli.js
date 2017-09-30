@@ -48,5 +48,6 @@ function run(args) {
 }
 
 module.exports = {
-  run
+  run,
+  mockable: util.mockable
 };

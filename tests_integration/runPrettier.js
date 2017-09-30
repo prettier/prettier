@@ -1,7 +1,10 @@
 "use strict";
 
+const isProduction = process.env.NODE_ENV === "production";
 const fs = require("fs");
 const path = require("path");
+const stripAnsi = require("strip-ansi");
+const bin = require(isProduction ? "../dist/bin/prettier" : "../bin/prettier");
 
 function runPrettier(dir, args, options) {
   args = args || [];
@@ -33,6 +36,11 @@ function runPrettier(dir, args, options) {
   const spiedConsoleError = jest.spyOn(console, "error");
   spiedConsoleError.mockImplementation(text => appendStderr(text + "\n"));
 
+  const spiedGetStream = jest.spyOn(bin.mockable, "getStream");
+  spiedGetStream.mockImplementation(() => ({
+    then: handler => handler(options.input || "")
+  }));
+
   const write = [];
 
   const spiedFsWriteFileSync = jest.spyOn(fs, "writeFileSync");
@@ -50,12 +58,9 @@ function runPrettier(dir, args, options) {
   process.argv = ["path/to/node", "path/to/prettier/bin"].concat(args);
 
   jest.resetModules();
-  jest.setMock("get-stream", () => ({
-    then: handler => handler(options.input || "")
-  }));
 
   try {
-    require("../bin/prettier");
+    bin.run();
     status = (status === undefined ? process.exitCode : status) || 0;
   } catch (error) {
     status = 1;
@@ -68,7 +73,16 @@ function runPrettier(dir, args, options) {
     jest.restoreAllMocks();
   }
 
-  return { status, stdout, stderr, write };
+  // Colors are removed from the output here (using `stripAnsi`) because:
+  // - It makes snapshots difficult to read.
+  // - Manually passing `--no-color` in tests is tedious, and doesn't work in
+  //   the production build for some reason (only in the tests).
+  return {
+    status,
+    stdout: stripAnsi(stdout),
+    stderr: stripAnsi(stderr),
+    write
+  };
 
   function appendStdout(text) {
     if (status === undefined) {

@@ -8,6 +8,7 @@ export default Object.assign(baseConfig, {
   entry: "bin/prettier.js",
   dest: "dist/bin/prettier.js",
   format: "cjs",
+  exports: "named",
   banner: "#!/usr/bin/env node",
   plugins: [
     replace({
