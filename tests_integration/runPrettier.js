@@ -46,12 +46,16 @@ function runPrettier(dir, args, options) {
   const originalCwd = process.cwd();
   const originalArgv = process.argv;
   const originalExitCode = process.exitCode;
-  const originalStdin = process.stdin;
+  const originalStdin = Object.getOwnPropertyDescriptor(process, "stdin");
 
   process.chdir(normalizeDir(dir));
-  process.stdin = new SimpleReadableStream(options.input || "");
-  process.stdin.isTTY = !!options.isTTY;
   process.argv = ["path/to/node", "path/to/prettier/bin"].concat(args);
+
+  // `process.stdin` isn’t `writable` so we need to use `Object.defineProperty`
+  // instead.
+  const stdin = new SimpleReadableStream(options.input || "");
+  stdin.isTTY = !!options.isTTY;
+  Object.defineProperty(process, "stdin", { value: stdin });
 
   jest.resetModules();
 
@@ -65,7 +69,7 @@ function runPrettier(dir, args, options) {
     process.chdir(originalCwd);
     process.argv = originalArgv;
     process.exitCode = originalExitCode;
-    process.stdin = originalStdin;
+    Object.defineProperty(process, "stdin", originalStdin);
     jest.restoreAllMocks();
   }
 
