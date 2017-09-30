@@ -667,8 +667,9 @@ module.exports = {
   formatFiles,
   createUsage,
   createDetailedUsage,
-  getOptionName,
+  createChoiceUsages,
   createOptionUsageType,
+  getOptionName,
   getOptionDefaultValue,
   normalizeConfig
 };

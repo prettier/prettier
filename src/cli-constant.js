@@ -186,15 +186,24 @@ const detailedOptions = normalizeDetailedOptions({
     forwardToApi: true,
     exception: value => typeof value === "string", // Allow path to a parser module.
     choices: [
-      "flow",
-      "babylon",
-      "typescript",
-      "css",
+      { value: "flow", description: "https://github.com/facebook/flow/" },
+      { value: "babylon", description: "https://github.com/babel/babylon/" },
+      {
+        value: "typescript",
+        description: "https://github.com/eslint/typescript-eslint-parser"
+      },
+      { value: "css", description: "https://github.com/postcss/postcss" },
       { value: "postcss", deprecated: true, redirect: "css" },
-      "less",
-      "scss",
-      "json",
-      "graphql"
+      {
+        value: "less",
+        description: "https://github.com/shellscape/postcss-less"
+      },
+      { value: "scss", description: "https://github.com/postcss/postcss-scss" },
+      { value: "json", description: "https://github.com/babel/babylon/" },
+      {
+        value: "graphql",
+        description: "https://github.com/graphql/graphql-js/"
+      }
     ],
     description: "Which parser to use.",
     getter: (value, argv) => (argv["flow-parser"] ? "flow" : value)
