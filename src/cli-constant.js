@@ -192,7 +192,10 @@ const detailedOptions = normalizeDetailedOptions({
         value: "typescript",
         description: "https://github.com/eslint/typescript-eslint-parser"
       },
-      { value: "css", description: "https://github.com/postcss/postcss" },
+      {
+        value: "css",
+        description: "scientifically try both postcss-less and postcss-scss"
+      },
       { value: "postcss", deprecated: true, redirect: "css" },
       {
         value: "less",

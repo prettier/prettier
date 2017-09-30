@@ -71,7 +71,7 @@ function formatOption(detailedOption, headingLevel) {
 
 // https://github.com/chjj/marked/issues/285
 function backtick(string) {
-  if (string.indexOf("|") > -1) {
+  if (string.includes("|")) {
     return `<code>${string
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")

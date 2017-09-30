@@ -38,7 +38,7 @@ Valid options:
 * `flow`        https://github.com/facebook/flow
 * `babylon`     https://github.com/babel/babylon
 * `typescript`  https://github.com/eslint/typescript-eslint-parser
-* `css`         https://github.com/postcss/postcss
+* `css`         scientifically try both postcss-less and postcss-scss
 * `less`        https://github.com/shellscape/postcss-less
 * `scss`        https://github.com/postcss/postcss-scss
 * `json`        https://github.com/babel/babylon
