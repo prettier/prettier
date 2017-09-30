@@ -3,6 +3,7 @@
 const isProduction = process.env.NODE_ENV === "production";
 const fs = require("fs");
 const path = require("path");
+const stripAnsi = require("strip-ansi");
 const bin = require(isProduction ? "../dist/bin/prettier" : "../bin/prettier");
 
 function runPrettier(dir, args, options) {
@@ -72,7 +73,16 @@ function runPrettier(dir, args, options) {
     jest.restoreAllMocks();
   }
 
-  return { status, stdout, stderr, write };
+  // Colors are removed from the output here (using `stripAnsi`) because:
+  // - It makes snapshots difficult to read.
+  // - Manually passing `--no-color` in tests is tedious, and doesn't work in
+  //   the production build for some reason (only in the tests).
+  return {
+    status,
+    stdout: stripAnsi(stdout),
+    stderr: stripAnsi(stderr),
+    write
+  };
 
   function appendStdout(text) {
     if (status === undefined) {
