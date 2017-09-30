@@ -51,7 +51,7 @@ function genericPrint(path, options, print) {
     case "sentence":
       return printChildren(path, options, print);
     case "word":
-      return node.value;
+      return escapeString(node.value, ["_", "*", "~~"]);
     case "whitespace": {
       return hasParentType(path, SINGLE_LINE_NODE_TYPES) ? " " : line;
     }
@@ -401,13 +401,16 @@ function normalizeParts(parts) {
   }, []);
 }
 
-function escapeString(str, chars) {
+function escapeString(str, targets) {
   let escaped = str;
 
-  chars.forEach(char => {
-    escaped = str.replace(
-      new RegExp(escapeStringRegexp(char), "g"),
-      `\\${char}`
+  targets.forEach(target => {
+    escaped = escaped.replace(
+      new RegExp(escapeStringRegexp(target), "g"),
+      target
+        .split("")
+        .map(char => `\\${char}`)
+        .join("")
     );
   });
 
