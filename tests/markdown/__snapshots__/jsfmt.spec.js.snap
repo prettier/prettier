@@ -2255,7 +2255,7 @@ Header 2
 > ## This is a header.
 >
 > 1. This is the first list item.
-> 2. This is the second list item.
+> 1. This is the second list item.
 >
 > Here's some example code:
 >
@@ -2300,13 +2300,13 @@ Header 2
 \`\`\`
 
 1. Buy flour and salt
-2. Mix together with water
-3. Bake
+1. Mix together with water
+1. Bake
 
 \`\`\`markdown
 1. Buy flour and salt
-2. Mix together with water
-3. Bake
+1. Mix together with water
+1. Bake
 \`\`\`
 
 Paragraph:

@@ -106,7 +106,7 @@ function genericPrint(path, options, print) {
       return printChildren(path, options, print, {
         processor: (childPath, index) => {
           const prefix = node.ordered
-            ? `${node.start + index}. `
+            ? `${index === 0 ? node.start : 1}. `
             : nthSiblingIndex % 2 === 0 ? "- " : "+ ";
           return concat([prefix, align(prefix.length, childPath.call(print))]);
         }
