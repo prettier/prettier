@@ -1022,9 +1022,9 @@ styling[\\*](#styling-footnote) by parsing it away and re-printing the parsed AS
 with its own rules that take the maximum line length into account, wrapping code
 when necessary.
 
-<a href="#styling-footnote" name="styling-footnote">\\*</a>*Well actually, some
+<a href="#styling-footnote" name="styling-footnote">\\*</a>_Well actually, some
 original styling is preserved when practical—see [empty lines] and
-[multi-line objects].*
+[multi-line objects]._
 
 [empty lines]: Rationale.md#empty-lines
 [multi-line objects]: Rationale.md#multi-line-objects
@@ -1191,7 +1191,7 @@ You can install it globally if you like:
 yarn global add prettier
 \`\`\`
 
-*We're using \`yarn\` but you can use \`npm\` if you like:*
+_We're using \`yarn\` but you can use \`npm\` if you like:_
 
 \`\`\`
 npm install --save-dev --save-exact prettier
@@ -1689,15 +1689,15 @@ Built-in parsers:
 
 - [\`babylon\`](https://github.com/babel/babylon/)
 - [\`flow\`](https://github.com/facebook/flow/tree/master/src/parser)
-- [\`typescript\`](https://github.com/eslint/typescript-eslint-parser) *Since
-  v1.4.0*
-- [\`postcss\`](https://github.com/postcss/postcss) *Since v1.4.0*
+- [\`typescript\`](https://github.com/eslint/typescript-eslint-parser) _Since
+  v1.4.0_
+- [\`postcss\`](https://github.com/postcss/postcss) _Since v1.4.0_
 - [\`json\`](https://github.com/babel/babylon/tree/f09eb3200f57ea94d51c2a5b1facf2149fb406bf#babylonparseexpressioncode-options)
-  *Since v1.5.0*
+  _Since v1.5.0_
 - [\`graphql\`](https://github.com/graphql/graphql-js/tree/master/src/language)
-  *Since v1.5.0*
+  _Since v1.5.0_
 
-[Custom parsers](#custom-parser-api) are also supported. *Since v1.5.0*
+[Custom parsers](#custom-parser-api) are also supported. _Since v1.5.0_
 
 | Default   | CLI Override                                    | API Override                                               |
 | --------- | ----------------------------------------------- | ---------------------------------------------------------- |
@@ -1895,7 +1895,7 @@ enabled, but you can also use the [Flow](https://github.com/facebook/flow)
 parser with the \`parser\` API or \`--parser\` CLI [option](#options).
 
 All of JSX and Flow syntax is supported. In fact, the test suite in \`tests/flow\`
-*is* the entire Flow test suite and they all pass.
+_is_ the entire Flow test suite and they all pass.
 
 Prettier also supports [TypeScript](https://www.typescriptlang.org/), CSS,
 [LESS](http://lesscss.org/), [SCSS](http://sass-lang.com),
@@ -1966,7 +1966,7 @@ More (rough) details can be found in [commands.md](commands.md).
 
 ## Badge
 
-Show the world you're using *Prettier* →
+Show the world you're using _Prettier_ →
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
 \`\`\`md

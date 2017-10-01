@@ -56,7 +56,7 @@ function genericPrint(path, options, print) {
       return hasParentType(path, SINGLE_LINE_NODE_TYPES) ? " " : line;
     }
     case "emphasis":
-      return concat(["*", printChildren(path, options, print), "*"]);
+      return concat(["_", printChildren(path, options, print), "_"]);
     case "strong":
       return concat(["**", printChildren(path, options, print), "**"]);
     case "delete":
