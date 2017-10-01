@@ -93,7 +93,7 @@ function genericPrint(path, options, print) {
         "```",
         node.lang || "",
         hardline,
-        node.value,
+        getFormattedCode(path, options),
         hardline,
         "```"
       ]);
@@ -456,6 +456,65 @@ function mapDoc(doc, callback) {
   }
 
   return callback(doc);
+}
+
+function getFormattedCode(path, options) {
+  const node = path.getValue();
+  const parser = getParserName(node.lang);
+
+  if (parser === null) {
+    return node.value;
+  }
+
+  const prettier = require("..");
+  const indentation = getIndentationLength(path);
+
+  const formatted = prettier
+    .format(
+      node.value,
+      Object.assign({}, options, {
+        parser,
+        printWidth: options.printWidth - indentation,
+        rangeStart: 0,
+        rangeEnd: Infinity
+      })
+    )
+    .trimRight();
+
+  return formatted;
+}
+
+function getIndentationLength(/* path */) {
+  // TODO:
+  return 0;
+}
+
+function getParserName(lang) {
+  switch (lang) {
+    case "js":
+    case "javascript":
+      return "babylon";
+    case "ts":
+    case "typescript":
+      return "typescript";
+    case "gql":
+    case "graphql":
+      return "graphql";
+    case "css":
+      return "css";
+    case "less":
+      return "less";
+    case "scss":
+      return "scss";
+    case "json":
+    case "json5":
+      return "json";
+    case "md":
+    case "markdown":
+      return "markdown";
+    default:
+      return null;
+  }
 }
 
 module.exports = genericPrint;

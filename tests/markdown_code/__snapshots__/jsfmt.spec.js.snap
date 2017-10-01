@@ -1,5 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`format.md 1`] = `
+\`\`\`js
+const foo      = 'bar'
+
+
+
+   console     .log(    213    )
+\`\`\`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\`\`\`js
+const foo = "bar";
+
+console.log(213);
+\`\`\`
+
+`;
+
 exports[`lang.md 1`] = `
 \`\`\`js
 console.log("hello world");

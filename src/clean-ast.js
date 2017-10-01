@@ -59,6 +59,11 @@ function massageAST(ast, parent) {
       delete newObj[name];
     });
 
+    // for markdown codeblock
+    if (ast.type === "code") {
+      delete newObj.value;
+    }
+
     if (
       ast.type === "media-query" ||
       ast.type === "media-query-list" ||
