@@ -4148,19 +4148,19 @@ function printJSXElement(path, options, print) {
     return openingLines;
   }
 
-  // Convert `{" "}` to text nodes containing a space.
-  // This makes it easy to turn them into `jsxWhitespace` which
-  // can then print as either a space or `{" "}` when breaking.
-  n.children = n.children.map(child => {
-    if (isJSXWhitespaceExpression(child)) {
-      return {
-        type: "JSXText",
-        value: " ",
-        raw: " "
-      };
-    }
-    return child;
-  });
+  // // Convert `{" "}` to text nodes containing a space.
+  // // This makes it easy to turn them into `jsxWhitespace` which
+  // // can then print as either a space or `{" "}` when breaking.
+  // n.children = n.children.map(child => {
+  //   if (isJSXWhitespaceExpression(child)) {
+  //     return {
+  //       type: "JSXText",
+  //       value: " ",
+  //       raw: " "
+  //     };
+  //   }
+  //   return child;
+  // });
 
   const containsTag =
     n.children.filter(child => child.type === "JSXElement").length > 0;
@@ -4169,6 +4169,9 @@ function printJSXElement(path, options, print) {
     1;
   const containsMultipleAttributes = n.openingElement.attributes.length > 1;
 
+  const containsText =
+    n.children.filter(child => isMeaningfulJSXText(child)).length > 0;
+
   // Record any breaks. Should never go from true to false, only false to true.
   let forcedBreak =
     willBreak(openingLines) ||
@@ -4176,48 +4179,193 @@ function printJSXElement(path, options, print) {
     containsMultipleAttributes ||
     containsMultipleExpressions;
 
+  // contains tags/expressions etc
   const rawJsxWhitespace = options.singleQuote ? "{' '}" : '{" "}';
   const jsxWhitespace = ifBreak(concat([rawJsxWhitespace, softline]), " ");
 
-  const children = printJSXChildren(path, options, print, jsxWhitespace);
+  // xxx
+  const convertText = child => {
+    const text = rawText(child);
+    if (isMeaningfulJSXText(child)) {
+      const output = [];
+      const words = text.split(matchJsxWhitespaceRegex);
 
-  const containsText =
-    n.children.filter(child => isMeaningfulJSXText(child)).length > 0;
+      // Starts with whitespace
+      if (words[0] === "") {
+        words.shift();
+        if (/\n/.test(words[0])) {
+          output.push("\n");
+        } else {
+          output.push(" ");
+        }
+        words.shift();
+      } else {
+        output.push("");
+      }
 
-  // We can end up we multiple whitespace elements with empty string
-  // content between them.
-  // We need to remove empty whitespace and softlines before JSX whitespace
-  // to get the correct output.
-  for (let i = children.length - 2; i >= 0; i--) {
-    const isPairOfEmptyStrings = children[i] === "" && children[i + 1] === "";
-    const isPairOfHardlines =
-      children[i] === hardline &&
-      children[i + 1] === "" &&
-      children[i + 2] === hardline;
-    const isLineFollowedByJSXWhitespace =
-      (children[i] === softline || children[i] === hardline) &&
-      children[i + 1] === "" &&
-      children[i + 2] === jsxWhitespace;
-    const isJSXWhitespaceFollowedByLine =
-      children[i] === jsxWhitespace &&
-      children[i + 1] === "" &&
-      (children[i + 2] === softline || children[i + 2] === hardline);
-    const isDoubleJSXWhitespace =
-      children[i] === jsxWhitespace &&
-      children[i + 1] === "" &&
-      children[i + 2] === jsxWhitespace;
+      let endWhitespace;
+      // Ends with whitespace
+      if (util.getLast(words) === "") {
+        words.pop();
+        endWhitespace = words.pop();
+      }
 
-    if (
-      (isPairOfHardlines && containsText) ||
-      isPairOfEmptyStrings ||
-      isLineFollowedByJSXWhitespace ||
-      isDoubleJSXWhitespace
-    ) {
-      children.splice(i, 2);
-    } else if (isJSXWhitespaceFollowedByLine) {
-      children.splice(i + 1, 2);
+      words.forEach((word, i) => {
+        if (i % 2 === 1) {
+          output.push(" ");
+        } else {
+          output.push(word);
+        }
+      });
+
+      if (endWhitespace !== undefined) {
+        if (/\n/.test(endWhitespace)) {
+          output.push("\n");
+        } else {
+          output.push(" ");
+        }
+      } else {
+        output.push("");
+      }
+      return output;
+    } else if (/\n/.test(text)) {
+      if (text.match(/\n/g).length > 1) {
+        return "\n";
+      }
+      return "\n";
     }
-  }
+    return " ";
+  };
+
+  const isWhitespace = part =>
+    typeof part === "string" &&
+    (part === "" || matchJsxWhitespaceRegex.test(part));
+
+  // Add "" between items not separated by whitespace
+  const addNothingSpacers = (out, part) => {
+    if (
+      out.length > 0 &&
+      !isWhitespace(util.getLast(out)) &&
+      !isWhitespace(part)
+    ) {
+      out.push("");
+    }
+    out.push(part);
+    return out;
+  };
+
+  const flatten = (out, item) => out.concat(item);
+
+  const intermediateRepresentation = path
+    .map(childPath => {
+      const child = childPath.getValue();
+
+      if (isJSXWhitespaceExpression(child)) {
+        return jsxWhitespace;
+      }
+
+      if (isLiteral(child)) {
+        return convertText(child);
+      }
+
+      return print(childPath);
+    }, "children")
+    .reduce(flatten, [])
+    .reduce(addNothingSpacers, [])
+    .reduce((out, part, i, array) => {
+      if (part === jsxWhitespace) {
+        if (
+          (array[i - 1] === "" || array[i - 1] === "\n") &&
+          (array[i + 1] === "" || array[i + 1] === "\n")
+        ) {
+          out.push(" ");
+        } else {
+          out.push(concat([rawJsxWhitespace, softline]));
+        }
+      } else {
+        out.push(part);
+      }
+      return out;
+    }, []);
+
+  // console.log(
+  //   "intermediate",
+  //   JSON.stringify(intermediateRepresentation, null, 2)
+  // );
+
+  const convertWhitespace = (part, i) => {
+    if (!isWhitespace(part)) {
+      return part;
+    }
+
+    const before = intermediateRepresentation[i - 1];
+    const after = intermediateRepresentation[i + 1];
+
+    // console.log({ before: before, part: part, after: after });
+
+    if (part === "\n") {
+      if (typeof before === "undefined" || typeof after === "undefined") {
+        return softline;
+      }
+      if (typeof before === "string" && typeof after === "string") {
+        return line;
+      }
+      return hardline;
+    }
+
+    if (part === " ") {
+      if (typeof before === "string" && typeof after === "string") {
+        return line;
+      }
+      return jsxWhitespace;
+    }
+
+    if (part === "") {
+      if (typeof before === "undefined" || typeof after === "undefined") {
+        return softline;
+      }
+      if (typeof before !== "string" && typeof after !== "string") {
+        return hardline;
+      }
+      return "";
+    }
+    return part;
+  };
+
+  const x = intermediateRepresentation.map(convertWhitespace);
+  // console.log("JSX", x);
+
+  const children = x;
+
+  // // We can end up we multiple whitespace elements with empty string
+  // // content between them.
+  // // We need to remove empty whitespace and softlines before JSX whitespace
+  // // to get the correct output.
+  // for (let i = children.length - 2; i >= 0; i--) {
+  //   const isPairOfEmptyStrings = children[i] === "" && children[i + 1] === "";
+  //   const isPairOfHardlines =
+  //     children[i] === hardline &&
+  //     children[i + 1] === "" &&
+  //     children[i + 2] === hardline;
+  //   const isLineFollowedByJSXWhitespace =
+  //     (children[i] === softline || children[i] === hardline) &&
+  //     children[i + 1] === "" &&
+  //     children[i + 2] === jsxWhitespace;
+  //   const isJSXWhitespaceFollowedByLine =
+  //     children[i] === jsxWhitespace &&
+  //     children[i + 1] === "" &&
+  //     (children[i + 2] === softline || children[i + 2] === hardline);
+
+  //   if (
+  //     (isPairOfHardlines && containsText) ||
+  //     isPairOfEmptyStrings ||
+  //     isLineFollowedByJSXWhitespace
+  //   ) {
+  //     children.splice(i, 2);
+  //   } else if (isJSXWhitespaceFollowedByLine) {
+  //     children.splice(i + 1, 2);
+  //   }
+  // }
 
   // Trim trailing lines (or empty strings)
   while (
@@ -4228,13 +4376,12 @@ function printJSXElement(path, options, print) {
   }
 
   // Trim leading lines (or empty strings)
-  while (
-    children.length &&
-    (isLineNext(children[0]) || isEmpty(children[0])) &&
-    (isLineNext(children[1]) || isEmpty(children[1]))
-  ) {
+  while (children.length && (isLineNext(children[0]) || isEmpty(children[0]))) {
     children.shift();
-    children.shift();
+  }
+
+  if (children[0] === jsxWhitespace) {
+    children.unshift("");
   }
 
   // Tweak how we format children if outputting this element over multiple lines.
@@ -4270,6 +4417,8 @@ function printJSXElement(path, options, print) {
       forcedBreak = true;
     }
   });
+
+  // console.log(multilineChildren);
 
   // If there is text we use `fill` to fit as much onto each line as possible.
   // When there is no text (just tags and expressions) we use `group`

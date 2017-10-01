@@ -305,3 +305,8 @@ x =
   <div>
     {" "}{" "}{" "}
   </div>
+
+x =
+  <div>
+    First {" "} Second
+  </div>
