@@ -390,7 +390,14 @@ function shouldPrePrintDoubleHardline(node, data) {
   const isInNonLooseListItem =
     data.parentNode.type === "listItem" && !data.parentNode.loose;
 
-  return !(isSiblingNode || isSecondNodeInListItem || isInNonLooseListItem);
+  const isPrevNodePrettierIgnore = isPrettierIgnore(data.prevNode);
+
+  return !(
+    isSiblingNode ||
+    isSecondNodeInListItem ||
+    isInNonLooseListItem ||
+    isPrevNodePrettierIgnore
+  );
 }
 
 function shouldPostPrintHardline(node, data) {

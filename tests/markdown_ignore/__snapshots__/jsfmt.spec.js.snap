@@ -24,7 +24,6 @@ exports[`simple.md 1`] = `
 This is a long long long long long long long long long long long long long long long paragraph.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <!-- prettier-ignore -->
-
 This is a long long long long long long long long long long long long long long long paragraph.
 
 `;
