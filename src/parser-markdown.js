@@ -27,7 +27,11 @@ function mergeContinuousTexts() {
         if (lastChild && lastChild.type === "text" && child.type === "text") {
           current.splice(-1, 1, {
             type: "text",
-            value: lastChild.value + child.value
+            value: lastChild.value + child.value,
+            position: {
+              start: lastChild.position.start,
+              end: child.position.end
+            }
           });
         } else {
           current.push(child);
@@ -45,6 +49,7 @@ function splitText() {
         ? node
         : {
             type: "sentence",
+            position: node.position,
             children: node.value
               .split(/(\s+)/g)
               .map(
@@ -60,7 +65,7 @@ function splitText() {
 
 function parse(text /*, parsers, opts*/) {
   const processor = unified()
-    .use(remarkParse, { position: false, footnotes: true })
+    .use(remarkParse, { footnotes: true })
     .use(remarkFrontmatter, ["yaml"])
     .use(mergeContinuousTexts)
     .use(splitText);

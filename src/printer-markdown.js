@@ -294,12 +294,23 @@ function printChildren(path, options, print, events) {
 
   let counter = 0;
   let lastChildNode;
+  let prettierIgnore = false;
 
   path.map((childPath, index) => {
     const childNode = childPath.getValue();
-    const result = processor(childPath, index);
+
+    const result = prettierIgnore
+      ? options.originalText.slice(
+          childNode.position.start.offset,
+          childNode.position.end.offset
+        )
+      : processor(childPath, index);
+
+    prettierIgnore = false;
 
     if (result !== false) {
+      prettierIgnore = isPrettierIgnore(childNode);
+
       const data = {
         parts,
         index: counter++,
@@ -326,6 +337,12 @@ function printChildren(path, options, print, events) {
   }, "children");
 
   return postprocessor(parts);
+}
+
+function isPrettierIgnore(node) {
+  return (
+    node.type === "html" && /^<!--\s*prettier-ignore\s*-->$/.test(node.value)
+  );
 }
 
 function shouldNotPrePrintHardline(node, data) {
