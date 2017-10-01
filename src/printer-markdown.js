@@ -101,13 +101,17 @@ function genericPrint(path, options, print) {
       return concat(["---", hardline, node.value, hardline, "---"]);
     case "html":
       return node.value;
-    case "list":
+    case "list": {
+      const nthSiblingIndex = getNthSiblingIndex(path);
       return printChildren(path, options, print, {
         processor: (childPath, index) => {
-          const prefix = node.ordered ? `${node.start + index}. ` : "- ";
+          const prefix = node.ordered
+            ? `${node.start + index}. `
+            : nthSiblingIndex % 2 === 0 ? "- " : "+ ";
           return concat([prefix, align(prefix.length, childPath.call(print))]);
         }
       });
+    }
     case "listItem": {
       const prefix =
         node.checked === null ? "" : node.checked ? "[x] " : "[ ] ";
@@ -174,6 +178,25 @@ function genericPrint(path, options, print) {
     case "tableRow": // handled in "table"
     default:
       throw new Error(`Unknown markdown type ${JSON.stringify(node.type)}`);
+  }
+}
+
+function getNthSiblingIndex(path) {
+  const node = path.getValue();
+  const parentNode = path.getParentNode();
+
+  let index = -1;
+
+  for (const child of parentNode.children) {
+    if (child.type === node.type) {
+      index++;
+    } else {
+      index = -1;
+    }
+
+    if (child === node) {
+      return index;
+    }
   }
 }
 
