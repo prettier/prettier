@@ -20952,8 +20952,8 @@ const feed = '\f'.charCodeAt(0);
 const tab = '\t'.charCodeAt(0);
 const cr = '\r'.charCodeAt(0);
 const at = '@'.charCodeAt(0);
-const smallE = 'e'.charCodeAt(0);
-const bigE = 'E'.charCodeAt(0);
+const lowerE = 'e'.charCodeAt(0);
+const upperE = 'E'.charCodeAt(0);
 const digit0 = '0'.charCodeAt(0);
 const digit9 = '9'.charCodeAt(0);
 const atEnd = /[ \n\t\r\{\(\)'"\\;,/]/g;
@@ -21246,14 +21246,14 @@ module.exports = function tokenize (input, options) {
 
           // Exponential number notation with minus or plus: 1e-10, 1e+10
           if (regex === wordEndNum || code === period) {
-            let code1 = css.charCodeAt(next),
-              code2 = css.charCodeAt(next + 1),
-              code3 = css.charCodeAt(next + 2);
+            let ncode = css.charCodeAt(next),
+              ncode1 = css.charCodeAt(next + 1),
+              ncode2 = css.charCodeAt(next + 2);
 
             if (
-              (code1 === smallE || code1 === bigE) &&
-              (code2 === minus || code2 === plus) &&
-              (code3 >= digit0 && code3 <= digit9)
+              (ncode === lowerE || ncode === upperE) &&
+              (ncode1 === minus || ncode1 === plus) &&
+              (ncode2 >= digit0 && ncode2 <= digit9)
             ) {
               wordEndNum.lastIndex = next + 2;
               wordEndNum.test(css);
