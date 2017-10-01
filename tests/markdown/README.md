@@ -88,6 +88,7 @@ foo(arg1, arg2, arg3, arg4);
 
 It fits in a single line so it's going to stay as is. However, we've all run into this situation:
 
+<!-- prettier-ignore -->
 ```js
 foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
 ```
