@@ -65,7 +65,7 @@ function splitText() {
 
 function parse(text /*, parsers, opts*/) {
   const processor = unified()
-    .use(remarkParse, { footnotes: true })
+    .use(remarkParse, { footnotes: true, commonmark: true })
     .use(remarkFrontmatter, ["yaml"])
     .use(mergeContinuousTexts)
     .use(splitText);

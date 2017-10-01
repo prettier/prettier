@@ -28,7 +28,8 @@ const INLINE_NODE_TYPES = [
   "footnoteReference",
   "sentence",
   "whitespace",
-  "word"
+  "word",
+  "break"
 ];
 
 const INLINE_NODE_WRAPPER_TYPES = INLINE_NODE_TYPES.concat([
@@ -51,7 +52,7 @@ function genericPrint(path, options, print) {
     case "sentence":
       return printChildren(path, options, print);
     case "word":
-      return escapeHtmlEntities(escapeString(node.value, ["_", "*", "~~"]));
+      return escapeString(node.value, ["\\", "_", "*", "~~", "<", ">", "&"]);
     case "whitespace": {
       return hasParentType(path, SINGLE_LINE_NODE_TYPES) ? " " : line;
     }
@@ -175,6 +176,8 @@ function genericPrint(path, options, print) {
       return printTable(path, options, print);
     case "tableCell":
       return printChildren(path, options, print);
+    case "break":
+      return concat(["\\", hardline]);
     case "tableRow": // handled in "table"
     default:
       throw new Error(`Unknown markdown type ${JSON.stringify(node.type)}`);
@@ -465,13 +468,6 @@ function escapeString(str, targets) {
   });
 
   return escaped;
-}
-
-function escapeHtmlEntities(str) {
-  return str
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
 }
 
 function mapDoc(doc, callback) {
