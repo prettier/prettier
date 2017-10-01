@@ -9,7 +9,6 @@ const fill = docBuilders.fill;
 const align = docBuilders.align;
 const docPrinter = require("./doc-printer");
 const printDocToString = docPrinter.printDocToString;
-const multiparser = require("./multiparser");
 const escapeStringRegexp = require("escape-string-regexp");
 
 const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "footnoteDefinition"];
