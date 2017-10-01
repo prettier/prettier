@@ -492,9 +492,11 @@ function getIndentationLength(/* path */) {
 function getParserName(lang) {
   switch (lang) {
     case "js":
+    case "jsx":
     case "javascript":
       return "babylon";
     case "ts":
+    case "tsx":
     case "typescript":
       return "typescript";
     case "gql":
