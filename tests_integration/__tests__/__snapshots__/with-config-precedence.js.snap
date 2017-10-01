@@ -1,10 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CLI --stdin-filepath works with --config-precedence 1`] = `
-"let x: keyof Y = foo<typeof X>();
-"
-`;
-
 exports[`CLI --stdin-filepath works with --config-precedence cli-override 1`] = `
 "let x: keyof Y = foo<typeof X>()
 "
