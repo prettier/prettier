@@ -51,7 +51,7 @@ function genericPrint(path, options, print) {
     case "sentence":
       return printChildren(path, options, print);
     case "word":
-      return escapeString(node.value, ["_", "*", "~~"]);
+      return escapeHtmlEntities(escapeString(node.value, ["_", "*", "~~"]));
     case "whitespace": {
       return hasParentType(path, SINGLE_LINE_NODE_TYPES) ? " " : line;
     }
@@ -415,6 +415,13 @@ function escapeString(str, targets) {
   });
 
   return escaped;
+}
+
+function escapeHtmlEntities(str) {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
 }
 
 function mapDoc(doc, callback) {

@@ -2,7 +2,11 @@
 
 exports[`escape.md 1`] = `
 hello \\* world _ ~~ ya
+
+escape & html < entity > foo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 hello \\* world \\_ \\~\\~ ya
+
+escape &amp; html &lt; entity &gt; foo
 
 `;
