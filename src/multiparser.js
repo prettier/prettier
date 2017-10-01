@@ -33,6 +33,55 @@ function getSubtreeParser(path, options) {
     case "flow":
     case "typescript":
       return fromBabylonFlowOrTypeScript(path, options);
+    case "markdown":
+      return fromMarkdown(path, options);
+  }
+}
+
+function fromMarkdown(path) {
+  const node = path.getValue();
+
+  if (node.type === "code") {
+    const parser = getParserName(node.lang);
+    if (parser) {
+      return {
+        options: { parser },
+        transformDoc: doc => concat(["```", node.lang, hardline, doc, "```"]),
+        text: node.value
+      };
+    }
+  }
+
+  return null;
+
+  function getParserName(lang) {
+    switch (lang) {
+      case "js":
+      case "jsx":
+      case "javascript":
+        return "babylon";
+      case "ts":
+      case "tsx":
+      case "typescript":
+        return "typescript";
+      case "gql":
+      case "graphql":
+        return "graphql";
+      case "css":
+        return "css";
+      case "less":
+        return "less";
+      case "scss":
+        return "scss";
+      case "json":
+      case "json5":
+        return "json";
+      case "md":
+      case "markdown":
+        return "markdown";
+      default:
+        return null;
+    }
   }
 }
 

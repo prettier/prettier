@@ -9,6 +9,7 @@ const fill = docBuilders.fill;
 const align = docBuilders.align;
 const docPrinter = require("./doc-printer");
 const printDocToString = docPrinter.printDocToString;
+const multiparser = require("./multiparser");
 const escapeStringRegexp = require("escape-string-regexp");
 
 const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "footnoteDefinition"];
@@ -93,7 +94,7 @@ function genericPrint(path, options, print) {
         "```",
         node.lang || "",
         hardline,
-        getFormattedCode(path, options),
+        node.value,
         hardline,
         "```"
       ]);
@@ -456,67 +457,6 @@ function mapDoc(doc, callback) {
   }
 
   return callback(doc);
-}
-
-function getFormattedCode(path, options) {
-  const node = path.getValue();
-  const parser = getParserName(node.lang);
-
-  if (parser === null) {
-    return node.value;
-  }
-
-  const prettier = require("..");
-  const indentation = getIndentationLength(path);
-
-  const formatted = prettier
-    .format(
-      node.value,
-      Object.assign({}, options, {
-        parser,
-        printWidth: options.printWidth - indentation,
-        rangeStart: 0,
-        rangeEnd: Infinity
-      })
-    )
-    .trimRight();
-
-  return formatted;
-}
-
-function getIndentationLength(/* path */) {
-  // TODO:
-  return 0;
-}
-
-function getParserName(lang) {
-  switch (lang) {
-    case "js":
-    case "jsx":
-    case "javascript":
-      return "babylon";
-    case "ts":
-    case "tsx":
-    case "typescript":
-      return "typescript";
-    case "gql":
-    case "graphql":
-      return "graphql";
-    case "css":
-      return "css";
-    case "less":
-      return "less";
-    case "scss":
-      return "scss";
-    case "json":
-    case "json5":
-      return "json";
-    case "md":
-    case "markdown":
-      return "markdown";
-    default:
-      return null;
-  }
 }
 
 module.exports = genericPrint;

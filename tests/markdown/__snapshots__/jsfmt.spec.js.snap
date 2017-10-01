@@ -997,7 +997,12 @@ It fits in a single line so it's going to stay as is. However, we've all run
 into this situation:
 
 \`\`\`js
-foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+foo(
+  reallyLongArg(),
+  omgSoManyParameters(),
+  IShouldRefactorThis(),
+  isThereSeriouslyAnotherOne()
+);
 \`\`\`
 
 Suddenly our previous format for calling function breaks down because this is
@@ -1352,9 +1357,7 @@ $ yarn add --dev eslint-config-prettier
 
 \`\`\`json
 {
-  "extends": [
-    "prettier"
-  ]
+  "extends": ["prettier"]
 }
 \`\`\`
 
@@ -1379,10 +1382,7 @@ and add this config to your \`package.json\`:
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "*.{js,json,css}": [
-      "prettier --write",
-      "git add"
-    ]
+    "*.{js,json,css}": ["prettier --write", "git add"]
   }
 }
 \`\`\`
@@ -1482,7 +1482,7 @@ If \`options.useCache\` is \`false\`, all caching will be bypassed.
 const text = fs.readFileSync(filePath, "utf8");
 prettier.resolveConfig(filePath).then(options => {
   const formatted = prettier.format(text, options);
-})
+});
 \`\`\`
 
 Use \`prettier.resolveConfig.sync([filePath [, options]])\` if you'd like to use
@@ -1529,11 +1529,7 @@ abstract syntax tree from formatting.
 For example:
 
 \`\`\`js
-matrix(
-  1, 0, 0,
-  0, 1, 0,
-  0, 0, 1
-)
+matrix(1, 0, 0, 0, 1, 0, 0, 0, 1);
 
 // prettier-ignore
 matrix(
@@ -1771,8 +1767,8 @@ The options to the configuration file are the same the [API options](#options).
 JSON:
 
 \`\`\`json
-// .prettierrc
 {
+  // .prettierrc
   "printWidth": 100,
   "parser": "flow"
 }
@@ -1797,12 +1793,14 @@ JSON:
 \`\`\`json
 {
   "semi": false,
-  "overrides": [{
-    "files": "*.test.js",
-    "options": {
-      "semi": true
+  "overrides": [
+    {
+      "files": "*.test.js",
+      "options": {
+        "semi": true
+      }
     }
-  }]
+  ]
 }
 \`\`\`
 
@@ -1824,10 +1822,12 @@ To get prettier to format its own \`.prettierrc\` file, you can do:
 
 \`\`\`json
 {
-  "overrides": [{
-    "files": ".prettierrc",
-    "options": { "parser": "json" }
-  }]
+  "overrides": [
+    {
+      "files": ".prettierrc",
+      "options": { "parser": "json" }
+    }
+  ]
 }
 \`\`\`
 
