@@ -159,11 +159,14 @@ function getOptionsOrDie(argv, filePath) {
   }
 }
 
-function getOptionsForFile(argv, filePath) {
-  const options = getOptionsOrDie(argv, filePath);
-  return applyConfigPrecedence(
-    argv,
-    options && normalizeConfig("api", options, constant.detailedOptionMap)
+function getOptionsForFile(argv, filepath) {
+  const options = getOptionsOrDie(argv, filepath);
+  return Object.assign(
+    { filepath },
+    applyConfigPrecedence(
+      argv,
+      options && normalizeConfig("api", options, constant.detailedOptionMap)
+    )
   );
 }
 
@@ -206,7 +209,11 @@ function applyConfigPrecedence(argv, options) {
 
 function formatStdin(argv) {
   getStream(process.stdin).then(input => {
-    const options = getOptionsForFile(argv, process.cwd());
+    const filepath = argv["stdin-filepath"]
+      ? path.resolve(process.cwd(), argv["stdin-filepath"])
+      : process.cwd();
+
+    const options = getOptionsForFile(argv, filepath);
 
     if (listDifferent(argv, input, options, "(stdin)")) {
       return;

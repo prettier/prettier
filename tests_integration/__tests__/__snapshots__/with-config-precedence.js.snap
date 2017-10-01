@@ -1,5 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`CLI --stdin-filepath works with --config-precedence 1`] = `
+"let x: keyof Y = foo<typeof X>();
+"
+`;
+
+exports[`CLI --stdin-filepath works with --config-precedence cli-override 1`] = `
+"let x: keyof Y = foo<typeof X>()
+"
+`;
+
+exports[`CLI --stdin-filepath works with --config-precedence file-override 1`] = `
+"let x: keyof Y = foo<typeof X>();
+"
+`;
+
+exports[`CLI --stdin-filepath works with --config-precedence prefer-file 1`] = `
+"let x: keyof Y = foo<typeof X>();
+"
+`;
+
 exports[`CLI overrides are still applied when no config is found with --config-precedence file-override 1`] = `
 "function noConfigJs() {
       console.log(\\"no-config/file.js should have no semicolons\\")
