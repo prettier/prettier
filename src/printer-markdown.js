@@ -65,14 +65,16 @@ function genericPrint(path, options, print) {
     case "inlineCode":
       return concat(["`", node.value, "`"]);
     case "link":
-      return concat([
-        "[",
-        printChildren(path, options, print),
-        "](",
-        node.url,
-        node.title ? ` "${node.title}"` : "",
-        ")"
-      ]);
+      return options.originalText[node.position.start.offset] === "<"
+        ? concat(["<", node.url, ">"])
+        : concat([
+            "[",
+            printChildren(path, options, print),
+            "](",
+            node.url,
+            node.title ? ` "${node.title}"` : "",
+            ")"
+          ]);
     case "image":
       return concat([
         "![",
