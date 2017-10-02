@@ -18,7 +18,7 @@
     "babylon": "7.0.0-beta.23",
     "camelcase": "4.1.0",
     "chalk": "2.1.0",
-    "cosmiconfig": "3.0.1",
+    "cosmiconfig": "3.1.0",
     "dashify": "0.2.2",
     "diff": "3.2.0",
     "esutils": "2.0.2",
