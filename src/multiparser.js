@@ -140,9 +140,38 @@ function fromBabylonFlowOrTypeScript(path) {
         };
       }
 
+      /**
+       * md`...`
+       * markdown`...`
+       */
+      if (
+        parentParent &&
+        (parentParent.type === "TaggedTemplateExpression" &&
+          parent.quasis.length === 1 &&
+          (parentParent.tag.type === "Identifier" &&
+            (parentParent.tag.name === "md" ||
+              parentParent.tag.name === "markdown")))
+      ) {
+        return {
+          options: { parser: "markdown" },
+          transformDoc: doc =>
+            concat([
+              indent(concat([softline, stripTrailingHardline(doc)])),
+              softline
+            ]),
+          // leading whitespaces matter in markdown
+          text: dedent(parent.quasis[0].value.raw)
+        };
+      }
+
       break;
     }
   }
+}
+
+function dedent(str) {
+  const spaces = str.match(/\n^( +)/m)[1].length;
+  return str.replace(new RegExp(`^ {${spaces}}`, "gm"), "").trim();
 }
 
 function fromHtmlParser2(path, options) {
