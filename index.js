@@ -79,7 +79,7 @@ function formatWithCursor(text, opts, addAlignmentSize) {
     const pragmas = Object.assign({ format: "" }, parsedDocblock.pragmas);
     const newDocblock = docblock.print({
       pragmas,
-      comments: parsedDocblock.comments.trim()
+      comments: parsedDocblock.comments
     });
     text = `${newDocblock}\n${docblock.strip(text)}`;
   }
