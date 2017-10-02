@@ -1056,9 +1056,9 @@ core-util-is@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
 
-cosmiconfig@3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/cosmiconfig/-/cosmiconfig-3.0.1.tgz#d290e2b657a7f3a335257a0d306587836650fdc0"
+cosmiconfig@3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/cosmiconfig/-/cosmiconfig-3.1.0.tgz#640a94bf9847f321800403cd273af60665c73397"
   dependencies:
     is-directory "^0.3.1"
     js-yaml "^3.9.0"
