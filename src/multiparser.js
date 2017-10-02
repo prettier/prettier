@@ -42,10 +42,8 @@ function fromBabylonFlowOrTypeScript(path) {
   switch (node.type) {
     case "TemplateLiteral": {
       const isCss = [isStyledJsx, isStyledComponents].some(isIt => isIt(path));
-      const isEmpty =
-        node.quasis.length === 1 && !node.quasis[0].value.raw.trim();
 
-      if (isCss && !isEmpty) {
+      if (isCss) {
         // Get full template literal with expressions replaced by placeholders
         const rawQuasis = node.quasis.map(q => q.value.raw);
         const text = rawQuasis.join("@prettier-placeholder");
@@ -179,6 +177,13 @@ function fromHtmlParser2(path, options) {
 
 function transformCssDoc(quasisDoc, parent) {
   const parentNode = parent.path.getValue();
+
+  const isEmpty =
+    parentNode.quasis.length === 1 && !parentNode.quasis[0].value.raw.trim();
+  if (isEmpty) {
+    return "``";
+  }
+
   const expressionDocs = parentNode.expressions
     ? parent.path.map(parent.print, "expressions")
     : [];

@@ -30,7 +30,7 @@ border : rebeccapurple\`;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const ListItem = styled.li\`\`;
 
-const ListItem = styled.li\` \`;
+const ListItem = styled.li\`\`;
 
 const Dropdown = styled.div\`
   position: relative;
