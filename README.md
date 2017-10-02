@@ -18,61 +18,79 @@ Prettier is an opinionated code formatter with support for:
 It removes all original styling[\*](#styling-footnote) and ensures that all outputted code
 conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
 
+<!-- Do not edit TOC, regenerate with `yarn generate-markdown` -->
+<!-- AUTO-GENERATED-CONTENT:START (TOC:collapse=true) -->
 <details>
-<summary><strong>Table of Contents</strong></summary>
+<summary>Table of Contents</summary>
 
-<!-- Do not edit TOC, regenerate with `yarn toc` -->
-
-<!-- toc -->
-
-* [What does Prettier do?](#what-does-prettier-do)
-* [Why Prettier?](#why-prettier)
-  + [Building and enforcing a style guide](#building-and-enforcing-a-style-guide)
-  + [Helping Newcomers](#helping-newcomers)
-  + [Writing code](#writing-code)
-  + [Easy to adopt](#easy-to-adopt)
-  + [Clean up an existing codebase](#clean-up-an-existing-codebase)
-  + [Ride the hype train](#ride-the-hype-train)
-* [How does it compare to ESLint (or TSLint, stylelint...)?](#how-does-it-compare-to-eslint-or-tslint-stylelint)
-* [Usage](#usage)
-  + [CLI](#cli)
-  + [ESLint](#eslint)
-  + [Pre-commit Hook](#pre-commit-hook)
-  + [API](#api)
-  + [Excluding code from formatting](#excluding-code-from-formatting)
-* [Options](#options)
-  + [Print Width](#print-width)
-  + [Tab Width](#tab-width)
-  + [Tabs](#tabs)
-  + [Semicolons](#semicolons)
-  + [Quotes](#quotes)
-  + [Trailing Commas](#trailing-commas)
-  + [Bracket Spacing](#bracket-spacing)
-  + [JSX Brackets](#jsx-brackets)
-  + [Range](#range)
-  + [Parser](#parser)
-  + [Filepath](#filepath)
-* [Configuration File](#configuration-file)
-  + [Basic Configuration](#basic-configuration)
-  + [Configuration Overrides](#configuration-overrides)
-  + [Configuration Schema](#configuration-schema)
-* [Editor Integration](#editor-integration)
-  + [Atom](#atom)
-  + [Emacs](#emacs)
-  + [Vim](#vim)
-  + [Visual Studio Code](#visual-studio-code)
-  + [Visual Studio](#visual-studio)
-  + [Sublime Text](#sublime-text)
-  + [JetBrains WebStorm, PHPStorm, PyCharm...](#jetbrains-webstorm-phpstorm-pycharm)
-* [Language Support](#language-support)
-* [Related Projects](#related-projects)
-* [Technical Details](#technical-details)
-* [Badge](#badge)
-* [Contributing](#contributing)
-
-<!-- tocstop -->
+- [What does Prettier do?](#what-does-prettier-do)
+- [Why Prettier?](#why-prettier)
+  * [Building and enforcing a style guide](#building-and-enforcing-a-style-guide)
+  * [Helping Newcomers](#helping-newcomers)
+  * [Writing code](#writing-code)
+  * [Easy to adopt](#easy-to-adopt)
+  * [Clean up an existing codebase](#clean-up-an-existing-codebase)
+  * [Ride the hype train](#ride-the-hype-train)
+- [How does it compare to ESLint (or TSLint, stylelint...)?](#how-does-it-compare-to-eslint-or-tslint-stylelint)
+- [Usage](#usage)
+  * [CLI](#cli)
+    + [`--debug-check`](#--debug-check)
+    + [`--find-config-path` and `--config`](#--find-config-path-and---config)
+    + [`--ignore-path`](#--ignore-path)
+    + [`--require-pragma`](#--require-pragma)
+    + [`--list-different`](#--list-different)
+    + [`--no-config`](#--no-config)
+    + [`--config-precedence`](#--config-precedence)
+    + [`--with-node-modules`](#--with-node-modules)
+    + [`--write`](#--write)
+  * [ESLint](#eslint)
+  * [Pre-commit Hook](#pre-commit-hook)
+      - [Option 1. [lint-staged](https://github.com/okonet/lint-staged)](#option-1-lint-stagedhttpsgithubcomokonetlint-staged)
+      - [Option 2. [pre-commit](https://github.com/pre-commit/pre-commit)](#option-2-pre-commithttpsgithubcompre-commitpre-commit)
+      - [Option 3. bash script](#option-3-bash-script)
+  * [API](#api)
+    + [`prettier.format(source [, options])`](#prettierformatsource--options)
+    + [`prettier.check(source [, options])`](#prettierchecksource--options)
+    + [`prettier.formatWithCursor(source [, options])`](#prettierformatwithcursorsource--options)
+    + [`prettier.resolveConfig([filePath [, options]])`](#prettierresolveconfigfilepath--options)
+    + [`prettier.clearConfigCache()`](#prettierclearconfigcache)
+    + [Custom Parser API](#custom-parser-api)
+  * [Excluding code from formatting](#excluding-code-from-formatting)
+- [Options](#options)
+  * [Bracket spacing](#bracket-spacing)
+  * [Cursor offset](#cursor-offset)
+  * [Jsx bracket same line](#jsx-bracket-same-line)
+  * [Parser](#parser)
+  * [Print width](#print-width)
+  * [Range end](#range-end)
+  * [Range start](#range-start)
+  * [Require pragma](#require-pragma)
+  * [Semi](#semi)
+  * [Single quote](#single-quote)
+  * [Stdin filepath](#stdin-filepath)
+  * [Tab width](#tab-width)
+  * [Trailing comma](#trailing-comma)
+  * [Use tabs](#use-tabs)
+- [Configuration File](#configuration-file)
+  * [Basic Configuration](#basic-configuration)
+  * [Configuration Overrides](#configuration-overrides)
+  * [Configuration Schema](#configuration-schema)
+- [Editor Integration](#editor-integration)
+  * [Atom](#atom)
+  * [Emacs](#emacs)
+  * [Vim](#vim)
+  * [Visual Studio Code](#visual-studio-code)
+  * [Visual Studio](#visual-studio)
+  * [Sublime Text](#sublime-text)
+  * [JetBrains WebStorm, PHPStorm, PyCharm...](#jetbrains-webstorm-phpstorm-pycharm)
+- [Language Support](#language-support)
+- [Related Projects](#related-projects)
+- [Technical Details](#technical-details)
+- [Badge](#badge)
+- [Contributing](#contributing)
 
 </details>
+<!-- AUTO-GENERATED-CONTENT:END -->
 
 --------------------------------------------------------------------------------
 
@@ -548,156 +566,207 @@ matrix(
 ## Options
 Prettier ships with a handful of customizable format options, usable in both the CLI and API.
 
-### Print Width
-Specify the line length that the printer will wrap on.
+<!-- AUTO-GENERATED-CONTENT:START (PRETTIER_OPTIONS:headingLevel=3) -->
+### Bracket spacing
 
-> **For readability we recommend against using more than 80 characters:**
->
->In code styleguides, maximum line length rules are often set to 100 or 120. However, when humans write code, they don't strive to reach the maximum number of columns on every line. Developers often use whitespace to break up long lines for readability. In practice, the average line length often ends up well below the maximum.
->
-> Prettier, on the other hand, strives to fit the most code into every line. With the print width set to 120, prettier may produce overly compact, or otherwise undesirable code.
+Print spaces between brackets.
 
-Default | CLI Override | API Override
---------|--------------|-------------
-`80` | `--print-width <int>` | `printWidth: <int>`
-
-### Tab Width
-Specify the number of spaces per indentation-level.
-
-Default | CLI Override | API Override
---------|--------------|-------------
- `2` | `--tab-width <int>` | `tabWidth: <int>`
-
-### Tabs
-Indent lines with tabs instead of spaces
-
-Default | CLI Override | API Override
---------|--------------|-------------
-`false` | `--use-tabs` | `useTabs: <bool>`
-
-### Semicolons
-Print semicolons at the ends of statements.
-
-Valid options:
-
- * `true` - Add a semicolon at the end of every statement.
- * `false` - Only add semicolons at the beginning of lines that may introduce ASI failures.
-
-Default | CLI Override | API Override
---------|--------------|-------------
-`true` | `--no-semi` | `semi: <bool>`
-
-### Quotes
-Use single quotes instead of double quotes.
-
-Notes:
-* Quotes in JSX will always be double and ignore this setting.
-* If the number of quotes outweighs the other quote, the quote which is less used will be used to format the string - Example: `"I'm double quoted"` results in `"I'm double quoted"` and `"This \"example\" is single quoted"` results in `'This "example" is single quoted'`.
-
-Default | CLI Override | API Override
---------|--------------|-------------
-`false` |  `--single-quote` | `singleQuote: <bool>`
-
-### Trailing Commas
-Print trailing commas wherever possible when multi-line. (A single-line array,
-for example, never gets trailing commas.)
-
-Valid options:
- * `"none"` - No trailing commas.
- * `"es5"` - Trailing commas where valid in ES5 (objects, arrays, etc.)
- * `"all"` - Trailing commas wherever possible (including function arguments). This requires node 8 or a [transform](https://babeljs.io/docs/plugins/syntax-trailing-function-commas/).
-
-Default | CLI Override | API Override
---------|--------------|-------------
-`"none"` | <code>--trailing-comma <none&#124;es5&#124;all></code> | <code>trailingComma: "<none&#124;es5&#124;all>"</code>
-
-### Bracket Spacing
-Print spaces between brackets in object literals.
-
-Valid options:
- * `true` - Example: `{ foo: bar }`.
- * `false` - Example: `{foo: bar}`.
 
 Default | CLI Override | API Override
 --------|--------------|-------------
 `true` | `--no-bracket-spacing` | `bracketSpacing: <bool>`
 
-### JSX Brackets
-Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line (does not apply to self closing elements).
+### Cursor offset
+
+Print (to stderr) where a cursor at the given position would move to after formatting.
+This option cannot be used with --range-start and --range-end.
+
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`-1` | `--cursor-offset <int>` | `cursorOffset: <int>`
+
+### Jsx bracket same line
+
+Put > on the last line instead of at a new line.
+
 
 Default | CLI Override | API Override
 --------|--------------|-------------
 `false` | `--jsx-bracket-same-line` | `jsxBracketSameLine: <bool>`
 
-### Range
-Format only a segment of a file.
-
-These two options can be used to format code starting and ending at a given character offset (inclusive and exclusive, respectively). The range will extend:
-* Backwards to the start of the first line containing the selected statement.
-* Forwards to the end of the selected statement.
-
-These options cannot be used with `cursorOffset`.
-
-Default | CLI Override | API Override
---------|--------------|-------------
-`0`        | `--range-start <int>`| `rangeStart: <int>`
-`Infinity` | `--range-end <int>`  | `rangeEnd: <int>`
-
 ### Parser
-Specify which parser to use.
 
-Both the `babylon` and `flow` parsers support the same set of JavaScript features (including Flow). Prettier automatically infers the parser from the input file path, so you shouldn't have to change this setting.
+Which parser to use.
 
-Built-in parsers:
- * [`babylon`](https://github.com/babel/babylon/)
- * [`flow`](https://github.com/facebook/flow/tree/master/src/parser)
- * [`typescript`](https://github.com/eslint/typescript-eslint-parser) _Since v1.4.0_
- * [`postcss`](https://github.com/postcss/postcss) _Since v1.4.0_
- * [`json`](https://github.com/babel/babylon/tree/f09eb3200f57ea94d51c2a5b1facf2149fb406bf#babylonparseexpressioncode-options) _Since v1.5.0_
- * [`graphql`](https://github.com/graphql/graphql-js/tree/master/src/language) _Since v1.5.0_
+Both the `babylon` and `flow` parsers support the same set of JavaScript
+features (including Flow). Prettier automatically infers the parser from the
+input file path, so you shouldn't have to change this setting.
+   
 
-[Custom parsers](#custom-parser-api) are also supported.  _Since v1.5.0_
+Valid options:
 
-Default | CLI Override | API Override
---------|--------------|-------------
-`babylon` | `--parser <string>`<br />`--parser ./my-parser` | `parser: "<string>"`<br />`parser: require("./my-parser")`
+* `flow`        https://github.com/facebook/flow
+* `babylon`     https://github.com/babel/babylon
+* `typescript`  https://github.com/eslint/typescript-eslint-parser
+* `css`         scientifically try both postcss-less and postcss-scss
+* `less`        https://github.com/shellscape/postcss-less
+* `scss`        https://github.com/postcss/postcss-scss
+* `json`        https://github.com/babel/babylon
+* `graphql`     https://github.com/graphql/graphql-js
 
-### Filepath
-Specify the input filepath. This will be used to do parser inference.
-
-For example, the following will use `postcss` parser:
-
-```bash
-cat foo | prettier --stdin-filepath foo.css
-```
 
 Default | CLI Override | API Override
 --------|--------------|-------------
-None | `--stdin-filepath <string>` | `filepath: "<string>"`
+`"babylon"` | <code>--parser &lt;flow&#124;babylon&#124;typescript&#124;css&#124;less&#124;scss&#124;json&#124;graphql&gt;</code> | <code>parser: &lt;flow&#124;babylon&#124;typescript&#124;css&#124;less&#124;scss&#124;json&#124;graphql&gt;</code>
+
+### Print width
+
+The line length where Prettier will try wrap.
+
+> **For readability we recommend against using more than 80 characters:**
+>
+> In code styleguides, maximum line length rules are often set to 100 or 120.
+> However, when humans write code, they don't strive to reach the maximum
+> number of columns on every line. Developers often use whitespace to break
+> up long lines for readability. In practice, the average line length often
+> ends up well below the maximum.
+>
+> Prettier, on the other hand, strives to fit the most code into every line.
+> With the print width set to 120, prettier may produce overly compact, or
+> otherwise undesirable code.
+   
+
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`80` | `--print-width <int>` | `printWidth: <int>`
+
+### Range end
+
+Format code ending at a given character offset (exclusive).
+The range will extend forwards to the end of the selected statement.
+This option cannot be used with --cursor-offset.
+
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`Infinity` | `--range-end <int>` | `rangeEnd: <int>`
+
+### Range start
+
+Format code starting at a given character offset.
+The range will extend backwards to the start of the first line containing the selected statement.
+This option cannot be used with --cursor-offset.
+
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`0` | `--range-start <int>` | `rangeStart: <int>`
 
 ### Require pragma
-Prettier can restrict itself to only format files that contain a special comment, called a pragma, at the top of the file. This is very useful
+
+Require either '@prettier' or '@format' to be present in the file's first docblock comment
+in order for it to be formatted.
+
+Prettier can restrict itself to only format files that contain a special
+comment, called a pragma, at the top of the file. This is very useful
 when gradually transitioning large, unformatted codebases to prettier.
-
-For example, a file with the following as its first comment will be formatted when `--require-pragma` is supplied:
-
+For example, a file with the following as its first comment will be
+formatted when `--require-pragma` is supplied:
 ```js
 /**
  * @prettier
  */
-```
-
-or
-
+````
+    or
 ```js
 /**
  * @format
  */
 ```
+   
+
 
 Default | CLI Override | API Override
 --------|--------------|-------------
 `false` | `--require-pragma` | `requirePragma: <bool>`
+
+### Semi
+
+Print semicolons.
+
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`true` | `--no-semi` | `semi: <bool>`
+
+### Single quote
+
+Use single quotes instead of double quotes.
+
+Notes:
+- Quotes in JSX will always be double and ignore this setting.
+- If the number of quotes outweighs the other quote, the quote which is
+  less used will be used to format the string -
+  Example: `"I'm double quoted"` results in `"I'm double quoted"` and
+  `"This \"example\" is single quoted"` results in `'This "example" is
+  single quoted'`.
+   
+
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`false` | `--single-quote` | `singleQuote: <bool>`
+
+### Stdin filepath
+
+Path to the file to pretend that stdin comes from.
+
+For example, the following will use `postcss` parser:
+```bash
+cat foo | prettier --stdin-filepath foo.css
+```
+   
+
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+N/A | `--stdin-filepath <path>` | `stdinFilepath: <path>`
+
+### Tab width
+
+Number of spaces per indentation level.
+
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`2` | `--tab-width <int>` | `tabWidth: <int>`
+
+### Trailing comma
+
+Print trailing commas wherever possible when multi-line.
+
+Valid options:
+
+* `none`  No trailing commas.
+* `es5`   Trailing commas where valid in ES5 (objects, arrays, etc.)
+* `all`   Trailing commas wherever possible (including function arguments).
+
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`"none"` | <code>--trailing-comma &lt;none&#124;es5&#124;all&gt;</code> | <code>trailingComma: &lt;none&#124;es5&#124;all&gt;</code>
+
+### Use tabs
+
+Indent with tabs instead of spaces.
+
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`false` | `--use-tabs` | `useTabs: <bool>`
+<!-- AUTO-GENERATED-CONTENT:END -->
 
 ## Configuration File
 

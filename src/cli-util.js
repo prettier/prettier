@@ -18,6 +18,7 @@ const resolver = require("./resolve-config");
 const constant = require("./cli-constant");
 const validator = require("./cli-validator");
 const apiDefaultOptions = require("./options").defaults;
+const categoryOrder = require("./options-categories").categoryOrder;
 const errors = require("./errors");
 
 const OPTION_USAGE_THRESHOLD = 25;
@@ -385,8 +386,8 @@ function createUsage() {
 
   const groupedOptions = groupBy(options, option => option.category);
 
-  const firstCategories = constant.categoryOrder.slice(0, -1);
-  const lastCategories = constant.categoryOrder.slice(-1);
+  const firstCategories = categoryOrder.slice(0, -1);
+  const lastCategories = categoryOrder.slice(-1);
   const restCategories = Object.keys(groupedOptions).filter(
     category =>
       firstCategories.indexOf(category) === -1 &&
@@ -417,7 +418,7 @@ function createOptionUsage(option, threshold) {
 }
 
 function createOptionUsageHeader(option) {
-  const name = `--${option.name}`;
+  const name = getOptionName(option, "cli");
   const alias = option.alias ? `-${option.alias},` : null;
   const type = createOptionUsageType(option);
   return [alias, name, type].filter(Boolean).join(" ");
@@ -559,6 +560,10 @@ function groupBy(array, getKey) {
   }, Object.create(null));
 }
 
+function getOptionName(option, type) {
+  return type === "cli" ? `--${option.name}` : camelCase(option.name);
+}
+
 /** @param {'api' | 'cli'} type */
 function normalizeConfig(type, rawConfig, options) {
   if (type === "api" && rawConfig === null) {
@@ -631,10 +636,6 @@ function normalizeConfig(type, rawConfig, options) {
 
   return normalized;
 
-  function getOptionName(option) {
-    return type === "cli" ? `--${option.name}` : camelCase(option.name);
-  }
-
   function getRedirectName(option, choice) {
     return type === "cli"
       ? `--${option.name}=${choice.redirect}`
@@ -642,7 +643,7 @@ function normalizeConfig(type, rawConfig, options) {
   }
 
   function getValue(rawValue, option) {
-    const optionName = getOptionName(option);
+    const optionName = getOptionName(option, type);
     if (rawValue && option.deprecated) {
       let warning = `\`${optionName}\` is deprecated.`;
       if (typeof option.deprecated === "string") {
@@ -679,5 +680,9 @@ module.exports = {
   formatFiles,
   createUsage,
   createDetailedUsage,
+  createChoiceUsages,
+  createOptionUsageType,
+  getOptionName,
+  getOptionDefaultValue,
   normalizeConfig
 };

@@ -128,6 +128,9 @@ pipe(JSON.stringify(pkgWithoutDependencies, null, 2)).to("dist/package.json");
 shell.echo("Copy README.md");
 shell.cp("README.md", "dist/README.md");
 
+shell.echo("Generating markdown");
+shell.exec("yarn generate-markdown");
+
 shell.echo("Done!");
 shell.echo();
 shell.echo("How to test against dist:");
