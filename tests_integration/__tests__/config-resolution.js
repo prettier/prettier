@@ -7,65 +7,53 @@ const prettier = require("../../");
 
 expect.addSnapshotSerializer(require("../path-serializer"));
 
-test("resolves configuration from external files", () => {
-  const output = runPrettier("cli/config/", ["**/*.js"]);
-  expect(output.stdout).toMatchSnapshot();
-  expect(output.status).toEqual(0);
+describe("resolves configuration from external files", () => {
+  runPrettier("cli/config/", ["**/*.js"]).test({
+    status: 0
+  });
 });
 
-test("resolves configuration from external files and overrides by extname", () => {
-  const output = runPrettier("cli/config/", ["**/*.ts"]);
-  expect(output.stdout).toMatchSnapshot();
-  expect(output.status).toEqual(0);
+describe("resolves configuration from external files and overrides by extname", () => {
+  runPrettier("cli/config/", ["**/*.ts"]).test({
+    status: 0
+  });
 });
 
-test("accepts configuration from --config", () => {
-  const output = runPrettier("cli/config/", [
-    "--config",
-    ".prettierrc",
-    "./js/file.js"
-  ]);
-  expect(output.stdout).toMatchSnapshot();
-  expect(output.status).toEqual(0);
+describe("accepts configuration from --config", () => {
+  runPrettier("cli/config/", ["--config", ".prettierrc", "./js/file.js"]).test({
+    status: 0
+  });
 });
 
-test("resolves configuration file with --find-config-path file", () => {
-  const output = runPrettier("cli/config/", [
-    "--find-config-path",
-    "no-config/file.js"
-  ]);
-  expect(output.stdout).toMatchSnapshot();
-  expect(output.status).toEqual(0);
+describe("resolves configuration file with --find-config-path file", () => {
+  runPrettier("cli/config/", ["--find-config-path", "no-config/file.js"]).test({
+    status: 0
+  });
 });
 
-test("resolves json configuration file with --find-config-path file", () => {
-  const output = runPrettier("cli/config/", [
-    "--find-config-path",
-    "rc-json/file.js"
-  ]);
-  expect(output.stdout).toMatchSnapshot();
-  expect(output.status).toEqual(0);
+describe("resolves json configuration file with --find-config-path file", () => {
+  runPrettier("cli/config/", ["--find-config-path", "rc-json/file.js"]).test({
+    status: 0
+  });
 });
 
-test("resolves yaml configuration file with --find-config-path file", () => {
-  const output = runPrettier("cli/config/", [
-    "--find-config-path",
-    "rc-yaml/file.js"
-  ]);
-  expect(output.stdout).toMatchSnapshot();
-  expect(output.status).toEqual(0);
+describe("resolves yaml configuration file with --find-config-path file", () => {
+  runPrettier("cli/config/", ["--find-config-path", "rc-yaml/file.js"]).test({
+    status: 0
+  });
 });
 
-test("prints nothing when no file found with --find-config-path", () => {
-  const output = runPrettier("cli/config/", ["--find-config-path", ".."]);
-  expect(output.stdout).toEqual("");
-  expect(output.status).toEqual(1);
+describe("prints nothing when no file found with --find-config-path", () => {
+  runPrettier("cli/config/", ["--find-config-path", ".."]).test({
+    stdout: "",
+    status: 1
+  });
 });
 
-test("CLI overrides take precedence", () => {
-  const output = runPrettier("cli/config/", ["--print-width", "1", "**/*.js"]);
-  expect(output.stdout).toMatchSnapshot();
-  expect(output.status).toEqual(0);
+describe("CLI overrides take precedence", () => {
+  runPrettier("cli/config/", ["--print-width", "1", "**/*.js"]).test({
+    status: 0
+  });
 });
 
 test("API resolveConfig with no args", () => {

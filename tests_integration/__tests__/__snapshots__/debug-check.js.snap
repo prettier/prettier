@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`checks stdin with --debug-check (write) 1`] = `Array []`;
+
+exports[`doesn't crash when --debug-check is passed (write) 1`] = `Array []`;

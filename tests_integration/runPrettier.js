@@ -68,7 +68,27 @@ function runPrettier(dir, args, options) {
     jest.restoreAllMocks();
   }
 
-  return { status, stdout, stderr, write };
+  const result = { status, stdout, stderr, write };
+
+  const testResult = testOptions => {
+    testOptions = testOptions || {};
+
+    Object.keys(result).forEach(name => {
+      test(`(${name})`, () => {
+        if (name in testOptions) {
+          if (name === "status" && testOptions[name] === "non-zero") {
+            expect(result[name]).not.toEqual(0);
+          } else {
+            expect(result[name]).toEqual(testOptions[name]);
+          }
+        } else {
+          expect(result[name]).toMatchSnapshot();
+        }
+      });
+    });
+  };
+
+  return { test: testResult };
 
   function appendStdout(text) {
     if (status === undefined) {
