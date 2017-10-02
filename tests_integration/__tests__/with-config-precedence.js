@@ -104,7 +104,6 @@ describe("CLI --stdin-filepath works with --config-precedence prefer-file", () =
   runPrettier(
     "cli/config/",
     [
-      "--no-color",
       "--stdin",
       "--stdin-filepath=abc.ts",
       "--no-semi",
@@ -121,7 +120,6 @@ describe("CLI --stdin-filepath works with --config-precedence file-override", ()
   runPrettier(
     "cli/config/",
     [
-      "--no-color",
       "--stdin",
       "--stdin-filepath=abc.ts",
       "--no-semi",
@@ -138,7 +136,6 @@ describe("CLI --stdin-filepath works with --config-precedence cli-override", () 
   runPrettier(
     "cli/config/",
     [
-      "--no-color",
       "--stdin",
       "--stdin-filepath=abc.ts",
       "--no-semi",

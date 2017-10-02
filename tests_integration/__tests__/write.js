@@ -16,7 +16,7 @@ describe("do not write file with --write + formated file", () => {
 });
 
 describe("do not write file with --write + invalid file", () => {
-  runPrettier("cli/write", ["--write", "invalid.js", "--no-color"]).test({
+  runPrettier("cli/write", ["--write", "invalid.js"]).test({
     write: [],
     status: "non-zero"
   });
