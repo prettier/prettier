@@ -2,12 +2,12 @@
 
 const runPrettier = require("../runPrettier");
 
-test("prints doc with --debug-print-doc", () => {
-  const result = runPrettier("cli/with-shebang", ["--debug-print-doc"], {
+describe("prints doc with --debug-print-doc", () => {
+  runPrettier("cli/with-shebang", ["--debug-print-doc"], {
     input: "0"
+  }).test({
+    stdout: '["0", ";", hardline, breakParent];\n',
+    stderr: "",
+    status: 0
   });
-
-  expect(result.stdout).toEqual('["0", ";", hardline, breakParent];\n');
-  expect(result.stderr).toEqual("");
-  expect(result.status).toEqual(0);
 });

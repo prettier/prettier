@@ -1,6 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`infers postcss parser 1`] = `
+exports[`infers postcss parser (stderr) 1`] = `""`;
+
+exports[`infers postcss parser (stdout) 1`] = `
 "/* JavaScript */
 \\"use strict\\";
 /* Stylesheet */
@@ -10,4 +12,10 @@ exports[`infers postcss parser 1`] = `
 "
 `;
 
-exports[`infers postcss parser with --list-different 1`] = `""`;
+exports[`infers postcss parser (write) 1`] = `Array []`;
+
+exports[`infers postcss parser with --list-different (stderr) 1`] = `""`;
+
+exports[`infers postcss parser with --list-different (stdout) 1`] = `""`;
+
+exports[`infers postcss parser with --list-different (write) 1`] = `Array []`;

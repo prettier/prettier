@@ -255,6 +255,13 @@ function fromHtmlParser2(path, options) {
 
 function transformCssDoc(quasisDoc, parent) {
   const parentNode = parent.path.getValue();
+
+  const isEmpty =
+    parentNode.quasis.length === 1 && !parentNode.quasis[0].value.raw.trim();
+  if (isEmpty) {
+    return "``";
+  }
+
   const expressionDocs = parentNode.expressions
     ? parent.path.map(parent.print, "expressions")
     : [];
@@ -265,7 +272,7 @@ function transformCssDoc(quasisDoc, parent) {
   }
   return concat([
     "`",
-    indent(concat([softline, stripTrailingHardline(newDoc)])),
+    indent(concat([hardline, stripTrailingHardline(newDoc)])),
     softline,
     "`"
   ]);

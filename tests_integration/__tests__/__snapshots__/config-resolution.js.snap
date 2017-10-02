@@ -1,6 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CLI overrides take precedence 1`] = `
+exports[`CLI overrides take precedence (stderr) 1`] = `""`;
+
+exports[`CLI overrides take precedence (stdout) 1`] = `
 "console.log(
   \\"jest/__best-tests__/file.js should have semi\\"
 );
@@ -53,19 +55,35 @@ function rcYaml() {
 "
 `;
 
-exports[`accepts configuration from --config 1`] = `
+exports[`CLI overrides take precedence (write) 1`] = `Array []`;
+
+exports[`accepts configuration from --config (stderr) 1`] = `""`;
+
+exports[`accepts configuration from --config (stdout) 1`] = `
 "function js() {
   console.log(\\"js/file.js should have tab width 8\\")
 }
 "
 `;
 
-exports[`resolves configuration file with --find-config-path file 1`] = `
+exports[`accepts configuration from --config (write) 1`] = `Array []`;
+
+exports[`prints nothing when no file found with --find-config-path (stderr) 1`] = `""`;
+
+exports[`prints nothing when no file found with --find-config-path (write) 1`] = `Array []`;
+
+exports[`resolves configuration file with --find-config-path file (stderr) 1`] = `""`;
+
+exports[`resolves configuration file with --find-config-path file (stdout) 1`] = `
 ".prettierrc
 "
 `;
 
-exports[`resolves configuration from external files 1`] = `
+exports[`resolves configuration file with --find-config-path file (write) 1`] = `Array []`;
+
+exports[`resolves configuration from external files (stderr) 1`] = `""`;
+
+exports[`resolves configuration from external files (stdout) 1`] = `
 "console.log(\\"jest/__best-tests__/file.js should have semi\\");
 console.log(\\"jest/Component.js should not have semi\\")
 console.log(\\"jest/Component.test.js should have semi\\");
@@ -100,7 +118,11 @@ function rcYaml() {
 "
 `;
 
-exports[`resolves configuration from external files and overrides by extname 1`] = `
+exports[`resolves configuration from external files (write) 1`] = `Array []`;
+
+exports[`resolves configuration from external files and overrides by extname (stderr) 1`] = `""`;
+
+exports[`resolves configuration from external files and overrides by extname (stdout) 1`] = `
 "function noConfigTs() {
   console.log(
     \\"no-config/file.ts should have semicolons because it has a .ts extension\\"
@@ -114,12 +136,22 @@ function packageTs() {
 "
 `;
 
-exports[`resolves json configuration file with --find-config-path file 1`] = `
+exports[`resolves configuration from external files and overrides by extname (write) 1`] = `Array []`;
+
+exports[`resolves json configuration file with --find-config-path file (stderr) 1`] = `""`;
+
+exports[`resolves json configuration file with --find-config-path file (stdout) 1`] = `
 "rc-json/.prettierrc.json
 "
 `;
 
-exports[`resolves yaml configuration file with --find-config-path file 1`] = `
+exports[`resolves json configuration file with --find-config-path file (write) 1`] = `Array []`;
+
+exports[`resolves yaml configuration file with --find-config-path file (stderr) 1`] = `""`;
+
+exports[`resolves yaml configuration file with --find-config-path file (stdout) 1`] = `
 "rc-yaml/.prettierrc.yaml
 "
 `;
+
+exports[`resolves yaml configuration file with --find-config-path file (write) 1`] = `Array []`;

@@ -1,13 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CLI overrides are still applied when no config is found with --config-precedence file-override 1`] = `
+exports[`CLI --stdin-filepath works with --config-precedence cli-override (stdout) 1`] = `
+"let x: keyof Y = foo<typeof X>()
+"
+`;
+
+exports[`CLI --stdin-filepath works with --config-precedence cli-override (write) 1`] = `Array []`;
+
+exports[`CLI --stdin-filepath works with --config-precedence file-override (stdout) 1`] = `
+"let x: keyof Y = foo<typeof X>();
+"
+`;
+
+exports[`CLI --stdin-filepath works with --config-precedence file-override (write) 1`] = `Array []`;
+
+exports[`CLI --stdin-filepath works with --config-precedence prefer-file (stdout) 1`] = `
+"let x: keyof Y = foo<typeof X>();
+"
+`;
+
+exports[`CLI --stdin-filepath works with --config-precedence prefer-file (write) 1`] = `Array []`;
+
+exports[`CLI overrides are still applied when no config is found with --config-precedence file-override (stderr) 1`] = `""`;
+
+exports[`CLI overrides are still applied when no config is found with --config-precedence file-override (stdout) 1`] = `
 "function noConfigJs() {
       console.log(\\"no-config/file.js should have no semicolons\\")
 }
 "
 `;
 
-exports[`CLI overrides gets applied when no config exists with --config-precedence prefer-file 1`] = `
+exports[`CLI overrides are still applied when no config is found with --config-precedence file-override (write) 1`] = `Array []`;
+
+exports[`CLI overrides gets applied when no config exists with --config-precedence prefer-file (stderr) 1`] = `""`;
+
+exports[`CLI overrides gets applied when no config exists with --config-precedence prefer-file (stdout) 1`] = `
 "function noConfigJs() {
        console.log(
               \\"no-config/file.js should have no semicolons\\"
@@ -16,7 +43,11 @@ exports[`CLI overrides gets applied when no config exists with --config-preceden
 "
 `;
 
-exports[`CLI overrides gets ignored when config exists with --config-precedence prefer-file 1`] = `
+exports[`CLI overrides gets applied when no config exists with --config-precedence prefer-file (write) 1`] = `Array []`;
+
+exports[`CLI overrides gets ignored when config exists with --config-precedence prefer-file (stderr) 1`] = `""`;
+
+exports[`CLI overrides gets ignored when config exists with --config-precedence prefer-file (stdout) 1`] = `
 "function js() {
         console.log(\\"js/file.js should have tab width 8\\");
 }
@@ -28,7 +59,11 @@ module.exports = {
 "
 `;
 
-exports[`CLI overrides take lower precedence with --config-precedence file-override 1`] = `
+exports[`CLI overrides gets ignored when config exists with --config-precedence prefer-file (write) 1`] = `Array []`;
+
+exports[`CLI overrides take lower precedence with --config-precedence file-override (stderr) 1`] = `""`;
+
+exports[`CLI overrides take lower precedence with --config-precedence file-override (stdout) 1`] = `
 "function js() {
         console.log(\\"js/file.js should have tab width 8\\");
 }
@@ -40,7 +75,11 @@ module.exports = {
 "
 `;
 
-exports[`CLI overrides take precedence with --config-precedence cli-override 1`] = `
+exports[`CLI overrides take lower precedence with --config-precedence file-override (write) 1`] = `Array []`;
+
+exports[`CLI overrides take precedence with --config-precedence cli-override (stderr) 1`] = `""`;
+
+exports[`CLI overrides take precedence with --config-precedence cli-override (stdout) 1`] = `
 "console.log(
   \\"jest/__best-tests__/file.js should have semi\\"
 );
@@ -93,7 +132,11 @@ function rcYaml() {
 "
 `;
 
-exports[`CLI overrides take precedence without --config-precedence 1`] = `
+exports[`CLI overrides take precedence with --config-precedence cli-override (write) 1`] = `Array []`;
+
+exports[`CLI overrides take precedence without --config-precedence (stderr) 1`] = `""`;
+
+exports[`CLI overrides take precedence without --config-precedence (stdout) 1`] = `
 "console.log(
   \\"jest/__best-tests__/file.js should have semi\\"
 );
@@ -146,17 +189,31 @@ function rcYaml() {
 "
 `;
 
-exports[`CLI validate options with --config-precedence cli-override 1`] = `
+exports[`CLI overrides take precedence without --config-precedence (write) 1`] = `Array []`;
+
+exports[`CLI validate options with --config-precedence cli-override (stderr) 1`] = `
 "Invalid printWidth value.
 Expected an integer, but received: 0.5"
 `;
 
-exports[`CLI validate options with --config-precedence file-override 1`] = `
+exports[`CLI validate options with --config-precedence cli-override (stdout) 1`] = `""`;
+
+exports[`CLI validate options with --config-precedence cli-override (write) 1`] = `Array []`;
+
+exports[`CLI validate options with --config-precedence file-override (stderr) 1`] = `
 "Invalid printWidth value.
 Expected an integer, but received: 0.5"
 `;
 
-exports[`CLI validate options with --config-precedence prefer-file 1`] = `
+exports[`CLI validate options with --config-precedence file-override (stdout) 1`] = `""`;
+
+exports[`CLI validate options with --config-precedence file-override (write) 1`] = `Array []`;
+
+exports[`CLI validate options with --config-precedence prefer-file (stderr) 1`] = `
 "Invalid printWidth value.
 Expected an integer, but received: 0.5"
 `;
+
+exports[`CLI validate options with --config-precedence prefer-file (stdout) 1`] = `""`;
+
+exports[`CLI validate options with --config-precedence prefer-file (write) 1`] = `Array []`;
