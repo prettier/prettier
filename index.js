@@ -76,7 +76,7 @@ function formatWithCursor(text, opts, addAlignmentSize) {
     opts.rangeEnd === Infinity
   ) {
     const parsedDocblock = docblock.parseWithComments(docblock.extract(text));
-    const pragmas = Object.assign({}, { format: "" }, parsedDocblock.pragmas);
+    const pragmas = Object.assign({ format: "" }, parsedDocblock.pragmas);
     const newDocblock = docblock.print({
       pragmas,
       comments: parsedDocblock.comments.trim()
