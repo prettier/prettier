@@ -2,12 +2,41 @@
 
 const createError = require("./parser-create-error");
 
+// Postcss won't parse correctly selectors with the "@prettier-placeholder",
+// so we change it to a placeholder it can parse and then change it back
+// before printing.
+function fixSelectorPlaceholder(root) {
+  if (root.nodes) {
+    root.nodes.forEach(node => {
+      if (node.value && node.value.indexOf("PRETTIER_PLACEHOLDER") > -1) {
+        node.value = node.value.replace(
+          /PRETTIER_PLACEHOLDER/g,
+          "@prettier-placeholder"
+        );
+      }
+      if (
+        node.attribute &&
+        node.attribute.indexOf("PRETTIER_PLACEHOLDER") > -1
+      ) {
+        node.attribute = node.attribute.replace(
+          /PRETTIER_PLACEHOLDER/g,
+          "@prettier-placeholder"
+        );
+      }
+      fixSelectorPlaceholder(node);
+    });
+  }
+  return root;
+}
+
 function parseSelector(selector) {
   const selectorParser = require("postcss-selector-parser");
   let result;
   selectorParser(result_ => {
-    result = result_;
-  }).process(selector);
+    result = fixSelectorPlaceholder(result_);
+  }).process(
+    selector.replace(/@prettier-placeholder/g, "PRETTIER_PLACEHOLDER")
+  );
   return addTypePrefix(result, "selector-");
 }
 

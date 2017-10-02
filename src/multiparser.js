@@ -227,19 +227,23 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
       const rest = parts.slice(2);
       parts = [at + placeholder].concat(rest);
     }
-    if (
-      typeof parts[0] === "string" &&
-      parts[0].startsWith("@prettier-placeholder")
-    ) {
-      const placeholder = parts[0];
-      const rest = parts.slice(1);
-
-      // When the expression has a suffix appended, like:
-      // animation: linear ${time}s ease-out;
-      const suffix = placeholder.slice("@prettier-placeholder".length);
-
-      const expression = expressions.shift();
-      parts = ["${", expression, "}" + suffix].concat(rest);
+    const index = parts.findIndex(
+      p => typeof p === "string" && p.indexOf("@prettier-placeholder") !== -1
+    );
+    if (index > -1) {
+      parts = parts.reduce((acc, part) => {
+        if (
+          typeof part !== "string" ||
+          part.indexOf("@prettier-placeholder") === -1
+        ) {
+          acc.push(part);
+        } else {
+          const affix = part.split("@prettier-placeholder");
+          const expression = expressions.shift();
+          acc = acc.concat([affix[0] + "${", expression, "}" + affix[1]]);
+        }
+        return acc;
+      }, []);
     }
     return Object.assign({}, doc, {
       parts: parts
