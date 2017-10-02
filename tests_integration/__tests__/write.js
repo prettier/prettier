@@ -9,7 +9,7 @@ describe("write file with --write + unformated file", () => {
 });
 
 describe("do not write file with --write + formated file", () => {
-  runPrettier("cli/write", ["--write", "formated.js"]).test({
+  runPrettier("cli/write", ["--write", "formated.js", "--no-color"]).test({
     write: [],
     status: 0
   });

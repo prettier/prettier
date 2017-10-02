@@ -3,7 +3,7 @@
 exports[`do not write file with --write + formated file (stderr) 1`] = `""`;
 
 exports[`do not write file with --write + formated file (stdout) 1`] = `
-"formated.js[2K[1G[90m%s %dms[39m
+"formated.js[2K[1G%s %dms
 "
 `;
 
