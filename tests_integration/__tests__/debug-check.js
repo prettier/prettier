@@ -2,23 +2,20 @@
 
 const runPrettier = require("../runPrettier");
 
-test("doesn't crash when --debug-check is passed", () => {
-  const result = runPrettier("cli/with-shebang", [
-    "issue1890.js",
-    "--debug-check"
-  ]);
-
-  expect(result.stdout).toEqual("issue1890.js\n");
-  expect(result.stderr).toEqual("");
-  expect(result.status).toEqual(0);
+describe("doesn't crash when --debug-check is passed", () => {
+  runPrettier("cli/with-shebang", ["issue1890.js", "--debug-check"]).test({
+    stdout: "issue1890.js\n",
+    stderr: "",
+    status: 0
+  });
 });
 
-test("checks stdin with --debug-check", () => {
-  const result = runPrettier("cli/with-shebang", ["--debug-check"], {
+describe("checks stdin with --debug-check", () => {
+  runPrettier("cli/with-shebang", ["--debug-check"], {
     input: "0"
+  }).test({
+    stdout: "(stdin)\n",
+    stderr: "",
+    status: 0
   });
-
-  expect(result.stdout).toEqual("(stdin)\n");
-  expect(result.stderr).toEqual("");
-  expect(result.status).toEqual(0);
 });
