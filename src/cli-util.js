@@ -4,7 +4,6 @@ const path = require("path");
 const camelCase = require("camelcase");
 const dashify = require("dashify");
 const minimist = require("minimist");
-const getStream = require("get-stream");
 const fs = require("fs");
 const globby = require("globby");
 const ignore = require("ignore");
@@ -208,7 +207,7 @@ function applyConfigPrecedence(argv, options) {
 }
 
 function formatStdin(argv) {
-  getStream(process.stdin).then(input => {
+  prettier.__debug.getStream(process.stdin).then(input => {
     const filepath = argv["stdin-filepath"]
       ? path.resolve(process.cwd(), argv["stdin-filepath"])
       : process.cwd();

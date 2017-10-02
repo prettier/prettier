@@ -3,6 +3,10 @@
 const fs = require("fs");
 const path = require("path");
 
+const isProduction = process.env.NODE_ENV === "production";
+const prettierApi = isProduction ? "../dist/index" : "../index";
+const prettierCli = isProduction ? "../dist/bin/prettier" : "../bin/prettier";
+
 function runPrettier(dir, args, options) {
   args = args || [];
   options = options || {};
@@ -11,32 +15,35 @@ function runPrettier(dir, args, options) {
   let stdout = "";
   let stderr = "";
 
-  const spiedProcessExit = jest.spyOn(process, "exit");
-  spiedProcessExit.mockImplementation(exitCode => {
+  jest.spyOn(process, "exit").mockImplementation(exitCode => {
     if (status === undefined) {
       status = exitCode || 0;
     }
   });
 
-  const spiedStdoutWrite = jest.spyOn(process.stdout, "write");
-  spiedStdoutWrite.mockImplementation(text => appendStdout(text));
+  jest
+    .spyOn(process.stdout, "write")
+    .mockImplementation(text => appendStdout(text));
 
-  const spiedStderrWrite = jest.spyOn(process.stderr, "write");
-  spiedStderrWrite.mockImplementation(text => appendStderr(text));
+  jest
+    .spyOn(process.stderr, "write")
+    .mockImplementation(text => appendStderr(text));
 
-  const spiedConsoleLog = jest.spyOn(console, "log");
-  spiedConsoleLog.mockImplementation(text => appendStdout(text + "\n"));
+  jest
+    .spyOn(console, "log")
+    .mockImplementation(text => appendStdout(text + "\n"));
 
-  const spiedConsoleWarn = jest.spyOn(console, "warn");
-  spiedConsoleWarn.mockImplementation(text => appendStderr(text + "\n"));
+  jest
+    .spyOn(console, "warn")
+    .mockImplementation(text => appendStderr(text + "\n"));
 
-  const spiedConsoleError = jest.spyOn(console, "error");
-  spiedConsoleError.mockImplementation(text => appendStderr(text + "\n"));
+  jest
+    .spyOn(console, "error")
+    .mockImplementation(text => appendStderr(text + "\n"));
 
   const write = [];
 
-  const spiedFsWriteFileSync = jest.spyOn(fs, "writeFileSync");
-  spiedFsWriteFileSync.mockImplementation((filename, content) => {
+  jest.spyOn(fs, "writeFileSync").mockImplementation((filename, content) => {
     write.push({ filename, content });
   });
 
@@ -50,12 +57,18 @@ function runPrettier(dir, args, options) {
   process.argv = ["path/to/node", "path/to/prettier/bin"].concat(args);
 
   jest.resetModules();
-  jest.setMock("get-stream", () => ({
-    then: handler => handler(options.input || "")
-  }));
+
+  // We cannot use `jest.setMock("get-stream", impl)` here, because in the
+  // production build everything is bundled into one file so there is no
+  // "get-stream" module to mock.
+  jest
+    .spyOn(require(prettierApi).__debug, "getStream")
+    .mockImplementation(() => ({
+      then: handler => handler(options.input || "")
+    }));
 
   try {
-    require("../bin/prettier");
+    require(prettierCli);
     status = (status === undefined ? process.exitCode : status) || 0;
   } catch (error) {
     status = 1;

@@ -1,6 +1,6 @@
 "use strict";
 
-const prettier = require("../..");
+const prettier = require("../../tests_config/require_prettier");
 const runPrettier = require("../runPrettier");
 const constant = require("../../src/cli-constant");
 
