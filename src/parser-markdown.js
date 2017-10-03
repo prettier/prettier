@@ -4,6 +4,27 @@ const remarkFrontmatter = require("remark-frontmatter");
 const remarkParse = require("remark-parse");
 const unified = require("unified");
 
+/**
+ * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:
+ * 
+ * 1. restore unescaped html entity (TexT)
+ * 2. merge continuous Texts
+ * 3. split Text into Sentence
+ * 
+ * interface Word { value: string }
+ * interface Whitespace { value: string }
+ * interface Sentence { children: Array<Word | Whitespace> }
+ */
+function parse(text /*, parsers, opts*/) {
+  const processor = unified()
+    .use(remarkParse, { footnotes: true, commonmark: true })
+    .use(remarkFrontmatter, ["yaml"])
+    .use(restoreUnescapedEntity(text))
+    .use(mergeContinuousTexts)
+    .use(splitText);
+  return processor.runSync(processor.parse(text));
+}
+
 function map(ast, handler) {
   return (function preorder(node, index, parent) {
     const newNode = Object.assign({}, handler(node, index, parent));
@@ -80,16 +101,6 @@ function splitText() {
               .filter(node => node.value.length) // remove empty word
           };
     });
-}
-
-function parse(text /*, parsers, opts*/) {
-  const processor = unified()
-    .use(remarkParse, { footnotes: true, commonmark: true })
-    .use(remarkFrontmatter, ["yaml"])
-    .use(restoreUnescapedEntity(text))
-    .use(mergeContinuousTexts)
-    .use(splitText);
-  return processor.runSync(processor.parse(text));
 }
 
 module.exports = parse;
