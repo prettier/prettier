@@ -16,6 +16,25 @@ function map(ast, handler) {
   })(ast, null, null);
 }
 
+function restoreUnescapedEntity(originalText) {
+  return () => ast =>
+    map(ast, node => {
+      return node.type !== "text"
+        ? node
+        : Object.assign({}, node, {
+            value:
+              node.value.length === 1 &&
+              node.position.end.offset - node.position.start.offset > 1 &&
+              originalText[node.position.start.offset] === "&"
+                ? originalText.slice(
+                    node.position.start.offset,
+                    node.position.end.offset
+                  )
+                : node.value
+          });
+    });
+}
+
 function mergeContinuousTexts() {
   return ast =>
     map(ast, node => {
@@ -67,6 +86,7 @@ function parse(text /*, parsers, opts*/) {
   const processor = unified()
     .use(remarkParse, { footnotes: true, commonmark: true })
     .use(remarkFrontmatter, ["yaml"])
+    .use(restoreUnescapedEntity(text))
     .use(mergeContinuousTexts)
     .use(splitText);
   return processor.runSync(processor.parse(text));

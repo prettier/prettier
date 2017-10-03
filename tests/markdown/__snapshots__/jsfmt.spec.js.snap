@@ -1133,7 +1133,7 @@ spreads through the community has a non-trivial impact.
 
 - “The amazing thing, for me, is: 1) Announced 2 months ago. 2) Already adopted
   by, it seems, every major JS project. 3) 7000 stars, 100,000 npm downloads/mo”
-- “Was built by the same people as React \\& React Native.”
+- “Was built by the same people as React & React Native.”
 - “I like to be part of the hot new things.”
 - “Because soon enough people are gonna ask for it.”
 
@@ -1633,9 +1633,9 @@ Valid options:
   This requires node 8 or a
   [transform](https://babeljs.io/docs/plugins/syntax-trailing-function-commas/).
 
-| Default  | CLI Override                                     | API Override                                     |
-| -------- | ------------------------------------------------ | ------------------------------------------------ |
-| \`"none"\` | <code>--trailing-comma \\<none\\|es5\\|all\\></code> | <code>trailingComma: "\\<none\\|es5\\|all\\>"</code> |
+| Default  | CLI Override                                           | API Override                                           |
+| -------- | ------------------------------------------------------ | ------------------------------------------------------ |
+| \`"none"\` | <code>--trailing-comma <none&#124;es5&#124;all></code> | <code>trailingComma: "<none&#124;es5&#124;all>"</code> |
 
 ### Bracket Spacing
 

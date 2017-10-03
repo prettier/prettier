@@ -52,7 +52,7 @@ function genericPrint(path, options, print) {
     case "sentence":
       return printChildren(path, options, print);
     case "word":
-      return escapeString(node.value, ["\\", "_", "*", "~~", "<", ">", "&"]);
+      return escapeString(node.value, ["\\", "_", "*", "~~"]);
     case "whitespace": {
       return hasParentType(path, SINGLE_LINE_NODE_TYPES) ? " " : line;
     }

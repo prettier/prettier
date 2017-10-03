@@ -27,9 +27,9 @@ Default | CLI Override | API Override
 --------|--------------|-------------
 \`"none"\` | <code>--trailing-comma <none&#124;es5&#124;all></code> | <code>trailingComma: "<none&#124;es5&#124;all>"</code>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-| Default  | CLI Override                                     | API Override                                     |
-| -------- | ------------------------------------------------ | ------------------------------------------------ |
-| \`"none"\` | <code>--trailing-comma \\<none\\|es5\\|all\\></code> | <code>trailingComma: "\\<none\\|es5\\|all\\>"</code> |
+| Default  | CLI Override                                           | API Override                                           |
+| -------- | ------------------------------------------------------ | ------------------------------------------------------ |
+| \`"none"\` | <code>--trailing-comma <none&#124;es5&#124;all></code> | <code>trailingComma: "<none&#124;es5&#124;all>"</code> |
 
 `;
 
