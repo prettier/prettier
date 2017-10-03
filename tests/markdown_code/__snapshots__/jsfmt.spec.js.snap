@@ -1,5 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`backtick.md 1`] = `
+\`\`\`\`\`\`\`\`\`\`
+
+\`\`\`js
+console.log("hello world!");
+\`\`\`
+
+\`\`\`\`\`\`\`\`\`\`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\`\`\`\`
+\`\`\`js
+console.log("hello world!");
+\`\`\`
+\`\`\`\`
+
+`;
+
 exports[`format.md 1`] = `
 \`\`\`js
 const foo      = 'bar'

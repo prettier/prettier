@@ -101,22 +101,28 @@ function genericPrint(path, options, print) {
         "#".repeat(node.depth) + " ",
         printChildren(path, options, print)
       ]);
-    case "code":
-      return /\s/.test(options.originalText[node.position.start.offset])
-        ? // indented code blocks
-          align(
-            4,
-            concat([" ".repeat(4), join(hardline, node.value.split("\n"))])
-          )
-        : // fenced code blocks
-          concat([
-            "```",
-            node.lang || "",
-            hardline,
-            join(hardline, node.value.split("\n")),
-            hardline,
-            "```"
-          ]);
+    case "code": {
+      if (/\s/.test(options.originalText[node.position.start.offset])) {
+        // indented code block
+        return align(
+          4,
+          concat([" ".repeat(4), join(hardline, node.value.split("\n"))])
+        );
+      }
+
+      // fenced code block
+      const style = "`".repeat(
+        Math.max(3, getMaxContinuousCount(node.value, "`") + 1)
+      );
+      return concat([
+        style,
+        node.lang || "",
+        hardline,
+        join(hardline, node.value.split("\n")),
+        hardline,
+        style
+      ]);
+    }
     case "yaml":
       return concat(["---", hardline, node.value, hardline, "---"]);
     case "html":
@@ -326,6 +332,21 @@ function printTable(path, options, print) {
     const right = spaces - left;
     return concat([" ".repeat(left), text, " ".repeat(right)]);
   }
+}
+
+function getMaxContinuousCount(str, target) {
+  const results = str.match(
+    new RegExp(`(${escapeStringRegexp(target)})+`, "g")
+  );
+
+  if (results === null) {
+    return 0;
+  }
+
+  return results.reduce(
+    (maxCount, result) => Math.max(maxCount, result.length / target.length),
+    0
+  );
 }
 
 function printChildren(path, options, print, events) {
