@@ -1,6 +1,6 @@
 {
   "name": "prettier",
-  "version": "1.7.3",
+  "version": "1.7.4",
   "description": "Prettier is an opinionated code formatter",
   "bin": {
     "prettier": "./bin/prettier.js"
@@ -73,7 +73,9 @@
   },
   "scripts": {
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",
+    "prepare-release": "yarn && yarn build && yarn test:dist",
     "test": "jest",
+    "test:dist": "cross-env NODE_ENV=production yarn test",
     "test-integration": "jest tests_integration",
     "lint": "cross-env EFF_NO_LINK_RULES=true eslint . --format node_modules/eslint-friendly-formatter",
     "build": "node ./scripts/build/build.js",

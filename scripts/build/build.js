@@ -135,7 +135,7 @@ shell.cp("README.md", "dist/README.md");
 shell.echo("Done!");
 shell.echo();
 shell.echo("How to test against dist:");
-shell.echo("  1) NODE_ENV=production yarn test");
+shell.echo("  1) yarn test:dist");
 shell.echo();
 shell.echo("How to publish:");
 shell.echo("  1) IMPORTANT!!! Go to dist/");

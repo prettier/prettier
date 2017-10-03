@@ -1,3 +1,11 @@
+# 1.7.4
+
+[link](https://github.com/prettier/prettier/compare/1.7.3...1.7.4)
+
+* Force template literals to break after ` for sytled-components (#2926 by duailibe)
+* Update cosmiconfig to v3.1.0 (#2952 by ikatyang)
+* Respect --stdin-filepath, regardless of config source (#2948 by azz)
+
 # 1.7.3
 
 [link](https://github.com/prettier/prettier/compare/1.7.2...1.7.3)
