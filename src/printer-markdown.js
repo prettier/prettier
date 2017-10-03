@@ -52,7 +52,9 @@ function genericPrint(path, options, print) {
     case "sentence":
       return printChildren(path, options, print);
     case "word":
-      return escapeString(node.value, ["\\", "_", "*", "~~"]);
+      return path.getParentNode(1).type === "inlineCode"
+        ? node.value
+        : escapeString(node.value, ["\\", "_", "*", "~~"]);
     case "whitespace": {
       return hasParentType(path, SINGLE_LINE_NODE_TYPES) ? " " : line;
     }
@@ -63,7 +65,7 @@ function genericPrint(path, options, print) {
     case "delete":
       return concat(["~~", printChildren(path, options, print), "~~"]);
     case "inlineCode":
-      return concat(["`", node.value, "`"]);
+      return concat(["`", printChildren(path, options, print), "`"]);
     case "link":
       return options.originalText[node.position.start.offset] === "<"
         ? concat(["<", node.url, ">"])

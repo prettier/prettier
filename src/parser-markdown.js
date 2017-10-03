@@ -7,13 +7,15 @@ const unified = require("unified");
 /**
  * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:
  * 
- * 1. restore unescaped html entity (TexT)
+ * 1. restore unescaped html entity (Text)
  * 2. merge continuous Texts
- * 3. split Text into Sentence
+ * 3. transform InlineCode#value into InlineCode#children (Text)
+ * 4. split Text into Sentence
  * 
  * interface Word { value: string }
  * interface Whitespace { value: string }
  * interface Sentence { children: Array<Word | Whitespace> }
+ * interface InlineCode { children: Array<Sentence> }
  */
 function parse(text /*, parsers, opts*/) {
   const processor = unified()
@@ -21,6 +23,7 @@ function parse(text /*, parsers, opts*/) {
     .use(remarkFrontmatter, ["yaml"])
     .use(restoreUnescapedEntity(text))
     .use(mergeContinuousTexts)
+    .use(transformInlincode)
     .use(splitText);
   return processor.runSync(processor.parse(text));
 }
@@ -35,6 +38,18 @@ function map(ast, handler) {
     }
     return newNode;
   })(ast, null, null);
+}
+
+function transformInlincode() {
+  return ast =>
+    map(ast, node => {
+      return node.type !== "inlineCode"
+        ? node
+        : Object.assign({}, node, {
+            value: undefined,
+            children: [{ type: "text", value: node.value }]
+          });
+    });
 }
 
 function restoreUnescapedEntity(originalText) {
