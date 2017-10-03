@@ -46,7 +46,7 @@ function transformInlincode() {
       return node.type !== "inlineCode"
         ? node
         : Object.assign({}, node, {
-            value: undefined,
+            value: node.value.replace(/\s+/g, " "),
             children: [{ type: "text", value: node.value }]
           });
     });

@@ -64,8 +64,16 @@ function genericPrint(path, options, print) {
       return concat(["**", printChildren(path, options, print), "**"]);
     case "delete":
       return concat(["~~", printChildren(path, options, print), "~~"]);
-    case "inlineCode":
-      return concat(["`", printChildren(path, options, print), "`"]);
+    case "inlineCode": {
+      const includesBacktick = node.value.includes("`");
+      const style = includesBacktick ? "``" : "`";
+      const gap = includesBacktick ? " " : "";
+      return concat([
+        style + gap,
+        printChildren(path, options, print),
+        gap + style
+      ]);
+    }
     case "link":
       return options.originalText[node.position.start.offset] === "<"
         ? concat(["<", node.url, ">"])
