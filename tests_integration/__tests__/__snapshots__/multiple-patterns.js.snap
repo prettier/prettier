@@ -40,10 +40,10 @@ exports[`multiple patterns by with ignore pattern, ignores node_modules by defau
 exports[`multiple patterns by with ignore pattern, ignores node_modules by with ./**/*.js (stderr) 1`] = `""`;
 
 exports[`multiple patterns by with ignore pattern, ignores node_modules by with ./**/*.js (stdout) 1`] = `
-"./other-directory/file.js
-./other-directory/nested-directory/nested-directory-file.js
-./other-regular-modules.js
-./regular-module.js
+"other-directory/file.js
+other-directory/nested-directory/nested-directory-file.js
+other-regular-modules.js
+regular-module.js
 "
 `;
 
