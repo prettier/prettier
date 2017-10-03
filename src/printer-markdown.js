@@ -92,14 +92,21 @@ function genericPrint(path, options, print) {
         printChildren(path, options, print)
       ]);
     case "code":
-      return concat([
-        "```",
-        node.lang || "",
-        hardline,
-        node.value,
-        hardline,
-        "```"
-      ]);
+      return /\s/.test(options.originalText[node.position.start.offset])
+        ? // indented code blocks
+          align(
+            4,
+            concat([" ".repeat(4), join(hardline, node.value.split("\n"))])
+          )
+        : // fenced code blocks
+          concat([
+            "```",
+            node.lang || "",
+            hardline,
+            join(hardline, node.value.split("\n")),
+            hardline,
+            "```"
+          ]);
     case "yaml":
       return concat(["---", hardline, node.value, hardline, "---"]);
     case "html":

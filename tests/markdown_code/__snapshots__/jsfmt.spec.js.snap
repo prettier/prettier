@@ -17,6 +17,37 @@ console.log(213);
 
 `;
 
+exports[`indent.md 1`] = `
+    Indented Code Block
+    Indented Code Block
+    Indented Code Block
+    Indented Code Block
+    Indented Code Block
+
+- \`\`\`
+  Fenced Code Block
+  Fenced Code Block
+  Fenced Code Block
+  Fenced Code Block
+  Fenced Code Block
+  \`\`\`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Indented Code Block
+    Indented Code Block
+    Indented Code Block
+    Indented Code Block
+    Indented Code Block
+
+- \`\`\`
+  Fenced Code Block
+  Fenced Code Block
+  Fenced Code Block
+  Fenced Code Block
+  Fenced Code Block
+  \`\`\`
+
+`;
+
 exports[`lang.md 1`] = `
 \`\`\`js
 console.log("hello world");
