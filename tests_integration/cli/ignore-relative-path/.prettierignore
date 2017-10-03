@@ -1,0 +1,2 @@
+level1/level2/
+level1-glob/**/level3-glob/*.js
