@@ -17,6 +17,9 @@ os.homedir = function() {
 self.process = { argv: [], env: { PRETTIER_DEBUG: true }, version: "v8.5.0" };
 self.assert = { ok: function() {}, strictEqual: function() {} };
 self.require = function require(path) {
+  if (path === "stream") {
+    return { PassThrough() {} };
+  }
   return self[path.replace(/.+-/, "")];
 };
 
