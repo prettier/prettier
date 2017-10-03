@@ -123,6 +123,10 @@ shell.cp("node_modules/sw-toolbox/sw-toolbox.js", `${docs}/sw-toolbox.js`);
 shell.echo("Copy package.json");
 const pkgWithoutDependencies = Object.assign({}, pkg);
 delete pkgWithoutDependencies.dependencies;
+pkgWithoutDependencies.scripts = {
+  prepublishOnly:
+    "node -e \"assert.equal(require('.').version, require('..').version)\""
+};
 pipe(JSON.stringify(pkgWithoutDependencies, null, 2)).to("dist/package.json");
 
 shell.echo("Copy README.md");

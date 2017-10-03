@@ -72,6 +72,7 @@
     "webpack": "2.6.1"
   },
   "scripts": {
+    "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",
     "test": "jest",
     "test-integration": "jest tests_integration",
     "lint": "cross-env EFF_NO_LINK_RULES=true eslint . --format node_modules/eslint-friendly-formatter",
