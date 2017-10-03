@@ -228,7 +228,7 @@ function massageAST(ast, parent) {
       quasis.forEach(q => delete q.value);
     }
 
-    // styled-components and graphql and markdown
+    // styled-components, graphql, markdown
     if (
       ast.type === "TaggedTemplateExpression" &&
       (ast.tag.type === "MemberExpression" ||
