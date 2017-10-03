@@ -251,12 +251,8 @@ function eachFilename(argv, patterns, callback) {
   try {
     const filePaths = globby
       .sync(patterns, { dot: true })
-      .map(
-        filePath =>
-          path.isAbsolute(filePath)
-            ? path.relative(process.cwd(), filePath)
-            : filePath
-      );
+      .map(filePath => path.relative(process.cwd(), filePath));
+
     if (filePaths.length === 0) {
       console.error(`No matching files. Patterns tried: ${patterns.join(" ")}`);
       process.exitCode = 2;
