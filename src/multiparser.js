@@ -71,7 +71,6 @@ function fromBabylonFlowOrTypeScript(path) {
         parent.quasis.length === 1 &&
         parentParent &&
         ((parentParent.type === "TaggedTemplateExpression" &&
-          parent.quasis.length === 1 &&
           ((parentParent.tag.type === "MemberExpression" &&
             parentParent.tag.object.name === "graphql" &&
             parentParent.tag.property.name === "experimental") ||
