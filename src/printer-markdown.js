@@ -1,5 +1,6 @@
 "use strict";
 
+const util = require("./util");
 const docBuilders = require("./doc-builders");
 const concat = docBuilders.concat;
 const join = docBuilders.join;
@@ -56,7 +57,7 @@ function genericPrint(path, options, print) {
         ? node.value
         : escapeString(node.value, ["\\", "_", "*", "~~"]);
     case "whitespace": {
-      return hasParentType(path, SINGLE_LINE_NODE_TYPES) ? " " : line;
+      return hasAncestorType(path, SINGLE_LINE_NODE_TYPES) ? " " : line;
     }
     case "emphasis":
       return concat(["_", printChildren(path, options, print), "_"]);
@@ -111,8 +112,9 @@ function genericPrint(path, options, print) {
       }
 
       // fenced code block
-      const style = "`".repeat(
-        Math.max(3, getMaxContinuousCount(node.value, "`") + 1)
+      const styleUnit = options.__inJsTemplate ? "~" : "`";
+      const style = styleUnit.repeat(
+        Math.max(3, util.getMaxContinuousCount(node.value, styleUnit) + 1)
       );
       return concat([
         style,
@@ -228,14 +230,14 @@ function getNthSiblingIndex(path) {
   }
 }
 
-function hasParentType(path, typeOrTypes) {
+function hasAncestorType(path, typeOrTypes) {
   const types = [].concat(typeOrTypes);
 
   let counter = 0;
-  let parentNode;
+  let ancestorNode;
 
-  while ((parentNode = path.getParentNode(counter++))) {
-    if (types.indexOf(parentNode.type) !== -1) {
+  while ((ancestorNode = path.getParentNode(counter++))) {
+    if (types.indexOf(ancestorNode.type) !== -1) {
       return true;
     }
   }
@@ -332,21 +334,6 @@ function printTable(path, options, print) {
     const right = spaces - left;
     return concat([" ".repeat(left), text, " ".repeat(right)]);
   }
-}
-
-function getMaxContinuousCount(str, target) {
-  const results = str.match(
-    new RegExp(`(${escapeStringRegexp(target)})+`, "g")
-  );
-
-  if (results === null) {
-    return 0;
-  }
-
-  return results.reduce(
-    (maxCount, result) => Math.max(maxCount, result.length / target.length),
-    0
-  );
 }
 
 function printChildren(path, options, print, events) {
@@ -455,7 +442,7 @@ function shouldPostPrintHardline(node, data) {
 }
 
 function normalizeDoc(doc) {
-  return mapDoc(doc, currentDoc => {
+  return util.mapDoc(doc, currentDoc => {
     if (!currentDoc.parts) {
       return currentDoc;
     }
@@ -508,20 +495,6 @@ function escapeString(str, targets) {
   });
 
   return escaped;
-}
-
-function mapDoc(doc, callback) {
-  if (doc.parts) {
-    const parts = doc.parts.map(part => mapDoc(part, callback));
-    return callback(Object.assign({}, doc, { parts }));
-  }
-
-  if (doc.contents) {
-    const contents = mapDoc(doc.contents, callback);
-    return callback(Object.assign({}, doc, { contents }));
-  }
-
-  return callback(doc);
 }
 
 module.exports = genericPrint;

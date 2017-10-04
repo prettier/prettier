@@ -38,15 +38,19 @@ function getSubtreeParser(path, options) {
   }
 }
 
-function fromMarkdown(path) {
+function fromMarkdown(path, options) {
   const node = path.getValue();
 
   if (node.type === "code") {
     const parser = getParserName(node.lang);
     if (parser) {
+      const styleUnit = options.__inJsTemplate ? "~" : "`";
+      const style = styleUnit.repeat(
+        Math.max(3, util.getMaxContinuousCount(node.value, styleUnit) + 1)
+      );
       return {
         options: { parser },
-        transformDoc: doc => concat(["```", node.lang, hardline, doc, "```"]),
+        transformDoc: doc => concat([style, node.lang, hardline, doc, style]),
         text: node.value
       };
     }
@@ -153,14 +157,16 @@ function fromBabylonFlowOrTypeScript(path) {
               parentParent.tag.name === "markdown")))
       ) {
         return {
-          options: { parser: "markdown" },
+          options: { parser: "markdown", __inJsTemplate: true },
           transformDoc: doc =>
             concat([
-              indent(concat([softline, stripTrailingHardline(doc)])),
+              indent(
+                concat([softline, stripTrailingHardline(escapeBackstick(doc))])
+              ),
               softline
             ]),
           // leading whitespaces matter in markdown
-          text: dedent(parent.quasis[0].value.raw)
+          text: dedent(parent.quasis[0].value.cooked)
         };
       }
 
@@ -170,8 +176,28 @@ function fromBabylonFlowOrTypeScript(path) {
 }
 
 function dedent(str) {
-  const spaces = str.match(/\n^( +)/m)[1].length;
+  const spaces = str.match(/\n^( *)/m)[1].length;
   return str.replace(new RegExp(`^ {${spaces}}`, "gm"), "").trim();
+}
+
+function escapeBackstick(doc) {
+  return util.mapDoc(doc, currentDoc => {
+    if (!currentDoc.parts) {
+      return currentDoc;
+    }
+
+    const parts = [];
+
+    currentDoc.parts.forEach(part => {
+      if (typeof part === "string") {
+        parts.push(part.replace(/`/g, "\\`"));
+      } else {
+        parts.push(part);
+      }
+    });
+
+    return Object.assign({}, currentDoc, { parts });
+  });
 }
 
 function fromHtmlParser2(path, options) {

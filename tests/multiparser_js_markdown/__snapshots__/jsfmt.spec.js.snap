@@ -1,5 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`codeblock.js 1`] = `
+md\`
+\\\`\\\`\\\`js
+markdown\\\`
+    \\\\\\\`\\\\\\\`\\\\\\\`js
+    console.log('hi');
+    \\\\\\\`\\\\\\\`\\\\\\\`
+\\\`
+\\\`\\\`\\\`
+\`;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+md\`
+  ~~~js
+  markdown\\\`
+    ~~~js
+    console.log("hi");
+    ~~~
+
+  \\\`;
+  ~~~
+
+\`;
+
+`;
+
 exports[`markdown.js 1`] = `
 export default function ReadMe() {
     return md\`
