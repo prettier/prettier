@@ -163,7 +163,7 @@ function genericPrint(path, options, print) {
       ]);
     }
     case "thematicBreak":
-      return concat(["---"]);
+      return concat(["- - -"]);
     case "linkReference":
       switch (node.referenceType) {
         case "full":
