@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`no file diffs with --list-different + formatted file 1`] = `Array []`;
+
+exports[`no file diffs with --list-different + formatted file 2`] = `Array []`;
+
+exports[`output with --list-different + unformatted differs when piped 1`] = `
+"unformated.js[2K[1Gunformated.js
+"
+`;
+
+exports[`output with --list-different + unformatted differs when piped 2`] = `
+"unformated.js
+"
+`;

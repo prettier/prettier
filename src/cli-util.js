@@ -274,7 +274,7 @@ function eachFilename(argv, patterns, callback) {
 
 function formatFiles(argv) {
   eachFilename(argv, argv.__filePatterns, (filename, options) => {
-    if (argv["write"]) {
+    if (argv["write"] && process.stdout.isTTY) {
       // Don't use `console.log` here since we need to replace this line.
       process.stdout.write(filename);
     }
@@ -315,9 +315,11 @@ function formatFiles(argv) {
     }
 
     if (argv["write"]) {
-      // Remove previously printed filename to log it with duration.
-      readline.clearLine(process.stdout, 0);
-      readline.cursorTo(process.stdout, 0, null);
+      if (process.stdout.isTTY) {
+        // Remove previously printed filename to log it with duration.
+        readline.clearLine(process.stdout, 0);
+        readline.cursorTo(process.stdout, 0, null);
+      }
 
       // Don't write the file if it won't change in order not to invalidate
       // mtime based caches.
