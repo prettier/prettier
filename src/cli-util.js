@@ -325,13 +325,13 @@ function formatFiles(argv) {
       // mtime based caches.
       if (output === input) {
         if (!argv["list-different"]) {
-          console.log(chalk.grey("%s %dms"), filename, Date.now() - start);
+          console.log(chalk.grey(filename), `${Date.now() - start}ms`);
         }
       } else {
         if (argv["list-different"]) {
           console.log(filename);
         } else {
-          console.log("%s %dms", filename, Date.now() - start);
+          console.log(filename, `${Date.now() - start}ms`);
         }
 
         try {

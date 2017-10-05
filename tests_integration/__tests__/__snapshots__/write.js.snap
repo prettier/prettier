@@ -3,7 +3,7 @@
 exports[`do not write file with --write + formated file (stderr) 1`] = `""`;
 
 exports[`do not write file with --write + formated file (stdout) 1`] = `
-"formated.js%s %dms
+"formated.js
 "
 `;
 
@@ -15,14 +15,14 @@ exports[`do not write file with --write + invalid file (stderr) 1`] = `
 `;
 
 exports[`do not write file with --write + invalid file (stdout) 1`] = `
-"invalid.js
+"
 "
 `;
 
 exports[`write file with --write + unformated file (stderr) 1`] = `""`;
 
 exports[`write file with --write + unformated file (stdout) 1`] = `
-"unformated.js%s %dms
+"unformated.js
 "
 `;
 
