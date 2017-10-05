@@ -10,7 +10,6 @@ const fill = docBuilders.fill;
 const align = docBuilders.align;
 const docPrinter = require("./doc-printer");
 const printDocToString = docPrinter.printDocToString;
-const escapeStringRegexp = require("escape-string-regexp");
 
 const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "footnoteDefinition"];
 
@@ -55,12 +54,27 @@ function genericPrint(path, options, print) {
     case "word":
       return path.getParentNode(1).type === "inlineCode"
         ? node.value
-        : escapeString(node.value, ["\\", "_", "*", "~~"]);
+        : node.value
+            .replace(/(^|[^\\])\*/g, "$1\\*") // escape all unescaped `*` and `_`
+            .replace(/\b(^|[^\\])_\b/g, "$1\\_"); // `1_2_3` is not considered emphasis
     case "whitespace": {
       return hasAncestorType(path, SINGLE_LINE_NODE_TYPES) ? " " : line;
     }
-    case "emphasis":
-      return concat(["_", printChildren(path, options, print), "_"]);
+    case "emphasis": {
+      const parentNode = path.getParentNode();
+      const index = parentNode.children.indexOf(node);
+      const prevNode = parentNode.children[index - 1];
+      const nextNode = parentNode.children[index + 1];
+      const hasPrevOrNextWord = // `1*2*3` is considered emphais but `1_2_3` is not
+        (prevNode &&
+          prevNode.type === "sentence" &&
+          prevNode.children[prevNode.children.length - 1].type === "word") ||
+        (nextNode &&
+          nextNode.type === "sentence" &&
+          nextNode.children[0].type === "word");
+      const style = hasPrevOrNextWord ? "*" : "_";
+      return concat([style, printChildren(path, options, print), style]);
+    }
     case "strong":
       return concat(["**", printChildren(path, options, print), "**"]);
     case "delete":
@@ -254,10 +268,7 @@ function printTable(path, options, print) {
 
     rowPath.map(cellPath => {
       rowContents.push(
-        escapeString(
-          printDocToString(cellPath.call(print), options).formatted,
-          ["|"]
-        )
+        printDocToString(cellPath.call(print), options).formatted
       );
     }, "children");
 
@@ -479,22 +490,6 @@ function normalizeParts(parts) {
 
     return current;
   }, []);
-}
-
-function escapeString(str, targets) {
-  let escaped = str;
-
-  targets.forEach(target => {
-    escaped = escaped.replace(
-      new RegExp(escapeStringRegexp(target), "g"),
-      target
-        .split("")
-        .map(char => `\\${char}`)
-        .join("")
-    );
-  });
-
-  return escaped;
 }
 
 module.exports = genericPrint;

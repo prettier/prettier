@@ -7,7 +7,7 @@ const unified = require("unified");
 /**
  * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:
  * 
- * 1. restore unescaped html entity (Text)
+ * 1. restore unescaped character (Text)
  * 2. merge continuous Texts
  * 3. transform InlineCode#value into InlineCode#children (Text)
  * 4. split Text into Sentence
@@ -21,7 +21,7 @@ function parse(text /*, parsers, opts*/) {
   const processor = unified()
     .use(remarkParse, { footnotes: true, commonmark: true })
     .use(remarkFrontmatter, ["yaml"])
-    .use(restoreUnescapedEntity(text))
+    .use(restoreUnescapedCharacter(text))
     .use(mergeContinuousTexts)
     .use(transformInlincode)
     .use(splitText);
@@ -52,16 +52,17 @@ function transformInlincode() {
     });
 }
 
-function restoreUnescapedEntity(originalText) {
+function restoreUnescapedCharacter(originalText) {
   return () => ast =>
     map(ast, node => {
       return node.type !== "text"
         ? node
         : Object.assign({}, node, {
             value:
+              node.value !== "*" &&
+              node.value !== "_" && // handle these two cases in printer
               node.value.length === 1 &&
-              node.position.end.offset - node.position.start.offset > 1 &&
-              originalText[node.position.start.offset] === "&"
+              node.position.end.offset - node.position.start.offset > 1
                 ? originalText.slice(
                     node.position.start.offset,
                     node.position.end.offset
