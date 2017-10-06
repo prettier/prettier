@@ -4,7 +4,7 @@ exports[`no file diffs with --list-different + formatted file (stderr) 1`] = `""
 
 exports[`no file diffs with --list-different + formatted file (stderr) 2`] = `""`;
 
-exports[`no file diffs with --list-different + formatted file (stdout) 1`] = `"formated.js"`;
+exports[`no file diffs with --list-different + formatted file (stdout) 1`] = `"formatted.js"`;
 
 exports[`no file diffs with --list-different + formatted file (stdout) 2`] = `""`;
 
@@ -17,12 +17,12 @@ exports[`output with --list-different + unformatted differs when piped (stderr) 
 exports[`output with --list-different + unformatted differs when piped (stderr) 2`] = `""`;
 
 exports[`output with --list-different + unformatted differs when piped (stdout) 1`] = `
-"unformated.jsunformated.js
+"unformatted.jsunformatted.js
 "
 `;
 
 exports[`output with --list-different + unformatted differs when piped (stdout) 2`] = `
-"unformated.js
+"unformatted.js
 "
 `;
 
@@ -31,7 +31,7 @@ Array [
   Object {
     "content": "var x = 1;
 ",
-    "filename": "unformated.js",
+    "filename": "unformatted.js",
   },
 ]
 `;
@@ -41,7 +41,7 @@ Array [
   Object {
     "content": "var x = 1;
 ",
-    "filename": "unformated.js",
+    "filename": "unformatted.js",
   },
 ]
 `;

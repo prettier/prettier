@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`do not write file with --write + formated file (stderr) 1`] = `""`;
+exports[`do not write file with --write + formatted file (stderr) 1`] = `""`;
 
-exports[`do not write file with --write + formated file (stdout) 1`] = `
-"formated.js 0ms
+exports[`do not write file with --write + formatted file (stdout) 1`] = `
+"formatted.js 0ms
 "
 `;
 
@@ -19,19 +19,19 @@ exports[`do not write file with --write + invalid file (stdout) 1`] = `
 "
 `;
 
-exports[`write file with --write + unformated file (stderr) 1`] = `""`;
+exports[`write file with --write + unformatted file (stderr) 1`] = `""`;
 
-exports[`write file with --write + unformated file (stdout) 1`] = `
-"unformated.js 0ms
+exports[`write file with --write + unformatted file (stdout) 1`] = `
+"unformatted.js 0ms
 "
 `;
 
-exports[`write file with --write + unformated file (write) 1`] = `
+exports[`write file with --write + unformatted file (write) 1`] = `
 Array [
   Object {
     "content": "var x = 1;
 ",
-    "filename": "unformated.js",
+    "filename": "unformatted.js",
   },
 ]
 `;
