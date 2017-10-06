@@ -251,12 +251,8 @@ function eachFilename(argv, patterns, callback) {
   try {
     const filePaths = globby
       .sync(patterns, { dot: true })
-      .map(
-        filePath =>
-          path.isAbsolute(filePath)
-            ? path.relative(process.cwd(), filePath)
-            : filePath
-      );
+      .map(filePath => path.relative(process.cwd(), filePath));
+
     if (filePaths.length === 0) {
       console.error(`No matching files. Patterns tried: ${patterns.join(" ")}`);
       process.exitCode = 2;
@@ -278,7 +274,7 @@ function eachFilename(argv, patterns, callback) {
 
 function formatFiles(argv) {
   eachFilename(argv, argv.__filePatterns, (filename, options) => {
-    if (argv["write"]) {
+    if (argv["write"] && process.stdout.isTTY) {
       // Don't use `console.log` here since we need to replace this line.
       process.stdout.write(filename);
     }
@@ -319,21 +315,23 @@ function formatFiles(argv) {
     }
 
     if (argv["write"]) {
-      // Remove previously printed filename to log it with duration.
-      readline.clearLine(process.stdout, 0);
-      readline.cursorTo(process.stdout, 0, null);
+      if (process.stdout.isTTY) {
+        // Remove previously printed filename to log it with duration.
+        readline.clearLine(process.stdout, 0);
+        readline.cursorTo(process.stdout, 0, null);
+      }
 
       // Don't write the file if it won't change in order not to invalidate
       // mtime based caches.
       if (output === input) {
         if (!argv["list-different"]) {
-          console.log(chalk.grey("%s %dms"), filename, Date.now() - start);
+          console.log(`${chalk.grey(filename)} ${Date.now() - start}ms`);
         }
       } else {
         if (argv["list-different"]) {
           console.log(filename);
         } else {
-          console.log("%s %dms", filename, Date.now() - start);
+          console.log(`${filename} ${Date.now() - start}ms`);
         }
 
         try {

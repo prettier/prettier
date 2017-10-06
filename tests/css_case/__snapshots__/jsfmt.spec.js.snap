@@ -70,6 +70,7 @@ $KeepScssVar: val;
 
     .Keep;
     .Keep();
+    .Keep(4PX)!IMPORTANT;
     .Keep() WHEN (@Keep=Keep);
     .Keep() WHEN (@Keep=12PX);
     .Keep() WHEN (@Keep=Keep12PX);
@@ -156,6 +157,7 @@ $KeepScssVar: val;
 
   .Keep;
   .Keep();
+  .Keep(4px) !important;
   .Keep() when (@Keep=Keep);
   .Keep() when (@Keep=12px);
   .Keep() when (@Keep=Keep12PX);

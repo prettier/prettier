@@ -1,6 +1,6 @@
 {
   "name": "prettier",
-  "version": "1.7.3",
+  "version": "1.7.4",
   "description": "Prettier is an opinionated code formatter",
   "bin": {
     "prettier": "./bin/prettier.js"
@@ -28,7 +28,7 @@
     "globby": "6.1.0",
     "graphql": "0.10.1",
     "ignore": "3.3.5",
-    "jest-docblock": "21.1.0",
+    "jest-docblock": "21.3.0-beta.1",
     "jest-validate": "21.1.0",
     "leven": "2.1.0",
     "mem": "1.1.0",
@@ -70,12 +70,16 @@
     "rollup-plugin-node-resolve": "2.0.0",
     "rollup-plugin-replace": "1.1.1",
     "shelljs": "0.7.8",
+    "strip-ansi": "4.0.0",
     "sw-toolbox": "3.6.0",
     "uglify-es": "3.0.15",
     "webpack": "2.6.1"
   },
   "scripts": {
+    "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",
+    "prepare-release": "yarn && yarn build && yarn test:dist",
     "test": "jest",
+    "test:dist": "cross-env NODE_ENV=production yarn test",
     "test-integration": "jest tests_integration",
     "lint": "cross-env EFF_NO_LINK_RULES=true eslint . --format node_modules/eslint-friendly-formatter",
     "build": "node ./scripts/build/build.js",

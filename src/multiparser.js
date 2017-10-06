@@ -120,9 +120,10 @@ function fromBabylonFlowOrTypeScript(path) {
        * gql`...`
        */
       if (
+        // We currently don't support expression inside GraphQL template literals
+        parent.expressions.length === 0 &&
         parentParent &&
         ((parentParent.type === "TaggedTemplateExpression" &&
-          parent.quasis.length === 1 &&
           ((parentParent.tag.type === "MemberExpression" &&
             parentParent.tag.object.name === "graphql" &&
             parentParent.tag.property.name === "experimental") ||

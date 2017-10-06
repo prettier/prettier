@@ -45,8 +45,8 @@ exports[`ignores node_modules by default for file list (write) 1`] = `Array []`;
 exports[`ignores node_modules by with ./**/*.js (stderr) 1`] = `""`;
 
 exports[`ignores node_modules by with ./**/*.js (stdout) 1`] = `
-"./not_node_modules/file.js
-./regular-module.js
+"not_node_modules/file.js
+regular-module.js
 "
 `;
 

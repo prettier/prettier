@@ -2,6 +2,7 @@
 
 const fs = require("fs");
 const path = require("path");
+const stripAnsi = require("strip-ansi");
 
 const isProduction = process.env.NODE_ENV === "production";
 const prettierApi = isProduction ? "../dist/index" : "../index";
@@ -41,6 +42,8 @@ function runPrettier(dir, args, options) {
     .spyOn(console, "error")
     .mockImplementation(text => appendStderr(text + "\n"));
 
+  jest.spyOn(Date, "now").mockImplementation(() => 0);
+
   const write = [];
 
   jest.spyOn(fs, "writeFileSync").mockImplementation((filename, content) => {
@@ -51,9 +54,11 @@ function runPrettier(dir, args, options) {
   const originalArgv = process.argv;
   const originalExitCode = process.exitCode;
   const originalStdinIsTTY = process.stdin.isTTY;
+  const originalStdoutIsTTY = process.stdout.isTTY;
 
   process.chdir(normalizeDir(dir));
   process.stdin.isTTY = !!options.isTTY;
+  process.stdout.isTTY = !!options.stdoutIsTTY;
   process.argv = ["path/to/node", "path/to/prettier/bin"].concat(args);
 
   jest.resetModules();
@@ -78,6 +83,7 @@ function runPrettier(dir, args, options) {
     process.argv = originalArgv;
     process.exitCode = originalExitCode;
     process.stdin.isTTY = originalStdinIsTTY;
+    process.stdout.isTTY = originalStdoutIsTTY;
     jest.restoreAllMocks();
   }
 
@@ -88,17 +94,23 @@ function runPrettier(dir, args, options) {
 
     Object.keys(result).forEach(name => {
       test(`(${name})`, () => {
+        const value =
+          typeof result[name] === "string"
+            ? stripAnsi(result[name])
+            : result[name];
         if (name in testOptions) {
           if (name === "status" && testOptions[name] === "non-zero") {
-            expect(result[name]).not.toEqual(0);
+            expect(value).not.toEqual(0);
           } else {
-            expect(result[name]).toEqual(testOptions[name]);
+            expect(value).toEqual(testOptions[name]);
           }
         } else {
-          expect(result[name]).toMatchSnapshot();
+          expect(value).toMatchSnapshot();
         }
       });
     });
+
+    return result;
   };
 
   return { test: testResult };

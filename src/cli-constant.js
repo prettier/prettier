@@ -167,6 +167,13 @@ const detailedOptions = normalizeDetailedOptions({
     default: ".prettierignore",
     description: "Path to a file with patterns describing files to ignore."
   },
+  "insert-pragma": {
+    type: "boolean",
+    forwardToApi: true,
+    description: dedent(`
+      Insert @format pragma into file's first docblock comment.
+    `)
+  },
   "jsx-bracket-same-line": {
     type: "boolean",
     category: CATEGORY_FORMAT,

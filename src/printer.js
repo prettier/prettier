@@ -4150,11 +4150,16 @@ function printJSXElement(path, options, print) {
       children[i] === jsxWhitespace &&
       children[i + 1] === "" &&
       (children[i + 2] === softline || children[i + 2] === hardline);
+    const isDoubleJSXWhitespace =
+      children[i] === jsxWhitespace &&
+      children[i + 1] === "" &&
+      children[i + 2] === jsxWhitespace;
 
     if (
       (isPairOfHardlines && containsText) ||
       isPairOfEmptyStrings ||
-      isLineFollowedByJSXWhitespace
+      isLineFollowedByJSXWhitespace ||
+      isDoubleJSXWhitespace
     ) {
       children.splice(i, 2);
     } else if (isJSXWhitespaceFollowedByLine) {
