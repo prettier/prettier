@@ -91,9 +91,9 @@ function genericPrint(path, options, print) {
     case "delete":
       return concat(["~~", printChildren(path, options, print), "~~"]);
     case "inlineCode": {
-      const includesBacktick = node.value.includes("`");
-      const style = includesBacktick ? "``" : "`";
-      const gap = includesBacktick ? line : "";
+      const backtickCount = util.getMaxContinuousCount(node.value, "`");
+      const style = backtickCount === 1 ? "``" : "`";
+      const gap = backtickCount ? line : "";
       return concat([
         style,
         gap,
