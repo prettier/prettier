@@ -67,9 +67,8 @@ function genericPrint(path, options, print) {
         : node.value
             .replace(/(^|[^\\])\*/g, "$1\\*") // escape all unescaped `*` and `_`
             .replace(/\b(^|[^\\])_\b/g, "$1\\_"); // `1_2_3` is not considered emphasis
-    case "whitespace": {
+    case "whitespace":
       return getAncestorNode(path, SINGLE_LINE_NODE_TYPES) ? " " : line;
-    }
     case "emphasis": {
       const parentNode = path.getParentNode();
       const index = parentNode.children.indexOf(node);

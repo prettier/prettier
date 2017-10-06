@@ -29,8 +29,8 @@ function parse(text /*, parsers, opts*/) {
 }
 
 function map(ast, handler) {
-  return (function preorder(node, index, parent) {
-    const newNode = Object.assign({}, handler(node, index, parent));
+  return (function preorder(node, index, parentNode) {
+    const newNode = Object.assign({}, handler(node, index, parentNode));
     if (newNode.children) {
       newNode.children = newNode.children.map((child, index) => {
         return preorder(child, index, newNode);
@@ -126,13 +126,17 @@ function mergeContinuousTexts() {
 
 function splitText() {
   return ast =>
-    map(ast, node => {
+    map(ast, (node, index, parentNode) => {
       return node.type !== "text"
         ? node
         : {
             type: "sentence",
             position: node.position,
-            children: node.value
+            children: (parentNode.type === "paragraph" &&
+            index === parentNode.children.length - 1
+              ? node.value.trimRight()
+              : node.value
+            )
               .split(/(\s+)/g)
               .map(
                 (text, index) =>
