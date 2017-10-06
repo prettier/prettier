@@ -161,7 +161,7 @@ function fromBabylonFlowOrTypeScript(path) {
           transformDoc: doc =>
             concat([
               indent(
-                concat([softline, stripTrailingHardline(escapeBackstick(doc))])
+                concat([softline, stripTrailingHardline(escapeBackticks(doc))])
               ),
               softline
             ]),
@@ -180,7 +180,7 @@ function dedent(str) {
   return str.replace(new RegExp(`^ {${spaces}}`, "gm"), "").trim();
 }
 
-function escapeBackstick(doc) {
+function escapeBackticks(doc) {
   return util.mapDoc(doc, currentDoc => {
     if (!currentDoc.parts) {
       return currentDoc;
