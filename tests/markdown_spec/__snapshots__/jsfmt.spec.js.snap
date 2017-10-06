@@ -2517,7 +2517,6 @@ exports[`example-222.md 1`] = `
 
 - foo
 
-
 bar
 
 - \`\`\`
@@ -3007,7 +3006,6 @@ exports[`example-264.md 1`] = `
 - foo
 
 - bar
-
 
 + baz
 

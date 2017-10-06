@@ -461,14 +461,11 @@ function shouldPrePrintDoubleHardline(node, data) {
 
 function shouldPrePrintTripleHardline(node, data) {
   const isPrevNodeList = data.prevNode && data.prevNode.type === "list";
-  const isPrevNodeLooseList = isPrevNodeList && data.prevNode.loose;
-  const isPrevNodeTightList = isPrevNodeList && !data.prevNode.loose;
-
   const isIndentedCode =
     node.type === "code" &&
     /\s/.test(data.options.originalText[node.position.start.offset]);
 
-  return isPrevNodeLooseList || (isPrevNodeTightList && isIndentedCode);
+  return isPrevNodeList && isIndentedCode;
 }
 
 function shouldRemainTheSameContent(path) {
