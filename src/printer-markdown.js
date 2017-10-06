@@ -83,7 +83,8 @@ function genericPrint(path, options, print) {
           nextNode.type === "sentence" &&
           nextNode.children.length > 0 &&
           nextNode.children[0].type === "word");
-      const style = hasPrevOrNextWord ? "*" : "_";
+      const style =
+        hasPrevOrNextWord || getAncestorNode(path, "emphasis") ? "*" : "_";
       return concat([style, printChildren(path, options, print), style]);
     }
     case "strong":
