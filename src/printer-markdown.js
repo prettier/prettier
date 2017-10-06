@@ -186,7 +186,7 @@ function genericPrint(path, options, print) {
       ]);
     }
     case "thematicBreak":
-      return concat(["- - -"]);
+      return getAncestorNode(path, "list") ? "* * *" : "- - -";
     case "linkReference":
       return concat([
         "[",
