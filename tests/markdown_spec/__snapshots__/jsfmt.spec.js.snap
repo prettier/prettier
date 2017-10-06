@@ -3028,6 +3028,23 @@ bar
 
 `;
 
+exports[`example-266.md 1`] = `
+- foo
+  - bar
+    - baz
+
+
+      bim
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- foo
+  - bar
+    - baz
+
+
+      bim
+
+`;
+
 exports[`example-267.md 1`] = `
 - foo
 - bar
@@ -3041,6 +3058,27 @@ exports[`example-267.md 1`] = `
 
 + baz
 + bim
+
+`;
+
+exports[`example-268.md 1`] = `
+-   foo
+
+    notcode
+
+-   foo
+
+
+    code
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- foo
+
+  notcode
+
+- foo
+
+
+    code
 
 `;
 

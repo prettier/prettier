@@ -395,7 +395,8 @@ function printChildren(path, options, print, events) {
         parts,
         index: counter++,
         prevNode: lastChildNode,
-        parentNode: node
+        parentNode: node,
+        options
       };
 
       if (!shouldNotPrePrintHardline(childNode, data)) {
@@ -459,9 +460,15 @@ function shouldPrePrintDoubleHardline(node, data) {
 }
 
 function shouldPrePrintTripleHardline(node, data) {
-  const isPrevNodeLooseList =
-    data.prevNode && data.prevNode.type === "list" && data.prevNode.loose;
-  return isPrevNodeLooseList;
+  const isPrevNodeList = data.prevNode && data.prevNode.type === "list";
+  const isPrevNodeLooseList = isPrevNodeList && data.prevNode.loose;
+  const isPrevNodeTightList = isPrevNodeList && !data.prevNode.loose;
+
+  const isIndentedCode =
+    node.type === "code" &&
+    /\s/.test(data.options.originalText[node.position.start.offset]);
+
+  return isPrevNodeLooseList || (isPrevNodeTightList && isIndentedCode);
 }
 
 function shouldRemainTheSameContent(path) {
