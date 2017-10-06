@@ -2406,9 +2406,9 @@ jest-docblock@^21.2.0:
   version "21.2.0"
   resolved "https://registry.yarnpkg.com/jest-docblock/-/jest-docblock-21.2.0.tgz#51529c3b30d5fd159da60c27ceedc195faf8d414"
 
-jest-docblock@^21.3.0-alpha.eff7a1cf:
-  version "21.3.0-alpha.eff7a1cf"
-  resolved "https://registry.yarnpkg.com/jest-docblock/-/jest-docblock-21.3.0-alpha.eff7a1cf.tgz#53a614b3ed53ad2704dfc92598cb1d4b90cd8520"
+jest-docblock@^21.3.0-beta.1:
+  version "21.3.0-beta.1"
+  resolved "https://registry.yarnpkg.com/jest-docblock/-/jest-docblock-21.3.0-beta.1.tgz#f264d50ba1fc93cda8ef3ffcd530cef86b332c3d"
   dependencies:
     detect-newline "^2.1.0"
 
