@@ -4470,6 +4470,13 @@ exports[`example-458.md 1`] = `
 
 `;
 
+exports[`example-459.md 1`] = `
+[link](</my uri>)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[link](</my uri>)
+
+`;
+
 exports[`example-460.md 1`] = `
 [link](foo
 bar)

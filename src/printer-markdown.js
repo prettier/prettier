@@ -110,7 +110,7 @@ function genericPrint(path, options, print) {
             "[",
             printChildren(path, options, print),
             "](",
-            node.url,
+            printUrl(node.url),
             node.title ? ` "${node.title}"` : "",
             ")"
           ]);
@@ -119,7 +119,7 @@ function genericPrint(path, options, print) {
         "![",
         node.alt || "",
         "](",
-        node.url,
+        printUrl(node.url),
         node.title ? ` "${node.title}"` : "",
         ")"
       ]);
@@ -213,7 +213,7 @@ function genericPrint(path, options, print) {
         "[",
         node.identifier,
         "]: ",
-        node.url.includes(" ") ? `<${node.url}>` : node.url,
+        printUrl(node.url),
         node.title === null ? "" : ` "${node.title}"`
       ]);
     case "footnote":
@@ -506,6 +506,10 @@ function normalizeDoc(doc) {
       parts: normalizeParts(parts)
     });
   });
+}
+
+function printUrl(url) {
+  return url.includes(" ") ? `<${url}>` : url;
 }
 
 function normalizeParts(parts) {
