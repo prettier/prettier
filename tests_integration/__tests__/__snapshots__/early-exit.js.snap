@@ -107,6 +107,19 @@ Default: .prettierignore
 
 exports[`show detailed usage with --help ignore-path (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help insert-pragma (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help insert-pragma (stdout) 1`] = `
+"--insert-pragma
+
+  Insert @format pragma into file's first docblock comment.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help insert-pragma (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help jsx-bracket-same-line (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help jsx-bracket-same-line (stdout) 1`] = `
@@ -459,6 +472,8 @@ Other options:
   --no-color               Do not colorize error messages.
   -h, --help <flag>        Show CLI usage, or details about the given flag.
                            Example: --help write
+  --insert-pragma          Insert @format pragma into file's first docblock comment.
+                           Defaults to false.
   --require-pragma         Require either '@prettier' or '@format' to be present in the file's first docblock comment
                            in order for it to be formatted.
                            Defaults to false.
@@ -586,6 +601,8 @@ Other options:
   --no-color               Do not colorize error messages.
   -h, --help <flag>        Show CLI usage, or details about the given flag.
                            Example: --help write
+  --insert-pragma          Insert @format pragma into file's first docblock comment.
+                           Defaults to false.
   --require-pragma         Require either '@prettier' or '@format' to be present in the file's first docblock comment
                            in order for it to be formatted.
                            Defaults to false.

@@ -68,6 +68,24 @@ function formatWithCursor(text, opts, addAlignmentSize) {
   }
 
   text = stripBom(text);
+
+  if (
+    opts.insertPragma &&
+    !hasPragma(text) &&
+    opts.rangeStart === 0 &&
+    opts.rangeEnd === Infinity
+  ) {
+    const parsedDocblock = docblock.parseWithComments(docblock.extract(text));
+    const pragmas = Object.assign({ format: "" }, parsedDocblock.pragmas);
+    const newDocblock = docblock.print({
+      pragmas,
+      comments: parsedDocblock.comments.replace(/^(\r?\n)+/, "") // remove leading newlines
+    });
+    const strippedText = docblock.strip(text);
+    const separatingNewlines = strippedText.startsWith("\n") ? "\n" : "\n\n";
+    text = newDocblock + separatingNewlines + strippedText;
+  }
+
   addAlignmentSize = addAlignmentSize || 0;
 
   const ast = parser.parse(text, opts);
