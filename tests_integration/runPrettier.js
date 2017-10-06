@@ -42,6 +42,8 @@ function runPrettier(dir, args, options) {
     .spyOn(console, "error")
     .mockImplementation(text => appendStderr(text + "\n"));
 
+  jest.spyOn(Date, "now").mockImplementation(() => 0);
+
   const write = [];
 
   jest.spyOn(fs, "writeFileSync").mockImplementation((filename, content) => {
