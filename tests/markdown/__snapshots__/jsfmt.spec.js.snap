@@ -1022,8 +1022,8 @@ with its own rules that take the maximum line length into account, wrapping code
 when necessary.
 
 <a href="#styling-footnote" name="styling-footnote">\\*</a>_Well actually, some
-original styling is preserved when practical—see [empty lines] and
-[multi-line objects]._
+original styling is preserved when practical—see [empty lines] and [multi-line
+objects]._
 
 [empty lines]: Rationale.md#empty-lines
 [multi-line objects]: Rationale.md#multi-line-objects

@@ -40,6 +40,16 @@ const INLINE_NODE_WRAPPER_TYPES = INLINE_NODE_TYPES.concat([
 function genericPrint(path, options, print) {
   const node = path.getValue();
 
+  if (shouldRemainTheSameContent(path)) {
+    return concat(
+      options.originalText
+        .slice(node.position.start.offset, node.position.end.offset)
+        .split(/(\s+)/g)
+        .map((text, index) => (index % 2 === 0 ? text : line))
+        .filter(doc => doc !== "")
+    );
+  }
+
   switch (node.type) {
     case "root":
       return normalizeDoc(
@@ -52,13 +62,13 @@ function genericPrint(path, options, print) {
     case "sentence":
       return printChildren(path, options, print);
     case "word":
-      return path.getParentNode(1).type === "inlineCode"
+      return getAncestorNode(path, "inlineCode")
         ? node.value
         : node.value
             .replace(/(^|[^\\])\*/g, "$1\\*") // escape all unescaped `*` and `_`
             .replace(/\b(^|[^\\])_\b/g, "$1\\_"); // `1_2_3` is not considered emphasis
     case "whitespace": {
-      return hasAncestorType(path, SINGLE_LINE_NODE_TYPES) ? " " : line;
+      return getAncestorNode(path, SINGLE_LINE_NODE_TYPES) ? " " : line;
     }
     case "emphasis": {
       const parentNode = path.getParentNode();
@@ -82,11 +92,13 @@ function genericPrint(path, options, print) {
     case "inlineCode": {
       const includesBacktick = node.value.includes("`");
       const style = includesBacktick ? "``" : "`";
-      const gap = includesBacktick ? " " : "";
+      const gap = includesBacktick ? line : "";
       return concat([
-        style + gap,
+        style,
+        gap,
         printChildren(path, options, print),
-        gap + style
+        gap,
+        style
       ]);
     }
     case "link":
@@ -141,8 +153,13 @@ function genericPrint(path, options, print) {
     }
     case "yaml":
       return concat(["---", hardline, node.value, hardline, "---"]);
-    case "html":
-      return node.value;
+    case "html": {
+      const parentNode = path.getParentNode();
+      return parentNode.type === "root" &&
+        parentNode.children[parentNode.children.length - 1] === node
+        ? node.value.trimRight()
+        : node.value;
+    }
     case "list": {
       const nthSiblingIndex = getNthSiblingIndex(path);
       return printChildren(path, options, print, {
@@ -165,23 +182,14 @@ function genericPrint(path, options, print) {
     case "thematicBreak":
       return concat(["- - -"]);
     case "linkReference":
-      switch (node.referenceType) {
-        case "full":
-          return concat([
-            "[",
-            printChildren(path, options, print),
-            "][",
-            node.identifier,
-            "]"
-          ]);
-        default:
-          return concat([
-            "[",
-            node.identifier,
-            "]",
-            node.referenceType === "collapsed" ? "[]" : ""
-          ]);
-      }
+      return concat([
+        "[",
+        printChildren(path, options, print),
+        "]",
+        node.referenceType === "full"
+          ? concat(["[", node.identifier, "]"])
+          : node.referenceType === "collapsed" ? "[]" : ""
+      ]);
     case "imageReference":
       switch (node.referenceType) {
         case "full":
@@ -244,7 +252,7 @@ function getNthSiblingIndex(path) {
   }
 }
 
-function hasAncestorType(path, typeOrTypes) {
+function getAncestorNode(path, typeOrTypes) {
   const types = [].concat(typeOrTypes);
 
   let counter = 0;
@@ -252,11 +260,11 @@ function hasAncestorType(path, typeOrTypes) {
 
   while ((ancestorNode = path.getParentNode(counter++))) {
     if (types.indexOf(ancestorNode.type) !== -1) {
-      return true;
+      return ancestorNode;
     }
   }
 
-  return false;
+  return null;
 }
 
 function printTable(path, options, print) {
@@ -450,6 +458,19 @@ function shouldPostPrintHardline(node, data) {
   const isLooseListItem = node.type === "listItem" && node.loose;
 
   return isLooseListItem || isFirstNodeInLooseListItem;
+}
+
+function shouldRemainTheSameContent(path) {
+  const ancestorNode = getAncestorNode(path, [
+    "linkReference",
+    "imageReference"
+  ]);
+
+  return (
+    ancestorNode &&
+    (ancestorNode.type !== "linkReference" ||
+      ancestorNode.referenceType !== "full")
+  );
 }
 
 function normalizeDoc(doc) {

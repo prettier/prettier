@@ -23,7 +23,7 @@ function parse(text /*, parsers, opts*/) {
     .use(remarkFrontmatter, ["yaml"])
     .use(restoreUnescapedCharacter(text))
     .use(mergeContinuousTexts)
-    .use(transformInlincode)
+    .use(transformInlinCode(text))
     .use(splitText);
   return processor.runSync(processor.parse(text));
 }
@@ -40,15 +40,41 @@ function map(ast, handler) {
   })(ast, null, null);
 }
 
-function transformInlincode() {
-  return ast =>
+function transformInlinCode(originalText) {
+  return () => ast =>
     map(ast, node => {
-      return node.type !== "inlineCode"
-        ? node
-        : Object.assign({}, node, {
-            value: node.value.replace(/\s+/g, " "),
-            children: [{ type: "text", value: node.value }]
-          });
+      if (node.type !== "inlineCode") {
+        return node;
+      }
+
+      const rawContent = originalText.slice(
+        node.position.start.offset,
+        node.position.end.offset
+      );
+
+      const style = rawContent.match(/^`+/)[0];
+
+      return Object.assign({}, node, {
+        value: node.value.replace(/\s+/g, " "),
+        children: [
+          {
+            type: "text",
+            value: node.value,
+            position: {
+              start: {
+                line: node.position.start.line,
+                column: node.position.start.column + style.length,
+                offset: node.position.start.offset + style.length
+              },
+              end: {
+                line: node.position.end.line,
+                column: node.position.end.column - style.length,
+                offset: node.position.end.offset - style.length
+              }
+            }
+          }
+        ]
+      });
     });
 }
 
@@ -114,7 +140,7 @@ function splitText() {
                     ? { type: "word", value: text }
                     : { type: "whitespace", value: " " }
               )
-              .filter(node => node.value.length) // remove empty word
+              .filter(node => node.value !== "")
           };
     });
 }

@@ -1495,6 +1495,19 @@ p {color:blue;}
 
 `;
 
+exports[`example-137.md 1`] = `
+<style
+  type="text/css">
+
+foo
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<style
+  type="text/css">
+
+foo
+
+`;
+
 exports[`example-138.md 1`] = `
 > <div>
 > foo
@@ -1771,6 +1784,17 @@ exports[`example-157.md 1`] = `
 [foo]: /url "the title"
 
 [foo]
+
+`;
+
+exports[`example-158.md 1`] = `
+[Foo*bar\\]]:my_(url) 'title (with parens)'
+
+[Foo*bar\\]]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[foo*bar\\]]: my_(url) "title (with parens)"
+
+[Foo*bar\\]]
 
 `;
 
