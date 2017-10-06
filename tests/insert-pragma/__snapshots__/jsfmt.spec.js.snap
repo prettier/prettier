@@ -11,6 +11,7 @@ function foo(bar) {
 const fruit = 'tomatoes';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /** @format */
+
 function foo(bar) {
   return bar + 3 + 4;
 }
@@ -54,6 +55,7 @@ function foo(bar) {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /** @format */
+
 function foo(bar) {
   return bar + 3 + 4;
 }

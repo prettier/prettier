@@ -81,7 +81,9 @@ function formatWithCursor(text, opts, addAlignmentSize) {
       pragmas,
       comments: parsedDocblock.comments.replace(/^(\r?\n)+/, "") // remove leading newlines
     });
-    text = `${newDocblock}\n${docblock.strip(text)}`;
+    const strippedText = docblock.strip(text);
+    const separatingNewlines = strippedText.startsWith("\n") ? "\n" : "\n\n";
+    text = `${newDocblock}${separatingNewlines}${strippedText}`;
   }
 
   addAlignmentSize = addAlignmentSize || 0;
