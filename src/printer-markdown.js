@@ -77,9 +77,11 @@ function genericPrint(path, options, print) {
       const hasPrevOrNextWord = // `1*2*3` is considered emphais but `1_2_3` is not
         (prevNode &&
           prevNode.type === "sentence" &&
+          prevNode.children.length > 0 &&
           prevNode.children[prevNode.children.length - 1].type === "word") ||
         (nextNode &&
           nextNode.type === "sentence" &&
+          nextNode.children.length > 0 &&
           nextNode.children[0].type === "word");
       const style = hasPrevOrNextWord ? "*" : "_";
       return concat([style, printChildren(path, options, print), style]);
