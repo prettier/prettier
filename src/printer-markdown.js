@@ -457,14 +457,15 @@ function shouldPrePrintDoubleHardline(node, data) {
 }
 
 function shouldPostPrintHardline(node, data) {
-  const isFirstNodeInLooseListItem =
+  const isFirstButNotLastNodeInLooseListItem =
     data.parentNode.type === "listItem" &&
     data.parentNode.loose &&
-    data.index === 0;
+    data.index === 0 &&
+    data.index !== data.parentNode.children.length - 1;
 
   const isLooseListItem = node.type === "listItem" && node.loose;
 
-  return isLooseListItem || isFirstNodeInLooseListItem;
+  return isLooseListItem || isFirstButNotLastNodeInLooseListItem;
 }
 
 function shouldRemainTheSameContent(path) {
