@@ -207,7 +207,7 @@ function genericPrint(path, options, print) {
         "[",
         node.identifier,
         "]: ",
-        node.url,
+        node.url.includes(" ") ? `<${node.url}>` : node.url,
         node.title === null ? "" : ` "${node.title}"`
       ]);
     case "footnote":

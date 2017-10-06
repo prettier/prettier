@@ -1798,6 +1798,19 @@ exports[`example-158.md 1`] = `
 
 `;
 
+exports[`example-159.md 1`] = `
+[Foo bar]:
+<my%20url>
+'title'
+
+[Foo bar]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[foo bar]: my%20url "title"
+
+[Foo bar]
+
+`;
+
 exports[`example-161.md 1`] = `
 [foo]: /url 'title
 

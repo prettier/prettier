@@ -7,6 +7,13 @@ exports[`simple.md 1`] = `
 
 `;
 
+exports[`space.md 1`] = `
+[alpha]: <http://example.com 123> "title"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[alpha]: <http://example.com 123> "title"
+
+`;
+
 exports[`title.md 1`] = `
 [alpha]: http://example.com "title"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
