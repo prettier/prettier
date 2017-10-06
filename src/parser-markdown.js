@@ -127,25 +127,34 @@ function mergeContinuousTexts() {
 function splitText() {
   return ast =>
     map(ast, (node, index, parentNode) => {
-      return node.type !== "text"
-        ? node
-        : {
-            type: "sentence",
-            position: node.position,
-            children: (parentNode.type === "paragraph" &&
-            index === parentNode.children.length - 1
-              ? node.value.trimRight()
-              : node.value
-            )
-              .split(/(\s+)/g)
-              .map(
-                (text, index) =>
-                  index % 2 === 0
-                    ? { type: "word", value: text }
-                    : { type: "whitespace", value: " " }
-              )
-              .filter(node => node.value !== "")
-          };
+      if (node.type !== "text") {
+        return node;
+      }
+
+      let value = node.value;
+
+      if (parentNode.type === "paragraph") {
+        if (index === 0) {
+          value = value.trimLeft();
+        }
+        if (index === parentNode.children.length - 1) {
+          value = value.trimRight();
+        }
+      }
+
+      return {
+        type: "sentence",
+        position: node.position,
+        children: value
+          .split(/(\s+)/g)
+          .map(
+            (text, index) =>
+              index % 2 === 0
+                ? { type: "word", value: text }
+                : { type: "whitespace", value: " " }
+          )
+          .filter(node => node.value !== "")
+      };
     });
 }
 
