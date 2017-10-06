@@ -162,11 +162,15 @@ function genericPrint(path, options, print) {
         : node.value;
     }
     case "list": {
-      const nthSiblingIndex = getNthSiblingIndex(path);
+      const nthSiblingIndex = getNthSiblingIndex(
+        path,
+        siblingNode => siblingNode.ordered === node.ordered
+      );
       return printChildren(path, options, print, {
         processor: (childPath, index) => {
           const prefix = node.ordered
-            ? `${index === 0 ? node.start : 1}. `
+            ? (index === 0 ? node.start : 1) +
+              (nthSiblingIndex % 2 === 0 ? ". " : ") ")
             : nthSiblingIndex % 2 === 0 ? "- " : "+ ";
           return concat([prefix, align(prefix.length, childPath.call(print))]);
         }
@@ -234,20 +238,22 @@ function genericPrint(path, options, print) {
   }
 }
 
-function getNthSiblingIndex(path) {
+function getNthSiblingIndex(path, condition) {
+  condition = condition || (() => true);
+
   const node = path.getValue();
   const parentNode = path.getParentNode();
 
   let index = -1;
 
-  for (const child of parentNode.children) {
-    if (child.type === node.type) {
+  for (const childNode of parentNode.children) {
+    if (childNode.type === node.type && condition(childNode)) {
       index++;
     } else {
       index = -1;
     }
 
-    if (child === node) {
+    if (childNode === node) {
       return index;
     }
   }
