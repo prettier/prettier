@@ -107,6 +107,8 @@ function runPrettier(dir, args, options) {
         }
       });
     });
+
+    return result;
   };
 
   return { test: testResult };
