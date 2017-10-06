@@ -290,10 +290,11 @@ Require a special comment, called a pragma, to be present in the file's first do
 
 Valid pragmas are `@prettier` and `@format`.
 
+<!--
 #### `--insert-pragma`
 Insert a `@format` pragma to the top of formatted files when pragma is absent.
 Works well when used in tandem with `--require-pragma`.
-
+-->
 #### `--list-different`
 
 Another useful flag is `--list-different` (or `-l`) which prints the filenames of files that are different from Prettier formatting. If there are differences the script errors out, which is useful in a CI scenario.
