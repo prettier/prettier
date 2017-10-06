@@ -110,7 +110,7 @@ function genericPrint(path, options, print) {
             "[",
             printChildren(path, options, print),
             "](",
-            printUrl(node.url),
+            printUrl(node.url, ")"),
             node.title ? ` "${node.title}"` : "",
             ")"
           ]);
@@ -119,7 +119,7 @@ function genericPrint(path, options, print) {
         "![",
         node.alt || "",
         "](",
-        printUrl(node.url),
+        printUrl(node.url, ")"),
         node.title ? ` "${node.title}"` : "",
         ")"
       ]);
@@ -508,8 +508,11 @@ function normalizeDoc(doc) {
   });
 }
 
-function printUrl(url) {
-  return url.includes(" ") ? `<${url}>` : url;
+function printUrl(url, dangerousCharOrChars) {
+  const dangerousChars = [" "].concat(dangerousCharOrChars || []);
+  return new RegExp(dangerousChars.map(x => `\\${x}`).join("|")).test(url)
+    ? `<${url}>`
+    : url;
 }
 
 function normalizeParts(parts) {
