@@ -32,7 +32,6 @@ exports[`example-4.md 1`] = `
 
   bar
 
-
 `;
 
 exports[`example-5.md 1`] = `
@@ -43,7 +42,6 @@ exports[`example-5.md 1`] = `
 - foo
 
       		bar
-
 
 `;
 
@@ -777,7 +775,6 @@ exports[`example-76.md 1`] = `
 
   bar
 
-
 `;
 
 exports[`example-77.md 1`] = `
@@ -788,7 +785,6 @@ exports[`example-77.md 1`] = `
 1. foo
 
    - bar
-
 
 `;
 
@@ -2410,7 +2406,6 @@ exports[`example-214.md 1`] = `
 
    > A block quote.
 
-
 `;
 
 exports[`example-215.md 1`] = `
@@ -2433,7 +2428,6 @@ exports[`example-216.md 1`] = `
 
   two
 
-
 `;
 
 exports[`example-217.md 1`] = `
@@ -2444,7 +2438,6 @@ exports[`example-217.md 1`] = `
 - one
 
   two
-
 
 `;
 
@@ -2457,7 +2450,6 @@ exports[`example-218.md 1`] = `
 
   two
 
-
 `;
 
 exports[`example-219.md 1`] = `
@@ -2468,7 +2460,6 @@ exports[`example-219.md 1`] = `
 > > 1. one
 > >
 > >    two
-> >
 
 `;
 
@@ -2526,6 +2517,7 @@ exports[`example-222.md 1`] = `
 
 - foo
 
+
 bar
 
 - \`\`\`
@@ -2566,7 +2558,6 @@ exports[`example-223.md 1`] = `
 
    > bam
 
-
 `;
 
 exports[`example-224.md 1`] = `
@@ -2581,7 +2572,6 @@ exports[`example-224.md 1`] = `
       bar
 
       baz
-
 
 `;
 
@@ -2646,7 +2636,6 @@ exports[`example-231.md 1`] = `
 
       bar
 
-
 `;
 
 exports[`example-232.md 1`] = `
@@ -2657,7 +2646,6 @@ exports[`example-232.md 1`] = `
 10. foo
 
         bar
-
 
 `;
 
@@ -2689,7 +2677,6 @@ exports[`example-234.md 1`] = `
 
        more code
 
-
 `;
 
 exports[`example-235.md 1`] = `
@@ -2704,7 +2691,6 @@ exports[`example-235.md 1`] = `
    paragraph
 
        more code
-
 
 `;
 
@@ -2738,7 +2724,6 @@ exports[`example-238.md 1`] = `
 - foo
 
   bar
-
 
 `;
 
@@ -2807,7 +2792,6 @@ exports[`example-245.md 1`] = `
 
    > A block quote.
 
-
 `;
 
 exports[`example-246.md 1`] = `
@@ -2824,7 +2808,6 @@ exports[`example-246.md 1`] = `
 
    > A block quote.
 
-
 `;
 
 exports[`example-247.md 1`] = `
@@ -2840,7 +2823,6 @@ exports[`example-247.md 1`] = `
        indented code
 
    > A block quote.
-
 
 `;
 
@@ -2874,7 +2856,6 @@ with two lines.
              indented code
 
          > A block quote.
-
 
 `;
 
@@ -3027,6 +3008,7 @@ exports[`example-264.md 1`] = `
 
 - bar
 
+
 + baz
 
 `;
@@ -3143,6 +3125,23 @@ exports[`example-274.md 1`] = `
 
 `;
 
+exports[`example-276.md 1`] = `
+- a
+  - b
+
+    c
+- d
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- a
+
+  - b
+
+    c
+
+- d
+
+`;
+
 exports[`example-277.md 1`] = `
 * a
   > b
@@ -3201,7 +3200,6 @@ exports[`example-281.md 1`] = `
 
    bar
 
-
 `;
 
 exports[`example-282.md 1`] = `
@@ -3215,7 +3213,6 @@ exports[`example-282.md 1`] = `
   - bar
 
   baz
-
 
 `;
 

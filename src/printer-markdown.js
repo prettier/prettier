@@ -401,16 +401,19 @@ function printChildren(path, options, print, events) {
       if (!shouldNotPrePrintHardline(childNode, data)) {
         parts.push(hardline);
 
-        if (shouldPrePrintDoubleHardline(childNode, data)) {
+        if (
+          shouldPrePrintDoubleHardline(childNode, data) ||
+          shouldPrePrintTripleHardline(childNode, data)
+        ) {
+          parts.push(hardline);
+        }
+
+        if (shouldPrePrintTripleHardline(childNode, data)) {
           parts.push(hardline);
         }
       }
 
       parts.push(result);
-
-      if (shouldPostPrintHardline(childNode, data)) {
-        parts.push(hardline);
-      }
 
       lastChildNode = childNode;
     }
@@ -441,32 +444,24 @@ function shouldPrePrintDoubleHardline(node, data) {
   const isSiblingNode =
     isSequence && SIBLING_NODE_TYPES.indexOf(node.type) !== -1;
 
-  const isSecondNodeInListItem =
-    data.parentNode.type === "listItem" && data.index === 1;
-
-  const isInNonLooseListItem =
+  const isInTightListItem =
     data.parentNode.type === "listItem" && !data.parentNode.loose;
+
+  const isPrevNodeLooseListItem =
+    data.prevNode && data.prevNode.type === "listItem" && data.prevNode.loose;
 
   const isPrevNodePrettierIgnore = isPrettierIgnore(data.prevNode);
 
-  return !(
-    isSiblingNode ||
-    isSecondNodeInListItem ||
-    isInNonLooseListItem ||
-    isPrevNodePrettierIgnore
+  return (
+    isPrevNodeLooseListItem ||
+    !(isSiblingNode || isInTightListItem || isPrevNodePrettierIgnore)
   );
 }
 
-function shouldPostPrintHardline(node, data) {
-  const isFirstButNotLastNodeInLooseListItem =
-    data.parentNode.type === "listItem" &&
-    data.parentNode.loose &&
-    data.index === 0 &&
-    data.index !== data.parentNode.children.length - 1;
-
-  const isLooseListItem = node.type === "listItem" && node.loose;
-
-  return isLooseListItem || isFirstButNotLastNodeInLooseListItem;
+function shouldPrePrintTripleHardline(node, data) {
+  const isPrevNodeLooseList =
+    data.prevNode && data.prevNode.type === "list" && data.prevNode.loose;
+  return isPrevNodeLooseList;
 }
 
 function shouldRemainTheSameContent(path) {
