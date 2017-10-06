@@ -5324,6 +5324,17 @@ exports[`example-548.md 1`] = `
 
 `;
 
+exports[`example-549.md 1`] = `
+![Foo][]
+
+[foo]: /url "title"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+![Foo][]
+
+[foo]: /url "title"
+
+`;
+
 exports[`example-550.md 1`] = `
 ![foo] 
 []
@@ -5366,6 +5377,17 @@ exports[`example-553.md 1`] = `
 ![[foo]]
 
 [[foo]]: /url "title"
+
+`;
+
+exports[`example-554.md 1`] = `
+![Foo]
+
+[foo]: /url "title"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+![Foo]
+
+[foo]: /url "title"
 
 `;
 

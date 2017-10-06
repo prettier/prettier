@@ -203,7 +203,7 @@ function genericPrint(path, options, print) {
         default:
           return concat([
             "![",
-            node.identifier,
+            node.alt,
             "]",
             node.referenceType === "collapsed" ? "[]" : ""
           ]);
