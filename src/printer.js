@@ -3779,15 +3779,25 @@ function printMemberChain(path, options, print) {
     tuple => tuple.node.type === "CallExpression"
   ).length;
 
+  const possibleAngularNode = flatGroups[1].node;
+  const objectName = possibleAngularNode.object && possibleAngularNode.object.name;
+  const propertyName = possibleAngularNode.property && possibleAngularNode.property.name;
+  const isAngularModule = objectName === "angular" && propertyName === "module";
+
   // We don't want to print in one line if there's:
   //  * A comment.
   //  * 3 or more chained calls.
   //  * Any group but the last one has a hard line.
+  //  * Any angular module definition, e.g:
+  //  *    angular
+  //  *    .module('....')
+  //  *    .controller('...', ...);
   // If the last group is a function it's okay to inline if it fits.
   if (
     hasComment ||
     callExpressionCount >= 3 ||
-    printedGroups.slice(0, -1).some(willBreak)
+    printedGroups.slice(0, -1).some(willBreak) ||
+    isAngularModule
   ) {
     return group(expanded);
   }
