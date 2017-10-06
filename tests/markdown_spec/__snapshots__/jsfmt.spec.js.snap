@@ -4581,10 +4581,24 @@ exports[`example-472.md 1`] = `
 
 `;
 
+exports[`example-473.md 1`] = `
+[link](/url "title \\"&quot;")
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[link](/url 'title ""')
+
+`;
+
 exports[`example-474.md 1`] = `
 [link](/url "title "and" title")
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [link](/url "title "and" title")
+
+`;
+
+exports[`example-475.md 1`] = `
+[link](/url 'title "and" title')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[link](/url 'title "and" title')
 
 `;
 

@@ -111,7 +111,7 @@ function genericPrint(path, options, print) {
             printChildren(path, options, print),
             "](",
             printUrl(node.url, ")"),
-            node.title ? ` "${node.title}"` : "",
+            node.title ? ` ${printTitle(node.title)}` : "",
             ")"
           ]);
     case "image":
@@ -120,7 +120,7 @@ function genericPrint(path, options, print) {
         node.alt || "",
         "](",
         printUrl(node.url, ")"),
-        node.title ? ` "${node.title}"` : "",
+        node.title ? ` ${printTitle(node.title)}` : "",
         ")"
       ]);
     case "blockquote":
@@ -214,7 +214,7 @@ function genericPrint(path, options, print) {
         node.identifier,
         "]: ",
         printUrl(node.url),
-        node.title === null ? "" : ` "${node.title}"`
+        node.title === null ? "" : ` ${printTitle(node.title)}`
       ]);
     case "footnote":
       return concat(["[^", printChildren(path, options, print), "]"]);
@@ -513,6 +513,12 @@ function printUrl(url, dangerousCharOrChars) {
   return new RegExp(dangerousChars.map(x => `\\${x}`).join("|")).test(url)
     ? `<${url}>`
     : url;
+}
+
+function printTitle(title) {
+  return title.includes('"') && !title.includes("'")
+    ? `'${title}'`
+    : `"${title.replace(/"/g, '\\"')}"`;
 }
 
 function normalizeParts(parts) {
