@@ -83,7 +83,7 @@ function formatWithCursor(text, opts, addAlignmentSize) {
     });
     const strippedText = docblock.strip(text);
     const separatingNewlines = strippedText.startsWith("\n") ? "\n" : "\n\n";
-    text = `${newDocblock}${separatingNewlines}${strippedText}`;
+    text = newDocblock + separatingNewlines + strippedText;
   }
 
   addAlignmentSize = addAlignmentSize || 0;
