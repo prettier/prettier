@@ -58,14 +58,12 @@ function handleError(filename, error) {
   // parser has mistakenly thrown arrays sometimes.)
   if (isParseError) {
     console.error(`${filename}: ${String(error)}`);
-  } else if (
-    isValidationError ||
-    error instanceof errors.ConfigError ||
-    error instanceof errors.DebugError
-  ) {
+  } else if (isValidationError || error instanceof errors.ConfigError) {
     console.error(String(error));
     // If validation fails for one file, it will fail for all of them.
     process.exit(1);
+  } else if (error instanceof errors.DebugError) {
+    console.error(`${filename}: ${error.message}`);
   } else {
     console.error(filename + ":", error.stack || error);
   }
