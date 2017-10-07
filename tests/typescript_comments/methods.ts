@@ -29,6 +29,10 @@ export class Point {
       /**
        * Turns the given string into pig-latin.
        */
-              pigLatinize(value: string) {}
+              pigLatinize(value: string) {
+/**
+ * This is a block comment inside of a method.
+ */
+              }
 
 }
