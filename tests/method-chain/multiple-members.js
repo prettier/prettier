@@ -14,3 +14,7 @@ if (testConfig.ENABLE_ONLINE_TESTS === "true") {
     });
   });
 }
+
+wrapper.find('SomewhatLongNodeName').prop('longPropFunctionName')().then(function() {
+  doSomething();
+});
