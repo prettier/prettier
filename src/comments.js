@@ -934,13 +934,7 @@ function printComment(commentPath, options) {
       const parts = [];
 
       lines.forEach((line, index) => {
-        parts.push(
-          docBuilders.addAlignmentToDoc(
-            line.replace(/^[ \t]+/, " "),
-            indentSize,
-            tabWidth
-          )
-        );
+        parts.push(docBuilders.align(indentSize, line.replace(/^[ \t]+/, " ")));
         if (index < lines.length - 1) {
           parts.push(docBuilders.hardline);
         }
