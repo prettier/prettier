@@ -946,7 +946,7 @@ function printComment(commentPath, options) {
         }
       });
 
-      return docBuilders.concat(["/*", ...parts, "*/"]);
+      return docBuilders.concat(["/*", concat(parts), "*/"]);
     }
     case "CommentLine":
     case "Line":
