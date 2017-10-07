@@ -154,6 +154,14 @@ export class Point {
  */
               }
 
+  /**
+        * One
+ * Two
+   * Three
+* Four 
+   */
+  mismatchedIndentation() {}
+
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export class Point {
@@ -192,6 +200,14 @@ export class Point {
      * This is a block comment inside of a method.
      */
   }
+
+  /**
+   * One
+   * Two
+   * Three
+   * Four
+   */
+  mismatchedIndentation() {}
 }
 
 `;
