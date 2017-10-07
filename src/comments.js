@@ -921,7 +921,7 @@ function printComment(commentPath, options) {
     case "CommentBlock":
     case "Block": {
       if (isJsDocComment(comment)) {
-        return printJsDocComment(comment, options);
+        return printJsDocComment(comment);
       }
 
       return "/*" + comment.value + "*/";
@@ -946,22 +946,13 @@ function isJsDocComment(comment) {
   );
 }
 
-function printJsDocComment(comment, options) {
+function printJsDocComment(comment) {
   const lines = comment.value.split("\n");
-  const tabWidth = options.tabWidth;
-  const indentSize = util.getIndentSize(comment.value, tabWidth);
 
   const parts = [];
 
   lines.forEach((line, index) => {
-    parts.push(
-      docBuilders.align(
-        indentSize,
-        // We only want to start with a leading space if we are not on
-        // the first line of a JSDoc comment.
-        (index > 0 ? " " : "") + line.trimLeft()
-      )
-    );
+    parts.push((index > 0 ? " " : "") + line.trimLeft());
     if (index < lines.length - 1) {
       parts.push(docBuilders.hardline);
     }
