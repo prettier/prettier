@@ -953,7 +953,11 @@ function printJsDocComment(comment) {
     "/*",
     join(
       docBuilders.hardline,
-      lines.map((line, index) => (index > 0 ? " " : "") + line.trimLeft())
+      lines.map(
+        (line, index) =>
+          (index > 0 ? " " : "") +
+          (index < lines.length - 1 ? line.trim() : line.trimLeft())
+      )
     ),
     "*/"
   ]);
