@@ -949,16 +949,14 @@ function isJsDocComment(comment) {
 function printJsDocComment(comment) {
   const lines = comment.value.split("\n");
 
-  const parts = [];
-
-  lines.forEach((line, index) => {
-    parts.push((index > 0 ? " " : "") + line.trimLeft());
-    if (index < lines.length - 1) {
-      parts.push(docBuilders.hardline);
-    }
-  });
-
-  return docBuilders.concat(["/*", concat(parts), "*/"]);
+  return docBuilders.concat([
+    "/*",
+    join(
+      docBuilders.hardline,
+      lines.map((line, index) => (index > 0 ? " " : "") + line.trimLeft())
+    ),
+    "*/"
+  ]);
 }
 
 function findExpressionIndexForComment(quasis, comment) {
