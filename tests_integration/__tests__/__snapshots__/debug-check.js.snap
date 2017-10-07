@@ -3,3 +3,65 @@
 exports[`checks stdin with --debug-check (write) 1`] = `Array []`;
 
 exports[`doesn't crash when --debug-check is passed (write) 1`] = `Array []`;
+
+exports[`show diff for 2+ error files with --debug-check (stderr) 1`] = `
+"a.js: ast(input) !== ast(prettier(input))
+Index: 
+===================================================================
+--- 	
++++ 	
+@@ -17,6 +17,6 @@
+                   \\"method\\": false,
+                   \\"key\\": {
+-                    \\"type\\": \\"StringLiteral\\",
+-                    \\"value\\": \\"a\\"
++                    \\"type\\": \\"Identifier\\",
++                    \\"name\\": \\"a\\"
+                   },
+                   \\"computed\\": false,
+
+Index: 
+===================================================================
+--- 	
++++ 	
+@@ -1,3 +1,3 @@
+ const a = {
+-    'a': 1
++  a: 1
+ };
+
+b.js: ast(input) !== ast(prettier(input))
+Index: 
+===================================================================
+--- 	
++++ 	
+@@ -17,6 +17,6 @@
+                   \\"method\\": false,
+                   \\"key\\": {
+-                    \\"type\\": \\"StringLiteral\\",
+-                    \\"value\\": \\"b\\"
++                    \\"type\\": \\"Identifier\\",
++                    \\"name\\": \\"b\\"
+                   },
+                   \\"computed\\": false,
+
+Index: 
+===================================================================
+--- 	
++++ 	
+@@ -1,3 +1,3 @@
+ const b = {
+-    'b': 2
++  b: 2
+ };
+
+"
+`;
+
+exports[`show diff for 2+ error files with --debug-check (stdout) 1`] = `
+"
+
+"
+`;
+
+exports[`show diff for 2+ error files with --debug-check (write) 1`] = `Array []`;
