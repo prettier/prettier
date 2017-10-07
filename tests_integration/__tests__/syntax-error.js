@@ -2,10 +2,10 @@
 
 const runPrettier = require("../runPrettier");
 
-test("exits with non-zero code when input has a syntax error", () => {
-  const result = runPrettier("cli/with-shebang", ["--stdin"], {
+describe("exits with non-zero code when input has a syntax error", () => {
+  runPrettier("cli/with-shebang", ["--stdin"], {
     input: "a.2"
+  }).test({
+    status: 2
   });
-
-  expect(result.status).toEqual(2);
 });

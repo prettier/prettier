@@ -6,17 +6,17 @@ Go to *File | Settings | Tools | External Tools* for Windows and Linux or *WebSt
 
 * **Program** set `prettier`
 
-> If on the other hand you have `prettier` installed locally, replace the **Program** with `./node_modules/.bin/prettier` (on OS X and Linux) or `.\node_modules\.bin\prettier.cmd` (on Windows).
+> If on the other hand you have `prettier` installed locally, replace the **Program** with `$ProjectFileDir$/node_modules/.bin/prettier` (on OS X and Linux) or `$ProjectFileDir$\node_modules\.bin\prettier.cmd` (on Windows).
 
 * **Parameters** set `--write [other opts] $FilePathRelativeToProjectRoot$`
 * **Working directory** set `$ProjectFileDir$`
 
-![Example](https://raw.githubusercontent.com/prettier/prettier/master/editors/webstorm/with-prettier.png)
+![Example](./with-prettier.png)
 
 ### Process directories
 
 * Clone the External tool created above and name it `Prettier Directories`
-* **Parameters** set `--write [other opts] $FileDirRelativeToProjectRoot$/**/(*.js|*.jsx)`
+* **Parameters** set `--write [other opts] $FileDirRelativeToProjectRoot$/**/{*.js,*.jsx}`
 
 ## Usage
 
@@ -35,7 +35,11 @@ To automatically format using `prettier` on save, you can use a file watcher.
 
 Go to *File | Settings | Tools | File Watchers* for Windows and Linux or *WebStorm | Preferences | Tools | File Watchers* for OS X and click **+** to add a new tool. Let’s name it **Prettier**.
 
+* **File Type**: JavaScript
+* **Scope**: Current File
 * **Program** set the full path to a `prettier` executable, such as `/Users/developer/repo/jest/node_modules/.bin/prettier` (on OS X and Linux) or `C:/\Users\developer\repo\jest\node_modules\.bin\prettier.cmd` (on Windows).
-* **Parameters** set `--write [other opts] $FilePath$`
+* **Arguments** set `--write [other opts] $FilePath$`
 * **Working directory** set `$ProjectFileDir$`
-* **Immediate file synchronization**: Uncheck to reformat on Save only (otherwise code will jump around while you type)
+* **Immediate file synchronization**: Uncheck to reformat on Save only (otherwise code will jump around while you type).
+
+![Example](./prettier-file-wacther.png)

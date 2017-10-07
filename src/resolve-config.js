@@ -2,36 +2,54 @@
 
 const cosmiconfig = require("cosmiconfig");
 const minimatch = require("minimatch");
-const path = require("path");
+const mem = require("mem");
 
-const withCache = cosmiconfig("prettier");
-const noCache = cosmiconfig("prettier", { cache: false });
+const getExplorerMemoized = mem(opts =>
+  cosmiconfig("prettier", {
+    sync: opts.sync,
+    cache: opts.cache,
+    rcExtensions: true
+  })
+);
+
+/** @param {{ cache: boolean, sync: boolean }} opts */
+function getLoadFunction(opts) {
+  // Normalize opts before passing to a memoized function
+  opts = Object.assign({ sync: false, cache: false }, opts);
+  return getExplorerMemoized(opts).load;
+}
 
 function resolveConfig(filePath, opts) {
-  const useCache = !(opts && opts.useCache === false);
-  const fileDir = filePath ? path.dirname(filePath) : undefined;
-
-  return (useCache ? withCache : noCache).load(fileDir).then(result => {
-    if (!result) {
-      return null;
-    }
-
-    return mergeOverrides(result.config, filePath);
+  opts = Object.assign({ useCache: true }, opts);
+  const load = getLoadFunction({ cache: !!opts.useCache, sync: false });
+  return load(filePath, opts.config).then(result => {
+    return !result ? null : mergeOverrides(result.config, filePath);
   });
 }
 
+resolveConfig.sync = (filePath, opts) => {
+  opts = Object.assign({ useCache: true }, opts);
+  const load = getLoadFunction({ cache: !!opts.useCache, sync: true });
+  const result = load(filePath, opts.config);
+  return !result ? null : mergeOverrides(result.config, filePath);
+};
+
 function clearCache() {
-  withCache.clearCaches();
+  mem.clear(getExplorerMemoized);
 }
 
 function resolveConfigFile(filePath) {
-  return noCache.load(filePath).then(result => {
-    if (result) {
-      return result.filepath;
-    }
-    return null;
+  const load = getLoadFunction({ sync: false });
+  return load(filePath).then(result => {
+    return result ? result.filepath : null;
   });
 }
+
+resolveConfigFile.sync = filePath => {
+  const load = getLoadFunction({ sync: true });
+  const result = load(filePath);
+  return result ? result.filepath : null;
+};
 
 function mergeOverrides(config, filePath) {
   const options = Object.assign({}, config);

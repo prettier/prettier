@@ -13,5 +13,6 @@ module.exports = {
     "<rootDir>/src/doc-debug.js",
     "<rootDir>/src/clean-ast.js",
     "<rootDir>/src/deprecated.js"
-  ]
+  ],
+  transform: {}
 };

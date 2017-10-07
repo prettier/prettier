@@ -9,3 +9,4 @@ npm-debug.log
 /website/node_modules
 .DS_Store
 coverage
+.idea

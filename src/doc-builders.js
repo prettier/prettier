@@ -1,6 +1,7 @@
 "use strict";
 
 function assertDoc(val) {
+  /* istanbul ignore if */
   if (
     !(typeof val === "string" || (val != null && typeof val.type === "string"))
   ) {

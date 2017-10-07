@@ -17,7 +17,7 @@
     {
         "image": "/images/vscode-128px.png",
         "name": "Visual Studio Code",
-        "content": "[`prettier-vscode`](https://github.com/esbenp/prettier-vscode)"
+        "content": "[`prettier-vscode`](https://github.com/prettier/prettier-vscode)"
     },
     {
         "image": "/images/visualstudio-128px.png",

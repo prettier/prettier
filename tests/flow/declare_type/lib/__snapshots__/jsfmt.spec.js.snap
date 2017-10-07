@@ -46,7 +46,7 @@ declare module 'foo' {
 
 declare module "foo" {
   declare class A {
-    toz: number
+    toz: number;
   }
 
   declare var n: string;

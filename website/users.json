@@ -20,7 +20,7 @@
   {
     "caption": "Babel",
     "image": "/images/babel-200x100.png",
-    "infoLink": "https://babeljs.jo",
+    "infoLink": "https://babeljs.io",
     "pinned": true
   },
   {
@@ -44,5 +44,15 @@
     "caption": "Hudl",
     "image": "/images/hudl-200x100.png",
     "infoLink": "http://hudl.github.io/"
+  },
+  {
+    "caption": "Transloadit",
+    "image": "/images/transloadit-200x100.png",
+    "infoLink": "https://transloadit.com/"
+  },
+  {
+    "caption": "Tradeshift",
+    "image": "/images/tradeshift-200x100.png",
+    "infoLink": "https://tradeshift.com/"
   }
 ]

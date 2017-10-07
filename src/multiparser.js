@@ -48,7 +48,7 @@ function fromBabylonFlowOrTypeScript(path) {
         const rawQuasis = node.quasis.map(q => q.value.raw);
         const text = rawQuasis.join("@prettier-placeholder");
         return {
-          options: { parser: "postcss" },
+          options: { parser: "css" },
           transformDoc: transformCssDoc,
           text: text
         };
@@ -67,15 +67,19 @@ function fromBabylonFlowOrTypeScript(path) {
        * gql`...`
        */
       if (
+        // We currently don't support expression inside GraphQL template literals
+        parent.expressions.length === 0 &&
         parentParent &&
-        parentParent.type === "TaggedTemplateExpression" &&
-        parent.quasis.length === 1 &&
-        ((parentParent.tag.type === "MemberExpression" &&
-          parentParent.tag.object.name === "graphql" &&
-          parentParent.tag.property.name === "experimental") ||
-          (parentParent.tag.type === "Identifier" &&
-            (parentParent.tag.name === "gql" ||
-              parentParent.tag.name === "graphql")))
+        ((parentParent.type === "TaggedTemplateExpression" &&
+          ((parentParent.tag.type === "MemberExpression" &&
+            parentParent.tag.object.name === "graphql" &&
+            parentParent.tag.property.name === "experimental") ||
+            (parentParent.tag.type === "Identifier" &&
+              (parentParent.tag.name === "gql" ||
+                parentParent.tag.name === "graphql")))) ||
+          (parentParent.type === "CallExpression" &&
+            parentParent.callee.type === "Identifier" &&
+            parentParent.callee.name === "graphql"))
       ) {
         return {
           options: { parser: "graphql" },
@@ -130,7 +134,7 @@ function fromHtmlParser2(path, options) {
       // Inline Styles
       if (parent.type === "style") {
         return {
-          options: { parser: "postcss" },
+          options: { parser: "css" },
           transformDoc: doc => concat([hardline, stripTrailingHardline(doc)]),
           text: getText(options, node)
         };
@@ -174,16 +178,24 @@ function fromHtmlParser2(path, options) {
 
 function transformCssDoc(quasisDoc, parent) {
   const parentNode = parent.path.getValue();
+
+  const isEmpty =
+    parentNode.quasis.length === 1 && !parentNode.quasis[0].value.raw.trim();
+  if (isEmpty) {
+    return "``";
+  }
+
   const expressionDocs = parentNode.expressions
     ? parent.path.map(parent.print, "expressions")
     : [];
   const newDoc = replacePlaceholders(quasisDoc, expressionDocs);
+  /* istanbul ignore if */
   if (!newDoc) {
     throw new Error("Couldn't insert all the expressions");
   }
   return concat([
     "`",
-    indent(concat([softline, stripTrailingHardline(newDoc)])),
+    indent(concat([hardline, stripTrailingHardline(newDoc)])),
     softline,
     "`"
   ]);
@@ -290,28 +302,47 @@ function isStyledJsx(path) {
 }
 
 /**
- * Template literal in these contexts:
- * styled.button`color: red`
- * styled(Component)`color: red`
- * Foo.extend`color: red`
- * css`color: red`
- * keyframes`0% { opacity: 0; }`
- * injectGlobal`body{ margin:0: }`
+ * styled-components template literals
  */
 function isStyledComponents(path) {
   const parent = path.getParentNode();
-  return (
-    parent &&
-    parent.type === "TaggedTemplateExpression" &&
-    ((parent.tag.type === "MemberExpression" &&
-      (parent.tag.object.name === "styled" ||
-        (/^[A-Z]/.test(parent.tag.object.name) &&
-          parent.tag.property.name === "extend"))) ||
-      (parent.tag.type === "CallExpression" &&
-        parent.tag.callee.type === "Identifier" &&
-        parent.tag.callee.name === "styled") ||
-      (parent.tag.type === "Identifier" && parent.tag.name === "css"))
-  );
+
+  if (!parent || parent.type !== "TaggedTemplateExpression") {
+    return false;
+  }
+
+  const tag = parent.tag;
+
+  switch (tag.type) {
+    case "MemberExpression":
+      return (
+        // styled.foo``
+        isStyledIdentifier(tag.object) ||
+        // Component.extend``
+        (/^[A-Z]/.test(tag.object.name) && tag.property.name === "extend")
+      );
+
+    case "CallExpression":
+      return (
+        // styled(Component)``
+        isStyledIdentifier(tag.callee) ||
+        // styled.foo.attr({})``
+        (tag.callee.type === "MemberExpression" &&
+          tag.callee.object.type === "MemberExpression" &&
+          isStyledIdentifier(tag.callee.object.object))
+      );
+
+    case "Identifier":
+      // css``
+      return tag.name === "css";
+
+    default:
+      return false;
+  }
+}
+
+function isStyledIdentifier(node) {
+  return node.type === "Identifier" && node.name === "styled";
 }
 
 module.exports = {

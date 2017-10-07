@@ -1,2 +1,1 @@
-/* eslint-disable */
-console.log("should not have semi")
+console.log("jest/Component.js should not have semi")

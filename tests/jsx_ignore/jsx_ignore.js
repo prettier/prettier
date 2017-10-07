@@ -40,3 +40,16 @@ f(
 }
 </div>;
 
+push(
+  // prettier-ignore
+  <td> :)
+  </td>,
+);
+
+function f() {
+  return (
+    // prettier-ignore
+    /* $FlowFixMe(>=0.53.0) */
+    <JSX />
+  );
+}

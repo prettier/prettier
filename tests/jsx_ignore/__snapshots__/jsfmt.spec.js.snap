@@ -43,6 +43,19 @@ f(
 }
 </div>;
 
+push(
+  // prettier-ignore
+  <td> :)
+  </td>,
+);
+
+function f() {
+  return (
+    // prettier-ignore
+    /* $FlowFixMe(>=0.53.0) */
+    <JSX />
+  );
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // this should remain as-is
 <div>
@@ -81,5 +94,19 @@ f(
   {/* prettier-ignore */
   x     ?   <Y/> : <Z/>}
 </div>;
+
+push(
+  // prettier-ignore
+  <td> :)
+  </td>
+);
+
+function f() {
+  return (
+    // prettier-ignore
+    /* $FlowFixMe(>=0.53.0) */
+    <JSX />
+  );
+}
 
 `;

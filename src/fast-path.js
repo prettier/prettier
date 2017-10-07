@@ -19,6 +19,7 @@ FastPath.prototype.getName = function getName() {
   }
   // Since the name is always a string, null is a safe sentinel value to
   // return if we do not know the name of the (root) value.
+  /* istanbul ignore next */
   return null;
 };
 
@@ -220,14 +221,6 @@ FastPath.prototype.needsParens = function(options) {
       return false;
     }
 
-    case "MemberExpression": {
-      return (
-        parent.type === "MemberExpression" &&
-        parent.object === node &&
-        node.optional
-      );
-    }
-
     case "SpreadElement":
     case "SpreadProperty":
       return (
@@ -309,6 +302,7 @@ FastPath.prototype.needsParens = function(options) {
         case "UnaryExpression":
         case "SpreadElement":
         case "SpreadProperty":
+        case "ExperimentalSpreadProperty":
         case "BindExpression":
         case "AwaitExpression":
         case "TSAsExpression":
@@ -620,6 +614,7 @@ function isStatement(node) {
     node.type === "ClassDeclaration" ||
     node.type === "ClassMethod" ||
     node.type === "ClassProperty" ||
+    node.type === "ClassPrivateProperty" ||
     node.type === "ContinueStatement" ||
     node.type === "DebuggerStatement" ||
     node.type === "DeclareClass" ||

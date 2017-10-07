@@ -1,6 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`styled-components.js 1`] = `
+const ListItem = styled.li\`\`;
+
+const ListItem = styled.li\` \`;
+
+const Dropdown = styled.div\`position: relative;\`
+
 const Button = styled.button\`
 	  color:   palevioletred ;
 
@@ -17,7 +23,19 @@ border-color : tomato
 
 styled(ExistingComponent)\`
        color : papayawhip ; background-color: firebrick\`;
+
+
+styled.button.attr({})\`
+border : rebeccapurple\`;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const ListItem = styled.li\`\`;
+
+const ListItem = styled.li\`\`;
+
+const Dropdown = styled.div\`
+  position: relative;
+\`;
+
 const Button = styled.button\`
   color: palevioletred;
 
@@ -33,6 +51,10 @@ const TomatoButton = Button.extend\`
 styled(ExistingComponent)\`
   color: papayawhip;
   background-color: firebrick;
+\`;
+
+styled.button.attr({})\`
+  border: rebeccapurple;
 \`;
 
 `;

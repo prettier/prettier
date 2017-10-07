@@ -72,6 +72,24 @@ const a = 1;
 
 `;
 
+exports[`interface.js 1`] = `
+interface A { 'C': string; }
+interface B { "D": boolean; }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+interface A { C: string }
+interface B { D: boolean }
+
+`;
+
+exports[`interface.js 2`] = `
+interface A { 'C': string; }
+interface B { "D": boolean; }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+interface A { C: string }
+interface B { D: boolean }
+
+`;
+
 exports[`nullable.js 1`] = `
 function formatEntireFile(
   fileVersion: FileVersion,
@@ -159,18 +177,22 @@ type State = {
 exports[`type.js 1`] = `
 type F = <T>(T) => T;
 type G = (<A, B>(A) => B);
+type H = { 'A': string, "B": number };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 type F = <T>(T) => T;
 type G = <A, B>(A) => B;
+type H = { A: string, B: number };
 
 `;
 
 exports[`type.js 2`] = `
 type F = <T>(T) => T;
 type G = (<A, B>(A) => B);
+type H = { 'A': string, "B": number };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 type F = <T>(T) => T;
 type G = <A, B>(A) => B;
+type H = { A: string, B: number };
 
 `;
 

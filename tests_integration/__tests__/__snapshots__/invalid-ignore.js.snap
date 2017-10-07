@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`throw error with invalid ignore (stderr) 1`] = `
+"Unable to read <cwd>/tests_integration/cli/invalid-ignore/.prettierignore:
+"
+`;
+
+exports[`throw error with invalid ignore (stdout) 1`] = `""`;
+
+exports[`throw error with invalid ignore (write) 1`] = `Array []`;

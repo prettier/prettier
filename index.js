@@ -10,6 +10,8 @@ const normalizeOptions = require("./src/options").normalize;
 const parser = require("./src/parser");
 const printDocToDebug = require("./src/doc-debug").printDocToDebug;
 const config = require("./src/resolve-config");
+const docblock = require("jest-docblock");
+const getStream = require("get-stream");
 
 function guessLineEnding(text) {
   const index = text.indexOf("\n");
@@ -28,6 +30,11 @@ function attachComments(text, ast, opts) {
   ast.tokens = [];
   opts.originalText = text.trimRight();
   return astComments;
+}
+
+function hasPragma(text) {
+  const pragmas = Object.keys(docblock.parse(docblock.extract(text)));
+  return pragmas.indexOf("prettier") !== -1 || pragmas.indexOf("format") !== -1;
 }
 
 function ensureAllCommentsPrinted(astComments) {
@@ -56,7 +63,29 @@ function ensureAllCommentsPrinted(astComments) {
 }
 
 function formatWithCursor(text, opts, addAlignmentSize) {
+  if (opts.requirePragma && !hasPragma(text)) {
+    return { formatted: text };
+  }
+
   text = stripBom(text);
+
+  if (
+    opts.insertPragma &&
+    !hasPragma(text) &&
+    opts.rangeStart === 0 &&
+    opts.rangeEnd === Infinity
+  ) {
+    const parsedDocblock = docblock.parseWithComments(docblock.extract(text));
+    const pragmas = Object.assign({ format: "" }, parsedDocblock.pragmas);
+    const newDocblock = docblock.print({
+      pragmas,
+      comments: parsedDocblock.comments.replace(/^(\r?\n)+/, "") // remove leading newlines
+    });
+    const strippedText = docblock.strip(text);
+    const separatingNewlines = strippedText.startsWith("\n") ? "\n" : "\n\n";
+    text = newDocblock + separatingNewlines + strippedText;
+  }
+
   addAlignmentSize = addAlignmentSize || 0;
 
   const ast = parser.parse(text, opts);
@@ -343,6 +372,7 @@ module.exports = {
 
   /* istanbul ignore next */
   __debug: {
+    getStream,
     parse: function(text, opts) {
       return parser.parse(text, opts);
     },

@@ -21,6 +21,10 @@ conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Pre
 <details>
 <summary><strong>Table of Contents</strong></summary>
 
+<!-- Do not edit TOC, regenerate with `yarn toc` -->
+
+<!-- toc -->
+
 * [What does Prettier do?](#what-does-prettier-do)
 * [Why Prettier?](#why-prettier)
   + [Building and enforcing a style guide](#building-and-enforcing-a-style-guide)
@@ -48,12 +52,10 @@ conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Pre
   + [Range](#range)
   + [Parser](#parser)
   + [Filepath](#filepath)
-<!-- 
 * [Configuration File](#configuration-file)
   + [Basic Configuration](#basic-configuration)
   + [Configuration Overrides](#configuration-overrides)
   + [Configuration Schema](#configuration-schema)
--->
 * [Editor Integration](#editor-integration)
   + [Atom](#atom)
   + [Emacs](#emacs)
@@ -67,6 +69,9 @@ conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Pre
 * [Technical Details](#technical-details)
 * [Badge](#badge)
 * [Contributing](#contributing)
+
+<!-- tocstop -->
+
 </details>
 
 --------------------------------------------------------------------------------
@@ -154,7 +159,7 @@ We've worked very hard to use the least controversial coding styles, went throug
 
 Since coming up with a coding style and enforcing it is a big undertaking, it often slips through the cracks and you are left working on inconsistent codebases. Running Prettier in this case is a quick win, the codebase is now uniform and easier to read without spending hardly any time.
 - “Take a look at the code :) I just need to restore sanity.”
-- “We inherited a ~2000 module ES6 code base, developed by 20 different developers over 18 months, in a global team. Felt like such a win without much research.
+- “We inherited a ~2000 module ES6 code base, developed by 20 different developers over 18 months, in a global team. Felt like such a win without much research.”
 
 ### Ride the hype train
 
@@ -198,7 +203,7 @@ Prettier does nothing to help with those kind of rules. They are also the most i
 Install:
 
 ```
-yarn add prettier --dev
+yarn add prettier --dev --exact
 ```
 
 You can install it globally if you like:
@@ -210,8 +215,13 @@ yarn global add prettier
 *We're using `yarn` but you can use `npm` if you like:*
 
 ```
-npm install [--save-dev|--global] prettier
+npm install --save-dev --save-exact prettier
+# or globally
+npm install --global prettier
 ```
+
+> We recommend pinning an exact version of prettier in your `package.json`
+> as we introduce stylistic changes in patch releases.
 
 ### CLI
 
@@ -236,18 +246,12 @@ expands the globs rather than your shell, for cross-platform usage.
 The [glob syntax from the glob module](https://github.com/isaacs/node-glob/blob/master/README.md#glob-primer)
 is used.
 
-#### `--with-node-modules`
+#### `--debug-check`
 
-Prettier CLI will ignore files located in `node_modules` directory. To opt-out from this behavior use `--with-node-modules` flag.
+If you're worried that Prettier will change the correctness of your code, add `--debug-check` to the command.
+This will cause Prettier to print an error message if it detects that code correctness might have changed.
+Note that `--write` cannot be used with `--debug-check`.
 
-#### `--list-different`
-
-Another useful flag is `--list-different` (or `-l`) which prints the filenames of files that are different from Prettier formatting. If there are differences the script errors out, which is useful in a CI scenario.
-
-```bash
-prettier --single-quote --list-different "src/**/*.js"
-```
-<!--
 #### `--find-config-path` and `--config`
 
 If you are repeatedly formatting individual files with `prettier`, you will incur a small performance cost
@@ -270,13 +274,64 @@ such as a `config/` directory.
 
 If you don't have a configuration file, or want to ignore it if it does exist,
 you can pass `--no-config` instead.
+
+#### `--ignore-path`
+
+Path to a file containing patterns that describe files to ignore.  By default, prettier looks for `./.prettierignore`.
+
+#### `--require-pragma`
+
+Require a special comment, called a pragma, to be present in the file's first docblock comment in order for prettier to format it.
+```js
+/**
+ * @prettier
+ */
+```
+
+Valid pragmas are `@prettier` and `@format`.
+
+<!--
+#### `--insert-pragma`
+Insert a `@format` pragma to the top of formatted files when pragma is absent.
+Works well when used in tandem with `--require-pragma`.
 -->
+#### `--list-different`
 
-#### `--debug-check`
+Another useful flag is `--list-different` (or `-l`) which prints the filenames of files that are different from Prettier formatting. If there are differences the script errors out, which is useful in a CI scenario.
 
-If you're worried that Prettier will change the correctness of your code, add `--debug-check` to the command.
-This will cause Prettier to print an error message if it detects that code correctness might have changed.
-Note that `--write` cannot be used with `--debug-check`.
+```bash
+prettier --single-quote --list-different "src/**/*.js"
+```
+
+#### `--no-config`
+
+Do not look for a configuration file.  The default settings will be used.
+
+#### `--config-precedence`
+
+Defines how config file should be evaluated in combination of CLI options.
+
+**cli-override (default)**
+
+CLI options take precedence over config file
+
+**file-override**
+
+Config file take precedence over CLI options
+
+**prefer-file**
+
+If a config file is found will evaluate it and ignore other CLI options. If no config file is found CLI options will evaluate as normal.
+
+This option adds support to editor integrations where users define their default configuration but want to respect project specific configuration.
+
+#### `--with-node-modules`
+
+Prettier CLI will ignore files located in `node_modules` directory. To opt-out from this behavior use `--with-node-modules` flag.
+
+#### `--write`
+
+This rewrites all processed files in place.  This is comparable to the `eslint --fix` workflow.
 
 ### ESLint
 
@@ -335,7 +390,7 @@ and add this config to your `package.json`:
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "*.js": [
+    "*.{js,json,css}": [
       "prettier --write",
       "git add"
     ]
@@ -412,8 +467,7 @@ prettier.formatWithCursor(" 1", { cursorOffset: 2 });
 // -> { formatted: '1;\n', cursorOffset: 1 }
 ```
 
-<!--
-#### `prettier.resolveConfig([filePath] [, options])`
+#### `prettier.resolveConfig([filePath [, options]])`
 
 `resolveConfig` can be used to resolve configuration for a given source file.
 The function optionally accepts an input file path as an argument, which defaults to the current working directory.
@@ -423,7 +477,7 @@ A promise is returned which will resolve to:
 
 The promise will be rejected if there was an error parsing the configuration file.
 
-If `options.withCache` is `false`, all caching will be bypassed.
+If `options.useCache` is `false`, all caching will be bypassed.
 
 ```js
 const text = fs.readFileSync(filePath, "utf8");
@@ -432,12 +486,13 @@ prettier.resolveConfig(filePath).then(options => {
 })
 ```
 
+Use `prettier.resolveConfig.sync([filePath [, options]])` if you'd like to use sync version.
+
 #### `prettier.clearConfigCache()`
 
 As you repeatedly call `resolveConfig`, the file system structure will be cached for performance.
 This function will clear the cache. Generally this is only needed for editor integrations that
 know that the file system has changed since the last format took place.
--->
 
 #### Custom Parser API
 
@@ -549,12 +604,13 @@ Default | CLI Override | API Override
 `false` |  `--single-quote` | `singleQuote: <bool>`
 
 ### Trailing Commas
-Print trailing commas wherever possible.
+Print trailing commas wherever possible when multi-line. (A single-line array,
+for example, never gets trailing commas.)
 
 Valid options:
  * `"none"` - No trailing commas.
  * `"es5"` - Trailing commas where valid in ES5 (objects, arrays, etc.)
- * `"all"` - Trailing commas wherever possible (function arguments). This requires node 8 or a [transform](https://babeljs.io/docs/plugins/syntax-trailing-function-commas/).
+ * `"all"` - Trailing commas wherever possible (including function arguments). This requires node 8 or a [transform](https://babeljs.io/docs/plugins/syntax-trailing-function-commas/).
 
 Default | CLI Override | API Override
 --------|--------------|-------------
@@ -572,7 +628,7 @@ Default | CLI Override | API Override
 `true` | `--no-bracket-spacing` | `bracketSpacing: <bool>`
 
 ### JSX Brackets
-Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line.
+Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line (does not apply to self closing elements).
 
 Default | CLI Override | API Override
 --------|--------------|-------------
@@ -624,13 +680,36 @@ Default | CLI Override | API Override
 --------|--------------|-------------
 None | `--stdin-filepath <string>` | `filepath: "<string>"`
 
-<!--
+### Require pragma
+Prettier can restrict itself to only format files that contain a special comment, called a pragma, at the top of the file. This is very useful
+when gradually transitioning large, unformatted codebases to prettier.
+
+For example, a file with the following as its first comment will be formatted when `--require-pragma` is supplied:
+
+```js
+/**
+ * @prettier
+ */
+```
+
+or
+
+```js
+/**
+ * @format
+ */
+```
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`false` | `--require-pragma` | `requirePragma: <bool>`
+
 ## Configuration File
 
 Prettier uses [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) for configuration file support.
 This means you can configure prettier via:
 
-* A `.prettierrc` file, written in YAML or JSON.
+* A `.prettierrc` file, written in YAML or JSON, with optional extensions: `.yaml/.yml/.json/.js`.
 * A `prettier.config.js` file that exports an object.
 * A `"prettier"` key in your `package.json` file.
 
@@ -707,7 +786,6 @@ For more information on how to use the CLI to locate a file, see the [CLI](#cli)
 ### Configuration Schema
 
 If you'd like a JSON schema to validate your configuration, one is available here: http://json.schemastore.org/prettierrc.
--->
 
 ## Editor Integration
 
@@ -769,6 +847,8 @@ The minimum version of TypeScript supported is 2.1.3 as it introduces the abilit
 - [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier) turns off all ESLint rules that are unnecessary or might conflict with Prettier
 - [`prettier-eslint`](https://github.com/prettier/prettier-eslint)
 passes `prettier` output to `eslint --fix`
+- [`prettier-stylelint`](https://github.com/hugomrdias/prettier-stylelint)
+passes `prettier` output to `stylelint --fix`
 - [`prettier-standard`](https://github.com/sheerun/prettier-standard)
 uses `prettier` and `prettier-eslint` to format code with standard rules
 - [`prettier-standard-formatter`](https://github.com/dtinth/prettier-standard-formatter)
@@ -779,6 +859,10 @@ passes `prettier` output to `standard --fix`
 - [`prettier_d`](https://github.com/josephfrazier/prettier_d.js) runs Prettier as a server to avoid Node.js startup delay. It also supports configuration via `.prettierrc`, `package.json`, and `.editorconfig`.
 - [`Prettier Bookmarklet`](https://prettier.glitch.me/) provides a bookmarklet and exposes a REST API for Prettier that allows to format CodeMirror editor in your browser
 - [`prettier-github`](https://github.com/jgierer12/prettier-github) formats code in GitHub comments
+- [`rollup-plugin-prettier`](https://github.com/mjeanroy/rollup-plugin-prettier) allows you to use Prettier with Rollup
+- [`markdown-magic-prettier`](https://github.com/camacho/markdown-magic-prettier) allows you to use Prettier to format JS [codeblocks](https://help.github.com/articles/creating-and-highlighting-code-blocks/) in Markdown files via [Markdown Magic](https://github.com/DavidWells/markdown-magic)
+- [`tslint-plugin-prettier`](https://github.com/ikatyang/tslint-plugin-prettier) runs Prettier as a TSLint rule and reports differences as individual TSLint issues
+- [`tslint-config-prettier`](https://github.com/alexjoverm/tslint-config-prettier) use TSLint with Prettier without any conflict
 
 ## Technical Details
 
