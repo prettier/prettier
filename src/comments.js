@@ -934,7 +934,14 @@ function printComment(commentPath, options) {
       const parts = [];
 
       lines.forEach((line, index) => {
-        parts.push(docBuilders.align(indentSize, line.replace(/^[ \t]+/, " ")));
+        parts.push(
+          docBuilders.align(
+            indentSize,
+            // We only want to start with a leading space if we are not on
+            // the first line of a JSDoc comment.
+            (index > 0 ? " " : "") + line.trimLeft()
+          )
+        );
         if (index < lines.length - 1) {
           parts.push(docBuilders.hardline);
         }
