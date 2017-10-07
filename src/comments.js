@@ -920,34 +920,11 @@ function printComment(commentPath, options) {
       return "#" + comment.value.trimRight();
     case "CommentBlock":
     case "Block": {
-      const lines = comment.value.split("\n");
-      const isJsDocComment =
-        lines.length > 1 &&
-        lines.slice(0, lines.length - 1).every(line => line.trim()[0] === "*");
-      if (!isJsDocComment) {
-        return "/*" + comment.value + "*/";
+      if (isJsDocComment(comment)) {
+        return printJsDocComment(comment, options);
       }
 
-      const tabWidth = options.tabWidth;
-      const indentSize = util.getIndentSize(comment.value, tabWidth);
-
-      const parts = [];
-
-      lines.forEach((line, index) => {
-        parts.push(
-          docBuilders.align(
-            indentSize,
-            // We only want to start with a leading space if we are not on
-            // the first line of a JSDoc comment.
-            (index > 0 ? " " : "") + line.trimLeft()
-          )
-        );
-        if (index < lines.length - 1) {
-          parts.push(docBuilders.hardline);
-        }
-      });
-
-      return docBuilders.concat(["/*", concat(parts), "*/"]);
+      return "/*" + comment.value + "*/";
     }
     case "CommentLine":
     case "Line":
@@ -959,6 +936,38 @@ function printComment(commentPath, options) {
     default:
       throw new Error("Not a comment: " + JSON.stringify(comment));
   }
+}
+
+function isJsDocComment(comment) {
+  const lines = comment.value.split("\n");
+  return (
+    lines.length > 1 &&
+    lines.slice(0, lines.length - 1).every(line => line.trim()[0] === "*")
+  );
+}
+
+function printJsDocComment(comment, options) {
+  const lines = comment.value.split("\n");
+  const tabWidth = options.tabWidth;
+  const indentSize = util.getIndentSize(comment.value, tabWidth);
+
+  const parts = [];
+
+  lines.forEach((line, index) => {
+    parts.push(
+      docBuilders.align(
+        indentSize,
+        // We only want to start with a leading space if we are not on
+        // the first line of a JSDoc comment.
+        (index > 0 ? " " : "") + line.trimLeft()
+      )
+    );
+    if (index < lines.length - 1) {
+      parts.push(docBuilders.hardline);
+    }
+  });
+
+  return docBuilders.concat(["/*", concat(parts), "*/"]);
 }
 
 function findExpressionIndexForComment(quasis, comment) {
