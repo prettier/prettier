@@ -23,7 +23,7 @@ function parse(text /*, parsers, opts*/) {
     .use(remarkFrontmatter, ["yaml"])
     .use(restoreUnescapedCharacter(text))
     .use(mergeContinuousTexts)
-    .use(transformInlinCode(text))
+    .use(transformInlineCode(text))
     .use(splitText);
   return processor.runSync(processor.parse(text));
 }
@@ -40,7 +40,7 @@ function map(ast, handler) {
   })(ast, null, null);
 }
 
-function transformInlinCode(originalText) {
+function transformInlineCode(originalText) {
   return () => ast =>
     map(ast, node => {
       if (node.type !== "inlineCode") {
