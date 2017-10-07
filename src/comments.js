@@ -949,10 +949,10 @@ function isJsDocComment(comment) {
 function printJsDocComment(comment) {
   const lines = comment.value.split("\n");
 
-  return docBuilders.concat([
+  return concat([
     "/*",
     join(
-      docBuilders.hardline,
+      hardline,
       lines.map(
         (line, index) =>
           (index > 0 ? " " : "") +
