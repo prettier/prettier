@@ -21,9 +21,11 @@ function getLoadFunction(opts) {
 }
 
 const editorconfigAsyncNoCache = (filePath, opts) =>
-  filePath &&
-  !opts.config &&
-  editorconfig.parse(filePath).then(editorConfigToPrettier);
+  Promise.resolve(
+    filePath &&
+      !opts.config &&
+      editorconfig.parse(filePath).then(editorConfigToPrettier)
+  );
 const editorconfigAsyncWithCache = mem(editorconfigAsyncNoCache);
 const editorconfigSyncNoCache = (filePath, opts) =>
   filePath &&
