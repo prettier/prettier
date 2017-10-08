@@ -9,7 +9,7 @@ const error = createLogger("error", "red");
 const debug = createLogger("debug", "blue");
 
 function createLogger(loggerName, color) {
-  const prefix = `${chalk[color](loggerName)} `;
+  const prefix = `[${chalk[color](loggerName)}] `;
   return function(message) {
     if (shouldLog(loggerName)) {
       console.error(message.replace(/^/gm, prefix).replace(/[\t ]+$/gm, ""));

@@ -515,7 +515,7 @@ exports[`show version with --version (stderr) 1`] = `""`;
 exports[`show version with --version (write) 1`] = `Array []`;
 
 exports[`show warning with --help not-found (stderr) 1`] = `
-"warn Unknown option name \\"not-found\\"
+"[warn] Unknown option name \\"not-found\\"
 "
 `;
 
@@ -528,7 +528,7 @@ exports[`show warning with --help not-found (stdout) 1`] = `
 `;
 
 exports[`show warning with --help not-found (typo) (stderr) 1`] = `
-"warn Unknown option name \\"parserr\\", did you mean \\"parser\\"?
+"[warn] Unknown option name \\"parserr\\", did you mean \\"parser\\"?
 "
 `;
 
@@ -641,7 +641,7 @@ Other options:
 exports[`throw error and show usage with something unexpected (write) 1`] = `Array []`;
 
 exports[`throw error with --find-config-path + multiple files (stderr) 1`] = `
-"error Cannot use --find-config-path with multiple files
+"[error] Cannot use --find-config-path with multiple files
 "
 `;
 
@@ -650,7 +650,7 @@ exports[`throw error with --find-config-path + multiple files (stdout) 1`] = `""
 exports[`throw error with --find-config-path + multiple files (write) 1`] = `Array []`;
 
 exports[`throw error with --write + --debug-check (stderr) 1`] = `
-"error Cannot use --write and --debug-check together.
+"[error] Cannot use --write and --debug-check together.
 "
 `;
 
