@@ -20,16 +20,16 @@ function getLoadFunction(opts) {
   return getExplorerMemoized(opts).load;
 }
 
-const editorconfigAsyncNoCache = (filePath, opts) =>
+const editorconfigAsyncNoCache = (filePath, config) =>
   Promise.resolve(
     filePath &&
-      !opts.config &&
+      !config &&
       editorconfig.parse(filePath).then(editorConfigToPrettier)
   );
 const editorconfigAsyncWithCache = mem(editorconfigAsyncNoCache);
-const editorconfigSyncNoCache = (filePath, opts) =>
+const editorconfigSyncNoCache = (filePath, config) =>
   filePath &&
-  !opts.config &&
+  !config &&
   editorConfigToPrettier(editorconfig.parseSync(filePath));
 const editorconfigSyncWithCache = mem(editorconfigSyncNoCache);
 
@@ -69,7 +69,7 @@ function resolveConfig(filePath, opts) {
   });
   return Promise.all([
     load(filePath, opts.config),
-    loadEditorConfig(filePath, opts)
+    loadEditorConfig(filePath, opts.config)
   ]).then(arr => {
     const result = arr[0];
     const editorConfigged = arr[1];
@@ -85,7 +85,7 @@ resolveConfig.sync = (filePath, opts) => {
     sync: true
   });
   const result = load(filePath, opts.config);
-  const editorConfigged = loadEditorConfig(filePath, opts);
+  const editorConfigged = loadEditorConfig(filePath, opts.config);
   return mergeEditorConfig(filePath, result, editorConfigged);
 };
 
