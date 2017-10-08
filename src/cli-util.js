@@ -611,18 +611,23 @@ function normalizeConfig(type, rawConfig, options) {
       }
     }
 
-    switch (option.type) {
-      case "int":
-        validator.validateIntOption(type, value, option);
-        normalized[rawKey] = Number(value);
-        break;
-      case "choice":
-        validator.validateChoiceOption(type, value, option);
-        normalized[rawKey] = value;
-        break;
-      default:
-        normalized[rawKey] = value;
-        break;
+    try {
+      switch (option.type) {
+        case "int":
+          validator.validateIntOption(type, value, option);
+          normalized[rawKey] = Number(value);
+          break;
+        case "choice":
+          validator.validateChoiceOption(type, value, option);
+          normalized[rawKey] = value;
+          break;
+        default:
+          normalized[rawKey] = value;
+          break;
+      }
+    } catch (error) {
+      logger.error(error.message);
+      process.exit(2);
     }
   });
 
