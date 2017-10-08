@@ -475,6 +475,19 @@ function getAlignmentSize(value, tabWidth, startIndex) {
   return size;
 }
 
+function getIndentSize(value, tabWidth) {
+  const lastNewlineIndex = value.lastIndexOf("\n");
+  if (lastNewlineIndex === -1) {
+    return 0;
+  }
+
+  return getAlignmentSize(
+    // All the leading whitespaces
+    value.slice(lastNewlineIndex + 1).match(/^[ \t]*/)[0],
+    tabWidth
+  );
+}
+
 function printString(raw, options, isDirectiveLiteral) {
   // `rawContent` is the string exactly like it appeared in the input source
   // code, without its enclosing quotes.
@@ -618,6 +631,7 @@ module.exports = {
   isBlockComment,
   hasClosureCompilerTypeCastComment,
   getAlignmentSize,
+  getIndentSize,
   printString,
   printNumber
 };
