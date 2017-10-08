@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`show warning with unknown option (stderr) 1`] = `
-"Ignored unknown option: hello
+"warn Ignored unknown option: hello
 "
 `;
 
@@ -10,8 +10,7 @@ exports[`show warning with unknown option (stdout) 1`] = `""`;
 exports[`show warning with unknown option (write) 1`] = `Array []`;
 
 exports[`throw error with invalid config format (stderr) 1`] = `
-"Error: Invalid configuration file.
-Failed to parse \\"<cwd>/tests_integration/cli/config/invalid/file/.prettierrc\\" as JSON, JS, or YAML.
+"error Invalid configuration file: Failed to parse \\"<cwd>/tests_integration/cli/config/invalid/file/.prettierrc\\" as JSON, JS, or YAML.
 "
 `;
 
@@ -47,8 +46,7 @@ exports[`throw error with invalid config precedence option (configPrecedence) (s
 exports[`throw error with invalid config precedence option (configPrecedence) (write) 1`] = `Array []`;
 
 exports[`throw error with invalid config target (directory) (stderr) 1`] = `
-"Error: Invalid configuration file.
-EISDIR: illegal operation on a directory, read
+"error Invalid configuration file: EISDIR: illegal operation on a directory, read
 "
 `;
 
