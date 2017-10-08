@@ -38,7 +38,7 @@ function run_spec(dirname, options, additionalParsers) {
         rangeEnd: rangeEnd
       });
       const output = prettyprint(source, path, mergedOptions);
-      test(`${mergedOptions.parser} - ${parser.parser}-verify`, () => {
+      test(`${filename} - ${mergedOptions.parser}-verify`, () => {
         expect(raw(source + "~".repeat(80) + "\n" + output)).toMatchSnapshot(
           filename
         );
