@@ -33,6 +33,14 @@ const editorconfigSyncNoCache = (filePath, opts) =>
   editorConfigToPrettier(editorconfig.parseSync(filePath));
 const editorconfigSyncWithCache = mem(editorconfigSyncNoCache);
 
+function getLoadEditorConfigFunction(opts) {
+  if (opts.sync) {
+    return opts.cache ? editorconfigSyncWithCache : editorconfigSyncNoCache;
+  }
+
+  return opts.cache ? editorconfigAsyncWithCache : editorconfigAsyncNoCache;
+}
+
 function editorConfigToPrettier(editorConfig) {
   const result = {};
 
@@ -55,12 +63,13 @@ function editorConfigToPrettier(editorConfig) {
 function resolveConfig(filePath, opts) {
   opts = Object.assign({ useCache: true }, opts);
   const load = getLoadFunction({ cache: !!opts.useCache, sync: false });
+  const loadEditorConfig = getLoadEditorConfigFunction({
+    cache: !!opts.useCache,
+    sync: false
+  });
   return Promise.all([
     load(filePath, opts.config),
-    (opts.useCache ? editorconfigAsyncWithCache : editorconfigAsyncNoCache)(
-      filePath,
-      opts
-    )
+    loadEditorConfig(filePath, opts)
   ]).then(arr => {
     const result = arr[0];
     const editorConfigged = arr[1];
@@ -71,10 +80,12 @@ function resolveConfig(filePath, opts) {
 resolveConfig.sync = (filePath, opts) => {
   opts = Object.assign({ useCache: true }, opts);
   const load = getLoadFunction({ cache: !!opts.useCache, sync: true });
+  const loadEditorConfig = getLoadEditorConfigFunction({
+    cache: !!opts.useCache,
+    sync: true
+  });
   const result = load(filePath, opts.config);
-  const editorConfigged = (opts.useCache
-    ? editorconfigSyncWithCache
-    : editorconfigSyncNoCache)(filePath, opts);
+  const editorConfigged = loadEditorConfig(filePath, opts);
   return mergeEditorConfig(filePath, result, editorConfigged);
 };
 
