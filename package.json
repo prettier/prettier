@@ -21,7 +21,7 @@
     "cosmiconfig": "3.1.0",
     "dashify": "0.2.2",
     "diff": "3.2.0",
-    "editorconfig": "0.14.1",
+    "editorconfig": "https://github.com/josephfrazier/editorconfig-core-js#0d89ad14c42499a91001b4c6d6cbb69e010de741",
     "esutils": "2.0.2",
     "flow-parser": "0.51.0",
     "get-stream": "3.0.0",

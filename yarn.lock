@@ -1367,9 +1367,9 @@ ecc-jsbn@~0.1.1:
   dependencies:
     jsbn "~0.1.0"
 
-editorconfig@0.14.1:
+"editorconfig@https://github.com/josephfrazier/editorconfig-core-js#0d89ad14c42499a91001b4c6d6cbb69e010de741":
   version "0.14.1"
-  resolved "https://registry.yarnpkg.com/editorconfig/-/editorconfig-0.14.1.tgz#a7b3ce821e34250d5988c50946453d68d5e8fc3b"
+  resolved "https://github.com/josephfrazier/editorconfig-core-js#0d89ad14c42499a91001b4c6d6cbb69e010de741"
   dependencies:
     bluebird "^3.0.5"
     commander "^2.9.0"
