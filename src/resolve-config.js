@@ -1,9 +1,10 @@
 "use strict";
 
 const cosmiconfig = require("cosmiconfig");
-const editorconfig = require("editorconfig");
 const minimatch = require("minimatch");
 const mem = require("mem");
+
+const resolveEditorConfig = require("./resolve-config-editorconfig.js");
 
 const getExplorerMemoized = mem(opts =>
   cosmiconfig("prettier", {
@@ -20,51 +21,11 @@ function getLoadFunction(opts) {
   return getExplorerMemoized(opts).load;
 }
 
-const editorconfigAsyncNoCache = (filePath, config) =>
-  Promise.resolve(
-    filePath &&
-      !config &&
-      editorconfig.parse(filePath).then(editorConfigToPrettier)
-  );
-const editorconfigAsyncWithCache = mem(editorconfigAsyncNoCache);
-const editorconfigSyncNoCache = (filePath, config) =>
-  filePath &&
-  !config &&
-  editorConfigToPrettier(editorconfig.parseSync(filePath));
-const editorconfigSyncWithCache = mem(editorconfigSyncNoCache);
-
-function getLoadEditorConfigFunction(opts) {
-  if (opts.sync) {
-    return opts.cache ? editorconfigSyncWithCache : editorconfigSyncNoCache;
-  }
-
-  return opts.cache ? editorconfigAsyncWithCache : editorconfigAsyncNoCache;
-}
-
-function editorConfigToPrettier(editorConfig) {
-  const result = {};
-
-  if (editorConfig.indent_style) {
-    result.useTabs = editorConfig.indent_style === "tab";
-  }
-
-  const tabWidth = editorConfig.indent_size || editorConfig.tab_width;
-  if (tabWidth) {
-    result.tabWidth = tabWidth;
-  }
-
-  if (editorConfig.max_line_length) {
-    result.printWidth = editorConfig.max_line_length;
-  }
-
-  return result;
-}
-
 function resolveConfig(filePath, opts, sync) {
   opts = Object.assign({ useCache: true }, opts);
   const loadOpts = { cache: !!opts.useCache, sync: !!sync };
   const load = getLoadFunction(loadOpts);
-  const loadEditorConfig = getLoadEditorConfigFunction(loadOpts);
+  const loadEditorConfig = resolveEditorConfig.getLoadFunction(loadOpts);
   const arr = [load, loadEditorConfig].map(l => l(filePath, opts.config));
 
   const unwrapAndMerge = arr => {
@@ -96,8 +57,7 @@ function mergeEditorConfig(filePath, result, editorConfigged) {
 
 function clearCache() {
   mem.clear(getExplorerMemoized);
-  mem.clear(editorconfigSyncWithCache);
-  mem.clear(editorconfigAsyncWithCache);
+  resolveEditorConfig.clearCache();
 }
 
 function resolveConfigFile(filePath) {
