@@ -56,7 +56,9 @@ function getPrintFunction(options) {
       return require("./printer-graphql");
     case "parse5":
       return require("./printer-htmlparser2");
-    case "postcss":
+    case "css":
+    case "less":
+    case "scss":
       return require("./printer-postcss");
     default:
       return genericPrintNoParens;
@@ -355,11 +357,12 @@ function genericPrintNoParens(path, options, print, args) {
         parent.type === "ObjectProperty" ||
         parent.type === "Property";
 
-      const logicalSubExpression = n.left.type === "LogicalExpression";
+      const samePrecedenceSubExpression =
+        isBinaryish(n.left) && util.shouldFlatten(n.operator, n.left.operator);
 
       if (
         shouldNotIdent ||
-        (shouldInlineLogicalExpression(n) && !logicalSubExpression) ||
+        (shouldInlineLogicalExpression(n) && !samePrecedenceSubExpression) ||
         (!shouldInlineLogicalExpression(n) && shouldIdentIfInlining)
       ) {
         return group(concat(parts));
@@ -841,6 +844,8 @@ function genericPrintNoParens(path, options, print, args) {
     case "NewExpression":
     case "CallExpression": {
       const isNew = n.type === "NewExpression";
+      const unitTestRe = /^(f|x)?(it|describe|test)$/;
+
       const optional = printOptionalToken(path);
       if (
         // We want to keep require calls as a unit
@@ -854,10 +859,13 @@ function genericPrintNoParens(path, options, print, args) {
         // Keep test declarations on a single line
         // e.g. `it('long name', () => {`
         (!isNew &&
-          n.callee.type === "Identifier" &&
-          (n.callee.name === "it" ||
-            n.callee.name === "test" ||
-            n.callee.name === "describe") &&
+          ((n.callee.type === "Identifier" && unitTestRe.test(n.callee.name)) ||
+            (n.callee.type === "MemberExpression" &&
+              n.callee.object.type === "Identifier" &&
+              n.callee.property.type === "Identifier" &&
+              unitTestRe.test(n.callee.object.name) &&
+              (n.callee.property.name === "only" ||
+                n.callee.property.name === "skip"))) &&
           n.arguments.length === 2 &&
           (n.arguments[0].type === "StringLiteral" ||
             n.arguments[0].type === "TemplateLiteral" ||
@@ -936,14 +944,22 @@ function genericPrintNoParens(path, options, print, args) {
             util.locStart(n),
             util.locEnd(n)
           ));
-      const separator =
-        n.type === "TSInterfaceBody" || n.type === "TSTypeLiteral"
+      const parent = path.getParentNode(0);
+      const isFlowInterfaceLikeBody =
+        isTypeAnnotation &&
+        parent &&
+        (parent.type === "InterfaceDeclaration" ||
+          parent.type === "DeclareInterface" ||
+          parent.type === "DeclareClass") &&
+        path.getName() === "body";
+      const separator = isFlowInterfaceLikeBody
+        ? ";"
+        : n.type === "TSInterfaceBody" || n.type === "TSTypeLiteral"
           ? ifBreak(semi, ";")
           : ",";
       const fields = [];
       const leftBrace = n.exact ? "{|" : "{";
       const rightBrace = n.exact ? "|}" : "}";
-      const parent = path.getParentNode(0);
 
       let propertiesField;
 
@@ -1809,7 +1825,8 @@ function genericPrintNoParens(path, options, print, args) {
         "}"
       ]);
     case "ClassProperty":
-    case "TSAbstractClassProperty": {
+    case "TSAbstractClassProperty":
+    case "ClassPrivateProperty": {
       if (n.accessibility) {
         parts.push(n.accessibility + " ");
       }
@@ -1890,19 +1907,17 @@ function genericPrintNoParens(path, options, print, args) {
           // quasi literal), therefore we want to indent the JavaScript
           // expression inside at the beginning of ${ instead of the beginning
           // of the `.
-          let size = 0;
-          const value = childPath.getValue().value.raw;
-          const index = value.lastIndexOf("\n");
           const tabWidth = options.tabWidth;
-          if (index !== -1) {
-            size = util.getAlignmentSize(
-              // All the leading whitespaces
-              value.slice(index + 1).match(/^[ \t]*/)[0],
-              tabWidth
-            );
-          }
+          const indentSize = util.getIndentSize(
+            childPath.getValue().value.raw,
+            tabWidth
+          );
 
-          const aligned = addAlignmentToDoc(expressions[i], size, tabWidth);
+          const aligned = addAlignmentToDoc(
+            expressions[i],
+            indentSize,
+            tabWidth
+          );
 
           parts.push("${", aligned, lineSuffixBoundary, "}");
         }
@@ -2725,6 +2740,9 @@ function genericPrintNoParens(path, options, print, args) {
         return printStatementSequence(bodyPath, options, print);
       }, "body");
 
+    case "PrivateName":
+      return concat(["#", path.call(print, "id")]);
+
     default:
       /* istanbul ignore next */
       throw new Error("unknown type: " + JSON.stringify(n.type));
@@ -2916,8 +2934,9 @@ function shouldGroupFirstArg(args) {
 }
 
 function printArgumentsList(path, options, print) {
-  const printed = path.map(print, "arguments");
-  if (printed.length === 0) {
+  const args = path.getValue().arguments;
+
+  if (args.length === 0) {
     return concat([
       "(",
       comments.printDanglingComments(path, options, /* sameIndent */ true),
@@ -2925,7 +2944,28 @@ function printArgumentsList(path, options, print) {
     ]);
   }
 
-  const args = path.getValue().arguments;
+  let anyArgEmptyLine = false;
+  let hasEmptyLineFollowingFirstArg = false;
+  const lastArgIndex = args.length - 1;
+  const printedArguments = path.map((argPath, index) => {
+    const arg = argPath.getNode();
+    const parts = [print(argPath)];
+
+    if (index === lastArgIndex) {
+      // do nothing
+    } else if (util.isNextLineEmpty(options.originalText, arg)) {
+      if (index === 0) {
+        hasEmptyLineFollowingFirstArg = true;
+      }
+
+      anyArgEmptyLine = true;
+      parts.push(",", hardline, hardline);
+    } else {
+      parts.push(",", line);
+    }
+
+    return concat(parts);
+  }, "arguments");
 
   // This is just an optimization; I think we could return the
   // conditional group for all function calls, but it's more expensive
@@ -2933,9 +2973,10 @@ function printArgumentsList(path, options, print) {
   const shouldGroupFirst = shouldGroupFirstArg(args);
   const shouldGroupLast = shouldGroupLastArg(args);
   if (shouldGroupFirst || shouldGroupLast) {
-    const shouldBreak = shouldGroupFirst
-      ? printed.slice(1).some(willBreak)
-      : printed.slice(0, -1).some(willBreak);
+    const shouldBreak =
+      (shouldGroupFirst
+        ? printedArguments.slice(1).some(willBreak)
+        : printedArguments.slice(0, -1).some(willBreak)) || anyArgEmptyLine;
 
     // We want to print the last argument with a special flag
     let printedExpanded;
@@ -2943,11 +2984,16 @@ function printArgumentsList(path, options, print) {
     path.each(argPath => {
       if (shouldGroupFirst && i === 0) {
         printedExpanded = [
-          argPath.call(p => print(p, { expandFirstArg: true }))
-        ].concat(printed.slice(1));
+          concat([
+            argPath.call(p => print(p, { expandFirstArg: true })),
+            printedArguments.length > 1 ? "," : "",
+            hasEmptyLineFollowingFirstArg ? hardline : line,
+            hasEmptyLineFollowingFirstArg ? hardline : ""
+          ])
+        ].concat(printedArguments.slice(1));
       }
       if (shouldGroupLast && i === args.length - 1) {
-        printedExpanded = printed
+        printedExpanded = printedArguments
           .slice(0, -1)
           .concat(argPath.call(p => print(p, { expandLastArg: true })));
       }
@@ -2955,22 +3001,20 @@ function printArgumentsList(path, options, print) {
     }, "arguments");
 
     return concat([
-      printed.some(willBreak) ? breakParent : "",
+      printedArguments.some(willBreak) ? breakParent : "",
       conditionalGroup(
         [
-          concat(["(", join(concat([", "]), printedExpanded), ")"]),
+          concat(["(", concat(printedExpanded), ")"]),
           shouldGroupFirst
             ? concat([
                 "(",
                 group(printedExpanded[0], { shouldBreak: true }),
-                printed.length > 1 ? ", " : "",
-                join(concat([",", line]), printed.slice(1)),
+                concat(printedExpanded.slice(1)),
                 ")"
               ])
             : concat([
                 "(",
-                join(concat([",", line]), printed.slice(0, -1)),
-                printed.length > 1 ? ", " : "",
+                concat(printedArguments.slice(0, -1)),
                 group(util.getLast(printedExpanded), {
                   shouldBreak: true
                 }),
@@ -2979,7 +3023,7 @@ function printArgumentsList(path, options, print) {
           group(
             concat([
               "(",
-              indent(concat([line, join(concat([",", line]), printed)])),
+              indent(concat([line, concat(printedArguments)])),
               shouldPrintComma(options, "all") ? "," : "",
               line,
               ")"
@@ -2995,12 +3039,12 @@ function printArgumentsList(path, options, print) {
   return group(
     concat([
       "(",
-      indent(concat([softline, join(concat([",", line]), printed)])),
+      indent(concat([softline, concat(printedArguments)])),
       ifBreak(shouldPrintComma(options, "all") ? "," : ""),
       softline,
       ")"
     ]),
-    { shouldBreak: printed.some(willBreak) }
+    { shouldBreak: printedArguments.some(willBreak) || anyArgEmptyLine }
   );
 }
 
@@ -3534,7 +3578,10 @@ function printMemberChain(path, options, print) {
 
   function rec(path) {
     const node = path.getValue();
-    if (node.type === "CallExpression" && isMemberish(node.callee)) {
+    if (
+      node.type === "CallExpression" &&
+      (isMemberish(node.callee) || node.callee.type === "CallExpression")
+    ) {
       printedNodes.unshift({
         node: node,
         printed: comments.printComments(
@@ -4102,11 +4149,16 @@ function printJSXElement(path, options, print) {
       children[i] === jsxWhitespace &&
       children[i + 1] === "" &&
       (children[i + 2] === softline || children[i + 2] === hardline);
+    const isDoubleJSXWhitespace =
+      children[i] === jsxWhitespace &&
+      children[i + 1] === "" &&
+      children[i + 2] === jsxWhitespace;
 
     if (
       (isPairOfHardlines && containsText) ||
       isPairOfEmptyStrings ||
-      isLineFollowedByJSXWhitespace
+      isLineFollowedByJSXWhitespace ||
+      isDoubleJSXWhitespace
     ) {
       children.splice(i, 2);
     } else if (isJSXWhitespaceFollowedByLine) {
@@ -4413,8 +4465,9 @@ function isLastStatement(path) {
     return true;
   }
   const node = path.getValue();
-  const body = (parent.body || parent.consequent)
-    .filter(stmt => stmt.type !== "EmptyStatement");
+  const body = (parent.body || parent.consequent).filter(
+    stmt => stmt.type !== "EmptyStatement"
+  );
   return body && body[body.length - 1] === node;
 }
 

@@ -65,11 +65,11 @@ var x3: string = "".replace(/pattern/, "...");
 var x4: number = "".split(/pattern/)[0];
 
 declare class C {
-  foo(x: number): number,
-  foo(x: string): string,
+  foo(x: number): number;
+  foo(x: string): string;
 
-  bar(x: { a: number }): number,
-  bar(x: { a: string }): string
+  bar(x: { a: number }): number;
+  bar(x: { a: string }): string;
 }
 
 var a = new C();
@@ -130,8 +130,8 @@ var foo = new Foo;
 (foo.bar('hmmm'): number); // error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare class Foo {
-  bar(x: "hmm"): number,
-  bar(x: string): string
+  bar(x: "hmm"): number;
+  bar(x: string): string;
 }
 var foo = new Foo();
 (foo.bar("hmm"): number); // OK

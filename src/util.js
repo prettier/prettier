@@ -475,6 +475,19 @@ function getAlignmentSize(value, tabWidth, startIndex) {
   return size;
 }
 
+function getIndentSize(value, tabWidth) {
+  const lastNewlineIndex = value.lastIndexOf("\n");
+  if (lastNewlineIndex === -1) {
+    return 0;
+  }
+
+  return getAlignmentSize(
+    // All the leading whitespaces
+    value.slice(lastNewlineIndex + 1).match(/^[ \t]*/)[0],
+    tabWidth
+  );
+}
+
 function printString(raw, options, isDirectiveLiteral) {
   // `rawContent` is the string exactly like it appeared in the input source
   // code, without its enclosing quotes.
@@ -526,7 +539,15 @@ function printString(raw, options, isDirectiveLiteral) {
   // is enclosed with `enclosingQuote`, but it isn't. The string could contain
   // unnecessary escapes (such as in `"\'"`). Always using `makeString` makes
   // sure that we consistently output the minimum amount of escaped quotes.
-  return makeString(rawContent, enclosingQuote, options.parser !== "postcss");
+  return makeString(
+    rawContent,
+    enclosingQuote,
+    !(
+      options.parser === "css" ||
+      options.parser === "less" ||
+      options.parser === "scss"
+    )
+  );
 }
 
 function makeString(rawContent, enclosingQuote, unescapeUnnecessaryEscapes) {
@@ -559,7 +580,7 @@ function makeString(rawContent, enclosingQuote, unescapeUnnecessaryEscapes) {
     // Unescape any unnecessarily escaped character.
     // Adapted from https://github.com/eslint/eslint/blob/de0b4ad7bd820ade41b1f606008bea68683dc11a/lib/rules/no-useless-escape.js#L27
     return unescapeUnnecessaryEscapes &&
-    /^[^\\nrvtbfux\r\n\u2028\u2029"'0-7]$/.test(escaped)
+      /^[^\\nrvtbfux\r\n\u2028\u2029"'0-7]$/.test(escaped)
       ? escaped
       : "\\" + escaped;
   });
@@ -610,6 +631,7 @@ module.exports = {
   isBlockComment,
   hasClosureCompilerTypeCastComment,
   getAlignmentSize,
+  getIndentSize,
   printString,
   printNumber
 };

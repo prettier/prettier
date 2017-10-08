@@ -2,46 +2,46 @@
 
 const runPrettier = require("../runPrettier");
 
-expect.addSnapshotSerializer(require("../cwd-serializer"));
+expect.addSnapshotSerializer(require("../path-serializer"));
 
-test("throw error with invalid config format", () => {
-  const output = runPrettier("cli/config/invalid", [
-    "--config",
-    "file/.prettierrc"
-  ]);
-  expect(output.stderr).toMatchSnapshot();
-  expect(output.status).not.toBe(0);
+describe("throw error with invalid config format", () => {
+  runPrettier("cli/config/invalid", ["--config", "file/.prettierrc"]).test({
+    status: "non-zero"
+  });
 });
 
-test("throw error with invalid config target (directory)", () => {
-  const output = runPrettier("cli/config/invalid", [
+describe("throw error with invalid config target (directory)", () => {
+  runPrettier("cli/config/invalid", [
     "--config",
     "folder/.prettierrc" // this is a directory
-  ]);
-  expect(output.stderr).toMatchSnapshot();
-  expect(output.status).not.toBe(0);
+  ]).test({
+    status: "non-zero"
+  });
 });
 
-test("throw error with invalid config option (int)", () => {
-  const output = runPrettier("cli/config/invalid", ["--config", "option/int"]);
-  expect(output.stderr).toMatchSnapshot();
-  expect(output.status).not.toBe(0);
+describe("throw error with invalid config option (int)", () => {
+  runPrettier("cli/config/invalid", ["--config", "option/int"]).test({
+    status: "non-zero"
+  });
 });
 
-test("throw error with invalid config option (trailingComma)", () => {
-  const output = runPrettier("cli/config/invalid", [
-    "--config",
-    "option/trailingComma"
-  ]);
-  expect(output.stderr).toMatchSnapshot();
-  expect(output.status).not.toBe(0);
+describe("throw error with invalid config option (trailingComma)", () => {
+  runPrettier("cli/config/invalid", ["--config", "option/trailingComma"]).test({
+    status: "non-zero"
+  });
 });
 
-test("throw error with invalid config precedence option (configPrecedence)", () => {
-  const output = runPrettier("cli/config/invalid", [
+describe("throw error with invalid config precedence option (configPrecedence)", () => {
+  runPrettier("cli/config/invalid", [
     "--config-precedence",
     "option/configPrecedence"
-  ]);
-  expect(output.stderr).toMatchSnapshot();
-  expect(output.status).not.toBe(0);
+  ]).test({
+    status: "non-zero"
+  });
+});
+
+describe("show warning with unknown option", () => {
+  runPrettier("cli/config/invalid", ["--config", "option/unknown"]).test({
+    status: 0
+  });
 });

@@ -1,40 +1,69 @@
 "use strict";
 
-const prettier = require("../..");
+const prettier = require("../../tests_config/require_prettier");
 const runPrettier = require("../runPrettier");
+const constant = require("../../src/cli-constant");
 
-test("show version with --version", () => {
-  const result = runPrettier("cli/with-shebang", ["--version"]);
-
-  expect(result.stdout).toBe(prettier.version + "\n");
-  expect(result.status).toEqual(0);
+describe("show version with --version", () => {
+  runPrettier("cli/with-shebang", ["--version"]).test({
+    stdout: prettier.version + "\n",
+    status: 0
+  });
 });
 
-test("show usage with --help", () => {
-  const result = runPrettier("cli", ["--help"]);
-
-  expect(result.stdout).toMatchSnapshot();
-  expect(result.status).toEqual(0);
+describe("show usage with --help", () => {
+  runPrettier("cli", ["--help"]).test({
+    status: 0
+  });
 });
 
-test("throw error with --write + --debug-check", () => {
-  const result = runPrettier("cli", ["--write", "--debug-check"]);
-
-  expect(result.stderr).toMatchSnapshot();
-  expect(result.status).toEqual(1);
+describe(`show detailed usage with --help l (alias)`, () => {
+  runPrettier("cli", ["--help", "l"]).test({
+    status: 0
+  });
 });
 
-test("throw error with --find-config-path + multiple files", () => {
-  const result = runPrettier("cli", ["--find-config-path", "abc.js", "def.js"]);
+constant.detailedOptions.forEach(option => {
+  const optionNames = [
+    option.description ? option.name : null,
+    option.oppositeDescription ? `no-${option.name}` : null
+  ].filter(Boolean);
 
-  expect(result.stderr).toMatchSnapshot();
-  expect(result.status).toEqual(1);
+  optionNames.forEach(optionName => {
+    describe(`show detailed usage with --help ${optionName}`, () => {
+      runPrettier("cli", ["--help", optionName]).test({
+        status: 0
+      });
+    });
+  });
 });
 
-test("throw error and show usage with something unexpected", () => {
-  const result = runPrettier("cli", [], { isTTY: true });
+describe("show warning with --help not-found", () => {
+  runPrettier("cli", ["--help", "not-found"]).test({
+    status: 0
+  });
+});
 
-  expect(result.stdout).toMatchSnapshot();
-  expect(result.stderr).toMatchSnapshot();
-  expect(result.status).not.toEqual(0);
+describe("show warning with --help not-found (typo)", () => {
+  runPrettier("cli", ["--help", "parserr"]).test({
+    status: 0
+  });
+});
+
+describe("throw error with --write + --debug-check", () => {
+  runPrettier("cli", ["--write", "--debug-check"]).test({
+    status: 1
+  });
+});
+
+describe("throw error with --find-config-path + multiple files", () => {
+  runPrettier("cli", ["--find-config-path", "abc.js", "def.js"]).test({
+    status: 1
+  });
+});
+
+describe("throw error and show usage with something unexpected", () => {
+  runPrettier("cli", [], { isTTY: true }).test({
+    status: "non-zero"
+  });
 });

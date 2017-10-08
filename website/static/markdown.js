@@ -49,8 +49,6 @@
         return "jsx";
       case "typescript":
         return "tsx";
-      case "postcss":
-        return "scss";
       default:
         return options.parser;
     }

@@ -2,13 +2,23 @@
 
 const cosmiconfig = require("cosmiconfig");
 const editorconfig = require("editorconfig");
-const mem = require("mem");
 const minimatch = require("minimatch");
+const mem = require("mem");
 
-const asyncWithCache = cosmiconfig("prettier");
-const asyncNoCache = cosmiconfig("prettier", { cache: false });
-const syncWithCache = cosmiconfig("prettier", { sync: true });
-const syncNoCache = cosmiconfig("prettier", { cache: false, sync: true });
+const getExplorerMemoized = mem(opts =>
+  cosmiconfig("prettier", {
+    sync: opts.sync,
+    cache: opts.cache,
+    rcExtensions: true
+  })
+);
+
+/** @param {{ cache: boolean, sync: boolean }} opts */
+function getLoadFunction(opts) {
+  // Normalize opts before passing to a memoized function
+  opts = Object.assign({ sync: false, cache: false }, opts);
+  return getExplorerMemoized(opts).load;
+}
 
 const editorconfigAsyncNoCache = (filePath, opts) =>
   filePath &&
@@ -41,11 +51,11 @@ function editorConfigToPrettier(editorConfig) {
 }
 
 function resolveConfig(filePath, opts) {
-  opts = opts || {};
-  const useCache = !(opts && opts.useCache === false);
+  opts = Object.assign({ useCache: true }, opts);
+  const load = getLoadFunction({ cache: !!opts.useCache, sync: false });
   return Promise.all([
-    (useCache ? asyncWithCache : asyncNoCache).load(filePath),
-    (useCache ? editorconfigAsyncWithCache : editorconfigAsyncNoCache)(
+    load(filePath, opts.config),
+    (opts.useCache ? editorconfigAsyncWithCache : editorconfigAsyncNoCache)(
       filePath,
       opts
     )
@@ -57,10 +67,10 @@ function resolveConfig(filePath, opts) {
 }
 
 resolveConfig.sync = (filePath, opts) => {
-  opts = opts || {};
-  const useCache = !(opts && opts.useCache === false);
-  const result = (useCache ? syncWithCache : syncNoCache).load(filePath);
-  const editorConfigged = (useCache
+  opts = Object.assign({ useCache: true }, opts);
+  const load = getLoadFunction({ cache: !!opts.useCache, sync: true });
+  const result = load(filePath, opts.config);
+  const editorConfigged = (opts.useCache
     ? editorconfigSyncWithCache
     : editorconfigSyncNoCache)(filePath, opts);
   return mergeEditorConfig(filePath, result, editorConfigged);
@@ -77,21 +87,21 @@ function mergeEditorConfig(filePath, result, editorConfigged) {
 }
 
 function clearCache() {
-  syncWithCache.clearCaches();
-  asyncWithCache.clearCaches();
-
+  mem.clear(getExplorerMemoized);
   mem.clear(editorconfigSyncWithCache);
   mem.clear(editorconfigAsyncWithCache);
 }
 
 function resolveConfigFile(filePath) {
-  return asyncNoCache.load(filePath).then(result => {
+  const load = getLoadFunction({ sync: false });
+  return load(filePath).then(result => {
     return result ? result.filepath : null;
   });
 }
 
 resolveConfigFile.sync = filePath => {
-  const result = syncNoCache.load(filePath);
+  const load = getLoadFunction({ sync: true });
+  const result = load(filePath);
   return result ? result.filepath : null;
 };
 

@@ -294,6 +294,40 @@ call((/*object*/ row) => {});
 KEYPAD_NUMBERS.map(num => ( // Buttons 0-9
   <div />
 ));
+
+function f /* f */() {}
+function f (/* args */) {}
+function f () /* returns */ {}
+function f /* f */(/* args */) /* returns */ {}
+
+function f /* f */(/* a */ a) {}
+function f /* f */(a /* a */) {}
+function f /* f */(/* a */ a) /* returns */ {}
+
+const obj = {
+  f1 /* f */() {},
+  f2 (/* args */) {},
+  f3 () /* returns */ {},
+  f4 /* f */(/* args */) /* returns */ {},
+};
+
+(function f /* f */() {})();
+(function f (/* args */) {})();
+(function f () /* returns */ {})();
+(function f /* f */(/* args */) /* returns */ {})();
+
+class C {
+  f/* f */() {}
+}
+class C {
+  f(/* args */) {}
+}
+class C {
+  f() /* returns */ {}
+}
+class C {
+  f/* f */(/* args */) /* returns */ {}
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function a(/* comment */) {} // comment
 function b() {} // comment
@@ -302,6 +336,49 @@ call((/*object*/ row) => {});
 KEYPAD_NUMBERS.map((
   num // Buttons 0-9
 ) => <div />);
+
+function f /* f */() {}
+function f(/* args */) {}
+function f() /* returns */ {
+}
+function f /* f */(/* args */) /* returns */ {
+}
+
+function f /* f */(/* a */ a) {}
+function f /* f */(a /* a */) {}
+function f /* f */(/* a */ a) /* returns */ {
+}
+
+const obj = {
+  f1 /* f */() {},
+  f2(/* args */) {},
+  f3() /* returns */ {
+  },
+  f4 /* f */(/* args */) /* returns */ {
+  }
+};
+
+(function f /* f */() {})();
+(function f(/* args */) {})();
+(function f() /* returns */ {
+})();
+(function f /* f */(/* args */) /* returns */ {
+})();
+
+class C {
+  f /* f */() {}
+}
+class C {
+  f(/* args */) {}
+}
+class C {
+  f() /* returns */ {
+  }
+}
+class C {
+  f /* f */(/* args */) /* returns */ {
+  }
+}
 
 `;
 
@@ -739,6 +816,28 @@ exports[`jsx.js 1`] = `
 
 <div>{/*<div>  Some very v  ery very very long line to break line width limit </div>*/}</div>;
 
+<div>
+  {/**
+   * JSDoc-y comment in JSX. I wonder what will happen to it?
+  */}
+</div>;
+
+<div>
+  {
+    /**
+   * Another JSDoc comment in JSX.
+  */
+  }
+</div>;
+
+<div
+  /**
+ * Handles clicks.
+*/
+onClick={() => {}}>
+
+</div>;
+
 <Wrapper>
   {}
   <Component />
@@ -797,6 +896,25 @@ exports[`jsx.js 1`] = `
 <div>
   {/*<div>  Some very v  ery very very long line to break line width limit </div>*/}
 </div>;
+
+<div>
+  {/**
+   * JSDoc-y comment in JSX. I wonder what will happen to it?
+   */}
+</div>;
+
+<div>
+  {/**
+   * Another JSDoc comment in JSX.
+   */}
+</div>;
+
+<div
+  /**
+   * Handles clicks.
+   */
+  onClick={() => {}}
+/>;
 
 <Wrapper>
   {}

@@ -8,7 +8,10 @@ const util = require("./cli-util");
 const validator = require("./cli-validator");
 
 function run(args) {
-  const argv = util.normalizeArgv(minimist(args, constant.minimistOptions));
+  const argv = util.normalizeConfig(
+    "cli",
+    minimist(args, constant.minimistOptions)
+  );
 
   argv.__args = args;
   argv.__filePatterns = argv["_"];
@@ -20,8 +23,12 @@ function run(args) {
     process.exit(0);
   }
 
-  if (argv["help"]) {
-    console.log(util.createUsage());
+  if (argv["help"] !== undefined) {
+    console.log(
+      typeof argv["help"] === "string" && argv["help"] !== ""
+        ? util.createDetailedUsage(argv["help"])
+        : util.createUsage()
+    );
     process.exit(0);
   }
 

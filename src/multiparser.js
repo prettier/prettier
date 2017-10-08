@@ -48,7 +48,7 @@ function fromBabylonFlowOrTypeScript(path) {
         const rawQuasis = node.quasis.map(q => q.value.raw);
         const text = rawQuasis.join("@prettier-placeholder");
         return {
-          options: { parser: "postcss" },
+          options: { parser: "css" },
           transformDoc: transformCssDoc,
           text: text
         };
@@ -67,9 +67,10 @@ function fromBabylonFlowOrTypeScript(path) {
        * gql`...`
        */
       if (
+        // We currently don't support expression inside GraphQL template literals
+        parent.expressions.length === 0 &&
         parentParent &&
         ((parentParent.type === "TaggedTemplateExpression" &&
-          parent.quasis.length === 1 &&
           ((parentParent.tag.type === "MemberExpression" &&
             parentParent.tag.object.name === "graphql" &&
             parentParent.tag.property.name === "experimental") ||
@@ -133,7 +134,7 @@ function fromHtmlParser2(path, options) {
       // Inline Styles
       if (parent.type === "style") {
         return {
-          options: { parser: "postcss" },
+          options: { parser: "css" },
           transformDoc: doc => concat([hardline, stripTrailingHardline(doc)]),
           text: getText(options, node)
         };
@@ -177,6 +178,13 @@ function fromHtmlParser2(path, options) {
 
 function transformCssDoc(quasisDoc, parent) {
   const parentNode = parent.path.getValue();
+
+  const isEmpty =
+    parentNode.quasis.length === 1 && !parentNode.quasis[0].value.raw.trim();
+  if (isEmpty) {
+    return "``";
+  }
+
   const expressionDocs = parentNode.expressions
     ? parent.path.map(parent.print, "expressions")
     : [];
@@ -187,7 +195,7 @@ function transformCssDoc(quasisDoc, parent) {
   }
   return concat([
     "`",
-    indent(concat([softline, stripTrailingHardline(newDoc)])),
+    indent(concat([hardline, stripTrailingHardline(newDoc)])),
     softline,
     "`"
   ]);

@@ -12,10 +12,10 @@ abstract class AbstractRule {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 abstract class AbstractRule {
   /**
-     * @deprecated
-     * Failures will be filtered based on \`tslint:disable\` comments by tslint.
-     * This method now does nothing.
-     */
+   * @deprecated
+   * Failures will be filtered based on \`tslint:disable\` comments by tslint.
+   * This method now does nothing.
+   */
   filterFailures() {}
 }
 
@@ -113,6 +113,102 @@ export type WrappedFormUtils = {
     }
   ): (node: React.ReactNode) => React.ReactNode;
 };
+
+`;
+
+exports[`methods.ts 1`] = `
+export class Point {
+/**
+ * Does something.
+ */
+  foo() {}
+
+    /**
+     * Does something else.
+     */
+  bar() {}
+
+                /**
+                 * Does
+                 * something
+                 * much
+                 * better
+                 * than
+                 * the
+                 * rest.
+                 */
+  baz() {}
+
+      /**
+       * Buzz-Fizz.
+       * Note: This is indented too far.
+       */
+      fizzBuzz() {}
+
+      /**
+       * Turns the given string into pig-latin.
+       */
+              pigLatinize(value: string) {
+/**
+ * This is a block comment inside of a method.
+ */
+              }
+
+  /**
+        * One
+ * Two
+   * Three
+* Four 
+   */
+  mismatchedIndentation() {}
+
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export class Point {
+  /**
+   * Does something.
+   */
+  foo() {}
+
+  /**
+   * Does something else.
+   */
+  bar() {}
+
+  /**
+   * Does
+   * something
+   * much
+   * better
+   * than
+   * the
+   * rest.
+   */
+  baz() {}
+
+  /**
+   * Buzz-Fizz.
+   * Note: This is indented too far.
+   */
+  fizzBuzz() {}
+
+  /**
+   * Turns the given string into pig-latin.
+   */
+  pigLatinize(value: string) {
+    /**
+     * This is a block comment inside of a method.
+     */
+  }
+
+  /**
+   * One
+   * Two
+   * Three
+   * Four
+   */
+  mismatchedIndentation() {}
+}
 
 `;
 

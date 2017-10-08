@@ -217,7 +217,8 @@ function attach(comments, ast, text) {
           precedingNode,
           comment
         ) ||
-        handleAssignmentPatternComments(enclosingNode, comment)
+        handleAssignmentPatternComments(enclosingNode, comment) ||
+        handleMethodNameComments(text, enclosingNode, precedingNode, comment)
       ) {
         // We're good
       } else if (followingNode) {
@@ -297,7 +298,8 @@ function attach(comments, ast, text) {
         handleObjectPropertyAssignment(enclosingNode, precedingNode, comment) ||
         handleCommentInEmptyParens(text, enclosingNode, comment) ||
         handleMethodNameComments(text, enclosingNode, precedingNode, comment) ||
-        handleOnlyComments(enclosingNode, ast, comment, isLastComment)
+        handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
+        handleFunctionNameComments(text, enclosingNode, precedingNode, comment)
       ) {
         // We're good
       } else if (precedingNode && followingNode) {
@@ -623,6 +625,45 @@ function handleMethodNameComments(text, enclosingNode, precedingNode, comment) {
     addTrailingComment(precedingNode, comment);
     return true;
   }
+
+  // Print comments between decorators and class methods as a trailing comment
+  // on the decorator node instead of the method node
+  if (
+    precedingNode &&
+    enclosingNode &&
+    precedingNode.type === "Decorator" &&
+    (enclosingNode.type === "ClassMethod" ||
+      enclosingNode.type === "MethodDefinition")
+  ) {
+    addTrailingComment(precedingNode, comment);
+    return true;
+  }
+
+  return false;
+}
+
+function handleFunctionNameComments(
+  text,
+  enclosingNode,
+  precedingNode,
+  comment
+) {
+  if (getNextNonSpaceNonCommentCharacter(text, comment) !== "(") {
+    return false;
+  }
+
+  if (
+    precedingNode &&
+    enclosingNode &&
+    (enclosingNode.type === "FunctionDeclaration" ||
+      enclosingNode.type === "FunctionExpression" ||
+      enclosingNode.type === "ClassMethod" ||
+      enclosingNode.type === "MethodDefinition" ||
+      enclosingNode.type === "ObjectMethod")
+  ) {
+    addTrailingComment(precedingNode, comment);
+    return true;
+  }
   return false;
 }
 
@@ -878,8 +919,13 @@ function printComment(commentPath, options) {
     case "Comment":
       return "#" + comment.value.trimRight();
     case "CommentBlock":
-    case "Block":
+    case "Block": {
+      if (isJsDocComment(comment)) {
+        return printJsDocComment(comment);
+      }
+
       return "/*" + comment.value + "*/";
+    }
     case "CommentLine":
     case "Line":
       // Print shebangs with the proper comment characters
@@ -890,6 +936,31 @@ function printComment(commentPath, options) {
     default:
       throw new Error("Not a comment: " + JSON.stringify(comment));
   }
+}
+
+function isJsDocComment(comment) {
+  const lines = comment.value.split("\n");
+  return (
+    lines.length > 1 &&
+    lines.slice(0, lines.length - 1).every(line => line.trim()[0] === "*")
+  );
+}
+
+function printJsDocComment(comment) {
+  const lines = comment.value.split("\n");
+
+  return concat([
+    "/*",
+    join(
+      hardline,
+      lines.map(
+        (line, index) =>
+          (index > 0 ? " " : "") +
+          (index < lines.length - 1 ? line.trim() : line.trimLeft())
+      )
+    ),
+    "*/"
+  ]);
 }
 
 function findExpressionIndexForComment(quasis, comment) {

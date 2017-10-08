@@ -221,14 +221,6 @@ FastPath.prototype.needsParens = function(options) {
       return false;
     }
 
-    case "MemberExpression": {
-      return (
-        parent.type === "MemberExpression" &&
-        parent.object === node &&
-        node.optional
-      );
-    }
-
     case "SpreadElement":
     case "SpreadProperty":
       return (
@@ -622,6 +614,7 @@ function isStatement(node) {
     node.type === "ClassDeclaration" ||
     node.type === "ClassMethod" ||
     node.type === "ClassProperty" ||
+    node.type === "ClassPrivateProperty" ||
     node.type === "ContinueStatement" ||
     node.type === "DebuggerStatement" ||
     node.type === "DeclareClass" ||

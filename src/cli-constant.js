@@ -1,5 +1,7 @@
 "use strict";
 
+const camelCase = require("camelcase");
+
 const CATEGORY_CONFIG = "Config";
 const CATEGORY_EDITOR = "Editor";
 const CATEGORY_FORMAT = "Format";
@@ -48,8 +50,12 @@ const categoryOrder = [
  *     // Specify available choices for validation. They will also be displayed
  *     // in --help as <a|b|c>.
  *     // Use an object instead of a string if a choice is deprecated and should
- *     // be treated as `redirect` instead.
- *     choices?: Array<string | { value: string, deprecated: boolean, redirect: string }>;
+ *     // be treated as `redirect` instead, or if you'd like to add description for
+ *     // the choice.
+ *     choices?: Array<
+ *       | string
+ *       | { value: string, description?: string, deprecated?: boolean, redirect?: string }
+ *     >;
  *
  *     // If the option has a value that is an exception to the regular value
  *     // constraints, indicate that value here (or use a function for more
@@ -75,6 +81,7 @@ const detailedOptions = normalizeDetailedOptions({
     type: "boolean",
     category: CATEGORY_FORMAT,
     forwardToApi: true,
+    description: "Print spaces between brackets.",
     oppositeDescription: "Do not print spaces between brackets."
   },
   color: {
@@ -84,6 +91,7 @@ const detailedOptions = normalizeDetailedOptions({
     // See https://github.com/chalk/supports-color/#info for more information.
     type: "boolean",
     default: true,
+    description: "Colorize error messages.",
     oppositeDescription: "Do not colorize error messages."
   },
   config: {
@@ -97,15 +105,25 @@ const detailedOptions = normalizeDetailedOptions({
     type: "choice",
     category: CATEGORY_CONFIG,
     default: "cli-override",
-    choices: ["cli-override", "file-override", "prefer-file"],
-    description: dedent(`
-      Define in which order config files and CLI options should be evaluated
-      cli-override  | default config => config file => CLI options
-      file-override | default config => CLI options => config file
-      prefer-file   | default config => config file (if config file is found) or
-                      default config => CLI options (if no config file is found)
-      Defaults to cli-override.
-    `)
+    choices: [
+      {
+        value: "cli-override",
+        description: "CLI options take precedence over config file"
+      },
+      {
+        value: "file-override",
+        description: "Config file take precedence over CLI options"
+      },
+      {
+        value: "prefer-file",
+        description: dedent(`
+          If a config file is found will evaluate it and ignore other CLI options.
+          If no config file is found CLI options will evaluate as normal.
+        `)
+      }
+    ],
+    description:
+      "Define in which order config files and CLI options should be evaluated."
   },
   "cursor-offset": {
     type: "int",
@@ -136,17 +154,24 @@ const detailedOptions = normalizeDetailedOptions({
     deprecated: "Use `--parser flow` instead."
   },
   help: {
-    type: "boolean",
+    type: "flag",
     alias: "h",
-    description: "Show help."
+    description: dedent(`
+      Show CLI usage, or details about the given flag.
+      Example: --help write
+    `)
   },
   "ignore-path": {
     type: "path",
     category: CATEGORY_CONFIG,
     default: ".prettierignore",
+    description: "Path to a file with patterns describing files to ignore."
+  },
+  "insert-pragma": {
+    type: "boolean",
+    forwardToApi: true,
     description: dedent(`
-      Path to a file with patterns describing files to ignore.
-      Defaults to ./.prettierignore.
+      Insert @format pragma into file's first docblock comment.
     `)
   },
   "jsx-bracket-same-line": {
@@ -167,15 +192,25 @@ const detailedOptions = normalizeDetailedOptions({
     category: CATEGORY_FORMAT,
     forwardToApi: true,
     exception: value => typeof value === "string", // Allow path to a parser module.
-    choices: ["flow", "babylon", "typescript", "postcss", "json", "graphql"],
-    description: "Which parser to use. Defaults to babylon.",
+    choices: [
+      "flow",
+      "babylon",
+      "typescript",
+      "css",
+      { value: "postcss", deprecated: true, redirect: "css" },
+      "less",
+      "scss",
+      "json",
+      "graphql"
+    ],
+    description: "Which parser to use.",
     getter: (value, argv) => (argv["flow-parser"] ? "flow" : value)
   },
   "print-width": {
     type: "int",
     category: CATEGORY_FORMAT,
     forwardToApi: true,
-    description: "The line length where Prettier will try wrap. Defaults to 80."
+    description: "The line length where Prettier will try wrap."
   },
   "range-end": {
     type: "int",
@@ -186,7 +221,6 @@ const detailedOptions = normalizeDetailedOptions({
       Format code ending at a given character offset (exclusive).
       The range will extend forwards to the end of the selected statement.
       This option cannot be used with --cursor-offset.
-      Defaults to Infinity.
     `)
   },
   "range-start": {
@@ -197,7 +231,6 @@ const detailedOptions = normalizeDetailedOptions({
       Format code starting at a given character offset.
       The range will extend backwards to the start of the first line containing the selected statement.
       This option cannot be used with --cursor-offset.
-      Defaults to 0.
     `)
   },
   "require-pragma": {
@@ -212,6 +245,7 @@ const detailedOptions = normalizeDetailedOptions({
     type: "boolean",
     category: CATEGORY_FORMAT,
     forwardToApi: true,
+    description: "Print semicolons.",
     oppositeDescription:
       "Do not print semicolons, except at the beginning of lines which may need them."
   },
@@ -234,20 +268,27 @@ const detailedOptions = normalizeDetailedOptions({
     type: "int",
     category: CATEGORY_FORMAT,
     forwardToApi: true,
-    description: "Number of spaces per indentation level. Defaults to 2."
+    description: "Number of spaces per indentation level."
   },
   "trailing-comma": {
     type: "choice",
     category: CATEGORY_FORMAT,
     forwardToApi: true,
     choices: [
-      "none",
-      "es5",
-      "all",
+      { value: "none", description: "No trailing commas." },
+      {
+        value: "es5",
+        description:
+          "Trailing commas where valid in ES5 (objects, arrays, etc.)"
+      },
+      {
+        value: "all",
+        description:
+          "Trailing commas wherever possible (including function arguments)."
+      },
       { value: "", deprecated: true, redirect: "es5" }
     ],
-    description:
-      "Print trailing commas wherever possible when multi-line. Defaults to none."
+    description: "Print trailing commas wherever possible when multi-line."
   },
   "use-tabs": {
     type: "boolean",
@@ -313,10 +354,6 @@ function dedent(str) {
   return str.replace(new RegExp(`^ {${spaces}}`, "gm"), "").trim();
 }
 
-function kebabToCamel(str) {
-  return str.replace(/-([a-z])/g, (_, char) => char.toUpperCase());
-}
-
 function normalizeDetailedOptions(rawDetailedOptions) {
   const names = Object.keys(rawDetailedOptions).sort();
 
@@ -329,11 +366,14 @@ function normalizeDetailedOptions(rawDetailedOptions) {
         option.forwardToApi &&
         (typeof option.forwardToApi === "string"
           ? option.forwardToApi
-          : kebabToCamel(name)),
+          : camelCase(name)),
       choices:
         option.choices &&
-        option.choices.map(
-          choice => (typeof choice === "object" ? choice : { value: choice })
+        option.choices.map(choice =>
+          Object.assign(
+            { description: "", deprecated: false },
+            typeof choice === "object" ? choice : { value: choice }
+          )
         ),
       getter: option.getter || (value => value)
     });

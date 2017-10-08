@@ -295,4 +295,13 @@ x =
     </div>
   </div>
 
+x =
+  <div>
+    {" "} <div>text</div>
+  </div>
 
+// NOTE: Multiple JSX whitespaces are collapsed into a single space.
+x =
+  <div>
+    {" "}{" "}{" "}
+  </div>

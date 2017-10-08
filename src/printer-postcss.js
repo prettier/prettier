@@ -81,7 +81,7 @@ function genericPrint(path, options, print) {
 
       return concat([
         n.raws.before.replace(/[\s;]/g, ""),
-        n.prop.startsWith("--") ? n.prop : maybeToLowerCase(n.prop),
+        maybeToLowerCase(n.prop),
         ":",
         isValueExtend ? "" : " ",
         isComposed
@@ -110,7 +110,12 @@ function genericPrint(path, options, print) {
         /^\(\s*\)$/.test(n.params.value);
       return concat([
         "@",
-        isDetachedRulesetCall ? n.name : maybeToLowerCase(n.name),
+        // If a Less file ends up being parsed with the SCSS parser, Less
+        // variable declarations will be parsed as atrules with names ending
+        // with a colon, so keep the original case then.
+        isDetachedRulesetCall || n.name.endsWith(":")
+          ? n.name
+          : maybeToLowerCase(n.name),
         hasParams
           ? concat([
               isDetachedRulesetCall ? "" : " ",
@@ -217,7 +222,12 @@ function genericPrint(path, options, print) {
       return adjustStrings(n.value, options);
     }
     case "selector-tag": {
-      return maybeToLowerCase(n.value);
+      const parent = path.getParentNode();
+      const index = parent.nodes.indexOf(n);
+      const previous = index > 0 ? parent.nodes[index - 1] : null;
+      return previous && previous.type === "selector-nesting"
+        ? n.value
+        : maybeToLowerCase(n.value);
     }
     case "selector-id": {
       return concat(["#", n.value]);
@@ -482,7 +492,11 @@ function printNumber(rawNumber) {
 }
 
 function maybeToLowerCase(value) {
-  return value.includes("$") || value.includes("@") || value.includes("#")
+  return value.includes("$") ||
+    value.includes("@") ||
+    value.includes("#") ||
+    value.startsWith("%") ||
+    value.startsWith("--")
     ? value
     : value.toLowerCase();
 }
