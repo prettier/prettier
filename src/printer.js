@@ -3580,7 +3580,10 @@ function printMemberChain(path, options, print) {
 
   function rec(path) {
     const node = path.getValue();
-    if (node.type === "CallExpression" && isMemberish(node.callee)) {
+    if (
+      node.type === "CallExpression" &&
+      (isMemberish(node.callee) || node.callee.type === "CallExpression")
+    ) {
       printedNodes.unshift({
         node: node,
         printed: comments.printComments(
