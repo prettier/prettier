@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`do not show logs with --loglevel silent (stderr) 1`] = `""`;
+
+exports[`do not show logs with --loglevel silent (stdout) 1`] = `""`;
+
+exports[`do not show logs with --loglevel silent (write) 1`] = `Array []`;
+
+exports[`do not show warnings with --loglevel error (stderr) 1`] = `
+"error Error: Couldn't resolve parser \\"\\"
+"
+`;
+
+exports[`do not show warnings with --loglevel error (stdout) 1`] = `""`;
+
+exports[`do not show warnings with --loglevel error (write) 1`] = `Array []`;
+
+exports[`show all logs with --loglevel debug (stderr) 1`] = `
+"warn Ignored unknown option: --unknown-option--
+debug normalized argv: {\\"_\\":[],\\"bracket-spacing\\":false,\\"color\\":true,\\"debug-check\\":false,\\"debug-print-doc\\":false,\\"flow-parser\\":false,\\"insert-pragma\\":false,\\"jsx-bracket-same-line\\":false,\\"list-different\\":false,\\"require-pragma\\":false,\\"semi\\":false,\\"single-quote\\":false,\\"stdin\\":false,\\"use-tabs\\":false,\\"version\\":false,\\"with-node-modules\\":false,\\"write\\":false,\\"loglevel\\":\\"debug\\",\\"parser\\":\\"\\",\\"ignore-path\\":\\".prettierignore\\",\\"config-precedence\\":\\"cli-override\\"}
+debug resolve config from '<cwd>/tests_integration/cli/loglevel'
+debug loaded options \`{\\"printWidth\\":999}\`
+debug applied config-precedence (cli-override): {\\"bracketSpacing\\":true,\\"cursorOffset\\":-1,\\"insertPragma\\":false,\\"jsxBracketSameLine\\":false,\\"parser\\":\\"\\",\\"printWidth\\":999,\\"rangeEnd\\":null,\\"rangeStart\\":0,\\"requirePragma\\":false,\\"semi\\":true,\\"singleQuote\\":false,\\"tabWidth\\":2,\\"trailingComma\\":\\"none\\",\\"useTabs\\":false}
+error Error: Couldn't resolve parser \\"\\"
+"
+`;
+
+exports[`show all logs with --loglevel debug (stdout) 1`] = `""`;
+
+exports[`show all logs with --loglevel debug (write) 1`] = `Array []`;
+
+exports[`show errors and warnings with --loglevel warn (stderr) 1`] = `
+"warn Ignored unknown option: --unknown-option--
+error Error: Couldn't resolve parser \\"\\"
+"
+`;
+
+exports[`show errors and warnings with --loglevel warn (stdout) 1`] = `""`;
+
+exports[`show errors and warnings with --loglevel warn (write) 1`] = `Array []`;

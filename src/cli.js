@@ -16,6 +16,8 @@ function run(args) {
 
   const argv = util.normalizeConfig("cli", rawArgv);
 
+  logger.debug(`normalized argv: ${JSON.stringify(argv)}`);
+
   argv.__args = args;
   argv.__filePatterns = argv["_"];
 

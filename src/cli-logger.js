@@ -6,7 +6,7 @@ const chalk = require("chalk");
 
 const warn = createLogger("warn", "yellow");
 const error = createLogger("error", "red");
-const debug = createLogger("debug", "magenta");
+const debug = createLogger("debug", "blue");
 
 function createLogger(loggerName, color) {
   const prefix = `${chalk[color](loggerName)} `;
@@ -20,24 +20,23 @@ function createLogger(loggerName, color) {
 function shouldLog(loggerName) {
   const logLevel = process.env[ENV_LOG_LEVEL];
 
-  switch (loggerName) {
-    case "error":
-      if (logLevel === "error") {
+  switch (logLevel) {
+    case "silent":
+      return false;
+    default:
+      return true;
+    case "debug":
+      if (loggerName === "debug") {
         return true;
       }
     // fall through
     case "warn":
-      if (logLevel === "warn") {
+      if (loggerName === "warn") {
         return true;
       }
     // fall through
-    case "debug":
-      if (logLevel === "debug") {
-        return true;
-      }
-    // fall through
-    default:
-      return logLevel !== "silent";
+    case "error":
+      return loggerName === "error";
   }
 }
 

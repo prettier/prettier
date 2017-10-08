@@ -147,9 +147,22 @@ function format(argv, input, opt) {
 
 function getOptionsOrDie(argv, filePath) {
   try {
-    return argv["config"] === false
-      ? null
-      : resolver.resolveConfig.sync(filePath, { config: argv["config"] });
+    if (argv["config"] === false) {
+      logger.debug("'--no-config' option found, skip loading config file.");
+      return null;
+    }
+
+    logger.debug(
+      argv["config"]
+        ? `load config file from '${argv["config"]}'`
+        : `resolve config from '${filePath}'`
+    );
+    const options = resolver.resolveConfig.sync(filePath, {
+      config: argv["config"]
+    });
+
+    logger.debug("loaded options `" + JSON.stringify(options) + "`");
+    return options;
   } catch (error) {
     logger.error("Invalid configuration file: " + error.message);
     process.exit(2);
@@ -158,13 +171,20 @@ function getOptionsOrDie(argv, filePath) {
 
 function getOptionsForFile(argv, filepath) {
   const options = getOptionsOrDie(argv, filepath);
-  return Object.assign(
+
+  const appliedOptions = Object.assign(
     { filepath },
     applyConfigPrecedence(
       argv,
       options && normalizeConfig("api", options, constant.detailedOptionMap)
     )
   );
+
+  logger.debug(
+    `applied config-precedence (${argv["config-precedence"]}): ` +
+      `${JSON.stringify(appliedOptions)}`
+  );
+  return appliedOptions;
 }
 
 function parseArgsToOptions(argv, overrideDefaults) {

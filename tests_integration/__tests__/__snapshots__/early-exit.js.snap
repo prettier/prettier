@@ -158,18 +158,18 @@ exports[`show detailed usage with --help list-different (write) 1`] = `Array []`
 exports[`show detailed usage with --help loglevel (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help loglevel (stdout) 1`] = `
-"--loglevel <silent|error|warning|debug>
+"--loglevel <silent|error|warn|debug>
 
   What level of logs to report.
 
 Valid options:
 
-  silent    
-  error     
-  warning   
-  debug     
+  silent   
+  error    
+  warn     
+  debug    
 
-Default: warning
+Default: warn
 "
 `;
 
@@ -494,9 +494,9 @@ Other options:
                            Example: --help write
   --insert-pragma          Insert @format pragma into file's first docblock comment.
                            Defaults to false.
-  --loglevel <silent|error|warning|debug>
+  --loglevel <silent|error|warn|debug>
                            What level of logs to report.
-                           Defaults to warning.
+                           Defaults to warn.
   --require-pragma         Require either '@prettier' or '@format' to be present in the file's first docblock comment
                            in order for it to be formatted.
                            Defaults to false.
@@ -624,9 +624,9 @@ Other options:
                            Example: --help write
   --insert-pragma          Insert @format pragma into file's first docblock comment.
                            Defaults to false.
-  --loglevel <silent|error|warning|debug>
+  --loglevel <silent|error|warn|debug>
                            What level of logs to report.
-                           Defaults to warning.
+                           Defaults to warn.
   --require-pragma         Require either '@prettier' or '@format' to be present in the file's first docblock comment
                            in order for it to be formatted.
                            Defaults to false.
