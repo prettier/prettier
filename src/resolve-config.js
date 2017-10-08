@@ -62,11 +62,9 @@ function editorConfigToPrettier(editorConfig) {
 
 function resolveConfig(filePath, opts) {
   opts = Object.assign({ useCache: true }, opts);
-  const load = getLoadFunction({ cache: !!opts.useCache, sync: false });
-  const loadEditorConfig = getLoadEditorConfigFunction({
-    cache: !!opts.useCache,
-    sync: false
-  });
+  const loadOpts = { cache: !!opts.useCache, sync: false };
+  const load = getLoadFunction(loadOpts);
+  const loadEditorConfig = getLoadEditorConfigFunction(loadOpts);
   return Promise.all([
     load(filePath, opts.config),
     loadEditorConfig(filePath, opts.config)
@@ -79,11 +77,9 @@ function resolveConfig(filePath, opts) {
 
 resolveConfig.sync = (filePath, opts) => {
   opts = Object.assign({ useCache: true }, opts);
-  const load = getLoadFunction({ cache: !!opts.useCache, sync: true });
-  const loadEditorConfig = getLoadEditorConfigFunction({
-    cache: !!opts.useCache,
-    sync: true
-  });
+  const loadOpts = { cache: !!opts.useCache, sync: true };
+  const load = getLoadFunction(loadOpts);
+  const loadEditorConfig = getLoadEditorConfigFunction(loadOpts);
   const result = load(filePath, opts.config);
   const editorConfigged = loadEditorConfig(filePath, opts.config);
   return mergeEditorConfig(filePath, result, editorConfigged);
