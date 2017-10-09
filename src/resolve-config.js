@@ -43,9 +43,7 @@ function _resolveConfig(filePath, opts, sync) {
 
 const resolveConfig = (filePath, opts) => _resolveConfig(filePath, opts, false);
 
-resolveConfig.sync = (filePath, opts) => {
-  return _resolveConfig(filePath, opts, true);
-};
+resolveConfig.sync = (filePath, opts) => _resolveConfig(filePath, opts, true);
 
 function mergeEditorConfig(filePath, result, editorConfigged) {
   if (!filePath) {
