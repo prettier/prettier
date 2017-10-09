@@ -2,7 +2,25 @@
 
 const runPrettier = require("../runPrettier");
 
-expect.addSnapshotSerializer(require("../path-serializer"));
+const threshold = 20;
+
+expect.addSnapshotSerializer({
+  test: value =>
+    typeof value === "string" &&
+    value.split("\n").some(line => line.length > threshold),
+  print: (value, serializer) =>
+    serializer(
+      value
+        .split("\n")
+        .map(
+          line =>
+            line.length > threshold
+              ? line.slice(0, threshold - 3) + "..."
+              : line
+        )
+        .join("\n")
+    )
+});
 
 describe("do not show logs with --loglevel silent", () => {
   runPrettier("cli/loglevel", [

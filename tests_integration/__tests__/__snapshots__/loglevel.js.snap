@@ -7,7 +7,7 @@ exports[`do not show logs with --loglevel silent (stdout) 1`] = `""`;
 exports[`do not show logs with --loglevel silent (write) 1`] = `Array []`;
 
 exports[`do not show warnings with --loglevel error (stderr) 1`] = `
-"[error] No matching files. Patterns tried: not-found.js !**/node_modules/** !./node_modules/**
+"[error] No matchi...
 "
 `;
 
@@ -16,9 +16,9 @@ exports[`do not show warnings with --loglevel error (stdout) 1`] = `""`;
 exports[`do not show warnings with --loglevel error (write) 1`] = `Array []`;
 
 exports[`show all logs with --loglevel debug (stderr) 1`] = `
-"[warn] Ignored unknown option: --unknown-option
-[debug] normalized argv: {\\"_\\":[\\"not-found.js\\"],\\"bracket-spacing\\":false,\\"color\\":true,\\"debug-check\\":false,\\"debug-print-doc\\":false,\\"flow-parser\\":false,\\"insert-pragma\\":false,\\"jsx-bracket-same-line\\":false,\\"list-different\\":false,\\"require-pragma\\":false,\\"semi\\":false,\\"single-quote\\":false,\\"stdin\\":false,\\"use-tabs\\":false,\\"version\\":false,\\"with-node-modules\\":false,\\"write\\":false,\\"loglevel\\":\\"debug\\",\\"parser\\":\\"unknown-parser\\",\\"ignore-path\\":\\".prettierignore\\",\\"config-precedence\\":\\"cli-override\\"}
-[error] No matching files. Patterns tried: not-found.js !**/node_modules/** !./node_modules/**
+"[warn] Ignored un...
+[debug] normalize...
+[error] No matchi...
 "
 `;
 
@@ -27,8 +27,8 @@ exports[`show all logs with --loglevel debug (stdout) 1`] = `""`;
 exports[`show all logs with --loglevel debug (write) 1`] = `Array []`;
 
 exports[`show errors and warnings with --loglevel warn (stderr) 1`] = `
-"[warn] Ignored unknown option: --unknown-option
-[error] No matching files. Patterns tried: not-found.js !**/node_modules/** !./node_modules/**
+"[warn] Ignored un...
+[error] No matchi...
 "
 `;
 
