@@ -23,48 +23,25 @@ expect.addSnapshotSerializer({
 });
 
 describe("do not show logs with --loglevel silent", () => {
-  runPrettier("cli/loglevel", [
-    "--loglevel",
-    "silent",
-    "--unknown-option",
-    "--parser",
-    "unknown-parser",
-    "not-found.js"
-  ]).test({
-    status: "non-zero"
-  });
+  runPrettierWithLogLevel("silent");
 });
 
 describe("do not show warnings with --loglevel error", () => {
-  runPrettier("cli/loglevel", [
-    "--loglevel",
-    "error",
-    "--unknown-option",
-    "--parser",
-    "unknown-parser",
-    "not-found.js"
-  ]).test({
-    status: "non-zero"
-  });
+  runPrettierWithLogLevel("error");
 });
 
 describe("show errors and warnings with --loglevel warn", () => {
-  runPrettier("cli/loglevel", [
-    "--loglevel",
-    "warn",
-    "--unknown-option",
-    "--parser",
-    "unknown-parser",
-    "not-found.js"
-  ]).test({
-    status: "non-zero"
-  });
+  runPrettierWithLogLevel("warn");
 });
 
 describe("show all logs with --loglevel debug", () => {
+  runPrettierWithLogLevel("debug");
+});
+
+function runPrettierWithLogLevel(logLevel) {
   runPrettier("cli/loglevel", [
     "--loglevel",
-    "debug",
+    logLevel,
     "--unknown-option",
     "--parser",
     "unknown-parser",
@@ -72,4 +49,4 @@ describe("show all logs with --loglevel debug", () => {
   ]).test({
     status: "non-zero"
   });
-});
+}
