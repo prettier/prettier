@@ -116,7 +116,7 @@ function runPrettier(dir, args, options) {
     return result;
   };
 
-  return { test: testResult };
+  return Object.assign({ test: testResult }, result);
 
   function appendStdout(text) {
     if (status === undefined) {
