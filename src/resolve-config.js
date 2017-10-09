@@ -21,7 +21,7 @@ function getLoadFunction(opts) {
   return getExplorerMemoized(opts).load;
 }
 
-function resolveConfig(filePath, opts, sync) {
+function _resolveConfig(filePath, opts, sync) {
   opts = Object.assign({ useCache: true }, opts);
   const loadOpts = { cache: !!opts.useCache, sync: !!sync };
   const load = getLoadFunction(loadOpts);
@@ -41,8 +41,10 @@ function resolveConfig(filePath, opts, sync) {
   return Promise.all(arr).then(unwrapAndMerge);
 }
 
+const resolveConfig = (filePath, opts) => _resolveConfig(filePath, opts, false);
+
 resolveConfig.sync = (filePath, opts) => {
-  return resolveConfig(filePath, opts, true);
+  return _resolveConfig(filePath, opts, true);
 };
 
 function mergeEditorConfig(filePath, result, editorConfigged) {
