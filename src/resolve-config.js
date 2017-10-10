@@ -2,6 +2,7 @@
 
 const cosmiconfig = require("cosmiconfig");
 const minimatch = require("minimatch");
+const path = require("path");
 const mem = require("mem");
 
 const getExplorerMemoized = mem(opts =>
@@ -23,7 +24,7 @@ function resolveConfig(filePath, opts) {
   opts = Object.assign({ useCache: true }, opts);
   const load = getLoadFunction({ cache: !!opts.useCache, sync: false });
   return load(filePath, opts.config).then(result => {
-    return !result ? null : mergeOverrides(result.config, filePath);
+    return !result ? null : mergeOverrides(result, filePath);
   });
 }
 
@@ -31,7 +32,7 @@ resolveConfig.sync = (filePath, opts) => {
   opts = Object.assign({ useCache: true }, opts);
   const load = getLoadFunction({ cache: !!opts.useCache, sync: true });
   const result = load(filePath, opts.config);
-  return !result ? null : mergeOverrides(result.config, filePath);
+  return !result ? null : mergeOverrides(result, filePath);
 };
 
 function clearCache() {
@@ -51,11 +52,22 @@ resolveConfigFile.sync = filePath => {
   return result ? result.filepath : null;
 };
 
-function mergeOverrides(config, filePath) {
-  const options = Object.assign({}, config);
+function mergeOverrides(configResult, filePath) {
+  const options = Object.assign({}, configResult.config);
   if (filePath && options.overrides) {
+    const relativeFilePath = filePath;
+    // const relativeFilePath = path.relative(
+    //   path.dirname(configResult.filepath),
+    //   filePath
+    // );
     for (const override of options.overrides) {
-      if (pathMatchesGlobs(filePath, override.files, override.excludeFiles)) {
+      if (
+        pathMatchesGlobs(
+          relativeFilePath,
+          override.files,
+          override.excludeFiles
+        )
+      ) {
         Object.assign(options, override.options);
       }
     }

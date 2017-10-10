@@ -101,3 +101,11 @@ test("API resolveConfig.sync with file arg and extension override", () => {
     semi: true
   });
 });
+
+test("API resolveConfig.sync overrides work with absolute paths", () => {
+  // Absolute path
+  const file = path.join(__dirname, "../cli/config/jest/Component.test.js");
+  expect(prettier.resolveConfig.sync(file)).toMatchObject({
+    semi: true
+  });
+});
