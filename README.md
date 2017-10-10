@@ -891,7 +891,7 @@ More (rough) details can be found in [commands.md](commands.md).
 
 ## Badge
 
-Show the world you're using *Prettier* → [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+Show the world you're using *Prettier* → [![formatted with prettier](https://img.shields.io/badge/formatted_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
 ```md
 [![formatted with prettier](https://img.shields.io/badge/formatted_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
