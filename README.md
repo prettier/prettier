@@ -894,7 +894,7 @@ More (rough) details can be found in [commands.md](commands.md).
 Show the world you're using *Prettier* → [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
 ```md
-[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+[![formatted with prettier](https://img.shields.io/badge/formatted_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 ```
 
 ## Contributing
