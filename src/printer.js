@@ -3575,9 +3575,23 @@ function printMemberChain(path, options, print) {
   // and we transform it into
   //   [Identifier, CallExpression, MemberExpression, CallExpression]
   const printedNodes = [];
-
+  const originalText = options.originalText;
   function rec(path) {
     const node = path.getValue();
+    const nextChar = util.getNextNonSpaceNonCommentCharacter(
+      originalText,
+      node
+    );
+
+    if (nextChar === ")") {
+      util.setLocEnd(
+        node,
+        originalText.indexOf(nextChar, util.locEnd(node)) + 1
+      );
+    }
+
+    const isNextLineEmpty = util.isNextLineEmpty(originalText, node);
+
     if (
       node.type === "CallExpression" &&
       (isMemberish(node.callee) || node.callee.type === "CallExpression")
@@ -3590,7 +3604,8 @@ function printMemberChain(path, options, print) {
             concat([
               printOptionalToken(path),
               printFunctionTypeParameters(path, options, print),
-              printArgumentsList(path, options, print)
+              printArgumentsList(path, options, print),
+              isNextLineEmpty ? hardline : ""
             ]),
           options
         )
@@ -3602,9 +3617,13 @@ function printMemberChain(path, options, print) {
         printed: comments.printComments(
           path,
           () =>
-            node.type === "MemberExpression"
-              ? printMemberLookup(path, options, print)
-              : printBindExpressionCallee(path, options, print),
+            concat([
+              node.type === "MemberExpression"
+                ? printMemberLookup(path, options, print)
+                : printBindExpressionCallee(path, options, print),
+              isNextLineEmpty ? hardline : "",
+              isNextLineEmpty ? hardline : ""
+            ]),
           options
         )
       });
@@ -3612,7 +3631,7 @@ function printMemberChain(path, options, print) {
     } else {
       printedNodes.unshift({
         node: node,
-        printed: path.call(print)
+        printed: concat([path.call(print), isNextLineEmpty ? hardline : ""])
       });
     }
   }
