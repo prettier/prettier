@@ -35,6 +35,6 @@ function runPrettierWithLogLevel(logLevel, patterns) {
       expect(result.stderr).toMatch(pattern);
     });
   } else {
-    expect(result.stderr).toMatch(/\s*/);
+    expect(result.stderr).toMatch(/^\s*$/);
   }
 }
