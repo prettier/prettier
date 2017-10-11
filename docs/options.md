@@ -156,7 +156,7 @@ or
 Default | CLI Override | API Override
 --------|--------------|-------------
 `false` | `--require-pragma` | `requirePragma: <bool>`
-<!-->
+<!--
 ## Insert Pragma
 Prettier can insert a special @format marker at the top of files specifying that the file has been formatted
 with prettier.  This works well when used in tandem with the `--require-pragma` option.  If there is already a 
@@ -165,3 +165,4 @@ docblock at the top of the file then this option will add a newline to it with t
 Default | CLI Override | API Override
 --------|--------------|-------------
 `false` | `--insert-pragma` | `insertPragma: <bool>`
+-->
