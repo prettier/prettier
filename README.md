@@ -467,10 +467,10 @@ prettier.formatWithCursor(" 1", { cursorOffset: 2 });
 // -> { formatted: '1;\n', cursorOffset: 1 }
 ```
 
-#### `prettier.resolveConfig([filePath [, options]])`
+#### `prettier.resolveConfig(filePath [, options])`
 
 `resolveConfig` can be used to resolve configuration for a given source file.
-The function optionally accepts an input file path as an argument, which defaults to the current working directory.
+The function requires an input file path as an argument, you might want to pass `process.cwd()` for searching from the current working directory.
 A promise is returned which will resolve to:
 * An options object, providing a [config file](#configuration-file) was found.
 * `null`, if no file was found.
@@ -486,7 +486,7 @@ prettier.resolveConfig(filePath).then(options => {
 })
 ```
 
-Use `prettier.resolveConfig.sync([filePath [, options]])` if you'd like to use sync version.
+Use `prettier.resolveConfig.sync(filePath [, options])` if you'd like to use sync version.
 
 #### `prettier.clearConfigCache()`
 
