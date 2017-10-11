@@ -1,5 +1,7 @@
 "use strict";
 
+const escapeStringRegexp = require("escape-string-regexp");
+
 function isExportDeclaration(node) {
   if (node) {
     switch (node.type) {
@@ -605,7 +607,38 @@ function printNumber(rawNumber) {
   );
 }
 
+function getMaxContinuousCount(str, target) {
+  const results = str.match(
+    new RegExp(`(${escapeStringRegexp(target)})+`, "g")
+  );
+
+  if (results === null) {
+    return 0;
+  }
+
+  return results.reduce(
+    (maxCount, result) => Math.max(maxCount, result.length / target.length),
+    0
+  );
+}
+
+function mapDoc(doc, callback) {
+  if (doc.parts) {
+    const parts = doc.parts.map(part => mapDoc(part, callback));
+    return callback(Object.assign({}, doc, { parts }));
+  }
+
+  if (doc.contents) {
+    const contents = mapDoc(doc.contents, callback);
+    return callback(Object.assign({}, doc, { contents }));
+  }
+
+  return callback(doc);
+}
+
 module.exports = {
+  mapDoc,
+  getMaxContinuousCount,
   getPrecedence,
   shouldFlatten,
   isBitwiseOperator,

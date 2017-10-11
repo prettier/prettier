@@ -14,8 +14,8 @@ function rootIndent() {
   return {
     indent: 0,
     align: {
-      spaces: 0,
-      tabs: 0
+      spaces: "",
+      tabs: ""
     }
   };
 }
@@ -32,8 +32,8 @@ function makeAlign(ind, n) {
     return {
       indent: 0,
       align: {
-        spaces: 0,
-        tabs: 0
+        spaces: "",
+        tabs: ""
       }
     };
   }
@@ -41,8 +41,8 @@ function makeAlign(ind, n) {
   return {
     indent: ind.indent,
     align: {
-      spaces: ind.align.spaces + n,
-      tabs: ind.align.tabs + (n ? 1 : 0)
+      spaces: ind.align.spaces + (typeof n === "number" ? " ".repeat(n) : n),
+      tabs: ind.align.tabs + (n ? "\t" : "")
     }
   };
 }
@@ -401,12 +401,12 @@ function printDocToString(doc, options) {
                   }
                 }
 
-                const length = ind.indent * options.tabWidth + ind.align.spaces;
+                const indentLength = ind.indent * options.tabWidth;
                 const indentString = options.useTabs
-                  ? "\t".repeat(ind.indent + ind.align.tabs)
-                  : " ".repeat(length);
+                  ? "\t".repeat(ind.indent) + ind.align.tabs
+                  : " ".repeat(indentLength) + ind.align.spaces;
                 out.push(newLine + indentString);
-                pos = length;
+                pos = indentLength + ind.align.spaces.length;
               }
               break;
           }

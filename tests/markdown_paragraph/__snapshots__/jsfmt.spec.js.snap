@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`inline-nodes.md 1`] = `
+It removes all original styling[*](#styling-footnote) and ensures that all outputted code conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+It removes all original styling[\\*](#styling-footnote) and ensures that all
+outputted code conforms to a consistent style. (See this [blog
+post](http://jlongster.com/A-Prettier-Formatter))
+
+`;
+
+exports[`simple.md 1`] = `
+This is a long long long long long long long long long long long long long long long paragraph.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This is a long long long long long long long long long long long long long long
+long paragraph.
+
+`;

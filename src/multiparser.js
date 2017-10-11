@@ -33,6 +33,59 @@ function getSubtreeParser(path, options) {
     case "flow":
     case "typescript":
       return fromBabylonFlowOrTypeScript(path, options);
+    case "markdown":
+      return fromMarkdown(path, options);
+  }
+}
+
+function fromMarkdown(path, options) {
+  const node = path.getValue();
+
+  if (node.type === "code") {
+    const parser = getParserName(node.lang);
+    if (parser) {
+      const styleUnit = options.__inJsTemplate ? "~" : "`";
+      const style = styleUnit.repeat(
+        Math.max(3, util.getMaxContinuousCount(node.value, styleUnit) + 1)
+      );
+      return {
+        options: { parser },
+        transformDoc: doc => concat([style, node.lang, hardline, doc, style]),
+        text: node.value
+      };
+    }
+  }
+
+  return null;
+
+  function getParserName(lang) {
+    switch (lang) {
+      case "js":
+      case "jsx":
+      case "javascript":
+        return "babylon";
+      case "ts":
+      case "tsx":
+      case "typescript":
+        return "typescript";
+      case "gql":
+      case "graphql":
+        return "graphql";
+      case "css":
+        return "css";
+      case "less":
+        return "less";
+      case "scss":
+        return "scss";
+      case "json":
+      case "json5":
+        return "json";
+      case "md":
+      case "markdown":
+        return "markdown";
+      default:
+        return null;
+    }
   }
 }
 
@@ -92,9 +145,60 @@ function fromBabylonFlowOrTypeScript(path) {
         };
       }
 
+      /**
+       * md`...`
+       * markdown`...`
+       */
+      if (
+        parentParent &&
+        (parentParent.type === "TaggedTemplateExpression" &&
+          parent.quasis.length === 1 &&
+          (parentParent.tag.type === "Identifier" &&
+            (parentParent.tag.name === "md" ||
+              parentParent.tag.name === "markdown")))
+      ) {
+        return {
+          options: { parser: "markdown", __inJsTemplate: true },
+          transformDoc: doc =>
+            concat([
+              indent(
+                concat([softline, stripTrailingHardline(escapeBackticks(doc))])
+              ),
+              softline
+            ]),
+          // leading whitespaces matter in markdown
+          text: dedent(parent.quasis[0].value.cooked)
+        };
+      }
+
       break;
     }
   }
+}
+
+function dedent(str) {
+  const spaces = str.match(/\n^( *)/m)[1].length;
+  return str.replace(new RegExp(`^ {${spaces}}`, "gm"), "").trim();
+}
+
+function escapeBackticks(doc) {
+  return util.mapDoc(doc, currentDoc => {
+    if (!currentDoc.parts) {
+      return currentDoc;
+    }
+
+    const parts = [];
+
+    currentDoc.parts.forEach(part => {
+      if (typeof part === "string") {
+        parts.push(part.replace(/`/g, "\\`"));
+      } else {
+        parts.push(part);
+      }
+    });
+
+    return Object.assign({}, currentDoc, { parts });
+  });
 }
 
 function fromHtmlParser2(path, options) {

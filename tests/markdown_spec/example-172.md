@@ -1,0 +1,2 @@
+[foo]: /url
+"title" ok
