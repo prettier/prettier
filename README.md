@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.org/prettier/prettier.svg?branch=master)](https://travis-ci.org/prettier/prettier)
 [![Codecov](https://img.shields.io/codecov/c/github/prettier/prettier.svg)](https://codecov.io/gh/prettier/prettier)
 [![NPM version](https://img.shields.io/npm/v/prettier.svg)](https://www.npmjs.com/package/prettier)
-[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](#badge)
+[![formatted with prettier](https://img.shields.io/badge/formatted_with-prettier-ff69b4.svg)](#badge)
 
 Prettier is an opinionated code formatter with support for:
 * JavaScript, including [ES2017](https://github.com/tc39/proposals/blob/master/finished-proposals.md)
