@@ -201,7 +201,8 @@ const detailedOptions = normalizeDetailedOptions({
       "less",
       "scss",
       "json",
-      "graphql"
+      "graphql",
+      "markdown"
     ],
     description: "Which parser to use.",
     getter: (value, argv) => (argv["flow-parser"] ? "flow" : value)

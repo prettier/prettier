@@ -1,5 +1,5 @@
 /node_modules
-npm-debug.log
+*.log
 /errors
 /test.js
 /test.ts

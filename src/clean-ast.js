@@ -53,10 +53,16 @@ function massageAST(ast, parent) {
       "after",
       "trailingComma",
       "parent",
-      "prev"
+      "prev",
+      "position"
     ].forEach(name => {
       delete newObj[name];
     });
+
+    // for markdown codeblock
+    if (ast.type === "code") {
+      delete newObj.value;
+    }
 
     if (
       ast.type === "media-query" ||
@@ -222,14 +228,15 @@ function massageAST(ast, parent) {
       quasis.forEach(q => delete q.value);
     }
 
-    // styled-components and graphql
+    // styled-components, graphql, markdown
     if (
       ast.type === "TaggedTemplateExpression" &&
       (ast.tag.type === "MemberExpression" ||
         (ast.tag.type === "Identifier" &&
           (ast.tag.name === "gql" ||
             ast.tag.name === "graphql" ||
-            ast.tag.name === "css")) ||
+            ast.tag.name === "css" ||
+            ast.tag.name === "md")) ||
         ast.tag.type === "CallExpression")
     ) {
       newObj.quasi.quasis.forEach(quasi => delete quasi.value);

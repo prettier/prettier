@@ -1,0 +1,1 @@
+foo <!ELEMENT br EMPTY>

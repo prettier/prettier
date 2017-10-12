@@ -11,7 +11,7 @@ Prettier is an opinionated code formatter with support for:
 * [JSX](https://facebook.github.io/jsx/)
 * [Flow](https://flow.org/)
 * [TypeScript](https://www.typescriptlang.org/)
-* CSS, [LESS](http://lesscss.org/), and [SCSS](http://sass-lang.com)
+* CSS, [Less](http://lesscss.org/), and [SCSS](http://sass-lang.com)
 * [JSON](http://json.org/)
 * [GraphQL](http://graphql.org/)
 
@@ -469,10 +469,10 @@ prettier.formatWithCursor(" 1", { cursorOffset: 2 });
 // -> { formatted: '1;\n', cursorOffset: 1 }
 ```
 
-#### `prettier.resolveConfig([filePath [, options]])`
+#### `prettier.resolveConfig(filePath [, options])`
 
 `resolveConfig` can be used to resolve configuration for a given source file.
-The function optionally accepts an input file path as an argument, which defaults to the current working directory.
+The function requires an input file path as an argument, you might want to pass `process.cwd()` for searching from the current working directory.
 A promise is returned which will resolve to:
 * An options object, providing a [config file](#configuration-file) was found.
 * `null`, if no file was found.
@@ -488,7 +488,7 @@ prettier.resolveConfig(filePath).then(options => {
 })
 ```
 
-Use `prettier.resolveConfig.sync([filePath [, options]])` if you'd like to use sync version.
+Use `prettier.resolveConfig.sync(filePath [, options])` if you'd like to use sync version.
 
 #### `prettier.clearConfigCache()`
 
@@ -847,7 +847,7 @@ features enabled, but you can also use the
 All of JSX and Flow syntax is supported. In fact, the test suite in
 `tests/flow` *is* the entire Flow test suite and they all pass.
 
-Prettier also supports [TypeScript](https://www.typescriptlang.org/), CSS, [LESS](http://lesscss.org/), [SCSS](http://sass-lang.com), [JSON](http://json.org/), and [GraphQL](http://graphql.org/).
+Prettier also supports [TypeScript](https://www.typescriptlang.org/), CSS, [Less](http://lesscss.org/), [SCSS](http://sass-lang.com), [JSON](http://json.org/), and [GraphQL](http://graphql.org/).
 
 The minimum version of TypeScript supported is 2.1.3 as it introduces the ability to have leading `|` for type definitions which prettier outputs.
 

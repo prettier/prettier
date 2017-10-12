@@ -60,6 +60,8 @@ function getPrintFunction(options) {
     case "less":
     case "scss":
       return require("./printer-postcss");
+    case "markdown":
+      return require("./printer-markdown");
     default:
       return genericPrintNoParens;
   }
