@@ -3575,40 +3575,39 @@ function printMemberChain(path, options, print) {
   // and we transform it into
   //   [Identifier, CallExpression, MemberExpression, CallExpression]
   const printedNodes = [];
-  const originalText = options.originalText;
+
   function rec(path) {
     const node = path.getValue();
-    const nextChar = util.getNextNonSpaceNonCommentCharacter(
-      originalText,
-      node
-    );
-
-    if (nextChar === ")") {
-      util.setLocEnd(
-        node,
-        originalText.indexOf(nextChar, util.locEnd(node)) + 1
-      );
-    }
-
-    const isNextLineEmpty = util.isNextLineEmpty(originalText, node);
-
     if (
       node.type === "CallExpression" &&
       (isMemberish(node.callee) || node.callee.type === "CallExpression")
     ) {
+      const originalText = options.originalText;
+      const nextCharIndex = util.getNextNonSpaceNonCommentCharacterIndex(
+        originalText,
+        node
+      );
+      const nextChar = originalText.charAt(nextCharIndex);
+
+      if (nextChar == ")") {
+        util.setLocEnd(node, nextCharIndex + 1);
+      }
+
       printedNodes.unshift({
         node: node,
-        printed: comments.printComments(
-          path,
-          () =>
-            concat([
-              printOptionalToken(path),
-              printFunctionTypeParameters(path, options, print),
-              printArgumentsList(path, options, print),
-              isNextLineEmpty ? hardline : ""
-            ]),
-          options
-        )
+        printed: concat([
+          comments.printComments(
+            path,
+            () =>
+              concat([
+                printOptionalToken(path),
+                printFunctionTypeParameters(path, options, print),
+                printArgumentsList(path, options, print)
+              ]),
+            options
+          ),
+          util.isNextLineEmpty(originalText, node) ? hardline : ""
+        ])
       });
       path.call(callee => rec(callee), "callee");
     } else if (isMemberish(node)) {
@@ -3617,13 +3616,9 @@ function printMemberChain(path, options, print) {
         printed: comments.printComments(
           path,
           () =>
-            concat([
-              node.type === "MemberExpression"
-                ? printMemberLookup(path, options, print)
-                : printBindExpressionCallee(path, options, print),
-              isNextLineEmpty ? hardline : "",
-              isNextLineEmpty ? hardline : ""
-            ]),
+            node.type === "MemberExpression"
+              ? printMemberLookup(path, options, print)
+              : printBindExpressionCallee(path, options, print),
           options
         )
       });
@@ -3631,7 +3626,7 @@ function printMemberChain(path, options, print) {
     } else {
       printedNodes.unshift({
         node: node,
-        printed: concat([path.call(print), isNextLineEmpty ? hardline : ""])
+        printed: path.call(print)
       });
     }
   }

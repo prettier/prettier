@@ -185,7 +185,7 @@ function isNextLineEmpty(text, node) {
   return hasNewline(text, idx);
 }
 
-function getNextNonSpaceNonCommentCharacter(text, node) {
+function getNextNonSpaceNonCommentCharacterIndex(text, node) {
   let oldIdx = null;
   let idx = locEnd(node);
   while (idx !== oldIdx) {
@@ -195,7 +195,11 @@ function getNextNonSpaceNonCommentCharacter(text, node) {
     idx = skipTrailingComment(text, idx);
     idx = skipNewline(text, idx);
   }
-  return text.charAt(idx);
+  return idx;
+}
+
+function getNextNonSpaceNonCommentCharacter(text, node) {
+  return text.charAt(getNextNonSpaceNonCommentCharacterIndex(text, node));
 }
 
 function hasSpaces(text, index, opts) {
@@ -613,6 +617,7 @@ module.exports = {
   getParentExportDeclaration,
   getPenultimate,
   getLast,
+  getNextNonSpaceNonCommentCharacterIndex,
   getNextNonSpaceNonCommentCharacter,
   skipWhitespace,
   skipSpaces,
