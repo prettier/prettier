@@ -1,6 +1,6 @@
 "use strict";
 
-const isFullwidthCodePoint = require("is-fullwidth-code-point");
+const stringWidth = require("string-width");
 
 const docBuilders = require("./doc-builders");
 const concat = docBuilders.concat;
@@ -68,7 +68,7 @@ function fits(next, restCommands, width, mustBeFlat) {
     const doc = x[2];
 
     if (typeof doc === "string") {
-      width -= getStringWidth(doc);
+      width -= stringWidth(doc);
     } else {
       switch (doc.type) {
         case "concat":
@@ -155,7 +155,7 @@ function printDocToString(doc, options) {
     if (typeof doc === "string") {
       out.push(doc);
 
-      pos += getStringWidth(doc);
+      pos += stringWidth(doc);
     } else {
       switch (doc.type) {
         case "cursor":
@@ -428,17 +428,6 @@ function printDocToString(doc, options) {
   }
 
   return { formatted: out.join("") };
-}
-
-function getStringWidth(str) {
-  let width = 0;
-
-  for (let i = 0; i < str.length; i++) {
-    const codePoint = str.codePointAt(i);
-    width += isFullwidthCodePoint(codePoint) ? 2 : 1;
-  }
-
-  return width;
 }
 
 module.exports = { printDocToString };
