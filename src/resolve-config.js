@@ -30,8 +30,8 @@ function _resolveConfig(filePath, opts, sync) {
 
   const unwrapAndMerge = arr => {
     const result = arr[0];
-    const editorConfigged = arr[1];
-    return mergeEditorConfig(filePath, result, editorConfigged);
+    const editorConfigured = arr[1];
+    return mergeEditorConfig(filePath, result, editorConfigured);
   };
 
   if (loadOpts.sync) {
@@ -45,14 +45,14 @@ const resolveConfig = (filePath, opts) => _resolveConfig(filePath, opts, false);
 
 resolveConfig.sync = (filePath, opts) => _resolveConfig(filePath, opts, true);
 
-function mergeEditorConfig(filePath, result, editorConfigged) {
+function mergeEditorConfig(filePath, result, editorConfigured) {
   if (!filePath) {
     return null;
   }
 
   const config = result && result.config;
 
-  return Object.assign({}, editorConfigged, mergeOverrides(config, filePath));
+  return Object.assign({}, editorConfigured, mergeOverrides(config, filePath));
 }
 
 function clearCache() {
