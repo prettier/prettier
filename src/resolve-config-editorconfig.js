@@ -2,19 +2,26 @@
 
 const editorconfig = require("editorconfig");
 const mem = require("mem");
+const pathRoot = require("path-root");
 
-const editorconfigAsyncNoCache = (filePath, config) =>
-  Promise.resolve(
+const editorconfigAsyncNoCache = (filePath, config) => {
+  const root = filePath && pathRoot(filePath);
+  return Promise.resolve(
     filePath &&
       !config &&
-      editorconfig.parse(filePath).then(editorConfigToPrettier)
+      editorconfig.parse(filePath, { root }).then(editorConfigToPrettier)
   );
+};
 const editorconfigAsyncWithCache = mem(editorconfigAsyncNoCache);
 
-const editorconfigSyncNoCache = (filePath, config) =>
-  filePath &&
-  !config &&
-  editorConfigToPrettier(editorconfig.parseSync(filePath));
+const editorconfigSyncNoCache = (filePath, config) => {
+  const root = filePath && pathRoot(filePath);
+  return (
+    filePath &&
+    !config &&
+    editorConfigToPrettier(editorconfig.parseSync(filePath, { root }))
+  );
+};
 const editorconfigSyncWithCache = mem(editorconfigSyncNoCache);
 
 function getLoadFunction(opts) {
