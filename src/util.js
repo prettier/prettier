@@ -636,7 +636,25 @@ function mapDoc(doc, callback) {
   return callback(doc);
 }
 
+/**
+ * split text into whitespaces and words
+ * @param {string} text
+ * @return {Array<{ type: "whitespace", value: " " } | { type: "word", value: string }>}
+ */
+function splitText(text) {
+  return text
+    .split(/(\s+)/g)
+    .map(
+      (str, index) =>
+        index % 2 === 0
+          ? { type: "word", value: str }
+          : { type: "whitespace", value: " " }
+    )
+    .filter(node => node.value !== "");
+}
+
 module.exports = {
+  splitText,
   mapDoc,
   getMaxContinuousCount,
   getPrecedence,

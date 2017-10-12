@@ -42,11 +42,14 @@ function genericPrint(path, options, print) {
 
   if (shouldRemainTheSameContent(path)) {
     return concat(
-      options.originalText
-        .slice(node.position.start.offset, node.position.end.offset)
-        .split(/(\s+)/g)
-        .map((text, index) => (index % 2 === 0 ? text : line))
-        .filter(doc => doc !== "")
+      util
+        .splitText(
+          options.originalText.slice(
+            node.position.start.offset,
+            node.position.end.offset
+          )
+        )
+        .map(node => (node.type === "word" ? node.value : line))
     );
   }
 
