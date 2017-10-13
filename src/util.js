@@ -1,5 +1,7 @@
 "use strict";
 
+const stringWidth = require("string-width");
+const emojiRegex = require("emoji-regex")();
 const escapeStringRegexp = require("escape-string-regexp");
 
 function isExportDeclaration(node) {
@@ -653,7 +655,15 @@ function splitText(text) {
     .filter(node => node.value !== "");
 }
 
+function getStringWidth(text) {
+  // emojis are considered 2-char width for consistency
+  // see https://github.com/sindresorhus/string-width/issues/11
+  // for the reason why not implemented in `string-width`
+  return stringWidth(text.replace(emojiRegex, "  "));
+}
+
 module.exports = {
+  getStringWidth,
   splitText,
   mapDoc,
   getMaxContinuousCount,
