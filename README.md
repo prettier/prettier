@@ -14,6 +14,7 @@ Prettier is an opinionated code formatter with support for:
 * CSS, [Less](http://lesscss.org/), and [SCSS](http://sass-lang.com)
 * [JSON](http://json.org/)
 * [GraphQL](http://graphql.org/)
+* [Markdown](http://commonmark.org/), including [GFM](https://github.com/blog/2333-a-formal-spec-for-github-flavored-markdown)
 
 It removes all original styling[\*](#styling-footnote) and ensures that all outputted code
 conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
@@ -661,6 +662,7 @@ Built-in parsers:
  * [`postcss`](https://github.com/postcss/postcss) _Since v1.4.0_
  * [`json`](https://github.com/babel/babylon/tree/f09eb3200f57ea94d51c2a5b1facf2149fb406bf#babylonparseexpressioncode-options) _Since v1.5.0_
  * [`graphql`](https://github.com/graphql/graphql-js/tree/master/src/language) _Since v1.5.0_
+ * [`markdown`](https://github.com/wooorm/remark/tree/master/packages/remark-parse) _Since v1.8.0_
 
 [Custom parsers](#custom-parser-api) are also supported.  _Since v1.5.0_
 
@@ -838,7 +840,7 @@ features enabled, but you can also use the
 All of JSX and Flow syntax is supported. In fact, the test suite in
 `tests/flow` *is* the entire Flow test suite and they all pass.
 
-Prettier also supports [TypeScript](https://www.typescriptlang.org/), CSS, [Less](http://lesscss.org/), [SCSS](http://sass-lang.com), [JSON](http://json.org/), and [GraphQL](http://graphql.org/).
+Prettier also supports [TypeScript](https://www.typescriptlang.org/), CSS, [Less](http://lesscss.org/), [SCSS](http://sass-lang.com), [JSON](http://json.org/), [GraphQL](http://graphql.org/), and [Markdown](http://commonmark.org/).
 
 The minimum version of TypeScript supported is 2.1.3 as it introduces the ability to have leading `|` for type definitions which prettier outputs.
 
