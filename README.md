@@ -14,7 +14,7 @@ Prettier is an opinionated code formatter with support for:
 * CSS, [Less](http://lesscss.org/), and [SCSS](http://sass-lang.com)
 * [JSON](http://json.org/)
 * [GraphQL](http://graphql.org/)
-* [Markdown](http://commonmark.org/), including [GFM](https://github.com/blog/2333-a-formal-spec-for-github-flavored-markdown)
+* [Markdown](http://commonmark.org/), including [GFM](https://github.github.com/gfm/)
 
 It removes all original styling[\*](#styling-footnote) and ensures that all outputted code
 conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
