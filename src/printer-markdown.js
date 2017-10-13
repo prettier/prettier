@@ -10,6 +10,7 @@ const fill = docBuilders.fill;
 const align = docBuilders.align;
 const docPrinter = require("./doc-printer");
 const printDocToString = docPrinter.printDocToString;
+const stringWidth = require("string-width");
 
 const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "footnoteDefinition"];
 
@@ -297,7 +298,7 @@ function printTable(path, options, print) {
   const columnMaxWidths = contents.reduce(
     (currentWidths, rowContents) =>
       currentWidths.map((width, columnIndex) =>
-        Math.max(width, rowContents[columnIndex].length)
+        Math.max(width, stringWidth(rowContents[columnIndex]))
       ),
     contents[0].map(() => 3) // minimum width = 3 (---, :--, :-:, --:)
   );
@@ -351,15 +352,15 @@ function printTable(path, options, print) {
   }
 
   function alignLeft(text, width) {
-    return concat([text, " ".repeat(width - text.length)]);
+    return concat([text, " ".repeat(width - stringWidth(text))]);
   }
 
   function alignRight(text, width) {
-    return concat([" ".repeat(width - text.length), text]);
+    return concat([" ".repeat(width - stringWidth(text)), text]);
   }
 
   function alignCenter(text, width) {
-    const spaces = width - text.length;
+    const spaces = width - stringWidth(text);
     const left = Math.floor(spaces / 2);
     const right = spaces - left;
     return concat([" ".repeat(left), text, " ".repeat(right)]);
