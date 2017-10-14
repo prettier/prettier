@@ -662,7 +662,11 @@ function splitText(text, options) {
         "$1$2"
       )
   )
-    .split(/(\s+)/g)
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
+    // `\s` but exclude full-width whitspace (`\u3000`)
+    .split(
+      /([ \f\n\r\t\v\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\ufeff]+)/g
+    )
     .forEach((token, index, tokens) => {
       // whitespace
       if (index % 2 === 1) {
@@ -713,7 +717,11 @@ function splitText(text, options) {
     if (lastNode && lastNode.type === "word") {
       if (isBetween(KIND_NON_CJK, KIND_CJK_CHARACTER)) {
         nodes.push({ type: "whitespace", value: " " });
-      } else if (!isBetween(KIND_NON_CJK, KIND_CJK_PUNCTUATION)) {
+      } else if (
+        !isBetween(KIND_NON_CJK, KIND_CJK_PUNCTUATION) &&
+        // disallow leading/trailing full-width whitespace
+        ![lastNode.value, node.value].some(value => /\u3000/.test(value))
+      ) {
         nodes.push({ type: "whitespace", value: "" });
       }
     }
