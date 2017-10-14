@@ -163,16 +163,16 @@ function genericPrint(path, options, print) {
         : node.value;
     }
     case "list": {
-      const nthSiblingIndex = getNthSiblingIndex(
-        path,
-        siblingNode => siblingNode.ordered === node.ordered
+      const nthSiblingIndex = getNthListSiblingIndex(
+        node,
+        path.getParentNode()
       );
       return printChildren(path, options, print, {
         processor: (childPath, index) => {
           const prefix = node.ordered
             ? (index === 0 ? node.start : 1) +
               (nthSiblingIndex % 2 === 0 ? ". " : ") ")
-            : nthSiblingIndex % 2 === 0 ? "- " : "+ ";
+            : nthSiblingIndex % 2 === 0 ? "* " : "- ";
           return concat([prefix, align(prefix.length, childPath.call(print))]);
         }
       });
@@ -185,8 +185,17 @@ function genericPrint(path, options, print) {
         align(prefix.length, printChildren(path, options, print))
       ]);
     }
-    case "thematicBreak":
-      return getAncestorNode(path, "list") ? "* * *" : "- - -";
+    case "thematicBreak": {
+      const counter = getAncestorCounter(path, "list");
+      if (counter === -1) {
+        return "- - -";
+      }
+      const nthSiblingIndex = getNthListSiblingIndex(
+        path.getParentNode(counter),
+        path.getParentNode(counter + 1)
+      );
+      return nthSiblingIndex % 2 === 0 ? "- - -" : "* * *";
+    }
     case "linkReference":
       return concat([
         "[",
@@ -239,11 +248,16 @@ function genericPrint(path, options, print) {
   }
 }
 
-function getNthSiblingIndex(path, condition) {
-  condition = condition || (() => true);
+function getNthListSiblingIndex(node, parentNode) {
+  return getNthSiblingIndex(
+    node,
+    parentNode,
+    siblingNode => siblingNode.ordered === node.ordered
+  );
+}
 
-  const node = path.getValue();
-  const parentNode = path.getParentNode();
+function getNthSiblingIndex(node, parentNode, condition) {
+  condition = condition || (() => true);
 
   let index = -1;
 
@@ -260,19 +274,24 @@ function getNthSiblingIndex(path, condition) {
   }
 }
 
-function getAncestorNode(path, typeOrTypes) {
+function getAncestorCounter(path, typeOrTypes) {
   const types = [].concat(typeOrTypes);
 
-  let counter = 0;
+  let counter = -1;
   let ancestorNode;
 
-  while ((ancestorNode = path.getParentNode(counter++))) {
+  while ((ancestorNode = path.getParentNode(++counter))) {
     if (types.indexOf(ancestorNode.type) !== -1) {
-      return ancestorNode;
+      return counter;
     }
   }
 
-  return null;
+  return -1;
+}
+
+function getAncestorNode(path, typeOrTypes) {
+  const counter = getAncestorCounter(path, typeOrTypes);
+  return counter === -1 ? null : path.getParentNode(counter);
 }
 
 function printTable(path, options, print) {
