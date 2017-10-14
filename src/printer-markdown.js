@@ -51,7 +51,10 @@ function genericPrint(path, options, print) {
           ),
           options
         )
-        .map(node => (node.type === "word" ? node.value : line))
+        .map(
+          node =>
+            node.type === "word" ? node.value : node.value === "" ? "" : line
+        )
     );
   }
 
