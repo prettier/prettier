@@ -3576,23 +3576,27 @@ function printMemberChain(path, options, print) {
   //   [Identifier, CallExpression, MemberExpression, CallExpression]
   const printedNodes = [];
 
+  function shouldInsertEmptyLineAfter(node) {
+    const originalText = options.originalText;
+    const nextCharIndex = util.getNextNonSpaceNonCommentCharacterIndex(
+      originalText,
+      node
+    );
+    const nextChar = originalText.charAt(nextCharIndex);
+
+    if (nextChar == ")") {
+      return util.isNextLineEmptyAfterIndex(originalText, nextCharIndex + 1);
+    }
+
+    return util.isNextLineEmpty(originalText, node)
+  }
+
   function rec(path) {
     const node = path.getValue();
     if (
       node.type === "CallExpression" &&
       (isMemberish(node.callee) || node.callee.type === "CallExpression")
     ) {
-      const originalText = options.originalText;
-      const nextCharIndex = util.getNextNonSpaceNonCommentCharacterIndex(
-        originalText,
-        node
-      );
-      const nextChar = originalText.charAt(nextCharIndex);
-
-      if (nextChar == ")") {
-        util.setLocEnd(node, nextCharIndex + 1);
-      }
-
       printedNodes.unshift({
         node: node,
         printed: concat([
@@ -3606,7 +3610,7 @@ function printMemberChain(path, options, print) {
               ]),
             options
           ),
-          util.isNextLineEmpty(originalText, node) ? hardline : ""
+          shouldInsertEmptyLineAfter(node) ? hardline : ""
         ])
       });
       path.call(callee => rec(callee), "callee");
@@ -3752,6 +3756,13 @@ function printMemberChain(path, options, print) {
         (groups[0][0].node.name.match(/(^[A-Z])|^[_$]+$/) ||
           (groups[1].length && groups[1][0].node.computed))));
 
+  const lastNodeBeforeIndent =
+    (shouldMerge ? util.getLast(groups.slice(1, 2)[0]) : groups[0][0]).node;
+  const shouldHaveEmptyLineBeforeIndent =
+    lastNodeBeforeIndent.type !== 'CallExpression' ?
+      shouldInsertEmptyLineAfter(lastNodeBeforeIndent) :
+      false;
+
   function printGroup(printedGroup) {
     return concat(printedGroup.map(tuple => tuple.printed));
   }
@@ -3761,7 +3772,11 @@ function printMemberChain(path, options, print) {
       return "";
     }
     return indent(
-      group(concat([hardline, join(hardline, groups.map(printGroup))]))
+      group(concat([
+        shouldHaveEmptyLineBeforeIndent ? hardline : '',
+        hardline,
+        join(hardline, groups.map(printGroup))
+      ]))
     );
   }
 
@@ -3781,7 +3796,7 @@ function printMemberChain(path, options, print) {
   // If we only have a single `.`, we shouldn't do anything fancy and just
   // render everything concatenated together.
   if (groups.length <= cutoff && !hasComment) {
-    return group(oneLine);
+    return group(oneLine); // TODO: test
   }
 
   const expanded = concat([
@@ -3802,9 +3817,10 @@ function printMemberChain(path, options, print) {
   if (
     hasComment ||
     callExpressionCount >= 3 ||
-    printedGroups.slice(0, -1).some(willBreak)
+    printedGroups.slice(0, -1).some(willBreak) ||
+    shouldHaveEmptyLineBeforeIndent
   ) {
-    return group(expanded);
+    return group(expanded); // TODO: test
   }
 
   return concat([
@@ -3813,7 +3829,7 @@ function printMemberChain(path, options, print) {
     // naturally
     willBreak(oneLine) ? breakParent : "",
     conditionalGroup([oneLine, expanded])
-  ]);
+  ]); // TODO: test - done
 }
 
 function isEmptyJSXElement(node) {

@@ -170,9 +170,9 @@ function isPreviousLineEmpty(text, node) {
   return idx !== idx2;
 }
 
-function isNextLineEmpty(text, node) {
+function isNextLineEmptyAfterIndex(text, index) {
   let oldIdx = null;
-  let idx = locEnd(node);
+  let idx = index;
   while (idx !== oldIdx) {
     // We need to skip all the potential trailing inline comments
     oldIdx = idx;
@@ -183,6 +183,10 @@ function isNextLineEmpty(text, node) {
   idx = skipTrailingComment(text, idx);
   idx = skipNewline(text, idx);
   return hasNewline(text, idx);
+}
+
+function isNextLineEmpty(text, node) {
+  return isNextLineEmptyAfterIndex(text, locEnd(node));
 }
 
 function getNextNonSpaceNonCommentCharacterIndex(text, node) {
@@ -622,6 +626,7 @@ module.exports = {
   skipWhitespace,
   skipSpaces,
   skipNewline,
+  isNextLineEmptyAfterIndex,
   isNextLineEmpty,
   isPreviousLineEmpty,
   hasNewline,
