@@ -3756,13 +3756,6 @@ function printMemberChain(path, options, print) {
         (groups[0][0].node.name.match(/(^[A-Z])|^[_$]+$/) ||
           (groups[1].length && groups[1][0].node.computed))));
 
-  const lastNodeBeforeIndent =
-    (shouldMerge ? util.getLast(groups.slice(1, 2)[0]) : groups[0][0]).node;
-  const shouldHaveEmptyLineBeforeIndent =
-    lastNodeBeforeIndent.type !== 'CallExpression' ?
-      shouldInsertEmptyLineAfter(lastNodeBeforeIndent) :
-      false;
-
   function printGroup(printedGroup) {
     return concat(printedGroup.map(tuple => tuple.printed));
   }
@@ -3772,11 +3765,7 @@ function printMemberChain(path, options, print) {
       return "";
     }
     return indent(
-      group(concat([
-        shouldHaveEmptyLineBeforeIndent ? hardline : '',
-        hardline,
-        join(hardline, groups.map(printGroup))
-      ]))
+      group(concat([hardline, join(hardline, groups.map(printGroup))]))
     );
   }
 
@@ -3799,9 +3788,16 @@ function printMemberChain(path, options, print) {
     return group(oneLine); // TODO: test
   }
 
+  const lastNodeBeforeIndent =
+    (util.getLast(shouldMerge ? groups.slice(1, 2)[0] : groups[0])).node;
+  const shouldHaveEmptyLineBeforeIndent =
+    lastNodeBeforeIndent.type !== 'CallExpression' ?
+      shouldInsertEmptyLineAfter(lastNodeBeforeIndent) :
+      false;
   const expanded = concat([
     printGroup(groups[0]),
     shouldMerge ? concat(groups.slice(1, 2).map(printGroup)) : "",
+    shouldHaveEmptyLineBeforeIndent ? hardline : "",
     printIndentedGroup(groups.slice(shouldMerge ? 2 : 1))
   ]);
 
@@ -3817,8 +3813,7 @@ function printMemberChain(path, options, print) {
   if (
     hasComment ||
     callExpressionCount >= 3 ||
-    printedGroups.slice(0, -1).some(willBreak) ||
-    shouldHaveEmptyLineBeforeIndent
+    printedGroups.slice(0, -1).some(willBreak)
   ) {
     return group(expanded); // TODO: test
   }
@@ -3827,7 +3822,7 @@ function printMemberChain(path, options, print) {
     // We only need to check `oneLine` because if `expanded` is chosen
     // that means that the parent group has already been broken
     // naturally
-    willBreak(oneLine) ? breakParent : "",
+    willBreak(oneLine) || shouldHaveEmptyLineBeforeIndent ? breakParent : "",
     conditionalGroup([oneLine, expanded])
   ]); // TODO: test - done
 }

@@ -1,4 +1,13 @@
-bigDeal.doSomething('Hello World')
+fooBar.doSomething('Hello World').doAnotherThing('Foo', { foo: bar })
+
+  // App configuration.
+  .doOneMoreThing(config)
+
+  .run(() => console.log('Bar'));
+
+bigDeal
+
+  .doSomething('Hello World')
 
   // Hello world
   .doAnotherThing('Foo', { foo: bar })
@@ -9,34 +18,42 @@ bigDeal.doSomething('Hello World')
   .run(() => console.log('Bar'));
 
 
-bigDeal()
+foo.bar.baz
 
-// Do something
-.doSomething('Hello World')
-
-  // Hello world
-
-  .doAnotherThing('Foo', { foo: bar }) // Hello world
-  // Hello world
+  .doSomething('Hello World')
 
   // Hello world
+  .foo.bar.doAnotherThing('Foo', { foo: bar })
+
   .doOneMoreThing(config)
-  .run(() => console.log('Bar'));
+  .bar.run(() => console.log('Bar'));
 
-// Hello world
-foo.bar.foo.run()
-
-// Do something
-.bar.doSomething('Hello World')
+(
+  somethingGood ? thisIsIt : maybeNot
+)
 
   // Hello world
+  .doSomething('Hello World')
 
-  .doAnotherThing.hello('Foo', { foo: bar }) // Hello world
+  .doAnotherThing('Foo', { foo: bar }) // Run this
+  .run(() => console.log('Bar')); // Do this
 
-  // Hello world
+helloWorld
 
-  // Hello world
-  .run(() => console.log('Bar'))
+  .text()
 
-  // Here we go
-  .baz;
+  .then(t => t);
+
+(veryLongVeryLongVeryLong ||
+ anotherVeryLongVeryLongVeryLong ||
+ veryVeryVeryLongError
+)
+
+  .map(tickets => TicketRecord.createFromSomeLongString())
+
+  .filter(obj => !!obj);
+
+const sel = this.connections
+
+  .concat(this.activities.concat(this.operators))
+  .filter(x => x.selected);
