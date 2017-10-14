@@ -4,22 +4,22 @@
 <summary><strong>Table of Contents</strong></summary>
 
 - [Vim and Prettier integration](#vim-and-prettier-integration)
-  - [Neoformat](#neoformat)
-    - [Neoformat - Installation](#neoformat---installation)
-    - [Neoformat - Usage](#neoformat---usage)
-    - [Neoformat - Other autocmd events](#neoformat---other-autocmd-events)
-    - [Neoformat - Customizing Prettier](#neoformat---customizing-prettier)
-  - [vim-prettier](#vim-prettier-1)
-    - [vim-prettier - Installation](#vim-prettier---installation)
-    - [vim-prettier - Usage](#vim-prettier---usage)
-    - [vim-prettier - Configuration](#vim-prettier---configuration)
-  - [ALE](#ale)
-    - [ALE - Installation](#ale---installation)
-    - [ALE - Usage](#ale---usage)
-    - [ALE - Configuration](#ale---configuration)
-  - [Running manually](#running-manually) + [Running Prettier manually in
-    Vim](#running-prettier-manually-in-vim)
-    </details>
+  * [Neoformat](#neoformat)
+    + [Neoformat - Installation](#neoformat---installation)
+    + [Neoformat - Usage](#neoformat---usage)
+    + [Neoformat - Other autocmd events](#neoformat---other-autocmd-events)
+    + [Neoformat - Customizing Prettier](#neoformat---customizing-prettier)
+  * [vim-prettier](#vim-prettier-1)
+    + [vim-prettier - Installation](#vim-prettier---installation)
+    + [vim-prettier - Usage](#vim-prettier---usage)
+    + [vim-prettier - Configuration](#vim-prettier---configuration)
+  * [ALE](#ale)
+    + [ALE - Installation](#ale---installation)
+    + [ALE - Usage](#ale---usage)
+    + [ALE - Configuration](#ale---configuration)
+  * [Running manually](#running-manually)
+    + [Running Prettier manually in Vim](#running-prettier-manually-in-vim)
+</details>
 
 - - -
 

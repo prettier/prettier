@@ -83,7 +83,14 @@ Include this anywhere to force all parent groups to break. See `group` for more
 info. Example:
 
 ```js
-group(concat([" ", expr, " ", breakParent]));
+group(
+  concat([
+    " ",
+    expr,
+    " ",
+    breakParent
+  ])
+)
 ```
 
 ### join
@@ -141,16 +148,14 @@ concat(["{", lineSuffix(" // comment"), lineSuffixBoundary, "}", hardline]);
 will output
 
 ```js
-{
-  // comment
+{ // comment
 }
 ```
 
 and **not**
 
 ```js
-{
-} // comment
+{} // comment
 ```
 
 ### indent
