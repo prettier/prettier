@@ -5,7 +5,6 @@ const path = require("path");
 const validate = require("jest-validate").validate;
 const deprecatedConfig = require("./deprecated");
 const supportTable = require("./support").supportTable;
-const detailedOptionMap = require("./cli-constant").detailedOptionMap;
 
 const defaults = {
   cursorOffset: -1,
@@ -37,12 +36,7 @@ function normalize(options) {
 
   if (
     filepath &&
-    (!normalized.parser ||
-      // If using the custom parser API, we don't want to
-      // do parser inference.
-      detailedOptionMap.parser.choices.find(
-        choice => choice.value === normalized.parser
-      ))
+    (!normalized.parser || normalized.parser === defaults.parser)
   ) {
     const extension = path.extname(filepath);
     const filename = path.basename(filepath).toLowerCase();
