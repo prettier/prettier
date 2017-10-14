@@ -48,7 +48,6 @@ Object {
       ],
       "since": "0.0.0",
       "tmScope": "source.js",
-      "type": "programming",
       "vscodeLanguageIds": Array [
         "javascript",
       ],

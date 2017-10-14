@@ -12,7 +12,6 @@ const supportTable = [
     since: "0.0.0",
     parsers: ["babylon", "flow"],
     group: "JavaScript",
-    type: "programming",
     tmScope: "source.js",
     aceMode: "javascript",
     codemirrorMode: "javascript",
