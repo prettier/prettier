@@ -11,7 +11,15 @@ describe("API getSupportInfo()", () => {
 
   testVersions.forEach(version => {
     test(`with version ${version}`, () => {
-      expect(prettier.getSupportInfo(version)).toMatchSnapshot();
+      expect(
+        prettier
+          .getSupportInfo(version)
+          .languages.reduce(
+            (obj, language) =>
+              Object.assign({ [language.name]: language.parsers }, obj),
+            {}
+          )
+      ).toMatchSnapshot();
     });
   });
 });

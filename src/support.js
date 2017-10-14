@@ -199,9 +199,7 @@ function getSupportInfo(version) {
   const usePostCssParser = semver.lt(version, "1.7.1");
 
   const languages = supportTable
-    .filter(language => {
-      return language.since && semver.gte(version, language.since);
-    })
+    .filter(language => language.since && semver.gte(version, language.since))
     .map(language => {
       if (usePostCssParser && language.group === "CSS") {
         return Object.assign({}, language, {
