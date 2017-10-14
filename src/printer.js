@@ -3590,7 +3590,7 @@ function printMemberChain(path, options, print) {
       return util.isNextLineEmptyAfterIndex(originalText, nextCharIndex + 1);
     }
 
-    return util.isNextLineEmpty(originalText, node)
+    return util.isNextLineEmpty(originalText, node);
   }
 
   function rec(path) {
@@ -3792,12 +3792,13 @@ function printMemberChain(path, options, print) {
 
   // Find out the last node in the first group and check if it has an
   // empty line after
-  const lastNodeBeforeIndent =
-    (util.getLast(shouldMerge ? groups.slice(1, 2)[0] : groups[0])).node;
+  const lastNodeBeforeIndent = util.getLast(
+    shouldMerge ? groups.slice(1, 2)[0] : groups[0]
+  ).node;
   const shouldHaveEmptyLineBeforeIndent =
-    lastNodeBeforeIndent.type !== 'CallExpression' ?
-      shouldInsertEmptyLineAfter(lastNodeBeforeIndent) :
-      false;
+    lastNodeBeforeIndent.type !== "CallExpression"
+      ? shouldInsertEmptyLineAfter(lastNodeBeforeIndent)
+      : false;
 
   const expanded = concat([
     printGroup(groups[0]),
