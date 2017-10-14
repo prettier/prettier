@@ -3,6 +3,9 @@
 const semver = require("semver");
 const currentVersion = require("../package").version;
 
+// Based on:
+// https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
+
 const supportTable = [
   {
     name: "JavaScript",
