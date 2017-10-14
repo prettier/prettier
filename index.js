@@ -10,6 +10,7 @@ const normalizeOptions = require("./src/options").normalize;
 const parser = require("./src/parser");
 const printDocToDebug = require("./src/doc-debug").printDocToDebug;
 const config = require("./src/resolve-config");
+const getSupportInfo = require("./src/support").getSupportInfo;
 const docblock = require("jest-docblock");
 const getStream = require("get-stream");
 
@@ -367,6 +368,8 @@ module.exports = {
 
   resolveConfig: config.resolveConfig,
   clearConfigCache: config.clearCache,
+
+  getSupportInfo,
 
   version,
 
