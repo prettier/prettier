@@ -1,7 +1,7 @@
 "use strict";
 
 const semver = require("semver");
-const currentVersion = require("../package").version;
+const currentVersion = require("../package.json").version;
 
 // Based on:
 // https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
