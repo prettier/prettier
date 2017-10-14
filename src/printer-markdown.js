@@ -175,10 +175,23 @@ function genericPrint(path, options, print) {
         node,
         path.getParentNode()
       );
+
+      const isGitDiffFriendlyOrderedList =
+        node.ordered &&
+        node.children.length > 1 &&
+        /^\s*1(\.|\))/.test(
+          options.originalText.slice(
+            node.children[1].position.start.offset,
+            node.children[1].position.end.offset
+          )
+        );
+
       return printChildren(path, options, print, {
         processor: (childPath, index) => {
           const prefix = node.ordered
-            ? (index === 0 ? node.start : 1) +
+            ? (index === 0
+                ? node.start
+                : isGitDiffFriendlyOrderedList ? 1 : node.start + index) +
               (nthSiblingIndex % 2 === 0 ? ". " : ") ")
             : nthSiblingIndex % 2 === 0 ? "* " : "- ";
           return concat([prefix, align(prefix.length, childPath.call(print))]);
