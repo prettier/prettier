@@ -1,1 +1,1 @@
-run_spec(__dirname, { parser: "markdown", splitCjkText: true });
+run_spec(__dirname, { parser: "markdown" });

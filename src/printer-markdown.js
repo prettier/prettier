@@ -48,8 +48,7 @@ function genericPrint(path, options, print) {
           options.originalText.slice(
             node.position.start.offset,
             node.position.end.offset
-          ),
-          options
+          )
         )
         .map(
           node =>
@@ -78,7 +77,7 @@ function genericPrint(path, options, print) {
     case "whitespace":
       return getAncestorNode(path, SINGLE_LINE_NODE_TYPES)
         ? node.value === "" ? "" : " "
-        : node.value === "" ? (options.splitCjkText ? softline : "") : line;
+        : node.value === "" ? softline : line;
     case "emphasis": {
       const parentNode = path.getParentNode();
       const index = parentNode.children.indexOf(node);

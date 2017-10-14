@@ -645,23 +645,20 @@ function mapDoc(doc, callback) {
 /**
  * split text into whitespaces and words
  * @param {string} text
- * @param {{ splitCjkText: boolean }} options
  * @return {Array<{ type: "whitespace", value: " " | "" } | { type: "word", value: string }>}
  */
-function splitText(text, options) {
+function splitText(text) {
   const KIND_NON_CJK = "non-cjk";
   const KIND_CJK_CHARACTER = "cjk-character";
   const KIND_CJK_PUNCTUATION = "cjk-punctuation";
 
   const nodes = [];
 
-  (!options.splitCjkText
-    ? text
-    : text.replace(
-        new RegExp(`(${cjkRegex.source})\n(${cjkRegex.source})`, "g"),
-        "$1$2"
-      )
-  )
+  text
+    .replace(
+      new RegExp(`(${cjkRegex.source})\n(${cjkRegex.source})`, "g"),
+      "$1$2"
+    )
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
     // `\s` but exclude full-width whitspace (`\u3000`)
     .split(

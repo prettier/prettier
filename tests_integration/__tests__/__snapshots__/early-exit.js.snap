@@ -307,19 +307,6 @@ Default: false
 
 exports[`show detailed usage with --help single-quote (write) 1`] = `Array []`;
 
-exports[`show detailed usage with --help split-cjk-text (stderr) 1`] = `""`;
-
-exports[`show detailed usage with --help split-cjk-text (stdout) 1`] = `
-"--split-cjk-text
-
-  Put a linebreak after the CJK character that fits the print width.
-
-Default: false
-"
-`;
-
-exports[`show detailed usage with --help split-cjk-text (write) 1`] = `Array []`;
-
 exports[`show detailed usage with --help stdin (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help stdin (stdout) 1`] = `
@@ -445,8 +432,6 @@ Format options:
                            Defaults to 80.
   --no-semi                Do not print semicolons, except at the beginning of lines which may need them.
   --single-quote           Use single quotes instead of double quotes.
-                           Defaults to false.
-  --split-cjk-text         Put a linebreak after the CJK character that fits the print width.
                            Defaults to false.
   --tab-width <int>        Number of spaces per indentation level.
                            Defaults to 2.
@@ -577,8 +562,6 @@ Format options:
                            Defaults to 80.
   --no-semi                Do not print semicolons, except at the beginning of lines which may need them.
   --single-quote           Use single quotes instead of double quotes.
-                           Defaults to false.
-  --split-cjk-text         Put a linebreak after the CJK character that fits the print width.
                            Defaults to false.
   --tab-width <int>        Number of spaces per indentation level.
                            Defaults to 2.

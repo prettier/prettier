@@ -18,14 +18,14 @@ const util = require("./util");
  * interface Sentence { children: Array<Word | Whitespace> }
  * interface InlineCode { children: Array<Sentence> }
  */
-function parse(text, parsers, options) {
+function parse(text /*, parsers, opts*/) {
   const processor = unified()
     .use(remarkParse, { footnotes: true, commonmark: true })
     .use(remarkFrontmatter, ["yaml"])
     .use(restoreUnescapedCharacter(text))
     .use(mergeContinuousTexts)
     .use(transformInlineCode(text))
-    .use(splitText(options));
+    .use(splitText);
   return processor.runSync(processor.parse(text));
 }
 
@@ -125,8 +125,8 @@ function mergeContinuousTexts() {
     });
 }
 
-function splitText(options) {
-  return () => ast =>
+function splitText() {
+  return ast =>
     map(ast, (node, index, parentNode) => {
       if (node.type !== "text") {
         return node;
@@ -146,7 +146,7 @@ function splitText(options) {
       return {
         type: "sentence",
         position: node.position,
-        children: util.splitText(value, options)
+        children: util.splitText(value)
       };
     });
 }

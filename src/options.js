@@ -17,8 +17,7 @@ const defaults = {
   parser: "babylon",
   insertPragma: false,
   requirePragma: false,
-  semi: true,
-  splitCjkText: false
+  semi: true
 };
 
 const exampleConfig = Object.assign({}, defaults, {
