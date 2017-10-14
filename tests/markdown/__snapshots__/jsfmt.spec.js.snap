@@ -1388,9 +1388,8 @@ There is a limitation where if you stage specific lines this approach will stage
 the whole file after regardless. See this
 [issue](https://github.com/okonet/lint-staged/issues/62) for more info.
 
-See
-[https://github.com/okonet/lint-staged#configuration](https://github.com/okonet/lint-staged#configuration)
-for more details about how you can configure lint-staged.
+See https://github.com/okonet/lint-staged#configuration for more details about
+how you can configure lint-staged.
 
 ##### Option 2. [pre-commit](https://github.com/pre-commit/pre-commit)
 
@@ -1834,8 +1833,7 @@ section.
 ### Configuration Schema
 
 If you'd like a JSON schema to validate your configuration, one is available
-here:
-[http://json.schemastore.org/prettierrc](http://json.schemastore.org/prettierrc).
+here: http://json.schemastore.org/prettierrc.
 
 ## Editor Integration
 
