@@ -1,15 +1,16 @@
 "use strict";
 
 const camelCase = require("camelcase");
+const logger = require("./cli-logger");
 
 function validateArgv(argv) {
   if (argv["write"] && argv["debug-check"]) {
-    console.error("Cannot use --write and --debug-check together.");
+    logger.error("Cannot use --write and --debug-check together.");
     process.exit(1);
   }
 
   if (argv["find-config-path"] && argv.__filePatterns.length) {
-    console.error("Cannot use --find-config-path with multiple files");
+    logger.error("Cannot use --find-config-path with multiple files");
     process.exit(1);
   }
 }
