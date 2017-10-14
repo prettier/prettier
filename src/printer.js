@@ -3576,6 +3576,8 @@ function printMemberChain(path, options, print) {
   //   [Identifier, CallExpression, MemberExpression, CallExpression]
   const printedNodes = [];
 
+  // Here we try to retain one typed empty line after each call expression or
+  // the first group whether it is in parentheses or not
   function shouldInsertEmptyLineAfter(node) {
     const originalText = options.originalText;
     const nextCharIndex = util.getNextNonSpaceNonCommentCharacterIndex(
@@ -3785,15 +3787,18 @@ function printMemberChain(path, options, print) {
   // If we only have a single `.`, we shouldn't do anything fancy and just
   // render everything concatenated together.
   if (groups.length <= cutoff && !hasComment) {
-    return group(oneLine); // TODO: test
+    return group(oneLine);
   }
 
+  // Find out the last node in the first group and check if it has an
+  // empty line after
   const lastNodeBeforeIndent =
     (util.getLast(shouldMerge ? groups.slice(1, 2)[0] : groups[0])).node;
   const shouldHaveEmptyLineBeforeIndent =
     lastNodeBeforeIndent.type !== 'CallExpression' ?
       shouldInsertEmptyLineAfter(lastNodeBeforeIndent) :
       false;
+
   const expanded = concat([
     printGroup(groups[0]),
     shouldMerge ? concat(groups.slice(1, 2).map(printGroup)) : "",
@@ -3815,7 +3820,7 @@ function printMemberChain(path, options, print) {
     callExpressionCount >= 3 ||
     printedGroups.slice(0, -1).some(willBreak)
   ) {
-    return group(expanded); // TODO: test
+    return group(expanded);
   }
 
   return concat([
