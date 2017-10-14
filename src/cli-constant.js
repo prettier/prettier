@@ -256,6 +256,13 @@ const detailedOptions = normalizeDetailedOptions({
     forwardToApi: true,
     description: "Use single quotes instead of double quotes."
   },
+  "split-cjk-text": {
+    type: "boolean",
+    category: CATEGORY_FORMAT,
+    forwardToApi: true,
+    description:
+      "Put a linebreak after the CJK character that fits the print width."
+  },
   stdin: {
     type: "boolean",
     description: "Force reading input from stdin."

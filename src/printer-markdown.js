@@ -6,6 +6,7 @@ const concat = docBuilders.concat;
 const join = docBuilders.join;
 const line = docBuilders.line;
 const hardline = docBuilders.hardline;
+const softline = docBuilders.softline;
 const fill = docBuilders.fill;
 const align = docBuilders.align;
 const docPrinter = require("./doc-printer");
@@ -47,7 +48,8 @@ function genericPrint(path, options, print) {
           options.originalText.slice(
             node.position.start.offset,
             node.position.end.offset
-          )
+          ),
+          options
         )
         .map(node => (node.type === "word" ? node.value : line))
     );
@@ -71,7 +73,9 @@ function genericPrint(path, options, print) {
             .replace(/(^|[^\\])\*/g, "$1\\*") // escape all unescaped `*` and `_`
             .replace(/\b(^|[^\\])_\b/g, "$1\\_"); // `1_2_3` is not considered emphasis
     case "whitespace":
-      return getAncestorNode(path, SINGLE_LINE_NODE_TYPES) ? " " : line;
+      return getAncestorNode(path, SINGLE_LINE_NODE_TYPES)
+        ? node.value === "" ? "" : " "
+        : node.value === "" ? softline : line;
     case "emphasis": {
       const parentNode = path.getParentNode();
       const index = parentNode.children.indexOf(node);

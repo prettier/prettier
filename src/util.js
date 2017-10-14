@@ -4,6 +4,10 @@ const stringWidth = require("string-width");
 const emojiRegex = require("emoji-regex")();
 const escapeStringRegexp = require("escape-string-regexp");
 
+const getCjkRegex = require("cjk-regex");
+const cjkRegex = getCjkRegex();
+const cjkPunctuationRegex = getCjkRegex.punctuations();
+
 function isExportDeclaration(node) {
   if (node) {
     switch (node.type) {
@@ -641,18 +645,92 @@ function mapDoc(doc, callback) {
 /**
  * split text into whitespaces and words
  * @param {string} text
- * @return {Array<{ type: "whitespace", value: " " } | { type: "word", value: string }>}
+ * @param {{ splitCjkText: boolean }} options
+ * @return {Array<{ type: "whitespace", value: " " | "" } | { type: "word", value: string }>}
  */
-function splitText(text) {
-  return text
+function splitText(text, options) {
+  const KIND_NON_CJK = "non-cjk";
+  const KIND_CJK_CHARACTER = "cjk-character";
+  const KIND_CJK_PUNCTUATION = "cjk-punctuation";
+
+  const nodes = [];
+
+  (!options.splitCjkText
+    ? text
+    : text.replace(
+        new RegExp(`(${cjkRegex.source})\n(${cjkRegex.source})`, "g"),
+        "$1$2"
+      )
+  )
     .split(/(\s+)/g)
-    .map(
-      (str, index) =>
-        index % 2 === 0
-          ? { type: "word", value: str }
-          : { type: "whitespace", value: " " }
-    )
-    .filter(node => node.value !== "");
+    .forEach((token, index, tokens) => {
+      // whitespace
+      if (index % 2 === 1) {
+        nodes.push({ type: "whitespace", value: " " });
+        return;
+      }
+
+      // word separated by whitespace
+
+      if ((index === 0 || index === tokens.length - 1) && token === "") {
+        return;
+      }
+
+      if (!options.splitCjkText) {
+        nodes.push({ type: "word", value: token });
+        return;
+      }
+
+      token
+        .split(new RegExp(`(${cjkRegex.source})`, "g"))
+        .forEach((innerToken, innerIndex, innerTokens) => {
+          if (
+            (innerIndex === 0 || innerIndex === innerTokens.length - 1) &&
+            innerToken === ""
+          ) {
+            return;
+          }
+
+          // non-CJK word
+          if (innerIndex % 2 === 0) {
+            if (innerToken !== "") {
+              appendNode({
+                type: "word",
+                value: innerToken,
+                kind: KIND_NON_CJK
+              });
+            }
+            return;
+          }
+
+          // CJK character
+          const kind = cjkPunctuationRegex.test(innerToken)
+            ? KIND_CJK_PUNCTUATION
+            : KIND_CJK_CHARACTER;
+          appendNode({ type: "word", value: innerToken, kind });
+        });
+    });
+
+  return nodes;
+
+  function appendNode(node) {
+    const lastNode = nodes[nodes.length - 1];
+    if (lastNode && lastNode.type === "word") {
+      if (isBetween(KIND_NON_CJK, KIND_CJK_CHARACTER)) {
+        nodes.push({ type: "whitespace", value: " " });
+      } else if (!isBetween(KIND_NON_CJK, KIND_CJK_PUNCTUATION)) {
+        nodes.push({ type: "whitespace", value: "" });
+      }
+    }
+    nodes.push(node);
+
+    function isBetween(kind1, kind2) {
+      return (
+        (lastNode.kind === kind1 && node.kind === kind2) ||
+        (lastNode.kind === kind2 && node.kind === kind1)
+      );
+    }
+  }
 }
 
 function getStringWidth(text) {
