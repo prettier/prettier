@@ -11,6 +11,17 @@ exports[`checkbox.md 1`] = `
 
 `;
 
+exports[`git-diff-friendly.md 1`] = `
+5. abc
+1. def
+999. ghi
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+5. abc
+1. def
+1. ghi
+
+`;
+
 exports[`long-paragraph.md 1`] = `
 - This is a long long long long long long long long long long long long long long paragraph.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -113,7 +124,7 @@ exports[`start.md 1`] = `
 7. ghi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 5. abc
-1. def
-1. ghi
+6. def
+7. ghi
 
 `;
