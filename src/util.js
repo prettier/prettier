@@ -659,11 +659,8 @@ function splitText(text) {
       new RegExp(`(${cjkRegex.source})\n(${cjkRegex.source})`, "g"),
       "$1$2"
     )
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
     // `\s` but exclude full-width whitspace (`\u3000`)
-    .split(
-      /([ \f\n\r\t\v\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\ufeff]+)/g
-    )
+    .split(/([^\S\u3000]+)/)
     .forEach((token, index, tokens) => {
       // whitespace
       if (index % 2 === 1) {
@@ -678,7 +675,7 @@ function splitText(text) {
       }
 
       token
-        .split(new RegExp(`(${cjkRegex.source})`, "g"))
+        .split(new RegExp(`(${cjkRegex.source})`))
         .forEach((innerToken, innerIndex, innerTokens) => {
           if (
             (innerIndex === 0 || innerIndex === innerTokens.length - 1) &&
