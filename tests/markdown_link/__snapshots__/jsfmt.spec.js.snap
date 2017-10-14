@@ -20,3 +20,10 @@ exports[`title.md 1`] = `
 [hello](#world "title")
 
 `;
+
+exports[`url.md 1`] = `
+https://www.example.com/
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+https://www.example.com/
+
+`;

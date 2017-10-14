@@ -4466,14 +4466,14 @@ _a \`_\`_
 exports[`example-452.md 1`] = `
 **a<http://foo.bar/?q=**>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-**a<[http://foo.bar/?q=](http://foo.bar/?q=)**>
+**a<http://foo.bar/?q=**>
 
 `;
 
 exports[`example-453.md 1`] = `
 __a<http://foo.bar/?q=__>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-**a<[http://foo.bar/?q=](http://foo.bar/?q=)**>
+**a<http://foo.bar/?q=**>
 
 `;
 
@@ -5514,7 +5514,7 @@ exports[`example-564.md 1`] = `
 exports[`example-565.md 1`] = `
 <http://foo.bar/baz bim>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<[http://foo.bar/baz](http://foo.bar/baz) bim>
+<http://foo.bar/baz bim>
 
 `;
 
@@ -5556,7 +5556,7 @@ exports[`example-570.md 1`] = `
 exports[`example-571.md 1`] = `
 < http://foo.bar >
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-< [http://foo.bar](http://foo.bar) >
+< http://foo.bar >
 
 `;
 
@@ -5577,7 +5577,7 @@ exports[`example-573.md 1`] = `
 exports[`example-574.md 1`] = `
 http://example.com
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[http://example.com](http://example.com)
+http://example.com
 
 `;
 

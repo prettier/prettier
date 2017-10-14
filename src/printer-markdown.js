@@ -104,9 +104,11 @@ function genericPrint(path, options, print) {
       ]);
     }
     case "link":
-      return options.originalText[node.position.start.offset] === "<"
-        ? concat(["<", node.url, ">"])
-        : concat([
+      switch (options.originalText[node.position.start.offset]) {
+        case "<":
+          return concat(["<", node.url, ">"]);
+        case "[":
+          return concat([
             "[",
             printChildren(path, options, print),
             "](",
@@ -114,6 +116,12 @@ function genericPrint(path, options, print) {
             node.title ? ` ${printTitle(node.title)}` : "",
             ")"
           ]);
+        default:
+          return options.originalText.slice(
+            node.position.start.offset,
+            node.position.end.offset
+          );
+      }
     case "image":
       return concat([
         "![",
