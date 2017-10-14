@@ -3829,7 +3829,7 @@ function printMemberChain(path, options, print) {
     // naturally
     willBreak(oneLine) || shouldHaveEmptyLineBeforeIndent ? breakParent : "",
     conditionalGroup([oneLine, expanded])
-  ]); // TODO: test - done
+  ]);
 }
 
 function isEmptyJSXElement(node) {
