@@ -676,11 +676,6 @@ function splitText(text, options) {
         return;
       }
 
-      if (!options.splitCjkText) {
-        nodes.push({ type: "word", value: token });
-        return;
-      }
-
       token
         .split(new RegExp(`(${cjkRegex.source})`, "g"))
         .forEach((innerToken, innerIndex, innerTokens) => {

@@ -75,7 +75,7 @@ function genericPrint(path, options, print) {
     case "whitespace":
       return getAncestorNode(path, SINGLE_LINE_NODE_TYPES)
         ? node.value === "" ? "" : " "
-        : node.value === "" ? softline : line;
+        : node.value === "" ? (options.splitCjkText ? softline : "") : line;
     case "emphasis": {
       const parentNode = path.getParentNode();
       const index = parentNode.children.indexOf(node);
