@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "babel-code-frame": "7.0.0-alpha.12",
-    "babylon": "7.0.0-beta.23",
+    "babylon": "7.0.0-beta.28",
     "camelcase": "4.1.0",
     "chalk": "2.1.0",
     "cjk-regex": "1.0.1",
