@@ -301,7 +301,8 @@ function setLocEnd(node, index) {
 
 const PRECEDENCE = {};
 [
-  ["||"],
+  ["|>"],
+  ["||", "??"],
   ["&&"],
   ["|"],
   ["^"],
