@@ -6,6 +6,7 @@ const concat = docBuilders.concat;
 const join = docBuilders.join;
 const line = docBuilders.line;
 const hardline = docBuilders.hardline;
+const softline = docBuilders.softline;
 const fill = docBuilders.fill;
 const align = docBuilders.align;
 const docPrinter = require("./doc-printer");
@@ -42,11 +43,17 @@ function genericPrint(path, options, print) {
 
   if (shouldRemainTheSameContent(path)) {
     return concat(
-      options.originalText
-        .slice(node.position.start.offset, node.position.end.offset)
-        .split(/(\s+)/g)
-        .map((text, index) => (index % 2 === 0 ? text : line))
-        .filter(doc => doc !== "")
+      util
+        .splitText(
+          options.originalText.slice(
+            node.position.start.offset,
+            node.position.end.offset
+          )
+        )
+        .map(
+          node =>
+            node.type === "word" ? node.value : node.value === "" ? "" : line
+        )
     );
   }
 
@@ -68,7 +75,9 @@ function genericPrint(path, options, print) {
             .replace(/(^|[^\\])\*/g, "$1\\*") // escape all unescaped `*` and `_`
             .replace(/\b(^|[^\\])_\b/g, "$1\\_"); // `1_2_3` is not considered emphasis
     case "whitespace":
-      return getAncestorNode(path, SINGLE_LINE_NODE_TYPES) ? " " : line;
+      return getAncestorNode(path, SINGLE_LINE_NODE_TYPES)
+        ? node.value === "" ? "" : " "
+        : node.value === "" ? softline : line;
     case "emphasis": {
       const parentNode = path.getParentNode();
       const index = parentNode.children.indexOf(node);
@@ -334,7 +343,7 @@ function printTable(path, options, print) {
   const columnMaxWidths = contents.reduce(
     (currentWidths, rowContents) =>
       currentWidths.map((width, columnIndex) =>
-        Math.max(width, rowContents[columnIndex].length)
+        Math.max(width, util.getStringWidth(rowContents[columnIndex]))
       ),
     contents[0].map(() => 3) // minimum width = 3 (---, :--, :-:, --:)
   );
@@ -388,15 +397,15 @@ function printTable(path, options, print) {
   }
 
   function alignLeft(text, width) {
-    return concat([text, " ".repeat(width - text.length)]);
+    return concat([text, " ".repeat(width - util.getStringWidth(text))]);
   }
 
   function alignRight(text, width) {
-    return concat([" ".repeat(width - text.length), text]);
+    return concat([" ".repeat(width - util.getStringWidth(text)), text]);
   }
 
   function alignCenter(text, width) {
-    const spaces = width - text.length;
+    const spaces = width - util.getStringWidth(text);
     const left = Math.floor(spaces / 2);
     const right = spaces - left;
     return concat([" ".repeat(left), text, " ".repeat(right)]);
