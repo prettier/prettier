@@ -51,7 +51,13 @@ function mergeEditorConfig(filePath, result, editorConfigured) {
     return null;
   }
 
-  return Object.assign({}, editorConfigured, mergeOverrides(result, filePath));
+  const configResult = Object.assign({}, result);
+
+  return Object.assign(
+    {},
+    editorConfigured,
+    mergeOverrides(configResult, filePath)
+  );
 }
 
 function clearCache() {
