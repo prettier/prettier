@@ -334,7 +334,7 @@ FastPath.prototype.needsParens = function(options) {
             return true;
           }
 
-          if (po === "||" && no === "&&") {
+          if ((po === "||" || po === "??") && no === "&&") {
             return true;
           }
 
