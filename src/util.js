@@ -1,6 +1,12 @@
 "use strict";
 
+const stringWidth = require("string-width");
+const emojiRegex = require("emoji-regex")();
 const escapeStringRegexp = require("escape-string-regexp");
+
+const getCjkRegex = require("cjk-regex");
+const cjkRegex = getCjkRegex();
+const cjkPunctuationRegex = getCjkRegex.punctuations();
 
 function isExportDeclaration(node) {
   if (node) {
@@ -636,7 +642,104 @@ function mapDoc(doc, callback) {
   return callback(doc);
 }
 
+/**
+ * split text into whitespaces and words
+ * @param {string} text
+ * @return {Array<{ type: "whitespace", value: " " | "" } | { type: "word", value: string }>}
+ */
+function splitText(text) {
+  const KIND_NON_CJK = "non-cjk";
+  const KIND_CJK_CHARACTER = "cjk-character";
+  const KIND_CJK_PUNCTUATION = "cjk-punctuation";
+
+  const nodes = [];
+
+  text
+    .replace(
+      new RegExp(`(${cjkRegex.source})\n(${cjkRegex.source})`, "g"),
+      "$1$2"
+    )
+    // `\s` but exclude full-width whitspace (`\u3000`)
+    .split(/([^\S\u3000]+)/)
+    .forEach((token, index, tokens) => {
+      // whitespace
+      if (index % 2 === 1) {
+        nodes.push({ type: "whitespace", value: " " });
+        return;
+      }
+
+      // word separated by whitespace
+
+      if ((index === 0 || index === tokens.length - 1) && token === "") {
+        return;
+      }
+
+      token
+        .split(new RegExp(`(${cjkRegex.source})`))
+        .forEach((innerToken, innerIndex, innerTokens) => {
+          if (
+            (innerIndex === 0 || innerIndex === innerTokens.length - 1) &&
+            innerToken === ""
+          ) {
+            return;
+          }
+
+          // non-CJK word
+          if (innerIndex % 2 === 0) {
+            if (innerToken !== "") {
+              appendNode({
+                type: "word",
+                value: innerToken,
+                kind: KIND_NON_CJK
+              });
+            }
+            return;
+          }
+
+          // CJK character
+          const kind = cjkPunctuationRegex.test(innerToken)
+            ? KIND_CJK_PUNCTUATION
+            : KIND_CJK_CHARACTER;
+          appendNode({ type: "word", value: innerToken, kind });
+        });
+    });
+
+  return nodes;
+
+  function appendNode(node) {
+    const lastNode = nodes[nodes.length - 1];
+    if (lastNode && lastNode.type === "word") {
+      if (isBetween(KIND_NON_CJK, KIND_CJK_CHARACTER)) {
+        nodes.push({ type: "whitespace", value: " " });
+      } else if (
+        !isBetween(KIND_NON_CJK, KIND_CJK_PUNCTUATION) &&
+        // disallow leading/trailing full-width whitespace
+        ![lastNode.value, node.value].some(value => /\u3000/.test(value))
+      ) {
+        nodes.push({ type: "whitespace", value: "" });
+      }
+    }
+    nodes.push(node);
+
+    function isBetween(kind1, kind2) {
+      return (
+        (lastNode.kind === kind1 && node.kind === kind2) ||
+        (lastNode.kind === kind2 && node.kind === kind1)
+      );
+    }
+  }
+}
+
+function getStringWidth(text) {
+  // emojis are considered 2-char width for consistency
+  // see https://github.com/sindresorhus/string-width/issues/11
+  // for the reason why not implemented in `string-width`
+  return stringWidth(text.replace(emojiRegex, "  "));
+}
+
 module.exports = {
+  getStringWidth,
+  splitText,
   mapDoc,
   getMaxContinuousCount,
   getPrecedence,

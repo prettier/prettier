@@ -153,3 +153,11 @@ test("API resolveConfig.sync with nested file arg and .editorconfig", () => {
 test("API clearConfigCache", () => {
   expect(() => prettier.clearConfigCache()).not.toThrowError();
 });
+
+test("API resolveConfig.sync overrides work with absolute paths", () => {
+  // Absolute path
+  const file = path.join(__dirname, "../cli/config/filepath/subfolder/file.js");
+  expect(prettier.resolveConfig.sync(file)).toMatchObject({
+    tabWidth: 6
+  });
+});

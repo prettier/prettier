@@ -155,6 +155,26 @@ exports[`show detailed usage with --help list-different (stdout) 1`] = `
 
 exports[`show detailed usage with --help list-different (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help loglevel (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help loglevel (stdout) 1`] = `
+"--loglevel <silent|error|warn|debug>
+
+  What level of logs to report.
+
+Valid options:
+
+  silent   
+  error    
+  warn     
+  debug    
+
+Default: warn
+"
+`;
+
+exports[`show detailed usage with --help loglevel (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help no-bracket-spacing (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help no-bracket-spacing (stdout) 1`] = `
@@ -475,6 +495,9 @@ Other options:
                            Example: --help write
   --insert-pragma          Insert @format pragma into file's first docblock comment.
                            Defaults to false.
+  --loglevel <silent|error|warn|debug>
+                           What level of logs to report.
+                           Defaults to warn.
   --require-pragma         Require either '@prettier' or '@format' to be present in the file's first docblock comment
                            in order for it to be formatted.
                            Defaults to false.
@@ -493,8 +516,7 @@ exports[`show version with --version (stderr) 1`] = `""`;
 exports[`show version with --version (write) 1`] = `Array []`;
 
 exports[`show warning with --help not-found (stderr) 1`] = `
-"Unknown option name \\"not-found\\"
-
+"[warn] Unknown option name \\"not-found\\"
 "
 `;
 
@@ -507,8 +529,7 @@ exports[`show warning with --help not-found (stdout) 1`] = `
 `;
 
 exports[`show warning with --help not-found (typo) (stderr) 1`] = `
-"Unknown option name \\"parserr\\", did you mean \\"parser\\"?
-
+"[warn] Unknown option name \\"parserr\\", did you mean \\"parser\\"?
 "
 `;
 
@@ -605,6 +626,9 @@ Other options:
                            Example: --help write
   --insert-pragma          Insert @format pragma into file's first docblock comment.
                            Defaults to false.
+  --loglevel <silent|error|warn|debug>
+                           What level of logs to report.
+                           Defaults to warn.
   --require-pragma         Require either '@prettier' or '@format' to be present in the file's first docblock comment
                            in order for it to be formatted.
                            Defaults to false.
@@ -619,7 +643,7 @@ Other options:
 exports[`throw error and show usage with something unexpected (write) 1`] = `Array []`;
 
 exports[`throw error with --find-config-path + multiple files (stderr) 1`] = `
-"Cannot use --find-config-path with multiple files
+"[error] Cannot use --find-config-path with multiple files
 "
 `;
 
@@ -628,7 +652,7 @@ exports[`throw error with --find-config-path + multiple files (stdout) 1`] = `""
 exports[`throw error with --find-config-path + multiple files (write) 1`] = `Array []`;
 
 exports[`throw error with --write + --debug-check (stderr) 1`] = `
-"Cannot use --write and --debug-check together.
+"[error] Cannot use --write and --debug-check together.
 "
 `;
 

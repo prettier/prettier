@@ -187,6 +187,12 @@ const detailedOptions = normalizeDetailedOptions({
     description:
       "Print the names of files that are different from Prettier's formatting."
   },
+  loglevel: {
+    type: "choice",
+    description: "What level of logs to report.",
+    default: "warn",
+    choices: ["silent", "error", "warn", "debug"]
+  },
   parser: {
     type: "choice",
     category: CATEGORY_FORMAT,
@@ -334,13 +340,7 @@ const minimistOptions = {
       (current, option) =>
         Object.assign({ [option.name]: option.alias }, current),
       {}
-    ),
-  unknown: param => {
-    if (param.startsWith("-")) {
-      console.warn(`Ignored unknown option: ${param}\n`);
-      return false;
-    }
-  }
+    )
 };
 
 const usageSummary = `

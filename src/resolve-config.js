@@ -2,6 +2,7 @@
 
 const cosmiconfig = require("cosmiconfig");
 const minimatch = require("minimatch");
+const path = require("path");
 const mem = require("mem");
 
 const resolveEditorConfig = require("./resolve-config-editorconfig");
@@ -50,9 +51,7 @@ function mergeEditorConfig(filePath, result, editorConfigured) {
     return null;
   }
 
-  const config = result && result.config;
-
-  return Object.assign({}, editorConfigured, mergeOverrides(config, filePath));
+  return Object.assign({}, editorConfigured, mergeOverrides(result, filePath));
 }
 
 function clearCache() {
@@ -73,11 +72,21 @@ resolveConfigFile.sync = filePath => {
   return result ? result.filepath : null;
 };
 
-function mergeOverrides(config, filePath) {
-  const options = Object.assign({}, config);
+function mergeOverrides(configResult, filePath) {
+  const options = Object.assign({}, configResult.config);
   if (filePath && options.overrides) {
+    const relativeFilePath = path.relative(
+      path.dirname(configResult.filepath),
+      filePath
+    );
     for (const override of options.overrides) {
-      if (pathMatchesGlobs(filePath, override.files, override.excludeFiles)) {
+      if (
+        pathMatchesGlobs(
+          relativeFilePath,
+          override.files,
+          override.excludeFiles
+        )
+      ) {
         Object.assign(options, override.options);
       }
     }

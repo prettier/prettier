@@ -18,6 +18,7 @@ const constant = require("./cli-constant");
 const validator = require("./cli-validator");
 const apiDefaultOptions = require("./options").defaults;
 const errors = require("./errors");
+const logger = require("./cli-logger");
 
 const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;
@@ -57,15 +58,15 @@ function handleError(filename, error) {
   // `util.inspect` of throws things that aren't `Error` objects. (The Flow
   // parser has mistakenly thrown arrays sometimes.)
   if (isParseError) {
-    console.error(`${filename}: ${String(error)}`);
+    logger.error(`${filename}: ${String(error)}`);
   } else if (isValidationError || error instanceof errors.ConfigError) {
-    console.error(String(error));
+    logger.error(String(error));
     // If validation fails for one file, it will fail for all of them.
     process.exit(1);
   } else if (error instanceof errors.DebugError) {
-    console.error(`${filename}: ${error.message}`);
+    logger.error(`${filename}: ${error.message}`);
   } else {
-    console.error(filename + ":", error.stack || error);
+    logger.error(filename + ": " + (error.stack || error));
   }
 
   // Don't exit the process if one file failed
@@ -146,25 +147,44 @@ function format(argv, input, opt) {
 
 function getOptionsOrDie(argv, filePath) {
   try {
-    return argv["config"] === false
-      ? null
-      : resolver.resolveConfig.sync(filePath, { config: argv["config"] });
+    if (argv["config"] === false) {
+      logger.debug("'--no-config' option found, skip loading config file.");
+      return null;
+    }
+
+    logger.debug(
+      argv["config"]
+        ? `load config file from '${argv["config"]}'`
+        : `resolve config from '${filePath}'`
+    );
+    const options = resolver.resolveConfig.sync(filePath, {
+      config: argv["config"]
+    });
+
+    logger.debug("loaded options `" + JSON.stringify(options) + "`");
+    return options;
   } catch (error) {
-    console.error("Error: Invalid configuration file.");
-    console.error(error.message);
+    logger.error("Invalid configuration file: " + error.message);
     process.exit(2);
   }
 }
 
 function getOptionsForFile(argv, filepath) {
   const options = getOptionsOrDie(argv, filepath);
-  return Object.assign(
+
+  const appliedOptions = Object.assign(
     { filepath },
     applyConfigPrecedence(
       argv,
       options && normalizeConfig("api", options, constant.detailedOptionMap)
     )
   );
+
+  logger.debug(
+    `applied config-precedence (${argv["config-precedence"]}): ` +
+      `${JSON.stringify(appliedOptions)}`
+  );
+  return appliedOptions;
 }
 
 function parseArgsToOptions(argv, overrideDefaults) {
@@ -199,7 +219,7 @@ function applyConfigPrecedence(argv, options) {
         return options || parseArgsToOptions(argv);
     }
   } catch (error) {
-    console.error(error.toString());
+    logger.error(error.toString());
     process.exit(2);
   }
 }
@@ -235,7 +255,7 @@ function eachFilename(argv, patterns, callback) {
     ignoreText = fs.readFileSync(ignoreFilePath, "utf8");
   } catch (readError) {
     if (readError.code !== "ENOENT") {
-      console.error(`Unable to read ${ignoreFilePath}:`, readError);
+      logger.error(`Unable to read ${ignoreFilePath}: ` + readError.message);
       process.exit(2);
     }
   }
@@ -252,7 +272,7 @@ function eachFilename(argv, patterns, callback) {
       .map(filePath => path.relative(process.cwd(), filePath));
 
     if (filePaths.length === 0) {
-      console.error(`No matching files. Patterns tried: ${patterns.join(" ")}`);
+      logger.error(`No matching files. Patterns tried: ${patterns.join(" ")}`);
       process.exitCode = 2;
       return;
     }
@@ -262,8 +282,8 @@ function eachFilename(argv, patterns, callback) {
         callback(filePath, getOptionsForFile(argv, filePath))
       );
   } catch (error) {
-    console.error(
-      `Unable to expand glob patterns: ${patterns.join(" ")}\n${error}`
+    logger.error(
+      `Unable to expand glob patterns: ${patterns.join(" ")}\n${error.message}`
     );
     // Don't exit the process if one pattern failed
     process.exitCode = 2;
@@ -284,7 +304,7 @@ function formatFiles(argv) {
       // Add newline to split errors from filename line.
       process.stdout.write("\n");
 
-      console.error(`Unable to read file: ${filename}\n${error}`);
+      logger.error(`Unable to read file: ${filename}\n${error.message}`);
       // Don't exit the process if one file failed
       process.exitCode = 2;
       return;
@@ -335,7 +355,7 @@ function formatFiles(argv) {
         try {
           fs.writeFileSync(filename, output, "utf8");
         } catch (error) {
-          console.error(`Unable to write file: ${filename}\n${error}`);
+          logger.error(`Unable to write file: ${filename}\n${error.message}`);
           // Don't exit the process if one file failed
           process.exitCode = 2;
         }
@@ -470,14 +490,14 @@ function getOptionWithLevenSuggestion(options, optionName) {
 
   if (suggestedOptionNameContainer !== undefined) {
     const suggestedOptionName = suggestedOptionNameContainer.value;
-    console.warn(
-      `Unknown option name "${optionName}", did you mean "${suggestedOptionName}"?\n`
+    logger.warn(
+      `Unknown option name "${optionName}", did you mean "${suggestedOptionName}"?`
     );
 
     return options[suggestedOptionNameContainer.index];
   }
 
-  console.warn(`Unknown option name "${optionName}"\n`);
+  logger.warn(`Unknown option name "${optionName}"`);
   return options.find(option => option.name === "help");
 }
 
@@ -562,7 +582,8 @@ function normalizeConfig(type, rawConfig, options) {
 
   options = options || {};
 
-  const consoleWarn = options.warning === false ? () => {} : console.warn;
+  const consoleWarn =
+    options.warning === false ? () => {} : logger.warn.bind(logger);
 
   const normalized = {};
 
@@ -585,11 +606,12 @@ function normalizeConfig(type, rawConfig, options) {
 
     // unknown option
     if (option === undefined) {
-      // no need to warn for CLI since it's already warned in minimist
       if (type === "api") {
-        console.warn(`Ignored unknown option: ${rawKey}`);
+        consoleWarn(`Ignored unknown option: ${rawKey}`);
+      } else {
+        const optionName = rawValue === false ? `no-${rawKey}` : rawKey;
+        consoleWarn(`Ignored unknown option: --${optionName}`);
       }
-
       return;
     }
 
@@ -609,18 +631,23 @@ function normalizeConfig(type, rawConfig, options) {
       }
     }
 
-    switch (option.type) {
-      case "int":
-        validator.validateIntOption(type, value, option);
-        normalized[rawKey] = Number(value);
-        break;
-      case "choice":
-        validator.validateChoiceOption(type, value, option);
-        normalized[rawKey] = value;
-        break;
-      default:
-        normalized[rawKey] = value;
-        break;
+    try {
+      switch (option.type) {
+        case "int":
+          validator.validateIntOption(type, value, option);
+          normalized[rawKey] = Number(value);
+          break;
+        case "choice":
+          validator.validateChoiceOption(type, value, option);
+          normalized[rawKey] = value;
+          break;
+        default:
+          normalized[rawKey] = value;
+          break;
+      }
+    } catch (error) {
+      logger.error(error.message);
+      process.exit(2);
     }
   });
 
