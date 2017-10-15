@@ -55,11 +55,10 @@ resolveConfigFile.sync = filePath => {
 function mergeOverrides(configResult, filePath) {
   const options = Object.assign({}, configResult.config);
   if (filePath && options.overrides) {
-    const relativeFilePath = filePath;
-    // const relativeFilePath = path.relative(
-    //   path.dirname(configResult.filepath),
-    //   filePath
-    // );
+    const relativeFilePath = path.relative(
+      path.dirname(configResult.filepath),
+      filePath
+    );
     for (const override of options.overrides) {
       if (
         pathMatchesGlobs(
