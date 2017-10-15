@@ -3796,9 +3796,8 @@ function printMemberChain(path, options, print) {
     shouldMerge ? groups.slice(1, 2)[0] : groups[0]
   ).node;
   const shouldHaveEmptyLineBeforeIndent =
-    lastNodeBeforeIndent.type !== "CallExpression"
-      ? shouldInsertEmptyLineAfter(lastNodeBeforeIndent)
-      : false;
+    lastNodeBeforeIndent.type !== "CallExpression" &&
+    shouldInsertEmptyLineAfter(lastNodeBeforeIndent);
 
   const expanded = concat([
     printGroup(groups[0]),
