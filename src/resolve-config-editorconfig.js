@@ -4,22 +4,21 @@ const editorconfig = require("editorconfig");
 const mem = require("mem");
 const pathRoot = require("path-root");
 
-const editorconfigAsyncNoCache = (filePath, config) => {
+const maybeParse = (filePath, config, parse) => {
   const root = filePath && pathRoot(filePath);
-  return Promise.resolve(
-    filePath &&
-      !config &&
-      editorconfig.parse(filePath, { root }).then(editorConfigToPrettier)
+  return filePath && !config && parse(filePath, { root });
+};
+
+const editorconfigAsyncNoCache = (filePath, config) => {
+  return Promise.resolve(maybeParse(filePath, config, editorconfig.parse)).then(
+    editorConfigToPrettier
   );
 };
 const editorconfigAsyncWithCache = mem(editorconfigAsyncNoCache);
 
 const editorconfigSyncNoCache = (filePath, config) => {
-  const root = filePath && pathRoot(filePath);
-  return (
-    filePath &&
-    !config &&
-    editorConfigToPrettier(editorconfig.parseSync(filePath, { root }))
+  return editorConfigToPrettier(
+    maybeParse(filePath, config, editorconfig.parseSync)
   );
 };
 const editorconfigSyncWithCache = mem(editorconfigSyncNoCache);
@@ -38,6 +37,7 @@ function clearCache() {
 }
 
 function editorConfigToPrettier(editorConfig) {
+  editorConfig = editorConfig || {};
   const result = {};
 
   if (editorConfig.indent_style) {
