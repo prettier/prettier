@@ -150,6 +150,22 @@ test("API resolveConfig.sync with nested file arg and .editorconfig", () => {
   });
 });
 
+test("API resolveConfig with missing file arg", () => {
+  const file = path.resolve(
+    path.join(__dirname, "../cli/config/editorconfig/file.shouldnotexist")
+  );
+  return prettier.resolveConfig(file).then(result => {
+    expect(result).toBeNull();
+  });
+});
+
+test("API resolveConfig.sync with missing file arg", () => {
+  const file = path.resolve(
+    path.join(__dirname, "../cli/config/editorconfig/file.shouldnotexist")
+  );
+  expect(prettier.resolveConfig.sync(file)).toBeNull();
+});
+
 test("API clearConfigCache", () => {
   expect(() => prettier.clearConfigCache()).not.toThrowError();
 });

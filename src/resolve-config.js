@@ -32,7 +32,17 @@ function _resolveConfig(filePath, opts, sync) {
   const unwrapAndMerge = arr => {
     const result = arr[0];
     const editorConfigured = arr[1];
-    return mergeEditorConfig(filePath, result, editorConfigured);
+    const merged = Object.assign(
+      {},
+      editorConfigured,
+      mergeOverrides(Object.assign({}, result), filePath)
+    );
+
+    if (Object.keys(merged).length === 0) {
+      return null;
+    }
+
+    return merged;
   };
 
   if (loadOpts.sync) {
@@ -45,20 +55,6 @@ function _resolveConfig(filePath, opts, sync) {
 const resolveConfig = (filePath, opts) => _resolveConfig(filePath, opts, false);
 
 resolveConfig.sync = (filePath, opts) => _resolveConfig(filePath, opts, true);
-
-function mergeEditorConfig(filePath, result, editorConfigured) {
-  if (!filePath) {
-    return null;
-  }
-
-  const configResult = Object.assign({}, result);
-
-  return Object.assign(
-    {},
-    editorConfigured,
-    mergeOverrides(configResult, filePath)
-  );
-}
 
 function clearCache() {
   mem.clear(getExplorerMemoized);
