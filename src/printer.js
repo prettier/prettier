@@ -3586,6 +3586,8 @@ function printMemberChain(path, options, print) {
     );
     const nextChar = originalText.charAt(nextCharIndex);
 
+    // if it is cut off by a parenthesis, we only account for one typed empty
+    // line after that parenthesis
     if (nextChar == ")") {
       return util.isNextLineEmptyAfterIndex(originalText, nextCharIndex + 1);
     }
