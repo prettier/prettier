@@ -285,6 +285,12 @@ function genericPrint(path, options, print) {
     case "value-comma_group": {
       const printed = path.map(print, "groups");
       const parts = [];
+
+      const isVariableDefault = n =>
+        n.type === "value-word" && n.value === "!default";
+
+      let shouldIndent = false;
+
       for (let i = 0; i < n.groups.length; ++i) {
         parts.push(printed[i]);
         if (
@@ -293,17 +299,24 @@ function genericPrint(path, options, print) {
           n.groups[i + 1].raws.before !== ""
         ) {
           if (
-            n.groups[i + 1].type === "value-operator" &&
-            ["+", "-", "/", "*", "%"].indexOf(n.groups[i + 1].value) !== -1
+            (n.groups[i + 1].type === "value-operator" &&
+              ["+", "-", "/", "*", "%"].indexOf(n.groups[i + 1].value) !==
+                -1) ||
+            isVariableDefault(n.groups[i + 1])
           ) {
             parts.push(" ");
           } else {
+            shouldIndent = true;
             parts.push(line);
           }
         }
       }
 
-      return group(indent(fill(parts)));
+      if (shouldIndent) {
+        return group(indent(fill(parts)));
+      }
+
+      return group(fill(parts));
     }
     case "value-paren_group": {
       const parent = path.getParentNode();
@@ -424,7 +437,9 @@ function printNodeSequence(path, options, print) {
           !util.hasNewline(
             options.originalText,
             util.locStart(node.nodes[i + 1]),
-            { backwards: true }
+            {
+              backwards: true
+            }
           )) ||
         (node.nodes[i + 1].type === "css-atrule" &&
           node.nodes[i + 1].name === "else" &&
