@@ -109,3 +109,23 @@ test("API resolveConfig.sync overrides work with absolute paths", () => {
     tabWidth: 6
   });
 });
+
+test("API resolveConfig removes $schema option", () => {
+  const file = path.resolve(
+    path.join(__dirname, "../cli/config/$schema/index.js")
+  );
+  return prettier.resolveConfig(file).then(result => {
+    expect(result).toEqual({
+      tabWidth: 42
+    });
+  });
+});
+
+test("API resolveConfig.sync removes $schema option", () => {
+  const file = path.resolve(
+    path.join(__dirname, "../cli/config/$schema/index.js")
+  );
+  expect(prettier.resolveConfig.sync(file)).toEqual({
+    tabWidth: 42
+  });
+});
