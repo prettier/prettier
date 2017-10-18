@@ -155,9 +155,7 @@ $blockquote-font-size: ($font-size-base * 1.25) !default;
 
 $kbd-box-shadow: inset 0 -0.1rem 0 rgba($black, 0.25) !default;
 
-$input-height-inner: ($font-size-base * $input-btn-line-height) +
-(
-  $input-btn-padding-y * 2
-) !default;
+$input-height-inner: ($font-size-base * $input-btn-line-height) + ($input-btn-padding-y *
+    2) !default;
 
 `;

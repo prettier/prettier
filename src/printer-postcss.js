@@ -286,23 +286,23 @@ function genericPrint(path, options, print) {
       const printed = path.map(print, "groups");
       const parts = [];
 
+      let shouldIndent = false;
+
       const isVariableDefault = n =>
         n.type === "value-word" && n.value === "!default";
 
-      let shouldIndent = false;
-
       for (let i = 0; i < n.groups.length; ++i) {
         parts.push(printed[i]);
+        if (i === n.groups.length - 2 && isVariableDefault(n.groups[i + 1])) {
+          break;
+        }
         if (
           i !== n.groups.length - 1 &&
-          n.groups[i + 1].raws &&
-          n.groups[i + 1].raws.before !== ""
+          (n.groups[i + 1].raws && n.groups[i + 1].raws.before !== "")
         ) {
           if (
-            (n.groups[i + 1].type === "value-operator" &&
-              ["+", "-", "/", "*", "%"].indexOf(n.groups[i + 1].value) !==
-                -1) ||
-            isVariableDefault(n.groups[i + 1])
+            n.groups[i + 1].type === "value-operator" &&
+            ["+", "-", "/", "*", "%"].indexOf(n.groups[i + 1].value) !== -1
           ) {
             parts.push(" ");
           } else {
@@ -312,11 +312,15 @@ function genericPrint(path, options, print) {
         }
       }
 
+      let printedGroup = fill(parts);
+
       if (shouldIndent) {
-        return group(indent(fill(parts)));
+        printedGroup = indent(printedGroup);
       }
 
-      return group(fill(parts));
+      return isVariableDefault(util.getLast(n.groups))
+        ? concat([printedGroup, " !default"])
+        : group(printedGroup);
     }
     case "value-paren_group": {
       const parent = path.getParentNode();
