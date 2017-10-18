@@ -343,8 +343,8 @@ function genericPrintNoParens(path, options, print, args) {
       }
 
       // Avoid indenting sub-expressions in some cases where the first sub-expression is already
-      // idented accordingly. We should ident sub-expressions where the first case isn't idented.
-      const shouldNotIdent =
+      // indented accordingly. We should indent sub-expressions where the first case isn't indented.
+      const shouldNotIndent =
         parent.type === "ReturnStatement" ||
         (parent.type === "JSXExpressionContainer" &&
           parentParent.type === "JSXAttribute") ||
@@ -353,7 +353,7 @@ function genericPrintNoParens(path, options, print, args) {
         (parent.type === "ConditionalExpression" &&
           parentParent.type !== "ReturnStatement");
 
-      const shouldIdentIfInlining =
+      const shouldIndentIfInlining =
         parent.type === "AssignmentExpression" ||
         parent.type === "VariableDeclarator" ||
         parent.type === "ObjectProperty" ||
@@ -363,9 +363,9 @@ function genericPrintNoParens(path, options, print, args) {
         isBinaryish(n.left) && util.shouldFlatten(n.operator, n.left.operator);
 
       if (
-        shouldNotIdent ||
+        shouldNotIndent ||
         (shouldInlineLogicalExpression(n) && !samePrecedenceSubExpression) ||
-        (!shouldInlineLogicalExpression(n) && shouldIdentIfInlining)
+        (!shouldInlineLogicalExpression(n) && shouldIndentIfInlining)
       ) {
         return group(concat(parts));
       }
