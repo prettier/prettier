@@ -474,8 +474,8 @@ prettier.formatWithCursor(" 1", { cursorOffset: 2 });
 `resolveConfig` can be used to resolve configuration for a given source file.
 The function requires an input file path as an argument, you might want to pass `process.cwd()` for searching from the current working directory.
 A promise is returned which will resolve to:
-* An options object, providing a [config file](#configuration-file) was found.
-* `null`, if no file was found.
+* An options object, providing a [configuration](#configuration-file) was found for the file.
+* `null`, if no configuration was found.
 
 The promise will be rejected if there was an error parsing the configuration file.
 
