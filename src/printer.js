@@ -3578,6 +3578,25 @@ function printMemberChain(path, options, print) {
   //   [Identifier, CallExpression, MemberExpression, CallExpression]
   const printedNodes = [];
 
+  // Here we try to retain one typed empty line after each call expression or
+  // the first group whether it is in parentheses or not
+  function shouldInsertEmptyLineAfter(node) {
+    const originalText = options.originalText;
+    const nextCharIndex = util.getNextNonSpaceNonCommentCharacterIndex(
+      originalText,
+      node
+    );
+    const nextChar = originalText.charAt(nextCharIndex);
+
+    // if it is cut off by a parenthesis, we only account for one typed empty
+    // line after that parenthesis
+    if (nextChar == ")") {
+      return util.isNextLineEmptyAfterIndex(originalText, nextCharIndex + 1);
+    }
+
+    return util.isNextLineEmpty(originalText, node);
+  }
+
   function rec(path) {
     const node = path.getValue();
     if (
@@ -3586,16 +3605,19 @@ function printMemberChain(path, options, print) {
     ) {
       printedNodes.unshift({
         node: node,
-        printed: comments.printComments(
-          path,
-          () =>
-            concat([
-              printOptionalToken(path),
-              printFunctionTypeParameters(path, options, print),
-              printArgumentsList(path, options, print)
-            ]),
-          options
-        )
+        printed: concat([
+          comments.printComments(
+            path,
+            () =>
+              concat([
+                printOptionalToken(path),
+                printFunctionTypeParameters(path, options, print),
+                printArgumentsList(path, options, print)
+              ]),
+            options
+          ),
+          shouldInsertEmptyLineAfter(node) ? hardline : ""
+        ])
       });
       path.call(callee => rec(callee), "callee");
     } else if (isMemberish(node)) {
@@ -3772,9 +3794,19 @@ function printMemberChain(path, options, print) {
     return group(oneLine);
   }
 
+  // Find out the last node in the first group and check if it has an
+  // empty line after
+  const lastNodeBeforeIndent = util.getLast(
+    shouldMerge ? groups.slice(1, 2)[0] : groups[0]
+  ).node;
+  const shouldHaveEmptyLineBeforeIndent =
+    lastNodeBeforeIndent.type !== "CallExpression" &&
+    shouldInsertEmptyLineAfter(lastNodeBeforeIndent);
+
   const expanded = concat([
     printGroup(groups[0]),
     shouldMerge ? concat(groups.slice(1, 2).map(printGroup)) : "",
+    shouldHaveEmptyLineBeforeIndent ? hardline : "",
     printIndentedGroup(groups.slice(shouldMerge ? 2 : 1))
   ]);
 
@@ -3799,7 +3831,7 @@ function printMemberChain(path, options, print) {
     // We only need to check `oneLine` because if `expanded` is chosen
     // that means that the parent group has already been broken
     // naturally
-    willBreak(oneLine) ? breakParent : "",
+    willBreak(oneLine) || shouldHaveEmptyLineBeforeIndent ? breakParent : "",
     conditionalGroup([oneLine, expanded])
   ]);
 }
