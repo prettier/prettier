@@ -9,7 +9,13 @@ const getExplorerMemoized = mem(opts =>
   cosmiconfig("prettier", {
     sync: opts.sync,
     cache: opts.cache,
-    rcExtensions: true
+    rcExtensions: true,
+    transform: result => {
+      if (result && result.config) {
+        delete result.config.$schema;
+      }
+      return result;
+    }
   })
 );
 
