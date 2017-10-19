@@ -32,6 +32,7 @@ toolbox.precache([
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/addon/wrap/hardwrap.js",
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/keymap/sublime.js",
   "https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js",
+  "https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js",
 
   // Images
   "/prettier.png"
