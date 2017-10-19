@@ -1,6 +1,6 @@
 /* eslint-env browser */
 /* eslint no-var: off, strict: off, prefer-arrow-callback: off */
-/* global Clipboard CodeMirror formatMarkdown */
+/* global Clipboard CodeMirror formatMarkdown LZString */
 
 var prettierVersion = "?";
 var inputEditor;
