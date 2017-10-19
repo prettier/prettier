@@ -266,11 +266,11 @@ function isSourceElement(opts, node) {
     case "flow":
     case "babylon":
     case "typescript":
-      return jsSourceElements.includes(node.type);
+      return jsSourceElements.indexOf(node.type) > -1;
     case "json":
-      return jsonSourceElements.includes(node.type);
+      return jsonSourceElements.indexOf(node.type) > -1;
     case "graphql":
-      return graphqlSourceElements.includes(node.kind);
+      return graphqlSourceElements.indexOf(node.kind) > -1;
   }
   return false;
 }
