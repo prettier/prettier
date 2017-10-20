@@ -345,7 +345,10 @@ function genericPrint(path, options, print) {
           indent(
             concat([
               softline,
-              join(concat([",", line]), path.map(print, "groups"))
+              join(
+                concat([",", parent.type === "value-value" ? hardline : line]),
+                path.map(print, "groups")
+              )
             ])
           ),
           softline,
