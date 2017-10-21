@@ -418,8 +418,9 @@ function genericPrintNoParens(path, options, print, args) {
 
       const shouldInline =
         (firstNonMemberParent &&
-          ((firstNonMemberParent.type === "VariableDeclarator" &&
-            firstNonMemberParent.id.type !== "Identifier") ||
+          (firstNonMemberParent.type === "NewExpression" ||
+            (firstNonMemberParent.type === "VariableDeclarator" &&
+              firstNonMemberParent.id.type !== "Identifier") ||
             (firstNonMemberParent.type === "AssignmentExpression" &&
               firstNonMemberParent.left.type !== "Identifier"))) ||
         n.computed ||
