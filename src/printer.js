@@ -3011,11 +3011,20 @@ function printArgumentsList(path, options, print) {
       i++;
     }, "arguments");
 
+    const somePrintedArgumentsWillBreak = printedArguments.some(willBreak);
+
     return concat([
-      printedArguments.some(willBreak) ? breakParent : "",
+      somePrintedArgumentsWillBreak ? breakParent : "",
       conditionalGroup(
         [
-          concat(["(", concat(printedExpanded), ")"]),
+          concat([
+            ifBreak(
+              indent(concat(["(", softline, concat(printedExpanded)])),
+              concat(["(", concat(printedExpanded)])
+            ),
+            somePrintedArgumentsWillBreak ? softline : "",
+            ")"
+          ]),
           shouldGroupFirst
             ? concat([
                 "(",
