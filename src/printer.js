@@ -3010,17 +3010,8 @@ function printArgumentsList(path, options, print) {
         [
           concat([
             ifBreak(
-              indent(
-                concat([
-                  "(",
-                  softline,
-                  concat(printedExpanded)
-                ])
-              ),
-              concat([
-                "(",
-                concat(printedExpanded)
-              ])
+              indent(concat(["(", softline, concat(printedExpanded)])),
+              concat(["(", concat(printedExpanded)])
             ),
             somePrintedArgumentsWillBreak ? softline : "",
             ")"
