@@ -66,7 +66,7 @@ var state = (function loadState(hash) {
   return parsed;
 })(decodeURIComponent(location.hash.slice(1)));
 
-var mainWorker = new Worker("/worker.js");
+var mainWorker = new Worker("../worker.js");
 var versionedWorkers = {};
 
 mainWorker.onmessage = onWorkerMessage;
@@ -76,7 +76,7 @@ function getWorker(version) {
     return mainWorker;
   }
   if (!versionedWorkers[version]) {
-    var worker = new Worker(`/worker.js#version=${version}`);
+    var worker = new Worker(`../worker.js#version=${version}`);
     versionedWorkers[version] = worker;
     worker.onmessage = onWorkerMessage;
   }

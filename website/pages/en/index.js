@@ -38,7 +38,7 @@ class HomeSplash extends React.Component {
         <div className="homeSplashFade">
           <div className="wrapper homeWrapper">
             <div className="projectLogo">
-              <img src="/icon.png" />
+              <img src={siteConfig.baseUrl + "icon.png"} />
             </div>
             <div className="inner">
               <h2 className="projectTitle">
@@ -48,14 +48,18 @@ class HomeSplash extends React.Component {
               <div className="section promoSection">
                 <div className="promoRow">
                   <div className="pluginRowBlock">
-                    <Button href="/playground/">Try It Out</Button>
+                    <Button href={siteConfig.baseUrl + "playground/"}>
+                      Try It Out
+                    </Button>
                     <Button
-                      href={"/docs/" + this.props.language + "/usage.html"}
+                      href={`${siteConfig.baseUrl}docs/${this.props
+                        .language}/usage.html`}
                     >
                       Get Started
                     </Button>
                     <Button
-                      href={"/docs/" + this.props.language + "/options.html"}
+                      href={`${siteConfig.baseUrl}docs/${this.props
+                        .language}/options.html`}
                     >
                       Options
                     </Button>
@@ -84,7 +88,7 @@ class Index extends React.Component {
       .map((user, i) => {
         return (
           <a key={i} href={user.infoLink}>
-            <img src={user.image} title={user.caption} />
+            <img src={siteConfig.baseUrl + user.image} title={user.caption} />
             <br />
             {user.caption}
           </a>
@@ -106,7 +110,7 @@ class Index extends React.Component {
                 align="center"
                 contents={siteConfig.supportedLanguages.map(language => ({
                   title: language.name,
-                  image: language.image,
+                  image: siteConfig.baseUrl + language.image,
                   imageAlign: "top",
                   content: language.variants.join("\n\n")
                 }))}
@@ -130,7 +134,7 @@ class Index extends React.Component {
                 align="center"
                 contents={siteConfig.editors.map(editor => ({
                   content: editor.content || "",
-                  image: editor.image,
+                  image: siteConfig.baseUrl + editor.image,
                   imageAlign: "bottom",
                   title: editor.name
                 }))}

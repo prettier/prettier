@@ -1,58 +1,58 @@
 [
   {
     "caption": "React",
-    "image": "/images/react-200x100.png",
+    "image": "images/react-200x100.png",
     "infoLink": "https://facebook.github.io/react/",
     "pinned": true
   },
   {
     "caption": "Jest",
-    "image": "/images/jest-200x100.png",
+    "image": "images/jest-200x100.png",
     "infoLink": "https://facebook.github.io/jest/",
     "pinned": true
   },
   {
     "caption": "Yarn",
-    "image": "/images/yarn-200x100.png",
+    "image": "images/yarn-200x100.png",
     "infoLink": "https://yarnpkg.com",
     "pinned": true
   },
   {
     "caption": "Babel",
-    "image": "/images/babel-200x100.png",
+    "image": "images/babel-200x100.png",
     "infoLink": "https://babeljs.io",
     "pinned": true
   },
   {
     "caption": "Zeit",
-    "image": "/images/zeit-200x100.png",
+    "image": "images/zeit-200x100.png",
     "infoLink": "https://zeit.co/",
     "pinned": true
   },
   {
     "caption": "Webpack CLI",
-    "image": "/images/webpack-200x100.png",
+    "image": "images/webpack-200x100.png",
     "infoLink": "https://webpack.js.org/api/cli/",
     "pinned": true
   },
   {
     "caption": "PayPal",
-    "image": "/images/paypal-200x100.png",
+    "image": "images/paypal-200x100.png",
     "infoLink": "https://github.com/paypal"
   },
   {
     "caption": "Hudl",
-    "image": "/images/hudl-200x100.png",
+    "image": "images/hudl-200x100.png",
     "infoLink": "http://hudl.github.io/"
   },
   {
     "caption": "Transloadit",
-    "image": "/images/transloadit-200x100.png",
+    "image": "images/transloadit-200x100.png",
     "infoLink": "https://transloadit.com/"
   },
   {
     "caption": "Tradeshift",
-    "image": "/images/tradeshift-200x100.png",
+    "image": "images/tradeshift-200x100.png",
     "infoLink": "https://tradeshift.com/"
   }
 ]

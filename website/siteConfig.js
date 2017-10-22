@@ -7,11 +7,13 @@ const users = require("./users");
 const editors = require("./editors");
 const supportedLanguages = require("./languages");
 
+const baseUrl = "/";
+
 const siteConfig = {
   title: "Prettier",
   githubUrl: GITHUB_URL,
   url: PACKAGE.homepage,
-  baseUrl: "/",
+  baseUrl,
   projectName: PACKAGE.name,
   repo: PACKAGE.repository,
   cname: "prettier.io",
@@ -22,7 +24,7 @@ const siteConfig = {
   editUrl: `${GITHUB_URL}/edit/master/docs/`,
   headerLinks: [
     { doc: "why-prettier", label: "Docs" },
-    { href: "/playground/", label: "Playground" },
+    { href: baseUrl + "playground/", label: "Playground" },
     { href: GITHUB_URL, label: "GitHub" }
   ],
   /* path to images for header/footer */
