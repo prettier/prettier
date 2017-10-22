@@ -43,9 +43,10 @@ function normalize(options) {
 
     const language = supportTable.find(
       language =>
-        language.extensions.indexOf(extension) > -1 ||
-        (language.filenames &&
-          language.filenames.find(name => name.toLowerCase() === filename))
+        typeof language.since === "string" &&
+        (language.extensions.indexOf(extension) > -1 ||
+          (language.filenames &&
+            language.filenames.find(name => name.toLowerCase() === filename)))
     );
 
     if (language) {
