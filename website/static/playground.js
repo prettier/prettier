@@ -21,7 +21,8 @@ var OPTIONS = [
   "useTabs",
   "doc",
   "ast",
-  "output2"
+  "output2",
+  "version"
 ];
 
 var IDEMPOTENT_MESSAGE = "✓ Second format is unchanged.";
@@ -65,12 +66,27 @@ var state = (function loadState(hash) {
   return parsed;
 })(decodeURIComponent(location.hash.slice(1)));
 
-var worker = new Worker("/worker.js");
+var mainWorker = new Worker("/worker.js");
+var versionedWorkers = {};
 
-worker.onmessage = function(message) {
-  if (prettierVersion === "?") {
+mainWorker.onmessage = onWorkerMessage;
+
+function getWorker(version) {
+  if (!version) {
+    return mainWorker;
+  }
+  if (!versionedWorkers[version]) {
+    var worker = new Worker(`/worker.js#version=${version}`);
+    versionedWorkers[version] = worker;
+    worker.onmessage = onWorkerMessage;
+  }
+  return versionedWorkers[version];
+}
+
+function onWorkerMessage(message) {
+  if (prettierVersion !== message.data.version) {
     prettierVersion = message.data.version;
-    document.getElementById("version").textContent = prettierVersion;
+    document.querySelector(".version").textContent = prettierVersion;
   }
   if (outputEditor && docEditor && astEditor) {
     outputEditor.setValue(message.data.formatted);
@@ -86,10 +102,10 @@ worker.onmessage = function(message) {
     document.getElementById("button-report-issue").search =
       "body=" + encodeURIComponent(createMarkdown(true));
   }
-};
+}
 
 // Warm up the worker (load the current parser while CodeMirror loads)
-worker.postMessage({ text: "", options: state.options });
+mainWorker.postMessage({ text: "", options: state.options });
 
 window.onload = function() {
   state.options && setOptions(state.options);
@@ -264,7 +280,9 @@ function formatAsync() {
     )
   );
   replaceHash(value);
-  worker.postMessage({
+  var version = options.version;
+
+  getWorker(version).postMessage({
     text: inputEditor.getValue(),
     options: options,
     ast: options.ast,
