@@ -317,7 +317,7 @@ stuff.doThing(
 
   -1,
   {
-    accept: node => doSomething(node)
+    accept: (node) => doSomething(node)
   }
 );
 
@@ -327,7 +327,7 @@ doThing(
   // This is important
   true,
   {
-    decline: creditCard => takeMoney(creditCard)
+    decline: (creditCard) => takeMoney(creditCard)
   }
 );
 

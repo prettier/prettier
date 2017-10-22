@@ -3193,9 +3193,12 @@ function shouldPrintParamsWithoutParens(path, options) {
   // - currying (eg; fn = a => b => c)
   // - used as a sole callback (eg; arr.map(x => x + 1))
   // - used in template literals (eg; `color: ${props => props.color}`) for styled-components et al
+  // - used in parenthesized expression (eg; `|> (x => foo(1, x))`);
   if (options.arrowFnParens === "default") {
     const parentNode = path.getParentNode();
     if (
+      path.needsParens(options) ||
+      parentNode.type === "ParenthesizedExpression" ||
       (parentNode.type === "CallExpression" &&
         (parentNode.arguments.length === 1 ||
           (parentNode.arguments[0] === node &&

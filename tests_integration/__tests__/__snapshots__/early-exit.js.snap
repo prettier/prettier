@@ -1,5 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`show detailed usage with --help arrow-fn-parens (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help arrow-fn-parens (stdout) 1`] = `
+"--arrow-fn-parens <default|avoid|always>
+
+  Whether to print parentheses around a solo arrow function parameter.
+
+Valid options:
+
+  default   Prefer to add parens, except in callbacks and curry-chains, like \`(x) => x\` and \`fn(x => x)\`.
+  avoid     Prefer to omit parens wherever possible, like \`x => x\`.
+  always    Always add parens, like \`(x) => x\`.
+
+Default: default
+"
+`;
+
+exports[`show detailed usage with --help arrow-fn-parens (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help bracket-spacing (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help bracket-spacing (stdout) 1`] = `
@@ -442,6 +461,9 @@ Output options:
 
 Format options:
 
+  --arrow-fn-parens <default|avoid|always>
+                           Whether to print parentheses around a solo arrow function parameter.
+                           Defaults to default.
   --no-bracket-spacing     Do not print spaces between brackets.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                            Defaults to false.
@@ -573,6 +595,9 @@ Output options:
 
 Format options:
 
+  --arrow-fn-parens <default|avoid|always>
+                           Whether to print parentheses around a solo arrow function parameter.
+                           Defaults to default.
   --no-bracket-spacing     Do not print spaces between brackets.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                            Defaults to false.
