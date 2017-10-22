@@ -336,7 +336,17 @@ function genericPrintNoParens(path, options, print, args) {
         return concat(parts);
       }
 
-      if (parent.type === "UnaryExpression") {
+      // Break between the parens in unaries or in a member expression, i.e.
+      //
+      //   (
+      //     a &&
+      //     b &&
+      //     c
+      //   ).call()
+      if (
+        parent.type === "UnaryExpression" ||
+        (parent.type === "MemberExpression" && !parent.computed)
+      ) {
         return group(
           concat([indent(concat([softline, concat(parts)])), softline])
         );
@@ -372,22 +382,13 @@ function genericPrintNoParens(path, options, print, args) {
 
       const rest = concat(parts.slice(1));
 
-      // Break the closing paren to keep the chain right after it:
-      // (a &&
-      //   b &&
-      //   c
-      // ).call()
-      const breakClosingParen =
-        parent.type === "MemberExpression" && !parent.computed;
-
       return group(
         concat([
           // Don't include the initial expression in the indentation
           // level. The first item is guaranteed to be the first
           // left-most expression.
           parts.length > 0 ? parts[0] : "",
-          indent(rest),
-          breakClosingParen ? softline : ""
+          indent(rest)
         ])
       );
     }

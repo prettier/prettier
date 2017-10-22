@@ -519,7 +519,8 @@ helloWorld
 
   .then(t => t);
 
-(veryLongVeryLongVeryLong ||
+(
+  veryLongVeryLongVeryLong ||
   anotherVeryLongVeryLongVeryLong ||
   veryVeryVeryLongError
 )
