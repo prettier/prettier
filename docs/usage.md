@@ -116,11 +116,12 @@ and add this config to your `package.json`:
   "lint-staged": {
     "*.js": [
       "prettier --write",
-      "git add"
+      "git add" // Warning: This breaks staging specific lines. See footnote below.
     ]
   }
 }
 ```
+There is a limitation where if you stage specific lines this approach will stage the whole file after regardless. See this [issue](https://github.com/okonet/lint-staged/issues/62) for more info.
 
 See https://github.com/okonet/lint-staged#configuration for more details about how you can configure lint-staged.
 
