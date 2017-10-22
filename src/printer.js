@@ -4873,7 +4873,7 @@ function shouldHugArguments(fun) {
 }
 
 function templateLiteralHasNewLines(template) {
-  return template.quasis.some(quasi => quasi.value.raw.includes("\n"));
+  return template.quasis.some(quasi => quasi.value.raw.indexOf("\n") > -1);
 }
 
 function isTemplateOnItsOwnLine(n, text) {

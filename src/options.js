@@ -70,7 +70,7 @@ function normalize(options) {
     );
   } else if (
     normalized.trailingComma &&
-    !trailingCommaEnum.includes(normalized.trailingComma)
+    trailingCommaEnum.indexOf(normalized.trailingComma) < 0
   ) {
     console.warn(
       `Warning: \`trailingComma\` must be one of ${trailingCommaEnum.join(
@@ -81,7 +81,7 @@ function normalize(options) {
 
   if (
     normalized.arrowFnParens &&
-    !arrowFnParensEnum.includes(normalized.arrowFnParens)
+    arrowFnParensEnum.indexOf(normalized.arrowFnParens) < 0
   ) {
     console.warn(
       `Warning: \`arrowFnParens\` must be one of ${arrowFnParensEnum.join(
