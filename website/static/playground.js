@@ -1,6 +1,6 @@
 /* eslint-env browser */
 /* eslint no-var: off, strict: off, prefer-arrow-callback: off */
-/* global Clipboard CodeMirror formatMarkdown */
+/* global Clipboard CodeMirror formatMarkdown LZString */
 
 var prettierVersion = "?";
 var inputEditor;
@@ -29,7 +29,12 @@ var IDEMPOTENT_MESSAGE = "✓ Second format is unchanged.";
 var state = (function loadState(hash) {
   var parsed;
   try {
-    parsed = JSON.parse(hash);
+    // providing backwards support for old json encoded URIComponent
+    if (hash.indexOf("%7B%22") !== -1) {
+      parsed = JSON.parse(decodeURIComponent(hash));
+    } else {
+      parsed = LZString.decompressFromEncodedURIComponent(hash);
+    }
   } catch (error) {
     return {
       options: undefined,
@@ -63,7 +68,7 @@ var state = (function loadState(hash) {
     parsed.options.parser = "css";
   }
   return parsed;
-})(decodeURIComponent(location.hash.slice(1)));
+})(location.hash.slice(1));
 
 var worker = new Worker("/worker.js");
 
@@ -84,7 +89,7 @@ worker.onmessage = function(message) {
           : message.data.formatted2 || ""
     );
     document.getElementById("button-report-issue").search =
-      "body=" + encodeURIComponent(createMarkdown(true));
+      "body=" + LZString.compressToEncodedURIComponent(createMarkdown(true));
   }
 };
 
@@ -258,7 +263,7 @@ function formatAsync() {
   var options = getOptions();
   setEditorStyles();
 
-  var value = encodeURIComponent(
+  var value = LZString.compressToEncodedURIComponent(
     JSON.stringify(
       Object.assign({ content: inputEditor.getValue(), options: options })
     )
