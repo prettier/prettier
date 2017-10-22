@@ -643,7 +643,7 @@ Default | CLI Override | API Override
 --------|--------------|-------------
 `false` | `--jsx-bracket-same-line` | `jsxBracketSameLine: <bool>`
 
-## Arrow Function Parens
+### Arrow Function Parens
 Use parens around a sole parameter of an arrow function, when possible:
 
 - `const fn = a => a.id;`
