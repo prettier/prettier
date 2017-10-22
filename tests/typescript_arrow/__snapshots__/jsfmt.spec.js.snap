@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`arrow_regression.js 1`] = `
+const bar = (...varargs:any[]) => {
+  console.log(varargs);
+};
+
+const foo = (x:string):void => (
+  bar(
+    x,
+    () => {},
+    () => {}
+  )
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const bar = (...varargs: any[]) => {
+  console.log(varargs);
+};
+
+const foo = (x: string): void => bar(x, () => {}, () => {});
+
+`;

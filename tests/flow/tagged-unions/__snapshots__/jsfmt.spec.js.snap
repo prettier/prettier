@@ -98,16 +98,16 @@ if (data.kind === "user") {
 /* @flow */
 
 declare interface IDataBase {
-  id: string,
-  name: string
+  id: string;
+  name: string;
 }
 
 declare interface IUserData extends IDataBase {
-  kind: "user"
+  kind: "user";
 }
 
 declare interface ISystemData extends IDataBase {
-  kind: "system"
+  kind: "system";
 }
 
 declare type IData = IUserData | ISystemData;
@@ -155,16 +155,16 @@ if (data.kind === "system") {
 /* @flow */
 
 declare interface IDataBase {
-  id: string,
-  name: string
+  id: string;
+  name: string;
 }
 
 declare interface IUserData extends IDataBase {
-  kind: "user"
+  kind: "user";
 }
 
 declare interface ISystemData extends IDataBase {
-  kind: "system"
+  kind: "system";
 }
 
 declare type IData = IUserData | ISystemData;

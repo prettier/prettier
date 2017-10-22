@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -11,8 +11,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="application-name" content="Prettier">
   <meta name="apple-mobile-web-app-title" content="Prettier">
-  <meta name="theme-color" content="#1A2B34">
-  <meta name="msapplication-navbutton-color" content="#1A2B34">
+  <meta name="theme-color" content="#1a2b34">
+  <meta name="msapplication-navbutton-color" content="#1a2b34">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="msapplication-starturl" content="/">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -21,13 +21,15 @@
   <link rel="apple-touch-icon" href="/icon.png">
 
   <link rel="stylesheet" crossorigin  href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/codemirror.css">
-  <link rel="stylesheet" crossorigin  href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/theme/neat.css">
 
-  <script src="/lib/prettier-version.js"></script>
+  <script src="/markdown.js"></script>
   <script src="/playground.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/codemirror.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/mode/javascript/javascript.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/mode/xml/xml.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/mode/jsx/jsx.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/mode/css/css.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/addon/display/rulers.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/addon/search/searchcursor.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/addon/edit/matchbrackets.js"></script>
@@ -35,93 +37,80 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/addon/comment/comment.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/addon/wrap/hardwrap.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/keymap/sublime.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js"></script>
 
   <style type="text/css">
-    html,
-    body {
-      font-family: "Helvetica Neue", "Open Sans", sans-serif;
-      font-size: 11.7px;
-      margin: 0;
-      padding: 0;
-      background-color: #FAFAFA;
-      color: #6A6A6A;
+    html {
+      background-color: #fafafa;
+      color: #6a6a6a;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 12px;
+      line-height: 1.25;
     }
 
     body {
       display: flex;
       flex-direction: column;
       height: 100vh;
-    }
-
-    .options-summary {
-      font-size: 1.4em;
-      margin-top: 8px;
-      text-align: center;
+      margin: 0;
     }
 
     header {
-      height: 30px;
-      padding: 10px 10px;
       display: flex;
-      flex-flow: row nowrap;
-      position: relative;
-      text-align: left;
+      flex-wrap: nowrap;
       justify-content: space-between;
       align-items: center;
-      background-color: #1A2B34;
+      height: 30px;
+      padding: 10px 27px;
+      background-color: #1a2b34;
       color: #e0e0e0;
+      position: relative;
+      z-index: 20;
     }
 
-    @media (max-width: 500px) {
-      .tagline {
-        display: none;
+    @media (max-width: 400px) {
+      header {
+        padding: 10px;
       }
     }
 
-    header a {
-      height: 34px;
-      display: flex;
-      text-decoration: none;
-    }
-
     header a,
-    header a:visited {
-      color: #fff;
-    }
-
+    header a:visited,
     header a:focus,
     header a:active,
     header a:hover {
-      color: #fff;
+      color: white;
+      text-decoration: none;
+    }
+
+    .logo-wrapper {
+      display: flex;
+      align-items: center;
     }
 
     .logo {
-      height: 100%;
-      margin-left: 10px;
+      height: 34px;
       margin-right: 10px;
     }
 
-    header h2 {
-      display: block;
-      font-family: "Helvetica Neue", Arial, sans-serif;
-      font-weight: 400;
-      line-height: 8px;
-      position: relative;
-      z-index: 9999;
+    header h1 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: normal;
     }
 
     .links {
-      font-size: 1.3em;
-      margin-right: 30px;
+      display: flex;
+      font-size: 16px;
     }
-
-    textarea.loading {
-      opacity: 0;
+    .links > * + * {
+      margin-left: 15px;
     }
 
     .editors-container {
       display: flex;
-      flex-grow: 1;
+      flex: 1;
     }
 
     .editors {
@@ -131,17 +120,19 @@
     }
 
     .editor {
+      box-sizing: border-box;
       display: flex;
-      flex: 1;
-      flex-basis: 100%;
+      flex: 1 1 100%;
       position: relative;
-      border-top: 1px solid #1A2B34;
+      border-bottom: 1px solid #ddd;
     }
 
     /* display as 2x2 grid */
     @media (min-width: 800px) {
       .editor {
         flex-basis: 50%;
+        border-left: 1px solid #ddd;
+        margin-left: -1px;
       }
     }
 
@@ -152,9 +143,8 @@
       }
     }
 
-    .arrow {
-      align-self: center;
-      font-size: 1.2em;
+    .editor.loading {
+      opacity: 0;
     }
 
     .CodeMirror {
@@ -164,9 +154,50 @@
       left: 0;
       right: 0;
       bottom: 0;
-      font-family: Menlo, monospace;
-      font-size: 11.05px;
-      line-height: 17.68px;
+      line-height: 1.6;
+    }
+
+    .bottom-bar {
+      position: relative;
+    }
+
+    .bottom-bar-buttons {
+      position: absolute;
+      z-index: 10;
+      top: 0;
+      left: 0;
+      padding: 8px;
+      display: flex;
+    }
+
+    .bottom-bar-buttons-right {
+      left: auto;
+      right: 0;
+    }
+
+    .bottom-bar-buttons > * + * {
+      margin-left: 9px;
+    }
+
+    @media (max-width: 799px) {
+      .bottom-bar-buttons {
+        top: auto;
+        bottom: 100%;
+        padding: 2px;
+      }
+
+      .bottom-bar-buttons > * + * {
+        margin-left: 2px;
+      }
+    }
+
+    .options-details {
+      padding: 8px 0;
+    }
+
+    .options-summary {
+      font-size: 1.4em;
+      text-align: center;
     }
 
     .options-container {
@@ -176,11 +207,11 @@
     }
 
     .options {
-      padding: 0 10px;
-      display: flex;
       flex-flow: column wrap;
-      flex-grow: 1;
+      flex: 1;
+      display: flex;
       justify-content: space-around;
+      padding: 0 10px;
       margin: 5px;
       margin-bottom: 0;
       min-width: 150px;
@@ -207,17 +238,71 @@
       max-width: 40px;
     }
 
-    footer {
-      text-align: center;
+    /* Copied from the GitHub button styling. */
+    .btn {
+      box-sizing: content-box;
+      display: inline-block;
+      height: 18px;
+      padding: 0 5px;
+      border: 1px solid #d1d2d3;
+      border-radius: 0.25em;
+      background-image: linear-gradient(to bottom, #fafbfc, #e4ebf0);
+      font-size: 11px;
+      line-height: 18px;
+      font-weight: 600;
+      font-family: inherit;
+      color: #24292e;
+      text-decoration: none;
+      cursor: pointer;
+      outline: none;
+      position: relative;
+    }
+    .btn:focus {
+      border-color: #c8e1ff;
+    }
+    .btn:hover {
+      background-color:#e6ebf1;
+      background-image: linear-gradient(to bottom, #f0f3f6, #dce3ec);
+      border-color:#afb1b2;
+    }
+    .btn:active {
+      background-color: #e9ecef;
+      background-image: none;
+      border-color: #afb1b2;
+      box-shadow: inset 0 0.15em 0.3em rgba(27, 31, 35, 0.15);
+    }
+
+    .tooltip {
+      position: absolute;
+      z-index: 1;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-top: 4px;
+      padding: 0.4em 0.8em;
+      background-color: black;
+      color: white;
+      border-radius: 0.4em;
+      pointer-events: none;
+    }
+    .tooltip::before {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-bottom: none;
+      border-top-color: black;
     }
   </style>
 </head>
 
 <body>
   <header>
-    <a href="/">
-      <img class="logo" src="/icon.png">
-      <h2>Prettier</h2>
+    <a href="/" class="logo-wrapper">
+      <img class="logo" src="/icon.png" alt="">
+      <h1>Prettier <span id="version"></span></h1>
     </a>
 
     <span class="links">
@@ -231,59 +316,73 @@
     </span>
   </header>
 
-  <section class="editors-container">
+  <div class="editors-container">
     <div class="editors">
-      <div class="editor input">
-        <textarea class="loading" id="input-editor"></textarea>
+      <div class="editor loading input">
+        <textarea id="input-editor"></textarea>
       </div>
-      <div class="editor ast">
-        <textarea class="loading" id="ast-editor"></textarea>
+      <div class="editor loading ast">
+        <textarea id="ast-editor"></textarea>
       </div>
-      <div class="editor doc">
-        <textarea class="loading" id="doc-editor"></textarea>
+      <div class="editor loading doc">
+        <textarea id="doc-editor"></textarea>
       </div>
-      <div class="editor output">
-        <textarea class="loading" id="output-editor"></textarea>
+      <div class="editor loading output">
+        <textarea id="output-editor"></textarea>
+      </div>
+      <div class="editor loading output2">
+        <textarea id="output2-editor"></textarea>
       </div>
     </div>
-  </section>
+  </div>
 
-  <section>
-    <details>
+  <div class="bottom-bar">
+    <div class="bottom-bar-buttons">
+      <button type="button" class="btn" id="button-clear">
+        Clear
+      </button>
+    </div>
+
+    <details class="options-details">
       <summary class="options-summary">Options</summary>
 
       <div class="options-container">
         <div class="options">
-          <label>--print-width <input type="number" value="80" min="0" id="printWidth"></input> </label>
-          <label>--tab-width <input type="number" min="0" value="2" id="tabWidth"></input> </label>
+          <label>--print-width <input type="number" value="80" min="0" id="printWidth"></label>
+          <label>--tab-width <input type="number" min="0" value="2" id="tabWidth"></label>
         </div>
         <div class="options">
-          <label><input type="checkbox" id="useTabs"></input> --use-tabs</label>
-          <label><input type="checkbox" data-inverted id="semi"></input> --no-semi</label>
-          <label><input type="checkbox" id="singleQuote"></input> --single-quote</label>
-          <label><input type="checkbox" data-inverted id="bracketSpacing"></input> --no-bracket-spacing</label>
-          <label><input type="checkbox" id="jsxBracketSameLine"></input> --jsx-bracket-same-line</label>
+          <label><input type="checkbox" id="useTabs"> --use-tabs</label>
+          <label><input type="checkbox" data-inverted id="semi"> --no-semi</label>
+          <label><input type="checkbox" id="singleQuote"> --single-quote</label>
+          <label><input type="checkbox" data-inverted id="bracketSpacing"> --no-bracket-spacing</label>
+          <label><input type="checkbox" id="jsxBracketSameLine"> --jsx-bracket-same-line</label>
         </div>
         <div class="options last">
           <label>--trailing-comma <select id="trailingComma"><option value="none">none</option><option value="es5">es5</option><option value="all">all</option></select></label>
-          <label>--parser <select id="parser"><option value="babylon">babylon</option><option value="flow">flow</option><option value="typescript">typescript</option><option value="postcss">postcss</option><option value="json">json</option><option value="graphql">graphql</option></select></label>
+          <label>--parser <select id="parser"><option value="babylon">babylon</option><option value="flow">flow</option><option value="typescript">typescript</option><option value="css">css</option><option value="less">less</option><option value="scss">scss</option><option value="json">json</option><option value="graphql">graphql</option></select></label>
           <span style="flex: 0.3"></span>
-          <label><input type="checkbox" id="ast"></input> show AST (debug)</label>
-          <label><input type="checkbox" id="doc"></input> show doc (debug)</label>
+          <label><input type="checkbox" id="ast"> show AST (debug)</label>
+          <label><input type="checkbox" id="doc"> show doc (debug)</label>
+          <label><input type="checkbox" id="output2"> show second format (debug)</label>
         </div>
       </div>
     </details>
-  </section>
 
-  <footer>
-    <p class="version-link">
-      <a href="https://github.com/prettier/prettier">
-        prettier version
-        <span class="version"></span>
-        (master)
+    <div class="bottom-bar-buttons bottom-bar-buttons-right">
+      <button type="button" class="btn" id="button-copy-link">
+        Copy link
+      </button>
+      <button type="button" class="btn" id="button-copy-markdown">
+        Copy markdown
+      </button>
+      <a href="https://github.com/prettier/prettier/issues/new"
+        target="_blank" rel="noopener"
+        class="btn" id="button-report-issue">
+        Report issue
       </a>
-    </p>
-  </footer>
+    </div>
+  </div>
 
   <script src="/install-service-worker.js"></script>
 

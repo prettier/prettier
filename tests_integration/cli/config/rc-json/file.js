@@ -1,9 +1,7 @@
-/* eslint-disable */
-
-function f() {
+function rcJson() {
   console.log.apply(null, [
-    "this file",
+    "rc-json/file.js",
     "should have trailing comma",
-    "and single quotes",
+    "and single quotes"
   ]);
 }

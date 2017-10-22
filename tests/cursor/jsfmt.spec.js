@@ -1,4 +1,4 @@
-const prettier = require("../..");
+const prettier = require("../../tests_config/require_prettier");
 
 test("translates cursor correctly in basic case", () => {
   expect(prettier.formatWithCursor(" 1", { cursorOffset: 2 })).toEqual({

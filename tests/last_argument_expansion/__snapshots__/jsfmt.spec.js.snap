@@ -277,6 +277,61 @@ someReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReal
 
 `;
 
+exports[`empty-object.js 1`] = `
+func(first, second, third, fourth, fifth, aReallyLongArgumentsListToForceItToBreak, {
+  // comment
+})
+
+func({
+  // comment
+})
+
+func(
+  {} // comment
+)
+
+func(
+  {}
+  // comment
+)
+
+func(
+  // comment
+  {}
+)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+func(
+  first,
+  second,
+  third,
+  fourth,
+  fifth,
+  aReallyLongArgumentsListToForceItToBreak,
+  {
+    // comment
+  }
+);
+
+func({
+  // comment
+});
+
+func(
+  {} // comment
+);
+
+func(
+  {}
+  // comment
+);
+
+func(
+  // comment
+  {}
+);
+
+`;
+
 exports[`jsx.js 1`] = `
 const els = items.map(item => (
   <div className="whatever">
@@ -411,38 +466,12 @@ func(
   yes,
   []
 );
-func(
-  one,
-  two,
-  three,
-  four,
-  five,
-  six,
-  seven,
-  eig,
-  is,
-  this,
-  too,
-  long,
-  yes,
-  [
-    // Comments
-  ]
-);
-func(
-  five,
-  six,
-  seven,
-  eig,
-  is,
-  this,
-  too,
-  long,
-  yes,
-  [
-    // Comments
-  ]
-);
+func(one, two, three, four, five, six, seven, eig, is, this, too, long, yes, [
+  // Comments
+]);
+func(five, six, seven, eig, is, this, too, long, yes, [
+  // Comments
+]);
 
 func(one, two, three, four, five, six, seven, eig, is, this, too, long, no, {});
 func(
@@ -461,24 +490,9 @@ func(
   yes,
   {}
 );
-func(
-  one,
-  two,
-  three,
-  four,
-  five,
-  six,
-  seven,
-  eig,
-  is,
-  this,
-  too,
-  long,
-  yes,
-  {
-    // Comments
-  }
-);
+func(one, two, three, four, five, six, seven, eig, is, this, too, long, yes, {
+  // Comments
+});
 
 foo(
   (

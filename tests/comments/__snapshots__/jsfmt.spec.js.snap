@@ -184,11 +184,9 @@ expect(() => {}).toTriggerReadyStateChanges([
 
 [1 /* first comment */, 2 /* second comment */, 3];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-expect(() => {}).toTriggerReadyStateChanges(
-  [
-    // Nothing.
-  ]
-);
+expect(() => {}).toTriggerReadyStateChanges([
+  // Nothing.
+]);
 
 [1 /* first comment */, 2 /* second comment */, 3];
 
@@ -205,6 +203,25 @@ for (;;);
 
 /* comment */
 for (;;);
+
+`;
+
+exports[`dynamic_imports.js 1`] = `
+import(/* Hello */ 'something')
+
+import('something' /* Hello */)
+
+import(/* Hello */ 'something' /* Hello */)
+
+import('something' /* Hello */ + 'else')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import(/* Hello */ "something");
+
+import("something" /* Hello */);
+
+import(/* Hello */ "something" /* Hello */);
+
+import("something" /* Hello */ + "else");
 
 `;
 
@@ -277,6 +294,40 @@ call((/*object*/ row) => {});
 KEYPAD_NUMBERS.map(num => ( // Buttons 0-9
   <div />
 ));
+
+function f /* f */() {}
+function f (/* args */) {}
+function f () /* returns */ {}
+function f /* f */(/* args */) /* returns */ {}
+
+function f /* f */(/* a */ a) {}
+function f /* f */(a /* a */) {}
+function f /* f */(/* a */ a) /* returns */ {}
+
+const obj = {
+  f1 /* f */() {},
+  f2 (/* args */) {},
+  f3 () /* returns */ {},
+  f4 /* f */(/* args */) /* returns */ {},
+};
+
+(function f /* f */() {})();
+(function f (/* args */) {})();
+(function f () /* returns */ {})();
+(function f /* f */(/* args */) /* returns */ {})();
+
+class C {
+  f/* f */() {}
+}
+class C {
+  f(/* args */) {}
+}
+class C {
+  f() /* returns */ {}
+}
+class C {
+  f/* f */(/* args */) /* returns */ {}
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function a(/* comment */) {} // comment
 function b() {} // comment
@@ -285,6 +336,49 @@ call((/*object*/ row) => {});
 KEYPAD_NUMBERS.map((
   num // Buttons 0-9
 ) => <div />);
+
+function f /* f */() {}
+function f(/* args */) {}
+function f() /* returns */ {
+}
+function f /* f */(/* args */) /* returns */ {
+}
+
+function f /* f */(/* a */ a) {}
+function f /* f */(a /* a */) {}
+function f /* f */(/* a */ a) /* returns */ {
+}
+
+const obj = {
+  f1 /* f */() {},
+  f2(/* args */) {},
+  f3() /* returns */ {
+  },
+  f4 /* f */(/* args */) /* returns */ {
+  }
+};
+
+(function f /* f */() {})();
+(function f(/* args */) {})();
+(function f() /* returns */ {
+})();
+(function f /* f */(/* args */) /* returns */ {
+})();
+
+class C {
+  f /* f */() {}
+}
+class C {
+  f(/* args */) {}
+}
+class C {
+  f() /* returns */ {
+  }
+}
+class C {
+  f /* f */(/* args */) /* returns */ {
+  }
+}
 
 `;
 
@@ -311,10 +405,45 @@ else if (4) {
 else {
 }
 
-if (1)
-{}
+if (5) // comment
+true
+
+if (6) // comment
+{true}
+else if (7) // comment
+true
 else // comment
-{}
+{true}
+
+if (8) // comment
+// comment
+{true}
+else if (9) // comment
+// comment
+true
+else // comment
+// comment
+{true}
+
+if (10) /* comment */ // comment
+{true}
+else if (11) /* comment */
+true
+else if (12) // comment /* comment */ // comment
+true
+else if (13) /* comment */ /* comment */ // comment
+true
+else /* comment */
+{true}
+
+if (14) // comment
+/* comment */
+// comment
+{true}
+else if (15) // comment
+/* comment */
+/* comment */ // comment
+true
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 if (1) {
   // comment
@@ -335,10 +464,62 @@ else if (4) {
   // comment
 }
 
-if (1) {
-} else {
+if (5)
   // comment
+  true;
+
+if (6) {
+  // comment
+  true;
+} else if (7)
+  // comment
+  true;
+else {
+  // comment
+  true;
 }
+
+if (8) {
+  // comment
+  // comment
+  true;
+} else if (9)
+  // comment
+  // comment
+  true;
+else {
+  // comment
+  // comment
+  true;
+}
+
+if (10) {
+  /* comment */ // comment
+  true;
+} else if (11)
+  /* comment */
+  true;
+else if (12)
+  // comment /* comment */ // comment
+  true;
+else if (13)
+  /* comment */ /* comment */ // comment
+  true;
+else {
+  /* comment */
+  true;
+}
+
+if (14) {
+  // comment
+  /* comment */
+  // comment
+  true;
+} else if (15)
+  // comment
+  /* comment */
+  /* comment */ // comment
+  true;
 
 `;
 
@@ -635,6 +816,28 @@ exports[`jsx.js 1`] = `
 
 <div>{/*<div>  Some very v  ery very very long line to break line width limit </div>*/}</div>;
 
+<div>
+  {/**
+   * JSDoc-y comment in JSX. I wonder what will happen to it?
+  */}
+</div>;
+
+<div>
+  {
+    /**
+   * Another JSDoc comment in JSX.
+  */
+  }
+</div>;
+
+<div
+  /**
+ * Handles clicks.
+*/
+onClick={() => {}}>
+
+</div>;
+
 <Wrapper>
   {}
   <Component />
@@ -693,6 +896,25 @@ exports[`jsx.js 1`] = `
 <div>
   {/*<div>  Some very v  ery very very long line to break line width limit </div>*/}
 </div>;
+
+<div>
+  {/**
+   * JSDoc-y comment in JSX. I wonder what will happen to it?
+   */}
+</div>;
+
+<div>
+  {/**
+   * Another JSDoc comment in JSX.
+   */}
+</div>;
+
+<div
+  /**
+   * Handles clicks.
+   */
+  onClick={() => {}}
+/>;
 
 <Wrapper>
   {}

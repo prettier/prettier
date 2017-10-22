@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cjk.md 1`] = `
+這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長的段落
+
+這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！
+
+全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長
+很長的段落
+
+這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段
+Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著
+中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個
+English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段
+Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著
+中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個
+English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段
+Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著
+中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個
+English 混合著中文的一段 Paragraph！
+
+全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白
+全　　形　空白全　　形　空白全　　形　空白
+
+`;
+
+exports[`inline-nodes.md 1`] = `
+It removes all original styling[*](#styling-footnote) and ensures that all outputted code conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+It removes all original styling[\\*](#styling-footnote) and ensures that all
+outputted code conforms to a consistent style. (See this [blog
+post](http://jlongster.com/A-Prettier-Formatter))
+
+`;
+
+exports[`simple.md 1`] = `
+This is a long long long long long long long long long long long long long long long paragraph.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This is a long long long long long long long long long long long long long long
+long paragraph.
+
+`;

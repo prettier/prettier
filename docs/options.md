@@ -149,3 +149,36 @@ Default | CLI Override | API Override
 --------|--------------|-------------
 None | `--stdin-filepath <string>` | `filepath: "<string>"`
 
+## Require pragma
+Prettier can restrict itself to only format files that contain a special comment, called a pragma, at the top of the file. This is very useful
+when gradually transitioning large, unformatted codebases to prettier.
+
+For example, a file with the following as its first comment will be formatted when `--require-pragma` is supplied:
+
+```js
+/**
+ * @prettier
+ */
+```
+
+or
+
+```js
+/**
+ * @format
+ */
+```
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`false` | `--require-pragma` | `requirePragma: <bool>`
+<!--
+## Insert Pragma
+Prettier can insert a special @format marker at the top of files specifying that the file has been formatted
+with prettier.  This works well when used in tandem with the `--require-pragma` option.  If there is already a 
+docblock at the top of the file then this option will add a newline to it with the @format marker. 
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`false` | `--insert-pragma` | `insertPragma: <bool>`
+-->

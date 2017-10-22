@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`backtick.md 1`] = `
+\`\`\`\`\`\`\`\`\`\`
+
+\`\`\`js
+console.log("hello world!");
+\`\`\`
+
+\`\`\`\`\`\`\`\`\`\`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\`\`\`\`
+\`\`\`js
+console.log("hello world!");
+\`\`\`
+\`\`\`\`
+
+`;
+
+exports[`format.md 1`] = `
+\`\`\`js
+const foo      = 'bar'
+
+
+
+   console     .log(    213    )
+\`\`\`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\`\`\`js
+const foo = "bar";
+
+console.log(213);
+\`\`\`
+
+`;
+
+exports[`indent.md 1`] = `
+    Indented Code Block
+    Indented Code Block
+    Indented Code Block
+    Indented Code Block
+    Indented Code Block
+
+- \`\`\`
+  Fenced Code Block
+  Fenced Code Block
+  Fenced Code Block
+  Fenced Code Block
+  Fenced Code Block
+  \`\`\`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Indented Code Block
+    Indented Code Block
+    Indented Code Block
+    Indented Code Block
+    Indented Code Block
+
+* \`\`\`
+  Fenced Code Block
+  Fenced Code Block
+  Fenced Code Block
+  Fenced Code Block
+  Fenced Code Block
+  \`\`\`
+
+`;
+
+exports[`lang.md 1`] = `
+\`\`\`js
+console.log("hello world");
+\`\`\`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\`\`\`js
+console.log("hello world");
+\`\`\`
+
+`;
+
+exports[`simple.md 1`] = `
+\`\`\`
+hello world
+\`\`\`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\`\`\`
+hello world
+\`\`\`
+
+`;

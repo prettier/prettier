@@ -1,2 +1,1 @@
-/* eslint-disable */
-console.log("should have semi");
+console.log("jest/__best-tests__/file.js should have semi");

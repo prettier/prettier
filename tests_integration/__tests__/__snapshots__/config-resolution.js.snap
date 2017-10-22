@@ -1,23 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CLI overrides take precedence 1`] = `
-"/* eslint-disable */
-console.log(
-  \\"should have semi\\"
-);
-/* eslint-disable */
-console.log(
-  \\"should not have semi\\"
-)
-/* eslint-disable */
-console.log(
-  \\"should have semi\\"
-);
-/* eslint-disable */
+exports[`CLI overrides take precedence (stderr) 1`] = `""`;
 
-function f() {
+exports[`CLI overrides take precedence (stdout) 1`] = `
+"console.log(
+  \\"jest/__best-tests__/file.js should have semi\\"
+);
+console.log(
+  \\"jest/Component.js should not have semi\\"
+)
+console.log(
+  \\"jest/Component.test.js should have semi\\"
+);
+function js() {
         console.log(
-                \\"should have tab width 8\\"
+                \\"js/file.js should have tab width 8\\"
         );
 }
 \\"use strict\\";
@@ -25,27 +22,31 @@ function f() {
 module.exports = {
         tabWidth: 8
 };
-/* eslint-disable */
-
-function f() {
+function noConfigJs() {
   console.log(
-    \\"should have no semicolons\\"
+    \\"no-config/file.js should have no semicolons\\"
   )
 }
-/* eslint-disable */
-
-function f() {
+function packageJs() {
    console.log(
-      \\"should have tab width 3\\"
+      \\"package/file.js should have tab width 3\\"
    );
 }
-/* eslint-disable */
-
-function f() {
+function rcJson() {
   console.log.apply(
     null,
     [
-      'this file',
+      'rc-json/file.js',
+      'should have trailing comma',
+      'and single quotes',
+    ],
+  );
+}
+function rcYaml() {
+  console.log.apply(
+    null,
+    [
+      'rc-yaml/file.js',
       'should have trailing comma',
       'and single quotes',
     ],
@@ -54,52 +55,62 @@ function f() {
 "
 `;
 
-exports[`accepts configuration from --config 1`] = `
-"/* eslint-disable */
+exports[`CLI overrides take precedence (write) 1`] = `Array []`;
 
-function f() {
-  console.log(\\"should have tab width 8\\")
+exports[`accepts configuration from --config (stderr) 1`] = `""`;
+
+exports[`accepts configuration from --config (stdout) 1`] = `
+"function js() {
+  console.log(\\"js/file.js should have tab width 8\\")
 }
 "
 `;
 
-exports[`resolves configuration file with --find-config-path file 1`] = `
+exports[`accepts configuration from --config (write) 1`] = `Array []`;
+
+exports[`prints nothing when no file found with --find-config-path (stderr) 1`] = `""`;
+
+exports[`prints nothing when no file found with --find-config-path (write) 1`] = `Array []`;
+
+exports[`resolves configuration file with --find-config-path file (stderr) 1`] = `""`;
+
+exports[`resolves configuration file with --find-config-path file (stdout) 1`] = `
 ".prettierrc
 "
 `;
 
-exports[`resolves configuration from external files 1`] = `
-"/* eslint-disable */
-console.log(\\"should have semi\\");
-/* eslint-disable */
-console.log(\\"should not have semi\\")
-/* eslint-disable */
-console.log(\\"should have semi\\");
-/* eslint-disable */
+exports[`resolves configuration file with --find-config-path file (write) 1`] = `Array []`;
 
-function f() {
-        console.log(\\"should have tab width 8\\");
+exports[`resolves configuration from external files (stderr) 1`] = `""`;
+
+exports[`resolves configuration from external files (stdout) 1`] = `
+"console.log(\\"jest/__best-tests__/file.js should have semi\\");
+console.log(\\"jest/Component.js should not have semi\\")
+console.log(\\"jest/Component.test.js should have semi\\");
+function js() {
+        console.log(\\"js/file.js should have tab width 8\\");
 }
 \\"use strict\\";
 
 module.exports = {
         tabWidth: 8
 };
-/* eslint-disable */
-
-function f() {
-  console.log(\\"should have no semicolons\\")
+function noConfigJs() {
+  console.log(\\"no-config/file.js should have no semicolons\\")
 }
-/* eslint-disable */
-
-function f() {
-   console.log(\\"should have tab width 3\\");
+function packageJs() {
+   console.log(\\"package/file.js should have tab width 3\\");
 }
-/* eslint-disable */
-
-function f() {
+function rcJson() {
   console.log.apply(null, [
-    'this file',
+    'rc-json/file.js',
+    'should have trailing comma',
+    'and single quotes',
+  ]);
+}
+function rcYaml() {
+  console.log.apply(null, [
+    'rc-yaml/file.js',
     'should have trailing comma',
     'and single quotes',
   ]);
@@ -107,12 +118,40 @@ function f() {
 "
 `;
 
-exports[`resolves configuration from external files and overrides by extname 1`] = `
-"function g() {
-  console.log(\\"should have semicolons because it has a .ts extension\\");
+exports[`resolves configuration from external files (write) 1`] = `Array []`;
+
+exports[`resolves configuration from external files and overrides by extname (stderr) 1`] = `""`;
+
+exports[`resolves configuration from external files and overrides by extname (stdout) 1`] = `
+"function noConfigTs() {
+  console.log(
+    \\"no-config/file.ts should have semicolons because it has a .ts extension\\"
+  );
 }
-function g() {
-     console.log(\\"should have tab width 5 because it has .ts extension\\");
+function packageTs() {
+     console.log(
+          \\"package/file.ts should have tab width 5 because it has .ts extension\\"
+     );
 }
 "
 `;
+
+exports[`resolves configuration from external files and overrides by extname (write) 1`] = `Array []`;
+
+exports[`resolves json configuration file with --find-config-path file (stderr) 1`] = `""`;
+
+exports[`resolves json configuration file with --find-config-path file (stdout) 1`] = `
+"rc-json/.prettierrc.json
+"
+`;
+
+exports[`resolves json configuration file with --find-config-path file (write) 1`] = `Array []`;
+
+exports[`resolves yaml configuration file with --find-config-path file (stderr) 1`] = `""`;
+
+exports[`resolves yaml configuration file with --find-config-path file (stdout) 1`] = `
+"rc-yaml/.prettierrc.yaml
+"
+`;
+
+exports[`resolves yaml configuration file with --find-config-path file (write) 1`] = `Array []`;

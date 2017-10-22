@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`atx.md 1`] = `
+# h1
+
+## h2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# h1
+
+## h2
+
+`;
+
+exports[`long-heading.md 1`] = `
+# this is a long long long long long long long long long long long long long long heading.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# this is a long long long long long long long long long long long long long long heading.
+
+`;
+
+exports[`setext.md 1`] = `
+h1
+===
+
+h2
+---
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# h1
+
+## h2
+
+`;

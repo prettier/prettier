@@ -64,33 +64,33 @@ declare class Promise<R> {
       resolve: (result?: Promise<R> | R) => void,
       reject: (error?: any) => void
     ) => void
-  ): void,
+  ): void;
 
   then<U>(
     onFulfill?: ?(value: R) => Promise<U> | ?U,
     onReject?: ?(error: any) => Promise<U> | ?U
-  ): Promise<U>,
+  ): Promise<U>;
 
   done<U>(
     onFulfill?: ?(value: R) => void,
     onReject?: ?(error: any) => void
-  ): void,
+  ): void;
 
-  catch<U>(onReject?: (error: any) => ?Promise<U> | U): Promise<U>,
+  catch<U>(onReject?: (error: any) => ?Promise<U> | U): Promise<U>;
 
-  static resolve<T>(object?: Promise<T> | T): Promise<T>,
-  static reject<T>(error?: any): Promise<T>,
+  static resolve<T>(object?: Promise<T> | T): Promise<T>;
+  static reject<T>(error?: any): Promise<T>;
 
   // Non-standard APIs
-  finally<U>(onSettled?: ?(value: any) => Promise<U> | U): Promise<U>,
+  finally<U>(onSettled?: ?(value: any) => Promise<U> | U): Promise<U>;
 
-  static cast<T>(object?: T): Promise<T>,
-  static all<T>(promises: Array<?Promise<T> | T>): Promise<Array<T>>,
-  static race<T>(promises: Array<Promise<T>>): Promise<T>,
+  static cast<T>(object?: T): Promise<T>;
+  static all<T>(promises: Array<?Promise<T> | T>): Promise<Array<T>>;
+  static race<T>(promises: Array<Promise<T>>): Promise<T>;
 
   static allObject<T: Object>(
     promisesByKey: T
-  ): Promise<{ [key: $Keys<T>]: any }>
+  ): Promise<{ [key: $Keys<T>]: any }>;
 }
 
 `;

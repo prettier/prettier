@@ -23,6 +23,10 @@ const state = JSON.stringify({
 } as State);
 
 (foo.bar as Baz) = [bar];
+
+(bValue as boolean) ? 0 : -1;
+<boolean>bValue ? 0 : -1;
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const name = (description as DescriptionObject).name || (description as string);
 this.isTabActionBar((e.target || e.srcElement) as HTMLElement);
@@ -50,5 +54,8 @@ const state = JSON.stringify({
 } as State);
 
 (foo.bar as Baz) = [bar];
+
+(bValue as boolean) ? 0 : -1;
+<boolean>bValue ? 0 : -1;
 
 `;

@@ -183,8 +183,8 @@ function bar2(x: mixed) {
 // @flow
 
 declare class C {
-  bar(n1: number, n2: number): number,
-  bar(s1: string, s2: string): string
+  bar(n1: number, n2: number): number;
+  bar(s1: string, s2: string): string;
 }
 
 function foo(c: C, x: any): string {
@@ -212,7 +212,7 @@ exports[`reach.js 1`] = `
 /**
  * like class and function values, any-typed values may be used in
  * type annotations. Here we test propagation of any through the
- * annotation - without it, the body of the if will be unreachable 
+ * annotation - without it, the body of the if will be unreachable
  */
 
 type AsyncRequest = any;
@@ -226,7 +226,7 @@ function foo(o: ?AsyncRequest) {
 /**
  * like class and function values, any-typed values may be used in
  * type annotations. Here we test propagation of any through the
- * annotation - without it, the body of the if will be unreachable 
+ * annotation - without it, the body of the if will be unreachable
  */
 
 type AsyncRequest = any;

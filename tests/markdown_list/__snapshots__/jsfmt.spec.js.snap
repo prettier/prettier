@@ -1,0 +1,130 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`checkbox.md 1`] = `
+- [ ] this is a long long long long long long long long long long long long long long paragraph.
+- [x] this is a long long long long long long long long long long long long long long paragraph.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* [ ] this is a long long long long long long long long long long long long long
+      long paragraph.
+* [x] this is a long long long long long long long long long long long long long
+      long paragraph.
+
+`;
+
+exports[`git-diff-friendly.md 1`] = `
+5. abc
+1. def
+999. ghi
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+5. abc
+1. def
+1. ghi
+
+`;
+
+exports[`long-paragraph.md 1`] = `
+- This is a long long long long long long long long long long long long long long paragraph.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* This is a long long long long long long long long long long long long long
+  long paragraph.
+
+`;
+
+exports[`loose.md 1`] = `
+- 123
+
+  - abc
+
+- 456
+
+  - def
+
+- 789
+
+  - ghi
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* 123
+
+  * abc
+
+* 456
+
+  * def
+
+* 789
+
+  * ghi
+
+`;
+
+exports[`multiline.md 1`] = `
+- 123
+  456
+  789
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* 123 456 789
+
+`;
+
+exports[`nested.md 1`] = `
+- Level 1
+  - Level 2
+    - Level 3
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Level 1
+  * Level 2
+    * Level 3
+
+`;
+
+exports[`ordered.md 1`] = `
+1. 123
+1. 456
+1. 789
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1. 123
+1. 456
+1. 789
+
+`;
+
+exports[`separate.md 1`] = `
+- 123
+- 123
+- 123
+
+* 123
+* 123
+* 123
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* 123
+* 123
+* 123
+
+- 123
+- 123
+- 123
+
+`;
+
+exports[`simple.md 1`] = `
+- 123
+- 456
+- 789
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* 123
+* 456
+* 789
+
+`;
+
+exports[`start.md 1`] = `
+5. abc
+6. def
+7. ghi
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+5. abc
+6. def
+7. ghi
+
+`;

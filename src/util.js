@@ -1,5 +1,13 @@
 "use strict";
 
+const stringWidth = require("string-width");
+const emojiRegex = require("emoji-regex")();
+const escapeStringRegexp = require("escape-string-regexp");
+
+const getCjkRegex = require("cjk-regex");
+const cjkRegex = getCjkRegex();
+const cjkPunctuationRegex = getCjkRegex.punctuations();
+
 function isExportDeclaration(node) {
   if (node) {
     switch (node.type) {
@@ -170,9 +178,9 @@ function isPreviousLineEmpty(text, node) {
   return idx !== idx2;
 }
 
-function isNextLineEmpty(text, node) {
+function isNextLineEmptyAfterIndex(text, index) {
   let oldIdx = null;
-  let idx = locEnd(node);
+  let idx = index;
   while (idx !== oldIdx) {
     // We need to skip all the potential trailing inline comments
     oldIdx = idx;
@@ -185,7 +193,11 @@ function isNextLineEmpty(text, node) {
   return hasNewline(text, idx);
 }
 
-function getNextNonSpaceNonCommentCharacter(text, node) {
+function isNextLineEmpty(text, node) {
+  return isNextLineEmptyAfterIndex(text, locEnd(node));
+}
+
+function getNextNonSpaceNonCommentCharacterIndex(text, node) {
   let oldIdx = null;
   let idx = locEnd(node);
   while (idx !== oldIdx) {
@@ -195,7 +207,11 @@ function getNextNonSpaceNonCommentCharacter(text, node) {
     idx = skipTrailingComment(text, idx);
     idx = skipNewline(text, idx);
   }
-  return text.charAt(idx);
+  return idx;
+}
+
+function getNextNonSpaceNonCommentCharacter(text, node) {
+  return text.charAt(getNextNonSpaceNonCommentCharacterIndex(text, node));
 }
 
 function hasSpaces(text, index, opts) {
@@ -293,7 +309,8 @@ function setLocEnd(node, index) {
 
 const PRECEDENCE = {};
 [
-  ["||"],
+  ["|>"],
+  ["||", "??"],
   ["&&"],
   ["|"],
   ["^"],
@@ -475,6 +492,19 @@ function getAlignmentSize(value, tabWidth, startIndex) {
   return size;
 }
 
+function getIndentSize(value, tabWidth) {
+  const lastNewlineIndex = value.lastIndexOf("\n");
+  if (lastNewlineIndex === -1) {
+    return 0;
+  }
+
+  return getAlignmentSize(
+    // All the leading whitespaces
+    value.slice(lastNewlineIndex + 1).match(/^[ \t]*/)[0],
+    tabWidth
+  );
+}
+
 function printString(raw, options, isDirectiveLiteral) {
   // `rawContent` is the string exactly like it appeared in the input source
   // code, without its enclosing quotes.
@@ -526,7 +556,15 @@ function printString(raw, options, isDirectiveLiteral) {
   // is enclosed with `enclosingQuote`, but it isn't. The string could contain
   // unnecessary escapes (such as in `"\'"`). Always using `makeString` makes
   // sure that we consistently output the minimum amount of escaped quotes.
-  return makeString(rawContent, enclosingQuote, options.parser !== "postcss");
+  return makeString(
+    rawContent,
+    enclosingQuote,
+    !(
+      options.parser === "css" ||
+      options.parser === "less" ||
+      options.parser === "scss"
+    )
+  );
 }
 
 function makeString(rawContent, enclosingQuote, unescapeUnnecessaryEscapes) {
@@ -559,7 +597,7 @@ function makeString(rawContent, enclosingQuote, unescapeUnnecessaryEscapes) {
     // Unescape any unnecessarily escaped character.
     // Adapted from https://github.com/eslint/eslint/blob/de0b4ad7bd820ade41b1f606008bea68683dc11a/lib/rules/no-useless-escape.js#L27
     return unescapeUnnecessaryEscapes &&
-    /^[^\\nrvtbfux\r\n\u2028\u2029"'0-7]$/.test(escaped)
+      /^[^\\nrvtbfux\r\n\u2028\u2029"'0-7]$/.test(escaped)
       ? escaped
       : "\\" + escaped;
   });
@@ -572,11 +610,11 @@ function printNumber(rawNumber) {
     rawNumber
       .toLowerCase()
       // Remove unnecessary plus and zeroes from scientific notation.
-      .replace(/^([\d.]+e)(?:\+|(-))?0*(\d)/, "$1$2$3")
+      .replace(/^([+-]?[\d.]+e)(?:\+|(-))?0*(\d)/, "$1$2$3")
       // Remove unnecessary scientific notation (1e0).
-      .replace(/^([\d.]+)e[+-]?0+$/, "$1")
+      .replace(/^([+-]?[\d.]+)e[+-]?0+$/, "$1")
       // Make sure numbers always start with a digit.
-      .replace(/^\./, "0.")
+      .replace(/^([+-])?\./, "$10.")
       // Remove extraneous trailing decimal zeroes.
       .replace(/(\.\d+?)0+(?=e|$)/, "$1")
       // Remove trailing dot.
@@ -584,7 +622,135 @@ function printNumber(rawNumber) {
   );
 }
 
+function getMaxContinuousCount(str, target) {
+  const results = str.match(
+    new RegExp(`(${escapeStringRegexp(target)})+`, "g")
+  );
+
+  if (results === null) {
+    return 0;
+  }
+
+  return results.reduce(
+    (maxCount, result) => Math.max(maxCount, result.length / target.length),
+    0
+  );
+}
+
+function mapDoc(doc, callback) {
+  if (doc.parts) {
+    const parts = doc.parts.map(part => mapDoc(part, callback));
+    return callback(Object.assign({}, doc, { parts }));
+  }
+
+  if (doc.contents) {
+    const contents = mapDoc(doc.contents, callback);
+    return callback(Object.assign({}, doc, { contents }));
+  }
+
+  return callback(doc);
+}
+
+/**
+ * split text into whitespaces and words
+ * @param {string} text
+ * @return {Array<{ type: "whitespace", value: " " | "" } | { type: "word", value: string }>}
+ */
+function splitText(text) {
+  const KIND_NON_CJK = "non-cjk";
+  const KIND_CJK_CHARACTER = "cjk-character";
+  const KIND_CJK_PUNCTUATION = "cjk-punctuation";
+
+  const nodes = [];
+
+  text
+    .replace(
+      new RegExp(`(${cjkRegex.source})\n(${cjkRegex.source})`, "g"),
+      "$1$2"
+    )
+    // `\s` but exclude full-width whitspace (`\u3000`)
+    .split(/([^\S\u3000]+)/)
+    .forEach((token, index, tokens) => {
+      // whitespace
+      if (index % 2 === 1) {
+        nodes.push({ type: "whitespace", value: " " });
+        return;
+      }
+
+      // word separated by whitespace
+
+      if ((index === 0 || index === tokens.length - 1) && token === "") {
+        return;
+      }
+
+      token
+        .split(new RegExp(`(${cjkRegex.source})`))
+        .forEach((innerToken, innerIndex, innerTokens) => {
+          if (
+            (innerIndex === 0 || innerIndex === innerTokens.length - 1) &&
+            innerToken === ""
+          ) {
+            return;
+          }
+
+          // non-CJK word
+          if (innerIndex % 2 === 0) {
+            if (innerToken !== "") {
+              appendNode({
+                type: "word",
+                value: innerToken,
+                kind: KIND_NON_CJK
+              });
+            }
+            return;
+          }
+
+          // CJK character
+          const kind = cjkPunctuationRegex.test(innerToken)
+            ? KIND_CJK_PUNCTUATION
+            : KIND_CJK_CHARACTER;
+          appendNode({ type: "word", value: innerToken, kind });
+        });
+    });
+
+  return nodes;
+
+  function appendNode(node) {
+    const lastNode = nodes[nodes.length - 1];
+    if (lastNode && lastNode.type === "word") {
+      if (isBetween(KIND_NON_CJK, KIND_CJK_CHARACTER)) {
+        nodes.push({ type: "whitespace", value: " " });
+      } else if (
+        !isBetween(KIND_NON_CJK, KIND_CJK_PUNCTUATION) &&
+        // disallow leading/trailing full-width whitespace
+        ![lastNode.value, node.value].some(value => /\u3000/.test(value))
+      ) {
+        nodes.push({ type: "whitespace", value: "" });
+      }
+    }
+    nodes.push(node);
+
+    function isBetween(kind1, kind2) {
+      return (
+        (lastNode.kind === kind1 && node.kind === kind2) ||
+        (lastNode.kind === kind2 && node.kind === kind1)
+      );
+    }
+  }
+}
+
+function getStringWidth(text) {
+  // emojis are considered 2-char width for consistency
+  // see https://github.com/sindresorhus/string-width/issues/11
+  // for the reason why not implemented in `string-width`
+  return stringWidth(text.replace(emojiRegex, "  "));
+}
+
 module.exports = {
+  getStringWidth,
+  splitText,
+  mapDoc,
+  getMaxContinuousCount,
   getPrecedence,
   shouldFlatten,
   isBitwiseOperator,
@@ -592,10 +758,12 @@ module.exports = {
   getParentExportDeclaration,
   getPenultimate,
   getLast,
+  getNextNonSpaceNonCommentCharacterIndex,
   getNextNonSpaceNonCommentCharacter,
   skipWhitespace,
   skipSpaces,
   skipNewline,
+  isNextLineEmptyAfterIndex,
   isNextLineEmpty,
   isPreviousLineEmpty,
   hasNewline,
@@ -610,6 +778,7 @@ module.exports = {
   isBlockComment,
   hasClosureCompilerTypeCastComment,
   getAlignmentSize,
+  getIndentSize,
   printString,
   printNumber
 };

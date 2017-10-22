@@ -10,9 +10,16 @@ self.Buffer = {
 };
 // eslint-disable-next-line
 fs = module$1 = module = path = os = crypto = {};
-self.process = { argv: [], env: { PRETTIER_DEBUG: true } };
+// eslint-disable-next-line no-undef
+os.homedir = function() {
+  return "/home/prettier";
+};
+self.process = { argv: [], env: { PRETTIER_DEBUG: true }, version: "v8.5.0" };
 self.assert = { ok: function() {}, strictEqual: function() {} };
 self.require = function require(path) {
+  if (path === "stream") {
+    return { PassThrough() {} };
+  }
   return self[path.replace(/.+-/, "")];
 };
 
@@ -27,20 +34,29 @@ self.onmessage = function(message) {
 
   delete options.ast;
   delete options.doc;
+  delete options.output2;
 
   var formatted = formatCode(message.data.text, options);
   var doc;
   var ast;
+  var formatted2;
 
   if (message.data.ast) {
+    var actualAst;
+    var errored = false;
     try {
-      ast = JSON.stringify(
-        prettier.__debug.parse(message.data.text, options),
-        null,
-        2
-      );
+      actualAst = prettier.__debug.parse(message.data.text, options);
+      ast = JSON.stringify(actualAst);
     } catch (e) {
-      ast = e.toString();
+      errored = true;
+      ast = String(e);
+    }
+    if (!errored) {
+      try {
+        ast = formatCode(ast, { parser: "json" });
+      } catch (e) {
+        ast = JSON.stringify(actualAst, null, 2);
+      }
     }
   }
 
@@ -52,11 +68,21 @@ self.onmessage = function(message) {
         { parser: "babylon" }
       );
     } catch (e) {
-      doc = e.toString();
+      doc = String(e);
     }
   }
 
-  self.postMessage({ formatted: formatted, doc: doc, ast: ast });
+  if (message.data.formatted2) {
+    formatted2 = formatCode(formatted, options);
+  }
+
+  self.postMessage({
+    formatted: formatted,
+    doc: doc,
+    ast: ast,
+    formatted2: formatted2,
+    version: prettier.version
+  });
 };
 
 function formatCode(text, options) {
@@ -70,16 +96,21 @@ function formatCode(text, options) {
       lazyLoadParser(e.parser);
       return formatCode(text, options);
     }
-    return e.toString();
+    return String(e);
   }
 }
 
 function lazyLoadParser(parser) {
-  var script =
-    parser === "json" ? "parser-babylon.js" : "parser-" + parser + ".js";
+  var actualParser =
+    parser === "json"
+      ? "babylon"
+      : parser === "css" || parser === "less" || parser === "scss"
+        ? "postcss"
+        : parser;
+  var script = "parser-" + actualParser + ".js";
 
-  if (!parsersLoaded[parser]) {
+  if (!parsersLoaded[actualParser]) {
     importScripts("lib/" + script);
-    parsersLoaded[parser] = true;
+    parsersLoaded[actualParser] = true;
   }
 }

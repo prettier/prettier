@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`indented.md 1`] = `
+- 123
+- 456
+- 789
+  <!-- prettier-ignore -->
+  - This is a long long
+    long long long long
+    long long paragraph.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* 123
+* 456
+* 789
+  <!-- prettier-ignore -->
+  - This is a long long
+    long long long long
+    long long paragraph.
+
+`;
+
+exports[`simple.md 1`] = `
+<!-- prettier-ignore -->
+This is a long long long long long long long long long long long long long long long paragraph.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<!-- prettier-ignore -->
+This is a long long long long long long long long long long long long long long long paragraph.
+
+`;

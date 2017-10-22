@@ -17,6 +17,7 @@ const removeLines = docUtils.removeLines;
 function genericPrint(path, options, print) {
   const n = path.getValue();
 
+  /* istanbul ignore if */
   if (!n) {
     return "";
   }
@@ -80,7 +81,7 @@ function genericPrint(path, options, print) {
 
       return concat([
         n.raws.before.replace(/[\s;]/g, ""),
-        n.prop,
+        maybeToLowerCase(n.prop),
         ":",
         isValueExtend ? "" : " ",
         isComposed
@@ -103,10 +104,24 @@ function genericPrint(path, options, print) {
       const hasParams =
         n.params &&
         !(n.params.type === "media-query-list" && n.params.value === "");
+      const isDetachedRulesetCall =
+        hasParams &&
+        n.params.type === "media-query-list" &&
+        /^\(\s*\)$/.test(n.params.value);
       return concat([
         "@",
-        n.name,
-        hasParams ? concat([" ", path.call(print, "params")]) : "",
+        // If a Less file ends up being parsed with the SCSS parser, Less
+        // variable declarations will be parsed as atrules with names ending
+        // with a colon, so keep the original case then.
+        isDetachedRulesetCall || n.name.endsWith(":")
+          ? n.name
+          : maybeToLowerCase(n.name),
+        hasParams
+          ? concat([
+              isDetachedRulesetCall ? "" : " ",
+              path.call(print, "params")
+            ])
+          : "",
         n.nodes
           ? concat([
               " {",
@@ -125,7 +140,7 @@ function genericPrint(path, options, print) {
     case "css-import": {
       return concat([
         "@",
-        n.name,
+        maybeToLowerCase(n.name),
         " ",
         n.directives ? concat([n.directives, " "]) : "",
         adjustStrings(n.importPath, options),
@@ -164,7 +179,7 @@ function genericPrint(path, options, print) {
       ) {
         return n.value;
       }
-      return adjustStrings(n.value, options);
+      return adjustNumbers(adjustStrings(n.value, options));
     }
     case "media-feature-expression": {
       if (!n.nodes) {
@@ -173,7 +188,9 @@ function genericPrint(path, options, print) {
       return concat(["(", concat(path.map(print, "nodes")), ")"]);
     }
     case "media-feature": {
-      return adjustStrings(n.value.replace(/ +/g, " "), options);
+      return maybeToLowerCase(
+        adjustStrings(n.value.replace(/ +/g, " "), options)
+      );
     }
     case "media-colon": {
       return concat([n.value, " "]);
@@ -182,15 +199,19 @@ function genericPrint(path, options, print) {
       return adjustNumbers(adjustStrings(n.value, options));
     }
     case "media-keyword": {
-      return n.value;
+      return adjustStrings(n.value, options);
     }
     case "media-url": {
-      return n.value;
+      return adjustStrings(n.value, options);
     }
     case "media-unknown": {
       return adjustStrings(n.value, options);
     }
     // postcss-selector-parser
+    case "selector-root-invalid": {
+      // This is likely a SCSS nested property: `background: { color: red; }`.
+      return adjustNumbers(adjustStrings(maybeToLowerCase(n.value), options));
+    }
     case "selector-root": {
       return group(join(concat([",", hardline]), path.map(print, "nodes")));
     }
@@ -201,18 +222,23 @@ function genericPrint(path, options, print) {
       return adjustStrings(n.value, options);
     }
     case "selector-tag": {
-      return n.value;
+      const parent = path.getParentNode();
+      const index = parent.nodes.indexOf(n);
+      const previous = index > 0 ? parent.nodes[index - 1] : null;
+      return previous && previous.type === "selector-nesting"
+        ? n.value
+        : maybeToLowerCase(n.value);
     }
     case "selector-id": {
       return concat(["#", n.value]);
     }
     case "selector-class": {
-      return concat([".", n.value]);
+      return concat([".", adjustNumbers(adjustStrings(n.value, options))]);
     }
     case "selector-attribute": {
       return concat([
         "[",
-        n.attribute,
+        maybeToLowerCase(n.attribute),
         n.operator ? n.operator : "",
         n.value
           ? quoteAttributeValue(adjustStrings(n.value, options), options)
@@ -230,7 +256,10 @@ function genericPrint(path, options, print) {
             : line;
         return concat([leading, n.value, " "]);
       }
-      return n.value.trim() || line;
+      const leading = n.value.trim().startsWith("(") ? line : "";
+      const value =
+        adjustNumbers(adjustStrings(n.value.trim(), options)) || line;
+      return concat([leading, value]);
     }
     case "selector-universal": {
       return n.value;
@@ -240,7 +269,7 @@ function genericPrint(path, options, print) {
     }
     case "selector-pseudo": {
       return concat([
-        n.value,
+        maybeToLowerCase(n.value),
         n.nodes && n.nodes.length > 0
           ? concat(["(", join(", ", path.map(print, "nodes")), ")"])
           : ""
@@ -310,13 +339,22 @@ function genericPrint(path, options, print) {
         return group(indent(fill(res)));
       }
 
+      const declaration = path.getParentNode(2);
+      const isMap =
+        declaration &&
+        declaration.type === "css-decl" &&
+        declaration.prop.startsWith("$");
+
       return group(
         concat([
           n.open ? path.call(print, "open") : "",
           indent(
             concat([
               softline,
-              join(concat([",", line]), path.map(print, "groups"))
+              join(
+                concat([",", isMap ? hardline : line]),
+                path.map(print, "groups")
+              )
             ])
           ),
           softline,
@@ -337,7 +375,7 @@ function genericPrint(path, options, print) {
       return n.value;
     }
     case "value-number": {
-      return concat([printNumber(n.value), n.unit]);
+      return concat([printNumber(n.value), maybeToLowerCase(n.unit)]);
     }
     case "value-operator": {
       return n.value;
@@ -362,6 +400,7 @@ function genericPrint(path, options, print) {
     }
 
     default:
+      /* istanbul ignore next */
       throw new Error("unknown postcss type: " + JSON.stringify(n.type));
   }
 }
@@ -420,8 +459,14 @@ function printValue(value) {
 
 const STRING_REGEX = /(['"])(?:(?!\1)[^\\]|\\[\s\S])*\1/g;
 const NUMBER_REGEX = /(?:\d*\.\d+|\d+\.?)(?:[eE][+-]?\d+)?/g;
-const STRING_OR_NUMBER_REGEX = RegExp(
-  `${STRING_REGEX.source}|(${NUMBER_REGEX.source})`,
+const STANDARD_UNIT_REGEX = /[a-zA-Z]+/g;
+const WORD_PART_REGEX = /[$@]?[a-zA-Z_\u0080-\uFFFF][\w\-\u0080-\uFFFF]*/g;
+const ADJUST_NUMBERS_REGEX = RegExp(
+  STRING_REGEX.source +
+    `|` +
+    `(${WORD_PART_REGEX.source})?` +
+    `(${NUMBER_REGEX.source})` +
+    `(${STANDARD_UNIT_REGEX.source})?`,
   "g"
 );
 
@@ -438,8 +483,11 @@ function quoteAttributeValue(value, options) {
 
 function adjustNumbers(value) {
   return value.replace(
-    STRING_OR_NUMBER_REGEX,
-    (match, quote, number) => (number ? printNumber(number) : match)
+    ADJUST_NUMBERS_REGEX,
+    (match, quote, wordPart, number, unit) =>
+      !wordPart && number
+        ? (wordPart || "") + printNumber(number) + maybeToLowerCase(unit || "")
+        : match
   );
 }
 
@@ -450,6 +498,16 @@ function printNumber(rawNumber) {
       // Remove trailing `.0`.
       .replace(/\.0(?=$|e)/, "")
   );
+}
+
+function maybeToLowerCase(value) {
+  return value.includes("$") ||
+    value.includes("@") ||
+    value.includes("#") ||
+    value.startsWith("%") ||
+    value.startsWith("--")
+    ? value
+    : value.toLowerCase();
 }
 
 module.exports = genericPrint;

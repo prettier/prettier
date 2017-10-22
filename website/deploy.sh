@@ -1,6 +1,11 @@
 #!/bin/bash
 
-if [ ! $GITHUB_TOKEN ]; then
+if [ "$NODE_ENV" = production ]; then
+  echo "info: skipping deploy in production builds"
+  exit 0
+fi
+
+if [ ! "$GITHUB_TOKEN" ]; then
   >&2 echo "error: GITHUB_TOKEN not present in env"
   exit 1
 fi

@@ -431,6 +431,7 @@ function genericPrint(path, options, print) {
     }
 
     default:
+      /* istanbul ignore next */
       throw new Error("unknown graphql type: " + JSON.stringify(n.kind));
   }
 }
