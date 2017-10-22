@@ -43,3 +43,16 @@ Go to *File | Settings | Tools | File Watchers* for Windows and Linux or *WebSto
 * **Immediate file synchronization**: Uncheck to reformat on Save only (otherwise code will jump around while you type).
 
 ![Example](./prettier-file-wacther.png)
+
+### Multiple file types  ###
+
+If you woud like to use one watcher for multiple file types.
+Or if you like more control, make these changes to the settings above.
+
+* **File Type**: Any
+* **Arguments** set `--write $FileDir$/*{.js,.ts,.tsx}`
+
+> I want prettier to run for any Javascript, Typesript or tsx file.
+
+![Example](./prettier-file-watcher-multi-file.jpg)
+
