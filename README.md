@@ -398,7 +398,7 @@ and add this config to your `package.json`:
   "lint-staged": {
     "*.{js,json,css}": [
       "prettier --write",
-      "git add"
+      "git add" // Warning: This breaks staging specific lines. See footnote below.
     ]
   }
 }
