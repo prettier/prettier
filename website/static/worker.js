@@ -101,7 +101,7 @@ function formatCode(text, options) {
     // Multiparser may throw if we haven't loaded the right parser
     // Load it lazily and retry!
     if (e.parser && !parserIsLoaded(e.parser)) {
-      lazyLoadParser(e.parser, options.version);
+      lazyLoadParser(e.parser);
       return formatCode(text, options);
     }
     return String(e);
