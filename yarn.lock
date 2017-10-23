@@ -800,9 +800,9 @@ babel-types@^6.26.0:
     lodash "^4.17.4"
     to-fast-properties "^1.0.3"
 
-babylon@7.0.0-beta.23:
-  version "7.0.0-beta.23"
-  resolved "https://registry.yarnpkg.com/babylon/-/babylon-7.0.0-beta.23.tgz#c7e8e7a389b6f6c6212ceac1a3905c7e73d7e45a"
+babylon@7.0.0-beta.28:
+  version "7.0.0-beta.28"
+  resolved "https://registry.yarnpkg.com/babylon/-/babylon-7.0.0-beta.28.tgz#14521f26a19918db2b5f4aca89e62e02e0644be7"
 
 babylon@^6.13.0, babylon@^6.17.2:
   version "6.17.3"
@@ -1059,6 +1059,10 @@ cipher-base@^1.0.0, cipher-base@^1.0.1, cipher-base@^1.0.3:
 circular-json@^0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/circular-json/-/circular-json-0.3.1.tgz#be8b36aefccde8b3ca7aa2d6afc07a37242c0d2d"
+
+cjk-regex@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/cjk-regex/-/cjk-regex-1.0.1.tgz#9bee3087e5e4e943549ace766b5d95a9b700dd41"
 
 cli-cursor@^2.1.0:
   version "2.1.0"
@@ -1394,6 +1398,10 @@ elliptic@^6.0.0:
     inherits "^2.0.1"
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.0"
+
+emoji-regex@6.5.1:
+  version "6.5.1"
+  resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-6.5.1.tgz#9baea929b155565c11ea41c6626eaa65cef992c2"
 
 emojis-list@^2.0.0:
   version "2.1.0"

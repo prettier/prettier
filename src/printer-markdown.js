@@ -6,6 +6,7 @@ const concat = docBuilders.concat;
 const join = docBuilders.join;
 const line = docBuilders.line;
 const hardline = docBuilders.hardline;
+const softline = docBuilders.softline;
 const fill = docBuilders.fill;
 const align = docBuilders.align;
 const docPrinter = require("./doc-printer");
@@ -42,11 +43,17 @@ function genericPrint(path, options, print) {
 
   if (shouldRemainTheSameContent(path)) {
     return concat(
-      options.originalText
-        .slice(node.position.start.offset, node.position.end.offset)
-        .split(/(\s+)/g)
-        .map((text, index) => (index % 2 === 0 ? text : line))
-        .filter(doc => doc !== "")
+      util
+        .splitText(
+          options.originalText.slice(
+            node.position.start.offset,
+            node.position.end.offset
+          )
+        )
+        .map(
+          node =>
+            node.type === "word" ? node.value : node.value === "" ? "" : line
+        )
     );
   }
 
@@ -68,7 +75,9 @@ function genericPrint(path, options, print) {
             .replace(/(^|[^\\])\*/g, "$1\\*") // escape all unescaped `*` and `_`
             .replace(/\b(^|[^\\])_\b/g, "$1\\_"); // `1_2_3` is not considered emphasis
     case "whitespace":
-      return getAncestorNode(path, SINGLE_LINE_NODE_TYPES) ? " " : line;
+      return getAncestorNode(path, SINGLE_LINE_NODE_TYPES)
+        ? node.value === "" ? "" : " "
+        : node.value === "" ? softline : line;
     case "emphasis": {
       const parentNode = path.getParentNode();
       const index = parentNode.children.indexOf(node);
@@ -104,9 +113,11 @@ function genericPrint(path, options, print) {
       ]);
     }
     case "link":
-      return options.originalText[node.position.start.offset] === "<"
-        ? concat(["<", node.url, ">"])
-        : concat([
+      switch (options.originalText[node.position.start.offset]) {
+        case "<":
+          return concat(["<", node.url, ">"]);
+        case "[":
+          return concat([
             "[",
             printChildren(path, options, print),
             "](",
@@ -114,6 +125,12 @@ function genericPrint(path, options, print) {
             node.title ? ` ${printTitle(node.title)}` : "",
             ")"
           ]);
+        default:
+          return options.originalText.slice(
+            node.position.start.offset,
+            node.position.end.offset
+          );
+      }
     case "image":
       return concat([
         "![",
@@ -163,16 +180,29 @@ function genericPrint(path, options, print) {
         : node.value;
     }
     case "list": {
-      const nthSiblingIndex = getNthSiblingIndex(
-        path,
-        siblingNode => siblingNode.ordered === node.ordered
+      const nthSiblingIndex = getNthListSiblingIndex(
+        node,
+        path.getParentNode()
       );
+
+      const isGitDiffFriendlyOrderedList =
+        node.ordered &&
+        node.children.length > 1 &&
+        /^\s*1(\.|\))/.test(
+          options.originalText.slice(
+            node.children[1].position.start.offset,
+            node.children[1].position.end.offset
+          )
+        );
+
       return printChildren(path, options, print, {
         processor: (childPath, index) => {
           const prefix = node.ordered
-            ? (index === 0 ? node.start : 1) +
+            ? (index === 0
+                ? node.start
+                : isGitDiffFriendlyOrderedList ? 1 : node.start + index) +
               (nthSiblingIndex % 2 === 0 ? ". " : ") ")
-            : nthSiblingIndex % 2 === 0 ? "- " : "+ ";
+            : nthSiblingIndex % 2 === 0 ? "* " : "- ";
           return concat([prefix, align(prefix.length, childPath.call(print))]);
         }
       });
@@ -185,8 +215,17 @@ function genericPrint(path, options, print) {
         align(prefix.length, printChildren(path, options, print))
       ]);
     }
-    case "thematicBreak":
-      return getAncestorNode(path, "list") ? "* * *" : "- - -";
+    case "thematicBreak": {
+      const counter = getAncestorCounter(path, "list");
+      if (counter === -1) {
+        return "- - -";
+      }
+      const nthSiblingIndex = getNthListSiblingIndex(
+        path.getParentNode(counter),
+        path.getParentNode(counter + 1)
+      );
+      return nthSiblingIndex % 2 === 0 ? "- - -" : "* * *";
+    }
     case "linkReference":
       return concat([
         "[",
@@ -239,11 +278,16 @@ function genericPrint(path, options, print) {
   }
 }
 
-function getNthSiblingIndex(path, condition) {
-  condition = condition || (() => true);
+function getNthListSiblingIndex(node, parentNode) {
+  return getNthSiblingIndex(
+    node,
+    parentNode,
+    siblingNode => siblingNode.ordered === node.ordered
+  );
+}
 
-  const node = path.getValue();
-  const parentNode = path.getParentNode();
+function getNthSiblingIndex(node, parentNode, condition) {
+  condition = condition || (() => true);
 
   let index = -1;
 
@@ -260,19 +304,24 @@ function getNthSiblingIndex(path, condition) {
   }
 }
 
-function getAncestorNode(path, typeOrTypes) {
+function getAncestorCounter(path, typeOrTypes) {
   const types = [].concat(typeOrTypes);
 
-  let counter = 0;
+  let counter = -1;
   let ancestorNode;
 
-  while ((ancestorNode = path.getParentNode(counter++))) {
+  while ((ancestorNode = path.getParentNode(++counter))) {
     if (types.indexOf(ancestorNode.type) !== -1) {
-      return ancestorNode;
+      return counter;
     }
   }
 
-  return null;
+  return -1;
+}
+
+function getAncestorNode(path, typeOrTypes) {
+  const counter = getAncestorCounter(path, typeOrTypes);
+  return counter === -1 ? null : path.getParentNode(counter);
 }
 
 function printTable(path, options, print) {
@@ -294,7 +343,7 @@ function printTable(path, options, print) {
   const columnMaxWidths = contents.reduce(
     (currentWidths, rowContents) =>
       currentWidths.map((width, columnIndex) =>
-        Math.max(width, rowContents[columnIndex].length)
+        Math.max(width, util.getStringWidth(rowContents[columnIndex]))
       ),
     contents[0].map(() => 3) // minimum width = 3 (---, :--, :-:, --:)
   );
@@ -348,15 +397,15 @@ function printTable(path, options, print) {
   }
 
   function alignLeft(text, width) {
-    return concat([text, " ".repeat(width - text.length)]);
+    return concat([text, " ".repeat(width - util.getStringWidth(text))]);
   }
 
   function alignRight(text, width) {
-    return concat([" ".repeat(width - text.length), text]);
+    return concat([" ".repeat(width - util.getStringWidth(text)), text]);
   }
 
   function alignCenter(text, width) {
-    const spaces = width - text.length;
+    const spaces = width - util.getStringWidth(text);
     const left = Math.floor(spaces / 2);
     const right = spaces - left;
     return concat([" ".repeat(left), text, " ".repeat(right)]);

@@ -74,7 +74,8 @@ exports[`logical.js 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 (veryLongVeryLongVeryLong || e).prop;
 
-(veryLongVeryLongVeryLong ||
+(
+  veryLongVeryLongVeryLong ||
   anotherVeryLongVeryLongVeryLong ||
   veryVeryVeryLongError
 ).prop;

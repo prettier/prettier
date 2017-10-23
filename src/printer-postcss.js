@@ -339,13 +339,22 @@ function genericPrint(path, options, print) {
         return group(indent(fill(res)));
       }
 
+      const declaration = path.getParentNode(2);
+      const isMap =
+        declaration &&
+        declaration.type === "css-decl" &&
+        declaration.prop.startsWith("$");
+
       return group(
         concat([
           n.open ? path.call(print, "open") : "",
           indent(
             concat([
               softline,
-              join(concat([",", line]), path.map(print, "groups"))
+              join(
+                concat([",", isMap ? hardline : line]),
+                path.map(print, "groups")
+              )
             ])
           ),
           softline,

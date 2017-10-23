@@ -430,10 +430,13 @@ function isStyledComponents(path) {
       return (
         // styled(Component)``
         isStyledIdentifier(tag.callee) ||
-        // styled.foo.attr({})``
         (tag.callee.type === "MemberExpression" &&
-          tag.callee.object.type === "MemberExpression" &&
-          isStyledIdentifier(tag.callee.object.object))
+          // styled.foo.attr({})``
+          ((tag.callee.object.type === "MemberExpression" &&
+            isStyledIdentifier(tag.callee.object.object)) ||
+            // styled(Component).attr({})``
+            (tag.callee.object.type === "CallExpression" &&
+              isStyledIdentifier(tag.callee.object.callee))))
       );
 
     case "Identifier":

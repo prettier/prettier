@@ -27,6 +27,9 @@ styled(ExistingComponent)\`
 
 styled.button.attr({})\`
 border : rebeccapurple\`;
+
+styled(ExistingComponent).attr({})\`
+border : rebeccapurple\`;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const ListItem = styled.li\`\`;
 
@@ -54,6 +57,10 @@ styled(ExistingComponent)\`
 \`;
 
 styled.button.attr({})\`
+  border: rebeccapurple;
+\`;
+
+styled(ExistingComponent).attr({})\`
   border: rebeccapurple;
 \`;
 

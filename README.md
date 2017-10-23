@@ -28,51 +28,59 @@ post](http://jlongster.com/A-Prettier-Formatter))
 
 <!-- toc -->
 
-* [What does Prettier do?](#what-does-prettier-do)
-* [Why Prettier?](#why-prettier)
-  + [Building and enforcing a style guide](#building-and-enforcing-a-style-guide)
-  + [Helping Newcomers](#helping-newcomers)
-  + [Writing code](#writing-code)
-  + [Easy to adopt](#easy-to-adopt)
-  + [Clean up an existing codebase](#clean-up-an-existing-codebase)
-  + [Ride the hype train](#ride-the-hype-train)
-* [How does it compare to ESLint (or TSLint, stylelint...)?](#how-does-it-compare-to-eslint-or-tslint-stylelint)
-* [Usage](#usage)
-  + [CLI](#cli)
-  + [ESLint](#eslint)
-  + [Pre-commit Hook](#pre-commit-hook)
-  + [API](#api)
-  + [Excluding code from formatting](#excluding-code-from-formatting)
-* [Options](#options)
-  + [Print Width](#print-width)
-  + [Tab Width](#tab-width)
-  + [Tabs](#tabs)
-  + [Semicolons](#semicolons)
-  + [Quotes](#quotes)
-  + [Trailing Commas](#trailing-commas)
-  + [Bracket Spacing](#bracket-spacing)
-  + [JSX Brackets](#jsx-brackets)
-  + [Range](#range)
-  + [Parser](#parser)
-  + [Filepath](#filepath)
-  + [Require pragma](#require-pragma)
-* [Configuration File](#configuration-file)
-  + [Basic Configuration](#basic-configuration)
-  + [Configuration Overrides](#configuration-overrides)
-  + [Configuration Schema](#configuration-schema)
-* [Editor Integration](#editor-integration)
-  + [Atom](#atom)
-  + [Emacs](#emacs)
-  + [Vim](#vim)
-  + [Visual Studio Code](#visual-studio-code)
-  + [Visual Studio](#visual-studio)
-  + [Sublime Text](#sublime-text)
-  + [JetBrains WebStorm, PHPStorm, PyCharm...](#jetbrains-webstorm-phpstorm-pycharm)
-* [Language Support](#language-support)
-* [Related Projects](#related-projects)
-* [Technical Details](#technical-details)
-* [Badge](#badge)
-* [Contributing](#contributing)
+- [What does Prettier do?](#what-does-prettier-do)
+- [Why Prettier?](#why-prettier)
+  - [Building and enforcing a style
+    guide](#building-and-enforcing-a-style-guide)
+  - [Helping Newcomers](#helping-newcomers)
+  - [Writing code](#writing-code)
+  - [Easy to adopt](#easy-to-adopt)
+  - [Clean up an existing codebase](#clean-up-an-existing-codebase)
+  - [Ride the hype train](#ride-the-hype-train)
+- [How does it compare to ESLint (or TSLint,
+  stylelint...)?](#how-does-it-compare-to-eslint-or-tslint-stylelint)
+- [Usage](#usage)
+  - [CLI](#cli)
+  - [ESLint](#eslint)
+  - [Pre-commit Hook](#pre-commit-hook)
+  - [API](#api)
+  - [Excluding code from formatting](#excluding-code-from-formatting)
+- [Options](#options)
+  - [Print Width](#print-width)
+  - [Tab Width](#tab-width)
+  - [Tabs](#tabs)
+  - [Semicolons](#semicolons)
+  - [Quotes](#quotes)
+  - [Trailing Commas](#trailing-commas)
+  - [Bracket Spacing](#bracket-spacing)
+  - [JSX Brackets](#jsx-brackets)
+  - [Range](#range)
+  - [Parser](#parser)
+  - [Filepath](#filepath)
+  - [Require pragma](#require-pragma)
+- [Configuration File](#configuration-file)
+  - [Basic Configuration](#basic-configuration)
+  - [Configuration Overrides](#configuration-overrides)
+  - [Configuration Schema](#configuration-schema)
+- [Editor Integration](#editor-integration)
+  - [Atom](#atom)
+  - [Emacs](#emacs)
+  - [Vim](#vim)
+  - [Visual Studio Code](#visual-studio-code)
+  - [Visual Studio](#visual-studio)
+  - [Sublime Text](#sublime-text)
+  - [JetBrains WebStorm, PHPStorm,
+    PyCharm...](#jetbrains-webstorm-phpstorm-pycharm)
+- [Language Support](#language-support)
+- [Related Projects](#related-projects)
+  - [ESLint Integrations](#eslint-integrations)
+  - [TSLint Integrations](#tslint-integrations)
+  - [stylelint Integrations](#stylelint-integrations)
+  - [Forks](#forks)
+  - [Misc](#misc)
+- [Technical Details](#technical-details)
+- [Badge](#badge)
+- [Contributing](#contributing)
 
 <!-- tocstop -->
 
@@ -569,10 +577,12 @@ prettier.formatWithCursor(" 1", { cursorOffset: 2 });
 
 #### `prettier.resolveConfig(filePath [, options])`
 
-`resolveConfig` can be used to resolve configuration for a given source file.
-The function requires an input file path as an argument, you might want to pass
-`process.cwd()` for searching from the current working directory. A promise is
-returned which will resolve to:
+`resolveConfig` can be used to resolve configuration for a given source file,
+passing its path as the first argument. The config search will start at the file
+path and continue to search up the directory (you can use `process.cwd()` to
+start searching from the current directory). Or you can pass directly the path
+of the config file as `options.config` if you don't wish to search for it. A
+promise is returned which will resolve to:
 
 - An options object, providing a [config file](#configuration-file) was found.
 - `null`, if no file was found.
@@ -1012,6 +1022,8 @@ ability to have leading `|` for type definitions which prettier outputs.
 
 ## Related Projects
 
+### ESLint Integrations
+
 - [`eslint-plugin-prettier`](https://github.com/prettier/eslint-plugin-prettier)
   plugs Prettier into your ESLint workflow
 - [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier)
@@ -1019,14 +1031,35 @@ ability to have leading `|` for type definitions which prettier outputs.
   Prettier
 - [`prettier-eslint`](https://github.com/prettier/prettier-eslint) passes
   `prettier` output to `eslint --fix`
-- [`prettier-stylelint`](https://github.com/hugomrdias/prettier-stylelint)
-  passes `prettier` output to `stylelint --fix`
 - [`prettier-standard`](https://github.com/sheerun/prettier-standard) uses
   `prettier` and `prettier-eslint` to format code with standard rules
 - [`prettier-standard-formatter`](https://github.com/dtinth/prettier-standard-formatter)
   passes `prettier` output to `standard --fix`
+
+### TSLint Integrations
+
+- [`tslint-plugin-prettier`](https://github.com/ikatyang/tslint-plugin-prettier)
+  runs Prettier as a TSLint rule and reports differences as individual TSLint
+  issues
+- [`tslint-config-prettier`](https://github.com/alexjoverm/tslint-config-prettier)
+  use TSLint with Prettier without any conflict
+- [`prettier-tslint`](https://github.com/azz/prettier-tslint) passes `prettier`
+  output to `tslint --fix`
+
+### stylelint Integrations
+
+- [`prettier-stylelint`](https://github.com/hugomrdias/prettier-stylelint)
+  passes `prettier` output to `stylelint --fix`
+- [`stylelint-config-prettier`](https://github.com/shannonmoeller/stylelint-config-prettier)
+  turns off all rules that are unnecessary or might conflict with Prettier.
+
+### Forks
+
 - [`prettier-miscellaneous`](https://github.com/arijs/prettier-miscellaneous)
   `prettier` with a few minor extra options
+
+### Misc
+
 - [`neutrino-preset-prettier`](https://github.com/SpencerCDixon/neutrino-preset-prettier)
   allows you to use Prettier as a Neutrino preset
 - [`prettier_d`](https://github.com/josephfrazier/prettier_d.js) runs Prettier
@@ -1044,11 +1077,6 @@ ability to have leading `|` for type definitions which prettier outputs.
   [codeblocks](https://help.github.com/articles/creating-and-highlighting-code-blocks/)
   in Markdown files via [Markdown
   Magic](https://github.com/DavidWells/markdown-magic)
-- [`tslint-plugin-prettier`](https://github.com/ikatyang/tslint-plugin-prettier)
-  runs Prettier as a TSLint rule and reports differences as individual TSLint
-  issues
-- [`tslint-config-prettier`](https://github.com/alexjoverm/tslint-config-prettier)
-  use TSLint with Prettier without any conflict
 
 ## Technical Details
 
