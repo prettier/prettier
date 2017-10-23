@@ -100,7 +100,7 @@ function formatCode(text, options) {
   } catch (e) {
     // Multiparser may throw if we haven't loaded the right parser
     // Load it lazily and retry!
-    if (e.parser && !parsersLoaded[e.parser]) {
+    if (e.parser && !parserIsLoaded(e.parser)) {
       lazyLoadParser(e.parser, options.version);
       return formatCode(text, options);
     }
@@ -108,20 +108,25 @@ function formatCode(text, options) {
   }
 }
 
+function parserIsLoaded(parser) {
+  return !!parsersLoaded[getActualParser(parser)];
+}
+
+function getActualParser(parser) {
+  return parser === "json"
+    ? "babylon"
+    : parser === "css" || parser === "less" || parser === "scss"
+      ? "postcss"
+      : parser;
+}
+
 function lazyLoadParser(parser) {
-  var actualParser =
-    parser === "json"
-      ? "babylon"
-      : parser === "css" || parser === "less" || parser === "scss"
-        ? "postcss"
-        : parser;
-  var script = "parser-" + actualParser + ".js";
+  var actualParser = getActualParser(parser);
+  var script = "parser-" + parser + ".js";
 
-  var parserAndVersion = `${actualParser}@${formatVersion || "master"}`;
-
-  if (!parsersLoaded[parserAndVersion]) {
+  if (!parsersLoaded[actualParser]) {
     importScripts(getUrl(script));
-    parsersLoaded[parserAndVersion] = true;
+    parsersLoaded[actualParser] = true;
   }
 }
 
