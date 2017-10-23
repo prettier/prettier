@@ -89,6 +89,13 @@ onClick={() => {}}>
 
 </div>;
 
+<div
+  // comment
+>
+  {foo}
+</div>;
+
+
 <Wrapper>
   {}
   <Component />

@@ -1774,6 +1774,14 @@ function genericPrintNoParens(path, options, print, args) {
         );
       }
 
+      const bracketSameLine =
+        options.jsxBracketSameLine &&
+        !(
+          n.name &&
+          ((n.name.trailingComments && n.name.trailingComments.length) ||
+            (n.name.comments && n.name.comments.length))
+        );
+
       return group(
         concat([
           "<",
@@ -1784,9 +1792,9 @@ function genericPrintNoParens(path, options, print, args) {
                 path.map(attr => concat([line, print(attr)]), "attributes")
               )
             ),
-            n.selfClosing ? line : options.jsxBracketSameLine ? ">" : softline
+            n.selfClosing ? line : bracketSameLine ? ">" : softline
           ]),
-          n.selfClosing ? "/>" : options.jsxBracketSameLine ? "" : ">"
+          n.selfClosing ? "/>" : bracketSameLine ? "" : ">"
         ])
       );
     }
