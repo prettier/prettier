@@ -878,9 +878,9 @@ The options to the configuration file are the same the [API options](#options).
 JSON:
 
 ```json
-{
 <!-- prettier-ignore -->
 // .prettierrc
+{
   "printWidth": 100,
   "parser": "flow"
 }
