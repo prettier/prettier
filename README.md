@@ -879,7 +879,8 @@ JSON:
 
 ```json
 {
-  // .prettierrc
+<!-- prettier-ignore -->
+// .prettierrc
   "printWidth": 100,
   "parser": "flow"
 }

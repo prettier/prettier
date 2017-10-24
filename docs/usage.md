@@ -234,6 +234,7 @@ abstract syntax tree from formatting.
 
 For example:
 
+<!-- prettier-ignore -->
 ```js
 matrix(
   1, 0, 0,
