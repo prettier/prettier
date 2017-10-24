@@ -740,6 +740,10 @@ function splitText(text) {
 }
 
 function getStringWidth(text) {
+  if (!text) {
+    return 0;
+  }
+
   // emojis are considered 2-char width for consistency
   // see https://github.com/sindresorhus/string-width/issues/11
   // for the reason why not implemented in `string-width`
