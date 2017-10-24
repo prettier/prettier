@@ -639,8 +639,8 @@ abstract syntax tree from formatting.
 
 For example:
 
-```js
 <--! prettier-ignore -->
+```js
 matrix(
   1, 0, 0,
   0, 1, 0,
@@ -882,8 +882,8 @@ The options to the configuration file are the same the [API options](#options).
 
 JSON:
 
-```json
 <!-- prettier-ignore -->
+```json
 // .prettierrc
 {
   "printWidth": 100,
