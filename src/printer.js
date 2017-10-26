@@ -1731,8 +1731,17 @@ function genericPrintNoParens(path, options, print, args) {
             isBinaryish(n.expression)));
 
       if (shouldInline) {
+        const printExpression =
+          n.expression.type !== "ArrowFunctionExpression"
+            ? print
+            : p => print(p, { expandLastArg: true });
         return group(
-          concat(["{", path.call(print, "expression"), lineSuffixBoundary, "}"])
+          concat([
+            "{",
+            path.call(printExpression, "expression"),
+            lineSuffixBoundary,
+            "}"
+          ])
         );
       }
 
