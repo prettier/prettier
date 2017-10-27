@@ -98,87 +98,77 @@ class Index extends React.Component {
         <div className="mainContainer">
           <div
             className="productShowcaseSection lightBackground paddingTop paddingBottom"
-            style={{ textAlign: "center" }}
           >
-            <h2 style={{ margin: 0 }}>Language Support</h2>
+            <h2>Language Support</h2>
             <Container>
               <GridBlock
-                align="center"
                 contents={siteConfig.supportedLanguages.map(language => ({
                   title: language.name,
                   image: language.image,
                   imageAlign: "top",
                   content: language.variants.join("\n\n")
                 }))}
-                layout="fourColumn"
+                layout="threeColumn"
               />
             </Container>
           </div>
-
-          {/*<div
-            className="productShowcaseSection paddingBottom"
-            style={{ textAlign: "center" }}
-          >
-            <h2>Feature Callout</h2>
-            <Marked>These are features of this project</Marked>
-          </div>*/}
 
           <div className="productShowcaseSection paddingBottom">
-            <h2>Editor Integration</h2>
-            <Container>
-              <GridBlock
-                align="center"
-                contents={siteConfig.editors.map(editor => ({
-                  content: editor.content || "",
-                  image: editor.image,
-                  imageAlign: "bottom",
-                  title: editor.name
-                }))}
-                layout="fourColumn"
-              />
-            </Container>
+            <div className="productShowcaseTitleOuter">
+              <h2>Editor Integration</h2>
+              <div className="productShowcaseSmallCta">
+                <p>
+                  Developed an integration?
+                  <a
+                    href={`${siteConfig.githubUrl}/edit/master/website/editors.json`}
+                  >
+                    Add it here
+                  </a>
+                </p>
+              </div>
+            </div>
 
-            <p>Developed an integration?</p>
-            <a
-              href={`${siteConfig.githubUrl}/edit/master/website/editors.json`}
-              className="button"
-            >
-              Add it here
-            </a>
+            <div className="productShowcaseInner">
+              <Container>
+                <GridBlock
+                  contents={siteConfig.editors.map(editor => ({
+                    content: editor.content || "",
+                    image: editor.image,
+                    imageAlign: "bottom",
+                    title: editor.name
+                  }))}
+                  layout="fourColumn"
+                />
+              </Container>
+            </div>
           </div>
 
-          {/*<Container padding={["bottom", "top"]} background="dark">
-            <GridBlock
-              contents={[
-                {
-                  content:
-                    "This is another description of how this project is useful",
-                  image: "/prettier.png",
-                  imageAlign: "left",
-                  title: "Description"
-                }
-              ]}
-            />
-          </Container>*/}
-
           <div className="productShowcaseSection paddingTop paddingBottom lightBackground">
-            <h2>Who{"'"}s Using Prettier?</h2>
-            <p>
-              A few of the{" "}
-              <a href="https://www.npmjs.com/browse/depended/prettier">
-                many projects
-              </a>{" "}
-              using Prettier
-            </p>
-            <div className="logos">{showcase}</div>
-            <div className="more-users">
-              <a
-                className="button"
-                href={siteConfig.baseUrl + language + "/users/"}
-                target="_self"
-              >
-                More Prettier Users
-              </a>
+            <div className="productShowcaseTitleOuter">
+              <h2>Who{"'"}s Using Prettier?</h2>
+              <div className="productShowcaseActions">
+                <p>
+                  A few of the{" "}
+                  <a href="https://www.npmjs.com/browse/depended/prettier">
+                    many projects
+                  </a>{" "}
+                  using Prettier
+                </p>
+              </div>
+            </div>
+            <div className="productShowcaseInner">
+              <div className="logos">{showcase}</div>
+              <div className="productShowcaseFooter">
+                <div className="more-users">
+                  <a
+                    className="button"
+                    href={siteConfig.baseUrl + language + "/users/"}
+                    target="_self"
+                  >
+                    More Prettier Users
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
