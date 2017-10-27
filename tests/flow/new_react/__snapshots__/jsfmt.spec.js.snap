@@ -66,7 +66,12 @@ var FeedUFI = React.createClass({
     };
     var ignored = <UFILikeCount {...props} />;
     return (
-      <UFILikeCount className="" key="" feedback={feedback} permalink="" />
+      <UFILikeCount
+        className=""
+        key=""
+        feedback={feedback}
+        permalink=""
+      />
     );
   },
 
