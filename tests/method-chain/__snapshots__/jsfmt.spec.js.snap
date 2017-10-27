@@ -400,6 +400,10 @@ exports[`computed-merge.js 1`] = `
     .then(() => console.log('bar'))
     .catch(() => console.log('baz'));
 });
+
+window.Data[key]("foo")
+  .then(() => a)
+  .catch(() => b);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [].forEach(key => {
   data[key]("foo")
@@ -413,6 +417,10 @@ exports[`computed-merge.js 1`] = `
     .then(() => console.log("bar"))
     .catch(() => console.log("baz"));
 });
+
+window.Data[key]("foo")
+  .then(() => a)
+  .catch(() => b);
 
 `;
 
