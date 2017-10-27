@@ -1934,8 +1934,16 @@ function genericPrintNoParens(path, options, print, args) {
             tabWidth
           );
 
+          const parent = path.getParentNode(1);
+          const shouldBreak = !(
+            parent &&
+            parent.type === "NewExpression" &&
+            parent.callee.type === "Identifier" &&
+            parent.callee.name === "RegExp"
+          );
+
           const aligned = addAlignmentToDoc(
-            expressions[i],
+            shouldBreak ? expressions[i] : docUtils.removeLines(expressions[i]),
             indentSize,
             tabWidth
           );

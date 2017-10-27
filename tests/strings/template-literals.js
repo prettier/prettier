@@ -55,3 +55,5 @@ const makeBody = (store, assets, html) =>
 const Bar = styled.div`
   color: ${props => (props.highlight.length > 0 ? palette(['text', 'dark', 'tertiary'])(props) : palette(['text', 'dark', 'primary'])(props))} !important;
 `
+
+const shouldNotBreak = new RegExp(`11111111111111111111111111111 should not break here ${this.x.y} 11111111111111111111111111111`);
