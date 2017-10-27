@@ -3,6 +3,7 @@
 const remarkFrontmatter = require("remark-frontmatter");
 const remarkParse = require("remark-parse");
 const unified = require("unified");
+const util = require("./util");
 
 /**
  * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:
@@ -145,15 +146,7 @@ function splitText() {
       return {
         type: "sentence",
         position: node.position,
-        children: value
-          .split(/(\s+)/g)
-          .map(
-            (text, index) =>
-              index % 2 === 0
-                ? { type: "word", value: text }
-                : { type: "whitespace", value: " " }
-          )
-          .filter(node => node.value !== "")
+        children: util.splitText(value)
       };
     });
 }

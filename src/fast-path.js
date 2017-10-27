@@ -291,6 +291,9 @@ FastPath.prototype.needsParens = function(options) {
     case "TSAsExpression":
     case "LogicalExpression":
       switch (parent.type) {
+        case "ConditionalExpression":
+          return node.type === "TSAsExpression";
+
         case "CallExpression":
         case "NewExpression":
           return name === "callee" && parent.callee === node;
@@ -334,7 +337,7 @@ FastPath.prototype.needsParens = function(options) {
             return true;
           }
 
-          if (po === "||" && no === "&&") {
+          if ((po === "||" || po === "??") && no === "&&") {
             return true;
           }
 

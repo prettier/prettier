@@ -26,7 +26,9 @@ function parse(text, parsers, opts) {
       "importMeta",
       "optionalCatchBinding",
       "optionalChaining",
-      "classPrivateProperties"
+      "classPrivateProperties",
+      "pipelineOperator",
+      "nullishCoalescingOperator"
     ]
   };
 

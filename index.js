@@ -204,59 +204,73 @@ function isSourceElement(opts, node) {
   if (node == null) {
     return false;
   }
-  switch (node.type || node.kind) {
-    case "ObjectExpression": // JSON
-    case "ArrayExpression": // JSON
-    case "StringLiteral": // JSON
-    case "NumericLiteral": // JSON
-    case "BooleanLiteral": // JSON
-    case "NullLiteral": // JSON
-    case "FunctionDeclaration":
-    case "BlockStatement":
-    case "BreakStatement":
-    case "ContinueStatement":
-    case "DebuggerStatement":
-    case "DoWhileStatement":
-    case "EmptyStatement":
-    case "ExpressionStatement":
-    case "ForInStatement":
-    case "ForStatement":
-    case "IfStatement":
-    case "LabeledStatement":
-    case "ReturnStatement":
-    case "SwitchStatement":
-    case "ThrowStatement":
-    case "TryStatement":
-    case "VariableDeclaration":
-    case "WhileStatement":
-    case "WithStatement":
-    case "ClassDeclaration": // ES 2015
-    case "ImportDeclaration": // Module
-    case "ExportDefaultDeclaration": // Module
-    case "ExportNamedDeclaration": // Module
-    case "ExportAllDeclaration": // Module
-    case "TypeAlias": // Flow
-    case "InterfaceDeclaration": // Flow, Typescript
-    case "TypeAliasDeclaration": // Typescript
-    case "ExportAssignment": // Typescript
-    case "ExportDeclaration": // Typescript
-    case "OperationDefinition": // GraphQL
-    case "FragmentDefinition": // GraphQL
-    case "VariableDefinition": // GraphQL
-    case "TypeExtensionDefinition": // GraphQL
-    case "ObjectTypeDefinition": // GraphQL
-    case "FieldDefinition": // GraphQL
-    case "DirectiveDefinition": // GraphQL
-    case "EnumTypeDefinition": // GraphQL
-    case "EnumValueDefinition": // GraphQL
-    case "InputValueDefinition": // GraphQL
-    case "InputObjectTypeDefinition": // GraphQL
-    case "SchemaDefinition": // GraphQL
-    case "OperationTypeDefinition": // GraphQL
-    case "InterfaceTypeDefinition": // GraphQL
-    case "UnionTypeDefinition": // GraphQL
-    case "ScalarTypeDefinition": // GraphQL
-      return true;
+  // JS and JS like to avoid repetitions
+  const jsSourceElements = [
+    "FunctionDeclaration",
+    "BlockStatement",
+    "BreakStatement",
+    "ContinueStatement",
+    "DebuggerStatement",
+    "DoWhileStatement",
+    "EmptyStatement",
+    "ExpressionStatement",
+    "ForInStatement",
+    "ForStatement",
+    "IfStatement",
+    "LabeledStatement",
+    "ReturnStatement",
+    "SwitchStatement",
+    "ThrowStatement",
+    "TryStatement",
+    "VariableDeclaration",
+    "WhileStatement",
+    "WithStatement",
+    "ClassDeclaration", // ES 2015
+    "ImportDeclaration", // Module
+    "ExportDefaultDeclaration", // Module
+    "ExportNamedDeclaration", // Module
+    "ExportAllDeclaration", // Module
+    "TypeAlias", // Flow
+    "InterfaceDeclaration", // Flow, Typescript
+    "TypeAliasDeclaration", // Typescript
+    "ExportAssignment", // Typescript
+    "ExportDeclaration" // Typescript
+  ];
+  const jsonSourceElements = [
+    "ObjectExpression",
+    "ArrayExpression",
+    "StringLiteral",
+    "NumericLiteral",
+    "BooleanLiteral",
+    "NullLiteral"
+  ];
+  const graphqlSourceElements = [
+    "OperationDefinition",
+    "FragmentDefinition",
+    "VariableDefinition",
+    "TypeExtensionDefinition",
+    "ObjectTypeDefinition",
+    "FieldDefinition",
+    "DirectiveDefinition",
+    "EnumTypeDefinition",
+    "EnumValueDefinition",
+    "InputValueDefinition",
+    "InputObjectTypeDefinition",
+    "SchemaDefinition",
+    "OperationTypeDefinition",
+    "InterfaceTypeDefinition",
+    "UnionTypeDefinition",
+    "ScalarTypeDefinition"
+  ];
+  switch (opts.parser) {
+    case "flow":
+    case "babylon":
+    case "typescript":
+      return jsSourceElements.indexOf(node.type) > -1;
+    case "json":
+      return jsonSourceElements.indexOf(node.type) > -1;
+    case "graphql":
+      return graphqlSourceElements.indexOf(node.kind) > -1;
   }
   return false;
 }

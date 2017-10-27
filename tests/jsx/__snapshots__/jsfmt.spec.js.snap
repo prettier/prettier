@@ -346,6 +346,23 @@ exports[`expression.js 1`] = `
     test
   </Child>
 }/>;
+
+<BookingIntroPanel
+  prop="long_string_make_to_force_break"
+  logClick={data => doLogClick("short", "short", data)}
+/>;
+
+<BookingIntroPanel
+  logClick={data =>
+    doLogClick("long_name_long_name_long_name", "long_name_long_name_long_name", data)
+  }
+/>;
+
+<BookingIntroPanel
+  logClick={data => {
+    doLogClick("long_name_long_name_long_name", "long_name_long_name_long_name", data)
+  }}
+/>;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <View
   style={{
@@ -409,6 +426,31 @@ exports[`expression.js 1`] = `
 />;
 
 <ParentComponent prop={<Child>test</Child>} />;
+
+<BookingIntroPanel
+  prop="long_string_make_to_force_break"
+  logClick={data => doLogClick("short", "short", data)}
+/>;
+
+<BookingIntroPanel
+  logClick={data =>
+    doLogClick(
+      "long_name_long_name_long_name",
+      "long_name_long_name_long_name",
+      data
+    )
+  }
+/>;
+
+<BookingIntroPanel
+  logClick={data => {
+    doLogClick(
+      "long_name_long_name_long_name",
+      "long_name_long_name_long_name",
+      data
+    );
+  }}
+/>;
 
 `;
 
