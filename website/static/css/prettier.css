@@ -1,0 +1,202 @@
+h1, h2, h3, h4, body {
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+}
+
+/**
+ * Fixed header
+ */
+
+.fixedHeaderContainer {
+  padding-top: 13px;
+  padding-bottom: 13px;
+  height: 60px;
+}
+
+.fixedHeaderContainer .wrapper {
+  max-width: none;
+  padding-left: 20px;
+  padding-right: 10px;
+}
+
+.fixedHeaderContainer header img {
+  margin-right: 20px;
+}
+
+
+@media only screen and (min-width: 1024px) {
+  .navigationSlider .slidingNav li {
+    padding: 0 10px;
+  }
+}
+
+.fixedHeaderContainer header h2 {
+  font-family: monospace;
+  font-size: 20px;
+}
+
+@media only screen and (min-width: 1024px) {
+  .navPusher {
+    padding-top: 60px;
+  }
+}
+
+/**
+ * Home splash
+ */
+
+.homeContainer .homeWrapper .projectLogo {
+  align-items: center;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  padding: 2em 100px 4em;
+  position: static;
+}
+
+.homeContainer .homeWrapper .projectLogo img {
+  max-height: 180px;
+}
+
+.homeSplashFade {
+  background: #1A2B34;
+  color: #fff;
+  padding-bottom: 70px;
+}
+
+.homeSplashFade .projectTitle {
+  color: #fff;
+  visibility: hidden;
+  line-height: 0;
+  font-size: 0;
+}
+
+.homeSplashFade .projectTitle small {
+  font-size: 50px;
+  visibility: visible;
+  line-height: 1;
+  font-weight: 700;
+  font-family: monospace;
+  margin: 0;
+}
+
+.homeSplashFade .promoRow {
+  margin-top: 50px;
+}
+
+.promoSection .promoRow .pluginRowBlock {
+  margin: 0 -10px;
+}
+.promoSection .promoRow .pluginRowBlock .pluginWrapper {
+  padding: 0 10px;
+}
+
+.promoSection .promoRow .pluginRowBlock .pluginWrapper:nth-child(1) .button {
+  background: #ea5e5e;
+}
+
+.promoSection .promoRow .pluginRowBlock .pluginWrapper:nth-child(2) .button {
+  background: #56b3b4;
+}
+
+.promoSection .promoRow .pluginRowBlock .pluginWrapper:nth-child(3) .button {
+  background: #f7ba3e;
+}
+
+.homeSplashFade .button {
+  color: #1A2B34;
+  border-width: 0;
+  background: #fff;
+  text-transform: none;
+  border-radius: 100px;
+  padding-left: 25px;
+  padding-right: 25px;
+  font-size: 20px;
+}
+
+
+/**
+ * Showcases
+ */
+
+.productShowcaseSection {
+  display: flex;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  background: transparent;
+  text-align: left;
+}
+
+.productShowcaseSection.paddingTop {
+  padding-top: 70px;
+}
+
+.productShowcaseSection h2 {
+  text-align: left;
+  margin: 0;
+}
+
+.productShowcaseSection > h2:first-child,
+.productShowcaseSection > .productShowcaseTitleOuter {
+  width: 25%;
+  margin-right: 40px;
+}
+
+.productShowcaseSection > h2:first-child,
+.productShowcaseSection > .productShowcaseTitleOuter h2 {
+  font-size: 16px;
+  font-family: monospace;
+}
+
+.productShowcaseInner {
+  display: flex;
+  flex-direction: column;
+}
+
+.productShowcaseSection > .container,
+.productShowcaseInner {
+  width: 75%;
+}
+
+.productShowcaseSection .gridBlock {
+  /*flex-grow: 1;*/
+}
+
+.gridBlock .threeByGridBlock {
+  flex: 1 0 33.33%;
+}
+
+.productShowcaseSmallCta {
+  font-size: 12px;
+}
+
+.productShowcaseSmallCta a {
+  text-decoration: underline;
+}
+
+.blockElement {
+  display: flex;
+}
+
+.productShowcaseFooter {
+  flex-grow: 1;
+}
+
+.blockElement.imageAlignBottom {
+  flex-direction: column;
+}
+
+.imageAlignBottom .blockImage {
+  max-width: 80px;
+}
+
+.container .wrapper h2 {
+  margin: 0;
+  padding-top: 5px;
+}
+
+.imageAlignTop .blockImage {
+  max-width: none;
+  width: 30px;
+  margin-right: 20px;
+}
