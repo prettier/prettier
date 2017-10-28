@@ -18,6 +18,8 @@ Prettier is an opinionated code formatter with support for:
 It removes all original styling[\*](#styling-footnote) and ensures that all outputted code
 conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
 
+<!-- Do not edit TOC, regenerate with `yarn sync-docs` -->
+<!-- AUTO-GENERATED-CONTENT:START (TOC:collapse=true) -->
 <details>
 <summary><strong>Table of Contents</strong></summary>
 
@@ -80,6 +82,7 @@ conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Pre
 <!-- tocstop -->
 
 </details>
+<!-- AUTO-GENERATED-CONTENT:END -->
 
 --------------------------------------------------------------------------------
 
@@ -598,6 +601,8 @@ matrix(
 ```
 
 ## Options
+<!-- OPTIONS-START -->
+
 Prettier ships with a handful of customizable format options, usable in both the CLI and API.
 
 ### Print Width
@@ -750,6 +755,8 @@ or
 Default | CLI Override | API Override
 --------|--------------|-------------
 `false` | `--require-pragma` | `requirePragma: <bool>`
+
+<!-- OPTIONS-STOP -->
 
 ## Configuration File
 

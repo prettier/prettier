@@ -2,6 +2,8 @@
 
 const runPrettier = require("../runPrettier");
 
+expect.addSnapshotSerializer(require("../path-serializer"));
+
 describe("support relative paths", () => {
   runPrettier("cli/ignore-relative-path", [
     "./shouldNotBeIgnored.js",
