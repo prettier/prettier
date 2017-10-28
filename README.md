@@ -18,67 +18,83 @@ Prettier is an opinionated code formatter with support for:
 It removes all original styling[\*](#styling-footnote) and ensures that all outputted code
 conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
 
+<!-- Do not edit TOC, regenerate with `yarn sync-docs` -->
+<!-- AUTO-GENERATED-CONTENT:START (TOC:collapse=true) -->
 <details>
-<summary><strong>Table of Contents</strong></summary>
+<summary>Table of Contents</summary>
 
-<!-- Do not edit TOC, regenerate with `yarn toc` -->
-
-<!-- toc -->
-
-* [What does Prettier do?](#what-does-prettier-do)
-* [Why Prettier?](#why-prettier)
-  + [Building and enforcing a style guide](#building-and-enforcing-a-style-guide)
-  + [Helping Newcomers](#helping-newcomers)
-  + [Writing code](#writing-code)
-  + [Easy to adopt](#easy-to-adopt)
-  + [Clean up an existing codebase](#clean-up-an-existing-codebase)
-  + [Ride the hype train](#ride-the-hype-train)
-* [How does it compare to ESLint (or TSLint, stylelint...)?](#how-does-it-compare-to-eslint-or-tslint-stylelint)
-* [Usage](#usage)
-  + [CLI](#cli)
-  + [ESLint](#eslint)
-  + [Pre-commit Hook](#pre-commit-hook)
-  + [API](#api)
-  + [Excluding code from formatting](#excluding-code-from-formatting)
-* [Options](#options)
-  + [Print Width](#print-width)
-  + [Tab Width](#tab-width)
-  + [Tabs](#tabs)
-  + [Semicolons](#semicolons)
-  + [Quotes](#quotes)
-  + [Trailing Commas](#trailing-commas)
-  + [Bracket Spacing](#bracket-spacing)
-  + [JSX Brackets](#jsx-brackets)
-  + [Range](#range)
-  + [Parser](#parser)
-  + [Filepath](#filepath)
-  + [Require pragma](#require-pragma)
-* [Configuration File](#configuration-file)
-  + [Basic Configuration](#basic-configuration)
-  + [Configuration Overrides](#configuration-overrides)
-  + [Configuration Schema](#configuration-schema)
-* [Editor Integration](#editor-integration)
-  + [Atom](#atom)
-  + [Emacs](#emacs)
-  + [Vim](#vim)
-  + [Visual Studio Code](#visual-studio-code)
-  + [Visual Studio](#visual-studio)
-  + [Sublime Text](#sublime-text)
-  + [JetBrains WebStorm, PHPStorm, PyCharm...](#jetbrains-webstorm-phpstorm-pycharm)
-* [Language Support](#language-support)
-* [Related Projects](#related-projects)
-  + [ESLint Integrations](#eslint-integrations)
-  + [TSLint Integrations](#tslint-integrations)
-  + [stylelint Integrations](#stylelint-integrations)
-  + [Forks](#forks)
-  + [Misc](#misc)
-* [Technical Details](#technical-details)
-* [Badge](#badge)
-* [Contributing](#contributing)
-
-<!-- tocstop -->
+- [What does Prettier do?](#what-does-prettier-do)
+- [Why Prettier?](#why-prettier)
+  * [Building and enforcing a style guide](#building-and-enforcing-a-style-guide)
+  * [Helping Newcomers](#helping-newcomers)
+  * [Writing code](#writing-code)
+  * [Easy to adopt](#easy-to-adopt)
+  * [Clean up an existing codebase](#clean-up-an-existing-codebase)
+  * [Ride the hype train](#ride-the-hype-train)
+- [How does it compare to ESLint (or TSLint, stylelint...)?](#how-does-it-compare-to-eslint-or-tslint-stylelint)
+- [Usage](#usage)
+  * [CLI](#cli)
+    + [`--debug-check`](#--debug-check)
+    + [`--find-config-path` and `--config`](#--find-config-path-and---config)
+    + [`--ignore-path`](#--ignore-path)
+    + [`--require-pragma`](#--require-pragma)
+    + [`--insert-pragma`](#--insert-pragma)
+    + [`--list-different`](#--list-different)
+    + [`--no-config`](#--no-config)
+    + [`--config-precedence`](#--config-precedence)
+    + [`--with-node-modules`](#--with-node-modules)
+    + [`--write`](#--write)
+  * [ESLint](#eslint)
+  * [Pre-commit Hook](#pre-commit-hook)
+      - [Option 1. [lint-staged](https://github.com/okonet/lint-staged)](#option-1-lint-stagedhttpsgithubcomokonetlint-staged)
+      - [Option 2. [pre-commit](https://github.com/pre-commit/pre-commit)](#option-2-pre-commithttpsgithubcompre-commitpre-commit)
+      - [Option 3. bash script](#option-3-bash-script)
+  * [API](#api)
+    + [`prettier.format(source [, options])`](#prettierformatsource--options)
+    + [`prettier.check(source [, options])`](#prettierchecksource--options)
+    + [`prettier.formatWithCursor(source [, options])`](#prettierformatwithcursorsource--options)
+    + [`prettier.resolveConfig(filePath [, options])`](#prettierresolveconfigfilepath--options)
+    + [`prettier.clearConfigCache()`](#prettierclearconfigcache)
+    + [Custom Parser API](#custom-parser-api)
+  * [Excluding code from formatting](#excluding-code-from-formatting)
+- [Options](#options)
+  * [Print Width](#print-width)
+  * [Tab Width](#tab-width)
+  * [Tabs](#tabs)
+  * [Semicolons](#semicolons)
+  * [Quotes](#quotes)
+  * [Trailing Commas](#trailing-commas)
+  * [Bracket Spacing](#bracket-spacing)
+  * [JSX Brackets](#jsx-brackets)
+  * [Range](#range)
+  * [Parser](#parser)
+  * [Filepath](#filepath)
+  * [Require pragma](#require-pragma)
+- [Configuration File](#configuration-file)
+  * [Basic Configuration](#basic-configuration)
+  * [Configuration Overrides](#configuration-overrides)
+  * [Configuration Schema](#configuration-schema)
+- [Editor Integration](#editor-integration)
+  * [Atom](#atom)
+  * [Emacs](#emacs)
+  * [Vim](#vim)
+  * [Visual Studio Code](#visual-studio-code)
+  * [Visual Studio](#visual-studio)
+  * [Sublime Text](#sublime-text)
+  * [JetBrains WebStorm, PHPStorm, PyCharm...](#jetbrains-webstorm-phpstorm-pycharm)
+- [Language Support](#language-support)
+- [Related Projects](#related-projects)
+  * [ESLint Integrations](#eslint-integrations)
+  * [TSLint Integrations](#tslint-integrations)
+  * [stylelint Integrations](#stylelint-integrations)
+  * [Forks](#forks)
+  * [Misc](#misc)
+- [Technical Details](#technical-details)
+- [Badge](#badge)
+- [Contributing](#contributing)
 
 </details>
+<!-- AUTO-GENERATED-CONTENT:END -->
 
 --------------------------------------------------------------------------------
 
@@ -559,6 +575,8 @@ matrix(
 ```
 
 ## Options
+<!-- OPTIONS-START -->
+
 Prettier ships with a handful of customizable format options, usable in both the CLI and API.
 
 ### Print Width
@@ -711,6 +729,8 @@ or
 Default | CLI Override | API Override
 --------|--------------|-------------
 `false` | `--require-pragma` | `requirePragma: <bool>`
+
+<!-- OPTIONS-STOP -->
 
 ## Configuration File
 
