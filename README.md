@@ -313,7 +313,7 @@ Require a special comment, called a pragma, to be present in the file's first do
 Valid pragmas are `@prettier` and `@format`.
 
 <!--
-[heading] `--insert-pragma`
+[h4] `--insert-pragma`
 
 Insert a `@format` pragma to the top of formatted files when pragma is absent.
 Works well when used in tandem with `--require-pragma`.
@@ -772,7 +772,7 @@ Default | CLI Override | API Override
 `false` | `--require-pragma` | `requirePragma: <bool>`
 
 <!--
-### Insert Pragma
+[h3] Insert Pragma
 Prettier can insert a special @format marker at the top of files specifying that the file has been formatted
 with prettier.  This works well when used in tandem with the `--require-pragma` option.  If there is already a
 docblock at the top of the file then this option will add a newline to it with the @format marker.
