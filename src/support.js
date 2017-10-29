@@ -40,7 +40,6 @@ const supportTable = [
       ".xsjslib"
     ],
     filenames: ["Jakefile"],
-    interpreters: ["node"],
     linguistLanguageId: 183,
     vscodeLanguageIds: ["javascript"]
   },

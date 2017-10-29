@@ -349,6 +349,17 @@ exports[`show detailed usage with --help stdin-filepath (stdout) 1`] = `
 
 exports[`show detailed usage with --help stdin-filepath (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help support-info (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help support-info (stdout) 1`] = `
+"--support-info
+
+  Print support information as JSON.
+"
+`;
+
+exports[`show detailed usage with --help support-info (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help tab-width (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help tab-width (stdout) 1`] = `
@@ -503,6 +514,7 @@ Other options:
                            Defaults to false.
   --stdin                  Force reading input from stdin.
   --stdin-filepath <path>  Path to the file to pretend that stdin comes from.
+  --support-info           Print support information as JSON.
   -v, --version            Print Prettier version.
 
 
@@ -634,6 +646,7 @@ Other options:
                            Defaults to false.
   --stdin                  Force reading input from stdin.
   --stdin-filepath <path>  Path to the file to pretend that stdin comes from.
+  --support-info           Print support information as JSON.
   -v, --version            Print Prettier version.
 
 

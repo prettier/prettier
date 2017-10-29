@@ -1,6 +1,7 @@
 "use strict";
 
 const prettier = require("../../tests_config/require_prettier");
+const runPrettier = require("../runPrettier");
 
 describe("API getSupportInfo()", () => {
   test("no arguments", () => {
@@ -22,4 +23,8 @@ describe("API getSupportInfo()", () => {
       ).toMatchSnapshot();
     });
   });
+});
+
+describe("CLI --support-info", () => {
+  runPrettier("cli", "--support-info").test({ status: 0 });
 });
