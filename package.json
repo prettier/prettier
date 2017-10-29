@@ -33,6 +33,7 @@
     "jest-docblock": "21.3.0-beta.1",
     "jest-validate": "21.1.0",
     "leven": "2.1.0",
+    "markdown-magic": "0.1.19",
     "mem": "1.1.0",
     "minimatch": "3.0.4",
     "minimist": "1.2.0",
@@ -61,7 +62,6 @@
     "eslint-plugin-prettier": "2.1.2",
     "eslint-plugin-react": "7.1.0",
     "jest": "21.1.0",
-    "markdown-toc": "1.1.0",
     "mkdirp": "0.5.1",
     "prettier": "1.7.3",
     "rimraf": "2.6.1",
@@ -86,6 +86,7 @@
     "test-integration": "jest tests_integration",
     "lint": "cross-env EFF_NO_LINK_RULES=true eslint . --format node_modules/eslint-friendly-formatter",
     "build": "node ./scripts/build/build.js",
-    "toc": "node ./scripts/table-of-contents.js"
+    "sync-docs": "node ./scripts/sync-docs.js",
+    "check-deps": "node ./scripts/check-deps.js"
   }
 }
