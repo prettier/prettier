@@ -141,6 +141,7 @@ If you want to learn more, these two conference talks are great introductions:
 
 
 ## Why Prettier?
+<!-- START (why-prettier) -->
 
 ### Building and enforcing a style guide
 
@@ -191,6 +192,8 @@ Purely technical aspects of the projects aren't the only thing people look into 
 - “I like to be part of the hot new things.”
 - “Because soon enough people are gonna ask for it.”
 
+<!-- END -->
+
 A few of the [many projects](https://www.npmjs.com/browse/depended/prettier) using Prettier:
 
 <table>
@@ -221,6 +224,7 @@ Prettier does nothing to help with those kind of rules. They are also the most i
 
 
 ## Usage
+<!-- START (usage) -->
 
 Install:
 
@@ -267,6 +271,8 @@ Don't forget the quotes around the globs! The quotes make sure that Prettier
 expands the globs rather than your shell, for cross-platform usage.
 The [glob syntax from the glob module](https://github.com/isaacs/node-glob/blob/master/README.md#glob-primer)
 is used.
+
+Prettier CLI will ignore files located in `node_modules` directory. To opt-out from this behavior use `--with-node-modules` flag.
 
 #### `--debug-check`
 
@@ -445,7 +451,7 @@ Alternately you can save this script as `.git/hooks/pre-commit` and give it exec
 
 ```bash
 #!/bin/sh
-jsfiles=$(git diff --cached --name-only --diff-filter=ACM | grep '\.jsx\?$' | tr '\n' ' ')
+jsfiles=$(git diff --cached --name-only --diff-filter=ACM "*.js" "*.jsx" | tr '\n' ' ')
 [ -z "$jsfiles" ] && exit 0
 
 # Prettify all staged .js files
@@ -573,9 +579,10 @@ matrix(
   0, 0, 1
 )
 ```
+<!-- END -->
 
 ## Options
-<!-- OPTIONS-START -->
+<!-- START (options) -->
 
 Prettier ships with a handful of customizable format options, usable in both the CLI and API.
 
@@ -730,9 +737,10 @@ Default | CLI Override | API Override
 --------|--------------|-------------
 `false` | `--require-pragma` | `requirePragma: <bool>`
 
-<!-- OPTIONS-STOP -->
+<!-- END -->
 
 ## Configuration File
+<!-- START (configuration) -->
 
 Prettier uses [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) for configuration file support.
 This means you can configure prettier via:
@@ -815,7 +823,10 @@ For more information on how to use the CLI to locate a file, see the [CLI](#cli)
 
 If you'd like a JSON schema to validate your configuration, one is available here: http://json.schemastore.org/prettierrc.
 
+<!-- END -->
+
 ## Editor Integration
+<!-- START (editors) -->
 
 ### Atom
 
@@ -852,6 +863,7 @@ the [JsPrettier](https://packagecontrol.io/packages/JsPrettier) plug-in.
 
 See the [WebStorm
 guide](https://github.com/jlongster/prettier/tree/master/editors/webstorm/README.md).
+<!-- END -->
 
 ## Language Support
 

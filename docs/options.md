@@ -3,7 +3,7 @@ id: options
 title: Options
 ---
 
-<!-- AUTO-GENERATED-CONTENT:START (PRETTIER_OPTIONS) -->
+<!-- AUTO-GENERATED-CONTENT:START (PRETTIER_DOCS:id=options) -->
 
 
 Prettier ships with a handful of customizable format options, usable in both the CLI and API.
@@ -160,5 +160,5 @@ Default | CLI Override | API Override
 `false` | `--require-pragma` | `requirePragma: <bool>`
 
 
-<!-- AUTO-GENERATED-CONTENT:START (PRETTIER_OPTIONS) -->
+<!-- AUTO-GENERATED-CONTENT:START (PRETTIER_DOCS) -->
 <!-- AUTO-GENERATED-CONTENT:END -->

@@ -3,6 +3,8 @@ id: editors
 title: Editor Integration
 ---
 
+<!-- AUTO-GENERATED-CONTENT:START (PRETTIER_DOCS:id=editors) -->
+
 
 ## Atom
 
@@ -24,7 +26,7 @@ Can be installed using the extension sidebar. Search for `Prettier - JavaScript 
 
 Can also be installed using `ext install prettier-vscode`.
 
-[Check its repository for configuration and shortcuts](https://github.com/esbenp/prettier-vscode)
+[Check its repository for configuration and shortcuts](https://github.com/prettier/prettier-vscode)
 
 ## Visual Studio
 
@@ -40,3 +42,4 @@ the [JsPrettier](https://packagecontrol.io/packages/JsPrettier) plug-in.
 See the [WebStorm
 guide](https://github.com/jlongster/prettier/tree/master/editors/webstorm/README.md).
 
+<!-- AUTO-GENERATED-CONTENT:END -->
