@@ -99,7 +99,7 @@ Require a special comment, called a pragma, to be present in the file's first do
 Valid pragmas are `@prettier` and `@format`.
 
 <!--
-[heading] `--insert-pragma`
+[h4] `--insert-pragma`
 
 Insert a `@format` pragma to the top of formatted files when pragma is absent.
 Works well when used in tandem with `--require-pragma`.
