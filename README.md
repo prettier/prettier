@@ -65,6 +65,7 @@ conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Pre
   + [Visual Studio](#visual-studio)
   + [Sublime Text](#sublime-text)
   + [JetBrains WebStorm, PHPStorm, PyCharm...](#jetbrains-webstorm-phpstorm-pycharm)
+* [Watching For Changes On The Command Line](#watching-for-changes-on-the-command-line)
 * [Language Support](#language-support)
 * [Related Projects](#related-projects)
   + [ESLint Integrations](#eslint-integrations)
