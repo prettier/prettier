@@ -1934,13 +1934,19 @@ function genericPrintNoParens(path, options, print, args) {
             tabWidth
           );
 
-          const aligned = addAlignmentToDoc(
-            expressions[i],
-            indentSize,
-            tabWidth
-          );
+          let printed = expressions[i];
 
-          parts.push("${", aligned, lineSuffixBoundary, "}");
+          if (
+            n.expressions[i].type === "Identifier" ||
+            n.expressions[i].type === "MemberExpression" ||
+            n.expressions[i].type === "ConditionalExpression"
+          ) {
+            printed = concat([indent(concat([softline, printed])), softline]);
+          }
+
+          const aligned = addAlignmentToDoc(printed, indentSize, tabWidth);
+
+          parts.push(group(concat(["${", aligned, lineSuffixBoundary, "}"])));
         }
       }, "quasis");
 
