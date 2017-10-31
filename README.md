@@ -65,6 +65,7 @@ conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Pre
   + [Visual Studio](#visual-studio)
   + [Sublime Text](#sublime-text)
   + [JetBrains WebStorm, PHPStorm, PyCharm...](#jetbrains-webstorm-phpstorm-pycharm)
+* [Watching For Changes On The Command Line](#watching-for-changes-on-the-command-line)
 * [Language Support](#language-support)
 * [Related Projects](#related-projects)
   + [ESLint Integrations](#eslint-integrations)
@@ -832,6 +833,22 @@ the [JsPrettier](https://packagecontrol.io/packages/JsPrettier) plug-in.
 
 See the [WebStorm
 guide](https://github.com/jlongster/prettier/tree/master/editors/webstorm/README.md).
+
+## Watching For Changes On The Command Line
+
+If you prefer to have prettier watch for changes from the command line you can use a package like [onchange](https://www.npmjs.com/package/onchange). For example:
+
+```
+npx onchange '**/*.js' -- npx prettier --write {{changed}}
+```
+
+or add the following to your `package.json`
+
+```json
+  "scripts": {
+    "prettier-watch": "onchange '**/*.js' -- prettier --write {{changed}}"
+  },
+```
 
 ## Language Support
 
