@@ -1717,18 +1717,24 @@ function genericPrintNoParens(path, options, print, args) {
     case "JSXExpressionContainer": {
       const parent = path.getParentNode(0);
 
+      const preventInline =
+        parent.type === "JSXAttribute" &&
+        n.expression.comments &&
+        n.expression.comments.length > 0;
+
       const shouldInline =
-        n.expression.type === "ArrayExpression" ||
-        n.expression.type === "ObjectExpression" ||
-        n.expression.type === "ArrowFunctionExpression" ||
-        n.expression.type === "CallExpression" ||
-        n.expression.type === "FunctionExpression" ||
-        n.expression.type === "JSXEmptyExpression" ||
-        n.expression.type === "TemplateLiteral" ||
-        n.expression.type === "TaggedTemplateExpression" ||
-        (parent.type === "JSXElement" &&
-          (n.expression.type === "ConditionalExpression" ||
-            isBinaryish(n.expression)));
+        !preventInline &&
+        (n.expression.type === "ArrayExpression" ||
+          n.expression.type === "ObjectExpression" ||
+          n.expression.type === "ArrowFunctionExpression" ||
+          n.expression.type === "CallExpression" ||
+          n.expression.type === "FunctionExpression" ||
+          n.expression.type === "JSXEmptyExpression" ||
+          n.expression.type === "TemplateLiteral" ||
+          n.expression.type === "TaggedTemplateExpression" ||
+          (parent.type === "JSXElement" &&
+            (n.expression.type === "ConditionalExpression" ||
+              isBinaryish(n.expression))));
 
       if (shouldInline) {
         const printExpression =
