@@ -44,7 +44,7 @@ function editorConfigToPrettier(editorConfig) {
     result.useTabs = editorConfig.indent_style === "tab";
   }
 
-  const tabWidth = editorConfig.indent_size || editorConfig.tab_width;
+  const tabWidth = editorConfig.tab_width || editorConfig.indent_size;
   if (tabWidth) {
     result.tabWidth = tabWidth;
   }
