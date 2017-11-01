@@ -45,7 +45,15 @@ function editorConfigToPrettier(editorConfig) {
   }
 
   const tabWidth = editorConfig.tab_width || editorConfig.indent_size;
-  if (tabWidth) {
+
+  if (result.useTabs && editorConfig.tab_width) {
+    result.tabWidth = editorConfig.tab_width;
+  } else if (
+    editorConfig.indent_style === "space" &&
+    editorConfig.indent_size
+  ) {
+    result.tabWidth = editorConfig.indent_size;
+  } else if (tabWidth) {
     result.tabWidth = tabWidth;
   }
 
