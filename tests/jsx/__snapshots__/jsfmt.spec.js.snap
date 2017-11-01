@@ -1,5 +1,58 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`attr-comments.js 1`] = `
+<Component
+  propFn={
+    // comment
+    function(arg) {
+      fn(arg);
+    }
+  }
+  propArrowFn={
+    // comment
+    arg => fn(arg)
+  }
+  propArray={
+    // comment
+    [el1, el2]
+  }
+  propObj={
+    // comment
+    { key: val }
+  }
+  propTemplate={
+    // comment
+    \`text\`
+  }
+/>;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<Component
+  propFn={
+    // comment
+    function(arg) {
+      fn(arg);
+    }
+  }
+  propArrowFn={
+    // comment
+    arg => fn(arg)
+  }
+  propArray={
+    // comment
+    [el1, el2]
+  }
+  propObj={
+    // comment
+    { key: val }
+  }
+  propTemplate={
+    // comment
+    \`text\`
+  }
+/>;
+
+`;
+
 exports[`conditional-expression.js 1`] = `
 // There are two ways to print ConditionalExpressions: "normal mode" and
 // "JSX mode". This is normal mode (when breaking):
