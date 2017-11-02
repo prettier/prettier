@@ -3723,13 +3723,20 @@ function printMemberChain(path, options, print) {
   // The first group is the first node followed by
   //   - as many CallExpression as possible
   //       < fn()()() >.something()
+  //   - as many array acessors as possible
+  //       < fn()[0][1][2] >.something()
   //   - then, as many MemberExpression as possible but the last one
   //       < this.items >.something()
   const groups = [];
   let currentGroup = [printedNodes[0]];
   let i = 1;
   for (; i < printedNodes.length; ++i) {
-    if (printedNodes[i].node.type === "CallExpression") {
+    if (
+      printedNodes[i].node.type === "CallExpression" ||
+      (printedNodes[i].node.type === "MemberExpression" &&
+        printedNodes[i].node.computed &&
+        isNumericLiteral(printedNodes[i].node.property))
+    ) {
       currentGroup.push(printedNodes[i]);
     } else {
       break;
