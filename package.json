@@ -23,6 +23,7 @@
     "dashify": "0.2.2",
     "diff": "3.2.0",
     "editorconfig": "0.14.2",
+    "editorconfig-to-prettier": "0.0.1",
     "emoji-regex": "6.5.1",
     "escape-string-regexp": "1.0.5",
     "esutils": "2.0.2",

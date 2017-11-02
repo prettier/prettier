@@ -3,6 +3,7 @@
 const editorconfig = require("editorconfig");
 const mem = require("mem");
 const pathRoot = require("path-root");
+const editorConfigToPrettier = require("editorconfig-to-prettier");
 
 const maybeParse = (filePath, config, parse) => {
   const root = filePath && pathRoot(filePath);
@@ -34,35 +35,6 @@ function getLoadFunction(opts) {
 function clearCache() {
   mem.clear(editorconfigSyncWithCache);
   mem.clear(editorconfigAsyncWithCache);
-}
-
-function editorConfigToPrettier(editorConfig) {
-  editorConfig = editorConfig || {};
-  const result = {};
-
-  if (editorConfig.indent_style) {
-    result.useTabs = editorConfig.indent_style === "tab";
-  }
-
-  const tabWidth = editorConfig.tab_width || editorConfig.indent_size;
-
-  if (result.useTabs && editorConfig.tab_width) {
-    result.tabWidth = editorConfig.tab_width;
-  } else if (
-    editorConfig.indent_style === "space" &&
-    editorConfig.indent_size &&
-    editorConfig.indent_size !== "tab"
-  ) {
-    result.tabWidth = editorConfig.indent_size;
-  } else if (tabWidth) {
-    result.tabWidth = tabWidth;
-  }
-
-  if (editorConfig.max_line_length) {
-    result.printWidth = editorConfig.max_line_length;
-  }
-
-  return result;
 }
 
 module.exports = {
