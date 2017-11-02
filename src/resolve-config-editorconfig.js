@@ -50,7 +50,8 @@ function editorConfigToPrettier(editorConfig) {
     result.tabWidth = editorConfig.tab_width;
   } else if (
     editorConfig.indent_style === "space" &&
-    editorConfig.indent_size
+    editorConfig.indent_size &&
+    editorConfig.indent_size !== "tab"
   ) {
     result.tabWidth = editorConfig.indent_size;
   } else if (tabWidth) {

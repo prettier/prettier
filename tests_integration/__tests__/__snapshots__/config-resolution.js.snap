@@ -13,6 +13,11 @@ function f() {
     \\"should have space width 2\\"
   )
 }
+function f() {
+        console.log(
+                \\"should have space width 8\\"
+        )
+}
 console.log(
   \\"jest/__best-tests__/file.js should have semi\\"
 );
@@ -99,6 +104,9 @@ exports[`resolves configuration from external files (stdout) 1`] = `
 }
 function f() {
   console.log(\\"should have space width 2\\")
+}
+function f() {
+        console.log(\\"should have space width 8\\")
 }
 console.log(\\"jest/__best-tests__/file.js should have semi\\");
 console.log(\\"jest/Component.js should not have semi\\")

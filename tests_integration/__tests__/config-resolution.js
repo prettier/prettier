@@ -150,6 +150,30 @@ test("API resolveConfig.sync with nested file arg and .editorconfig", () => {
   });
 });
 
+test("API resolveConfig with nested file arg and .editorconfig and indent_size = tab", () => {
+  const file = path.resolve(
+    path.join(__dirname, "../cli/config/editorconfig/lib/indent_size=tab.js")
+  );
+  return prettier.resolveConfig(file).then(result => {
+    expect(result).toMatchObject({
+      useTabs: false,
+      tabWidth: 8,
+      printWidth: 100
+    });
+  });
+});
+
+test("API resolveConfig.sync with nested file arg and .editorconfig and indent_size = tab", () => {
+  const file = path.resolve(
+    path.join(__dirname, "../cli/config/editorconfig/lib/indent_size=tab.js")
+  );
+  expect(prettier.resolveConfig.sync(file)).toMatchObject({
+    useTabs: false,
+    tabWidth: 8,
+    printWidth: 100
+  });
+});
+
 test("API resolveConfig with missing file arg", () => {
   const file = path.resolve(
     path.join(__dirname, "../cli/config/editorconfig/file.shouldnotexist")

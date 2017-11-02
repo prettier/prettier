@@ -10,3 +10,6 @@ max_line_length = 100
 [lib/**.js]
 indent_style = space
 indent_size = 2
+
+[lib/indent_size=tab.js]
+indent_size = tab
