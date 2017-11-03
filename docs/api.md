@@ -62,6 +62,36 @@ As you repeatedly call `resolveConfig`, the file system structure will be cached
 This function will clear the cache. Generally this is only needed for editor integrations that
 know that the file system has changed since the last format took place.
 
+## `prettier.getSupportInfo([version])`
+
+Returns an object representing the parsers, languages and file types Prettier
+supports.
+
+If `version` is provided (e.g. `"1.5.0"`), information for that version will be
+returned, otherwise information for the current version will be returned.
+
+The support information looks like this:
+
+```
+{
+  languages: Array<{
+    name: string,
+    since: string,
+    parsers: string[],
+    group?: string,
+    tmScope: string,
+    aceMode: string,
+    codemirrorMode: string,
+    codemirrorMimeType: string,
+    aliases?: string[],
+    extensions: string[],
+    filenames?: string[],
+    linguistLanguageId: number,
+    vscodeLanguageIds: string[],
+  }>
+}
+```
+
 ## Custom Parser API
 
 If you need to make modifications to the AST (such as codemods), or you want to provide an alternate parser, you can do so by setting the `parser` option to a function. The function signature of the parser function is:
