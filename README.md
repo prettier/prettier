@@ -1,20 +1,37 @@
-<center>
-
 ![Prettier Banner](https://raw.githubusercontent.com/prettier/prettier-logo/master/images/prettier-banner-dark.png)
 
-## Opinionated Code Formatter
+<h2 align="center">Opinionated Code Formatter</h2>
 
-_JavaScript · Flow · TypeScript · CSS · SCSS · Less · GraphQL · JSON · Markdown_
+<p align="center">
+  <em>JavaScript · Flow · TypeScript · CSS · SCSS · Less · GraphQL · JSON · Markdown</em>
+</p>
 
-[![Gitter](https://img.shields.io/gitter/room/jlongster/prettier.svg?style=flat-square)](https://gitter.im/jlongster/prettier)
-[![Travis](https://img.shields.io/travis/prettier/prettier.svg?style=flat-square)](https://travis-ci.org/prettier/prettier)
-[![Codecov](https://img.shields.io/codecov/c/github/prettier/prettier.svg?style=flat-square)](https://codecov.io/gh/prettier/prettier)
-[![NPM version](https://img.shields.io/npm/v/prettier.svg?style=flat-square)](https://www.npmjs.com/package/prettier)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](#badge)
+<p align="center">
+  <a href="https://gitter.im/jlongster/prettier">
+    <img alt="Gitter" src="https://img.shields.io/gitter/room/jlongster/prettier.svg?style=flat-square">
+  </a>
+  <a href="https://travis-ci.org/prettier/prettier">
+    <img alt="Travis" src="https://img.shields.io/travis/prettier/prettier.svg?style=flat-square">
+  </a>
+  <a href="https://codecov.io/gh/prettier/prettier">
+    <img alt="Codecov" src="https://img.shields.io/codecov/c/github/prettier/prettier.svg?style=flat-square">
+  </a>
+  <a href="https://www.npmjs.com/package/prettier">
+    <img alt="npm version" src="https://img.shields.io/npm/v/prettier.svg?style=flat-square">
+  </a>
+  <a href="https://www.npmjs.com/package/prettier">
+    <img alt="npm version" src="https://img.shields.io/npm/dm/prettier.svg?style=flat-square">
+  </a>
+  <a href="#badge">
+    <img alt="code style: prettier" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square">
+  </a>
+</p>
 
 Prettier is an opinionated code formatter. It enforces a consistent style by
 parsing your code and re-printing it with its own rules that take the maximum
 line length into account, wrapping code when necessary.
+
+- - - 
 
 **[Documentation](https://prettier.io/docs/en/)**
 
@@ -24,9 +41,6 @@ line length into account, wrapping code when necessary.
 [API](https://prettier.io/docs/en/usage-options.html)
 
 **[Playground](https://prettier.io/playground/)**
-
-
-</center>
 
 - - -
 
