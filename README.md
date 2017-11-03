@@ -4,7 +4,7 @@
 
 ## Opinionated Code Formatter
 
-_JavaScript · Flow · TypeScript · CSS · SCSS · Less · GraphQL · Markdown_
+_JavaScript · Flow · TypeScript · CSS · SCSS · Less · GraphQL · JSON · Markdown_
 
 [![Gitter](https://img.shields.io/gitter/room/jlongster/prettier.svg?style=flat-square)](https://gitter.im/jlongster/prettier)
 [![Travis](https://img.shields.io/travis/prettier/prettier.svg?style=flat-square)](https://travis-ci.org/prettier/prettier)
