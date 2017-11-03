@@ -297,11 +297,11 @@ Require a special comment, called a pragma, to be present in the file's first do
 
 Valid pragmas are `@prettier` and `@format`.
 
-<!--
 #### `--insert-pragma`
+
 Insert a `@format` pragma to the top of formatted files when pragma is absent.
 Works well when used in tandem with `--require-pragma`.
--->
+
 #### `--list-different`
 
 Another useful flag is `--list-different` (or `-l`) which prints the filenames of files that are different from Prettier formatting. If there are differences the script errors out, which is useful in a CI scenario.
@@ -340,11 +340,9 @@ Prettier CLI will ignore files located in `node_modules` directory. To opt-out f
 
 This rewrites all processed files in place.  This is comparable to the `eslint --fix` workflow.
 
-<!--
 #### `--support-info`
 
 Prints, as JSON, the [support information](#prettiergetsupportinfoversion) for the current version of Prettier.
--->
 
 ### ESLint
 
@@ -509,7 +507,6 @@ As you repeatedly call `resolveConfig`, the file system structure will be cached
 This function will clear the cache. Generally this is only needed for editor integrations that
 know that the file system has changed since the last format took place.
 
-<!--
 #### `prettier.getSupportInfo([version])`
 
 Returns an object representing the parsers, languages and file types Prettier
@@ -539,7 +536,6 @@ The support information looks like this:
   }>
 }
 ```
--->
 
 #### Custom Parser API
 
