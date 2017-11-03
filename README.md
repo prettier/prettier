@@ -1,6 +1,6 @@
 <center>
 
-![](https://cloud.githubusercontent.com/assets/311752/24736977/385d81c8-1a40-11e7-8adc-c4c879ba6c31.png)
+![Prettier Banner](https://raw.githubusercontent.com/prettier/prettier-logo/master/images/prettier-banner-dark.png)
 
 ## Opinionated Code Formatter
 
