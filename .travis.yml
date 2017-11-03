@@ -16,7 +16,6 @@ matrix:
 install:
   - NODE_ENV=development yarn install
 before_script:
-  - yarn sync-docs && git diff --exit-code README.md docs
   - yarn check-deps
   - if [ "${NODE_ENV}" = "production" ]; then yarn build; fi
 script:
