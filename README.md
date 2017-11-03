@@ -12,6 +12,9 @@ _JavaScript · Flow · TypeScript · CSS · SCSS · Less · GraphQL · Markdown_
 [![NPM version](https://img.shields.io/npm/v/prettier.svg)](https://www.npmjs.com/package/prettier)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](#badge)
 
+Prettier is an opinionated code formatter. It enforces a consistent style by
+parsing your code and re-printing it with its own rules that take the maximum
+line length into account, wrapping code when necessary.
 
 **[Documentation](https://prettier.io/docs/en/)**
 
