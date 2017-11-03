@@ -3,7 +3,9 @@ id: ignore
 title: Ignoring Code
 ---
 
-## Excluding JavaScript code from formatting
+Prettier offers an escape hatch to ignore a block of code from being formatted.
+
+## JavaScript
 
 A JavaScript comment of `// prettier-ignore` will exclude the next node in the abstract syntax tree from formatting.
 
@@ -35,4 +37,30 @@ matrix(
   0, 1, 0,
   0, 0, 1
 )
+```
+
+## JSX
+
+```jsx
+<div>
+ {/* prettier-ignore */}
+ <span     ugly  format=''   />
+</div>;
+```
+
+## CSS
+
+```css
+/* prettier-ignore */
+.my    ugly rule
+{
+
+}
+```
+
+## Markdown
+
+```
+<!-- prettier-ignore -->
+Do   not    format   this
 ```
