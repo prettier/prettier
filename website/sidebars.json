@@ -15,8 +15,12 @@
       "api",
       "options",
       "configuration",
-      "editors",
       "ignore"
+    ],
+    "Editors": [
+      "editors",
+      "webstorm",
+      "vim"
     ],
     "Misc": [
       "technical-details",

@@ -1,7 +1,9 @@
 ---
 id: ignore
-title: Excluding code from formatting
+title: Ignoring Code
 ---
+
+## Excluding JavaScript code from formatting
 
 A JavaScript comment of `// prettier-ignore` will exclude the next node in the abstract syntax tree from formatting.
 

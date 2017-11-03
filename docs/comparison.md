@@ -1,7 +1,9 @@
 ---
 id: comparison
-title: How does it compare to ESLint/TSLint/stylelint, etc.?
+title: Prettier vs. Linters
 ---
+
+## How does it compare to ESLint/TSLint/stylelint, etc.?
 
 Linters have two categories of rules:
 
