@@ -8,7 +8,7 @@ including non-standardized ones. By default it uses the
 [Babylon](https://github.com/babel/babylon) parser with all language
 features enabled, but you can also use the
 [Flow](https://github.com/facebook/flow) parser with the
-`parser` API or `--parser` CLI [option](#options).
+`parser` API or `--parser` CLI [option./options.html).
 
 All of JSX and Flow syntax is supported. In fact, the test suite in
 `tests/flow` *is* the entire Flow test suite and they all pass.

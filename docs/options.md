@@ -113,7 +113,7 @@ Built-in parsers:
  * [`json`](https://github.com/babel/babylon/tree/f09eb3200f57ea94d51c2a5b1facf2149fb406bf#babylonparseexpressioncode-options) _Since v1.5.0_
  * [`graphql`](https://github.com/graphql/graphql-js/tree/master/src/language) _Since v1.5.0_
 
-[Custom parsers](#custom-parser-api) are also supported.  _Since v1.5.0_
+[Custom parsers./custom-parser-api.html) are also supported.  _Since v1.5.0_
 
 Default | CLI Override | API Override
 --------|--------------|-------------

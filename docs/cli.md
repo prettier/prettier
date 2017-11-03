@@ -4,7 +4,7 @@ title: CLI
 ---
 
 Run Prettier through the CLI with this script. Run it without any
-arguments to see the [options](#options).
+arguments to see the [options./options.html).
 
 To format a file in-place, use `--write`. You may want to consider
 committing your code before doing that, just in case.
@@ -35,7 +35,7 @@ Note that `--write` cannot be used with `--debug-check`.
 ## `--find-config-path` and `--config`
 
 If you are repeatedly formatting individual files with `prettier`, you will incur a small performance cost
-when prettier attempts to look up a [configuration file](#configuration-file). In order to skip this, you may
+when prettier attempts to look up a [configuration file./configuration-file.html). In order to skip this, you may
 ask prettier to find the config file once, and re-use it later on.
 
 ```bash

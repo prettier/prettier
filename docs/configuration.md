@@ -13,7 +13,7 @@ This means you can configure prettier via:
 The configuration file will be resolved starting from the location of the file being formatted,
 and searching up the file tree until a config file is (or isn't) found.
 
-The options to the configuration file are the same the [API options](#options).
+The options to the configuration file are the same the [API options./options.html).
 
 ## Basic Configuration
 
@@ -78,7 +78,7 @@ To get prettier to format its own `.prettierrc` file, you can do:
 }
 ```
 
-For more information on how to use the CLI to locate a file, see the [CLI](#cli) section.
+For more information on how to use the CLI to locate a file, see the [CLI./cli.html) section.
 
 ## Configuration Schema
 

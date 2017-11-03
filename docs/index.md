@@ -55,5 +55,5 @@ If you want to learn more, these two conference talks are great introductions:
   [empty lines] and [multi-line objects]._
 
 
-[empty lines]:/docs/en/rationale.html#empty-lines
-[multi-line objects]:/docs/en/rationale.html#multi-line-objects
+[empty lines]:./rationale.html#empty-lines
+[multi-line objects]:./rationale.html#multi-line-objects
