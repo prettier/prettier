@@ -1,0 +1,504 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`API getSupportInfo() no arguments 1`] = `
+Object {
+  "languages": Array [
+    Object {
+      "aceMode": "javascript",
+      "aliases": Array [
+        "js",
+        "node",
+      ],
+      "codemirrorMimeType": "text/javascript",
+      "codemirrorMode": "javascript",
+      "extensions": Array [
+        ".js",
+        "._js",
+        ".bones",
+        ".es",
+        ".es6",
+        ".frag",
+        ".gs",
+        ".jake",
+        ".jsb",
+        ".jscad",
+        ".jsfl",
+        ".jsm",
+        ".jss",
+        ".mjs",
+        ".njs",
+        ".pac",
+        ".sjs",
+        ".ssjs",
+        ".xsjs",
+        ".xsjslib",
+      ],
+      "filenames": Array [
+        "Jakefile",
+      ],
+      "group": "JavaScript",
+      "linguistLanguageId": 183,
+      "name": "JavaScript",
+      "parsers": Array [
+        "babylon",
+        "flow",
+      ],
+      "since": "0.0.0",
+      "tmScope": "source.js",
+      "vscodeLanguageIds": Array [
+        "javascript",
+      ],
+    },
+    Object {
+      "aceMode": "javascript",
+      "codemirrorMimeType": "text/jsx",
+      "codemirrorMode": "jsx",
+      "extensions": Array [
+        ".jsx",
+      ],
+      "group": "JavaScript",
+      "liguistLanguageId": 178,
+      "name": "JSX",
+      "parsers": Array [
+        "babylon",
+        "flow",
+      ],
+      "since": "0.0.0",
+      "tmScope": "source.js.jsx",
+      "vscodeLanguageIds": Array [
+        "javascriptreact",
+      ],
+    },
+    Object {
+      "aceMode": "typescript",
+      "aliases": Array [
+        "ts",
+      ],
+      "codemirrorMimeType": "application/typescript",
+      "codemirrorMode": "javascript",
+      "extensions": Array [
+        ".ts",
+        ".tsx",
+      ],
+      "group": "JavaScript",
+      "liguistLanguageId": 378,
+      "name": "TypeScript",
+      "parsers": Array [
+        "typescript",
+      ],
+      "since": "1.4.0",
+      "tmScope": "source.ts",
+      "vscodeLanguageIds": Array [
+        "typescript",
+        "typescriptreact",
+      ],
+    },
+    Object {
+      "aceMode": "css",
+      "codemirrorMimeType": "text/css",
+      "codemirrorMode": "css",
+      "extensions": Array [
+        ".css",
+      ],
+      "group": "CSS",
+      "liguistLanguageId": 50,
+      "name": "CSS",
+      "parsers": Array [
+        "css",
+      ],
+      "since": "1.4.0",
+      "tmScope": "source.css",
+      "vscodeLanguageIds": Array [
+        "css",
+      ],
+    },
+    Object {
+      "aceMode": "less",
+      "codemirrorMimeType": "text/css",
+      "codemirrorMode": "css",
+      "extensions": Array [
+        ".less",
+      ],
+      "group": "CSS",
+      "liguistLanguageId": 198,
+      "name": "Less",
+      "parsers": Array [
+        "less",
+      ],
+      "since": "1.4.0",
+      "tmScope": "source.css.less",
+      "vscodeLanguageIds": Array [
+        "less",
+      ],
+    },
+    Object {
+      "aceMode": "scss",
+      "codemirrorMimeType": "text/x-scss",
+      "codemirrorMode": "css",
+      "extensions": Array [
+        ".scss",
+      ],
+      "group": "CSS",
+      "liguistLanguageId": 329,
+      "name": "SCSS",
+      "parsers": Array [
+        "scss",
+      ],
+      "since": "1.4.0",
+      "tmScope": "source.scss",
+      "vscodeLanguageIds": Array [
+        "scss",
+      ],
+    },
+    Object {
+      "aceMode": "text",
+      "extensions": Array [
+        ".graphql",
+        ".gql",
+      ],
+      "liguistLanguageId": 139,
+      "name": "GraphQL",
+      "parsers": Array [
+        "graphql",
+      ],
+      "since": "1.5.0",
+      "tmScope": "source.graphql",
+      "vscodeLanguageIds": Array [
+        "graphql",
+      ],
+    },
+    Object {
+      "aceMode": "json",
+      "codemirrorMimeType": "application/json",
+      "codemirrorMode": "javascript",
+      "extensions": Array [
+        ".json",
+        ".json5",
+        ".geojson",
+        ".JSON-tmLanguage",
+        ".topojson",
+      ],
+      "filenames": Array [
+        ".arcconfig",
+        ".jshintrc",
+        ".babelrc",
+        ".eslintrc",
+        ".prettierrc",
+        "composer.lock",
+        "mcmod.info",
+      ],
+      "group": "JavaScript",
+      "linguistLanguageId": 174,
+      "name": "JSON",
+      "parsers": Array [
+        "json",
+      ],
+      "since": "1.5.0",
+      "tmScope": "source.json",
+      "vscodeLanguageIds": Array [
+        "json",
+      ],
+    },
+  ],
+}
+`;
+
+exports[`API getSupportInfo() with version 0.0.0 1`] = `
+Object {
+  "JSX": Array [
+    "babylon",
+    "flow",
+  ],
+  "JavaScript": Array [
+    "babylon",
+    "flow",
+  ],
+}
+`;
+
+exports[`API getSupportInfo() with version 1.0.0 1`] = `
+Object {
+  "JSX": Array [
+    "babylon",
+    "flow",
+  ],
+  "JavaScript": Array [
+    "babylon",
+    "flow",
+  ],
+}
+`;
+
+exports[`API getSupportInfo() with version 1.4.0 1`] = `
+Object {
+  "CSS": Array [
+    "postcss",
+  ],
+  "JSX": Array [
+    "babylon",
+    "flow",
+  ],
+  "JavaScript": Array [
+    "babylon",
+    "flow",
+  ],
+  "Less": Array [
+    "postcss",
+  ],
+  "SCSS": Array [
+    "postcss",
+  ],
+  "TypeScript": Array [
+    "typescript",
+  ],
+}
+`;
+
+exports[`API getSupportInfo() with version 1.5.0 1`] = `
+Object {
+  "CSS": Array [
+    "postcss",
+  ],
+  "GraphQL": Array [
+    "graphql",
+  ],
+  "JSON": Array [
+    "json",
+  ],
+  "JSX": Array [
+    "babylon",
+    "flow",
+  ],
+  "JavaScript": Array [
+    "babylon",
+    "flow",
+  ],
+  "Less": Array [
+    "postcss",
+  ],
+  "SCSS": Array [
+    "postcss",
+  ],
+  "TypeScript": Array [
+    "typescript",
+  ],
+}
+`;
+
+exports[`API getSupportInfo() with version 1.7.1 1`] = `
+Object {
+  "CSS": Array [
+    "css",
+  ],
+  "GraphQL": Array [
+    "graphql",
+  ],
+  "JSON": Array [
+    "json",
+  ],
+  "JSX": Array [
+    "babylon",
+    "flow",
+  ],
+  "JavaScript": Array [
+    "babylon",
+    "flow",
+  ],
+  "Less": Array [
+    "less",
+  ],
+  "SCSS": Array [
+    "scss",
+  ],
+  "TypeScript": Array [
+    "typescript",
+  ],
+}
+`;
+
+exports[`API getSupportInfo() with version 1.8.0 1`] = `
+Object {
+  "CSS": Array [
+    "css",
+  ],
+  "GraphQL": Array [
+    "graphql",
+  ],
+  "JSON": Array [
+    "json",
+  ],
+  "JSX": Array [
+    "babylon",
+    "flow",
+  ],
+  "JavaScript": Array [
+    "babylon",
+    "flow",
+  ],
+  "Less": Array [
+    "less",
+  ],
+  "Markdown": Array [
+    "markdown",
+  ],
+  "SCSS": Array [
+    "scss",
+  ],
+  "TypeScript": Array [
+    "typescript",
+  ],
+}
+`;
+
+exports[`CLI --support-info (stderr) 1`] = `""`;
+
+exports[`CLI --support-info (stdout) 1`] = `
+"{
+  \\"languages\\": [
+    {
+      \\"name\\": \\"JavaScript\\",
+      \\"since\\": \\"0.0.0\\",
+      \\"parsers\\": [\\"babylon\\", \\"flow\\"],
+      \\"group\\": \\"JavaScript\\",
+      \\"tmScope\\": \\"source.js\\",
+      \\"aceMode\\": \\"javascript\\",
+      \\"codemirrorMode\\": \\"javascript\\",
+      \\"codemirrorMimeType\\": \\"text/javascript\\",
+      \\"aliases\\": [\\"js\\", \\"node\\"],
+      \\"extensions\\": [
+        \\".js\\",
+        \\"._js\\",
+        \\".bones\\",
+        \\".es\\",
+        \\".es6\\",
+        \\".frag\\",
+        \\".gs\\",
+        \\".jake\\",
+        \\".jsb\\",
+        \\".jscad\\",
+        \\".jsfl\\",
+        \\".jsm\\",
+        \\".jss\\",
+        \\".mjs\\",
+        \\".njs\\",
+        \\".pac\\",
+        \\".sjs\\",
+        \\".ssjs\\",
+        \\".xsjs\\",
+        \\".xsjslib\\"
+      ],
+      \\"filenames\\": [\\"Jakefile\\"],
+      \\"linguistLanguageId\\": 183,
+      \\"vscodeLanguageIds\\": [\\"javascript\\"]
+    },
+    {
+      \\"name\\": \\"JSX\\",
+      \\"since\\": \\"0.0.0\\",
+      \\"parsers\\": [\\"babylon\\", \\"flow\\"],
+      \\"group\\": \\"JavaScript\\",
+      \\"extensions\\": [\\".jsx\\"],
+      \\"tmScope\\": \\"source.js.jsx\\",
+      \\"aceMode\\": \\"javascript\\",
+      \\"codemirrorMode\\": \\"jsx\\",
+      \\"codemirrorMimeType\\": \\"text/jsx\\",
+      \\"liguistLanguageId\\": 178,
+      \\"vscodeLanguageIds\\": [\\"javascriptreact\\"]
+    },
+    {
+      \\"name\\": \\"TypeScript\\",
+      \\"since\\": \\"1.4.0\\",
+      \\"parsers\\": [\\"typescript\\"],
+      \\"group\\": \\"JavaScript\\",
+      \\"aliases\\": [\\"ts\\"],
+      \\"extensions\\": [\\".ts\\", \\".tsx\\"],
+      \\"tmScope\\": \\"source.ts\\",
+      \\"aceMode\\": \\"typescript\\",
+      \\"codemirrorMode\\": \\"javascript\\",
+      \\"codemirrorMimeType\\": \\"application/typescript\\",
+      \\"liguistLanguageId\\": 378,
+      \\"vscodeLanguageIds\\": [\\"typescript\\", \\"typescriptreact\\"]
+    },
+    {
+      \\"name\\": \\"CSS\\",
+      \\"since\\": \\"1.4.0\\",
+      \\"parsers\\": [\\"css\\"],
+      \\"group\\": \\"CSS\\",
+      \\"tmScope\\": \\"source.css\\",
+      \\"aceMode\\": \\"css\\",
+      \\"codemirrorMode\\": \\"css\\",
+      \\"codemirrorMimeType\\": \\"text/css\\",
+      \\"extensions\\": [\\".css\\"],
+      \\"liguistLanguageId\\": 50,
+      \\"vscodeLanguageIds\\": [\\"css\\"]
+    },
+    {
+      \\"name\\": \\"Less\\",
+      \\"since\\": \\"1.4.0\\",
+      \\"parsers\\": [\\"less\\"],
+      \\"group\\": \\"CSS\\",
+      \\"extensions\\": [\\".less\\"],
+      \\"tmScope\\": \\"source.css.less\\",
+      \\"aceMode\\": \\"less\\",
+      \\"codemirrorMode\\": \\"css\\",
+      \\"codemirrorMimeType\\": \\"text/css\\",
+      \\"liguistLanguageId\\": 198,
+      \\"vscodeLanguageIds\\": [\\"less\\"]
+    },
+    {
+      \\"name\\": \\"SCSS\\",
+      \\"since\\": \\"1.4.0\\",
+      \\"parsers\\": [\\"scss\\"],
+      \\"group\\": \\"CSS\\",
+      \\"tmScope\\": \\"source.scss\\",
+      \\"aceMode\\": \\"scss\\",
+      \\"codemirrorMode\\": \\"css\\",
+      \\"codemirrorMimeType\\": \\"text/x-scss\\",
+      \\"extensions\\": [\\".scss\\"],
+      \\"liguistLanguageId\\": 329,
+      \\"vscodeLanguageIds\\": [\\"scss\\"]
+    },
+    {
+      \\"name\\": \\"GraphQL\\",
+      \\"since\\": \\"1.5.0\\",
+      \\"parsers\\": [\\"graphql\\"],
+      \\"extensions\\": [\\".graphql\\", \\".gql\\"],
+      \\"tmScope\\": \\"source.graphql\\",
+      \\"aceMode\\": \\"text\\",
+      \\"liguistLanguageId\\": 139,
+      \\"vscodeLanguageIds\\": [\\"graphql\\"]
+    },
+    {
+      \\"name\\": \\"JSON\\",
+      \\"since\\": \\"1.5.0\\",
+      \\"parsers\\": [\\"json\\"],
+      \\"group\\": \\"JavaScript\\",
+      \\"tmScope\\": \\"source.json\\",
+      \\"aceMode\\": \\"json\\",
+      \\"codemirrorMode\\": \\"javascript\\",
+      \\"codemirrorMimeType\\": \\"application/json\\",
+      \\"extensions\\": [
+        \\".json\\",
+        \\".json5\\",
+        \\".geojson\\",
+        \\".JSON-tmLanguage\\",
+        \\".topojson\\"
+      ],
+      \\"filenames\\": [
+        \\".arcconfig\\",
+        \\".jshintrc\\",
+        \\".babelrc\\",
+        \\".eslintrc\\",
+        \\".prettierrc\\",
+        \\"composer.lock\\",
+        \\"mcmod.info\\"
+      ],
+      \\"linguistLanguageId\\": 174,
+      \\"vscodeLanguageIds\\": [\\"json\\"]
+    }
+  ]
+}
+
+"
+`;
+
+exports[`CLI --support-info (write) 1`] = `Array []`;

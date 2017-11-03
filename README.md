@@ -340,6 +340,12 @@ Prettier CLI will ignore files located in `node_modules` directory. To opt-out f
 
 This rewrites all processed files in place.  This is comparable to the `eslint --fix` workflow.
 
+<!--
+#### `--support-info`
+
+Prints, as JSON, the [support information](#prettiergetsupportinfoversion) for the current version of Prettier.
+-->
+
 ### ESLint
 
 If you are using ESLint, integrating Prettier to your workflow is straightforward:
@@ -502,6 +508,38 @@ Use `prettier.resolveConfig.sync(filePath [, options])` if you'd like to use syn
 As you repeatedly call `resolveConfig`, the file system structure will be cached for performance.
 This function will clear the cache. Generally this is only needed for editor integrations that
 know that the file system has changed since the last format took place.
+
+<!--
+#### `prettier.getSupportInfo([version])`
+
+Returns an object representing the parsers, languages and file types Prettier
+supports.
+
+If `version` is provided (e.g. `"1.5.0"`), information for that version will be
+returned, otherwise information for the current version will be returned.
+
+The support information looks like this:
+
+```
+{
+  languages: Array<{
+    name: string,
+    since: string,
+    parsers: string[],
+    group?: string,
+    tmScope: string,
+    aceMode: string,
+    codemirrorMode: string,
+    codemirrorMimeType: string,
+    aliases?: string[],
+    extensions: string[],
+    filenames?: string[],
+    linguistLanguageId: number,
+    vscodeLanguageIds: string[],
+  }>
+}
+```
+-->
 
 #### Custom Parser API
 
