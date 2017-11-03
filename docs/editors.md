@@ -3,9 +3,6 @@ id: editors
 title: Editor Integration
 ---
 
-<!-- AUTO-GENERATED-CONTENT:START (PRETTIER_DOCS:id=editors) -->
-
-
 ## Atom
 
 Atom users can simply install the [prettier-atom](https://github.com/prettier/prettier-atom) package and use
@@ -41,5 +38,3 @@ the [JsPrettier](https://packagecontrol.io/packages/JsPrettier) plug-in.
 
 See the [WebStorm
 guide](https://github.com/jlongster/prettier/tree/master/editors/webstorm/README.md).
-
-<!-- AUTO-GENERATED-CONTENT:END -->

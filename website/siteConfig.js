@@ -19,9 +19,10 @@ const siteConfig = {
   editors,
   supportedLanguages,
   /* base url for editing docs, usage example: editUrl + 'en/doc1.md' */
-  editUrl: `${GITHUB_URL}/edit/master/README.md#`,
+  editUrl: `${GITHUB_URL}/edit/master/docs/`,
   headerLinks: [
-    { doc: "why-prettier", label: "Docs" },
+    { doc: "index", label: "About" },
+    { doc: "install", label: "Usage" },
     { href: "/playground/", label: "Playground" },
     { href: GITHUB_URL, label: "GitHub" }
   ],

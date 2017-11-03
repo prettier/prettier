@@ -3,9 +3,6 @@ id: options
 title: Options
 ---
 
-<!-- AUTO-GENERATED-CONTENT:START (PRETTIER_DOCS:id=options) -->
-
-
 Prettier ships with a handful of customizable format options, usable in both the CLI and API.
 
 ## Print Width
@@ -169,6 +166,3 @@ Default | CLI Override | API Override
 --------|--------------|-------------
 `false` | `--insert-pragma` | `insertPragma: <bool>`
 -->
-
-<!-- AUTO-GENERATED-CONTENT:START (PRETTIER_DOCS) -->
-<!-- AUTO-GENERATED-CONTENT:END -->

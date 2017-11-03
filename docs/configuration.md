@@ -3,9 +3,6 @@ id: configuration
 title: Configuration File
 ---
 
-<!-- AUTO-GENERATED-CONTENT:START (PRETTIER_DOCS:id=configuration) -->
-
-
 Prettier uses [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) for configuration file support.
 This means you can configure prettier via:
 
@@ -86,6 +83,3 @@ For more information on how to use the CLI to locate a file, see the [CLI](#cli)
 ## Configuration Schema
 
 If you'd like a JSON schema to validate your configuration, one is available here: http://json.schemastore.org/prettierrc.
-
-
-<!-- AUTO-GENERATED-CONTENT:END -->

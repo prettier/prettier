@@ -1,5 +1,26 @@
 {
   "docs": {
-    "Prettier": ["why-prettier", "usage", "options", "configuration", "editors"]
+    "About": [
+      "index",
+      "why-prettier",
+      "comparison",
+      "language-support",
+      "rationale"
+    ],
+    "Usage": [
+      "install",
+      "cli",
+      "eslint",
+      "precommit",
+      "api",
+      "options",
+      "configuration",
+      "editors",
+      "ignore"
+    ],
+    "Misc": [
+      "technical-details",
+      "related-projects"
+    ]
   }
 }

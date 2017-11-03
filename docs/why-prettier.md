@@ -3,9 +3,6 @@ id: why-prettier
 title: Why Prettier?
 ---
 
-<!-- AUTO-GENERATED-CONTENT:START (PRETTIER_DOCS:id=why-prettier) -->
-
-
 ## Building and enforcing a style guide
 
 By far the biggest reason for adopting Prettier is to stop all the on-going debates over styles. It is generally accepted that having a common style guide is valuable for a project and team but getting there is a very painful and unrewarding process. People get very emotional around particular ways of writing code and nobody likes spending time writing and receiving nits.
@@ -61,5 +58,3 @@ Purely technical aspects of the projects aren't the only thing people look into 
 - “I like to be part of the hot new things.”
 - “Because soon enough people are gonna ask for it.”
 
-
-<!-- AUTO-GENERATED-CONTENT:END -->
