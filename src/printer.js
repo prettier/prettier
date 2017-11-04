@@ -550,10 +550,8 @@ function genericPrintNoParens(path, options, print, args) {
 
       // if the arrow function is expanded as last argument, we are adding a
       // level of indentation and need to add a softline to align the closing )
-      // with the opening (.
-      // or if the arrow functino is inside a JSXExpression (e.g. an attribute)
-      // we should align the expression's closing } with the line with the
-      // opening {.
+      // with the opening (, or if it's inside a JSXExpression (e.g. an attribute)
+      // we should align the expression's closing } with the line with the opening {.
       const shouldAddSoftLine =
         (args && args.expandLastArg) ||
         path.getParentNode().type === "JSXExpressionContainer";
