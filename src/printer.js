@@ -551,7 +551,12 @@ function genericPrintNoParens(path, options, print, args) {
       // if the arrow function is expanded as last argument, we are adding a
       // level of indentation and need to add a softline to align the closing )
       // with the opening (.
-      const shouldAddSoftLine = args && args.expandLastArg;
+      // or if the arrow functino is inside a JSXExpression (e.g. an attribute)
+      // we should align the expression's closing } with the line with the
+      // opening {.
+      const shouldAddSoftLine =
+        (args && args.expandLastArg) ||
+        path.getParentNode().type === "JSXExpressionContainer";
 
       // In order to avoid confusion between
       // a => a ? a : a
@@ -1737,17 +1742,8 @@ function genericPrintNoParens(path, options, print, args) {
               isBinaryish(n.expression))));
 
       if (shouldInline) {
-        const printExpression =
-          n.expression.type !== "ArrowFunctionExpression"
-            ? print
-            : p => print(p, { expandLastArg: true });
         return group(
-          concat([
-            "{",
-            path.call(printExpression, "expression"),
-            lineSuffixBoundary,
-            "}"
-          ])
+          concat(["{", path.call(print, "expression"), lineSuffixBoundary, "}"])
         );
       }
 
