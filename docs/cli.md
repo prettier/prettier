@@ -4,7 +4,7 @@ title: CLI
 ---
 
 Run Prettier through the CLI with this script. Run it without any
-arguments to see the [options](./options.html).
+arguments to see the [options](options.md).
 
 To format a file in-place, use `--write`. You may want to consider
 committing your code before doing that, just in case.

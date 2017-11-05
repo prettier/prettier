@@ -114,13 +114,13 @@ Built-in parsers:
  * [`graphql`](https://github.com/graphql/graphql-js/tree/master/src/language) _Since v1.5.0_
  * [`markdown`](https://github.com/wooorm/remark/tree/master/packages/remark-parse) _Since v1.8.0_
 
-[Custom parsers](./api.html#custom-parser-api) are also supported.  _Since v1.5.0_
+[Custom parsers](api.md#custom-parser-api) are also supported.  _Since v1.5.0_
 
 Default | CLI Override | API Override
 --------|--------------|-------------
 `babylon` | `--parser <string>`<br />`--parser ./my-parser` | `parser: "<string>"`<br />`parser: require("./my-parser")`
 
-## Filepath
+## FilePath
 Specify the input filepath. This will be used to do parser inference.
 
 For example, the following will use `postcss` parser:

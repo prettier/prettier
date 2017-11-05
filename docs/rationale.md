@@ -21,12 +21,6 @@ The first requirement of prettier is to output valid JavaScript and code that ha
 
 This is the core of prettier. The formatting rules are going to be explained in a later section.
 
-<!--
-### Semi-colons
-
-...TBD...
--->
-
 ### Strings
 
 Prettier enforces double quotes by default, but has a setting for enforcing single quotes instead. There are two exceptions:
@@ -67,6 +61,10 @@ Here are a few examples of things that are out of scope for prettier:
 
 
 <!--
+### Semi-colons
+
+...TBD...
+
 ## Formatting rules
 
 ... TBD ...

@@ -15,7 +15,7 @@ for on-demand formatting.
 
 ## Vim
 
-Vim users can simply install either [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/neoformat), [w0rp](https://github.com/w0rp)/[ale](https://github.com/w0rp/ale), or [prettier](https://github.com/prettier)/[vim-prettier](https://github.com/prettier/vim-prettier), for more details see [the vim setup guide](./vim.html).
+Vim users can simply install either [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/neoformat), [w0rp](https://github.com/w0rp)/[ale](https://github.com/w0rp/ale), or [prettier](https://github.com/prettier)/[vim-prettier](https://github.com/prettier/vim-prettier), for more details see [the vim setup guide](vim.md).
 
 ## Visual Studio Code
 
@@ -36,4 +36,4 @@ the [JsPrettier](https://packagecontrol.io/packages/JsPrettier) plug-in.
 
 ## JetBrains WebStorm, PHPStorm, PyCharm...
 
-See the [WebStorm setup guide](./webstorm.html).
+See the [WebStorm setup guide](webstorm.md).

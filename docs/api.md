@@ -9,7 +9,7 @@ const prettier = require("prettier");
 
 ## `prettier.format(source [, options])`
 
-`format` is used to format text using Prettier. [Options](./options.html) may be provided to override the defaults.
+`format` is used to format text using Prettier. [Options](options.md) may be provided to override the defaults.
 
 ```js
 prettier.format("foo ( );", { semi: false });
