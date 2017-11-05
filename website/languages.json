@@ -28,5 +28,13 @@
             "[GraphQL](http://graphql.org/)",
             "[GraphQL Schemas](http://graphql.org/learn/schema/)"
         ]
+    },
+    {
+        "name": "Markdown",
+        "image": "/images/markdown-128px.png",
+        "variants": [
+            "[CommonMark](http://commonmark.org/)",
+            "[GitHub Flavored Markdown](https://github.github.com/gfm/)"
+        ]
     }
 ]
