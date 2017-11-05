@@ -3,38 +3,13 @@ id: vim
 title: Vim Setup
 ---
 
-<details>
-<summary><strong>Table of Contents</strong></summary>
-
-- [Vim and Prettier integration](#vim-and-prettier-integration)
-  * [Neoformat](#neoformat)
-    + [Neoformat - Installation](#neoformat---installation)
-    + [Neoformat - Usage](#neoformat---usage)
-    + [Neoformat - Other autocmd events](#neoformat---other-autocmd-events)
-    + [Neoformat - Customizing Prettier](#neoformat---customizing-prettier)
-  * [vim-prettier](#vim-prettier-1)
-    + [vim-prettier - Installation](#vim-prettier---installation)
-    + [vim-prettier - Usage](#vim-prettier---usage)
-    + [vim-prettier - Configuration](#vim-prettier---configuration)
-  * [ALE](#ale)
-    + [ALE - Installation](#ale---installation)
-    + [ALE - Usage](#ale---usage)
-    + [ALE - Configuration](#ale---configuration)
-  * [Running manually](#running-manually)
-    + [Running Prettier manually in Vim](#running-prettier-manually-in-vim)
-</details>
-
---------------------------------------------------------------------------------
-
-## Vim and Prettier integration
-
 Vim users can simply install either [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/neoformat), [w0rp](https://github.com/w0rp)/[ale](https://github.com/w0rp/ale), or [prettier](https://github.com/prettier)/[vim-prettier](https://github.com/prettier/vim-prettier).
 
 --------------------------------------------------------------------------------
 
-### Neoformat
+## Neoformat
 
-#### Neoformat - Installation
+### Neoformat - Installation
 
 Add [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/neoformat) to your list based on the tool you use:
 
@@ -42,7 +17,7 @@ Add [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/ne
 Plug 'sbdchd/neoformat'
 ```
 
-#### Neoformat - Usage
+### Neoformat - Usage
 
 Then make Neoformat run on save:
 
@@ -50,7 +25,7 @@ Then make Neoformat run on save:
 autocmd BufWritePre *.js Neoformat
 ```
 
-#### Neoformat - Other `autocmd` events
+### Neoformat - Other `autocmd` events
 
 You can also make Vim format your code more frequently, by setting an `autocmd` for other events. Here are a couple of useful ones:
 
@@ -65,7 +40,7 @@ autocmd BufWritePre,TextChanged,InsertLeave *.js Neoformat
 
 See `:help autocmd-events` in Vim for details.
 
-#### Neoformat - Customizing Prettier
+### Neoformat - Customizing Prettier
 
 If your project requires settings other than the default Prettier settings, you can pass arguments to do so in your `.vimrc` or [vim project](http://vim.wikia.com/wiki/Project_specific_settings), you can do so:
 
@@ -79,11 +54,11 @@ Each space in prettier options should be escaped with `\`.
 
 --------------------------------------------------------------------------------
 
-### vim-prettier
+## vim-prettier
 
 ![vim-prettier](https://raw.githubusercontent.com/prettier/vim-prettier/master/media/vim-prettier.gif?raw=true "vim-prettier")
 
-#### vim-prettier - Installation
+### vim-prettier - Installation
 
 Install with [vim-plug](https://github.com/junegunn/vim-plug), assumes node and yarn|npm installed globally.
 
@@ -106,7 +81,7 @@ vim-prettier executable resolution:
 2. Look for a global prettier installation
 3. Use locally installed vim-prettier prettier executable
 
-#### vim-prettier - Usage
+### vim-prettier - Usage
 
 Prettier by default will run on auto save but can also be manualy triggered by:
 
@@ -124,7 +99,7 @@ If your are on vim 8+ you can also trigger async formatting by:
 :PrettierAsync
 ```
 
-#### vim-prettier - Configuration
+### vim-prettier - Configuration
 
 Disable auto formatting of files that have "@format" tag
 
@@ -204,9 +179,9 @@ g:prettier#config#parser = 'flow'
 ```
 --------------------------------------------------------------------------------
 
-### ALE
+## ALE
 
-#### ALE - Installation
+### ALE - Installation
 
 [ALE](https://github.com/w0rp/ale) is an asynchronous lint engine for Vim that
 also has the ability to run formatters over code, including Prettier. For ALE
@@ -222,7 +197,7 @@ Plug 'w0rp/ale'
 
 You can find further instructions on the [ALE repository](https://github.com/w0rp/ale#3-installation).
 
-#### ALE - Usage
+### ALE - Usage
 
 Once you've installed ALE you need to enable the Prettier fixer:
 
@@ -236,7 +211,7 @@ ALE will first use the Prettier installed locally (in
 
 You can then run `:ALEFix` in a JavaScript file to run Prettier.
 
-#### ALE - Configuration
+### ALE - Configuration
 
 To have ALE run `prettier` when you save a file you can tell ALE to run
 automatically:
@@ -261,9 +236,9 @@ let g:ale_javascript_prettier_use_local_config = 1
 
 --------------------------------------------------------------------------------
 
-### Running manually
+## Running manually
 
-#### Running Prettier manually in Vim
+### Running Prettier manually in Vim
 
 If you need a little more control over when prettier is run, you can create a
 custom key binding. In this example, `gp` (mnemonic: "get pretty") is used to

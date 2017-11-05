@@ -10,12 +10,15 @@
     "Usage": [
       "install",
       "cli",
-      "eslint",
       "precommit",
+      "watching-files",
+      "eslint",
       "api",
-      "options",
-      "configuration",
       "ignore"
+    ],
+    "Configuring Prettier": [
+      "options",
+      "configuration"
     ],
     "Editors": [
       "editors",
