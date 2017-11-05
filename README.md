@@ -3,7 +3,17 @@
 <h2 align="center">Opinionated Code Formatter</h2>
 
 <p align="center">
-  <em>JavaScript · Flow · TypeScript · CSS · SCSS · Less · GraphQL · JSON · Markdown</em>
+  <em>
+  JavaScript
+  · Flow
+  · TypeScript
+  · CSS
+  · SCSS
+  · Less
+  · GraphQL
+  · JSON
+  · Markdown
+  </em>
 </p>
 
 <p align="center">
@@ -27,11 +37,36 @@
   </a>
 </p>
 
+## Intro
+
 Prettier is an opinionated code formatter. It enforces a consistent style by
 parsing your code and re-printing it with its own rules that take the maximum
 line length into account, wrapping code when necessary.
 
-- - - 
+### Input
+
+```js
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+```
+
+### Output
+
+```js
+foo(
+  reallyLongArg(),
+  omgSoManyParameters(),
+  IShouldRefactorThis(),
+  isThereSeriouslyAnotherOne()
+);
+```
+
+Prettier can be ran [in your editor](http://prettier.io/docs/en/editors.html)
+on-save, in a [pre-commit hook](https://prettier.io/docs/en/precommit.html),
+or in [CI environments](https://prettier.io/docs/en/cli.html#list-different)
+to ensure your codebase has a consistent style without devs ever having to post
+a nit comment on a code review ever again!
+
+- - -
 
 **[Documentation](https://prettier.io/docs/en/)**
 
