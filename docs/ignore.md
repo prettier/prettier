@@ -60,7 +60,7 @@ matrix(
 
 ## Markdown
 
-```
+```markdown
 <!-- prettier-ignore -->
 Do   not    format   this
 ```
