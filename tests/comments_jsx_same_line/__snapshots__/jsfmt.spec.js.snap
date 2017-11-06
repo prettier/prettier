@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`jsx_same_line.js 1`] = `
+<div
+  // comment
+>
+  {foo}
+</div>;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div
+// comment
+>
+  {foo}
+</div>;
+
+`;

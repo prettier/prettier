@@ -23,3 +23,28 @@ new (typeof this == "function" ? this : Dict())();
 new (createObj()).prop(a());
 
 `;
+
+exports[`with-member-expression.js 1`] = `
+function functionName() {
+  // indent to make the line break
+  if (true) {
+    this._aVeryLongVariableNameToForceLineBreak = new this.Promise(
+      (resolve, reject) => {
+        // do something
+      }
+    );
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function functionName() {
+  // indent to make the line break
+  if (true) {
+    this._aVeryLongVariableNameToForceLineBreak = new this.Promise(
+      (resolve, reject) => {
+        // do something
+      }
+    );
+  }
+}
+
+`;

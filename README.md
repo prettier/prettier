@@ -66,8 +66,14 @@ conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Pre
   + [Visual Studio](#visual-studio)
   + [Sublime Text](#sublime-text)
   + [JetBrains WebStorm, PHPStorm, PyCharm...](#jetbrains-webstorm-phpstorm-pycharm)
+* [Watching For Changes On The Command Line](#watching-for-changes-on-the-command-line)
 * [Language Support](#language-support)
 * [Related Projects](#related-projects)
+  + [ESLint Integrations](#eslint-integrations)
+  + [TSLint Integrations](#tslint-integrations)
+  + [stylelint Integrations](#stylelint-integrations)
+  + [Forks](#forks)
+  + [Misc](#misc)
 * [Technical Details](#technical-details)
 * [Badge](#badge)
 * [Contributing](#contributing)
@@ -181,7 +187,7 @@ A few of the [many projects](https://www.npmjs.com/browse/depended/prettier) usi
 </tr>
 <tr>
 <td><p align="center"><a href="https://babeljs.io/"><img src="website/static/images/babel-200x100.png" alt="Babel" width="200" height="100"><br>Babel</a></p></td>
-<td><p align="center"><a href="https://zeit.co/"><img src="website/static/images/zeit-200x100.png" alt="Zeit" width="200" height="100"><br>Zeit</a></p></td>
+<td><p align="center"><a href="https://zeit.co/"><img src="website/static/images/zeit-200x100.png" alt="ZEIT" width="200" height="100"><br>ZEIT</a></p></td>
 <td><p align="center"><a href="https://webpack.js.org/api/cli/"><img src="website/static/images/webpack-200x100.png" alt="Webpack-cli" width="200" height="100"><br>Webpack-cli</a></p></td>
 </tr>
 </table>
@@ -335,6 +341,12 @@ Prettier CLI will ignore files located in `node_modules` directory. To opt-out f
 
 This rewrites all processed files in place.  This is comparable to the `eslint --fix` workflow.
 
+<!--
+#### `--support-info`
+
+Prints, as JSON, the [support information](#prettiergetsupportinfoversion) for the current version of Prettier.
+-->
+
 ### ESLint
 
 If you are using ESLint, integrating Prettier to your workflow is straightforward:
@@ -471,8 +483,10 @@ prettier.formatWithCursor(" 1", { cursorOffset: 2 });
 
 #### `prettier.resolveConfig(filePath [, options])`
 
-`resolveConfig` can be used to resolve configuration for a given source file.
-The function requires an input file path as an argument, you might want to pass `process.cwd()` for searching from the current working directory.
+`resolveConfig` can be used to resolve configuration for a given source file, passing its path as the first argument.
+The config search will start at the file path and continue to search up the directory (you can use `process.cwd()` to start
+searching from the current directory).
+Or you can pass directly the path of the config file as `options.config` if you don't wish to search for it.
 A promise is returned which will resolve to:
 * An options object, providing a [configuration](#configuration-file) was found for the file.
 * `null`, if no configuration was found.
@@ -495,6 +509,38 @@ Use `prettier.resolveConfig.sync(filePath [, options])` if you'd like to use syn
 As you repeatedly call `resolveConfig`, the file system structure will be cached for performance.
 This function will clear the cache. Generally this is only needed for editor integrations that
 know that the file system has changed since the last format took place.
+
+<!--
+#### `prettier.getSupportInfo([version])`
+
+Returns an object representing the parsers, languages and file types Prettier
+supports.
+
+If `version` is provided (e.g. `"1.5.0"`), information for that version will be
+returned, otherwise information for the current version will be returned.
+
+The support information looks like this:
+
+```
+{
+  languages: Array<{
+    name: string,
+    since: string,
+    parsers: string[],
+    group?: string,
+    tmScope: string,
+    aceMode: string,
+    codemirrorMode: string,
+    codemirrorMimeType: string,
+    aliases?: string[],
+    extensions: string[],
+    filenames?: string[],
+    linguistLanguageId: number,
+    vscodeLanguageIds: string[],
+  }>
+}
+```
+-->
 
 #### Custom Parser API
 
@@ -835,6 +881,22 @@ the [JsPrettier](https://packagecontrol.io/packages/JsPrettier) plug-in.
 See the [WebStorm
 guide](https://github.com/jlongster/prettier/tree/master/editors/webstorm/README.md).
 
+## Watching For Changes On The Command Line
+
+If you prefer to have prettier watch for changes from the command line you can use a package like [onchange](https://www.npmjs.com/package/onchange). For example:
+
+```
+npx onchange '**/*.js' -- npx prettier --write {{changed}}
+```
+
+or add the following to your `package.json`
+
+```json
+  "scripts": {
+    "prettier-watch": "onchange '**/*.js' -- prettier --write {{changed}}"
+  },
+```
+
 ## Language Support
 
 Prettier attempts to support all JavaScript language features,
@@ -853,26 +915,44 @@ The minimum version of TypeScript supported is 2.1.3 as it introduces the abilit
 
 ## Related Projects
 
+### ESLint Integrations
+
 - [`eslint-plugin-prettier`](https://github.com/prettier/eslint-plugin-prettier) plugs Prettier into your ESLint workflow
 - [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier) turns off all ESLint rules that are unnecessary or might conflict with Prettier
 - [`prettier-eslint`](https://github.com/prettier/prettier-eslint)
 passes `prettier` output to `eslint --fix`
-- [`prettier-stylelint`](https://github.com/hugomrdias/prettier-stylelint)
-passes `prettier` output to `stylelint --fix`
 - [`prettier-standard`](https://github.com/sheerun/prettier-standard)
 uses `prettier` and `prettier-eslint` to format code with standard rules
 - [`prettier-standard-formatter`](https://github.com/dtinth/prettier-standard-formatter)
 passes `prettier` output to `standard --fix`
+
+### TSLint Integrations
+
+- [`tslint-plugin-prettier`](https://github.com/ikatyang/tslint-plugin-prettier) runs Prettier as a TSLint rule and reports differences as individual TSLint issues
+- [`tslint-config-prettier`](https://github.com/alexjoverm/tslint-config-prettier) use TSLint with Prettier without any conflict
+- [`prettier-tslint`](https://github.com/azz/prettier-tslint)
+passes `prettier` output to `tslint --fix`
+
+### stylelint Integrations
+
+- [`prettier-stylelint`](https://github.com/hugomrdias/prettier-stylelint)
+passes `prettier` output to `stylelint --fix`
+- [`stylelint-config-prettier`](https://github.com/shannonmoeller/stylelint-config-prettier) turns off all rules that are unnecessary or might conflict with Prettier.
+
+### Forks
+
 - [`prettier-miscellaneous`](https://github.com/arijs/prettier-miscellaneous)
 `prettier` with a few minor extra options
+
+### Misc
+
 - [`neutrino-preset-prettier`](https://github.com/SpencerCDixon/neutrino-preset-prettier) allows you to use Prettier as a Neutrino preset
 - [`prettier_d`](https://github.com/josephfrazier/prettier_d.js) runs Prettier as a server to avoid Node.js startup delay. It also supports configuration via `.prettierrc`, `package.json`, and `.editorconfig`.
 - [`Prettier Bookmarklet`](https://prettier.glitch.me/) provides a bookmarklet and exposes a REST API for Prettier that allows to format CodeMirror editor in your browser
 - [`prettier-github`](https://github.com/jgierer12/prettier-github) formats code in GitHub comments
 - [`rollup-plugin-prettier`](https://github.com/mjeanroy/rollup-plugin-prettier) allows you to use Prettier with Rollup
 - [`markdown-magic-prettier`](https://github.com/camacho/markdown-magic-prettier) allows you to use Prettier to format JS [codeblocks](https://help.github.com/articles/creating-and-highlighting-code-blocks/) in Markdown files via [Markdown Magic](https://github.com/DavidWells/markdown-magic)
-- [`tslint-plugin-prettier`](https://github.com/ikatyang/tslint-plugin-prettier) runs Prettier as a TSLint rule and reports differences as individual TSLint issues
-- [`tslint-config-prettier`](https://github.com/alexjoverm/tslint-config-prettier) use TSLint with Prettier without any conflict
+
 
 ## Technical Details
 

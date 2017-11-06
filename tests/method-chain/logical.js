@@ -1,3 +1,9 @@
+const someLongVariableName = (idx(
+  this.props,
+  props => props.someLongPropertyName
+) || []
+).map(edge => edge.node);
+
 (veryLongVeryLongVeryLong || e).map(tickets =>
   TicketRecord.createFromSomeLongString());
 

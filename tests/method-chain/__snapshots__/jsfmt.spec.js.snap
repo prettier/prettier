@@ -400,6 +400,10 @@ exports[`computed-merge.js 1`] = `
     .then(() => console.log('bar'))
     .catch(() => console.log('baz'));
 });
+
+window.Data[key]("foo")
+  .then(() => a)
+  .catch(() => b);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [].forEach(key => {
   data[key]("foo")
@@ -413,6 +417,10 @@ exports[`computed-merge.js 1`] = `
     .then(() => console.log("bar"))
     .catch(() => console.log("baz"));
 });
+
+window.Data[key]("foo")
+  .then(() => a)
+  .catch(() => b);
 
 `;
 
@@ -570,6 +578,12 @@ Object.keys(
 `;
 
 exports[`logical.js 1`] = `
+const someLongVariableName = (idx(
+  this.props,
+  props => props.someLongPropertyName
+) || []
+).map(edge => edge.node);
+
 (veryLongVeryLongVeryLong || e).map(tickets =>
   TicketRecord.createFromSomeLongString());
 
@@ -582,6 +596,10 @@ exports[`logical.js 1`] = `
 (veryLongVeryLongVeryLong || anotherVeryLongVeryLongVeryLong || veryVeryVeryLongError).map(tickets =>
   TicketRecord.createFromSomeLongString()).filter(obj => !!obj);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const someLongVariableName = (
+  idx(this.props, props => props.someLongPropertyName) || []
+).map(edge => edge.node);
+
 (veryLongVeryLongVeryLong || e).map(tickets =>
   TicketRecord.createFromSomeLongString()
 );
@@ -590,12 +608,14 @@ exports[`logical.js 1`] = `
   .map(tickets => TicketRecord.createFromSomeLongString())
   .filter(obj => !!obj);
 
-(veryLongVeryLongVeryLong ||
+(
+  veryLongVeryLongVeryLong ||
   anotherVeryLongVeryLongVeryLong ||
   veryVeryVeryLongError
 ).map(tickets => TicketRecord.createFromSomeLongString());
 
-(veryLongVeryLongVeryLong ||
+(
+  veryLongVeryLongVeryLong ||
   anotherVeryLongVeryLongVeryLong ||
   veryVeryVeryLongError
 )
@@ -699,12 +719,20 @@ const version = someLongString
   .pop()
   .split(EOL)[0]
   .trim();
+
+const component = find('.org-lclp-edit-copy-url-banner__link')[0]
+  .getAttribute('href')
+  .indexOf(this.landingPageLink);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const version = someLongString
   .split("jest version =")
   .pop()
   .split(EOL)[0]
   .trim();
+
+const component = find(".org-lclp-edit-copy-url-banner__link")[0]
+  .getAttribute("href")
+  .indexOf(this.landingPageLink);
 
 `;
 

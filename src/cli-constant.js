@@ -271,6 +271,10 @@ const detailedOptions = normalizeDetailedOptions({
     forwardToApi: "filepath",
     description: "Path to the file to pretend that stdin comes from."
   },
+  "support-info": {
+    type: "boolean",
+    description: "Print support information as JSON."
+  },
   "tab-width": {
     type: "int",
     category: CATEGORY_FORMAT,

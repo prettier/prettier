@@ -178,9 +178,9 @@ function isPreviousLineEmpty(text, node) {
   return idx !== idx2;
 }
 
-function isNextLineEmpty(text, node) {
+function isNextLineEmptyAfterIndex(text, index) {
   let oldIdx = null;
-  let idx = locEnd(node);
+  let idx = index;
   while (idx !== oldIdx) {
     // We need to skip all the potential trailing inline comments
     oldIdx = idx;
@@ -193,7 +193,11 @@ function isNextLineEmpty(text, node) {
   return hasNewline(text, idx);
 }
 
-function getNextNonSpaceNonCommentCharacter(text, node) {
+function isNextLineEmpty(text, node) {
+  return isNextLineEmptyAfterIndex(text, locEnd(node));
+}
+
+function getNextNonSpaceNonCommentCharacterIndex(text, node) {
   let oldIdx = null;
   let idx = locEnd(node);
   while (idx !== oldIdx) {
@@ -203,7 +207,11 @@ function getNextNonSpaceNonCommentCharacter(text, node) {
     idx = skipTrailingComment(text, idx);
     idx = skipNewline(text, idx);
   }
-  return text.charAt(idx);
+  return idx;
+}
+
+function getNextNonSpaceNonCommentCharacter(text, node) {
+  return text.charAt(getNextNonSpaceNonCommentCharacterIndex(text, node));
 }
 
 function hasSpaces(text, index, opts) {
@@ -301,7 +309,8 @@ function setLocEnd(node, index) {
 
 const PRECEDENCE = {};
 [
-  ["||"],
+  ["|>"],
+  ["||", "??"],
   ["&&"],
   ["|"],
   ["^"],
@@ -731,6 +740,10 @@ function splitText(text) {
 }
 
 function getStringWidth(text) {
+  if (!text) {
+    return 0;
+  }
+
   // emojis are considered 2-char width for consistency
   // see https://github.com/sindresorhus/string-width/issues/11
   // for the reason why not implemented in `string-width`
@@ -749,10 +762,12 @@ module.exports = {
   getParentExportDeclaration,
   getPenultimate,
   getLast,
+  getNextNonSpaceNonCommentCharacterIndex,
   getNextNonSpaceNonCommentCharacter,
   skipWhitespace,
   skipSpaces,
   skipNewline,
+  isNextLineEmptyAfterIndex,
   isNextLineEmpty,
   isPreviousLineEmpty,
   hasNewline,

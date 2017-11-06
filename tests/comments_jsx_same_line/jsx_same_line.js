@@ -1,0 +1,5 @@
+<div
+  // comment
+>
+  {foo}
+</div>;

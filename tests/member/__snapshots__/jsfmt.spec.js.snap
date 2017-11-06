@@ -34,6 +34,21 @@ const promises = [
   redis.fetch(),
   other.fetch(),
 ];
+
+window.FooClient.setVars({
+  locale: getFooLocale({ page }),
+  authorizationToken: data.token
+}).initVerify("foo_container");
+
+window.something.FooClient.setVars({
+  locale: getFooLocale({ page }),
+  authorizationToken: data.token
+}).initVerify("foo_container");
+
+window.FooClient.something.setVars({
+  locale: getFooLocale({ page }),
+  authorizationToken: data.token
+}).initVerify("foo_container");
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const veryVeryVeryVeryVeryVeryVeryLong =
   doc.expandedStates[doc.expandedStates.length - 1];
@@ -65,6 +80,23 @@ const promises = [
   other.fetch()
 ];
 
+window.FooClient.setVars({
+  locale: getFooLocale({ page }),
+  authorizationToken: data.token
+}).initVerify("foo_container");
+
+window.something.FooClient.setVars({
+  locale: getFooLocale({ page }),
+  authorizationToken: data.token
+}).initVerify("foo_container");
+
+window.FooClient.something
+  .setVars({
+    locale: getFooLocale({ page }),
+    authorizationToken: data.token
+  })
+  .initVerify("foo_container");
+
 `;
 
 exports[`logical.js 1`] = `
@@ -74,7 +106,8 @@ exports[`logical.js 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 (veryLongVeryLongVeryLong || e).prop;
 
-(veryLongVeryLongVeryLong ||
+(
+  veryLongVeryLongVeryLong ||
   anotherVeryLongVeryLongVeryLong ||
   veryVeryVeryLongError
 ).prop;

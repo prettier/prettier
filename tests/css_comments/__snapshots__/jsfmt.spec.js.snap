@@ -38,6 +38,7 @@ exports[`bug.css 1`] = `
     "#{$icon-font-path}#{$icon-font-name}.eot"
   ));
 }
+
 // Catchall baseclass
 /* Catchall baseclass */
 .glyphicon {

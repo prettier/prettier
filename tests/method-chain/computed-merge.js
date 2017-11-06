@@ -10,3 +10,7 @@
     .then(() => console.log('bar'))
     .catch(() => console.log('baz'));
 });
+
+window.Data[key]("foo")
+  .then(() => a)
+  .catch(() => b);

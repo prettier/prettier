@@ -283,8 +283,22 @@ function genericPrint(path, options, print) {
       return path.call(print, "group");
     }
     case "value-comma_group": {
+      const parent = path.getParentNode();
+      let declParent;
+      let i = 0;
+      do {
+        declParent = path.getParentNode(i++);
+      } while (declParent && declParent.type !== "css-decl");
+
+      const declParentProp = declParent.prop.toLowerCase();
+      const isGridValue =
+        parent.type === "value-value" &&
+        (declParentProp === "grid" ||
+          declParentProp.startsWith("grid-template"));
+
       const printed = path.map(print, "groups");
       const parts = [];
+      let didBreak = false;
       for (let i = 0; i < n.groups.length; ++i) {
         parts.push(printed[i]);
         if (
@@ -292,7 +306,17 @@ function genericPrint(path, options, print) {
           n.groups[i + 1].raws &&
           n.groups[i + 1].raws.before !== ""
         ) {
-          if (
+          if (isGridValue) {
+            if (
+              n.groups[i].source.start.line !==
+              n.groups[i + 1].source.start.line
+            ) {
+              parts.push(hardline);
+              didBreak = true;
+            } else {
+              parts.push(" ");
+            }
+          } else if (
             n.groups[i + 1].type === "value-operator" &&
             ["+", "-", "/", "*", "%"].indexOf(n.groups[i + 1].value) !== -1
           ) {
@@ -301,6 +325,10 @@ function genericPrint(path, options, print) {
             parts.push(line);
           }
         }
+      }
+
+      if (didBreak) {
+        parts.unshift(hardline);
       }
 
       return group(indent(fill(parts)));
@@ -339,13 +367,22 @@ function genericPrint(path, options, print) {
         return group(indent(fill(res)));
       }
 
+      const declaration = path.getParentNode(2);
+      const isMap =
+        declaration &&
+        declaration.type === "css-decl" &&
+        declaration.prop.startsWith("$");
+
       return group(
         concat([
           n.open ? path.call(print, "open") : "",
           indent(
             concat([
               softline,
-              join(concat([",", line]), path.map(print, "groups"))
+              join(
+                concat([",", isMap ? hardline : line]),
+                path.map(print, "groups")
+              )
             ])
           ),
           softline,

@@ -18,6 +18,7 @@ div {
   }
 }
 a { margin: 0 { left: 10px; } }
+$map: (color: #111111, text-shadow: 1px 1px 0 salmon);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @media #{$g-breakpoint-tiny} {
 }
@@ -38,5 +39,9 @@ a {
     left: 10px;
   }
 }
+$map: (
+  color: #111111,
+  text-shadow: 1px 1px 0 salmon
+);
 
 `;

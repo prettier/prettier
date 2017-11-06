@@ -24,3 +24,6 @@ styled(ExistingComponent)`
 
 styled.button.attr({})`
 border : rebeccapurple`;
+
+styled(ExistingComponent).attr({})`
+border : rebeccapurple`;

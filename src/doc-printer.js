@@ -271,7 +271,7 @@ function printDocToString(doc, options) {
           const content = parts[0];
           const contentFlatCmd = [ind, MODE_FLAT, content];
           const contentBreakCmd = [ind, MODE_BREAK, content];
-          const contentFits = fits(contentFlatCmd, [], width - rem, true);
+          const contentFits = fits(contentFlatCmd, [], rem, true);
 
           if (parts.length === 1) {
             if (contentFits) {

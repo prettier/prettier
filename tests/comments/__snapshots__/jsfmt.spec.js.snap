@@ -838,6 +838,13 @@ onClick={() => {}}>
 
 </div>;
 
+<div
+  // comment
+>
+  {foo}
+</div>;
+
+
 <Wrapper>
   {}
   <Component />
@@ -915,6 +922,12 @@ onClick={() => {}}>
    */
   onClick={() => {}}
 />;
+
+<div
+// comment
+>
+  {foo}
+</div>;
 
 <Wrapper>
   {}
@@ -1506,15 +1519,17 @@ d //comment
 \`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \`
-\${a // comment
+\${
+  a // comment
 }
 
 \${b /* comment */}
 
 \${/* comment */ c /* comment */}
 
-\${// comment
-d //comment
+\${
+  // comment
+  d //comment
 };
 \`;
 

@@ -469,23 +469,29 @@ facebook_translation_leave_text_around_tag = (
 
 this_really_should_split_across_lines = (
   <div>
-    before{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after
+    before{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{
+      stuff
+    }after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{
+      stuff
+    }after
   </div>
 );
 
 unstable_before = (
   <div className="yourScore">
     Your score:{" "}
-    <span className="score">{\`\${mini.crosstable.users[sessionUserId]} - \${mini
-      .crosstable.users[user.id]}\`}</span>
+    <span className="score">{\`\${mini.crosstable.users[sessionUserId]} - \${
+      mini.crosstable.users[user.id]
+    }\`}</span>
   </div>
 );
 
 unstable_after_first_run = (
   <div className="yourScore">
     Your score:{" "}
-    <span className="score">{\`\${mini.crosstable.users[sessionUserId]} - \${mini
-      .crosstable.users[user.id]}\`}</span>
+    <span className="score">{\`\${mini.crosstable.users[sessionUserId]} - \${
+      mini.crosstable.users[user.id]
+    }\`}</span>
   </div>
 );
 
@@ -651,9 +657,7 @@ jsx_whitespace_after_tag = (
 
 x = (
   <div>
-    ENDS IN <div>
-      text text text text text text text text text text text
-    </div>{" "}
+    ENDS IN <div>text text text text text text text text text text text</div>{" "}
     HRS
   </div>
 );
