@@ -288,7 +288,7 @@ a[href="KeepAttrValue"]:hover::first-letter,
   --Keep-custom-Prop: red;
   background: Var(--Keep-custom-Prop);
   animation-name: KeepAnimationName;
-  important: something !IMPORTANT;
+  important: something !important;
 }
 
 @keyframes KeepAnimationName {
