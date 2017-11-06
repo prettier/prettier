@@ -857,6 +857,12 @@ onClick={() => {}}>
   {foo}
 </div>;
 
+<div // comment
+  id="foo"
+>
+  {children}
+</div>;
+
 <Wrapper>
   {}
   <Component />
@@ -952,6 +958,12 @@ onClick={() => {}}>
   // comment
 >
   {foo}
+</div>;
+
+<div // comment
+  id="foo"
+>
+  {children}
 </div>;
 
 <Wrapper>

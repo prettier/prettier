@@ -1766,12 +1766,25 @@ function genericPrintNoParens(path, options, print, args) {
     case "JSXOpeningElement": {
       const n = path.getValue();
 
+      const hasComments =
+        (n.name &&
+          ((n.name.trailingComments && n.name.trailingComments.length) ||
+            (n.name.comments && n.name.comments.length))) ||
+        (n.attributes &&
+          n.attributes.length > 0 &&
+          n.attributes.some(
+            attr =>
+              (attr.comments && attr.comments.length) ||
+              (attr.trailingComments && attr.trailingComments.length)
+          ));
+
       // don't break up opening elements with a single long text attribute
       if (
         n.attributes.length === 1 &&
         n.attributes[0].value &&
         isStringLiteral(n.attributes[0].value) &&
-        !n.attributes[0].comments
+        !n.attributes[0].comments &&
+        !hasComments
       ) {
         return group(
           concat([
@@ -1784,13 +1797,7 @@ function genericPrintNoParens(path, options, print, args) {
         );
       }
 
-      const bracketSameLine =
-        options.jsxBracketSameLine &&
-        !(
-          n.name &&
-          ((n.name.trailingComments && n.name.trailingComments.length) ||
-            (n.name.comments && n.name.comments.length))
-        );
+      const bracketSameLine = options.jsxBracketSameLine && !hasComments;
 
       return group(
         concat([
