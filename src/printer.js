@@ -1770,7 +1770,8 @@ function genericPrintNoParens(path, options, print, args) {
       if (
         n.attributes.length === 1 &&
         n.attributes[0].value &&
-        isStringLiteral(n.attributes[0].value)
+        isStringLiteral(n.attributes[0].value) &&
+        !n.attributes[0].comments
       ) {
         return group(
           concat([

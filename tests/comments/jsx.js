@@ -95,6 +95,18 @@ onClick={() => {}}>
   {foo}
 </div>;
 
+<div
+  className="foo" // comment
+>
+  {foo}
+</div>;
+
+<div
+  className="foo"
+  // comment
+>
+  {foo}
+</div>;
 
 <Wrapper>
   {}
