@@ -1770,7 +1770,20 @@ function genericPrintNoParens(path, options, print, args) {
       if (
         n.attributes.length === 1 &&
         n.attributes[0].value &&
-        isStringLiteral(n.attributes[0].value)
+        isStringLiteral(n.attributes[0].value) &&
+        // We should break for the following cases:
+        // <div
+        //   // comment
+        //   attr="value"
+        // >
+        // <div
+        //   attr="value"
+        //   // comment
+        // >
+        !(
+          (n.name && n.name.comments && n.name.comments.length) ||
+          (n.attributes[0].comments && n.attributes[0].comments.length)
+        )
       ) {
         return group(
           concat([
@@ -1785,10 +1798,21 @@ function genericPrintNoParens(path, options, print, args) {
 
       const bracketSameLine =
         options.jsxBracketSameLine &&
+        // We should print the bracket in a new line for the following cases:
+        // <div
+        //   // comment
+        // >
+        // <div
+        //   attr // comment
+        // >
         !(
-          n.name &&
-          ((n.name.trailingComments && n.name.trailingComments.length) ||
-            (n.name.comments && n.name.comments.length))
+          (n.name &&
+            !(n.attributes && n.attributes.length) &&
+            n.name.comments &&
+            n.name.comments.length) ||
+          (n.attributes &&
+            n.attributes.length &&
+            hasTrailingComment(util.getLast(n.attributes)))
         );
 
       return group(
