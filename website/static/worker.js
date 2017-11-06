@@ -3,6 +3,8 @@
 
 // "Polyfills" in order for all the code to run
 self.global = self;
+self.util = {};
+self.path = {};
 self.Buffer = {
   isBuffer: function() {
     return false;
@@ -23,9 +25,14 @@ self.require = function require(path) {
   return self[path.replace(/.+-/, "")];
 };
 
-importScripts("lib/index.js");
-var prettier = index; // eslint-disable-line
+var formatVersion = new URLSearchParams(location.hash.substr(1)).get("version");
+var versionParts = /^(\d+)\.(\d+)\.(\d+)/
+  .exec(formatVersion || "99.99.99")
+  .slice(1)
+  .map(Number);
 
+importScripts(getUrl("index.js"));
+var prettier = index; // eslint-disable-line
 var parsersLoaded = {};
 
 self.onmessage = function(message) {
@@ -35,6 +42,7 @@ self.onmessage = function(message) {
   delete options.ast;
   delete options.doc;
   delete options.output2;
+  delete options.version;
 
   var formatted = formatCode(message.data.text, options);
   var doc;
@@ -61,7 +69,7 @@ self.onmessage = function(message) {
   }
 
   if (message.data.doc) {
-    lazyLoadParser("babylon");
+    lazyLoadParser("babylon", options);
     try {
       doc = prettier.__debug.formatDoc(
         prettier.__debug.printToDoc(message.data.text, options),
@@ -92,7 +100,7 @@ function formatCode(text, options) {
   } catch (e) {
     // Multiparser may throw if we haven't loaded the right parser
     // Load it lazily and retry!
-    if (e.parser && !parsersLoaded[e.parser]) {
+    if (e.parser && !parserIsLoaded(e.parser)) {
       lazyLoadParser(e.parser);
       return formatCode(text, options);
     }
@@ -100,17 +108,42 @@ function formatCode(text, options) {
   }
 }
 
+function parserIsLoaded(parser) {
+  return !!parsersLoaded[getActualParser(parser)];
+}
+
+function getActualParser(parser) {
+  return parser === "json"
+    ? "babylon"
+    : parser === "css" || parser === "less" || parser === "scss"
+      ? "postcss"
+      : parser;
+}
+
 function lazyLoadParser(parser) {
-  var actualParser =
-    parser === "json"
-      ? "babylon"
-      : parser === "css" || parser === "less" || parser === "scss"
-        ? "postcss"
-        : parser;
-  var script = "parser-" + actualParser + ".js";
+  var actualParser = getActualParser(parser);
+  var script = "parser-" + parser + ".js";
 
   if (!parsersLoaded[actualParser]) {
-    importScripts("lib/" + script);
+    importScripts(getUrl(script));
     parsersLoaded[actualParser] = true;
   }
+}
+
+function getUrl(path) {
+  if (!formatVersion) {
+    return `lib/${path}`;
+  }
+
+  var rawgitBase = `https://cdn.rawgit.com/prettier/prettier/`;
+
+  if (versionParts[0] === 1) {
+    if (versionParts[1] < 5) {
+      return `${rawgitBase}${formatVersion}/docs/${path}`;
+    }
+    if (versionParts[1] < 6) {
+      return `${rawgitBase}${formatVersion}/docs/lib/${path}`;
+    }
+  }
+  return `${rawgitBase}${formatVersion}/website/static/lib/${path}`;
 }

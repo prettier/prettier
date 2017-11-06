@@ -1,7 +1,7 @@
 [
     {
         "name": "JavaScript",
-        "image": "/images/js-128px.png",
+        "image": "images/js-128px.png",
         "variants": [
             "[ES2017](https://github.com/tc39/proposals/blob/master/finished-proposals.md)",
             "[JSX](https://facebook.github.io/jsx/)",
@@ -12,7 +12,7 @@
     },
     {
         "name": "CSS",
-        "image": "/images/css-128px.png",
+        "image": "images/css-128px.png",
         "variants": [
             "CSS3+",
             "[LESS](http://lesscss.org/)",
@@ -23,7 +23,7 @@
     },
     {
         "name": "GraphQL",
-        "image": "/images/graphql-128px.png",
+        "image": "images/graphql-128px.png",
         "variants": [
             "[GraphQL](http://graphql.org/)",
             "[GraphQL Schemas](http://graphql.org/learn/schema/)"

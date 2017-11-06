@@ -21,3 +21,8 @@ export CIRCLE_PROJECT_USERNAME=prettier
 export CIRCLE_PROJECT_REPONAME=prettier
 export CI_PULL_REQUEST=$TRAVIS_PULL_REQUEST_BRANCH
 yarn --pure-lockfile && yarn run publish-gh-pages
+
+# How to deploy to your fork:
+# 1. In siteConfig.js, set `baseUrl = "/prettier/";`
+# 2. cd website
+# 3. GIT_USER=<your_username> CIRCLE_PROJECT_USERNAME=<your_username> CIRCLE_BRANCH=master  CIRCLE_PROJECT_REPONAME=prettier yarn publish-gh-pages

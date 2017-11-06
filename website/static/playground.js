@@ -21,12 +21,11 @@ var OPTIONS = [
   "useTabs",
   "doc",
   "ast",
-  "output2"
+  "output2",
+  "version"
 ];
 
 var IDEMPOTENT_MESSAGE = "✓ Second format is unchanged.";
-
-var worker = new Worker("/worker.js");
 
 const DEFAULT_OPTIONS = {
   options: undefined,
@@ -55,6 +54,44 @@ const DEFAULT_OPTIONS = {
   ].join("\n")
 };
 
+var mainWorker = new Worker("../worker.js");
+var versionedWorkers = {};
+
+mainWorker.onmessage = onWorkerMessage;
+
+function getWorker(version) {
+  if (!version) {
+    return mainWorker;
+  }
+  if (!versionedWorkers[version]) {
+    var worker = new Worker(`../worker.js#version=${version}`);
+    versionedWorkers[version] = worker;
+    worker.onmessage = onWorkerMessage;
+  }
+  return versionedWorkers[version];
+}
+
+function onWorkerMessage(message) {
+  if (prettierVersion !== message.data.version) {
+    prettierVersion = message.data.version;
+    document.querySelector(".version").textContent = prettierVersion;
+  }
+  if (outputEditor && docEditor && astEditor) {
+    outputEditor.setValue(message.data.formatted);
+    docEditor.setValue(message.data.doc || "");
+    astEditor.setValue(message.data.ast || "");
+    output2Editor.setValue(
+      message.data.formatted === ""
+        ? ""
+        : message.data.formatted2 === message.data.formatted
+          ? IDEMPOTENT_MESSAGE
+          : message.data.formatted2 || ""
+    );
+    document.getElementById("button-report-issue").search =
+      "body=" + encodeURIComponent(createMarkdown(true));
+  }
+}
+
 window.onload = function() {
   var state = (function loadState(hash) {
     var parsed;
@@ -76,29 +113,8 @@ window.onload = function() {
     return parsed || DEFAULT_OPTIONS;
   })(location.hash.slice(1));
 
-  worker.onmessage = function(message) {
-    if (prettierVersion === "?") {
-      prettierVersion = message.data.version;
-      document.getElementById("version").textContent = prettierVersion;
-    }
-    if (outputEditor && docEditor && astEditor) {
-      outputEditor.setValue(message.data.formatted);
-      docEditor.setValue(message.data.doc || "");
-      astEditor.setValue(message.data.ast || "");
-      output2Editor.setValue(
-        message.data.formatted === ""
-          ? ""
-          : message.data.formatted2 === message.data.formatted
-            ? IDEMPOTENT_MESSAGE
-            : message.data.formatted2 || ""
-      );
-      document.getElementById("button-report-issue").search =
-        "body=" + encodeURIComponent(createMarkdown(true));
-    }
-  };
-
   // Warm up the worker (load the current parser while CodeMirror loads)
-  worker.postMessage({ text: "", options: state.options });
+  mainWorker.postMessage({ text: "", options: state.options });
 
   state.options && setOptions(state.options);
 
@@ -257,6 +273,8 @@ function getCodemirrorMode(options) {
     case "less":
     case "scss":
       return "css";
+    case "markdown":
+      return "markdown";
     default:
       return "jsx";
   }
@@ -272,7 +290,9 @@ function formatAsync() {
     )
   );
   replaceHash(value);
-  worker.postMessage({
+  var version = options.version;
+
+  getWorker(version).postMessage({
     text: inputEditor.getValue(),
     options: options,
     ast: options.ast,
