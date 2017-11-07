@@ -159,7 +159,7 @@ function genericPrint(path, options, print) {
       ]);
     case "code": {
       if (
-        /^( {4,}|\t)/.test(
+        /^\n?( {4,}|\t)/.test(
           options.originalText.slice(
             node.position.start.offset,
             node.position.end.offset
