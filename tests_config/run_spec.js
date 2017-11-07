@@ -45,18 +45,17 @@ function run_spec(dirname, options, additionalParsers) {
         );
       });
 
-      getParsersToVerify(
-        mergedOptions.parser,
-        additionalParsers || []
-      ).forEach(parserName => {
-        test(`${filename} - ${parserName}-verify`, () => {
-          const verifyOptions = Object.assign(mergedOptions, {
-            parser: parserName
+      getParsersToVerify(mergedOptions.parser, additionalParsers || []).forEach(
+        parserName => {
+          test(`${filename} - ${parserName}-verify`, () => {
+            const verifyOptions = Object.assign(mergedOptions, {
+              parser: parserName
+            });
+            const verifyOutput = prettyprint(source, path, verifyOptions);
+            expect(output).toEqual(verifyOutput);
           });
-          const verifyOutput = prettyprint(source, path, verifyOptions);
-          expect(output).toEqual(verifyOutput);
-        });
-      });
+        }
+      );
 
       if (AST_COMPARE) {
         const ast = parse(source, mergedOptions);
