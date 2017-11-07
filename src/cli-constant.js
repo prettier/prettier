@@ -223,7 +223,7 @@ const detailedOptions = normalizeDetailedOptions({
     type: "boolean",
     category: CATEGORY_FORMAT,
     forwardToApi: true,
-    description: "Wrap the prose if it exceeds the print width.",
+    description: "Wrap prose if it exceeds the print width.",
     oppositeDescription: "Do not wrap prose."
   },
   "range-end": {
