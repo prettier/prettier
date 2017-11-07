@@ -108,7 +108,7 @@ function genericPrint(path, options, print) {
       return n.value;
     }
     case "StringValue": {
-      return concat(['"', n.value, '"']);
+      return concat(['"', n.value.replace(/["\\]/g, "\\$&"), '"']);
     }
     case "IntValue":
     case "FloatValue":

@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`string.graphql 1`] = `
+query X($a: Int) @relay(meta: "{\\"lowPri\\": true}") { a }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+query X($a: Int) @relay(meta: "{\\"lowPri\\": true}") {
+  a
+}
+
+`;

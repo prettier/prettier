@@ -218,13 +218,13 @@ function genericPrint(path, options, print) {
     case "thematicBreak": {
       const counter = getAncestorCounter(path, "list");
       if (counter === -1) {
-        return "- - -";
+        return "---";
       }
       const nthSiblingIndex = getNthListSiblingIndex(
         path.getParentNode(counter),
         path.getParentNode(counter + 1)
       );
-      return nthSiblingIndex % 2 === 0 ? "- - -" : "* * *";
+      return nthSiblingIndex % 2 === 0 ? "---" : "***";
     }
     case "linkReference":
       return concat([

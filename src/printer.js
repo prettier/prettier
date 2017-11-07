@@ -550,8 +550,11 @@ function genericPrintNoParens(path, options, print, args) {
 
       // if the arrow function is expanded as last argument, we are adding a
       // level of indentation and need to add a softline to align the closing )
-      // with the opening (.
-      const shouldAddSoftLine = args && args.expandLastArg;
+      // with the opening (, or if it's inside a JSXExpression (e.g. an attribute)
+      // we should align the expression's closing } with the line with the opening {.
+      const shouldAddSoftLine =
+        (args && args.expandLastArg) ||
+        path.getParentNode().type === "JSXExpressionContainer";
 
       // In order to avoid confusion between
       // a => a ? a : a
@@ -1737,17 +1740,8 @@ function genericPrintNoParens(path, options, print, args) {
               isBinaryish(n.expression))));
 
       if (shouldInline) {
-        const printExpression =
-          n.expression.type !== "ArrowFunctionExpression"
-            ? print
-            : p => print(p, { expandLastArg: true });
         return group(
-          concat([
-            "{",
-            path.call(printExpression, "expression"),
-            lineSuffixBoundary,
-            "}"
-          ])
+          concat(["{", path.call(print, "expression"), lineSuffixBoundary, "}"])
         );
       }
 
@@ -1776,7 +1770,20 @@ function genericPrintNoParens(path, options, print, args) {
       if (
         n.attributes.length === 1 &&
         n.attributes[0].value &&
-        isStringLiteral(n.attributes[0].value)
+        isStringLiteral(n.attributes[0].value) &&
+        // We should break for the following cases:
+        // <div
+        //   // comment
+        //   attr="value"
+        // >
+        // <div
+        //   attr="value"
+        //   // comment
+        // >
+        !(
+          (n.name && n.name.comments && n.name.comments.length) ||
+          (n.attributes[0].comments && n.attributes[0].comments.length)
+        )
       ) {
         return group(
           concat([
@@ -1791,10 +1798,21 @@ function genericPrintNoParens(path, options, print, args) {
 
       const bracketSameLine =
         options.jsxBracketSameLine &&
+        // We should print the bracket in a new line for the following cases:
+        // <div
+        //   // comment
+        // >
+        // <div
+        //   attr // comment
+        // >
         !(
-          n.name &&
-          ((n.name.trailingComments && n.name.trailingComments.length) ||
-            (n.name.comments && n.name.comments.length))
+          (n.name &&
+            !(n.attributes && n.attributes.length) &&
+            n.name.comments &&
+            n.name.comments.length) ||
+          (n.attributes &&
+            n.attributes.length &&
+            hasTrailingComment(util.getLast(n.attributes)))
         );
 
       return group(
