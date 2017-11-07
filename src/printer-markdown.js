@@ -74,10 +74,20 @@ function genericPrint(path, options, print) {
         : node.value
             .replace(/(^|[^\\])\*/g, "$1\\*") // escape all unescaped `*` and `_`
             .replace(/\b(^|[^\\])_\b/g, "$1\\_"); // `1_2_3` is not considered emphasis
-    case "whitespace":
+    case "whitespace": {
+      const parentNode = path.getParentNode();
+      const index = parentNode.children.indexOf(node);
+      const nextNode = parentNode.children[index + 1];
+
+      // special prefix that may cause different meaning
+      if (nextNode && nextNode.value.match(/(>|-|\+|\*)$/)) {
+        return node.value === "" ? "" : " ";
+      }
+
       return getAncestorNode(path, SINGLE_LINE_NODE_TYPES)
         ? node.value === "" ? "" : " "
         : node.value === "" ? softline : line;
+    }
     case "emphasis": {
       const parentNode = path.getParentNode();
       const index = parentNode.children.indexOf(node);
