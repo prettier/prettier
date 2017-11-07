@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`attribute.js 1`] = `
+<div {...a}/>;
+
+<div {...a //comment
+}/>;
+
+<div {//comment
+  ...a
+}/>;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div {...a} />;
+
+<div
+  {
+    ...a //comment
+  }
+/>;
+
+<div
+  {
+    //comment
+    ...a
+  }
+/>;
+
+`;
+
+exports[`child.js 1`] = `
+<div>{...a}</div>;
+
+<div>{...a //comment
+}</div>;
+
+<div>{//comment
+  ...a
+}</div>;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div>{...a}</div>;
+
+<div>
+  {
+    ...a //comment
+  }
+</div>;
+
+<div>
+  {
+    //comment
+    ...a
+  }
+</div>;
+
+`;

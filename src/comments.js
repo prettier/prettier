@@ -218,7 +218,8 @@ function attach(comments, ast, text) {
           comment
         ) ||
         handleAssignmentPatternComments(enclosingNode, comment) ||
-        handleMethodNameComments(text, enclosingNode, precedingNode, comment)
+        handleMethodNameComments(text, enclosingNode, precedingNode, comment) ||
+        handleJSXSpreadComments(text, enclosingNode, followingNode, comment)
       ) {
         // We're good
       } else if (followingNode) {
@@ -270,7 +271,12 @@ function attach(comments, ast, text) {
         handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
         handleClassMethodComments(enclosingNode, comment) ||
         handleTypeAliasComments(enclosingNode, followingNode, comment) ||
-        handleVariableDeclaratorComments(enclosingNode, followingNode, comment)
+        handleVariableDeclaratorComments(
+          enclosingNode,
+          followingNode,
+          comment
+        ) ||
+        handleJSXSpreadComments(text, enclosingNode, followingNode, comment)
       ) {
         // We're good
       } else if (precedingNode) {
@@ -299,7 +305,13 @@ function attach(comments, ast, text) {
         handleCommentInEmptyParens(text, enclosingNode, comment) ||
         handleMethodNameComments(text, enclosingNode, precedingNode, comment) ||
         handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
-        handleFunctionNameComments(text, enclosingNode, precedingNode, comment)
+        handleFunctionNameComments(
+          text,
+          enclosingNode,
+          precedingNode,
+          comment
+        ) ||
+        handleJSXSpreadComments(text, enclosingNode, followingNode, comment)
       ) {
         // We're good
       } else if (precedingNode && followingNode) {
@@ -909,6 +921,21 @@ function handleVariableDeclaratorComments(
     return true;
   }
   return false;
+}
+
+function handleJSXSpreadComments(text, enclosingNode, followingNode, comment) {
+  if (
+    !enclosingNode ||
+    (enclosingNode.type !== "JSXSpreadAttribute" &&
+      enclosingNode.type !== "JSXSpreadChild") ||
+    !followingNode
+  ) {
+    return false;
+  }
+
+  addDanglingComment(enclosingNode, comment);
+
+  return true;
 }
 
 function printComment(commentPath, options) {

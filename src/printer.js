@@ -1716,7 +1716,30 @@ function genericPrintNoParens(path, options, print, args) {
     case "TSQualifiedName":
       return join(".", [path.call(print, "left"), path.call(print, "right")]);
     case "JSXSpreadAttribute":
-      return concat(["{...", path.call(print, "argument"), "}"]);
+    case "JSXSpreadChild": {
+      const printed = concat([
+        "...",
+        path.call(
+          print,
+          n.type === "JSXSpreadAttribute" ? "argument" : "expression"
+        )
+      ]);
+      const hasComments =
+        hasDanglingComments(n) ||
+        (n.argument && hasTrailingComment(n.argument)) ||
+        (n.expression && hasTrailingComment(n.expression));
+      return concat([
+        "{",
+        hasComments
+          ? concat([
+              comments.printDanglingComments(path, options),
+              indent(concat([softline, printed])),
+              softline
+            ])
+          : printed,
+        "}"
+      ]);
+    }
     case "JSXExpressionContainer": {
       const parent = path.getParentNode(0);
 
