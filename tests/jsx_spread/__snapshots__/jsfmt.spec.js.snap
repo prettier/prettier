@@ -14,7 +14,8 @@ exports[`attribute.js 1`] = `
   //comment
 }/>;
 
-<div {//comment
+<div {
+  //comment
   ...a
 }/>;
 
@@ -26,7 +27,7 @@ exports[`attribute.js 1`] = `
 
 <div {...a /* comment */} />;
 
-<div {/* comment */...a} />;
+<div {/* comment */ ...a} />;
 
 <div
   {
@@ -71,7 +72,8 @@ exports[`child.js 1`] = `
   //comment
 }</div>;
 
-<div>{//comment
+<div>{
+  //comment
   ...a
 }</div>;
 
@@ -83,7 +85,7 @@ exports[`child.js 1`] = `
 
 <div>{...a /* comment */}</div>;
 
-<div>{/* comment */...a}</div>;
+<div>{/* comment */ ...a}</div>;
 
 <div>
   {

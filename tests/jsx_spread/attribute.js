@@ -11,7 +11,8 @@
   //comment
 }/>;
 
-<div {//comment
+<div {
+  //comment
   ...a
 }/>;
 

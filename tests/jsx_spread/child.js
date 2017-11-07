@@ -11,7 +11,8 @@
   //comment
 }</div>;
 
-<div>{//comment
+<div>{
+  //comment
   ...a
 }</div>;
 

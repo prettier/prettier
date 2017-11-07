@@ -1717,30 +1717,24 @@ function genericPrintNoParens(path, options, print, args) {
       return join(".", [path.call(print, "left"), path.call(print, "right")]);
     case "JSXSpreadAttribute":
     case "JSXSpreadChild": {
-      const printed = concat([
-        "...",
-        path.call(
-          print,
-          n.type === "JSXSpreadAttribute" ? "argument" : "expression"
-        )
-      ]);
-      const hasComments =
-        hasDanglingComments(n) ||
-        (n.argument && hasTrailingComment(n.argument)) ||
-        (n.expression && hasTrailingComment(n.expression));
       return concat([
         "{",
-        hasComments
-          ? concat([
-              comments.printDanglingComments(
-                path,
-                options,
-                n.comments && n.comments.some(util.isBlockComment)
-              ),
-              indent(concat([softline, printed])),
-              softline
-            ])
-          : printed,
+        path.call(p => {
+          const printed = concat(["...", print(p)]);
+          const n = p.getValue();
+          if (!n.comments || !n.comments.length) {
+            return printed;
+          }
+          return concat([
+            indent(
+              concat([
+                softline,
+                comments.printComments(p, () => printed, options)
+              ])
+            ),
+            softline
+          ]);
+        }, n.type === "JSXSpreadAttribute" ? "argument" : "expression"),
         "}"
       ]);
     }
@@ -5000,7 +4994,9 @@ function printAstToDoc(ast, options, addAlignmentSize) {
     if (
       ((node && node.type === "JSXElement") ||
         (parent &&
-          (parent.type === "UnionTypeAnnotation" ||
+          (parent.type === "JSXSpreadAttribute" ||
+            parent.type === "JSXSpreadChild" ||
+            parent.type === "UnionTypeAnnotation" ||
             parent.type === "TSUnionType" ||
             ((parent.type === "ClassDeclaration" ||
               parent.type === "ClassExpression") &&
