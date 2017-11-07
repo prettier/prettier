@@ -158,7 +158,14 @@ function genericPrint(path, options, print) {
         printChildren(path, options, print)
       ]);
     case "code": {
-      if (/\s/.test(options.originalText[node.position.start.offset])) {
+      if (
+        /^( {4,}|\t)/.test(
+          options.originalText.slice(
+            node.position.start.offset,
+            node.position.end.offset
+          )
+        )
+      ) {
         // indented code block
         return align(
           4,
