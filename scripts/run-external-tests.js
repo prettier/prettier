@@ -45,8 +45,9 @@ function runExternalTests(patterns) {
     }
 
     process.stderr.write(
-      `\r${results.good.length} good, ${results.skipped
-        .length} skipped, ${results.bad.length} bad`
+      `\r${results.good.length} good, ${results.skipped.length} skipped, ${
+        results.bad.length
+      } bad`
     );
   });
 

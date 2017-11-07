@@ -35,13 +35,11 @@ describe("multiple patterns with ignore nested directories pattern", () => {
 });
 
 describe("multiple patterns by with ignore pattern, ignores node_modules by default", () => {
-  runPrettier("cli/multiple-patterns", [
-    "**/*.js",
-    "!directory/**",
-    "-l"
-  ]).test({
-    status: 1
-  });
+  runPrettier("cli/multiple-patterns", ["**/*.js", "!directory/**", "-l"]).test(
+    {
+      status: 1
+    }
+  );
 });
 
 describe("multiple patterns by with ignore pattern, ignores node_modules by with ./**/*.js", () => {
