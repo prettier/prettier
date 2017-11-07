@@ -12,12 +12,11 @@ const concat = docBuilders.concat;
 function printSubtree(subtreeParser, path, print, options) {
   const next = Object.assign({}, { transformDoc: doc => doc }, subtreeParser);
   next.options = Object.assign({}, options, next.options, {
-    trailingComma:
-      next.options.parser === "json"
-        ? "none"
-        : next.options.trailingComma || options.trailingComma,
     originalText: next.text
   });
+  if (next.options.parser === "json") {
+    next.options.trailingComma = "none";
+  }
   const ast = require("./parser").parse(next.text, next.options);
   const astComments = ast.comments;
   delete ast.comments;
