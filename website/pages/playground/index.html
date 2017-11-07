@@ -30,6 +30,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/mode/xml/xml.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/mode/jsx/jsx.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/mode/css/css.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/mode/markdown/markdown.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/addon/display/rulers.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/addon/search/searchcursor.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/addon/edit/matchbrackets.js"></script>
@@ -360,7 +361,19 @@
         </div>
         <div class="options last">
           <label>--trailing-comma <select id="trailingComma"><option value="none">none</option><option value="es5">es5</option><option value="all">all</option></select></label>
-          <label>--parser <select id="parser"><option value="babylon">babylon</option><option value="flow">flow</option><option value="typescript">typescript</option><option value="css">css</option><option value="less">less</option><option value="scss">scss</option><option value="json">json</option><option value="graphql">graphql</option></select></label>
+          <label>--parser
+            <select id="parser">
+              <option value="babylon">babylon</option>
+              <option value="flow">flow</option>
+              <option value="typescript">typescript</option>
+              <option value="css">css</option>
+              <option value="less">less</option>
+              <option value="scss">scss</option>
+              <option value="json">json</option>
+              <option value="graphql">graphql</option>
+              <option value="markdown">markdown</option>
+            </select>
+          </label>
           <span style="flex: 0.3"></span>
           <label><input type="checkbox" id="ast"> show AST (debug)</label>
           <label><input type="checkbox" id="doc"> show doc (debug)</label>

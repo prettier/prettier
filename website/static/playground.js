@@ -257,6 +257,8 @@ function getCodemirrorMode(options) {
     case "less":
     case "scss":
       return "css";
+    case "markdown":
+      return "markdown";
     default:
       return "jsx";
   }

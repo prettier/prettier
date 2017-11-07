@@ -3,6 +3,8 @@
 
 // "Polyfills" in order for all the code to run
 self.global = self;
+self.util = {};
+self.path = {};
 self.Buffer = {
   isBuffer: function() {
     return false;
