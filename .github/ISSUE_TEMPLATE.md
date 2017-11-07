@@ -8,7 +8,7 @@ Tip! Don't write this stuff manually.
 
 -->
 
-**Prettier 1.7.4**
+**Prettier 1.8.0**
 [Playground link](https://prettier.io/playground/#.....)
 ```sh
 # Options (if any):
