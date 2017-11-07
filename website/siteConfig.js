@@ -24,9 +24,10 @@ const siteConfig = {
   /* base url for editing docs, usage example: editUrl + 'en/doc1.md' */
   editUrl: `${GITHUB_URL}/edit/master/docs/`,
   headerLinks: [
+    { href: "/playground/", label: "Playground" },
     { doc: "index", label: "About" },
     { doc: "install", label: "Usage" },
-    { href: "/playground/", label: "Playground" },
+    { search: true },
     { href: GITHUB_URL, label: "GitHub" }
   ],
   /* path to images for header/footer */
@@ -42,7 +43,11 @@ const siteConfig = {
     theme: "default"
   },
   useEnglishUrl: true,
-  scripts: ["https://buttons.github.io/buttons.js"]
+  scripts: ["https://buttons.github.io/buttons.js"],
+  algolia: {
+    apiKey: process.env.ALGOLIA_PRETTIER_API_KEY,
+    indexName: "prettier"
+  }
 };
 
 module.exports = siteConfig;
