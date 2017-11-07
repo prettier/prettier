@@ -72,7 +72,7 @@ returned, otherwise information for the current version will be returned.
 
 The support information looks like this:
 
-```
+```typescript
 {
   languages: Array<{
     name: string,

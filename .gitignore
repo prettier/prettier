@@ -8,6 +8,7 @@
 /dist
 /website/node_modules
 /website/build
+/website/i18n
 .DS_Store
 coverage
 .idea
