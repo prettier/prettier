@@ -159,6 +159,7 @@ function genericPrint(path, options, print) {
       ]);
     case "code": {
       if (
+        // the first char may point to `\n`, e.g. `\n\t\tbar`, just ignore it
         /^\n?( {4,}|\t)/.test(
           options.originalText.slice(
             node.position.start.offset,
