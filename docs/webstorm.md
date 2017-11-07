@@ -1,3 +1,8 @@
+---
+id: webstorm
+title: Webstorm Setup
+---
+
 ## Configure External Tool
 
 https://blog.jetbrains.com/webstorm/2016/08/using-external-tools/
@@ -11,7 +16,7 @@ Go to *File | Settings | Tools | External Tools* for Windows and Linux or *WebSt
 * **Parameters** set `--write [other opts] $FilePathRelativeToProjectRoot$`
 * **Working directory** set `$ProjectFileDir$`
 
-![Example](./with-prettier.png)
+![Example](../../images/webstorm/with-prettier.png)
 
 ### Process directories
 
@@ -42,4 +47,4 @@ Go to *File | Settings | Tools | File Watchers* for Windows and Linux or *WebSto
 * **Working directory** set `$ProjectFileDir$`
 * **Immediate file synchronization**: Uncheck to reformat on Save only (otherwise code will jump around while you type).
 
-![Example](./prettier-file-wacther.png)
+![Example](../../images/webstorm/prettier-file-wacther.png)

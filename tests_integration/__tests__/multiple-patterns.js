@@ -2,6 +2,8 @@
 
 const runPrettier = require("../runPrettier");
 
+expect.addSnapshotSerializer(require("../path-serializer"));
+
 describe("multiple patterns", () => {
   runPrettier("cli/multiple-patterns", [
     "directory/**/*.js",

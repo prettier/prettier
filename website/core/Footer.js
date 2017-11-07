@@ -38,10 +38,8 @@ class Footer extends React.Component {
           </a>
           <div>
             <h5>Docs</h5>
-            <a href={this.url("/why-prettier.html")}>Why Prettier?</a>
-            <a href={this.url("/usage.html")}>Usage</a>
-            <a href={this.url("/options.html")}>Options</a>
-            <a href={this.url("/editors.html")}>Editor Integeration</a>
+            <a href={this.url("/index.html")}>About</a>
+            <a href={this.url("/install.html")}>Usage</a>
           </div>
           <div>
             <h5>Community</h5>
@@ -70,6 +68,8 @@ class Footer extends React.Component {
             <h5>More</h5>
             {/*<a href={this.props.config.baseUrl + "blog"}>Blog</a>*/}
             <a href={this.props.config.githubUrl}>GitHub</a>
+            <a href={this.props.config.githubUrl + "/releases"}>Releases</a>
+            <a href={this.props.config.githubUrl + "/issues"}>Issues</a>
             <GithubButton config={this.props.config} />
           </div>
         </section>
