@@ -372,6 +372,58 @@ exports[`string.json 2`] = `
 
 `;
 
+exports[`top-block-comment.json 1`] = `
+/* comment */{
+  "foo": "bar"
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* comment */ {
+  "foo": "bar"
+}
+
+`;
+
+exports[`top-block-comment.json 2`] = `
+/* comment */{
+  "foo": "bar"
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* comment */ {
+  "foo": "bar"
+}
+
+`;
+
+exports[`top-line-comment.json 1`] = `
+// comment 1
+// comment 2
+{
+  "foo": "bar"
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// comment 1
+// comment 2
+{
+  "foo": "bar"
+}
+
+`;
+
+exports[`top-line-comment.json 2`] = `
+// comment 1
+// comment 2
+{
+  "foo": "bar"
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// comment 1
+// comment 2
+{
+  "foo": "bar"
+}
+
+`;
+
 exports[`trailingComma.notjson 1`] = `
 {
   "k1": "v1",
