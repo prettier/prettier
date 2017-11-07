@@ -54,5 +54,10 @@
     "caption": "Tradeshift",
     "image": "/images/tradeshift-200x100.png",
     "infoLink": "https://tradeshift.com/"
+  },
+  {
+    "caption": "Algolia",
+    "image": "/images/algolia-200x100.png",
+    "infoLink": "https://algolia.com"
   }
 ]
