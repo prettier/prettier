@@ -59,5 +59,10 @@
     "caption": "Algolia",
     "image": "/images/algolia-200x100.png",
     "infoLink": "https://algolia.com"
+  },
+  {
+    "caption": "IRESS",
+    "image": "/images/iress-200x100.png",
+    "infoLink": "https://iress.com"
   }
 ]
