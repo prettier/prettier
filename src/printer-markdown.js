@@ -14,7 +14,7 @@ const printDocToString = docPrinter.printDocToString;
 const escapeStringRegexp = require("escape-string-regexp");
 
 // http://spec.commonmark.org/0.25/#ascii-punctuation-character
-const ascii_punctuation_pattern = escapeStringRegexp(
+const asciiPunctuationPattern = escapeStringRegexp(
   "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
 );
 
@@ -105,14 +105,14 @@ function genericPrint(path, options, print) {
           prevNode.children.length > 0 &&
           prevNode.children[prevNode.children.length - 1].type === "word" &&
           prevNode.children[prevNode.children.length - 1].value.match(
-            new RegExp(`[^${ascii_punctuation_pattern}]$`)
+            new RegExp(`[^${asciiPunctuationPattern}]$`)
           )) ||
         (nextNode &&
           nextNode.type === "sentence" &&
           nextNode.children.length > 0 &&
           nextNode.children[0].type === "word" &&
           nextNode.children[0].value.match(
-            new RegExp(`^[^${ascii_punctuation_pattern}]`)
+            new RegExp(`^[^${asciiPunctuationPattern}]`)
           ));
       const style =
         hasPrevOrNextWord || getAncestorNode(path, "emphasis") ? "*" : "_";
