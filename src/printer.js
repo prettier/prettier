@@ -1732,7 +1732,11 @@ function genericPrintNoParens(path, options, print, args) {
         "{",
         hasComments
           ? concat([
-              comments.printDanglingComments(path, options),
+              comments.printDanglingComments(
+                path,
+                options,
+                n.comments && n.comments.some(util.isBlockComment)
+              ),
               indent(concat([softline, printed])),
               softline
             ])
