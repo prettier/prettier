@@ -249,6 +249,13 @@ a string that will be passed through to the Prettier command line tool:
 let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5'
 ```
 
+If you use Prettier config files, you must set
+`g:ale_javascript_prettier_use_local_config` to have ALE respect them:
+
+```vim
+let g:ale_javascript_prettier_use_local_config = 1
+```
+
 --------------------------------------------------------------------------------
 
 ### Running manually  

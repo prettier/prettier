@@ -550,8 +550,11 @@ function genericPrintNoParens(path, options, print, args) {
 
       // if the arrow function is expanded as last argument, we are adding a
       // level of indentation and need to add a softline to align the closing )
-      // with the opening (.
-      const shouldAddSoftLine = args && args.expandLastArg;
+      // with the opening (, or if it's inside a JSXExpression (e.g. an attribute)
+      // we should align the expression's closing } with the line with the opening {.
+      const shouldAddSoftLine =
+        (args && args.expandLastArg) ||
+        path.getParentNode().type === "JSXExpressionContainer";
 
       // In order to avoid confusion between
       // a => a ? a : a
@@ -1717,31 +1720,28 @@ function genericPrintNoParens(path, options, print, args) {
     case "JSXExpressionContainer": {
       const parent = path.getParentNode(0);
 
+      const preventInline =
+        parent.type === "JSXAttribute" &&
+        n.expression.comments &&
+        n.expression.comments.length > 0;
+
       const shouldInline =
-        n.expression.type === "ArrayExpression" ||
-        n.expression.type === "ObjectExpression" ||
-        n.expression.type === "ArrowFunctionExpression" ||
-        n.expression.type === "CallExpression" ||
-        n.expression.type === "FunctionExpression" ||
-        n.expression.type === "JSXEmptyExpression" ||
-        n.expression.type === "TemplateLiteral" ||
-        n.expression.type === "TaggedTemplateExpression" ||
-        (parent.type === "JSXElement" &&
-          (n.expression.type === "ConditionalExpression" ||
-            isBinaryish(n.expression)));
+        !preventInline &&
+        (n.expression.type === "ArrayExpression" ||
+          n.expression.type === "ObjectExpression" ||
+          n.expression.type === "ArrowFunctionExpression" ||
+          n.expression.type === "CallExpression" ||
+          n.expression.type === "FunctionExpression" ||
+          n.expression.type === "JSXEmptyExpression" ||
+          n.expression.type === "TemplateLiteral" ||
+          n.expression.type === "TaggedTemplateExpression" ||
+          (parent.type === "JSXElement" &&
+            (n.expression.type === "ConditionalExpression" ||
+              isBinaryish(n.expression))));
 
       if (shouldInline) {
-        const printExpression =
-          n.expression.type !== "ArrowFunctionExpression"
-            ? print
-            : p => print(p, { expandLastArg: true });
         return group(
-          concat([
-            "{",
-            path.call(printExpression, "expression"),
-            lineSuffixBoundary,
-            "}"
-          ])
+          concat(["{", path.call(print, "expression"), lineSuffixBoundary, "}"])
         );
       }
 
@@ -1770,7 +1770,20 @@ function genericPrintNoParens(path, options, print, args) {
       if (
         n.attributes.length === 1 &&
         n.attributes[0].value &&
-        isStringLiteral(n.attributes[0].value)
+        isStringLiteral(n.attributes[0].value) &&
+        // We should break for the following cases:
+        // <div
+        //   // comment
+        //   attr="value"
+        // >
+        // <div
+        //   attr="value"
+        //   // comment
+        // >
+        !(
+          (n.name && n.name.comments && n.name.comments.length) ||
+          (n.attributes[0].comments && n.attributes[0].comments.length)
+        )
       ) {
         return group(
           concat([
@@ -1785,10 +1798,21 @@ function genericPrintNoParens(path, options, print, args) {
 
       const bracketSameLine =
         options.jsxBracketSameLine &&
+        // We should print the bracket in a new line for the following cases:
+        // <div
+        //   // comment
+        // >
+        // <div
+        //   attr // comment
+        // >
         !(
-          n.name &&
-          ((n.name.trailingComments && n.name.trailingComments.length) ||
-            (n.name.comments && n.name.comments.length))
+          (n.name &&
+            !(n.attributes && n.attributes.length) &&
+            n.name.comments &&
+            n.name.comments.length) ||
+          (n.attributes &&
+            n.attributes.length &&
+            hasTrailingComment(util.getLast(n.attributes)))
         );
 
       return group(
@@ -1934,13 +1958,19 @@ function genericPrintNoParens(path, options, print, args) {
             tabWidth
           );
 
-          const aligned = addAlignmentToDoc(
-            expressions[i],
-            indentSize,
-            tabWidth
-          );
+          let printed = expressions[i];
 
-          parts.push("${", aligned, lineSuffixBoundary, "}");
+          if (
+            n.expressions[i].type === "Identifier" ||
+            n.expressions[i].type === "MemberExpression" ||
+            n.expressions[i].type === "ConditionalExpression"
+          ) {
+            printed = concat([indent(concat([softline, printed])), softline]);
+          }
+
+          const aligned = addAlignmentToDoc(printed, indentSize, tabWidth);
+
+          parts.push(group(concat(["${", aligned, lineSuffixBoundary, "}"])));
         }
       }, "quasis");
 
@@ -3711,13 +3741,20 @@ function printMemberChain(path, options, print) {
   // The first group is the first node followed by
   //   - as many CallExpression as possible
   //       < fn()()() >.something()
+  //   - as many array acessors as possible
+  //       < fn()[0][1][2] >.something()
   //   - then, as many MemberExpression as possible but the last one
   //       < this.items >.something()
   const groups = [];
   let currentGroup = [printedNodes[0]];
   let i = 1;
   for (; i < printedNodes.length; ++i) {
-    if (printedNodes[i].node.type === "CallExpression") {
+    if (
+      printedNodes[i].node.type === "CallExpression" ||
+      (printedNodes[i].node.type === "MemberExpression" &&
+        printedNodes[i].node.computed &&
+        isNumericLiteral(printedNodes[i].node.property))
+    ) {
       currentGroup.push(printedNodes[i]);
     } else {
       break;

@@ -65,6 +65,7 @@ conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Pre
   + [Visual Studio](#visual-studio)
   + [Sublime Text](#sublime-text)
   + [JetBrains WebStorm, PHPStorm, PyCharm...](#jetbrains-webstorm-phpstorm-pycharm)
+* [Watching For Changes On The Command Line](#watching-for-changes-on-the-command-line)
 * [Language Support](#language-support)
 * [Related Projects](#related-projects)
   + [ESLint Integrations](#eslint-integrations)
@@ -185,7 +186,7 @@ A few of the [many projects](https://www.npmjs.com/browse/depended/prettier) usi
 </tr>
 <tr>
 <td><p align="center"><a href="https://babeljs.io/"><img src="website/static/images/babel-200x100.png" alt="Babel" width="200" height="100"><br>Babel</a></p></td>
-<td><p align="center"><a href="https://zeit.co/"><img src="website/static/images/zeit-200x100.png" alt="Zeit" width="200" height="100"><br>Zeit</a></p></td>
+<td><p align="center"><a href="https://zeit.co/"><img src="website/static/images/zeit-200x100.png" alt="ZEIT" width="200" height="100"><br>ZEIT</a></p></td>
 <td><p align="center"><a href="https://webpack.js.org/api/cli/"><img src="website/static/images/webpack-200x100.png" alt="Webpack-cli" width="200" height="100"><br>Webpack-cli</a></p></td>
 </tr>
 </table>
@@ -338,6 +339,12 @@ Prettier CLI will ignore files located in `node_modules` directory. To opt-out f
 #### `--write`
 
 This rewrites all processed files in place.  This is comparable to the `eslint --fix` workflow.
+
+<!--
+#### `--support-info`
+
+Prints, as JSON, the [support information](#prettiergetsupportinfoversion) for the current version of Prettier.
+-->
 
 ### ESLint
 
@@ -501,6 +508,38 @@ Use `prettier.resolveConfig.sync(filePath [, options])` if you'd like to use syn
 As you repeatedly call `resolveConfig`, the file system structure will be cached for performance.
 This function will clear the cache. Generally this is only needed for editor integrations that
 know that the file system has changed since the last format took place.
+
+<!--
+#### `prettier.getSupportInfo([version])`
+
+Returns an object representing the parsers, languages and file types Prettier
+supports.
+
+If `version` is provided (e.g. `"1.5.0"`), information for that version will be
+returned, otherwise information for the current version will be returned.
+
+The support information looks like this:
+
+```
+{
+  languages: Array<{
+    name: string,
+    since: string,
+    parsers: string[],
+    group?: string,
+    tmScope: string,
+    aceMode: string,
+    codemirrorMode: string,
+    codemirrorMimeType: string,
+    aliases?: string[],
+    extensions: string[],
+    filenames?: string[],
+    linguistLanguageId: number,
+    vscodeLanguageIds: string[],
+  }>
+}
+```
+-->
 
 #### Custom Parser API
 
@@ -832,6 +871,22 @@ the [JsPrettier](https://packagecontrol.io/packages/JsPrettier) plug-in.
 
 See the [WebStorm
 guide](https://github.com/jlongster/prettier/tree/master/editors/webstorm/README.md).
+
+## Watching For Changes On The Command Line
+
+If you prefer to have prettier watch for changes from the command line you can use a package like [onchange](https://www.npmjs.com/package/onchange). For example:
+
+```
+npx onchange '**/*.js' -- npx prettier --write {{changed}}
+```
+
+or add the following to your `package.json`
+
+```json
+  "scripts": {
+    "prettier-watch": "onchange '**/*.js' -- prettier --write {{changed}}"
+  },
+```
 
 ## Language Support
 

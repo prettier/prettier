@@ -1,0 +1,1 @@
+query X($a: Int) @relay(meta: "{\"lowPri\": true}") { a }
