@@ -26,6 +26,21 @@ English 混合著中文的一段 Paragraph！
 
 `;
 
+exports[`cjk.md 2`] = `
+這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長的段落
+
+這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！
+
+全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長的段落
+
+這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！
+
+全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白
+
+`;
+
 exports[`inline-nodes.md 1`] = `
 It removes all original styling[*](#styling-footnote) and ensures that all outputted code conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -35,11 +50,25 @@ post](http://jlongster.com/A-Prettier-Formatter))
 
 `;
 
+exports[`inline-nodes.md 2`] = `
+It removes all original styling[*](#styling-footnote) and ensures that all outputted code conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+It removes all original styling[\\*](#styling-footnote) and ensures that all outputted code conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
+
+`;
+
 exports[`simple.md 1`] = `
 This is a long long long long long long long long long long long long long long long paragraph.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 This is a long long long long long long long long long long long long long long
 long paragraph.
+
+`;
+
+exports[`simple.md 2`] = `
+This is a long long long long long long long long long long long long long long long paragraph.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This is a long long long long long long long long long long long long long long long paragraph.
 
 `;
 
@@ -88,5 +117,47 @@ abc - abc abc abc
   * disallow identical titles.
 * [valid-expect](/packages/eslint-plugin-jest/docs/rules/valid-expect.md) -
   ensure expect is called correctly.
+
+`;
+
+exports[`special-prefix.md 2`] = `
+abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc - abc abc abc 
+
+## Supported Rules
+
+- [no-disabled-tests](/packages/eslint-plugin-jest/docs/rules/no-disabled-tests.md) - disallow disabled tests.
+- [no-focused-tests](/packages/eslint-plugin-jest/docs/rules/no-focused-tests.md) - disallow focused tests.
+- [no-identical-title](/packages/eslint-plugin-jest/docs/rules/no-identical-title.md) - disallow identical titles.
+- [valid-expect](/packages/eslint-plugin-jest/docs/rules/valid-expect.md) - ensure expect is called correctly.
+
+## Supported Rules
+
+* [no-disabled-tests](/packages/eslint-plugin-jest/docs/rules/no-disabled-tests.md)
+  - disallow disabled tests.
+* [no-focused-tests](/packages/eslint-plugin-jest/docs/rules/no-focused-tests.md)
+  - disallow focused tests.
+* [no-identical-title](/packages/eslint-plugin-jest/docs/rules/no-identical-title.md)
+  - disallow identical titles.
+* [valid-expect](/packages/eslint-plugin-jest/docs/rules/valid-expect.md) -
+  ensure expect is called correctly.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc - abc abc abc
+
+## Supported Rules
+
+* [no-disabled-tests](/packages/eslint-plugin-jest/docs/rules/no-disabled-tests.md) - disallow disabled tests.
+* [no-focused-tests](/packages/eslint-plugin-jest/docs/rules/no-focused-tests.md) - disallow focused tests.
+* [no-identical-title](/packages/eslint-plugin-jest/docs/rules/no-identical-title.md) - disallow identical titles.
+* [valid-expect](/packages/eslint-plugin-jest/docs/rules/valid-expect.md) - ensure expect is called correctly.
+
+## Supported Rules
+
+* [no-disabled-tests](/packages/eslint-plugin-jest/docs/rules/no-disabled-tests.md)
+  * disallow disabled tests.
+* [no-focused-tests](/packages/eslint-plugin-jest/docs/rules/no-focused-tests.md)
+  * disallow focused tests.
+* [no-identical-title](/packages/eslint-plugin-jest/docs/rules/no-identical-title.md)
+  * disallow identical titles.
+* [valid-expect](/packages/eslint-plugin-jest/docs/rules/valid-expect.md) - ensure expect is called correctly.
 
 `;
