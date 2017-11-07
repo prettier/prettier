@@ -158,7 +158,15 @@ function genericPrint(path, options, print) {
         printChildren(path, options, print)
       ]);
     case "code": {
-      if (/\s/.test(options.originalText[node.position.start.offset])) {
+      if (
+        // the first char may point to `\n`, e.g. `\n\t\tbar`, just ignore it
+        /^\n?( {4,}|\t)/.test(
+          options.originalText.slice(
+            node.position.start.offset,
+            node.position.end.offset
+          )
+        )
+      ) {
         // indented code block
         return align(
           4,
