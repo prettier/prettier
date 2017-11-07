@@ -1716,7 +1716,28 @@ function genericPrintNoParens(path, options, print, args) {
     case "TSQualifiedName":
       return join(".", [path.call(print, "left"), path.call(print, "right")]);
     case "JSXSpreadAttribute":
-      return concat(["{...", path.call(print, "argument"), "}"]);
+    case "JSXSpreadChild": {
+      return concat([
+        "{",
+        path.call(p => {
+          const printed = concat(["...", print(p)]);
+          const n = p.getValue();
+          if (!n.comments || !n.comments.length) {
+            return printed;
+          }
+          return concat([
+            indent(
+              concat([
+                softline,
+                comments.printComments(p, () => printed, options)
+              ])
+            ),
+            softline
+          ]);
+        }, n.type === "JSXSpreadAttribute" ? "argument" : "expression"),
+        "}"
+      ]);
+    }
     case "JSXExpressionContainer": {
       const parent = path.getParentNode(0);
 
@@ -4973,7 +4994,9 @@ function printAstToDoc(ast, options, addAlignmentSize) {
     if (
       ((node && node.type === "JSXElement") ||
         (parent &&
-          (parent.type === "UnionTypeAnnotation" ||
+          (parent.type === "JSXSpreadAttribute" ||
+            parent.type === "JSXSpreadChild" ||
+            parent.type === "UnionTypeAnnotation" ||
             parent.type === "TSUnionType" ||
             ((parent.type === "ClassDeclaration" ||
               parent.type === "ClassExpression") &&
