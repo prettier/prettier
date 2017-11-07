@@ -159,7 +159,7 @@ function decorateComment(node, comment, text) {
   }
 }
 
-function attach(comments, ast, text) {
+function attach(comments, ast, text, options) {
   if (!Array.isArray(comments)) {
     return;
   }
@@ -167,6 +167,11 @@ function attach(comments, ast, text) {
   const tiesToBreak = [];
 
   comments.forEach((comment, i) => {
+    if (options.parser === "json" && locStart(comment) - locStart(ast) <= 0) {
+      addLeadingComment(ast, comment);
+      return;
+    }
+
     decorateComment(ast, comment, text);
 
     const precedingNode = comment.precedingNode;
