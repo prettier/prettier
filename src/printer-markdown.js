@@ -80,7 +80,7 @@ function genericPrint(path, options, print) {
       const nextNode = parentNode.children[index + 1];
 
       // special prefix that may cause different meaning
-      if (nextNode && nextNode.value.match(/(>|-|\+|\*)$/)) {
+      if (nextNode && nextNode.value.match(/^(#{1,6}|>+)|^(-|\+|\*)$/)) {
         return node.value === "" ? "" : " ";
       }
 
