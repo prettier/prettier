@@ -41,7 +41,8 @@ const siteConfig = {
   highlight: {
     theme: "default"
   },
-  useEnglishUrl: true
+  useEnglishUrl: true,
+  scripts: ["https://buttons.github.io/buttons.js"]
 };
 
 module.exports = siteConfig;
