@@ -11,6 +11,12 @@ const fill = docBuilders.fill;
 const align = docBuilders.align;
 const docPrinter = require("./doc-printer");
 const printDocToString = docPrinter.printDocToString;
+const escapeStringRegexp = require("escape-string-regexp");
+
+// http://spec.commonmark.org/0.25/#ascii-punctuation-character
+const asciiPunctuationPattern = escapeStringRegexp(
+  "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
+);
 
 const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "footnoteDefinition"];
 
@@ -97,11 +103,17 @@ function genericPrint(path, options, print) {
         (prevNode &&
           prevNode.type === "sentence" &&
           prevNode.children.length > 0 &&
-          prevNode.children[prevNode.children.length - 1].type === "word") ||
+          prevNode.children[prevNode.children.length - 1].type === "word" &&
+          prevNode.children[prevNode.children.length - 1].value.match(
+            new RegExp(`[^${asciiPunctuationPattern}]$`)
+          )) ||
         (nextNode &&
           nextNode.type === "sentence" &&
           nextNode.children.length > 0 &&
-          nextNode.children[0].type === "word");
+          nextNode.children[0].type === "word" &&
+          nextNode.children[0].value.match(
+            new RegExp(`^[^${asciiPunctuationPattern}]`)
+          ));
       const style =
         hasPrevOrNextWord || getAncestorNode(path, "emphasis") ? "*" : "_";
       return concat([style, printChildren(path, options, print), style]);

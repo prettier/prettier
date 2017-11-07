@@ -7,6 +7,17 @@ _123_
 
 `;
 
+exports[`complex.md 1`] = `
+**Do you want to request a *feature* or report a *bug*?**
+
+*bug*?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Do you want to request a _feature_ or report a _bug_?**
+
+_bug_?
+
+`;
+
 exports[`underscore.md 1`] = `
 _123_
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
