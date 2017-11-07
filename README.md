@@ -73,7 +73,7 @@ a nit comment on a code review ever again!
 [Install](https://prettier.io/docs/en/install.html) ·
 [Options](https://prettier.io/docs/en/options.html) ·
 [CLI](https://prettier.io/docs/en/cli.html) ·
-[API](https://prettier.io/docs/en/usage-options.html)
+[API](https://prettier.io/docs/en/api.html)
 
 **[Playground](https://prettier.io/playground/)**
 
