@@ -165,3 +165,13 @@ docblock at the top of the file then this option will add a newline to it with t
 Default | CLI Override | API Override
 --------|--------------|-------------
 `false` | `--insert-pragma` | `insertPragma: <bool>`
+
+## Prose Wrap
+By default, Prettier will wrap markdown text at the specified print width.
+In some cases you may want to rely on editor/viewer soft wrapping instead,
+so this option allows you to opt out. When prose wrapping is disabled, each
+paragraph will be printed on its own line.
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`true` | `--no-prose-wrap` | `proseWrap: <bool>`
