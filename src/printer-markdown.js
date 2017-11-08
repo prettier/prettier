@@ -18,7 +18,12 @@ const asciiPunctuationPattern = escapeStringRegexp(
   "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
 );
 
-const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "footnoteDefinition"];
+const SINGLE_LINE_NODE_TYPES = [
+  "heading",
+  "tableCell",
+  "footnoteDefinition",
+  "link"
+];
 
 const SIBLING_NODE_TYPES = ["listItem", "definition", "footnoteDefinition"];
 
