@@ -20,7 +20,8 @@ const defaults = {
   parser: "babylon",
   insertPragma: false,
   requirePragma: false,
-  semi: true
+  semi: true,
+  proseWrap: true
 };
 
 const exampleConfig = Object.assign({}, defaults, {

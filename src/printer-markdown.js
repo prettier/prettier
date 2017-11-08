@@ -60,7 +60,7 @@ function genericPrint(path, options, print) {
           node =>
             node.type === "word"
               ? node.value
-              : node.value === "" ? "" : printLine(path, line)
+              : node.value === "" ? "" : printLine(path, line, options)
         )
     );
   }
@@ -92,7 +92,7 @@ function genericPrint(path, options, print) {
         return node.value === "" ? "" : " ";
       }
 
-      return printLine(path, node.value === "" ? softline : line);
+      return printLine(path, node.value === "" ? softline : line, options);
     }
     case "emphasis": {
       const parentNode = path.getParentNode();
@@ -125,7 +125,7 @@ function genericPrint(path, options, print) {
     case "inlineCode": {
       const backtickCount = util.getMaxContinuousCount(node.value, "`");
       const style = backtickCount === 1 ? "``" : "`";
-      const gap = backtickCount ? printLine(path, line) : "";
+      const gap = backtickCount ? printLine(path, line, options) : "";
       return concat([
         style,
         gap,
@@ -354,8 +354,9 @@ function getAncestorNode(path, typeOrTypes) {
   return counter === -1 ? null : path.getParentNode(counter);
 }
 
-function printLine(path, lineOrSoftline) {
-  const isBreakable = !getAncestorNode(path, SINGLE_LINE_NODE_TYPES);
+function printLine(path, lineOrSoftline, options) {
+  const isBreakable =
+    options.proseWrap && !getAncestorNode(path, SINGLE_LINE_NODE_TYPES);
   return lineOrSoftline === line
     ? isBreakable ? line : " "
     : isBreakable ? softline : "";
