@@ -29,7 +29,7 @@ if (typeof global$1.clearTimeout === 'function') {
 
 function runTimeout(fun) {
     if (cachedSetTimeout === setTimeout) {
-        //normal environments in sane situations
+        //normal enviroments in sane situations
         return setTimeout(fun, 0);
     }
     // if setTimeout wasn't available but was latter defined
@@ -54,7 +54,7 @@ function runTimeout(fun) {
 }
 function runClearTimeout(marker) {
     if (cachedClearTimeout === clearTimeout) {
-        //normal environments in sane situations
+        //normal enviroments in sane situations
         return clearTimeout(marker);
     }
     // if clearTimeout wasn't available but was latter defined
@@ -134,7 +134,7 @@ function nextTick(fun) {
         runTimeout(drainQueue);
     }
 }
-// v8 likes predictable objects
+// v8 likes predictible objects
 function Item(fun, array) {
     this.fun = fun;
     this.array = array;
@@ -2202,7 +2202,7 @@ function isnan (val) {
 }
 
 
-// the following is from is-buffer, also by Feross Aboukhadijeh and with same license
+// the following is from is-buffer, also by Feross Aboukhadijeh and with same lisence
 // The _isBuffer check is for Safari 5-7 support, because it's missing
 // Object.prototype.constructor. Remove this eventually
 function isBuffer(obj) {
