@@ -32,6 +32,6 @@
     {
         "image": "/images/webstorm-128px.png",
         "name": "WebStorm",
-        "content": "[External Tool](https://github.com/prettier/prettier/blob/master/editors/webstorm/README.md)"
+        "content": "[External Tool](https://prettier.io/docs/en/webstorm.html)"
     }
 ]

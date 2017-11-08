@@ -46,7 +46,9 @@ for (const parser of parsers) {
   }
   shell.echo(`Bundling lib ${parser}...`);
   shell.exec(
-    `rollup -c scripts/build/rollup.parser.config.js --environment parser:${parser}`
+    `rollup -c scripts/build/rollup.parser.config.js --environment parser:${
+      parser
+    }`
   );
 }
 
@@ -66,7 +68,9 @@ shell.echo();
 shell.echo("Bundling docs index...");
 shell.cp("dist/index.js", `${docs}/index.js`);
 shell.exec(
-  `node_modules/babel-cli/bin/babel.js dist/index.js --out-file ${docs}/index.js --presets=es2015`
+  `node_modules/babel-cli/bin/babel.js dist/index.js --out-file ${
+    docs
+  }/index.js --presets=es2015`
 );
 
 shell.echo("Bundling docs babylon...");
@@ -74,7 +78,9 @@ shell.exec(
   "rollup -c scripts/build/rollup.docs.config.js --environment filepath:parser-babylon.js"
 );
 shell.exec(
-  `node_modules/babel-cli/bin/babel.js ${docs}/parser-babylon.js --out-file ${docs}/parser-babylon.js --presets=es2015`
+  `node_modules/babel-cli/bin/babel.js ${docs}/parser-babylon.js --out-file ${
+    docs
+  }/parser-babylon.js --presets=es2015`
 );
 
 for (const parser of parsers) {
@@ -83,7 +89,9 @@ for (const parser of parsers) {
   }
   shell.echo(`Bundling docs ${parser}...`);
   shell.exec(
-    `rollup -c scripts/build/rollup.docs.config.js --environment filepath:parser-${parser}.js`
+    `rollup -c scripts/build/rollup.docs.config.js --environment filepath:parser-${
+      parser
+    }.js`
   );
 }
 

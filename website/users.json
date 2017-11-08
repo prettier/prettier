@@ -54,5 +54,25 @@
     "caption": "Tradeshift",
     "image": "/images/tradeshift-200x100.png",
     "infoLink": "https://tradeshift.com/"
+  },
+  {
+    "caption": "Algolia",
+    "image": "/images/algolia-200x100.png",
+    "infoLink": "https://algolia.com"
+  },
+  {
+    "caption": "IRESS",
+    "image": "/images/iress-200x100.png",
+    "infoLink": "https://iress.com"
+  },
+  {
+    "caption": "Outreach",
+    "image": "/images/outreach-200x100.png",
+    "infoLink": "https://www.outreach.io/"
+  },
+  {
+    "caption": "Material-UI",
+    "image": "/images/materialui-200x100.png",
+    "infoLink": "http://www.material-ui.com/"
   }
 ]

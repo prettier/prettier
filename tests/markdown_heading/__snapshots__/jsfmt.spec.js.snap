@@ -30,3 +30,10 @@ h2
 ## h2
 
 `;
+
+exports[`unbreakable.md 1`] = `
+### \`reporters\` [array<moduleName | [moduleName, options]>]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+### \`reporters\` [array<moduleName | [moduleName, options]>]
+
+`;

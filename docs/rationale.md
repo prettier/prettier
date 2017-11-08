@@ -1,6 +1,9 @@
-# Rationale
+---
+id: rationale
+title: Rationale
+---
 
-Prettier is an opinionated JavaScript formatter. This document gives a rationale behind those opinions.
+Prettier is an opinionated code formatter. This document gives a rationale behind those opinions.
 
 
 ## What prettier is concerned about
@@ -17,12 +20,6 @@ The first requirement of prettier is to output valid JavaScript and code that ha
 ### Whitespace: indentation and line breaks
 
 This is the core of prettier. The formatting rules are going to be explained in a later section.
-
-
-### Semi-colons
-
-...TBD...
-
 
 ### Strings
 
@@ -63,6 +60,11 @@ Here are a few examples of things that are out of scope for prettier:
 - Turning `?:` into `if then else`.
 
 
+<!--
+### Semi-colons
+
+...TBD...
+
 ## Formatting rules
 
 ... TBD ...
@@ -81,3 +83,4 @@ Here are a few examples of things that are out of scope for prettier:
 
 
 ### String concatenation
+-->

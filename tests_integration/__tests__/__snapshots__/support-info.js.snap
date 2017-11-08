@@ -199,6 +199,39 @@ Object {
         "json",
       ],
     },
+    Object {
+      "aceMode": "markdown",
+      "aliases": Array [
+        "pandoc",
+      ],
+      "codemirrorMimeType": "text/x-gfm",
+      "codemirrorMode": "gfm",
+      "extensions": Array [
+        ".md",
+        ".markdown",
+        ".mdown",
+        ".mdwn",
+        ".mkd",
+        ".mkdn",
+        ".mkdown",
+        ".ron",
+        ".workbook",
+      ],
+      "filenames": Array [
+        "README",
+      ],
+      "linguistLanguageId": 222,
+      "name": "Markdown",
+      "parsers": Array [
+        "markdown",
+      ],
+      "since": "1.8.0",
+      "tmScope": "source.gfm",
+      "vscodeLanguageIds": Array [
+        "markdown",
+      ],
+      "wrap": true,
+    },
   ],
 }
 `;
@@ -494,6 +527,31 @@ exports[`CLI --support-info (stdout) 1`] = `
       ],
       \\"linguistLanguageId\\": 174,
       \\"vscodeLanguageIds\\": [\\"json\\"]
+    },
+    {
+      \\"name\\": \\"Markdown\\",
+      \\"since\\": \\"1.8.0\\",
+      \\"parsers\\": [\\"markdown\\"],
+      \\"aliases\\": [\\"pandoc\\"],
+      \\"aceMode\\": \\"markdown\\",
+      \\"codemirrorMode\\": \\"gfm\\",
+      \\"codemirrorMimeType\\": \\"text/x-gfm\\",
+      \\"wrap\\": true,
+      \\"extensions\\": [
+        \\".md\\",
+        \\".markdown\\",
+        \\".mdown\\",
+        \\".mdwn\\",
+        \\".mkd\\",
+        \\".mkdn\\",
+        \\".mkdown\\",
+        \\".ron\\",
+        \\".workbook\\"
+      ],
+      \\"filenames\\": [\\"README\\"],
+      \\"tmScope\\": \\"source.gfm\\",
+      \\"linguistLanguageId\\": 222,
+      \\"vscodeLanguageIds\\": [\\"markdown\\"]
     }
   ]
 }

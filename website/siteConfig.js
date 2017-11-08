@@ -1,5 +1,7 @@
 "use strict";
 
+// Docs: https://docusaurus.io/docs/en/site-config.html
+
 const PACKAGE = require("../package");
 const GITHUB_URL = `https://github.com/${PACKAGE.repository}`;
 
@@ -9,6 +11,7 @@ const supportedLanguages = require("./languages");
 
 const siteConfig = {
   title: "Prettier",
+  tagline: "Opinionated Code Formatter",
   githubUrl: GITHUB_URL,
   url: PACKAGE.homepage,
   baseUrl: "/",
@@ -21,8 +24,10 @@ const siteConfig = {
   /* base url for editing docs, usage example: editUrl + 'en/doc1.md' */
   editUrl: `${GITHUB_URL}/edit/master/docs/`,
   headerLinks: [
-    { doc: "why-prettier", label: "Docs" },
     { href: "/playground/", label: "Playground" },
+    { doc: "index", label: "About" },
+    { doc: "install", label: "Usage" },
+    { search: true },
     { href: GITHUB_URL, label: "GitHub" }
   ],
   /* path to images for header/footer */
@@ -32,12 +37,17 @@ const siteConfig = {
   /* colors for website */
   colors: {
     primaryColor: "#1A2B34",
-    secondaryColor: "#808080",
-    prismColor:
-      "rgba(26, 43, 52, 0.03)" /* primaryColor in rgba form, with 0.03 alpha */
+    secondaryColor: "#808080"
   },
-  tagline: "Opinionated Code Formatter",
-  useEnglishUrl: true
+  highlight: {
+    theme: "default"
+  },
+  useEnglishUrl: true,
+  scripts: ["https://buttons.github.io/buttons.js"],
+  algolia: {
+    apiKey: process.env.ALGOLIA_PRETTIER_API_KEY,
+    indexName: "prettier"
+  }
 };
 
 module.exports = siteConfig;

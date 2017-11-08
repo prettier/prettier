@@ -208,6 +208,17 @@ exports[`show detailed usage with --help no-config (stdout) 1`] = `
 
 exports[`show detailed usage with --help no-config (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help no-prose-wrap (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help no-prose-wrap (stdout) 1`] = `
+"--no-prose-wrap
+
+  Do not wrap prose. (markdown)
+"
+`;
+
+exports[`show detailed usage with --help no-prose-wrap (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help no-semi (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help no-semi (stdout) 1`] = `
@@ -256,6 +267,19 @@ Default: 80
 `;
 
 exports[`show detailed usage with --help print-width (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help prose-wrap (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help prose-wrap (stdout) 1`] = `
+"--prose-wrap
+
+  Wrap prose if it exceeds the print width. (markdown)
+
+Default: true
+"
+`;
+
+exports[`show detailed usage with --help prose-wrap (write) 1`] = `Array []`;
 
 exports[`show detailed usage with --help range-end (stderr) 1`] = `""`;
 
@@ -461,6 +485,7 @@ Format options:
                            Defaults to babylon.
   --print-width <int>      The line length where Prettier will try wrap.
                            Defaults to 80.
+  --no-prose-wrap          Do not wrap prose. (markdown)
   --no-semi                Do not print semicolons, except at the beginning of lines which may need them.
   --single-quote           Use single quotes instead of double quotes.
                            Defaults to false.
@@ -593,6 +618,7 @@ Format options:
                            Defaults to babylon.
   --print-width <int>      The line length where Prettier will try wrap.
                            Defaults to 80.
+  --no-prose-wrap          Do not wrap prose. (markdown)
   --no-semi                Do not print semicolons, except at the beginning of lines which may need them.
   --single-quote           Use single quotes instead of double quotes.
                            Defaults to false.

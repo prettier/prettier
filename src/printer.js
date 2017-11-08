@@ -556,6 +556,9 @@ function genericPrintNoParens(path, options, print, args) {
         (args && args.expandLastArg) ||
         path.getParentNode().type === "JSXExpressionContainer";
 
+      const printTrailingComma =
+        args && args.expandLastArg && shouldPrintComma(options, "all");
+
       // In order to avoid confusion between
       // a => a ? a : a
       // a <= a ? a : a
@@ -580,10 +583,7 @@ function genericPrintNoParens(path, options, print, args) {
                 ])
               ),
               shouldAddSoftLine
-                ? concat([
-                    ifBreak(shouldPrintComma(options, "all") ? "," : ""),
-                    softline
-                  ])
+                ? concat([ifBreak(printTrailingComma ? "," : ""), softline])
                 : ""
             ])
           )
@@ -1716,7 +1716,28 @@ function genericPrintNoParens(path, options, print, args) {
     case "TSQualifiedName":
       return join(".", [path.call(print, "left"), path.call(print, "right")]);
     case "JSXSpreadAttribute":
-      return concat(["{...", path.call(print, "argument"), "}"]);
+    case "JSXSpreadChild": {
+      return concat([
+        "{",
+        path.call(p => {
+          const printed = concat(["...", print(p)]);
+          const n = p.getValue();
+          if (!n.comments || !n.comments.length) {
+            return printed;
+          }
+          return concat([
+            indent(
+              concat([
+                softline,
+                comments.printComments(p, () => printed, options)
+              ])
+            ),
+            softline
+          ]);
+        }, n.type === "JSXSpreadAttribute" ? "argument" : "expression"),
+        "}"
+      ]);
+    }
     case "JSXExpressionContainer": {
       const parent = path.getParentNode(0);
 
@@ -1770,7 +1791,20 @@ function genericPrintNoParens(path, options, print, args) {
       if (
         n.attributes.length === 1 &&
         n.attributes[0].value &&
-        isStringLiteral(n.attributes[0].value)
+        isStringLiteral(n.attributes[0].value) &&
+        // We should break for the following cases:
+        // <div
+        //   // comment
+        //   attr="value"
+        // >
+        // <div
+        //   attr="value"
+        //   // comment
+        // >
+        !(
+          (n.name && n.name.comments && n.name.comments.length) ||
+          (n.attributes[0].comments && n.attributes[0].comments.length)
+        )
       ) {
         return group(
           concat([
@@ -1785,10 +1819,21 @@ function genericPrintNoParens(path, options, print, args) {
 
       const bracketSameLine =
         options.jsxBracketSameLine &&
+        // We should print the bracket in a new line for the following cases:
+        // <div
+        //   // comment
+        // >
+        // <div
+        //   attr // comment
+        // >
         !(
-          n.name &&
-          ((n.name.trailingComments && n.name.trailingComments.length) ||
-            (n.name.comments && n.name.comments.length))
+          (n.name &&
+            !(n.attributes && n.attributes.length) &&
+            n.name.comments &&
+            n.name.comments.length) ||
+          (n.attributes &&
+            n.attributes.length &&
+            hasTrailingComment(util.getLast(n.attributes)))
         );
 
       return group(
@@ -4949,7 +4994,9 @@ function printAstToDoc(ast, options, addAlignmentSize) {
     if (
       ((node && node.type === "JSXElement") ||
         (parent &&
-          (parent.type === "UnionTypeAnnotation" ||
+          (parent.type === "JSXSpreadAttribute" ||
+            parent.type === "JSXSpreadChild" ||
+            parent.type === "UnionTypeAnnotation" ||
             parent.type === "TSUnionType" ||
             ((parent.type === "ClassDeclaration" ||
               parent.type === "ClassExpression") &&

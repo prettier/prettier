@@ -210,6 +210,63 @@ a(
 
 `;
 
+exports[`jsx.js 1`] = `
+<div
+  onClick={() =>
+    doSomething({
+      foo: bar
+    })
+  }
+/>;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div
+  onClick={() =>
+    doSomething({
+      foo: bar
+    })
+  }
+/>;
+
+`;
+
+exports[`jsx.js 2`] = `
+<div
+  onClick={() =>
+    doSomething({
+      foo: bar
+    })
+  }
+/>;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div
+  onClick={() =>
+    doSomething({
+      foo: bar,
+    })
+  }
+/>;
+
+`;
+
+exports[`jsx.js 3`] = `
+<div
+  onClick={() =>
+    doSomething({
+      foo: bar
+    })
+  }
+/>;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div
+  onClick={() =>
+    doSomething({
+      foo: bar,
+    })
+  }
+/>;
+
+`;
+
 exports[`object.js 1`] = `
 const a = {
   b: true,

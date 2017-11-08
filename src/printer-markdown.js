@@ -11,6 +11,12 @@ const fill = docBuilders.fill;
 const align = docBuilders.align;
 const docPrinter = require("./doc-printer");
 const printDocToString = docPrinter.printDocToString;
+const escapeStringRegexp = require("escape-string-regexp");
+
+// http://spec.commonmark.org/0.25/#ascii-punctuation-character
+const asciiPunctuationPattern = escapeStringRegexp(
+  "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
+);
 
 const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "footnoteDefinition"];
 
@@ -52,7 +58,9 @@ function genericPrint(path, options, print) {
         )
         .map(
           node =>
-            node.type === "word" ? node.value : node.value === "" ? "" : line
+            node.type === "word"
+              ? node.value
+              : node.value === "" ? "" : printLine(path, line, options)
         )
     );
   }
@@ -74,10 +82,18 @@ function genericPrint(path, options, print) {
         : node.value
             .replace(/(^|[^\\])\*/g, "$1\\*") // escape all unescaped `*` and `_`
             .replace(/\b(^|[^\\])_\b/g, "$1\\_"); // `1_2_3` is not considered emphasis
-    case "whitespace":
-      return getAncestorNode(path, SINGLE_LINE_NODE_TYPES)
-        ? node.value === "" ? "" : " "
-        : node.value === "" ? softline : line;
+    case "whitespace": {
+      const parentNode = path.getParentNode();
+      const index = parentNode.children.indexOf(node);
+      const nextNode = parentNode.children[index + 1];
+
+      // leading char that may cause different syntax
+      if (nextNode && /^>|^([-+*]|#{1,6})$/.test(nextNode.value)) {
+        return node.value === "" ? "" : " ";
+      }
+
+      return printLine(path, node.value === "" ? softline : line, options);
+    }
     case "emphasis": {
       const parentNode = path.getParentNode();
       const index = parentNode.children.indexOf(node);
@@ -87,11 +103,17 @@ function genericPrint(path, options, print) {
         (prevNode &&
           prevNode.type === "sentence" &&
           prevNode.children.length > 0 &&
-          prevNode.children[prevNode.children.length - 1].type === "word") ||
+          prevNode.children[prevNode.children.length - 1].type === "word" &&
+          new RegExp(`[^${asciiPunctuationPattern}]$`).test(
+            prevNode.children[prevNode.children.length - 1].value
+          )) ||
         (nextNode &&
           nextNode.type === "sentence" &&
           nextNode.children.length > 0 &&
-          nextNode.children[0].type === "word");
+          nextNode.children[0].type === "word" &&
+          new RegExp(`^[^${asciiPunctuationPattern}]`).test(
+            nextNode.children[0].value
+          ));
       const style =
         hasPrevOrNextWord || getAncestorNode(path, "emphasis") ? "*" : "_";
       return concat([style, printChildren(path, options, print), style]);
@@ -103,7 +125,7 @@ function genericPrint(path, options, print) {
     case "inlineCode": {
       const backtickCount = util.getMaxContinuousCount(node.value, "`");
       const style = backtickCount === 1 ? "``" : "`";
-      const gap = backtickCount ? line : "";
+      const gap = backtickCount ? printLine(path, line, options) : "";
       return concat([
         style,
         gap,
@@ -148,7 +170,15 @@ function genericPrint(path, options, print) {
         printChildren(path, options, print)
       ]);
     case "code": {
-      if (/\s/.test(options.originalText[node.position.start.offset])) {
+      if (
+        // the first char may point to `\n`, e.g. `\n\t\tbar`, just ignore it
+        /^\n?( {4,}|\t)/.test(
+          options.originalText.slice(
+            node.position.start.offset,
+            node.position.end.offset
+          )
+        )
+      ) {
         // indented code block
         return align(
           4,
@@ -322,6 +352,14 @@ function getAncestorCounter(path, typeOrTypes) {
 function getAncestorNode(path, typeOrTypes) {
   const counter = getAncestorCounter(path, typeOrTypes);
   return counter === -1 ? null : path.getParentNode(counter);
+}
+
+function printLine(path, lineOrSoftline, options) {
+  const isBreakable =
+    options.proseWrap && !getAncestorNode(path, SINGLE_LINE_NODE_TYPES);
+  return lineOrSoftline === line
+    ? isBreakable ? line : " "
+    : isBreakable ? softline : "";
 }
 
 function printTable(path, options, print) {

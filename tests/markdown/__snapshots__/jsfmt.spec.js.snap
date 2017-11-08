@@ -1763,8 +1763,8 @@ The options to the configuration file are the same the [API options](#options).
 JSON:
 
 \`\`\`json
+// .prettierrc
 {
-  // .prettierrc
   "printWidth": 100,
   "parser": "flow"
 }
@@ -1976,7 +1976,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 `;
 
-exports[`TEST.md 1`] = `
+exports[`test-case.md 1`] = `
 [View raw (TEST.md)](https://raw.github.com/adamschwartz/github-markdown-kitchen-sink/master/README.md)
 
 This is a paragraph.
