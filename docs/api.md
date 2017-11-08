@@ -40,7 +40,7 @@ The config search will start at the file path and continue to search up the dire
 searching from the current directory).
 Or you can pass directly the path of the config file as `options.config` if you don't wish to search for it.
 A promise is returned which will resolve to:
-* An options object, providing a [config file](./configuration-file.html) was found.
+* An options object, providing a [config file](configuration.md) was found.
 * `null`, if no file was found.
 
 The promise will be rejected if there was an error parsing the configuration file.
