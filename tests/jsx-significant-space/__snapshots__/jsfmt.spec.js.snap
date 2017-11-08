@@ -1,5 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`comments.js 1`] = `
+<div>
+  {
+    // TODO: don't harcode this space! not all locales use whitespace
+    // in the same way
+    ' '
+  }
+</div>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div>
+  {
+    // TODO: don't harcode this space! not all locales use whitespace
+    // in the same way
+    " "
+  }
+</div>;
+
+`;
+
 exports[`test.js 1`] = `
 after =
   <span>
@@ -90,9 +109,7 @@ before = (
 
 before_break1 = (
   <span>
-    <span
-      barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar
-    />{" "}
+    <span barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar />{" "}
     foo
   </span>
 );
@@ -123,7 +140,14 @@ break_components = (
   <div>
     <Foo />
     <Bar>
-      <p>foo<span>bar bar bar</span></p><h1><span><em>yep</em></span></h1>
+      <p>
+        foo<span>bar bar bar</span>
+      </p>
+      <h1>
+        <span>
+          <em>yep</em>
+        </span>
+      </h1>
     </Bar>
     <h2>nope</h2>
   </div>
@@ -145,7 +169,8 @@ nest_plz = (
 
 regression_not_transformed_1 = (
   <span>
-    {" "}<Icon icon="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
+    {" "}
+    <Icon icon="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
   </span>
 );
 
@@ -157,7 +182,8 @@ regression_not_transformed_2 = (
 
 similar_1 = (
   <span>
-    {" "}<Icon icon="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
+    {" "}
+    <Icon icon="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
   </span>
 );
 

@@ -587,10 +587,12 @@ Promise.reject(0)
   });
 
 // resolvedPromise<T> -> catch() -> then():?T
-Promise.resolve(0).catch(function(err) {}).then(function(num) {
-  var a: ?number = num;
-  var b: string = num; // Error: string ~> number
-});
+Promise.resolve(0)
+  .catch(function(err) {})
+  .then(function(num) {
+    var a: ?number = num;
+    var b: string = num; // Error: string ~> number
+  });
 
 `;
 

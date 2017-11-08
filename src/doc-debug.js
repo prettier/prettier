@@ -19,12 +19,10 @@ function flattenDoc(doc) {
     return Object.assign({}, doc, { parts: res });
   } else if (doc.type === "if-break") {
     return Object.assign({}, doc, {
-      breakContents: doc.breakContents != null
-        ? flattenDoc(doc.breakContents)
-        : null,
-      flatContents: doc.flatContents != null
-        ? flattenDoc(doc.flatContents)
-        : null
+      breakContents:
+        doc.breakContents != null ? flattenDoc(doc.breakContents) : null,
+      flatContents:
+        doc.flatContents != null ? flattenDoc(doc.flatContents) : null
     });
   } else if (doc.type === "group") {
     return Object.assign({}, doc, {

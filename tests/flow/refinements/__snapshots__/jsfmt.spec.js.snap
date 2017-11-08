@@ -219,7 +219,7 @@ function testLiteralProperty(a: A) {
 // @flow
 
 type A = {
-  "b_c": ?string
+  b_c: ?string
 };
 
 function stuff(str: string) {}
@@ -432,7 +432,7 @@ function foo2(x: ?Class<Foo>): string {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare class Foo {
-  foo: string
+  foo: string;
 }
 
 function foo0(x: ?string): string {

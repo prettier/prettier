@@ -22,3 +22,10 @@ class X {
   ],
 })
 export class AppModule {}
+
+// A
+@Foo()
+// B
+@Bar()
+// C
+export class Bar{}

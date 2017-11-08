@@ -205,6 +205,26 @@ const {
 
 `;
 
+exports[`break-multiple.js 1`] = `
+object.foo().bar().baz();
+
+foo().bar().baz();
+
+foo().bar.baz();
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+object
+  .foo()
+  .bar()
+  .baz();
+
+foo()
+  .bar()
+  .baz();
+
+foo().bar.baz();
+
+`;
+
 exports[`comment.js 1`] = `
 function f() {
   return observableFromSubscribeFunction()
@@ -367,6 +387,104 @@ nock(/test/)
 
 `;
 
+exports[`computed-merge.js 1`] = `
+[].forEach(key => {
+  data[key]('foo')
+    .then(() => console.log('bar'))
+    .catch(() => console.log('baz'));
+});
+
+[].forEach(key => {
+  data('foo')
+    [key]('bar')
+    .then(() => console.log('bar'))
+    .catch(() => console.log('baz'));
+});
+
+window.Data[key]("foo")
+  .then(() => a)
+  .catch(() => b);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[].forEach(key => {
+  data[key]("foo")
+    .then(() => console.log("bar"))
+    .catch(() => console.log("baz"));
+});
+
+[].forEach(key => {
+  data("foo")
+    [key]("bar")
+    .then(() => console.log("bar"))
+    .catch(() => console.log("baz"));
+});
+
+window.Data[key]("foo")
+  .then(() => a)
+  .catch(() => b);
+
+`;
+
+exports[`conditional.js 1`] = `
+(a ? b : c).d();
+
+(a ? b : c).d().e();
+
+(a ? b : c).d().e().f();
+
+(valid
+  ? helper.responseBody(this.currentUser)
+  : helper.responseBody(this.defaultUser))
+.map();
+
+(valid
+  ? helper.responseBody(this.currentUser)
+  : helper.responseBody(this.defaultUser))
+.map().filter();
+
+(valid
+  ? helper.responseBody(this.currentUser)
+  : helper.responseBody(defaultUser))
+.map();
+
+object[valid
+  ? helper.responseBody(this.currentUser)
+  : helper.responseBody(defaultUser)]
+.map();
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(a ? b : c).d();
+
+(a ? b : c).d().e();
+
+(a ? b : c)
+  .d()
+  .e()
+  .f();
+
+(valid
+  ? helper.responseBody(this.currentUser)
+  : helper.responseBody(this.defaultUser)
+).map();
+
+(valid
+  ? helper.responseBody(this.currentUser)
+  : helper.responseBody(this.defaultUser)
+)
+  .map()
+  .filter();
+
+(valid
+  ? helper.responseBody(this.currentUser)
+  : helper.responseBody(defaultUser)
+).map();
+
+object[
+  valid
+    ? helper.responseBody(this.currentUser)
+    : helper.responseBody(defaultUser)
+].map();
+
+`;
+
 exports[`first_long.js 1`] = `
 export default function theFunction(action$, store) {
   return action$.ofType(THE_ACTION).switchMap(action => Observable
@@ -460,11 +578,49 @@ Object.keys(
 `;
 
 exports[`logical.js 1`] = `
+const someLongVariableName = (idx(
+  this.props,
+  props => props.someLongPropertyName
+) || []
+).map(edge => edge.node);
+
 (veryLongVeryLongVeryLong || e).map(tickets =>
   TicketRecord.createFromSomeLongString());
+
+(veryLongVeryLongVeryLong || e).map(tickets =>
+  TicketRecord.createFromSomeLongString()).filter(obj => !!obj);
+
+(veryLongVeryLongVeryLong || anotherVeryLongVeryLongVeryLong || veryVeryVeryLongError).map(tickets =>
+  TicketRecord.createFromSomeLongString());
+
+(veryLongVeryLongVeryLong || anotherVeryLongVeryLongVeryLong || veryVeryVeryLongError).map(tickets =>
+  TicketRecord.createFromSomeLongString()).filter(obj => !!obj);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const someLongVariableName = (
+  idx(this.props, props => props.someLongPropertyName) || []
+).map(edge => edge.node);
+
+(veryLongVeryLongVeryLong || e).map(tickets =>
+  TicketRecord.createFromSomeLongString()
+);
+
 (veryLongVeryLongVeryLong || e)
-  .map(tickets => TicketRecord.createFromSomeLongString());
+  .map(tickets => TicketRecord.createFromSomeLongString())
+  .filter(obj => !!obj);
+
+(
+  veryLongVeryLongVeryLong ||
+  anotherVeryLongVeryLongVeryLong ||
+  veryVeryVeryLongError
+).map(tickets => TicketRecord.createFromSomeLongString());
+
+(
+  veryLongVeryLongVeryLong ||
+  anotherVeryLongVeryLongVeryLong ||
+  veryVeryVeryLongError
+)
+  .map(tickets => TicketRecord.createFromSomeLongString())
+  .filter(obj => !!obj);
 
 `;
 
@@ -485,23 +641,75 @@ if (testConfig.ENABLE_ONLINE_TESTS === "true") {
     });
   });
 }
+
+wrapper.find('SomewhatLongNodeName').prop('longPropFunctionName')().then(function() {
+  doSomething();
+});
+
+wrapper.find('SomewhatLongNodeName').prop('longPropFunctionName')('argument').then(function() {
+  doSomething();
+});
+
+wrapper.find('SomewhatLongNodeName').prop('longPropFunctionName', 'second argument that pushes this group past 80 characters')('argument').then(function() {
+  doSomething();
+});
+
+wrapper.find('SomewhatLongNodeName').prop('longPropFunctionName')('argument', 'second argument that pushes this group past 80 characters').then(function() {
+  doSomething();
+});
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 if (testConfig.ENABLE_ONLINE_TESTS === "true") {
   describe("POST /users/me/pet", function() {
     it("saves pet", function() {
       function assert(pet) {
-        expect(pet).to.have.property("OwnerAddress").that.deep.equals({
-          AddressLine1: "Alexanderstrasse",
-          AddressLine2: "",
-          PostalCode: "10999",
-          Region: "Berlin",
-          City: "Berlin",
-          Country: "DE"
-        });
+        expect(pet)
+          .to.have.property("OwnerAddress")
+          .that.deep.equals({
+            AddressLine1: "Alexanderstrasse",
+            AddressLine2: "",
+            PostalCode: "10999",
+            Region: "Berlin",
+            City: "Berlin",
+            Country: "DE"
+          });
       }
     });
   });
 }
+
+wrapper
+  .find("SomewhatLongNodeName")
+  .prop("longPropFunctionName")()
+  .then(function() {
+    doSomething();
+  });
+
+wrapper
+  .find("SomewhatLongNodeName")
+  .prop("longPropFunctionName")("argument")
+  .then(function() {
+    doSomething();
+  });
+
+wrapper
+  .find("SomewhatLongNodeName")
+  .prop(
+    "longPropFunctionName",
+    "second argument that pushes this group past 80 characters"
+  )("argument")
+  .then(function() {
+    doSomething();
+  });
+
+wrapper
+  .find("SomewhatLongNodeName")
+  .prop("longPropFunctionName")(
+    "argument",
+    "second argument that pushes this group past 80 characters"
+  )
+  .then(function() {
+    doSomething();
+  });
 
 `;
 
@@ -511,12 +719,20 @@ const version = someLongString
   .pop()
   .split(EOL)[0]
   .trim();
+
+const component = find('.org-lclp-edit-copy-url-banner__link')[0]
+  .getAttribute('href')
+  .indexOf(this.landingPageLink);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const version = someLongString
   .split("jest version =")
   .pop()
   .split(EOL)[0]
   .trim();
+
+const component = find(".org-lclp-edit-copy-url-banner__link")[0]
+  .getAttribute("href")
+  .indexOf(this.landingPageLink);
 
 `;
 
@@ -528,7 +744,10 @@ method().then(x => x)
 ({}.a().b());
 ({}).a().b();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-method().then(x => x)["abc"](x => x)[abc](x => x);
+method()
+  .then(x => x)
+  ["abc"](x => x)
+  [abc](x => x);
 
 ({}.a().b());
 ({}.a().b());

@@ -24,13 +24,16 @@ function getSortedChildNodes(node, text, resultArray) {
   if (resultArray) {
     if (
       node &&
-      node.type &&
-      node.type !== "CommentBlock" &&
-      node.type !== "CommentLine" &&
-      node.type !== "Line" &&
-      node.type !== "Block" &&
-      node.type !== "EmptyStatement" &&
-      node.type !== "TemplateElement"
+      ((node.type &&
+        node.type !== "CommentBlock" &&
+        node.type !== "CommentLine" &&
+        node.type !== "Line" &&
+        node.type !== "Block" &&
+        node.type !== "EmptyStatement" &&
+        node.type !== "TemplateElement" &&
+        node.type !== "Import" &&
+        !(node.callee && node.callee.type === "Import")) ||
+        (node.kind && node.kind !== "Comment"))
     ) {
       // This reverse insertion sort almost always takes constant
       // time because we almost always (maybe always?) append the
@@ -80,10 +83,11 @@ function getSortedChildNodes(node, text, resultArray) {
 // least one of which is guaranteed to be defined.
 function decorateComment(node, comment, text) {
   const childNodes = getSortedChildNodes(node, text);
-  let precedingNode, followingNode;
+  let precedingNode;
+  let followingNode;
   // Time to dust off the old binary search robes and wizard hat.
-  let left = 0,
-    right = childNodes.length;
+  let left = 0;
+  let right = childNodes.length;
   while (left < right) {
     const middle = (left + right) >> 1;
     const child = childNodes[middle];
@@ -119,6 +123,7 @@ function decorateComment(node, comment, text) {
       continue;
     }
 
+    /* istanbul ignore next */
     throw new Error("Comment location overlaps with node location");
   }
 
@@ -154,7 +159,7 @@ function decorateComment(node, comment, text) {
   }
 }
 
-function attach(comments, ast, text) {
+function attach(comments, ast, text, options) {
   if (!Array.isArray(comments)) {
     return;
   }
@@ -162,6 +167,11 @@ function attach(comments, ast, text) {
   const tiesToBreak = [];
 
   comments.forEach((comment, i) => {
+    if (options.parser === "json" && locStart(comment) - locStart(ast) <= 0) {
+      addLeadingComment(ast, comment);
+      return;
+    }
+
     decorateComment(ast, comment, text);
 
     const precedingNode = comment.precedingNode;
@@ -190,7 +200,12 @@ function attach(comments, ast, text) {
           comment
         ) ||
         handleTryStatementComments(enclosingNode, followingNode, comment) ||
-        handleClassComments(enclosingNode, comment) ||
+        handleClassComments(
+          enclosingNode,
+          precedingNode,
+          followingNode,
+          comment
+        ) ||
         handleImportSpecifierComments(enclosingNode, comment) ||
         handleObjectPropertyComments(enclosingNode, comment) ||
         handleForComments(enclosingNode, precedingNode, comment) ||
@@ -207,7 +222,8 @@ function attach(comments, ast, text) {
           precedingNode,
           comment
         ) ||
-        handleAssignmentPatternComments(enclosingNode, comment)
+        handleAssignmentPatternComments(enclosingNode, comment) ||
+        handleMethodNameComments(text, enclosingNode, precedingNode, comment)
       ) {
         // We're good
       } else if (followingNode) {
@@ -219,6 +235,7 @@ function attach(comments, ast, text) {
         addDanglingComment(enclosingNode, comment);
       } else {
         // There are no nodes, let's attach it to the root of the ast
+        /* istanbul ignore next */
         addDanglingComment(ast, comment);
       }
     } else if (util.hasNewline(text, locEnd(comment))) {
@@ -245,7 +262,12 @@ function attach(comments, ast, text) {
           followingNode,
           comment
         ) ||
-        handleClassComments(enclosingNode, comment) ||
+        handleClassComments(
+          enclosingNode,
+          precedingNode,
+          followingNode,
+          comment
+        ) ||
         handleLabeledStatementComments(enclosingNode, comment) ||
         handleCallExpressionComments(precedingNode, enclosingNode, comment) ||
         handlePropertyComments(enclosingNode, comment) ||
@@ -266,6 +288,7 @@ function attach(comments, ast, text) {
         addDanglingComment(enclosingNode, comment);
       } else {
         // There are no nodes, let's attach it to the root of the ast
+        /* istanbul ignore next */
         addDanglingComment(ast, comment);
       }
     } else {
@@ -279,7 +302,9 @@ function attach(comments, ast, text) {
         ) ||
         handleObjectPropertyAssignment(enclosingNode, precedingNode, comment) ||
         handleCommentInEmptyParens(text, enclosingNode, comment) ||
-        handleOnlyComments(enclosingNode, ast, comment, isLastComment)
+        handleMethodNameComments(text, enclosingNode, precedingNode, comment) ||
+        handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
+        handleFunctionNameComments(text, enclosingNode, precedingNode, comment)
       ) {
         // We're good
       } else if (precedingNode && followingNode) {
@@ -304,6 +329,7 @@ function attach(comments, ast, text) {
         addDanglingComment(enclosingNode, comment);
       } else {
         // There are no nodes, let's attach it to the root of the ast
+        /* istanbul ignore next */
         addDanglingComment(ast, comment);
       }
     }
@@ -334,7 +360,8 @@ function breakTies(tiesToBreak, text) {
   // Iterate backwards through tiesToBreak, examining the gaps
   // between the tied comments. In order to qualify as leading, a
   // comment must be separated from followingNode by an unbroken series of
-  // whitespace-only gaps (or other comments).
+  // gaps (or other comments). Gaps should only contain whitespace or open
+  // parentheses.
   let indexOfFirstLeadingComment;
   for (
     indexOfFirstLeadingComment = tieCount;
@@ -345,13 +372,14 @@ function breakTies(tiesToBreak, text) {
     assert.strictEqual(comment.precedingNode, precedingNode);
     assert.strictEqual(comment.followingNode, followingNode);
 
-    const gap = text.slice(locEnd(comment), gapEndPos);
-    if (/\S/.test(gap)) {
-      // The gap string contained something other than whitespace.
+    const gap = text.slice(locEnd(comment), gapEndPos).trim();
+    if (gap === "" || /^\(+$/.test(gap)) {
+      gapEndPos = locStart(comment);
+    } else {
+      // The gap string contained something other than whitespace or open
+      // parentheses.
       break;
     }
-
-    gapEndPos = locStart(comment);
   }
 
   tiesToBreak.forEach((comment, i) => {
@@ -445,12 +473,12 @@ function handleIfStatementComments(
   }
 
   // We unfortunately have no way using the AST or location of nodes to know
-  // if the comment is positioned before or after the condition parenthesis:
+  // if the comment is positioned before the condition parenthesis:
   //   if (a /* comment */) {}
-  //   if (a) /* comment */ {}
   // The only workaround I found is to look at the next character to see if
   // it is a ).
-  if (getNextNonSpaceNonCommentCharacter(text, comment) === ")") {
+  const nextCharacter = getNextNonSpaceNonCommentCharacter(text, comment);
+  if (nextCharacter === ")") {
     addTrailingComment(precedingNode, comment);
     return true;
   }
@@ -462,6 +490,16 @@ function handleIfStatementComments(
 
   if (followingNode.type === "IfStatement") {
     addBlockOrNotComment(followingNode.consequent, comment);
+    return true;
+  }
+
+  // For comments positioned after the condition parenthesis in an if statement
+  // before the consequent with or without brackets on, such as
+  // if (a) /* comment */ {} or if (a) /* comment */ true,
+  // we look at the next character to see if it is a { or if the following node
+  // is the consequent for the if statement
+  if (nextCharacter === "{" || enclosingNode.consequent === followingNode) {
+    addLeadingComment(followingNode, comment);
     return true;
   }
 
@@ -548,6 +586,92 @@ function handleObjectPropertyAssignment(enclosingNode, precedingNode, comment) {
   return false;
 }
 
+function handleClassComments(
+  enclosingNode,
+  precedingNode,
+  followingNode,
+  comment
+) {
+  if (
+    enclosingNode &&
+    (enclosingNode.type === "ClassDeclaration" ||
+      enclosingNode.type === "ClassExpression") &&
+    (enclosingNode.decorators && enclosingNode.decorators.length > 0) &&
+    !(followingNode && followingNode.type === "Decorator")
+  ) {
+    if (!enclosingNode.decorators || enclosingNode.decorators.length === 0) {
+      addLeadingComment(enclosingNode, comment);
+    } else {
+      addTrailingComment(
+        enclosingNode.decorators[enclosingNode.decorators.length - 1],
+        comment
+      );
+    }
+    return true;
+  }
+  return false;
+}
+
+function handleMethodNameComments(text, enclosingNode, precedingNode, comment) {
+  // This is only needed for estree parsers (flow, typescript) to attach
+  // after a method name:
+  // obj = { fn /*comment*/() {} };
+  if (
+    enclosingNode &&
+    precedingNode &&
+    (enclosingNode.type === "Property" ||
+      enclosingNode.type === "MethodDefinition") &&
+    precedingNode.type === "Identifier" &&
+    enclosingNode.key === precedingNode &&
+    // special Property case: { key: /*comment*/(value) };
+    // comment should be attached to value instead of key
+    getNextNonSpaceNonCommentCharacter(text, precedingNode) !== ":"
+  ) {
+    addTrailingComment(precedingNode, comment);
+    return true;
+  }
+
+  // Print comments between decorators and class methods as a trailing comment
+  // on the decorator node instead of the method node
+  if (
+    precedingNode &&
+    enclosingNode &&
+    precedingNode.type === "Decorator" &&
+    (enclosingNode.type === "ClassMethod" ||
+      enclosingNode.type === "MethodDefinition")
+  ) {
+    addTrailingComment(precedingNode, comment);
+    return true;
+  }
+
+  return false;
+}
+
+function handleFunctionNameComments(
+  text,
+  enclosingNode,
+  precedingNode,
+  comment
+) {
+  if (getNextNonSpaceNonCommentCharacter(text, comment) !== "(") {
+    return false;
+  }
+
+  if (
+    precedingNode &&
+    enclosingNode &&
+    (enclosingNode.type === "FunctionDeclaration" ||
+      enclosingNode.type === "FunctionExpression" ||
+      enclosingNode.type === "ClassMethod" ||
+      enclosingNode.type === "MethodDefinition" ||
+      enclosingNode.type === "ObjectMethod")
+  ) {
+    addTrailingComment(precedingNode, comment);
+    return true;
+  }
+  return false;
+}
+
 function handleCommentInEmptyParens(text, enclosingNode, comment) {
   if (getNextNonSpaceNonCommentCharacter(text, comment) !== ")") {
     return false;
@@ -614,18 +738,6 @@ function handleLastFunctionArgComments(
     getNextNonSpaceNonCommentCharacter(text, comment) === ")"
   ) {
     addTrailingComment(precedingNode, comment);
-    return true;
-  }
-  return false;
-}
-
-function handleClassComments(enclosingNode, comment) {
-  if (
-    enclosingNode &&
-    (enclosingNode.type === "ClassDeclaration" ||
-      enclosingNode.type === "ClassExpression")
-  ) {
-    addLeadingComment(enclosingNode, comment);
     return true;
   }
   return false;
@@ -808,20 +920,52 @@ function printComment(commentPath, options) {
   const comment = commentPath.getValue();
   comment.printed = true;
 
-  switch (comment.type) {
+  switch (comment.type || comment.kind) {
+    case "Comment":
+      return "#" + comment.value.trimRight();
     case "CommentBlock":
-    case "Block":
+    case "Block": {
+      if (isJsDocComment(comment)) {
+        return printJsDocComment(comment);
+      }
+
       return "/*" + comment.value + "*/";
+    }
     case "CommentLine":
     case "Line":
       // Print shebangs with the proper comment characters
       if (options.originalText.slice(util.locStart(comment)).startsWith("#!")) {
-        return "#!" + comment.value;
+        return "#!" + comment.value.trimRight();
       }
-      return "//" + comment.value;
+      return "//" + comment.value.trimRight();
     default:
       throw new Error("Not a comment: " + JSON.stringify(comment));
   }
+}
+
+function isJsDocComment(comment) {
+  const lines = comment.value.split("\n");
+  return (
+    lines.length > 1 &&
+    lines.slice(0, lines.length - 1).every(line => line.trim()[0] === "*")
+  );
+}
+
+function printJsDocComment(comment) {
+  const lines = comment.value.split("\n");
+
+  return concat([
+    "/*",
+    join(
+      hardline,
+      lines.map(
+        (line, index) =>
+          (index > 0 ? " " : "") +
+          (index < lines.length - 1 ? line.trim() : line.trimLeft())
+      )
+    ),
+    "*/"
+  ]);
 }
 
 function findExpressionIndexForComment(quasis, comment) {
@@ -835,6 +979,7 @@ function findExpressionIndexForComment(quasis, comment) {
 
   // We haven't found it, it probably means that some of the locations are off.
   // Let's just return the first one.
+  /* istanbul ignore next */
   return 0;
 }
 

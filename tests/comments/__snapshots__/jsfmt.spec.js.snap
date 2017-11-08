@@ -107,6 +107,45 @@ React.render(
 
 `;
 
+exports[`closure-compiler-type-cast.js 1`] = `
+// test to make sure comments are attached correctly
+let inlineComment = /* some comment */ (
+  someReallyLongFunctionCall(withLots, ofArguments));
+
+let object = {
+  key: /* some comment */ (someReallyLongFunctionCall(withLots, ofArguments))
+};
+
+// preserve parens only for type casts
+let assignment = /** @type {string} */ (getValue());
+
+functionCall(1 + /** @type {string} */ (value), /** @type {!Foo} */ ({}));
+
+function returnValue() {
+  return /** @type {!Array.<string>} */ (['hello', 'you']);
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// test to make sure comments are attached correctly
+let inlineComment = /* some comment */ someReallyLongFunctionCall(
+  withLots,
+  ofArguments
+);
+
+let object = {
+  key: /* some comment */ someReallyLongFunctionCall(withLots, ofArguments)
+};
+
+// preserve parens only for type casts
+let assignment = /** @type {string} */ (getValue());
+
+functionCall(1 + /** @type {string} */ (value), /** @type {!Foo} */ ({}));
+
+function returnValue() {
+  return /** @type {!Array.<string>} */ (["hello", "you"]);
+}
+
+`;
+
 exports[`dangling.js 1`] = `
 var x = {/* dangling */};
 var x = {
@@ -145,11 +184,9 @@ expect(() => {}).toTriggerReadyStateChanges([
 
 [1 /* first comment */, 2 /* second comment */, 3];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-expect(() => {}).toTriggerReadyStateChanges(
-  [
-    // Nothing.
-  ]
-);
+expect(() => {}).toTriggerReadyStateChanges([
+  // Nothing.
+]);
 
 [1 /* first comment */, 2 /* second comment */, 3];
 
@@ -166,6 +203,25 @@ for (;;);
 
 /* comment */
 for (;;);
+
+`;
+
+exports[`dynamic_imports.js 1`] = `
+import(/* Hello */ 'something')
+
+import('something' /* Hello */)
+
+import(/* Hello */ 'something' /* Hello */)
+
+import('something' /* Hello */ + 'else')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import(/* Hello */ "something");
+
+import("something" /* Hello */);
+
+import(/* Hello */ "something" /* Hello */);
+
+import("something" /* Hello */ + "else");
 
 `;
 
@@ -238,12 +294,91 @@ call((/*object*/ row) => {});
 KEYPAD_NUMBERS.map(num => ( // Buttons 0-9
   <div />
 ));
+
+function f /* f */() {}
+function f (/* args */) {}
+function f () /* returns */ {}
+function f /* f */(/* args */) /* returns */ {}
+
+function f /* f */(/* a */ a) {}
+function f /* f */(a /* a */) {}
+function f /* f */(/* a */ a) /* returns */ {}
+
+const obj = {
+  f1 /* f */() {},
+  f2 (/* args */) {},
+  f3 () /* returns */ {},
+  f4 /* f */(/* args */) /* returns */ {},
+};
+
+(function f /* f */() {})();
+(function f (/* args */) {})();
+(function f () /* returns */ {})();
+(function f /* f */(/* args */) /* returns */ {})();
+
+class C {
+  f/* f */() {}
+}
+class C {
+  f(/* args */) {}
+}
+class C {
+  f() /* returns */ {}
+}
+class C {
+  f/* f */(/* args */) /* returns */ {}
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function a(/* comment */) {} // comment
 function b() {} // comment
 function c(/* comment */ argA, argB, argC) {} // comment
 call((/*object*/ row) => {});
-KEYPAD_NUMBERS.map(num => <div />); // Buttons 0-9
+KEYPAD_NUMBERS.map((
+  num // Buttons 0-9
+) => <div />);
+
+function f /* f */() {}
+function f(/* args */) {}
+function f() /* returns */ {
+}
+function f /* f */(/* args */) /* returns */ {
+}
+
+function f /* f */(/* a */ a) {}
+function f /* f */(a /* a */) {}
+function f /* f */(/* a */ a) /* returns */ {
+}
+
+const obj = {
+  f1 /* f */() {},
+  f2(/* args */) {},
+  f3() /* returns */ {
+  },
+  f4 /* f */(/* args */) /* returns */ {
+  }
+};
+
+(function f /* f */() {})();
+(function f(/* args */) {})();
+(function f() /* returns */ {
+})();
+(function f /* f */(/* args */) /* returns */ {
+})();
+
+class C {
+  f /* f */() {}
+}
+class C {
+  f(/* args */) {}
+}
+class C {
+  f() /* returns */ {
+  }
+}
+class C {
+  f /* f */(/* args */) /* returns */ {
+  }
+}
 
 `;
 
@@ -270,10 +405,45 @@ else if (4) {
 else {
 }
 
-if (1)
-{}
+if (5) // comment
+true
+
+if (6) // comment
+{true}
+else if (7) // comment
+true
 else // comment
-{}
+{true}
+
+if (8) // comment
+// comment
+{true}
+else if (9) // comment
+// comment
+true
+else // comment
+// comment
+{true}
+
+if (10) /* comment */ // comment
+{true}
+else if (11) /* comment */
+true
+else if (12) // comment /* comment */ // comment
+true
+else if (13) /* comment */ /* comment */ // comment
+true
+else /* comment */
+{true}
+
+if (14) // comment
+/* comment */
+// comment
+{true}
+else if (15) // comment
+/* comment */
+/* comment */ // comment
+true
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 if (1) {
   // comment
@@ -294,10 +464,62 @@ else if (4) {
   // comment
 }
 
-if (1) {
-} else {
+if (5)
   // comment
+  true;
+
+if (6) {
+  // comment
+  true;
+} else if (7)
+  // comment
+  true;
+else {
+  // comment
+  true;
 }
+
+if (8) {
+  // comment
+  // comment
+  true;
+} else if (9)
+  // comment
+  // comment
+  true;
+else {
+  // comment
+  // comment
+  true;
+}
+
+if (10) {
+  /* comment */ // comment
+  true;
+} else if (11)
+  /* comment */
+  true;
+else if (12)
+  // comment /* comment */ // comment
+  true;
+else if (13)
+  /* comment */ /* comment */ // comment
+  true;
+else {
+  /* comment */
+  true;
+}
+
+if (14) {
+  // comment
+  /* comment */
+  // comment
+  true;
+} else if (15)
+  // comment
+  /* comment */
+  /* comment */ // comment
+  true;
 
 `;
 
@@ -495,9 +717,7 @@ Observable.of(process)
   .takeUntil(exit);
 
 // Comments disappear inside of JSX
-<div>
-  {/* Some comment */}
-</div>;
+<div>{/* Some comment */}</div>;
 
 // Comments in JSX tag are placed in a non optimal way
 <div
@@ -595,24 +815,68 @@ exports[`jsx.js 1`] = `
 </div>;
 
 <div>{/*<div>  Some very v  ery very very long line to break line width limit </div>*/}</div>;
+
+<div>
+  {/**
+   * JSDoc-y comment in JSX. I wonder what will happen to it?
+  */}
+</div>;
+
+<div>
+  {
+    /**
+   * Another JSDoc comment in JSX.
+  */
+  }
+</div>;
+
+<div
+  /**
+ * Handles clicks.
+*/
+onClick={() => {}}>
+
+</div>;
+
+<div
+  // comment
+>
+  {foo}
+</div>;
+
+<div
+  className="foo" // comment
+>
+  {foo}
+</div>;
+
+<div
+  className="foo"
+  // comment
+>
+  {foo}
+</div>;
+
+<div // comment
+  id="foo"
+>
+  {children}
+</div>;
+
+<Wrapper>
+  {}
+  <Component />
+</Wrapper>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<div>
-  {/* comment */}
-</div>;
+<div>{/* comment */}</div>;
 
-<div>
-  {/* comment */}
-</div>;
+<div>{/* comment */}</div>;
 
-<div>
-  {/* comment
-*/}
-</div>;
+<div>{/* comment
+*/}</div>;
 
-<div>
-  {a /* comment
-*/}
-</div>;
+<div>{a /* comment
+*/}</div>;
 
 <div>
   {
@@ -622,13 +886,9 @@ exports[`jsx.js 1`] = `
   }
 </div>;
 
-<div>
-  {/* comment */}
-</div>;
+<div>{/* comment */}</div>;
 
-<div>
-  {/* comment */}
-</div>;
+<div>{/* comment */}</div>;
 
 <div>
   {
@@ -661,6 +921,55 @@ exports[`jsx.js 1`] = `
 <div>
   {/*<div>  Some very v  ery very very long line to break line width limit </div>*/}
 </div>;
+
+<div>
+  {/**
+   * JSDoc-y comment in JSX. I wonder what will happen to it?
+   */}
+</div>;
+
+<div>
+  {/**
+   * Another JSDoc comment in JSX.
+   */}
+</div>;
+
+<div
+  /**
+   * Handles clicks.
+   */
+  onClick={() => {}}
+/>;
+
+<div
+// comment
+>
+  {foo}
+</div>;
+
+<div
+  className="foo" // comment
+>
+  {foo}
+</div>;
+
+<div
+  className="foo"
+  // comment
+>
+  {foo}
+</div>;
+
+<div // comment
+  id="foo"
+>
+  {children}
+</div>;
+
+<Wrapper>
+  {}
+  <Component />
+</Wrapper>;
 
 `;
 
@@ -993,12 +1302,13 @@ function excessiveEverything() {
   )
 }
 
-function sequenceExpression() {
-  return (
-    // Reason for a
-    a
-  ), b
-}
+// See https://github.com/prettier/prettier/issues/2392
+// function sequenceExpression() {
+//   return (
+//     // Reason for a
+//     a
+//   ), b
+// }
 
 function sequenceExpressionInside() {
   return ( // Reason for a
@@ -1123,12 +1433,13 @@ function excessiveEverything() {
   );
 }
 
-function sequenceExpression() {
-  return (
-    // Reason for a
-    a, b
-  );
-}
+// See https://github.com/prettier/prettier/issues/2392
+// function sequenceExpression() {
+//   return (
+//     // Reason for a
+//     a
+//   ), b
+// }
 
 function sequenceExpressionInside() {
   return (
@@ -1245,17 +1556,34 @@ d //comment
 \`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \`
-\${a // comment
+\${
+  a // comment
 }
 
 \${b /* comment */}
 
 \${/* comment */ c /* comment */}
 
-\${// comment
-d //comment
+\${
+  // comment
+  d //comment
 };
 \`;
+
+`;
+
+exports[`trailing_space.js 1`] = `
+#!/there/is-space-here->         
+
+// Do not trim trailing whitespace from this source file!
+
+// There is some space here ->                        
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#!/there/is-space-here->
+
+// Do not trim trailing whitespace from this source file!
+
+// There is some space here ->
 
 `;
 

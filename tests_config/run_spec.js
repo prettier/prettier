@@ -1,9 +1,8 @@
 "use strict";
 
-const isProduction = process.env.NODE_ENV === "production";
 const fs = require("fs");
 const extname = require("path").extname;
-const prettier = require(isProduction ? "../dist/" : "../");
+const prettier = require("./require_prettier");
 const parser = require("../src/parser");
 const massageAST = require("../src/clean-ast.js").massageAST;
 
@@ -19,6 +18,7 @@ function run_spec(dirname, options, additionalParsers) {
     if (
       extname(filename) !== ".snap" &&
       fs.lstatSync(path).isFile() &&
+      filename[0] !== "." &&
       filename !== "jsfmt.spec.js"
     ) {
       let rangeStart = 0;
@@ -39,24 +39,23 @@ function run_spec(dirname, options, additionalParsers) {
         rangeEnd: rangeEnd
       });
       const output = prettyprint(source, path, mergedOptions);
-      test(`${mergedOptions.parser} - ${parser.parser}-verify`, () => {
+      test(`${filename} - ${mergedOptions.parser}-verify`, () => {
         expect(raw(source + "~".repeat(80) + "\n" + output)).toMatchSnapshot(
           filename
         );
       });
 
-      getParsersToVerify(
-        mergedOptions.parser,
-        additionalParsers || []
-      ).forEach(parserName => {
-        test(`${filename} - ${parserName}-verify`, () => {
-          const verifyOptions = Object.assign(mergedOptions, {
-            parser: parserName
+      getParsersToVerify(mergedOptions.parser, additionalParsers || []).forEach(
+        parserName => {
+          test(`${filename} - ${parserName}-verify`, () => {
+            const verifyOptions = Object.assign(mergedOptions, {
+              parser: parserName
+            });
+            const verifyOutput = prettyprint(source, path, verifyOptions);
+            expect(output).toEqual(verifyOutput);
           });
-          const verifyOutput = prettyprint(source, path, verifyOptions);
-          expect(output).toEqual(verifyOutput);
-        });
-      });
+        }
+      );
 
       if (AST_COMPARE) {
         const ast = parse(source, mergedOptions);

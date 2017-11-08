@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`nested.md 1`] = `
+>>> 123
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> > > 123
+
+`;
+
+exports[`paragraph.md 1`] = `
+> This is a long long long long long long long long long long long long long long long paragraph.
+> This is a long long long long long long long long long long long long long long long paragraph.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> This is a long long long long long long long long long long long long long
+> long long paragraph. This is a long long long long long long long long long
+> long long long long long long paragraph.
+
+`;
+
+exports[`simple.md 1`] = `
+> 123
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> 123
+
+`;

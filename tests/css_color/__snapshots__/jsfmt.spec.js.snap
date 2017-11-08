@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`hexcolor.css 1`] = `
+.foo {
+    color: #AAA;
+    -o-color: #fabcd3;
+    -webkit-color: #873;
+    -moz-color: #6bcdef;
+    -ms-color: #AAbbCC;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.foo {
+  color: #aaa;
+  -o-color: #fabcd3;
+  -webkit-color: #873;
+  -moz-color: #6bcdef;
+  -ms-color: #aabbcc;
+}
+
+`;

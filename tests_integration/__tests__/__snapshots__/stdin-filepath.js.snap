@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`format correctly if stdin content compatible with stdin-filepath (stderr) 1`] = `""`;
+
+exports[`format correctly if stdin content compatible with stdin-filepath (stdout) 1`] = `
+".name {
+  display: none;
+}
+"
+`;
+
+exports[`format correctly if stdin content compatible with stdin-filepath (write) 1`] = `Array []`;
+
+exports[`throw error if stdin content incompatible with stdin-filepath (stderr) 1`] = `
+"[error] stdin: SyntaxError: Unexpected token (1:1)
+[error] > 1 | .name { display: none; }
+[error]     | ^
+"
+`;
+
+exports[`throw error if stdin content incompatible with stdin-filepath (stdout) 1`] = `""`;
+
+exports[`throw error if stdin content incompatible with stdin-filepath (write) 1`] = `Array []`;

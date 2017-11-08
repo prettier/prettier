@@ -109,19 +109,21 @@ true
   ]
 });
 
-true
-  ? test({
-      a: 1
-    })
-  : <div
-      a={123412342314}
-      b={123412341234}
-      c={123412341234}
-      d={123412341234}
-      e={123412341234}
-      f={123412341234}
-      g={123412341234}
-    />;
+true ? (
+  test({
+    a: 1
+  })
+) : (
+  <div
+    a={123412342314}
+    b={123412341234}
+    c={123412341234}
+    d={123412341234}
+    e={123412341234}
+    f={123412341234}
+    g={123412341234}
+  />
+);
 
 `;
 
@@ -275,6 +277,61 @@ someReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReal
 
 `;
 
+exports[`empty-object.js 1`] = `
+func(first, second, third, fourth, fifth, aReallyLongArgumentsListToForceItToBreak, {
+  // comment
+})
+
+func({
+  // comment
+})
+
+func(
+  {} // comment
+)
+
+func(
+  {}
+  // comment
+)
+
+func(
+  // comment
+  {}
+)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+func(
+  first,
+  second,
+  third,
+  fourth,
+  fifth,
+  aReallyLongArgumentsListToForceItToBreak,
+  {
+    // comment
+  }
+);
+
+func({
+  // comment
+});
+
+func(
+  {} // comment
+);
+
+func(
+  {}
+  // comment
+);
+
+func(
+  // comment
+  {}
+);
+
+`;
+
 exports[`jsx.js 1`] = `
 const els = items.map(item => (
   <div className="whatever">
@@ -282,11 +339,11 @@ const els = items.map(item => (
   </div>
 ));
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const els = items.map(item =>
+const els = items.map(item => (
   <div className="whatever">
     <span>{children}</span>
   </div>
-);
+));
 
 `;
 
@@ -409,38 +466,12 @@ func(
   yes,
   []
 );
-func(
-  one,
-  two,
-  three,
-  four,
-  five,
-  six,
-  seven,
-  eig,
-  is,
-  this,
-  too,
-  long,
-  yes,
-  [
-    // Comments
-  ]
-);
-func(
-  five,
-  six,
-  seven,
-  eig,
-  is,
-  this,
-  too,
-  long,
-  yes,
-  [
-    // Comments
-  ]
-);
+func(one, two, three, four, five, six, seven, eig, is, this, too, long, yes, [
+  // Comments
+]);
+func(five, six, seven, eig, is, this, too, long, yes, [
+  // Comments
+]);
 
 func(one, two, three, four, five, six, seven, eig, is, this, too, long, no, {});
 func(
@@ -459,24 +490,9 @@ func(
   yes,
   {}
 );
-func(
-  one,
-  two,
-  three,
-  four,
-  five,
-  six,
-  seven,
-  eig,
-  is,
-  this,
-  too,
-  long,
-  yes,
-  {
-    // Comments
-  }
-);
+func(one, two, three, four, five, six, seven, eig, is, this, too, long, yes, {
+  // Comments
+});
 
 foo(
   (

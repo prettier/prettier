@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`declare_enum.ts 1`] = `
+declare const enum Foo {}
+declare enum Bar {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+declare const enum Foo {}
+declare enum Bar {}
+
+`;
+
+exports[`declare_function.ts 1`] = `
+declare function x();
+declare function y(): void;
+
+declare namespace A {
+    function x();
+    function y(): void;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+declare function x();
+declare function y(): void;
+
+declare namespace A {
+  function x();
+  function y(): void;
+}
+
+`;
+
+exports[`declare_interface.ts 1`] = `
+declare interface Dictionary<T> {
+  [index: string]: T
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+declare interface Dictionary<T> {
+  [index: string]: T;
+}
+
+`;
+
+exports[`declare_var.ts 1`] = `
+// tslint:disable-next-line:no-use-before-declare
+const hello = 5;
+
+// tslint:disable-next-line:no-use-before-declare
+declare const hello = 5;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// tslint:disable-next-line:no-use-before-declare
+const hello = 5;
+
+// tslint:disable-next-line:no-use-before-declare
+declare const hello = 5;
+
+`;

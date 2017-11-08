@@ -25,6 +25,13 @@ class X {
   ],
 })
 export class AppModule {}
+
+// A
+@Foo()
+// B
+@Bar()
+// C
+export class Bar{}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var x = 100;
 
@@ -47,6 +54,13 @@ class X {}
   ]
 })
 export class AppModule {}
+
+// A
+@Foo()
+// B
+@Bar()
+// C
+export class Bar {}
 
 `;
 

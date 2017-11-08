@@ -166,7 +166,15 @@ function parseNestedCSS(node) {
         node.selector = parseSelector(selector);
       } catch (e) {
         // Fail silently. It's better to print it as is than to try and parse it
-        node.selector = selector;
+        // Note: A common failure is for SCSS nested properties. `background:
+        // none { color: red; }` is parsed as a NestedDeclaration by
+        // postcss-scss, while `background: { color: red; }` is parsed as a Rule
+        // with a selector ending with a colon. See:
+        // https://github.com/postcss/postcss-scss/issues/39
+        node.selector = {
+          type: "selector-root-invalid",
+          value: selector
+        };
       }
     }
     if (node.type && typeof node.value === "string") {
@@ -205,18 +213,41 @@ function requireParser(isSCSS) {
   if (isSCSS) {
     return require("postcss-scss");
   }
+
+  // TODO: Remove this hack when this issue is fixed:
+  // https://github.com/shellscape/postcss-less/issues/88
+  const LessParser = require("postcss-less/dist/less-parser");
+  LessParser.prototype.atrule = function() {
+    return Object.getPrototypeOf(LessParser.prototype).atrule.apply(
+      this,
+      arguments
+    );
+  };
+
   return require("postcss-less");
 }
 
-function parse(text) {
-  const isLikelySCSS = !!text.match(/(\w\s*: [^}:]+|#){|\@import url/);
+const IS_POSSIBLY_SCSS = /(\w\s*: [^}:]+|#){|@import[^\n]+(url|,)/;
+
+function parse(text, parsers, opts) {
+  const hasExplicitParserChoice =
+    opts.parser === "less" || opts.parser === "scss";
+
+  const isSCSS = hasExplicitParserChoice
+    ? opts.parser === "scss"
+    : IS_POSSIBLY_SCSS.test(text);
+
   try {
-    return parseWithParser(requireParser(isLikelySCSS), text);
-  } catch (e) {
+    return parseWithParser(requireParser(isSCSS), text);
+  } catch (originalError) {
+    if (hasExplicitParserChoice) {
+      throw originalError;
+    }
+
     try {
-      return parseWithParser(requireParser(!isLikelySCSS), text);
-    } catch (e2) {
-      throw e;
+      return parseWithParser(requireParser(!isSCSS), text);
+    } catch (_secondError) {
+      throw originalError;
     }
   }
 }

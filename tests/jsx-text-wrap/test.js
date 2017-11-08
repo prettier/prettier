@@ -159,3 +159,149 @@ jsx_around_multiline_element_second_pass = (
     After
   </div>
 );
+
+convert_space_expressions =
+  <div>{" "}</div>
+
+x =
+  <div>
+    <first />
+    <second />
+    <third />
+    <fourth />
+    <fifth />
+    <sixth />
+  </div>
+
+const Abc = () => {
+  return (
+    <div>
+      Please state your
+      {" "}
+      <b>name</b>
+      {" "}
+      and
+      {" "}
+      <b>occupation</b>
+      {" "}
+      for the board of directors.
+    </div>
+  );
+};
+
+x = <div id="moo">Some stuff here</div>
+
+headers_and_paragraphs = (
+  <div>
+    <h2>First</h2>
+    <p>The first paragraph.</p>
+
+    <h2>Second</h2>
+    <p>The second paragraph.</p>
+  </div>
+);
+
+no_text_one_tag_per_line =
+  <div>
+    <first /><second />
+  </div>
+
+with_text_fill_line =
+  <div>
+    Text <first /><second />
+  </div>
+
+line_after_br =
+  <div>
+    Text<br />
+    More text <br />
+    And more<br />
+  </div>
+
+line_after_br_2 = <div>A<br />B<br />C</div>
+
+br_followed_by_whitespace = <div><br /> text</div>
+
+dont_preserve_blank_lines_when_jsx_contains_text =
+  <div>
+
+    <div>Zeroth</div>
+
+    <div>First</div>
+
+    Second
+
+  </div>
+
+multiple_expressions =
+  <div>
+    {header}
+    {body}
+    {footer}
+  </div>
+
+single_expression_child_tags =
+  <div>
+    You currently have <strong>{dashboardStr}</strong> and <strong>{userStr}</strong>
+  </div>
+
+expression_does_not_break =
+  <div>texty text text text text text text text text text text text {this.props.type} </div>
+
+// FIXME
+br_triggers_expression_break =
+  <div><br />
+  text text text text text text text text text text text {this.props.type} </div>
+
+jsx_whitespace_after_tag =
+  <div>
+    <span a="a" b="b">
+      {variable}
+    </span>
+    {" "}
+    ({variable})
+  </div>
+
+x =
+  <div>
+    ENDS IN <div>
+      text text text text text text text text text text text
+    </div>{" "}
+    HRS
+  </div>
+
+x =
+  <div>
+    <h2>Message</h2>
+    Hello, I'm a simple message.
+  </div>
+
+x =
+  <div>
+    Hello, I'm a simple message.
+    <h2>Message</h2>
+  </div>
+
+x =
+  <div>
+    <div>
+      <div>
+        <div>
+          <div>
+            Line {startRange.row + 1}:{startRange.column + 1} - {endRange.row + 1}:{endRange.column + 1}{caller}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+x =
+  <div>
+    {" "} <div>text</div>
+  </div>
+
+// NOTE: Multiple JSX whitespaces are collapsed into a single space.
+x =
+  <div>
+    {" "}{" "}{" "}
+  </div>

@@ -20,4 +20,5 @@ exports[`fields.graphql 1`] = `
     }
   }
 }
+
 `;

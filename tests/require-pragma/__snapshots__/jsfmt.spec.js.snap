@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`module-with-pragma.js 1`] = `
+/**
+ * @flow
+ * @format
+ */
+
+function      foo(bar)
+
+
+{
+
+  return bar +
+    3 +
+  4;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * @flow
+ * @format
+ */
+
+function foo(bar) {
+  return bar + 3 + 4;
+}
+
+`;
+
+exports[`module-without-pragma.js 1`] = `
+/**
+ * @flow
+ */
+
+function      foo(bar)
+
+
+{
+
+  return bar +
+    3 +
+  4;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * @flow
+ */
+
+function      foo(bar)
+
+
+{
+
+  return bar +
+    3 +
+  4;
+}
+
+`;

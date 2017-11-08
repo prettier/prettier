@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`simple.md 1`] = `
+![hello](http://example.com/image.png)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+![hello](http://example.com/image.png)
+
+`;
+
+exports[`title.md 1`] = `
+![hello](http://example.com/image.png "title")
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+![hello](http://example.com/image.png "title")
+
+`;

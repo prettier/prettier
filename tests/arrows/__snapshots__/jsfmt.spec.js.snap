@@ -22,17 +22,16 @@ a = () => ({} = 0);
 a = () => ({}, a);
 a => a instanceof {};
 a => ({}().b && 0)
-a => ({}::b()\`\`[''].c++ && 0 ? 0 : 0)
 a => ({}().c = 0)
 x => ({}()())
 x => ({}()\`\`)
 x => ({}().b);
-(a => b)::c;
-a::(b => c);
 a = b => c;
 a = (b?) => c;
 x => (y = z);
 x => (y += z);
+f(a => ({})) + 1;
+(a => ({})) || 0;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 (a => {}).length;
 typeof (() => {});
@@ -56,17 +55,16 @@ a = () => ({} = 0);
 a = () => ({}, a);
 a => a instanceof {};
 a => ({}().b && 0);
-a => ({}::b()\`\`[""].c++ && 0 ? 0 : 0);
 a => ({}().c = 0);
 x => ({}()());
 x => ({}()\`\`);
 x => ({}().b);
-(a => b)::c;
-a::(b => c);
 a = b => c;
 a = (b?) => c;
 x => (y = z);
 x => (y += z);
+f(a => ({})) + 1;
+(a => ({})) || 0;
 
 `;
 
@@ -195,7 +193,8 @@ function render() {
             progress: Math.round(
               100 * e.nativeEvent.loaded / e.nativeEvent.total
             )
-          })}
+          })
+        }
       />
     </View>
   );
@@ -210,7 +209,8 @@ function render() {
             progress: Math.round(
               100 * e.nativeEvent.loaded / e.nativeEvent.total
             )
-          })}
+          })
+        }
       />
     </View>
   );
@@ -225,7 +225,8 @@ function render() {
             progress: Math.round(
               100 * e.nativeEvent.loaded / e.nativeEvent.total
             )
-          })}
+          })
+        }
       />
     </View>
   );
@@ -271,6 +272,13 @@ export const bem = block =>
         element ? \`__\${css(element)}\` : "",
         modifier ? \`--\${css(modifier)}\` : ""
       ].join("");
+
+<FlatList
+  renderItem={(
+    info, // $FlowExpectedError - bad widgetCount type 6, should be Object
+  ) => <span>{info.item.widget.missingProp}</span>}
+  data={data}
+/>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /**
  * Curried function that ends with a BEM CSS Selector
@@ -295,6 +303,13 @@ export const bem = block =>
         element ? \`__\${css(element)}\` : "",
         modifier ? \`--\${css(modifier)}\` : ""
       ].join("");
+
+<FlatList
+  renderItem={(
+    info // $FlowExpectedError - bad widgetCount type 6, should be Object
+  ) => <span>{info.item.widget.missingProp}</span>}
+  data={data}
+/>;
 
 `;
 
@@ -365,5 +380,12 @@ const initializeSnapshotState = (
   testPath: string,
   expand: boolean
 ) => new SnapshotState(testFile, update, testPath, expand);
+
+`;
+
+exports[`type_params.js 1`] = `
+<T>(a) => { }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<T>(a) => {};
 
 `;

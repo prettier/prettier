@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`argument_comment.graphql 1`] = `
+
+query (
+  $string: String, # Some variable comment
+  $bool: Boolean # Some comment
+ ) {
+   someField
+ }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+query(
+  $string: String # Some variable comment
+  $bool: Boolean # Some comment
+) {
+  someField
+}
+
+`;
+
+exports[`fields.graphql 1`] = `
+query { 
+  someField # Trailing comment
+}
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+query {
+  someField # Trailing comment
+}
+
+`;
+
+exports[`tokens.graphql 1`] = `
+# import "./claimsFragment.gql"
+
+query claimsByBookingReferenceAndLastName($bookingReference: String!, $lastName: String!) {
+  claimsByBookingReferenceAndLastName(bookingReference: $bookingReference, lastName: $lastName) {
+    ... claim
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# import "./claimsFragment.gql"
+
+query claimsByBookingReferenceAndLastName(
+  $bookingReference: String!
+  $lastName: String!
+) {
+  claimsByBookingReferenceAndLastName(
+    bookingReference: $bookingReference
+    lastName: $lastName
+  ) {
+    ...claim
+  }
+}
+
+`;

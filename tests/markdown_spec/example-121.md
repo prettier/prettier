@@ -1,0 +1,2 @@
+<div id="foo"
+*hi*

@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`text.js 1`] = `
+a = {
+  viewer: graphql\`
+    fragment x on Viewer {
+      y(named: [
+        "projects_feedback_ids" # PROJECTS_FEEDBACK_IDS
+      ]) {
+        name
+      }
+    }
+  \`,
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a = {
+  viewer: graphql\`
+    fragment x on Viewer {
+      y(
+        named: [
+          "projects_feedback_ids" # PROJECTS_FEEDBACK_IDS
+        ]
+      ) {
+        name
+      }
+    }
+  \`
+};
+
+`;

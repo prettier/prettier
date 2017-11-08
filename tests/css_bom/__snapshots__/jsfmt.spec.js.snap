@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bom.css 1`] = `
+﻿
+
+/* Block comment */
+
+html {
+  content: "#{1}";
+
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* Block comment */
+
+html {
+  content: "#{1}";
+}
+
+`;

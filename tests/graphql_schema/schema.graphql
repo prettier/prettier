@@ -1,0 +1,5 @@
+schema {
+  query: Root
+  mutation: Mutation
+  subscription: Subscription
+}

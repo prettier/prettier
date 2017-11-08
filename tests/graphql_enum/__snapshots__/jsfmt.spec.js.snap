@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`enum.graphql 1`] = `
+enum State {
+  PENDING
+  VISIBLE
+  ARCHIVED
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+enum State {
+  PENDING
+  VISIBLE
+  ARCHIVED
+}
+
+`;

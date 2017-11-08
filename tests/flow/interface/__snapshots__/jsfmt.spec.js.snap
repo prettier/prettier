@@ -24,12 +24,12 @@ interface Bad {
 // @flow
 
 interface Ok {
-  [key: string]: string
+  [key: string]: string;
 }
 
 interface Bad {
-  [k1: string]: string,
-  [k2: number]: number // error: not supported (yet)
+  [k1: string]: string;
+  [k2: number]: number; // error: not supported (yet)
 }
 
 `;
@@ -154,7 +154,7 @@ function foo(k: K) {
   (k.y: number); // error: y is string in I
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-interface I { x: number, y: string }
+interface I { x: number; y: string }
 interface J { y: number }
 interface K extends I, J { x: string } // error: x is number in I
 function foo(k: K) {
@@ -179,8 +179,8 @@ interface I { foo(x: number): void }
 (function foo(x: number) {}: I); // error, property \`foo\` not found function
 
 declare class C {
-  bar(i: I): void,
-  bar(f: (x: number) => void): void
+  bar(i: I): void;
+  bar(f: (x: number) => void): void;
 }
 
 new C().bar((x: string) => {}); // error, number ~/~> string

@@ -3,3 +3,8 @@
 .powerPathNavigator table.powerPathInfo th:active,
 .powerPathNavigator table.powerPathInfo th:active + th:last-child {
 }
+
+/* pressed buttons */
+.powerPathNavigator .helm button.pressedButton,
+.powerPathNavigator .helm button:active:not(.disabledButton) {
+}

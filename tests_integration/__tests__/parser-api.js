@@ -1,6 +1,6 @@
 "use strict";
 
-const prettier = require("../..");
+const prettier = require("../../tests_config/require_prettier");
 const runPrettier = require("../runPrettier");
 
 test("allows custom parser provided as object", () => {
@@ -29,12 +29,12 @@ test("allows usage of prettier's supported parsers", () => {
   expect(output).toEqual("bar();\n");
 });
 
-test("allows passing a string to resolve a parser", () => {
-  const output = runPrettier("./custom-parsers/", [
+describe("allows passing a string to resolve a parser", () => {
+  runPrettier("./custom-parsers/", [
     "./custom-rename-input.js",
     "--parser",
     "./custom-rename-parser"
-  ]);
-  expect(output.stdout).toMatchSnapshot();
-  expect(output.status).toEqual(0);
+  ]).test({
+    status: 0
+  });
 });

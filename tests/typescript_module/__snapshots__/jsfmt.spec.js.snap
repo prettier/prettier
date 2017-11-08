@@ -6,3 +6,35 @@ declare module 'autoprefixer';
 declare module "autoprefixer";
 
 `;
+
+exports[`global.js 1`] = `
+namespace global {}
+module global {}
+global {}
+declare global {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+namespace global {
+
+}
+namespace global {
+
+}
+global {
+
+}
+declare global {
+
+}
+
+`;
+
+exports[`namespace_function.ts 1`] = `
+namespace X {
+    declare function f();
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+namespace X {
+  declare function f();
+}
+
+`;

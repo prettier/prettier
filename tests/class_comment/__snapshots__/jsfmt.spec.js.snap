@@ -42,33 +42,35 @@ class X {
     '</div>';
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// comment 1
+class A // comment 1
 // comment 2
-class A extends B {}
+extends B {}
 
-// comment1
+class A extends B // comment1
 // comment2
 // comment3
-class A extends B {}
+{
+}
 
 class A /* a */ extends B {}
 class A extends B /* a */ {
 }
-class A extends /* a */ B {}
+class A /* a */ extends B {}
 
-// comment 1
+(class A // comment 1
 // comment 2
-(class A extends B {});
+extends B {});
 
-// comment1
+(class A extends B // comment1
 // comment2
 // comment3
-(class A extends B {});
+{
+});
 
 (class A /* a */ extends B {});
 (class A extends B /* a */ {
 });
-(class A extends /* a */ B {});
+(class A /* a */ extends B {});
 
 class x {
   focus() // do nothing

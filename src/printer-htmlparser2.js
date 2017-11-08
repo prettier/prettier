@@ -88,6 +88,7 @@ function genericPrint(path, options, print) {
     }
 
     default:
+      /* istanbul ignore next */
       throw new Error("unknown htmlparser2 type: " + n.type);
   }
 }

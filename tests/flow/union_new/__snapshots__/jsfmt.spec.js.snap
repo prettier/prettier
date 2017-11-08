@@ -1385,7 +1385,7 @@ function foo(c: C<number>) {
 // annotations
 
 declare class C<X> {
-  get(): X
+  get(): X;
 }
 
 function union(o: { x: string } | { x: number }) {}
@@ -1431,8 +1431,8 @@ function foo<X>(target: EventTarget) {
 }
 
 declare class EventTarget {
-  addEventListener(type: "foo", listener: KeyboardEventHandler): void,
-  addEventListener(type: string, listener: EventHandler): void
+  addEventListener(type: "foo", listener: KeyboardEventHandler): void;
+  addEventListener(type: string, listener: EventHandler): void;
 }
 
 declare class Event {}
@@ -1530,8 +1530,8 @@ new C().m(f());
 // method overloads
 
 declare class C {
-  m(x: number): void,
-  m(x: string): void
+  m(x: number): void;
+  m(x: string): void;
 }
 
 function f() {
@@ -1565,8 +1565,8 @@ function m<X>() {
 }
 
 declare class D {
-  constructor(_: void): void,
-  constructor(_: null): void
+  constructor(_: void): void;
+  constructor(_: null): void;
 }
 
 `;
@@ -1759,15 +1759,15 @@ declare class D extends C {
 // scaling test for full type resolution
 
 declare class C {
-  addListener(event: string, listener: Function): C,
-  emit(event: string, ...args: Array<any>): boolean,
-  listeners(event: string): Array<Function>,
-  listenerCount(event: string): number,
-  on(event: string, listener: Function): C,
-  once(event: string, listener: Function): C,
-  removeAllListeners(event?: string): C,
-  removeListener(event: string, listener: Function): C,
-  setMaxListeners(n: number): void
+  addListener(event: string, listener: Function): C;
+  emit(event: string, ...args: Array<any>): boolean;
+  listeners(event: string): Array<Function>;
+  listenerCount(event: string): number;
+  on(event: string, listener: Function): C;
+  once(event: string, listener: Function): C;
+  removeAllListeners(event?: string): C;
+  removeListener(event: string, listener: Function): C;
+  setMaxListeners(n: number): void;
 }
 
 declare class D extends C {
@@ -1776,16 +1776,16 @@ declare class D extends C {
     hostname?: string,
     backlog?: number,
     callback?: Function
-  ): D,
-  listen(path: string, callback?: Function): D,
-  listen(handle: Object, callback?: Function): D,
-  close(callback?: Function): D,
-  address(): number,
-  connections: number,
-  maxConnections: number,
-  getConnections(callback: Function): void,
-  ref(): D,
-  unref(): D
+  ): D;
+  listen(path: string, callback?: Function): D;
+  listen(handle: Object, callback?: Function): D;
+  close(callback?: Function): D;
+  address(): number;
+  connections: number;
+  maxConnections: number;
+  getConnections(callback: Function): void;
+  ref(): D;
+  unref(): D;
 }
 
 (0: D | number);
@@ -1857,8 +1857,8 @@ declare var y: T;
 (foo(y): T);
 
 declare class Record {
-  set(x: "foo", y: number): void,
-  set(x: "bar", y: string): void
+  set(x: "foo", y: number): void;
+  set(x: "bar", y: string): void;
 }
 
 new Record().set("foo", "42");
@@ -1966,11 +1966,11 @@ declare class D<T> {
   reduce(
     callbackfn: (previousValue: T, currentValue: T) => T,
     initialValue: void
-  ): T,
+  ): T;
   reduce<U>(
     callbackfn: (previousValue: U, currentValue: T) => U,
     initialValue: U
-  ): U
+  ): U;
 }
 
 class C {
@@ -2054,12 +2054,12 @@ function foo(): ImmutableMap<string, boolean> {
 interface SomeIterator<T> {}
 
 interface SomeIterable<T> {
-  it(): SomeIterator<T>
+  it(): SomeIterator<T>;
 }
 
 declare class SomeMap<K, V> {
-  it(): SomeIterator<[K, V]>,
-  set(k: K, v: V): void
+  it(): SomeIterator<[K, V]>;
+  set(k: K, v: V): void;
 }
 
 declare class ImmutableMap<K, V> {}

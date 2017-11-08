@@ -3,17 +3,26 @@
 const util = require("./util");
 const docUtils = require("./doc-utils");
 const docBuilders = require("./doc-builders");
+const comments = require("./comments");
 const indent = docBuilders.indent;
 const hardline = docBuilders.hardline;
 const softline = docBuilders.softline;
 const concat = docBuilders.concat;
 
-function printSubtree(subtreeParser, options, expressionDocs) {
+function printSubtree(subtreeParser, path, print, options) {
   const next = Object.assign({}, { transformDoc: doc => doc }, subtreeParser);
-  next.options = Object.assign({}, options, next.options);
+  next.options = Object.assign({}, options, next.options, {
+    originalText: next.text
+  });
+  if (next.options.parser === "json") {
+    next.options.trailingComma = "none";
+  }
   const ast = require("./parser").parse(next.text, next.options);
+  const astComments = ast.comments;
+  delete ast.comments;
+  comments.attach(astComments, ast, next.text, next.options);
   const nextDoc = require("./printer").printAstToDoc(ast, next.options);
-  return next.transformDoc(nextDoc, expressionDocs);
+  return next.transformDoc(nextDoc, { path, print });
 }
 
 /**
@@ -27,6 +36,59 @@ function getSubtreeParser(path, options) {
     case "flow":
     case "typescript":
       return fromBabylonFlowOrTypeScript(path, options);
+    case "markdown":
+      return fromMarkdown(path, options);
+  }
+}
+
+function fromMarkdown(path, options) {
+  const node = path.getValue();
+
+  if (node.type === "code") {
+    const parser = getParserName(node.lang);
+    if (parser) {
+      const styleUnit = options.__inJsTemplate ? "~" : "`";
+      const style = styleUnit.repeat(
+        Math.max(3, util.getMaxContinuousCount(node.value, styleUnit) + 1)
+      );
+      return {
+        options: { parser },
+        transformDoc: doc => concat([style, node.lang, hardline, doc, style]),
+        text: node.value
+      };
+    }
+  }
+
+  return null;
+
+  function getParserName(lang) {
+    switch (lang) {
+      case "js":
+      case "jsx":
+      case "javascript":
+        return "babylon";
+      case "ts":
+      case "tsx":
+      case "typescript":
+        return "typescript";
+      case "gql":
+      case "graphql":
+        return "graphql";
+      case "css":
+        return "css";
+      case "less":
+        return "less";
+      case "scss":
+        return "scss";
+      case "json":
+      case "json5":
+        return "json";
+      case "md":
+      case "markdown":
+        return "markdown";
+      default:
+        return null;
+    }
   }
 }
 
@@ -42,7 +104,7 @@ function fromBabylonFlowOrTypeScript(path) {
         const rawQuasis = node.quasis.map(q => q.value.raw);
         const text = rawQuasis.join("@prettier-placeholder");
         return {
-          options: { parser: "postcss" },
+          options: { parser: "css" },
           transformDoc: transformCssDoc,
           text: text
         };
@@ -61,27 +123,85 @@ function fromBabylonFlowOrTypeScript(path) {
        * gql`...`
        */
       if (
+        // We currently don't support expression inside GraphQL template literals
+        parent.expressions.length === 0 &&
         parentParent &&
-        parentParent.type === "TaggedTemplateExpression" &&
-        parent.quasis.length === 1 &&
-        ((parentParent.tag.type === "MemberExpression" &&
-          parentParent.tag.object.name === "graphql" &&
-          parentParent.tag.property.name === "experimental") ||
-          (parentParent.tag.type === "Identifier" &&
-            (parentParent.tag.name === "gql" ||
-              parentParent.tag.name === "graphql")))
+        ((parentParent.type === "TaggedTemplateExpression" &&
+          ((parentParent.tag.type === "MemberExpression" &&
+            parentParent.tag.object.name === "graphql" &&
+            parentParent.tag.property.name === "experimental") ||
+            (parentParent.tag.type === "Identifier" &&
+              (parentParent.tag.name === "gql" ||
+                parentParent.tag.name === "graphql")))) ||
+          (parentParent.type === "CallExpression" &&
+            parentParent.callee.type === "Identifier" &&
+            parentParent.callee.name === "graphql"))
       ) {
         return {
           options: { parser: "graphql" },
           transformDoc: doc =>
-            concat([indent(concat([softline, doc])), softline]),
+            concat([
+              indent(concat([softline, stripTrailingHardline(doc)])),
+              softline
+            ]),
           text: parent.quasis[0].value.raw
+        };
+      }
+
+      /**
+       * md`...`
+       * markdown`...`
+       */
+      if (
+        parentParent &&
+        (parentParent.type === "TaggedTemplateExpression" &&
+          parent.quasis.length === 1 &&
+          (parentParent.tag.type === "Identifier" &&
+            (parentParent.tag.name === "md" ||
+              parentParent.tag.name === "markdown")))
+      ) {
+        return {
+          options: { parser: "markdown", __inJsTemplate: true },
+          transformDoc: doc =>
+            concat([
+              indent(
+                concat([softline, stripTrailingHardline(escapeBackticks(doc))])
+              ),
+              softline
+            ]),
+          // leading whitespaces matter in markdown
+          text: dedent(parent.quasis[0].value.cooked)
         };
       }
 
       break;
     }
   }
+}
+
+function dedent(str) {
+  const spaces = str.match(/\n^( *)/m)[1].length;
+  return str.replace(new RegExp(`^ {${spaces}}`, "gm"), "").trim();
+}
+
+function escapeBackticks(doc) {
+  return util.mapDoc(doc, currentDoc => {
+    if (!currentDoc.parts) {
+      return currentDoc;
+    }
+
+    const parts = [];
+
+    currentDoc.parts.forEach(part => {
+      if (typeof part === "string") {
+        parts.push(part.replace(/`/g, "\\`"));
+      } else {
+        parts.push(part);
+      }
+    });
+
+    return Object.assign({}, currentDoc, { parts });
+  });
 }
 
 function fromHtmlParser2(path, options) {
@@ -121,7 +241,7 @@ function fromHtmlParser2(path, options) {
       // Inline Styles
       if (parent.type === "style") {
         return {
-          options: { parser: "postcss" },
+          options: { parser: "css" },
           transformDoc: doc => concat([hardline, stripTrailingHardline(doc)]),
           text: getText(options, node)
         };
@@ -163,14 +283,26 @@ function fromHtmlParser2(path, options) {
   }
 }
 
-function transformCssDoc(quasisDoc, expressionDocs) {
+function transformCssDoc(quasisDoc, parent) {
+  const parentNode = parent.path.getValue();
+
+  const isEmpty =
+    parentNode.quasis.length === 1 && !parentNode.quasis[0].value.raw.trim();
+  if (isEmpty) {
+    return "``";
+  }
+
+  const expressionDocs = parentNode.expressions
+    ? parent.path.map(parent.print, "expressions")
+    : [];
   const newDoc = replacePlaceholders(quasisDoc, expressionDocs);
+  /* istanbul ignore if */
   if (!newDoc) {
     throw new Error("Couldn't insert all the expressions");
   }
   return concat([
     "`",
-    indent(concat([softline, stripTrailingHardline(newDoc)])),
+    indent(concat([hardline, stripTrailingHardline(newDoc)])),
     softline,
     "`"
   ]);
@@ -277,21 +409,50 @@ function isStyledJsx(path) {
 }
 
 /**
- * Template literal in this context:
- * styled.button`color: red`
- * or
- * Foo.extend`color: red`
+ * styled-components template literals
  */
 function isStyledComponents(path) {
   const parent = path.getParentNode();
-  return (
-    parent &&
-    parent.type === "TaggedTemplateExpression" &&
-    parent.tag.type === "MemberExpression" &&
-    (parent.tag.object.name === "styled" ||
-      (/^[A-Z]/.test(parent.tag.object.name) &&
-        parent.tag.property.name === "extend"))
-  );
+
+  if (!parent || parent.type !== "TaggedTemplateExpression") {
+    return false;
+  }
+
+  const tag = parent.tag;
+
+  switch (tag.type) {
+    case "MemberExpression":
+      return (
+        // styled.foo``
+        isStyledIdentifier(tag.object) ||
+        // Component.extend``
+        (/^[A-Z]/.test(tag.object.name) && tag.property.name === "extend")
+      );
+
+    case "CallExpression":
+      return (
+        // styled(Component)``
+        isStyledIdentifier(tag.callee) ||
+        (tag.callee.type === "MemberExpression" &&
+          // styled.foo.attr({})``
+          ((tag.callee.object.type === "MemberExpression" &&
+            isStyledIdentifier(tag.callee.object.object)) ||
+            // styled(Component).attr({})``
+            (tag.callee.object.type === "CallExpression" &&
+              isStyledIdentifier(tag.callee.object.callee))))
+      );
+
+    case "Identifier":
+      // css``
+      return tag.name === "css";
+
+    default:
+      return false;
+  }
+}
+
+function isStyledIdentifier(node) {
+  return node.type === "Identifier" && node.name === "styled";
 }
 
 module.exports = {

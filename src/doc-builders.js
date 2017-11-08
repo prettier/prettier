@@ -1,6 +1,7 @@
 "use strict";
 
 function assertDoc(val) {
+  /* istanbul ignore if */
   if (
     !(typeof val === "string" || (val != null && typeof val.type === "string"))
   ) {
@@ -85,7 +86,7 @@ const literalline = concat([
   { type: "line", hard: true, literal: true },
   breakParent
 ]);
-const cursor = { type: "cursor", placeholder: Symbol() };
+const cursor = { type: "cursor", placeholder: Symbol("cursor") };
 
 function join(sep, arr) {
   const res = [];

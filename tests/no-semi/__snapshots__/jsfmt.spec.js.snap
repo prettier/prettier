@@ -81,6 +81,240 @@ x
 
 `;
 
+exports[`flow-interfaces.js 1`] = `
+declare class A {
+    one: boolean;
+    two: { three: string }
+    | number;
+}
+
+// NOTE: Flow and Babylon both fail to apply ASI here
+// declare class B {
+//     one: boolean
+//     two: { three: string }
+//     | number
+// }
+
+declare interface C {
+    one: boolean;
+    two: { three: string }
+    | number;
+}
+
+// NOTE: Flow and Babylon both fail to apply ASI here
+// declare interface D {
+//     one: boolean
+//     two: { three: string }
+//     | number
+// }
+
+interface E {
+    one: boolean;
+    two: { three: string }
+    | number;
+}
+
+// NOTE: Flow and Babylon both fail to apply ASI here
+// interface F {
+//     one: boolean
+//     two: { three: string }
+//     | number
+// }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+declare class A {
+  one: boolean;
+  two: { three: string } | number;
+}
+
+// NOTE: Flow and Babylon both fail to apply ASI here
+// declare class B {
+//     one: boolean
+//     two: { three: string }
+//     | number
+// }
+
+declare interface C {
+  one: boolean;
+  two: { three: string } | number;
+}
+
+// NOTE: Flow and Babylon both fail to apply ASI here
+// declare interface D {
+//     one: boolean
+//     two: { three: string }
+//     | number
+// }
+
+interface E {
+  one: boolean;
+  two: { three: string } | number;
+}
+
+// NOTE: Flow and Babylon both fail to apply ASI here
+// interface F {
+//     one: boolean
+//     two: { three: string }
+//     | number
+// }
+
+`;
+
+exports[`flow-interfaces.js 2`] = `
+declare class A {
+    one: boolean;
+    two: { three: string }
+    | number;
+}
+
+// NOTE: Flow and Babylon both fail to apply ASI here
+// declare class B {
+//     one: boolean
+//     two: { three: string }
+//     | number
+// }
+
+declare interface C {
+    one: boolean;
+    two: { three: string }
+    | number;
+}
+
+// NOTE: Flow and Babylon both fail to apply ASI here
+// declare interface D {
+//     one: boolean
+//     two: { three: string }
+//     | number
+// }
+
+interface E {
+    one: boolean;
+    two: { three: string }
+    | number;
+}
+
+// NOTE: Flow and Babylon both fail to apply ASI here
+// interface F {
+//     one: boolean
+//     two: { three: string }
+//     | number
+// }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+declare class A {
+  one: boolean;
+  two: { three: string } | number;
+}
+
+// NOTE: Flow and Babylon both fail to apply ASI here
+// declare class B {
+//     one: boolean
+//     two: { three: string }
+//     | number
+// }
+
+declare interface C {
+  one: boolean;
+  two: { three: string } | number;
+}
+
+// NOTE: Flow and Babylon both fail to apply ASI here
+// declare interface D {
+//     one: boolean
+//     two: { three: string }
+//     | number
+// }
+
+interface E {
+  one: boolean;
+  two: { three: string } | number;
+}
+
+// NOTE: Flow and Babylon both fail to apply ASI here
+// interface F {
+//     one: boolean
+//     two: { three: string }
+//     | number
+// }
+
+`;
+
+exports[`flow-interfaces.js 3`] = `
+declare class A {
+    one: boolean;
+    two: { three: string }
+    | number;
+}
+
+// NOTE: Flow and Babylon both fail to apply ASI here
+// declare class B {
+//     one: boolean
+//     two: { three: string }
+//     | number
+// }
+
+declare interface C {
+    one: boolean;
+    two: { three: string }
+    | number;
+}
+
+// NOTE: Flow and Babylon both fail to apply ASI here
+// declare interface D {
+//     one: boolean
+//     two: { three: string }
+//     | number
+// }
+
+interface E {
+    one: boolean;
+    two: { three: string }
+    | number;
+}
+
+// NOTE: Flow and Babylon both fail to apply ASI here
+// interface F {
+//     one: boolean
+//     two: { three: string }
+//     | number
+// }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+declare class A {
+  one: boolean;
+  two: { three: string } | number;
+}
+
+// NOTE: Flow and Babylon both fail to apply ASI here
+// declare class B {
+//     one: boolean
+//     two: { three: string }
+//     | number
+// }
+
+declare interface C {
+  one: boolean;
+  two: { three: string } | number;
+}
+
+// NOTE: Flow and Babylon both fail to apply ASI here
+// declare interface D {
+//     one: boolean
+//     two: { three: string }
+//     | number
+// }
+
+interface E {
+  one: boolean;
+  two: { three: string } | number;
+}
+
+// NOTE: Flow and Babylon both fail to apply ASI here
+// interface F {
+//     one: boolean
+//     two: { three: string }
+//     | number
+// }
+
+`;
+
 exports[`issue2006.js 1`] = `
 switch (n) {
   case 11:

@@ -1,0 +1,6 @@
+directive @a on FIELD1
+directive @a(as: String) on FIELD1
+directive @a(as: String = 1) on FIELD1
+directive @a(as: String, b: Int!) on FIELD1
+directive @a(as: String! = 1 @deprecated) on FIELD1
+directive @a(as: String! = 1 @deprecated) on FIELD1 | FIELD2

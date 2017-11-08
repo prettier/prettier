@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`destructuring.ts 1`] = `
+({ foo = [] } = bar);
+
+function f({ x }?) {}
+function g([ x ]?) {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+({ foo = [] } = bar);
+
+function f({ x }?) {}
+function g([x]?) {}
+
+`;

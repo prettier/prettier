@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`import_comma.css 1`] = `
+@import "rounded-corners", "text-shadow";
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@import "rounded-corners", "text-shadow";
+
+`;
+
 exports[`scss.css 1`] = `
 @media #{$g-breakpoint-tiny} {}
 .#{$fa-css-prefix}-glass:before { content: $fa-var-glass; }
@@ -11,6 +18,7 @@ div {
   }
 }
 a { margin: 0 { left: 10px; } }
+$map: (color: #111111, text-shadow: 1px 1px 0 salmon);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @media #{$g-breakpoint-tiny} {
 }
@@ -31,5 +39,9 @@ a {
     left: 10px;
   }
 }
+$map: (
+  color: #111111,
+  text-shadow: 1px 1px 0 salmon
+);
 
 `;

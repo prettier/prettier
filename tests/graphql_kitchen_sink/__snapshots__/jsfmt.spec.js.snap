@@ -110,4 +110,5 @@ fragment frag on Friend {
 query {
   field
 }
+
 `;

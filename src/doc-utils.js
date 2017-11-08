@@ -167,6 +167,10 @@ function removeLines(doc) {
   });
 }
 
+function rawText(node) {
+  return node.extra ? node.extra.raw : node.raw;
+}
+
 module.exports = {
   isEmpty,
   willBreak,
@@ -174,5 +178,6 @@ module.exports = {
   traverseDoc,
   mapDoc,
   propagateBreaks,
-  removeLines
+  removeLines,
+  rawText
 };

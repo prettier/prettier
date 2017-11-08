@@ -8,3 +8,46 @@ input[type="radio" i] {
 }
 
 `;
+
+exports[`insensitive.css 2`] = `
+input[type="radio" i] {
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+input[type='radio' i] {
+}
+
+`;
+
+exports[`quotes.css 1`] = `
+a[id=test] {}
+a[id="test"] {}
+a[id='test'] {}
+a[id=func("foo")] {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a[id="test"] {
+}
+a[id="test"] {
+}
+a[id="test"] {
+}
+a[id=func("foo")] {
+}
+
+`;
+
+exports[`quotes.css 2`] = `
+a[id=test] {}
+a[id="test"] {}
+a[id='test'] {}
+a[id=func("foo")] {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a[id='test'] {
+}
+a[id='test'] {
+}
+a[id='test'] {
+}
+a[id=func('foo')] {
+}
+
+`;

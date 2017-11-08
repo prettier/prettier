@@ -1,5 +1,75 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`binary.js 1`] = `
+const funnelSnapshotCard = (report === MY_OVERVIEW &&
+  !ReportGK.xar_metrics_active_capitol_v2) ||
+  (report === COMPANY_OVERVIEW &&
+    !ReportGK.xar_metrics_active_capitol_v2_company_metrics)
+  ? <ReportMetricsFunnelSnapshotCard metrics={metrics} />
+  : null;
+
+room = room.map((row, rowIndex) => (
+  row.map((col, colIndex) => (
+    (rowIndex === 0 || colIndex === 0 || rowIndex === height || colIndex === width) ? 1 : 0
+  ))
+))
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const funnelSnapshotCard =
+  (report === MY_OVERVIEW && !ReportGK.xar_metrics_active_capitol_v2) ||
+  (report === COMPANY_OVERVIEW &&
+    !ReportGK.xar_metrics_active_capitol_v2_company_metrics) ? (
+    <ReportMetricsFunnelSnapshotCard metrics={metrics} />
+  ) : null;
+
+room = room.map((row, rowIndex) =>
+  row.map(
+    (col, colIndex) =>
+      rowIndex === 0 ||
+      colIndex === 0 ||
+      rowIndex === height ||
+      colIndex === width
+        ? 1
+        : 0
+  )
+);
+
+`;
+
+exports[`binary.js 2`] = `
+const funnelSnapshotCard = (report === MY_OVERVIEW &&
+  !ReportGK.xar_metrics_active_capitol_v2) ||
+  (report === COMPANY_OVERVIEW &&
+    !ReportGK.xar_metrics_active_capitol_v2_company_metrics)
+  ? <ReportMetricsFunnelSnapshotCard metrics={metrics} />
+  : null;
+
+room = room.map((row, rowIndex) => (
+  row.map((col, colIndex) => (
+    (rowIndex === 0 || colIndex === 0 || rowIndex === height || colIndex === width) ? 1 : 0
+  ))
+))
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const funnelSnapshotCard =
+    (report === MY_OVERVIEW && !ReportGK.xar_metrics_active_capitol_v2) ||
+    (report === COMPANY_OVERVIEW &&
+        !ReportGK.xar_metrics_active_capitol_v2_company_metrics) ? (
+        <ReportMetricsFunnelSnapshotCard metrics={metrics} />
+    ) : null;
+
+room = room.map((row, rowIndex) =>
+    row.map(
+        (col, colIndex) =>
+            rowIndex === 0 ||
+            colIndex === 0 ||
+            rowIndex === height ||
+            colIndex === width
+                ? 1
+                : 0
+    )
+);
+
+`;
+
 exports[`indent.js 1`] = `
 aaaaaaaaaaaaaaa ? bbbbbbbbbbbbbbbbbb : ccccccccccccccc ? ddddddddddddddd : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -19,6 +89,30 @@ aaaaaaaaaaaaaaa
     : ccccccccccccccc
       ? ddddddddddddddd
       : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg;
+
+`;
+
+exports[`nested.js 1`] = `
+let icecream = what == "cone"
+  ? p => !!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`
+  : p => \`here's your \${p} \${what}\`;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let icecream =
+  what == "cone"
+    ? p => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
+    : p => \`here's your \${p} \${what}\`;
+
+`;
+
+exports[`nested.js 2`] = `
+let icecream = what == "cone"
+  ? p => !!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`
+  : p => \`here's your \${p} \${what}\`;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let icecream =
+    what == "cone"
+        ? p => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
+        : p => \`here's your \${p} \${what}\`;
 
 `;
 

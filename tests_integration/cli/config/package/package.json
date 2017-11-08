@@ -1,0 +1,15 @@
+{
+  "name": "my-package",
+  "version": "9000",
+  "prettier": {
+    "tabWidth": 3,
+    "overrides": [
+      {
+        "files": "*.ts",
+        "options": {
+          "tabWidth": 5
+        }
+      }
+    ]
+  }
+}

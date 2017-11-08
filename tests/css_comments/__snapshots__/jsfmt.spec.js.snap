@@ -34,10 +34,11 @@ exports[`bug.css 1`] = `
 @font-face {
   src: url(if(
     $bootstrap-sass-asset-helper,
-    twbs-font-path('#{$icon-font-path}#{$icon-font-name}.eot'),
-    '#{$icon-font-path}#{$icon-font-name}.eot'
+    twbs-font-path("#{$icon-font-path}#{$icon-font-name}.eot"),
+    "#{$icon-font-path}#{$icon-font-name}.eot"
   ));
 }
+
 // Catchall baseclass
 /* Catchall baseclass */
 .glyphicon {
@@ -96,12 +97,24 @@ exports[`selector.css 1`] = `
 .powerPathNavigator table.powerPathInfo th:active,
 .powerPathNavigator table.powerPathInfo th:active + th:last-child {
 }
+
+/* pressed buttons */
+.powerPathNavigator .helm button.pressedButton,
+.powerPathNavigator .helm button:active:not(.disabledButton) {
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .powerPathNavigator .helm button.pressedButton,
 /* pressed buttons */
-.powerPathNavigator .helm button:active:not(.disabledButton),
+  .powerPathNavigator
+  .helm
+  button:active:not(.disabledButton),
 .powerPathNavigator table.powerPathInfo th:active,
 .powerPathNavigator table.powerPathInfo th:active + th:last-child {
+}
+
+/* pressed buttons */
+.powerPathNavigator .helm button.pressedButton,
+.powerPathNavigator .helm button:active:not(.disabledButton) {
 }
 
 `;

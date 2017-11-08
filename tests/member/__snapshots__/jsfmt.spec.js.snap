@@ -1,5 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`conditional.js 1`] = `
+(valid
+  ? helper.responseBody(this.currentUser)
+  : helper.responseBody(this.defaultUser))
+.prop;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(valid
+  ? helper.responseBody(this.currentUser)
+  : helper.responseBody(this.defaultUser)
+).prop;
+
+`;
+
 exports[`expand.js 1`] = `
 const veryVeryVeryVeryVeryVeryVeryLong = doc.expandedStates[doc.expandedStates.length - 1];
 const small = doc.expandedStates[doc.expandedStates.length - 1];
@@ -21,16 +34,34 @@ const promises = [
   redis.fetch(),
   other.fetch(),
 ];
+
+window.FooClient.setVars({
+  locale: getFooLocale({ page }),
+  authorizationToken: data.token
+}).initVerify("foo_container");
+
+window.something.FooClient.setVars({
+  locale: getFooLocale({ page }),
+  authorizationToken: data.token
+}).initVerify("foo_container");
+
+window.FooClient.something.setVars({
+  locale: getFooLocale({ page }),
+  authorizationToken: data.token
+}).initVerify("foo_container");
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const veryVeryVeryVeryVeryVeryVeryLong =
   doc.expandedStates[doc.expandedStates.length - 1];
 const small = doc.expandedStates[doc.expandedStates.length - 1];
 
 const promises = [
-  promise.resolve().then(console.log).catch(err => {
-    console.log(err);
-    return null;
-  }),
+  promise
+    .resolve()
+    .then(console.log)
+    .catch(err => {
+      console.log(err);
+      return null;
+    }),
   redis.fetch(),
   other.fetch()
 ];
@@ -48,5 +79,37 @@ const promises = [
   redis.fetch(),
   other.fetch()
 ];
+
+window.FooClient.setVars({
+  locale: getFooLocale({ page }),
+  authorizationToken: data.token
+}).initVerify("foo_container");
+
+window.something.FooClient.setVars({
+  locale: getFooLocale({ page }),
+  authorizationToken: data.token
+}).initVerify("foo_container");
+
+window.FooClient.something
+  .setVars({
+    locale: getFooLocale({ page }),
+    authorizationToken: data.token
+  })
+  .initVerify("foo_container");
+
+`;
+
+exports[`logical.js 1`] = `
+(veryLongVeryLongVeryLong || e).prop;
+
+(veryLongVeryLongVeryLong || anotherVeryLongVeryLongVeryLong || veryVeryVeryLongError).prop;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(veryLongVeryLongVeryLong || e).prop;
+
+(
+  veryLongVeryLongVeryLong ||
+  anotherVeryLongVeryLongVeryLong ||
+  veryVeryVeryLongError
+).prop;
 
 `;

@@ -1,8 +1,14 @@
 /node_modules
-npm-debug.log
+*.log
 /errors
 /test.js
 /test.ts
 /test.css
 /.vscode
 /dist
+/website/node_modules
+/website/build
+/website/i18n
+.DS_Store
+coverage
+.idea

@@ -1,0 +1,4 @@
+<div>
+bar
+</div>
+*foo*

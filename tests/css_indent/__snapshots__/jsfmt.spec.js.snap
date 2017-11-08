@@ -8,10 +8,7 @@ div {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 div {
-  background: var(fig-light-02)
-    url(/images/inset-shadow-east-ltr.png)
-    100%
-    0
+  background: var(fig-light-02) url(/images/inset-shadow-east-ltr.png) 100% 0
     repeat-y;
   box-shadow: 0 0 1px 2px rgba(88, 144, 255, 0.75),
     0 1px 1px rgba(0, 0, 0, 0.15);
@@ -32,8 +29,8 @@ a {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 a {
-  ~ .Pagination-itemWrapper:not(.is-separator):not([data-priority^='#{$priority}'])
-    ~ .Pagination-itemWrapper.is-separator[data-priority^='#{$priority}'] {
+  ~ .Pagination-itemWrapper:not(.is-separator):not([data-priority^="#{$priority}"])
+    ~ .Pagination-itemWrapper.is-separator[data-priority^="#{$priority}"] {
     display: flex;
   }
 }

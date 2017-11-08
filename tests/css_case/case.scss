@@ -1,0 +1,87 @@
+// Convention in this test file:
+// - The case should be preserved for things prefixed with "Keep".
+// - The case should always be preserved for function names and property keywords.
+// - Other things should mostly be lowercase.
+
+@IMPORT Keep;
+
+HTML#KeepId.KeepClass,
+a[HREF=KeepAttrValue]:HOVER::FIRST-letter,
+:Not(:NTH-child(2N+1)) {
+    COLOR: #AAbbCC;
+    BACKGROUND-image: URL("KeepString");
+    Margin: 5PX .2E10Em;
+    --Keep-custom-Prop: red;
+    background: Var(--Keep-custom-Prop);
+    animation-name: KeepAnimationName;
+    important: something !IMPORTANT;
+}
+
+@keyframes KeepAnimationName {
+  FROM {
+    prop: val;
+  }
+
+  #{$KeepInterpolationVar},
+  #{$Keep + 15PX},
+  #{$Keep + $Keep15PX} {
+    prop: val;
+  }
+
+  TO {
+    prop: val;
+  }
+}
+
+@custom-media --KeepCustomMedia screen and (width >= 768px);
+@media (--KeepCustomMedia) {}
+
+@FUNCTION KeepFuncName() {
+    @RETURN 12;
+}
+
+%KeepPlaceholderSelector {
+  prop: val;
+}
+
+$KeepTopLevelVar: val;
+@KeepLessVar: val;
+
+@MIXIN KeepMixinName($Keep: 15IN, $Keep: $Keep15IN, $Keep: Keep-1E-2Em) {
+    $KeepVar: KeepFuncName();
+    #{$KeepInterpolationVar}: val;
+    #{$Keep + 15PX}: val;
+    #{$Keep + $Keep15PX}: val;
+    @KeepLessVar: val;
+    @extend %KeepPlaceholderSelector;
+
+    #{$Keep}[#{$Keep}][#{Keep}^=#{Keep-1A}]:#{$Keep} {
+      prop: val;
+    }
+
+    &Keep & NoKeep {
+      prop: val;
+    }
+
+    BACKGROUND: {
+      COLOR: RED;
+    }
+
+    BACKGROUND: Keep 15PX Keep15PX {
+      COLOR: RED;
+    }
+
+    #{$Keep + 15PX + Keep15PX + '15PX' + "15PX"}: {
+      COLOR: RED;
+    }
+}
+
+@Mixin Keep($Keep: $Keep15IN, $Keep: Keepå1E1) {}
+
+@MEDIA (MIN-WIDTH: 700PX) {
+    @include Keep;
+    @include Keep(.12e+01cH);
+    @include Keep($Keep12E01cH);
+}
+
+@MEDIA (#{$Keep}: #{$Keep}) {}

@@ -1,0 +1,7 @@
+overrides:
+- files: "*.js"
+  options:
+    semi: false
+- files: "*.ts"
+  options:
+    semi: true

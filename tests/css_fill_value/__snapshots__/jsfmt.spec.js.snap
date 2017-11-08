@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fill.css 1`] = `
+div {
+  border-left: 1px solid mix($warningBackgroundColors, $warningBorderColors, 50%);
+  $fontFamily: "Lato", -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+div {
+  border-left: 1px solid
+    mix($warningBackgroundColors, $warningBorderColors, 50%);
+  $fontFamily: "Lato", -apple-system, "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+}
+
+`;

@@ -11,7 +11,7 @@ yarn test
 Here's what you need to know about the tests:
 
 * The tests uses [Jest](https://facebook.github.io/jest/) snapshots.
-* You can make changes and run `jest -u` (or `yarn test -- -u`) to update the
+* You can make changes and run `jest -u` (or `yarn test -u`) to update the
   snapshots. Then run `git diff` to take a look at what changed. Always update
   the snapshots when opening a PR.
 * You can run `AST_COMPARE=1 jest` for a more robust test run. That formats each
@@ -29,8 +29,12 @@ Here's what you need to know about the tests:
   interactive `docs` REPL locally. The easiest way to debug it in node, is to
   create a local test file and run it in an editor like VS Code.
 
-Run `yarn lint -- --fix` to automatically format files.
+Run `yarn lint --fix` to automatically format files.
 
 If you can, take look at [commands.md](commands.md) and check out [Wadler's
 paper](http://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf) to
 understand how Prettier works.
+
+If you want to know more about Prettier's GitHub labels, see the
+[Issue Labels](https://github.com/prettier/prettier/wiki/Issue-Labels)
+page on the Wiki.

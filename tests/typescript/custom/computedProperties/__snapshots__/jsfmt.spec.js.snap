@@ -8,13 +8,29 @@ interface I {
 type T = {
     "string": "T";
 }
+
+interface A {
+    'string': "A";
+}
+
+type B = {
+    'string': "B";
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 interface I {
-  "string": "I";
+  string: "I";
 }
 
 type T = {
-  "string": "T";
+  string: "T";
+};
+
+interface A {
+  string: "A";
+}
+
+type B = {
+  string: "B";
 };
 
 `;

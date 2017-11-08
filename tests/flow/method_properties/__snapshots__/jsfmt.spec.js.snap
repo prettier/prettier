@@ -12,7 +12,7 @@ export {Foo};
 // @flow
 
 declare class Foo {
-  bar?: () => string
+  bar?: () => string;
 }
 
 export { Foo };

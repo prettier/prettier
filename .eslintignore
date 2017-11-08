@@ -1,8 +1,9 @@
 !/*.js
-/docs/lib/
 /tests/**/*.js
 !/tests/**/jsfmt.spec.js
 !/**/.eslintrc.js
 /test.js
 /dist/
-/scripts/build/
+**/node_modules/**
+/website/static/lib/
+/tests_integration/cli/

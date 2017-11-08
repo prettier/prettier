@@ -6,7 +6,7 @@ declare function dec<T>(target: T): T;
 @dec
 enum E {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-declare function dec<T>(target: T): T
+declare function dec<T>(target: T): T;
 
 @dec enum E {}
 

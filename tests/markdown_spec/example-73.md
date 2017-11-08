@@ -1,0 +1,4 @@
+Foo
+bar
+* * *
+baz

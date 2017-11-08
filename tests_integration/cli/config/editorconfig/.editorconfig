@@ -1,0 +1,15 @@
+root = true
+
+[*.js]
+indent_style = tab
+tab_width = 8
+indent_size = 2 # overridden by tab_width since indent_style = tab
+max_line_length = 100
+
+# Indentation override for all JS under lib directory
+[lib/**.js]
+indent_style = space
+indent_size = 2
+
+[lib/indent_size=tab.js]
+indent_size = tab

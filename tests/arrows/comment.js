@@ -21,3 +21,10 @@ export const bem = block =>
         element ? `__${css(element)}` : "",
         modifier ? `--${css(modifier)}` : ""
       ].join("");
+
+<FlatList
+  renderItem={(
+    info, // $FlowExpectedError - bad widgetCount type 6, should be Object
+  ) => <span>{info.item.widget.missingProp}</span>}
+  data={data}
+/>

@@ -3,8 +3,32 @@
 exports[`combinator.css 1`] = `
 -Option/root .public/section ~ .public/section:before {
 }
+
+.x .y {}
+.x > .y {}
+.x ~ .y {}
+.x + .y {}
+.x.y {}
+.x     .y {}
+.x
+    .y {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
--Option/root .public/section ~ .public/section:before {
+-option/root .public/section ~ .public/section:before {
+}
+
+.x .y {
+}
+.x > .y {
+}
+.x ~ .y {
+}
+.x + .y {
+}
+.x.y {
+}
+.x .y {
+}
+.x .y {
 }
 
 `;

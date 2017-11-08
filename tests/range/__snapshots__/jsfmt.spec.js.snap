@@ -1,5 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`class-declaration.js 1`] = `
+
+
+class    a {
+  b(   ) {}
+}
+
+let    x~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+class a {
+  b() {}
+}
+
+let    x
+`;
+
 exports[`different-levels.js 1`] = `
 call(1,2,3)
 call(1,2,3)
@@ -40,6 +57,97 @@ function ugly ( {a=1,     b     =   2     }      ) {
     }
   }
 }
+
+`;
+
+exports[`module-export1.js 1`] = `
+import  def , {named}  from    'x'
+
+export *  from   'd'
+
+export    const  x
+  =  42
+
+export   default    42
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import  def , {named}  from    'x'
+
+export * from "d";
+
+export    const  x
+  =  42
+
+export   default    42
+
+
+`;
+
+exports[`module-export2.js 1`] = `
+import  def , {named}  from    'x'
+
+export *  from   'd'
+
+export    const  x
+  =  42
+
+export   default    42
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import  def , {named}  from    'x'
+
+export *  from   'd'
+
+export const x = 42;
+
+export   default    42
+
+
+`;
+
+exports[`module-export3.js 1`] = `
+import  def , {named}  from    'x'
+
+export *  from   'd'
+
+export    const  x
+  =  42
+
+export   default    42
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import  def , {named}  from    'x'
+
+export *  from   'd'
+
+export    const  x
+  =  42
+
+export default 42;
+
+
+`;
+
+exports[`module-import.js 1`] = `
+import  def , {named}  from    'x'
+
+export *  from   'd'
+
+export    const  x
+  =  42
+
+export   default    42
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import def, { named } from "x";
+
+export *  from   'd'
+
+export    const  x
+  =  42
+
+export   default    42
+
 
 `;
 
@@ -155,6 +263,38 @@ catch (err) {}
 
 `;
 
+exports[`object-expression.js 1`] = `
+const y = {a:1, b:2}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const y = { a: 1, b: 2 };
+
+`;
+
+exports[`object-expression2.js 1`] = `
+
+const y =       [
+    {
+                a: 1,
+    },
+    {
+              a: 1,
+              b:2
+    },
+]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+const y = [
+  {
+    a: 1
+  },
+  {
+    a: 1,
+    b: 2
+  }
+];
+
+`;
+
 exports[`range.js 1`] = `
 function ugly ( {a=1,     b     =   2     }      ) {
   function ugly ( {a=1,     b     =   2     }      ) {
@@ -176,11 +316,58 @@ function ugly ( {a=1,     b     =   2     }      ) {
 
 `;
 
+exports[`range-end.js 1`] = `
+// Unchanged
+call(
+  1, 2,3
+);
+
+
+call(
+  1, 2,3
+);~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Unchanged
+call(
+  1, 2,3
+);
+
+
+call(1, 2, 3);
+`;
+
+exports[`range-start.js 1`] = `
+call(
+  1, 2,3
+);
+
+
+// Unchanged
+call(
+  1, 2,3
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+call(1, 2, 3);
+
+
+// Unchanged
+call(
+  1, 2,3
+);
+
+`;
+
 exports[`try-catch.js 1`] = `
 try {}
 catch (err) {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 try {
 } catch (err) {}
+
+`;
+
+exports[`whitespace.js 1`] = `
+ 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
 
 `;

@@ -1,0 +1,85 @@
+// Convention in this test file:
+// - The case should be preserved for things prefixed with "Keep".
+// - The case should always be preserved for function names and property keywords.
+// - Other things should mostly be lowercase.
+// - The `/*:*/` comments are just to bust the `isLikelySCSS` check.
+
+@IMPORT Keep;
+
+HTML#KeepId.KeepClass,
+a[HREF=KeepAttrValue]:HOVER::FIRST-letter,
+:Not(:NTH-child(2N+1)) {
+    COLOR: #AAbbCC;
+    BACKGROUND-image: URL("KeepString");
+    Margin: 5PX .2E10Em;
+    --Keep-custom-Prop: red;
+    background: Var(--Keep-custom-Prop);
+    animation-name: KeepAnimationName;
+    important: something !IMPORTANT;
+}
+
+@keyframes KeepAnimationName {
+  FROM {
+    prop: val;
+  }
+
+  @{KeepInterpolationVar} {
+    prop: val;
+  }
+
+  TO {
+    prop: val;
+  }
+}
+
+@custom-media --KeepCustomMedia screen and (width >= 768px);
+@media (--KeepCustomMedia) {}
+
+@KeepDetachedRuleset: /*:*/ {
+  BACKGROUND: RED;
+}
+
+%KeepScssPlaceholderSelector {
+  prop: val;
+}
+
+@KeepTopLevelVar: val;
+$KeepScssVar: val;
+
+.Keep(@Keep: 12e03PX) WHEN (@Keep=Case) /*:*/ {
+    @KeepVar: KeepName; /*:*/
+    @{KeepInterpolationVar}: val;
+    $KeepScssVar: val;
+    @extend %KeepScssPlaceholderSelector;
+
+    @{Keep}[@{Keep}][@{Keep}^=@{Keep-1A}]:@{Keep} {
+      prop: val;
+    }
+
+    &Keep & NoKeep {
+      prop: val;
+    }
+
+    @KeepDetachedRuleset();
+    @KeepDetachedRuleset ( /* comment */  );
+
+    &:EXTEND(.Keep ALL);
+
+    .Keep;
+    .Keep();
+    .Keep(4PX)!IMPORTANT;
+    .Keep() WHEN (@Keep=Keep);
+    .Keep() WHEN (@Keep=12PX);
+    .Keep() WHEN (@Keep=Keep12PX);
+}
+
+.Keep (@Keep) WHEN (lightness(@Keep) >= 12PX) AND (@Keep > 0) {}
+.Keep (@Keep) WHEN (lightness(@Keep) != '12PX') AND (@Keep != "12PX") {}
+.Keep (@Keep) WHEN (lightness(@Keep) >= Keep12PX) AND (@Keep > @Keep12E5) {}
+
+.Keep(@Keep: 12PX; @Keep: @Keep12PX; ...) /*:*/ {}
+.Keep(@Keep: '12PX'; @Keep: "12PX"; ...) /*:*/ {}
+
+@MEDIA (MIN-WIDTH: 700PX) /*:*/ {}
+
+@MEDIA (@{Keep}: @{Keep}) {}

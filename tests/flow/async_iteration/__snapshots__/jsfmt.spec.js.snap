@@ -85,9 +85,9 @@ async function f() {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare interface File {
-  readLine(): Promise<string>,
-  close(): void,
-  EOF: boolean
+  readLine(): Promise<string>;
+  close(): void;
+  EOF: boolean;
 }
 
 declare function fileOpen(path: string): Promise<File>;
@@ -153,11 +153,13 @@ async function* refuse_return() {
     return 0;
   }
 }
-refuse_return().return("string").then(result => {
-  if (result.done) {
-    (result.value: string); // error: number | void ~> string
-  }
-});
+refuse_return()
+  .return("string")
+  .then(result => {
+    if (result.done) {
+      (result.value: string); // error: number | void ~> string
+    }
+  });
 
 `;
 
@@ -204,11 +206,13 @@ async function* catch_return() {
 }
 
 async () => {
-  catch_return().throw("").then(({ value }) => {
-    if (value !== undefined) {
-      (value: void); // error: number ~> void
-    }
-  });
+  catch_return()
+    .throw("")
+    .then(({ value }) => {
+      if (value !== undefined) {
+        (value: void); // error: number ~> void
+      }
+    });
 };
 
 async function* yield_return() {
@@ -221,11 +225,13 @@ async function* yield_return() {
 }
 
 async () => {
-  yield_return().throw("").then(({ value }) => {
-    if (value !== undefined) {
-      (value: void); // error: number ~> void
-    }
-  });
+  yield_return()
+    .throw("")
+    .then(({ value }) => {
+      if (value !== undefined) {
+        (value: void); // error: number ~> void
+      }
+    });
 };
 
 `;

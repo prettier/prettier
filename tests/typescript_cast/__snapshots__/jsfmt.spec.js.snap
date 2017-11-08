@@ -1,10 +1,65 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`hug-args.ts 1`] = `
+postMessage(
+  <IActionMessage>{
+    context: item.context,
+    topic: item.topic
+  }
+);
+
+window.postMessage(
+  {
+    context: item.context,
+    topic: item.topic
+  } as IActionMessage
+);
+
+postMessages(
+  <IActionMessage[]>[
+    {
+      context: item.context,
+      topic: item.topic
+    }
+  ]
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+postMessage(<IActionMessage>{
+  context: item.context,
+  topic: item.topic
+});
+
+window.postMessage({
+  context: item.context,
+  topic: item.topic
+} as IActionMessage);
+
+postMessages(<IActionMessage[]>[
+  {
+    context: item.context,
+    topic: item.topic
+  }
+]);
+
+`;
+
 exports[`parenthesis.ts 1`] = `
 <DocumentHighlightKind>(a ? b : c);
 <any>(() => {});
+
+<x>a || {};
+<x>a && [];
+true || <x>a;
+<x>a + <x>b;
+(<x>a) = 1;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <DocumentHighlightKind>(a ? b : c);
 <any>(() => {});
+
+<x>a || {};
+<x>a && [];
+true || <x>a;
+<x>a + <x>b;
+(<x>a) = 1;
 
 `;

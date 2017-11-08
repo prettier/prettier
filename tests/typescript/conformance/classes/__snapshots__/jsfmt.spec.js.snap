@@ -194,7 +194,7 @@ function f6(x: Public & Public2) {
   x.p; // Ok, public if any constituent is public
 }
 
-declare function Mix<T, U>(c1: T, c2: U): T & U
+declare function Mix<T, U>(c1: T, c2: U): T & U;
 
 // Can't derive from type with inaccessible properties
 

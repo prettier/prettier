@@ -36,8 +36,8 @@ declare function f(): void;
 var f: () => void;
 
 declare class X {
-  static deserialize(): mixed,
-  static deserialize: () => mixed
+  static deserialize(): mixed;
+  static deserialize: () => mixed;
 }
 
 `;

@@ -865,11 +865,7 @@ var ReactClass = React.createClass({
   render: function(): any {
     // Any state access here seems to make state any
     this.state;
-    return (
-      <div>
-        {this.state.bar.qux}
-      </div>
-    );
+    return <div>{this.state.bar.qux}</div>;
   }
 });
 

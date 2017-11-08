@@ -32,4 +32,5 @@ fragment XYZ on ABC {
   field
   ...AFragment
 }
+
 `;

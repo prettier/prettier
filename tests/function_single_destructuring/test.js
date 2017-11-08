@@ -11,6 +11,19 @@ function StatelessFunctionalComponent({
   return <div />
 }
 
+function StatelessFunctionalComponent({
+  isActive,
+  onFiltersUpdated,
+  onSelect,
+  onSubmitAndDeselect,
+  onCancel,
+  searchFilters,
+  title,
+  items,
+}: MyType | null | void) {
+  return <div />
+}
+
 const StatelessFunctionalComponent = ({
   isActive,
   onFiltersUpdated,

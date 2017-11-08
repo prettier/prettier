@@ -208,7 +208,7 @@ myclass.myfun(["1", "2", "3", "4", "5", "6", function (ar) {}])
 myclass.myfun(["1", "2", "3", "4", "5", "6", "7", function (ar) {}])
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare class Myclass {
-  myfun(myarray: Array<Function | string>): any
+  myfun(myarray: Array<Function | string>): any;
 }
 declare var myclass: Myclass;
 
@@ -538,8 +538,8 @@ function CD(b) {
 }
 
 declare class F {
-  foo(x: number): void,
-  foo(x: string): void
+  foo(x: number): void;
+  foo(x: string): void;
 }
 function corge(b) {
   var x = b ? "" : 0;

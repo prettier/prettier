@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`comments.js 1`] = `
+graphql.experimental\`
+  # required by createPaginationContainer
+  fragment MobileHomeDiffsSearchList_search on DifferentialRevisionSearch {
+    # required by createPaginationContainer
+    name
+  }
+\`;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+graphql.experimental\`
+  # required by createPaginationContainer
+  fragment MobileHomeDiffsSearchList_search on DifferentialRevisionSearch {
+    # required by createPaginationContainer
+    name
+  }
+\`;
+
+`;

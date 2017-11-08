@@ -6,6 +6,14 @@ function f() {
     entity => entity && entity.isInstallAvailable() && !entity.isQueue() && entity.isDisabled()
   )
 }
+
+function f() {
+  const appEntitys = getAppEntitys(loadObject).map(
+    entity => entity && entity.isInstallAvailable() && !entity.isQueue() && entity.isDisabled() && {
+      id: entity.id
+    }
+  )
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function f() {
   const appEntitys = getAppEntitys(loadObject).filter(
@@ -16,6 +24,33 @@ function f() {
       entity.isDisabled()
   );
 }
+
+function f() {
+  const appEntitys = getAppEntitys(loadObject).map(
+    entity =>
+      entity &&
+      entity.isInstallAvailable() &&
+      !entity.isQueue() &&
+      entity.isDisabled() && {
+        id: entity.id
+      }
+  );
+}
+
+`;
+
+exports[`bitwise-flags.js 1`] = `
+const FLAG_A = 1 << 0;
+const FLAG_B = 1 << 1;
+const FLAG_C = 1 << 2;
+
+const all = FLAG_A | FLAG_B | FLAG_C;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const FLAG_A = 1 << 0;
+const FLAG_B = 1 << 1;
+const FLAG_C = 1 << 2;
+
+const all = FLAG_A | FLAG_B | FLAG_C;
 
 `;
 
@@ -34,6 +69,29 @@ a =
 
 `;
 
+exports[`equality.js 1`] = `
+x == y == z;
+x != y == z;
+x == y != z;
+x != y != z;
+
+x === y === z;
+x !== y === z;
+x === y !== z;
+x !== y !== z;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(x == y) == z;
+(x != y) == z;
+(x == y) != z;
+(x != y) != z;
+
+(x === y) === z;
+(x !== y) === z;
+(x === y) !== z;
+(x !== y) !== z;
+
+`;
+
 exports[`exp.js 1`] = `
 a ** b ** c;
 (a ** b) ** c;
@@ -44,7 +102,7 @@ a ** -b;
 (a * b) ** c;
 a ** (b * c);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-a ** b ** c;
+a ** (b ** c);
 (a ** b) ** c;
 a.b ** c;
 (-a) ** b;
@@ -87,6 +145,37 @@ if (
 
 `;
 
+exports[`inline-jsx.js 1`] = `
+const user = renderedUser || <div><User name={this.state.user.name} age={this.state.user.age} /></div>;
+
+const user = renderedUser || shouldRenderUser && <div><User name={this.state.user.name} age={this.state.user.age} /></div>;
+
+const avatar = hasAvatar && <Gravatar user={author} size={size} />;
+
+const avatar = (hasAvatar || showPlaceholder) && <Gravatar user={author} size={size} />;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const user = renderedUser || (
+  <div>
+    <User name={this.state.user.name} age={this.state.user.age} />
+  </div>
+);
+
+const user =
+  renderedUser ||
+  (shouldRenderUser && (
+    <div>
+      <User name={this.state.user.name} age={this.state.user.age} />
+    </div>
+  ));
+
+const avatar = hasAvatar && <Gravatar user={author} size={size} />;
+
+const avatar = (hasAvatar || showPlaceholder) && (
+  <Gravatar user={author} size={size} />
+);
+
+`;
+
 exports[`inline-object-array.js 1`] = `
 prevState = prevState || {
   catalogs: [],
@@ -96,12 +185,87 @@ prevState = prevState || {
   selectedCatalog: null,
 };
 
+prevState = prevState ||
+  defaultState || {
+    catalogs: [],
+    loadState: LOADED,
+    opened: false,
+    searchQuery: '',
+    selectedCatalog: null,
+  };
+
+prevState = prevState ||
+  defaultState && {
+    catalogs: [],
+    loadState: LOADED,
+    opened: false,
+    searchQuery: '',
+    selectedCatalog: null,
+  };
+
+prevState = prevState || useDefault && defaultState || {
+    catalogs: [],
+    loadState: LOADED,
+    opened: false,
+    searchQuery: '',
+    selectedCatalog: null,
+  };
+
 this.steps = steps || [
   {
     name: 'mock-module',
     path: '/nux/mock-module',
   },
 ];
+
+this.steps = steps || checkStep && [
+  {
+    name: 'mock-module',
+    path: '/nux/mock-module',
+  },
+];
+
+this.steps = steps && checkStep || [
+  {
+    name: 'mock-module',
+    path: '/nux/mock-module',
+  },
+];
+
+const create = () => {
+  const result = doSomething();
+  return (
+    shouldReturn &&
+    result.ok && {
+      status: "ok",
+      createdAt: result.createdAt,
+      updatedAt: result.updatedAt
+    }
+  );
+}
+
+const create = () => {
+  const result = doSomething();
+  return (
+    shouldReturn && result.ok && result || {
+      status: "ok",
+      createdAt: result.createdAt,
+      updatedAt: result.updatedAt
+    }
+  );
+}
+
+const obj = {
+  state: shouldHaveState &&
+    stateIsOK && {
+      loadState: LOADED,
+      opened: false
+    },
+  loadNext: stateIsOK && hasNext || {
+      skipNext: true
+    },
+  loaded: true
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 prevState = prevState || {
   catalogs: [],
@@ -111,12 +275,91 @@ prevState = prevState || {
   selectedCatalog: null
 };
 
+prevState = prevState ||
+  defaultState || {
+    catalogs: [],
+    loadState: LOADED,
+    opened: false,
+    searchQuery: "",
+    selectedCatalog: null
+  };
+
+prevState =
+  prevState ||
+  (defaultState && {
+    catalogs: [],
+    loadState: LOADED,
+    opened: false,
+    searchQuery: "",
+    selectedCatalog: null
+  });
+
+prevState = prevState ||
+  (useDefault && defaultState) || {
+    catalogs: [],
+    loadState: LOADED,
+    opened: false,
+    searchQuery: "",
+    selectedCatalog: null
+  };
+
 this.steps = steps || [
   {
     name: "mock-module",
     path: "/nux/mock-module"
   }
 ];
+
+this.steps =
+  steps ||
+  (checkStep && [
+    {
+      name: "mock-module",
+      path: "/nux/mock-module"
+    }
+  ]);
+
+this.steps = (steps && checkStep) || [
+  {
+    name: "mock-module",
+    path: "/nux/mock-module"
+  }
+];
+
+const create = () => {
+  const result = doSomething();
+  return (
+    shouldReturn &&
+    result.ok && {
+      status: "ok",
+      createdAt: result.createdAt,
+      updatedAt: result.updatedAt
+    }
+  );
+};
+
+const create = () => {
+  const result = doSomething();
+  return (
+    (shouldReturn && result.ok && result) || {
+      status: "ok",
+      createdAt: result.createdAt,
+      updatedAt: result.updatedAt
+    }
+  );
+};
+
+const obj = {
+  state: shouldHaveState &&
+    stateIsOK && {
+      loadState: LOADED,
+      opened: false
+    },
+  loadNext: (stateIsOK && hasNext) || {
+    skipNext: true
+  },
+  loaded: true
+};
 
 `;
 
@@ -134,6 +377,26 @@ exports[`jsx_parent.js 1`] = `
     diffUpdateMessageInput != null &&
     this.state.isUpdateMessageEmpty}
 </div>;
+
+<div
+  style={
+    !isJellyfishEnabled &&
+    diffUpdateMessageInput && {
+      fontSize: 14,
+      color: '#fff'
+    }
+  }
+/>;
+
+<div>
+  {!isJellyfishEnabled &&
+    diffUpdateMessageInput != null && <div><span>Text</span></div>}
+</div>;
+
+<div>
+  {!isJellyfishEnabled &&
+    diffUpdateMessageInput != null && child || <div><span>Text</span></div>}
+</div>;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div
   src={
@@ -148,6 +411,122 @@ exports[`jsx_parent.js 1`] = `
     diffUpdateMessageInput != null &&
     this.state.isUpdateMessageEmpty}
 </div>;
+
+<div
+  style={
+    !isJellyfishEnabled &&
+    diffUpdateMessageInput && {
+      fontSize: 14,
+      color: "#fff"
+    }
+  }
+/>;
+
+<div>
+  {!isJellyfishEnabled &&
+    diffUpdateMessageInput != null && (
+      <div>
+        <span>Text</span>
+      </div>
+    )}
+</div>;
+
+<div>
+  {(!isJellyfishEnabled && diffUpdateMessageInput != null && child) || (
+    <div>
+      <span>Text</span>
+    </div>
+  )}
+</div>;
+
+`;
+
+exports[`math.js 1`] = `
+x + y / z;
+x / y + z;
+
+x * y % z;
+x / y % z;
+x % y * z;
+x % y / z;
+
+x % y % z;
+
+x << y >> z;
+x >>> y << z;
+x >>> y >>> z;
+x + y >> z;
+
+x | y & z;
+x & y | z;
+x ^ y ^ z;
+x & y & z;
+x | y | z;
+x & y >> z;
+x << y | z;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+x + y / z;
+x / y + z;
+
+(x * y) % z;
+(x / y) % z;
+(x % y) * z;
+(x % y) / z;
+
+(x % y) % z;
+
+(x << y) >> z;
+(x >>> y) << z;
+(x >>> y) >>> z;
+(x + y) >> z;
+
+x | (y & z);
+(x & y) | z;
+x ^ y ^ z;
+x & y & z;
+x | y | z;
+x & (y >> z);
+(x << y) | z;
+
+`;
+
+exports[`return.js 1`] = `
+function foo() {
+  return this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft.right;
+}
+
+function foo() {
+  return this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft.right
+    ? true
+    : false;
+}
+
+function foo() {
+  return this.calculate().compute().first.numberOfThings > this.calculate().compute().last.numberOfThings
+    ? true
+    : false;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function foo() {
+  return (
+    this.hasPlugin("dynamicImports") &&
+    this.lookahead().type === tt.parenLeft.right
+  );
+}
+
+function foo() {
+  return this.hasPlugin("dynamicImports") &&
+    this.lookahead().type === tt.parenLeft.right
+    ? true
+    : false;
+}
+
+function foo() {
+  return this.calculate().compute().first.numberOfThings >
+    this.calculate().compute().last.numberOfThings
+    ? true
+    : false;
+}
 
 `;
 

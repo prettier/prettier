@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`arguments.graphql 1`] = `
+type Video {
+  playable_url(quality: String, preferred: String): Url
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type Video {
+  playable_url(quality: String, preferred: String): Url
+}
+
+`;
+
+exports[`directives.graphql 1`] = `
+type PokemonType {
+  pokemon_type: String @mock(value: "Electric")
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type PokemonType {
+  pokemon_type: String @mock(value: "Electric")
+}
+
+`;
+
+exports[`extend.graphql 1`] = `
+extend type Feedback {
+  custom_int: Int
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+extend type Feedback {
+  custom_int: Int
+}
+
+`;
+
+exports[`implements.graphql 1`] = `
+type VRMConversation implements Node, Entity @foo {
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type VRMConversation implements Node, Entity @foo {
+}
+
+`;
+
+exports[`input.graphql 1`] = `
+input Params {
+  app_id: ID!
+  key_hash: String!
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+input Params {
+  app_id: ID!
+  key_hash: String!
+}
+
+`;
+
+exports[`object_type_def.graphql 1`] = `
+type FeedHomeStories {
+  debug_info: String
+  query_title: String
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type FeedHomeStories {
+  debug_info: String
+  query_title: String
+}
+
+`;

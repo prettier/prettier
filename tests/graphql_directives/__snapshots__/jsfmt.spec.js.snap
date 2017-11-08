@@ -47,4 +47,5 @@ fragment YouCanHaveDirectivesHereToo on SomeType @yesReally(what: "yes") {
 query QueryWVars($x: String) @directive {
   hey
 }
+
 `;

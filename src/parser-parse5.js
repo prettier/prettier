@@ -2,7 +2,7 @@
 
 // const createError = require("./parser-create-error");
 
-function parse(text) {
+function parse(text /*, parsers, opts*/) {
   // Inline the require to avoid loading all the JS if we don't use it
   const parse5 = require("parse5");
   try {

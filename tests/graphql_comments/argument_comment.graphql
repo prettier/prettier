@@ -1,0 +1,7 @@
+
+query (
+  $string: String, # Some variable comment
+  $bool: Boolean # Some comment
+ ) {
+   someField
+ }

@@ -1,5 +1,75 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`expressions.js 1`] = `
+// We currently don't support expressions in GraphQL template literals so these templates
+// should not change.
+
+graphql(schema, \`
+query allPartsByManufacturerName($name: String!) {
+  allParts(filter:{manufacturer: {name: $name}}) {
+...    PartAll
+}}
+\${fragments.all}
+\`)
+
+const veryLongVariableNameToMakeTheLineBreak = graphql(schema, \`
+query allPartsByManufacturerName($name: String!) {
+  allParts(filter:{manufacturer: {name: $name}}) {
+...    PartAll
+}}
+\${fragments.all}
+\`)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// We currently don't support expressions in GraphQL template literals so these templates
+// should not change.
+
+graphql(
+  schema,
+  \`
+query allPartsByManufacturerName($name: String!) {
+  allParts(filter:{manufacturer: {name: $name}}) {
+...    PartAll
+}}
+\${fragments.all}
+\`
+);
+
+const veryLongVariableNameToMakeTheLineBreak = graphql(
+  schema,
+  \`
+query allPartsByManufacturerName($name: String!) {
+  allParts(filter:{manufacturer: {name: $name}}) {
+...    PartAll
+}}
+\${fragments.all}
+\`
+);
+
+`;
+
+exports[`graphql.js 1`] = `
+graphql(schema, \`
+mutation     MarkReadNotificationMutation(
+    $input
+    : MarkReadNotificationData!
+  )
+{ markReadNotification(data: $input ) { notification {seenState} } }\`)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+graphql(
+  schema,
+  \`
+    mutation MarkReadNotificationMutation($input: MarkReadNotificationData!) {
+      markReadNotification(data: $input) {
+        notification {
+          seenState
+        }
+      }
+    }
+  \`
+);
+
+`;
+
 exports[`graphql-tag.js 1`] = `
 import gql from "graphql-tag";
 

@@ -4,10 +4,9 @@ exports[`font-face.css 1`] = `
  @font-face          {font-family:'HelveticaNeueW02-45Ligh';src:url("/fonts/pictos-web.eot");src:local("☺"),url("/fonts/pictos-web.woff") format("woff"),url("/fonts/pictos-web.ttf") format("truetype"),url("/fonts/pictos-web.svg#webfontIyfZbseF") format("svg");font-weight:normal;font-style:normal;}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @font-face {
-  font-family: 'HelveticaNeueW02-45Ligh';
+  font-family: "HelveticaNeueW02-45Ligh";
   src: url("/fonts/pictos-web.eot");
-  src: local("☺"),
-    url("/fonts/pictos-web.woff") format("woff"),
+  src: local("☺"), url("/fonts/pictos-web.woff") format("woff"),
     url("/fonts/pictos-web.ttf") format("truetype"),
     url("/fonts/pictos-web.svg#webfontIyfZbseF") format("svg");
   font-weight: normal;

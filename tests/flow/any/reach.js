@@ -1,7 +1,7 @@
 /**
  * like class and function values, any-typed values may be used in
  * type annotations. Here we test propagation of any through the
- * annotation - without it, the body of the if will be unreachable 
+ * annotation - without it, the body of the if will be unreachable
  */
 
 type AsyncRequest = any;

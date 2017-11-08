@@ -64,3 +64,58 @@
     test
   </Child>
 }/>;
+
+<BookingIntroPanel
+  prop="long_string_make_to_force_break"
+  logClick={data => doLogClick("short", "short", data)}
+/>;
+
+<BookingIntroPanel
+  logClick={data =>
+    doLogClick("long_name_long_name_long_name", "long_name_long_name_long_name", data)
+  }
+/>;
+
+<BookingIntroPanel
+  logClick={data => {
+    doLogClick("long_name_long_name_long_name", "long_name_long_name_long_name", data)
+  }}
+/>;
+
+<Component
+  onChange={(
+    key: "possible_key_1" | "possible_key_2" | "possible_key_3",
+    value: string | Immutable.List<string>,
+  ) => {
+    this.setState({
+      updatedTask: this.state.updatedTask.set(key, value)
+    });
+  }}
+/>;
+
+<BookingIntroPanel>
+  {data => doLogClick("short", "short", data)}
+</BookingIntroPanel>;
+
+<BookingIntroPanel>
+  {data =>
+    doLogClick("long_name_long_name_long_name", "long_name_long_name_long_name", data)
+  }
+</BookingIntroPanel>;
+
+<BookingIntroPanel>
+  {data => {
+    doLogClick("long_name_long_name_long_name", "long_name_long_name_long_name", data)
+  }}
+</BookingIntroPanel>;
+
+<Component>
+  {(
+    key: "possible_key_1" | "possible_key_2" | "possible_key_3",
+    value: string | Immutable.List<string>,
+  ) => {
+    this.setState({
+      updatedTask: this.state.updatedTask.set(key, value)
+    });
+  }}
+</Component>;

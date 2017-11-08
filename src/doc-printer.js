@@ -1,5 +1,6 @@
 "use strict";
 
+const util = require("./util");
 const docBuilders = require("./doc-builders");
 const concat = docBuilders.concat;
 const fill = docBuilders.fill;
@@ -12,8 +13,8 @@ function rootIndent() {
   return {
     indent: 0,
     align: {
-      spaces: 0,
-      tabs: 0
+      spaces: "",
+      tabs: ""
     }
   };
 }
@@ -30,8 +31,8 @@ function makeAlign(ind, n) {
     return {
       indent: 0,
       align: {
-        spaces: 0,
-        tabs: 0
+        spaces: "",
+        tabs: ""
       }
     };
   }
@@ -39,8 +40,8 @@ function makeAlign(ind, n) {
   return {
     indent: ind.indent,
     align: {
-      spaces: ind.align.spaces + n,
-      tabs: ind.align.tabs + (n ? 1 : 0)
+      spaces: ind.align.spaces + (typeof n === "number" ? " ".repeat(n) : n),
+      tabs: ind.align.tabs + (n ? "\t" : "")
     }
   };
 }
@@ -66,7 +67,7 @@ function fits(next, restCommands, width, mustBeFlat) {
     const doc = x[2];
 
     if (typeof doc === "string") {
-      width -= doc.length;
+      width -= util.getStringWidth(doc);
     } else {
       switch (doc.type) {
         case "concat":
@@ -153,7 +154,7 @@ function printDocToString(doc, options) {
     if (typeof doc === "string") {
       out.push(doc);
 
-      pos += doc.length;
+      pos += util.getStringWidth(doc);
     } else {
       switch (doc.type) {
         case "cursor":
@@ -270,7 +271,7 @@ function printDocToString(doc, options) {
           const content = parts[0];
           const contentFlatCmd = [ind, MODE_FLAT, content];
           const contentBreakCmd = [ind, MODE_BREAK, content];
-          const contentFits = fits(contentFlatCmd, [], width - rem, true);
+          const contentFits = fits(contentFlatCmd, [], rem, true);
 
           if (parts.length === 1) {
             if (contentFits) {
@@ -399,12 +400,12 @@ function printDocToString(doc, options) {
                   }
                 }
 
-                const length = ind.indent * options.tabWidth + ind.align.spaces;
+                const indentLength = ind.indent * options.tabWidth;
                 const indentString = options.useTabs
-                  ? "\t".repeat(ind.indent + ind.align.tabs)
-                  : " ".repeat(length);
+                  ? "\t".repeat(ind.indent) + ind.align.tabs
+                  : " ".repeat(indentLength) + ind.align.spaces;
                 out.push(newLine + indentString);
-                pos = length;
+                pos = indentLength + ind.align.spaces.length;
               }
               break;
           }

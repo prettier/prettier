@@ -27,20 +27,8 @@ zero_width_space = <div>]​​​[</div>
 // Treated as whitespace in JSX
 spaces = <div>] [</div>;
 tabs = <div>] [</div>;
-slash_n = (
-  <div>
-    ]
-
-    [
-  </div>
-);
-slash_r = (
-  <div>
-    ]
-
-    [
-  </div>
-);
+slash_n = <div>] [</div>;
+slash_r = <div>] [</div>;
 
 // Not treated as whitespace in JSX
 // NOTE: Some of the space characters here won't show up in an editor,

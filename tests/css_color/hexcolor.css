@@ -1,0 +1,7 @@
+.foo {
+    color: #AAA;
+    -o-color: #fabcd3;
+    -webkit-color: #873;
+    -moz-color: #6bcdef;
+    -ms-color: #AAbbCC;
+}

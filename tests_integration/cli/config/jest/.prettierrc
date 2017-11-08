@@ -1,0 +1,8 @@
+semi: false
+
+overrides:
+- files:
+  - "*.test.js"
+  - "**/__best-tests__/*.js"
+  options:
+    semi: true

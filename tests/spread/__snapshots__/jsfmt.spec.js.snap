@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`spread.js 1`] = `
+const foo = { ...(a || b) };
+const foo2 = { ...a || b };
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const foo = { ...(a || b) };
+const foo2 = { ...(a || b) };
+
+`;

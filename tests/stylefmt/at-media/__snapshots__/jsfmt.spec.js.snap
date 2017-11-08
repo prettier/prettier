@@ -26,10 +26,14 @@ exports[`at-media.css 1`] = `
 }
 @media (not ( screen and ( color ) )), print and (color) {
 }
-@media screen and (device-aspect-ratio: 16/9), screen and (device-aspect-ratio: 16/10) {
+@media screen and (device-aspect-ratio: 16/9),
+  screen and (device-aspect-ratio: 16/10) {
 }
 
-@media (-webkit-min-device-pixel-ratio: 2), (min--moz-device-pixel-ratio: 2), (min-resolution: 2dppx), (min-resolution: 192dpi) {
+@media (-webkit-min-device-pixel-ratio: 2),
+  (min--moz-device-pixel-ratio: 2),
+  (min-resolution: 2dppx),
+  (min-resolution: 192dpi) {
 }
 
 `;
