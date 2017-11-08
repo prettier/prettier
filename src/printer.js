@@ -1292,7 +1292,7 @@ function genericPrintNoParens(path, options, print, args) {
         forceNoIndent = true;
 
         // Even though they don't need parens, we wrap (almost) everything in
-        // parens when using ?: within JSX, because the parens are analagous to
+        // parens when using ?: within JSX, because the parens are analogous to
         // curly braces in an if statement.
         const wrap = doc =>
           concat([

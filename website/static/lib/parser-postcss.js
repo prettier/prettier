@@ -3045,7 +3045,7 @@ function defaultClearTimeout () {
 } ());
 function runTimeout(fun) {
     if (cachedSetTimeout === setTimeout) {
-        //normal enviroments in sane situations
+        //normal environments in sane situations
         return setTimeout(fun, 0);
     }
     // if setTimeout wasn't available but was latter defined
@@ -3070,7 +3070,7 @@ function runTimeout(fun) {
 }
 function runClearTimeout(marker) {
     if (cachedClearTimeout === clearTimeout) {
-        //normal enviroments in sane situations
+        //normal environments in sane situations
         return clearTimeout(marker);
     }
     // if clearTimeout wasn't available but was latter defined
@@ -3152,7 +3152,7 @@ process.nextTick = function (fun) {
     }
 };
 
-// v8 likes predictible objects
+// v8 likes predictable objects
 function Item(fun, array) {
     this.fun = fun;
     this.array = array;
@@ -9602,7 +9602,7 @@ var LessParser = function (_Parser) {
 
       /**
        * By default in PostCSS `Rule.params` is `undefined`.
-       * To preserve compability with PostCSS:
+       * To preserve compatibility with PostCSS:
        *  - Don't set empty params for a Rule.
        *  - Set params for a Rule only if it can be a mixin or &:extend rule.
        */
@@ -10241,7 +10241,7 @@ Container.constructor = _Node2.default;
  *
  * @param {RegExp|string} filter - Optional. Only nodes with node.type that
  *    satisfies the filter will be traversed over
- * @param {function} cb - callback to call on each node. Takes theese params:
+ * @param {function} cb - callback to call on each node. Takes these params:
  *    node - the node being processed, i - it's index, nodes - the array
  *    of all nodes
  *    If false is returned, the iteration breaks
@@ -10269,7 +10269,7 @@ Container.prototype.walk = function walk(filter, cb) {
 /**
  * Iterate over immediate children of the node
  *
- * @param {function} cb - callback to call on each node. Takes theese params:
+ * @param {function} cb - callback to call on each node. Takes these params:
  *    node - the node being processed, i - it's index, nodes - the array
  *    of all nodes
  *    If false is returned, the iteration breaks
@@ -12626,7 +12626,7 @@ SourceMapGenerator.prototype.setSourceContent =
  * Applies the mappings of a sub-source-map for a specific source file to the
  * source map being generated. Each mapping to the supplied source file is
  * rewritten using the supplied source map. Note: The resolution for the
- * resulting mappings is the minimium of this map and the supplied map.
+ * resulting mappings is the minimum of this map and the supplied map.
  *
  * @param aSourceMapConsumer The source map to be applied.
  * @param aSourceFile Optional. The filename of the source file.
@@ -15990,7 +15990,7 @@ SourceMapGenerator.prototype.setSourceContent =
  * Applies the mappings of a sub-source-map for a specific source file to the
  * source map being generated. Each mapping to the supplied source file is
  * rewritten using the supplied source map. Note: The resolution for the
- * resulting mappings is the minimium of this map and the supplied map.
+ * resulting mappings is the minimum of this map and the supplied map.
  *
  * @param aSourceMapConsumer The source map to be applied.
  * @param aSourceFile Optional. The filename of the source file.
@@ -16381,9 +16381,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Some nodes (media queries, media feature expressions) contain other nodes.
  * They additionally have:
  *  {array} node.nodes -- an array of nodes of the type described here
- *  {funciton} node.each -- traverses direct children of the node, calling
+ *  {function} node.each -- traverses direct children of the node, calling
  *    a callback for each one
- *  {funciton} node.walk -- traverses ALL descendants of the node, calling
+ *  {function} node.walk -- traverses ALL descendants of the node, calling
  *    a callback for each one
  */
 
@@ -23363,7 +23363,7 @@ class ParserError extends Error {
     super(message);
 
     this.name = this.constructor.name;
-    this.message = message || 'An error ocurred while parsing.';
+    this.message = message || 'An error occurred while parsing.';
 
     if (typeof Error.captureStackTrace === 'function') {
       Error.captureStackTrace(this, this.constructor);
@@ -23389,7 +23389,7 @@ class TokenizeError extends Error {
     super(message);
 
     this.name = this.constructor.name;
-    this.message = message || 'An error ocurred while tokzenizing.';
+    this.message = message || 'An error occurred while tokzenizing.';
 
     if (typeof Error.captureStackTrace === 'function') {
       Error.captureStackTrace(this, this.constructor);
