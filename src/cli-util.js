@@ -271,6 +271,8 @@ function eachFilename(argv, patterns, callback) {
       .sync(patterns, { dot: true })
       .map(filePath => path.relative(process.cwd(), filePath));
 
+    filePaths.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+
     if (filePaths.length === 0) {
       logger.error(`No matching files. Patterns tried: ${patterns.join(" ")}`);
       process.exitCode = 2;
