@@ -35,9 +35,9 @@ exports[`additional-space.md 1`] = `
 
    Note: Replace \`<your_username>\` with your GitHub username
 
-2. Run \`yarn install\`. On Windows: To install
-   [Yarn](https://yarnpkg.com/en/docs/install#windows-tab) on Windows you may
-   need to download either node.js or Chocolatey<br />
+2. Run \`yarn install\`. On Windows: To install [Yarn](
+   https://yarnpkg.com/en/docs/install#windows-tab) on Windows you may need to
+   download either node.js or Chocolatey<br />
 
    \`\`\`sh
    yarn install

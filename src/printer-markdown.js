@@ -143,6 +143,7 @@ function genericPrint(path, options, print) {
             "[",
             printChildren(path, options, print),
             "](",
+            printLine(path, softline, options),
             printUrl(node.url, ")"),
             node.title ? ` ${printTitle(node.title)}` : "",
             ")"
@@ -158,6 +159,7 @@ function genericPrint(path, options, print) {
         "![",
         node.alt || "",
         "](",
+        printLine(path, softline, options),
         printUrl(node.url, ")"),
         node.title ? ` ${printTitle(node.title)}` : "",
         ")"
