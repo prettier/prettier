@@ -45,8 +45,8 @@ exports[`inline-nodes.md 1`] = `
 It removes all original styling[*](#styling-footnote) and ensures that all outputted code conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 It removes all original styling[\\*](#styling-footnote) and ensures that all
-outputted code conforms to a consistent style. (See this [blog post](
-http://jlongster.com/A-Prettier-Formatter))
+outputted code conforms to a consistent style. (See this
+[blog post](http://jlongster.com/A-Prettier-Formatter))
 
 `;
 
@@ -98,28 +98,22 @@ abc - abc abc abc
 
 ## Supported Rules
 
-* [no-disabled-tests](
-  /packages/eslint-plugin-jest/docs/rules/no-disabled-tests.md) - disallow
-  disabled tests.
-* [no-focused-tests](
-  /packages/eslint-plugin-jest/docs/rules/no-focused-tests.md) - disallow
-  focused tests.
-* [no-identical-title](
-  /packages/eslint-plugin-jest/docs/rules/no-identical-title.md) - disallow
-  identical titles.
+* [no-disabled-tests](/packages/eslint-plugin-jest/docs/rules/no-disabled-tests.md) -
+  disallow disabled tests.
+* [no-focused-tests](/packages/eslint-plugin-jest/docs/rules/no-focused-tests.md) -
+  disallow focused tests.
+* [no-identical-title](/packages/eslint-plugin-jest/docs/rules/no-identical-title.md) -
+  disallow identical titles.
 * [valid-expect](/packages/eslint-plugin-jest/docs/rules/valid-expect.md) -
   ensure expect is called correctly.
 
 ## Supported Rules
 
-* [no-disabled-tests](
-  /packages/eslint-plugin-jest/docs/rules/no-disabled-tests.md)
+* [no-disabled-tests](/packages/eslint-plugin-jest/docs/rules/no-disabled-tests.md)
   * disallow disabled tests.
-* [no-focused-tests](
-  /packages/eslint-plugin-jest/docs/rules/no-focused-tests.md)
+* [no-focused-tests](/packages/eslint-plugin-jest/docs/rules/no-focused-tests.md)
   * disallow focused tests.
-* [no-identical-title](
-  /packages/eslint-plugin-jest/docs/rules/no-identical-title.md)
+* [no-identical-title](/packages/eslint-plugin-jest/docs/rules/no-identical-title.md)
   * disallow identical titles.
 * [valid-expect](/packages/eslint-plugin-jest/docs/rules/valid-expect.md) -
   ensure expect is called correctly.

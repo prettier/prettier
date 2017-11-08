@@ -18,7 +18,12 @@ const asciiPunctuationPattern = escapeStringRegexp(
   "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
 );
 
-const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "footnoteDefinition"];
+const SINGLE_LINE_NODE_TYPES = [
+  "heading",
+  "tableCell",
+  "footnoteDefinition",
+  "link"
+];
 
 const SIBLING_NODE_TYPES = ["listItem", "definition", "footnoteDefinition"];
 
@@ -143,7 +148,6 @@ function genericPrint(path, options, print) {
             "[",
             printChildren(path, options, print),
             "](",
-            printLine(path, softline, options),
             printUrl(node.url, ")"),
             node.title ? ` ${printTitle(node.title)}` : "",
             ")"
@@ -159,7 +163,6 @@ function genericPrint(path, options, print) {
         "![",
         node.alt || "",
         "](",
-        printLine(path, softline, options),
         printUrl(node.url, ")"),
         node.title ? ` ${printTitle(node.title)}` : "",
         ")"
