@@ -355,11 +355,8 @@ function getAncestorNode(path, typeOrTypes) {
 }
 
 function printLine(path, lineOrSoftline, options) {
-  if (!options.proseWrap) {
-    return lineOrSoftline === line ? " " : "";
-  }
-
-  const isBreakable = !getAncestorNode(path, SINGLE_LINE_NODE_TYPES);
+  const isBreakable =
+    options.proseWrap && !getAncestorNode(path, SINGLE_LINE_NODE_TYPES);
   return lineOrSoftline === line
     ? isBreakable ? line : " "
     : isBreakable ? softline : "";
