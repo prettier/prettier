@@ -1001,7 +1001,9 @@ function genericPrintNoParens(path, options, print, args) {
       let separatorParts = [];
       const props = propsAndLoc.sort((a, b) => a.loc - b.loc).map(prop => {
         const result = concat(separatorParts.concat(group(prop.printed)));
-        separatorParts = [separator, line];
+        separatorParts = hasNodeIgnoreComment(prop.node)
+          ? [line]
+          : [separator, line];
         if (util.isNextLineEmpty(options.originalText, prop.node)) {
           separatorParts.push(hardline);
         }
@@ -1012,7 +1014,9 @@ function genericPrintNoParens(path, options, print, args) {
 
       const canHaveTrailingSeparator = !(
         lastElem &&
-        (lastElem.type === "RestProperty" || lastElem.type === "RestElement")
+        (lastElem.type === "RestProperty" ||
+          lastElem.type === "RestElement" ||
+          hasNodeIgnoreComment(lastElem))
       );
 
       let content;

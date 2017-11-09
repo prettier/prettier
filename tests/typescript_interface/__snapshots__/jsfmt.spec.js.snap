@@ -22,6 +22,35 @@ interface ScreenObject {
 
 `;
 
+exports[`ignore.js 1`] = `
+interface Interface {
+  // prettier-ignore
+  prop: type
+  // prettier-ignore
+  prop: type;
+}
+
+// Last element
+interface Interface {
+  // prettier-ignore
+  prop: type
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+interface Interface {
+  // prettier-ignore
+  prop: type
+  // prettier-ignore
+  prop: type;
+}
+
+// Last element
+interface Interface {
+  // prettier-ignore
+  prop: type
+}
+
+`;
+
 exports[`long-extends.ts 1`] = `
 export interface I extends A, B, C {
   c: string;
