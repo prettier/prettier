@@ -1,3 +1,12 @@
+# 1.8.2
+
+[link](https://github.com/prettier/prettier/compare/1.8.1...1.8.2)
+
+* Markdown: Don't break on links (#3204 by ikatyang)
+* Markdown: Add `--no-prose-wrap` option (#3199 by ikatyang)
+* TypeScript: Parenthesis around TSAsExpression inside TSAbstractClassDeclaration (#3191 by duailibe)
+* JSON: Print JSON top comments as leading comments of root node (#3187 by duailibe)
+
 # 1.8.1
 
 [link](https://github.com/prettier/prettier/compare/1.8.0...1.8.1)
