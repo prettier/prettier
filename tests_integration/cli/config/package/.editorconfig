@@ -1,7 +1,0 @@
-# This file should be overridden by package.json
-
-[*]
-tab_width = 1
-
-[*.ts]
-tab_width = 1
