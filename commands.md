@@ -28,6 +28,7 @@ are printed no matter what and can be statically analyzed.
 
 For example, an array will try to fit on one line:
 
+<!-- prettier-ignore -->
 ```js
 [1, "foo", { bar: 2 }]
 ```
@@ -35,6 +36,7 @@ For example, an array will try to fit on one line:
 However, if any of the items inside the array have a hard break, the
 array will *always* break as well:
 
+<!-- prettier-ignore -->
 ```js
 [
   1,
@@ -53,6 +55,7 @@ implementation of `ArrayExpression` for an example.
 
 This should be used as **last resort** as it triggers an exponential complexity when nested. This will try to print the first argument, if it fit use it, otherwise go to the next one and so on.
 
+<!-- prettier-ignore -->
 ```js
 conditionalGroup([a, b, c])
 ```
@@ -61,6 +64,7 @@ conditionalGroup([a, b, c])
 
 This is an alternative type of group which behave like text layout: it's going to add a break whenever the next element doesn't fit in the line anymore. The difference with a typical group is that it's not going to break all the separators, just the ones that are at the end of lines.
 
+<!-- prettier-ignore -->
 ```js
 fill(["I", line, "love", line, "prettier"])
 ```
@@ -70,6 +74,7 @@ fill(["I", line, "love", line, "prettier"])
 
 Prints something if the current group breaks and something else if it doesn't.
 
+<!-- prettier-ignore -->
 ```js
 ifBreak(";", " ")
 ```
@@ -79,6 +84,7 @@ ifBreak(";", " ")
 Include this anywhere to force all parent groups to break. See `group`
 for more info. Example:
 
+<!-- prettier-ignore -->
 ```js
 group(
   concat([
@@ -119,12 +125,14 @@ don't indent the next line. This is used for template literals.
 
 This is used to implement trailing comments. In practice, it is not practical to find where the line ends and you don't want to accidentally print some code at the end of the comment. `lineSuffix` will buffer the output and flush it before any new line.
 
+<!-- prettier-ignore -->
 ```js
 concat(["a", lineSuffix(" // comment"), ";", hardline])
 ```
 
 will output
 
+<!-- prettier-ignore -->
 ```js
 a; // comment
 ```
@@ -133,12 +141,14 @@ a; // comment
 
 In cases where you embed code inside of templates, comments shouldn't be able to leave the code part. lineSuffixBoundary is an explicit marker you can use to flush code in addition to newlines.
 
+<!-- prettier-ignore -->
 ```js
 concat(["{", lineSuffix(" // comment"), lineSuffixBoundary, "}", hardline])
 ```
 
 will output
 
+<!-- prettier-ignore -->
 ```js
 { // comment
 }
@@ -146,6 +156,7 @@ will output
 
 and **not**
 
+<!-- prettier-ignore -->
 ```js
 {} // comment
 ```
@@ -166,6 +177,7 @@ This is a placeholder value where the cursor is in the original input in order t
 
 For an example, here's the implementation of the `ArrayExpression` node type:
 
+<!-- prettier-ignore -->
 ```js
 group(
   concat([

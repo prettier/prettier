@@ -45,6 +45,7 @@ line length into account, wrapping code when necessary.
 
 ### Input
 
+<!-- prettier-ignore -->
 ```js
 foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
 ```
