@@ -30,6 +30,13 @@ exports[`escape.md 1`] = `
 
 `;
 
+exports[`long.md 1`] = `
+\`this is a long long long long long long long long long long long long long long long inline code\`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\`this is a long long long long long long long long long long long long long long long inline code\`
+
+`;
+
 exports[`simple.md 1`] = `
 \`123\`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
