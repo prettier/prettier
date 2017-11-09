@@ -33,5 +33,10 @@
         "image": "/images/webstorm-128px.png",
         "name": "WebStorm",
         "content": "[External Tool](https://prettier.io/docs/en/webstorm.html)"
+    },
+    {
+        "image": "/images/espresso-128px.png",
+        "name": "Espresso",
+        "content": "[`espresso-prettier`](https://github.com/eablokker/espresso-prettier)"
     }
 ]
