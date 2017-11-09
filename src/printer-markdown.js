@@ -185,9 +185,10 @@ function genericPrint(path, options, print) {
         )
       ) {
         // indented code block
+        const alignment = " ".repeat(4);
         return align(
-          4,
-          concat([" ".repeat(4), join(hardline, node.value.split("\n"))])
+          alignment,
+          concat([alignment, join(hardline, node.value.split("\n"))])
         );
       }
 
@@ -238,7 +239,10 @@ function genericPrint(path, options, print) {
                 : isGitDiffFriendlyOrderedList ? 1 : node.start + index) +
               (nthSiblingIndex % 2 === 0 ? ". " : ") ")
             : nthSiblingIndex % 2 === 0 ? "* " : "- ";
-          return concat([prefix, align(prefix.length, childPath.call(print))]);
+          return concat([
+            prefix,
+            align(" ".repeat(prefix.length), childPath.call(print))
+          ]);
         }
       });
     }
@@ -247,7 +251,7 @@ function genericPrint(path, options, print) {
         node.checked === null ? "" : node.checked ? "[x] " : "[ ] ";
       return concat([
         prefix,
-        align(prefix.length, printChildren(path, options, print))
+        align(" ".repeat(prefix.length), printChildren(path, options, print))
       ]);
     }
     case "thematicBreak": {

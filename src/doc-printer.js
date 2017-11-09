@@ -41,7 +41,7 @@ function makeAlign(ind, n) {
     indent: ind.indent,
     align: {
       spaces: ind.align.spaces + (typeof n === "number" ? " ".repeat(n) : n),
-      tabs: ind.align.tabs + (n ? "\t" : "")
+      tabs: ind.align.tabs + (typeof n === "number" ? (n ? "\t" : "") : n)
     }
   };
 }
