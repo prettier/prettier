@@ -6,6 +6,7 @@ title: Options
 Prettier ships with a handful of customizable format options, usable in both the CLI and API.
 
 ## Print Width
+
 Specify the line length that the printer will wrap on.
 
 > **For readability we recommend against using more than 80 characters:**
@@ -19,6 +20,7 @@ Default | CLI Override | API Override
 `80` | `--print-width <int>` | `printWidth: <int>`
 
 ## Tab Width
+
 Specify the number of spaces per indentation-level.
 
 Default | CLI Override | API Override
@@ -26,6 +28,7 @@ Default | CLI Override | API Override
  `2` | `--tab-width <int>` | `tabWidth: <int>`
 
 ## Tabs
+
 Indent lines with tabs instead of spaces
 
 Default | CLI Override | API Override
@@ -33,6 +36,7 @@ Default | CLI Override | API Override
 `false` | `--use-tabs` | `useTabs: <bool>`
 
 ## Semicolons
+
 Print semicolons at the ends of statements.
 
 Valid options:
@@ -45,6 +49,7 @@ Default | CLI Override | API Override
 `true` | `--no-semi` | `semi: <bool>`
 
 ## Quotes
+
 Use single quotes instead of double quotes.
 
 Notes:
@@ -56,6 +61,7 @@ Default | CLI Override | API Override
 `false` |  `--single-quote` | `singleQuote: <bool>`
 
 ## Trailing Commas
+
 Print trailing commas wherever possible when multi-line. (A single-line array,
 for example, never gets trailing commas.)
 
@@ -69,6 +75,7 @@ Default | CLI Override | API Override
 `"none"` | <code>--trailing-comma <none&#124;es5&#124;all></code> | <code>trailingComma: "<none&#124;es5&#124;all>"</code>
 
 ## Bracket Spacing
+
 Print spaces between brackets in object literals.
 
 Valid options:
@@ -80,6 +87,7 @@ Default | CLI Override | API Override
 `true` | `--no-bracket-spacing` | `bracketSpacing: <bool>`
 
 ## JSX Brackets
+
 Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line (does not apply to self closing elements).
 
 Default | CLI Override | API Override
@@ -87,6 +95,7 @@ Default | CLI Override | API Override
 `false` | `--jsx-bracket-same-line` | `jsxBracketSameLine: <bool>`
 
 ## Range
+
 Format only a segment of a file.
 
 These two options can be used to format code starting and ending at a given character offset (inclusive and exclusive, respectively). The range will extend:
@@ -101,6 +110,7 @@ Default | CLI Override | API Override
 `Infinity` | `--range-end <int>`  | `rangeEnd: <int>`
 
 ## Parser
+
 Specify which parser to use.
 
 Both the `babylon` and `flow` parsers support the same set of JavaScript features (including Flow). Prettier automatically infers the parser from the input file path, so you shouldn't have to change this setting.
@@ -121,6 +131,7 @@ Default | CLI Override | API Override
 `babylon` | `--parser <string>`<br />`--parser ./my-parser` | `parser: "<string>"`<br />`parser: require("./my-parser")`
 
 ## FilePath
+
 Specify the input filepath. This will be used to do parser inference.
 
 For example, the following will use `postcss` parser:
@@ -134,6 +145,9 @@ Default | CLI Override | API Override
 None | `--stdin-filepath <string>` | `filepath: "<string>"`
 
 ## Require pragma
+
+_available in v1.7.0+_
+
 Prettier can restrict itself to only format files that contain a special comment, called a pragma, at the top of the file. This is very useful
 when gradually transitioning large, unformatted codebases to prettier.
 
@@ -158,6 +172,9 @@ Default | CLI Override | API Override
 `false` | `--require-pragma` | `requirePragma: <bool>`
 
 ## Insert Pragma
+
+_available in v1.8.0+_
+
 Prettier can insert a special @format marker at the top of files specifying that the file has been formatted
 with prettier.  This works well when used in tandem with the `--require-pragma` option.  If there is already a
 docblock at the top of the file then this option will add a newline to it with the @format marker.
@@ -167,6 +184,9 @@ Default | CLI Override | API Override
 `false` | `--insert-pragma` | `insertPragma: <bool>`
 
 ## Prose Wrap
+
+_available in v1.8.2+_
+
 By default, Prettier will wrap markdown text at the specified print width.
 In some cases you may want to rely on editor/viewer soft wrapping instead,
 so this option allows you to opt out. When prose wrapping is disabled, each
