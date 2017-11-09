@@ -351,6 +351,9 @@
         <div class="options">
           <label>--print-width <input type="number" value="80" min="0" id="printWidth"></label>
           <label>--tab-width <input type="number" min="0" value="2" id="tabWidth"></label>
+          <label><input type="checkbox" data-inverted id="proseWrap"> --no-prose-wrap</label>
+          <label><input type="checkbox" id="insertPragma"> --insert-pragma</label>
+          <label><input type="checkbox" id="requirePragma"> --require-pragma</label>
         </div>
         <div class="options">
           <label><input type="checkbox" id="useTabs"> --use-tabs</label>
@@ -360,7 +363,13 @@
           <label><input type="checkbox" id="jsxBracketSameLine"> --jsx-bracket-same-line</label>
         </div>
         <div class="options last">
-          <label>--trailing-comma <select id="trailingComma"><option value="none">none</option><option value="es5">es5</option><option value="all">all</option></select></label>
+          <label>--trailing-comma
+            <select id="trailingComma">
+              <option value="none">none</option>
+              <option value="es5">es5</option>
+              <option value="all">all</option>
+            </select>
+          </label>
           <label>--parser
             <select id="parser">
               <option value="babylon">babylon</option>

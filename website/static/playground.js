@@ -19,6 +19,9 @@ var OPTIONS = [
   "parser",
   "semi",
   "useTabs",
+  "insertPragma",
+  "requirePragma",
+  "proseWrap",
   "doc",
   "ast",
   "output2"
