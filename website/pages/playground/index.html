@@ -351,16 +351,6 @@
         <div class="options">
           <label>--print-width <input type="number" value="80" min="0" id="printWidth"></label>
           <label>--tab-width <input type="number" min="0" value="2" id="tabWidth"></label>
-        </div>
-        <div class="options">
-          <label><input type="checkbox" id="useTabs"> --use-tabs</label>
-          <label><input type="checkbox" data-inverted id="semi"> --no-semi</label>
-          <label><input type="checkbox" id="singleQuote"> --single-quote</label>
-          <label><input type="checkbox" data-inverted id="bracketSpacing"> --no-bracket-spacing</label>
-          <label><input type="checkbox" id="jsxBracketSameLine"> --jsx-bracket-same-line</label>
-        </div>
-        <div class="options last">
-          <label>--trailing-comma <select id="trailingComma"><option value="none">none</option><option value="es5">es5</option><option value="all">all</option></select></label>
           <label>--parser
             <select id="parser">
               <option value="babylon">babylon</option>
@@ -374,7 +364,26 @@
               <option value="markdown">markdown</option>
             </select>
           </label>
+          <label>--trailing-comma
+            <select id="trailingComma">
+              <option value="none">none</option>
+              <option value="es5">es5</option>
+              <option value="all">all</option>
+            </select>
+          </label>
+          <label><input type="checkbox" id="useTabs"> --use-tabs</label>
+        </div>
+        <div class="options">
+          <label><input type="checkbox" id="jsxBracketSameLine"> --jsx-bracket-same-line</label>
+          <label><input type="checkbox" data-inverted id="bracketSpacing"> --no-bracket-spacing</label>
+          <label><input type="checkbox" data-inverted id="proseWrap"> --no-prose-wrap</label>
+          <label><input type="checkbox" data-inverted id="semi"> --no-semi</label>
+          <label><input type="checkbox" id="singleQuote"> --single-quote</label>
+        </div>
+        <div class="options last">
           <span style="flex: 0.3"></span>
+          <label><input type="checkbox" id="insertPragma"> --insert-pragma</label>
+          <label><input type="checkbox" id="requirePragma"> --require-pragma</label>
           <label><input type="checkbox" id="ast"> show AST (debug)</label>
           <label><input type="checkbox" id="doc"> show doc (debug)</label>
           <label><input type="checkbox" id="output2"> show second format (debug)</label>
