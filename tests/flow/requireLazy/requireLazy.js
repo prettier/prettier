@@ -19,4 +19,4 @@ var notB: Object = B;
 
 requireLazy(); // Error: No args
 requireLazy([nope], function() {}); // Error: Non-stringliteral args
-requireLazy(['A']); // Error: No calback expression
+requireLazy(['A']); // Error: No callback expression

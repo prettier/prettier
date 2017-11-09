@@ -1076,7 +1076,7 @@ div {
   .mixin();
 }
 
-@size: globaly-defined-value; // callers parent scope - no protection
+@size: globally-defined-value; // callers parent scope - no protection
 
 
 .class {

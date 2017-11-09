@@ -83,7 +83,7 @@ vim-prettier executable resolution:
 
 ### vim-prettier - Usage
 
-Prettier by default will run on auto save but can also be manualy triggered by:
+Prettier by default will run on auto save but can also be manually triggered by:
 
 ```
 <Leader>p
