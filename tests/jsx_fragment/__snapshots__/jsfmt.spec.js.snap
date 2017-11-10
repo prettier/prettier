@@ -16,6 +16,13 @@ exports[`fragment.js 1`] = `
   <Component />
   <Component />
 </ /* close fragment */>;
+
+< // open fragment
+>
+  <Component />
+  <Component />
+</ // close fragment
+>;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <></>;
 
@@ -30,5 +37,14 @@ exports[`fragment.js 1`] = `
   <Component />
   <Component />
 <//* close fragment */>;
+
+<
+  // open fragment
+>
+  <Component />
+  <Component />
+</
+  // close fragment
+>;
 
 `;
