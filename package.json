@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "babel-code-frame": "7.0.0-alpha.12",
-    "babylon": "7.0.0-beta.28",
+    "babylon": "7.0.0-beta.31",
     "camelcase": "4.1.0",
     "chalk": "2.1.0",
     "cjk-regex": "1.0.2",
@@ -25,7 +25,7 @@
     "emoji-regex": "6.5.1",
     "escape-string-regexp": "1.0.5",
     "esutils": "2.0.2",
-    "flow-parser": "0.51.1",
+    "flow-parser": "0.59.0",
     "get-stream": "3.0.0",
     "globby": "6.1.0",
     "graphql": "0.10.5",

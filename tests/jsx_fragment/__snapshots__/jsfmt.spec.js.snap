@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fragment.js 1`] = `
+<></>;
+
+<>
+   text
+</>;
+
+<>
+  <Component />
+  <Component />
+</>;
+
+</* open fragment */>
+  <Component />
+  <Component />
+</ /* close fragment */>;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<></>;
+
+<>text</>;
+
+<>
+  <Component />
+  <Component />
+</>;
+
+</* open fragment */>
+  <Component />
+  <Component />
+<//* close fragment */>;
+
+`;
