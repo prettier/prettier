@@ -87,10 +87,8 @@ function hasJsxIgnoreComment(path) {
   if (
     !parent ||
     !node ||
-    node.type !== "JSXElement" ||
-    node.type !== "JSXFragment" ||
-    parent.type !== "JSXElement" ||
-    parent.type !== "JSXFragment"
+    (node.type !== "JSXElement" && node.type !== "JSXFragment") ||
+    (parent.type !== "JSXElement" && parent.type !== "JSXFragment")
   ) {
     return false;
   }
