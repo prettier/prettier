@@ -9,7 +9,7 @@ const cjkRegex = getCjkRegex();
 
 // the `g` flag is dangerous in RegExp#test()
 // https://stackoverflow.com/a/21373261
-const cjkPunctuationRegex = new RegExp(getCjkRegex.punctuations(), "");
+const cjkPunctuationRegex = new RegExp(getCjkRegex.punctuations().source, "");
 
 function isExportDeclaration(node) {
   if (node) {
