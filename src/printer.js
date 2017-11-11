@@ -1794,6 +1794,11 @@ function genericPrintNoParens(path, options, print, args) {
       const nameHasComments =
         n.name && n.name.comments && n.name.comments.length;
 
+      // Don't break self-closing elements with no attributes and no comments
+      if (n.selfClosing && (!n.attributes || !n.attributes.length) && !nameHasComments) {
+        return concat(["<", path.call(print, "name"), " />"]);
+      }
+
       // don't break up opening elements with a single long text attribute
       if (
         n.attributes.length === 1 &&
