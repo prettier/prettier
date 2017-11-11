@@ -22,7 +22,8 @@ const SINGLE_LINE_NODE_TYPES = [
   "heading",
   "tableCell",
   "footnoteDefinition",
-  "link"
+  "link",
+  "inlineCode"
 ];
 
 const SIBLING_NODE_TYPES = ["listItem", "definition", "footnoteDefinition"];
