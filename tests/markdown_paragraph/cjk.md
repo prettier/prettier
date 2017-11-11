@@ -3,3 +3,5 @@
 這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！
 
 全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白
+
+扩展运算符（spread）是三个点（`...`）。
