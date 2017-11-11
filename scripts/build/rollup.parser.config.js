@@ -18,6 +18,13 @@ export default Object.assign(baseConfig, {
           include: "node_modules/typescript-eslint-parser/parser.js"
         })
       : {},
+    parser === "flow"
+      ? replace({
+          s8: '("fs")',
+          delimiters: ["(", ")"],
+          include: "node_modules/flow-parser/flow_parser.js"
+        })
+      : {},
     json(),
     resolve({ preferBuiltins: true }),
     commonjs(),
