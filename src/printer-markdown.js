@@ -11,13 +11,8 @@ const fill = docBuilders.fill;
 const align = docBuilders.align;
 const docPrinter = require("./doc-printer");
 const printDocToString = docPrinter.printDocToString;
-const escapeStringRegexp = require("escape-string-regexp");
+const asciiPunctuationPattern = util.asciiPunctuationPattern;
 const getCjkRegex = require("cjk-regex");
-
-// http://spec.commonmark.org/0.25/#ascii-punctuation-character
-const asciiPunctuationPattern = escapeStringRegexp(
-  "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
-);
 
 const punctuationPattern = `(?:${[
   getCjkRegex.punctuations().source,
