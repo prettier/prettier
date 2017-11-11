@@ -1792,10 +1792,10 @@ function genericPrintNoParens(path, options, print, args) {
       const n = path.getValue();
 
       const nameHasComments =
-        n.name && n.name.comments && n.name.comments.length;
+        n.name && n.name.comments && n.name.comments.length > 0;
 
       // Don't break self-closing elements with no attributes and no comments
-      if (n.selfClosing && (!n.attributes || !n.attributes.length) && !nameHasComments) {
+      if (n.selfClosing && !n.attributes.length && !nameHasComments) {
         return concat(["<", path.call(print, "name"), " />"]);
       }
 
@@ -1814,7 +1814,7 @@ function genericPrintNoParens(path, options, print, args) {
         //   // comment
         // >
         !nameHasComments &&
-        !(n.attributes[0].comments && n.attributes[0].comments.length)
+        (!n.attributes[0].comments || !n.attributes[0].comments.length)
       ) {
         return group(
           concat([
@@ -1827,10 +1827,9 @@ function genericPrintNoParens(path, options, print, args) {
         );
       }
 
-      const lastAttrHasTrailingComments =
-        n.attributes &&
-        n.attributes.length &&
-        hasTrailingComment(util.getLast(n.attributes));
+      const lastAttrHasTrailingComments = hasTrailingComment(
+        util.getLast(n.attributes)
+      );
 
       const bracketSameLine =
         options.jsxBracketSameLine &&
@@ -1841,7 +1840,7 @@ function genericPrintNoParens(path, options, print, args) {
         // <div
         //   attr // comment
         // >
-        (!nameHasComments || (n.attributes && n.attributes.length)) &&
+        (!nameHasComments || n.attributes.length) &&
         !lastAttrHasTrailingComments;
 
       return group(
