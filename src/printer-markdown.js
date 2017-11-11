@@ -22,8 +22,7 @@ const SINGLE_LINE_NODE_TYPES = [
   "heading",
   "tableCell",
   "footnoteDefinition",
-  "link",
-  "inlineCode"
+  "link"
 ];
 
 const SIBLING_NODE_TYPES = ["listItem", "definition", "footnoteDefinition"];
@@ -83,11 +82,9 @@ function genericPrint(path, options, print) {
     case "sentence":
       return printChildren(path, options, print);
     case "word":
-      return getAncestorNode(path, "inlineCode")
-        ? node.value
-        : node.value
-            .replace(/(^|[^\\])\*/g, "$1\\*") // escape all unescaped `*` and `_`
-            .replace(/\b(^|[^\\])_\b/g, "$1\\_"); // `1_2_3` is not considered emphasis
+      return node.value
+        .replace(/(^|[^\\])\*/g, "$1\\*") // escape all unescaped `*` and `_`
+        .replace(/\b(^|[^\\])_\b/g, "$1\\_"); // `1_2_3` is not considered emphasis
     case "whitespace": {
       const parentNode = path.getParentNode();
       const index = parentNode.children.indexOf(node);
@@ -131,14 +128,8 @@ function genericPrint(path, options, print) {
     case "inlineCode": {
       const backtickCount = util.getMaxContinuousCount(node.value, "`");
       const style = backtickCount === 1 ? "``" : "`";
-      const gap = backtickCount ? printLine(path, line, options) : "";
-      return concat([
-        style,
-        gap,
-        printChildren(path, options, print),
-        gap,
-        style
-      ]);
+      const gap = backtickCount ? " " : "";
+      return concat([style, gap, node.value, gap, style]);
     }
     case "link":
       switch (options.originalText[node.position.start.offset]) {
