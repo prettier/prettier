@@ -6,7 +6,10 @@ const escapeStringRegexp = require("escape-string-regexp");
 
 const getCjkRegex = require("cjk-regex");
 const cjkRegex = getCjkRegex();
-const cjkPunctuationRegex = getCjkRegex.punctuations();
+
+// the `g` flag is dangerous in RegExp#test()
+// https://stackoverflow.com/a/21373261
+const cjkPunctuationRegex = new RegExp(getCjkRegex.punctuations().source, "");
 
 // http://spec.commonmark.org/0.25/#ascii-punctuation-character
 const asciiPunctuationPattern = escapeStringRegexp(

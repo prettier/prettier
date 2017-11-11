@@ -12,6 +12,12 @@ const align = docBuilders.align;
 const docPrinter = require("./doc-printer");
 const printDocToString = docPrinter.printDocToString;
 const asciiPunctuationPattern = util.asciiPunctuationPattern;
+const getCjkRegex = require("cjk-regex");
+
+const punctuationPattern = `(?:${[
+  getCjkRegex.punctuations().source,
+  `[${asciiPunctuationPattern}]`
+].join("|")})`;
 
 const SINGLE_LINE_NODE_TYPES = [
   "heading",
@@ -81,8 +87,18 @@ function genericPrint(path, options, print) {
       return getAncestorNode(path, "inlineCode")
         ? node.value
         : node.value
-            .replace(/(^|[^\\])\*/g, "$1\\*") // escape all unescaped `*` and `_`
-            .replace(/\b(^|[^\\])_\b/g, "$1\\_"); // `1_2_3` is not considered emphasis
+            .replace(/[*]/g, "\\*") // escape all `*`
+            .replace(
+              new RegExp(
+                `(^|${punctuationPattern})(_+)|(_+)(${punctuationPattern}|$)`,
+                "g"
+              ),
+              (_, text1, underscore1, underscore2, text2) =>
+                (underscore1
+                  ? `${text1}${underscore1}`
+                  : `${underscore2}${text2}`
+                ).replace(/_/g, "\\_")
+            ); // escape all `_` except concating with non-punctuation, e.g. `1_2_3` is not considered emphasis
     case "whitespace": {
       const parentNode = path.getParentNode();
       const index = parentNode.children.indexOf(node);
