@@ -20,8 +20,7 @@ export default Object.assign(baseConfig, {
       : {},
     parser === "flow"
       ? replace({
-          s8: '("fs")',
-          delimiters: ["(", ")"],
+          "require(s8)": 'require("fs")',
           include: "node_modules/flow-parser/flow_parser.js"
         })
       : {},
