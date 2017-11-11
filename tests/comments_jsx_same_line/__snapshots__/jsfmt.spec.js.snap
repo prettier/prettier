@@ -26,6 +26,9 @@ exports[`jsx_same_line.js 1`] = `
 >
   {foo}
 </div>;
+
+<br // comment
+/>;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div
 // comment
@@ -51,5 +54,8 @@ exports[`jsx_same_line.js 1`] = `
 >
   {foo}
 </div>;
+
+<br // comment
+/>;
 
 `;
