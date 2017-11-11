@@ -8,6 +8,11 @@ const getCjkRegex = require("cjk-regex");
 const cjkRegex = getCjkRegex();
 const cjkPunctuationRegex = getCjkRegex.punctuations();
 
+// http://spec.commonmark.org/0.25/#ascii-punctuation-character
+const asciiPunctuationPattern = escapeStringRegexp(
+  "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
+);
+
 function isExportDeclaration(node) {
   if (node) {
     switch (node.type) {
@@ -718,7 +723,14 @@ function splitText(text) {
   function appendNode(node) {
     const lastNode = nodes[nodes.length - 1];
     if (lastNode && lastNode.type === "word") {
-      if (isBetween(KIND_NON_CJK, KIND_CJK_CHARACTER)) {
+      if (
+        (lastNode.kind === KIND_NON_CJK &&
+          node.kind === KIND_CJK_CHARACTER &&
+          !new RegExp(`[${asciiPunctuationPattern}]$`).test(lastNode.value)) ||
+        (lastNode.kind === KIND_CJK_CHARACTER &&
+          node.kind === KIND_NON_CJK &&
+          !new RegExp(`^[${asciiPunctuationPattern}]`).test(node.value))
+      ) {
         nodes.push({ type: "whitespace", value: " " });
       } else if (
         !isBetween(KIND_NON_CJK, KIND_CJK_PUNCTUATION) &&
@@ -751,6 +763,7 @@ function getStringWidth(text) {
 }
 
 module.exports = {
+  asciiPunctuationPattern,
   getStringWidth,
   splitText,
   mapDoc,
