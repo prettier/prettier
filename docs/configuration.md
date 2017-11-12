@@ -84,10 +84,12 @@ For more information on how to use the CLI to locate a file, see the [CLI](cli.m
 
 If you'd like a JSON schema to validate your configuration, one is available here: http://json.schemastore.org/prettierrc.
 
-## EditorConfig
+<!--
+  ## EditorConfig
 
-If an [`.editorconfig` file](http://editorconfig.org/) is in your project, Prettier will parse it and convert its properties to the corresponding prettier configuration. This configuration will be overridden by `.prettierrc`, etc. Currently, the following EditorConfig properties are supported:
+  If an [`.editorconfig` file](http://editorconfig.org/) is in your project, Prettier will parse it and convert its properties to the corresponding prettier configuration. This configuration will be overridden by `.prettierrc`, etc. Currently, the following EditorConfig properties are supported:
 
-* `indent_style`
-* `indent_size`/`tab_width`
-* `max_line_length`
+  * `indent_style`
+  * `indent_size`/`tab_width`
+  * `max_line_length`
+-->
