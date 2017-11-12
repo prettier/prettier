@@ -11,13 +11,7 @@ const fill = docBuilders.fill;
 const align = docBuilders.align;
 const docPrinter = require("./doc-printer");
 const printDocToString = docPrinter.printDocToString;
-const asciiPunctuationPattern = util.asciiPunctuationPattern;
-const getCjkRegex = require("cjk-regex");
-
-const punctuationPattern = `(?:${[
-  getCjkRegex.punctuations().source,
-  `[${asciiPunctuationPattern}]`
-].join("|")})`;
+const punctuationCharRange = util.punctuationCharRange;
 
 const SINGLE_LINE_NODE_TYPES = [
   "heading",
@@ -87,7 +81,10 @@ function genericPrint(path, options, print) {
         .replace(/[*]/g, "\\*") // escape all `*`
         .replace(
           new RegExp(
-            `(^|${punctuationPattern})(_+)|(_+)(${punctuationPattern}|$)`,
+            [
+              `(^|[${punctuationCharRange}])(_+)`,
+              `(_+)([${punctuationCharRange}]|$)`
+            ].join("|"),
             "g"
           ),
           (_, text1, underscore1, underscore2, text2) =>
@@ -118,14 +115,14 @@ function genericPrint(path, options, print) {
           prevNode.type === "sentence" &&
           prevNode.children.length > 0 &&
           prevNode.children[prevNode.children.length - 1].type === "word" &&
-          new RegExp(`[^${asciiPunctuationPattern}]$`).test(
+          new RegExp(`[^${punctuationCharRange}]$`).test(
             prevNode.children[prevNode.children.length - 1].value
           )) ||
         (nextNode &&
           nextNode.type === "sentence" &&
           nextNode.children.length > 0 &&
           nextNode.children[0].type === "word" &&
-          new RegExp(`^[^${asciiPunctuationPattern}]`).test(
+          new RegExp(`^[^${punctuationCharRange}]`).test(
             nextNode.children[0].value
           ));
       const style =
