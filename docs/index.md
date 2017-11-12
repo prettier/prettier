@@ -14,8 +14,7 @@ Prettier is an opinionated code formatter with support for:
 * [GraphQL](http://graphql.org/)
 * [Markdown](http://commonmark.org/), including [GFM](https://github.github.com/gfm/)
 
-It removes all original styling[\*](#footnotes) and ensures that all outputted code
-conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
+It removes all original styling[\*](#footnotes) and ensures that all outputted code conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
 
 Prettier takes your code and reprints it from scratch by taking the line length into account.
 
@@ -53,9 +52,7 @@ If you want to learn more, these two conference talks are great introductions:
 
 #### Footnotes
 
-\* _Well actually, some original styling is preserved when practical—see
-  [empty lines] and [multi-line objects]._
+\* _Well actually, some original styling is preserved when practical—see [empty lines] and [multi-line objects]._
 
-
-[empty lines]:rationale.md#empty-lines
-[multi-line objects]:rationale.md#multi-line-objects
+[empty lines]: rationale.md#empty-lines
+[multi-line objects]: rationale.md#multi-line-objects
