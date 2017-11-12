@@ -1827,9 +1827,8 @@ function genericPrintNoParens(path, options, print, args) {
         );
       }
 
-      const lastAttrHasTrailingComments = hasTrailingComment(
-        util.getLast(n.attributes)
-      );
+      const lastAttrHasTrailingComments =
+        n.attributes.length && hasTrailingComment(util.getLast(n.attributes));
 
       const bracketSameLine =
         options.jsxBracketSameLine &&
