@@ -44,8 +44,8 @@ matrix(
 
 ```jsx
 <div>
- {/* prettier-ignore */}
- <span     ugly  format=''   />
+  {/* prettier-ignore */}
+  <span     ugly  format=''   />
 </div>;
 ```
 
