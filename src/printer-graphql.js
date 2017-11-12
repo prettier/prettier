@@ -12,26 +12,6 @@ const ifBreak = docBuilders.ifBreak;
 
 const util = require("./util");
 
-function printSequence(sequencePath, options, print) {
-  const count = sequencePath.getValue().length;
-
-  return join(
-    hardline,
-    sequencePath.map((path, i) => {
-      const printed = print(path);
-
-      if (
-        util.isNextLineEmpty(options.originalText, path.getValue()) &&
-        i < count - 1
-      ) {
-        return concat([printed, hardline]);
-      }
-
-      return printed;
-    })
-  );
-}
-
 function genericPrint(path, options, print) {
   const n = path.getValue();
   if (!n) {
@@ -489,6 +469,26 @@ function printDirectives(path, print, n) {
       )
     )
   ]);
+}
+
+function printSequence(sequencePath, options, print) {
+  const count = sequencePath.getValue().length;
+
+  return join(
+    hardline,
+    sequencePath.map((path, i) => {
+      const printed = print(path);
+
+      if (
+        util.isNextLineEmpty(options.originalText, path.getValue()) &&
+        i < count - 1
+      ) {
+        return concat([printed, hardline]);
+      }
+
+      return printed;
+    })
+  );
 }
 
 module.exports = genericPrint;
