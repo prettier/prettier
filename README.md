@@ -71,6 +71,7 @@ a nit comment on a code review ever again!
 
 **[Documentation](https://prettier.io/docs/en/)**
 
+<!-- prettier-ignore -->
 [Install](https://prettier.io/docs/en/install.html) ·
 [Options](https://prettier.io/docs/en/options.html) ·
 [CLI](https://prettier.io/docs/en/cli.html) ·

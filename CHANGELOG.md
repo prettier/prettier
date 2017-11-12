@@ -209,7 +209,7 @@ Lots of small fixes, mainly for TypeScript.
 * Add space around `=` for flow generics default arguments (#1476)
 * Don't break for unparenthesised single argument flow function (#1452)
 * Don't break on empty arrays and objects (#1440)
-* Do not break on [0] (#1441)
+* Do not break on `[0]` (#1441)
 * Reorder flow object props (#1451)
 * Break inline object first in function arguments (#1453)
 * Break inline object first in function arguments (#1453) (#1173)
@@ -744,7 +744,7 @@ Now using minor versions instead of patch versions for the releases.
 * remove unused recast ref
 * Fix typo in README.
 * Support type annotation for rest argument on babylon parser
-* Use `setq' instead of `infc' and `decf'
+* Use `setq` instead of `infc` and `decf`
 * Add title and encoding to the REPL
 * Fix old name reference in tests_config
 * Minimize string escapes
