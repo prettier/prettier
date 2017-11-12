@@ -3,9 +3,7 @@ id: watching-files
 title: Watching For Changes
 ---
 
-If you prefer to have prettier watch for changes from the command line you can
-use a package like [onchange](https://www.npmjs.com/package/onchange). For
-example:
+If you prefer to have prettier watch for changes from the command line you can use a package like [onchange](https://www.npmjs.com/package/onchange). For example:
 
 ```
 npx onchange '**/*.js' -- npx prettier --write {{changed}}

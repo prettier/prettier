@@ -19,8 +19,8 @@ Here's what you need to know about the tests:
   sure they are semantically equivalent.
 * Each test folder has a `jsfmt.spec.js` that runs the tests. Normally you can
   just put `run_spec(__dirname);` there. You can also pass options and
-  additional parsers, like this: `run_spec(__dirname, { trailingComma: "es5" },
-  ["babylon"]);`
+  additional parsers, like this:
+  `run_spec(__dirname, { trailingComma: "es5" }, ["babylon"]);`
 * `tests/flow/` contains the Flow test suite, and is not supposed to be edited
   by hand. To update it, clone the Flow repo next to the Prettier repo and run:
   `node scripts/sync-flow-tests.js ../flow/tests/`.
@@ -31,10 +31,10 @@ Here's what you need to know about the tests:
 
 Run `yarn lint --fix` to automatically format files.
 
-If you can, take look at [commands.md](commands.md) and check out
-[Wadler's paper](http://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf)
-to understand how Prettier works.
+If you can, take look at [commands.md](commands.md) and check out [Wadler's
+paper](http://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf) to
+understand how Prettier works.
 
 If you want to know more about Prettier's GitHub labels, see the
-[Issue Labels](https://github.com/prettier/prettier/wiki/Issue-Labels) page on
-the Wiki.
+[Issue Labels](https://github.com/prettier/prettier/wiki/Issue-Labels)
+page on the Wiki.

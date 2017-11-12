@@ -7,8 +7,7 @@ Prettier offers an escape hatch to ignore a block of code from being formatted.
 
 ## JavaScript
 
-A JavaScript comment of `// prettier-ignore` will exclude the next node in the
-abstract syntax tree from formatting.
+A JavaScript comment of `// prettier-ignore` will exclude the next node in the abstract syntax tree from formatting.
 
 For example:
 
@@ -45,8 +44,8 @@ matrix(
 
 ```jsx
 <div>
-  {/* prettier-ignore */}
-  <span     ugly  format=''   />
+ {/* prettier-ignore */}
+ <span     ugly  format=''   />
 </div>;
 ```
 
