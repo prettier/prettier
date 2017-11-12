@@ -22,7 +22,7 @@ const punctuationCharRange = `${asciiPunctuationCharRange}${getUnicodeRegex([
   "Pi",
   "Po",
   "Ps"
-]).source.slice(1, -1)}`;
+]).source.slice(1, -1)}`; // remove bracket expression `[` and `]`
 
 function isExportDeclaration(node) {
   if (node) {
