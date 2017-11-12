@@ -49,6 +49,7 @@
     "strip-bom": "3.0.0",
     "typescript": "2.5.3",
     "typescript-eslint-parser": "git://github.com/eslint/typescript-eslint-parser.git#9c71a627da36e97da52ed2731d58509c952b67ae",
+    "unicode-regex": "1.0.1",
     "unified": "6.1.5"
   },
   "devDependencies": {

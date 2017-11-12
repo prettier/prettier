@@ -3,18 +3,26 @@
 const stringWidth = require("string-width");
 const emojiRegex = require("emoji-regex")();
 const escapeStringRegexp = require("escape-string-regexp");
-
 const getCjkRegex = require("cjk-regex");
-const cjkRegex = getCjkRegex();
+const getUnicodeRegex = require("unicode-regex");
 
-// the `g` flag is dangerous in RegExp#test()
-// https://stackoverflow.com/a/21373261
-const cjkPunctuationRegex = new RegExp(getCjkRegex.punctuations().source, "");
+const cjkPattern = getCjkRegex().source;
 
 // http://spec.commonmark.org/0.25/#ascii-punctuation-character
-const asciiPunctuationPattern = escapeStringRegexp(
+const asciiPunctuationCharRange = escapeStringRegexp(
   "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
 );
+
+// http://spec.commonmark.org/0.25/#punctuation-character
+const punctuationCharRange = `${asciiPunctuationCharRange}${getUnicodeRegex([
+  "Pc",
+  "Pd",
+  "Pe",
+  "Pf",
+  "Pi",
+  "Po",
+  "Ps"
+]).source.slice(1, -1)}`;
 
 function isExportDeclaration(node) {
   if (node) {
@@ -672,10 +680,7 @@ function splitText(text) {
   const nodes = [];
 
   text
-    .replace(
-      new RegExp(`(${cjkRegex.source})\n(${cjkRegex.source})`, "g"),
-      "$1$2"
-    )
+    .replace(new RegExp(`(${cjkPattern})\n(${cjkPattern})`, "g"), "$1$2")
     // `\s` but exclude full-width whitspace (`\u3000`)
     .split(/([^\S\u3000]+)/)
     .forEach((token, index, tokens) => {
@@ -692,7 +697,7 @@ function splitText(text) {
       }
 
       token
-        .split(new RegExp(`(${cjkRegex.source})`))
+        .split(new RegExp(`(${cjkPattern})`))
         .forEach((innerToken, innerIndex, innerTokens) => {
           if (
             (innerIndex === 0 || innerIndex === innerTokens.length - 1) &&
@@ -714,7 +719,7 @@ function splitText(text) {
           }
 
           // CJK character
-          const kind = cjkPunctuationRegex.test(innerToken)
+          const kind = new RegExp(`[${punctuationCharRange}]`).test(innerToken)
             ? KIND_CJK_PUNCTUATION
             : KIND_CJK_CHARACTER;
           appendNode({ type: "word", value: innerToken, kind });
@@ -729,10 +734,10 @@ function splitText(text) {
       if (
         (lastNode.kind === KIND_NON_CJK &&
           node.kind === KIND_CJK_CHARACTER &&
-          !new RegExp(`[${asciiPunctuationPattern}]$`).test(lastNode.value)) ||
+          !new RegExp(`[${punctuationCharRange}]$`).test(lastNode.value)) ||
         (lastNode.kind === KIND_CJK_CHARACTER &&
           node.kind === KIND_NON_CJK &&
-          !new RegExp(`^[${asciiPunctuationPattern}]`).test(node.value))
+          !new RegExp(`^[${punctuationCharRange}]`).test(node.value))
       ) {
         nodes.push({ type: "whitespace", value: " " });
       } else if (
@@ -766,7 +771,7 @@ function getStringWidth(text) {
 }
 
 module.exports = {
-  asciiPunctuationPattern,
+  punctuationCharRange,
   getStringWidth,
   splitText,
   mapDoc,
