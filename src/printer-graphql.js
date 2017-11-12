@@ -74,7 +74,7 @@ function genericPrint(path, options, print) {
           concat([
             hardline,
             path.call(
-              selections => printSequence(selections, options, print),
+              selectionsPath => printSequence(selectionsPath, options, print),
               "selections"
             )
           ])
