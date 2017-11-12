@@ -100,7 +100,10 @@ function genericPrint(path, options, print) {
                       softline,
                       join(
                         concat([ifBreak("", ", "), softline]),
-                        path.map(print, "arguments")
+                        path.call(
+                          argsPath => printSequence(argsPath, options, print),
+                          "arguments"
+                        )
                       )
                     ])
                   ),
@@ -195,7 +198,10 @@ function genericPrint(path, options, print) {
                     softline,
                     join(
                       concat([ifBreak("", ", "), softline]),
-                      path.map(print, "arguments")
+                      path.call(
+                        argsPath => printSequence(argsPath, options, print),
+                        "arguments"
+                      )
                     )
                   ])
                 ),
@@ -264,7 +270,10 @@ function genericPrint(path, options, print) {
                     softline,
                     join(
                       concat([ifBreak("", ", "), softline]),
-                      path.map(print, "arguments")
+                      path.call(
+                        argsPath => printSequence(argsPath, options, print),
+                        "arguments"
+                      )
                     )
                   ])
                 ),
@@ -293,7 +302,10 @@ function genericPrint(path, options, print) {
                     softline,
                     join(
                       concat([ifBreak("", ", "), softline]),
-                      path.map(print, "arguments")
+                      path.call(
+                        argsPath => printSequence(argsPath, options, print),
+                        "arguments"
+                      )
                     )
                   ])
                 ),
