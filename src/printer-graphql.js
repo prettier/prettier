@@ -73,9 +73,12 @@ function genericPrint(path, options, print) {
         indent(
           concat([
             hardline,
-            path.call(
-              selectionsPath => printSequence(selectionsPath, options, print),
-              "selections"
+            join(
+              hardline,
+              path.call(
+                selectionsPath => printSequence(selectionsPath, options, print),
+                "selections"
+              )
             )
           ])
         ),
@@ -234,9 +237,12 @@ function genericPrint(path, options, print) {
           ? indent(
               concat([
                 hardline,
-                path.call(
-                  fieldsPath => printSequence(fieldsPath, options, print),
-                  "fields"
+                join(
+                  hardline,
+                  path.call(
+                    fieldsPath => printSequence(fieldsPath, options, print),
+                    "fields"
+                  )
                 )
               ])
             )
@@ -308,7 +314,16 @@ function genericPrint(path, options, print) {
         " {",
         n.values.length > 0
           ? indent(
-              concat([hardline, path.call(valuesPath => printSequence(valuesPath, options, print), "values")])
+              concat([
+                hardline,
+                join(
+                  hardline,
+                  path.call(
+                    valuesPath => printSequence(valuesPath, options, print),
+                    "values"
+                  )
+                )
+              ])
             )
           : "",
         hardline,
@@ -341,7 +356,16 @@ function genericPrint(path, options, print) {
         " {",
         n.fields.length > 0
           ? indent(
-              concat([hardline, path.call(fieldsPath => printSequence(fieldsPath, options, print), "fields")])
+              concat([
+                hardline,
+                join(
+                  hardline,
+                  path.call(
+                    fieldsPath => printSequence(fieldsPath, options, print),
+                    "fields"
+                  )
+                )
+              ])
             )
           : "",
         hardline,
@@ -358,7 +382,13 @@ function genericPrint(path, options, print) {
           ? indent(
               concat([
                 hardline,
-                path.call(opsPath => printSequence(opsPath, options, print), "operationTypes")
+                join(
+                  hardline,
+                  path.call(
+                    opsPath => printSequence(opsPath, options, print),
+                    "operationTypes"
+                  )
+                )
               ])
             )
           : "",
@@ -383,7 +413,16 @@ function genericPrint(path, options, print) {
         " {",
         n.fields.length > 0
           ? indent(
-              concat([hardline, path.call(fieldsPath => printSequence(fieldsPath, options, print), "fields")])
+              concat([
+                hardline,
+                join(
+                  hardline,
+                  path.call(
+                    fieldsPath => printSequence(fieldsPath, options, print),
+                    "fields"
+                  )
+                )
+              ])
             )
           : "",
         hardline,
@@ -474,21 +513,18 @@ function printDirectives(path, print, n) {
 function printSequence(sequencePath, options, print) {
   const count = sequencePath.getValue().length;
 
-  return join(
-    hardline,
-    sequencePath.map((path, i) => {
-      const printed = print(path);
+  return sequencePath.map((path, i) => {
+    const printed = print(path);
 
-      if (
-        util.isNextLineEmpty(options.originalText, path.getValue()) &&
-        i < count - 1
-      ) {
-        return concat([printed, hardline]);
-      }
+    if (
+      util.isNextLineEmpty(options.originalText, path.getValue()) &&
+      i < count - 1
+    ) {
+      return concat([printed, hardline]);
+    }
 
-      return printed;
-    })
-  );
+    return printed;
+  });
 }
 
 module.exports = genericPrint;
