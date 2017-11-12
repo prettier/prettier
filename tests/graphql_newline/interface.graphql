@@ -1,0 +1,9 @@
+interface Actor {
+
+  id: ID
+
+
+  name: String
+  kind: String
+
+}

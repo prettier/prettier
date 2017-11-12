@@ -1,0 +1,7 @@
+input Params {
+
+  id: ID
+
+  name: String
+
+}

@@ -1,0 +1,9 @@
+enum State {
+
+  PENDING
+
+
+  VISIBLE
+  ARCHIVED
+
+}

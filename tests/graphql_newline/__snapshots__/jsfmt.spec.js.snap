@@ -1,0 +1,138 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`enum.graphql 1`] = `
+enum State {
+
+  PENDING
+
+
+  VISIBLE
+  ARCHIVED
+
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+enum State {
+  PENDING
+
+  VISIBLE
+  ARCHIVED
+}
+
+`;
+
+exports[`fields.graphql 1`] = `
+query MyFirstQuery {
+
+  field {
+
+    subfield
+
+    subfield
+
+  }
+
+  field
+  field
+
+}
+
+mutation MyFirstMutation {
+
+  name
+
+  comment
+  kind
+
+}
+
+subscription MySubscription {
+
+  name
+
+  comment
+  kind
+
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+query MyFirstQuery {
+  field {
+    subfield
+
+    subfield
+  }
+
+  field
+  field
+}
+
+mutation MyFirstMutation {
+  name
+
+  comment
+  kind
+}
+
+subscription MySubscription {
+  name
+
+  comment
+  kind
+}
+
+`;
+
+exports[`input.graphql 1`] = `
+input Params {
+
+  id: ID
+
+  name: String
+
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+input Params {
+  id: ID
+
+  name: String
+}
+
+`;
+
+exports[`interface.graphql 1`] = `
+interface Actor {
+
+  id: ID
+
+
+  name: String
+  kind: String
+
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+interface Actor {
+  id: ID
+
+  name: String
+  kind: String
+}
+
+`;
+
+exports[`schema.graphql 1`] = `
+schema {
+
+  query: Root
+  mutation: Mutation
+
+  subscription: Subscription
+
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+schema {
+  query: Root
+  mutation: Mutation
+
+  subscription: Subscription
+}
+
+`;
