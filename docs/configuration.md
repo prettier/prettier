@@ -86,6 +86,8 @@ If you'd like a JSON schema to validate your configuration, one is available her
 
 ## EditorConfig
 
+_available in v1.9.0+_
+
 If an [`.editorconfig` file](http://editorconfig.org/) is in your project, Prettier will parse it and convert its properties to the corresponding prettier configuration. This configuration will be overridden by `.prettierrc`, etc. Currently, the following EditorConfig properties are supported:
 
 * `indent_style`
