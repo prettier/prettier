@@ -40,6 +40,9 @@ shell.echo("Bundling lib bin...");
 shell.exec("rollup -c scripts/build/rollup.bin.config.js");
 shell.chmod("+x", "./dist/bin/prettier.js");
 
+shell.echo("Bundling lib third-party...");
+shell.exec("rollup -c scripts/build/rollup.third-party.config.js");
+
 for (const parser of parsers) {
   if (parser === "postcss") {
     continue;
