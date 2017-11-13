@@ -74,5 +74,10 @@
     "caption": "Material-UI",
     "image": "/images/materialui-200x100.png",
     "infoLink": "http://www.material-ui.com/"
-  }
+  },
+  {
+    "caption": "Wire",
+    "image": "/images/wire-200x100.png",
+    "infoLink": "https://wire.com"
+  }  
 ]
