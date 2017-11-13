@@ -4,12 +4,18 @@ import commonjs from "rollup-plugin-commonjs";
 import json from "rollup-plugin-json";
 import * as path from "path";
 
+const external = ["assert"];
+
+if (process.env.BUILD_TARGET !== "website") {
+  external.push(path.resolve("src/third-party.js"));
+}
+
 export default Object.assign(baseConfig, {
   entry: "index.js",
   dest: "dist/index.js",
   format: "cjs",
   plugins: [json(), resolve({ preferBuiltins: true }), commonjs()],
-  external: ["assert", path.resolve("src/third-party.js")],
+  external,
   paths: {
     [path.resolve("src/third-party.js")]: "./third-party"
   }
