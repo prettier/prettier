@@ -74,6 +74,15 @@ function runPrettier(dir, args, options) {
       then: handler => handler(options.input || "")
     }));
 
+  jest.mock("cosmiconfig", () => {
+    const cosmiconfig = require.requireActual("cosmiconfig");
+    return (moduleName, options) =>
+      cosmiconfig(
+        moduleName,
+        Object.assign({}, options, { stopDir: __dirname })
+      );
+  });
+
   try {
     require(prettierCli);
     status = (status === undefined ? process.exitCode : status) || 0;
