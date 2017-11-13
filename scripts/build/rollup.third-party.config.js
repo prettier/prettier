@@ -3,7 +3,6 @@ import resolve from "rollup-plugin-node-resolve";
 import commonjs from "rollup-plugin-commonjs";
 import json from "rollup-plugin-json";
 import replace from "rollup-plugin-replace";
-import * as path from "path";
 
 export default Object.assign(baseConfig, {
   entry: "src/third-party.js",
