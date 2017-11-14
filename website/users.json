@@ -79,5 +79,10 @@
     "caption": "Wire",
     "image": "/images/wire-200x100.png",
     "infoLink": "https://wire.com"
-  }  
+  },
+  {
+    "caption": "Talkable",
+    "image": "/images/talkable-200x100.png",
+    "infoLink": "https://talkable.com"
+  }
 ]
