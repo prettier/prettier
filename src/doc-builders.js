@@ -55,8 +55,10 @@ function conditionalGroup(states, opts) {
   );
 }
 
-function fill(parts) {
-  parts.forEach(assertDoc);
+function fill(parts, skipAssertDoc) {
+  if (!skipAssertDoc) {
+    parts.forEach(assertDoc);
+  }
 
   return { type: "fill", parts };
 }
