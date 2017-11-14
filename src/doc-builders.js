@@ -2,12 +2,17 @@
 
 function assertDoc(val) {
   /* istanbul ignore if */
-  if (
-    !(typeof val === "string" || (val != null && typeof val.type === "string"))
-  ) {
-    throw new Error(
-      "Value " + JSON.stringify(val) + " is not a valid document"
-    );
+  if (process.env.NODE_ENV === "production") {
+    if (
+      !(
+        typeof val === "string" ||
+        (val != null && typeof val.type === "string")
+      )
+    ) {
+      throw new Error(
+        "Value " + JSON.stringify(val) + " is not a valid document"
+      );
+    }
   }
 }
 
@@ -55,10 +60,8 @@ function conditionalGroup(states, opts) {
   );
 }
 
-function fill(parts, skipAssertDoc) {
-  if (!skipAssertDoc) {
-    parts.forEach(assertDoc);
-  }
+function fill(parts) {
+  parts.forEach(assertDoc);
 
   return { type: "fill", parts };
 }

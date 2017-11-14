@@ -298,11 +298,7 @@ function printDocToString(doc, options) {
           }
 
           const remaining = parts.slice(2);
-          const remainingCmd = [
-            ind,
-            mode,
-            fill(remaining, /* skipAssertDoc */ true)
-          ];
+          const remainingCmd = [ind, mode, fill(remaining)];
 
           const secondContent = parts[2];
           const firstAndSecondContentFlatCmd = [
