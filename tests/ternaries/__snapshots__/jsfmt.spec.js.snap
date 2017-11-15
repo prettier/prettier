@@ -189,8 +189,8 @@ a
 aaaaaaaaaaaaaaa
 	? bbbbbbbbbbbbbbbbbb
 	: ccccccccccccccc
-	  ? ddddddddddddddd
-	  : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg;
+		? ddddddddddddddd
+		: eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg;
 
 a
 	? b
