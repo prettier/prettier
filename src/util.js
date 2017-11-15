@@ -715,7 +715,7 @@ function splitText(text) {
                 innerToken[0]
               );
               const hasTrailingPunctuation = punctuationRegex.test(
-                innerToken[innerToken.length - 1]
+                getLast(innerToken)
               );
 
               appendNode({
@@ -740,7 +740,7 @@ function splitText(text) {
   return nodes;
 
   function appendNode(node) {
-    const lastNode = nodes[nodes.length - 1];
+    const lastNode = getLast(nodes);
     if (lastNode && lastNode.type === "word") {
       if (
         (lastNode.kind === KIND_NON_CJK &&
@@ -782,6 +782,7 @@ function getStringWidth(text) {
 }
 
 module.exports = {
+  punctuationRegex,
   punctuationCharRange,
   getStringWidth,
   splitText,
