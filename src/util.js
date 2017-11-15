@@ -24,6 +24,8 @@ const punctuationCharRange = `${asciiPunctuationCharRange}${getUnicodeRegex([
   "Ps"
 ]).source.slice(1, -1)}`; // remove bracket expression `[` and `]`
 
+const punctuationRegex = new RegExp(`[${punctuationCharRange}]`);
+
 function isExportDeclaration(node) {
   if (node) {
     switch (node.type) {
@@ -719,7 +721,7 @@ function splitText(text) {
           }
 
           // CJK character
-          const kind = new RegExp(`[${punctuationCharRange}]`).test(innerToken)
+          const kind = punctuationRegex.test(innerToken)
             ? KIND_CJK_PUNCTUATION
             : KIND_CJK_CHARACTER;
           appendNode({ type: "word", value: innerToken, kind });
@@ -734,10 +736,10 @@ function splitText(text) {
       if (
         (lastNode.kind === KIND_NON_CJK &&
           node.kind === KIND_CJK_CHARACTER &&
-          !new RegExp(`[${punctuationCharRange}]$`).test(lastNode.value)) ||
+          !punctuationRegex.test(lastNode.value[lastNode.value.length - 1])) ||
         (lastNode.kind === KIND_CJK_CHARACTER &&
           node.kind === KIND_NON_CJK &&
-          !new RegExp(`^[${punctuationCharRange}]`).test(node.value))
+          !punctuationRegex.test(node.value[0]))
       ) {
         nodes.push({ type: "whitespace", value: " " });
       } else if (
