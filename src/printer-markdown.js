@@ -114,14 +114,12 @@ function genericPrint(path, options, print) {
           prevNode.type === "sentence" &&
           prevNode.children.length > 0 &&
           util.getLast(prevNode.children).type === "word" &&
-          !util.punctuationRegex.test(
-            util.getLast(util.getLast(prevNode.children).value)
-          )) ||
+          !util.getLast(prevNode.children).hasTrailingPunctuation) ||
         (nextNode &&
           nextNode.type === "sentence" &&
           nextNode.children.length > 0 &&
           nextNode.children[0].type === "word" &&
-          !util.punctuationRegex.test(nextNode.children[0].value[0]));
+          !nextNode.children[0].hasLeadingPunctuation);
       const style =
         hasPrevOrNextWord || getAncestorNode(path, "emphasis") ? "*" : "_";
       return concat([style, printChildren(path, options, print), style]);
