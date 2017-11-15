@@ -1329,11 +1329,11 @@ function genericPrintNoParens(path, options, print, args) {
           line,
           "? ",
           n.consequent.type === "ConditionalExpression" ? ifBreak("", "(") : "",
-          align(2, path.call(print, "consequent")),
+          align(" ".repeat(2), path.call(print, "consequent")),
           n.consequent.type === "ConditionalExpression" ? ifBreak("", ")") : "",
           line,
           ": ",
-          align(2, path.call(print, "alternate"))
+          align(" ".repeat(2), path.call(print, "alternate"))
         );
       }
 
@@ -2310,7 +2310,7 @@ function genericPrintNoParens(path, options, print, args) {
       const printed = path.map(typePath => {
         let printedType = typePath.call(print);
         if (!shouldHug && shouldIndent) {
-          printedType = align(2, printedType);
+          printedType = align(" ".repeat(2), printedType);
         }
         return comments.printComments(typePath, () => printedType, options);
       }, "types");
