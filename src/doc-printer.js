@@ -297,10 +297,11 @@ function printDocToString(doc, options) {
             break;
           }
 
-          const remaining = parts.slice(2);
-          const remainingCmd = [ind, mode, fill(remaining)];
-
           const secondContent = parts[2];
+
+          parts.splice(0, 2);
+          const remainingCmd = [ind, mode, fill(parts)];
+
           const firstAndSecondContentFlatCmd = [
             ind,
             MODE_FLAT,
