@@ -711,10 +711,19 @@ function splitText(text) {
           // non-CJK word
           if (innerIndex % 2 === 0) {
             if (innerToken !== "") {
+              const hasLeadingPunctuation = punctuationRegex.test(
+                innerToken[0]
+              );
+              const hasTrailingPunctuation = punctuationRegex.test(
+                innerToken[innerToken.length - 1]
+              );
+
               appendNode({
                 type: "word",
                 value: innerToken,
-                kind: KIND_NON_CJK
+                kind: KIND_NON_CJK,
+                hasLeadingPunctuation,
+                hasTrailingPunctuation
               });
             }
             return;
@@ -736,10 +745,10 @@ function splitText(text) {
       if (
         (lastNode.kind === KIND_NON_CJK &&
           node.kind === KIND_CJK_CHARACTER &&
-          !punctuationRegex.test(lastNode.value[lastNode.value.length - 1])) ||
+          !lastNode.hasTrailingPunctuation) ||
         (lastNode.kind === KIND_CJK_CHARACTER &&
           node.kind === KIND_NON_CJK &&
-          !punctuationRegex.test(node.value[0]))
+          !node.hasLeadingPunctuation)
       ) {
         nodes.push({ type: "whitespace", value: " " });
       } else if (
