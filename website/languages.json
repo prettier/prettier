@@ -15,7 +15,7 @@
         "image": "/images/css-128px.png",
         "variants": [
             "CSS3+",
-            "[LESS](http://lesscss.org/)",
+            "[Less](http://lesscss.org/)",
             "[SCSS](http://sass-lang.com)",
             "[styled-components](http://styled-components.com) 💅",
             "[styled-jsx](http://npmjs.com/styled-jsx)"
