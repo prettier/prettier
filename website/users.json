@@ -81,6 +81,16 @@
     "infoLink": "https://wire.com"
   },
   {
+    "caption": "MoonMail",
+    "image": "/images/moonmail-200x100.png",
+    "infoLink": "https://moonmail.io"
+  },
+  {
+    "caption": "MONEI",
+    "image": "/images/monei-200x100.png",
+    "infoLink": "https://monei.net"
+  },
+  {
     "caption": "Talkable",
     "image": "/images/talkable-200x100.png",
     "infoLink": "https://talkable.com"
