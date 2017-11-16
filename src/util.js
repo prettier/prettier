@@ -711,29 +711,37 @@ function splitText(text) {
           // non-CJK word
           if (innerIndex % 2 === 0) {
             if (innerToken !== "") {
-              const hasLeadingPunctuation = punctuationRegex.test(
-                innerToken[0]
-              );
-              const hasTrailingPunctuation = punctuationRegex.test(
-                getLast(innerToken)
-              );
-
               appendNode({
                 type: "word",
                 value: innerToken,
                 kind: KIND_NON_CJK,
-                hasLeadingPunctuation,
-                hasTrailingPunctuation
+                hasLeadingPunctuation: punctuationRegex.test(innerToken[0]),
+                hasTrailingPunctuation: punctuationRegex.test(
+                  getLast(innerToken)
+                )
               });
             }
             return;
           }
 
           // CJK character
-          const kind = punctuationRegex.test(innerToken)
-            ? KIND_CJK_PUNCTUATION
-            : KIND_CJK_CHARACTER;
-          appendNode({ type: "word", value: innerToken, kind });
+          appendNode(
+            punctuationRegex.test(innerToken)
+              ? {
+                  type: "word",
+                  value: innerToken,
+                  kind: KIND_CJK_PUNCTUATION,
+                  hasLeadingPunctuation: true,
+                  hasTrailingPunctuation: true
+                }
+              : {
+                  type: "word",
+                  value: innerToken,
+                  kind: KIND_CJK_CHARACTER,
+                  hasLeadingPunctuation: false,
+                  hasTrailingPunctuation: false
+                }
+          );
         });
     });
 
