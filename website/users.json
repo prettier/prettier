@@ -85,9 +85,14 @@
     "image": "https://static.moonmail.io/moonmail-logo.png",
     "infoLink": "https://moonmail.io"
   },
-   {
+  {
     "caption": "MONEI",
     "image": "https://monei.net/images/logo.png",
     "infoLink": "https://monei.net"
   },
+  {
+    "caption": "Talkable",
+    "image": "/images/talkable-200x100.png",
+    "infoLink": "https://talkable.com"
+  }
 ]
