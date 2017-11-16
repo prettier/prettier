@@ -12,7 +12,9 @@ function assertDoc(val) {
 }
 
 function concat(parts) {
-  parts.forEach(assertDoc);
+  if (process.env.NODE_ENV !== "production") {
+    parts.forEach(assertDoc);
+  }
 
   // We cannot do this until we change `printJSXElement` to not
   // access the internals of a document directly.
@@ -24,13 +26,17 @@ function concat(parts) {
 }
 
 function indent(contents) {
-  assertDoc(contents);
+  if (process.env.NODE_ENV !== "production") {
+    assertDoc(contents);
+  }
 
   return { type: "indent", contents };
 }
 
 function align(n, contents) {
-  assertDoc(contents);
+  if (process.env.NODE_ENV !== "production") {
+    assertDoc(contents);
+  }
 
   return { type: "align", contents, n };
 }
@@ -38,7 +44,9 @@ function align(n, contents) {
 function group(contents, opts) {
   opts = opts || {};
 
-  assertDoc(contents);
+  if (process.env.NODE_ENV !== "production") {
+    assertDoc(contents);
+  }
 
   return {
     type: "group",
@@ -56,24 +64,30 @@ function conditionalGroup(states, opts) {
 }
 
 function fill(parts) {
-  parts.forEach(assertDoc);
+  if (process.env.NODE_ENV !== "production") {
+    parts.forEach(assertDoc);
+  }
 
   return { type: "fill", parts };
 }
 
 function ifBreak(breakContents, flatContents) {
-  if (breakContents) {
-    assertDoc(breakContents);
-  }
-  if (flatContents) {
-    assertDoc(flatContents);
+  if (process.env.NODE_ENV !== "production") {
+    if (breakContents) {
+      assertDoc(breakContents);
+    }
+    if (flatContents) {
+      assertDoc(flatContents);
+    }
   }
 
   return { type: "if-break", breakContents, flatContents };
 }
 
 function lineSuffix(contents) {
-  assertDoc(contents);
+  if (process.env.NODE_ENV !== "production") {
+    assertDoc(contents);
+  }
   return { type: "line-suffix", contents };
 }
 

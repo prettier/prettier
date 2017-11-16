@@ -41,7 +41,7 @@ function makeAlign(ind, n) {
     indent: ind.indent,
     align: {
       spaces: ind.align.spaces + (typeof n === "number" ? " ".repeat(n) : n),
-      tabs: ind.align.tabs + (n ? "\t" : "")
+      tabs: ind.align.tabs + (typeof n === "number" ? (n ? "\t" : "") : n)
     }
   };
 }
@@ -297,10 +297,16 @@ function printDocToString(doc, options) {
             break;
           }
 
-          const remaining = parts.slice(2);
-          const remainingCmd = [ind, mode, fill(remaining)];
+          // At this point we've handled the first pair (context, separator)
+          // and will create a new fill doc for the rest of the content.
+          // Ideally we wouldn't mutate the array here but coping all the
+          // elements to a new array would make this algorithm quadratic,
+          // which is unusable for large arrays (e.g. large texts in JSX).
+          parts.splice(0, 2);
+          const remainingCmd = [ind, mode, fill(parts)];
 
-          const secondContent = parts[2];
+          const secondContent = parts[0];
+
           const firstAndSecondContentFlatCmd = [
             ind,
             MODE_FLAT,

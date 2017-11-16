@@ -16,7 +16,7 @@ Go to _File | Settings | Tools | External Tools_ for Windows and Linux or _WebSt
 * **Parameters** set `--write [other opts] $FilePathRelativeToProjectRoot$`
 * **Working directory** set `$ProjectFileDir$`
 
-![Example](../../images/webstorm/with-prettier.png)
+![Example](/docs/assets/webstorm/with-prettier.png)
 
 ### Process directories
 
@@ -47,4 +47,4 @@ Go to _File | Settings | Tools | File Watchers_ for Windows and Linux or _WebSto
 * **Working directory** set `$ProjectFileDir$`
 * **Immediate file synchronization**: Uncheck to reformat on Save only (otherwise code will jump around while you type).
 
-![Example](../../images/webstorm/prettier-file-wacther.png)
+![Example](/docs/assets/webstorm/prettier-file-watcher.png)

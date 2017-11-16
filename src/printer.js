@@ -1791,6 +1791,14 @@ function genericPrintNoParens(path, options, print, args) {
     case "JSXOpeningElement": {
       const n = path.getValue();
 
+      const nameHasComments =
+        n.name && n.name.comments && n.name.comments.length > 0;
+
+      // Don't break self-closing elements with no attributes and no comments
+      if (n.selfClosing && !n.attributes.length && !nameHasComments) {
+        return concat(["<", path.call(print, "name"), " />"]);
+      }
+
       // don't break up opening elements with a single long text attribute
       if (
         n.attributes.length === 1 &&
@@ -1805,10 +1813,8 @@ function genericPrintNoParens(path, options, print, args) {
         //   attr="value"
         //   // comment
         // >
-        !(
-          (n.name && n.name.comments && n.name.comments.length) ||
-          (n.attributes[0].comments && n.attributes[0].comments.length)
-        )
+        !nameHasComments &&
+        (!n.attributes[0].comments || !n.attributes[0].comments.length)
       ) {
         return group(
           concat([
@@ -1821,6 +1827,9 @@ function genericPrintNoParens(path, options, print, args) {
         );
       }
 
+      const lastAttrHasTrailingComments =
+        n.attributes.length && hasTrailingComment(util.getLast(n.attributes));
+
       const bracketSameLine =
         options.jsxBracketSameLine &&
         // We should print the bracket in a new line for the following cases:
@@ -1830,15 +1839,8 @@ function genericPrintNoParens(path, options, print, args) {
         // <div
         //   attr // comment
         // >
-        !(
-          (n.name &&
-            !(n.attributes && n.attributes.length) &&
-            n.name.comments &&
-            n.name.comments.length) ||
-          (n.attributes &&
-            n.attributes.length &&
-            hasTrailingComment(util.getLast(n.attributes)))
-        );
+        (!nameHasComments || n.attributes.length) &&
+        !lastAttrHasTrailingComments;
 
       return group(
         concat([

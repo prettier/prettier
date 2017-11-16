@@ -37,6 +37,7 @@ fragment YouCanHaveDirectivesHereToo on SomeType @yesReally(what: "yes") {
   ... @notEvenATypeHere(args: [1, 2, 3]) {
     hello
   }
+
   thisFieldHasALotOfDirectives
     @thisIsthefirst
     @thisIsTheSecond
