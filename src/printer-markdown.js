@@ -203,6 +203,8 @@ function genericPrint(path, options, print) {
     }
     case "yaml":
       return concat(["---", hardline, node.value, hardline, "---"]);
+    case "toml":
+      return concat(["+++", hardline, node.value, hardline, "+++"]);
     case "html": {
       const parentNode = path.getParentNode();
       return parentNode.type === "root" &&
