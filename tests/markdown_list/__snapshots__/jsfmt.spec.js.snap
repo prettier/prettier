@@ -5,9 +5,9 @@ exports[`checkbox.md 1`] = `
 - [x] this is a long long long long long long long long long long long long long long paragraph.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * [ ] this is a long long long long long long long long long long long long long
-  long paragraph.
+      long paragraph.
 * [x] this is a long long long long long long long long long long long long long
-  long paragraph.
+      long paragraph.
 
 `;
 
@@ -78,21 +78,35 @@ exports[`nested.md 1`] = `
 `;
 
 exports[`nested-checkbox.md 1`] = `
-* parent list item
+* parent list item parent list item parent list item parent list item parent list item parent list item
 
-     * child list item
+     * child list item child list item child list item child list item child list item child list item
 
-* [x] parent task list item
+    paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph
 
-     * [x] child task list item
+* [x] parent task list item parent task list item parent task list item parent task list item
+
+     * [x] child task list item child task list item child task list item child task list item
+
+    paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* parent list item
+* parent list item parent list item parent list item parent list item parent
+  list item parent list item
 
-  * child list item
+  * child list item child list item child list item child list item child list
+    item child list item
 
-* [x] parent task list item
+  paragraph paragraph paragraph paragraph paragraph paragraph paragraph
+  paragraph paragraph
 
-  * [x] child task list item
+* [x] parent task list item parent task list item parent task list item parent
+      task list item
+
+  * [x] child task list item child task list item child task list item child
+        task list item
+
+  paragraph paragraph paragraph paragraph paragraph paragraph paragraph
+  paragraph paragraph
 
 `;
 

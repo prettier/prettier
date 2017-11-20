@@ -244,9 +244,16 @@ function genericPrint(path, options, print) {
       });
     }
     case "listItem": {
+      const prefix =
+        node.checked === null ? "" : node.checked ? "[x] " : "[ ] ";
       return concat([
-        node.checked === null ? "" : node.checked ? "[x] " : "[ ] ",
-        printChildren(path, options, print)
+        prefix,
+        printChildren(path, options, print, {
+          processor: (childPath, index) =>
+            index === 0 && childPath.getValue().type !== "list"
+              ? align(prefix.length, childPath.call(print))
+              : childPath.call(print)
+        })
       ]);
     }
     case "thematicBreak": {
