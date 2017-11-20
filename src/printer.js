@@ -1329,17 +1329,11 @@ function genericPrintNoParens(path, options, print, args) {
           line,
           "? ",
           n.consequent.type === "ConditionalExpression" ? ifBreak("", "(") : "",
-          align(
-            endsWithParentheses(n.consequent) ? " ".repeat(2) : 2,
-            path.call(print, "consequent")
-          ),
+          align(2, path.call(print, "consequent")),
           n.consequent.type === "ConditionalExpression" ? ifBreak("", ")") : "",
           line,
           ": ",
-          align(
-            endsWithParentheses(n.alternate) ? " ".repeat(2) : 2,
-            path.call(print, "alternate")
-          )
+          align(2, path.call(print, "alternate"))
         );
       }
 
@@ -5049,18 +5043,6 @@ function printAstToDoc(ast, options, addAlignmentSize) {
   }
 
   return doc;
-}
-
-function endsWithParentheses(node) {
-  switch (node.type) {
-    case "ObjectExpression":
-    case "ArrayExpression":
-    case "ArrowFunctionExpression":
-    case "FunctionExpression":
-      return true;
-    default:
-      return false;
-  }
 }
 
 module.exports = { printAstToDoc };

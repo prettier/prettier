@@ -22,7 +22,7 @@ function makeAlign(ind, n) {
     return "";
   }
 
-  return ind + (!n ? "" : typeof n === "string" ? n : "\t");
+  return ind + (typeof n === "string" ? n : " ".repeat(n));
 }
 
 function getIndentation(ind, options) {
