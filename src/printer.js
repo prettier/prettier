@@ -2310,7 +2310,7 @@ function genericPrintNoParens(path, options, print, args) {
       const printed = path.map(typePath => {
         let printedType = typePath.call(print);
         if (!shouldHug && shouldIndent) {
-          printedType = align(" ".repeat(2), printedType);
+          printedType = align(2, printedType);
         }
         return comments.printComments(typePath, () => printedType, options);
       }, "types");
