@@ -17,10 +17,8 @@ md\`
     ~~~js
     console.log("hi");
     ~~~
-
   \\\`;
   ~~~
-
 \`;
 
 `;
@@ -73,8 +71,16 @@ export default function ReadMe() {
       because he has a million decisions to make and he didn't want to be
       bothered to make trivial ones like picking out clothes. I think Prettier
       is like that.”
-
   \`;
 }
+
+`;
+
+exports[`single-line.js 1`] = `
+markdown\`# hello\`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+markdown\`
+  # hello
+\`;
 
 `;
