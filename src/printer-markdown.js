@@ -244,11 +244,9 @@ function genericPrint(path, options, print) {
       });
     }
     case "listItem": {
-      const prefix =
-        node.checked === null ? "" : node.checked ? "[x] " : "[ ] ";
       return concat([
-        prefix,
-        align(" ".repeat(prefix.length), printChildren(path, options, print))
+        node.checked === null ? "" : node.checked ? "[x] " : "[ ] ",
+        printChildren(path, options, print)
       ]);
     }
     case "thematicBreak": {

@@ -5,9 +5,9 @@ exports[`checkbox.md 1`] = `
 - [x] this is a long long long long long long long long long long long long long long paragraph.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * [ ] this is a long long long long long long long long long long long long long
-      long paragraph.
+  long paragraph.
 * [x] this is a long long long long long long long long long long long long long
-      long paragraph.
+  long paragraph.
 
 `;
 
@@ -74,6 +74,25 @@ exports[`nested.md 1`] = `
 * Level 1
   * Level 2
     * Level 3
+
+`;
+
+exports[`nested-checkbox.md 1`] = `
+* parent list item
+
+     * child list item
+
+* [x] parent task list item
+
+     * [x] child task list item
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* parent list item
+
+  * child list item
+
+* [x] parent task list item
+
+  * [x] child task list item
 
 `;
 
