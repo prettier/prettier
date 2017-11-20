@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`aliasArrow.ts 1`] = `
+type NameResolver = (() => string);
+
+type func = ((x:number)=>string);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type NameResolver = () => string;
+
+type func = (x: number) => string;
+
+`;
