@@ -13,7 +13,7 @@ This means you can configure prettier via:
 The configuration file will be resolved starting from the location of the file being formatted,
 and searching up the file tree until a config file is (or isn't) found.
 
-The options to the configuration file are the same the [API options](options.md).
+The options to the configuration file are the same as the [API options](options.md).
 
 ## Basic Configuration
 
