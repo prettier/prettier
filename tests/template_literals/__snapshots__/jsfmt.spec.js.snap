@@ -42,11 +42,9 @@ const long = \`long \${
 } long longlong \${a.b.c.d.e} long longlong \${a.b.c.d.e} long longlong \${
   a.b.c.d.e
 } long long\`;
-const long = \`long \${a.b.c.d.e} long longlong \${
-  loooooooooooooooooong
-} long longlong \${loooooooooooooooooong} long longlong \${
-  loooooooooooooooooong
-} long long\`;
+const long = \`long \${
+  a.b.c.d.e
+} long longlong \${loooooooooooooooooong} long longlong \${loooooooooooooooooong} long longlong \${loooooooooooooooooong} long long\`;
 
 const long = \`long long long long long long long long long long long \${
   a.b.c.d.e

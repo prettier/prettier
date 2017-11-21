@@ -1988,7 +1988,7 @@ function genericPrintNoParens(path, options, print, args) {
           let printed = expressions[i];
 
           if (
-            n.expressions[i].type === "Identifier" ||
+            (n.expressions[i].comments && n.expressions[i].comments.length) ||
             n.expressions[i].type === "MemberExpression" ||
             n.expressions[i].type === "ConditionalExpression"
           ) {
