@@ -249,7 +249,12 @@ function genericPrint(path, options, print) {
         node.checked === null ? "" : node.checked ? "[x] " : "[ ] ";
       return concat([
         prefix,
-        align(" ".repeat(prefix.length), printChildren(path, options, print))
+        printChildren(path, options, print, {
+          processor: (childPath, index) =>
+            index === 0 && childPath.getValue().type !== "list"
+              ? align(" ".repeat(prefix.length), childPath.call(print))
+              : childPath.call(print)
+        })
       ]);
     }
     case "thematicBreak": {
