@@ -36,17 +36,21 @@ console.log(
 console.log(\`brew cask audit --download \${_.map(definitions, 'caskName').join(' ')}\`)
 
 console.log(\`\\nApparently jetbrains changed the release artifact for \${app.name}@\${app.jetbrains.version}.\\n\`);
+
+descirbe('something', () => {
+  test(\`{pass: false} expect(\${small}).toBeGreaterThanOrEqual(\${big})\`, () => {});
+})
+
+throw new Error(\`pretty-format: Option "theme" has a key "\${key}" whose value "\${value}" is undefined in ansi-styles.\`,)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const long = \`long \${
   a.b //comment
 } long longlong \${a.b.c.d.e} long longlong \${a.b.c.d.e} long longlong \${
   a.b.c.d.e
 } long long\`;
-const long = \`long \${a.b.c.d.e} long longlong \${
-  loooooooooooooooooong
-} long longlong \${loooooooooooooooooong} long longlong \${
-  loooooooooooooooooong
-} long long\`;
+const long = \`long \${
+  a.b.c.d.e
+} long longlong \${loooooooooooooooooong} long longlong \${loooooooooooooooooong} long longlong \${loooooooooooooooooong} long long\`;
 
 const long = \`long long long long long long long long long long long \${
   a.b.c.d.e
@@ -92,6 +96,14 @@ console.log(
   \`\\nApparently jetbrains changed the release artifact for \${app.name}@\${
     app.jetbrains.version
   }.\\n\`
+);
+
+descirbe("something", () => {
+  test(\`{pass: false} expect(\${small}).toBeGreaterThanOrEqual(\${big})\`, () => {});
+});
+
+throw new Error(
+  \`pretty-format: Option "theme" has a key "\${key}" whose value "\${value}" is undefined in ansi-styles.\`
 );
 
 `;
