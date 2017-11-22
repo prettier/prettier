@@ -1,5 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`module-with-invalid-docblock.js 1`] = `
+/*
+ * 
+ * This dockblock is invalid
+ */
+
+function foo(bar) { 
+  return bar + 3 + 4;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * This dockblock is invalid
+ *
+ * @format
+ */
+
+function foo(bar) {
+  return bar + 3 + 4;
+}
+
+`;
+
 exports[`module-with-late-docblock.js 1`] = `
 function foo(bar) { 
   return bar + 3 + 4;
