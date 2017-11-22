@@ -540,7 +540,8 @@ function render() {
             progress: Math.round(
               100 * e.nativeEvent.loaded / e.nativeEvent.total
             )
-          })}
+          })
+        }
       />
     </View>
   );
@@ -555,7 +556,8 @@ function render() {
             progress: Math.round(
               100 * e.nativeEvent.loaded / e.nativeEvent.total
             )
-          })}
+          })
+        }
       />
     </View>
   );
@@ -570,7 +572,8 @@ function render() {
             progress: Math.round(
               100 * e.nativeEvent.loaded / e.nativeEvent.total
             )
-          })}
+          })
+        }
       />
     </View>
   );
@@ -586,7 +589,7 @@ jest.mock(
     }
 );
 
-fooooooooooooooooooooooooooooooooooooooooooooooooooo(action => next =>
+fooooooooooooooooooooooooooooooooooooooooooooooooooo(action => (next) =>
   dispatch(action)
 );
 
@@ -710,7 +713,8 @@ function render() {
             progress: Math.round(
               100 * e.nativeEvent.loaded / e.nativeEvent.total
             )
-          })}
+          })
+        }
       />
     </View>
   );
@@ -725,7 +729,8 @@ function render() {
             progress: Math.round(
               100 * e.nativeEvent.loaded / e.nativeEvent.total
             )
-          })}
+          })
+        }
       />
     </View>
   );
@@ -740,7 +745,8 @@ function render() {
             progress: Math.round(
               100 * e.nativeEvent.loaded / e.nativeEvent.total
             )
-          })}
+          })
+        }
       />
     </View>
   );
@@ -865,17 +871,17 @@ export const bem = block =>
  * @param {String} block - the BEM Block you'd like to select.
  * @returns {Function}
  */
-export const bem = block =>
+export const bem = (block) =>
   /**
    * @param {String} [element] - the BEM Element within that block; if undefined, selects the block itself.
    * @returns {Function}
    */
-  element =>
+  (element) =>
     /**
      * @param {?String} [modifier] - the BEM Modifier for the Block or Element; if undefined, selects the Block or Element unmodified.
      * @returns {String}
      */
-    modifier =>
+    (modifier) =>
       [
         ".",
         css(block),
@@ -1015,21 +1021,21 @@ const middleware = options => (req, res, next) => {
   // ...
 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const fn = b => c => d => {
+const fn = (b) => (c) => (d) => {
   return 3;
 };
 
-const foo = (a, b) => c => d => {
+const foo = (a, b) => (c) => (d) => {
   return 3;
 };
 
-const bar = a => b => c => a + b + c;
+const bar = (a) => (b) => (c) => a + b + c;
 
-const mw = store => next => action => {
+const mw = (store) => (next) => (action) => {
   return next(action);
 };
 
-const middleware = options => (req, res, next) => {
+const middleware = (options) => (req, res, next) => {
   // ...
 };
 

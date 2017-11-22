@@ -19,16 +19,15 @@ const defaults = {
   jsxBracketSameLine: false,
   parser: "babylon",
   semi: true,
-  arrowFnParens: "default",
+  arrowFnParens: "avoid",
   insertPragma: false,
   requirePragma: false,
-  semi: true,
   proseWrap: true
 };
 
 const trailingCommaEnum = ["none", "es5", "all"];
 
-const arrowFnParensEnum = ["avoid", "default", "always"];
+const arrowFnParensEnum = ["avoid", "callbacks", "always"];
 
 const exampleConfig = Object.assign({}, defaults, {
   filepath: "path/to/Filename",

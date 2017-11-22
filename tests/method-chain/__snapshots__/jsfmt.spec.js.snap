@@ -61,16 +61,16 @@ it('should group messages with same created time', () => {
   });
 });
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export default (store) => {
+export default store => {
   return callApi(endpoint, schema).then(
-    (response) =>
+    response =>
       next(
         actionWith({
           response,
           type: successType
         })
       ),
-    (error) =>
+    error =>
       next(
         actionWith({
           type: failureType,
@@ -335,7 +335,7 @@ const configModel = this.baseConfigurationService
 this.doWriteConfiguration(target, value, options) // queue up writes to prevent race conditions
   .then(
     () => null,
-    (error) => {
+    error => {
       return options.donotNotifyError
         ? TPromise.wrapError(error)
         : this.onError(error, target, value);

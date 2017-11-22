@@ -99,8 +99,8 @@ let icecream = what == "cone"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let icecream =
   what == "cone"
-    ? (p) => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
-    : (p) => \`here's your \${p} \${what}\`;
+    ? p => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
+    : p => \`here's your \${p} \${what}\`;
 
 `;
 
@@ -111,8 +111,8 @@ let icecream = what == "cone"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let icecream =
     what == "cone"
-        ? (p) => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
-        : (p) => \`here's your \${p} \${what}\`;
+        ? p => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
+        : p => \`here's your \${p} \${what}\`;
 
 `;
 
@@ -129,7 +129,7 @@ debug
   ? this.state.isVisible && somethingComplex ? "partially visible" : "hidden"
   : null;
 
-(a) =>
+a =>
   a
     ? () => {
         a;
@@ -137,8 +137,8 @@ debug
     : () => {
         a;
       };
-(a) => (a ? a : a);
-(a) =>
+a => (a ? a : a);
+a =>
   a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
 
 `;
@@ -156,7 +156,7 @@ debug
     ? this.state.isVisible && somethingComplex ? "partially visible" : "hidden"
     : null;
 
-(a) =>
+a =>
     a
         ? () => {
               a;
@@ -164,8 +164,8 @@ debug
         : () => {
               a;
           };
-(a) => (a ? a : a);
-(a) =>
+a => (a ? a : a);
+a =>
     a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
 
 `;

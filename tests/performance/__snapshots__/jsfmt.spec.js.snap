@@ -148,7 +148,7 @@ tap.test("RecordImport.advance", (t) => {
     });
 });
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-tap.test("RecordImport.advance", (t) => {
+tap.test("RecordImport.advance", t => {
   const checkStates = (batches, states) => {
     t.equal(batches.length, states.length);
     for (const batch of batches) {
@@ -160,7 +160,7 @@ tap.test("RecordImport.advance", (t) => {
   const batch = init.getRecordBatch();
   const dataFile = path.resolve(process.cwd(), "testData", "default.json");
 
-  const getBatches = (callback) => {
+  const getBatches = callback => {
     RecordImport.find({}, "", {}, (err, batches) => {
       callback(
         null,
@@ -172,7 +172,7 @@ tap.test("RecordImport.advance", (t) => {
   };
 
   mockFS(callback => {
-    batch.setResults([fs.createReadStream(dataFile)], (err) => {
+    batch.setResults([fs.createReadStream(dataFile)], err => {
       t.error(err, "Error should be empty.");
       t.equal(batch.results.length, 6, "Check number of results");
       for (const result of batch.results) {

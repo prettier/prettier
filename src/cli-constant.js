@@ -81,16 +81,16 @@ const detailedOptions = normalizeDetailedOptions({
     type: "choice",
     category: CATEGORY_FORMAT,
     forwardToApi: true,
-    default: "default",
+    default: "avoid",
     choices: [
       {
-        value: "default",
-        description:
-          "Prefer to add parens, except in callbacks and curry-chains, like `(x) => x` and `fn(x => x)`."
+        value: "avoid",
+        description: "Omit parens wherever possible, like `x => x`."
       },
       {
-        value: "avoid",
-        description: "Prefer to omit parens wherever possible, like `x => x`."
+        value: "callbacks",
+        description:
+          "Prefer to add parens, like `(x) => x`, except in callbacks, like `a.map(x => x.id)`."
       },
       {
         value: "always",
@@ -98,7 +98,7 @@ const detailedOptions = normalizeDetailedOptions({
       }
     ],
     description:
-      "Whether to print parentheses around a solo arrow function parameter."
+      "Whether to print parentheses around a lone arrow function parameter."
   },
   "bracket-spacing": {
     type: "boolean",

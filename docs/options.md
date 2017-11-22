@@ -95,7 +95,7 @@ Default | CLI Override | API Override
 `false` | `--jsx-bracket-same-line` | `jsxBracketSameLine: <bool>`
 
 ## Arrow Function Parens
-Use parens around a sole parameter of an arrow function, when possible:
+Whether to use parens around a lone parameter of an arrow function, when possible:
 
 - `const fn = a => a.id;`
 - `arr.map(x => x.id)`
@@ -103,12 +103,12 @@ Use parens around a sole parameter of an arrow function, when possible:
 Valid options:
 
  * `"avoid"` - Always prefer `x => x` when syntax allows.
- * `"default"` - Prefer `(x) => x`, except in curried chains (`f = a => b => (a + b)`) and callbacks (`a.map(x => x.id)`).
+ * `"callbacks"` - Prefer `(x) => x`, except in callbacks (`a.map(x => x.id)`).
  * `"always"` - Always prefer `(x) => x`.
 
 Default | CLI Override | API Override
 --------|--------------|-------------
-`"default"` | `--arrow-fn-parens <avoid,default,always>` | `arrowFnParens: "<avoid,default,always>"`
+`"avoid"` | `--arrow-fn-parens <avoid,callbacks,always>` | `arrowFnParens: "<avoid,callbacks,always>"`
 
 ## Range
 

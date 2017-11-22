@@ -3264,12 +3264,11 @@ function shouldPrintParamsWithoutParens(path, options) {
     return canPrintParamsWithoutParens(node);
   }
 
-  // "default" mode; omit parens only when:
-  // - currying (eg; fn = a => b => c)
+  // "callbacks" mode; omit parens only when:
   // - used as a sole callback (eg; arr.map(x => x + 1))
   // - used in template literals (eg; `color: ${props => props.color}`) for styled-components et al
   // - used in parenthesized expression (eg; `|> (x => foo(1, x))`);
-  if (options.arrowFnParens === "default") {
+  if (options.arrowFnParens === "callbacks") {
     const parentNode = path.getParentNode();
     if (
       path.needsParens(options) ||
@@ -3280,10 +3279,7 @@ function shouldPrintParamsWithoutParens(path, options) {
             !parentNode.arguments.some(
               (n, i) => i > 0 && n.type === "ArrowFunctionExpression"
             )))) ||
-      (parentNode.type === "TemplateLiteral" && node.expression === true) ||
-      (parentNode.type === "ArrowFunctionExpression" &&
-        parentNode.expression === true) ||
-      (node.expression === true && node.body.type === "ArrowFunctionExpression")
+      (parentNode.type === "TemplateLiteral" && node.expression === true)
     ) {
       return canPrintParamsWithoutParens(node);
     }
