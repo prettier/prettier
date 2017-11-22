@@ -11,7 +11,6 @@ const fill = docBuilders.fill;
 const align = docBuilders.align;
 const docPrinter = require("./doc-printer");
 const printDocToString = docPrinter.printDocToString;
-const punctuationCharRange = util.punctuationCharRange;
 
 const SINGLE_LINE_NODE_TYPES = [
   "heading",
@@ -67,9 +66,10 @@ function genericPrint(path, options, print) {
 
   switch (node.type) {
     case "root":
-      return normalizeDoc(
-        concat([printChildren(path, options, print), hardline])
-      );
+      return concat([
+        normalizeDoc(printChildren(path, options, print)),
+        hardline
+      ]);
     case "paragraph":
       return printChildren(path, options, print, {
         postprocessor: fill
@@ -82,8 +82,8 @@ function genericPrint(path, options, print) {
         .replace(
           new RegExp(
             [
-              `(^|[${punctuationCharRange}])(_+)`,
-              `(_+)([${punctuationCharRange}]|$)`
+              `(^|[${util.punctuationCharRange}])(_+)`,
+              `(_+)([${util.punctuationCharRange}]|$)`
             ].join("|"),
             "g"
           ),
@@ -114,17 +114,13 @@ function genericPrint(path, options, print) {
         (prevNode &&
           prevNode.type === "sentence" &&
           prevNode.children.length > 0 &&
-          prevNode.children[prevNode.children.length - 1].type === "word" &&
-          new RegExp(`[^${punctuationCharRange}]$`).test(
-            prevNode.children[prevNode.children.length - 1].value
-          )) ||
+          util.getLast(prevNode.children).type === "word" &&
+          !util.getLast(prevNode.children).hasTrailingPunctuation) ||
         (nextNode &&
           nextNode.type === "sentence" &&
           nextNode.children.length > 0 &&
           nextNode.children[0].type === "word" &&
-          new RegExp(`^[^${punctuationCharRange}]`).test(
-            nextNode.children[0].value
-          ));
+          !nextNode.children[0].hasLeadingPunctuation);
       const style =
         hasPrevOrNextWord || getAncestorNode(path, "emphasis") ? "*" : "_";
       return concat([style, printChildren(path, options, print), style]);
@@ -208,10 +204,12 @@ function genericPrint(path, options, print) {
     }
     case "yaml":
       return concat(["---", hardline, node.value, hardline, "---"]);
+    case "toml":
+      return concat(["+++", hardline, node.value, hardline, "+++"]);
     case "html": {
       const parentNode = path.getParentNode();
       return parentNode.type === "root" &&
-        parentNode.children[parentNode.children.length - 1] === node
+        util.getLast(parentNode.children) === node
         ? node.value.trimRight()
         : node.value;
     }
@@ -251,7 +249,12 @@ function genericPrint(path, options, print) {
         node.checked === null ? "" : node.checked ? "[x] " : "[ ] ";
       return concat([
         prefix,
-        align(" ".repeat(prefix.length), printChildren(path, options, print))
+        printChildren(path, options, print, {
+          processor: (childPath, index) =>
+            index === 0 && childPath.getValue().type !== "list"
+              ? align(" ".repeat(prefix.length), childPath.call(print))
+              : childPath.call(print)
+        })
       ]);
     }
     case "thematicBreak": {
@@ -618,7 +621,7 @@ function printTitle(title) {
 
 function normalizeParts(parts) {
   return parts.reduce((current, part) => {
-    const lastPart = current[current.length - 1];
+    const lastPart = util.getLast(current);
 
     if (typeof lastPart === "string" && typeof part === "string") {
       current.splice(-1, 1, lastPart + part);

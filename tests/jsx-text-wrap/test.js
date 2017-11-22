@@ -305,3 +305,10 @@ x =
   <div>
     {" "}{" "}{" "}
   </div>
+
+// Don't break a self-closing element without attributes
+// ----------
+x =
+  <p>
+    text text text text text text text text text text text text text text text<br />text text text text text text
+  </p>;

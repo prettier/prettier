@@ -1,6 +1,5 @@
 "use strict";
 
-const stripBom = require("strip-bom");
 const comments = require("./src/comments");
 const version = require("./package.json").version;
 const printAstToDoc = require("./src/printer").printAstToDoc;
@@ -12,7 +11,6 @@ const printDocToDebug = require("./src/doc-debug").printDocToDebug;
 const config = require("./src/resolve-config");
 const getSupportInfo = require("./src/support").getSupportInfo;
 const docblock = require("jest-docblock");
-const getStream = require("get-stream");
 
 function guessLineEnding(text) {
   const index = text.indexOf("\n");
@@ -68,7 +66,11 @@ function formatWithCursor(text, opts, addAlignmentSize) {
     return { formatted: text };
   }
 
-  text = stripBom(text);
+  const UTF8BOM = 0xfeff;
+  const hasUnicodeBOM = text.charCodeAt(0) === UTF8BOM;
+  if (hasUnicodeBOM) {
+    text = text.substring(1);
+  }
 
   if (
     opts.insertPragma &&
@@ -110,7 +112,10 @@ function formatWithCursor(text, opts, addAlignmentSize) {
   const doc = printAstToDoc(ast, opts, addAlignmentSize);
   opts.newLine = guessLineEnding(text);
   const toStringResult = printDocToString(doc, opts);
-  const str = toStringResult.formatted;
+  let str = toStringResult.formatted;
+  if (hasUnicodeBOM) {
+    str = String.fromCharCode(UTF8BOM) + str;
+  }
   const cursorOffsetResult = toStringResult.cursor;
   ensureAllCommentsPrinted(astComments);
   // Remove extra leading indentation as well as the added indentation after last newline
@@ -389,7 +394,6 @@ module.exports = {
 
   /* istanbul ignore next */
   __debug: {
-    getStream,
     parse: function(text, opts) {
       return parser.parse(text, opts);
     },

@@ -3,17 +3,15 @@ id: configuration
 title: Configuration File
 ---
 
-Prettier uses [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) for configuration file support.
-This means you can configure prettier via:
+Prettier uses [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) for configuration file support. This means you can configure prettier via:
 
 * A `.prettierrc` file, written in YAML or JSON, with optional extensions: `.yaml/.yml/.json/.js`.
 * A `prettier.config.js` file that exports an object.
 * A `"prettier"` key in your `package.json` file.
 
-The configuration file will be resolved starting from the location of the file being formatted,
-and searching up the file tree until a config file is (or isn't) found.
+The configuration file will be resolved starting from the location of the file being formatted, and searching up the file tree until a config file is (or isn't) found.
 
-The options to the configuration file are the same the [API options](options.md).
+The options to the configuration file are the same as the [API options](options.md).
 
 ## Basic Configuration
 
@@ -37,20 +35,21 @@ parser: flow
 
 ## Configuration Overrides
 
-Prettier borrows eslint's [override format](http://eslint.org/docs/user-guide/configuring#example-configuration).
-This allows you to apply configuration to specific files.
+Prettier borrows eslint's [override format](http://eslint.org/docs/user-guide/configuring#example-configuration). This allows you to apply configuration to specific files.
 
 JSON:
 
 ```json
 {
   "semi": false,
-  "overrides": [{
-    "files": "*.test.js",
-    "options": {
-      "semi": true
+  "overrides": [
+    {
+      "files": "*.test.js",
+      "options": {
+        "semi": true
+      }
     }
-  }]
+  ]
 }
 ```
 
@@ -64,17 +63,18 @@ overrides:
     semi: true
 ```
 
-`files` is required for each override, and may be a string or array of strings.
-`excludeFiles` may be optionally provided to exclude files for a given rule, and may also be a string or array of strings.
+`files` is required for each override, and may be a string or array of strings. `excludeFiles` may be optionally provided to exclude files for a given rule, and may also be a string or array of strings.
 
 To get prettier to format its own `.prettierrc` file, you can do:
 
 ```json
 {
-  "overrides": [{
-    "files": ".prettierrc",
-    "options": { "parser": "json" }
-  }]
+  "overrides": [
+    {
+      "files": ".prettierrc",
+      "options": { "parser": "json" }
+    }
+  ]
 }
 ```
 

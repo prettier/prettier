@@ -1,6 +1,6 @@
 "use strict";
 
-const cosmiconfig = require("cosmiconfig");
+const thirdParty = require("./third-party");
 const minimatch = require("minimatch");
 const path = require("path");
 const mem = require("mem");
@@ -8,7 +8,7 @@ const mem = require("mem");
 const resolveEditorConfig = require("./resolve-config-editorconfig");
 
 const getExplorerMemoized = mem(opts =>
-  cosmiconfig("prettier", {
+  thirdParty.cosmiconfig("prettier", {
     sync: opts.sync,
     cache: opts.cache,
     rcExtensions: true,

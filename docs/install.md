@@ -15,7 +15,7 @@ You can install it globally if you like:
 yarn global add prettier
 ```
 
-*We're using `yarn` but you can use `npm` if you like:*
+_We're using `yarn` but you can use `npm` if you like:_
 
 ```
 npm install --save-dev --save-exact prettier
@@ -23,5 +23,4 @@ npm install --save-dev --save-exact prettier
 npm install --global prettier
 ```
 
-> We recommend pinning an exact version of prettier in your `package.json`
-> as we introduce stylistic changes in patch releases.
+> We recommend pinning an exact version of prettier in your `package.json` as we introduce stylistic changes in patch releases.

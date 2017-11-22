@@ -24,6 +24,8 @@ const punctuationCharRange = `${asciiPunctuationCharRange}${getUnicodeRegex([
   "Ps"
 ]).source.slice(1, -1)}`; // remove bracket expression `[` and `]`
 
+const punctuationRegex = new RegExp(`[${punctuationCharRange}]`);
+
 function isExportDeclaration(node) {
   if (node) {
     switch (node.type) {
@@ -712,32 +714,49 @@ function splitText(text) {
               appendNode({
                 type: "word",
                 value: innerToken,
-                kind: KIND_NON_CJK
+                kind: KIND_NON_CJK,
+                hasLeadingPunctuation: punctuationRegex.test(innerToken[0]),
+                hasTrailingPunctuation: punctuationRegex.test(
+                  getLast(innerToken)
+                )
               });
             }
             return;
           }
 
           // CJK character
-          const kind = new RegExp(`[${punctuationCharRange}]`).test(innerToken)
-            ? KIND_CJK_PUNCTUATION
-            : KIND_CJK_CHARACTER;
-          appendNode({ type: "word", value: innerToken, kind });
+          appendNode(
+            punctuationRegex.test(innerToken)
+              ? {
+                  type: "word",
+                  value: innerToken,
+                  kind: KIND_CJK_PUNCTUATION,
+                  hasLeadingPunctuation: true,
+                  hasTrailingPunctuation: true
+                }
+              : {
+                  type: "word",
+                  value: innerToken,
+                  kind: KIND_CJK_CHARACTER,
+                  hasLeadingPunctuation: false,
+                  hasTrailingPunctuation: false
+                }
+          );
         });
     });
 
   return nodes;
 
   function appendNode(node) {
-    const lastNode = nodes[nodes.length - 1];
+    const lastNode = getLast(nodes);
     if (lastNode && lastNode.type === "word") {
       if (
         (lastNode.kind === KIND_NON_CJK &&
           node.kind === KIND_CJK_CHARACTER &&
-          !new RegExp(`[${punctuationCharRange}]$`).test(lastNode.value)) ||
+          !lastNode.hasTrailingPunctuation) ||
         (lastNode.kind === KIND_CJK_CHARACTER &&
           node.kind === KIND_NON_CJK &&
-          !new RegExp(`^[${punctuationCharRange}]`).test(node.value))
+          !node.hasLeadingPunctuation)
       ) {
         nodes.push({ type: "whitespace", value: " " });
       } else if (
@@ -771,6 +790,7 @@ function getStringWidth(text) {
 }
 
 module.exports = {
+  punctuationRegex,
   punctuationCharRange,
   getStringWidth,
   splitText,

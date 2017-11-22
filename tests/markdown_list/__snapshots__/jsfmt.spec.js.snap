@@ -77,6 +77,39 @@ exports[`nested.md 1`] = `
 
 `;
 
+exports[`nested-checkbox.md 1`] = `
+* parent list item parent list item parent list item parent list item parent list item parent list item
+
+     * child list item child list item child list item child list item child list item child list item
+
+    paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph
+
+* [x] parent task list item parent task list item parent task list item parent task list item
+
+     * [x] child task list item child task list item child task list item child task list item
+
+    paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* parent list item parent list item parent list item parent list item parent
+  list item parent list item
+
+  * child list item child list item child list item child list item child list
+    item child list item
+
+  paragraph paragraph paragraph paragraph paragraph paragraph paragraph
+  paragraph paragraph
+
+* [x] parent task list item parent task list item parent task list item parent
+      task list item
+
+  * [x] child task list item child task list item child task list item child
+        task list item
+
+  paragraph paragraph paragraph paragraph paragraph paragraph paragraph
+  paragraph paragraph
+
+`;
+
 exports[`ordered.md 1`] = `
 1. 123
 1. 456
