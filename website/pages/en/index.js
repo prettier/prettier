@@ -50,7 +50,7 @@ class HomeSplash extends React.Component {
                   <div className="pluginRowBlock">
                     <Button href="/playground/">Try It Out</Button>
                     <Button
-                      href={"/docs/" + this.props.language + "/usage.html"}
+                      href={"/docs/" + this.props.language + "/install.html"}
                     >
                       Get Started
                     </Button>

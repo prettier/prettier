@@ -1,3 +1,29 @@
+# 1.8.2
+
+[link](https://github.com/prettier/prettier/compare/1.8.1...1.8.2)
+
+* Markdown: Don't break on links (#3204 by ikatyang)
+* Markdown: Add `--no-prose-wrap` option (#3199 by ikatyang)
+* TypeScript: Parenthesis around TSAsExpression inside TSAbstractClassDeclaration (#3191 by duailibe)
+* JSON: Print JSON top comments as leading comments of root node (#3187 by duailibe)
+
+# 1.8.1
+
+[link](https://github.com/prettier/prettier/compare/1.8.0...1.8.1)
+
+* Force JSON to no trailing comma in multiparser (#3182 by azz)
+* Don't add trailing commas in JSXAttribute for arrow functions (#3181 by duailibe)
+* Markdown: Allow more cases that `_`-style emphasis is available (#3186 by ikatyang)
+* Markdown: Handle additional spaces before `code` (#3180 by ikatyang)
+* Markdown: Do not break on unbreakable place (#3177 by ikatyang)
+* Markdown: Do not break before special prefix (#3172 by ikatyang)
+
+# 1.8.0
+
+[link](https://github.com/prettier/prettier/compare/1.7.4...1.8.0)
+
+* [Release Notes](https://github.com/prettier/prettier/releases/tag/1.8.0)
+
 # 1.7.4
 
 [link](https://github.com/prettier/prettier/compare/1.7.3...1.7.4)

@@ -367,7 +367,8 @@ function render() {
             progress: Math.round(
               100 * e.nativeEvent.loaded / e.nativeEvent.total
             )
-          })}
+          })
+        }
       />
     </View>
   );
@@ -382,7 +383,8 @@ function render() {
             progress: Math.round(
               100 * e.nativeEvent.loaded / e.nativeEvent.total
             )
-          })}
+          })
+        }
       />
     </View>
   );
@@ -397,7 +399,8 @@ function render() {
             progress: Math.round(
               100 * e.nativeEvent.loaded / e.nativeEvent.total
             )
-          })}
+          })
+        }
       />
     </View>
   );

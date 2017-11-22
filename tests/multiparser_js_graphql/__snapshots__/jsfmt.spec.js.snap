@@ -89,6 +89,7 @@ const query = gql\`
   {
     user(id: 5) {
       firstName
+
       lastName
     }
   }

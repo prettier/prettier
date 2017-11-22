@@ -24,7 +24,7 @@
     "pinned": true
   },
   {
-    "caption": "Zeit",
+    "caption": "ZEIT",
     "image": "/images/zeit-200x100.png",
     "infoLink": "https://zeit.co/",
     "pinned": true
@@ -54,5 +54,45 @@
     "caption": "Tradeshift",
     "image": "/images/tradeshift-200x100.png",
     "infoLink": "https://tradeshift.com/"
+  },
+  {
+    "caption": "Algolia",
+    "image": "/images/algolia-200x100.png",
+    "infoLink": "https://algolia.com"
+  },
+  {
+    "caption": "IRESS",
+    "image": "/images/iress-200x100.png",
+    "infoLink": "https://iress.com"
+  },
+  {
+    "caption": "Outreach",
+    "image": "/images/outreach-200x100.png",
+    "infoLink": "https://www.outreach.io/"
+  },
+  {
+    "caption": "Material-UI",
+    "image": "/images/materialui-200x100.png",
+    "infoLink": "http://www.material-ui.com/"
+  },
+  {
+    "caption": "Wire",
+    "image": "/images/wire-200x100.png",
+    "infoLink": "https://wire.com"
+  },
+  {
+    "caption": "MoonMail",
+    "image": "/images/moonmail-200x100.png",
+    "infoLink": "https://moonmail.io"
+  },
+  {
+    "caption": "MONEI",
+    "image": "/images/monei-200x100.png",
+    "infoLink": "https://monei.net"
+  },
+  {
+    "caption": "Talkable",
+    "image": "/images/talkable-200x100.png",
+    "infoLink": "https://talkable.com"
   }
 ]

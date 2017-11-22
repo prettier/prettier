@@ -236,7 +236,8 @@ function massageAST(ast, parent) {
           (ast.tag.name === "gql" ||
             ast.tag.name === "graphql" ||
             ast.tag.name === "css" ||
-            ast.tag.name === "md")) ||
+            ast.tag.name === "md" ||
+            ast.tag.name === "markdown")) ||
         ast.tag.type === "CallExpression")
     ) {
       newObj.quasi.quasis.forEach(quasi => delete quasi.value);

@@ -299,6 +299,7 @@ FastPath.prototype.needsParens = function(options) {
           return name === "callee" && parent.callee === node;
 
         case "ClassDeclaration":
+        case "TSAbstractClassDeclaration":
           return name === "superClass" && parent.superClass === node;
         case "TSTypeAssertionExpression":
         case "TaggedTemplateExpression":

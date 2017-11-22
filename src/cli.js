@@ -37,6 +37,15 @@ function run(args) {
     process.exit(0);
   }
 
+  if (argv["support-info"]) {
+    console.log(
+      prettier.format(JSON.stringify(prettier.getSupportInfo()), {
+        parser: "json"
+      })
+    );
+    process.exit(0);
+  }
+
   const hasFilePatterns = argv.__filePatterns.length !== 0;
   const useStdin = argv["stdin"] || (!hasFilePatterns && !process.stdin.isTTY);
 

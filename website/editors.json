@@ -10,19 +10,9 @@
         "content": "[`prettier-emacs`](https://github.com/prettier/prettier-emacs)"
     },
     {
-        "image": "/images/vim-128px.png",
-        "name": "vim",
-        "content": "[`neoformat`](https://github.com/sbdchd/neoformat), [`ale`](https://github.com/w0rp/ale), [`vim-prettier`](https://github.com/prettier/vim-prettier)"
-    },
-    {
-        "image": "/images/vscode-128px.png",
-        "name": "Visual Studio Code",
-        "content": "[`prettier-vscode`](https://github.com/prettier/prettier-vscode)"
-    },
-    {
-        "image": "/images/visualstudio-128px.png",
-        "name": "Visual Studio",
-        "content": "[`JavaScriptPrettier`](https://github.com/madskristensen/JavaScriptPrettier)"
+        "image": "/images/espresso-128px.png",
+        "name": "Espresso",
+        "content": "[`espresso-prettier`](https://github.com/eablokker/espresso-prettier)"
     },
     {
         "image": "/images/sublimetext-128px.png",
@@ -30,8 +20,23 @@
         "content": "[`JsPrettier`](https://packagecontrol.io/packages/JsPrettier)"
     },
     {
+        "image": "/images/vim-128px.png",
+        "name": "Vim",
+        "content": "[`neoformat`](https://github.com/sbdchd/neoformat), [`ale`](https://github.com/w0rp/ale), [`vim-prettier`](https://github.com/prettier/vim-prettier)"
+    },
+    {
+        "image": "/images/visualstudio-128px.png",
+        "name": "Visual Studio",
+        "content": "[`JavaScriptPrettier`](https://github.com/madskristensen/JavaScriptPrettier)"
+    },
+    {
+        "image": "/images/vscode-128px.png",
+        "name": "Visual Studio Code",
+        "content": "[`prettier-vscode`](https://github.com/prettier/prettier-vscode)"
+    },
+    {
         "image": "/images/webstorm-128px.png",
         "name": "WebStorm",
-        "content": "[External Tool](https://github.com/prettier/prettier/blob/master/editors/webstorm/README.md)"
+        "content": "[External Tool](https://prettier.io/docs/en/webstorm.html)"
     }
 ]

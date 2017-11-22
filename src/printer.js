@@ -328,7 +328,17 @@ function genericPrintNoParens(path, options, print, args) {
         return concat(parts);
       }
 
-      if (parent.type === "UnaryExpression") {
+      // Break between the parens in unaries or in a member expression, i.e.
+      //
+      //   (
+      //     a &&
+      //     b &&
+      //     c
+      //   ).call()
+      if (
+        parent.type === "UnaryExpression" ||
+        (parent.type === "MemberExpression" && !parent.computed)
+      ) {
         return group(
           concat([indent(concat([softline, concat(parts)])), softline])
         );
@@ -364,22 +374,13 @@ function genericPrintNoParens(path, options, print, args) {
 
       const rest = concat(parts.slice(1));
 
-      // Break the closing paren to keep the chain right after it:
-      // (a &&
-      //   b &&
-      //   c
-      // ).call()
-      const breakClosingParen =
-        parent.type === "MemberExpression" && !parent.computed;
-
       return group(
         concat([
           // Don't include the initial expression in the indentation
           // level. The first item is guaranteed to be the first
           // left-most expression.
           parts.length > 0 ? parts[0] : "",
-          indent(rest),
-          breakClosingParen ? softline : ""
+          indent(rest)
         ])
       );
     }
@@ -541,8 +542,14 @@ function genericPrintNoParens(path, options, print, args) {
 
       // if the arrow function is expanded as last argument, we are adding a
       // level of indentation and need to add a softline to align the closing )
-      // with the opening (.
-      const shouldAddSoftLine = args && args.expandLastArg;
+      // with the opening (, or if it's inside a JSXExpression (e.g. an attribute)
+      // we should align the expression's closing } with the line with the opening {.
+      const shouldAddSoftLine =
+        (args && args.expandLastArg) ||
+        path.getParentNode().type === "JSXExpressionContainer";
+
+      const printTrailingComma =
+        args && args.expandLastArg && shouldPrintComma(options, "all");
 
       // In order to avoid confusion between
       // a => a ? a : a
@@ -568,10 +575,7 @@ function genericPrintNoParens(path, options, print, args) {
                 ])
               ),
               shouldAddSoftLine
-                ? concat([
-                    ifBreak(shouldPrintComma(options, "all") ? "," : ""),
-                    softline
-                  ])
+                ? concat([ifBreak(printTrailingComma ? "," : ""), softline])
                 : ""
             ])
           )
@@ -973,7 +977,9 @@ function genericPrintNoParens(path, options, print, args) {
       let separatorParts = [];
       const props = propsAndLoc.sort((a, b) => a.loc - b.loc).map(prop => {
         const result = concat(separatorParts.concat(group(prop.printed)));
-        separatorParts = [separator, line];
+        separatorParts = hasNodeIgnoreComment(prop.node)
+          ? [line]
+          : [separator, line];
         if (util.isNextLineEmpty(options.originalText, prop.node)) {
           separatorParts.push(hardline);
         }
@@ -984,7 +990,9 @@ function genericPrintNoParens(path, options, print, args) {
 
       const canHaveTrailingSeparator = !(
         lastElem &&
-        (lastElem.type === "RestProperty" || lastElem.type === "RestElement")
+        (lastElem.type === "RestProperty" ||
+          lastElem.type === "RestElement" ||
+          hasNodeIgnoreComment(lastElem))
       );
 
       let content;
@@ -1264,7 +1272,7 @@ function genericPrintNoParens(path, options, print, args) {
         forceNoIndent = true;
 
         // Even though they don't need parens, we wrap (almost) everything in
-        // parens when using ?: within JSX, because the parens are analagous to
+        // parens when using ?: within JSX, because the parens are analogous to
         // curly braces in an if statement.
         const wrap = doc =>
           concat([
@@ -1688,22 +1696,49 @@ function genericPrintNoParens(path, options, print, args) {
     case "TSQualifiedName":
       return join(".", [path.call(print, "left"), path.call(print, "right")]);
     case "JSXSpreadAttribute":
-      return concat(["{...", path.call(print, "argument"), "}"]);
+    case "JSXSpreadChild": {
+      return concat([
+        "{",
+        path.call(p => {
+          const printed = concat(["...", print(p)]);
+          const n = p.getValue();
+          if (!n.comments || !n.comments.length) {
+            return printed;
+          }
+          return concat([
+            indent(
+              concat([
+                softline,
+                comments.printComments(p, () => printed, options)
+              ])
+            ),
+            softline
+          ]);
+        }, n.type === "JSXSpreadAttribute" ? "argument" : "expression"),
+        "}"
+      ]);
+    }
     case "JSXExpressionContainer": {
       const parent = path.getParentNode(0);
 
+      const preventInline =
+        parent.type === "JSXAttribute" &&
+        n.expression.comments &&
+        n.expression.comments.length > 0;
+
       const shouldInline =
-        n.expression.type === "ArrayExpression" ||
-        n.expression.type === "ObjectExpression" ||
-        n.expression.type === "ArrowFunctionExpression" ||
-        n.expression.type === "CallExpression" ||
-        n.expression.type === "FunctionExpression" ||
-        n.expression.type === "JSXEmptyExpression" ||
-        n.expression.type === "TemplateLiteral" ||
-        n.expression.type === "TaggedTemplateExpression" ||
-        (parent.type === "JSXElement" &&
-          (n.expression.type === "ConditionalExpression" ||
-            isBinaryish(n.expression)));
+        !preventInline &&
+        (n.expression.type === "ArrayExpression" ||
+          n.expression.type === "ObjectExpression" ||
+          n.expression.type === "ArrowFunctionExpression" ||
+          n.expression.type === "CallExpression" ||
+          n.expression.type === "FunctionExpression" ||
+          n.expression.type === "JSXEmptyExpression" ||
+          n.expression.type === "TemplateLiteral" ||
+          n.expression.type === "TaggedTemplateExpression" ||
+          (parent.type === "JSXElement" &&
+            (n.expression.type === "ConditionalExpression" ||
+              isBinaryish(n.expression))));
 
       if (shouldInline) {
         return group(
@@ -1732,11 +1767,30 @@ function genericPrintNoParens(path, options, print, args) {
     case "JSXOpeningElement": {
       const n = path.getValue();
 
+      const nameHasComments =
+        n.name && n.name.comments && n.name.comments.length > 0;
+
+      // Don't break self-closing elements with no attributes and no comments
+      if (n.selfClosing && !n.attributes.length && !nameHasComments) {
+        return concat(["<", path.call(print, "name"), " />"]);
+      }
+
       // don't break up opening elements with a single long text attribute
       if (
         n.attributes.length === 1 &&
         n.attributes[0].value &&
-        isStringLiteral(n.attributes[0].value)
+        isStringLiteral(n.attributes[0].value) &&
+        // We should break for the following cases:
+        // <div
+        //   // comment
+        //   attr="value"
+        // >
+        // <div
+        //   attr="value"
+        //   // comment
+        // >
+        !nameHasComments &&
+        (!n.attributes[0].comments || !n.attributes[0].comments.length)
       ) {
         return group(
           concat([
@@ -1749,6 +1803,21 @@ function genericPrintNoParens(path, options, print, args) {
         );
       }
 
+      const lastAttrHasTrailingComments =
+        n.attributes.length && hasTrailingComment(util.getLast(n.attributes));
+
+      const bracketSameLine =
+        options.jsxBracketSameLine &&
+        // We should print the bracket in a new line for the following cases:
+        // <div
+        //   // comment
+        // >
+        // <div
+        //   attr // comment
+        // >
+        (!nameHasComments || n.attributes.length) &&
+        !lastAttrHasTrailingComments;
+
       return group(
         concat([
           "<",
@@ -1759,9 +1828,9 @@ function genericPrintNoParens(path, options, print, args) {
                 path.map(attr => concat([line, print(attr)]), "attributes")
               )
             ),
-            n.selfClosing ? line : options.jsxBracketSameLine ? ">" : softline
+            n.selfClosing ? line : bracketSameLine ? ">" : softline
           ]),
-          n.selfClosing ? "/>" : options.jsxBracketSameLine ? "" : ">"
+          n.selfClosing ? "/>" : bracketSameLine ? "" : ">"
         ])
       );
     }
@@ -1892,13 +1961,19 @@ function genericPrintNoParens(path, options, print, args) {
             tabWidth
           );
 
-          const aligned = addAlignmentToDoc(
-            expressions[i],
-            indentSize,
-            tabWidth
-          );
+          let printed = expressions[i];
 
-          parts.push("${", aligned, lineSuffixBoundary, "}");
+          if (
+            (n.expressions[i].comments && n.expressions[i].comments.length) ||
+            n.expressions[i].type === "MemberExpression" ||
+            n.expressions[i].type === "ConditionalExpression"
+          ) {
+            printed = concat([indent(concat([softline, printed])), softline]);
+          }
+
+          const aligned = addAlignmentToDoc(printed, indentSize, tabWidth);
+
+          parts.push(group(concat(["${", aligned, lineSuffixBoundary, "}"])));
         }
       }, "quasis");
 
@@ -3462,13 +3537,14 @@ function printTypeParameters(path, options, print, paramsKey) {
   }
 
   const shouldInline =
-    n[paramsKey].length === 1 &&
-    (shouldHugType(n[paramsKey][0]) ||
-      (n[paramsKey][0].type === "GenericTypeAnnotation" &&
-        shouldHugType(n[paramsKey][0].id)) ||
-      (n[paramsKey][0].type === "TSTypeReference" &&
-        shouldHugType(n[paramsKey][0].typeName)) ||
-      n[paramsKey][0].type === "NullableTypeAnnotation");
+    n[paramsKey].length === 0 ||
+    (n[paramsKey].length === 1 &&
+      (shouldHugType(n[paramsKey][0]) ||
+        (n[paramsKey][0].type === "GenericTypeAnnotation" &&
+          shouldHugType(n[paramsKey][0].id)) ||
+        (n[paramsKey][0].type === "TSTypeReference" &&
+          shouldHugType(n[paramsKey][0].typeName)) ||
+        n[paramsKey][0].type === "NullableTypeAnnotation"));
 
   if (shouldInline) {
     return concat(["<", join(", ", path.map(print, paramsKey)), ">"]);
@@ -3713,13 +3789,20 @@ function printMemberChain(path, options, print) {
   // The first group is the first node followed by
   //   - as many CallExpression as possible
   //       < fn()()() >.something()
+  //   - as many array acessors as possible
+  //       < fn()[0][1][2] >.something()
   //   - then, as many MemberExpression as possible but the last one
   //       < this.items >.something()
   const groups = [];
   let currentGroup = [printedNodes[0]];
   let i = 1;
   for (; i < printedNodes.length; ++i) {
-    if (printedNodes[i].node.type === "CallExpression") {
+    if (
+      printedNodes[i].node.type === "CallExpression" ||
+      (printedNodes[i].node.type === "MemberExpression" &&
+        printedNodes[i].node.computed &&
+        isNumericLiteral(printedNodes[i].node.property))
+    ) {
       currentGroup.push(printedNodes[i]);
     } else {
       break;
@@ -3792,13 +3875,21 @@ function printMemberChain(path, options, print) {
   // node is just an identifier with the name starting with a capital
   // letter, just a sequence of _$ or this. The rationale is that they are
   // likely to be factories.
+  function isFactory(name) {
+    return name.match(/(^[A-Z])|^[_$]+$/);
+  }
   const shouldMerge =
     groups.length >= 2 &&
     !groups[1][0].node.comments &&
-    groups[0].length === 1 &&
-    (groups[0][0].node.type === "ThisExpression" ||
-      (groups[0][0].node.type === "Identifier" &&
-        (groups[0][0].node.name.match(/(^[A-Z])|^[_$]+$/) ||
+    ((groups[0].length === 1 &&
+      (groups[0][0].node.type === "ThisExpression" ||
+        (groups[0][0].node.type === "Identifier" &&
+          (isFactory(groups[0][0].node.name) ||
+            (groups[1].length && groups[1][0].node.computed))))) ||
+      (groups[0].length > 1 &&
+        groups[0][groups[0].length - 1].node.type === "MemberExpression" &&
+        groups[0][groups[0].length - 1].node.property.type === "Identifier" &&
+        (isFactory(groups[0][groups[0].length - 1].node.property.name) ||
           (groups[1].length && groups[1][0].node.computed))));
 
   function printGroup(printedGroup) {
@@ -4987,7 +5078,9 @@ function printAstToDoc(ast, options, addAlignmentSize) {
     if (
       ((node && node.type === "JSXElement") ||
         (parent &&
-          (parent.type === "UnionTypeAnnotation" ||
+          (parent.type === "JSXSpreadAttribute" ||
+            parent.type === "JSXSpreadChild" ||
+            parent.type === "UnionTypeAnnotation" ||
             parent.type === "TSUnionType" ||
             ((parent.type === "ClassDeclaration" ||
               parent.type === "ClassExpression") &&

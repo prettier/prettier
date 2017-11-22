@@ -308,6 +308,13 @@ x =
   <div>
     {" "}{" "}{" "}
   </div>
+
+// Don't break a self-closing element without attributes
+// ----------
+x =
+  <p>
+    text text text text text text text text text text text text text text text<br />text text text text text text
+  </p>;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Wrapping text
 x = (
@@ -480,16 +487,18 @@ this_really_should_split_across_lines = (
 unstable_before = (
   <div className="yourScore">
     Your score:{" "}
-    <span className="score">{\`\${mini.crosstable.users[sessionUserId]} - \${mini
-      .crosstable.users[user.id]}\`}</span>
+    <span className="score">{\`\${mini.crosstable.users[sessionUserId]} - \${
+      mini.crosstable.users[user.id]
+    }\`}</span>
   </div>
 );
 
 unstable_after_first_run = (
   <div className="yourScore">
     Your score:{" "}
-    <span className="score">{\`\${mini.crosstable.users[sessionUserId]} - \${mini
-      .crosstable.users[user.id]}\`}</span>
+    <span className="score">{\`\${mini.crosstable.users[sessionUserId]} - \${
+      mini.crosstable.users[user.id]
+    }\`}</span>
   </div>
 );
 
@@ -699,5 +708,14 @@ x = (
 
 // NOTE: Multiple JSX whitespaces are collapsed into a single space.
 x = <div> </div>;
+
+// Don't break a self-closing element without attributes
+// ----------
+x = (
+  <p>
+    text text text text text text text text text text text text text text text<br />text
+    text text text text text
+  </p>
+);
 
 `;

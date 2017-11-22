@@ -838,6 +838,31 @@ onClick={() => {}}>
 
 </div>;
 
+<div
+  // comment
+>
+  {foo}
+</div>;
+
+<div
+  className="foo" // comment
+>
+  {foo}
+</div>;
+
+<div
+  className="foo"
+  // comment
+>
+  {foo}
+</div>;
+
+<div // comment
+  id="foo"
+>
+  {children}
+</div>;
+
 <Wrapper>
   {}
   <Component />
@@ -915,6 +940,31 @@ onClick={() => {}}>
    */
   onClick={() => {}}
 />;
+
+<div
+// comment
+>
+  {foo}
+</div>;
+
+<div
+  className="foo" // comment
+>
+  {foo}
+</div>;
+
+<div
+  className="foo"
+  // comment
+>
+  {foo}
+</div>;
+
+<div // comment
+  id="foo"
+>
+  {children}
+</div>;
 
 <Wrapper>
   {}
@@ -1506,15 +1556,17 @@ d //comment
 \`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \`
-\${a // comment
+\${
+  a // comment
 }
 
 \${b /* comment */}
 
 \${/* comment */ c /* comment */}
 
-\${// comment
-d //comment
+\${
+  // comment
+  d //comment
 };
 \`;
 

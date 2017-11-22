@@ -1,5 +1,58 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`attr-comments.js 1`] = `
+<Component
+  propFn={
+    // comment
+    function(arg) {
+      fn(arg);
+    }
+  }
+  propArrowFn={
+    // comment
+    arg => fn(arg)
+  }
+  propArray={
+    // comment
+    [el1, el2]
+  }
+  propObj={
+    // comment
+    { key: val }
+  }
+  propTemplate={
+    // comment
+    \`text\`
+  }
+/>;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<Component
+  propFn={
+    // comment
+    function(arg) {
+      fn(arg);
+    }
+  }
+  propArrowFn={
+    // comment
+    arg => fn(arg)
+  }
+  propArray={
+    // comment
+    [el1, el2]
+  }
+  propObj={
+    // comment
+    { key: val }
+  }
+  propTemplate={
+    // comment
+    \`text\`
+  }
+/>;
+
+`;
+
 exports[`conditional-expression.js 1`] = `
 // There are two ways to print ConditionalExpressions: "normal mode" and
 // "JSX mode". This is normal mode (when breaking):
@@ -346,6 +399,61 @@ exports[`expression.js 1`] = `
     test
   </Child>
 }/>;
+
+<BookingIntroPanel
+  prop="long_string_make_to_force_break"
+  logClick={data => doLogClick("short", "short", data)}
+/>;
+
+<BookingIntroPanel
+  logClick={data =>
+    doLogClick("long_name_long_name_long_name", "long_name_long_name_long_name", data)
+  }
+/>;
+
+<BookingIntroPanel
+  logClick={data => {
+    doLogClick("long_name_long_name_long_name", "long_name_long_name_long_name", data)
+  }}
+/>;
+
+<Component
+  onChange={(
+    key: "possible_key_1" | "possible_key_2" | "possible_key_3",
+    value: string | Immutable.List<string>,
+  ) => {
+    this.setState({
+      updatedTask: this.state.updatedTask.set(key, value)
+    });
+  }}
+/>;
+
+<BookingIntroPanel>
+  {data => doLogClick("short", "short", data)}
+</BookingIntroPanel>;
+
+<BookingIntroPanel>
+  {data =>
+    doLogClick("long_name_long_name_long_name", "long_name_long_name_long_name", data)
+  }
+</BookingIntroPanel>;
+
+<BookingIntroPanel>
+  {data => {
+    doLogClick("long_name_long_name_long_name", "long_name_long_name_long_name", data)
+  }}
+</BookingIntroPanel>;
+
+<Component>
+  {(
+    key: "possible_key_1" | "possible_key_2" | "possible_key_3",
+    value: string | Immutable.List<string>,
+  ) => {
+    this.setState({
+      updatedTask: this.state.updatedTask.set(key, value)
+    });
+  }}
+</Component>;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <View
   style={{
@@ -409,6 +517,77 @@ exports[`expression.js 1`] = `
 />;
 
 <ParentComponent prop={<Child>test</Child>} />;
+
+<BookingIntroPanel
+  prop="long_string_make_to_force_break"
+  logClick={data => doLogClick("short", "short", data)}
+/>;
+
+<BookingIntroPanel
+  logClick={data =>
+    doLogClick(
+      "long_name_long_name_long_name",
+      "long_name_long_name_long_name",
+      data
+    )
+  }
+/>;
+
+<BookingIntroPanel
+  logClick={data => {
+    doLogClick(
+      "long_name_long_name_long_name",
+      "long_name_long_name_long_name",
+      data
+    );
+  }}
+/>;
+
+<Component
+  onChange={(
+    key: "possible_key_1" | "possible_key_2" | "possible_key_3",
+    value: string | Immutable.List<string>
+  ) => {
+    this.setState({
+      updatedTask: this.state.updatedTask.set(key, value)
+    });
+  }}
+/>;
+
+<BookingIntroPanel>
+  {data => doLogClick("short", "short", data)}
+</BookingIntroPanel>;
+
+<BookingIntroPanel>
+  {data =>
+    doLogClick(
+      "long_name_long_name_long_name",
+      "long_name_long_name_long_name",
+      data
+    )
+  }
+</BookingIntroPanel>;
+
+<BookingIntroPanel>
+  {data => {
+    doLogClick(
+      "long_name_long_name_long_name",
+      "long_name_long_name_long_name",
+      data
+    );
+  }}
+</BookingIntroPanel>;
+
+<Component>
+  {(
+    key: "possible_key_1" | "possible_key_2" | "possible_key_3",
+    value: string | Immutable.List<string>
+  ) => {
+    this.setState({
+      updatedTask: this.state.updatedTask.set(key, value)
+    });
+  }}
+</Component>;
 
 `;
 
