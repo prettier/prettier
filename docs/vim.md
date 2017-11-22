@@ -5,7 +5,7 @@ title: Vim Setup
 
 Vim users can simply install either [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/neoformat), [w0rp](https://github.com/w0rp)/[ale](https://github.com/w0rp/ale), or [prettier](https://github.com/prettier)/[vim-prettier](https://github.com/prettier/vim-prettier).
 
---------------------------------------------------------------------------------
+---
 
 ## Neoformat
 
@@ -52,7 +52,7 @@ let g:neoformat_try_formatprg = 1
 
 Each space in prettier options should be escaped with `\`.
 
---------------------------------------------------------------------------------
+---
 
 ## vim-prettier
 
@@ -88,7 +88,9 @@ Prettier by default will run on auto save but can also be manually triggered by:
 ```
 <Leader>p
 ```
+
 or
+
 ```
 :Prettier
 ```
@@ -119,8 +121,7 @@ By default parsing errors will open the quickfix but can also be disabled
 let g:prettier#quickfix_enabled = 0
 ```
 
-To enable vim-prettier to run in files without requiring the "@format" doc tag.
-First disable the default autoformat, then update to your own custom behaviour
+To enable vim-prettier to run in files without requiring the "@format" doc tag. First disable the default autoformat, then update to your own custom behaviour
 
 Running before saving sync:
 
@@ -175,21 +176,17 @@ g:prettier#config#trailing_comma = 'all'
 
 " flow|babylon|typescript|postcss
 g:prettier#config#parser = 'flow'
-
 ```
---------------------------------------------------------------------------------
+
+---
 
 ## ALE
 
 ### ALE - Installation
 
-[ALE](https://github.com/w0rp/ale) is an asynchronous lint engine for Vim that
-also has the ability to run formatters over code, including Prettier. For ALE
-to work you'll have to be using either Vim 8 or Neovim as ALE makes use of the
-asynchronous abilities that both Vim 8 and Neovim provide.
+[ALE](https://github.com/w0rp/ale) is an asynchronous lint engine for Vim that also has the ability to run formatters over code, including Prettier. For ALE to work you'll have to be using either Vim 8 or Neovim as ALE makes use of the asynchronous abilities that both Vim 8 and Neovim provide.
 
-The best way to install ALE is with your favourite plugin manager for Vim, such
-as [Vim-Plug](https://github.com/junegunn/vim-plug):
+The best way to install ALE is with your favourite plugin manager for Vim, such as [Vim-Plug](https://github.com/junegunn/vim-plug):
 
 ```
 Plug 'w0rp/ale'
@@ -206,43 +203,37 @@ let g:ale_fixers = {}
 let g:ale_fixers['javascript'] = ['prettier']
 ```
 
-ALE will first use the Prettier installed locally (in
-`node_modules/.bin/prettier`) before looking for a global installation.
+ALE will first use the Prettier installed locally (in `node_modules/.bin/prettier`) before looking for a global installation.
 
 You can then run `:ALEFix` in a JavaScript file to run Prettier.
 
 ### ALE - Configuration
 
-To have ALE run `prettier` when you save a file you can tell ALE to run
-automatically:
+To have ALE run `prettier` when you save a file you can tell ALE to run automatically:
 
 ```
 let g:ale_fix_on_save = 1
 ```
 
-To configure Prettier, you can set `g:ale_javascript_prettier_options`. This is
-a string that will be passed through to the Prettier command line tool:
+To configure Prettier, you can set `g:ale_javascript_prettier_options`. This is a string that will be passed through to the Prettier command line tool:
 
 ```
 let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5'
 ```
 
-If you use Prettier config files, you must set
-`g:ale_javascript_prettier_use_local_config` to have ALE respect them:
+If you use Prettier config files, you must set `g:ale_javascript_prettier_use_local_config` to have ALE respect them:
 
 ```
 let g:ale_javascript_prettier_use_local_config = 1
 ```
 
---------------------------------------------------------------------------------
+---
 
 ## Running manually
 
 ### Running Prettier manually in Vim
 
-If you need a little more control over when prettier is run, you can create a
-custom key binding. In this example, `gp` (mnemonic: "get pretty") is used to
-run prettier (with options) in the currently active buffer:
+If you need a little more control over when prettier is run, you can create a custom key binding. In this example, `gp` (mnemonic: "get pretty") is used to run prettier (with options) in the currently active buffer:
 
 ```
 nnoremap gp :silent %!prettier --stdin --trailing-comma all --single-quote<CR>

@@ -11,6 +11,7 @@ A JavaScript comment of `// prettier-ignore` will exclude the next node in the a
 
 For example:
 
+<!-- prettier-ignore -->
 ```js
 matrix(
   1, 0, 0,
@@ -43,8 +44,8 @@ matrix(
 
 ```jsx
 <div>
- {/* prettier-ignore */}
- <span     ugly  format=''   />
+  {/* prettier-ignore */}
+  <span     ugly  format=''   />
 </div>;
 ```
 

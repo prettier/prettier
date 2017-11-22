@@ -40,6 +40,9 @@ shell.echo("Bundling lib bin...");
 shell.exec("rollup -c scripts/build/rollup.bin.config.js");
 shell.chmod("+x", "./dist/bin/prettier.js");
 
+shell.echo("Bundling lib third-party...");
+shell.exec("rollup -c scripts/build/rollup.third-party.config.js");
+
 for (const parser of parsers) {
   if (parser === "postcss") {
     continue;
@@ -66,9 +69,13 @@ shell.echo();
 // --- Docs ---
 
 shell.echo("Bundling docs index...");
-shell.cp("dist/index.js", `${docs}/index.js`);
 shell.exec(
-  `node_modules/babel-cli/bin/babel.js dist/index.js --out-file ${
+  `rollup -c scripts/build/rollup.index.config.js --environment BUILD_TARGET:website -o ${
+    docs
+  }/index.js`
+);
+shell.exec(
+  `node_modules/babel-cli/bin/babel.js ${docs}/index.js --out-file ${
     docs
   }/index.js --presets=es2015`
 );

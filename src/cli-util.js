@@ -19,6 +19,7 @@ const validator = require("./cli-validator");
 const apiDefaultOptions = require("./options").defaults;
 const errors = require("./errors");
 const logger = require("./cli-logger");
+const thirdParty = require("./third-party");
 
 const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;
@@ -225,7 +226,7 @@ function applyConfigPrecedence(argv, options) {
 }
 
 function formatStdin(argv) {
-  prettier.__debug.getStream(process.stdin).then(input => {
+  thirdParty.getStream(process.stdin).then(input => {
     const filepath = argv["stdin-filepath"]
       ? path.resolve(process.cwd(), argv["stdin-filepath"])
       : process.cwd();
