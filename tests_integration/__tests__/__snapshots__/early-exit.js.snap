@@ -1,5 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`show detailed usage with --help arrow-fn-parens (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help arrow-fn-parens (stdout) 1`] = `
+"--arrow-fn-parens <avoid|callbacks|always>
+
+  Whether to print parentheses around a lone arrow function parameter.
+
+Valid options:
+
+  avoid       Omit parens wherever possible, like \`x => x\`.
+  callbacks   Prefer to add parens, like \`(x) => x\`, except in callbacks, like \`a.map(x => x.id)\`.
+  always      Always add parens, like \`(x) => x\`.
+
+Default: avoid
+"
+`;
+
+exports[`show detailed usage with --help arrow-fn-parens (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help bracket-spacing (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help bracket-spacing (stdout) 1`] = `
@@ -477,6 +496,9 @@ Output options:
 
 Format options:
 
+  --arrow-fn-parens <avoid|callbacks|always>
+                           Whether to print parentheses around a lone arrow function parameter.
+                           Defaults to avoid.
   --no-bracket-spacing     Do not print spaces between brackets.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                            Defaults to false.
@@ -610,6 +632,9 @@ Output options:
 
 Format options:
 
+  --arrow-fn-parens <avoid|callbacks|always>
+                           Whether to print parentheses around a lone arrow function parameter.
+                           Defaults to avoid.
   --no-bracket-spacing     Do not print spaces between brackets.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                            Defaults to false.

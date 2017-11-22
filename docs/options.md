@@ -94,6 +94,22 @@ Default | CLI Override | API Override
 --------|--------------|-------------
 `false` | `--jsx-bracket-same-line` | `jsxBracketSameLine: <bool>`
 
+## Arrow Function Parens
+Whether to use parens around a lone parameter of an arrow function, when possible:
+
+- `const fn = a => a.id;`
+- `arr.map(x => x.id)`
+
+Valid options:
+
+ * `"avoid"` - Always prefer `x => x` when syntax allows.
+ * `"callbacks"` - Prefer `(x) => x`, except in callbacks (`a.map(x => x.id)`).
+ * `"always"` - Always prefer `(x) => x`.
+
+Default | CLI Override | API Override
+--------|--------------|-------------
+`"avoid"` | `--arrow-fn-parens <avoid,callbacks,always>` | `arrowFnParens: "<avoid,callbacks,always>"`
+
 ## Range
 
 Format only a segment of a file.

@@ -1,1 +1,9 @@
-run_spec(__dirname, { parser: "babylon" }, ["typescript"]);
+run_spec(__dirname, { arrowFnParens: "avoid", parser: "babylon" }, [
+  "typescript"
+]);
+run_spec(__dirname, { arrowFnParens: "callbacks", parser: "babylon" }, [
+  "typescript"
+]);
+run_spec(__dirname, { arrowFnParens: "always", parser: "babylon" }, [
+  "typescript"
+]);

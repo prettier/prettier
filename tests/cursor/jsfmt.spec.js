@@ -28,11 +28,11 @@ test("doesn't insert second placeholder for nonexistent TypeAnnotation", () => {
 foo('bar', cb => {
   console.log('stuff')
 })`;
-  expect(prettier.formatWithCursor(code, { cursorOffset: 24 })).toEqual({
+  expect(prettier.formatWithCursor(code, { cursorOffset: 26 })).toEqual({
     formatted: `foo("bar", cb => {
   console.log("stuff");
 });
 `,
-    cursorOffset: 23
+    cursorOffset: 25
   });
 });

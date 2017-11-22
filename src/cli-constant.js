@@ -77,6 +77,29 @@ const categoryOrder = [
  * Note: The options below are sorted alphabetically.
  */
 const detailedOptions = normalizeDetailedOptions({
+  "arrow-fn-parens": {
+    type: "choice",
+    category: CATEGORY_FORMAT,
+    forwardToApi: true,
+    default: "avoid",
+    choices: [
+      {
+        value: "avoid",
+        description: "Omit parens wherever possible, like `x => x`."
+      },
+      {
+        value: "callbacks",
+        description:
+          "Prefer to add parens, like `(x) => x`, except in callbacks, like `a.map(x => x.id)`."
+      },
+      {
+        value: "always",
+        description: "Always add parens, like `(x) => x`."
+      }
+    ],
+    description:
+      "Whether to print parentheses around a lone arrow function parameter."
+  },
   "bracket-spacing": {
     type: "boolean",
     category: CATEGORY_FORMAT,

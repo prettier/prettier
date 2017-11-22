@@ -27,6 +27,10 @@ test("does something really long and complicated so I have to write a very long 
   console.log("hello!");
 });
 
+test("does something really long and complicated so I have to write a very long name for the test", <T>(done) => {
+  console.log("hello!");
+});
+
 test(`does something really long and complicated so I have to write a very long name for the test`, (done) => {
   console.log("hello!");
 });
