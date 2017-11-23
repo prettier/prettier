@@ -1016,6 +1016,7 @@ function genericPrintNoParens(path, options, print, args) {
         lastElem &&
         (lastElem.type === "RestProperty" ||
           lastElem.type === "RestElement" ||
+          lastElem.type === "ExperimentalRestProperty" ||
           hasNodeIgnoreComment(lastElem))
       );
 
