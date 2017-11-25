@@ -101,7 +101,7 @@ $KeepScssVar: val;
 HTML#KeepId.KeepClass,
 a[HREF="KeepAttrValue"]:hover::first-letter,
 svg[viewBox] linearGradient,
-:not(:nth-child(2N + 1)) {
+:not(:nth-child(2n + 1)) {
   color: #aabbcc;
   background-image: URL("KeepString");
   margin: 5px 0.2e10em;
@@ -215,7 +215,7 @@ svg[viewBox] linearGradient,
   }
 
   #{$KeepInterpolationVar},
-  #{$Keep + 15PX},
+  #{$Keep + 15PX + Keep15PX + '15PX' + "15PX"},
   #{$Keep + $Keep15PX} {
     prop: val;
   }
@@ -289,7 +289,7 @@ $KeepTopLevelVar: val;
 HTML#KeepId.KeepClass,
 a[HREF="KeepAttrValue"]:hover::first-letter,
 svg[viewBox] linearGradient,
-:not(:nth-child(2N + 1)) {
+:not(:nth-child(2n + 1)) {
   color: #aabbcc;
   background-image: URL("KeepString");
   margin: 5px 0.2e10em;
@@ -305,7 +305,7 @@ svg[viewBox] linearGradient,
   }
 
   #{$KeepInterpolationVar},
-  #{$Keep + 15PX},
+  #{$Keep + 15px + Keep15PX + "15PX" + "15PX"},
   #{$Keep + $Keep15PX} {
     prop: val;
   }

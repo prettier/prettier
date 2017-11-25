@@ -135,7 +135,8 @@ function massageAST(ast, parent) {
         ast.type === "value-number" ||
         ast.type === "selector-root-invalid" ||
         ast.type === "selector-class" ||
-        ast.type === "selector-combinator") &&
+        ast.type === "selector-combinator" ||
+        ast.type === "selector-tag") &&
       newObj.value
     ) {
       newObj.value = newObj.value.replace(

@@ -222,7 +222,7 @@ function genericPrint(path, options, print) {
       return adjustStrings(n.value, options);
     }
     case "selector-tag": {
-      return n.value;
+      return adjustNumbers(n.value);
     }
     case "selector-id": {
       return concat(["#", n.value]);

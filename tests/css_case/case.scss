@@ -25,7 +25,7 @@ svg[viewBox] linearGradient,
   }
 
   #{$KeepInterpolationVar},
-  #{$Keep + 15PX},
+  #{$Keep + 15PX + Keep15PX + '15PX' + "15PX"},
   #{$Keep + $Keep15PX} {
     prop: val;
   }
