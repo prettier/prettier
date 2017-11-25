@@ -39,9 +39,22 @@ function genericPrint(path, options, print) {
     }
 
     case "arguments": {
-      // TODO: default args, *args, **kwargs,
+      // TODO: default args, *args
       // keyword only arguments
-      return join(", ", n.args.map(a => a.arg));
+
+      // TODO: not sure about this
+
+      const parts = path.map(print, "args");
+
+      if (n.kwarg) {
+        parts.push(concat(["**", path.call(print, "kwarg")]));
+      }
+
+      return join(", ", parts);
+    }
+
+    case "arg": {
+      return n.arg;
     }
 
     case "Expr": {
