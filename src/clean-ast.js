@@ -88,7 +88,6 @@ function massageAST(ast, parent) {
       (ast.type === "value-word" && ast.isColor && ast.isHex) ||
       ast.type === "media-feature" ||
       ast.type === "selector-root-invalid" ||
-      ast.type === "selector-tag" ||
       ast.type === "selector-pseudo"
     ) {
       newObj.value = newObj.value.toLowerCase();
@@ -98,9 +97,6 @@ function massageAST(ast, parent) {
     }
     if (ast.type === "css-atrule" || ast.type === "css-import") {
       newObj.name = newObj.name.toLowerCase();
-    }
-    if (ast.type === "selector-attribute") {
-      newObj.attribute = newObj.attribute.toLowerCase();
     }
     if (ast.type === "value-number") {
       newObj.unit = newObj.unit.toLowerCase();
