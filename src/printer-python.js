@@ -31,7 +31,18 @@ function genericPrint(path, options, print) {
     }
 
     case "FunctionDef": {
-      return "def something: pass";
+      return concat([
+        "def ",
+        path.call(print, "name"),
+        concat(["(", path.call(print, "args"), ")"]),
+        ":"
+      ]);
+    }
+
+    case "arguments": {
+      // TODO: default args, *args, **kwargs,
+      // keyword only arguments
+      return join(", ", n.args.map(a => a.arg));
     }
   }
 
