@@ -60,6 +60,12 @@ function normalize(options) {
     normalized.trailingComma = "none";
   }
 
+  // TODO: check if this changes users' options
+
+  if (normalized.parser === "python") {
+    normalized.tabWidth = 4;
+  }
+
   /* istanbul ignore if */
   if (typeof normalized.trailingComma === "boolean") {
     // Support a deprecated boolean type for the trailing comma config
