@@ -3519,7 +3519,15 @@ function printTypeParameters(path, options, print, paramsKey) {
     return path.call(print, paramsKey);
   }
 
+  const grandparent = path.getNode(2);
+
+  const isParameterInTestCall =
+    grandparent != null &&
+    grandparent.type === "CallExpression" &&
+    isTestCall(grandparent);
+
   const shouldInline =
+    isParameterInTestCall ||
     n[paramsKey].length === 0 ||
     (n[paramsKey].length === 1 &&
       (shouldHugType(n[paramsKey][0]) ||
