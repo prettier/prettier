@@ -77,6 +77,23 @@ const categoryOrder = [
  * Note: The options below are sorted alphabetically.
  */
 const detailedOptions = normalizeDetailedOptions({
+  "arrow-function-parentheses": {
+    type: "choice",
+    category: CATEGORY_FORMAT,
+    forwardToApi: true,
+    description: "Include parentheses around a sole arrow function parameter.",
+    default: "avoid",
+    choices: [
+      {
+        value: "avoid",
+        description: "Omit parens when possible. Example: `x => x`"
+      },
+      {
+        value: "always",
+        description: "Always include parens. Example: `(x) => x`"
+      }
+    ]
+  },
   "bracket-spacing": {
     type: "boolean",
     category: CATEGORY_FORMAT,

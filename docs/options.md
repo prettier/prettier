@@ -96,6 +96,19 @@ Put the `>` of a multi-line JSX element at the end of the last line instead of b
 | ------- | ------------------------- | ---------------------------- |
 | `false` | `--jsx-bracket-same-line` | `jsxBracketSameLine: <bool>` |
 
+# Arrow Function Parentheses
+
+Include parentheses around a sole arrow function parameter.
+
+Valid options:
+
+* `"avoid"` - Omit parens when possible. Example: `x => x`
+* `"always"` - Always include parens. Example: `(x) => x`
+
+| Default   | CLI Override                                              | API Override                                                 |
+| --------- | --------------------------------------------------------- | -------------------------------------------------------      |
+| `"avoid"` | <code>--arrow-function-parens <avoid&#124;always></code>  | <code>arrowFunctionParentheses: "<avoid&#124;always>"</code> |
+
 ## Range
 
 Format only a segment of a file.

@@ -21,7 +21,8 @@ const defaults = {
   insertPragma: false,
   requirePragma: false,
   semi: true,
-  proseWrap: true
+  proseWrap: true,
+  arrowFunctionParentheses: "avoid"
 };
 
 const exampleConfig = Object.assign({}, defaults, {
