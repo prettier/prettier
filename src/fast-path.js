@@ -322,6 +322,12 @@ FastPath.prototype.needsParens = function(options) {
             (node.type === "TSTypeAssertionExpression" ||
               node.type === "TSAsExpression")
           );
+        case "Decorator":
+          return (
+            parent.expression === node &&
+            (node.type === "TSTypeAssertionExpression" ||
+              node.type === "TSAsExpression")
+          );
 
         case "BinaryExpression":
         case "LogicalExpression": {
