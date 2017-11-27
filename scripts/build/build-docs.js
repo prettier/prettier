@@ -21,7 +21,17 @@ function pipe(string) {
   return new shell.ShellString(string);
 }
 
-const prettierPath = "node_modules/prettier/";
+const isPullRequest = process.env.PULL_REQUEST === "true";
+const prettierPath = isPullRequest ? "dist" : "node_modules/prettier/";
+
+// --- Build prettier for PR ---
+
+if (isPullRequest) {
+  const pkg = require("../../package.json");
+  pkg.version = `preview-${process.env.REVIEW_ID}`;
+  pipe(JSON.stringify(pkg, null, 2)).to("package.json");
+  shell.exec("node scripts/build/build.js");
+}
 
 // --- Docs ---
 
