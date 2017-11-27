@@ -9,7 +9,7 @@ const filename = filepath.replace(/.+\//, "");
 const basename = filename.replace(/\..+/, "");
 
 export default Object.assign(baseConfig, {
-  entry: "dist/" + filepath,
+  entry: "node_modules/prettier/" + filepath,
   dest: "website/static/lib/" + filename,
   format: "iife",
   plugins: [json(), resolve({ preferBuiltins: true }), commonjs(), globals()],
