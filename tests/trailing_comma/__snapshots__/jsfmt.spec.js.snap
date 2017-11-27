@@ -225,7 +225,7 @@ exports[`jsx.js 1`] = `
       foo: bar
     })
   }
-/>
+/>;
 
 `;
 
@@ -244,7 +244,7 @@ exports[`jsx.js 2`] = `
       foo: bar,
     })
   }
-/>
+/>;
 
 `;
 
@@ -263,7 +263,7 @@ exports[`jsx.js 3`] = `
       foo: bar,
     })
   }
-/>
+/>;
 
 `;
 

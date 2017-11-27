@@ -15,7 +15,7 @@ exports[`comments.js 1`] = `
     // in the same way
     " "
   }
-</div>
+</div>;
 
 `;
 

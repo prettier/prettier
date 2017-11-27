@@ -1,0 +1,3 @@
+```jsx
+<div>foo</div>
+```

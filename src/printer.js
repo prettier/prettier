@@ -295,7 +295,7 @@ function genericPrintNoParens(path, options, print, args) {
       // Do not append semicolon after the only JSX element in a program
       return concat([
         path.call(print, "expression"),
-        isTheOnlyJSXElement(path) ? "" : semi
+        isTheOnlyJSXElementInMarkdown(options, path) ? "" : semi
       ]); // Babel extension.
     case "ParenthesizedExpression":
       return concat(["(", path.call(print, "expression"), ")"]);
@@ -2872,7 +2872,7 @@ function printStatementSequence(path, options, print) {
     if (
       !options.semi &&
       !isClass &&
-      !isTheOnlyJSXElement(stmtPath) &&
+      !isTheOnlyJSXElementInMarkdown(options, stmtPath) &&
       stmtNeedsASIProtection(stmtPath)
     ) {
       if (stmt.comments && stmt.comments.some(comment => comment.leading)) {
@@ -5057,7 +5057,11 @@ function printAstToDoc(ast, options, addAlignmentSize) {
   return doc;
 }
 
-function isTheOnlyJSXElement(path) {
+function isTheOnlyJSXElementInMarkdown(options, path) {
+  if (options.parentParser !== "markdown") {
+    return false;
+  }
+
   const node = path.getNode();
 
   if (!node.expression || node.expression.type !== "JSXElement") {
