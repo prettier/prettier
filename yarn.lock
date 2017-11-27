@@ -1395,9 +1395,9 @@ ecc-jsbn@~0.1.1:
   dependencies:
     jsbn "~0.1.0"
 
-editorconfig-to-prettier@0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/editorconfig-to-prettier/-/editorconfig-to-prettier-0.0.2.tgz#95245c109c36a21e1c1d3dab69bcd8f8b68d7abb"
+editorconfig-to-prettier@0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/editorconfig-to-prettier/-/editorconfig-to-prettier-0.0.4.tgz#762f569ea26d890ebbe83f2bae231d28c489a66a"
 
 editorconfig@0.14.2:
   version "0.14.2"
