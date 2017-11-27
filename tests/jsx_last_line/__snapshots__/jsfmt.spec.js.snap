@@ -20,7 +20,7 @@ exports[`last_line.js 1`] = `
   ignoreStuff={true}>
   <div>and the children go here</div>
   <div>and here too</div>
-</SomeHighlyConfiguredComponent>;
+</SomeHighlyConfiguredComponent>
 
 `;
 
@@ -45,6 +45,6 @@ exports[`last_line.js 2`] = `
 >
   <div>and the children go here</div>
   <div>and here too</div>
-</SomeHighlyConfiguredComponent>;
+</SomeHighlyConfiguredComponent>
 
 `;

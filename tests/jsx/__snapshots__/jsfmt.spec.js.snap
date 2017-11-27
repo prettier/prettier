@@ -49,7 +49,7 @@ exports[`attr-comments.js 1`] = `
     // comment
     \`text\`
   }
-/>;
+/>
 
 `;
 
