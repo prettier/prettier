@@ -1312,8 +1312,8 @@ from this behavior use \`--with-node-modules\` flag.
 
 #### \`--write\`
 
-This rewrites all processed files in place. This is comparable to the \`eslint
---fix\` workflow.
+This rewrites all processed files in place. This is comparable to the
+\`eslint --fix\` workflow.
 
 ### ESLint
 
@@ -1856,8 +1856,8 @@ for more details see
 
 ### Visual Studio Code
 
-Can be installed using the extension sidebar. Search for \`Prettier - JavaScript
-formatter\`.
+Can be installed using the extension sidebar. Search for
+\`Prettier - JavaScript formatter\`.
 
 Can also be installed using \`ext install prettier-vscode\`.
 

@@ -33,3 +33,9 @@ console.log(
 console.log(`brew cask audit --download ${_.map(definitions, 'caskName').join(' ')}`)
 
 console.log(`\nApparently jetbrains changed the release artifact for ${app.name}@${app.jetbrains.version}.\n`);
+
+descirbe('something', () => {
+  test(`{pass: false} expect(${small}).toBeGreaterThanOrEqual(${big})`, () => {});
+})
+
+throw new Error(`pretty-format: Option "theme" has a key "${key}" whose value "${value}" is undefined in ansi-styles.`,)

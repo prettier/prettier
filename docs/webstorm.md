@@ -7,7 +7,7 @@ title: Webstorm Setup
 
 https://blog.jetbrains.com/webstorm/2016/08/using-external-tools/
 
-Go to *File | Settings | Tools | External Tools* for Windows and Linux or *WebStorm | Preferences | Tools | External Tools* for OS X and click **+** to add a new tool. Let’s name it **Prettier**.
+Go to _File | Settings | Tools | External Tools_ for Windows and Linux or _WebStorm | Preferences | Tools | External Tools_ for OS X and click **+** to add a new tool. Let’s name it **Prettier**.
 
 * **Program** set `prettier`
 
@@ -16,7 +16,7 @@ Go to *File | Settings | Tools | External Tools* for Windows and Linux or *WebSt
 * **Parameters** set `--write [other opts] $FilePathRelativeToProjectRoot$`
 * **Working directory** set `$ProjectFileDir$`
 
-![Example](../../images/webstorm/with-prettier.png)
+![Example](/docs/assets/webstorm/with-prettier.png)
 
 ### Process directories
 
@@ -30,7 +30,7 @@ Go to *File | Settings | Tools | External Tools* for Windows and Linux or *WebSt
 
 ### Configure Keymap
 
-Now when you setup **External Tool** I guess you want to add hotkey for it. Go to *File | Settings | Keymap* for Windows and Linux *WebStorm | Preferences | Keymap* and type external tool name in search box.
+Now when you setup **External Tool** I guess you want to add hotkey for it. Go to _File | Settings | Keymap_ for Windows and Linux _WebStorm | Preferences | Keymap_ and type external tool name in search box.
 
 See [this documentation](https://www.jetbrains.com/help/webstorm/configuring-keyboard-shortcuts.html) about configuring keyboard shortcuts.
 
@@ -38,7 +38,7 @@ See [this documentation](https://www.jetbrains.com/help/webstorm/configuring-key
 
 To automatically format using `prettier` on save, you can use a file watcher.
 
-Go to *File | Settings | Tools | File Watchers* for Windows and Linux or *WebStorm | Preferences | Tools | File Watchers* for OS X and click **+** to add a new tool. Let’s name it **Prettier**.
+Go to _File | Settings | Tools | File Watchers_ for Windows and Linux or _WebStorm | Preferences | Tools | File Watchers_ for OS X and click **+** to add a new tool. Let’s name it **Prettier**.
 
 * **File Type**: JavaScript
 * **Scope**: Current File
@@ -47,4 +47,4 @@ Go to *File | Settings | Tools | File Watchers* for Windows and Linux or *WebSto
 * **Working directory** set `$ProjectFileDir$`
 * **Immediate file synchronization**: Uncheck to reformat on Save only (otherwise code will jump around while you type).
 
-![Example](../../images/webstorm/prettier-file-wacther.png)
+![Example](/docs/assets/webstorm/prettier-file-watcher.png)

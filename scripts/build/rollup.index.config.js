@@ -3,6 +3,13 @@ import resolve from "rollup-plugin-node-resolve";
 import commonjs from "rollup-plugin-commonjs";
 import json from "rollup-plugin-json";
 import replace from "rollup-plugin-replace";
+import * as path from "path";
+
+const external = ["assert"];
+
+if (process.env.BUILD_TARGET !== "website") {
+  external.push(path.resolve("src/third-party.js"));
+}
 
 export default Object.assign(baseConfig, {
   entry: "index.js",
@@ -10,17 +17,14 @@ export default Object.assign(baseConfig, {
   format: "cjs",
   plugins: [
     replace({
-      // The require-from-string module (a dependency of cosmiconfig) assumes
-      // that `module.parent` exists, but it only does for `require`:ed modules.
-      // Usually, require-from-string is _always_ `require`:ed, but when bundled
-      // with rollup the module is turned into a plain function located directly
-      // in index.js so `module.parent` does not exist. Defaulting to `module`
-      // instead seems to work.
-      "module.parent": "(module.parent || module)"
+      "process.env.NODE_ENV": JSON.stringify("production")
     }),
     json(),
     resolve({ preferBuiltins: true }),
     commonjs()
   ],
-  external: ["assert"]
+  external,
+  paths: {
+    [path.resolve("src/third-party.js")]: "./third-party"
+  }
 });

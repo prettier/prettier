@@ -23,3 +23,6 @@
 >
   {foo}
 </div>;
+
+<br // comment
+/>;
