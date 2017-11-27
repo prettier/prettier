@@ -185,3 +185,42 @@ abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc 
 * [valid-expect](/packages/eslint-plugin-jest/docs/rules/valid-expect.md) - ensure expect is called correctly.
 
 `;
+
+exports[`whitespace.md 1`] = `
+<!-- 0xA0 non-breaking whitespace -->
+
+keep these words together keep these words together keep these words together keep these words together
+
+<!-- 0x20 standard whitespace -->
+
+keep these words together keep these words together keep these words together keep these words together
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<!-- 0xA0 non-breaking whitespace -->
+
+keep these words together keep these words together keep these words together keep these words together
+
+<!-- 0x20 standard whitespace -->
+
+keep these words together keep these words together keep these words together
+keep these words together
+
+`;
+
+exports[`whitespace.md 2`] = `
+<!-- 0xA0 non-breaking whitespace -->
+
+keep these words together keep these words together keep these words together keep these words together
+
+<!-- 0x20 standard whitespace -->
+
+keep these words together keep these words together keep these words together keep these words together
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<!-- 0xA0 non-breaking whitespace -->
+
+keep these words together keep these words together keep these words together keep these words together
+
+<!-- 0x20 standard whitespace -->
+
+keep these words together keep these words together keep these words together keep these words together
+
+`;
