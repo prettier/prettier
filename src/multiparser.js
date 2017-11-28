@@ -12,6 +12,7 @@ const concat = docBuilders.concat;
 function printSubtree(subtreeParser, path, print, options) {
   const next = Object.assign({}, { transformDoc: doc => doc }, subtreeParser);
   next.options = Object.assign({}, options, next.options, {
+    parentParser: options.parser,
     originalText: next.text
   });
   if (next.options.parser === "json") {
