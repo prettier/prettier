@@ -88,6 +88,7 @@
     "lint": "cross-env EFF_NO_LINK_RULES=true eslint . --format node_modules/eslint-friendly-formatter",
     "lint-docs": "prettylint {.,docs,website}/*.md",
     "build": "node ./scripts/build/build.js",
+    "build-docs": "node ./scripts/build/build-docs.js",
     "check-deps": "node ./scripts/check-deps.js"
   }
 }

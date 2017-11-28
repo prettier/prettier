@@ -683,8 +683,7 @@ function splitText(text) {
 
   text
     .replace(new RegExp(`(${cjkPattern})\n(${cjkPattern})`, "g"), "$1$2")
-    // `\s` but exclude full-width whitspace (`\u3000`)
-    .split(/([^\S\u3000]+)/)
+    .split(/([ \t\n]+)/)
     .forEach((token, index, tokens) => {
       // whitespace
       if (index % 2 === 1) {
