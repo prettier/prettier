@@ -98,6 +98,8 @@ Put the `>` of a multi-line JSX element at the end of the last line instead of b
 
 ## Arrow Function Parentheses
 
+_available in v1.9.0+_
+
 Include parentheses around a sole arrow function parameter.
 
 Valid options:
