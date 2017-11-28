@@ -5,10 +5,10 @@ const concat = docBuilders.concat;
 const join = docBuilders.join;
 const hardline = docBuilders.hardline;
 const line = docBuilders.line;
-// const softline = docBuilders.softline;
-// const group = docBuilders.group;
+const softline = docBuilders.softline;
+const group = docBuilders.group;
 const indent = docBuilders.indent;
-// const ifBreak = docBuilders.ifBreak;
+const ifBreak = docBuilders.ifBreak;
 
 function genericPrint(path, options, print) {
   const n = path.getValue();
@@ -32,7 +32,15 @@ function genericPrint(path, options, print) {
       return concat([
         "def ",
         path.call(print, "name"),
-        concat(["(", path.call(print, "args"), ")"]),
+        // concat(["(", path.call(print, "args"), ")"]),
+        group(
+          concat([
+            "(",
+            indent(concat([softline, path.call(print, "args")])),
+            softline,
+            ")"
+          ])
+        ),
         ":",
         indent(concat([line, concat(path.map(print, "body"))]))
       ]);
@@ -50,7 +58,7 @@ function genericPrint(path, options, print) {
         parts.push(concat(["**", path.call(print, "kwarg")]));
       }
 
-      return join(", ", parts);
+      return join(concat([", ", softline]), parts);
     }
 
     case "arg": {
