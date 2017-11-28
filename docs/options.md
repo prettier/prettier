@@ -190,6 +190,12 @@ _available in v1.8.2+_
 
 By default, Prettier will wrap markdown text at the specified print width. In some cases you may want to rely on editor/viewer soft wrapping instead, so this option allows you to opt out. When prose wrapping is disabled, each paragraph will be printed on its own line.
 
-| Default | CLI Override      | API Override        |
-| ------- | ----------------- | ------------------- |
-| `true`  | `--no-prose-wrap` | `proseWrap: <bool>` |
+Valid options:
+
+* `"always"` - Wrap prose if it exceeds the print width.
+* `"never"` - Do not wrap prose.
+* `"preserve"` - Wrap prose as-is, useful for someone who wants to wrap prose themselves, e.g. one sentense per line. _available in v1.9.0+_
+
+| Default    | CLI Override                             | API Override                           |
+| ---------- | ---------------------------------------- | -------------------------------------- |
+| `"always"` | `--prose-wrap <always\|never\|preserve>` | `proseWrap: "always\|never\|preserve"` |
