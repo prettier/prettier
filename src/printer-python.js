@@ -72,7 +72,6 @@ function genericPrint(path, options, print) {
       return concat([
         "def ",
         path.call(print, "name"),
-        // concat(["(", path.call(print, "args"), ")"]),
         group(
           concat([
             "(",
