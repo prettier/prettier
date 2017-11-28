@@ -292,7 +292,11 @@ function genericPrintNoParens(path, options, print, args) {
       if (n.directive) {
         return concat([nodeStr(n.expression, options, true), semi]);
       }
-      return concat([path.call(print, "expression"), semi]); // Babel extension.
+      // Do not append semicolon after the only JSX element in a program
+      return concat([
+        path.call(print, "expression"),
+        isTheOnlyJSXElementInMarkdown(options, path) ? "" : semi
+      ]); // Babel extension.
     case "ParenthesizedExpression":
       return concat(["(", path.call(print, "expression"), ")"]);
     case "AssignmentExpression":
@@ -2864,7 +2868,13 @@ function printStatementSequence(path, options, print) {
     const parts = [];
 
     // in no-semi mode, prepend statement with semicolon if it might break ASI
-    if (!options.semi && !isClass && stmtNeedsASIProtection(stmtPath)) {
+    // don't prepend the only JSX element in a program with semicolon
+    if (
+      !options.semi &&
+      !isClass &&
+      !isTheOnlyJSXElementInMarkdown(options, stmtPath) &&
+      stmtNeedsASIProtection(stmtPath)
+    ) {
       if (stmt.comments && stmt.comments.some(comment => comment.leading)) {
         // Note: stmtNeedsASIProtection requires stmtPath to already be printed
         // as it reads needsParens which is mutated on the instance
@@ -5045,6 +5055,22 @@ function printAstToDoc(ast, options, addAlignmentSize) {
   }
 
   return doc;
+}
+
+function isTheOnlyJSXElementInMarkdown(options, path) {
+  if (options.parentParser !== "markdown") {
+    return false;
+  }
+
+  const node = path.getNode();
+
+  if (!node.expression || node.expression.type !== "JSXElement") {
+    return false;
+  }
+
+  const parent = path.getParentNode();
+
+  return parent.type === "Program" && parent.body.length == 1;
 }
 
 module.exports = { printAstToDoc };

@@ -8,7 +8,6 @@ const formatMarkdown = require("../../website/static/markdown");
 const shell = require("shelljs");
 
 const rootDir = path.join(__dirname, "..", "..");
-const docs = path.join(rootDir, "website/static/lib");
 const parsers = [
   "babylon",
   "flow",
@@ -28,8 +27,7 @@ function pipe(string) {
 shell.set("-e");
 shell.cd(rootDir);
 
-shell.rm("-Rf", "dist/", docs);
-shell.mkdir("-p", docs);
+shell.rm("-Rf", "dist/");
 
 // --- Lib ---
 
@@ -66,44 +64,6 @@ pipe(`module.exports = ${content}`).to("dist/parser-postcss.js");
 
 shell.echo();
 
-// --- Docs ---
-
-shell.echo("Bundling docs index...");
-shell.exec(
-  `rollup -c scripts/build/rollup.index.config.js --environment BUILD_TARGET:website -o ${
-    docs
-  }/index.js`
-);
-shell.exec(
-  `node_modules/babel-cli/bin/babel.js ${docs}/index.js --out-file ${
-    docs
-  }/index.js --presets=es2015`
-);
-
-shell.echo("Bundling docs babylon...");
-shell.exec(
-  "rollup -c scripts/build/rollup.docs.config.js --environment filepath:parser-babylon.js"
-);
-shell.exec(
-  `node_modules/babel-cli/bin/babel.js ${docs}/parser-babylon.js --out-file ${
-    docs
-  }/parser-babylon.js --presets=es2015`
-);
-
-for (const parser of parsers) {
-  if (parser === "babylon") {
-    continue;
-  }
-  shell.echo(`Bundling docs ${parser}...`);
-  shell.exec(
-    `rollup -c scripts/build/rollup.docs.config.js --environment filepath:parser-${
-      parser
-    }.js`
-  );
-}
-
-shell.echo();
-
 // --- Misc ---
 
 shell.echo("Remove eval");
@@ -132,9 +92,6 @@ const newIssueTemplate = issueTemplate.replace(
     )
 );
 pipe(newIssueTemplate).to(".github/ISSUE_TEMPLATE.md");
-
-shell.echo("Copy sw-toolbox.js to docs");
-shell.cp("node_modules/sw-toolbox/sw-toolbox.js", `${docs}/sw-toolbox.js`);
 
 shell.echo("Copy package.json");
 const pkgWithoutDependencies = Object.assign({}, pkg);

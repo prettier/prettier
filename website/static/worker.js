@@ -22,6 +22,9 @@ self.require = function require(path) {
   if (path === "stream") {
     return { PassThrough() {} };
   }
+  if (path === "./third-party") {
+    return {};
+  }
   return self[path.replace(/.+-/, "")];
 };
 

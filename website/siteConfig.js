@@ -47,7 +47,25 @@ const siteConfig = {
   algolia: {
     apiKey: process.env.ALGOLIA_PRETTIER_API_KEY,
     indexName: "prettier"
-  }
+  },
+  markdownPlugins: [
+    // ignore `<!-- prettier-ignore -->` before passing into Docusaurus to avoid mis-parsing (#3322)
+    md => {
+      md.block.ruler.before(
+        "htmlblock",
+        "prettierignore",
+        (state, startLine) => {
+          const pos = state.bMarks[startLine];
+          const max = state.eMarks[startLine];
+          if (/<!-- prettier-ignore -->/.test(state.src.slice(pos, max))) {
+            state.line += 1;
+            return true;
+          }
+          return false;
+        }
+      );
+    }
+  ]
 };
 
 module.exports = siteConfig;
