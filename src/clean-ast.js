@@ -63,6 +63,10 @@ function massageAST(ast, parent) {
     if (ast.type === "code") {
       delete newObj.value;
     }
+    // for markdown whitespace: "\n" and " " are considered the same
+    if (ast.type === "whitespace" && ast.value === "\n") {
+      newObj.value = " ";
+    }
 
     if (
       ast.type === "media-query" ||

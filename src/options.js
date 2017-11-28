@@ -21,7 +21,7 @@ const defaults = {
   insertPragma: false,
   requirePragma: false,
   semi: true,
-  proseWrap: true
+  proseWrap: "always"
 };
 
 const exampleConfig = Object.assign({}, defaults, {
@@ -68,6 +68,16 @@ function normalize(options) {
     console.warn(
       "Warning: `trailingComma` without any argument is deprecated. " +
         'Specify "none", "es5", or "all".'
+    );
+  }
+
+  /* istanbul ignore if */
+  if (typeof normalized.proseWrap === "boolean") {
+    normalized.proseWrap = normalized.proseWrap ? "always" : "never";
+
+    console.warn(
+      "Warning: `proseWrap` with boolean value is deprecated. " +
+        'Use "always", "never", or "preserve" instead.'
     );
   }
 
