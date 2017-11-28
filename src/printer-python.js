@@ -142,6 +142,17 @@ function genericPrint(path, options, print) {
       return `${n.value}`;
     }
 
+    case "For": {
+      return concat([
+        "for ",
+        path.call(print, "target"),
+        " in ",
+        path.call(print, "iter"),
+        ":",
+        indent(concat([line, concat(path.map(print, "body"))]))
+      ]);
+    }
+
     default:
       /* istanbul ignore next */
       throw new Error("unknown python type: " + JSON.stringify(n.ast_type));
