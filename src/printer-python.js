@@ -81,6 +81,14 @@ function genericPrint(path, options, print) {
       return `"${n.s}"`;
     }
 
+    case "Num": {
+      return path.call(print, "n");
+    }
+
+    case "int": {
+      return `${n.n}`;
+    }
+
     case "Name": {
       return n.id;
     }
