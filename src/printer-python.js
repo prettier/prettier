@@ -10,6 +10,46 @@ const group = docBuilders.group;
 const indent = docBuilders.indent;
 const ifBreak = docBuilders.ifBreak;
 
+function printArguments(print, path, argsKey, defaultsKey) {
+  const n = path.getValue();
+
+  // python AST represent arguments and default
+  // value in two different lists, so we grab
+  // the list of the arguments and the list of
+  // default values and we merge them together and sort
+  // them by column. Then we iterated one by one and
+  // if the next element is a default value we merge it with
+  // the current one
+
+  const merge = [...n[argsKey], ...n[defaultsKey]].sort(
+    (a, b) => a.col_offset - b.col_offset
+  );
+
+  const parts = [];
+
+  let currentArgument = 0;
+  let currentDefault = 0;
+
+  for (let i = 0; i < merge.length; i++) {
+    const next = merge[i + 1];
+
+    const part = [path.call(print, argsKey, currentArgument)];
+
+    currentArgument += 1;
+
+    if (next && next.ast_type != "arg") {
+      part.push("=", path.call(print, defaultsKey, currentDefault));
+
+      i += 1;
+      currentDefault += 1;
+    }
+
+    parts.push(concat(part));
+  }
+
+  return parts;
+}
+
 function genericPrint(path, options, print) {
   const n = path.getValue();
   if (!n) {
@@ -47,42 +87,7 @@ function genericPrint(path, options, print) {
     }
 
     case "arguments": {
-      // TODO: default args
-      // keyword only arguments
-
-      // python AST represent arguments and default
-      // value in two different lists, so we grab
-      // the list of the arguments and the list of
-      // default values and we merge them together and sort
-      // them by column. Then we iterated one by one and
-      // if the next element is a default value we merge it with
-      // the current one
-
-      const merge = [...n.args, ...n.defaults].sort(
-        (a, b) => a.col_offset - b.col_offset
-      );
-
-      const parts = [];
-
-      let currentArgument = 0;
-      let currentDefault = 0;
-
-      for (let i = 0; i < merge.length; i++) {
-        const next = merge[i + 1];
-
-        const part = [path.call(print, "args", currentArgument)];
-
-        currentArgument += 1;
-
-        if (next && next.ast_type != "arg") {
-          part.push("=", path.call(print, "defaults", currentDefault));
-
-          i += 1;
-          currentDefault += 1;
-        }
-
-        parts.push(concat(part));
-      }
+      let parts = printArguments(print, path, "args", "defaults");
 
       // add varargs (*args)
 
@@ -94,6 +99,13 @@ function genericPrint(path, options, print) {
 
       if (n.kwarg) {
         parts.push(concat(["**", path.call(print, "kwarg")]));
+      }
+
+      if (n.kwonlyargs.length > 0) {
+        parts.push("*");
+        parts = parts.concat(
+          printArguments(print, path, "kwonlyargs", "kw_defaults")
+        );
       }
 
       return join(concat([", ", softline]), parts);
@@ -125,6 +137,10 @@ function genericPrint(path, options, print) {
 
     case "Name": {
       return n.id;
+    }
+
+    case "NameConstant": {
+      return `${n.value}`;
     }
 
     default:

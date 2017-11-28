@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`kwargs_only.py 1`] = `
+def hello(a, *, delete=False):
+    print("hello world", delete)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def hello(a, *, delete=False):
+    print("hello world", delete)
+
+`;
