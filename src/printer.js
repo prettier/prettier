@@ -3262,15 +3262,16 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
 }
 
 function shouldPrintParamsWithoutParens(path, options) {
-  if (options.arrowFunctionParentheses === "always") {
+  if (options.arrowParens === "always") {
     return false;
   }
 
-  if (options.arrowFunctionParentheses === "avoid") {
+  if (options.arrowParens === "avoid") {
     const node = path.getValue();
     return canPrintParamsWithoutParens(node);
   }
 
+  // Fallback default; should be unreachable
   return false;
 }
 

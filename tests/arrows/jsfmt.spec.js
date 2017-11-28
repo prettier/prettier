@@ -1,6 +1,6 @@
-run_spec(__dirname, { parser: "babylon", arrowFunctionParentheses: "avoid" }, [
+run_spec(__dirname, { parser: "babylon", arrowParens: "avoid" }, [
   "typescript"
 ]);
-run_spec(__dirname, { parser: "babylon", arrowFunctionParentheses: "always" }, [
+run_spec(__dirname, { parser: "babylon", arrowParens: "always" }, [
   "typescript"
 ]);

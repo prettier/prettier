@@ -77,7 +77,7 @@ const categoryOrder = [
  * Note: The options below are sorted alphabetically.
  */
 const detailedOptions = normalizeDetailedOptions({
-  "arrow-function-parentheses": {
+  "arrow-parens": {
     type: "choice",
     category: CATEGORY_FORMAT,
     forwardToApi: true,
