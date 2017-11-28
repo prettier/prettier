@@ -47,12 +47,16 @@ function genericPrint(path, options, print) {
     }
 
     case "arguments": {
-      // TODO: default args, *args
+      // TODO: default args
       // keyword only arguments
 
       // TODO: not sure about this
 
       const parts = path.map(print, "args");
+
+      if (n.vararg) {
+        parts.push(concat(["*", path.call(print, "vararg")]));
+      }
 
       if (n.kwarg) {
         parts.push(concat(["**", path.call(print, "kwarg")]));
