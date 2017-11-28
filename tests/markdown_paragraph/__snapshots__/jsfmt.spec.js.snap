@@ -65,6 +65,33 @@ This ia an english paragraph with a CJK quote “中文“.
 
 `;
 
+exports[`cjk.md 3`] = `
+這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長的段落
+
+這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！
+
+全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白
+
+This ia an english paragraph with a CJK quote "中文".
+
+This ia an english paragraph with a CJK quote “中文“.
+
+扩展运算符（spread）是三个点（\`...\`）。
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長的段落
+
+這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！
+
+全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白
+
+This ia an english paragraph with a CJK quote "中文".
+
+This ia an english paragraph with a CJK quote “中文“.
+
+扩展运算符（spread）是三个点（\`...\`）。
+
+`;
+
 exports[`inline-nodes.md 1`] = `
 It removes all original styling[*](#styling-footnote) and ensures that all outputted code conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -75,6 +102,13 @@ outputted code conforms to a consistent style. (See this
 `;
 
 exports[`inline-nodes.md 2`] = `
+It removes all original styling[*](#styling-footnote) and ensures that all outputted code conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+It removes all original styling[\\*](#styling-footnote) and ensures that all outputted code conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
+
+`;
+
+exports[`inline-nodes.md 3`] = `
 It removes all original styling[*](#styling-footnote) and ensures that all outputted code conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 It removes all original styling[\\*](#styling-footnote) and ensures that all outputted code conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
@@ -127,6 +161,31 @@ Et quam mollitia velit iste enim exercitationem nemo. Hic dignissimos eos et. Eo
 
 `;
 
+exports[`lorem.md 3`] = `
+Hic dicta et recusandae incidunt. Reiciendis saepe voluptatem tempore rem aut.
+Iusto sapiente impedit. Laudantium ut id non et aperiam ab.
+ 
+Sit minus architecto quas quibusdam sed ipsam aut eum.
+Dolores tempora reiciendis magni blanditiis laborum aliquid rem corporis enim. Et consectetur quo sed excepturi soluta repudiandae commodi id.
+Eum possimus optio distinctio incidunt quasi optio culpa accusamus.
+Architecto esse ut aut autem ullam consequatur reiciendis aliquid dolorum.
+ 
+Et quam mollitia velit iste enim exercitationem nemo.
+Hic dignissimos eos et. Eos eos consequatur.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Hic dicta et recusandae incidunt. Reiciendis saepe voluptatem tempore rem aut.
+Iusto sapiente impedit. Laudantium ut id non et aperiam ab.
+
+Sit minus architecto quas quibusdam sed ipsam aut eum.
+Dolores tempora reiciendis magni blanditiis laborum aliquid rem corporis enim. Et consectetur quo sed excepturi soluta repudiandae commodi id.
+Eum possimus optio distinctio incidunt quasi optio culpa accusamus.
+Architecto esse ut aut autem ullam consequatur reiciendis aliquid dolorum.
+
+Et quam mollitia velit iste enim exercitationem nemo.
+Hic dignissimos eos et. Eos eos consequatur.
+
+`;
+
 exports[`simple.md 1`] = `
 This is a long long long long long long long long long long long long long long long paragraph.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -136,6 +195,13 @@ long paragraph.
 `;
 
 exports[`simple.md 2`] = `
+This is a long long long long long long long long long long long long long long long paragraph.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This is a long long long long long long long long long long long long long long long paragraph.
+
+`;
+
+exports[`simple.md 3`] = `
 This is a long long long long long long long long long long long long long long long paragraph.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 This is a long long long long long long long long long long long long long long long paragraph.
@@ -232,6 +298,49 @@ abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc 
 
 `;
 
+exports[`special-prefix.md 3`] = `
+abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc - abc abc abc 
+
+## Supported Rules
+
+- [no-disabled-tests](/packages/eslint-plugin-jest/docs/rules/no-disabled-tests.md) - disallow disabled tests.
+- [no-focused-tests](/packages/eslint-plugin-jest/docs/rules/no-focused-tests.md) - disallow focused tests.
+- [no-identical-title](/packages/eslint-plugin-jest/docs/rules/no-identical-title.md) - disallow identical titles.
+- [valid-expect](/packages/eslint-plugin-jest/docs/rules/valid-expect.md) - ensure expect is called correctly.
+
+## Supported Rules
+
+* [no-disabled-tests](/packages/eslint-plugin-jest/docs/rules/no-disabled-tests.md)
+  - disallow disabled tests.
+* [no-focused-tests](/packages/eslint-plugin-jest/docs/rules/no-focused-tests.md)
+  - disallow focused tests.
+* [no-identical-title](/packages/eslint-plugin-jest/docs/rules/no-identical-title.md)
+  - disallow identical titles.
+* [valid-expect](/packages/eslint-plugin-jest/docs/rules/valid-expect.md) -
+  ensure expect is called correctly.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc - abc abc abc
+
+## Supported Rules
+
+* [no-disabled-tests](/packages/eslint-plugin-jest/docs/rules/no-disabled-tests.md) - disallow disabled tests.
+* [no-focused-tests](/packages/eslint-plugin-jest/docs/rules/no-focused-tests.md) - disallow focused tests.
+* [no-identical-title](/packages/eslint-plugin-jest/docs/rules/no-identical-title.md) - disallow identical titles.
+* [valid-expect](/packages/eslint-plugin-jest/docs/rules/valid-expect.md) - ensure expect is called correctly.
+
+## Supported Rules
+
+* [no-disabled-tests](/packages/eslint-plugin-jest/docs/rules/no-disabled-tests.md)
+  * disallow disabled tests.
+* [no-focused-tests](/packages/eslint-plugin-jest/docs/rules/no-focused-tests.md)
+  * disallow focused tests.
+* [no-identical-title](/packages/eslint-plugin-jest/docs/rules/no-identical-title.md)
+  * disallow identical titles.
+* [valid-expect](/packages/eslint-plugin-jest/docs/rules/valid-expect.md) -
+  ensure expect is called correctly.
+
+`;
+
 exports[`whitespace.md 1`] = `
 <!-- 0xA0 non-breaking whitespace -->
 
@@ -253,6 +362,25 @@ keep these words together
 `;
 
 exports[`whitespace.md 2`] = `
+<!-- 0xA0 non-breaking whitespace -->
+
+keep these words together keep these words together keep these words together keep these words together
+
+<!-- 0x20 standard whitespace -->
+
+keep these words together keep these words together keep these words together keep these words together
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<!-- 0xA0 non-breaking whitespace -->
+
+keep these words together keep these words together keep these words together keep these words together
+
+<!-- 0x20 standard whitespace -->
+
+keep these words together keep these words together keep these words together keep these words together
+
+`;
+
+exports[`whitespace.md 3`] = `
 <!-- 0xA0 non-breaking whitespace -->
 
 keep these words together keep these words together keep these words together keep these words together
