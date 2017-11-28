@@ -683,7 +683,9 @@ function handleCommentInEmptyParens(text, enclosingNode, comment) {
     enclosingNode &&
     (((enclosingNode.type === "FunctionDeclaration" ||
       enclosingNode.type === "FunctionExpression" ||
-      enclosingNode.type === "ArrowFunctionExpression" ||
+      (enclosingNode.type === "ArrowFunctionExpression" &&
+        (enclosingNode.body.type !== "CallExpression" ||
+          enclosingNode.body.arguments.length === 0)) ||
       enclosingNode.type === "ClassMethod" ||
       enclosingNode.type === "ObjectMethod") &&
       enclosingNode.params.length === 0) ||
