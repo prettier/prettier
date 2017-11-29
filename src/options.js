@@ -21,7 +21,7 @@ const defaults = {
   insertPragma: false,
   requirePragma: false,
   semi: true,
-  proseWrap: "always",
+  proseWrap: "preserve",
   arrowParens: "avoid"
 };
 
