@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`for_kw.py 1`] = `
+for a, b in [(1, 2), (1, 2)]:
+    print(a)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+for a, b in [(1, 2), (1, 2)]:
+    print(a)
+
+`;

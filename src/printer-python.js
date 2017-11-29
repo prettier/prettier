@@ -153,6 +153,23 @@ function genericPrint(path, options, print) {
       ]);
     }
 
+    case "Tuple": {
+      const needsParens =
+        ["List", "Tuple"].indexOf(path.getParentNode().ast_type) !== -1;
+
+      const elts = join(", ", path.map(print, "elts"));
+
+      if (needsParens) {
+        return concat(["(", elts, ")"]);
+      }
+
+      return elts;
+    }
+
+    case "List": {
+      return concat(["[", join(", ", path.map(print, "elts")), "]"]);
+    }
+
     default:
       /* istanbul ignore next */
       throw new Error("unknown python type: " + JSON.stringify(n.ast_type));
