@@ -40,7 +40,8 @@ const INLINE_NODE_TYPES = [
 
 const INLINE_NODE_WRAPPER_TYPES = INLINE_NODE_TYPES.concat([
   "tableCell",
-  "paragraph"
+  "paragraph",
+  "heading"
 ]);
 
 function genericPrint(path, options, print) {
