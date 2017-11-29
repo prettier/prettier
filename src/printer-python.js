@@ -335,6 +335,15 @@ function genericPrint(path, options, print) {
       return n.name;
     }
 
+    case "While": {
+      return concat([
+        "while ",
+        path.call(print, "test"),
+        ":",
+        indent(concat([line, concat(path.map(print, "body"))]))
+      ]);
+    }
+
     default:
       /* istanbul ignore next */
       throw new Error("unknown python type: " + JSON.stringify(n.ast_type));
