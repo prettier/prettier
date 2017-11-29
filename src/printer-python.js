@@ -313,6 +313,28 @@ function genericPrint(path, options, print) {
       return "!=";
     }
 
+    case "Import": {
+      return concat(["import ", join(", ", path.map(print, "names"))]);
+    }
+
+    case "ImportFrom": {
+      return concat([
+        "from ",
+        ".".repeat(n.level),
+        n.module,
+        " import ",
+        join(", ", path.map(print, "names"))
+      ]);
+    }
+
+    case "alias": {
+      if (n.asname) {
+        return `${n.name} as ${n.asname}`;
+      }
+
+      return n.name;
+    }
+
     default:
       /* istanbul ignore next */
       throw new Error("unknown python type: " + JSON.stringify(n.ast_type));

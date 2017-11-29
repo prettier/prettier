@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`import.py 1`] = `
+import sys
+
+from models import X
+
+from .models import X
+
+from .models import B as C
+
+from .example import *
+
+from ..example import *
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import sys
+
+from models import X
+
+from .models import X
+
+from .models import B as C
+
+from .example import *
+
+from ..example import *
+
+`;
