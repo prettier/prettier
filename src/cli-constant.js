@@ -82,7 +82,6 @@ const detailedOptions = normalizeDetailedOptions({
     category: CATEGORY_FORMAT,
     forwardToApi: true,
     description: "Include parentheses around a sole arrow function parameter.",
-    default: "avoid",
     choices: [
       {
         value: "avoid",
