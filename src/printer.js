@@ -84,12 +84,7 @@ function hasNodeIgnoreComment(node) {
 function hasJsxIgnoreComment(path) {
   const node = path.getValue();
   const parent = path.getParentNode();
-  if (
-    !parent ||
-    !node ||
-    (node.type !== "JSXElement" && node.type !== "JSXFragment") ||
-    (parent.type !== "JSXElement" && parent.type !== "JSXFragment")
-  ) {
+  if (!parent || !node || !isJSXNode(node) || !isJSXNode(parent)) {
     return false;
   }
 
@@ -524,8 +519,8 @@ function genericPrintNoParens(path, options, print, args) {
         (n.body.type === "ArrayExpression" ||
           n.body.type === "ObjectExpression" ||
           n.body.type === "BlockStatement" ||
-          n.body.type === "JSXElement" ||
-          n.body.type === "JSXFragment" ||
+          isJSXNode(n.body) ||
+          isJSXNode(n.body) ||
           isTemplateOnItsOwnLine(n.body, options.originalText) ||
           n.body.type === "ArrowFunctionExpression")
       ) {
@@ -1269,12 +1264,9 @@ function genericPrintNoParens(path, options, print, args) {
       const lastConditionalParent = previousParent;
 
       if (
-        n.test.type === "JSXElement" ||
-        n.test.type === "JSXFragment" ||
-        n.consequent.type === "JSXElement" ||
-        n.consequent.type === "JSXFragment" ||
-        n.alternate.type === "JSXElement" ||
-        n.alternate.type === "JSXFragment" ||
+        isJSXNode(n.test) ||
+        isJSXNode(n.consequent) ||
+        isJSXNode(n.alternate) ||
         conditionalExpressionChainContainsJSX(lastConditionalParent)
       ) {
         jsxMode = true;
@@ -1745,7 +1737,7 @@ function genericPrintNoParens(path, options, print, args) {
           n.expression.type === "JSXEmptyExpression" ||
           n.expression.type === "TemplateLiteral" ||
           n.expression.type === "TaggedTemplateExpression" ||
-          ((parent.type === "JSXElement" || parent.type === "JSXFragment") &&
+          (isJSXNode(parent) &&
             (n.expression.type === "ConditionalExpression" ||
               isBinaryish(n.expression))));
 
@@ -2994,8 +2986,7 @@ function couldGroupArg(arg) {
         arg.body.type === "ObjectExpression" ||
         arg.body.type === "ArrayExpression" ||
         arg.body.type === "CallExpression" ||
-        arg.body.type === "JSXElement" ||
-        arg.body.type === "JSXFragment"))
+        isJSXNode(arg.body)))
   );
 }
 
@@ -3981,6 +3972,10 @@ function printMemberChain(path, options, print) {
   ]);
 }
 
+function isJSXNode(node) {
+  return node.type === "JSXElement" || node.type === "JSXFragment";
+}
+
 function isEmptyJSXElement(node) {
   if (node.children.length === 0) {
     return true;
@@ -4014,11 +4009,7 @@ function isMeaningfulJSXText(node) {
 }
 
 function conditionalExpressionChainContainsJSX(node) {
-  return Boolean(
-    getConditionalChainContents(node).find(
-      child => child.type === "JSXElement" || child.type === "JSXFragment"
-    )
-  );
+  return Boolean(getConditionalChainContents(node).find(isJSXNode));
 }
 
 // If we have nested conditional expressions, we want to print them in JSX mode
@@ -4290,10 +4281,7 @@ function printJSXElement(path, options, print) {
     return child;
   });
 
-  const containsTag =
-    n.children.filter(
-      child => child.type === "JSXElement" || child.type === "JSXFragment"
-    ).length > 0;
+  const containsTag = n.children.filter(isJSXNode).length > 0;
   const containsMultipleExpressions =
     n.children.filter(child => child.type === "JSXExpressionContainer").length >
     1;
@@ -4487,7 +4475,7 @@ function shouldInlineLogicalExpression(node) {
     return true;
   }
 
-  if (node.right.type === "JSXElement" || node.right.type === "JSXFragment") {
+  if (isJSXNode(node.right)) {
     return true;
   }
 
@@ -4671,7 +4659,7 @@ function hasTrailingComment(node) {
 }
 
 function hasLeadingOwnLineComment(text, node) {
-  if (node.type === "JSXElement" || node.type === "JSXFragment") {
+  if (isJSXNode(node)) {
     return hasNodeIgnoreComment(node);
   }
 
@@ -4757,8 +4745,7 @@ function exprNeedsASIProtection(path, options) {
       (node.operator === "+" || node.operator === "-")) ||
     node.type === "TemplateLiteral" ||
     node.type === "TemplateElement" ||
-    node.type === "JSXElement" ||
-    node.type === "JSXFragment" ||
+    isJSXNode(node) ||
     node.type === "BindExpression" ||
     node.type === "RegExpLiteral" ||
     (node.type === "Literal" && node.pattern) ||
@@ -5153,7 +5140,7 @@ function isTheOnlyJSXElementInMarkdown(options, path) {
 
   const node = path.getNode();
 
-  if (!node.expression || node.expression.type !== "JSXElement") {
+  if (!node.expression || !isJSXNode(node.expression)) {
     return false;
   }
 
