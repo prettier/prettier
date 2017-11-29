@@ -58,8 +58,8 @@ class Footer extends React.Component {
             <a href="https://gitter.im/jlongster/prettier">Chat on Gitter</a>
             <a href="https://twitter.com/PrettierCode">
               <img
-                alt="Twitter Follow"
-                src="https://img.shields.io/twitter/follow/prettiercode.svg?label=Follow+Prettier+on+Twitter&style=social"
+                alt="Follow Prettier on Twitter"
+                src="https://img.shields.io/twitter/follow/prettiercode.svg?label=Follow+Prettier&style=social"
               />
             </a>
           </div>
