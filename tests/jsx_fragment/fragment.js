@@ -9,6 +9,14 @@
   <Component />
 </>;
 
+<>
+  text
+  <h2>heading</h2>
+  text
+  <h2>heading</h2>
+  text
+</>;
+
 <div>
   <>
     <>

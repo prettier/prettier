@@ -12,6 +12,14 @@ exports[`fragment.js 1`] = `
   <Component />
 </>;
 
+<>
+  text
+  <h2>heading</h2>
+  text
+  <h2>heading</h2>
+  text
+</>;
+
 <div>
   <>
     <>
@@ -44,6 +52,14 @@ exports[`fragment.js 1`] = `
 <>
   <Component />
   <Component />
+</>;
+
+<>
+  text
+  <h2>heading</h2>
+  text
+  <h2>heading</h2>
+  text
 </>;
 
 <div>
