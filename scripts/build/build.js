@@ -8,7 +8,6 @@ const formatMarkdown = require("../../website/static/markdown");
 const shell = require("shelljs");
 
 const rootDir = path.join(__dirname, "..", "..");
-const docs = path.join(rootDir, "website/static/lib");
 const parsers = [
   "babylon",
   "flow",
@@ -28,8 +27,7 @@ function pipe(string) {
 shell.set("-e");
 shell.cd(rootDir);
 
-shell.rm("-Rf", "dist/", docs);
-shell.mkdir("-p", docs);
+shell.rm("-Rf", "dist/");
 
 // --- Lib ---
 
@@ -39,6 +37,9 @@ shell.exec("rollup -c scripts/build/rollup.index.config.js");
 shell.echo("Bundling lib bin...");
 shell.exec("rollup -c scripts/build/rollup.bin.config.js");
 shell.chmod("+x", "./dist/bin/prettier.js");
+
+shell.echo("Bundling lib third-party...");
+shell.exec("rollup -c scripts/build/rollup.third-party.config.js");
 
 for (const parser of parsers) {
   if (parser === "postcss") {
@@ -60,40 +61,6 @@ shell.exec(
 // Prepend module.exports =
 const content = shell.cat("dist/parser-postcss.js").stdout;
 pipe(`module.exports = ${content}`).to("dist/parser-postcss.js");
-
-shell.echo();
-
-// --- Docs ---
-
-shell.echo("Bundling docs index...");
-shell.cp("dist/index.js", `${docs}/index.js`);
-shell.exec(
-  `node_modules/babel-cli/bin/babel.js dist/index.js --out-file ${
-    docs
-  }/index.js --presets=es2015`
-);
-
-shell.echo("Bundling docs babylon...");
-shell.exec(
-  "rollup -c scripts/build/rollup.docs.config.js --environment filepath:parser-babylon.js"
-);
-shell.exec(
-  `node_modules/babel-cli/bin/babel.js ${docs}/parser-babylon.js --out-file ${
-    docs
-  }/parser-babylon.js --presets=es2015`
-);
-
-for (const parser of parsers) {
-  if (parser === "babylon") {
-    continue;
-  }
-  shell.echo(`Bundling docs ${parser}...`);
-  shell.exec(
-    `rollup -c scripts/build/rollup.docs.config.js --environment filepath:parser-${
-      parser
-    }.js`
-  );
-}
 
 shell.echo();
 
@@ -125,9 +92,6 @@ const newIssueTemplate = issueTemplate.replace(
     )
 );
 pipe(newIssueTemplate).to(".github/ISSUE_TEMPLATE.md");
-
-shell.echo("Copy sw-toolbox.js to docs");
-shell.cp("node_modules/sw-toolbox/sw-toolbox.js", `${docs}/sw-toolbox.js`);
 
 shell.echo("Copy package.json");
 const pkgWithoutDependencies = Object.assign({}, pkg);

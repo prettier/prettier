@@ -1,5 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`decorator-type-assertion.ts 1`] = `
+@(bind as ClassDecorator)
+class Decorated {
+
+}
+
+@(<ClassDecorator>bind)
+class Decorated {
+
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@(bind as ClassDecorator)
+class Decorated {}
+
+@(<ClassDecorator>bind)
+class Decorated {}
+
+`;
+
 exports[`decorators.js 1`] = `
 export class TestTextFileService {
 	constructor(

@@ -74,7 +74,7 @@ var b = (<any>new a);
 var b = (<any>new a.b);
 var b = (<any>new a).b
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-class a {
+﻿class a {
   static b: any;
 }
 
@@ -200,7 +200,7 @@ exports[`commentInNamespaceDeclarationWithIdentifierPathName.ts 1`] = `
     function foo() {}
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-namespace hello.hi.world {
+﻿namespace hello.hi.world {
   function foo() {
   }
 }

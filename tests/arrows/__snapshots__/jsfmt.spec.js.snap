@@ -32,6 +32,10 @@ x => (y = z);
 x => (y += z);
 f(a => ({})) + 1;
 (a => ({})) || 0;
+a = b => c;
+a = b => {
+  return c
+};
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 (a => {}).length;
 typeof (() => {});
@@ -65,10 +69,97 @@ x => (y = z);
 x => (y += z);
 f(a => ({})) + 1;
 (a => ({})) || 0;
+a = b => c;
+a = b => {
+  return c;
+};
+
+`;
+
+exports[`arrow_function_expression.js 2`] = `
+(a => {}).length
+typeof (() => {});
+export default (() => {})();
+(() => {})()\`\`;
+(() => {})\`\`;
+new (() => {});
+if ((() => {}) ? 1 : 0) {}
+let f = () => ({}())
+let a = () => ({} instanceof a);
+a = () => ({} && a);
+a = () => ({}() && a);
+a = () => ({} && a && b);
+a = () => ({} + a);
+a = () => ({}()() && a);
+a = () => ({}.b && a);
+a = () => ({}[b] && a);
+a = () => ({}\`\` && a);
+a = () => ({} = 0);
+a = () => ({}, a);
+a => a instanceof {};
+a => ({}().b && 0)
+a => ({}().c = 0)
+x => ({}()())
+x => ({}()\`\`)
+x => ({}().b);
+a = b => c;
+a = (b?) => c;
+x => (y = z);
+x => (y += z);
+f(a => ({})) + 1;
+(a => ({})) || 0;
+a = b => c;
+a = b => {
+  return c
+};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+((a) => {}).length;
+typeof (() => {});
+export default (() => {})();
+(() => {})()\`\`;
+(() => {})\`\`;
+new (() => {})();
+if ((() => {}) ? 1 : 0) {
+}
+let f = () => ({}());
+let a = () => ({} instanceof a);
+a = () => ({} && a);
+a = () => ({}() && a);
+a = () => ({} && a && b);
+a = () => ({} + a);
+a = () => ({}()() && a);
+a = () => ({}.b && a);
+a = () => ({}[b] && a);
+a = () => ({}\`\` && a);
+a = () => ({} = 0);
+a = () => ({}, a);
+(a) => a instanceof {};
+(a) => ({}().b && 0);
+(a) => ({}().c = 0);
+(x) => ({}()());
+(x) => ({}()\`\`);
+(x) => ({}().b);
+a = (b) => c;
+a = (b?) => c;
+(x) => (y = z);
+(x) => (y += z);
+f((a) => ({})) + 1;
+((a) => ({})) || 0;
+a = (b) => c;
+a = (b) => {
+  return c;
+};
 
 `;
 
 exports[`block_like.js 1`] = `
+a = () => ({} = this);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a = () => ({} = this);
+
+`;
+
+exports[`block_like.js 2`] = `
 a = () => ({} = this);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 a = () => ({} = this);
@@ -248,6 +339,179 @@ fooooooooooooooooooooooooooooooooooooooooooooooooooo(action => next =>
 
 `;
 
+exports[`call.js 2`] = `
+Seq(typeDef.interface.groups).forEach(group =>
+  Seq(group.members).forEach((member, memberName) =>
+    markdownDoc(
+      member.doc,
+      { typePath: typePath.concat(memberName.slice(1)),
+       signatures: member.signatures }
+    )
+  )
+)
+
+const promiseFromCallback = fn =>
+  new Promise((resolve, reject) =>
+    fn((err, result) => {
+      if (err) return reject(err);
+      return resolve(result);
+    })
+  );
+
+runtimeAgent.getProperties(
+  objectId,
+  false, // ownProperties
+  false, // accessorPropertiesOnly
+  false, // generatePreview
+  (error, properties, internalProperties) => {
+    return 1
+  },
+);
+
+function render() {
+  return (
+    <View>
+      <Image
+        onProgress={(e) => this.setState({progress: Math.round(100 * e.nativeEvent.loaded / e.nativeEvent.total)})}
+      />
+    </View>
+  );
+}
+
+function render() {
+  return (
+    <View>
+      <Image
+        onProgress={e =>
+          this.setState({
+            progress: Math.round(
+              100 * e.nativeEvent.loaded / e.nativeEvent.total,
+            ),
+          })}
+      />
+    </View>
+  );
+}
+
+function render() {
+  return (
+    <View>
+      <Image
+        onProgress={e =>
+          this.setState({
+            progress: Math.round(
+              100 * e.nativeEvent.loaded / e.nativeEvent.total,
+            ),
+          })}
+      />
+    </View>
+  );
+}
+
+jest.mock(
+  '../SearchSource',
+  () => class {
+    findMatchingTests(pattern) {
+      return {paths: []};
+    }
+  },
+);
+
+fooooooooooooooooooooooooooooooooooooooooooooooooooo(action => next =>
+    dispatch(action),
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Seq(typeDef.interface.groups).forEach((group) =>
+  Seq(group.members).forEach((member, memberName) =>
+    markdownDoc(member.doc, {
+      typePath: typePath.concat(memberName.slice(1)),
+      signatures: member.signatures
+    })
+  )
+);
+
+const promiseFromCallback = (fn) =>
+  new Promise((resolve, reject) =>
+    fn((err, result) => {
+      if (err) return reject(err);
+      return resolve(result);
+    })
+  );
+
+runtimeAgent.getProperties(
+  objectId,
+  false, // ownProperties
+  false, // accessorPropertiesOnly
+  false, // generatePreview
+  (error, properties, internalProperties) => {
+    return 1;
+  }
+);
+
+function render() {
+  return (
+    <View>
+      <Image
+        onProgress={(e) =>
+          this.setState({
+            progress: Math.round(
+              100 * e.nativeEvent.loaded / e.nativeEvent.total
+            )
+          })
+        }
+      />
+    </View>
+  );
+}
+
+function render() {
+  return (
+    <View>
+      <Image
+        onProgress={(e) =>
+          this.setState({
+            progress: Math.round(
+              100 * e.nativeEvent.loaded / e.nativeEvent.total
+            )
+          })
+        }
+      />
+    </View>
+  );
+}
+
+function render() {
+  return (
+    <View>
+      <Image
+        onProgress={(e) =>
+          this.setState({
+            progress: Math.round(
+              100 * e.nativeEvent.loaded / e.nativeEvent.total
+            )
+          })
+        }
+      />
+    </View>
+  );
+}
+
+jest.mock(
+  "../SearchSource",
+  () =>
+    class {
+      findMatchingTests(pattern) {
+        return { paths: [] };
+      }
+    }
+);
+
+fooooooooooooooooooooooooooooooooooooooooooooooooooo((action) => (next) =>
+  dispatch(action)
+);
+
+`;
+
 exports[`comment.js 1`] = `
 /**
  * Curried function that ends with a BEM CSS Selector
@@ -313,10 +577,81 @@ export const bem = block =>
 
 `;
 
+exports[`comment.js 2`] = `
+/**
+ * Curried function that ends with a BEM CSS Selector
+ *
+ * @param {String} block - the BEM Block you'd like to select.
+ * @returns {Function}
+ */
+export const bem = block =>
+  /**
+   * @param {String} [element] - the BEM Element within that block; if undefined, selects the block itself.
+   * @returns {Function}
+   */
+  element =>
+    /**
+     * @param {?String} [modifier] - the BEM Modifier for the Block or Element; if undefined, selects the Block or Element unmodified.
+     * @returns {String}
+     */
+    modifier =>
+      [
+        ".",
+        css(block),
+        element ? \`__\${css(element)}\` : "",
+        modifier ? \`--\${css(modifier)}\` : ""
+      ].join("");
+
+<FlatList
+  renderItem={(
+    info, // $FlowExpectedError - bad widgetCount type 6, should be Object
+  ) => <span>{info.item.widget.missingProp}</span>}
+  data={data}
+/>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * Curried function that ends with a BEM CSS Selector
+ *
+ * @param {String} block - the BEM Block you'd like to select.
+ * @returns {Function}
+ */
+export const bem = (block) =>
+  /**
+   * @param {String} [element] - the BEM Element within that block; if undefined, selects the block itself.
+   * @returns {Function}
+   */
+  (element) =>
+    /**
+     * @param {?String} [modifier] - the BEM Modifier for the Block or Element; if undefined, selects the Block or Element unmodified.
+     * @returns {String}
+     */
+    (modifier) =>
+      [
+        ".",
+        css(block),
+        element ? \`__\${css(element)}\` : "",
+        modifier ? \`--\${css(modifier)}\` : ""
+      ].join("");
+
+<FlatList
+  renderItem={(
+    info // $FlowExpectedError - bad widgetCount type 6, should be Object
+  ) => <span>{info.item.widget.missingProp}</span>}
+  data={data}
+/>;
+
+`;
+
 exports[`currying.js 1`] = `
 const fn = b => c => d => {
   return 3;
 };
+
+const foo = (a, b) => c => d => {
+  return 3;
+};
+
+const bar = a => b => c => a + b + c
 
 const mw = store => next => action => {
   return next(action)
@@ -330,6 +665,12 @@ const fn = b => c => d => {
   return 3;
 };
 
+const foo = (a, b) => c => d => {
+  return 3;
+};
+
+const bar = a => b => c => a + b + c;
+
 const mw = store => next => action => {
   return next(action);
 };
@@ -340,7 +681,56 @@ const middleware = options => (req, res, next) => {
 
 `;
 
+exports[`currying.js 2`] = `
+const fn = b => c => d => {
+  return 3;
+};
+
+const foo = (a, b) => c => d => {
+  return 3;
+};
+
+const bar = a => b => c => a + b + c
+
+const mw = store => next => action => {
+  return next(action)
+}
+
+const middleware = options => (req, res, next) => {
+  // ...
+};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const fn = (b) => (c) => (d) => {
+  return 3;
+};
+
+const foo = (a, b) => (c) => (d) => {
+  return 3;
+};
+
+const bar = (a) => (b) => (c) => a + b + c;
+
+const mw = (store) => (next) => (action) => {
+  return next(action);
+};
+
+const middleware = (options) => (req, res, next) => {
+  // ...
+};
+
+`;
+
 exports[`long-call-no-args.js 1`] = `
+veryLongCall(VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT, () => {})
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+veryLongCall(
+  VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT,
+  () => {}
+);
+
+`;
+
+exports[`long-call-no-args.js 2`] = `
 veryLongCall(VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT, () => {})
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 veryLongCall(
@@ -366,6 +756,102 @@ const foo = () => {
 
 `;
 
+exports[`long-contents.js 2`] = `
+const foo = () => {
+  expect(arg1, arg2, arg3).toEqual({message: 'test', messageType: 'SMS', status: 'Unknown', created: '11/01/2017 13:36'});
+};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const foo = () => {
+  expect(arg1, arg2, arg3).toEqual({
+    message: "test",
+    messageType: "SMS",
+    status: "Unknown",
+    created: "11/01/2017 13:36"
+  });
+};
+
+`;
+
+exports[`parens.js 1`] = `
+promise.then(
+  (result) => result,
+  (err) => err
+)
+
+promise.then(
+  (result) => { f(); return result },
+  (err) => { f(); return err }
+)
+
+foo(a => b)
+foo(a => { return b })
+foo(c, a => b)
+foo(c, a => b, d)
+foo(a => b, d)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+promise.then(result => result, err => err);
+
+promise.then(
+  result => {
+    f();
+    return result;
+  },
+  err => {
+    f();
+    return err;
+  }
+);
+
+foo(a => b);
+foo(a => {
+  return b;
+});
+foo(c, a => b);
+foo(c, a => b, d);
+foo(a => b, d);
+
+`;
+
+exports[`parens.js 2`] = `
+promise.then(
+  (result) => result,
+  (err) => err
+)
+
+promise.then(
+  (result) => { f(); return result },
+  (err) => { f(); return err }
+)
+
+foo(a => b)
+foo(a => { return b })
+foo(c, a => b)
+foo(c, a => b, d)
+foo(a => b, d)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+promise.then((result) => result, (err) => err);
+
+promise.then(
+  (result) => {
+    f();
+    return result;
+  },
+  (err) => {
+    f();
+    return err;
+  }
+);
+
+foo((a) => b);
+foo((a) => {
+  return b;
+});
+foo(c, (a) => b);
+foo(c, (a) => b, d);
+foo((a) => b, d);
+
+`;
+
 exports[`short_body.js 1`] = `
 const initializeSnapshotState = (
   testFile: Path,
@@ -383,7 +869,31 @@ const initializeSnapshotState = (
 
 `;
 
+exports[`short_body.js 2`] = `
+const initializeSnapshotState = (
+  testFile: Path,
+  update: boolean,
+  testPath: string,
+  expand: boolean,
+) => new SnapshotState(testFile, update, testPath, expand);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const initializeSnapshotState = (
+  testFile: Path,
+  update: boolean,
+  testPath: string,
+  expand: boolean
+) => new SnapshotState(testFile, update, testPath, expand);
+
+`;
+
 exports[`type_params.js 1`] = `
+<T>(a) => { }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<T>(a) => {};
+
+`;
+
+exports[`type_params.js 2`] = `
 <T>(a) => { }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <T>(a) => {};

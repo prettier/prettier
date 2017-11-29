@@ -22,6 +22,9 @@ self.require = function require(path) {
   if (path === "stream") {
     return { PassThrough() {} };
   }
+  if (path === "./third-party") {
+    return {};
+  }
   return self[path.replace(/.+-/, "")];
 };
 
@@ -94,8 +97,7 @@ function formatCode(text, options) {
   } catch (e) {
     // Multiparser may throw if we haven't loaded the right parser
     // Load it lazily and retry!
-    if (e.parser && !parsersLoaded[e.parser]) {
-      lazyLoadParser(e.parser);
+    if (e.parser && !lazyLoadParser(e.parser)) {
       return formatCode(text, options);
     }
     return String(e);
@@ -111,8 +113,11 @@ function lazyLoadParser(parser) {
         : parser;
   var script = "parser-" + actualParser + ".js";
 
-  if (!parsersLoaded[actualParser]) {
-    importScripts("lib/" + script);
-    parsersLoaded[actualParser] = true;
+  if (parsersLoaded[actualParser]) {
+    return true;
   }
+
+  importScripts("lib/" + script);
+  parsersLoaded[actualParser] = true;
+  return false;
 }

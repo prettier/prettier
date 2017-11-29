@@ -10,7 +10,8 @@ const util = require("./util");
  *
  * 1. restore unescaped character (Text)
  * 2. merge continuous Texts
- * 3. transform InlineCode#value into InlineCode#children (Text)
+ * 3. replace whitespaces in InlineCode#value with one whitespace
+ *    reference: http://spec.commonmark.org/0.25/#example-605
  * 4. split Text into Sentence
  *
  * interface Word { value: string }
@@ -21,10 +22,10 @@ const util = require("./util");
 function parse(text /*, parsers, opts*/) {
   const processor = unified()
     .use(remarkParse, { footnotes: true, commonmark: true })
-    .use(remarkFrontmatter, ["yaml"])
+    .use(remarkFrontmatter, ["yaml", "toml"])
     .use(restoreUnescapedCharacter(text))
     .use(mergeContinuousTexts)
-    .use(transformInlineCode(text))
+    .use(transformInlineCode)
     .use(splitText);
   return processor.runSync(processor.parse(text));
 }
@@ -41,40 +42,15 @@ function map(ast, handler) {
   })(ast, null, null);
 }
 
-function transformInlineCode(originalText) {
-  return () => ast =>
+function transformInlineCode() {
+  return ast =>
     map(ast, node => {
       if (node.type !== "inlineCode") {
         return node;
       }
 
-      const rawContent = originalText.slice(
-        node.position.start.offset,
-        node.position.end.offset
-      );
-
-      const style = rawContent.match(/^`+/)[0];
-
       return Object.assign({}, node, {
-        value: node.value.replace(/\s+/g, " "),
-        children: [
-          {
-            type: "text",
-            value: node.value,
-            position: {
-              start: {
-                line: node.position.start.line,
-                column: node.position.start.column + style.length,
-                offset: node.position.start.offset + style.length
-              },
-              end: {
-                line: node.position.end.line,
-                column: node.position.end.column - style.length,
-                offset: node.position.end.offset - style.length
-              }
-            }
-          }
-        ]
+        value: node.value.replace(/\s+/g, " ")
       });
     });
 }

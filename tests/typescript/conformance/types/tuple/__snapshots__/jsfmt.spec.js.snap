@@ -27,7 +27,7 @@ unionTuple = unionTuple2;
 unionTuple2 = unionTuple;
 numStrTuple = unionTuple3;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// no error
+﻿// no error
 var numStrTuple: [number, string] = [5, "hello"];
 var numStrTuple2: [number, string] = [5, "foo", true];
 var numStrBoolTuple: [number, string, boolean] = [5, "foo", true];
@@ -89,7 +89,7 @@ var eleUnion24 = unionTuple2[idx1]; // string | number | boolean
 var eleUnion25 = unionTuple2["0"]; // boolean
 var eleUnion26 = unionTuple2["1"]; // string | number
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var strNumTuple: [string, number] = ["foo", 10];
+﻿var strNumTuple: [string, number] = ["foo", 10];
 var numTupleTuple: [number, [string, number]] = [10, ["bar", 20]];
 var unionTuple1: [number, string | number] = [10, "foo"];
 var unionTuple2: [boolean, string | number] = [true, "foo"];
@@ -178,7 +178,7 @@ var zipResultEle = zipResult[0]; // [string, number]
 var zipResultEleEle = zipResult[0][0]; // string
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function combine<T, U>(x: T, y: U): [T, U] {
+﻿function combine<T, U>(x: T, y: U): [T, U] {
   return [x, y];
 }
 

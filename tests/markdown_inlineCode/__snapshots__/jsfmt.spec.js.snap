@@ -23,10 +23,24 @@ exports[`backtick.md 1`] = `
 
 `;
 
+exports[`cjk.md 1`] = `
+\`const x = "中文123"\`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\`const x = "中文123"\`
+
+`;
+
 exports[`escape.md 1`] = `
 \`1*2*3\`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \`1*2*3\`
+
+`;
+
+exports[`long.md 1`] = `
+\`this is a long long long long long long long long long long long long long long long inline code\`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\`this is a long long long long long long long long long long long long long long long inline code\`
 
 `;
 

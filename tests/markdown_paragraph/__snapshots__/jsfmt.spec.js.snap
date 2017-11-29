@@ -6,6 +6,12 @@ exports[`cjk.md 1`] = `
 這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！
 
 全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白
+
+This ia an english paragraph with a CJK quote "中文".
+
+This ia an english paragraph with a CJK quote “中文“.
+
+扩展运算符（spread）是三个点（\`...\`）。
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長
 很長的段落
@@ -24,6 +30,12 @@ English 混合著中文的一段 Paragraph！
 全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白
 全　　形　空白全　　形　空白全　　形　空白
 
+This ia an english paragraph with a CJK quote "中文".
+
+This ia an english paragraph with a CJK quote “中文“.
+
+扩展运算符（spread）是三个点（\`...\`）。
+
 `;
 
 exports[`cjk.md 2`] = `
@@ -32,12 +44,24 @@ exports[`cjk.md 2`] = `
 這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！
 
 全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白
+
+This ia an english paragraph with a CJK quote "中文".
+
+This ia an english paragraph with a CJK quote “中文“.
+
+扩展运算符（spread）是三个点（\`...\`）。
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長的段落
 
 這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！
 
 全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白
+
+This ia an english paragraph with a CJK quote "中文".
+
+This ia an english paragraph with a CJK quote “中文“.
+
+扩展运算符（spread）是三个点（\`...\`）。
 
 `;
 
@@ -92,6 +116,8 @@ abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc 
   - disallow identical titles.
 * [valid-expect](/packages/eslint-plugin-jest/docs/rules/valid-expect.md) -
   ensure expect is called correctly.
+
+She grew up in an isolated village in the 19th century and met her father aged 29. Oh no, why are we in a numbered list now?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc
 abc - abc abc abc
@@ -118,6 +144,9 @@ abc - abc abc abc
 * [valid-expect](/packages/eslint-plugin-jest/docs/rules/valid-expect.md) -
   ensure expect is called correctly.
 
+She grew up in an isolated village in the 19th century and met her father
+aged 29. Oh no, why are we in a numbered list now?
+
 `;
 
 exports[`special-prefix.md 2`] = `
@@ -140,6 +169,8 @@ abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc 
   - disallow identical titles.
 * [valid-expect](/packages/eslint-plugin-jest/docs/rules/valid-expect.md) -
   ensure expect is called correctly.
+
+She grew up in an isolated village in the 19th century and met her father aged 29. Oh no, why are we in a numbered list now?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc - abc abc abc
 
@@ -159,5 +190,46 @@ abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc 
 * [no-identical-title](/packages/eslint-plugin-jest/docs/rules/no-identical-title.md)
   * disallow identical titles.
 * [valid-expect](/packages/eslint-plugin-jest/docs/rules/valid-expect.md) - ensure expect is called correctly.
+
+She grew up in an isolated village in the 19th century and met her father aged 29. Oh no, why are we in a numbered list now?
+
+`;
+
+exports[`whitespace.md 1`] = `
+<!-- 0xA0 non-breaking whitespace -->
+
+keep these words together keep these words together keep these words together keep these words together
+
+<!-- 0x20 standard whitespace -->
+
+keep these words together keep these words together keep these words together keep these words together
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<!-- 0xA0 non-breaking whitespace -->
+
+keep these words together keep these words together keep these words together keep these words together
+
+<!-- 0x20 standard whitespace -->
+
+keep these words together keep these words together keep these words together
+keep these words together
+
+`;
+
+exports[`whitespace.md 2`] = `
+<!-- 0xA0 non-breaking whitespace -->
+
+keep these words together keep these words together keep these words together keep these words together
+
+<!-- 0x20 standard whitespace -->
+
+keep these words together keep these words together keep these words together keep these words together
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<!-- 0xA0 non-breaking whitespace -->
+
+keep these words together keep these words together keep these words together keep these words together
+
+<!-- 0x20 standard whitespace -->
+
+keep these words together keep these words together keep these words together keep these words together
 
 `;
