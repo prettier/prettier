@@ -132,6 +132,7 @@ function genericPrint(path, options, print) {
       return path.call(print, "n");
     }
 
+    case "float":
     case "int": {
       return `${n.n}`;
     }
