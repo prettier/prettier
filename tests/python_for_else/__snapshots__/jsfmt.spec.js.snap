@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`for_else.py 1`] = `
+for x in range(10):
+    print(x)
+else:
+    print(x)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+for x in range(10):
+    print(x)
+else:
+    print(x)
+
+`;

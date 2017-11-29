@@ -143,14 +143,22 @@ function genericPrint(path, options, print) {
     }
 
     case "For": {
-      return concat([
+      const parts = [
         "for ",
         path.call(print, "target"),
         " in ",
         path.call(print, "iter"),
         ":",
         indent(concat([line, concat(path.map(print, "body"))]))
-      ]);
+      ];
+
+      if (n.orelse.length > 0) {
+        parts.push(line);
+        parts.push("else:");
+        parts.push(indent(concat([line, concat(path.map(print, "orelse"))])));
+      }
+
+      return concat(parts);
     }
 
     case "Tuple": {
