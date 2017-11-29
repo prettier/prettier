@@ -188,6 +188,16 @@ function genericPrint(path, options, print) {
       ]);
     }
 
+    case "AugAssign": {
+      return concat([
+        path.call(print, "target"),
+        " ",
+        path.call(print, "op"),
+        "= ",
+        path.call(print, "value")
+      ]);
+    }
+
     case "Dict": {
       const keys = path.map(print, "keys");
       const values = path.map(print, "values");
@@ -215,6 +225,58 @@ function genericPrint(path, options, print) {
 
     case "Attribute": {
       return concat([path.call(print, "value"), ".", n.attr]);
+    }
+
+    case "Add": {
+      return "+";
+    }
+
+    case "Sub": {
+      return "-";
+    }
+
+    case "Mult": {
+      return "*";
+    }
+
+    case "MatMult": {
+      return "@";
+    }
+
+    case "Div": {
+      return "/";
+    }
+
+    case "FloorDiv": {
+      return "//";
+    }
+
+    case "Mod": {
+      return "%";
+    }
+
+    case "Pow": {
+      return "**";
+    }
+
+    case "LShift": {
+      return "<<";
+    }
+
+    case "RShift": {
+      return ">>";
+    }
+
+    case "BitAnd": {
+      return "&";
+    }
+
+    case "BitXor": {
+      return "^";
+    }
+
+    case "BitOr": {
+      return "|";
     }
 
     default:
