@@ -178,6 +178,15 @@ function genericPrint(path, options, print) {
       ]);
     }
 
+    case "Dict": {
+      const keys = path.map(print, "keys");
+      const values = path.map(print, "values");
+
+      const pairs = keys.map((k, i) => concat([softline, k, ": ", values[i]]));
+
+      return concat(["{", indent(join(",", pairs)), softline, "}"]);
+    }
+
     default:
       /* istanbul ignore next */
       throw new Error("unknown python type: " + JSON.stringify(n.ast_type));
