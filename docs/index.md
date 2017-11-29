@@ -54,5 +54,5 @@ If you want to learn more, these two conference talks are great introductions:
 
 \* _Well actually, some original styling is preserved when practical—see [empty lines] and [multi-line objects]._
 
-[empty lines]: rationale.md#empty-lines
-[multi-line objects]: rationale.md#multi-line-objects
+[empty lines]: rationale.html#empty-lines
+[multi-line objects]: rationale.html#multi-line-objects
