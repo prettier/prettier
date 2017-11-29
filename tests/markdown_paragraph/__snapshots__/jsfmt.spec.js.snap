@@ -116,6 +116,8 @@ abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc 
   - disallow identical titles.
 * [valid-expect](/packages/eslint-plugin-jest/docs/rules/valid-expect.md) -
   ensure expect is called correctly.
+
+She grew up in an isolated village in the 19th century and met her father aged 29. Oh no, why are we in a numbered list now?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc
 abc - abc abc abc
@@ -142,6 +144,9 @@ abc - abc abc abc
 * [valid-expect](/packages/eslint-plugin-jest/docs/rules/valid-expect.md) -
   ensure expect is called correctly.
 
+She grew up in an isolated village in the 19th century and met her father
+aged 29. Oh no, why are we in a numbered list now?
+
 `;
 
 exports[`special-prefix.md 2`] = `
@@ -164,6 +169,8 @@ abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc 
   - disallow identical titles.
 * [valid-expect](/packages/eslint-plugin-jest/docs/rules/valid-expect.md) -
   ensure expect is called correctly.
+
+She grew up in an isolated village in the 19th century and met her father aged 29. Oh no, why are we in a numbered list now?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc - abc abc abc
 
@@ -183,6 +190,8 @@ abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc 
 * [no-identical-title](/packages/eslint-plugin-jest/docs/rules/no-identical-title.md)
   * disallow identical titles.
 * [valid-expect](/packages/eslint-plugin-jest/docs/rules/valid-expect.md) - ensure expect is called correctly.
+
+She grew up in an isolated village in the 19th century and met her father aged 29. Oh no, why are we in a numbered list now?
 
 `;
 

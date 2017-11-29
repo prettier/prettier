@@ -100,7 +100,7 @@ function genericPrint(path, options, print) {
       const nextNode = parentNode.children[index + 1];
 
       // leading char that may cause different syntax
-      if (nextNode && /^>|^([-+*]|#{1,6})$/.test(nextNode.value)) {
+      if (nextNode && /^>|^([-+*]|#{1,6}|[0-9]+[.)])$/.test(nextNode.value)) {
         return node.value === "" ? "" : " ";
       }
 
