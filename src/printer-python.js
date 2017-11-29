@@ -197,6 +197,26 @@ function genericPrint(path, options, print) {
       return concat(["{", indent(join(",", pairs)), softline, "}"]);
     }
 
+    case "ClassDef": {
+      let bases = [];
+
+      if (n.bases.length > 0) {
+        bases = ["(", join(",", path.map(print, "bases")), ")"];
+      }
+
+      return concat([
+        "class ",
+        n.name,
+        concat(bases),
+        ":",
+        indent(concat([line, concat(path.map(print, "body"))]))
+      ]);
+    }
+
+    case "Attribute": {
+      return concat([path.call(print, "value"), ".", n.attr]);
+    }
+
     default:
       /* istanbul ignore next */
       throw new Error("unknown python type: " + JSON.stringify(n.ast_type));

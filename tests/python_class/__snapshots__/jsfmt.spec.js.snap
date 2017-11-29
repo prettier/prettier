@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`class.py 1`] = `
+class BankAccount(object):
+    def __init__(self, initial_balance=0):
+        self.balance = initial_balance
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class BankAccount(object):
+    def __init__(self, initial_balance=0):
+        self.balance = initial_balance
+
+`;
