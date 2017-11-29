@@ -94,17 +94,19 @@ function genericPrint(path, options, print) {
         parts.push(concat(["*", path.call(print, "vararg")]));
       }
 
-      // add keyword arguments (**kwargs)
-
-      if (n.kwarg) {
-        parts.push(concat(["**", path.call(print, "kwarg")]));
-      }
+      // add keyword only arguments
 
       if (n.kwonlyargs.length > 0) {
         parts.push("*");
         parts = parts.concat(
           printArguments(print, path, "kwonlyargs", "kw_defaults")
         );
+      }
+
+      // add keyword arguments (**kwargs)
+
+      if (n.kwarg) {
+        parts.push(concat(["**", path.call(print, "kwarg")]));
       }
 
       return join(concat([", ", softline]), parts);
