@@ -280,6 +280,39 @@ function genericPrint(path, options, print) {
       return "|";
     }
 
+    case "Compare": {
+      const ops = path.map(print, "ops");
+      const comparators = path.map(print, "comparators");
+
+      const pairs = ops.map((op, i) => concat([" ", op, " ", comparators[i]]));
+
+      return concat([path.call(print, "left"), ...pairs]);
+    }
+
+    case "Lt": {
+      return "<";
+    }
+
+    case "LtE": {
+      return "<=";
+    }
+
+    case "Gt": {
+      return ">";
+    }
+
+    case "GtE": {
+      return ">=";
+    }
+
+    case "Eq": {
+      return "==";
+    }
+
+    case "NotEq": {
+      return "!=";
+    }
+
     default:
       /* istanbul ignore next */
       throw new Error("unknown python type: " + JSON.stringify(n.ast_type));
