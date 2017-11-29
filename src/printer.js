@@ -520,7 +520,6 @@ function genericPrintNoParens(path, options, print, args) {
           n.body.type === "ObjectExpression" ||
           n.body.type === "BlockStatement" ||
           isJSXNode(n.body) ||
-          isJSXNode(n.body) ||
           isTemplateOnItsOwnLine(n.body, options.originalText) ||
           n.body.type === "ArrowFunctionExpression")
       ) {
