@@ -121,7 +121,12 @@ function genericPrint(path, options, print) {
     }
 
     case "Call": {
-      return concat([n.func.id, "(", join(", ", path.map(print, "args")), ")"]);
+      return concat([
+        path.call(print, "func"),
+        "(",
+        join(", ", path.map(print, "args")),
+        ")"
+      ]);
     }
 
     case "Str": {
