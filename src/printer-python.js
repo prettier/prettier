@@ -238,6 +238,7 @@ function genericPrint(path, options, print) {
       return "+";
     }
 
+    case "USub":
     case "Sub": {
       return "-";
     }
@@ -378,6 +379,41 @@ function genericPrint(path, options, print) {
       }
 
       return concat(parts);
+    }
+
+    case "Subscript": {
+      return concat([
+        path.call(print, "value"),
+        "[",
+        path.call(print, "slice"),
+        "]"
+      ]);
+    }
+
+    case "Index": {
+      return path.call(print, "value");
+    }
+
+    case "Slice": {
+      const parts = [path.call(print, "lower")];
+
+      if (n.upper) {
+        parts.push(path.call(print, "upper"));
+      }
+
+      if (n.step) {
+        if (!n.upper) {
+          parts.push("");
+        }
+
+        parts.push(path.call(print, "step"));
+      }
+
+      return join(":", parts);
+    }
+
+    case "UnaryOp": {
+      return concat([path.call(print, "op"), path.call(print, "operand")]);
     }
 
     default:
