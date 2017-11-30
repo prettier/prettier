@@ -54,6 +54,15 @@ function printBody(path, print) {
   return join(concat([hardline, hardline]), path.map(print, "body"));
 }
 
+function printForIn(path, print) {
+  return concat([
+    "for ",
+    path.call(print, "target"),
+    " in ",
+    path.call(print, "iter")
+  ]);
+}
+
 function genericPrint(path, options, print) {
   const n = path.getValue();
   if (!n) {
@@ -153,10 +162,7 @@ function genericPrint(path, options, print) {
 
     case "For": {
       const parts = [
-        "for ",
-        path.call(print, "target"),
-        " in ",
-        path.call(print, "iter"),
+        printForIn(path, print),
         ":",
         indent(concat([hardline, printBody(path, print)]))
       ];
@@ -414,6 +420,44 @@ function genericPrint(path, options, print) {
 
     case "UnaryOp": {
       return concat([path.call(print, "op"), path.call(print, "operand")]);
+    }
+
+    case "ListComp": {
+      return group(
+        concat([
+          "[",
+          path.call(print, "elt"),
+          line,
+          join(line, path.map(print, "generators")),
+          "]"
+        ])
+      );
+    }
+
+    case "comprehension": {
+      let parts = [printForIn(path, print)];
+
+      if (n.ifs.length > 0) {
+        parts = [
+          ...parts,
+          line,
+          "if",
+          line,
+          join(line, path.map(print, "ifs"))
+        ];
+      }
+
+      return concat(parts);
+    }
+
+    case "BinOp": {
+      return concat([
+        path.call(print, "left"),
+        line,
+        path.call(print, "op"),
+        line,
+        path.call(print, "right")
+      ]);
     }
 
     default:
