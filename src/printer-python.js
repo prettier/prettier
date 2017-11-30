@@ -349,6 +349,36 @@ function genericPrint(path, options, print) {
       ]);
     }
 
+    case "If": {
+      let ifType = "if ";
+
+      if (path.getParentNode().ast_type === "If") {
+        ifType = "elif ";
+      }
+
+      let parts = [
+        ifType,
+        path.call(print, "test"),
+        ":",
+        indent(concat([line, concat(path.map(print, "body"))]))
+      ];
+
+      if (n.orelse.length > 0) {
+        if (n.orelse.length === 1 && n.orelse[0].ast_type !== "If") {
+          parts = [
+            ...parts,
+            line,
+            "else:",
+            indent(concat([line, concat(path.map(print, "orelse"))]))
+          ];
+        } else {
+          parts = [...parts, line, concat(path.map(print, "orelse"))];
+        }
+      }
+
+      return concat(parts);
+    }
+
     default:
       /* istanbul ignore next */
       throw new Error("unknown python type: " + JSON.stringify(n.ast_type));
