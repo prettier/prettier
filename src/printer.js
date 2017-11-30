@@ -1757,6 +1757,7 @@ function genericPrintNoParens(path, options, print, args) {
       );
     }
     case "JSXFragment":
+    case "TSJsxFragment":
     case "JSXElement": {
       const elem = comments.printComments(
         path,
@@ -1839,11 +1840,15 @@ function genericPrintNoParens(path, options, print, args) {
     case "JSXClosingElement":
       return concat(["</", path.call(print, "name"), ">"]);
     case "JSXOpeningFragment":
-    case "JSXClosingFragment": {
+    case "JSXClosingFragment":
+    case "TSJsxOpeningFragment":
+    case "TSJsxClosingFragment": {
       const hasOwnLineComment =
         n.comments && !n.comments.every(util.isBlockComment);
       return concat([
-        n.type === "JSXOpeningFragment" ? "<" : "</",
+        n.type === "JSXOpeningFragment" || n.type === "TSJsxOpeningFragment"
+          ? "<"
+          : "</",
         indent(
           concat([
             hasOwnLineComment ? hardline : "",
@@ -3972,7 +3977,11 @@ function printMemberChain(path, options, print) {
 }
 
 function isJSXNode(node) {
-  return node.type === "JSXElement" || node.type === "JSXFragment";
+  return (
+    node.type === "JSXElement" ||
+    node.type === "JSXFragment" ||
+    node.type === "TSJsxFragment"
+  );
 }
 
 function isEmptyJSXElement(node) {
@@ -4423,9 +4432,10 @@ function maybeWrapJSXElementInParens(path, elem) {
 
   const NO_WRAP_PARENTS = {
     ArrayExpression: true,
-    JSXFragment: true,
     JSXElement: true,
     JSXExpressionContainer: true,
+    JSXFragment: true,
+    TSJsxFragment: true,
     ExpressionStatement: true,
     CallExpression: true,
     ConditionalExpression: true
