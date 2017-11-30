@@ -1847,14 +1847,14 @@ function genericPrintNoParens(path, options, print, args) {
       const hasOwnLineComment =
         hasComment && !n.comments.every(util.isBlockComment);
       const isOpeningFragment =
-      n.type === "JSXOpeningFragment" || n.type === "TSJsxOpeningFragment";
+        n.type === "JSXOpeningFragment" || n.type === "TSJsxOpeningFragment";
       return concat([
-        isOpeningFragment
-          ? "<"
-          : "</",
+        isOpeningFragment ? "<" : "</",
         indent(
           concat([
-            hasOwnLineComment ? hardline : hasComment && !isOpeningFragment ? " " : "",
+            hasOwnLineComment
+              ? hardline
+              : hasComment && !isOpeningFragment ? " " : "",
             comments.printDanglingComments(path, options, true)
           ])
         ),
