@@ -40,7 +40,8 @@ const INLINE_NODE_TYPES = [
 
 const INLINE_NODE_WRAPPER_TYPES = INLINE_NODE_TYPES.concat([
   "tableCell",
-  "paragraph"
+  "paragraph",
+  "heading"
 ]);
 
 function genericPrint(path, options, print) {
@@ -100,7 +101,7 @@ function genericPrint(path, options, print) {
 
       const proseWrap =
         // leading char that may cause different syntax
-        nextNode && /^>|^([-+*]|#{1,6})$/.test(nextNode.value)
+        nextNode && /^>|^([-+*]|#{1,6}|[0-9]+[.)])$/.test(nextNode.value)
           ? "never"
           : options.proseWrap;
 
