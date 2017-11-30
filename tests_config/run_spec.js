@@ -145,8 +145,7 @@ function mergeDefaultOptions(parserConfig) {
   return Object.assign(
     {
       parser: "flow",
-      printWidth: 80,
-      proseWrap: "always"
+      printWidth: 80
     },
     parserConfig
   );
