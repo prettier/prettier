@@ -464,6 +464,56 @@ function genericPrint(path, options, print) {
       return "not in";
     }
 
+    case "Try": {
+      let parts = [
+        "try:",
+        indent(concat([hardline, printBody(path, print)])),
+        hardline,
+        join(hardline, path.map(print, "handlers"))
+      ];
+
+      if (n.orelse.length > 0) {
+        parts = [
+          ...parts,
+          hardline,
+          "else:",
+          indent(concat([hardline, concat(path.map(print, "orelse"))]))
+        ];
+      }
+
+      if (n.finalbody.length > 0) {
+        parts = [
+          ...parts,
+          hardline,
+          "finally:",
+          indent(concat([hardline, concat(path.map(print, "finalbody"))]))
+        ];
+      }
+
+      return concat(parts);
+    }
+
+    case "ExceptHandler": {
+      let parts = ["except"];
+
+      if (n.type) {
+        parts = [...parts, line, path.call(print, "type")];
+      }
+
+      if (n.name) {
+        parts = [...parts, line, "as", line, n.name];
+      }
+
+      return concat([
+        group(concat([...parts, ":"])),
+        indent(concat([hardline, printBody(path, print)]))
+      ]);
+    }
+
+    case "Raise": {
+      return group(concat(["raise", line, path.call(print, "exc")]));
+    }
+
     default:
       /* istanbul ignore next */
       throw new Error("unknown python type: " + JSON.stringify(n.ast_type));
