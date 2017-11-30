@@ -1,1 +1,1 @@
-run_spec(__dirname, { printWidth: 35 }, ["typescript"]);
+run_spec(__dirname, ["flow", "typescript"], { printWidth: 35 });

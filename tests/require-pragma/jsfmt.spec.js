@@ -1,1 +1,1 @@
-run_spec(__dirname, { requirePragma: true });
+run_spec(__dirname, ["flow"], { requirePragma: true });

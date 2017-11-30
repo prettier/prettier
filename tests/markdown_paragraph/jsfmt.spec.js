@@ -1,2 +1,2 @@
-run_spec(__dirname, { parser: "markdown" });
-run_spec(__dirname, { parser: "markdown", proseWrap: false });
+run_spec(__dirname, ["markdown"]);
+run_spec(__dirname, ["markdown"], { proseWrap: false });
