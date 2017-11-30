@@ -1,1 +1,3 @@
-run_spec(__dirname, { parser: "markdown", useTabs: true });
+run_spec(__dirname, ["markdown"], {
+  useTabs: true
+});

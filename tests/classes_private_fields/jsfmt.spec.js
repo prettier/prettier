@@ -1,2 +1,4 @@
-run_spec(__dirname, { parser: "babylon" });
-run_spec(__dirname, { semi: false, parser: "babylon" });
+run_spec(__dirname, ["babylon"]);
+run_spec(__dirname, ["babylon"], {
+  semi: false
+});
