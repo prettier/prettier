@@ -84,12 +84,7 @@ function hasNodeIgnoreComment(node) {
 function hasJsxIgnoreComment(path) {
   const node = path.getValue();
   const parent = path.getParentNode();
-  if (
-    !parent ||
-    !node ||
-    node.type !== "JSXElement" ||
-    parent.type !== "JSXElement"
-  ) {
+  if (!parent || !node || !isJSXNode(node) || !isJSXNode(parent)) {
     return false;
   }
 
@@ -524,7 +519,7 @@ function genericPrintNoParens(path, options, print, args) {
         (n.body.type === "ArrayExpression" ||
           n.body.type === "ObjectExpression" ||
           n.body.type === "BlockStatement" ||
-          n.body.type === "JSXElement" ||
+          isJSXNode(n.body) ||
           isTemplateOnItsOwnLine(n.body, options.originalText) ||
           n.body.type === "ArrowFunctionExpression")
       ) {
@@ -1268,9 +1263,9 @@ function genericPrintNoParens(path, options, print, args) {
       const lastConditionalParent = previousParent;
 
       if (
-        n.test.type === "JSXElement" ||
-        n.consequent.type === "JSXElement" ||
-        n.alternate.type === "JSXElement" ||
+        isJSXNode(n.test) ||
+        isJSXNode(n.consequent) ||
+        isJSXNode(n.alternate) ||
         conditionalExpressionChainContainsJSX(lastConditionalParent)
       ) {
         jsxMode = true;
@@ -1741,7 +1736,7 @@ function genericPrintNoParens(path, options, print, args) {
           n.expression.type === "JSXEmptyExpression" ||
           n.expression.type === "TemplateLiteral" ||
           n.expression.type === "TaggedTemplateExpression" ||
-          (parent.type === "JSXElement" &&
+          (isJSXNode(parent) &&
             (n.expression.type === "ConditionalExpression" ||
               isBinaryish(n.expression))));
 
@@ -1761,6 +1756,8 @@ function genericPrintNoParens(path, options, print, args) {
         ])
       );
     }
+    case "JSXFragment":
+    case "TSJsxFragment":
     case "JSXElement": {
       const elem = comments.printComments(
         path,
@@ -1782,6 +1779,7 @@ function genericPrintNoParens(path, options, print, args) {
 
       // don't break up opening elements with a single long text attribute
       if (
+        n.attributes &&
         n.attributes.length === 1 &&
         n.attributes[0].value &&
         isStringLiteral(n.attributes[0].value) &&
@@ -1841,6 +1839,29 @@ function genericPrintNoParens(path, options, print, args) {
     }
     case "JSXClosingElement":
       return concat(["</", path.call(print, "name"), ">"]);
+    case "JSXOpeningFragment":
+    case "JSXClosingFragment":
+    case "TSJsxOpeningFragment":
+    case "TSJsxClosingFragment": {
+      const hasComment = n.comments && n.comments.length;
+      const hasOwnLineComment =
+        hasComment && !n.comments.every(util.isBlockComment);
+      const isOpeningFragment =
+        n.type === "JSXOpeningFragment" || n.type === "TSJsxOpeningFragment";
+      return concat([
+        isOpeningFragment ? "<" : "</",
+        indent(
+          concat([
+            hasOwnLineComment
+              ? hardline
+              : hasComment && !isOpeningFragment ? " " : "",
+            comments.printDanglingComments(path, options, true)
+          ])
+        ),
+        hasOwnLineComment ? hardline : "",
+        ">"
+      ]);
+    }
     case "JSXText":
       /* istanbul ignore next */
       throw new Error("JSXTest should be handled by JSXElement");
@@ -2972,7 +2993,7 @@ function couldGroupArg(arg) {
         arg.body.type === "ObjectExpression" ||
         arg.body.type === "ArrayExpression" ||
         arg.body.type === "CallExpression" ||
-        arg.body.type === "JSXElement"))
+        isJSXNode(arg.body)))
   );
 }
 
@@ -3958,6 +3979,14 @@ function printMemberChain(path, options, print) {
   ]);
 }
 
+function isJSXNode(node) {
+  return (
+    node.type === "JSXElement" ||
+    node.type === "JSXFragment" ||
+    node.type === "TSJsxFragment"
+  );
+}
+
 function isEmptyJSXElement(node) {
   if (node.children.length === 0) {
     return true;
@@ -3991,9 +4020,7 @@ function isMeaningfulJSXText(node) {
 }
 
 function conditionalExpressionChainContainsJSX(node) {
-  return Boolean(
-    getConditionalChainContents(node).find(child => child.type === "JSXElement")
-  );
+  return Boolean(getConditionalChainContents(node).find(isJSXNode));
 }
 
 // If we have nested conditional expressions, we want to print them in JSX mode
@@ -4224,13 +4251,19 @@ function printJSXElement(path, options, print) {
   const n = path.getValue();
 
   // Turn <div></div> into <div />
-  if (isEmptyJSXElement(n)) {
+  if (n.type === "JSXElement" && isEmptyJSXElement(n)) {
     n.openingElement.selfClosing = true;
-    delete n.closingElement;
+    return path.call(print, "openingElement");
   }
 
-  const openingLines = path.call(print, "openingElement");
-  const closingLines = path.call(print, "closingElement");
+  const openingLines =
+    n.type === "JSXElement"
+      ? path.call(print, "openingElement")
+      : path.call(print, "openingFragment");
+  const closingLines =
+    n.type === "JSXElement"
+      ? path.call(print, "closingElement")
+      : path.call(print, "closingFragment");
 
   if (
     n.children.length === 1 &&
@@ -4243,12 +4276,6 @@ function printJSXElement(path, options, print) {
       concat(path.map(print, "children")),
       closingLines
     ]);
-  }
-
-  // If no children, just print the opening element
-  if (n.openingElement.selfClosing) {
-    assert.ok(!n.closingElement);
-    return openingLines;
   }
 
   // Convert `{" "}` to text nodes containing a space.
@@ -4265,12 +4292,12 @@ function printJSXElement(path, options, print) {
     return child;
   });
 
-  const containsTag =
-    n.children.filter(child => child.type === "JSXElement").length > 0;
+  const containsTag = n.children.filter(isJSXNode).length > 0;
   const containsMultipleExpressions =
     n.children.filter(child => child.type === "JSXExpressionContainer").length >
     1;
-  const containsMultipleAttributes = n.openingElement.attributes.length > 1;
+  const containsMultipleAttributes =
+    n.type === "JSXElement" && n.openingElement.attributes.length > 1;
 
   // Record any breaks. Should never go from true to false, only false to true.
   let forcedBreak =
@@ -4410,6 +4437,8 @@ function maybeWrapJSXElementInParens(path, elem) {
     ArrayExpression: true,
     JSXElement: true,
     JSXExpressionContainer: true,
+    JSXFragment: true,
+    TSJsxFragment: true,
     ExpressionStatement: true,
     CallExpression: true,
     ConditionalExpression: true
@@ -4458,7 +4487,7 @@ function shouldInlineLogicalExpression(node) {
     return true;
   }
 
-  if (node.right.type === "JSXElement") {
+  if (isJSXNode(node.right)) {
     return true;
   }
 
@@ -4642,7 +4671,7 @@ function hasTrailingComment(node) {
 }
 
 function hasLeadingOwnLineComment(text, node) {
-  if (node.type === "JSXElement") {
+  if (isJSXNode(node)) {
     return hasNodeIgnoreComment(node);
   }
 
@@ -4728,7 +4757,7 @@ function exprNeedsASIProtection(path, options) {
       (node.operator === "+" || node.operator === "-")) ||
     node.type === "TemplateLiteral" ||
     node.type === "TemplateElement" ||
-    node.type === "JSXElement" ||
+    isJSXNode(node) ||
     node.type === "BindExpression" ||
     node.type === "RegExpLiteral" ||
     (node.type === "Literal" && node.pattern) ||
@@ -5123,7 +5152,7 @@ function isTheOnlyJSXElementInMarkdown(options, path) {
 
   const node = path.getNode();
 
-  if (!node.expression || node.expression.type !== "JSXElement") {
+  if (!node.expression || !isJSXNode(node.expression)) {
     return false;
   }
 
