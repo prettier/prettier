@@ -1843,15 +1843,18 @@ function genericPrintNoParens(path, options, print, args) {
     case "JSXClosingFragment":
     case "TSJsxOpeningFragment":
     case "TSJsxClosingFragment": {
+      const hasComment = n.comments && n.comments.length;
       const hasOwnLineComment =
-        n.comments && !n.comments.every(util.isBlockComment);
+        hasComment && !n.comments.every(util.isBlockComment);
+      const isOpeningFragment =
+      n.type === "JSXOpeningFragment" || n.type === "TSJsxOpeningFragment";
       return concat([
-        n.type === "JSXOpeningFragment" || n.type === "TSJsxOpeningFragment"
+        isOpeningFragment
           ? "<"
           : "</",
         indent(
           concat([
-            hasOwnLineComment ? hardline : "",
+            hasOwnLineComment ? hardline : hasComment && !isOpeningFragment ? " " : "",
             comments.printDanglingComments(path, options, true)
           ])
         ),

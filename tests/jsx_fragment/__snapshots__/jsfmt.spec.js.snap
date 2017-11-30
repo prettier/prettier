@@ -78,7 +78,7 @@ exports[`fragment.js 1`] = `
 </* open fragment */>
   <Component />
   <Component />
-<//* close fragment */>;
+</ /* close fragment */>;
 
 <
   // open fragment
