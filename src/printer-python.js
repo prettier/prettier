@@ -50,6 +50,10 @@ function printArguments(print, path, argsKey, defaultsKey) {
   return parts;
 }
 
+function printBody(path, print) {
+  return join(concat([hardline, hardline]), path.map(print, "body"));
+}
+
 function genericPrint(path, options, print) {
   const n = path.getValue();
   if (!n) {
@@ -62,10 +66,7 @@ function genericPrint(path, options, print) {
 
   switch (n.ast_type) {
     case "Module": {
-      return concat([
-        join(concat([hardline, hardline]), path.map(print, "body")),
-        hardline
-      ]);
+      return concat([printBody(path, print), hardline]);
     }
 
     case "FunctionDef": {
@@ -81,7 +82,7 @@ function genericPrint(path, options, print) {
           ])
         ),
         ":",
-        indent(concat([line, concat(path.map(print, "body"))]))
+        indent(concat([hardline, printBody(path, print)]))
       ]);
     }
 
@@ -157,7 +158,7 @@ function genericPrint(path, options, print) {
         " in ",
         path.call(print, "iter"),
         ":",
-        indent(concat([line, concat(path.map(print, "body"))]))
+        indent(concat([hardline, printBody(path, print)]))
       ];
 
       if (n.orelse.length > 0) {
@@ -225,7 +226,7 @@ function genericPrint(path, options, print) {
         n.name,
         concat(bases),
         ":",
-        indent(concat([line, concat(path.map(print, "body"))]))
+        indent(concat([hardline, printBody(path, print)]))
       ]);
     }
 
@@ -345,7 +346,7 @@ function genericPrint(path, options, print) {
         "while ",
         path.call(print, "test"),
         ":",
-        indent(concat([line, concat(path.map(print, "body"))]))
+        indent(concat([hardline, printBody(path, print)]))
       ]);
     }
 
@@ -360,7 +361,7 @@ function genericPrint(path, options, print) {
         ifType,
         path.call(print, "test"),
         ":",
-        indent(concat([line, concat(path.map(print, "body"))]))
+        indent(concat([hardline, printBody(path, print)]))
       ];
 
       if (n.orelse.length > 0) {
