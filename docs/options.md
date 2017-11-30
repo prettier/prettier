@@ -19,6 +19,8 @@ Specify the line length that the printer will wrap on.
 | ------- | --------------------- | ------------------- |
 | `80`    | `--print-width <int>` | `printWidth: <int>` |
 
+(If you don't want line wrapping when formatting Markdown, you can set the [Prose Wrap](#prose-wrap) option to disable it.)
+
 ## Tab Width
 
 Specify the number of spaces per indentation-level.
