@@ -12,7 +12,12 @@ const ALL_PARSERS = process.env["ALL_PARSERS"]
   ? JSON.parse(process.env["ALL_PARSERS"])
   : ["flow", "graphql", "babylon", "typescript"];
 
-function run_spec(dirname, options, additionalParsers) {
+function run_spec(dirname, parsers, options) {
+  /* instabul ignore if */
+  if (!parsers || !parsers.length) {
+    throw new Error(`No parsers were specified for ${dirname}`);
+  }
+
   fs.readdirSync(dirname).forEach(filename => {
     const path = dirname + "/" + filename;
     if (
@@ -35,6 +40,7 @@ function run_spec(dirname, options, additionalParsers) {
         });
 
       const mergedOptions = Object.assign(mergeDefaultOptions(options || {}), {
+        parser: parsers[0],
         rangeStart: rangeStart,
         rangeEnd: rangeEnd
       });
@@ -45,7 +51,7 @@ function run_spec(dirname, options, additionalParsers) {
         );
       });
 
-      getParsersToVerify(mergedOptions.parser, additionalParsers || []).forEach(
+      getParsersToVerify(mergedOptions.parser, parsers.slice(1)).forEach(
         parserName => {
           test(`${filename} - ${parserName}-verify`, () => {
             const verifyOptions = Object.assign(mergedOptions, {
@@ -144,7 +150,6 @@ function raw(string) {
 function mergeDefaultOptions(parserConfig) {
   return Object.assign(
     {
-      parser: "flow",
       printWidth: 80
     },
     parserConfig

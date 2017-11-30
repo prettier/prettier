@@ -1,2 +1,2 @@
-run_spec(__dirname, null, ["typescript"]);
-run_spec(__dirname, { bracketSpacing: false }, ["typescript"]);
+run_spec(__dirname, ["flow", "typescript"]);
+run_spec(__dirname, ["flow", "typescript"], { bracketSpacing: false });

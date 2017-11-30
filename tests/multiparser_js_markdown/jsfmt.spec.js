@@ -1,1 +1,1 @@
-run_spec(__dirname, { parser: "babylon", proseWrap: "always" });
+run_spec(__dirname, ["markdown"], { proseWrap: "always" });

@@ -1,2 +1,2 @@
-run_spec(__dirname, { parser: "json" });
-run_spec(__dirname, { parser: "json", trailingComma: "all" });
+run_spec(__dirname, ["json"]);
+run_spec(__dirname, ["json"], { trailingComma: "all" });

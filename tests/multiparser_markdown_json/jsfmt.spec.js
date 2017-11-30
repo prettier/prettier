@@ -1,1 +1,1 @@
-run_spec(__dirname, { parser: "markdown", trailingComma: "all" });
+run_spec(__dirname, ["markdown"], { trailingComma: "all" });
