@@ -1,3 +1,1 @@
-run_spec(__dirname, ["typescript"], {
-  trailingComma: "all"
-});
+run_spec(__dirname, ["typescript"], { trailingComma: "all" });
