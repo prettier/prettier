@@ -22,7 +22,7 @@ const util = require("./util");
 function parse(text /*, parsers, opts*/) {
   const processor = unified()
     .use(remarkParse, { footnotes: true, commonmark: true })
-    .use(remarkFrontmatter, ["yaml"])
+    .use(remarkFrontmatter, ["yaml", "toml"])
     .use(restoreUnescapedCharacter(text))
     .use(mergeContinuousTexts)
     .use(transformInlineCode)

@@ -20,12 +20,6 @@ before_script:
   - if [ "${NODE_ENV}" = "production" ]; then yarn build; fi
 script:
   - yarn lint
+  - yarn lint-docs
   - AST_COMPARE=1 yarn test -- --runInBand
   - if [ "${NODE_ENV}" = "development" ]; then yarn codecov; fi
-deploy:
-  provider: script
-  script: website/deploy.sh
-  skip_cleanup: true
-  on:
-    branch: master
-    node: stable

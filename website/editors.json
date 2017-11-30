@@ -2,7 +2,7 @@
     {
         "image": "/images/atom-128px.png",
         "name": "Atom",
-        "content": "[`prettier-atom`](https://github.com/prettier/prettier-atom)"
+        "content": "[`prettier-atom`](https://github.com/prettier/prettier-atom), [`mprettier`](https://github.com/t9md/atom-mprettier)"
     },
     {
         "image": "/images/emacs-128px.png",

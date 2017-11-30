@@ -76,7 +76,7 @@ var unionWithRestParameter4: { (...a: string[]): string; } | { (a: string, b: st
 strOrNum = unionWithRestParameter4("hello"); // error supplied parameters do not match any call signature
 strOrNum = unionWithRestParameter4("hello", "world");
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var numOrDate: number | Date;
+﻿var numOrDate: number | Date;
 var strOrBoolean: string | boolean;
 var strOrNum: string | number;
 
@@ -188,7 +188,7 @@ var fUnion: typeof f1 | typeof f2 | typeof f3 | typeof f4 | typeof f5 | typeof f
 
 fUnion(""); // All constituents can be called by passing a single string.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function f1(s: string) {}
+﻿function f1(s: string) {}
 function f2(s?: string) {}
 function f3(...s: string[]) {}
 function f4(s: string, s2?: string) {}
@@ -236,7 +236,7 @@ f12345("a");  // error
 f12345("a", "b");
 f12345("a", "b", "c");  // error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-type F1 = (a: string, b?: string) => void;
+﻿type F1 = (a: string, b?: string) => void;
 type F2 = (a: string, b?: string, c?: string) => void;
 type F3 = (a: string, ...rest: string[]) => void;
 type F4 = (a: string, b?: string, ...rest: string[]) => void;
@@ -336,7 +336,7 @@ strOrNum = new unionWithRestParameter3('hello', 10, 11); // error no call signat
 strOrNum = new unionWithRestParameter3('hello', "hello"); // error no call signature
 strOrNum = new unionWithRestParameter3(); // error no call signature
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var numOrDate: number | Date;
+﻿var numOrDate: number | Date;
 var strOrBoolean: string | boolean;
 var strOrNum: string | number;
 
@@ -451,7 +451,7 @@ var BC : number | boolean;
 var z1: typeof AB | boolean;
 var z1: string | typeof BC;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// A | B is equivalent to A if B is a subtype of A
+﻿// A | B is equivalent to A if B is a subtype of A
 class C {}
 class D extends C {
   foo() {}
@@ -499,7 +499,7 @@ var arr7 = [c, d, e]; // (C | D)[]
 var arr8 = [c, e]; // C[]
 var arr9 = [e, f]; // (E|F)[]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// The resulting type an array literal expression is determined as follows:
+﻿// The resulting type an array literal expression is determined as follows:
 // If the array literal is empty, the resulting type is an array type with the element type Undefined.
 // Otherwise, if the array literal is contextually typed by a type that has a property with the numeric name ‘0’, the resulting type is a tuple type constructed from the types of the element expressions.
 // Otherwise, the resulting type is an array type with an element type that is the union of the types of the element expressions.
@@ -558,7 +558,7 @@ var unionOfTypesWithAndWithoutStringSignature1: { [a: number]: number; } | boole
 anyVar = unionOfTypesWithAndWithoutStringSignature1["hello"]; // any
 anyVar = unionOfTypesWithAndWithoutStringSignature1[10]; // any
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var numOrDate: number | Date;
+﻿var numOrDate: number | Date;
 var anyVar: number;
 
 // If each type in U has a string index signature,

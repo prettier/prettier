@@ -84,12 +84,7 @@ function hasNodeIgnoreComment(node) {
 function hasJsxIgnoreComment(path) {
   const node = path.getValue();
   const parent = path.getParentNode();
-  if (
-    !parent ||
-    !node ||
-    node.type !== "JSXElement" ||
-    parent.type !== "JSXElement"
-  ) {
+  if (!parent || !node || !isJSXNode(node) || !isJSXNode(parent)) {
     return false;
   }
 
@@ -214,14 +209,6 @@ function genericPrint(path, options, printPath, args) {
     needsParens = path.needsParens(options);
   }
 
-  if (node.type) {
-    // HACK: ASI prevention in no-semi mode relies on knowledge of whether
-    // or not a paren has been inserted (see `exprNeedsASIProtection()`).
-    // For now, we're just passing that information by mutating the AST here,
-    // but it would be nice to find a cleaner way to do this.
-    node.needsParens = needsParens;
-  }
-
   const parts = [];
   if (needsParens) {
     parts.unshift("(");
@@ -292,7 +279,11 @@ function genericPrintNoParens(path, options, print, args) {
       if (n.directive) {
         return concat([nodeStr(n.expression, options, true), semi]);
       }
-      return concat([path.call(print, "expression"), semi]); // Babel extension.
+      // Do not append semicolon after the only JSX element in a program
+      return concat([
+        path.call(print, "expression"),
+        isTheOnlyJSXElementInMarkdown(options, path) ? "" : semi
+      ]); // Babel extension.
     case "ParenthesizedExpression":
       return concat(["(", path.call(print, "expression"), ")"]);
     case "AssignmentExpression":
@@ -497,7 +488,7 @@ function genericPrintNoParens(path, options, print, args) {
         parts.push("async ");
       }
 
-      if (canPrintParamsWithoutParens(n)) {
+      if (shouldPrintParamsWithoutParens(path, options)) {
         parts.push(path.call(print, "params", 0));
       } else {
         parts.push(
@@ -528,7 +519,7 @@ function genericPrintNoParens(path, options, print, args) {
         (n.body.type === "ArrayExpression" ||
           n.body.type === "ObjectExpression" ||
           n.body.type === "BlockStatement" ||
-          n.body.type === "JSXElement" ||
+          isJSXNode(n.body) ||
           isTemplateOnItsOwnLine(n.body, options.originalText) ||
           n.body.type === "ArrowFunctionExpression")
       ) {
@@ -851,7 +842,6 @@ function genericPrintNoParens(path, options, print, args) {
     case "NewExpression":
     case "CallExpression": {
       const isNew = n.type === "NewExpression";
-      const unitTestRe = /^(f|x)?(it|describe|test)$/;
 
       const optional = printOptionalToken(path);
       if (
@@ -865,22 +855,7 @@ function genericPrintNoParens(path, options, print, args) {
           isTemplateOnItsOwnLine(n.arguments[0], options.originalText)) ||
         // Keep test declarations on a single line
         // e.g. `it('long name', () => {`
-        (!isNew &&
-          ((n.callee.type === "Identifier" && unitTestRe.test(n.callee.name)) ||
-            (n.callee.type === "MemberExpression" &&
-              n.callee.object.type === "Identifier" &&
-              n.callee.property.type === "Identifier" &&
-              unitTestRe.test(n.callee.object.name) &&
-              (n.callee.property.name === "only" ||
-                n.callee.property.name === "skip"))) &&
-          n.arguments.length === 2 &&
-          (n.arguments[0].type === "StringLiteral" ||
-            n.arguments[0].type === "TemplateLiteral" ||
-            (n.arguments[0].type === "Literal" &&
-              typeof n.arguments[0].value === "string")) &&
-          (n.arguments[1].type === "FunctionExpression" ||
-            n.arguments[1].type === "ArrowFunctionExpression") &&
-          n.arguments[1].params.length <= 1)
+        (!isNew && isTestCall(n))
       ) {
         return concat([
           isNew ? "new " : "",
@@ -1016,6 +991,7 @@ function genericPrintNoParens(path, options, print, args) {
         lastElem &&
         (lastElem.type === "RestProperty" ||
           lastElem.type === "RestElement" ||
+          lastElem.type === "ExperimentalRestProperty" ||
           hasNodeIgnoreComment(lastElem))
       );
 
@@ -1287,9 +1263,9 @@ function genericPrintNoParens(path, options, print, args) {
       const lastConditionalParent = previousParent;
 
       if (
-        n.test.type === "JSXElement" ||
-        n.consequent.type === "JSXElement" ||
-        n.alternate.type === "JSXElement" ||
+        isJSXNode(n.test) ||
+        isJSXNode(n.consequent) ||
+        isJSXNode(n.alternate) ||
         conditionalExpressionChainContainsJSX(lastConditionalParent)
       ) {
         jsxMode = true;
@@ -1760,7 +1736,7 @@ function genericPrintNoParens(path, options, print, args) {
           n.expression.type === "JSXEmptyExpression" ||
           n.expression.type === "TemplateLiteral" ||
           n.expression.type === "TaggedTemplateExpression" ||
-          (parent.type === "JSXElement" &&
+          (isJSXNode(parent) &&
             (n.expression.type === "ConditionalExpression" ||
               isBinaryish(n.expression))));
 
@@ -1780,6 +1756,8 @@ function genericPrintNoParens(path, options, print, args) {
         ])
       );
     }
+    case "JSXFragment":
+    case "TSJsxFragment":
     case "JSXElement": {
       const elem = comments.printComments(
         path,
@@ -1801,6 +1779,7 @@ function genericPrintNoParens(path, options, print, args) {
 
       // don't break up opening elements with a single long text attribute
       if (
+        n.attributes &&
         n.attributes.length === 1 &&
         n.attributes[0].value &&
         isStringLiteral(n.attributes[0].value) &&
@@ -1860,6 +1839,29 @@ function genericPrintNoParens(path, options, print, args) {
     }
     case "JSXClosingElement":
       return concat(["</", path.call(print, "name"), ">"]);
+    case "JSXOpeningFragment":
+    case "JSXClosingFragment":
+    case "TSJsxOpeningFragment":
+    case "TSJsxClosingFragment": {
+      const hasComment = n.comments && n.comments.length;
+      const hasOwnLineComment =
+        hasComment && !n.comments.every(util.isBlockComment);
+      const isOpeningFragment =
+        n.type === "JSXOpeningFragment" || n.type === "TSJsxOpeningFragment";
+      return concat([
+        isOpeningFragment ? "<" : "</",
+        indent(
+          concat([
+            hasOwnLineComment
+              ? hardline
+              : hasComment && !isOpeningFragment ? " " : "",
+            comments.printDanglingComments(path, options, true)
+          ])
+        ),
+        hasOwnLineComment ? hardline : "",
+        ">"
+      ]);
+    }
     case "JSXText":
       /* istanbul ignore next */
       throw new Error("JSXTest should be handled by JSXElement");
@@ -1988,7 +1990,7 @@ function genericPrintNoParens(path, options, print, args) {
           let printed = expressions[i];
 
           if (
-            n.expressions[i].type === "Identifier" ||
+            (n.expressions[i].comments && n.expressions[i].comments.length) ||
             n.expressions[i].type === "MemberExpression" ||
             n.expressions[i].type === "ConditionalExpression"
           ) {
@@ -2863,10 +2865,14 @@ function printStatementSequence(path, options, print) {
     const parts = [];
 
     // in no-semi mode, prepend statement with semicolon if it might break ASI
-    if (!options.semi && !isClass && stmtNeedsASIProtection(stmtPath)) {
+    // don't prepend the only JSX element in a program with semicolon
+    if (
+      !options.semi &&
+      !isClass &&
+      !isTheOnlyJSXElementInMarkdown(options, stmtPath) &&
+      stmtNeedsASIProtection(stmtPath, options)
+    ) {
       if (stmt.comments && stmt.comments.some(comment => comment.leading)) {
-        // Note: stmtNeedsASIProtection requires stmtPath to already be printed
-        // as it reads needsParens which is mutated on the instance
         parts.push(print(stmtPath, { needsSemi: true }));
       } else {
         parts.push(";", stmtPrinted);
@@ -2987,7 +2993,7 @@ function couldGroupArg(arg) {
         arg.body.type === "ObjectExpression" ||
         arg.body.type === "ArrayExpression" ||
         arg.body.type === "CallExpression" ||
-        arg.body.type === "JSXElement"))
+        isJSXNode(arg.body)))
   );
 }
 
@@ -3217,6 +3223,11 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
 
   const parent = path.getParentNode();
 
+  // don't break in specs, eg; `it("should maintain parens around done even when long", (done) => {})`
+  if (parent.type === "CallExpression" && isTestCall(parent)) {
+    return concat([typeParams, "(", join(", ", printed), ")"]);
+  }
+
   const flowTypeAnnotations = [
     "AnyTypeAnnotation",
     "NullLiteralTypeAnnotation",
@@ -3269,6 +3280,20 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
     softline,
     ")"
   ]);
+}
+
+function shouldPrintParamsWithoutParens(path, options) {
+  if (options.arrowParens === "always") {
+    return false;
+  }
+
+  if (options.arrowParens === "avoid") {
+    const node = path.getValue();
+    return canPrintParamsWithoutParens(node);
+  }
+
+  // Fallback default; should be unreachable
+  return false;
 }
 
 function canPrintParamsWithoutParens(node) {
@@ -3516,14 +3541,23 @@ function printTypeParameters(path, options, print, paramsKey) {
     return path.call(print, paramsKey);
   }
 
+  const grandparent = path.getNode(2);
+
+  const isParameterInTestCall =
+    grandparent != null &&
+    grandparent.type === "CallExpression" &&
+    isTestCall(grandparent);
+
   const shouldInline =
-    n[paramsKey].length === 1 &&
-    (shouldHugType(n[paramsKey][0]) ||
-      (n[paramsKey][0].type === "GenericTypeAnnotation" &&
-        shouldHugType(n[paramsKey][0].id)) ||
-      (n[paramsKey][0].type === "TSTypeReference" &&
-        shouldHugType(n[paramsKey][0].typeName)) ||
-      n[paramsKey][0].type === "NullableTypeAnnotation");
+    isParameterInTestCall ||
+    n[paramsKey].length === 0 ||
+    (n[paramsKey].length === 1 &&
+      (shouldHugType(n[paramsKey][0]) ||
+        (n[paramsKey][0].type === "GenericTypeAnnotation" &&
+          shouldHugType(n[paramsKey][0].id)) ||
+        (n[paramsKey][0].type === "TSTypeReference" &&
+          shouldHugType(n[paramsKey][0].typeName)) ||
+        n[paramsKey][0].type === "NullableTypeAnnotation"));
 
   if (shouldInline) {
     return concat(["<", join(", ", path.map(print, paramsKey)), ">"]);
@@ -3945,6 +3979,14 @@ function printMemberChain(path, options, print) {
   ]);
 }
 
+function isJSXNode(node) {
+  return (
+    node.type === "JSXElement" ||
+    node.type === "JSXFragment" ||
+    node.type === "TSJsxFragment"
+  );
+}
+
 function isEmptyJSXElement(node) {
   if (node.children.length === 0) {
     return true;
@@ -3978,9 +4020,7 @@ function isMeaningfulJSXText(node) {
 }
 
 function conditionalExpressionChainContainsJSX(node) {
-  return Boolean(
-    getConditionalChainContents(node).find(child => child.type === "JSXElement")
-  );
+  return Boolean(getConditionalChainContents(node).find(isJSXNode));
 }
 
 // If we have nested conditional expressions, we want to print them in JSX mode
@@ -4211,13 +4251,19 @@ function printJSXElement(path, options, print) {
   const n = path.getValue();
 
   // Turn <div></div> into <div />
-  if (isEmptyJSXElement(n)) {
+  if (n.type === "JSXElement" && isEmptyJSXElement(n)) {
     n.openingElement.selfClosing = true;
-    delete n.closingElement;
+    return path.call(print, "openingElement");
   }
 
-  const openingLines = path.call(print, "openingElement");
-  const closingLines = path.call(print, "closingElement");
+  const openingLines =
+    n.type === "JSXElement"
+      ? path.call(print, "openingElement")
+      : path.call(print, "openingFragment");
+  const closingLines =
+    n.type === "JSXElement"
+      ? path.call(print, "closingElement")
+      : path.call(print, "closingFragment");
 
   if (
     n.children.length === 1 &&
@@ -4230,12 +4276,6 @@ function printJSXElement(path, options, print) {
       concat(path.map(print, "children")),
       closingLines
     ]);
-  }
-
-  // If no children, just print the opening element
-  if (n.openingElement.selfClosing) {
-    assert.ok(!n.closingElement);
-    return openingLines;
   }
 
   // Convert `{" "}` to text nodes containing a space.
@@ -4252,12 +4292,12 @@ function printJSXElement(path, options, print) {
     return child;
   });
 
-  const containsTag =
-    n.children.filter(child => child.type === "JSXElement").length > 0;
+  const containsTag = n.children.filter(isJSXNode).length > 0;
   const containsMultipleExpressions =
     n.children.filter(child => child.type === "JSXExpressionContainer").length >
     1;
-  const containsMultipleAttributes = n.openingElement.attributes.length > 1;
+  const containsMultipleAttributes =
+    n.type === "JSXElement" && n.openingElement.attributes.length > 1;
 
   // Record any breaks. Should never go from true to false, only false to true.
   let forcedBreak =
@@ -4397,6 +4437,8 @@ function maybeWrapJSXElementInParens(path, elem) {
     ArrayExpression: true,
     JSXElement: true,
     JSXExpressionContainer: true,
+    JSXFragment: true,
+    TSJsxFragment: true,
     ExpressionStatement: true,
     CallExpression: true,
     ConditionalExpression: true
@@ -4445,7 +4487,7 @@ function shouldInlineLogicalExpression(node) {
     return true;
   }
 
-  if (node.right.type === "JSXElement") {
+  if (isJSXNode(node.right)) {
     return true;
   }
 
@@ -4629,7 +4671,7 @@ function hasTrailingComment(node) {
 }
 
 function hasLeadingOwnLineComment(text, node) {
-  if (node.type === "JSXElement") {
+  if (isJSXNode(node)) {
     return hasNodeIgnoreComment(node);
   }
 
@@ -4671,15 +4713,43 @@ function getLeftSide(node) {
   );
 }
 
-function exprNeedsASIProtection(node) {
-  // HACK: node.needsParens is added in `genericPrint()` for the sole purpose
-  // of being used here. It'd be preferable to find a cleaner way to do this.
+function getLeftSidePathName(path, node) {
+  if (node.expressions) {
+    return ["expressions", 0];
+  }
+  if (node.left) {
+    return ["left"];
+  }
+  if (node.test) {
+    return ["test"];
+  }
+  if (node.callee) {
+    return ["callee"];
+  }
+  if (node.object) {
+    return ["object"];
+  }
+  if (node.tag) {
+    return ["tag"];
+  }
+  if (node.argument) {
+    return ["argument"];
+  }
+  if (node.expression) {
+    return ["expression"];
+  }
+  throw new Error("Unexpected node has no left side", node);
+}
+
+function exprNeedsASIProtection(path, options) {
+  const node = path.getValue();
+
   const maybeASIProblem =
-    node.needsParens ||
+    path.needsParens(options) ||
     node.type === "ParenthesizedExpression" ||
     node.type === "TypeCastExpression" ||
     (node.type === "ArrowFunctionExpression" &&
-      !canPrintParamsWithoutParens(node)) ||
+      !shouldPrintParamsWithoutParens(path, options)) ||
     node.type === "ArrayExpression" ||
     node.type === "ArrayPattern" ||
     (node.type === "UnaryExpression" &&
@@ -4687,7 +4757,7 @@ function exprNeedsASIProtection(node) {
       (node.operator === "+" || node.operator === "-")) ||
     node.type === "TemplateLiteral" ||
     node.type === "TemplateElement" ||
-    node.type === "JSXElement" ||
+    isJSXNode(node) ||
     node.type === "BindExpression" ||
     node.type === "RegExpLiteral" ||
     (node.type === "Literal" && node.pattern) ||
@@ -4701,17 +4771,25 @@ function exprNeedsASIProtection(node) {
     return false;
   }
 
-  return exprNeedsASIProtection(getLeftSide(node));
+  return path.call.apply(
+    path,
+    [childPath => exprNeedsASIProtection(childPath, options)].concat(
+      getLeftSidePathName(path, node)
+    )
+  );
 }
 
-function stmtNeedsASIProtection(path) {
+function stmtNeedsASIProtection(path, options) {
   const node = path.getNode();
 
   if (node.type !== "ExpressionStatement") {
     return false;
   }
 
-  return exprNeedsASIProtection(node.expression);
+  return path.call(
+    childPath => exprNeedsASIProtection(childPath, options),
+    "expression"
+  );
 }
 
 function classPropMayCauseASIProblems(path) {
@@ -4980,6 +5058,28 @@ function isObjectType(n) {
   return n.type === "ObjectTypeAnnotation" || n.type === "TSTypeLiteral";
 }
 
+// eg; `describe("some string", (done) => {})`
+function isTestCall(n) {
+  const unitTestRe = /^(f|x)?(it|describe|test)$/;
+  return (
+    ((n.callee.type === "Identifier" && unitTestRe.test(n.callee.name)) ||
+      (n.callee.type === "MemberExpression" &&
+        n.callee.object.type === "Identifier" &&
+        n.callee.property.type === "Identifier" &&
+        unitTestRe.test(n.callee.object.name) &&
+        (n.callee.property.name === "only" ||
+          n.callee.property.name === "skip"))) &&
+    n.arguments.length === 2 &&
+    (n.arguments[0].type === "StringLiteral" ||
+      n.arguments[0].type === "TemplateLiteral" ||
+      (n.arguments[0].type === "Literal" &&
+        typeof n.arguments[0].value === "string")) &&
+    (n.arguments[1].type === "FunctionExpression" ||
+      n.arguments[1].type === "ArrowFunctionExpression") &&
+    n.arguments[1].params.length <= 1
+  );
+}
+
 function printAstToDoc(ast, options, addAlignmentSize) {
   addAlignmentSize = addAlignmentSize || 0;
 
@@ -5043,6 +5143,22 @@ function printAstToDoc(ast, options, addAlignmentSize) {
   }
 
   return doc;
+}
+
+function isTheOnlyJSXElementInMarkdown(options, path) {
+  if (options.parentParser !== "markdown") {
+    return false;
+  }
+
+  const node = path.getNode();
+
+  if (!node.expression || !isJSXNode(node.expression)) {
+    return false;
+  }
+
+  const parent = path.getParentNode();
+
+  return parent.type === "Program" && parent.body.length == 1;
 }
 
 module.exports = { printAstToDoc };

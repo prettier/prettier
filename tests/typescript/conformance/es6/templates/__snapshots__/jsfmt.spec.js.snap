@@ -4,7 +4,7 @@ exports[`templateStringWithEmbeddedTypeAssertionOnAdditionES6.ts 1`] = `
 ﻿// @target: ES6
 var x = \`abc\${ <any>(10 + 10) }def\`;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// @target: ES6
+﻿// @target: ES6
 var x = \`abc\${<any>(10 + 10)}def\`;
 
 `;

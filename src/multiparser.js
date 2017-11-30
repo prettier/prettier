@@ -12,6 +12,7 @@ const concat = docBuilders.concat;
 function printSubtree(subtreeParser, path, print, options) {
   const next = Object.assign({}, { transformDoc: doc => doc }, subtreeParser);
   next.options = Object.assign({}, options, next.options, {
+    parentParser: options.parser,
     originalText: next.text
   });
   if (next.options.parser === "json") {
@@ -180,7 +181,8 @@ function fromBabylonFlowOrTypeScript(path) {
 }
 
 function dedent(str) {
-  const spaces = str.match(/\n^( *)/m)[1].length;
+  const firstMatchedIndent = str.match(/\n^( *)/m);
+  const spaces = firstMatchedIndent === null ? 0 : firstMatchedIndent[1].length;
   return str.replace(new RegExp(`^ {${spaces}}`, "gm"), "").trim();
 }
 
