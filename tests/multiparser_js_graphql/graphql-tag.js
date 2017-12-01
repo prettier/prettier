@@ -107,6 +107,26 @@ gql`   `
 gql``
 
 
+// Comments after other things:
+// Currently, comments after interpolations are moved to the next line.
+// We might want to keep them on the next line in the future.
+
+gql`
+  ${test} # comment
+
+  query Test { # comment
+    test # comment
+  } # comment
+  ${test} # comment
+  ${test} # comment
+
+  ${test} # comment
+
+  # comment
+  ${test} # comment
+`
+
+
 // Larger mixed test:
 
 gql`
