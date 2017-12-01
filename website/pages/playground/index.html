@@ -163,17 +163,14 @@
     }
 
     .bottom-bar-buttons {
-      position: absolute;
       z-index: 10;
-      top: 0;
-      left: 0;
       padding: 8px;
       display: flex;
+      float: left;
     }
 
     .bottom-bar-buttons-right {
-      left: auto;
-      right: 0;
+      float: right;
     }
 
     .bottom-bar-buttons > * + * {
@@ -192,47 +189,27 @@
       }
     }
 
-    .options-details {
-      padding: 8px 0;
+    .options-container {
+      max-height: 100%;
+      overflow-y: scroll;
     }
 
     .options-summary {
-      font-size: 1.4em;
-      text-align: center;
-    }
-
-    .options-container {
-      display: flex;
-      flex-flow: row wrap;
-      justify-content: space-around;
+      display: none;
     }
 
     .options {
       flex-flow: column wrap;
       flex: 1;
       display: flex;
-      justify-content: space-around;
       padding: 0 10px;
       margin: 5px;
       margin-bottom: 0;
-      min-width: 150px;
     }
 
     label {
       font-family: "Consolas", "Courier New", Courier, monospace;
-      margin: 0 10px;
-    }
-
-    @media (max-width: 408px) {
-      label {
-        padding: 8px;
-      }
-      .options-container {
-        flex-direction: column-reverse;
-      }
-      .options.last {
-        flex-direction: column-reverse;
-      }
+      padding: 10px 0;
     }
 
     input[type="number"] {
@@ -318,6 +295,47 @@
   </header>
 
   <div class="editors-container">
+    <details id="options-details" class="options-container">
+      <summary class="options-summary"></summary>
+      <div class="options">
+        <h3>Options</h3>
+        <label>--print-width <input type="number" value="80" min="0" id="printWidth"></label>
+        <label>--tab-width <input type="number" min="0" value="2" id="tabWidth"></label>
+        <label><input type="checkbox" data-inverted id="proseWrap"> --no-prose-wrap</label>
+        <label><input type="checkbox" id="insertPragma"> --insert-pragma</label>
+        <label><input type="checkbox" id="requirePragma"> --require-pragma</label>
+        <label><input type="checkbox" id="useTabs"> --use-tabs</label>
+        <label><input type="checkbox" data-inverted id="semi"> --no-semi</label>
+        <label><input type="checkbox" id="singleQuote"> --single-quote</label>
+        <label><input type="checkbox" data-inverted id="bracketSpacing"> --no-bracket-spacing</label>
+        <label><input type="checkbox" id="jsxBracketSameLine"> --jsx-bracket-same-line</label>
+        <label>--trailing-comma
+          <select id="trailingComma">
+            <option value="none">none</option>
+            <option value="es5">es5</option>
+            <option value="all">all</option>
+          </select>
+        </label>
+        <label>--parser
+          <select id="parser">
+            <option value="babylon">babylon</option>
+            <option value="flow">flow</option>
+            <option value="typescript">typescript</option>
+            <option value="css">css</option>
+            <option value="less">less</option>
+            <option value="scss">scss</option>
+            <option value="json">json</option>
+            <option value="graphql">graphql</option>
+            <option value="markdown">markdown</option>
+          </select>
+        </label>
+        <span style="flex: 0.3"></span>
+        <label><input type="checkbox" id="ast"> show AST (debug)</label>
+        <label><input type="checkbox" id="doc"> show doc (debug)</label>
+        <label><input type="checkbox" id="output2"> show second format (debug)</label>
+      </div>
+    </details>
+
     <div class="editors">
       <div class="editor loading input">
         <textarea id="input-editor"></textarea>
@@ -339,57 +357,13 @@
 
   <div class="bottom-bar">
     <div class="bottom-bar-buttons">
+      <button type="button" class="btn" id="button-options">
+        See options
+      </button>
       <button type="button" class="btn" id="button-clear">
         Clear
       </button>
     </div>
-
-    <details class="options-details">
-      <summary class="options-summary">Options</summary>
-
-      <div class="options-container">
-        <div class="options">
-          <label>--print-width <input type="number" value="80" min="0" id="printWidth"></label>
-          <label>--tab-width <input type="number" min="0" value="2" id="tabWidth"></label>
-          <label><input type="checkbox" data-inverted id="proseWrap"> --no-prose-wrap</label>
-          <label><input type="checkbox" id="insertPragma"> --insert-pragma</label>
-          <label><input type="checkbox" id="requirePragma"> --require-pragma</label>
-        </div>
-        <div class="options">
-          <label><input type="checkbox" id="useTabs"> --use-tabs</label>
-          <label><input type="checkbox" data-inverted id="semi"> --no-semi</label>
-          <label><input type="checkbox" id="singleQuote"> --single-quote</label>
-          <label><input type="checkbox" data-inverted id="bracketSpacing"> --no-bracket-spacing</label>
-          <label><input type="checkbox" id="jsxBracketSameLine"> --jsx-bracket-same-line</label>
-        </div>
-        <div class="options last">
-          <label>--trailing-comma
-            <select id="trailingComma">
-              <option value="none">none</option>
-              <option value="es5">es5</option>
-              <option value="all">all</option>
-            </select>
-          </label>
-          <label>--parser
-            <select id="parser">
-              <option value="babylon">babylon</option>
-              <option value="flow">flow</option>
-              <option value="typescript">typescript</option>
-              <option value="css">css</option>
-              <option value="less">less</option>
-              <option value="scss">scss</option>
-              <option value="json">json</option>
-              <option value="graphql">graphql</option>
-              <option value="markdown">markdown</option>
-            </select>
-          </label>
-          <span style="flex: 0.3"></span>
-          <label><input type="checkbox" id="ast"> show AST (debug)</label>
-          <label><input type="checkbox" id="doc"> show doc (debug)</label>
-          <label><input type="checkbox" id="output2"> show second format (debug)</label>
-        </div>
-      </div>
-    </details>
 
     <div class="bottom-bar-buttons bottom-bar-buttons-right">
       <button type="button" class="btn" id="button-copy-link">

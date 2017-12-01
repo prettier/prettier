@@ -160,6 +160,17 @@ window.onload = function() {
     inputEditor.setValue("");
   };
 
+  var optionsElement = document.getElementById("options-details");
+  document.getElementById("button-options").onclick = function() {
+    if (optionsElement.getAttribute("open") !== null) {
+      optionsElement.removeAttribute("open");
+      this.innerHTML = "See options";
+    } else {
+      optionsElement.setAttribute("open", "");
+      this.innerHTML = "Hide options";
+    }
+  };
+
   var clipboard = new Clipboard("#button-copy-link, #button-copy-markdown", {
     text: function(trigger) {
       switch (trigger.id) {
