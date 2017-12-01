@@ -194,11 +194,13 @@ function genericPrint(path, options, print) {
     }
 
     case "Assign": {
-      return concat([
-        join(", ", path.map(print, "targets")),
-        " = ",
-        path.call(print, "value")
-      ]);
+      return group(
+        concat([
+          join(", ", path.map(print, "targets")),
+          " = ",
+          path.call(print, "value")
+        ])
+      );
     }
 
     case "AugAssign": {
