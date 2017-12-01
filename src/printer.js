@@ -131,9 +131,6 @@ function genericPrint(path, options, printPath, args) {
     } catch (error) {
       /* istanbul ignore if */
       if (process.env.PRETTIER_DEBUG) {
-        // TODO
-        // const e = new Error(error);
-        // e.parser = next.options.parser;
         throw error;
       }
       // Continue with current parser

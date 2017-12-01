@@ -5,6 +5,7 @@ const docUtils = require("./doc-utils");
 const docBuilders = require("./doc-builders");
 const comments = require("./comments");
 const indent = docBuilders.indent;
+const join = docBuilders.join;
 const hardline = docBuilders.hardline;
 const softline = docBuilders.softline;
 const concat = docBuilders.concat;
@@ -90,6 +91,8 @@ function fromMarkdown(path, print, options) {
 
 function fromBabylonFlowOrTypeScript(path, print, options) {
   const node = path.getValue();
+  const parent = path.getParentNode();
+  const parentParent = path.getParentNode(1);
 
   switch (node.type) {
     case "TemplateLiteral": {
@@ -108,12 +111,6 @@ function fromBabylonFlowOrTypeScript(path, print, options) {
         return transformCssDoc(doc, path, print);
       }
 
-      break;
-    }
-    case "TemplateElement": {
-      const parent = path.getParentNode();
-      const parentParent = path.getParentNode(1);
-
       /*
        * react-relay and graphql-tag
        * graphql`...`
@@ -121,32 +118,103 @@ function fromBabylonFlowOrTypeScript(path, print, options) {
        * gql`...`
        */
       if (
-        // We currently don't support expression inside GraphQL template literals
-        parent.expressions.length === 0 &&
-        parentParent &&
-        ((parentParent.type === "TaggedTemplateExpression" &&
-          ((parentParent.tag.type === "MemberExpression" &&
-            parentParent.tag.object.name === "graphql" &&
-            parentParent.tag.property.name === "experimental") ||
-            (parentParent.tag.type === "Identifier" &&
-              (parentParent.tag.name === "gql" ||
-                parentParent.tag.name === "graphql")))) ||
-          (parentParent.type === "CallExpression" &&
-            parentParent.callee.type === "Identifier" &&
-            parentParent.callee.name === "graphql"))
+        parent &&
+        ((parent.type === "TaggedTemplateExpression" &&
+          ((parent.tag.type === "MemberExpression" &&
+            parent.tag.object.name === "graphql" &&
+            parent.tag.property.name === "experimental") ||
+            (parent.tag.type === "Identifier" &&
+              (parent.tag.name === "gql" || parent.tag.name === "graphql")))) ||
+          (parent.type === "CallExpression" &&
+            parent.callee.type === "Identifier" &&
+            parent.callee.name === "graphql"))
       ) {
-        const doc = parseAndPrint(
-          Object.assign({}, options, {
-            parser: "graphql",
-            originalText: parent.quasis[0].value.raw
-          })
-        );
+        const expressionDocs = node.expressions
+          ? path.map(print, "expressions")
+          : [];
+
+        const numQuasis = node.quasis.length;
+
+        if (numQuasis === 1 && node.quasis[0].value.raw.trim() === "") {
+          return "``";
+        }
+
+        const parts = [];
+
+        for (let i = 0; i < numQuasis; i++) {
+          const templateElement = node.quasis[i];
+          const isFirst = i === 0;
+          const isLast = i === numQuasis - 1;
+          const text = templateElement.value.raw;
+          const lines = text.split("\n");
+          const numLines = lines.length;
+          const expressionDoc = expressionDocs[i];
+
+          const startsWithBlankLine =
+            numLines > 2 && lines[0].trim() === "" && lines[1].trim() === "";
+          const endsWithBlankLine =
+            numLines > 2 &&
+            lines[numLines - 1].trim() === "" &&
+            lines[numLines - 2].trim() === "";
+
+          const commentsAndWhitespaceOnly = lines.every(line =>
+            /^\s*(?:#[^\r\n]*)?$/.test(line)
+          );
+
+          // Bail out if an interpolation occurs within a comment.
+          if (!isLast && /#[^\r\n]*$/.test(lines[numLines - 1])) {
+            return null;
+          }
+
+          let doc = null;
+
+          if (commentsAndWhitespaceOnly) {
+            doc = printGraphqlComments(lines);
+          } else {
+            try {
+              doc = stripTrailingHardline(
+                parseAndPrint(
+                  Object.assign({}, options, {
+                    parser: "graphql",
+                    originalText: text
+                  })
+                )
+              );
+            } catch (_error) {
+              // Bail if any part fails to parse.
+              return null;
+            }
+          }
+
+          if (doc) {
+            if (!isFirst && startsWithBlankLine) {
+              parts.push("");
+            }
+            parts.push(doc);
+            if (!isLast && endsWithBlankLine) {
+              parts.push("");
+            }
+          } else if (!isFirst && !isLast && startsWithBlankLine) {
+            parts.push("");
+          }
+
+          if (expressionDoc) {
+            parts.push(concat(["${", expressionDoc, "}"]));
+          }
+        }
+
         return concat([
-          indent(concat([softline, stripTrailingHardline(doc)])),
-          softline
+          "`",
+          indent(concat([hardline, join(hardline, parts)])),
+          hardline,
+          "`"
         ]);
       }
 
+      break;
+    }
+
+    case "TemplateElement": {
       /**
        * md`...`
        * markdown`...`
@@ -178,6 +246,32 @@ function fromBabylonFlowOrTypeScript(path, print, options) {
       break;
     }
   }
+}
+
+function printGraphqlComments(lines) {
+  const parts = [];
+  let seenComment = false;
+
+  lines.map(textLine => textLine.trim()).forEach((textLine, i, array) => {
+    // Lines are either whitespace only, or a comment (with poential whitespace
+    // around it). Drop whitespace-only lines.
+    if (textLine === "") {
+      return;
+    }
+
+    if (array[i - 1] === "" && seenComment) {
+      // If a non-first comment is preceded by a blank (whitespace only) line,
+      // add in a blank line.
+      parts.push(concat([hardline, textLine]));
+    } else {
+      parts.push(textLine);
+    }
+
+    seenComment = true;
+  });
+
+  // If `lines` was whitespace only, return `null`.
+  return parts.length === 0 ? null : join(hardline, parts);
 }
 
 function dedent(str) {
