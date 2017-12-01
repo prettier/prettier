@@ -3443,17 +3443,18 @@ function printExportDeclaration(path, options, print) {
       }, "specifiers");
 
       const isNamespaceFollowed =
-        namespaceSpecifiers.length !== 0 &&
-        (specifiers.length !== 0 || defaultSpecifiers.length !== 0);
+        namespaceSpecifiers.length !== 0 && specifiers.length !== 0;
+
       const isDefaultFollowed =
-        defaultSpecifiers.length !== 0 && specifiers.length !== 0;
+        defaultSpecifiers.length !== 0 &&
+        (namespaceSpecifiers.length !== 0 || specifiers.length !== 0);
 
       parts.push(
         decl.exportKind === "type" ? "type " : "",
-        concat(namespaceSpecifiers),
-        concat([isNamespaceFollowed ? ", " : ""]),
         concat(defaultSpecifiers),
         concat([isDefaultFollowed ? ", " : ""]),
+        concat(namespaceSpecifiers),
+        concat([isNamespaceFollowed ? ", " : ""]),
         specifiers.length !== 0
           ? group(
               concat([
