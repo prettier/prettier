@@ -1,1 +1,1 @@
-run_spec(__dirname, ["markdown"], { useTabs: true });
+run_spec(__dirname, ["markdown"], { proseWrap: "always", useTabs: true });
