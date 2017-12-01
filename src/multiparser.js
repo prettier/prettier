@@ -23,17 +23,20 @@ function printSubtree(path, print, options) {
   }
 }
 
-function parseAndPrint(passedOptions) {
-  const options = Object.assign({}, passedOptions, {
-    parentParser: passedOptions.parser,
+function parseAndPrint(text, partialNextOptions, parentOptions) {
+  const nextOptions = Object.assign({}, parentOptions, partialNextOptions, {
+    parentParser: parentOptions.parser,
     trailingComma:
-      passedOptions.parser === "json" ? "none" : passedOptions.trailingComma
+      partialNextOptions.parser === "json"
+        ? "none"
+        : partialNextOptions.trailingComma,
+    originalText: text
   });
-  const ast = require("./parser").parse(options.originalText, options);
+  const ast = require("./parser").parse(text, nextOptions);
   const astComments = ast.comments;
   delete ast.comments;
-  comments.attach(astComments, ast, options.originalText, options);
-  return require("./printer").printAstToDoc(ast, options);
+  comments.attach(astComments, ast, text, nextOptions);
+  return require("./printer").printAstToDoc(ast, nextOptions);
 }
 
 function fromMarkdown(path, print, options) {
@@ -46,12 +49,7 @@ function fromMarkdown(path, print, options) {
       const style = styleUnit.repeat(
         Math.max(3, util.getMaxContinuousCount(node.value, styleUnit) + 1)
       );
-      const doc = parseAndPrint(
-        Object.assign({}, options, {
-          parser,
-          originalText: node.value
-        })
-      );
+      const doc = parseAndPrint(node.value, { parser }, options);
       return concat([style, node.lang, hardline, doc, style]);
     }
   }
@@ -102,12 +100,7 @@ function fromBabylonFlowOrTypeScript(path, print, options) {
         // Get full template literal with expressions replaced by placeholders
         const rawQuasis = node.quasis.map(q => q.value.raw);
         const text = rawQuasis.join("@prettier-placeholder");
-        const doc = parseAndPrint(
-          Object.assign({}, options, {
-            parser: "css",
-            originalText: text
-          })
-        );
+        const doc = parseAndPrint(text, { parser: "css" }, options);
         return transformCssDoc(doc, path, print);
       }
 
@@ -173,12 +166,7 @@ function fromBabylonFlowOrTypeScript(path, print, options) {
           } else {
             try {
               doc = stripTrailingHardline(
-                parseAndPrint(
-                  Object.assign({}, options, {
-                    parser: "graphql",
-                    originalText: text
-                  })
-                )
+                parseAndPrint(text, { parser: "graphql" }, options)
               );
             } catch (_error) {
               // Bail if any part fails to parse.
@@ -228,12 +216,13 @@ function fromBabylonFlowOrTypeScript(path, print, options) {
               parentParent.tag.name === "markdown")))
       ) {
         const doc = parseAndPrint(
-          Object.assign({}, options, {
+          // leading whitespaces matter in markdown
+          dedent(parent.quasis[0].value.cooked),
+          {
             parser: "markdown",
-            __inJsTemplate: true,
-            // leading whitespaces matter in markdown
-            originalText: dedent(parent.quasis[0].value.cooked)
-          })
+            __inJsTemplate: true
+          },
+          options
         );
         return concat([
           indent(
@@ -314,12 +303,7 @@ function fromHtmlParser2(path, print, options) {
           parent.attribs.type === "application/javascript")
       ) {
         const parser = options.parser === "flow" ? "flow" : "babylon";
-        const doc = parseAndPrint(
-          Object.assign({}, options, {
-            parser,
-            originalText: getText(options, node)
-          })
-        );
+        const doc = parseAndPrint(getText(options, node), { parser }, options);
         return concat([hardline, doc]);
       }
 
@@ -330,10 +314,9 @@ function fromHtmlParser2(path, print, options) {
           parent.attribs.lang === "ts")
       ) {
         const doc = parseAndPrint(
-          Object.assign({}, options, {
-            parser: "typescript",
-            originalText: getText(options, node)
-          })
+          getText(options, node),
+          { parser: "typescript" },
+          options
         );
         return concat([hardline, doc]);
       }
@@ -341,10 +324,9 @@ function fromHtmlParser2(path, print, options) {
       // Inline Styles
       if (parent.type === "style") {
         const doc = parseAndPrint(
-          Object.assign({}, options, {
-            parser: "css",
-            originalText: getText(options, node)
-          })
+          getText(options, node),
+          { parser: "css" },
+          options
         );
         return concat([hardline, stripTrailingHardline(doc)]);
       }
@@ -362,13 +344,14 @@ function fromHtmlParser2(path, print, options) {
        */
       if (/(^@)|(^v-)|:/.test(node.key) && !/^\w+$/.test(node.value)) {
         const doc = parseAndPrint(
-          Object.assign({}, options, {
+          node.value,
+          {
             parser: parseJavaScriptExpression,
             // Use singleQuote since HTML attributes use double-quotes.
             // TODO(azz): We still need to do an entity escape on the attribute.
-            singleQuote: true,
-            originalText: node.value
-          })
+            singleQuote: true
+          },
+          options
         );
         return concat([
           node.key,
