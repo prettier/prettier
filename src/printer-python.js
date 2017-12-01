@@ -140,7 +140,16 @@ function genericPrint(path, options, print) {
     }
 
     case "Str": {
-      return `"${n.s}"`;
+      // TODO: get quote type from options
+      // TODO: switch from " to ' if string contains
+      // a ", and viceversa
+      let quote = '"';
+
+      if (n.s.indexOf("\n") !== -1) {
+        quote = '"""';
+      }
+
+      return concat([quote, n.s, quote]);
     }
 
     case "Num": {
