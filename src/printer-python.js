@@ -516,6 +516,10 @@ function genericPrint(path, options, print) {
       return group(concat(["raise", line, path.call(print, "exc")]));
     }
 
+    case "Return": {
+      return group(concat(["return", line, path.call(print, "value")]));
+    }
+
     default:
       /* istanbul ignore next */
       throw new Error("unknown python type: " + JSON.stringify(n.ast_type));

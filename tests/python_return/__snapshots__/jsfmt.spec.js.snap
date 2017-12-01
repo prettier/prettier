@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`return.py 1`] = `
+def example(first):
+    if False:
+        return
+
+    return first
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def example(first):
+    if False:
+        return
+
+    return first
+
+`;
