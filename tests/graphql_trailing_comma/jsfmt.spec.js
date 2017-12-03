@@ -1,3 +1,3 @@
-run_spec(__dirname, { parser: "graphql" });
-run_spec(__dirname, { parser: "graphql", trailingComma: "all" });
-run_spec(__dirname, { parser: "graphql", trailingComma: "es5" });
+run_spec(__dirname, ["graphql"]);
+run_spec(__dirname, ["graphql"], { trailingComma: "all" });
+run_spec(__dirname, ["graphql"], { trailingComma: "es5" });

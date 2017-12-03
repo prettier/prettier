@@ -63,6 +63,10 @@ function massageAST(ast, parent) {
     if (ast.type === "code") {
       delete newObj.value;
     }
+    // for markdown whitespace: "\n" and " " are considered the same
+    if (ast.type === "whitespace" && ast.value === "\n") {
+      newObj.value = " ";
+    }
 
     if (
       ast.type === "media-query" ||
@@ -88,7 +92,6 @@ function massageAST(ast, parent) {
       (ast.type === "value-word" && ast.isColor && ast.isHex) ||
       ast.type === "media-feature" ||
       ast.type === "selector-root-invalid" ||
-      ast.type === "selector-tag" ||
       ast.type === "selector-pseudo"
     ) {
       newObj.value = newObj.value.toLowerCase();
@@ -98,9 +101,6 @@ function massageAST(ast, parent) {
     }
     if (ast.type === "css-atrule" || ast.type === "css-import") {
       newObj.name = newObj.name.toLowerCase();
-    }
-    if (ast.type === "selector-attribute") {
-      newObj.attribute = newObj.attribute.toLowerCase();
     }
     if (ast.type === "value-number") {
       newObj.unit = newObj.unit.toLowerCase();
@@ -139,7 +139,8 @@ function massageAST(ast, parent) {
         ast.type === "value-number" ||
         ast.type === "selector-root-invalid" ||
         ast.type === "selector-class" ||
-        ast.type === "selector-combinator") &&
+        ast.type === "selector-combinator" ||
+        ast.type === "selector-tag") &&
       newObj.value
     ) {
       newObj.value = newObj.value.replace(
@@ -226,6 +227,16 @@ function massageAST(ast, parent) {
       );
 
       quasis.forEach(q => delete q.value);
+    }
+
+    // CSS template literals in css prop
+    if (
+      ast.type === "JSXAttribute" &&
+      ast.name.name === "css" &&
+      ast.value.type === "JSXExpressionContainer" &&
+      ast.value.expression.type === "TemplateLiteral"
+    ) {
+      newObj.value.expression.quasis.forEach(q => delete q.value);
     }
 
     // styled-components, graphql, markdown

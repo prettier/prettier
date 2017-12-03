@@ -74,8 +74,6 @@ var k: K = { x: "", y: "" }; // error: x should be number
 (k.y: string);
 
 declare class C { x: number }
-declare class D extends C, Other { } // error: multiple extends
-//declare class E implements I { } // parse error
 
 interface A<Y> { y: Y }
 interface A_<X> { x: X }
@@ -97,8 +95,6 @@ var k: K = { x: "", y: "" }; // error: x should be number
 (k.y: string);
 
 declare class C { x: number }
-declare class D extends C, Other {} // error: multiple extends
-//declare class E implements I { } // parse error
 
 interface A<Y> { y: Y }
 interface A_<X> { x: X }

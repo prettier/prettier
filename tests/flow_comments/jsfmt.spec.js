@@ -1,3 +1,3 @@
-run_spec(__dirname);
+run_spec(__dirname, ["flow"]);
 // FIXME arrow.js flow != babylon output
-run_spec(__dirname, { parser: "babylon" });
+run_spec(__dirname, ["babylon"]);

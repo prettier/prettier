@@ -672,7 +672,7 @@ function mapDoc(doc, callback) {
 /**
  * split text into whitespaces and words
  * @param {string} text
- * @return {Array<{ type: "whitespace", value: " " | "" } | { type: "word", value: string }>}
+ * @return {Array<{ type: "whitespace", value: " " | "\n" | "" } | { type: "word", value: string }>}
  */
 function splitText(text) {
   const KIND_NON_CJK = "non-cjk";
@@ -683,12 +683,14 @@ function splitText(text) {
 
   text
     .replace(new RegExp(`(${cjkPattern})\n(${cjkPattern})`, "g"), "$1$2")
-    // `\s` but exclude full-width whitspace (`\u3000`)
-    .split(/([^\S\u3000]+)/)
+    .split(/([ \t\n]+)/)
     .forEach((token, index, tokens) => {
       // whitespace
       if (index % 2 === 1) {
-        nodes.push({ type: "whitespace", value: " " });
+        nodes.push({
+          type: "whitespace",
+          value: /\n/.test(token) ? "\n" : " "
+        });
         return;
       }
 

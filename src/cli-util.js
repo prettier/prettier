@@ -227,11 +227,18 @@ function applyConfigPrecedence(argv, options) {
 }
 
 function formatStdin(argv) {
-  thirdParty.getStream(process.stdin).then(input => {
-    const filepath = argv["stdin-filepath"]
-      ? path.resolve(process.cwd(), argv["stdin-filepath"])
-      : process.cwd();
+  const filepath = argv["stdin-filepath"]
+    ? path.resolve(process.cwd(), argv["stdin-filepath"])
+    : process.cwd();
 
+  const ignorer = createIgnorer(argv);
+  const relativeFilepath = path.relative(process.cwd(), filepath);
+
+  if (relativeFilepath && ignorer.filter([relativeFilepath]).length === 0) {
+    return;
+  }
+
+  thirdParty.getStream(process.stdin).then(input => {
     const options = getOptionsForFile(argv, filepath);
 
     if (listDifferent(argv, input, options, "(stdin)")) {
@@ -246,10 +253,7 @@ function formatStdin(argv) {
   });
 }
 
-function eachFilename(argv, patterns, callback) {
-  const ignoreNodeModules = argv["with-node-modules"] === false;
-  // The ignorer will be used to filter file paths after the glob is checked,
-  // before any files are actually read
+function createIgnorer(argv) {
   const ignoreFilePath = path.resolve(argv["ignore-path"]);
   let ignoreText = "";
 
@@ -262,7 +266,14 @@ function eachFilename(argv, patterns, callback) {
     }
   }
 
-  const ignorer = ignore().add(ignoreText);
+  return ignore().add(ignoreText);
+}
+
+function eachFilename(argv, patterns, callback) {
+  const ignoreNodeModules = argv["with-node-modules"] === false;
+  // The ignorer will be used to filter file paths after the glob is checked,
+  // before any files are actually read
+  const ignorer = createIgnorer(argv);
 
   if (ignoreNodeModules) {
     patterns = patterns.concat(["!**/node_modules/**", "!./node_modules/**"]);

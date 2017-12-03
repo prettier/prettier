@@ -77,6 +77,23 @@ const categoryOrder = [
  * Note: The options below are sorted alphabetically.
  */
 const detailedOptions = normalizeDetailedOptions({
+  "arrow-parens": {
+    type: "choice",
+    category: CATEGORY_FORMAT,
+    forwardToApi: true,
+    description: "Include parentheses around a sole arrow function parameter.",
+    default: "avoid",
+    choices: [
+      {
+        value: "avoid",
+        description: "Omit parens when possible. Example: `x => x`"
+      },
+      {
+        value: "always",
+        description: "Always include parens. Example: `(x) => x`"
+      }
+    ]
+  },
   "bracket-spacing": {
     type: "boolean",
     category: CATEGORY_FORMAT,
@@ -220,11 +237,19 @@ const detailedOptions = normalizeDetailedOptions({
     description: "The line length where Prettier will try wrap."
   },
   "prose-wrap": {
-    type: "boolean",
+    type: "choice",
     category: CATEGORY_FORMAT,
     forwardToApi: true,
-    description: "Wrap prose if it exceeds the print width. (markdown)",
-    oppositeDescription: "Do not wrap prose. (markdown)"
+    description: "How to wrap prose. (markdown)",
+    choices: [
+      {
+        value: "always",
+        description: "Wrap prose if it exceeds the print width."
+      },
+      { value: "never", description: "Do not wrap prose." },
+      { value: "preserve", description: "Wrap prose as-is." },
+      { value: false, deprecated: true, redirect: "never" }
+    ]
   },
   "range-end": {
     type: "int",

@@ -40,7 +40,8 @@ const INLINE_NODE_TYPES = [
 
 const INLINE_NODE_WRAPPER_TYPES = INLINE_NODE_TYPES.concat([
   "tableCell",
-  "paragraph"
+  "paragraph",
+  "heading"
 ]);
 
 function genericPrint(path, options, print) {
@@ -59,7 +60,7 @@ function genericPrint(path, options, print) {
           node =>
             node.type === "word"
               ? node.value
-              : node.value === "" ? "" : printLine(path, line, options)
+              : node.value === "" ? "" : printLine(path, node.value, options)
         )
     );
   }
@@ -98,12 +99,13 @@ function genericPrint(path, options, print) {
       const index = parentNode.children.indexOf(node);
       const nextNode = parentNode.children[index + 1];
 
-      // leading char that may cause different syntax
-      if (nextNode && /^>|^([-+*]|#{1,6})$/.test(nextNode.value)) {
-        return node.value === "" ? "" : " ";
-      }
+      const proseWrap =
+        // leading char that may cause different syntax
+        nextNode && /^>|^([-+*]|#{1,6}|[0-9]+[.)])$/.test(nextNode.value)
+          ? "never"
+          : options.proseWrap;
 
-      return printLine(path, node.value === "" ? softline : line, options);
+      return printLine(path, node.value, { proseWrap });
     }
     case "emphasis": {
       const parentNode = path.getParentNode();
@@ -313,7 +315,12 @@ function genericPrint(path, options, print) {
     case "tableCell":
       return printChildren(path, options, print);
     case "break":
-      return concat(["\\", hardline]);
+      return concat([
+        /\s/.test(options.originalText[node.position.start.offset])
+          ? "  "
+          : "\\",
+        hardline
+      ]);
     case "tableRow": // handled in "table"
     default:
       throw new Error(`Unknown markdown type ${JSON.stringify(node.type)}`);
@@ -366,10 +373,15 @@ function getAncestorNode(path, typeOrTypes) {
   return counter === -1 ? null : path.getParentNode(counter);
 }
 
-function printLine(path, lineOrSoftline, options) {
+function printLine(path, value, options) {
+  if (options.proseWrap === "preserve" && value === "\n") {
+    return hardline;
+  }
+
   const isBreakable =
-    options.proseWrap && !getAncestorNode(path, SINGLE_LINE_NODE_TYPES);
-  return lineOrSoftline === line
+    options.proseWrap === "always" &&
+    !getAncestorNode(path, SINGLE_LINE_NODE_TYPES);
+  return value !== ""
     ? isBreakable ? line : " "
     : isBreakable ? softline : "";
 }

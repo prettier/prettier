@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`semi.md 1`] = `
+\`\`\`jsx
+<div>foo</div>
+\`\`\`
+
+\`\`\`jsx
+const a = 1;
+<div>foo</div>;
+\`\`\`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\`\`\`jsx
+<div>foo</div>
+\`\`\`
+
+\`\`\`jsx
+const a = 1;
+<div>foo</div>;
+\`\`\`
+
+`;
+
+exports[`semi.md 2`] = `
+\`\`\`jsx
+<div>foo</div>
+\`\`\`
+
+\`\`\`jsx
+const a = 1;
+<div>foo</div>;
+\`\`\`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\`\`\`jsx
+<div>foo</div>
+\`\`\`
+
+\`\`\`jsx
+const a = 1
+;<div>foo</div>
+\`\`\`
+
+`;

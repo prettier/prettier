@@ -1,3 +1,3 @@
-run_spec(__dirname, null, ["typescript"]);
-run_spec(__dirname, { trailingComma: "all" }, ["typescript"]);
-run_spec(__dirname, { trailingComma: "es5" }, ["typescript"]);
+run_spec(__dirname, ["flow", "typescript"]);
+run_spec(__dirname, ["flow", "typescript"], { trailingComma: "all" });
+run_spec(__dirname, ["flow", "typescript"], { trailingComma: "es5" });

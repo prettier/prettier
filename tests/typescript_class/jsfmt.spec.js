@@ -1,1 +1,1 @@
-run_spec(__dirname, { parser: "typescript" });
+run_spec(__dirname, ["typescript"]);

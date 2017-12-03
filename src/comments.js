@@ -638,6 +638,9 @@ function handleMethodNameComments(text, enclosingNode, precedingNode, comment) {
     enclosingNode &&
     precedingNode.type === "Decorator" &&
     (enclosingNode.type === "ClassMethod" ||
+      enclosingNode.type === "ClassProperty" ||
+      enclosingNode.type === "TSAbstractClassProperty" ||
+      enclosingNode.type === "TSAbstractMethodDefinition" ||
       enclosingNode.type === "MethodDefinition")
   ) {
     addTrailingComment(precedingNode, comment);
@@ -683,7 +686,9 @@ function handleCommentInEmptyParens(text, enclosingNode, comment) {
     enclosingNode &&
     (((enclosingNode.type === "FunctionDeclaration" ||
       enclosingNode.type === "FunctionExpression" ||
-      enclosingNode.type === "ArrowFunctionExpression" ||
+      (enclosingNode.type === "ArrowFunctionExpression" &&
+        (enclosingNode.body.type !== "CallExpression" ||
+          enclosingNode.body.arguments.length === 0)) ||
       enclosingNode.type === "ClassMethod" ||
       enclosingNode.type === "ObjectMethod") &&
       enclosingNode.params.length === 0) ||

@@ -18,6 +18,13 @@ exports[`long-heading.md 1`] = `
 
 `;
 
+exports[`mixed.md 1`] = `
+## LaraCart - Laravel Shopping Cart Package (<a href="http://laracart.lukepolo.com/">http://laracart.lukepolo.com</a>)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## LaraCart - Laravel Shopping Cart Package (<a href="http://laracart.lukepolo.com/">http://laracart.lukepolo.com</a>)
+
+`;
+
 exports[`setext.md 1`] = `
 h1
 ===

@@ -8,7 +8,7 @@ exports[`do not write file with --write + formatted file (stdout) 1`] = `
 `;
 
 exports[`do not write file with --write + invalid file (stderr) 1`] = `
-"[error] invalid.js: SyntaxError: Unexpected token, expected ; (1:6)
+"[error] invalid.js: SyntaxError: Unexpected token, expected \\";\\" (1:6)
 [error] > 1 | this is invalid!
 [error]     |      ^
 "
