@@ -94,7 +94,9 @@ function fromBabylonFlowOrTypeScript(path, print, options) {
 
   switch (node.type) {
     case "TemplateLiteral": {
-      const isCss = [isStyledJsx, isStyledComponents].some(isIt => isIt(path));
+      const isCss = [isStyledJsx, isStyledComponents, isCssProp].some(isIt =>
+        isIt(path)
+      );
 
       if (isCss) {
         // Get full template literal with expressions replaced by placeholders
@@ -532,6 +534,21 @@ function isStyledComponents(path) {
     default:
       return false;
   }
+}
+
+/**
+ * JSX element with CSS prop
+ */
+function isCssProp(path) {
+  const parent = path.getParentNode();
+  const parentParent = path.getParentNode(1);
+  return (
+    parentParent &&
+    parent.type === "JSXExpressionContainer" &&
+    parentParent.type === "JSXAttribute" &&
+    parentParent.name.type === "JSXIdentifier" &&
+    parentParent.name.name === "css"
+  );
 }
 
 function isStyledIdentifier(node) {
