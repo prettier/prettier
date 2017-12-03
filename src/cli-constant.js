@@ -158,6 +158,13 @@ const detailedOptions = normalizeDetailedOptions({
   "debug-print-doc": {
     type: "boolean"
   },
+  editorconfig: {
+    type: "boolean",
+    category: CATEGORY_CONFIG,
+    description: "Take .editorconfig into account when parsing configuration.",
+    forwardToApi: true,
+    default: true
+  },
   "find-config-path": {
     type: "path",
     category: CATEGORY_CONFIG,

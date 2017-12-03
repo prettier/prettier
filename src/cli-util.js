@@ -159,7 +159,7 @@ function getOptionsOrDie(argv, filePath) {
         : `resolve config from '${filePath}'`
     );
     const options = resolver.resolveConfig.sync(filePath, {
-      editorconfig: true,
+      editorconfig: argv.editorconfig,
       config: argv["config"]
     });
 
