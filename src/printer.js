@@ -122,20 +122,18 @@ function genericPrint(path, options, printPath, args) {
   }
 
   if (node) {
-    // Potentially switch to a different parser
-    const next = multiparser.getSubtreeParser(path, options);
-    if (next) {
-      try {
-        return multiparser.printSubtree(next, path, printPath, options);
-      } catch (error) {
-        /* istanbul ignore if */
-        if (process.env.PRETTIER_DEBUG) {
-          const e = new Error(error);
-          e.parser = next.options.parser;
-          throw e;
-        }
-        // Continue with current parser
+    try {
+      // Potentially switch to a different parser
+      const sub = multiparser.printSubtree(path, printPath, options);
+      if (sub) {
+        return sub;
       }
+    } catch (error) {
+      /* istanbul ignore if */
+      if (process.env.PRETTIER_DEBUG) {
+        throw error;
+      }
+      // Continue with current parser
     }
   }
 

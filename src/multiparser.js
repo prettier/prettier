@@ -5,44 +5,41 @@ const docUtils = require("./doc-utils");
 const docBuilders = require("./doc-builders");
 const comments = require("./comments");
 const indent = docBuilders.indent;
+const join = docBuilders.join;
 const hardline = docBuilders.hardline;
 const softline = docBuilders.softline;
 const concat = docBuilders.concat;
 
-function printSubtree(subtreeParser, path, print, options) {
-  const next = Object.assign({}, { transformDoc: doc => doc }, subtreeParser);
-  next.options = Object.assign({}, options, next.options, {
-    parentParser: options.parser,
-    originalText: next.text
-  });
-  if (next.options.parser === "json") {
-    next.options.trailingComma = "none";
-  }
-  const ast = require("./parser").parse(next.text, next.options);
-  const astComments = ast.comments;
-  delete ast.comments;
-  comments.attach(astComments, ast, next.text, next.options);
-  const nextDoc = require("./printer").printAstToDoc(ast, next.options);
-  return next.transformDoc(nextDoc, { path, print });
-}
-
-/**
- * @returns {{ text, options?, transformDoc? } | void}
- */
-function getSubtreeParser(path, options) {
+function printSubtree(path, print, options) {
   switch (options.parser) {
     case "parse5":
-      return fromHtmlParser2(path, options);
+      return fromHtmlParser2(path, print, options);
     case "babylon":
     case "flow":
     case "typescript":
-      return fromBabylonFlowOrTypeScript(path, options);
+      return fromBabylonFlowOrTypeScript(path, print, options);
     case "markdown":
-      return fromMarkdown(path, options);
+      return fromMarkdown(path, print, options);
   }
 }
 
-function fromMarkdown(path, options) {
+function parseAndPrint(text, partialNextOptions, parentOptions) {
+  const nextOptions = Object.assign({}, parentOptions, partialNextOptions, {
+    parentParser: parentOptions.parser,
+    trailingComma:
+      partialNextOptions.parser === "json"
+        ? "none"
+        : partialNextOptions.trailingComma,
+    originalText: text
+  });
+  const ast = require("./parser").parse(text, nextOptions);
+  const astComments = ast.comments;
+  delete ast.comments;
+  comments.attach(astComments, ast, text, nextOptions);
+  return require("./printer").printAstToDoc(ast, nextOptions);
+}
+
+function fromMarkdown(path, print, options) {
   const node = path.getValue();
 
   if (node.type === "code") {
@@ -52,11 +49,8 @@ function fromMarkdown(path, options) {
       const style = styleUnit.repeat(
         Math.max(3, util.getMaxContinuousCount(node.value, styleUnit) + 1)
       );
-      return {
-        options: { parser },
-        transformDoc: doc => concat([style, node.lang, hardline, doc, style]),
-        text: node.value
-      };
+      const doc = parseAndPrint(node.value, { parser }, options);
+      return concat([style, node.lang, hardline, doc, style]);
     }
   }
 
@@ -93,8 +87,10 @@ function fromMarkdown(path, options) {
   }
 }
 
-function fromBabylonFlowOrTypeScript(path) {
+function fromBabylonFlowOrTypeScript(path, print, options) {
   const node = path.getValue();
+  const parent = path.getParentNode();
+  const parentParent = path.getParentNode(1);
 
   switch (node.type) {
     case "TemplateLiteral": {
@@ -104,18 +100,9 @@ function fromBabylonFlowOrTypeScript(path) {
         // Get full template literal with expressions replaced by placeholders
         const rawQuasis = node.quasis.map(q => q.value.raw);
         const text = rawQuasis.join("@prettier-placeholder");
-        return {
-          options: { parser: "css" },
-          transformDoc: transformCssDoc,
-          text: text
-        };
+        const doc = parseAndPrint(text, { parser: "css" }, options);
+        return transformCssDoc(doc, path, print);
       }
-
-      break;
-    }
-    case "TemplateElement": {
-      const parent = path.getParentNode();
-      const parentParent = path.getParentNode(1);
 
       /*
        * react-relay and graphql-tag
@@ -124,31 +111,98 @@ function fromBabylonFlowOrTypeScript(path) {
        * gql`...`
        */
       if (
-        // We currently don't support expression inside GraphQL template literals
-        parent.expressions.length === 0 &&
-        parentParent &&
-        ((parentParent.type === "TaggedTemplateExpression" &&
-          ((parentParent.tag.type === "MemberExpression" &&
-            parentParent.tag.object.name === "graphql" &&
-            parentParent.tag.property.name === "experimental") ||
-            (parentParent.tag.type === "Identifier" &&
-              (parentParent.tag.name === "gql" ||
-                parentParent.tag.name === "graphql")))) ||
-          (parentParent.type === "CallExpression" &&
-            parentParent.callee.type === "Identifier" &&
-            parentParent.callee.name === "graphql"))
+        parent &&
+        ((parent.type === "TaggedTemplateExpression" &&
+          ((parent.tag.type === "MemberExpression" &&
+            parent.tag.object.name === "graphql" &&
+            parent.tag.property.name === "experimental") ||
+            (parent.tag.type === "Identifier" &&
+              (parent.tag.name === "gql" || parent.tag.name === "graphql")))) ||
+          (parent.type === "CallExpression" &&
+            parent.callee.type === "Identifier" &&
+            parent.callee.name === "graphql"))
       ) {
-        return {
-          options: { parser: "graphql" },
-          transformDoc: doc =>
-            concat([
-              indent(concat([softline, stripTrailingHardline(doc)])),
-              softline
-            ]),
-          text: parent.quasis[0].value.raw
-        };
+        const expressionDocs = node.expressions
+          ? path.map(print, "expressions")
+          : [];
+
+        const numQuasis = node.quasis.length;
+
+        if (numQuasis === 1 && node.quasis[0].value.raw.trim() === "") {
+          return "``";
+        }
+
+        const parts = [];
+
+        for (let i = 0; i < numQuasis; i++) {
+          const templateElement = node.quasis[i];
+          const isFirst = i === 0;
+          const isLast = i === numQuasis - 1;
+          const text = templateElement.value.raw;
+          const lines = text.split("\n");
+          const numLines = lines.length;
+          const expressionDoc = expressionDocs[i];
+
+          const startsWithBlankLine =
+            numLines > 2 && lines[0].trim() === "" && lines[1].trim() === "";
+          const endsWithBlankLine =
+            numLines > 2 &&
+            lines[numLines - 1].trim() === "" &&
+            lines[numLines - 2].trim() === "";
+
+          const commentsAndWhitespaceOnly = lines.every(line =>
+            /^\s*(?:#[^\r\n]*)?$/.test(line)
+          );
+
+          // Bail out if an interpolation occurs within a comment.
+          if (!isLast && /#[^\r\n]*$/.test(lines[numLines - 1])) {
+            return null;
+          }
+
+          let doc = null;
+
+          if (commentsAndWhitespaceOnly) {
+            doc = printGraphqlComments(lines);
+          } else {
+            try {
+              doc = stripTrailingHardline(
+                parseAndPrint(text, { parser: "graphql" }, options)
+              );
+            } catch (_error) {
+              // Bail if any part fails to parse.
+              return null;
+            }
+          }
+
+          if (doc) {
+            if (!isFirst && startsWithBlankLine) {
+              parts.push("");
+            }
+            parts.push(doc);
+            if (!isLast && endsWithBlankLine) {
+              parts.push("");
+            }
+          } else if (!isFirst && !isLast && startsWithBlankLine) {
+            parts.push("");
+          }
+
+          if (expressionDoc) {
+            parts.push(concat(["${", expressionDoc, "}"]));
+          }
+        }
+
+        return concat([
+          "`",
+          indent(concat([hardline, join(hardline, parts)])),
+          hardline,
+          "`"
+        ]);
       }
 
+      break;
+    }
+
+    case "TemplateElement": {
       /**
        * md`...`
        * markdown`...`
@@ -161,23 +215,52 @@ function fromBabylonFlowOrTypeScript(path) {
             (parentParent.tag.name === "md" ||
               parentParent.tag.name === "markdown")))
       ) {
-        return {
-          options: { parser: "markdown", __inJsTemplate: true },
-          transformDoc: doc =>
-            concat([
-              indent(
-                concat([softline, stripTrailingHardline(escapeBackticks(doc))])
-              ),
-              softline
-            ]),
+        const doc = parseAndPrint(
           // leading whitespaces matter in markdown
-          text: dedent(parent.quasis[0].value.cooked)
-        };
+          dedent(parent.quasis[0].value.cooked),
+          {
+            parser: "markdown",
+            __inJsTemplate: true
+          },
+          options
+        );
+        return concat([
+          indent(
+            concat([softline, stripTrailingHardline(escapeBackticks(doc))])
+          ),
+          softline
+        ]);
       }
 
       break;
     }
   }
+}
+
+function printGraphqlComments(lines) {
+  const parts = [];
+  let seenComment = false;
+
+  lines.map(textLine => textLine.trim()).forEach((textLine, i, array) => {
+    // Lines are either whitespace only, or a comment (with poential whitespace
+    // around it). Drop whitespace-only lines.
+    if (textLine === "") {
+      return;
+    }
+
+    if (array[i - 1] === "" && seenComment) {
+      // If a non-first comment is preceded by a blank (whitespace only) line,
+      // add in a blank line.
+      parts.push(concat([hardline, textLine]));
+    } else {
+      parts.push(textLine);
+    }
+
+    seenComment = true;
+  });
+
+  // If `lines` was whitespace only, return `null`.
+  return parts.length === 0 ? null : join(hardline, parts);
 }
 
 function dedent(str) {
@@ -206,7 +289,7 @@ function escapeBackticks(doc) {
   });
 }
 
-function fromHtmlParser2(path, options) {
+function fromHtmlParser2(path, print, options) {
   const node = path.getValue();
 
   switch (node.type) {
@@ -220,11 +303,8 @@ function fromHtmlParser2(path, options) {
           parent.attribs.type === "application/javascript")
       ) {
         const parser = options.parser === "flow" ? "flow" : "babylon";
-        return {
-          options: { parser },
-          transformDoc: doc => concat([hardline, doc]),
-          text: getText(options, node)
-        };
+        const doc = parseAndPrint(getText(options, node), { parser }, options);
+        return concat([hardline, doc]);
       }
 
       // Inline TypeScript
@@ -233,20 +313,22 @@ function fromHtmlParser2(path, options) {
         (parent.attribs.type === "application/x-typescript" ||
           parent.attribs.lang === "ts")
       ) {
-        return {
-          options: { parser: "typescript" },
-          transformDoc: doc => concat([hardline, doc]),
-          text: getText(options, node)
-        };
+        const doc = parseAndPrint(
+          getText(options, node),
+          { parser: "typescript" },
+          options
+        );
+        return concat([hardline, doc]);
       }
 
       // Inline Styles
       if (parent.type === "style") {
-        return {
-          options: { parser: "css" },
-          transformDoc: doc => concat([hardline, stripTrailingHardline(doc)]),
-          text: getText(options, node)
-        };
+        const doc = parseAndPrint(
+          getText(options, node),
+          { parser: "css" },
+          options
+        );
+        return concat([hardline, stripTrailingHardline(doc)]);
       }
 
       break;
@@ -261,32 +343,31 @@ function fromHtmlParser2(path, options) {
        * @click="someFunction()"
        */
       if (/(^@)|(^v-)|:/.test(node.key) && !/^\w+$/.test(node.value)) {
-        return {
-          text: node.value,
-          options: {
+        const doc = parseAndPrint(
+          node.value,
+          {
             parser: parseJavaScriptExpression,
             // Use singleQuote since HTML attributes use double-quotes.
             // TODO(azz): We still need to do an entity escape on the attribute.
             singleQuote: true
           },
-          transformDoc: doc => {
-            return concat([
-              node.key,
-              '="',
-              util.hasNewlineInRange(node.value, 0, node.value.length)
-                ? doc
-                : docUtils.removeLines(doc),
-              '"'
-            ]);
-          }
-        };
+          options
+        );
+        return concat([
+          node.key,
+          '="',
+          util.hasNewlineInRange(node.value, 0, node.value.length)
+            ? doc
+            : docUtils.removeLines(doc),
+          '"'
+        ]);
       }
     }
   }
 }
 
-function transformCssDoc(quasisDoc, parent) {
-  const parentNode = parent.path.getValue();
+function transformCssDoc(quasisDoc, path, print) {
+  const parentNode = path.getValue();
 
   const isEmpty =
     parentNode.quasis.length === 1 && !parentNode.quasis[0].value.raw.trim();
@@ -295,7 +376,7 @@ function transformCssDoc(quasisDoc, parent) {
   }
 
   const expressionDocs = parentNode.expressions
-    ? parent.path.map(parent.print, "expressions")
+    ? path.map(print, "expressions")
     : [];
   const newDoc = replacePlaceholders(quasisDoc, expressionDocs);
   /* istanbul ignore if */
@@ -458,6 +539,5 @@ function isStyledIdentifier(node) {
 }
 
 module.exports = {
-  getSubtreeParser,
   printSubtree
 };
