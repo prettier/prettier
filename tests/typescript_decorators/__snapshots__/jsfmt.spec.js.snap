@@ -80,6 +80,23 @@ class Foo4 {
     async *method() {}
 }
 
+class Something {
+    @foo()
+    // comment
+    readonly property: Array<string>
+}
+
+class Something {
+    @foo()
+    // comment
+    abstract property: Array<string>
+}
+
+class Something {
+    @foo()
+    // comment
+    abstract method(): Array<string>
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class Foo1 {
   @foo
@@ -103,6 +120,24 @@ class Foo4 {
   @foo
   // comment
   async *method() {}
+}
+
+class Something {
+  @foo()
+  // comment
+  readonly property: Array<string>;
+}
+
+class Something {
+  @foo()
+  // comment
+  abstract property: Array<string>;
+}
+
+class Something {
+  @foo()
+  // comment
+  abstract method(): Array<string>;
 }
 
 `;

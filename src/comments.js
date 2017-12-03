@@ -638,6 +638,9 @@ function handleMethodNameComments(text, enclosingNode, precedingNode, comment) {
     enclosingNode &&
     precedingNode.type === "Decorator" &&
     (enclosingNode.type === "ClassMethod" ||
+      enclosingNode.type === "ClassProperty" ||
+      enclosingNode.type === "TSAbstractClassProperty" ||
+      enclosingNode.type === "TSAbstractMethodDefinition" ||
       enclosingNode.type === "MethodDefinition")
   ) {
     addTrailingComment(precedingNode, comment);
