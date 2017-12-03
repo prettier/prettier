@@ -315,7 +315,12 @@ function genericPrint(path, options, print) {
     case "tableCell":
       return printChildren(path, options, print);
     case "break":
-      return concat(["\\", hardline]);
+      return concat([
+        /\s/.test(options.originalText[node.position.start.offset])
+          ? "  "
+          : "\\",
+        hardline
+      ]);
     case "tableRow": // handled in "table"
     default:
       throw new Error(`Unknown markdown type ${JSON.stringify(node.type)}`);
