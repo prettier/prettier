@@ -30,7 +30,11 @@ function getLoadFunction(opts) {
 
 function _resolveConfig(filePath, opts, sync) {
   opts = Object.assign({ useCache: true }, opts);
-  const loadOpts = { cache: !!opts.useCache, sync: !!sync };
+  const loadOpts = {
+    cache: !!opts.useCache,
+    sync: !!sync,
+    editorconfig: !!opts.editorconfig
+  };
   const load = getLoadFunction(loadOpts);
   const loadEditorConfig = resolveEditorConfig.getLoadFunction(loadOpts);
   const arr = [load, loadEditorConfig].map(l => l(filePath, opts.config));

@@ -106,7 +106,7 @@ test("API resolveConfig with file arg and .editorconfig", () => {
   const file = path.resolve(
     path.join(__dirname, "../cli/config/editorconfig/file.js")
   );
-  return prettier.resolveConfig(file).then(result => {
+  return prettier.resolveConfig(file, { editorconfig: true }).then(result => {
     expect(result).toMatchObject({
       useTabs: true,
       tabWidth: 8,
@@ -119,7 +119,9 @@ test("API resolveConfig.sync with file arg and .editorconfig", () => {
   const file = path.resolve(
     path.join(__dirname, "../cli/config/editorconfig/file.js")
   );
-  expect(prettier.resolveConfig.sync(file)).toMatchObject({
+  expect(
+    prettier.resolveConfig.sync(file, { editorconfig: true })
+  ).toMatchObject({
     useTabs: true,
     tabWidth: 8,
     printWidth: 100
@@ -130,7 +132,7 @@ test("API resolveConfig with nested file arg and .editorconfig", () => {
   const file = path.resolve(
     path.join(__dirname, "../cli/config/editorconfig/lib/file.js")
   );
-  return prettier.resolveConfig(file).then(result => {
+  return prettier.resolveConfig(file, { editorconfig: true }).then(result => {
     expect(result).toMatchObject({
       useTabs: false,
       tabWidth: 2,
@@ -143,7 +145,9 @@ test("API resolveConfig.sync with nested file arg and .editorconfig", () => {
   const file = path.resolve(
     path.join(__dirname, "../cli/config/editorconfig/lib/file.js")
   );
-  expect(prettier.resolveConfig.sync(file)).toMatchObject({
+  expect(
+    prettier.resolveConfig.sync(file, { editorconfig: true })
+  ).toMatchObject({
     useTabs: false,
     tabWidth: 2,
     printWidth: 100
@@ -154,7 +158,7 @@ test("API resolveConfig with nested file arg and .editorconfig and indent_size =
   const file = path.resolve(
     path.join(__dirname, "../cli/config/editorconfig/lib/indent_size=tab.js")
   );
-  return prettier.resolveConfig(file).then(result => {
+  return prettier.resolveConfig(file, { editorconfig: true }).then(result => {
     expect(result).toMatchObject({
       useTabs: false,
       tabWidth: 8,
@@ -167,7 +171,9 @@ test("API resolveConfig.sync with nested file arg and .editorconfig and indent_s
   const file = path.resolve(
     path.join(__dirname, "../cli/config/editorconfig/lib/indent_size=tab.js")
   );
-  expect(prettier.resolveConfig.sync(file)).toMatchObject({
+  expect(
+    prettier.resolveConfig.sync(file, { editorconfig: true })
+  ).toMatchObject({
     useTabs: false,
     tabWidth: 8,
     printWidth: 100
@@ -178,7 +184,7 @@ test("API resolveConfig with missing file arg", () => {
   const file = path.resolve(
     path.join(__dirname, "../cli/config/editorconfig/file.shouldnotexist")
   );
-  return prettier.resolveConfig(file).then(result => {
+  return prettier.resolveConfig(file, { editorconfig: true }).then(result => {
     expect(result).toBeNull();
   });
 });
@@ -187,7 +193,7 @@ test("API resolveConfig.sync with missing file arg", () => {
   const file = path.resolve(
     path.join(__dirname, "../cli/config/editorconfig/file.shouldnotexist")
   );
-  expect(prettier.resolveConfig.sync(file)).toBeNull();
+  expect(prettier.resolveConfig.sync(file, { editorconfig: true })).toBeNull();
 });
 
 test("API clearConfigCache", () => {

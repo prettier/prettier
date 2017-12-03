@@ -25,6 +25,10 @@ const editorconfigSyncNoCache = (filePath, config) => {
 const editorconfigSyncWithCache = mem(editorconfigSyncNoCache);
 
 function getLoadFunction(opts) {
+  if (!opts.editorconfig) {
+    return () => null;
+  }
+
   if (opts.sync) {
     return opts.cache ? editorconfigSyncWithCache : editorconfigSyncNoCache;
   }
