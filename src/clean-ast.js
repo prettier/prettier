@@ -229,6 +229,16 @@ function massageAST(ast, parent) {
       quasis.forEach(q => delete q.value);
     }
 
+    // CSS template literals in css prop
+    if (
+      ast.type === "JSXAttribute" &&
+      ast.name.name === "css" &&
+      ast.value.type === "JSXExpressionContainer" &&
+      ast.value.expression.type === "TemplateLiteral"
+    ) {
+      newObj.value.expression.quasis.forEach(q => delete q.value);
+    }
+
     // styled-components, graphql, markdown
     if (
       ast.type === "TaggedTemplateExpression" &&
