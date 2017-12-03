@@ -11,42 +11,35 @@ const MODE_FLAT = 2;
 
 function rootIndent() {
   return {
-    indent: 0,
-    align: {
-      spaces: "",
-      tabs: ""
-    }
+    length: 0,
+    value: ""
   };
 }
 
-function makeIndent(ind) {
+function makeIndent(ind, options) {
   return {
-    indent: ind.indent + 1,
-    align: ind.align
+    length: ind.length + options.tabWidth,
+    value: ind.value + (options.useTabs ? "\t" : " ".repeat(options.tabWidth))
   };
 }
 
-function makeAlign(ind, n) {
-  if (n === -Infinity) {
-    return {
-      indent: 0,
-      align: {
-        spaces: "",
-        tabs: ""
-      }
-    };
-  }
-
-  return {
-    indent: ind.indent,
-    align: {
-      spaces: ind.align.spaces + (typeof n === "number" ? " ".repeat(n) : n),
-      tabs: ind.align.tabs + (typeof n === "number" ? (n ? "\t" : "") : n)
-    }
-  };
+function makeAlign(ind, n, options) {
+  return n === -Infinity
+    ? rootIndent()
+    : typeof n === "string"
+      ? {
+          length: ind.length + n.length,
+          value: ind.value + n
+        }
+      : options.useTabs && n > 0
+        ? makeAlign(ind, options)
+        : {
+            length: ind.length + n,
+            value: ind.value + " ".repeat(n)
+          };
 }
 
-function fits(next, restCommands, width, mustBeFlat) {
+function fits(next, restCommands, width, options, mustBeFlat) {
   let restIdx = restCommands.length;
   const cmds = [next];
   while (width >= 0) {
@@ -77,11 +70,11 @@ function fits(next, restCommands, width, mustBeFlat) {
 
           break;
         case "indent":
-          cmds.push([makeIndent(ind), mode, doc.contents]);
+          cmds.push([makeIndent(ind, options), mode, doc.contents]);
 
           break;
         case "align":
-          cmds.push([makeAlign(ind, doc.n), mode, doc.contents]);
+          cmds.push([makeAlign(ind, doc.n, options), mode, doc.contents]);
 
           break;
         case "group":
@@ -168,11 +161,11 @@ function printDocToString(doc, options) {
 
           break;
         case "indent":
-          cmds.push([makeIndent(ind), mode, doc.contents]);
+          cmds.push([makeIndent(ind, options), mode, doc.contents]);
 
           break;
         case "align":
-          cmds.push([makeAlign(ind, doc.n), mode, doc.contents]);
+          cmds.push([makeAlign(ind, doc.n, options), mode, doc.contents]);
 
           break;
         case "group":
@@ -195,7 +188,7 @@ function printDocToString(doc, options) {
               const next = [ind, MODE_FLAT, doc.contents];
               const rem = width - pos;
 
-              if (!doc.break && fits(next, cmds, rem)) {
+              if (!doc.break && fits(next, cmds, rem, options)) {
                 cmds.push(next);
               } else {
                 // Expanded states are a rare case where a document
@@ -223,7 +216,7 @@ function printDocToString(doc, options) {
                         const state = doc.expandedStates[i];
                         const cmd = [ind, MODE_FLAT, state];
 
-                        if (fits(cmd, cmds, rem)) {
+                        if (fits(cmd, cmds, rem, options)) {
                           cmds.push(cmd);
 
                           break;
@@ -271,7 +264,7 @@ function printDocToString(doc, options) {
           const content = parts[0];
           const contentFlatCmd = [ind, MODE_FLAT, content];
           const contentBreakCmd = [ind, MODE_BREAK, content];
-          const contentFits = fits(contentFlatCmd, [], rem, true);
+          const contentFits = fits(contentFlatCmd, [], rem, options, true);
 
           if (parts.length === 1) {
             if (contentFits) {
@@ -316,6 +309,7 @@ function printDocToString(doc, options) {
             firstAndSecondContentFlatCmd,
             [],
             rem,
+            options,
             true
           );
 
@@ -406,12 +400,8 @@ function printDocToString(doc, options) {
                   }
                 }
 
-                const indentLength = ind.indent * options.tabWidth;
-                const indentString = options.useTabs
-                  ? "\t".repeat(ind.indent) + ind.align.tabs
-                  : " ".repeat(indentLength) + ind.align.spaces;
-                out.push(newLine + indentString);
-                pos = indentLength + ind.align.spaces.length;
+                out.push(newLine + ind.value);
+                pos = ind.length;
               }
               break;
           }
