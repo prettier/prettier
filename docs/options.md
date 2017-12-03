@@ -216,3 +216,17 @@ Valid options:
 | Default      | CLI Override                                                | API Override                                                |
 | ------------ | ----------------------------------------------------------- | ----------------------------------------------------------- |
 | `"preserve"` | <code>--prose-wrap <always&#124;never&#124;preserve></code> | <code>proseWrap: "<always&#124;never&#124;preserve>"</code> |
+
+## EditorConfig
+
+_available in v1.9.0+_
+
+If `editorconfig` is `true` and an [`.editorconfig` file](http://editorconfig.org/) is in your project, Prettier will parse it and convert its properties to the corresponding prettier configuration. This configuration will be overridden by `.prettierrc`, etc. Currently, the following EditorConfig properties are supported:
+
+* `indent_style`
+* `indent_size`/`tab_width`
+* `max_line_length`
+
+| API Default | CLI Default | CLI Override        | API Override           |
+| ----------- | ----------- | ------------------- | ---------------------- |
+| `false`     | `true`      | `--no-editorconfig` | `editorconfig: <bool>` |
