@@ -23,3 +23,20 @@ class Foo4 {
     async *method() {}
 }
 
+class Something {
+    @foo()
+    // comment
+    readonly property: Array<string>
+}
+
+class Something {
+    @foo()
+    // comment
+    abstract property: Array<string>
+}
+
+class Something {
+    @foo()
+    // comment
+    abstract method(): Array<string>
+}
