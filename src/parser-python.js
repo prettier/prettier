@@ -1,12 +1,19 @@
 "use strict";
 
 const { spawnSync } = require("child_process");
+const path = require("path");
 
 function parse(text /*, parsers, opts*/) {
   // TODO: return an useful error when https://github.com/fpoli/python-astexport
   // is not installed or when it fails
 
-  const executionResult = spawnSync("astexport", [], { input: text });
+  const executionResult = spawnSync(
+    "python",
+    [path.join(__dirname, "../vendor/python/astexport.py")],
+    {
+      input: text
+    }
+  );
 
   const error = executionResult.stderr.toString();
 
