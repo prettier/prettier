@@ -119,6 +119,11 @@ test("API resolveConfig.sync with file arg and .editorconfig", () => {
   const file = path.resolve(
     path.join(__dirname, "../cli/config/editorconfig/file.js")
   );
+
+  expect(prettier.resolveConfig.sync(file)).toMatchObject({
+    semi: false
+  });
+
   expect(
     prettier.resolveConfig.sync(file, { editorconfig: true })
   ).toMatchObject({
@@ -145,6 +150,11 @@ test("API resolveConfig.sync with nested file arg and .editorconfig", () => {
   const file = path.resolve(
     path.join(__dirname, "../cli/config/editorconfig/lib/file.js")
   );
+
+  expect(prettier.resolveConfig.sync(file)).toMatchObject({
+    semi: false
+  });
+
   expect(
     prettier.resolveConfig.sync(file, { editorconfig: true })
   ).toMatchObject({
@@ -171,6 +181,11 @@ test("API resolveConfig.sync with nested file arg and .editorconfig and indent_s
   const file = path.resolve(
     path.join(__dirname, "../cli/config/editorconfig/lib/indent_size=tab.js")
   );
+
+  expect(prettier.resolveConfig.sync(file)).toMatchObject({
+    semi: false
+  });
+
   expect(
     prettier.resolveConfig.sync(file, { editorconfig: true })
   ).toMatchObject({
@@ -193,6 +208,7 @@ test("API resolveConfig.sync with missing file arg", () => {
   const file = path.resolve(
     path.join(__dirname, "../cli/config/editorconfig/file.shouldnotexist")
   );
+  expect(prettier.resolveConfig.sync(file)).toBeNull();
   expect(prettier.resolveConfig.sync(file, { editorconfig: true })).toBeNull();
 });
 
