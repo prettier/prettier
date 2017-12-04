@@ -94,6 +94,10 @@ If a config file is found will evaluate it and ignore other CLI options. If no c
 
 This option adds support to editor integrations where users define their default configuration but want to respect project specific configuration.
 
+## `--no-editorconfig`
+
+Don't take .editorconfig into account when parsing configuration. See the [`prettier.resolveConfig` docs](./api.md) for details.
+
 ## `--with-node-modules`
 
 Prettier CLI will ignore files located in `node_modules` directory. To opt-out from this behavior use `--with-node-modules` flag.
