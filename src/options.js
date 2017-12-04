@@ -22,8 +22,7 @@ const defaults = {
   requirePragma: false,
   semi: true,
   proseWrap: "preserve",
-  arrowParens: "avoid",
-  editorconfig: false
+  arrowParens: "avoid"
 };
 
 const exampleConfig = Object.assign({}, defaults, {

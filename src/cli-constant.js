@@ -164,7 +164,6 @@ const detailedOptions = normalizeDetailedOptions({
     description: "Take .editorconfig into account when parsing configuration.",
     oppositeDescription:
       "Don't take .editorconfig into account when parsing configuration.",
-    forwardToApi: true,
     default: true
   },
   "find-config-path": {
