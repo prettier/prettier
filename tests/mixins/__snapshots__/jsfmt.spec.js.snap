@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`flow-mixins.js 1`] = `
+declare class A<T> extends B<T> mixins C<T> {}
+
+declare class A<T> mixins B<T>, C {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+declare class A<T> extends B<T> mixins C<T> {}
+
+declare class A<T> mixins B<T>, C {}
+
+`;

@@ -1768,9 +1768,9 @@ flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
 
-flow-parser@0.59.0:
-  version "0.59.0"
-  resolved "https://registry.yarnpkg.com/flow-parser/-/flow-parser-0.59.0.tgz#f6ebcae61ffa187e420999d40ce0a801f39b2635"
+flow-parser@0.60.1:
+  version "0.60.1"
+  resolved "https://registry.yarnpkg.com/flow-parser/-/flow-parser-0.60.1.tgz#44e43aad5afbdee030be4def675ad190e5a102c1"
 
 for-in@^1.0.1:
   version "1.0.2"

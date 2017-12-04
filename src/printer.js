@@ -3622,6 +3622,10 @@ function printClass(path, options, print) {
     parts.push(" extends ", join(", ", path.map(print, "extends")));
   }
 
+  if (n.mixins && n.mixins.length > 0) {
+    parts.push(" mixins ", join(", ", path.map(print, "mixins")));
+  }
+
   if (n["implements"] && n["implements"].length > 0) {
     partsGroup.push(
       line,
