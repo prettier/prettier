@@ -10,40 +10,66 @@ const MODE_BREAK = 1;
 const MODE_FLAT = 2;
 
 function rootIndent() {
-  return {
-    indent: 0,
-    align: {
-      spaces: "",
-      tabs: ""
-    }
-  };
+  return "";
 }
 
 function makeIndent(ind) {
-  return {
-    indent: ind.indent + 1,
-    align: ind.align
-  };
+  return ind + "\t";
 }
 
 function makeAlign(ind, n) {
   if (n === -Infinity) {
-    return {
-      indent: 0,
-      align: {
-        spaces: "",
-        tabs: ""
-      }
-    };
+    return "";
   }
 
-  return {
-    indent: ind.indent,
-    align: {
-      spaces: ind.align.spaces + (typeof n === "number" ? " ".repeat(n) : n),
-      tabs: ind.align.tabs + (typeof n === "number" ? (n ? "\t" : "") : n)
+  return ind + (typeof n === "string" ? n : " ".repeat(n));
+}
+
+function getIndentation(ind, options) {
+  let string = "";
+  let length = 0;
+
+  if (options.useTabs) {
+    let lastSpaces = 0;
+    for (let i = 0; i < ind.length; i++) {
+      if (ind[i] === "\t") {
+        do {
+          string += "\t";
+          length += options.tabWidth;
+          // spaces after tab that is less than tabWidth will be removed
+          // otherwise replace with tabs every tabWidth spaces
+        } while ((lastSpaces -= options.tabWidth) >= 0);
+        lastSpaces = 0;
+      } else if (ind[i] === " ") {
+        lastSpaces += 1;
+      } else {
+        if (lastSpaces > 0) {
+          string += " ".repeat(lastSpaces);
+          length += lastSpaces;
+          lastSpaces = 0;
+        }
+        string += ind[i];
+        length += 1;
+      }
     }
-  };
+    if (lastSpaces > 0) {
+      string += " ".repeat(lastSpaces);
+      length += lastSpaces;
+    }
+  } else {
+    const tabSpaces = " ".repeat(options.tabWidth);
+    for (let i = 0; i < ind.length; i++) {
+      if (ind[i] === "\t") {
+        string += tabSpaces;
+        length += options.tabWidth;
+      } else {
+        string += ind[i];
+        length += 1;
+      }
+    }
+  }
+
+  return { string, length };
 }
 
 function fits(next, restCommands, width, mustBeFlat) {
@@ -411,12 +437,9 @@ function printDocToString(doc, options) {
                   }
                 }
 
-                const indentLength = ind.indent * options.tabWidth;
-                const indentString = options.useTabs
-                  ? "\t".repeat(ind.indent) + ind.align.tabs
-                  : " ".repeat(indentLength) + ind.align.spaces;
-                out.push(newLine + indentString);
-                pos = indentLength + ind.align.spaces.length;
+                const indentation = getIndentation(ind, options);
+                out.push(newLine + indentation.string);
+                pos = indentation.length;
               }
               break;
           }
