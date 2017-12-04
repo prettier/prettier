@@ -3630,6 +3630,14 @@ function printClass(path, options, print) {
     );
   }
 
+  if (n["mixins"] && n["mixins"].length > 0) {
+    partsGroup.push(
+      line,
+      "mixins ",
+      group(indent(join(concat([",", line]), path.map(print, "mixins"))))
+    );
+  }
+
   if (partsGroup.length > 0) {
     parts.push(group(indent(concat(partsGroup))));
   }
