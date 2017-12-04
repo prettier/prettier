@@ -89,6 +89,19 @@ Default: -1
 
 exports[`show detailed usage with --help cursor-offset (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help editorconfig (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help editorconfig (stdout) 1`] = `
+"--editorconfig
+
+  Take .editorconfig into account when parsing configuration.
+
+Default: true
+"
+`;
+
+exports[`show detailed usage with --help editorconfig (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help find-config-path (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help find-config-path (stdout) 1`] = `
@@ -225,6 +238,17 @@ exports[`show detailed usage with --help no-config (stdout) 1`] = `
 `;
 
 exports[`show detailed usage with --help no-config (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help no-editorconfig (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help no-editorconfig (stdout) 1`] = `
+"--no-editorconfig
+
+  Don't take .editorconfig into account when parsing configuration.
+"
+`;
+
+exports[`show detailed usage with --help no-editorconfig (write) 1`] = `Array []`;
 
 exports[`show detailed usage with --help no-semi (stderr) 1`] = `""`;
 
@@ -522,6 +546,7 @@ Config options:
   --config-precedence <cli-override|file-override|prefer-file>
                            Define in which order config files and CLI options should be evaluated.
                            Defaults to cli-override.
+  --no-editorconfig        Don't take .editorconfig into account when parsing configuration.
   --find-config-path <path>
                            Find and print the path to a configuration file for the given input file.
   --ignore-path <path>     Path to a file with patterns describing files to ignore.
@@ -660,6 +685,7 @@ Config options:
   --config-precedence <cli-override|file-override|prefer-file>
                            Define in which order config files and CLI options should be evaluated.
                            Defaults to cli-override.
+  --no-editorconfig        Don't take .editorconfig into account when parsing configuration.
   --find-config-path <path>
                            Find and print the path to a configuration file for the given input file.
   --ignore-path <path>     Path to a file with patterns describing files to ignore.
