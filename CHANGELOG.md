@@ -1,3 +1,9 @@
+# 1.9.0
+
+[link](https://github.com/prettier/prettier/compare/1.8.2...1.9.0)
+
+* [Release Notes](https://github.com/prettier/prettier/releases/tag/1.9.0)
+
 # 1.8.2
 
 [link](https://github.com/prettier/prettier/compare/1.8.1...1.8.2)
