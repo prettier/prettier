@@ -1,3 +1,22 @@
 .post a {
   text-decoration: underline !important;
 }
+
+@media screen and (max-width: 735px) {
+  footer .sitemap {
+    display: block;
+    margin-left: 20px;
+  }
+
+  footer .sitemap .nav-home {
+    margin: 0 auto;
+  }
+
+  footer .sitemap > div {
+    margin-bottom: 20px;
+  }
+
+  footer .sitemap > div h5 {
+    margin: 0;
+  }
+}
