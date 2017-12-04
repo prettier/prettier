@@ -48,7 +48,7 @@ function _resolveConfig(filePath, opts, sync) {
       mergeOverrides(Object.assign({}, result), filePath)
     );
 
-    if (Object.keys(merged).length === 0) {
+    if (!result && !editorConfigured) {
       return null;
     }
 
