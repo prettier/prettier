@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`skips folders (stdout) 1`] = `
+"skip-folders/a/file.js
+skip-folders/b/file.js
+"
+`;
+
+exports[`skips folders (write) 1`] = `Array []`;
