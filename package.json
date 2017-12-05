@@ -66,7 +66,7 @@
     "eslint-plugin-react": "7.1.0",
     "jest": "21.1.0",
     "mkdirp": "0.5.1",
-    "prettier": "1.9.0",
+    "prettier": "1.9.1",
     "prettylint": "1.0.0",
     "rimraf": "2.6.2",
     "rollup": "0.41.6",
