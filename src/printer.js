@@ -1063,7 +1063,7 @@ function genericPrintNoParens(path, options, print, args) {
           printedLeft = printPropertyKey(path, options, print);
         }
         parts.push(
-          printAssignment(
+          printObjectProperty(
             n.key,
             printedLeft,
             ":",
@@ -4598,6 +4598,19 @@ function printAssignmentRight(rightNode, printedRight, canBreak, options) {
   return concat([" ", printedRight]);
 }
 
+function canBreakAssignment(leftNode, rightNode) {
+  return (
+    (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) ||
+    (rightNode.type === "ConditionalExpression" &&
+      isBinaryish(rightNode.test) &&
+      !shouldInlineLogicalExpression(rightNode.test)) ||
+    ((leftNode.type === "Identifier" ||
+      isStringLiteral(leftNode) ||
+      leftNode.type === "MemberExpression") &&
+      (isStringLiteral(rightNode) || isMemberExpressionChain(rightNode)))
+  );
+}
+
 function printAssignment(
   leftNode,
   printedLeft,
@@ -4610,15 +4623,7 @@ function printAssignment(
     return printedLeft;
   }
 
-  const canBreak =
-    (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) ||
-    (rightNode.type === "ConditionalExpression" &&
-      isBinaryish(rightNode.test) &&
-      !shouldInlineLogicalExpression(rightNode.test)) ||
-    ((leftNode.type === "Identifier" ||
-      isStringLiteral(leftNode) ||
-      leftNode.type === "MemberExpression") &&
-      (isStringLiteral(rightNode) || isMemberExpressionChain(rightNode)));
+  const canBreak = canBreakAssignment(leftNode, rightNode);
 
   const printed = printAssignmentRight(
     rightNode,
@@ -4628,6 +4633,36 @@ function printAssignment(
   );
 
   return group(concat([printedLeft, operator, printed]));
+}
+
+function printObjectProperty(
+  leftNode,
+  printedLeft,
+  operator,
+  rightNode,
+  printedRight,
+  options
+) {
+  const canBreak = canBreakAssignment(leftNode, rightNode);
+
+  const needsParens = options.parser !== "json" && canBreak;
+
+  let printed = printAssignmentRight(
+    rightNode,
+    printedRight,
+    canBreak,
+    options
+  );
+
+  if (needsParens) {
+    printed = concat([
+      indent(concat([ifBreak(" (", ""), line, printedRight])),
+      softline,
+      ifBreak(")", "")
+    ]);
+  }
+
+  return group(concat([printedLeft, ":", printed]));
 }
 
 function adjustClause(node, clause, forceSpace) {

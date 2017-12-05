@@ -104,18 +104,20 @@ const blablah =
   "dflkadfkladsfklkadlfkladlfkadklfjadlfdfdaf";
 
 const k = {
-  blablah:
+  blablah: (
     "aldkfkladfskladklsfkladklfkaldfadfkdaf" +
     "adlfasdklfkldsklfakldsfkladsfkadsfladsfa" +
     "dflkadfkladsfklkadlfkladlfkadklfjadlfdfdaf"
+  )
 };
 
 somethingThatsAReallyLongPropName =
   this.props.cardType === AwesomizerCardEnum.SEEFIRST;
 
 const o = {
-  somethingThatsAReallyLongPropName:
+  somethingThatsAReallyLongPropName: (
     this.props.cardType === AwesomizerCardEnum.SEEFIRST
+  )
 };
 
 `;

@@ -23,8 +23,9 @@ const x = {
 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const x = {
-  ABC:
+  ABC: (
     "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
+  )
 };
 
 `;
@@ -63,8 +64,9 @@ const a = classnames({
 });
 
 const b = classnames({
-  "some-prop":
+  "some-prop": (
     this.state.longLongLongLongLongLongLongLongLongTooLongProp === true
+  )
 });
 
 const c = classnames({
@@ -84,8 +86,9 @@ const f = classnames({
 });
 
 const g = classnames({
-  "some-prop":
+  "some-prop": (
     longLongLongLongLongLongLongLongLongLongLongLongLongTooLongVar || 1337
+  )
 });
 
 `;
