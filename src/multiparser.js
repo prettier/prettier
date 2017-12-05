@@ -29,7 +29,7 @@ function parseAndPrint(text, partialNextOptions, parentOptions) {
     trailingComma:
       partialNextOptions.parser === "json"
         ? "none"
-        : partialNextOptions.trailingComma,
+        : partialNextOptions.trailingComma || parentOptions.trailingComma,
     originalText: text
   });
   const ast = require("./parser").parse(text, nextOptions);
