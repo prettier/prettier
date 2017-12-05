@@ -281,7 +281,7 @@ function eachFilename(argv, patterns, callback) {
 
   try {
     const filePaths = globby
-      .sync(patterns, { dot: true })
+      .sync(patterns, { dot: true, nodir: true })
       .map(filePath => path.relative(process.cwd(), filePath));
 
     if (filePaths.length === 0) {
