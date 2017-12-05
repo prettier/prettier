@@ -77,7 +77,6 @@ self.onmessage = function(message) {
   }
 
   if (message.data.doc) {
-    lazyLoadParser("babylon");
     try {
       doc = prettier.__debug.formatDoc(
         prettier.__debug.printToDoc(message.data.text, options),
