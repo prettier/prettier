@@ -5105,7 +5105,7 @@ function printAstToDoc(ast, options, addAlignmentSize) {
     // UnionTypeAnnotation has to align the child without the comments
     let res;
     if (
-      ((node && node.type === "JSXElement") ||
+      ((node && isJSXNode(node)) ||
         (parent &&
           (parent.type === "JSXSpreadAttribute" ||
             parent.type === "JSXSpreadChild" ||

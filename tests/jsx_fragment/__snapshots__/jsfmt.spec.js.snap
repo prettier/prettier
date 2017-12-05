@@ -33,6 +33,11 @@ exports[`fragment.js 1`] = `
   </>
 </div>;
 
+foo = (
+  // comment
+  <></>
+);
+
 </* open fragment */>
   <Component />
   <Component />
@@ -74,6 +79,11 @@ exports[`fragment.js 1`] = `
     </>
   </>
 </div>;
+
+foo = (
+  // comment
+  <></>
+);
 
 </* open fragment */>
   <Component />
