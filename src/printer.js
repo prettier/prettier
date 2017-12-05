@@ -122,20 +122,18 @@ function genericPrint(path, options, printPath, args) {
   }
 
   if (node) {
-    // Potentially switch to a different parser
-    const next = multiparser.getSubtreeParser(path, options);
-    if (next) {
-      try {
-        return multiparser.printSubtree(next, path, printPath, options);
-      } catch (error) {
-        /* istanbul ignore if */
-        if (process.env.PRETTIER_DEBUG) {
-          const e = new Error(error);
-          e.parser = next.options.parser;
-          throw e;
-        }
-        // Continue with current parser
+    try {
+      // Potentially switch to a different parser
+      const sub = multiparser.printSubtree(path, printPath, options);
+      if (sub) {
+        return sub;
       }
+    } catch (error) {
+      /* istanbul ignore if */
+      if (process.env.PRETTIER_DEBUG) {
+        throw error;
+      }
+      // Continue with current parser
     }
   }
 
@@ -3443,17 +3441,18 @@ function printExportDeclaration(path, options, print) {
       }, "specifiers");
 
       const isNamespaceFollowed =
-        namespaceSpecifiers.length !== 0 &&
-        (specifiers.length !== 0 || defaultSpecifiers.length !== 0);
+        namespaceSpecifiers.length !== 0 && specifiers.length !== 0;
+
       const isDefaultFollowed =
-        defaultSpecifiers.length !== 0 && specifiers.length !== 0;
+        defaultSpecifiers.length !== 0 &&
+        (namespaceSpecifiers.length !== 0 || specifiers.length !== 0);
 
       parts.push(
         decl.exportKind === "type" ? "type " : "",
-        concat(namespaceSpecifiers),
-        concat([isNamespaceFollowed ? ", " : ""]),
         concat(defaultSpecifiers),
         concat([isDefaultFollowed ? ", " : ""]),
+        concat(namespaceSpecifiers),
+        concat([isNamespaceFollowed ? ", " : ""]),
         specifiers.length !== 0
           ? group(
               concat([
@@ -3628,6 +3627,14 @@ function printClass(path, options, print) {
       line,
       "implements ",
       group(indent(join(concat([",", line]), path.map(print, "implements"))))
+    );
+  }
+
+  if (n["mixins"] && n["mixins"].length > 0) {
+    partsGroup.push(
+      line,
+      "mixins ",
+      group(indent(join(concat([",", line]), path.map(print, "mixins"))))
     );
   }
 
@@ -5098,7 +5105,7 @@ function printAstToDoc(ast, options, addAlignmentSize) {
     // UnionTypeAnnotation has to align the child without the comments
     let res;
     if (
-      ((node && node.type === "JSXElement") ||
+      ((node && isJSXNode(node)) ||
         (parent &&
           (parent.type === "JSXSpreadAttribute" ||
             parent.type === "JSXSpreadChild" ||

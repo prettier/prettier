@@ -63,6 +63,10 @@ function massageAST(ast, parent) {
     if (ast.type === "code") {
       delete newObj.value;
     }
+    // for markdown whitespace: "\n" and " " are considered the same
+    if (ast.type === "whitespace" && ast.value === "\n") {
+      newObj.value = " ";
+    }
 
     if (
       ast.type === "media-query" ||
@@ -223,6 +227,16 @@ function massageAST(ast, parent) {
       );
 
       quasis.forEach(q => delete q.value);
+    }
+
+    // CSS template literals in css prop
+    if (
+      ast.type === "JSXAttribute" &&
+      ast.name.name === "css" &&
+      ast.value.type === "JSXExpressionContainer" &&
+      ast.value.expression.type === "TemplateLiteral"
+    ) {
+      newObj.value.expression.quasis.forEach(q => delete q.value);
     }
 
     // styled-components, graphql, markdown

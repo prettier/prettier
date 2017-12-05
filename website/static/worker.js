@@ -11,7 +11,8 @@ self.Buffer = {
   }
 };
 // eslint-disable-next-line
-fs = module$1 = module = path = os = crypto = {};
+module$1 = module = path = os = crypto = {};
+self.fs = { readFile: function() {} };
 // eslint-disable-next-line no-undef
 os.homedir = function() {
   return "/home/prettier";

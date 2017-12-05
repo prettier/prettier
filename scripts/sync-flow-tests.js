@@ -38,9 +38,7 @@ function syncTests(syncDir) {
     throw new Error(
       [
         "Couldn't find any files to copy.",
-        `Please make sure that \`${
-          syncDir
-        }\` exists and contains the flow tests.`
+        `Please make sure that \`${syncDir}\` exists and contains the flow tests.`
       ].join("\n")
     );
   }

@@ -22,6 +22,7 @@ var OPTIONS = [
   "insertPragma",
   "requirePragma",
   "proseWrap",
+  "arrowParens",
   "doc",
   "ast",
   "output2"

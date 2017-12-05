@@ -80,7 +80,22 @@ exports[`CLI overrides take lower precedence with --config-precedence file-overr
 exports[`CLI overrides take precedence with --config-precedence cli-override (stderr) 1`] = `""`;
 
 exports[`CLI overrides take precedence with --config-precedence cli-override (stdout) 1`] = `
-"console.log(
+"function f() {
+	console.log(
+		\\"should have tab width 8\\"
+	)
+}
+function f() {
+  console.log(
+    \\"should have space width 2\\"
+  )
+}
+function f() {
+        console.log(
+                \\"should have space width 8\\"
+        )
+}
+console.log(
   \\"jest/__best-tests__/file.js should have semi\\"
 );
 console.log(
@@ -137,7 +152,22 @@ exports[`CLI overrides take precedence with --config-precedence cli-override (wr
 exports[`CLI overrides take precedence without --config-precedence (stderr) 1`] = `""`;
 
 exports[`CLI overrides take precedence without --config-precedence (stdout) 1`] = `
-"console.log(
+"function f() {
+	console.log(
+		\\"should have tab width 8\\"
+	)
+}
+function f() {
+  console.log(
+    \\"should have space width 2\\"
+  )
+}
+function f() {
+        console.log(
+                \\"should have space width 8\\"
+        )
+}
+console.log(
   \\"jest/__best-tests__/file.js should have semi\\"
 );
 console.log(

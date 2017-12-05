@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`exits with non-zero code when input has a syntax error (stderr) 1`] = `
-"[error] stdin: SyntaxError: Unexpected token, expected ; (1:2)
+"[error] stdin: SyntaxError: Unexpected token, expected \\";\\" (1:2)
 [error] > 1 | a.2
 [error]     |  ^
 "

@@ -30,6 +30,11 @@
   </>
 </div>;
 
+foo = (
+  // comment
+  <></>
+);
+
 </* open fragment */>
   <Component />
   <Component />

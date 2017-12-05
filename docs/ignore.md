@@ -46,7 +46,7 @@ matrix(
 <div>
   {/* prettier-ignore */}
   <span     ugly  format=''   />
-</div>;
+</div>
 ```
 
 ## CSS

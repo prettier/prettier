@@ -47,9 +47,7 @@ for (const parser of parsers) {
   }
   shell.echo(`Bundling lib ${parser}...`);
   shell.exec(
-    `rollup -c scripts/build/rollup.parser.config.js --environment parser:${
-      parser
-    }`
+    `rollup -c scripts/build/rollup.parser.config.js --environment parser:${parser}`
   );
 }
 
