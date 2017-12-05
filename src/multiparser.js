@@ -24,19 +24,24 @@ function printSubtree(path, print, options) {
 }
 
 function parseAndPrint(text, partialNextOptions, parentOptions) {
-  const nextOptions = Object.assign({}, parentOptions, partialNextOptions, {
-    parentParser: parentOptions.parser,
-    trailingComma:
-      partialNextOptions.parser === "json"
-        ? "none"
-        : partialNextOptions.trailingComma,
-    originalText: text
-  });
-  const ast = require("./parser").parse(text, nextOptions);
-  const astComments = ast.comments;
-  delete ast.comments;
-  comments.attach(astComments, ast, text, nextOptions);
-  return require("./printer").printAstToDoc(ast, nextOptions);
+  try {
+    const nextOptions = Object.assign({}, parentOptions, partialNextOptions, {
+      parentParser: parentOptions.parser,
+      trailingComma:
+        partialNextOptions.parser === "json"
+          ? "none"
+          : partialNextOptions.trailingComma,
+      originalText: text
+    });
+    const ast = require("./parser").parse(text, nextOptions);
+    const astComments = ast.comments;
+    delete ast.comments;
+    comments.attach(astComments, ast, text, nextOptions);
+    return require("./printer").printAstToDoc(ast, nextOptions);
+  } catch (error) {
+    error.parser = partialNextOptions.parser;
+    throw error;
+  }
 }
 
 function fromMarkdown(path, print, options) {
