@@ -315,7 +315,7 @@ Lots of small fixes, mainly for TypeScript.
 * [JSX] Break if opening element breaks (#942)
 * Parenthesize function expressions in expression position (#941)
 * update the README to add a pre-commit hook (#944)
-* Fix #951: properly parenthesize \** expressions (#952)
+* Fix #951: properly parenthesize \*\* expressions (#952)
 * [WIP] TypeScript Parser (#915)
 * Do not break long `describe` calls (#953)
 * Recursively find leading comments inside ReturnStatements (#955)

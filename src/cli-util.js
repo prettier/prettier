@@ -506,9 +506,7 @@ function getOptionWithLevenSuggestion(options, optionName) {
   if (suggestedOptionNameContainer !== undefined) {
     const suggestedOptionName = suggestedOptionNameContainer.value;
     logger.warn(
-      `Unknown option name "${optionName}", did you mean "${
-        suggestedOptionName
-      }"?`
+      `Unknown option name "${optionName}", did you mean "${suggestedOptionName}"?`
     );
 
     return options[suggestedOptionNameContainer.index];
@@ -701,9 +699,7 @@ function normalizeConfig(type, rawConfig, options) {
             : `with value \`${rawValue}\``;
         const redirectName = getRedirectName(option, choice);
         consoleWarn(
-          `\`${optionName}\` ${
-            warningDescription
-          } is deprecated. Prettier now treats it as: \`${redirectName}\`.`
+          `\`${optionName}\` ${warningDescription} is deprecated. Prettier now treats it as: \`${redirectName}\`.`
         );
         return choice.redirect;
       }
