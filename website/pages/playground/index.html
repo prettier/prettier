@@ -227,7 +227,8 @@
 
     label {
       font-family: "Consolas", "Courier New", Courier, monospace;
-      padding: 10px 0;
+      margin: 10px 0;
+      display: block;
     }
 
     input[type="number"] {
@@ -316,7 +317,7 @@
     <details id="options-details" class="options-container">
       <summary class="options-summary"></summary>
       <div class="options">
-        <details class="sub-options">
+        <details class="sub-options" open>
           <summary>Global</summary>
 
           <label>--parser
@@ -336,7 +337,7 @@
           <label>--tab-width <input type="number" min="0" value="2" id="tabWidth"></label>
           <label><input type="checkbox" id="useTabs"> --use-tabs</label>
         </details>
-        <details class="sub-options">
+        <details class="sub-options" open>
           <summary>JavaScript</summary>
 
           <label><input type="checkbox" data-inverted id="semi"> --no-semi</label>
@@ -377,9 +378,9 @@
         <details class="sub-options">
           <summary>Debug</summary>
 
-          <label><input type="checkbox" id="ast"> show AST (debug)</label>
-          <label><input type="checkbox" id="doc"> show doc (debug)</label>
-          <label><input type="checkbox" id="output2"> show second format (debug)</label>
+          <label><input type="checkbox" id="ast"> show AST</label>
+          <label><input type="checkbox" id="doc"> show doc</label>
+          <label><input type="checkbox" id="output2"> show second format</label>
         </details>
       </div>
     </details>
