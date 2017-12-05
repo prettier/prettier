@@ -190,9 +190,12 @@
     }
 
     .options-container {
-      width: 225px;
       max-height: 100%;
       overflow-y: auto;
+    }
+
+    .options-container[open] {
+      width: 225px;
     }
 
     .options-summary {
@@ -213,7 +216,7 @@
     }
 
     .sub-options > summary {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: bold;
       padding-bottom: 5px;
     }
@@ -310,7 +313,7 @@
   </header>
 
   <div class="editors-container">
-    <details id="options-details" class="options-container" open>
+    <details id="options-details" class="options-container">
       <summary class="options-summary"></summary>
       <div class="options">
         <details class="sub-options">
