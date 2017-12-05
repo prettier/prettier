@@ -70,6 +70,41 @@ room = room.map((row, rowIndex) =>
 
 `;
 
+exports[`binary.js 3`] = `
+const funnelSnapshotCard = (report === MY_OVERVIEW &&
+  !ReportGK.xar_metrics_active_capitol_v2) ||
+  (report === COMPANY_OVERVIEW &&
+    !ReportGK.xar_metrics_active_capitol_v2_company_metrics)
+  ? <ReportMetricsFunnelSnapshotCard metrics={metrics} />
+  : null;
+
+room = room.map((row, rowIndex) => (
+  row.map((col, colIndex) => (
+    (rowIndex === 0 || colIndex === 0 || rowIndex === height || colIndex === width) ? 1 : 0
+  ))
+))
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const funnelSnapshotCard =
+	(report === MY_OVERVIEW && !ReportGK.xar_metrics_active_capitol_v2) ||
+	(report === COMPANY_OVERVIEW &&
+		!ReportGK.xar_metrics_active_capitol_v2_company_metrics) ? (
+		<ReportMetricsFunnelSnapshotCard metrics={metrics} />
+	) : null;
+
+room = room.map((row, rowIndex) =>
+	row.map(
+		(col, colIndex) =>
+			rowIndex === 0 ||
+			colIndex === 0 ||
+			rowIndex === height ||
+			colIndex === width
+				? 1
+				: 0
+	)
+);
+
+`;
+
 exports[`indent.js 1`] = `
 aaaaaaaaaaaaaaa ? bbbbbbbbbbbbbbbbbb : ccccccccccccccc ? ddddddddddddddd : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -89,6 +124,17 @@ aaaaaaaaaaaaaaa
     : ccccccccccccccc
       ? ddddddddddddddd
       : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg;
+
+`;
+
+exports[`indent.js 3`] = `
+aaaaaaaaaaaaaaa ? bbbbbbbbbbbbbbbbbb : ccccccccccccccc ? ddddddddddddddd : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+aaaaaaaaaaaaaaa
+	? bbbbbbbbbbbbbbbbbb
+	: ccccccccccccccc
+		? ddddddddddddddd
+		: eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg;
 
 `;
 
@@ -113,6 +159,18 @@ let icecream =
     what == "cone"
         ? p => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
         : p => \`here's your \${p} \${what}\`;
+
+`;
+
+exports[`nested.js 3`] = `
+let icecream = what == "cone"
+  ? p => !!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`
+  : p => \`here's your \${p} \${what}\`;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let icecream =
+	what == "cone"
+		? p => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
+		: p => \`here's your \${p} \${what}\`;
 
 `;
 
@@ -167,6 +225,33 @@ a =>
 a => (a ? a : a);
 a =>
     a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
+
+`;
+
+exports[`parenthesis.js 3`] = `
+debug ? this.state.isVisible ? "partially visible" : "hidden" : null;
+debug ? this.state.isVisible && somethingComplex ? "partially visible" : "hidden" : null;
+
+a => a ? () => {a} : () => {a}
+a => a ? a : a
+a => a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+debug ? (this.state.isVisible ? "partially visible" : "hidden") : null;
+debug
+	? this.state.isVisible && somethingComplex ? "partially visible" : "hidden"
+	: null;
+
+a =>
+	a
+		? () => {
+				a;
+			}
+		: () => {
+				a;
+			};
+a => (a ? a : a);
+a =>
+	a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
 
 `;
 
@@ -271,5 +356,57 @@ const obj5 = conditionIsTruthy
           lots: "of",
           stuff
       };
+
+`;
+
+exports[`test.js 3`] = `
+const obj0 = conditionIsTruthy ? shortThing : otherShortThing
+
+const obj1 = conditionIsTruthy ? { some: 'long', object: 'with', lots: 'of', stuff } : shortThing
+
+const obj2 = conditionIsTruthy ? shortThing : { some: 'long', object: 'with', lots: 'of', stuff }
+
+const obj3 = conditionIsTruthy ? { some: 'eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger', object: 'with', lots: 'of', stuff } : shortThing
+
+const obj4 = conditionIsTruthy ? shortThing : { some: 'eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger', object: 'with', lots: 'of', stuff }
+
+const obj5 = conditionIsTruthy ? { some: 'long', object: 'with', lots: 'of', stuff } : { some: 'eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger', object: 'with', lots: 'of', stuff }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const obj0 = conditionIsTruthy ? shortThing : otherShortThing;
+
+const obj1 = conditionIsTruthy
+	? { some: "long", object: "with", lots: "of", stuff }
+	: shortThing;
+
+const obj2 = conditionIsTruthy
+	? shortThing
+	: { some: "long", object: "with", lots: "of", stuff };
+
+const obj3 = conditionIsTruthy
+	? {
+			some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+			object: "with",
+			lots: "of",
+			stuff
+		}
+	: shortThing;
+
+const obj4 = conditionIsTruthy
+	? shortThing
+	: {
+			some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+			object: "with",
+			lots: "of",
+			stuff
+		};
+
+const obj5 = conditionIsTruthy
+	? { some: "long", object: "with", lots: "of", stuff }
+	: {
+			some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+			object: "with",
+			lots: "of",
+			stuff
+		};
 
 `;
