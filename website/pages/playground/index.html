@@ -190,8 +190,9 @@
     }
 
     .options-container {
+      width: 225px;
       max-height: 100%;
-      overflow-y: scroll;
+      overflow-y: auto;
     }
 
     .options-summary {
@@ -202,9 +203,23 @@
       flex-flow: column wrap;
       flex: 1;
       display: flex;
-      padding: 0 10px;
-      margin: 5px;
-      margin-bottom: 0;
+    }
+
+    .sub-options {
+      flex: 1;
+      display: flex;
+      padding: 15px 0 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .sub-options > summary {
+      font-size: 13px;
+      font-weight: bold;
+      padding-bottom: 5px;
+    }
+
+    .sub-options > * {
+      margin-left: 10px;
     }
 
     label {
@@ -295,56 +310,74 @@
   </header>
 
   <div class="editors-container">
-    <details id="options-details" class="options-container">
+    <details id="options-details" class="options-container" open>
       <summary class="options-summary"></summary>
       <div class="options">
-        <h3>Options</h3>
-        <label>--print-width <input type="number" value="80" min="0" id="printWidth"></label>
-        <label>--tab-width <input type="number" min="0" value="2" id="tabWidth"></label>
-        <label>--prose-wrap
-          <select id="proseWrap">
-            <option value="preserve">preserve</option>
-            <option value="always">always</option>
-            <option value="never">never</option>
-          </select>
-        </label>
-        <label><input type="checkbox" id="insertPragma"> --insert-pragma</label>
-        <label><input type="checkbox" id="requirePragma"> --require-pragma</label>
-        <label><input type="checkbox" id="useTabs"> --use-tabs</label>
-        <label><input type="checkbox" data-inverted id="semi"> --no-semi</label>
-        <label><input type="checkbox" id="singleQuote"> --single-quote</label>
-        <label><input type="checkbox" data-inverted id="bracketSpacing"> --no-bracket-spacing</label>
-        <label><input type="checkbox" id="jsxBracketSameLine"> --jsx-bracket-same-line</label>
-        <label>--arrow-parens
-          <select id="arrowParens">
-            <option value="avoid">avoid</option>
-            <option value="always">always</option>
-          </select>
-        </label>
-        <label>--trailing-comma
-          <select id="trailingComma">
-            <option value="none">none</option>
-            <option value="es5">es5</option>
-            <option value="all">all</option>
-          </select>
-        </label>
-        <label>--parser
-          <select id="parser">
-            <option value="babylon">babylon</option>
-            <option value="flow">flow</option>
-            <option value="typescript">typescript</option>
-            <option value="css">css</option>
-            <option value="less">less</option>
-            <option value="scss">scss</option>
-            <option value="json">json</option>
-            <option value="graphql">graphql</option>
-            <option value="markdown">markdown</option>
-          </select>
-        </label>
-        <span style="flex: 0.3"></span>
-        <label><input type="checkbox" id="ast"> show AST (debug)</label>
-        <label><input type="checkbox" id="doc"> show doc (debug)</label>
-        <label><input type="checkbox" id="output2"> show second format (debug)</label>
+        <details class="sub-options">
+          <summary>Global</summary>
+
+          <label>--parser
+            <select id="parser">
+              <option value="babylon">babylon</option>
+              <option value="flow">flow</option>
+              <option value="typescript">typescript</option>
+              <option value="css">css</option>
+              <option value="less">less</option>
+              <option value="scss">scss</option>
+              <option value="json">json</option>
+              <option value="graphql">graphql</option>
+              <option value="markdown">markdown</option>
+            </select>
+          </label>
+          <label>--print-width <input type="number" value="80" min="0" id="printWidth"></label>
+          <label>--tab-width <input type="number" min="0" value="2" id="tabWidth"></label>
+          <label><input type="checkbox" id="useTabs"> --use-tabs</label>
+        </details>
+        <details class="sub-options">
+          <summary>JavaScript</summary>
+
+          <label><input type="checkbox" data-inverted id="semi"> --no-semi</label>
+          <label><input type="checkbox" id="singleQuote"> --single-quote</label>
+          <label><input type="checkbox" data-inverted id="bracketSpacing"> --no-bracket-spacing</label>
+          <label><input type="checkbox" id="jsxBracketSameLine"> --jsx-bracket-same-line</label>
+          <label>--arrow-parens
+            <select id="arrowParens">
+              <option value="avoid">avoid</option>
+              <option value="always">always</option>
+            </select>
+          </label>
+          <label>--trailing-comma
+            <select id="trailingComma">
+              <option value="none">none</option>
+              <option value="es5">es5</option>
+              <option value="all">all</option>
+            </select>
+          </label>
+        </details>
+        <details class="sub-options">
+          <summary>Markdown</summary>
+
+          <label>--prose-wrap
+            <select id="proseWrap">
+              <option value="preserve">preserve</option>
+              <option value="always">always</option>
+              <option value="never">never</option>
+            </select>
+          </label>
+        </details>
+        <details class="sub-options">
+          <summary>Special</summary>
+
+          <label><input type="checkbox" id="insertPragma"> --insert-pragma</label>
+          <label><input type="checkbox" id="requirePragma"> --require-pragma</label>
+        </details>
+        <details class="sub-options">
+          <summary>Debug</summary>
+
+          <label><input type="checkbox" id="ast"> show AST (debug)</label>
+          <label><input type="checkbox" id="doc"> show doc (debug)</label>
+          <label><input type="checkbox" id="output2"> show second format (debug)</label>
+        </details>
       </div>
     </details>
 
@@ -370,7 +403,7 @@
   <div class="bottom-bar">
     <div class="bottom-bar-buttons">
       <button type="button" class="btn" id="button-options">
-        See options
+        Show options
       </button>
       <button type="button" class="btn" id="button-clear">
         Clear

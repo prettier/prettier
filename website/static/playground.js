@@ -165,7 +165,7 @@ window.onload = function() {
   document.getElementById("button-options").onclick = function() {
     if (optionsElement.getAttribute("open") !== null) {
       optionsElement.removeAttribute("open");
-      this.innerHTML = "See options";
+      this.innerHTML = "Show options";
     } else {
       optionsElement.setAttribute("open", "");
       this.innerHTML = "Hide options";
