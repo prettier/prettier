@@ -163,11 +163,12 @@ window.onload = function() {
 
   var optionsElement = document.getElementById("options-details");
   document.getElementById("button-options").onclick = function() {
-    if (optionsElement.getAttribute("open") !== null) {
-      optionsElement.removeAttribute("open");
+    var classes = optionsElement.classList;
+    if (classes.contains("open")) {
+      classes.remove("open");
       this.innerHTML = "Show options";
     } else {
-      optionsElement.setAttribute("open", "");
+      classes.add("open");
       this.innerHTML = "Hide options";
     }
   };

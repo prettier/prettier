@@ -112,6 +112,7 @@
     .editors-container {
       display: flex;
       flex: 1;
+      min-height: 0;
     }
 
     .editors {
@@ -190,22 +191,23 @@
     }
 
     .options-container {
-      max-height: 100%;
-      overflow-y: auto;
-    }
-
-    .options-container[open] {
-      width: 225px;
-    }
-
-    .options-summary {
       display: none;
+      box-sizing: border-box;
+      width: 225px;
+      height: 100%;
+      border-bottom: 1px solid #ddd;
+      flex: 0 1 auto;
+    }
+
+    .options-container.open {
+      display: block;
     }
 
     .options {
-      flex-flow: column wrap;
-      flex: 1;
       display: flex;
+      flex-direction: column;
+      max-height: 100%;
+      overflow: auto;
     }
 
     .sub-options {
@@ -213,6 +215,10 @@
       display: flex;
       padding: 15px 0 10px;
       border-bottom: 1px solid #ddd;
+    }
+
+    .sub-options:last-child {
+      border: 0;
     }
 
     .sub-options > summary {
@@ -314,8 +320,7 @@
   </header>
 
   <div class="editors-container">
-    <details id="options-details" class="options-container">
-      <summary class="options-summary"></summary>
+    <div id="options-details" class="options-container">
       <div class="options">
         <details class="sub-options" open>
           <summary>Global</summary>
@@ -383,7 +388,7 @@
           <label><input type="checkbox" id="output2"> show second format</label>
         </details>
       </div>
-    </details>
+    </div>
 
     <div class="editors">
       <div class="editor loading input">
