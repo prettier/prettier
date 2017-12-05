@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`trailing-comma.md 1`] = `
+### Some heading
+
+\`\`\`js
+someFunctionCall(
+  foo,
+  bar,
+  foobar,
+  sometehingReallyLongAndHairy,
+  somethingElse,
+  breakNow,
+);
+\`\`\`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+### Some heading
+
+\`\`\`js
+someFunctionCall(
+  foo,
+  bar,
+  foobar,
+  sometehingReallyLongAndHairy,
+  somethingElse,
+  breakNow,
+);
+\`\`\`
+
+`;

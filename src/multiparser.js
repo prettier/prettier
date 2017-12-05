@@ -26,12 +26,11 @@ function printSubtree(path, print, options) {
 function parseAndPrint(text, partialNextOptions, parentOptions) {
   const nextOptions = Object.assign({}, parentOptions, partialNextOptions, {
     parentParser: parentOptions.parser,
-    trailingComma:
-      partialNextOptions.parser === "json"
-        ? "none"
-        : partialNextOptions.trailingComma,
     originalText: text
   });
+  if (nextOptions.parser === "json") {
+    nextOptions.trailingComma = "none";
+  }
   const ast = require("./parser").parse(text, nextOptions);
   const astComments = ast.comments;
   delete ast.comments;
