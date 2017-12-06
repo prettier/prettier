@@ -1,3 +1,13 @@
+# 1.9.1
+
+[link](https://github.com/prettier/prettier/compare/1.9.0...1.9.1)
+
+* Fixed a bug of comments with JSX fragments being duplicated in output (#3398 by duailibe)
+* Fixed a bug that Prettier would fail when using tabs (#3401 by ikatyang)
+* Fixed a regression that removed trailing commas when printing JS code blocks in Markdown (#3405 by azz)
+* Fixed a bug when using glob **/* which would try to format directories (#3411 by duailibe)
+* Fixed a bug when .editorConfig had max_line_length = "off" (#3412 by duailibe)
+
 # 1.9.0
 
 [link](https://github.com/prettier/prettier/compare/1.8.2...1.9.0)
