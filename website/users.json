@@ -95,4 +95,9 @@
     "image": "/images/talkable-200x100.png",
     "infoLink": "https://talkable.com"
   }
+    {
+    "caption": "Coverfox",
+    "image": "https://assets.coverfox.com/static/global/img/logos/cf-dark-orange-h31.png",
+    "infoLink": "https://www.coverfox.com/"
+  }
 ]
