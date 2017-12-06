@@ -10,6 +10,7 @@ self.Buffer = {
     return false;
   }
 };
+self.constants = {};
 // eslint-disable-next-line
 module$1 = module = path = os = crypto = {};
 self.fs = { readFile: function() {} };
