@@ -21,7 +21,7 @@ and add this config to your `package.json`:
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "*.{js,json,css}": ["prettier --write", "git add"]
+    "*.{js,json,css,md}": ["prettier --write", "git add"]
   }
 }
 ```
