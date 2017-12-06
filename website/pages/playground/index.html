@@ -45,7 +45,7 @@
     html {
       background-color: #fafafa;
       color: #6a6a6a;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
       font-size: 12px;
       line-height: 1.25;
     }
@@ -81,7 +81,7 @@
     header a:focus,
     header a:active,
     header a:hover {
-      color: white;
+      color: #fff;
       text-decoration: none;
     }
 
@@ -242,7 +242,7 @@
     }
 
     label {
-      font-family: "Consolas", "Courier New", Courier, monospace;
+      font-family: Consolas, Courier New, Courier, monospace;
       margin: 10px 0;
       display: block;
     }
@@ -270,14 +270,17 @@
       outline: none;
       position: relative;
     }
+
     .btn:focus {
       border-color: #c8e1ff;
     }
+
     .btn:hover {
-      background-color:#e6ebf1;
+      background-color: #e6ebf1;
       background-image: linear-gradient(to bottom, #f0f3f6, #dce3ec);
-      border-color:#afb1b2;
+      border-color: #afb1b2;
     }
+
     .btn:active {
       background-color: #e9ecef;
       background-image: none;
@@ -293,11 +296,12 @@
       transform: translateX(-50%);
       margin-top: 4px;
       padding: 0.4em 0.8em;
-      background-color: black;
-      color: white;
+      background-color: #000;
+      color: #fff;
       border-radius: 0.4em;
       pointer-events: none;
     }
+
     .tooltip::before {
       content: "";
       position: absolute;
@@ -306,7 +310,7 @@
       transform: translateX(-50%);
       border: 6px solid transparent;
       border-bottom: none;
-      border-top-color: black;
+      border-top-color: #000;
     }
   </style>
 </head>
