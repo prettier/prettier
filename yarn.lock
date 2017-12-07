@@ -75,7 +75,7 @@ ansi-escapes@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/ansi-escapes/-/ansi-escapes-3.0.0.tgz#ec3e8b4e9f8064fc02c3ac9b65f1c275bda8ef92"
 
-ansi-regex@^2.0.0:
+ansi-regex@^2.0.0, ansi-regex@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-2.1.1.tgz#c3b33ab5ee360d86e0e628f0468ae7ef27d654df"
 
@@ -87,17 +87,17 @@ ansi-styles@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-2.2.1.tgz#b432dd3358b634cf75e1e4664368240533c1ddbe"
 
+ansi-styles@^3.0.0, ansi-styles@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-3.2.0.tgz#c159b8d5be0f9e5a6f346dab94f16ce022161b88"
+  dependencies:
+    color-convert "^1.9.0"
+
 ansi-styles@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-3.1.0.tgz#09c202d5c917ec23188caa5c9cb9179cd9547750"
   dependencies:
     color-convert "^1.0.0"
-
-ansi-styles@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-3.2.0.tgz#c159b8d5be0f9e5a6f346dab94f16ce022161b88"
-  dependencies:
-    color-convert "^1.9.0"
 
 anymatch@^1.3.0:
   version "1.3.0"
@@ -2495,6 +2495,15 @@ jest-config@^21.2.1:
     jest-validate "^21.2.1"
     pretty-format "^21.2.1"
 
+jest-diff@21.3.0-beta.13, jest-diff@test:
+  version "21.3.0-beta.13"
+  resolved "https://registry.yarnpkg.com/jest-diff/-/jest-diff-21.3.0-beta.13.tgz#f881a4beda2080d15c5714ef6ee94e1d7766ca97"
+  dependencies:
+    chalk "^2.0.1"
+    diff "^3.2.0"
+    jest-get-type "21.3.0-beta.13"
+    pretty-format "21.3.0-beta.13"
+
 jest-diff@^21.2.1:
   version "21.2.1"
   resolved "https://registry.yarnpkg.com/jest-diff/-/jest-diff-21.2.1.tgz#46cccb6cab2d02ce98bc314011764bb95b065b4f"
@@ -2533,6 +2542,10 @@ jest-environment-node@^21.2.1:
     jest-mock "^21.2.0"
     jest-util "^21.2.1"
 
+jest-get-type@21.3.0-beta.13:
+  version "21.3.0-beta.13"
+  resolved "https://registry.yarnpkg.com/jest-get-type/-/jest-get-type-21.3.0-beta.13.tgz#87ded7850d76e152f0efd8cffc2f84720bdb33d4"
+
 jest-get-type@^21.0.2:
   version "21.0.2"
   resolved "https://registry.yarnpkg.com/jest-get-type/-/jest-get-type-21.0.2.tgz#304e6b816dd33cd1f47aba0597bcad258a509fc6"
@@ -2564,6 +2577,14 @@ jest-jasmine2@^21.2.1:
     jest-message-util "^21.2.1"
     jest-snapshot "^21.2.1"
     p-cancelable "^0.3.0"
+
+jest-matcher-utils@21.3.0-beta.13:
+  version "21.3.0-beta.13"
+  resolved "https://registry.yarnpkg.com/jest-matcher-utils/-/jest-matcher-utils-21.3.0-beta.13.tgz#1ba5c4c74156711799aabb48a71ea2b144776278"
+  dependencies:
+    chalk "^2.0.1"
+    jest-get-type "21.3.0-beta.13"
+    pretty-format "21.3.0-beta.13"
 
 jest-matcher-utils@^21.2.1:
   version "21.2.1"
@@ -2650,6 +2671,17 @@ jest-snapshot@^21.2.1:
     mkdirp "^0.5.1"
     natural-compare "^1.4.0"
     pretty-format "^21.2.1"
+
+jest-snapshot@test:
+  version "21.3.0-beta.13"
+  resolved "https://registry.yarnpkg.com/jest-snapshot/-/jest-snapshot-21.3.0-beta.13.tgz#f9a7d89faae4c6214a30be7f2f3491afa2df9d27"
+  dependencies:
+    chalk "^2.0.1"
+    jest-diff "21.3.0-beta.13"
+    jest-matcher-utils "21.3.0-beta.13"
+    mkdirp "^0.5.1"
+    natural-compare "^1.4.0"
+    pretty-format "21.3.0-beta.13"
 
 jest-util@^21.2.1:
   version "21.2.1"
@@ -3498,6 +3530,20 @@ prettier@1.9.1:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.9.1.tgz#41638a0d47c1efbd1b7d5a742aaa5548eab86d70"
 
+pretty-format@21.3.0-beta.13:
+  version "21.3.0-beta.13"
+  resolved "https://registry.yarnpkg.com/pretty-format/-/pretty-format-21.3.0-beta.13.tgz#e67a45a517de01a119ddb02804cd7232efea34af"
+  dependencies:
+    ansi-regex "^3.0.0"
+    ansi-styles "^3.2.0"
+
+pretty-format@^20.0.3:
+  version "20.0.3"
+  resolved "https://registry.yarnpkg.com/pretty-format/-/pretty-format-20.0.3.tgz#020e350a560a1fe1a98dc3beb6ccffb386de8b14"
+  dependencies:
+    ansi-regex "^2.1.1"
+    ansi-styles "^3.0.0"
+
 pretty-format@^21.1.0:
   version "21.1.0"
   resolved "https://registry.yarnpkg.com/pretty-format/-/pretty-format-21.1.0.tgz#557428254323832ee8b7c971cb613442bea67f61"
@@ -4059,6 +4105,15 @@ slash@^1.0.0:
 slice-ansi@0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/slice-ansi/-/slice-ansi-0.0.4.tgz#edbf8903f66f7ce2f8eafd6ceed65e264c831b35"
+
+snapshot-diff@0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/snapshot-diff/-/snapshot-diff-0.2.2.tgz#26f836f5da8baad46e2986cec75799758eb83210"
+  dependencies:
+    jest-diff test
+    jest-snapshot test
+    pretty-format "^20.0.3"
+    strip-ansi "^4.0.0"
 
 sntp@1.x.x:
   version "1.0.9"
