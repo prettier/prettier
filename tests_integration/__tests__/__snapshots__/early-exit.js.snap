@@ -270,15 +270,15 @@ exports[`show detailed usage with --help parser (stdout) 1`] = `
 
 Valid options:
 
-  flow         
-  babylon      
-  typescript   
-  css          
-  less         
-  scss         
-  json         
-  graphql      
-  markdown     
+  flow         Flow
+  babylon      JavaScript
+  typescript   TypeScript
+  css          CSS
+  less         Less
+  scss         SCSS
+  json         JSON
+  graphql      GraphQL
+  markdown     Markdown
 
 Default: babylon
 "
@@ -620,15 +620,15 @@ exports[`show warning with --help not-found (typo) (stdout) 1`] = `
 
 Valid options:
 
-  flow         
-  babylon      
-  typescript   
-  css          
-  less         
-  scss         
-  json         
-  graphql      
-  markdown     
+  flow         Flow
+  babylon      JavaScript
+  typescript   TypeScript
+  css          CSS
+  less         Less
+  scss         SCSS
+  json         JSON
+  graphql      GraphQL
+  markdown     Markdown
 
 Default: babylon
 "
