@@ -610,6 +610,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       \\"name\\": \\"arrowParens\\",
       \\"since\\": \\"1.9.0\\",
+      \\"category\\": \\"JavaScript\\",
       \\"type\\": \\"choice\\",
       \\"default\\": \\"avoid\\",
       \\"description\\":
@@ -628,6 +629,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       \\"name\\": \\"bracketSpacing\\",
       \\"since\\": \\"0.0.0\\",
+      \\"category\\": \\"JavaScript\\",
       \\"type\\": \\"boolean\\",
       \\"default\\": true,
       \\"description\\": \\"Print spaces between brackets.\\",
@@ -636,6 +638,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       \\"name\\": \\"cursorOffset\\",
       \\"since\\": \\"1.4.0\\",
+      \\"category\\": \\"Special\\",
       \\"type\\": \\"int\\",
       \\"default\\": -1,
       \\"range\\": { \\"start\\": -1, \\"end\\": null, \\"step\\": 1 },
@@ -645,6 +648,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       \\"name\\": \\"filepath\\",
       \\"since\\": \\"1.4.0\\",
+      \\"category\\": \\"Special\\",
       \\"type\\": \\"path\\",
       \\"description\\":
         \\"Specify the input filepath. This will be used to do parser inference.\\"
@@ -652,6 +656,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       \\"name\\": \\"insertPragma\\",
       \\"since\\": \\"1.8.0\\",
+      \\"category\\": \\"Special\\",
       \\"type\\": \\"boolean\\",
       \\"default\\": false,
       \\"description\\": \\"Insert @format pragma into file's first docblock comment.\\"
@@ -659,6 +664,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       \\"name\\": \\"jsxBracketSameLine\\",
       \\"since\\": \\"0.17.0\\",
+      \\"category\\": \\"JavaScript\\",
       \\"type\\": \\"boolean\\",
       \\"default\\": false,
       \\"description\\": \\"Put > on the last line instead of at a new line.\\"
@@ -666,6 +672,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       \\"name\\": \\"parser\\",
       \\"since\\": \\"0.0.10\\",
+      \\"category\\": \\"Global\\",
       \\"type\\": \\"choice\\",
       \\"default\\": \\"babylon\\",
       \\"description\\": \\"Which parser to use.\\",
@@ -688,6 +695,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       \\"name\\": \\"printWidth\\",
       \\"since\\": \\"0.0.0\\",
+      \\"category\\": \\"Global\\",
       \\"type\\": \\"int\\",
       \\"default\\": 80,
       \\"description\\": \\"The line length where Prettier will try wrap.\\",
@@ -696,6 +704,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       \\"name\\": \\"proseWrap\\",
       \\"since\\": \\"1.8.2\\",
+      \\"category\\": \\"Markdown\\",
       \\"type\\": \\"choice\\",
       \\"default\\": \\"preserve\\",
       \\"description\\": \\"How to wrap prose. (markdown)\\",
@@ -720,6 +729,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       \\"name\\": \\"rangeEnd\\",
       \\"since\\": \\"1.4.0\\",
+      \\"category\\": \\"Special\\",
       \\"type\\": \\"int\\",
       \\"default\\": null,
       \\"range\\": { \\"start\\": 0, \\"end\\": null, \\"step\\": 1 },
@@ -729,6 +739,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       \\"name\\": \\"rangeStart\\",
       \\"since\\": \\"1.4.0\\",
+      \\"category\\": \\"Special\\",
       \\"type\\": \\"int\\",
       \\"default\\": 0,
       \\"range\\": { \\"start\\": 0, \\"end\\": null, \\"step\\": 1 },
@@ -738,6 +749,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       \\"name\\": \\"requirePragma\\",
       \\"since\\": \\"1.7.0\\",
+      \\"category\\": \\"Special\\",
       \\"type\\": \\"boolean\\",
       \\"default\\": false,
       \\"description\\":
@@ -746,6 +758,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       \\"name\\": \\"semi\\",
       \\"since\\": \\"1.0.0\\",
+      \\"category\\": \\"JavaScript\\",
       \\"type\\": \\"boolean\\",
       \\"default\\": true,
       \\"description\\": \\"Print semicolons.\\",
@@ -755,6 +768,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       \\"name\\": \\"singleQuote\\",
       \\"since\\": \\"0.0.0\\",
+      \\"category\\": \\"JavaScript\\",
       \\"type\\": \\"boolean\\",
       \\"default\\": false,
       \\"description\\": \\"Use single quotes instead of double quotes.\\"
@@ -762,6 +776,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       \\"name\\": \\"tabWidth\\",
       \\"type\\": \\"int\\",
+      \\"category\\": \\"Global\\",
       \\"default\\": 2,
       \\"description\\": \\"Number of spaces per indentation level.\\",
       \\"range\\": { \\"start\\": 0, \\"end\\": null, \\"step\\": 1 }
@@ -769,6 +784,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       \\"name\\": \\"trailingComma\\",
       \\"since\\": \\"0.0.0\\",
+      \\"category\\": \\"JavaScript\\",
       \\"type\\": \\"choice\\",
       \\"default\\": \\"none\\",
       \\"description\\": \\"Print trailing commas wherever possible when multi-line.\\",
@@ -789,6 +805,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       \\"name\\": \\"useTabs\\",
       \\"since\\": \\"1.0.0\\",
+      \\"category\\": \\"Global\\",
       \\"type\\": \\"boolean\\",
       \\"default\\": false,
       \\"description\\": \\"Indent with tabs instead of spaces.\\"

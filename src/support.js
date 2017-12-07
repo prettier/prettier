@@ -4,6 +4,11 @@ const dedent = require("dedent");
 const semver = require("semver");
 const currentVersion = require("../package.json").version;
 
+const CATEGORY_GLOBAL = "Global";
+const CATEGORY_JAVASCRIPT = "JavaScript";
+const CATEGORY_MARKDOWN = "Markdown";
+const CATEGORY_SPECIAL = "Special";
+
 // Based on:
 // https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
 const supportLanguages = [
@@ -192,6 +197,7 @@ const supportLanguages = [
  * @typedef {Object} OptionInfo
  * @property {string} name
  * @property {string} since - available since version
+ * @property {string} category
  * @property {'int' | 'boolean' | 'choice' | 'path'} type
  * @property {boolean?} deprecated - deprecated since version
  * @property {OptionRedirectInfo?} redirect - redirect deprecated option
@@ -225,6 +231,7 @@ const supportOptions = [
   {
     name: "arrowParens",
     since: "1.9.0",
+    category: CATEGORY_JAVASCRIPT,
     type: "choice",
     default: "avoid",
     description: "Include parentheses around a sole arrow function parameter.",
@@ -242,6 +249,7 @@ const supportOptions = [
   {
     name: "bracketSpacing",
     since: "0.0.0",
+    category: CATEGORY_JAVASCRIPT,
     type: "boolean",
     default: true,
     description: "Print spaces between brackets.",
@@ -250,6 +258,7 @@ const supportOptions = [
   {
     name: "cursorOffset",
     since: "1.4.0",
+    category: CATEGORY_SPECIAL,
     type: "int",
     default: -1,
     range: { start: -1, end: Infinity, step: 1 },
@@ -261,6 +270,7 @@ const supportOptions = [
   {
     name: "filepath",
     since: "1.4.0",
+    category: CATEGORY_SPECIAL,
     type: "path",
     default: undefined,
     description:
@@ -269,6 +279,7 @@ const supportOptions = [
   {
     name: "insertPragma",
     since: "1.8.0",
+    category: CATEGORY_SPECIAL,
     type: "boolean",
     default: false,
     description: "Insert @format pragma into file's first docblock comment."
@@ -276,6 +287,7 @@ const supportOptions = [
   {
     name: "jsxBracketSameLine",
     since: "0.17.0",
+    category: CATEGORY_JAVASCRIPT,
     type: "boolean",
     default: false,
     description: "Put > on the last line instead of at a new line."
@@ -283,6 +295,7 @@ const supportOptions = [
   {
     name: "parser",
     since: "0.0.10",
+    category: CATEGORY_GLOBAL,
     type: "choice",
     default: "babylon",
     description: "Which parser to use.",
@@ -308,6 +321,7 @@ const supportOptions = [
   {
     name: "printWidth",
     since: "0.0.0",
+    category: CATEGORY_GLOBAL,
     type: "int",
     default: 80,
     description: "The line length where Prettier will try wrap.",
@@ -316,6 +330,7 @@ const supportOptions = [
   {
     name: "proseWrap",
     since: "1.8.2",
+    category: CATEGORY_MARKDOWN,
     type: "choice",
     default: [
       { since: "1.8.2", value: true },
@@ -345,6 +360,7 @@ const supportOptions = [
   {
     name: "rangeEnd",
     since: "1.4.0",
+    category: CATEGORY_SPECIAL,
     type: "int",
     default: Infinity,
     range: { start: 0, end: Infinity, step: 1 },
@@ -357,6 +373,7 @@ const supportOptions = [
   {
     name: "rangeStart",
     since: "1.4.0",
+    category: CATEGORY_SPECIAL,
     type: "int",
     default: 0,
     range: { start: 0, end: Infinity, step: 1 },
@@ -369,6 +386,7 @@ const supportOptions = [
   {
     name: "requirePragma",
     since: "1.7.0",
+    category: CATEGORY_SPECIAL,
     type: "boolean",
     default: false,
     description: dedent(`
@@ -379,6 +397,7 @@ const supportOptions = [
   {
     name: "semi",
     since: "1.0.0",
+    category: CATEGORY_JAVASCRIPT,
     type: "boolean",
     default: true,
     description: "Print semicolons.",
@@ -388,6 +407,7 @@ const supportOptions = [
   {
     name: "singleQuote",
     since: "0.0.0",
+    category: CATEGORY_JAVASCRIPT,
     type: "boolean",
     default: false,
     description: "Use single quotes instead of double quotes."
@@ -395,6 +415,7 @@ const supportOptions = [
   {
     name: "tabWidth",
     type: "int",
+    category: CATEGORY_GLOBAL,
     default: 2,
     description: "Number of spaces per indentation level.",
     range: { start: 0, end: Infinity, step: 1 }
@@ -402,6 +423,7 @@ const supportOptions = [
   {
     name: "trailingComma",
     since: "0.0.0",
+    category: CATEGORY_JAVASCRIPT,
     type: "choice",
     default: [
       { since: "0.0.0", value: false },
@@ -427,6 +449,7 @@ const supportOptions = [
   {
     name: "useFlowParser",
     since: "0.0.0",
+    category: CATEGORY_GLOBAL,
     type: "boolean",
     default: false,
     deprecated: "0.0.10",
@@ -436,6 +459,7 @@ const supportOptions = [
   {
     name: "useTabs",
     since: "1.0.0",
+    category: CATEGORY_GLOBAL,
     type: "boolean",
     default: false,
     description: "Indent with tabs instead of spaces."
