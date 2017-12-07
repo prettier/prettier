@@ -262,10 +262,10 @@ const supportOptions = [
     type: "int",
     default: -1,
     range: { start: -1, end: Infinity, step: 1 },
-    description: dedent(`
+    description: dedent`
       Print (to stderr) where a cursor at the given position would move to after formatting.
       This option cannot be used with --range-start and --range-end.
-    `)
+    `
   },
   {
     name: "filepath",
@@ -364,11 +364,11 @@ const supportOptions = [
     type: "int",
     default: Infinity,
     range: { start: 0, end: Infinity, step: 1 },
-    description: dedent(`
+    description: dedent`
       Format code ending at a given character offset (exclusive).
       The range will extend forwards to the end of the selected statement.
       This option cannot be used with --cursor-offset.
-    `)
+    `
   },
   {
     name: "rangeStart",
@@ -377,11 +377,11 @@ const supportOptions = [
     type: "int",
     default: 0,
     range: { start: 0, end: Infinity, step: 1 },
-    description: dedent(`
+    description: dedent`
       Format code starting at a given character offset.
       The range will extend backwards to the start of the first line containing the selected statement.
       This option cannot be used with --cursor-offset.
-    `)
+    `
   },
   {
     name: "requirePragma",
@@ -389,10 +389,10 @@ const supportOptions = [
     category: CATEGORY_SPECIAL,
     type: "boolean",
     default: false,
-    description: dedent(`
+    description: dedent`
       Require either '@prettier' or '@format' to be present in the file's first docblock comment
       in order for it to be formatted.
-    `)
+    `
   },
   {
     name: "semi",
