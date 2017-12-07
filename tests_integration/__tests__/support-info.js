@@ -27,5 +27,25 @@ function getCoreInfo(supportInfo) {
       Object.assign({ [language.name]: language.parsers }, obj),
     {}
   );
-  return { languages };
+  const options = supportInfo.options.reduce(
+    (obj, option) =>
+      Object.assign(
+        {
+          [option.name]: Object.assign(
+            {
+              type: option.type,
+              default: option.default
+            },
+            option.type === "int"
+              ? { range: option.range }
+              : option.type === "choice"
+                ? { choices: option.choices.map(choice => choice.value) }
+                : null
+          )
+        },
+        obj
+      ),
+    {}
+  );
+  return { languages, options };
 }

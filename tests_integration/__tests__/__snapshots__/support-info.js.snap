@@ -33,6 +33,126 @@ Object {
       "typescript",
     ],
   },
+  "options": Object {
+    "arrowParens": Object {
+      "choices": Array [
+        "avoid",
+        "always",
+      ],
+      "default": "avoid",
+      "type": "choice",
+    },
+    "bracketSpacing": Object {
+      "default": true,
+      "type": "boolean",
+    },
+    "cursorOffset": Object {
+      "default": -1,
+      "range": Object {
+        "end": Infinity,
+        "start": -1,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "filepath": Object {
+      "default": undefined,
+      "type": "path",
+    },
+    "insertPragma": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "jsxBracketSameLine": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "parser": Object {
+      "choices": Array [
+        "flow",
+        "babylon",
+        "typescript",
+        "css",
+        "less",
+        "scss",
+        "json",
+        "graphql",
+        "markdown",
+      ],
+      "default": "babylon",
+      "type": "choice",
+    },
+    "printWidth": Object {
+      "default": 80,
+      "range": Object {
+        "end": Infinity,
+        "start": 0,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "proseWrap": Object {
+      "choices": Array [
+        "always",
+        "never",
+        "preserve",
+      ],
+      "default": "preserve",
+      "type": "choice",
+    },
+    "rangeEnd": Object {
+      "default": Infinity,
+      "range": Object {
+        "end": Infinity,
+        "start": 0,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "rangeStart": Object {
+      "default": 0,
+      "range": Object {
+        "end": Infinity,
+        "start": 0,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "requirePragma": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "semi": Object {
+      "default": true,
+      "type": "boolean",
+    },
+    "singleQuote": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "tabWidth": Object {
+      "default": 2,
+      "range": Object {
+        "end": Infinity,
+        "start": 0,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "trailingComma": Object {
+      "choices": Array [
+        "none",
+        "es5",
+        "all",
+      ],
+      "default": "none",
+      "type": "choice",
+    },
+    "useTabs": Object {
+      "default": false,
+      "type": "boolean",
+    },
+  },
 }
 `;
 
@@ -48,6 +168,49 @@ Object {
       "flow",
     ],
   },
+  "options": Object {
+    "bracketSpacing": Object {
+      "default": true,
+      "type": "boolean",
+    },
+    "printWidth": Object {
+      "default": 80,
+      "range": Object {
+        "end": Infinity,
+        "start": 0,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "singleQuote": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "tabWidth": Object {
+      "default": 2,
+      "range": Object {
+        "end": Infinity,
+        "start": 0,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "trailingComma": Object {
+      "choices": Array [
+        "none",
+        "es5",
+        "all",
+        true,
+        false,
+      ],
+      "default": false,
+      "type": "choice",
+    },
+    "useFlowParser": Object {
+      "default": false,
+      "type": "boolean",
+    },
+  },
 }
 `;
 
@@ -62,6 +225,63 @@ Object {
       "babylon",
       "flow",
     ],
+  },
+  "options": Object {
+    "bracketSpacing": Object {
+      "default": true,
+      "type": "boolean",
+    },
+    "jsxBracketSameLine": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "parser": Object {
+      "choices": Array [
+        "flow",
+        "babylon",
+      ],
+      "default": "babylon",
+      "type": "choice",
+    },
+    "printWidth": Object {
+      "default": 80,
+      "range": Object {
+        "end": Infinity,
+        "start": 0,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "semi": Object {
+      "default": true,
+      "type": "boolean",
+    },
+    "singleQuote": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "tabWidth": Object {
+      "default": 2,
+      "range": Object {
+        "end": Infinity,
+        "start": 0,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "trailingComma": Object {
+      "choices": Array [
+        "none",
+        "es5",
+        "all",
+      ],
+      "default": "none",
+      "type": "choice",
+    },
+    "useTabs": Object {
+      "default": false,
+      "type": "boolean",
+    },
   },
 }
 `;
@@ -89,6 +309,96 @@ Object {
     "TypeScript": Array [
       "typescript",
     ],
+  },
+  "options": Object {
+    "bracketSpacing": Object {
+      "default": true,
+      "type": "boolean",
+    },
+    "cursorOffset": Object {
+      "default": -1,
+      "range": Object {
+        "end": Infinity,
+        "start": -1,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "filepath": Object {
+      "default": undefined,
+      "type": "path",
+    },
+    "jsxBracketSameLine": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "parser": Object {
+      "choices": Array [
+        "flow",
+        "babylon",
+        "typescript",
+        "postcss",
+      ],
+      "default": "babylon",
+      "type": "choice",
+    },
+    "printWidth": Object {
+      "default": 80,
+      "range": Object {
+        "end": Infinity,
+        "start": 0,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "rangeEnd": Object {
+      "default": Infinity,
+      "range": Object {
+        "end": Infinity,
+        "start": 0,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "rangeStart": Object {
+      "default": 0,
+      "range": Object {
+        "end": Infinity,
+        "start": 0,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "semi": Object {
+      "default": true,
+      "type": "boolean",
+    },
+    "singleQuote": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "tabWidth": Object {
+      "default": 2,
+      "range": Object {
+        "end": Infinity,
+        "start": 0,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "trailingComma": Object {
+      "choices": Array [
+        "none",
+        "es5",
+        "all",
+      ],
+      "default": "none",
+      "type": "choice",
+    },
+    "useTabs": Object {
+      "default": false,
+      "type": "boolean",
+    },
   },
 }
 `;
@@ -123,6 +433,98 @@ Object {
       "typescript",
     ],
   },
+  "options": Object {
+    "bracketSpacing": Object {
+      "default": true,
+      "type": "boolean",
+    },
+    "cursorOffset": Object {
+      "default": -1,
+      "range": Object {
+        "end": Infinity,
+        "start": -1,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "filepath": Object {
+      "default": undefined,
+      "type": "path",
+    },
+    "jsxBracketSameLine": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "parser": Object {
+      "choices": Array [
+        "flow",
+        "babylon",
+        "typescript",
+        "postcss",
+        "json",
+        "graphql",
+      ],
+      "default": "babylon",
+      "type": "choice",
+    },
+    "printWidth": Object {
+      "default": 80,
+      "range": Object {
+        "end": Infinity,
+        "start": 0,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "rangeEnd": Object {
+      "default": Infinity,
+      "range": Object {
+        "end": Infinity,
+        "start": 0,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "rangeStart": Object {
+      "default": 0,
+      "range": Object {
+        "end": Infinity,
+        "start": 0,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "semi": Object {
+      "default": true,
+      "type": "boolean",
+    },
+    "singleQuote": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "tabWidth": Object {
+      "default": 2,
+      "range": Object {
+        "end": Infinity,
+        "start": 0,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "trailingComma": Object {
+      "choices": Array [
+        "none",
+        "es5",
+        "all",
+      ],
+      "default": "none",
+      "type": "choice",
+    },
+    "useTabs": Object {
+      "default": false,
+      "type": "boolean",
+    },
+  },
 }
 `;
 
@@ -155,6 +557,104 @@ Object {
     "TypeScript": Array [
       "typescript",
     ],
+  },
+  "options": Object {
+    "bracketSpacing": Object {
+      "default": true,
+      "type": "boolean",
+    },
+    "cursorOffset": Object {
+      "default": -1,
+      "range": Object {
+        "end": Infinity,
+        "start": -1,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "filepath": Object {
+      "default": undefined,
+      "type": "path",
+    },
+    "jsxBracketSameLine": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "parser": Object {
+      "choices": Array [
+        "flow",
+        "babylon",
+        "typescript",
+        "css",
+        "less",
+        "scss",
+        "json",
+        "graphql",
+      ],
+      "default": "babylon",
+      "type": "choice",
+    },
+    "printWidth": Object {
+      "default": 80,
+      "range": Object {
+        "end": Infinity,
+        "start": 0,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "rangeEnd": Object {
+      "default": Infinity,
+      "range": Object {
+        "end": Infinity,
+        "start": 0,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "rangeStart": Object {
+      "default": 0,
+      "range": Object {
+        "end": Infinity,
+        "start": 0,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "requirePragma": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "semi": Object {
+      "default": true,
+      "type": "boolean",
+    },
+    "singleQuote": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "tabWidth": Object {
+      "default": 2,
+      "range": Object {
+        "end": Infinity,
+        "start": 0,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "trailingComma": Object {
+      "choices": Array [
+        "none",
+        "es5",
+        "all",
+      ],
+      "default": "none",
+      "type": "choice",
+    },
+    "useTabs": Object {
+      "default": false,
+      "type": "boolean",
+    },
   },
 }
 `;
@@ -191,6 +691,109 @@ Object {
     "TypeScript": Array [
       "typescript",
     ],
+  },
+  "options": Object {
+    "bracketSpacing": Object {
+      "default": true,
+      "type": "boolean",
+    },
+    "cursorOffset": Object {
+      "default": -1,
+      "range": Object {
+        "end": Infinity,
+        "start": -1,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "filepath": Object {
+      "default": undefined,
+      "type": "path",
+    },
+    "insertPragma": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "jsxBracketSameLine": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "parser": Object {
+      "choices": Array [
+        "flow",
+        "babylon",
+        "typescript",
+        "css",
+        "less",
+        "scss",
+        "json",
+        "graphql",
+        "markdown",
+      ],
+      "default": "babylon",
+      "type": "choice",
+    },
+    "printWidth": Object {
+      "default": 80,
+      "range": Object {
+        "end": Infinity,
+        "start": 0,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "rangeEnd": Object {
+      "default": Infinity,
+      "range": Object {
+        "end": Infinity,
+        "start": 0,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "rangeStart": Object {
+      "default": 0,
+      "range": Object {
+        "end": Infinity,
+        "start": 0,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "requirePragma": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "semi": Object {
+      "default": true,
+      "type": "boolean",
+    },
+    "singleQuote": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "tabWidth": Object {
+      "default": 2,
+      "range": Object {
+        "end": Infinity,
+        "start": 0,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "trailingComma": Object {
+      "choices": Array [
+        "none",
+        "es5",
+        "all",
+      ],
+      "default": "none",
+      "type": "choice",
+    },
+    "useTabs": Object {
+      "default": false,
+      "type": "boolean",
+    },
   },
 }
 `;
@@ -364,6 +967,185 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"tmScope\\": \\"source.gfm\\",
       \\"linguistLanguageId\\": 222,
       \\"vscodeLanguageIds\\": [\\"markdown\\"]
+    }
+  ],
+  \\"options\\": [
+    {
+      \\"name\\": \\"arrowParens\\",
+      \\"since\\": \\"1.9.0\\",
+      \\"type\\": \\"choice\\",
+      \\"default\\": \\"avoid\\",
+      \\"description\\":
+        \\"Include parentheses around a sole arrow function parameter.\\",
+      \\"choices\\": [
+        {
+          \\"value\\": \\"avoid\\",
+          \\"description\\": \\"Omit parens when possible. Example: \`x => x\`\\"
+        },
+        {
+          \\"value\\": \\"always\\",
+          \\"description\\": \\"Always include parens. Example: \`(x) => x\`\\"
+        }
+      ]
+    },
+    {
+      \\"name\\": \\"bracketSpacing\\",
+      \\"since\\": \\"0.0.0\\",
+      \\"type\\": \\"boolean\\",
+      \\"default\\": true,
+      \\"description\\": \\"Print spaces between brackets.\\",
+      \\"oppositeDescription\\": \\"Do not print spaces between brackets.\\"
+    },
+    {
+      \\"name\\": \\"cursorOffset\\",
+      \\"since\\": \\"1.4.0\\",
+      \\"type\\": \\"int\\",
+      \\"default\\": -1,
+      \\"range\\": { \\"start\\": -1, \\"end\\": null, \\"step\\": 1 },
+      \\"description\\":
+        \\"Print (to stderr) where a cursor at the given position would move to after formatting.\\\\nThis option cannot be used with --range-start and --range-end.\\"
+    },
+    {
+      \\"name\\": \\"filepath\\",
+      \\"since\\": \\"1.4.0\\",
+      \\"type\\": \\"path\\",
+      \\"description\\":
+        \\"Specify the input filepath. This will be used to do parser inference.\\"
+    },
+    {
+      \\"name\\": \\"insertPragma\\",
+      \\"since\\": \\"1.8.0\\",
+      \\"type\\": \\"boolean\\",
+      \\"default\\": false,
+      \\"description\\": \\"Insert @format pragma into file's first docblock comment.\\"
+    },
+    {
+      \\"name\\": \\"jsxBracketSameLine\\",
+      \\"since\\": \\"0.17.0\\",
+      \\"type\\": \\"boolean\\",
+      \\"default\\": false,
+      \\"description\\": \\"Put > on the last line instead of at a new line.\\"
+    },
+    {
+      \\"name\\": \\"parser\\",
+      \\"since\\": \\"0.0.10\\",
+      \\"type\\": \\"choice\\",
+      \\"default\\": \\"babylon\\",
+      \\"description\\": \\"Which parser to use.\\",
+      \\"choices\\": [
+        { \\"value\\": \\"flow\\", \\"description\\": \\"Flow\\" },
+        { \\"value\\": \\"babylon\\", \\"description\\": \\"JavaScript\\" },
+        {
+          \\"value\\": \\"typescript\\",
+          \\"since\\": \\"1.4.0\\",
+          \\"description\\": \\"TypeScript\\"
+        },
+        { \\"value\\": \\"css\\", \\"since\\": \\"1.7.1\\", \\"description\\": \\"CSS\\" },
+        { \\"value\\": \\"less\\", \\"since\\": \\"1.7.1\\", \\"description\\": \\"Less\\" },
+        { \\"value\\": \\"scss\\", \\"since\\": \\"1.7.1\\", \\"description\\": \\"SCSS\\" },
+        { \\"value\\": \\"json\\", \\"since\\": \\"1.5.0\\", \\"description\\": \\"JSON\\" },
+        { \\"value\\": \\"graphql\\", \\"since\\": \\"1.5.0\\", \\"description\\": \\"GraphQL\\" },
+        { \\"value\\": \\"markdown\\", \\"since\\": \\"1.8.0\\", \\"description\\": \\"Markdown\\" }
+      ]
+    },
+    {
+      \\"name\\": \\"printWidth\\",
+      \\"since\\": \\"0.0.0\\",
+      \\"type\\": \\"int\\",
+      \\"default\\": 80,
+      \\"description\\": \\"The line length where Prettier will try wrap.\\",
+      \\"range\\": { \\"start\\": 0, \\"end\\": null, \\"step\\": 1 }
+    },
+    {
+      \\"name\\": \\"proseWrap\\",
+      \\"since\\": \\"1.8.2\\",
+      \\"type\\": \\"choice\\",
+      \\"default\\": \\"preserve\\",
+      \\"description\\": \\"How to wrap prose. (markdown)\\",
+      \\"choices\\": [
+        {
+          \\"value\\": \\"always\\",
+          \\"description\\": \\"Wrap prose if it exceeds the print width.\\"
+        },
+        { \\"value\\": \\"never\\", \\"description\\": \\"Do not wrap prose.\\" },
+        { \\"value\\": \\"preserve\\", \\"description\\": \\"Wrap prose as-is.\\" }
+      ]
+    },
+    {
+      \\"name\\": \\"rangeEnd\\",
+      \\"since\\": \\"1.4.0\\",
+      \\"type\\": \\"int\\",
+      \\"default\\": null,
+      \\"range\\": { \\"start\\": 0, \\"end\\": null, \\"step\\": 1 },
+      \\"description\\":
+        \\"Format code ending at a given character offset (exclusive).\\\\nThe range will extend forwards to the end of the selected statement.\\\\nThis option cannot be used with --cursor-offset.\\"
+    },
+    {
+      \\"name\\": \\"rangeStart\\",
+      \\"since\\": \\"1.4.0\\",
+      \\"type\\": \\"int\\",
+      \\"default\\": 0,
+      \\"range\\": { \\"start\\": 0, \\"end\\": null, \\"step\\": 1 },
+      \\"description\\":
+        \\"Format code starting at a given character offset.\\\\nThe range will extend backwards to the start of the first line containing the selected statement.\\\\nThis option cannot be used with --cursor-offset.\\"
+    },
+    {
+      \\"name\\": \\"requirePragma\\",
+      \\"since\\": \\"1.7.0\\",
+      \\"type\\": \\"boolean\\",
+      \\"default\\": false,
+      \\"description\\":
+        \\"Require either '@prettier' or '@format' to be present in the file's first docblock comment\\\\nin order for it to be formatted.\\"
+    },
+    {
+      \\"name\\": \\"semi\\",
+      \\"since\\": \\"1.0.0\\",
+      \\"type\\": \\"boolean\\",
+      \\"default\\": true,
+      \\"description\\": \\"Print semicolons.\\",
+      \\"oppositeDescription\\":
+        \\"Do not print semicolons, except at the beginning of lines which may need them.\\"
+    },
+    {
+      \\"name\\": \\"singleQuote\\",
+      \\"since\\": \\"0.0.0\\",
+      \\"type\\": \\"boolean\\",
+      \\"default\\": false,
+      \\"description\\": \\"Use single quotes instead of double quotes.\\"
+    },
+    {
+      \\"name\\": \\"tabWidth\\",
+      \\"type\\": \\"int\\",
+      \\"default\\": 2,
+      \\"description\\": \\"Number of spaces per indentation level.\\",
+      \\"range\\": { \\"start\\": 0, \\"end\\": null, \\"step\\": 1 }
+    },
+    {
+      \\"name\\": \\"trailingComma\\",
+      \\"since\\": \\"0.0.0\\",
+      \\"type\\": \\"choice\\",
+      \\"default\\": \\"none\\",
+      \\"description\\": \\"Print trailing commas wherever possible when multi-line.\\",
+      \\"choices\\": [
+        { \\"value\\": \\"none\\", \\"description\\": \\"No trailing commas.\\" },
+        {
+          \\"value\\": \\"es5\\",
+          \\"description\\":
+            \\"Trailing commas where valid in ES5 (objects, arrays, etc.)\\"
+        },
+        {
+          \\"value\\": \\"all\\",
+          \\"description\\":
+            \\"Trailing commas wherever possible (including function arguments).\\"
+        }
+      ]
+    },
+    {
+      \\"name\\": \\"useTabs\\",
+      \\"since\\": \\"1.0.0\\",
+      \\"type\\": \\"boolean\\",
+      \\"default\\": false,
+      \\"description\\": \\"Indent with tabs instead of spaces.\\"
     }
   ]
 }
