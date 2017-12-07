@@ -442,7 +442,7 @@ const supportOptions = [
         description:
           "Trailing commas wherever possible (including function arguments)."
       },
-      { value: true, deprecated: "0.19.0", redirect: "all" },
+      { value: true, deprecated: "0.19.0", redirect: "es5" },
       { value: false, deprecated: "0.19.0", redirect: "none" }
     ]
   },
