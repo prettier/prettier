@@ -1,122 +1,59 @@
 "use strict";
 
 const path = require("path");
+const supportInfo = require("./support").getSupportInfo();
+const normalizer = require("./options-normalizer");
 
-const validate = require("jest-validate").validate;
-const deprecatedConfig = require("./deprecated");
-const supportLanguages = require("./support").supportLanguages;
-
-const defaults = {
-  cursorOffset: -1,
-  rangeStart: 0,
-  rangeEnd: Infinity,
-  useTabs: false,
-  tabWidth: 2,
-  printWidth: 80,
-  singleQuote: false,
-  trailingComma: "none",
-  bracketSpacing: true,
-  jsxBracketSameLine: false,
-  parser: "babylon",
-  insertPragma: false,
-  requirePragma: false,
-  semi: true,
-  proseWrap: "preserve",
-  arrowParens: "avoid"
-};
-
-const exampleConfig = Object.assign({}, defaults, {
-  filepath: "path/to/Filename",
-  printWidth: 80,
-  originalText: "text"
-});
+const defaults = supportInfo.options.reduce(
+  (reduced, optionInfo) =>
+    Object.assign(reduced, { [optionInfo.name]: optionInfo.default }),
+  {}
+);
 
 // Copy options and fill in default values.
 function normalize(options) {
-  const normalized = Object.assign({}, options || {});
-  const filepath = normalized.filepath;
+  const rawOptions = Object.assign({}, options);
 
   if (
-    filepath &&
-    (!normalized.parser || normalized.parser === defaults.parser)
+    rawOptions.filepath &&
+    (!rawOptions.parser || rawOptions.parser === defaults.parser)
   ) {
-    const extension = path.extname(filepath);
-    const filename = path.basename(filepath).toLowerCase();
-
-    const language = supportLanguages.find(
-      language =>
-        typeof language.since === "string" &&
-        (language.extensions.indexOf(extension) > -1 ||
-          (language.filenames &&
-            language.filenames.find(name => name.toLowerCase() === filename)))
-    );
-
-    if (language) {
-      normalized.parser = language.parsers[0];
+    const inferredParser = inferParser(rawOptions.filepath);
+    if (inferredParser) {
+      rawOptions.parser = inferredParser;
     }
-  }
-
-  if (normalized.parser === "json") {
-    normalized.trailingComma = "none";
-  }
-
-  /* istanbul ignore if */
-  if (typeof normalized.trailingComma === "boolean") {
-    // Support a deprecated boolean type for the trailing comma config
-    // for a few versions. This code can be removed later.
-    normalized.trailingComma = "es5";
-
-    console.warn(
-      "Warning: `trailingComma` without any argument is deprecated. " +
-        'Specify "none", "es5", or "all".'
-    );
-  }
-
-  /* istanbul ignore if */
-  if (typeof normalized.proseWrap === "boolean") {
-    normalized.proseWrap = normalized.proseWrap ? "always" : "never";
-
-    console.warn(
-      "Warning: `proseWrap` with boolean value is deprecated. " +
-        'Use "always", "never", or "preserve" instead.'
-    );
-  }
-
-  /* istanbul ignore if */
-  if (normalized.parser === "postcss") {
-    normalized.parser = "css";
-
-    console.warn(
-      'Warning: `parser` with value "postcss" is deprecated. ' +
-        'Use "css", "less" or "scss" instead.'
-    );
-  }
-
-  const parserBackup = normalized.parser;
-  if (typeof normalized.parser === "function") {
-    // Delete the function from the object to pass validation.
-    delete normalized.parser;
-  }
-
-  validate(normalized, { exampleConfig, deprecatedConfig });
-
-  // Restore the option back to a function;
-  normalized.parser = parserBackup;
-
-  // For backward compatibility. Deprecated in 0.0.10
-  /* istanbul ignore if */
-  if ("useFlowParser" in normalized) {
-    normalized.parser = normalized.useFlowParser ? "flow" : "babylon";
-    delete normalized.useFlowParser;
   }
 
   Object.keys(defaults).forEach(k => {
-    if (normalized[k] == null) {
-      normalized[k] = defaults[k];
+    if (rawOptions[k] == null) {
+      rawOptions[k] = defaults[k];
     }
   });
 
-  return normalized;
+  if (rawOptions.parser === "json") {
+    rawOptions.trailingComma = "none";
+  }
+
+  return normalizer.normalizeOptions(rawOptions, supportInfo.options, {
+    exception: {
+      parser: value => typeof value === "string" || typeof value === "function"
+    }
+  });
+}
+
+function inferParser(filepath) {
+  const extension = path.extname(filepath);
+  const filename = path.basename(filepath).toLowerCase();
+
+  const language = supportInfo.languages.find(
+    language =>
+      typeof language.since === "string" &&
+      (language.extensions.indexOf(extension) > -1 ||
+        (language.filenames &&
+          language.filenames.find(name => name.toLowerCase() === filename)))
+  );
+
+  return language && language.parsers[0];
 }
 
 module.exports = { normalize, defaults };

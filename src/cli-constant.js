@@ -126,6 +126,7 @@ const detailedOptions = normalizeDetailedOptions(
           delete newOption.forwardToApi;
           delete newOption.description;
           delete newOption.oppositeDescription;
+          newOption.deprecated = true;
         }
 
         delete newOption.default;

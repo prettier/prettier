@@ -22,7 +22,7 @@ exports[`deprecated option values are warned (stdout) 1`] = `
 exports[`deprecated option values are warned (write) 1`] = `Array []`;
 
 exports[`deprecated options are warned (stderr) 1`] = `
-"[warn] \`--flow-parser\` is deprecated. Use \`--parser flow\` instead.
+"[warn] \`--flow-parser\` is deprecated.
 "
 `;
 
