@@ -3093,6 +3093,8 @@ function printArgumentsList(path, options, print) {
 
     const somePrintedArgumentsWillBreak = printedArguments.some(willBreak);
 
+    const maybeTrailingComma = shouldPrintComma(options, "all") ? "," : "";
+
     return concat([
       somePrintedArgumentsWillBreak ? breakParent : "",
       conditionalGroup(
@@ -3102,7 +3104,9 @@ function printArgumentsList(path, options, print) {
               indent(concat(["(", softline, concat(printedExpanded)])),
               concat(["(", concat(printedExpanded)])
             ),
-            somePrintedArgumentsWillBreak ? softline : "",
+            somePrintedArgumentsWillBreak
+              ? concat([ifBreak(maybeTrailingComma), softline])
+              : "",
             ")"
           ]),
           shouldGroupFirst
@@ -3124,7 +3128,7 @@ function printArgumentsList(path, options, print) {
             concat([
               "(",
               indent(concat([line, concat(printedArguments)])),
-              shouldPrintComma(options, "all") ? "," : "",
+              maybeTrailingComma,
               line,
               ")"
             ]),
