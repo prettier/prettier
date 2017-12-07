@@ -1,6 +1,7 @@
 "use strict";
 
 const camelCase = require("camelcase");
+const dedent = require("dedent");
 
 const CATEGORY_CONFIG = "Config";
 const CATEGORY_EDITOR = "Editor";
@@ -386,17 +387,12 @@ const minimistOptions = {
     )
 };
 
-const usageSummary = `
-Usage: prettier [options] [file/glob ...]
+const usageSummary = dedent(`
+  Usage: prettier [options] [file/glob ...]
 
-By default, output is written to stdout.
-Stdin is read if it is piped to Prettier and no files are given.
-`.trim();
-
-function dedent(str) {
-  const spaces = str.match(/\n^( +)/m)[1].length;
-  return str.replace(new RegExp(`^ {${spaces}}`, "gm"), "").trim();
-}
+  By default, output is written to stdout.
+  Stdin is read if it is piped to Prettier and no files are given.
+`);
 
 function normalizeDetailedOptions(rawDetailedOptions) {
   const names = Object.keys(rawDetailedOptions).sort();
