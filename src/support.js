@@ -5,8 +5,7 @@ const currentVersion = require("../package.json").version;
 
 // Based on:
 // https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
-
-const supportTable = [
+const supportLanguages = [
   {
     name: "JavaScript",
     since: "0.0.0",
@@ -147,7 +146,6 @@ const supportTable = [
     linguistLanguageId: 174,
     vscodeLanguageIds: ["json"]
   },
-
   {
     name: "Markdown",
     since: "1.8.0",
@@ -196,7 +194,7 @@ function getSupportInfo(version) {
 
   const usePostCssParser = semver.lt(version, "1.7.1");
 
-  const languages = supportTable
+  const languages = supportLanguages
     .filter(language => language.since && semver.gte(version, language.since))
     .map(language => {
       if (usePostCssParser && language.group === "CSS") {
@@ -211,6 +209,6 @@ function getSupportInfo(version) {
 }
 
 module.exports = {
-  supportTable,
+  supportLanguages,
   getSupportInfo
 };
