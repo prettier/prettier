@@ -4812,6 +4812,7 @@ function classPropMayCauseASIProblems(path) {
   // so isn't properly tested yet.
   if (
     (name === "static" || name === "get" || name === "set") &&
+    !node.value &&
     !node.typeAnnotation
   ) {
     return true;
