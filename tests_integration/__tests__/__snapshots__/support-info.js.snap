@@ -364,7 +364,33 @@ exports[`API getSupportInfo() with version 1.7.1 -> 1.8.0 1`] = `
       \\"printWidth\\": Object {"
 `;
 
-exports[`API getSupportInfo() with version 1.8.0 -> undefined 1`] = `
+exports[`API getSupportInfo() with version 1.8.0 -> 1.8.2 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -78,10 +78,18 @@
+          \\"start\\": 0,
+          \\"step\\": 1,
+        },
+        \\"type\\": \\"int\\",
+      },
++     \\"proseWrap\\": Object {
++       \\"choices\\": Array [
++         false,
++         true,
++       ],
++       \\"default\\": true,
++       \\"type\\": \\"choice\\",
++     },
+      \\"rangeEnd\\": Object {
+        \\"default\\": Infinity,
+        \\"range\\": Object {
+          \\"end\\": Infinity,
+          \\"start\\": 0,"
+`;
+
+exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
 "Snapshot Diff:
 - First value
 + Second value
@@ -388,26 +414,25 @@ exports[`API getSupportInfo() with version 1.8.0 -> undefined 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"cursorOffset\\": Object {
-@@ -78,10 +86,19 @@
-          \\"start\\": 0,
-          \\"step\\": 1,
+@@ -80,14 +88,15 @@
         },
         \\"type\\": \\"int\\",
       },
-+     \\"proseWrap\\": Object {
-+       \\"choices\\": Array [
+      \\"proseWrap\\": Object {
+        \\"choices\\": Array [
+-         false,
+-         true,
 +         \\"always\\",
 +         \\"never\\",
 +         \\"preserve\\",
-+       ],
+        ],
+-       \\"default\\": true,
 +       \\"default\\": \\"preserve\\",
-+       \\"type\\": \\"choice\\",
-+     },
+        \\"type\\": \\"choice\\",
+      },
       \\"rangeEnd\\": Object {
         \\"default\\": Infinity,
-        \\"range\\": Object {
-          \\"end\\": Infinity,
-          \\"start\\": 0,"
+        \\"range\\": Object {"
 `;
 
 exports[`CLI --support-info (stderr) 1`] = `""`;
@@ -676,11 +701,20 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"description\\": \\"How to wrap prose. (markdown)\\",
       \\"choices\\": [
         {
+          \\"since\\": \\"1.9.0\\",
           \\"value\\": \\"always\\",
           \\"description\\": \\"Wrap prose if it exceeds the print width.\\"
         },
-        { \\"value\\": \\"never\\", \\"description\\": \\"Do not wrap prose.\\" },
-        { \\"value\\": \\"preserve\\", \\"description\\": \\"Wrap prose as-is.\\" }
+        {
+          \\"since\\": \\"1.9.0\\",
+          \\"value\\": \\"never\\",
+          \\"description\\": \\"Do not wrap prose.\\"
+        },
+        {
+          \\"since\\": \\"1.9.0\\",
+          \\"value\\": \\"preserve\\",
+          \\"description\\": \\"Wrap prose as-is.\\"
+        }
       ]
     },
     {

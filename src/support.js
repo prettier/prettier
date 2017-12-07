@@ -324,11 +324,20 @@ const supportOptions = [
     description: "How to wrap prose. (markdown)",
     choices: [
       {
+        since: "1.9.0",
         value: "always",
         description: "Wrap prose if it exceeds the print width."
       },
-      { value: "never", description: "Do not wrap prose." },
-      { value: "preserve", description: "Wrap prose as-is." },
+      {
+        since: "1.9.0",
+        value: "never",
+        description: "Do not wrap prose."
+      },
+      {
+        since: "1.9.0",
+        value: "preserve",
+        description: "Wrap prose as-is."
+      },
       { value: false, deprecated: "1.9.0", redirect: "never" },
       { value: true, deprecated: "1.9.0", redirect: "always" }
     ]
