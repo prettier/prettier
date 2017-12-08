@@ -2,6 +2,7 @@
 
 const leven = require("leven");
 const validator = require("./options-validator");
+const descriptors = require("./options-descriptor");
 
 function normalizeOptions(options, optionInfos, opts) {
   opts = opts || {};
@@ -9,7 +10,7 @@ function normalizeOptions(options, optionInfos, opts) {
     opts.logger === false
       ? { warn() {} }
       : opts.logger !== undefined ? opts.logger : console;
-  const exception = opts.exception || {};
+  const descriptor = opts.descriptor || descriptors.apiDescriptor;
 
   const optionInfoMap = optionInfos.reduce(
     (reduced, optionInfo) =>
@@ -19,43 +20,48 @@ function normalizeOptions(options, optionInfos, opts) {
   const normalizedOptions = Object.keys(options).reduce((newOptions, key) => {
     const optionInfo = optionInfoMap[key];
 
-    if (!optionInfo) {
-      logger.warn(createUnknownOptionMessage(key, optionInfos));
-      return newOptions;
-    }
-
     let optionName = key;
     let optionValue = options[key];
 
-    if (optionValue !== optionInfo.default) {
-      if (!optionInfo.deprecated) {
-        optionValue = normalizeOption(optionValue, optionInfo);
-      } else {
-        logger.warn(createRedirectOptionMessage(optionInfo));
-        if (typeof optionInfo.redirect === "object") {
-          optionValue = optionInfo.redirect.value;
-          optionName = optionInfo.redirect.option;
-        } else {
-          optionName = optionInfo.redirect;
-        }
-      }
+    if (!optionInfo) {
+      logger.warn(
+        createUnknownOptionMessage(
+          optionName,
+          optionValue,
+          optionInfos,
+          descriptor
+        )
+      );
+      return newOptions;
+    }
 
-      if (optionInfo.choices) {
-        const choiceInfo = optionInfo.choices.find(
-          choice => choice.value === optionValue
+    if (!optionInfo.deprecated) {
+      optionValue = normalizeOption(optionValue, optionInfo);
+    } else if (typeof optionInfo.redirect === "string") {
+      logger.warn(createRedirectOptionMessage(optionInfo, descriptor));
+      optionName = optionInfo.redirect;
+    } else if (optionValue) {
+      logger.warn(createRedirectOptionMessage(optionInfo, descriptor));
+      optionValue = optionInfo.redirect.value;
+      optionName = optionInfo.redirect.option;
+    }
+
+    if (optionInfo.choices) {
+      const choiceInfo = optionInfo.choices.find(
+        choice => choice.value === optionValue
+      );
+      if (choiceInfo && choiceInfo.deprecated) {
+        logger.warn(
+          createRedirectChoiceMessage(optionInfo, choiceInfo, descriptor)
         );
-        if (choiceInfo && choiceInfo.deprecated) {
-          logger.warn(createRedirectChoiceMessage(optionInfo, choiceInfo));
-          optionValue = choiceInfo.redirect;
-        }
+        optionValue = choiceInfo.redirect;
       }
+    }
 
-      const validateOpts = {};
-      if (optionName in exception) {
-        validateOpts.exception = exception[optionName];
-      }
-
-      validator.validateOption(optionValue, optionInfo, validateOpts);
+    if (optionValue !== optionInfo.default) {
+      validator.validateOption(optionValue, optionInfoMap[optionName], {
+        descriptor
+      });
     }
 
     newOptions[optionName] = optionValue;
@@ -69,8 +75,8 @@ function normalizeOption(option, optionInfo) {
   return optionInfo.type === "int" ? Number(option) : option;
 }
 
-function createUnknownOptionMessage(key, optionInfos) {
-  const messages = [`Ignore unknown option ${JSON.stringify(key)}.`];
+function createUnknownOptionMessage(key, value, optionInfos, descriptor) {
+  const messages = [`Ignored unknown option ${descriptor(key, value)}.`];
 
   const suggestedOptionInfo = optionInfos.find(
     optionInfo => leven(optionInfo.name, key) < 3
@@ -82,24 +88,57 @@ function createUnknownOptionMessage(key, optionInfos) {
   return messages.join(" ");
 }
 
-function createRedirectOptionMessage(optionInfo) {
-  return `Option ${JSON.stringify(
+function createRedirectOptionMessage(optionInfo, descriptor) {
+  return `${descriptor(
     optionInfo.name
   )} is deprecated. Prettier now treats it as ${
     typeof optionInfo.redirect === "string"
-      ? JSON.stringify(optionInfo.redirect)
-      : JSON.stringify(optionInfo.redirect.option) +
-        " with " +
-        JSON.stringify(optionInfo.redirect.value)
+      ? descriptor(optionInfo.redirect)
+      : descriptor(optionInfo.redirect.option, optionInfo.redirect.value)
   }.`;
 }
 
-function createRedirectChoiceMessage(optionInfo, choiceInfo) {
-  return `Option ${JSON.stringify(optionInfo.name)} with value ${JSON.stringify(
+function createRedirectChoiceMessage(optionInfo, choiceInfo, descriptor) {
+  return `${descriptor(
+    optionInfo.name,
     choiceInfo.value
-  )} is deprecated. Prettier now treats it as ${JSON.stringify(
-    optionInfo.redirect
+  )} is deprecated. Prettier now treats it as ${descriptor(
+    optionInfo.name,
+    choiceInfo.redirect
   )}.`;
 }
 
-module.exports = { normalizeOptions };
+function normalizeApiOptions(options, optionInfos, opts) {
+  return normalizeOptions(
+    options,
+    optionInfos,
+    Object.assign({ descriptor: descriptors.apiDescriptor }, opts)
+  );
+}
+
+function normalizeCliOptions(options, optionInfos, opts) {
+  const args = options["_"] || [];
+
+  const newOptions = normalizeOptions(
+    Object.keys(options).reduce(
+      (reduced, key) =>
+        Object.assign(
+          reduced,
+          key.length === 1 // omit alias
+            ? null
+            : { [key]: options[key] }
+        ),
+      {}
+    ),
+    optionInfos,
+    Object.assign({ descriptor: descriptors.cliDescriptor }, opts)
+  );
+  newOptions["_"] = args;
+
+  return newOptions;
+}
+
+module.exports = {
+  normalizeApiOptions,
+  normalizeCliOptions
+};

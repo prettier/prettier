@@ -1,26 +1,16 @@
 "use strict";
 
+const descriptors = require("./options-descriptor");
+
 function validateOption(value, optionInfo, opts) {
   opts = opts || {};
+  const descriptor = opts.descriptor || descriptors.apiDescriptor;
 
-  switch (typeof opts.exception) {
-    case "object":
-      if (
-        Array.isArray(opts.exception) &&
-        opts.exception.indexOf(value) !== -1
-      ) {
-        return;
-      }
-      break;
-    case "function":
-      if (opts.exception(value)) {
-        return;
-      }
-      break;
-    default:
-      if ("exception" in opts && value === opts.exception) {
-        return;
-      }
+  if (
+    typeof optionInfo.exception === "function" &&
+    optionInfo.exception(value)
+  ) {
+    return;
   }
 
   try {
@@ -37,9 +27,9 @@ function validateOption(value, optionInfo, opts) {
     }
   } catch (error) {
     throw new Error(
-      `Invalid '${optionInfo.name}' value. ${
+      `Invalid \`${descriptor(optionInfo.name)}\` value. ${
         error.message
-      }, but received ${JSON.stringify(value)}.`
+      }, but received \`${JSON.stringify(value)}\`.`
     );
   }
 }

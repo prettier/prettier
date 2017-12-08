@@ -62,17 +62,12 @@ const categoryOrder = [
  *     // If the option has a value that is an exception to the regular value
  *     // constraints, indicate that value here (or use a function for more
  *     // flexibility).
- *     exception?: any | ((value: any) => boolean);
+ *     exception?: ((value: any) => boolean);
  *
  *     // Indicate that the option is deprecated. Use a string to add an extra
  *     // message to --help for the option, for example to suggest a replacement
  *     // option.
  *     deprecated?: true | string;
- *
- *     // Custom function to get the value for the option. Useful for handling
- *     // deprecated options.
- *     // --parser example: (value, argv) => argv["flow-parser"] ? "flow" : value
- *     getter?: (value: any, argv: any) => any;
  *   }
  * }
  *
@@ -84,8 +79,7 @@ const detailedOptions = normalizeDetailedOptions(
       (reduced, option) => {
         const newOption = Object.assign({}, option, {
           name: dashify(option.name),
-          forwardToApi: option.name,
-          exception: option.default // for int = -1, Infinity, etc.
+          forwardToApi: option.name
         });
 
         switch (option.name) {
@@ -97,12 +91,6 @@ const detailedOptions = normalizeDetailedOptions(
             break;
           case "useFlowParser":
             newOption.name = "flow-parser";
-            break;
-          case "parser":
-            Object.assign(newOption, {
-              exception: value => typeof value === "string", // Allow path to a parser module.
-              getter: (value, argv) => (argv["flow-parser"] ? "flow" : value)
-            });
             break;
         }
 
@@ -129,7 +117,6 @@ const detailedOptions = normalizeDetailedOptions(
           newOption.deprecated = true;
         }
 
-        delete newOption.default;
         return Object.assign(reduced, { [newOption.name]: newOption });
       },
       {}
@@ -259,6 +246,7 @@ const minimistOptions = {
     .filter(option => option.type !== "boolean")
     .map(option => option.name),
   default: detailedOptions
+    .filter(option => !option.deprecated)
     .filter(option => option.default !== undefined)
     .reduce(
       (current, option) =>
@@ -300,8 +288,7 @@ function normalizeDetailedOptions(rawDetailedOptions) {
             newChoice.value = ""; // backward compability for original boolean option
           }
           return newChoice;
-        }),
-      getter: option.getter || (value => value)
+        })
     });
   });
 

@@ -6,7 +6,10 @@ const normalizer = require("./options-normalizer");
 
 const defaults = supportInfo.options.reduce(
   (reduced, optionInfo) =>
-    Object.assign(reduced, { [optionInfo.name]: optionInfo.default }),
+    Object.assign(
+      reduced,
+      !optionInfo.deprecated && { [optionInfo.name]: optionInfo.default }
+    ),
   {}
 );
 
@@ -34,11 +37,7 @@ function normalize(options) {
     rawOptions.trailingComma = "none";
   }
 
-  return normalizer.normalizeOptions(rawOptions, supportInfo.options, {
-    exception: {
-      parser: value => typeof value === "string" || typeof value === "function"
-    }
-  });
+  return normalizer.normalizeApiOptions(rawOptions, supportInfo.options);
 }
 
 function inferParser(filepath) {

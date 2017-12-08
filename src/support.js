@@ -206,6 +206,7 @@ const supportLanguages = [
  * @property {OptionValueInfo} default
  * @property {OptionRangeInfo?} range - for type int
  * @property {OptionChoiceInfo?} choices - for type choice
+ * @property {(value: any) => boolean} exception
  *
  * @typedef {number | boolean | string} OptionValue
  * @typedef {OptionValue | Array<{ since: string, value: OptionValue}>} OptionValueInfo
@@ -299,6 +300,8 @@ const supportOptions = [
     type: "choice",
     default: "babylon",
     description: "Which parser to use.",
+    exception: value =>
+      typeof value === "string" || typeof value === "function",
     choices: [
       { value: "flow", description: "Flow" },
       { value: "babylon", description: "JavaScript" },
