@@ -300,8 +300,8 @@ const supportOptions = [
     default: "babylon",
     description: "Which parser to use.",
     choices: [
-      { value: "flow", description: "Flow" },
       { value: "babylon", description: "JavaScript" },
+      { value: "flow", description: "Flow" },
       { value: "typescript", since: "1.4.0", description: "TypeScript" },
       { value: "css", since: "1.7.1", description: "CSS" },
       {

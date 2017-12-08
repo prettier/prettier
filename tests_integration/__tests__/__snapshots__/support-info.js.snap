@@ -17,8 +17,8 @@ exports[`API getSupportInfo() with version 0.0.0 -> 1.0.0 1`] = `
 +     },
 +     \\"parser\\": Object {
 +       \\"choices\\": Array [
-+         \\"flow\\",
 +         \\"babylon\\",
++         \\"flow\\",
 +       ],
 +       \\"default\\": \\"babylon\\",
 +       \\"type\\": \\"choice\\",
@@ -174,8 +174,8 @@ exports[`API getSupportInfo() with version 1.0.0 -> 1.4.0 1`] = `
       },
       \\"parser\\": Object {
         \\"choices\\": Array [
-          \\"flow\\",
           \\"babylon\\",
+          \\"flow\\",
 +         \\"typescript\\",
 +         \\"postcss\\",
         ],
@@ -238,8 +238,8 @@ exports[`API getSupportInfo() with version 1.4.0 -> 1.5.0 1`] = `
       \\"JavaScript\\": Array [
 @@ -47,10 +53,12 @@
         \\"choices\\": Array [
-          \\"flow\\",
           \\"babylon\\",
+          \\"flow\\",
           \\"typescript\\",
           \\"postcss\\",
 +         \\"json\\",
@@ -287,8 +287,8 @@ exports[`API getSupportInfo() with version 1.5.0 -> 1.7.1 1`] = `
 @@ -52,11 +52,13 @@
       \\"parser\\": Object {
         \\"choices\\": Array [
-          \\"flow\\",
           \\"babylon\\",
+          \\"flow\\",
           \\"typescript\\",
 -         \\"postcss\\",
 +         \\"css\\",
@@ -677,8 +677,8 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"default\\": \\"babylon\\",
       \\"description\\": \\"Which parser to use.\\",
       \\"choices\\": [
-        { \\"value\\": \\"flow\\", \\"description\\": \\"Flow\\" },
         { \\"value\\": \\"babylon\\", \\"description\\": \\"JavaScript\\" },
+        { \\"value\\": \\"flow\\", \\"description\\": \\"Flow\\" },
         {
           \\"value\\": \\"typescript\\",
           \\"since\\": \\"1.4.0\\",
