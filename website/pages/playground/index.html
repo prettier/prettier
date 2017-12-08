@@ -23,7 +23,7 @@
   <link rel="stylesheet" crossorigin  href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/codemirror.css">
 
   <script src="/markdown.js"></script>
-  <script src="/playground.js"></script>
+  <!-- <script src="/playground.js"></script> -->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/codemirror.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/mode/javascript/javascript.js"></script>
@@ -40,6 +40,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/keymap/sublime.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/preact/8.2.6/preact.min.js"></script>
+
+  <script src="/playground2.js"></script>
 
   <style type="text/css">
     html {
@@ -57,6 +60,13 @@
       flex-direction: column;
       height: 100vh;
       margin: 0;
+    }
+
+    #root, .playground-container {
+      height: 100%;
+      display: flex;
+      flex: 1;
+      flex-direction: column;
     }
 
     header {
@@ -346,7 +356,9 @@
     </span>
   </header>
 
-  <div class="editors-container">
+  <div id="root"></div>
+
+  <!-- <div class="editors-container">
     <div id="options-details" class="options-container">
       <div class="options">
         <details class="sub-options" open>
@@ -434,9 +446,9 @@
         <textarea id="output2-editor"></textarea>
       </div>
     </div>
-  </div>
+  </div> -->
 
-  <div class="bottom-bar">
+  <!-- <div class="bottom-bar">
     <div class="bottom-bar-buttons">
       <button type="button" class="btn" id="button-options">
         Show options
@@ -459,7 +471,7 @@
         Report issue
       </a>
     </div>
-  </div>
+  </div> -->
 
   <script src="/install-service-worker.js"></script>
 
