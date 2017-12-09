@@ -1,6 +1,6 @@
 "use strict";
 
-const { spawnSync } = require("child_process");
+const spawnSync = require("child_process").spawnSync;
 const path = require("path");
 
 function parse(text /*, parsers, opts*/) {
