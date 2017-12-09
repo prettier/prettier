@@ -8,7 +8,7 @@ const line = docBuilders.line;
 const softline = docBuilders.softline;
 const group = docBuilders.group;
 const indent = docBuilders.indent;
-const ifBreak = docBuilders.ifBreak;
+// const ifBreak = docBuilders.ifBreak;
 
 function printArguments(print, path, argsKey, defaultsKey) {
   const n = path.getValue();
@@ -377,7 +377,7 @@ function genericPrint(path, options, print) {
         ifType = "elif ";
       }
 
-      let parts = [
+      const parts = [
         ifType,
         path.call(print, "test"),
         ":",
