@@ -207,7 +207,6 @@ function attach(comments, ast, text, options) {
           comment
         ) ||
         handleImportSpecifierComments(enclosingNode, comment) ||
-        handleObjectPropertyComments(enclosingNode, comment) ||
         handleForComments(enclosingNode, precedingNode, comment) ||
         handleUnionTypeComments(
           precedingNode,
@@ -273,7 +272,6 @@ function attach(comments, ast, text, options) {
         handlePropertyComments(enclosingNode, comment) ||
         handleExportNamedDeclarationComments(enclosingNode, comment) ||
         handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
-        handleClassMethodComments(enclosingNode, comment) ||
         handleTypeAliasComments(enclosingNode, followingNode, comment) ||
         handleVariableDeclaratorComments(enclosingNode, followingNode, comment)
       ) {
@@ -756,14 +754,6 @@ function handleImportSpecifierComments(enclosingNode, comment) {
   return false;
 }
 
-function handleObjectPropertyComments(enclosingNode, comment) {
-  if (enclosingNode && enclosingNode.type === "ObjectProperty") {
-    addLeadingComment(enclosingNode, comment);
-    return true;
-  }
-  return false;
-}
-
 function handleLabeledStatementComments(enclosingNode, comment) {
   if (enclosingNode && enclosingNode.type === "LabeledStatement") {
     addLeadingComment(enclosingNode, comment);
@@ -882,14 +872,6 @@ function handleImportDeclarationComments(
 function handleAssignmentPatternComments(enclosingNode, comment) {
   if (enclosingNode && enclosingNode.type === "AssignmentPattern") {
     addLeadingComment(enclosingNode, comment);
-    return true;
-  }
-  return false;
-}
-
-function handleClassMethodComments(enclosingNode, comment) {
-  if (enclosingNode && enclosingNode.type === "ClassMethod") {
-    addTrailingComment(enclosingNode, comment);
     return true;
   }
   return false;
