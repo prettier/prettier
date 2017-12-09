@@ -403,7 +403,8 @@ function genericPrintNoParens(path, options, print, args) {
         i++;
       } while (
         firstNonMemberParent &&
-        firstNonMemberParent.type === "MemberExpression"
+        (firstNonMemberParent.type === "MemberExpression" ||
+          firstNonMemberParent.type === "TSNonNullExpression")
       );
 
       const shouldInline =
