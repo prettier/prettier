@@ -4987,12 +4987,16 @@ function shouldHugArguments(fun) {
     fun.params.length === 1 &&
     !fun.params[0].comments &&
     (fun.params[0].type === "ObjectPattern" ||
+      fun.params[0].type === "ArrayPattern" ||
       (fun.params[0].type === "Identifier" &&
         fun.params[0].typeAnnotation &&
         fun.params[0].typeAnnotation.type === "TypeAnnotation" &&
         isObjectType(fun.params[0].typeAnnotation.typeAnnotation)) ||
       (fun.params[0].type === "FunctionTypeParam" &&
-        isObjectType(fun.params[0].typeAnnotation))) &&
+        isObjectType(fun.params[0].typeAnnotation)) ||
+      (fun.params[0].type === "AssignmentPattern" &&
+        (fun.params[0].left.type === "ObjectPattern" ||
+          fun.params[0].left.type === "ArrayPattern"))) &&
     !fun.rest
   );
 }
