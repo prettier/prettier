@@ -177,9 +177,11 @@ function genericPrint(path, options, print) {
       ];
 
       if (n.orelse.length > 0) {
-        parts.push(line);
-        parts.push("else:");
-        parts.push(indent(concat([line, concat(path.map(print, "orelse"))])));
+        parts.push(
+          line,
+          "else:",
+          indent(concat([line, concat(path.map(print, "orelse"))]))
+        );
       }
 
       return concat(parts);
