@@ -2,24 +2,27 @@ import ast
 import fileinput
 import json
 
+import asttokens
 
-def export_json(tree, pretty_print=False):
-    assert(isinstance(tree, ast.AST))
+
+def export_json(atok, pretty_print=False):
     return json.dumps(
-        export_dict(tree),
+        export_dict(atok),
         indent=4 if pretty_print else None,
         sort_keys=True,
         separators=(",", ": ") if pretty_print else (",", ":")
     )
 
 
-def export_dict(tree):
-    assert(isinstance(tree, ast.AST))
-    return DictExportVisitor().visit(tree)
+def export_dict(atok):
+    return DictExportVisitor(atok).visit(atok.tree)
 
 
 class DictExportVisitor:
     ast_type_field = "ast_type"
+
+    def __init__(self, atok):
+        self.atok = atok
 
     def visit(self, node):
         node_type = node.__class__.__name__
@@ -49,6 +52,9 @@ class DictExportVisitor:
             )
             # Use None as default when lineno/col_offset are not set
             args[attr] = meth(getattr(node, attr, None))
+
+        args['source'] = self.atok.get_text(node)
+
         return args
 
     def default_visit_field(self, val):
@@ -60,10 +66,6 @@ class DictExportVisitor:
             return val
 
     # Special visitors
-
-    def visit_str(self, val):
-        return str(val)
-
     def visit_NoneType(self, val):
         return None
 
@@ -90,9 +92,11 @@ class DictExportVisitor:
 
 
 def parse(source):
-    assert(isinstance(source, str))
-    tree = ast.parse(source)
-    return tree
+    assert (isinstance(source, str))
+
+    atok = asttokens.ASTTokens(source, parse=True)
+
+    return atok
 
 
 def main():
